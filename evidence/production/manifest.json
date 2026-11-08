@@ -1,0 +1,6342 @@
+{
+  "status": "PASS",
+  "shotListSha256": "fd7703f39fdc63b4c4db8d621d802125f41137e512197e9edc23fdd943b4d308",
+  "width": 720,
+  "height": 1280,
+  "fps": 30,
+  "frameCount": 216,
+  "duration": 7.2,
+  "shots": [
+    {
+      "id": "notice",
+      "start": 0,
+      "end": 60,
+      "camera": {
+        "position": [
+          9,
+          8,
+          14
+        ],
+        "target": [
+          0,
+          2.25,
+          1.2
+        ],
+        "fov": 40
+      }
+    },
+    {
+      "id": "approach",
+      "start": 60,
+      "end": 132,
+      "camera": {
+        "position": [
+          13.5,
+          3.5,
+          1.55
+        ],
+        "target": [
+          0,
+          2.55,
+          1.55
+        ],
+        "fov": 38
+      }
+    },
+    {
+      "id": "discovery",
+      "start": 132,
+      "end": 216,
+      "camera": {
+        "position": [
+          -3.5,
+          5.6,
+          6.8
+        ],
+        "target": [
+          0,
+          3.05,
+          2.45
+        ],
+        "fov": 47
+      }
+    }
+  ],
+  "interaction": {
+    "triggerFrame": 136,
+    "distance": 1.3834813287471641,
+    "radius": 1.5
+  },
+  "frames": [
+    {
+      "frame": 0,
+      "shot": "notice",
+      "time": 0,
+      "propOpen": 0,
+      "camera": {
+        "position": [
+          9,
+          8,
+          14
+        ],
+        "target": [
+          0,
+          2.25,
+          1.2
+        ],
+        "fov": 40
+      },
+      "actorPosition": [
+        0,
+        0,
+        0
+      ],
+      "identity": true,
+      "file": "frame-0000.png",
+      "sha256": "d817bf0c2ebef30ea679e9d50ac0f5a9c9a39d55ce97ea7eca89bda7344d5bae",
+      "bytes": 116852
+    },
+    {
+      "frame": 1,
+      "shot": "notice",
+      "time": 0.03333333333333333,
+      "propOpen": 0,
+      "camera": {
+        "position": [
+          9,
+          8,
+          14
+        ],
+        "target": [
+          0,
+          2.25,
+          1.2
+        ],
+        "fov": 40
+      },
+      "actorPosition": [
+        0,
+        0,
+        0
+      ],
+      "identity": true,
+      "file": "frame-0001.png",
+      "sha256": "219d99668df4a58f22565474e5df2ae980bcab131db36b51e0a98d70518f425e",
+      "bytes": 116880
+    },
+    {
+      "frame": 2,
+      "shot": "notice",
+      "time": 0.06666666666666667,
+      "propOpen": 0,
+      "camera": {
+        "position": [
+          9,
+          8,
+          14
+        ],
+        "target": [
+          0,
+          2.25,
+          1.2
+        ],
+        "fov": 40
+      },
+      "actorPosition": [
+        0,
+        0,
+        0
+      ],
+      "identity": true,
+      "file": "frame-0002.png",
+      "sha256": "f8bb4ce86538393842670f6231814baff961fe9d179f7a411270e4ba3701c08b",
+      "bytes": 116748
+    },
+    {
+      "frame": 3,
+      "shot": "notice",
+      "time": 0.1,
+      "propOpen": 0,
+      "camera": {
+        "position": [
+          9,
+          8,
+          14
+        ],
+        "target": [
+          0,
+          2.25,
+          1.2
+        ],
+        "fov": 40
+      },
+      "actorPosition": [
+        0,
+        0,
+        0
+      ],
+      "identity": true,
+      "file": "frame-0003.png",
+      "sha256": "d5589c066ecf36a35b1e2aee51005f1e22103c7a7b4054aecde6f3e0633a2120",
+      "bytes": 116698
+    },
+    {
+      "frame": 4,
+      "shot": "notice",
+      "time": 0.13333333333333333,
+      "propOpen": 0,
+      "camera": {
+        "position": [
+          9,
+          8,
+          14
+        ],
+        "target": [
+          0,
+          2.25,
+          1.2
+        ],
+        "fov": 40
+      },
+      "actorPosition": [
+        0,
+        0,
+        0
+      ],
+      "identity": true,
+      "file": "frame-0004.png",
+      "sha256": "72703f3135e60e8c555e70d0af058bc8ed27c4012a46689a6bd482a348b195ab",
+      "bytes": 116526
+    },
+    {
+      "frame": 5,
+      "shot": "notice",
+      "time": 0.16666666666666666,
+      "propOpen": 0,
+      "camera": {
+        "position": [
+          9,
+          8,
+          14
+        ],
+        "target": [
+          0,
+          2.25,
+          1.2
+        ],
+        "fov": 40
+      },
+      "actorPosition": [
+        0,
+        0,
+        0
+      ],
+      "identity": true,
+      "file": "frame-0005.png",
+      "sha256": "fe7f38d7b7e237f3717d9f876122ff6d76fe93ab84967735a67c854a8126fa52",
+      "bytes": 116542
+    },
+    {
+      "frame": 6,
+      "shot": "notice",
+      "time": 0.2,
+      "propOpen": 0,
+      "camera": {
+        "position": [
+          9,
+          8,
+          14
+        ],
+        "target": [
+          0,
+          2.25,
+          1.2
+        ],
+        "fov": 40
+      },
+      "actorPosition": [
+        0,
+        0,
+        0
+      ],
+      "identity": true,
+      "file": "frame-0006.png",
+      "sha256": "e1a47ef321cde583389dc362f1ab5657a0290fd79deafb0087c8e98b63fae0c5",
+      "bytes": 116854
+    },
+    {
+      "frame": 7,
+      "shot": "notice",
+      "time": 0.23333333333333334,
+      "propOpen": 0,
+      "camera": {
+        "position": [
+          9,
+          8,
+          14
+        ],
+        "target": [
+          0,
+          2.25,
+          1.2
+        ],
+        "fov": 40
+      },
+      "actorPosition": [
+        0,
+        0,
+        0
+      ],
+      "identity": true,
+      "file": "frame-0007.png",
+      "sha256": "7adc4249729abf7253c0cfecd8660520a45f06358bff12287609766b4ea8a8ef",
+      "bytes": 116823
+    },
+    {
+      "frame": 8,
+      "shot": "notice",
+      "time": 0.26666666666666666,
+      "propOpen": 0,
+      "camera": {
+        "position": [
+          9,
+          8,
+          14
+        ],
+        "target": [
+          0,
+          2.25,
+          1.2
+        ],
+        "fov": 40
+      },
+      "actorPosition": [
+        0,
+        0,
+        0
+      ],
+      "identity": true,
+      "file": "frame-0008.png",
+      "sha256": "7c365544feb2fe830f006e520f2dd83e367d812133833affd242c83da99aa486",
+      "bytes": 117035
+    },
+    {
+      "frame": 9,
+      "shot": "notice",
+      "time": 0.3,
+      "propOpen": 0,
+      "camera": {
+        "position": [
+          9,
+          8,
+          14
+        ],
+        "target": [
+          0,
+          2.25,
+          1.2
+        ],
+        "fov": 40
+      },
+      "actorPosition": [
+        0,
+        0,
+        0
+      ],
+      "identity": true,
+      "file": "frame-0009.png",
+      "sha256": "b7a89872be6cfd54528b6284ae1f4d8992066b8409ca2be8dec304687101b161",
+      "bytes": 117264
+    },
+    {
+      "frame": 10,
+      "shot": "notice",
+      "time": 0.3333333333333333,
+      "propOpen": 0,
+      "camera": {
+        "position": [
+          9,
+          8,
+          14
+        ],
+        "target": [
+          0,
+          2.25,
+          1.2
+        ],
+        "fov": 40
+      },
+      "actorPosition": [
+        0,
+        0,
+        0
+      ],
+      "identity": true,
+      "file": "frame-0010.png",
+      "sha256": "acfc60655e4170b4c3dcd76c50d335d72ed2d80eb1675793c887e1d9cc13b1f2",
+      "bytes": 117214
+    },
+    {
+      "frame": 11,
+      "shot": "notice",
+      "time": 0.36666666666666664,
+      "propOpen": 0,
+      "camera": {
+        "position": [
+          9,
+          8,
+          14
+        ],
+        "target": [
+          0,
+          2.25,
+          1.2
+        ],
+        "fov": 40
+      },
+      "actorPosition": [
+        0,
+        0,
+        0
+      ],
+      "identity": true,
+      "file": "frame-0011.png",
+      "sha256": "781599b530a692c85f38945877efb499077acb588613823f6a8ed149d7b83c20",
+      "bytes": 117397
+    },
+    {
+      "frame": 12,
+      "shot": "notice",
+      "time": 0.4,
+      "propOpen": 0,
+      "camera": {
+        "position": [
+          9,
+          8,
+          14
+        ],
+        "target": [
+          0,
+          2.25,
+          1.2
+        ],
+        "fov": 40
+      },
+      "actorPosition": [
+        0,
+        0,
+        0
+      ],
+      "identity": true,
+      "file": "frame-0012.png",
+      "sha256": "0353d14148f341ede2a974fb1b3ae95d697d44a9e436b2b43d4cdb8e86a44282",
+      "bytes": 117854
+    },
+    {
+      "frame": 13,
+      "shot": "notice",
+      "time": 0.43333333333333335,
+      "propOpen": 0,
+      "camera": {
+        "position": [
+          9,
+          8,
+          14
+        ],
+        "target": [
+          0,
+          2.25,
+          1.2
+        ],
+        "fov": 40
+      },
+      "actorPosition": [
+        0,
+        0,
+        0
+      ],
+      "identity": true,
+      "file": "frame-0013.png",
+      "sha256": "045551591c403c39c40aa9657ea890797b7a896edfc72617eb1149f0882266f0",
+      "bytes": 117715
+    },
+    {
+      "frame": 14,
+      "shot": "notice",
+      "time": 0.4666666666666667,
+      "propOpen": 0,
+      "camera": {
+        "position": [
+          9,
+          8,
+          14
+        ],
+        "target": [
+          0,
+          2.25,
+          1.2
+        ],
+        "fov": 40
+      },
+      "actorPosition": [
+        0,
+        0,
+        0
+      ],
+      "identity": true,
+      "file": "frame-0014.png",
+      "sha256": "7ea45a204f5c90d3f7e0ef0d5404f215f059c192bcd28d44dc4ba4bd0a0bfef6",
+      "bytes": 117725
+    },
+    {
+      "frame": 15,
+      "shot": "notice",
+      "time": 0.5,
+      "propOpen": 0,
+      "camera": {
+        "position": [
+          9,
+          8,
+          14
+        ],
+        "target": [
+          0,
+          2.25,
+          1.2
+        ],
+        "fov": 40
+      },
+      "actorPosition": [
+        0,
+        0,
+        0
+      ],
+      "identity": true,
+      "file": "frame-0015.png",
+      "sha256": "0dbd699da0f33ec6f173cdfcd33bca7e64197b3e71a48f47cc64a837ff441596",
+      "bytes": 117806
+    },
+    {
+      "frame": 16,
+      "shot": "notice",
+      "time": 0.5333333333333333,
+      "propOpen": 0,
+      "camera": {
+        "position": [
+          9,
+          8,
+          14
+        ],
+        "target": [
+          0,
+          2.25,
+          1.2
+        ],
+        "fov": 40
+      },
+      "actorPosition": [
+        0,
+        0,
+        0
+      ],
+      "identity": true,
+      "file": "frame-0016.png",
+      "sha256": "d7f5ee22c733fdab6d2600939ef5e957aa16573389474998ac4e5538a2b1d5a5",
+      "bytes": 117996
+    },
+    {
+      "frame": 17,
+      "shot": "notice",
+      "time": 0.5666666666666667,
+      "propOpen": 0,
+      "camera": {
+        "position": [
+          9,
+          8,
+          14
+        ],
+        "target": [
+          0,
+          2.25,
+          1.2
+        ],
+        "fov": 40
+      },
+      "actorPosition": [
+        0,
+        0,
+        0
+      ],
+      "identity": true,
+      "file": "frame-0017.png",
+      "sha256": "e1043a6adf9a6072c9c17583de4d712741e667f30769b09f17046c1bd95fc690",
+      "bytes": 117971
+    },
+    {
+      "frame": 18,
+      "shot": "notice",
+      "time": 0.6,
+      "propOpen": 0,
+      "camera": {
+        "position": [
+          9,
+          8,
+          14
+        ],
+        "target": [
+          0,
+          2.25,
+          1.2
+        ],
+        "fov": 40
+      },
+      "actorPosition": [
+        0,
+        0,
+        0
+      ],
+      "identity": true,
+      "file": "frame-0018.png",
+      "sha256": "1b25dc4767dcb08188ccd5c9c94a2b66bff40057686b244ee089743d9516f2ce",
+      "bytes": 118406
+    },
+    {
+      "frame": 19,
+      "shot": "notice",
+      "time": 0.6333333333333333,
+      "propOpen": 0,
+      "camera": {
+        "position": [
+          9,
+          8,
+          14
+        ],
+        "target": [
+          0,
+          2.25,
+          1.2
+        ],
+        "fov": 40
+      },
+      "actorPosition": [
+        0,
+        0,
+        0
+      ],
+      "identity": true,
+      "file": "frame-0019.png",
+      "sha256": "5fd686f7da1cb37295f8c85adff2cc9d8dcf8304db3b10c2bfd0a9cfbf0de405",
+      "bytes": 117966
+    },
+    {
+      "frame": 20,
+      "shot": "notice",
+      "time": 0.6666666666666666,
+      "propOpen": 0,
+      "camera": {
+        "position": [
+          9,
+          8,
+          14
+        ],
+        "target": [
+          0,
+          2.25,
+          1.2
+        ],
+        "fov": 40
+      },
+      "actorPosition": [
+        0,
+        0,
+        0
+      ],
+      "identity": true,
+      "file": "frame-0020.png",
+      "sha256": "c082524b1a278c526420098c7cb2b32f03d50997091f81a5ebf7b2f686a2b463",
+      "bytes": 117980
+    },
+    {
+      "frame": 21,
+      "shot": "notice",
+      "time": 0.7,
+      "propOpen": 0,
+      "camera": {
+        "position": [
+          9,
+          8,
+          14
+        ],
+        "target": [
+          0,
+          2.25,
+          1.2
+        ],
+        "fov": 40
+      },
+      "actorPosition": [
+        0,
+        0,
+        0
+      ],
+      "identity": true,
+      "file": "frame-0021.png",
+      "sha256": "74049fb2cb4d9ff0db05bb1b588a98f282a3cb6436b06fabc32d69bfff4408c2",
+      "bytes": 117894
+    },
+    {
+      "frame": 22,
+      "shot": "notice",
+      "time": 0.7333333333333333,
+      "propOpen": 0,
+      "camera": {
+        "position": [
+          9,
+          8,
+          14
+        ],
+        "target": [
+          0,
+          2.25,
+          1.2
+        ],
+        "fov": 40
+      },
+      "actorPosition": [
+        0,
+        0,
+        0
+      ],
+      "identity": true,
+      "file": "frame-0022.png",
+      "sha256": "4a506aa294d7c9a4dc2f618170a2a0d44d70bb0061a733eb5072619182df7f1c",
+      "bytes": 118136
+    },
+    {
+      "frame": 23,
+      "shot": "notice",
+      "time": 0.7666666666666667,
+      "propOpen": 0,
+      "camera": {
+        "position": [
+          9,
+          8,
+          14
+        ],
+        "target": [
+          0,
+          2.25,
+          1.2
+        ],
+        "fov": 40
+      },
+      "actorPosition": [
+        0,
+        0,
+        0
+      ],
+      "identity": true,
+      "file": "frame-0023.png",
+      "sha256": "7fd5d30e3b3efd66201574a6722fccfabc4bc3cb963d05e3294327ab7b7a0428",
+      "bytes": 118117
+    },
+    {
+      "frame": 24,
+      "shot": "notice",
+      "time": 0.8,
+      "propOpen": 0,
+      "camera": {
+        "position": [
+          9,
+          8,
+          14
+        ],
+        "target": [
+          0,
+          2.25,
+          1.2
+        ],
+        "fov": 40
+      },
+      "actorPosition": [
+        0,
+        0,
+        0
+      ],
+      "identity": true,
+      "file": "frame-0024.png",
+      "sha256": "7b521f0e601a65363757d5031ade36b0ddbe66a56e9e4adbe4cbe61f18e8e082",
+      "bytes": 118039
+    },
+    {
+      "frame": 25,
+      "shot": "notice",
+      "time": 0.8333333333333334,
+      "propOpen": 0,
+      "camera": {
+        "position": [
+          9,
+          8,
+          14
+        ],
+        "target": [
+          0,
+          2.25,
+          1.2
+        ],
+        "fov": 40
+      },
+      "actorPosition": [
+        0,
+        0,
+        0
+      ],
+      "identity": true,
+      "file": "frame-0025.png",
+      "sha256": "af0e3699a36ae1399fa19f2a053476896b25d83a1ce54df8403f0c6907df9cbb",
+      "bytes": 118329
+    },
+    {
+      "frame": 26,
+      "shot": "notice",
+      "time": 0.8666666666666667,
+      "propOpen": 0,
+      "camera": {
+        "position": [
+          9,
+          8,
+          14
+        ],
+        "target": [
+          0,
+          2.25,
+          1.2
+        ],
+        "fov": 40
+      },
+      "actorPosition": [
+        0,
+        0,
+        0
+      ],
+      "identity": true,
+      "file": "frame-0026.png",
+      "sha256": "7b9eff57ab543d5c520c775baeee0c76a0d979d78a26ae33f6021e66f8e2e40d",
+      "bytes": 118192
+    },
+    {
+      "frame": 27,
+      "shot": "notice",
+      "time": 0.9,
+      "propOpen": 0,
+      "camera": {
+        "position": [
+          9,
+          8,
+          14
+        ],
+        "target": [
+          0,
+          2.25,
+          1.2
+        ],
+        "fov": 40
+      },
+      "actorPosition": [
+        0,
+        0,
+        0
+      ],
+      "identity": true,
+      "file": "frame-0027.png",
+      "sha256": "01afea1d2bf95c9e5575c6ac62c59629fedc8a6f73eed024d645fb308c7a82a4",
+      "bytes": 118305
+    },
+    {
+      "frame": 28,
+      "shot": "notice",
+      "time": 0.9333333333333333,
+      "propOpen": 0,
+      "camera": {
+        "position": [
+          9,
+          8,
+          14
+        ],
+        "target": [
+          0,
+          2.25,
+          1.2
+        ],
+        "fov": 40
+      },
+      "actorPosition": [
+        0,
+        0,
+        0
+      ],
+      "identity": true,
+      "file": "frame-0028.png",
+      "sha256": "abce94e4ef552501fc382b0643defdddc7c3604b5728bc492b80d8cab7aa0459",
+      "bytes": 118368
+    },
+    {
+      "frame": 29,
+      "shot": "notice",
+      "time": 0.9666666666666667,
+      "propOpen": 0,
+      "camera": {
+        "position": [
+          9,
+          8,
+          14
+        ],
+        "target": [
+          0,
+          2.25,
+          1.2
+        ],
+        "fov": 40
+      },
+      "actorPosition": [
+        0,
+        0,
+        0
+      ],
+      "identity": true,
+      "file": "frame-0029.png",
+      "sha256": "b8145fbc2afcedf66d4271df931d6a66a67a8747e5003e9021a134a958c1e93e",
+      "bytes": 117959
+    },
+    {
+      "frame": 30,
+      "shot": "notice",
+      "time": 1,
+      "propOpen": 0,
+      "camera": {
+        "position": [
+          9,
+          8,
+          14
+        ],
+        "target": [
+          0,
+          2.25,
+          1.2
+        ],
+        "fov": 40
+      },
+      "actorPosition": [
+        0,
+        0,
+        0
+      ],
+      "identity": true,
+      "file": "frame-0030.png",
+      "sha256": "44c84ff67586ce828e5103661a4ea6f700a0f690a716ca55394ff59da9d958dd",
+      "bytes": 118025
+    },
+    {
+      "frame": 31,
+      "shot": "notice",
+      "time": 1.0333333333333334,
+      "propOpen": 0,
+      "camera": {
+        "position": [
+          9,
+          8,
+          14
+        ],
+        "target": [
+          0,
+          2.25,
+          1.2
+        ],
+        "fov": 40
+      },
+      "actorPosition": [
+        0,
+        0,
+        0
+      ],
+      "identity": true,
+      "file": "frame-0031.png",
+      "sha256": "bc3d5b231b873861ac180d64e1b9f0c8cc62749494e03d823ea08842efa8ef6c",
+      "bytes": 118053
+    },
+    {
+      "frame": 32,
+      "shot": "notice",
+      "time": 1.0666666666666667,
+      "propOpen": 0,
+      "camera": {
+        "position": [
+          9,
+          8,
+          14
+        ],
+        "target": [
+          0,
+          2.25,
+          1.2
+        ],
+        "fov": 40
+      },
+      "actorPosition": [
+        0,
+        0,
+        0
+      ],
+      "identity": true,
+      "file": "frame-0032.png",
+      "sha256": "5be2e131a6363f4307519e252834a03c810278306b15d72b7f7ef020c40bfa22",
+      "bytes": 117830
+    },
+    {
+      "frame": 33,
+      "shot": "notice",
+      "time": 1.1,
+      "propOpen": 0,
+      "camera": {
+        "position": [
+          9,
+          8,
+          14
+        ],
+        "target": [
+          0,
+          2.25,
+          1.2
+        ],
+        "fov": 40
+      },
+      "actorPosition": [
+        0,
+        0,
+        0
+      ],
+      "identity": true,
+      "file": "frame-0033.png",
+      "sha256": "3f4e1b8fcbb1ed67ded9273808814c73c5bc7605c33d087d13be3b047aa26121",
+      "bytes": 117861
+    },
+    {
+      "frame": 34,
+      "shot": "notice",
+      "time": 1.1333333333333333,
+      "propOpen": 0,
+      "camera": {
+        "position": [
+          9,
+          8,
+          14
+        ],
+        "target": [
+          0,
+          2.25,
+          1.2
+        ],
+        "fov": 40
+      },
+      "actorPosition": [
+        0,
+        0,
+        0
+      ],
+      "identity": true,
+      "file": "frame-0034.png",
+      "sha256": "d5098e4cc9970edb2ced0f7f60076f8a22eaf38fa3f57e911a4b7090b9bd532a",
+      "bytes": 117524
+    },
+    {
+      "frame": 35,
+      "shot": "notice",
+      "time": 1.1666666666666667,
+      "propOpen": 0,
+      "camera": {
+        "position": [
+          9,
+          8,
+          14
+        ],
+        "target": [
+          0,
+          2.25,
+          1.2
+        ],
+        "fov": 40
+      },
+      "actorPosition": [
+        0,
+        0,
+        0
+      ],
+      "identity": true,
+      "file": "frame-0035.png",
+      "sha256": "6c6ed423d5624afc8eaf1ac7831c89908cde77d3e257c2de663465e85090cd40",
+      "bytes": 117637
+    },
+    {
+      "frame": 36,
+      "shot": "notice",
+      "time": 1.2,
+      "propOpen": 0,
+      "camera": {
+        "position": [
+          9,
+          8,
+          14
+        ],
+        "target": [
+          0,
+          2.25,
+          1.2
+        ],
+        "fov": 40
+      },
+      "actorPosition": [
+        0,
+        0,
+        0
+      ],
+      "identity": true,
+      "file": "frame-0036.png",
+      "sha256": "0de7aa765712369e77968151fd8ae6991f112192bd89353200b537593370fbaa",
+      "bytes": 117357
+    },
+    {
+      "frame": 37,
+      "shot": "notice",
+      "time": 1.2333333333333334,
+      "propOpen": 0,
+      "camera": {
+        "position": [
+          9,
+          8,
+          14
+        ],
+        "target": [
+          0,
+          2.25,
+          1.2
+        ],
+        "fov": 40
+      },
+      "actorPosition": [
+        0,
+        0,
+        0
+      ],
+      "identity": true,
+      "file": "frame-0037.png",
+      "sha256": "6c4c1741be00b9d75e97b26bb38bd507176be2d6956199de6239e3b3b8f543c0",
+      "bytes": 117412
+    },
+    {
+      "frame": 38,
+      "shot": "notice",
+      "time": 1.2666666666666666,
+      "propOpen": 0,
+      "camera": {
+        "position": [
+          9,
+          8,
+          14
+        ],
+        "target": [
+          0,
+          2.25,
+          1.2
+        ],
+        "fov": 40
+      },
+      "actorPosition": [
+        0,
+        0,
+        0
+      ],
+      "identity": true,
+      "file": "frame-0038.png",
+      "sha256": "9de40d47cc0513a17df0cf121f51f800cb6a2f8228a4dd26140d022116c3c168",
+      "bytes": 117139
+    },
+    {
+      "frame": 39,
+      "shot": "notice",
+      "time": 1.3,
+      "propOpen": 0,
+      "camera": {
+        "position": [
+          9,
+          8,
+          14
+        ],
+        "target": [
+          0,
+          2.25,
+          1.2
+        ],
+        "fov": 40
+      },
+      "actorPosition": [
+        0,
+        0,
+        0
+      ],
+      "identity": true,
+      "file": "frame-0039.png",
+      "sha256": "dd5b6e9c02f172f42ee4060ec5a9353ecc20173ba6635127990f92cbe8bf9207",
+      "bytes": 116838
+    },
+    {
+      "frame": 40,
+      "shot": "notice",
+      "time": 1.3333333333333333,
+      "propOpen": 0,
+      "camera": {
+        "position": [
+          9,
+          8,
+          14
+        ],
+        "target": [
+          0,
+          2.25,
+          1.2
+        ],
+        "fov": 40
+      },
+      "actorPosition": [
+        0,
+        0,
+        0
+      ],
+      "identity": true,
+      "file": "frame-0040.png",
+      "sha256": "58535328611debbac60157a362089b5a72ca7053023661dcdb83aecfca04a061",
+      "bytes": 116779
+    },
+    {
+      "frame": 41,
+      "shot": "notice",
+      "time": 1.3666666666666667,
+      "propOpen": 0,
+      "camera": {
+        "position": [
+          9,
+          8,
+          14
+        ],
+        "target": [
+          0,
+          2.25,
+          1.2
+        ],
+        "fov": 40
+      },
+      "actorPosition": [
+        0,
+        0,
+        0
+      ],
+      "identity": true,
+      "file": "frame-0041.png",
+      "sha256": "1bc61708dd386e4459923b844614f70bd91bb8eb81d5a1eb36771afe7dcad708",
+      "bytes": 116806
+    },
+    {
+      "frame": 42,
+      "shot": "notice",
+      "time": 1.4,
+      "propOpen": 0,
+      "camera": {
+        "position": [
+          9,
+          8,
+          14
+        ],
+        "target": [
+          0,
+          2.25,
+          1.2
+        ],
+        "fov": 40
+      },
+      "actorPosition": [
+        0,
+        0,
+        0
+      ],
+      "identity": true,
+      "file": "frame-0042.png",
+      "sha256": "4afc787ff7d6a822ab75ab35534af54a47904c47057e32260f6b17cb2785b71a",
+      "bytes": 116815
+    },
+    {
+      "frame": 43,
+      "shot": "notice",
+      "time": 1.4333333333333333,
+      "propOpen": 0,
+      "camera": {
+        "position": [
+          9,
+          8,
+          14
+        ],
+        "target": [
+          0,
+          2.25,
+          1.2
+        ],
+        "fov": 40
+      },
+      "actorPosition": [
+        0,
+        0,
+        0
+      ],
+      "identity": true,
+      "file": "frame-0043.png",
+      "sha256": "f3692c1b076095dc3825a57450dc6f2eb9b33f653399c68ed51b5d65d8569f42",
+      "bytes": 117067
+    },
+    {
+      "frame": 44,
+      "shot": "notice",
+      "time": 1.4666666666666666,
+      "propOpen": 0,
+      "camera": {
+        "position": [
+          9,
+          8,
+          14
+        ],
+        "target": [
+          0,
+          2.25,
+          1.2
+        ],
+        "fov": 40
+      },
+      "actorPosition": [
+        0,
+        0,
+        0
+      ],
+      "identity": true,
+      "file": "frame-0044.png",
+      "sha256": "77cb9dab09555b7b54ff5a95d3b137068c267b1c6d45985aa212ff78d8d466c5",
+      "bytes": 116989
+    },
+    {
+      "frame": 45,
+      "shot": "notice",
+      "time": 1.5,
+      "propOpen": 0,
+      "camera": {
+        "position": [
+          9,
+          8,
+          14
+        ],
+        "target": [
+          0,
+          2.25,
+          1.2
+        ],
+        "fov": 40
+      },
+      "actorPosition": [
+        0,
+        0,
+        0
+      ],
+      "identity": true,
+      "file": "frame-0045.png",
+      "sha256": "3d921333022175b2ec593e5b657d0bec01fe36998c5396a53d802d821d013c50",
+      "bytes": 116682
+    },
+    {
+      "frame": 46,
+      "shot": "notice",
+      "time": 1.5333333333333334,
+      "propOpen": 0,
+      "camera": {
+        "position": [
+          9,
+          8,
+          14
+        ],
+        "target": [
+          0,
+          2.25,
+          1.2
+        ],
+        "fov": 40
+      },
+      "actorPosition": [
+        0,
+        0,
+        0
+      ],
+      "identity": true,
+      "file": "frame-0046.png",
+      "sha256": "c1eca0bb439b4398864c325097e94ab220218f016e6889aced9801f9e79783fd",
+      "bytes": 116491
+    },
+    {
+      "frame": 47,
+      "shot": "notice",
+      "time": 1.5666666666666667,
+      "propOpen": 0,
+      "camera": {
+        "position": [
+          9,
+          8,
+          14
+        ],
+        "target": [
+          0,
+          2.25,
+          1.2
+        ],
+        "fov": 40
+      },
+      "actorPosition": [
+        0,
+        0,
+        0
+      ],
+      "identity": true,
+      "file": "frame-0047.png",
+      "sha256": "8f839e2547404aa8c9f66771d701d7b1d59b4b53e60e128bcb3dbb538c64c7b4",
+      "bytes": 116422
+    },
+    {
+      "frame": 48,
+      "shot": "notice",
+      "time": 1.6,
+      "propOpen": 0,
+      "camera": {
+        "position": [
+          9,
+          8,
+          14
+        ],
+        "target": [
+          0,
+          2.25,
+          1.2
+        ],
+        "fov": 40
+      },
+      "actorPosition": [
+        0,
+        0,
+        0
+      ],
+      "identity": true,
+      "file": "frame-0048.png",
+      "sha256": "3e9fbed57d6b811b824afa03f6f7366e49d1b638d1a43ff6394ed76057b5700c",
+      "bytes": 116524
+    },
+    {
+      "frame": 49,
+      "shot": "notice",
+      "time": 1.6333333333333333,
+      "propOpen": 0,
+      "camera": {
+        "position": [
+          9,
+          8,
+          14
+        ],
+        "target": [
+          0,
+          2.25,
+          1.2
+        ],
+        "fov": 40
+      },
+      "actorPosition": [
+        0,
+        0,
+        0
+      ],
+      "identity": true,
+      "file": "frame-0049.png",
+      "sha256": "f04e0543c05576f5a5aae50c45f2adb10bc722ea16281e90d6a98aa3f951be15",
+      "bytes": 116554
+    },
+    {
+      "frame": 50,
+      "shot": "notice",
+      "time": 1.6666666666666667,
+      "propOpen": 0,
+      "camera": {
+        "position": [
+          9,
+          8,
+          14
+        ],
+        "target": [
+          0,
+          2.25,
+          1.2
+        ],
+        "fov": 40
+      },
+      "actorPosition": [
+        0,
+        0,
+        0
+      ],
+      "identity": true,
+      "file": "frame-0050.png",
+      "sha256": "93515d0db2bb650f672944dff06362d18420d028800ae4e8d5dde1fa55b95777",
+      "bytes": 116693
+    },
+    {
+      "frame": 51,
+      "shot": "notice",
+      "time": 1.7,
+      "propOpen": 0,
+      "camera": {
+        "position": [
+          9,
+          8,
+          14
+        ],
+        "target": [
+          0,
+          2.25,
+          1.2
+        ],
+        "fov": 40
+      },
+      "actorPosition": [
+        0,
+        0,
+        0
+      ],
+      "identity": true,
+      "file": "frame-0051.png",
+      "sha256": "3c97f463cc513490beaec4b680c9e43662d1efd77a4ee63840fe343649d29179",
+      "bytes": 116779
+    },
+    {
+      "frame": 52,
+      "shot": "notice",
+      "time": 1.7333333333333334,
+      "propOpen": 0,
+      "camera": {
+        "position": [
+          9,
+          8,
+          14
+        ],
+        "target": [
+          0,
+          2.25,
+          1.2
+        ],
+        "fov": 40
+      },
+      "actorPosition": [
+        0,
+        0,
+        0
+      ],
+      "identity": true,
+      "file": "frame-0052.png",
+      "sha256": "96a491d367ebc7e6dd6591452974d17b82377222c52c07dcd5e013bde0816b8a",
+      "bytes": 116828
+    },
+    {
+      "frame": 53,
+      "shot": "notice",
+      "time": 1.7666666666666666,
+      "propOpen": 0,
+      "camera": {
+        "position": [
+          9,
+          8,
+          14
+        ],
+        "target": [
+          0,
+          2.25,
+          1.2
+        ],
+        "fov": 40
+      },
+      "actorPosition": [
+        0,
+        0,
+        0
+      ],
+      "identity": true,
+      "file": "frame-0053.png",
+      "sha256": "80a083e687f148c7f28ef0c84d1d011503dd2012f8a663ce3643a6edda25ca51",
+      "bytes": 116877
+    },
+    {
+      "frame": 54,
+      "shot": "notice",
+      "time": 1.8,
+      "propOpen": 0,
+      "camera": {
+        "position": [
+          9,
+          8,
+          14
+        ],
+        "target": [
+          0,
+          2.25,
+          1.2
+        ],
+        "fov": 40
+      },
+      "actorPosition": [
+        0,
+        0,
+        0
+      ],
+      "identity": true,
+      "file": "frame-0054.png",
+      "sha256": "c62ae92d81054d35b68bdf5cdf0c6ebf4ef0ef9e6d9b766005742e23484cec0d",
+      "bytes": 116962
+    },
+    {
+      "frame": 55,
+      "shot": "notice",
+      "time": 1.8333333333333333,
+      "propOpen": 0,
+      "camera": {
+        "position": [
+          9,
+          8,
+          14
+        ],
+        "target": [
+          0,
+          2.25,
+          1.2
+        ],
+        "fov": 40
+      },
+      "actorPosition": [
+        0,
+        0,
+        0
+      ],
+      "identity": true,
+      "file": "frame-0055.png",
+      "sha256": "93e586684760d6defcb240d96e49da738ca5bf14de575a53b5ab0846d671d9c9",
+      "bytes": 117492
+    },
+    {
+      "frame": 56,
+      "shot": "notice",
+      "time": 1.8666666666666667,
+      "propOpen": 0,
+      "camera": {
+        "position": [
+          9,
+          8,
+          14
+        ],
+        "target": [
+          0,
+          2.25,
+          1.2
+        ],
+        "fov": 40
+      },
+      "actorPosition": [
+        0,
+        0,
+        0
+      ],
+      "identity": true,
+      "file": "frame-0056.png",
+      "sha256": "8365a5df6684c85384b1a487188cbd1776a921954005cfce80055be62199e94e",
+      "bytes": 117287
+    },
+    {
+      "frame": 57,
+      "shot": "notice",
+      "time": 1.9,
+      "propOpen": 0,
+      "camera": {
+        "position": [
+          9,
+          8,
+          14
+        ],
+        "target": [
+          0,
+          2.25,
+          1.2
+        ],
+        "fov": 40
+      },
+      "actorPosition": [
+        0,
+        0,
+        0
+      ],
+      "identity": true,
+      "file": "frame-0057.png",
+      "sha256": "8a493509b4e2ffe21358ad5a6ee0d69610e991f5f15653ca4bd9a81ed99ef3da",
+      "bytes": 117318
+    },
+    {
+      "frame": 58,
+      "shot": "notice",
+      "time": 1.9333333333333333,
+      "propOpen": 0,
+      "camera": {
+        "position": [
+          9,
+          8,
+          14
+        ],
+        "target": [
+          0,
+          2.25,
+          1.2
+        ],
+        "fov": 40
+      },
+      "actorPosition": [
+        0,
+        0,
+        0
+      ],
+      "identity": true,
+      "file": "frame-0058.png",
+      "sha256": "af9dd3108309a3ecb02bf090dc9d7ad8ef89fea99b293b160d6a8e5d4c397741",
+      "bytes": 117263
+    },
+    {
+      "frame": 59,
+      "shot": "notice",
+      "time": 1.9666666666666666,
+      "propOpen": 0,
+      "camera": {
+        "position": [
+          9,
+          8,
+          14
+        ],
+        "target": [
+          0,
+          2.25,
+          1.2
+        ],
+        "fov": 40
+      },
+      "actorPosition": [
+        0,
+        0,
+        0
+      ],
+      "identity": true,
+      "file": "frame-0059.png",
+      "sha256": "5f6422d34e9db546b39dad68a7079ef725084b6a66f43ddd4775e7a2ce78bb80",
+      "bytes": 117375
+    },
+    {
+      "frame": 60,
+      "shot": "approach",
+      "time": 2,
+      "propOpen": 0,
+      "camera": {
+        "position": [
+          13.5,
+          3.5,
+          1.55
+        ],
+        "target": [
+          0,
+          2.55,
+          1.55
+        ],
+        "fov": 38
+      },
+      "actorPosition": [
+        0,
+        0.03792836947543288,
+        0
+      ],
+      "identity": true,
+      "file": "frame-0060.png",
+      "sha256": "82330f4690093dcbf9f18a645dae192b29936e258e14d2fcb0e8dbce6e663d3b",
+      "bytes": 77444
+    },
+    {
+      "frame": 61,
+      "shot": "approach",
+      "time": 2.033333333333333,
+      "propOpen": 0,
+      "camera": {
+        "position": [
+          13.5,
+          3.5,
+          1.55
+        ],
+        "target": [
+          0,
+          2.55,
+          1.55
+        ],
+        "fov": 38
+      },
+      "actorPosition": [
+        0,
+        0.03696324945700491,
+        0.006987132394535467
+      ],
+      "identity": true,
+      "file": "frame-0061.png",
+      "sha256": "bead071e57bf4ed072622b1e36b2b052d056544b826bbc1137611486d6e36f9f",
+      "bytes": 76677
+    },
+    {
+      "frame": 62,
+      "shot": "approach",
+      "time": 2.066666666666667,
+      "propOpen": 0,
+      "camera": {
+        "position": [
+          13.5,
+          3.5,
+          1.55
+        ],
+        "target": [
+          0,
+          2.55,
+          1.55
+        ],
+        "fov": 38
+      },
+      "actorPosition": [
+        0,
+        0.03425863002267393,
+        0.025695896865924744
+      ],
+      "identity": true,
+      "file": "frame-0062.png",
+      "sha256": "4f68d375d8ac4be9a9ad51557ec190693279f6a046fd39b0194529c8f04a02bf",
+      "bytes": 75832
+    },
+    {
+      "frame": 63,
+      "shot": "approach",
+      "time": 2.1,
+      "propOpen": 0,
+      "camera": {
+        "position": [
+          13.5,
+          3.5,
+          1.55
+        ],
+        "target": [
+          0,
+          2.55,
+          1.55
+        ],
+        "fov": 38
+      },
+      "actorPosition": [
+        0,
+        0.03003858830547168,
+        0.05273585892463564
+      ],
+      "identity": true,
+      "file": "frame-0063.png",
+      "sha256": "b0c50df0f96920c9e9ca39d5c082920c3a19281fab4f91fb8440a7a8b88973ef",
+      "bytes": 73660
+    },
+    {
+      "frame": 64,
+      "shot": "approach",
+      "time": 2.1333333333333333,
+      "propOpen": 0,
+      "camera": {
+        "position": [
+          13.5,
+          3.5,
+          1.55
+        ],
+        "target": [
+          0,
+          2.55,
+          1.55
+        ],
+        "fov": 38
+      },
+      "actorPosition": [
+        0,
+        0.024569874016055593,
+        0.08471731591742582
+      ],
+      "identity": true,
+      "file": "frame-0064.png",
+      "sha256": "8d8721c227b02e634a2702c90e95b3522c6ff4f67fe35707db7fbc3db80a960f",
+      "bytes": 73157
+    },
+    {
+      "frame": 65,
+      "shot": "approach",
+      "time": 2.1666666666666665,
+      "propOpen": 0,
+      "camera": {
+        "position": [
+          13.5,
+          3.5,
+          1.55
+        ],
+        "target": [
+          0,
+          2.55,
+          1.55
+        ],
+        "fov": 38
+      },
+      "actorPosition": [
+        0,
+        0.018271941528271274,
+        0.11826979127293445
+      ],
+      "identity": true,
+      "file": "frame-0065.png",
+      "sha256": "beab66506c2b25f6cb9534c63af7143b13dac006a13538e58aaf11129a20aa41",
+      "bytes": 71917
+    },
+    {
+      "frame": 66,
+      "shot": "approach",
+      "time": 2.2,
+      "propOpen": 0,
+      "camera": {
+        "position": [
+          13.5,
+          3.5,
+          1.55
+        ],
+        "target": [
+          0,
+          2.55,
+          1.55
+        ],
+        "fov": 38
+      },
+      "actorPosition": [
+        0,
+        0.01177093412999275,
+        0.15005748276144112
+      ],
+      "identity": true,
+      "file": "frame-0066.png",
+      "sha256": "e17e0375839d167474597a6595a2f03903d274c2406e172c7204f62f630319da",
+      "bytes": 69352
+    },
+    {
+      "frame": 67,
+      "shot": "approach",
+      "time": 2.2333333333333334,
+      "propOpen": 0,
+      "camera": {
+        "position": [
+          13.5,
+          3.5,
+          1.55
+        ],
+        "target": [
+          0,
+          2.55,
+          1.55
+        ],
+        "fov": 38
+      },
+      "actorPosition": [
+        0,
+        0.005898189261536402,
+        0.1767872258941664
+      ],
+      "identity": true,
+      "file": "frame-0067.png",
+      "sha256": "5d483bb443d098de8b2fed516a6f535808d647e1fd7d557f1a2eb4b32866d2e5",
+      "bytes": 65054
+    },
+    {
+      "frame": 68,
+      "shot": "approach",
+      "time": 2.2666666666666666,
+      "propOpen": 0,
+      "camera": {
+        "position": [
+          13.5,
+          3.5,
+          1.55
+        ],
+        "target": [
+          0,
+          2.55,
+          1.55
+        ],
+        "fov": 38
+      },
+      "actorPosition": [
+        0,
+        0.0016343268056009386,
+        0.19520331427599552
+      ],
+      "identity": true,
+      "file": "frame-0068.png",
+      "sha256": "1fae69a2ab9e9fe1b96a7c9fc549c7fb45ab4d050bc346d9e0b63bfe006af1b1",
+      "bytes": 61050
+    },
+    {
+      "frame": 69,
+      "shot": "approach",
+      "time": 2.3,
+      "propOpen": 0,
+      "camera": {
+        "position": [
+          13.5,
+          3.5,
+          1.55
+        ],
+        "target": [
+          0,
+          2.55,
+          1.55
+        ],
+        "fov": 38
+      },
+      "actorPosition": [
+        0,
+        0,
+        0.20206483390660443
+      ],
+      "identity": true,
+      "file": "frame-0069.png",
+      "sha256": "a9177dbdc46e9843c6003f606a8f27da168fa5c6dfd41892a64f4a12b3b69dd8",
+      "bytes": 58004
+    },
+    {
+      "frame": 70,
+      "shot": "approach",
+      "time": 2.3333333333333335,
+      "propOpen": 0,
+      "camera": {
+        "position": [
+          13.5,
+          3.5,
+          1.55
+        ],
+        "target": [
+          0,
+          2.55,
+          1.55
+        ],
+        "fov": 38
+      },
+      "actorPosition": [
+        0,
+        0.0016343268056009386,
+        0.20892635353721337
+      ],
+      "identity": true,
+      "file": "frame-0070.png",
+      "sha256": "3c0b91e3957694be09ee2ad65ba424ff8869f29bec4881ebaf98dfffe1ae28c8",
+      "bytes": 60971
+    },
+    {
+      "frame": 71,
+      "shot": "approach",
+      "time": 2.3666666666666667,
+      "propOpen": 0,
+      "camera": {
+        "position": [
+          13.5,
+          3.5,
+          1.55
+        ],
+        "target": [
+          0,
+          2.55,
+          1.55
+        ],
+        "fov": 38
+      },
+      "actorPosition": [
+        0,
+        0.005898189261536402,
+        0.22734244191904246
+      ],
+      "identity": true,
+      "file": "frame-0071.png",
+      "sha256": "3d7e35837fe1bd3b0f50908969b20a8bb1acb62e11c7e04720ed4da18f17199c",
+      "bytes": 66442
+    },
+    {
+      "frame": 72,
+      "shot": "approach",
+      "time": 2.4,
+      "propOpen": 0,
+      "camera": {
+        "position": [
+          13.5,
+          3.5,
+          1.55
+        ],
+        "target": [
+          0,
+          2.55,
+          1.55
+        ],
+        "fov": 38
+      },
+      "actorPosition": [
+        0,
+        0.01177093412999275,
+        0.25407218505176776
+      ],
+      "identity": true,
+      "file": "frame-0072.png",
+      "sha256": "67962b6ca80e0ce32114af68a6912f3ceff2aa60e30de8bda1d418aef2f54863",
+      "bytes": 71249
+    },
+    {
+      "frame": 73,
+      "shot": "approach",
+      "time": 2.433333333333333,
+      "propOpen": 0,
+      "camera": {
+        "position": [
+          13.5,
+          3.5,
+          1.55
+        ],
+        "target": [
+          0,
+          2.55,
+          1.55
+        ],
+        "fov": 38
+      },
+      "actorPosition": [
+        0,
+        0.018271941528271274,
+        0.28585987654027445
+      ],
+      "identity": true,
+      "file": "frame-0073.png",
+      "sha256": "42aa87860643916b95448f51f5fb684dc9f9b5144f18cf3ca3a11d3a0167d476",
+      "bytes": 73650
+    },
+    {
+      "frame": 74,
+      "shot": "approach",
+      "time": 2.466666666666667,
+      "propOpen": 0,
+      "camera": {
+        "position": [
+          13.5,
+          3.5,
+          1.55
+        ],
+        "target": [
+          0,
+          2.55,
+          1.55
+        ],
+        "fov": 38
+      },
+      "actorPosition": [
+        0,
+        0.024569874016055593,
+        0.31941235189578304
+      ],
+      "identity": true,
+      "file": "frame-0074.png",
+      "sha256": "f893d4ed916afc956db4b59a9475b277234c7b618deeb59d5935c00cc1c5e744",
+      "bytes": 75683
+    },
+    {
+      "frame": 75,
+      "shot": "approach",
+      "time": 2.5,
+      "propOpen": 0,
+      "camera": {
+        "position": [
+          13.5,
+          3.5,
+          1.55
+        ],
+        "target": [
+          0,
+          2.55,
+          1.55
+        ],
+        "fov": 38
+      },
+      "actorPosition": [
+        0,
+        0.03003858830547168,
+        0.35139380888857324
+      ],
+      "identity": true,
+      "file": "frame-0075.png",
+      "sha256": "99a5bc259939ca8ecde8df52491a9a862704806a12b4f2207c6ffbb51ea77dea",
+      "bytes": 77269
+    },
+    {
+      "frame": 76,
+      "shot": "approach",
+      "time": 2.533333333333333,
+      "propOpen": 0,
+      "camera": {
+        "position": [
+          13.5,
+          3.5,
+          1.55
+        ],
+        "target": [
+          0,
+          2.55,
+          1.55
+        ],
+        "fov": 38
+      },
+      "actorPosition": [
+        0,
+        0.03425863002267393,
+        0.37843377094728414
+      ],
+      "identity": true,
+      "file": "frame-0076.png",
+      "sha256": "89bd753d67d49d963f7f164fdbbf32f45b995ad4cc18229a0a3ca21b648e862a",
+      "bytes": 79164
+    },
+    {
+      "frame": 77,
+      "shot": "approach",
+      "time": 2.566666666666667,
+      "propOpen": 0,
+      "camera": {
+        "position": [
+          13.5,
+          3.5,
+          1.55
+        ],
+        "target": [
+          0,
+          2.55,
+          1.55
+        ],
+        "fov": 38
+      },
+      "actorPosition": [
+        0,
+        0.03696324945700491,
+        0.3971425354186734
+      ],
+      "identity": true,
+      "file": "frame-0077.png",
+      "sha256": "1fdbeed47f9bcfff1b137c3ecbc67f98a37638408c999bddb3566e83c2754e08",
+      "bytes": 78864
+    },
+    {
+      "frame": 78,
+      "shot": "approach",
+      "time": 2.6,
+      "propOpen": 0,
+      "camera": {
+        "position": [
+          13.5,
+          3.5,
+          1.55
+        ],
+        "target": [
+          0,
+          2.55,
+          1.55
+        ],
+        "fov": 38
+      },
+      "actorPosition": [
+        0,
+        0.03792836947543288,
+        0.4041296678132088
+      ],
+      "identity": true,
+      "file": "frame-0078.png",
+      "sha256": "8d18351a93b660afa8545e6ba024172f0179adbfd40b4261317c4ea0901945b6",
+      "bytes": 80048
+    },
+    {
+      "frame": 79,
+      "shot": "approach",
+      "time": 2.6333333333333333,
+      "propOpen": 0,
+      "camera": {
+        "position": [
+          13.5,
+          3.5,
+          1.55
+        ],
+        "target": [
+          0,
+          2.55,
+          1.55
+        ],
+        "fov": 38
+      },
+      "actorPosition": [
+        0,
+        0.03696324945700491,
+        0.4111168002077443
+      ],
+      "identity": true,
+      "file": "frame-0079.png",
+      "sha256": "a7b90be7cc91bd70171cc47c5da765c22630d106c3da40cd0362a86faa021888",
+      "bytes": 79118
+    },
+    {
+      "frame": 80,
+      "shot": "approach",
+      "time": 2.6666666666666665,
+      "propOpen": 0,
+      "camera": {
+        "position": [
+          13.5,
+          3.5,
+          1.55
+        ],
+        "target": [
+          0,
+          2.55,
+          1.55
+        ],
+        "fov": 38
+      },
+      "actorPosition": [
+        0,
+        0.03425863002267393,
+        0.4298255646791336
+      ],
+      "identity": true,
+      "file": "frame-0080.png",
+      "sha256": "a216fd2251d3be072d4e43ca2c063888b53f3592d5f1a2c00762a0533e5ec3db",
+      "bytes": 79144
+    },
+    {
+      "frame": 81,
+      "shot": "approach",
+      "time": 2.7,
+      "propOpen": 0,
+      "camera": {
+        "position": [
+          13.5,
+          3.5,
+          1.55
+        ],
+        "target": [
+          0,
+          2.55,
+          1.55
+        ],
+        "fov": 38
+      },
+      "actorPosition": [
+        0,
+        0.03003858830547168,
+        0.4568655267378444
+      ],
+      "identity": true,
+      "file": "frame-0081.png",
+      "sha256": "95f5fd4124be78e5350050cc71df76d64d66b9adf26cb8c708d32818affcb11b",
+      "bytes": 77156
+    },
+    {
+      "frame": 82,
+      "shot": "approach",
+      "time": 2.7333333333333334,
+      "propOpen": 0,
+      "camera": {
+        "position": [
+          13.5,
+          3.5,
+          1.55
+        ],
+        "target": [
+          0,
+          2.55,
+          1.55
+        ],
+        "fov": 38
+      },
+      "actorPosition": [
+        0,
+        0.024569874016055593,
+        0.4888469837306346
+      ],
+      "identity": true,
+      "file": "frame-0082.png",
+      "sha256": "43cbd85a2ddd3a47222617211d270297a704d3532d4490196e886d544a4bc0e6",
+      "bytes": 76178
+    },
+    {
+      "frame": 83,
+      "shot": "approach",
+      "time": 2.7666666666666666,
+      "propOpen": 0,
+      "camera": {
+        "position": [
+          13.5,
+          3.5,
+          1.55
+        ],
+        "target": [
+          0,
+          2.55,
+          1.55
+        ],
+        "fov": 38
+      },
+      "actorPosition": [
+        0,
+        0.018271941528271274,
+        0.5223994590861434
+      ],
+      "identity": true,
+      "file": "frame-0083.png",
+      "sha256": "60d975df1817efed1b9754c124860b91266ebc59de7467f2e522c464afc599f0",
+      "bytes": 73908
+    },
+    {
+      "frame": 84,
+      "shot": "approach",
+      "time": 2.8,
+      "propOpen": 0,
+      "camera": {
+        "position": [
+          13.5,
+          3.5,
+          1.55
+        ],
+        "target": [
+          0,
+          2.55,
+          1.55
+        ],
+        "fov": 38
+      },
+      "actorPosition": [
+        0,
+        0.01177093412999275,
+        0.5541871505746501
+      ],
+      "identity": true,
+      "file": "frame-0084.png",
+      "sha256": "53fef27d5ea1c99bde9906a14b02c6aa95f8ebed132385c68ed85727955e3ffd",
+      "bytes": 71595
+    },
+    {
+      "frame": 85,
+      "shot": "approach",
+      "time": 2.8333333333333335,
+      "propOpen": 0,
+      "camera": {
+        "position": [
+          13.5,
+          3.5,
+          1.55
+        ],
+        "target": [
+          0,
+          2.55,
+          1.55
+        ],
+        "fov": 38
+      },
+      "actorPosition": [
+        0,
+        0.005898189261536402,
+        0.5809168937073753
+      ],
+      "identity": true,
+      "file": "frame-0085.png",
+      "sha256": "a0968593c89cdec2aea8b34cbcbcb4d440055cf594c4d341b484457628cb9ad9",
+      "bytes": 67147
+    },
+    {
+      "frame": 86,
+      "shot": "approach",
+      "time": 2.8666666666666667,
+      "propOpen": 0,
+      "camera": {
+        "position": [
+          13.5,
+          3.5,
+          1.55
+        ],
+        "target": [
+          0,
+          2.55,
+          1.55
+        ],
+        "fov": 38
+      },
+      "actorPosition": [
+        0,
+        0.0016343268056009386,
+        0.5993329820892044
+      ],
+      "identity": true,
+      "file": "frame-0086.png",
+      "sha256": "826eefaa12e5f1d433006a812ce31c2cd296e46c20e0e5011d1f7b09307d4c6c",
+      "bytes": 60701
+    },
+    {
+      "frame": 87,
+      "shot": "approach",
+      "time": 2.9,
+      "propOpen": 0,
+      "camera": {
+        "position": [
+          13.5,
+          3.5,
+          1.55
+        ],
+        "target": [
+          0,
+          2.55,
+          1.55
+        ],
+        "fov": 38
+      },
+      "actorPosition": [
+        0,
+        0,
+        0.6061945017198133
+      ],
+      "identity": true,
+      "file": "frame-0087.png",
+      "sha256": "58d30a93b1243ce761fa2afdf02ea31aed0fa941942d25b661c769f65fbb6a96",
+      "bytes": 57361
+    },
+    {
+      "frame": 88,
+      "shot": "approach",
+      "time": 2.933333333333333,
+      "propOpen": 0,
+      "camera": {
+        "position": [
+          13.5,
+          3.5,
+          1.55
+        ],
+        "target": [
+          0,
+          2.55,
+          1.55
+        ],
+        "fov": 38
+      },
+      "actorPosition": [
+        0,
+        0.0016343268056009386,
+        0.6130560213504223
+      ],
+      "identity": true,
+      "file": "frame-0088.png",
+      "sha256": "947bad0862b8bad82d3d1d2e6c518430e3c682abb277fbf8fb5ae19bdf0a6650",
+      "bytes": 60253
+    },
+    {
+      "frame": 89,
+      "shot": "approach",
+      "time": 2.966666666666667,
+      "propOpen": 0,
+      "camera": {
+        "position": [
+          13.5,
+          3.5,
+          1.55
+        ],
+        "target": [
+          0,
+          2.55,
+          1.55
+        ],
+        "fov": 38
+      },
+      "actorPosition": [
+        0,
+        0.005898189261536402,
+        0.6314721097322513
+      ],
+      "identity": true,
+      "file": "frame-0089.png",
+      "sha256": "cabe0d06bd5318931f552c7256a1e21c5e847e0c29bff4f266394667bf94ea15",
+      "bytes": 65375
+    },
+    {
+      "frame": 90,
+      "shot": "approach",
+      "time": 3,
+      "propOpen": 0,
+      "camera": {
+        "position": [
+          13.5,
+          3.5,
+          1.55
+        ],
+        "target": [
+          0,
+          2.55,
+          1.55
+        ],
+        "fov": 38
+      },
+      "actorPosition": [
+        0,
+        0.01177093412999275,
+        0.6582018528649767
+      ],
+      "identity": true,
+      "file": "frame-0090.png",
+      "sha256": "afb19ddd638297a5dcadb5113aef1dc78f4d7f03dd469d22c98c113da169a9cf",
+      "bytes": 70081
+    },
+    {
+      "frame": 91,
+      "shot": "approach",
+      "time": 3.033333333333333,
+      "propOpen": 0,
+      "camera": {
+        "position": [
+          13.5,
+          3.5,
+          1.55
+        ],
+        "target": [
+          0,
+          2.55,
+          1.55
+        ],
+        "fov": 38
+      },
+      "actorPosition": [
+        0,
+        0.018271941528271274,
+        0.6899895443534834
+      ],
+      "identity": true,
+      "file": "frame-0091.png",
+      "sha256": "c2fef29cf52bf38d8dad9380a06c515093a62b8504a15af2df931621aa7f32eb",
+      "bytes": 72230
+    },
+    {
+      "frame": 92,
+      "shot": "approach",
+      "time": 3.066666666666667,
+      "propOpen": 0,
+      "camera": {
+        "position": [
+          13.5,
+          3.5,
+          1.55
+        ],
+        "target": [
+          0,
+          2.55,
+          1.55
+        ],
+        "fov": 38
+      },
+      "actorPosition": [
+        0,
+        0.024569874016055593,
+        0.7235420197089919
+      ],
+      "identity": true,
+      "file": "frame-0092.png",
+      "sha256": "517ac353e21c4eb5138bf2c12e83c640e69c4f1d32c455f4bccbcaedeb02e0bf",
+      "bytes": 73769
+    },
+    {
+      "frame": 93,
+      "shot": "approach",
+      "time": 3.1,
+      "propOpen": 0,
+      "camera": {
+        "position": [
+          13.5,
+          3.5,
+          1.55
+        ],
+        "target": [
+          0,
+          2.55,
+          1.55
+        ],
+        "fov": 38
+      },
+      "actorPosition": [
+        0,
+        0.03003858830547168,
+        0.7555234767017822
+      ],
+      "identity": true,
+      "file": "frame-0093.png",
+      "sha256": "65664efdca2995239a7914c23f9a7effaa5cda336631174ab70ac2bc74fc3e0a",
+      "bytes": 74305
+    },
+    {
+      "frame": 94,
+      "shot": "approach",
+      "time": 3.1333333333333333,
+      "propOpen": 0,
+      "camera": {
+        "position": [
+          13.5,
+          3.5,
+          1.55
+        ],
+        "target": [
+          0,
+          2.55,
+          1.55
+        ],
+        "fov": 38
+      },
+      "actorPosition": [
+        0,
+        0.03425863002267393,
+        0.782563438760493
+      ],
+      "identity": true,
+      "file": "frame-0094.png",
+      "sha256": "a17a4ca5c1d959ec441bbc9297d22a12a763e07a4f02f58bdd128a00eb440faf",
+      "bytes": 76187
+    },
+    {
+      "frame": 95,
+      "shot": "approach",
+      "time": 3.1666666666666665,
+      "propOpen": 0,
+      "camera": {
+        "position": [
+          13.5,
+          3.5,
+          1.55
+        ],
+        "target": [
+          0,
+          2.55,
+          1.55
+        ],
+        "fov": 38
+      },
+      "actorPosition": [
+        0,
+        0.03696324945700491,
+        0.8012722032318823
+      ],
+      "identity": true,
+      "file": "frame-0095.png",
+      "sha256": "c445ea70e46e5d3cc9d946fecafdfcf30b114ae1a971f61acdf1254a62faf03f",
+      "bytes": 77010
+    },
+    {
+      "frame": 96,
+      "shot": "approach",
+      "time": 3.2,
+      "propOpen": 0,
+      "camera": {
+        "position": [
+          13.5,
+          3.5,
+          1.55
+        ],
+        "target": [
+          0,
+          2.55,
+          1.55
+        ],
+        "fov": 38
+      },
+      "actorPosition": [
+        0,
+        0.03792836947543288,
+        0.8082593356264176
+      ],
+      "identity": true,
+      "file": "frame-0096.png",
+      "sha256": "5267b6ee5f2f20f74111d122b4cef7a4ff4061444045d690c83dce00caf1199d",
+      "bytes": 77235
+    },
+    {
+      "frame": 97,
+      "shot": "approach",
+      "time": 3.2333333333333334,
+      "propOpen": 0,
+      "camera": {
+        "position": [
+          13.5,
+          3.5,
+          1.55
+        ],
+        "target": [
+          0,
+          2.55,
+          1.55
+        ],
+        "fov": 38
+      },
+      "actorPosition": [
+        0,
+        0.03696324945700491,
+        0.8152464680209531
+      ],
+      "identity": true,
+      "file": "frame-0097.png",
+      "sha256": "78f8b036cff7108c02e9528f12a4d71d0ce3e42ab672dfd55d9d879e5dc96cf0",
+      "bytes": 76685
+    },
+    {
+      "frame": 98,
+      "shot": "approach",
+      "time": 3.2666666666666666,
+      "propOpen": 0,
+      "camera": {
+        "position": [
+          13.5,
+          3.5,
+          1.55
+        ],
+        "target": [
+          0,
+          2.55,
+          1.55
+        ],
+        "fov": 38
+      },
+      "actorPosition": [
+        0,
+        0.03425863002267393,
+        0.8339552324923424
+      ],
+      "identity": true,
+      "file": "frame-0098.png",
+      "sha256": "056c6b035d1393a3edf89d89c7af2be89d8c843b84cd2da833436a2929ae26f3",
+      "bytes": 75747
+    },
+    {
+      "frame": 99,
+      "shot": "approach",
+      "time": 3.3,
+      "propOpen": 0,
+      "camera": {
+        "position": [
+          13.5,
+          3.5,
+          1.55
+        ],
+        "target": [
+          0,
+          2.55,
+          1.55
+        ],
+        "fov": 38
+      },
+      "actorPosition": [
+        0,
+        0.03003858830547168,
+        0.8609951945510533
+      ],
+      "identity": true,
+      "file": "frame-0099.png",
+      "sha256": "1a20d68e6f114d79a0821a8a7b4d393bfc0d4f0ea3eb2a1ebdda7de59df5378c",
+      "bytes": 73639
+    },
+    {
+      "frame": 100,
+      "shot": "approach",
+      "time": 3.3333333333333335,
+      "propOpen": 0,
+      "camera": {
+        "position": [
+          13.5,
+          3.5,
+          1.55
+        ],
+        "target": [
+          0,
+          2.55,
+          1.55
+        ],
+        "fov": 38
+      },
+      "actorPosition": [
+        0,
+        0.024569874016055593,
+        0.8929766515438434
+      ],
+      "identity": true,
+      "file": "frame-0100.png",
+      "sha256": "d9409aa6d0f1fbdacee5d0fcb28dde3f8934173c486960e8814ae73106ad010c",
+      "bytes": 72242
+    },
+    {
+      "frame": 101,
+      "shot": "approach",
+      "time": 3.3666666666666667,
+      "propOpen": 0,
+      "camera": {
+        "position": [
+          13.5,
+          3.5,
+          1.55
+        ],
+        "target": [
+          0,
+          2.55,
+          1.55
+        ],
+        "fov": 38
+      },
+      "actorPosition": [
+        0,
+        0.018271941528271274,
+        0.9265291268993522
+      ],
+      "identity": true,
+      "file": "frame-0101.png",
+      "sha256": "441a0a3e81dd4290c7594ffb71bc1e69573ce5deb5638f93f13b73dedeb7a115",
+      "bytes": 70409
+    },
+    {
+      "frame": 102,
+      "shot": "approach",
+      "time": 3.4,
+      "propOpen": 0,
+      "camera": {
+        "position": [
+          13.5,
+          3.5,
+          1.55
+        ],
+        "target": [
+          0,
+          2.55,
+          1.55
+        ],
+        "fov": 38
+      },
+      "actorPosition": [
+        0,
+        0.01177093412999275,
+        0.9583168183878588
+      ],
+      "identity": true,
+      "file": "frame-0102.png",
+      "sha256": "8f8e23bde1ee748feb77626a751878348f853bbbea583310d14e80bba96c6c14",
+      "bytes": 67745
+    },
+    {
+      "frame": 103,
+      "shot": "approach",
+      "time": 3.433333333333333,
+      "propOpen": 0,
+      "camera": {
+        "position": [
+          13.5,
+          3.5,
+          1.55
+        ],
+        "target": [
+          0,
+          2.55,
+          1.55
+        ],
+        "fov": 38
+      },
+      "actorPosition": [
+        0,
+        0.005898189261536402,
+        0.9850465615205841
+      ],
+      "identity": true,
+      "file": "frame-0103.png",
+      "sha256": "614c167d7ba1ba25f4c40b7f75b3461156319782aa26043a965461d928f79cfe",
+      "bytes": 63223
+    },
+    {
+      "frame": 104,
+      "shot": "approach",
+      "time": 3.466666666666667,
+      "propOpen": 0,
+      "camera": {
+        "position": [
+          13.5,
+          3.5,
+          1.55
+        ],
+        "target": [
+          0,
+          2.55,
+          1.55
+        ],
+        "fov": 38
+      },
+      "actorPosition": [
+        0,
+        0.0016343268056009386,
+        1.003462649902413
+      ],
+      "identity": true,
+      "file": "frame-0104.png",
+      "sha256": "b417504a9f5ef12e51dbe10c0a85ae1e00616d8ea78d10921525840b111ba8ff",
+      "bytes": 57948
+    },
+    {
+      "frame": 105,
+      "shot": "approach",
+      "time": 3.5,
+      "propOpen": 0,
+      "camera": {
+        "position": [
+          13.5,
+          3.5,
+          1.55
+        ],
+        "target": [
+          0,
+          2.55,
+          1.55
+        ],
+        "fov": 38
+      },
+      "actorPosition": [
+        0,
+        0,
+        1.010324169533022
+      ],
+      "identity": true,
+      "file": "frame-0105.png",
+      "sha256": "e16da07b10b713682e82fa67e3096f410ed7cba3e1f1b684cef07dc80c6244f8",
+      "bytes": 53809
+    },
+    {
+      "frame": 106,
+      "shot": "approach",
+      "time": 3.533333333333333,
+      "propOpen": 0,
+      "camera": {
+        "position": [
+          13.5,
+          3.5,
+          1.55
+        ],
+        "target": [
+          0,
+          2.55,
+          1.55
+        ],
+        "fov": 38
+      },
+      "actorPosition": [
+        0,
+        0.0016343268056009386,
+        1.017185689163631
+      ],
+      "identity": true,
+      "file": "frame-0106.png",
+      "sha256": "bb90450c38ea855cab98fe1cebe2a32a83991f65421add42248c06391734edad",
+      "bytes": 57590
+    },
+    {
+      "frame": 107,
+      "shot": "approach",
+      "time": 3.566666666666667,
+      "propOpen": 0,
+      "camera": {
+        "position": [
+          13.5,
+          3.5,
+          1.55
+        ],
+        "target": [
+          0,
+          2.55,
+          1.55
+        ],
+        "fov": 38
+      },
+      "actorPosition": [
+        0,
+        0.005898189261536402,
+        1.0356017775454602
+      ],
+      "identity": true,
+      "file": "frame-0107.png",
+      "sha256": "8bcf37151c66ec349cf823fa7ced7ee5014b1b4f7d7e93bf3174681b6e7ab9ad",
+      "bytes": 63197
+    },
+    {
+      "frame": 108,
+      "shot": "approach",
+      "time": 3.6,
+      "propOpen": 0,
+      "camera": {
+        "position": [
+          13.5,
+          3.5,
+          1.55
+        ],
+        "target": [
+          0,
+          2.55,
+          1.55
+        ],
+        "fov": 38
+      },
+      "actorPosition": [
+        0,
+        0.01177093412999275,
+        1.0623315206781856
+      ],
+      "identity": true,
+      "file": "frame-0108.png",
+      "sha256": "625ce761a393fd4ee10d8f0722d3ad30393366f9022f5b3cbe2d66b98912e48b",
+      "bytes": 67718
+    },
+    {
+      "frame": 109,
+      "shot": "approach",
+      "time": 3.6333333333333333,
+      "propOpen": 0,
+      "camera": {
+        "position": [
+          13.5,
+          3.5,
+          1.55
+        ],
+        "target": [
+          0,
+          2.55,
+          1.55
+        ],
+        "fov": 38
+      },
+      "actorPosition": [
+        0,
+        0.018271941528271274,
+        1.094119212166692
+      ],
+      "identity": true,
+      "file": "frame-0109.png",
+      "sha256": "da76b91a0b2e01238c19ece6c677cb71a5fb26c93532331a8f18e6fa9b8ec284",
+      "bytes": 70213
+    },
+    {
+      "frame": 110,
+      "shot": "approach",
+      "time": 3.6666666666666665,
+      "propOpen": 0,
+      "camera": {
+        "position": [
+          13.5,
+          3.5,
+          1.55
+        ],
+        "target": [
+          0,
+          2.55,
+          1.55
+        ],
+        "fov": 38
+      },
+      "actorPosition": [
+        0,
+        0.024569874016055593,
+        1.1276716875222008
+      ],
+      "identity": true,
+      "file": "frame-0110.png",
+      "sha256": "c42d064260a1c4af007ea97eb9679378790b41c14b15b19fbf0a072eb5e8820f",
+      "bytes": 72193
+    },
+    {
+      "frame": 111,
+      "shot": "approach",
+      "time": 3.7,
+      "propOpen": 0,
+      "camera": {
+        "position": [
+          13.5,
+          3.5,
+          1.55
+        ],
+        "target": [
+          0,
+          2.55,
+          1.55
+        ],
+        "fov": 38
+      },
+      "actorPosition": [
+        0,
+        0.03003858830547168,
+        1.159653144514991
+      ],
+      "identity": true,
+      "file": "frame-0111.png",
+      "sha256": "90fa1d0965ba16b1d557d294bc8c69bd9ba9340649ad25ba3c55b12672bb3769",
+      "bytes": 73409
+    },
+    {
+      "frame": 112,
+      "shot": "approach",
+      "time": 3.7333333333333334,
+      "propOpen": 0,
+      "camera": {
+        "position": [
+          13.5,
+          3.5,
+          1.55
+        ],
+        "target": [
+          0,
+          2.55,
+          1.55
+        ],
+        "fov": 38
+      },
+      "actorPosition": [
+        0,
+        0.03425863002267393,
+        1.1866931065737019
+      ],
+      "identity": true,
+      "file": "frame-0112.png",
+      "sha256": "a358dd47b2c0aaba8bc4b134397771d4005f77a9bf6478d8bf08c1521241c1ce",
+      "bytes": 75143
+    },
+    {
+      "frame": 113,
+      "shot": "approach",
+      "time": 3.7666666666666666,
+      "propOpen": 0,
+      "camera": {
+        "position": [
+          13.5,
+          3.5,
+          1.55
+        ],
+        "target": [
+          0,
+          2.55,
+          1.55
+        ],
+        "fov": 38
+      },
+      "actorPosition": [
+        0,
+        0.03696324945700491,
+        1.2054018710450911
+      ],
+      "identity": true,
+      "file": "frame-0113.png",
+      "sha256": "fab699f0e3a0c02ac29d27d3fe4973c7e4219360f458ba24b75a5683f40273ce",
+      "bytes": 74888
+    },
+    {
+      "frame": 114,
+      "shot": "approach",
+      "time": 3.8,
+      "propOpen": 0,
+      "camera": {
+        "position": [
+          13.5,
+          3.5,
+          1.55
+        ],
+        "target": [
+          0,
+          2.55,
+          1.55
+        ],
+        "fov": 38
+      },
+      "actorPosition": [
+        0,
+        0.03792836947543288,
+        1.2123890034396265
+      ],
+      "identity": true,
+      "file": "frame-0114.png",
+      "sha256": "697e0a8be1782b564e2ca94a1118efff5c6b7b1968fa027cd8af3bd2cf84c61b",
+      "bytes": 75343
+    },
+    {
+      "frame": 115,
+      "shot": "approach",
+      "time": 3.8333333333333335,
+      "propOpen": 0,
+      "camera": {
+        "position": [
+          13.5,
+          3.5,
+          1.55
+        ],
+        "target": [
+          0,
+          2.55,
+          1.55
+        ],
+        "fov": 38
+      },
+      "actorPosition": [
+        0,
+        0.03696324945700491,
+        1.219376135834162
+      ],
+      "identity": true,
+      "file": "frame-0115.png",
+      "sha256": "e02a721c799ca472e0963b37d0cd85de8e08525288cb51e81aceb70e7bafac7e",
+      "bytes": 75150
+    },
+    {
+      "frame": 116,
+      "shot": "approach",
+      "time": 3.8666666666666667,
+      "propOpen": 0,
+      "camera": {
+        "position": [
+          13.5,
+          3.5,
+          1.55
+        ],
+        "target": [
+          0,
+          2.55,
+          1.55
+        ],
+        "fov": 38
+      },
+      "actorPosition": [
+        0,
+        0.03425863002267393,
+        1.2380849003055514
+      ],
+      "identity": true,
+      "file": "frame-0116.png",
+      "sha256": "bc9c2e71a3f3ed601bd09c7dca6588617357e76167e4408635d3753ca99c624b",
+      "bytes": 74922
+    },
+    {
+      "frame": 117,
+      "shot": "approach",
+      "time": 3.9,
+      "propOpen": 0,
+      "camera": {
+        "position": [
+          13.5,
+          3.5,
+          1.55
+        ],
+        "target": [
+          0,
+          2.55,
+          1.55
+        ],
+        "fov": 38
+      },
+      "actorPosition": [
+        0,
+        0.03003858830547168,
+        1.2651248623642621
+      ],
+      "identity": true,
+      "file": "frame-0117.png",
+      "sha256": "22eaa39daf26ab592caf364a909da6e1ae0ccc1170beebb30f1ad949db06dbd4",
+      "bytes": 73158
+    },
+    {
+      "frame": 118,
+      "shot": "approach",
+      "time": 3.933333333333333,
+      "propOpen": 0,
+      "camera": {
+        "position": [
+          13.5,
+          3.5,
+          1.55
+        ],
+        "target": [
+          0,
+          2.55,
+          1.55
+        ],
+        "fov": 38
+      },
+      "actorPosition": [
+        0,
+        0.024569874016055593,
+        1.2971063193570525
+      ],
+      "identity": true,
+      "file": "frame-0118.png",
+      "sha256": "9677b64d3e570838fc37c5889ca3568fffa8fe61e94847de11485ec9b8763850",
+      "bytes": 71844
+    },
+    {
+      "frame": 119,
+      "shot": "approach",
+      "time": 3.966666666666667,
+      "propOpen": 0,
+      "camera": {
+        "position": [
+          13.5,
+          3.5,
+          1.55
+        ],
+        "target": [
+          0,
+          2.55,
+          1.55
+        ],
+        "fov": 38
+      },
+      "actorPosition": [
+        0,
+        0.018271941528271274,
+        1.330658794712561
+      ],
+      "identity": true,
+      "file": "frame-0119.png",
+      "sha256": "3555bc49855ce977c2da3bafe7e11dd23df829b97008a6f62db6b89c2e5066af",
+      "bytes": 69774
+    },
+    {
+      "frame": 120,
+      "shot": "approach",
+      "time": 4,
+      "propOpen": 0,
+      "camera": {
+        "position": [
+          13.5,
+          3.5,
+          1.55
+        ],
+        "target": [
+          0,
+          2.55,
+          1.55
+        ],
+        "fov": 38
+      },
+      "actorPosition": [
+        0,
+        0.01177093412999275,
+        1.3624464862010677
+      ],
+      "identity": true,
+      "file": "frame-0120.png",
+      "sha256": "38b720a6af112c2d46a9f42bb94df717a0605b590b60ba8ca642497e7af79267",
+      "bytes": 66995
+    },
+    {
+      "frame": 121,
+      "shot": "approach",
+      "time": 4.033333333333333,
+      "propOpen": 0,
+      "camera": {
+        "position": [
+          13.5,
+          3.5,
+          1.55
+        ],
+        "target": [
+          0,
+          2.55,
+          1.55
+        ],
+        "fov": 38
+      },
+      "actorPosition": [
+        0,
+        0.005898189261536402,
+        1.3891762293337928
+      ],
+      "identity": true,
+      "file": "frame-0121.png",
+      "sha256": "df9394230b9f6e3c94cadaedab6b320bddb3a3ff79da28386717092311215c70",
+      "bytes": 61730
+    },
+    {
+      "frame": 122,
+      "shot": "approach",
+      "time": 4.066666666666666,
+      "propOpen": 0,
+      "camera": {
+        "position": [
+          13.5,
+          3.5,
+          1.55
+        ],
+        "target": [
+          0,
+          2.55,
+          1.55
+        ],
+        "fov": 38
+      },
+      "actorPosition": [
+        0,
+        0.0016343268056009386,
+        1.4075923177156222
+      ],
+      "identity": true,
+      "file": "frame-0122.png",
+      "sha256": "fccdbc64a2b96fe6dc146960b1f5163cb150636b1228bd927cab7a8877326484",
+      "bytes": 56948
+    },
+    {
+      "frame": 123,
+      "shot": "approach",
+      "time": 4.1,
+      "propOpen": 0,
+      "camera": {
+        "position": [
+          13.5,
+          3.5,
+          1.55
+        ],
+        "target": [
+          0,
+          2.55,
+          1.55
+        ],
+        "fov": 38
+      },
+      "actorPosition": [
+        0,
+        0,
+        1.414453837346231
+      ],
+      "identity": true,
+      "file": "frame-0123.png",
+      "sha256": "9bf3b61eca85ee44fccba3a57d59df2fde03f7aeaae086710c714247a7b10fc6",
+      "bytes": 53613
+    },
+    {
+      "frame": 124,
+      "shot": "approach",
+      "time": 4.133333333333334,
+      "propOpen": 0,
+      "camera": {
+        "position": [
+          13.5,
+          3.5,
+          1.55
+        ],
+        "target": [
+          0,
+          2.55,
+          1.55
+        ],
+        "fov": 38
+      },
+      "actorPosition": [
+        0,
+        0.0016343268056009386,
+        1.42131535697684
+      ],
+      "identity": true,
+      "file": "frame-0124.png",
+      "sha256": "33422cd9d5614e3493ac4d96eb84a955e99caa05a9a12650cd8558f6f4f832a3",
+      "bytes": 56929
+    },
+    {
+      "frame": 125,
+      "shot": "approach",
+      "time": 4.166666666666667,
+      "propOpen": 0,
+      "camera": {
+        "position": [
+          13.5,
+          3.5,
+          1.55
+        ],
+        "target": [
+          0,
+          2.55,
+          1.55
+        ],
+        "fov": 38
+      },
+      "actorPosition": [
+        0,
+        0.005898189261536402,
+        1.439731445358669
+      ],
+      "identity": true,
+      "file": "frame-0125.png",
+      "sha256": "f15d78fd9cbe857e88de0d39f1cc00e2fd6f28a9d6eba6937c5783b214675a36",
+      "bytes": 61918
+    },
+    {
+      "frame": 126,
+      "shot": "approach",
+      "time": 4.2,
+      "propOpen": 0,
+      "camera": {
+        "position": [
+          13.5,
+          3.5,
+          1.55
+        ],
+        "target": [
+          0,
+          2.55,
+          1.55
+        ],
+        "fov": 38
+      },
+      "actorPosition": [
+        0,
+        0.01177093412999275,
+        1.4664611884913945
+      ],
+      "identity": true,
+      "file": "frame-0126.png",
+      "sha256": "ea354ea59764b2cb4668ec6eef98f86f68134589fae7e194304ba9c325d24295",
+      "bytes": 66963
+    },
+    {
+      "frame": 127,
+      "shot": "approach",
+      "time": 4.233333333333333,
+      "propOpen": 0,
+      "camera": {
+        "position": [
+          13.5,
+          3.5,
+          1.55
+        ],
+        "target": [
+          0,
+          2.55,
+          1.55
+        ],
+        "fov": 38
+      },
+      "actorPosition": [
+        0,
+        0.018271941528271274,
+        1.4982488799799012
+      ],
+      "identity": true,
+      "file": "frame-0127.png",
+      "sha256": "9dcc48d2f58feb47fb541ae5de54d0a8c863c836a249cfd219fa79b9a067161c",
+      "bytes": 70152
+    },
+    {
+      "frame": 128,
+      "shot": "approach",
+      "time": 4.266666666666667,
+      "propOpen": 0,
+      "camera": {
+        "position": [
+          13.5,
+          3.5,
+          1.55
+        ],
+        "target": [
+          0,
+          2.55,
+          1.55
+        ],
+        "fov": 38
+      },
+      "actorPosition": [
+        0,
+        0.024569874016055593,
+        1.5318013553354095
+      ],
+      "identity": true,
+      "file": "frame-0128.png",
+      "sha256": "a2df7362f6114c67b1f48b7862bd703d7b98c353b2eec877521de3859764f7b7",
+      "bytes": 72557
+    },
+    {
+      "frame": 129,
+      "shot": "approach",
+      "time": 4.3,
+      "propOpen": 0,
+      "camera": {
+        "position": [
+          13.5,
+          3.5,
+          1.55
+        ],
+        "target": [
+          0,
+          2.55,
+          1.55
+        ],
+        "fov": 38
+      },
+      "actorPosition": [
+        0,
+        0.03003858830547168,
+        1.5637828123281996
+      ],
+      "identity": true,
+      "file": "frame-0129.png",
+      "sha256": "4a3b2c6a98a5121587a09f7a9786362f42b47abd14496329963d2e0f9d7e67d0",
+      "bytes": 73112
+    },
+    {
+      "frame": 130,
+      "shot": "approach",
+      "time": 4.333333333333333,
+      "propOpen": 0,
+      "camera": {
+        "position": [
+          13.5,
+          3.5,
+          1.55
+        ],
+        "target": [
+          0,
+          2.55,
+          1.55
+        ],
+        "fov": 38
+      },
+      "actorPosition": [
+        0,
+        0.03425863002267393,
+        1.5908227743869108
+      ],
+      "identity": true,
+      "file": "frame-0130.png",
+      "sha256": "051a663b957b72e9f6e41fb7981f91cd41c9752969ce3169fdca558540aac4f4",
+      "bytes": 74533
+    },
+    {
+      "frame": 131,
+      "shot": "approach",
+      "time": 4.366666666666666,
+      "propOpen": 0,
+      "camera": {
+        "position": [
+          13.5,
+          3.5,
+          1.55
+        ],
+        "target": [
+          0,
+          2.55,
+          1.55
+        ],
+        "fov": 38
+      },
+      "actorPosition": [
+        0,
+        0.03696324945700491,
+        1.6095315388583
+      ],
+      "identity": true,
+      "file": "frame-0131.png",
+      "sha256": "d6a049ba8a8a81ca52b3c7255e9cf0d6e77aa54f1d184f2c13488f62f31f04f7",
+      "bytes": 74878
+    },
+    {
+      "frame": 132,
+      "shot": "discovery",
+      "time": 4.4,
+      "propOpen": 0,
+      "camera": {
+        "position": [
+          -3.5,
+          5.6,
+          6.8
+        ],
+        "target": [
+          0,
+          3.05,
+          2.45
+        ],
+        "fov": 47
+      },
+      "actorPosition": [
+        0,
+        0,
+        1.6165186712528354
+      ],
+      "identity": true,
+      "file": "frame-0132.png",
+      "sha256": "c20d4a82d8c3aaf306b9cb3191299143c3c54ad07630d02a432edaf9cc33a2b4",
+      "bytes": 210253
+    },
+    {
+      "frame": 133,
+      "shot": "discovery",
+      "time": 4.433333333333334,
+      "propOpen": 0,
+      "camera": {
+        "position": [
+          -3.5,
+          5.6,
+          6.8
+        ],
+        "target": [
+          0,
+          3.05,
+          2.45
+        ],
+        "fov": 47
+      },
+      "actorPosition": [
+        0,
+        0,
+        1.6165186712528354
+      ],
+      "identity": true,
+      "file": "frame-0133.png",
+      "sha256": "bf35ba09b95c0e051bb2d773adbc2915293c0cf8c4d660f3eebf836ea9fdd983",
+      "bytes": 209868
+    },
+    {
+      "frame": 134,
+      "shot": "discovery",
+      "time": 4.466666666666667,
+      "propOpen": 0,
+      "camera": {
+        "position": [
+          -3.5,
+          5.6,
+          6.8
+        ],
+        "target": [
+          0,
+          3.05,
+          2.45
+        ],
+        "fov": 47
+      },
+      "actorPosition": [
+        0,
+        0,
+        1.6165186712528354
+      ],
+      "identity": true,
+      "file": "frame-0134.png",
+      "sha256": "bd349576503c119654150ae17a49aa7a89d38878c71c73526f342a6f972d3e1e",
+      "bytes": 210686
+    },
+    {
+      "frame": 135,
+      "shot": "discovery",
+      "time": 4.5,
+      "propOpen": 0,
+      "camera": {
+        "position": [
+          -3.5,
+          5.6,
+          6.8
+        ],
+        "target": [
+          0,
+          3.05,
+          2.45
+        ],
+        "fov": 47
+      },
+      "actorPosition": [
+        0,
+        0,
+        1.6165186712528354
+      ],
+      "identity": true,
+      "file": "frame-0135.png",
+      "sha256": "481f9a4cd7754e417b538619271e4f83335ea2c2ef25da1ded5e9f9333a64b43",
+      "bytes": 209913
+    },
+    {
+      "frame": 136,
+      "shot": "discovery",
+      "time": 4.533333333333333,
+      "propOpen": 0,
+      "camera": {
+        "position": [
+          -3.5,
+          5.6,
+          6.8
+        ],
+        "target": [
+          0,
+          3.05,
+          2.45
+        ],
+        "fov": 47
+      },
+      "actorPosition": [
+        0,
+        0,
+        1.6165186712528354
+      ],
+      "identity": true,
+      "file": "frame-0136.png",
+      "sha256": "de53b58157506fab38bc2f7f5a22fefe29c3357d30140c8f5194e7f7263620f5",
+      "bytes": 210166
+    },
+    {
+      "frame": 137,
+      "shot": "discovery",
+      "time": 4.566666666666666,
+      "propOpen": 0.0050636574074074065,
+      "camera": {
+        "position": [
+          -3.5,
+          5.6,
+          6.8
+        ],
+        "target": [
+          0,
+          3.05,
+          2.45
+        ],
+        "fov": 47
+      },
+      "actorPosition": [
+        0,
+        0,
+        1.6165186712528354
+      ],
+      "identity": true,
+      "file": "frame-0137.png",
+      "sha256": "071d743209fd4219277aa69401c5fd6345660910d301250fb76e6acb4c292e83",
+      "bytes": 214755
+    },
+    {
+      "frame": 138,
+      "shot": "discovery",
+      "time": 4.6,
+      "propOpen": 0.019675925925925927,
+      "camera": {
+        "position": [
+          -3.5,
+          5.6,
+          6.8
+        ],
+        "target": [
+          0,
+          3.05,
+          2.45
+        ],
+        "fov": 47
+      },
+      "actorPosition": [
+        0,
+        0,
+        1.6165186712528354
+      ],
+      "identity": true,
+      "file": "frame-0138.png",
+      "sha256": "b25305cd965570ad80a7486faae82f10762fb895241504fcc02046477fa9b134",
+      "bytes": 218523
+    },
+    {
+      "frame": 139,
+      "shot": "discovery",
+      "time": 4.633333333333334,
+      "propOpen": 0.04296875,
+      "camera": {
+        "position": [
+          -3.5,
+          5.6,
+          6.8
+        ],
+        "target": [
+          0,
+          3.05,
+          2.45
+        ],
+        "fov": 47
+      },
+      "actorPosition": [
+        0,
+        0,
+        1.6165186712528354
+      ],
+      "identity": true,
+      "file": "frame-0139.png",
+      "sha256": "d2afc9b23c18e405c51cdc84507360eb0a53d572655e5b030d2a3ebdcb1dd209",
+      "bytes": 219803
+    },
+    {
+      "frame": 140,
+      "shot": "discovery",
+      "time": 4.666666666666667,
+      "propOpen": 0.07407407407407407,
+      "camera": {
+        "position": [
+          -3.5,
+          5.6,
+          6.8
+        ],
+        "target": [
+          0,
+          3.05,
+          2.45
+        ],
+        "fov": 47
+      },
+      "actorPosition": [
+        0,
+        0,
+        1.6165186712528354
+      ],
+      "identity": true,
+      "file": "frame-0140.png",
+      "sha256": "aa68eb0a21e31ef948b74769f43c2c3ae5d93c082d018e7d2deb9a7e46dda2f9",
+      "bytes": 222505
+    },
+    {
+      "frame": 141,
+      "shot": "discovery",
+      "time": 4.7,
+      "propOpen": 0.11212384259259262,
+      "camera": {
+        "position": [
+          -3.5,
+          5.6,
+          6.8
+        ],
+        "target": [
+          0,
+          3.05,
+          2.45
+        ],
+        "fov": 47
+      },
+      "actorPosition": [
+        0,
+        0,
+        1.6165186712528354
+      ],
+      "identity": true,
+      "file": "frame-0141.png",
+      "sha256": "1772cc021e6e9d6dd6d6fbfd91f768e8c36a3139df2575957398a7132a067a41",
+      "bytes": 228081
+    },
+    {
+      "frame": 142,
+      "shot": "discovery",
+      "time": 4.733333333333333,
+      "propOpen": 0.15625,
+      "camera": {
+        "position": [
+          -3.5,
+          5.6,
+          6.8
+        ],
+        "target": [
+          0,
+          3.05,
+          2.45
+        ],
+        "fov": 47
+      },
+      "actorPosition": [
+        0,
+        0,
+        1.6165186712528354
+      ],
+      "identity": true,
+      "file": "frame-0142.png",
+      "sha256": "f7a98830d48cf2742f6491bf428aa94c667f04435555b9793097723c04d666ee",
+      "bytes": 234339
+    },
+    {
+      "frame": 143,
+      "shot": "discovery",
+      "time": 4.766666666666667,
+      "propOpen": 0.20558449074074078,
+      "camera": {
+        "position": [
+          -3.5,
+          5.6,
+          6.8
+        ],
+        "target": [
+          0,
+          3.05,
+          2.45
+        ],
+        "fov": 47
+      },
+      "actorPosition": [
+        0,
+        0,
+        1.6165186712528354
+      ],
+      "identity": true,
+      "file": "frame-0143.png",
+      "sha256": "2b00a6c2e6fba9a125b8d5852d5f2bb583bc121f2ad7b7adb6e66bdfa1e37e40",
+      "bytes": 237215
+    },
+    {
+      "frame": 144,
+      "shot": "discovery",
+      "time": 4.8,
+      "propOpen": 0.25925925925925924,
+      "camera": {
+        "position": [
+          -3.5,
+          5.6,
+          6.8
+        ],
+        "target": [
+          0,
+          3.05,
+          2.45
+        ],
+        "fov": 47
+      },
+      "actorPosition": [
+        0,
+        0,
+        1.6165186712528354
+      ],
+      "identity": true,
+      "file": "frame-0144.png",
+      "sha256": "1e4fb546913b2e206c9a85c0910bd93fab7f848c0a7ba4a70152ec72da82b13f",
+      "bytes": 236628
+    },
+    {
+      "frame": 145,
+      "shot": "discovery",
+      "time": 4.833333333333333,
+      "propOpen": 0.31640625,
+      "camera": {
+        "position": [
+          -3.5,
+          5.6,
+          6.8
+        ],
+        "target": [
+          0,
+          3.05,
+          2.45
+        ],
+        "fov": 47
+      },
+      "actorPosition": [
+        0,
+        0,
+        1.6165186712528354
+      ],
+      "identity": true,
+      "file": "frame-0145.png",
+      "sha256": "d75c60d90744cc8f749781d77be7b0440eab0ebdef8700c5bb7905456bc828b1",
+      "bytes": 242174
+    },
+    {
+      "frame": 146,
+      "shot": "discovery",
+      "time": 4.866666666666666,
+      "propOpen": 0.37615740740740744,
+      "camera": {
+        "position": [
+          -3.5,
+          5.6,
+          6.8
+        ],
+        "target": [
+          0,
+          3.05,
+          2.45
+        ],
+        "fov": 47
+      },
+      "actorPosition": [
+        0,
+        0,
+        1.6165186712528354
+      ],
+      "identity": true,
+      "file": "frame-0146.png",
+      "sha256": "de93a5418096450450997809a5c90ca93c619643ec117c18df8af6575f36f6a0",
+      "bytes": 247466
+    },
+    {
+      "frame": 147,
+      "shot": "discovery",
+      "time": 4.9,
+      "propOpen": 0.43764467592592593,
+      "camera": {
+        "position": [
+          -3.5,
+          5.6,
+          6.8
+        ],
+        "target": [
+          0,
+          3.05,
+          2.45
+        ],
+        "fov": 47
+      },
+      "actorPosition": [
+        0,
+        0,
+        1.6165186712528354
+      ],
+      "identity": true,
+      "file": "frame-0147.png",
+      "sha256": "31b49bbd62cf0cf96fdbff2cb6729df7a2796218e573f60a9bc35d6be17f3791",
+      "bytes": 250440
+    },
+    {
+      "frame": 148,
+      "shot": "discovery",
+      "time": 4.933333333333334,
+      "propOpen": 0.5,
+      "camera": {
+        "position": [
+          -3.5,
+          5.6,
+          6.8
+        ],
+        "target": [
+          0,
+          3.05,
+          2.45
+        ],
+        "fov": 47
+      },
+      "actorPosition": [
+        0,
+        0,
+        1.6165186712528354
+      ],
+      "identity": true,
+      "file": "frame-0148.png",
+      "sha256": "95e85eb9f67b4069e1910c3b0ba7e6a2eed07506c07c516ef018a6aa8ef4c1b0",
+      "bytes": 253954
+    },
+    {
+      "frame": 149,
+      "shot": "discovery",
+      "time": 4.966666666666667,
+      "propOpen": 0.562355324074074,
+      "camera": {
+        "position": [
+          -3.5,
+          5.6,
+          6.8
+        ],
+        "target": [
+          0,
+          3.05,
+          2.45
+        ],
+        "fov": 47
+      },
+      "actorPosition": [
+        0,
+        0,
+        1.6165186712528354
+      ],
+      "identity": true,
+      "file": "frame-0149.png",
+      "sha256": "0e5845dff1d82b6224c8f3ad40c23e6d08f21d4aca8d9447a007a8451b68d003",
+      "bytes": 257852
+    },
+    {
+      "frame": 150,
+      "shot": "discovery",
+      "time": 5,
+      "propOpen": 0.6238425925925927,
+      "camera": {
+        "position": [
+          -3.5,
+          5.6,
+          6.8
+        ],
+        "target": [
+          0,
+          3.05,
+          2.45
+        ],
+        "fov": 47
+      },
+      "actorPosition": [
+        0,
+        0,
+        1.6165186712528354
+      ],
+      "identity": true,
+      "file": "frame-0150.png",
+      "sha256": "b77dd0e49d1b7227e20c2f2f8b0f399d82f885b61ee972739c476847e9f0127a",
+      "bytes": 261831
+    },
+    {
+      "frame": 151,
+      "shot": "discovery",
+      "time": 5.033333333333333,
+      "propOpen": 0.68359375,
+      "camera": {
+        "position": [
+          -3.5,
+          5.6,
+          6.8
+        ],
+        "target": [
+          0,
+          3.05,
+          2.45
+        ],
+        "fov": 47
+      },
+      "actorPosition": [
+        0,
+        0,
+        1.6165186712528354
+      ],
+      "identity": true,
+      "file": "frame-0151.png",
+      "sha256": "ce9c5f849ec4618d8dea922797c552e891a263109030a81ef4a8fbfec1fe5edf",
+      "bytes": 265407
+    },
+    {
+      "frame": 152,
+      "shot": "discovery",
+      "time": 5.066666666666666,
+      "propOpen": 0.7407407407407407,
+      "camera": {
+        "position": [
+          -3.5,
+          5.6,
+          6.8
+        ],
+        "target": [
+          0,
+          3.05,
+          2.45
+        ],
+        "fov": 47
+      },
+      "actorPosition": [
+        0,
+        0,
+        1.6165186712528354
+      ],
+      "identity": true,
+      "file": "frame-0152.png",
+      "sha256": "60674e0c8a578b135f1efd1556dfad85df87c88946390f7c4173b934173fd520",
+      "bytes": 270035
+    },
+    {
+      "frame": 153,
+      "shot": "discovery",
+      "time": 5.1,
+      "propOpen": 0.7944155092592593,
+      "camera": {
+        "position": [
+          -3.5,
+          5.6,
+          6.8
+        ],
+        "target": [
+          0,
+          3.05,
+          2.45
+        ],
+        "fov": 47
+      },
+      "actorPosition": [
+        0,
+        0,
+        1.6165186712528354
+      ],
+      "identity": true,
+      "file": "frame-0153.png",
+      "sha256": "f3c8ada02f333dd6a93e7452f40e10523b02269ce22f8b7bd4c7171d27ed7540",
+      "bytes": 272449
+    },
+    {
+      "frame": 154,
+      "shot": "discovery",
+      "time": 5.133333333333334,
+      "propOpen": 0.84375,
+      "camera": {
+        "position": [
+          -3.5,
+          5.6,
+          6.8
+        ],
+        "target": [
+          0,
+          3.05,
+          2.45
+        ],
+        "fov": 47
+      },
+      "actorPosition": [
+        0,
+        0,
+        1.6165186712528354
+      ],
+      "identity": true,
+      "file": "frame-0154.png",
+      "sha256": "ecf61606aba59b23109586e5b6ee2552f23fb59d685cb43c48a108b37b5a8918",
+      "bytes": 276985
+    },
+    {
+      "frame": 155,
+      "shot": "discovery",
+      "time": 5.166666666666667,
+      "propOpen": 0.8878761574074073,
+      "camera": {
+        "position": [
+          -3.5,
+          5.6,
+          6.8
+        ],
+        "target": [
+          0,
+          3.05,
+          2.45
+        ],
+        "fov": 47
+      },
+      "actorPosition": [
+        0,
+        0,
+        1.6165186712528354
+      ],
+      "identity": true,
+      "file": "frame-0155.png",
+      "sha256": "b4c7cd29c3c8aefbc5c3ad81e7a30680ace1f0bbcf923596caf8a3b899675280",
+      "bytes": 279451
+    },
+    {
+      "frame": 156,
+      "shot": "discovery",
+      "time": 5.2,
+      "propOpen": 0.925925925925926,
+      "camera": {
+        "position": [
+          -3.5,
+          5.6,
+          6.8
+        ],
+        "target": [
+          0,
+          3.05,
+          2.45
+        ],
+        "fov": 47
+      },
+      "actorPosition": [
+        0,
+        0,
+        1.6165186712528354
+      ],
+      "identity": true,
+      "file": "frame-0156.png",
+      "sha256": "3f51c7d6bed12e1b80840024b2eed9aaa843317cead3c63af13a8fb91ce3f1ec",
+      "bytes": 282055
+    },
+    {
+      "frame": 157,
+      "shot": "discovery",
+      "time": 5.233333333333333,
+      "propOpen": 0.95703125,
+      "camera": {
+        "position": [
+          -3.5,
+          5.6,
+          6.8
+        ],
+        "target": [
+          0,
+          3.05,
+          2.45
+        ],
+        "fov": 47
+      },
+      "actorPosition": [
+        0,
+        0,
+        1.6165186712528354
+      ],
+      "identity": true,
+      "file": "frame-0157.png",
+      "sha256": "74d1c1b332fd7d25b77222b98b32d63900b8e941e906c19248ec1e1a9607b332",
+      "bytes": 283563
+    },
+    {
+      "frame": 158,
+      "shot": "discovery",
+      "time": 5.266666666666667,
+      "propOpen": 0.9803240740740741,
+      "camera": {
+        "position": [
+          -3.5,
+          5.6,
+          6.8
+        ],
+        "target": [
+          0,
+          3.05,
+          2.45
+        ],
+        "fov": 47
+      },
+      "actorPosition": [
+        0,
+        0,
+        1.6165186712528354
+      ],
+      "identity": true,
+      "file": "frame-0158.png",
+      "sha256": "8f30ee6d8f0605d848b29ac1dba2edaa7be106d5698ee6e23550813a2fff4e33",
+      "bytes": 284225
+    },
+    {
+      "frame": 159,
+      "shot": "discovery",
+      "time": 5.3,
+      "propOpen": 0.9949363425925927,
+      "camera": {
+        "position": [
+          -3.5,
+          5.6,
+          6.8
+        ],
+        "target": [
+          0,
+          3.05,
+          2.45
+        ],
+        "fov": 47
+      },
+      "actorPosition": [
+        0,
+        0,
+        1.6165186712528354
+      ],
+      "identity": true,
+      "file": "frame-0159.png",
+      "sha256": "d8f2fd7ebb1d8b2da21d1b3d7cc96a045a316b1088e6489a8b668851225e5d4c",
+      "bytes": 284168
+    },
+    {
+      "frame": 160,
+      "shot": "discovery",
+      "time": 5.333333333333333,
+      "propOpen": 1,
+      "camera": {
+        "position": [
+          -3.5,
+          5.6,
+          6.8
+        ],
+        "target": [
+          0,
+          3.05,
+          2.45
+        ],
+        "fov": 47
+      },
+      "actorPosition": [
+        0,
+        0,
+        1.6165186712528354
+      ],
+      "identity": true,
+      "file": "frame-0160.png",
+      "sha256": "3e039cbbbf8da603183f8fdbf92103f8859de70450813ee11515a2392702fcbd",
+      "bytes": 285329
+    },
+    {
+      "frame": 161,
+      "shot": "discovery",
+      "time": 5.366666666666666,
+      "propOpen": 1,
+      "camera": {
+        "position": [
+          -3.5,
+          5.6,
+          6.8
+        ],
+        "target": [
+          0,
+          3.05,
+          2.45
+        ],
+        "fov": 47
+      },
+      "actorPosition": [
+        0,
+        0,
+        1.6165186712528354
+      ],
+      "identity": true,
+      "file": "frame-0161.png",
+      "sha256": "3e039cbbbf8da603183f8fdbf92103f8859de70450813ee11515a2392702fcbd",
+      "bytes": 285329
+    },
+    {
+      "frame": 162,
+      "shot": "discovery",
+      "time": 5.4,
+      "propOpen": 1,
+      "camera": {
+        "position": [
+          -3.5,
+          5.6,
+          6.8
+        ],
+        "target": [
+          0,
+          3.05,
+          2.45
+        ],
+        "fov": 47
+      },
+      "actorPosition": [
+        0,
+        0,
+        1.6165186712528354
+      ],
+      "identity": true,
+      "file": "frame-0162.png",
+      "sha256": "3e039cbbbf8da603183f8fdbf92103f8859de70450813ee11515a2392702fcbd",
+      "bytes": 285329
+    },
+    {
+      "frame": 163,
+      "shot": "discovery",
+      "time": 5.433333333333334,
+      "propOpen": 1,
+      "camera": {
+        "position": [
+          -3.5,
+          5.6,
+          6.8
+        ],
+        "target": [
+          0,
+          3.05,
+          2.45
+        ],
+        "fov": 47
+      },
+      "actorPosition": [
+        0,
+        0,
+        1.6165186712528354
+      ],
+      "identity": true,
+      "file": "frame-0163.png",
+      "sha256": "8ecb87bfb34a314ee87f174826ba4c8658b93a91a8b8aa1c488dc6983c65e089",
+      "bytes": 285223
+    },
+    {
+      "frame": 164,
+      "shot": "discovery",
+      "time": 5.466666666666667,
+      "propOpen": 1,
+      "camera": {
+        "position": [
+          -3.5,
+          5.6,
+          6.8
+        ],
+        "target": [
+          0,
+          3.05,
+          2.45
+        ],
+        "fov": 47
+      },
+      "actorPosition": [
+        0,
+        0,
+        1.6165186712528354
+      ],
+      "identity": true,
+      "file": "frame-0164.png",
+      "sha256": "07445796847d7f597d36004d762e547b733c08242adae886a3e34a363fa4ea03",
+      "bytes": 285611
+    },
+    {
+      "frame": 165,
+      "shot": "discovery",
+      "time": 5.5,
+      "propOpen": 1,
+      "camera": {
+        "position": [
+          -3.5,
+          5.6,
+          6.8
+        ],
+        "target": [
+          0,
+          3.05,
+          2.45
+        ],
+        "fov": 47
+      },
+      "actorPosition": [
+        0,
+        0,
+        1.6165186712528354
+      ],
+      "identity": true,
+      "file": "frame-0165.png",
+      "sha256": "2be04b770287b3f6e71ae4537681b687362e3a20844ace318b7ba2efb763e356",
+      "bytes": 285665
+    },
+    {
+      "frame": 166,
+      "shot": "discovery",
+      "time": 5.533333333333333,
+      "propOpen": 1,
+      "camera": {
+        "position": [
+          -3.5,
+          5.6,
+          6.8
+        ],
+        "target": [
+          0,
+          3.05,
+          2.45
+        ],
+        "fov": 47
+      },
+      "actorPosition": [
+        0,
+        0,
+        1.6165186712528354
+      ],
+      "identity": true,
+      "file": "frame-0166.png",
+      "sha256": "d86bbe0392bad4f77893b7e1501d4811105a3d979dd0f47be2dc07f7fc1209d7",
+      "bytes": 286217
+    },
+    {
+      "frame": 167,
+      "shot": "discovery",
+      "time": 5.566666666666666,
+      "propOpen": 1,
+      "camera": {
+        "position": [
+          -3.5,
+          5.6,
+          6.8
+        ],
+        "target": [
+          0,
+          3.05,
+          2.45
+        ],
+        "fov": 47
+      },
+      "actorPosition": [
+        0,
+        0,
+        1.6165186712528354
+      ],
+      "identity": true,
+      "file": "frame-0167.png",
+      "sha256": "70542f69ee1060594503b586f1a437a2be663248da487c1051c6f69586057924",
+      "bytes": 286309
+    },
+    {
+      "frame": 168,
+      "shot": "discovery",
+      "time": 5.6,
+      "propOpen": 1,
+      "camera": {
+        "position": [
+          -3.5,
+          5.6,
+          6.8
+        ],
+        "target": [
+          0,
+          3.05,
+          2.45
+        ],
+        "fov": 47
+      },
+      "actorPosition": [
+        0,
+        0,
+        1.6165186712528354
+      ],
+      "identity": true,
+      "file": "frame-0168.png",
+      "sha256": "587b33e18f5ab065a6680fe1c585d2d854053c1dfa7605eb745b4c8f35ec75a3",
+      "bytes": 287035
+    },
+    {
+      "frame": 169,
+      "shot": "discovery",
+      "time": 5.633333333333334,
+      "propOpen": 1,
+      "camera": {
+        "position": [
+          -3.5,
+          5.6,
+          6.8
+        ],
+        "target": [
+          0,
+          3.05,
+          2.45
+        ],
+        "fov": 47
+      },
+      "actorPosition": [
+        0,
+        0,
+        1.6165186712528354
+      ],
+      "identity": true,
+      "file": "frame-0169.png",
+      "sha256": "77a346c961ea5a80830e4c7b296f2344a0fd39fa2916ebe54867647aa821eeec",
+      "bytes": 287358
+    },
+    {
+      "frame": 170,
+      "shot": "discovery",
+      "time": 5.666666666666667,
+      "propOpen": 1,
+      "camera": {
+        "position": [
+          -3.5,
+          5.6,
+          6.8
+        ],
+        "target": [
+          0,
+          3.05,
+          2.45
+        ],
+        "fov": 47
+      },
+      "actorPosition": [
+        0,
+        0,
+        1.6165186712528354
+      ],
+      "identity": true,
+      "file": "frame-0170.png",
+      "sha256": "d18ad3bf21617b05e2882376bec361e35ee27e1983906fe827d0cff6bd8e2792",
+      "bytes": 287460
+    },
+    {
+      "frame": 171,
+      "shot": "discovery",
+      "time": 5.7,
+      "propOpen": 1,
+      "camera": {
+        "position": [
+          -3.5,
+          5.6,
+          6.8
+        ],
+        "target": [
+          0,
+          3.05,
+          2.45
+        ],
+        "fov": 47
+      },
+      "actorPosition": [
+        0,
+        0,
+        1.6165186712528354
+      ],
+      "identity": true,
+      "file": "frame-0171.png",
+      "sha256": "ab74c8b56a45cb3fc4c5921a97f7a1f972a34bfe2ce535bfd527580c0e0aae83",
+      "bytes": 287815
+    },
+    {
+      "frame": 172,
+      "shot": "discovery",
+      "time": 5.733333333333333,
+      "propOpen": 1,
+      "camera": {
+        "position": [
+          -3.5,
+          5.6,
+          6.8
+        ],
+        "target": [
+          0,
+          3.05,
+          2.45
+        ],
+        "fov": 47
+      },
+      "actorPosition": [
+        0,
+        0,
+        1.6165186712528354
+      ],
+      "identity": true,
+      "file": "frame-0172.png",
+      "sha256": "a15591377c3a17612bfbdc6e528345a807a0ff4ce634e142c145638bdb448171",
+      "bytes": 288071
+    },
+    {
+      "frame": 173,
+      "shot": "discovery",
+      "time": 5.766666666666667,
+      "propOpen": 1,
+      "camera": {
+        "position": [
+          -3.5,
+          5.6,
+          6.8
+        ],
+        "target": [
+          0,
+          3.05,
+          2.45
+        ],
+        "fov": 47
+      },
+      "actorPosition": [
+        0,
+        0,
+        1.6165186712528354
+      ],
+      "identity": true,
+      "file": "frame-0173.png",
+      "sha256": "4bd9eee41468282356160fe7651aec7af59fdc88c116a42d244224210da031fd",
+      "bytes": 288841
+    },
+    {
+      "frame": 174,
+      "shot": "discovery",
+      "time": 5.8,
+      "propOpen": 1,
+      "camera": {
+        "position": [
+          -3.5,
+          5.6,
+          6.8
+        ],
+        "target": [
+          0,
+          3.05,
+          2.45
+        ],
+        "fov": 47
+      },
+      "actorPosition": [
+        0,
+        0,
+        1.6165186712528354
+      ],
+      "identity": true,
+      "file": "frame-0174.png",
+      "sha256": "1ddb89d5ebd08d7be7e899688d7f41b9cf43ffdb5df71ab70cf8d9ea50b577f9",
+      "bytes": 289626
+    },
+    {
+      "frame": 175,
+      "shot": "discovery",
+      "time": 5.833333333333333,
+      "propOpen": 1,
+      "camera": {
+        "position": [
+          -3.5,
+          5.6,
+          6.8
+        ],
+        "target": [
+          0,
+          3.05,
+          2.45
+        ],
+        "fov": 47
+      },
+      "actorPosition": [
+        0,
+        0,
+        1.6165186712528354
+      ],
+      "identity": true,
+      "file": "frame-0175.png",
+      "sha256": "ab17805e75f6a555297b813184da6c1685c892394e583ad8041f6485056f4802",
+      "bytes": 290073
+    },
+    {
+      "frame": 176,
+      "shot": "discovery",
+      "time": 5.866666666666666,
+      "propOpen": 1,
+      "camera": {
+        "position": [
+          -3.5,
+          5.6,
+          6.8
+        ],
+        "target": [
+          0,
+          3.05,
+          2.45
+        ],
+        "fov": 47
+      },
+      "actorPosition": [
+        0,
+        0,
+        1.6165186712528354
+      ],
+      "identity": true,
+      "file": "frame-0176.png",
+      "sha256": "3a4d8216acea5bc3c1b086574fef8d8883aa1e9204e1c70b99fce6ff35d90812",
+      "bytes": 290072
+    },
+    {
+      "frame": 177,
+      "shot": "discovery",
+      "time": 5.9,
+      "propOpen": 1,
+      "camera": {
+        "position": [
+          -3.5,
+          5.6,
+          6.8
+        ],
+        "target": [
+          0,
+          3.05,
+          2.45
+        ],
+        "fov": 47
+      },
+      "actorPosition": [
+        0,
+        0,
+        1.6165186712528354
+      ],
+      "identity": true,
+      "file": "frame-0177.png",
+      "sha256": "568dacfbc848918df5140051cfc1bc1f6144aa5cc72d974c3e553cb51a17fea6",
+      "bytes": 289573
+    },
+    {
+      "frame": 178,
+      "shot": "discovery",
+      "time": 5.933333333333334,
+      "propOpen": 1,
+      "camera": {
+        "position": [
+          -3.5,
+          5.6,
+          6.8
+        ],
+        "target": [
+          0,
+          3.05,
+          2.45
+        ],
+        "fov": 47
+      },
+      "actorPosition": [
+        0,
+        0,
+        1.6165186712528354
+      ],
+      "identity": true,
+      "file": "frame-0178.png",
+      "sha256": "886a94f66e939f26ad45aa1daa51ae84189235bb392e1efd00633ea4f2910fbd",
+      "bytes": 290153
+    },
+    {
+      "frame": 179,
+      "shot": "discovery",
+      "time": 5.966666666666667,
+      "propOpen": 1,
+      "camera": {
+        "position": [
+          -3.5,
+          5.6,
+          6.8
+        ],
+        "target": [
+          0,
+          3.05,
+          2.45
+        ],
+        "fov": 47
+      },
+      "actorPosition": [
+        0,
+        0,
+        1.6165186712528354
+      ],
+      "identity": true,
+      "file": "frame-0179.png",
+      "sha256": "2126bd7c491a760cf1b9948111c69a9c85bced4664657d1c772f51c099494d08",
+      "bytes": 289944
+    },
+    {
+      "frame": 180,
+      "shot": "discovery",
+      "time": 6,
+      "propOpen": 1,
+      "camera": {
+        "position": [
+          -3.5,
+          5.6,
+          6.8
+        ],
+        "target": [
+          0,
+          3.05,
+          2.45
+        ],
+        "fov": 47
+      },
+      "actorPosition": [
+        0,
+        0,
+        1.6165186712528354
+      ],
+      "identity": true,
+      "file": "frame-0180.png",
+      "sha256": "77cbf0ee2e3064cffc2e641b0133e3320f3b3cdb2880e53d5c90ed6b51bf0ac4",
+      "bytes": 290504
+    },
+    {
+      "frame": 181,
+      "shot": "discovery",
+      "time": 6.033333333333333,
+      "propOpen": 1,
+      "camera": {
+        "position": [
+          -3.5,
+          5.6,
+          6.8
+        ],
+        "target": [
+          0,
+          3.05,
+          2.45
+        ],
+        "fov": 47
+      },
+      "actorPosition": [
+        0,
+        0,
+        1.6165186712528354
+      ],
+      "identity": true,
+      "file": "frame-0181.png",
+      "sha256": "77cbf0ee2e3064cffc2e641b0133e3320f3b3cdb2880e53d5c90ed6b51bf0ac4",
+      "bytes": 290504
+    },
+    {
+      "frame": 182,
+      "shot": "discovery",
+      "time": 6.066666666666666,
+      "propOpen": 1,
+      "camera": {
+        "position": [
+          -3.5,
+          5.6,
+          6.8
+        ],
+        "target": [
+          0,
+          3.05,
+          2.45
+        ],
+        "fov": 47
+      },
+      "actorPosition": [
+        0,
+        0,
+        1.6165186712528354
+      ],
+      "identity": true,
+      "file": "frame-0182.png",
+      "sha256": "77cbf0ee2e3064cffc2e641b0133e3320f3b3cdb2880e53d5c90ed6b51bf0ac4",
+      "bytes": 290504
+    },
+    {
+      "frame": 183,
+      "shot": "discovery",
+      "time": 6.1,
+      "propOpen": 1,
+      "camera": {
+        "position": [
+          -3.5,
+          5.6,
+          6.8
+        ],
+        "target": [
+          0,
+          3.05,
+          2.45
+        ],
+        "fov": 47
+      },
+      "actorPosition": [
+        0,
+        0,
+        1.6165186712528354
+      ],
+      "identity": true,
+      "file": "frame-0183.png",
+      "sha256": "77cbf0ee2e3064cffc2e641b0133e3320f3b3cdb2880e53d5c90ed6b51bf0ac4",
+      "bytes": 290504
+    },
+    {
+      "frame": 184,
+      "shot": "discovery",
+      "time": 6.133333333333334,
+      "propOpen": 1,
+      "camera": {
+        "position": [
+          -3.5,
+          5.6,
+          6.8
+        ],
+        "target": [
+          0,
+          3.05,
+          2.45
+        ],
+        "fov": 47
+      },
+      "actorPosition": [
+        0,
+        0,
+        1.6165186712528354
+      ],
+      "identity": true,
+      "file": "frame-0184.png",
+      "sha256": "77cbf0ee2e3064cffc2e641b0133e3320f3b3cdb2880e53d5c90ed6b51bf0ac4",
+      "bytes": 290504
+    },
+    {
+      "frame": 185,
+      "shot": "discovery",
+      "time": 6.166666666666667,
+      "propOpen": 1,
+      "camera": {
+        "position": [
+          -3.5,
+          5.6,
+          6.8
+        ],
+        "target": [
+          0,
+          3.05,
+          2.45
+        ],
+        "fov": 47
+      },
+      "actorPosition": [
+        0,
+        0,
+        1.6165186712528354
+      ],
+      "identity": true,
+      "file": "frame-0185.png",
+      "sha256": "77cbf0ee2e3064cffc2e641b0133e3320f3b3cdb2880e53d5c90ed6b51bf0ac4",
+      "bytes": 290504
+    },
+    {
+      "frame": 186,
+      "shot": "discovery",
+      "time": 6.2,
+      "propOpen": 1,
+      "camera": {
+        "position": [
+          -3.5,
+          5.6,
+          6.8
+        ],
+        "target": [
+          0,
+          3.05,
+          2.45
+        ],
+        "fov": 47
+      },
+      "actorPosition": [
+        0,
+        0,
+        1.6165186712528354
+      ],
+      "identity": true,
+      "file": "frame-0186.png",
+      "sha256": "77cbf0ee2e3064cffc2e641b0133e3320f3b3cdb2880e53d5c90ed6b51bf0ac4",
+      "bytes": 290504
+    },
+    {
+      "frame": 187,
+      "shot": "discovery",
+      "time": 6.233333333333333,
+      "propOpen": 1,
+      "camera": {
+        "position": [
+          -3.5,
+          5.6,
+          6.8
+        ],
+        "target": [
+          0,
+          3.05,
+          2.45
+        ],
+        "fov": 47
+      },
+      "actorPosition": [
+        0,
+        0,
+        1.6165186712528354
+      ],
+      "identity": true,
+      "file": "frame-0187.png",
+      "sha256": "77cbf0ee2e3064cffc2e641b0133e3320f3b3cdb2880e53d5c90ed6b51bf0ac4",
+      "bytes": 290504
+    },
+    {
+      "frame": 188,
+      "shot": "discovery",
+      "time": 6.266666666666667,
+      "propOpen": 1,
+      "camera": {
+        "position": [
+          -3.5,
+          5.6,
+          6.8
+        ],
+        "target": [
+          0,
+          3.05,
+          2.45
+        ],
+        "fov": 47
+      },
+      "actorPosition": [
+        0,
+        0,
+        1.6165186712528354
+      ],
+      "identity": true,
+      "file": "frame-0188.png",
+      "sha256": "77cbf0ee2e3064cffc2e641b0133e3320f3b3cdb2880e53d5c90ed6b51bf0ac4",
+      "bytes": 290504
+    },
+    {
+      "frame": 189,
+      "shot": "discovery",
+      "time": 6.3,
+      "propOpen": 1,
+      "camera": {
+        "position": [
+          -3.5,
+          5.6,
+          6.8
+        ],
+        "target": [
+          0,
+          3.05,
+          2.45
+        ],
+        "fov": 47
+      },
+      "actorPosition": [
+        0,
+        0,
+        1.6165186712528354
+      ],
+      "identity": true,
+      "file": "frame-0189.png",
+      "sha256": "77cbf0ee2e3064cffc2e641b0133e3320f3b3cdb2880e53d5c90ed6b51bf0ac4",
+      "bytes": 290504
+    },
+    {
+      "frame": 190,
+      "shot": "discovery",
+      "time": 6.333333333333333,
+      "propOpen": 1,
+      "camera": {
+        "position": [
+          -3.5,
+          5.6,
+          6.8
+        ],
+        "target": [
+          0,
+          3.05,
+          2.45
+        ],
+        "fov": 47
+      },
+      "actorPosition": [
+        0,
+        0,
+        1.6165186712528354
+      ],
+      "identity": true,
+      "file": "frame-0190.png",
+      "sha256": "77cbf0ee2e3064cffc2e641b0133e3320f3b3cdb2880e53d5c90ed6b51bf0ac4",
+      "bytes": 290504
+    },
+    {
+      "frame": 191,
+      "shot": "discovery",
+      "time": 6.366666666666666,
+      "propOpen": 1,
+      "camera": {
+        "position": [
+          -3.5,
+          5.6,
+          6.8
+        ],
+        "target": [
+          0,
+          3.05,
+          2.45
+        ],
+        "fov": 47
+      },
+      "actorPosition": [
+        0,
+        0,
+        1.6165186712528354
+      ],
+      "identity": true,
+      "file": "frame-0191.png",
+      "sha256": "77cbf0ee2e3064cffc2e641b0133e3320f3b3cdb2880e53d5c90ed6b51bf0ac4",
+      "bytes": 290504
+    },
+    {
+      "frame": 192,
+      "shot": "discovery",
+      "time": 6.4,
+      "propOpen": 1,
+      "camera": {
+        "position": [
+          -3.5,
+          5.6,
+          6.8
+        ],
+        "target": [
+          0,
+          3.05,
+          2.45
+        ],
+        "fov": 47
+      },
+      "actorPosition": [
+        0,
+        0,
+        1.6165186712528354
+      ],
+      "identity": true,
+      "file": "frame-0192.png",
+      "sha256": "77cbf0ee2e3064cffc2e641b0133e3320f3b3cdb2880e53d5c90ed6b51bf0ac4",
+      "bytes": 290504
+    },
+    {
+      "frame": 193,
+      "shot": "discovery",
+      "time": 6.433333333333334,
+      "propOpen": 1,
+      "camera": {
+        "position": [
+          -3.5,
+          5.6,
+          6.8
+        ],
+        "target": [
+          0,
+          3.05,
+          2.45
+        ],
+        "fov": 47
+      },
+      "actorPosition": [
+        0,
+        0,
+        1.6165186712528354
+      ],
+      "identity": true,
+      "file": "frame-0193.png",
+      "sha256": "77cbf0ee2e3064cffc2e641b0133e3320f3b3cdb2880e53d5c90ed6b51bf0ac4",
+      "bytes": 290504
+    },
+    {
+      "frame": 194,
+      "shot": "discovery",
+      "time": 6.466666666666667,
+      "propOpen": 1,
+      "camera": {
+        "position": [
+          -3.5,
+          5.6,
+          6.8
+        ],
+        "target": [
+          0,
+          3.05,
+          2.45
+        ],
+        "fov": 47
+      },
+      "actorPosition": [
+        0,
+        0,
+        1.6165186712528354
+      ],
+      "identity": true,
+      "file": "frame-0194.png",
+      "sha256": "77cbf0ee2e3064cffc2e641b0133e3320f3b3cdb2880e53d5c90ed6b51bf0ac4",
+      "bytes": 290504
+    },
+    {
+      "frame": 195,
+      "shot": "discovery",
+      "time": 6.5,
+      "propOpen": 1,
+      "camera": {
+        "position": [
+          -3.5,
+          5.6,
+          6.8
+        ],
+        "target": [
+          0,
+          3.05,
+          2.45
+        ],
+        "fov": 47
+      },
+      "actorPosition": [
+        0,
+        0,
+        1.6165186712528354
+      ],
+      "identity": true,
+      "file": "frame-0195.png",
+      "sha256": "77cbf0ee2e3064cffc2e641b0133e3320f3b3cdb2880e53d5c90ed6b51bf0ac4",
+      "bytes": 290504
+    },
+    {
+      "frame": 196,
+      "shot": "discovery",
+      "time": 6.533333333333333,
+      "propOpen": 1,
+      "camera": {
+        "position": [
+          -3.5,
+          5.6,
+          6.8
+        ],
+        "target": [
+          0,
+          3.05,
+          2.45
+        ],
+        "fov": 47
+      },
+      "actorPosition": [
+        0,
+        0,
+        1.6165186712528354
+      ],
+      "identity": true,
+      "file": "frame-0196.png",
+      "sha256": "77cbf0ee2e3064cffc2e641b0133e3320f3b3cdb2880e53d5c90ed6b51bf0ac4",
+      "bytes": 290504
+    },
+    {
+      "frame": 197,
+      "shot": "discovery",
+      "time": 6.566666666666666,
+      "propOpen": 1,
+      "camera": {
+        "position": [
+          -3.5,
+          5.6,
+          6.8
+        ],
+        "target": [
+          0,
+          3.05,
+          2.45
+        ],
+        "fov": 47
+      },
+      "actorPosition": [
+        0,
+        0,
+        1.6165186712528354
+      ],
+      "identity": true,
+      "file": "frame-0197.png",
+      "sha256": "77cbf0ee2e3064cffc2e641b0133e3320f3b3cdb2880e53d5c90ed6b51bf0ac4",
+      "bytes": 290504
+    },
+    {
+      "frame": 198,
+      "shot": "discovery",
+      "time": 6.6,
+      "propOpen": 1,
+      "camera": {
+        "position": [
+          -3.5,
+          5.6,
+          6.8
+        ],
+        "target": [
+          0,
+          3.05,
+          2.45
+        ],
+        "fov": 47
+      },
+      "actorPosition": [
+        0,
+        0,
+        1.6165186712528354
+      ],
+      "identity": true,
+      "file": "frame-0198.png",
+      "sha256": "77cbf0ee2e3064cffc2e641b0133e3320f3b3cdb2880e53d5c90ed6b51bf0ac4",
+      "bytes": 290504
+    },
+    {
+      "frame": 199,
+      "shot": "discovery",
+      "time": 6.633333333333334,
+      "propOpen": 1,
+      "camera": {
+        "position": [
+          -3.5,
+          5.6,
+          6.8
+        ],
+        "target": [
+          0,
+          3.05,
+          2.45
+        ],
+        "fov": 47
+      },
+      "actorPosition": [
+        0,
+        0,
+        1.6165186712528354
+      ],
+      "identity": true,
+      "file": "frame-0199.png",
+      "sha256": "77cbf0ee2e3064cffc2e641b0133e3320f3b3cdb2880e53d5c90ed6b51bf0ac4",
+      "bytes": 290504
+    },
+    {
+      "frame": 200,
+      "shot": "discovery",
+      "time": 6.666666666666667,
+      "propOpen": 1,
+      "camera": {
+        "position": [
+          -3.5,
+          5.6,
+          6.8
+        ],
+        "target": [
+          0,
+          3.05,
+          2.45
+        ],
+        "fov": 47
+      },
+      "actorPosition": [
+        0,
+        0,
+        1.6165186712528354
+      ],
+      "identity": true,
+      "file": "frame-0200.png",
+      "sha256": "77cbf0ee2e3064cffc2e641b0133e3320f3b3cdb2880e53d5c90ed6b51bf0ac4",
+      "bytes": 290504
+    },
+    {
+      "frame": 201,
+      "shot": "discovery",
+      "time": 6.7,
+      "propOpen": 1,
+      "camera": {
+        "position": [
+          -3.5,
+          5.6,
+          6.8
+        ],
+        "target": [
+          0,
+          3.05,
+          2.45
+        ],
+        "fov": 47
+      },
+      "actorPosition": [
+        0,
+        0,
+        1.6165186712528354
+      ],
+      "identity": true,
+      "file": "frame-0201.png",
+      "sha256": "77cbf0ee2e3064cffc2e641b0133e3320f3b3cdb2880e53d5c90ed6b51bf0ac4",
+      "bytes": 290504
+    },
+    {
+      "frame": 202,
+      "shot": "discovery",
+      "time": 6.733333333333333,
+      "propOpen": 1,
+      "camera": {
+        "position": [
+          -3.5,
+          5.6,
+          6.8
+        ],
+        "target": [
+          0,
+          3.05,
+          2.45
+        ],
+        "fov": 47
+      },
+      "actorPosition": [
+        0,
+        0,
+        1.6165186712528354
+      ],
+      "identity": true,
+      "file": "frame-0202.png",
+      "sha256": "77cbf0ee2e3064cffc2e641b0133e3320f3b3cdb2880e53d5c90ed6b51bf0ac4",
+      "bytes": 290504
+    },
+    {
+      "frame": 203,
+      "shot": "discovery",
+      "time": 6.766666666666667,
+      "propOpen": 1,
+      "camera": {
+        "position": [
+          -3.5,
+          5.6,
+          6.8
+        ],
+        "target": [
+          0,
+          3.05,
+          2.45
+        ],
+        "fov": 47
+      },
+      "actorPosition": [
+        0,
+        0,
+        1.6165186712528354
+      ],
+      "identity": true,
+      "file": "frame-0203.png",
+      "sha256": "77cbf0ee2e3064cffc2e641b0133e3320f3b3cdb2880e53d5c90ed6b51bf0ac4",
+      "bytes": 290504
+    },
+    {
+      "frame": 204,
+      "shot": "discovery",
+      "time": 6.8,
+      "propOpen": 1,
+      "camera": {
+        "position": [
+          -3.5,
+          5.6,
+          6.8
+        ],
+        "target": [
+          0,
+          3.05,
+          2.45
+        ],
+        "fov": 47
+      },
+      "actorPosition": [
+        0,
+        0,
+        1.6165186712528354
+      ],
+      "identity": true,
+      "file": "frame-0204.png",
+      "sha256": "77cbf0ee2e3064cffc2e641b0133e3320f3b3cdb2880e53d5c90ed6b51bf0ac4",
+      "bytes": 290504
+    },
+    {
+      "frame": 205,
+      "shot": "discovery",
+      "time": 6.833333333333333,
+      "propOpen": 1,
+      "camera": {
+        "position": [
+          -3.5,
+          5.6,
+          6.8
+        ],
+        "target": [
+          0,
+          3.05,
+          2.45
+        ],
+        "fov": 47
+      },
+      "actorPosition": [
+        0,
+        0,
+        1.6165186712528354
+      ],
+      "identity": true,
+      "file": "frame-0205.png",
+      "sha256": "77cbf0ee2e3064cffc2e641b0133e3320f3b3cdb2880e53d5c90ed6b51bf0ac4",
+      "bytes": 290504
+    },
+    {
+      "frame": 206,
+      "shot": "discovery",
+      "time": 6.866666666666666,
+      "propOpen": 1,
+      "camera": {
+        "position": [
+          -3.5,
+          5.6,
+          6.8
+        ],
+        "target": [
+          0,
+          3.05,
+          2.45
+        ],
+        "fov": 47
+      },
+      "actorPosition": [
+        0,
+        0,
+        1.6165186712528354
+      ],
+      "identity": true,
+      "file": "frame-0206.png",
+      "sha256": "77cbf0ee2e3064cffc2e641b0133e3320f3b3cdb2880e53d5c90ed6b51bf0ac4",
+      "bytes": 290504
+    },
+    {
+      "frame": 207,
+      "shot": "discovery",
+      "time": 6.9,
+      "propOpen": 1,
+      "camera": {
+        "position": [
+          -3.5,
+          5.6,
+          6.8
+        ],
+        "target": [
+          0,
+          3.05,
+          2.45
+        ],
+        "fov": 47
+      },
+      "actorPosition": [
+        0,
+        0,
+        1.6165186712528354
+      ],
+      "identity": true,
+      "file": "frame-0207.png",
+      "sha256": "77cbf0ee2e3064cffc2e641b0133e3320f3b3cdb2880e53d5c90ed6b51bf0ac4",
+      "bytes": 290504
+    },
+    {
+      "frame": 208,
+      "shot": "discovery",
+      "time": 6.933333333333334,
+      "propOpen": 1,
+      "camera": {
+        "position": [
+          -3.5,
+          5.6,
+          6.8
+        ],
+        "target": [
+          0,
+          3.05,
+          2.45
+        ],
+        "fov": 47
+      },
+      "actorPosition": [
+        0,
+        0,
+        1.6165186712528354
+      ],
+      "identity": true,
+      "file": "frame-0208.png",
+      "sha256": "77cbf0ee2e3064cffc2e641b0133e3320f3b3cdb2880e53d5c90ed6b51bf0ac4",
+      "bytes": 290504
+    },
+    {
+      "frame": 209,
+      "shot": "discovery",
+      "time": 6.966666666666667,
+      "propOpen": 1,
+      "camera": {
+        "position": [
+          -3.5,
+          5.6,
+          6.8
+        ],
+        "target": [
+          0,
+          3.05,
+          2.45
+        ],
+        "fov": 47
+      },
+      "actorPosition": [
+        0,
+        0,
+        1.6165186712528354
+      ],
+      "identity": true,
+      "file": "frame-0209.png",
+      "sha256": "77cbf0ee2e3064cffc2e641b0133e3320f3b3cdb2880e53d5c90ed6b51bf0ac4",
+      "bytes": 290504
+    },
+    {
+      "frame": 210,
+      "shot": "discovery",
+      "time": 7,
+      "propOpen": 1,
+      "camera": {
+        "position": [
+          -3.5,
+          5.6,
+          6.8
+        ],
+        "target": [
+          0,
+          3.05,
+          2.45
+        ],
+        "fov": 47
+      },
+      "actorPosition": [
+        0,
+        0,
+        1.6165186712528354
+      ],
+      "identity": true,
+      "file": "frame-0210.png",
+      "sha256": "77cbf0ee2e3064cffc2e641b0133e3320f3b3cdb2880e53d5c90ed6b51bf0ac4",
+      "bytes": 290504
+    },
+    {
+      "frame": 211,
+      "shot": "discovery",
+      "time": 7.033333333333333,
+      "propOpen": 1,
+      "camera": {
+        "position": [
+          -3.5,
+          5.6,
+          6.8
+        ],
+        "target": [
+          0,
+          3.05,
+          2.45
+        ],
+        "fov": 47
+      },
+      "actorPosition": [
+        0,
+        0,
+        1.6165186712528354
+      ],
+      "identity": true,
+      "file": "frame-0211.png",
+      "sha256": "77cbf0ee2e3064cffc2e641b0133e3320f3b3cdb2880e53d5c90ed6b51bf0ac4",
+      "bytes": 290504
+    },
+    {
+      "frame": 212,
+      "shot": "discovery",
+      "time": 7.066666666666666,
+      "propOpen": 1,
+      "camera": {
+        "position": [
+          -3.5,
+          5.6,
+          6.8
+        ],
+        "target": [
+          0,
+          3.05,
+          2.45
+        ],
+        "fov": 47
+      },
+      "actorPosition": [
+        0,
+        0,
+        1.6165186712528354
+      ],
+      "identity": true,
+      "file": "frame-0212.png",
+      "sha256": "77cbf0ee2e3064cffc2e641b0133e3320f3b3cdb2880e53d5c90ed6b51bf0ac4",
+      "bytes": 290504
+    },
+    {
+      "frame": 213,
+      "shot": "discovery",
+      "time": 7.1,
+      "propOpen": 1,
+      "camera": {
+        "position": [
+          -3.5,
+          5.6,
+          6.8
+        ],
+        "target": [
+          0,
+          3.05,
+          2.45
+        ],
+        "fov": 47
+      },
+      "actorPosition": [
+        0,
+        0,
+        1.6165186712528354
+      ],
+      "identity": true,
+      "file": "frame-0213.png",
+      "sha256": "77cbf0ee2e3064cffc2e641b0133e3320f3b3cdb2880e53d5c90ed6b51bf0ac4",
+      "bytes": 290504
+    },
+    {
+      "frame": 214,
+      "shot": "discovery",
+      "time": 7.133333333333334,
+      "propOpen": 1,
+      "camera": {
+        "position": [
+          -3.5,
+          5.6,
+          6.8
+        ],
+        "target": [
+          0,
+          3.05,
+          2.45
+        ],
+        "fov": 47
+      },
+      "actorPosition": [
+        0,
+        0,
+        1.6165186712528354
+      ],
+      "identity": true,
+      "file": "frame-0214.png",
+      "sha256": "77cbf0ee2e3064cffc2e641b0133e3320f3b3cdb2880e53d5c90ed6b51bf0ac4",
+      "bytes": 290504
+    },
+    {
+      "frame": 215,
+      "shot": "discovery",
+      "time": 7.166666666666667,
+      "propOpen": 1,
+      "camera": {
+        "position": [
+          -3.5,
+          5.6,
+          6.8
+        ],
+        "target": [
+          0,
+          3.05,
+          2.45
+        ],
+        "fov": 47
+      },
+      "actorPosition": [
+        0,
+        0,
+        1.6165186712528354
+      ],
+      "identity": true,
+      "file": "frame-0215.png",
+      "sha256": "77cbf0ee2e3064cffc2e641b0133e3320f3b3cdb2880e53d5c90ed6b51bf0ac4",
+      "bytes": 290504
+    }
+  ],
+  "errors": [],
+  "resources": {
+    "availableParallelism": 2,
+    "ffmpegThreads": 2,
+    "peakSampledSubtreeRssMiB": 942.5546875,
+    "rssMethod": "1-second ps samples of exporter/browser/encoder subtree; summed RSS counts shared pages per process; HTTP server excluded",
+    "rawPngBytes": 35175794,
+    "mp4Bytes": 341395,
+    "exporterMaxRssKiB": 99776
+  },
+  "timings": {
+    "renderSeconds": 75.810408954,
+    "repeatSeconds": 77.53571959899999,
+    "encodeSeconds": 2.0235759050000053,
+    "decodeSeconds": 0.2048864959999919,
+    "totalSeconds": 157.844753838
+  },
+  "browser": "141.0.7390.37",
+  "webgl": "WebGL 2.0 (OpenGL ES 3.0 Chromium)",
+  "determinism": {
+    "allFramesRepeated": 216,
+    "order": "reverse",
+    "pngHashesIdentical": true
+  },
+  "cuts": [
+    {
+      "frame": 60,
+      "time": 2,
+      "from": "notice",
+      "to": "approach",
+      "differentSourcePixels": true,
+      "decodedSceneScore": 0.307926
+    },
+    {
+      "frame": 132,
+      "time": 4.4,
+      "from": "approach",
+      "to": "discovery",
+      "differentSourcePixels": true,
+      "decodedSceneScore": 0.569344
+    }
+  ],
+  "ffmpeg": {
+    "version": "ffmpeg version 7.1.5-0+deb13u1 Copyright (c) 2000-2026 the FFmpeg developers",
+    "args": [
+      "-y",
+      "-hide_banner",
+      "-loglevel",
+      "error",
+      "-framerate",
+      "30",
+      "-start_number",
+      "0",
+      "-i",
+      "evidence/production/raw/frames/frame-%04d.png",
+      "-frames:v",
+      "216",
+      "-c:v",
+      "libx264",
+      "-threads",
+      "2",
+      "-preset",
+      "medium",
+      "-crf",
+      "20",
+      "-profile:v",
+      "main",
+      "-level:v",
+      "3.1",
+      "-pix_fmt",
+      "yuv420p",
+      "-vf",
+      "scale=out_color_matrix=bt709:out_range=tv",
+      "-color_primaries",
+      "bt709",
+      "-color_trc",
+      "bt709",
+      "-colorspace",
+      "bt709",
+      "-color_range",
+      "tv",
+      "-g",
+      "60",
+      "-force_key_frames",
+      "2,4.4",
+      "-fps_mode",
+      "cfr",
+      "-movflags",
+      "+faststart",
+      "-an",
+      "evidence/production/raw/feasibility.pending.mp4"
+    ]
+  },
+  "probe": {
+    "streams": [
+      {
+        "index": 0,
+        "codec_name": "h264",
+        "codec_long_name": "H.264 / AVC / MPEG-4 AVC / MPEG-4 part 10",
+        "profile": "Main",
+        "codec_type": "video",
+        "codec_tag_string": "avc1",
+        "codec_tag": "0x31637661",
+        "width": 720,
+        "height": 1280,
+        "coded_width": 720,
+        "coded_height": 1280,
+        "closed_captions": 0,
+        "film_grain": 0,
+        "has_b_frames": 2,
+        "pix_fmt": "yuv420p",
+        "level": 31,
+        "color_range": "tv",
+        "color_space": "bt709",
+        "chroma_location": "left",
+        "field_order": "progressive",
+        "refs": 4,
+        "is_avc": "true",
+        "nal_length_size": "4",
+        "id": "0x1",
+        "r_frame_rate": "30/1",
+        "avg_frame_rate": "30/1",
+        "time_base": "1/15360",
+        "start_pts": 0,
+        "start_time": "0.000000",
+        "duration_ts": 110592,
+        "duration": "7.200000",
+        "bit_rate": "375524",
+        "bits_per_raw_sample": "8",
+        "nb_frames": "216",
+        "nb_read_frames": "216",
+        "extradata_size": 43,
+        "disposition": {
+          "default": 1,
+          "dub": 0,
+          "original": 0,
+          "comment": 0,
+          "lyrics": 0,
+          "karaoke": 0,
+          "forced": 0,
+          "hearing_impaired": 0,
+          "visual_impaired": 0,
+          "clean_effects": 0,
+          "attached_pic": 0,
+          "timed_thumbnails": 0,
+          "non_diegetic": 0,
+          "captions": 0,
+          "descriptions": 0,
+          "metadata": 0,
+          "dependent": 0,
+          "still_image": 0,
+          "multilayer": 0
+        },
+        "tags": {
+          "language": "und",
+          "handler_name": "VideoHandler",
+          "vendor_id": "[0][0][0][0]",
+          "encoder": "Lavc61.19.101 libx264"
+        }
+      }
+    ],
+    "format": {
+      "filename": "evidence/production/raw/feasibility.pending.mp4",
+      "nb_streams": 1,
+      "nb_programs": 0,
+      "nb_stream_groups": 0,
+      "format_name": "mov,mp4,m4a,3gp,3g2,mj2",
+      "format_long_name": "QuickTime / MOV",
+      "start_time": "0.000000",
+      "duration": "7.200000",
+      "size": "341395",
+      "bit_rate": "379327",
+      "probe_score": 100,
+      "tags": {
+        "major_brand": "isom",
+        "minor_version": "512",
+        "compatible_brands": "isomiso2avc1mp41",
+        "encoder": "Lavf61.7.103"
+      }
+    }
+  },
+  "decode": {
+    "allFrames": 216,
+    "continuousPts": true,
+    "noErrors": true,
+    "cutKeyframes": true
+  },
+  "highestSceneChanges": [
+    {
+      "frame": 132,
+      "score": 0.569344
+    },
+    {
+      "frame": 60,
+      "score": 0.307926
+    },
+    {
+      "frame": 80,
+      "score": 0.002902
+    },
+    {
+      "frame": 89,
+      "score": 0.002898
+    }
+  ],
+  "mp4Sha256": "1fea25486ef9a78948f2739be23279a919b5fc4529134d3ca6fbbd7413c3b417",
+  "playbackBackend": {
+    "renderBrowserH264Support": "",
+    "renderBrowser": "141.0.7390.37",
+    "fallback": {
+      "executablePath": "/usr/bin/chromium",
+      "version": "156.0.8078.79"
+    }
+  },
+  "playback": {
+    "width": 720,
+    "height": 1280,
+    "duration": 7.2,
+    "advancedTo": 0.4012,
+    "error": null,
+    "seekAcrossCuts": true
+  }
+}
