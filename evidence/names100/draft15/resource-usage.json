@@ -1,0 +1,16 @@
+{
+  "command": [
+    "node",
+    "scripts/render-shot-list.js",
+    "--shots",
+    "stories/names100/scene-proof.json",
+    "--out",
+    "renders/names100-animatic"
+  ],
+  "exitCode": 0,
+  "wallSeconds": 101.69967369499864,
+  "cpuUserSeconds": 5.5799520000000005,
+  "cpuSystemSeconds": 2.023777,
+  "peakIndividualChildRssKiB": 137256,
+  "method": "Python resource RUSAGE_CHILDREN deltas for waited children; CPU sums user/system, not wall time. Adopted/unreaped descendants may be excluded. ru_maxrss is the largest individual child, not summed tree RSS; use exporter manifest for sampled summed tree RSS."
+}

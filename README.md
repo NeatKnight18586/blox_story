@@ -1,19 +1,18 @@
-# BlockStory — reusable cinematic shot pipeline
+# BlockStory — cinematic scene proofs
 
-Current milestone: **P2A reusable character casting** on the deterministic P1 renderer. Two independent named avatars share the existing animation engine; Classic stays the default, with one optional tapered torso and minimal removable bob hair/vest layers. Fixed two-shot, close-up and over-the-shoulder presets support small original silent scenes.
+Current milestone: **names100's ghost-and-Mara reveal only**, a silent low-resolution animatic for global frames 482–944 (16.07–31.50s). The review copy is **360×640, 30fps, 463 frames** so Eli's counter changes at exactly global frame 789. The initial 15fps draft was rendered and inspected first; no full episode, high-resolution proof or voiceover was produced.
 
-[P2A contract and commands](P2A_CASTING.md) · [acting test/evidence](evidence/p2a/REPORT.md) · [P1 renderer/recovery contract](P1_PIPELINE.md) · [original feasibility scene](PRODUCTION_FEASIBILITY.md).
+[Watch/download the reveal](evidence/names100/movie.mp4) · [critical before/after frames](evidence/names100/critical-beats.png) · [decoded contact sheet](evidence/names100/contact-sheet.png) · [verified evidence/resources](evidence/names100/REPORT.md) · [global frame map and commands](stories/names100/SCENE_PROOF.md).
 
 ```sh
 npm test
-npm run test:p1
-npm run test:casting
-npm run render:shots -- --shots production/reassurance.json --out renders/reassurance
+npm run test:reveal
+npm run render:names100
 ```
 
-The exporter owns its local server, resumes verified PNGs and publishes a H.264 9:16 MP4 only after reverse pixel checks, full decode and browser playback. The test is 12 seconds/360 frames/720×1280/30fps, silent. Output is referenced by `<out>/latest.json`. No new dependency, editor, generator, physics system, audio or walking transitions. Existing films, classic avatar, both gaits and historical evidence remain intact. For developer frame seeking, `npm run preview` and `/production/?shots=reassurance.json`; `__production.renderFrame(frame)` samples explicitly. No iPad setup is required for the delivered movie.
+The same P1 resumable exporter and P2A two-character system render the scene. Classic/tapered bodies, oval heads, faces, appearances and both gaits are preserved. The original WAV is not in GitHub; this proof follows the written timing cues and has no soundtrack or lip sync. Stop for visual review before expanding the story.
 
-The earlier milestone descriptions below are historical references; current scope and executed results are in STATUS.md. Stop after the P2A PR for review.
+[P1 renderer/recovery contract](P1_PIPELINE.md) · [P2A casting contract](P2A_CASTING.md) · [original feasibility scene](PRODUCTION_FEASIBILITY.md). Earlier milestone descriptions below are historical; current executed status is in STATUS.md.
 
 ## Avatar and action lab reference
 One neutral six-part block avatar with a softly rounded oval cylindrical head in vanilla Three.js 0.187.0. **F1 PASS**: real API tests and Chromium WebGL captures completed. See [STATUS.md](STATUS.md) for evidence and limits. F2A adds idle/look-react and transitions; a standalone walk foundation is available on the F2B1 PR; walking transitions remain deferred.
