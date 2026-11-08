@@ -1,5 +1,5 @@
 # BlockStory — F1 v3
-One neutral six-part block avatar with a softly rounded oval cylindrical head in vanilla Three.js 0.187.0. **F1 PASS**: real API tests and Chromium WebGL captures completed. See [STATUS.md](STATUS.md) for evidence and limits. F2 has not started.
+One neutral six-part block avatar with a softly rounded oval cylindrical head in vanilla Three.js 0.187.0. **F1 PASS**: real API tests and Chromium WebGL captures completed. See [STATUS.md](STATUS.md) for evidence and limits. F2 specification and handoff are prepared; its animation implementation has not started.
 
 ## Preview and verification
 Developer reproduction (Codex has already run these; no iPad installation is required):
@@ -33,3 +33,6 @@ Factory produces the undressed body; face is explicitly applied. Y up, +Z forwar
 
 ## Captures
 Actual browser output is committed in [evidence/](evidence/). Start with [front](evidence/01-front.png), [three-quarter](evidence/02-threequarter.png), and [mobile](evidence/09-mobile.png). No AI-generated screenshots or proprietary avatar assets are used.
+
+## Next phase: documentation only
+F1 was merged through [PR #1](https://github.com/NeatKnight18586/blox_story/pull/1), preserving both implementation commits. See [F2_SPEC.md](F2_SPEC.md) for the explicit-time idle/walk/look-react contract, grounded transitions and motion acceptance gates, and [F2_HANDOFF.md](F2_HANDOFF.md) for the bounded implementation sequence. These are plans, not implemented or tested F2 behavior.
