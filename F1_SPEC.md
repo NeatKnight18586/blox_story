@@ -2,6 +2,9 @@
 Status: **SPECIFICATION APPROVED FOR IMPLEMENTATION, NOT YET IMPLEMENTED OR VISUALLY VERIFIED**.
 Supersedes the former F1 Kai/Mira-first design. Date: 2026-11-08.
 
+## Head correction — user-approved revision (2026-11-08)
+The latest user reference overrides the earlier rounded-cuboid head requirement: use an original softly rounded cylindrical/oval head, with straight cheeks, rounded top/bottom rims and flat caps. Keep the existing dimensions and six-part body. Facial features must follow its curved front surface. This correction remains F1; F2 is on hold.
+
 ## Purpose and locked direction
 Produce **one** reusable, neutral, instantly recognizable, classic R6-like *block figure* in vanilla Three.js. The supplied four user images are the creative reference: plain gray/white avatar with rectangular torso/arms/legs, modestly rounded box head, faint bevels and optional minimal smile. One body rig drives all future characters. Hair, clothing, facial choices, accessories and colors are **swappable appearance layers**; they must never define the underlying anatomy. Characterization is a later demonstration, not the F1 acceptance subject.
 
@@ -19,14 +22,14 @@ The images are visual references supplied in the ChatGPT conversation and **may 
 
 ## Visual contract: the *undressed* master
 - **One six-part block silhouette:** head, torso, left/right arms, left/right legs. No separated hands, sculpted shoes, chest anatomy, visible neck tube, fingers, elbows, knees or clothes on the base.
-- Geometry: subtly beveled rectangular prisms, **not cylinders or spheres for limbs**; head is a rounded cuboid, NOT a sphere. Blocks visually nearly touch with tiny intentional joint seams, no detached "floating cubes."
+- Geometry: subtly beveled rectangular prisms, **not cylinders or spheres for limbs**; head is a softly rounded oval cylinder per the user correction, NOT a sphere. Blocks visually nearly touch with tiny intentional joint seams, no detached "floating cubes."
 - Proportion **starting targets** (arbitrary world units; tune against reference renders):
   - torso **2.00 W × 2.00 H × 1.00 D**;
   - head **1.20–1.30 W × 1.12–1.20 H × 1.05–1.15 D**;
   - each arm **0.95–1.00 W × 1.95–2.00 H × 1.00 D**;
   - each leg **0.95–1.00 W × 1.95–2.00 H × 1.00 D**.
   - head centered above torso; arms straight at sides and top-aligned with torso; legs start at torso bottom; symmetric centered stance. Body height about 5.1 units, feet on y=0.
-  - bevel radius on torso/limbs about **1–3%** of the smallest dimension, head **8–12%**; adjust for image match, not decorative smoothness.
+  - bevel radius on torso/limbs about **1–3%** of the smallest dimension, head rim **about 19% of head height**; adjust for image match, not decorative smoothness.
 - Base material: neutral light-gray matte plastic on all parts; mild AO-like contact shading through lights/shadows if available. No realistic skin, fabric texture, gradients painted onto mesh, or reflective chrome.
 - Face: separate replaceable layer attached to the head; default **classic_smile** (two small oval dark eyes, one thin curved dark smile); also **blank** and **worried**. Keep facial features on the frontal (+Z) head surface; smile should be a true curved stroke/mesh (not a straight bar). No facial features built into the body/head geometry.
 - Clean readable silhouette at ~160 px avatar height. Avoid dramatic perspective, very narrow shoulders, excessive bevels, overlong legs, huge eyes or heavy eyebrows.
