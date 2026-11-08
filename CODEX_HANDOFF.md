@@ -1,10 +1,12 @@
-# Current handoff — S3B provisional stills, audio blocked
+# Current handoff — S3B original narration and three proofs
 
-PR #14 reviewed/regressions passed and merged at `80f592cb4df06693e28b8c41c00195eb66fc9989`, preserving its commit and user S3B brief. Branch `codex/names100-s3b-performance` implements only opt-in shy/reunion/forgotten performance variants. Original roughcut/S2 scenes, rigs, appearances, gaits and all old evidence remain unchanged.
+PR #14 merged at `80f592cb4df06693e28b8c41c00195eb66fc9989`; continue existing PR #15/branch `codex/names100-s3b-performance`, not a new phase. **Technical PASS; overall creative/audio PARTIAL** because genuine perceptual listening is unavailable, not because the WAV is missing anymore.
 
-**PARTIAL overall.** No accessible WAV/attachment reference despite task text; no narrated mux/listening or final timing approval. Brief explicitly allows provisional written-cue stills only.12 real360×640 candidate stills, paired mobile boards, identity/reverse seeking/cue/grounding tests and old source/WebGL regression pass. Three selected S2 golden images still match. No new MP4, motion preview or full episode render. S23 recognition remains a creative limitation; don't certify audience comprehension from numeric checks.
+Original attached WAV verified stereo44,100Hz/2,411,520 samples/54.682993197s; SHA256 `3d5e0a116971d3d17a7c3adac79423e443d63040b2120be7562a0660f22b4ae4`. Input unchanged and outside Git. Existing S2 was stream-copied into a temporary t=0 original-narration review; native playback/unmuted nonzero audio and decode/PTS/cuts pass. Sample-offset A/B/C voiced copies live under `/tmp/names100-s3b-audio-review`, outside Git; no narration generation/stretching/public upload.
 
-[Report/commands/costs](evidence/names100-s3b/REPORT.md). Await original WAV and narrated review before approving onsets or motion gate. Keep789/890–926/1529 and every cut unchanged. Do not proceed to final export. Historical handoffs follow.
+Final A/B/C silent proofs81/97/76 frames,180×320/15fps: all254 reverse pixels/states,18 new random browser seeks, original golden frames, protected789/890–926/1529, grounding/identity and all affected regressions pass. Decoded every final frame for review. Ending camera improved; head-only withdrawal keeps both planted leg matrices fixed at all151 final native frames. A/B reused after ending-only repair. Final C's side composition and tiny acting still require user creative judgment; no audience/phoneme/listening claim.
+
+[Report/commands/measurements/artifacts](evidence/names100-s3b/REPORT.md). Original593 evidence files/nine films, original S2 inputs/roughcut, rigs/appearances/gaits preserved. No full episode/final-resolution render. Stop for review; do not merge PR15 or render final production automatically. Historical handoffs follow.
 
 # Current handoff — S3A review only
 

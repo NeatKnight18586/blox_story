@@ -54,3 +54,8 @@ Technical source assertions retain100 through788,99 at789, restoration890–926,
 ## S3B execution follow-up (provisional)
 
 The user approved only packages S/R/E under S3B_PERFORMANCE_BRIEF.md. Opt-in variants now supply provisional stills for A (shy), B (reunion), C (forgotten); original S3A findings above remain historical. [Before/after evidence, tests and costs](../../evidence/names100-s3b/REPORT.md). No original WAV/attachment reference is accessible, so audio review stays BLOCKED and all onsets are provisional. Source/still technical checks PASS; creative/overall PARTIAL, with final S23 recognition still needing audio/motion review. No new motion preview, episode render or final timing approval. Stop before further implementation/rendering.
+
+
+### S3B original-audio follow-up
+
+The original WAV is now attached and verified; missing-input status above is historical. Existing S2 t=0 voiced review and exact-sample-offset private A/B/C clips pass technical audio/video verification; perceptual listening is unavailable. All three approved performance packages now have bounded silent motion proofs and full-frame inspection, with original timing preserved. Ending uses a side composition and head-only withdrawal to avoid swiveling planted feet. [Current report/previews/costs](../../evidence/names100-s3b/REPORT.md). Technical PASS; creative/audio overall PARTIAL pending user listening/creative review. No full episode/final-resolution render; stop at PR15.

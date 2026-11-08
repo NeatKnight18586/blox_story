@@ -1,6 +1,7 @@
 {
   "status": "PASS",
-  "scope": "provisional stills only; audio unavailable; creative approval and motion gate pending",
+  "reusedUnchangedPairedStills": true,
+  "scope": "selective stills after verified original-audio mux; perceptual listening and user creative approval remain separate",
   "browser": "141.0.7390.37",
   "frames": [
     {
@@ -2179,7 +2180,18 @@
           "top": 0.06447956649156447
         }
       ],
-      "eyes": [],
+      "eyes": [
+        {
+          "name": "",
+          "visible": true,
+          "first": ""
+        },
+        {
+          "name": "",
+          "visible": true,
+          "first": ""
+        }
+      ],
       "handNdc": [
         -0.17126858019094482,
         -0.09228722118978802,
@@ -2338,7 +2350,18 @@
           "top": 0.06447956649156447
         }
       ],
-      "eyes": [],
+      "eyes": [
+        {
+          "name": "",
+          "visible": true,
+          "first": ""
+        },
+        {
+          "name": "",
+          "visible": true,
+          "first": ""
+        }
+      ],
       "handNdc": [
         -0.1971643200570423,
         -0.0935366141508488,
@@ -3563,7 +3586,7 @@
       "variant": "s3b",
       "globalFrame": 1562,
       "file": "s3b-1562.png",
-      "sha256": "749226f89b147d3cf8f6c5344f60f446cf5f16ccea2e8ee0051307770ad2ab5d",
+      "sha256": "a7b70be7a6741df77159830fde82b5cbdbf297a1016e7ecb7e4a07130d90f52f",
       "backend": {
         "webgl": "WebGL 2.0 (OpenGL ES 3.0 Chromium)",
         "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)"
@@ -3575,14 +3598,14 @@
         "propOpen": null,
         "camera": {
           "position": [
-            -0.5,
-            4.8,
-            20.5
+            -21,
+            5.3,
+            7.5
           ],
           "target": [
-            0.1,
-            2.45,
-            0
+            -0.9,
+            2.6,
+            1
           ],
           "fov": 54
         },
@@ -3660,38 +3683,49 @@
       "heads": [
         {
           "id": "eli",
-          "left": -0.6384823754581254,
-          "right": -0.3756078348603184,
-          "bottom": 0.13128120204759336,
-          "top": 0.27438669381510383
+          "left": 0.33486930482336635,
+          "right": 0.5515220373546864,
+          "bottom": 0.11472567222192562,
+          "top": 0.24015160562204782
         },
         {
           "id": "mara",
-          "left": -0.013938633394967481,
-          "right": 0.16414847525653645,
-          "bottom": 0.1598338303032023,
-          "top": 0.2574502721194772
+          "left": -0.6407856212487254,
+          "right": -0.4612655786823937,
+          "bottom": 0.14417875293075463,
+          "top": 0.24237828820322235
         },
         {
           "id": "parent",
-          "left": 0.26092557241469877,
-          "right": 0.45393123649596345,
-          "bottom": 0.14511297887603408,
-          "top": 0.26540882095285145
+          "left": -0.2975931665367926,
+          "right": -0.11794371598761479,
+          "bottom": 0.1408020543824935,
+          "top": 0.24741487119834366
         },
         {
           "id": "child",
-          "left": 0.7579982897025358,
-          "right": 0.8821016290132705,
-          "bottom": 0.003474887910012881,
-          "top": 0.0714840373930006
+          "left": -0.1349611062792622,
+          "right": -0.04089032286248584,
+          "bottom": 0.03935724170166006,
+          "top": 0.09147674226091076
         }
       ],
-      "eyes": [],
+      "eyes": [
+        {
+          "name": "",
+          "visible": false,
+          "first": "head"
+        },
+        {
+          "name": "",
+          "visible": false,
+          "first": "head"
+        }
+      ],
       "handNdc": [
-        -0.7826793366953378,
-        0.08507008523943291,
-        0.9926834478266453
+        -0.08214231335233231,
+        0.04867606632382761,
+        0.9921573276049517
       ],
       "minBodyY": 0,
       "maxTorsoOverlap": 0,
@@ -3722,7 +3756,7 @@
       "variant": "s3b",
       "globalFrame": 1628,
       "file": "s3b-1628.png",
-      "sha256": "701ba08bff5cf3798402f2d67b6c48c7cc6813ef5e44cad4722ddd1606754cbe",
+      "sha256": "1941dc03205941ec16954174fde9a29c18b6fdc003564ade1c90cbe608074042",
       "backend": {
         "webgl": "WebGL 2.0 (OpenGL ES 3.0 Chromium)",
         "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)"
@@ -3734,14 +3768,14 @@
         "propOpen": null,
         "camera": {
           "position": [
-            -0.5,
-            4.8,
-            20.5
+            -21,
+            5.3,
+            7.5
           ],
           "target": [
-            0.1,
-            2.45,
-            0
+            -0.9,
+            2.6,
+            1
           ],
           "fov": 54
         },
@@ -3819,38 +3853,49 @@
       "heads": [
         {
           "id": "eli",
-          "left": -0.6229905536757642,
-          "right": -0.337598677407928,
-          "bottom": 0.12061923140042768,
-          "top": 0.27970952997915205
+          "left": 0.3020177759050966,
+          "right": 0.5472896563651604,
+          "bottom": 0.10814574948459008,
+          "top": 0.24649430355462448
         },
         {
           "id": "mara",
-          "left": -0.009478542953295687,
-          "right": 0.16294478857517852,
-          "bottom": 0.15992209778359298,
-          "top": 0.257709812004974
+          "left": -0.6324813850927348,
+          "right": -0.467435050389758,
+          "bottom": 0.1446467951763996,
+          "top": 0.24225712425822277
         },
         {
           "id": "parent",
-          "left": 0.26092557241469877,
-          "right": 0.45393123649596345,
-          "bottom": 0.14511297887603408,
-          "top": 0.26540882095285145
+          "left": -0.2975931665367926,
+          "right": -0.11794371598761479,
+          "bottom": 0.1408020543824935,
+          "top": 0.24741487119834366
         },
         {
           "id": "child",
-          "left": 0.7579982897025358,
-          "right": 0.8821016290132705,
-          "bottom": 0.003474887910012881,
-          "top": 0.0714840373930006
+          "left": -0.1349611062792622,
+          "right": -0.04089032286248584,
+          "bottom": 0.03935724170166006,
+          "top": 0.09147674226091076
         }
       ],
-      "eyes": [],
+      "eyes": [
+        {
+          "name": "",
+          "visible": true,
+          "first": ""
+        },
+        {
+          "name": "",
+          "visible": true,
+          "first": ""
+        }
+      ],
       "handNdc": [
-        -0.4173774650704622,
-        -0.0769176751422295,
-        0.9922896595616023
+        0.2881015219386469,
+        -0.11163373790290226,
+        0.9921152146001682
       ],
       "minBodyY": 0,
       "maxTorsoOverlap": 0,
@@ -3892,6 +3937,17 @@
     {
       "globalFrame": 1600,
       "sha256": "b43eba90a2403e1407f257ef5e3490c89d0f1a44c48e5007215a24e705e2ceb2",
+      "match": true
+    },
+    {
+      "globalFrame": 992,
+      "sha256": "1e11414c5904adcf12e975c03f60f75316639f2ca38ab7f70358fe01937a2b48",
+      "match": true
+    },
+    {
+      "globalFrame": 992,
+      "variant": "s3b",
+      "sha256": "1e11414c5904adcf12e975c03f60f75316639f2ca38ab7f70358fe01937a2b48",
       "match": true
     }
   ],

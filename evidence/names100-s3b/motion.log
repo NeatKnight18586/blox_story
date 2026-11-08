@@ -1,0 +1,3 @@
+PASS A: 81 frames, 5.4s, all reverse pixels/states, full decode/PTS/cuts/native playback
+PASS B: 97 frames, 6.466666666666667s, all reverse pixels/states, full decode/PTS/cuts/native playback
+PASS C: 76 frames, 5.066666666666666s, all reverse pixels/states, full decode/PTS/cuts/native playback
