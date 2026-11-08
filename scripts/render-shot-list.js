@@ -29,7 +29,8 @@ async function main(opts){
  const source=await readFile(path.resolve(opts.shots));if(source.length>1024*1024)throw new Error('Shot list exceeds 1MiB');const input=JSON.parse(source),plan=compileShotList(input);
  const reference=opts.reference?JSON.parse(await readFile(path.resolve(opts.reference))):null;if(reference)assert.equal(reference.frames.length,plan.frameCount,'Reference frame count differs');
  const out=await prepareOutput(opts.out),release=await acquireLock(out),started=performance.now();
- const report={status:'RUNNING',title:plan.title,width:plan.width,height:plan.height,fps:plan.fps,frameCount:plan.frameCount,duration:plan.frameCount/plan.fps,shotListSha256:hash(source),shots:plan.shots.map(s=>({id:s.id,start:s.start,end:s.end,camera:s.camera})),frames:[],cache:{reused:0,rendered:0,repaired:0},timings:{},errors:[],resources:{availableParallelism:availableParallelism(),ffmpegThreads:2,rssMethod:'1-second sampled summed exporter/browser/server/encoder process-tree RSS; shared pages counted per process'}};
+ const report={status:'RUNNING',title:plan.title,width:plan.width,height:plan.height,fps:plan.fps,frameCount:plan.frameCount,duration:plan.frameCount/plan.fps,shotListSha256:hash(source),shots:plan.shots.map(s=>({id:s.id,start:s.start,end:s.end,camera:s.camera,...(s.composition?{composition:s.composition}:{})})),frames:[],cache:{reused:0,rendered:0,repaired:0},timings:{},errors:[],resources:{availableParallelism:availableParallelism(),ffmpegThreads:2,rssMethod:'1-second sampled summed exporter/browser/server/encoder process-tree RSS; shared pages counted per process'}};
+ if(plan.cast)report.cast=plan.cast;
  let browser,server,timer,peak=0,sampling=false,aborted=false,signal=null;
  const interrupt=name=>{aborted=true;signal=name;};const sigint=()=>interrupt('SIGINT'),sigterm=()=>interrupt('SIGTERM');process.on('SIGINT',sigint);process.on('SIGTERM',sigterm);
  try{

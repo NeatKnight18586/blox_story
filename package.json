@@ -3,7 +3,7 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "test": "node tests/api.js && node tests/actions.js && node tests/walk.js && node tests/walk-calibration.js && node tests/production.js && node tests/p1.js",
+    "test": "node tests/api.js && node tests/actions.js && node tests/walk.js && node tests/walk-calibration.js && node tests/production.js && node tests/p1.js && node tests/casting.js",
     "preview": "python3 -m http.server 8000",
     "test:browser": "node tests/browser.js",
     "test:motion": "node tests/motion-browser.js",
@@ -12,7 +12,8 @@
     "render:feasibility": "node scripts/render-feasibility.js",
     "sheet:feasibility": "python3 scripts/production-sheet.py",
     "test:p1": "node tests/p1.js && node tests/p1-resume.js",
-    "render:shots": "node scripts/render-shot-list.js"
+    "render:shots": "node scripts/render-shot-list.js",
+    "test:casting": "node tests/casting-browser.js"
   },
   "dependencies": {
     "three": "0.187.0"

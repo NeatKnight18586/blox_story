@@ -1,0 +1,62 @@
+[
+  {
+    "path": "evidence/f2a/controls-mobile.png",
+    "oldSha256": "94297653d382642b1b9c1c333db5cb9a091b2ff75198529e78fa5f922ab7e3b6",
+    "newSha256": "b7b7342fa854da6705cb11615700c3dad3dcbd4b3a8b26e7f1f36dc7cbea1139",
+    "reason": "JSON ordering or archived pre-calibration camera/UI; source and tests unchanged"
+  },
+  {
+    "path": "evidence/f2b1/manifest.json",
+    "oldSha256": "f2c24ce49dd5afe9c7b0fcb4049681383c3a81e906ec59dea66d07292eefcf59",
+    "newSha256": "6e92c949201e7118e1848a7ca1dcc2befd5b375dd610b586d4671e59bd2ce877",
+    "reason": "JSON ordering or archived pre-calibration camera/UI; source and tests unchanged"
+  },
+  {
+    "path": "evidence/f2b1/side-0.png",
+    "oldSha256": "8177fa7fd49639745f2d97a9304fa0ca355885d8b07ba08c62a0ae9da9c0f787",
+    "newSha256": "7f036484f39cf1ba23c53cd8cef1eb5ac267da56296786b8f80096849e7462b7",
+    "reason": "JSON ordering or archived pre-calibration camera/UI; source and tests unchanged"
+  },
+  {
+    "path": "evidence/f2b1/side-18.png",
+    "oldSha256": "2155d129a8abb2926a702c5df6a9b36728d6d3b07e58f155e9cc359cde6372e0",
+    "newSha256": "258a1ad913abe2d46e7a5cafbd41d662450e70cb84d4fbc548ccd712365c0ac2",
+    "reason": "JSON ordering or archived pre-calibration camera/UI; source and tests unchanged"
+  },
+  {
+    "path": "evidence/f2b1/side-9.png",
+    "oldSha256": "2f0617cf6920277775dc764b3595ee1a0b8e4152f3557e91fdaee6a55f078fc9",
+    "newSha256": "a9450163e058ba608110b9df235afa89497fa3bef6b9ee355f62b1b1dca76187",
+    "reason": "JSON ordering or archived pre-calibration camera/UI; source and tests unchanged"
+  },
+  {
+    "path": "evidence/f2b1/threequarter-0.png",
+    "oldSha256": "f3a9082528fbf1b3d5f8ebc31ad8e2f6b4d0efbd44919451ea2159d567a1dd41",
+    "newSha256": "239a9ec01b81b998ee4a5c89e5b3dd78d79b5662a1bab37d43eafcf0f51e47f4",
+    "reason": "JSON ordering or archived pre-calibration camera/UI; source and tests unchanged"
+  },
+  {
+    "path": "evidence/f2b1/threequarter-18.png",
+    "oldSha256": "4aa609e3aa6c95d2f31ce999536ad8ba2ac74b8e8d04288a75218822b8d069f8",
+    "newSha256": "9af5eec38b250b590b4c9b5fb9be6c84655955f807377a89b6f520e4da1e4dec",
+    "reason": "JSON ordering or archived pre-calibration camera/UI; source and tests unchanged"
+  },
+  {
+    "path": "evidence/f2b1/threequarter-9.png",
+    "oldSha256": "b809019ddb5e690c76f5eeda182f78c07d1ab65a6be6efda3e97d89138df6b7a",
+    "newSha256": "5c9f2449641003dc4e8c09ffea0c84ee5608f5d097e202ffc50fa2ffbdb1fb7b",
+    "reason": "JSON ordering or archived pre-calibration camera/UI; source and tests unchanged"
+  },
+  {
+    "path": "evidence/f2b1/vertical-390x693.png",
+    "oldSha256": "9348f564ed9c98589df09d4857d2f3dbba0fdaa561ff5d9bf708da4bc3d3f74d",
+    "newSha256": "9a065ca9aa0481a48eb346dcbe2d154b5f20b1ae0200b177d32bf8582327e275",
+    "reason": "JSON ordering or archived pre-calibration camera/UI; source and tests unchanged"
+  },
+  {
+    "path": "evidence/f2b1/vertical-720x1280.png",
+    "oldSha256": "cdb64b83617c3ef400a6433b9237a821eaa67ba34db81ff19fbf3c4e4125e863",
+    "newSha256": "cda6affe8e57166803932bd571b6c4c59f3a16c576cfee0b84a473cb637f7c79",
+    "reason": "JSON ordering or archived pre-calibration camera/UI; source and tests unchanged"
+  }
+]
