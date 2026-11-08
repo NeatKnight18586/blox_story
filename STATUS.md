@@ -13,7 +13,7 @@ Verified 2026-11-08. F2 has NOT started. F1_SPEC.md remains authoritative.
 ## Genuine browser evidence, visually inspected
 - `evidence/01-front.png`: full neutral gray body, classic curved smile.
 - `evidence/02-threequarter.png`: depth, subtle bevels, six-part silhouette and grounded cast shadow.
-- `evidence/03-side.png`: true orthographic side profile, rectangular limbs, rounded cuboid head.
+- `evidence/03-side.png`: true orthographic side profile, rectangular limbs, rounded oval cylindrical head.
 - `evidence/04-face.png`: small oval eyes and curved stroke, separate from head.
 - `evidence/05-blank.png`: unchanged body with blank face.
 - `evidence/06-cap.png`: cap attached to same head pivot.
@@ -22,9 +22,14 @@ Verified 2026-11-08. F2 has NOT started. F1_SPEC.md remains authoritative.
 - `evidence/09-mobile.png`: phone-size layout and complete silhouette.
 - `evidence/10-small.png`: readable silhouette at about 160px avatar height.
 
-Review: square 2×2 torso, straight aligned arms, equal-length block legs, tiny seams, no extra neck/hands/shoes; head is modestly rounded rather than spherical. Neutral feet touch ground numerically and visually. Three-quarter view exposes the shadow; orthographic front/side intentionally compress the ground plane. Matte gray material and broad neutral lighting preserve simple forms. Compared visually with the four reference images visible in this task conversation; reference files are not in the repository and no pixel-exact match is claimed.
+Review: square 2×2 torso, straight aligned arms, equal-length block legs, tiny seams, no extra neck/hands/shoes; head is a softly rounded oval cylinder rather than a box or sphere. Neutral feet touch ground numerically and visually. Three-quarter view exposes the shadow; orthographic front/side intentionally compress the ground plane. Matte gray material and broad neutral lighting preserve simple forms. Compared visually with the four reference images visible in this task conversation; reference files are not in the repository and no pixel-exact match is claimed.
 
 Targeted fixes: API bounds check now updates the ancestor world transforms before measuring child meshes. Initial phone framing clipped the arms; aspect-aware camera fitting fixed it and browser captures were rerun successfully.
 
 ## Limits / remaining issues
 No blocking F1 issues found. Lighting uses inexpensive directional shadow maps, with a fairly defined shadow edge rather than offline-render contact shading. The facial strokes slightly protrude in true side view. These are deliberate lightweight preview tradeoffs. Walk is a deterministic pose demo only, without planted feet, IK or root motion. Native iPad/Safari GPU execution was not tested; responsive Chromium was. No public deployment was created; the documented HTTP preview satisfies gate C. Legacy source remains unused and preserved, alongside its existing Git history. No video, audio, story, or F2 implementation is claimed.
+
+## User head correction (2026-11-08)
+The user rejected the original box-like head. Replaced the rounded box with an original 96-segment lathed oval cylinder, 1.25 × 1.16 × 1.10, with .22-unit rounded rims. This removes square horizontal corners instead of merely increasing a box bevel. Eyes and mouth now follow the curved surface. Updated the authoritative spec and operating rules to prevent reverting to the superseded head design.
+
+Re-ran `npm test` (including head geometry/dimension and curved-face checks), `npm run test:browser`, and source syntax checks. All passed. Regenerated and visually inspected all ten evidence images, including cap fit, blank face, true side and mobile views. Six body meshes, pivots and attachment identity remain stable. F1 remains PASS; user aesthetic approval is separate from executed technical checks. F2 remains on hold. No exact proprietary mesh match is claimed.
