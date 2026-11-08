@@ -1,0 +1,230 @@
+{
+  "status": "PASS",
+  "prHead": "decc53f8b4dbb047a4c979160caa2c268f65e149",
+  "existingFilmHashesMatch": 8,
+  "s2Sha256": "3fe9b34c46ad16e41452d0d0b7ea28a91facf4a824eb6bd41a2474416c8ac6e3",
+  "sourceFingerprintsMatch": true,
+  "keyframeHashesMatch": true,
+  "frameMap": "global=2*outputFrame",
+  "video": {
+    "probe": {
+      "streams": [
+        {
+          "index": 0,
+          "codec_name": "h264",
+          "codec_long_name": "H.264 / AVC / MPEG-4 AVC / MPEG-4 part 10",
+          "profile": "Main",
+          "codec_type": "video",
+          "codec_tag_string": "avc1",
+          "codec_tag": "0x31637661",
+          "width": 180,
+          "height": 320,
+          "coded_width": 192,
+          "coded_height": 320,
+          "closed_captions": 0,
+          "film_grain": 0,
+          "has_b_frames": 2,
+          "sample_aspect_ratio": "1:1",
+          "display_aspect_ratio": "9:16",
+          "pix_fmt": "yuv420p",
+          "level": 31,
+          "color_range": "tv",
+          "color_space": "bt709",
+          "chroma_location": "left",
+          "field_order": "progressive",
+          "refs": 4,
+          "is_avc": "true",
+          "nal_length_size": "4",
+          "id": "0x1",
+          "r_frame_rate": "15/1",
+          "avg_frame_rate": "15/1",
+          "time_base": "1/15360",
+          "start_pts": 0,
+          "start_time": "0.000000",
+          "duration_ts": 840704,
+          "duration": "54.733333",
+          "bit_rate": "66312",
+          "bits_per_raw_sample": "8",
+          "nb_frames": "821",
+          "nb_read_frames": "821",
+          "extradata_size": 44,
+          "disposition": {
+            "default": 1,
+            "dub": 0,
+            "original": 0,
+            "comment": 0,
+            "lyrics": 0,
+            "karaoke": 0,
+            "forced": 0,
+            "hearing_impaired": 0,
+            "visual_impaired": 0,
+            "clean_effects": 0,
+            "attached_pic": 0,
+            "timed_thumbnails": 0,
+            "non_diegetic": 0,
+            "captions": 0,
+            "descriptions": 0,
+            "metadata": 0,
+            "dependent": 0,
+            "still_image": 0,
+            "multilayer": 0
+          },
+          "tags": {
+            "language": "und",
+            "handler_name": "VideoHandler",
+            "vendor_id": "[0][0][0][0]",
+            "encoder": "Lavc61.19.101 libx264"
+          }
+        }
+      ],
+      "format": {
+        "filename": "/workspace/blox_story/evidence/names100-s2/movie.mp4",
+        "nb_streams": 1,
+        "nb_programs": 0,
+        "nb_stream_groups": 0,
+        "format_name": "mov,mp4,m4a,3gp,3g2,mj2",
+        "format_long_name": "QuickTime / MOV",
+        "start_time": "0.000000",
+        "duration": "54.733333",
+        "size": "464105",
+        "bit_rate": "67835",
+        "probe_score": 100,
+        "tags": {
+          "major_brand": "isom",
+          "minor_version": "512",
+          "compatible_brands": "isomiso2avc1mp41",
+          "encoder": "Lavf61.7.103"
+        }
+      }
+    },
+    "decode": {
+      "frames": 821,
+      "continuousPts": true,
+      "noErrors": true
+    },
+    "cuts": [
+      {
+        "frame": 47,
+        "time": 3.1333333333333333
+      },
+      {
+        "frame": 85,
+        "time": 5.666666666666667
+      },
+      {
+        "frame": 130,
+        "time": 8.666666666666666
+      },
+      {
+        "frame": 160,
+        "time": 10.666666666666666
+      },
+      {
+        "frame": 199,
+        "time": 13.266666666666667
+      },
+      {
+        "frame": 241,
+        "time": 16.066666666666666
+      },
+      {
+        "frame": 287,
+        "time": 19.133333333333333
+      },
+      {
+        "frame": 315,
+        "time": 21
+      },
+      {
+        "frame": 360,
+        "time": 24
+      },
+      {
+        "frame": 385,
+        "time": 25.666666666666668
+      },
+      {
+        "frame": 412,
+        "time": 27.466666666666665
+      },
+      {
+        "frame": 441,
+        "time": 29.4
+      },
+      {
+        "frame": 469,
+        "time": 31.266666666666666
+      },
+      {
+        "frame": 523,
+        "time": 34.86666666666667
+      },
+      {
+        "frame": 548,
+        "time": 36.53333333333333
+      },
+      {
+        "frame": 602,
+        "time": 40.13333333333333
+      },
+      {
+        "frame": 648,
+        "time": 43.2
+      },
+      {
+        "frame": 686,
+        "time": 45.733333333333334
+      },
+      {
+        "frame": 703,
+        "time": 46.86666666666667
+      },
+      {
+        "frame": 725,
+        "time": 48.333333333333336
+      },
+      {
+        "frame": 745,
+        "time": 49.666666666666664
+      },
+      {
+        "frame": 773,
+        "time": 51.53333333333333
+      }
+    ],
+    "playback": {
+      "width": 180,
+      "height": 320,
+      "duration": 54.733333,
+      "advancedTo": 0.1504,
+      "error": null,
+      "browser": "156.0.8078.79",
+      "fallback": true,
+      "seeks": [
+        27.366666666666667,
+        3.2333333333333334,
+        5.766666666666667,
+        8.766666666666666,
+        10.766666666666666,
+        13.366666666666667,
+        16.166666666666668,
+        19.233333333333334,
+        21.1,
+        24.1,
+        25.76666666666667,
+        27.566666666666666,
+        29.5,
+        31.366666666666667,
+        34.96666666666667,
+        36.63333333333333,
+        40.233333333333334,
+        43.300000000000004,
+        45.833333333333336,
+        46.96666666666667,
+        48.43333333333334,
+        49.766666666666666,
+        51.63333333333333
+      ]
+    }
+  }
+}

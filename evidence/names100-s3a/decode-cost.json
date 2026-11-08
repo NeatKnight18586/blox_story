@@ -1,0 +1,7 @@
+{
+  "exitCode": 0,
+  "wallSeconds": 0.2163023479952244,
+  "cpuSeconds": 0.32785499999999995,
+  "maxRssKiB": 51096,
+  "method": "Python monotonic + RUSAGE_CHILDREN for one FFmpeg decode; no rendering"
+}
