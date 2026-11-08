@@ -75,3 +75,16 @@ The inspector uses the same fixed framing for either gait; selecting a gait paus
 [Mobile comparison](evidence/calibration/comparison-mobile.png) · [phase comparison](evidence/calibration/comparison.png) · [side motion](evidence/calibration/comparison-side.gif) · [three-quarter motion](evidence/calibration/comparison-threequarter.gif). Left is baseline; right is readable. GIFs are compact test evidence assembled only from genuine WebGL screenshots; their restart resets the captured interval's world position. No MP4/export system is implemented.
 
 Run `npm test`, `npm run test:calibration` with the HTTP server, then `python3 tests/calibration-comparison.py`. Browser reports and independent geometry metrics are in `evidence/calibration/`; raw PNGs and all-frame review sheets are regenerated into its ignored `raw/` directory. Pillow is an existing developer evidence tool, not a browser dependency. Recommendation: keep Readable as the stronger prototype gait, retaining Baseline for regressions/slow shuffles. It is still a rigid-body stylization; no lateral balance, long-stride certification or native Safari verification is claimed.
+
+## P1 reusable shot pipeline
+
+Render an original shot list through the same deterministic browser/MP4 exporter:
+
+```sh
+npm run render:shots -- --shots production/feasibility.json --out renders/feasibility --reference evidence/production/manifest.json
+npm run render:shots -- --shots production/not-today.json --out renders/not-today
+```
+
+The CLI starts its own server, resumes verified cached frames, repairs damaged frames and publishes only after WebGL repeat-seeking, complete MP4 decode and native playback checks. Output is found through `<out>/latest.json`; temporary frames stay outside Git. No added dependencies. The original 7.2s three-shot scene and a distinct 4s two-shot scene share the renderer.
+
+[P1 commands and JSON contract](P1_PIPELINE.md) · [verified movies, contact sheets and resources](evidence/p1/REPORT.md). Run `npm run test:p1` for actual interrupted-render recovery and MP4 tests. Earlier “no MP4” statements above describe their historical F1/F2 stages; production work is now explicitly authorized within P1. Avatar anatomy, appearance, both gaits and walking-transition restrictions remain unchanged. Stop for review after the P1 PR.
