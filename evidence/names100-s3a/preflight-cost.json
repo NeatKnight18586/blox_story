@@ -1,0 +1,13 @@
+{
+  "command": [
+    "bash",
+    "/tmp/s3a-preflight.sh"
+  ],
+  "exitCode": 0,
+  "wallSeconds": 19.25458184499439,
+  "sampledTreeRssMiB": 908.0546875,
+  "sampledTreeCpuSeconds": 28.06,
+  "processCount": 51,
+  "sampleIntervalSeconds": 0.2,
+  "method": "Linux ps summed subtree RSS (shared pages counted per process), /proc cumulative CPU samples retained by PID/start-time at 100Hz; sampled lower bounds; final pass only, not all development activity"
+}

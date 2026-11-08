@@ -1,0 +1,13 @@
+{
+  "status": "BLOCKED",
+  "originalWavPresent": false,
+  "rootsChecked": [
+    "/workspace"
+  ],
+  "localAudioFiles": [],
+  "trackedAudioFiles": [],
+  "searchReturnCode": 1,
+  "source": "S3A brief says original ADAM1.WAV remains outside Codex until explicitly supplied; no new attachment in this request",
+  "audioGenerated": false,
+  "audioMuxed": false
+}

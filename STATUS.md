@@ -238,3 +238,12 @@ Final silent MP4:180×320,15fps,821frames,54.733333s,H.264 Main/yuv420p. Native1
 Final export/cache73.961s,reverse131.000s,encode.935s,video verification1.265s,total208.536s(wrapper209.146s),350.25 sampled CPU-seconds,1219.93MiB sampled summed subtree RSS. Measured render attempts including first draft/rejected resume total574.624s; final keyframe check27.554s. PNG23,785,501bytes/movie464,105bytes. Shared-page/sampling caveats and attempt ledger in report; no dependency added, raw/cache ignored.
 
 [MP4](evidence/names100-s2/movie.mp4), [23-shot board](evidence/names100-s2/storyboard.png), [coverage/costs/limits](evidence/names100-s2/REPORT.md). Outstanding: restrained symbolic acting, small sets, low-res fine detail, pacing/WAV sample alignment and final-resolution creative approval. No final720×1280/30fps render,audio or next phase. Submit PR and stop for review.
+
+
+## S3A — visual review completed; overall PARTIAL
+
+PR #13 merged at `bf0f895f0c6e922460d2d49a298239de4efa8efe` after `npm test`, `node tests/roughcut-framing.js`, genuine WebGL `npm run test:ending -- --motion`, and existing S2 MP4 decode/PTS/22 cut keyframes/native playback/all-cut seek verification passed. Source/engine fingerprints,39 native PNGs and eight earlier movie hashes match;821-frame mapping confirmed. Recorded whole-film reverse pixel/state evidence checked, not rerendered. All history retained.
+
+S3A is review-only: [23-shot ledger](stories/names100/S3A_ISSUE_LEDGER.md), at most three proposed S3B staging changes (reunion, shyness, last-use/failed recognition), no runtime or story input changes. Inspected existing-film continuous2fps decode sheets and saved native evidence. Original ElevenLabs WAV absent from workspace/repository: **audio creative review BLOCKED**, no mux/listening/alignment claim; written cues provisional. Technical timing PASS, visual creative PARTIAL pending corrections/user approval, overall PARTIAL. No episode rebuild/render or fixes implemented.
+
+Successful preflight19.255s wall/28.06s sampled CPU/908.05MiB sampled summed RSS; temporary decode0.216s/.328sCPU/49.90MiB max child RSS. [Receipts and limitations](evidence/names100-s3a/REPORT.md). Stop for review before S3B/final export.
