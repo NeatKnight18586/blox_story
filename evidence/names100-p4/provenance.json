@@ -1,0 +1,18 @@
+{
+  "sourceSnapshot": "At final verification; no runtime capture/shading logic changed after the native batch. Proof helper only changed intermediate storage location.",
+  "base": "277ef9460b60f5065fc088493be6a6a7952a0f0e",
+  "sources": {
+    "production/casting.js": "09ab517dfb13fa3c6df1b981dcb0cee24d2431a8b58c01ff1276c927d591298d",
+    "production/render.js": "2289cd069f7bd2114fdab4516ffc5127fc5b37f124be9f521a4ab2d220e1a5a7",
+    "production/assets/labels.js": "060a1a5101222113711fa4b4b4767d74c3b8439be20bd7b253d5dafb868f2fed",
+    "scripts/counter-clock.js": "b3df47be16fd23c5aca76c370493e477f1df3ad3c9e2c139c45d145ec1233928",
+    "scripts/counter-overlay.py": "60f55293809aa7fc17935852f37432bf4b563685c994c3286a732c53e7ca59af",
+    "scripts/p4-keyframes.js": "84df234285751b81de247a2ac869dc992aa6cf94f75ae6ce629cc0473ef43b01",
+    "stories/names100/counter/minimal-editorial.json": "4bfca00a0d80bb3c6d728334dfbb412d40faa962b679da119a125d2f5ce11d1f",
+    "stories/names100/counter/generated/minimal-editorial.ass": "d2271c007b4ecbd74c22b250ff117965f2f5a76e9a0151b35c3c834095215d67",
+    "captions/white-shorts-v1.json": "9b9cfd4cf2fefb21c828faa95b1ca698e962f5d7823ce29dc43d2b8f31c51326",
+    "stories/names100/captions/generated/C.ass": "df1f168687bed90a6488afdd677f50857f8e1ae3f0e1185330deedafe834538b"
+  },
+  "allEightCleanPlateHashesUnchangedAfterGraphicsRefinement": true,
+  "nativeUpscaling": false
+}

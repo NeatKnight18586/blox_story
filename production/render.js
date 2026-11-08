@@ -30,6 +30,9 @@ try {
  const ending=plan.ending?createEndingEffects(plan,avatars,world):null;
  const opening=plan.opening?createOpeningEffects(plan,avatars):null;
  const look=plan.look==='s1'?createLook(plan,scene,world,avatars):null;
+ // Capture the original scene without its counter; cue state remains available
+ // for later FFmpeg compositing. Leave physical tags/other story effects intact.
+ if(plan.counterMode==='clean')for(const fx of [reveal,ending,opening,look])if(fx?.overlay?.panel)fx.overlay.panel.visible=false;
  function renderFrame(frame){
   const state=sampleShotList(plan,frame),actors=state.actors??{[cast[0].id]:{...state.actor,face:state.face,appearance:state.appearance}};
   for(const [id,s] of Object.entries(actors)){const a=avatars[id];applyActionSample(a,s.action,s.origin);applyFace(a,s.face);if(s.appearance)applyAppearance(a,s.appearance);}
