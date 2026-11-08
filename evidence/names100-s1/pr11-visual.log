@@ -1,0 +1,15 @@
+
+> test:ending
+> node tests/ending-browser.js
+
+PASS ending six keyframes: genuine WebGL, explicit clock, exact zero, pixels/identity repeat, six-part cast, grounded opaque Eli, face sightlines, no captions
+
+> test:ending
+> node tests/ending-browser.js --motion
+
+PASS ending motion seeks: genuine WebGL, explicit clock, exact zero, pixels/identity repeat, six-part cast, grounded opaque Eli, face sightlines, no captions
+
+> test:v1
+> node tests/v1-visual.js --motion
+
+PASS Gate2 random seeks: exact excerpt/source pixels and global clock

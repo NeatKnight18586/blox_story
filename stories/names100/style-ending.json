@@ -1,0 +1,582 @@
+{
+  "version": 3,
+  "title": "S1 apricot reunion / cool forgotten Eli",
+  "output": {
+    "width": 360,
+    "height": 640,
+    "fps": 30
+  },
+  "environment": {
+    "kind": "bedroom-window"
+  },
+  "props": [],
+  "events": [],
+  "cast": [
+    {
+      "id": "eli",
+      "appearance": {
+        "color": "#d2d5d6",
+        "pieces": {
+          "head": "#e7c5a2",
+          "leftArm": "#e7c5a2",
+          "rightArm": "#e7c5a2",
+          "leftLeg": "#31485c",
+          "rightLeg": "#31485c"
+        },
+        "cosmetic": "cap",
+        "clothing": "vest",
+        "clothingColor": "#216d85"
+      }
+    },
+    {
+      "id": "mara",
+      "torsoVariant": "tapered",
+      "face": "worried",
+      "appearance": {
+        "color": "#d2d5d6",
+        "pieces": {
+          "head": "#d6af86",
+          "leftArm": "#d6af86",
+          "rightArm": "#d6af86",
+          "leftLeg": "#34374c",
+          "rightLeg": "#34374c"
+        },
+        "hair": "bob",
+        "hairColor": "#40291f",
+        "clothing": "vest",
+        "clothingColor": "#be5b46"
+      }
+    }
+  ],
+  "ending": {
+    "globalStart": 945,
+    "globalEnd": 1641,
+    "clockFps": 30
+  },
+  "shots": [
+    {
+      "id": "recognition",
+      "start": 0,
+      "end": 101,
+      "camera": {
+        "position": [
+          -0.9,
+          4.7,
+          -1
+        ],
+        "target": [
+          -2.8,
+          4.45,
+          2
+        ],
+        "fov": 43
+      },
+      "actors": [
+        {
+          "id": "eli",
+          "origin": {
+            "position": [
+              -2.8,
+              0,
+              2
+            ],
+            "yaw": 2.4
+          },
+          "face": "thoughtful",
+          "action": {
+            "name": "idle",
+            "timeOffset": 31.5
+          }
+        },
+        {
+          "id": "mara",
+          "origin": {
+            "position": [
+              0.8,
+              0,
+              -1.6
+            ],
+            "yaw": -0.6
+          },
+          "face": "relieved",
+          "action": {
+            "name": "idle",
+            "timeOffset": 31.5
+          }
+        }
+      ]
+    },
+    {
+      "id": "decision",
+      "start": 101,
+      "end": 151,
+      "camera": {
+        "position": [
+          2.5,
+          5,
+          13.8
+        ],
+        "target": [
+          -6.8,
+          2.5,
+          4.8
+        ],
+        "fov": 58
+      },
+      "actors": [
+        {
+          "id": "eli",
+          "origin": {
+            "position": [
+              -4.0,
+              0,
+              5.2
+            ],
+            "yaw": -1.15
+          },
+          "face": "thoughtful",
+          "action": {
+            "name": "idle",
+            "timeOffset": 34.86666666666667
+          }
+        },
+        {
+          "id": "mara",
+          "origin": {
+            "position": [
+              -9.1,
+              0,
+              1.6
+            ],
+            "yaw": 1.1
+          },
+          "face": "relieved",
+          "action": {
+            "name": "idle",
+            "timeOffset": 34.86666666666667
+          }
+        }
+      ]
+    },
+    {
+      "id": "names",
+      "start": 151,
+      "end": 258,
+      "camera": {
+        "position": [
+          -1,
+          5.2,
+          14
+        ],
+        "target": [
+          0.2,
+          2.7,
+          0
+        ],
+        "fov": 48
+      },
+      "actors": [
+        {
+          "id": "eli",
+          "origin": {
+            "position": [
+              -4,
+              0,
+              2.5
+            ],
+            "yaw": 2.4
+          },
+          "face": "thoughtful",
+          "action": {
+            "name": "walk",
+            "timeOffset": 0,
+            "options": {
+              "gait": "readable"
+            }
+          }
+        },
+        {
+          "id": "mara",
+          "origin": {
+            "position": [
+              0,
+              0,
+              -4.2
+            ],
+            "yaw": -0.3
+          },
+          "face": "relieved",
+          "action": {
+            "name": "idle",
+            "timeOffset": 36.53333333333333
+          }
+        }
+      ]
+    },
+    {
+      "id": "sacrifice",
+      "start": 258,
+      "end": 351,
+      "camera": {
+        "position": [
+          -1.1,
+          4.9,
+          9.8
+        ],
+        "target": [
+          -2.4,
+          4.15,
+          4
+        ],
+        "fov": 43
+      },
+      "actors": [
+        {
+          "id": "eli",
+          "origin": {
+            "position": [
+              -2.4,
+              0,
+              4
+            ],
+            "yaw": 0.35
+          },
+          "face": "thoughtful",
+          "action": {
+            "name": "idle",
+            "timeOffset": 40.1
+          }
+        },
+        {
+          "id": "mara",
+          "origin": {
+            "position": [
+              0,
+              0,
+              -4.2
+            ],
+            "yaw": -0.3
+          },
+          "face": "relieved",
+          "action": {
+            "name": "idle",
+            "timeOffset": 40.1
+          }
+        }
+      ]
+    },
+    {
+      "id": "sunrise",
+      "start": 351,
+      "end": 426,
+      "camera": {
+        "position": [
+          8,
+          3.7,
+          8.6
+        ],
+        "target": [
+          3.25,
+          2.4,
+          -1.4
+        ],
+        "fov": 46
+      },
+      "actors": [
+        {
+          "id": "eli",
+          "origin": {
+            "position": [
+              -2.4,
+              0,
+              4
+            ],
+            "yaw": 0.35
+          },
+          "face": "thoughtful",
+          "action": {
+            "name": "idle",
+            "timeOffset": 43.2
+          }
+        },
+        {
+          "id": "mara",
+          "origin": {
+            "position": [
+              0,
+              0,
+              -4.2
+            ],
+            "yaw": -0.3
+          },
+          "face": "relieved",
+          "action": {
+            "name": "idle",
+            "timeOffset": 43.2
+          }
+        }
+      ]
+    },
+    {
+      "id": "reunion",
+      "start": 426,
+      "end": 461,
+      "camera": {
+        "position": [
+          8,
+          3.7,
+          8.6
+        ],
+        "target": [
+          3.25,
+          2.4,
+          -1.4
+        ],
+        "fov": 46
+      },
+      "actors": [
+        {
+          "id": "eli",
+          "origin": {
+            "position": [
+              -2.4,
+              0,
+              4
+            ],
+            "yaw": 0.35
+          },
+          "face": "thoughtful",
+          "action": {
+            "name": "idle",
+            "timeOffset": 45.7
+          }
+        },
+        {
+          "id": "mara",
+          "origin": {
+            "position": [
+              0,
+              0,
+              -4.2
+            ],
+            "yaw": -0.3
+          },
+          "face": "relieved",
+          "action": {
+            "name": "idle",
+            "timeOffset": 45.7
+          }
+        }
+      ]
+    },
+    {
+      "id": "together",
+      "start": 461,
+      "end": 505,
+      "camera": {
+        "position": [
+          8,
+          3.7,
+          8.6
+        ],
+        "target": [
+          3.25,
+          2.4,
+          -1.4
+        ],
+        "fov": 46
+      },
+      "actors": [
+        {
+          "id": "eli",
+          "origin": {
+            "position": [
+              -2.4,
+              0,
+              4
+            ],
+            "yaw": 0.35
+          },
+          "face": "thoughtful",
+          "action": {
+            "name": "idle",
+            "timeOffset": 46.86666666666667
+          }
+        },
+        {
+          "id": "mara",
+          "origin": {
+            "position": [
+              0,
+              0,
+              -4.2
+            ],
+            "yaw": -0.3
+          },
+          "face": "relieved",
+          "action": {
+            "name": "idle",
+            "timeOffset": 46.86666666666667
+          }
+        }
+      ]
+    },
+    {
+      "id": "whole",
+      "start": 505,
+      "end": 545,
+      "camera": {
+        "position": [
+          -0.5,
+          4.8,
+          20.5
+        ],
+        "target": [
+          0.1,
+          2.45,
+          0
+        ],
+        "fov": 54
+      },
+      "actors": [
+        {
+          "id": "eli",
+          "origin": {
+            "position": [
+              -2.4,
+              0,
+              4
+            ],
+            "yaw": 0.35
+          },
+          "face": "thoughtful",
+          "action": {
+            "name": "idle",
+            "timeOffset": 48.333333333333336
+          }
+        },
+        {
+          "id": "mara",
+          "origin": {
+            "position": [
+              0,
+              0,
+              -4.2
+            ],
+            "yaw": -0.3
+          },
+          "face": "relieved",
+          "action": {
+            "name": "idle",
+            "timeOffset": 48.333333333333336
+          }
+        }
+      ]
+    },
+    {
+      "id": "zero",
+      "start": 545,
+      "end": 601,
+      "camera": {
+        "position": [
+          -1.1,
+          4.9,
+          9.8
+        ],
+        "target": [
+          -2.4,
+          4.15,
+          4
+        ],
+        "fov": 43
+      },
+      "actors": [
+        {
+          "id": "eli",
+          "origin": {
+            "position": [
+              -2.4,
+              0,
+              4
+            ],
+            "yaw": 0.35
+          },
+          "face": "thoughtful",
+          "action": {
+            "name": "idle",
+            "timeOffset": 49.666666666666664
+          }
+        },
+        {
+          "id": "mara",
+          "origin": {
+            "position": [
+              0,
+              0,
+              -4.2
+            ],
+            "yaw": -0.3
+          },
+          "face": "relieved",
+          "action": {
+            "name": "idle",
+            "timeOffset": 49.666666666666664
+          }
+        }
+      ]
+    },
+    {
+      "id": "forgotten",
+      "start": 601,
+      "end": 696,
+      "camera": {
+        "position": [
+          -0.5,
+          4.8,
+          20.5
+        ],
+        "target": [
+          0.1,
+          2.45,
+          0
+        ],
+        "fov": 54
+      },
+      "actors": [
+        {
+          "id": "eli",
+          "origin": {
+            "position": [
+              -2.4,
+              0,
+              4
+            ],
+            "yaw": 0.35
+          },
+          "face": "thoughtful",
+          "action": {
+            "name": "idle",
+            "timeOffset": 51.53333333333333
+          }
+        },
+        {
+          "id": "mara",
+          "origin": {
+            "position": [
+              0,
+              0,
+              -4.2
+            ],
+            "yaw": -0.3
+          },
+          "face": "relieved",
+          "action": {
+            "name": "idle",
+            "timeOffset": 51.53333333333333
+          }
+        }
+      ]
+    }
+  ],
+  "look": "s1"
+}
