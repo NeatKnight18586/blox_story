@@ -1,1 +1,17 @@
-{"name":"blox-story","private":true,"type":"module","scripts":{"test":"node tests/api.js","preview":"python3 -m http.server 8000","test:browser":"node tests/browser.js"},"dependencies":{"three":"0.187.0"},"devDependencies":{"playwright":"1.56.1"}}
+{
+  "name": "blox-story",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "test": "node tests/api.js && node tests/actions.js",
+    "preview": "python3 -m http.server 8000",
+    "test:browser": "node tests/browser.js",
+    "test:motion": "node tests/motion-browser.js"
+  },
+  "dependencies": {
+    "three": "0.187.0"
+  },
+  "devDependencies": {
+    "playwright": "1.56.1"
+  }
+}

@@ -1,6 +1,6 @@
 # F2 — deterministic reusable actions
-Status: SPECIFICATION PREPARED; IMPLEMENTATION NOT AUTHORIZED BY THIS TASK.
-Scope of this task: documents only. F1 was integrated by PR #1 (merge commit `2dff6c6bf488870da8ea5427261edc6d26bc3207`). No F2 motion has been implemented or verified.
+Status: F2A IMPLEMENTATION AUTHORIZED (idle, look/react and transitions only); F2B WALKING DEFERRED.
+Current authorized scope: F2A implementation, tests, genuine WebGL evidence and an implementation PR. F1 was integrated by PR #1 (merge commit `2dff6c6bf488870da8ea5427261edc6d26bc3207`). See STATUS.md for executed F2A results; the complete three-action F2 gate remains pending F2B.
 
 ## Goal and boundaries
 Add just three actions to the existing canonical avatar: `idle`, `walk`, and `look_react`. Reuse the six original body meshes, rounded oval head, durable five named pivots, face caches and appearance attachment interface. Preserve the F1 silhouette, materials and neutral assembly. Keep vanilla Three.js 0.187.0; small ES modules, no animation framework or physics engine.
@@ -59,4 +59,9 @@ C — Practicality: responsive controls and real-browser vertical 9:16 inspectio
 Evidence goes under `evidence/f2/` with a manifest of commands, browser/WebGL version, sampling fps/times, views, tuning constants and contact maxima. Store enough indexed frame evidence to reproduce review without uncontrolled repository growth; lossless sequences may be linked artifacts, but a manifest and reviewed contact sheets must be committed. No fake canvas or generated concept images. F1 still captures remain separate.
 
 ## Completion rule
-F2 is PASS only after A, B and C are executed successfully and frame review/contact metrics are documented. Otherwise PARTIAL with exact blockers or FAIL for broken behavior. A specification, sine-wave demo or static screenshot is not motion acceptance. Commit source, tests and documentation in a future implementation PR. This task prepares that work only.
+F2 is PASS only after A, B and C are executed successfully and frame review/contact metrics are documented. Otherwise PARTIAL with exact blockers or FAIL for broken behavior. A specification, sine-wave demo or static screenshot is not motion acceptance. Commit source, tests and documentation in a future implementation PR. F2A may be graded separately for idle/look-react and their transitions; a F2A PASS must not be reported as complete F2 or walking acceptance.
+
+## F2A implementation choices
+`avatar/actions.js` provides the three sampling/application functions above for idle and look_react only. Idle uses a 3-second period. Reaction uses 0–.2s anticipation, .2–.65s turn, .65–1s hold and 1–1.6s recovery, then neutral. Peak head turn .3 rad, downward glance .06 rad; small shoulder motion. No root, hip or local pivot translation is required: both support feet remain exactly fixed, including blends. Contact anchors are sole-center references at x=±.5, y=z=0 (the actual beveled sole has flat geometry there). Contact reports measure transformed body geometry and fixed leg centers.
+
+Transitions use a .25s smoothstep weight and shortest-path bounded XYZ angle interpolation; this range avoids Euler singularities. Source and target action-local times are explicit. Snapshot sources support interrupted blends; these preserve pose continuity but do not promise velocity matching at interruption. Regular progressing-source blends match endpoint velocities. Ground resolution is the invariant zero hip/root motion in F2A, not a walk solver. Placement origin translates/yaws the whole avatar; floor guarantees assume origin.y=0 and a level parent. External origin motion is caller-owned.
