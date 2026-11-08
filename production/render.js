@@ -9,23 +9,25 @@ import {compileShotList,sampleShotList} from './timeline.js';
 
 try {
  let input=window.__shotListInput;
- if(!input){const response=await fetch('./feasibility.json');if(!response.ok)throw new Error('Shot list could not load');input=await response.json();}
+ if(!input){const file=new URLSearchParams(location.search).get('shots')??'feasibility.json';if(!/^[a-z0-9][a-z0-9_.-]*\.json$/i.test(file))throw new Error('Invalid shot-list filename');const response=await fetch('./'+file);if(!response.ok)throw new Error('Shot list could not load');input=await response.json();}
  const plan=compileShotList(input);
  const renderer=new THREE.WebGLRenderer({antialias:true,preserveDrawingBuffer:true});renderer.setPixelRatio(1);renderer.setSize(plan.width,plan.height);renderer.shadowMap.enabled=true;renderer.shadowMap.type=THREE.PCFSoftShadowMap;renderer.toneMapping=THREE.ACESFilmicToneMapping;document.body.append(renderer.domElement);
- const scene=new THREE.Scene();createWorkshop(scene,plan.version===2?plan.environment:{});
- const specs=plan.version===2?plan.props:[{...plan.prop,id:'proximity_chest'}];
+ const scene=new THREE.Scene();createWorkshop(scene,plan.version>=2?plan.environment:{});
+ const specs=plan.version>=2?plan.props:[{...plan.prop,id:'proximity_chest'}];
  const props=Object.fromEntries(specs.map(spec=>[spec.id,createChest(scene,spec)]));
- const avatar=createBaseAvatar();scene.add(avatar.root);applyFace(avatar,'classic_smile');
+ const cast=plan.cast??[{id:'actor',torsoVariant:'classic'}];
+ const avatars=Object.fromEntries(cast.map(def=>{const a=createBaseAvatar({torsoVariant:def.torsoVariant});a.root.name=def.id;scene.add(a.root);applyFace(a,'classic_smile');return [def.id,a];})),avatar=avatars[cast[0].id];
  const camera=new THREE.PerspectiveCamera(40,plan.width/plan.height,.1,60);
- const original=[avatar.root,...Object.values(avatar.parts),...Object.values(avatar.pivots)];
+ const references=a=>[a.root,...Object.values(a.parts),...Object.values(a.pivots),...Object.values(a.parts).flatMap(m=>[m.geometry,m.material])];
+ const original=Object.values(avatars).flatMap(references);
  function renderFrame(frame){
-  const state=sampleShotList(plan,frame);applyActionSample(avatar,state.actor.action,state.actor.origin);applyFace(avatar,state.face);
-  if(state.appearance)applyAppearance(avatar,state.appearance);
+  const state=sampleShotList(plan,frame),actors=state.actors??{[cast[0].id]:{...state.actor,face:state.face,appearance:state.appearance}};
+  for(const [id,s] of Object.entries(actors)){const a=avatars[id];applyActionSample(a,s.action,s.origin);applyFace(a,s.face);if(s.appearance)applyAppearance(a,s.appearance);}
   const propStates=state.propStates??{proximity_chest:{open:state.propOpen}};
   for(const [id,prop] of Object.entries(props))prop.apply(propStates[id]);
   camera.fov=state.camera.fov;camera.position.set(...state.camera.position);camera.lookAt(...state.camera.target);camera.updateProjectionMatrix();renderer.render(scene,camera);
-  return {frame,shot:state.shot,time:state.time,propOpen:state.propOpen??null,camera:state.camera,actorPosition:avatar.root.position.toArray(),propStates,identity:original.every((p,i)=>p===[avatar.root,...Object.values(avatar.parts),...Object.values(avatar.pivots)][i])};
+  return {frame,shot:state.shot,time:state.time,propOpen:state.propOpen??null,camera:state.camera,actorPosition:avatar.root.position.toArray(),propStates,...(plan.version===3?{actors:Object.fromEntries(Object.entries(actors).map(([id,s])=>[id,{position:avatars[id].root.position.toArray(),face:s.face,appearance:s.appearance,torsoVariant:avatars[id].torsoVariant}]))}:{}),identity:original.every((p,i)=>p===Object.values(avatars).flatMap(references)[i])};
  }
  // No clock/RAF: all frames, action time, cameras and prop state are explicit.
- window.__production={plan,renderFrame,renderer,scene,camera,avatar};renderFrame(0);
+ window.__production={plan,renderFrame,renderer,scene,camera,avatar,avatars};renderFrame(0);
 }catch(error){window.__productionError=error.message;document.getElementById('error').textContent=error.message;throw error;}

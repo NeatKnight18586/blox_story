@@ -1,9 +1,19 @@
-# BlockStory — shot-based production feasibility
-Current milestone: a real **7.2s, three-shot, 720×1280 / 30fps H.264 MP4** rendered from structured shot data. This is a bounded feasibility test; the full production pipeline is not implemented.
+# BlockStory — reusable cinematic shot pipeline
 
-[Play/download MP4](evidence/production/feasibility.mp4) · [contact sheet](evidence/production/contact-sheet.png) · [verification manifest](evidence/production/manifest.json) · [commands, limits and proposed next additions](PRODUCTION_FEASIBILITY.md).
+Current milestone: **P2A reusable character casting** on the deterministic P1 renderer. Two independent named avatars share the existing animation engine; Classic stays the default, with one optional tapered torso and minimal removable bob hair/vest layers. Fixed two-shot, close-up and over-the-shoulder presets support small original silent scenes.
 
-Developer reproduction: `npm test`; with `npm run preview` serving port 8000, run `npm run render:feasibility` then `npm run sheet:feasibility`. A codec-capable system Chromium is used for HTML5 MP4 verification if bundled Playwright Chromium lacks H.264 decoding; override its path with `PLAYBACK_CHROMIUM` if necessary. FFmpeg/FFprobe and Pillow are existing developer tools; no browser framework/dependency added. Open `/production/player.html` on the HTTP server for playback. Current artifact is silent; all original F1/F2 code, tests, gaits and evidence are retained below.
+[P2A contract and commands](P2A_CASTING.md) · [acting test/evidence](evidence/p2a/REPORT.md) · [P1 renderer/recovery contract](P1_PIPELINE.md) · [original feasibility scene](PRODUCTION_FEASIBILITY.md).
+
+```sh
+npm test
+npm run test:p1
+npm run test:casting
+npm run render:shots -- --shots production/reassurance.json --out renders/reassurance
+```
+
+The exporter owns its local server, resumes verified PNGs and publishes a H.264 9:16 MP4 only after reverse pixel checks, full decode and browser playback. The test is 12 seconds/360 frames/720×1280/30fps, silent. Output is referenced by `<out>/latest.json`. No new dependency, editor, generator, physics system, audio or walking transitions. Existing films, classic avatar, both gaits and historical evidence remain intact. For developer frame seeking, `npm run preview` and `/production/?shots=reassurance.json`; `__production.renderFrame(frame)` samples explicitly. No iPad setup is required for the delivered movie.
+
+The earlier milestone descriptions below are historical references; current scope and executed results are in STATUS.md. Stop after the P2A PR for review.
 
 ## Avatar and action lab reference
 One neutral six-part block avatar with a softly rounded oval cylindrical head in vanilla Three.js 0.187.0. **F1 PASS**: real API tests and Chromium WebGL captures completed. See [STATUS.md](STATUS.md) for evidence and limits. F2A adds idle/look-react and transitions; a standalone walk foundation is available on the F2B1 PR; walking transitions remain deferred.
