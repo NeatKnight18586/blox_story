@@ -8,9 +8,9 @@ function neutral(){return {root:{position:[0,0,0],yaw:0},pivots:Object.fromEntri
 export function sampleAction(name,t,options={}){
  time(t);
  if(!['idle','look_react','walk'].includes(name))throw new Error('Unknown action');
- if(!options||typeof options!=='object'||Array.isArray(options)||Object.keys(options).some(k=>k!=='direction')||!['left','right'].includes(options.direction??'right'))throw new Error('Invalid action options');
+ if(!options||typeof options!=='object'||Array.isArray(options)||Object.keys(options).some(k=>k!=='direction'&&(k!=='gait'||name!=='walk'))||!['left','right'].includes(options.direction??'right')||(name==='walk'&&!['baseline','readable'].includes(options.gait??'baseline')))throw new Error('Invalid action options');
  const s=neutral(),p=s.pivots;
- if(name==='walk')return sampleWalk(t,s);
+ if(name==='walk')return sampleWalk(t,s,options.gait);
  if(name==='idle'){
   const wave=Math.sin((t%3)/3*Math.PI*2);
   p.head=[.012*wave,.035*wave,0];

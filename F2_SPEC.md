@@ -1,5 +1,5 @@
 # F2 — deterministic reusable actions
-Status: F2A MERGED; F2B1 FOUNDATIONAL WALK AUTHORIZED. WALKING TRANSITIONS DEFERRED.
+Status: F2A/F2B1 MERGED; ONE F2B1 VISUAL CALIBRATION TRIAL AUTHORIZED. F2B2/WALKING TRANSITIONS DEFERRED.
 Current authorized scope: F2B1 standalone walk implementation, contact tests, genuine WebGL evidence and a PR; no walking transitions. F1 was integrated by PR #1 (merge commit `2dff6c6bf488870da8ea5427261edc6d26bc3207`). See STATUS.md for executed F2A results; the complete three-action F2 gate remains pending F2B.
 
 ## Goal and boundaries
@@ -76,3 +76,10 @@ The support foot rocks from its rear edge to its front edge at the flat-foot mid
 Pure mirrored rigid-leg rotations leave both bottoms at the same height. The smallest employed correction is a smooth vertical offset of the existing swing hip (max .045 < .05 target), providing .045 maximum measured clearance. It causes only a small overlap at the hip joint, without a new mesh, changing leg length or opening the joint. All pivot positions reset from recorded neutral positions on the next action or legacy pose. Origin yaw rotates root displacement; origin.y=0 and a level parent are required for ground guarantees.
 
 The gait is intentionally a short shuffle, with smooth zero-velocity instants at flat-foot and support handoffs, rather than a natural long stride. It is not physically simulated. Longer strides and continuous-speed gait refinement are not certified by this foundation. All original drift (.03), penetration (.01), contact (.02) tolerances remain unchanged. Full F2 acceptance remains pending walking transitions in a separately authorized task.
+
+## Visual calibration trial — no anatomy or tolerance change
+Preserve default `sampleAction('walk', t)` and explicit `{gait:'baseline'}`. The single opt-in `{gait:'readable'}` trial uses ±.10 rad hip swing, 1.8× opposing arm gain (±.18 rad), and .05 maximum swing lift. Baseline constants remain ±.05 rad, 1.4× arm gain and .045 lift. Cadence remains 1.2 seconds; contact-derived stride grows from .40223 to .80826 units/cycle. The weight cue is a larger vertical root rise/fall and fore/aft travel, not a new lateral pelvis or balance simulation.
+
+No anatomical mesh, pivot or appearance change. Same fixed camera, ground, lighting, timestamps, gray material and smile must be used for comparison. Camera framing in the preview is widened/recentered equally for both walk options (5.8 units wide at narrow aspect, target z=.8) to accommodate the trial's longer travel. The sampler's default baseline is checked against a SHA-256 fixture of 145 samples captured from merged PR #4 before modification. This is a reproducibility check in addition to physical/contact and pixel tests.
+
+The calibration may be accepted only after visual improvement at mobile/9:16 size and all existing contact/clearance/joint tests pass. Keep both fixed material-point drift and actual lowest-vertex contact-locus drift visible in reports; do not reset anchors per frame. No walking transitions or F2B2 are authorized by this task.
