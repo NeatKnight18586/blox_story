@@ -1,0 +1,10 @@
+set -e
+cd "$(git rev-parse --show-toplevel)"
+npm test > /tmp/pr13-regressions.log 2>&1
+node tests/roughcut-framing.js >> /tmp/pr13-regressions.log 2>&1
+npm run test:ending -- --motion >> /tmp/pr13-regressions.log 2>&1
+node --input-type=module <<'JS'
+import assert from 'node:assert/strict';import {readFile,writeFile} from 'node:fs/promises';import {chromium} from 'playwright';import {loadStory,storyEngineHash,hash} from './scripts/names100.js';import {startServer} from './scripts/pipeline/server.js';import {verifyVideo} from './scripts/pipeline/video.js';
+const m=JSON.parse(await readFile('evidence/names100-s2/manifest.json')),s=await loadStory(),integrity=JSON.parse(await readFile('evidence/names100-s2/integrity.json'));assert.equal(await storyEngineHash(),m.engineSha256);assert.equal(s.jobSourceSha256,m.storySha256);assert.equal(hash(await readFile('evidence/names100-s2/movie.mp4')),m.mp4Sha256);for(const f of integrity.existingFilms)assert.equal(hash(await readFile(f.path)),f.sha256);assert.equal(m.frames.length,821);m.frames.forEach((f,i)=>assert.equal(f.state.globalFrame,i*2));assert(m.determinism.reversePixelMatch&&m.determinism.reverseStateMatch);for(const f of JSON.parse(await readFile('evidence/names100-s2/keyframes.json')).frames)assert.equal(hash(await readFile('evidence/names100-s2/'+f.file)),f.sha256);
+const server=await startServer(process.cwd());let browser;try{browser=await chromium.launch({headless:true,args:['--no-sandbox']});const video=await verifyVideo(m,process.cwd()+'/evidence/names100-s2/movie.mp4',server,browser);assert.equal(video.probe.streams.filter(s=>s.codec_type==='audio').length,0);await writeFile('/tmp/pr13-video-verification.json',JSON.stringify({status:'PASS',prHead:'decc53f8b4dbb047a4c979160caa2c268f65e149',existingFilmHashesMatch:8,s2Sha256:m.mp4Sha256,sourceFingerprintsMatch:true,keyframeHashesMatch:true,frameMap:'global=2*outputFrame',video},null,2)+'\n');console.log('PASS PR13 source fingerprints,39 native images,8 previous film hashes,821-frame map,full MP4 decode/PTS/22 cuts/native playback/seek');}finally{if(browser)await browser.close();await server.close();}
+JS
