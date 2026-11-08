@@ -56,3 +56,15 @@ Select **Walk foundation** or call `applyActionSample(avatar, sampleAction('walk
 This is a conservative short shuffle, not a long-stride or physically simulated gait. Standalone walk starts/stops with cuts; no walking transitions are provided. The fixed inspection camera is framed for the first two cycles; a future scene/camera system is not implemented. Use the time slider to inspect that interval.
 
 Run `npm run test:walk` with the preview server running, then `python3 tests/contact-sheets.py evidence/f2b1`. [Walk evidence](evidence/f2b1/) includes actual 30fps side/three-quarter sheets for two cycles, selected stills, 390×693 and 720×1280 renders, and max/RMS contact metrics. Raw sequences are regenerated locally under the Git-ignored frames directory to avoid accumulating hundreds of near-duplicate files in history. The existing F1 and F2A captures remain separate.
+
+## Walk visual calibration
+The original short-step walk remains the default and is selectable as **Baseline**. One opt-in **Readable trial** uses clearer leg/arm excursions and slightly larger rise/fall, with the same 1.2s timing. Select it under Walk gait, or use:
+```js
+sampleAction('walk', seconds, {gait:'readable'});
+sampleAction('walk', seconds, {gait:'baseline'}); // original, bit-identical
+```
+The inspector uses the same fixed framing for either gait; selecting a gait pauses and resets time. No walking blend is added.
+
+[Mobile comparison](evidence/calibration/comparison-mobile.png) · [phase comparison](evidence/calibration/comparison.png) · [side motion](evidence/calibration/comparison-side.gif) · [three-quarter motion](evidence/calibration/comparison-threequarter.gif). Left is baseline; right is readable. GIFs are compact test evidence assembled only from genuine WebGL screenshots; their restart resets the captured interval's world position. No MP4/export system is implemented.
+
+Run `npm test`, `npm run test:calibration` with the HTTP server, then `python3 tests/calibration-comparison.py`. Browser reports and independent geometry metrics are in `evidence/calibration/`; raw PNGs and all-frame review sheets are regenerated into its ignored `raw/` directory. Pillow is an existing developer evidence tool, not a browser dependency. Recommendation: keep Readable as the stronger prototype gait, retaining Baseline for regressions/slow shuffles. It is still a rigid-body stylization; no lateral balance, long-stride certification or native Safari verification is claimed.

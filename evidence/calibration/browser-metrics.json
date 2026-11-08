@@ -1,0 +1,2130 @@
+{
+  "browser": "141.0.7390.37",
+  "fps": [
+    30,
+    60
+  ],
+  "duration": 2.4,
+  "size": [
+    216,
+    384
+  ],
+  "camera": "Identical fixed camera for both gaits; 5.8-unit width, target z=.8; no tracking, reframing or variant-specific scale",
+  "results": {
+    "side-baseline": {
+      "samples": 218,
+      "metrics": {
+        "maxFootDrift": 1.1102230246251565e-16,
+        "rmsFootDrift": 3.013620443605934e-17,
+        "maxPatchDrift": 3.3306690738754696e-16,
+        "rmsPatchDrift": 1.3248572042681333e-16,
+        "maxPenetration": 2.220446049250313e-16,
+        "rmsPenetration": 1.2671882959866031e-16,
+        "maxContactError": 2.220446049250313e-16,
+        "rmsContactError": 1.9608141819027707e-16,
+        "minClearance": 0,
+        "maxClearance": 0.04499999999999993,
+        "maxNdc": 0.5065391065372641
+      },
+      "repeatReversePixelMatch": true
+    },
+    "side-readable": {
+      "samples": 218,
+      "metrics": {
+        "maxFootDrift": 2.220446049250313e-16,
+        "rmsFootDrift": 5.369910792520928e-17,
+        "maxPatchDrift": 4.440892098500626e-16,
+        "rmsPatchDrift": 1.7556180320052313e-16,
+        "maxPenetration": 2.220446049250313e-16,
+        "rmsPenetration": 6.725537158473823e-17,
+        "maxContactError": 2.220446049250313e-16,
+        "rmsContactError": 1.0844602813475078e-16,
+        "minClearance": 2.220446049250313e-16,
+        "maxClearance": 0.04999999999999982,
+        "maxNdc": 0.5728998952856899
+      },
+      "repeatReversePixelMatch": true
+    },
+    "threequarter-baseline": {
+      "samples": 218,
+      "metrics": {
+        "maxFootDrift": 1.1102230246251565e-16,
+        "rmsFootDrift": 3.013620443605934e-17,
+        "maxPatchDrift": 3.3306690738754696e-16,
+        "rmsPatchDrift": 1.3248572042681333e-16,
+        "maxPenetration": 2.220446049250313e-16,
+        "rmsPenetration": 1.2671882959866031e-16,
+        "maxContactError": 2.220446049250313e-16,
+        "rmsContactError": 1.9608141819027707e-16,
+        "minClearance": 0,
+        "maxClearance": 0.04499999999999993,
+        "maxNdc": 0.8193106006202279
+      },
+      "repeatReversePixelMatch": true
+    },
+    "threequarter-readable": {
+      "samples": 218,
+      "metrics": {
+        "maxFootDrift": 2.220446049250313e-16,
+        "rmsFootDrift": 5.369910792520928e-17,
+        "maxPatchDrift": 4.440892098500626e-16,
+        "rmsPatchDrift": 1.7556180320052313e-16,
+        "maxPenetration": 2.220446049250313e-16,
+        "rmsPenetration": 6.725537158473823e-17,
+        "maxContactError": 2.220446049250313e-16,
+        "rmsContactError": 1.0844602813475078e-16,
+        "minClearance": 2.220446049250313e-16,
+        "maxClearance": 0.04999999999999982,
+        "maxNdc": 0.8207642558455656
+      },
+      "repeatReversePixelMatch": true
+    }
+  },
+  "frames": [
+    {
+      "view": "side",
+      "gait": "baseline",
+      "frame": 0,
+      "time": 0,
+      "path": "evidence/calibration/raw/side-baseline-000.png"
+    },
+    {
+      "view": "side",
+      "gait": "baseline",
+      "frame": 1,
+      "time": 0.03333333333333333,
+      "path": "evidence/calibration/raw/side-baseline-001.png"
+    },
+    {
+      "view": "side",
+      "gait": "baseline",
+      "frame": 2,
+      "time": 0.06666666666666667,
+      "path": "evidence/calibration/raw/side-baseline-002.png"
+    },
+    {
+      "view": "side",
+      "gait": "baseline",
+      "frame": 3,
+      "time": 0.1,
+      "path": "evidence/calibration/raw/side-baseline-003.png"
+    },
+    {
+      "view": "side",
+      "gait": "baseline",
+      "frame": 4,
+      "time": 0.13333333333333333,
+      "path": "evidence/calibration/raw/side-baseline-004.png"
+    },
+    {
+      "view": "side",
+      "gait": "baseline",
+      "frame": 5,
+      "time": 0.16666666666666666,
+      "path": "evidence/calibration/raw/side-baseline-005.png"
+    },
+    {
+      "view": "side",
+      "gait": "baseline",
+      "frame": 6,
+      "time": 0.2,
+      "path": "evidence/calibration/raw/side-baseline-006.png"
+    },
+    {
+      "view": "side",
+      "gait": "baseline",
+      "frame": 7,
+      "time": 0.23333333333333334,
+      "path": "evidence/calibration/raw/side-baseline-007.png"
+    },
+    {
+      "view": "side",
+      "gait": "baseline",
+      "frame": 8,
+      "time": 0.26666666666666666,
+      "path": "evidence/calibration/raw/side-baseline-008.png"
+    },
+    {
+      "view": "side",
+      "gait": "baseline",
+      "frame": 9,
+      "time": 0.3,
+      "path": "evidence/calibration/raw/side-baseline-009.png"
+    },
+    {
+      "view": "side",
+      "gait": "baseline",
+      "frame": 10,
+      "time": 0.3333333333333333,
+      "path": "evidence/calibration/raw/side-baseline-010.png"
+    },
+    {
+      "view": "side",
+      "gait": "baseline",
+      "frame": 11,
+      "time": 0.36666666666666664,
+      "path": "evidence/calibration/raw/side-baseline-011.png"
+    },
+    {
+      "view": "side",
+      "gait": "baseline",
+      "frame": 12,
+      "time": 0.4,
+      "path": "evidence/calibration/raw/side-baseline-012.png"
+    },
+    {
+      "view": "side",
+      "gait": "baseline",
+      "frame": 13,
+      "time": 0.43333333333333335,
+      "path": "evidence/calibration/raw/side-baseline-013.png"
+    },
+    {
+      "view": "side",
+      "gait": "baseline",
+      "frame": 14,
+      "time": 0.4666666666666667,
+      "path": "evidence/calibration/raw/side-baseline-014.png"
+    },
+    {
+      "view": "side",
+      "gait": "baseline",
+      "frame": 15,
+      "time": 0.5,
+      "path": "evidence/calibration/raw/side-baseline-015.png"
+    },
+    {
+      "view": "side",
+      "gait": "baseline",
+      "frame": 16,
+      "time": 0.5333333333333333,
+      "path": "evidence/calibration/raw/side-baseline-016.png"
+    },
+    {
+      "view": "side",
+      "gait": "baseline",
+      "frame": 17,
+      "time": 0.5666666666666667,
+      "path": "evidence/calibration/raw/side-baseline-017.png"
+    },
+    {
+      "view": "side",
+      "gait": "baseline",
+      "frame": 18,
+      "time": 0.6,
+      "path": "evidence/calibration/raw/side-baseline-018.png"
+    },
+    {
+      "view": "side",
+      "gait": "baseline",
+      "frame": 19,
+      "time": 0.6333333333333333,
+      "path": "evidence/calibration/raw/side-baseline-019.png"
+    },
+    {
+      "view": "side",
+      "gait": "baseline",
+      "frame": 20,
+      "time": 0.6666666666666666,
+      "path": "evidence/calibration/raw/side-baseline-020.png"
+    },
+    {
+      "view": "side",
+      "gait": "baseline",
+      "frame": 21,
+      "time": 0.7,
+      "path": "evidence/calibration/raw/side-baseline-021.png"
+    },
+    {
+      "view": "side",
+      "gait": "baseline",
+      "frame": 22,
+      "time": 0.7333333333333333,
+      "path": "evidence/calibration/raw/side-baseline-022.png"
+    },
+    {
+      "view": "side",
+      "gait": "baseline",
+      "frame": 23,
+      "time": 0.7666666666666667,
+      "path": "evidence/calibration/raw/side-baseline-023.png"
+    },
+    {
+      "view": "side",
+      "gait": "baseline",
+      "frame": 24,
+      "time": 0.8,
+      "path": "evidence/calibration/raw/side-baseline-024.png"
+    },
+    {
+      "view": "side",
+      "gait": "baseline",
+      "frame": 25,
+      "time": 0.8333333333333334,
+      "path": "evidence/calibration/raw/side-baseline-025.png"
+    },
+    {
+      "view": "side",
+      "gait": "baseline",
+      "frame": 26,
+      "time": 0.8666666666666667,
+      "path": "evidence/calibration/raw/side-baseline-026.png"
+    },
+    {
+      "view": "side",
+      "gait": "baseline",
+      "frame": 27,
+      "time": 0.9,
+      "path": "evidence/calibration/raw/side-baseline-027.png"
+    },
+    {
+      "view": "side",
+      "gait": "baseline",
+      "frame": 28,
+      "time": 0.9333333333333333,
+      "path": "evidence/calibration/raw/side-baseline-028.png"
+    },
+    {
+      "view": "side",
+      "gait": "baseline",
+      "frame": 29,
+      "time": 0.9666666666666667,
+      "path": "evidence/calibration/raw/side-baseline-029.png"
+    },
+    {
+      "view": "side",
+      "gait": "baseline",
+      "frame": 30,
+      "time": 1,
+      "path": "evidence/calibration/raw/side-baseline-030.png"
+    },
+    {
+      "view": "side",
+      "gait": "baseline",
+      "frame": 31,
+      "time": 1.0333333333333334,
+      "path": "evidence/calibration/raw/side-baseline-031.png"
+    },
+    {
+      "view": "side",
+      "gait": "baseline",
+      "frame": 32,
+      "time": 1.0666666666666667,
+      "path": "evidence/calibration/raw/side-baseline-032.png"
+    },
+    {
+      "view": "side",
+      "gait": "baseline",
+      "frame": 33,
+      "time": 1.1,
+      "path": "evidence/calibration/raw/side-baseline-033.png"
+    },
+    {
+      "view": "side",
+      "gait": "baseline",
+      "frame": 34,
+      "time": 1.1333333333333333,
+      "path": "evidence/calibration/raw/side-baseline-034.png"
+    },
+    {
+      "view": "side",
+      "gait": "baseline",
+      "frame": 35,
+      "time": 1.1666666666666667,
+      "path": "evidence/calibration/raw/side-baseline-035.png"
+    },
+    {
+      "view": "side",
+      "gait": "baseline",
+      "frame": 36,
+      "time": 1.2,
+      "path": "evidence/calibration/raw/side-baseline-036.png"
+    },
+    {
+      "view": "side",
+      "gait": "baseline",
+      "frame": 37,
+      "time": 1.2333333333333334,
+      "path": "evidence/calibration/raw/side-baseline-037.png"
+    },
+    {
+      "view": "side",
+      "gait": "baseline",
+      "frame": 38,
+      "time": 1.2666666666666666,
+      "path": "evidence/calibration/raw/side-baseline-038.png"
+    },
+    {
+      "view": "side",
+      "gait": "baseline",
+      "frame": 39,
+      "time": 1.3,
+      "path": "evidence/calibration/raw/side-baseline-039.png"
+    },
+    {
+      "view": "side",
+      "gait": "baseline",
+      "frame": 40,
+      "time": 1.3333333333333333,
+      "path": "evidence/calibration/raw/side-baseline-040.png"
+    },
+    {
+      "view": "side",
+      "gait": "baseline",
+      "frame": 41,
+      "time": 1.3666666666666667,
+      "path": "evidence/calibration/raw/side-baseline-041.png"
+    },
+    {
+      "view": "side",
+      "gait": "baseline",
+      "frame": 42,
+      "time": 1.4,
+      "path": "evidence/calibration/raw/side-baseline-042.png"
+    },
+    {
+      "view": "side",
+      "gait": "baseline",
+      "frame": 43,
+      "time": 1.4333333333333333,
+      "path": "evidence/calibration/raw/side-baseline-043.png"
+    },
+    {
+      "view": "side",
+      "gait": "baseline",
+      "frame": 44,
+      "time": 1.4666666666666666,
+      "path": "evidence/calibration/raw/side-baseline-044.png"
+    },
+    {
+      "view": "side",
+      "gait": "baseline",
+      "frame": 45,
+      "time": 1.5,
+      "path": "evidence/calibration/raw/side-baseline-045.png"
+    },
+    {
+      "view": "side",
+      "gait": "baseline",
+      "frame": 46,
+      "time": 1.5333333333333334,
+      "path": "evidence/calibration/raw/side-baseline-046.png"
+    },
+    {
+      "view": "side",
+      "gait": "baseline",
+      "frame": 47,
+      "time": 1.5666666666666667,
+      "path": "evidence/calibration/raw/side-baseline-047.png"
+    },
+    {
+      "view": "side",
+      "gait": "baseline",
+      "frame": 48,
+      "time": 1.6,
+      "path": "evidence/calibration/raw/side-baseline-048.png"
+    },
+    {
+      "view": "side",
+      "gait": "baseline",
+      "frame": 49,
+      "time": 1.6333333333333333,
+      "path": "evidence/calibration/raw/side-baseline-049.png"
+    },
+    {
+      "view": "side",
+      "gait": "baseline",
+      "frame": 50,
+      "time": 1.6666666666666667,
+      "path": "evidence/calibration/raw/side-baseline-050.png"
+    },
+    {
+      "view": "side",
+      "gait": "baseline",
+      "frame": 51,
+      "time": 1.7,
+      "path": "evidence/calibration/raw/side-baseline-051.png"
+    },
+    {
+      "view": "side",
+      "gait": "baseline",
+      "frame": 52,
+      "time": 1.7333333333333334,
+      "path": "evidence/calibration/raw/side-baseline-052.png"
+    },
+    {
+      "view": "side",
+      "gait": "baseline",
+      "frame": 53,
+      "time": 1.7666666666666666,
+      "path": "evidence/calibration/raw/side-baseline-053.png"
+    },
+    {
+      "view": "side",
+      "gait": "baseline",
+      "frame": 54,
+      "time": 1.8,
+      "path": "evidence/calibration/raw/side-baseline-054.png"
+    },
+    {
+      "view": "side",
+      "gait": "baseline",
+      "frame": 55,
+      "time": 1.8333333333333333,
+      "path": "evidence/calibration/raw/side-baseline-055.png"
+    },
+    {
+      "view": "side",
+      "gait": "baseline",
+      "frame": 56,
+      "time": 1.8666666666666667,
+      "path": "evidence/calibration/raw/side-baseline-056.png"
+    },
+    {
+      "view": "side",
+      "gait": "baseline",
+      "frame": 57,
+      "time": 1.9,
+      "path": "evidence/calibration/raw/side-baseline-057.png"
+    },
+    {
+      "view": "side",
+      "gait": "baseline",
+      "frame": 58,
+      "time": 1.9333333333333333,
+      "path": "evidence/calibration/raw/side-baseline-058.png"
+    },
+    {
+      "view": "side",
+      "gait": "baseline",
+      "frame": 59,
+      "time": 1.9666666666666666,
+      "path": "evidence/calibration/raw/side-baseline-059.png"
+    },
+    {
+      "view": "side",
+      "gait": "baseline",
+      "frame": 60,
+      "time": 2,
+      "path": "evidence/calibration/raw/side-baseline-060.png"
+    },
+    {
+      "view": "side",
+      "gait": "baseline",
+      "frame": 61,
+      "time": 2.033333333333333,
+      "path": "evidence/calibration/raw/side-baseline-061.png"
+    },
+    {
+      "view": "side",
+      "gait": "baseline",
+      "frame": 62,
+      "time": 2.066666666666667,
+      "path": "evidence/calibration/raw/side-baseline-062.png"
+    },
+    {
+      "view": "side",
+      "gait": "baseline",
+      "frame": 63,
+      "time": 2.1,
+      "path": "evidence/calibration/raw/side-baseline-063.png"
+    },
+    {
+      "view": "side",
+      "gait": "baseline",
+      "frame": 64,
+      "time": 2.1333333333333333,
+      "path": "evidence/calibration/raw/side-baseline-064.png"
+    },
+    {
+      "view": "side",
+      "gait": "baseline",
+      "frame": 65,
+      "time": 2.1666666666666665,
+      "path": "evidence/calibration/raw/side-baseline-065.png"
+    },
+    {
+      "view": "side",
+      "gait": "baseline",
+      "frame": 66,
+      "time": 2.2,
+      "path": "evidence/calibration/raw/side-baseline-066.png"
+    },
+    {
+      "view": "side",
+      "gait": "baseline",
+      "frame": 67,
+      "time": 2.2333333333333334,
+      "path": "evidence/calibration/raw/side-baseline-067.png"
+    },
+    {
+      "view": "side",
+      "gait": "baseline",
+      "frame": 68,
+      "time": 2.2666666666666666,
+      "path": "evidence/calibration/raw/side-baseline-068.png"
+    },
+    {
+      "view": "side",
+      "gait": "baseline",
+      "frame": 69,
+      "time": 2.3,
+      "path": "evidence/calibration/raw/side-baseline-069.png"
+    },
+    {
+      "view": "side",
+      "gait": "baseline",
+      "frame": 70,
+      "time": 2.3333333333333335,
+      "path": "evidence/calibration/raw/side-baseline-070.png"
+    },
+    {
+      "view": "side",
+      "gait": "baseline",
+      "frame": 71,
+      "time": 2.3666666666666667,
+      "path": "evidence/calibration/raw/side-baseline-071.png"
+    },
+    {
+      "view": "side",
+      "gait": "baseline",
+      "frame": 72,
+      "time": 2.4,
+      "path": "evidence/calibration/raw/side-baseline-072.png"
+    },
+    {
+      "view": "side",
+      "gait": "readable",
+      "frame": 0,
+      "time": 0,
+      "path": "evidence/calibration/raw/side-readable-000.png"
+    },
+    {
+      "view": "side",
+      "gait": "readable",
+      "frame": 1,
+      "time": 0.03333333333333333,
+      "path": "evidence/calibration/raw/side-readable-001.png"
+    },
+    {
+      "view": "side",
+      "gait": "readable",
+      "frame": 2,
+      "time": 0.06666666666666667,
+      "path": "evidence/calibration/raw/side-readable-002.png"
+    },
+    {
+      "view": "side",
+      "gait": "readable",
+      "frame": 3,
+      "time": 0.1,
+      "path": "evidence/calibration/raw/side-readable-003.png"
+    },
+    {
+      "view": "side",
+      "gait": "readable",
+      "frame": 4,
+      "time": 0.13333333333333333,
+      "path": "evidence/calibration/raw/side-readable-004.png"
+    },
+    {
+      "view": "side",
+      "gait": "readable",
+      "frame": 5,
+      "time": 0.16666666666666666,
+      "path": "evidence/calibration/raw/side-readable-005.png"
+    },
+    {
+      "view": "side",
+      "gait": "readable",
+      "frame": 6,
+      "time": 0.2,
+      "path": "evidence/calibration/raw/side-readable-006.png"
+    },
+    {
+      "view": "side",
+      "gait": "readable",
+      "frame": 7,
+      "time": 0.23333333333333334,
+      "path": "evidence/calibration/raw/side-readable-007.png"
+    },
+    {
+      "view": "side",
+      "gait": "readable",
+      "frame": 8,
+      "time": 0.26666666666666666,
+      "path": "evidence/calibration/raw/side-readable-008.png"
+    },
+    {
+      "view": "side",
+      "gait": "readable",
+      "frame": 9,
+      "time": 0.3,
+      "path": "evidence/calibration/raw/side-readable-009.png"
+    },
+    {
+      "view": "side",
+      "gait": "readable",
+      "frame": 10,
+      "time": 0.3333333333333333,
+      "path": "evidence/calibration/raw/side-readable-010.png"
+    },
+    {
+      "view": "side",
+      "gait": "readable",
+      "frame": 11,
+      "time": 0.36666666666666664,
+      "path": "evidence/calibration/raw/side-readable-011.png"
+    },
+    {
+      "view": "side",
+      "gait": "readable",
+      "frame": 12,
+      "time": 0.4,
+      "path": "evidence/calibration/raw/side-readable-012.png"
+    },
+    {
+      "view": "side",
+      "gait": "readable",
+      "frame": 13,
+      "time": 0.43333333333333335,
+      "path": "evidence/calibration/raw/side-readable-013.png"
+    },
+    {
+      "view": "side",
+      "gait": "readable",
+      "frame": 14,
+      "time": 0.4666666666666667,
+      "path": "evidence/calibration/raw/side-readable-014.png"
+    },
+    {
+      "view": "side",
+      "gait": "readable",
+      "frame": 15,
+      "time": 0.5,
+      "path": "evidence/calibration/raw/side-readable-015.png"
+    },
+    {
+      "view": "side",
+      "gait": "readable",
+      "frame": 16,
+      "time": 0.5333333333333333,
+      "path": "evidence/calibration/raw/side-readable-016.png"
+    },
+    {
+      "view": "side",
+      "gait": "readable",
+      "frame": 17,
+      "time": 0.5666666666666667,
+      "path": "evidence/calibration/raw/side-readable-017.png"
+    },
+    {
+      "view": "side",
+      "gait": "readable",
+      "frame": 18,
+      "time": 0.6,
+      "path": "evidence/calibration/raw/side-readable-018.png"
+    },
+    {
+      "view": "side",
+      "gait": "readable",
+      "frame": 19,
+      "time": 0.6333333333333333,
+      "path": "evidence/calibration/raw/side-readable-019.png"
+    },
+    {
+      "view": "side",
+      "gait": "readable",
+      "frame": 20,
+      "time": 0.6666666666666666,
+      "path": "evidence/calibration/raw/side-readable-020.png"
+    },
+    {
+      "view": "side",
+      "gait": "readable",
+      "frame": 21,
+      "time": 0.7,
+      "path": "evidence/calibration/raw/side-readable-021.png"
+    },
+    {
+      "view": "side",
+      "gait": "readable",
+      "frame": 22,
+      "time": 0.7333333333333333,
+      "path": "evidence/calibration/raw/side-readable-022.png"
+    },
+    {
+      "view": "side",
+      "gait": "readable",
+      "frame": 23,
+      "time": 0.7666666666666667,
+      "path": "evidence/calibration/raw/side-readable-023.png"
+    },
+    {
+      "view": "side",
+      "gait": "readable",
+      "frame": 24,
+      "time": 0.8,
+      "path": "evidence/calibration/raw/side-readable-024.png"
+    },
+    {
+      "view": "side",
+      "gait": "readable",
+      "frame": 25,
+      "time": 0.8333333333333334,
+      "path": "evidence/calibration/raw/side-readable-025.png"
+    },
+    {
+      "view": "side",
+      "gait": "readable",
+      "frame": 26,
+      "time": 0.8666666666666667,
+      "path": "evidence/calibration/raw/side-readable-026.png"
+    },
+    {
+      "view": "side",
+      "gait": "readable",
+      "frame": 27,
+      "time": 0.9,
+      "path": "evidence/calibration/raw/side-readable-027.png"
+    },
+    {
+      "view": "side",
+      "gait": "readable",
+      "frame": 28,
+      "time": 0.9333333333333333,
+      "path": "evidence/calibration/raw/side-readable-028.png"
+    },
+    {
+      "view": "side",
+      "gait": "readable",
+      "frame": 29,
+      "time": 0.9666666666666667,
+      "path": "evidence/calibration/raw/side-readable-029.png"
+    },
+    {
+      "view": "side",
+      "gait": "readable",
+      "frame": 30,
+      "time": 1,
+      "path": "evidence/calibration/raw/side-readable-030.png"
+    },
+    {
+      "view": "side",
+      "gait": "readable",
+      "frame": 31,
+      "time": 1.0333333333333334,
+      "path": "evidence/calibration/raw/side-readable-031.png"
+    },
+    {
+      "view": "side",
+      "gait": "readable",
+      "frame": 32,
+      "time": 1.0666666666666667,
+      "path": "evidence/calibration/raw/side-readable-032.png"
+    },
+    {
+      "view": "side",
+      "gait": "readable",
+      "frame": 33,
+      "time": 1.1,
+      "path": "evidence/calibration/raw/side-readable-033.png"
+    },
+    {
+      "view": "side",
+      "gait": "readable",
+      "frame": 34,
+      "time": 1.1333333333333333,
+      "path": "evidence/calibration/raw/side-readable-034.png"
+    },
+    {
+      "view": "side",
+      "gait": "readable",
+      "frame": 35,
+      "time": 1.1666666666666667,
+      "path": "evidence/calibration/raw/side-readable-035.png"
+    },
+    {
+      "view": "side",
+      "gait": "readable",
+      "frame": 36,
+      "time": 1.2,
+      "path": "evidence/calibration/raw/side-readable-036.png"
+    },
+    {
+      "view": "side",
+      "gait": "readable",
+      "frame": 37,
+      "time": 1.2333333333333334,
+      "path": "evidence/calibration/raw/side-readable-037.png"
+    },
+    {
+      "view": "side",
+      "gait": "readable",
+      "frame": 38,
+      "time": 1.2666666666666666,
+      "path": "evidence/calibration/raw/side-readable-038.png"
+    },
+    {
+      "view": "side",
+      "gait": "readable",
+      "frame": 39,
+      "time": 1.3,
+      "path": "evidence/calibration/raw/side-readable-039.png"
+    },
+    {
+      "view": "side",
+      "gait": "readable",
+      "frame": 40,
+      "time": 1.3333333333333333,
+      "path": "evidence/calibration/raw/side-readable-040.png"
+    },
+    {
+      "view": "side",
+      "gait": "readable",
+      "frame": 41,
+      "time": 1.3666666666666667,
+      "path": "evidence/calibration/raw/side-readable-041.png"
+    },
+    {
+      "view": "side",
+      "gait": "readable",
+      "frame": 42,
+      "time": 1.4,
+      "path": "evidence/calibration/raw/side-readable-042.png"
+    },
+    {
+      "view": "side",
+      "gait": "readable",
+      "frame": 43,
+      "time": 1.4333333333333333,
+      "path": "evidence/calibration/raw/side-readable-043.png"
+    },
+    {
+      "view": "side",
+      "gait": "readable",
+      "frame": 44,
+      "time": 1.4666666666666666,
+      "path": "evidence/calibration/raw/side-readable-044.png"
+    },
+    {
+      "view": "side",
+      "gait": "readable",
+      "frame": 45,
+      "time": 1.5,
+      "path": "evidence/calibration/raw/side-readable-045.png"
+    },
+    {
+      "view": "side",
+      "gait": "readable",
+      "frame": 46,
+      "time": 1.5333333333333334,
+      "path": "evidence/calibration/raw/side-readable-046.png"
+    },
+    {
+      "view": "side",
+      "gait": "readable",
+      "frame": 47,
+      "time": 1.5666666666666667,
+      "path": "evidence/calibration/raw/side-readable-047.png"
+    },
+    {
+      "view": "side",
+      "gait": "readable",
+      "frame": 48,
+      "time": 1.6,
+      "path": "evidence/calibration/raw/side-readable-048.png"
+    },
+    {
+      "view": "side",
+      "gait": "readable",
+      "frame": 49,
+      "time": 1.6333333333333333,
+      "path": "evidence/calibration/raw/side-readable-049.png"
+    },
+    {
+      "view": "side",
+      "gait": "readable",
+      "frame": 50,
+      "time": 1.6666666666666667,
+      "path": "evidence/calibration/raw/side-readable-050.png"
+    },
+    {
+      "view": "side",
+      "gait": "readable",
+      "frame": 51,
+      "time": 1.7,
+      "path": "evidence/calibration/raw/side-readable-051.png"
+    },
+    {
+      "view": "side",
+      "gait": "readable",
+      "frame": 52,
+      "time": 1.7333333333333334,
+      "path": "evidence/calibration/raw/side-readable-052.png"
+    },
+    {
+      "view": "side",
+      "gait": "readable",
+      "frame": 53,
+      "time": 1.7666666666666666,
+      "path": "evidence/calibration/raw/side-readable-053.png"
+    },
+    {
+      "view": "side",
+      "gait": "readable",
+      "frame": 54,
+      "time": 1.8,
+      "path": "evidence/calibration/raw/side-readable-054.png"
+    },
+    {
+      "view": "side",
+      "gait": "readable",
+      "frame": 55,
+      "time": 1.8333333333333333,
+      "path": "evidence/calibration/raw/side-readable-055.png"
+    },
+    {
+      "view": "side",
+      "gait": "readable",
+      "frame": 56,
+      "time": 1.8666666666666667,
+      "path": "evidence/calibration/raw/side-readable-056.png"
+    },
+    {
+      "view": "side",
+      "gait": "readable",
+      "frame": 57,
+      "time": 1.9,
+      "path": "evidence/calibration/raw/side-readable-057.png"
+    },
+    {
+      "view": "side",
+      "gait": "readable",
+      "frame": 58,
+      "time": 1.9333333333333333,
+      "path": "evidence/calibration/raw/side-readable-058.png"
+    },
+    {
+      "view": "side",
+      "gait": "readable",
+      "frame": 59,
+      "time": 1.9666666666666666,
+      "path": "evidence/calibration/raw/side-readable-059.png"
+    },
+    {
+      "view": "side",
+      "gait": "readable",
+      "frame": 60,
+      "time": 2,
+      "path": "evidence/calibration/raw/side-readable-060.png"
+    },
+    {
+      "view": "side",
+      "gait": "readable",
+      "frame": 61,
+      "time": 2.033333333333333,
+      "path": "evidence/calibration/raw/side-readable-061.png"
+    },
+    {
+      "view": "side",
+      "gait": "readable",
+      "frame": 62,
+      "time": 2.066666666666667,
+      "path": "evidence/calibration/raw/side-readable-062.png"
+    },
+    {
+      "view": "side",
+      "gait": "readable",
+      "frame": 63,
+      "time": 2.1,
+      "path": "evidence/calibration/raw/side-readable-063.png"
+    },
+    {
+      "view": "side",
+      "gait": "readable",
+      "frame": 64,
+      "time": 2.1333333333333333,
+      "path": "evidence/calibration/raw/side-readable-064.png"
+    },
+    {
+      "view": "side",
+      "gait": "readable",
+      "frame": 65,
+      "time": 2.1666666666666665,
+      "path": "evidence/calibration/raw/side-readable-065.png"
+    },
+    {
+      "view": "side",
+      "gait": "readable",
+      "frame": 66,
+      "time": 2.2,
+      "path": "evidence/calibration/raw/side-readable-066.png"
+    },
+    {
+      "view": "side",
+      "gait": "readable",
+      "frame": 67,
+      "time": 2.2333333333333334,
+      "path": "evidence/calibration/raw/side-readable-067.png"
+    },
+    {
+      "view": "side",
+      "gait": "readable",
+      "frame": 68,
+      "time": 2.2666666666666666,
+      "path": "evidence/calibration/raw/side-readable-068.png"
+    },
+    {
+      "view": "side",
+      "gait": "readable",
+      "frame": 69,
+      "time": 2.3,
+      "path": "evidence/calibration/raw/side-readable-069.png"
+    },
+    {
+      "view": "side",
+      "gait": "readable",
+      "frame": 70,
+      "time": 2.3333333333333335,
+      "path": "evidence/calibration/raw/side-readable-070.png"
+    },
+    {
+      "view": "side",
+      "gait": "readable",
+      "frame": 71,
+      "time": 2.3666666666666667,
+      "path": "evidence/calibration/raw/side-readable-071.png"
+    },
+    {
+      "view": "side",
+      "gait": "readable",
+      "frame": 72,
+      "time": 2.4,
+      "path": "evidence/calibration/raw/side-readable-072.png"
+    },
+    {
+      "view": "threequarter",
+      "gait": "baseline",
+      "frame": 0,
+      "time": 0,
+      "path": "evidence/calibration/raw/threequarter-baseline-000.png"
+    },
+    {
+      "view": "threequarter",
+      "gait": "baseline",
+      "frame": 1,
+      "time": 0.03333333333333333,
+      "path": "evidence/calibration/raw/threequarter-baseline-001.png"
+    },
+    {
+      "view": "threequarter",
+      "gait": "baseline",
+      "frame": 2,
+      "time": 0.06666666666666667,
+      "path": "evidence/calibration/raw/threequarter-baseline-002.png"
+    },
+    {
+      "view": "threequarter",
+      "gait": "baseline",
+      "frame": 3,
+      "time": 0.1,
+      "path": "evidence/calibration/raw/threequarter-baseline-003.png"
+    },
+    {
+      "view": "threequarter",
+      "gait": "baseline",
+      "frame": 4,
+      "time": 0.13333333333333333,
+      "path": "evidence/calibration/raw/threequarter-baseline-004.png"
+    },
+    {
+      "view": "threequarter",
+      "gait": "baseline",
+      "frame": 5,
+      "time": 0.16666666666666666,
+      "path": "evidence/calibration/raw/threequarter-baseline-005.png"
+    },
+    {
+      "view": "threequarter",
+      "gait": "baseline",
+      "frame": 6,
+      "time": 0.2,
+      "path": "evidence/calibration/raw/threequarter-baseline-006.png"
+    },
+    {
+      "view": "threequarter",
+      "gait": "baseline",
+      "frame": 7,
+      "time": 0.23333333333333334,
+      "path": "evidence/calibration/raw/threequarter-baseline-007.png"
+    },
+    {
+      "view": "threequarter",
+      "gait": "baseline",
+      "frame": 8,
+      "time": 0.26666666666666666,
+      "path": "evidence/calibration/raw/threequarter-baseline-008.png"
+    },
+    {
+      "view": "threequarter",
+      "gait": "baseline",
+      "frame": 9,
+      "time": 0.3,
+      "path": "evidence/calibration/raw/threequarter-baseline-009.png"
+    },
+    {
+      "view": "threequarter",
+      "gait": "baseline",
+      "frame": 10,
+      "time": 0.3333333333333333,
+      "path": "evidence/calibration/raw/threequarter-baseline-010.png"
+    },
+    {
+      "view": "threequarter",
+      "gait": "baseline",
+      "frame": 11,
+      "time": 0.36666666666666664,
+      "path": "evidence/calibration/raw/threequarter-baseline-011.png"
+    },
+    {
+      "view": "threequarter",
+      "gait": "baseline",
+      "frame": 12,
+      "time": 0.4,
+      "path": "evidence/calibration/raw/threequarter-baseline-012.png"
+    },
+    {
+      "view": "threequarter",
+      "gait": "baseline",
+      "frame": 13,
+      "time": 0.43333333333333335,
+      "path": "evidence/calibration/raw/threequarter-baseline-013.png"
+    },
+    {
+      "view": "threequarter",
+      "gait": "baseline",
+      "frame": 14,
+      "time": 0.4666666666666667,
+      "path": "evidence/calibration/raw/threequarter-baseline-014.png"
+    },
+    {
+      "view": "threequarter",
+      "gait": "baseline",
+      "frame": 15,
+      "time": 0.5,
+      "path": "evidence/calibration/raw/threequarter-baseline-015.png"
+    },
+    {
+      "view": "threequarter",
+      "gait": "baseline",
+      "frame": 16,
+      "time": 0.5333333333333333,
+      "path": "evidence/calibration/raw/threequarter-baseline-016.png"
+    },
+    {
+      "view": "threequarter",
+      "gait": "baseline",
+      "frame": 17,
+      "time": 0.5666666666666667,
+      "path": "evidence/calibration/raw/threequarter-baseline-017.png"
+    },
+    {
+      "view": "threequarter",
+      "gait": "baseline",
+      "frame": 18,
+      "time": 0.6,
+      "path": "evidence/calibration/raw/threequarter-baseline-018.png"
+    },
+    {
+      "view": "threequarter",
+      "gait": "baseline",
+      "frame": 19,
+      "time": 0.6333333333333333,
+      "path": "evidence/calibration/raw/threequarter-baseline-019.png"
+    },
+    {
+      "view": "threequarter",
+      "gait": "baseline",
+      "frame": 20,
+      "time": 0.6666666666666666,
+      "path": "evidence/calibration/raw/threequarter-baseline-020.png"
+    },
+    {
+      "view": "threequarter",
+      "gait": "baseline",
+      "frame": 21,
+      "time": 0.7,
+      "path": "evidence/calibration/raw/threequarter-baseline-021.png"
+    },
+    {
+      "view": "threequarter",
+      "gait": "baseline",
+      "frame": 22,
+      "time": 0.7333333333333333,
+      "path": "evidence/calibration/raw/threequarter-baseline-022.png"
+    },
+    {
+      "view": "threequarter",
+      "gait": "baseline",
+      "frame": 23,
+      "time": 0.7666666666666667,
+      "path": "evidence/calibration/raw/threequarter-baseline-023.png"
+    },
+    {
+      "view": "threequarter",
+      "gait": "baseline",
+      "frame": 24,
+      "time": 0.8,
+      "path": "evidence/calibration/raw/threequarter-baseline-024.png"
+    },
+    {
+      "view": "threequarter",
+      "gait": "baseline",
+      "frame": 25,
+      "time": 0.8333333333333334,
+      "path": "evidence/calibration/raw/threequarter-baseline-025.png"
+    },
+    {
+      "view": "threequarter",
+      "gait": "baseline",
+      "frame": 26,
+      "time": 0.8666666666666667,
+      "path": "evidence/calibration/raw/threequarter-baseline-026.png"
+    },
+    {
+      "view": "threequarter",
+      "gait": "baseline",
+      "frame": 27,
+      "time": 0.9,
+      "path": "evidence/calibration/raw/threequarter-baseline-027.png"
+    },
+    {
+      "view": "threequarter",
+      "gait": "baseline",
+      "frame": 28,
+      "time": 0.9333333333333333,
+      "path": "evidence/calibration/raw/threequarter-baseline-028.png"
+    },
+    {
+      "view": "threequarter",
+      "gait": "baseline",
+      "frame": 29,
+      "time": 0.9666666666666667,
+      "path": "evidence/calibration/raw/threequarter-baseline-029.png"
+    },
+    {
+      "view": "threequarter",
+      "gait": "baseline",
+      "frame": 30,
+      "time": 1,
+      "path": "evidence/calibration/raw/threequarter-baseline-030.png"
+    },
+    {
+      "view": "threequarter",
+      "gait": "baseline",
+      "frame": 31,
+      "time": 1.0333333333333334,
+      "path": "evidence/calibration/raw/threequarter-baseline-031.png"
+    },
+    {
+      "view": "threequarter",
+      "gait": "baseline",
+      "frame": 32,
+      "time": 1.0666666666666667,
+      "path": "evidence/calibration/raw/threequarter-baseline-032.png"
+    },
+    {
+      "view": "threequarter",
+      "gait": "baseline",
+      "frame": 33,
+      "time": 1.1,
+      "path": "evidence/calibration/raw/threequarter-baseline-033.png"
+    },
+    {
+      "view": "threequarter",
+      "gait": "baseline",
+      "frame": 34,
+      "time": 1.1333333333333333,
+      "path": "evidence/calibration/raw/threequarter-baseline-034.png"
+    },
+    {
+      "view": "threequarter",
+      "gait": "baseline",
+      "frame": 35,
+      "time": 1.1666666666666667,
+      "path": "evidence/calibration/raw/threequarter-baseline-035.png"
+    },
+    {
+      "view": "threequarter",
+      "gait": "baseline",
+      "frame": 36,
+      "time": 1.2,
+      "path": "evidence/calibration/raw/threequarter-baseline-036.png"
+    },
+    {
+      "view": "threequarter",
+      "gait": "baseline",
+      "frame": 37,
+      "time": 1.2333333333333334,
+      "path": "evidence/calibration/raw/threequarter-baseline-037.png"
+    },
+    {
+      "view": "threequarter",
+      "gait": "baseline",
+      "frame": 38,
+      "time": 1.2666666666666666,
+      "path": "evidence/calibration/raw/threequarter-baseline-038.png"
+    },
+    {
+      "view": "threequarter",
+      "gait": "baseline",
+      "frame": 39,
+      "time": 1.3,
+      "path": "evidence/calibration/raw/threequarter-baseline-039.png"
+    },
+    {
+      "view": "threequarter",
+      "gait": "baseline",
+      "frame": 40,
+      "time": 1.3333333333333333,
+      "path": "evidence/calibration/raw/threequarter-baseline-040.png"
+    },
+    {
+      "view": "threequarter",
+      "gait": "baseline",
+      "frame": 41,
+      "time": 1.3666666666666667,
+      "path": "evidence/calibration/raw/threequarter-baseline-041.png"
+    },
+    {
+      "view": "threequarter",
+      "gait": "baseline",
+      "frame": 42,
+      "time": 1.4,
+      "path": "evidence/calibration/raw/threequarter-baseline-042.png"
+    },
+    {
+      "view": "threequarter",
+      "gait": "baseline",
+      "frame": 43,
+      "time": 1.4333333333333333,
+      "path": "evidence/calibration/raw/threequarter-baseline-043.png"
+    },
+    {
+      "view": "threequarter",
+      "gait": "baseline",
+      "frame": 44,
+      "time": 1.4666666666666666,
+      "path": "evidence/calibration/raw/threequarter-baseline-044.png"
+    },
+    {
+      "view": "threequarter",
+      "gait": "baseline",
+      "frame": 45,
+      "time": 1.5,
+      "path": "evidence/calibration/raw/threequarter-baseline-045.png"
+    },
+    {
+      "view": "threequarter",
+      "gait": "baseline",
+      "frame": 46,
+      "time": 1.5333333333333334,
+      "path": "evidence/calibration/raw/threequarter-baseline-046.png"
+    },
+    {
+      "view": "threequarter",
+      "gait": "baseline",
+      "frame": 47,
+      "time": 1.5666666666666667,
+      "path": "evidence/calibration/raw/threequarter-baseline-047.png"
+    },
+    {
+      "view": "threequarter",
+      "gait": "baseline",
+      "frame": 48,
+      "time": 1.6,
+      "path": "evidence/calibration/raw/threequarter-baseline-048.png"
+    },
+    {
+      "view": "threequarter",
+      "gait": "baseline",
+      "frame": 49,
+      "time": 1.6333333333333333,
+      "path": "evidence/calibration/raw/threequarter-baseline-049.png"
+    },
+    {
+      "view": "threequarter",
+      "gait": "baseline",
+      "frame": 50,
+      "time": 1.6666666666666667,
+      "path": "evidence/calibration/raw/threequarter-baseline-050.png"
+    },
+    {
+      "view": "threequarter",
+      "gait": "baseline",
+      "frame": 51,
+      "time": 1.7,
+      "path": "evidence/calibration/raw/threequarter-baseline-051.png"
+    },
+    {
+      "view": "threequarter",
+      "gait": "baseline",
+      "frame": 52,
+      "time": 1.7333333333333334,
+      "path": "evidence/calibration/raw/threequarter-baseline-052.png"
+    },
+    {
+      "view": "threequarter",
+      "gait": "baseline",
+      "frame": 53,
+      "time": 1.7666666666666666,
+      "path": "evidence/calibration/raw/threequarter-baseline-053.png"
+    },
+    {
+      "view": "threequarter",
+      "gait": "baseline",
+      "frame": 54,
+      "time": 1.8,
+      "path": "evidence/calibration/raw/threequarter-baseline-054.png"
+    },
+    {
+      "view": "threequarter",
+      "gait": "baseline",
+      "frame": 55,
+      "time": 1.8333333333333333,
+      "path": "evidence/calibration/raw/threequarter-baseline-055.png"
+    },
+    {
+      "view": "threequarter",
+      "gait": "baseline",
+      "frame": 56,
+      "time": 1.8666666666666667,
+      "path": "evidence/calibration/raw/threequarter-baseline-056.png"
+    },
+    {
+      "view": "threequarter",
+      "gait": "baseline",
+      "frame": 57,
+      "time": 1.9,
+      "path": "evidence/calibration/raw/threequarter-baseline-057.png"
+    },
+    {
+      "view": "threequarter",
+      "gait": "baseline",
+      "frame": 58,
+      "time": 1.9333333333333333,
+      "path": "evidence/calibration/raw/threequarter-baseline-058.png"
+    },
+    {
+      "view": "threequarter",
+      "gait": "baseline",
+      "frame": 59,
+      "time": 1.9666666666666666,
+      "path": "evidence/calibration/raw/threequarter-baseline-059.png"
+    },
+    {
+      "view": "threequarter",
+      "gait": "baseline",
+      "frame": 60,
+      "time": 2,
+      "path": "evidence/calibration/raw/threequarter-baseline-060.png"
+    },
+    {
+      "view": "threequarter",
+      "gait": "baseline",
+      "frame": 61,
+      "time": 2.033333333333333,
+      "path": "evidence/calibration/raw/threequarter-baseline-061.png"
+    },
+    {
+      "view": "threequarter",
+      "gait": "baseline",
+      "frame": 62,
+      "time": 2.066666666666667,
+      "path": "evidence/calibration/raw/threequarter-baseline-062.png"
+    },
+    {
+      "view": "threequarter",
+      "gait": "baseline",
+      "frame": 63,
+      "time": 2.1,
+      "path": "evidence/calibration/raw/threequarter-baseline-063.png"
+    },
+    {
+      "view": "threequarter",
+      "gait": "baseline",
+      "frame": 64,
+      "time": 2.1333333333333333,
+      "path": "evidence/calibration/raw/threequarter-baseline-064.png"
+    },
+    {
+      "view": "threequarter",
+      "gait": "baseline",
+      "frame": 65,
+      "time": 2.1666666666666665,
+      "path": "evidence/calibration/raw/threequarter-baseline-065.png"
+    },
+    {
+      "view": "threequarter",
+      "gait": "baseline",
+      "frame": 66,
+      "time": 2.2,
+      "path": "evidence/calibration/raw/threequarter-baseline-066.png"
+    },
+    {
+      "view": "threequarter",
+      "gait": "baseline",
+      "frame": 67,
+      "time": 2.2333333333333334,
+      "path": "evidence/calibration/raw/threequarter-baseline-067.png"
+    },
+    {
+      "view": "threequarter",
+      "gait": "baseline",
+      "frame": 68,
+      "time": 2.2666666666666666,
+      "path": "evidence/calibration/raw/threequarter-baseline-068.png"
+    },
+    {
+      "view": "threequarter",
+      "gait": "baseline",
+      "frame": 69,
+      "time": 2.3,
+      "path": "evidence/calibration/raw/threequarter-baseline-069.png"
+    },
+    {
+      "view": "threequarter",
+      "gait": "baseline",
+      "frame": 70,
+      "time": 2.3333333333333335,
+      "path": "evidence/calibration/raw/threequarter-baseline-070.png"
+    },
+    {
+      "view": "threequarter",
+      "gait": "baseline",
+      "frame": 71,
+      "time": 2.3666666666666667,
+      "path": "evidence/calibration/raw/threequarter-baseline-071.png"
+    },
+    {
+      "view": "threequarter",
+      "gait": "baseline",
+      "frame": 72,
+      "time": 2.4,
+      "path": "evidence/calibration/raw/threequarter-baseline-072.png"
+    },
+    {
+      "view": "threequarter",
+      "gait": "readable",
+      "frame": 0,
+      "time": 0,
+      "path": "evidence/calibration/raw/threequarter-readable-000.png"
+    },
+    {
+      "view": "threequarter",
+      "gait": "readable",
+      "frame": 1,
+      "time": 0.03333333333333333,
+      "path": "evidence/calibration/raw/threequarter-readable-001.png"
+    },
+    {
+      "view": "threequarter",
+      "gait": "readable",
+      "frame": 2,
+      "time": 0.06666666666666667,
+      "path": "evidence/calibration/raw/threequarter-readable-002.png"
+    },
+    {
+      "view": "threequarter",
+      "gait": "readable",
+      "frame": 3,
+      "time": 0.1,
+      "path": "evidence/calibration/raw/threequarter-readable-003.png"
+    },
+    {
+      "view": "threequarter",
+      "gait": "readable",
+      "frame": 4,
+      "time": 0.13333333333333333,
+      "path": "evidence/calibration/raw/threequarter-readable-004.png"
+    },
+    {
+      "view": "threequarter",
+      "gait": "readable",
+      "frame": 5,
+      "time": 0.16666666666666666,
+      "path": "evidence/calibration/raw/threequarter-readable-005.png"
+    },
+    {
+      "view": "threequarter",
+      "gait": "readable",
+      "frame": 6,
+      "time": 0.2,
+      "path": "evidence/calibration/raw/threequarter-readable-006.png"
+    },
+    {
+      "view": "threequarter",
+      "gait": "readable",
+      "frame": 7,
+      "time": 0.23333333333333334,
+      "path": "evidence/calibration/raw/threequarter-readable-007.png"
+    },
+    {
+      "view": "threequarter",
+      "gait": "readable",
+      "frame": 8,
+      "time": 0.26666666666666666,
+      "path": "evidence/calibration/raw/threequarter-readable-008.png"
+    },
+    {
+      "view": "threequarter",
+      "gait": "readable",
+      "frame": 9,
+      "time": 0.3,
+      "path": "evidence/calibration/raw/threequarter-readable-009.png"
+    },
+    {
+      "view": "threequarter",
+      "gait": "readable",
+      "frame": 10,
+      "time": 0.3333333333333333,
+      "path": "evidence/calibration/raw/threequarter-readable-010.png"
+    },
+    {
+      "view": "threequarter",
+      "gait": "readable",
+      "frame": 11,
+      "time": 0.36666666666666664,
+      "path": "evidence/calibration/raw/threequarter-readable-011.png"
+    },
+    {
+      "view": "threequarter",
+      "gait": "readable",
+      "frame": 12,
+      "time": 0.4,
+      "path": "evidence/calibration/raw/threequarter-readable-012.png"
+    },
+    {
+      "view": "threequarter",
+      "gait": "readable",
+      "frame": 13,
+      "time": 0.43333333333333335,
+      "path": "evidence/calibration/raw/threequarter-readable-013.png"
+    },
+    {
+      "view": "threequarter",
+      "gait": "readable",
+      "frame": 14,
+      "time": 0.4666666666666667,
+      "path": "evidence/calibration/raw/threequarter-readable-014.png"
+    },
+    {
+      "view": "threequarter",
+      "gait": "readable",
+      "frame": 15,
+      "time": 0.5,
+      "path": "evidence/calibration/raw/threequarter-readable-015.png"
+    },
+    {
+      "view": "threequarter",
+      "gait": "readable",
+      "frame": 16,
+      "time": 0.5333333333333333,
+      "path": "evidence/calibration/raw/threequarter-readable-016.png"
+    },
+    {
+      "view": "threequarter",
+      "gait": "readable",
+      "frame": 17,
+      "time": 0.5666666666666667,
+      "path": "evidence/calibration/raw/threequarter-readable-017.png"
+    },
+    {
+      "view": "threequarter",
+      "gait": "readable",
+      "frame": 18,
+      "time": 0.6,
+      "path": "evidence/calibration/raw/threequarter-readable-018.png"
+    },
+    {
+      "view": "threequarter",
+      "gait": "readable",
+      "frame": 19,
+      "time": 0.6333333333333333,
+      "path": "evidence/calibration/raw/threequarter-readable-019.png"
+    },
+    {
+      "view": "threequarter",
+      "gait": "readable",
+      "frame": 20,
+      "time": 0.6666666666666666,
+      "path": "evidence/calibration/raw/threequarter-readable-020.png"
+    },
+    {
+      "view": "threequarter",
+      "gait": "readable",
+      "frame": 21,
+      "time": 0.7,
+      "path": "evidence/calibration/raw/threequarter-readable-021.png"
+    },
+    {
+      "view": "threequarter",
+      "gait": "readable",
+      "frame": 22,
+      "time": 0.7333333333333333,
+      "path": "evidence/calibration/raw/threequarter-readable-022.png"
+    },
+    {
+      "view": "threequarter",
+      "gait": "readable",
+      "frame": 23,
+      "time": 0.7666666666666667,
+      "path": "evidence/calibration/raw/threequarter-readable-023.png"
+    },
+    {
+      "view": "threequarter",
+      "gait": "readable",
+      "frame": 24,
+      "time": 0.8,
+      "path": "evidence/calibration/raw/threequarter-readable-024.png"
+    },
+    {
+      "view": "threequarter",
+      "gait": "readable",
+      "frame": 25,
+      "time": 0.8333333333333334,
+      "path": "evidence/calibration/raw/threequarter-readable-025.png"
+    },
+    {
+      "view": "threequarter",
+      "gait": "readable",
+      "frame": 26,
+      "time": 0.8666666666666667,
+      "path": "evidence/calibration/raw/threequarter-readable-026.png"
+    },
+    {
+      "view": "threequarter",
+      "gait": "readable",
+      "frame": 27,
+      "time": 0.9,
+      "path": "evidence/calibration/raw/threequarter-readable-027.png"
+    },
+    {
+      "view": "threequarter",
+      "gait": "readable",
+      "frame": 28,
+      "time": 0.9333333333333333,
+      "path": "evidence/calibration/raw/threequarter-readable-028.png"
+    },
+    {
+      "view": "threequarter",
+      "gait": "readable",
+      "frame": 29,
+      "time": 0.9666666666666667,
+      "path": "evidence/calibration/raw/threequarter-readable-029.png"
+    },
+    {
+      "view": "threequarter",
+      "gait": "readable",
+      "frame": 30,
+      "time": 1,
+      "path": "evidence/calibration/raw/threequarter-readable-030.png"
+    },
+    {
+      "view": "threequarter",
+      "gait": "readable",
+      "frame": 31,
+      "time": 1.0333333333333334,
+      "path": "evidence/calibration/raw/threequarter-readable-031.png"
+    },
+    {
+      "view": "threequarter",
+      "gait": "readable",
+      "frame": 32,
+      "time": 1.0666666666666667,
+      "path": "evidence/calibration/raw/threequarter-readable-032.png"
+    },
+    {
+      "view": "threequarter",
+      "gait": "readable",
+      "frame": 33,
+      "time": 1.1,
+      "path": "evidence/calibration/raw/threequarter-readable-033.png"
+    },
+    {
+      "view": "threequarter",
+      "gait": "readable",
+      "frame": 34,
+      "time": 1.1333333333333333,
+      "path": "evidence/calibration/raw/threequarter-readable-034.png"
+    },
+    {
+      "view": "threequarter",
+      "gait": "readable",
+      "frame": 35,
+      "time": 1.1666666666666667,
+      "path": "evidence/calibration/raw/threequarter-readable-035.png"
+    },
+    {
+      "view": "threequarter",
+      "gait": "readable",
+      "frame": 36,
+      "time": 1.2,
+      "path": "evidence/calibration/raw/threequarter-readable-036.png"
+    },
+    {
+      "view": "threequarter",
+      "gait": "readable",
+      "frame": 37,
+      "time": 1.2333333333333334,
+      "path": "evidence/calibration/raw/threequarter-readable-037.png"
+    },
+    {
+      "view": "threequarter",
+      "gait": "readable",
+      "frame": 38,
+      "time": 1.2666666666666666,
+      "path": "evidence/calibration/raw/threequarter-readable-038.png"
+    },
+    {
+      "view": "threequarter",
+      "gait": "readable",
+      "frame": 39,
+      "time": 1.3,
+      "path": "evidence/calibration/raw/threequarter-readable-039.png"
+    },
+    {
+      "view": "threequarter",
+      "gait": "readable",
+      "frame": 40,
+      "time": 1.3333333333333333,
+      "path": "evidence/calibration/raw/threequarter-readable-040.png"
+    },
+    {
+      "view": "threequarter",
+      "gait": "readable",
+      "frame": 41,
+      "time": 1.3666666666666667,
+      "path": "evidence/calibration/raw/threequarter-readable-041.png"
+    },
+    {
+      "view": "threequarter",
+      "gait": "readable",
+      "frame": 42,
+      "time": 1.4,
+      "path": "evidence/calibration/raw/threequarter-readable-042.png"
+    },
+    {
+      "view": "threequarter",
+      "gait": "readable",
+      "frame": 43,
+      "time": 1.4333333333333333,
+      "path": "evidence/calibration/raw/threequarter-readable-043.png"
+    },
+    {
+      "view": "threequarter",
+      "gait": "readable",
+      "frame": 44,
+      "time": 1.4666666666666666,
+      "path": "evidence/calibration/raw/threequarter-readable-044.png"
+    },
+    {
+      "view": "threequarter",
+      "gait": "readable",
+      "frame": 45,
+      "time": 1.5,
+      "path": "evidence/calibration/raw/threequarter-readable-045.png"
+    },
+    {
+      "view": "threequarter",
+      "gait": "readable",
+      "frame": 46,
+      "time": 1.5333333333333334,
+      "path": "evidence/calibration/raw/threequarter-readable-046.png"
+    },
+    {
+      "view": "threequarter",
+      "gait": "readable",
+      "frame": 47,
+      "time": 1.5666666666666667,
+      "path": "evidence/calibration/raw/threequarter-readable-047.png"
+    },
+    {
+      "view": "threequarter",
+      "gait": "readable",
+      "frame": 48,
+      "time": 1.6,
+      "path": "evidence/calibration/raw/threequarter-readable-048.png"
+    },
+    {
+      "view": "threequarter",
+      "gait": "readable",
+      "frame": 49,
+      "time": 1.6333333333333333,
+      "path": "evidence/calibration/raw/threequarter-readable-049.png"
+    },
+    {
+      "view": "threequarter",
+      "gait": "readable",
+      "frame": 50,
+      "time": 1.6666666666666667,
+      "path": "evidence/calibration/raw/threequarter-readable-050.png"
+    },
+    {
+      "view": "threequarter",
+      "gait": "readable",
+      "frame": 51,
+      "time": 1.7,
+      "path": "evidence/calibration/raw/threequarter-readable-051.png"
+    },
+    {
+      "view": "threequarter",
+      "gait": "readable",
+      "frame": 52,
+      "time": 1.7333333333333334,
+      "path": "evidence/calibration/raw/threequarter-readable-052.png"
+    },
+    {
+      "view": "threequarter",
+      "gait": "readable",
+      "frame": 53,
+      "time": 1.7666666666666666,
+      "path": "evidence/calibration/raw/threequarter-readable-053.png"
+    },
+    {
+      "view": "threequarter",
+      "gait": "readable",
+      "frame": 54,
+      "time": 1.8,
+      "path": "evidence/calibration/raw/threequarter-readable-054.png"
+    },
+    {
+      "view": "threequarter",
+      "gait": "readable",
+      "frame": 55,
+      "time": 1.8333333333333333,
+      "path": "evidence/calibration/raw/threequarter-readable-055.png"
+    },
+    {
+      "view": "threequarter",
+      "gait": "readable",
+      "frame": 56,
+      "time": 1.8666666666666667,
+      "path": "evidence/calibration/raw/threequarter-readable-056.png"
+    },
+    {
+      "view": "threequarter",
+      "gait": "readable",
+      "frame": 57,
+      "time": 1.9,
+      "path": "evidence/calibration/raw/threequarter-readable-057.png"
+    },
+    {
+      "view": "threequarter",
+      "gait": "readable",
+      "frame": 58,
+      "time": 1.9333333333333333,
+      "path": "evidence/calibration/raw/threequarter-readable-058.png"
+    },
+    {
+      "view": "threequarter",
+      "gait": "readable",
+      "frame": 59,
+      "time": 1.9666666666666666,
+      "path": "evidence/calibration/raw/threequarter-readable-059.png"
+    },
+    {
+      "view": "threequarter",
+      "gait": "readable",
+      "frame": 60,
+      "time": 2,
+      "path": "evidence/calibration/raw/threequarter-readable-060.png"
+    },
+    {
+      "view": "threequarter",
+      "gait": "readable",
+      "frame": 61,
+      "time": 2.033333333333333,
+      "path": "evidence/calibration/raw/threequarter-readable-061.png"
+    },
+    {
+      "view": "threequarter",
+      "gait": "readable",
+      "frame": 62,
+      "time": 2.066666666666667,
+      "path": "evidence/calibration/raw/threequarter-readable-062.png"
+    },
+    {
+      "view": "threequarter",
+      "gait": "readable",
+      "frame": 63,
+      "time": 2.1,
+      "path": "evidence/calibration/raw/threequarter-readable-063.png"
+    },
+    {
+      "view": "threequarter",
+      "gait": "readable",
+      "frame": 64,
+      "time": 2.1333333333333333,
+      "path": "evidence/calibration/raw/threequarter-readable-064.png"
+    },
+    {
+      "view": "threequarter",
+      "gait": "readable",
+      "frame": 65,
+      "time": 2.1666666666666665,
+      "path": "evidence/calibration/raw/threequarter-readable-065.png"
+    },
+    {
+      "view": "threequarter",
+      "gait": "readable",
+      "frame": 66,
+      "time": 2.2,
+      "path": "evidence/calibration/raw/threequarter-readable-066.png"
+    },
+    {
+      "view": "threequarter",
+      "gait": "readable",
+      "frame": 67,
+      "time": 2.2333333333333334,
+      "path": "evidence/calibration/raw/threequarter-readable-067.png"
+    },
+    {
+      "view": "threequarter",
+      "gait": "readable",
+      "frame": 68,
+      "time": 2.2666666666666666,
+      "path": "evidence/calibration/raw/threequarter-readable-068.png"
+    },
+    {
+      "view": "threequarter",
+      "gait": "readable",
+      "frame": 69,
+      "time": 2.3,
+      "path": "evidence/calibration/raw/threequarter-readable-069.png"
+    },
+    {
+      "view": "threequarter",
+      "gait": "readable",
+      "frame": 70,
+      "time": 2.3333333333333335,
+      "path": "evidence/calibration/raw/threequarter-readable-070.png"
+    },
+    {
+      "view": "threequarter",
+      "gait": "readable",
+      "frame": 71,
+      "time": 2.3666666666666667,
+      "path": "evidence/calibration/raw/threequarter-readable-071.png"
+    },
+    {
+      "view": "threequarter",
+      "gait": "readable",
+      "frame": 72,
+      "time": 2.4,
+      "path": "evidence/calibration/raw/threequarter-readable-072.png"
+    }
+  ],
+  "errors": []
+}
