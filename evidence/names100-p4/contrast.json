@@ -1,0 +1,58 @@
+{
+  "initial": [
+    {
+      "globalFrame": 145,
+      "fillMedian": 17.259267306792914,
+      "strongestGlyphEdge": 1.1854822225556734
+    },
+    {
+      "globalFrame": 850,
+      "fillMedian": 15.0258322905467,
+      "strongestGlyphEdge": null
+    },
+    {
+      "globalFrame": 1248,
+      "fillMedian": 17.357877989860487,
+      "strongestGlyphEdge": 1.1951493698767541
+    },
+    {
+      "globalFrame": 1528,
+      "fillMedian": 1.9096055306576016,
+      "strongestGlyphEdge": 8.581796360610632
+    },
+    {
+      "globalFrame": 1529,
+      "fillMedian": 1.9096055306576016,
+      "strongestGlyphEdge": 8.593196799548839
+    }
+  ],
+  "final": [
+    {
+      "globalFrame": 145,
+      "fillMedian": 17.259267306792914,
+      "strongestGlyphEdge": 1.1971013370974124
+    },
+    {
+      "globalFrame": 850,
+      "fillMedian": 15.0258322905467,
+      "strongestGlyphEdge": 1.22249838916717
+    },
+    {
+      "globalFrame": 1248,
+      "fillMedian": 17.259267306792914,
+      "strongestGlyphEdge": 1.2060989056054894
+    },
+    {
+      "globalFrame": 1528,
+      "fillMedian": 1.9096055306576016,
+      "strongestGlyphEdge": 8.581796360610632
+    },
+    {
+      "globalFrame": 1529,
+      "fillMedian": 1.9096055306576016,
+      "strongestGlyphEdge": 8.593196799548839
+    }
+  ],
+  "correction": "One graphic refinement: optical centering/per-shot positioning and2px glyph keyline; reused all native clean plates",
+  "guide": "sRGB/W3C luminance ratios,not WCAG certification. Warm-wall raw fill1.91:1 stays below3:1; glyph edge8.6:1 supplies shape contrast. Phone/art approval required."
+}
