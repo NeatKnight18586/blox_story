@@ -36,3 +36,6 @@ The standalone walk extends `avatar/actions.js` with one small `avatar/walk.js` 
 
 ## Visual calibration review boundary
 PR #4 merged at `e956e65a4c4a6938063b9b6f07ebe6dd10422f93`, retaining `c22431d`. A separate branch evaluates only one opt-in readable gait. Baseline action output is SHA-256 checked against pre-calibration samples, and F1/F2A remain unchanged. Run `npm run test:calibration` and `python3 tests/calibration-comparison.py` for side-by-side fixed-camera evidence. See STATUS.md and `evidence/calibration/REPORT.md` for results/recommendation. Do not proceed to F2B2 or walking transitions without a new user task.
+
+## Direction change: production feasibility
+The user subsequently authorized one small three-shot MP4 feasibility scene. This overrides earlier no-environment/no-MP4 task restrictions for that bounded test. It does not change F1 anatomy, F2 motion/contact requirements, or implement walking transitions. See PRODUCTION_FEASIBILITY.md and STATUS.md; stop after its PR for review.

@@ -3,13 +3,13 @@
 Read **F1_SPEC.md** first: F1 v3 is the CURRENT product contract. Then read CODEX_HANDOFF.md, STATUS.md, README.md and existing code/tests. The previous Kai/Mira-first instructions are SUPERSEDED. If documents conflict, F1_SPEC.md wins; STATUS.md controls what has actually been verified.
 
 ## Current task boundary
-F1 is integrated (PR #1). PR #3 (F2A) is merged after regression tests. PR #4 was merged after successful regression/WebGL checks. The current task is F2B1 visual calibration only: preserve the short-step baseline, evaluate one modest readable variation with identical fixed cameras and unchanged tolerances, and submit a separate PR only if visibly better and all checks pass. Walking transitions are NOT authorized. Read F2_SPEC.md and F2_HANDOFF.md. F1_SPEC.md remains authoritative for anatomy/appearance; F2_SPEC.md governs future motion.
+The user changed direction after PR #5: a small shot-based production feasibility test is now authorized. Merge clean PR #5 with commits/evidence preserved; then demonstrate one real 6–8s, three-shot 720×1280/30fps H.264 MP4 using the current avatar, one original environment and one proximity-gated prop. Use a structured shot list, existing Three.js/Playwright and FFmpeg. This overrides previous no-MP4/no-environment phase restrictions for this test only. Preserve F1 anatomy and all F2 actions/tests/evidence. No full production framework, episode, wardrobe library, elaborate physics or paid tools. Submit a PR and stop for review.
 
 ## Goal and user constraints
 One neutral classic R6-like **six-part** block avatar first, then removable appearance layers (face/colors and one optional cosmetic). Original code-rendered Three.js, not official Roblox models. User is on iPad, wants autonomous execution, no manual modeling, recording, installs or gameplay capture. Minimize explanations and usage without sacrificing accuracy.
 
 ## Scope discipline
-- Current work is F2B1 visual calibration only. Do not implement walking transitions, episodes, F3/F4, MP4, Blender, Roblox Studio, Remotion, soundtrack, environment library or full wardrobe.
+- Current work is one production feasibility test. No walking transitions, complete episode, Blender/Roblox Studio, Remotion, soundtrack, environment library, wardrobe or full pipeline. Temporary frames must stay out of Git.
 - Keep existing source committed while migrating. Old `character.js` and Kai/Mira presets are legacy, not the F1 goal. Preserve functionality via history and replace paths only when the new implementation is testable.
 - Start with the neutral master, not two customized figures. Use simple proportions from F1_SPEC.md, with one softly rounded oval cylindrical head (latest user correction in F1_SPEC.md) and five beveled rectangular blocks.
 - No required full rig or separate fingers, hands, shoes or neck meshes. Distinct styling belongs to appearance layers.
@@ -25,4 +25,4 @@ One neutral classic R6-like **six-part** block avatar first, then removable appe
 - Reference user images are attached in a separate ChatGPT exchange and may not be accessible in Codex; follow the numerical spec and admit any reference-availability gap.
 
 ## Completion report
-Commit the tested implementation, update README.md and STATUS.md with exact commands and capture paths; mark PASS only for genuinely completed source + visual checks, else PARTIAL/FAIL. Provide concise evidence and the next blocker. Stop for review before F2B2. Do not implement walking transitions or F3.
+Commit the tested implementation, update README.md and STATUS.md with exact commands and capture paths; mark PASS only for genuinely completed source + visual checks, else PARTIAL/FAIL. Provide concise evidence and the next blocker. Verify real encoded metadata, full decode/playback, frame completeness/determinism and cuts; provide MP4/contact sheet/resource measurements. Propose later minimal pipeline additions and optional tapered torso only in documentation. Stop for review; do not automatically build the full pipeline.
