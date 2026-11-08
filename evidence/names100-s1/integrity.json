@@ -1,0 +1,71 @@
+{
+  "status": "PASS",
+  "pr11Merge": "755a872084a560d8f8868906884733583fad5908",
+  "engineSha256": "519daf485e271f190b6a3e33601af48fb8a8b167c13594d985e7448846b18137",
+  "inputs": [
+    {
+      "path": "stories/names100/style-town.json",
+      "sha256": "508ed5e1471e5ef93e44f895c169344654cd3717021a1f67ae64333db8ab77ff"
+    },
+    {
+      "path": "stories/names100/style-bedroom.json",
+      "sha256": "b7c29aaad83feffd20a31c7f66dee7ab48e5dba95b7d740788db094bccf55280"
+    },
+    {
+      "path": "stories/names100/style-ending.json",
+      "sha256": "5d67db481daece3bf2a6cda3a3bbe1cacef501fed7fb464ee75b8706fc783ad0"
+    }
+  ],
+  "existingFilms": [
+    {
+      "path": "evidence/names100-ending/movie.mp4",
+      "sha256": "5b1cf7d2d4f0908da999877cba35220a6ad18b11fabff66d6d69feea551e15be",
+      "unchanged": true
+    },
+    {
+      "path": "evidence/names100-v1/movie.mp4",
+      "sha256": "498accf6185accfd107d7ac81963aea940662891b1b936841843d93e5c6c6367",
+      "unchanged": true
+    },
+    {
+      "path": "evidence/names100/draft15/movie.mp4",
+      "sha256": "377c4b0b2be9815411584765e26b6b6016e9b3576b47475544052195b4aa1c6c",
+      "unchanged": true
+    },
+    {
+      "path": "evidence/names100/movie.mp4",
+      "sha256": "3e3c9fb9b55960e06caee4669163a7132c98cfaabd85c86494a376050d38befe",
+      "unchanged": true
+    },
+    {
+      "path": "evidence/p1/feasibility/movie.mp4",
+      "sha256": "199c28761075fa75f9c3cf9c2dda5879a8369135b7d6f7b925f8d689a228e59f",
+      "unchanged": true
+    },
+    {
+      "path": "evidence/p1/not-today/movie.mp4",
+      "sha256": "90570c9700094e859c3489bddad4a6bfe091bd3101542b43632e60cde56c5872",
+      "unchanged": true
+    },
+    {
+      "path": "evidence/p2a/movie.mp4",
+      "sha256": "074bad369f9a8e08400c6c2512adcb2b96fd2b0b7d0d2900de5b768a38775e1a",
+      "unchanged": true
+    },
+    {
+      "path": "evidence/production/feasibility.mp4",
+      "sha256": "1fea25486ef9a78948f2739be23279a919b5fc4529134d3ca6fbbd7413c3b417",
+      "unchanged": true
+    }
+  ],
+  "reviewPixelsMatchNativePngs": true,
+  "nativeResolution": [
+    360,
+    640
+  ],
+  "uniqueReviewViews": 4,
+  "newStoryMoviesRendered": 0,
+  "highResolutionStillsRendered": 0,
+  "avatarAndAppearanceModulesUnchanged": true,
+  "storyCueAndActorSamplesCompared": 1159
+}

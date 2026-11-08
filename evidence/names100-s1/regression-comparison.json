@@ -1,0 +1,15 @@
+{
+  "status": "PASS",
+  "archiveDifferences": [
+    {
+      "path": "evidence/names100-ending/motion-seeks.json",
+      "decodedReportEquivalent": true,
+      "restoredOriginalArchive": true
+    },
+    {
+      "path": "evidence/names100-v1/gate2-seeks.json",
+      "decodedReportEquivalent": true,
+      "restoredOriginalArchive": true
+    }
+  ]
+}
