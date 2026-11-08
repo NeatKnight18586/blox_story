@@ -1,0 +1,26 @@
+{
+  "parentJobKey": "c6e30559eef0d0ecf5c2e254d03170279528b16aff55b01cb5569554c5e6a14f",
+  "jobKey": "779077ddc85ea0ee6ff1c6e3b577753b680e8109f6bcccc2910417f8e2bfe6b7",
+  "changes": [
+    "S17 facing2.4→.35",
+    "Transparency shader invalidation fix"
+  ],
+  "nativeRangesInvalidated": [
+    [
+      193,
+      259
+    ],
+    [
+      1203,
+      1296
+    ],
+    [
+      1530,
+      1641
+    ]
+  ],
+  "copiedFrames": 686,
+  "rerenderFrames": 135,
+  "pngHashesValidated": true,
+  "requiresFullReverseVerification": true
+}

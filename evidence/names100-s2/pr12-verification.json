@@ -1,0 +1,11 @@
+{
+  "status": "PASS",
+  "head": "17db24fbac2474cf5d96b862c59228621f032eed",
+  "fourNativeStillsReproduced": true,
+  "boundarySeekingAndOldGoldFramesPassed": true,
+  "restoredFormattingOnly": [
+    "evidence/names100-ending/motion-seeks.json",
+    "evidence/names100-s1/stills.json",
+    "evidence/names100-v1/gate2-seeks.json"
+  ]
+}

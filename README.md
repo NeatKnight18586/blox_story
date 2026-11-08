@@ -1,6 +1,20 @@
 # BlockStory — cinematic scene proofs
 
-Current creative review: **S1 three-set style candidate — four real360×640 stills**. PR #11 is verified and merged. [Four-panel board](evidence/names100-s1/style-board.png) · [approved baseline comparison](evidence/names100-s1/comparison.png) · [phone review](evidence/names100-s1/phone-board.png) · [LOOK_STYLE.md](LOOK_STYLE.md) · [tests/costs/limits](evidence/names100-s1/REPORT.md).
+Current review: **S2 first complete silent rough cut —23 shots,180×320,15fps,54.733s**. PR #12 passed verification and was merged. [Watch/download MP4](evidence/names100-s2/movie.mp4) · [23-shot board](evidence/names100-s2/storyboard.png) · [phone board](evidence/names100-s2/phone-storyboard.png) · [coverage, verification, actual costs and limits](evidence/names100-s2/REPORT.md).
+
+```sh
+npm test
+npm run test:roughcut
+node tests/roughcut-framing.js
+npm run render:roughcut
+```
+
+Native timing remains1641 frames/30fps, including789/890–926/1529. The15fps movie adds a33.3ms last-frame hold and samples odd cues one native frame late; native boundaries are separately verified. Four data-driven scene blocks reuse the approved look/rig/actions. Export requires a matching creative-review record and preserves P1's complete verification. Stop for review: no final-resolution film or audio.
+
+Historical milestone records follow.
+
+
+Previous creative review: **S1 three-set style candidate — four real360×640 stills**. PR #11 is verified and merged. [Four-panel board](evidence/names100-s1/style-board.png) · [approved baseline comparison](evidence/names100-s1/comparison.png) · [phone review](evidence/names100-s1/phone-board.png) · [LOOK_STYLE.md](LOOK_STYLE.md) · [tests/costs/limits](evidence/names100-s1/REPORT.md).
 
 Run `npm test` and `npm run test:style`. Data: `style-town.json`(NEW g35), `style-bedroom.json`(g700), `style-ending.json`(g1370/1600) under stories/names100. These opt intoS1; original sources and films remain intact. No new story video/episode rendered. Stop for creative review.
 
