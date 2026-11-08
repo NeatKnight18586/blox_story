@@ -1,3 +1,13 @@
+# Current handoff — S3C encoding verified; delivery blocked
+
+Read CAPTION_STYLE.md and stories/names100/S3C_LISTENING_GATE.md. PR #15 remains DRAFT/unmerged. S3C reuses original S3B A/B/C footage and unchanged WAV; zero new3D renders or animation edits. Versioned style/cue JSON generates separate ASS/SRT, then FFmpeg upscales only the three short clips to720×1280/15fps. Outputs are ignored/private under renders/names100-s3c.
+
+Technical/style PASS, overall PARTIAL: actual libass masks/important zones and all254 frame clocks/cuts/decode/native unmuted audio playback pass. Canonical spelling checked; internal A3/A4,C1/C2,C4/C5 splits need human listening. S18 upper-space caption exception preserves the child approach; user must approve. All prior12 movies/WAV/renderer/action code unchanged.
+
+**Delivery:** available tools expose no task-artifact publisher. Private GitHub release upload was tried: api.github.com repository access works, uploads.github.com binary upload401; API-host alternate404. Empty test drafts removed. No public/private voiced release was published, and no internal-path link should be called downloadable. The3-up sheet is genuinely accessible in the private GitHub branch. [Exact receipt and supported shared-browser manual upload workflow](evidence/names100-s3c/REPORT.md). If Desktop exists, user can web-authenticate and upload the prepared files without an iPad install; otherwise repair the upload-host credential binding. Never commit original WAV/voiced files or use a public fallback.
+
+Do not merge PR15, start a full episode export, claim perfect speech sync or request final scene/audio approval while files remain inaccessible. Historical handoffs follow.
+
 # Current handoff — S3B original narration and three proofs
 
 PR #14 merged at `80f592cb4df06693e28b8c41c00195eb66fc9989`; continue existing PR #15/branch `codex/names100-s3b-performance`, not a new phase. **Technical PASS; overall creative/audio PARTIAL** because genuine perceptual listening is unavailable, not because the WAV is missing anymore.
