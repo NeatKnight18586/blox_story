@@ -1,20 +1,25 @@
-# AGENTS.md — blox_story / BlockStory V2
+# AGENTS.md — blox_story: Codex operating rules
+## Source of truth
+Read **F1_SPEC.md** first: F1 v3 is the CURRENT product contract. Then read CODEX_HANDOFF.md, STATUS.md, README.md and existing code/tests. The previous Kai/Mira-first instructions are SUPERSEDED. If documents conflict, F1_SPEC.md wins; STATUS.md controls what has actually been verified.
 
-## Scope and intent
-This repository preserves the existing F1 rigid-pivot Three.js character factory. Respect F1_SPEC.md as acceptance criteria, STATUS.md as evidence, and CODEX_HANDOFF.md as the current task. User uses an iPad and does not want manual coding, recording, or local setup.
+## Goal and user constraints
+One neutral classic R6-like **six-part** block avatar first, then removable appearance layers (face/colors and one optional cosmetic). Original code-rendered Three.js, not official Roblox models. User is on iPad, wants autonomous execution, no manual modeling, recording, installs or gameplay capture. Minimize explanations and usage without sacrificing accuracy.
 
-## Invariants
-- Do not regenerate, replace, or refactor away existing Kai and Mira. Maintain character.js, presets.js, stable IDs kai and mira, and exported createCharacter, applyPose, applyExpression signatures.
-- Stay in F1. No full videos, MP4, stories, voice, Remotion, Blender, React, npm rewrite, or F2/F3/F4 systems.
-- Keep Three.js 0.187.0 pinned unless an explicit, tested reason requires a change.
-- All poses must be deterministic with time t passed as input. This is a rigid-pivot hierarchy, not a skinned rig.
-- Report exact tests run. Do not call visual inspection PASS without real Three.js browser captures.
+## Scope discipline
+- F1 ONLY. Do not implement episodes, F2/F3/F4, MP4, Blender, Roblox Studio, Remotion, soundtrack, environment library or full wardrobe.
+- Keep existing source committed while migrating. Old `character.js` and Kai/Mira presets are legacy, not the F1 goal. Preserve functionality via history and replace paths only when the new implementation is testable.
+- Start with the neutral master, not two customized figures. Use simple proportions from F1_SPEC.md, with one rounded cuboid head and five beveled rectangular blocks.
+- No required full rig or separate fingers, hands, shoes or neck meshes. Distinct styling belongs to appearance layers.
+- Keep a simple vanilla Three.js ES module preview; currently pinned 0.187.0. A minimal test server/dependency install is fine when justified; avoid framework rebuild.
+- Keep deterministic `applyPose(avatar,poseName,t)`, persistent root and named pivots. No mesh regeneration when switching pose/face/cosmetic. Use caches and attach/detach layers as appropriate.
+- Reuse only the core geometry, rig concepts, and tests that actually help the new goal. It is acceptable to replace old implementation when new acceptance tests exist; do not blindly preserve old character visuals.
 
-## Current Codex task
-1. Read source, tests, F1_SPEC.md, README.md and STATUS.md. Run node --check and node tests/smoke.cjs.
-2. Serve index.html over HTTP with real Three.js and WebGL. If CDN is unavailable, attempt one minimal dependency fix, preserving the API.
-3. Capture six genuine views: Kai and Mira front, three-quarter, worried close-up; inspect shadows, soles, clipping, silhouette, faces and controls.
-4. Make at most one targeted repair if required, rerun checks, and update STATUS.md accurately.
-5. Commit your work and give a concise PASS/PARTIAL/FAIL with links to actual captures if supported.
+## Test before calling it done
+- Source parsing and real module imports.
+- API tests for the canonical six-part base, five named pivots, deterministic reset, independent face, removable accessory and mesh identity.
+- Real Three.js/WebGL preview captures: front, three-quarter, side, face close-up, blank face, cosmetic attached/removed. Review mobile silhouette, joints, ground contact, face and lighting.
+- Stub/mock tests alone do NOT count as visual evidence. No AI concept images used as fake screenshots.
+- Reference user images are attached in a separate ChatGPT exchange and may not be accessible in Codex; follow the numerical spec and admit any reference-availability gap.
 
-Preserve the existing character factory for future F2–F4 phases. Do not progress to F2 without genuine visual inspection.
+## Completion report
+Commit the tested implementation, update README.md and STATUS.md with exact commands and capture paths; mark PASS only for genuinely completed source + visual checks, else PARTIAL/FAIL. Provide concise evidence and the next blocker. Do not proceed to F2.
