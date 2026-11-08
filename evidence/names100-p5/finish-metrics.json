@@ -1,0 +1,55 @@
+{
+  "status": "PASS",
+  "counterTimingAndLayoutIdentical": true,
+  "p4AssByteIdentical": true,
+  "sourceNativeSamples": 1641,
+  "counterContrast": [
+    {
+      "globalFrame": 1528,
+      "glyphInteriorPixels": 1239,
+      "minimumFillContrast": 7.50527445796667,
+      "medianFillContrast": 7.50527445796667,
+      "inkBounds": [
+        98,
+        166,
+        146,
+        232
+      ]
+    },
+    {
+      "globalFrame": 1529,
+      "glyphInteriorPixels": 1734,
+      "minimumFillContrast": 7.33241179099451,
+      "medianFillContrast": 7.50527445796667,
+      "inkBounds": [
+        93,
+        165,
+        148,
+        233
+      ]
+    }
+  ],
+  "groundEdge": [
+    {
+      "source": "evidence/names100-p4",
+      "x": 415,
+      "yRange": [
+        980,
+        996
+      ],
+      "edge10To90WidthPixels": 3,
+      "maximumAdjacentRgbMeanStep": 15.333333333333329
+    },
+    {
+      "source": "evidence/names100-p5",
+      "x": 415,
+      "yRange": [
+        980,
+        996
+      ],
+      "edge10To90WidthPixels": 5,
+      "maximumAdjacentRgbMeanStep": 11.0
+    }
+  ],
+  "scope": "Local samples support visual review, not a universal contrast/shadow certification."
+}
