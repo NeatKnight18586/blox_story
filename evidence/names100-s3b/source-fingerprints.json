@@ -1,0 +1,19 @@
+{
+  "engineSha256": "e68b741cfaf7e433f7c9bc9323674ecf374e84ce12a79d0c8b5fcce6fee726a9",
+  "sources": {
+    "production/opening.js": "8e0fbad496820c2a846605751f7e63ad2dfe8f1d383a059c551ebefb1ab8a7d6",
+    "production/ending-cues.js": "c58f71ad229d870fba76c94e9dd840068eb0f8b098de3825874a8f9a6832a865",
+    "production/ending-effects.js": "a034046d829455975c7e878979e86bcfa490e80d6bb3e0275e8750bda97110e0",
+    "production/performance.js": "7d0350675f30522a713e7f1af0cea1e85d75538897fda0a2d10bdbe211f3f358",
+    "scripts/render-performance.js": "7475d8407ee0b38e19968a4ad1f969822df965d9fee74ac0728b7df5475b5195",
+    "stories/names100/s3b-shy.json": "267d4acf403f093489999c662bf6a34698dc790b7538ae07bb32ff3d4be84eb6",
+    "stories/names100/s3b-ending.json": "82f6d3bb2d2e6bc00eb10de368e2618ba3ea34f7f34143c7a4af405d48f3e07d",
+    "production/look-style.js": "c9bcf455eb0610089f60d23a6329f151d0be08e4d3f423a044cb7ac6360fb5f4"
+  },
+  "finalEndingRenderEngineMatch": false,
+  "scope": "Final runtime/inputs; A/B reused after C-only conditional repair,then validated by actual random browser seeks",
+  "finalEndingRenderEngineSha256": "374220b6f5ff44ddda99af5fb618c60be1f55fd324314acb1a4fc0eba6170dec",
+  "onlyChangeSinceFinalExport": "Extend original bedroom styling guard to s3b; all254 exported frames exclude that branch. Four saved baseline golden frames plus s3b bedroom992 and18 current-runtime random target seeks pass.",
+  "onlyBedroomGuardChangeVerified": true,
+  "all254InputsExcludeChangedBranch": true
+}

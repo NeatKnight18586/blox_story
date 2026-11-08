@@ -1,3 +1,23 @@
+# Current handoff — S3C encoding verified; delivery blocked
+
+Read CAPTION_STYLE.md and stories/names100/S3C_LISTENING_GATE.md. PR #15 remains DRAFT/unmerged. S3C reuses original S3B A/B/C footage and unchanged WAV; zero new3D renders or animation edits. Versioned style/cue JSON generates separate ASS/SRT, then FFmpeg upscales only the three short clips to720×1280/15fps. Outputs are ignored/private under renders/names100-s3c.
+
+Technical/style PASS, overall PARTIAL: actual libass masks/important zones and all254 frame clocks/cuts/decode/native unmuted audio playback pass. Canonical spelling checked; internal A3/A4,C1/C2,C4/C5 splits need human listening. S18 upper-space caption exception preserves the child approach; user must approve. All prior12 movies/WAV/renderer/action code unchanged.
+
+**Delivery:** available tools expose no task-artifact publisher. Private GitHub release upload was tried: api.github.com repository access works, uploads.github.com binary upload401; API-host alternate404. Empty test drafts removed. No public/private voiced release was published, and no internal-path link should be called downloadable. The3-up sheet is genuinely accessible in the private GitHub branch. [Exact receipt and supported shared-browser manual upload workflow](evidence/names100-s3c/REPORT.md). If Desktop exists, user can web-authenticate and upload the prepared files without an iPad install; otherwise repair the upload-host credential binding. Never commit original WAV/voiced files or use a public fallback.
+
+Do not merge PR15, start a full episode export, claim perfect speech sync or request final scene/audio approval while files remain inaccessible. Historical handoffs follow.
+
+# Current handoff — S3B original narration and three proofs
+
+PR #14 merged at `80f592cb4df06693e28b8c41c00195eb66fc9989`; continue existing PR #15/branch `codex/names100-s3b-performance`, not a new phase. **Technical PASS; overall creative/audio PARTIAL** because genuine perceptual listening is unavailable, not because the WAV is missing anymore.
+
+Original attached WAV verified stereo44,100Hz/2,411,520 samples/54.682993197s; SHA256 `3d5e0a116971d3d17a7c3adac79423e443d63040b2120be7562a0660f22b4ae4`. Input unchanged and outside Git. Existing S2 was stream-copied into a temporary t=0 original-narration review; native playback/unmuted nonzero audio and decode/PTS/cuts pass. Sample-offset A/B/C voiced copies live under `/tmp/names100-s3b-audio-review`, outside Git; no narration generation/stretching/public upload.
+
+Final A/B/C silent proofs81/97/76 frames,180×320/15fps: all254 reverse pixels/states,18 new random browser seeks, original golden frames, protected789/890–926/1529, grounding/identity and all affected regressions pass. Decoded every final frame for review. Ending camera improved; head-only withdrawal keeps both planted leg matrices fixed at all151 final native frames. A/B reused after ending-only repair. Final C's side composition and tiny acting still require user creative judgment; no audience/phoneme/listening claim.
+
+[Report/commands/measurements/artifacts](evidence/names100-s3b/REPORT.md). Original593 evidence files/nine films, original S2 inputs/roughcut, rigs/appearances/gaits preserved. No full episode/final-resolution render. Stop for review; do not merge PR15 or render final production automatically. Historical handoffs follow.
+
 # Current handoff — S3A review only
 
 PR #13 passed source/F1/F2/P1/P2A/story regression, actual WebGL motion-seek and existing-film verification, then merged at `bf0f895f0c6e922460d2d49a298239de4efa8efe`, retaining both commits and the user brief. S3A branch `codex/names100-s3a-creative-audit` changes review documentation/evidence only.

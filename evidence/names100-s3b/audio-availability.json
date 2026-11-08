@@ -1,0 +1,15 @@
+{
+  "status": "AVAILABLE AND VERIFIED; perceptual listening unavailable",
+  "originalWavAccessible": true,
+  "originalWavCommitted": false,
+  "originalWavSha256": "3d5e0a116971d3d17a7c3adac79423e443d63040b2120be7562a0660f22b4ae4",
+  "narratedReviewCreated": true,
+  "audioGenerated": false,
+  "audioStretched": false,
+  "listeningPerformed": false,
+  "technicalAudioVerification": "PASS",
+  "originalSamplesPerChannel": 2411520,
+  "sampleRate": 44100,
+  "channels": 2,
+  "fullEpisodeRerendered": false
+}

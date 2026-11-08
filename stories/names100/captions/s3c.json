@@ -1,0 +1,385 @@
+{
+  "version": 1,
+  "clock": "absolute original narration seconds, t=0",
+  "wavSha256": "3d5e0a116971d3d17a7c3adac79423e443d63040b2120be7562a0660f22b4ae4",
+  "timingStatus": "Phrase-window proof, not certified word alignment. Internal splits A3/A4,C1/C2,C4/C5 require human listening; no installed aligner/listening interface. No evenly divided word timing.",
+  "style": "captions/white-shorts-v1.json",
+  "shots": [
+    {
+      "id": "S05",
+      "startFrame": 320,
+      "endFrame": 398,
+      "anchor": [
+        324,
+        832
+      ],
+      "keepClearRects": [
+        [
+          130,
+          220,
+          580,
+          700
+        ],
+        [
+          20,
+          0,
+          220,
+          180
+        ]
+      ]
+    },
+    {
+      "id": "S06",
+      "startFrame": 398,
+      "endFrame": 482,
+      "anchor": [
+        324,
+        832
+      ],
+      "keepClearRects": [
+        [
+          70,
+          350,
+          310,
+          590
+        ],
+        [
+          500,
+          350,
+          720,
+          620
+        ],
+        [
+          410,
+          500,
+          640,
+          700
+        ],
+        [
+          20,
+          0,
+          220,
+          180
+        ]
+      ]
+    },
+    {
+      "id": "S18",
+      "startFrame": 1296,
+      "endFrame": 1371,
+      "anchor": [
+        324,
+        320
+      ],
+      "placementReason": "Upper empty space avoids both adult/child faces and approaching child legs; deliberate exception to lower-middle candidate.",
+      "keepClearRects": [
+        [
+          20,
+          340,
+          680,
+          1020
+        ],
+        [
+          20,
+          0,
+          220,
+          180
+        ]
+      ]
+    },
+    {
+      "id": "S19",
+      "startFrame": 1371,
+      "endFrame": 1406,
+      "anchor": [
+        270,
+        730
+      ],
+      "placementReason": "Left of restrained hand/shoulder contact, not across child face.",
+      "keepClearRects": [
+        [
+          0,
+          200,
+          280,
+          480
+        ],
+        [
+          530,
+          540,
+          720,
+          720
+        ],
+        [
+          490,
+          460,
+          680,
+          850
+        ],
+        [
+          20,
+          0,
+          220,
+          180
+        ]
+      ]
+    },
+    {
+      "id": "S20",
+      "startFrame": 1406,
+      "endFrame": 1450,
+      "anchor": [
+        324,
+        832
+      ],
+      "keepClearRects": [
+        [
+          170,
+          350,
+          720,
+          680
+        ],
+        [
+          200,
+          960,
+          600,
+          1280
+        ],
+        [
+          20,
+          0,
+          220,
+          180
+        ]
+      ]
+    },
+    {
+      "id": "S21",
+      "startFrame": 1450,
+      "endFrame": 1490,
+      "anchor": [
+        324,
+        832
+      ],
+      "keepClearRects": [
+        [
+          80,
+          400,
+          720,
+          680
+        ],
+        [
+          540,
+          630,
+          720,
+          740
+        ],
+        [
+          20,
+          0,
+          220,
+          180
+        ]
+      ]
+    },
+    {
+      "id": "S22",
+      "startFrame": 1490,
+      "endFrame": 1546,
+      "anchor": [
+        324,
+        832
+      ],
+      "keepClearRects": [
+        [
+          140,
+          250,
+          450,
+          580
+        ],
+        [
+          570,
+          560,
+          720,
+          930
+        ],
+        [
+          15,
+          0,
+          320,
+          280
+        ]
+      ]
+    },
+    {
+      "id": "S23",
+      "startFrame": 1546,
+      "endFrame": 1641,
+      "anchor": [
+        324,
+        852
+      ],
+      "placementReason": "Below unanswered/lowering hand, still above bottom title/audio band.",
+      "keepClearRects": [
+        [
+          90,
+          440,
+          620,
+          650
+        ],
+        [
+          260,
+          540,
+          560,
+          735
+        ],
+        [
+          15,
+          0,
+          220,
+          180
+        ]
+      ]
+    }
+  ],
+  "clips": [
+    {
+      "id": "A",
+      "input": "evidence/names100-s3b/A-motion.mp4",
+      "startFrame": 320,
+      "endFrame": 482,
+      "frameCount": 81,
+      "contactGlobalFrame": 334
+    },
+    {
+      "id": "B",
+      "input": "evidence/names100-s3b/B-motion.mp4",
+      "startFrame": 1296,
+      "endFrame": 1490,
+      "frameCount": 97,
+      "contactGlobalFrame": 1348
+    },
+    {
+      "id": "C",
+      "input": "evidence/names100-s3b/C-motion.mp4",
+      "startFrame": 1490,
+      "endFrame": 1641,
+      "frameCount": 76,
+      "contactGlobalFrame": 1534
+    }
+  ],
+  "cues": [
+    {
+      "id": "A1",
+      "voiceCue": 8,
+      "start": 10.89,
+      "end": 11.82,
+      "text": "Not because\nhe was brave,",
+      "timing": "supplied phrase window"
+    },
+    {
+      "id": "A2",
+      "voiceCue": 9,
+      "start": 12.15,
+      "end": 12.99,
+      "text": "not because\nhe was smart.",
+      "timing": "supplied phrase window"
+    },
+    {
+      "id": "A3",
+      "voiceCue": 10,
+      "start": 13.5,
+      "end": 14.48,
+      "text": "He was just\ntoo shy",
+      "timing": "provisional split after shy; human listening required"
+    },
+    {
+      "id": "A4",
+      "voiceCue": 10,
+      "start": 14.48,
+      "end": 15.69,
+      "text": "to call anyone\nby name.",
+      "timing": "provisional split after shy; human listening required"
+    },
+    {
+      "id": "B1",
+      "voiceCue": 31,
+      "start": 43.42,
+      "end": 44.13,
+      "text": "By sunrise,",
+      "timing": "supplied phrase window"
+    },
+    {
+      "id": "B2",
+      "voiceCue": 32,
+      "start": 44.36,
+      "end": 45.51,
+      "text": "the forgotten\nwere home again.",
+      "timing": "supplied phrase window"
+    },
+    {
+      "id": "B3",
+      "voiceCue": 33,
+      "start": 45.91,
+      "end": 46.7,
+      "text": "Mothers cried.",
+      "timing": "supplied phrase window"
+    },
+    {
+      "id": "B4",
+      "voiceCue": 34,
+      "start": 47.01,
+      "end": 48.17,
+      "text": "Friends ran\nto each other.",
+      "timing": "supplied phrase window"
+    },
+    {
+      "id": "B5",
+      "voiceCue": 35,
+      "start": 48.5,
+      "end": 49.43,
+      "text": "Families were\nwhole.",
+      "timing": "supplied phrase window"
+    },
+    {
+      "id": "C1",
+      "voiceCue": 36,
+      "start": 49.8,
+      "end": 50.95,
+      "text": "And Eli's number",
+      "timing": "provisional syntax split; human listening required"
+    },
+    {
+      "id": "C2",
+      "voiceCue": 36,
+      "start": 51.0,
+      "end": 51.28,
+      "text": "hit zero.",
+      "timing": "conservative reveal: first visible0 at global1530/51.0s; speech boundary requires listening"
+    },
+    {
+      "id": "C3",
+      "voiceCue": 37,
+      "start": 51.77,
+      "end": 52.25,
+      "text": "After that,",
+      "timing": "supplied phrase window"
+    },
+    {
+      "id": "C4",
+      "voiceCue": 38,
+      "start": 52.69,
+      "end": 53.4,
+      "text": "no one\nremembered",
+      "timing": "provisional split after remembered; human listening required"
+    },
+    {
+      "id": "C5",
+      "voiceCue": 38,
+      "start": 53.4,
+      "end": 54.46,
+      "text": "the boy who\nsaved them.",
+      "timing": "provisional split after remembered; human listening required"
+    }
+  ],
+  "keepClearNote": "Manual conservative pixel regions from existing decoded S3B shots: faces,counters,important greeting/reunion contact and approaching feet. Verified against actual libass masks; not an automatic scene detector."
+}

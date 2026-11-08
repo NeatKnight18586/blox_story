@@ -1,0 +1,69 @@
+{
+  "initialEndingStills": {
+    "command": [
+      "node",
+      "tests/performance-browser.js"
+    ],
+    "exitCode": 0,
+    "wallSeconds": 17.744153537001694,
+    "sampledTreeRssMiB": 662.953125,
+    "sampledTreeCpuSeconds": 32.15,
+    "processCount": 13,
+    "sampleIntervalSeconds": 0.2,
+    "method": "Linux ps summed subtree RSS (shared pages counted per process), /proc cumulative CPU samples retained by PID/start-time at 100Hz; sampled lower bounds; final pass only, not all development activity"
+  },
+  "clearanceCorrectedStills": {
+    "command": [
+      "node",
+      "tests/performance-browser.js"
+    ],
+    "exitCode": 0,
+    "wallSeconds": 18.119501866000064,
+    "sampledTreeRssMiB": 662.8671875,
+    "sampledTreeCpuSeconds": 32.7,
+    "processCount": 13,
+    "sampleIntervalSeconds": 0.2,
+    "method": "Linux ps summed subtree RSS (shared pages counted per process), /proc cumulative CPU samples retained by PID/start-time at 100Hz; sampled lower bounds; final pass only, not all development activity"
+  },
+  "threePreviewPass": {
+    "command": [
+      "node",
+      "scripts/render-performance.js"
+    ],
+    "exitCode": 0,
+    "wallSeconds": 78.82510135100165,
+    "sampledTreeRssMiB": 1196.26953125,
+    "sampledTreeCpuSeconds": 147.01,
+    "processCount": 43,
+    "sampleIntervalSeconds": 0.2,
+    "method": "Linux ps summed subtree RSS (shared pages counted per process), /proc cumulative CPU samples retained by PID/start-time at 100Hz; sampled lower bounds; final pass only, not all development activity"
+  },
+  "endingPlantedFootRepair": {
+    "command": [
+      "node",
+      "scripts/render-performance.js",
+      "C"
+    ],
+    "exitCode": 0,
+    "wallSeconds": 22.294201869000972,
+    "sampledTreeRssMiB": 1159.1875,
+    "sampledTreeCpuSeconds": 41.32,
+    "processCount": 19,
+    "sampleIntervalSeconds": 0.2,
+    "method": "Linux ps summed subtree RSS (shared pages counted per process), /proc cumulative CPU samples retained by PID/start-time at 100Hz; sampled lower bounds; final pass only, not all development activity"
+  },
+  "affectedRegression": {
+    "command": [
+      "bash",
+      "/tmp/s3b-regression.sh"
+    ],
+    "exitCode": 0,
+    "wallSeconds": 17.49508679900464,
+    "sampledTreeRssMiB": 674.59765625,
+    "sampledTreeCpuSeconds": 25.4,
+    "processCount": 34,
+    "sampleIntervalSeconds": 0.2,
+    "method": "Linux ps summed subtree RSS (shared pages counted per process), /proc cumulative CPU samples retained by PID/start-time at 100Hz; sampled lower bounds; final pass only, not all development activity"
+  },
+  "notes": "Completion costs only. Previous provisional costs remain in costs.json. Targeted payoff still,random seek check,source-only rerun,voiced mux/browser checks and board assembly not profiled; no total bill claim."
+}

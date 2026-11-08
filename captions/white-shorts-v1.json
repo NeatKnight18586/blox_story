@@ -1,0 +1,21 @@
+{
+  "version": 1,
+  "name": "White Shorts v1 — approval candidate",
+  "width": 720,
+  "height": 1280,
+  "font": "DejaVu Sans",
+  "fontFile": "/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf",
+  "fontSize": 52,
+  "bold": true,
+  "fill": "&H00FFFFFF",
+  "outlineColor": "&H00201810",
+  "shadowColor": "&H60000000",
+  "outline": 4,
+  "shadow": 1.5,
+  "anchor": [324, 832],
+  "safeRect": [40, 180, 620, 1010],
+  "maxLines": 2,
+  "maxWords": 5,
+  "alignment": 2,
+  "note": "Bottom-center anchor, opaque white, charcoal outline, no backing. Coordinates are at720x1280; footage is upscaled, not rerendered. Per-shot anchors remain fixed."
+}

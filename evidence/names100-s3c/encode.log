@@ -1,0 +1,3 @@
+PASS A:720x1280 captions over existing footage,81 frames,AAC packets unchanged
+PASS B:720x1280 captions over existing footage,97 frames,AAC packets unchanged
+PASS C:720x1280 captions over existing footage,76 frames,AAC packets unchanged

@@ -1,0 +1,2479 @@
+{
+  "status": "PASS",
+  "scope": "Actual libass masks at all254 frames: correct on/off/blank pauses,manual face/counter/gesture keep-clear regions,frame-grid timing and original HUD mapping. Not perceptual listening.",
+  "clips": [
+    {
+      "id": "A",
+      "frames": [
+        {
+          "frame": 0,
+          "globalFrame": 320,
+          "captionBox": null,
+          "cue": null
+        },
+        {
+          "frame": 1,
+          "globalFrame": 322,
+          "captionBox": null,
+          "cue": null
+        },
+        {
+          "frame": 2,
+          "globalFrame": 324,
+          "captionBox": null,
+          "cue": null
+        },
+        {
+          "frame": 3,
+          "globalFrame": 326,
+          "captionBox": null,
+          "cue": null
+        },
+        {
+          "frame": 4,
+          "globalFrame": 328,
+          "captionBox": [
+            148,
+            731,
+            498,
+            831
+          ],
+          "cue": "A1"
+        },
+        {
+          "frame": 5,
+          "globalFrame": 330,
+          "captionBox": [
+            148,
+            731,
+            498,
+            831
+          ],
+          "cue": "A1"
+        },
+        {
+          "frame": 6,
+          "globalFrame": 332,
+          "captionBox": [
+            148,
+            731,
+            498,
+            831
+          ],
+          "cue": "A1"
+        },
+        {
+          "frame": 7,
+          "globalFrame": 334,
+          "captionBox": [
+            148,
+            731,
+            498,
+            831
+          ],
+          "cue": "A1"
+        },
+        {
+          "frame": 8,
+          "globalFrame": 336,
+          "captionBox": [
+            148,
+            731,
+            498,
+            831
+          ],
+          "cue": "A1"
+        },
+        {
+          "frame": 9,
+          "globalFrame": 338,
+          "captionBox": [
+            148,
+            731,
+            498,
+            831
+          ],
+          "cue": "A1"
+        },
+        {
+          "frame": 10,
+          "globalFrame": 340,
+          "captionBox": [
+            148,
+            731,
+            498,
+            831
+          ],
+          "cue": "A1"
+        },
+        {
+          "frame": 11,
+          "globalFrame": 342,
+          "captionBox": [
+            148,
+            731,
+            498,
+            831
+          ],
+          "cue": "A1"
+        },
+        {
+          "frame": 12,
+          "globalFrame": 344,
+          "captionBox": [
+            148,
+            731,
+            498,
+            831
+          ],
+          "cue": "A1"
+        },
+        {
+          "frame": 13,
+          "globalFrame": 346,
+          "captionBox": [
+            148,
+            731,
+            498,
+            831
+          ],
+          "cue": "A1"
+        },
+        {
+          "frame": 14,
+          "globalFrame": 348,
+          "captionBox": [
+            148,
+            731,
+            498,
+            831
+          ],
+          "cue": "A1"
+        },
+        {
+          "frame": 15,
+          "globalFrame": 350,
+          "captionBox": [
+            148,
+            731,
+            498,
+            831
+          ],
+          "cue": "A1"
+        },
+        {
+          "frame": 16,
+          "globalFrame": 352,
+          "captionBox": [
+            148,
+            731,
+            498,
+            831
+          ],
+          "cue": "A1"
+        },
+        {
+          "frame": 17,
+          "globalFrame": 354,
+          "captionBox": [
+            148,
+            731,
+            498,
+            831
+          ],
+          "cue": "A1"
+        },
+        {
+          "frame": 18,
+          "globalFrame": 356,
+          "captionBox": null,
+          "cue": null
+        },
+        {
+          "frame": 19,
+          "globalFrame": 358,
+          "captionBox": null,
+          "cue": null
+        },
+        {
+          "frame": 20,
+          "globalFrame": 360,
+          "captionBox": null,
+          "cue": null
+        },
+        {
+          "frame": 21,
+          "globalFrame": 362,
+          "captionBox": null,
+          "cue": null
+        },
+        {
+          "frame": 22,
+          "globalFrame": 364,
+          "captionBox": null,
+          "cue": null
+        },
+        {
+          "frame": 23,
+          "globalFrame": 366,
+          "captionBox": [
+            146,
+            731,
+            500,
+            825
+          ],
+          "cue": "A2"
+        },
+        {
+          "frame": 24,
+          "globalFrame": 368,
+          "captionBox": [
+            146,
+            731,
+            500,
+            825
+          ],
+          "cue": "A2"
+        },
+        {
+          "frame": 25,
+          "globalFrame": 370,
+          "captionBox": [
+            146,
+            731,
+            500,
+            825
+          ],
+          "cue": "A2"
+        },
+        {
+          "frame": 26,
+          "globalFrame": 372,
+          "captionBox": [
+            146,
+            731,
+            500,
+            825
+          ],
+          "cue": "A2"
+        },
+        {
+          "frame": 27,
+          "globalFrame": 374,
+          "captionBox": [
+            146,
+            731,
+            500,
+            825
+          ],
+          "cue": "A2"
+        },
+        {
+          "frame": 28,
+          "globalFrame": 376,
+          "captionBox": [
+            146,
+            731,
+            500,
+            825
+          ],
+          "cue": "A2"
+        },
+        {
+          "frame": 29,
+          "globalFrame": 378,
+          "captionBox": [
+            146,
+            731,
+            500,
+            825
+          ],
+          "cue": "A2"
+        },
+        {
+          "frame": 30,
+          "globalFrame": 380,
+          "captionBox": [
+            146,
+            731,
+            500,
+            825
+          ],
+          "cue": "A2"
+        },
+        {
+          "frame": 31,
+          "globalFrame": 382,
+          "captionBox": [
+            146,
+            731,
+            500,
+            825
+          ],
+          "cue": "A2"
+        },
+        {
+          "frame": 32,
+          "globalFrame": 384,
+          "captionBox": [
+            146,
+            731,
+            500,
+            825
+          ],
+          "cue": "A2"
+        },
+        {
+          "frame": 33,
+          "globalFrame": 386,
+          "captionBox": [
+            146,
+            731,
+            500,
+            825
+          ],
+          "cue": "A2"
+        },
+        {
+          "frame": 34,
+          "globalFrame": 388,
+          "captionBox": [
+            146,
+            731,
+            500,
+            825
+          ],
+          "cue": "A2"
+        },
+        {
+          "frame": 35,
+          "globalFrame": 390,
+          "captionBox": null,
+          "cue": null
+        },
+        {
+          "frame": 36,
+          "globalFrame": 392,
+          "captionBox": null,
+          "cue": null
+        },
+        {
+          "frame": 37,
+          "globalFrame": 394,
+          "captionBox": null,
+          "cue": null
+        },
+        {
+          "frame": 38,
+          "globalFrame": 396,
+          "captionBox": null,
+          "cue": null
+        },
+        {
+          "frame": 39,
+          "globalFrame": 398,
+          "captionBox": null,
+          "cue": null
+        },
+        {
+          "frame": 40,
+          "globalFrame": 400,
+          "captionBox": null,
+          "cue": null
+        },
+        {
+          "frame": 41,
+          "globalFrame": 402,
+          "captionBox": null,
+          "cue": null
+        },
+        {
+          "frame": 42,
+          "globalFrame": 404,
+          "captionBox": null,
+          "cue": null
+        },
+        {
+          "frame": 43,
+          "globalFrame": 406,
+          "captionBox": [
+            178,
+            731,
+            472,
+            834
+          ],
+          "cue": "A3"
+        },
+        {
+          "frame": 44,
+          "globalFrame": 408,
+          "captionBox": [
+            178,
+            731,
+            472,
+            834
+          ],
+          "cue": "A3"
+        },
+        {
+          "frame": 45,
+          "globalFrame": 410,
+          "captionBox": [
+            178,
+            731,
+            472,
+            834
+          ],
+          "cue": "A3"
+        },
+        {
+          "frame": 46,
+          "globalFrame": 412,
+          "captionBox": [
+            178,
+            731,
+            472,
+            834
+          ],
+          "cue": "A3"
+        },
+        {
+          "frame": 47,
+          "globalFrame": 414,
+          "captionBox": [
+            178,
+            731,
+            472,
+            834
+          ],
+          "cue": "A3"
+        },
+        {
+          "frame": 48,
+          "globalFrame": 416,
+          "captionBox": [
+            178,
+            731,
+            472,
+            834
+          ],
+          "cue": "A3"
+        },
+        {
+          "frame": 49,
+          "globalFrame": 418,
+          "captionBox": [
+            178,
+            731,
+            472,
+            834
+          ],
+          "cue": "A3"
+        },
+        {
+          "frame": 50,
+          "globalFrame": 420,
+          "captionBox": [
+            178,
+            731,
+            472,
+            834
+          ],
+          "cue": "A3"
+        },
+        {
+          "frame": 51,
+          "globalFrame": 422,
+          "captionBox": [
+            178,
+            731,
+            472,
+            834
+          ],
+          "cue": "A3"
+        },
+        {
+          "frame": 52,
+          "globalFrame": 424,
+          "captionBox": [
+            178,
+            731,
+            472,
+            834
+          ],
+          "cue": "A3"
+        },
+        {
+          "frame": 53,
+          "globalFrame": 426,
+          "captionBox": [
+            178,
+            731,
+            472,
+            834
+          ],
+          "cue": "A3"
+        },
+        {
+          "frame": 54,
+          "globalFrame": 428,
+          "captionBox": [
+            178,
+            731,
+            472,
+            834
+          ],
+          "cue": "A3"
+        },
+        {
+          "frame": 55,
+          "globalFrame": 430,
+          "captionBox": [
+            178,
+            731,
+            472,
+            834
+          ],
+          "cue": "A3"
+        },
+        {
+          "frame": 56,
+          "globalFrame": 432,
+          "captionBox": [
+            178,
+            731,
+            472,
+            834
+          ],
+          "cue": "A3"
+        },
+        {
+          "frame": 57,
+          "globalFrame": 434,
+          "captionBox": [
+            178,
+            731,
+            472,
+            834
+          ],
+          "cue": "A3"
+        },
+        {
+          "frame": 58,
+          "globalFrame": 436,
+          "captionBox": [
+            143,
+            731,
+            502,
+            834
+          ],
+          "cue": "A4"
+        },
+        {
+          "frame": 59,
+          "globalFrame": 438,
+          "captionBox": [
+            143,
+            731,
+            502,
+            834
+          ],
+          "cue": "A4"
+        },
+        {
+          "frame": 60,
+          "globalFrame": 440,
+          "captionBox": [
+            143,
+            731,
+            502,
+            834
+          ],
+          "cue": "A4"
+        },
+        {
+          "frame": 61,
+          "globalFrame": 442,
+          "captionBox": [
+            143,
+            731,
+            502,
+            834
+          ],
+          "cue": "A4"
+        },
+        {
+          "frame": 62,
+          "globalFrame": 444,
+          "captionBox": [
+            143,
+            731,
+            502,
+            834
+          ],
+          "cue": "A4"
+        },
+        {
+          "frame": 63,
+          "globalFrame": 446,
+          "captionBox": [
+            143,
+            731,
+            502,
+            834
+          ],
+          "cue": "A4"
+        },
+        {
+          "frame": 64,
+          "globalFrame": 448,
+          "captionBox": [
+            143,
+            731,
+            502,
+            834
+          ],
+          "cue": "A4"
+        },
+        {
+          "frame": 65,
+          "globalFrame": 450,
+          "captionBox": [
+            143,
+            731,
+            502,
+            834
+          ],
+          "cue": "A4"
+        },
+        {
+          "frame": 66,
+          "globalFrame": 452,
+          "captionBox": [
+            143,
+            731,
+            502,
+            834
+          ],
+          "cue": "A4"
+        },
+        {
+          "frame": 67,
+          "globalFrame": 454,
+          "captionBox": [
+            143,
+            731,
+            502,
+            834
+          ],
+          "cue": "A4"
+        },
+        {
+          "frame": 68,
+          "globalFrame": 456,
+          "captionBox": [
+            143,
+            731,
+            502,
+            834
+          ],
+          "cue": "A4"
+        },
+        {
+          "frame": 69,
+          "globalFrame": 458,
+          "captionBox": [
+            143,
+            731,
+            502,
+            834
+          ],
+          "cue": "A4"
+        },
+        {
+          "frame": 70,
+          "globalFrame": 460,
+          "captionBox": [
+            143,
+            731,
+            502,
+            834
+          ],
+          "cue": "A4"
+        },
+        {
+          "frame": 71,
+          "globalFrame": 462,
+          "captionBox": [
+            143,
+            731,
+            502,
+            834
+          ],
+          "cue": "A4"
+        },
+        {
+          "frame": 72,
+          "globalFrame": 464,
+          "captionBox": [
+            143,
+            731,
+            502,
+            834
+          ],
+          "cue": "A4"
+        },
+        {
+          "frame": 73,
+          "globalFrame": 466,
+          "captionBox": [
+            143,
+            731,
+            502,
+            834
+          ],
+          "cue": "A4"
+        },
+        {
+          "frame": 74,
+          "globalFrame": 468,
+          "captionBox": [
+            143,
+            731,
+            502,
+            834
+          ],
+          "cue": "A4"
+        },
+        {
+          "frame": 75,
+          "globalFrame": 470,
+          "captionBox": [
+            143,
+            731,
+            502,
+            834
+          ],
+          "cue": "A4"
+        },
+        {
+          "frame": 76,
+          "globalFrame": 472,
+          "captionBox": null,
+          "cue": null
+        },
+        {
+          "frame": 77,
+          "globalFrame": 474,
+          "captionBox": null,
+          "cue": null
+        },
+        {
+          "frame": 78,
+          "globalFrame": 476,
+          "captionBox": null,
+          "cue": null
+        },
+        {
+          "frame": 79,
+          "globalFrame": 478,
+          "captionBox": null,
+          "cue": null
+        },
+        {
+          "frame": 80,
+          "globalFrame": 480,
+          "captionBox": null,
+          "cue": null
+        }
+      ],
+      "protectedRegionsClear": true,
+      "originalHudFrameMappingSsim": 0.999002,
+      "fontFile": "/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf"
+    },
+    {
+      "id": "B",
+      "frames": [
+        {
+          "frame": 0,
+          "globalFrame": 1296,
+          "captionBox": null,
+          "cue": null
+        },
+        {
+          "frame": 1,
+          "globalFrame": 1298,
+          "captionBox": null,
+          "cue": null
+        },
+        {
+          "frame": 2,
+          "globalFrame": 1300,
+          "captionBox": null,
+          "cue": null
+        },
+        {
+          "frame": 3,
+          "globalFrame": 1302,
+          "captionBox": null,
+          "cue": null
+        },
+        {
+          "frame": 4,
+          "globalFrame": 1304,
+          "captionBox": [
+            184,
+            271,
+            463,
+            322
+          ],
+          "cue": "B1"
+        },
+        {
+          "frame": 5,
+          "globalFrame": 1306,
+          "captionBox": [
+            184,
+            271,
+            463,
+            322
+          ],
+          "cue": "B1"
+        },
+        {
+          "frame": 6,
+          "globalFrame": 1308,
+          "captionBox": [
+            184,
+            271,
+            463,
+            322
+          ],
+          "cue": "B1"
+        },
+        {
+          "frame": 7,
+          "globalFrame": 1310,
+          "captionBox": [
+            184,
+            271,
+            463,
+            322
+          ],
+          "cue": "B1"
+        },
+        {
+          "frame": 8,
+          "globalFrame": 1312,
+          "captionBox": [
+            184,
+            271,
+            463,
+            322
+          ],
+          "cue": "B1"
+        },
+        {
+          "frame": 9,
+          "globalFrame": 1314,
+          "captionBox": [
+            184,
+            271,
+            463,
+            322
+          ],
+          "cue": "B1"
+        },
+        {
+          "frame": 10,
+          "globalFrame": 1316,
+          "captionBox": [
+            184,
+            271,
+            463,
+            322
+          ],
+          "cue": "B1"
+        },
+        {
+          "frame": 11,
+          "globalFrame": 1318,
+          "captionBox": [
+            184,
+            271,
+            463,
+            322
+          ],
+          "cue": "B1"
+        },
+        {
+          "frame": 12,
+          "globalFrame": 1320,
+          "captionBox": [
+            184,
+            271,
+            463,
+            322
+          ],
+          "cue": "B1"
+        },
+        {
+          "frame": 13,
+          "globalFrame": 1322,
+          "captionBox": [
+            184,
+            271,
+            463,
+            322
+          ],
+          "cue": "B1"
+        },
+        {
+          "frame": 14,
+          "globalFrame": 1324,
+          "captionBox": null,
+          "cue": null
+        },
+        {
+          "frame": 15,
+          "globalFrame": 1326,
+          "captionBox": null,
+          "cue": null
+        },
+        {
+          "frame": 16,
+          "globalFrame": 1328,
+          "captionBox": null,
+          "cue": null
+        },
+        {
+          "frame": 17,
+          "globalFrame": 1330,
+          "captionBox": null,
+          "cue": null
+        },
+        {
+          "frame": 18,
+          "globalFrame": 1332,
+          "captionBox": [
+            96,
+            219,
+            548,
+            322
+          ],
+          "cue": "B2"
+        },
+        {
+          "frame": 19,
+          "globalFrame": 1334,
+          "captionBox": [
+            96,
+            219,
+            548,
+            322
+          ],
+          "cue": "B2"
+        },
+        {
+          "frame": 20,
+          "globalFrame": 1336,
+          "captionBox": [
+            96,
+            219,
+            548,
+            322
+          ],
+          "cue": "B2"
+        },
+        {
+          "frame": 21,
+          "globalFrame": 1338,
+          "captionBox": [
+            96,
+            219,
+            548,
+            322
+          ],
+          "cue": "B2"
+        },
+        {
+          "frame": 22,
+          "globalFrame": 1340,
+          "captionBox": [
+            96,
+            219,
+            548,
+            322
+          ],
+          "cue": "B2"
+        },
+        {
+          "frame": 23,
+          "globalFrame": 1342,
+          "captionBox": [
+            96,
+            219,
+            548,
+            322
+          ],
+          "cue": "B2"
+        },
+        {
+          "frame": 24,
+          "globalFrame": 1344,
+          "captionBox": [
+            96,
+            219,
+            548,
+            322
+          ],
+          "cue": "B2"
+        },
+        {
+          "frame": 25,
+          "globalFrame": 1346,
+          "captionBox": [
+            96,
+            219,
+            548,
+            322
+          ],
+          "cue": "B2"
+        },
+        {
+          "frame": 26,
+          "globalFrame": 1348,
+          "captionBox": [
+            96,
+            219,
+            548,
+            322
+          ],
+          "cue": "B2"
+        },
+        {
+          "frame": 27,
+          "globalFrame": 1350,
+          "captionBox": [
+            96,
+            219,
+            548,
+            322
+          ],
+          "cue": "B2"
+        },
+        {
+          "frame": 28,
+          "globalFrame": 1352,
+          "captionBox": [
+            96,
+            219,
+            548,
+            322
+          ],
+          "cue": "B2"
+        },
+        {
+          "frame": 29,
+          "globalFrame": 1354,
+          "captionBox": [
+            96,
+            219,
+            548,
+            322
+          ],
+          "cue": "B2"
+        },
+        {
+          "frame": 30,
+          "globalFrame": 1356,
+          "captionBox": [
+            96,
+            219,
+            548,
+            322
+          ],
+          "cue": "B2"
+        },
+        {
+          "frame": 31,
+          "globalFrame": 1358,
+          "captionBox": [
+            96,
+            219,
+            548,
+            322
+          ],
+          "cue": "B2"
+        },
+        {
+          "frame": 32,
+          "globalFrame": 1360,
+          "captionBox": [
+            96,
+            219,
+            548,
+            322
+          ],
+          "cue": "B2"
+        },
+        {
+          "frame": 33,
+          "globalFrame": 1362,
+          "captionBox": [
+            96,
+            219,
+            548,
+            322
+          ],
+          "cue": "B2"
+        },
+        {
+          "frame": 34,
+          "globalFrame": 1364,
+          "captionBox": [
+            96,
+            219,
+            548,
+            322
+          ],
+          "cue": "B2"
+        },
+        {
+          "frame": 35,
+          "globalFrame": 1366,
+          "captionBox": null,
+          "cue": null
+        },
+        {
+          "frame": 36,
+          "globalFrame": 1368,
+          "captionBox": null,
+          "cue": null
+        },
+        {
+          "frame": 37,
+          "globalFrame": 1370,
+          "captionBox": null,
+          "cue": null
+        },
+        {
+          "frame": 38,
+          "globalFrame": 1372,
+          "captionBox": null,
+          "cue": null
+        },
+        {
+          "frame": 39,
+          "globalFrame": 1374,
+          "captionBox": null,
+          "cue": null
+        },
+        {
+          "frame": 40,
+          "globalFrame": 1376,
+          "captionBox": null,
+          "cue": null
+        },
+        {
+          "frame": 41,
+          "globalFrame": 1378,
+          "captionBox": [
+            87,
+            681,
+            452,
+            723
+          ],
+          "cue": "B3"
+        },
+        {
+          "frame": 42,
+          "globalFrame": 1380,
+          "captionBox": [
+            87,
+            681,
+            452,
+            723
+          ],
+          "cue": "B3"
+        },
+        {
+          "frame": 43,
+          "globalFrame": 1382,
+          "captionBox": [
+            87,
+            681,
+            452,
+            723
+          ],
+          "cue": "B3"
+        },
+        {
+          "frame": 44,
+          "globalFrame": 1384,
+          "captionBox": [
+            87,
+            681,
+            452,
+            723
+          ],
+          "cue": "B3"
+        },
+        {
+          "frame": 45,
+          "globalFrame": 1386,
+          "captionBox": [
+            87,
+            681,
+            452,
+            723
+          ],
+          "cue": "B3"
+        },
+        {
+          "frame": 46,
+          "globalFrame": 1388,
+          "captionBox": [
+            87,
+            681,
+            452,
+            723
+          ],
+          "cue": "B3"
+        },
+        {
+          "frame": 47,
+          "globalFrame": 1390,
+          "captionBox": [
+            87,
+            681,
+            452,
+            723
+          ],
+          "cue": "B3"
+        },
+        {
+          "frame": 48,
+          "globalFrame": 1392,
+          "captionBox": [
+            87,
+            681,
+            452,
+            723
+          ],
+          "cue": "B3"
+        },
+        {
+          "frame": 49,
+          "globalFrame": 1394,
+          "captionBox": [
+            87,
+            681,
+            452,
+            723
+          ],
+          "cue": "B3"
+        },
+        {
+          "frame": 50,
+          "globalFrame": 1396,
+          "captionBox": [
+            87,
+            681,
+            452,
+            723
+          ],
+          "cue": "B3"
+        },
+        {
+          "frame": 51,
+          "globalFrame": 1398,
+          "captionBox": [
+            87,
+            681,
+            452,
+            723
+          ],
+          "cue": "B3"
+        },
+        {
+          "frame": 52,
+          "globalFrame": 1400,
+          "captionBox": [
+            87,
+            681,
+            452,
+            723
+          ],
+          "cue": "B3"
+        },
+        {
+          "frame": 53,
+          "globalFrame": 1402,
+          "captionBox": null,
+          "cue": null
+        },
+        {
+          "frame": 54,
+          "globalFrame": 1404,
+          "captionBox": null,
+          "cue": null
+        },
+        {
+          "frame": 55,
+          "globalFrame": 1406,
+          "captionBox": null,
+          "cue": null
+        },
+        {
+          "frame": 56,
+          "globalFrame": 1408,
+          "captionBox": null,
+          "cue": null
+        },
+        {
+          "frame": 57,
+          "globalFrame": 1410,
+          "captionBox": null,
+          "cue": null
+        },
+        {
+          "frame": 58,
+          "globalFrame": 1412,
+          "captionBox": [
+            143,
+            731,
+            500,
+            825
+          ],
+          "cue": "B4"
+        },
+        {
+          "frame": 59,
+          "globalFrame": 1414,
+          "captionBox": [
+            143,
+            731,
+            500,
+            825
+          ],
+          "cue": "B4"
+        },
+        {
+          "frame": 60,
+          "globalFrame": 1416,
+          "captionBox": [
+            143,
+            731,
+            500,
+            825
+          ],
+          "cue": "B4"
+        },
+        {
+          "frame": 61,
+          "globalFrame": 1418,
+          "captionBox": [
+            143,
+            731,
+            500,
+            825
+          ],
+          "cue": "B4"
+        },
+        {
+          "frame": 62,
+          "globalFrame": 1420,
+          "captionBox": [
+            143,
+            731,
+            500,
+            825
+          ],
+          "cue": "B4"
+        },
+        {
+          "frame": 63,
+          "globalFrame": 1422,
+          "captionBox": [
+            143,
+            731,
+            500,
+            825
+          ],
+          "cue": "B4"
+        },
+        {
+          "frame": 64,
+          "globalFrame": 1424,
+          "captionBox": [
+            143,
+            731,
+            500,
+            825
+          ],
+          "cue": "B4"
+        },
+        {
+          "frame": 65,
+          "globalFrame": 1426,
+          "captionBox": [
+            143,
+            731,
+            500,
+            825
+          ],
+          "cue": "B4"
+        },
+        {
+          "frame": 66,
+          "globalFrame": 1428,
+          "captionBox": [
+            143,
+            731,
+            500,
+            825
+          ],
+          "cue": "B4"
+        },
+        {
+          "frame": 67,
+          "globalFrame": 1430,
+          "captionBox": [
+            143,
+            731,
+            500,
+            825
+          ],
+          "cue": "B4"
+        },
+        {
+          "frame": 68,
+          "globalFrame": 1432,
+          "captionBox": [
+            143,
+            731,
+            500,
+            825
+          ],
+          "cue": "B4"
+        },
+        {
+          "frame": 69,
+          "globalFrame": 1434,
+          "captionBox": [
+            143,
+            731,
+            500,
+            825
+          ],
+          "cue": "B4"
+        },
+        {
+          "frame": 70,
+          "globalFrame": 1436,
+          "captionBox": [
+            143,
+            731,
+            500,
+            825
+          ],
+          "cue": "B4"
+        },
+        {
+          "frame": 71,
+          "globalFrame": 1438,
+          "captionBox": [
+            143,
+            731,
+            500,
+            825
+          ],
+          "cue": "B4"
+        },
+        {
+          "frame": 72,
+          "globalFrame": 1440,
+          "captionBox": [
+            143,
+            731,
+            500,
+            825
+          ],
+          "cue": "B4"
+        },
+        {
+          "frame": 73,
+          "globalFrame": 1442,
+          "captionBox": [
+            143,
+            731,
+            500,
+            825
+          ],
+          "cue": "B4"
+        },
+        {
+          "frame": 74,
+          "globalFrame": 1444,
+          "captionBox": [
+            143,
+            731,
+            500,
+            825
+          ],
+          "cue": "B4"
+        },
+        {
+          "frame": 75,
+          "globalFrame": 1446,
+          "captionBox": null,
+          "cue": null
+        },
+        {
+          "frame": 76,
+          "globalFrame": 1448,
+          "captionBox": null,
+          "cue": null
+        },
+        {
+          "frame": 77,
+          "globalFrame": 1450,
+          "captionBox": null,
+          "cue": null
+        },
+        {
+          "frame": 78,
+          "globalFrame": 1452,
+          "captionBox": null,
+          "cue": null
+        },
+        {
+          "frame": 79,
+          "globalFrame": 1454,
+          "captionBox": null,
+          "cue": null
+        },
+        {
+          "frame": 80,
+          "globalFrame": 1456,
+          "captionBox": [
+            149,
+            731,
+            500,
+            825
+          ],
+          "cue": "B5"
+        },
+        {
+          "frame": 81,
+          "globalFrame": 1458,
+          "captionBox": [
+            149,
+            731,
+            500,
+            825
+          ],
+          "cue": "B5"
+        },
+        {
+          "frame": 82,
+          "globalFrame": 1460,
+          "captionBox": [
+            149,
+            731,
+            500,
+            825
+          ],
+          "cue": "B5"
+        },
+        {
+          "frame": 83,
+          "globalFrame": 1462,
+          "captionBox": [
+            149,
+            731,
+            500,
+            825
+          ],
+          "cue": "B5"
+        },
+        {
+          "frame": 84,
+          "globalFrame": 1464,
+          "captionBox": [
+            149,
+            731,
+            500,
+            825
+          ],
+          "cue": "B5"
+        },
+        {
+          "frame": 85,
+          "globalFrame": 1466,
+          "captionBox": [
+            149,
+            731,
+            500,
+            825
+          ],
+          "cue": "B5"
+        },
+        {
+          "frame": 86,
+          "globalFrame": 1468,
+          "captionBox": [
+            149,
+            731,
+            500,
+            825
+          ],
+          "cue": "B5"
+        },
+        {
+          "frame": 87,
+          "globalFrame": 1470,
+          "captionBox": [
+            149,
+            731,
+            500,
+            825
+          ],
+          "cue": "B5"
+        },
+        {
+          "frame": 88,
+          "globalFrame": 1472,
+          "captionBox": [
+            149,
+            731,
+            500,
+            825
+          ],
+          "cue": "B5"
+        },
+        {
+          "frame": 89,
+          "globalFrame": 1474,
+          "captionBox": [
+            149,
+            731,
+            500,
+            825
+          ],
+          "cue": "B5"
+        },
+        {
+          "frame": 90,
+          "globalFrame": 1476,
+          "captionBox": [
+            149,
+            731,
+            500,
+            825
+          ],
+          "cue": "B5"
+        },
+        {
+          "frame": 91,
+          "globalFrame": 1478,
+          "captionBox": [
+            149,
+            731,
+            500,
+            825
+          ],
+          "cue": "B5"
+        },
+        {
+          "frame": 92,
+          "globalFrame": 1480,
+          "captionBox": [
+            149,
+            731,
+            500,
+            825
+          ],
+          "cue": "B5"
+        },
+        {
+          "frame": 93,
+          "globalFrame": 1482,
+          "captionBox": [
+            149,
+            731,
+            500,
+            825
+          ],
+          "cue": "B5"
+        },
+        {
+          "frame": 94,
+          "globalFrame": 1484,
+          "captionBox": null,
+          "cue": null
+        },
+        {
+          "frame": 95,
+          "globalFrame": 1486,
+          "captionBox": null,
+          "cue": null
+        },
+        {
+          "frame": 96,
+          "globalFrame": 1488,
+          "captionBox": null,
+          "cue": null
+        }
+      ],
+      "protectedRegionsClear": true,
+      "originalHudFrameMappingSsim": 0.998927,
+      "fontFile": "/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf"
+    },
+    {
+      "id": "C",
+      "frames": [
+        {
+          "frame": 0,
+          "globalFrame": 1490,
+          "captionBox": null,
+          "cue": null
+        },
+        {
+          "frame": 1,
+          "globalFrame": 1492,
+          "captionBox": null,
+          "cue": null
+        },
+        {
+          "frame": 2,
+          "globalFrame": 1494,
+          "captionBox": [
+            107,
+            783,
+            540,
+            825
+          ],
+          "cue": "C1"
+        },
+        {
+          "frame": 3,
+          "globalFrame": 1496,
+          "captionBox": [
+            107,
+            783,
+            540,
+            825
+          ],
+          "cue": "C1"
+        },
+        {
+          "frame": 4,
+          "globalFrame": 1498,
+          "captionBox": [
+            107,
+            783,
+            540,
+            825
+          ],
+          "cue": "C1"
+        },
+        {
+          "frame": 5,
+          "globalFrame": 1500,
+          "captionBox": [
+            107,
+            783,
+            540,
+            825
+          ],
+          "cue": "C1"
+        },
+        {
+          "frame": 6,
+          "globalFrame": 1502,
+          "captionBox": [
+            107,
+            783,
+            540,
+            825
+          ],
+          "cue": "C1"
+        },
+        {
+          "frame": 7,
+          "globalFrame": 1504,
+          "captionBox": [
+            107,
+            783,
+            540,
+            825
+          ],
+          "cue": "C1"
+        },
+        {
+          "frame": 8,
+          "globalFrame": 1506,
+          "captionBox": [
+            107,
+            783,
+            540,
+            825
+          ],
+          "cue": "C1"
+        },
+        {
+          "frame": 9,
+          "globalFrame": 1508,
+          "captionBox": [
+            107,
+            783,
+            540,
+            825
+          ],
+          "cue": "C1"
+        },
+        {
+          "frame": 10,
+          "globalFrame": 1510,
+          "captionBox": [
+            107,
+            783,
+            540,
+            825
+          ],
+          "cue": "C1"
+        },
+        {
+          "frame": 11,
+          "globalFrame": 1512,
+          "captionBox": [
+            107,
+            783,
+            540,
+            825
+          ],
+          "cue": "C1"
+        },
+        {
+          "frame": 12,
+          "globalFrame": 1514,
+          "captionBox": [
+            107,
+            783,
+            540,
+            825
+          ],
+          "cue": "C1"
+        },
+        {
+          "frame": 13,
+          "globalFrame": 1516,
+          "captionBox": [
+            107,
+            783,
+            540,
+            825
+          ],
+          "cue": "C1"
+        },
+        {
+          "frame": 14,
+          "globalFrame": 1518,
+          "captionBox": [
+            107,
+            783,
+            540,
+            825
+          ],
+          "cue": "C1"
+        },
+        {
+          "frame": 15,
+          "globalFrame": 1520,
+          "captionBox": [
+            107,
+            783,
+            540,
+            825
+          ],
+          "cue": "C1"
+        },
+        {
+          "frame": 16,
+          "globalFrame": 1522,
+          "captionBox": [
+            107,
+            783,
+            540,
+            825
+          ],
+          "cue": "C1"
+        },
+        {
+          "frame": 17,
+          "globalFrame": 1524,
+          "captionBox": [
+            107,
+            783,
+            540,
+            825
+          ],
+          "cue": "C1"
+        },
+        {
+          "frame": 18,
+          "globalFrame": 1526,
+          "captionBox": [
+            107,
+            783,
+            540,
+            825
+          ],
+          "cue": "C1"
+        },
+        {
+          "frame": 19,
+          "globalFrame": 1528,
+          "captionBox": [
+            107,
+            783,
+            540,
+            825
+          ],
+          "cue": "C1"
+        },
+        {
+          "frame": 20,
+          "globalFrame": 1530,
+          "captionBox": [
+            218,
+            783,
+            428,
+            825
+          ],
+          "cue": "C2"
+        },
+        {
+          "frame": 21,
+          "globalFrame": 1532,
+          "captionBox": [
+            218,
+            783,
+            428,
+            825
+          ],
+          "cue": "C2"
+        },
+        {
+          "frame": 22,
+          "globalFrame": 1534,
+          "captionBox": [
+            218,
+            783,
+            428,
+            825
+          ],
+          "cue": "C2"
+        },
+        {
+          "frame": 23,
+          "globalFrame": 1536,
+          "captionBox": [
+            218,
+            783,
+            428,
+            825
+          ],
+          "cue": "C2"
+        },
+        {
+          "frame": 24,
+          "globalFrame": 1538,
+          "captionBox": [
+            218,
+            783,
+            428,
+            825
+          ],
+          "cue": "C2"
+        },
+        {
+          "frame": 25,
+          "globalFrame": 1540,
+          "captionBox": null,
+          "cue": null
+        },
+        {
+          "frame": 26,
+          "globalFrame": 1542,
+          "captionBox": null,
+          "cue": null
+        },
+        {
+          "frame": 27,
+          "globalFrame": 1544,
+          "captionBox": null,
+          "cue": null
+        },
+        {
+          "frame": 28,
+          "globalFrame": 1546,
+          "captionBox": null,
+          "cue": null
+        },
+        {
+          "frame": 29,
+          "globalFrame": 1548,
+          "captionBox": null,
+          "cue": null
+        },
+        {
+          "frame": 30,
+          "globalFrame": 1550,
+          "captionBox": null,
+          "cue": null
+        },
+        {
+          "frame": 31,
+          "globalFrame": 1552,
+          "captionBox": null,
+          "cue": null
+        },
+        {
+          "frame": 32,
+          "globalFrame": 1554,
+          "captionBox": [
+            188,
+            803,
+            455,
+            851
+          ],
+          "cue": "C3"
+        },
+        {
+          "frame": 33,
+          "globalFrame": 1556,
+          "captionBox": [
+            188,
+            803,
+            455,
+            851
+          ],
+          "cue": "C3"
+        },
+        {
+          "frame": 34,
+          "globalFrame": 1558,
+          "captionBox": [
+            188,
+            803,
+            455,
+            851
+          ],
+          "cue": "C3"
+        },
+        {
+          "frame": 35,
+          "globalFrame": 1560,
+          "captionBox": [
+            188,
+            803,
+            455,
+            851
+          ],
+          "cue": "C3"
+        },
+        {
+          "frame": 36,
+          "globalFrame": 1562,
+          "captionBox": [
+            188,
+            803,
+            455,
+            851
+          ],
+          "cue": "C3"
+        },
+        {
+          "frame": 37,
+          "globalFrame": 1564,
+          "captionBox": [
+            188,
+            803,
+            455,
+            851
+          ],
+          "cue": "C3"
+        },
+        {
+          "frame": 38,
+          "globalFrame": 1566,
+          "captionBox": [
+            188,
+            803,
+            455,
+            851
+          ],
+          "cue": "C3"
+        },
+        {
+          "frame": 39,
+          "globalFrame": 1568,
+          "captionBox": null,
+          "cue": null
+        },
+        {
+          "frame": 40,
+          "globalFrame": 1570,
+          "captionBox": null,
+          "cue": null
+        },
+        {
+          "frame": 41,
+          "globalFrame": 1572,
+          "captionBox": null,
+          "cue": null
+        },
+        {
+          "frame": 42,
+          "globalFrame": 1574,
+          "captionBox": null,
+          "cue": null
+        },
+        {
+          "frame": 43,
+          "globalFrame": 1576,
+          "captionBox": null,
+          "cue": null
+        },
+        {
+          "frame": 44,
+          "globalFrame": 1578,
+          "captionBox": null,
+          "cue": null
+        },
+        {
+          "frame": 45,
+          "globalFrame": 1580,
+          "captionBox": null,
+          "cue": null
+        },
+        {
+          "frame": 46,
+          "globalFrame": 1582,
+          "captionBox": [
+            162,
+            760,
+            485,
+            845
+          ],
+          "cue": "C4"
+        },
+        {
+          "frame": 47,
+          "globalFrame": 1584,
+          "captionBox": [
+            162,
+            760,
+            485,
+            845
+          ],
+          "cue": "C4"
+        },
+        {
+          "frame": 48,
+          "globalFrame": 1586,
+          "captionBox": [
+            162,
+            760,
+            485,
+            845
+          ],
+          "cue": "C4"
+        },
+        {
+          "frame": 49,
+          "globalFrame": 1588,
+          "captionBox": [
+            162,
+            760,
+            485,
+            845
+          ],
+          "cue": "C4"
+        },
+        {
+          "frame": 50,
+          "globalFrame": 1590,
+          "captionBox": [
+            162,
+            760,
+            485,
+            845
+          ],
+          "cue": "C4"
+        },
+        {
+          "frame": 51,
+          "globalFrame": 1592,
+          "captionBox": [
+            162,
+            760,
+            485,
+            845
+          ],
+          "cue": "C4"
+        },
+        {
+          "frame": 52,
+          "globalFrame": 1594,
+          "captionBox": [
+            162,
+            760,
+            485,
+            845
+          ],
+          "cue": "C4"
+        },
+        {
+          "frame": 53,
+          "globalFrame": 1596,
+          "captionBox": [
+            162,
+            760,
+            485,
+            845
+          ],
+          "cue": "C4"
+        },
+        {
+          "frame": 54,
+          "globalFrame": 1598,
+          "captionBox": [
+            162,
+            760,
+            485,
+            845
+          ],
+          "cue": "C4"
+        },
+        {
+          "frame": 55,
+          "globalFrame": 1600,
+          "captionBox": [
+            162,
+            760,
+            485,
+            845
+          ],
+          "cue": "C4"
+        },
+        {
+          "frame": 56,
+          "globalFrame": 1602,
+          "captionBox": [
+            165,
+            751,
+            480,
+            845
+          ],
+          "cue": "C5"
+        },
+        {
+          "frame": 57,
+          "globalFrame": 1604,
+          "captionBox": [
+            165,
+            751,
+            480,
+            845
+          ],
+          "cue": "C5"
+        },
+        {
+          "frame": 58,
+          "globalFrame": 1606,
+          "captionBox": [
+            165,
+            751,
+            480,
+            845
+          ],
+          "cue": "C5"
+        },
+        {
+          "frame": 59,
+          "globalFrame": 1608,
+          "captionBox": [
+            165,
+            751,
+            480,
+            845
+          ],
+          "cue": "C5"
+        },
+        {
+          "frame": 60,
+          "globalFrame": 1610,
+          "captionBox": [
+            165,
+            751,
+            480,
+            845
+          ],
+          "cue": "C5"
+        },
+        {
+          "frame": 61,
+          "globalFrame": 1612,
+          "captionBox": [
+            165,
+            751,
+            480,
+            845
+          ],
+          "cue": "C5"
+        },
+        {
+          "frame": 62,
+          "globalFrame": 1614,
+          "captionBox": [
+            165,
+            751,
+            480,
+            845
+          ],
+          "cue": "C5"
+        },
+        {
+          "frame": 63,
+          "globalFrame": 1616,
+          "captionBox": [
+            165,
+            751,
+            480,
+            845
+          ],
+          "cue": "C5"
+        },
+        {
+          "frame": 64,
+          "globalFrame": 1618,
+          "captionBox": [
+            165,
+            751,
+            480,
+            845
+          ],
+          "cue": "C5"
+        },
+        {
+          "frame": 65,
+          "globalFrame": 1620,
+          "captionBox": [
+            165,
+            751,
+            480,
+            845
+          ],
+          "cue": "C5"
+        },
+        {
+          "frame": 66,
+          "globalFrame": 1622,
+          "captionBox": [
+            165,
+            751,
+            480,
+            845
+          ],
+          "cue": "C5"
+        },
+        {
+          "frame": 67,
+          "globalFrame": 1624,
+          "captionBox": [
+            165,
+            751,
+            480,
+            845
+          ],
+          "cue": "C5"
+        },
+        {
+          "frame": 68,
+          "globalFrame": 1626,
+          "captionBox": [
+            165,
+            751,
+            480,
+            845
+          ],
+          "cue": "C5"
+        },
+        {
+          "frame": 69,
+          "globalFrame": 1628,
+          "captionBox": [
+            165,
+            751,
+            480,
+            845
+          ],
+          "cue": "C5"
+        },
+        {
+          "frame": 70,
+          "globalFrame": 1630,
+          "captionBox": [
+            165,
+            751,
+            480,
+            845
+          ],
+          "cue": "C5"
+        },
+        {
+          "frame": 71,
+          "globalFrame": 1632,
+          "captionBox": [
+            165,
+            751,
+            480,
+            845
+          ],
+          "cue": "C5"
+        },
+        {
+          "frame": 72,
+          "globalFrame": 1634,
+          "captionBox": null,
+          "cue": null
+        },
+        {
+          "frame": 73,
+          "globalFrame": 1636,
+          "captionBox": null,
+          "cue": null
+        },
+        {
+          "frame": 74,
+          "globalFrame": 1638,
+          "captionBox": null,
+          "cue": null
+        },
+        {
+          "frame": 75,
+          "globalFrame": 1640,
+          "captionBox": null,
+          "cue": null
+        }
+      ],
+      "protectedRegionsClear": true,
+      "originalHudFrameMappingSsim": 0.999282,
+      "fontFile": "/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf"
+    }
+  ]
+}

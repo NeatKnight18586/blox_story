@@ -1,0 +1,25 @@
+{
+  "status": "PASS",
+  "base": "34fb4cfb62a18a2a3af129509cba0d8eb5aa3cf6",
+  "protectedFilesUnchanged": 678,
+  "priorEvidenceFilesUnchanged": 640,
+  "priorMoviesUnchanged": [
+    "evidence/names100-ending/movie.mp4",
+    "evidence/names100-s2/movie.mp4",
+    "evidence/names100-s3b/A-motion.mp4",
+    "evidence/names100-s3b/B-motion.mp4",
+    "evidence/names100-s3b/C-motion.mp4",
+    "evidence/names100-v1/movie.mp4",
+    "evidence/names100/draft15/movie.mp4",
+    "evidence/names100/movie.mp4",
+    "evidence/p1/feasibility/movie.mp4",
+    "evidence/p1/not-today/movie.mp4",
+    "evidence/p2a/movie.mp4",
+    "evidence/production/feasibility.mp4"
+  ],
+  "sourceWavUnchanged": true,
+  "wavSha256": "3d5e0a116971d3d17a7c3adac79423e443d63040b2120be7562a0660f22b4ae4",
+  "zeroNew3dRenders": true,
+  "sourceStoryClocksUnchanged": true,
+  "pr15NotMerged": true
+}

@@ -247,3 +247,30 @@ PR #13 merged at `bf0f895f0c6e922460d2d49a298239de4efa8efe` after `npm test`, `n
 S3A is review-only: [23-shot ledger](stories/names100/S3A_ISSUE_LEDGER.md), at most three proposed S3B staging changes (reunion, shyness, last-use/failed recognition), no runtime or story input changes. Inspected existing-film continuous2fps decode sheets and saved native evidence. Original ElevenLabs WAV absent from workspace/repository: **audio creative review BLOCKED**, no mux/listening/alignment claim; written cues provisional. Technical timing PASS, visual creative PARTIAL pending corrections/user approval, overall PARTIAL. No episode rebuild/render or fixes implemented.
 
 Successful preflight19.255s wall/28.06s sampled CPU/908.05MiB sampled summed RSS; temporary decode0.216s/.328sCPU/49.90MiB max child RSS. [Receipts and limitations](evidence/names100-s3a/REPORT.md). Stop for review before S3B/final export.
+
+
+## S3B provisional performance — PARTIAL; AUDIO REVIEW BLOCKED
+
+PR #14 passed review-only diff/regressions and actual S2 hash/evidence validation, merged preserving history at `80f592cb4df06693e28b8c41c00195eb66fc9989`. New `codex/names100-s3b-performance` adds only opt-in S3B shy/reunion/forgotten scene variants and small directing helper. Original roughcut/S2 JSON, rigs, appearances, both gaits, old tests,593 previous evidence files and nine films unchanged.
+
+No accessible original WAV or attachment reference in this task: no narration mux/listening, final timing approval or motion gate. Used brief's explicit provisional-keyframe fallback.12 actual360×640 stills and three paired mobile boards; one focused framing/contact repair included camera/occlusion/HUD fixes. Technical source/still checks PASS; creative PARTIAL (S23's failed recognition is not conclusively established by the wide still), overall PARTIAL. No new MP4/full episode/final-resolution render.
+
+`npm test`, `node tests/roughcut-framing.js`, `npm run test:ending -- --motion`, source performance test and genuine performance-browser still test pass. Original cue samples/cuts retained, random seeking/part/pivot identity preserved, pre-zero eyes and hand visible, three baseline S2 golden PNGs unchanged. Scaled child support error ≤3.34e-16 over75 native approach frames; within-shot max scalar transform delta.084993. New motion clipping/acting not certified. Five measured still attempts90.438s wall/164.62s sampled CPU/664.61MiB sampled summed RSS; two affected regression passes35.116s wall. [Full results and limitations](evidence/names100-s3b/REPORT.md). Stop for original-audio and creative review before bounded previews/final production.
+
+
+## S3B original WAV follow-up — technical PASS; creative/audio PARTIAL
+
+WAV is now accessible and verified: stereoPCM16/44,100Hz/2,411,520 samples/54.682993197s, SHA256 `3d5e0a116971d3d17a7c3adac79423e443d63040b2120be7562a0660f22b4ae4`. Earlier missing-file blocker resolved. Input unchanged/outside Git. Existing S2 t=0 temporary narration mux keeps identical compressed video packets; full821-frame decode/PTS/22 cuts/native unmuted audio playback pass. No genuine perceptual listening available; no final emotional/audio approval claim. Original-voice sliced reviews use exact PCM offsets and remain private transient files.
+
+Three final180×320/15fps silent proofs A81/B97/C76 frames (254 total), all reverse pixels/states,18 additional real WebGL random seeks and native H.264 playback/PTS/cuts/full decode pass. Reviewed all254 decoded output frames. One ending-only repair replaced the foot swivel with head-only withdrawal; strict fixed-leg matrices over all151 final native frames and child support ≤3.34e-16 pass. Original593 evidence files/nine films, original story clocks/inputs and F1/F2 foundation preserved. No full/final-resolution episode render.
+
+Completion costs: two still passes35.864s wall; three proof pass78.825s plus ending-only repair22.294s; affected regressions17.495s. Peak sampled summed renderRSS1196.27MiB. Earlier provisional costs retained separately. [Report and receipts](evidence/names100-s3b/REPORT.md). PR15 remains for review; overall PARTIAL solely reflects uncompleted listening/user creative acceptance and subtle final recognition, not missing technical artifacts. Stop before final production.
+
+
+## S3C white-caption pilot — PARTIAL (private delivery blocked)
+
+Read/merged only the user's new caption/listening-gate documents from main into the review branch; PR15 remains DRAFT,not merged. Original S3B footage/WAV reused: three720×1280/15fps typography proofs,81/97/76 frames,zero new3D renders. Canonical text JSON→separate style/ASS/SRT; white DejaVu Sans Bold52px,charcoal4px outline,1.5px shadow. Stable per-shot anchors; S18 uses empty upper area to preserve approaching child, S19 shifts beside contact, S23 below lowering hand.
+
+Six caption semantic tests and all254 actual libass frame masks/safe regions/blank pauses pass. Original frame/HUD mapping SSIM>.98, native H.264/yuv420p/AAC playback/PTS/cuts/decode/unmuted audio pass. Audio packet hashes unchanged; all12 prior movies,renderer/rig/action code,source clocks and WAV byte hash preserved. Internal phrase splits explicitly provisional; no perceptual listening claim. Encoding attempts13.375s wall,14.39s sampled CPU,302.93MiB peak summed RSS;0 new3D rendering cost.
+
+**Not delivered:** genuine private MP4 download links. Private GitHub release asset upload returns401 at uploads.github.com despite working repository auth; API-host alternate404. Empty test drafts removed; no voiced files published/committed. Contact sheet verified through private GitHub access. [Report,receipt,approval checklist and supported shared-browser manual export](evidence/names100-s3c/REPORT.md). Do not present internal paths as links or proceed to full episode/PR15 merge. Stop for accessible-media and user listening/style approval.

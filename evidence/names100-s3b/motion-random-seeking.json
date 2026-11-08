@@ -1,0 +1,133 @@
+{
+  "status": "PASS",
+  "checks": [
+    {
+      "id": "A",
+      "index": 56,
+      "globalFrame": 432,
+      "sha256": "85039a44778be1cfd32ce1c378b830d247b15f623e8393dab0d9ad8bfadbbc5f",
+      "identity": true
+    },
+    {
+      "id": "A",
+      "index": 0,
+      "globalFrame": 320,
+      "sha256": "a5198bc13dceeb6d2a46862d956693cf430fc09a6b0b76e9dac138aca217b568",
+      "identity": true
+    },
+    {
+      "id": "A",
+      "index": 80,
+      "globalFrame": 480,
+      "sha256": "f49f4633f3b7a0ae2294601fca302a9a53c5cb046b0bed585e8ba721cb675604",
+      "identity": true
+    },
+    {
+      "id": "A",
+      "index": 3,
+      "globalFrame": 326,
+      "sha256": "03ee297871cb3d645e74cee927723a67c744b30599787cc816072ddc1d6b83ec",
+      "identity": true
+    },
+    {
+      "id": "A",
+      "index": 32,
+      "globalFrame": 384,
+      "sha256": "103f12b62c5a82b96feb0e68de9a77ec2234774a3cc185b89ddd307c6a3421a3",
+      "identity": true
+    },
+    {
+      "id": "A",
+      "index": 1,
+      "globalFrame": 322,
+      "sha256": "a5198bc13dceeb6d2a46862d956693cf430fc09a6b0b76e9dac138aca217b568",
+      "identity": true
+    },
+    {
+      "id": "B",
+      "index": 67,
+      "globalFrame": 1430,
+      "sha256": "fb9c7b8a488371bd6fa40a0d99241e59d5fe837822f5b123f5d1ca1e9c77e74b",
+      "identity": true
+    },
+    {
+      "id": "B",
+      "index": 0,
+      "globalFrame": 1296,
+      "sha256": "9704538ce340f5c2cc1fb64618115a8f3f9a4f459e2f4de376a4edbf0e729687",
+      "identity": true
+    },
+    {
+      "id": "B",
+      "index": 96,
+      "globalFrame": 1488,
+      "sha256": "7541a8f081ab74b1c75c993b164336b195f63d61ea91c4415f09aff6e30f0c0f",
+      "identity": true
+    },
+    {
+      "id": "B",
+      "index": 3,
+      "globalFrame": 1302,
+      "sha256": "1eca72d9b37b1f4f5ba38be29870bb5ea466120bb04a295a38b83cb8fa767547",
+      "identity": true
+    },
+    {
+      "id": "B",
+      "index": 38,
+      "globalFrame": 1372,
+      "sha256": "ccac6aa9254d4e70afc5e651976193e3929cfc9ae81935bc63515c1d3dd340a0",
+      "identity": true
+    },
+    {
+      "id": "B",
+      "index": 1,
+      "globalFrame": 1298,
+      "sha256": "1349ea61087cf2ea0a5b33d3430a121db781d069cb1aec9c9454fd335124e11b",
+      "identity": true
+    },
+    {
+      "id": "C",
+      "index": 53,
+      "globalFrame": 1596,
+      "sha256": "513031332ae0021c5492d16e31c9f082f6199c112c85e601f116b20a71601775",
+      "identity": true
+    },
+    {
+      "id": "C",
+      "index": 0,
+      "globalFrame": 1490,
+      "sha256": "096b90215730809424eeec4ec00257ef2a12916b8a9d7c722422839fe8301567",
+      "identity": true
+    },
+    {
+      "id": "C",
+      "index": 75,
+      "globalFrame": 1640,
+      "sha256": "ee7939aae9aab128d93d4d684e3dbd81b6740aac6bd16eb81b2d6def8b501317",
+      "identity": true
+    },
+    {
+      "id": "C",
+      "index": 3,
+      "globalFrame": 1496,
+      "sha256": "55a4e763873abad3949d968337daf5a89f30c506ff26788508152fc39dd856dc",
+      "identity": true
+    },
+    {
+      "id": "C",
+      "index": 30,
+      "globalFrame": 1550,
+      "sha256": "7f50bebc65a81aa2ad404d29ee6f0fae77ae97d60a34c5c403ffe3df43c16b01",
+      "identity": true
+    },
+    {
+      "id": "C",
+      "index": 1,
+      "globalFrame": 1492,
+      "sha256": "421ae90b2ca9664d49ae5043074c538bb99b12755c53eb8288897b77bb3ab597",
+      "identity": true
+    }
+  ],
+  "browser": "141.0.7390.37",
+  "scope": "Actual WebGL random seeks against all three preview input sequences, including resident pivots/geometry/material identity"
+}

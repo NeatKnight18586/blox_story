@@ -1,3 +1,19 @@
+# Current review — S3C white captions
+
+**PARTIAL: encoding/style checks PASS; private MP4 delivery blocked.** Three narrated720×1280 typography proofs are ready, with zero new3D renders. [Actual3-up contact sheet](evidence/names100-s3c/caption-style-contact.png) · [verification,caption data,costs and manual export](evidence/names100-s3c/REPORT.md).
+
+GitHub repository access works, but its binary-upload host returns401. No private MP4 links are claimed; internal output paths are not downloads. Original WAV/12 prior films and all animation code are unchanged. PR #15 remains draft/unmerged; stop for accessible-media/listening/style approval, no full episode export.
+
+Historical work follows.
+
+# Current work — S3B narrated review and performance proofs
+
+**Technical PASS; creative/audio approval PARTIAL.** Original WAV verified (54.682993s), private t=0 review and sample-aligned voiced excerpts created. Audio playback is verified; genuine listening is unavailable here, so final creative approval is withheld.
+
+[Shyness5.4s](evidence/names100-s3b/A-motion.mp4) · [Reunion6.47s](evidence/names100-s3b/B-motion.mp4) · [Forgotten5.07s](evidence/names100-s3b/C-motion.mp4) · [Before/after, verification, private-audio paths and all measured costs](evidence/names100-s3b/REPORT.md). Committed previews are silent; private original-voice copies remain outside Git.
+
+PR #14 merged; PR #15 remains for review. Only three bounded scenes rendered,254 final frames; original nine films and story clocks preserved. No full episode/final-resolution render. Stop for user/audio creative review. Historical milestones follow.
+
 # Current review — S3A storytelling audit
 
 **PARTIAL: technical checks PASS; audio review BLOCKED (original WAV unavailable).** PR #13 is verified and merged with history preserved. [23-shot issue ledger and three proposed fixes](stories/names100/S3A_ISSUE_LEDGER.md) · [verification and measured costs](evidence/names100-s3a/REPORT.md) · [unchanged silent film](evidence/names100-s2/movie.mp4).
