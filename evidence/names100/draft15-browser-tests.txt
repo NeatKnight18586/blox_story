@@ -1,0 +1,10 @@
+
+> test:reveal
+> node tests/reveal-browser.js
+
+PASS names100 WebGL: sampled frames and verified random seeks; protected 100→99 and ghost→human boundaries; six-part/layer identity; grounded feet; actor separation and visible faces {
+  maxPenetration: 0,
+  maxContactError: 0,
+  maxFootDrift: 0,
+  minActorGap: 0.2528278091722499
+}

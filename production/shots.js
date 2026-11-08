@@ -16,9 +16,9 @@ export function compilePipeline(input){
  keys(data.output,['width','height','fps']);Object.assign(data,data.output);
  if(data.version!==2||!Number.isInteger(data.width)||!Number.isInteger(data.height)||data.width<180||data.width>720||data.height>1280||data.width%2||data.height%2||data.width*16!==data.height*9||!Number.isInteger(data.fps)||data.fps<1||data.fps>30)throw new Error('Output requires even 9:16 pixels, up to 720x1280 and 1–30fps');
  if(data.title!==undefined&&(typeof data.title!=='string'||data.title.length>200))throw new Error('Invalid title');
- keys(data.environment,['kind','colors','plinthPosition']);if(data.environment.kind!=='light-workshop')throw new Error('Unknown environment');
- data.environment.colors??={};keys(data.environment.colors,['background','floor','backWall','sideWall']);if(!Object.values(data.environment.colors).every(color))throw new Error('Invalid environment color');
- data.environment.plinthPosition??=[0,.65,3];if(!vector(data.environment.plinthPosition)||data.environment.plinthPosition[1]!==.65)throw new Error('Plinth must remain grounded');
+ keys(data.environment,['kind','colors','plinthPosition']);if(!['light-workshop','bedroom-window'].includes(data.environment.kind))throw new Error('Unknown environment');
+ if(data.environment.kind==='light-workshop'){data.environment.colors??={};keys(data.environment.colors,['background','floor','backWall','sideWall']);if(!Object.values(data.environment.colors).every(color))throw new Error('Invalid environment color');
+ data.environment.plinthPosition??=[0,.65,3];if(!vector(data.environment.plinthPosition)||data.environment.plinthPosition[1]!==.65)throw new Error('Plinth must remain grounded');}else keys(data.environment,['kind']);
  if(!Array.isArray(data.shots)||!data.shots.length||data.shots.length>32)throw new Error('Expected 1–32 shots');
  let end=0;const prior=new Map();
  for(const shot of data.shots){

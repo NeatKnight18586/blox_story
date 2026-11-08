@@ -1,0 +1,40 @@
+{
+  "status": "PASS",
+  "globalClockFps": 30,
+  "globalStart": 482,
+  "globalEndExclusive": 945,
+  "previewFps": 15,
+  "frameCount": 232,
+  "step": 2,
+  "lastSample": 944,
+  "presentationEnd": 946,
+  "trailingHoldNativeFrames": 1,
+  "trailingHoldSeconds": 0.03333333333333333,
+  "nativeCounterChangeFrame": 789,
+  "previewFirst99": {
+    "localFrame": 154,
+    "globalFrame": 790,
+    "globalSeconds": 26.333333333333332
+  },
+  "humanStart": 890,
+  "humanEnd": 926,
+  "wordWindowWritten": [
+    25.84,
+    26.28
+  ],
+  "humanWindowWritten": [
+    29.63,
+    30.92
+  ],
+  "nativeSamplesChecked": 463,
+  "randomSeeking": true,
+  "doorReset": true,
+  "native30": {
+    "frameCount": 463,
+    "paddingNativeFrames": 0,
+    "presentationEndFrame": 945,
+    "first99LocalFrame": 307,
+    "first99GlobalFrame": 789,
+    "nativeClockExact": true
+  }
+}

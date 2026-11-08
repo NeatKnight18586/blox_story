@@ -1,0 +1,142 @@
+{
+  "status": "PASS",
+  "browser": "141.0.7390.37",
+  "backend": {
+    "webgl": "WebGL 2.0 (OpenGL ES 3.0 Chromium)",
+    "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)"
+  },
+  "size": [
+    360,
+    640
+  ],
+  "fps": 30,
+  "frameCount": 463,
+  "frames": [
+    {
+      "frame": 0,
+      "globalFrame": 482,
+      "sha256": "6d2283f2bf0bcd3286f73145f8caf9300a1299d993e54959cf5e201117df4328"
+    },
+    {
+      "frame": 110,
+      "globalFrame": 592,
+      "sha256": "087274724e59dc4422dc3ac876fa0ca19057f9b06e11e880bb63dcbfc224adfe"
+    },
+    {
+      "frame": 218,
+      "globalFrame": 700,
+      "sha256": "a34264326db1e2c26f55cdcf5f629d404a184d96153e0b9ca9d742c6bffb75aa"
+    },
+    {
+      "frame": 280,
+      "globalFrame": 762,
+      "sha256": "85dfcc9c9ba76745fde6edd03c101137271464390fcda0e79cae85319364fedb"
+    },
+    {
+      "frame": 294,
+      "globalFrame": 776,
+      "sha256": "0fa9388fc115a4c48ed166bbb70a91f6cfe81bee351ab73f72d4f4d12793b132"
+    },
+    {
+      "frame": 306,
+      "globalFrame": 788,
+      "sha256": "b8f4bbba799b04015aa1ae55b7399c7a2bde48cabc4177b1b50eb27969811206"
+    },
+    {
+      "frame": 307,
+      "globalFrame": 789,
+      "sha256": "d4fe98f057d9e9d3df892806340820f3775a41e9c651d6a82d52016a67a0c41d"
+    },
+    {
+      "frame": 308,
+      "globalFrame": 790,
+      "sha256": "d4fe98f057d9e9d3df892806340820f3775a41e9c651d6a82d52016a67a0c41d"
+    },
+    {
+      "frame": 360,
+      "globalFrame": 842,
+      "sha256": "ada656056363440c5909aa1986dc5afd9604d6ccbd2683e2c53589615de55473"
+    },
+    {
+      "frame": 406,
+      "globalFrame": 888,
+      "sha256": "c4c6f93456f892eea51618efd5a5320b69bd6e307c683e1e20dd4a00f48fed41"
+    },
+    {
+      "frame": 408,
+      "globalFrame": 890,
+      "sha256": "f754b090c0a4498df5976a93925eb05c77b515793c24851af49131ac3f3f8984"
+    },
+    {
+      "frame": 426,
+      "globalFrame": 908,
+      "sha256": "31eccf4187b0ccd52ccf955e84ba1515a6691f61629a2c6f8cc4bc3ed741efa8"
+    },
+    {
+      "frame": 444,
+      "globalFrame": 926,
+      "sha256": "f7d6deadde9b1f2ea606afb00bee95f49b1287d0a7730b891a8712833ae9979b"
+    },
+    {
+      "frame": 462,
+      "globalFrame": 944,
+      "sha256": "6995f8c6240e3ec179ec2262c6502e4a7f9fe6fceff12d370066571aee2a6430"
+    }
+  ],
+  "allReversePixelsMatch": false,
+  "reversePixelEvidence": "All 463 native frames verified by P1 exporter; selected browser hashes match that export",
+  "randomSeekPixelsMatch": true,
+  "sixPartIdentities": true,
+  "attachmentIdentities": true,
+  "metrics": {
+    "maxPenetration": 0,
+    "maxContactError": 0,
+    "maxFootDrift": 0,
+    "minActorGap": 0.25281174957527885
+  },
+  "faceSightlines": [
+    {
+      "frame": 110,
+      "id": "mara",
+      "result": [
+        {
+          "face": true,
+          "hit": ""
+        },
+        {
+          "face": true,
+          "hit": ""
+        }
+      ]
+    },
+    {
+      "frame": 294,
+      "id": "eli",
+      "result": [
+        {
+          "face": true,
+          "hit": ""
+        },
+        {
+          "face": true,
+          "hit": ""
+        }
+      ]
+    },
+    {
+      "frame": 444,
+      "id": "mara",
+      "result": [
+        {
+          "face": true,
+          "hit": ""
+        },
+        {
+          "face": true,
+          "hit": ""
+        }
+      ]
+    }
+  ],
+  "errors": []
+}
