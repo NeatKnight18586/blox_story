@@ -1,0 +1,20 @@
+{
+  "status": "AUDIO REVIEW BLOCKED",
+  "originalWavAccessible": false,
+  "rootsChecked": [
+    "/workspace/library-files",
+    "/workspace/shared",
+    "/workspace/scratch",
+    "/workspace/blox_story"
+  ],
+  "localAudioFiles": [],
+  "attachmentReferenceProvided": false,
+  "narratedReviewCreated": false,
+  "audioGenerated": false,
+  "audioStretched": false,
+  "listeningPerformed": false,
+  "motionGate": "NOT RUN: narration gate blocked",
+  "expectedSamplesFromBrief": 2411520,
+  "expectedSampleRateFromBrief": 44100,
+  "expectedDurationSecondsFromBrief": 54.68299319727891
+}

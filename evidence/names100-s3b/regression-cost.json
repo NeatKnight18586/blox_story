@@ -1,0 +1,13 @@
+{
+  "command": [
+    "bash",
+    "/tmp/s3b-regression.sh"
+  ],
+  "exitCode": 0,
+  "wallSeconds": 17.67276851999486,
+  "sampledTreeRssMiB": 662.98046875,
+  "sampledTreeCpuSeconds": 25.96,
+  "processCount": 33,
+  "sampleIntervalSeconds": 0.2,
+  "method": "Linux ps summed subtree RSS (shared pages counted per process), /proc cumulative CPU samples retained by PID/start-time at 100Hz; sampled lower bounds; final pass only, not all development activity"
+}
