@@ -15,7 +15,7 @@ export function createRevealEffects(plan,avatars,world){
   tag.quaternion.copy(ghost.pivots.leftShoulder.quaternion).invert();tag.visible=state.tagVisible;
   tag.traverse(o=>{if(o.isMesh)o.material.opacity=state.tagOpacity;});
   const mix=state.ghostToHuman;
-  const faces=v1?{[p.ghost.actor]:mix>=.65?'relieved':'nervous',[p.counter.actor]:state.globalFrame<p.counter.at?'nervous':state.globalFrame<p.counter.emphasis[0]?'startled':mix===1?'relieved':'thoughtful'}:{[p.ghost.actor]:mix>=.65?'classic_smile':actors[p.ghost.actor].face,[p.counter.actor]:mix===1?'classic_smile':actors[p.counter.actor].face};
+  const faces=v1?{[p.ghost.actor]:mix>=.65?'relieved':'nervous',[p.counter.actor]:state.globalFrame<p.counter.at?'nervous':state.globalFrame<p.counter.emphasis[0]?'startled':mix===1?(p.restoredReaction??'relieved'):'thoughtful'}:{[p.ghost.actor]:mix>=.65?'classic_smile':actors[p.ghost.actor].face,[p.counter.actor]:mix===1?'classic_smile':actors[p.counter.actor].face};
   for(const [id,face] of Object.entries(faces)){applyFace(avatars[id],face);actors[id].face=face;}
   ghost.root.traverse(o=>{
    if(!o.isMesh||tagObject(o))return;const m=o.material,isFace=faceMaterial(o);

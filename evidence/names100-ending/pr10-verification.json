@@ -1,0 +1,127 @@
+{
+  "status": "PASS",
+  "head": "405c82c72628bc3d4ee545e30ed11f75a5eea140",
+  "referenceEvidenceUnchanged": true,
+  "mp4Sha256": "498accf6185accfd107d7ac81963aea940662891b1b936841843d93e5c6c6367",
+  "verification": {
+    "probe": {
+      "streams": [
+        {
+          "index": 0,
+          "codec_name": "h264",
+          "codec_long_name": "H.264 / AVC / MPEG-4 AVC / MPEG-4 part 10",
+          "profile": "Main",
+          "codec_type": "video",
+          "codec_tag_string": "avc1",
+          "codec_tag": "0x31637661",
+          "width": 360,
+          "height": 640,
+          "coded_width": 368,
+          "coded_height": 640,
+          "closed_captions": 0,
+          "film_grain": 0,
+          "has_b_frames": 2,
+          "sample_aspect_ratio": "1:1",
+          "display_aspect_ratio": "9:16",
+          "pix_fmt": "yuv420p",
+          "level": 31,
+          "color_range": "tv",
+          "color_space": "bt709",
+          "chroma_location": "left",
+          "field_order": "progressive",
+          "refs": 4,
+          "is_avc": "true",
+          "nal_length_size": "4",
+          "id": "0x1",
+          "r_frame_rate": "30/1",
+          "avg_frame_rate": "30/1",
+          "time_base": "1/15360",
+          "start_pts": 0,
+          "start_time": "0.000000",
+          "duration_ts": 61440,
+          "duration": "4.000000",
+          "bit_rate": "250876",
+          "bits_per_raw_sample": "8",
+          "nb_frames": "120",
+          "nb_read_frames": "120",
+          "extradata_size": 45,
+          "disposition": {
+            "default": 1,
+            "dub": 0,
+            "original": 0,
+            "comment": 0,
+            "lyrics": 0,
+            "karaoke": 0,
+            "forced": 0,
+            "hearing_impaired": 0,
+            "visual_impaired": 0,
+            "clean_effects": 0,
+            "attached_pic": 0,
+            "timed_thumbnails": 0,
+            "non_diegetic": 0,
+            "captions": 0,
+            "descriptions": 0,
+            "metadata": 0,
+            "dependent": 0,
+            "still_image": 0,
+            "multilayer": 0
+          },
+          "tags": {
+            "language": "und",
+            "handler_name": "VideoHandler",
+            "vendor_id": "[0][0][0][0]",
+            "encoder": "Lavc61.19.101 libx264"
+          }
+        }
+      ],
+      "format": {
+        "filename": "/workspace/blox_story/evidence/names100-v1/movie.mp4",
+        "nb_streams": 1,
+        "nb_programs": 0,
+        "nb_stream_groups": 0,
+        "format_name": "mov,mp4,m4a,3gp,3g2,mj2",
+        "format_long_name": "QuickTime / MOV",
+        "start_time": "0.000000",
+        "duration": "4.000000",
+        "size": "127719",
+        "bit_rate": "255438",
+        "probe_score": 100,
+        "tags": {
+          "major_brand": "isom",
+          "minor_version": "512",
+          "compatible_brands": "isomiso2avc1mp41",
+          "encoder": "Lavf61.7.103"
+        }
+      }
+    },
+    "decode": {
+      "frames": 120,
+      "continuousPts": true,
+      "noErrors": true
+    },
+    "cuts": [
+      {
+        "frame": 57,
+        "time": 1.9
+      },
+      {
+        "frame": 102,
+        "time": 3.4
+      }
+    ],
+    "playback": {
+      "width": 360,
+      "height": 640,
+      "duration": 4,
+      "advancedTo": 0.1504,
+      "error": null,
+      "browser": "156.0.8078.79",
+      "fallback": true,
+      "seeks": [
+        2,
+        2,
+        3.5
+      ]
+    }
+  }
+}

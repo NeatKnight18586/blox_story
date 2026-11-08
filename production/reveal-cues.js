@@ -4,8 +4,9 @@ const smooth=x=>{x=Math.max(0,Math.min(1,x));return x*x*(3-2*x);};
 const mix=(a,b,t)=>a+(b-a)*t;
 function keys(o,allowed){if(!o||typeof o!=='object'||Array.isArray(o)||Object.keys(o).some(k=>!allowed.includes(k)))throw new Error('Invalid reveal field');}
 export function compileReveal(input,{fps,frameCount,cast,environment}){
- keys(input,['globalStart','globalEnd','clockFps','counter','ghost','tag','lean','whisper','push','visuals']);const p=structuredClone(input);
+ keys(input,['globalStart','globalEnd','clockFps','counter','ghost','tag','lean','whisper','push','visuals','restoredReaction']);const p=structuredClone(input);
  if(environment.kind!=='bedroom-window'||p.clockFps!==30||![15,30].includes(fps)||!Number.isInteger(p.globalStart)||!Number.isInteger(p.globalEnd)||p.globalStart<0||p.globalEnd<=p.globalStart||p.globalEnd-p.globalStart>600)throw new Error('Reveal needs a bounded 30fps bedroom timeline and 15/30fps samples');
+ if(p.restoredReaction!==undefined&&(p.restoredReaction!=='thoughtful'||p.visuals!=='v1'))throw new Error('Invalid restored reaction');
  if(p.visuals!==undefined&&p.visuals!=='v1')throw new Error('Unknown reveal visual direction');
  p.step=p.clockFps/fps;p.paddingNativeFrames=frameCount*p.step-(p.globalEnd-p.globalStart);p.presentationEndFrame=p.globalStart+frameCount*p.step;if(frameCount!==Math.ceil((p.globalEnd-p.globalStart)/p.step))throw new Error('Reveal frame count does not match global window');
  const ids=new Set(cast.map(a=>a.id)),integer=v=>Number.isInteger(v)&&v>=p.globalStart&&v<=p.globalEnd;

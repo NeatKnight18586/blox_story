@@ -1,0 +1,10 @@
+
+> test:v1
+> node tests/v1-visual.js
+
+PASS Gate1 WebGL: 8 paired frames, reverse equality, all eye/brow sightlines, 3 narrative props, immutable body/face caches, no captions, original PR9 gold frames unchanged
+
+> test:v1
+> node tests/v1-visual.js --motion
+
+PASS Gate2 random seeks: exact excerpt/source pixels and global clock

@@ -1,0 +1,185 @@
+
+> test
+> node tests/api.js && node tests/actions.js && node tests/walk.js && node tests/walk-calibration.js && node tests/production.js && node tests/p1.js && node tests/casting.js && node tests/reveal.js && node tests/expressions.js && node tests/ending.js
+
+PASS: real Three.js imports, six meshes, five pivots, bounds, deterministic reset, face/cap caches, removal and identity
+PASS: rounded lathed head dimensions and curved face surface
+PASS F2A: deterministic shuffled sampling, 30/60fps, idle seam/velocity, reaction clamp, four transition pairs/endpoints, planted geometry, appearance/identity, reset and atomic validation
+PASS F2A: segment/transition velocity continuity and interruption snapshots
+PASS F2B1 real geometry: {
+  maxFootDrift: 2.220446049250313e-16,
+  rmsFootDrift: 4.66308592456282e-17,
+  maxPenetration: 2.220446049250313e-16,
+  rmsPenetration: 1.2566165084597348e-16,
+  maxGroundContactError: 4.440892098500626e-16,
+  rmsGroundContactError: 1.9624346787902205e-16,
+  minSwingClearance: 0,
+  maxSwingClearance: 0.04499999999999993,
+  maxHipCorrection: 0.045
+}
+PASS F2B1: monotonic root movement and support/edge velocity joins
+PASS calibration {
+  baseline: {
+    samples: 434,
+    metrics: {
+      maxFootDrift: 2.220446049250313e-16,
+      rmsFootDrift: 4.66308592456282e-17,
+      maxPatchDrift: 8.881784197001252e-16,
+      rmsPatchDrift: 2.4816402228041e-16,
+      maxPenetration: 2.220446049250313e-16,
+      rmsPenetration: 1.2566165084597348e-16,
+      maxContactError: 4.440892098500626e-16,
+      rmsContactError: 1.9624346787902205e-16,
+      minSwingClearance: 0,
+      maxSwingClearance: 0.04499999999999993,
+      maxJointOverlap: 0.02499999999999991,
+      maxLegSeparation: 0.19991667708271332,
+      maxArmSeparation: 0.27837253240338033,
+      maxRootRise: 0.021490521503639837
+    }
+  },
+  readable: {
+    samples: 434,
+    metrics: {
+      maxFootDrift: 4.440892098500626e-16,
+      rmsFootDrift: 1.0584951412078256e-16,
+      maxPatchDrift: 8.881784197001252e-16,
+      rmsPatchDrift: 3.357474734723895e-16,
+      maxPenetration: 2.220446049250313e-16,
+      rmsPenetration: 8.593143000294514e-17,
+      maxContactError: 4.440892098500626e-16,
+      rmsContactError: 1.4260077184820996e-16,
+      minSwingClearance: -2.220446049250313e-16,
+      maxSwingClearance: 0.04999999999999982,
+      maxJointOverlap: 0.03020856331819788,
+      maxLegSeparation: 0.3993336665873126,
+      maxArmSeparation: 0.7125377022347803,
+      maxRootRise: 0.03792836947543243
+    }
+  }
+}
+PASS production: contiguous shots, exact cuts, deterministic action/prop samples, origin continuity and malformed input rejection
+PASS P1: v2 flexible timeline, pure events/appearance, factory identity, malformed input, output ownership, live/stale locks, linked-path rejection and atomic writes
+PASS P2A casting, pure seeking, fixed cameras, independent cached appearances, removal, unchanged six-part/pivot/geometry identities, separation and both body/gait 30/60fps actual-vertex contact: { minActorAabbGap: 0.8139189194392715, maxPenetration: 0 }
+PASS names100: exact global clock, native 788/789 counter boundary, 15fps safe sampling, restoration confined to 29.63–30.92s, tag/lean/whisper/push order, deterministic seeks, closed door reset, malformed input rejection
+PASS V1: cached independent curved faces, legacy APIs, body/wardrobe identity, immutable counter/restoration/global clock; sole justified cut 938→927
+PASS ending: all696 pure native samples, monotone99/52/18/3/1/0, no early spoken numbers/forgetting, exact945–1641 clock, original cast/appearances and reveal timing, malformed cues rejected
+
+> test:p1
+> node tests/p1.js && node tests/p1-resume.js
+
+PASS P1: v2 flexible timeline, pure events/appearance, factory identity, malformed input, output ownership, live/stale locks, linked-path rejection and atomic writes
+PASS P1 real WebGL/MP4 recovery: SIGTERM checkpoint, corrupt-frame repair, complete resume, 12/12 cache reuse, input invalidation, failed/paused publication preserves verified latest; full decode and native browser playback; isolated/resumable range and invalid-range publication protection
+
+> test:v1
+> node tests/v1-visual.js
+
+PASS Gate1 WebGL: 8 paired frames, reverse equality, all eye/brow sightlines, 3 narrative props, immutable body/face caches, no captions, original PR9 gold frames unchanged
+
+> test:v1
+> node tests/v1-visual.js --motion
+
+PASS Gate2 random seeks: exact excerpt/source pixels and global clock
+
+> test:browser
+> node tests/browser.js
+
+PASS: WebGL WebGL 2.0 (OpenGL ES 3.0 Chromium), controls, retained mesh identity, cosmetic removal, mobile and 10 captures; no page errors
+
+> test:motion
+> node tests/motion-browser.js
+
+PASS F2A WebGL: 285 frames, reverse repeat pixel equality, grounded geometry, controls and vertical captures
+
+> test:walk
+> node tests/walk-browser.js
+
+PASS F2B1 WebGL: {
+  maxFootDrift: 1.1102230246251565e-16,
+  rmsFootDrift: 3.013620443605934e-17,
+  maxPenetration: 2.220446049250313e-16,
+  rmsPenetration: 1.2671882959866031e-16,
+  maxGroundContactError: 2.220446049250313e-16,
+  rmsGroundContactError: 1.9608141819027707e-16,
+  minSwingClearance: 0,
+  maxSwingClearance: 0.04499999999999993
+} (436 measurements, 146 captured frames)
+
+> test:calibration
+> node tests/calibration-browser.js
+
+PASS fixed-camera calibration WebGL {
+  'side-baseline': {
+    samples: 218,
+    metrics: {
+      maxFootDrift: 1.1102230246251565e-16,
+      rmsFootDrift: 3.013620443605934e-17,
+      maxPatchDrift: 3.3306690738754696e-16,
+      rmsPatchDrift: 1.3248572042681333e-16,
+      maxPenetration: 2.220446049250313e-16,
+      rmsPenetration: 1.2671882959866031e-16,
+      maxContactError: 2.220446049250313e-16,
+      rmsContactError: 1.9608141819027707e-16,
+      minClearance: 0,
+      maxClearance: 0.04499999999999993,
+      maxNdc: 0.5065391065372641
+    },
+    repeatReversePixelMatch: true
+  },
+  'side-readable': {
+    samples: 218,
+    metrics: {
+      maxFootDrift: 2.220446049250313e-16,
+      rmsFootDrift: 5.369910792520928e-17,
+      maxPatchDrift: 4.440892098500626e-16,
+      rmsPatchDrift: 1.7556180320052313e-16,
+      maxPenetration: 2.220446049250313e-16,
+      rmsPenetration: 6.725537158473823e-17,
+      maxContactError: 2.220446049250313e-16,
+      rmsContactError: 1.0844602813475078e-16,
+      minClearance: 2.220446049250313e-16,
+      maxClearance: 0.04999999999999982,
+      maxNdc: 0.5728998952856899
+    },
+    repeatReversePixelMatch: true
+  },
+  'threequarter-baseline': {
+    samples: 218,
+    metrics: {
+      maxFootDrift: 1.1102230246251565e-16,
+      rmsFootDrift: 3.013620443605934e-17,
+      maxPatchDrift: 3.3306690738754696e-16,
+      rmsPatchDrift: 1.3248572042681333e-16,
+      maxPenetration: 2.220446049250313e-16,
+      rmsPenetration: 1.2671882959866031e-16,
+      maxContactError: 2.220446049250313e-16,
+      rmsContactError: 1.9608141819027707e-16,
+      minClearance: 0,
+      maxClearance: 0.04499999999999993,
+      maxNdc: 0.8193106006202279
+    },
+    repeatReversePixelMatch: true
+  },
+  'threequarter-readable': {
+    samples: 218,
+    metrics: {
+      maxFootDrift: 2.220446049250313e-16,
+      rmsFootDrift: 5.369910792520928e-17,
+      maxPatchDrift: 4.440892098500626e-16,
+      rmsPatchDrift: 1.7556180320052313e-16,
+      maxPenetration: 2.220446049250313e-16,
+      rmsPenetration: 6.725537158473823e-17,
+      maxContactError: 2.220446049250313e-16,
+      rmsContactError: 1.0844602813475078e-16,
+      minClearance: 2.220446049250313e-16,
+      maxClearance: 0.04999999999999982,
+      maxNdc: 0.8207642558455656
+    },
+    repeatReversePixelMatch: true
+  }
+}
+
+> test:casting
+> node tests/casting-browser.js
+
+PASS P2A WebGL: 360 frames, reverse pixel equality, stable independent bodies/geometry/layers, fixed cameras, face sightlines, mobile dressed/undressed/restored captures; minimum actor gap 0.8139189194392715

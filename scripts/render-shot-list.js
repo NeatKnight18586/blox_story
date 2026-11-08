@@ -34,7 +34,7 @@ async function main(opts){
  const out=await prepareOutput(opts.out),release=await acquireLock(out),started=performance.now();
  const report={status:'RUNNING',title:plan.title,width:plan.width,height:plan.height,fps:plan.fps,frameCount:plan.frameCount,duration:plan.frameCount/plan.fps,shotListSha256:hash(source),shots:plan.shots.map(s=>({id:s.id,start:s.start,end:s.end,camera:s.camera,...(s.composition?{composition:s.composition}:{})})),frames:[],cache:{reused:0,rendered:0,repaired:0},timings:{},errors:[],resources:{availableParallelism:availableParallelism(),ffmpegThreads:2,rssMethod:'1-second sampled summed exporter/browser/server/encoder process-tree RSS; shared pages counted per process'}};
  if(opts.range)report.range={start:rangeStart,endExclusive:rangeEnd,sourceFrameCount:sourcePlan.frameCount};
- if(plan.cast)report.cast=plan.cast;if(plan.reveal)report.reveal=plan.reveal;
+ if(plan.cast)report.cast=plan.cast;if(plan.reveal)report.reveal=plan.reveal;if(plan.ending)report.ending=plan.ending;
  let browser,server,timer,peak=0,sampling=false,aborted=false,signal=null;
  const interrupt=name=>{aborted=true;signal=name;};const sigint=()=>interrupt('SIGINT'),sigterm=()=>interrupt('SIGTERM');process.on('SIGINT',sigint);process.on('SIGTERM',sigterm);
  try{
