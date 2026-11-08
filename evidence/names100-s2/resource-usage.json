@@ -1,0 +1,13 @@
+{
+  "command": [
+    "node",
+    "scripts/render-names100.js"
+  ],
+  "exitCode": 0,
+  "wallSeconds": 209.145886323,
+  "sampledTreeRssMiB": 1219.92578125,
+  "sampledTreeCpuSeconds": 350.25,
+  "processCount": 24,
+  "sampleIntervalSeconds": 0.2,
+  "method": "Linux ps summed subtree RSS (shared pages counted per process), /proc cumulative CPU samples retained by PID/start-time at 100Hz; sampled lower bounds; final pass only, not all development activity"
+}

@@ -1,3 +1,4 @@
+import {createOpeningEffects} from './opening.js';
 import {createLook} from './look-style.js';
 import {createCourtyard} from './assets/courtyard.js';
 import {createEndingStage,createEndingEffects} from './ending-effects.js';
@@ -27,16 +28,17 @@ try {
  const original=Object.values(avatars).flatMap(references);
  const reveal=plan.reveal?createRevealEffects(plan,avatars,world):null;
  const ending=plan.ending?createEndingEffects(plan,avatars,world):null;
+ const opening=plan.opening?createOpeningEffects(plan,avatars):null;
  const look=plan.look==='s1'?createLook(plan,scene,world,avatars):null;
  function renderFrame(frame){
   const state=sampleShotList(plan,frame),actors=state.actors??{[cast[0].id]:{...state.actor,face:state.face,appearance:state.appearance}};
   for(const [id,s] of Object.entries(actors)){const a=avatars[id];applyActionSample(a,s.action,s.origin);applyFace(a,s.face);if(s.appearance)applyAppearance(a,s.appearance);}
-  if(reveal)reveal.apply(state.reveal,actors);if(ending)ending.apply(state.ending,actors,scene);if(look)look.apply(state);
+  if(reveal)reveal.apply(state.reveal,actors);if(ending)ending.apply(state.ending,actors,scene);if(opening)opening.apply(state.opening,actors);if(look)look.apply(state);
   const propStates=state.propStates??{proximity_chest:{open:state.propOpen}};
   for(const [id,prop] of Object.entries(props))prop.apply(propStates[id]);
-  camera.fov=state.camera.fov;camera.position.set(...state.camera.position);camera.lookAt(...state.camera.target);camera.updateProjectionMatrix();renderer.render(scene,camera);if(reveal)reveal.draw(renderer);if(ending)ending.draw(renderer);if(look)look.draw(renderer);
-  return {frame,shot:state.shot,time:state.time,propOpen:state.propOpen??null,camera:state.camera,actorPosition:avatar.root.position.toArray(),propStates,...(state.reveal?{reveal:state.reveal}:{}),...(state.ending?{ending:state.ending}:{}),...(plan.version===3?{actors:Object.fromEntries(Object.entries(actors).map(([id,s])=>[id,{position:avatars[id].root.position.toArray(),face:s.face,appearance:s.appearance,torsoVariant:avatars[id].torsoVariant}]))}:{}),identity:original.every((p,i)=>p===Object.values(avatars).flatMap(references)[i])};
+  camera.fov=state.camera.fov;camera.position.set(...state.camera.position);camera.lookAt(...state.camera.target);camera.updateProjectionMatrix();renderer.render(scene,camera);if(reveal)reveal.draw(renderer);if(ending)ending.draw(renderer);if(look)look.draw(renderer);if(opening)opening.draw(renderer);
+  return {frame,shot:state.shot,time:state.time,propOpen:state.propOpen??null,camera:state.camera,actorPosition:avatar.root.position.toArray(),propStates,...(state.reveal?{reveal:state.reveal}:{}),...(state.ending?{ending:state.ending}:{}),...(state.opening?{opening:state.opening}:{}),...(plan.version===3?{actors:Object.fromEntries(Object.entries(actors).map(([id,s])=>[id,{position:avatars[id].root.position.toArray(),face:s.face,appearance:s.appearance,torsoVariant:avatars[id].torsoVariant}]))}:{}),identity:original.every((p,i)=>p===Object.values(avatars).flatMap(references)[i])};
  }
  // No clock/RAF: all frames, action time, cameras and prop state are explicit.
- window.__production={plan,renderFrame,renderer,scene,camera,avatar,avatars,world,reveal,ending,look};renderFrame(0);
+ window.__production={plan,renderFrame,renderer,scene,camera,avatar,avatars,world,reveal,ending,look,opening};renderFrame(0);
 }catch(error){window.__productionError=error.message;document.getElementById('error').textContent=error.message;throw error;}

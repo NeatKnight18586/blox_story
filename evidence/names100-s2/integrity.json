@@ -1,0 +1,67 @@
+{
+  "status": "PASS",
+  "pr12Merge": "584bad2026f648d5f2759abde06290eba03370ae",
+  "engineSha256": "f6f1bfa14fa74c8c79d39ad2cf67749142c938f84afcb182f58cdabdfe8e55d0",
+  "storySha256": "cde6f2ed537d04c6bcf2c3166a0ed55fa035acce8ad8b33f6cc35dc437be96d6",
+  "mp4Sha256": "3fe9b34c46ad16e41452d0d0b7ea28a91facf4a824eb6bd41a2474416c8ac6e3",
+  "existingFilms": [
+    {
+      "path": "evidence/names100-ending/movie.mp4",
+      "sha256": "5b1cf7d2d4f0908da999877cba35220a6ad18b11fabff66d6d69feea551e15be",
+      "unchanged": true
+    },
+    {
+      "path": "evidence/names100-v1/movie.mp4",
+      "sha256": "498accf6185accfd107d7ac81963aea940662891b1b936841843d93e5c6c6367",
+      "unchanged": true
+    },
+    {
+      "path": "evidence/names100/draft15/movie.mp4",
+      "sha256": "377c4b0b2be9815411584765e26b6b6016e9b3576b47475544052195b4aa1c6c",
+      "unchanged": true
+    },
+    {
+      "path": "evidence/names100/movie.mp4",
+      "sha256": "3e3c9fb9b55960e06caee4669163a7132c98cfaabd85c86494a376050d38befe",
+      "unchanged": true
+    },
+    {
+      "path": "evidence/p1/feasibility/movie.mp4",
+      "sha256": "199c28761075fa75f9c3cf9c2dda5879a8369135b7d6f7b925f8d689a228e59f",
+      "unchanged": true
+    },
+    {
+      "path": "evidence/p1/not-today/movie.mp4",
+      "sha256": "90570c9700094e859c3489bddad4a6bfe091bd3101542b43632e60cde56c5872",
+      "unchanged": true
+    },
+    {
+      "path": "evidence/p2a/movie.mp4",
+      "sha256": "074bad369f9a8e08400c6c2512adcb2b96fd2b0b7d0d2900de5b768a38775e1a",
+      "unchanged": true
+    },
+    {
+      "path": "evidence/production/feasibility.mp4",
+      "sha256": "1fea25486ef9a78948f2739be23279a919b5fc4529134d3ca6fbbd7413c3b417",
+      "unchanged": true
+    }
+  ],
+  "unchangedRawFramesRevalidated": 686,
+  "changedRawFrames": 135,
+  "reviewedShots": 23,
+  "nativeFrameCount": 1641,
+  "outputFrameCount": 821,
+  "outputSize": [
+    180,
+    320
+  ],
+  "fps": 15,
+  "duration": 54.733333333333334,
+  "targetDuration": 54.7,
+  "trailingHoldSeconds": 0.03333333333333144,
+  "nativeSeamMeanChannelDifference944To945": 0.15161458333333333,
+  "maxKeyframeTorsoAabbOverlap": 0,
+  "minimumKeyframeBodyY": 0,
+  "finalResolutionRendered": false,
+  "audioGenerated": false
+}

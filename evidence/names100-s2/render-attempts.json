@@ -1,0 +1,100 @@
+{
+  "attempts": [
+    {
+      "attempt": 1,
+      "technicalStatus": "PASS",
+      "creativeStatus": "PARTIAL",
+      "issue": "S17 back-facing reaction insert",
+      "mp4Encoded": true,
+      "cache": {
+        "rendered": 818,
+        "reused": 3,
+        "repaired": 0,
+        "bytesAtEnd": 24632583
+      },
+      "timings": {
+        "captureSeconds": 175.94391704,
+        "reverseSeconds": 129.82594806799997,
+        "encodeSeconds": 0.9823144530000282,
+        "verificationSeconds": 1.2491947149999905,
+        "totalSeconds": 309.078261333
+      },
+      "resourceUsage": {
+        "command": [
+          "node",
+          "scripts/render-names100.js"
+        ],
+        "exitCode": 0,
+        "wallSeconds": 309.54850492999685,
+        "sampledTreeRssMiB": 1130.421875,
+        "sampledTreeCpuSeconds": 566.1,
+        "processCount": 27,
+        "sampleIntervalSeconds": 0.2,
+        "method": "Linux ps summed subtree RSS (shared pages counted per process), /proc cumulative CPU samples retained by PID/start-time at 100Hz; sampled lower bounds; final pass only, not all development activity"
+      }
+    },
+    {
+      "attempt": 2,
+      "technicalStatus": "FAIL",
+      "creativeStatus": "PARTIAL",
+      "issue": "Cold-resume transparency shader mismatch",
+      "mp4Encoded": false,
+      "cache": {
+        "rendered": 46,
+        "reused": 775,
+        "repaired": 0
+      },
+      "timings": {
+        "captureSeconds": 19.629222207999998,
+        "totalSeconds": 55.550499286
+      },
+      "resourceUsage": {
+        "command": [
+          "node",
+          "scripts/render-names100.js"
+        ],
+        "exitCode": 1,
+        "wallSeconds": 55.92966866600182,
+        "sampledTreeRssMiB": 728.83203125,
+        "sampledTreeCpuSeconds": 94.92,
+        "processCount": 8,
+        "sampleIntervalSeconds": 0.2,
+        "method": "Linux ps summed subtree RSS (shared pages counted per process), /proc cumulative CPU samples retained by PID/start-time at 100Hz; sampled lower bounds; final pass only, not all development activity"
+      }
+    },
+    {
+      "attempt": 3,
+      "technicalStatus": "PASS",
+      "creativeStatus": "PASS for rough coverage; final creative approval pending",
+      "mp4Encoded": true,
+      "cache": {
+        "rendered": 135,
+        "reused": 686,
+        "repaired": 0,
+        "bytesAtEnd": 74171692
+      },
+      "timings": {
+        "captureSeconds": 73.960824131,
+        "reverseSeconds": 131.000085529,
+        "encodeSeconds": 0.9349257219999854,
+        "verificationSeconds": 1.2651701439999743,
+        "totalSeconds": 208.536286158
+      },
+      "resourceUsage": {
+        "command": [
+          "node",
+          "scripts/render-names100.js"
+        ],
+        "exitCode": 0,
+        "wallSeconds": 209.145886323,
+        "sampledTreeRssMiB": 1219.92578125,
+        "sampledTreeCpuSeconds": 350.25,
+        "processCount": 24,
+        "sampleIntervalSeconds": 0.2,
+        "method": "Linux ps summed subtree RSS (shared pages counted per process), /proc cumulative CPU samples retained by PID/start-time at 100Hz; sampled lower bounds; final pass only, not all development activity"
+      }
+    }
+  ],
+  "measuredRenderWallSecondsSum": 574.6240599189987,
+  "note": "Includes first draft and rejected cold-resume attempt; uninstrumented development excluded"
+}

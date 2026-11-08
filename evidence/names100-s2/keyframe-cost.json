@@ -1,0 +1,13 @@
+{
+  "command": [
+    "node",
+    "tests/roughcut-browser.js"
+  ],
+  "exitCode": 0,
+  "wallSeconds": 27.55363681900053,
+  "sampledTreeRssMiB": 660.06640625,
+  "sampledTreeCpuSeconds": 50.78,
+  "processCount": 16,
+  "sampleIntervalSeconds": 0.2,
+  "method": "Linux ps summed subtree RSS (shared pages counted per process), /proc cumulative CPU samples retained by PID/start-time at 100Hz; sampled lower bounds; final pass only, not all development activity"
+}

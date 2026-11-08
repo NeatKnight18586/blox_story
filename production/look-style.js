@@ -35,15 +35,15 @@ function dressBedroom(group){
  const bulb=new THREE.Mesh(new THREE.SphereGeometry(.065,12,8),new THREE.MeshBasicMaterial({color:0xffcb88}));bulb.name='s1_lamp_bulb';bulb.position.y=.68;lamp.add(bulb);
  const light=new THREE.PointLight(0xffb66c,3.5,5,2);light.position.set(0,.68,0);lamp.add(light);
 }
-function ghostFrontDepth(avatar){
+export function ghostFrontDepth(avatar,name='s1_ghost_front_depth'){
  // Shared geometry, one depth-only material, opaque queue after the scenery.
  // This removes visible back surfaces without changing the .58 ghost opacity.
  const material=new THREE.MeshBasicMaterial({colorWrite:false,depthWrite:true}),helpers=[];
  avatar.root.traverse(o=>{if(!o.isMesh)return;for(let n=o;n;n=n.parent)if(n===avatar.faceLayer||n.userData.revealTag)return;helpers.push(o);});
- return {material,meshes:helpers.map(o=>{const d=new THREE.Mesh(o.geometry,material);d.name='s1_ghost_front_depth';d.position.copy(o.position);d.quaternion.copy(o.quaternion);d.scale.copy(o.scale);d.renderOrder=10;d.userData.lookDepth=true;o.parent.add(d);return d;})};
+ return {material,meshes:helpers.map(o=>{const d=new THREE.Mesh(o.geometry,material);d.name=name;d.position.copy(o.position);d.quaternion.copy(o.quaternion);d.scale.copy(o.scale);d.renderOrder=10;d.userData.lookDepth=true;o.parent.add(d);return d;})};
 }
 export function createLook(plan,scene,world,avatars){
- const c=world.courtyard,night=plan.environment.kind==='home-courtyard',overlay=night?createCounterOverlay({actor:'eli',before:100,after:99},null):null;
+ const c=world.courtyard,night=plan.environment.kind==='home-courtyard',overlay=night&&!plan.opening?createCounterOverlay({actor:'eli',before:100,after:99},null):null;
  const depth=plan.reveal?ghostFrontDepth(avatars.mara):null;
  if(c)world.styleDetails=dressCourtyard(c);if(world.room)dressBedroom(world.room);else if(plan.reveal)dressBedroom(scene);
  if(night){scene.background=new THREE.Color();scene.fog=new THREE.FogExp2();for(const a of c.residents)a.root.visible=false;}
@@ -58,6 +58,8 @@ export function createLook(plan,scene,world,avatars){
    // Front depth prevents transparent hair/back surfaces doubling over the face;
    // opacity and restoration timing are untouched, including .58 through889.
    Object.assign(depth.material,{transparent:false,opacity:1,depthWrite:true,colorWrite:false});for(const d of depth.meshes)d.visible=state.reveal.ghostToHuman<1;
+  }
+  if(plan.reveal||(plan.ending?.visuals==='s2'&&state.ending?.location==='bedroom')){
    scene.background.set(0x091c2e);scene.fog.color.set(0x172f43);scene.fog.density=.025;
   }
   if(overlay)overlay.apply({counter:100,counterEmphasis:false,whisper:false});
