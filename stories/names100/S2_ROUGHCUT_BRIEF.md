@@ -1,0 +1,28 @@
+# names100 — S2: full-story coverage and economical rough cut
+**Status: next task brief, NOT implemented.** Execute only after clean review/merge of PR #12. This is episode previsualization, not a final video or new engine phase.
+
+## Source, files and limits
+- Existing project: `NeatKnight18586/blox_story`; follow pinned existing Three.js / P1 renderer / P2A cast / V1 reveal / PR11 ending / opt-in S1 style. Use existing `LOOK_STYLE.md`.
+- Creative clock: original ElevenLabs narration **54.682993s**. Native global clock **30fps, 1,641 frames [0,1641)**, 54.700s. Text cue boundaries in `VOICE_CUES.md`, 23 shots in `STORYBOARD.md`. The WAV is in ChatGPT, NOT Codex/GitHub; do not invent audio-sample alignment or regenerate narration.
+- Original proof [482,945) = reveal; ending proof [945,1641) = decision/countdown/zero; NEW opening [0,482) needs implementation. Preserve exact `100→99` at 789, Mara recovery 890–926, `0` at 1529. Countdown 52/18/3/1 in their corresponding voice windows; if sampling at 15fps, retain exact 30fps cue definitions/tests even if odd frames aren't visually sampled.
+- Preserve same Eli (classic/cap/blue), Mara (tapered/bob/coral), face cache and styling. Avoid saying earlier Eli's 100 counter drops as a *demonstration* of town rule—use an anonymous visual rule if necessary. Eli's count is 100 until 789.
+
+## Artistic acceptance
+- The narrative should be understandable with no dialogue: **rule → shy Eli → ghosts → MARA → restored human → decision → return of forgotten → Eli's sacrifice → town doesn't remember him**.
+- S1 look remains a **working** palette, not final movie certification. Camera and emotional staging over geometric detail. 2–4 meaningful set details, no new realistic asset engine. Opening must feel like a *town*, not just a lone figure before blank walls (use repeated house silhouettes and layered street depth conservatively).
+- A viewer should instantly see what changed in each scene: counter overlays readable, Mara/ghost readable, distinct reactions, reunions clearly connected. Stage a reunion rather than merely standing near each other, using modest pose changes/cuts.
+- The final forgotten Eli must be **visually reminiscent of pre-restoration Mara**, while staying physically present: consider restrained gray/cyan wash or partial translucency *only if* it reads on a mobile frame without hiding his eyes/silhouette. Compare global frames ~888 and ~1600; do not simply make Eli disappear.
+- No high-effort polishing of inconsequential props. One focused edit per specific creative failure. No scenes/events that contradict the narration.
+
+## Execute in bounded gates (one PR)
+**A — Preflight.** Rerun affected PR12 source/WebGL checks and validate actual 4-still evidence. Merge PR12 to main only if clean. Create new branch from updated main. Avoid loading the 44k-character historical STATUS in full; read only current docs + source relevant to touched files.
+**B — 23-shot storyboard coverage.** Compile 23 shot slots matching `STORYBOARD.md` with fixed, absolute global frame ranges, using existing scene-block files and deterministic sampling. Build *only missing opening and story-bridge placements/cues*; reuse bedroom, courtyard, character library, Mara transform, counter and existing action sampler. Don't build a generic multi-environment engine: render isolated scene-blocks with absolute global frame offsets and stitch chronologically where simpler. Maintain one consistent output format.
+**C — Keyframes and creative review.** Render **one 180×320 or 360×640 authentic WebGL frame per shot**, plus critical counter/name boundaries, as a numbered contact sheet. Evaluate hook, action clarity, 9:16 face/counter readability, continuity, background depth and emotional payoff. Do **one targeted correction** if a critical visual fails. Report any unavailable scene as PARTIAL, not a fabricated success.
+**D — First continuous rough cut (only if C coherent).** Render **one 180×320 or 360×640 / 15fps silent 54.7s animatic**, using the same engine and the full 30fps story clock, with global frame mapping documented. MP4 H.264/yuv420p; exact 54.7s target within single-frame precision. Test cuts, frame count, continuity and decode/playback. Avoid expensive whole-video reverse-pixel passes for this *draft* if the existing verification has an explicit, labeled fast-preview mode; DO NOT silently weaken the existing final-verification contract. If creating that mode would require substantial refactoring, use existing verified exporter or mark this gate PARTIAL. Keep full 30fps frame-accurate checks for 789/1529 and scene endpoints.
+**E — Evidence and stop.** Submit one PR with numbered 23-shot board, actual rough MP4 if Gate D passed, concise scene-coverage table (working/missing), tested timing, resource costs and creative blockers. No auto-merge, no full-resolution render or audio integration.
+
+## Explicit non-goals
+No new full-town engine, 100 individual ghost rigs, third-party assets, lip-sync, narration generation, subtitles, soundtrack, photorealistic textures, new rig or rendering backend. Do not try to finish final audio synchronization, cosmetic library, dozens of props or the final 720×1280 / 30fps export in this task.
+
+## Token discipline
+One brief (this file) + VOICE_CUES / STORYBOARD / LOOK_STYLE. Inspect code selectively. Use stable IDs, JSON scene blocks and existing modules. No giant planning response or duplicate documents. Prefer targeted tests while authoring; complete **affected** regressions and authentic visual tests before PR. Logs live in repo; chat response is concise PASS/PARTIAL/FAIL with evidence. Quality is judged by narrative comprehension and mobile readability, not just test counts.
