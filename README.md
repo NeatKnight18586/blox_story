@@ -1,6 +1,20 @@
 # BlockStory — cinematic scene proofs
 
-Current review: **names100 V1 visual polish — PASS within the bounded brief**. PR #9 was verified and merged with its history intact. V1 keeps the original cast and exact supernatural timing, adds cached readable expressions and three bedroom details, and supplies only a four-second motion proof.
+Current review: **names100 ending lookdev** under [ENDING_LOOKDEV_BRIEF.md](stories/names100/ENDING_LOOKDEV_BRIEF.md). PR #10 is verified and merged. Six WebGL keyframes establish choice → reunion → being forgotten; a verified **360×640,30fps,4.33s** silent excerpt shows zero at global1529 while Eli stays present.
+
+[Six-frame phone board](evidence/names100-ending/keyframe-board.png) · [short MP4](evidence/names100-ending/movie.mp4) · [visual findings, tests and costs](evidence/names100-ending/REPORT.md).
+
+```sh
+npm test
+npm run test:ending
+npm run render:names100:ending  # only global[1480,1610)
+npm run test:ending -- --motion
+```
+
+Stop for review. No whole ending/episode render or voiceover. `scene-reflection.json` offers the brief's thoughtful V1 tail; original approved proof sources/movies remain intact. Previous milestone records follow.
+
+
+Previous review: **names100 V1 visual polish — PASS within the bounded brief**. PR #9 was verified and merged with its history intact. V1 keeps the original cast and exact supernatural timing, adds cached readable expressions and three bedroom details, and supplies only a four-second motion proof.
 
 [Before/after at phone size](evidence/names100-v1/paired-phone.png) · [4-second silent preview](evidence/names100-v1/movie.mp4) · [decoded contact sheet](evidence/names100-v1/contact-sheet.png) · [verification, costs and limitations](evidence/names100-v1/REPORT.md) · [authoritative brief](stories/names100/V1_VISUAL_BRIEF.md).
 

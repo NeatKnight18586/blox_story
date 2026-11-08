@@ -1,0 +1,8 @@
+{
+  "exitCode": 0,
+  "wallSeconds": 6.053178825000941,
+  "userCpuSeconds": 0.609058,
+  "systemCpuSeconds": 0.162104,
+  "maxIndividualChildRssKiB": 90764,
+  "method": "waited child rusage; RSS is largest individual child, not process tree; may exclude orphaned browser descendants"
+}

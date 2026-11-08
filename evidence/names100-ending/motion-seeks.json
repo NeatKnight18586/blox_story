@@ -1,0 +1,68 @@
+{
+  "status": "PASS",
+  "browser": "141.0.7390.37",
+  "backend": {
+    "webgl": "WebGL 2.0 (OpenGL ES 3.0 Chromium)",
+    "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)"
+  },
+  "frames": [
+    {"globalFrame":1529,"sha256":"a5bf2e0da47da2296583d77926430f8c13859cd318fde9028774880d6645de82","state":{"frame":584,"shot":"zero","time":19.466666666666665,"propOpen":null,"camera":{"position":[-1.1,4.9,9.8],"target":[-2.4,4.15,4],"fov":43},"actorPosition":[-2.4,0,4],"propStates":{},"ending":{"globalFrame":1529,"globalTime":50.96666666666667,"counter":0,"counterEmphasis":true,"whisper":false,"location":"courtyard","doorOpen":1,"sunrise":1,"forgotten":0,"adultRestored":1,"childRestored":1},"actors":{"eli":{"position":[-2.4,0,4],"face":"startled","appearance":{"color":"#d2d5d6","pieces":{"head":"#e7c5a2","leftArm":"#e7c5a2","rightArm":"#e7c5a2","leftLeg":"#31485c","rightLeg":"#31485c"},"cosmetic":"cap","hair":null,"hairColor":4204831,"clothing":"vest","clothingColor":"#216d85"},"torsoVariant":"classic"},"mara":{"position":[0,0,-4.2],"face":"relieved","appearance":{"color":"#d2d5d6","pieces":{"head":"#d6af86","leftArm":"#d6af86","rightArm":"#d6af86","leftLeg":"#34374c","rightLeg":"#34374c"},"cosmetic":null,"hair":"bob","hairColor":"#40291f","clothing":"vest","clothingColor":"#be5b46"},"torsoVariant":"tapered"}},"identity":true},"identity":true,"bodyCounts":[6,6],"minY":0,"eliOpaque":true,"eliPresent":true,"door":-1.5707963267948966,"caption":false,"eliColor":13817302,"maraYaw":-0.3},
+    {"globalFrame":1480,"sha256":"362ec82d3866f7d5c05035d48189c26c912a26603db98462018b239291864c0d","state":{"frame":535,"shot":"whole","time":17.833333333333332,"propOpen":null,"camera":{"position":[-0.5,5,19],"target":[-0.5,2.5,0],"fov":54},"actorPosition":[-2.4,0,4],"propStates":{},"ending":{"globalFrame":1480,"globalTime":49.333333333333336,"counter":1,"counterEmphasis":false,"whisper":false,"location":"courtyard","doorOpen":1,"sunrise":1,"forgotten":0,"adultRestored":1,"childRestored":1},"actors":{"eli":{"position":[-2.4,0,4],"face":"thoughtful","appearance":{"color":"#d2d5d6","pieces":{"head":"#e7c5a2","leftArm":"#e7c5a2","rightArm":"#e7c5a2","leftLeg":"#31485c","rightLeg":"#31485c"},"cosmetic":"cap","hair":null,"hairColor":4204831,"clothing":"vest","clothingColor":"#216d85"},"torsoVariant":"classic"},"mara":{"position":[0,0,-4.2],"face":"relieved","appearance":{"color":"#d2d5d6","pieces":{"head":"#d6af86","leftArm":"#d6af86","rightArm":"#d6af86","leftLeg":"#34374c","rightLeg":"#34374c"},"cosmetic":null,"hair":"bob","hairColor":"#40291f","clothing":"vest","clothingColor":"#be5b46"},"torsoVariant":"tapered"}},"identity":true},"identity":true,"bodyCounts":[6,6],"minY":0,"eliOpaque":true,"eliPresent":true,"door":-1.5707963267948966,"caption":false,"eliColor":13817302,"maraYaw":-0.3},
+    {"globalFrame":1600,"sha256":"86a84a67fa57b5c3f4ad2577de47a722121f59f234c33a1ae2247e6ffb32a546","state":{"frame":655,"shot":"forgotten","time":21.833333333333332,"propOpen":null,"camera":{"position":[-0.5,5,19],"target":[-0.5,2.5,0],"fov":54},"actorPosition":[-2.4,0,4],"propStates":{},"ending":{"globalFrame":1600,"globalTime":53.333333333333336,"counter":0,"counterEmphasis":false,"whisper":false,"location":"courtyard","doorOpen":1,"sunrise":1,"forgotten":1,"adultRestored":1,"childRestored":1},"actors":{"eli":{"position":[-2.4,0,4],"face":"worried","appearance":{"color":"#d2d5d6","pieces":{"head":"#e7c5a2","leftArm":"#e7c5a2","rightArm":"#e7c5a2","leftLeg":"#31485c","rightLeg":"#31485c"},"cosmetic":"cap","hair":null,"hairColor":4204831,"clothing":"vest","clothingColor":"#216d85"},"torsoVariant":"classic"},"mara":{"position":[0,0,-4.2],"face":"relieved","appearance":{"color":"#d2d5d6","pieces":{"head":"#d6af86","leftArm":"#d6af86","rightArm":"#d6af86","leftLeg":"#34374c","rightLeg":"#34374c"},"cosmetic":null,"hair":"bob","hairColor":"#40291f","clothing":"vest","clothingColor":"#be5b46"},"torsoVariant":"tapered"}},"identity":true},"identity":true,"bodyCounts":[6,6],"minY":0,"eliOpaque":true,"eliPresent":true,"door":-1.5707963267948966,"caption":false,"eliColor":10597566,"maraYaw":1.2},
+    {"globalFrame":1528,"sha256":"0e6162faa34d8de0fd5b9040383f3b8846687d84dc3fedf430fcff84016b4cde","state":{"frame":583,"shot":"zero","time":19.433333333333334,"propOpen":null,"camera":{"position":[-1.1,4.9,9.8],"target":[-2.4,4.15,4],"fov":43},"actorPosition":[-2.4,0,4],"propStates":{},"ending":{"globalFrame":1528,"globalTime":50.93333333333333,"counter":1,"counterEmphasis":true,"whisper":false,"location":"courtyard","doorOpen":1,"sunrise":1,"forgotten":0,"adultRestored":1,"childRestored":1},"actors":{"eli":{"position":[-2.4,0,4],"face":"thoughtful","appearance":{"color":"#d2d5d6","pieces":{"head":"#e7c5a2","leftArm":"#e7c5a2","rightArm":"#e7c5a2","leftLeg":"#31485c","rightLeg":"#31485c"},"cosmetic":"cap","hair":null,"hairColor":4204831,"clothing":"vest","clothingColor":"#216d85"},"torsoVariant":"classic"},"mara":{"position":[0,0,-4.2],"face":"relieved","appearance":{"color":"#d2d5d6","pieces":{"head":"#d6af86","leftArm":"#d6af86","rightArm":"#d6af86","leftLeg":"#34374c","rightLeg":"#34374c"},"cosmetic":null,"hair":"bob","hairColor":"#40291f","clothing":"vest","clothingColor":"#be5b46"},"torsoVariant":"tapered"}},"identity":true},"identity":true,"bodyCounts":[6,6],"minY":0,"eliOpaque":true,"eliPresent":true,"door":-1.5707963267948966,"caption":false,"eliColor":13817302,"maraYaw":-0.3},
+    {"globalFrame":1546,"sha256":"e014df82f093a35253011defb86aa8833dac96e5b367731b448e70f63e6fc7b2","state":{"frame":601,"shot":"forgotten","time":20.033333333333335,"propOpen":null,"camera":{"position":[-0.5,5,19],"target":[-0.5,2.5,0],"fov":54},"actorPosition":[-2.4,0,4],"propStates":{},"ending":{"globalFrame":1546,"globalTime":51.53333333333333,"counter":0,"counterEmphasis":false,"whisper":false,"location":"courtyard","doorOpen":1,"sunrise":1,"forgotten":0.28745298032407407,"adultRestored":1,"childRestored":1},"actors":{"eli":{"position":[-2.4,0,4],"face":"worried","appearance":{"color":"#d2d5d6","pieces":{"head":"#e7c5a2","leftArm":"#e7c5a2","rightArm":"#e7c5a2","leftLeg":"#31485c","rightLeg":"#31485c"},"cosmetic":"cap","hair":null,"hairColor":4204831,"clothing":"vest","clothingColor":"#216d85"},"torsoVariant":"classic"},"mara":{"position":[0,0,-4.2],"face":"relieved","appearance":{"color":"#d2d5d6","pieces":{"head":"#d6af86","leftArm":"#d6af86","rightArm":"#d6af86","leftLeg":"#34374c","rightLeg":"#34374c"},"cosmetic":null,"hair":"bob","hairColor":"#40291f","clothing":"vest","clothingColor":"#be5b46"},"torsoVariant":"tapered"}},"identity":true},"identity":true,"bodyCounts":[6,6],"minY":0,"eliOpaque":true,"eliPresent":true,"door":-1.5707963267948966,"caption":false,"eliColor":13028559,"maraYaw":0.13117947048611112},
+    {"globalFrame":1609,"sha256":"50995729dad2ee9c52dc8ea120a3c4b61eded859115dba553c5f579981860a3c","state":{"frame":664,"shot":"forgotten","time":22.133333333333333,"propOpen":null,"camera":{"position":[-0.5,5,19],"target":[-0.5,2.5,0],"fov":54},"actorPosition":[-2.4,0,4],"propStates":{},"ending":{"globalFrame":1609,"globalTime":53.63333333333333,"counter":0,"counterEmphasis":false,"whisper":false,"location":"courtyard","doorOpen":1,"sunrise":1,"forgotten":1,"adultRestored":1,"childRestored":1},"actors":{"eli":{"position":[-2.4,0,4],"face":"worried","appearance":{"color":"#d2d5d6","pieces":{"head":"#e7c5a2","leftArm":"#e7c5a2","rightArm":"#e7c5a2","leftLeg":"#31485c","rightLeg":"#31485c"},"cosmetic":"cap","hair":null,"hairColor":4204831,"clothing":"vest","clothingColor":"#216d85"},"torsoVariant":"classic"},"mara":{"position":[0,0,-4.2],"face":"relieved","appearance":{"color":"#d2d5d6","pieces":{"head":"#d6af86","leftArm":"#d6af86","rightArm":"#d6af86","leftLeg":"#34374c","rightLeg":"#34374c"},"cosmetic":null,"hair":"bob","hairColor":"#40291f","clothing":"vest","clothingColor":"#be5b46"},"torsoVariant":"tapered"}},"identity":true},"identity":true,"bodyCounts":[6,6],"minY":0,"eliOpaque":true,"eliPresent":true,"door":-1.5707963267948966,"caption":false,"eliColor":10597566,"maraYaw":1.2},
+    {"globalFrame":1490,"sha256":"7e1f94289d8591d9a9039a861511bcc21865569e3be41c317432549ac12c934b","state":{"frame":545,"shot":"zero","time":18.166666666666668,"propOpen":null,"camera":{"position":[-1.1,4.9,9.8],"target":[-2.4,4.15,4],"fov":43},"actorPosition":[-2.4,0,4],"propStates":{},"ending":{"globalFrame":1490,"globalTime":49.666666666666664,"counter":1,"counterEmphasis":true,"whisper":false,"location":"courtyard","doorOpen":1,"sunrise":1,"forgotten":0,"adultRestored":1,"childRestored":1},"actors":{"eli":{"position":[-2.4,0,4],"face":"thoughtful","appearance":{"color":"#d2d5d6","pieces":{"head":"#e7c5a2","leftArm":"#e7c5a2","rightArm":"#e7c5a2","leftLeg":"#31485c","rightLeg":"#31485c"},"cosmetic":"cap","hair":null,"hairColor":4204831,"clothing":"vest","clothingColor":"#216d85"},"torsoVariant":"classic"},"mara":{"position":[0,0,-4.2],"face":"relieved","appearance":{"color":"#d2d5d6","pieces":{"head":"#d6af86","leftArm":"#d6af86","rightArm":"#d6af86","leftLeg":"#34374c","rightLeg":"#34374c"},"cosmetic":null,"hair":"bob","hairColor":"#40291f","clothing":"vest","clothingColor":"#be5b46"},"torsoVariant":"tapered"}},"identity":true},"identity":true,"bodyCounts":[6,6],"minY":0,"eliOpaque":true,"eliPresent":true,"door":-1.5707963267948966,"caption":false,"eliColor":13817302,"maraYaw":-0.3}
+  ],
+  "sightlines": [
+    {
+      "globalFrame": 1040,
+      "eyes": [
+        {
+          "feature": "eye_left",
+          "visible": true,
+          "first": "eye_left"
+        },
+        {
+          "feature": "eye_right",
+          "visible": true,
+          "first": "eye_right"
+        }
+      ]
+    },
+    {
+      "globalFrame": 1210,
+      "eyes": [
+        {
+          "feature": "eye_left",
+          "visible": true,
+          "first": "eye_left"
+        },
+        {
+          "feature": "eye_right",
+          "visible": true,
+          "first": "eye_right"
+        }
+      ]
+    },
+    {
+      "globalFrame": 1529,
+      "eyes": [
+        {
+          "feature": "eye_left",
+          "visible": true,
+          "first": "eye_left"
+        },
+        {
+          "feature": "eye_right",
+          "visible": true,
+          "first": "eye_right"
+        }
+      ]
+    }
+  ],
+  "reversePixelsMatch": true,
+  "opaqueGroundedEli": true,
+  "noGeometryReplacement": true,
+  "errors": []
+}
