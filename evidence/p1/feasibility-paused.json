@@ -1,0 +1,270 @@
+{
+  "status": "PAUSED",
+  "title": "The light chest",
+  "width": 720,
+  "height": 1280,
+  "fps": 30,
+  "frameCount": 216,
+  "duration": 7.2,
+  "shotListSha256": "fd7703f39fdc63b4c4db8d621d802125f41137e512197e9edc23fdd943b4d308",
+  "shots": [
+    {
+      "id": "notice",
+      "start": 0,
+      "end": 60,
+      "camera": {
+        "position": [
+          9,
+          8,
+          14
+        ],
+        "target": [
+          0,
+          2.25,
+          1.2
+        ],
+        "fov": 40
+      }
+    },
+    {
+      "id": "approach",
+      "start": 60,
+      "end": 132,
+      "camera": {
+        "position": [
+          13.5,
+          3.5,
+          1.55
+        ],
+        "target": [
+          0,
+          2.55,
+          1.55
+        ],
+        "fov": 38
+      }
+    },
+    {
+      "id": "discovery",
+      "start": 132,
+      "end": 216,
+      "camera": {
+        "position": [
+          -3.5,
+          5.6,
+          6.8
+        ],
+        "target": [
+          0,
+          3.05,
+          2.45
+        ],
+        "fov": 47
+      }
+    }
+  ],
+  "frames": [
+    {
+      "file": "frame-00000.png",
+      "state": {
+        "frame": 0,
+        "shot": "notice",
+        "time": 0,
+        "propOpen": 0,
+        "camera": {
+          "position": [
+            9,
+            8,
+            14
+          ],
+          "target": [
+            0,
+            2.25,
+            1.2
+          ],
+          "fov": 40
+        },
+        "actorPosition": [
+          0,
+          0,
+          0
+        ],
+        "propStates": {
+          "proximity_chest": {
+            "open": 0
+          }
+        },
+        "identity": true
+      },
+      "sha256": "d817bf0c2ebef30ea679e9d50ac0f5a9c9a39d55ce97ea7eca89bda7344d5bae",
+      "bytes": 116852
+    },
+    {
+      "file": "frame-00001.png",
+      "state": {
+        "frame": 1,
+        "shot": "notice",
+        "time": 0.03333333333333333,
+        "propOpen": 0,
+        "camera": {
+          "position": [
+            9,
+            8,
+            14
+          ],
+          "target": [
+            0,
+            2.25,
+            1.2
+          ],
+          "fov": 40
+        },
+        "actorPosition": [
+          0,
+          0,
+          0
+        ],
+        "propStates": {
+          "proximity_chest": {
+            "open": 0
+          }
+        },
+        "identity": true
+      },
+      "sha256": "219d99668df4a58f22565474e5df2ae980bcab131db36b51e0a98d70518f425e",
+      "bytes": 116880
+    },
+    {
+      "file": "frame-00002.png",
+      "state": {
+        "frame": 2,
+        "shot": "notice",
+        "time": 0.06666666666666667,
+        "propOpen": 0,
+        "camera": {
+          "position": [
+            9,
+            8,
+            14
+          ],
+          "target": [
+            0,
+            2.25,
+            1.2
+          ],
+          "fov": 40
+        },
+        "actorPosition": [
+          0,
+          0,
+          0
+        ],
+        "propStates": {
+          "proximity_chest": {
+            "open": 0
+          }
+        },
+        "identity": true
+      },
+      "sha256": "f8bb4ce86538393842670f6231814baff961fe9d179f7a411270e4ba3701c08b",
+      "bytes": 116748
+    },
+    {
+      "file": "frame-00003.png",
+      "state": {
+        "frame": 3,
+        "shot": "notice",
+        "time": 0.1,
+        "propOpen": 0,
+        "camera": {
+          "position": [
+            9,
+            8,
+            14
+          ],
+          "target": [
+            0,
+            2.25,
+            1.2
+          ],
+          "fov": 40
+        },
+        "actorPosition": [
+          0,
+          0,
+          0
+        ],
+        "propStates": {
+          "proximity_chest": {
+            "open": 0
+          }
+        },
+        "identity": true
+      },
+      "sha256": "d5589c066ecf36a35b1e2aee51005f1e22103c7a7b4054aecde6f3e0633a2120",
+      "bytes": 116698
+    },
+    {
+      "file": "frame-00004.png",
+      "state": {
+        "frame": 4,
+        "shot": "notice",
+        "time": 0.13333333333333333,
+        "propOpen": 0,
+        "camera": {
+          "position": [
+            9,
+            8,
+            14
+          ],
+          "target": [
+            0,
+            2.25,
+            1.2
+          ],
+          "fov": 40
+        },
+        "actorPosition": [
+          0,
+          0,
+          0
+        ],
+        "propStates": {
+          "proximity_chest": {
+            "open": 0
+          }
+        },
+        "identity": true
+      },
+      "sha256": "72703f3135e60e8c555e70d0af058bc8ed27c4012a46689a6bd482a348b195ab",
+      "bytes": 116526
+    }
+  ],
+  "cache": {
+    "reused": 0,
+    "rendered": 5,
+    "repaired": 0,
+    "checkpointMissingOrInvalid": true,
+    "bytesAtStart": 585491,
+    "bytesAtEnd": 1170982
+  },
+  "timings": {
+    "captureSeconds": 1.9727619330000001,
+    "totalSeconds": 2.3594291590000003
+  },
+  "errors": [],
+  "resources": {
+    "availableParallelism": 2,
+    "ffmpegThreads": 2,
+    "rssMethod": "1-second sampled summed exporter/browser/server/encoder process-tree RSS; shared pages counted per process",
+    "peakSampledSubtreeRssMiB": 634.52734375
+  },
+  "backend": {
+    "webgl": "WebGL 2.0 (OpenGL ES 3.0 Chromium)",
+    "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)"
+  },
+  "browser": "141.0.7390.37",
+  "engineSha256": "ffb45fa4036651d3efcb3b99c6df1ab5a2bc93bf66522907aff99275ae2cb2ab",
+  "jobKey": "10df109c55757493c1933f5245bd84c321cd0622fd7f6a0e3bef4ef33ed16e83",
+  "reason": "stop-after budget"
+}

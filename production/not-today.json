@@ -1,0 +1,14 @@
+{
+ "version":2,"title":"Not today",
+ "output":{"width":720,"height":1280,"fps":30},
+ "environment":{"kind":"light-workshop","colors":{"background":"#e7d9c9","floor":"#b4a08b","backWall":"#d8b39a","sideWall":"#987b70"},"plinthPosition":[1.4,0.65,3]},
+ "props":[{"id":"chest","kind":"light-chest","position":[1.4,1.61,3],"initial":{"open":0}}],
+ "events":[
+  {"id":"temptation","target":"chest","channel":"open","start":8,"end":26,"from":0,"to":1,"proximityRadius":1.5},
+  {"id":"close","target":"chest","channel":"open","start":72,"end":95,"from":1,"to":0}
+ ],
+ "shots":[
+  {"id":"suspicion","start":0,"end":60,"camera":{"position":[-3.5,5.6,7.5],"target":[1.4,3.05,2.4],"fov":48},"action":{"name":"look_react","options":{"direction":"left"}},"origin":{"position":[1.4,0,1.8],"yaw":0},"face":"worried","appearance":{"color":"#bacbd1","cosmetic":"cap"}},
+  {"id":"leave","start":60,"end":120,"camera":{"position":[7,4,-2],"target":[1.4,2.55,1.8],"fov":55},"action":{"name":"walk","options":{"gait":"baseline"}},"origin":{"position":[1.4,0,1.8],"yaw":3.141592653589793},"face":"classic_smile","appearance":{"color":"#bacbd1","cosmetic":"cap"}}
+ ]
+}
