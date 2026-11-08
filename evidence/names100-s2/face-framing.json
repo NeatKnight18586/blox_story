@@ -1,0 +1,95 @@
+{
+  "status": "PASS",
+  "frames": [
+    {
+      "globalFrame": 750,
+      "eyes": [
+        {
+          "eye": "eye_left",
+          "visible": true,
+          "first": "eye_left"
+        },
+        {
+          "eye": "eye_right",
+          "visible": true,
+          "first": "eye_right"
+        }
+      ]
+    },
+    {
+      "globalFrame": 800,
+      "eyes": [
+        {
+          "eye": "eye_left",
+          "visible": true,
+          "first": "eye_left"
+        },
+        {
+          "eye": "eye_right",
+          "visible": true,
+          "first": "eye_right"
+        }
+      ]
+    },
+    {
+      "globalFrame": 850,
+      "eyes": [
+        {
+          "eye": "eye_left",
+          "visible": true,
+          "first": "eye_left"
+        },
+        {
+          "eye": "eye_right",
+          "visible": true,
+          "first": "eye_right"
+        }
+      ]
+    },
+    {
+      "globalFrame": 992,
+      "eyes": [
+        {
+          "eye": "eye_left",
+          "visible": true,
+          "first": "eye_left"
+        },
+        {
+          "eye": "eye_right",
+          "visible": true,
+          "first": "eye_right"
+        }
+      ]
+    },
+    {
+      "globalFrame": 1248,
+      "eyes": [
+        {
+          "eye": "eye_left",
+          "visible": true,
+          "first": "eye_left"
+        },
+        {
+          "eye": "eye_right",
+          "visible": true,
+          "first": "eye_right"
+        }
+      ]
+    },
+    {
+      "globalFrame": 1533,
+      "eyes": [
+        {
+          "eye": "eye_left",
+          "visible": true,
+          "first": "eye_left"
+        },
+        {
+          "eye": "eye_right",
+          "visible": true,
+          "first": "eye_right"
+        }
+      ]
+    }
+  ]
+}

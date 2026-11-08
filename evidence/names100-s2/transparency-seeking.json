@@ -1,0 +1,44 @@
+{
+  "status": "PASS",
+  "cause": "transparent toggled without needsUpdate left cached OPAQUE shader after cold human sampling",
+  "coldPaths": [
+    {
+      "targets": [
+        1188
+      ],
+      "sha256": "a96345c79fbfb5418ecc96e8eac98293d60c3cb4697e0626a76a5b45f0daa6eb",
+      "opacity": 0.9902178812922614,
+      "transparent": true,
+      "opaqueShader": false
+    },
+    {
+      "targets": [
+        1600,
+        1188
+      ],
+      "sha256": "a96345c79fbfb5418ecc96e8eac98293d60c3cb4697e0626a76a5b45f0daa6eb",
+      "opacity": 0.9902178812922614,
+      "transparent": true,
+      "opaqueShader": false
+    },
+    {
+      "targets": [
+        1600
+      ],
+      "sha256": "b43eba90a2403e1407f257ef5e3490c89d0f1a44c48e5007215a24e705e2ceb2",
+      "opacity": 0.78,
+      "transparent": true,
+      "opaqueShader": false
+    },
+    {
+      "targets": [
+        1188,
+        1600
+      ],
+      "sha256": "b43eba90a2403e1407f257ef5e3490c89d0f1a44c48e5007215a24e705e2ceb2",
+      "opacity": 0.78,
+      "transparent": true,
+      "opaqueShader": false
+    }
+  ]
+}

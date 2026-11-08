@@ -1,0 +1,36 @@
+{
+  "status": "PASS",
+  "scope": "Gate C storyboard review, not final movie certification",
+  "storySha256": "cde6f2ed537d04c6bcf2c3166a0ed55fa035acce8ad8b33f6cc35dc437be96d6",
+  "engineSha256": "f6f1bfa14fa74c8c79d39ad2cf67749142c938f84afcb182f58cdabdfe8e55d0",
+  "shotsReviewed": 23,
+  "nativeBoundariesReviewed": 16,
+  "correction": "One focused framing/readability pass on S01/S03/S04/S12/S16/S20",
+  "findings": [
+    "Anonymous resident rule is separate from Eli100",
+    "Shy Eli and ghosts/name/return/choice/sacrifice/forgetting chain is present",
+    "Reunion adds an existing-pivot reach; no embrace engine",
+    "Final Eli echoes pre-restoration Mara and remains present"
+  ],
+  "intentionalFraming": [
+    "S07 uses a cropped foreground back/shoulder as an over-the-shoulder view; story-subject Mara is complete"
+  ],
+  "remaining": [
+    "Silent draft lacks supplied external WAV alignment",
+    "Restrained six-part acting and symbolic rather than detailed speech/hug/run",
+    "15fps delays odd-frame visual cues by one native frame"
+  ],
+  "motionReviewCorrection": "S17 approved .35 facing restored after a walk-placement edit; cold-seek opaque-shader bug corrected with material.needsUpdate; explicit eye/shader/path tests pass",
+  "finalMotionReview": {
+    "status": "PASS",
+    "firstDraftWholeFilmSamplesReviewed": 274,
+    "correctedFilmAffectedRegionSamplesReviewed": 50,
+    "nativeProtectedBoundaryFrames": 16,
+    "eyeAndColdShaderChecks": "PASS",
+    "remaining": [
+      "Symbolic naming/greeting/crying and existing walk instead of a run/embrace engine",
+      "180x320 rough quality,15fps odd-cue delay up to1/30s",
+      "External WAV/audio alignment and final-resolution creative approval pending"
+    ]
+  }
+}
