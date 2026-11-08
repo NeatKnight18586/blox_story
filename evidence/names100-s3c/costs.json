@@ -1,0 +1,69 @@
+{
+  "attempts": [
+    {
+      "command": [
+        "python3",
+        "scripts/caption-previews.py",
+        "--wav",
+        "<ORIGINAL_WAV>"
+      ],
+      "exitCode": 0,
+      "wallSeconds": 4.375860802996613,
+      "sampledTreeRssMiB": 299.8046875,
+      "sampledTreeCpuSeconds": 4.56,
+      "processCount": 10,
+      "sampleIntervalSeconds": 0.2,
+      "method": "Linux ps summed subtree RSS (shared pages counted per process), /proc cumulative CPU samples retained by PID/start-time at 100Hz; sampled lower bounds; final pass only, not all development activity"
+    },
+    {
+      "command": [
+        "python3",
+        "scripts/caption-previews.py",
+        "--wav",
+        "<ORIGINAL_WAV>"
+      ],
+      "exitCode": 1,
+      "wallSeconds": 0.21693789099663263,
+      "sampledTreeRssMiB": 8.3125,
+      "sampledTreeCpuSeconds": 0.01,
+      "processCount": 1,
+      "sampleIntervalSeconds": 0.2,
+      "method": "Linux ps summed subtree RSS (shared pages counted per process), /proc cumulative CPU samples retained by PID/start-time at 100Hz; sampled lower bounds; final pass only, not all development activity"
+    },
+    {
+      "command": [
+        "python3",
+        "scripts/caption-previews.py",
+        "--wav",
+        "<ORIGINAL_WAV>"
+      ],
+      "exitCode": 0,
+      "wallSeconds": 4.617789782998443,
+      "sampledTreeRssMiB": 302.93359375,
+      "sampledTreeCpuSeconds": 5.27,
+      "processCount": 8,
+      "sampleIntervalSeconds": 0.2,
+      "method": "Linux ps summed subtree RSS (shared pages counted per process), /proc cumulative CPU samples retained by PID/start-time at 100Hz; sampled lower bounds; final pass only, not all development activity"
+    },
+    {
+      "command": [
+        "python3",
+        "scripts/caption-previews.py",
+        "--wav",
+        "<ORIGINAL_WAV>"
+      ],
+      "exitCode": 0,
+      "wallSeconds": 4.164267250998819,
+      "sampledTreeRssMiB": 302.0,
+      "sampledTreeCpuSeconds": 4.55,
+      "processCount": 10,
+      "sampleIntervalSeconds": 0.2,
+      "method": "Linux ps summed subtree RSS (shared pages counted per process), /proc cumulative CPU samples retained by PID/start-time at 100Hz; sampled lower bounds; final pass only, not all development activity"
+    }
+  ],
+  "totalMeasuredWallSeconds": 13.374855727990507,
+  "totalSampledCpuSeconds": 14.389999999999999,
+  "peakSampledRssMiB": 302.93359375,
+  "unprofiled": "Caption mask/SSIM,semantic tests,native playback,contact-sheet decode,private upload/download checks; not a total billing claim",
+  "new3dRenders": 0
+}
