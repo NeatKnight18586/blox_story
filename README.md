@@ -1,3 +1,9 @@
+# Current review — S3A storytelling audit
+
+**PARTIAL: technical checks PASS; audio review BLOCKED (original WAV unavailable).** PR #13 is verified and merged with history preserved. [23-shot issue ledger and three proposed fixes](stories/names100/S3A_ISSUE_LEDGER.md) · [verification and measured costs](evidence/names100-s3a/REPORT.md) · [unchanged silent film](evidence/names100-s2/movie.mp4).
+
+Review findings only: strengthen shy greeting, distinguish reunion beats, clarify failed recognition. No fixes implemented, episode rerendered or replacement narration generated. Stop for creative review before S3B/final rendering. Historical milestone records follow.
+
 # BlockStory — cinematic scene proofs
 
 Current review: **S2 first complete silent rough cut —23 shots,180×320,15fps,54.733s**. PR #12 passed verification and was merged. [Watch/download MP4](evidence/names100-s2/movie.mp4) · [23-shot board](evidence/names100-s2/storyboard.png) · [phone board](evidence/names100-s2/phone-storyboard.png) · [coverage, verification, actual costs and limits](evidence/names100-s2/REPORT.md).

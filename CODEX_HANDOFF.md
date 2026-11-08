@@ -1,3 +1,11 @@
+# Current handoff — S3A review only
+
+PR #13 passed source/F1/F2/P1/P2A/story regression, actual WebGL motion-seek and existing-film verification, then merged at `bf0f895f0c6e922460d2d49a298239de4efa8efe`, retaining both commits and the user brief. S3A branch `codex/names100-s3a-creative-audit` changes review documentation/evidence only.
+
+**PARTIAL overall; technical timing PASS, creative PARTIAL, audio BLOCKED.** Original ElevenLabs WAV is absent from the workspace and repository; no audio mux or listening claim. Existing821-frame silent S2 film preserved, fully decoded/PTS/cuts/native-playback checked. No episode rebuild/render. Temporary decoded review sheets support the23-shot [issue ledger](stories/names100/S3A_ISSUE_LEDGER.md). Only three proposed S3B changes: distinct reunion beats, aborted shy greeting, intentional final use/unanswered recognition. All reuse current assets; no implementation yet. Keep789/890–926/1529 and all absolute cuts.
+
+[Verification/costs/preservation](evidence/names100-s3a/REPORT.md). Stop for user creative review and original-audio review before S3B/final export. All historical work below is preserved.
+
 # Current handoff — S2 complete rough-cut review
 
 Authority: stories/names100/S2_ROUGHCUT_BRIEF.md. PR #12 verified/merged at584bad2026f648d5f2759abde06290eba03370ae, preserving17db24f and user brief fee7074. Branch `codex/names100-s2-roughcut` covers all23 storyboard slots; stop at its PR for creative review.

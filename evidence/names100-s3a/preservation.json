@@ -1,0 +1,51 @@
+{
+  "status": "PASS",
+  "baseMerge": "bf0f895f0c6e922460d2d49a298239de4efa8efe",
+  "unchangedTrackedFiles": 691,
+  "allowedDocumentationUpdates": [
+    "AGENTS.md",
+    "CODEX_HANDOFF.md",
+    "README.md",
+    "STATUS.md"
+  ],
+  "unchangedPriorEvidenceFiles": 584,
+  "unchangedMovies": [
+    "evidence/names100-ending/movie.mp4",
+    "evidence/names100-s2/movie.mp4",
+    "evidence/names100-v1/movie.mp4",
+    "evidence/names100/draft15/movie.mp4",
+    "evidence/names100/movie.mp4",
+    "evidence/p1/feasibility/movie.mp4",
+    "evidence/p1/not-today/movie.mp4",
+    "evidence/p2a/movie.mp4",
+    "evidence/production/feasibility.mp4"
+  ],
+  "ledgerShots": [
+    "S01",
+    "S02",
+    "S03",
+    "S04",
+    "S05",
+    "S06",
+    "S07",
+    "S08",
+    "S09",
+    "S10",
+    "S11",
+    "S12",
+    "S13",
+    "S14",
+    "S15",
+    "S16",
+    "S17",
+    "S18",
+    "S19",
+    "S20",
+    "S21",
+    "S22",
+    "S23"
+  ],
+  "runtimeAndStoryInputsUnchanged": true,
+  "episodeRendered": false,
+  "fixesImplemented": false
+}
