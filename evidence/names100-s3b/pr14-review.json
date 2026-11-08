@@ -1,0 +1,9 @@
+{
+  "status": "PASS",
+  "head": "8d2067054078f246db9dc9ce3730fae1342cf91a",
+  "reviewOnly": true,
+  "npmTest": "PASS",
+  "s2HashMatch": true,
+  "recordedVideoVerification": "821 decode frames,22 cuts,native playback and seeks PASS",
+  "noRuntimeChanges": true
+}

@@ -1,3 +1,11 @@
+# Current handoff — S3B provisional stills, audio blocked
+
+PR #14 reviewed/regressions passed and merged at `80f592cb4df06693e28b8c41c00195eb66fc9989`, preserving its commit and user S3B brief. Branch `codex/names100-s3b-performance` implements only opt-in shy/reunion/forgotten performance variants. Original roughcut/S2 scenes, rigs, appearances, gaits and all old evidence remain unchanged.
+
+**PARTIAL overall.** No accessible WAV/attachment reference despite task text; no narrated mux/listening or final timing approval. Brief explicitly allows provisional written-cue stills only.12 real360×640 candidate stills, paired mobile boards, identity/reverse seeking/cue/grounding tests and old source/WebGL regression pass. Three selected S2 golden images still match. No new MP4, motion preview or full episode render. S23 recognition remains a creative limitation; don't certify audience comprehension from numeric checks.
+
+[Report/commands/costs](evidence/names100-s3b/REPORT.md). Await original WAV and narrated review before approving onsets or motion gate. Keep789/890–926/1529 and every cut unchanged. Do not proceed to final export. Historical handoffs follow.
+
 # Current handoff — S3A review only
 
 PR #13 passed source/F1/F2/P1/P2A/story regression, actual WebGL motion-seek and existing-film verification, then merged at `bf0f895f0c6e922460d2d49a298239de4efa8efe`, retaining both commits and the user brief. S3A branch `codex/names100-s3a-creative-audit` changes review documentation/evidence only.

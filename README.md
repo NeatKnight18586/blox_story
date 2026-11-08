@@ -1,3 +1,9 @@
+# Current work — S3B provisional performance
+
+**PARTIAL: source/still checks PASS; audio review BLOCKED.** PR #14 is merged. The WAV mentioned in the task is not accessible, so the brief's fallback is limited to provisional keyframes. [Before/after A](evidence/names100-s3b/A-comparison.png) · [B](evidence/names100-s3b/B-comparison.png) · [C](evidence/names100-s3b/C-comparison.png) · [results, costs and limitations](evidence/names100-s3b/REPORT.md).
+
+Only three opt-in performance changes; original story files/films preserved. `npm run test:performance` reproduces twelve paired WebGL stills, not video. No narrated review, new motion excerpts or full/final-resolution episode rendered. Stop for original-audio and creative review.
+
 # Current review — S3A storytelling audit
 
 **PARTIAL: technical checks PASS; audio review BLOCKED (original WAV unavailable).** PR #13 is verified and merged with history preserved. [23-shot issue ledger and three proposed fixes](stories/names100/S3A_ISSUE_LEDGER.md) · [verification and measured costs](evidence/names100-s3a/REPORT.md) · [unchanged silent film](evidence/names100-s2/movie.mp4).
