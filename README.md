@@ -1,3 +1,11 @@
+# Current review — S3C white captions
+
+**PARTIAL: encoding/style checks PASS; private MP4 delivery blocked.** Three narrated720×1280 typography proofs are ready, with zero new3D renders. [Actual3-up contact sheet](evidence/names100-s3c/caption-style-contact.png) · [verification,caption data,costs and manual export](evidence/names100-s3c/REPORT.md).
+
+GitHub repository access works, but its binary-upload host returns401. No private MP4 links are claimed; internal output paths are not downloads. Original WAV/12 prior films and all animation code are unchanged. PR #15 remains draft/unmerged; stop for accessible-media/listening/style approval, no full episode export.
+
+Historical work follows.
+
 # Current work — S3B narrated review and performance proofs
 
 **Technical PASS; creative/audio approval PARTIAL.** Original WAV verified (54.682993s), private t=0 review and sample-aligned voiced excerpts created. Audio playback is verified; genuine listening is unavailable here, so final creative approval is withheld.
