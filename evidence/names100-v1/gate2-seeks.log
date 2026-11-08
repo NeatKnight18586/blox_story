@@ -1,0 +1,5 @@
+
+> test:v1
+> node tests/v1-visual.js --motion
+
+PASS Gate2 random seeks: exact excerpt/source pixels and global clock

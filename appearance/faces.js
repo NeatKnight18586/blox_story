@@ -1,6 +1,9 @@
+import {EXPRESSION_NAMES,makeExpression} from './expressions.js';
 import * as THREE from 'three';
 import {headFrontZ} from '../avatar/headGeometry.js';
+export const FACE_NAMES=['blank','classic_smile','worried',...EXPRESSION_NAMES];
 function makeFace(name){
+ if(EXPRESSION_NAMES.includes(name))return makeExpression(name);
  const group=new THREE.Group();group.name=`face_${name}`;
  if(name==='blank')return group;
  const material=new THREE.MeshBasicMaterial({color:0x202124});
@@ -11,7 +14,7 @@ function makeFace(name){
  group.add(new THREE.Mesh(new THREE.TubeGeometry(curve,40,.018,8,false),material));return group;
 }
 export function applyFace(avatar,name){
- if(!['blank','classic_smile','worried'].includes(name))throw new Error('Unknown face');
+ if(!FACE_NAMES.includes(name))throw new Error('Unknown face');
  if(!avatar.faceCache.has(name))avatar.faceCache.set(name,makeFace(name));
  if(avatar.faceLayer)avatar.faceLayer.removeFromParent();
  avatar.faceLayer=avatar.faceCache.get(name);avatar.pivots.head.add(avatar.faceLayer);return avatar;

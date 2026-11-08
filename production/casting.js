@@ -1,3 +1,4 @@
+import {FACE_NAMES} from '../appearance/faces.js';
 import {compileReveal,sampleReveal,revealCamera} from './reveal-cues.js';
 import {compilePipeline,samplePipeline,worldPosition,normalizeAppearance} from './shots.js';
 import {normalizeWardrobe} from '../appearance/wardrobe.js';
@@ -10,7 +11,7 @@ function recipe(value={}){keys(value,['color','pieces','cosmetic','hair','hairCo
 export function compileCasting(input){
  keys(input,['version','title','output','environment','props','events','cast','shots','reveal']);const data=structuredClone(input);
  if(data.version!==3||!Array.isArray(data.cast)||!data.cast.length||data.cast.length>2||!Array.isArray(data.shots)||!data.shots.length||data.shots.length>32)throw new Error('Casting requires 1–2 actors and 1–32 shots');
- const ids=new Set();for(const actor of data.cast){keys(actor,['id','torsoVariant','appearance','face']);if(!validId(actor.id)||ids.has(actor.id)||!['classic','tapered'].includes(actor.torsoVariant??'classic'))throw new Error('Invalid cast identity/body');ids.add(actor.id);actor.torsoVariant??='classic';actor.appearance=recipe(actor.appearance);actor.face??='classic_smile';if(!['blank','classic_smile','worried'].includes(actor.face))throw new Error('Unknown cast face');}
+ const ids=new Set();for(const actor of data.cast){keys(actor,['id','torsoVariant','appearance','face']);if(!validId(actor.id)||ids.has(actor.id)||!['classic','tapered'].includes(actor.torsoVariant??'classic'))throw new Error('Invalid cast identity/body');ids.add(actor.id);actor.torsoVariant??='classic';actor.appearance=recipe(actor.appearance);actor.face??='classic_smile';if(!FACE_NAMES.includes(actor.face))throw new Error('Unknown cast face');}
  for(const shot of data.shots){keys(shot,['id','start','end','camera','actors']);if(!Array.isArray(shot.actors)||shot.actors.length!==ids.size||new Set(shot.actors.map(a=>a?.id)).size!==ids.size||shot.actors.some(a=>!ids.has(a?.id)))throw new Error('Every shot must specify every cast ID exactly once');for(const actor of shot.actors)keys(actor,['id','action','origin','originFromEndOf','face','appearance']);}
  const placeholder={position:[0,4,10],target:[0,3,0],fov:40};
  // Delegate time, action, continuity, environment, prop and legacy appearance
