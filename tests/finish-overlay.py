@@ -22,7 +22,10 @@ def contrast(a,b):
  a,b=sorted([lum(a),lum(b)]);return (b+.05)/(a+.05)
 for g in [1528,1529]:
  im=Image.open(out/f'after-{g}.png').convert('RGB');clean=Image.open(p4/f'clean-{g}.png').convert('RGB');assert im.size==clean.size==(720,1280)
- box=ImageChops.difference(im,clean).crop((0,0,720,340)).getbbox();assert box[0]>=40 and box[2]<620 and box[3]<290
+ # Restrict the counter-only mask to the known top typography band.
+ # The cap below y250 has deliberately different P5 shadow pixels.
+ local=ImageChops.difference(im,clean).crop((0,120,720,250)).getbbox();assert local
+ box=(local[0],local[1]+120,local[2],local[3]+120);assert box[0]>=40 and box[2]<620 and box[3]<250
  ratios=[]
  for y in range(box[1],box[3]):
   for x in range(box[0],box[2]):

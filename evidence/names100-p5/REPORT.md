@@ -72,3 +72,7 @@ No original input files are rewritten. `production/finish.js` is the small opt-i
 [Cost receipts](costs.json):0.2s Linux process-tree sampling; shared RSS counted per process, short-process/CPU tails may be missed. Native batches total20.074s. Compositing, PR16 preflight and preliminary diagnostic checks were not profiled; these are not total model/billing costs. Seven new PNGs total about1MiB; no temporary sequence or new MP4 committed.
 
 **Stop for creative approval.** If accepted, finish look-development. Next work is a separately authorized complete low-resolution narrated/captioned/counter QC, then a separately authorized final clean720p export and composition. No further general polish or final export begins automatically.
+
+## Premerge regression correction
+
+S4 preflight found the counter-only difference mask also included cap-shadow pixels below y250. Restricted that assertion to the typography band y120–249, retaining full glyph bounds/contrast checks. The shadow/body images and runtime are unchanged. Fixed the recorded ground-scan source path to the retained finished1392 evidence. Reran all required source/counter/finish/caption/S3B WebGL checks successfully before merge; this corrects a test error, not a visual regression.
