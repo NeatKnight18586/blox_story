@@ -3,13 +3,13 @@
 Read **F1_SPEC.md** first: F1 v3 is the CURRENT product contract. Then read CODEX_HANDOFF.md, STATUS.md, README.md and existing code/tests. The previous Kai/Mira-first instructions are SUPERSEDED. If documents conflict, F1_SPEC.md wins; STATUS.md controls what has actually been verified.
 
 ## Current task boundary
-F1 is integrated (PR #1). PR #3 (F2A) is merged after regression tests. The user now authorizes F2B1 only: a foundational explicit-time forward walk, actual geometry/contact measurements, tests and genuine side/three-quarter/vertical WebGL evidence. Walking transitions are NOT authorized. Read F2_SPEC.md and F2_HANDOFF.md. F1_SPEC.md remains authoritative for anatomy/appearance; F2_SPEC.md governs future motion.
+F1 is integrated (PR #1). PR #3 (F2A) is merged after regression tests. PR #4 was merged after successful regression/WebGL checks. The current task is F2B1 visual calibration only: preserve the short-step baseline, evaluate one modest readable variation with identical fixed cameras and unchanged tolerances, and submit a separate PR only if visibly better and all checks pass. Walking transitions are NOT authorized. Read F2_SPEC.md and F2_HANDOFF.md. F1_SPEC.md remains authoritative for anatomy/appearance; F2_SPEC.md governs future motion.
 
 ## Goal and user constraints
 One neutral classic R6-like **six-part** block avatar first, then removable appearance layers (face/colors and one optional cosmetic). Original code-rendered Three.js, not official Roblox models. User is on iPad, wants autonomous execution, no manual modeling, recording, installs or gameplay capture. Minimize explanations and usage without sacrificing accuracy.
 
 ## Scope discipline
-- Current work is F2B1 only. Do not implement walking transitions, episodes, F3/F4, MP4, Blender, Roblox Studio, Remotion, soundtrack, environment library or full wardrobe.
+- Current work is F2B1 visual calibration only. Do not implement walking transitions, episodes, F3/F4, MP4, Blender, Roblox Studio, Remotion, soundtrack, environment library or full wardrobe.
 - Keep existing source committed while migrating. Old `character.js` and Kai/Mira presets are legacy, not the F1 goal. Preserve functionality via history and replace paths only when the new implementation is testable.
 - Start with the neutral master, not two customized figures. Use simple proportions from F1_SPEC.md, with one softly rounded oval cylindrical head (latest user correction in F1_SPEC.md) and five beveled rectangular blocks.
 - No required full rig or separate fingers, hands, shoes or neck meshes. Distinct styling belongs to appearance layers.
@@ -25,4 +25,4 @@ One neutral classic R6-like **six-part** block avatar first, then removable appe
 - Reference user images are attached in a separate ChatGPT exchange and may not be accessible in Codex; follow the numerical spec and admit any reference-availability gap.
 
 ## Completion report
-Commit the tested implementation, update README.md and STATUS.md with exact commands and capture paths; mark PASS only for genuinely completed source + visual checks, else PARTIAL/FAIL. Provide concise evidence and the next blocker. Submit the F2B1 PR and stop for review; do not proceed to walking transitions or F3.
+Commit the tested implementation, update README.md and STATUS.md with exact commands and capture paths; mark PASS only for genuinely completed source + visual checks, else PARTIAL/FAIL. Provide concise evidence and the next blocker. Stop for review before F2B2. Do not implement walking transitions or F3.
