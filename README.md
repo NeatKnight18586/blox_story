@@ -1,6 +1,20 @@
 # BlockStory — cinematic scene proofs
 
-Current milestone: **names100's ghost-and-Mara reveal only**, a silent low-resolution animatic for global frames 482–944 (16.07–31.50s). The review copy is **360×640, 30fps, 463 frames** so Eli's counter changes at exactly global frame 789. The initial 15fps draft was rendered and inspected first; no full episode, high-resolution proof or voiceover was produced.
+Current review: **names100 V1 visual polish — PASS within the bounded brief**. PR #9 was verified and merged with its history intact. V1 keeps the original cast and exact supernatural timing, adds cached readable expressions and three bedroom details, and supplies only a four-second motion proof.
+
+[Before/after at phone size](evidence/names100-v1/paired-phone.png) · [4-second silent preview](evidence/names100-v1/movie.mp4) · [decoded contact sheet](evidence/names100-v1/contact-sheet.png) · [verification, costs and limitations](evidence/names100-v1/REPORT.md) · [authoritative brief](stories/names100/V1_VISUAL_BRIEF.md).
+
+```sh
+npm test
+npm run test:v1
+npm run render:names100:v1  # only local [343,463), global [825,945)
+npm run test:v1 -- --motion
+```
+
+Stop for visual review. No complete slice/episode or high-resolution story export was rendered for V1. The previous reveal and all older films/evidence remain preserved below.
+
+
+Previous milestone: **names100's ghost-and-Mara reveal only**, a silent low-resolution animatic for global frames 482–944 (16.07–31.50s). The review copy is **360×640, 30fps, 463 frames** so Eli's counter changes at exactly global frame 789. The initial 15fps draft was rendered and inspected first; no full episode, high-resolution proof or voiceover was produced.
 
 [Watch/download the reveal](evidence/names100/movie.mp4) · [critical before/after frames](evidence/names100/critical-beats.png) · [decoded contact sheet](evidence/names100/contact-sheet.png) · [verified evidence/resources](evidence/names100/REPORT.md) · [global frame map and commands](stories/names100/SCENE_PROOF.md).
 
