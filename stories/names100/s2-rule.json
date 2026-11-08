@@ -1,0 +1,208 @@
+{
+  "version": 3,
+  "title": "S2 anonymous rule \u2014 never Eli spending early",
+  "look": "s1",
+  "output": {
+    "width": 360,
+    "height": 640,
+    "fps": 30
+  },
+  "environment": {
+    "kind": "home-courtyard"
+  },
+  "props": [],
+  "events": [],
+  "cast": [
+    {
+      "id": "resident",
+      "face": "thoughtful",
+      "appearance": {
+        "color": "#dac1a0",
+        "pieces": {
+          "leftLeg": "#344a58",
+          "rightLeg": "#344a58"
+        },
+        "clothing": "vest",
+        "clothingColor": "#ad893d"
+      }
+    },
+    {
+      "id": "neighbor",
+      "face": "relieved",
+      "appearance": {
+        "color": "#dac1a0",
+        "pieces": {
+          "leftLeg": "#344a58",
+          "rightLeg": "#344a58"
+        },
+        "clothing": "vest",
+        "clothingColor": "#4f9689",
+        "hair": "bob",
+        "hairColor": "#66533c"
+      }
+    }
+  ],
+  "opening": {
+    "kind": "rule",
+    "globalStart": 0,
+    "globalEnd": 259
+  },
+  "shots": [
+    {
+      "id": "s01",
+      "start": 0,
+      "end": 94,
+      "camera": {
+        "position": [
+          9,
+          7.2,
+          17
+        ],
+        "target": [
+          -1,
+          2.5,
+          -3
+        ],
+        "fov": 48
+      },
+      "actors": [
+        {
+          "id": "resident",
+          "origin": {
+            "position": [
+              1.2,
+              0,
+              4
+            ],
+            "yaw": 0.55
+          },
+          "face": "thoughtful",
+          "action": {
+            "name": "idle",
+            "timeOffset": 0
+          }
+        },
+        {
+          "id": "neighbor",
+          "origin": {
+            "position": [
+              3.7,
+              0,
+              -2.5
+            ],
+            "yaw": -0.6
+          },
+          "face": "relieved",
+          "action": {
+            "name": "idle",
+            "timeOffset": 0
+          }
+        }
+      ]
+    },
+    {
+      "id": "s02",
+      "start": 94,
+      "end": 169,
+      "camera": {
+        "position": [
+          2.5,
+          4.9,
+          9.8
+        ],
+        "target": [
+          1.2,
+          4.05,
+          4
+        ],
+        "fov": 43
+      },
+      "actors": [
+        {
+          "id": "resident",
+          "origin": {
+            "position": [
+              1.2,
+              0,
+              4
+            ],
+            "yaw": 0.55
+          },
+          "face": "thoughtful",
+          "action": {
+            "name": "idle",
+            "timeOffset": 0
+          }
+        },
+        {
+          "id": "neighbor",
+          "origin": {
+            "position": [
+              3.7,
+              0,
+              -2.5
+            ],
+            "yaw": -0.6
+          },
+          "face": "relieved",
+          "action": {
+            "name": "idle",
+            "timeOffset": 0
+          }
+        }
+      ]
+    },
+    {
+      "id": "s03",
+      "start": 169,
+      "end": 259,
+      "camera": {
+        "position": [
+          7.8,
+          5.3,
+          15
+        ],
+        "target": [
+          3.0,
+          2.8,
+          2
+        ],
+        "fov": 50
+      },
+      "actors": [
+        {
+          "id": "resident",
+          "origin": {
+            "position": [
+              1.2,
+              0,
+              4
+            ],
+            "yaw": 0.55
+          },
+          "face": "thoughtful",
+          "action": {
+            "name": "idle",
+            "timeOffset": 0
+          }
+        },
+        {
+          "id": "neighbor",
+          "origin": {
+            "position": [
+              3.7,
+              0,
+              -2.5
+            ],
+            "yaw": -0.6
+          },
+          "face": "relieved",
+          "action": {
+            "name": "idle",
+            "timeOffset": 0
+          }
+        }
+      ]
+    }
+  ]
+}

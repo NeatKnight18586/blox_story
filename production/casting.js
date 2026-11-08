@@ -1,3 +1,4 @@
+import {compileOpening,sampleOpening} from './opening.js';
 import {compileEnding,sampleEnding} from './ending-cues.js';
 import {FACE_NAMES} from '../appearance/faces.js';
 import {compileReveal,sampleReveal,revealCamera} from './reveal-cues.js';
@@ -10,7 +11,7 @@ function keys(value,allowed){if(!value||typeof value!=='object'||Array.isArray(v
 const baseRecipe=value=>Object.fromEntries(Object.entries(value).filter(([k])=>['color','pieces','cosmetic'].includes(k)));
 function recipe(value={}){keys(value,['color','pieces','cosmetic','hair','hairColor','clothing','clothingColor']);return {...normalizeAppearance(baseRecipe(value)),...normalizeWardrobe(value)};}
 export function compileCasting(input){
- keys(input,['version','title','output','environment','props','events','cast','shots','reveal','ending','look']);const data=structuredClone(input);
+ keys(input,['version','title','output','environment','props','events','cast','shots','reveal','ending','look','opening']);const data=structuredClone(input);
  if(data.look!==undefined&&data.look!=='s1')throw new Error('Unknown visual look');
  if(data.environment?.kind==='home-courtyard'&&data.look!=='s1')throw new Error('Opening courtyard requires S1 look');
  if(data.version!==3||!Array.isArray(data.cast)||!data.cast.length||data.cast.length>2||!Array.isArray(data.shots)||!data.shots.length||data.shots.length>32)throw new Error('Casting requires 1–2 actors and 1–32 shots');
@@ -35,12 +36,13 @@ export function compileCasting(input){
  });
  const reveal=data.reveal?compileReveal(data.reveal,{fps:first.fps,frameCount:first.frameCount,cast:data.cast,environment:first.environment}):null;
  const events=compileEvents(data.events??[],first.props,first.frameCount,(frame,id)=>{const state=samplePipeline(actorPlans[id??data.cast[0].id],frame).actor;return worldPosition(state.action.root.position,state.origin);},ids);
+ const opening=data.opening?compileOpening(data.opening,{...first,cast:data.cast,reveal,ending:data.ending}):null;
  const ending=data.ending?compileEnding(data.ending,{...first,cast:data.cast,reveal}):null;
- return {version:3,title:data.title,width:first.width,height:first.height,fps:first.fps,frameCount:first.frameCount,environment:first.environment,props:first.props,cast:data.cast,shots,actorPlans,events,...(reveal?{reveal}: {}),...(ending?{ending}:{}),...(data.look?{look:data.look}:{})};
+ return {version:3,title:data.title,width:first.width,height:first.height,fps:first.fps,frameCount:first.frameCount,environment:first.environment,props:first.props,cast:data.cast,shots,actorPlans,events,...(reveal?{reveal}: {}),...(ending?{ending}:{}),...(data.look?{look:data.look}:{}),...(opening?{opening}:{})};
 }
 export function sampleCasting(plan,frame){
  if(!Number.isInteger(frame)||frame<0||frame>=plan.frameCount)throw new Error('Invalid frame index');const shot=plan.shots.find(s=>frame>=s.start&&frame<s.end);
  const actors=Object.fromEntries(plan.cast.map(def=>{const s=samplePipeline(plan.actorPlans[def.id],frame);return [def.id,{...s.actor,face:s.face,appearance:s.appearance}];}));
  const reveal=plan.reveal?sampleReveal(plan.reveal,frame):null;
- return {frame,time:frame/plan.fps,shot:shot.id,camera:reveal?revealCamera(plan.reveal,reveal,shot.camera):shot.camera,actors,...(reveal?{reveal}:{}),...(plan.ending?{ending:sampleEnding(plan.ending,frame)}:{}),propStates:samplePropEvents(plan.props,plan.events,frame)};
+ return {frame,time:frame/plan.fps,shot:shot.id,camera:reveal?revealCamera(plan.reveal,reveal,shot.camera):shot.camera,actors,...(reveal?{reveal}:{}),...(plan.ending?{ending:sampleEnding(plan.ending,frame)}:{}),...(plan.opening?{opening:sampleOpening(plan.opening,frame)}:{}),propStates:samplePropEvents(plan.props,plan.events,frame)};
 }
