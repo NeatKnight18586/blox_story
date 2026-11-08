@@ -1,0 +1,60 @@
+{
+  "status": "PASS",
+  "allNativeAssSamples": 1641,
+  "clockAuthority": "existing source sampler",
+  "exact1528_1529": true,
+  "zeroFadeFrames": 6,
+  "noNumberThroughoutS23": true,
+  "selectedImageBounds": [
+    {
+      "globalFrame": 145,
+      "counterInkBox": [
+        82,
+        165,
+        240,
+        279
+      ],
+      "counterValue": 99
+    },
+    {
+      "globalFrame": 850,
+      "counterInkBox": [
+        444,
+        165,
+        555,
+        233
+      ],
+      "counterValue": 99
+    },
+    {
+      "globalFrame": 1248,
+      "counterInkBox": [
+        310,
+        165,
+        416,
+        233
+      ],
+      "counterValue": 18
+    },
+    {
+      "globalFrame": 1528,
+      "counterInkBox": [
+        98,
+        166,
+        146,
+        232
+      ],
+      "counterValue": 1
+    },
+    {
+      "globalFrame": 1529,
+      "counterInkBox": [
+        93,
+        165,
+        148,
+        233
+      ],
+      "counterValue": 0
+    }
+  ]
+}

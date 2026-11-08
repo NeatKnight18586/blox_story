@@ -1,0 +1,46 @@
+{
+  "status": "PASS",
+  "checked": [
+    {
+      "g": 145,
+      "mode": "default",
+      "sha256": "a756bb4856085f8dd3d8b37ab93f76c94eac139f9cea1c526bcdfa3964d87918"
+    },
+    {
+      "g": 145,
+      "mode": "legacy",
+      "sha256": "a756bb4856085f8dd3d8b37ab93f76c94eac139f9cea1c526bcdfa3964d87918"
+    },
+    {
+      "g": 850,
+      "mode": "default",
+      "sha256": "9fcb9453692bb36232d9a2aac00ad60a570731355bfbe22e35037be4bf12c9dd"
+    },
+    {
+      "g": 850,
+      "mode": "legacy",
+      "sha256": "9fcb9453692bb36232d9a2aac00ad60a570731355bfbe22e35037be4bf12c9dd"
+    },
+    {
+      "g": 1248,
+      "mode": "default",
+      "sha256": "5df471918d256da2dc2846577e92ae6069401a2585d751a204da9eeb58fb515f"
+    },
+    {
+      "g": 1248,
+      "mode": "legacy",
+      "sha256": "5df471918d256da2dc2846577e92ae6069401a2585d751a204da9eeb58fb515f"
+    },
+    {
+      "g": 1529,
+      "mode": "default",
+      "sha256": "1f8ee86d4838568e118f7132a37f14d31afd488847ea78039cc5879ef660edee"
+    },
+    {
+      "g": 1529,
+      "mode": "legacy",
+      "sha256": "1f8ee86d4838568e118f7132a37f14d31afd488847ea78039cc5879ef660edee"
+    }
+  ],
+  "archivedPixelsUnchanged": true
+}

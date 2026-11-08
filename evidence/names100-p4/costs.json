@@ -1,0 +1,45 @@
+{
+  "nativeCapture": {
+    "command": [
+      "node",
+      "scripts/p4-keyframes.js"
+    ],
+    "exitCode": 0,
+    "wallSeconds": 11.505372708008508,
+    "sampledTreeRssMiB": 710.1171875,
+    "sampledTreeCpuSeconds": 21.12,
+    "processCount": 9,
+    "sampleIntervalSeconds": 0.2,
+    "method": "Linux ps summed subtree RSS (shared pages counted per process), /proc cumulative CPU samples retained by PID/start-time at 100Hz; sampled lower bounds; final pass only, not all development activity"
+  },
+  "finalComposite": {
+    "command": [
+      "python3",
+      "scripts/counter-overlay.py"
+    ],
+    "exitCode": 0,
+    "wallSeconds": 1.5070897499972489,
+    "sampledTreeRssMiB": 54.625,
+    "sampledTreeCpuSeconds": 0.45,
+    "processCount": 6,
+    "sampleIntervalSeconds": 0.2,
+    "method": "Linux ps summed subtree RSS (shared pages counted per process), /proc cumulative CPU samples retained by PID/start-time at 100Hz; sampled lower bounds; final pass only, not all development activity"
+  },
+  "affectedRegressions": {
+    "command": [
+      "bash",
+      "/tmp/p4-regression.sh"
+    ],
+    "exitCode": 0,
+    "wallSeconds": 18.47178557299776,
+    "sampledTreeRssMiB": 679.46484375,
+    "sampledTreeCpuSeconds": 26.06,
+    "processCount": 38,
+    "sampleIntervalSeconds": 0.2,
+    "method": "Linux ps summed subtree RSS (shared pages counted per process), /proc cumulative CPU samples retained by PID/start-time at 100Hz; sampled lower bounds; final pass only, not all development activity"
+  },
+  "unprofiled": "PR15 preflight,initial graphics composition,contrast checks/metadata-only retests. No total billing claim.",
+  "uniqueNativeFrames": 8,
+  "native3dDraws": 19,
+  "optionalMotionExported": false
+}

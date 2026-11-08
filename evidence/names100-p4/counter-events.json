@@ -1,0 +1,386 @@
+[
+  {
+    "frame": 0,
+    "shot": "S01",
+    "shotEnd": 94,
+    "actor": "resident",
+    "value": 100,
+    "visible": true,
+    "opacity": 1.0,
+    "position": [
+      160,
+      152
+    ],
+    "label": true,
+    "start": 0,
+    "end": 94
+  },
+  {
+    "frame": 94,
+    "shot": "S02",
+    "shotEnd": 169,
+    "actor": "resident",
+    "value": 100,
+    "visible": true,
+    "opacity": 1.0,
+    "position": [
+      160,
+      152
+    ],
+    "label": true,
+    "start": 94,
+    "end": 140
+  },
+  {
+    "frame": 140,
+    "shot": "S02",
+    "shotEnd": 169,
+    "actor": "resident",
+    "value": 99,
+    "visible": true,
+    "opacity": 1.0,
+    "position": [
+      160,
+      152
+    ],
+    "label": true,
+    "start": 140,
+    "end": 169
+  },
+  {
+    "frame": 169,
+    "shot": "S03",
+    "shotEnd": 259,
+    "actor": "resident",
+    "value": 99,
+    "visible": true,
+    "opacity": 1.0,
+    "position": [
+      160,
+      152
+    ],
+    "label": true,
+    "start": 169,
+    "end": 192
+  },
+  {
+    "frame": 192,
+    "shot": "S03",
+    "shotEnd": 259,
+    "actor": "resident",
+    "value": 0,
+    "visible": true,
+    "opacity": 1.0,
+    "position": [
+      160,
+      152
+    ],
+    "label": true,
+    "start": 192,
+    "end": 259
+  },
+  {
+    "frame": 259,
+    "shot": "S04",
+    "shotEnd": 320,
+    "actor": "eli",
+    "value": 100,
+    "visible": true,
+    "opacity": 1.0,
+    "position": [
+      160,
+      152
+    ],
+    "label": false,
+    "start": 259,
+    "end": 320
+  },
+  {
+    "frame": 769,
+    "shot": "S11",
+    "shotEnd": 823,
+    "actor": "eli",
+    "value": 100,
+    "visible": true,
+    "opacity": 1.0,
+    "position": [
+      500,
+      152
+    ],
+    "label": false,
+    "start": 769,
+    "end": 789
+  },
+  {
+    "frame": 789,
+    "shot": "S11",
+    "shotEnd": 823,
+    "actor": "eli",
+    "value": 99,
+    "visible": true,
+    "opacity": 1.0,
+    "position": [
+      500,
+      152
+    ],
+    "label": false,
+    "start": 789,
+    "end": 823
+  },
+  {
+    "frame": 823,
+    "shot": "S12",
+    "shotEnd": 882,
+    "actor": "eli",
+    "value": 99,
+    "visible": true,
+    "opacity": 1.0,
+    "position": [
+      500,
+      152
+    ],
+    "label": false,
+    "start": 823,
+    "end": 882
+  },
+  {
+    "frame": 1096,
+    "shot": "S16",
+    "shotEnd": 1203,
+    "actor": "eli",
+    "value": 99,
+    "visible": true,
+    "opacity": 1.0,
+    "position": [
+      160,
+      152
+    ],
+    "label": false,
+    "start": 1096,
+    "end": 1120
+  },
+  {
+    "frame": 1120,
+    "shot": "S16",
+    "shotEnd": 1203,
+    "actor": "eli",
+    "value": 98,
+    "visible": true,
+    "opacity": 1.0,
+    "position": [
+      160,
+      152
+    ],
+    "label": false,
+    "start": 1120,
+    "end": 1168
+  },
+  {
+    "frame": 1168,
+    "shot": "S16",
+    "shotEnd": 1203,
+    "actor": "eli",
+    "value": 97,
+    "visible": true,
+    "opacity": 1.0,
+    "position": [
+      160,
+      152
+    ],
+    "label": false,
+    "start": 1168,
+    "end": 1203
+  },
+  {
+    "frame": 1203,
+    "shot": "S17",
+    "shotEnd": 1296,
+    "actor": "eli",
+    "value": 97,
+    "visible": true,
+    "opacity": 1.0,
+    "position": [
+      360,
+      152
+    ],
+    "label": false,
+    "start": 1203,
+    "end": 1210
+  },
+  {
+    "frame": 1210,
+    "shot": "S17",
+    "shotEnd": 1296,
+    "actor": "eli",
+    "value": 52,
+    "visible": true,
+    "opacity": 1.0,
+    "position": [
+      360,
+      152
+    ],
+    "label": false,
+    "start": 1210,
+    "end": 1236
+  },
+  {
+    "frame": 1236,
+    "shot": "S17",
+    "shotEnd": 1296,
+    "actor": "eli",
+    "value": 18,
+    "visible": true,
+    "opacity": 1.0,
+    "position": [
+      360,
+      152
+    ],
+    "label": false,
+    "start": 1236,
+    "end": 1261
+  },
+  {
+    "frame": 1261,
+    "shot": "S17",
+    "shotEnd": 1296,
+    "actor": "eli",
+    "value": 3,
+    "visible": true,
+    "opacity": 1.0,
+    "position": [
+      360,
+      152
+    ],
+    "label": false,
+    "start": 1261,
+    "end": 1278
+  },
+  {
+    "frame": 1278,
+    "shot": "S17",
+    "shotEnd": 1296,
+    "actor": "eli",
+    "value": 1,
+    "visible": true,
+    "opacity": 1.0,
+    "position": [
+      360,
+      152
+    ],
+    "label": false,
+    "start": 1278,
+    "end": 1296
+  },
+  {
+    "frame": 1490,
+    "shot": "S22",
+    "shotEnd": 1546,
+    "actor": "eli",
+    "value": 1,
+    "visible": true,
+    "opacity": 1.0,
+    "position": [
+      120,
+      152
+    ],
+    "label": false,
+    "start": 1490,
+    "end": 1529
+  },
+  {
+    "frame": 1529,
+    "shot": "S22",
+    "shotEnd": 1546,
+    "actor": "eli",
+    "value": 0,
+    "visible": true,
+    "opacity": 1.0,
+    "position": [
+      120,
+      152
+    ],
+    "label": false,
+    "start": 1529,
+    "end": 1541
+  },
+  {
+    "frame": 1541,
+    "shot": "S22",
+    "shotEnd": 1546,
+    "actor": "eli",
+    "value": 0,
+    "visible": true,
+    "opacity": 0.8333333333333334,
+    "position": [
+      120,
+      152
+    ],
+    "label": false,
+    "start": 1541,
+    "end": 1542
+  },
+  {
+    "frame": 1542,
+    "shot": "S22",
+    "shotEnd": 1546,
+    "actor": "eli",
+    "value": 0,
+    "visible": true,
+    "opacity": 0.6666666666666666,
+    "position": [
+      120,
+      152
+    ],
+    "label": false,
+    "start": 1542,
+    "end": 1543
+  },
+  {
+    "frame": 1543,
+    "shot": "S22",
+    "shotEnd": 1546,
+    "actor": "eli",
+    "value": 0,
+    "visible": true,
+    "opacity": 0.5,
+    "position": [
+      120,
+      152
+    ],
+    "label": false,
+    "start": 1543,
+    "end": 1544
+  },
+  {
+    "frame": 1544,
+    "shot": "S22",
+    "shotEnd": 1546,
+    "actor": "eli",
+    "value": 0,
+    "visible": true,
+    "opacity": 0.3333333333333333,
+    "position": [
+      120,
+      152
+    ],
+    "label": false,
+    "start": 1544,
+    "end": 1545
+  },
+  {
+    "frame": 1545,
+    "shot": "S22",
+    "shotEnd": 1546,
+    "actor": "eli",
+    "value": 0,
+    "visible": true,
+    "opacity": 0.16666666666666666,
+    "position": [
+      120,
+      152
+    ],
+    "label": false,
+    "start": 1545,
+    "end": 1546
+  }
+]
