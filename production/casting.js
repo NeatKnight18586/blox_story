@@ -1,3 +1,4 @@
+import {compileEnding,sampleEnding} from './ending-cues.js';
 import {FACE_NAMES} from '../appearance/faces.js';
 import {compileReveal,sampleReveal,revealCamera} from './reveal-cues.js';
 import {compilePipeline,samplePipeline,worldPosition,normalizeAppearance} from './shots.js';
@@ -9,7 +10,7 @@ function keys(value,allowed){if(!value||typeof value!=='object'||Array.isArray(v
 const baseRecipe=value=>Object.fromEntries(Object.entries(value).filter(([k])=>['color','pieces','cosmetic'].includes(k)));
 function recipe(value={}){keys(value,['color','pieces','cosmetic','hair','hairColor','clothing','clothingColor']);return {...normalizeAppearance(baseRecipe(value)),...normalizeWardrobe(value)};}
 export function compileCasting(input){
- keys(input,['version','title','output','environment','props','events','cast','shots','reveal']);const data=structuredClone(input);
+ keys(input,['version','title','output','environment','props','events','cast','shots','reveal','ending']);const data=structuredClone(input);
  if(data.version!==3||!Array.isArray(data.cast)||!data.cast.length||data.cast.length>2||!Array.isArray(data.shots)||!data.shots.length||data.shots.length>32)throw new Error('Casting requires 1–2 actors and 1–32 shots');
  const ids=new Set();for(const actor of data.cast){keys(actor,['id','torsoVariant','appearance','face']);if(!validId(actor.id)||ids.has(actor.id)||!['classic','tapered'].includes(actor.torsoVariant??'classic'))throw new Error('Invalid cast identity/body');ids.add(actor.id);actor.torsoVariant??='classic';actor.appearance=recipe(actor.appearance);actor.face??='classic_smile';if(!FACE_NAMES.includes(actor.face))throw new Error('Unknown cast face');}
  for(const shot of data.shots){keys(shot,['id','start','end','camera','actors']);if(!Array.isArray(shot.actors)||shot.actors.length!==ids.size||new Set(shot.actors.map(a=>a?.id)).size!==ids.size||shot.actors.some(a=>!ids.has(a?.id)))throw new Error('Every shot must specify every cast ID exactly once');for(const actor of shot.actors)keys(actor,['id','action','origin','originFromEndOf','face','appearance']);}
@@ -32,11 +33,12 @@ export function compileCasting(input){
  });
  const reveal=data.reveal?compileReveal(data.reveal,{fps:first.fps,frameCount:first.frameCount,cast:data.cast,environment:first.environment}):null;
  const events=compileEvents(data.events??[],first.props,first.frameCount,(frame,id)=>{const state=samplePipeline(actorPlans[id??data.cast[0].id],frame).actor;return worldPosition(state.action.root.position,state.origin);},ids);
- return {version:3,title:data.title,width:first.width,height:first.height,fps:first.fps,frameCount:first.frameCount,environment:first.environment,props:first.props,cast:data.cast,shots,actorPlans,events,...(reveal?{reveal}: {})};
+ const ending=data.ending?compileEnding(data.ending,{...first,cast:data.cast,reveal}):null;
+ return {version:3,title:data.title,width:first.width,height:first.height,fps:first.fps,frameCount:first.frameCount,environment:first.environment,props:first.props,cast:data.cast,shots,actorPlans,events,...(reveal?{reveal}: {}),...(ending?{ending}:{})};
 }
 export function sampleCasting(plan,frame){
  if(!Number.isInteger(frame)||frame<0||frame>=plan.frameCount)throw new Error('Invalid frame index');const shot=plan.shots.find(s=>frame>=s.start&&frame<s.end);
  const actors=Object.fromEntries(plan.cast.map(def=>{const s=samplePipeline(plan.actorPlans[def.id],frame);return [def.id,{...s.actor,face:s.face,appearance:s.appearance}];}));
  const reveal=plan.reveal?sampleReveal(plan.reveal,frame):null;
- return {frame,time:frame/plan.fps,shot:shot.id,camera:reveal?revealCamera(plan.reveal,reveal,shot.camera):shot.camera,actors,...(reveal?{reveal}:{}),propStates:samplePropEvents(plan.props,plan.events,frame)};
+ return {frame,time:frame/plan.fps,shot:shot.id,camera:reveal?revealCamera(plan.reveal,reveal,shot.camera):shot.camera,actors,...(reveal?{reveal}:{}),...(plan.ending?{ending:sampleEnding(plan.ending,frame)}:{}),propStates:samplePropEvents(plan.props,plan.events,frame)};
 }

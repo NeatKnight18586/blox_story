@@ -1,3 +1,13 @@
+# Current handoff — names100 ending lookdev review
+
+Authority: stories/names100/ENDING_LOOKDEV_BRIEF.md. PR #10 verified and merged at `c3c6da6aa02dd8d089a9ac2c5f093bc19cfaa02a`, preserving `405c82c` and brief commit `5b6f869`. New branch `codex/names100-ending-lookdev` implements this bounded lookdev only. Stop at its PR for visual approval.
+
+Six approved-internally actual WebGL frames:1040,1090,1210,1370,1529,1600. One focused staging correction clarified the door and parent/child silhouettes. New optional ending cues/factory reuse approved avatars, cached expressions, readable walk, bedroom door, P1 export/recovery; no action engine/rig change. Two preposed residents and a small courtyard only. `scene-ending.json` starts945, ends1641; do not render all696 frames. The verified excerpt is source-local[535,665), global[1480,1610),130frames/4.333333s. Zero1529, counter monotone99/52/18/3/1/0. Written speech starts round UP to native frames1210,1236,1261,1278; last two differ by+1 from approximate brief markers to avoid early numbers. Eli remains opaque/grounded and loses color while Mara turns away.
+
+`scene-reflection.json` preserves original reveal cues while offering a thoughtful final18-frame Eli reaction instead of relief. It does not replace original V1 source/evidence. Use after visual approval if integrating the two slices. All affected regressions and source/artifact integrity checks pass; see evidence/names100-ending/REPORT.md, board, motion, logs and resource receipts. Final export+verification49.155s, sampled summed peakRSS685.09MiB. No full ending/episode/720p export, opening implementation, audio/captions or new dependency. External WAV alignment and native Safari remain unverified. Reunion is a preposed hand/shoulder contact, with minor final-frame edge cropping; not a polished full ending production claim.
+
+Historical handoffs follow:
+
 # Current handoff — names100 V1 visual review
 
 The authoritative task is [stories/names100/V1_VISUAL_BRIEF.md](stories/names100/V1_VISUAL_BRIEF.md). V1 is implemented and verified within its three review gates. Stop at the PR for user review; no episode, full-slice V1 render, audio or next phase is authorized.

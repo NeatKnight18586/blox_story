@@ -1,0 +1,22 @@
+{
+  "command": [
+    "node",
+    "scripts/render-shot-list.js",
+    "--shots",
+    "stories/names100/scene-ending.json",
+    "--out",
+    "renders/names100-ending-excerpt",
+    "--range",
+    "535:665"
+  ],
+  "exitCode": 0,
+  "wallSeconds": 49.65949324200119,
+  "sampledTreeCpuUserSeconds": 86.98,
+  "sampledTreeCpuSystemSeconds": 7.53,
+  "observedProcessCount": 20,
+  "sampleIntervalSeconds": 0.25,
+  "waitedChildCpuUserSeconds": 3.076255,
+  "waitedChildCpuSystemSeconds": 1.154746,
+  "peakIndividualChildRssKiB": 136716,
+  "method": "Linux /proc per-process cumulative CPU sampled every .25s over the renderer subtree, keyed by PID/start time and retained after exit. A lower bound: last fractions or short-lived children may be missed. Waited-child rusage is separate and may exclude adopted descendants; do not sum it with sampled CPU. ru_maxrss is largest individual child; exporter manifest gives sampled summed tree RSS."
+}
