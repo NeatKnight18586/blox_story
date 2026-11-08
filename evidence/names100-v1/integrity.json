@@ -1,0 +1,51 @@
+{
+  "status": "PASS",
+  "pr9Merge": "6322b1c480083101d5bc9c0f3eb095430d43128b",
+  "engineSha256": "46c2c261dd83dd3f12731ce26d9606e0bd49831b55256fa087ec2cef204e5b1d",
+  "shotListSha256": "a03c02c2f8e5df2c96640a8b5cd582e21f47e3e73657decaf9fd6ed0e515c84f",
+  "mp4Sha256": "498accf6185accfd107d7ac81963aea940662891b1b936841843d93e5c6c6367",
+  "existingFilms": [
+    {
+      "path": "evidence/names100/draft15/movie.mp4",
+      "sha256": "377c4b0b2be9815411584765e26b6b6016e9b3576b47475544052195b4aa1c6c",
+      "unchanged": true
+    },
+    {
+      "path": "evidence/names100/movie.mp4",
+      "sha256": "3e3c9fb9b55960e06caee4669163a7132c98cfaabd85c86494a376050d38befe",
+      "unchanged": true
+    },
+    {
+      "path": "evidence/p1/feasibility/movie.mp4",
+      "sha256": "199c28761075fa75f9c3cf9c2dda5879a8369135b7d6f7b925f8d689a228e59f",
+      "unchanged": true
+    },
+    {
+      "path": "evidence/p1/not-today/movie.mp4",
+      "sha256": "90570c9700094e859c3489bddad4a6bfe091bd3101542b43632e60cde56c5872",
+      "unchanged": true
+    },
+    {
+      "path": "evidence/p2a/movie.mp4",
+      "sha256": "074bad369f9a8e08400c6c2512adcb2b96fd2b0b7d0d2900de5b768a38775e1a",
+      "unchanged": true
+    },
+    {
+      "path": "evidence/production/feasibility.mp4",
+      "sha256": "1fea25486ef9a78948f2739be23279a919b5fc4529134d3ca6fbbd7413c3b417",
+      "unchanged": true
+    }
+  ],
+  "sourceRange": {
+    "start": 343,
+    "endExclusive": 463,
+    "sourceFrameCount": 463
+  },
+  "globalRange": [
+    825,
+    945
+  ],
+  "newStoryFramesRendered": 120,
+  "fullSliceRendered": false,
+  "episodeRendered": false
+}

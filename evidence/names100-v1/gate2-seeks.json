@@ -1,0 +1,107 @@
+{
+  "status": "PASS",
+  "browser": "141.0.7390.37",
+  "context": {
+    "browserWebgl": "WebGL 2.0 (OpenGL ES 3.0 Chromium)",
+    "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+    "details": [
+      "curtain",
+      "unlit_desk_lamp",
+      "personal_notebook"
+    ]
+  },
+  "frames": [
+    {"globalFrame":825,"sha256":"2d90107a889892c55ccf2989c94f26d829eb0466619e15c3f484b0037d710784","state":{"frame":343,"shot":"s12","time":11.433333333333334,"propOpen":null,"camera":{"position":[-0.9,4.7,-1],"target":[-2.4,4.4,2],"fov":45},"actorPosition":[-2.8,0,2],"propStates":{},"reveal":{"globalFrame":825,"globalSeconds":27.5,"counter":99,"ghostToHuman":0,"tagVisible":true,"tagLift":1,"tagOpacity":1,"lean":0.9966306194888475,"whisper":false,"counterEmphasis":true,"push":null},"actors":{"eli":{"position":[-2.8,0,2],"face":"thoughtful","appearance":{"color":"#d2d5d6","pieces":{"head":"#e7c5a2","leftArm":"#e7c5a2","rightArm":"#e7c5a2","leftLeg":"#31485c","rightLeg":"#31485c"},"cosmetic":"cap","hair":null,"hairColor":4204831,"clothing":"vest","clothingColor":"#216d85"},"torsoVariant":"classic"},"mara":{"position":[0.8,0,-1.6],"face":"nervous","appearance":{"color":"#d2d5d6","pieces":{"head":"#d6af86","leftArm":"#d6af86","rightArm":"#d6af86","leftLeg":"#34374c","rightLeg":"#34374c"},"cosmetic":null,"hair":"bob","hairColor":"#40291f","clothing":"vest","clothingColor":"#be5b46"},"torsoVariant":"tapered"}},"identity":true}},
+    {"globalFrame":944,"sha256":"10bfe3bb4377a67d1aca3cd15f6f9f227bf700c40ee872ca00d35822321a9d98","state":{"frame":462,"shot":"s14","time":15.4,"propOpen":null,"camera":{"position":[-0.9,4.7,-1],"target":[-2.8,4.45,2],"fov":43},"actorPosition":[-2.8,0,2],"propStates":{},"reveal":{"globalFrame":944,"globalSeconds":31.466666666666665,"counter":99,"ghostToHuman":1,"tagVisible":true,"tagLift":1,"tagOpacity":1,"lean":0,"whisper":false,"counterEmphasis":false,"push":null},"actors":{"eli":{"position":[-2.8,0,2],"face":"relieved","appearance":{"color":"#d2d5d6","pieces":{"head":"#e7c5a2","leftArm":"#e7c5a2","rightArm":"#e7c5a2","leftLeg":"#31485c","rightLeg":"#31485c"},"cosmetic":"cap","hair":null,"hairColor":4204831,"clothing":"vest","clothingColor":"#216d85"},"torsoVariant":"classic"},"mara":{"position":[0.8,0,-1.6],"face":"relieved","appearance":{"color":"#d2d5d6","pieces":{"head":"#d6af86","leftArm":"#d6af86","rightArm":"#d6af86","leftLeg":"#34374c","rightLeg":"#34374c"},"cosmetic":null,"hair":"bob","hairColor":"#40291f","clothing":"vest","clothingColor":"#be5b46"},"torsoVariant":"tapered"}},"identity":true}},
+    {"globalFrame":890,"sha256":"a1302b94ef1f5c54301e8c0dc920cedeb9e6e07bd17f1e6c3124ab2576d5daee","state":{"frame":408,"shot":"s13","time":13.6,"propOpen":null,"camera":{"position":[1.5,4.65,7],"target":[-0.35,3.45,-2],"fov":44},"actorPosition":[-2.8,0,2],"propStates":{},"reveal":{"globalFrame":890,"globalSeconds":29.666666666666668,"counter":99,"ghostToHuman":0,"tagVisible":true,"tagLift":1,"tagOpacity":1,"lean":0,"whisper":false,"counterEmphasis":false,"push":null},"actors":{"eli":{"position":[-2.8,0,2],"face":"thoughtful","appearance":{"color":"#d2d5d6","pieces":{"head":"#e7c5a2","leftArm":"#e7c5a2","rightArm":"#e7c5a2","leftLeg":"#31485c","rightLeg":"#31485c"},"cosmetic":"cap","hair":null,"hairColor":4204831,"clothing":"vest","clothingColor":"#216d85"},"torsoVariant":"classic"},"mara":{"position":[0.8,0,-1.6],"face":"nervous","appearance":{"color":"#d2d5d6","pieces":{"head":"#d6af86","leftArm":"#d6af86","rightArm":"#d6af86","leftLeg":"#34374c","rightLeg":"#34374c"},"cosmetic":null,"hair":"bob","hairColor":"#40291f","clothing":"vest","clothingColor":"#be5b46"},"torsoVariant":"tapered"}},"identity":true}},
+    {"globalFrame":926,"sha256":"e65cecce42af42f202438338caad0d1d652e4a9e55b1adb39fa02ae2e9873d37","state":{"frame":444,"shot":"s13","time":14.8,"propOpen":null,"camera":{"position":[1.5,4.65,7],"target":[-0.35,3.45,-2],"fov":44},"actorPosition":[-2.8,0,2],"propStates":{},"reveal":{"globalFrame":926,"globalSeconds":30.866666666666667,"counter":99,"ghostToHuman":1,"tagVisible":true,"tagLift":1,"tagOpacity":1,"lean":0,"whisper":false,"counterEmphasis":false,"push":null},"actors":{"eli":{"position":[-2.8,0,2],"face":"relieved","appearance":{"color":"#d2d5d6","pieces":{"head":"#e7c5a2","leftArm":"#e7c5a2","rightArm":"#e7c5a2","leftLeg":"#31485c","rightLeg":"#31485c"},"cosmetic":"cap","hair":null,"hairColor":4204831,"clothing":"vest","clothingColor":"#216d85"},"torsoVariant":"classic"},"mara":{"position":[0.8,0,-1.6],"face":"relieved","appearance":{"color":"#d2d5d6","pieces":{"head":"#d6af86","leftArm":"#d6af86","rightArm":"#d6af86","leftLeg":"#34374c","rightLeg":"#34374c"},"cosmetic":null,"hair":"bob","hairColor":"#40291f","clothing":"vest","clothingColor":"#be5b46"},"torsoVariant":"tapered"}},"identity":true}},
+    {"globalFrame":850,"sha256":"1c08c2bc02600744347936f4f00bbbb521b58a012a4a9e1085b3ca4b0379a8db","state":{"frame":368,"shot":"s12","time":12.266666666666667,"propOpen":null,"camera":{"position":[-0.9,4.7,-1],"target":[-2.4,4.4,2],"fov":45},"actorPosition":[-2.8,0,2],"propStates":{},"reveal":{"globalFrame":850,"globalSeconds":28.333333333333332,"counter":99,"ghostToHuman":0,"tagVisible":true,"tagLift":1,"tagOpacity":1,"lean":0.5634071643157286,"whisper":false,"counterEmphasis":true,"push":null},"actors":{"eli":{"position":[-2.8,0,2],"face":"thoughtful","appearance":{"color":"#d2d5d6","pieces":{"head":"#e7c5a2","leftArm":"#e7c5a2","rightArm":"#e7c5a2","leftLeg":"#31485c","rightLeg":"#31485c"},"cosmetic":"cap","hair":null,"hairColor":4204831,"clothing":"vest","clothingColor":"#216d85"},"torsoVariant":"classic"},"mara":{"position":[0.8,0,-1.6],"face":"nervous","appearance":{"color":"#d2d5d6","pieces":{"head":"#d6af86","leftArm":"#d6af86","rightArm":"#d6af86","leftLeg":"#34374c","rightLeg":"#34374c"},"cosmetic":null,"hair":"bob","hairColor":"#40291f","clothing":"vest","clothingColor":"#be5b46"},"torsoVariant":"tapered"}},"identity":true}},
+    {"globalFrame":927,"sha256":"254db7126e19f023908b14ed73e27d15a2f5cd38b116daad511845a700445b42","state":{"frame":445,"shot":"s14","time":14.833333333333334,"propOpen":null,"camera":{"position":[-0.9,4.7,-1],"target":[-2.8,4.45,2],"fov":43},"actorPosition":[-2.8,0,2],"propStates":{},"reveal":{"globalFrame":927,"globalSeconds":30.9,"counter":99,"ghostToHuman":1,"tagVisible":true,"tagLift":1,"tagOpacity":1,"lean":0,"whisper":false,"counterEmphasis":false,"push":null},"actors":{"eli":{"position":[-2.8,0,2],"face":"relieved","appearance":{"color":"#d2d5d6","pieces":{"head":"#e7c5a2","leftArm":"#e7c5a2","rightArm":"#e7c5a2","leftLeg":"#31485c","rightLeg":"#31485c"},"cosmetic":"cap","hair":null,"hairColor":4204831,"clothing":"vest","clothingColor":"#216d85"},"torsoVariant":"classic"},"mara":{"position":[0.8,0,-1.6],"face":"relieved","appearance":{"color":"#d2d5d6","pieces":{"head":"#d6af86","leftArm":"#d6af86","rightArm":"#d6af86","leftLeg":"#34374c","rightLeg":"#34374c"},"cosmetic":null,"hair":"bob","hairColor":"#40291f","clothing":"vest","clothingColor":"#be5b46"},"torsoVariant":"tapered"}},"identity":true}},
+    {"globalFrame":908,"sha256":"307a4f0f6a5aa90b52e14bd98a20c3e4045a108c5a92234c6faf2cd19a64d2ce","state":{"frame":426,"shot":"s13","time":14.2,"propOpen":null,"camera":{"position":[1.5,4.65,7],"target":[-0.35,3.45,-2],"fov":44},"actorPosition":[-2.8,0,2],"propStates":{},"reveal":{"globalFrame":908,"globalSeconds":30.266666666666666,"counter":99,"ghostToHuman":0.5,"tagVisible":true,"tagLift":1,"tagOpacity":1,"lean":0,"whisper":false,"counterEmphasis":false,"push":null},"actors":{"eli":{"position":[-2.8,0,2],"face":"thoughtful","appearance":{"color":"#d2d5d6","pieces":{"head":"#e7c5a2","leftArm":"#e7c5a2","rightArm":"#e7c5a2","leftLeg":"#31485c","rightLeg":"#31485c"},"cosmetic":"cap","hair":null,"hairColor":4204831,"clothing":"vest","clothingColor":"#216d85"},"torsoVariant":"classic"},"mara":{"position":[0.8,0,-1.6],"face":"nervous","appearance":{"color":"#d2d5d6","pieces":{"head":"#d6af86","leftArm":"#d6af86","rightArm":"#d6af86","leftLeg":"#34374c","rightLeg":"#34374c"},"cosmetic":null,"hair":"bob","hairColor":"#40291f","clothing":"vest","clothingColor":"#be5b46"},"torsoVariant":"tapered"}},"identity":true}}
+  ],
+  "sightlines": [
+    {
+      "g": 908,
+      "id": "mara",
+      "hits": [
+        {
+          "feature": "eye_left",
+          "face": true,
+          "first": "eye_left"
+        },
+        {
+          "feature": "eye_right",
+          "face": true,
+          "first": "eye_right"
+        },
+        {
+          "feature": "brow_left",
+          "face": true,
+          "first": "brow_left"
+        },
+        {
+          "feature": "brow_right",
+          "face": true,
+          "first": "brow_right"
+        }
+      ]
+    },
+    {
+      "g": 926,
+      "id": "mara",
+      "hits": [
+        {
+          "feature": "eye_left",
+          "face": true,
+          "first": "eye_left"
+        },
+        {
+          "feature": "eye_right",
+          "face": true,
+          "first": "eye_right"
+        },
+        {
+          "feature": "brow_left",
+          "face": true,
+          "first": "brow_left"
+        },
+        {
+          "feature": "brow_right",
+          "face": true,
+          "first": "brow_right"
+        }
+      ]
+    },
+    {
+      "g": 944,
+      "id": "eli",
+      "hits": [
+        {
+          "feature": "eye_left",
+          "face": true,
+          "first": "eye_left"
+        },
+        {
+          "feature": "eye_right",
+          "face": true,
+          "first": "eye_right"
+        },
+        {
+          "feature": "brow_left",
+          "face": true,
+          "first": "brow_left"
+        },
+        {
+          "feature": "brow_right",
+          "face": true,
+          "first": "brow_right"
+        }
+      ]
+    }
+  ],
+  "reversePixelsMatch": true,
+  "noNewGeometryDuringSeeks": true,
+  "noCaptions": true,
+  "originalProofReferenceFramesMatch": true,
+  "errors": []
+}

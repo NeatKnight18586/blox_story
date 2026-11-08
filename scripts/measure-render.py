@@ -12,8 +12,11 @@ parser = argparse.ArgumentParser(description=__doc__)
 parser.add_argument('--shots', required=True)
 parser.add_argument('--out', required=True)
 parser.add_argument('--report', required=True)
+parser.add_argument('--range')
 args = parser.parse_args()
 command = ['node', 'scripts/render-shot-list.js', '--shots', args.shots, '--out', args.out]
+if args.range:
+    command.extend(['--range', args.range])
 report = Path(args.report).absolute()
 if any(p.is_symlink() for p in [report, *report.parents]):
     raise ValueError('Refusing a linked resource report path')

@@ -1,0 +1,96 @@
+> npm run test:browser && npm run test:motion && npm run test:walk && npm run test:calibration && npm run test:casting
+PASS: WebGL WebGL 2.0 (OpenGL ES 3.0 Chromium), controls, retained mesh identity, cosmetic removal, mobile and 10 captures; no page errors
+PASS F2A WebGL: 285 frames, reverse repeat pixel equality, grounded geometry, controls and vertical captures
+
+> test:walk
+> node tests/walk-browser.js
+
+PASS F2B1 WebGL: {
+  maxFootDrift: 1.1102230246251565e-16,
+  rmsFootDrift: 3.013620443605934e-17,
+  maxPenetration: 2.220446049250313e-16,
+  rmsPenetration: 1.2671882959866031e-16,
+  maxGroundContactError: 2.220446049250313e-16,
+  rmsGroundContactError: 1.9608141819027707e-16,
+  minSwingClearance: 0,
+  maxSwingClearance: 0.04499999999999993
+} (436 measurements, 146 captured frames)
+
+> test:calibration
+> node tests/calibration-browser.js
+
+PASS fixed-camera calibration WebGL {
+  'side-baseline': {
+    samples: 218,
+    metrics: {
+      maxFootDrift: 1.1102230246251565e-16,
+      rmsFootDrift: 3.013620443605934e-17,
+      maxPatchDrift: 3.3306690738754696e-16,
+      rmsPatchDrift: 1.3248572042681333e-16,
+      maxPenetration: 2.220446049250313e-16,
+      rmsPenetration: 1.2671882959866031e-16,
+      maxContactError: 2.220446049250313e-16,
+      rmsContactError: 1.9608141819027707e-16,
+      minClearance: 0,
+      maxClearance: 0.04499999999999993,
+      maxNdc: 0.5065391065372641
+    },
+    repeatReversePixelMatch: true
+  },
+  'side-readable': {
+    samples: 218,
+    metrics: {
+      maxFootDrift: 2.220446049250313e-16,
+      rmsFootDrift: 5.369910792520928e-17,
+      maxPatchDrift: 4.440892098500626e-16,
+      rmsPatchDrift: 1.7556180320052313e-16,
+      maxPenetration: 2.220446049250313e-16,
+      rmsPenetration: 6.725537158473823e-17,
+      maxContactError: 2.220446049250313e-16,
+      rmsContactError: 1.0844602813475078e-16,
+      minClearance: 2.220446049250313e-16,
+      maxClearance: 0.04999999999999982,
+      maxNdc: 0.5728998952856899
+    },
+    repeatReversePixelMatch: true
+  },
+  'threequarter-baseline': {
+    samples: 218,
+    metrics: {
+      maxFootDrift: 1.1102230246251565e-16,
+      rmsFootDrift: 3.013620443605934e-17,
+      maxPatchDrift: 3.3306690738754696e-16,
+      rmsPatchDrift: 1.3248572042681333e-16,
+      maxPenetration: 2.220446049250313e-16,
+      rmsPenetration: 1.2671882959866031e-16,
+      maxContactError: 2.220446049250313e-16,
+      rmsContactError: 1.9608141819027707e-16,
+      minClearance: 0,
+      maxClearance: 0.04499999999999993,
+      maxNdc: 0.8193106006202279
+    },
+    repeatReversePixelMatch: true
+  },
+  'threequarter-readable': {
+    samples: 218,
+    metrics: {
+      maxFootDrift: 2.220446049250313e-16,
+      rmsFootDrift: 5.369910792520928e-17,
+      maxPatchDrift: 4.440892098500626e-16,
+      rmsPatchDrift: 1.7556180320052313e-16,
+      maxPenetration: 2.220446049250313e-16,
+      rmsPenetration: 6.725537158473823e-17,
+      maxContactError: 2.220446049250313e-16,
+      rmsContactError: 1.0844602813475078e-16,
+      minClearance: 2.220446049250313e-16,
+      maxClearance: 0.04999999999999982,
+      maxNdc: 0.8207642558455656
+    },
+    repeatReversePixelMatch: true
+  }
+}
+
+> test:casting
+> node tests/casting-browser.js
+
+PASS P2A WebGL: 360 frames, reverse pixel equality, stable independent bodies/geometry/layers, fixed cameras, face sightlines, mobile dressed/undressed/restored captures; minimum actor gap 0.8139189194392715
