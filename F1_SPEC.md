@@ -1,5 +1,5 @@
 # blox_story — F1 v3: Canonical Block Avatar (Source of Truth)
-Status: **SPECIFICATION APPROVED FOR IMPLEMENTATION, NOT YET IMPLEMENTED OR VISUALLY VERIFIED**.
+Status: **IMPLEMENTED AND VERIFIED; integrated into main by PR #1.** See STATUS.md for executed evidence and limitations.
 Supersedes the former F1 Kai/Mira-first design. Date: 2026-11-08.
 
 ## Head correction — user-approved revision (2026-11-08)
