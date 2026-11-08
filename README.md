@@ -1,6 +1,13 @@
 # BlockStory — cinematic scene proofs
 
-Current review: **names100 ending lookdev** under [ENDING_LOOKDEV_BRIEF.md](stories/names100/ENDING_LOOKDEV_BRIEF.md). PR #10 is verified and merged. Six WebGL keyframes establish choice → reunion → being forgotten; a verified **360×640,30fps,4.33s** silent excerpt shows zero at global1529 while Eli stays present.
+Current creative review: **S1 three-set style candidate — four real360×640 stills**. PR #11 is verified and merged. [Four-panel board](evidence/names100-s1/style-board.png) · [approved baseline comparison](evidence/names100-s1/comparison.png) · [phone review](evidence/names100-s1/phone-board.png) · [LOOK_STYLE.md](LOOK_STYLE.md) · [tests/costs/limits](evidence/names100-s1/REPORT.md).
+
+Run `npm test` and `npm run test:style`. Data: `style-town.json`(NEW g35), `style-bedroom.json`(g700), `style-ending.json`(g1370/1600) under stories/names100. These opt intoS1; original sources and films remain intact. No new story video/episode rendered. Stop for creative review.
+
+Historical milestones follow.
+
+
+Previous review: **names100 ending lookdev** under [ENDING_LOOKDEV_BRIEF.md](stories/names100/ENDING_LOOKDEV_BRIEF.md). PR #10 is verified and merged. Six WebGL keyframes establish choice → reunion → being forgotten; a verified **360×640,30fps,4.33s** silent excerpt shows zero at global1529 while Eli stays present.
 
 [Six-frame phone board](evidence/names100-ending/keyframe-board.png) · [short MP4](evidence/names100-ending/movie.mp4) · [visual findings, tests and costs](evidence/names100-ending/REPORT.md).
 

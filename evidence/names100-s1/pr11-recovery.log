@@ -1,0 +1,6 @@
+
+> test:p1
+> node tests/p1.js && node tests/p1-resume.js
+
+PASS P1: v2 flexible timeline, pure events/appearance, factory identity, malformed input, output ownership, live/stale locks, linked-path rejection and atomic writes
+PASS P1 real WebGL/MP4 recovery: SIGTERM checkpoint, corrupt-frame repair, complete resume, 12/12 cache reuse, input invalidation, failed/paused publication preserves verified latest; full decode and native browser playback; isolated/resumable range and invalid-range publication protection
