@@ -51,19 +51,21 @@ Format: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text
     lines=[]
     for s in spans:
         x,y=s['position'];alpha=round((1-s['opacity'])*255)
-        tag=f'{{\\an8\\pos({x},{y})\\alpha&H{alpha:02X}&}}'
+        colors=style.get('shotColors',{}).get(s['shot'],{})
+        colorTag=''.join('\\'+code+str(colors[field])+'&' for field,code in [('fill','1c'),('edge','3c')] if field in colors)
+        tag=f'{{\\an8\\pos({x},{y})\\alpha&H{alpha:02X}&{colorTag}}}'
         lines.append(f"Dialogue: 0,{stamp(s['start'])},{stamp(s['end'])},Number,,0,0,0,,{tag}{s['value']}")
         if s['label']:
             tag=f'{{\\an8\\pos({x},{y+style["labelOffsetY"]})\\alpha&H{alpha:02X}&}}'
             lines.append(f"Dialogue: 0,{stamp(s['start'])},{stamp(s['end'])},Label,,0,0,0,,{tag}{style['labelText']}")
     file.parent.mkdir(parents=True,exist_ok=True);file.write_text(header+'\n'.join(lines)+'\n');return spans
 
-def composite(source,dest,g,ass=None,caption=False):
+def composite(source,dest,g,ass=None,caption=False,caption_start=1490,caption_id='C'):
     # Image input timebase is explicitly1/30; setpts adds INTEGER native frames.
     filters=[f'setpts=PTS+{g}']
     if ass:filters.append(f"ass=filename='{ass}'")
     if caption:
-        filters.extend([f'setpts=PTS-1490',f"ass=filename='{ROOT}/stories/names100/captions/generated/C.ass'"])
+        filters.extend([f'setpts=PTS-{caption_start}',f"ass=filename='{ROOT}/stories/names100/captions/generated/{caption_id}.ass'"])
     subprocess.run(['ffmpeg','-y','-v','error','-framerate','30','-i',str(source),'-vf',','.join(filters),'-frames:v','1','-pix_fmt','rgba',str(dest)],check=True)
 
 def boards(out):

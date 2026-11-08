@@ -1,0 +1,43 @@
+{
+  "initialNative": {
+    "command": [
+      "node",
+      "scripts/p5-keyframes.js"
+    ],
+    "exitCode": 0,
+    "wallSeconds": 10.376624262004043,
+    "sampledTreeRssMiB": 732.125,
+    "sampledTreeCpuSeconds": 19.04,
+    "processCount": 8,
+    "sampleIntervalSeconds": 0.2,
+    "method": "Linux ps summed subtree RSS (shared pages counted per process), /proc cumulative CPU samples retained by PID/start-time at 100Hz; sampled lower bounds; final pass only, not all development activity"
+  },
+  "finalNativeRevision": {
+    "command": [
+      "node",
+      "scripts/p5-keyframes.js"
+    ],
+    "exitCode": 0,
+    "wallSeconds": 9.697669350993237,
+    "sampledTreeRssMiB": 732.9375,
+    "sampledTreeCpuSeconds": 17.74,
+    "processCount": 8,
+    "sampleIntervalSeconds": 0.2,
+    "method": "Linux ps summed subtree RSS (shared pages counted per process), /proc cumulative CPU samples retained by PID/start-time at 100Hz; sampled lower bounds; final pass only, not all development activity"
+  },
+  "affectedRegressions": {
+    "command": [
+      "bash",
+      "-c",
+      "npm test && npm run test:counter && npm run test:finish && python3 tests/captions.py && node tests/performance-motion.js"
+    ],
+    "exitCode": 0,
+    "wallSeconds": 31.324027399008628,
+    "sampledTreeRssMiB": 1165.8671875,
+    "sampledTreeCpuSeconds": 49.17,
+    "processCount": 55,
+    "sampleIntervalSeconds": 0.2,
+    "method": "Linux ps summed subtree RSS (shared pages counted per process), /proc cumulative CPU samples retained by PID/start-time at 100Hz; sampled lower bounds; final pass only, not all development activity"
+  },
+  "scope": "Two bounded native batches only: initial radius6, one shadow revision to4. Counter/ghost first attempt retained. Compositing, premerge checks and preliminary diagnostic tests were not resource-profiled; not total billing. No motion/full sequence exported."
+}

@@ -1,0 +1,25 @@
+{
+  "base": "d10f1217d5fec44819c39ac7a5da29e413c9cdd9",
+  "sourceSha256": {
+    "production/finish.js": "f1a01d9c2ed3ff30c7e4aa5bceafcb2c69ed13a44ff9c6c3faad18f35137295d",
+    "production/casting.js": "d4da659b8ca5e3e73155a2c37ed108a6d6fa7d07bdaaa8a85f6bde24b57b83ca",
+    "production/render.js": "0dd499289fbfa8c3a2d9e3cb6b04f636573cb7c8dddfeb49bcfe53c9c47dd3bf",
+    "production/reveal-effects.js": "67a4932f774d2777d4a38cf964a9becc1ad924341d9977f56de47de69dbcd934",
+    "scripts/p5-keyframes.js": "e1f575a83040d24ed24851c9c13d0a1791ac64c02c27f423f827060430bedc27",
+    "scripts/p5-sheet.py": "917c6dc0092e7d0fa2b8e7294054d55b1d590c70c39369ce31be01d6ae53fa87",
+    "scripts/counter-overlay.py": "1eecffdf3fc73824876f64745a7880b5f8d2d8989abdc67697bf590e506b9115",
+    "stories/names100/counter/p5-editorial.json": "269847605d24d89effc0985ea60c8cb031690434a45de8262bc003f162d6ca15"
+  },
+  "finishedPngSha256": {
+    "after-1528.png": "c9f9f3fa0622de76ac0711a9d05a0742e3616acb106941ab4d1512fba1567a6c",
+    "after-1628.png": "6beb9a17c25fbe2f8df7a93d5ddb162c06899824d11540730d86a79afae1eb97",
+    "after-700.png": "2d8b34a3200e3d0ebe9169f54b4f7e8dbde18d96174f71d9ecac54ff25aed9a7",
+    "before-after.png": "e0a58234ed652d7b3219345e7eb76b936cb74fc448c203139bff3268658e8895",
+    "phone-overview.png": "8c398bdfddf801026982ee33618500e4b649f69abdaa7ae0d9b04a1b5538c794",
+    "after-1392.png": "80cfffafbc115c0d3bad08de58268516748c4e3044ae299a5e088ab8c1e1b108",
+    "after-1529.png": "daf04ceb725b4e513c746d67b46effa3ece3cd01c0c9bcec6953b49f96318a9b"
+  },
+  "selectedNativePlatesMatchCaptureReceipt": true,
+  "beforeSources": "Unchanged genuine native P4 clean PNGs, composited with unchanged P4 counter and identical B/C caption tracks. Only boards are reduced; five after originals are native720x1280.",
+  "audioUsed": false
+}
