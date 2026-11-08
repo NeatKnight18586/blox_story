@@ -1,8 +1,8 @@
 """Arrange actual WebGL screenshots; labels identify frame/time, never alter renders."""
-import json, math
+import json, math, sys
 from PIL import Image, ImageDraw
 from pathlib import Path
-root=Path('evidence/f2a')
+root=Path(sys.argv[1] if len(sys.argv)>1 else 'evidence/f2a')
 manifest=json.loads((root/'manifest.json').read_text())
 for clip in manifest['clips']:
     for start in range(0,len(clip['frames']),24):

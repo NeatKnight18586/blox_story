@@ -61,3 +61,36 @@ Reviewed the 14 sheets frame by frame: subtle idle motion, clear restrained turn
 
 ### Limits
 This is F2A PASS, not full F2 acceptance: no walk/root travel/stance solver. Legacy walk_demo is unchanged. Native iPad/Safari GPU execution is not verified; vertical responsive Chromium is. Pixel determinism was verified within the tested browser/GPU backend, not promised across GPU vendors. Interrupted snapshot blends preserve pose continuity but do not promise matched incoming velocity; ordinary progressing-source transitions match endpoint velocity. The lightweight F1 directional-shadow style remains. No MP4, audio, environment or story system was added. Submit the implementation PR for review; do not auto-merge or start F2B.
+
+## F2A integration / F2B1 standalone walk — PASS within this scope
+PR #3 was reviewed against main and its F1/F2A tests re-run successfully: `npm test`, `npm run test:browser`, `npm run test:motion`. Confirmed all 310 F2A evidence files, genuine frame/manifest content and clean regeneration before merging; inspected representative reaction/transition/mobile evidence again. GitHub reported clean/mergeable. Merged with commit preservation at `bcdf18b892611c2eca3a8106baea2bd4e30df414`, retaining `7fbe933`. F2B1 branch was created from that updated main. No force push or loss of F1/F2A work.
+
+### Foundation implemented
+Standalone `sampleAction('walk', t)` reuses the sampling/application API. Period 1.2s, forward travel .4022328542 units/cycle, hip swings ±.05 rad with opposite arm swings. Root height is computed from a cached profile of the actual beveled leg geometry; horizontal travel locks a fixed material point on each support edge. Contact metadata exposes support leg, fixed anchor, edge, interval, swing leg/clearance and handoff rules.
+
+Mirrored rigid legs alone have identical bottom heights and cannot provide swing clearance. The smallest used correction is .045 units of vertical lift at the existing swing hip (within the unchanged .05 target). No new joint/body mesh, leg stretching or new dependency. Factory records neutral pivot positions; action application and legacy poses reset the offsets. Origin yaw rotates displacement rather than accumulating it on the previous frame.
+
+Rear-to-front support-edge handoff occurs at a fully flat sole; its two anchors differ by the actual .96 sole depth. This is explicitly logged, not presented as one contact magically moving .96 units. Support leg swaps every .6s with both soles touching at the handoff instant. Stance drift is measured against the fixed material point over each complete edge interval, including boundary frames. Actual transformed mesh vertices independently check penetration, contact height and swing clearance.
+
+### Executed tests and measurements
+- `npm test`: F1 and F2A tests plus new real-geometry walk tests PASS. 434 samples across four cycles at 30/60fps; fixed anchors, clearance, root/pose continuity, monotonic forward travel, endpoint velocity joins, deterministic shuffled seeking (including t=1e6), origin yaw, all faces/cap variants, object identity and full offset reset tested. Unsupported walking transitions throw. The single old F2A invalid-name assertion changed from `walk` to `run` because `walk` is now supported; all other existing F1/F2A assertions remain intact.
+- `npm run test:browser` and `npm run test:motion`: PASS again on the completed branch. Genuine F1 and F2A WebGL rendering, 285 deterministic F2A frames and control tests preserved; no page errors. F1 stills and F2A motion/face/vertical assets regenerate identically. Only the UI screenshot text/options changed; the new tested UI is retained under F2B1 and the original F2A UI archive is preserved.
+- `npm run test:walk`: PASS in Chromium 141.0.7390.37 / WebGL 2.0 ANGLE/SwiftShader. Two cycles, side and three-quarter views: 146 captured frames, reverse-order pixel-exact re-sampling, plus 436 actual-geometry measurements over 30/60fps and matching pixels at shared timestamps. Root/pivot/mesh references retained. Controls and reset back to idle tested. 390×693 and 720×1280 genuine vertical canvas captures completed.
+
+Browser measurements (world units; errors here are floating-point roundoff):
+
+| Measure | Maximum | RMS | Spec maximum |
+| --- | ---: | ---: | ---: |
+| Stance material-point horizontal drift | 1.11e-16 | 3.01e-17 | .03 |
+| Body penetration below ground | 2.22e-16 | 1.27e-16 | .01 |
+| Support contact/sole-height error | 2.22e-16 | 1.96e-16 | .02 |
+
+Measured swing clearance: 0 at touchdown/liftoff, maximum .045. Hip correction maximum .045. Independent four-cycle real-module tests found maximum drift/penetration/contact errors no larger than 4.45e-16; full precision in `api-metrics.json`.
+
+### Genuine visual evidence and review
+`evidence/f2b1/manifest.json`: commands/browser sampling context, every captured timestamp, fixed edge/anchor/interval metadata and browser max/RMS metrics. `api-metrics.json`: independent real-module 30/60fps metrics. Eight `sheet-side-*` / `sheet-threequarter-*` PNG sheets contain every captured frame, labeled by index/time, assembled with `python3 tests/contact-sheets.py evidence/f2b1`. Selected stance/swing/handoff stills, both vertical captures and current mobile controls are committed. Raw 146 PNG sequences regenerate into a Git-ignored frames directory; they are not duplicated in Git, limiting screenshot accumulation.
+
+Inspected all eight sheets frame by frame and both vertical views: stable grounded support, small visible swing lift, coordinated opposite limbs, no obvious sliding, hovering or severe clipping; six-part silhouette and oval head remain intact. Hip overlap stays within the joint region. Initial fixed framing clipped an arm near the end of travel; camera width/center was corrected and both walk views/captures re-run and reviewed. Source syntax and `git diff --check` passed.
+
+### Limits / next review boundary
+F2B1 PASS is for the conservative standalone foundation, not full F2. It intentionally resembles short shuffling steps, with smooth zero-velocity instants at flat-foot/foot-swap boundaries; it is not a natural long stride, continuous-speed gait or physics simulation. Appearance remains compatible, but native iPad/Safari is unverified. Fixed inspector framing covers the first two cycles; unbounded root travel is supported by the sampler, not an automatic camera-follow system. Walk selection/exit uses a cut and `sampleTransition` rejects walk; no walking transitions were implemented. No tolerances were loosened, anatomical redesign, framework, F3, story, audio or MP4. Submit the F2B1 PR and stop for review.
