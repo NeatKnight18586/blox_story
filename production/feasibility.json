@@ -1,0 +1,111 @@
+{
+  "version": 1,
+  "title": "The light chest",
+  "width": 720,
+  "height": 1280,
+  "fps": 30,
+  "environment": "light-workshop",
+  "prop": {
+    "kind": "proximity-chest",
+    "position": [
+      0,
+      1.61,
+      3
+    ],
+    "triggerFrame": 136,
+    "openFrames": 24,
+    "radius": 1.5
+  },
+  "shots": [
+    {
+      "id": "notice",
+      "start": 0,
+      "end": 60,
+      "camera": {
+        "position": [
+          9,
+          8,
+          14
+        ],
+        "target": [
+          0,
+          2.25,
+          1.2
+        ],
+        "fov": 40
+      },
+      "action": {
+        "name": "idle",
+        "options": {}
+      },
+      "origin": {
+        "position": [
+          0,
+          0,
+          0
+        ],
+        "yaw": 0
+      },
+      "face": "classic_smile"
+    },
+    {
+      "id": "approach",
+      "start": 60,
+      "end": 132,
+      "camera": {
+        "position": [
+          13.5,
+          3.5,
+          1.55
+        ],
+        "target": [
+          0,
+          2.55,
+          1.55
+        ],
+        "fov": 38
+      },
+      "action": {
+        "name": "walk",
+        "options": {
+          "gait": "readable"
+        }
+      },
+      "origin": {
+        "position": [
+          0,
+          0,
+          0
+        ],
+        "yaw": 0
+      },
+      "face": "classic_smile"
+    },
+    {
+      "id": "discovery",
+      "start": 132,
+      "end": 216,
+      "camera": {
+        "position": [
+          -3.5,
+          5.6,
+          6.8
+        ],
+        "target": [
+          0,
+          3.05,
+          2.45
+        ],
+        "fov": 47
+      },
+      "action": {
+        "name": "look_react",
+        "options": {
+          "direction": "right"
+        }
+      },
+      "originFromEndOf": "approach",
+      "face": "classic_smile"
+    }
+  ]
+}
