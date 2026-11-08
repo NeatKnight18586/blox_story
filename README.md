@@ -1,3 +1,11 @@
+# P5 — bounded three-issue finish review
+
+PR16 merged after verification. P5 still gate **PASS**, pending creative approval: softer shadows, coherent ghost wardrobe surfaces, and charcoal ending counter. [Five paired comparisons](evidence/names100-p5/before-after.png) · [Phone overview](evidence/names100-p5/phone-overview.png) · [Native originals,tests,commands,costs and limits](evidence/names100-p5/REPORT.md).
+
+Opt in with `finish:"p5"` on existing v3 S1 shot JSON; retain `counterMode:"clean"` and compose the separate `counter/generated/p5-editorial.ass`. Existing inputs, legacy visuals/counter, white captions and narration are preserved. `npm run proof:finish` captures only five specified native stills; `npm run test:finish` verifies source, WebGL seeking and overlay evidence. No full episode or motion export. Stop for human approval; no further general polishing phase.
+
+Earlier milestones follow.
+
 # Current review — P4 counter and native finish proof
 
 **PARTIAL overall: counter/timing/legacy/native checks PASS; production finish awaits art approval.** PR #15 was verified and merged preserving history. [Five counter comparisons](evidence/names100-p4/counter-comparison.png) · [Three-scene native look board](evidence/names100-p4/native-look-board.png) · [true720p originals,tests,costs and limits](evidence/names100-p4/REPORT.md).

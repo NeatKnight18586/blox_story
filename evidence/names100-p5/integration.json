@@ -1,0 +1,15 @@
+{
+  "pr": 16,
+  "reviewedHead": "cc623120f54968c7cc87d6ce6828a872fedc9e19",
+  "merged": true,
+  "mergeCommit": "d10f1217d5fec44819c39ac7a5da29e413c9cdd9",
+  "mergedAt": "2026-11-08T23:28:38Z",
+  "premergeCommands": [
+    "npm test",
+    "npm run test:counter",
+    "python3 tests/captions.py",
+    "node tests/performance-motion.js"
+  ],
+  "status": "PASS",
+  "visualReview": "Viewed both actual P4 boards and reviewed source/native framebuffer/repetition receipts. P4 recorded finish limitations were explicit; current user/P5 brief accepts its counter direction and specifically authorizes those fixes. No unrecorded art lock claimed."
+}
