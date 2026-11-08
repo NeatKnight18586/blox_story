@@ -1,0 +1,20 @@
+{
+  "status": "PASS",
+  "sharedSamples": 232,
+  "allSharedPixelsIdentical": true,
+  "engineHashSame": true,
+  "draft15": {
+    "frames": 232,
+    "fps": 15,
+    "paddingNativeFrames": 1,
+    "first99GlobalFrame": 790
+  },
+  "review30": {
+    "frames": 463,
+    "fps": 30,
+    "paddingNativeFrames": 0,
+    "first99GlobalFrame": 789,
+    "globalStart": 482,
+    "globalEndExclusive": 945
+  }
+}

@@ -1,0 +1,74 @@
+[
+  {
+    "film": "casting",
+    "frames": 360,
+    "status": "PASS",
+    "allPixelsIdentical": true,
+    "mp4ByteIdentical": true,
+    "mp4Sha256": "074bad369f9a8e08400c6c2512adcb2b96fd2b0b7d0d2900de5b768a38775e1a",
+    "engineSha256": "8dfb581c398d776ec5ae631ad0b2d5a51af4cc8d63f726839c3701daf6ff5508",
+    "timings": {
+      "captureSeconds": 126.805008993,
+      "repeatSeconds": 125.196933768,
+      "encodeSeconds": 3.3218930300000067,
+      "verificationSeconds": 1.8726676830000069,
+      "totalSeconds": 258.07111376
+    },
+    "resources": {
+      "availableParallelism": 2,
+      "ffmpegThreads": 2,
+      "rssMethod": "1-second sampled summed exporter/browser/server/encoder process-tree RSS; shared pages counted per process",
+      "frameBytes": 47641965,
+      "mp4Bytes": 580939,
+      "peakSampledSubtreeRssMiB": 1135.375
+    }
+  },
+  {
+    "film": "feasibility",
+    "frames": 216,
+    "status": "PASS",
+    "allPixelsIdentical": true,
+    "mp4ByteIdentical": true,
+    "mp4Sha256": "199c28761075fa75f9c3cf9c2dda5879a8369135b7d6f7b925f8d689a228e59f",
+    "engineSha256": "8dfb581c398d776ec5ae631ad0b2d5a51af4cc8d63f726839c3701daf6ff5508",
+    "timings": {
+      "captureSeconds": 76.99925856899999,
+      "repeatSeconds": 76.48580568399998,
+      "encodeSeconds": 1.9856788130000058,
+      "verificationSeconds": 1.4663411259999848,
+      "totalSeconds": 157.571088876
+    },
+    "resources": {
+      "availableParallelism": 2,
+      "ffmpegThreads": 2,
+      "rssMethod": "1-second sampled summed exporter/browser/server/encoder process-tree RSS; shared pages counted per process",
+      "frameBytes": 35175794,
+      "mp4Bytes": 341412,
+      "peakSampledSubtreeRssMiB": 1247.3125
+    }
+  },
+  {
+    "film": "not-today",
+    "frames": 120,
+    "status": "PASS",
+    "allPixelsIdentical": true,
+    "mp4ByteIdentical": true,
+    "mp4Sha256": "90570c9700094e859c3489bddad4a6bfe091bd3101542b43632e60cde56c5872",
+    "engineSha256": "8dfb581c398d776ec5ae631ad0b2d5a51af4cc8d63f726839c3701daf6ff5508",
+    "timings": {
+      "captureSeconds": 44.805006506000005,
+      "repeatSeconds": 44.141457033,
+      "encodeSeconds": 1.4731459290000057,
+      "verificationSeconds": 1.3297663099999917,
+      "totalSeconds": 92.32488660300001
+    },
+    "resources": {
+      "availableParallelism": 2,
+      "ffmpegThreads": 2,
+      "rssMethod": "1-second sampled summed exporter/browser/server/encoder process-tree RSS; shared pages counted per process",
+      "frameBytes": 21806644,
+      "mp4Bytes": 304647,
+      "peakSampledSubtreeRssMiB": 1030.8203125
+    }
+  }
+]
