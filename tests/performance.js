@@ -36,6 +36,8 @@ for(const [start,end] of sequences){let previous;
 for(const g of [...samples.keys()].sort((a,b)=>(a*37%509)-(b*37%509)))assert.deepEqual(at(g),samples.get(g),'Random access must reset every modified transform');
 assert.deepEqual(all.flatMap(a=>[...Object.values(a.parts),...Object.values(a.pivots)]),refs);
 assert(maxAdjacentDelta<.15,`Sudden within-shot jump ${maxAdjacentDelta}`);
+// This gesture must not swivel or translate the planted legs during S22/S23.
+let planted;for(let g=1490;g<1641;g++){at(g);eli.root.updateMatrixWorld(true);const feet=['leftLeg','rightLeg'].flatMap(n=>eli.parts[n].matrixWorld.toArray());if(!planted)planted=feet;assert.deepEqual(feet,planted,'Final reaction keeps both planted legs fixed');}
 let maxChildSupportError=0;const point=new Vector3();
 for(let g=1296;g<1371;g++){
  at(g);const child=residents[1];child.root.updateMatrixWorld(true);let lowest=Infinity;

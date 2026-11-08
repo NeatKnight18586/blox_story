@@ -1,20 +1,15 @@
 {
-  "status": "AUDIO REVIEW BLOCKED",
-  "originalWavAccessible": false,
-  "rootsChecked": [
-    "/workspace/library-files",
-    "/workspace/shared",
-    "/workspace/scratch",
-    "/workspace/blox_story"
-  ],
-  "localAudioFiles": [],
-  "attachmentReferenceProvided": false,
-  "narratedReviewCreated": false,
+  "status": "AVAILABLE AND VERIFIED; perceptual listening unavailable",
+  "originalWavAccessible": true,
+  "originalWavCommitted": false,
+  "originalWavSha256": "3d5e0a116971d3d17a7c3adac79423e443d63040b2120be7562a0660f22b4ae4",
+  "narratedReviewCreated": true,
   "audioGenerated": false,
   "audioStretched": false,
   "listeningPerformed": false,
-  "motionGate": "NOT RUN: narration gate blocked",
-  "expectedSamplesFromBrief": 2411520,
-  "expectedSampleRateFromBrief": 44100,
-  "expectedDurationSecondsFromBrief": 54.68299319727891
+  "technicalAudioVerification": "PASS",
+  "originalSamplesPerChannel": 2411520,
+  "sampleRate": 44100,
+  "channels": 2,
+  "fullEpisodeRerendered": false
 }

@@ -1,5 +1,5 @@
-// Bounded names100 directing pass. All onsets are provisional written-cue frames
-// until the original WAV is accessible. No new rig or general action engine.
+// Bounded names100 directing pass, on the original native narration clock.
+// Perceptual audio review remains separate; no new rig or action engine.
 import {ease} from './ending-cues.js';
 import {applyActionSample,sampleAction} from '../avatar/actions.js';
 const ramp=(g,a,b)=>ease((g-a)/(b-a));
@@ -34,8 +34,8 @@ export function applyEndingPerformance(g,eli,mara,residents){
  // Hold the greeting across zero and the cut, then withdraw after no response.
  const wave=ramp(g,1493,1517)*(1-ramp(g,1580,1622));
  eli.pivots.rightShoulder.rotation.set(-1.25*wave,0,.5*wave);
- eli.root.rotation.y=2.8-1.4*ramp(g,1580,1622);
- eli.pivots.head.rotation.set(.03+.22*ramp(g,1580,1634),-.04-.51*ramp(g,1580,1622),0);
+ eli.root.rotation.y=2.8;
+ eli.pivots.head.rotation.set(.03+.22*ramp(g,1580,1634),-.04+1.44*ramp(g,1580,1622),0);
  // She looks past Eli, then back to the connected family, without acknowledgment.
  const pass=ramp(g,1546,1562),away=ramp(g,1562,1590);
  mara.root.rotation.y=-.36+1.16*away;

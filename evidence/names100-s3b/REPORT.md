@@ -1,53 +1,75 @@
-# S3B — provisional performance stills
+# S3B — original narration and three performance proofs
 
-**PARTIAL overall. Technical source/still checks PASS. Audio review BLOCKED; final creative/timing approval and new motion previews NOT completed.** The WAV mentioned in the request is not accessible in this task. Per the [brief's missing-audio fallback](../../stories/names100/S3B_PERFORMANCE_BRIEF.md), this branch stops at provisional written-cue keyframes. No replacement voice, narrated review copy, new MP4 or episode render.
+**Technical PASS; creative/audio approval PARTIAL.** The supplied original WAV is now verified and used, replacing the earlier missing-file blocker. Twelve paired stills and three bounded motion proofs are complete. Narration timing, decoding and actual browser audio playback are verified; **genuine perceptual listening is unavailable in this interface**. No claim of listening, phoneme alignment, audience engagement or final creative approval. No complete episode or final-resolution render.
 
-## Integration and scope
+## Watch / compare
 
-PR [#14](https://github.com/NeatKnight18586/blox_story/pull/14) contained only review documentation/evidence. Reviewed its diff, reran `npm test`, checked the actual S2 movie hash against its recorded821-frame/22-cut/native-playback verification, and merged with commit `80f592cb4df06693e28b8c41c00195eb66fc9989`, preserving `8d20670` and the user's brief `d23557e`. [Review receipt](pr14-review.json), [premerge test log](pr14-regressions.log). The video verification itself was not redundantly rerun for documentation-only changes.
+| Target; native interval | Silent motion / decoded contact sheet | Before/after | Result and limitation |
+|---|---|---|---|
+| A — shy greeting; [320,482) | [5.4s /81 frames](A-motion.mp4) · [sheet](A-contact.png) | [A](A-comparison.png) | Contact → averted gaze → raised/withdrawn half-wave,100 retained. Clearer social action; rigid straight arm remains a tentative reach rather than an articulated wave. |
+| B — reunion; [1296,1490) | [6.4667s /97 frames](B-motion.mp4) · [sheet](B-contact.png) | [B](B-comparison.png) | Existing small resident approaches, reciprocal attention/contact develops, Mara approaches in a reverse, completed wide retains isolated Eli. Child face/contact is small at mobile draft resolution; no new run/hug engine. |
+| C — forgotten; [1490,1641) | [5.0667s /76 frames](C-motion.mp4) · [sheet](C-contact.png) | [C](C-comparison.png) | Tentative hand held across zero, Mara turns back to family, hand/head withdraw; ghostlike body and shadow retained. Corrected side composition shows both leads; final turn uses head only, with both legs fixed. Recognition intent remains subtle and needs user/audio creative review. |
 
-Branch `codex/names100-s3b-performance` adds only opt-in `visuals: "s3b"` scene variants and a small story-specific directing helper. Existing `roughcut.json`, S2 scene files, source animation APIs, gaits, rigs, expressions, appearances and previous tests are unchanged. The helper uses the original pivots and existing explicit-time readable gait; it is not a second action engine. The original rough cut still uses the original S2 variants.
+254 final frames at180×320/15fps, genuine Three.js/SwiftShader. All254 decoded output frames inspected through local-only labeled sheets, not just selected midposes. All254 inputs reverse pixel/state matched;18 additional out-of-order WebGL seeks match current-source movie inputs, including cast/resident root/part/pivot/geometry/material identities. Final C was rerendered alone after a visible planted-foot swivel was removed; A/B were reused and validated with the corrected runtime.
 
-| Target | Provisional change | Actual evidence / remaining judgment |
-|---|---|---|
-| A, S05–06 [320,482) | Turn toward receptive neighbor, avert gaze, widen for a raised/withdrawn half-wave; counter100 retained. | [Before/after A](A-comparison.png), native stills334/427/474. Gesture now visible; rigid straight arm reads more as a tentative reach than an articulated wave. Vocal pacing and motion readability pending. |
-| B, S18–21 [1296,1490) | Existing small resident approaches with scaled readable walk; adult/child look and restrained arm contact develop at reunion. Reverse angle isolates coral Mara's recognition/approach, then retain completed wide with Eli outside the group. | [Before/after B](B-comparison.png),1300/1366/1388/1420/1470. Separation and shot variety clearer. Child's face is small and partly in profile; strength of emotional connection requires motion/user review. |
-| C, S22–23 [1490,1641) | Eli faces Mara, holds a tentative hand across exact zero, then lowers it while she turns toward family; final Eli remains ghostlike and grounded. | [Before/after C](C-comparison.png),1490/1528/1562/1628. Hand and counter are visible before zero; final gesture echoes A. Early S23 shows Eli's back/side, and this wide alone does not conclusively prove failed recognition. Creative acceptance remains PARTIAL. |
+## Original audio / t=0 review
 
-C's reverse insert uses the existing fill light from the camera side and moves its existing enlarged counter above the eyes; otherwise that overlay covered the new camera's face. No new light, exposure stack, prop, expression, character, outfit, environment, rig or dependency. All choices are provisional, not a claim of better retention or final cinematic approval.
+Input matches the brief exactly: **stereo PCM16,44,100Hz,2,411,520 samples/channel,54.682993197s**,9,646,158 bytes. WAV SHA256 `3d5e0a116971d3d17a7c3adac79423e443d63040b2120be7562a0660f22b4ae4`. Source byte hash is unchanged after all work. Original WAV and every voiced review file stay outside Git and were not uploaded to a public service.
 
-## Gates and verification
+A temporary narrated copy of the **existing** S2 movie was made with video stream copy and AAC audio, both streams starting0. No gain, resampling, tempo or narration-generation filters. The compressed video packets match S2 exactly: this was muxing, not rebuilding the episode. Full821-frame decode/PTS/22 cut keyframes/native playback pass. Browser WebAudio confirms unmuted nonzero audio in all three target windows. AAC decoded PCM has0.999456 zero-lag cosine correlation with the source (lossy codec, not bit-identical audio). Native draft ends54.733333s,50.340ms after the source; native story ends54.700s,17.007ms after it. No audio stretching or tail replacement.
 
-| Gate | Result |
+Private task artifacts (transient local paths, not GitHub media):
+
+- Full original narrated S2 review: `/tmp/names100-s3b-audio-review/s2-original-narration.mp4`.
+- `/tmp/names100-s3b-audio-review/{A,B,C}-with-original-narration.mp4`.
+
+Excerpt audio uses exact original sample slices, not approximate input seeking: A starts470400, B1905120, C2190300; all streams reset to0 within their clips. C ends at source sample2411520 and retains the same50.340ms video tail. Only `atrim`/timestamp reset is used for excerpts; source WAV unchanged. All three private voiced files pass actual native H.264/AAC playback/full decode/PTS/cuts, with identical video packets to their silent counterparts. [Source/mux verification](audio-verification.json), [unmuted browser signal check](audio-browser.json), [sample offsets/commands](voiced-excerpts.json), [voiced playback](voiced-playback.json).
+
+### Bounded timing review
+
+These are checks against the written phrase windows plus actual sample clock/playback/energy, **not newly heard words or phoneme measurements**. No narration/cuts were retimed.
+
+| Action | Locked timing / specific observation |
 |---|---|
-| Narrated existing S2 review at t=0 | **BLOCKED.** No accessible local WAV/audio attachment reference; no genuine listening or sync claim. [Availability receipt](audio-availability.json). Brief's2,411,520 samples/44,100Hz/54.6829932s remain supplied expectations, not newly measured audio. |
-| Selective stills | **Technical PASS, creative PARTIAL.**12 genuine360×640 Three.js/SwiftShader stills, same-time baseline comparisons at180×320 mobile size, reverse pixel/state/transform checks and persistent six-part identity. Provisional fallback only; does not bypass audio approval. |
-| Short motion previews, three bounded scenes | **NOT RUN.** Narration gate blocked and creative still review not fully approved. No new H.264 clip or full-episode export. |
-| Regression and preservation | **PASS within executed scope.** Commands/logs below, original evidence preserved, three actual baseline PNG golden matches. Whole821-frame pixel rerender deliberately not performed. |
+| A half-wave |405–472 =13.500–15.733s; rise/hold/retreat spans the supplied13.50–15.69 shy phrase. Do not retime its ending by ear without listening approval. |
+| B attention/contact |1371–1396 =45.700–46.533s; shared attention precedes contact within supplied45.91–46.70 reunion phrase. Small acting within a short slot remains the limit, not a reason for a new hug/run system. |
+| C intent / withdrawal |Hand rises1493–1517 =49.767–50.567s, held through1529 zero; lowers1580–1622 =52.667–54.067s under the supplied52.69–54.46 final phrase. The first part of the final wide deliberately holds no acknowledgment before withdrawal. |
+| Odd-frame events |Protected789/890–926/1529 and countdown1210/1236/1261/1278 unchanged. Even-frame preview first shows zero1530,33.333ms after native1529, never early. B's1371 cut similarly displays at1372. |
+
+Listening remains the only uncompleted audio review capability: measured signal and supported playback cannot establish delivery, emotion or whether the narration makes a pause feel too long. User creative review remains required; overall PARTIAL.
+
+## Validation, preservation and reproduction
+
+PR [#14](https://github.com/NeatKnight18586/blox_story/pull/14) was reviewed, source tests/hash/evidence checked, then merged at `80f592cb4df06693e28b8c41c00195eb66fc9989` preserving its commit and the user's brief. Existing roughcut/S2 inputs, F1 rig/head/appearance, F2A/both gaits and foundational tests remain unchanged. Small opt-in S3B variants/directing helper reuse the same renderer. C's existing fill/HUD were repositioned for the reverse insert; no new assets, lights, expressions, dependency, wardrobe or action engine.
 
 ```sh
 npm test
 node tests/roughcut-framing.js
 npm run test:ending -- --motion
-npm run test:performance  # source tests + 12 paired WebGL stills + boards; no video
+npm run test:performance                    #12 paired360×640 stills and boards
+node scripts/render-performance.js          #only A/B/C180×320/15fps proofs
+node tests/performance-motion.js             #18 actual random browser seeks
+# Optional ending-only repair, preserving original full pass receipt:
+node scripts/render-performance.js C
 ```
 
-[Actual regression log](regressions.log), [keyframe verification](keyframes.json), [keyframe command log](keyframes.log). Source tests compare all223 shy and696 ending samples against S2: original cuts, counter/clock/restoration/forgetting values unchanged, non-target scenes unchanged. Actual Three.js transform tests seek every target frame in shuffled order with unchanged part/pivot references. Maximum adjacent scalar transform delta within shots0.084993 (world units or radians depending on component), not a perceptual-motion certificate. All75 child approach frames retain actual-vertex support error ≤3.34e-16 world units after scale-aware root travel. No new walking transitions.
+The bounded coordinator delegates output ownership/locking/atomic writes, H.264 encoding, decode/PTS/cut/native-player verification and contact sheets to existing P1 helpers. It cannot select a full episode or final resolution. For a C-only run, its separate `last-run-C.json` preserves the full-pass receipt; this review's current aggregate reuses A/B and the corrected C. Do not automatically export the complete roughcut to apply these changes.
 
-Browser checks: twelve final candidate frames and their baseline pairs; repeat pixels/states/head/hand transforms in reverse order, explicit1528→1529 counter boundary, original six-part bodies, body minimum Y≥0, torso AABB overlap0 in selected candidate stills, Eli opacity≥.78 and shadow casting retained. Both pre-zero eyes have clear 3D sightlines and raised hand fits the frame. Actual images also reviewed for HUD overlap, which 3D ray tests alone do not detect. Baseline S05 g359, S19 g1392 and S23 g1600 hashes still exactly match saved S2 images. Existing WebGL ending motion and S2 cold transparency/eye tests pass. No claim of full new-motion clipping/acting certification or native iPad/Safari testing.
+Source tests compare all223 shy/696 ending cue samples and exact cuts against S2; all non-target scenes unchanged. Actual Three.js seeking checks every target transform in shuffled order; max within-shot scalar delta.084993 (mixed world units/radians, not a perceptual certificate). Scaled child's support error ≤3.34e-16 across all75 approach frames. New strict matrix checks keep both Eli legs fixed for all151 final native frames. Browser still checks include pre-zero eyes/hand, both ending faces inside the frame and final Eli eye sightlines. Selected torso AABB overlap0/body minimumY≥0; full limb-contact realism is not claimed. Three original target S2 PNG golden hashes still match. An additional baseline/S3B bedroom992 comparison matches the saved S2 golden after extending the original bedroom style guard to S3B; this prevents an unrelated look change before the approved windows.
 
-[Preservation receipt](preservation.json): all593 previous evidence files and all nine MP4s byte-identical; avatar/appearance source, original tests, original S2 inputs and lockfile unchanged. The old motion-seek test rewrites one decoded-equivalent report; its original bytes were restored. No raw comparison frames/cache committed; baseline stills stay under ignored `renders/`. Only12 candidate stills and three compact boards retained.
+[Original regressions](completion-regressions.log), [final source tests](final-source.log), [selective stills](keyframes.json), [random seeking](motion-random-seeking.json), individual A/B/C motion manifests, [current fingerprints](source-fingerprints.json). Existing WebGL ending motion and cold transparency/eye tests pass. [Preservation receipt](preservation.json): all593 prior evidence files and nine prior films byte-identical. Only new silent proofs/compact evidence are committed; raw frames/cache remain ignored. Earlier provisional stills/costs remain in Git history. No whole821-frame pixel rerender or native iPad/Safari certification. The final global engine fingerprint differs from the export fingerprint only by that bedroom guard: all254 exported inputs are outside the changed branch; current-runtime random seeks still match the film inputs. This is explicitly recorded, rather than relabeling old export fingerprints as new.
 
-## Actual costs and remaining limits
+## Measured cost / stop point
 
-[All measured attempts](costs.json), not just the final pass:
+[Completion measurements](completion-costs.json); [earlier provisional measurements](costs.json) retained separately.
 
-| Operation | Wall | Sampled CPU | Sampled peak summed RSS |
+| Completion operation | Wall | Sampled CPU | Peak sampled summed RSS |
 |---|---:|---:|---:|
-| Five bounded keyframe passes, including camera/occlusion/HUD repairs |90.438s total|164.62s total|664.61MiB peak |
-| Final keyframe pass alone |17.441s|31.69s|661.27MiB |
-| Two affected regression passes |35.116s total|51.11s total|662.98MiB peak |
+| Two ending-composition still passes, including clearance correction |35.864s|64.85s|662.95MiB |
+| Initial three bounded proof exports/verification |78.825s|147.01s|1196.27MiB |
+| Ending-only planted-foot correction/export |22.294s|41.32s|1159.19MiB |
+| Affected source/WebGL regressions |17.495s|25.40s|674.60MiB |
 
-The initial pass revealed edge cropping and an obscured reverse. Repairs also exposed camera collisions with foreground avatars and the HUD covering Eli's eyes; those failed compositions were corrected rather than accepted on numeric checks. These iterations cost more than a single still pass; no motion rendering was used to explore them. Sampling0.2s may miss short processes; summed RSS counts shared pages per process. PR14 preflight, separate source-only runs, board assembly and assistant time were not resource-profiled; these are command costs, not a total bill. No new MP4 encode/full-film render cost incurred.
+Original review mux/probe/decode/packet checks2.509s wall. Earlier provisional work cost90.438s still passes +35.116s regressions; not hidden by reporting only final attempts. Targeted payoff still, later random-seek/source checks, voiced mux/playback and sheet assembly were not resource-profiled. Sampling0.2s can miss short processes; summed RSS counts shared pages. These are command measurements, not total assistant time/API cost. No full episode/final-resolution render.
 
-**Next blocker:** make the original WAV accessible to this task, verify its actual sample count/hash, mux the unchanged existing S2 video with narration at t=0 outside Git, and genuinely review it with audio (report listening limitations). Then confirm these three provisional performances and only if approved make their bounded previews with global audio offsets. Do not retime narration/cuts or export the full episode here. Current final creative status remains PARTIAL, especially S23's recognition read; stop for review rather than assert PASS.
+**Stop for PR/user review.** Technically verified original narration and bounded proofs are available. Perceptual listening and emotional acceptance remain incomplete; do not mark final creative PASS, merge automatically or proceed to final episode rendering.

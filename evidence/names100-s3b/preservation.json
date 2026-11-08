@@ -44,5 +44,9 @@
   "avatarAppearanceAndGaitsUnchanged": true,
   "originalSceneInputsAndRoughcutUnchanged": true,
   "episodeRendered": false,
-  "newMp4Produced": false
+  "newMp4Produced": true,
+  "newPreviewClips": 3,
+  "originalNarrationVerifiedAndUnchanged": true,
+  "originalNarrationCommitted": false,
+  "priorNineMoviesUnchanged": true
 }

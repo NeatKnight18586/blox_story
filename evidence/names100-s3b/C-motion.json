@@ -1,0 +1,7390 @@
+{
+  "id": "C",
+  "width": 180,
+  "height": 320,
+  "fps": 15,
+  "frameCount": 76,
+  "shots": [
+    {
+      "id": "zero",
+      "start": 0,
+      "end": 28,
+      "camera": {
+        "position": [
+          -3.5,
+          5,
+          -3
+        ],
+        "target": [
+          -2.8,
+          3.4,
+          3.5
+        ],
+        "fov": 54
+      },
+      "composition": null
+    },
+    {
+      "id": "forgotten",
+      "start": 28,
+      "end": 76,
+      "camera": {
+        "position": [
+          -21,
+          5.3,
+          7.5
+        ],
+        "target": [
+          -0.9,
+          2.6,
+          1
+        ],
+        "fov": 54
+      },
+      "composition": null
+    }
+  ],
+  "nativeStart": 1490,
+  "nativeEnd": 1641,
+  "sourceStart": 945,
+  "inputSha256": "82f6d3bb2d2e6bc00eb10de368e2618ba3ea34f7f34143c7a4af405d48f3e07d",
+  "result": "renders/names100-s3b-motion/C-8db12b7e-2a0d-4259-85a0-6b690430b214",
+  "frames": [
+    {
+      "globalFrame": 1490,
+      "file": "frame-00000.png",
+      "sha256": "096b90215730809424eeec4ec00257ef2a12916b8a9d7c722422839fe8301567",
+      "state": {
+        "frame": 545,
+        "shot": "zero",
+        "time": 18.166666666666668,
+        "propOpen": null,
+        "camera": {
+          "position": [
+            -3.5,
+            5,
+            -3
+          ],
+          "target": [
+            -2.8,
+            3.4,
+            3.5
+          ],
+          "fov": 54
+        },
+        "actorPosition": [
+          -2.4,
+          0,
+          4
+        ],
+        "propStates": {},
+        "ending": {
+          "globalFrame": 1490,
+          "globalTime": 49.666666666666664,
+          "counter": 1,
+          "counterEmphasis": true,
+          "whisper": false,
+          "location": "courtyard",
+          "doorOpen": 1,
+          "sunrise": 1,
+          "forgotten": 0,
+          "adultRestored": 1,
+          "childRestored": 1
+        },
+        "actors": {
+          "eli": {
+            "position": [
+              -2.4,
+              0,
+              4
+            ],
+            "face": "thoughtful",
+            "appearance": {
+              "color": "#d2d5d6",
+              "pieces": {
+                "head": "#e7c5a2",
+                "leftArm": "#e7c5a2",
+                "rightArm": "#e7c5a2",
+                "leftLeg": "#31485c",
+                "rightLeg": "#31485c"
+              },
+              "cosmetic": "cap",
+              "hair": null,
+              "hairColor": 4204831,
+              "clothing": "vest",
+              "clothingColor": "#216d85"
+            },
+            "torsoVariant": "classic"
+          },
+          "mara": {
+            "position": [
+              0.7198400438976718,
+              0,
+              -3.500880839233703
+            ],
+            "face": "relieved",
+            "appearance": {
+              "color": "#d2d5d6",
+              "pieces": {
+                "head": "#d6af86",
+                "leftArm": "#d6af86",
+                "rightArm": "#d6af86",
+                "leftLeg": "#34374c",
+                "rightLeg": "#34374c"
+              },
+              "cosmetic": null,
+              "hair": "bob",
+              "hairColor": "#40291f",
+              "clothing": "vest",
+              "clothingColor": "#be5b46"
+            },
+            "torsoVariant": "tapered"
+          }
+        },
+        "identity": true
+      }
+    },
+    {
+      "globalFrame": 1492,
+      "file": "frame-00001.png",
+      "sha256": "421ae90b2ca9664d49ae5043074c538bb99b12755c53eb8288897b77bb3ab597",
+      "state": {
+        "frame": 547,
+        "shot": "zero",
+        "time": 18.233333333333334,
+        "propOpen": null,
+        "camera": {
+          "position": [
+            -3.5,
+            5,
+            -3
+          ],
+          "target": [
+            -2.8,
+            3.4,
+            3.5
+          ],
+          "fov": 54
+        },
+        "actorPosition": [
+          -2.4,
+          0,
+          4
+        ],
+        "propStates": {},
+        "ending": {
+          "globalFrame": 1492,
+          "globalTime": 49.733333333333334,
+          "counter": 1,
+          "counterEmphasis": true,
+          "whisper": false,
+          "location": "courtyard",
+          "doorOpen": 1,
+          "sunrise": 1,
+          "forgotten": 0,
+          "adultRestored": 1,
+          "childRestored": 1
+        },
+        "actors": {
+          "eli": {
+            "position": [
+              -2.4,
+              0,
+              4
+            ],
+            "face": "thoughtful",
+            "appearance": {
+              "color": "#d2d5d6",
+              "pieces": {
+                "head": "#e7c5a2",
+                "leftArm": "#e7c5a2",
+                "rightArm": "#e7c5a2",
+                "leftLeg": "#31485c",
+                "rightLeg": "#31485c"
+              },
+              "cosmetic": "cap",
+              "hair": null,
+              "hairColor": 4204831,
+              "clothing": "vest",
+              "clothingColor": "#216d85"
+            },
+            "torsoVariant": "classic"
+          },
+          "mara": {
+            "position": [
+              0.7198400438976718,
+              0,
+              -3.500880839233703
+            ],
+            "face": "relieved",
+            "appearance": {
+              "color": "#d2d5d6",
+              "pieces": {
+                "head": "#d6af86",
+                "leftArm": "#d6af86",
+                "rightArm": "#d6af86",
+                "leftLeg": "#34374c",
+                "rightLeg": "#34374c"
+              },
+              "cosmetic": null,
+              "hair": "bob",
+              "hairColor": "#40291f",
+              "clothing": "vest",
+              "clothingColor": "#be5b46"
+            },
+            "torsoVariant": "tapered"
+          }
+        },
+        "identity": true
+      }
+    },
+    {
+      "globalFrame": 1494,
+      "file": "frame-00002.png",
+      "sha256": "288c2425c982c7aa660de4be3640086125064681ee224285511b04a7dcac11d4",
+      "state": {
+        "frame": 549,
+        "shot": "zero",
+        "time": 18.3,
+        "propOpen": null,
+        "camera": {
+          "position": [
+            -3.5,
+            5,
+            -3
+          ],
+          "target": [
+            -2.8,
+            3.4,
+            3.5
+          ],
+          "fov": 54
+        },
+        "actorPosition": [
+          -2.4,
+          0,
+          4
+        ],
+        "propStates": {},
+        "ending": {
+          "globalFrame": 1494,
+          "globalTime": 49.8,
+          "counter": 1,
+          "counterEmphasis": true,
+          "whisper": false,
+          "location": "courtyard",
+          "doorOpen": 1,
+          "sunrise": 1,
+          "forgotten": 0,
+          "adultRestored": 1,
+          "childRestored": 1
+        },
+        "actors": {
+          "eli": {
+            "position": [
+              -2.4,
+              0,
+              4
+            ],
+            "face": "thoughtful",
+            "appearance": {
+              "color": "#d2d5d6",
+              "pieces": {
+                "head": "#e7c5a2",
+                "leftArm": "#e7c5a2",
+                "rightArm": "#e7c5a2",
+                "leftLeg": "#31485c",
+                "rightLeg": "#31485c"
+              },
+              "cosmetic": "cap",
+              "hair": null,
+              "hairColor": 4204831,
+              "clothing": "vest",
+              "clothingColor": "#216d85"
+            },
+            "torsoVariant": "classic"
+          },
+          "mara": {
+            "position": [
+              0.7198400438976718,
+              0,
+              -3.500880839233703
+            ],
+            "face": "relieved",
+            "appearance": {
+              "color": "#d2d5d6",
+              "pieces": {
+                "head": "#d6af86",
+                "leftArm": "#d6af86",
+                "rightArm": "#d6af86",
+                "leftLeg": "#34374c",
+                "rightLeg": "#34374c"
+              },
+              "cosmetic": null,
+              "hair": "bob",
+              "hairColor": "#40291f",
+              "clothing": "vest",
+              "clothingColor": "#be5b46"
+            },
+            "torsoVariant": "tapered"
+          }
+        },
+        "identity": true
+      }
+    },
+    {
+      "globalFrame": 1496,
+      "file": "frame-00003.png",
+      "sha256": "55a4e763873abad3949d968337daf5a89f30c506ff26788508152fc39dd856dc",
+      "state": {
+        "frame": 551,
+        "shot": "zero",
+        "time": 18.366666666666667,
+        "propOpen": null,
+        "camera": {
+          "position": [
+            -3.5,
+            5,
+            -3
+          ],
+          "target": [
+            -2.8,
+            3.4,
+            3.5
+          ],
+          "fov": 54
+        },
+        "actorPosition": [
+          -2.4,
+          0,
+          4
+        ],
+        "propStates": {},
+        "ending": {
+          "globalFrame": 1496,
+          "globalTime": 49.86666666666667,
+          "counter": 1,
+          "counterEmphasis": true,
+          "whisper": false,
+          "location": "courtyard",
+          "doorOpen": 1,
+          "sunrise": 1,
+          "forgotten": 0,
+          "adultRestored": 1,
+          "childRestored": 1
+        },
+        "actors": {
+          "eli": {
+            "position": [
+              -2.4,
+              0,
+              4
+            ],
+            "face": "thoughtful",
+            "appearance": {
+              "color": "#d2d5d6",
+              "pieces": {
+                "head": "#e7c5a2",
+                "leftArm": "#e7c5a2",
+                "rightArm": "#e7c5a2",
+                "leftLeg": "#31485c",
+                "rightLeg": "#31485c"
+              },
+              "cosmetic": "cap",
+              "hair": null,
+              "hairColor": 4204831,
+              "clothing": "vest",
+              "clothingColor": "#216d85"
+            },
+            "torsoVariant": "classic"
+          },
+          "mara": {
+            "position": [
+              0.7198400438976718,
+              0,
+              -3.500880839233703
+            ],
+            "face": "relieved",
+            "appearance": {
+              "color": "#d2d5d6",
+              "pieces": {
+                "head": "#d6af86",
+                "leftArm": "#d6af86",
+                "rightArm": "#d6af86",
+                "leftLeg": "#34374c",
+                "rightLeg": "#34374c"
+              },
+              "cosmetic": null,
+              "hair": "bob",
+              "hairColor": "#40291f",
+              "clothing": "vest",
+              "clothingColor": "#be5b46"
+            },
+            "torsoVariant": "tapered"
+          }
+        },
+        "identity": true
+      }
+    },
+    {
+      "globalFrame": 1498,
+      "file": "frame-00004.png",
+      "sha256": "631c269920f806980e092fd1fc80d397c38c4474a37b79685e79f63fa47b6c5a",
+      "state": {
+        "frame": 553,
+        "shot": "zero",
+        "time": 18.433333333333334,
+        "propOpen": null,
+        "camera": {
+          "position": [
+            -3.5,
+            5,
+            -3
+          ],
+          "target": [
+            -2.8,
+            3.4,
+            3.5
+          ],
+          "fov": 54
+        },
+        "actorPosition": [
+          -2.4,
+          0,
+          4
+        ],
+        "propStates": {},
+        "ending": {
+          "globalFrame": 1498,
+          "globalTime": 49.93333333333333,
+          "counter": 1,
+          "counterEmphasis": true,
+          "whisper": false,
+          "location": "courtyard",
+          "doorOpen": 1,
+          "sunrise": 1,
+          "forgotten": 0,
+          "adultRestored": 1,
+          "childRestored": 1
+        },
+        "actors": {
+          "eli": {
+            "position": [
+              -2.4,
+              0,
+              4
+            ],
+            "face": "thoughtful",
+            "appearance": {
+              "color": "#d2d5d6",
+              "pieces": {
+                "head": "#e7c5a2",
+                "leftArm": "#e7c5a2",
+                "rightArm": "#e7c5a2",
+                "leftLeg": "#31485c",
+                "rightLeg": "#31485c"
+              },
+              "cosmetic": "cap",
+              "hair": null,
+              "hairColor": 4204831,
+              "clothing": "vest",
+              "clothingColor": "#216d85"
+            },
+            "torsoVariant": "classic"
+          },
+          "mara": {
+            "position": [
+              0.7198400438976718,
+              0,
+              -3.500880839233703
+            ],
+            "face": "relieved",
+            "appearance": {
+              "color": "#d2d5d6",
+              "pieces": {
+                "head": "#d6af86",
+                "leftArm": "#d6af86",
+                "rightArm": "#d6af86",
+                "leftLeg": "#34374c",
+                "rightLeg": "#34374c"
+              },
+              "cosmetic": null,
+              "hair": "bob",
+              "hairColor": "#40291f",
+              "clothing": "vest",
+              "clothingColor": "#be5b46"
+            },
+            "torsoVariant": "tapered"
+          }
+        },
+        "identity": true
+      }
+    },
+    {
+      "globalFrame": 1500,
+      "file": "frame-00005.png",
+      "sha256": "177464268f0531381ee17ab22dd0572bdd0b7d4a289d242f4208cb33cb1c3a19",
+      "state": {
+        "frame": 555,
+        "shot": "zero",
+        "time": 18.5,
+        "propOpen": null,
+        "camera": {
+          "position": [
+            -3.5,
+            5,
+            -3
+          ],
+          "target": [
+            -2.8,
+            3.4,
+            3.5
+          ],
+          "fov": 54
+        },
+        "actorPosition": [
+          -2.4,
+          0,
+          4
+        ],
+        "propStates": {},
+        "ending": {
+          "globalFrame": 1500,
+          "globalTime": 50,
+          "counter": 1,
+          "counterEmphasis": true,
+          "whisper": false,
+          "location": "courtyard",
+          "doorOpen": 1,
+          "sunrise": 1,
+          "forgotten": 0,
+          "adultRestored": 1,
+          "childRestored": 1
+        },
+        "actors": {
+          "eli": {
+            "position": [
+              -2.4,
+              0,
+              4
+            ],
+            "face": "thoughtful",
+            "appearance": {
+              "color": "#d2d5d6",
+              "pieces": {
+                "head": "#e7c5a2",
+                "leftArm": "#e7c5a2",
+                "rightArm": "#e7c5a2",
+                "leftLeg": "#31485c",
+                "rightLeg": "#31485c"
+              },
+              "cosmetic": "cap",
+              "hair": null,
+              "hairColor": 4204831,
+              "clothing": "vest",
+              "clothingColor": "#216d85"
+            },
+            "torsoVariant": "classic"
+          },
+          "mara": {
+            "position": [
+              0.7198400438976718,
+              0,
+              -3.500880839233703
+            ],
+            "face": "relieved",
+            "appearance": {
+              "color": "#d2d5d6",
+              "pieces": {
+                "head": "#d6af86",
+                "leftArm": "#d6af86",
+                "rightArm": "#d6af86",
+                "leftLeg": "#34374c",
+                "rightLeg": "#34374c"
+              },
+              "cosmetic": null,
+              "hair": "bob",
+              "hairColor": "#40291f",
+              "clothing": "vest",
+              "clothingColor": "#be5b46"
+            },
+            "torsoVariant": "tapered"
+          }
+        },
+        "identity": true
+      }
+    },
+    {
+      "globalFrame": 1502,
+      "file": "frame-00006.png",
+      "sha256": "e369c1042d3def7e98935ee1380c16442de4244be5f2ba850806e8e527a764ee",
+      "state": {
+        "frame": 557,
+        "shot": "zero",
+        "time": 18.566666666666666,
+        "propOpen": null,
+        "camera": {
+          "position": [
+            -3.5,
+            5,
+            -3
+          ],
+          "target": [
+            -2.8,
+            3.4,
+            3.5
+          ],
+          "fov": 54
+        },
+        "actorPosition": [
+          -2.4,
+          0,
+          4
+        ],
+        "propStates": {},
+        "ending": {
+          "globalFrame": 1502,
+          "globalTime": 50.06666666666667,
+          "counter": 1,
+          "counterEmphasis": true,
+          "whisper": false,
+          "location": "courtyard",
+          "doorOpen": 1,
+          "sunrise": 1,
+          "forgotten": 0,
+          "adultRestored": 1,
+          "childRestored": 1
+        },
+        "actors": {
+          "eli": {
+            "position": [
+              -2.4,
+              0,
+              4
+            ],
+            "face": "thoughtful",
+            "appearance": {
+              "color": "#d2d5d6",
+              "pieces": {
+                "head": "#e7c5a2",
+                "leftArm": "#e7c5a2",
+                "rightArm": "#e7c5a2",
+                "leftLeg": "#31485c",
+                "rightLeg": "#31485c"
+              },
+              "cosmetic": "cap",
+              "hair": null,
+              "hairColor": 4204831,
+              "clothing": "vest",
+              "clothingColor": "#216d85"
+            },
+            "torsoVariant": "classic"
+          },
+          "mara": {
+            "position": [
+              0.7198400438976718,
+              0,
+              -3.500880839233703
+            ],
+            "face": "relieved",
+            "appearance": {
+              "color": "#d2d5d6",
+              "pieces": {
+                "head": "#d6af86",
+                "leftArm": "#d6af86",
+                "rightArm": "#d6af86",
+                "leftLeg": "#34374c",
+                "rightLeg": "#34374c"
+              },
+              "cosmetic": null,
+              "hair": "bob",
+              "hairColor": "#40291f",
+              "clothing": "vest",
+              "clothingColor": "#be5b46"
+            },
+            "torsoVariant": "tapered"
+          }
+        },
+        "identity": true
+      }
+    },
+    {
+      "globalFrame": 1504,
+      "file": "frame-00007.png",
+      "sha256": "78fd0a0c8ce158b974f9bdb60e1fe18c518434294cdecb16c5f3194f98861fd1",
+      "state": {
+        "frame": 559,
+        "shot": "zero",
+        "time": 18.633333333333333,
+        "propOpen": null,
+        "camera": {
+          "position": [
+            -3.5,
+            5,
+            -3
+          ],
+          "target": [
+            -2.8,
+            3.4,
+            3.5
+          ],
+          "fov": 54
+        },
+        "actorPosition": [
+          -2.4,
+          0,
+          4
+        ],
+        "propStates": {},
+        "ending": {
+          "globalFrame": 1504,
+          "globalTime": 50.13333333333333,
+          "counter": 1,
+          "counterEmphasis": true,
+          "whisper": false,
+          "location": "courtyard",
+          "doorOpen": 1,
+          "sunrise": 1,
+          "forgotten": 0,
+          "adultRestored": 1,
+          "childRestored": 1
+        },
+        "actors": {
+          "eli": {
+            "position": [
+              -2.4,
+              0,
+              4
+            ],
+            "face": "thoughtful",
+            "appearance": {
+              "color": "#d2d5d6",
+              "pieces": {
+                "head": "#e7c5a2",
+                "leftArm": "#e7c5a2",
+                "rightArm": "#e7c5a2",
+                "leftLeg": "#31485c",
+                "rightLeg": "#31485c"
+              },
+              "cosmetic": "cap",
+              "hair": null,
+              "hairColor": 4204831,
+              "clothing": "vest",
+              "clothingColor": "#216d85"
+            },
+            "torsoVariant": "classic"
+          },
+          "mara": {
+            "position": [
+              0.7198400438976718,
+              0,
+              -3.500880839233703
+            ],
+            "face": "relieved",
+            "appearance": {
+              "color": "#d2d5d6",
+              "pieces": {
+                "head": "#d6af86",
+                "leftArm": "#d6af86",
+                "rightArm": "#d6af86",
+                "leftLeg": "#34374c",
+                "rightLeg": "#34374c"
+              },
+              "cosmetic": null,
+              "hair": "bob",
+              "hairColor": "#40291f",
+              "clothing": "vest",
+              "clothingColor": "#be5b46"
+            },
+            "torsoVariant": "tapered"
+          }
+        },
+        "identity": true
+      }
+    },
+    {
+      "globalFrame": 1506,
+      "file": "frame-00008.png",
+      "sha256": "795cfcaceb8f24ca81332ed8fe717679f845db08317743fe8883d99a5b17bdcc",
+      "state": {
+        "frame": 561,
+        "shot": "zero",
+        "time": 18.7,
+        "propOpen": null,
+        "camera": {
+          "position": [
+            -3.5,
+            5,
+            -3
+          ],
+          "target": [
+            -2.8,
+            3.4,
+            3.5
+          ],
+          "fov": 54
+        },
+        "actorPosition": [
+          -2.4,
+          0,
+          4
+        ],
+        "propStates": {},
+        "ending": {
+          "globalFrame": 1506,
+          "globalTime": 50.2,
+          "counter": 1,
+          "counterEmphasis": true,
+          "whisper": false,
+          "location": "courtyard",
+          "doorOpen": 1,
+          "sunrise": 1,
+          "forgotten": 0,
+          "adultRestored": 1,
+          "childRestored": 1
+        },
+        "actors": {
+          "eli": {
+            "position": [
+              -2.4,
+              0,
+              4
+            ],
+            "face": "thoughtful",
+            "appearance": {
+              "color": "#d2d5d6",
+              "pieces": {
+                "head": "#e7c5a2",
+                "leftArm": "#e7c5a2",
+                "rightArm": "#e7c5a2",
+                "leftLeg": "#31485c",
+                "rightLeg": "#31485c"
+              },
+              "cosmetic": "cap",
+              "hair": null,
+              "hairColor": 4204831,
+              "clothing": "vest",
+              "clothingColor": "#216d85"
+            },
+            "torsoVariant": "classic"
+          },
+          "mara": {
+            "position": [
+              0.7198400438976718,
+              0,
+              -3.500880839233703
+            ],
+            "face": "relieved",
+            "appearance": {
+              "color": "#d2d5d6",
+              "pieces": {
+                "head": "#d6af86",
+                "leftArm": "#d6af86",
+                "rightArm": "#d6af86",
+                "leftLeg": "#34374c",
+                "rightLeg": "#34374c"
+              },
+              "cosmetic": null,
+              "hair": "bob",
+              "hairColor": "#40291f",
+              "clothing": "vest",
+              "clothingColor": "#be5b46"
+            },
+            "torsoVariant": "tapered"
+          }
+        },
+        "identity": true
+      }
+    },
+    {
+      "globalFrame": 1508,
+      "file": "frame-00009.png",
+      "sha256": "c1a1f880b9b08f1c46f05e709d4d54dca50d308e7f271be5674548d66cc85983",
+      "state": {
+        "frame": 563,
+        "shot": "zero",
+        "time": 18.766666666666666,
+        "propOpen": null,
+        "camera": {
+          "position": [
+            -3.5,
+            5,
+            -3
+          ],
+          "target": [
+            -2.8,
+            3.4,
+            3.5
+          ],
+          "fov": 54
+        },
+        "actorPosition": [
+          -2.4,
+          0,
+          4
+        ],
+        "propStates": {},
+        "ending": {
+          "globalFrame": 1508,
+          "globalTime": 50.266666666666666,
+          "counter": 1,
+          "counterEmphasis": true,
+          "whisper": false,
+          "location": "courtyard",
+          "doorOpen": 1,
+          "sunrise": 1,
+          "forgotten": 0,
+          "adultRestored": 1,
+          "childRestored": 1
+        },
+        "actors": {
+          "eli": {
+            "position": [
+              -2.4,
+              0,
+              4
+            ],
+            "face": "thoughtful",
+            "appearance": {
+              "color": "#d2d5d6",
+              "pieces": {
+                "head": "#e7c5a2",
+                "leftArm": "#e7c5a2",
+                "rightArm": "#e7c5a2",
+                "leftLeg": "#31485c",
+                "rightLeg": "#31485c"
+              },
+              "cosmetic": "cap",
+              "hair": null,
+              "hairColor": 4204831,
+              "clothing": "vest",
+              "clothingColor": "#216d85"
+            },
+            "torsoVariant": "classic"
+          },
+          "mara": {
+            "position": [
+              0.7198400438976718,
+              0,
+              -3.500880839233703
+            ],
+            "face": "relieved",
+            "appearance": {
+              "color": "#d2d5d6",
+              "pieces": {
+                "head": "#d6af86",
+                "leftArm": "#d6af86",
+                "rightArm": "#d6af86",
+                "leftLeg": "#34374c",
+                "rightLeg": "#34374c"
+              },
+              "cosmetic": null,
+              "hair": "bob",
+              "hairColor": "#40291f",
+              "clothing": "vest",
+              "clothingColor": "#be5b46"
+            },
+            "torsoVariant": "tapered"
+          }
+        },
+        "identity": true
+      }
+    },
+    {
+      "globalFrame": 1510,
+      "file": "frame-00010.png",
+      "sha256": "88c8ae228a4f6faa80c842723e432e739b5849e07ac058033e0c205c6ec87c92",
+      "state": {
+        "frame": 565,
+        "shot": "zero",
+        "time": 18.833333333333332,
+        "propOpen": null,
+        "camera": {
+          "position": [
+            -3.5,
+            5,
+            -3
+          ],
+          "target": [
+            -2.8,
+            3.4,
+            3.5
+          ],
+          "fov": 54
+        },
+        "actorPosition": [
+          -2.4,
+          0,
+          4
+        ],
+        "propStates": {},
+        "ending": {
+          "globalFrame": 1510,
+          "globalTime": 50.333333333333336,
+          "counter": 1,
+          "counterEmphasis": true,
+          "whisper": false,
+          "location": "courtyard",
+          "doorOpen": 1,
+          "sunrise": 1,
+          "forgotten": 0,
+          "adultRestored": 1,
+          "childRestored": 1
+        },
+        "actors": {
+          "eli": {
+            "position": [
+              -2.4,
+              0,
+              4
+            ],
+            "face": "thoughtful",
+            "appearance": {
+              "color": "#d2d5d6",
+              "pieces": {
+                "head": "#e7c5a2",
+                "leftArm": "#e7c5a2",
+                "rightArm": "#e7c5a2",
+                "leftLeg": "#31485c",
+                "rightLeg": "#31485c"
+              },
+              "cosmetic": "cap",
+              "hair": null,
+              "hairColor": 4204831,
+              "clothing": "vest",
+              "clothingColor": "#216d85"
+            },
+            "torsoVariant": "classic"
+          },
+          "mara": {
+            "position": [
+              0.7198400438976718,
+              0,
+              -3.500880839233703
+            ],
+            "face": "relieved",
+            "appearance": {
+              "color": "#d2d5d6",
+              "pieces": {
+                "head": "#d6af86",
+                "leftArm": "#d6af86",
+                "rightArm": "#d6af86",
+                "leftLeg": "#34374c",
+                "rightLeg": "#34374c"
+              },
+              "cosmetic": null,
+              "hair": "bob",
+              "hairColor": "#40291f",
+              "clothing": "vest",
+              "clothingColor": "#be5b46"
+            },
+            "torsoVariant": "tapered"
+          }
+        },
+        "identity": true
+      }
+    },
+    {
+      "globalFrame": 1512,
+      "file": "frame-00011.png",
+      "sha256": "761c50a5685c319c29bc442ef812ed19e08ae804212ffd6da735c4d90ad5c668",
+      "state": {
+        "frame": 567,
+        "shot": "zero",
+        "time": 18.9,
+        "propOpen": null,
+        "camera": {
+          "position": [
+            -3.5,
+            5,
+            -3
+          ],
+          "target": [
+            -2.8,
+            3.4,
+            3.5
+          ],
+          "fov": 54
+        },
+        "actorPosition": [
+          -2.4,
+          0,
+          4
+        ],
+        "propStates": {},
+        "ending": {
+          "globalFrame": 1512,
+          "globalTime": 50.4,
+          "counter": 1,
+          "counterEmphasis": true,
+          "whisper": false,
+          "location": "courtyard",
+          "doorOpen": 1,
+          "sunrise": 1,
+          "forgotten": 0,
+          "adultRestored": 1,
+          "childRestored": 1
+        },
+        "actors": {
+          "eli": {
+            "position": [
+              -2.4,
+              0,
+              4
+            ],
+            "face": "thoughtful",
+            "appearance": {
+              "color": "#d2d5d6",
+              "pieces": {
+                "head": "#e7c5a2",
+                "leftArm": "#e7c5a2",
+                "rightArm": "#e7c5a2",
+                "leftLeg": "#31485c",
+                "rightLeg": "#31485c"
+              },
+              "cosmetic": "cap",
+              "hair": null,
+              "hairColor": 4204831,
+              "clothing": "vest",
+              "clothingColor": "#216d85"
+            },
+            "torsoVariant": "classic"
+          },
+          "mara": {
+            "position": [
+              0.7198400438976718,
+              0,
+              -3.500880839233703
+            ],
+            "face": "relieved",
+            "appearance": {
+              "color": "#d2d5d6",
+              "pieces": {
+                "head": "#d6af86",
+                "leftArm": "#d6af86",
+                "rightArm": "#d6af86",
+                "leftLeg": "#34374c",
+                "rightLeg": "#34374c"
+              },
+              "cosmetic": null,
+              "hair": "bob",
+              "hairColor": "#40291f",
+              "clothing": "vest",
+              "clothingColor": "#be5b46"
+            },
+            "torsoVariant": "tapered"
+          }
+        },
+        "identity": true
+      }
+    },
+    {
+      "globalFrame": 1514,
+      "file": "frame-00012.png",
+      "sha256": "68dcbc7b19dcd1eb86be839da12fb6e194bf1f7c7520f0f8a6ffaa5d4eb3a019",
+      "state": {
+        "frame": 569,
+        "shot": "zero",
+        "time": 18.966666666666665,
+        "propOpen": null,
+        "camera": {
+          "position": [
+            -3.5,
+            5,
+            -3
+          ],
+          "target": [
+            -2.8,
+            3.4,
+            3.5
+          ],
+          "fov": 54
+        },
+        "actorPosition": [
+          -2.4,
+          0,
+          4
+        ],
+        "propStates": {},
+        "ending": {
+          "globalFrame": 1514,
+          "globalTime": 50.46666666666667,
+          "counter": 1,
+          "counterEmphasis": true,
+          "whisper": false,
+          "location": "courtyard",
+          "doorOpen": 1,
+          "sunrise": 1,
+          "forgotten": 0,
+          "adultRestored": 1,
+          "childRestored": 1
+        },
+        "actors": {
+          "eli": {
+            "position": [
+              -2.4,
+              0,
+              4
+            ],
+            "face": "thoughtful",
+            "appearance": {
+              "color": "#d2d5d6",
+              "pieces": {
+                "head": "#e7c5a2",
+                "leftArm": "#e7c5a2",
+                "rightArm": "#e7c5a2",
+                "leftLeg": "#31485c",
+                "rightLeg": "#31485c"
+              },
+              "cosmetic": "cap",
+              "hair": null,
+              "hairColor": 4204831,
+              "clothing": "vest",
+              "clothingColor": "#216d85"
+            },
+            "torsoVariant": "classic"
+          },
+          "mara": {
+            "position": [
+              0.7198400438976718,
+              0,
+              -3.500880839233703
+            ],
+            "face": "relieved",
+            "appearance": {
+              "color": "#d2d5d6",
+              "pieces": {
+                "head": "#d6af86",
+                "leftArm": "#d6af86",
+                "rightArm": "#d6af86",
+                "leftLeg": "#34374c",
+                "rightLeg": "#34374c"
+              },
+              "cosmetic": null,
+              "hair": "bob",
+              "hairColor": "#40291f",
+              "clothing": "vest",
+              "clothingColor": "#be5b46"
+            },
+            "torsoVariant": "tapered"
+          }
+        },
+        "identity": true
+      }
+    },
+    {
+      "globalFrame": 1516,
+      "file": "frame-00013.png",
+      "sha256": "778bc9dae59c509161e07cad900f9cbe0a7bdc035a25e2b844d9558249eebc6a",
+      "state": {
+        "frame": 571,
+        "shot": "zero",
+        "time": 19.033333333333335,
+        "propOpen": null,
+        "camera": {
+          "position": [
+            -3.5,
+            5,
+            -3
+          ],
+          "target": [
+            -2.8,
+            3.4,
+            3.5
+          ],
+          "fov": 54
+        },
+        "actorPosition": [
+          -2.4,
+          0,
+          4
+        ],
+        "propStates": {},
+        "ending": {
+          "globalFrame": 1516,
+          "globalTime": 50.53333333333333,
+          "counter": 1,
+          "counterEmphasis": true,
+          "whisper": false,
+          "location": "courtyard",
+          "doorOpen": 1,
+          "sunrise": 1,
+          "forgotten": 0,
+          "adultRestored": 1,
+          "childRestored": 1
+        },
+        "actors": {
+          "eli": {
+            "position": [
+              -2.4,
+              0,
+              4
+            ],
+            "face": "thoughtful",
+            "appearance": {
+              "color": "#d2d5d6",
+              "pieces": {
+                "head": "#e7c5a2",
+                "leftArm": "#e7c5a2",
+                "rightArm": "#e7c5a2",
+                "leftLeg": "#31485c",
+                "rightLeg": "#31485c"
+              },
+              "cosmetic": "cap",
+              "hair": null,
+              "hairColor": 4204831,
+              "clothing": "vest",
+              "clothingColor": "#216d85"
+            },
+            "torsoVariant": "classic"
+          },
+          "mara": {
+            "position": [
+              0.7198400438976718,
+              0,
+              -3.500880839233703
+            ],
+            "face": "relieved",
+            "appearance": {
+              "color": "#d2d5d6",
+              "pieces": {
+                "head": "#d6af86",
+                "leftArm": "#d6af86",
+                "rightArm": "#d6af86",
+                "leftLeg": "#34374c",
+                "rightLeg": "#34374c"
+              },
+              "cosmetic": null,
+              "hair": "bob",
+              "hairColor": "#40291f",
+              "clothing": "vest",
+              "clothingColor": "#be5b46"
+            },
+            "torsoVariant": "tapered"
+          }
+        },
+        "identity": true
+      }
+    },
+    {
+      "globalFrame": 1518,
+      "file": "frame-00014.png",
+      "sha256": "17fd89bfce0f5d0cba1a238e4d20fcfe278e815c0a1a1ee19f38e1fc00af8156",
+      "state": {
+        "frame": 573,
+        "shot": "zero",
+        "time": 19.1,
+        "propOpen": null,
+        "camera": {
+          "position": [
+            -3.5,
+            5,
+            -3
+          ],
+          "target": [
+            -2.8,
+            3.4,
+            3.5
+          ],
+          "fov": 54
+        },
+        "actorPosition": [
+          -2.4,
+          0,
+          4
+        ],
+        "propStates": {},
+        "ending": {
+          "globalFrame": 1518,
+          "globalTime": 50.6,
+          "counter": 1,
+          "counterEmphasis": true,
+          "whisper": false,
+          "location": "courtyard",
+          "doorOpen": 1,
+          "sunrise": 1,
+          "forgotten": 0,
+          "adultRestored": 1,
+          "childRestored": 1
+        },
+        "actors": {
+          "eli": {
+            "position": [
+              -2.4,
+              0,
+              4
+            ],
+            "face": "thoughtful",
+            "appearance": {
+              "color": "#d2d5d6",
+              "pieces": {
+                "head": "#e7c5a2",
+                "leftArm": "#e7c5a2",
+                "rightArm": "#e7c5a2",
+                "leftLeg": "#31485c",
+                "rightLeg": "#31485c"
+              },
+              "cosmetic": "cap",
+              "hair": null,
+              "hairColor": 4204831,
+              "clothing": "vest",
+              "clothingColor": "#216d85"
+            },
+            "torsoVariant": "classic"
+          },
+          "mara": {
+            "position": [
+              0.7198400438976718,
+              0,
+              -3.500880839233703
+            ],
+            "face": "relieved",
+            "appearance": {
+              "color": "#d2d5d6",
+              "pieces": {
+                "head": "#d6af86",
+                "leftArm": "#d6af86",
+                "rightArm": "#d6af86",
+                "leftLeg": "#34374c",
+                "rightLeg": "#34374c"
+              },
+              "cosmetic": null,
+              "hair": "bob",
+              "hairColor": "#40291f",
+              "clothing": "vest",
+              "clothingColor": "#be5b46"
+            },
+            "torsoVariant": "tapered"
+          }
+        },
+        "identity": true
+      }
+    },
+    {
+      "globalFrame": 1520,
+      "file": "frame-00015.png",
+      "sha256": "60d63eaea8328a339e2f4f283d78419fc914742226a46e6440e2dfb03b557e3c",
+      "state": {
+        "frame": 575,
+        "shot": "zero",
+        "time": 19.166666666666668,
+        "propOpen": null,
+        "camera": {
+          "position": [
+            -3.5,
+            5,
+            -3
+          ],
+          "target": [
+            -2.8,
+            3.4,
+            3.5
+          ],
+          "fov": 54
+        },
+        "actorPosition": [
+          -2.4,
+          0,
+          4
+        ],
+        "propStates": {},
+        "ending": {
+          "globalFrame": 1520,
+          "globalTime": 50.666666666666664,
+          "counter": 1,
+          "counterEmphasis": true,
+          "whisper": false,
+          "location": "courtyard",
+          "doorOpen": 1,
+          "sunrise": 1,
+          "forgotten": 0,
+          "adultRestored": 1,
+          "childRestored": 1
+        },
+        "actors": {
+          "eli": {
+            "position": [
+              -2.4,
+              0,
+              4
+            ],
+            "face": "thoughtful",
+            "appearance": {
+              "color": "#d2d5d6",
+              "pieces": {
+                "head": "#e7c5a2",
+                "leftArm": "#e7c5a2",
+                "rightArm": "#e7c5a2",
+                "leftLeg": "#31485c",
+                "rightLeg": "#31485c"
+              },
+              "cosmetic": "cap",
+              "hair": null,
+              "hairColor": 4204831,
+              "clothing": "vest",
+              "clothingColor": "#216d85"
+            },
+            "torsoVariant": "classic"
+          },
+          "mara": {
+            "position": [
+              0.7198400438976718,
+              0,
+              -3.500880839233703
+            ],
+            "face": "relieved",
+            "appearance": {
+              "color": "#d2d5d6",
+              "pieces": {
+                "head": "#d6af86",
+                "leftArm": "#d6af86",
+                "rightArm": "#d6af86",
+                "leftLeg": "#34374c",
+                "rightLeg": "#34374c"
+              },
+              "cosmetic": null,
+              "hair": "bob",
+              "hairColor": "#40291f",
+              "clothing": "vest",
+              "clothingColor": "#be5b46"
+            },
+            "torsoVariant": "tapered"
+          }
+        },
+        "identity": true
+      }
+    },
+    {
+      "globalFrame": 1522,
+      "file": "frame-00016.png",
+      "sha256": "b512af62201a5e4d92cb7afca4d0fe4acddf7c2960675319fd919b49159d3a30",
+      "state": {
+        "frame": 577,
+        "shot": "zero",
+        "time": 19.233333333333334,
+        "propOpen": null,
+        "camera": {
+          "position": [
+            -3.5,
+            5,
+            -3
+          ],
+          "target": [
+            -2.8,
+            3.4,
+            3.5
+          ],
+          "fov": 54
+        },
+        "actorPosition": [
+          -2.4,
+          0,
+          4
+        ],
+        "propStates": {},
+        "ending": {
+          "globalFrame": 1522,
+          "globalTime": 50.733333333333334,
+          "counter": 1,
+          "counterEmphasis": true,
+          "whisper": false,
+          "location": "courtyard",
+          "doorOpen": 1,
+          "sunrise": 1,
+          "forgotten": 0,
+          "adultRestored": 1,
+          "childRestored": 1
+        },
+        "actors": {
+          "eli": {
+            "position": [
+              -2.4,
+              0,
+              4
+            ],
+            "face": "thoughtful",
+            "appearance": {
+              "color": "#d2d5d6",
+              "pieces": {
+                "head": "#e7c5a2",
+                "leftArm": "#e7c5a2",
+                "rightArm": "#e7c5a2",
+                "leftLeg": "#31485c",
+                "rightLeg": "#31485c"
+              },
+              "cosmetic": "cap",
+              "hair": null,
+              "hairColor": 4204831,
+              "clothing": "vest",
+              "clothingColor": "#216d85"
+            },
+            "torsoVariant": "classic"
+          },
+          "mara": {
+            "position": [
+              0.7198400438976718,
+              0,
+              -3.500880839233703
+            ],
+            "face": "relieved",
+            "appearance": {
+              "color": "#d2d5d6",
+              "pieces": {
+                "head": "#d6af86",
+                "leftArm": "#d6af86",
+                "rightArm": "#d6af86",
+                "leftLeg": "#34374c",
+                "rightLeg": "#34374c"
+              },
+              "cosmetic": null,
+              "hair": "bob",
+              "hairColor": "#40291f",
+              "clothing": "vest",
+              "clothingColor": "#be5b46"
+            },
+            "torsoVariant": "tapered"
+          }
+        },
+        "identity": true
+      }
+    },
+    {
+      "globalFrame": 1524,
+      "file": "frame-00017.png",
+      "sha256": "7ccf6ffbcd7de851b650e062756284c611ec1c3e82d7a6af0b76120ef794d60b",
+      "state": {
+        "frame": 579,
+        "shot": "zero",
+        "time": 19.3,
+        "propOpen": null,
+        "camera": {
+          "position": [
+            -3.5,
+            5,
+            -3
+          ],
+          "target": [
+            -2.8,
+            3.4,
+            3.5
+          ],
+          "fov": 54
+        },
+        "actorPosition": [
+          -2.4,
+          0,
+          4
+        ],
+        "propStates": {},
+        "ending": {
+          "globalFrame": 1524,
+          "globalTime": 50.8,
+          "counter": 1,
+          "counterEmphasis": true,
+          "whisper": false,
+          "location": "courtyard",
+          "doorOpen": 1,
+          "sunrise": 1,
+          "forgotten": 0,
+          "adultRestored": 1,
+          "childRestored": 1
+        },
+        "actors": {
+          "eli": {
+            "position": [
+              -2.4,
+              0,
+              4
+            ],
+            "face": "thoughtful",
+            "appearance": {
+              "color": "#d2d5d6",
+              "pieces": {
+                "head": "#e7c5a2",
+                "leftArm": "#e7c5a2",
+                "rightArm": "#e7c5a2",
+                "leftLeg": "#31485c",
+                "rightLeg": "#31485c"
+              },
+              "cosmetic": "cap",
+              "hair": null,
+              "hairColor": 4204831,
+              "clothing": "vest",
+              "clothingColor": "#216d85"
+            },
+            "torsoVariant": "classic"
+          },
+          "mara": {
+            "position": [
+              0.7198400438976718,
+              0,
+              -3.500880839233703
+            ],
+            "face": "relieved",
+            "appearance": {
+              "color": "#d2d5d6",
+              "pieces": {
+                "head": "#d6af86",
+                "leftArm": "#d6af86",
+                "rightArm": "#d6af86",
+                "leftLeg": "#34374c",
+                "rightLeg": "#34374c"
+              },
+              "cosmetic": null,
+              "hair": "bob",
+              "hairColor": "#40291f",
+              "clothing": "vest",
+              "clothingColor": "#be5b46"
+            },
+            "torsoVariant": "tapered"
+          }
+        },
+        "identity": true
+      }
+    },
+    {
+      "globalFrame": 1526,
+      "file": "frame-00018.png",
+      "sha256": "145ef14277501791d61595537c452b65d5480a5bfe57afa16e65565b5a413189",
+      "state": {
+        "frame": 581,
+        "shot": "zero",
+        "time": 19.366666666666667,
+        "propOpen": null,
+        "camera": {
+          "position": [
+            -3.5,
+            5,
+            -3
+          ],
+          "target": [
+            -2.8,
+            3.4,
+            3.5
+          ],
+          "fov": 54
+        },
+        "actorPosition": [
+          -2.4,
+          0,
+          4
+        ],
+        "propStates": {},
+        "ending": {
+          "globalFrame": 1526,
+          "globalTime": 50.86666666666667,
+          "counter": 1,
+          "counterEmphasis": true,
+          "whisper": false,
+          "location": "courtyard",
+          "doorOpen": 1,
+          "sunrise": 1,
+          "forgotten": 0,
+          "adultRestored": 1,
+          "childRestored": 1
+        },
+        "actors": {
+          "eli": {
+            "position": [
+              -2.4,
+              0,
+              4
+            ],
+            "face": "thoughtful",
+            "appearance": {
+              "color": "#d2d5d6",
+              "pieces": {
+                "head": "#e7c5a2",
+                "leftArm": "#e7c5a2",
+                "rightArm": "#e7c5a2",
+                "leftLeg": "#31485c",
+                "rightLeg": "#31485c"
+              },
+              "cosmetic": "cap",
+              "hair": null,
+              "hairColor": 4204831,
+              "clothing": "vest",
+              "clothingColor": "#216d85"
+            },
+            "torsoVariant": "classic"
+          },
+          "mara": {
+            "position": [
+              0.7198400438976718,
+              0,
+              -3.500880839233703
+            ],
+            "face": "relieved",
+            "appearance": {
+              "color": "#d2d5d6",
+              "pieces": {
+                "head": "#d6af86",
+                "leftArm": "#d6af86",
+                "rightArm": "#d6af86",
+                "leftLeg": "#34374c",
+                "rightLeg": "#34374c"
+              },
+              "cosmetic": null,
+              "hair": "bob",
+              "hairColor": "#40291f",
+              "clothing": "vest",
+              "clothingColor": "#be5b46"
+            },
+            "torsoVariant": "tapered"
+          }
+        },
+        "identity": true
+      }
+    },
+    {
+      "globalFrame": 1528,
+      "file": "frame-00019.png",
+      "sha256": "892e7864b7aab0ef6caed21532512a5c6115d9b1d099ff64eeeb8952c1585692",
+      "state": {
+        "frame": 583,
+        "shot": "zero",
+        "time": 19.433333333333334,
+        "propOpen": null,
+        "camera": {
+          "position": [
+            -3.5,
+            5,
+            -3
+          ],
+          "target": [
+            -2.8,
+            3.4,
+            3.5
+          ],
+          "fov": 54
+        },
+        "actorPosition": [
+          -2.4,
+          0,
+          4
+        ],
+        "propStates": {},
+        "ending": {
+          "globalFrame": 1528,
+          "globalTime": 50.93333333333333,
+          "counter": 1,
+          "counterEmphasis": true,
+          "whisper": false,
+          "location": "courtyard",
+          "doorOpen": 1,
+          "sunrise": 1,
+          "forgotten": 0,
+          "adultRestored": 1,
+          "childRestored": 1
+        },
+        "actors": {
+          "eli": {
+            "position": [
+              -2.4,
+              0,
+              4
+            ],
+            "face": "thoughtful",
+            "appearance": {
+              "color": "#d2d5d6",
+              "pieces": {
+                "head": "#e7c5a2",
+                "leftArm": "#e7c5a2",
+                "rightArm": "#e7c5a2",
+                "leftLeg": "#31485c",
+                "rightLeg": "#31485c"
+              },
+              "cosmetic": "cap",
+              "hair": null,
+              "hairColor": 4204831,
+              "clothing": "vest",
+              "clothingColor": "#216d85"
+            },
+            "torsoVariant": "classic"
+          },
+          "mara": {
+            "position": [
+              0.7198400438976718,
+              0,
+              -3.500880839233703
+            ],
+            "face": "relieved",
+            "appearance": {
+              "color": "#d2d5d6",
+              "pieces": {
+                "head": "#d6af86",
+                "leftArm": "#d6af86",
+                "rightArm": "#d6af86",
+                "leftLeg": "#34374c",
+                "rightLeg": "#34374c"
+              },
+              "cosmetic": null,
+              "hair": "bob",
+              "hairColor": "#40291f",
+              "clothing": "vest",
+              "clothingColor": "#be5b46"
+            },
+            "torsoVariant": "tapered"
+          }
+        },
+        "identity": true
+      }
+    },
+    {
+      "globalFrame": 1530,
+      "file": "frame-00020.png",
+      "sha256": "1d505aeb84b134b73b7b632b4a2d975c081a64b3db2636562c9ce4d89d9f44b6",
+      "state": {
+        "frame": 585,
+        "shot": "zero",
+        "time": 19.5,
+        "propOpen": null,
+        "camera": {
+          "position": [
+            -3.5,
+            5,
+            -3
+          ],
+          "target": [
+            -2.8,
+            3.4,
+            3.5
+          ],
+          "fov": 54
+        },
+        "actorPosition": [
+          -2.4,
+          0,
+          4
+        ],
+        "propStates": {},
+        "ending": {
+          "globalFrame": 1530,
+          "globalTime": 51,
+          "counter": 0,
+          "counterEmphasis": true,
+          "whisper": false,
+          "location": "courtyard",
+          "doorOpen": 1,
+          "sunrise": 1,
+          "forgotten": 0.0012839988425925927,
+          "adultRestored": 1,
+          "childRestored": 1
+        },
+        "actors": {
+          "eli": {
+            "position": [
+              -2.4,
+              0,
+              4
+            ],
+            "face": "startled",
+            "appearance": {
+              "color": "#d2d5d6",
+              "pieces": {
+                "head": "#e7c5a2",
+                "leftArm": "#e7c5a2",
+                "rightArm": "#e7c5a2",
+                "leftLeg": "#31485c",
+                "rightLeg": "#31485c"
+              },
+              "cosmetic": "cap",
+              "hair": null,
+              "hairColor": 4204831,
+              "clothing": "vest",
+              "clothingColor": "#216d85"
+            },
+            "torsoVariant": "classic"
+          },
+          "mara": {
+            "position": [
+              0.7198400438976718,
+              0,
+              -3.500880839233703
+            ],
+            "face": "relieved",
+            "appearance": {
+              "color": "#d2d5d6",
+              "pieces": {
+                "head": "#d6af86",
+                "leftArm": "#d6af86",
+                "rightArm": "#d6af86",
+                "leftLeg": "#34374c",
+                "rightLeg": "#34374c"
+              },
+              "cosmetic": null,
+              "hair": "bob",
+              "hairColor": "#40291f",
+              "clothing": "vest",
+              "clothingColor": "#be5b46"
+            },
+            "torsoVariant": "tapered"
+          }
+        },
+        "identity": true
+      }
+    },
+    {
+      "globalFrame": 1532,
+      "file": "frame-00021.png",
+      "sha256": "207790d01aec580840ad256203946114265f5512ccd34fdd73ffe59f224c8527",
+      "state": {
+        "frame": 587,
+        "shot": "zero",
+        "time": 19.566666666666666,
+        "propOpen": null,
+        "camera": {
+          "position": [
+            -3.5,
+            5,
+            -3
+          ],
+          "target": [
+            -2.8,
+            3.4,
+            3.5
+          ],
+          "fov": 54
+        },
+        "actorPosition": [
+          -2.4,
+          0,
+          4
+        ],
+        "propStates": {},
+        "ending": {
+          "globalFrame": 1532,
+          "globalTime": 51.06666666666667,
+          "counter": 0,
+          "counterEmphasis": true,
+          "whisper": false,
+          "location": "courtyard",
+          "doorOpen": 1,
+          "sunrise": 1,
+          "forgotten": 0.01123046875,
+          "adultRestored": 1,
+          "childRestored": 1
+        },
+        "actors": {
+          "eli": {
+            "position": [
+              -2.4,
+              0,
+              4
+            ],
+            "face": "startled",
+            "appearance": {
+              "color": "#d2d5d6",
+              "pieces": {
+                "head": "#e7c5a2",
+                "leftArm": "#e7c5a2",
+                "rightArm": "#e7c5a2",
+                "leftLeg": "#31485c",
+                "rightLeg": "#31485c"
+              },
+              "cosmetic": "cap",
+              "hair": null,
+              "hairColor": 4204831,
+              "clothing": "vest",
+              "clothingColor": "#216d85"
+            },
+            "torsoVariant": "classic"
+          },
+          "mara": {
+            "position": [
+              0.7198400438976718,
+              0,
+              -3.500880839233703
+            ],
+            "face": "relieved",
+            "appearance": {
+              "color": "#d2d5d6",
+              "pieces": {
+                "head": "#d6af86",
+                "leftArm": "#d6af86",
+                "rightArm": "#d6af86",
+                "leftLeg": "#34374c",
+                "rightLeg": "#34374c"
+              },
+              "cosmetic": null,
+              "hair": "bob",
+              "hairColor": "#40291f",
+              "clothing": "vest",
+              "clothingColor": "#be5b46"
+            },
+            "torsoVariant": "tapered"
+          }
+        },
+        "identity": true
+      }
+    },
+    {
+      "globalFrame": 1534,
+      "file": "frame-00022.png",
+      "sha256": "ae712dbccb45bf69ee6979d21eee07d07fbe4d4de174a3155e62da6186469c34",
+      "state": {
+        "frame": 589,
+        "shot": "zero",
+        "time": 19.633333333333333,
+        "propOpen": null,
+        "camera": {
+          "position": [
+            -3.5,
+            5,
+            -3
+          ],
+          "target": [
+            -2.8,
+            3.4,
+            3.5
+          ],
+          "fov": 54
+        },
+        "actorPosition": [
+          -2.4,
+          0,
+          4
+        ],
+        "propStates": {},
+        "ending": {
+          "globalFrame": 1534,
+          "globalTime": 51.13333333333333,
+          "counter": 0,
+          "counterEmphasis": true,
+          "whisper": false,
+          "location": "courtyard",
+          "doorOpen": 1,
+          "sunrise": 1,
+          "forgotten": 0.03029152199074074,
+          "adultRestored": 1,
+          "childRestored": 1
+        },
+        "actors": {
+          "eli": {
+            "position": [
+              -2.4,
+              0,
+              4
+            ],
+            "face": "startled",
+            "appearance": {
+              "color": "#d2d5d6",
+              "pieces": {
+                "head": "#e7c5a2",
+                "leftArm": "#e7c5a2",
+                "rightArm": "#e7c5a2",
+                "leftLeg": "#31485c",
+                "rightLeg": "#31485c"
+              },
+              "cosmetic": "cap",
+              "hair": null,
+              "hairColor": 4204831,
+              "clothing": "vest",
+              "clothingColor": "#216d85"
+            },
+            "torsoVariant": "classic"
+          },
+          "mara": {
+            "position": [
+              0.7198400438976718,
+              0,
+              -3.500880839233703
+            ],
+            "face": "relieved",
+            "appearance": {
+              "color": "#d2d5d6",
+              "pieces": {
+                "head": "#d6af86",
+                "leftArm": "#d6af86",
+                "rightArm": "#d6af86",
+                "leftLeg": "#34374c",
+                "rightLeg": "#34374c"
+              },
+              "cosmetic": null,
+              "hair": "bob",
+              "hairColor": "#40291f",
+              "clothing": "vest",
+              "clothingColor": "#be5b46"
+            },
+            "torsoVariant": "tapered"
+          }
+        },
+        "identity": true
+      }
+    },
+    {
+      "globalFrame": 1536,
+      "file": "frame-00023.png",
+      "sha256": "dc6cead87727087cc80f425be92c98f980de308e593ca33e8a0eea37e0155152",
+      "state": {
+        "frame": 591,
+        "shot": "zero",
+        "time": 19.7,
+        "propOpen": null,
+        "camera": {
+          "position": [
+            -3.5,
+            5,
+            -3
+          ],
+          "target": [
+            -2.8,
+            3.4,
+            3.5
+          ],
+          "fov": 54
+        },
+        "actorPosition": [
+          -2.4,
+          0,
+          4
+        ],
+        "propStates": {},
+        "ending": {
+          "globalFrame": 1536,
+          "globalTime": 51.2,
+          "counter": 0,
+          "counterEmphasis": true,
+          "whisper": false,
+          "location": "courtyard",
+          "doorOpen": 1,
+          "sunrise": 1,
+          "forgotten": 0.05759910300925927,
+          "adultRestored": 1,
+          "childRestored": 1
+        },
+        "actors": {
+          "eli": {
+            "position": [
+              -2.4,
+              0,
+              4
+            ],
+            "face": "startled",
+            "appearance": {
+              "color": "#d2d5d6",
+              "pieces": {
+                "head": "#e7c5a2",
+                "leftArm": "#e7c5a2",
+                "rightArm": "#e7c5a2",
+                "leftLeg": "#31485c",
+                "rightLeg": "#31485c"
+              },
+              "cosmetic": "cap",
+              "hair": null,
+              "hairColor": 4204831,
+              "clothing": "vest",
+              "clothingColor": "#216d85"
+            },
+            "torsoVariant": "classic"
+          },
+          "mara": {
+            "position": [
+              0.7198400438976718,
+              0,
+              -3.500880839233703
+            ],
+            "face": "relieved",
+            "appearance": {
+              "color": "#d2d5d6",
+              "pieces": {
+                "head": "#d6af86",
+                "leftArm": "#d6af86",
+                "rightArm": "#d6af86",
+                "leftLeg": "#34374c",
+                "rightLeg": "#34374c"
+              },
+              "cosmetic": null,
+              "hair": "bob",
+              "hairColor": "#40291f",
+              "clothing": "vest",
+              "clothingColor": "#be5b46"
+            },
+            "torsoVariant": "tapered"
+          }
+        },
+        "identity": true
+      }
+    },
+    {
+      "globalFrame": 1538,
+      "file": "frame-00024.png",
+      "sha256": "8929c8e5969c7688d3736a9a49b67303ac608924bfc4b0909b3b9a50cb9bc8b5",
+      "state": {
+        "frame": 593,
+        "shot": "zero",
+        "time": 19.766666666666666,
+        "propOpen": null,
+        "camera": {
+          "position": [
+            -3.5,
+            5,
+            -3
+          ],
+          "target": [
+            -2.8,
+            3.4,
+            3.5
+          ],
+          "fov": 54
+        },
+        "actorPosition": [
+          -2.4,
+          0,
+          4
+        ],
+        "propStates": {},
+        "ending": {
+          "globalFrame": 1538,
+          "globalTime": 51.266666666666666,
+          "counter": 0,
+          "counterEmphasis": true,
+          "whisper": false,
+          "location": "courtyard",
+          "doorOpen": 1,
+          "sunrise": 1,
+          "forgotten": 0.09228515625,
+          "adultRestored": 1,
+          "childRestored": 1
+        },
+        "actors": {
+          "eli": {
+            "position": [
+              -2.4,
+              0,
+              4
+            ],
+            "face": "startled",
+            "appearance": {
+              "color": "#d2d5d6",
+              "pieces": {
+                "head": "#e7c5a2",
+                "leftArm": "#e7c5a2",
+                "rightArm": "#e7c5a2",
+                "leftLeg": "#31485c",
+                "rightLeg": "#31485c"
+              },
+              "cosmetic": "cap",
+              "hair": null,
+              "hairColor": 4204831,
+              "clothing": "vest",
+              "clothingColor": "#216d85"
+            },
+            "torsoVariant": "classic"
+          },
+          "mara": {
+            "position": [
+              0.7198400438976718,
+              0,
+              -3.500880839233703
+            ],
+            "face": "relieved",
+            "appearance": {
+              "color": "#d2d5d6",
+              "pieces": {
+                "head": "#d6af86",
+                "leftArm": "#d6af86",
+                "rightArm": "#d6af86",
+                "leftLeg": "#34374c",
+                "rightLeg": "#34374c"
+              },
+              "cosmetic": null,
+              "hair": "bob",
+              "hairColor": "#40291f",
+              "clothing": "vest",
+              "clothingColor": "#be5b46"
+            },
+            "torsoVariant": "tapered"
+          }
+        },
+        "identity": true
+      }
+    },
+    {
+      "globalFrame": 1540,
+      "file": "frame-00025.png",
+      "sha256": "a2736fb527509f55998abd09c94dd30fe67a2f7de324f8a96312268988ebd5f7",
+      "state": {
+        "frame": 595,
+        "shot": "zero",
+        "time": 19.833333333333332,
+        "propOpen": null,
+        "camera": {
+          "position": [
+            -3.5,
+            5,
+            -3
+          ],
+          "target": [
+            -2.8,
+            3.4,
+            3.5
+          ],
+          "fov": 54
+        },
+        "actorPosition": [
+          -2.4,
+          0,
+          4
+        ],
+        "propStates": {},
+        "ending": {
+          "globalFrame": 1540,
+          "globalTime": 51.333333333333336,
+          "counter": 0,
+          "counterEmphasis": true,
+          "whisper": false,
+          "location": "courtyard",
+          "doorOpen": 1,
+          "sunrise": 1,
+          "forgotten": 0.13348162615740738,
+          "adultRestored": 1,
+          "childRestored": 1
+        },
+        "actors": {
+          "eli": {
+            "position": [
+              -2.4,
+              0,
+              4
+            ],
+            "face": "startled",
+            "appearance": {
+              "color": "#d2d5d6",
+              "pieces": {
+                "head": "#e7c5a2",
+                "leftArm": "#e7c5a2",
+                "rightArm": "#e7c5a2",
+                "leftLeg": "#31485c",
+                "rightLeg": "#31485c"
+              },
+              "cosmetic": "cap",
+              "hair": null,
+              "hairColor": 4204831,
+              "clothing": "vest",
+              "clothingColor": "#216d85"
+            },
+            "torsoVariant": "classic"
+          },
+          "mara": {
+            "position": [
+              0.7198400438976718,
+              0,
+              -3.500880839233703
+            ],
+            "face": "relieved",
+            "appearance": {
+              "color": "#d2d5d6",
+              "pieces": {
+                "head": "#d6af86",
+                "leftArm": "#d6af86",
+                "rightArm": "#d6af86",
+                "leftLeg": "#34374c",
+                "rightLeg": "#34374c"
+              },
+              "cosmetic": null,
+              "hair": "bob",
+              "hairColor": "#40291f",
+              "clothing": "vest",
+              "clothingColor": "#be5b46"
+            },
+            "torsoVariant": "tapered"
+          }
+        },
+        "identity": true
+      }
+    },
+    {
+      "globalFrame": 1542,
+      "file": "frame-00026.png",
+      "sha256": "53a54c9e3b247d72797cd03f6b56d4b2f8241064d7593c85cdf50d5430c38abc",
+      "state": {
+        "frame": 597,
+        "shot": "zero",
+        "time": 19.9,
+        "propOpen": null,
+        "camera": {
+          "position": [
+            -3.5,
+            5,
+            -3
+          ],
+          "target": [
+            -2.8,
+            3.4,
+            3.5
+          ],
+          "fov": 54
+        },
+        "actorPosition": [
+          -2.4,
+          0,
+          4
+        ],
+        "propStates": {},
+        "ending": {
+          "globalFrame": 1542,
+          "globalTime": 51.4,
+          "counter": 0,
+          "counterEmphasis": true,
+          "whisper": false,
+          "location": "courtyard",
+          "doorOpen": 1,
+          "sunrise": 1,
+          "forgotten": 0.1803204571759259,
+          "adultRestored": 1,
+          "childRestored": 1
+        },
+        "actors": {
+          "eli": {
+            "position": [
+              -2.4,
+              0,
+              4
+            ],
+            "face": "startled",
+            "appearance": {
+              "color": "#d2d5d6",
+              "pieces": {
+                "head": "#e7c5a2",
+                "leftArm": "#e7c5a2",
+                "rightArm": "#e7c5a2",
+                "leftLeg": "#31485c",
+                "rightLeg": "#31485c"
+              },
+              "cosmetic": "cap",
+              "hair": null,
+              "hairColor": 4204831,
+              "clothing": "vest",
+              "clothingColor": "#216d85"
+            },
+            "torsoVariant": "classic"
+          },
+          "mara": {
+            "position": [
+              0.7198400438976718,
+              0,
+              -3.500880839233703
+            ],
+            "face": "relieved",
+            "appearance": {
+              "color": "#d2d5d6",
+              "pieces": {
+                "head": "#d6af86",
+                "leftArm": "#d6af86",
+                "rightArm": "#d6af86",
+                "leftLeg": "#34374c",
+                "rightLeg": "#34374c"
+              },
+              "cosmetic": null,
+              "hair": "bob",
+              "hairColor": "#40291f",
+              "clothing": "vest",
+              "clothingColor": "#be5b46"
+            },
+            "torsoVariant": "tapered"
+          }
+        },
+        "identity": true
+      }
+    },
+    {
+      "globalFrame": 1544,
+      "file": "frame-00027.png",
+      "sha256": "a7c8304412283cc11fcd2317bb69572f752eab51ab698fcba879ad6de942b867",
+      "state": {
+        "frame": 599,
+        "shot": "zero",
+        "time": 19.966666666666665,
+        "propOpen": null,
+        "camera": {
+          "position": [
+            -3.5,
+            5,
+            -3
+          ],
+          "target": [
+            -2.8,
+            3.4,
+            3.5
+          ],
+          "fov": 54
+        },
+        "actorPosition": [
+          -2.4,
+          0,
+          4
+        ],
+        "propStates": {},
+        "ending": {
+          "globalFrame": 1544,
+          "globalTime": 51.46666666666667,
+          "counter": 0,
+          "counterEmphasis": true,
+          "whisper": false,
+          "location": "courtyard",
+          "doorOpen": 1,
+          "sunrise": 1,
+          "forgotten": 0.23193359375,
+          "adultRestored": 1,
+          "childRestored": 1
+        },
+        "actors": {
+          "eli": {
+            "position": [
+              -2.4,
+              0,
+              4
+            ],
+            "face": "startled",
+            "appearance": {
+              "color": "#d2d5d6",
+              "pieces": {
+                "head": "#e7c5a2",
+                "leftArm": "#e7c5a2",
+                "rightArm": "#e7c5a2",
+                "leftLeg": "#31485c",
+                "rightLeg": "#31485c"
+              },
+              "cosmetic": "cap",
+              "hair": null,
+              "hairColor": 4204831,
+              "clothing": "vest",
+              "clothingColor": "#216d85"
+            },
+            "torsoVariant": "classic"
+          },
+          "mara": {
+            "position": [
+              0.7198400438976718,
+              0,
+              -3.500880839233703
+            ],
+            "face": "relieved",
+            "appearance": {
+              "color": "#d2d5d6",
+              "pieces": {
+                "head": "#d6af86",
+                "leftArm": "#d6af86",
+                "rightArm": "#d6af86",
+                "leftLeg": "#34374c",
+                "rightLeg": "#34374c"
+              },
+              "cosmetic": null,
+              "hair": "bob",
+              "hairColor": "#40291f",
+              "clothing": "vest",
+              "clothingColor": "#be5b46"
+            },
+            "torsoVariant": "tapered"
+          }
+        },
+        "identity": true
+      }
+    },
+    {
+      "globalFrame": 1546,
+      "file": "frame-00028.png",
+      "sha256": "76fd6ad91dd762957e67e0da12b19ebe9da1b62760ec8feb686dc1f578d8e5e5",
+      "state": {
+        "frame": 601,
+        "shot": "forgotten",
+        "time": 20.033333333333335,
+        "propOpen": null,
+        "camera": {
+          "position": [
+            -21,
+            5.3,
+            7.5
+          ],
+          "target": [
+            -0.9,
+            2.6,
+            1
+          ],
+          "fov": 54
+        },
+        "actorPosition": [
+          -2.4,
+          0,
+          4
+        ],
+        "propStates": {},
+        "ending": {
+          "globalFrame": 1546,
+          "globalTime": 51.53333333333333,
+          "counter": 0,
+          "counterEmphasis": false,
+          "whisper": false,
+          "location": "courtyard",
+          "doorOpen": 1,
+          "sunrise": 1,
+          "forgotten": 0.28745298032407407,
+          "adultRestored": 1,
+          "childRestored": 1
+        },
+        "actors": {
+          "eli": {
+            "position": [
+              -2.4,
+              0,
+              4
+            ],
+            "face": "worried",
+            "appearance": {
+              "color": "#d2d5d6",
+              "pieces": {
+                "head": "#e7c5a2",
+                "leftArm": "#e7c5a2",
+                "rightArm": "#e7c5a2",
+                "leftLeg": "#31485c",
+                "rightLeg": "#31485c"
+              },
+              "cosmetic": "cap",
+              "hair": null,
+              "hairColor": 4204831,
+              "clothing": "vest",
+              "clothingColor": "#216d85"
+            },
+            "torsoVariant": "classic"
+          },
+          "mara": {
+            "position": [
+              0.7198400438976718,
+              0,
+              -3.500880839233703
+            ],
+            "face": "relieved",
+            "appearance": {
+              "color": "#d2d5d6",
+              "pieces": {
+                "head": "#d6af86",
+                "leftArm": "#d6af86",
+                "rightArm": "#d6af86",
+                "leftLeg": "#34374c",
+                "rightLeg": "#34374c"
+              },
+              "cosmetic": null,
+              "hair": "bob",
+              "hairColor": "#40291f",
+              "clothing": "vest",
+              "clothingColor": "#be5b46"
+            },
+            "torsoVariant": "tapered"
+          }
+        },
+        "identity": true
+      }
+    },
+    {
+      "globalFrame": 1548,
+      "file": "frame-00029.png",
+      "sha256": "30bb600eeca081cc83bf1c43ef620b31fa43fe604ad91b7fdeaa4e53279f4db6",
+      "state": {
+        "frame": 603,
+        "shot": "forgotten",
+        "time": 20.1,
+        "propOpen": null,
+        "camera": {
+          "position": [
+            -21,
+            5.3,
+            7.5
+          ],
+          "target": [
+            -0.9,
+            2.6,
+            1
+          ],
+          "fov": 54
+        },
+        "actorPosition": [
+          -2.4,
+          0,
+          4
+        ],
+        "propStates": {},
+        "ending": {
+          "globalFrame": 1548,
+          "globalTime": 51.6,
+          "counter": 0,
+          "counterEmphasis": false,
+          "whisper": false,
+          "location": "courtyard",
+          "doorOpen": 1,
+          "sunrise": 1,
+          "forgotten": 0.34601056134259256,
+          "adultRestored": 1,
+          "childRestored": 1
+        },
+        "actors": {
+          "eli": {
+            "position": [
+              -2.4,
+              0,
+              4
+            ],
+            "face": "worried",
+            "appearance": {
+              "color": "#d2d5d6",
+              "pieces": {
+                "head": "#e7c5a2",
+                "leftArm": "#e7c5a2",
+                "rightArm": "#e7c5a2",
+                "leftLeg": "#31485c",
+                "rightLeg": "#31485c"
+              },
+              "cosmetic": "cap",
+              "hair": null,
+              "hairColor": 4204831,
+              "clothing": "vest",
+              "clothingColor": "#216d85"
+            },
+            "torsoVariant": "classic"
+          },
+          "mara": {
+            "position": [
+              0.7198400438976718,
+              0,
+              -3.500880839233703
+            ],
+            "face": "relieved",
+            "appearance": {
+              "color": "#d2d5d6",
+              "pieces": {
+                "head": "#d6af86",
+                "leftArm": "#d6af86",
+                "rightArm": "#d6af86",
+                "leftLeg": "#34374c",
+                "rightLeg": "#34374c"
+              },
+              "cosmetic": null,
+              "hair": "bob",
+              "hairColor": "#40291f",
+              "clothing": "vest",
+              "clothingColor": "#be5b46"
+            },
+            "torsoVariant": "tapered"
+          }
+        },
+        "identity": true
+      }
+    },
+    {
+      "globalFrame": 1550,
+      "file": "frame-00030.png",
+      "sha256": "7f50bebc65a81aa2ad404d29ee6f0fae77ae97d60a34c5c403ffe3df43c16b01",
+      "state": {
+        "frame": 605,
+        "shot": "forgotten",
+        "time": 20.166666666666668,
+        "propOpen": null,
+        "camera": {
+          "position": [
+            -21,
+            5.3,
+            7.5
+          ],
+          "target": [
+            -0.9,
+            2.6,
+            1
+          ],
+          "fov": 54
+        },
+        "actorPosition": [
+          -2.4,
+          0,
+          4
+        ],
+        "propStates": {},
+        "ending": {
+          "globalFrame": 1550,
+          "globalTime": 51.666666666666664,
+          "counter": 0,
+          "counterEmphasis": false,
+          "whisper": false,
+          "location": "courtyard",
+          "doorOpen": 1,
+          "sunrise": 1,
+          "forgotten": 0.40673828125,
+          "adultRestored": 1,
+          "childRestored": 1
+        },
+        "actors": {
+          "eli": {
+            "position": [
+              -2.4,
+              0,
+              4
+            ],
+            "face": "worried",
+            "appearance": {
+              "color": "#d2d5d6",
+              "pieces": {
+                "head": "#e7c5a2",
+                "leftArm": "#e7c5a2",
+                "rightArm": "#e7c5a2",
+                "leftLeg": "#31485c",
+                "rightLeg": "#31485c"
+              },
+              "cosmetic": "cap",
+              "hair": null,
+              "hairColor": 4204831,
+              "clothing": "vest",
+              "clothingColor": "#216d85"
+            },
+            "torsoVariant": "classic"
+          },
+          "mara": {
+            "position": [
+              0.7198400438976718,
+              0,
+              -3.500880839233703
+            ],
+            "face": "relieved",
+            "appearance": {
+              "color": "#d2d5d6",
+              "pieces": {
+                "head": "#d6af86",
+                "leftArm": "#d6af86",
+                "rightArm": "#d6af86",
+                "leftLeg": "#34374c",
+                "rightLeg": "#34374c"
+              },
+              "cosmetic": null,
+              "hair": "bob",
+              "hairColor": "#40291f",
+              "clothing": "vest",
+              "clothingColor": "#be5b46"
+            },
+            "torsoVariant": "tapered"
+          }
+        },
+        "identity": true
+      }
+    },
+    {
+      "globalFrame": 1552,
+      "file": "frame-00031.png",
+      "sha256": "d5d129265795953c15d70e96ec6bdf5318822e142d4692821c33133d1429da93",
+      "state": {
+        "frame": 607,
+        "shot": "forgotten",
+        "time": 20.233333333333334,
+        "propOpen": null,
+        "camera": {
+          "position": [
+            -21,
+            5.3,
+            7.5
+          ],
+          "target": [
+            -0.9,
+            2.6,
+            1
+          ],
+          "fov": 54
+        },
+        "actorPosition": [
+          -2.4,
+          0,
+          4
+        ],
+        "propStates": {},
+        "ending": {
+          "globalFrame": 1552,
+          "globalTime": 51.733333333333334,
+          "counter": 0,
+          "counterEmphasis": false,
+          "whisper": false,
+          "location": "courtyard",
+          "doorOpen": 1,
+          "sunrise": 1,
+          "forgotten": 0.46876808449074076,
+          "adultRestored": 1,
+          "childRestored": 1
+        },
+        "actors": {
+          "eli": {
+            "position": [
+              -2.4,
+              0,
+              4
+            ],
+            "face": "worried",
+            "appearance": {
+              "color": "#d2d5d6",
+              "pieces": {
+                "head": "#e7c5a2",
+                "leftArm": "#e7c5a2",
+                "rightArm": "#e7c5a2",
+                "leftLeg": "#31485c",
+                "rightLeg": "#31485c"
+              },
+              "cosmetic": "cap",
+              "hair": null,
+              "hairColor": 4204831,
+              "clothing": "vest",
+              "clothingColor": "#216d85"
+            },
+            "torsoVariant": "classic"
+          },
+          "mara": {
+            "position": [
+              0.7198400438976718,
+              0,
+              -3.500880839233703
+            ],
+            "face": "relieved",
+            "appearance": {
+              "color": "#d2d5d6",
+              "pieces": {
+                "head": "#d6af86",
+                "leftArm": "#d6af86",
+                "rightArm": "#d6af86",
+                "leftLeg": "#34374c",
+                "rightLeg": "#34374c"
+              },
+              "cosmetic": null,
+              "hair": "bob",
+              "hairColor": "#40291f",
+              "clothing": "vest",
+              "clothingColor": "#be5b46"
+            },
+            "torsoVariant": "tapered"
+          }
+        },
+        "identity": true
+      }
+    },
+    {
+      "globalFrame": 1554,
+      "file": "frame-00032.png",
+      "sha256": "706d7da8cf88b6cfa58d2aa7f2800670a36b4cfce0cd4bc8cf10689463f77cdf",
+      "state": {
+        "frame": 609,
+        "shot": "forgotten",
+        "time": 20.3,
+        "propOpen": null,
+        "camera": {
+          "position": [
+            -21,
+            5.3,
+            7.5
+          ],
+          "target": [
+            -0.9,
+            2.6,
+            1
+          ],
+          "fov": 54
+        },
+        "actorPosition": [
+          -2.4,
+          0,
+          4
+        ],
+        "propStates": {},
+        "ending": {
+          "globalFrame": 1554,
+          "globalTime": 51.8,
+          "counter": 0,
+          "counterEmphasis": false,
+          "whisper": false,
+          "location": "courtyard",
+          "doorOpen": 1,
+          "sunrise": 1,
+          "forgotten": 0.5312319155092593,
+          "adultRestored": 1,
+          "childRestored": 1
+        },
+        "actors": {
+          "eli": {
+            "position": [
+              -2.4,
+              0,
+              4
+            ],
+            "face": "worried",
+            "appearance": {
+              "color": "#d2d5d6",
+              "pieces": {
+                "head": "#e7c5a2",
+                "leftArm": "#e7c5a2",
+                "rightArm": "#e7c5a2",
+                "leftLeg": "#31485c",
+                "rightLeg": "#31485c"
+              },
+              "cosmetic": "cap",
+              "hair": null,
+              "hairColor": 4204831,
+              "clothing": "vest",
+              "clothingColor": "#216d85"
+            },
+            "torsoVariant": "classic"
+          },
+          "mara": {
+            "position": [
+              0.7198400438976718,
+              0,
+              -3.500880839233703
+            ],
+            "face": "relieved",
+            "appearance": {
+              "color": "#d2d5d6",
+              "pieces": {
+                "head": "#d6af86",
+                "leftArm": "#d6af86",
+                "rightArm": "#d6af86",
+                "leftLeg": "#34374c",
+                "rightLeg": "#34374c"
+              },
+              "cosmetic": null,
+              "hair": "bob",
+              "hairColor": "#40291f",
+              "clothing": "vest",
+              "clothingColor": "#be5b46"
+            },
+            "torsoVariant": "tapered"
+          }
+        },
+        "identity": true
+      }
+    },
+    {
+      "globalFrame": 1556,
+      "file": "frame-00033.png",
+      "sha256": "0d3646d95baef312eab4d4b2496003da039b2fdf71e42d3b6b58f2873a3ab920",
+      "state": {
+        "frame": 611,
+        "shot": "forgotten",
+        "time": 20.366666666666667,
+        "propOpen": null,
+        "camera": {
+          "position": [
+            -21,
+            5.3,
+            7.5
+          ],
+          "target": [
+            -0.9,
+            2.6,
+            1
+          ],
+          "fov": 54
+        },
+        "actorPosition": [
+          -2.4,
+          0,
+          4
+        ],
+        "propStates": {},
+        "ending": {
+          "globalFrame": 1556,
+          "globalTime": 51.86666666666667,
+          "counter": 0,
+          "counterEmphasis": false,
+          "whisper": false,
+          "location": "courtyard",
+          "doorOpen": 1,
+          "sunrise": 1,
+          "forgotten": 0.59326171875,
+          "adultRestored": 1,
+          "childRestored": 1
+        },
+        "actors": {
+          "eli": {
+            "position": [
+              -2.4,
+              0,
+              4
+            ],
+            "face": "worried",
+            "appearance": {
+              "color": "#d2d5d6",
+              "pieces": {
+                "head": "#e7c5a2",
+                "leftArm": "#e7c5a2",
+                "rightArm": "#e7c5a2",
+                "leftLeg": "#31485c",
+                "rightLeg": "#31485c"
+              },
+              "cosmetic": "cap",
+              "hair": null,
+              "hairColor": 4204831,
+              "clothing": "vest",
+              "clothingColor": "#216d85"
+            },
+            "torsoVariant": "classic"
+          },
+          "mara": {
+            "position": [
+              0.7198400438976718,
+              0,
+              -3.500880839233703
+            ],
+            "face": "relieved",
+            "appearance": {
+              "color": "#d2d5d6",
+              "pieces": {
+                "head": "#d6af86",
+                "leftArm": "#d6af86",
+                "rightArm": "#d6af86",
+                "leftLeg": "#34374c",
+                "rightLeg": "#34374c"
+              },
+              "cosmetic": null,
+              "hair": "bob",
+              "hairColor": "#40291f",
+              "clothing": "vest",
+              "clothingColor": "#be5b46"
+            },
+            "torsoVariant": "tapered"
+          }
+        },
+        "identity": true
+      }
+    },
+    {
+      "globalFrame": 1558,
+      "file": "frame-00034.png",
+      "sha256": "7819625c9d13beb5ba7dc9b26803f45a34281910daf03a064583e3c2b20b604a",
+      "state": {
+        "frame": 613,
+        "shot": "forgotten",
+        "time": 20.433333333333334,
+        "propOpen": null,
+        "camera": {
+          "position": [
+            -21,
+            5.3,
+            7.5
+          ],
+          "target": [
+            -0.9,
+            2.6,
+            1
+          ],
+          "fov": 54
+        },
+        "actorPosition": [
+          -2.4,
+          0,
+          4
+        ],
+        "propStates": {},
+        "ending": {
+          "globalFrame": 1558,
+          "globalTime": 51.93333333333333,
+          "counter": 0,
+          "counterEmphasis": false,
+          "whisper": false,
+          "location": "courtyard",
+          "doorOpen": 1,
+          "sunrise": 1,
+          "forgotten": 0.6539894386574073,
+          "adultRestored": 1,
+          "childRestored": 1
+        },
+        "actors": {
+          "eli": {
+            "position": [
+              -2.4,
+              0,
+              4
+            ],
+            "face": "worried",
+            "appearance": {
+              "color": "#d2d5d6",
+              "pieces": {
+                "head": "#e7c5a2",
+                "leftArm": "#e7c5a2",
+                "rightArm": "#e7c5a2",
+                "leftLeg": "#31485c",
+                "rightLeg": "#31485c"
+              },
+              "cosmetic": "cap",
+              "hair": null,
+              "hairColor": 4204831,
+              "clothing": "vest",
+              "clothingColor": "#216d85"
+            },
+            "torsoVariant": "classic"
+          },
+          "mara": {
+            "position": [
+              0.7198400438976718,
+              0,
+              -3.500880839233703
+            ],
+            "face": "relieved",
+            "appearance": {
+              "color": "#d2d5d6",
+              "pieces": {
+                "head": "#d6af86",
+                "leftArm": "#d6af86",
+                "rightArm": "#d6af86",
+                "leftLeg": "#34374c",
+                "rightLeg": "#34374c"
+              },
+              "cosmetic": null,
+              "hair": "bob",
+              "hairColor": "#40291f",
+              "clothing": "vest",
+              "clothingColor": "#be5b46"
+            },
+            "torsoVariant": "tapered"
+          }
+        },
+        "identity": true
+      }
+    },
+    {
+      "globalFrame": 1560,
+      "file": "frame-00035.png",
+      "sha256": "2e177042956fcc21c9d3a524ce739b6c7527ec2f18446888a4e3ed74967afeb5",
+      "state": {
+        "frame": 615,
+        "shot": "forgotten",
+        "time": 20.5,
+        "propOpen": null,
+        "camera": {
+          "position": [
+            -21,
+            5.3,
+            7.5
+          ],
+          "target": [
+            -0.9,
+            2.6,
+            1
+          ],
+          "fov": 54
+        },
+        "actorPosition": [
+          -2.4,
+          0,
+          4
+        ],
+        "propStates": {},
+        "ending": {
+          "globalFrame": 1560,
+          "globalTime": 52,
+          "counter": 0,
+          "counterEmphasis": false,
+          "whisper": false,
+          "location": "courtyard",
+          "doorOpen": 1,
+          "sunrise": 1,
+          "forgotten": 0.7125470196759259,
+          "adultRestored": 1,
+          "childRestored": 1
+        },
+        "actors": {
+          "eli": {
+            "position": [
+              -2.4,
+              0,
+              4
+            ],
+            "face": "worried",
+            "appearance": {
+              "color": "#d2d5d6",
+              "pieces": {
+                "head": "#e7c5a2",
+                "leftArm": "#e7c5a2",
+                "rightArm": "#e7c5a2",
+                "leftLeg": "#31485c",
+                "rightLeg": "#31485c"
+              },
+              "cosmetic": "cap",
+              "hair": null,
+              "hairColor": 4204831,
+              "clothing": "vest",
+              "clothingColor": "#216d85"
+            },
+            "torsoVariant": "classic"
+          },
+          "mara": {
+            "position": [
+              0.7198400438976718,
+              0,
+              -3.500880839233703
+            ],
+            "face": "relieved",
+            "appearance": {
+              "color": "#d2d5d6",
+              "pieces": {
+                "head": "#d6af86",
+                "leftArm": "#d6af86",
+                "rightArm": "#d6af86",
+                "leftLeg": "#34374c",
+                "rightLeg": "#34374c"
+              },
+              "cosmetic": null,
+              "hair": "bob",
+              "hairColor": "#40291f",
+              "clothing": "vest",
+              "clothingColor": "#be5b46"
+            },
+            "torsoVariant": "tapered"
+          }
+        },
+        "identity": true
+      }
+    },
+    {
+      "globalFrame": 1562,
+      "file": "frame-00036.png",
+      "sha256": "648e62318420b0cfda9ddf82008acf14a22c1e320294ebcf418ad0098769f987",
+      "state": {
+        "frame": 617,
+        "shot": "forgotten",
+        "time": 20.566666666666666,
+        "propOpen": null,
+        "camera": {
+          "position": [
+            -21,
+            5.3,
+            7.5
+          ],
+          "target": [
+            -0.9,
+            2.6,
+            1
+          ],
+          "fov": 54
+        },
+        "actorPosition": [
+          -2.4,
+          0,
+          4
+        ],
+        "propStates": {},
+        "ending": {
+          "globalFrame": 1562,
+          "globalTime": 52.06666666666667,
+          "counter": 0,
+          "counterEmphasis": false,
+          "whisper": false,
+          "location": "courtyard",
+          "doorOpen": 1,
+          "sunrise": 1,
+          "forgotten": 0.76806640625,
+          "adultRestored": 1,
+          "childRestored": 1
+        },
+        "actors": {
+          "eli": {
+            "position": [
+              -2.4,
+              0,
+              4
+            ],
+            "face": "worried",
+            "appearance": {
+              "color": "#d2d5d6",
+              "pieces": {
+                "head": "#e7c5a2",
+                "leftArm": "#e7c5a2",
+                "rightArm": "#e7c5a2",
+                "leftLeg": "#31485c",
+                "rightLeg": "#31485c"
+              },
+              "cosmetic": "cap",
+              "hair": null,
+              "hairColor": 4204831,
+              "clothing": "vest",
+              "clothingColor": "#216d85"
+            },
+            "torsoVariant": "classic"
+          },
+          "mara": {
+            "position": [
+              0.7198400438976718,
+              0,
+              -3.500880839233703
+            ],
+            "face": "relieved",
+            "appearance": {
+              "color": "#d2d5d6",
+              "pieces": {
+                "head": "#d6af86",
+                "leftArm": "#d6af86",
+                "rightArm": "#d6af86",
+                "leftLeg": "#34374c",
+                "rightLeg": "#34374c"
+              },
+              "cosmetic": null,
+              "hair": "bob",
+              "hairColor": "#40291f",
+              "clothing": "vest",
+              "clothingColor": "#be5b46"
+            },
+            "torsoVariant": "tapered"
+          }
+        },
+        "identity": true
+      }
+    },
+    {
+      "globalFrame": 1564,
+      "file": "frame-00037.png",
+      "sha256": "3cdc72e18b6a4e33f0e5c0b679f17fb7ad90e908ca5aa7ea98cb594966f5e80a",
+      "state": {
+        "frame": 619,
+        "shot": "forgotten",
+        "time": 20.633333333333333,
+        "propOpen": null,
+        "camera": {
+          "position": [
+            -21,
+            5.3,
+            7.5
+          ],
+          "target": [
+            -0.9,
+            2.6,
+            1
+          ],
+          "fov": 54
+        },
+        "actorPosition": [
+          -2.4,
+          0,
+          4
+        ],
+        "propStates": {},
+        "ending": {
+          "globalFrame": 1564,
+          "globalTime": 52.13333333333333,
+          "counter": 0,
+          "counterEmphasis": false,
+          "whisper": false,
+          "location": "courtyard",
+          "doorOpen": 1,
+          "sunrise": 1,
+          "forgotten": 0.819679542824074,
+          "adultRestored": 1,
+          "childRestored": 1
+        },
+        "actors": {
+          "eli": {
+            "position": [
+              -2.4,
+              0,
+              4
+            ],
+            "face": "worried",
+            "appearance": {
+              "color": "#d2d5d6",
+              "pieces": {
+                "head": "#e7c5a2",
+                "leftArm": "#e7c5a2",
+                "rightArm": "#e7c5a2",
+                "leftLeg": "#31485c",
+                "rightLeg": "#31485c"
+              },
+              "cosmetic": "cap",
+              "hair": null,
+              "hairColor": 4204831,
+              "clothing": "vest",
+              "clothingColor": "#216d85"
+            },
+            "torsoVariant": "classic"
+          },
+          "mara": {
+            "position": [
+              0.7198400438976718,
+              0,
+              -3.500880839233703
+            ],
+            "face": "relieved",
+            "appearance": {
+              "color": "#d2d5d6",
+              "pieces": {
+                "head": "#d6af86",
+                "leftArm": "#d6af86",
+                "rightArm": "#d6af86",
+                "leftLeg": "#34374c",
+                "rightLeg": "#34374c"
+              },
+              "cosmetic": null,
+              "hair": "bob",
+              "hairColor": "#40291f",
+              "clothing": "vest",
+              "clothingColor": "#be5b46"
+            },
+            "torsoVariant": "tapered"
+          }
+        },
+        "identity": true
+      }
+    },
+    {
+      "globalFrame": 1566,
+      "file": "frame-00038.png",
+      "sha256": "25813bcaa259472295e90e5e0c438ad8fc58fde0d9d79a3ea2ed49fd9b88c1d7",
+      "state": {
+        "frame": 621,
+        "shot": "forgotten",
+        "time": 20.7,
+        "propOpen": null,
+        "camera": {
+          "position": [
+            -21,
+            5.3,
+            7.5
+          ],
+          "target": [
+            -0.9,
+            2.6,
+            1
+          ],
+          "fov": 54
+        },
+        "actorPosition": [
+          -2.4,
+          0,
+          4
+        ],
+        "propStates": {},
+        "ending": {
+          "globalFrame": 1566,
+          "globalTime": 52.2,
+          "counter": 0,
+          "counterEmphasis": false,
+          "whisper": false,
+          "location": "courtyard",
+          "doorOpen": 1,
+          "sunrise": 1,
+          "forgotten": 0.8665183738425926,
+          "adultRestored": 1,
+          "childRestored": 1
+        },
+        "actors": {
+          "eli": {
+            "position": [
+              -2.4,
+              0,
+              4
+            ],
+            "face": "worried",
+            "appearance": {
+              "color": "#d2d5d6",
+              "pieces": {
+                "head": "#e7c5a2",
+                "leftArm": "#e7c5a2",
+                "rightArm": "#e7c5a2",
+                "leftLeg": "#31485c",
+                "rightLeg": "#31485c"
+              },
+              "cosmetic": "cap",
+              "hair": null,
+              "hairColor": 4204831,
+              "clothing": "vest",
+              "clothingColor": "#216d85"
+            },
+            "torsoVariant": "classic"
+          },
+          "mara": {
+            "position": [
+              0.7198400438976718,
+              0,
+              -3.500880839233703
+            ],
+            "face": "relieved",
+            "appearance": {
+              "color": "#d2d5d6",
+              "pieces": {
+                "head": "#d6af86",
+                "leftArm": "#d6af86",
+                "rightArm": "#d6af86",
+                "leftLeg": "#34374c",
+                "rightLeg": "#34374c"
+              },
+              "cosmetic": null,
+              "hair": "bob",
+              "hairColor": "#40291f",
+              "clothing": "vest",
+              "clothingColor": "#be5b46"
+            },
+            "torsoVariant": "tapered"
+          }
+        },
+        "identity": true
+      }
+    },
+    {
+      "globalFrame": 1568,
+      "file": "frame-00039.png",
+      "sha256": "9cb21dd69b01a14a61a68d2d12ccca4fb5f43801e3d7b438b320a4818121effe",
+      "state": {
+        "frame": 623,
+        "shot": "forgotten",
+        "time": 20.766666666666666,
+        "propOpen": null,
+        "camera": {
+          "position": [
+            -21,
+            5.3,
+            7.5
+          ],
+          "target": [
+            -0.9,
+            2.6,
+            1
+          ],
+          "fov": 54
+        },
+        "actorPosition": [
+          -2.4,
+          0,
+          4
+        ],
+        "propStates": {},
+        "ending": {
+          "globalFrame": 1568,
+          "globalTime": 52.266666666666666,
+          "counter": 0,
+          "counterEmphasis": false,
+          "whisper": false,
+          "location": "courtyard",
+          "doorOpen": 1,
+          "sunrise": 1,
+          "forgotten": 0.90771484375,
+          "adultRestored": 1,
+          "childRestored": 1
+        },
+        "actors": {
+          "eli": {
+            "position": [
+              -2.4,
+              0,
+              4
+            ],
+            "face": "worried",
+            "appearance": {
+              "color": "#d2d5d6",
+              "pieces": {
+                "head": "#e7c5a2",
+                "leftArm": "#e7c5a2",
+                "rightArm": "#e7c5a2",
+                "leftLeg": "#31485c",
+                "rightLeg": "#31485c"
+              },
+              "cosmetic": "cap",
+              "hair": null,
+              "hairColor": 4204831,
+              "clothing": "vest",
+              "clothingColor": "#216d85"
+            },
+            "torsoVariant": "classic"
+          },
+          "mara": {
+            "position": [
+              0.7198400438976718,
+              0,
+              -3.500880839233703
+            ],
+            "face": "relieved",
+            "appearance": {
+              "color": "#d2d5d6",
+              "pieces": {
+                "head": "#d6af86",
+                "leftArm": "#d6af86",
+                "rightArm": "#d6af86",
+                "leftLeg": "#34374c",
+                "rightLeg": "#34374c"
+              },
+              "cosmetic": null,
+              "hair": "bob",
+              "hairColor": "#40291f",
+              "clothing": "vest",
+              "clothingColor": "#be5b46"
+            },
+            "torsoVariant": "tapered"
+          }
+        },
+        "identity": true
+      }
+    },
+    {
+      "globalFrame": 1570,
+      "file": "frame-00040.png",
+      "sha256": "bbd0ed6496fc4f83888b284ce846a3555ea2cd6a98b20184e00bcf8ffe86bc97",
+      "state": {
+        "frame": 625,
+        "shot": "forgotten",
+        "time": 20.833333333333332,
+        "propOpen": null,
+        "camera": {
+          "position": [
+            -21,
+            5.3,
+            7.5
+          ],
+          "target": [
+            -0.9,
+            2.6,
+            1
+          ],
+          "fov": 54
+        },
+        "actorPosition": [
+          -2.4,
+          0,
+          4
+        ],
+        "propStates": {},
+        "ending": {
+          "globalFrame": 1570,
+          "globalTime": 52.333333333333336,
+          "counter": 0,
+          "counterEmphasis": false,
+          "whisper": false,
+          "location": "courtyard",
+          "doorOpen": 1,
+          "sunrise": 1,
+          "forgotten": 0.9424008969907408,
+          "adultRestored": 1,
+          "childRestored": 1
+        },
+        "actors": {
+          "eli": {
+            "position": [
+              -2.4,
+              0,
+              4
+            ],
+            "face": "worried",
+            "appearance": {
+              "color": "#d2d5d6",
+              "pieces": {
+                "head": "#e7c5a2",
+                "leftArm": "#e7c5a2",
+                "rightArm": "#e7c5a2",
+                "leftLeg": "#31485c",
+                "rightLeg": "#31485c"
+              },
+              "cosmetic": "cap",
+              "hair": null,
+              "hairColor": 4204831,
+              "clothing": "vest",
+              "clothingColor": "#216d85"
+            },
+            "torsoVariant": "classic"
+          },
+          "mara": {
+            "position": [
+              0.7198400438976718,
+              0,
+              -3.500880839233703
+            ],
+            "face": "relieved",
+            "appearance": {
+              "color": "#d2d5d6",
+              "pieces": {
+                "head": "#d6af86",
+                "leftArm": "#d6af86",
+                "rightArm": "#d6af86",
+                "leftLeg": "#34374c",
+                "rightLeg": "#34374c"
+              },
+              "cosmetic": null,
+              "hair": "bob",
+              "hairColor": "#40291f",
+              "clothing": "vest",
+              "clothingColor": "#be5b46"
+            },
+            "torsoVariant": "tapered"
+          }
+        },
+        "identity": true
+      }
+    },
+    {
+      "globalFrame": 1572,
+      "file": "frame-00041.png",
+      "sha256": "f1501add5888d363e07082c947df928def4dc77f8b429ed8aa6e1b5d0ad26e51",
+      "state": {
+        "frame": 627,
+        "shot": "forgotten",
+        "time": 20.9,
+        "propOpen": null,
+        "camera": {
+          "position": [
+            -21,
+            5.3,
+            7.5
+          ],
+          "target": [
+            -0.9,
+            2.6,
+            1
+          ],
+          "fov": 54
+        },
+        "actorPosition": [
+          -2.4,
+          0,
+          4
+        ],
+        "propStates": {},
+        "ending": {
+          "globalFrame": 1572,
+          "globalTime": 52.4,
+          "counter": 0,
+          "counterEmphasis": false,
+          "whisper": false,
+          "location": "courtyard",
+          "doorOpen": 1,
+          "sunrise": 1,
+          "forgotten": 0.9697084780092593,
+          "adultRestored": 1,
+          "childRestored": 1
+        },
+        "actors": {
+          "eli": {
+            "position": [
+              -2.4,
+              0,
+              4
+            ],
+            "face": "worried",
+            "appearance": {
+              "color": "#d2d5d6",
+              "pieces": {
+                "head": "#e7c5a2",
+                "leftArm": "#e7c5a2",
+                "rightArm": "#e7c5a2",
+                "leftLeg": "#31485c",
+                "rightLeg": "#31485c"
+              },
+              "cosmetic": "cap",
+              "hair": null,
+              "hairColor": 4204831,
+              "clothing": "vest",
+              "clothingColor": "#216d85"
+            },
+            "torsoVariant": "classic"
+          },
+          "mara": {
+            "position": [
+              0.7198400438976718,
+              0,
+              -3.500880839233703
+            ],
+            "face": "relieved",
+            "appearance": {
+              "color": "#d2d5d6",
+              "pieces": {
+                "head": "#d6af86",
+                "leftArm": "#d6af86",
+                "rightArm": "#d6af86",
+                "leftLeg": "#34374c",
+                "rightLeg": "#34374c"
+              },
+              "cosmetic": null,
+              "hair": "bob",
+              "hairColor": "#40291f",
+              "clothing": "vest",
+              "clothingColor": "#be5b46"
+            },
+            "torsoVariant": "tapered"
+          }
+        },
+        "identity": true
+      }
+    },
+    {
+      "globalFrame": 1574,
+      "file": "frame-00042.png",
+      "sha256": "29329f76ba42f5eab4f34c82e4d2c67e22cd5a07520aa5c2f863ce64777479b8",
+      "state": {
+        "frame": 629,
+        "shot": "forgotten",
+        "time": 20.966666666666665,
+        "propOpen": null,
+        "camera": {
+          "position": [
+            -21,
+            5.3,
+            7.5
+          ],
+          "target": [
+            -0.9,
+            2.6,
+            1
+          ],
+          "fov": 54
+        },
+        "actorPosition": [
+          -2.4,
+          0,
+          4
+        ],
+        "propStates": {},
+        "ending": {
+          "globalFrame": 1574,
+          "globalTime": 52.46666666666667,
+          "counter": 0,
+          "counterEmphasis": false,
+          "whisper": false,
+          "location": "courtyard",
+          "doorOpen": 1,
+          "sunrise": 1,
+          "forgotten": 0.98876953125,
+          "adultRestored": 1,
+          "childRestored": 1
+        },
+        "actors": {
+          "eli": {
+            "position": [
+              -2.4,
+              0,
+              4
+            ],
+            "face": "worried",
+            "appearance": {
+              "color": "#d2d5d6",
+              "pieces": {
+                "head": "#e7c5a2",
+                "leftArm": "#e7c5a2",
+                "rightArm": "#e7c5a2",
+                "leftLeg": "#31485c",
+                "rightLeg": "#31485c"
+              },
+              "cosmetic": "cap",
+              "hair": null,
+              "hairColor": 4204831,
+              "clothing": "vest",
+              "clothingColor": "#216d85"
+            },
+            "torsoVariant": "classic"
+          },
+          "mara": {
+            "position": [
+              0.7198400438976718,
+              0,
+              -3.500880839233703
+            ],
+            "face": "relieved",
+            "appearance": {
+              "color": "#d2d5d6",
+              "pieces": {
+                "head": "#d6af86",
+                "leftArm": "#d6af86",
+                "rightArm": "#d6af86",
+                "leftLeg": "#34374c",
+                "rightLeg": "#34374c"
+              },
+              "cosmetic": null,
+              "hair": "bob",
+              "hairColor": "#40291f",
+              "clothing": "vest",
+              "clothingColor": "#be5b46"
+            },
+            "torsoVariant": "tapered"
+          }
+        },
+        "identity": true
+      }
+    },
+    {
+      "globalFrame": 1576,
+      "file": "frame-00043.png",
+      "sha256": "fb3909f9346a6b763666253d5828eef04c2cedaab6905f769b6fdde88fcb4a62",
+      "state": {
+        "frame": 631,
+        "shot": "forgotten",
+        "time": 21.033333333333335,
+        "propOpen": null,
+        "camera": {
+          "position": [
+            -21,
+            5.3,
+            7.5
+          ],
+          "target": [
+            -0.9,
+            2.6,
+            1
+          ],
+          "fov": 54
+        },
+        "actorPosition": [
+          -2.4,
+          0,
+          4
+        ],
+        "propStates": {},
+        "ending": {
+          "globalFrame": 1576,
+          "globalTime": 52.53333333333333,
+          "counter": 0,
+          "counterEmphasis": false,
+          "whisper": false,
+          "location": "courtyard",
+          "doorOpen": 1,
+          "sunrise": 1,
+          "forgotten": 0.9987160011574074,
+          "adultRestored": 1,
+          "childRestored": 1
+        },
+        "actors": {
+          "eli": {
+            "position": [
+              -2.4,
+              0,
+              4
+            ],
+            "face": "worried",
+            "appearance": {
+              "color": "#d2d5d6",
+              "pieces": {
+                "head": "#e7c5a2",
+                "leftArm": "#e7c5a2",
+                "rightArm": "#e7c5a2",
+                "leftLeg": "#31485c",
+                "rightLeg": "#31485c"
+              },
+              "cosmetic": "cap",
+              "hair": null,
+              "hairColor": 4204831,
+              "clothing": "vest",
+              "clothingColor": "#216d85"
+            },
+            "torsoVariant": "classic"
+          },
+          "mara": {
+            "position": [
+              0.7198400438976718,
+              0,
+              -3.500880839233703
+            ],
+            "face": "relieved",
+            "appearance": {
+              "color": "#d2d5d6",
+              "pieces": {
+                "head": "#d6af86",
+                "leftArm": "#d6af86",
+                "rightArm": "#d6af86",
+                "leftLeg": "#34374c",
+                "rightLeg": "#34374c"
+              },
+              "cosmetic": null,
+              "hair": "bob",
+              "hairColor": "#40291f",
+              "clothing": "vest",
+              "clothingColor": "#be5b46"
+            },
+            "torsoVariant": "tapered"
+          }
+        },
+        "identity": true
+      }
+    },
+    {
+      "globalFrame": 1578,
+      "file": "frame-00044.png",
+      "sha256": "bbd8eb290fef1caba8274107a193a67c5b4d7b4038e50ca8b63b3a45e3f59bc3",
+      "state": {
+        "frame": 633,
+        "shot": "forgotten",
+        "time": 21.1,
+        "propOpen": null,
+        "camera": {
+          "position": [
+            -21,
+            5.3,
+            7.5
+          ],
+          "target": [
+            -0.9,
+            2.6,
+            1
+          ],
+          "fov": 54
+        },
+        "actorPosition": [
+          -2.4,
+          0,
+          4
+        ],
+        "propStates": {},
+        "ending": {
+          "globalFrame": 1578,
+          "globalTime": 52.6,
+          "counter": 0,
+          "counterEmphasis": false,
+          "whisper": false,
+          "location": "courtyard",
+          "doorOpen": 1,
+          "sunrise": 1,
+          "forgotten": 1,
+          "adultRestored": 1,
+          "childRestored": 1
+        },
+        "actors": {
+          "eli": {
+            "position": [
+              -2.4,
+              0,
+              4
+            ],
+            "face": "worried",
+            "appearance": {
+              "color": "#d2d5d6",
+              "pieces": {
+                "head": "#e7c5a2",
+                "leftArm": "#e7c5a2",
+                "rightArm": "#e7c5a2",
+                "leftLeg": "#31485c",
+                "rightLeg": "#31485c"
+              },
+              "cosmetic": "cap",
+              "hair": null,
+              "hairColor": 4204831,
+              "clothing": "vest",
+              "clothingColor": "#216d85"
+            },
+            "torsoVariant": "classic"
+          },
+          "mara": {
+            "position": [
+              0.7198400438976718,
+              0,
+              -3.500880839233703
+            ],
+            "face": "relieved",
+            "appearance": {
+              "color": "#d2d5d6",
+              "pieces": {
+                "head": "#d6af86",
+                "leftArm": "#d6af86",
+                "rightArm": "#d6af86",
+                "leftLeg": "#34374c",
+                "rightLeg": "#34374c"
+              },
+              "cosmetic": null,
+              "hair": "bob",
+              "hairColor": "#40291f",
+              "clothing": "vest",
+              "clothingColor": "#be5b46"
+            },
+            "torsoVariant": "tapered"
+          }
+        },
+        "identity": true
+      }
+    },
+    {
+      "globalFrame": 1580,
+      "file": "frame-00045.png",
+      "sha256": "50cb7c739eab6e93f3d03ea8f454a9fbf282f30cb9a546292fa908cdf1419ae2",
+      "state": {
+        "frame": 635,
+        "shot": "forgotten",
+        "time": 21.166666666666668,
+        "propOpen": null,
+        "camera": {
+          "position": [
+            -21,
+            5.3,
+            7.5
+          ],
+          "target": [
+            -0.9,
+            2.6,
+            1
+          ],
+          "fov": 54
+        },
+        "actorPosition": [
+          -2.4,
+          0,
+          4
+        ],
+        "propStates": {},
+        "ending": {
+          "globalFrame": 1580,
+          "globalTime": 52.666666666666664,
+          "counter": 0,
+          "counterEmphasis": false,
+          "whisper": false,
+          "location": "courtyard",
+          "doorOpen": 1,
+          "sunrise": 1,
+          "forgotten": 1,
+          "adultRestored": 1,
+          "childRestored": 1
+        },
+        "actors": {
+          "eli": {
+            "position": [
+              -2.4,
+              0,
+              4
+            ],
+            "face": "worried",
+            "appearance": {
+              "color": "#d2d5d6",
+              "pieces": {
+                "head": "#e7c5a2",
+                "leftArm": "#e7c5a2",
+                "rightArm": "#e7c5a2",
+                "leftLeg": "#31485c",
+                "rightLeg": "#31485c"
+              },
+              "cosmetic": "cap",
+              "hair": null,
+              "hairColor": 4204831,
+              "clothing": "vest",
+              "clothingColor": "#216d85"
+            },
+            "torsoVariant": "classic"
+          },
+          "mara": {
+            "position": [
+              0.7198400438976718,
+              0,
+              -3.500880839233703
+            ],
+            "face": "relieved",
+            "appearance": {
+              "color": "#d2d5d6",
+              "pieces": {
+                "head": "#d6af86",
+                "leftArm": "#d6af86",
+                "rightArm": "#d6af86",
+                "leftLeg": "#34374c",
+                "rightLeg": "#34374c"
+              },
+              "cosmetic": null,
+              "hair": "bob",
+              "hairColor": "#40291f",
+              "clothing": "vest",
+              "clothingColor": "#be5b46"
+            },
+            "torsoVariant": "tapered"
+          }
+        },
+        "identity": true
+      }
+    },
+    {
+      "globalFrame": 1582,
+      "file": "frame-00046.png",
+      "sha256": "c7380a668b73313235a14a8108f00b809d116713222fe7a2a0f1a015526e14d6",
+      "state": {
+        "frame": 637,
+        "shot": "forgotten",
+        "time": 21.233333333333334,
+        "propOpen": null,
+        "camera": {
+          "position": [
+            -21,
+            5.3,
+            7.5
+          ],
+          "target": [
+            -0.9,
+            2.6,
+            1
+          ],
+          "fov": 54
+        },
+        "actorPosition": [
+          -2.4,
+          0,
+          4
+        ],
+        "propStates": {},
+        "ending": {
+          "globalFrame": 1582,
+          "globalTime": 52.733333333333334,
+          "counter": 0,
+          "counterEmphasis": false,
+          "whisper": false,
+          "location": "courtyard",
+          "doorOpen": 1,
+          "sunrise": 1,
+          "forgotten": 1,
+          "adultRestored": 1,
+          "childRestored": 1
+        },
+        "actors": {
+          "eli": {
+            "position": [
+              -2.4,
+              0,
+              4
+            ],
+            "face": "worried",
+            "appearance": {
+              "color": "#d2d5d6",
+              "pieces": {
+                "head": "#e7c5a2",
+                "leftArm": "#e7c5a2",
+                "rightArm": "#e7c5a2",
+                "leftLeg": "#31485c",
+                "rightLeg": "#31485c"
+              },
+              "cosmetic": "cap",
+              "hair": null,
+              "hairColor": 4204831,
+              "clothing": "vest",
+              "clothingColor": "#216d85"
+            },
+            "torsoVariant": "classic"
+          },
+          "mara": {
+            "position": [
+              0.7198400438976718,
+              0,
+              -3.500880839233703
+            ],
+            "face": "relieved",
+            "appearance": {
+              "color": "#d2d5d6",
+              "pieces": {
+                "head": "#d6af86",
+                "leftArm": "#d6af86",
+                "rightArm": "#d6af86",
+                "leftLeg": "#34374c",
+                "rightLeg": "#34374c"
+              },
+              "cosmetic": null,
+              "hair": "bob",
+              "hairColor": "#40291f",
+              "clothing": "vest",
+              "clothingColor": "#be5b46"
+            },
+            "torsoVariant": "tapered"
+          }
+        },
+        "identity": true
+      }
+    },
+    {
+      "globalFrame": 1584,
+      "file": "frame-00047.png",
+      "sha256": "dea40571e0f3b416164e74345f163ab75283bddd9a01ea1c03102733dcc1f989",
+      "state": {
+        "frame": 639,
+        "shot": "forgotten",
+        "time": 21.3,
+        "propOpen": null,
+        "camera": {
+          "position": [
+            -21,
+            5.3,
+            7.5
+          ],
+          "target": [
+            -0.9,
+            2.6,
+            1
+          ],
+          "fov": 54
+        },
+        "actorPosition": [
+          -2.4,
+          0,
+          4
+        ],
+        "propStates": {},
+        "ending": {
+          "globalFrame": 1584,
+          "globalTime": 52.8,
+          "counter": 0,
+          "counterEmphasis": false,
+          "whisper": false,
+          "location": "courtyard",
+          "doorOpen": 1,
+          "sunrise": 1,
+          "forgotten": 1,
+          "adultRestored": 1,
+          "childRestored": 1
+        },
+        "actors": {
+          "eli": {
+            "position": [
+              -2.4,
+              0,
+              4
+            ],
+            "face": "worried",
+            "appearance": {
+              "color": "#d2d5d6",
+              "pieces": {
+                "head": "#e7c5a2",
+                "leftArm": "#e7c5a2",
+                "rightArm": "#e7c5a2",
+                "leftLeg": "#31485c",
+                "rightLeg": "#31485c"
+              },
+              "cosmetic": "cap",
+              "hair": null,
+              "hairColor": 4204831,
+              "clothing": "vest",
+              "clothingColor": "#216d85"
+            },
+            "torsoVariant": "classic"
+          },
+          "mara": {
+            "position": [
+              0.7198400438976718,
+              0,
+              -3.500880839233703
+            ],
+            "face": "relieved",
+            "appearance": {
+              "color": "#d2d5d6",
+              "pieces": {
+                "head": "#d6af86",
+                "leftArm": "#d6af86",
+                "rightArm": "#d6af86",
+                "leftLeg": "#34374c",
+                "rightLeg": "#34374c"
+              },
+              "cosmetic": null,
+              "hair": "bob",
+              "hairColor": "#40291f",
+              "clothing": "vest",
+              "clothingColor": "#be5b46"
+            },
+            "torsoVariant": "tapered"
+          }
+        },
+        "identity": true
+      }
+    },
+    {
+      "globalFrame": 1586,
+      "file": "frame-00048.png",
+      "sha256": "b779ef7ead77107e9c94cd74348d815704626f85546c82163778a8844b216ad2",
+      "state": {
+        "frame": 641,
+        "shot": "forgotten",
+        "time": 21.366666666666667,
+        "propOpen": null,
+        "camera": {
+          "position": [
+            -21,
+            5.3,
+            7.5
+          ],
+          "target": [
+            -0.9,
+            2.6,
+            1
+          ],
+          "fov": 54
+        },
+        "actorPosition": [
+          -2.4,
+          0,
+          4
+        ],
+        "propStates": {},
+        "ending": {
+          "globalFrame": 1586,
+          "globalTime": 52.86666666666667,
+          "counter": 0,
+          "counterEmphasis": false,
+          "whisper": false,
+          "location": "courtyard",
+          "doorOpen": 1,
+          "sunrise": 1,
+          "forgotten": 1,
+          "adultRestored": 1,
+          "childRestored": 1
+        },
+        "actors": {
+          "eli": {
+            "position": [
+              -2.4,
+              0,
+              4
+            ],
+            "face": "worried",
+            "appearance": {
+              "color": "#d2d5d6",
+              "pieces": {
+                "head": "#e7c5a2",
+                "leftArm": "#e7c5a2",
+                "rightArm": "#e7c5a2",
+                "leftLeg": "#31485c",
+                "rightLeg": "#31485c"
+              },
+              "cosmetic": "cap",
+              "hair": null,
+              "hairColor": 4204831,
+              "clothing": "vest",
+              "clothingColor": "#216d85"
+            },
+            "torsoVariant": "classic"
+          },
+          "mara": {
+            "position": [
+              0.7198400438976718,
+              0,
+              -3.500880839233703
+            ],
+            "face": "relieved",
+            "appearance": {
+              "color": "#d2d5d6",
+              "pieces": {
+                "head": "#d6af86",
+                "leftArm": "#d6af86",
+                "rightArm": "#d6af86",
+                "leftLeg": "#34374c",
+                "rightLeg": "#34374c"
+              },
+              "cosmetic": null,
+              "hair": "bob",
+              "hairColor": "#40291f",
+              "clothing": "vest",
+              "clothingColor": "#be5b46"
+            },
+            "torsoVariant": "tapered"
+          }
+        },
+        "identity": true
+      }
+    },
+    {
+      "globalFrame": 1588,
+      "file": "frame-00049.png",
+      "sha256": "202dce82b7dfc851d159ecb9e258e0cb28a36003eb8b9667bce728d480f030e0",
+      "state": {
+        "frame": 643,
+        "shot": "forgotten",
+        "time": 21.433333333333334,
+        "propOpen": null,
+        "camera": {
+          "position": [
+            -21,
+            5.3,
+            7.5
+          ],
+          "target": [
+            -0.9,
+            2.6,
+            1
+          ],
+          "fov": 54
+        },
+        "actorPosition": [
+          -2.4,
+          0,
+          4
+        ],
+        "propStates": {},
+        "ending": {
+          "globalFrame": 1588,
+          "globalTime": 52.93333333333333,
+          "counter": 0,
+          "counterEmphasis": false,
+          "whisper": false,
+          "location": "courtyard",
+          "doorOpen": 1,
+          "sunrise": 1,
+          "forgotten": 1,
+          "adultRestored": 1,
+          "childRestored": 1
+        },
+        "actors": {
+          "eli": {
+            "position": [
+              -2.4,
+              0,
+              4
+            ],
+            "face": "worried",
+            "appearance": {
+              "color": "#d2d5d6",
+              "pieces": {
+                "head": "#e7c5a2",
+                "leftArm": "#e7c5a2",
+                "rightArm": "#e7c5a2",
+                "leftLeg": "#31485c",
+                "rightLeg": "#31485c"
+              },
+              "cosmetic": "cap",
+              "hair": null,
+              "hairColor": 4204831,
+              "clothing": "vest",
+              "clothingColor": "#216d85"
+            },
+            "torsoVariant": "classic"
+          },
+          "mara": {
+            "position": [
+              0.7198400438976718,
+              0,
+              -3.500880839233703
+            ],
+            "face": "relieved",
+            "appearance": {
+              "color": "#d2d5d6",
+              "pieces": {
+                "head": "#d6af86",
+                "leftArm": "#d6af86",
+                "rightArm": "#d6af86",
+                "leftLeg": "#34374c",
+                "rightLeg": "#34374c"
+              },
+              "cosmetic": null,
+              "hair": "bob",
+              "hairColor": "#40291f",
+              "clothing": "vest",
+              "clothingColor": "#be5b46"
+            },
+            "torsoVariant": "tapered"
+          }
+        },
+        "identity": true
+      }
+    },
+    {
+      "globalFrame": 1590,
+      "file": "frame-00050.png",
+      "sha256": "e542c086cd2be400971b4fe65e7da918143eac00ed9fd57b6c207711b17a10b8",
+      "state": {
+        "frame": 645,
+        "shot": "forgotten",
+        "time": 21.5,
+        "propOpen": null,
+        "camera": {
+          "position": [
+            -21,
+            5.3,
+            7.5
+          ],
+          "target": [
+            -0.9,
+            2.6,
+            1
+          ],
+          "fov": 54
+        },
+        "actorPosition": [
+          -2.4,
+          0,
+          4
+        ],
+        "propStates": {},
+        "ending": {
+          "globalFrame": 1590,
+          "globalTime": 53,
+          "counter": 0,
+          "counterEmphasis": false,
+          "whisper": false,
+          "location": "courtyard",
+          "doorOpen": 1,
+          "sunrise": 1,
+          "forgotten": 1,
+          "adultRestored": 1,
+          "childRestored": 1
+        },
+        "actors": {
+          "eli": {
+            "position": [
+              -2.4,
+              0,
+              4
+            ],
+            "face": "worried",
+            "appearance": {
+              "color": "#d2d5d6",
+              "pieces": {
+                "head": "#e7c5a2",
+                "leftArm": "#e7c5a2",
+                "rightArm": "#e7c5a2",
+                "leftLeg": "#31485c",
+                "rightLeg": "#31485c"
+              },
+              "cosmetic": "cap",
+              "hair": null,
+              "hairColor": 4204831,
+              "clothing": "vest",
+              "clothingColor": "#216d85"
+            },
+            "torsoVariant": "classic"
+          },
+          "mara": {
+            "position": [
+              0.7198400438976718,
+              0,
+              -3.500880839233703
+            ],
+            "face": "relieved",
+            "appearance": {
+              "color": "#d2d5d6",
+              "pieces": {
+                "head": "#d6af86",
+                "leftArm": "#d6af86",
+                "rightArm": "#d6af86",
+                "leftLeg": "#34374c",
+                "rightLeg": "#34374c"
+              },
+              "cosmetic": null,
+              "hair": "bob",
+              "hairColor": "#40291f",
+              "clothing": "vest",
+              "clothingColor": "#be5b46"
+            },
+            "torsoVariant": "tapered"
+          }
+        },
+        "identity": true
+      }
+    },
+    {
+      "globalFrame": 1592,
+      "file": "frame-00051.png",
+      "sha256": "441060a72f835a1ca3072983309ea1ff3e1b81e69d89cfbeed9e9694942df4e0",
+      "state": {
+        "frame": 647,
+        "shot": "forgotten",
+        "time": 21.566666666666666,
+        "propOpen": null,
+        "camera": {
+          "position": [
+            -21,
+            5.3,
+            7.5
+          ],
+          "target": [
+            -0.9,
+            2.6,
+            1
+          ],
+          "fov": 54
+        },
+        "actorPosition": [
+          -2.4,
+          0,
+          4
+        ],
+        "propStates": {},
+        "ending": {
+          "globalFrame": 1592,
+          "globalTime": 53.06666666666667,
+          "counter": 0,
+          "counterEmphasis": false,
+          "whisper": false,
+          "location": "courtyard",
+          "doorOpen": 1,
+          "sunrise": 1,
+          "forgotten": 1,
+          "adultRestored": 1,
+          "childRestored": 1
+        },
+        "actors": {
+          "eli": {
+            "position": [
+              -2.4,
+              0,
+              4
+            ],
+            "face": "worried",
+            "appearance": {
+              "color": "#d2d5d6",
+              "pieces": {
+                "head": "#e7c5a2",
+                "leftArm": "#e7c5a2",
+                "rightArm": "#e7c5a2",
+                "leftLeg": "#31485c",
+                "rightLeg": "#31485c"
+              },
+              "cosmetic": "cap",
+              "hair": null,
+              "hairColor": 4204831,
+              "clothing": "vest",
+              "clothingColor": "#216d85"
+            },
+            "torsoVariant": "classic"
+          },
+          "mara": {
+            "position": [
+              0.7198400438976718,
+              0,
+              -3.500880839233703
+            ],
+            "face": "relieved",
+            "appearance": {
+              "color": "#d2d5d6",
+              "pieces": {
+                "head": "#d6af86",
+                "leftArm": "#d6af86",
+                "rightArm": "#d6af86",
+                "leftLeg": "#34374c",
+                "rightLeg": "#34374c"
+              },
+              "cosmetic": null,
+              "hair": "bob",
+              "hairColor": "#40291f",
+              "clothing": "vest",
+              "clothingColor": "#be5b46"
+            },
+            "torsoVariant": "tapered"
+          }
+        },
+        "identity": true
+      }
+    },
+    {
+      "globalFrame": 1594,
+      "file": "frame-00052.png",
+      "sha256": "529d4212cb5d88ff61505ac09962a74d23eaf485e298cca77086613634588d55",
+      "state": {
+        "frame": 649,
+        "shot": "forgotten",
+        "time": 21.633333333333333,
+        "propOpen": null,
+        "camera": {
+          "position": [
+            -21,
+            5.3,
+            7.5
+          ],
+          "target": [
+            -0.9,
+            2.6,
+            1
+          ],
+          "fov": 54
+        },
+        "actorPosition": [
+          -2.4,
+          0,
+          4
+        ],
+        "propStates": {},
+        "ending": {
+          "globalFrame": 1594,
+          "globalTime": 53.13333333333333,
+          "counter": 0,
+          "counterEmphasis": false,
+          "whisper": false,
+          "location": "courtyard",
+          "doorOpen": 1,
+          "sunrise": 1,
+          "forgotten": 1,
+          "adultRestored": 1,
+          "childRestored": 1
+        },
+        "actors": {
+          "eli": {
+            "position": [
+              -2.4,
+              0,
+              4
+            ],
+            "face": "worried",
+            "appearance": {
+              "color": "#d2d5d6",
+              "pieces": {
+                "head": "#e7c5a2",
+                "leftArm": "#e7c5a2",
+                "rightArm": "#e7c5a2",
+                "leftLeg": "#31485c",
+                "rightLeg": "#31485c"
+              },
+              "cosmetic": "cap",
+              "hair": null,
+              "hairColor": 4204831,
+              "clothing": "vest",
+              "clothingColor": "#216d85"
+            },
+            "torsoVariant": "classic"
+          },
+          "mara": {
+            "position": [
+              0.7198400438976718,
+              0,
+              -3.500880839233703
+            ],
+            "face": "relieved",
+            "appearance": {
+              "color": "#d2d5d6",
+              "pieces": {
+                "head": "#d6af86",
+                "leftArm": "#d6af86",
+                "rightArm": "#d6af86",
+                "leftLeg": "#34374c",
+                "rightLeg": "#34374c"
+              },
+              "cosmetic": null,
+              "hair": "bob",
+              "hairColor": "#40291f",
+              "clothing": "vest",
+              "clothingColor": "#be5b46"
+            },
+            "torsoVariant": "tapered"
+          }
+        },
+        "identity": true
+      }
+    },
+    {
+      "globalFrame": 1596,
+      "file": "frame-00053.png",
+      "sha256": "513031332ae0021c5492d16e31c9f082f6199c112c85e601f116b20a71601775",
+      "state": {
+        "frame": 651,
+        "shot": "forgotten",
+        "time": 21.7,
+        "propOpen": null,
+        "camera": {
+          "position": [
+            -21,
+            5.3,
+            7.5
+          ],
+          "target": [
+            -0.9,
+            2.6,
+            1
+          ],
+          "fov": 54
+        },
+        "actorPosition": [
+          -2.4,
+          0,
+          4
+        ],
+        "propStates": {},
+        "ending": {
+          "globalFrame": 1596,
+          "globalTime": 53.2,
+          "counter": 0,
+          "counterEmphasis": false,
+          "whisper": false,
+          "location": "courtyard",
+          "doorOpen": 1,
+          "sunrise": 1,
+          "forgotten": 1,
+          "adultRestored": 1,
+          "childRestored": 1
+        },
+        "actors": {
+          "eli": {
+            "position": [
+              -2.4,
+              0,
+              4
+            ],
+            "face": "worried",
+            "appearance": {
+              "color": "#d2d5d6",
+              "pieces": {
+                "head": "#e7c5a2",
+                "leftArm": "#e7c5a2",
+                "rightArm": "#e7c5a2",
+                "leftLeg": "#31485c",
+                "rightLeg": "#31485c"
+              },
+              "cosmetic": "cap",
+              "hair": null,
+              "hairColor": 4204831,
+              "clothing": "vest",
+              "clothingColor": "#216d85"
+            },
+            "torsoVariant": "classic"
+          },
+          "mara": {
+            "position": [
+              0.7198400438976718,
+              0,
+              -3.500880839233703
+            ],
+            "face": "relieved",
+            "appearance": {
+              "color": "#d2d5d6",
+              "pieces": {
+                "head": "#d6af86",
+                "leftArm": "#d6af86",
+                "rightArm": "#d6af86",
+                "leftLeg": "#34374c",
+                "rightLeg": "#34374c"
+              },
+              "cosmetic": null,
+              "hair": "bob",
+              "hairColor": "#40291f",
+              "clothing": "vest",
+              "clothingColor": "#be5b46"
+            },
+            "torsoVariant": "tapered"
+          }
+        },
+        "identity": true
+      }
+    },
+    {
+      "globalFrame": 1598,
+      "file": "frame-00054.png",
+      "sha256": "acfdd1171ff0c02b4420ad5768845acedf47b930cecbc880994734c2a3bbd379",
+      "state": {
+        "frame": 653,
+        "shot": "forgotten",
+        "time": 21.766666666666666,
+        "propOpen": null,
+        "camera": {
+          "position": [
+            -21,
+            5.3,
+            7.5
+          ],
+          "target": [
+            -0.9,
+            2.6,
+            1
+          ],
+          "fov": 54
+        },
+        "actorPosition": [
+          -2.4,
+          0,
+          4
+        ],
+        "propStates": {},
+        "ending": {
+          "globalFrame": 1598,
+          "globalTime": 53.266666666666666,
+          "counter": 0,
+          "counterEmphasis": false,
+          "whisper": false,
+          "location": "courtyard",
+          "doorOpen": 1,
+          "sunrise": 1,
+          "forgotten": 1,
+          "adultRestored": 1,
+          "childRestored": 1
+        },
+        "actors": {
+          "eli": {
+            "position": [
+              -2.4,
+              0,
+              4
+            ],
+            "face": "worried",
+            "appearance": {
+              "color": "#d2d5d6",
+              "pieces": {
+                "head": "#e7c5a2",
+                "leftArm": "#e7c5a2",
+                "rightArm": "#e7c5a2",
+                "leftLeg": "#31485c",
+                "rightLeg": "#31485c"
+              },
+              "cosmetic": "cap",
+              "hair": null,
+              "hairColor": 4204831,
+              "clothing": "vest",
+              "clothingColor": "#216d85"
+            },
+            "torsoVariant": "classic"
+          },
+          "mara": {
+            "position": [
+              0.7198400438976718,
+              0,
+              -3.500880839233703
+            ],
+            "face": "relieved",
+            "appearance": {
+              "color": "#d2d5d6",
+              "pieces": {
+                "head": "#d6af86",
+                "leftArm": "#d6af86",
+                "rightArm": "#d6af86",
+                "leftLeg": "#34374c",
+                "rightLeg": "#34374c"
+              },
+              "cosmetic": null,
+              "hair": "bob",
+              "hairColor": "#40291f",
+              "clothing": "vest",
+              "clothingColor": "#be5b46"
+            },
+            "torsoVariant": "tapered"
+          }
+        },
+        "identity": true
+      }
+    },
+    {
+      "globalFrame": 1600,
+      "file": "frame-00055.png",
+      "sha256": "58da0722388f076aed703caa5038faebed39048a1065b0c8b3e01c5c47dcfc65",
+      "state": {
+        "frame": 655,
+        "shot": "forgotten",
+        "time": 21.833333333333332,
+        "propOpen": null,
+        "camera": {
+          "position": [
+            -21,
+            5.3,
+            7.5
+          ],
+          "target": [
+            -0.9,
+            2.6,
+            1
+          ],
+          "fov": 54
+        },
+        "actorPosition": [
+          -2.4,
+          0,
+          4
+        ],
+        "propStates": {},
+        "ending": {
+          "globalFrame": 1600,
+          "globalTime": 53.333333333333336,
+          "counter": 0,
+          "counterEmphasis": false,
+          "whisper": false,
+          "location": "courtyard",
+          "doorOpen": 1,
+          "sunrise": 1,
+          "forgotten": 1,
+          "adultRestored": 1,
+          "childRestored": 1
+        },
+        "actors": {
+          "eli": {
+            "position": [
+              -2.4,
+              0,
+              4
+            ],
+            "face": "worried",
+            "appearance": {
+              "color": "#d2d5d6",
+              "pieces": {
+                "head": "#e7c5a2",
+                "leftArm": "#e7c5a2",
+                "rightArm": "#e7c5a2",
+                "leftLeg": "#31485c",
+                "rightLeg": "#31485c"
+              },
+              "cosmetic": "cap",
+              "hair": null,
+              "hairColor": 4204831,
+              "clothing": "vest",
+              "clothingColor": "#216d85"
+            },
+            "torsoVariant": "classic"
+          },
+          "mara": {
+            "position": [
+              0.7198400438976718,
+              0,
+              -3.500880839233703
+            ],
+            "face": "relieved",
+            "appearance": {
+              "color": "#d2d5d6",
+              "pieces": {
+                "head": "#d6af86",
+                "leftArm": "#d6af86",
+                "rightArm": "#d6af86",
+                "leftLeg": "#34374c",
+                "rightLeg": "#34374c"
+              },
+              "cosmetic": null,
+              "hair": "bob",
+              "hairColor": "#40291f",
+              "clothing": "vest",
+              "clothingColor": "#be5b46"
+            },
+            "torsoVariant": "tapered"
+          }
+        },
+        "identity": true
+      }
+    },
+    {
+      "globalFrame": 1602,
+      "file": "frame-00056.png",
+      "sha256": "1897717f19cbb87aae9b72da17297e17136ac375ea441134ace679e948c63337",
+      "state": {
+        "frame": 657,
+        "shot": "forgotten",
+        "time": 21.9,
+        "propOpen": null,
+        "camera": {
+          "position": [
+            -21,
+            5.3,
+            7.5
+          ],
+          "target": [
+            -0.9,
+            2.6,
+            1
+          ],
+          "fov": 54
+        },
+        "actorPosition": [
+          -2.4,
+          0,
+          4
+        ],
+        "propStates": {},
+        "ending": {
+          "globalFrame": 1602,
+          "globalTime": 53.4,
+          "counter": 0,
+          "counterEmphasis": false,
+          "whisper": false,
+          "location": "courtyard",
+          "doorOpen": 1,
+          "sunrise": 1,
+          "forgotten": 1,
+          "adultRestored": 1,
+          "childRestored": 1
+        },
+        "actors": {
+          "eli": {
+            "position": [
+              -2.4,
+              0,
+              4
+            ],
+            "face": "worried",
+            "appearance": {
+              "color": "#d2d5d6",
+              "pieces": {
+                "head": "#e7c5a2",
+                "leftArm": "#e7c5a2",
+                "rightArm": "#e7c5a2",
+                "leftLeg": "#31485c",
+                "rightLeg": "#31485c"
+              },
+              "cosmetic": "cap",
+              "hair": null,
+              "hairColor": 4204831,
+              "clothing": "vest",
+              "clothingColor": "#216d85"
+            },
+            "torsoVariant": "classic"
+          },
+          "mara": {
+            "position": [
+              0.7198400438976718,
+              0,
+              -3.500880839233703
+            ],
+            "face": "relieved",
+            "appearance": {
+              "color": "#d2d5d6",
+              "pieces": {
+                "head": "#d6af86",
+                "leftArm": "#d6af86",
+                "rightArm": "#d6af86",
+                "leftLeg": "#34374c",
+                "rightLeg": "#34374c"
+              },
+              "cosmetic": null,
+              "hair": "bob",
+              "hairColor": "#40291f",
+              "clothing": "vest",
+              "clothingColor": "#be5b46"
+            },
+            "torsoVariant": "tapered"
+          }
+        },
+        "identity": true
+      }
+    },
+    {
+      "globalFrame": 1604,
+      "file": "frame-00057.png",
+      "sha256": "b74becfe28a889d345531fabbb232e762633a6cef3335f2d8b81f4431859a68e",
+      "state": {
+        "frame": 659,
+        "shot": "forgotten",
+        "time": 21.966666666666665,
+        "propOpen": null,
+        "camera": {
+          "position": [
+            -21,
+            5.3,
+            7.5
+          ],
+          "target": [
+            -0.9,
+            2.6,
+            1
+          ],
+          "fov": 54
+        },
+        "actorPosition": [
+          -2.4,
+          0,
+          4
+        ],
+        "propStates": {},
+        "ending": {
+          "globalFrame": 1604,
+          "globalTime": 53.46666666666667,
+          "counter": 0,
+          "counterEmphasis": false,
+          "whisper": false,
+          "location": "courtyard",
+          "doorOpen": 1,
+          "sunrise": 1,
+          "forgotten": 1,
+          "adultRestored": 1,
+          "childRestored": 1
+        },
+        "actors": {
+          "eli": {
+            "position": [
+              -2.4,
+              0,
+              4
+            ],
+            "face": "worried",
+            "appearance": {
+              "color": "#d2d5d6",
+              "pieces": {
+                "head": "#e7c5a2",
+                "leftArm": "#e7c5a2",
+                "rightArm": "#e7c5a2",
+                "leftLeg": "#31485c",
+                "rightLeg": "#31485c"
+              },
+              "cosmetic": "cap",
+              "hair": null,
+              "hairColor": 4204831,
+              "clothing": "vest",
+              "clothingColor": "#216d85"
+            },
+            "torsoVariant": "classic"
+          },
+          "mara": {
+            "position": [
+              0.7198400438976718,
+              0,
+              -3.500880839233703
+            ],
+            "face": "relieved",
+            "appearance": {
+              "color": "#d2d5d6",
+              "pieces": {
+                "head": "#d6af86",
+                "leftArm": "#d6af86",
+                "rightArm": "#d6af86",
+                "leftLeg": "#34374c",
+                "rightLeg": "#34374c"
+              },
+              "cosmetic": null,
+              "hair": "bob",
+              "hairColor": "#40291f",
+              "clothing": "vest",
+              "clothingColor": "#be5b46"
+            },
+            "torsoVariant": "tapered"
+          }
+        },
+        "identity": true
+      }
+    },
+    {
+      "globalFrame": 1606,
+      "file": "frame-00058.png",
+      "sha256": "25eb6fb9d696099de794feb2bf2faf7e18f3da0948d9a109e10f73cb7b8a9a62",
+      "state": {
+        "frame": 661,
+        "shot": "forgotten",
+        "time": 22.033333333333335,
+        "propOpen": null,
+        "camera": {
+          "position": [
+            -21,
+            5.3,
+            7.5
+          ],
+          "target": [
+            -0.9,
+            2.6,
+            1
+          ],
+          "fov": 54
+        },
+        "actorPosition": [
+          -2.4,
+          0,
+          4
+        ],
+        "propStates": {},
+        "ending": {
+          "globalFrame": 1606,
+          "globalTime": 53.53333333333333,
+          "counter": 0,
+          "counterEmphasis": false,
+          "whisper": false,
+          "location": "courtyard",
+          "doorOpen": 1,
+          "sunrise": 1,
+          "forgotten": 1,
+          "adultRestored": 1,
+          "childRestored": 1
+        },
+        "actors": {
+          "eli": {
+            "position": [
+              -2.4,
+              0,
+              4
+            ],
+            "face": "worried",
+            "appearance": {
+              "color": "#d2d5d6",
+              "pieces": {
+                "head": "#e7c5a2",
+                "leftArm": "#e7c5a2",
+                "rightArm": "#e7c5a2",
+                "leftLeg": "#31485c",
+                "rightLeg": "#31485c"
+              },
+              "cosmetic": "cap",
+              "hair": null,
+              "hairColor": 4204831,
+              "clothing": "vest",
+              "clothingColor": "#216d85"
+            },
+            "torsoVariant": "classic"
+          },
+          "mara": {
+            "position": [
+              0.7198400438976718,
+              0,
+              -3.500880839233703
+            ],
+            "face": "relieved",
+            "appearance": {
+              "color": "#d2d5d6",
+              "pieces": {
+                "head": "#d6af86",
+                "leftArm": "#d6af86",
+                "rightArm": "#d6af86",
+                "leftLeg": "#34374c",
+                "rightLeg": "#34374c"
+              },
+              "cosmetic": null,
+              "hair": "bob",
+              "hairColor": "#40291f",
+              "clothing": "vest",
+              "clothingColor": "#be5b46"
+            },
+            "torsoVariant": "tapered"
+          }
+        },
+        "identity": true
+      }
+    },
+    {
+      "globalFrame": 1608,
+      "file": "frame-00059.png",
+      "sha256": "8404136a4d7fbcccf466ecbd416758c0de12a0dba1648150a653f181e80d8113",
+      "state": {
+        "frame": 663,
+        "shot": "forgotten",
+        "time": 22.1,
+        "propOpen": null,
+        "camera": {
+          "position": [
+            -21,
+            5.3,
+            7.5
+          ],
+          "target": [
+            -0.9,
+            2.6,
+            1
+          ],
+          "fov": 54
+        },
+        "actorPosition": [
+          -2.4,
+          0,
+          4
+        ],
+        "propStates": {},
+        "ending": {
+          "globalFrame": 1608,
+          "globalTime": 53.6,
+          "counter": 0,
+          "counterEmphasis": false,
+          "whisper": false,
+          "location": "courtyard",
+          "doorOpen": 1,
+          "sunrise": 1,
+          "forgotten": 1,
+          "adultRestored": 1,
+          "childRestored": 1
+        },
+        "actors": {
+          "eli": {
+            "position": [
+              -2.4,
+              0,
+              4
+            ],
+            "face": "worried",
+            "appearance": {
+              "color": "#d2d5d6",
+              "pieces": {
+                "head": "#e7c5a2",
+                "leftArm": "#e7c5a2",
+                "rightArm": "#e7c5a2",
+                "leftLeg": "#31485c",
+                "rightLeg": "#31485c"
+              },
+              "cosmetic": "cap",
+              "hair": null,
+              "hairColor": 4204831,
+              "clothing": "vest",
+              "clothingColor": "#216d85"
+            },
+            "torsoVariant": "classic"
+          },
+          "mara": {
+            "position": [
+              0.7198400438976718,
+              0,
+              -3.500880839233703
+            ],
+            "face": "relieved",
+            "appearance": {
+              "color": "#d2d5d6",
+              "pieces": {
+                "head": "#d6af86",
+                "leftArm": "#d6af86",
+                "rightArm": "#d6af86",
+                "leftLeg": "#34374c",
+                "rightLeg": "#34374c"
+              },
+              "cosmetic": null,
+              "hair": "bob",
+              "hairColor": "#40291f",
+              "clothing": "vest",
+              "clothingColor": "#be5b46"
+            },
+            "torsoVariant": "tapered"
+          }
+        },
+        "identity": true
+      }
+    },
+    {
+      "globalFrame": 1610,
+      "file": "frame-00060.png",
+      "sha256": "5c2a2e4bf36d1ced612466e6534f799cb2028850999da0e2bd6c19a6e657fc93",
+      "state": {
+        "frame": 665,
+        "shot": "forgotten",
+        "time": 22.166666666666668,
+        "propOpen": null,
+        "camera": {
+          "position": [
+            -21,
+            5.3,
+            7.5
+          ],
+          "target": [
+            -0.9,
+            2.6,
+            1
+          ],
+          "fov": 54
+        },
+        "actorPosition": [
+          -2.4,
+          0,
+          4
+        ],
+        "propStates": {},
+        "ending": {
+          "globalFrame": 1610,
+          "globalTime": 53.666666666666664,
+          "counter": 0,
+          "counterEmphasis": false,
+          "whisper": false,
+          "location": "courtyard",
+          "doorOpen": 1,
+          "sunrise": 1,
+          "forgotten": 1,
+          "adultRestored": 1,
+          "childRestored": 1
+        },
+        "actors": {
+          "eli": {
+            "position": [
+              -2.4,
+              0,
+              4
+            ],
+            "face": "worried",
+            "appearance": {
+              "color": "#d2d5d6",
+              "pieces": {
+                "head": "#e7c5a2",
+                "leftArm": "#e7c5a2",
+                "rightArm": "#e7c5a2",
+                "leftLeg": "#31485c",
+                "rightLeg": "#31485c"
+              },
+              "cosmetic": "cap",
+              "hair": null,
+              "hairColor": 4204831,
+              "clothing": "vest",
+              "clothingColor": "#216d85"
+            },
+            "torsoVariant": "classic"
+          },
+          "mara": {
+            "position": [
+              0.7198400438976718,
+              0,
+              -3.500880839233703
+            ],
+            "face": "relieved",
+            "appearance": {
+              "color": "#d2d5d6",
+              "pieces": {
+                "head": "#d6af86",
+                "leftArm": "#d6af86",
+                "rightArm": "#d6af86",
+                "leftLeg": "#34374c",
+                "rightLeg": "#34374c"
+              },
+              "cosmetic": null,
+              "hair": "bob",
+              "hairColor": "#40291f",
+              "clothing": "vest",
+              "clothingColor": "#be5b46"
+            },
+            "torsoVariant": "tapered"
+          }
+        },
+        "identity": true
+      }
+    },
+    {
+      "globalFrame": 1612,
+      "file": "frame-00061.png",
+      "sha256": "ed0dc60716191766216e42476b342cf6f16b46dc00d3582fa0898ca071087ec8",
+      "state": {
+        "frame": 667,
+        "shot": "forgotten",
+        "time": 22.233333333333334,
+        "propOpen": null,
+        "camera": {
+          "position": [
+            -21,
+            5.3,
+            7.5
+          ],
+          "target": [
+            -0.9,
+            2.6,
+            1
+          ],
+          "fov": 54
+        },
+        "actorPosition": [
+          -2.4,
+          0,
+          4
+        ],
+        "propStates": {},
+        "ending": {
+          "globalFrame": 1612,
+          "globalTime": 53.733333333333334,
+          "counter": 0,
+          "counterEmphasis": false,
+          "whisper": false,
+          "location": "courtyard",
+          "doorOpen": 1,
+          "sunrise": 1,
+          "forgotten": 1,
+          "adultRestored": 1,
+          "childRestored": 1
+        },
+        "actors": {
+          "eli": {
+            "position": [
+              -2.4,
+              0,
+              4
+            ],
+            "face": "worried",
+            "appearance": {
+              "color": "#d2d5d6",
+              "pieces": {
+                "head": "#e7c5a2",
+                "leftArm": "#e7c5a2",
+                "rightArm": "#e7c5a2",
+                "leftLeg": "#31485c",
+                "rightLeg": "#31485c"
+              },
+              "cosmetic": "cap",
+              "hair": null,
+              "hairColor": 4204831,
+              "clothing": "vest",
+              "clothingColor": "#216d85"
+            },
+            "torsoVariant": "classic"
+          },
+          "mara": {
+            "position": [
+              0.7198400438976718,
+              0,
+              -3.500880839233703
+            ],
+            "face": "relieved",
+            "appearance": {
+              "color": "#d2d5d6",
+              "pieces": {
+                "head": "#d6af86",
+                "leftArm": "#d6af86",
+                "rightArm": "#d6af86",
+                "leftLeg": "#34374c",
+                "rightLeg": "#34374c"
+              },
+              "cosmetic": null,
+              "hair": "bob",
+              "hairColor": "#40291f",
+              "clothing": "vest",
+              "clothingColor": "#be5b46"
+            },
+            "torsoVariant": "tapered"
+          }
+        },
+        "identity": true
+      }
+    },
+    {
+      "globalFrame": 1614,
+      "file": "frame-00062.png",
+      "sha256": "4d7a4916e806f63c970393af308bb7477ee51c9e388f5708cbba87690b5338c8",
+      "state": {
+        "frame": 669,
+        "shot": "forgotten",
+        "time": 22.3,
+        "propOpen": null,
+        "camera": {
+          "position": [
+            -21,
+            5.3,
+            7.5
+          ],
+          "target": [
+            -0.9,
+            2.6,
+            1
+          ],
+          "fov": 54
+        },
+        "actorPosition": [
+          -2.4,
+          0,
+          4
+        ],
+        "propStates": {},
+        "ending": {
+          "globalFrame": 1614,
+          "globalTime": 53.8,
+          "counter": 0,
+          "counterEmphasis": false,
+          "whisper": false,
+          "location": "courtyard",
+          "doorOpen": 1,
+          "sunrise": 1,
+          "forgotten": 1,
+          "adultRestored": 1,
+          "childRestored": 1
+        },
+        "actors": {
+          "eli": {
+            "position": [
+              -2.4,
+              0,
+              4
+            ],
+            "face": "worried",
+            "appearance": {
+              "color": "#d2d5d6",
+              "pieces": {
+                "head": "#e7c5a2",
+                "leftArm": "#e7c5a2",
+                "rightArm": "#e7c5a2",
+                "leftLeg": "#31485c",
+                "rightLeg": "#31485c"
+              },
+              "cosmetic": "cap",
+              "hair": null,
+              "hairColor": 4204831,
+              "clothing": "vest",
+              "clothingColor": "#216d85"
+            },
+            "torsoVariant": "classic"
+          },
+          "mara": {
+            "position": [
+              0.7198400438976718,
+              0,
+              -3.500880839233703
+            ],
+            "face": "relieved",
+            "appearance": {
+              "color": "#d2d5d6",
+              "pieces": {
+                "head": "#d6af86",
+                "leftArm": "#d6af86",
+                "rightArm": "#d6af86",
+                "leftLeg": "#34374c",
+                "rightLeg": "#34374c"
+              },
+              "cosmetic": null,
+              "hair": "bob",
+              "hairColor": "#40291f",
+              "clothing": "vest",
+              "clothingColor": "#be5b46"
+            },
+            "torsoVariant": "tapered"
+          }
+        },
+        "identity": true
+      }
+    },
+    {
+      "globalFrame": 1616,
+      "file": "frame-00063.png",
+      "sha256": "c11541a1fdf2b8251dac0dc766f57ed54dcf88e3d7803800374fb174f89f19cd",
+      "state": {
+        "frame": 671,
+        "shot": "forgotten",
+        "time": 22.366666666666667,
+        "propOpen": null,
+        "camera": {
+          "position": [
+            -21,
+            5.3,
+            7.5
+          ],
+          "target": [
+            -0.9,
+            2.6,
+            1
+          ],
+          "fov": 54
+        },
+        "actorPosition": [
+          -2.4,
+          0,
+          4
+        ],
+        "propStates": {},
+        "ending": {
+          "globalFrame": 1616,
+          "globalTime": 53.86666666666667,
+          "counter": 0,
+          "counterEmphasis": false,
+          "whisper": false,
+          "location": "courtyard",
+          "doorOpen": 1,
+          "sunrise": 1,
+          "forgotten": 1,
+          "adultRestored": 1,
+          "childRestored": 1
+        },
+        "actors": {
+          "eli": {
+            "position": [
+              -2.4,
+              0,
+              4
+            ],
+            "face": "worried",
+            "appearance": {
+              "color": "#d2d5d6",
+              "pieces": {
+                "head": "#e7c5a2",
+                "leftArm": "#e7c5a2",
+                "rightArm": "#e7c5a2",
+                "leftLeg": "#31485c",
+                "rightLeg": "#31485c"
+              },
+              "cosmetic": "cap",
+              "hair": null,
+              "hairColor": 4204831,
+              "clothing": "vest",
+              "clothingColor": "#216d85"
+            },
+            "torsoVariant": "classic"
+          },
+          "mara": {
+            "position": [
+              0.7198400438976718,
+              0,
+              -3.500880839233703
+            ],
+            "face": "relieved",
+            "appearance": {
+              "color": "#d2d5d6",
+              "pieces": {
+                "head": "#d6af86",
+                "leftArm": "#d6af86",
+                "rightArm": "#d6af86",
+                "leftLeg": "#34374c",
+                "rightLeg": "#34374c"
+              },
+              "cosmetic": null,
+              "hair": "bob",
+              "hairColor": "#40291f",
+              "clothing": "vest",
+              "clothingColor": "#be5b46"
+            },
+            "torsoVariant": "tapered"
+          }
+        },
+        "identity": true
+      }
+    },
+    {
+      "globalFrame": 1618,
+      "file": "frame-00064.png",
+      "sha256": "ce70c4940055e30ef266d7d2ba7d82712104052234138e29e48a90d3894dc9e0",
+      "state": {
+        "frame": 673,
+        "shot": "forgotten",
+        "time": 22.433333333333334,
+        "propOpen": null,
+        "camera": {
+          "position": [
+            -21,
+            5.3,
+            7.5
+          ],
+          "target": [
+            -0.9,
+            2.6,
+            1
+          ],
+          "fov": 54
+        },
+        "actorPosition": [
+          -2.4,
+          0,
+          4
+        ],
+        "propStates": {},
+        "ending": {
+          "globalFrame": 1618,
+          "globalTime": 53.93333333333333,
+          "counter": 0,
+          "counterEmphasis": false,
+          "whisper": false,
+          "location": "courtyard",
+          "doorOpen": 1,
+          "sunrise": 1,
+          "forgotten": 1,
+          "adultRestored": 1,
+          "childRestored": 1
+        },
+        "actors": {
+          "eli": {
+            "position": [
+              -2.4,
+              0,
+              4
+            ],
+            "face": "worried",
+            "appearance": {
+              "color": "#d2d5d6",
+              "pieces": {
+                "head": "#e7c5a2",
+                "leftArm": "#e7c5a2",
+                "rightArm": "#e7c5a2",
+                "leftLeg": "#31485c",
+                "rightLeg": "#31485c"
+              },
+              "cosmetic": "cap",
+              "hair": null,
+              "hairColor": 4204831,
+              "clothing": "vest",
+              "clothingColor": "#216d85"
+            },
+            "torsoVariant": "classic"
+          },
+          "mara": {
+            "position": [
+              0.7198400438976718,
+              0,
+              -3.500880839233703
+            ],
+            "face": "relieved",
+            "appearance": {
+              "color": "#d2d5d6",
+              "pieces": {
+                "head": "#d6af86",
+                "leftArm": "#d6af86",
+                "rightArm": "#d6af86",
+                "leftLeg": "#34374c",
+                "rightLeg": "#34374c"
+              },
+              "cosmetic": null,
+              "hair": "bob",
+              "hairColor": "#40291f",
+              "clothing": "vest",
+              "clothingColor": "#be5b46"
+            },
+            "torsoVariant": "tapered"
+          }
+        },
+        "identity": true
+      }
+    },
+    {
+      "globalFrame": 1620,
+      "file": "frame-00065.png",
+      "sha256": "5c7bd3d9f846d20408d2330ab588bd934c991d15e8d58283ae754bb5a9ac397d",
+      "state": {
+        "frame": 675,
+        "shot": "forgotten",
+        "time": 22.5,
+        "propOpen": null,
+        "camera": {
+          "position": [
+            -21,
+            5.3,
+            7.5
+          ],
+          "target": [
+            -0.9,
+            2.6,
+            1
+          ],
+          "fov": 54
+        },
+        "actorPosition": [
+          -2.4,
+          0,
+          4
+        ],
+        "propStates": {},
+        "ending": {
+          "globalFrame": 1620,
+          "globalTime": 54,
+          "counter": 0,
+          "counterEmphasis": false,
+          "whisper": false,
+          "location": "courtyard",
+          "doorOpen": 1,
+          "sunrise": 1,
+          "forgotten": 1,
+          "adultRestored": 1,
+          "childRestored": 1
+        },
+        "actors": {
+          "eli": {
+            "position": [
+              -2.4,
+              0,
+              4
+            ],
+            "face": "worried",
+            "appearance": {
+              "color": "#d2d5d6",
+              "pieces": {
+                "head": "#e7c5a2",
+                "leftArm": "#e7c5a2",
+                "rightArm": "#e7c5a2",
+                "leftLeg": "#31485c",
+                "rightLeg": "#31485c"
+              },
+              "cosmetic": "cap",
+              "hair": null,
+              "hairColor": 4204831,
+              "clothing": "vest",
+              "clothingColor": "#216d85"
+            },
+            "torsoVariant": "classic"
+          },
+          "mara": {
+            "position": [
+              0.7198400438976718,
+              0,
+              -3.500880839233703
+            ],
+            "face": "relieved",
+            "appearance": {
+              "color": "#d2d5d6",
+              "pieces": {
+                "head": "#d6af86",
+                "leftArm": "#d6af86",
+                "rightArm": "#d6af86",
+                "leftLeg": "#34374c",
+                "rightLeg": "#34374c"
+              },
+              "cosmetic": null,
+              "hair": "bob",
+              "hairColor": "#40291f",
+              "clothing": "vest",
+              "clothingColor": "#be5b46"
+            },
+            "torsoVariant": "tapered"
+          }
+        },
+        "identity": true
+      }
+    },
+    {
+      "globalFrame": 1622,
+      "file": "frame-00066.png",
+      "sha256": "ae537ec3420a48a573892c750bf446edbb72cbd931d6a6cfc7fb61f406a8d53c",
+      "state": {
+        "frame": 677,
+        "shot": "forgotten",
+        "time": 22.566666666666666,
+        "propOpen": null,
+        "camera": {
+          "position": [
+            -21,
+            5.3,
+            7.5
+          ],
+          "target": [
+            -0.9,
+            2.6,
+            1
+          ],
+          "fov": 54
+        },
+        "actorPosition": [
+          -2.4,
+          0,
+          4
+        ],
+        "propStates": {},
+        "ending": {
+          "globalFrame": 1622,
+          "globalTime": 54.06666666666667,
+          "counter": 0,
+          "counterEmphasis": false,
+          "whisper": false,
+          "location": "courtyard",
+          "doorOpen": 1,
+          "sunrise": 1,
+          "forgotten": 1,
+          "adultRestored": 1,
+          "childRestored": 1
+        },
+        "actors": {
+          "eli": {
+            "position": [
+              -2.4,
+              0,
+              4
+            ],
+            "face": "worried",
+            "appearance": {
+              "color": "#d2d5d6",
+              "pieces": {
+                "head": "#e7c5a2",
+                "leftArm": "#e7c5a2",
+                "rightArm": "#e7c5a2",
+                "leftLeg": "#31485c",
+                "rightLeg": "#31485c"
+              },
+              "cosmetic": "cap",
+              "hair": null,
+              "hairColor": 4204831,
+              "clothing": "vest",
+              "clothingColor": "#216d85"
+            },
+            "torsoVariant": "classic"
+          },
+          "mara": {
+            "position": [
+              0.7198400438976718,
+              0,
+              -3.500880839233703
+            ],
+            "face": "relieved",
+            "appearance": {
+              "color": "#d2d5d6",
+              "pieces": {
+                "head": "#d6af86",
+                "leftArm": "#d6af86",
+                "rightArm": "#d6af86",
+                "leftLeg": "#34374c",
+                "rightLeg": "#34374c"
+              },
+              "cosmetic": null,
+              "hair": "bob",
+              "hairColor": "#40291f",
+              "clothing": "vest",
+              "clothingColor": "#be5b46"
+            },
+            "torsoVariant": "tapered"
+          }
+        },
+        "identity": true
+      }
+    },
+    {
+      "globalFrame": 1624,
+      "file": "frame-00067.png",
+      "sha256": "4179191241be8355c447694cd2f254d13926b00b30c744a4ac8589be9b493688",
+      "state": {
+        "frame": 679,
+        "shot": "forgotten",
+        "time": 22.633333333333333,
+        "propOpen": null,
+        "camera": {
+          "position": [
+            -21,
+            5.3,
+            7.5
+          ],
+          "target": [
+            -0.9,
+            2.6,
+            1
+          ],
+          "fov": 54
+        },
+        "actorPosition": [
+          -2.4,
+          0,
+          4
+        ],
+        "propStates": {},
+        "ending": {
+          "globalFrame": 1624,
+          "globalTime": 54.13333333333333,
+          "counter": 0,
+          "counterEmphasis": false,
+          "whisper": false,
+          "location": "courtyard",
+          "doorOpen": 1,
+          "sunrise": 1,
+          "forgotten": 1,
+          "adultRestored": 1,
+          "childRestored": 1
+        },
+        "actors": {
+          "eli": {
+            "position": [
+              -2.4,
+              0,
+              4
+            ],
+            "face": "worried",
+            "appearance": {
+              "color": "#d2d5d6",
+              "pieces": {
+                "head": "#e7c5a2",
+                "leftArm": "#e7c5a2",
+                "rightArm": "#e7c5a2",
+                "leftLeg": "#31485c",
+                "rightLeg": "#31485c"
+              },
+              "cosmetic": "cap",
+              "hair": null,
+              "hairColor": 4204831,
+              "clothing": "vest",
+              "clothingColor": "#216d85"
+            },
+            "torsoVariant": "classic"
+          },
+          "mara": {
+            "position": [
+              0.7198400438976718,
+              0,
+              -3.500880839233703
+            ],
+            "face": "relieved",
+            "appearance": {
+              "color": "#d2d5d6",
+              "pieces": {
+                "head": "#d6af86",
+                "leftArm": "#d6af86",
+                "rightArm": "#d6af86",
+                "leftLeg": "#34374c",
+                "rightLeg": "#34374c"
+              },
+              "cosmetic": null,
+              "hair": "bob",
+              "hairColor": "#40291f",
+              "clothing": "vest",
+              "clothingColor": "#be5b46"
+            },
+            "torsoVariant": "tapered"
+          }
+        },
+        "identity": true
+      }
+    },
+    {
+      "globalFrame": 1626,
+      "file": "frame-00068.png",
+      "sha256": "f75f6aedc4236a528fce89ad2eda7b58b97eb4a3e575ba6cde079ca8de8e2a89",
+      "state": {
+        "frame": 681,
+        "shot": "forgotten",
+        "time": 22.7,
+        "propOpen": null,
+        "camera": {
+          "position": [
+            -21,
+            5.3,
+            7.5
+          ],
+          "target": [
+            -0.9,
+            2.6,
+            1
+          ],
+          "fov": 54
+        },
+        "actorPosition": [
+          -2.4,
+          0,
+          4
+        ],
+        "propStates": {},
+        "ending": {
+          "globalFrame": 1626,
+          "globalTime": 54.2,
+          "counter": 0,
+          "counterEmphasis": false,
+          "whisper": false,
+          "location": "courtyard",
+          "doorOpen": 1,
+          "sunrise": 1,
+          "forgotten": 1,
+          "adultRestored": 1,
+          "childRestored": 1
+        },
+        "actors": {
+          "eli": {
+            "position": [
+              -2.4,
+              0,
+              4
+            ],
+            "face": "worried",
+            "appearance": {
+              "color": "#d2d5d6",
+              "pieces": {
+                "head": "#e7c5a2",
+                "leftArm": "#e7c5a2",
+                "rightArm": "#e7c5a2",
+                "leftLeg": "#31485c",
+                "rightLeg": "#31485c"
+              },
+              "cosmetic": "cap",
+              "hair": null,
+              "hairColor": 4204831,
+              "clothing": "vest",
+              "clothingColor": "#216d85"
+            },
+            "torsoVariant": "classic"
+          },
+          "mara": {
+            "position": [
+              0.7198400438976718,
+              0,
+              -3.500880839233703
+            ],
+            "face": "relieved",
+            "appearance": {
+              "color": "#d2d5d6",
+              "pieces": {
+                "head": "#d6af86",
+                "leftArm": "#d6af86",
+                "rightArm": "#d6af86",
+                "leftLeg": "#34374c",
+                "rightLeg": "#34374c"
+              },
+              "cosmetic": null,
+              "hair": "bob",
+              "hairColor": "#40291f",
+              "clothing": "vest",
+              "clothingColor": "#be5b46"
+            },
+            "torsoVariant": "tapered"
+          }
+        },
+        "identity": true
+      }
+    },
+    {
+      "globalFrame": 1628,
+      "file": "frame-00069.png",
+      "sha256": "b89a5ca3c67a65018edd5f6c49526b25d705e2fd829c4fcadb9f389406078f30",
+      "state": {
+        "frame": 683,
+        "shot": "forgotten",
+        "time": 22.766666666666666,
+        "propOpen": null,
+        "camera": {
+          "position": [
+            -21,
+            5.3,
+            7.5
+          ],
+          "target": [
+            -0.9,
+            2.6,
+            1
+          ],
+          "fov": 54
+        },
+        "actorPosition": [
+          -2.4,
+          0,
+          4
+        ],
+        "propStates": {},
+        "ending": {
+          "globalFrame": 1628,
+          "globalTime": 54.266666666666666,
+          "counter": 0,
+          "counterEmphasis": false,
+          "whisper": false,
+          "location": "courtyard",
+          "doorOpen": 1,
+          "sunrise": 1,
+          "forgotten": 1,
+          "adultRestored": 1,
+          "childRestored": 1
+        },
+        "actors": {
+          "eli": {
+            "position": [
+              -2.4,
+              0,
+              4
+            ],
+            "face": "worried",
+            "appearance": {
+              "color": "#d2d5d6",
+              "pieces": {
+                "head": "#e7c5a2",
+                "leftArm": "#e7c5a2",
+                "rightArm": "#e7c5a2",
+                "leftLeg": "#31485c",
+                "rightLeg": "#31485c"
+              },
+              "cosmetic": "cap",
+              "hair": null,
+              "hairColor": 4204831,
+              "clothing": "vest",
+              "clothingColor": "#216d85"
+            },
+            "torsoVariant": "classic"
+          },
+          "mara": {
+            "position": [
+              0.7198400438976718,
+              0,
+              -3.500880839233703
+            ],
+            "face": "relieved",
+            "appearance": {
+              "color": "#d2d5d6",
+              "pieces": {
+                "head": "#d6af86",
+                "leftArm": "#d6af86",
+                "rightArm": "#d6af86",
+                "leftLeg": "#34374c",
+                "rightLeg": "#34374c"
+              },
+              "cosmetic": null,
+              "hair": "bob",
+              "hairColor": "#40291f",
+              "clothing": "vest",
+              "clothingColor": "#be5b46"
+            },
+            "torsoVariant": "tapered"
+          }
+        },
+        "identity": true
+      }
+    },
+    {
+      "globalFrame": 1630,
+      "file": "frame-00070.png",
+      "sha256": "82fa7efa6d6400de4a8beda7f69f92c0280a161481a6437ada0992daeebe0720",
+      "state": {
+        "frame": 685,
+        "shot": "forgotten",
+        "time": 22.833333333333332,
+        "propOpen": null,
+        "camera": {
+          "position": [
+            -21,
+            5.3,
+            7.5
+          ],
+          "target": [
+            -0.9,
+            2.6,
+            1
+          ],
+          "fov": 54
+        },
+        "actorPosition": [
+          -2.4,
+          0,
+          4
+        ],
+        "propStates": {},
+        "ending": {
+          "globalFrame": 1630,
+          "globalTime": 54.333333333333336,
+          "counter": 0,
+          "counterEmphasis": false,
+          "whisper": false,
+          "location": "courtyard",
+          "doorOpen": 1,
+          "sunrise": 1,
+          "forgotten": 1,
+          "adultRestored": 1,
+          "childRestored": 1
+        },
+        "actors": {
+          "eli": {
+            "position": [
+              -2.4,
+              0,
+              4
+            ],
+            "face": "worried",
+            "appearance": {
+              "color": "#d2d5d6",
+              "pieces": {
+                "head": "#e7c5a2",
+                "leftArm": "#e7c5a2",
+                "rightArm": "#e7c5a2",
+                "leftLeg": "#31485c",
+                "rightLeg": "#31485c"
+              },
+              "cosmetic": "cap",
+              "hair": null,
+              "hairColor": 4204831,
+              "clothing": "vest",
+              "clothingColor": "#216d85"
+            },
+            "torsoVariant": "classic"
+          },
+          "mara": {
+            "position": [
+              0.7198400438976718,
+              0,
+              -3.500880839233703
+            ],
+            "face": "relieved",
+            "appearance": {
+              "color": "#d2d5d6",
+              "pieces": {
+                "head": "#d6af86",
+                "leftArm": "#d6af86",
+                "rightArm": "#d6af86",
+                "leftLeg": "#34374c",
+                "rightLeg": "#34374c"
+              },
+              "cosmetic": null,
+              "hair": "bob",
+              "hairColor": "#40291f",
+              "clothing": "vest",
+              "clothingColor": "#be5b46"
+            },
+            "torsoVariant": "tapered"
+          }
+        },
+        "identity": true
+      }
+    },
+    {
+      "globalFrame": 1632,
+      "file": "frame-00071.png",
+      "sha256": "740e87983c8b675cd31c30154da7e5010448d9c9d35dfd60d60b730471236b49",
+      "state": {
+        "frame": 687,
+        "shot": "forgotten",
+        "time": 22.9,
+        "propOpen": null,
+        "camera": {
+          "position": [
+            -21,
+            5.3,
+            7.5
+          ],
+          "target": [
+            -0.9,
+            2.6,
+            1
+          ],
+          "fov": 54
+        },
+        "actorPosition": [
+          -2.4,
+          0,
+          4
+        ],
+        "propStates": {},
+        "ending": {
+          "globalFrame": 1632,
+          "globalTime": 54.4,
+          "counter": 0,
+          "counterEmphasis": false,
+          "whisper": false,
+          "location": "courtyard",
+          "doorOpen": 1,
+          "sunrise": 1,
+          "forgotten": 1,
+          "adultRestored": 1,
+          "childRestored": 1
+        },
+        "actors": {
+          "eli": {
+            "position": [
+              -2.4,
+              0,
+              4
+            ],
+            "face": "worried",
+            "appearance": {
+              "color": "#d2d5d6",
+              "pieces": {
+                "head": "#e7c5a2",
+                "leftArm": "#e7c5a2",
+                "rightArm": "#e7c5a2",
+                "leftLeg": "#31485c",
+                "rightLeg": "#31485c"
+              },
+              "cosmetic": "cap",
+              "hair": null,
+              "hairColor": 4204831,
+              "clothing": "vest",
+              "clothingColor": "#216d85"
+            },
+            "torsoVariant": "classic"
+          },
+          "mara": {
+            "position": [
+              0.7198400438976718,
+              0,
+              -3.500880839233703
+            ],
+            "face": "relieved",
+            "appearance": {
+              "color": "#d2d5d6",
+              "pieces": {
+                "head": "#d6af86",
+                "leftArm": "#d6af86",
+                "rightArm": "#d6af86",
+                "leftLeg": "#34374c",
+                "rightLeg": "#34374c"
+              },
+              "cosmetic": null,
+              "hair": "bob",
+              "hairColor": "#40291f",
+              "clothing": "vest",
+              "clothingColor": "#be5b46"
+            },
+            "torsoVariant": "tapered"
+          }
+        },
+        "identity": true
+      }
+    },
+    {
+      "globalFrame": 1634,
+      "file": "frame-00072.png",
+      "sha256": "434040ef9265fb3d1d291441c2f88bc918374356b26d477ce17f333824f3f010",
+      "state": {
+        "frame": 689,
+        "shot": "forgotten",
+        "time": 22.966666666666665,
+        "propOpen": null,
+        "camera": {
+          "position": [
+            -21,
+            5.3,
+            7.5
+          ],
+          "target": [
+            -0.9,
+            2.6,
+            1
+          ],
+          "fov": 54
+        },
+        "actorPosition": [
+          -2.4,
+          0,
+          4
+        ],
+        "propStates": {},
+        "ending": {
+          "globalFrame": 1634,
+          "globalTime": 54.46666666666667,
+          "counter": 0,
+          "counterEmphasis": false,
+          "whisper": false,
+          "location": "courtyard",
+          "doorOpen": 1,
+          "sunrise": 1,
+          "forgotten": 1,
+          "adultRestored": 1,
+          "childRestored": 1
+        },
+        "actors": {
+          "eli": {
+            "position": [
+              -2.4,
+              0,
+              4
+            ],
+            "face": "worried",
+            "appearance": {
+              "color": "#d2d5d6",
+              "pieces": {
+                "head": "#e7c5a2",
+                "leftArm": "#e7c5a2",
+                "rightArm": "#e7c5a2",
+                "leftLeg": "#31485c",
+                "rightLeg": "#31485c"
+              },
+              "cosmetic": "cap",
+              "hair": null,
+              "hairColor": 4204831,
+              "clothing": "vest",
+              "clothingColor": "#216d85"
+            },
+            "torsoVariant": "classic"
+          },
+          "mara": {
+            "position": [
+              0.7198400438976718,
+              0,
+              -3.500880839233703
+            ],
+            "face": "relieved",
+            "appearance": {
+              "color": "#d2d5d6",
+              "pieces": {
+                "head": "#d6af86",
+                "leftArm": "#d6af86",
+                "rightArm": "#d6af86",
+                "leftLeg": "#34374c",
+                "rightLeg": "#34374c"
+              },
+              "cosmetic": null,
+              "hair": "bob",
+              "hairColor": "#40291f",
+              "clothing": "vest",
+              "clothingColor": "#be5b46"
+            },
+            "torsoVariant": "tapered"
+          }
+        },
+        "identity": true
+      }
+    },
+    {
+      "globalFrame": 1636,
+      "file": "frame-00073.png",
+      "sha256": "b0dde30cc46a048b970bb0fed8053a1deaf106d920fbba84dd6c3f70e336d79a",
+      "state": {
+        "frame": 691,
+        "shot": "forgotten",
+        "time": 23.033333333333335,
+        "propOpen": null,
+        "camera": {
+          "position": [
+            -21,
+            5.3,
+            7.5
+          ],
+          "target": [
+            -0.9,
+            2.6,
+            1
+          ],
+          "fov": 54
+        },
+        "actorPosition": [
+          -2.4,
+          0,
+          4
+        ],
+        "propStates": {},
+        "ending": {
+          "globalFrame": 1636,
+          "globalTime": 54.53333333333333,
+          "counter": 0,
+          "counterEmphasis": false,
+          "whisper": false,
+          "location": "courtyard",
+          "doorOpen": 1,
+          "sunrise": 1,
+          "forgotten": 1,
+          "adultRestored": 1,
+          "childRestored": 1
+        },
+        "actors": {
+          "eli": {
+            "position": [
+              -2.4,
+              0,
+              4
+            ],
+            "face": "worried",
+            "appearance": {
+              "color": "#d2d5d6",
+              "pieces": {
+                "head": "#e7c5a2",
+                "leftArm": "#e7c5a2",
+                "rightArm": "#e7c5a2",
+                "leftLeg": "#31485c",
+                "rightLeg": "#31485c"
+              },
+              "cosmetic": "cap",
+              "hair": null,
+              "hairColor": 4204831,
+              "clothing": "vest",
+              "clothingColor": "#216d85"
+            },
+            "torsoVariant": "classic"
+          },
+          "mara": {
+            "position": [
+              0.7198400438976718,
+              0,
+              -3.500880839233703
+            ],
+            "face": "relieved",
+            "appearance": {
+              "color": "#d2d5d6",
+              "pieces": {
+                "head": "#d6af86",
+                "leftArm": "#d6af86",
+                "rightArm": "#d6af86",
+                "leftLeg": "#34374c",
+                "rightLeg": "#34374c"
+              },
+              "cosmetic": null,
+              "hair": "bob",
+              "hairColor": "#40291f",
+              "clothing": "vest",
+              "clothingColor": "#be5b46"
+            },
+            "torsoVariant": "tapered"
+          }
+        },
+        "identity": true
+      }
+    },
+    {
+      "globalFrame": 1638,
+      "file": "frame-00074.png",
+      "sha256": "46f213e458ca7aa6b4ff2f5707eb5e63a897a029d2715cb91f91a840bf4e0153",
+      "state": {
+        "frame": 693,
+        "shot": "forgotten",
+        "time": 23.1,
+        "propOpen": null,
+        "camera": {
+          "position": [
+            -21,
+            5.3,
+            7.5
+          ],
+          "target": [
+            -0.9,
+            2.6,
+            1
+          ],
+          "fov": 54
+        },
+        "actorPosition": [
+          -2.4,
+          0,
+          4
+        ],
+        "propStates": {},
+        "ending": {
+          "globalFrame": 1638,
+          "globalTime": 54.6,
+          "counter": 0,
+          "counterEmphasis": false,
+          "whisper": false,
+          "location": "courtyard",
+          "doorOpen": 1,
+          "sunrise": 1,
+          "forgotten": 1,
+          "adultRestored": 1,
+          "childRestored": 1
+        },
+        "actors": {
+          "eli": {
+            "position": [
+              -2.4,
+              0,
+              4
+            ],
+            "face": "worried",
+            "appearance": {
+              "color": "#d2d5d6",
+              "pieces": {
+                "head": "#e7c5a2",
+                "leftArm": "#e7c5a2",
+                "rightArm": "#e7c5a2",
+                "leftLeg": "#31485c",
+                "rightLeg": "#31485c"
+              },
+              "cosmetic": "cap",
+              "hair": null,
+              "hairColor": 4204831,
+              "clothing": "vest",
+              "clothingColor": "#216d85"
+            },
+            "torsoVariant": "classic"
+          },
+          "mara": {
+            "position": [
+              0.7198400438976718,
+              0,
+              -3.500880839233703
+            ],
+            "face": "relieved",
+            "appearance": {
+              "color": "#d2d5d6",
+              "pieces": {
+                "head": "#d6af86",
+                "leftArm": "#d6af86",
+                "rightArm": "#d6af86",
+                "leftLeg": "#34374c",
+                "rightLeg": "#34374c"
+              },
+              "cosmetic": null,
+              "hair": "bob",
+              "hairColor": "#40291f",
+              "clothing": "vest",
+              "clothingColor": "#be5b46"
+            },
+            "torsoVariant": "tapered"
+          }
+        },
+        "identity": true
+      }
+    },
+    {
+      "globalFrame": 1640,
+      "file": "frame-00075.png",
+      "sha256": "ee7939aae9aab128d93d4d684e3dbd81b6740aac6bd16eb81b2d6def8b501317",
+      "state": {
+        "frame": 695,
+        "shot": "forgotten",
+        "time": 23.166666666666668,
+        "propOpen": null,
+        "camera": {
+          "position": [
+            -21,
+            5.3,
+            7.5
+          ],
+          "target": [
+            -0.9,
+            2.6,
+            1
+          ],
+          "fov": 54
+        },
+        "actorPosition": [
+          -2.4,
+          0,
+          4
+        ],
+        "propStates": {},
+        "ending": {
+          "globalFrame": 1640,
+          "globalTime": 54.666666666666664,
+          "counter": 0,
+          "counterEmphasis": false,
+          "whisper": false,
+          "location": "courtyard",
+          "doorOpen": 1,
+          "sunrise": 1,
+          "forgotten": 1,
+          "adultRestored": 1,
+          "childRestored": 1
+        },
+        "actors": {
+          "eli": {
+            "position": [
+              -2.4,
+              0,
+              4
+            ],
+            "face": "worried",
+            "appearance": {
+              "color": "#d2d5d6",
+              "pieces": {
+                "head": "#e7c5a2",
+                "leftArm": "#e7c5a2",
+                "rightArm": "#e7c5a2",
+                "leftLeg": "#31485c",
+                "rightLeg": "#31485c"
+              },
+              "cosmetic": "cap",
+              "hair": null,
+              "hairColor": 4204831,
+              "clothing": "vest",
+              "clothingColor": "#216d85"
+            },
+            "torsoVariant": "classic"
+          },
+          "mara": {
+            "position": [
+              0.7198400438976718,
+              0,
+              -3.500880839233703
+            ],
+            "face": "relieved",
+            "appearance": {
+              "color": "#d2d5d6",
+              "pieces": {
+                "head": "#d6af86",
+                "leftArm": "#d6af86",
+                "rightArm": "#d6af86",
+                "leftLeg": "#34374c",
+                "rightLeg": "#34374c"
+              },
+              "cosmetic": null,
+              "hair": "bob",
+              "hairColor": "#40291f",
+              "clothing": "vest",
+              "clothingColor": "#be5b46"
+            },
+            "torsoVariant": "tapered"
+          }
+        },
+        "identity": true
+      }
+    }
+  ],
+  "zeroBoundary": [
+    {
+      "globalFrame": 1528,
+      "counter": 1,
+      "forgotten": 0
+    },
+    {
+      "globalFrame": 1529,
+      "counter": 0,
+      "forgotten": 0
+    },
+    {
+      "globalFrame": 1530,
+      "counter": 0,
+      "forgotten": 0.0012839988425925927
+    }
+  ],
+  "ffmpegArgs": [
+    "-y",
+    "-hide_banner",
+    "-loglevel",
+    "error",
+    "-framerate",
+    "15",
+    "-start_number",
+    "0",
+    "-i",
+    "/workspace/blox_story/renders/names100-s3b-motion/C-8db12b7e-2a0d-4259-85a0-6b690430b214/frame-%05d.png",
+    "-frames:v",
+    "76",
+    "-c:v",
+    "libx264",
+    "-threads",
+    "2",
+    "-preset",
+    "medium",
+    "-crf",
+    "20",
+    "-profile:v",
+    "main",
+    "-level:v",
+    "3.1",
+    "-pix_fmt",
+    "yuv420p",
+    "-vf",
+    "scale=out_color_matrix=bt709:out_range=tv,setsar=1",
+    "-color_primaries",
+    "bt709",
+    "-color_trc",
+    "bt709",
+    "-colorspace",
+    "bt709",
+    "-color_range",
+    "tv",
+    "-g",
+    "30",
+    "-force_key_frames",
+    "1.8666666666666667",
+    "-fps_mode",
+    "cfr",
+    "-movflags",
+    "+faststart",
+    "-an",
+    "/workspace/blox_story/renders/names100-s3b-motion/C-8db12b7e-2a0d-4259-85a0-6b690430b214/movie.mp4"
+  ],
+  "verification": {
+    "probe": {
+      "streams": [
+        {
+          "index": 0,
+          "codec_name": "h264",
+          "codec_long_name": "H.264 / AVC / MPEG-4 AVC / MPEG-4 part 10",
+          "profile": "Main",
+          "codec_type": "video",
+          "codec_tag_string": "avc1",
+          "codec_tag": "0x31637661",
+          "width": 180,
+          "height": 320,
+          "coded_width": 192,
+          "coded_height": 320,
+          "closed_captions": 0,
+          "film_grain": 0,
+          "has_b_frames": 2,
+          "sample_aspect_ratio": "1:1",
+          "display_aspect_ratio": "9:16",
+          "pix_fmt": "yuv420p",
+          "level": 31,
+          "color_range": "tv",
+          "color_space": "bt709",
+          "chroma_location": "left",
+          "field_order": "progressive",
+          "refs": 4,
+          "is_avc": "true",
+          "nal_length_size": "4",
+          "id": "0x1",
+          "r_frame_rate": "15/1",
+          "avg_frame_rate": "15/1",
+          "time_base": "1/15360",
+          "start_pts": 0,
+          "start_time": "0.000000",
+          "duration_ts": 77824,
+          "duration": "5.066667",
+          "bit_rate": "61918",
+          "bits_per_raw_sample": "8",
+          "nb_frames": "76",
+          "nb_read_frames": "76",
+          "extradata_size": 44,
+          "disposition": {
+            "default": 1,
+            "dub": 0,
+            "original": 0,
+            "comment": 0,
+            "lyrics": 0,
+            "karaoke": 0,
+            "forced": 0,
+            "hearing_impaired": 0,
+            "visual_impaired": 0,
+            "clean_effects": 0,
+            "attached_pic": 0,
+            "timed_thumbnails": 0,
+            "non_diegetic": 0,
+            "captions": 0,
+            "descriptions": 0,
+            "metadata": 0,
+            "dependent": 0,
+            "still_image": 0,
+            "multilayer": 0
+          },
+          "tags": {
+            "language": "und",
+            "handler_name": "VideoHandler",
+            "vendor_id": "[0][0][0][0]",
+            "encoder": "Lavc61.19.101 libx264"
+          }
+        }
+      ],
+      "format": {
+        "filename": "/workspace/blox_story/renders/names100-s3b-motion/C-8db12b7e-2a0d-4259-85a0-6b690430b214/movie.mp4",
+        "nb_streams": 1,
+        "nb_programs": 0,
+        "nb_stream_groups": 0,
+        "format_name": "mov,mp4,m4a,3gp,3g2,mj2",
+        "format_long_name": "QuickTime / MOV",
+        "start_time": "0.000000",
+        "duration": "5.066667",
+        "size": "40831",
+        "bit_rate": "64469",
+        "probe_score": 100,
+        "tags": {
+          "major_brand": "isom",
+          "minor_version": "512",
+          "compatible_brands": "isomiso2avc1mp41",
+          "encoder": "Lavf61.7.103"
+        }
+      }
+    },
+    "decode": {
+      "frames": 76,
+      "continuousPts": true,
+      "noErrors": true
+    },
+    "cuts": [
+      {
+        "frame": 28,
+        "time": 1.8666666666666667
+      }
+    ],
+    "playback": {
+      "width": 180,
+      "height": 320,
+      "duration": 5.066667,
+      "advancedTo": 0.1508,
+      "error": null,
+      "browser": "156.0.8078.79",
+      "fallback": true,
+      "seeks": [
+        2.533333333333333,
+        1.9666666666666668
+      ]
+    }
+  },
+  "contactFrames": [
+    0,
+    13,
+    27,
+    28,
+    51,
+    75
+  ],
+  "sha256": "b55e01f614ca6049653f0803cce7135e95cef768623859e1d4bee81da850e263",
+  "determinism": "all frames reverse pixel/state match",
+  "seconds": 21.868226853
+}
