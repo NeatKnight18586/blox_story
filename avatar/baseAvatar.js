@@ -17,5 +17,5 @@ export function createBaseAvatar({color=0xbfc1c3}={}) {
  part(`${side}Arm`,[.98,1.99,1],pivot(`${side}Shoulder`,[sign*1.51,4.02,0]),[0,-.995,0]);
  part(`${side}Leg`,[.98,2,1],pivot(`${side}Hip`,[sign*.5,2,0]),[0,-1,0]);
  }
- return {root,parts,pivots,faceCache:new Map(),cosmeticCache:new Map(),faceLayer:null,cosmetic:null};
+ return {root,parts,pivots,restPositions:Object.fromEntries(Object.entries(pivots).map(([n,p])=>[n,p.position.toArray()])),faceCache:new Map(),cosmeticCache:new Map(),faceLayer:null,cosmetic:null};
 }

@@ -1,0 +1,26 @@
+{
+  "fps": [
+    30,
+    60
+  ],
+  "duration": 4.8,
+  "samples": 434,
+  "constants": {
+    "period": 1.2,
+    "angle": 0.05,
+    "lift": 0.045,
+    "soleZ": 0.47999998927116394,
+    "step": 0.2011164270767292
+  },
+  "metrics": {
+    "maxFootDrift": 2.220446049250313e-16,
+    "rmsFootDrift": 4.66308592456282e-17,
+    "maxPenetration": 2.220446049250313e-16,
+    "rmsPenetration": 1.2566165084597348e-16,
+    "maxGroundContactError": 4.440892098500626e-16,
+    "rmsGroundContactError": 1.9624346787902205e-16,
+    "minSwingClearance": 0,
+    "maxSwingClearance": 0.04499999999999993,
+    "maxHipCorrection": 0.045
+  }
+}

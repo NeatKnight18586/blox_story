@@ -1,0 +1,4721 @@
+{
+  "browser": "141.0.7390.37",
+  "webgl": "WebGL 2.0 (OpenGL ES 3.0 Chromium)",
+  "fps": [
+    30,
+    60
+  ],
+  "duration": 2.4,
+  "clips": [
+    {
+      "id": "side",
+      "view": "side",
+      "duration": 2.4,
+      "fps": 30,
+      "repeatReversePixelMatch": true,
+      "frames": [
+        {
+          "frame": 0,
+          "time": 0,
+          "path": "evidence/f2b1/frames/side-000.png",
+          "contacts": {
+            "support": [
+              "leftLeg"
+            ],
+            "halfStep": 0,
+            "phase": 0,
+            "edge": "rear",
+            "localPoint": [
+              0,
+              -2,
+              -0.47999998927116394
+            ],
+            "anchors": [
+              [
+                -0.5,
+                0,
+                -0.37944177573279936
+              ]
+            ],
+            "interval": [
+              0,
+              0.3
+            ],
+            "swing": "rightLeg",
+            "swingClearance": 0,
+            "handoff": "rear-to-front at flat foot; support-foot swap every half cycle"
+          }
+        },
+        {
+          "frame": 1,
+          "time": 0.03333333333333333,
+          "path": "evidence/f2b1/frames/side-001.png",
+          "contacts": {
+            "support": [
+              "leftLeg"
+            ],
+            "halfStep": 0,
+            "phase": 0.05555555555555556,
+            "edge": "rear",
+            "localPoint": [
+              0,
+              -2,
+              -0.47999998927116394
+            ],
+            "anchors": [
+              [
+                -0.5,
+                0,
+                -0.37944177573279936
+              ]
+            ],
+            "interval": [
+              0,
+              0.3
+            ],
+            "swing": "rightLeg",
+            "swingClearance": 0.0013569160323170237,
+            "handoff": "rear-to-front at flat foot; support-foot swap every half cycle"
+          }
+        },
+        {
+          "frame": 2,
+          "time": 0.06666666666666667,
+          "path": "evidence/f2b1/frames/side-002.png",
+          "contacts": {
+            "support": [
+              "leftLeg"
+            ],
+            "halfStep": 0,
+            "phase": 0.11111111111111112,
+            "edge": "rear",
+            "localPoint": [
+              0,
+              -2,
+              -0.47999998927116394
+            ],
+            "anchors": [
+              [
+                -0.5,
+                0,
+                -0.37944177573279936
+              ]
+            ],
+            "interval": [
+              0,
+              0.3
+            ],
+            "swing": "rightLeg",
+            "swingClearance": 0.00526400002982319,
+            "handoff": "rear-to-front at flat foot; support-foot swap every half cycle"
+          }
+        },
+        {
+          "frame": 3,
+          "time": 0.1,
+          "path": "evidence/f2b1/frames/side-003.png",
+          "contacts": {
+            "support": [
+              "leftLeg"
+            ],
+            "halfStep": 0,
+            "phase": 0.16666666666666669,
+            "edge": "rear",
+            "localPoint": [
+              0,
+              -2,
+              -0.47999998927116394
+            ],
+            "anchors": [
+              [
+                -0.5,
+                0,
+                -0.37944177573279936
+              ]
+            ],
+            "interval": [
+              0,
+              0.3
+            ],
+            "swing": "rightLeg",
+            "swingClearance": 0.011249999999999982,
+            "handoff": "rear-to-front at flat foot; support-foot swap every half cycle"
+          }
+        },
+        {
+          "frame": 4,
+          "time": 0.13333333333333333,
+          "path": "evidence/f2b1/frames/side-004.png",
+          "contacts": {
+            "support": [
+              "leftLeg"
+            ],
+            "halfStep": 0,
+            "phase": 0.22222222222222224,
+            "edge": "rear",
+            "localPoint": [
+              0,
+              -2,
+              -0.47999998927116394
+            ],
+            "anchors": [
+              [
+                -0.5,
+                0,
+                -0.37944177573279936
+              ]
+            ],
+            "interval": [
+              0,
+              0.3
+            ],
+            "swing": "rightLeg",
+            "swingClearance": 0.018592916002494242,
+            "handoff": "rear-to-front at flat foot; support-foot swap every half cycle"
+          }
+        },
+        {
+          "frame": 5,
+          "time": 0.16666666666666666,
+          "path": "evidence/f2b1/frames/side-005.png",
+          "contacts": {
+            "support": [
+              "leftLeg"
+            ],
+            "halfStep": 0,
+            "phase": 0.2777777777777778,
+            "edge": "rear",
+            "localPoint": [
+              0,
+              -2,
+              -0.47999998927116394
+            ],
+            "anchors": [
+              [
+                -0.5,
+                0,
+                -0.37944177573279936
+              ]
+            ],
+            "interval": [
+              0,
+              0.3
+            ],
+            "swing": "rightLeg",
+            "swingClearance": 0.02640708399750613,
+            "handoff": "rear-to-front at flat foot; support-foot swap every half cycle"
+          }
+        },
+        {
+          "frame": 6,
+          "time": 0.2,
+          "path": "evidence/f2b1/frames/side-006.png",
+          "contacts": {
+            "support": [
+              "leftLeg"
+            ],
+            "halfStep": 0,
+            "phase": 0.33333333333333337,
+            "edge": "rear",
+            "localPoint": [
+              0,
+              -2,
+              -0.47999998927116394
+            ],
+            "anchors": [
+              [
+                -0.5,
+                0,
+                -0.37944177573279936
+              ]
+            ],
+            "interval": [
+              0,
+              0.3
+            ],
+            "swing": "rightLeg",
+            "swingClearance": 0.03374999999999995,
+            "handoff": "rear-to-front at flat foot; support-foot swap every half cycle"
+          }
+        },
+        {
+          "frame": 7,
+          "time": 0.23333333333333334,
+          "path": "evidence/f2b1/frames/side-007.png",
+          "contacts": {
+            "support": [
+              "leftLeg"
+            ],
+            "halfStep": 0,
+            "phase": 0.3888888888888889,
+            "edge": "rear",
+            "localPoint": [
+              0,
+              -2,
+              -0.47999998927116394
+            ],
+            "anchors": [
+              [
+                -0.5,
+                0,
+                -0.37944177573279936
+              ]
+            ],
+            "interval": [
+              0,
+              0.3
+            ],
+            "swing": "rightLeg",
+            "swingClearance": 0.03973599997017718,
+            "handoff": "rear-to-front at flat foot; support-foot swap every half cycle"
+          }
+        },
+        {
+          "frame": 8,
+          "time": 0.26666666666666666,
+          "path": "evidence/f2b1/frames/side-008.png",
+          "contacts": {
+            "support": [
+              "leftLeg"
+            ],
+            "halfStep": 0,
+            "phase": 0.4444444444444445,
+            "edge": "rear",
+            "localPoint": [
+              0,
+              -2,
+              -0.47999998927116394
+            ],
+            "anchors": [
+              [
+                -0.5,
+                0,
+                -0.37944177573279936
+              ]
+            ],
+            "interval": [
+              0,
+              0.3
+            ],
+            "swing": "rightLeg",
+            "swingClearance": 0.043643083967682905,
+            "handoff": "rear-to-front at flat foot; support-foot swap every half cycle"
+          }
+        },
+        {
+          "frame": 9,
+          "time": 0.3,
+          "path": "evidence/f2b1/frames/side-009.png",
+          "contacts": {
+            "support": [
+              "leftLeg"
+            ],
+            "halfStep": 0,
+            "phase": 0.5,
+            "edge": "front",
+            "localPoint": [
+              0,
+              -2,
+              0.47999998927116394
+            ],
+            "anchors": [
+              [
+                -0.5,
+                0,
+                0.5805582028095285
+              ]
+            ],
+            "interval": [
+              0.3,
+              0.6
+            ],
+            "swing": "rightLeg",
+            "swingClearance": 0.04499999999999993,
+            "handoff": "rear-to-front at flat foot; support-foot swap every half cycle"
+          }
+        },
+        {
+          "frame": 10,
+          "time": 0.3333333333333333,
+          "path": "evidence/f2b1/frames/side-010.png",
+          "contacts": {
+            "support": [
+              "leftLeg"
+            ],
+            "halfStep": 0,
+            "phase": 0.5555555555555556,
+            "edge": "front",
+            "localPoint": [
+              0,
+              -2,
+              0.47999998927116394
+            ],
+            "anchors": [
+              [
+                -0.5,
+                0,
+                0.5805582028095285
+              ]
+            ],
+            "interval": [
+              0.3,
+              0.6
+            ],
+            "swing": "rightLeg",
+            "swingClearance": 0.043643083967682905,
+            "handoff": "rear-to-front at flat foot; support-foot swap every half cycle"
+          }
+        },
+        {
+          "frame": 11,
+          "time": 0.36666666666666664,
+          "path": "evidence/f2b1/frames/side-011.png",
+          "contacts": {
+            "support": [
+              "leftLeg"
+            ],
+            "halfStep": 0,
+            "phase": 0.611111111111111,
+            "edge": "front",
+            "localPoint": [
+              0,
+              -2,
+              0.47999998927116394
+            ],
+            "anchors": [
+              [
+                -0.5,
+                0,
+                0.5805582028095285
+              ]
+            ],
+            "interval": [
+              0.3,
+              0.6
+            ],
+            "swing": "rightLeg",
+            "swingClearance": 0.03973599997017718,
+            "handoff": "rear-to-front at flat foot; support-foot swap every half cycle"
+          }
+        },
+        {
+          "frame": 12,
+          "time": 0.4,
+          "path": "evidence/f2b1/frames/side-012.png",
+          "contacts": {
+            "support": [
+              "leftLeg"
+            ],
+            "halfStep": 0,
+            "phase": 0.6666666666666667,
+            "edge": "front",
+            "localPoint": [
+              0,
+              -2,
+              0.47999998927116394
+            ],
+            "anchors": [
+              [
+                -0.5,
+                0,
+                0.5805582028095285
+              ]
+            ],
+            "interval": [
+              0.3,
+              0.6
+            ],
+            "swing": "rightLeg",
+            "swingClearance": 0.03374999999999995,
+            "handoff": "rear-to-front at flat foot; support-foot swap every half cycle"
+          }
+        },
+        {
+          "frame": 13,
+          "time": 0.43333333333333335,
+          "path": "evidence/f2b1/frames/side-013.png",
+          "contacts": {
+            "support": [
+              "leftLeg"
+            ],
+            "halfStep": 0,
+            "phase": 0.7222222222222223,
+            "edge": "front",
+            "localPoint": [
+              0,
+              -2,
+              0.47999998927116394
+            ],
+            "anchors": [
+              [
+                -0.5,
+                0,
+                0.5805582028095285
+              ]
+            ],
+            "interval": [
+              0.3,
+              0.6
+            ],
+            "swing": "rightLeg",
+            "swingClearance": 0.02640708399750613,
+            "handoff": "rear-to-front at flat foot; support-foot swap every half cycle"
+          }
+        },
+        {
+          "frame": 14,
+          "time": 0.4666666666666667,
+          "path": "evidence/f2b1/frames/side-014.png",
+          "contacts": {
+            "support": [
+              "leftLeg"
+            ],
+            "halfStep": 0,
+            "phase": 0.7777777777777778,
+            "edge": "front",
+            "localPoint": [
+              0,
+              -2,
+              0.47999998927116394
+            ],
+            "anchors": [
+              [
+                -0.5,
+                0,
+                0.5805582028095285
+              ]
+            ],
+            "interval": [
+              0.3,
+              0.6
+            ],
+            "swing": "rightLeg",
+            "swingClearance": 0.018592916002494242,
+            "handoff": "rear-to-front at flat foot; support-foot swap every half cycle"
+          }
+        },
+        {
+          "frame": 15,
+          "time": 0.5,
+          "path": "evidence/f2b1/frames/side-015.png",
+          "contacts": {
+            "support": [
+              "leftLeg"
+            ],
+            "halfStep": 0,
+            "phase": 0.8333333333333334,
+            "edge": "front",
+            "localPoint": [
+              0,
+              -2,
+              0.47999998927116394
+            ],
+            "anchors": [
+              [
+                -0.5,
+                0,
+                0.5805582028095285
+              ]
+            ],
+            "interval": [
+              0.3,
+              0.6
+            ],
+            "swing": "rightLeg",
+            "swingClearance": 0.011249999999999982,
+            "handoff": "rear-to-front at flat foot; support-foot swap every half cycle"
+          }
+        },
+        {
+          "frame": 16,
+          "time": 0.5333333333333333,
+          "path": "evidence/f2b1/frames/side-016.png",
+          "contacts": {
+            "support": [
+              "leftLeg"
+            ],
+            "halfStep": 0,
+            "phase": 0.888888888888889,
+            "edge": "front",
+            "localPoint": [
+              0,
+              -2,
+              0.47999998927116394
+            ],
+            "anchors": [
+              [
+                -0.5,
+                0,
+                0.5805582028095285
+              ]
+            ],
+            "interval": [
+              0.3,
+              0.6
+            ],
+            "swing": "rightLeg",
+            "swingClearance": 0.00526400002982319,
+            "handoff": "rear-to-front at flat foot; support-foot swap every half cycle"
+          }
+        },
+        {
+          "frame": 17,
+          "time": 0.5666666666666667,
+          "path": "evidence/f2b1/frames/side-017.png",
+          "contacts": {
+            "support": [
+              "leftLeg"
+            ],
+            "halfStep": 0,
+            "phase": 0.9444444444444444,
+            "edge": "front",
+            "localPoint": [
+              0,
+              -2,
+              0.47999998927116394
+            ],
+            "anchors": [
+              [
+                -0.5,
+                0,
+                0.5805582028095285
+              ]
+            ],
+            "interval": [
+              0.3,
+              0.6
+            ],
+            "swing": "rightLeg",
+            "swingClearance": 0.0013569160323170237,
+            "handoff": "rear-to-front at flat foot; support-foot swap every half cycle"
+          }
+        },
+        {
+          "frame": 18,
+          "time": 0.6,
+          "path": "evidence/f2b1/frames/side-018.png",
+          "contacts": {
+            "support": [
+              "rightLeg"
+            ],
+            "halfStep": 1,
+            "phase": 0,
+            "edge": "rear",
+            "localPoint": [
+              0,
+              -2,
+              -0.47999998927116394
+            ],
+            "anchors": [
+              [
+                0.5,
+                0,
+                -0.17832534865607014
+              ]
+            ],
+            "interval": [
+              0.6,
+              0.8999999999999999
+            ],
+            "swing": "leftLeg",
+            "swingClearance": 0,
+            "handoff": "rear-to-front at flat foot; support-foot swap every half cycle"
+          }
+        },
+        {
+          "frame": 19,
+          "time": 0.6333333333333333,
+          "path": "evidence/f2b1/frames/side-019.png",
+          "contacts": {
+            "support": [
+              "rightLeg"
+            ],
+            "halfStep": 1,
+            "phase": 0.055555555555555546,
+            "edge": "rear",
+            "localPoint": [
+              0,
+              -2,
+              -0.47999998927116394
+            ],
+            "anchors": [
+              [
+                0.5,
+                0,
+                -0.17832534865607014
+              ]
+            ],
+            "interval": [
+              0.6,
+              0.8999999999999999
+            ],
+            "swing": "leftLeg",
+            "swingClearance": 0.0013569160323170237,
+            "handoff": "rear-to-front at flat foot; support-foot swap every half cycle"
+          }
+        },
+        {
+          "frame": 20,
+          "time": 0.6666666666666666,
+          "path": "evidence/f2b1/frames/side-020.png",
+          "contacts": {
+            "support": [
+              "rightLeg"
+            ],
+            "halfStep": 1,
+            "phase": 0.11111111111111109,
+            "edge": "rear",
+            "localPoint": [
+              0,
+              -2,
+              -0.47999998927116394
+            ],
+            "anchors": [
+              [
+                0.5,
+                0,
+                -0.17832534865607014
+              ]
+            ],
+            "interval": [
+              0.6,
+              0.8999999999999999
+            ],
+            "swing": "leftLeg",
+            "swingClearance": 0.00526400002982319,
+            "handoff": "rear-to-front at flat foot; support-foot swap every half cycle"
+          }
+        },
+        {
+          "frame": 21,
+          "time": 0.7,
+          "path": "evidence/f2b1/frames/side-021.png",
+          "contacts": {
+            "support": [
+              "rightLeg"
+            ],
+            "halfStep": 1,
+            "phase": 0.16666666666666663,
+            "edge": "rear",
+            "localPoint": [
+              0,
+              -2,
+              -0.47999998927116394
+            ],
+            "anchors": [
+              [
+                0.5,
+                0,
+                -0.17832534865607014
+              ]
+            ],
+            "interval": [
+              0.6,
+              0.8999999999999999
+            ],
+            "swing": "leftLeg",
+            "swingClearance": 0.011249999999999982,
+            "handoff": "rear-to-front at flat foot; support-foot swap every half cycle"
+          }
+        },
+        {
+          "frame": 22,
+          "time": 0.7333333333333333,
+          "path": "evidence/f2b1/frames/side-022.png",
+          "contacts": {
+            "support": [
+              "rightLeg"
+            ],
+            "halfStep": 1,
+            "phase": 0.22222222222222218,
+            "edge": "rear",
+            "localPoint": [
+              0,
+              -2,
+              -0.47999998927116394
+            ],
+            "anchors": [
+              [
+                0.5,
+                0,
+                -0.17832534865607014
+              ]
+            ],
+            "interval": [
+              0.6,
+              0.8999999999999999
+            ],
+            "swing": "leftLeg",
+            "swingClearance": 0.018592916002494242,
+            "handoff": "rear-to-front at flat foot; support-foot swap every half cycle"
+          }
+        },
+        {
+          "frame": 23,
+          "time": 0.7666666666666667,
+          "path": "evidence/f2b1/frames/side-023.png",
+          "contacts": {
+            "support": [
+              "rightLeg"
+            ],
+            "halfStep": 1,
+            "phase": 0.2777777777777779,
+            "edge": "rear",
+            "localPoint": [
+              0,
+              -2,
+              -0.47999998927116394
+            ],
+            "anchors": [
+              [
+                0.5,
+                0,
+                -0.17832534865607014
+              ]
+            ],
+            "interval": [
+              0.6,
+              0.8999999999999999
+            ],
+            "swing": "leftLeg",
+            "swingClearance": 0.02640708399750613,
+            "handoff": "rear-to-front at flat foot; support-foot swap every half cycle"
+          }
+        },
+        {
+          "frame": 24,
+          "time": 0.8,
+          "path": "evidence/f2b1/frames/side-024.png",
+          "contacts": {
+            "support": [
+              "rightLeg"
+            ],
+            "halfStep": 1,
+            "phase": 0.3333333333333335,
+            "edge": "rear",
+            "localPoint": [
+              0,
+              -2,
+              -0.47999998927116394
+            ],
+            "anchors": [
+              [
+                0.5,
+                0,
+                -0.17832534865607014
+              ]
+            ],
+            "interval": [
+              0.6,
+              0.8999999999999999
+            ],
+            "swing": "leftLeg",
+            "swingClearance": 0.03374999999999995,
+            "handoff": "rear-to-front at flat foot; support-foot swap every half cycle"
+          }
+        },
+        {
+          "frame": 25,
+          "time": 0.8333333333333334,
+          "path": "evidence/f2b1/frames/side-025.png",
+          "contacts": {
+            "support": [
+              "rightLeg"
+            ],
+            "halfStep": 1,
+            "phase": 0.388888888888889,
+            "edge": "rear",
+            "localPoint": [
+              0,
+              -2,
+              -0.47999998927116394
+            ],
+            "anchors": [
+              [
+                0.5,
+                0,
+                -0.17832534865607014
+              ]
+            ],
+            "interval": [
+              0.6,
+              0.8999999999999999
+            ],
+            "swing": "leftLeg",
+            "swingClearance": 0.03973599997017718,
+            "handoff": "rear-to-front at flat foot; support-foot swap every half cycle"
+          }
+        },
+        {
+          "frame": 26,
+          "time": 0.8666666666666667,
+          "path": "evidence/f2b1/frames/side-026.png",
+          "contacts": {
+            "support": [
+              "rightLeg"
+            ],
+            "halfStep": 1,
+            "phase": 0.44444444444444453,
+            "edge": "rear",
+            "localPoint": [
+              0,
+              -2,
+              -0.47999998927116394
+            ],
+            "anchors": [
+              [
+                0.5,
+                0,
+                -0.17832534865607014
+              ]
+            ],
+            "interval": [
+              0.6,
+              0.8999999999999999
+            ],
+            "swing": "leftLeg",
+            "swingClearance": 0.043643083967682905,
+            "handoff": "rear-to-front at flat foot; support-foot swap every half cycle"
+          }
+        },
+        {
+          "frame": 27,
+          "time": 0.9,
+          "path": "evidence/f2b1/frames/side-027.png",
+          "contacts": {
+            "support": [
+              "rightLeg"
+            ],
+            "halfStep": 1,
+            "phase": 0.5000000000000001,
+            "edge": "front",
+            "localPoint": [
+              0,
+              -2,
+              0.47999998927116394
+            ],
+            "anchors": [
+              [
+                0.5,
+                0,
+                0.7816746298862578
+              ]
+            ],
+            "interval": [
+              0.8999999999999999,
+              1.2
+            ],
+            "swing": "leftLeg",
+            "swingClearance": 0.04499999999999993,
+            "handoff": "rear-to-front at flat foot; support-foot swap every half cycle"
+          }
+        },
+        {
+          "frame": 28,
+          "time": 0.9333333333333333,
+          "path": "evidence/f2b1/frames/side-028.png",
+          "contacts": {
+            "support": [
+              "rightLeg"
+            ],
+            "halfStep": 1,
+            "phase": 0.5555555555555557,
+            "edge": "front",
+            "localPoint": [
+              0,
+              -2,
+              0.47999998927116394
+            ],
+            "anchors": [
+              [
+                0.5,
+                0,
+                0.7816746298862578
+              ]
+            ],
+            "interval": [
+              0.8999999999999999,
+              1.2
+            ],
+            "swing": "leftLeg",
+            "swingClearance": 0.043643083967682905,
+            "handoff": "rear-to-front at flat foot; support-foot swap every half cycle"
+          }
+        },
+        {
+          "frame": 29,
+          "time": 0.9666666666666667,
+          "path": "evidence/f2b1/frames/side-029.png",
+          "contacts": {
+            "support": [
+              "rightLeg"
+            ],
+            "halfStep": 1,
+            "phase": 0.6111111111111112,
+            "edge": "front",
+            "localPoint": [
+              0,
+              -2,
+              0.47999998927116394
+            ],
+            "anchors": [
+              [
+                0.5,
+                0,
+                0.7816746298862578
+              ]
+            ],
+            "interval": [
+              0.8999999999999999,
+              1.2
+            ],
+            "swing": "leftLeg",
+            "swingClearance": 0.03973599997017718,
+            "handoff": "rear-to-front at flat foot; support-foot swap every half cycle"
+          }
+        },
+        {
+          "frame": 30,
+          "time": 1,
+          "path": "evidence/f2b1/frames/side-030.png",
+          "contacts": {
+            "support": [
+              "rightLeg"
+            ],
+            "halfStep": 1,
+            "phase": 0.6666666666666667,
+            "edge": "front",
+            "localPoint": [
+              0,
+              -2,
+              0.47999998927116394
+            ],
+            "anchors": [
+              [
+                0.5,
+                0,
+                0.7816746298862578
+              ]
+            ],
+            "interval": [
+              0.8999999999999999,
+              1.2
+            ],
+            "swing": "leftLeg",
+            "swingClearance": 0.03374999999999995,
+            "handoff": "rear-to-front at flat foot; support-foot swap every half cycle"
+          }
+        },
+        {
+          "frame": 31,
+          "time": 1.0333333333333334,
+          "path": "evidence/f2b1/frames/side-031.png",
+          "contacts": {
+            "support": [
+              "rightLeg"
+            ],
+            "halfStep": 1,
+            "phase": 0.7222222222222224,
+            "edge": "front",
+            "localPoint": [
+              0,
+              -2,
+              0.47999998927116394
+            ],
+            "anchors": [
+              [
+                0.5,
+                0,
+                0.7816746298862578
+              ]
+            ],
+            "interval": [
+              0.8999999999999999,
+              1.2
+            ],
+            "swing": "leftLeg",
+            "swingClearance": 0.02640708399750613,
+            "handoff": "rear-to-front at flat foot; support-foot swap every half cycle"
+          }
+        },
+        {
+          "frame": 32,
+          "time": 1.0666666666666667,
+          "path": "evidence/f2b1/frames/side-032.png",
+          "contacts": {
+            "support": [
+              "rightLeg"
+            ],
+            "halfStep": 1,
+            "phase": 0.7777777777777778,
+            "edge": "front",
+            "localPoint": [
+              0,
+              -2,
+              0.47999998927116394
+            ],
+            "anchors": [
+              [
+                0.5,
+                0,
+                0.7816746298862578
+              ]
+            ],
+            "interval": [
+              0.8999999999999999,
+              1.2
+            ],
+            "swing": "leftLeg",
+            "swingClearance": 0.018592916002494242,
+            "handoff": "rear-to-front at flat foot; support-foot swap every half cycle"
+          }
+        },
+        {
+          "frame": 33,
+          "time": 1.1,
+          "path": "evidence/f2b1/frames/side-033.png",
+          "contacts": {
+            "support": [
+              "rightLeg"
+            ],
+            "halfStep": 1,
+            "phase": 0.8333333333333336,
+            "edge": "front",
+            "localPoint": [
+              0,
+              -2,
+              0.47999998927116394
+            ],
+            "anchors": [
+              [
+                0.5,
+                0,
+                0.7816746298862578
+              ]
+            ],
+            "interval": [
+              0.8999999999999999,
+              1.2
+            ],
+            "swing": "leftLeg",
+            "swingClearance": 0.011249999999999982,
+            "handoff": "rear-to-front at flat foot; support-foot swap every half cycle"
+          }
+        },
+        {
+          "frame": 34,
+          "time": 1.1333333333333333,
+          "path": "evidence/f2b1/frames/side-034.png",
+          "contacts": {
+            "support": [
+              "rightLeg"
+            ],
+            "halfStep": 1,
+            "phase": 0.888888888888889,
+            "edge": "front",
+            "localPoint": [
+              0,
+              -2,
+              0.47999998927116394
+            ],
+            "anchors": [
+              [
+                0.5,
+                0,
+                0.7816746298862578
+              ]
+            ],
+            "interval": [
+              0.8999999999999999,
+              1.2
+            ],
+            "swing": "leftLeg",
+            "swingClearance": 0.00526400002982319,
+            "handoff": "rear-to-front at flat foot; support-foot swap every half cycle"
+          }
+        },
+        {
+          "frame": 35,
+          "time": 1.1666666666666667,
+          "path": "evidence/f2b1/frames/side-035.png",
+          "contacts": {
+            "support": [
+              "rightLeg"
+            ],
+            "halfStep": 1,
+            "phase": 0.9444444444444446,
+            "edge": "front",
+            "localPoint": [
+              0,
+              -2,
+              0.47999998927116394
+            ],
+            "anchors": [
+              [
+                0.5,
+                0,
+                0.7816746298862578
+              ]
+            ],
+            "interval": [
+              0.8999999999999999,
+              1.2
+            ],
+            "swing": "leftLeg",
+            "swingClearance": 0.0013569160323170237,
+            "handoff": "rear-to-front at flat foot; support-foot swap every half cycle"
+          }
+        },
+        {
+          "frame": 36,
+          "time": 1.2,
+          "path": "evidence/f2b1/frames/side-036.png",
+          "contacts": {
+            "support": [
+              "leftLeg"
+            ],
+            "halfStep": 2,
+            "phase": 0,
+            "edge": "rear",
+            "localPoint": [
+              0,
+              -2,
+              -0.47999998927116394
+            ],
+            "anchors": [
+              [
+                -0.5,
+                0,
+                0.022791078420659083
+              ]
+            ],
+            "interval": [
+              1.2,
+              1.5
+            ],
+            "swing": "rightLeg",
+            "swingClearance": 0,
+            "handoff": "rear-to-front at flat foot; support-foot swap every half cycle"
+          }
+        },
+        {
+          "frame": 37,
+          "time": 1.2333333333333334,
+          "path": "evidence/f2b1/frames/side-037.png",
+          "contacts": {
+            "support": [
+              "leftLeg"
+            ],
+            "halfStep": 2,
+            "phase": 0.05555555555555573,
+            "edge": "rear",
+            "localPoint": [
+              0,
+              -2,
+              -0.47999998927116394
+            ],
+            "anchors": [
+              [
+                -0.5,
+                0,
+                0.022791078420659083
+              ]
+            ],
+            "interval": [
+              1.2,
+              1.5
+            ],
+            "swing": "rightLeg",
+            "swingClearance": 0.0013569160323170237,
+            "handoff": "rear-to-front at flat foot; support-foot swap every half cycle"
+          }
+        },
+        {
+          "frame": 38,
+          "time": 1.2666666666666666,
+          "path": "evidence/f2b1/frames/side-038.png",
+          "contacts": {
+            "support": [
+              "leftLeg"
+            ],
+            "halfStep": 2,
+            "phase": 0.11111111111111109,
+            "edge": "rear",
+            "localPoint": [
+              0,
+              -2,
+              -0.47999998927116394
+            ],
+            "anchors": [
+              [
+                -0.5,
+                0,
+                0.022791078420659083
+              ]
+            ],
+            "interval": [
+              1.2,
+              1.5
+            ],
+            "swing": "rightLeg",
+            "swingClearance": 0.00526400002982319,
+            "handoff": "rear-to-front at flat foot; support-foot swap every half cycle"
+          }
+        },
+        {
+          "frame": 39,
+          "time": 1.3,
+          "path": "evidence/f2b1/frames/side-039.png",
+          "contacts": {
+            "support": [
+              "leftLeg"
+            ],
+            "halfStep": 2,
+            "phase": 0.16666666666666682,
+            "edge": "rear",
+            "localPoint": [
+              0,
+              -2,
+              -0.47999998927116394
+            ],
+            "anchors": [
+              [
+                -0.5,
+                0,
+                0.022791078420659083
+              ]
+            ],
+            "interval": [
+              1.2,
+              1.5
+            ],
+            "swing": "rightLeg",
+            "swingClearance": 0.011249999999999982,
+            "handoff": "rear-to-front at flat foot; support-foot swap every half cycle"
+          }
+        },
+        {
+          "frame": 40,
+          "time": 1.3333333333333333,
+          "path": "evidence/f2b1/frames/side-040.png",
+          "contacts": {
+            "support": [
+              "leftLeg"
+            ],
+            "halfStep": 2,
+            "phase": 0.22222222222222218,
+            "edge": "rear",
+            "localPoint": [
+              0,
+              -2,
+              -0.47999998927116394
+            ],
+            "anchors": [
+              [
+                -0.5,
+                0,
+                0.022791078420659083
+              ]
+            ],
+            "interval": [
+              1.2,
+              1.5
+            ],
+            "swing": "rightLeg",
+            "swingClearance": 0.018592916002494242,
+            "handoff": "rear-to-front at flat foot; support-foot swap every half cycle"
+          }
+        },
+        {
+          "frame": 41,
+          "time": 1.3666666666666667,
+          "path": "evidence/f2b1/frames/side-041.png",
+          "contacts": {
+            "support": [
+              "leftLeg"
+            ],
+            "halfStep": 2,
+            "phase": 0.2777777777777779,
+            "edge": "rear",
+            "localPoint": [
+              0,
+              -2,
+              -0.47999998927116394
+            ],
+            "anchors": [
+              [
+                -0.5,
+                0,
+                0.022791078420659083
+              ]
+            ],
+            "interval": [
+              1.2,
+              1.5
+            ],
+            "swing": "rightLeg",
+            "swingClearance": 0.02640708399750613,
+            "handoff": "rear-to-front at flat foot; support-foot swap every half cycle"
+          }
+        },
+        {
+          "frame": 42,
+          "time": 1.4,
+          "path": "evidence/f2b1/frames/side-042.png",
+          "contacts": {
+            "support": [
+              "leftLeg"
+            ],
+            "halfStep": 2,
+            "phase": 0.33333333333333326,
+            "edge": "rear",
+            "localPoint": [
+              0,
+              -2,
+              -0.47999998927116394
+            ],
+            "anchors": [
+              [
+                -0.5,
+                0,
+                0.022791078420659083
+              ]
+            ],
+            "interval": [
+              1.2,
+              1.5
+            ],
+            "swing": "rightLeg",
+            "swingClearance": 0.03374999999999995,
+            "handoff": "rear-to-front at flat foot; support-foot swap every half cycle"
+          }
+        },
+        {
+          "frame": 43,
+          "time": 1.4333333333333333,
+          "path": "evidence/f2b1/frames/side-043.png",
+          "contacts": {
+            "support": [
+              "leftLeg"
+            ],
+            "halfStep": 2,
+            "phase": 0.388888888888889,
+            "edge": "rear",
+            "localPoint": [
+              0,
+              -2,
+              -0.47999998927116394
+            ],
+            "anchors": [
+              [
+                -0.5,
+                0,
+                0.022791078420659083
+              ]
+            ],
+            "interval": [
+              1.2,
+              1.5
+            ],
+            "swing": "rightLeg",
+            "swingClearance": 0.03973599997017718,
+            "handoff": "rear-to-front at flat foot; support-foot swap every half cycle"
+          }
+        },
+        {
+          "frame": 44,
+          "time": 1.4666666666666666,
+          "path": "evidence/f2b1/frames/side-044.png",
+          "contacts": {
+            "support": [
+              "leftLeg"
+            ],
+            "halfStep": 2,
+            "phase": 0.44444444444444436,
+            "edge": "rear",
+            "localPoint": [
+              0,
+              -2,
+              -0.47999998927116394
+            ],
+            "anchors": [
+              [
+                -0.5,
+                0,
+                0.022791078420659083
+              ]
+            ],
+            "interval": [
+              1.2,
+              1.5
+            ],
+            "swing": "rightLeg",
+            "swingClearance": 0.043643083967682905,
+            "handoff": "rear-to-front at flat foot; support-foot swap every half cycle"
+          }
+        },
+        {
+          "frame": 45,
+          "time": 1.5,
+          "path": "evidence/f2b1/frames/side-045.png",
+          "contacts": {
+            "support": [
+              "leftLeg"
+            ],
+            "halfStep": 2,
+            "phase": 0.5000000000000001,
+            "edge": "front",
+            "localPoint": [
+              0,
+              -2,
+              0.47999998927116394
+            ],
+            "anchors": [
+              [
+                -0.5,
+                0,
+                0.982791056962987
+              ]
+            ],
+            "interval": [
+              1.5,
+              1.7999999999999998
+            ],
+            "swing": "rightLeg",
+            "swingClearance": 0.04499999999999993,
+            "handoff": "rear-to-front at flat foot; support-foot swap every half cycle"
+          }
+        },
+        {
+          "frame": 46,
+          "time": 1.5333333333333334,
+          "path": "evidence/f2b1/frames/side-046.png",
+          "contacts": {
+            "support": [
+              "leftLeg"
+            ],
+            "halfStep": 2,
+            "phase": 0.5555555555555558,
+            "edge": "front",
+            "localPoint": [
+              0,
+              -2,
+              0.47999998927116394
+            ],
+            "anchors": [
+              [
+                -0.5,
+                0,
+                0.982791056962987
+              ]
+            ],
+            "interval": [
+              1.5,
+              1.7999999999999998
+            ],
+            "swing": "rightLeg",
+            "swingClearance": 0.043643083967682905,
+            "handoff": "rear-to-front at flat foot; support-foot swap every half cycle"
+          }
+        },
+        {
+          "frame": 47,
+          "time": 1.5666666666666667,
+          "path": "evidence/f2b1/frames/side-047.png",
+          "contacts": {
+            "support": [
+              "leftLeg"
+            ],
+            "halfStep": 2,
+            "phase": 0.6111111111111112,
+            "edge": "front",
+            "localPoint": [
+              0,
+              -2,
+              0.47999998927116394
+            ],
+            "anchors": [
+              [
+                -0.5,
+                0,
+                0.982791056962987
+              ]
+            ],
+            "interval": [
+              1.5,
+              1.7999999999999998
+            ],
+            "swing": "rightLeg",
+            "swingClearance": 0.03973599997017718,
+            "handoff": "rear-to-front at flat foot; support-foot swap every half cycle"
+          }
+        },
+        {
+          "frame": 48,
+          "time": 1.6,
+          "path": "evidence/f2b1/frames/side-048.png",
+          "contacts": {
+            "support": [
+              "leftLeg"
+            ],
+            "halfStep": 2,
+            "phase": 0.666666666666667,
+            "edge": "front",
+            "localPoint": [
+              0,
+              -2,
+              0.47999998927116394
+            ],
+            "anchors": [
+              [
+                -0.5,
+                0,
+                0.982791056962987
+              ]
+            ],
+            "interval": [
+              1.5,
+              1.7999999999999998
+            ],
+            "swing": "rightLeg",
+            "swingClearance": 0.03374999999999995,
+            "handoff": "rear-to-front at flat foot; support-foot swap every half cycle"
+          }
+        },
+        {
+          "frame": 49,
+          "time": 1.6333333333333333,
+          "path": "evidence/f2b1/frames/side-049.png",
+          "contacts": {
+            "support": [
+              "leftLeg"
+            ],
+            "halfStep": 2,
+            "phase": 0.7222222222222223,
+            "edge": "front",
+            "localPoint": [
+              0,
+              -2,
+              0.47999998927116394
+            ],
+            "anchors": [
+              [
+                -0.5,
+                0,
+                0.982791056962987
+              ]
+            ],
+            "interval": [
+              1.5,
+              1.7999999999999998
+            ],
+            "swing": "rightLeg",
+            "swingClearance": 0.02640708399750613,
+            "handoff": "rear-to-front at flat foot; support-foot swap every half cycle"
+          }
+        },
+        {
+          "frame": 50,
+          "time": 1.6666666666666667,
+          "path": "evidence/f2b1/frames/side-050.png",
+          "contacts": {
+            "support": [
+              "leftLeg"
+            ],
+            "halfStep": 2,
+            "phase": 0.777777777777778,
+            "edge": "front",
+            "localPoint": [
+              0,
+              -2,
+              0.47999998927116394
+            ],
+            "anchors": [
+              [
+                -0.5,
+                0,
+                0.982791056962987
+              ]
+            ],
+            "interval": [
+              1.5,
+              1.7999999999999998
+            ],
+            "swing": "rightLeg",
+            "swingClearance": 0.018592916002494242,
+            "handoff": "rear-to-front at flat foot; support-foot swap every half cycle"
+          }
+        },
+        {
+          "frame": 51,
+          "time": 1.7,
+          "path": "evidence/f2b1/frames/side-051.png",
+          "contacts": {
+            "support": [
+              "leftLeg"
+            ],
+            "halfStep": 2,
+            "phase": 0.8333333333333334,
+            "edge": "front",
+            "localPoint": [
+              0,
+              -2,
+              0.47999998927116394
+            ],
+            "anchors": [
+              [
+                -0.5,
+                0,
+                0.982791056962987
+              ]
+            ],
+            "interval": [
+              1.5,
+              1.7999999999999998
+            ],
+            "swing": "rightLeg",
+            "swingClearance": 0.011249999999999982,
+            "handoff": "rear-to-front at flat foot; support-foot swap every half cycle"
+          }
+        },
+        {
+          "frame": 52,
+          "time": 1.7333333333333334,
+          "path": "evidence/f2b1/frames/side-052.png",
+          "contacts": {
+            "support": [
+              "leftLeg"
+            ],
+            "halfStep": 2,
+            "phase": 0.8888888888888891,
+            "edge": "front",
+            "localPoint": [
+              0,
+              -2,
+              0.47999998927116394
+            ],
+            "anchors": [
+              [
+                -0.5,
+                0,
+                0.982791056962987
+              ]
+            ],
+            "interval": [
+              1.5,
+              1.7999999999999998
+            ],
+            "swing": "rightLeg",
+            "swingClearance": 0.00526400002982319,
+            "handoff": "rear-to-front at flat foot; support-foot swap every half cycle"
+          }
+        },
+        {
+          "frame": 53,
+          "time": 1.7666666666666666,
+          "path": "evidence/f2b1/frames/side-053.png",
+          "contacts": {
+            "support": [
+              "leftLeg"
+            ],
+            "halfStep": 2,
+            "phase": 0.9444444444444444,
+            "edge": "front",
+            "localPoint": [
+              0,
+              -2,
+              0.47999998927116394
+            ],
+            "anchors": [
+              [
+                -0.5,
+                0,
+                0.982791056962987
+              ]
+            ],
+            "interval": [
+              1.5,
+              1.7999999999999998
+            ],
+            "swing": "rightLeg",
+            "swingClearance": 0.0013569160323170237,
+            "handoff": "rear-to-front at flat foot; support-foot swap every half cycle"
+          }
+        },
+        {
+          "frame": 54,
+          "time": 1.8,
+          "path": "evidence/f2b1/frames/side-054.png",
+          "contacts": {
+            "support": [
+              "rightLeg"
+            ],
+            "halfStep": 3,
+            "phase": 1.8503717077085943e-16,
+            "edge": "rear",
+            "localPoint": [
+              0,
+              -2,
+              -0.47999998927116394
+            ],
+            "anchors": [
+              [
+                0.5,
+                0,
+                0.22390750549738825
+              ]
+            ],
+            "interval": [
+              1.7999999999999998,
+              2.0999999999999996
+            ],
+            "swing": "leftLeg",
+            "swingClearance": 0,
+            "handoff": "rear-to-front at flat foot; support-foot swap every half cycle"
+          }
+        },
+        {
+          "frame": 55,
+          "time": 1.8333333333333333,
+          "path": "evidence/f2b1/frames/side-055.png",
+          "contacts": {
+            "support": [
+              "rightLeg"
+            ],
+            "halfStep": 3,
+            "phase": 0.055555555555555546,
+            "edge": "rear",
+            "localPoint": [
+              0,
+              -2,
+              -0.47999998927116394
+            ],
+            "anchors": [
+              [
+                0.5,
+                0,
+                0.22390750549738825
+              ]
+            ],
+            "interval": [
+              1.7999999999999998,
+              2.0999999999999996
+            ],
+            "swing": "leftLeg",
+            "swingClearance": 0.0013569160323170237,
+            "handoff": "rear-to-front at flat foot; support-foot swap every half cycle"
+          }
+        },
+        {
+          "frame": 56,
+          "time": 1.8666666666666667,
+          "path": "evidence/f2b1/frames/side-056.png",
+          "contacts": {
+            "support": [
+              "rightLeg"
+            ],
+            "halfStep": 3,
+            "phase": 0.11111111111111127,
+            "edge": "rear",
+            "localPoint": [
+              0,
+              -2,
+              -0.47999998927116394
+            ],
+            "anchors": [
+              [
+                0.5,
+                0,
+                0.22390750549738825
+              ]
+            ],
+            "interval": [
+              1.7999999999999998,
+              2.0999999999999996
+            ],
+            "swing": "leftLeg",
+            "swingClearance": 0.00526400002982319,
+            "handoff": "rear-to-front at flat foot; support-foot swap every half cycle"
+          }
+        },
+        {
+          "frame": 57,
+          "time": 1.9,
+          "path": "evidence/f2b1/frames/side-057.png",
+          "contacts": {
+            "support": [
+              "rightLeg"
+            ],
+            "halfStep": 3,
+            "phase": 0.16666666666666663,
+            "edge": "rear",
+            "localPoint": [
+              0,
+              -2,
+              -0.47999998927116394
+            ],
+            "anchors": [
+              [
+                0.5,
+                0,
+                0.22390750549738825
+              ]
+            ],
+            "interval": [
+              1.7999999999999998,
+              2.0999999999999996
+            ],
+            "swing": "leftLeg",
+            "swingClearance": 0.011249999999999982,
+            "handoff": "rear-to-front at flat foot; support-foot swap every half cycle"
+          }
+        },
+        {
+          "frame": 58,
+          "time": 1.9333333333333333,
+          "path": "evidence/f2b1/frames/side-058.png",
+          "contacts": {
+            "support": [
+              "rightLeg"
+            ],
+            "halfStep": 3,
+            "phase": 0.22222222222222238,
+            "edge": "rear",
+            "localPoint": [
+              0,
+              -2,
+              -0.47999998927116394
+            ],
+            "anchors": [
+              [
+                0.5,
+                0,
+                0.22390750549738825
+              ]
+            ],
+            "interval": [
+              1.7999999999999998,
+              2.0999999999999996
+            ],
+            "swing": "leftLeg",
+            "swingClearance": 0.018592916002494242,
+            "handoff": "rear-to-front at flat foot; support-foot swap every half cycle"
+          }
+        },
+        {
+          "frame": 59,
+          "time": 1.9666666666666666,
+          "path": "evidence/f2b1/frames/side-059.png",
+          "contacts": {
+            "support": [
+              "rightLeg"
+            ],
+            "halfStep": 3,
+            "phase": 0.27777777777777773,
+            "edge": "rear",
+            "localPoint": [
+              0,
+              -2,
+              -0.47999998927116394
+            ],
+            "anchors": [
+              [
+                0.5,
+                0,
+                0.22390750549738825
+              ]
+            ],
+            "interval": [
+              1.7999999999999998,
+              2.0999999999999996
+            ],
+            "swing": "leftLeg",
+            "swingClearance": 0.02640708399750613,
+            "handoff": "rear-to-front at flat foot; support-foot swap every half cycle"
+          }
+        },
+        {
+          "frame": 60,
+          "time": 2,
+          "path": "evidence/f2b1/frames/side-060.png",
+          "contacts": {
+            "support": [
+              "rightLeg"
+            ],
+            "halfStep": 3,
+            "phase": 0.3333333333333335,
+            "edge": "rear",
+            "localPoint": [
+              0,
+              -2,
+              -0.47999998927116394
+            ],
+            "anchors": [
+              [
+                0.5,
+                0,
+                0.22390750549738825
+              ]
+            ],
+            "interval": [
+              1.7999999999999998,
+              2.0999999999999996
+            ],
+            "swing": "leftLeg",
+            "swingClearance": 0.03374999999999995,
+            "handoff": "rear-to-front at flat foot; support-foot swap every half cycle"
+          }
+        },
+        {
+          "frame": 61,
+          "time": 2.033333333333333,
+          "path": "evidence/f2b1/frames/side-061.png",
+          "contacts": {
+            "support": [
+              "rightLeg"
+            ],
+            "halfStep": 3,
+            "phase": 0.38888888888888884,
+            "edge": "rear",
+            "localPoint": [
+              0,
+              -2,
+              -0.47999998927116394
+            ],
+            "anchors": [
+              [
+                0.5,
+                0,
+                0.22390750549738825
+              ]
+            ],
+            "interval": [
+              1.7999999999999998,
+              2.0999999999999996
+            ],
+            "swing": "leftLeg",
+            "swingClearance": 0.03973599997017718,
+            "handoff": "rear-to-front at flat foot; support-foot swap every half cycle"
+          }
+        },
+        {
+          "frame": 62,
+          "time": 2.066666666666667,
+          "path": "evidence/f2b1/frames/side-062.png",
+          "contacts": {
+            "support": [
+              "rightLeg"
+            ],
+            "halfStep": 3,
+            "phase": 0.4444444444444449,
+            "edge": "rear",
+            "localPoint": [
+              0,
+              -2,
+              -0.47999998927116394
+            ],
+            "anchors": [
+              [
+                0.5,
+                0,
+                0.22390750549738825
+              ]
+            ],
+            "interval": [
+              1.7999999999999998,
+              2.0999999999999996
+            ],
+            "swing": "leftLeg",
+            "swingClearance": 0.043643083967682905,
+            "handoff": "rear-to-front at flat foot; support-foot swap every half cycle"
+          }
+        },
+        {
+          "frame": 63,
+          "time": 2.1,
+          "path": "evidence/f2b1/frames/side-063.png",
+          "contacts": {
+            "support": [
+              "rightLeg"
+            ],
+            "halfStep": 3,
+            "phase": 0.5000000000000003,
+            "edge": "front",
+            "localPoint": [
+              0,
+              -2,
+              0.47999998927116394
+            ],
+            "anchors": [
+              [
+                0.5,
+                0,
+                1.1839074840397161
+              ]
+            ],
+            "interval": [
+              2.0999999999999996,
+              2.4
+            ],
+            "swing": "leftLeg",
+            "swingClearance": 0.04499999999999993,
+            "handoff": "rear-to-front at flat foot; support-foot swap every half cycle"
+          }
+        },
+        {
+          "frame": 64,
+          "time": 2.1333333333333333,
+          "path": "evidence/f2b1/frames/side-064.png",
+          "contacts": {
+            "support": [
+              "rightLeg"
+            ],
+            "halfStep": 3,
+            "phase": 0.5555555555555557,
+            "edge": "front",
+            "localPoint": [
+              0,
+              -2,
+              0.47999998927116394
+            ],
+            "anchors": [
+              [
+                0.5,
+                0,
+                1.1839074840397161
+              ]
+            ],
+            "interval": [
+              2.0999999999999996,
+              2.4
+            ],
+            "swing": "leftLeg",
+            "swingClearance": 0.043643083967682905,
+            "handoff": "rear-to-front at flat foot; support-foot swap every half cycle"
+          }
+        },
+        {
+          "frame": 65,
+          "time": 2.1666666666666665,
+          "path": "evidence/f2b1/frames/side-065.png",
+          "contacts": {
+            "support": [
+              "rightLeg"
+            ],
+            "halfStep": 3,
+            "phase": 0.611111111111111,
+            "edge": "front",
+            "localPoint": [
+              0,
+              -2,
+              0.47999998927116394
+            ],
+            "anchors": [
+              [
+                0.5,
+                0,
+                1.1839074840397161
+              ]
+            ],
+            "interval": [
+              2.0999999999999996,
+              2.4
+            ],
+            "swing": "leftLeg",
+            "swingClearance": 0.03973599997017718,
+            "handoff": "rear-to-front at flat foot; support-foot swap every half cycle"
+          }
+        },
+        {
+          "frame": 66,
+          "time": 2.2,
+          "path": "evidence/f2b1/frames/side-066.png",
+          "contacts": {
+            "support": [
+              "rightLeg"
+            ],
+            "halfStep": 3,
+            "phase": 0.6666666666666671,
+            "edge": "front",
+            "localPoint": [
+              0,
+              -2,
+              0.47999998927116394
+            ],
+            "anchors": [
+              [
+                0.5,
+                0,
+                1.1839074840397161
+              ]
+            ],
+            "interval": [
+              2.0999999999999996,
+              2.4
+            ],
+            "swing": "leftLeg",
+            "swingClearance": 0.03374999999999995,
+            "handoff": "rear-to-front at flat foot; support-foot swap every half cycle"
+          }
+        },
+        {
+          "frame": 67,
+          "time": 2.2333333333333334,
+          "path": "evidence/f2b1/frames/side-067.png",
+          "contacts": {
+            "support": [
+              "rightLeg"
+            ],
+            "halfStep": 3,
+            "phase": 0.7222222222222224,
+            "edge": "front",
+            "localPoint": [
+              0,
+              -2,
+              0.47999998927116394
+            ],
+            "anchors": [
+              [
+                0.5,
+                0,
+                1.1839074840397161
+              ]
+            ],
+            "interval": [
+              2.0999999999999996,
+              2.4
+            ],
+            "swing": "leftLeg",
+            "swingClearance": 0.02640708399750613,
+            "handoff": "rear-to-front at flat foot; support-foot swap every half cycle"
+          }
+        },
+        {
+          "frame": 68,
+          "time": 2.2666666666666666,
+          "path": "evidence/f2b1/frames/side-068.png",
+          "contacts": {
+            "support": [
+              "rightLeg"
+            ],
+            "halfStep": 3,
+            "phase": 0.7777777777777778,
+            "edge": "front",
+            "localPoint": [
+              0,
+              -2,
+              0.47999998927116394
+            ],
+            "anchors": [
+              [
+                0.5,
+                0,
+                1.1839074840397161
+              ]
+            ],
+            "interval": [
+              2.0999999999999996,
+              2.4
+            ],
+            "swing": "leftLeg",
+            "swingClearance": 0.018592916002494242,
+            "handoff": "rear-to-front at flat foot; support-foot swap every half cycle"
+          }
+        },
+        {
+          "frame": 69,
+          "time": 2.3,
+          "path": "evidence/f2b1/frames/side-069.png",
+          "contacts": {
+            "support": [
+              "rightLeg"
+            ],
+            "halfStep": 3,
+            "phase": 0.8333333333333331,
+            "edge": "front",
+            "localPoint": [
+              0,
+              -2,
+              0.47999998927116394
+            ],
+            "anchors": [
+              [
+                0.5,
+                0,
+                1.1839074840397161
+              ]
+            ],
+            "interval": [
+              2.0999999999999996,
+              2.4
+            ],
+            "swing": "leftLeg",
+            "swingClearance": 0.011249999999999982,
+            "handoff": "rear-to-front at flat foot; support-foot swap every half cycle"
+          }
+        },
+        {
+          "frame": 70,
+          "time": 2.3333333333333335,
+          "path": "evidence/f2b1/frames/side-070.png",
+          "contacts": {
+            "support": [
+              "rightLeg"
+            ],
+            "halfStep": 3,
+            "phase": 0.8888888888888893,
+            "edge": "front",
+            "localPoint": [
+              0,
+              -2,
+              0.47999998927116394
+            ],
+            "anchors": [
+              [
+                0.5,
+                0,
+                1.1839074840397161
+              ]
+            ],
+            "interval": [
+              2.0999999999999996,
+              2.4
+            ],
+            "swing": "leftLeg",
+            "swingClearance": 0.005264000029822746,
+            "handoff": "rear-to-front at flat foot; support-foot swap every half cycle"
+          }
+        },
+        {
+          "frame": 71,
+          "time": 2.3666666666666667,
+          "path": "evidence/f2b1/frames/side-071.png",
+          "contacts": {
+            "support": [
+              "rightLeg"
+            ],
+            "halfStep": 3,
+            "phase": 0.9444444444444446,
+            "edge": "front",
+            "localPoint": [
+              0,
+              -2,
+              0.47999998927116394
+            ],
+            "anchors": [
+              [
+                0.5,
+                0,
+                1.1839074840397161
+              ]
+            ],
+            "interval": [
+              2.0999999999999996,
+              2.4
+            ],
+            "swing": "leftLeg",
+            "swingClearance": 0.0013569160323170237,
+            "handoff": "rear-to-front at flat foot; support-foot swap every half cycle"
+          }
+        },
+        {
+          "frame": 72,
+          "time": 2.4,
+          "path": "evidence/f2b1/frames/side-072.png",
+          "contacts": {
+            "support": [
+              "leftLeg"
+            ],
+            "halfStep": 4,
+            "phase": 0,
+            "edge": "rear",
+            "localPoint": [
+              0,
+              -2,
+              -0.47999998927116394
+            ],
+            "anchors": [
+              [
+                -0.5,
+                0,
+                0.4250239325741174
+              ]
+            ],
+            "interval": [
+              2.4,
+              2.6999999999999997
+            ],
+            "swing": "rightLeg",
+            "swingClearance": 0,
+            "handoff": "rear-to-front at flat foot; support-foot swap every half cycle"
+          }
+        }
+      ]
+    },
+    {
+      "id": "threequarter",
+      "view": "threequarter",
+      "duration": 2.4,
+      "fps": 30,
+      "repeatReversePixelMatch": true,
+      "frames": [
+        {
+          "frame": 0,
+          "time": 0,
+          "path": "evidence/f2b1/frames/threequarter-000.png",
+          "contacts": {
+            "support": [
+              "leftLeg"
+            ],
+            "halfStep": 0,
+            "phase": 0,
+            "edge": "rear",
+            "localPoint": [
+              0,
+              -2,
+              -0.47999998927116394
+            ],
+            "anchors": [
+              [
+                -0.5,
+                0,
+                -0.37944177573279936
+              ]
+            ],
+            "interval": [
+              0,
+              0.3
+            ],
+            "swing": "rightLeg",
+            "swingClearance": 0,
+            "handoff": "rear-to-front at flat foot; support-foot swap every half cycle"
+          }
+        },
+        {
+          "frame": 1,
+          "time": 0.03333333333333333,
+          "path": "evidence/f2b1/frames/threequarter-001.png",
+          "contacts": {
+            "support": [
+              "leftLeg"
+            ],
+            "halfStep": 0,
+            "phase": 0.05555555555555556,
+            "edge": "rear",
+            "localPoint": [
+              0,
+              -2,
+              -0.47999998927116394
+            ],
+            "anchors": [
+              [
+                -0.5,
+                0,
+                -0.37944177573279936
+              ]
+            ],
+            "interval": [
+              0,
+              0.3
+            ],
+            "swing": "rightLeg",
+            "swingClearance": 0.0013569160323170237,
+            "handoff": "rear-to-front at flat foot; support-foot swap every half cycle"
+          }
+        },
+        {
+          "frame": 2,
+          "time": 0.06666666666666667,
+          "path": "evidence/f2b1/frames/threequarter-002.png",
+          "contacts": {
+            "support": [
+              "leftLeg"
+            ],
+            "halfStep": 0,
+            "phase": 0.11111111111111112,
+            "edge": "rear",
+            "localPoint": [
+              0,
+              -2,
+              -0.47999998927116394
+            ],
+            "anchors": [
+              [
+                -0.5,
+                0,
+                -0.37944177573279936
+              ]
+            ],
+            "interval": [
+              0,
+              0.3
+            ],
+            "swing": "rightLeg",
+            "swingClearance": 0.00526400002982319,
+            "handoff": "rear-to-front at flat foot; support-foot swap every half cycle"
+          }
+        },
+        {
+          "frame": 3,
+          "time": 0.1,
+          "path": "evidence/f2b1/frames/threequarter-003.png",
+          "contacts": {
+            "support": [
+              "leftLeg"
+            ],
+            "halfStep": 0,
+            "phase": 0.16666666666666669,
+            "edge": "rear",
+            "localPoint": [
+              0,
+              -2,
+              -0.47999998927116394
+            ],
+            "anchors": [
+              [
+                -0.5,
+                0,
+                -0.37944177573279936
+              ]
+            ],
+            "interval": [
+              0,
+              0.3
+            ],
+            "swing": "rightLeg",
+            "swingClearance": 0.011249999999999982,
+            "handoff": "rear-to-front at flat foot; support-foot swap every half cycle"
+          }
+        },
+        {
+          "frame": 4,
+          "time": 0.13333333333333333,
+          "path": "evidence/f2b1/frames/threequarter-004.png",
+          "contacts": {
+            "support": [
+              "leftLeg"
+            ],
+            "halfStep": 0,
+            "phase": 0.22222222222222224,
+            "edge": "rear",
+            "localPoint": [
+              0,
+              -2,
+              -0.47999998927116394
+            ],
+            "anchors": [
+              [
+                -0.5,
+                0,
+                -0.37944177573279936
+              ]
+            ],
+            "interval": [
+              0,
+              0.3
+            ],
+            "swing": "rightLeg",
+            "swingClearance": 0.018592916002494242,
+            "handoff": "rear-to-front at flat foot; support-foot swap every half cycle"
+          }
+        },
+        {
+          "frame": 5,
+          "time": 0.16666666666666666,
+          "path": "evidence/f2b1/frames/threequarter-005.png",
+          "contacts": {
+            "support": [
+              "leftLeg"
+            ],
+            "halfStep": 0,
+            "phase": 0.2777777777777778,
+            "edge": "rear",
+            "localPoint": [
+              0,
+              -2,
+              -0.47999998927116394
+            ],
+            "anchors": [
+              [
+                -0.5,
+                0,
+                -0.37944177573279936
+              ]
+            ],
+            "interval": [
+              0,
+              0.3
+            ],
+            "swing": "rightLeg",
+            "swingClearance": 0.02640708399750613,
+            "handoff": "rear-to-front at flat foot; support-foot swap every half cycle"
+          }
+        },
+        {
+          "frame": 6,
+          "time": 0.2,
+          "path": "evidence/f2b1/frames/threequarter-006.png",
+          "contacts": {
+            "support": [
+              "leftLeg"
+            ],
+            "halfStep": 0,
+            "phase": 0.33333333333333337,
+            "edge": "rear",
+            "localPoint": [
+              0,
+              -2,
+              -0.47999998927116394
+            ],
+            "anchors": [
+              [
+                -0.5,
+                0,
+                -0.37944177573279936
+              ]
+            ],
+            "interval": [
+              0,
+              0.3
+            ],
+            "swing": "rightLeg",
+            "swingClearance": 0.03374999999999995,
+            "handoff": "rear-to-front at flat foot; support-foot swap every half cycle"
+          }
+        },
+        {
+          "frame": 7,
+          "time": 0.23333333333333334,
+          "path": "evidence/f2b1/frames/threequarter-007.png",
+          "contacts": {
+            "support": [
+              "leftLeg"
+            ],
+            "halfStep": 0,
+            "phase": 0.3888888888888889,
+            "edge": "rear",
+            "localPoint": [
+              0,
+              -2,
+              -0.47999998927116394
+            ],
+            "anchors": [
+              [
+                -0.5,
+                0,
+                -0.37944177573279936
+              ]
+            ],
+            "interval": [
+              0,
+              0.3
+            ],
+            "swing": "rightLeg",
+            "swingClearance": 0.03973599997017718,
+            "handoff": "rear-to-front at flat foot; support-foot swap every half cycle"
+          }
+        },
+        {
+          "frame": 8,
+          "time": 0.26666666666666666,
+          "path": "evidence/f2b1/frames/threequarter-008.png",
+          "contacts": {
+            "support": [
+              "leftLeg"
+            ],
+            "halfStep": 0,
+            "phase": 0.4444444444444445,
+            "edge": "rear",
+            "localPoint": [
+              0,
+              -2,
+              -0.47999998927116394
+            ],
+            "anchors": [
+              [
+                -0.5,
+                0,
+                -0.37944177573279936
+              ]
+            ],
+            "interval": [
+              0,
+              0.3
+            ],
+            "swing": "rightLeg",
+            "swingClearance": 0.043643083967682905,
+            "handoff": "rear-to-front at flat foot; support-foot swap every half cycle"
+          }
+        },
+        {
+          "frame": 9,
+          "time": 0.3,
+          "path": "evidence/f2b1/frames/threequarter-009.png",
+          "contacts": {
+            "support": [
+              "leftLeg"
+            ],
+            "halfStep": 0,
+            "phase": 0.5,
+            "edge": "front",
+            "localPoint": [
+              0,
+              -2,
+              0.47999998927116394
+            ],
+            "anchors": [
+              [
+                -0.5,
+                0,
+                0.5805582028095285
+              ]
+            ],
+            "interval": [
+              0.3,
+              0.6
+            ],
+            "swing": "rightLeg",
+            "swingClearance": 0.04499999999999993,
+            "handoff": "rear-to-front at flat foot; support-foot swap every half cycle"
+          }
+        },
+        {
+          "frame": 10,
+          "time": 0.3333333333333333,
+          "path": "evidence/f2b1/frames/threequarter-010.png",
+          "contacts": {
+            "support": [
+              "leftLeg"
+            ],
+            "halfStep": 0,
+            "phase": 0.5555555555555556,
+            "edge": "front",
+            "localPoint": [
+              0,
+              -2,
+              0.47999998927116394
+            ],
+            "anchors": [
+              [
+                -0.5,
+                0,
+                0.5805582028095285
+              ]
+            ],
+            "interval": [
+              0.3,
+              0.6
+            ],
+            "swing": "rightLeg",
+            "swingClearance": 0.043643083967682905,
+            "handoff": "rear-to-front at flat foot; support-foot swap every half cycle"
+          }
+        },
+        {
+          "frame": 11,
+          "time": 0.36666666666666664,
+          "path": "evidence/f2b1/frames/threequarter-011.png",
+          "contacts": {
+            "support": [
+              "leftLeg"
+            ],
+            "halfStep": 0,
+            "phase": 0.611111111111111,
+            "edge": "front",
+            "localPoint": [
+              0,
+              -2,
+              0.47999998927116394
+            ],
+            "anchors": [
+              [
+                -0.5,
+                0,
+                0.5805582028095285
+              ]
+            ],
+            "interval": [
+              0.3,
+              0.6
+            ],
+            "swing": "rightLeg",
+            "swingClearance": 0.03973599997017718,
+            "handoff": "rear-to-front at flat foot; support-foot swap every half cycle"
+          }
+        },
+        {
+          "frame": 12,
+          "time": 0.4,
+          "path": "evidence/f2b1/frames/threequarter-012.png",
+          "contacts": {
+            "support": [
+              "leftLeg"
+            ],
+            "halfStep": 0,
+            "phase": 0.6666666666666667,
+            "edge": "front",
+            "localPoint": [
+              0,
+              -2,
+              0.47999998927116394
+            ],
+            "anchors": [
+              [
+                -0.5,
+                0,
+                0.5805582028095285
+              ]
+            ],
+            "interval": [
+              0.3,
+              0.6
+            ],
+            "swing": "rightLeg",
+            "swingClearance": 0.03374999999999995,
+            "handoff": "rear-to-front at flat foot; support-foot swap every half cycle"
+          }
+        },
+        {
+          "frame": 13,
+          "time": 0.43333333333333335,
+          "path": "evidence/f2b1/frames/threequarter-013.png",
+          "contacts": {
+            "support": [
+              "leftLeg"
+            ],
+            "halfStep": 0,
+            "phase": 0.7222222222222223,
+            "edge": "front",
+            "localPoint": [
+              0,
+              -2,
+              0.47999998927116394
+            ],
+            "anchors": [
+              [
+                -0.5,
+                0,
+                0.5805582028095285
+              ]
+            ],
+            "interval": [
+              0.3,
+              0.6
+            ],
+            "swing": "rightLeg",
+            "swingClearance": 0.02640708399750613,
+            "handoff": "rear-to-front at flat foot; support-foot swap every half cycle"
+          }
+        },
+        {
+          "frame": 14,
+          "time": 0.4666666666666667,
+          "path": "evidence/f2b1/frames/threequarter-014.png",
+          "contacts": {
+            "support": [
+              "leftLeg"
+            ],
+            "halfStep": 0,
+            "phase": 0.7777777777777778,
+            "edge": "front",
+            "localPoint": [
+              0,
+              -2,
+              0.47999998927116394
+            ],
+            "anchors": [
+              [
+                -0.5,
+                0,
+                0.5805582028095285
+              ]
+            ],
+            "interval": [
+              0.3,
+              0.6
+            ],
+            "swing": "rightLeg",
+            "swingClearance": 0.018592916002494242,
+            "handoff": "rear-to-front at flat foot; support-foot swap every half cycle"
+          }
+        },
+        {
+          "frame": 15,
+          "time": 0.5,
+          "path": "evidence/f2b1/frames/threequarter-015.png",
+          "contacts": {
+            "support": [
+              "leftLeg"
+            ],
+            "halfStep": 0,
+            "phase": 0.8333333333333334,
+            "edge": "front",
+            "localPoint": [
+              0,
+              -2,
+              0.47999998927116394
+            ],
+            "anchors": [
+              [
+                -0.5,
+                0,
+                0.5805582028095285
+              ]
+            ],
+            "interval": [
+              0.3,
+              0.6
+            ],
+            "swing": "rightLeg",
+            "swingClearance": 0.011249999999999982,
+            "handoff": "rear-to-front at flat foot; support-foot swap every half cycle"
+          }
+        },
+        {
+          "frame": 16,
+          "time": 0.5333333333333333,
+          "path": "evidence/f2b1/frames/threequarter-016.png",
+          "contacts": {
+            "support": [
+              "leftLeg"
+            ],
+            "halfStep": 0,
+            "phase": 0.888888888888889,
+            "edge": "front",
+            "localPoint": [
+              0,
+              -2,
+              0.47999998927116394
+            ],
+            "anchors": [
+              [
+                -0.5,
+                0,
+                0.5805582028095285
+              ]
+            ],
+            "interval": [
+              0.3,
+              0.6
+            ],
+            "swing": "rightLeg",
+            "swingClearance": 0.00526400002982319,
+            "handoff": "rear-to-front at flat foot; support-foot swap every half cycle"
+          }
+        },
+        {
+          "frame": 17,
+          "time": 0.5666666666666667,
+          "path": "evidence/f2b1/frames/threequarter-017.png",
+          "contacts": {
+            "support": [
+              "leftLeg"
+            ],
+            "halfStep": 0,
+            "phase": 0.9444444444444444,
+            "edge": "front",
+            "localPoint": [
+              0,
+              -2,
+              0.47999998927116394
+            ],
+            "anchors": [
+              [
+                -0.5,
+                0,
+                0.5805582028095285
+              ]
+            ],
+            "interval": [
+              0.3,
+              0.6
+            ],
+            "swing": "rightLeg",
+            "swingClearance": 0.0013569160323170237,
+            "handoff": "rear-to-front at flat foot; support-foot swap every half cycle"
+          }
+        },
+        {
+          "frame": 18,
+          "time": 0.6,
+          "path": "evidence/f2b1/frames/threequarter-018.png",
+          "contacts": {
+            "support": [
+              "rightLeg"
+            ],
+            "halfStep": 1,
+            "phase": 0,
+            "edge": "rear",
+            "localPoint": [
+              0,
+              -2,
+              -0.47999998927116394
+            ],
+            "anchors": [
+              [
+                0.5,
+                0,
+                -0.17832534865607014
+              ]
+            ],
+            "interval": [
+              0.6,
+              0.8999999999999999
+            ],
+            "swing": "leftLeg",
+            "swingClearance": 0,
+            "handoff": "rear-to-front at flat foot; support-foot swap every half cycle"
+          }
+        },
+        {
+          "frame": 19,
+          "time": 0.6333333333333333,
+          "path": "evidence/f2b1/frames/threequarter-019.png",
+          "contacts": {
+            "support": [
+              "rightLeg"
+            ],
+            "halfStep": 1,
+            "phase": 0.055555555555555546,
+            "edge": "rear",
+            "localPoint": [
+              0,
+              -2,
+              -0.47999998927116394
+            ],
+            "anchors": [
+              [
+                0.5,
+                0,
+                -0.17832534865607014
+              ]
+            ],
+            "interval": [
+              0.6,
+              0.8999999999999999
+            ],
+            "swing": "leftLeg",
+            "swingClearance": 0.0013569160323170237,
+            "handoff": "rear-to-front at flat foot; support-foot swap every half cycle"
+          }
+        },
+        {
+          "frame": 20,
+          "time": 0.6666666666666666,
+          "path": "evidence/f2b1/frames/threequarter-020.png",
+          "contacts": {
+            "support": [
+              "rightLeg"
+            ],
+            "halfStep": 1,
+            "phase": 0.11111111111111109,
+            "edge": "rear",
+            "localPoint": [
+              0,
+              -2,
+              -0.47999998927116394
+            ],
+            "anchors": [
+              [
+                0.5,
+                0,
+                -0.17832534865607014
+              ]
+            ],
+            "interval": [
+              0.6,
+              0.8999999999999999
+            ],
+            "swing": "leftLeg",
+            "swingClearance": 0.00526400002982319,
+            "handoff": "rear-to-front at flat foot; support-foot swap every half cycle"
+          }
+        },
+        {
+          "frame": 21,
+          "time": 0.7,
+          "path": "evidence/f2b1/frames/threequarter-021.png",
+          "contacts": {
+            "support": [
+              "rightLeg"
+            ],
+            "halfStep": 1,
+            "phase": 0.16666666666666663,
+            "edge": "rear",
+            "localPoint": [
+              0,
+              -2,
+              -0.47999998927116394
+            ],
+            "anchors": [
+              [
+                0.5,
+                0,
+                -0.17832534865607014
+              ]
+            ],
+            "interval": [
+              0.6,
+              0.8999999999999999
+            ],
+            "swing": "leftLeg",
+            "swingClearance": 0.011249999999999982,
+            "handoff": "rear-to-front at flat foot; support-foot swap every half cycle"
+          }
+        },
+        {
+          "frame": 22,
+          "time": 0.7333333333333333,
+          "path": "evidence/f2b1/frames/threequarter-022.png",
+          "contacts": {
+            "support": [
+              "rightLeg"
+            ],
+            "halfStep": 1,
+            "phase": 0.22222222222222218,
+            "edge": "rear",
+            "localPoint": [
+              0,
+              -2,
+              -0.47999998927116394
+            ],
+            "anchors": [
+              [
+                0.5,
+                0,
+                -0.17832534865607014
+              ]
+            ],
+            "interval": [
+              0.6,
+              0.8999999999999999
+            ],
+            "swing": "leftLeg",
+            "swingClearance": 0.018592916002494242,
+            "handoff": "rear-to-front at flat foot; support-foot swap every half cycle"
+          }
+        },
+        {
+          "frame": 23,
+          "time": 0.7666666666666667,
+          "path": "evidence/f2b1/frames/threequarter-023.png",
+          "contacts": {
+            "support": [
+              "rightLeg"
+            ],
+            "halfStep": 1,
+            "phase": 0.2777777777777779,
+            "edge": "rear",
+            "localPoint": [
+              0,
+              -2,
+              -0.47999998927116394
+            ],
+            "anchors": [
+              [
+                0.5,
+                0,
+                -0.17832534865607014
+              ]
+            ],
+            "interval": [
+              0.6,
+              0.8999999999999999
+            ],
+            "swing": "leftLeg",
+            "swingClearance": 0.02640708399750613,
+            "handoff": "rear-to-front at flat foot; support-foot swap every half cycle"
+          }
+        },
+        {
+          "frame": 24,
+          "time": 0.8,
+          "path": "evidence/f2b1/frames/threequarter-024.png",
+          "contacts": {
+            "support": [
+              "rightLeg"
+            ],
+            "halfStep": 1,
+            "phase": 0.3333333333333335,
+            "edge": "rear",
+            "localPoint": [
+              0,
+              -2,
+              -0.47999998927116394
+            ],
+            "anchors": [
+              [
+                0.5,
+                0,
+                -0.17832534865607014
+              ]
+            ],
+            "interval": [
+              0.6,
+              0.8999999999999999
+            ],
+            "swing": "leftLeg",
+            "swingClearance": 0.03374999999999995,
+            "handoff": "rear-to-front at flat foot; support-foot swap every half cycle"
+          }
+        },
+        {
+          "frame": 25,
+          "time": 0.8333333333333334,
+          "path": "evidence/f2b1/frames/threequarter-025.png",
+          "contacts": {
+            "support": [
+              "rightLeg"
+            ],
+            "halfStep": 1,
+            "phase": 0.388888888888889,
+            "edge": "rear",
+            "localPoint": [
+              0,
+              -2,
+              -0.47999998927116394
+            ],
+            "anchors": [
+              [
+                0.5,
+                0,
+                -0.17832534865607014
+              ]
+            ],
+            "interval": [
+              0.6,
+              0.8999999999999999
+            ],
+            "swing": "leftLeg",
+            "swingClearance": 0.03973599997017718,
+            "handoff": "rear-to-front at flat foot; support-foot swap every half cycle"
+          }
+        },
+        {
+          "frame": 26,
+          "time": 0.8666666666666667,
+          "path": "evidence/f2b1/frames/threequarter-026.png",
+          "contacts": {
+            "support": [
+              "rightLeg"
+            ],
+            "halfStep": 1,
+            "phase": 0.44444444444444453,
+            "edge": "rear",
+            "localPoint": [
+              0,
+              -2,
+              -0.47999998927116394
+            ],
+            "anchors": [
+              [
+                0.5,
+                0,
+                -0.17832534865607014
+              ]
+            ],
+            "interval": [
+              0.6,
+              0.8999999999999999
+            ],
+            "swing": "leftLeg",
+            "swingClearance": 0.043643083967682905,
+            "handoff": "rear-to-front at flat foot; support-foot swap every half cycle"
+          }
+        },
+        {
+          "frame": 27,
+          "time": 0.9,
+          "path": "evidence/f2b1/frames/threequarter-027.png",
+          "contacts": {
+            "support": [
+              "rightLeg"
+            ],
+            "halfStep": 1,
+            "phase": 0.5000000000000001,
+            "edge": "front",
+            "localPoint": [
+              0,
+              -2,
+              0.47999998927116394
+            ],
+            "anchors": [
+              [
+                0.5,
+                0,
+                0.7816746298862578
+              ]
+            ],
+            "interval": [
+              0.8999999999999999,
+              1.2
+            ],
+            "swing": "leftLeg",
+            "swingClearance": 0.04499999999999993,
+            "handoff": "rear-to-front at flat foot; support-foot swap every half cycle"
+          }
+        },
+        {
+          "frame": 28,
+          "time": 0.9333333333333333,
+          "path": "evidence/f2b1/frames/threequarter-028.png",
+          "contacts": {
+            "support": [
+              "rightLeg"
+            ],
+            "halfStep": 1,
+            "phase": 0.5555555555555557,
+            "edge": "front",
+            "localPoint": [
+              0,
+              -2,
+              0.47999998927116394
+            ],
+            "anchors": [
+              [
+                0.5,
+                0,
+                0.7816746298862578
+              ]
+            ],
+            "interval": [
+              0.8999999999999999,
+              1.2
+            ],
+            "swing": "leftLeg",
+            "swingClearance": 0.043643083967682905,
+            "handoff": "rear-to-front at flat foot; support-foot swap every half cycle"
+          }
+        },
+        {
+          "frame": 29,
+          "time": 0.9666666666666667,
+          "path": "evidence/f2b1/frames/threequarter-029.png",
+          "contacts": {
+            "support": [
+              "rightLeg"
+            ],
+            "halfStep": 1,
+            "phase": 0.6111111111111112,
+            "edge": "front",
+            "localPoint": [
+              0,
+              -2,
+              0.47999998927116394
+            ],
+            "anchors": [
+              [
+                0.5,
+                0,
+                0.7816746298862578
+              ]
+            ],
+            "interval": [
+              0.8999999999999999,
+              1.2
+            ],
+            "swing": "leftLeg",
+            "swingClearance": 0.03973599997017718,
+            "handoff": "rear-to-front at flat foot; support-foot swap every half cycle"
+          }
+        },
+        {
+          "frame": 30,
+          "time": 1,
+          "path": "evidence/f2b1/frames/threequarter-030.png",
+          "contacts": {
+            "support": [
+              "rightLeg"
+            ],
+            "halfStep": 1,
+            "phase": 0.6666666666666667,
+            "edge": "front",
+            "localPoint": [
+              0,
+              -2,
+              0.47999998927116394
+            ],
+            "anchors": [
+              [
+                0.5,
+                0,
+                0.7816746298862578
+              ]
+            ],
+            "interval": [
+              0.8999999999999999,
+              1.2
+            ],
+            "swing": "leftLeg",
+            "swingClearance": 0.03374999999999995,
+            "handoff": "rear-to-front at flat foot; support-foot swap every half cycle"
+          }
+        },
+        {
+          "frame": 31,
+          "time": 1.0333333333333334,
+          "path": "evidence/f2b1/frames/threequarter-031.png",
+          "contacts": {
+            "support": [
+              "rightLeg"
+            ],
+            "halfStep": 1,
+            "phase": 0.7222222222222224,
+            "edge": "front",
+            "localPoint": [
+              0,
+              -2,
+              0.47999998927116394
+            ],
+            "anchors": [
+              [
+                0.5,
+                0,
+                0.7816746298862578
+              ]
+            ],
+            "interval": [
+              0.8999999999999999,
+              1.2
+            ],
+            "swing": "leftLeg",
+            "swingClearance": 0.02640708399750613,
+            "handoff": "rear-to-front at flat foot; support-foot swap every half cycle"
+          }
+        },
+        {
+          "frame": 32,
+          "time": 1.0666666666666667,
+          "path": "evidence/f2b1/frames/threequarter-032.png",
+          "contacts": {
+            "support": [
+              "rightLeg"
+            ],
+            "halfStep": 1,
+            "phase": 0.7777777777777778,
+            "edge": "front",
+            "localPoint": [
+              0,
+              -2,
+              0.47999998927116394
+            ],
+            "anchors": [
+              [
+                0.5,
+                0,
+                0.7816746298862578
+              ]
+            ],
+            "interval": [
+              0.8999999999999999,
+              1.2
+            ],
+            "swing": "leftLeg",
+            "swingClearance": 0.018592916002494242,
+            "handoff": "rear-to-front at flat foot; support-foot swap every half cycle"
+          }
+        },
+        {
+          "frame": 33,
+          "time": 1.1,
+          "path": "evidence/f2b1/frames/threequarter-033.png",
+          "contacts": {
+            "support": [
+              "rightLeg"
+            ],
+            "halfStep": 1,
+            "phase": 0.8333333333333336,
+            "edge": "front",
+            "localPoint": [
+              0,
+              -2,
+              0.47999998927116394
+            ],
+            "anchors": [
+              [
+                0.5,
+                0,
+                0.7816746298862578
+              ]
+            ],
+            "interval": [
+              0.8999999999999999,
+              1.2
+            ],
+            "swing": "leftLeg",
+            "swingClearance": 0.011249999999999982,
+            "handoff": "rear-to-front at flat foot; support-foot swap every half cycle"
+          }
+        },
+        {
+          "frame": 34,
+          "time": 1.1333333333333333,
+          "path": "evidence/f2b1/frames/threequarter-034.png",
+          "contacts": {
+            "support": [
+              "rightLeg"
+            ],
+            "halfStep": 1,
+            "phase": 0.888888888888889,
+            "edge": "front",
+            "localPoint": [
+              0,
+              -2,
+              0.47999998927116394
+            ],
+            "anchors": [
+              [
+                0.5,
+                0,
+                0.7816746298862578
+              ]
+            ],
+            "interval": [
+              0.8999999999999999,
+              1.2
+            ],
+            "swing": "leftLeg",
+            "swingClearance": 0.00526400002982319,
+            "handoff": "rear-to-front at flat foot; support-foot swap every half cycle"
+          }
+        },
+        {
+          "frame": 35,
+          "time": 1.1666666666666667,
+          "path": "evidence/f2b1/frames/threequarter-035.png",
+          "contacts": {
+            "support": [
+              "rightLeg"
+            ],
+            "halfStep": 1,
+            "phase": 0.9444444444444446,
+            "edge": "front",
+            "localPoint": [
+              0,
+              -2,
+              0.47999998927116394
+            ],
+            "anchors": [
+              [
+                0.5,
+                0,
+                0.7816746298862578
+              ]
+            ],
+            "interval": [
+              0.8999999999999999,
+              1.2
+            ],
+            "swing": "leftLeg",
+            "swingClearance": 0.0013569160323170237,
+            "handoff": "rear-to-front at flat foot; support-foot swap every half cycle"
+          }
+        },
+        {
+          "frame": 36,
+          "time": 1.2,
+          "path": "evidence/f2b1/frames/threequarter-036.png",
+          "contacts": {
+            "support": [
+              "leftLeg"
+            ],
+            "halfStep": 2,
+            "phase": 0,
+            "edge": "rear",
+            "localPoint": [
+              0,
+              -2,
+              -0.47999998927116394
+            ],
+            "anchors": [
+              [
+                -0.5,
+                0,
+                0.022791078420659083
+              ]
+            ],
+            "interval": [
+              1.2,
+              1.5
+            ],
+            "swing": "rightLeg",
+            "swingClearance": 0,
+            "handoff": "rear-to-front at flat foot; support-foot swap every half cycle"
+          }
+        },
+        {
+          "frame": 37,
+          "time": 1.2333333333333334,
+          "path": "evidence/f2b1/frames/threequarter-037.png",
+          "contacts": {
+            "support": [
+              "leftLeg"
+            ],
+            "halfStep": 2,
+            "phase": 0.05555555555555573,
+            "edge": "rear",
+            "localPoint": [
+              0,
+              -2,
+              -0.47999998927116394
+            ],
+            "anchors": [
+              [
+                -0.5,
+                0,
+                0.022791078420659083
+              ]
+            ],
+            "interval": [
+              1.2,
+              1.5
+            ],
+            "swing": "rightLeg",
+            "swingClearance": 0.0013569160323170237,
+            "handoff": "rear-to-front at flat foot; support-foot swap every half cycle"
+          }
+        },
+        {
+          "frame": 38,
+          "time": 1.2666666666666666,
+          "path": "evidence/f2b1/frames/threequarter-038.png",
+          "contacts": {
+            "support": [
+              "leftLeg"
+            ],
+            "halfStep": 2,
+            "phase": 0.11111111111111109,
+            "edge": "rear",
+            "localPoint": [
+              0,
+              -2,
+              -0.47999998927116394
+            ],
+            "anchors": [
+              [
+                -0.5,
+                0,
+                0.022791078420659083
+              ]
+            ],
+            "interval": [
+              1.2,
+              1.5
+            ],
+            "swing": "rightLeg",
+            "swingClearance": 0.00526400002982319,
+            "handoff": "rear-to-front at flat foot; support-foot swap every half cycle"
+          }
+        },
+        {
+          "frame": 39,
+          "time": 1.3,
+          "path": "evidence/f2b1/frames/threequarter-039.png",
+          "contacts": {
+            "support": [
+              "leftLeg"
+            ],
+            "halfStep": 2,
+            "phase": 0.16666666666666682,
+            "edge": "rear",
+            "localPoint": [
+              0,
+              -2,
+              -0.47999998927116394
+            ],
+            "anchors": [
+              [
+                -0.5,
+                0,
+                0.022791078420659083
+              ]
+            ],
+            "interval": [
+              1.2,
+              1.5
+            ],
+            "swing": "rightLeg",
+            "swingClearance": 0.011249999999999982,
+            "handoff": "rear-to-front at flat foot; support-foot swap every half cycle"
+          }
+        },
+        {
+          "frame": 40,
+          "time": 1.3333333333333333,
+          "path": "evidence/f2b1/frames/threequarter-040.png",
+          "contacts": {
+            "support": [
+              "leftLeg"
+            ],
+            "halfStep": 2,
+            "phase": 0.22222222222222218,
+            "edge": "rear",
+            "localPoint": [
+              0,
+              -2,
+              -0.47999998927116394
+            ],
+            "anchors": [
+              [
+                -0.5,
+                0,
+                0.022791078420659083
+              ]
+            ],
+            "interval": [
+              1.2,
+              1.5
+            ],
+            "swing": "rightLeg",
+            "swingClearance": 0.018592916002494242,
+            "handoff": "rear-to-front at flat foot; support-foot swap every half cycle"
+          }
+        },
+        {
+          "frame": 41,
+          "time": 1.3666666666666667,
+          "path": "evidence/f2b1/frames/threequarter-041.png",
+          "contacts": {
+            "support": [
+              "leftLeg"
+            ],
+            "halfStep": 2,
+            "phase": 0.2777777777777779,
+            "edge": "rear",
+            "localPoint": [
+              0,
+              -2,
+              -0.47999998927116394
+            ],
+            "anchors": [
+              [
+                -0.5,
+                0,
+                0.022791078420659083
+              ]
+            ],
+            "interval": [
+              1.2,
+              1.5
+            ],
+            "swing": "rightLeg",
+            "swingClearance": 0.02640708399750613,
+            "handoff": "rear-to-front at flat foot; support-foot swap every half cycle"
+          }
+        },
+        {
+          "frame": 42,
+          "time": 1.4,
+          "path": "evidence/f2b1/frames/threequarter-042.png",
+          "contacts": {
+            "support": [
+              "leftLeg"
+            ],
+            "halfStep": 2,
+            "phase": 0.33333333333333326,
+            "edge": "rear",
+            "localPoint": [
+              0,
+              -2,
+              -0.47999998927116394
+            ],
+            "anchors": [
+              [
+                -0.5,
+                0,
+                0.022791078420659083
+              ]
+            ],
+            "interval": [
+              1.2,
+              1.5
+            ],
+            "swing": "rightLeg",
+            "swingClearance": 0.03374999999999995,
+            "handoff": "rear-to-front at flat foot; support-foot swap every half cycle"
+          }
+        },
+        {
+          "frame": 43,
+          "time": 1.4333333333333333,
+          "path": "evidence/f2b1/frames/threequarter-043.png",
+          "contacts": {
+            "support": [
+              "leftLeg"
+            ],
+            "halfStep": 2,
+            "phase": 0.388888888888889,
+            "edge": "rear",
+            "localPoint": [
+              0,
+              -2,
+              -0.47999998927116394
+            ],
+            "anchors": [
+              [
+                -0.5,
+                0,
+                0.022791078420659083
+              ]
+            ],
+            "interval": [
+              1.2,
+              1.5
+            ],
+            "swing": "rightLeg",
+            "swingClearance": 0.03973599997017718,
+            "handoff": "rear-to-front at flat foot; support-foot swap every half cycle"
+          }
+        },
+        {
+          "frame": 44,
+          "time": 1.4666666666666666,
+          "path": "evidence/f2b1/frames/threequarter-044.png",
+          "contacts": {
+            "support": [
+              "leftLeg"
+            ],
+            "halfStep": 2,
+            "phase": 0.44444444444444436,
+            "edge": "rear",
+            "localPoint": [
+              0,
+              -2,
+              -0.47999998927116394
+            ],
+            "anchors": [
+              [
+                -0.5,
+                0,
+                0.022791078420659083
+              ]
+            ],
+            "interval": [
+              1.2,
+              1.5
+            ],
+            "swing": "rightLeg",
+            "swingClearance": 0.043643083967682905,
+            "handoff": "rear-to-front at flat foot; support-foot swap every half cycle"
+          }
+        },
+        {
+          "frame": 45,
+          "time": 1.5,
+          "path": "evidence/f2b1/frames/threequarter-045.png",
+          "contacts": {
+            "support": [
+              "leftLeg"
+            ],
+            "halfStep": 2,
+            "phase": 0.5000000000000001,
+            "edge": "front",
+            "localPoint": [
+              0,
+              -2,
+              0.47999998927116394
+            ],
+            "anchors": [
+              [
+                -0.5,
+                0,
+                0.982791056962987
+              ]
+            ],
+            "interval": [
+              1.5,
+              1.7999999999999998
+            ],
+            "swing": "rightLeg",
+            "swingClearance": 0.04499999999999993,
+            "handoff": "rear-to-front at flat foot; support-foot swap every half cycle"
+          }
+        },
+        {
+          "frame": 46,
+          "time": 1.5333333333333334,
+          "path": "evidence/f2b1/frames/threequarter-046.png",
+          "contacts": {
+            "support": [
+              "leftLeg"
+            ],
+            "halfStep": 2,
+            "phase": 0.5555555555555558,
+            "edge": "front",
+            "localPoint": [
+              0,
+              -2,
+              0.47999998927116394
+            ],
+            "anchors": [
+              [
+                -0.5,
+                0,
+                0.982791056962987
+              ]
+            ],
+            "interval": [
+              1.5,
+              1.7999999999999998
+            ],
+            "swing": "rightLeg",
+            "swingClearance": 0.043643083967682905,
+            "handoff": "rear-to-front at flat foot; support-foot swap every half cycle"
+          }
+        },
+        {
+          "frame": 47,
+          "time": 1.5666666666666667,
+          "path": "evidence/f2b1/frames/threequarter-047.png",
+          "contacts": {
+            "support": [
+              "leftLeg"
+            ],
+            "halfStep": 2,
+            "phase": 0.6111111111111112,
+            "edge": "front",
+            "localPoint": [
+              0,
+              -2,
+              0.47999998927116394
+            ],
+            "anchors": [
+              [
+                -0.5,
+                0,
+                0.982791056962987
+              ]
+            ],
+            "interval": [
+              1.5,
+              1.7999999999999998
+            ],
+            "swing": "rightLeg",
+            "swingClearance": 0.03973599997017718,
+            "handoff": "rear-to-front at flat foot; support-foot swap every half cycle"
+          }
+        },
+        {
+          "frame": 48,
+          "time": 1.6,
+          "path": "evidence/f2b1/frames/threequarter-048.png",
+          "contacts": {
+            "support": [
+              "leftLeg"
+            ],
+            "halfStep": 2,
+            "phase": 0.666666666666667,
+            "edge": "front",
+            "localPoint": [
+              0,
+              -2,
+              0.47999998927116394
+            ],
+            "anchors": [
+              [
+                -0.5,
+                0,
+                0.982791056962987
+              ]
+            ],
+            "interval": [
+              1.5,
+              1.7999999999999998
+            ],
+            "swing": "rightLeg",
+            "swingClearance": 0.03374999999999995,
+            "handoff": "rear-to-front at flat foot; support-foot swap every half cycle"
+          }
+        },
+        {
+          "frame": 49,
+          "time": 1.6333333333333333,
+          "path": "evidence/f2b1/frames/threequarter-049.png",
+          "contacts": {
+            "support": [
+              "leftLeg"
+            ],
+            "halfStep": 2,
+            "phase": 0.7222222222222223,
+            "edge": "front",
+            "localPoint": [
+              0,
+              -2,
+              0.47999998927116394
+            ],
+            "anchors": [
+              [
+                -0.5,
+                0,
+                0.982791056962987
+              ]
+            ],
+            "interval": [
+              1.5,
+              1.7999999999999998
+            ],
+            "swing": "rightLeg",
+            "swingClearance": 0.02640708399750613,
+            "handoff": "rear-to-front at flat foot; support-foot swap every half cycle"
+          }
+        },
+        {
+          "frame": 50,
+          "time": 1.6666666666666667,
+          "path": "evidence/f2b1/frames/threequarter-050.png",
+          "contacts": {
+            "support": [
+              "leftLeg"
+            ],
+            "halfStep": 2,
+            "phase": 0.777777777777778,
+            "edge": "front",
+            "localPoint": [
+              0,
+              -2,
+              0.47999998927116394
+            ],
+            "anchors": [
+              [
+                -0.5,
+                0,
+                0.982791056962987
+              ]
+            ],
+            "interval": [
+              1.5,
+              1.7999999999999998
+            ],
+            "swing": "rightLeg",
+            "swingClearance": 0.018592916002494242,
+            "handoff": "rear-to-front at flat foot; support-foot swap every half cycle"
+          }
+        },
+        {
+          "frame": 51,
+          "time": 1.7,
+          "path": "evidence/f2b1/frames/threequarter-051.png",
+          "contacts": {
+            "support": [
+              "leftLeg"
+            ],
+            "halfStep": 2,
+            "phase": 0.8333333333333334,
+            "edge": "front",
+            "localPoint": [
+              0,
+              -2,
+              0.47999998927116394
+            ],
+            "anchors": [
+              [
+                -0.5,
+                0,
+                0.982791056962987
+              ]
+            ],
+            "interval": [
+              1.5,
+              1.7999999999999998
+            ],
+            "swing": "rightLeg",
+            "swingClearance": 0.011249999999999982,
+            "handoff": "rear-to-front at flat foot; support-foot swap every half cycle"
+          }
+        },
+        {
+          "frame": 52,
+          "time": 1.7333333333333334,
+          "path": "evidence/f2b1/frames/threequarter-052.png",
+          "contacts": {
+            "support": [
+              "leftLeg"
+            ],
+            "halfStep": 2,
+            "phase": 0.8888888888888891,
+            "edge": "front",
+            "localPoint": [
+              0,
+              -2,
+              0.47999998927116394
+            ],
+            "anchors": [
+              [
+                -0.5,
+                0,
+                0.982791056962987
+              ]
+            ],
+            "interval": [
+              1.5,
+              1.7999999999999998
+            ],
+            "swing": "rightLeg",
+            "swingClearance": 0.00526400002982319,
+            "handoff": "rear-to-front at flat foot; support-foot swap every half cycle"
+          }
+        },
+        {
+          "frame": 53,
+          "time": 1.7666666666666666,
+          "path": "evidence/f2b1/frames/threequarter-053.png",
+          "contacts": {
+            "support": [
+              "leftLeg"
+            ],
+            "halfStep": 2,
+            "phase": 0.9444444444444444,
+            "edge": "front",
+            "localPoint": [
+              0,
+              -2,
+              0.47999998927116394
+            ],
+            "anchors": [
+              [
+                -0.5,
+                0,
+                0.982791056962987
+              ]
+            ],
+            "interval": [
+              1.5,
+              1.7999999999999998
+            ],
+            "swing": "rightLeg",
+            "swingClearance": 0.0013569160323170237,
+            "handoff": "rear-to-front at flat foot; support-foot swap every half cycle"
+          }
+        },
+        {
+          "frame": 54,
+          "time": 1.8,
+          "path": "evidence/f2b1/frames/threequarter-054.png",
+          "contacts": {
+            "support": [
+              "rightLeg"
+            ],
+            "halfStep": 3,
+            "phase": 1.8503717077085943e-16,
+            "edge": "rear",
+            "localPoint": [
+              0,
+              -2,
+              -0.47999998927116394
+            ],
+            "anchors": [
+              [
+                0.5,
+                0,
+                0.22390750549738825
+              ]
+            ],
+            "interval": [
+              1.7999999999999998,
+              2.0999999999999996
+            ],
+            "swing": "leftLeg",
+            "swingClearance": 0,
+            "handoff": "rear-to-front at flat foot; support-foot swap every half cycle"
+          }
+        },
+        {
+          "frame": 55,
+          "time": 1.8333333333333333,
+          "path": "evidence/f2b1/frames/threequarter-055.png",
+          "contacts": {
+            "support": [
+              "rightLeg"
+            ],
+            "halfStep": 3,
+            "phase": 0.055555555555555546,
+            "edge": "rear",
+            "localPoint": [
+              0,
+              -2,
+              -0.47999998927116394
+            ],
+            "anchors": [
+              [
+                0.5,
+                0,
+                0.22390750549738825
+              ]
+            ],
+            "interval": [
+              1.7999999999999998,
+              2.0999999999999996
+            ],
+            "swing": "leftLeg",
+            "swingClearance": 0.0013569160323170237,
+            "handoff": "rear-to-front at flat foot; support-foot swap every half cycle"
+          }
+        },
+        {
+          "frame": 56,
+          "time": 1.8666666666666667,
+          "path": "evidence/f2b1/frames/threequarter-056.png",
+          "contacts": {
+            "support": [
+              "rightLeg"
+            ],
+            "halfStep": 3,
+            "phase": 0.11111111111111127,
+            "edge": "rear",
+            "localPoint": [
+              0,
+              -2,
+              -0.47999998927116394
+            ],
+            "anchors": [
+              [
+                0.5,
+                0,
+                0.22390750549738825
+              ]
+            ],
+            "interval": [
+              1.7999999999999998,
+              2.0999999999999996
+            ],
+            "swing": "leftLeg",
+            "swingClearance": 0.00526400002982319,
+            "handoff": "rear-to-front at flat foot; support-foot swap every half cycle"
+          }
+        },
+        {
+          "frame": 57,
+          "time": 1.9,
+          "path": "evidence/f2b1/frames/threequarter-057.png",
+          "contacts": {
+            "support": [
+              "rightLeg"
+            ],
+            "halfStep": 3,
+            "phase": 0.16666666666666663,
+            "edge": "rear",
+            "localPoint": [
+              0,
+              -2,
+              -0.47999998927116394
+            ],
+            "anchors": [
+              [
+                0.5,
+                0,
+                0.22390750549738825
+              ]
+            ],
+            "interval": [
+              1.7999999999999998,
+              2.0999999999999996
+            ],
+            "swing": "leftLeg",
+            "swingClearance": 0.011249999999999982,
+            "handoff": "rear-to-front at flat foot; support-foot swap every half cycle"
+          }
+        },
+        {
+          "frame": 58,
+          "time": 1.9333333333333333,
+          "path": "evidence/f2b1/frames/threequarter-058.png",
+          "contacts": {
+            "support": [
+              "rightLeg"
+            ],
+            "halfStep": 3,
+            "phase": 0.22222222222222238,
+            "edge": "rear",
+            "localPoint": [
+              0,
+              -2,
+              -0.47999998927116394
+            ],
+            "anchors": [
+              [
+                0.5,
+                0,
+                0.22390750549738825
+              ]
+            ],
+            "interval": [
+              1.7999999999999998,
+              2.0999999999999996
+            ],
+            "swing": "leftLeg",
+            "swingClearance": 0.018592916002494242,
+            "handoff": "rear-to-front at flat foot; support-foot swap every half cycle"
+          }
+        },
+        {
+          "frame": 59,
+          "time": 1.9666666666666666,
+          "path": "evidence/f2b1/frames/threequarter-059.png",
+          "contacts": {
+            "support": [
+              "rightLeg"
+            ],
+            "halfStep": 3,
+            "phase": 0.27777777777777773,
+            "edge": "rear",
+            "localPoint": [
+              0,
+              -2,
+              -0.47999998927116394
+            ],
+            "anchors": [
+              [
+                0.5,
+                0,
+                0.22390750549738825
+              ]
+            ],
+            "interval": [
+              1.7999999999999998,
+              2.0999999999999996
+            ],
+            "swing": "leftLeg",
+            "swingClearance": 0.02640708399750613,
+            "handoff": "rear-to-front at flat foot; support-foot swap every half cycle"
+          }
+        },
+        {
+          "frame": 60,
+          "time": 2,
+          "path": "evidence/f2b1/frames/threequarter-060.png",
+          "contacts": {
+            "support": [
+              "rightLeg"
+            ],
+            "halfStep": 3,
+            "phase": 0.3333333333333335,
+            "edge": "rear",
+            "localPoint": [
+              0,
+              -2,
+              -0.47999998927116394
+            ],
+            "anchors": [
+              [
+                0.5,
+                0,
+                0.22390750549738825
+              ]
+            ],
+            "interval": [
+              1.7999999999999998,
+              2.0999999999999996
+            ],
+            "swing": "leftLeg",
+            "swingClearance": 0.03374999999999995,
+            "handoff": "rear-to-front at flat foot; support-foot swap every half cycle"
+          }
+        },
+        {
+          "frame": 61,
+          "time": 2.033333333333333,
+          "path": "evidence/f2b1/frames/threequarter-061.png",
+          "contacts": {
+            "support": [
+              "rightLeg"
+            ],
+            "halfStep": 3,
+            "phase": 0.38888888888888884,
+            "edge": "rear",
+            "localPoint": [
+              0,
+              -2,
+              -0.47999998927116394
+            ],
+            "anchors": [
+              [
+                0.5,
+                0,
+                0.22390750549738825
+              ]
+            ],
+            "interval": [
+              1.7999999999999998,
+              2.0999999999999996
+            ],
+            "swing": "leftLeg",
+            "swingClearance": 0.03973599997017718,
+            "handoff": "rear-to-front at flat foot; support-foot swap every half cycle"
+          }
+        },
+        {
+          "frame": 62,
+          "time": 2.066666666666667,
+          "path": "evidence/f2b1/frames/threequarter-062.png",
+          "contacts": {
+            "support": [
+              "rightLeg"
+            ],
+            "halfStep": 3,
+            "phase": 0.4444444444444449,
+            "edge": "rear",
+            "localPoint": [
+              0,
+              -2,
+              -0.47999998927116394
+            ],
+            "anchors": [
+              [
+                0.5,
+                0,
+                0.22390750549738825
+              ]
+            ],
+            "interval": [
+              1.7999999999999998,
+              2.0999999999999996
+            ],
+            "swing": "leftLeg",
+            "swingClearance": 0.043643083967682905,
+            "handoff": "rear-to-front at flat foot; support-foot swap every half cycle"
+          }
+        },
+        {
+          "frame": 63,
+          "time": 2.1,
+          "path": "evidence/f2b1/frames/threequarter-063.png",
+          "contacts": {
+            "support": [
+              "rightLeg"
+            ],
+            "halfStep": 3,
+            "phase": 0.5000000000000003,
+            "edge": "front",
+            "localPoint": [
+              0,
+              -2,
+              0.47999998927116394
+            ],
+            "anchors": [
+              [
+                0.5,
+                0,
+                1.1839074840397161
+              ]
+            ],
+            "interval": [
+              2.0999999999999996,
+              2.4
+            ],
+            "swing": "leftLeg",
+            "swingClearance": 0.04499999999999993,
+            "handoff": "rear-to-front at flat foot; support-foot swap every half cycle"
+          }
+        },
+        {
+          "frame": 64,
+          "time": 2.1333333333333333,
+          "path": "evidence/f2b1/frames/threequarter-064.png",
+          "contacts": {
+            "support": [
+              "rightLeg"
+            ],
+            "halfStep": 3,
+            "phase": 0.5555555555555557,
+            "edge": "front",
+            "localPoint": [
+              0,
+              -2,
+              0.47999998927116394
+            ],
+            "anchors": [
+              [
+                0.5,
+                0,
+                1.1839074840397161
+              ]
+            ],
+            "interval": [
+              2.0999999999999996,
+              2.4
+            ],
+            "swing": "leftLeg",
+            "swingClearance": 0.043643083967682905,
+            "handoff": "rear-to-front at flat foot; support-foot swap every half cycle"
+          }
+        },
+        {
+          "frame": 65,
+          "time": 2.1666666666666665,
+          "path": "evidence/f2b1/frames/threequarter-065.png",
+          "contacts": {
+            "support": [
+              "rightLeg"
+            ],
+            "halfStep": 3,
+            "phase": 0.611111111111111,
+            "edge": "front",
+            "localPoint": [
+              0,
+              -2,
+              0.47999998927116394
+            ],
+            "anchors": [
+              [
+                0.5,
+                0,
+                1.1839074840397161
+              ]
+            ],
+            "interval": [
+              2.0999999999999996,
+              2.4
+            ],
+            "swing": "leftLeg",
+            "swingClearance": 0.03973599997017718,
+            "handoff": "rear-to-front at flat foot; support-foot swap every half cycle"
+          }
+        },
+        {
+          "frame": 66,
+          "time": 2.2,
+          "path": "evidence/f2b1/frames/threequarter-066.png",
+          "contacts": {
+            "support": [
+              "rightLeg"
+            ],
+            "halfStep": 3,
+            "phase": 0.6666666666666671,
+            "edge": "front",
+            "localPoint": [
+              0,
+              -2,
+              0.47999998927116394
+            ],
+            "anchors": [
+              [
+                0.5,
+                0,
+                1.1839074840397161
+              ]
+            ],
+            "interval": [
+              2.0999999999999996,
+              2.4
+            ],
+            "swing": "leftLeg",
+            "swingClearance": 0.03374999999999995,
+            "handoff": "rear-to-front at flat foot; support-foot swap every half cycle"
+          }
+        },
+        {
+          "frame": 67,
+          "time": 2.2333333333333334,
+          "path": "evidence/f2b1/frames/threequarter-067.png",
+          "contacts": {
+            "support": [
+              "rightLeg"
+            ],
+            "halfStep": 3,
+            "phase": 0.7222222222222224,
+            "edge": "front",
+            "localPoint": [
+              0,
+              -2,
+              0.47999998927116394
+            ],
+            "anchors": [
+              [
+                0.5,
+                0,
+                1.1839074840397161
+              ]
+            ],
+            "interval": [
+              2.0999999999999996,
+              2.4
+            ],
+            "swing": "leftLeg",
+            "swingClearance": 0.02640708399750613,
+            "handoff": "rear-to-front at flat foot; support-foot swap every half cycle"
+          }
+        },
+        {
+          "frame": 68,
+          "time": 2.2666666666666666,
+          "path": "evidence/f2b1/frames/threequarter-068.png",
+          "contacts": {
+            "support": [
+              "rightLeg"
+            ],
+            "halfStep": 3,
+            "phase": 0.7777777777777778,
+            "edge": "front",
+            "localPoint": [
+              0,
+              -2,
+              0.47999998927116394
+            ],
+            "anchors": [
+              [
+                0.5,
+                0,
+                1.1839074840397161
+              ]
+            ],
+            "interval": [
+              2.0999999999999996,
+              2.4
+            ],
+            "swing": "leftLeg",
+            "swingClearance": 0.018592916002494242,
+            "handoff": "rear-to-front at flat foot; support-foot swap every half cycle"
+          }
+        },
+        {
+          "frame": 69,
+          "time": 2.3,
+          "path": "evidence/f2b1/frames/threequarter-069.png",
+          "contacts": {
+            "support": [
+              "rightLeg"
+            ],
+            "halfStep": 3,
+            "phase": 0.8333333333333331,
+            "edge": "front",
+            "localPoint": [
+              0,
+              -2,
+              0.47999998927116394
+            ],
+            "anchors": [
+              [
+                0.5,
+                0,
+                1.1839074840397161
+              ]
+            ],
+            "interval": [
+              2.0999999999999996,
+              2.4
+            ],
+            "swing": "leftLeg",
+            "swingClearance": 0.011249999999999982,
+            "handoff": "rear-to-front at flat foot; support-foot swap every half cycle"
+          }
+        },
+        {
+          "frame": 70,
+          "time": 2.3333333333333335,
+          "path": "evidence/f2b1/frames/threequarter-070.png",
+          "contacts": {
+            "support": [
+              "rightLeg"
+            ],
+            "halfStep": 3,
+            "phase": 0.8888888888888893,
+            "edge": "front",
+            "localPoint": [
+              0,
+              -2,
+              0.47999998927116394
+            ],
+            "anchors": [
+              [
+                0.5,
+                0,
+                1.1839074840397161
+              ]
+            ],
+            "interval": [
+              2.0999999999999996,
+              2.4
+            ],
+            "swing": "leftLeg",
+            "swingClearance": 0.005264000029822746,
+            "handoff": "rear-to-front at flat foot; support-foot swap every half cycle"
+          }
+        },
+        {
+          "frame": 71,
+          "time": 2.3666666666666667,
+          "path": "evidence/f2b1/frames/threequarter-071.png",
+          "contacts": {
+            "support": [
+              "rightLeg"
+            ],
+            "halfStep": 3,
+            "phase": 0.9444444444444446,
+            "edge": "front",
+            "localPoint": [
+              0,
+              -2,
+              0.47999998927116394
+            ],
+            "anchors": [
+              [
+                0.5,
+                0,
+                1.1839074840397161
+              ]
+            ],
+            "interval": [
+              2.0999999999999996,
+              2.4
+            ],
+            "swing": "leftLeg",
+            "swingClearance": 0.0013569160323170237,
+            "handoff": "rear-to-front at flat foot; support-foot swap every half cycle"
+          }
+        },
+        {
+          "frame": 72,
+          "time": 2.4,
+          "path": "evidence/f2b1/frames/threequarter-072.png",
+          "contacts": {
+            "support": [
+              "leftLeg"
+            ],
+            "halfStep": 4,
+            "phase": 0,
+            "edge": "rear",
+            "localPoint": [
+              0,
+              -2,
+              -0.47999998927116394
+            ],
+            "anchors": [
+              [
+                -0.5,
+                0,
+                0.4250239325741174
+              ]
+            ],
+            "interval": [
+              2.4,
+              2.6999999999999997
+            ],
+            "swing": "rightLeg",
+            "swingClearance": 0,
+            "handoff": "rear-to-front at flat foot; support-foot swap every half cycle"
+          }
+        }
+      ]
+    }
+  ],
+  "metrics": {
+    "maxFootDrift": 1.1102230246251565e-16,
+    "rmsFootDrift": 3.013620443605934e-17,
+    "maxPenetration": 2.220446049250313e-16,
+    "rmsPenetration": 1.2671882959866031e-16,
+    "maxGroundContactError": 2.220446049250313e-16,
+    "rmsGroundContactError": 1.9608141819027707e-16,
+    "minSwingClearance": 0,
+    "maxSwingClearance": 0.04499999999999993
+  },
+  "rawFrames": "Ignored by Git; regenerate with npm run test:walk. Every captured frame is included in committed labeled sheets.",
+  "samples": 436,
+  "errors": [],
+  "commands": [
+    "npm test",
+    "npm run test:browser",
+    "npm run test:motion",
+    "npm run test:walk",
+    "python3 tests/contact-sheets.py evidence/f2b1"
+  ]
+}
