@@ -1,0 +1,22 @@
+{
+  "reason": "New lining penetrated arm bevel-safe core; moved only this structural lining outward",
+  "globalFrame": 592,
+  "before": {
+    "liningCenterZ": 0.35,
+    "localArmPoint": [
+      0.1803897932096663,
+      0.6701770553137436,
+      0.2419200643319308
+    ],
+    "insideBevelSafeArmCore": true
+  },
+  "after": {
+    "liningCenterZ": -0.35,
+    "localArmPoint": [
+      0.6531845104157137,
+      0.6597286328716518,
+      0.7580169407519741
+    ],
+    "insideBevelSafeArmCore": false
+  }
+}

@@ -3,7 +3,7 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "test": "node tests/api.js && node tests/actions.js && node tests/walk.js && node tests/walk-calibration.js && node tests/production.js && node tests/p1.js && node tests/casting.js && node tests/reveal.js",
+    "test": "node tests/api.js && node tests/actions.js && node tests/walk.js && node tests/walk-calibration.js && node tests/production.js && node tests/p1.js && node tests/casting.js && node tests/reveal.js && node tests/expressions.js",
     "preview": "python3 -m http.server 8000",
     "test:browser": "node tests/browser.js",
     "test:motion": "node tests/motion-browser.js",
@@ -15,7 +15,9 @@
     "render:shots": "node scripts/render-shot-list.js",
     "test:casting": "node tests/casting-browser.js",
     "test:reveal": "node tests/reveal-browser.js",
-    "render:names100": "node scripts/render-shot-list.js --shots stories/names100/scene-proof.json --out renders/names100-animatic"
+    "render:names100": "node scripts/render-shot-list.js --shots stories/names100/scene-proof.json --out renders/names100-animatic",
+    "test:v1": "node tests/v1-visual.js",
+    "render:names100:v1": "node scripts/render-shot-list.js --shots stories/names100/scene-v1.json --range 343:463 --out renders/names100-v1-excerpt"
   },
   "dependencies": {
     "three": "0.187.0"

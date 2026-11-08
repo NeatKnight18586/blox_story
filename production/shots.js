@@ -1,3 +1,4 @@
+import {FACE_NAMES} from '../appearance/faces.js';
 import {sampleAction} from '../avatar/actions.js';
 import {compileEvents,samplePropEvents} from './events.js';
 const id=value=>typeof value==='string'&&/^[a-z][a-z0-9_-]{0,63}$/.test(value);
@@ -31,7 +32,7 @@ export function compilePipeline(input){
    const motion=actorAt(source,source.end,data.fps).action.root.position,position=worldPosition(motion,source.origin);position[1]=source.origin.position[1];shot.origin={position,yaw:source.origin.yaw};
   }
   keys(shot.origin,['position','yaw']);if(!vector(shot.origin.position)||shot.origin.position[1]!==0||!Number.isFinite(shot.origin.yaw))throw new Error('Invalid grounded origin');
-  shot.face??='classic_smile';if(!['blank','classic_smile','worried'].includes(shot.face))throw new Error('Unknown face');shot.appearance=normalizeAppearance(shot.appearance);
+  shot.face??='classic_smile';if(!FACE_NAMES.includes(shot.face))throw new Error('Unknown face');shot.appearance=normalizeAppearance(shot.appearance);
   prior.set(shot.id,shot);end=shot.end;
  }
  data.frameCount=end;

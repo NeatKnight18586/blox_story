@@ -14,7 +14,7 @@ try {
  if(!input){const file=new URLSearchParams(location.search).get('shots')??'feasibility.json';if(!/^(?:[a-z0-9][a-z0-9_-]*\/)*[a-z0-9][a-z0-9_.-]*\.json$/i.test(file))throw new Error('Invalid shot-list filename');const response=await fetch((file.includes('/')?'../':'./')+file);if(!response.ok)throw new Error('Shot list could not load');input=await response.json();}
  const plan=compileShotList(input);
  const renderer=new THREE.WebGLRenderer({antialias:true,preserveDrawingBuffer:true});renderer.setPixelRatio(1);renderer.setSize(plan.width,plan.height);renderer.shadowMap.enabled=true;renderer.shadowMap.type=THREE.PCFSoftShadowMap;renderer.toneMapping=THREE.ACESFilmicToneMapping;document.body.append(renderer.domElement);
- const scene=new THREE.Scene(),world=plan.environment?.kind==='bedroom-window'?createBedroom(scene):createWorkshop(scene,plan.version>=2?plan.environment:{});
+ const scene=new THREE.Scene(),world=plan.environment?.kind==='bedroom-window'?createBedroom(scene,{visuals:plan.reveal?.visuals}):createWorkshop(scene,plan.version>=2?plan.environment:{});
  const specs=plan.version>=2?plan.props:[{...plan.prop,id:'proximity_chest'}];
  const props=Object.fromEntries(specs.map(spec=>[spec.id,createChest(scene,spec)]));
  const cast=plan.cast??[{id:'actor',torsoVariant:'classic'}];
