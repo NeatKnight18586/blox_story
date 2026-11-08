@@ -1,5 +1,5 @@
 # BlockStory — F1 v3
-One neutral six-part block avatar in vanilla Three.js 0.187.0. **F1 PASS**: real API tests and Chromium WebGL captures completed. See [STATUS.md](STATUS.md) for evidence and limits. F2 has not started.
+One neutral six-part block avatar with a softly rounded oval cylindrical head in vanilla Three.js 0.187.0. **F1 PASS**: real API tests and Chromium WebGL captures completed. See [STATUS.md](STATUS.md) for evidence and limits. F2 has not started.
 
 ## Preview and verification
 Developer reproduction (Codex has already run these; no iPad installation is required):

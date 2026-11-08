@@ -1,6 +1,7 @@
 import assert from 'node:assert/strict';
 import * as THREE from 'three';
 import {createBaseAvatar} from '../avatar/baseAvatar.js';
+import {headFrontZ} from '../avatar/headGeometry.js';
 import {applyPose} from '../avatar/poses.js';
 import {applyFace} from '../appearance/faces.js';
 import {applyAppearance} from '../appearance/appearance.js';
@@ -19,3 +20,10 @@ applyAppearance(a,{color:0xdddddd,pieces:{head:0xffffff},cosmetic:'cap'});const 
 assert.equal(a.root,root);assert.deepEqual(Object.values(a.parts),parts);assert.equal(parts.filter(m=>m.isMesh).length,6);
 assert.throws(()=>applyPose(a,'invalid'));assert.throws(()=>applyFace(a,'invalid'));assert.throws(()=>applyAppearance(a,{cosmetic:'invalid'}));
 console.log('PASS: real Three.js imports, six meshes, five pivots, bounds, deterministic reset, face/cap caches, removal and identity');
+
+assert.equal(a.parts.head.geometry.type,'LatheGeometry');
+const headSize=bounds('head').getSize(new THREE.Vector3());
+assert(Math.abs(headSize.x-1.25)<1e-6 && Math.abs(headSize.y-1.16)<1e-6 && Math.abs(headSize.z-1.1)<1e-6);
+assert(headFrontZ(.23)<headFrontZ(0)-.03,'face must wrap onto curved head');
+for(const child of smile.children){assert(child.geometry.getAttribute('position').array.every(Number.isFinite));}
+console.log('PASS: rounded lathed head dimensions and curved face surface');

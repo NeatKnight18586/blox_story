@@ -8,7 +8,7 @@ One neutral classic R6-like **six-part** block avatar first, then removable appe
 ## Scope discipline
 - F1 ONLY. Do not implement episodes, F2/F3/F4, MP4, Blender, Roblox Studio, Remotion, soundtrack, environment library or full wardrobe.
 - Keep existing source committed while migrating. Old `character.js` and Kai/Mira presets are legacy, not the F1 goal. Preserve functionality via history and replace paths only when the new implementation is testable.
-- Start with the neutral master, not two customized figures. Use simple proportions from F1_SPEC.md, with one rounded cuboid head and five beveled rectangular blocks.
+- Start with the neutral master, not two customized figures. Use simple proportions from F1_SPEC.md, with one softly rounded oval cylindrical head (latest user correction in F1_SPEC.md) and five beveled rectangular blocks.
 - No required full rig or separate fingers, hands, shoes or neck meshes. Distinct styling belongs to appearance layers.
 - Keep a simple vanilla Three.js ES module preview; currently pinned 0.187.0. A minimal test server/dependency install is fine when justified; avoid framework rebuild.
 - Keep deterministic `applyPose(avatar,poseName,t)`, persistent root and named pivots. No mesh regeneration when switching pose/face/cosmetic. Use caches and attach/detach layers as appropriate.
