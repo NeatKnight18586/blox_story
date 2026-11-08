@@ -18,7 +18,7 @@ export function createRevealEffects(plan,avatars,world){
   const faces=v1?{[p.ghost.actor]:mix>=.65?'relieved':'nervous',[p.counter.actor]:state.globalFrame<p.counter.at?'nervous':state.globalFrame<p.counter.emphasis[0]?'startled':mix===1?(p.restoredReaction??'relieved'):'thoughtful'}:{[p.ghost.actor]:mix>=.65?'classic_smile':actors[p.ghost.actor].face,[p.counter.actor]:mix===1?'classic_smile':actors[p.counter.actor].face};
   for(const [id,face] of Object.entries(faces)){applyFace(avatars[id],face);actors[id].face=face;}
   ghost.root.traverse(o=>{
-   if(!o.isMesh||tagObject(o))return;const m=o.material,isFace=faceMaterial(o);
+   if(!o.isMesh||tagObject(o)||o.userData.finishDepth)return;const m=o.material,isFace=faceMaterial(o);
    if(!original.has(m))original.set(m,{color:m.color.clone(),emissive:m.emissive?.clone(),emissiveIntensity:m.emissiveIntensity,transparent:m.transparent,depthWrite:m.depthWrite,opacity:m.opacity,castShadow:o.castShadow});
    const base=original.get(m);m.color.copy(isFace?faceColor:ghostColor).lerp(base.color,mix);m.transparent=true;m.opacity=isFace?1:.58+.42*mix;m.depthWrite=mix===1;
    if(m.emissive){m.emissive.copy(ghostColor).multiplyScalar(.25*(1-mix));m.emissiveIntensity=1;}

@@ -1,3 +1,11 @@
+# Current handoff — P5 bounded finish gate
+
+PR16 reviewed/tested and merged preserving commits at `d10f1217d5fec44819c39ac7a5da29e413c9cdd9`. P4 Minimal Editorial is accepted; P5 targets only its three recorded finish issues. Branch `codex/names100-p5-finish-gate` adds optional v3 S1 `finish:"p5"` (use with `counterMode:"clean"`) and independent `counter/p5-editorial.json`→ASS. Legacy default/looks remain intact.
+
+**PASS for bounded still gate; human creative approval pending.** Five genuine720×1280 stills700/1392/1528/1529/1628: modest softer shadows (one allowed radius6→4 revision), depth helpers now include removable hair/cap/vest, charcoal S22 numeral gives minimum7.33:1 actual wall fill contrast. All1641 source samples, original counter ASS/captions, old8 WebGL golden checks,18 S3B seeks and new cold/reverse restoration/zero checks pass. All821 protected prior files/686 evidence files/12 films/original WAV unchanged. [Report,paired comparisons,native originals,costs](evidence/names100-p5/REPORT.md).
+
+Two bounded native batches20.074s combined; final9.698s/732.94MiB peak sampled summed RSS; affected regressions31.324s/1165.87MiB. Small PCF grain and stylized nearest-surface transparency remain; no physical-lighting claim. No native motion or full episode exported. Raw captures stay ignored. Stop at this PR for approval. If accepted, end look-development; low-res combined QC and final clean720p export are separate tasks, not automatic work. Historical handoffs follow.
+
 # Current handoff — P4 counter/native finishing review
 
 PR #15 reviewed atadd5d4f, tests/video/WebGL checks passed, merged with all commits retained at `277ef9460b60f5065fc088493be6a6a7952a0f0e`. Current user/P4 brief records preview-direction approval, superseding earlier hold. Old private delivery/perceptual listening limits remain historical and were not "fixed" by this merge.

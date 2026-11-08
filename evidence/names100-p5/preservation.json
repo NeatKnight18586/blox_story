@@ -1,0 +1,70 @@
+{
+  "status": "PASS",
+  "base": "d10f1217d5fec44819c39ac7a5da29e413c9cdd9",
+  "allOtherPriorTrackedFilesUnchanged": 821,
+  "priorEvidenceFilesUnchanged": 686,
+  "allowedUpdates": [
+    "AGENTS.md",
+    "CODEX_HANDOFF.md",
+    "README.md",
+    "STATUS.md",
+    "package.json",
+    "production/casting.js",
+    "production/render.js",
+    "production/reveal-effects.js",
+    "scripts/counter-overlay.py"
+  ],
+  "movies": [
+    {
+      "file": "evidence/names100-ending/movie.mp4",
+      "sha256": "5b1cf7d2d4f0908da999877cba35220a6ad18b11fabff66d6d69feea551e15be"
+    },
+    {
+      "file": "evidence/names100-s2/movie.mp4",
+      "sha256": "3fe9b34c46ad16e41452d0d0b7ea28a91facf4a824eb6bd41a2474416c8ac6e3"
+    },
+    {
+      "file": "evidence/names100-s3b/A-motion.mp4",
+      "sha256": "f179a1b721f7b1b39fa3f5f239ca7938e7f5e0a11d42159d10d12025f09dd318"
+    },
+    {
+      "file": "evidence/names100-s3b/B-motion.mp4",
+      "sha256": "19397e89e8b7d14cb70a7a7d9625baba517fd2fd15a5a9fe892646ddd1646a7e"
+    },
+    {
+      "file": "evidence/names100-s3b/C-motion.mp4",
+      "sha256": "b55e01f614ca6049653f0803cce7135e95cef768623859e1d4bee81da850e263"
+    },
+    {
+      "file": "evidence/names100-v1/movie.mp4",
+      "sha256": "498accf6185accfd107d7ac81963aea940662891b1b936841843d93e5c6c6367"
+    },
+    {
+      "file": "evidence/names100/draft15/movie.mp4",
+      "sha256": "377c4b0b2be9815411584765e26b6b6016e9b3576b47475544052195b4aa1c6c"
+    },
+    {
+      "file": "evidence/names100/movie.mp4",
+      "sha256": "3e3c9fb9b55960e06caee4669163a7132c98cfaabd85c86494a376050d38befe"
+    },
+    {
+      "file": "evidence/p1/feasibility/movie.mp4",
+      "sha256": "199c28761075fa75f9c3cf9c2dda5879a8369135b7d6f7b925f8d689a228e59f"
+    },
+    {
+      "file": "evidence/p1/not-today/movie.mp4",
+      "sha256": "90570c9700094e859c3489bddad4a6bfe091bd3101542b43632e60cde56c5872"
+    },
+    {
+      "file": "evidence/p2a/movie.mp4",
+      "sha256": "074bad369f9a8e08400c6c2512adcb2b96fd2b0b7d0d2900de5b768a38775e1a"
+    },
+    {
+      "file": "evidence/production/feasibility.mp4",
+      "sha256": "1fea25486ef9a78948f2739be23279a919b5fc4529134d3ca6fbbd7413c3b417"
+    }
+  ],
+  "originalWavSha256": "3d5e0a116971d3d17a7c3adac79423e443d63040b2120be7562a0660f22b4ae4",
+  "noAudioProcessing": true,
+  "originalCaptionsAndAppearanceAndRigFilesByteIdentical": true
+}

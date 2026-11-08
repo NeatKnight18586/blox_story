@@ -3,7 +3,7 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "test": "node tests/api.js && node tests/actions.js && node tests/walk.js && node tests/walk-calibration.js && node tests/production.js && node tests/p1.js && node tests/casting.js && node tests/reveal.js && node tests/expressions.js && node tests/ending.js && node tests/style.js && node tests/roughcut.js && node tests/performance.js && node tests/counter-capture.js",
+    "test": "node tests/api.js && node tests/actions.js && node tests/walk.js && node tests/walk-calibration.js && node tests/production.js && node tests/p1.js && node tests/casting.js && node tests/reveal.js && node tests/expressions.js && node tests/ending.js && node tests/style.js && node tests/roughcut.js && node tests/performance.js && node tests/counter-capture.js && node tests/finish.js",
     "preview": "python3 -m http.server 8000",
     "test:browser": "node tests/browser.js",
     "test:motion": "node tests/motion-browser.js",
@@ -25,7 +25,9 @@
     "render:roughcut": "node scripts/render-names100.js",
     "test:performance": "node tests/performance.js && node tests/performance-browser.js && python3 scripts/performance-sheet.py",
     "test:counter": "node tests/counter-capture.js && python3 tests/counter-overlay.py && node tests/counter-legacy-browser.js",
-    "proof:counter": "node scripts/p4-keyframes.js && python3 scripts/counter-overlay.py"
+    "proof:counter": "node scripts/p4-keyframes.js && python3 scripts/counter-overlay.py",
+    "test:finish": "node tests/finish.js && node tests/finish-browser.js && python3 tests/finish-overlay.py",
+    "proof:finish": "node scripts/p5-keyframes.js && python3 scripts/p5-sheet.py"
   },
   "dependencies": {
     "three": "0.187.0"
