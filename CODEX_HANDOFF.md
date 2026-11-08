@@ -1,3 +1,15 @@
+# Current handoff — S2 complete rough-cut review
+
+Authority: stories/names100/S2_ROUGHCUT_BRIEF.md. PR #12 verified/merged at584bad2026f648d5f2759abde06290eba03370ae, preserving17db24f and user brief fee7074. Branch `codex/names100-s2-roughcut` covers all23 storyboard slots; stop at its PR for creative review.
+
+`roughcut.json` maps four isolated native scene blocks: anonymous rule0–259, shy Eli259–482, reveal482–945, ending945–1641. Same approved rigs/styles/faces/actions. Eli100 through788,99 at789, Mara890–926,zero1529. New98/97 spends1120/1168 accompany two returns; countdown1210/1236/1261/1278. Anonymous demonstration is not Eli spending early. S14 cut938 matches storyboard, with continuous945 block seam; older lookdev files unchanged.
+
+Artifact: evidence/names100-s2/movie.mp4,180×320/15fps/821frames/54.733333s,silent H.264/yuv420p. Output i→global2i;33.3ms terminal hold,odd cues ≤1/30s late.23 real keyframes,16 native boundaries, all source clocks/cuts,821 forward/reverse pixels/states, full decode/PTS/cut keyframes/native playback/seek and affected regressions pass. One post-motion countdown facing fix and a real cold-seek shader bug were corrected; transparency transitions now set material.needsUpdate. Explicit eye/cold-path tests guard both. Final cache686 reused/135 regenerated, all821 reverified. Old eight movies unchanged.
+
+See evidence report for actual attempts/costs, board, ghost echo, tests and limitations. Final run208.536s(wrapper209.146s),sampled peak1219.93MiB; all measured render attempts574.624s. No general engine, final720p video, voice/audio/subtitles or automatic next phase. Review rough pacing against the external WAV before final production; symbolic acting and small sets remain draft limits.
+
+Historical handoffs follow:
+
 # Current handoff — S1 creative review
 
 Authority: stories/names100/STYLE_LOCK_BRIEF.md. PR #11 verified and merged at `755a872084a560d8f8868906884733583fad5908`, retaining `efa1d76` and user brief `5bbd2fb`. S1 branch: `codex/names100-s1-style-lock`. Stop at its PR for creative approval; no complete episode/animatic/audio authorization.

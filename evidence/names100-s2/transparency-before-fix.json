@@ -1,0 +1,25 @@
+{
+  "observed": true,
+  "globalFrame": 1188,
+  "opacity": 0.9902178812922614,
+  "transparent": true,
+  "materialVersion": 0,
+  "coldPaths": [
+    {
+      "path": [
+        1188
+      ],
+      "sha256": "a96345c79fbfb5418ecc96e8eac98293d60c3cb4697e0626a76a5b45f0daa6eb",
+      "opaqueShader": false
+    },
+    {
+      "path": [
+        1600,
+        1188
+      ],
+      "sha256": "20aa43fce74226527f3c0d5936d43ec24fe08539040b603294345c58e37d20f8",
+      "opaqueShader": true
+    }
+  ],
+  "failure": "Resumed full reverse verification rejected frame1188; no corrected MP4 published"
+}

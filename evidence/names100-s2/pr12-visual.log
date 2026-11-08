@@ -1,0 +1,15 @@
+
+> test:style
+> node tests/style-browser.js
+
+PASS S1 WebGL: four360x640 stills, intended eye sightlines, safe head/body/tag framing, grounded feet, repeat pixels/state, old gold frames unchanged
+
+> test:v1
+> node tests/v1-visual.js --motion
+
+PASS Gate2 random seeks: exact excerpt/source pixels and global clock
+
+> test:ending
+> node tests/ending-browser.js --motion
+
+PASS ending motion seeks: genuine WebGL, explicit clock, exact zero, pixels/identity repeat, six-part cast, grounded opaque Eli, face sightlines, no captions
