@@ -1,0 +1,291 @@
+{
+  "version": 3,
+  "title": "A little reassurance",
+  "output": {
+    "width": 720,
+    "height": 1280,
+    "fps": 30
+  },
+  "environment": {
+    "kind": "light-workshop",
+    "colors": {
+      "background": "#9aacb0",
+      "floor": "#728992",
+      "backWall": "#7f9aa4",
+      "sideWall": "#365765"
+    },
+    "plinthPosition": [
+      0,
+      0.65,
+      -2.7
+    ]
+  },
+  "props": [],
+  "events": [],
+  "cast": [
+    {
+      "id": "ren",
+      "appearance": {
+        "color": "#d2d5d6",
+        "pieces": {
+          "head": "#e7c5a2",
+          "leftArm": "#e7c5a2",
+          "rightArm": "#e7c5a2",
+          "leftLeg": "#31485c",
+          "rightLeg": "#31485c"
+        },
+        "cosmetic": "cap",
+        "clothing": "vest",
+        "clothingColor": "#216d85"
+      }
+    },
+    {
+      "id": "sol",
+      "torsoVariant": "tapered",
+      "face": "worried",
+      "appearance": {
+        "color": "#d2d5d6",
+        "pieces": {
+          "head": "#d6af86",
+          "leftArm": "#d6af86",
+          "rightArm": "#d6af86",
+          "leftLeg": "#34374c",
+          "rightLeg": "#34374c"
+        },
+        "hair": "bob",
+        "hairColor": "#40291f",
+        "clothing": "vest",
+        "clothingColor": "#be5b46"
+      }
+    }
+  ],
+  "shots": [
+    {
+      "id": "an_awkward_pause",
+      "start": 0,
+      "end": 72,
+      "camera": {
+        "preset": "two-shot",
+        "subjects": [
+          "ren",
+          "sol"
+        ]
+      },
+      "actors": [
+        {
+          "id": "ren",
+          "action": {
+            "name": "idle",
+            "timeOffset": 0.0
+          },
+          "origin": {
+            "position": [
+              -1.8,
+              0,
+              0.7
+            ],
+            "yaw": 1.1
+          }
+        },
+        {
+          "id": "sol",
+          "action": {
+            "name": "idle",
+            "timeOffset": 0.6
+          },
+          "origin": {
+            "position": [
+              1.8,
+              0,
+              0.7
+            ],
+            "yaw": -1.1
+          },
+          "face": "worried"
+        }
+      ]
+    },
+    {
+      "id": "sol_checks",
+      "start": 72,
+      "end": 144,
+      "camera": {
+        "preset": "close-up",
+        "subject": "sol"
+      },
+      "actors": [
+        {
+          "id": "ren",
+          "action": {
+            "name": "idle",
+            "timeOffset": 0.7
+          },
+          "origin": {
+            "position": [
+              -1.8,
+              0,
+              0.7
+            ],
+            "yaw": 1.1
+          }
+        },
+        {
+          "id": "sol",
+          "action": {
+            "name": "look_react",
+            "timeOffset": 0,
+            "options": {
+              "direction": "left"
+            }
+          },
+          "origin": {
+            "position": [
+              1.8,
+              0,
+              0.7
+            ],
+            "yaw": -1.1
+          },
+          "face": "worried"
+        }
+      ]
+    },
+    {
+      "id": "ren_reassures",
+      "start": 144,
+      "end": 216,
+      "camera": {
+        "preset": "over-the-shoulder",
+        "foreground": "sol",
+        "subject": "ren",
+        "side": -1
+      },
+      "actors": [
+        {
+          "id": "ren",
+          "action": {
+            "name": "look_react",
+            "timeOffset": 0,
+            "options": {
+              "direction": "right"
+            }
+          },
+          "origin": {
+            "position": [
+              -1.8,
+              0,
+              0.7
+            ],
+            "yaw": 1.1
+          }
+        },
+        {
+          "id": "sol",
+          "action": {
+            "name": "idle",
+            "timeOffset": 2.0
+          },
+          "origin": {
+            "position": [
+              1.8,
+              0,
+              0.7
+            ],
+            "yaw": -1.1
+          },
+          "face": "worried"
+        }
+      ]
+    },
+    {
+      "id": "a_returned_glance",
+      "start": 216,
+      "end": 288,
+      "camera": {
+        "preset": "close-up",
+        "subject": "sol"
+      },
+      "actors": [
+        {
+          "id": "ren",
+          "action": {
+            "name": "idle",
+            "timeOffset": 2.0999999999999996
+          },
+          "origin": {
+            "position": [
+              -1.8,
+              0,
+              0.7
+            ],
+            "yaw": 1.1
+          }
+        },
+        {
+          "id": "sol",
+          "action": {
+            "name": "look_react",
+            "timeOffset": 0,
+            "options": {
+              "direction": "left"
+            }
+          },
+          "origin": {
+            "position": [
+              1.8,
+              0,
+              0.7
+            ],
+            "yaw": -1.1
+          },
+          "face": "classic_smile"
+        }
+      ]
+    },
+    {
+      "id": "at_ease",
+      "start": 288,
+      "end": 360,
+      "camera": {
+        "preset": "two-shot",
+        "subjects": [
+          "ren",
+          "sol"
+        ]
+      },
+      "actors": [
+        {
+          "id": "ren",
+          "action": {
+            "name": "idle",
+            "timeOffset": 2.8
+          },
+          "origin": {
+            "position": [
+              -1.8,
+              0,
+              0.7
+            ],
+            "yaw": 1.1
+          }
+        },
+        {
+          "id": "sol",
+          "action": {
+            "name": "idle",
+            "timeOffset": 3.4
+          },
+          "origin": {
+            "position": [
+              1.8,
+              0,
+              0.7
+            ],
+            "yaw": -1.1
+          },
+          "face": "classic_smile"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,65 @@
+{
+  "status": "PASS",
+  "independentIds": true,
+  "baseMeshes": 6,
+  "pivots": 5,
+  "classicDefault": true,
+  "torsoProfile": {
+    "envelope": [
+      2,
+      2,
+      1
+    ],
+    "waistWidth": 1.497782826423645
+  },
+  "randomAccess": true,
+  "noBodyOrGeometryReplacement": true,
+  "removableCachedWardrobe": true,
+  "actingFrameCount": 360,
+  "extrema": {
+    "minActorAabbGap": 0.8139189194392715,
+    "maxPenetration": 0
+  },
+  "walk30And60Fps": {
+    "classic-baseline": {
+      "maxDrift": 4.965068306494546e-16,
+      "rmsDrift": 1.7034825465066462e-16,
+      "maxPenetration": 2.220446049250313e-16,
+      "rmsPenetration": 1.2566165084597348e-16,
+      "maxContactError": 4.440892098500626e-16,
+      "rmsContactError": 1.9624346787902205e-16,
+      "maxSwingClearance": 0.04499999999999993,
+      "samples": 434
+    },
+    "classic-readable": {
+      "maxDrift": 9.930136612989092e-16,
+      "rmsDrift": 2.691530544489508e-16,
+      "maxPenetration": 2.220446049250313e-16,
+      "rmsPenetration": 8.593143000294514e-17,
+      "maxContactError": 4.440892098500626e-16,
+      "rmsContactError": 1.4260077184820996e-16,
+      "maxSwingClearance": 0.04999999999999982,
+      "samples": 434
+    },
+    "tapered-baseline": {
+      "maxDrift": 4.965068306494546e-16,
+      "rmsDrift": 1.7034825465066462e-16,
+      "maxPenetration": 2.220446049250313e-16,
+      "rmsPenetration": 1.2566165084597348e-16,
+      "maxContactError": 4.440892098500626e-16,
+      "rmsContactError": 1.9624346787902205e-16,
+      "maxSwingClearance": 0.04499999999999993,
+      "samples": 434
+    },
+    "tapered-readable": {
+      "maxDrift": 9.930136612989092e-16,
+      "rmsDrift": 2.691530544489508e-16,
+      "maxPenetration": 2.220446049250313e-16,
+      "rmsPenetration": 8.593143000294514e-17,
+      "maxContactError": 4.440892098500626e-16,
+      "rmsContactError": 1.4260077184820996e-16,
+      "maxSwingClearance": 0.04999999999999982,
+      "samples": 434
+    }
+  }
+}
