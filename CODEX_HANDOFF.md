@@ -1,3 +1,13 @@
+# Current handoff — S1 creative review
+
+Authority: stories/names100/STYLE_LOCK_BRIEF.md. PR #11 verified and merged at `755a872084a560d8f8868906884733583fad5908`, retaining `efa1d76` and user brief `5bbd2fb`. S1 branch: `codex/names100-s1-style-lock`. Stop at its PR for creative approval; no complete episode/animatic/audio authorization.
+
+Four genuine360×640 stills:35 NEW town,700 bedroom,1370 reunion,1600 forgotten Eli. One focused readability correction; optional720 still skipped. LOOK_STYLE.md is the concise palette/material/light/camera/asset reference. `npm run test:style` reproduces four review frames and bounded checks. Source data opt into`look:"s1"`; default rendering and all previous sources/films remain intact. One courtyard extension, same bedroom props, six geometry-sharing depth-only helpers for Mara; no rig/action engine/backend/dependency change. All1159 original actor/cue samples,789 counter,890–926 restore,1529 zero preserved.
+
+Affected source/browser/recovery/gold checks pass; eight old movies byte-identical. Final still verification10.102s, sampled CPU18.32s/peak summed tree750.05MiB. See evidence/names100-s1/REPORT.md for comparisons, native bounds, costs and limitations. Still-only certification; no S1 motion/full-sequence continuity, native Safari/cross-GPU identity or original-WAV sample alignment claim.
+
+Historical handoffs follow:
+
 # Current handoff — names100 ending lookdev review
 
 Authority: stories/names100/ENDING_LOOKDEV_BRIEF.md. PR #10 verified and merged at `c3c6da6aa02dd8d089a9ac2c5f093bc19cfaa02a`, preserving `405c82c` and brief commit `5b6f869`. New branch `codex/names100-ending-lookdev` implements this bounded lookdev only. Stop at its PR for visual approval.

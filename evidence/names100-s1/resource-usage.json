@@ -1,0 +1,14 @@
+{
+  "command": [
+    "node",
+    "tests/style-browser.js"
+  ],
+  "exitCode": 0,
+  "wallSeconds": 10.102316992997658,
+  "sampledTreeRssMiB": 750.046875,
+  "sampledTreeCpuSeconds": 18.32,
+  "processCount": 7,
+  "sampleIntervalSeconds": 0.2,
+  "method": "Linux ps summed subtree RSS (shared pages counted per process), /proc cumulative CPU samples retained by PID/start-time at 100Hz; sampled lower bounds; final pass only, not all development activity",
+  "clockTicksPerSecond": 100
+}

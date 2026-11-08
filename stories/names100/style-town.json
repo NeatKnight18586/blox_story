@@ -1,0 +1,71 @@
+{
+  "version": 3,
+  "title": "S1 NEW opening town / 100-name allowance",
+  "look": "s1",
+  "output": {
+    "width": 360,
+    "height": 640,
+    "fps": 30
+  },
+  "environment": {
+    "kind": "home-courtyard"
+  },
+  "props": [],
+  "events": [],
+  "cast": [
+    {
+      "id": "eli",
+      "appearance": {
+        "color": "#d2d5d6",
+        "pieces": {
+          "head": "#e7c5a2",
+          "leftArm": "#e7c5a2",
+          "rightArm": "#e7c5a2",
+          "leftLeg": "#31485c",
+          "rightLeg": "#31485c"
+        },
+        "cosmetic": "cap",
+        "clothing": "vest",
+        "clothingColor": "#216d85"
+      }
+    }
+  ],
+  "shots": [
+    {
+      "id": "town_rule",
+      "start": 0,
+      "end": 94,
+      "camera": {
+        "position": [
+          9,
+          7.2,
+          17
+        ],
+        "target": [
+          -1,
+          2.5,
+          -3
+        ],
+        "fov": 48
+      },
+      "actors": [
+        {
+          "id": "eli",
+          "origin": {
+            "position": [
+              1.2,
+              0,
+              4
+            ],
+            "yaw": 0.55
+          },
+          "face": "thoughtful",
+          "action": {
+            "name": "idle",
+            "timeOffset": 0
+          }
+        }
+      ]
+    }
+  ]
+}
