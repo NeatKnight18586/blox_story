@@ -28,8 +28,8 @@ function setTime(t){if(!Number.isFinite(t)||t<0)throw new Error('Invalid preview
 function stopMotion(){motionPlaying=false;motion.motionPlay.textContent='Play action';}
 
 function render(){renderer.render(scene,camera);}
-function setView(name){controls.view.value=name;const target=new THREE.Vector3(0,name==='closeup'?4.61:2.6,0);const positions={front:[0,2.6,12],threequarter:[8,6,12],side:[12,2.6,0],closeup:[0,4.61,12]};camera.position.set(...positions[name]);camera.lookAt(target);const aspect=stage.clientWidth/stage.clientHeight;const h=name==='closeup'?Math.max(1.8,1.9/aspect):Math.max(6.4,4.7/aspect);camera.left=-h*aspect/2;camera.right=h*aspect/2;camera.top=h/2;camera.bottom=-h/2;camera.updateProjectionMatrix();render();}
-function update(){if(motion.action.value==='legacy')applyPose(avatar,controls.pose.value,phase);else applyActionSample(avatar,motionSample());displayedRequest=motion.action.value==='legacy'?null:{action:motion.action.value,time:motionTime,options:{direction:motion.direction.value},blending:!!transition&&motionTime<.25};applyFace(avatar,controls.face.value);applyAppearance(avatar,{cosmetic:controls.cosmetic.value||null});render();}
+function setView(name){controls.view.value=name;const target=new THREE.Vector3(0,name==='closeup'?4.61:2.6,0);const positions={front:[0,2.6,12],threequarter:[8,6,12],side:[12,2.6,0],closeup:[0,4.61,12]};camera.position.set(...positions[name]);if(motion.action.value==='walk'){camera.position.z+=.4;target.z=.4;}camera.lookAt(target);const aspect=stage.clientWidth/stage.clientHeight;const h=name==='closeup'?Math.max(1.8,1.9/aspect):Math.max(6.4,(motion.action.value==='walk'?5.2:4.7)/aspect);camera.left=-h*aspect/2;camera.right=h*aspect/2;camera.top=h/2;camera.bottom=-h/2;camera.updateProjectionMatrix();render();}
+function update(){if(motion.action.value==='legacy'){avatar.root.position.set(0,0,0);applyPose(avatar,controls.pose.value,phase);}else applyActionSample(avatar,motionSample());displayedRequest=motion.action.value==='legacy'?null:{action:motion.action.value,time:motionTime,options:{direction:motion.direction.value},blending:!!transition&&motionTime<.25};applyFace(avatar,controls.face.value);applyAppearance(avatar,{cosmetic:controls.cosmetic.value||null});setView(controls.view.value);}
 for(const key of ['pose','face','cosmetic'])controls[key].onchange=()=>{if(key==='pose'){motion.action.value='legacy';stopMotion();transition=null;}phase=0;update();};controls.view.onchange=()=>setView(controls.view.value);
 controls.play.onclick=()=>{motion.action.value='legacy';stopMotion();transition=null;playing=!playing;controls.play.textContent=playing?'Pause walk':'Play walk';controls.pose.value='walk_demo';update();};
 function resize(){renderer.setSize(stage.clientWidth,stage.clientHeight,false);setView(controls.view.value);}window.addEventListener('resize',resize);
@@ -38,8 +38,8 @@ motion.action.onchange=()=>{
  const from=displayedRequest;
  const snapshot={root:{position:[0,0,0],yaw:0},pivots:Object.fromEntries(Object.entries(avatar.pivots).map(([k,p])=>[k,[p.rotation.x,p.rotation.y,p.rotation.z]]))};
  playing=false;stopMotion();
- transition=motion.action.value==='legacy'?null:from?{from,targetStart:0}:null;
- if(from&&from.blending)transition={snapshot,targetStart:0};
+ transition=['legacy','walk'].includes(motion.action.value)||from?.action==='walk'?null:from?{from,targetStart:0}:null;
+ if(from&&from.blending&&motion.action.value!=='walk')transition={snapshot,targetStart:0};
  setTime(0);
 };
 motion.direction.onchange=motion.action.onchange;

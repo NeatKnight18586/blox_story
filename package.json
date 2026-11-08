@@ -3,10 +3,11 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "test": "node tests/api.js && node tests/actions.js",
+    "test": "node tests/api.js && node tests/actions.js && node tests/walk.js",
     "preview": "python3 -m http.server 8000",
     "test:browser": "node tests/browser.js",
-    "test:motion": "node tests/motion-browser.js"
+    "test:motion": "node tests/motion-browser.js",
+    "test:walk": "node tests/walk-browser.js"
   },
   "dependencies": {
     "three": "0.187.0"

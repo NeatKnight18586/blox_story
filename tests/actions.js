@@ -44,7 +44,7 @@ for(const from of ['idle','look_react'])for(const to of ['idle','look_react']){
 applyPose(a,'walk_demo',.25);applyActionSample(a,sampleAction('idle',0));for(const p of Object.values(a.pivots))assert(Math.abs(p.rotation.x)<1e-12);
 applyActionSample(a,sampleAction('idle',.4),{position:[2,0,3],yaw:.2});assert.deepEqual(a.root.position.toArray(),[2,0,3]);applyActionSample(a,sampleAction('idle',.4));assert.deepEqual(a.root.position.toArray(),[0,0,0]);
 const before=a.root.toJSON();
-for(const call of [()=>sampleAction('walk',0),()=>sampleAction('idle',-1),()=>sampleAction('idle',NaN),()=>sampleAction('idle',0,{direction:'bad'}),()=>sampleTransition(req('idle',0),req('idle',0),0,-1),()=>applyActionSample(a,{})])assert.throws(call);
+for(const call of [()=>sampleAction('run',0),()=>sampleAction('idle',-1),()=>sampleAction('idle',NaN),()=>sampleAction('idle',0,{direction:'bad'}),()=>sampleTransition(req('idle',0),req('idle',0),0,-1),()=>applyActionSample(a,{})])assert.throws(call);
 assert.deepEqual(a.root.toJSON(),before);assert.deepEqual([a.root,...Object.values(a.parts),...Object.values(a.pivots)],refs);
 console.log('PASS F2A: deterministic shuffled sampling, 30/60fps, idle seam/velocity, reaction clamp, four transition pairs/endpoints, planted geometry, appearance/identity, reset and atomic validation');
 // Velocity continuity at every reaction segment and both blend boundaries.
