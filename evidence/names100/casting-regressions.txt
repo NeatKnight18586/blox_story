@@ -1,0 +1,5 @@
+
+> test:casting
+> node tests/casting-browser.js
+
+PASS P2A WebGL: 360 frames, reverse pixel equality, stable independent bodies/geometry/layers, fixed cameras, face sightlines, mobile dressed/undressed/restored captures; minimum actor gap 0.8139189194392715

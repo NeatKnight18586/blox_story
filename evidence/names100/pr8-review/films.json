@@ -1,0 +1,68 @@
+[
+  {
+    "film": "casting",
+    "frames": 360,
+    "allPixelsIdentical": true,
+    "mp4ByteIdentical": true,
+    "mp4Sha256": "074bad369f9a8e08400c6c2512adcb2b96fd2b0b7d0d2900de5b768a38775e1a",
+    "timings": {
+      "captureSeconds": 126.067136004,
+      "repeatSeconds": 125.40073372599998,
+      "encodeSeconds": 3.3366101980000096,
+      "verificationSeconds": 1.8732099699999962,
+      "totalSeconds": 257.54685792
+    },
+    "resources": {
+      "availableParallelism": 2,
+      "ffmpegThreads": 2,
+      "rssMethod": "1-second sampled summed exporter/browser/server/encoder process-tree RSS; shared pages counted per process",
+      "frameBytes": 47641965,
+      "mp4Bytes": 580939,
+      "peakSampledSubtreeRssMiB": 965.17578125
+    }
+  },
+  {
+    "film": "feasibility",
+    "frames": 216,
+    "allPixelsIdentical": true,
+    "mp4ByteIdentical": true,
+    "mp4Sha256": "199c28761075fa75f9c3cf9c2dda5879a8369135b7d6f7b925f8d689a228e59f",
+    "timings": {
+      "captureSeconds": 76.75453392099999,
+      "repeatSeconds": 76.49879334799999,
+      "encodeSeconds": 2.086469929999992,
+      "verificationSeconds": 1.4482530580000021,
+      "totalSeconds": 157.55568456999998
+    },
+    "resources": {
+      "availableParallelism": 2,
+      "ffmpegThreads": 2,
+      "rssMethod": "1-second sampled summed exporter/browser/server/encoder process-tree RSS; shared pages counted per process",
+      "frameBytes": 35175794,
+      "mp4Bytes": 341412,
+      "peakSampledSubtreeRssMiB": 1239.04296875
+    }
+  },
+  {
+    "film": "not-today",
+    "frames": 120,
+    "allPixelsIdentical": true,
+    "mp4ByteIdentical": true,
+    "mp4Sha256": "90570c9700094e859c3489bddad4a6bfe091bd3101542b43632e60cde56c5872",
+    "timings": {
+      "captureSeconds": 44.650947863,
+      "repeatSeconds": 44.01447358400001,
+      "encodeSeconds": 1.5584892610000096,
+      "verificationSeconds": 1.2259602730000043,
+      "totalSeconds": 92.019152684
+    },
+    "resources": {
+      "availableParallelism": 2,
+      "ffmpegThreads": 2,
+      "rssMethod": "1-second sampled summed exporter/browser/server/encoder process-tree RSS; shared pages counted per process",
+      "frameBytes": 21806644,
+      "mp4Bytes": 304647,
+      "peakSampledSubtreeRssMiB": 950.4296875
+    }
+  }
+]
