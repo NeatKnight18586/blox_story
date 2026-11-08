@@ -1,31 +1,28 @@
-# blox_story — BlockStory V2 / F1 Character Lab
+# blox_story — BlockStory V2
+**Current target: F1 v3 — one canonical block avatar.**
 
-Original Roblox-like blocky 3D Kai and Mira characters built from **one reusable rigid-pivot factory**. Scope is F1 only, NOT an episode or MP4.
+This repository aims to make original, classic Roblox-like, code-rendered animated Shorts without manual gameplay recording. The **current F1 task is NOT a video**: build and visually validate one neutral, six-part, R6-inspired block avatar; future looks are applied through optional face, color, hair/clothing and accessory recipes. See [F1_SPEC.md](./F1_SPEC.md) for the complete acceptance requirements.
 
-## How to preview
-Serve files over HTTP using `python -m http.server 8000`, then open `http://localhost:8000/` in a WebGL-capable browser. The import map in `index.html` loads pinned `three@0.187.0` from jsDelivr; internet access is required. Opening `index.html` using `file://` is not guaranteed to work.
+## Current implementation status
+**REALIGNMENT SPEC WRITTEN; CODE MIGRATION PENDING.** The existing `character.js` / `presets.js` / `preview.js` and `index.html` are the **legacy Kai/Mira-first prototype**. They have NOT yet been migrated to F1 v3. Do not mistake their API or older tests for successful acceptance of the new base avatar.
 
-On an iPad, use an accessible HTTPS hosted preview. The user has asked Codex to run the verification, so do not require user-side coding.
+Codex should follow [AGENTS.md](./AGENTS.md), [CODEX_HANDOFF.md](./CODEX_HANDOFF.md), [CODEX_FIRST_TASK.txt](./CODEX_FIRST_TASK.txt), and [STATUS.md](./STATUS.md).
 
-## Source API
-- `presets.js`: appearance presets with stable IDs `kai`, `mira`.
-- `character.js`: `createCharacter('kai'|'mira')`, `applyPose(character, 'neutral'|'walk_demo'|'look_down', t=0)`, `applyExpression(character, 'neutral'|'worried')`.
-- `preview.js`: camera, lights, ground, controls and browser inspection hooks.
-- `index.html`: preview UI and pinned Three.js import map.
-- `tests/smoke.cjs`: self-contained structural test using a fake Three.js API. **Not** proof of visual rendering.
+## F1 v3 target API (not yet built)
+- `createBaseAvatar(options?)`: neutral six-part figure with persistent named pivots.
+- `applyPose(avatar, 'neutral'|'walk_demo'|'look_down', t=0)`: deterministic rigid posing.
+- `applyFace(avatar, 'blank'|'classic_smile'|'worried')`: independent face layer.
+- `applyAppearance(avatar, recipe)`: basic recolor and attach/remove one demo cosmetic.
 
-`createCharacter` returns `{root,id,preset,pivots,parts}`, where root is a Three.js Group and pivots include `head`, `leftShoulder`, `rightShoulder`, `leftHip` and `rightHip`. Poses reuse meshes and are deterministic based on t.
-
-## Checks
+## Legacy preview and tests
+The *old* preview requires an HTTP server, e.g. `python -m http.server 8000`, and a WebGL browser with access to `three@0.187.0` via its CDN. Opening `index.html` via `file://` may fail. Legacy nonvisual checks:
 ```sh
 node --check character.js
 node --check presets.js
 node --check preview.js
 node tests/smoke.cjs
 ```
-See `STATUS.md` for exact verification, `F1_SPEC.md` for requirements, `AGENTS.md` and `CODEX_HANDOFF.md` for Codex instructions.
+These checks **do not prove new F1 compliance**. Read STATUS.md for verified vs. pending work. User is iPad-only, so Codex should perform development and rendering checks without asking the user to install local software.
 
-Current inherited status: **PARTIAL**, pending genuine browser/WebGL screenshots. Do not proceed to F2 until accepted.
-
-## Future scope only
-F2 deterministic animation clips; F3 environments/camera tracks/future-shadow; F4 episode JSON and automated rendering/audio. Reuse and version the F1 cast, never recreate it.
+## Later roadmap — not part of F1
+F2 deterministic actions; F3 environments/camera/effects; F4 episode JSON and automated MP4/audio rendering. The same finalized base avatar must remain reusable throughout.
