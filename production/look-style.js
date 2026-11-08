@@ -59,7 +59,7 @@ export function createLook(plan,scene,world,avatars){
    // opacity and restoration timing are untouched, including .58 through889.
    Object.assign(depth.material,{transparent:false,opacity:1,depthWrite:true,colorWrite:false});for(const d of depth.meshes)d.visible=state.reveal.ghostToHuman<1;
   }
-  if(plan.reveal||(plan.ending?.visuals==='s2'&&state.ending?.location==='bedroom')){
+  if(plan.reveal||(['s2','s3b'].includes(plan.ending?.visuals)&&state.ending?.location==='bedroom')){
    scene.background.set(0x091c2e);scene.fog.color.set(0x172f43);scene.fog.density=.025;
   }
   if(overlay)overlay.apply({counter:100,counterEmphasis:false,whisper:false});

@@ -1,0 +1,212 @@
+{
+  "version": 3,
+  "title": "S3B provisional shy performance",
+  "look": "s1",
+  "output": {
+    "width": 360,
+    "height": 640,
+    "fps": 30
+  },
+  "environment": {
+    "kind": "home-courtyard"
+  },
+  "props": [],
+  "events": [],
+  "cast": [
+    {
+      "id": "eli",
+      "appearance": {
+        "color": "#d2d5d6",
+        "pieces": {
+          "head": "#e7c5a2",
+          "leftArm": "#e7c5a2",
+          "rightArm": "#e7c5a2",
+          "leftLeg": "#31485c",
+          "rightLeg": "#31485c"
+        },
+        "cosmetic": "cap",
+        "clothing": "vest",
+        "clothingColor": "#216d85"
+      }
+    },
+    {
+      "id": "neighbor",
+      "face": "relieved",
+      "appearance": {
+        "color": "#dac1a0",
+        "pieces": {
+          "leftLeg": "#344a58",
+          "rightLeg": "#344a58"
+        },
+        "clothing": "vest",
+        "clothingColor": "#4f9689",
+        "hair": "bob",
+        "hairColor": "#66533c"
+      }
+    }
+  ],
+  "opening": {
+    "kind": "shy",
+    "globalStart": 259,
+    "globalEnd": 482,
+    "visuals": "s3b"
+  },
+  "shots": [
+    {
+      "id": "s04",
+      "start": 0,
+      "end": 61,
+      "camera": {
+        "position": [
+          4,
+          4.8,
+          13
+        ],
+        "target": [
+          2,
+          3,
+          1.8
+        ],
+        "fov": 52
+      },
+      "actors": [
+        {
+          "id": "eli",
+          "origin": {
+            "position": [
+              1.2,
+              0,
+              4
+            ],
+            "yaw": 0.55
+          },
+          "face": "thoughtful",
+          "action": {
+            "name": "idle",
+            "timeOffset": 0
+          }
+        },
+        {
+          "id": "neighbor",
+          "origin": {
+            "position": [
+              3.7,
+              0,
+              -1.5
+            ],
+            "yaw": -0.6
+          },
+          "face": "relieved",
+          "action": {
+            "name": "idle",
+            "timeOffset": 0
+          }
+        }
+      ]
+    },
+    {
+      "id": "s05",
+      "start": 61,
+      "end": 139,
+      "camera": {
+        "position": [
+          2.4,
+          4.7,
+          9
+        ],
+        "target": [
+          1.2,
+          4,
+          4
+        ],
+        "fov": 45
+      },
+      "actors": [
+        {
+          "id": "eli",
+          "origin": {
+            "position": [
+              1.2,
+              0,
+              4
+            ],
+            "yaw": 0.55
+          },
+          "face": "nervous",
+          "action": {
+            "name": "idle",
+            "timeOffset": 2.033333333333333
+          }
+        },
+        {
+          "id": "neighbor",
+          "origin": {
+            "position": [
+              4.8,
+              0,
+              5.8
+            ],
+            "yaw": -2.03
+          },
+          "face": "relieved",
+          "action": {
+            "name": "idle",
+            "timeOffset": 0
+          }
+        }
+      ]
+    },
+    {
+      "id": "s06",
+      "start": 139,
+      "end": 223,
+      "camera": {
+        "position": [
+          4,
+          4.8,
+          15.5
+        ],
+        "target": [
+          2.8,
+          3.3,
+          4.6
+        ],
+        "fov": 50
+      },
+      "actors": [
+        {
+          "id": "eli",
+          "origin": {
+            "position": [
+              1.2,
+              0,
+              4
+            ],
+            "yaw": 0.55
+          },
+          "face": "thoughtful",
+          "action": {
+            "name": "idle",
+            "timeOffset": 4.633333333333334
+          }
+        },
+        {
+          "id": "neighbor",
+          "origin": {
+            "position": [
+              4.8,
+              0,
+              5.8
+            ],
+            "yaw": -2.03
+          },
+          "face": "relieved",
+          "action": {
+            "name": "idle",
+            "timeOffset": 0
+          }
+        }
+      ]
+    }
+  ]
+}

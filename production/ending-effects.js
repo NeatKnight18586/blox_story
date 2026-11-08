@@ -1,3 +1,4 @@
+import {applyEndingPerformance} from './performance.js';
 import {ghostFrontDepth} from './look-style.js';
 import * as THREE from 'three';
 import {createBedroom} from './assets/bedroom.js';
@@ -16,7 +17,7 @@ export function createEndingStage(scene){
  const courtyard=createCourtyard(scene);return {...bedroom,room,courtyard};
 }
 export function createEndingEffects(plan,avatars,world){
- const s2=plan.ending.visuals==='s2',depth=s2?ghostFrontDepth(avatars.eli,'s2_forgotten_depth'):null;
+ const s2=['s2','s3b'].includes(plan.ending.visuals),depth=s2?ghostFrontDepth(avatars.eli,'s2_forgotten_depth'):null;
  const overlay=createCounterOverlay({actor:'eli',before:s2?100:99,after:0,values:s2?[100,...S2_COUNTER.map(c=>c.value)]:ENDING_COUNTER.map(c=>c.value)},null),original=new WeakMap(),blue=new THREE.Color(0x7c9eaf),pale=new THREE.Color(s2?0xb3dde2:0xadcfd4);
  for(const a of Object.values(avatars)){for(const face of ['nervous','startled','thoughtful','relieved','worried'])applyFace(a,face);}
  // Changing transparent changes Three.js shader defines; invalidate on transitions.
@@ -46,6 +47,9 @@ export function createEndingEffects(plan,avatars,world){
    e.root.traverse(o=>{if(!o.isMesh||o.userData.lookDepth)return;const mat=o.material,base=original.get(mat);let face=false;for(let n=o;n;n=n.parent)if(n===e.faceLayer)face=true;mat.color.copy(base.color).lerp(pale,face?0:.9*state.forgotten);mat.opacity=face?1:1-.22*state.forgotten;const transparent=!face&&state.forgotten>0;if(mat.transparent!==transparent){mat.transparent=transparent;mat.needsUpdate=true;}mat.depthWrite=face||state.forgotten===0;});
    Object.assign(depth.material,{transparent:false,opacity:1,colorWrite:false,depthWrite:true});for(const d of depth.meshes)d.visible=state.forgotten>0;
   }
+  if(plan.ending.visuals==='s3b'){applyEndingPerformance(g,e,m,residents);c.fill.position.set(...(g>=1490?[-3,5,-4]:[3,5,8]));}
   overlay.apply(state);
+  // This reverse insert needs its counter above the eyes, not over the face.
+  if(plan.ending.visuals==='s3b'&&g>=1490&&g<1546)overlay.panel.position.y=580;
  },draw(renderer){overlay.draw(renderer);}};
 }

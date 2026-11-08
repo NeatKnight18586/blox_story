@@ -1,0 +1,107 @@
+{
+  "keyframeAttempts": [
+    {
+      "command": [
+        "node",
+        "tests/performance-browser.js"
+      ],
+      "exitCode": 0,
+      "wallSeconds": 18.2163281059984,
+      "sampledTreeRssMiB": 659.91796875,
+      "sampledTreeCpuSeconds": 32.72,
+      "processCount": 13,
+      "sampleIntervalSeconds": 0.2,
+      "method": "Linux ps summed subtree RSS (shared pages counted per process), /proc cumulative CPU samples retained by PID/start-time at 100Hz; sampled lower bounds; final pass only, not all development activity",
+      "attempt": "initial_stills"
+    },
+    {
+      "command": [
+        "node",
+        "tests/performance-browser.js"
+      ],
+      "exitCode": 0,
+      "wallSeconds": 17.71722582399525,
+      "sampledTreeRssMiB": 663.8359375,
+      "sampledTreeCpuSeconds": 32.47,
+      "processCount": 13,
+      "sampleIntervalSeconds": 0.2,
+      "method": "Linux ps summed subtree RSS (shared pages counted per process), /proc cumulative CPU samples retained by PID/start-time at 100Hz; sampled lower bounds; final pass only, not all development activity",
+      "attempt": "framing_correction"
+    },
+    {
+      "command": [
+        "node",
+        "tests/performance-browser.js"
+      ],
+      "exitCode": 0,
+      "wallSeconds": 17.957798213006754,
+      "sampledTreeRssMiB": 661.0078125,
+      "sampledTreeCpuSeconds": 33.1,
+      "processCount": 13,
+      "sampleIntervalSeconds": 0.2,
+      "method": "Linux ps summed subtree RSS (shared pages counted per process), /proc cumulative CPU samples retained by PID/start-time at 100Hz; sampled lower bounds; final pass only, not all development activity",
+      "attempt": "camera_clearance_repair"
+    },
+    {
+      "command": [
+        "node",
+        "tests/performance-browser.js"
+      ],
+      "exitCode": 0,
+      "wallSeconds": 19.105491428003006,
+      "sampledTreeRssMiB": 664.60546875,
+      "sampledTreeCpuSeconds": 34.64,
+      "processCount": 13,
+      "sampleIntervalSeconds": 0.2,
+      "method": "Linux ps summed subtree RSS (shared pages counted per process), /proc cumulative CPU samples retained by PID/start-time at 100Hz; sampled lower bounds; final pass only, not all development activity",
+      "attempt": "face_sightline_repair"
+    },
+    {
+      "command": [
+        "node",
+        "tests/performance-browser.js"
+      ],
+      "exitCode": 0,
+      "wallSeconds": 17.441345036000712,
+      "sampledTreeRssMiB": 661.265625,
+      "sampledTreeCpuSeconds": 31.69,
+      "processCount": 13,
+      "sampleIntervalSeconds": 0.2,
+      "method": "Linux ps summed subtree RSS (shared pages counted per process), /proc cumulative CPU samples retained by PID/start-time at 100Hz; sampled lower bounds; final pass only, not all development activity",
+      "attempt": "final_counter_light_check"
+    }
+  ],
+  "totalKeyframeWallSeconds": 90.43818860700412,
+  "totalKeyframeSampledCpuSeconds": 164.62,
+  "peakKeyframeSampledRssMiB": 664.60546875,
+  "regressionAttempts": [
+    {
+      "command": [
+        "bash",
+        "/tmp/s3b-regression.sh"
+      ],
+      "exitCode": 0,
+      "wallSeconds": 17.67276851999486,
+      "sampledTreeRssMiB": 662.98046875,
+      "sampledTreeCpuSeconds": 25.96,
+      "processCount": 33,
+      "sampleIntervalSeconds": 0.2,
+      "method": "Linux ps summed subtree RSS (shared pages counted per process), /proc cumulative CPU samples retained by PID/start-time at 100Hz; sampled lower bounds; final pass only, not all development activity"
+    },
+    {
+      "command": [
+        "bash",
+        "/tmp/s3b-regression.sh"
+      ],
+      "exitCode": 0,
+      "wallSeconds": 17.44321620499977,
+      "sampledTreeRssMiB": 660.109375,
+      "sampledTreeCpuSeconds": 25.15,
+      "processCount": 33,
+      "sampleIntervalSeconds": 0.2,
+      "method": "Linux ps summed subtree RSS (shared pages counted per process), /proc cumulative CPU samples retained by PID/start-time at 100Hz; sampled lower bounds; final pass only, not all development activity"
+    }
+  ],
+  "totalMeasuredRegressionWallSeconds": 35.11598472499463,
+  "excludes": "PR14 preflight, separate source-only checks, board assembly and assistant time were not resource-profiled; no total billing claim"
+}

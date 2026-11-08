@@ -1,0 +1,31 @@
+{
+  "status": "BLOCKED",
+  "releaseId": 438351681,
+  "uploadHostFailure": "HTTP401 Bad credentials at uploads.github.com",
+  "alternateExitCode": 1,
+  "alternateResponse": "{\n  \"message\": \"Not Found\",\n  \"documentation_url\": \"https://docs.github.com/rest\",\n  \"status\": \"404\"\n}",
+  "alternateError": "gh: Not Found (HTTP 404)\n",
+  "repositoryPrivate": true,
+  "privateVoicedMediaPublished": false,
+  "emptyOwnDraftRemoved": true,
+  "codexArtifactUploadToolAvailable": false,
+  "contactSheetUrl": "https://github.com/NeatKnight18586/blox_story/blob/codex/names100-s3b-performance/evidence/names100-s3c/caption-style-contact.png",
+  "captionedFilesReady": [
+    {
+      "file": "A-narrated-captioned.mp4",
+      "bytes": 344636,
+      "sha256": "36beeb57f9cb2b9893cff531031dc5e156ec9ab3c805cc5cf2cb2536549b41ff"
+    },
+    {
+      "file": "C-narrated-captioned.mp4",
+      "bytes": 334638,
+      "sha256": "31f5daade7d1b2b6b04359fa5e5d7e65e2948e109c3334e8d6967c111a6e0356"
+    },
+    {
+      "file": "B-narrated-captioned.mp4",
+      "bytes": 606619,
+      "sha256": "4748d96698f24da1d75bd4124c2eebe708bdd601fc00a4e8d4eeca5d58698d26"
+    }
+  ],
+  "manualRoute": "Authenticated GitHub web release upload from shared Codex Desktop; see REPORT.md. Binary CLI upload host needs working authentication to automate."
+}
