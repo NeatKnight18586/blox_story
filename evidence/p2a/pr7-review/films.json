@@ -1,0 +1,44 @@
+[
+  {
+    "name": "feasibility",
+    "frames": 216,
+    "pixelsMatch": true,
+    "mp4ByteIdentical": true,
+    "timings": {
+      "captureSeconds": 77.284008805,
+      "repeatSeconds": 76.19245512500001,
+      "encodeSeconds": 1.990555235000007,
+      "verificationSeconds": 1.4307297419999958,
+      "totalSeconds": 157.493862062
+    },
+    "resources": {
+      "availableParallelism": 2,
+      "ffmpegThreads": 2,
+      "rssMethod": "1-second sampled summed exporter/browser/server/encoder process-tree RSS; shared pages counted per process",
+      "frameBytes": 35175794,
+      "mp4Bytes": 341412,
+      "peakSampledSubtreeRssMiB": 1241.79296875
+    }
+  },
+  {
+    "name": "not-today",
+    "frames": 120,
+    "pixelsMatch": true,
+    "mp4ByteIdentical": true,
+    "timings": {
+      "captureSeconds": 44.01964430699999,
+      "repeatSeconds": 43.701979869999995,
+      "encodeSeconds": 1.4129754399999948,
+      "verificationSeconds": 1.2522858169999964,
+      "totalSeconds": 90.95895880500001
+    },
+    "resources": {
+      "availableParallelism": 2,
+      "ffmpegThreads": 2,
+      "rssMethod": "1-second sampled summed exporter/browser/server/encoder process-tree RSS; shared pages counted per process",
+      "frameBytes": 21806644,
+      "mp4Bytes": 304647,
+      "peakSampledSubtreeRssMiB": 983.21484375
+    }
+  }
+]

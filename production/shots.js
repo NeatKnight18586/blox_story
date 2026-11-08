@@ -4,7 +4,7 @@ const id=value=>typeof value==='string'&&/^[a-z][a-z0-9_-]{0,63}$/.test(value);
 const vector=v=>Array.isArray(v)&&v.length===3&&v.every(n=>Number.isFinite(n)&&Math.abs(n)<=1e6);
 function keys(object,allowed){if(!object||typeof object!=='object'||Array.isArray(object)||Object.keys(object).some(k=>!allowed.includes(k)))throw new Error('Unknown or malformed configuration field');}
 function color(v){return Number.isInteger(v)&&v>=0&&v<=0xffffff||typeof v==='string'&&/^#[0-9a-f]{6}$/i.test(v);}
-function appearance(value={}){
+export function normalizeAppearance(value={}){
  keys(value,['color','pieces','cosmetic']);const result={color:value.color??0xbfc1c3,pieces:value.pieces??{},cosmetic:value.cosmetic??null};
  if(!color(result.color)||!['cap',null].includes(result.cosmetic))throw new Error('Invalid appearance');
  keys(result.pieces,['head','torso','leftArm','rightArm','leftLeg','rightLeg']);if(!Object.values(result.pieces).every(color))throw new Error('Invalid piece color');return result;
@@ -31,7 +31,7 @@ export function compilePipeline(input){
    const motion=actorAt(source,source.end,data.fps).action.root.position,position=worldPosition(motion,source.origin);position[1]=source.origin.position[1];shot.origin={position,yaw:source.origin.yaw};
   }
   keys(shot.origin,['position','yaw']);if(!vector(shot.origin.position)||shot.origin.position[1]!==0||!Number.isFinite(shot.origin.yaw))throw new Error('Invalid grounded origin');
-  shot.face??='classic_smile';if(!['blank','classic_smile','worried'].includes(shot.face))throw new Error('Unknown face');shot.appearance=appearance(shot.appearance);
+  shot.face??='classic_smile';if(!['blank','classic_smile','worried'].includes(shot.face))throw new Error('Unknown face');shot.appearance=normalizeAppearance(shot.appearance);
   prior.set(shot.id,shot);end=shot.end;
  }
  data.frameCount=end;

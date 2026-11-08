@@ -1,0 +1,297 @@
+[
+  {
+    "scene": "feasibility",
+    "status": "PASS",
+    "frames": 216,
+    "referencePixelsIdentical": true,
+    "mp4ByteIdentical": true,
+    "mp4Sha256": "199c28761075fa75f9c3cf9c2dda5879a8369135b7d6f7b925f8d689a228e59f",
+    "engineSha256": "963dd3d38e33cf64a5a548bf2d45e7884596ff4cb1ac3fd3ef3ef9988275492d",
+    "browser": "141.0.7390.37",
+    "backend": {
+      "webgl": "WebGL 2.0 (OpenGL ES 3.0 Chromium)",
+      "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)"
+    },
+    "timings": {
+      "captureSeconds": 78.76300106000001,
+      "repeatSeconds": 75.79299328399999,
+      "encodeSeconds": 1.9754010959999868,
+      "verificationSeconds": 1.420119275999983,
+      "totalSeconds": 158.640412811
+    },
+    "resources": {
+      "availableParallelism": 2,
+      "ffmpegThreads": 2,
+      "rssMethod": "1-second sampled summed exporter/browser/server/encoder process-tree RSS; shared pages counted per process",
+      "frameBytes": 35175794,
+      "mp4Bytes": 341412,
+      "peakSampledSubtreeRssMiB": 1236.1640625
+    },
+    "verification": {
+      "probe": {
+        "streams": [
+          {
+            "index": 0,
+            "codec_name": "h264",
+            "codec_long_name": "H.264 / AVC / MPEG-4 AVC / MPEG-4 part 10",
+            "profile": "Main",
+            "codec_type": "video",
+            "codec_tag_string": "avc1",
+            "codec_tag": "0x31637661",
+            "width": 720,
+            "height": 1280,
+            "coded_width": 720,
+            "coded_height": 1280,
+            "closed_captions": 0,
+            "film_grain": 0,
+            "has_b_frames": 2,
+            "sample_aspect_ratio": "1:1",
+            "display_aspect_ratio": "9:16",
+            "pix_fmt": "yuv420p",
+            "level": 31,
+            "color_range": "tv",
+            "color_space": "bt709",
+            "chroma_location": "left",
+            "field_order": "progressive",
+            "refs": 4,
+            "is_avc": "true",
+            "nal_length_size": "4",
+            "id": "0x1",
+            "r_frame_rate": "30/1",
+            "avg_frame_rate": "30/1",
+            "time_base": "1/15360",
+            "start_pts": 0,
+            "start_time": "0.000000",
+            "duration_ts": 110592,
+            "duration": "7.200000",
+            "bit_rate": "375524",
+            "bits_per_raw_sample": "8",
+            "nb_frames": "216",
+            "nb_read_frames": "216",
+            "extradata_size": 44,
+            "disposition": {
+              "default": 1,
+              "dub": 0,
+              "original": 0,
+              "comment": 0,
+              "lyrics": 0,
+              "karaoke": 0,
+              "forced": 0,
+              "hearing_impaired": 0,
+              "visual_impaired": 0,
+              "clean_effects": 0,
+              "attached_pic": 0,
+              "timed_thumbnails": 0,
+              "non_diegetic": 0,
+              "captions": 0,
+              "descriptions": 0,
+              "metadata": 0,
+              "dependent": 0,
+              "still_image": 0,
+              "multilayer": 0
+            },
+            "tags": {
+              "language": "und",
+              "handler_name": "VideoHandler",
+              "vendor_id": "[0][0][0][0]",
+              "encoder": "Lavc61.19.101 libx264"
+            }
+          }
+        ],
+        "format": {
+          "filename": "/workspace/blox_story/renders/p2a-regression-feasibility/.p1-cache/39053600a8524fb9a4a38389e4a5dd6a353c7a3c264ef4169a6743401e8635e5/video-f363aa91-b683-4725-a721-238d7707cb40.mp4",
+          "nb_streams": 1,
+          "nb_programs": 0,
+          "nb_stream_groups": 0,
+          "format_name": "mov,mp4,m4a,3gp,3g2,mj2",
+          "format_long_name": "QuickTime / MOV",
+          "start_time": "0.000000",
+          "duration": "7.200000",
+          "size": "341412",
+          "bit_rate": "379346",
+          "probe_score": 100,
+          "tags": {
+            "major_brand": "isom",
+            "minor_version": "512",
+            "compatible_brands": "isomiso2avc1mp41",
+            "encoder": "Lavf61.7.103"
+          }
+        }
+      },
+      "decode": {
+        "frames": 216,
+        "continuousPts": true,
+        "noErrors": true
+      },
+      "cuts": [
+        {
+          "frame": 60,
+          "time": 2
+        },
+        {
+          "frame": 132,
+          "time": 4.4
+        }
+      ],
+      "playback": {
+        "width": 720,
+        "height": 1280,
+        "duration": 7.2,
+        "advancedTo": 0.1508,
+        "error": null,
+        "browser": "156.0.8078.79",
+        "fallback": true,
+        "seeks": [
+          3.6,
+          2.1,
+          4.5
+        ]
+      }
+    }
+  },
+  {
+    "scene": "not-today",
+    "status": "PASS",
+    "frames": 120,
+    "referencePixelsIdentical": true,
+    "mp4ByteIdentical": true,
+    "mp4Sha256": "90570c9700094e859c3489bddad4a6bfe091bd3101542b43632e60cde56c5872",
+    "engineSha256": "963dd3d38e33cf64a5a548bf2d45e7884596ff4cb1ac3fd3ef3ef9988275492d",
+    "browser": "141.0.7390.37",
+    "backend": {
+      "webgl": "WebGL 2.0 (OpenGL ES 3.0 Chromium)",
+      "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)"
+    },
+    "timings": {
+      "captureSeconds": 45.020903846,
+      "repeatSeconds": 44.206226292,
+      "encodeSeconds": 1.504729489999998,
+      "verificationSeconds": 1.3266010769999994,
+      "totalSeconds": 92.64495954899999
+    },
+    "resources": {
+      "availableParallelism": 2,
+      "ffmpegThreads": 2,
+      "rssMethod": "1-second sampled summed exporter/browser/server/encoder process-tree RSS; shared pages counted per process",
+      "frameBytes": 21806644,
+      "mp4Bytes": 304647,
+      "peakSampledSubtreeRssMiB": 1179.02734375
+    },
+    "verification": {
+      "probe": {
+        "streams": [
+          {
+            "index": 0,
+            "codec_name": "h264",
+            "codec_long_name": "H.264 / AVC / MPEG-4 AVC / MPEG-4 part 10",
+            "profile": "Main",
+            "codec_type": "video",
+            "codec_tag_string": "avc1",
+            "codec_tag": "0x31637661",
+            "width": 720,
+            "height": 1280,
+            "coded_width": 720,
+            "coded_height": 1280,
+            "closed_captions": 0,
+            "film_grain": 0,
+            "has_b_frames": 2,
+            "sample_aspect_ratio": "1:1",
+            "display_aspect_ratio": "9:16",
+            "pix_fmt": "yuv420p",
+            "level": 31,
+            "color_range": "tv",
+            "color_space": "bt709",
+            "chroma_location": "left",
+            "field_order": "progressive",
+            "refs": 4,
+            "is_avc": "true",
+            "nal_length_size": "4",
+            "id": "0x1",
+            "r_frame_rate": "30/1",
+            "avg_frame_rate": "30/1",
+            "time_base": "1/15360",
+            "start_pts": 0,
+            "start_time": "0.000000",
+            "duration_ts": 61440,
+            "duration": "4.000000",
+            "bit_rate": "604694",
+            "bits_per_raw_sample": "8",
+            "nb_frames": "120",
+            "nb_read_frames": "120",
+            "extradata_size": 44,
+            "disposition": {
+              "default": 1,
+              "dub": 0,
+              "original": 0,
+              "comment": 0,
+              "lyrics": 0,
+              "karaoke": 0,
+              "forced": 0,
+              "hearing_impaired": 0,
+              "visual_impaired": 0,
+              "clean_effects": 0,
+              "attached_pic": 0,
+              "timed_thumbnails": 0,
+              "non_diegetic": 0,
+              "captions": 0,
+              "descriptions": 0,
+              "metadata": 0,
+              "dependent": 0,
+              "still_image": 0,
+              "multilayer": 0
+            },
+            "tags": {
+              "language": "und",
+              "handler_name": "VideoHandler",
+              "vendor_id": "[0][0][0][0]",
+              "encoder": "Lavc61.19.101 libx264"
+            }
+          }
+        ],
+        "format": {
+          "filename": "/workspace/blox_story/renders/p2a-regression-not-today/.p1-cache/ae841c90172f57b082cc5f5ae1ce7516955cc347ce58a34b7a73f2d8a321de3b/video-8694819c-ab0a-4166-befd-10c6feb52f81.mp4",
+          "nb_streams": 1,
+          "nb_programs": 0,
+          "nb_stream_groups": 0,
+          "format_name": "mov,mp4,m4a,3gp,3g2,mj2",
+          "format_long_name": "QuickTime / MOV",
+          "start_time": "0.000000",
+          "duration": "4.000000",
+          "size": "304647",
+          "bit_rate": "609294",
+          "probe_score": 100,
+          "tags": {
+            "major_brand": "isom",
+            "minor_version": "512",
+            "compatible_brands": "isomiso2avc1mp41",
+            "encoder": "Lavf61.7.103"
+          }
+        }
+      },
+      "decode": {
+        "frames": 120,
+        "continuousPts": true,
+        "noErrors": true
+      },
+      "cuts": [
+        {
+          "frame": 60,
+          "time": 2
+        }
+      ],
+      "playback": {
+        "width": 720,
+        "height": 1280,
+        "duration": 4,
+        "advancedTo": 0.1511,
+        "error": null,
+        "browser": "156.0.8078.79",
+        "fallback": true,
+        "seeks": [
+          2,
+          2.1
+        ]
+      }
+    }
+  }
+]
