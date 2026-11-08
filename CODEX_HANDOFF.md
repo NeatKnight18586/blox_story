@@ -1,3 +1,13 @@
+# Current handoff — P4 counter/native finishing review
+
+PR #15 reviewed atadd5d4f, tests/video/WebGL checks passed, merged with all commits retained at `277ef9460b60f5065fc088493be6a6a7952a0f0e`. Current user/P4 brief records preview-direction approval, superseding earlier hold. Old private delivery/perceptual listening limits remain historical and were not "fixed" by this merge.
+
+Branch `codex/names100-p4-counter-look`: optional v3 `counterMode:"clean"` hides the old panel; original factory/default unchanged. Offline clock exporter samples existing numeric states; separate Minimal Editorial JSON→ASS controls fonts/positions/visibility/fade. Clean3D→counter→unchanged captions. Five native legacy/editorial comparisons at145/850/1248/1528/1529; clean look stills700/1392/1628. Actual canvas/framebuffer720×1280,pixelRatio1;8 unique selections, no upscale or full/motion episode export.
+
+**PARTIAL overall:** source/timing/legacy/native capture PASS; production finish/art lock incomplete. Counter avoids the HUD/card; raw white fill on warm wall1.91:1 uses2px glyph keyline for edge separation. Native shadows are hard/stepped and ghost layers show internal edges. Do not redesign assets or start extra passes without creative review. One focused graphics-only refinement completed; no extra3D pass.
+
+[Boards,originals,commands,measurements and detailed verdict](evidence/names100-p4/REPORT.md). Native batch11.505s/710.12MiB peak summed RSS,graphics1.507s,affected regressions18.472s; old12 movies/WAV/captions/source assets unchanged. New PR only; stop for art approval, no automatic merge/final production. Historical handoffs follow.
+
 # Current handoff — S3C encoding verified; delivery blocked
 
 Read CAPTION_STYLE.md and stories/names100/S3C_LISTENING_GATE.md. PR #15 remains DRAFT/unmerged. S3C reuses original S3B A/B/C footage and unchanged WAV; zero new3D renders or animation edits. Versioned style/cue JSON generates separate ASS/SRT, then FFmpeg upscales only the three short clips to720×1280/15fps. Outputs are ignored/private under renders/names100-s3c.

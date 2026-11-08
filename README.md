@@ -1,3 +1,11 @@
+# Current review — P4 counter and native finish proof
+
+**PARTIAL overall: counter/timing/legacy/native checks PASS; production finish awaits art approval.** PR #15 was verified and merged preserving history. [Five counter comparisons](evidence/names100-p4/counter-comparison.png) · [Three-scene native look board](evidence/names100-p4/native-look-board.png) · [true720p originals,tests,costs and limits](evidence/names100-p4/REPORT.md).
+
+New exports can opt into `counterMode:"clean"`, then compose the separate Minimal Editorial ASS. Numbers/placement/style are editable without rebuilding retained clean footage. Legacy remains default; approved captions and prior films are unchanged. Eight native selections only, no full episode or new motion/audio. Native stills reveal hard shadow edges and layered ghost transparency; stop for creative approval before production.
+
+Historical milestones follow.
+
 # Current review — S3C white captions
 
 **PARTIAL: encoding/style checks PASS; private MP4 delivery blocked.** Three narrated720×1280 typography proofs are ready, with zero new3D renders. [Actual3-up contact sheet](evidence/names100-s3c/caption-style-contact.png) · [verification,caption data,costs and manual export](evidence/names100-s3c/REPORT.md).

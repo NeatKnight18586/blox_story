@@ -1,0 +1,10 @@
+{
+  "pr": 15,
+  "status": "MERGED",
+  "reviewedHead": "add5d4fd2e4c21525d7f8643c0c2c2d093864571",
+  "mergeCommit": "277ef9460b60f5065fc088493be6a6a7952a0f0e",
+  "method": "merge,all commits retained",
+  "approvalAuthority": "Current user request plus P4 brief: user reviewed narrated/captioned S3B proofs and liked direction; prior caption style provisionally approved",
+  "checks": "npm test,caption semantic/frame masks,18 WebGL random seeks,S2 face/cold shader regression,3 actual MP4 hash/decode/PTS/cut/native playback checks PASS",
+  "oldDeliveryAndPerceptualListeningLimitsRemainDocumented": true
+}
