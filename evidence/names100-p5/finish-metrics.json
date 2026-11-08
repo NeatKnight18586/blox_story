@@ -41,7 +41,7 @@
       "maximumAdjacentRgbMeanStep": 15.333333333333329
     },
     {
-      "source": "renders/names100-p5-stills",
+      "source": "evidence/names100-p5",
       "x": 415,
       "yRange": [
         980,
