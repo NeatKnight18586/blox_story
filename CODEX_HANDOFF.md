@@ -1,24 +1,30 @@
-# blox_story — F1 revision 2 Codex handoff
+# blox_story — Codex handoff: F1 v3 realignment (2026-11-08)
 
-This is a continuation of a previously created project, **not a greenfield rebuild**.
+## Why the direction changed
+Earlier F1 created preset-first Kai/Mira figures with baked-in hair, hoodie, pink clothing and shoes. User supplied four new reference images of a very simple *classic R6-like six-block avatar* and explicitly changed the product requirement: ONE neutral body first; later characters arise by adding/removing cosmetics and color/face choices.
 
-## Existing implementation
-- index.html: Three.js import map pinned to 0.187.0 and browser preview controls.
-- presets.js: stable appearance presets kai and mira.
-- character.js: shared rigid-pivot character factory and deterministic neutral, walk_demo, look_down poses; neutral and worried expressions.
-- preview.js: two-character scene, lights, shadows, cameras and inspection hooks.
-- tests/smoke.cjs: nonvisual structural API smoke tests.
-- README.md: usage. STATUS.md: exact verification evidence. F1_SPEC.md: contractual requirements.
+**F1_SPEC.md is the NEW canonical spec.** The old source was not a visual PASS and is retained for reference/history, not to dictate the new silhouette. This task includes an intentional, bounded architectural migration.
 
-## Inherited verification (2026-11-08)
-- Syntax checks and lightweight Three.js-stub smoke tests passed in previous environment.
-- Kai and Mira had distinct IDs/colors with 32 and 29 meshes; posing didn't replace meshes.
-- Walk pose at t=.25 was repeatable, and neutral reset correctly.
-- One targeted correction raised sole geometry to mathematical ground contact.
-- REAL Three.js runtime/browser inspection was blocked by unavailable CDN/DNS and local Playwright navigation ERR_BLOCKED_BY_ADMINISTRATOR.
-- The correct inherited grade remains **PARTIAL**. No authentic screenshots or MP4 exist.
+## What exists at handoff
+- Current legacy code: `index.html`, `character.js`, `presets.js`, `preview.js`.
+- Existing `tests/smoke.cjs` tests prior Kai/Mira behavior with a fake Three.js module; it must be adapted or replaced for the new contract.
+- Prior test notes in `STATUS.md`; F1 visual rendering was never verified.
+- Updated `F1_SPEC.md` gives proportions, API, screenshots and acceptance gates.
+- `AGENTS.md` sets constraints, `CODEX_FIRST_TASK.txt` contains a pasteable start instruction.
 
-## One focused task now
-Use a real WebGL/browser environment to serve and inspect the existing preview. Capture six authentic views (per F1_SPEC.md). Verify visual quality, controls, ground, silhouette, expression and shadows; make one focused fix only if necessary. Update STATUS.md with exact evidence. Do not generate imagery as a substitute for rendering. No F2 or MP4 yet.
+## Implementation order (prioritize quality, avoid unbounded work)
+1. Inspect repo and run baseline checks, recording failures transparently.
+2. Implement `createBaseAvatar()` with six clean, aligned body meshes and stable pivot refs. First inspect the **unclothed neutral** figure, adjusting proportions to the reference.
+3. Add `applyPose` with neutral/walk_demo/look_down, `applyFace` with blank/classic_smile/worried, and `applyAppearance` with palette and one removable demo attachment. Don't create a full asset library.
+4. Update preview for one canonical avatar, select pose/face/view/cosmetic. Set clean lighting and ground.
+5. Update automated tests for contract and identity invariants. Use actual browser render, capture six required views and assess visuals. If environment cannot render, leave PARTIAL.
+6. Update README/STATUS, commit to branch; submit changes for review via Codex workflow. Avoid unnecessary refactors.
 
-User wants Codex to perform the work end-to-end without device setup; keep replies concise. Repository canonical name: NeatKnight18586/blox_story.
+## Preservation policy
+Do not destroy prior work: Git retains previous commits. If useful, keep a minimal compatibility wrapper, but only if it doesn't complicate F1. Clearly mark Kai/Mira code and notes superseded. Do not pretend rev2 tests validate rev3. Keep future F2/F3/F4 interfaces in mind without implementing them.
+
+## Evidence
+New screenshots must be genuine Three.js browser captures, not reference art, AI images or a mock renderer. User images are not yet in repo; ask for them **only if reference comparison cannot be meaningfully approximated from the written spec**. Present exact tested/unverified outcomes.
+
+## Next task
+Implement and validate F1 v3. No animation movie, no MP4, no story. User has only iPad and wants the assistant to do all coding and testing.
