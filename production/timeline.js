@@ -1,8 +1,10 @@
+import {compilePipeline,samplePipeline} from './shots.js';
 import {sampleAction} from '../avatar/actions.js';
 const vector=v=>Array.isArray(v)&&v.length===3&&v.every(Number.isFinite);
 const smooth=x=>{x=Math.max(0,Math.min(1,x));return x*x*(3-2*x);};
 function actorSample(shot,frame,fps){return {action:sampleAction(shot.action.name,(frame-shot.start)/fps,shot.action.options),origin:shot.origin};}
 export function compileShotList(input){
+ if(input?.version===2)return compilePipeline(input);
  const data=structuredClone(input);
  if(data.version!==1||data.environment!=='light-workshop'||data.width!==720||data.height!==1280||data.fps!==30||!Array.isArray(data.shots)||data.shots.length!==3)throw new Error('This feasibility schema requires three 720x1280 / 30fps shots');
  let end=0;const prior=new Map();
@@ -32,6 +34,7 @@ export function compileShotList(input){
  return data;
 }
 export function sampleShotList(plan,frame){
+ if(plan.version===2)return samplePipeline(plan,frame);
  if(!Number.isInteger(frame)||frame<0||frame>=plan.frameCount)throw new Error('Invalid frame index');
  const shot=plan.shots.find(s=>frame>=s.start&&frame<s.end);
  return {frame,time:frame/plan.fps,shot:shot.id,camera:shot.camera,actor:actorSample(shot,frame,plan.fps),face:shot.face,propOpen:smooth((frame-plan.prop.triggerFrame)/plan.prop.openFrames)};

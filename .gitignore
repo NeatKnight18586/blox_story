@@ -2,3 +2,7 @@ node_modules/
 evidence/f2b1/frames/
 evidence/calibration/raw/
 evidence/production/raw/
+renders/
+evidence/p1/raw/
+.p1-cache/
+.p1-lock.json
