@@ -1,5 +1,5 @@
-# F2 implementation handoff — prepared only
-Read AGENTS.md, F1_SPEC.md, F2_SPEC.md, STATUS.md, README.md, then current avatar/appearance/preview/tests before coding. This handoff does not authorize implementation in the current documentation task.
+# F2 handoff — F2A implemented, F2B deferred
+Read AGENTS.md, F1_SPEC.md, F2_SPEC.md, STATUS.md, README.md, then current avatar/appearance/preview/tests before coding. The user explicitly authorized F2A implementation. Implement idle, look/react and their transitions only; do not start walking/F2B automatically.
 
 ## Starting point
 F1 PR #1 is merged into main at `2dff6c6bf488870da8ea5427261edc6d26bc3207`, preserving commits `28fc47c` and `45180f0`. Existing canonical API and ten screenshots are present. Real API and Chromium WebGL checks were re-run successfully before integration. `character.js`, `presets.js`, `tests/smoke.cjs` are unused legacy code, not a motion foundation. The current `walk_demo` lacks F2 contact management.
@@ -25,3 +25,6 @@ npm run preview
 npm run test:browser
 ```
 Future motion test commands do not exist yet; add and document them during implementation. Existing browser tests regenerate F1 screenshots; inspect any Git changes before committing them. Current browser capture uses software WebGL in Chromium; native Safari remains unverified.
+
+## F2A handoff
+The current implementation PR adds `avatar/actions.js`, focused API/motion tests and `evidence/f2a/`. Consult STATUS.md for executed results. `npm test` runs both F1 and F2A API tests; `npm run test:motion` captures actual WebGL fixed frames, repeated reverse seeking, contact metrics and vertical views. `python3 tests/contact-sheets.py` arranges every genuine frame into labeled inspection sheets (Pillow is a developer evidence tool, not a runtime dependency). The old F1 walk demo remains explicitly labeled legacy and is not a F2B implementation.
