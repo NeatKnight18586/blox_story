@@ -3,12 +3,14 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "test": "node tests/api.js && node tests/actions.js && node tests/walk.js && node tests/walk-calibration.js",
+    "test": "node tests/api.js && node tests/actions.js && node tests/walk.js && node tests/walk-calibration.js && node tests/production.js",
     "preview": "python3 -m http.server 8000",
     "test:browser": "node tests/browser.js",
     "test:motion": "node tests/motion-browser.js",
     "test:walk": "node tests/walk-browser.js",
-    "test:calibration": "node tests/calibration-browser.js"
+    "test:calibration": "node tests/calibration-browser.js",
+    "render:feasibility": "node scripts/render-feasibility.js",
+    "sheet:feasibility": "python3 scripts/production-sheet.py"
   },
   "dependencies": {
     "three": "0.187.0"
