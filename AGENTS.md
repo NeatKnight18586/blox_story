@@ -3,13 +3,13 @@
 Read **F1_SPEC.md** first: F1 v3 is the CURRENT product contract. Then read CODEX_HANDOFF.md, STATUS.md, README.md and existing code/tests. The previous Kai/Mira-first instructions are SUPERSEDED. If documents conflict, F1_SPEC.md wins; STATUS.md controls what has actually been verified.
 
 ## Current task boundary
-F1 is integrated (PR #1). Prepare F2 specification and handoff documentation only, as requested by the user. Read F2_SPEC.md and F2_HANDOFF.md for the future motion contract. Do not implement animation until a later implementation task. F1_SPEC.md remains authoritative for anatomy/appearance; F2_SPEC.md governs future motion.
+F1 is integrated (PR #1). The user now authorizes F2A implementation: deterministic idle, look/react, transitions between them, explicit-time seeking, minimal preview controls, tests and real WebGL evidence. Walking is reserved for F2B and is not authorized. Read F2_SPEC.md and F2_HANDOFF.md. F1_SPEC.md remains authoritative for anatomy/appearance; F2_SPEC.md governs future motion.
 
 ## Goal and user constraints
 One neutral classic R6-like **six-part** block avatar first, then removable appearance layers (face/colors and one optional cosmetic). Original code-rendered Three.js, not official Roblox models. User is on iPad, wants autonomous execution, no manual modeling, recording, installs or gameplay capture. Minimize explanations and usage without sacrificing accuracy.
 
 ## Scope discipline
-- Current work is documentation only after F1 integration. Do not implement F2 yet, episodes, F3/F4, MP4, Blender, Roblox Studio, Remotion, soundtrack, environment library or full wardrobe.
+- Current work is F2A only. Do not implement walking/F2B, episodes, F3/F4, MP4, Blender, Roblox Studio, Remotion, soundtrack, environment library or full wardrobe.
 - Keep existing source committed while migrating. Old `character.js` and Kai/Mira presets are legacy, not the F1 goal. Preserve functionality via history and replace paths only when the new implementation is testable.
 - Start with the neutral master, not two customized figures. Use simple proportions from F1_SPEC.md, with one softly rounded oval cylindrical head (latest user correction in F1_SPEC.md) and five beveled rectangular blocks.
 - No required full rig or separate fingers, hands, shoes or neck meshes. Distinct styling belongs to appearance layers.
@@ -25,4 +25,4 @@ One neutral classic R6-like **six-part** block avatar first, then removable appe
 - Reference user images are attached in a separate ChatGPT exchange and may not be accessible in Codex; follow the numerical spec and admit any reference-availability gap.
 
 ## Completion report
-Commit the tested implementation, update README.md and STATUS.md with exact commands and capture paths; mark PASS only for genuinely completed source + visual checks, else PARTIAL/FAIL. Provide concise evidence and the next blocker. Do not proceed to F2.
+Commit the tested implementation, update README.md and STATUS.md with exact commands and capture paths; mark PASS only for genuinely completed source + visual checks, else PARTIAL/FAIL. Provide concise evidence and the next blocker. Do not proceed to F2B automatically.
