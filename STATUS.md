@@ -345,3 +345,7 @@ Isolated codex/dice-town-p1c from055d585. Two native720×1280 WebGL stills plus 
 ## 2026-11-09 — Dice Town P2A first motion proof
 
 Isolated codex/dice-town-p2a from3711b7c. One native4.000s silent H.264720×1280/30fps film,120 decoded frames, all-frame contact sheet, deterministic die settle/three distinct lifts/Leo face reaction and world-oriented sky. Existing exporter reused via bounded opt-in entry; recovery/source regressions PASS. Vertex contact, persistent identity and all120 reverse pixel/state samples PASS. Overall technical PARTIAL: raised arm clips wide-shot right edge; conservative border warnings disclosed. Creative review PENDING. Evidence/report at evidence/dice-town-p2a/. No merge, full episode or next phase.
+
+## Dice Town PR28 bounded motion polish
+
+Branch codex/dice-town-p2a-polish preserves PR28 and previous pilot history. Corrected raised-arm cropping with camera/pose/staging edits; actual mesh vertices stay inside all75 wide-shot frames. Stronger anticipation, staggered lift/overshoot, counterposed legs and Leo surprise hold. Technical PASS: source regressions,120-state contact/identity/sky QC, exact4s/120-frame silent720×1280 H.264, all120 reverse pixel matches, full decode and browser playback. Creative approval PENDING; rigid articulation, hard shadows and die/foreground silhouette crowding remain. Native job191.34s, sampled1402.5MiB summed RSS. Evidence: evidence/dice-town-p2a-polish/REPORT.md. No merge or next phase.

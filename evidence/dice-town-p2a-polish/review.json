@@ -1,0 +1,166 @@
+{
+  "status": "PASS",
+  "errors": [],
+  "states": [
+    {
+      "state": {
+        "frame": 0,
+        "time": 0,
+        "shot": "three-and-rise",
+        "identity": true,
+        "dieSize": 6.3,
+        "footClearance": [
+          0,
+          0,
+          0
+        ],
+        "hero": {
+          "weights": [
+            1,
+            0,
+            0
+          ],
+          "head": [
+            0,
+            0.1,
+            0
+          ],
+          "shoulder": 0
+        },
+        "die": [
+          0.01976248656882624,
+          0.045
+        ]
+      },
+      "hash": "fa66574188d0b0abe74a4ebc35f682e642381118c400c7e9bf27419a394ae7c9"
+    },
+    {
+      "state": {
+        "frame": 55,
+        "time": 1.8333333333333333,
+        "shot": "three-and-rise",
+        "identity": true,
+        "dieSize": 6.3,
+        "footClearance": [
+          2.2465765219258857,
+          1.9301396082218056,
+          1.4314785749429828
+        ],
+        "hero": {
+          "weights": [
+            1,
+            0,
+            0
+          ],
+          "head": [
+            0,
+            0.1,
+            0
+          ],
+          "shoulder": 0
+        },
+        "die": [
+          0,
+          0
+        ]
+      },
+      "hash": "e36260a76fc96867aff2c33cf31e143213ccd300ddd99a189102133e7f6faa79"
+    },
+    {
+      "state": {
+        "frame": 74,
+        "time": 2.466666666666667,
+        "shot": "three-and-rise",
+        "identity": true,
+        "dieSize": 6.3,
+        "footClearance": [
+          2.252463744919538,
+          2.0689801093441824,
+          1.684972651120626
+        ],
+        "hero": {
+          "weights": [
+            1,
+            0,
+            0
+          ],
+          "head": [
+            0,
+            0.1,
+            0
+          ],
+          "shoulder": 0
+        },
+        "die": [
+          0,
+          0
+        ]
+      },
+      "hash": "e9cf5a2b7e1b8ac343a8df3f9a5d8f0273c197efb2c1372f7e5d98d4872c493d"
+    },
+    {
+      "state": {
+        "frame": 82,
+        "time": 2.7333333333333334,
+        "shot": "leo-reacts",
+        "identity": true,
+        "dieSize": 6.3,
+        "footClearance": [
+          2.25,
+          2.05,
+          1.65
+        ],
+        "hero": {
+          "weights": [
+            0,
+            1,
+            0
+          ],
+          "head": [
+            -0.2,
+            0.25,
+            -0.035
+          ],
+          "shoulder": 0.11
+        },
+        "die": [
+          0,
+          0
+        ]
+      },
+      "hash": "a71c6b9c071f89472c8d7b5c491e5843ea2ebefbae1707dacb82531260c1271e"
+    },
+    {
+      "state": {
+        "frame": 119,
+        "time": 3.966666666666667,
+        "shot": "leo-reacts",
+        "identity": true,
+        "dieSize": 6.3,
+        "footClearance": [
+          2.25,
+          2.05,
+          1.65
+        ],
+        "hero": {
+          "weights": [
+            0,
+            0,
+            1
+          ],
+          "head": [
+            -0.06,
+            0.16,
+            0.019999999999999997
+          ],
+          "shoulder": 0.015
+        },
+        "die": [
+          0,
+          0
+        ]
+      },
+      "hash": "6284b77b3bcb4f94cfa19a2ed2942c88d6e28a8905583d00a633e852d47b5183"
+    }
+  ]
+}
