@@ -18,7 +18,7 @@ function lock(name,path,width,depth){
   }
  }
  for(let i=0;i<N;i++)for(let j=0;j<R;j++){
-  const a=i*R+j,b=i*R+(j+1)%R,c=a+R,d=b+R;indices.push(a,c,b,b,c,d);
+  const a=i*R+j,b=i*R+(j+1)%R,c=a+R,d=b+R;indices.push(a,b,c,b,d,c);
  }
  for(const end of [0,N]){
   const center=curve.getPoint(end/N),idx=positions.length/3;positions.push(center.x,center.y,center.z);
