@@ -1,3 +1,13 @@
+# S5 — restrained speaking review
+
+**PASS for bounded technical/visible proof; awaiting human creative/listening approval.** PR18 is merged; full S4 story/style/timing preserved. Added only an optional cached three-shape mouth layer: Eli whispers Mara and implies three short names between narrated numbers. Lips stay sealed during ordinary narration/silent beats; no new background geometry or camera changes.
+
+[Before/after sheet + native detail crops](evidence/names100-s5/comparison.png) · [Whisper preview](evidence/names100-s5/whisper.mp4) · [Naming preview](evidence/names100-s5/naming.mp4) · [Report/tests/costs/limits](evidence/names100-s5/REPORT.md).
+
+Previews are genuine720×1280/30fps,1.2667s/1.9s,committed silent for privacy. Original narration excerpts were sample-aligned and verified privately; no WAV/voiced MP4 in Git. All95 frames reverse-match; original13 films and source files preserved. `npm run test:speaking` verifies explicit timing and real-browser silence/speech/ghost boundaries. No complete final episode rendered. Stop for review.
+
+Earlier milestones follow.
+
 # S4 — complete integrated pilot rough-cut review
 
 **Technical PASS; overall PARTIAL pending human creative/listening review and private narrated delivery.** PR17 merged after regression correction/verification. Working characters/acting/P5 style preserved; bounded town/home/ending background gate passed and is frozen.
