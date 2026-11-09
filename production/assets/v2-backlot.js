@@ -21,6 +21,12 @@ export function createV2Backlot(parent,{palette='moonlit',layout='street_depth'}
    glass.castShadow=false;glass.material.emissive.set(c.glass);glass.material.emissiveIntensity=.16;
   }
  }
+ // Two readable distant practical cues: a curb and one unanimated street light.
+ const curb=box(root,'street_curb',[20,.11,.14],c.trim,[0,.055,-7]);curb.castShadow=false;
+ const lamp=new THREE.Group();lamp.name='streetlamp_module';root.add(lamp);lamp.position.set(-6.8,0,-5.6);
+ const pole=box(lamp,'pole',[.13,4.7,.13],c.roof,[0,2.35,0]);pole.castShadow=false;
+ const shade=box(lamp,'shade',[.64,.18,.58],c.roof,[0,4.76,0]);shade.castShadow=false;
+ const bulb=box(lamp,'lamp_warm',[.33,.28,.33],c.glass,[0,4.56,0]);bulb.material.emissive.set(c.glass);bulb.material.emissiveIntensity=.5;bulb.castShadow=false;
  root.userData.focusClearance=[-1.8,1.8];root.userData.layer='background_only';
  return root;
 }
