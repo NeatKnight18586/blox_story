@@ -1,0 +1,2 @@
+export const ease=x=>{x=Math.max(0,Math.min(1,x));return x*x*(3-2*x);};
+export function sample(frame){if(!Number.isInteger(frame)||frame<0||frame>=105)throw Error('Outside D35 local proof');const t=frame/30,focus=ease((t-.25)/.55),relief=ease((t-.95)/.85),reach=ease((t-1.65)/.85);return{frame,time:t,focus,relief,reach,headPitch:.18+.20*focus-.025*relief,headYaw:.10-.17*focus,headTilt:-.02*relief,shoulder:-.75*reach+.035*Math.sin(Math.max(0,t-2.5)*3)*reach*Math.exp(-Math.max(0,t-2.5)*4)};}

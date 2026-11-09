@@ -1,0 +1,2217 @@
+{
+  "status": "PASS",
+  "wallSeconds": 29.76294412,
+  "errors": [],
+  "states": [
+    {
+      "f": 0,
+      "name": "frame-00000",
+      "chair": false,
+      "state": {
+        "frame": 0,
+        "time": 0,
+        "focus": 0,
+        "relief": 0,
+        "reach": 0,
+        "headPitch": 0.18,
+        "headYaw": 0.1,
+        "headTilt": 0,
+        "shoulder": 0,
+        "chairView": false,
+        "identity": true,
+        "faceIdentity": true
+      },
+      "hash": "27dea71bf16a9e6da57ffd36f01d0178e6b5b6b4bc89a0236a97925db7f1c178"
+    },
+    {
+      "f": 1,
+      "name": "frame-00001",
+      "chair": false,
+      "state": {
+        "frame": 1,
+        "time": 0.03333333333333333,
+        "focus": 0,
+        "relief": 0,
+        "reach": 0,
+        "headPitch": 0.18,
+        "headYaw": 0.1,
+        "headTilt": 0,
+        "shoulder": 0,
+        "chairView": false,
+        "identity": true,
+        "faceIdentity": true
+      },
+      "hash": "27dea71bf16a9e6da57ffd36f01d0178e6b5b6b4bc89a0236a97925db7f1c178"
+    },
+    {
+      "f": 2,
+      "name": "frame-00002",
+      "chair": false,
+      "state": {
+        "frame": 2,
+        "time": 0.06666666666666667,
+        "focus": 0,
+        "relief": 0,
+        "reach": 0,
+        "headPitch": 0.18,
+        "headYaw": 0.1,
+        "headTilt": 0,
+        "shoulder": 0,
+        "chairView": false,
+        "identity": true,
+        "faceIdentity": true
+      },
+      "hash": "27dea71bf16a9e6da57ffd36f01d0178e6b5b6b4bc89a0236a97925db7f1c178"
+    },
+    {
+      "f": 3,
+      "name": "frame-00003",
+      "chair": false,
+      "state": {
+        "frame": 3,
+        "time": 0.1,
+        "focus": 0,
+        "relief": 0,
+        "reach": 0,
+        "headPitch": 0.18,
+        "headYaw": 0.1,
+        "headTilt": 0,
+        "shoulder": 0,
+        "chairView": false,
+        "identity": true,
+        "faceIdentity": true
+      },
+      "hash": "27dea71bf16a9e6da57ffd36f01d0178e6b5b6b4bc89a0236a97925db7f1c178"
+    },
+    {
+      "f": 4,
+      "name": "frame-00004",
+      "chair": false,
+      "state": {
+        "frame": 4,
+        "time": 0.13333333333333333,
+        "focus": 0,
+        "relief": 0,
+        "reach": 0,
+        "headPitch": 0.18,
+        "headYaw": 0.1,
+        "headTilt": 0,
+        "shoulder": 0,
+        "chairView": false,
+        "identity": true,
+        "faceIdentity": true
+      },
+      "hash": "27dea71bf16a9e6da57ffd36f01d0178e6b5b6b4bc89a0236a97925db7f1c178"
+    },
+    {
+      "f": 5,
+      "name": "frame-00005",
+      "chair": false,
+      "state": {
+        "frame": 5,
+        "time": 0.16666666666666666,
+        "focus": 0,
+        "relief": 0,
+        "reach": 0,
+        "headPitch": 0.18,
+        "headYaw": 0.1,
+        "headTilt": 0,
+        "shoulder": 0,
+        "chairView": false,
+        "identity": true,
+        "faceIdentity": true
+      },
+      "hash": "27dea71bf16a9e6da57ffd36f01d0178e6b5b6b4bc89a0236a97925db7f1c178"
+    },
+    {
+      "f": 6,
+      "name": "frame-00006",
+      "chair": false,
+      "state": {
+        "frame": 6,
+        "time": 0.2,
+        "focus": 0,
+        "relief": 0,
+        "reach": 0,
+        "headPitch": 0.18,
+        "headYaw": 0.1,
+        "headTilt": 0,
+        "shoulder": 0,
+        "chairView": false,
+        "identity": true,
+        "faceIdentity": true
+      },
+      "hash": "27dea71bf16a9e6da57ffd36f01d0178e6b5b6b4bc89a0236a97925db7f1c178"
+    },
+    {
+      "f": 7,
+      "name": "frame-00007",
+      "chair": false,
+      "state": {
+        "frame": 7,
+        "time": 0.23333333333333334,
+        "focus": 0,
+        "relief": 0,
+        "reach": 0,
+        "headPitch": 0.18,
+        "headYaw": 0.1,
+        "headTilt": 0,
+        "shoulder": 0,
+        "chairView": false,
+        "identity": true,
+        "faceIdentity": true
+      },
+      "hash": "27dea71bf16a9e6da57ffd36f01d0178e6b5b6b4bc89a0236a97925db7f1c178"
+    },
+    {
+      "f": 8,
+      "name": "frame-00008",
+      "chair": false,
+      "state": {
+        "frame": 8,
+        "time": 0.26666666666666666,
+        "focus": 0.002699167988424185,
+        "relief": 0,
+        "reach": 0,
+        "headPitch": 0.18053983359768483,
+        "headYaw": 0.09954114144196789,
+        "headTilt": 0,
+        "shoulder": 0,
+        "chairView": false,
+        "identity": true,
+        "faceIdentity": true
+      },
+      "hash": "0cbf046b2837d39801fc70079aa94fe5c1537fa5b54f96f9e1ebd06032e417d0"
+    },
+    {
+      "f": 9,
+      "name": "frame-00009",
+      "chair": false,
+      "state": {
+        "frame": 9,
+        "time": 0.3,
+        "focus": 0.0232907588279489,
+        "relief": 0,
+        "reach": 0,
+        "headPitch": 0.18465815176558978,
+        "headYaw": 0.09604057099924869,
+        "headTilt": 0,
+        "shoulder": 0,
+        "chairView": false,
+        "identity": true,
+        "faceIdentity": true
+      },
+      "hash": "61d0a6773522b27594f9bf9c4e660c35e6404e067e556bf22687a4191cb74fc6"
+    },
+    {
+      "f": 10,
+      "name": "frame-00010",
+      "chair": false,
+      "state": {
+        "frame": 10,
+        "time": 0.3333333333333333,
+        "focus": 0.061913904889111464,
+        "relief": 0,
+        "reach": 0,
+        "headPitch": 0.1923827809778223,
+        "headYaw": 0.08947463616885105,
+        "headTilt": 0,
+        "shoulder": 0,
+        "chairView": false,
+        "identity": true,
+        "faceIdentity": true
+      },
+      "hash": "176b722efd29bc8afad75f3114e0a0e51c0fde3a9a83d24dd027b7063afa7f5c"
+    },
+    {
+      "f": 11,
+      "name": "frame-00011",
+      "chair": false,
+      "state": {
+        "frame": 11,
+        "time": 0.36666666666666664,
+        "focus": 0.11589726465759516,
+        "relief": 0,
+        "reach": 0,
+        "headPitch": 0.203179452931519,
+        "headYaw": 0.08029746500820883,
+        "headTilt": 0,
+        "shoulder": 0,
+        "chairView": false,
+        "identity": true,
+        "faceIdentity": true
+      },
+      "hash": "f009e801b9612c3edfda8a1f4fbb31946b7f4c9d946a30b0bcf30d8b94d4f86e"
+    },
+    {
+      "f": 12,
+      "name": "frame-00012",
+      "chair": false,
+      "state": {
+        "frame": 12,
+        "time": 0.4,
+        "focus": 0.18256949661908345,
+        "relief": 0,
+        "reach": 0,
+        "headPitch": 0.21651389932381668,
+        "headYaw": 0.06896318557475581,
+        "headTilt": 0,
+        "shoulder": 0,
+        "chairView": false,
+        "identity": true,
+        "faceIdentity": true
+      },
+      "hash": "32cd71af3a5c3cafbd8ee972ee2561318c7fd8b40fe86f1c7a92422140931a8e"
+    },
+    {
+      "f": 13,
+      "name": "frame-00013",
+      "chair": false,
+      "state": {
+        "frame": 13,
+        "time": 0.43333333333333335,
+        "focus": 0.25925925925925924,
+        "relief": 0,
+        "reach": 0,
+        "headPitch": 0.23185185185185184,
+        "headYaw": 0.05592592592592593,
+        "headTilt": 0,
+        "shoulder": 0,
+        "chairView": false,
+        "identity": true,
+        "faceIdentity": true
+      },
+      "hash": "03ed9fc451c06aa2f00c13e3968c6f6fb1dbd6d2f61f1cbe45a63efc13e5d770"
+    },
+    {
+      "f": 14,
+      "name": "frame-00014",
+      "chair": false,
+      "state": {
+        "frame": 14,
+        "time": 0.4666666666666667,
+        "focus": 0.34329521106380606,
+        "relief": 0,
+        "reach": 0,
+        "headPitch": 0.2486590422127612,
+        "headYaw": 0.04163981411915297,
+        "headTilt": 0,
+        "shoulder": 0,
+        "chairView": false,
+        "identity": true,
+        "faceIdentity": true
+      },
+      "hash": "8fbc2af77c1386d50a67196dc0445e38549cd3d59fb78ae87c1827c08c9d4d3e"
+    },
+    {
+      "f": 15,
+      "name": "frame-00015",
+      "chair": false,
+      "state": {
+        "frame": 15,
+        "time": 0.5,
+        "focus": 0.43200601051840715,
+        "relief": 0,
+        "reach": 0,
+        "headPitch": 0.26640120210368146,
+        "headYaw": 0.026558978211870782,
+        "headTilt": 0,
+        "shoulder": 0,
+        "chairView": false,
+        "identity": true,
+        "faceIdentity": true
+      },
+      "hash": "5d389336c95c8d26c6556df99c1b373d580c55eb36571e58de4cf2dc621b37bb"
+    },
+    {
+      "f": 16,
+      "name": "frame-00016",
+      "chair": false,
+      "state": {
+        "frame": 16,
+        "time": 0.5333333333333333,
+        "focus": 0.5227203161087459,
+        "relief": 0,
+        "reach": 0,
+        "headPitch": 0.2845440632217492,
+        "headYaw": 0.011137546261513198,
+        "headTilt": 0,
+        "shoulder": 0,
+        "chairView": false,
+        "identity": true,
+        "faceIdentity": true
+      },
+      "hash": "b934cb422f24657fcadbc987b61f6fd040b9be773573ac735f3ca66e62c709c3"
+    },
+    {
+      "f": 17,
+      "name": "frame-00017",
+      "chair": false,
+      "state": {
+        "frame": 17,
+        "time": 0.5666666666666667,
+        "focus": 0.6127667863205053,
+        "relief": 0,
+        "reach": 0,
+        "headPitch": 0.30255335726410104,
+        "headYaw": -0.004170353674485899,
+        "headTilt": 0,
+        "shoulder": 0,
+        "chairView": false,
+        "identity": true,
+        "faceIdentity": true
+      },
+      "hash": "8076fca285368e065db555ce1cd0bde33aa5da9df511e9158e12eef48702bf33"
+    },
+    {
+      "f": 18,
+      "name": "frame-00018",
+      "chair": false,
+      "state": {
+        "frame": 18,
+        "time": 0.6,
+        "focus": 0.6994740796393688,
+        "relief": 0,
+        "reach": 0,
+        "headPitch": 0.3198948159278737,
+        "headYaw": -0.018910593538692705,
+        "headTilt": 0,
+        "shoulder": 0,
+        "chairView": false,
+        "identity": true,
+        "faceIdentity": true
+      },
+      "hash": "67b27c78e220a6caa48e9fe3dc2a1e6d6f0d0e8c54858a408db6be4cb5dd655f"
+    },
+    {
+      "f": 19,
+      "name": "frame-00019",
+      "chair": false,
+      "state": {
+        "frame": 19,
+        "time": 0.6333333333333333,
+        "focus": 0.7801708545510198,
+        "relief": 0,
+        "reach": 0,
+        "headPitch": 0.33603417091020393,
+        "headYaw": -0.03262904527367336,
+        "headTilt": 0,
+        "shoulder": 0,
+        "chairView": false,
+        "identity": true,
+        "faceIdentity": true
+      },
+      "hash": "1d93d16efceea30b85517c0375ef7eb78b157a56b3153e250493edcb9b05655f"
+    },
+    {
+      "f": 20,
+      "name": "frame-00020",
+      "chair": false,
+      "state": {
+        "frame": 20,
+        "time": 0.6666666666666666,
+        "focus": 0.8521857695411413,
+        "relief": 0,
+        "reach": 0,
+        "headPitch": 0.35043715390822827,
+        "headYaw": -0.04487158082199402,
+        "headTilt": 0,
+        "shoulder": 0,
+        "chairView": false,
+        "identity": true,
+        "faceIdentity": true
+      },
+      "hash": "4289873bce5689b8a37c5b4f9937fdaf8ba2b0319897eadd68273448b045b7c5"
+    },
+    {
+      "f": 21,
+      "name": "frame-00021",
+      "chair": false,
+      "state": {
+        "frame": 21,
+        "time": 0.7,
+        "focus": 0.9128474830954169,
+        "relief": 0,
+        "reach": 0,
+        "headPitch": 0.3625694966190834,
+        "headYaw": -0.05518407212622087,
+        "headTilt": 0,
+        "shoulder": 0,
+        "chairView": false,
+        "identity": true,
+        "faceIdentity": true
+      },
+      "hash": "74af3d9a84ace818e33ab33fb78b89db3cec7cb96ccbb73ff2eeb2ba083ee87d"
+    },
+    {
+      "f": 22,
+      "name": "frame-00022",
+      "chair": false,
+      "state": {
+        "frame": 22,
+        "time": 0.7333333333333333,
+        "focus": 0.9594846536995297,
+        "relief": 0,
+        "reach": 0,
+        "headPitch": 0.37189693073990593,
+        "headYaw": -0.06311239112892006,
+        "headTilt": 0,
+        "shoulder": 0,
+        "chairView": false,
+        "identity": true,
+        "faceIdentity": true
+      },
+      "hash": "932aeec95cc663d2ff8ade41e3cdf7a8404999abaf44458cf05ad3c95eedffea"
+    },
+    {
+      "f": 23,
+      "name": "frame-00023",
+      "chair": false,
+      "state": {
+        "frame": 23,
+        "time": 0.7666666666666667,
+        "focus": 0.9894259398391629,
+        "relief": 0,
+        "reach": 0,
+        "headPitch": 0.3778851879678326,
+        "headYaw": -0.06820240977265771,
+        "headTilt": 0,
+        "shoulder": 0,
+        "chairView": false,
+        "identity": true,
+        "faceIdentity": true
+      },
+      "hash": "94c370dcf9ceaa92d8d79f58cf4273d83860c69b2b5bae380332bae074756bfe"
+    },
+    {
+      "f": 24,
+      "name": "frame-00024",
+      "chair": false,
+      "state": {
+        "frame": 24,
+        "time": 0.8,
+        "focus": 1,
+        "relief": 0,
+        "reach": 0,
+        "headPitch": 0.38,
+        "headYaw": -0.07,
+        "headTilt": 0,
+        "shoulder": 0,
+        "chairView": false,
+        "identity": true,
+        "faceIdentity": true
+      },
+      "hash": "81cff480f083a1c00c98d2da3f84ebbaee1a949f991959b0f6b1db93dde3499b"
+    },
+    {
+      "f": 25,
+      "name": "frame-00025",
+      "chair": false,
+      "state": {
+        "frame": 25,
+        "time": 0.8333333333333334,
+        "focus": 1,
+        "relief": 0,
+        "reach": 0,
+        "headPitch": 0.38,
+        "headYaw": -0.07,
+        "headTilt": 0,
+        "shoulder": 0,
+        "chairView": false,
+        "identity": true,
+        "faceIdentity": true
+      },
+      "hash": "81cff480f083a1c00c98d2da3f84ebbaee1a949f991959b0f6b1db93dde3499b"
+    },
+    {
+      "f": 26,
+      "name": "frame-00026",
+      "chair": false,
+      "state": {
+        "frame": 26,
+        "time": 0.8666666666666667,
+        "focus": 1,
+        "relief": 0,
+        "reach": 0,
+        "headPitch": 0.38,
+        "headYaw": -0.07,
+        "headTilt": 0,
+        "shoulder": 0,
+        "chairView": false,
+        "identity": true,
+        "faceIdentity": true
+      },
+      "hash": "81cff480f083a1c00c98d2da3f84ebbaee1a949f991959b0f6b1db93dde3499b"
+    },
+    {
+      "f": 27,
+      "name": "frame-00027",
+      "chair": false,
+      "state": {
+        "frame": 27,
+        "time": 0.9,
+        "focus": 1,
+        "relief": 0,
+        "reach": 0,
+        "headPitch": 0.38,
+        "headYaw": -0.07,
+        "headTilt": 0,
+        "shoulder": 0,
+        "chairView": false,
+        "identity": true,
+        "faceIdentity": true
+      },
+      "hash": "81cff480f083a1c00c98d2da3f84ebbaee1a949f991959b0f6b1db93dde3499b"
+    },
+    {
+      "f": 28,
+      "name": "frame-00028",
+      "chair": false,
+      "state": {
+        "frame": 28,
+        "time": 0.9333333333333333,
+        "focus": 1,
+        "relief": 0,
+        "reach": 0,
+        "headPitch": 0.38,
+        "headYaw": -0.07,
+        "headTilt": 0,
+        "shoulder": 0,
+        "chairView": false,
+        "identity": true,
+        "faceIdentity": true
+      },
+      "hash": "81cff480f083a1c00c98d2da3f84ebbaee1a949f991959b0f6b1db93dde3499b"
+    },
+    {
+      "f": 29,
+      "name": "frame-00029",
+      "chair": false,
+      "state": {
+        "frame": 29,
+        "time": 0.9666666666666667,
+        "focus": 1,
+        "relief": 0.0011383253801328368,
+        "reach": 0,
+        "headPitch": 0.3799715418654967,
+        "headYaw": -0.07,
+        "headTilt": -0.000022766507602656738,
+        "shoulder": 0,
+        "chairView": false,
+        "identity": true,
+        "faceIdentity": true
+      },
+      "hash": "db95916caa08616c058408e3f26d169910acf477948abb1a7510a8c9ac6e883d"
+    },
+    {
+      "f": 30,
+      "name": "frame-00030",
+      "chair": false,
+      "state": {
+        "frame": 30,
+        "time": 1,
+        "focus": 1,
+        "relief": 0.009973539588845937,
+        "reach": 0,
+        "headPitch": 0.37975066151027886,
+        "headYaw": -0.07,
+        "headTilt": -0.00019947079177691875,
+        "shoulder": 0,
+        "chairView": false,
+        "identity": true,
+        "faceIdentity": true
+      },
+      "hash": "80f1179d18b4408d8c4505cbf833aa67a7269af4f2428cf3ddeddf5692533b6c"
+    },
+    {
+      "f": 31,
+      "name": "frame-00031",
+      "chair": false,
+      "state": {
+        "frame": 31,
+        "time": 1.0333333333333334,
+        "focus": 1,
+        "relief": 0.026950418768045572,
+        "reach": 0,
+        "headPitch": 0.37932623953079886,
+        "headYaw": -0.07,
+        "headTilt": -0.0005390083753609114,
+        "shoulder": 0,
+        "chairView": false,
+        "identity": true,
+        "faceIdentity": true
+      },
+      "hash": "377f833c76257beb73a0a237df0f22c324bab0924116e7c24e5b1aa8f05fe289"
+    },
+    {
+      "f": 32,
+      "name": "frame-00032",
+      "chair": false,
+      "state": {
+        "frame": 32,
+        "time": 1.0666666666666667,
+        "focus": 1,
+        "relief": 0.051345259364799396,
+        "reach": 0,
+        "headPitch": 0.37871636851588003,
+        "headYaw": -0.07,
+        "headTilt": -0.001026905187295988,
+        "shoulder": 0,
+        "chairView": false,
+        "identity": true,
+        "faceIdentity": true
+      },
+      "hash": "0db08833e68116d41142d032cffea3cee6cdfc78719c8ec4951b00e8e93dd7f7"
+    },
+    {
+      "f": 33,
+      "name": "frame-00033",
+      "chair": false,
+      "state": {
+        "frame": 33,
+        "time": 1.1,
+        "focus": 1,
+        "relief": 0.08243435782617559,
+        "reach": 0,
+        "headPitch": 0.3779391410543456,
+        "headYaw": -0.07,
+        "headTilt": -0.0016486871565235118,
+        "shoulder": 0,
+        "chairView": false,
+        "identity": true,
+        "faceIdentity": true
+      },
+      "hash": "6b6ea056a879b59da1fefb6a49d98033c54dca92d9541d4b4046a5b5eacd311b"
+    },
+    {
+      "f": 34,
+      "name": "frame-00034",
+      "chair": false,
+      "state": {
+        "frame": 34,
+        "time": 1.1333333333333333,
+        "focus": 1,
+        "relief": 0.11949401059924163,
+        "reach": 0,
+        "headPitch": 0.37701264973501897,
+        "headYaw": -0.07,
+        "headTilt": -0.0023898802119848325,
+        "shoulder": 0,
+        "chairView": false,
+        "identity": true,
+        "faceIdentity": true
+      },
+      "hash": "9fef2bb37656aa32bfdfdd77e7014c7464f5c9368cfcbe965b2d4cff891db030"
+    },
+    {
+      "f": 35,
+      "name": "frame-00035",
+      "chair": false,
+      "state": {
+        "frame": 35,
+        "time": 1.1666666666666667,
+        "focus": 1,
+        "relief": 0.16180051413106591,
+        "reach": 0,
+        "headPitch": 0.3759549871467234,
+        "headYaw": -0.07,
+        "headTilt": -0.0032360102826213184,
+        "shoulder": 0,
+        "chairView": false,
+        "identity": true,
+        "faceIdentity": true
+      },
+      "hash": "560a4264a5f7caebef42dcb53d8562573109427fd345fd2a682ad4f8cfca8772"
+    },
+    {
+      "f": 36,
+      "name": "frame-00036",
+      "chair": false,
+      "state": {
+        "frame": 36,
+        "time": 1.2,
+        "focus": 1,
+        "relief": 0.20863016486871566,
+        "reach": 0,
+        "headPitch": 0.37478424587828213,
+        "headYaw": -0.07,
+        "headTilt": -0.004172603297374313,
+        "shoulder": 0,
+        "chairView": false,
+        "identity": true,
+        "faceIdentity": true
+      },
+      "hash": "dcb3a4cc8dd93bda73291dc3ae105532f3b114ad4b66d9d3b22f38602f645abf"
+    },
+    {
+      "f": 37,
+      "name": "frame-00037",
+      "chair": false,
+      "state": {
+        "frame": 37,
+        "time": 1.2333333333333334,
+        "focus": 1,
+        "relief": 0.25925925925925947,
+        "reach": 0,
+        "headPitch": 0.3735185185185185,
+        "headYaw": -0.07,
+        "headTilt": -0.005185185185185189,
+        "shoulder": 0,
+        "chairView": false,
+        "identity": true,
+        "faceIdentity": true
+      },
+      "hash": "d26f49d5df8541456db30380ebc6ca384567f48a67f897fd3dfcedd5c5391958"
+    },
+    {
+      "f": 38,
+      "name": "frame-00038",
+      "chair": false,
+      "state": {
+        "frame": 38,
+        "time": 1.2666666666666666,
+        "focus": 1,
+        "relief": 0.3129640937497644,
+        "reach": 0,
+        "headPitch": 0.3721758976562559,
+        "headYaw": -0.07,
+        "headTilt": -0.006259281874995288,
+        "shoulder": 0,
+        "chairView": false,
+        "identity": true,
+        "faceIdentity": true
+      },
+      "hash": "2d9272c44a91f0e8987029f46c221679dbde3685222451ed27403606b6507a7d"
+    },
+    {
+      "f": 39,
+      "name": "frame-00039",
+      "chair": false,
+      "state": {
+        "frame": 39,
+        "time": 1.3,
+        "focus": 1,
+        "relief": 0.3690209647872991,
+        "reach": 0,
+        "headPitch": 0.37077447588031753,
+        "headYaw": -0.07,
+        "headTilt": -0.007380419295745982,
+        "shoulder": 0,
+        "chairView": false,
+        "identity": true,
+        "faceIdentity": true
+      },
+      "hash": "38ba882b0005097b7c230505bf8df85a5eec1d861f32598062009bfcf5eb1172"
+    },
+    {
+      "f": 40,
+      "name": "frame-00040",
+      "chair": false,
+      "state": {
+        "frame": 40,
+        "time": 1.3333333333333333,
+        "focus": 1,
+        "relief": 0.4267061688189308,
+        "reach": 0,
+        "headPitch": 0.3693323457795267,
+        "headYaw": -0.07,
+        "headTilt": -0.008534123376378617,
+        "shoulder": 0,
+        "chairView": false,
+        "identity": true,
+        "faceIdentity": true
+      },
+      "hash": "72259a5cc43a84976c1861ae2578dd92c74539b32169dc4c74c39f3a1c12316a"
+    },
+    {
+      "f": 41,
+      "name": "frame-00041",
+      "chair": false,
+      "state": {
+        "frame": 41,
+        "time": 1.3666666666666667,
+        "focus": 1,
+        "relief": 0.4852960022917281,
+        "reach": 0,
+        "headPitch": 0.3678675999427068,
+        "headYaw": -0.07,
+        "headTilt": -0.009705920045834562,
+        "shoulder": 0,
+        "chairView": false,
+        "identity": true,
+        "faceIdentity": true
+      },
+      "hash": "a5451a983f331276de7804167090d489ca8d90252b5db3408d890b4f304fd146"
+    },
+    {
+      "f": 42,
+      "name": "frame-00042",
+      "chair": false,
+      "state": {
+        "frame": 42,
+        "time": 1.4,
+        "focus": 1,
+        "relief": 0.544066761652758,
+        "reach": 0,
+        "headPitch": 0.3663983309586811,
+        "headYaw": -0.07,
+        "headTilt": -0.010881335233055161,
+        "shoulder": 0,
+        "chairView": false,
+        "identity": true,
+        "faceIdentity": true
+      },
+      "hash": "6bbe1833089d7a83822f577c782ab7c1cf14844dee74855e1c96644369a493ea"
+    },
+    {
+      "f": 43,
+      "name": "frame-00043",
+      "chair": false,
+      "state": {
+        "frame": 43,
+        "time": 1.4333333333333333,
+        "focus": 1,
+        "relief": 0.6022947433490892,
+        "reach": 0,
+        "headPitch": 0.36494263141627276,
+        "headYaw": -0.07,
+        "headTilt": -0.012045894866981783,
+        "shoulder": 0,
+        "chairView": false,
+        "identity": true,
+        "faceIdentity": true
+      },
+      "hash": "7f465740b62bb3e4912c07e8c1afcd2b4447c7a9672309abf3c6b13ec5f6b58c"
+    },
+    {
+      "f": 44,
+      "name": "frame-00044",
+      "chair": false,
+      "state": {
+        "frame": 44,
+        "time": 1.4666666666666666,
+        "focus": 1,
+        "relief": 0.6592562438277886,
+        "reach": 0,
+        "headPitch": 0.3635185939043053,
+        "headYaw": -0.07,
+        "headTilt": -0.013185124876555772,
+        "shoulder": 0,
+        "chairView": false,
+        "identity": true,
+        "faceIdentity": true
+      },
+      "hash": "f448763c66d3d81b76f396b8ed8b88c4a89224b4635765ce31211495e2b318cd"
+    },
+    {
+      "f": 45,
+      "name": "frame-00045",
+      "chair": false,
+      "state": {
+        "frame": 45,
+        "time": 1.5,
+        "focus": 1,
+        "relief": 0.7142275595359251,
+        "reach": 0,
+        "headPitch": 0.3621443110116019,
+        "headYaw": -0.07,
+        "headTilt": -0.014284551190718503,
+        "shoulder": 0,
+        "chairView": false,
+        "identity": true,
+        "faceIdentity": true
+      },
+      "hash": "ce5f37c11b318959706ec3201e53e248cc7c9613141571eb9af48966102aeccc"
+    },
+    {
+      "f": 46,
+      "name": "frame-00046",
+      "chair": false,
+      "state": {
+        "frame": 46,
+        "time": 1.5333333333333334,
+        "focus": 1,
+        "relief": 0.7664849869205662,
+        "reach": 0,
+        "headPitch": 0.36083787532698586,
+        "headYaw": -0.07,
+        "headTilt": -0.015329699738411324,
+        "shoulder": 0,
+        "chairView": false,
+        "identity": true,
+        "faceIdentity": true
+      },
+      "hash": "c259e4113af0377b0cbec29139ec9e9f3a40453ae52732618e59f43bf79b545e"
+    },
+    {
+      "f": 47,
+      "name": "frame-00047",
+      "chair": false,
+      "state": {
+        "frame": 47,
+        "time": 1.5666666666666667,
+        "focus": 1,
+        "relief": 0.8153048224287793,
+        "reach": 0,
+        "headPitch": 0.3596173794392805,
+        "headYaw": -0.07,
+        "headTilt": -0.016306096448575585,
+        "shoulder": 0,
+        "chairView": false,
+        "identity": true,
+        "faceIdentity": true
+      },
+      "hash": "a21c6a7f91d532687f3d4a2569109930d4ae968ab1ae61c2a54e8d45fd9690a5"
+    },
+    {
+      "f": 48,
+      "name": "frame-00048",
+      "chair": false,
+      "state": {
+        "frame": 48,
+        "time": 1.6,
+        "focus": 1,
+        "relief": 0.8599633625076331,
+        "reach": 0,
+        "headPitch": 0.35850091593730915,
+        "headYaw": -0.07,
+        "headTilt": -0.017199267250152663,
+        "shoulder": 0,
+        "chairView": false,
+        "identity": true,
+        "faceIdentity": true
+      },
+      "hash": "9469ee3afd0bd0a2667eb25efef6d668ece16827e4dc9a98a82490aac2cea446"
+    },
+    {
+      "f": 49,
+      "name": "frame-00049",
+      "chair": false,
+      "state": {
+        "frame": 49,
+        "time": 1.6333333333333333,
+        "focus": 1,
+        "relief": 0.8997369036041944,
+        "reach": 0,
+        "headPitch": 0.35750657740989517,
+        "headYaw": -0.07,
+        "headTilt": -0.01799473807208389,
+        "shoulder": 0,
+        "chairView": false,
+        "identity": true,
+        "faceIdentity": true
+      },
+      "hash": "560e27e3532d4599c0ace625e9e0d0a553d0abc87e3ecaa38340f3fa271ebc93"
+    },
+    {
+      "f": 50,
+      "name": "frame-00050",
+      "chair": false,
+      "state": {
+        "frame": 50,
+        "time": 1.6666666666666667,
+        "focus": 1,
+        "relief": 0.9339017421655321,
+        "reach": 0.0011383253801328518,
+        "headPitch": 0.3566524564458617,
+        "headYaw": -0.07,
+        "headTilt": -0.018678034843310643,
+        "shoulder": -0.0008537440350996388,
+        "chairView": false,
+        "identity": true,
+        "faceIdentity": true
+      },
+      "hash": "3aca91d079f1da2816a0068adfd2e19538982b974aea72a664a1c7597e8a88c7"
+    },
+    {
+      "f": 51,
+      "name": "frame-00051",
+      "chair": false,
+      "state": {
+        "frame": 51,
+        "time": 1.7,
+        "focus": 1,
+        "relief": 0.9617341746387136,
+        "reach": 0.009973539588845937,
+        "headPitch": 0.3559566456340322,
+        "headYaw": -0.07,
+        "headTilt": -0.01923468349277427,
+        "shoulder": -0.007480154691634453,
+        "chairView": false,
+        "identity": true,
+        "faceIdentity": true
+      },
+      "hash": "572f7ba60ad23ee7d8dd564ce5b08c0a9436c4e4ac2e11f95eacc051438190c5"
+    },
+    {
+      "f": 52,
+      "name": "frame-00052",
+      "chair": false,
+      "state": {
+        "frame": 52,
+        "time": 1.7333333333333334,
+        "focus": 1,
+        "relief": 0.9825104974708069,
+        "reach": 0.026950418768045572,
+        "headPitch": 0.3554372375632298,
+        "headYaw": -0.07,
+        "headTilt": -0.019650209949416138,
+        "shoulder": -0.020212814076034178,
+        "chairView": false,
+        "identity": true,
+        "faceIdentity": true
+      },
+      "hash": "1821ce2ace0a70fc9caa684e9ae9321eb5ec41745db7d9b6c2afb0813ed7ffba"
+    },
+    {
+      "f": 53,
+      "name": "frame-00053",
+      "chair": false,
+      "state": {
+        "frame": 53,
+        "time": 1.7666666666666666,
+        "focus": 1,
+        "relief": 0.9955070071088796,
+        "reach": 0.051345259364799396,
+        "headPitch": 0.355112324822278,
+        "headYaw": -0.07,
+        "headTilt": -0.019910140142177592,
+        "shoulder": -0.03850894452359955,
+        "chairView": false,
+        "identity": true,
+        "faceIdentity": true
+      },
+      "hash": "381cd935093d3f0162fba4cd0ea78d3cb44d9559d288759e562a6b3783683522"
+    },
+    {
+      "f": 54,
+      "name": "frame-00054",
+      "chair": false,
+      "state": {
+        "frame": 54,
+        "time": 1.8,
+        "focus": 1,
+        "relief": 1,
+        "reach": 0.08243435782617559,
+        "headPitch": 0.355,
+        "headYaw": -0.07,
+        "headTilt": -0.02,
+        "shoulder": -0.06182576836963169,
+        "chairView": false,
+        "identity": true,
+        "faceIdentity": true
+      },
+      "hash": "55f5c0e26c150ed2d625ec05786c6823f9049ea8e77f37ae70e7aba12cfa95d8"
+    },
+    {
+      "f": 55,
+      "name": "frame-00055",
+      "chair": false,
+      "state": {
+        "frame": 55,
+        "time": 1.8333333333333333,
+        "focus": 1,
+        "relief": 1,
+        "reach": 0.11949401059924163,
+        "headPitch": 0.355,
+        "headYaw": -0.07,
+        "headTilt": -0.02,
+        "shoulder": -0.08962050794943122,
+        "chairView": false,
+        "identity": true,
+        "faceIdentity": true
+      },
+      "hash": "6988c68b0b745407a5f242da898e5637abcc43cc9b751fd9933fee185fd17e8d"
+    },
+    {
+      "f": 56,
+      "name": "frame-00056",
+      "chair": false,
+      "state": {
+        "frame": 56,
+        "time": 1.8666666666666667,
+        "focus": 1,
+        "relief": 1,
+        "reach": 0.16180051413106591,
+        "headPitch": 0.355,
+        "headYaw": -0.07,
+        "headTilt": -0.02,
+        "shoulder": -0.12135038559829944,
+        "chairView": false,
+        "identity": true,
+        "faceIdentity": true
+      },
+      "hash": "06502651090abd769508912f0040869b3b2262d140a7d0fd97391327a5dd7b16"
+    },
+    {
+      "f": 57,
+      "name": "frame-00057",
+      "chair": false,
+      "state": {
+        "frame": 57,
+        "time": 1.9,
+        "focus": 1,
+        "relief": 1,
+        "reach": 0.20863016486871566,
+        "headPitch": 0.355,
+        "headYaw": -0.07,
+        "headTilt": -0.02,
+        "shoulder": -0.15647262365153675,
+        "chairView": false,
+        "identity": true,
+        "faceIdentity": true
+      },
+      "hash": "f9819e018cb0664f8bfd1a72ce33feebf544ed1cc4e6d4f2ea6732707a1d89a0"
+    },
+    {
+      "f": 58,
+      "name": "frame-00058",
+      "chair": false,
+      "state": {
+        "frame": 58,
+        "time": 1.9333333333333333,
+        "focus": 1,
+        "relief": 1,
+        "reach": 0.25925925925925947,
+        "headPitch": 0.355,
+        "headYaw": -0.07,
+        "headTilt": -0.02,
+        "shoulder": -0.1944444444444446,
+        "chairView": false,
+        "identity": true,
+        "faceIdentity": true
+      },
+      "hash": "8b9195ddd769745fd9af76af2d145316d3315f7dc5bfb3db47347a29ecc2cb86"
+    },
+    {
+      "f": 59,
+      "name": "frame-00059",
+      "chair": false,
+      "state": {
+        "frame": 59,
+        "time": 1.9666666666666666,
+        "focus": 1,
+        "relief": 1,
+        "reach": 0.3129640937497644,
+        "headPitch": 0.355,
+        "headYaw": -0.07,
+        "headTilt": -0.02,
+        "shoulder": -0.2347230703123233,
+        "chairView": false,
+        "identity": true,
+        "faceIdentity": true
+      },
+      "hash": "686967f7c8683d5ec6b8d919290d3196b3bf2c4438254258da7a4fb6e3f98659"
+    },
+    {
+      "f": 60,
+      "name": "frame-00060",
+      "chair": false,
+      "state": {
+        "frame": 60,
+        "time": 2,
+        "focus": 1,
+        "relief": 1,
+        "reach": 0.3690209647872991,
+        "headPitch": 0.355,
+        "headYaw": -0.07,
+        "headTilt": -0.02,
+        "shoulder": -0.27676572359047436,
+        "chairView": false,
+        "identity": true,
+        "faceIdentity": true
+      },
+      "hash": "71008854cc443883aa5b852b4e96bacf943de229d3be75f6cf2369c3b45bc3bc"
+    },
+    {
+      "f": 61,
+      "name": "frame-00061",
+      "chair": false,
+      "state": {
+        "frame": 61,
+        "time": 2.033333333333333,
+        "focus": 1,
+        "relief": 1,
+        "reach": 0.4267061688189308,
+        "headPitch": 0.355,
+        "headYaw": -0.07,
+        "headTilt": -0.02,
+        "shoulder": -0.3200296266141981,
+        "chairView": false,
+        "identity": true,
+        "faceIdentity": true
+      },
+      "hash": "f75834d60cf24d6f454082d33ca654014821332abd6f63155e44f37f1b704ef8"
+    },
+    {
+      "f": 62,
+      "name": "frame-00062",
+      "chair": false,
+      "state": {
+        "frame": 62,
+        "time": 2.066666666666667,
+        "focus": 1,
+        "relief": 1,
+        "reach": 0.4852960022917284,
+        "headPitch": 0.355,
+        "headYaw": -0.07,
+        "headTilt": -0.02,
+        "shoulder": -0.3639720017187963,
+        "chairView": false,
+        "identity": true,
+        "faceIdentity": true
+      },
+      "hash": "790c1f2d2a751ed96e0329aa73d50a3d301e24f37a25757797502fd64dc03fa5"
+    },
+    {
+      "f": 63,
+      "name": "frame-00063",
+      "chair": false,
+      "state": {
+        "frame": 63,
+        "time": 2.1,
+        "focus": 1,
+        "relief": 1,
+        "reach": 0.5440667616527584,
+        "headPitch": 0.355,
+        "headYaw": -0.07,
+        "headTilt": -0.02,
+        "shoulder": -0.40805007123956877,
+        "chairView": false,
+        "identity": true,
+        "faceIdentity": true
+      },
+      "hash": "265c66e31c0d3b301d3d932fed8ac6fe73aa0396fa93895b824d762b2701281e"
+    },
+    {
+      "f": 64,
+      "name": "frame-00064",
+      "chair": false,
+      "state": {
+        "frame": 64,
+        "time": 2.1333333333333333,
+        "focus": 1,
+        "relief": 1,
+        "reach": 0.6022947433490892,
+        "headPitch": 0.355,
+        "headYaw": -0.07,
+        "headTilt": -0.02,
+        "shoulder": -0.4517210575118169,
+        "chairView": false,
+        "identity": true,
+        "faceIdentity": true
+      },
+      "hash": "44bccafbef2cd0e9c3b585d308da5b5700982d1906e089add006f3a444a08b75"
+    },
+    {
+      "f": 65,
+      "name": "frame-00065",
+      "chair": false,
+      "state": {
+        "frame": 65,
+        "time": 2.1666666666666665,
+        "focus": 1,
+        "relief": 1,
+        "reach": 0.6592562438277886,
+        "headPitch": 0.355,
+        "headYaw": -0.07,
+        "headTilt": -0.02,
+        "shoulder": -0.4944421828708414,
+        "chairView": false,
+        "identity": true,
+        "faceIdentity": true
+      },
+      "hash": "176dc1242eb58a61b1a72465c1bead0dea601bab4c1e0be9aa2488a170e9df6b"
+    },
+    {
+      "f": 66,
+      "name": "frame-00066",
+      "chair": false,
+      "state": {
+        "frame": 66,
+        "time": 2.2,
+        "focus": 1,
+        "relief": 1,
+        "reach": 0.7142275595359256,
+        "headPitch": 0.355,
+        "headYaw": -0.07,
+        "headTilt": -0.02,
+        "shoulder": -0.5356706696519442,
+        "chairView": false,
+        "identity": true,
+        "faceIdentity": true
+      },
+      "hash": "b35e82912814580fc2e0cb023400bf53be4d1edaa50723b8675fc6f88963c748"
+    },
+    {
+      "f": 67,
+      "name": "frame-00067",
+      "chair": false,
+      "state": {
+        "frame": 67,
+        "time": 2.2333333333333334,
+        "focus": 1,
+        "relief": 1,
+        "reach": 0.7664849869205662,
+        "headPitch": 0.355,
+        "headYaw": -0.07,
+        "headTilt": -0.02,
+        "shoulder": -0.5748637401904246,
+        "chairView": false,
+        "identity": true,
+        "faceIdentity": true
+      },
+      "hash": "900620bfb42defd18e17f4bbb9fd003049917d34a67131064c2a954a11a02888"
+    },
+    {
+      "f": 68,
+      "name": "frame-00068",
+      "chair": false,
+      "state": {
+        "frame": 68,
+        "time": 2.2666666666666666,
+        "focus": 1,
+        "relief": 1,
+        "reach": 0.8153048224287793,
+        "headPitch": 0.355,
+        "headYaw": -0.07,
+        "headTilt": -0.02,
+        "shoulder": -0.6114786168215844,
+        "chairView": false,
+        "identity": true,
+        "faceIdentity": true
+      },
+      "hash": "ecd4c6678c311504107e3ffa64a08a995e9f44c46a3ba9d5a0ad61eba4a764a3"
+    },
+    {
+      "f": 69,
+      "name": "frame-00069",
+      "chair": false,
+      "state": {
+        "frame": 69,
+        "time": 2.3,
+        "focus": 1,
+        "relief": 1,
+        "reach": 0.8599633625076328,
+        "headPitch": 0.355,
+        "headYaw": -0.07,
+        "headTilt": -0.02,
+        "shoulder": -0.6449725218807246,
+        "chairView": false,
+        "identity": true,
+        "faceIdentity": true
+      },
+      "hash": "71a8a2b848df64a93105f032adb1842b1503994f20509bd1b588c2076bbdb959"
+    },
+    {
+      "f": 70,
+      "name": "frame-00070",
+      "chair": false,
+      "state": {
+        "frame": 70,
+        "time": 2.3333333333333335,
+        "focus": 1,
+        "relief": 1,
+        "reach": 0.8997369036041948,
+        "headPitch": 0.355,
+        "headYaw": -0.07,
+        "headTilt": -0.02,
+        "shoulder": -0.6748026777031461,
+        "chairView": false,
+        "identity": true,
+        "faceIdentity": true
+      },
+      "hash": "56b0f8abf0351cad3632c7ac418b9dbe42bf339dd5cffe343fcb33d2af65f0dd"
+    },
+    {
+      "f": 71,
+      "name": "frame-00071",
+      "chair": false,
+      "state": {
+        "frame": 71,
+        "time": 2.3666666666666667,
+        "focus": 1,
+        "relief": 1,
+        "reach": 0.9339017421655321,
+        "headPitch": 0.355,
+        "headYaw": -0.07,
+        "headTilt": -0.02,
+        "shoulder": -0.7004263066241491,
+        "chairView": false,
+        "identity": true,
+        "faceIdentity": true
+      },
+      "hash": "0504044a7f3b1bf3638baf70d6e3448a563287bc1ef7d77ab7844d083f6c2601"
+    },
+    {
+      "f": 72,
+      "name": "frame-00072",
+      "chair": false,
+      "state": {
+        "frame": 72,
+        "time": 2.4,
+        "focus": 1,
+        "relief": 1,
+        "reach": 0.9617341746387136,
+        "headPitch": 0.355,
+        "headYaw": -0.07,
+        "headTilt": -0.02,
+        "shoulder": -0.7213006309790352,
+        "chairView": false,
+        "identity": true,
+        "faceIdentity": true
+      },
+      "hash": "6499055305eedb2523be49efc87e09fad70d2070fc1e4fa2e365206bc1a371be"
+    },
+    {
+      "f": 73,
+      "name": "frame-00073",
+      "chair": false,
+      "state": {
+        "frame": 73,
+        "time": 2.433333333333333,
+        "focus": 1,
+        "relief": 1,
+        "reach": 0.9825104974708069,
+        "headPitch": 0.355,
+        "headYaw": -0.07,
+        "headTilt": -0.02,
+        "shoulder": -0.7368828731031052,
+        "chairView": false,
+        "identity": true,
+        "faceIdentity": true
+      },
+      "hash": "c1908feff0759edeb82517143aae508b9c2fdba724f79a5e03bf753a920efdb5"
+    },
+    {
+      "f": 74,
+      "name": "frame-00074",
+      "chair": false,
+      "state": {
+        "frame": 74,
+        "time": 2.466666666666667,
+        "focus": 1,
+        "relief": 1,
+        "reach": 0.9955070071088797,
+        "headPitch": 0.355,
+        "headYaw": -0.07,
+        "headTilt": -0.02,
+        "shoulder": -0.7466302553316598,
+        "chairView": false,
+        "identity": true,
+        "faceIdentity": true
+      },
+      "hash": "6201b923356052ce6591cbaec944a0ad11aeb6acfb4f718e4bac2d72daa7c787"
+    },
+    {
+      "f": 75,
+      "name": "frame-00075",
+      "chair": false,
+      "state": {
+        "frame": 75,
+        "time": 2.5,
+        "focus": 1,
+        "relief": 1,
+        "reach": 1,
+        "headPitch": 0.355,
+        "headYaw": -0.07,
+        "headTilt": -0.02,
+        "shoulder": -0.75,
+        "chairView": false,
+        "identity": true,
+        "faceIdentity": true
+      },
+      "hash": "3a6a7d35e0d0937154db783f41a88de705c24321cc7eee05a110b833900d17f1"
+    },
+    {
+      "f": 76,
+      "name": "frame-00076",
+      "chair": false,
+      "state": {
+        "frame": 76,
+        "time": 2.533333333333333,
+        "focus": 1,
+        "relief": 1,
+        "reach": 1,
+        "headPitch": 0.355,
+        "headYaw": -0.07,
+        "headTilt": -0.02,
+        "shoulder": -0.746941996009063,
+        "chairView": false,
+        "identity": true,
+        "faceIdentity": true
+      },
+      "hash": "cd38f12c402a3fc7a830dfb40bb8855991611863c0b632cc5dd937200a6823d6"
+    },
+    {
+      "f": 77,
+      "name": "frame-00077",
+      "chair": false,
+      "state": {
+        "frame": 77,
+        "time": 2.566666666666667,
+        "focus": 1,
+        "relief": 1,
+        "reach": 1,
+        "headPitch": 0.355,
+        "headYaw": -0.07,
+        "headTilt": -0.02,
+        "shoulder": -0.7446741735353043,
+        "chairView": false,
+        "identity": true,
+        "faceIdentity": true
+      },
+      "hash": "978d24709288cc4fd931af275e0ce7c49ef52a93839082ad7c161a13a6778ae7"
+    },
+    {
+      "f": 78,
+      "name": "frame-00078",
+      "chair": false,
+      "state": {
+        "frame": 78,
+        "time": 2.6,
+        "focus": 1,
+        "relief": 1,
+        "reach": 1,
+        "headPitch": 0.355,
+        "headYaw": -0.07,
+        "headTilt": -0.02,
+        "shoulder": -0.7430667408513209,
+        "chairView": false,
+        "identity": true,
+        "faceIdentity": true
+      },
+      "hash": "6638dd38b038c7bf7d8556f952d6fe420ff22913e36a8e27641f9f7877c5bc6b"
+    },
+    {
+      "f": 79,
+      "name": "frame-00079",
+      "chair": false,
+      "state": {
+        "frame": 79,
+        "time": 2.6333333333333333,
+        "focus": 1,
+        "relief": 1,
+        "reach": 1,
+        "headPitch": 0.355,
+        "headYaw": -0.07,
+        "headTilt": -0.02,
+        "shoulder": -0.7420042220586869,
+        "chairView": false,
+        "identity": true,
+        "faceIdentity": true
+      },
+      "hash": "28864e51227b4159c968f1d1271418a670cfacbf89fcfbd6538007fce840298b"
+    },
+    {
+      "f": 80,
+      "name": "frame-00080",
+      "chair": false,
+      "state": {
+        "frame": 80,
+        "time": 2.6666666666666665,
+        "focus": 1,
+        "relief": 1,
+        "reach": 1,
+        "headPitch": 0.355,
+        "headYaw": -0.07,
+        "headTilt": -0.02,
+        "shoulder": -0.7413849152412714,
+        "chairView": false,
+        "identity": true,
+        "faceIdentity": true
+      },
+      "hash": "bfd3e1b71acb933b6a732d43987885b3c842771be40bd4f59f641a1cb5d2feaa"
+    },
+    {
+      "f": 81,
+      "name": "frame-00081",
+      "chair": false,
+      "state": {
+        "frame": 81,
+        "time": 2.7,
+        "focus": 1,
+        "relief": 1,
+        "reach": 1,
+        "headPitch": 0.355,
+        "headYaw": -0.07,
+        "headTilt": -0.02,
+        "shoulder": -0.7411201423816488,
+        "chairView": false,
+        "identity": true,
+        "faceIdentity": true
+      },
+      "hash": "0568dadeb4625197ccae0d49b066a5d5c562f0c59b580ca28bbb345599886761"
+    },
+    {
+      "f": 82,
+      "name": "frame-00082",
+      "chair": false,
+      "state": {
+        "frame": 82,
+        "time": 2.7333333333333334,
+        "focus": 1,
+        "relief": 1,
+        "reach": 1,
+        "headPitch": 0.355,
+        "headYaw": -0.07,
+        "headTilt": -0.02,
+        "shoulder": -0.7411333580296022,
+        "chairView": false,
+        "identity": true,
+        "faceIdentity": true
+      },
+      "hash": "d5e6141c7eb9b43808af8a667667f733b9e78f8853f0360542c7d6fdfda113ab"
+    },
+    {
+      "f": 83,
+      "name": "frame-00083",
+      "chair": false,
+      "state": {
+        "frame": 83,
+        "time": 2.7666666666666666,
+        "focus": 1,
+        "relief": 1,
+        "reach": 1,
+        "headPitch": 0.355,
+        "headYaw": -0.07,
+        "headTilt": -0.02,
+        "shoulder": -0.7413591714675086,
+        "chairView": false,
+        "identity": true,
+        "faceIdentity": true
+      },
+      "hash": "b597f37d71db3e2aea11617ce9bdc0c3929874657009f7e6c0c1e77729176ba0"
+    },
+    {
+      "f": 84,
+      "name": "frame-00084",
+      "chair": false,
+      "state": {
+        "frame": 84,
+        "time": 2.8,
+        "focus": 1,
+        "relief": 1,
+        "reach": 1,
+        "headPitch": 0.355,
+        "headYaw": -0.07,
+        "headTilt": -0.02,
+        "shoulder": -0.7417423264074795,
+        "chairView": false,
+        "identity": true,
+        "faceIdentity": true
+      },
+      "hash": "5927d48a0a3468a708fe910c1e3b2d44cf06aab04ca9d5264865e5c506c7fd6a"
+    },
+    {
+      "f": 85,
+      "name": "frame-00085",
+      "chair": false,
+      "state": {
+        "frame": 85,
+        "time": 2.8333333333333335,
+        "focus": 1,
+        "relief": 1,
+        "reach": 1,
+        "headPitch": 0.355,
+        "headYaw": -0.07,
+        "headTilt": -0.02,
+        "shoulder": -0.7422366729809026,
+        "chairView": false,
+        "identity": true,
+        "faceIdentity": true
+      },
+      "hash": "4b56c88fee531ab011f79c95724b464fe843abec844044a674f0ea8986191b29"
+    },
+    {
+      "f": 86,
+      "name": "frame-00086",
+      "chair": false,
+      "state": {
+        "frame": 86,
+        "time": 2.8666666666666667,
+        "focus": 1,
+        "relief": 1,
+        "reach": 1,
+        "headPitch": 0.355,
+        "headYaw": -0.07,
+        "headTilt": -0.02,
+        "shoulder": -0.7428041588320434,
+        "chairView": false,
+        "identity": true,
+        "faceIdentity": true
+      },
+      "hash": "bbf0f4de8dd4e7462337c64c8c77f61f9e4ecfc01950a2b6b7fd9b660c445329"
+    },
+    {
+      "f": 87,
+      "name": "frame-00087",
+      "chair": false,
+      "state": {
+        "frame": 87,
+        "time": 2.9,
+        "focus": 1,
+        "relief": 1,
+        "reach": 1,
+        "headPitch": 0.355,
+        "headYaw": -0.07,
+        "headTilt": -0.02,
+        "shoulder": -0.7434138593867904,
+        "chairView": false,
+        "identity": true,
+        "faceIdentity": true
+      },
+      "hash": "6f0934fdff3de9e756dbc4a5245777ddb35eec378a478289ace40814962e3ecf"
+    },
+    {
+      "f": 88,
+      "name": "frame-00088",
+      "chair": false,
+      "state": {
+        "frame": 88,
+        "time": 2.933333333333333,
+        "focus": 1,
+        "relief": 1,
+        "reach": 1,
+        "headPitch": 0.355,
+        "headYaw": -0.07,
+        "headTilt": -0.02,
+        "shoulder": -0.7440410617165717,
+        "chairView": false,
+        "identity": true,
+        "faceIdentity": true
+      },
+      "hash": "4ae46a973f2ac1076b72d7bfec170c57d35a1f851124bd8fefc5eeb520d3f222"
+    },
+    {
+      "f": 89,
+      "name": "frame-00089",
+      "chair": false,
+      "state": {
+        "frame": 89,
+        "time": 2.966666666666667,
+        "focus": 1,
+        "relief": 1,
+        "reach": 1,
+        "headPitch": 0.355,
+        "headYaw": -0.07,
+        "headTilt": -0.02,
+        "shoulder": -0.7446664117383919,
+        "chairView": false,
+        "identity": true,
+        "faceIdentity": true
+      },
+      "hash": "7478b2905ddf232aa90e02b921952fd12c61a6f80174539edd75d140d4f3e7fd"
+    },
+    {
+      "f": 90,
+      "name": "frame-00090",
+      "chair": false,
+      "state": {
+        "frame": 90,
+        "time": 3,
+        "focus": 1,
+        "relief": 1,
+        "reach": 1,
+        "headPitch": 0.355,
+        "headYaw": -0.07,
+        "headTilt": -0.02,
+        "shoulder": -0.7452751306711294,
+        "chairView": false,
+        "identity": true,
+        "faceIdentity": true
+      },
+      "hash": "8dc1a11944516f905598a4e6bcc0130af3c449975ef13ff5e616dfe49801faf5"
+    },
+    {
+      "f": 91,
+      "name": "frame-00091",
+      "chair": false,
+      "state": {
+        "frame": 91,
+        "time": 3.033333333333333,
+        "focus": 1,
+        "relief": 1,
+        "reach": 1,
+        "headPitch": 0.355,
+        "headYaw": -0.07,
+        "headTilt": -0.02,
+        "shoulder": -0.7458563035977647,
+        "chairView": false,
+        "identity": true,
+        "faceIdentity": true
+      },
+      "hash": "b643e0b755da386eaed1ea920d14a21de7b3b2ef1441df88f25e4618a8751178"
+    },
+    {
+      "f": 92,
+      "name": "frame-00092",
+      "chair": false,
+      "state": {
+        "frame": 92,
+        "time": 3.066666666666667,
+        "focus": 1,
+        "relief": 1,
+        "reach": 1,
+        "headPitch": 0.355,
+        "headYaw": -0.07,
+        "headTilt": -0.02,
+        "shoulder": -0.7464022405621191,
+        "chairView": false,
+        "identity": true,
+        "faceIdentity": true
+      },
+      "hash": "584bde31df2737e67b376698dc681763ce42c4ac17e3911aae15027027f13d91"
+    },
+    {
+      "f": 93,
+      "name": "frame-00093",
+      "chair": false,
+      "state": {
+        "frame": 93,
+        "time": 3.1,
+        "focus": 1,
+        "relief": 1,
+        "reach": 1,
+        "headPitch": 0.355,
+        "headYaw": -0.07,
+        "headTilt": -0.02,
+        "shoulder": -0.7469079087638846,
+        "chairView": false,
+        "identity": true,
+        "faceIdentity": true
+      },
+      "hash": "cc80066c827cc1f76a96423b34a445f887ad653deddb00b3ae87dfd4d9907b6d"
+    },
+    {
+      "f": 94,
+      "name": "frame-00094",
+      "chair": false,
+      "state": {
+        "frame": 94,
+        "time": 3.1333333333333333,
+        "focus": 1,
+        "relief": 1,
+        "reach": 1,
+        "headPitch": 0.355,
+        "headYaw": -0.07,
+        "headTilt": -0.02,
+        "shoulder": -0.7473704330223523,
+        "chairView": false,
+        "identity": true,
+        "faceIdentity": true
+      },
+      "hash": "7fc1a0c48c40a05c226e706c6aa3505de93d44615bbf366cb767412e3b65d6bf"
+    },
+    {
+      "f": 95,
+      "name": "frame-00095",
+      "chair": false,
+      "state": {
+        "frame": 95,
+        "time": 3.1666666666666665,
+        "focus": 1,
+        "relief": 1,
+        "reach": 1,
+        "headPitch": 0.355,
+        "headYaw": -0.07,
+        "headTilt": -0.02,
+        "shoulder": -0.7477886606808648,
+        "chairView": false,
+        "identity": true,
+        "faceIdentity": true
+      },
+      "hash": "00b3a77e7101b156efc980274d0bd19bf258ff3950b784a3702af48104f4262c"
+    },
+    {
+      "f": 96,
+      "name": "frame-00096",
+      "chair": false,
+      "state": {
+        "frame": 96,
+        "time": 3.2,
+        "focus": 1,
+        "relief": 1,
+        "reach": 1,
+        "headPitch": 0.355,
+        "headYaw": -0.07,
+        "headTilt": -0.02,
+        "shoulder": -0.7481627864524393,
+        "chairView": false,
+        "identity": true,
+        "faceIdentity": true
+      },
+      "hash": "26f66ba4421b80b66343c02da37128d1f33264cf3864603ff035fb6d6d845ab5"
+    },
+    {
+      "f": 97,
+      "name": "frame-00097",
+      "chair": false,
+      "state": {
+        "frame": 97,
+        "time": 3.2333333333333334,
+        "focus": 1,
+        "relief": 1,
+        "reach": 1,
+        "headPitch": 0.355,
+        "headYaw": -0.07,
+        "headTilt": -0.02,
+        "shoulder": -0.7484940323020921,
+        "chairView": false,
+        "identity": true,
+        "faceIdentity": true
+      },
+      "hash": "0929cc860574b0c0e5758da01d6cbbfb269e62b914764c3285b872edc21bd7de"
+    },
+    {
+      "f": 98,
+      "name": "frame-00098",
+      "chair": false,
+      "state": {
+        "frame": 98,
+        "time": 3.2666666666666666,
+        "focus": 1,
+        "relief": 1,
+        "reach": 1,
+        "headPitch": 0.355,
+        "headYaw": -0.07,
+        "headTilt": -0.02,
+        "shoulder": -0.7487843772705615,
+        "chairView": false,
+        "identity": true,
+        "faceIdentity": true
+      },
+      "hash": "dbe3b98104bc66b40345622c484097b7eac88464464da57e64a0ac1343c83eb4"
+    },
+    {
+      "f": 99,
+      "name": "frame-00099",
+      "chair": false,
+      "state": {
+        "frame": 99,
+        "time": 3.3,
+        "focus": 1,
+        "relief": 1,
+        "reach": 1,
+        "headPitch": 0.355,
+        "headYaw": -0.07,
+        "headTilt": -0.02,
+        "shoulder": -0.7490363321219075,
+        "chairView": false,
+        "identity": true,
+        "faceIdentity": true
+      },
+      "hash": "538d8f37215dcb0db5a7dce6c0227dd30328177bf27925c5f267c5629c46d95c"
+    },
+    {
+      "f": 100,
+      "name": "frame-00100",
+      "chair": false,
+      "state": {
+        "frame": 100,
+        "time": 3.3333333333333335,
+        "focus": 1,
+        "relief": 1,
+        "reach": 1,
+        "headPitch": 0.355,
+        "headYaw": -0.07,
+        "headTilt": -0.02,
+        "shoulder": -0.7492527538049452,
+        "chairView": false,
+        "identity": true,
+        "faceIdentity": true
+      },
+      "hash": "8a1267b7ac385d4d9e86e16e99d1511d6f241bdbe3bb13af0d478f99ce16dbb9"
+    },
+    {
+      "f": 101,
+      "name": "frame-00101",
+      "chair": false,
+      "state": {
+        "frame": 101,
+        "time": 3.3666666666666667,
+        "focus": 1,
+        "relief": 1,
+        "reach": 1,
+        "headPitch": 0.355,
+        "headYaw": -0.07,
+        "headTilt": -0.02,
+        "shoulder": -0.7494366949226596,
+        "chairView": false,
+        "identity": true,
+        "faceIdentity": true
+      },
+      "hash": "d4e9bbebc6b013171fadd1765f8e78f7b1e66c774e418f613a4e5674c68d561a"
+    },
+    {
+      "f": 102,
+      "name": "frame-00102",
+      "chair": false,
+      "state": {
+        "frame": 102,
+        "time": 3.4,
+        "focus": 1,
+        "relief": 1,
+        "reach": 1,
+        "headPitch": 0.355,
+        "headYaw": -0.07,
+        "headTilt": -0.02,
+        "shoulder": -0.7495912836770526,
+        "chairView": false,
+        "identity": true,
+        "faceIdentity": true
+      },
+      "hash": "4dfd998266828d83dea7e8296c27b64171ddaa740ad7f321ebf241a8193e5c7e"
+    },
+    {
+      "f": 103,
+      "name": "frame-00103",
+      "chair": false,
+      "state": {
+        "frame": 103,
+        "time": 3.433333333333333,
+        "focus": 1,
+        "relief": 1,
+        "reach": 1,
+        "headPitch": 0.355,
+        "headYaw": -0.07,
+        "headTilt": -0.02,
+        "shoulder": -0.7497196300764669,
+        "chairView": false,
+        "identity": true,
+        "faceIdentity": true
+      },
+      "hash": "1d712dbba7b1b1dec2844dc286ed60c3127e1755a45aba7881192e8955828d14"
+    },
+    {
+      "f": 104,
+      "name": "frame-00104",
+      "chair": false,
+      "state": {
+        "frame": 104,
+        "time": 3.466666666666667,
+        "focus": 1,
+        "relief": 1,
+        "reach": 1,
+        "headPitch": 0.355,
+        "headYaw": -0.07,
+        "headTilt": -0.02,
+        "shoulder": -0.7498247545396989,
+        "chairView": false,
+        "identity": true,
+        "faceIdentity": true
+      },
+      "hash": "6318d0493dd58ffaa4be8179cb114021532e94753fc3ce4c2a684efbd9debfd2"
+    }
+  ],
+  "verification": {
+    "probe": {
+      "streams": [
+        {
+          "index": 0,
+          "codec_name": "h264",
+          "codec_long_name": "H.264 / AVC / MPEG-4 AVC / MPEG-4 part 10",
+          "profile": "Main",
+          "codec_type": "video",
+          "codec_tag_string": "avc1",
+          "codec_tag": "0x31637661",
+          "width": 360,
+          "height": 640,
+          "coded_width": 368,
+          "coded_height": 640,
+          "closed_captions": 0,
+          "film_grain": 0,
+          "has_b_frames": 2,
+          "sample_aspect_ratio": "1:1",
+          "display_aspect_ratio": "9:16",
+          "pix_fmt": "yuv420p",
+          "level": 31,
+          "color_range": "tv",
+          "color_space": "bt709",
+          "chroma_location": "left",
+          "field_order": "progressive",
+          "refs": 4,
+          "is_avc": "true",
+          "nal_length_size": "4",
+          "id": "0x1",
+          "r_frame_rate": "30/1",
+          "avg_frame_rate": "30/1",
+          "time_base": "1/15360",
+          "start_pts": 0,
+          "start_time": "0.000000",
+          "duration_ts": 53760,
+          "duration": "3.500000",
+          "bit_rate": "119145",
+          "bits_per_raw_sample": "8",
+          "nb_frames": "105",
+          "nb_read_frames": "105",
+          "extradata_size": 45,
+          "disposition": {
+            "default": 1,
+            "dub": 0,
+            "original": 0,
+            "comment": 0,
+            "lyrics": 0,
+            "karaoke": 0,
+            "forced": 0,
+            "hearing_impaired": 0,
+            "visual_impaired": 0,
+            "clean_effects": 0,
+            "attached_pic": 0,
+            "timed_thumbnails": 0,
+            "non_diegetic": 0,
+            "captions": 0,
+            "descriptions": 0,
+            "metadata": 0,
+            "dependent": 0,
+            "still_image": 0,
+            "multilayer": 0
+          },
+          "tags": {
+            "language": "und",
+            "handler_name": "VideoHandler",
+            "vendor_id": "[0][0][0][0]",
+            "encoder": "Lavc61.19.101 libx264"
+          }
+        }
+      ],
+      "format": {
+        "filename": "/workspace/blox_story/evidence/dice-town-p3b2/recognition.mp4",
+        "nb_streams": 1,
+        "nb_programs": 0,
+        "nb_stream_groups": 0,
+        "format_name": "mov,mp4,m4a,3gp,3g2,mj2",
+        "format_long_name": "QuickTime / MOV",
+        "start_time": "0.000000",
+        "duration": "3.500000",
+        "size": "54215",
+        "bit_rate": "123920",
+        "probe_score": 100,
+        "tags": {
+          "major_brand": "isom",
+          "minor_version": "512",
+          "compatible_brands": "isomiso2avc1mp41",
+          "encoder": "Lavf61.7.103"
+        }
+      }
+    },
+    "decode": {
+      "frames": 105,
+      "continuousPts": true,
+      "noErrors": true
+    },
+    "cuts": [],
+    "playback": {
+      "width": 360,
+      "height": 640,
+      "duration": 3.5,
+      "advancedTo": 0.1511,
+      "error": null,
+      "browser": "156.0.8078.79",
+      "fallback": true,
+      "seeks": [
+        1.75
+      ]
+    }
+  }
+}
