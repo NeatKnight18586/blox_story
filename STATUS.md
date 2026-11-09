@@ -353,3 +353,7 @@ Branch codex/dice-town-p2a-polish preserves PR28 and previous pilot history. Cor
 ## Dice Town117s storyboard animatic
 
 From PR30 plan branch ea87785, isolated codex/dice-town-117s-animatic. Technical PASS:38-shot silent360×640/15fps H.264,1757 decoded frames/117.133s,76 final WebGL boards,38 cut-start matches, playback/decode/source tests. Source3513/30fps boundaries preserved; proxy rounding and35.102ms audio-reference difference documented. Audio untouched; creative/listening review PENDING. Placeholders for missing mechanism/photo/tether/gate/home/mother/chair assets. Evidence: evidence/dice-town-animatic/REPORT.md. No merge/full-resolution episode or next phase.
+
+## Dice Town P3A production-lock proposal
+
+Documentation only on codex/dice-town-p3a-production-lock from PR31/58f7a13. Reviewed76 held states decoded from existing film, timing manifest, missing assets and scene/motion code. Preserves38 source cuts/3513 frames; proposes eight setup families, per-shot treatment, prioritized contact/grounding/asset fixes, safe cheats and no-spend list. Recommended first production batch D03/D15/D23/D35, not authorized to render yet. JSON/CSV/table consistency and unchanged engine/test/evidence bytes verified; existing animatic source test PASS. Technical documentation validation PASS; strategy/creative approval PENDING. No new WebGL frames, assets, MP4 or merges.

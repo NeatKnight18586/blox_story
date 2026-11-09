@@ -236,3 +236,7 @@ Revised staging and acting: [film and validation](evidence/dice-town-p2a-polish/
 ## Dice Town full storyboard animatic
 
 [Silent117s proxy and evidence](evidence/dice-town-animatic/REPORT.md):38 shots,76 WebGL boards held at15fps,360×640. Source plans and existing renderer unchanged; placeholders and audio-review limitations documented.
+
+## Dice Town P3A production strategy
+
+[Proposed production lock](stories/dice-town/P3A_PRODUCTION_LOCK.md) · [38-shot optimization](stories/dice-town/P3A_SHOT_OPTIMIZATION.md) · [priorities, overlap/world fixes and safe cheats](stories/dice-town/P3A_FIX_AND_ASSET_PRIORITIES.md). Documentation only; no revised assets/animation rendered or creatively approved.
