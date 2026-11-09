@@ -244,3 +244,7 @@ Revised staging and acting: [film and validation](evidence/dice-town-p2a-polish/
 ## Dice Town P3B-1 contact proof
 
 [D15/D23 films, native stills, geometric verification and limitations](evidence/dice-town-p3b1/REPORT.md). `node scripts/dice-town-p3b1-proof.js --stills` then `node scripts/dice-town-p3b1-proof.js`; original engine/characters preserved. Technical PASS, creative review pending. No final episode or merge.
+
+## Dice Town P3B-2 mother recognition
+
+[D35 local motion, native keyframes and D36 chair reference](evidence/dice-town-p3b2/REPORT.md). Technical PASS; creative review pending. Reproduce with `node scripts/dice-town-p3b2-proof.js --stills`, then the same script without the flag. No episode or other shots.
