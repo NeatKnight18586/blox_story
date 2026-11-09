@@ -32,6 +32,13 @@ try{
    if(toon){assert(status.headToon);assert(status.styleMeshes>0)}else assert(!status.headToon);
    assert(!status.contextLost);
    await page.screenshot({path:path.join(dir,file)});
+   // A second same-scene close-up verifies hair silhouette, eye clearance and material bands.
+   await page.evaluate(()=>{
+    const p=window.__v2Proof;
+    p.camera.position.set(1.7,5.2,4.8);p.camera.lookAt(0,4.45,0);
+    p.camera.fov=34;p.camera.updateProjectionMatrix();p.renderer.render(p.scene,p.camera);
+   });
+   await page.screenshot({path:path.join(dir,file.replace('.png','-head.png'))});
    const png=await readFile(path.join(dir,file));checks.push({file,...status,sha256:createHash('sha256').update(png).digest('hex')});
   }
  }
