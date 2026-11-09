@@ -27,7 +27,7 @@ const avatar=createBaseAvatar();applyAppearance(avatar,{
  pieces:{torso:0x35719b,leftArm:0x35719b,rightArm:0x35719b,leftLeg:0x324056,rightLeg:0x324056}
 });applyFace(avatar,'relieved');scene.add(avatar.root);
 const camera=new THREE.PerspectiveCamera(39,width/height,.1,100);
-camera.position.set(7,5.7,17);camera.lookAt(0,2.75,0);
+camera.position.set(4.2,5.3,10.5);camera.lookAt(0,2.65,0);
 const style=toon?applyToonV2(scene):null;
 renderer.render(scene,camera);
 window.__v2Proof={ready:true,hair,skinToneId,toon,width,height,avatar,scene,camera,renderer,style};
