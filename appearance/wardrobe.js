@@ -1,9 +1,10 @@
 import * as THREE from 'three';
 import {block} from '../avatar/baseAvatar.js';
+import {HAIR_STYLES,HAIR_COLORS,hairColor as lookupHairColor,makeV2Hair} from './v2-hair.js';
 const color=v=>Number.isInteger(v)&&v>=0&&v<=0xffffff||typeof v==='string'&&/^#[0-9a-f]{6}$/i.test(v);
-export function normalizeWardrobe({hair=null,hairColor=0x40291f,clothing=null,clothingColor=0x24758a,cosmetic=null}={}){
- if(![null,'bob'].includes(hair)||![null,'vest'].includes(clothing)||!color(hairColor)||!color(clothingColor)||hair&&cosmetic)throw new Error('Invalid wardrobe (bob hair and cap are exclusive)');
- return {hair,hairColor,clothing,clothingColor};
+export function normalizeWardrobe({hair=null,hairColor=0x40291f,hairColorId=null,clothing=null,clothingColor=0x24758a,cosmetic=null}={}){
+ if(![null,'bob',...HAIR_STYLES].includes(hair)||![null,'vest'].includes(clothing)||!color(hairColor)||!color(clothingColor)||hair&&cosmetic||hairColorId!==null&&!Object.hasOwn(HAIR_COLORS,hairColorId))throw new Error('Invalid wardrobe (hair and cap are exclusive)');
+ return {hair,hairColor:hairColorId===null?hairColor:lookupHairColor(hairColorId),clothing,clothingColor};
 }
 function makeHair(){
  const group=new THREE.Group();group.name='hair_bob';
@@ -23,7 +24,7 @@ function makeVest(avatar){
 }
 export function applyWardrobe(avatar,recipe){
  const state=normalizeWardrobe(recipe);avatar.wardrobeCache??=new Map();
- for(const [field,name,parent,tint,make] of [['hairLayer',state.hair,avatar.pivots.head,state.hairColor,makeHair],['clothingLayer',state.clothing,avatar.parts.torso,state.clothingColor,()=>makeVest(avatar)]]){
+ for(const [field,name,parent,tint,make] of [['hairLayer',state.hair,avatar.pivots.head,state.hairColor,()=>state.hair==='bob'?makeHair():makeV2Hair(state.hair)],['clothingLayer',state.clothing,avatar.parts.torso,state.clothingColor,()=>makeVest(avatar)]]){
   if(avatar[field])avatar[field].removeFromParent();avatar[field]=null;
   if(name){if(!avatar.wardrobeCache.has(name))avatar.wardrobeCache.set(name,make());const layer=avatar.wardrobeCache.get(name);layer.traverse(o=>{if(o.userData.tint)o.material.color.set(tint);});parent.add(layer);avatar[field]=layer;}
  }
