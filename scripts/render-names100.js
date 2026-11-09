@@ -1,3 +1,4 @@
+import {loadAssembly} from './s4-story.js';
 import assert from 'node:assert/strict';
 import {readFile,mkdir,readdir,rename} from 'node:fs/promises';
 import path from 'node:path';
@@ -8,12 +9,12 @@ import {startServer} from './pipeline/server.js';
 import {prepareOutput,acquireLock,safePath,safeRead,atomicWrite,directoryBytes,checkBudget} from './pipeline/files.js';
 import {encodeVideo,verifyVideo,contactSheet} from './pipeline/video.js';
 // Deliberately bounded rough-cut coordinator; P1's final exporter is unchanged.
-let out='renders/names100-s2',stopAfter=Infinity;
-for(let i=2;i<process.argv.length;i++){const arg=process.argv[i],v=process.argv[++i];if(arg==='--out'&&v)out=v;else if(arg==='--stop-after'&&Number.isInteger(+v)&&+v>0)stopAfter=+v;else throw new Error('Usage: [--out DIRECTORY] [--stop-after N]');}
-const story=await loadStory(),engineSha256=await storyEngineHash(),review=JSON.parse(await readFile('evidence/names100-s2/creative-review.json'));
+let out='renders/names100-s2',stopAfter=Infinity,assembly=null;
+for(let i=2;i<process.argv.length;i++){const arg=process.argv[i],v=process.argv[++i];if(arg==='--assembly'&&v)assembly=v;else if(arg==='--out'&&v)out=v;else if(arg==='--stop-after'&&Number.isInteger(+v)&&+v>0)stopAfter=+v;else throw new Error('Usage: [--out DIRECTORY] [--stop-after N]');}
+const story=assembly?await loadAssembly(assembly):await loadStory(),engineSha256=await storyEngineHash(assembly?['scripts/s4-story.js']:[]),review=JSON.parse(await readFile(assembly?'evidence/names100-s4/integration-gate.json':'evidence/names100-s2/creative-review.json'));
 assert.equal(review.status,'PASS','Gate C creative review must pass');assert.equal(review.storySha256,story.jobSourceSha256);assert.equal(review.engineSha256,engineSha256,'Review must match current visual code');
 const plan={...story.output,frameCount:821,shots:story.shots.map(s=>({...s,start:Math.ceil(s.start/2),end:Math.ceil(s.end/2)}))};
-const output=await prepareOutput(out),release=await acquireLock(output),started=performance.now(),report={status:'RUNNING',scope:'S2 draft; full P1-style reverse verification retained',...plan,nativeFps:30,nativeFrameCount:1641,targetSeconds:54.7,duration:821/15,trailingHoldSeconds:821/15-54.7,engineSha256,storySha256:story.jobSourceSha256,blocks:story.blocks.map(({id,start,end,file,sha256})=>({id,start,end,file,sha256})),frames:[],cache:{rendered:0,reused:0,repaired:0},timings:{},errors:[]};
+const output=await prepareOutput(out),release=await acquireLock(output),started=performance.now(),report={status:'RUNNING',scope:assembly?'S4 integrated draft; full P1-style reverse verification retained':'S2 draft; full P1-style reverse verification retained',...plan,nativeFps:30,nativeFrameCount:1641,targetSeconds:54.7,duration:821/15,trailingHoldSeconds:821/15-54.7,engineSha256,storySha256:story.jobSourceSha256,blocks:story.blocks.map(({id,start,end,file,sha256})=>({id,start,end,file,sha256})),frames:[],cache:{rendered:0,reused:0,repaired:0},timings:{},errors:[]};
 let browser,server,page,current,aborted=false;const onSignal=()=>aborted=true;process.on('SIGINT',onSignal);process.on('SIGTERM',onSignal);
 try{
  server=await startServer(process.cwd());browser=await chromium.launch({headless:true,handleSIGINT:false,handleSIGTERM:false,args:['--no-sandbox','--use-angle=swiftshader','--enable-unsafe-swiftshader']});report.browser=browser.version();

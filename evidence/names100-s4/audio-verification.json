@@ -1,0 +1,13 @@
+{
+  "status": "TECHNICAL_PASS_HUMAN_LISTENING_PENDING",
+  "originalSeconds": 54.68299319727891,
+  "videoSeconds": 54.733333333333334,
+  "trailingVideoMinusOriginalSeconds": 0.05034013605442311,
+  "audioCodec": "aac",
+  "audioSeconds": 54.682993,
+  "startSeconds": 0,
+  "coarsePcmCorrelation": 0.9995451393848647,
+  "peakLagMilliseconds": 0,
+  "diagnosticResolutionMilliseconds": 10,
+  "scope": "100Hz sample diagnostic comparing original PCM and AAC decode; no trim/stretch, not a substitute for listening."
+}

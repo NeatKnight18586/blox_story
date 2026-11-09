@@ -1,0 +1,13 @@
+{
+  "status": "PASS_ALL821_CURRENT_SOURCE_PIXELS_AND_STATES_MATCH",
+  "reason": "Only opt-in resident rest-transform reset changed. Original forward1202 matches corrected cold/reverse1202 exactly. Preserve original cache; do not bypass mandatory fresh reverse pixel/state checks before encoding.",
+  "oldJobKey": "2277237f0fb811541b9a9258b4f5b178e2bab9b4453baddd6de538e7f4b33b26",
+  "newJobKey": "5386d2beddfc0ecd83d2d569598bef70e0124ee8524cc7c14d3b80011f9b2e5a",
+  "frames": 821,
+  "originalFilesUntouched": true,
+  "hashedInputPngs": true,
+  "renderedNewCaptureFrames": 0,
+  "finalJobKey": "5386d2beddfc0ecd83d2d569598bef70e0124ee8524cc7c14d3b80011f9b2e5a",
+  "freshReverseValidationFrames": 821,
+  "mp4PublishedOnlyAfterValidation": true
+}

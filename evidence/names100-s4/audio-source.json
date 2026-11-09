@@ -1,0 +1,10 @@
+{
+  "sha256": "3d5e0a116971d3d17a7c3adac79423e443d63040b2120be7562a0660f22b4ae4",
+  "rate": 44100,
+  "channels": 2,
+  "samples": 2411520,
+  "duration": 54.68299319727891,
+  "status": "AVAILABLE",
+  "voiceRegenerated": false,
+  "stretch": false
+}
