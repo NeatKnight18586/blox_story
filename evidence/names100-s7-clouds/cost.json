@@ -1,0 +1,13 @@
+{
+  "command": [
+    "node",
+    "scripts/s7-motion-proof.js"
+  ],
+  "exitCode": 0,
+  "wallSeconds": 46.17225611800677,
+  "sampledTreeRssMiB": 738.93359375,
+  "sampledTreeCpuSeconds": 80.77,
+  "processCount": 8,
+  "sampleIntervalSeconds": 0.2,
+  "method": "Linux ps summed subtree RSS (shared pages counted per process), /proc cumulative CPU samples retained by PID/start-time at 100Hz; sampled lower bounds; final pass only, not all development activity"
+}

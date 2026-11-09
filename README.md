@@ -1,3 +1,5 @@
+S7 sparse cloud review: [comparison and one native motion proof](evidence/names100-s7-clouds/REPORT.md). Three clumps only; story/camera/text untouched.
+
 # S6 — native final candidate awaiting iPad review
 
 Native720×1280/30fps master **PASS**:1641 frames/54.700s,clean3D separate from captions/counters/narration. [Silent final candidate](evidence/names100-s6/silent-master.mp4) · [Clean master](evidence/names100-s6/clean-master.mp4) · [Native contact sheet](evidence/names100-s6/23-shot-contact.png) · [Report,tests,costs,limits](evidence/names100-s6/REPORT.md).

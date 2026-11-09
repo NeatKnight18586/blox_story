@@ -24,6 +24,7 @@ const DAWN=Object.freeze({
 const skyTopNight=new THREE.Color(0x14273b),skyHorizonNight=new THREE.Color(0x344354);
 const skyTopDawn=new THREE.Color(0x88abbc),skyHorizonDawn=new THREE.Color(0xf0b79a);
 const fogNight=new THREE.Color(0x293d48),fogDawn=new THREE.Color(0xd6ab94);
+const cloudNight=new THREE.Color(0x506579),cloudDawn=new THREE.Color(0xf0c5ae);
 const grassNight=new THREE.Color(0x435748),grassDawn=new THREE.Color(0x87916c);
 function flat(parent,name,size,color,pos,opacity=1){
  const m=box(parent,name,size,color,pos,.015);
@@ -67,15 +68,17 @@ function sceneDressing(group){
  flat(planter,'pot',[.65,.50,.64],0x827363,[0,.25,0]);
  const leaves=new THREE.Mesh(new THREE.IcosahedronGeometry(.58,1),new THREE.MeshStandardMaterial({color:0x5f7555,roughness:1,flatShading:true}));
  leaves.name='shrub';leaves.position.set(0,.91,0);leaves.castShadow=false;planter.add(leaves);
- // Very modest distant sky clouds; zero opacity at night.
+ // Three sparse world-fixed clumps; one shared low-detail geometry/material.
  const clouds=new THREE.Group();clouds.name='s7_clouds';extra.add(clouds);
- for(const [x,y,z,w] of [[-12,11,-26,3.5],[12,13,-28,2.9]]){
-  const cloud=new THREE.Mesh(new THREE.SphereGeometry(1,12,8),
-   new THREE.MeshBasicMaterial({color:0xf7d4bd,transparent:true,opacity:0,depthWrite:false,fog:false}));
-  cloud.name='horizon_cloud';cloud.position.set(x,y,z);cloud.scale.set(w,.50,1.2);cloud.castShadow=false;
-  clouds.add(cloud);
+ const cloudGeometry=new THREE.SphereGeometry(1,12,8);
+ const cloudMaterial=new THREE.MeshBasicMaterial({color:0x506579,transparent:true,opacity:.10,depthWrite:false,fog:false});
+ for(const [x,y,z,w] of [[-12,11,-26,2.8],[8,15.5,-28,2.4],[24,14,-6,2.6]]){
+  const clump=new THREE.Group();clump.name='horizon_cloud';clump.position.set(x,y,z);clump.scale.setScalar(w);clouds.add(clump);
+  for(const [dx,dy,sx,sy,sz] of [[-.55,0,.8,.30,.48],[0,.12,1,.43,.6],[.65,-.04,.7,.28,.45]]){
+   const mesh=new THREE.Mesh(cloudGeometry,cloudMaterial);mesh.position.set(dx,dy,0);mesh.scale.set(sx,sy,sz);clump.add(mesh);
+  }
  }
- return {extra,trees,clouds};
+ return {extra,trees,clouds,cloudMaterial};
 }
 function skyGradient(scene){
  const radius=46,geom=new THREE.SphereGeometry(radius,24,14);
@@ -116,7 +119,8 @@ export function createS7Environment(scene,world){
   const dawn=THREE.MathUtils.clamp(state.ending?.sunrise??0,0,1);
   for(const [m,[n,d]] of colored)m.material.color.copy(n).lerp(d,dawn);
   for(const m of treeMeshes)m.material.color.copy(treeNight).lerp(treeDay,dawn);
-  for(const m of visuals.clouds.children){m.material.opacity=dawn*.28;m.visible=dawn>.03;}
+  visuals.cloudMaterial.color.copy(cloudNight).lerp(cloudDawn,dawn);
+  visuals.cloudMaterial.opacity=.10+.14*dawn;
   if(scene.fog){
    scene.fog.color.copy(fogNight).lerp(fogDawn,dawn);
    scene.fog.density=.008-(.001*dawn);

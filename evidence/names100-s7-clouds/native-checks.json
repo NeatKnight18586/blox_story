@@ -1,0 +1,20 @@
+[
+  {
+    "g": 35,
+    "clumps": 3,
+    "before": "1ba8711f5856b042a1975835c3de7958b365b7fcf6930188ffb03b1a4e635fbb",
+    "after": "837e44939f15f3356f84ef1d256f0891207e7fbc7ed2468066b15ba6896c4e4d"
+  },
+  {
+    "g": 1392,
+    "clumps": 3,
+    "before": "45d55221845fbc3877694c457df4bd1f9e2d60b2375988f32e70af26bb2ae6e5",
+    "after": "095386f5f67b0886a7ad5122cf054995271f6e82dfa83babd785e69f8f646abf"
+  },
+  {
+    "g": 1600,
+    "clumps": 3,
+    "before": "06f8f67832719fae9f0de384f041426ae5d60c5d2338dece38a273ca0f2a3f0d",
+    "after": "d8656ae53cc8a5b0920bc7e7a39ec8fe5bc34bef88ba01ee3a195322e4a1a92f"
+  }
+]
