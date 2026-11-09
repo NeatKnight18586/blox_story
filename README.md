@@ -224,3 +224,7 @@ See [creative draft](stories/dice-town/CREATIVE_LOCK.md), [art target](stories/d
 ## Dice Town P1C still polish
 
 [Native stills, comparison and report](evidence/dice-town-p1c/REPORT.md). Preview `/production/dice-town-p1c/`; capture `node scripts/dice-town-p1c-proof.js`, board `python3 scripts/dice-town-p1c-board.py`. Isolated static art pass; technical PASS, creative PARTIAL/pending review. No motion/video/P2.
+
+## Dice Town P2A motion proof
+
+[Four-second silent native film](evidence/dice-town-p2a/dice-town-p2a.mp4) · [all120 frames](evidence/dice-town-p2a/all-120-frames.jpg) · [validation / limitations](evidence/dice-town-p2a/REPORT.md). Export with `node scripts/render-shot-list.js --entry dice-town-p2a --shots production/dice-town-p2a/sequence.json --out renders/dice-town-p2a-native`; resume supported. Technical PARTIAL: encoding/contact/determinism pass; wide-shot arm crop remains. Creative review pending.
