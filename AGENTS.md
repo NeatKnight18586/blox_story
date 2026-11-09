@@ -3,7 +3,7 @@
 Read **F1_SPEC.md** first: F1 v3 is the CURRENT product contract. Then read CODEX_HANDOFF.md, STATUS.md, README.md and existing code/tests. The previous Kai/Mira-first instructions are SUPERSEDED. If documents conflict, F1_SPEC.md wins; STATUS.md controls what has actually been verified.
 
 ## Current task boundary
-The complete117s Dice Town storyboard animatic is authorized from codex/dice-town-117s-animatic-plan / ea87785. Follow both plan files completely. Silent low-resolution proxy only:1–3 WebGL boards per shot, FFmpeg holds, placeholders, no final assets/full animation/audio work. Preserve existing tests/history. Deliver timing/assets/verification evidence and draft PR, then stop. This overrides stale task-boundary lines below; F1 remains unchanged.
+Dice Town P3A production-lock documentation only is authorized from latest PR31 context /58f7a13. Inspect existing imagery, timing and source; propose per-shot optimizations, contact/world fixes and asset priorities. No new assets, animation, animatic or final video, engine changes or merge. Preserve original story/timestamps and evidence. Stop for review before production. F1 requirements remain unchanged.
 
 ## Goal and user constraints
 One neutral classic R6-like **six-part** block avatar first, then removable appearance layers (face/colors and one optional cosmetic). Original code-rendered Three.js, not official Roblox models. User is on iPad, wants autonomous execution, no manual modeling, recording, installs or gameplay capture. Minimize explanations and usage without sacrificing accuracy.
