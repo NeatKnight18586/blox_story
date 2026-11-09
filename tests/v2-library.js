@@ -1,0 +1,43 @@
+import assert from 'node:assert/strict';
+import * as THREE from 'three';
+import {createBaseAvatar} from '../avatar/baseAvatar.js';
+import {applyAppearance} from '../appearance/appearance.js';
+import {normalizeWardrobe} from '../appearance/wardrobe.js';
+import {SKIN_TONES,skinColor} from '../appearance/v2-skin.js';
+import {HAIR_STYLES,HAIR_COLORS,makeV2Hair,hairColor} from '../appearance/v2-hair.js';
+import {applyToonV2} from '../appearance/v2-toon.js';
+import {createV2Backlot} from '../production/assets/v2-backlot.js';
+assert.equal(Object.keys(SKIN_TONES).length,8);
+assert.equal(HAIR_STYLES.length,9);
+assert.equal(Object.keys(HAIR_COLORS).length,8);
+assert.throws(()=>skinColor('not-real'));assert.throws(()=>hairColor('not-real'));
+assert.equal(normalizeWardrobe({hair:'bob'}).hair,'bob');
+assert.equal(normalizeWardrobe({hair:'spiky',hairColorId:'auburn'}).hairColor,HAIR_COLORS.auburn);
+assert.throws(()=>normalizeWardrobe({hair:'spiky',cosmetic:'cap'}));
+assert.throws(()=>normalizeWardrobe({hair:'unknown'}));
+const a=createBaseAvatar(),baseline=Object.values(a.parts).map(p=>p.geometry),pivots=Object.values(a.pivots);
+for(const hair of HAIR_STYLES){
+ const visual={skinToneId:'tan',pieces:{torso:0x41607a,leftArm:0x41607a,rightArm:0x41607a,leftLeg:0x263447,rightLeg:0x263447},hair,hairColorId:'espresso'};
+ applyAppearance(a,visual);assert.equal(a.hairLayer.name,`hair_${hair}`);
+ const first=a.hairLayer;applyAppearance(a,visual);assert.equal(a.hairLayer,first);
+ assert.equal(a.parts.head.material.color.getHex(),SKIN_TONES.tan);
+ assert.equal(a.v2Hands.length,2);assert(a.v2Hands.every(m=>m.parent));
+ assert.equal(Object.keys(a.parts).length,6);
+ assert.deepEqual(Object.values(a.parts).map(p=>p.geometry),baseline);
+ assert.deepEqual(Object.values(a.pivots),pivots);
+}
+const prior=a.v2Hands;applyAppearance(a,{color:0x888888});assert(a.v2Hands.every(m=>!m.parent));
+applyAppearance(a,{skinToneId:'deep',hair:'curtains',hairColorId:'black'});
+assert.equal(a.v2Hands,prior);assert(a.v2Hands.every(m=>m.parent));
+assert.equal(a.parts.head.material.color.getHex(),SKIN_TONES.deep);
+const b=createBaseAvatar();applyAppearance(b,{skinToneId:'fair',hair:'spiky'});
+assert.notEqual(b.parts.head.material.color.getHex(),a.parts.head.material.color.getHex());
+for(const hair of HAIR_STYLES){const layer=makeV2Hair(hair);assert(layer.children.length>=2);assert(layer.children.every(o=>o.isMesh&&o.material.isMeshStandardMaterial));}
+const world=new THREE.Group(),backdrop=createV2Backlot(world,{palette:'sunrise',layout:'homecoming'});
+assert.equal(backdrop.parent,world);assert.equal(backdrop.userData.layer,'background_only');
+assert.throws(()=>createV2Backlot(world,{palette:'bad'}));
+const old=a.parts.head.material,toon=applyToonV2(a.root);
+assert(toon.converted>0);assert(a.parts.head.material.isMeshToonMaterial);
+assert.equal(a.parts.head.material.gradientMap.minFilter,THREE.NearestFilter);
+toon.restore();assert.equal(a.parts.head.material,old);
+console.log('PASS V2: 8 skin tones, 9 original hair variants, 8 colors, stable avatar identity, opt-in toon and 2.5D backdrop');
