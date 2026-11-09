@@ -1,0 +1,54 @@
+name: Names100 S7 final native master
+on:
+  push:
+    branches:
+      - release/names100-s7-master
+  workflow_dispatch:
+jobs:
+  render:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 90
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+      - name: Install pinned dependencies and browser
+        run: |
+          npm ci
+          npx playwright install --with-deps chromium
+      - name: Ensure FFmpeg and Chrome for H264 playback QC
+        run: |
+          command -v ffmpeg >/dev/null || (sudo apt-get update && sudo apt-get install -y ffmpeg)
+          command -v ffprobe >/dev/null
+          if ! command -v google-chrome >/dev/null; then npx playwright install chrome; fi
+          echo "PLAYBACK_CHROMIUM=$(command -v google-chrome)" >> "$GITHUB_ENV"
+      - name: Verify unchanged legacy story
+        run: npm test
+      - name: Native S7 look, protected cues and random seeking preflight
+        run: node scripts/s7-environment-proof.js
+      - name: Check first release frame and resumable checkpoint
+        run: node scripts/render-s7-final.js --stop-after 1
+      - name: Capture entire S7 story ONCE at true native resolution
+        run: node scripts/render-s7-final.js
+      - name: Compose existing counter and white captions without new WebGL
+        run: python3 scripts/assemble-s7.py
+      - name: Verify real H264 playback, all frame PTS and 23 shots
+        run: node scripts/s7-video-qc.js
+      - name: Deliver silent native masters and objective verification evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: names100-s7-final-silent-masters
+          path: |
+            renders/names100-s7-review/silent-captioned.mp4
+            renders/names100-s7-review/assembly.json
+            renders/names100-s7-final/last-run.json
+            renders/names100-s7-final/results/*/movie.mp4
+            renders/names100-s7-final/results/*/contact-sheet.png
+          retention-days: 7
+          if-no-files-found: warn
+          compression-level: 1
