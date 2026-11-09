@@ -1,0 +1,11 @@
+{
+  maxDieSupportError: 8.881784197001252e-16,
+  maxPinFrameCoordinate: 0.9102366631581337,
+  maxPinHandPenetration: 0,
+  maxHandHandPenetration: 0,
+  maxContactGap: 0.0044454841489822705,
+  minPaddleGap: 0.0013655955994043012,
+  maxSupportGap: 1.7881394143159923e-9,
+  failures: [],
+  method: 'Actual world mesh bounds for axis-aligned rigid block arms and shaft; actual paddle vertices against finite flat die underside; no physics simulation'
+}

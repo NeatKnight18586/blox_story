@@ -1,0 +1,24 @@
+{
+  "technical": "PASS",
+  "creative": "PARTIAL / human review pending",
+  "clips": {
+    "D15": {
+      "frames": 48,
+      "duration": 1.6,
+      "resolution": [
+        360,
+        640
+      ]
+    },
+    "D23": {
+      "frames": 72,
+      "duration": 2.4,
+      "resolution": [
+        360,
+        640
+      ]
+    }
+  },
+  "nativeStills": 7,
+  "nextPhaseAuthorized": false
+}
