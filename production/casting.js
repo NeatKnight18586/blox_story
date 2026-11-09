@@ -12,8 +12,9 @@ function keys(value,allowed){if(!value||typeof value!=='object'||Array.isArray(v
 const baseRecipe=value=>Object.fromEntries(Object.entries(value).filter(([k])=>['color','pieces','cosmetic'].includes(k)));
 function recipe(value={}){keys(value,['color','pieces','cosmetic','hair','hairColor','clothing','clothingColor']);return {...normalizeAppearance(baseRecipe(value)),...normalizeWardrobe(value)};}
 export function compileCasting(input){
- keys(input,['version','title','output','environment','props','events','cast','shots','reveal','ending','look','opening','counterMode','finish','dressing','speaking']);const data=structuredClone(input);
+ keys(input,['version','title','output','environment','props','events','cast','shots','reveal','ending','look','opening','counterMode','finish','dressing','speaking','environmentStyle']);const data=structuredClone(input);
  if(data.dressing!==undefined&&(data.dressing!=='s4'||data.finish!=='p5'||data.look!=='s1'))throw new Error('S4 dressing requires P5 S1 look');
+ if(data.environmentStyle!==undefined&&(data.environmentStyle!=='s7'||data.finish!=='p5'||data.dressing!=='s4'||data.look!=='s1'))throw new Error('S7 environment requires P5, S4 dressing and S1 look');
  if(data.finish!==undefined&&(data.finish!=='p5'||data.look!=='s1'))throw new Error('Finish requires the P5 S1 story look');
  if(data.counterMode!==undefined&&!['legacy','clean'].includes(data.counterMode))throw new Error('Unknown counter capture mode');
  if(data.look!==undefined&&data.look!=='s1')throw new Error('Unknown visual look');
@@ -43,7 +44,7 @@ export function compileCasting(input){
  const events=compileEvents(data.events??[],first.props,first.frameCount,(frame,id)=>{const state=samplePipeline(actorPlans[id??data.cast[0].id],frame).actor;return worldPosition(state.action.root.position,state.origin);},ids);
  const opening=data.opening?compileOpening(data.opening,{...first,cast:data.cast,reveal,ending:data.ending}):null;
  const ending=data.ending?compileEnding(data.ending,{...first,cast:data.cast,reveal}):null;
- return {version:3,title:data.title,width:first.width,height:first.height,fps:first.fps,frameCount:first.frameCount,environment:first.environment,props:first.props,cast:data.cast,shots,actorPlans,events,...(reveal?{reveal}: {}),...(ending?{ending}:{}),...(data.look?{look:data.look}:{}),...(opening?{opening}:{}),...(data.counterMode?{counterMode:data.counterMode}:{}),...(data.finish?{finish:data.finish}:{}),...(data.dressing?{dressing:data.dressing}:{}),...(speaking?{speaking}:{})};
+ return {version:3,title:data.title,width:first.width,height:first.height,fps:first.fps,frameCount:first.frameCount,environment:first.environment,props:first.props,cast:data.cast,shots,actorPlans,events,...(reveal?{reveal}: {}),...(ending?{ending}:{}),...(data.look?{look:data.look}:{}),...(opening?{opening}:{}),...(data.counterMode?{counterMode:data.counterMode}:{}),...(data.finish?{finish:data.finish}:{}),...(data.dressing?{dressing:data.dressing}:{}),...(data.environmentStyle?{environmentStyle:data.environmentStyle}:{}),...(speaking?{speaking}:{})};
 }
 export function sampleCasting(plan,frame){
  if(!Number.isInteger(frame)||frame<0||frame>=plan.frameCount)throw new Error('Invalid frame index');const shot=plan.shots.find(s=>frame>=s.start&&frame<s.end);
