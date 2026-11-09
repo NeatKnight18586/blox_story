@@ -1,0 +1,26 @@
+{
+  "status": "TECHNICAL_PASS_HUMAN_LISTENING_PENDING",
+  "browser": "156.0.8078.79",
+  "checks": [
+    {
+      "id": "whisper",
+      "ended": true,
+      "muted": false,
+      "duration": 1.266667,
+      "advancedTo": 1.266667,
+      "audibleWindows": 14,
+      "peakRms": 0.0417554984758494,
+      "error": null
+    },
+    {
+      "id": "naming",
+      "ended": true,
+      "muted": false,
+      "duration": 1.9,
+      "advancedTo": 1.9,
+      "audibleWindows": 27,
+      "peakRms": 0.18947805600755846,
+      "error": null
+    }
+  ]
+}

@@ -1,0 +1,44 @@
+{
+  "s5-native": {
+    "command": [
+      "node",
+      "scripts/s5-keyframes.js"
+    ],
+    "exitCode": 0,
+    "wallSeconds": 16.987551128986524,
+    "sampledTreeRssMiB": 1054.125,
+    "sampledTreeCpuSeconds": 31.59,
+    "processCount": 12,
+    "sampleIntervalSeconds": 0.2,
+    "method": "Linux ps summed subtree RSS (shared pages counted per process), /proc cumulative CPU samples retained by PID/start-time at 100Hz; sampled lower bounds; final pass only, not all development activity"
+  },
+  "s5-motion": {
+    "command": [
+      "node",
+      "scripts/s5-previews.js",
+      "<private original WAV>"
+    ],
+    "exitCode": 0,
+    "wallSeconds": 133.36641147499904,
+    "sampledTreeRssMiB": 1652.4609375,
+    "sampledTreeCpuSeconds": 217.43,
+    "processCount": 115,
+    "sampleIntervalSeconds": 0.2,
+    "method": "Linux ps summed subtree RSS (shared pages counted per process), /proc cumulative CPU samples retained by PID/start-time at 100Hz; sampled lower bounds; final pass only, not all development activity"
+  },
+  "s5-regression": {
+    "command": [
+      "bash",
+      "-c",
+      "npm test && npm run test:counter && npm run test:finish && npm run test:speaking && python3 tests/captions.py && node tests/performance-motion.js"
+    ],
+    "exitCode": 0,
+    "wallSeconds": 54.305389948000084,
+    "sampledTreeRssMiB": 1162.7734375,
+    "sampledTreeCpuSeconds": 90.7,
+    "processCount": 73,
+    "sampleIntervalSeconds": 0.2,
+    "method": "Linux ps summed subtree RSS (shared pages counted per process), /proc cumulative CPU samples retained by PID/start-time at 100Hz; sampled lower bounds; final pass only, not all development activity"
+  },
+  "scope": "0.2s process-tree CPU/RSS samples; shared RSS counted per process, CPU lower bounds. Native initial proof16.988s; one targeted cue correction/native1115 recheck, premerge checks, initial diagnostic tests, compositing, decoded-strip/PCM/full-audio-playback checks and final file checks unprofiled. No total usage/billing claim; model-token count unavailable. Motion and some browser tests ran concurrently; walls are not total task duration."
+}

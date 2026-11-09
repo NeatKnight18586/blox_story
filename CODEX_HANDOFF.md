@@ -1,3 +1,13 @@
+# Current handoff — S5 restrained speaking proof
+
+PR18 verified and merged preserving commits at097c9e7. User's full narrated S4 review is positive. Branch codex/names100-s5-speech-finish implements S5_RELEASE_FINISH_BRIEF.md only. **PASS for bounded technical+visible acting; human creative/listening approval pending.**
+
+One opt-in cached face-child layer: closed/narrow/open, authored absolute-frame cues, no waveform/phoneme/body engine. Whisper776–788; three irregular visible name bursts1204–1209,1228–1235,1253–1259,leading narrated counter changes but sealed during numbers. Removed hidden S16 pulses after native1115 showed Eli's back; existing1232 close-up is visible naming sample,1248 stays closed. No cameras/environments changed. Silent startled O is reversibly sealed in S5 (eyes/brows untouched); default faces/clear() restore original cache.
+
+[One native comparison sheet](evidence/names100-s5/comparison.png), [whisper38frames/1.2667s](evidence/names100-s5/whisper.mp4), [naming57frames/1.9s](evidence/names100-s5/naming.mp4), [report/commands/costs/receipts](evidence/names100-s5/REPORT.md). Both clips genuine720x1280/30fps,not upscaled. All95 reverse pixels/states and44 cold/reverse WebGL boundaries pass; full-image changes confined to mouth,5 controls identical. All1641 source story/body samples unchanged. Original-audio clips verified privately with exact sample trims,full unmuted playback and zero coarse lag; voiced files/WAV not committed or presented as accessible downloads. Human listening remains pending.
+
+899 prior files/734 evidence files/13 old films/full S4 narrated review/WAV unchanged. No new environment geometry/dependencies. Native proof16.988s; two native captures+all reverse/codec checks133.366s/1652.46MiB sampled summed RSS; regressions54.305s. Diagnostics unprofiled; model-token usage unavailable. Stop for review. No full native episode, sound pass or automatic next phase. Historical handoffs follow.
+
 # Current handoff — S4 integrated rough-cut QC
 
 PR17 test-mask defect corrected at e6d7046; required tests/genuine evidence passed and merge preserved history at5f6975a. Current branch `codex/names100-s4-assembly-qc` follows revised S4_FULL_ASSEMBLY_QC.md. Approved S3B/P5/counter/caption foundation retained.

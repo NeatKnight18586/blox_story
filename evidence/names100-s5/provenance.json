@@ -1,0 +1,24 @@
+{
+  "sources": {
+    "appearance/speaking.js": "8f255d4ee36eba7baf2d5b75607b4dd2afbece7f18359c052635e8a1015b2399",
+    "production/casting.js": "884987681e4efb5db8cf98e8097cbb9d2a01a1192bf997d29cd0f2a357d16030",
+    "production/render.js": "62a21b57bb64949a00d6884d5274973402aa6bdd2ecc1b2e28c70b0bd2c947c6",
+    "scripts/s5-story.js": "a5d296f001c52f43f98165f0ac67c59e499a241a9997516e5faa716f15b33d72",
+    "scripts/s5-previews.js": "872d4c9322a185e09b6a0aa4717d4d9dcb4f34dc12a7ae35234fb82a4abb16a1",
+    "scripts/s5-keyframes.js": "2731d58a768a3e890f906a65f9b019acae7ae3fda8a80208a3e900006dcb30b4",
+    "scripts/s5-sheet.py": "c0efaae7bbef1fac69c06bf7784a8fc93189e9e8c6b0003a827e7ca0ac29f95e",
+    "stories/names100/s5-speech.json": "a2516a7cbd07c21f9666ed75f86fc41e0d552f6447df2917e2c0ad870d776a2e"
+  },
+  "artifacts": {
+    "whisper.mp4": "9c63008581e678eefbfc3d2b5daf28f01442d3ee188f349b5915efb8f3d91da0",
+    "naming.mp4": "aa5e684cd6f59b45deddead0346fae3d8b9e187a60442f16995f32d9f2978b7b",
+    "comparison.png": "20775c320704aa637e2deeae74faeeba5c8e12be80697042334572fa3fc05f61"
+  },
+  "nativeKeyFramesMatchCurrentPreviewPixels": [
+    780,
+    1232
+  ],
+  "noUpscale": true,
+  "noEnvironmentOrCameraChange": true,
+  "noFullEpisode": true
+}
