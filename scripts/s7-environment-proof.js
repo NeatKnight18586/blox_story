@@ -68,7 +68,7 @@ try{
       courtyard.sky.groundColor.setHex(look==='night'?0x4b443f:0x79675c);
       if(look==='night')courtyard.fill.color.setHex(0xa3c4cd);
     }
-    if(scene.fog){scene.fog.color.setHex(isBedroom?0x303b44:look==='night'?0x404d54:0xd4ab96);
+    if(scene.fog){scene.fog.color.setHex(isBedroom?0x303b44:look==='night'?0x2e3e4b:0xd4ab96);
       scene.fog.density=isBedroom?.018:look==='night'?.008:.007;}
     // A few restrained ground joints on the home approach; avoid checkerboard floors.
     if(!isBedroom && courtyard){
@@ -83,8 +83,8 @@ try{
       verge.position.set(-5.35,.008,1);verge.castShadow=false;ground.add(verge);
     }
     // Sky color is selected independently from road; simple vertex-color gradient, no custom post FX.
-    const top=new THREE.Color(isBedroom?0x101c32:look==='night'?0x16273c:0x8ca8b7);
-    const horizon=new THREE.Color(isBedroom?0x324756:look==='night'?0x67666a:0xefb99e);
+    const top=new THREE.Color(isBedroom?0x101c32:look==='night'?0x13253a:0x8ca8b7);
+    const horizon=new THREE.Color(isBedroom?0x324756:look==='night'?0x344657:0xefb99e);
     const radius=42,g=new THREE.SphereGeometry(radius,32,18),a=g.getAttribute('position'),verts=[];
     for(let i=0;i<a.count;i++){
       const y=a.getY(i)/radius;const t=THREE.MathUtils.smoothstep(y,-.45,.5);
