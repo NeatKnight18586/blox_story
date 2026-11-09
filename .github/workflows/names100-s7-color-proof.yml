@@ -1,0 +1,29 @@
+name: S7 Environment Color Proof (still only)
+on:
+  push:
+    branches: [lookdev/names100-ground-sky-audit]
+  workflow_dispatch:
+jobs:
+  before-after:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 12
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+      - run: npm ci
+      - run: npx playwright install --with-deps chromium
+      - run: npm test
+      - run: node scripts/s7-environment-proof.js
+      - name: Private image evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: names100-s7-ground-sky-color-proof
+          path: renders/names100-s7-color-proof/
+          if-no-files-found: warn
+          retention-days: 7
