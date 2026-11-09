@@ -7,7 +7,7 @@ const dir='renders/v2-bacon-hair';await mkdir(dir,{recursive:true});
 const server=await startServer(process.cwd());
 const browser=await chromium.launch({headless:true,args:['--no-sandbox','--use-angle=swiftshader','--enable-unsafe-swiftshader']});
 const angles={
- front:[0,5.2,4.8],threequarter:[2.7,5.3,3.8],side:[4.8,5.2,0],rear:[0,5.2,-4.8]
+ front:[0,4.9,2.7],threequarter:[1.8,4.9,2.3],side:[2.7,4.9,0],rear:[0,4.9,-2.7]
 };
 try {
  const page=await browser.newPage({viewport:{width:720,height:1280},deviceScaleFactor:1});
@@ -15,7 +15,7 @@ try {
  for(const [name,pos] of Object.entries(angles)){
   await page.goto(server.url+'/production/v2-preview.html?hair=bacon&skin=warm&toon=0');
   await page.waitForFunction(()=>window.__v2Proof?.ready,null,{timeout:25000});
-  for(const [size,distance] of [['close',1],['medium',1.65]]){
+  for(const [size,distance] of [['close',1],['medium',1.5]]){
    const report=await page.evaluate(({pos,distance})=>{
     const proof=window.__v2Proof,cam=proof.camera;
     cam.position.set(...pos.map((v,i)=>i===1?4.47+(v-4.47)*distance:v*distance));
