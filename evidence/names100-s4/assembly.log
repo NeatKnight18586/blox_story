@@ -1,0 +1,4 @@
+PASS FFmpeg-only silent and original-narration assembly; pending real playback/creative review
+PASS23-shot contact sheet from new integrated review movie, not archived S2
+PASS t=0,unchanged narration input,coarse PCM sync correlation (0, 0.9995451393848647)
+PASS full decode/821PTS/22cuts/native playback; voiced stream-copy identity and full unmuted playback when available

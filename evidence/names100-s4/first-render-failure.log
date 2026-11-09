@@ -1,0 +1,29 @@
+
+> render:s4
+> node scripts/render-names100.js --assembly stories/names100/s4-assembly.json --out renders/names100-s4
+
+Captured 1/821; reused 0
+Captured 51/821; reused 0
+Captured 101/821; reused 0
+Captured 151/821; reused 0
+Captured 201/821; reused 0
+Captured 251/821; reused 0
+Captured 301/821; reused 0
+Captured 351/821; reused 0
+Captured 401/821; reused 0
+Captured 451/821; reused 0
+Captured 501/821; reused 0
+Captured 551/821; reused 0
+Captured 601/821; reused 0
+Captured 651/821; reused 0
+Captured 701/821; reused 0
+Captured 751/821; reused 0
+Captured 801/821; reused 0
+Reverse verified global1600
+AssertionError [ERR_ASSERTION]: Non-repeatable global1202
++ actual - expected
+
++ '43652765a1853287dd461c2c33156c003a609c0ffdfd81d165b82197035ae645'
+- '62b60d853dda68740e464b9fa6bc92c862277cee9f135eed4f77613732d75077'
+
+    at file:///workspace/blox_story/scripts/render-names100.js:36:151
