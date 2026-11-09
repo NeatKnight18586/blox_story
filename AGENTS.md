@@ -3,7 +3,7 @@
 Read **F1_SPEC.md** first: F1 v3 is the CURRENT product contract. Then read CODEX_HANDOFF.md, STATUS.md, README.md and existing code/tests. The previous Kai/Mira-first instructions are SUPERSEDED. If documents conflict, F1_SPEC.md wins; STATUS.md controls what has actually been verified.
 
 ## Current task boundary
-Dice Town P3B-1 D15 mechanism / D23 pin handoff proof is authorized from PR32/a78b7f2. Shared minimal chamber, one persistent mechanically functional pin, native keyframes and short low-resolution motion proofs only. Preserve prior timestamps/source/history; no full editorial intervals, new frameworks, narration, other shots or merge. Technical and creative statuses separate; stop for review. F1 requirements unchanged.
+Dice Town P3B-2 D35 mother recognition motion and D36 chair reference only are authorized from codex/dice-town-p3b2-direction /100e496. Follow the directed brief, native keyframe gate then one low-res local proof. Preserve prior source/evidence/timestamps. No other shots, audio, frameworks or merge; draft implementation PR targets specification branch. Stop for creative review. F1 requirements unchanged.
 
 ## Goal and user constraints
 One neutral classic R6-like **six-part** block avatar first, then removable appearance layers (face/colors and one optional cosmetic). Original code-rendered Three.js, not official Roblox models. User is on iPad, wants autonomous execution, no manual modeling, recording, installs or gameplay capture. Minimize explanations and usage without sacrificing accuracy.
