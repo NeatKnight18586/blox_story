@@ -3,7 +3,7 @@
 Read **F1_SPEC.md** first: F1 v3 is the CURRENT product contract. Then read CODEX_HANDOFF.md, STATUS.md, README.md and existing code/tests. The previous Kai/Mira-first instructions are SUPERSEDED. If documents conflict, F1_SPEC.md wins; STATUS.md controls what has actually been verified.
 
 ## Current task boundary
-Dice Town P0–P1 only is authorized by the 2026-11-09 reconciled user directive. Use an isolated branch from inspected S6 source; preserve S6/S7/V2 refs, public APIs, old story JSON, films and evidence. Produce three planning files and two native WebGL stills with pilot comparison and deterministic tests. No episode, video, audio, merge, publishing or P2. Creative approval is separate from technical PASS. This overrides stale S5/S6 task-boundary sentences below only; all F1 avatar requirements remain unchanged.
+Dice Town P1B visual-quality experiment only is authorized. Preserve P1 commit aac0a5f, all S6/S7/V2 refs, APIs, prior films and evidence. Isolate the revised plaza/Leo and one licensed external character candidate on codex/dice-town-p1b. Native stills, phone comparison and focused verification only; no merge, P2, video/audio or global rig replacement. Technical PASS is not creative approval. This overrides stale task-boundary sentences below only; F1 requirements are unchanged.
 
 ## Goal and user constraints
 One neutral classic R6-like **six-part** block avatar first, then removable appearance layers (face/colors and one optional cosmetic). Original code-rendered Three.js, not official Roblox models. User is on iPad, wants autonomous execution, no manual modeling, recording, installs or gameplay capture. Minimize explanations and usage without sacrificing accuracy.
