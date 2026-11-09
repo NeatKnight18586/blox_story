@@ -13,7 +13,7 @@ function mesh(name,geometry,tone=1){
  return m;
 }
 function ellipsoid(name,at,scale,tone=1){
- const m=mesh(name,new THREE.SphereGeometry(1,28,16),tone);
+ const m=mesh(name,new THREE.SphereGeometry(1,22,12),tone);
  m.position.set(...at);m.scale.set(...scale);
  return m;
 }
