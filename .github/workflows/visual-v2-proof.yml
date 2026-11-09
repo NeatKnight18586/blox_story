@@ -25,6 +25,7 @@ jobs:
       - run: node tests/v2-library.js
       - run: node tests/v2-browser.js
       - run: node tests/v2-sculpted-browser.js
+      - run: node tests/v2-bacon-browser.js
       - name: Upload private review stills
         if: always()
         uses: actions/upload-artifact@v4
@@ -39,5 +40,13 @@ jobs:
         with:
           name: v2-sculpted-hair-multiview
           path: renders/v2-sculpted-reference/*.png
+          if-no-files-found: warn
+          retention-days: 7
+      - name: Upload bacon native multiview proof
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: v2-bacon-hair-review
+          path: renders/v2-bacon-hair/*.png
           if-no-files-found: warn
           retention-days: 7
