@@ -1,0 +1,289 @@
+{
+  "status": "PASS",
+  "previousPassWallSeconds": null,
+  "wallSeconds": 7.294113512,
+  "browser": "141.0.7390.37",
+  "errors": [],
+  "samples": [
+    {
+      "mode": "mechanism",
+      "f": 0,
+      "name": "rest",
+      "state": {
+        "mode": "mechanism",
+        "frame": 0,
+        "time": 0,
+        "input": 0,
+        "output": 0,
+        "phi": 1,
+        "pin": [
+          -0.44999999999999996,
+          4.6,
+          1.05
+        ],
+        "owner": "sleeve",
+        "contactGap": 3.025916451247408,
+        "pinTailClearance": -0.8999999999999999,
+        "pinIdentity": true,
+        "bodyIdentity": true,
+        "pinCount": 1,
+        "palm": [
+          0.7999999999999995,
+          4.5200000000000005,
+          2.65
+        ],
+        "support": [
+          -1.2999999999999998,
+          4.52,
+          1.48
+        ],
+        "paddlePoint": [
+          2,
+          4.723,
+          0
+        ]
+      },
+      "hash": "f8a7fb395e3619a6fc0f04488663f494f5b0a5ac9c1d4089c244fcafbdcb12c1"
+    },
+    {
+      "mode": "mechanism",
+      "f": 23,
+      "name": "contact",
+      "state": {
+        "mode": "mechanism",
+        "frame": 23,
+        "time": 0.7666666666666667,
+        "input": 0.876612653296276,
+        "output": 0.876612653296276,
+        "phi": 0.2707871720116618,
+        "pin": [
+          -0.6481329659998444,
+          5.022716915185486,
+          1.05
+        ],
+        "owner": "sleeve",
+        "contactGap": 0,
+        "pinTailClearance": -0.8999999999999999,
+        "pinIdentity": true,
+        "bodyIdentity": true,
+        "pinCount": 1,
+        "palm": [
+          0.7999999999999995,
+          4.5200000000000005,
+          2.65
+        ],
+        "support": [
+          -1.4981329659998441,
+          4.52,
+          1.48
+        ],
+        "paddlePoint": [
+          0.8247398571502766,
+          6.984418892251776,
+          0
+        ]
+      },
+      "hash": "50408dd15c9e99d3ee907403869a4277fafeabf5c6903c9ae9969a8cc45baf0c"
+    },
+    {
+      "mode": "disabled",
+      "f": 23,
+      "name": "disabled",
+      "state": {
+        "mode": "disabled",
+        "frame": 23,
+        "time": 0.7666666666666667,
+        "input": 0.6813500696122685,
+        "output": 0,
+        "phi": 1,
+        "pin": [
+          0.8,
+          4.6,
+          3
+        ],
+        "owner": "pip",
+        "contactGap": 3.025916451247408,
+        "pinTailClearance": 1.0499999999999998,
+        "pinIdentity": true,
+        "bodyIdentity": true,
+        "pinCount": 1,
+        "palm": [
+          0.7999999999999995,
+          4.5200000000000005,
+          2.65
+        ],
+        "support": [
+          -0.049999999999999815,
+          4.52,
+          3.43
+        ],
+        "paddlePoint": [
+          2,
+          4.723,
+          0
+        ]
+      },
+      "hash": "443851f9177a4c71c6715e6f5a49089978da9c7a2ce8c9cc36d96378ff8db302"
+    },
+    {
+      "mode": "handoff",
+      "f": 0,
+      "name": "seated",
+      "state": {
+        "mode": "handoff",
+        "frame": 0,
+        "time": 0,
+        "input": 0,
+        "output": 0,
+        "phi": 1,
+        "pin": [
+          -0.45,
+          4.6,
+          1.05
+        ],
+        "owner": "extracting",
+        "contactGap": 3.025916451247408,
+        "pinTailClearance": -0.8999999999999999,
+        "pinIdentity": true,
+        "bodyIdentity": true,
+        "pinCount": 1,
+        "palm": [
+          0.7999999999999995,
+          4.5200000000000005,
+          2.65
+        ],
+        "support": [
+          -0.44999999999999973,
+          4.52,
+          1.48
+        ],
+        "paddlePoint": [
+          2,
+          4.723,
+          0
+        ]
+      },
+      "hash": "157a4ed2d8f7dc3ff2e6628da7a74985836fa121d6549c13f0a002d09a267f0f"
+    },
+    {
+      "mode": "handoff",
+      "f": 22,
+      "name": "removed",
+      "state": {
+        "mode": "handoff",
+        "frame": 22,
+        "time": 0.7333333333333333,
+        "input": 0,
+        "output": 0,
+        "phi": 1,
+        "pin": [
+          -0.45,
+          4.6,
+          2.25
+        ],
+        "owner": "leo",
+        "contactGap": 3.025916451247408,
+        "pinTailClearance": 0.30000000000000004,
+        "pinIdentity": true,
+        "bodyIdentity": true,
+        "pinCount": 1,
+        "palm": [
+          0.7999999999999995,
+          4.5200000000000005,
+          2.65
+        ],
+        "support": [
+          -0.44999999999999973,
+          4.52,
+          2.68
+        ],
+        "paddlePoint": [
+          2,
+          4.723,
+          0
+        ]
+      },
+      "hash": "fb0cfe4660f04f79a23bf2568d4c0516c02668f40f0ac414a69b0e7c17c97980"
+    },
+    {
+      "mode": "handoff",
+      "f": 43,
+      "name": "transfer",
+      "state": {
+        "mode": "handoff",
+        "frame": 43,
+        "time": 1.4333333333333333,
+        "input": 0,
+        "output": 0,
+        "phi": 1,
+        "pin": [
+          0.4446489356297311,
+          4.6,
+          3
+        ],
+        "owner": "leo",
+        "contactGap": 3.025916451247408,
+        "pinTailClearance": 1.0499999999999998,
+        "pinIdentity": true,
+        "bodyIdentity": true,
+        "pinCount": 1,
+        "palm": [
+          0.7999999999999995,
+          4.5200000000000005,
+          2.65
+        ],
+        "support": [
+          0.4446489356297314,
+          4.52,
+          3.43
+        ],
+        "paddlePoint": [
+          2,
+          4.723,
+          0
+        ]
+      },
+      "hash": "be4c2ea5e91cfe68f3f1a4ae27c7a0907177796f51a3bb7371829be77f9e6c23"
+    },
+    {
+      "mode": "handoff",
+      "f": 71,
+      "name": "received",
+      "state": {
+        "mode": "handoff",
+        "frame": 71,
+        "time": 2.3666666666666667,
+        "input": 0,
+        "output": 0,
+        "phi": 1,
+        "pin": [
+          0.8,
+          4.6,
+          3
+        ],
+        "owner": "pip",
+        "contactGap": 3.025916451247408,
+        "pinTailClearance": 1.0499999999999998,
+        "pinIdentity": true,
+        "bodyIdentity": true,
+        "pinCount": 1,
+        "palm": [
+          0.7999999999999995,
+          4.5200000000000005,
+          2.65
+        ],
+        "support": [
+          -0.049999999999999815,
+          4.52,
+          3.43
+        ],
+        "paddlePoint": [
+          2,
+          4.723,
+          0
+        ]
+      },
+      "hash": "4aaf1b4aa9c6f9a575ac0598e8ec4fe55f22f1b41dd637d02969525787c5f2e4"
+    }
+  ]
+}

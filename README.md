@@ -240,3 +240,7 @@ Revised staging and acting: [film and validation](evidence/dice-town-p2a-polish/
 ## Dice Town P3A production strategy
 
 [Proposed production lock](stories/dice-town/P3A_PRODUCTION_LOCK.md) · [38-shot optimization](stories/dice-town/P3A_SHOT_OPTIMIZATION.md) · [priorities, overlap/world fixes and safe cheats](stories/dice-town/P3A_FIX_AND_ASSET_PRIORITIES.md). Documentation only; no revised assets/animation rendered or creatively approved.
+
+## Dice Town P3B-1 contact proof
+
+[D15/D23 films, native stills, geometric verification and limitations](evidence/dice-town-p3b1/REPORT.md). `node scripts/dice-town-p3b1-proof.js --stills` then `node scripts/dice-town-p3b1-proof.js`; original engine/characters preserved. Technical PASS, creative review pending. No final episode or merge.
