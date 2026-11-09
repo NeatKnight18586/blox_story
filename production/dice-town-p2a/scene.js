@@ -105,7 +105,7 @@ function renderFrame(frame){
  dieGroup.position.y=.36-dieMin;
  const contacts=[];
  for(const[a,i]of extras.map((a,i)=>[a,i])){
-  const pose=state.people[i];a.root.visible=!close;a.root.position.set(...[[-7,0,-1],[4.5,0,-4],[5,0,6]][i]);
+  const pose=state.people[i];a.root.visible=!close;a.root.position.set(...[[-7,0,-1],[3.4,0,-4],[3.1,0,6]][i]);
   a.root.rotation.set(pose.lean,[-.2,.1,.2][i],pose.tilt);
   for(const[k,r]of Object.entries(pose.pivots))a.pivots[k].rotation.set(...r);
   a.root.updateMatrixWorld(true);let min=Infinity;

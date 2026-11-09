@@ -1,0 +1,196 @@
+{
+  "maxFootError": 8.881784197001252e-16,
+  "minClearance": 0,
+  "maxDieContactError": 1.1102230246251565e-16,
+  "frames": 120,
+  "shots": [
+    "three-and-rise",
+    "leo-reacts"
+  ],
+  "persistentFaceAndBodyGeometry": true,
+  "worldSky": true,
+  "worldClouds": true,
+  "edgeViolations": [
+    {
+      "frame": 75,
+      "actor": "leo"
+    },
+    {
+      "frame": 76,
+      "actor": "leo"
+    },
+    {
+      "frame": 77,
+      "actor": "leo"
+    },
+    {
+      "frame": 78,
+      "actor": "leo"
+    },
+    {
+      "frame": 79,
+      "actor": "leo"
+    },
+    {
+      "frame": 80,
+      "actor": "leo"
+    },
+    {
+      "frame": 81,
+      "actor": "leo"
+    },
+    {
+      "frame": 82,
+      "actor": "leo"
+    },
+    {
+      "frame": 83,
+      "actor": "leo"
+    },
+    {
+      "frame": 84,
+      "actor": "leo"
+    },
+    {
+      "frame": 85,
+      "actor": "leo"
+    },
+    {
+      "frame": 86,
+      "actor": "leo"
+    },
+    {
+      "frame": 87,
+      "actor": "leo"
+    },
+    {
+      "frame": 88,
+      "actor": "leo"
+    },
+    {
+      "frame": 89,
+      "actor": "leo"
+    },
+    {
+      "frame": 90,
+      "actor": "leo"
+    },
+    {
+      "frame": 91,
+      "actor": "leo"
+    },
+    {
+      "frame": 92,
+      "actor": "leo"
+    },
+    {
+      "frame": 93,
+      "actor": "leo"
+    },
+    {
+      "frame": 94,
+      "actor": "leo"
+    },
+    {
+      "frame": 95,
+      "actor": "leo"
+    },
+    {
+      "frame": 96,
+      "actor": "leo"
+    },
+    {
+      "frame": 97,
+      "actor": "leo"
+    },
+    {
+      "frame": 98,
+      "actor": "leo"
+    },
+    {
+      "frame": 99,
+      "actor": "leo"
+    },
+    {
+      "frame": 100,
+      "actor": "leo"
+    },
+    {
+      "frame": 101,
+      "actor": "leo"
+    },
+    {
+      "frame": 102,
+      "actor": "leo"
+    },
+    {
+      "frame": 103,
+      "actor": "leo"
+    },
+    {
+      "frame": 104,
+      "actor": "leo"
+    },
+    {
+      "frame": 105,
+      "actor": "leo"
+    },
+    {
+      "frame": 106,
+      "actor": "leo"
+    },
+    {
+      "frame": 107,
+      "actor": "leo"
+    },
+    {
+      "frame": 108,
+      "actor": "leo"
+    },
+    {
+      "frame": 109,
+      "actor": "leo"
+    },
+    {
+      "frame": 110,
+      "actor": "leo"
+    },
+    {
+      "frame": 111,
+      "actor": "leo"
+    },
+    {
+      "frame": 112,
+      "actor": "leo"
+    },
+    {
+      "frame": 113,
+      "actor": "leo"
+    },
+    {
+      "frame": 114,
+      "actor": "leo"
+    },
+    {
+      "frame": 115,
+      "actor": "leo"
+    },
+    {
+      "frame": 116,
+      "actor": "leo"
+    },
+    {
+      "frame": 117,
+      "actor": "leo"
+    },
+    {
+      "frame": 118,
+      "actor": "leo"
+    },
+    {
+      "frame": 119,
+      "actor": "leo"
+    }
+  ],
+  "edgeMethod": "Actual transformed mesh vertices projected to image"
+}
