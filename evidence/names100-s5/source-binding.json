@@ -1,0 +1,64 @@
+{
+  "status": "PASS",
+  "finalEngineMatchesBothNativePreviews": true,
+  "receipts": [
+    {
+      "id": "whisper",
+      "engineSha256": "0fb90ff1cad535206da4e0dbbc8c6e39d6588ec9e3f4f9c292d403a22d45d1ee",
+      "shotListSha256": "e00b96e645c8f410e960ed007eb34fbc6baf1105ce2980fb22e5b7eab4aee508",
+      "range": {
+        "start": 278,
+        "endExclusive": 316,
+        "sourceFrameCount": 463
+      },
+      "determinism": {
+        "allFrames": 38,
+        "reversePixelMatch": true,
+        "referenceMatch": false
+      },
+      "cache": {
+        "reused": 0,
+        "rendered": 38,
+        "repaired": 0,
+        "checkpointMissingOrInvalid": true,
+        "bytesAtStart": 0,
+        "bytesAtEnd": 6706720
+      },
+      "dimensions": [
+        720,
+        1280
+      ],
+      "fps": 30,
+      "frameCount": 38
+    },
+    {
+      "id": "naming",
+      "engineSha256": "0fb90ff1cad535206da4e0dbbc8c6e39d6588ec9e3f4f9c292d403a22d45d1ee",
+      "shotListSha256": "ae1bb37e0b91a7a594c3b3b9fdb67962535ed4b2f679f9755c9324ce27f99b06",
+      "range": {
+        "start": 258,
+        "endExclusive": 315,
+        "sourceFrameCount": 696
+      },
+      "determinism": {
+        "allFrames": 57,
+        "reversePixelMatch": true,
+        "referenceMatch": false
+      },
+      "cache": {
+        "reused": 0,
+        "rendered": 57,
+        "repaired": 0,
+        "checkpointMissingOrInvalid": true,
+        "bytesAtStart": 0,
+        "bytesAtEnd": 16908087
+      },
+      "dimensions": [
+        720,
+        1280
+      ],
+      "fps": 30,
+      "frameCount": 57
+    }
+  ]
+}

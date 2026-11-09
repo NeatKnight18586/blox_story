@@ -1,0 +1,25 @@
+{
+  "status": "TECHNICAL_PASS_LISTENING_PENDING",
+  "checks": [
+    {
+      "id": "whisper",
+      "sourcePcmSha256": "c691b0b3522dbcd5aed31649ab1e9ffdddd21610da2247bafbd64010d477bd54",
+      "sampleStart": 1117200,
+      "sampleEnd": 1173060,
+      "correlation": 0.9996297757663976,
+      "peakLagSeconds": 0.0,
+      "resolutionSeconds": 0.0033333333333333335,
+      "originalWavUnchanged": true
+    },
+    {
+      "id": "naming",
+      "sourcePcmSha256": "a4eeac04b8ee0c579945c4100e330da0fb1bdb204977cf8882fca6f66edf10df",
+      "sampleStart": 1768410,
+      "sampleEnd": 1852200,
+      "correlation": 0.9989516183895497,
+      "peakLagSeconds": 0.0,
+      "resolutionSeconds": 0.0033333333333333335,
+      "originalWavUnchanged": true
+    }
+  ]
+}

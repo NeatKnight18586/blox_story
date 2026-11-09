@@ -1,0 +1,10 @@
+{
+  "headRefOid": "6e3b84b05061c2dd7f78f4f8453b96dcfa5cd8e0",
+  "mergeCommit": {
+    "oid": "097c9e7ee621a02e52b2012a13929fe82760dc50"
+  },
+  "mergedAt": "2026-11-09T00:43:03Z",
+  "state": "MERGED",
+  "existingVerification": "PASS: source/counter/finish/caption/S4 mask regressions plus film hash/decode/PTS/cut/native playback and resident/ghost seeks",
+  "creativeApproval": "Positive full narrated S4 review explicitly recorded by current user and S5 brief"
+}

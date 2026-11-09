@@ -1,0 +1,605 @@
+{
+  "status": "PASS",
+  "browser": "141.0.7390.37",
+  "checks": [
+    {
+      "globalFrame": 289,
+      "face": "thoughtful",
+      "sample": {
+        "cue": null,
+        "shape": "closed",
+        "amount": 0
+      },
+      "active": [],
+      "layerIdentity": true,
+      "bodyIdentity": true,
+      "faceHierarchy": true
+    },
+    {
+      "globalFrame": 359,
+      "face": "nervous",
+      "sample": {
+        "cue": null,
+        "shape": "closed",
+        "amount": 0
+      },
+      "active": [],
+      "layerIdentity": true,
+      "bodyIdentity": true,
+      "faceHierarchy": true
+    },
+    {
+      "globalFrame": 445,
+      "face": "nervous",
+      "sample": {
+        "cue": null,
+        "shape": "closed",
+        "amount": 0
+      },
+      "active": [],
+      "layerIdentity": true,
+      "bodyIdentity": true,
+      "faceHierarchy": true
+    },
+    {
+      "globalFrame": 700,
+      "face": "nervous",
+      "sample": {
+        "cue": null,
+        "shape": "closed",
+        "amount": 0
+      },
+      "active": [],
+      "layerIdentity": true,
+      "bodyIdentity": true,
+      "faceHierarchy": true
+    },
+    {
+      "globalFrame": 775,
+      "face": "nervous",
+      "sample": {
+        "cue": null,
+        "shape": "closed",
+        "amount": 0
+      },
+      "active": [],
+      "layerIdentity": true,
+      "bodyIdentity": true,
+      "faceHierarchy": true
+    },
+    {
+      "globalFrame": 776,
+      "face": "nervous",
+      "sample": {
+        "cue": "mara_whisper",
+        "shape": "narrow",
+        "amount": 0
+      },
+      "active": [],
+      "layerIdentity": true,
+      "bodyIdentity": true,
+      "faceHierarchy": true
+    },
+    {
+      "globalFrame": 777,
+      "face": "nervous",
+      "sample": {
+        "cue": "mara_whisper",
+        "shape": "narrow",
+        "amount": 0.25
+      },
+      "active": [
+        "mouth_narrow"
+      ],
+      "layerIdentity": true,
+      "bodyIdentity": true,
+      "faceHierarchy": true
+    },
+    {
+      "globalFrame": 780,
+      "face": "nervous",
+      "sample": {
+        "cue": "mara_whisper",
+        "shape": "narrow",
+        "amount": 1
+      },
+      "active": [
+        "mouth_narrow"
+      ],
+      "layerIdentity": true,
+      "bodyIdentity": true,
+      "faceHierarchy": true
+    },
+    {
+      "globalFrame": 787,
+      "face": "nervous",
+      "sample": {
+        "cue": "mara_whisper",
+        "shape": "narrow",
+        "amount": 0.12
+      },
+      "active": [
+        "mouth_narrow"
+      ],
+      "layerIdentity": true,
+      "bodyIdentity": true,
+      "faceHierarchy": true
+    },
+    {
+      "globalFrame": 788,
+      "face": "nervous",
+      "sample": {
+        "cue": "mara_whisper",
+        "shape": "narrow",
+        "amount": 0
+      },
+      "active": [],
+      "layerIdentity": true,
+      "bodyIdentity": true,
+      "faceHierarchy": true
+    },
+    {
+      "globalFrame": 789,
+      "face": "startled",
+      "sample": {
+        "cue": null,
+        "shape": "closed",
+        "amount": 0
+      },
+      "active": [
+        "mouth_closed"
+      ],
+      "layerIdentity": true,
+      "bodyIdentity": true,
+      "faceHierarchy": true
+    },
+    {
+      "globalFrame": 790,
+      "face": "startled",
+      "sample": {
+        "cue": null,
+        "shape": "closed",
+        "amount": 0
+      },
+      "active": [
+        "mouth_closed"
+      ],
+      "layerIdentity": true,
+      "bodyIdentity": true,
+      "faceHierarchy": true
+    },
+    {
+      "globalFrame": 822,
+      "face": "startled",
+      "sample": {
+        "cue": null,
+        "shape": "closed",
+        "amount": 0
+      },
+      "active": [
+        "mouth_closed"
+      ],
+      "layerIdentity": true,
+      "bodyIdentity": true,
+      "faceHierarchy": true
+    },
+    {
+      "globalFrame": 823,
+      "face": "thoughtful",
+      "sample": {
+        "cue": null,
+        "shape": "closed",
+        "amount": 0
+      },
+      "active": [],
+      "layerIdentity": true,
+      "bodyIdentity": true,
+      "faceHierarchy": true
+    },
+    {
+      "globalFrame": 890,
+      "face": "thoughtful",
+      "sample": {
+        "cue": null,
+        "shape": "closed",
+        "amount": 0
+      },
+      "active": [],
+      "layerIdentity": true,
+      "bodyIdentity": true,
+      "faceHierarchy": true
+    },
+    {
+      "globalFrame": 926,
+      "face": "thoughtful",
+      "sample": {
+        "cue": null,
+        "shape": "closed",
+        "amount": 0
+      },
+      "active": [],
+      "layerIdentity": true,
+      "bodyIdentity": true,
+      "faceHierarchy": true
+    },
+    {
+      "globalFrame": 1115,
+      "face": "thoughtful",
+      "sample": {
+        "cue": null,
+        "shape": "closed",
+        "amount": 0
+      },
+      "active": [],
+      "layerIdentity": true,
+      "bodyIdentity": true,
+      "faceHierarchy": true
+    },
+    {
+      "globalFrame": 1202,
+      "face": "thoughtful",
+      "sample": {
+        "cue": null,
+        "shape": "closed",
+        "amount": 0
+      },
+      "active": [],
+      "layerIdentity": true,
+      "bodyIdentity": true,
+      "faceHierarchy": true
+    },
+    {
+      "globalFrame": 1203,
+      "face": "nervous",
+      "sample": {
+        "cue": null,
+        "shape": "closed",
+        "amount": 0
+      },
+      "active": [],
+      "layerIdentity": true,
+      "bodyIdentity": true,
+      "faceHierarchy": true
+    },
+    {
+      "globalFrame": 1204,
+      "face": "nervous",
+      "sample": {
+        "cue": "name_a",
+        "shape": "narrow",
+        "amount": 0
+      },
+      "active": [],
+      "layerIdentity": true,
+      "bodyIdentity": true,
+      "faceHierarchy": true
+    },
+    {
+      "globalFrame": 1205,
+      "face": "nervous",
+      "sample": {
+        "cue": "name_a",
+        "shape": "narrow",
+        "amount": 0.3
+      },
+      "active": [
+        "mouth_narrow"
+      ],
+      "layerIdentity": true,
+      "bodyIdentity": true,
+      "faceHierarchy": true
+    },
+    {
+      "globalFrame": 1207,
+      "face": "nervous",
+      "sample": {
+        "cue": "name_a",
+        "shape": "narrow",
+        "amount": 0.6
+      },
+      "active": [
+        "mouth_narrow"
+      ],
+      "layerIdentity": true,
+      "bodyIdentity": true,
+      "faceHierarchy": true
+    },
+    {
+      "globalFrame": 1209,
+      "face": "nervous",
+      "sample": {
+        "cue": "name_a",
+        "shape": "narrow",
+        "amount": 0
+      },
+      "active": [],
+      "layerIdentity": true,
+      "bodyIdentity": true,
+      "faceHierarchy": true
+    },
+    {
+      "globalFrame": 1210,
+      "face": "nervous",
+      "sample": {
+        "cue": null,
+        "shape": "closed",
+        "amount": 0
+      },
+      "active": [],
+      "layerIdentity": true,
+      "bodyIdentity": true,
+      "faceHierarchy": true
+    },
+    {
+      "globalFrame": 1227,
+      "face": "nervous",
+      "sample": {
+        "cue": null,
+        "shape": "closed",
+        "amount": 0
+      },
+      "active": [],
+      "layerIdentity": true,
+      "bodyIdentity": true,
+      "faceHierarchy": true
+    },
+    {
+      "globalFrame": 1228,
+      "face": "nervous",
+      "sample": {
+        "cue": "name_b",
+        "shape": "open",
+        "amount": 0
+      },
+      "active": [],
+      "layerIdentity": true,
+      "bodyIdentity": true,
+      "faceHierarchy": true
+    },
+    {
+      "globalFrame": 1232,
+      "face": "nervous",
+      "sample": {
+        "cue": "name_b",
+        "shape": "open",
+        "amount": 0.8
+      },
+      "active": [
+        "mouth_open"
+      ],
+      "layerIdentity": true,
+      "bodyIdentity": true,
+      "faceHierarchy": true
+    },
+    {
+      "globalFrame": 1235,
+      "face": "nervous",
+      "sample": {
+        "cue": "name_b",
+        "shape": "open",
+        "amount": 0
+      },
+      "active": [],
+      "layerIdentity": true,
+      "bodyIdentity": true,
+      "faceHierarchy": true
+    },
+    {
+      "globalFrame": 1236,
+      "face": "nervous",
+      "sample": {
+        "cue": null,
+        "shape": "closed",
+        "amount": 0
+      },
+      "active": [],
+      "layerIdentity": true,
+      "bodyIdentity": true,
+      "faceHierarchy": true
+    },
+    {
+      "globalFrame": 1248,
+      "face": "nervous",
+      "sample": {
+        "cue": null,
+        "shape": "closed",
+        "amount": 0
+      },
+      "active": [],
+      "layerIdentity": true,
+      "bodyIdentity": true,
+      "faceHierarchy": true
+    },
+    {
+      "globalFrame": 1253,
+      "face": "nervous",
+      "sample": {
+        "cue": "name_c",
+        "shape": "narrow",
+        "amount": 0
+      },
+      "active": [],
+      "layerIdentity": true,
+      "bodyIdentity": true,
+      "faceHierarchy": true
+    },
+    {
+      "globalFrame": 1258,
+      "face": "nervous",
+      "sample": {
+        "cue": "name_c",
+        "shape": "narrow",
+        "amount": 0.18148148148148147
+      },
+      "active": [
+        "mouth_narrow"
+      ],
+      "layerIdentity": true,
+      "bodyIdentity": true,
+      "faceHierarchy": true
+    },
+    {
+      "globalFrame": 1259,
+      "face": "nervous",
+      "sample": {
+        "cue": "name_c",
+        "shape": "narrow",
+        "amount": 0
+      },
+      "active": [],
+      "layerIdentity": true,
+      "bodyIdentity": true,
+      "faceHierarchy": true
+    },
+    {
+      "globalFrame": 1260,
+      "face": "nervous",
+      "sample": {
+        "cue": null,
+        "shape": "closed",
+        "amount": 0
+      },
+      "active": [],
+      "layerIdentity": true,
+      "bodyIdentity": true,
+      "faceHierarchy": true
+    },
+    {
+      "globalFrame": 1261,
+      "face": "nervous",
+      "sample": {
+        "cue": null,
+        "shape": "closed",
+        "amount": 0
+      },
+      "active": [],
+      "layerIdentity": true,
+      "bodyIdentity": true,
+      "faceHierarchy": true
+    },
+    {
+      "globalFrame": 1278,
+      "face": "nervous",
+      "sample": {
+        "cue": null,
+        "shape": "closed",
+        "amount": 0
+      },
+      "active": [],
+      "layerIdentity": true,
+      "bodyIdentity": true,
+      "faceHierarchy": true
+    },
+    {
+      "globalFrame": 1296,
+      "face": "thoughtful",
+      "sample": {
+        "cue": null,
+        "shape": "closed",
+        "amount": 0
+      },
+      "active": [],
+      "layerIdentity": true,
+      "bodyIdentity": true,
+      "faceHierarchy": true
+    },
+    {
+      "globalFrame": 1392,
+      "face": "thoughtful",
+      "sample": {
+        "cue": null,
+        "shape": "closed",
+        "amount": 0
+      },
+      "active": [],
+      "layerIdentity": true,
+      "bodyIdentity": true,
+      "faceHierarchy": true
+    },
+    {
+      "globalFrame": 1528,
+      "face": "thoughtful",
+      "sample": {
+        "cue": null,
+        "shape": "closed",
+        "amount": 0
+      },
+      "active": [],
+      "layerIdentity": true,
+      "bodyIdentity": true,
+      "faceHierarchy": true
+    },
+    {
+      "globalFrame": 1529,
+      "face": "startled",
+      "sample": {
+        "cue": null,
+        "shape": "closed",
+        "amount": 0
+      },
+      "active": [
+        "mouth_closed"
+      ],
+      "layerIdentity": true,
+      "bodyIdentity": true,
+      "faceHierarchy": true
+    },
+    {
+      "globalFrame": 1530,
+      "face": "startled",
+      "sample": {
+        "cue": null,
+        "shape": "closed",
+        "amount": 0
+      },
+      "active": [
+        "mouth_closed"
+      ],
+      "layerIdentity": true,
+      "bodyIdentity": true,
+      "faceHierarchy": true
+    },
+    {
+      "globalFrame": 1546,
+      "face": "worried",
+      "sample": {
+        "cue": null,
+        "shape": "closed",
+        "amount": 0
+      },
+      "active": [],
+      "layerIdentity": true,
+      "bodyIdentity": true,
+      "faceHierarchy": true
+    },
+    {
+      "globalFrame": 1600,
+      "face": "worried",
+      "sample": {
+        "cue": null,
+        "shape": "closed",
+        "amount": 0
+      },
+      "active": [],
+      "layerIdentity": true,
+      "bodyIdentity": true,
+      "faceHierarchy": true
+    },
+    {
+      "globalFrame": 1640,
+      "face": "worried",
+      "sample": {
+        "cue": null,
+        "shape": "closed",
+        "amount": 0
+      },
+      "active": [],
+      "layerIdentity": true,
+      "bodyIdentity": true,
+      "faceHierarchy": true
+    }
+  ],
+  "coldReversePixels": true,
+  "geometryMaterialsPersistent": true,
+  "noGhostDepthHelpersForMouth": true
+}
