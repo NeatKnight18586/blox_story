@@ -1,0 +1,51 @@
+{
+  "status": "PASS",
+  "checks": [
+    {
+      "globalFrame": 30,
+      "changedPixelBounds": null,
+      "sameCamera": true
+    },
+    {
+      "globalFrame": 780,
+      "changedPixelBounds": [
+        172,
+        736,
+        375,
+        781
+      ],
+      "sameCamera": true
+    },
+    {
+      "globalFrame": 1115,
+      "changedPixelBounds": null,
+      "sameCamera": true
+    },
+    {
+      "globalFrame": 1232,
+      "changedPixelBounds": [
+        319,
+        571,
+        432,
+        610
+      ],
+      "sameCamera": true
+    },
+    {
+      "globalFrame": 1248,
+      "changedPixelBounds": null,
+      "sameCamera": true
+    },
+    {
+      "globalFrame": 1392,
+      "changedPixelBounds": null,
+      "sameCamera": true
+    },
+    {
+      "globalFrame": 1600,
+      "changedPixelBounds": null,
+      "sameCamera": true
+    }
+  ],
+  "scope": "Full-image differences confined to mouth; all five inactive/environment controls pixel-identical"
+}

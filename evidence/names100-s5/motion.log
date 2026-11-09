@@ -1,0 +1,24 @@
+Captured 1/38; cached 0
+Captured 5/38; cached 0
+Captured 10/38; cached 0
+Captured 15/38; cached 0
+Captured 20/38; cached 0
+Captured 25/38; cached 0
+Captured 30/38; cached 0
+Captured 35/38; cached 0
+PASS 38 frames. MP4: /workspace/blox_story/renders/names100-s5-whisper/results/1a6dc572696f-d2553751-c78b-45c2-9fb4-cc531b37c63e/movie.mp4
+PASS nativewhisper: 38 frames; all reverse pixels, decode/PTS/cuts/playback; original sample-offset audiotrue
+Captured 1/57; cached 0
+Captured 5/57; cached 0
+Captured 10/57; cached 0
+Captured 15/57; cached 0
+Captured 20/57; cached 0
+Captured 25/57; cached 0
+Captured 30/57; cached 0
+Captured 35/57; cached 0
+Captured 40/57; cached 0
+Captured 45/57; cached 0
+Captured 50/57; cached 0
+Captured 55/57; cached 0
+PASS 57 frames. MP4: /workspace/blox_story/renders/names100-s5-naming/results/1522d3cd2762-9b222c2b-dee1-4551-824b-8d26ce37c945/movie.mp4
+PASS nativenaming: 57 frames; all reverse pixels, decode/PTS/cuts/playback; original sample-offset audiotrue
