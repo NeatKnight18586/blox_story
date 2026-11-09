@@ -1,0 +1,13 @@
+# P1B — asset decision, awaiting visual review
+
+**Reject Kenney character-a as the new Leo foundation.** Retain the existing six-part API and use the isolated P1B styling only as an unapproved look experiment.
+
+Source: https://kenney.nl/assets/blocky-characters — Blocky Characters2.0, Kenney, CC0-1.0. Official page returned HTTP403 in this environment. Actual model, texture, bundled license and source manifest were obtained from pinned GitHub mirror replayablejs/replayable d49dffa28db5931f5fdc3f92c9719853f4ef5e24, examples/basic-assets/assets/models/blocky-characters/. Files and hashes are preserved in production/dice-town-p1b/assets/. Model/texture match that manifest, not an independently downloaded official archive. No claim of upstream archive verification.
+
+The inspected GLB has six rigid mesh nodes, no skin/skeleton, and explicit named clips (see inspection.json). Its native height is2.7 units; comparison normalizes it to5.19 without modifying the asset. Its head is a hard cube, face and patterned clothing are texture-authored, and the bearded adult design does not suit Leo. The sharper edges and narrow silhouette are not a convincing upgrade for this story. This is a decision about this one candidate, not a verdict on all Kenney assets.
+
+The candidate can render with stock Three.js GLTFLoader and seek through AnimationMixer.setTime, but it cannot use our named pivots, face layers, appearance recipes or tested ground-contact system directly. Adoption would require a verified pivot/coordinate adapter, new face/UV strategy and gait/contact requalification. No adapter or duplicate animation engine was built; current evidence tests its static clip seeking only. Do not claim existing action compatibility for the import.
+
+P1B Leo reuses createBaseAvatar(tapered), existing hair and original named pivots; head attachment scale1.14 and arm mesh width.88 are opt-in appearance/proportion choices, not global API changes. Clothes follow the original torso/arm meshes except the existing root-attached hem/strap/notebook. Existing idle/look/walk identity tests pass on the tapered base; styled outfit motion/contact/clipping has NOT been validated and these stills do not qualify it for production motion.
+
+If this direction still falls short, the next asset search should prioritize one authored Roblox-inspired modular hero with editable eyes/brows/mouth, separate hair/clothes, six rigid pivot-compatible parts and a suitable commercial license. Do not adopt a free pack merely to avoid this design requirement. No purchase/import of further assets is authorized by this proof.
