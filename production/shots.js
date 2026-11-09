@@ -1,3 +1,4 @@
+import {skinColor} from '../appearance/v2-skin.js';
 import {FACE_NAMES} from '../appearance/faces.js';
 import {sampleAction} from '../avatar/actions.js';
 import {compileEvents,samplePropEvents} from './events.js';
@@ -6,7 +7,11 @@ const vector=v=>Array.isArray(v)&&v.length===3&&v.every(n=>Number.isFinite(n)&&M
 function keys(object,allowed){if(!object||typeof object!=='object'||Array.isArray(object)||Object.keys(object).some(k=>!allowed.includes(k)))throw new Error('Unknown or malformed configuration field');}
 function color(v){return Number.isInteger(v)&&v>=0&&v<=0xffffff||typeof v==='string'&&/^#[0-9a-f]{6}$/i.test(v);}
 export function normalizeAppearance(value={}){
- keys(value,['color','pieces','cosmetic']);const result={color:value.color??0xbfc1c3,pieces:value.pieces??{},cosmetic:value.cosmetic??null};
+ keys(value,['color','pieces','cosmetic','skinToneId']);
+ const skinToneId=value.skinToneId??null;
+ if(skinToneId!==null)skinColor(skinToneId);
+ const result={color:value.color??(skinToneId===null?0xbfc1c3:skinColor(skinToneId)),pieces:value.pieces??{},cosmetic:value.cosmetic??null};
+ if(skinToneId!==null)result.skinToneId=skinToneId;
  if(!color(result.color)||!['cap',null].includes(result.cosmetic))throw new Error('Invalid appearance');
  keys(result.pieces,['head','torso','leftArm','rightArm','leftLeg','rightLeg']);if(!Object.values(result.pieces).every(color))throw new Error('Invalid piece color');return result;
 }
