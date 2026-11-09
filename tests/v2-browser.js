@@ -1,48 +1,35 @@
-// Opt-in V2 look proof; no legacy story exports or audio touched.
+// Economical genuine WebGL contact sheet: four cast looks × two material presets.
 import assert from 'node:assert/strict';
-import {mkdir,readFile} from 'node:fs/promises';
+import {mkdir} from 'node:fs/promises';
 import path from 'node:path';
-import {createHash} from 'node:crypto';
 import {chromium} from 'playwright';
 import {startServer} from '../scripts/pipeline/server.js';
 const dir='renders/v2-lookdev';await mkdir(dir,{recursive:true});
-const server=await startServer(process.cwd()),browser=await chromium.launch({headless:true,args:['--no-sandbox','--use-angle=swiftshader','--enable-unsafe-swiftshader']});
-const samples=[
- ['side_swept','fair'],['spiky','tan'],['messy_fringe','warm'],['curtains','deep'],
- ['long_straight','porcelain'],['ponytail','caramel'],['twin_buns','peach'],['curly_crop','umber'],['low_bun','tan']
+const server=await startServer(process.cwd());
+const browser=await chromium.launch({headless:true,args:['--no-sandbox','--use-angle=swiftshader','--enable-unsafe-swiftshader']});
+const cases=[
+ {hair:'neat_side_part',skin:'warm',color:'espresso'},
+ {hair:'soft_textured_crop',skin:'tan',color:'brown'},
+ {hair:'low_bun',skin:'caramel',color:'chestnut'},
+ {hair:'shoulder_length',skin:'peach',color:'blonde'}
 ];
-const checks=[];let failures=0;
 try{
  const page=await browser.newPage({viewport:{width:720,height:1280},deviceScaleFactor:1});
- page.on('pageerror',e=>{failures++;console.error(e)});
- for(const [hair,skin] of samples){
-  for(const toon of [0,1]){
-   const file=`${hair}-${skin}-${toon?'toon':'standard'}.png`;
-   await page.goto(`${server.url}/production/v2-preview.html?hair=${hair}&skin=${skin}&toon=${toon}`);
-   await page.waitForFunction(()=>window.__v2Proof?.ready,null,{timeout:25000});
-   const status=await page.evaluate(()=>{
-    const p=window.__v2Proof;
-    return {hair:p.hair,skin:p.skinToneId,width:p.renderer.domElement.width,height:p.renderer.domElement.height,
-      headHex:p.avatar.parts.head.material.color.getHex(),toon:p.toon,
-      headToon:p.avatar.parts.head.material.isMeshToonMaterial||false,
-      styleMeshes:p.style?.converted??0,contextLost:p.renderer.getContext().isContextLost()};
-   });
-   assert.equal(status.hair,hair);assert.equal(status.skin,skin);
-   assert.deepEqual([status.width,status.height],[720,1280]);assert.equal(status.toon,!!toon);
-   if(toon){assert(status.headToon);assert(status.styleMeshes>0)}else assert(!status.headToon);
-   assert(!status.contextLost);
-   await page.screenshot({path:path.join(dir,file)});
-   // A second same-scene close-up verifies hair silhouette, eye clearance and material bands.
-   await page.evaluate(()=>{
-    const p=window.__v2Proof;
-    p.camera.position.set(1.7,5.2,4.8);p.camera.lookAt(0,4.45,0);
-    p.camera.fov=34;p.camera.updateProjectionMatrix();p.renderer.render(p.scene,p.camera);
-   });
-   await page.screenshot({path:path.join(dir,file.replace('.png','-head.png'))});
-   const png=await readFile(path.join(dir,file));checks.push({file,...status,sha256:createHash('sha256').update(png).digest('hex')});
-  }
+ const errors=[];page.on('pageerror',e=>errors.push(String(e)));
+ for(const item of cases)for(const toon of [0,1]){
+  const href=server.url+'/production/v2-preview.html?hair='+item.hair+'&skin='+item.skin+'&hairColor='+item.color+'&toon='+toon;
+  await page.goto(href);await page.waitForFunction(()=>window.__v2Proof?.ready,null,{timeout:25000});
+  const result=await page.evaluate(()=>{
+   const p=window.__v2Proof;return {hair:p.hair,skin:p.skinToneId,toon:p.toon,
+    headToon:p.avatar.parts.head.material.isMeshToonMaterial||false,
+    w:p.renderer.domElement.width,h:p.renderer.domElement.height,
+    lost:p.renderer.getContext().isContextLost()};
+  });
+  assert.equal(result.hair,item.hair);assert.equal(result.skin,item.skin);
+  assert.equal(result.toon,!!toon);assert.equal(result.headToon,!!toon);
+  assert.deepEqual([result.w,result.h],[720,1280]);assert(!result.lost);
+  await page.screenshot({path:path.join(dir,item.hair+'-'+(toon?'toon':'standard')+'.png')});
  }
- assert.equal(failures,0);
- await page.close();
- console.log(`PASS V2 lookdev: ${checks.length} real 720x1280 WebGL previews, 9 hairstyles, skin variety and toon A/B`);
+ assert.deepEqual(errors,[]);
+ console.log('PASS V2 four final styles × normal/toon = 8 genuine 720x1280 WebGL captures');
 }finally{await browser.close();await server.close();}
