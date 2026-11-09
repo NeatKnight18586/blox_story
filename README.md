@@ -1,3 +1,9 @@
+# S6 — native final candidate awaiting iPad review
+
+Native720×1280/30fps master **PASS**:1641 frames/54.700s,clean3D separate from captions/counters/narration. [Silent final candidate](evidence/names100-s6/silent-master.mp4) · [Clean master](evidence/names100-s6/clean-master.mp4) · [Native contact sheet](evidence/names100-s6/23-shot-contact.png) · [Report,tests,costs,limits](evidence/names100-s6/REPORT.md).
+
+PR19 merged after verification. Approved S4+S5 unchanged; no upscale/art changes. Checkpointed capture resumed from1155 verified frames after usage interruption; only486 remaining captured,20 protected reverse checks pass. All15 prior movies/code/tests preserved. Original narration muxed at t=0 and technically verified privately; narrated delivery PARTIAL,real iPad approval PENDING. No publishing. Model-token/total interrupted-run costs unavailable; measured scopes explicitly reported.
+
 # S5 — restrained speaking review
 
 **PASS for bounded technical/visible proof; awaiting human creative/listening approval.** PR18 is merged; full S4 story/style/timing preserved. Added only an optional cached three-shape mouth layer: Eli whispers Mara and implies three short names between narrated numbers. Lips stay sealed during ordinary narration/silent beats; no new background geometry or camera changes.
