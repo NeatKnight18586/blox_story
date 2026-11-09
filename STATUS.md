@@ -341,3 +341,7 @@ Isolated codex/dice-town-p1b from aac0a5f; no merges. Two native revised WebGL s
 ## 2026-11-09 — Dice Town P1C still-frame polish
 
 Isolated codex/dice-town-p1c from055d585. Two native720×1280 WebGL stills plus P1/P1B/P1C390px comparison. Die reduced9→6.3, plaque restaged, gradient sky/sun/two cloud clumps/distant roofs, small bench/planters and bakery correction, triangular collar/strap clearance/portrait separation. Existing engine/APIs, pilot films and P1/P1B source/evidence byte-preserved. Source regressions and native reverse/cold-reload pixel checks PASS. Creative PARTIAL: more coherent world, but plain facades, chunky hair, repeated extras, large foreground and minor crowd/frame-edge tangencies remain. See evidence/dice-town-p1c/REPORT.md for measured cost and limits. No animation, video, audio, merge or P2. Stop for visual review.
+
+## 2026-11-09 — Dice Town P2A first motion proof
+
+Isolated codex/dice-town-p2a from3711b7c. One native4.000s silent H.264720×1280/30fps film,120 decoded frames, all-frame contact sheet, deterministic die settle/three distinct lifts/Leo face reaction and world-oriented sky. Existing exporter reused via bounded opt-in entry; recovery/source regressions PASS. Vertex contact, persistent identity and all120 reverse pixel/state samples PASS. Overall technical PARTIAL: raised arm clips wide-shot right edge; conservative border warnings disclosed. Creative review PENDING. Evidence/report at evidence/dice-town-p2a/. No merge, full episode or next phase.
