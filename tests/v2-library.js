@@ -8,7 +8,7 @@ import {HAIR_STYLES,HAIR_COLORS,makeV2Hair,hairColor} from '../appearance/v2-hai
 import {applyToonV2} from '../appearance/v2-toon.js';
 import {createV2Backlot} from '../production/assets/v2-backlot.js';
 assert.equal(Object.keys(SKIN_TONES).length,8);
-assert.equal(HAIR_STYLES.length,9);
+assert.equal(HAIR_STYLES.length,13);
 assert.equal(Object.keys(HAIR_COLORS).length,8);
 assert.throws(()=>skinColor('not-real'));assert.throws(()=>hairColor('not-real'));
 assert.equal(normalizeWardrobe({hair:'bob'}).hair,'bob');
