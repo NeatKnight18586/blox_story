@@ -1,0 +1,19 @@
+{
+  "status": "PASS",
+  "start": 1320,
+  "end": 1379,
+  "frames": 60,
+  "dimension": [
+    720,
+    1280
+  ],
+  "fps": 30,
+  "codec": "h264",
+  "duration": 2,
+  "keyframes": {
+    "1320": "d361f9865d21a7aafe78d3643126601c2682fde03e1cb88346e846787fa615ee",
+    "1338": "c88f26589b7eaaca29e9591195d4f514a2df86eed0438328d0b1ce39b075e176",
+    "1356": "84aaad5adafecc9343b2d50178089ea7a7c49da62294ee430f67adc9e41094a5",
+    "1379": "eee6f8563cdfa432b2911b0db3e16e0b2b6c681903751063d0f5e0ccadd8cda6"
+  }
+}
