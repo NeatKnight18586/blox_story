@@ -329,3 +329,7 @@ Native720×1280/30fps master **PASS**:1641 frames/54.700s,clean3D separate from 
 PR19 merged after verification. Approved S4+S5 unchanged; no upscale/art changes. Checkpointed capture resumed from1155 verified frames after usage interruption; only486 remaining captured,20 protected reverse checks pass. All15 prior movies/code/tests preserved. Original narration muxed at t=0 and technically verified privately; narrated delivery PARTIAL,real iPad approval PENDING. No publishing. Model-token/total interrupted-run costs unavailable; measured scopes explicitly reported.
 
 New native exporter uses g=i with1GiB cache; complete nativePTS/22cuts/decode/playback verified. Original WAV54.682993s leaves17.0068ms pad; zero coarse audio lag. All1641 overlay masks pass. Middle interrupted timing unavailable; final resume390.776s and assembly87.551s are partial scopes,not task totals. Stop for full iPad review.
+
+
+## S7 minimal cloud pass
+Three shared-geometry distant clumps,cool/faint at night,warm at sunrise. Native3-frame comparison and single60-frame motion proof pass reverse/decode/PTS/browser checks;npm test passes. No story/actor/text/camera changes. [Evidence and cost limitations](evidence/names100-s7-clouds/REPORT.md). Stop for review.
