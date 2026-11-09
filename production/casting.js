@@ -9,8 +9,8 @@ import {resolveComposition} from './cameras.js';
 import {compileEvents,samplePropEvents} from './events.js';
 const validId=v=>typeof v==='string'&&/^[a-z][a-z0-9_-]{0,63}$/.test(v);
 function keys(value,allowed){if(!value||typeof value!=='object'||Array.isArray(value)||Object.keys(value).some(k=>!allowed.includes(k)))throw new Error('Unknown casting field');}
-const baseRecipe=value=>Object.fromEntries(Object.entries(value).filter(([k])=>['color','pieces','cosmetic'].includes(k)));
-function recipe(value={}){keys(value,['color','pieces','cosmetic','hair','hairColor','clothing','clothingColor']);return {...normalizeAppearance(baseRecipe(value)),...normalizeWardrobe(value)};}
+const baseRecipe=value=>Object.fromEntries(Object.entries(value).filter(([k])=>['color','pieces','cosmetic','skinToneId'].includes(k)));
+function recipe(value={}){keys(value,['color','pieces','cosmetic','hair','hairColor','hairColorId','clothing','clothingColor','skinToneId']);return {...normalizeAppearance(baseRecipe(value)),...normalizeWardrobe(value)};}
 export function compileCasting(input){
  keys(input,['version','title','output','environment','props','events','cast','shots','reveal','ending','look','opening','counterMode','finish','dressing','speaking']);const data=structuredClone(input);
  if(data.dressing!==undefined&&(data.dressing!=='s4'||data.finish!=='p5'||data.look!=='s1'))throw new Error('S4 dressing requires P5 S1 look');
