@@ -1,0 +1,19 @@
+{
+  "command": [
+    "node",
+    "scripts/render-shot-list.js",
+    "--entry",
+    "dice-town-p2a",
+    "--shots",
+    "production/dice-town-p2a/sequence.json",
+    "--out",
+    "renders/dice-town-p2a-polish-native"
+  ],
+  "exitCode": 0,
+  "wallSeconds": 191.34088102499663,
+  "sampledTreeRssMiB": 1402.4921875,
+  "sampledTreeCpuSeconds": 357.5,
+  "processCount": 37,
+  "sampleIntervalSeconds": 0.2,
+  "method": "Linux ps summed subtree RSS (shared pages counted per process), /proc cumulative CPU samples retained by PID/start-time at 100Hz; sampled lower bounds; final pass only, not all development activity"
+}

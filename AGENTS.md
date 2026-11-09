@@ -3,7 +3,7 @@
 Read **F1_SPEC.md** first: F1 v3 is the CURRENT product contract. Then read CODEX_HANDOFF.md, STATUS.md, README.md and existing code/tests. The previous Kai/Mira-first instructions are SUPERSEDED. If documents conflict, F1_SPEC.md wins; STATUS.md controls what has actually been verified.
 
 ## Current task boundary
-Dice Town P2A first four-second cinematic proof only is authorized from3711b7c. Reuse existing characters/town and exporter on an isolated branch. Exact120 native720×1280 frames, silent H.264, bounded low-res preflight, contact/identity/sky/framing QC and draft PR. No full episode, new rig/framework, audio, merge or subsequent phase. Report technical and creative statuses separately; disclose failures. F1 requirements remain unchanged.
+A bounded acting/composition polish of Dice Town PR28 is authorized from4d04d31. Reuse existing characters/town and exporter on an isolated branch. Exact120 native720×1280 frames, silent H.264, bounded low-res preflight, contact/identity/sky/framing QC and draft PR. No full episode, new rig/framework, audio, merge or subsequent phase. Report technical and creative statuses separately; disclose failures. F1 requirements remain unchanged.
 
 ## Goal and user constraints
 One neutral classic R6-like **six-part** block avatar first, then removable appearance layers (face/colors and one optional cosmetic). Original code-rendered Three.js, not official Roblox models. User is on iPad, wants autonomous execution, no manual modeling, recording, installs or gameplay capture. Minimize explanations and usage without sacrificing accuracy.

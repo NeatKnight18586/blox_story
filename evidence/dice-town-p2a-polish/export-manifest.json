@@ -1,0 +1,4341 @@
+{
+  "entry": "dice-town-p2a",
+  "status": "PASS",
+  "title": "Dice Town — The Third Rule",
+  "width": 720,
+  "height": 1280,
+  "fps": 30,
+  "frameCount": 120,
+  "duration": 4,
+  "shotListSha256": "a17ce71fc1b318b7a490676b1cbfe3810108526a0e4d7c48e05c7f5dcefa7616",
+  "shots": [
+    {
+      "id": "three-and-rise",
+      "start": 0,
+      "end": 75,
+      "camera": {
+        "position": [
+          8,
+          11.5,
+          27
+        ],
+        "target": [
+          -1,
+          5.5,
+          0
+        ],
+        "fov": 53
+      }
+    },
+    {
+      "id": "leo-reacts",
+      "start": 75,
+      "end": 120,
+      "camera": {
+        "position": [
+          -13.5,
+          5.8,
+          3.2
+        ],
+        "target": [
+          -9,
+          4.1,
+          -4
+        ],
+        "fov": 32
+      }
+    }
+  ],
+  "frames": [
+    {
+      "file": "frame-00000.png",
+      "state": {
+        "frame": 0,
+        "time": 0,
+        "shot": "three-and-rise",
+        "identity": true,
+        "dieSize": 6.3,
+        "footClearance": [
+          0,
+          0,
+          0
+        ],
+        "hero": {
+          "weights": [
+            1,
+            0,
+            0
+          ],
+          "head": [
+            0,
+            0.1,
+            0
+          ],
+          "shoulder": 0
+        },
+        "die": [
+          0.01976248656882624,
+          0.045
+        ]
+      },
+      "sha256": "14f52788c19aaa3d8dac17d3ded015f994d7bcd016560da0088417ebf32afea7",
+      "bytes": 257325
+    },
+    {
+      "file": "frame-00001.png",
+      "state": {
+        "frame": 1,
+        "time": 0.03333333333333333,
+        "shot": "three-and-rise",
+        "identity": true,
+        "dieSize": 6.3,
+        "footClearance": [
+          0,
+          0,
+          0
+        ],
+        "hero": {
+          "weights": [
+            1,
+            0,
+            0
+          ],
+          "head": [
+            0,
+            0.1,
+            0
+          ],
+          "shoulder": 0
+        },
+        "die": [
+          0.022716928486755664,
+          0.027204026979283733
+        ]
+      },
+      "sha256": "de0f98f8895ec26a5deda745d621b6d26993d5c566d782b848c7871afb491bb1",
+      "bytes": 259085
+    },
+    {
+      "file": "frame-00002.png",
+      "state": {
+        "frame": 2,
+        "time": 0.06666666666666667,
+        "shot": "three-and-rise",
+        "identity": true,
+        "dieSize": 6.3,
+        "footClearance": [
+          0,
+          0,
+          0
+        ],
+        "hero": {
+          "weights": [
+            1,
+            0,
+            0
+          ],
+          "head": [
+            0,
+            0.1,
+            0
+          ],
+          "shoulder": 0
+        },
+        "die": [
+          0.017887082007585955,
+          0.009787744483071008
+        ]
+      },
+      "sha256": "913d82c1ee90e36b2490077f38432d6bc4110302048379a28d33ec5791099340",
+      "bytes": 258046
+    },
+    {
+      "file": "frame-00003.png",
+      "state": {
+        "frame": 3,
+        "time": 0.1,
+        "shot": "three-and-rise",
+        "identity": true,
+        "dieSize": 6.3,
+        "footClearance": [
+          0,
+          0,
+          0
+        ],
+        "hero": {
+          "weights": [
+            1,
+            0,
+            0
+          ],
+          "head": [
+            0,
+            0.1,
+            0
+          ],
+          "shoulder": 0
+        },
+        "die": [
+          0.010410022182919506,
+          -0.002132965825175465
+        ]
+      },
+      "sha256": "4501e6fa42013a3fbb80ec83c366e83303b594bbb37d9f841c797c4ff3982367",
+      "bytes": 259168
+    },
+    {
+      "file": "frame-00004.png",
+      "state": {
+        "frame": 4,
+        "time": 0.13333333333333333,
+        "shot": "three-and-rise",
+        "identity": true,
+        "dieSize": 6.3,
+        "footClearance": [
+          0,
+          0,
+          0
+        ],
+        "hero": {
+          "weights": [
+            1,
+            0,
+            0
+          ],
+          "head": [
+            0,
+            0.1,
+            0
+          ],
+          "shoulder": 0
+        },
+        "die": [
+          0.0036627958166226622,
+          -0.007604096012279394
+        ]
+      },
+      "sha256": "d2a5d167ec7ad70565e6d83437ac9aa655640c6f7bee9cd502bf4798cb63b293",
+      "bytes": 260016
+    },
+    {
+      "file": "frame-00005.png",
+      "state": {
+        "frame": 5,
+        "time": 0.16666666666666666,
+        "shot": "three-and-rise",
+        "identity": true,
+        "dieSize": 6.3,
+        "footClearance": [
+          0,
+          0,
+          0
+        ],
+        "hero": {
+          "weights": [
+            1,
+            0,
+            0
+          ],
+          "head": [
+            0,
+            0.1,
+            0
+          ],
+          "shoulder": 0
+        },
+        "die": [
+          -0.0008246659944556589,
+          -0.008098766967537328
+        ]
+      },
+      "sha256": "0c1f7253ccdd48ead14978af98a67ae922ee525c7af122bdbbb06a648e2836e2",
+      "bytes": 260703
+    },
+    {
+      "file": "frame-00006.png",
+      "state": {
+        "frame": 6,
+        "time": 0.2,
+        "shot": "three-and-rise",
+        "identity": true,
+        "dieSize": 6.3,
+        "footClearance": [
+          0,
+          0,
+          0
+        ],
+        "hero": {
+          "weights": [
+            1,
+            0,
+            0
+          ],
+          "head": [
+            0,
+            0.1,
+            0
+          ],
+          "shoulder": 0
+        },
+        "die": [
+          -0.0028982086339951287,
+          -0.005887885825142395
+        ]
+      },
+      "sha256": "c559931b1f25579ef969e65e1b5412c4a84625fdb670b57de6ecf104a5d81843",
+      "bytes": 259481
+    },
+    {
+      "file": "frame-00007.png",
+      "state": {
+        "frame": 7,
+        "time": 0.23333333333333334,
+        "shot": "three-and-rise",
+        "identity": true,
+        "dieSize": 6.3,
+        "footClearance": [
+          0,
+          0,
+          0
+        ],
+        "hero": {
+          "weights": [
+            1,
+            0,
+            0
+          ],
+          "head": [
+            0,
+            0.1,
+            0
+          ],
+          "shoulder": 0
+        },
+        "die": [
+          -0.0031530927526978118,
+          -0.0029608079441713737
+        ]
+      },
+      "sha256": "ea63d1723f76e64cbd0dece54d2feb9255ba4ec2e9a9538832866d9d2443f7fc",
+      "bytes": 259699
+    },
+    {
+      "file": "frame-00008.png",
+      "state": {
+        "frame": 8,
+        "time": 0.26666666666666666,
+        "shot": "three-and-rise",
+        "identity": true,
+        "dieSize": 6.3,
+        "footClearance": [
+          0,
+          0,
+          0
+        ],
+        "hero": {
+          "weights": [
+            1,
+            0,
+            0
+          ],
+          "head": [
+            0,
+            0.1,
+            0
+          ],
+          "shoulder": 0
+        },
+        "die": [
+          -0.002403036343972107,
+          -0.000556876364405474
+        ]
+      },
+      "sha256": "1e962e08ee0a285f3a5638385f478ce6af67e22a9deb513c300c18f69a62cc1d",
+      "bytes": 259607
+    },
+    {
+      "file": "frame-00009.png",
+      "state": {
+        "frame": 9,
+        "time": 0.3,
+        "shot": "three-and-rise",
+        "identity": true,
+        "dieSize": 6.3,
+        "footClearance": [
+          0,
+          0,
+          0
+        ],
+        "hero": {
+          "weights": [
+            1,
+            0,
+            0
+          ],
+          "head": [
+            0,
+            0.1,
+            0
+          ],
+          "shoulder": 0
+        },
+        "die": [
+          -0.001346578743097256,
+          0.0008468281673091916
+        ]
+      },
+      "sha256": "4d0f4332db36c29fcefce77287d33880d52de2064f93e1003b50262ba62de3df",
+      "bytes": 260322
+    },
+    {
+      "file": "frame-00010.png",
+      "state": {
+        "frame": 10,
+        "time": 0.3333333333333333,
+        "shot": "three-and-rise",
+        "identity": true,
+        "dieSize": 6.3,
+        "footClearance": [
+          0,
+          0,
+          0
+        ],
+        "hero": {
+          "weights": [
+            1,
+            0,
+            0
+          ],
+          "head": [
+            0,
+            0.1,
+            0
+          ],
+          "shoulder": 0
+        },
+        "die": [
+          -0.0003962639539922771,
+          0.0012127616514559963
+        ]
+      },
+      "sha256": "b3e9260cffeffbde26d6c1b24a5826e6d03e45709553be465d9aaeea8b233971",
+      "bytes": 260636
+    },
+    {
+      "file": "frame-00011.png",
+      "state": {
+        "frame": 11,
+        "time": 0.36666666666666664,
+        "shot": "three-and-rise",
+        "identity": true,
+        "dieSize": 6.3,
+        "footClearance": [
+          0,
+          0,
+          0
+        ],
+        "hero": {
+          "weights": [
+            1,
+            0,
+            0
+          ],
+          "head": [
+            0,
+            0.1,
+            0
+          ],
+          "shoulder": 0
+        },
+        "die": [
+          0.00012091316822953726,
+          0.00085099255921159
+        ]
+      },
+      "sha256": "bb45514046851e8a636879480407310e5e45fc1aafea767b5314edb72ac83c7c",
+      "bytes": 260838
+    },
+    {
+      "file": "frame-00012.png",
+      "state": {
+        "frame": 12,
+        "time": 0.4,
+        "shot": "three-and-rise",
+        "identity": true,
+        "dieSize": 6.3,
+        "footClearance": [
+          0,
+          0,
+          0
+        ],
+        "hero": {
+          "weights": [
+            1,
+            0,
+            0
+          ],
+          "head": [
+            0,
+            0.1,
+            0
+          ],
+          "shoulder": 0
+        },
+        "die": [
+          0.00021057976269524335,
+          0.0003582803358904308
+        ]
+      },
+      "sha256": "0290443ecf852e9fee8d46410b6b5c28584828deace7cbee80447510f66d5585",
+      "bytes": 261114
+    },
+    {
+      "file": "frame-00013.png",
+      "state": {
+        "frame": 13,
+        "time": 0.43333333333333335,
+        "shot": "three-and-rise",
+        "identity": true,
+        "dieSize": 6.3,
+        "footClearance": [
+          0,
+          0,
+          0
+        ],
+        "hero": {
+          "weights": [
+            1,
+            0,
+            0
+          ],
+          "head": [
+            0,
+            0.1,
+            0
+          ],
+          "shoulder": 0
+        },
+        "die": [
+          0.00011301604225159766,
+          0.00007169461761128946
+        ]
+      },
+      "sha256": "d1be63063dfcd1c6779665d06368904d83d0bba4cb70097755d845b18ba80b5c",
+      "bytes": 261003
+    },
+    {
+      "file": "frame-00014.png",
+      "state": {
+        "frame": 14,
+        "time": 0.4666666666666667,
+        "shot": "three-and-rise",
+        "identity": true,
+        "dieSize": 6.3,
+        "footClearance": [
+          0,
+          0,
+          0
+        ],
+        "hero": {
+          "weights": [
+            1,
+            0,
+            0
+          ],
+          "head": [
+            0,
+            0.1,
+            0
+          ],
+          "shoulder": 0
+        },
+        "die": [
+          0.000023830277230667656,
+          -0.0000024846860942241294
+        ]
+      },
+      "sha256": "eb1035fdefd34eb67e178713ac835cfa40564b4634f22392bd0ff96842efce98",
+      "bytes": 260746
+    },
+    {
+      "file": "frame-00015.png",
+      "state": {
+        "frame": 15,
+        "time": 0.5,
+        "shot": "three-and-rise",
+        "identity": true,
+        "dieSize": 6.3,
+        "footClearance": [
+          0,
+          0,
+          0
+        ],
+        "hero": {
+          "weights": [
+            1,
+            0,
+            0
+          ],
+          "head": [
+            0,
+            0.1,
+            0
+          ],
+          "shoulder": 0
+        },
+        "die": [
+          0,
+          0
+        ]
+      },
+      "sha256": "6f565b488d29df2fc0404800fc6dd1e174aa695c4a614f3b097d37925999664e",
+      "bytes": 260794
+    },
+    {
+      "file": "frame-00016.png",
+      "state": {
+        "frame": 16,
+        "time": 0.5333333333333333,
+        "shot": "three-and-rise",
+        "identity": true,
+        "dieSize": 6.3,
+        "footClearance": [
+          0,
+          0,
+          0
+        ],
+        "hero": {
+          "weights": [
+            1,
+            0,
+            0
+          ],
+          "head": [
+            0,
+            0.1,
+            0
+          ],
+          "shoulder": 0
+        },
+        "die": [
+          0,
+          0
+        ]
+      },
+      "sha256": "c30370efd9150554921e8b3b21e26ab4266e73d00abe403fa9cdc049f5a2bfca",
+      "bytes": 260310
+    },
+    {
+      "file": "frame-00017.png",
+      "state": {
+        "frame": 17,
+        "time": 0.5666666666666667,
+        "shot": "three-and-rise",
+        "identity": true,
+        "dieSize": 6.3,
+        "footClearance": [
+          0,
+          0,
+          0
+        ],
+        "hero": {
+          "weights": [
+            1,
+            0,
+            0
+          ],
+          "head": [
+            0,
+            0.1,
+            0
+          ],
+          "shoulder": 0
+        },
+        "die": [
+          0,
+          0
+        ]
+      },
+      "sha256": "35fc0b975e08cda3724a2d30bdf514d60e3d338a629432bec84a91e3117130dd",
+      "bytes": 261006
+    },
+    {
+      "file": "frame-00018.png",
+      "state": {
+        "frame": 18,
+        "time": 0.6,
+        "shot": "three-and-rise",
+        "identity": true,
+        "dieSize": 6.3,
+        "footClearance": [
+          0,
+          0,
+          0
+        ],
+        "hero": {
+          "weights": [
+            1,
+            0,
+            0
+          ],
+          "head": [
+            0,
+            0.1,
+            0
+          ],
+          "shoulder": 0
+        },
+        "die": [
+          0,
+          0
+        ]
+      },
+      "sha256": "236e3b84ec68a4fe099683b03f0ee1c8bff2f73d978eefca2f1e5a0b25cfd0ee",
+      "bytes": 260732
+    },
+    {
+      "file": "frame-00019.png",
+      "state": {
+        "frame": 19,
+        "time": 0.6333333333333333,
+        "shot": "three-and-rise",
+        "identity": true,
+        "dieSize": 6.3,
+        "footClearance": [
+          0,
+          0,
+          0
+        ],
+        "hero": {
+          "weights": [
+            1,
+            0,
+            0
+          ],
+          "head": [
+            0,
+            0.1,
+            0
+          ],
+          "shoulder": 0
+        },
+        "die": [
+          0,
+          0
+        ]
+      },
+      "sha256": "a50643d023ab181081f1abc6294d20fa48dca7e038ae580b9bffd176e5d95aed",
+      "bytes": 260365
+    },
+    {
+      "file": "frame-00020.png",
+      "state": {
+        "frame": 20,
+        "time": 0.6666666666666666,
+        "shot": "three-and-rise",
+        "identity": true,
+        "dieSize": 6.3,
+        "footClearance": [
+          0,
+          0,
+          0
+        ],
+        "hero": {
+          "weights": [
+            1,
+            0,
+            0
+          ],
+          "head": [
+            0,
+            0.1,
+            0
+          ],
+          "shoulder": 0
+        },
+        "die": [
+          0,
+          0
+        ]
+      },
+      "sha256": "2923f3a58376a90c288186a06c1d00d6ffafc3a78f5cb2f8f4220a7ff3365138",
+      "bytes": 260572
+    },
+    {
+      "file": "frame-00021.png",
+      "state": {
+        "frame": 21,
+        "time": 0.7,
+        "shot": "three-and-rise",
+        "identity": true,
+        "dieSize": 6.3,
+        "footClearance": [
+          0,
+          0,
+          0
+        ],
+        "hero": {
+          "weights": [
+            1,
+            0,
+            0
+          ],
+          "head": [
+            0,
+            0.1,
+            0
+          ],
+          "shoulder": 0
+        },
+        "die": [
+          0,
+          0
+        ]
+      },
+      "sha256": "4af6c20777c7da7e6b2f3b175989c20eabb436e248aee2a1aead48206a682047",
+      "bytes": 261021
+    },
+    {
+      "file": "frame-00022.png",
+      "state": {
+        "frame": 22,
+        "time": 0.7333333333333333,
+        "shot": "three-and-rise",
+        "identity": true,
+        "dieSize": 6.3,
+        "footClearance": [
+          0,
+          0,
+          0
+        ],
+        "hero": {
+          "weights": [
+            1,
+            0,
+            0
+          ],
+          "head": [
+            0,
+            0.1,
+            0
+          ],
+          "shoulder": 0
+        },
+        "die": [
+          0,
+          0
+        ]
+      },
+      "sha256": "53a5d411a36483a3ec0027abac59d0ee0d9e79972c49d3554774b27c3e184118",
+      "bytes": 262291
+    },
+    {
+      "file": "frame-00023.png",
+      "state": {
+        "frame": 23,
+        "time": 0.7666666666666667,
+        "shot": "three-and-rise",
+        "identity": true,
+        "dieSize": 6.3,
+        "footClearance": [
+          0,
+          0,
+          0
+        ],
+        "hero": {
+          "weights": [
+            1,
+            0,
+            0
+          ],
+          "head": [
+            0,
+            0.1,
+            0
+          ],
+          "shoulder": 0
+        },
+        "die": [
+          0,
+          0
+        ]
+      },
+      "sha256": "39a0a7df698a032a94db246130137fe1524869e4869a1d4a399ae1f9a16601ef",
+      "bytes": 263265
+    },
+    {
+      "file": "frame-00024.png",
+      "state": {
+        "frame": 24,
+        "time": 0.8,
+        "shot": "three-and-rise",
+        "identity": true,
+        "dieSize": 6.3,
+        "footClearance": [
+          0.0018572117439311466,
+          0,
+          0
+        ],
+        "hero": {
+          "weights": [
+            1,
+            0,
+            0
+          ],
+          "head": [
+            0,
+            0.1,
+            0
+          ],
+          "shoulder": 0
+        },
+        "die": [
+          0,
+          0
+        ]
+      },
+      "sha256": "f6f7ac3ca487c10b9ea73b597450bc2695c35ef999123d00acca9d9e77ff9d55",
+      "bytes": 263307
+    },
+    {
+      "file": "frame-00025.png",
+      "state": {
+        "frame": 25,
+        "time": 0.8333333333333334,
+        "shot": "three-and-rise",
+        "identity": true,
+        "dieSize": 6.3,
+        "footClearance": [
+          0.012994855139444213,
+          0,
+          0
+        ],
+        "hero": {
+          "weights": [
+            1,
+            0,
+            0
+          ],
+          "head": [
+            0,
+            0.1,
+            0
+          ],
+          "shoulder": 0
+        },
+        "die": [
+          0,
+          0
+        ]
+      },
+      "sha256": "495c5a2dd69e01efe2d58b19247e187c011e096b9ae67fe690709a6c16b80b6c",
+      "bytes": 262734
+    },
+    {
+      "file": "frame-00026.png",
+      "state": {
+        "frame": 26,
+        "time": 0.8666666666666667,
+        "shot": "three-and-rise",
+        "identity": true,
+        "dieSize": 6.3,
+        "footClearance": [
+          0.033750651990384885,
+          0,
+          0
+        ],
+        "hero": {
+          "weights": [
+            1,
+            0,
+            0
+          ],
+          "head": [
+            0,
+            0.1,
+            0
+          ],
+          "shoulder": 0
+        },
+        "die": [
+          0,
+          0
+        ]
+      },
+      "sha256": "096786a31f7852d4c1acabaddb09bc1c3b022ae451e7678404b5b2b677873f49",
+      "bytes": 260951
+    },
+    {
+      "file": "frame-00027.png",
+      "state": {
+        "frame": 27,
+        "time": 0.9,
+        "shot": "three-and-rise",
+        "identity": true,
+        "dieSize": 6.3,
+        "footClearance": [
+          0.06361584980195109,
+          0.0037899039906876385,
+          0
+        ],
+        "hero": {
+          "weights": [
+            1,
+            0,
+            0
+          ],
+          "head": [
+            0,
+            0.1,
+            0
+          ],
+          "shoulder": 0
+        },
+        "die": [
+          0,
+          0
+        ]
+      },
+      "sha256": "92b2a9cde681e458df881f107fe1d2769237e325c32d7a6a98643a9f839c66d1",
+      "bytes": 261064
+    },
+    {
+      "file": "frame-00028.png",
+      "state": {
+        "frame": 28,
+        "time": 0.9333333333333333,
+        "shot": "three-and-rise",
+        "identity": true,
+        "dieSize": 6.3,
+        "footClearance": [
+          0.10207299726668269,
+          0.0166221846130008,
+          0
+        ],
+        "hero": {
+          "weights": [
+            1,
+            0,
+            0
+          ],
+          "head": [
+            0,
+            0.1,
+            0
+          ],
+          "shoulder": 0
+        },
+        "die": [
+          0,
+          0
+        ]
+      },
+      "sha256": "802848d9f936d28fbc0d2533e713f85d224fc0e4050ea86c2569ba9ae8b58bbc",
+      "bytes": 261084
+    },
+    {
+      "file": "frame-00029.png",
+      "state": {
+        "frame": 29,
+        "time": 0.9666666666666667,
+        "shot": "three-and-rise",
+        "identity": true,
+        "dieSize": 6.3,
+        "footClearance": [
+          0.14859527068464523,
+          0.03809267134750278,
+          0.0001523255825931057
+        ],
+        "hero": {
+          "weights": [
+            1,
+            0,
+            0
+          ],
+          "head": [
+            0,
+            0.1,
+            0
+          ],
+          "shoulder": 0
+        },
+        "die": [
+          0,
+          0
+        ]
+      },
+      "sha256": "b9a759932d2001432bcada3593c19129259e2cf33ebd51ad237a5cd795bef150",
+      "bytes": 261160
+    },
+    {
+      "file": "frame-00030.png",
+      "state": {
+        "frame": 30,
+        "time": 1,
+        "shot": "three-and-rise",
+        "identity": true,
+        "dieSize": 6.3,
+        "footClearance": [
+          0.20264594267266248,
+          0.06774152141315833,
+          0.005401848231176992
+        ],
+        "hero": {
+          "weights": [
+            1,
+            0,
+            0
+          ],
+          "head": [
+            0,
+            0.1,
+            0
+          ],
+          "shoulder": 0
+        },
+        "die": [
+          0,
+          0
+        ]
+      },
+      "sha256": "5f18eca62d3c1419fbf0f91c62e59d503b3ff6f031ca4ebadaa1da04c4cd7139",
+      "bytes": 260937
+    },
+    {
+      "file": "frame-00031.png",
+      "state": {
+        "frame": 31,
+        "time": 1.0333333333333334,
+        "shot": "three-and-rise",
+        "identity": true,
+        "dieSize": 6.3,
+        "footClearance": [
+          0.2636779961955639,
+          0.10509997643911824,
+          0.01787817432615983
+        ],
+        "hero": {
+          "weights": [
+            1,
+            0,
+            0
+          ],
+          "head": [
+            0,
+            0.1,
+            0
+          ],
+          "shoulder": 0
+        },
+        "die": [
+          0,
+          0
+        ]
+      },
+      "sha256": "c7f54803e9da4cc8dd621feea790bb95bc26da5877f12ccd2a43a8020da9a931",
+      "bytes": 260598
+    },
+    {
+      "file": "frame-00032.png",
+      "state": {
+        "frame": 32,
+        "time": 1.0666666666666667,
+        "shot": "three-and-rise",
+        "identity": true,
+        "dieSize": 6.3,
+        "footClearance": [
+          0.3311338855343828,
+          0.14968973116913387,
+          0.03723013222382282
+        ],
+        "hero": {
+          "weights": [
+            1,
+            0,
+            0
+          ],
+          "head": [
+            0,
+            0.1,
+            0
+          ],
+          "shoulder": 0
+        },
+        "die": [
+          0,
+          0
+        ]
+      },
+      "sha256": "1ea651bd6d205e65ad45df588ba73df0a144f822133e612b4018e6e86bd58ae2",
+      "bytes": 260390
+    },
+    {
+      "file": "frame-00033.png",
+      "state": {
+        "frame": 33,
+        "time": 1.1,
+        "shot": "three-and-rise",
+        "identity": true,
+        "dieSize": 6.3,
+        "footClearance": [
+          0.4044454443878813,
+          0.2010224455133289,
+          0.06309815979303392
+        ],
+        "hero": {
+          "weights": [
+            1,
+            0,
+            0
+          ],
+          "head": [
+            0,
+            0.1,
+            0
+          ],
+          "shoulder": 0
+        },
+        "die": [
+          0,
+          0
+        ]
+      },
+      "sha256": "47e520b058aeba35adeb3ecf3dfb8334b0497494afc3867ce15bea4843a6a724",
+      "bytes": 259559
+    },
+    {
+      "file": "frame-00034.png",
+      "state": {
+        "frame": 34,
+        "time": 1.1333333333333333,
+        "shot": "three-and-rise",
+        "identity": true,
+        "dieSize": 6.3,
+        "footClearance": [
+          0.4830339398956674,
+          0.2585994025555935,
+          0.09511357508472049
+        ],
+        "hero": {
+          "weights": [
+            1,
+            0,
+            0
+          ],
+          "head": [
+            0,
+            0.1,
+            0
+          ],
+          "shoulder": 0
+        },
+        "die": [
+          0,
+          0
+        ]
+      },
+      "sha256": "0ee92f6cda0086cac5d899749ad97beb69135f762e49e6b0e50f31010f17c368",
+      "bytes": 259116
+    },
+    {
+      "file": "frame-00035.png",
+      "state": {
+        "frame": 35,
+        "time": 1.1666666666666667,
+        "shot": "three-and-rise",
+        "identity": true,
+        "dieSize": 6.3,
+        "footClearance": [
+          0.5663102699844444,
+          0.32191131370553305,
+          0.1328979876823897
+        ],
+        "hero": {
+          "weights": [
+            1,
+            0,
+            0
+          ],
+          "head": [
+            0,
+            0.1,
+            0
+          ],
+          "shoulder": 0
+        },
+        "die": [
+          0,
+          0
+        ]
+      },
+      "sha256": "2c6c4967bcb89bae5cd4e0cbf64bb60efb601ee447937117d157c9009901a2e0",
+      "bytes": 259279
+    },
+    {
+      "file": "frame-00036.png",
+      "state": {
+        "frame": 36,
+        "time": 1.2,
+        "shot": "three-and-rise",
+        "identity": true,
+        "dieSize": 6.3,
+        "footClearance": [
+          0.6536753000841908,
+          0.39043827076730403,
+          0.17606285433123517
+        ],
+        "hero": {
+          "weights": [
+            1,
+            0,
+            0
+          ],
+          "head": [
+            0,
+            0.1,
+            0
+          ],
+          "shoulder": 0
+        },
+        "die": [
+          0,
+          0
+        ]
+      },
+      "sha256": "d90841d723d184d59eafe04574d59fbd957f43506cd12254c9da3cdb3cad9b1f",
+      "bytes": 259337
+    },
+    {
+      "file": "frame-00037.png",
+      "state": {
+        "frame": 37,
+        "time": 1.2333333333333334,
+        "shot": "three-and-rise",
+        "identity": true,
+        "dieSize": 6.3,
+        "footClearance": [
+          0.7445203339488174,
+          0.4636498432948675,
+          0.2242091810286691
+        ],
+        "hero": {
+          "weights": [
+            1,
+            0,
+            0
+          ],
+          "head": [
+            0,
+            0.1,
+            0
+          ],
+          "shoulder": 0
+        },
+        "die": [
+          0,
+          0
+        ]
+      },
+      "sha256": "1146b58f07337ae584b2799d95f65b8d3dffddb4a368093e6a62db29edf55cc0",
+      "bytes": 259473
+    },
+    {
+      "file": "frame-00038.png",
+      "state": {
+        "frame": 38,
+        "time": 1.2666666666666666,
+        "shot": "three-and-rise",
+        "identity": true,
+        "dieSize": 6.3,
+        "footClearance": [
+          0.8382277120560199,
+          0.5410053182249174,
+          0.2769273723394299
+        ],
+        "hero": {
+          "weights": [
+            1,
+            0,
+            0
+          ],
+          "head": [
+            0,
+            0.1,
+            0
+          ],
+          "shoulder": 0
+        },
+        "die": [
+          0,
+          0
+        ]
+      },
+      "sha256": "e9eac917739ac5671c09b1f042bdce7550e04a3efb1b3d8fd43da5b3283ff25d",
+      "bytes": 259653
+    },
+    {
+      "file": "frame-00039.png",
+      "state": {
+        "frame": 39,
+        "time": 1.3,
+        "shot": "three-and-rise",
+        "identity": true,
+        "dieSize": 6.3,
+        "footClearance": [
+          0.9341715298634241,
+          0.6219540774357065,
+          0.33379722728482825
+        ],
+        "hero": {
+          "weights": [
+            1,
+            0,
+            0
+          ],
+          "head": [
+            0,
+            0.1,
+            0
+          ],
+          "shoulder": 0
+        },
+        "die": [
+          0,
+          0
+        ]
+      },
+      "sha256": "0b7f7a46a0cde542a3076e1d3315f2412a283e34f2088cf548d9625910076822",
+      "bytes": 258987
+    },
+    {
+      "file": "frame-00040.png",
+      "state": {
+        "frame": 40,
+        "time": 1.3333333333333333,
+        "shot": "three-and-rise",
+        "identity": true,
+        "dieSize": 6.3,
+        "footClearance": [
+          1.0317184670717172,
+          0.7059361075823891,
+          0.3943880797590978
+        ],
+        "hero": {
+          "weights": [
+            1,
+            0,
+            0
+          ],
+          "head": [
+            0,
+            0.1,
+            0
+          ],
+          "shoulder": 0
+        },
+        "die": [
+          0,
+          0
+        ]
+      },
+      "sha256": "1a95c7744cbca6aec9184052ecd001247db1678d9f794f07d459b4bdc079363f",
+      "bytes": 259170
+    },
+    {
+      "file": "frame-00041.png",
+      "state": {
+        "frame": 41,
+        "time": 1.3666666666666667,
+        "shot": "three-and-rise",
+        "identity": true,
+        "dieSize": 6.3,
+        "footClearance": [
+          1.1302287179990655,
+          0.7923826353173792,
+          0.45825908005704546
+        ],
+        "hero": {
+          "weights": [
+            1,
+            0,
+            0
+          ],
+          "head": [
+            0,
+            0.1,
+            0
+          ],
+          "shoulder": 0
+        },
+        "die": [
+          0,
+          0
+        ]
+      },
+      "sha256": "8e84f26f854b6d05e4b81750af24e3cba2745314365fa7acdf4b61dc0695d99e",
+      "bytes": 259411
+    },
+    {
+      "file": "frame-00042.png",
+      "state": {
+        "frame": 42,
+        "time": 1.4,
+        "shot": "three-and-rise",
+        "identity": true,
+        "dieSize": 6.3,
+        "footClearance": [
+          1.229057012212596,
+          0.8807168798269941,
+          0.5249596127666869
+        ],
+        "hero": {
+          "weights": [
+            1,
+            0,
+            0
+          ],
+          "head": [
+            0,
+            0.1,
+            0
+          ],
+          "shoulder": 0
+        },
+        "die": [
+          0,
+          0
+        ]
+      },
+      "sha256": "a4076db597e6c6a73c2ebbac14dca6fb1807a5a71e3daba8efe0109852b359d0",
+      "bytes": 259265
+    },
+    {
+      "file": "frame-00043.png",
+      "state": {
+        "frame": 43,
+        "time": 1.4333333333333333,
+        "shot": "three-and-rise",
+        "identity": true,
+        "dieSize": 6.3,
+        "footClearance": [
+          1.327553713699607,
+          0.9703549135124084,
+          0.5940298449986077
+        ],
+        "hero": {
+          "weights": [
+            1,
+            0,
+            0
+          ],
+          "head": [
+            0,
+            0.1,
+            0
+          ],
+          "shoulder": 0
+        },
+        "die": [
+          0,
+          0
+        ]
+      },
+      "sha256": "d9c121529fc3edc16017d887d17114649e1375e5106f8f6cf277123ff6a4d121",
+      "bytes": 258434
+    },
+    {
+      "file": "frame-00044.png",
+      "state": {
+        "frame": 44,
+        "time": 1.4666666666666666,
+        "shot": "three-and-rise",
+        "identity": true,
+        "dieSize": 6.3,
+        "footClearance": [
+          1.4250659860999875,
+          1.0607066206220543,
+          0.6650013977001248
+        ],
+        "hero": {
+          "weights": [
+            1,
+            0,
+            0
+          ],
+          "head": [
+            0,
+            0.1,
+            0
+          ],
+          "shoulder": 0
+        },
+        "die": [
+          0,
+          0
+        ]
+      },
+      "sha256": "0939179e26571b1e1f0b3a8cd6370d2d6579c0d17e305460387c401482c33e82",
+      "bytes": 258688
+    },
+    {
+      "file": "frame-00045.png",
+      "state": {
+        "frame": 45,
+        "time": 1.5,
+        "shot": "three-and-rise",
+        "identity": true,
+        "dieSize": 6.3,
+        "footClearance": [
+          1.5209390108681642,
+          1.151176742712013,
+          0.7373981316464014
+        ],
+        "hero": {
+          "weights": [
+            1,
+            0,
+            0
+          ],
+          "head": [
+            0,
+            0.1,
+            0
+          ],
+          "shoulder": 0
+        },
+        "die": [
+          0,
+          0
+        ]
+      },
+      "sha256": "0e6a7cf5f675445403f171c50b1be3cbdb15b1cb3fe2676f34aff92eecb511b0",
+      "bytes": 258666
+    },
+    {
+      "file": "frame-00046.png",
+      "state": {
+        "frame": 46,
+        "time": 1.5333333333333334,
+        "shot": "three-and-rise",
+        "identity": true,
+        "dieSize": 6.3,
+        "footClearance": [
+          1.6145172446927185,
+          1.2411659989776782,
+          0.810737038621235
+        ],
+        "hero": {
+          "weights": [
+            1,
+            0,
+            0
+          ],
+          "head": [
+            0,
+            0.1,
+            0
+          ],
+          "shoulder": 0
+        },
+        "die": [
+          0,
+          0
+        ]
+      },
+      "sha256": "8cc71d0feca56dab245cb925cfb73b9730b6280017eb6ec42ae09b391a7376cd",
+      "bytes": 258323
+    },
+    {
+      "file": "frame-00047.png",
+      "state": {
+        "frame": 47,
+        "time": 1.5666666666666667,
+        "shot": "three-and-rise",
+        "identity": true,
+        "dieSize": 6.3,
+        "footClearance": [
+          1.705145702079134,
+          1.330072268770673,
+          0.8845292273056768
+        ],
+        "hero": {
+          "weights": [
+            1,
+            0,
+            0
+          ],
+          "head": [
+            0,
+            0.1,
+            0
+          ],
+          "shoulder": 0
+        },
+        "die": [
+          0,
+          0
+        ]
+      },
+      "sha256": "aab1683d785126d6c788ffe66a2f04cd43e49677f927eed1e7152c4d2c19e825",
+      "bytes": 258363
+    },
+    {
+      "file": "frame-00048.png",
+      "state": {
+        "frame": 48,
+        "time": 1.6,
+        "shot": "three-and-rise",
+        "identity": true,
+        "dieSize": 6.3,
+        "footClearance": [
+          1.7921712486992536,
+          1.4172918229951792,
+          0.9582809924905059
+        ],
+        "hero": {
+          "weights": [
+            1,
+            0,
+            0
+          ],
+          "head": [
+            0,
+            0.1,
+            0
+          ],
+          "shoulder": 0
+        },
+        "die": [
+          0,
+          0
+        ]
+      },
+      "sha256": "3393da0204b1cd9dc7e55c1517add8505583dcd020e1d723bf5d169fafb17517",
+      "bytes": 258049
+    },
+    {
+      "file": "frame-00049.png",
+      "state": {
+        "frame": 49,
+        "time": 1.6333333333333333,
+        "shot": "three-and-rise",
+        "identity": true,
+        "dieSize": 6.3,
+        "footClearance": [
+          1.874943890932633,
+          1.5022205905725174,
+          1.0314949554258692
+        ],
+        "hero": {
+          "weights": [
+            1,
+            0,
+            0
+          ],
+          "head": [
+            0,
+            0.1,
+            0
+          ],
+          "shoulder": 0
+        },
+        "die": [
+          0,
+          0
+        ]
+      },
+      "sha256": "211af3d463887acff9f3aaafb856d29a61004c3f9d2e9430036909d6445ad39f",
+      "bytes": 258350
+    },
+    {
+      "file": "frame-00050.png",
+      "state": {
+        "frame": 50,
+        "time": 1.6666666666666667,
+        "shot": "three-and-rise",
+        "identity": true,
+        "dieSize": 6.3,
+        "footClearance": [
+          1.9528180469717802,
+          1.5842554457760563,
+          1.10367126242438
+        ],
+        "hero": {
+          "weights": [
+            1,
+            0,
+            0
+          ],
+          "head": [
+            0,
+            0.1,
+            0
+          ],
+          "shoulder": 0
+        },
+        "die": [
+          0,
+          0
+        ]
+      },
+      "sha256": "9d936c0b12ddbc5bf8b89573ee775f69d5336e7fa9ed78e8aa5f7f1d86344776",
+      "bytes": 258511
+    },
+    {
+      "file": "frame-00051.png",
+      "state": {
+        "frame": 51,
+        "time": 1.7,
+        "shot": "three-and-rise",
+        "identity": true,
+        "dieSize": 6.3,
+        "footClearance": [
+          2.0251537849359558,
+          1.662795501973443,
+          1.1743088282480116
+        ],
+        "hero": {
+          "weights": [
+            1,
+            0,
+            0
+          ],
+          "head": [
+            0,
+            0.1,
+            0
+          ],
+          "shoulder": 0
+        },
+        "die": [
+          0,
+          0
+        ]
+      },
+      "sha256": "e6ebc3733a766c566b329b0b570df2689751b559408fd3c30740761dc80b496b",
+      "bytes": 258306
+    },
+    {
+      "file": "frame-00052.png",
+      "state": {
+        "frame": 52,
+        "time": 1.7333333333333334,
+        "shot": "three-and-rise",
+        "identity": true,
+        "dieSize": 6.3,
+        "footClearance": [
+          2.091318013636817,
+          1.7372433971721999,
+          1.2429066103390056
+        ],
+        "hero": {
+          "weights": [
+            1,
+            0,
+            0
+          ],
+          "head": [
+            0,
+            0.1,
+            0
+          ],
+          "shoulder": 0
+        },
+        "die": [
+          0,
+          0
+        ]
+      },
+      "sha256": "0f4250af7ce966f05d6960bc03930c2d0e35a43ce878a1fc09bc7801af2b5062",
+      "bytes": 259752
+    },
+    {
+      "file": "frame-00053.png",
+      "state": {
+        "frame": 53,
+        "time": 1.7666666666666666,
+        "shot": "three-and-rise",
+        "identity": true,
+        "dieSize": 6.3,
+        "footClearance": [
+          2.1506856119625066,
+          1.8070065567492253,
+          1.3089648996044168
+        ],
+        "hero": {
+          "weights": [
+            1,
+            0,
+            0
+          ],
+          "head": [
+            0,
+            0.1,
+            0
+          ],
+          "shoulder": 0
+        },
+        "die": [
+          0,
+          0
+        ]
+      },
+      "sha256": "b43dcd34451202d007266de5208bf37aaa0eb32f3b839de46d3fd669e42b24db",
+      "bytes": 259447
+    },
+    {
+      "file": "frame-00054.png",
+      "state": {
+        "frame": 54,
+        "time": 1.8,
+        "shot": "three-and-rise",
+        "identity": true,
+        "dieSize": 6.3,
+        "footClearance": [
+          2.2026404832930226,
+          1.8714984188552983,
+          1.3719866132359115
+        ],
+        "hero": {
+          "weights": [
+            1,
+            0,
+            0
+          ],
+          "head": [
+            0,
+            0.1,
+            0
+          ],
+          "shoulder": 0
+        },
+        "die": [
+          0,
+          0
+        ]
+      },
+      "sha256": "e239a274697770512fbef8c49d8a63107a2a5248b6300b83cbadabd448b5e4bd",
+      "bytes": 258901
+    },
+    {
+      "file": "frame-00055.png",
+      "state": {
+        "frame": 55,
+        "time": 1.8333333333333333,
+        "shot": "three-and-rise",
+        "identity": true,
+        "dieSize": 6.3,
+        "footClearance": [
+          2.2465765219258857,
+          1.9301396082218056,
+          1.4314785749429828
+        ],
+        "hero": {
+          "weights": [
+            1,
+            0,
+            0
+          ],
+          "head": [
+            0,
+            0.1,
+            0
+          ],
+          "shoulder": 0
+        },
+        "die": [
+          0,
+          0
+        ]
+      },
+      "sha256": "61bdab904368df60dfd67d56da77776a65907eb65a57c1693d3d88552c791651",
+      "bytes": 259255
+    },
+    {
+      "file": "frame-00056.png",
+      "state": {
+        "frame": 56,
+        "time": 1.8666666666666667,
+        "shot": "three-and-rise",
+        "identity": true,
+        "dieSize": 6.3,
+        "footClearance": [
+          2.281898479173606,
+          1.9823590444574042,
+          1.48695276800007
+        ],
+        "hero": {
+          "weights": [
+            1,
+            0,
+            0
+          ],
+          "head": [
+            0,
+            0.1,
+            0
+          ],
+          "shoulder": 0
+        },
+        "die": [
+          0,
+          0
+        ]
+      },
+      "sha256": "900e2566f61dac28dd799c15cb0bcb47d887834d2847f9bf8bc18f6b943c56ab",
+      "bytes": 259553
+    },
+    {
+      "file": "frame-00057.png",
+      "state": {
+        "frame": 57,
+        "time": 1.9,
+        "shot": "three-and-rise",
+        "identity": true,
+        "dieSize": 6.3,
+        "footClearance": [
+          2.3080227175885892,
+          2.0275949714048345,
+          1.5379275466563496
+        ],
+        "hero": {
+          "weights": [
+            1,
+            0,
+            0
+          ],
+          "head": [
+            0,
+            0.1,
+            0
+          ],
+          "shoulder": 0
+        },
+        "die": [
+          0,
+          0
+        ]
+      },
+      "sha256": "0572c575fa021e8c614d4410fb4627e740947ba90d3998e826f72f3b4aa63f24",
+      "bytes": 259082
+    },
+    {
+      "file": "frame-00058.png",
+      "state": {
+        "frame": 58,
+        "time": 1.9333333333333333,
+        "shot": "three-and-rise",
+        "identity": true,
+        "dieSize": 6.3,
+        "footClearance": [
+          2.3243778426715105,
+          2.0652958947296574,
+          1.5839287917306244
+        ],
+        "hero": {
+          "weights": [
+            1,
+            0,
+            0
+          ],
+          "head": [
+            0,
+            0.1,
+            0
+          ],
+          "shoulder": 0
+        },
+        "die": [
+          0,
+          0
+        ]
+      },
+      "sha256": "25e62edcaf3ad33501e09d467494be041b2babcb17ba5c1b371d284a35922c9a",
+      "bytes": 258745
+    },
+    {
+      "file": "frame-00059.png",
+      "state": {
+        "frame": 59,
+        "time": 1.9666666666666666,
+        "shot": "three-and-rise",
+        "identity": true,
+        "dieSize": 6.3,
+        "footClearance": [
+          2.330405202419633,
+          2.0949214156291394,
+          1.6244909966110483
+        ],
+        "hero": {
+          "weights": [
+            1,
+            0,
+            0
+          ],
+          "head": [
+            0,
+            0.1,
+            0
+          ],
+          "shoulder": 0
+        },
+        "die": [
+          0,
+          0
+        ]
+      },
+      "sha256": "7c5ead79c99fdb0c2953619faf07353aafe3dab7e0c219cb2a95705356006cbe",
+      "bytes": 258758
+    },
+    {
+      "file": "frame-00060.png",
+      "state": {
+        "frame": 60,
+        "time": 2,
+        "shot": "three-and-rise",
+        "identity": true,
+        "dieSize": 6.3,
+        "footClearance": [
+          2.327520397611113,
+          2.1159429493761737,
+          1.6591582703980725
+        ],
+        "hero": {
+          "weights": [
+            1,
+            0,
+            0
+          ],
+          "head": [
+            0,
+            0.1,
+            0
+          ],
+          "shoulder": 0
+        },
+        "die": [
+          0,
+          0
+        ]
+      },
+      "sha256": "6e2e9273f50f3aac21a34e37502610f30919ab50460bb7b61ef1319480abde7e",
+      "bytes": 259146
+    },
+    {
+      "file": "frame-00061.png",
+      "state": {
+        "frame": 61,
+        "time": 2.033333333333333,
+        "shot": "three-and-rise",
+        "identity": true,
+        "dieSize": 6.3,
+        "footClearance": [
+          2.3234844967046975,
+          2.1278443183441924,
+          1.6874852455654266
+        ],
+        "hero": {
+          "weights": [
+            1,
+            0,
+            0
+          ],
+          "head": [
+            0,
+            0.1,
+            0
+          ],
+          "shoulder": 0
+        },
+        "die": [
+          0,
+          0
+        ]
+      },
+      "sha256": "d2deb32de4145e7d1331ea6471f565951b30a6758cbde978a4bec01cdd37d0b5",
+      "bytes": 259568
+    },
+    {
+      "file": "frame-00062.png",
+      "state": {
+        "frame": 62,
+        "time": 2.066666666666667,
+        "shot": "three-and-rise",
+        "identity": true,
+        "dieSize": 6.3,
+        "footClearance": [
+          2.319169843931937,
+          2.130122210188134,
+          1.7090378782640594
+        ],
+        "hero": {
+          "weights": [
+            1,
+            0,
+            0
+          ],
+          "head": [
+            0,
+            0.1,
+            0
+          ],
+          "shoulder": 0
+        },
+        "die": [
+          0,
+          0
+        ]
+      },
+      "sha256": "423b88759cbc2062e6b7c24310f58c88351b1cb9534565ae1cf59baee23d00d0",
+      "bytes": 259378
+    },
+    {
+      "file": "frame-00063.png",
+      "state": {
+        "frame": 63,
+        "time": 2.1,
+        "shot": "three-and-rise",
+        "identity": true,
+        "dieSize": 6.3,
+        "footClearance": [
+          2.3145928062486787,
+          2.12633982827411,
+          1.7233941302525373
+        ],
+        "hero": {
+          "weights": [
+            1,
+            0,
+            0
+          ],
+          "head": [
+            0,
+            0.1,
+            0
+          ],
+          "shoulder": 0
+        },
+        "die": [
+          0,
+          0
+        ]
+      },
+      "sha256": "364cdf2eb06ed556d0dc2a31338b0523da2a9bffc0827e1bb836c821954135e2",
+      "bytes": 259176
+    },
+    {
+      "file": "frame-00064.png",
+      "state": {
+        "frame": 64,
+        "time": 2.1333333333333333,
+        "shot": "three-and-rise",
+        "identity": true,
+        "dieSize": 6.3,
+        "footClearance": [
+          2.3097707459266092,
+          2.122218645033201,
+          1.7301445223986238
+        ],
+        "hero": {
+          "weights": [
+            1,
+            0,
+            0
+          ],
+          "head": [
+            0,
+            0.1,
+            0
+          ],
+          "shoulder": 0
+        },
+        "die": [
+          0,
+          0
+        ]
+      },
+      "sha256": "a9eab542ba494a7ae2bc34bc2ad87e80d71b4fc1cfb52059e8d72303a75cfd7f",
+      "bytes": 259527
+    },
+    {
+      "file": "frame-00065.png",
+      "state": {
+        "frame": 65,
+        "time": 2.1666666666666665,
+        "shot": "three-and-rise",
+        "identity": true,
+        "dieSize": 6.3,
+        "footClearance": [
+          2.3047219546922113,
+          2.1178235117349233,
+          1.7290532412300164
+        ],
+        "hero": {
+          "weights": [
+            1,
+            0,
+            0
+          ],
+          "head": [
+            0,
+            0.1,
+            0
+          ],
+          "shoulder": 0
+        },
+        "die": [
+          0,
+          0
+        ]
+      },
+      "sha256": "53fd4b0a2aa102fb79bea552e0b3bac192888701f29904128b546b5d5eb557af",
+      "bytes": 259774
+    },
+    {
+      "file": "frame-00066.png",
+      "state": {
+        "frame": 66,
+        "time": 2.2,
+        "shot": "three-and-rise",
+        "identity": true,
+        "dieSize": 6.3,
+        "footClearance": [
+          2.299465584339978,
+          2.113171100625325,
+          1.7251331889556871
+        ],
+        "hero": {
+          "weights": [
+            1,
+            0,
+            0
+          ],
+          "head": [
+            0,
+            0.1,
+            0
+          ],
+          "shoulder": 0
+        },
+        "die": [
+          0,
+          0
+        ]
+      },
+      "sha256": "6c10c50786f2f0853111185be5f1cde2fc0fb5188049337589f32361e96aca62",
+      "bytes": 259577
+    },
+    {
+      "file": "frame-00067.png",
+      "state": {
+        "frame": 67,
+        "time": 2.2333333333333334,
+        "shot": "three-and-rise",
+        "identity": true,
+        "dieSize": 6.3,
+        "footClearance": [
+          2.2940215740830987,
+          2.108279059893316,
+          1.7209281307605853
+        ],
+        "hero": {
+          "weights": [
+            1,
+            0,
+            0
+          ],
+          "head": [
+            0,
+            0.1,
+            0
+          ],
+          "shoulder": 0
+        },
+        "die": [
+          0,
+          0
+        ]
+      },
+      "sha256": "f23adabb4598bac0b9e14724bc6a094663a68b8d3bff4de60a674011f294142c",
+      "bytes": 259740
+    },
+    {
+      "file": "frame-00068.png",
+      "state": {
+        "frame": 68,
+        "time": 2.2666666666666666,
+        "shot": "three-and-rise",
+        "identity": true,
+        "dieSize": 6.3,
+        "footClearance": [
+          2.288410574917193,
+          2.1031659467250434,
+          1.7164540178707857
+        ],
+        "hero": {
+          "weights": [
+            1,
+            0,
+            0
+          ],
+          "head": [
+            0,
+            0.1,
+            0
+          ],
+          "shoulder": 0
+        },
+        "die": [
+          0,
+          0
+        ]
+      },
+      "sha256": "2241401a2fd1684bc57bde03a83be75793fb36aa974bf2cf22e583b5974f2605",
+      "bytes": 259525
+    },
+    {
+      "file": "frame-00069.png",
+      "state": {
+        "frame": 69,
+        "time": 2.3,
+        "shot": "three-and-rise",
+        "identity": true,
+        "dieSize": 6.3,
+        "footClearance": [
+          2.2826538712840083,
+          2.0978511569101284,
+          1.7117278221289791
+        ],
+        "hero": {
+          "weights": [
+            1,
+            0,
+            0
+          ],
+          "head": [
+            0,
+            0.1,
+            0
+          ],
+          "shoulder": 0
+        },
+        "die": [
+          0,
+          0
+        ]
+      },
+      "sha256": "88f83313fee383b6282031ae9c37207d238654a213683dca0917fdf031661d76",
+      "bytes": 259621
+    },
+    {
+      "file": "frame-00070.png",
+      "state": {
+        "frame": 70,
+        "time": 2.3333333333333335,
+        "shot": "three-and-rise",
+        "identity": true,
+        "dieSize": 6.3,
+        "footClearance": [
+          2.2767733003322466,
+          2.0923548512667924,
+          1.706767471614459
+        ],
+        "hero": {
+          "weights": [
+            1,
+            0,
+            0
+          ],
+          "head": [
+            0,
+            0.1,
+            0
+          ],
+          "shoulder": 0
+        },
+        "die": [
+          0,
+          0
+        ]
+      },
+      "sha256": "aec8e882d1a805ad5ff49bb5fb233103020c407675b1c5aa70406a7f7cbcc456",
+      "bytes": 259778
+    },
+    {
+      "file": "frame-00071.png",
+      "state": {
+        "frame": 71,
+        "time": 2.3666666666666667,
+        "shot": "three-and-rise",
+        "identity": true,
+        "dieSize": 6.3,
+        "footClearance": [
+          2.270791169081776,
+          2.086697879164967,
+          1.701591782635775
+        ],
+        "hero": {
+          "weights": [
+            1,
+            0,
+            0
+          ],
+          "head": [
+            0,
+            0.1,
+            0
+          ],
+          "shoulder": 0
+        },
+        "die": [
+          0,
+          0
+        ]
+      },
+      "sha256": "d46475970b6c8ff6e1dfc9ad3f10d27c438740792ca592c62c39f8f0f5cafdb3",
+      "bytes": 260244
+    },
+    {
+      "file": "frame-00072.png",
+      "state": {
+        "frame": 72,
+        "time": 2.4,
+        "shot": "three-and-rise",
+        "identity": true,
+        "dieSize": 6.3,
+        "footClearance": [
+          2.2647301698054636,
+          2.0809016994374945,
+          1.6962203883540312
+        ],
+        "hero": {
+          "weights": [
+            1,
+            0,
+            0
+          ],
+          "head": [
+            0,
+            0.1,
+            0
+          ],
+          "shoulder": 0
+        },
+        "die": [
+          0,
+          0
+        ]
+      },
+      "sha256": "9058471a4042cd5986265af648d0f8e0ca49aeba79f5ab548bde501287470e31",
+      "bytes": 259752
+    },
+    {
+      "file": "frame-00073.png",
+      "state": {
+        "frame": 73,
+        "time": 2.433333333333333,
+        "shot": "three-and-rise",
+        "identity": true,
+        "dieSize": 6.3,
+        "footClearance": [
+          2.258613293949615,
+          2.074988298979423,
+          1.69067366430758
+        ],
+        "hero": {
+          "weights": [
+            1,
+            0,
+            0
+          ],
+          "head": [
+            0,
+            0.1,
+            0
+          ],
+          "shoulder": 0
+        },
+        "die": [
+          0,
+          0
+        ]
+      },
+      "sha256": "7cc7e4fa430752f5b44e601d693191541505a559e27f8bc481035be5a8afa1f3",
+      "bytes": 259600
+    },
+    {
+      "file": "frame-00074.png",
+      "state": {
+        "frame": 74,
+        "time": 2.466666666666667,
+        "shot": "three-and-rise",
+        "identity": true,
+        "dieSize": 6.3,
+        "footClearance": [
+          2.252463744919538,
+          2.0689801093441824,
+          1.684972651120626
+        ],
+        "hero": {
+          "weights": [
+            1,
+            0,
+            0
+          ],
+          "head": [
+            0,
+            0.1,
+            0
+          ],
+          "shoulder": 0
+        },
+        "die": [
+          0,
+          0
+        ]
+      },
+      "sha256": "3dbf8a19886ea03f12f4c1346a6ca05aa5c22f86f00ad72bd21ca2fffb804e4c",
+      "bytes": 259149
+    },
+    {
+      "file": "frame-00075.png",
+      "state": {
+        "frame": 75,
+        "time": 2.5,
+        "shot": "leo-reacts",
+        "identity": true,
+        "dieSize": 6.3,
+        "footClearance": [
+          2.25,
+          2.0628999216530204,
+          1.6791389746889325
+        ],
+        "hero": {
+          "weights": [
+            1,
+            0,
+            0
+          ],
+          "head": [
+            0,
+            0.1,
+            0
+          ],
+          "shoulder": 0
+        },
+        "die": [
+          0,
+          0
+        ]
+      },
+      "sha256": "3f8becdfd5724bd287a9a5feb6f1328a356684153fa1cac6152b9ba09be2c7e6",
+      "bytes": 258418
+    },
+    {
+      "file": "frame-00076.png",
+      "state": {
+        "frame": 76,
+        "time": 2.533333333333333,
+        "shot": "leo-reacts",
+        "identity": true,
+        "dieSize": 6.3,
+        "footClearance": [
+          2.25,
+          2.0567708001404705,
+          1.6731947641453897
+        ],
+        "hero": {
+          "weights": [
+            0.9380860951108889,
+            0.061913904889111075,
+            0
+          ],
+          "head": [
+            -0.012382780977822215,
+            0.10928708573336667,
+            -0.002166986671118888
+          ],
+          "shoulder": 0.006810529537802219
+        },
+        "die": [
+          0,
+          0
+        ]
+      },
+      "sha256": "251f6656daec30f94c72d5d7cae07d0d79e98e66b5e3121ddbd57673ae41641c",
+      "bytes": 258630
+    },
+    {
+      "file": "frame-00077.png",
+      "state": {
+        "frame": 77,
+        "time": 2.566666666666667,
+        "shot": "leo-reacts",
+        "identity": true,
+        "dieSize": 6.3,
+        "footClearance": [
+          2.25,
+          2.0506159946638136,
+          1.6671625679166358
+        ],
+        "hero": {
+          "weights": [
+            0.7801708545510186,
+            0.21982914544898136,
+            0
+          ],
+          "head": [
+            -0.04396582908979627,
+            0.1329743718173472,
+            -0.0076940200907143486
+          ],
+          "shoulder": 0.024181205999387948
+        },
+        "die": [
+          0,
+          0
+        ]
+      },
+      "sha256": "fe8257c94484cf35ce881b59c3578325130f33b96c1c3d695cc575aac7caa327",
+      "bytes": 260546
+    },
+    {
+      "file": "frame-00078.png",
+      "state": {
+        "frame": 78,
+        "time": 2.6,
+        "shot": "leo-reacts",
+        "identity": true,
+        "dieSize": 6.3,
+        "footClearance": [
+          2.25,
+          2.05,
+          1.66106526818915
+        ],
+        "hero": {
+          "weights": [
+            0.5679939894815922,
+            0.4320060105184078,
+            0
+          ],
+          "head": [
+            -0.08640120210368157,
+            0.16480090157776117,
+            -0.015120210368144276
+          ],
+          "shoulder": 0.04752066115702486
+        },
+        "die": [
+          0,
+          0
+        ]
+      },
+      "sha256": "bb5cde0276c4844fb334d36e1b7a623fbe379ed3beae419615746f95ab137cf7",
+      "bytes": 264657
+    },
+    {
+      "file": "frame-00079.png",
+      "state": {
+        "frame": 79,
+        "time": 2.6333333333333333,
+        "shot": "leo-reacts",
+        "identity": true,
+        "dieSize": 6.3,
+        "footClearance": [
+          2.25,
+          2.05,
+          1.6549259941092815
+        ],
+        "hero": {
+          "weights": [
+            0.3432952110638062,
+            0.6567047889361938,
+            0
+          ],
+          "head": [
+            -0.13134095778723875,
+            0.19850571834042907,
+            -0.022984667612766786
+          ],
+          "shoulder": 0.07223752678298132
+        },
+        "die": [
+          0,
+          0
+        ]
+      },
+      "sha256": "586e8a117355291f6a51bbfdd79374eb52977707fcc8b2736186218372797b5e",
+      "bytes": 268514
+    },
+    {
+      "file": "frame-00080.png",
+      "state": {
+        "frame": 80,
+        "time": 2.6666666666666665,
+        "shot": "leo-reacts",
+        "identity": true,
+        "dieSize": 6.3,
+        "footClearance": [
+          2.25,
+          2.05,
+          1.65
+        ],
+        "hero": {
+          "weights": [
+            0.14781423045885933,
+            0.8521857695411407,
+            0
+          ],
+          "head": [
+            -0.17043715390822814,
+            0.2278278654311711,
+            -0.029826501933939927
+          ],
+          "shoulder": 0.09374043464952547
+        },
+        "die": [
+          0,
+          0
+        ]
+      },
+      "sha256": "401fc80906699d877e37f7addabfae51ed167425ac6c924a6a6712f122474615",
+      "bytes": 272869
+    },
+    {
+      "file": "frame-00081.png",
+      "state": {
+        "frame": 81,
+        "time": 2.7,
+        "shot": "leo-reacts",
+        "identity": true,
+        "dieSize": 6.3,
+        "footClearance": [
+          2.25,
+          2.05,
+          1.65
+        ],
+        "hero": {
+          "weights": [
+            0.02329075882794851,
+            0.9767092411720515,
+            0
+          ],
+          "head": [
+            -0.1953418482344103,
+            0.24650638617580772,
+            -0.034184823441021805
+          ],
+          "shoulder": 0.10743801652892566
+        },
+        "die": [
+          0,
+          0
+        ]
+      },
+      "sha256": "6a3bfcf28dea208b99455c1cd9607df8f7a880b850eddb83f9d3df398e011670",
+      "bytes": 274136
+    },
+    {
+      "file": "frame-00082.png",
+      "state": {
+        "frame": 82,
+        "time": 2.7333333333333334,
+        "shot": "leo-reacts",
+        "identity": true,
+        "dieSize": 6.3,
+        "footClearance": [
+          2.25,
+          2.05,
+          1.65
+        ],
+        "hero": {
+          "weights": [
+            0,
+            1,
+            0
+          ],
+          "head": [
+            -0.2,
+            0.25,
+            -0.035
+          ],
+          "shoulder": 0.11
+        },
+        "die": [
+          0,
+          0
+        ]
+      },
+      "sha256": "1191c4a5a3cd1af80dedb5bdd8e99bd9d09d3708f10d58d659e50f6a92aca6ac",
+      "bytes": 275348
+    },
+    {
+      "file": "frame-00083.png",
+      "state": {
+        "frame": 83,
+        "time": 2.7666666666666666,
+        "shot": "leo-reacts",
+        "identity": true,
+        "dieSize": 6.3,
+        "footClearance": [
+          2.25,
+          2.05,
+          1.65
+        ],
+        "hero": {
+          "weights": [
+            0,
+            1,
+            0
+          ],
+          "head": [
+            -0.2,
+            0.25,
+            -0.035
+          ],
+          "shoulder": 0.11
+        },
+        "die": [
+          0,
+          0
+        ]
+      },
+      "sha256": "1191c4a5a3cd1af80dedb5bdd8e99bd9d09d3708f10d58d659e50f6a92aca6ac",
+      "bytes": 275348
+    },
+    {
+      "file": "frame-00084.png",
+      "state": {
+        "frame": 84,
+        "time": 2.8,
+        "shot": "leo-reacts",
+        "identity": true,
+        "dieSize": 6.3,
+        "footClearance": [
+          2.25,
+          2.05,
+          1.65
+        ],
+        "hero": {
+          "weights": [
+            0,
+            1,
+            0
+          ],
+          "head": [
+            -0.2,
+            0.25,
+            -0.035
+          ],
+          "shoulder": 0.11
+        },
+        "die": [
+          0,
+          0
+        ]
+      },
+      "sha256": "1191c4a5a3cd1af80dedb5bdd8e99bd9d09d3708f10d58d659e50f6a92aca6ac",
+      "bytes": 275348
+    },
+    {
+      "file": "frame-00085.png",
+      "state": {
+        "frame": 85,
+        "time": 2.8333333333333335,
+        "shot": "leo-reacts",
+        "identity": true,
+        "dieSize": 6.3,
+        "footClearance": [
+          2.25,
+          2.05,
+          1.65
+        ],
+        "hero": {
+          "weights": [
+            0,
+            1,
+            0
+          ],
+          "head": [
+            -0.2,
+            0.25,
+            -0.035
+          ],
+          "shoulder": 0.11
+        },
+        "die": [
+          0,
+          0
+        ]
+      },
+      "sha256": "1191c4a5a3cd1af80dedb5bdd8e99bd9d09d3708f10d58d659e50f6a92aca6ac",
+      "bytes": 275348
+    },
+    {
+      "file": "frame-00086.png",
+      "state": {
+        "frame": 86,
+        "time": 2.8666666666666667,
+        "shot": "leo-reacts",
+        "identity": true,
+        "dieSize": 6.3,
+        "footClearance": [
+          2.25,
+          2.05,
+          1.65
+        ],
+        "hero": {
+          "weights": [
+            0,
+            1,
+            0
+          ],
+          "head": [
+            -0.2,
+            0.25,
+            -0.035
+          ],
+          "shoulder": 0.11
+        },
+        "die": [
+          0,
+          0
+        ]
+      },
+      "sha256": "1191c4a5a3cd1af80dedb5bdd8e99bd9d09d3708f10d58d659e50f6a92aca6ac",
+      "bytes": 275348
+    },
+    {
+      "file": "frame-00087.png",
+      "state": {
+        "frame": 87,
+        "time": 2.9,
+        "shot": "leo-reacts",
+        "identity": true,
+        "dieSize": 6.3,
+        "footClearance": [
+          2.25,
+          2.05,
+          1.65
+        ],
+        "hero": {
+          "weights": [
+            0,
+            1,
+            0
+          ],
+          "head": [
+            -0.2,
+            0.25,
+            -0.035
+          ],
+          "shoulder": 0.11
+        },
+        "die": [
+          0,
+          0
+        ]
+      },
+      "sha256": "1191c4a5a3cd1af80dedb5bdd8e99bd9d09d3708f10d58d659e50f6a92aca6ac",
+      "bytes": 275348
+    },
+    {
+      "file": "frame-00088.png",
+      "state": {
+        "frame": 88,
+        "time": 2.933333333333333,
+        "shot": "leo-reacts",
+        "identity": true,
+        "dieSize": 6.3,
+        "footClearance": [
+          2.25,
+          2.05,
+          1.65
+        ],
+        "hero": {
+          "weights": [
+            0,
+            1,
+            0
+          ],
+          "head": [
+            -0.2,
+            0.25,
+            -0.035
+          ],
+          "shoulder": 0.11
+        },
+        "die": [
+          0,
+          0
+        ]
+      },
+      "sha256": "8bcd8ad97bc5ee0e39eb4d09f72aeeb1c118607f0bfc2ed325cd2005a1ff1f6e",
+      "bytes": 275337
+    },
+    {
+      "file": "frame-00089.png",
+      "state": {
+        "frame": 89,
+        "time": 2.966666666666667,
+        "shot": "leo-reacts",
+        "identity": true,
+        "dieSize": 6.3,
+        "footClearance": [
+          2.25,
+          2.05,
+          1.65
+        ],
+        "hero": {
+          "weights": [
+            0,
+            1,
+            0
+          ],
+          "head": [
+            -0.2,
+            0.25,
+            -0.035
+          ],
+          "shoulder": 0.11
+        },
+        "die": [
+          0,
+          0
+        ]
+      },
+      "sha256": "da9caea2c8209bc4541c44e5f46e6e7d0d11e83c0a992f77af5feb531b05bbb2",
+      "bytes": 275418
+    },
+    {
+      "file": "frame-00090.png",
+      "state": {
+        "frame": 90,
+        "time": 3,
+        "shot": "leo-reacts",
+        "identity": true,
+        "dieSize": 6.3,
+        "footClearance": [
+          2.25,
+          2.05,
+          1.65
+        ],
+        "hero": {
+          "weights": [
+            0,
+            1,
+            0
+          ],
+          "head": [
+            -0.2,
+            0.25,
+            -0.035
+          ],
+          "shoulder": 0.11
+        },
+        "die": [
+          0,
+          0
+        ]
+      },
+      "sha256": "5326df6db18a3cc4d1370227fbb51553c5a81f476d4427532b1b10fa64f7bfec",
+      "bytes": 275448
+    },
+    {
+      "file": "frame-00091.png",
+      "state": {
+        "frame": 91,
+        "time": 3.033333333333333,
+        "shot": "leo-reacts",
+        "identity": true,
+        "dieSize": 6.3,
+        "footClearance": [
+          2.25,
+          2.05,
+          1.65
+        ],
+        "hero": {
+          "weights": [
+            0,
+            1,
+            0
+          ],
+          "head": [
+            -0.2,
+            0.25,
+            -0.035
+          ],
+          "shoulder": 0.11
+        },
+        "die": [
+          0,
+          0
+        ]
+      },
+      "sha256": "b328b9e64b13b3a09ad096ee7d0b13c8512266a3d41167012039236a4a241ea5",
+      "bytes": 275385
+    },
+    {
+      "file": "frame-00092.png",
+      "state": {
+        "frame": 92,
+        "time": 3.066666666666667,
+        "shot": "leo-reacts",
+        "identity": true,
+        "dieSize": 6.3,
+        "footClearance": [
+          2.25,
+          2.05,
+          1.65
+        ],
+        "hero": {
+          "weights": [
+            0,
+            1,
+            0
+          ],
+          "head": [
+            -0.2,
+            0.25,
+            -0.035
+          ],
+          "shoulder": 0.11
+        },
+        "die": [
+          0,
+          0
+        ]
+      },
+      "sha256": "7d6871a5a8a45b880ff8364481b21845e27dafa17a583521439c22b1ca210707",
+      "bytes": 275260
+    },
+    {
+      "file": "frame-00093.png",
+      "state": {
+        "frame": 93,
+        "time": 3.1,
+        "shot": "leo-reacts",
+        "identity": true,
+        "dieSize": 6.3,
+        "footClearance": [
+          2.25,
+          2.05,
+          1.65
+        ],
+        "hero": {
+          "weights": [
+            0,
+            1,
+            1.0271626370065259e-31
+          ],
+          "head": [
+            -0.2,
+            0.25,
+            -0.035
+          ],
+          "shoulder": 0.11
+        },
+        "die": [
+          0,
+          0
+        ]
+      },
+      "sha256": "a41bbe2fb7d1b70480c3ea278c29f979e1e2ceab600495b52cddcf8b3fa23927",
+      "bytes": 275161
+    },
+    {
+      "file": "frame-00094.png",
+      "state": {
+        "frame": 94,
+        "time": 3.1333333333333333,
+        "shot": "leo-reacts",
+        "identity": true,
+        "dieSize": 6.3,
+        "footClearance": [
+          2.25,
+          2.05,
+          1.65
+        ],
+        "hero": {
+          "weights": [
+            0,
+            0.9910836762688615,
+            0.008916323731138542
+          ],
+          "head": [
+            -0.1987517146776406,
+            0.24919753086419752,
+            -0.03450960219478738
+          ],
+          "shoulder": 0.10915294924554184
+        },
+        "die": [
+          0,
+          0
+        ]
+      },
+      "sha256": "edc7f127ddd30ef13f79c636fa1413155103bcdf85b71345b9656de58793eaa6",
+      "bytes": 274756
+    },
+    {
+      "file": "frame-00095.png",
+      "state": {
+        "frame": 95,
+        "time": 3.1666666666666665,
+        "shot": "leo-reacts",
+        "identity": true,
+        "dieSize": 6.3,
+        "footClearance": [
+          2.25,
+          2.05,
+          1.65
+        ],
+        "hero": {
+          "weights": [
+            0,
+            0.9657064471879288,
+            0.034293552812071214
+          ],
+          "head": [
+            -0.19519890260631004,
+            0.2469135802469136,
+            -0.033113854595336084
+          ],
+          "shoulder": 0.10674211248285323
+        },
+        "die": [
+          0,
+          0
+        ]
+      },
+      "sha256": "051436b627fa616f1ef02fa4c1ba1f8b3f386eabd482ef19d64f9a9add796972",
+      "bytes": 274060
+    },
+    {
+      "file": "frame-00096.png",
+      "state": {
+        "frame": 96,
+        "time": 3.2,
+        "shot": "leo-reacts",
+        "identity": true,
+        "dieSize": 6.3,
+        "footClearance": [
+          2.25,
+          2.05,
+          1.65
+        ],
+        "hero": {
+          "weights": [
+            0,
+            0.9259259259259256,
+            0.07407407407407436
+          ],
+          "head": [
+            -0.1896296296296296,
+            0.24333333333333332,
+            -0.030925925925925912
+          ],
+          "shoulder": 0.10296296296296294
+        },
+        "die": [
+          0,
+          0
+        ]
+      },
+      "sha256": "5878eaf2f5228e5111bcd74573e24bedddafc363f533fb62701b884fe12e8773",
+      "bytes": 273660
+    },
+    {
+      "file": "frame-00097.png",
+      "state": {
+        "frame": 97,
+        "time": 3.2333333333333334,
+        "shot": "leo-reacts",
+        "identity": true,
+        "dieSize": 6.3,
+        "footClearance": [
+          2.25,
+          2.05,
+          1.65
+        ],
+        "hero": {
+          "weights": [
+            0,
+            0.8737997256515774,
+            0.12620027434842265
+          ],
+          "head": [
+            -0.18233196159122084,
+            0.23864197530864195,
+            -0.028058984910836755
+          ],
+          "shoulder": 0.09801097393689985
+        },
+        "die": [
+          0,
+          0
+        ]
+      },
+      "sha256": "95839b636379c9764de3fd0e411d07a126fdae3e9672e784a156473982650d6b",
+      "bytes": 273669
+    },
+    {
+      "file": "frame-00098.png",
+      "state": {
+        "frame": 98,
+        "time": 3.2666666666666666,
+        "shot": "leo-reacts",
+        "identity": true,
+        "dieSize": 6.3,
+        "footClearance": [
+          2.25,
+          2.05,
+          1.65
+        ],
+        "hero": {
+          "weights": [
+            0,
+            0.8113854595336077,
+            0.18861454046639228
+          ],
+          "head": [
+            -0.1735939643347051,
+            0.2330246913580247,
+            -0.024626200274348427
+          ],
+          "shoulder": 0.09208161865569273
+        },
+        "die": [
+          0,
+          0
+        ]
+      },
+      "sha256": "d8ae25456b9b04d64aee7d5dd79b86ca683e0bc5bae5f692c65f722d1237fa01",
+      "bytes": 273457
+    },
+    {
+      "file": "frame-00099.png",
+      "state": {
+        "frame": 99,
+        "time": 3.3,
+        "shot": "leo-reacts",
+        "identity": true,
+        "dieSize": 6.3,
+        "footClearance": [
+          2.25,
+          2.05,
+          1.65
+        ],
+        "hero": {
+          "weights": [
+            0,
+            0.740740740740741,
+            0.25925925925925897
+          ],
+          "head": [
+            -0.16370370370370374,
+            0.22666666666666668,
+            -0.02074074074074076
+          ],
+          "shoulder": 0.0853703703703704
+        },
+        "die": [
+          0,
+          0
+        ]
+      },
+      "sha256": "aaa02427b9fc0541d5206fa6dc9d578f33ae991ab59669fc0c4242255534b961",
+      "bytes": 273563
+    },
+    {
+      "file": "frame-00100.png",
+      "state": {
+        "frame": 100,
+        "time": 3.3333333333333335,
+        "shot": "leo-reacts",
+        "identity": true,
+        "dieSize": 6.3,
+        "footClearance": [
+          2.25,
+          2.05,
+          1.65
+        ],
+        "hero": {
+          "weights": [
+            0,
+            0.6639231824417006,
+            0.33607681755829943
+          ],
+          "head": [
+            -0.15294924554183809,
+            0.21975308641975305,
+            -0.016515775034293533
+          ],
+          "shoulder": 0.07807270233196156
+        },
+        "die": [
+          0,
+          0
+        ]
+      },
+      "sha256": "f88507969b4a52edca38247e4ab5cf5eb628e59c8a010231932481499fd2d738",
+      "bytes": 272278
+    },
+    {
+      "file": "frame-00101.png",
+      "state": {
+        "frame": 101,
+        "time": 3.3666666666666667,
+        "shot": "leo-reacts",
+        "identity": true,
+        "dieSize": 6.3,
+        "footClearance": [
+          2.25,
+          2.05,
+          1.65
+        ],
+        "hero": {
+          "weights": [
+            0,
+            0.5829903978052126,
+            0.41700960219478744
+          ],
+          "head": [
+            -0.14161865569272977,
+            0.21246913580246912,
+            -0.012064471879286692
+          ],
+          "shoulder": 0.07038408779149519
+        },
+        "die": [
+          0,
+          0
+        ]
+      },
+      "sha256": "93f26e12b64dc9ec8b83742e88dbdfefdfde2e6f75c2d49ca5612cee3bc735e9",
+      "bytes": 271763
+    },
+    {
+      "file": "frame-00102.png",
+      "state": {
+        "frame": 102,
+        "time": 3.4,
+        "shot": "leo-reacts",
+        "identity": true,
+        "dieSize": 6.3,
+        "footClearance": [
+          2.25,
+          2.05,
+          1.65
+        ],
+        "hero": {
+          "weights": [
+            0,
+            0.5000000000000002,
+            0.4999999999999998
+          ],
+          "head": [
+            -0.13000000000000003,
+            0.20500000000000002,
+            -0.007500000000000017
+          ],
+          "shoulder": 0.06250000000000003
+        },
+        "die": [
+          0,
+          0
+        ]
+      },
+      "sha256": "5f888aa2e3c6f192774bcf2cec7bbf1c78057e3a5f6075760e664518ff8fa6ab",
+      "bytes": 271923
+    },
+    {
+      "file": "frame-00103.png",
+      "state": {
+        "frame": 103,
+        "time": 3.433333333333333,
+        "shot": "leo-reacts",
+        "identity": true,
+        "dieSize": 6.3,
+        "footClearance": [
+          2.25,
+          2.05,
+          1.65
+        ],
+        "hero": {
+          "weights": [
+            0,
+            0.4170096021947879,
+            0.5829903978052121
+          ],
+          "head": [
+            -0.1183813443072703,
+            0.1975308641975309,
+            -0.002935528120713335
+          ],
+          "shoulder": 0.05461591220850485
+        },
+        "die": [
+          0,
+          0
+        ]
+      },
+      "sha256": "96a83b3d905b00c81bd750d5850d31dc7034d5e361908baf9683ace78ea48c51",
+      "bytes": 270814
+    },
+    {
+      "file": "frame-00104.png",
+      "state": {
+        "frame": 104,
+        "time": 3.466666666666667,
+        "shot": "leo-reacts",
+        "identity": true,
+        "dieSize": 6.3,
+        "footClearance": [
+          2.25,
+          2.05,
+          1.65
+        ],
+        "hero": {
+          "weights": [
+            0,
+            0.33607681755829866,
+            0.6639231824417013
+          ],
+          "head": [
+            -0.10705075445816181,
+            0.19024691358024687,
+            0.001515775034293572
+          ],
+          "shoulder": 0.04692729766803837
+        },
+        "die": [
+          0,
+          0
+        ]
+      },
+      "sha256": "4941100644bf6287142a4892c03b09ad4ba68568b7bf0806ea0baacd94c59aaa",
+      "bytes": 270238
+    },
+    {
+      "file": "frame-00105.png",
+      "state": {
+        "frame": 105,
+        "time": 3.5,
+        "shot": "leo-reacts",
+        "identity": true,
+        "dieSize": 6.3,
+        "footClearance": [
+          2.25,
+          2.05,
+          1.65
+        ],
+        "hero": {
+          "weights": [
+            0,
+            0.2592592592592592,
+            0.7407407407407408
+          ],
+          "head": [
+            -0.09629629629629628,
+            0.18333333333333335,
+            0.005740740740740741
+          ],
+          "shoulder": 0.039629629629629626
+        },
+        "die": [
+          0,
+          0
+        ]
+      },
+      "sha256": "cadb6c369ad58af5c34ee166aabe03b1b3a6f6e3fa7602eb3ad5629bdb961d9d",
+      "bytes": 269372
+    },
+    {
+      "file": "frame-00106.png",
+      "state": {
+        "frame": 106,
+        "time": 3.533333333333333,
+        "shot": "leo-reacts",
+        "identity": true,
+        "dieSize": 6.3,
+        "footClearance": [
+          2.25,
+          2.05,
+          1.65
+        ],
+        "hero": {
+          "weights": [
+            0,
+            0.18861454046639237,
+            0.8113854595336076
+          ],
+          "head": [
+            -0.08640603566529494,
+            0.1769753086419753,
+            0.009626200274348413
+          ],
+          "shoulder": 0.032918381344307274
+        },
+        "die": [
+          0,
+          0
+        ]
+      },
+      "sha256": "f3dfc0ae879981c80aa1ca775491c4e19a3083e0de63951840c1bfa9777ee1b9",
+      "bytes": 268229
+    },
+    {
+      "file": "frame-00107.png",
+      "state": {
+        "frame": 107,
+        "time": 3.566666666666667,
+        "shot": "leo-reacts",
+        "identity": true,
+        "dieSize": 6.3,
+        "footClearance": [
+          2.25,
+          2.05,
+          1.65
+        ],
+        "hero": {
+          "weights": [
+            0,
+            0.12620027434842207,
+            0.8737997256515779
+          ],
+          "head": [
+            -0.07766803840877909,
+            0.17135802469135797,
+            0.013058984910836784
+          ],
+          "shoulder": 0.026989026063100094
+        },
+        "die": [
+          0,
+          0
+        ]
+      },
+      "sha256": "f371a1e41f065f9b6a633cf25c26b212e2729ca48caf8ec37c47a145f650ec59",
+      "bytes": 268200
+    },
+    {
+      "file": "frame-00108.png",
+      "state": {
+        "frame": 108,
+        "time": 3.6,
+        "shot": "leo-reacts",
+        "identity": true,
+        "dieSize": 6.3,
+        "footClearance": [
+          2.25,
+          2.05,
+          1.65
+        ],
+        "hero": {
+          "weights": [
+            0,
+            0.07407407407407385,
+            0.9259259259259262
+          ],
+          "head": [
+            -0.07037037037037033,
+            0.16666666666666663,
+            0.015925925925925934
+          ],
+          "shoulder": 0.02203703703703702
+        },
+        "die": [
+          0,
+          0
+        ]
+      },
+      "sha256": "78d8cd2fb14e07ab10c74406a4cc79208caaf4571b19a5c035e7cdcefa375f46",
+      "bytes": 267982
+    },
+    {
+      "file": "frame-00109.png",
+      "state": {
+        "frame": 109,
+        "time": 3.6333333333333333,
+        "shot": "leo-reacts",
+        "identity": true,
+        "dieSize": 6.3,
+        "footClearance": [
+          2.25,
+          2.05,
+          1.65
+        ],
+        "hero": {
+          "weights": [
+            0,
+            0.03429355281207136,
+            0.9657064471879286
+          ],
+          "head": [
+            -0.06480109739369,
+            0.1630864197530864,
+            0.01811385459533607
+          ],
+          "shoulder": 0.018257887517146784
+        },
+        "die": [
+          0,
+          0
+        ]
+      },
+      "sha256": "879df6f3d82903f5daaa7fdfa4e6a7a65160f4d22a21d5d71a39f2bfb9649465",
+      "bytes": 267430
+    },
+    {
+      "file": "frame-00110.png",
+      "state": {
+        "frame": 110,
+        "time": 3.6666666666666665,
+        "shot": "leo-reacts",
+        "identity": true,
+        "dieSize": 6.3,
+        "footClearance": [
+          2.25,
+          2.05,
+          1.65
+        ],
+        "hero": {
+          "weights": [
+            0,
+            0.008916323731138598,
+            0.9910836762688614
+          ],
+          "head": [
+            -0.0612482853223594,
+            0.16080246913580248,
+            0.019509602194787375
+          ],
+          "shoulder": 0.015847050754458164
+        },
+        "die": [
+          0,
+          0
+        ]
+      },
+      "sha256": "d4fa1be848b5ed3ddf92e6ce4a3b3bee694f0fce1c861c729d38c1a5b29d6b48",
+      "bytes": 266063
+    },
+    {
+      "file": "frame-00111.png",
+      "state": {
+        "frame": 111,
+        "time": 3.7,
+        "shot": "leo-reacts",
+        "identity": true,
+        "dieSize": 6.3,
+        "footClearance": [
+          2.25,
+          2.05,
+          1.65
+        ],
+        "hero": {
+          "weights": [
+            0,
+            0,
+            1
+          ],
+          "head": [
+            -0.06,
+            0.16,
+            0.019999999999999997
+          ],
+          "shoulder": 0.015
+        },
+        "die": [
+          0,
+          0
+        ]
+      },
+      "sha256": "cbd826e956967080f081ea16aa99b45bbff983c738eb2871e26ce397ab922d01",
+      "bytes": 265889
+    },
+    {
+      "file": "frame-00112.png",
+      "state": {
+        "frame": 112,
+        "time": 3.7333333333333334,
+        "shot": "leo-reacts",
+        "identity": true,
+        "dieSize": 6.3,
+        "footClearance": [
+          2.25,
+          2.05,
+          1.65
+        ],
+        "hero": {
+          "weights": [
+            0,
+            0,
+            1
+          ],
+          "head": [
+            -0.06,
+            0.16,
+            0.019999999999999997
+          ],
+          "shoulder": 0.015
+        },
+        "die": [
+          0,
+          0
+        ]
+      },
+      "sha256": "cbd826e956967080f081ea16aa99b45bbff983c738eb2871e26ce397ab922d01",
+      "bytes": 265889
+    },
+    {
+      "file": "frame-00113.png",
+      "state": {
+        "frame": 113,
+        "time": 3.7666666666666666,
+        "shot": "leo-reacts",
+        "identity": true,
+        "dieSize": 6.3,
+        "footClearance": [
+          2.25,
+          2.05,
+          1.65
+        ],
+        "hero": {
+          "weights": [
+            0,
+            0,
+            1
+          ],
+          "head": [
+            -0.06,
+            0.16,
+            0.019999999999999997
+          ],
+          "shoulder": 0.015
+        },
+        "die": [
+          0,
+          0
+        ]
+      },
+      "sha256": "cbd826e956967080f081ea16aa99b45bbff983c738eb2871e26ce397ab922d01",
+      "bytes": 265889
+    },
+    {
+      "file": "frame-00114.png",
+      "state": {
+        "frame": 114,
+        "time": 3.8,
+        "shot": "leo-reacts",
+        "identity": true,
+        "dieSize": 6.3,
+        "footClearance": [
+          2.25,
+          2.05,
+          1.65
+        ],
+        "hero": {
+          "weights": [
+            0,
+            0,
+            1
+          ],
+          "head": [
+            -0.06,
+            0.16,
+            0.019999999999999997
+          ],
+          "shoulder": 0.015
+        },
+        "die": [
+          0,
+          0
+        ]
+      },
+      "sha256": "cbd826e956967080f081ea16aa99b45bbff983c738eb2871e26ce397ab922d01",
+      "bytes": 265889
+    },
+    {
+      "file": "frame-00115.png",
+      "state": {
+        "frame": 115,
+        "time": 3.8333333333333335,
+        "shot": "leo-reacts",
+        "identity": true,
+        "dieSize": 6.3,
+        "footClearance": [
+          2.25,
+          2.05,
+          1.65
+        ],
+        "hero": {
+          "weights": [
+            0,
+            0,
+            1
+          ],
+          "head": [
+            -0.06,
+            0.16,
+            0.019999999999999997
+          ],
+          "shoulder": 0.015
+        },
+        "die": [
+          0,
+          0
+        ]
+      },
+      "sha256": "cbd826e956967080f081ea16aa99b45bbff983c738eb2871e26ce397ab922d01",
+      "bytes": 265889
+    },
+    {
+      "file": "frame-00116.png",
+      "state": {
+        "frame": 116,
+        "time": 3.8666666666666667,
+        "shot": "leo-reacts",
+        "identity": true,
+        "dieSize": 6.3,
+        "footClearance": [
+          2.25,
+          2.05,
+          1.65
+        ],
+        "hero": {
+          "weights": [
+            0,
+            0,
+            1
+          ],
+          "head": [
+            -0.06,
+            0.16,
+            0.019999999999999997
+          ],
+          "shoulder": 0.015
+        },
+        "die": [
+          0,
+          0
+        ]
+      },
+      "sha256": "cbd826e956967080f081ea16aa99b45bbff983c738eb2871e26ce397ab922d01",
+      "bytes": 265889
+    },
+    {
+      "file": "frame-00117.png",
+      "state": {
+        "frame": 117,
+        "time": 3.9,
+        "shot": "leo-reacts",
+        "identity": true,
+        "dieSize": 6.3,
+        "footClearance": [
+          2.25,
+          2.05,
+          1.65
+        ],
+        "hero": {
+          "weights": [
+            0,
+            0,
+            1
+          ],
+          "head": [
+            -0.06,
+            0.16,
+            0.019999999999999997
+          ],
+          "shoulder": 0.015
+        },
+        "die": [
+          0,
+          0
+        ]
+      },
+      "sha256": "cbd826e956967080f081ea16aa99b45bbff983c738eb2871e26ce397ab922d01",
+      "bytes": 265889
+    },
+    {
+      "file": "frame-00118.png",
+      "state": {
+        "frame": 118,
+        "time": 3.933333333333333,
+        "shot": "leo-reacts",
+        "identity": true,
+        "dieSize": 6.3,
+        "footClearance": [
+          2.25,
+          2.05,
+          1.65
+        ],
+        "hero": {
+          "weights": [
+            0,
+            0,
+            1
+          ],
+          "head": [
+            -0.06,
+            0.16,
+            0.019999999999999997
+          ],
+          "shoulder": 0.015
+        },
+        "die": [
+          0,
+          0
+        ]
+      },
+      "sha256": "cbd826e956967080f081ea16aa99b45bbff983c738eb2871e26ce397ab922d01",
+      "bytes": 265889
+    },
+    {
+      "file": "frame-00119.png",
+      "state": {
+        "frame": 119,
+        "time": 3.966666666666667,
+        "shot": "leo-reacts",
+        "identity": true,
+        "dieSize": 6.3,
+        "footClearance": [
+          2.25,
+          2.05,
+          1.65
+        ],
+        "hero": {
+          "weights": [
+            0,
+            0,
+            1
+          ],
+          "head": [
+            -0.06,
+            0.16,
+            0.019999999999999997
+          ],
+          "shoulder": 0.015
+        },
+        "die": [
+          0,
+          0
+        ]
+      },
+      "sha256": "cbd826e956967080f081ea16aa99b45bbff983c738eb2871e26ce397ab922d01",
+      "bytes": 265889
+    }
+  ],
+  "cache": {
+    "reused": 0,
+    "rendered": 120,
+    "repaired": 0,
+    "checkpointMissingOrInvalid": true,
+    "bytesAtStart": 0,
+    "bytesAtEnd": 31692496
+  },
+  "timings": {
+    "captureSeconds": 94.887052579,
+    "repeatSeconds": 92.296429386,
+    "encodeSeconds": 1.5291342620000068,
+    "verificationSeconds": 1.3776850949999935,
+    "totalSeconds": 190.93613205399998
+  },
+  "errors": [],
+  "resources": {
+    "availableParallelism": 2,
+    "ffmpegThreads": 2,
+    "rssMethod": "1-second sampled summed exporter/browser/server/encoder process-tree RSS; shared pages counted per process",
+    "frameBytes": 31648683,
+    "mp4Bytes": 333998,
+    "peakSampledSubtreeRssMiB": 1175.32421875
+  },
+  "backend": {
+    "webgl": "WebGL 2.0 (OpenGL ES 3.0 Chromium)",
+    "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)"
+  },
+  "browser": "141.0.7390.37",
+  "engineSha256": "426f3d99816c4ea31f0ab42ba940ba9451dd03511fac81b4c4088186779c9bb1",
+  "jobKey": "f4b259922e9e703d55c1bd5b26715a51cd02826590002df6119ca52c8392e3b6",
+  "determinism": {
+    "allFrames": 120,
+    "reversePixelMatch": true,
+    "referenceMatch": false
+  },
+  "ffmpegArgs": [
+    "-y",
+    "-hide_banner",
+    "-loglevel",
+    "error",
+    "-framerate",
+    "30",
+    "-start_number",
+    "0",
+    "-i",
+    "/workspace/blox_story/renders/dice-town-p2a-polish-native/.p1-cache/f4b259922e9e703d55c1bd5b26715a51cd02826590002df6119ca52c8392e3b6/frame-%05d.png",
+    "-frames:v",
+    "120",
+    "-c:v",
+    "libx264",
+    "-threads",
+    "2",
+    "-preset",
+    "medium",
+    "-crf",
+    "20",
+    "-profile:v",
+    "main",
+    "-level:v",
+    "3.1",
+    "-pix_fmt",
+    "yuv420p",
+    "-vf",
+    "scale=out_color_matrix=bt709:out_range=tv,setsar=1",
+    "-color_primaries",
+    "bt709",
+    "-color_trc",
+    "bt709",
+    "-colorspace",
+    "bt709",
+    "-color_range",
+    "tv",
+    "-g",
+    "60",
+    "-force_key_frames",
+    "2.5",
+    "-fps_mode",
+    "cfr",
+    "-movflags",
+    "+faststart",
+    "-an",
+    "/workspace/blox_story/renders/dice-town-p2a-polish-native/.p1-cache/f4b259922e9e703d55c1bd5b26715a51cd02826590002df6119ca52c8392e3b6/video-33d40cb9-7187-4c32-8158-cabffad1cc53.mp4"
+  ],
+  "verification": {
+    "probe": {
+      "streams": [
+        {
+          "index": 0,
+          "codec_name": "h264",
+          "codec_long_name": "H.264 / AVC / MPEG-4 AVC / MPEG-4 part 10",
+          "profile": "Main",
+          "codec_type": "video",
+          "codec_tag_string": "avc1",
+          "codec_tag": "0x31637661",
+          "width": 720,
+          "height": 1280,
+          "coded_width": 720,
+          "coded_height": 1280,
+          "closed_captions": 0,
+          "film_grain": 0,
+          "has_b_frames": 2,
+          "sample_aspect_ratio": "1:1",
+          "display_aspect_ratio": "9:16",
+          "pix_fmt": "yuv420p",
+          "level": 31,
+          "color_range": "tv",
+          "color_space": "bt709",
+          "chroma_location": "left",
+          "field_order": "progressive",
+          "refs": 4,
+          "is_avc": "true",
+          "nal_length_size": "4",
+          "id": "0x1",
+          "r_frame_rate": "30/1",
+          "avg_frame_rate": "30/1",
+          "time_base": "1/15360",
+          "start_pts": 0,
+          "start_time": "0.000000",
+          "duration_ts": 61440,
+          "duration": "4.000000",
+          "bit_rate": "663372",
+          "bits_per_raw_sample": "8",
+          "nb_frames": "120",
+          "nb_read_frames": "120",
+          "extradata_size": 44,
+          "disposition": {
+            "default": 1,
+            "dub": 0,
+            "original": 0,
+            "comment": 0,
+            "lyrics": 0,
+            "karaoke": 0,
+            "forced": 0,
+            "hearing_impaired": 0,
+            "visual_impaired": 0,
+            "clean_effects": 0,
+            "attached_pic": 0,
+            "timed_thumbnails": 0,
+            "non_diegetic": 0,
+            "captions": 0,
+            "descriptions": 0,
+            "metadata": 0,
+            "dependent": 0,
+            "still_image": 0,
+            "multilayer": 0
+          },
+          "tags": {
+            "language": "und",
+            "handler_name": "VideoHandler",
+            "vendor_id": "[0][0][0][0]",
+            "encoder": "Lavc61.19.101 libx264"
+          }
+        }
+      ],
+      "format": {
+        "filename": "/workspace/blox_story/renders/dice-town-p2a-polish-native/.p1-cache/f4b259922e9e703d55c1bd5b26715a51cd02826590002df6119ca52c8392e3b6/video-33d40cb9-7187-4c32-8158-cabffad1cc53.mp4",
+        "nb_streams": 1,
+        "nb_programs": 0,
+        "nb_stream_groups": 0,
+        "format_name": "mov,mp4,m4a,3gp,3g2,mj2",
+        "format_long_name": "QuickTime / MOV",
+        "start_time": "0.000000",
+        "duration": "4.000000",
+        "size": "333998",
+        "bit_rate": "667996",
+        "probe_score": 100,
+        "tags": {
+          "major_brand": "isom",
+          "minor_version": "512",
+          "compatible_brands": "isomiso2avc1mp41",
+          "encoder": "Lavf61.7.103"
+        }
+      }
+    },
+    "decode": {
+      "frames": 120,
+      "continuousPts": true,
+      "noErrors": true
+    },
+    "cuts": [
+      {
+        "frame": 75,
+        "time": 2.5
+      }
+    ],
+    "playback": {
+      "width": 720,
+      "height": 1280,
+      "duration": 4,
+      "advancedTo": 0.1511,
+      "error": null,
+      "browser": "156.0.8078.79",
+      "fallback": true,
+      "seeks": [
+        2,
+        2.6
+      ]
+    }
+  },
+  "contactFrames": [
+    0,
+    37,
+    74,
+    75,
+    97,
+    119
+  ],
+  "mp4Sha256": "45a96413e7599485dc9c4e73a5cd9957164f294bb4de66f644b8bffb373f8fbd",
+  "result": "results/f4b259922e9e-bf8c906b-7d18-4962-9004-f0c15e692b62"
+}
