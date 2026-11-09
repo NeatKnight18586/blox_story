@@ -1,0 +1,3 @@
+import assert from'node:assert/strict';import{readFileSync}from'node:fs';
+const p=JSON.parse(readFileSync('stories/dice-town/Dice_Town_117s_Animatic_Plan.json'));let end=0,proxy=0;const ids=new Set();for(const s of p.storyboard_shots){assert.equal(s.start_frame,end);assert(s.end_frame>s.start_frame&&!ids.has(s.id));ids.add(s.id);const a=Math.ceil(s.start_frame/2),b=Math.ceil(s.end_frame/2);assert.equal(a,proxy);assert(b-a>=2);end=s.end_frame;proxy=b;}
+assert.equal(ids.size,38);assert.equal(end,3513);assert.equal(proxy,1757);assert.equal(p.source_audio_sha256,'c7aef1553ad7bdcdeaae7a5e1fbc1f7d11ce4cb02ba7030eb84b71f0f9453e05');console.log('PASS 38 unique contiguous source shots, 3513 authoritative frames, 1757 gap-free proxy frames, protected narration reference');
