@@ -26,7 +26,7 @@ export function applyWardrobe(avatar,recipe){
  const state=normalizeWardrobe(recipe);avatar.wardrobeCache??=new Map();
  for(const [field,name,parent,tint,make] of [['hairLayer',state.hair,avatar.pivots.head,state.hairColor,()=>state.hair==='bob'?makeHair():makeV2Hair(state.hair)],['clothingLayer',state.clothing,avatar.parts.torso,state.clothingColor,()=>makeVest(avatar)]]){
   if(avatar[field])avatar[field].removeFromParent();avatar[field]=null;
-  if(name){if(!avatar.wardrobeCache.has(name))avatar.wardrobeCache.set(name,make());const layer=avatar.wardrobeCache.get(name);layer.traverse(o=>{if(o.userData.tint)o.material.color.set(tint);});parent.add(layer);avatar[field]=layer;}
+  if(name){if(!avatar.wardrobeCache.has(name))avatar.wardrobeCache.set(name,make());const layer=avatar.wardrobeCache.get(name);layer.traverse(o=>{if(o.userData.tint)o.material.color.set(tint).multiplyScalar(o.userData.toneMultiplier??1);});parent.add(layer);avatar[field]=layer;}
  }
  return avatar;
 }
