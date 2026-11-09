@@ -5,6 +5,7 @@ import {fileURLToPath} from 'node:url';
 import {createHash,randomUUID} from 'node:crypto';
 import {mkdir,readdir,readFile,rename,lstat} from 'node:fs/promises';
 import {availableParallelism} from 'node:os';
+import {compileProof} from '../production/dice-town-p2a/motion.js';
 import {compileShotList} from '../production/timeline.js';
 import {safePath,safeRead,atomicWrite,prepareOutput,acquireLock,directoryBytes,checkBudget} from './pipeline/files.js';
 import {startServer} from './pipeline/server.js';
@@ -14,9 +15,10 @@ function options(argv){
  const opts={resume:true,budget:512*1024*1024,stopAfter:Infinity};
  for(let i=0;i<argv.length;i++){
   const key=argv[i];if(key==='--no-resume'){opts.resume=false;continue;}if(key==='--resume'){opts.resume=true;continue;}
-  if(!['--shots','--out','--reference','--stop-after','--max-temp-mb','--range'].includes(key)||!argv[i+1]||argv[i+1].startsWith('--'))throw new Error('Usage: --shots FILE --out DIRECTORY [--resume|--no-resume] [--reference MANIFEST] [--stop-after N] [--max-temp-mb N] [--range START:END]');
+  if(!['--entry','--shots','--out','--reference','--stop-after','--max-temp-mb','--range'].includes(key)||!argv[i+1]||argv[i+1].startsWith('--'))throw new Error('Usage: --shots FILE --out DIRECTORY [--resume|--no-resume] [--reference MANIFEST] [--stop-after N] [--max-temp-mb N] [--range START:END]');
   const value=argv[++i];if(key==='--stop-after'){opts.stopAfter=Number(value);if(!Number.isInteger(opts.stopAfter)||opts.stopAfter<1)throw new Error('Invalid stop-after');}else if(key==='--max-temp-mb'){opts.budget=Number(value)*1024*1024;if(!Number.isFinite(opts.budget)||opts.budget<=0||opts.budget>4096*1024*1024)throw new Error('Invalid temporary budget');}else opts[key.slice(2)]=value;
  }
+ if(opts.entry&&opts.entry!=='dice-town-p2a')throw new Error('Unsupported opt-in entry');
  if(!opts.shots||!opts.out)throw new Error('Required: --shots FILE --out DIRECTORY');return opts;
 }
 async function engineHash(){
@@ -26,13 +28,13 @@ async function engineHash(){
  const h=createHash('sha256');for(const file of files.sort())h.update(file).update('\0').update(await readFile(path.join(root,file))).update('\0');return h.digest('hex');
 }
 async function main(opts){
- const source=await readFile(path.resolve(opts.shots));if(source.length>1024*1024)throw new Error('Shot list exceeds 1MiB');const input=JSON.parse(source),sourcePlan=compileShotList(input);
+ const source=await readFile(path.resolve(opts.shots));if(source.length>1024*1024)throw new Error('Shot list exceeds 1MiB');const input=JSON.parse(source),sourcePlan=opts.entry?compileProof(input):compileShotList(input);
  let rangeStart=0,rangeEnd=sourcePlan.frameCount;
  if(opts.range){const match=/^(\d+):(\d+)$/.exec(opts.range);if(!match)throw new Error('Invalid range; expected START:END');rangeStart=Number(match[1]);rangeEnd=Number(match[2]);if(!Number.isSafeInteger(rangeStart)||!Number.isSafeInteger(rangeEnd)||rangeStart>=rangeEnd||rangeEnd>sourcePlan.frameCount)throw new Error('Range outside input timeline');}
  const plan=opts.range?{...sourcePlan,frameCount:rangeEnd-rangeStart,shots:sourcePlan.shots.filter(s=>s.end>rangeStart&&s.start<rangeEnd).map(s=>({...s,start:Math.max(s.start,rangeStart)-rangeStart,end:Math.min(s.end,rangeEnd)-rangeStart}))}:sourcePlan;
  let reference=opts.reference?JSON.parse(await readFile(path.resolve(opts.reference))):null;if(reference&&opts.range&&reference.frames.length===sourcePlan.frameCount)reference={...reference,frames:reference.frames.slice(rangeStart,rangeEnd)};if(reference)assert.equal(reference.frames.length,plan.frameCount,'Reference frame count differs');
  const out=await prepareOutput(opts.out),release=await acquireLock(out),started=performance.now();
- const report={status:'RUNNING',title:plan.title,width:plan.width,height:plan.height,fps:plan.fps,frameCount:plan.frameCount,duration:plan.frameCount/plan.fps,shotListSha256:hash(source),shots:plan.shots.map(s=>({id:s.id,start:s.start,end:s.end,camera:s.camera,...(s.composition?{composition:s.composition}:{})})),frames:[],cache:{reused:0,rendered:0,repaired:0},timings:{},errors:[],resources:{availableParallelism:availableParallelism(),ffmpegThreads:2,rssMethod:'1-second sampled summed exporter/browser/server/encoder process-tree RSS; shared pages counted per process'}};
+ const report={entry:opts.entry??'production',status:'RUNNING',title:plan.title,width:plan.width,height:plan.height,fps:plan.fps,frameCount:plan.frameCount,duration:plan.frameCount/plan.fps,shotListSha256:hash(source),shots:plan.shots.map(s=>({id:s.id,start:s.start,end:s.end,camera:s.camera,...(s.composition?{composition:s.composition}:{})})),frames:[],cache:{reused:0,rendered:0,repaired:0},timings:{},errors:[],resources:{availableParallelism:availableParallelism(),ffmpegThreads:2,rssMethod:'1-second sampled summed exporter/browser/server/encoder process-tree RSS; shared pages counted per process'}};
  if(opts.range)report.range={start:rangeStart,endExclusive:rangeEnd,sourceFrameCount:sourcePlan.frameCount};
  if(plan.cast)report.cast=plan.cast;if(plan.reveal)report.reveal=plan.reveal;if(plan.ending)report.ending=plan.ending;
  let browser,server,timer,peak=0,sampling=false,aborted=false,signal=null;
@@ -41,9 +43,9 @@ async function main(opts){
   timer=setInterval(async()=>{if(sampling)return;sampling=true;try{const {stdout}=await run('ps',['-eo','pid=,ppid=,rss=']);const rows=stdout.trim().split('\n').map(l=>l.trim().split(/\s+/).map(Number)),ids=new Set([process.pid]);let more=true;while(more){more=false;for(const [pid,parent] of rows)if(ids.has(parent)&&!ids.has(pid)){ids.add(pid);more=true;}}peak=Math.max(peak,rows.filter(([pid])=>ids.has(pid)).reduce((n,[,,rss])=>n+rss,0)/1024);}catch{}finally{sampling=false;}},1000);timer.unref();
   server=await startServer(root);browser=await chromium.launch({headless:true,handleSIGINT:false,handleSIGTERM:false,args:['--no-sandbox','--use-angle=swiftshader','--enable-unsafe-swiftshader']});
   const page=await browser.newPage({viewport:{width:plan.width,height:plan.height},deviceScaleFactor:1});page.on('pageerror',e=>report.errors.push(e.message));
-  await page.addInitScript(data=>window.__shotListInput=data,input);await page.goto(server.url+'/production/');await page.waitForFunction(()=>window.__production||window.__productionError);const error=await page.evaluate(()=>window.__productionError);if(error)throw new Error(error);
+  await page.addInitScript(data=>window.__shotListInput=data,input);await page.goto(server.url+'/production/'+(opts.entry?opts.entry+'/':''));await page.waitForFunction(()=>window.__production||window.__productionError);const error=await page.evaluate(()=>window.__productionError);if(error)throw new Error(error);
   report.backend=await page.evaluate(()=>{const gl=__production.renderer.getContext(),ext=gl.getExtension('WEBGL_debug_renderer_info');return {webgl:gl.getParameter(gl.VERSION),renderer:ext?gl.getParameter(ext.UNMASKED_RENDERER_WEBGL):gl.getParameter(gl.RENDERER)};});report.browser=browser.version();report.engineSha256=await engineHash();
-  report.jobKey=hash(JSON.stringify({source:report.shotListSha256,engine:report.engineSha256,browser:report.browser,backend:report.backend,platform:process.platform,arch:process.arch,...(opts.range?{range:[rangeStart,rangeEnd]}:{})}));
+  report.jobKey=hash(JSON.stringify({entry:report.entry,source:report.shotListSha256,engine:report.engineSha256,browser:report.browser,backend:report.backend,platform:process.platform,arch:process.arch,...(opts.range?{range:[rangeStart,rangeEnd]}:{})}));
   const cacheRoot=path.join(out,'.p1-cache');await safePath(cacheRoot);await mkdir(cacheRoot,{recursive:true});const cache=path.join(cacheRoot,report.jobKey);await safePath(cache);await mkdir(cache,{recursive:true});
   const checkpoint=path.join(cache,'checkpoint.json');let entries={};
   if(opts.resume){try{const saved=JSON.parse(await safeRead(checkpoint));if(saved.jobKey===report.jobKey&&saved.entries&&typeof saved.entries==='object')entries=saved.entries;}catch(e){if(e.code!=='ENOENT'&&!(e instanceof SyntaxError))throw e;report.cache.checkpointMissingOrInvalid=true;}}

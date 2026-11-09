@@ -1,0 +1,716 @@
+{
+  "maxFootError": 8.881784197001252e-16,
+  "minClearance": 0,
+  "maxDieContactError": 1.1102230246251565e-16,
+  "frames": 120,
+  "shots": [
+    "three-and-rise",
+    "leo-reacts"
+  ],
+  "persistentFaceAndBodyGeometry": true,
+  "worldSky": true,
+  "worldClouds": true,
+  "edgeViolations": [
+    {
+      "frame": 0,
+      "actor": "archivist"
+    },
+    {
+      "frame": 1,
+      "actor": "archivist"
+    },
+    {
+      "frame": 2,
+      "actor": "archivist"
+    },
+    {
+      "frame": 3,
+      "actor": "archivist"
+    },
+    {
+      "frame": 4,
+      "actor": "archivist"
+    },
+    {
+      "frame": 5,
+      "actor": "archivist"
+    },
+    {
+      "frame": 6,
+      "actor": "archivist"
+    },
+    {
+      "frame": 7,
+      "actor": "archivist"
+    },
+    {
+      "frame": 8,
+      "actor": "archivist"
+    },
+    {
+      "frame": 9,
+      "actor": "archivist"
+    },
+    {
+      "frame": 10,
+      "actor": "archivist"
+    },
+    {
+      "frame": 11,
+      "actor": "archivist"
+    },
+    {
+      "frame": 12,
+      "actor": "archivist"
+    },
+    {
+      "frame": 13,
+      "actor": "archivist"
+    },
+    {
+      "frame": 14,
+      "actor": "archivist"
+    },
+    {
+      "frame": 15,
+      "actor": "archivist"
+    },
+    {
+      "frame": 16,
+      "actor": "archivist"
+    },
+    {
+      "frame": 17,
+      "actor": "archivist"
+    },
+    {
+      "frame": 18,
+      "actor": "archivist"
+    },
+    {
+      "frame": 19,
+      "actor": "archivist"
+    },
+    {
+      "frame": 20,
+      "actor": "baker"
+    },
+    {
+      "frame": 20,
+      "actor": "archivist"
+    },
+    {
+      "frame": 21,
+      "actor": "baker"
+    },
+    {
+      "frame": 21,
+      "actor": "archivist"
+    },
+    {
+      "frame": 22,
+      "actor": "baker"
+    },
+    {
+      "frame": 22,
+      "actor": "archivist"
+    },
+    {
+      "frame": 23,
+      "actor": "baker"
+    },
+    {
+      "frame": 23,
+      "actor": "archivist"
+    },
+    {
+      "frame": 24,
+      "actor": "baker"
+    },
+    {
+      "frame": 24,
+      "actor": "archivist"
+    },
+    {
+      "frame": 25,
+      "actor": "baker"
+    },
+    {
+      "frame": 25,
+      "actor": "archivist"
+    },
+    {
+      "frame": 26,
+      "actor": "baker"
+    },
+    {
+      "frame": 26,
+      "actor": "archivist"
+    },
+    {
+      "frame": 27,
+      "actor": "baker"
+    },
+    {
+      "frame": 27,
+      "actor": "archivist"
+    },
+    {
+      "frame": 28,
+      "actor": "baker"
+    },
+    {
+      "frame": 28,
+      "actor": "archivist"
+    },
+    {
+      "frame": 29,
+      "actor": "baker"
+    },
+    {
+      "frame": 29,
+      "actor": "archivist"
+    },
+    {
+      "frame": 30,
+      "actor": "baker"
+    },
+    {
+      "frame": 30,
+      "actor": "archivist"
+    },
+    {
+      "frame": 31,
+      "actor": "baker"
+    },
+    {
+      "frame": 31,
+      "actor": "archivist"
+    },
+    {
+      "frame": 32,
+      "actor": "baker"
+    },
+    {
+      "frame": 32,
+      "actor": "archivist"
+    },
+    {
+      "frame": 33,
+      "actor": "baker"
+    },
+    {
+      "frame": 33,
+      "actor": "archivist"
+    },
+    {
+      "frame": 34,
+      "actor": "baker"
+    },
+    {
+      "frame": 34,
+      "actor": "archivist"
+    },
+    {
+      "frame": 35,
+      "actor": "baker"
+    },
+    {
+      "frame": 35,
+      "actor": "archivist"
+    },
+    {
+      "frame": 36,
+      "actor": "baker"
+    },
+    {
+      "frame": 36,
+      "actor": "archivist"
+    },
+    {
+      "frame": 37,
+      "actor": "baker"
+    },
+    {
+      "frame": 37,
+      "actor": "archivist"
+    },
+    {
+      "frame": 38,
+      "actor": "baker"
+    },
+    {
+      "frame": 38,
+      "actor": "archivist"
+    },
+    {
+      "frame": 39,
+      "actor": "baker"
+    },
+    {
+      "frame": 39,
+      "actor": "archivist"
+    },
+    {
+      "frame": 40,
+      "actor": "baker"
+    },
+    {
+      "frame": 40,
+      "actor": "archivist"
+    },
+    {
+      "frame": 41,
+      "actor": "baker"
+    },
+    {
+      "frame": 41,
+      "actor": "archivist"
+    },
+    {
+      "frame": 42,
+      "actor": "baker"
+    },
+    {
+      "frame": 42,
+      "actor": "archivist"
+    },
+    {
+      "frame": 43,
+      "actor": "baker"
+    },
+    {
+      "frame": 43,
+      "actor": "archivist"
+    },
+    {
+      "frame": 44,
+      "actor": "baker"
+    },
+    {
+      "frame": 44,
+      "actor": "archivist"
+    },
+    {
+      "frame": 45,
+      "actor": "baker"
+    },
+    {
+      "frame": 45,
+      "actor": "archivist"
+    },
+    {
+      "frame": 46,
+      "actor": "baker"
+    },
+    {
+      "frame": 46,
+      "actor": "archivist"
+    },
+    {
+      "frame": 47,
+      "actor": "baker"
+    },
+    {
+      "frame": 47,
+      "actor": "archivist"
+    },
+    {
+      "frame": 48,
+      "actor": "baker"
+    },
+    {
+      "frame": 48,
+      "actor": "archivist"
+    },
+    {
+      "frame": 49,
+      "actor": "baker"
+    },
+    {
+      "frame": 49,
+      "actor": "archivist"
+    },
+    {
+      "frame": 50,
+      "actor": "baker"
+    },
+    {
+      "frame": 50,
+      "actor": "archivist"
+    },
+    {
+      "frame": 51,
+      "actor": "baker"
+    },
+    {
+      "frame": 51,
+      "actor": "archivist"
+    },
+    {
+      "frame": 52,
+      "actor": "baker"
+    },
+    {
+      "frame": 52,
+      "actor": "archivist"
+    },
+    {
+      "frame": 53,
+      "actor": "baker"
+    },
+    {
+      "frame": 53,
+      "actor": "archivist"
+    },
+    {
+      "frame": 54,
+      "actor": "baker"
+    },
+    {
+      "frame": 54,
+      "actor": "archivist"
+    },
+    {
+      "frame": 55,
+      "actor": "baker"
+    },
+    {
+      "frame": 55,
+      "actor": "archivist"
+    },
+    {
+      "frame": 56,
+      "actor": "baker"
+    },
+    {
+      "frame": 56,
+      "actor": "archivist"
+    },
+    {
+      "frame": 57,
+      "actor": "baker"
+    },
+    {
+      "frame": 57,
+      "actor": "archivist"
+    },
+    {
+      "frame": 58,
+      "actor": "baker"
+    },
+    {
+      "frame": 58,
+      "actor": "archivist"
+    },
+    {
+      "frame": 59,
+      "actor": "baker"
+    },
+    {
+      "frame": 59,
+      "actor": "archivist"
+    },
+    {
+      "frame": 60,
+      "actor": "baker"
+    },
+    {
+      "frame": 60,
+      "actor": "archivist"
+    },
+    {
+      "frame": 61,
+      "actor": "baker"
+    },
+    {
+      "frame": 61,
+      "actor": "archivist"
+    },
+    {
+      "frame": 62,
+      "actor": "baker"
+    },
+    {
+      "frame": 62,
+      "actor": "archivist"
+    },
+    {
+      "frame": 63,
+      "actor": "baker"
+    },
+    {
+      "frame": 63,
+      "actor": "archivist"
+    },
+    {
+      "frame": 64,
+      "actor": "baker"
+    },
+    {
+      "frame": 64,
+      "actor": "archivist"
+    },
+    {
+      "frame": 65,
+      "actor": "baker"
+    },
+    {
+      "frame": 65,
+      "actor": "archivist"
+    },
+    {
+      "frame": 66,
+      "actor": "baker"
+    },
+    {
+      "frame": 66,
+      "actor": "archivist"
+    },
+    {
+      "frame": 67,
+      "actor": "baker"
+    },
+    {
+      "frame": 67,
+      "actor": "archivist"
+    },
+    {
+      "frame": 68,
+      "actor": "baker"
+    },
+    {
+      "frame": 68,
+      "actor": "archivist"
+    },
+    {
+      "frame": 69,
+      "actor": "baker"
+    },
+    {
+      "frame": 69,
+      "actor": "archivist"
+    },
+    {
+      "frame": 70,
+      "actor": "baker"
+    },
+    {
+      "frame": 70,
+      "actor": "archivist"
+    },
+    {
+      "frame": 71,
+      "actor": "baker"
+    },
+    {
+      "frame": 71,
+      "actor": "archivist"
+    },
+    {
+      "frame": 72,
+      "actor": "baker"
+    },
+    {
+      "frame": 72,
+      "actor": "archivist"
+    },
+    {
+      "frame": 73,
+      "actor": "baker"
+    },
+    {
+      "frame": 73,
+      "actor": "archivist"
+    },
+    {
+      "frame": 74,
+      "actor": "baker"
+    },
+    {
+      "frame": 74,
+      "actor": "archivist"
+    },
+    {
+      "frame": 75,
+      "actor": "leo"
+    },
+    {
+      "frame": 76,
+      "actor": "leo"
+    },
+    {
+      "frame": 77,
+      "actor": "leo"
+    },
+    {
+      "frame": 78,
+      "actor": "leo"
+    },
+    {
+      "frame": 79,
+      "actor": "leo"
+    },
+    {
+      "frame": 80,
+      "actor": "leo"
+    },
+    {
+      "frame": 81,
+      "actor": "leo"
+    },
+    {
+      "frame": 82,
+      "actor": "leo"
+    },
+    {
+      "frame": 83,
+      "actor": "leo"
+    },
+    {
+      "frame": 84,
+      "actor": "leo"
+    },
+    {
+      "frame": 85,
+      "actor": "leo"
+    },
+    {
+      "frame": 86,
+      "actor": "leo"
+    },
+    {
+      "frame": 87,
+      "actor": "leo"
+    },
+    {
+      "frame": 88,
+      "actor": "leo"
+    },
+    {
+      "frame": 89,
+      "actor": "leo"
+    },
+    {
+      "frame": 90,
+      "actor": "leo"
+    },
+    {
+      "frame": 91,
+      "actor": "leo"
+    },
+    {
+      "frame": 92,
+      "actor": "leo"
+    },
+    {
+      "frame": 93,
+      "actor": "leo"
+    },
+    {
+      "frame": 94,
+      "actor": "leo"
+    },
+    {
+      "frame": 95,
+      "actor": "leo"
+    },
+    {
+      "frame": 96,
+      "actor": "leo"
+    },
+    {
+      "frame": 97,
+      "actor": "leo"
+    },
+    {
+      "frame": 98,
+      "actor": "leo"
+    },
+    {
+      "frame": 99,
+      "actor": "leo"
+    },
+    {
+      "frame": 100,
+      "actor": "leo"
+    },
+    {
+      "frame": 101,
+      "actor": "leo"
+    },
+    {
+      "frame": 102,
+      "actor": "leo"
+    },
+    {
+      "frame": 103,
+      "actor": "leo"
+    },
+    {
+      "frame": 104,
+      "actor": "leo"
+    },
+    {
+      "frame": 105,
+      "actor": "leo"
+    },
+    {
+      "frame": 106,
+      "actor": "leo"
+    },
+    {
+      "frame": 107,
+      "actor": "leo"
+    },
+    {
+      "frame": 108,
+      "actor": "leo"
+    },
+    {
+      "frame": 109,
+      "actor": "leo"
+    },
+    {
+      "frame": 110,
+      "actor": "leo"
+    },
+    {
+      "frame": 111,
+      "actor": "leo"
+    },
+    {
+      "frame": 112,
+      "actor": "leo"
+    },
+    {
+      "frame": 113,
+      "actor": "leo"
+    },
+    {
+      "frame": 114,
+      "actor": "leo"
+    },
+    {
+      "frame": 115,
+      "actor": "leo"
+    },
+    {
+      "frame": 116,
+      "actor": "leo"
+    },
+    {
+      "frame": 117,
+      "actor": "leo"
+    },
+    {
+      "frame": 118,
+      "actor": "leo"
+    },
+    {
+      "frame": 119,
+      "actor": "leo"
+    }
+  ],
+  "edgeMethod": "Conservative world AABB corners projected to image; can overestimate silhouettes"
+}

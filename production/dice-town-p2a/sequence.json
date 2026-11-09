@@ -1,0 +1,45 @@
+{
+  "scene": "dice-town-p2a",
+  "title": "Dice Town \u2014 The Third Rule",
+  "width": 720,
+  "height": 1280,
+  "fps": 30,
+  "shots": [
+    {
+      "id": "three-and-rise",
+      "start": 0,
+      "end": 75,
+      "camera": {
+        "position": [
+          12,
+          10.5,
+          26
+        ],
+        "target": [
+          -0.5,
+          5.8,
+          0
+        ],
+        "fov": 50
+      }
+    },
+    {
+      "id": "leo-reacts",
+      "start": 75,
+      "end": 120,
+      "camera": {
+        "position": [
+          -13.5,
+          5.8,
+          3.2
+        ],
+        "target": [
+          -9,
+          4.1,
+          -4
+        ],
+        "fov": 32
+      }
+    }
+  ]
+}
