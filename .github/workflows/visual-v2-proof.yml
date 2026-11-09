@@ -24,11 +24,20 @@ jobs:
       - run: npm test
       - run: node tests/v2-library.js
       - run: node tests/v2-browser.js
+      - run: node tests/v2-sculpted-browser.js
       - name: Upload private review stills
         if: always()
         uses: actions/upload-artifact@v4
         with:
           name: v2-mobile-look-tests
           path: renders/v2-lookdev/*.png
+          if-no-files-found: warn
+          retention-days: 7
+      - name: Upload sculpted hair multiview study
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: v2-sculpted-hair-multiview
+          path: renders/v2-sculpted-reference/*.png
           if-no-files-found: warn
           retention-days: 7
