@@ -220,3 +220,7 @@ See [creative draft](stories/dice-town/CREATIVE_LOCK.md), [art target](stories/d
 ## Dice Town P1B visual experiment
 
 [Native proof and limitations](evidence/dice-town-p1b/REPORT.md) · [asset decision](stories/dice-town/P1B_ASSET_DECISION.md). Preview `/production/dice-town-p1b/` or `candidate.html` after `npm run preview`. Reproduce with `node scripts/dice-town-p1b-proof.js`; tests `node tests/dice-town-p1b.js`. Technical PASS, creative PARTIAL/pending review; Kenney candidate not adopted.
+
+## Dice Town P1C still polish
+
+[Native stills, comparison and report](evidence/dice-town-p1c/REPORT.md). Preview `/production/dice-town-p1c/`; capture `node scripts/dice-town-p1c-proof.js`, board `python3 scripts/dice-town-p1c-board.py`. Isolated static art pass; technical PASS, creative PARTIAL/pending review. No motion/video/P2.
