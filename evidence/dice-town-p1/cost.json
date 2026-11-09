@@ -1,0 +1,13 @@
+{
+  "command": [
+    "node",
+    "scripts/dice-town-proof.js"
+  ],
+  "exitCode": 0,
+  "wallSeconds": 8.23224442799983,
+  "sampledTreeRssMiB": 722.203125,
+  "sampledTreeCpuSeconds": 14.83,
+  "processCount": 7,
+  "sampleIntervalSeconds": 0.2,
+  "method": "Linux ps summed subtree RSS (shared pages counted per process), /proc cumulative CPU samples retained by PID/start-time at 100Hz; sampled lower bounds; final pass only, not all development activity"
+}

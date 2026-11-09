@@ -212,3 +212,7 @@ npm run render:shots -- --shots production/not-today.json --out renders/not-toda
 The CLI starts its own server, resumes verified cached frames, repairs damaged frames and publishes only after WebGL repeat-seeking, complete MP4 decode and native playback checks. Output is found through `<out>/latest.json`; temporary frames stay outside Git. No added dependencies. The original 7.2s three-shot scene and a distinct 4s two-shot scene share the renderer.
 
 [P1 commands and JSON contract](P1_PIPELINE.md) · [verified movies, contact sheets and resources](evidence/p1/REPORT.md). Run `npm run test:p1` for actual interrupted-render recovery and MP4 tests. Earlier “no MP4” statements above describe their historical F1/F2 stages; production work is now explicitly authorized within P1. Avatar anatomy, appearance, both gaits and walking-transition restrictions remain unchanged. Stop for review after the P1 PR.
+
+## Dice Town P0–P1 isolated proof
+
+See [creative draft](stories/dice-town/CREATIVE_LOCK.md), [art target](stories/dice-town/ART_TARGET.md), [asset ledger](stories/dice-town/ASSET_LEDGER.md) and [verified report](evidence/dice-town-p1/REPORT.md). Run `npm run preview`, open `/production/dice-town/`; console `__dice.renderFrame(0)` selects plaza A, `30` selects reaction B, `60` selects focus. These are static deterministic pose choices, not a motion proof. Reproduce the two native captures with `node scripts/dice-town-proof.js`; source checks: `node tests/dice-town.js`. No new dependencies. P2 is not authorized.
