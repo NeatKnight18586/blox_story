@@ -19,7 +19,7 @@ try{
   for(const toon of [0,1]){
    const file=`${hair}-${skin}-${toon?'toon':'standard'}.png`;
    await page.goto(`${server.url}/production/v2-preview.html?hair=${hair}&skin=${skin}&toon=${toon}`);
-   await page.waitForFunction(()=>window.__v2Proof?.ready,{timeout:25000});
+   await page.waitForFunction(()=>window.__v2Proof?.ready,null,{timeout:25000});
    const status=await page.evaluate(()=>{
     const p=window.__v2Proof;
     return {hair:p.hair,skin:p.skinToneId,width:p.renderer.domElement.width,height:p.renderer.domElement.height,
