@@ -1,4 +1,4 @@
-name: Visual V2 Opt-in Proof
+name: Visual V2 — Four Final Hair Proof
 on:
   pull_request:
     paths:
@@ -8,9 +8,9 @@ on:
       - '.github/workflows/visual-v2-proof.yml'
   workflow_dispatch:
 jobs:
-  proof:
+  hair-proof:
     runs-on: ubuntu-24.04
-    timeout-minutes: 15
+    timeout-minutes: 12
     permissions:
       contents: read
     steps:
@@ -21,32 +21,27 @@ jobs:
           cache: npm
       - run: npm ci
       - run: npx playwright install --with-deps chromium
-      - run: npm test
-      - run: node tests/v2-library.js
-      - run: node tests/v2-browser.js
-      - run: node tests/v2-sculpted-browser.js
-      - run: node tests/v2-bacon-browser.js
-      - name: Upload private review stills
+      - name: Previous animation and story tests
+        run: npm test
+      - name: Reusable hair / casting unit checks
+        run: node tests/v2-library.js
+      - name: Standard versus toon renders
+        run: node tests/v2-browser.js
+      - name: Native four-angle hair and head-turn checks
+        run: node tests/v2-final-hair-browser.js
+      - name: Upload four-style comparison
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: v2-mobile-look-tests
+          name: final-four-hair-preview
           path: renders/v2-lookdev/*.png
           if-no-files-found: warn
           retention-days: 7
-      - name: Upload sculpted hair multiview study
+      - name: Upload multiangle fit evidence
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: v2-sculpted-hair-multiview
-          path: renders/v2-sculpted-reference/*.png
-          if-no-files-found: warn
-          retention-days: 7
-      - name: Upload bacon native multiview proof
-        if: always()
-        uses: actions/upload-artifact@v4
-        with:
-          name: v2-bacon-hair-review
-          path: renders/v2-bacon-hair/*.png
+          name: final-four-hair-multiangle
+          path: renders/v2-final-hair/*.png
           if-no-files-found: warn
           retention-days: 7
