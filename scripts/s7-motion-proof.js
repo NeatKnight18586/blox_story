@@ -49,7 +49,7 @@ try{
  const encode=spawnSync('ffmpeg',['-hide_banner','-loglevel','error','-y','-framerate','30','-start_number','0',
   '-i',frames+'/%04d.png','-c:v','libx264','-preset','veryfast','-crf','18','-pix_fmt','yuv420p',
   '-movflags','+faststart',mp4],{encoding:'utf8',timeout:120000});
- if(encode.status!==0)throw Error('FFmpeg failed: '+encode.stderr);
+ if(encode.status!==0)throw Error('FFmpeg failed: '+JSON.stringify({status:encode.status,signal:encode.signal,error:String(encode.error),stderr:encode.stderr}));
  const verify=spawnSync('ffprobe',['-v','error','-count_frames','-select_streams','v:0',
   '-show_entries','stream=width,height,r_frame_rate,codec_name,nb_read_frames','-of','json',mp4],
   {encoding:'utf8',timeout:30000});
