@@ -1,5 +1,6 @@
 name: S7 Environment Color Proof (still only)
 on:
+  pull_request:
   push:
     branches: [lookdev/names100-ground-sky-audit]
   workflow_dispatch:
