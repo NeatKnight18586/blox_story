@@ -20,6 +20,7 @@ jobs:
       - run: npx playwright install --with-deps chromium
       - run: npm test
       - run: node scripts/s7-environment-proof.js
+      - run: node scripts/s7-motion-proof.js
       - name: Private image evidence
         if: always()
         uses: actions/upload-artifact@v4
