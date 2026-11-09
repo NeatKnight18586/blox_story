@@ -1,3 +1,4 @@
+import {createStoryBackground} from './story-background.js';
 import {createFinish} from './finish.js';
 import {createOpeningEffects} from './opening.js';
 import {createLook} from './look-style.js';
@@ -34,10 +35,12 @@ try {
  // Capture the original scene without its counter; cue state remains available
  // for later FFmpeg compositing. Leave physical tags/other story effects intact.
  if(plan.counterMode==='clean')for(const fx of [reveal,ending,opening,look])if(fx?.overlay?.panel)fx.overlay.panel.visible=false;
+ const background=plan.dressing==='s4'?createStoryBackground(world):null;
  const finish=plan.finish==='p5'?createFinish(scene,avatars):null;
  function renderFrame(frame){
   const state=sampleShotList(plan,frame),actors=state.actors??{[cast[0].id]:{...state.actor,face:state.face,appearance:state.appearance}};
   for(const [id,s] of Object.entries(actors)){const a=avatars[id];applyActionSample(a,s.action,s.origin);applyFace(a,s.face);if(s.appearance)applyAppearance(a,s.appearance);}
+  if(background)background.resetResidents();
   if(reveal)reveal.apply(state.reveal,actors);if(ending)ending.apply(state.ending,actors,scene);if(opening)opening.apply(state.opening,actors);if(look)look.apply(state);if(finish)finish.apply(state);
   const propStates=state.propStates??{proximity_chest:{open:state.propOpen}};
   for(const [id,prop] of Object.entries(props))prop.apply(propStates[id]);
@@ -45,5 +48,5 @@ try {
   return {frame,shot:state.shot,time:state.time,propOpen:state.propOpen??null,camera:state.camera,actorPosition:avatar.root.position.toArray(),propStates,...(state.reveal?{reveal:state.reveal}:{}),...(state.ending?{ending:state.ending}:{}),...(state.opening?{opening:state.opening}:{}),...(plan.version===3?{actors:Object.fromEntries(Object.entries(actors).map(([id,s])=>[id,{position:avatars[id].root.position.toArray(),face:s.face,appearance:s.appearance,torsoVariant:avatars[id].torsoVariant}]))}:{}),identity:original.every((p,i)=>p===Object.values(avatars).flatMap(references)[i])};
  }
  // No clock/RAF: all frames, action time, cameras and prop state are explicit.
- window.__production={plan,renderFrame,renderer,scene,camera,avatar,avatars,world,reveal,ending,look,opening,finish};renderFrame(0);
+ window.__production={plan,renderFrame,renderer,scene,camera,avatar,avatars,world,reveal,ending,look,opening,finish,background};renderFrame(0);
 }catch(error){window.__productionError=error.message;document.getElementById('error').textContent=error.message;throw error;}

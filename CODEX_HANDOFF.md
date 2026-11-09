@@ -1,3 +1,13 @@
+# Current handoff — S4 integrated rough-cut QC
+
+PR17 test-mask defect corrected at e6d7046; required tests/genuine evidence passed and merge preserved history at5f6975a. Current branch `codex/names100-s4-assembly-qc` follows revised S4_FULL_ASSEMBLY_QC.md. Approved S3B/P5/counter/caption foundation retained.
+
+**Technical PASS; overall PARTIAL pending human creative/listening review and private voiced delivery.** Four paired native720p environment stills30/1392/1628/700; one bounded background correction, then frozen. Bedroom pixel-identical. Full manifest references authoritative23 cuts and all1641 native frames; source offsets/seam938–945 protected. All821 forward frames captured once; reverse found stale child shoulder at1202. S4-only resident rest reset repairs it. Original cache preserved, all821 corrected-source reverse pixels/states match before encoding; no second forward capture. Final source also matches native1392/1628. Existing default/legacy looks unchanged.
+
+[Silent full review MP4](evidence/names100-s4/silent-review.mp4), [23-shot film board](evidence/names100-s4/23-shot-contact.png), [native comparisons](evidence/names100-s4/environment-comparison.png), [report/commands/costs/receipts](evidence/names100-s4/REPORT.md). Film is180x320/15fps3D upscaled to720x1280 for crisp separate text, not final native video.54.733333s/821frames/H.264/yuv420p/22cuts verified.38 transcript phrases/47caption events,all821 libass masks safe/no collisions. Original WAV available54.682993s,t=0; private AAC review fully played unmuted,PCM correlation0.999545/zero coarse lag,50.340ms trailing video. Human listening remains unverified. No generic private artifact publisher; voiced film/WAV stay ignored, only silent film committed. Branch-ZIP ChatGPT mux fallback per brief; no Desktop/auth retry.
+
+848 prior protected files/704 evidence files/12 films/WAV/source inputs unchanged. Actual costs include failed verification: native13.379+13.295s; capture/partial-check258.297s; cache recovery/all821-check/encode208.816s; regressions67.842s; assembly/playback77.452s. Peak sampled summed RSS1222.76MiB; overlapping wall timings are not total task time; model tokens unavailable. Stop for review, no final720p film/sound effects/new phase. Release sound/QA is plan-only in report. Historical handoffs follow.
+
 # Current handoff — P5 bounded finish gate
 
 PR16 reviewed/tested and merged preserving commits at `d10f1217d5fec44819c39ac7a5da29e413c9cdd9`. P4 Minimal Editorial is accepted; P5 targets only its three recorded finish issues. Branch `codex/names100-p5-finish-gate` adds optional v3 S1 `finish:"p5"` (use with `counterMode:"clean"`) and independent `counter/p5-editorial.json`→ASS. Legacy default/looks remain intact.

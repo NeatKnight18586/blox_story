@@ -1,3 +1,15 @@
+# S4 — complete integrated pilot rough-cut review
+
+**Technical PASS; overall PARTIAL pending human creative/listening review and private narrated delivery.** PR17 merged after regression correction/verification. Working characters/acting/P5 style preserved; bounded town/home/ending background gate passed and is frozen.
+
+[Complete silent captioned/counter rough cut](evidence/names100-s4/silent-review.mp4) · [23-shot film contact sheet](evidence/names100-s4/23-shot-contact.png) · [Native environment comparisons](evidence/names100-s4/environment-comparison.png) · [Report,commands,costs and limitations](evidence/names100-s4/REPORT.md).
+
+Film54.733s/821frames/15fps:180×3203D upscaled for720×1280 crisp separate text; **not final native video**. Original narration is privately assembled at t=0 and technically verified, kept out of Git. No supported private artifact publisher; listening/delivery review remains incomplete. All prior movies/evidence preserved. Stop for review; no final export or further general polish.
+
+Reproduce integration with `npm run render:s4` only after matching background/probe gate receipts. Text/audio composition is independent: `python3 scripts/assemble-s4.py --wav "$NAMES100_WAV"`. See report for exact bounded still/tests/QC commands and preserved raw cache.
+
+Earlier milestones follow.
+
 # P5 — bounded three-issue finish review
 
 PR16 merged after verification. P5 still gate **PASS**, pending creative approval: softer shadows, coherent ghost wardrobe surfaces, and charcoal ending counter. [Five paired comparisons](evidence/names100-p5/before-after.png) · [Phone overview](evidence/names100-p5/phone-overview.png) · [Native originals,tests,commands,costs and limits](evidence/names100-p5/REPORT.md).

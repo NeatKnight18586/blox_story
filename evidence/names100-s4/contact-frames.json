@@ -1,0 +1,122 @@
+{
+  "source": "renders/names100-s4-review/silent-captioned.mp4",
+  "sha256": "c4d631643a89493f4a58632b2bfa11dbc51d52e8cb4e02e63fddef753ee8eefb",
+  "upscaled3d": true,
+  "frames": [
+    {
+      "shot": "S01",
+      "outputFrame": 23,
+      "globalFrame": 46
+    },
+    {
+      "shot": "S02",
+      "outputFrame": 73,
+      "globalFrame": 146
+    },
+    {
+      "shot": "S03",
+      "outputFrame": 118,
+      "globalFrame": 236
+    },
+    {
+      "shot": "S04",
+      "outputFrame": 145,
+      "globalFrame": 290
+    },
+    {
+      "shot": "S05",
+      "outputFrame": 180,
+      "globalFrame": 360
+    },
+    {
+      "shot": "S06",
+      "outputFrame": 223,
+      "globalFrame": 446
+    },
+    {
+      "shot": "S07",
+      "outputFrame": 264,
+      "globalFrame": 528
+    },
+    {
+      "shot": "S08",
+      "outputFrame": 300,
+      "globalFrame": 600
+    },
+    {
+      "shot": "S09",
+      "outputFrame": 350,
+      "globalFrame": 700
+    },
+    {
+      "shot": "S10",
+      "outputFrame": 375,
+      "globalFrame": 750
+    },
+    {
+      "shot": "S11",
+      "outputFrame": 400,
+      "globalFrame": 800
+    },
+    {
+      "shot": "S12",
+      "outputFrame": 425,
+      "globalFrame": 850
+    },
+    {
+      "shot": "S13",
+      "outputFrame": 458,
+      "globalFrame": 916
+    },
+    {
+      "shot": "S14",
+      "outputFrame": 496,
+      "globalFrame": 992
+    },
+    {
+      "shot": "S15",
+      "outputFrame": 545,
+      "globalFrame": 1090
+    },
+    {
+      "shot": "S16",
+      "outputFrame": 593,
+      "globalFrame": 1186
+    },
+    {
+      "shot": "S17",
+      "outputFrame": 624,
+      "globalFrame": 1248
+    },
+    {
+      "shot": "S18",
+      "outputFrame": 673,
+      "globalFrame": 1346
+    },
+    {
+      "shot": "S19",
+      "outputFrame": 696,
+      "globalFrame": 1392
+    },
+    {
+      "shot": "S20",
+      "outputFrame": 715,
+      "globalFrame": 1430
+    },
+    {
+      "shot": "S21",
+      "outputFrame": 735,
+      "globalFrame": 1470
+    },
+    {
+      "shot": "S22",
+      "outputFrame": 767,
+      "globalFrame": 1534
+    },
+    {
+      "shot": "S23",
+      "outputFrame": 800,
+      "globalFrame": 1600
+    }
+  ]
+}

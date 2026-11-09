@@ -1,0 +1,27 @@
+
+> render:s4
+> node scripts/render-names100.js --assembly stories/names100/s4-assembly.json --out renders/names100-s4
+
+Captured 1/821; reused 1
+Captured 51/821; reused 51
+Captured 101/821; reused 101
+Captured 151/821; reused 151
+Captured 201/821; reused 201
+Captured 251/821; reused 251
+Captured 301/821; reused 301
+Captured 351/821; reused 351
+Captured 401/821; reused 401
+Captured 451/821; reused 451
+Captured 501/821; reused 501
+Captured 551/821; reused 551
+Captured 601/821; reused 601
+Captured 651/821; reused 651
+Captured 701/821; reused 701
+Captured 751/821; reused 751
+Captured 801/821; reused 801
+Reverse verified global1600
+Reverse verified global1200
+Reverse verified global800
+Reverse verified global400
+Reverse verified global0
+PASS continuous rough cut: /workspace/blox_story/renders/names100-s4/results/5386d2beddfc-cf54dee7-53bb-4199-9b61-e663741e3e35/movie.mp4
