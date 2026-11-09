@@ -1,72 +1,64 @@
-# Visual Foundation V2 — Original block-cinema lookdev library
+# blox_story — Visual Foundation V2 (four-style casting library)
 
-**Status:** opt-in R&D branch. It does **not** change any approved names100 scene, PR #20 master, audio, counters or captions. Visual acceptance requires real WebGL proof; source edits alone are not a style PASS.
+**Status:** experimental draft PR #21, NOT merged. Current Names100 native master and its PR #20 remain unchanged.
 
-## Reuse, not regeneration
+## Art direction — simple and finished beats complicated and awkward
 
-Roblox-like appearance should be modular: **one canonical body + skin tone + hair + clothing + facial expression + shot/camera**. The IDs below let Codex or any new episode choose from existing pieces, not re-model them.
+This is **original stylized block-game cinema**, not a copied Roblox UGC hairstyle.
+Four curated, natural silhouettes are enough to cast the first several Shorts.
 
-Example **cast appearance** (optional keys; same six-part body, head/shoulder/hip pivots):
+| ID | Suggested role | Design intent |
+| --- | --- | --- |
+| `neat_side_part` | short option A | compact side-part, gentle diagonal fringe, tidy temples |
+| `soft_textured_crop` | short option B | slightly irregular short locks; no spiky tubes or exaggerated bangs |
+| `low_bun` | hair-up option | softly swept sides, small low nape bun, eyes exposed |
+| `shoulder_length` | hair-down option | modest face-framing lob, rounded ends, no extreme length |
+
+The names describe **hair geometry, not character gender**. Any character can wear any style. The existing **legacy `bob`** remains for old film fidelity; it is not one of the four newly promoted options.
+
+New cast selection requires only stable IDs:
 
 ```json
 {
   "skinToneId": "warm",
-  "hair": "messy_fringe",
-  "hairColorId": "espresso",
-  "pieces": {
-    "torso": "#35719b", "leftArm": "#35719b", "rightArm": "#35719b",
-    "leftLeg": "#324056", "rightLeg": "#324056"
-  }
+  "hair": "neat_side_part",
+  "hairColorId": "espresso"
 }
 ```
 
-### Available assets
+Other appearance fields (clothing, body variants, expression) are unchanged. Eight curated skin tones and eight hair colors remain available; no color/mesh guessing per episode.
 
-- **Skin IDs (8):** `porcelain`, `fair`, `peach`, `warm`, `tan`, `caramel`, `umber`, `deep`. Curated colors, no random choices or gender/race assumptions; optionally show small hands below sleeve cuffs.
-- **Hair IDs (9 new):** `side_swept`, `spiky`, `messy_fringe`, `curtains`, `long_straight`, `ponytail`, `twin_buns`, `curly_crop`, `low_bun`. The original `bob` stays available. All are wearable by any character.
-- **Hair colors (8):** `black`, `espresso`, `brown`, `chestnut`, `blonde`, `platinum`, `auburn`, `blue_black`.
-- **Bodies:** existing `classic` and `tapered`. **Hat and hair remain exclusive** to avoid overlapping accessories. Hair is cached by ID/actor and retinted without building a new geometry each frame.
+## Technical contract
 
-The *actor cast JSON* pins these IDs. Do not synthesize meshes or colors via prompts for each episode.
+- One canonical six-part body with existing pivots; hair attaches to `avatar.pivots.head`.
+- Hair is assembled once per actor, cached by ID, and smoothly follows head turns. No texture assets, rig changes or new libraries.
+- Hair geometry is a **small ellipsoid crown + a few closed, broad tapered 3D clumps**, rather than many independent tubes or rounded blocks.
+- Small controlled tonal changes (within a single chosen base hair color) preserve definition but never use striped or bacon-style color bands.
+- Hats and hair remain mutually exclusive to avoid intersection.
+- Existing animation, ghost transparency, story/counter/captions, audio and all archived film hashes should remain unchanged.
+- V2 optional 3-band toon material and layered backlot remain **off by default** and should be applied only after a before/after visual approval, not because toon is trendy.
 
-## Optional visuals (new episodes only)
+## Look-development gate, without spending Codex coding credits
 
-```js
-import {applyToonV2} from './appearance/v2-toon.js';
-import {createV2Backlot} from './production/assets/v2-backlot.js';
-createV2Backlot(scene,{palette:'moonlit',layout:'street_depth'});
-const look=applyToonV2(scene);  // opt-in; use only after assets are instantiated
-look.restore();                // reverses material experiment
-```
+GitHub workflow `.github/workflows/visual-v2-proof.yml` runs:
+1. Original regression tests and V2 casting tests.
+2. Standard versus toon 720×1280 full-body comparisons (4 × 2).
+3. Four-angle (front/three-quarter/side/rear) plus head-turn hair-close-ups at actual 720×1280 (4 × 5).
+4. Human creative review of the actual evidence at phone scale. Tests alone cannot approve aesthetic quality.
 
-- Toon is **three-band MeshToonMaterial with nearest filtered gradient**. Transparent ghosts and already-flat facial strokes are excluded from conversion. **Not** automatically added to the existing names100 renderer.
-- Backlot is a **simple 2.5D street/homecoming set**: a few depth-layered facades and warm windows behind the actors. Available `moonlit/sunrise` palettes and `street_depth/homecoming` layouts. Never build invisible modules.
-- Keep strong facial/skin separation, flat simple geometry and warm/cool color contrast. Avoid thick black outlines or heavy post effects unless phone-size A/B proves improvement.
+**Technical PASS does not mean cinematic PASS**. Reject a style if the hair blocks expressions, creates an implausible bald/helmet gap, clips the upper shoulder when turning, looks detached, or depends on an ornate high-poly model. One narrowly targeted correction only, then freeze the four catalog IDs.
 
-## FREE quality proof using GitHub Actions (zero Codex credits)
+## Why a small collection is the professional choice
 
-A workflow (`.github/workflows/visual-v2-proof.yml`) runs source/geometry tests and Chromium WebGL screenshots at **real 720×1280**, for **9 skin/hair combinations × standard/toon = 18 frames**. Once the PR opens, use **PR → Checks → Visual V2 Opt-in Proof → Artifacts → v2-mobile-look-tests** to download images on iPad, provided Actions is enabled and the job passes.
+Roblox's rigid accessory workflow uses head fitting and an attachment, rather than creating a new head/body per wig. For Roblox Marketplace uploads specifically, a rigid accessory must be single-mesh, watertight and within its triangle budget; **these editable Three.js groups are only for our video renderer**, not currently Marketplace export assets.
 
-For a local laptop (not iPad-only): `npm ci`, `npx playwright install chromium`, `node tests/v2-library.js`, `node tests/v2-browser.js`. Or `npm run preview` and visit `http://localhost:8000/production/v2-preview.html?hair=spiky&skin=tan&toon=1`.
+Sources:
+- https://create.roblox.com/docs/avatar/rigid-accessories/specifications
+- https://create.roblox.com/docs/art/accessories/accessory-fitting-tool
+- https://threejs.org/docs/pages/BufferGeometry.html
 
-**Approval is visual, not test count:** hair from front/side, eyes/brows unobstructed, flesh matches hands, clean silhouette, ghost transparency not damaged, readable 9:16, toon not excessively harsh. If tests fail, fix the specific defect **before** any broad redesign.
+## Future Shorts — limited-animation production playbook
 
-## Professional limited-animation playbook
+First lock a shot and readable silhouette. Keep stage depth using **foreground hero, midground reusable sets, and simple background layers**. Prefer short gaze shifts, anticipatory poses, purposeful holds, cut changes and re-used walk cycles over large amounts of movement. Render keyframes before short motion excerpts; use safe resumable final WebGL export. Add captions/counter/audio in the FFmpeg stage, not the rig. Keep any shot-specific new prop or outfit behind a visible story need.
 
-1. Pose and frame first. Design a readable main action and one emotional emphasis per shot.
-2. Reuse 3–5 approved poses plus gaze/anticipation/held reactions, not endless arm flapping.
-3. Layer imagery: clear foreground hero, midground home/props, distant cheap facades; move camera or a small background element for parallax when needed.
-4. Render storyboard stills cheaply; only render 1–2 seconds to assess acting/shader flicker after stills pass.
-5. Script the episode against approved IDs and shot windows, then render once with deterministic/resumable exports; overlay counters, captions and audio afterward.
-
-## Current verification limits & publishing
-
-Only source structure and Node parsing can be checked in the local ChatGPT container; its runtime has no `node_modules` or network access for `npm ci`. The GitHub Actions workflow is the real rendering/test gate. **Do not merge until Checks PASS and screenshots are visually inspected.** Do not alter or replace PR #20 before final native iPad approval.
-
-## Research sources
-
-- Roblox Creator Hub (geometry/rig/cosmetics/attachments): https://create.roblox.com/docs/avatar
-- Roblox character body attachment locations: https://create.roblox.com/docs/avatar/character-bodies/specifications
-- Three.js native toon materials: https://threejs.org/docs/#api/en/materials/MeshToonMaterial
-- Blender toon shading limitations (supports careful nonphotorealistic look development): https://docs.blender.org/manual/en/dev/render/shader_nodes/color/shader_to_rgb.html
-- YouTube Shorts viewer metrics (visual quality alone is not proof of virality): https://support.google.com/youtube/answer/11914225
+**Publishing is separate.** PR #20's approved Names100 master is not rerendered to try V2 wigs. After the four hairstyles pass human art review, use them as preset IDs for later episodes.
