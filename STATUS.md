@@ -349,3 +349,7 @@ Isolated codex/dice-town-p2a from3711b7c. One native4.000s silent H.264720×1280
 ## Dice Town PR28 bounded motion polish
 
 Branch codex/dice-town-p2a-polish preserves PR28 and previous pilot history. Corrected raised-arm cropping with camera/pose/staging edits; actual mesh vertices stay inside all75 wide-shot frames. Stronger anticipation, staggered lift/overshoot, counterposed legs and Leo surprise hold. Technical PASS: source regressions,120-state contact/identity/sky QC, exact4s/120-frame silent720×1280 H.264, all120 reverse pixel matches, full decode and browser playback. Creative approval PENDING; rigid articulation, hard shadows and die/foreground silhouette crowding remain. Native job191.34s, sampled1402.5MiB summed RSS. Evidence: evidence/dice-town-p2a-polish/REPORT.md. No merge or next phase.
+
+## Dice Town117s storyboard animatic
+
+From PR30 plan branch ea87785, isolated codex/dice-town-117s-animatic. Technical PASS:38-shot silent360×640/15fps H.264,1757 decoded frames/117.133s,76 final WebGL boards,38 cut-start matches, playback/decode/source tests. Source3513/30fps boundaries preserved; proxy rounding and35.102ms audio-reference difference documented. Audio untouched; creative/listening review PENDING. Placeholders for missing mechanism/photo/tether/gate/home/mother/chair assets. Evidence: evidence/dice-town-animatic/REPORT.md. No merge/full-resolution episode or next phase.
