@@ -3,7 +3,7 @@ import * as THREE from 'three';
 let ramp;
 function gradient(){
  if(!ramp){
-  ramp=new THREE.DataTexture(new Uint8Array([70,70,70,255, 160,160,160,255, 245,245,245,255]),3,1,THREE.RGBAFormat);
+  ramp=new THREE.DataTexture(new Uint8Array([145,145,145,255, 215,215,215,255, 255,255,255,255]),3,1,THREE.RGBAFormat);
   ramp.minFilter=THREE.NearestFilter;ramp.magFilter=THREE.NearestFilter;
   ramp.generateMipmaps=false;ramp.unpackAlignment=1;ramp.needsUpdate=true;
  }
