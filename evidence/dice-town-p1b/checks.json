@@ -1,0 +1,80 @@
+{
+  "status": "PASS",
+  "native": [
+    720,
+    1280
+  ],
+  "browser": "141.0.7390.37",
+  "reversePixels": true,
+  "coldReloadPixels": true,
+  "focusVerified": true,
+  "candidate": {
+    "meshes": 6,
+    "identity": true,
+    "heightBeforeNormalization": 2.7,
+    "animations": [
+      "static",
+      "idle",
+      "walk",
+      "sprint",
+      "sit",
+      "drive",
+      "die",
+      "pick-up",
+      "emote-yes",
+      "emote-no",
+      "holding-right",
+      "holding-left",
+      "holding-both",
+      "holding-right-shoot",
+      "holding-left-shoot",
+      "holding-both-shoot",
+      "attack-melee-right",
+      "attack-melee-left",
+      "attack-kick-right",
+      "attack-kick-left",
+      "interact-right",
+      "interact-left",
+      "wheelchair-sit",
+      "wheelchair-move-forward",
+      "wheelchair-move-back",
+      "wheelchair-move-left",
+      "wheelchair-move-right"
+    ],
+    "skins": 0,
+    "frame": 0
+  },
+  "checks": [
+    {
+      "frame": 0,
+      "name": "A",
+      "sha256": "a05e85810bbb1c18c30aa6ce8a73b1f087e894ad9cba9284730a9d6fa1ac1155",
+      "expression": "surprise",
+      "buffer": [
+        720,
+        1280
+      ],
+      "webgl": "WebGL 2.0 (OpenGL ES 3.0 Chromium)",
+      "identity": true,
+      "parts": 6,
+      "extras": 4,
+      "dieResult": 3
+    },
+    {
+      "frame": 30,
+      "name": "B",
+      "sha256": "33fa670cf99c50565cab8219f3c2a53f42370dd55c0e81b0a79a80865bb8413d",
+      "expression": "annoyed",
+      "buffer": [
+        720,
+        1280
+      ],
+      "webgl": "WebGL 2.0 (OpenGL ES 3.0 Chromium)",
+      "identity": true,
+      "parts": 6,
+      "extras": 4,
+      "dieResult": 3
+    }
+  ],
+  "errors": []
+}

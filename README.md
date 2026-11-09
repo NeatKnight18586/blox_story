@@ -216,3 +216,7 @@ The CLI starts its own server, resumes verified cached frames, repairs damaged f
 ## Dice Town P0–P1 isolated proof
 
 See [creative draft](stories/dice-town/CREATIVE_LOCK.md), [art target](stories/dice-town/ART_TARGET.md), [asset ledger](stories/dice-town/ASSET_LEDGER.md) and [verified report](evidence/dice-town-p1/REPORT.md). Run `npm run preview`, open `/production/dice-town/`; console `__dice.renderFrame(0)` selects plaza A, `30` selects reaction B, `60` selects focus. These are static deterministic pose choices, not a motion proof. Reproduce the two native captures with `node scripts/dice-town-proof.js`; source checks: `node tests/dice-town.js`. No new dependencies. P2 is not authorized.
+
+## Dice Town P1B visual experiment
+
+[Native proof and limitations](evidence/dice-town-p1b/REPORT.md) · [asset decision](stories/dice-town/P1B_ASSET_DECISION.md). Preview `/production/dice-town-p1b/` or `candidate.html` after `npm run preview`. Reproduce with `node scripts/dice-town-p1b-proof.js`; tests `node tests/dice-town-p1b.js`. Technical PASS, creative PARTIAL/pending review; Kenney candidate not adopted.
