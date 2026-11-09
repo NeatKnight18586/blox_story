@@ -1,0 +1,22 @@
+{
+  "engineMatchesVerifiedMovie": true,
+  "storyMatchesVerifiedMovie": true,
+  "engineSha256": "e542222948e67b648953e5b50aee346ec465700cf35314fee0b9062e1cd42da9",
+  "storySha256": "9977357e084646ed6329d19147b1331605862b5c7008ca5bb25e478b737426da",
+  "sources": {
+    "production/casting.js": "784148683a5615a21fc24dfd01c3b93a0c336d1d578bb00660de0b7225d60f1a",
+    "production/render.js": "698963e2fc11d5e4d4a9e441b9af3ce406aab574185d44987fb09f9766d54252",
+    "production/story-background.js": "b92e1a1c37faa3ee765a289297aa62950de8a04082d75b4ed3816a3e488e2bcf",
+    "scripts/s4-story.js": "589b139946373401a19261535621d75bbc126e43b20ab6f9e2743a58f920084f",
+    "scripts/render-names100.js": "f93689a52004eddd31384792830427697882e3b7ca59bcf5cd83a8c85c8cd4ad",
+    "scripts/names100.js": "9edb70ff2801de44ed02997584fdc2a3be72175743778c89d80acc733f9baa6b",
+    "scripts/assemble-s4.py": "ec510413299c005996982248168d451ef722407770283f74702e2d4e31c6e42c",
+    "scripts/s4-captions.py": "259e3b01e6b9ba68e96eda3256e2bd03363edef63596c67b270e21f7a4c05256",
+    "stories/names100/s4-assembly.json": "185e91c6898a9a5605c0038861b3217e852008f40de61eff59143da0f09b73ed",
+    "stories/names100/captions/s4-full.json": "d30db819c2f56eedc1cc325eedec2fcab07a5a8ba2620a5e6fa92bb88c4f9108",
+    "stories/names100/captions/generated/S4.ass": "09f3b3d74f454bd16f79e99c972cc7c97b24e5225d9b8ffc65c7db7592c93517",
+    "stories/names100/counter/generated/p5-editorial.ass": "c93fc603cd02b7ba47b5575ee1521b1f63b9f8d186b419985b4de7b523d6d152"
+  },
+  "noFinalNativeEpisode": true,
+  "newNarration": false
+}

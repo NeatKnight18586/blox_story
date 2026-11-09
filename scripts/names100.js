@@ -13,8 +13,8 @@ export async function loadStory(){
 }
 export function nativeFrame(story,i){if(!Number.isInteger(i)||i<0||i>=821)throw new Error('Invalid rough frame');return i*2;}
 export function blockFor(story,g){if(!Number.isInteger(g)||g<0||g>=1641)throw new Error('Invalid global frame');return story.blocks.find(b=>g>=b.start&&g<b.end);}
-export async function storyEngineHash(){
- const files=['package.json','package-lock.json','scripts/render-shot-list.js','scripts/render-names100.js','scripts/names100.js'];
+export async function storyEngineHash(extraFiles=[]){
+ const files=['package.json','package-lock.json','scripts/render-shot-list.js','scripts/render-names100.js','scripts/names100.js',...extraFiles];
  async function visit(dir){for(const e of await readdir(dir,{withFileTypes:true})){const f=path.join(dir,e.name);if(e.isDirectory())await visit(f);else if(/\.(js|html)$/.test(e.name))files.push(f);}}
  for(const dir of ['avatar','appearance','production','scripts/pipeline'])await visit(dir);const h=createHash('sha256');for(const f of files.sort())h.update(f).update('\0').update(await readFile(f)).update('\0');return h.digest('hex');
 }

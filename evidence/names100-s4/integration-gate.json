@@ -1,0 +1,31 @@
+{
+  "status": "PASS",
+  "storySha256": "9977357e084646ed6329d19147b1331605862b5c7008ca5bb25e478b737426da",
+  "engineSha256": "e542222948e67b648953e5b50aee346ec465700cf35314fee0b9062e1cd42da9",
+  "environmentStatus": "PASS",
+  "protectedFrames": [
+    788,
+    789,
+    850,
+    889,
+    890,
+    926,
+    938,
+    944,
+    945,
+    992,
+    1202,
+    1296,
+    1371,
+    1406,
+    1450,
+    1490,
+    1528,
+    1529,
+    1546,
+    1640
+  ],
+  "captionMidpoints": 47,
+  "visualReview": "Reviewed20 real WebGL seam/event frames with final text. S14 source seam938\u2013945 is continuous; casts/clock/HUD/counter/restore correct. One new full-story caption placement correction clears projected heads/tag, approved S3C placements unchanged. No full render before this gate.",
+  "residentSeekRepair": "S4-only reset of cached resident transforms before existing S3B cues; protected1202 now included, source original forward pixels unchanged"
+}

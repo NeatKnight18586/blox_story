@@ -1,0 +1,35 @@
+{
+  "version": 1,
+  "authority": "stories/names100/roughcut.json",
+  "sources": {
+    "rule": "stories/names100/s2-rule.json",
+    "shy": "stories/names100/s3b-shy.json",
+    "reveal": "stories/names100/s2-reveal.json",
+    "ending": "stories/names100/s3b-ending.json"
+  },
+  "capture": {
+    "counterMode": "clean",
+    "finish": "p5",
+    "dressing": "s4"
+  },
+  "cameraOverrides": {
+    "rule": {
+      "s01": {
+        "position": [
+          9,
+          6.4,
+          16
+        ],
+        "target": [
+          1.1,
+          2.7,
+          0
+        ],
+        "fov": 54
+      }
+    }
+  },
+  "counterStyle": "stories/names100/counter/p5-editorial.json",
+  "captionStyle": "captions/white-shorts-v1.json",
+  "voiceCues": "stories/names100/VOICE_CUES.md"
+}

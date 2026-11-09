@@ -1,0 +1,12 @@
+{
+  "headRefOid": "e6d7046d51bfc915755b15e471e8f6b93af3e144",
+  "mergeCommit": {
+    "oid": "5f6975a67124347aceb6f6f87bfabe8523bf192f"
+  },
+  "mergedAt": "2026-11-08T23:49:51Z",
+  "state": "MERGED",
+  "premergeStatus": "PASS after counter-mask-only test correction",
+  "reviewedOriginalVisualHead": "55bed32c952973d0f8103a86e149d7c4a021a044",
+  "originalVisualHashesVerified": true,
+  "all12PriorMovieHashesVerified": true
+}

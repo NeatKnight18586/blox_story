@@ -1,0 +1,85 @@
+{
+  "s4-native-initial": {
+    "command": [
+      "node",
+      "scripts/s4-keyframes.js"
+    ],
+    "exitCode": 0,
+    "wallSeconds": 13.379309055002523,
+    "sampledTreeRssMiB": 721.18359375,
+    "sampledTreeCpuSeconds": 23.56,
+    "processCount": 14,
+    "sampleIntervalSeconds": 0.2,
+    "method": "Linux ps summed subtree RSS (shared pages counted per process), /proc cumulative CPU samples retained by PID/start-time at 100Hz; sampled lower bounds; final pass only, not all development activity"
+  },
+  "s4-native": {
+    "command": [
+      "node",
+      "scripts/s4-keyframes.js"
+    ],
+    "exitCode": 0,
+    "wallSeconds": 13.294660591011052,
+    "sampledTreeRssMiB": 739.234375,
+    "sampledTreeCpuSeconds": 23.94,
+    "processCount": 14,
+    "sampleIntervalSeconds": 0.2,
+    "method": "Linux ps summed subtree RSS (shared pages counted per process), /proc cumulative CPU samples retained by PID/start-time at 100Hz; sampled lower bounds; final pass only, not all development activity"
+  },
+  "s4-first-render": {
+    "command": [
+      "npm",
+      "run",
+      "render:s4"
+    ],
+    "exitCode": 1,
+    "wallSeconds": 258.2972790349886,
+    "sampledTreeRssMiB": 820.203125,
+    "sampledTreeCpuSeconds": 462.17,
+    "processCount": 12,
+    "sampleIntervalSeconds": 0.2,
+    "method": "Linux ps summed subtree RSS (shared pages counted per process), /proc cumulative CPU samples retained by PID/start-time at 100Hz; sampled lower bounds; final pass only, not all development activity"
+  },
+  "s4-full-render": {
+    "command": [
+      "npm",
+      "run",
+      "render:s4"
+    ],
+    "exitCode": 0,
+    "wallSeconds": 208.81600039800105,
+    "sampledTreeRssMiB": 1222.76171875,
+    "sampledTreeCpuSeconds": 324.68,
+    "processCount": 28,
+    "sampleIntervalSeconds": 0.2,
+    "method": "Linux ps summed subtree RSS (shared pages counted per process), /proc cumulative CPU samples retained by PID/start-time at 100Hz; sampled lower bounds; final pass only, not all development activity"
+  },
+  "s4-regression": {
+    "command": [
+      "bash",
+      "-c",
+      "npm test && npm run test:counter && npm run test:finish && python3 tests/captions.py && node tests/performance-motion.js && python3 tests/s4-overlay.py"
+    ],
+    "exitCode": 0,
+    "wallSeconds": 67.84187207600917,
+    "sampledTreeRssMiB": 1162.71484375,
+    "sampledTreeCpuSeconds": 50.6,
+    "processCount": 63,
+    "sampleIntervalSeconds": 0.2,
+    "method": "Linux ps summed subtree RSS (shared pages counted per process), /proc cumulative CPU samples retained by PID/start-time at 100Hz; sampled lower bounds; final pass only, not all development activity"
+  },
+  "s4-assembly": {
+    "command": [
+      "bash",
+      "-c",
+      "python3 scripts/assemble-s4.py --wav <private original WAV> && python3 scripts/s4-contact.py && python3 scripts/s4-audio-check.py --wav <private original WAV> && node scripts/s4-video-qc.js"
+    ],
+    "exitCode": 0,
+    "wallSeconds": 77.45153761199617,
+    "sampledTreeRssMiB": 1027.96484375,
+    "sampledTreeCpuSeconds": 35.73,
+    "processCount": 55,
+    "sampleIntervalSeconds": 0.2,
+    "method": "Linux ps summed subtree RSS (shared pages counted per process), /proc cumulative CPU samples retained by PID/start-time at 100Hz; sampled lower bounds; final pass only, not all development activity"
+  },
+  "scope": "Actual per-command wall/CPU/RSS samples, not model-token usage or total task billing. Premerge, initial probes/diagnostics, graphics-only caption refinements and final file checks unprofiled; some regression and full validation ran concurrently, so wall times must not be summed as elapsed task time. Model token/billing count unavailable."
+}
