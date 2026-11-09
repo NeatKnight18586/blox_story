@@ -1,10 +1,11 @@
 // Original block-game hairstyles; hair IDs represent silhouette, not gender.
 import * as THREE from 'three';
 import {block} from '../avatar/baseAvatar.js';
+import {makeBaconHair} from './v2-bacon-hair.js';
 import {SCULPTED_HAIR_STYLES,makeSculptedHair} from './v2-sculpted-hair.js';
 export const HAIR_STYLES=Object.freeze([
  'side_swept','spiky','messy_fringe','curtains','long_straight',
- 'ponytail','twin_buns','curly_crop','low_bun',...SCULPTED_HAIR_STYLES
+ 'ponytail','twin_buns','curly_crop','low_bun','bacon',...SCULPTED_HAIR_STYLES
 ]);
 export const HAIR_COLORS=Object.freeze({
  black:0x24252b, espresso:0x372820, brown:0x6b4932, chestnut:0x935e3b,
@@ -16,6 +17,7 @@ export function hairColor(id){
 }
 export function makeV2Hair(id){
  if(!HAIR_STYLES.includes(id))throw new Error(`Unknown hair style: ${id}`);
+ if(id==='bacon')return makeBaconHair();
  if(SCULPTED_HAIR_STYLES.includes(id))return makeSculptedHair(id);
  const g=new THREE.Group();g.name=`hair_${id}`;
  function p(name,size,at,r=.06,twist=0){
