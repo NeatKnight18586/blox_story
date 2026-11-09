@@ -1,3 +1,9 @@
+# S6 — native final candidate awaiting iPad review
+
+Native720×1280/30fps master **PASS**:1641 frames/54.700s,clean3D separate from captions/counters/narration. [Silent final candidate](evidence/names100-s6/silent-master.mp4) · [Clean master](evidence/names100-s6/clean-master.mp4) · [Native contact sheet](evidence/names100-s6/23-shot-contact.png) · [Report,tests,costs,limits](evidence/names100-s6/REPORT.md).
+
+PR19 merged after verification. Approved S4+S5 unchanged; no upscale/art changes. Checkpointed capture resumed from1155 verified frames after usage interruption; only486 remaining captured,20 protected reverse checks pass. All15 prior movies/code/tests preserved. Original narration muxed at t=0 and technically verified privately; narrated delivery PARTIAL,real iPad approval PENDING. No publishing. Model-token/total interrupted-run costs unavailable; measured scopes explicitly reported.
+
 # Current handoff — S5 restrained speaking proof
 
 PR18 verified and merged preserving commits at097c9e7. User's full narrated S4 review is positive. Branch codex/names100-s5-speech-finish implements S5_RELEASE_FINISH_BRIEF.md only. **PASS for bounded technical+visible acting; human creative/listening approval pending.**

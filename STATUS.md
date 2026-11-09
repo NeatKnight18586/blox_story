@@ -320,3 +320,12 @@ Seven true native720x1280 pairs30/780/1115/1232/1248/1392/1600; one comparison s
 Original WAV unchanged; private audio clips sample-trimmed at exact global offset,no stretch/regeneration. Both fully played unmuted;AAC/sourcePCM correlations0.999630/0.998952 at zero coarse lag. Human listening/creative approval still needed; silent preview files committed,voiced files/WAV ignored,no downloadable voiced link claimed.899 prior files/734 evidence files/13 films/private full S4 review unchanged.
 
 Measured native proof16.988s,two native motion captures+all-frame checks/encode133.366s (1652.46MiB peak sampled summed RSS),affected regression54.305s. Unprofiled diagnostics/overlaps and unavailable model-token counts explicit in report. [Evidence,previews,tests,costs,limits](evidence/names100-s5/REPORT.md). No whole episode/sound pass/final production or next stage. Stop for user review.
+
+
+# S6 — native final candidate awaiting iPad review
+
+Native720×1280/30fps master **PASS**:1641 frames/54.700s,clean3D separate from captions/counters/narration. [Silent final candidate](evidence/names100-s6/silent-master.mp4) · [Clean master](evidence/names100-s6/clean-master.mp4) · [Native contact sheet](evidence/names100-s6/23-shot-contact.png) · [Report,tests,costs,limits](evidence/names100-s6/REPORT.md).
+
+PR19 merged after verification. Approved S4+S5 unchanged; no upscale/art changes. Checkpointed capture resumed from1155 verified frames after usage interruption; only486 remaining captured,20 protected reverse checks pass. All15 prior movies/code/tests preserved. Original narration muxed at t=0 and technically verified privately; narrated delivery PARTIAL,real iPad approval PENDING. No publishing. Model-token/total interrupted-run costs unavailable; measured scopes explicitly reported.
+
+New native exporter uses g=i with1GiB cache; complete nativePTS/22cuts/decode/playback verified. Original WAV54.682993s leaves17.0068ms pad; zero coarse audio lag. All1641 overlay masks pass. Middle interrupted timing unavailable; final resume390.776s and assembly87.551s are partial scopes,not task totals. Stop for full iPad review.
