@@ -1,0 +1,196 @@
+{
+  "status": "PASS",
+  "all38CutStartsMatchExpectedBoards": true,
+  "checks": [
+    {
+      "shot": "D01",
+      "proxyFrame": 0,
+      "meanRgbError": 1.864267939814815
+    },
+    {
+      "shot": "D02",
+      "proxyFrame": 33,
+      "meanRgbError": 1.7290639467592595
+    },
+    {
+      "shot": "D03",
+      "proxyFrame": 85,
+      "meanRgbError": 1.6220095486111112
+    },
+    {
+      "shot": "D04",
+      "proxyFrame": 128,
+      "meanRgbError": 1.3956929976851853
+    },
+    {
+      "shot": "D05",
+      "proxyFrame": 169,
+      "meanRgbError": 1.8046223958333334
+    },
+    {
+      "shot": "D06",
+      "proxyFrame": 191,
+      "meanRgbError": 1.8600491898148146
+    },
+    {
+      "shot": "D07",
+      "proxyFrame": 252,
+      "meanRgbError": 1.8298394097222221
+    },
+    {
+      "shot": "D08",
+      "proxyFrame": 316,
+      "meanRgbError": 1.3017520254629629
+    },
+    {
+      "shot": "D09",
+      "proxyFrame": 347,
+      "meanRgbError": 1.3858984374999999
+    },
+    {
+      "shot": "D10",
+      "proxyFrame": 371,
+      "meanRgbError": 1.7237138310185187
+    },
+    {
+      "shot": "D11",
+      "proxyFrame": 397,
+      "meanRgbError": 1.3734013310185185
+    },
+    {
+      "shot": "D12",
+      "proxyFrame": 443,
+      "meanRgbError": 1.8584447337962962
+    },
+    {
+      "shot": "D13",
+      "proxyFrame": 495,
+      "meanRgbError": 1.324357638888889
+    },
+    {
+      "shot": "D14",
+      "proxyFrame": 550,
+      "meanRgbError": 1.6522526041666667
+    },
+    {
+      "shot": "D15",
+      "proxyFrame": 610,
+      "meanRgbError": 1.5088961226851854
+    },
+    {
+      "shot": "D16",
+      "proxyFrame": 666,
+      "meanRgbError": 1.511908275462963
+    },
+    {
+      "shot": "D17",
+      "proxyFrame": 721,
+      "meanRgbError": 1.6051171875
+    },
+    {
+      "shot": "D18",
+      "proxyFrame": 748,
+      "meanRgbError": 1.733655960648148
+    },
+    {
+      "shot": "D19",
+      "proxyFrame": 795,
+      "meanRgbError": 1.7214221643518517
+    },
+    {
+      "shot": "D20",
+      "proxyFrame": 855,
+      "meanRgbError": 1.7143373842592593
+    },
+    {
+      "shot": "D21",
+      "proxyFrame": 884,
+      "meanRgbError": 1.5974884259259259
+    },
+    {
+      "shot": "D22",
+      "proxyFrame": 953,
+      "meanRgbError": 1.7047612847222222
+    },
+    {
+      "shot": "D23",
+      "proxyFrame": 999,
+      "meanRgbError": 1.662437789351852
+    },
+    {
+      "shot": "D24",
+      "proxyFrame": 1065,
+      "meanRgbError": 1.7389973958333333
+    },
+    {
+      "shot": "D25",
+      "proxyFrame": 1112,
+      "meanRgbError": 1.3092693865740739
+    },
+    {
+      "shot": "D26",
+      "proxyFrame": 1170,
+      "meanRgbError": 1.307171585648148
+    },
+    {
+      "shot": "D27",
+      "proxyFrame": 1227,
+      "meanRgbError": 1.7022482638888887
+    },
+    {
+      "shot": "D28",
+      "proxyFrame": 1293,
+      "meanRgbError": 1.3540943287037035
+    },
+    {
+      "shot": "D29",
+      "proxyFrame": 1335,
+      "meanRgbError": 1.3476982060185183
+    },
+    {
+      "shot": "D30",
+      "proxyFrame": 1358,
+      "meanRgbError": 1.6023741319444447
+    },
+    {
+      "shot": "D31",
+      "proxyFrame": 1394,
+      "meanRgbError": 1.3770138888888888
+    },
+    {
+      "shot": "D32",
+      "proxyFrame": 1425,
+      "meanRgbError": 1.374932002314815
+    },
+    {
+      "shot": "D33",
+      "proxyFrame": 1449,
+      "meanRgbError": 1.4431351273148147
+    },
+    {
+      "shot": "D34",
+      "proxyFrame": 1493,
+      "meanRgbError": 1.461736111111111
+    },
+    {
+      "shot": "D35",
+      "proxyFrame": 1545,
+      "meanRgbError": 1.6952806712962962
+    },
+    {
+      "shot": "D36",
+      "proxyFrame": 1615,
+      "meanRgbError": 1.456215277777778
+    },
+    {
+      "shot": "D37",
+      "proxyFrame": 1672,
+      "meanRgbError": 1.7474363425925927
+    },
+    {
+      "shot": "D38",
+      "proxyFrame": 1695,
+      "meanRgbError": 1.8773770254629631
+    }
+  ]
+}

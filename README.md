@@ -232,3 +232,7 @@ See [creative draft](stories/dice-town/CREATIVE_LOCK.md), [art target](stories/d
 ## Dice Town bounded motion polish
 
 Revised staging and acting: [film and validation](evidence/dice-town-p2a-polish/REPORT.md). Reproduce with `python3 scripts/dice-town-p2a-polish-cost.py`; original PR28 evidence retained. No merge or next phase.
+
+## Dice Town full storyboard animatic
+
+[Silent117s proxy and evidence](evidence/dice-town-animatic/REPORT.md):38 shots,76 WebGL boards held at15fps,360×640. Source plans and existing renderer unchanged; placeholders and audio-review limitations documented.
