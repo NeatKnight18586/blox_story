@@ -26,7 +26,6 @@ try{
     p.avatar.pivots.head.rotation.set(0,0,0);
     cam.position.set(...pos);cam.lookAt(0,4.52,0);cam.fov=39;cam.updateProjectionMatrix();
     p.renderer.render(p.scene,cam);
-    let bounds=new (p.avatar.parts.head.geometry.boundingBox?.constructor??p.avatar.parts.head.geometry.constructor)();
     return {view,hair:p.hair,parent:p.avatar.hairLayer.parent===p.avatar.pivots.head,
       w:p.renderer.domElement.width,h:p.renderer.domElement.height,
       lost:p.renderer.getContext().isContextLost(),objects:p.avatar.hairLayer.children.length};
