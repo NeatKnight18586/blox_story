@@ -1,3 +1,6 @@
+# Studio V2 stage 4b — sequence re-rendered at native 1080×1920 with sharp characters: PASS (technical)
+Verified 2026-11-10. Close-shot depth of field had blurred Pip and softened Leo (aperture .025); now .0005 with focus between both heads. Master `evidence/studio-sequence/sequence-1080x1920.mp4`: H.264 High yuv420p, 360 decoded frames, 12.0 s, 7.0 MB, cuts exactly at 135/240, 7 re-rendered frames byte-identical, PSNR ≥ 35.5 dB. Render 755 s (2.10 s/frame wall, 3 workers) vs 1208 s at 1440p. The 1440p master with the blur defect was removed (kept in git history at b6e7edb). 1080×1920 is now the production resolution.
+
 # Studio V2 stage 4 — native 1440p sequence proof: PASS (technical) / creative review pending
 Verified 2026-11-10.
 - Look v2 (owner: lively, less bright): exposure .86, less fill/env/haze, deeper sky; town frames 0.55–0.70 luma. All studio evidence regenerated with it.
