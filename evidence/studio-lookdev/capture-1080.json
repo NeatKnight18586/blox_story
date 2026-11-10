@@ -9,11 +9,11 @@
       "variant": "legacy",
       "width": 1080,
       "height": 1920,
-      "loadMs": 2158,
+      "loadMs": 2020,
       "renderMs": [
-        1422,
-        1294,
-        1333
+        1371,
+        1196,
+        1162
       ],
       "deterministic": true,
       "sha256": "afb7ff2438ad6b739d21577cb9bcffeead41947a9bfc6ebd8a8cdc46b93f4e53",
@@ -32,11 +32,11 @@
       "variant": "legacy",
       "width": 1080,
       "height": 1920,
-      "loadMs": 2158,
+      "loadMs": 2020,
       "renderMs": [
-        1365,
-        1266,
-        1369
+        1309,
+        1302,
+        1344
       ],
       "deterministic": true,
       "sha256": "220ce9740af912324d9bc4031bafa4bfb2f7ff39e43c2beb9fa67851744f665d",
@@ -55,11 +55,11 @@
       "variant": "studio",
       "width": 1080,
       "height": 1920,
-      "loadMs": 1780,
+      "loadMs": 2086,
       "renderMs": [
-        5142,
-        2861,
-        2821
+        5068,
+        2973,
+        2929
       ],
       "deterministic": true,
       "sha256": "f3fbc6144f9e95e21ce214cf5f74f537670a9780a542d6026e62978deda77f42",
@@ -78,11 +78,11 @@
       "variant": "studio",
       "width": 1080,
       "height": 1920,
-      "loadMs": 1780,
+      "loadMs": 2086,
       "renderMs": [
-        3193,
-        3102,
-        3045
+        2994,
+        3049,
+        3006
       ],
       "deterministic": true,
       "sha256": "332e00b1a0da899e8adcc090e7283dd35cf103b247f5a8563f579e30391bcd2d",
@@ -101,14 +101,14 @@
       "variant": "studio-cast",
       "width": 1080,
       "height": 1920,
-      "loadMs": 1913,
+      "loadMs": 1746,
       "renderMs": [
-        5229,
-        2942,
-        3050
+        5816,
+        2938,
+        2968
       ],
       "deterministic": true,
-      "sha256": "5f9952cbc8ef3f59eda0bcfc8484fcd4fe0f6cc72c8691fb75d1748bc7085f07",
+      "sha256": "dd3d8872e9c94933596358f5f0ce8c07852168af593dde27227a98cf171ac588",
       "camera": {
         "position": [
           10,
@@ -124,18 +124,18 @@
       "variant": "studio-cast",
       "width": 1080,
       "height": 1920,
-      "loadMs": 1913,
+      "loadMs": 1746,
       "renderMs": [
-        3345,
-        3397,
-        3248
+        3381,
+        3388,
+        3463
       ],
       "deterministic": true,
-      "sha256": "7b58b216841f23baec1e1ebd4816df6b5c36ee2bb213ef8fe17df9e50e2b2e88",
+      "sha256": "9f9e32fba2722b9e368f930514daedeadf6a6f820079716f7695fe63509a8280",
       "camera": {
         "position": [
           5.803034659993079,
-          5.268,
+          5.21,
           13.746995509943183
         ],
         "fov": 34

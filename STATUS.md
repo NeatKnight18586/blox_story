@@ -1,3 +1,12 @@
+# Studio V2 stage 2b — classic Roblox construction: PARTIAL (awaiting owner review)
+Verified 2026-11-10. Owner feedback on 2a: "cartoony, not true Roblox-like". Rebuilt the presets the way Roblox avatars are made:
+- Six plain blocks only (classic box torso, normal head size); all clothing detail (collars, lapels, buttons, strap, stripes, shawl, belts, shorts, socks, shoes, seams, drawn shading) is painted per block face like a classic shirt/pants template (`studio/characters/clothing.js`). Removed the 3D hand/cuff/shoe/hem blocks, catchlight eyes, blush and red mouths.
+- Faces are flat ink decals wrapped on the head front (`studio/characters/faces.js`), drawn from the owner's 35-expression sheet (all 35: happy … triumph). Old names neutral/worried/surprised/determined alias to calm/nervous/shocked/serious.
+- Accessories stay meshes (hair, Mother's glasses, Leo's notebook), as in Roblox.
+- Checks: `npm run test:studio` PASS (35 cached expressions per preset, six parts/five pivots, grounded, geometry identity, deterministic poses); `npm test` PASS; 53 captures deterministic, no page errors. Face close-up ~0.3s, lineup ~1.6–4.8s, plaza 1080p ~3.4s per frame.
+- Metrics: lineup colorfulness 84.3 / luma 0.711; plaza Leo close-up 105.7 / 0.458 (brightness gate still FAILS: teal/denim outfit).
+- Evidence: `evidence/studio-characters/expressions-35.jpg`, `expressions.jpg`, `lineup-sheet.jpg`, `plaza-leo-comparison.jpg`.
+
 # Studio V2 stage 2 — character presets: PARTIAL (awaiting owner review)
 Verified 2026-11-10 on `claude/lucid-brahmagupta-jg9ad9`.
 
