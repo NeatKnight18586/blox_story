@@ -3,7 +3,7 @@
 Read **F1_SPEC.md** first: F1 v3 is the CURRENT product contract. Then read CODEX_HANDOFF.md, STATUS.md, README.md and existing code/tests. The previous Kai/Mira-first instructions are SUPERSEDED. If documents conflict, F1_SPEC.md wins; STATUS.md controls what has actually been verified.
 
 ## Current task boundary
-Dice Town P4B-2 mystery continuity only is authorized from codex/dice-town-p4b2-wobble-direction /87f0857. Follow P4B2_MYSTERY_CONTINUITY_DIRECTION.md: D11/D13/D16 and D28 correction only; one bounded reused wobble after native still inspection, integrated into unchanged3513-frame silent working timeline. Preserve earlier footage/evidence/rigs and private narration. No other shots, framework, native movie, audio or merge. Draft PR targets the wobble direction branch; stop for creative review. F1 requirements unchanged.
+Dice Town P4B-3 ending integration only is authorized from codex/dice-town-p4b3-ending-direction /97686e6. Follow P4B3_ENDING_INTEGRATION_DIRECTION.md: D33/D34/D37/D38 only, native still gate before at most84 new motion frames, integrated into the unchanged3513-frame silent timeline. Preserve D35/D36, all earlier source/evidence/rigs and private narration. No other scenes, framework, native movie, audio or merge. Draft PR targets the ending direction branch; stop for creative review. F1 requirements unchanged.
 
 ## Goal and user constraints
 One neutral classic R6-like **six-part** block avatar first, then removable appearance layers (face/colors and one optional cosmetic). Original code-rendered Three.js, not official Roblox models. User is on iPad, wants autonomous execution, no manual modeling, recording, installs or gameplay capture. Minimize explanations and usage without sacrificing accuracy.

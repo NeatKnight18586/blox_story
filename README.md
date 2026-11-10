@@ -1,3 +1,7 @@
+# Dice Town P4B-3 — ending working edit for review
+
+**Technical PASS; creative approval pending.** [117.100s silent edit](evidence/dice-town-p4b3/working-edit.mp4) · [Phone before/after](evidence/dice-town-p4b3/phone-comparison.jpg) · [Source map](evidence/dice-town-p4b3/edit-map.json) · [Report and commands](evidence/dice-town-p4b3/REPORT.md). Only D33/D34/D37/D38 changed; D35/D36 and3152 untouched frames preserved exactly.84 new motion frames; proxy40.82%. Isolated draft PR; no merge or next stage.
+
 # S6 — native final candidate awaiting iPad review
 
 Native720×1280/30fps master **PASS**:1641 frames/54.700s,clean3D separate from captions/counters/narration. [Silent final candidate](evidence/names100-s6/silent-master.mp4) · [Clean master](evidence/names100-s6/clean-master.mp4) · [Native contact sheet](evidence/names100-s6/23-shot-contact.png) · [Report,tests,costs,limits](evidence/names100-s6/REPORT.md).

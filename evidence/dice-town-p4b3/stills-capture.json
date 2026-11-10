@@ -1,0 +1,380 @@
+{
+  "status": "PASS",
+  "wallSeconds": 30.29268828,
+  "backend": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+  "uniqueForwardCaptures": 9,
+  "reverseCaptures": 9,
+  "coldCaptures": 3,
+  "errors": [],
+  "samples": [
+    {
+      "shot": "D33",
+      "frame": 0,
+      "name": "gate-closed",
+      "state": {
+        "shot": "D33",
+        "frame": 0,
+        "gate": [
+          0,
+          0
+        ],
+        "pipPosition": [
+          0,
+          0.04965344015903137,
+          0.7
+        ],
+        "pipScale": [
+          0.65,
+          0.65,
+          0.65
+        ],
+        "cover": 0,
+        "bookId": "29124398-8ea7-43bf-865c-0e443650bae0",
+        "identity": true,
+        "camera": {
+          "position": [
+            3,
+            7.5,
+            23
+          ],
+          "target": [
+            0,
+            3.2,
+            -6
+          ],
+          "fov": 52
+        },
+        "walkTime": 0
+      },
+      "hash": "963ec63064c1861b680b4d0bc25b71a34f77eff6d5744d9804cb307bf42ddfad"
+    },
+    {
+      "shot": "D33",
+      "frame": 13,
+      "name": "gate-mid",
+      "state": {
+        "shot": "D33",
+        "frame": 13,
+        "gate": [
+          0.62,
+          -0.62
+        ],
+        "pipPosition": [
+          0,
+          0.04965344015903137,
+          0.7
+        ],
+        "pipScale": [
+          0.65,
+          0.65,
+          0.65
+        ],
+        "cover": 0,
+        "bookId": "29124398-8ea7-43bf-865c-0e443650bae0",
+        "identity": true,
+        "camera": {
+          "position": [
+            3,
+            7.5,
+            23
+          ],
+          "target": [
+            0,
+            3.2,
+            -6
+          ],
+          "fov": 52
+        },
+        "walkTime": 0
+      },
+      "hash": "e98dd16e6806786c4b4a19ba4a8cc23fa74bcb7ad27182f5f8e4157ce91572fa"
+    },
+    {
+      "shot": "D33",
+      "frame": 26,
+      "name": "gate-open",
+      "state": {
+        "shot": "D33",
+        "frame": 26,
+        "gate": [
+          1.24,
+          -1.24
+        ],
+        "pipPosition": [
+          0,
+          0.04965344015903137,
+          0.7
+        ],
+        "pipScale": [
+          0.65,
+          0.65,
+          0.65
+        ],
+        "cover": 0,
+        "bookId": "29124398-8ea7-43bf-865c-0e443650bae0",
+        "identity": true,
+        "camera": {
+          "position": [
+            3,
+            7.5,
+            23
+          ],
+          "target": [
+            0,
+            3.2,
+            -6
+          ],
+          "fov": 52
+        },
+        "walkTime": 0
+      },
+      "hash": "8c24ce90555f783766f85cd7a426ed82c4ed54a94576b7e46043bbcf10540920"
+    },
+    {
+      "shot": "D34",
+      "frame": 0,
+      "name": "Pip-before",
+      "state": {
+        "shot": "D34",
+        "frame": 0,
+        "gate": [
+          1.24,
+          -1.24
+        ],
+        "pipPosition": [
+          0,
+          0.04965344015903137,
+          0.7
+        ],
+        "pipScale": [
+          0.65,
+          0.65,
+          0.65
+        ],
+        "cover": 0,
+        "bookId": "29124398-8ea7-43bf-865c-0e443650bae0",
+        "identity": true,
+        "camera": {
+          "position": [
+            3.5,
+            4.3,
+            8
+          ],
+          "target": [
+            0,
+            1.8,
+            -0.4
+          ],
+          "fov": 48
+        },
+        "walkTime": 0
+      },
+      "hash": "6469f1daf712bd8af5ec0a3070afa39264a23ef72c829836eced20fdf646a3f9"
+    },
+    {
+      "shot": "D34",
+      "frame": 29,
+      "name": "Pip-after",
+      "state": {
+        "shot": "D34",
+        "frame": 29,
+        "gate": [
+          1.24,
+          -1.24
+        ],
+        "pipPosition": [
+          1.6084773384157702e-16,
+          0.04965344015903137,
+          -0.6134214203929287
+        ],
+        "pipScale": [
+          0.65,
+          0.65,
+          0.65
+        ],
+        "cover": 0,
+        "bookId": "29124398-8ea7-43bf-865c-0e443650bae0",
+        "identity": true,
+        "camera": {
+          "position": [
+            3.5,
+            4.3,
+            8
+          ],
+          "target": [
+            0,
+            1.8,
+            -0.4
+          ],
+          "fov": 48
+        },
+        "walkTime": 3
+      },
+      "hash": "8985193eb734779da7f84b2f836bfdb8a1fc2d3b9544a60d696c69c9e5cf25d4"
+    },
+    {
+      "shot": "home",
+      "frame": 0,
+      "name": "home",
+      "state": {
+        "shot": "home",
+        "frame": 0,
+        "gate": [
+          1.24,
+          -1.24
+        ],
+        "pipPosition": [
+          1.6084773384157702e-16,
+          0.04965344015903137,
+          -0.6134214203929287
+        ],
+        "pipScale": [
+          0.65,
+          0.65,
+          0.65
+        ],
+        "cover": 0,
+        "bookId": "29124398-8ea7-43bf-865c-0e443650bae0",
+        "identity": true,
+        "camera": {
+          "position": [
+            2.2,
+            3.6,
+            -12
+          ],
+          "target": [
+            0,
+            3.2,
+            -23.5
+          ],
+          "fov": 46
+        },
+        "walkTime": 3
+      },
+      "hash": "920de95be9a6c8a201f7e5676495c4be0f939504dcfacc2fac886df93142ea12"
+    },
+    {
+      "shot": "D38",
+      "frame": 0,
+      "name": "book-open",
+      "state": {
+        "shot": "D38",
+        "frame": 0,
+        "gate": [
+          1.24,
+          -1.24
+        ],
+        "pipPosition": [
+          0,
+          0.04965344015903137,
+          0.7
+        ],
+        "pipScale": [
+          0.65,
+          0.65,
+          0.65
+        ],
+        "cover": -2,
+        "bookId": "29124398-8ea7-43bf-865c-0e443650bae0",
+        "identity": true,
+        "camera": {
+          "position": [
+            1,
+            5.7,
+            13
+          ],
+          "target": [
+            -1.2,
+            3.9,
+            5
+          ],
+          "fov": 44
+        },
+        "walkTime": 0
+      },
+      "hash": "9b5a0a38073717841b9675ea64aa3f7619f03b85bb3c68ff94e839145062def5"
+    },
+    {
+      "shot": "D38",
+      "frame": 13,
+      "name": "book-mid",
+      "state": {
+        "shot": "D38",
+        "frame": 13,
+        "gate": [
+          1.24,
+          -1.24
+        ],
+        "pipPosition": [
+          0,
+          0.04965344015903137,
+          0.7
+        ],
+        "pipScale": [
+          0.65,
+          0.65,
+          0.65
+        ],
+        "cover": -1,
+        "bookId": "29124398-8ea7-43bf-865c-0e443650bae0",
+        "identity": true,
+        "camera": {
+          "position": [
+            1,
+            5.7,
+            13
+          ],
+          "target": [
+            -1.2,
+            3.9,
+            5
+          ],
+          "fov": 44
+        },
+        "walkTime": 0
+      },
+      "hash": "e729217346c6a9a427a63c8d828aeab106fe82db848eb480dfbce29c14ea4d03"
+    },
+    {
+      "shot": "D38",
+      "frame": 26,
+      "name": "book-closed",
+      "state": {
+        "shot": "D38",
+        "frame": 26,
+        "gate": [
+          1.24,
+          -1.24
+        ],
+        "pipPosition": [
+          0,
+          0.04965344015903137,
+          0.7
+        ],
+        "pipScale": [
+          0.65,
+          0.65,
+          0.65
+        ],
+        "cover": 0,
+        "bookId": "29124398-8ea7-43bf-865c-0e443650bae0",
+        "identity": true,
+        "camera": {
+          "position": [
+            1,
+            5.7,
+            13
+          ],
+          "target": [
+            -1.2,
+            3.9,
+            5
+          ],
+          "fov": 44
+        },
+        "walkTime": 0
+      },
+      "hash": "67cb718a92916bd57d9c3160ba97848e93127703435b5c9c7e330a56ed6282cf"
+    }
+  ]
+}

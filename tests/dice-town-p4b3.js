@@ -1,0 +1,4 @@
+import assert from'node:assert/strict';import{sample,counts}from'../production/dice-town-p4b3/motion.js';
+for(const [shot,n]of Object.entries(counts))for(let f=0;f<n;f++){const s=sample(shot,f);assert.deepEqual(s,sample(shot,f));assert(s.gate>=0&&s.gate<=1.24);if(f)assert(s.gate>=sample(shot,f-1).gate);if(shot==='D38'){assert(s.cover>=-2&&s.cover<=0);if(f)assert(s.cover>=sample(shot,f-1).cover);}if(shot==='D34'){assert.equal(s.gate,1.24);assert(Math.abs(s.walkTime-3*f/29)<1e-12);}}
+assert.equal(sample('D33',0).gate,0);assert.equal(sample('D33',26).gate,1.24);assert.equal(sample('D38',0).cover,-2);assert.equal(sample('D38',26).cover,0);assert.equal(counts.D33+counts.D34+counts.D38,84);
+for(const bad of[-1,.5,NaN,27])assert.throws(()=>sample('D33',bad));assert.throws(()=>sample('D37',0));console.log('PASS84 explicit integer-frame ending states, monotonic hinges/cover, open gate throughout child walk; invalid source frames rejected');
