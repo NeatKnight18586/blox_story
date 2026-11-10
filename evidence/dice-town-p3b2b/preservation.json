@@ -1,0 +1,15 @@
+{
+  "base": "60a544a",
+  "filesComparedByteForByte": 996,
+  "preserved": [
+    "all prior tracked evidence and films",
+    "all tests",
+    "avatar and appearance source",
+    "PR35 motion function",
+    "shared hair factory"
+  ],
+  "sceneChangesOnlyBeforeDocumentation": [
+    "production/dice-town-p3b2/scene.js"
+  ],
+  "motionSha256": "707ba918a68551bca0706957a3fa4513e0840a7c2eac4dc5ab6f2fd5fa5e709a"
+}
