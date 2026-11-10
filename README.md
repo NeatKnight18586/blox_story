@@ -248,3 +248,9 @@ Revised staging and acting: [film and validation](evidence/dice-town-p2a-polish/
 ## Dice Town P3B-2 mother recognition
 
 [D35 local motion, native keyframes and D36 chair reference](evidence/dice-town-p3b2/REPORT.md). Technical PASS; creative review pending. Reproduce with `node scripts/dice-town-p3b2-proof.js --stills`, then the same script without the flag. No episode or other shots.
+
+## Dice Town P3B-2B recognition correction
+
+Local mother appearance/camera and one chair paint mark only; PR35 motion and earlier evidence preserved. [Comparison](evidence/dice-town-p3b2b/comparison.jpg), [3.5-second proof](evidence/dice-town-p3b2b/recognition.mp4), [validation and limitations](evidence/dice-town-p3b2b/REPORT.md).
+
+Reproduce: `node scripts/dice-town-p3b2b-proof.js --stills`, inspect the native frames, then `node scripts/dice-town-p3b2b-proof.js` for the single low-resolution proof. Verification: `node scripts/dice-town-p3b2b-qc.js`, `node scripts/dice-town-p3b2b-composition.js`, `node tests/dice-town-p3b2.js`, `npm test`. Boards: `python scripts/dice-town-p3b2b-comparison.py` and `python scripts/dice-town-p3b2b-sheet.py`. Raw frames remain ignored under renders/. No creative approval or other scene authorized.
