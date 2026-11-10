@@ -1,0 +1,685 @@
+{
+  "status": "PASS",
+  "wallSeconds": 38.393213826,
+  "resolution": [
+    720,
+    1280
+  ],
+  "forwardSamples": 22,
+  "forwardCapturesThisRun": 17,
+  "errors": [],
+  "samples": [
+    {
+      "shot": "D08",
+      "frame": 0,
+      "name": "D08-0",
+      "state": {
+        "shot": "D08",
+        "frame": 0,
+        "identity": true,
+        "nativeSize": [
+          720,
+          1280
+        ],
+        "line": null,
+        "cover": null,
+        "walkZ": null,
+        "cupY": 2.4,
+        "leoPosition": [
+          4.8,
+          0,
+          4
+        ]
+      },
+      "hash": "68ec96084d5afc957006cb3311f7d8032fb422b9889c8cf3482008834be65248"
+    },
+    {
+      "shot": "D08",
+      "frame": 23,
+      "name": "D08-23",
+      "state": {
+        "shot": "D08",
+        "frame": 23,
+        "identity": true,
+        "nativeSize": [
+          720,
+          1280
+        ],
+        "line": null,
+        "cover": null,
+        "walkZ": null,
+        "cupY": 3.5,
+        "leoPosition": [
+          4.8,
+          0,
+          4
+        ]
+      },
+      "hash": "fcfe22fa4511685d72c6fdb763b2202e7091a11c1ed576904e8b86d3e5db3c87"
+    },
+    {
+      "shot": "D09",
+      "frame": 0,
+      "name": "D09-0",
+      "state": {
+        "shot": "D09",
+        "frame": 0,
+        "identity": true,
+        "nativeSize": [
+          720,
+          1280
+        ],
+        "line": null,
+        "cover": null,
+        "walkZ": 0,
+        "cupY": null,
+        "leoPosition": [
+          4.8,
+          0,
+          4
+        ]
+      },
+      "hash": "40750c80463c62fc2949705b8d796971619fb607ec3e7877e854d864f73f0fee"
+    },
+    {
+      "shot": "D09",
+      "frame": 18,
+      "name": "D09-18",
+      "state": {
+        "shot": "D09",
+        "frame": 18,
+        "identity": true,
+        "nativeSize": [
+          720,
+          1280
+        ],
+        "line": null,
+        "cover": null,
+        "walkZ": -0.3758405910662842,
+        "cupY": null,
+        "leoPosition": [
+          4.8,
+          0,
+          4
+        ]
+      },
+      "hash": "9fd80023243123dbdd82f1b442212f0cb58373c8c1d5eeaef8528246a2503c0d"
+    },
+    {
+      "shot": "D09",
+      "frame": 35,
+      "name": "D09-35",
+      "state": {
+        "shot": "D09",
+        "frame": 35,
+        "identity": true,
+        "nativeSize": [
+          720,
+          1280
+        ],
+        "line": null,
+        "cover": null,
+        "walkZ": -0.7451831490056506,
+        "cupY": null,
+        "leoPosition": [
+          4.8,
+          0,
+          4
+        ]
+      },
+      "hash": "6ea634d7e2fe02b5d433bae9120ae7685c200f53e706f3f8d4fd188ef822439e"
+    },
+    {
+      "shot": "D02",
+      "frame": 0,
+      "name": "D02-0",
+      "state": {
+        "shot": "D02",
+        "frame": 0,
+        "identity": true,
+        "nativeSize": [
+          720,
+          1280
+        ],
+        "line": null,
+        "cover": null,
+        "walkZ": null,
+        "cupY": null,
+        "leoPosition": [
+          4.8,
+          0,
+          4
+        ]
+      },
+      "hash": "25323d484bc4234095d1982e97463df6f71f69fe069b96497abcef09ac617aa1"
+    },
+    {
+      "shot": "D02",
+      "frame": 20,
+      "name": "D02-20",
+      "state": {
+        "shot": "D02",
+        "frame": 20,
+        "identity": true,
+        "nativeSize": [
+          720,
+          1280
+        ],
+        "line": null,
+        "cover": null,
+        "walkZ": null,
+        "cupY": null,
+        "leoPosition": [
+          4.8,
+          0,
+          4
+        ]
+      },
+      "hash": "589b08eaaade2a70d61bdde7614dc093eb8de5c11b00e75d60faa2578572870e"
+    },
+    {
+      "shot": "D02",
+      "frame": 41,
+      "name": "D02-41",
+      "state": {
+        "shot": "D02",
+        "frame": 41,
+        "identity": true,
+        "nativeSize": [
+          720,
+          1280
+        ],
+        "line": null,
+        "cover": null,
+        "walkZ": null,
+        "cupY": null,
+        "leoPosition": [
+          4.8,
+          0,
+          4
+        ]
+      },
+      "hash": "05e8498319339807c0bb028eb2e8975e815a5057e1a84162618f2c30f9f296df"
+    },
+    {
+      "shot": "D05",
+      "frame": 0,
+      "name": "D05-0",
+      "state": {
+        "shot": "D05",
+        "frame": 0,
+        "identity": true,
+        "nativeSize": [
+          720,
+          1280
+        ],
+        "line": {
+          "body": [
+            -7.550512111235346,
+            2.72,
+            -3.7614005492542004
+          ],
+          "clip": [
+            -9.7,
+            1.15,
+            -8.49
+          ],
+          "length": 5.426310989018175
+        },
+        "cover": null,
+        "walkZ": null,
+        "cupY": null,
+        "leoPosition": [
+          -6.7,
+          0,
+          -4.499999999999999
+        ]
+      },
+      "hash": "adbc56d0969e927b086552b1a09d84d82f255da61a7448131a91d449c9a5ae96"
+    },
+    {
+      "shot": "D05",
+      "frame": 14,
+      "name": "D05-14",
+      "state": {
+        "shot": "D05",
+        "frame": 14,
+        "identity": true,
+        "nativeSize": [
+          720,
+          1280
+        ],
+        "line": {
+          "body": [
+            -7.550512111235346,
+            2.8400000000000003,
+            -3.8029483931160444
+          ],
+          "clip": [
+            -9.7,
+            1.15,
+            -8.49
+          ],
+          "length": 5.426310989018175
+        },
+        "cover": null,
+        "walkZ": null,
+        "cupY": null,
+        "leoPosition": [
+          -6.7,
+          0.12,
+          -4.541547843861843
+        ]
+      },
+      "hash": "cc9bdca0408d9107c0017c1413aadf9189659f24325ee76441d614b065aba31d"
+    },
+    {
+      "shot": "D06",
+      "frame": 0,
+      "name": "D06-0",
+      "state": {
+        "shot": "D06",
+        "frame": 0,
+        "identity": true,
+        "nativeSize": [
+          720,
+          1280
+        ],
+        "line": {
+          "body": [
+            -7.550512111235346,
+            2.8400000000000003,
+            -3.8029483931160444
+          ],
+          "clip": [
+            -9.7,
+            1.15,
+            -8.49
+          ],
+          "length": 5.426310989018175
+        },
+        "cover": null,
+        "walkZ": null,
+        "cupY": null,
+        "leoPosition": [
+          -6.7,
+          0.12,
+          -4.541547843861843
+        ]
+      },
+      "hash": "c075d887d8dba8cbc96257ee4c0415e0aa6561f58781ee20a656067dba259015"
+    },
+    {
+      "shot": "D06",
+      "frame": 11,
+      "name": "D06-11",
+      "state": {
+        "shot": "D06",
+        "frame": 11,
+        "identity": true,
+        "nativeSize": [
+          720,
+          1280
+        ],
+        "line": {
+          "body": [
+            -7.550512111235346,
+            2.8200000000000003,
+            -3.795785181141209
+          ],
+          "clip": [
+            -9.7,
+            1.15,
+            -8.49
+          ],
+          "length": 5.426310989018175
+        },
+        "cover": null,
+        "walkZ": null,
+        "cupY": null,
+        "leoPosition": [
+          -6.7,
+          0.09999999999999999,
+          -4.534384631887008
+        ]
+      },
+      "hash": "24ae412ff5aa12b09e888a565e7665c4c85b9450249ec7c69e4dba4089afb174"
+    },
+    {
+      "shot": "D07",
+      "frame": 0,
+      "name": "D07-0",
+      "state": {
+        "shot": "D07",
+        "frame": 0,
+        "identity": true,
+        "nativeSize": [
+          720,
+          1280
+        ],
+        "line": {
+          "body": [
+            -7.550512111235346,
+            2.8200000000000003,
+            -3.795785181141209
+          ],
+          "clip": [
+            -9.7,
+            1.15,
+            -8.49
+          ],
+          "length": 5.426310989018175
+        },
+        "cover": -2,
+        "walkZ": null,
+        "cupY": null,
+        "leoPosition": [
+          -6.7,
+          0.1,
+          -4.534384631887008
+        ]
+      },
+      "hash": "4803006a426c591761e729e957ed912a60111a13b90a6ca91b829a78ef2ff291"
+    },
+    {
+      "shot": "D07",
+      "frame": 11,
+      "name": "D07-11",
+      "state": {
+        "shot": "D07",
+        "frame": 11,
+        "identity": true,
+        "nativeSize": [
+          720,
+          1280
+        ],
+        "line": {
+          "body": [
+            -7.550512111235346,
+            2.8200000000000003,
+            -3.795785181141209
+          ],
+          "clip": [
+            -9.7,
+            1.15,
+            -8.49
+          ],
+          "length": 5.426310989018175
+        },
+        "cover": -2,
+        "walkZ": null,
+        "cupY": null,
+        "leoPosition": [
+          -6.7,
+          0.1,
+          -4.534384631887008
+        ]
+      },
+      "hash": "e3c3b47013d87e977cfdddde3c3740ef7e7b4efb5ca8c887446169a67e63cb4d"
+    },
+    {
+      "shot": "D12",
+      "frame": 0,
+      "name": "D12-0",
+      "state": {
+        "shot": "D12",
+        "frame": 0,
+        "identity": true,
+        "nativeSize": [
+          720,
+          1280
+        ],
+        "line": {
+          "body": [
+            -7.550512111235346,
+            2.8200000000000003,
+            -3.795785181141209
+          ],
+          "clip": [
+            -9.7,
+            1.15,
+            -8.49
+          ],
+          "length": 5.426310989018175
+        },
+        "cover": -2,
+        "walkZ": null,
+        "cupY": null,
+        "leoPosition": [
+          -6.7,
+          0.1,
+          -4.534384631887008
+        ]
+      },
+      "hash": "0cabb0416e8cd7e97093b78ab9aebe0d1726d6b874e4a51500ac0bbca3e59da8"
+    },
+    {
+      "shot": "D12",
+      "frame": 11,
+      "name": "D12-11",
+      "state": {
+        "shot": "D12",
+        "frame": 11,
+        "identity": true,
+        "nativeSize": [
+          720,
+          1280
+        ],
+        "line": {
+          "body": [
+            -7.550512111235346,
+            2.8200000000000003,
+            -3.795785181141209
+          ],
+          "clip": [
+            -9.7,
+            1.15,
+            -8.49
+          ],
+          "length": 5.426310989018175
+        },
+        "cover": -2,
+        "walkZ": null,
+        "cupY": null,
+        "leoPosition": [
+          -6.7,
+          0.1,
+          -4.534384631887008
+        ]
+      },
+      "hash": "14248d18d3043f4dbdce564e32977c9e800d4f605175dabed613599153f08a41"
+    },
+    {
+      "shot": "D14",
+      "frame": 0,
+      "name": "D14-0",
+      "state": {
+        "shot": "D14",
+        "frame": 0,
+        "identity": true,
+        "nativeSize": [
+          720,
+          1280
+        ],
+        "line": {
+          "body": [
+            4.72,
+            2.72,
+            7.75
+          ],
+          "clip": [
+            5.676544915316888,
+            3.0391037345452885,
+            6.852689772864026
+          ],
+          "length": 1.349804064352362
+        },
+        "cover": null,
+        "walkZ": null,
+        "cupY": null,
+        "leoPosition": [
+          3.8,
+          0,
+          8.4
+        ]
+      },
+      "hash": "ee24b2fcef844fce879a0baa2d86b104c1d923d0d84ace433dbb075d34463c4c"
+    },
+    {
+      "shot": "D14",
+      "frame": 17,
+      "name": "D14-17",
+      "state": {
+        "shot": "D14",
+        "frame": 17,
+        "identity": true,
+        "nativeSize": [
+          720,
+          1280
+        ],
+        "line": {
+          "body": [
+            4.72,
+            2.72,
+            7.75
+          ],
+          "clip": [
+            5.499699164640873,
+            2.6402815994275897,
+            7.180466721255677
+          ],
+          "length": 0.9688415589397253
+        },
+        "cover": null,
+        "walkZ": null,
+        "cupY": null,
+        "leoPosition": [
+          3.8,
+          0,
+          8.4
+        ]
+      },
+      "hash": "6d757cf321f1c4e0bcd1e2b4714b008cd4bd635a91f34a811a20e31c07d2fc3d"
+    },
+    {
+      "shot": "D14",
+      "frame": 18,
+      "name": "D14-18",
+      "state": {
+        "shot": "D14",
+        "frame": 18,
+        "identity": true,
+        "nativeSize": [
+          720,
+          1280
+        ],
+        "line": {
+          "body": [
+            4.12,
+            2.64,
+            6.050000000000001
+          ],
+          "clip": [
+            5.499699164640873,
+            2.6402815994275897,
+            7.1804667212556765
+          ],
+          "length": 1.7836829516692472
+        },
+        "cover": null,
+        "walkZ": null,
+        "cupY": null,
+        "leoPosition": [
+          3.2,
+          -0.08,
+          6.7
+        ]
+      },
+      "hash": "beee6e4ea5efc96fdf22e25ba6bd2868f05bf40f43f4166f81505c668a7405f0"
+    },
+    {
+      "shot": "D14",
+      "frame": 41,
+      "name": "D14-41",
+      "state": {
+        "shot": "D14",
+        "frame": 41,
+        "identity": true,
+        "nativeSize": [
+          720,
+          1280
+        ],
+        "line": {
+          "body": [
+            4.12,
+            0.9200000000000002,
+            6.050000000000001
+          ],
+          "clip": [
+            5.499699164640873,
+            2.6402815994275897,
+            7.1804667212556765
+          ],
+          "length": 2.478082640693491
+        },
+        "cover": null,
+        "walkZ": null,
+        "cupY": null,
+        "leoPosition": [
+          3.2,
+          -1.8,
+          6.7
+        ]
+      },
+      "hash": "a6f0b1f66cb9ea15501d6d7b70041a0d3ba014cbac9e22f44419c5362e6c85bd"
+    },
+    {
+      "shot": "one",
+      "frame": 0,
+      "name": "one-0",
+      "state": {
+        "shot": "one",
+        "frame": 0,
+        "identity": true,
+        "nativeSize": [
+          720,
+          1280
+        ],
+        "line": null,
+        "cover": null,
+        "walkZ": null,
+        "cupY": null,
+        "leoPosition": [
+          4.8,
+          0,
+          4
+        ]
+      },
+      "hash": "256ef4c77ada722a65d093cc84744cd0cd59d1b942001cb5543be0a3bf6bee12"
+    },
+    {
+      "shot": "two",
+      "frame": 0,
+      "name": "two-0",
+      "state": {
+        "shot": "two",
+        "frame": 0,
+        "identity": true,
+        "nativeSize": [
+          720,
+          1280
+        ],
+        "line": null,
+        "cover": null,
+        "walkZ": null,
+        "cupY": null,
+        "leoPosition": [
+          4.8,
+          0,
+          4
+        ]
+      },
+      "hash": "655dedef41237ef7a25fa7914e95e645fc9bad521e7705ae72ecb3ef9b40306b"
+    }
+  ]
+}

@@ -1,0 +1,115 @@
+{
+  "status": "PASS",
+  "nativeArchiveCodec": "FFV1/BGR0 lossless",
+  "size": [
+    720,
+    1280
+  ],
+  "frames": 195,
+  "keyframeChecks": [
+    {
+      "still": "D08-0",
+      "archiveFrame": 81,
+      "exactRgb": true
+    },
+    {
+      "still": "D08-23",
+      "archiveFrame": 104,
+      "exactRgb": true
+    },
+    {
+      "still": "D02-0",
+      "archiveFrame": 0,
+      "exactRgb": true
+    },
+    {
+      "still": "D02-20",
+      "archiveFrame": 20,
+      "exactRgb": true
+    },
+    {
+      "still": "D02-41",
+      "archiveFrame": 41,
+      "exactRgb": true
+    },
+    {
+      "still": "D05-0",
+      "archiveFrame": 42,
+      "exactRgb": true
+    },
+    {
+      "still": "D05-14",
+      "archiveFrame": 56,
+      "exactRgb": true
+    },
+    {
+      "still": "D06-0",
+      "archiveFrame": 57,
+      "exactRgb": true
+    },
+    {
+      "still": "D06-11",
+      "archiveFrame": 68,
+      "exactRgb": true
+    },
+    {
+      "still": "D07-0",
+      "archiveFrame": 69,
+      "exactRgb": true
+    },
+    {
+      "still": "D07-11",
+      "archiveFrame": 80,
+      "exactRgb": true
+    },
+    {
+      "still": "D12-0",
+      "archiveFrame": 141,
+      "exactRgb": true
+    },
+    {
+      "still": "D12-11",
+      "archiveFrame": 152,
+      "exactRgb": true
+    },
+    {
+      "still": "D14-0",
+      "archiveFrame": 153,
+      "exactRgb": true
+    },
+    {
+      "still": "D14-17",
+      "archiveFrame": 170,
+      "exactRgb": true
+    },
+    {
+      "still": "D14-18",
+      "archiveFrame": 171,
+      "exactRgb": true
+    },
+    {
+      "still": "D14-41",
+      "archiveFrame": 194,
+      "exactRgb": true
+    },
+    {
+      "still": "D09-0",
+      "archiveFrame": 105,
+      "exactRgb": true
+    },
+    {
+      "still": "D09-18",
+      "archiveFrame": 123,
+      "exactRgb": true
+    },
+    {
+      "still": "D09-35",
+      "archiveFrame": 140,
+      "exactRgb": true
+    }
+  ],
+  "capturedRawFramesAlsoChecked": 195,
+  "exactRgb": true,
+  "noStoryboardsUsedAsNativeSource": true,
+  "note": "Every retained source-native key pose is pixel-identical to its decoded lossless frame. Raw PNG checks are additional when capture scratch exists; normal reproduction needs only committed files."
+}

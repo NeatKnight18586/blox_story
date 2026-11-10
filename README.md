@@ -1,3 +1,7 @@
+# Dice Town P4B-5 — zero-proxy working edit for review
+
+**Technical PASS; creative PARTIAL/pending review.** [117.100s silent edit](evidence/dice-town-p4b5/working-edit.mp4) · [Phone story board](evidence/dice-town-p4b5/phone-storyboard.jpg) · [Source map](evidence/dice-town-p4b5/edit-map.json) · [Native images/lossless source, tests, costs and limits](evidence/dice-town-p4b5/REPORT.md). Nine actual scene repairs;195 retained native720 samples;231 forward captures including one documented D09 camera repair. D10 reuses D02. All2729 untouched frames preserved. Proxy0; still-source/holds71.307%. The360px film is a review copy; futureHD must use native renders/source recipes. No merge or next phase.
+
 # Dice Town P4B-4 — native backstory repair for review
 
 **Technical PASS; creative PARTIAL/pending review.** [117.100s silent edit](evidence/dice-town-p4b4/working-edit.mp4) · [390px narrative continuity](evidence/dice-town-p4b4/phone-continuity.jpg) · [Native before/after and limitations](evidence/dice-town-p4b4/REPORT.md) · [38-shot map](evidence/dice-town-p4b4/edit-map.json). Only D17–D22/D24 repaired with native scene-specific sources;90 new motion frames. D23 and all other shots preserved exactly; proxy22.317%. No merge or next phase.
