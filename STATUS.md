@@ -1,3 +1,12 @@
+# Studio V2 stage 3 — hair refinement + town kit v1: PARTIAL (awaiting owner review)
+Verified 2026-11-10.
+- Hair: rebuilt from broad, flat, layered clumps with baked vertex AO (darker roots/under-layers) and a painted strand texture with a highlight band. Masculine cuts (spiky, messy, swept) compact with tight tapered sides; feminine cuts (long ×2, ponytail, buns) with crown volume and face-framing locks in front of the shoulders. Still one watertight mesh per hair, 1.5k–2.5k triangles; GLBs re-exported to `studio/assets/hair/`.
+- Town kit (`studio/town/`): painted surface materials (brick, siding, stone, plaster, planks, paving, asphalt, grass, roof, glass) and 14 modules (shopFront, house, clockTower, street, plaza, grassField, tree, bush, lampPost, bench, hydrant, marketStall, fountain, skylineBlock). Seeded crowd extras (`createExtra`) with tee/hoodie/stripe tops and the hair options. Notes: `studio/town/TOWN_NOTES.md`.
+- Sets (`production/studio-town/`): street with seven facades, props, skyline and 12 extras; Dice Town plaza with the existing die (result 3), shops ring, stalls, crowd. ~488k scene triangles.
+- Captures (`node scripts/studio-town-capture.js`): 4 native 1080×1920 frames, deterministic, no page errors, ~2.3–2.8s/frame after a ~9.5s first frame.
+- Metrics (gate colorfulness ≥80, luma ≥0.60): street medium and plaza low PASS both; street wide and plaza wide ~70 colorfulness (FAIL), luma PASS. Plaza wide colorfulness 37 (old) → 64 (look) → ~69 (kit).
+- Tests: `node tests/studio-town.js` PASS (budgets, grounding, shallow facades, seeded crowd); `npm run test:studio` and `npm test` PASS.
+
 # Studio V2 stage 2c — eight hair options + coloured mouths: PARTIAL (awaiting owner review)
 Verified 2026-11-10.
 - Hair (`studio/characters/hair.js`): eight options matching the owner's reference archetypes (long_red, spiky_blonde, messy_brown, swept_blue, ponytail_black, long_blonde, bun_red, bun_pink; the two buns share one shape). Original geometry built with rigid-accessory practice: low-poly faceted clumps with pointed tips over a closed scalp shell, merged into ONE mesh with ONE painted strand texture (dark roots, streaks), 1,208–3,048 triangles (limit 4k), watertight (0 open edges), HairAttachment at the crown. Not 1:1 copies of the catalog meshes (copyright); same construction methods.

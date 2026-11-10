@@ -34,8 +34,9 @@
     "test:speaking": "node tests/speaking.js && node tests/speaking-browser.js",
     "proof:speaking": "node scripts/s5-keyframes.js && python3 scripts/s5-sheet.py",
     "render:speaking": "node scripts/s5-previews.js",
-    "test:studio": "node tests/studio-characters.js",
-    "proof:studio": "node scripts/studio-lookdev-capture.js --cast && node scripts/studio-characters-capture.js && python3 scripts/studio-lookdev-sheet.py && python3 scripts/studio-characters-sheet.py"
+    "test:studio": "node tests/studio-characters.js && node tests/studio-town.js",
+    "proof:studio": "node scripts/studio-lookdev-capture.js --cast && node scripts/studio-characters-capture.js && python3 scripts/studio-lookdev-sheet.py && python3 scripts/studio-characters-sheet.py",
+    "proof:town": "node scripts/studio-town-capture.js && python3 scripts/studio-town-sheet.py"
   },
   "dependencies": {
     "three": "0.187.0"

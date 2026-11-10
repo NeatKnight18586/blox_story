@@ -1,0 +1,46 @@
+{
+ "status": "PASS",
+ "renderer": "Chromium SwiftShader (CPU WebGL)",
+ "errors": [],
+ "results": [
+  {
+   "shot": "street_wide",
+   "renderMs": [
+    9545,
+    2556
+   ],
+   "deterministic": true,
+   "sceneTriangles": 483996
+  },
+  {
+   "shot": "street_mid",
+   "renderMs": [
+    2470,
+    2513
+   ],
+   "deterministic": true,
+   "sceneTriangles": 483996
+  },
+  {
+   "shot": "plaza_wide",
+   "renderMs": [
+    3195,
+    2161
+   ],
+   "deterministic": true,
+   "sceneTriangles": 483996
+  },
+  {
+   "shot": "plaza_low",
+   "renderMs": [
+    2279,
+    2186
+   ],
+   "deterministic": true,
+   "sceneTriangles": 483996
+  },
+  {
+   "loadMs": 2122
+  }
+ ]
+}

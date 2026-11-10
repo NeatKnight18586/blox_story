@@ -78,6 +78,32 @@ export function legs({cloth, skin, shoe, legLength = 1, belt = null, sock = null
 }
 
 export const TORSOS = {
+  // Generic crowd tops: plain tee with a chest graphic, hoodie, striped shirt.
+  tee({top, accent = '#ffffff'}) {
+    return (k, side) => {
+      k.fill(top); if (side === 'top' || side === 'bottom') return;
+      if (side === 'front') { k.poly([[.36, 0], [.5, .1], [.64, 0]], darken(top, .75)); k.dot(.5, .45, .16, accent); k.dot(.5, .45, .09, top); }
+    };
+  },
+  hoodie({top, accent = '#ffffff'}) {
+    return (k, side) => {
+      k.fill(top); if (side === 'top' || side === 'bottom') return;
+      if (side === 'front') {
+        k.poly([[.28, 0], [.5, .22], [.72, 0]], darken(top, .72));
+        k.line(.43, .12, .41, .42, accent, .014); k.line(.57, .12, .59, .42, accent, .014);
+        k.poly([[.22, .6], [.78, .6], [.86, .9], [.14, .9]], darken(top, .88)); k.line(.5, .6, .5, .9, darken(top, .7), .01);
+      }
+      if (side === 'back') k.poly([[.2, 0], [.8, 0], [.7, .3], [.3, .3]], darken(top, .85));
+      k.rect(0, .9, 1, .1, darken(top, .8));
+    };
+  },
+  stripe({top, accent = '#ffffff'}) {
+    return (k, side) => {
+      k.fill(top); if (side === 'top' || side === 'bottom') return;
+      for (const y of [.2, .44, .68]) k.rect(0, y, 1, .1, accent);
+      if (side === 'front') k.poly([[.36, 0], [.5, .1], [.64, 0]], darken(top, .75));
+    };
+  },
   leo({top}) {
     return (k, side) => {
       k.fill(top);
