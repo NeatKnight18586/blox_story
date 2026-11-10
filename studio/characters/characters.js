@@ -54,6 +54,24 @@ const PROPS = {
 
 export function createCharacter(presetName, {expression = 'calm'} = {}) {
   const p = PRESETS[presetName]; if (!p) throw new Error('Unknown character preset: ' + presetName);
+  return buildCharacter(presetName, p, expression);
+}
+
+// Crowd extras: deterministic random outfits on the same rig (seeded, so a shot re-renders identically).
+const SKINS = ['#eab892', '#cc8e69', '#f2d0b0', '#a0694a', '#e0a882', '#7c4a32'];
+const TOPS = ['#e2483d', '#2f80d1', '#f2b632', '#46a85a', '#9b59b6', '#ff7aa8', '#1fb5a8', '#f0f0f0', '#35393f'];
+const LEGS = [{cloth: '#2f5a92', shoe: '#2b2b2b'}, {cloth: '#3b3f45', shoe: '#f2f2f2'}, {cloth: '#c9a46a', shoe: '#5a3b2c'}, {cloth: '#2f5a92', shoe: '#e2483d', legLength: .52, sock: '#ffffff'}, {cloth: '#7a4fa0', shoe: '#2b2b2b'}];
+const HAIR_PICKS = [['messy_brown'], ['spiky_blonde'], ['swept_blue', '#2a2a30'], ['ponytail_black'], ['long_blonde'], ['bun_pink'], ['long_red', '#5a3420'], ['messy_brown', '#2a2a30'], ['bun_red', '#3a2418'], ['spiky_blonde', '#c96b2c']];
+export function createExtra(seed, {expression} = {}) {
+  let s = seed * 9301 + 49297; const r = () => ((s = (s * 9301 + 49297) % 233280) / 233280);
+  const pick = arr => arr[Math.floor(r() * arr.length)];
+  const top = pick(TOPS), hair = pick(HAIR_PICKS);
+  const p = {scale: r() < .2 ? .7 : 1, skin: pick(SKINS), top, accent: pick(['#ffffff', '#ffd23f', '#35393f']), torso: pick(['tee', 'hoodie', 'stripe']),
+    sleeves: r() < .5 ? 'short' : 'long', legs: pick(LEGS), hair: {option: hair[0], color: hair[1]}, props: []};
+  return buildCharacter('extra_' + seed, p, expression ?? pick(['happy', 'calm', 'pleased', 'confident', 'curious', 'excited']));
+}
+
+function buildCharacter(presetName, p, expression) {
   const a = createBaseAvatar({torsoVariant: 'classic'});
   a.root.name = presetName; a.preset = presetName;
   a.parts.head.material.color.set(p.skin); a.parts.head.material.roughness = .5; a.parts.head.material.userData.authored = true;

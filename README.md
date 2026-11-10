@@ -1,3 +1,7 @@
+# Studio V2 stage 3 — town kit v1 (awaiting review)
+
+Modular Roblox-style town (`studio/town/`) + refined hair. Review: [town shots](evidence/studio-town/town-sheet.jpg), [plaza old → look → kit](evidence/studio-town/plaza-comparison.jpg), [hair options](evidence/studio-characters/hair-options.jpg), [what matters](studio/town/TOWN_NOTES.md). Rebuild: `npm run proof:studio && node scripts/studio-town-capture.js && python3 scripts/studio-town-sheet.py`.
+
 # Studio V2 stage 2c — hair options (awaiting review)
 
 Eight hair accessories built like rigid hair accessories (one mesh, < 4k triangles, painted strand texture, GLB exports in `studio/assets/hair/`). Review: [hair options](evidence/studio-characters/hair-options.jpg), [35 expressions with coloured mouths](evidence/studio-characters/expressions-35.jpg), [lineup](evidence/studio-characters/lineup-sheet.jpg).

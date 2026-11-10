@@ -1,0 +1,30 @@
+{
+ "street_wide": {
+  "saturation": 0.291,
+  "colorfulness": 71.3,
+  "luma": 0.629,
+  "contrast_p95_p5": 0.58
+ },
+ "street_mid": {
+  "saturation": 0.5,
+  "colorfulness": 106.3,
+  "luma": 0.634,
+  "contrast_p95_p5": 0.632
+ },
+ "plaza_wide": {
+  "saturation": 0.292,
+  "colorfulness": 69.2,
+  "luma": 0.809,
+  "contrast_p95_p5": 0.486
+ },
+ "plaza_low": {
+  "saturation": 0.495,
+  "colorfulness": 100.6,
+  "luma": 0.647,
+  "contrast_p95_p5": 0.561
+ },
+ "gate": {
+  "colorfulness_min": 80,
+  "luma_min": 0.6
+ }
+}

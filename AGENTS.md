@@ -7,7 +7,7 @@ Read in order: `docs/CLAUDE_START_HERE.md` (handoff branch), `studio/STYLE_BIBLE
 A durable, original, Roblox-inspired 3D Shorts studio: one modular master character (Leo, Pip, Mother presets), a small modular town kit, reusable actions/camera presets, and native 1080×1920/30fps rendering, all reproducible from a clean checkout with no paid service. Story in production: Dice Town / The Sixth Roll (38 shots, 117.100s locked narration timing).
 
 ## Current stage
-Studio V2 stage 1 (look) and stage 2 (character presets, `studio/characters/`) are done and awaiting the owner's visual review. Do not start the next stage (town kit, then the 8–15s native sequence) until the owner approves. Stop after each stage for review.
+Studio V2 stages 1 (look), 2 (classic Roblox-style cast, hair options) and 3 (town kit v1, `studio/town/`) are done and awaiting the owner's visual review. Next stage after approval: the 8–15s native 1080p animated sequence. Stop after each stage for review.
 
 ## Hard rules
 - Opt-in only: new looks/assets layer over existing scenes; legacy renders must stay pixel-identical with them off. Never rewrite the engine or merge the stacked PR branches blindly.
@@ -25,4 +25,4 @@ Studio V2 stage 1 (look) and stage 2 (character presets, `studio/characters/`) a
 
 ## Tooling notes
 - Browser: repo pins Playwright 1.56.1; studio scripts use `/opt/pw-browsers/chromium` when present (override with `PW_CHROMIUM`).
-- Rebuild all studio evidence: `npm run proof:studio`; API test: `npm run test:studio`.
+- Rebuild all studio evidence: `npm run proof:studio && npm run proof:town`; tests: `npm run test:studio`.
