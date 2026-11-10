@@ -1,0 +1,351 @@
+{
+  "status": "PASS",
+  "method": "All1757 decoded proxy frames classified by26\u00d714 Dxx header crop against38 known cut-start references; contiguous monotonic38-run check. No new images/labels created.",
+  "maxHeaderMeanRgbError": 1.48992673992674,
+  "wallSeconds": 3.718867025999998,
+  "shots": [
+    {
+      "id": "D01",
+      "declared_start": 0,
+      "declared_end": 33,
+      "decoded_start": 0,
+      "decoded_end": 32,
+      "start_difference_proxy_frames": 0,
+      "end_difference_proxy_frames": -1
+    },
+    {
+      "id": "D02",
+      "declared_start": 33,
+      "declared_end": 85,
+      "decoded_start": 32,
+      "decoded_end": 84,
+      "start_difference_proxy_frames": -1,
+      "end_difference_proxy_frames": -1
+    },
+    {
+      "id": "D03",
+      "declared_start": 85,
+      "declared_end": 128,
+      "decoded_start": 84,
+      "decoded_end": 127,
+      "start_difference_proxy_frames": -1,
+      "end_difference_proxy_frames": -1
+    },
+    {
+      "id": "D04",
+      "declared_start": 128,
+      "declared_end": 169,
+      "decoded_start": 127,
+      "decoded_end": 168,
+      "start_difference_proxy_frames": -1,
+      "end_difference_proxy_frames": -1
+    },
+    {
+      "id": "D05",
+      "declared_start": 169,
+      "declared_end": 191,
+      "decoded_start": 168,
+      "decoded_end": 190,
+      "start_difference_proxy_frames": -1,
+      "end_difference_proxy_frames": -1
+    },
+    {
+      "id": "D06",
+      "declared_start": 191,
+      "declared_end": 252,
+      "decoded_start": 190,
+      "decoded_end": 251,
+      "start_difference_proxy_frames": -1,
+      "end_difference_proxy_frames": -1
+    },
+    {
+      "id": "D07",
+      "declared_start": 252,
+      "declared_end": 316,
+      "decoded_start": 251,
+      "decoded_end": 315,
+      "start_difference_proxy_frames": -1,
+      "end_difference_proxy_frames": -1
+    },
+    {
+      "id": "D08",
+      "declared_start": 316,
+      "declared_end": 347,
+      "decoded_start": 315,
+      "decoded_end": 346,
+      "start_difference_proxy_frames": -1,
+      "end_difference_proxy_frames": -1
+    },
+    {
+      "id": "D09",
+      "declared_start": 347,
+      "declared_end": 371,
+      "decoded_start": 346,
+      "decoded_end": 370,
+      "start_difference_proxy_frames": -1,
+      "end_difference_proxy_frames": -1
+    },
+    {
+      "id": "D10",
+      "declared_start": 371,
+      "declared_end": 397,
+      "decoded_start": 370,
+      "decoded_end": 396,
+      "start_difference_proxy_frames": -1,
+      "end_difference_proxy_frames": -1
+    },
+    {
+      "id": "D11",
+      "declared_start": 397,
+      "declared_end": 443,
+      "decoded_start": 396,
+      "decoded_end": 442,
+      "start_difference_proxy_frames": -1,
+      "end_difference_proxy_frames": -1
+    },
+    {
+      "id": "D12",
+      "declared_start": 443,
+      "declared_end": 495,
+      "decoded_start": 442,
+      "decoded_end": 494,
+      "start_difference_proxy_frames": -1,
+      "end_difference_proxy_frames": -1
+    },
+    {
+      "id": "D13",
+      "declared_start": 495,
+      "declared_end": 550,
+      "decoded_start": 494,
+      "decoded_end": 549,
+      "start_difference_proxy_frames": -1,
+      "end_difference_proxy_frames": -1
+    },
+    {
+      "id": "D14",
+      "declared_start": 550,
+      "declared_end": 610,
+      "decoded_start": 549,
+      "decoded_end": 609,
+      "start_difference_proxy_frames": -1,
+      "end_difference_proxy_frames": -1
+    },
+    {
+      "id": "D15",
+      "declared_start": 610,
+      "declared_end": 666,
+      "decoded_start": 609,
+      "decoded_end": 665,
+      "start_difference_proxy_frames": -1,
+      "end_difference_proxy_frames": -1
+    },
+    {
+      "id": "D16",
+      "declared_start": 666,
+      "declared_end": 721,
+      "decoded_start": 665,
+      "decoded_end": 720,
+      "start_difference_proxy_frames": -1,
+      "end_difference_proxy_frames": -1
+    },
+    {
+      "id": "D17",
+      "declared_start": 721,
+      "declared_end": 748,
+      "decoded_start": 720,
+      "decoded_end": 747,
+      "start_difference_proxy_frames": -1,
+      "end_difference_proxy_frames": -1
+    },
+    {
+      "id": "D18",
+      "declared_start": 748,
+      "declared_end": 795,
+      "decoded_start": 747,
+      "decoded_end": 794,
+      "start_difference_proxy_frames": -1,
+      "end_difference_proxy_frames": -1
+    },
+    {
+      "id": "D19",
+      "declared_start": 795,
+      "declared_end": 855,
+      "decoded_start": 794,
+      "decoded_end": 854,
+      "start_difference_proxy_frames": -1,
+      "end_difference_proxy_frames": -1
+    },
+    {
+      "id": "D20",
+      "declared_start": 855,
+      "declared_end": 884,
+      "decoded_start": 854,
+      "decoded_end": 883,
+      "start_difference_proxy_frames": -1,
+      "end_difference_proxy_frames": -1
+    },
+    {
+      "id": "D21",
+      "declared_start": 884,
+      "declared_end": 953,
+      "decoded_start": 883,
+      "decoded_end": 952,
+      "start_difference_proxy_frames": -1,
+      "end_difference_proxy_frames": -1
+    },
+    {
+      "id": "D22",
+      "declared_start": 953,
+      "declared_end": 999,
+      "decoded_start": 952,
+      "decoded_end": 998,
+      "start_difference_proxy_frames": -1,
+      "end_difference_proxy_frames": -1
+    },
+    {
+      "id": "D23",
+      "declared_start": 999,
+      "declared_end": 1065,
+      "decoded_start": 998,
+      "decoded_end": 1064,
+      "start_difference_proxy_frames": -1,
+      "end_difference_proxy_frames": -1
+    },
+    {
+      "id": "D24",
+      "declared_start": 1065,
+      "declared_end": 1112,
+      "decoded_start": 1064,
+      "decoded_end": 1111,
+      "start_difference_proxy_frames": -1,
+      "end_difference_proxy_frames": -1
+    },
+    {
+      "id": "D25",
+      "declared_start": 1112,
+      "declared_end": 1170,
+      "decoded_start": 1111,
+      "decoded_end": 1169,
+      "start_difference_proxy_frames": -1,
+      "end_difference_proxy_frames": -1
+    },
+    {
+      "id": "D26",
+      "declared_start": 1170,
+      "declared_end": 1227,
+      "decoded_start": 1169,
+      "decoded_end": 1226,
+      "start_difference_proxy_frames": -1,
+      "end_difference_proxy_frames": -1
+    },
+    {
+      "id": "D27",
+      "declared_start": 1227,
+      "declared_end": 1293,
+      "decoded_start": 1226,
+      "decoded_end": 1292,
+      "start_difference_proxy_frames": -1,
+      "end_difference_proxy_frames": -1
+    },
+    {
+      "id": "D28",
+      "declared_start": 1293,
+      "declared_end": 1335,
+      "decoded_start": 1292,
+      "decoded_end": 1334,
+      "start_difference_proxy_frames": -1,
+      "end_difference_proxy_frames": -1
+    },
+    {
+      "id": "D29",
+      "declared_start": 1335,
+      "declared_end": 1358,
+      "decoded_start": 1334,
+      "decoded_end": 1357,
+      "start_difference_proxy_frames": -1,
+      "end_difference_proxy_frames": -1
+    },
+    {
+      "id": "D30",
+      "declared_start": 1358,
+      "declared_end": 1394,
+      "decoded_start": 1357,
+      "decoded_end": 1393,
+      "start_difference_proxy_frames": -1,
+      "end_difference_proxy_frames": -1
+    },
+    {
+      "id": "D31",
+      "declared_start": 1394,
+      "declared_end": 1425,
+      "decoded_start": 1393,
+      "decoded_end": 1424,
+      "start_difference_proxy_frames": -1,
+      "end_difference_proxy_frames": -1
+    },
+    {
+      "id": "D32",
+      "declared_start": 1425,
+      "declared_end": 1449,
+      "decoded_start": 1424,
+      "decoded_end": 1448,
+      "start_difference_proxy_frames": -1,
+      "end_difference_proxy_frames": -1
+    },
+    {
+      "id": "D33",
+      "declared_start": 1449,
+      "declared_end": 1493,
+      "decoded_start": 1448,
+      "decoded_end": 1492,
+      "start_difference_proxy_frames": -1,
+      "end_difference_proxy_frames": -1
+    },
+    {
+      "id": "D34",
+      "declared_start": 1493,
+      "declared_end": 1545,
+      "decoded_start": 1492,
+      "decoded_end": 1544,
+      "start_difference_proxy_frames": -1,
+      "end_difference_proxy_frames": -1
+    },
+    {
+      "id": "D35",
+      "declared_start": 1545,
+      "declared_end": 1615,
+      "decoded_start": 1544,
+      "decoded_end": 1614,
+      "start_difference_proxy_frames": -1,
+      "end_difference_proxy_frames": -1
+    },
+    {
+      "id": "D36",
+      "declared_start": 1615,
+      "declared_end": 1672,
+      "decoded_start": 1614,
+      "decoded_end": 1671,
+      "start_difference_proxy_frames": -1,
+      "end_difference_proxy_frames": -1
+    },
+    {
+      "id": "D37",
+      "declared_start": 1672,
+      "declared_end": 1695,
+      "decoded_start": 1671,
+      "decoded_end": 1694,
+      "start_difference_proxy_frames": -1,
+      "end_difference_proxy_frames": -1
+    },
+    {
+      "id": "D38",
+      "declared_start": 1695,
+      "declared_end": 1757,
+      "decoded_start": 1694,
+      "decoded_end": 1757,
+      "start_difference_proxy_frames": -1,
+      "end_difference_proxy_frames": 0
+    }
+  ],
+  "input_sha256": "03403b1629ecff7d8828c735b3f52f38aa5c00b5d9af766776b653e18c506a02"
+}

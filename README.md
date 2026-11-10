@@ -266,3 +266,9 @@ Commands: `node scripts/dice-town-p3b3-proof.js --stills`, inspect, then `node s
 Opt-in `/production/dice-town-p3b4/` imports the unchanged animatic scene, with camera-bounded plaza paving/street and an installed gate-to-house layout. [Plaza comparison](evidence/dice-town-p3b4/plaza-comparison.jpg), [gate comparison](evidence/dice-town-p3b4/gate-comparison.jpg), [native images and limitations](evidence/dice-town-p3b4/REPORT.md).
 
 Reproduce: `node scripts/dice-town-p3b4-capture.js`, `python scripts/dice-town-p3b4-sheet.py`, `node scripts/dice-town-p3b4-qc.js`, `node scripts/dice-town-p3b4-repeat.js`, `npm test`. No new motion or film. Separate A/G footprints use visual street continuity; no connected city map is claimed. Stop for creative review.
+
+## Dice Town P4A full working edit
+
+[117.100s silent360×640/30fps working MP4](evidence/dice-town-p4a/working-edit.mp4), [contact sheet](evidence/dice-town-p4a/editorial-contact.jpg), [38-shot source map](evidence/dice-town-p4a/edit-map.json), [remaining placeholders](evidence/dice-town-p4a/REMAINING_PLACEHOLDERS.md), [verification/costs](evidence/dice-town-p4a/REPORT.md). Original38 shots/3513 frames preserved.70.766% remains original proxy; no new3D footage or private audio.
+
+Reproduce: `python scripts/dice-town-p4a-proxy-boundaries.py`, `python scripts/dice-town-p4a-assemble.py`, `python scripts/dice-town-p4a-verify.py`, `node scripts/dice-town-p4a-playback.js`, `python tests/dice-town-p4a.py`. The measured proxy shot ranges correct its inherited one-frame offset; temporary clips/checks stay ignored under renders/. Stop for review.
