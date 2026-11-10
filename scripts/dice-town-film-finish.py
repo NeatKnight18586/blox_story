@@ -91,11 +91,14 @@ ElevenLabs Adam WAV (117.098 s, already at 1.25×). The WAV is not in Git. On a 
 ffmpeg -i {master} -i path/to/dice-town-narration.wav -map 0:v -map 1:a -c:v copy -c:a aac -b:a 192k -shortest -movflags +faststart dice-town-final.mp4
 ```
 
-Optional burned captions (paragraph-level timing from the cue plan, estimated rather than word-aligned):
+Narrated + captioned version in one step (short white captions timed from the narration's own pauses,
+`python3 scripts/dice-town-captions.py <wav>` regenerates `{OUT}/captions.ass`):
 
 ```bash
-ffmpeg -i dice-town-final.mp4 -vf "subtitles={OUT}/captions.srt:force_style='FontName=Montserrat,Bold=1,FontSize=13,Outline=2,MarginV=70'" -c:a copy dice-town-final-captions.mp4
+ffmpeg -i {master} -i path/to/dice-town-narration.wav -map 0:v -map 1:a -vf "ass={OUT}/captions.ass:fontsdir=/usr/share/fonts/truetype/dejavu" -c:v libx264 -crf 20 -preset slow -pix_fmt yuv420p -c:a aac -b:a 192k -shortest -movflags +faststart dice-town-final.mp4
 ```
+
+The narrated file embeds the private narration, so it is kept out of Git.
 """)
 
 s = probe['streams'][0]
