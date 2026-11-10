@@ -97,3 +97,6 @@ export function setHair(avatar, option, {color} = {}) {
   if (avatar.hair) avatar.hair.removeFromParent();
   avatar.hair = avatar.hairCache.get(key); avatar.pivots.head.add(avatar.hair); return avatar;
 }
+
+// One-off characters (baker, townspeople with set roles) from an explicit preset object.
+export function createCustom(name, preset, {expression = 'calm'} = {}) { return buildCharacter(name, preset, expression); }

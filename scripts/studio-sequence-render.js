@@ -6,13 +6,13 @@ import {mkdir, writeFile} from 'node:fs/promises';
 import {startServer} from './pipeline/server.js';
 
 const arg = (k, d) => process.argv.find(a => a.startsWith(`--${k}=`))?.split('=')[1] ?? d;
-const width = Number(arg('width', 1440)), workers = Number(arg('workers', 3));
+const width = Number(arg('width', 1440)), workers = Number(arg('workers', 3)), PAGE = arg('page', 'production/studio-sequence/');
 const out = arg('out', `renders/studio-sequence-${width}`); await mkdir(out, {recursive: true});
 const only = arg('frames', null)?.split(',').map(Number);
 const executablePath = process.env.PW_CHROMIUM ?? (existsSync('/opt/pw-browsers/chromium') ? '/opt/pw-browsers/chromium' : undefined);
 const server = await startServer(process.cwd());
 const name = f => `${out}/frame-${String(f).padStart(5, '0')}.png`;
-const all = only ?? Array.from({length: 360}, (_, i) => i);
+const total = Number(arg('total', 360)), all = only ?? Array.from({length: total}, (_, i) => i);
 const todo = all.filter(f => only || !existsSync(name(f)));
 console.log(`rendering ${todo.length}/${all.length} frames at ${width}px with ${workers} workers`);
 const t0 = performance.now(), log = [], errors = [];
@@ -21,7 +21,7 @@ async function worker(k) {
   try {
     const page = await browser.newPage({viewport: {width: 360, height: 640}, deviceScaleFactor: 1});
     page.on('pageerror', e => errors.push(e.message));
-    await page.goto(`${server.url}/production/studio-sequence/`);
+    await page.goto(`${server.url}/${PAGE}`);
     await page.waitForFunction(() => window.__sequence, null, {timeout: 180000});
     for (const f of todo.filter((_, i) => i % workers === k)) {
       const s = await page.evaluate(([f, w]) => __sequence.renderFrame(f, w), [f, width]);
