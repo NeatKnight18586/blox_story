@@ -1,6 +1,6 @@
-# Studio V2 stage 4 — 12 s native 1440p sequence (awaiting review)
+# Studio V2 stage 4 — 12 s native sequence, 1080×1920 (awaiting review)
 
-[Master MP4 1440×2560](evidence/studio-sequence/sequence-1440x2560.mp4) · [phone preview (downscale)](evidence/studio-sequence/sequence-720x1280-preview.mp4) · [contact sheet](evidence/studio-sequence/contact-sheet.jpg) · [verification](evidence/studio-sequence/verification.json). Rebuild: `node scripts/studio-sequence-render.js --width=1440 --workers=3 && node scripts/studio-sequence-render.js --width=1440 --frames=0,67,134,135,239,240,359 --out=renders/seq-check && python3 scripts/studio-sequence-finish.py`.
+[Master MP4 1080×1920](evidence/studio-sequence/sequence-1080x1920.mp4) · [phone preview (downscale)](evidence/studio-sequence/sequence-720x1280-preview.mp4) · [contact sheet](evidence/studio-sequence/contact-sheet.jpg) · [verification](evidence/studio-sequence/verification.json). Rebuild: `node scripts/studio-sequence-render.js --width=1080 --workers=3 && node scripts/studio-sequence-render.js --width=1080 --frames=0,67,134,135,239,240,359 --out=renders/seq-check && python3 scripts/studio-sequence-finish.py renders/studio-sequence-1080 renders/seq-check`.
 
 # Studio V2 stage 3 — town kit v1 (awaiting review)
 
