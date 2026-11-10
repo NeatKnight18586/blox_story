@@ -1,3 +1,12 @@
+# Studio V2 stage 2c — eight hair options + coloured mouths: PARTIAL (awaiting owner review)
+Verified 2026-11-10.
+- Hair (`studio/characters/hair.js`): eight options matching the owner's reference archetypes (long_red, spiky_blonde, messy_brown, swept_blue, ponytail_black, long_blonde, bun_red, bun_pink; the two buns share one shape). Original geometry built with rigid-accessory practice: low-poly faceted clumps with pointed tips over a closed scalp shell, merged into ONE mesh with ONE painted strand texture (dark roots, streaks), 1,208–3,048 triangles (limit 4k), watertight (0 open edges), HairAttachment at the crown. Not 1:1 copies of the catalog meshes (copyright); same construction methods.
+- Durable assets: `studio/assets/hair/*.glb` + `manifest.json` (bytes, sha256, triangles, re-import triangle check, attachment, origin, licence). GLB re-import matches source triangle counts.
+- Presets: Leo = messy_brown, Pip = spiky_blonde, Mother = bun shape in grey. `setHair(avatar, option, {color})` swaps cached accessories.
+- Mouths: open mouths filled dark red, tongues pink (silly, laughing), teeth white (excited, triumph); outlines stay ink.
+- Checks: `npm run test:studio` PASS (adds per-hair triangle budget, watertight, attachment and cached-swap checks); `npm test` PASS; all captures deterministic, no page errors.
+- Evidence: `evidence/studio-characters/hair-options.jpg`, `expressions-35.jpg`, `expressions.jpg`, `lineup-sheet.jpg`.
+
 # Studio V2 stage 2b — classic Roblox construction: PARTIAL (awaiting owner review)
 Verified 2026-11-10. Owner feedback on 2a: "cartoony, not true Roblox-like". Rebuilt the presets the way Roblox avatars are made:
 - Six plain blocks only (classic box torso, normal head size); all clothing detail (collars, lapels, buttons, strap, stripes, shawl, belts, shorts, socks, shoes, seams, drawn shading) is painted per block face like a classic shirt/pants template (`studio/characters/clothing.js`). Removed the 3D hand/cuff/shoe/hem blocks, catchlight eyes, blush and red mouths.

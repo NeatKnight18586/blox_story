@@ -1,7 +1,8 @@
 // Studio V2 cast API: real Three.js modules, no mocks.
 import assert from 'node:assert/strict';
 import * as T from 'three';
-import {createCharacter, setExpression, EXPRESSIONS, PRESETS} from '../studio/characters/characters.js';
+import {createCharacter, setExpression, setHair, EXPRESSIONS, PRESETS, HAIR_OPTIONS} from '../studio/characters/characters.js';
+import {makeHair} from '../studio/characters/hair.js';
 import {applyPose} from '../avatar/poses.js';
 
 const PARTS = ['torso', 'head', 'leftArm', 'rightArm', 'leftLeg', 'rightLeg'];
@@ -12,7 +13,7 @@ for (const name of Object.keys(PRESETS)) {
   const a = createCharacter(name);
   assert.deepEqual(Object.keys(a.parts).sort(), [...PARTS].sort(), `${name}: six canonical parts`);
   assert.deepEqual(Object.keys(a.pivots).sort(), [...PIVOTS].sort(), `${name}: five named pivots`);
-  assert.ok(a.hair && a.hair.children.length > 3, `${name}: dimensional hair attached`);
+  assert.ok(a.hair?.isMesh, `${name}: hair is one accessory mesh`);
   // Ground contact: lowest point sits on y=0 (shoes included).
   a.root.updateMatrixWorld(true);
   const box = new T.Box3().setFromObject(a.root);
@@ -30,6 +31,18 @@ for (const name of Object.keys(PRESETS)) {
   applyPose(a, 'neutral'); assert.equal(a.pivots.leftHip.rotation.x, 0);
   applyPose(a, 'walk_demo', .25); assert.equal(a.pivots.leftHip.rotation.x, swing, `${name}: deterministic pose`);
 }
+// Hair options follow rigid-accessory rules: one mesh, < 4k triangles, watertight, crown attachment.
+for (const opt of Object.keys(HAIR_OPTIONS)) {
+  const h = makeHair(opt), g = h.geometry, tris = g.index.count / 3;
+  assert.ok(tris < 4000, `${opt}: ${tris} triangles`);
+  const edges = new Map(), ix = g.index.array, P = g.attributes.position, key = i => `${P.getX(i).toFixed(5)},${P.getY(i).toFixed(5)},${P.getZ(i).toFixed(5)}`;
+  for (let f = 0; f < ix.length; f += 3) for (const [a, b] of [[0, 1], [1, 2], [2, 0]]) { const k = [key(ix[f + a]), key(ix[f + b])].sort().join('|'); edges.set(k, (edges.get(k) ?? 0) + 1); }
+  const open = [...edges.values()].filter(n => n === 1).length;
+  assert.equal(open, 0, `${opt}: watertight (open edges ${open})`);
+  assert.equal(h.userData.attachment, 'HairAttachment');
+}
+const swap = createCharacter('leo'); const firstHair = swap.hair; setHair(swap, 'swept_blue'); setHair(swap, 'messy_brown');
+assert.equal(swap.hair, firstHair, 'hair swap reuses cached accessory');
 assert.equal(createCharacter('pip').root.scale.x, .65, 'Pip keeps child scale');
 assert.ok(createCharacter('mother').glasses, 'Mother has the age cue');
 assert.throws(() => createCharacter('kai'), /Unknown character preset/);

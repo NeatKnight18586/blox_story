@@ -56,3 +56,13 @@ metrics = {f'{shot}-{v}': frame_metrics(f'{L}/{shot}-{v}-1080.png') for shot in 
 metrics['lineup'] = frame_metrics(f'{C}/lineup-1080.png')
 json.dump(metrics, open(f'{C}/metrics.json', 'w'), indent=1)
 print(json.dumps({k: (v['colorfulness'], v['luma']) for k, v in metrics.items()}))
+
+# 4. The eight hair options on one mannequin: front / three-quarter / back.
+HAIRS = ['long_red', 'spiky_blonde', 'messy_brown', 'swept_blue', 'ponytail_black', 'long_blonde', 'bun_red', 'bun_pink']
+t = 240
+img = Image.new('RGB', (t * 8, t * 3 + 34), (18, 22, 28))
+for c, h in enumerate(HAIRS):
+    label(img, (c * t + 6, 6), h.replace('_', ' '), 20)
+    for r, v in enumerate(['front', '34', 'back']):
+        img.paste(Image.open(f'{C}/hair/{h}-{v}.png').convert('RGB').resize((t, t), Image.LANCZOS), (c * t, 34 + r * t))
+img.save(f'{C}/hair-options.jpg', quality=88)

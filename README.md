@@ -1,3 +1,7 @@
+# Studio V2 stage 2c — hair options (awaiting review)
+
+Eight hair accessories built like rigid hair accessories (one mesh, < 4k triangles, painted strand texture, GLB exports in `studio/assets/hair/`). Review: [hair options](evidence/studio-characters/hair-options.jpg), [35 expressions with coloured mouths](evidence/studio-characters/expressions-35.jpg), [lineup](evidence/studio-characters/lineup-sheet.jpg).
+
 # Studio V2 stage 2b — classic Roblox-style cast (awaiting review)
 
 Painted-clothing blocks + decal faces from the owner's 35-expression sheet. Review: [35 expressions](evidence/studio-characters/expressions-35.jpg), [cast faces](evidence/studio-characters/expressions.jpg), [lineup](evidence/studio-characters/lineup-sheet.jpg), [plaza Leo](evidence/studio-characters/plaza-leo-comparison.jpg). Rebuild: `npm run proof:studio`.
