@@ -1,0 +1,5 @@
+Traceback (most recent call last):
+  File "/workspace/blox_story/scripts/dice-town-p4a-verify.py", line 25, in <module>
+    s,p,src=source_at(f);a=Image.open(output[f]).convert('RGB');b=Image.open(expected[p['source']][src]).convert('RGB');error=sum(ImageStat.Stat(ImageChops.difference(a,b)).mean)/3;checks.append({'frame':f,'shot':s['id'],'kind':p['kind'],'source':p['source'],'source_frame':src,'meanRgbError':error});assert error<6,(f,s['id'],src,error)
+                                                                                                                                                                                                                                                                                                                    ^^^^^^^
+AssertionError: (168, 'D02', 84, 48.5944212962963)

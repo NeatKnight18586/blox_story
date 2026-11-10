@@ -1,0 +1,16 @@
+{
+  "status": "PASS",
+  "base": "ae536aa",
+  "previousTrackedFilesComparedByteForByte": 1275,
+  "preserved": [
+    "all previous source/tests/evidence/films",
+    "allP3B proofs and native frames",
+    "original38-shot/3513-frame plan and117.098231s audio reference"
+  ],
+  "audioReadOrGenerated": false,
+  "allowedSubsequentDocumentationUpdates": [
+    "AGENTS.md",
+    "README.md",
+    "STATUS.md"
+  ]
+}
