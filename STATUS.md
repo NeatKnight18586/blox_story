@@ -1,3 +1,14 @@
+# Studio V2 stage 4 — native 1440p sequence proof: PASS (technical) / creative review pending
+Verified 2026-11-10.
+- Look v2 (owner: lively, less bright): exposure .86, less fill/env/haze, deeper sky; town frames 0.55–0.70 luma. All studio evidence regenerated with it.
+- Motion (`studio/motion/r6.js`): Roblox-classic R6 cycles (walk, child walk, run, idle, wave, hop, head look); limbs/faces on twos (15 poses/s), root travel and camera smooth at 30 fps.
+- Sequence (`production/studio-sequence/`): 12.0 s, 360 frames, 3 shots — A street establishing dolly (0–134), B tracking two-shot with Pip's wave and Leo's shocked look-up (135–239), C plaza: die drops and lands on 3, crowd reacts, Leo and Pip run in (240–359). Per-shot set cheats remove props from the walking line.
+- Render: `node scripts/studio-sequence-render.js --width=1440 --workers=3` → 360 native 1440×2560 PNGs in 1208 s (3.36 s/frame wall, 3 SwiftShader workers on 4 CPUs). Frames stay in `renders/` (git-ignored).
+- Master: `evidence/studio-sequence/sequence-1440x2560.mp4` — H.264 High, yuv420p, 1440×2560, 30 fps, 360 decoded frames, 12.0 s, 9.0 MB, no decode errors. Encode PSNR vs source frames 36.5–43.0 dB. Cuts detected exactly at 135 and 240 (diff 63.9/56.0 vs ≤17.4 within shots). Determinism: 7 frames re-rendered in a fresh process are byte-identical. `python3 scripts/studio-sequence-finish.py` → `verification.json`.
+- Preview: `sequence-720x1280-preview.mp4` is a labelled Lanczos downscale of the master for phone review, not a native render.
+- Shot metrics (colourfulness/luma): A 68.9/0.557, B 75.7/0.629, C 89.8/0.705.
+- Creative limits: shot C's crowd hop happens mostly at frame edges and Pip enters only in the last second; an opposite-lane walker crowds Leo at the start of B; no audio, captions or narration (silent proof).
+
 # Studio V2 stage 3 — hair refinement + town kit v1: PARTIAL (awaiting owner review)
 Verified 2026-11-10.
 - Hair: rebuilt from broad, flat, layered clumps with baked vertex AO (darker roots/under-layers) and a painted strand texture with a highlight band. Masculine cuts (spiky, messy, swept) compact with tight tapered sides; feminine cuts (long ×2, ponytail, buns) with crown volume and face-framing locks in front of the shoulders. Still one watertight mesh per hair, 1.5k–2.5k triangles; GLBs re-exported to `studio/assets/hair/`.

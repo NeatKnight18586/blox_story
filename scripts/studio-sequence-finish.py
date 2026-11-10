@@ -21,8 +21,10 @@ CHECK = sys.argv[2] if len(sys.argv) > 2 else 'renders/seq-check'
 OUT = 'evidence/studio-sequence'
 FPS, FRAMES, CUTS = 30, 360, [0, 135, 240, 360]
 subprocess.run(['mkdir', '-p', OUT], check=True)
-run = lambda *a: subprocess.run(a, check=True, capture_output=True, text=True).stdout
-sha = p => hashlib.sha256(open(p, 'rb').read()).hexdigest()
+def run(*a):
+    return subprocess.run(a, check=True, capture_output=True, text=True).stdout
+def sha(p):
+    return hashlib.sha256(open(p, 'rb').read()).hexdigest()
 
 frames = sorted(glob.glob(f'{SRC}/frame-*.png'))
 sizes = {Image.open(f).size for f in frames}

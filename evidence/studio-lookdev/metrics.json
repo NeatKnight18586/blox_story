@@ -18,10 +18,10 @@
    "contrast_p95_p5": 0.536
   },
   "wide-studio": {
-   "saturation": 0.333,
-   "colorfulness": 64.2,
-   "luma": 0.724,
-   "contrast_p95_p5": 0.479
+   "saturation": 0.354,
+   "colorfulness": 61.4,
+   "luma": 0.64,
+   "contrast_p95_p5": 0.518
   },
   "leo-legacy": {
    "saturation": 0.501,
@@ -30,10 +30,10 @@
    "contrast_p95_p5": 0.532
   },
   "leo-studio": {
-   "saturation": 0.595,
-   "colorfulness": 98.1,
-   "luma": 0.498,
-   "contrast_p95_p5": 0.571
+   "saturation": 0.635,
+   "colorfulness": 88.0,
+   "luma": 0.419,
+   "contrast_p95_p5": 0.514
   }
  },
  "pass": {
