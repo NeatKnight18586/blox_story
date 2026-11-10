@@ -1,6 +1,9 @@
 // Studio V2 character review stage: lineup + expression close-ups under the studio look.
 import * as T from 'three';
-import {createCharacter, setExpression, EXPRESSIONS} from '../../studio/characters/characters.js';
+import {createCharacter, setExpression, setHair, EXPRESSIONS, HAIR_OPTIONS} from '../../studio/characters/characters.js';
+import {makeHair} from '../../studio/characters/hair.js';
+import {GLTFExporter} from 'three/addons/exporters/GLTFExporter.js';
+import {GLTFLoader} from 'three/addons/loaders/GLTFLoader.js';
 import {applyStudioLook} from '../../studio/lookdev/look.js';
 
 const renderer = new T.WebGLRenderer({antialias: true, preserveDrawingBuffer: true});
@@ -21,6 +24,8 @@ inlay.name = 'inset_radial_paving'; inlay.position.y = .005; inlay.receiveShadow
 
 const cast = {mother: createCharacter('mother'), leo: createCharacter('leo'), pip: createCharacter('pip')};
 for (const a of Object.values(cast)) scene.add(a.root);
+// Hair turnaround mannequin, standing apart from the lineup.
+const model = createCharacter('leo'); model.root.position.set(-30, 0, 0); scene.add(model.root);
 const look = applyStudioLook({scene, camera, renderer});
 
 function lineupPose() {
@@ -41,6 +46,24 @@ const shots = {
   lineup() { lineupPose(); camera.fov = 38; camera.position.set(0, 3.7, 17.5); camera.lookAt(0, 3.3, 0); return {focus: null}; },
   lineup34() { lineupPose(); camera.fov = 38; camera.position.set(10, 4.2, 12.8); camera.lookAt(.2, 3.2, 0); return {focus: null}; },
 };
+// Hair turnaround: the mannequin wears one option, seen front / three-quarter / back.
+function hairShot(option, view) {
+  setHair(model, option); setExpression(model, 'calm');
+  for (const p of Object.values(model.pivots)) p.rotation.set(0, 0, 0);
+  const head = new T.Vector3(); model.parts.head.getWorldPosition(head); head.y += .25;
+  const ang = {front: 0, '34': 40, side: 90, back: 180}[view] * Math.PI / 180;
+  camera.fov = 30; camera.position.set(head.x + Math.sin(ang) * 5.2, head.y + .7, head.z + Math.cos(ang) * 5.2); camera.lookAt(head.x, head.y - .05, head.z);
+  return {focus: null};
+}
+// Export one hair option as a binary glTF (base64) and re-import it to verify.
+async function exportHair(option) {
+  const mesh = makeHair(option);
+  const glb = await new GLTFExporter().parseAsync(mesh, {binary: true});
+  const back = await new GLTFLoader().parseAsync(glb, '');
+  let tris = 0; back.scene.traverse(o => { if (o.isMesh) tris += (o.geometry.index ? o.geometry.index.count : o.geometry.attributes.position.count) / 3; });
+  let bin = ''; const u8 = new Uint8Array(glb); for (let i = 0; i < u8.length; i += 32768) bin += String.fromCharCode(...u8.subarray(i, i + 32768));
+  return {option, base64: btoa(bin), bytes: u8.length, sourceTriangles: mesh.userData.triangles, reimportedTriangles: tris, userData: mesh.userData};
+}
 // Face close-up: square frame on one character's head, any expression.
 function face(who, expression) {
   const a = cast[who]; lineupPose(); for (const p of Object.values(a.pivots)) p.rotation.set(0, 0, 0);
@@ -55,10 +78,10 @@ function render(shot, width = 1080, height = Math.round(width * 16 / 9)) {
   const t0 = performance.now();
   renderer.setSize(width, height); camera.aspect = width / height;
   const [kind, who, expr] = shot.split(':');
-  const {focus, close} = kind === 'face' ? face(who, expr) : shots[kind]();
+  const {focus, close} = kind === 'face' ? face(who, expr) : kind === 'hair' ? hairShot(who, expr) : shots[kind]();
   camera.updateProjectionMatrix(); scene.updateMatrixWorld(true);
   look.render(focus, close);
   const gl = renderer.getContext(); gl.readPixels(0, 0, 1, 1, gl.RGBA, gl.UNSIGNED_BYTE, new Uint8Array(4));
   return {shot, width, height, ms: performance.now() - t0};
 }
-window.__cast = {render, cast, EXPRESSIONS, scene, camera, renderer};
+window.__cast = {render, cast, EXPRESSIONS, HAIR: Object.keys(HAIR_OPTIONS), exportHair, scene, camera, renderer};

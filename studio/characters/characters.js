@@ -4,42 +4,34 @@
 // notebook). Built once; poses, actions and face swaps never rebuild meshes.
 import * as T from 'three';
 import {createBaseAvatar, block} from '../../avatar/baseAvatar.js';
-import {makeFinalHair} from '../../production/dice-town/hair.js';
+import {makeHair, HAIR_OPTIONS} from './hair.js';
 import {setExpression, EXPRESSIONS, ALIASES} from './faces.js';
 import {paintedMaterials, longSleeve, shortSleeve, legs, TORSOS} from './clothing.js';
 
-export {EXPRESSIONS, ALIASES, setExpression};
+export {EXPRESSIONS, ALIASES, setExpression, HAIR_OPTIONS};
 
 // Skin tones follow the Roblox palette family (Light orange #EAB892, Nougat #CC8E69).
 export const PRESETS = Object.freeze({
   leo: {
     scale: 1, skin: '#eab892', top: '#1d9aa0', torso: 'leo', sleeves: 'long',
     legs: {cloth: '#2f5a92', shoe: '#3b2a22', belt: '#6b4428'},
-    hair: {style: 'neat_side_part', color: 0x6e4126, scaleY: .94, lift: .06},
+    hair: {option: 'messy_brown'},
     props: ['notebook'],
   },
   pip: {
     scale: .65, skin: '#f0c9a3', top: '#ef6a35', torso: 'pip', sleeves: 'short',
     legs: {cloth: '#3e78c4', shoe: '#d23b33', legLength: .52, sock: '#f4f1ea'},
-    hair: {style: 'soft_textured_crop', color: 0xd59a43, scaleY: 1, lift: .04},
+    hair: {option: 'spiky_blonde'},
     props: [],
   },
   mother: {
     scale: 1, skin: '#e0a882', top: '#8466b8', torso: 'mother', sleeves: 'long',
     legs: {cloth: '#4c5a78', shoe: '#5a3b2c'},
-    hair: {style: 'low_bun', color: 0xb9b2a6, templeColor: 0xe0dbd1, scaleY: 1, lift: .02},
+    hair: {option: 'bun_red', color: '#b8b3aa'},
     props: ['glasses'],
   },
 });
 
-function tintHair(group, {color, templeColor}) {
-  group.traverse(o => {
-    if (!o.isMesh) return;
-    o.material = o.material.clone(); o.material.userData.authored = true;
-    const base = new T.Color(templeColor && o.name.includes('temple') ? templeColor : color);
-    o.material.color.copy(base.multiplyScalar(o.userData.toneMultiplier ?? 1)); o.material.roughness = .55;
-  });
-}
 // Apply painted materials; fall back to a flat colour where no canvas exists (Node).
 function dress(mesh, size, paint, fallback) {
   const mats = paintedMaterials(size, paint);
@@ -72,10 +64,18 @@ export function createCharacter(presetName, {expression = 'calm'} = {}) {
     dress(a.parts[side + 'Arm'], [.98, 1.99, 1], sleeve, p.top);
     dress(a.parts[side + 'Leg'], [.98, 2, 1], leg, p.legs.cloth);
   }
-  const hair = makeFinalHair(p.hair.style); tintHair(hair, p.hair);
-  hair.scale.y = p.hair.scaleY; hair.position.y = p.hair.lift; a.pivots.head.add(hair); a.hair = hair;
+  setHair(a, p.hair.option, {color: p.hair.color});
   for (const prop of p.props) PROPS[prop](a);
   a.root.scale.setScalar(p.scale);
   setExpression(a, expression);
   return a;
+}
+
+// Swap hair accessories; each option is built once per avatar and cached.
+export function setHair(avatar, option, {color} = {}) {
+  avatar.hairCache ??= new Map();
+  const key = option + (color ?? '');
+  if (!avatar.hairCache.has(key)) avatar.hairCache.set(key, makeHair(option, {color}));
+  if (avatar.hair) avatar.hair.removeFromParent();
+  avatar.hair = avatar.hairCache.get(key); avatar.pivots.head.add(avatar.hair); return avatar;
 }

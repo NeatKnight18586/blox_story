@@ -18,7 +18,8 @@ Reference (private Short, 22 frames): saturation .47, colorfulness 98, luma .67.
 - Six plain blocks: classic box torso, normal-size head, no added 3D trim. Roblox-palette skin (Light orange #EAB892 family).
 - Clothing is painted on the block faces like a shirt/pants template: collar, buttons, straps, stripes, belts, shoes, seam outlines and drawn shading (light top, darker bottom). Long sleeves leave skin "hands" at the bottom; shorts leave skin legs.
 - Faces are flat black-ink decals (dot eyes, line brows, simple mouths), drawn from the owner's 35-expression sheet. No catchlights, blush or coloured mouths.
-- Accessories are meshes: hair, glasses, held props. Silhouette cues: Leo = chestnut side part + strap; Pip = child scale + golden crop + stripe; Mother = grey bun + round glasses + cream V.
+- Accessories are meshes: hair, glasses, held props. Hair options (studio/characters/hair.js): one mesh, < 4k triangles, watertight, one painted strand texture (dark roots → lighter tips), HairAttachment at the crown, hairline above the brows. Eight options: long_red, spiky_blonde, messy_brown, swept_blue, ponytail_black, long_blonde, bun_red, bun_pink.
+- Mouths: open shapes filled #6e1f2b, tongue #e8707c, teeth white; ink outlines. Silhouette cues: Leo = chestnut side part + strap; Pip = child scale + golden crop + stripe; Mother = grey bun + round glasses + cream V.
 
 ## Lens and framing (9:16, 1080×1920)
 - Wides stay sharp (no depth of field).
