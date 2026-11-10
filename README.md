@@ -1,3 +1,7 @@
+# Studio V2 stage 4 — 12 s native 1440p sequence (awaiting review)
+
+[Master MP4 1440×2560](evidence/studio-sequence/sequence-1440x2560.mp4) · [phone preview (downscale)](evidence/studio-sequence/sequence-720x1280-preview.mp4) · [contact sheet](evidence/studio-sequence/contact-sheet.jpg) · [verification](evidence/studio-sequence/verification.json). Rebuild: `node scripts/studio-sequence-render.js --width=1440 --workers=3 && node scripts/studio-sequence-render.js --width=1440 --frames=0,67,134,135,239,240,359 --out=renders/seq-check && python3 scripts/studio-sequence-finish.py`.
+
 # Studio V2 stage 3 — town kit v1 (awaiting review)
 
 Modular Roblox-style town (`studio/town/`) + refined hair. Review: [town shots](evidence/studio-town/town-sheet.jpg), [plaza old → look → kit](evidence/studio-town/plaza-comparison.jpg), [hair options](evidence/studio-characters/hair-options.jpg), [what matters](studio/town/TOWN_NOTES.md). Rebuild: `npm run proof:studio && node scripts/studio-town-capture.js && python3 scripts/studio-town-sheet.py`.
