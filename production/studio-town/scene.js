@@ -110,4 +110,5 @@ function render(shot, width = 1080, height = Math.round(width * 16 / 9)) {
   let tris = 0; scene.traverse(o => { if (o.isMesh && o.visible) tris += (o.geometry.index ? o.geometry.index.count : o.geometry.attributes.position.count) / 3; });
   return {shot, width, height, ms: performance.now() - t0, sceneTriangles: tris};
 }
-window.__town = {render, shots: Object.keys(SHOTS), scene, camera, renderer};
+// Internals are exposed so the sequence page can animate this exact set.
+window.__town = {render, shots: Object.keys(SHOTS), scene, camera, renderer, cast, extras, key, P, look, die, dieBody, stage, pose};

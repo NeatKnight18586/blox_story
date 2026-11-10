@@ -11,15 +11,16 @@ import {RoomEnvironment} from 'three/addons/environments/RoomEnvironment.js';
 // One place to tune the look. Values were chosen against the reference metrics
 // (bright, saturated, complementary cyan/yellow, soft plastic sheen).
 export const LOOK = {
-  exposure: 1.0,
-  sky: {zenith: 0x1f74e0, horizon: 0xb8e6ff, sun: 0xfff1c9},
-  fog: {color: 0xbfe6ff, near: 70, far: 240},
+  // v2 (owner: lively but less bright): lower exposure/fill/haze, deeper sky; colour stays saturated.
+  exposure: .86,
+  sky: {zenith: 0x1a62cf, horizon: 0xa6d8f5, sun: 0xfff1c9},
+  fog: {color: 0xa9d6f2, near: 95, far: 300},
   grade: {saturationMul: 1.4, saturationAdd: .05, darkSaturationMul: 1.1, lightMul: .95, lightAdd: .05},
   // Named surfaces that carry most of the frame get authored colours, not a grade.
   overrides: {continuous_town_ground: 0xd9b27a, continuous_gate_land: 0xd9b27a, continuous_road: 0xf3ddb0, road_stone_edge: 0xd4a46e,
     inset_radial_paving: 0xefd8ac, paving_joint: 0xcf9f6b, radial_joint: 0xcf9f6b, plaza_foundation: 0xd9b27a},
-  material: {roughness: .5, characterRoughness: .42, envIntensity: .22},
-  light: {hemiSky: 0xbfe8ff, hemiGround: 0xd9b27e, hemi: 1.0, key: 0xfff0d6, keyMul: 1.12, rim: 0x9fd4ff, rimIntensity: 1.1},
+  material: {roughness: .5, characterRoughness: .42, envIntensity: .16},
+  light: {hemiSky: 0xbfe8ff, hemiGround: 0xd9b27e, hemi: .82, key: 0xfff0d6, keyMul: 1.08, rim: 0x9fd4ff, rimIntensity: 1.1},
   bloom: {strength: .1, radius: .35, threshold: 1.2},
   lens: {wideAperture: 0, closeAperture: .025, maxblur: .012},
 };
