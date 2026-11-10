@@ -1,0 +1,3187 @@
+{
+  "errors": [],
+  "identity": true,
+  "framesChecked": 90,
+  "childScale": [
+    0.65,
+    0.65,
+    0.65
+  ],
+  "sourcePhotoTexture": [
+    1024,
+    1024
+  ],
+  "maxCrankGap": 0.007999999999999119,
+  "minGripRadialClearance": 0.031857392285779274,
+  "minPhotoFaceCenterDistance": 1.1096333522036659,
+  "minBookPhoneWidth": 111.50960754792402,
+  "pinInitialWorldPoseError": 9.485749680535094e-16,
+  "maxFootStepError": 8.583068478174027e-9,
+  "pinFaceOcclusions": 0,
+  "photoFaceOcclusions": 0,
+  "frames": [
+    {
+      "shot": "D17",
+      "frame": 0,
+      "bookCover": null,
+      "identity": true,
+      "pipScale": [
+        0.65,
+        0.65,
+        0.65
+      ],
+      "pipPosition": [
+        -0.9303047262513294,
+        1.582,
+        2.6815
+      ],
+      "pinWorld": [
+        -0.4500000000000002,
+        4.6,
+        1.0499999999999998
+      ],
+      "photoVisible": false,
+      "camera": {
+        "position": [
+          -6.5,
+          6.4,
+          8.7
+        ],
+        "target": [
+          -1.5,
+          3.5,
+          2.1
+        ],
+        "fov": 48
+      }
+    },
+    {
+      "shot": "D17",
+      "frame": 1,
+      "bookCover": null,
+      "identity": true,
+      "pipScale": [
+        0.65,
+        0.65,
+        0.65
+      ],
+      "pipPosition": [
+        -0.9303047262513294,
+        1.582,
+        2.6815
+      ],
+      "pinWorld": [
+        -0.4500000000000002,
+        4.6,
+        1.0499999999999998
+      ],
+      "photoVisible": false,
+      "camera": {
+        "position": [
+          -6.5,
+          6.4,
+          8.7
+        ],
+        "target": [
+          -1.5,
+          3.5,
+          2.1
+        ],
+        "fov": 48
+      }
+    },
+    {
+      "shot": "D17",
+      "frame": 2,
+      "bookCover": null,
+      "identity": true,
+      "pipScale": [
+        0.65,
+        0.65,
+        0.65
+      ],
+      "pipPosition": [
+        -0.9303047262513294,
+        1.582,
+        2.6815
+      ],
+      "pinWorld": [
+        -0.4500000000000002,
+        4.6,
+        1.0499999999999998
+      ],
+      "photoVisible": false,
+      "camera": {
+        "position": [
+          -6.5,
+          6.4,
+          8.7
+        ],
+        "target": [
+          -1.5,
+          3.5,
+          2.1
+        ],
+        "fov": 48
+      }
+    },
+    {
+      "shot": "D17",
+      "frame": 3,
+      "bookCover": null,
+      "identity": true,
+      "pipScale": [
+        0.65,
+        0.65,
+        0.65
+      ],
+      "pipPosition": [
+        -0.9303047262513294,
+        1.582,
+        2.6815
+      ],
+      "pinWorld": [
+        -0.4500000000000002,
+        4.6,
+        1.0499999999999998
+      ],
+      "photoVisible": false,
+      "camera": {
+        "position": [
+          -6.5,
+          6.4,
+          8.7
+        ],
+        "target": [
+          -1.5,
+          3.5,
+          2.1
+        ],
+        "fov": 48
+      }
+    },
+    {
+      "shot": "D17",
+      "frame": 4,
+      "bookCover": null,
+      "identity": true,
+      "pipScale": [
+        0.65,
+        0.65,
+        0.65
+      ],
+      "pipPosition": [
+        -0.9303047262513294,
+        1.582,
+        2.6815
+      ],
+      "pinWorld": [
+        -0.4500000000000002,
+        4.6,
+        1.0499999999999998
+      ],
+      "photoVisible": false,
+      "camera": {
+        "position": [
+          -6.5,
+          6.4,
+          8.7
+        ],
+        "target": [
+          -1.5,
+          3.5,
+          2.1
+        ],
+        "fov": 48
+      }
+    },
+    {
+      "shot": "D17",
+      "frame": 5,
+      "bookCover": null,
+      "identity": true,
+      "pipScale": [
+        0.65,
+        0.65,
+        0.65
+      ],
+      "pipPosition": [
+        -0.9303047262513294,
+        1.582,
+        2.6815
+      ],
+      "pinWorld": [
+        -0.4500000000000002,
+        4.6,
+        1.0499999999999998
+      ],
+      "photoVisible": false,
+      "camera": {
+        "position": [
+          -6.5,
+          6.4,
+          8.7
+        ],
+        "target": [
+          -1.5,
+          3.5,
+          2.1
+        ],
+        "fov": 48
+      }
+    },
+    {
+      "shot": "D17",
+      "frame": 6,
+      "bookCover": null,
+      "identity": true,
+      "pipScale": [
+        0.65,
+        0.65,
+        0.65
+      ],
+      "pipPosition": [
+        -0.9303047262513294,
+        1.582,
+        2.6815
+      ],
+      "pinWorld": [
+        -0.4500000000000002,
+        4.6,
+        1.0499999999999998
+      ],
+      "photoVisible": false,
+      "camera": {
+        "position": [
+          -6.5,
+          6.4,
+          8.7
+        ],
+        "target": [
+          -1.5,
+          3.5,
+          2.1
+        ],
+        "fov": 48
+      }
+    },
+    {
+      "shot": "D17",
+      "frame": 7,
+      "bookCover": null,
+      "identity": true,
+      "pipScale": [
+        0.65,
+        0.65,
+        0.65
+      ],
+      "pipPosition": [
+        -0.9303047262513294,
+        1.582,
+        2.6815
+      ],
+      "pinWorld": [
+        -0.4500000000000002,
+        4.6,
+        1.0499999999999998
+      ],
+      "photoVisible": false,
+      "camera": {
+        "position": [
+          -6.5,
+          6.4,
+          8.7
+        ],
+        "target": [
+          -1.5,
+          3.5,
+          2.1
+        ],
+        "fov": 48
+      }
+    },
+    {
+      "shot": "D17",
+      "frame": 8,
+      "bookCover": null,
+      "identity": true,
+      "pipScale": [
+        0.65,
+        0.65,
+        0.65
+      ],
+      "pipPosition": [
+        -0.9303047262513294,
+        1.582,
+        2.6815
+      ],
+      "pinWorld": [
+        -0.4500000000000002,
+        4.6,
+        1.0499999999999998
+      ],
+      "photoVisible": false,
+      "camera": {
+        "position": [
+          -6.5,
+          6.4,
+          8.7
+        ],
+        "target": [
+          -1.5,
+          3.5,
+          2.1
+        ],
+        "fov": 48
+      }
+    },
+    {
+      "shot": "D17",
+      "frame": 9,
+      "bookCover": null,
+      "identity": true,
+      "pipScale": [
+        0.65,
+        0.65,
+        0.65
+      ],
+      "pipPosition": [
+        -0.9303047262513294,
+        1.582,
+        2.6815
+      ],
+      "pinWorld": [
+        -0.4500000000000002,
+        4.6,
+        1.0499999999999998
+      ],
+      "photoVisible": false,
+      "camera": {
+        "position": [
+          -6.5,
+          6.4,
+          8.7
+        ],
+        "target": [
+          -1.5,
+          3.5,
+          2.1
+        ],
+        "fov": 48
+      }
+    },
+    {
+      "shot": "D17",
+      "frame": 10,
+      "bookCover": null,
+      "identity": true,
+      "pipScale": [
+        0.65,
+        0.65,
+        0.65
+      ],
+      "pipPosition": [
+        -0.9303047262513294,
+        1.582,
+        2.6815
+      ],
+      "pinWorld": [
+        -0.4500000000000002,
+        4.6,
+        1.0499999999999998
+      ],
+      "photoVisible": false,
+      "camera": {
+        "position": [
+          -6.5,
+          6.4,
+          8.7
+        ],
+        "target": [
+          -1.5,
+          3.5,
+          2.1
+        ],
+        "fov": 48
+      }
+    },
+    {
+      "shot": "D17",
+      "frame": 11,
+      "bookCover": null,
+      "identity": true,
+      "pipScale": [
+        0.65,
+        0.65,
+        0.65
+      ],
+      "pipPosition": [
+        -0.9303047262513294,
+        1.582,
+        2.6815
+      ],
+      "pinWorld": [
+        -0.4500000000000002,
+        4.6,
+        1.0499999999999998
+      ],
+      "photoVisible": false,
+      "camera": {
+        "position": [
+          -6.5,
+          6.4,
+          8.7
+        ],
+        "target": [
+          -1.5,
+          3.5,
+          2.1
+        ],
+        "fov": 48
+      }
+    },
+    {
+      "shot": "D17",
+      "frame": 12,
+      "bookCover": null,
+      "identity": true,
+      "pipScale": [
+        0.65,
+        0.65,
+        0.65
+      ],
+      "pipPosition": [
+        -0.9303047262513294,
+        1.582,
+        2.6815
+      ],
+      "pinWorld": [
+        -0.4500000000000002,
+        4.6,
+        1.0499999999999998
+      ],
+      "photoVisible": false,
+      "camera": {
+        "position": [
+          -6.5,
+          6.4,
+          8.7
+        ],
+        "target": [
+          -1.5,
+          3.5,
+          2.1
+        ],
+        "fov": 48
+      }
+    },
+    {
+      "shot": "D17",
+      "frame": 13,
+      "bookCover": null,
+      "identity": true,
+      "pipScale": [
+        0.65,
+        0.65,
+        0.65
+      ],
+      "pipPosition": [
+        -0.9303047262513294,
+        1.582,
+        2.6815
+      ],
+      "pinWorld": [
+        -0.4500000000000002,
+        4.6,
+        1.0499999999999998
+      ],
+      "photoVisible": false,
+      "camera": {
+        "position": [
+          -6.5,
+          6.4,
+          8.7
+        ],
+        "target": [
+          -1.5,
+          3.5,
+          2.1
+        ],
+        "fov": 48
+      }
+    },
+    {
+      "shot": "D17",
+      "frame": 14,
+      "bookCover": null,
+      "identity": true,
+      "pipScale": [
+        0.65,
+        0.65,
+        0.65
+      ],
+      "pipPosition": [
+        -0.9303047262513294,
+        1.582,
+        2.6815
+      ],
+      "pinWorld": [
+        -0.4500000000000002,
+        4.6,
+        1.0499999999999998
+      ],
+      "photoVisible": false,
+      "camera": {
+        "position": [
+          -6.5,
+          6.4,
+          8.7
+        ],
+        "target": [
+          -1.5,
+          3.5,
+          2.1
+        ],
+        "fov": 48
+      }
+    },
+    {
+      "shot": "D18",
+      "frame": 0,
+      "bookCover": null,
+      "identity": true,
+      "pipScale": [
+        0.65,
+        0.65,
+        0.65
+      ],
+      "pipPosition": [
+        -0.9303047262513294,
+        1.582,
+        2.6815
+      ],
+      "pinWorld": [
+        -1.8919085259188149,
+        3.4338964655445587,
+        3.3865229462964224
+      ],
+      "photoVisible": true,
+      "camera": {
+        "position": [
+          -5.3,
+          5.3,
+          8
+        ],
+        "target": [
+          -1.25,
+          3.85,
+          2.9
+        ],
+        "fov": 40
+      }
+    },
+    {
+      "shot": "D18",
+      "frame": 1,
+      "bookCover": null,
+      "identity": true,
+      "pipScale": [
+        0.65,
+        0.65,
+        0.65
+      ],
+      "pipPosition": [
+        -0.9303047262513294,
+        1.582,
+        2.6815
+      ],
+      "pinWorld": [
+        -1.8919085259188149,
+        3.4338964655445587,
+        3.3865229462964224
+      ],
+      "photoVisible": true,
+      "camera": {
+        "position": [
+          -5.3,
+          5.3,
+          8
+        ],
+        "target": [
+          -1.25,
+          3.85,
+          2.9
+        ],
+        "fov": 40
+      }
+    },
+    {
+      "shot": "D18",
+      "frame": 2,
+      "bookCover": null,
+      "identity": true,
+      "pipScale": [
+        0.65,
+        0.65,
+        0.65
+      ],
+      "pipPosition": [
+        -0.9303047262513294,
+        1.582,
+        2.6815
+      ],
+      "pinWorld": [
+        -1.8919085259188149,
+        3.4338964655445587,
+        3.3865229462964224
+      ],
+      "photoVisible": true,
+      "camera": {
+        "position": [
+          -5.3,
+          5.3,
+          8
+        ],
+        "target": [
+          -1.25,
+          3.85,
+          2.9
+        ],
+        "fov": 40
+      }
+    },
+    {
+      "shot": "D18",
+      "frame": 3,
+      "bookCover": null,
+      "identity": true,
+      "pipScale": [
+        0.65,
+        0.65,
+        0.65
+      ],
+      "pipPosition": [
+        -0.9303047262513294,
+        1.582,
+        2.6815
+      ],
+      "pinWorld": [
+        -1.8919085259188149,
+        3.4338964655445587,
+        3.3865229462964224
+      ],
+      "photoVisible": true,
+      "camera": {
+        "position": [
+          -5.3,
+          5.3,
+          8
+        ],
+        "target": [
+          -1.25,
+          3.85,
+          2.9
+        ],
+        "fov": 40
+      }
+    },
+    {
+      "shot": "D18",
+      "frame": 4,
+      "bookCover": null,
+      "identity": true,
+      "pipScale": [
+        0.65,
+        0.65,
+        0.65
+      ],
+      "pipPosition": [
+        -0.9303047262513294,
+        1.582,
+        2.6815
+      ],
+      "pinWorld": [
+        -1.8919085259188149,
+        3.4338964655445587,
+        3.3865229462964224
+      ],
+      "photoVisible": true,
+      "camera": {
+        "position": [
+          -5.3,
+          5.3,
+          8
+        ],
+        "target": [
+          -1.25,
+          3.85,
+          2.9
+        ],
+        "fov": 40
+      }
+    },
+    {
+      "shot": "D18",
+      "frame": 5,
+      "bookCover": null,
+      "identity": true,
+      "pipScale": [
+        0.65,
+        0.65,
+        0.65
+      ],
+      "pipPosition": [
+        -0.9303047262513294,
+        1.582,
+        2.6815
+      ],
+      "pinWorld": [
+        -1.8919085259188149,
+        3.4338964655445587,
+        3.3865229462964224
+      ],
+      "photoVisible": true,
+      "camera": {
+        "position": [
+          -5.3,
+          5.3,
+          8
+        ],
+        "target": [
+          -1.25,
+          3.85,
+          2.9
+        ],
+        "fov": 40
+      }
+    },
+    {
+      "shot": "D18",
+      "frame": 6,
+      "bookCover": null,
+      "identity": true,
+      "pipScale": [
+        0.65,
+        0.65,
+        0.65
+      ],
+      "pipPosition": [
+        -0.9303047262513294,
+        1.582,
+        2.6815
+      ],
+      "pinWorld": [
+        -1.8919085259188149,
+        3.4338964655445587,
+        3.3865229462964224
+      ],
+      "photoVisible": true,
+      "camera": {
+        "position": [
+          -5.3,
+          5.3,
+          8
+        ],
+        "target": [
+          -1.25,
+          3.85,
+          2.9
+        ],
+        "fov": 40
+      }
+    },
+    {
+      "shot": "D18",
+      "frame": 7,
+      "bookCover": null,
+      "identity": true,
+      "pipScale": [
+        0.65,
+        0.65,
+        0.65
+      ],
+      "pipPosition": [
+        -0.9303047262513294,
+        1.582,
+        2.6815
+      ],
+      "pinWorld": [
+        -1.8919085259188149,
+        3.4338964655445587,
+        3.3865229462964224
+      ],
+      "photoVisible": true,
+      "camera": {
+        "position": [
+          -5.3,
+          5.3,
+          8
+        ],
+        "target": [
+          -1.25,
+          3.85,
+          2.9
+        ],
+        "fov": 40
+      }
+    },
+    {
+      "shot": "D18",
+      "frame": 8,
+      "bookCover": null,
+      "identity": true,
+      "pipScale": [
+        0.65,
+        0.65,
+        0.65
+      ],
+      "pipPosition": [
+        -0.9303047262513294,
+        1.582,
+        2.6815
+      ],
+      "pinWorld": [
+        -1.8919085259188149,
+        3.4338964655445587,
+        3.3865229462964224
+      ],
+      "photoVisible": true,
+      "camera": {
+        "position": [
+          -5.3,
+          5.3,
+          8
+        ],
+        "target": [
+          -1.25,
+          3.85,
+          2.9
+        ],
+        "fov": 40
+      }
+    },
+    {
+      "shot": "D18",
+      "frame": 9,
+      "bookCover": null,
+      "identity": true,
+      "pipScale": [
+        0.65,
+        0.65,
+        0.65
+      ],
+      "pipPosition": [
+        -0.9303047262513294,
+        1.582,
+        2.6815
+      ],
+      "pinWorld": [
+        -1.8919085259188149,
+        3.4338964655445587,
+        3.3865229462964224
+      ],
+      "photoVisible": true,
+      "camera": {
+        "position": [
+          -5.3,
+          5.3,
+          8
+        ],
+        "target": [
+          -1.25,
+          3.85,
+          2.9
+        ],
+        "fov": 40
+      }
+    },
+    {
+      "shot": "D18",
+      "frame": 10,
+      "bookCover": null,
+      "identity": true,
+      "pipScale": [
+        0.65,
+        0.65,
+        0.65
+      ],
+      "pipPosition": [
+        -0.9303047262513294,
+        1.582,
+        2.6815
+      ],
+      "pinWorld": [
+        -1.8919085259188149,
+        3.4338964655445587,
+        3.3865229462964224
+      ],
+      "photoVisible": true,
+      "camera": {
+        "position": [
+          -5.3,
+          5.3,
+          8
+        ],
+        "target": [
+          -1.25,
+          3.85,
+          2.9
+        ],
+        "fov": 40
+      }
+    },
+    {
+      "shot": "D18",
+      "frame": 11,
+      "bookCover": null,
+      "identity": true,
+      "pipScale": [
+        0.65,
+        0.65,
+        0.65
+      ],
+      "pipPosition": [
+        -0.9303047262513294,
+        1.582,
+        2.6815
+      ],
+      "pinWorld": [
+        -1.8919085259188149,
+        3.4338964655445587,
+        3.3865229462964224
+      ],
+      "photoVisible": true,
+      "camera": {
+        "position": [
+          -5.3,
+          5.3,
+          8
+        ],
+        "target": [
+          -1.25,
+          3.85,
+          2.9
+        ],
+        "fov": 40
+      }
+    },
+    {
+      "shot": "D18",
+      "frame": 12,
+      "bookCover": null,
+      "identity": true,
+      "pipScale": [
+        0.65,
+        0.65,
+        0.65
+      ],
+      "pipPosition": [
+        -0.9303047262513294,
+        1.582,
+        2.6815
+      ],
+      "pinWorld": [
+        -1.8919085259188149,
+        3.4338964655445587,
+        3.3865229462964224
+      ],
+      "photoVisible": true,
+      "camera": {
+        "position": [
+          -5.3,
+          5.3,
+          8
+        ],
+        "target": [
+          -1.25,
+          3.85,
+          2.9
+        ],
+        "fov": 40
+      }
+    },
+    {
+      "shot": "D18",
+      "frame": 13,
+      "bookCover": null,
+      "identity": true,
+      "pipScale": [
+        0.65,
+        0.65,
+        0.65
+      ],
+      "pipPosition": [
+        -0.9303047262513294,
+        1.582,
+        2.6815
+      ],
+      "pinWorld": [
+        -1.8919085259188149,
+        3.4338964655445587,
+        3.3865229462964224
+      ],
+      "photoVisible": true,
+      "camera": {
+        "position": [
+          -5.3,
+          5.3,
+          8
+        ],
+        "target": [
+          -1.25,
+          3.85,
+          2.9
+        ],
+        "fov": 40
+      }
+    },
+    {
+      "shot": "D18",
+      "frame": 14,
+      "bookCover": null,
+      "identity": true,
+      "pipScale": [
+        0.65,
+        0.65,
+        0.65
+      ],
+      "pipPosition": [
+        -0.9303047262513294,
+        1.582,
+        2.6815
+      ],
+      "pinWorld": [
+        -1.8919085259188149,
+        3.4338964655445587,
+        3.3865229462964224
+      ],
+      "photoVisible": true,
+      "camera": {
+        "position": [
+          -5.3,
+          5.3,
+          8
+        ],
+        "target": [
+          -1.25,
+          3.85,
+          2.9
+        ],
+        "fov": 40
+      }
+    },
+    {
+      "shot": "D20",
+      "frame": 0,
+      "bookCover": null,
+      "identity": true,
+      "pipScale": [
+        0.65,
+        0.65,
+        0.65
+      ],
+      "pipPosition": [
+        -0.9303047262513294,
+        1.582,
+        2.6815
+      ],
+      "pinWorld": [
+        -1.8919085259188149,
+        3.4338964655445587,
+        3.3865229462964224
+      ],
+      "photoVisible": true,
+      "camera": {
+        "position": [
+          -4.8,
+          4.9,
+          7.7
+        ],
+        "target": [
+          -1.45,
+          3.95,
+          3
+        ],
+        "fov": 34
+      }
+    },
+    {
+      "shot": "D20",
+      "frame": 1,
+      "bookCover": null,
+      "identity": true,
+      "pipScale": [
+        0.65,
+        0.65,
+        0.65
+      ],
+      "pipPosition": [
+        -0.9303047262513294,
+        1.582,
+        2.6815
+      ],
+      "pinWorld": [
+        -1.8920730737266827,
+        3.4344863374098726,
+        3.386934920675378
+      ],
+      "photoVisible": true,
+      "camera": {
+        "position": [
+          -4.8,
+          4.9,
+          7.7
+        ],
+        "target": [
+          -1.45,
+          3.95,
+          3
+        ],
+        "fov": 34
+      }
+    },
+    {
+      "shot": "D20",
+      "frame": 2,
+      "bookCover": null,
+      "identity": true,
+      "pipScale": [
+        0.65,
+        0.65,
+        0.65
+      ],
+      "pipPosition": [
+        -0.9303047262513294,
+        1.582,
+        2.6815
+      ],
+      "pinWorld": [
+        -1.8925331285488005,
+        3.4361393535866256,
+        3.3880867488406
+      ],
+      "photoVisible": true,
+      "camera": {
+        "position": [
+          -4.8,
+          4.9,
+          7.7
+        ],
+        "target": [
+          -1.45,
+          3.95,
+          3
+        ],
+        "fov": 34
+      }
+    },
+    {
+      "shot": "D20",
+      "frame": 3,
+      "bookCover": null,
+      "identity": true,
+      "pipScale": [
+        0.65,
+        0.65,
+        0.65
+      ],
+      "pipPosition": [
+        -0.9303047262513294,
+        1.582,
+        2.6815
+      ],
+      "pinWorld": [
+        -1.8932376905998267,
+        3.4386818511069093,
+        3.389850743859243
+      ],
+      "photoVisible": true,
+      "camera": {
+        "position": [
+          -4.8,
+          4.9,
+          7.7
+        ],
+        "target": [
+          -1.45,
+          3.95,
+          3
+        ],
+        "fov": 34
+      }
+    },
+    {
+      "shot": "D20",
+      "frame": 4,
+      "bookCover": null,
+      "identity": true,
+      "pipScale": [
+        0.65,
+        0.65,
+        0.65
+      ],
+      "pipPosition": [
+        -0.9303047262513294,
+        1.582,
+        2.6815
+      ],
+      "pinWorld": [
+        -1.8941354243807556,
+        3.441940810673682,
+        3.3920983782802567
+      ],
+      "photoVisible": true,
+      "camera": {
+        "position": [
+          -4.8,
+          4.9,
+          7.7
+        ],
+        "target": [
+          -1.45,
+          3.95,
+          3
+        ],
+        "fov": 34
+      }
+    },
+    {
+      "shot": "D20",
+      "frame": 5,
+      "bookCover": null,
+      "identity": true,
+      "pipScale": [
+        0.65,
+        0.65,
+        0.65
+      ],
+      "pipPosition": [
+        -0.9303047262513294,
+        1.582,
+        2.6815
+      ],
+      "pinWorld": [
+        -1.8951751735049633,
+        3.4457428020661047,
+        3.394701573091941
+      ],
+      "photoVisible": true,
+      "camera": {
+        "position": [
+          -4.8,
+          4.9,
+          7.7
+        ],
+        "target": [
+          -1.45,
+          3.95,
+          3
+        ],
+        "fov": 34
+      }
+    },
+    {
+      "shot": "D20",
+      "frame": 6,
+      "bookCover": null,
+      "identity": true,
+      "pipScale": [
+        0.65,
+        0.65,
+        0.65
+      ],
+      "pipPosition": [
+        -0.9303047262513294,
+        1.582,
+        2.6815
+      ],
+      "pinWorld": [
+        -1.8963063644349845,
+        3.4499131756972754,
+        3.397533708547981
+      ],
+      "photoVisible": true,
+      "camera": {
+        "position": [
+          -4.8,
+          4.9,
+          7.7
+        ],
+        "target": [
+          -1.45,
+          3.95,
+          3
+        ],
+        "fov": 34
+      }
+    },
+    {
+      "shot": "D20",
+      "frame": 7,
+      "bookCover": null,
+      "identity": true,
+      "pipScale": [
+        0.65,
+        0.65,
+        0.65
+      ],
+      "pipPosition": [
+        -0.9303047262513294,
+        1.582,
+        2.6815
+      ],
+      "pinWorld": [
+        -1.8974792992044651,
+        3.454275500865066,
+        3.4004703570483414
+      ],
+      "photoVisible": true,
+      "camera": {
+        "position": [
+          -4.8,
+          4.9,
+          7.7
+        ],
+        "target": [
+          -1.45,
+          3.95,
+          3
+        ],
+        "fov": 34
+      }
+    },
+    {
+      "shot": "D20",
+      "frame": 8,
+      "bookCover": null,
+      "identity": true,
+      "pipScale": [
+        0.65,
+        0.65,
+        0.65
+      ],
+      "pipPosition": [
+        -0.9303047262513294,
+        1.582,
+        2.6815
+      ],
+      "pinWorld": [
+        -1.8986453359330473,
+        3.4586512466820616,
+        3.4033897350900317
+      ],
+      "photoVisible": true,
+      "camera": {
+        "position": [
+          -4.8,
+          4.9,
+          7.7
+        ],
+        "target": [
+          -1.45,
+          3.95,
+          3
+        ],
+        "fov": 34
+      }
+    },
+    {
+      "shot": "D20",
+      "frame": 9,
+      "bookCover": null,
+      "identity": true,
+      "pipScale": [
+        0.65,
+        0.65,
+        0.65
+      ],
+      "pipPosition": [
+        -0.9303047262513294,
+        1.582,
+        2.6815
+      ],
+      "pinWorld": [
+        -1.8997569551283902,
+        3.462859698571877,
+        3.406172869265874
+      ],
+      "photoVisible": true,
+      "camera": {
+        "position": [
+          -4.8,
+          4.9,
+          7.7
+        ],
+        "target": [
+          -1.45,
+          3.95,
+          3
+        ],
+        "fov": 34
+      }
+    },
+    {
+      "shot": "D20",
+      "frame": 10,
+      "bookCover": null,
+      "identity": true,
+      "pipScale": [
+        0.65,
+        0.65,
+        0.65
+      ],
+      "pipPosition": [
+        -0.9303047262513294,
+        1.582,
+        2.6815
+      ],
+      "pinWorld": [
+        -1.9007677093983442,
+        3.4667181015996382,
+        3.408703470360092
+      ],
+      "photoVisible": true,
+      "camera": {
+        "position": [
+          -4.8,
+          4.9,
+          7.7
+        ],
+        "target": [
+          -1.45,
+          3.95,
+          3
+        ],
+        "fov": 34
+      }
+    },
+    {
+      "shot": "D20",
+      "frame": 11,
+      "bookCover": null,
+      "identity": true,
+      "pipScale": [
+        0.65,
+        0.65,
+        0.65
+      ],
+      "pipPosition": [
+        -0.9303047262513294,
+        1.582,
+        2.6815
+      ],
+      "pinWorld": [
+        -1.9016320542483558,
+        3.4700420218031773,
+        3.4108675097198473
+      ],
+      "photoVisible": true,
+      "camera": {
+        "position": [
+          -4.8,
+          4.9,
+          7.7
+        ],
+        "target": [
+          -1.45,
+          3.95,
+          3
+        ],
+        "fov": 34
+      }
+    },
+    {
+      "shot": "D20",
+      "frame": 12,
+      "bookCover": null,
+      "identity": true,
+      "pipScale": [
+        0.65,
+        0.65,
+        0.65
+      ],
+      "pipPosition": [
+        -0.9303047262513294,
+        1.582,
+        2.6815
+      ],
+      "pinWorld": [
+        -1.9023050580922976,
+        3.4726459181514886,
+        3.4125524932163493
+      ],
+      "photoVisible": true,
+      "camera": {
+        "position": [
+          -4.8,
+          4.9,
+          7.7
+        ],
+        "target": [
+          -1.45,
+          3.95,
+          3
+        ],
+        "fov": 34
+      }
+    },
+    {
+      "shot": "D20",
+      "frame": 13,
+      "bookCover": null,
+      "identity": true,
+      "pipScale": [
+        0.65,
+        0.65,
+        0.65
+      ],
+      "pipPosition": [
+        -0.9303047262513294,
+        1.582,
+        2.6815
+      ],
+      "pinWorld": [
+        -1.9027419904393925,
+        3.474343920815075,
+        3.4136464301983893
+      ],
+      "photoVisible": true,
+      "camera": {
+        "position": [
+          -4.8,
+          4.9,
+          7.7
+        ],
+        "target": [
+          -1.45,
+          3.95,
+          3
+        ],
+        "fov": 34
+      }
+    },
+    {
+      "shot": "D20",
+      "frame": 14,
+      "bookCover": null,
+      "identity": true,
+      "pipScale": [
+        0.65,
+        0.65,
+        0.65
+      ],
+      "pipPosition": [
+        -0.9303047262513294,
+        1.582,
+        2.6815
+      ],
+      "pinWorld": [
+        -1.9028977884241174,
+        3.474950816109032,
+        3.4140364978561197
+      ],
+      "photoVisible": true,
+      "camera": {
+        "position": [
+          -4.8,
+          4.9,
+          7.7
+        ],
+        "target": [
+          -1.45,
+          3.95,
+          3
+        ],
+        "fov": 34
+      }
+    },
+    {
+      "shot": "D21",
+      "frame": 0,
+      "bookCover": null,
+      "identity": true,
+      "pipScale": [
+        0.65,
+        0.65,
+        0.65
+      ],
+      "pipPosition": [
+        -0.9303047262513294,
+        1.582,
+        2.6815
+      ],
+      "pinWorld": [
+        -1.9028977884241174,
+        3.474950816109032,
+        3.4140364978561197
+      ],
+      "photoVisible": true,
+      "camera": {
+        "position": [
+          -5.3,
+          5.3,
+          8
+        ],
+        "target": [
+          -1.25,
+          3.85,
+          2.9
+        ],
+        "fov": 40
+      }
+    },
+    {
+      "shot": "D21",
+      "frame": 1,
+      "bookCover": null,
+      "identity": true,
+      "pipScale": [
+        0.65,
+        0.65,
+        0.65
+      ],
+      "pipPosition": [
+        -0.9303047262513294,
+        1.582,
+        2.6815
+      ],
+      "pinWorld": [
+        -1.9028977884241174,
+        3.474950816109032,
+        3.4140364978561197
+      ],
+      "photoVisible": true,
+      "camera": {
+        "position": [
+          -5.3,
+          5.3,
+          8
+        ],
+        "target": [
+          -1.25,
+          3.85,
+          2.9
+        ],
+        "fov": 40
+      }
+    },
+    {
+      "shot": "D21",
+      "frame": 2,
+      "bookCover": null,
+      "identity": true,
+      "pipScale": [
+        0.65,
+        0.65,
+        0.65
+      ],
+      "pipPosition": [
+        -0.9303047262513294,
+        1.582,
+        2.6815
+      ],
+      "pinWorld": [
+        -1.9028977884241174,
+        3.474950816109032,
+        3.4140364978561197
+      ],
+      "photoVisible": true,
+      "camera": {
+        "position": [
+          -5.3,
+          5.3,
+          8
+        ],
+        "target": [
+          -1.25,
+          3.85,
+          2.9
+        ],
+        "fov": 40
+      }
+    },
+    {
+      "shot": "D21",
+      "frame": 3,
+      "bookCover": null,
+      "identity": true,
+      "pipScale": [
+        0.65,
+        0.65,
+        0.65
+      ],
+      "pipPosition": [
+        -0.9303047262513294,
+        1.582,
+        2.6815
+      ],
+      "pinWorld": [
+        -1.9028977884241174,
+        3.474950816109032,
+        3.4140364978561197
+      ],
+      "photoVisible": true,
+      "camera": {
+        "position": [
+          -5.3,
+          5.3,
+          8
+        ],
+        "target": [
+          -1.25,
+          3.85,
+          2.9
+        ],
+        "fov": 40
+      }
+    },
+    {
+      "shot": "D21",
+      "frame": 4,
+      "bookCover": null,
+      "identity": true,
+      "pipScale": [
+        0.65,
+        0.65,
+        0.65
+      ],
+      "pipPosition": [
+        -0.9303047262513294,
+        1.582,
+        2.6815
+      ],
+      "pinWorld": [
+        -1.9028977884241174,
+        3.474950816109032,
+        3.4140364978561197
+      ],
+      "photoVisible": true,
+      "camera": {
+        "position": [
+          -5.3,
+          5.3,
+          8
+        ],
+        "target": [
+          -1.25,
+          3.85,
+          2.9
+        ],
+        "fov": 40
+      }
+    },
+    {
+      "shot": "D21",
+      "frame": 5,
+      "bookCover": null,
+      "identity": true,
+      "pipScale": [
+        0.65,
+        0.65,
+        0.65
+      ],
+      "pipPosition": [
+        -0.9303047262513294,
+        1.582,
+        2.6815
+      ],
+      "pinWorld": [
+        -1.9028977884241174,
+        3.474950816109032,
+        3.4140364978561197
+      ],
+      "photoVisible": true,
+      "camera": {
+        "position": [
+          -5.3,
+          5.3,
+          8
+        ],
+        "target": [
+          -1.25,
+          3.85,
+          2.9
+        ],
+        "fov": 40
+      }
+    },
+    {
+      "shot": "D21",
+      "frame": 6,
+      "bookCover": null,
+      "identity": true,
+      "pipScale": [
+        0.65,
+        0.65,
+        0.65
+      ],
+      "pipPosition": [
+        -0.9303047262513294,
+        1.582,
+        2.6815
+      ],
+      "pinWorld": [
+        -1.9028977884241174,
+        3.474950816109032,
+        3.4140364978561197
+      ],
+      "photoVisible": true,
+      "camera": {
+        "position": [
+          -5.3,
+          5.3,
+          8
+        ],
+        "target": [
+          -1.25,
+          3.85,
+          2.9
+        ],
+        "fov": 40
+      }
+    },
+    {
+      "shot": "D21",
+      "frame": 7,
+      "bookCover": null,
+      "identity": true,
+      "pipScale": [
+        0.65,
+        0.65,
+        0.65
+      ],
+      "pipPosition": [
+        -0.9303047262513294,
+        1.582,
+        2.6815
+      ],
+      "pinWorld": [
+        -1.9028977884241174,
+        3.474950816109032,
+        3.4140364978561197
+      ],
+      "photoVisible": true,
+      "camera": {
+        "position": [
+          -5.3,
+          5.3,
+          8
+        ],
+        "target": [
+          -1.25,
+          3.85,
+          2.9
+        ],
+        "fov": 40
+      }
+    },
+    {
+      "shot": "D21",
+      "frame": 8,
+      "bookCover": null,
+      "identity": true,
+      "pipScale": [
+        0.65,
+        0.65,
+        0.65
+      ],
+      "pipPosition": [
+        -0.9303047262513294,
+        1.582,
+        2.6815
+      ],
+      "pinWorld": [
+        -1.9028977884241174,
+        3.474950816109032,
+        3.4140364978561197
+      ],
+      "photoVisible": true,
+      "camera": {
+        "position": [
+          -5.3,
+          5.3,
+          8
+        ],
+        "target": [
+          -1.25,
+          3.85,
+          2.9
+        ],
+        "fov": 40
+      }
+    },
+    {
+      "shot": "D21",
+      "frame": 9,
+      "bookCover": null,
+      "identity": true,
+      "pipScale": [
+        0.65,
+        0.65,
+        0.65
+      ],
+      "pipPosition": [
+        -0.9303047262513294,
+        1.582,
+        2.6815
+      ],
+      "pinWorld": [
+        -1.9028977884241174,
+        3.474950816109032,
+        3.4140364978561197
+      ],
+      "photoVisible": true,
+      "camera": {
+        "position": [
+          -5.3,
+          5.3,
+          8
+        ],
+        "target": [
+          -1.25,
+          3.85,
+          2.9
+        ],
+        "fov": 40
+      }
+    },
+    {
+      "shot": "D21",
+      "frame": 10,
+      "bookCover": null,
+      "identity": true,
+      "pipScale": [
+        0.65,
+        0.65,
+        0.65
+      ],
+      "pipPosition": [
+        -0.9303047262513294,
+        1.582,
+        2.6815
+      ],
+      "pinWorld": [
+        -1.9028977884241174,
+        3.474950816109032,
+        3.4140364978561197
+      ],
+      "photoVisible": true,
+      "camera": {
+        "position": [
+          -5.3,
+          5.3,
+          8
+        ],
+        "target": [
+          -1.25,
+          3.85,
+          2.9
+        ],
+        "fov": 40
+      }
+    },
+    {
+      "shot": "D21",
+      "frame": 11,
+      "bookCover": null,
+      "identity": true,
+      "pipScale": [
+        0.65,
+        0.65,
+        0.65
+      ],
+      "pipPosition": [
+        -0.9303047262513294,
+        1.582,
+        2.6815
+      ],
+      "pinWorld": [
+        -1.9028977884241174,
+        3.474950816109032,
+        3.4140364978561197
+      ],
+      "photoVisible": true,
+      "camera": {
+        "position": [
+          -5.3,
+          5.3,
+          8
+        ],
+        "target": [
+          -1.25,
+          3.85,
+          2.9
+        ],
+        "fov": 40
+      }
+    },
+    {
+      "shot": "D21",
+      "frame": 12,
+      "bookCover": null,
+      "identity": true,
+      "pipScale": [
+        0.65,
+        0.65,
+        0.65
+      ],
+      "pipPosition": [
+        -0.9303047262513294,
+        1.582,
+        2.6815
+      ],
+      "pinWorld": [
+        -1.9028977884241174,
+        3.474950816109032,
+        3.4140364978561197
+      ],
+      "photoVisible": true,
+      "camera": {
+        "position": [
+          -5.3,
+          5.3,
+          8
+        ],
+        "target": [
+          -1.25,
+          3.85,
+          2.9
+        ],
+        "fov": 40
+      }
+    },
+    {
+      "shot": "D21",
+      "frame": 13,
+      "bookCover": null,
+      "identity": true,
+      "pipScale": [
+        0.65,
+        0.65,
+        0.65
+      ],
+      "pipPosition": [
+        -0.9303047262513294,
+        1.582,
+        2.6815
+      ],
+      "pinWorld": [
+        -1.9028977884241174,
+        3.474950816109032,
+        3.4140364978561197
+      ],
+      "photoVisible": true,
+      "camera": {
+        "position": [
+          -5.3,
+          5.3,
+          8
+        ],
+        "target": [
+          -1.25,
+          3.85,
+          2.9
+        ],
+        "fov": 40
+      }
+    },
+    {
+      "shot": "D21",
+      "frame": 14,
+      "bookCover": null,
+      "identity": true,
+      "pipScale": [
+        0.65,
+        0.65,
+        0.65
+      ],
+      "pipPosition": [
+        -0.9303047262513294,
+        1.582,
+        2.6815
+      ],
+      "pinWorld": [
+        -1.9028977884241174,
+        3.474950816109032,
+        3.4140364978561197
+      ],
+      "photoVisible": true,
+      "camera": {
+        "position": [
+          -5.3,
+          5.3,
+          8
+        ],
+        "target": [
+          -1.25,
+          3.85,
+          2.9
+        ],
+        "fov": 40
+      }
+    },
+    {
+      "shot": "D22",
+      "frame": 0,
+      "bookCover": -2,
+      "identity": true,
+      "pipScale": [
+        0.65,
+        0.65,
+        0.65
+      ],
+      "pipPosition": [
+        1.99925,
+        1.582,
+        3.6315
+      ],
+      "pinWorld": [
+        1.5942499999999995,
+        2.995750000000001,
+        3
+      ],
+      "photoVisible": false,
+      "camera": {
+        "position": [
+          -3.6,
+          5.6,
+          10.4
+        ],
+        "target": [
+          -0.1,
+          3.7,
+          4
+        ],
+        "fov": 44
+      }
+    },
+    {
+      "shot": "D22",
+      "frame": 1,
+      "bookCover": -2,
+      "identity": true,
+      "pipScale": [
+        0.65,
+        0.65,
+        0.65
+      ],
+      "pipPosition": [
+        1.99925,
+        1.582,
+        3.6315
+      ],
+      "pinWorld": [
+        1.5942499999999995,
+        2.995750000000001,
+        3
+      ],
+      "photoVisible": false,
+      "camera": {
+        "position": [
+          -3.6,
+          5.6,
+          10.4
+        ],
+        "target": [
+          -0.1,
+          3.7,
+          4
+        ],
+        "fov": 44
+      }
+    },
+    {
+      "shot": "D22",
+      "frame": 2,
+      "bookCover": -2,
+      "identity": true,
+      "pipScale": [
+        0.65,
+        0.65,
+        0.65
+      ],
+      "pipPosition": [
+        1.99925,
+        1.582,
+        3.6315
+      ],
+      "pinWorld": [
+        1.5942499999999995,
+        2.995750000000001,
+        3
+      ],
+      "photoVisible": false,
+      "camera": {
+        "position": [
+          -3.6,
+          5.6,
+          10.4
+        ],
+        "target": [
+          -0.1,
+          3.7,
+          4
+        ],
+        "fov": 44
+      }
+    },
+    {
+      "shot": "D22",
+      "frame": 3,
+      "bookCover": -2,
+      "identity": true,
+      "pipScale": [
+        0.65,
+        0.65,
+        0.65
+      ],
+      "pipPosition": [
+        1.99925,
+        1.582,
+        3.6315
+      ],
+      "pinWorld": [
+        1.5942499999999995,
+        2.995750000000001,
+        3
+      ],
+      "photoVisible": false,
+      "camera": {
+        "position": [
+          -3.6,
+          5.6,
+          10.4
+        ],
+        "target": [
+          -0.1,
+          3.7,
+          4
+        ],
+        "fov": 44
+      }
+    },
+    {
+      "shot": "D22",
+      "frame": 4,
+      "bookCover": -2,
+      "identity": true,
+      "pipScale": [
+        0.65,
+        0.65,
+        0.65
+      ],
+      "pipPosition": [
+        1.99925,
+        1.582,
+        3.6315
+      ],
+      "pinWorld": [
+        1.5942499999999995,
+        2.995750000000001,
+        3
+      ],
+      "photoVisible": false,
+      "camera": {
+        "position": [
+          -3.6,
+          5.6,
+          10.4
+        ],
+        "target": [
+          -0.1,
+          3.7,
+          4
+        ],
+        "fov": 44
+      }
+    },
+    {
+      "shot": "D22",
+      "frame": 5,
+      "bookCover": -2,
+      "identity": true,
+      "pipScale": [
+        0.65,
+        0.65,
+        0.65
+      ],
+      "pipPosition": [
+        1.99925,
+        1.582,
+        3.6315
+      ],
+      "pinWorld": [
+        1.5942499999999995,
+        2.995750000000001,
+        3
+      ],
+      "photoVisible": false,
+      "camera": {
+        "position": [
+          -3.6,
+          5.6,
+          10.4
+        ],
+        "target": [
+          -0.1,
+          3.7,
+          4
+        ],
+        "fov": 44
+      }
+    },
+    {
+      "shot": "D22",
+      "frame": 6,
+      "bookCover": -2,
+      "identity": true,
+      "pipScale": [
+        0.65,
+        0.65,
+        0.65
+      ],
+      "pipPosition": [
+        1.99925,
+        1.582,
+        3.6315
+      ],
+      "pinWorld": [
+        1.5942499999999995,
+        2.995750000000001,
+        3
+      ],
+      "photoVisible": false,
+      "camera": {
+        "position": [
+          -3.6,
+          5.6,
+          10.4
+        ],
+        "target": [
+          -0.1,
+          3.7,
+          4
+        ],
+        "fov": 44
+      }
+    },
+    {
+      "shot": "D22",
+      "frame": 7,
+      "bookCover": -2,
+      "identity": true,
+      "pipScale": [
+        0.65,
+        0.65,
+        0.65
+      ],
+      "pipPosition": [
+        1.99925,
+        1.582,
+        3.6315
+      ],
+      "pinWorld": [
+        1.5942499999999995,
+        2.995750000000001,
+        3
+      ],
+      "photoVisible": false,
+      "camera": {
+        "position": [
+          -3.6,
+          5.6,
+          10.4
+        ],
+        "target": [
+          -0.1,
+          3.7,
+          4
+        ],
+        "fov": 44
+      }
+    },
+    {
+      "shot": "D22",
+      "frame": 8,
+      "bookCover": -2,
+      "identity": true,
+      "pipScale": [
+        0.65,
+        0.65,
+        0.65
+      ],
+      "pipPosition": [
+        1.99925,
+        1.582,
+        3.6315
+      ],
+      "pinWorld": [
+        1.5942499999999995,
+        2.995750000000001,
+        3
+      ],
+      "photoVisible": false,
+      "camera": {
+        "position": [
+          -3.6,
+          5.6,
+          10.4
+        ],
+        "target": [
+          -0.1,
+          3.7,
+          4
+        ],
+        "fov": 44
+      }
+    },
+    {
+      "shot": "D22",
+      "frame": 9,
+      "bookCover": -2,
+      "identity": true,
+      "pipScale": [
+        0.65,
+        0.65,
+        0.65
+      ],
+      "pipPosition": [
+        1.99925,
+        1.582,
+        3.6315
+      ],
+      "pinWorld": [
+        1.5942499999999995,
+        2.995750000000001,
+        3
+      ],
+      "photoVisible": false,
+      "camera": {
+        "position": [
+          -3.6,
+          5.6,
+          10.4
+        ],
+        "target": [
+          -0.1,
+          3.7,
+          4
+        ],
+        "fov": 44
+      }
+    },
+    {
+      "shot": "D22",
+      "frame": 10,
+      "bookCover": -2,
+      "identity": true,
+      "pipScale": [
+        0.65,
+        0.65,
+        0.65
+      ],
+      "pipPosition": [
+        1.99925,
+        1.582,
+        3.6315
+      ],
+      "pinWorld": [
+        1.5942499999999995,
+        2.995750000000001,
+        3
+      ],
+      "photoVisible": false,
+      "camera": {
+        "position": [
+          -3.6,
+          5.6,
+          10.4
+        ],
+        "target": [
+          -0.1,
+          3.7,
+          4
+        ],
+        "fov": 44
+      }
+    },
+    {
+      "shot": "D22",
+      "frame": 11,
+      "bookCover": -2,
+      "identity": true,
+      "pipScale": [
+        0.65,
+        0.65,
+        0.65
+      ],
+      "pipPosition": [
+        1.99925,
+        1.582,
+        3.6315
+      ],
+      "pinWorld": [
+        1.5942499999999995,
+        2.995750000000001,
+        3
+      ],
+      "photoVisible": false,
+      "camera": {
+        "position": [
+          -3.6,
+          5.6,
+          10.4
+        ],
+        "target": [
+          -0.1,
+          3.7,
+          4
+        ],
+        "fov": 44
+      }
+    },
+    {
+      "shot": "D22",
+      "frame": 12,
+      "bookCover": -2,
+      "identity": true,
+      "pipScale": [
+        0.65,
+        0.65,
+        0.65
+      ],
+      "pipPosition": [
+        1.99925,
+        1.582,
+        3.6315
+      ],
+      "pinWorld": [
+        1.5942499999999995,
+        2.995750000000001,
+        3
+      ],
+      "photoVisible": false,
+      "camera": {
+        "position": [
+          -3.6,
+          5.6,
+          10.4
+        ],
+        "target": [
+          -0.1,
+          3.7,
+          4
+        ],
+        "fov": 44
+      }
+    },
+    {
+      "shot": "D22",
+      "frame": 13,
+      "bookCover": -2,
+      "identity": true,
+      "pipScale": [
+        0.65,
+        0.65,
+        0.65
+      ],
+      "pipPosition": [
+        1.99925,
+        1.582,
+        3.6315
+      ],
+      "pinWorld": [
+        1.5942499999999995,
+        2.995750000000001,
+        3
+      ],
+      "photoVisible": false,
+      "camera": {
+        "position": [
+          -3.6,
+          5.6,
+          10.4
+        ],
+        "target": [
+          -0.1,
+          3.7,
+          4
+        ],
+        "fov": 44
+      }
+    },
+    {
+      "shot": "D22",
+      "frame": 14,
+      "bookCover": -2,
+      "identity": true,
+      "pipScale": [
+        0.65,
+        0.65,
+        0.65
+      ],
+      "pipPosition": [
+        1.99925,
+        1.582,
+        3.6315
+      ],
+      "pinWorld": [
+        1.5942499999999995,
+        2.995750000000001,
+        3
+      ],
+      "photoVisible": false,
+      "camera": {
+        "position": [
+          -3.6,
+          5.6,
+          10.4
+        ],
+        "target": [
+          -0.1,
+          3.7,
+          4
+        ],
+        "fov": 44
+      }
+    },
+    {
+      "shot": "D24",
+      "frame": 0,
+      "bookCover": null,
+      "identity": true,
+      "pipScale": [
+        0.65,
+        0.65,
+        0.65
+      ],
+      "pipPosition": [
+        1.99925,
+        1.582,
+        3.6315
+      ],
+      "pinWorld": [
+        0.8000000000000004,
+        4.6000000000000005,
+        3
+      ],
+      "photoVisible": false,
+      "camera": {
+        "position": [
+          -3.8,
+          6.4,
+          8.2
+        ],
+        "target": [
+          1,
+          4,
+          3.5
+        ],
+        "fov": 36
+      }
+    },
+    {
+      "shot": "D24",
+      "frame": 1,
+      "bookCover": null,
+      "identity": true,
+      "pipScale": [
+        0.65,
+        0.65,
+        0.65
+      ],
+      "pipPosition": [
+        1.99925,
+        1.582,
+        3.6315
+      ],
+      "pinWorld": [
+        0.7980656326014858,
+        4.594226349352633,
+        3
+      ],
+      "photoVisible": false,
+      "camera": {
+        "position": [
+          -3.8,
+          6.4,
+          8.2
+        ],
+        "target": [
+          1,
+          4,
+          3.5
+        ],
+        "fov": 36
+      }
+    },
+    {
+      "shot": "D24",
+      "frame": 2,
+      "bookCover": null,
+      "identity": true,
+      "pipScale": [
+        0.65,
+        0.65,
+        0.65
+      ],
+      "pipPosition": [
+        1.99925,
+        1.582,
+        3.6315
+      ],
+      "pinWorld": [
+        0.7927974211282663,
+        4.578011406401613,
+        3
+      ],
+      "photoVisible": false,
+      "camera": {
+        "position": [
+          -3.8,
+          6.4,
+          8.2
+        ],
+        "target": [
+          1,
+          4,
+          3.5
+        ],
+        "fov": 36
+      }
+    },
+    {
+      "shot": "D24",
+      "frame": 3,
+      "bookCover": null,
+      "identity": true,
+      "pipScale": [
+        0.65,
+        0.65,
+        0.65
+      ],
+      "pipPosition": [
+        1.99925,
+        1.582,
+        3.6315
+      ],
+      "pinWorld": [
+        0.7851334409444295,
+        4.552975618620961,
+        3
+      ],
+      "photoVisible": false,
+      "camera": {
+        "position": [
+          -3.8,
+          6.4,
+          8.2
+        ],
+        "target": [
+          1,
+          4,
+          3.5
+        ],
+        "fov": 36
+      }
+    },
+    {
+      "shot": "D24",
+      "frame": 4,
+      "bookCover": null,
+      "identity": true,
+      "pipScale": [
+        0.65,
+        0.65,
+        0.65
+      ],
+      "pipPosition": [
+        1.99925,
+        1.582,
+        3.6315
+      ],
+      "pinWorld": [
+        0.7760882479300445,
+        4.520731316844352,
+        3
+      ],
+      "photoVisible": false,
+      "camera": {
+        "position": [
+          -3.8,
+          6.4,
+          8.2
+        ],
+        "target": [
+          1,
+          4,
+          3.5
+        ],
+        "fov": 36
+      }
+    },
+    {
+      "shot": "D24",
+      "frame": 5,
+      "bookCover": null,
+      "identity": true,
+      "pipScale": [
+        0.65,
+        0.65,
+        0.65
+      ],
+      "pipPosition": [
+        1.99925,
+        1.582,
+        3.6315
+      ],
+      "pinWorld": [
+        0.766641127124206,
+        4.482925214262077,
+        3
+      ],
+      "photoVisible": false,
+      "camera": {
+        "position": [
+          -3.8,
+          6.4,
+          8.2
+        ],
+        "target": [
+          1,
+          4,
+          3.5
+        ],
+        "fov": 36
+      }
+    },
+    {
+      "shot": "D24",
+      "frame": 6,
+      "bookCover": null,
+      "identity": true,
+      "pipScale": [
+        0.65,
+        0.65,
+        0.65
+      ],
+      "pipPosition": [
+        1.99925,
+        1.582,
+        3.6315
+      ],
+      "pinWorld": [
+        0.7576462815478331,
+        4.4412636165286115,
+        3
+      ],
+      "photoVisible": false,
+      "camera": {
+        "position": [
+          -3.8,
+          6.4,
+          8.2
+        ],
+        "target": [
+          1,
+          4,
+          3.5
+        ],
+        "fov": 36
+      }
+    },
+    {
+      "shot": "D24",
+      "frame": 7,
+      "bookCover": null,
+      "identity": true,
+      "pipScale": [
+        0.65,
+        0.65,
+        0.65
+      ],
+      "pipPosition": [
+        1.99925,
+        1.582,
+        3.6315
+      ],
+      "pinWorld": [
+        0.7497655932997483,
+        4.397519825974937,
+        3
+      ],
+      "photoVisible": false,
+      "camera": {
+        "position": [
+          -3.8,
+          6.4,
+          8.2
+        ],
+        "target": [
+          1,
+          4,
+          3.5
+        ],
+        "fov": 36
+      }
+    },
+    {
+      "shot": "D24",
+      "frame": 8,
+      "bookCover": null,
+      "identity": true,
+      "pipScale": [
+        0.65,
+        0.65,
+        0.65
+      ],
+      "pipPosition": [
+        1.99925,
+        1.582,
+        3.6315
+      ],
+      "pinWorld": [
+        0.7434255819782618,
+        4.353526318320846,
+        3
+      ],
+      "photoVisible": false,
+      "camera": {
+        "position": [
+          -3.8,
+          6.4,
+          8.2
+        ],
+        "target": [
+          1,
+          4,
+          3.5
+        ],
+        "fov": 36
+      }
+    },
+    {
+      "shot": "D24",
+      "frame": 9,
+      "bookCover": null,
+      "identity": true,
+      "pipScale": [
+        0.65,
+        0.65,
+        0.65
+      ],
+      "pipPosition": [
+        1.99925,
+        1.582,
+        3.6315
+      ],
+      "pinWorld": [
+        0.738800383588241,
+        4.311156476304373,
+        3
+      ],
+      "photoVisible": false,
+      "camera": {
+        "position": [
+          -3.8,
+          6.4,
+          8.2
+        ],
+        "target": [
+          1,
+          4,
+          3.5
+        ],
+        "fov": 36
+      }
+    },
+    {
+      "shot": "D24",
+      "frame": 10,
+      "bookCover": null,
+      "identity": true,
+      "pipScale": [
+        0.65,
+        0.65,
+        0.65
+      ],
+      "pipPosition": [
+        1.99925,
+        1.582,
+        3.6315
+      ],
+      "pinWorld": [
+        0.7358221304614194,
+        4.2723018820805985,
+        3
+      ],
+      "photoVisible": false,
+      "camera": {
+        "position": [
+          -3.8,
+          6.4,
+          8.2
+        ],
+        "target": [
+          1,
+          4,
+          3.5
+        ],
+        "fov": 36
+      }
+    },
+    {
+      "shot": "D24",
+      "frame": 11,
+      "bookCover": null,
+      "identity": true,
+      "pipScale": [
+        0.65,
+        0.65,
+        0.65
+      ],
+      "pipPosition": [
+        1.99925,
+        1.582,
+        3.6315
+      ],
+      "pinWorld": [
+        0.7342193181296779,
+        4.238851299031004,
+        3
+      ],
+      "photoVisible": false,
+      "camera": {
+        "position": [
+          -3.8,
+          6.4,
+          8.2
+        ],
+        "target": [
+          1,
+          4,
+          3.5
+        ],
+        "fov": 36
+      }
+    },
+    {
+      "shot": "D24",
+      "frame": 12,
+      "bookCover": null,
+      "identity": true,
+      "pipScale": [
+        0.65,
+        0.65,
+        0.65
+      ],
+      "pipPosition": [
+        1.99925,
+        1.582,
+        3.6315
+      ],
+      "pinWorld": [
+        0.7335829405721014,
+        4.212676458331196,
+        3
+      ],
+      "photoVisible": false,
+      "camera": {
+        "position": [
+          -3.8,
+          6.4,
+          8.2
+        ],
+        "target": [
+          1,
+          4,
+          3.5
+        ],
+        "fov": 36
+      }
+    },
+    {
+      "shot": "D24",
+      "frame": 13,
+      "bookCover": null,
+      "identity": true,
+      "pipScale": [
+        0.65,
+        0.65,
+        0.65
+      ],
+      "pipPosition": [
+        1.99925,
+        1.582,
+        3.6315
+      ],
+      "pinWorld": [
+        0.733459666411642,
+        4.195627609967956,
+        3
+      ],
+      "photoVisible": false,
+      "camera": {
+        "position": [
+          -3.8,
+          6.4,
+          8.2
+        ],
+        "target": [
+          1,
+          4,
+          3.5
+        ],
+        "fov": 36
+      }
+    },
+    {
+      "shot": "D24",
+      "frame": 14,
+      "bookCover": null,
+      "identity": true,
+      "pipScale": [
+        0.65,
+        0.65,
+        0.65
+      ],
+      "pipPosition": [
+        1.99925,
+        1.582,
+        3.6315
+      ],
+      "pinWorld": [
+        0.7334712930236608,
+        4.1895385473264515,
+        3
+      ],
+      "photoVisible": false,
+      "camera": {
+        "position": [
+          -3.8,
+          6.4,
+          8.2
+        ],
+        "target": [
+          1,
+          4,
+          3.5
+        ],
+        "fov": 36
+      }
+    }
+  ],
+  "method": "Actual vertex projections, transformed mesh OBB overlap checks, material palm/handle fit, actual cylinder clearance and camera-to-facial-feature raycasts. Intended photo paper/hinge attachments excluded. No general physics claims.",
+  "gate": {
+    "angles": [
+      0,
+      0
+    ],
+    "size": [
+      720,
+      1280
+    ]
+  },
+  "wallSeconds": 8.011801168,
+  "status": "PASS"
+}

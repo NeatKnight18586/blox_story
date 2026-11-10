@@ -1,3 +1,7 @@
+# Dice Town P4B-4 — native backstory repair for review
+
+**Technical PASS; creative PARTIAL/pending review.** [117.100s silent edit](evidence/dice-town-p4b4/working-edit.mp4) · [390px narrative continuity](evidence/dice-town-p4b4/phone-continuity.jpg) · [Native before/after and limitations](evidence/dice-town-p4b4/REPORT.md) · [38-shot map](evidence/dice-town-p4b4/edit-map.json). Only D17–D22/D24 repaired with native scene-specific sources;90 new motion frames. D23 and all other shots preserved exactly; proxy22.317%. No merge or next phase.
+
 # Dice Town P4B-3 — ending working edit for review
 
 **Technical PASS; creative approval pending.** [117.100s silent edit](evidence/dice-town-p4b3/working-edit.mp4) · [Phone before/after](evidence/dice-town-p4b3/phone-comparison.jpg) · [Source map](evidence/dice-town-p4b3/edit-map.json) · [Report and commands](evidence/dice-town-p4b3/REPORT.md). Only D33/D34/D37/D38 changed; D35/D36 and3152 untouched frames preserved exactly.84 new motion frames; proxy40.82%. Isolated draft PR; no merge or next stage.

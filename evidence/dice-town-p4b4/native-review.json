@@ -1,0 +1,29 @@
+{
+  "status": "PASS_FOR_BOUNDED_MOTION_CAPTURE",
+  "creativeApproval": "PENDING_HUMAN_REVIEW",
+  "nativeFramesReviewed": [
+    "D17-0",
+    "D17-14",
+    "D18-0",
+    "D18-14",
+    "D21-0",
+    "D21-14",
+    "D24-0",
+    "D24-7",
+    "D24-14",
+    "D19-history",
+    "D20-0",
+    "D20-7",
+    "D20-14",
+    "D22-0",
+    "D22-7",
+    "D22-14",
+    "D21-gate"
+  ],
+  "geometry": "geometry.json",
+  "assessment": "Actual native poses inspected: child at installed crank; photo fully framed below face; macro historical photo and present mother distinguish age via hair; D20 tightened to photo/face insert; closed gate fear cutaway; Leo notebook fully framed and stays open while lowered; received pin remains separate from face and lowers with palm. Native still review caught D22 book crop before motion; corrected with wider/left-shifted composition.",
+  "motionFramesAuthorizedByBrief": 90,
+  "perActionFrames": 15,
+  "finalD19Correction": "Final sequence review found the full approved reunion still showed Pip home too early. Replaced only the new D19 cutaway with a fresh720x1280 native close-up of the same older mother, existing anticipation pose/frame0; Pip hidden, new camera only, zero new mother motion. Tight initial framing widened34to38 before final integration to retain entire hair silhouette.",
+  "reviewedFinalMother": "D19-present.png"
+}

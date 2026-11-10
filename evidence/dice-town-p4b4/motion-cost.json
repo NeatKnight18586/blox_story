@@ -1,0 +1,13 @@
+{
+  "command": [
+    "node",
+    "scripts/dice-town-p4b4-capture.js"
+  ],
+  "exitCode": 0,
+  "wallSeconds": 54.76072355400174,
+  "sampledTreeRssMiB": 724.04296875,
+  "sampledTreeCpuSeconds": 106.97,
+  "processCount": 7,
+  "sampleIntervalSeconds": 0.2,
+  "method": "Linux ps summed subtree RSS (shared pages counted per process), /proc cumulative CPU samples retained by PID/start-time at 100Hz; sampled lower bounds; final pass only, not all development activity"
+}
