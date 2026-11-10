@@ -79,7 +79,7 @@ function cameraFor(f) {
   if (f < CUTS[2]) {
     const u = ease((f - CUTS[1]) / (CUTS[2] - CUTS[1] - 1)), x = leo.root.position.x;
     camera.fov = 40; camera.position.set(x + lerp(10, 8.2, u), 5.2, lerp(4.6, 3.8, u)); camera.lookAt(x + .6, lerp(4.4, 4.9, u), -9.1);
-    return {focus: head(leo), close: true};
+    return {focus: head(leo).lerp(head(pip), .5), close: true}; // midway between both heads: both stay sharp
   }
   const u = ease((f - CUTS[2]) / (FRAMES - CUTS[2] - 1));
   camera.fov = 57; camera.position.set(P.x + lerp(10, 8.2, u), lerp(11, 9.2, u), P.z + lerp(27, 22.5, u)); camera.lookAt(P.x + lerp(-2, -.5, u), lerp(4.5, 4.3, u), P.z + lerp(-2, -1, u));

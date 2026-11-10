@@ -22,7 +22,9 @@ export const LOOK = {
   material: {roughness: .5, characterRoughness: .42, envIntensity: .16},
   light: {hemiSky: 0xbfe8ff, hemiGround: 0xd9b27e, hemi: .82, key: 0xfff0d6, keyMul: 1.08, rim: 0x9fd4ff, rimIntensity: 1.1},
   bloom: {strength: .1, radius: .35, threshold: 1.2},
-  lens: {wideAperture: 0, closeAperture: .025, maxblur: .012},
+  // Bokeh blur = |distance − focus| × aperture (UV), so .0005 keeps anything within ~3 units
+  // of focus crisp (both characters in a two-shot) and only softens far backgrounds.
+  lens: {wideAperture: 0, closeAperture: .0005, maxblur: .006},
 };
 
 const CHARACTER_NAMES = new Set(['head','torso','leftArm','rightArm','leftLeg','rightLeg']);
