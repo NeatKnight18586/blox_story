@@ -6,8 +6,8 @@
   {
    "shot": "street_wide",
    "renderMs": [
-    9545,
-    2556
+    9740,
+    2726
    ],
    "deterministic": true,
    "sceneTriangles": 483996
@@ -15,8 +15,8 @@
   {
    "shot": "street_mid",
    "renderMs": [
-    2470,
-    2513
+    2455,
+    2492
    ],
    "deterministic": true,
    "sceneTriangles": 483996
@@ -24,8 +24,8 @@
   {
    "shot": "plaza_wide",
    "renderMs": [
-    3195,
-    2161
+    3272,
+    2315
    ],
    "deterministic": true,
    "sceneTriangles": 483996
@@ -33,14 +33,14 @@
   {
    "shot": "plaza_low",
    "renderMs": [
-    2279,
-    2186
+    2361,
+    2416
    ],
    "deterministic": true,
    "sceneTriangles": 483996
   },
   {
-   "loadMs": 2122
+   "loadMs": 1606
   }
  ]
 }

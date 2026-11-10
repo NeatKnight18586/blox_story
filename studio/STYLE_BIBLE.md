@@ -7,12 +7,12 @@ Bright, saturated, toy-plastic block world: original Roblox-inspired, never offi
 Reference (private Short, 22 frames): saturation .47, colorfulness 98, luma .67.
 
 ## Colour and light
-- Sky: vertical gradient, zenith `#1f74e0` → horizon `#b8e6ff`; fog matches horizon `#bfe6ff`, starts at 70 units.
+- Sky: vertical gradient, zenith `#1a62cf` → horizon `#a6d8f5`; fog `#a9d6f2` from 95 to 300 units (less haze).
 - Grade on every standard material: saturation ×1.4 (+.05), dark colours (L<.3) only ×1.1 so brown hair stays brown.
 - Big surfaces get authored colours, not a grade: warm sand paving `#d9b27a`, pale inlay `#efd8ac`, road `#f3ddb0`.
-- Light: sky/ground hemisphere `#bfe8ff`/`#d9b27e` at 1.0; existing warm key ×1.12; cool rim `#9fd4ff` from back-left.
-- Material: roughness ≤.5 (characters ≤.42) plus a soft studio environment at .22 for the smooth plastic sheen. No textures needed.
-- Tone: Neutral tone mapping, exposure 1.0. Bloom only on true highlights (threshold 1.2, strength .1).
+- Light: sky/ground hemisphere `#bfe8ff`/`#d9b27e` at .82; warm key ×1.08; cool rim `#9fd4ff` from back-left.
+- Material: roughness ≤.5 (characters ≤.42) plus a soft studio environment at .16 for the smooth plastic sheen. No textures needed.
+- Tone (v2, owner: "lively, not too bright"): Neutral tone mapping, exposure .86. Target frame brightness (luma) 0.52–0.70 with colourfulness ≥ 80. Bloom only on true highlights (threshold 1.2, strength .1).
 
 ## Characters (studio/characters/) — classic Roblox construction
 - Six plain blocks: classic box torso, normal-size head, no added 3D trim. Roblox-palette skin (Light orange #EAB892 family).

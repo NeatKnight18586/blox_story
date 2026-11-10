@@ -148,7 +148,7 @@ export function street({len = 120, road = 12, walk = 6, crossings = [0]} = {}) {
 }
 
 // Round plaza with painted concentric tile rings.
-export function plaza({r = 18, colors = ['#f2dcb0', '#e0a26b', '#f7ecd2', '#7fb9c8']} = {}) {
+export function plaza({r = 18, colors = ['#e6c18c', '#d8894f', '#efd9b0', '#68aac0']} = {}) {
   const top = paintedMaterial(1024, 1024, (c, W) => {
     const rings = 9; for (let i = rings; i > 0; i--) { c.fillStyle = colors[i % colors.length]; c.beginPath(); c.arc(W / 2, W / 2, W / 2 * i / rings, 0, Math.PI * 2); c.fill(); }
     c.strokeStyle = 'rgba(0,0,0,0.12)'; c.lineWidth = 3;
