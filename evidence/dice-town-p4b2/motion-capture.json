@@ -1,0 +1,1717 @@
+{
+  "status": "PASS",
+  "wallSeconds": 35.123008062000004,
+  "errors": [],
+  "samples": [
+    {
+      "frame": 0,
+      "name": "frame-00000",
+      "state": {
+        "frame": 0,
+        "time": 0,
+        "phi": 0.8,
+        "theta": -0.7707963267948965,
+        "kick": 0,
+        "tip": 0,
+        "view": "wide",
+        "diePosition": [
+          -1.0602961941328837,
+          4.379038701097096,
+          -1
+        ],
+        "dieQuaternion": [
+          0,
+          0,
+          -0.375928124180991,
+          0.926648825310733
+        ],
+        "topValue": 6,
+        "topNormalY": 0.7173560908995229,
+        "contactTop": 0.697626172201125,
+        "tipVisible": false,
+        "identity": true,
+        "camera": {
+          "position": [
+            10,
+            10,
+            21
+          ],
+          "fov": 64
+        }
+      },
+      "hash": "61cf7fe636a09904383cfb3de6cfb1431528ae7a55796a4f4ebace2f0cfaf6d8"
+    },
+    {
+      "frame": 1,
+      "name": "frame-00001",
+      "state": {
+        "frame": 1,
+        "time": 0.03333333333333333,
+        "phi": 0.8050966418313358,
+        "theta": -0.7656996849635608,
+        "kick": 0,
+        "tip": 0,
+        "view": "wide",
+        "diePosition": [
+          -1.0813396770378665,
+          4.378657663795478,
+          -1
+        ],
+        "dieQuaternion": [
+          0,
+          0,
+          -0.37356550752718354,
+          0.9276038009764501
+        ],
+        "topValue": 6,
+        "topNormalY": 0.7208976231719155,
+        "contactTop": 0.697626172201125,
+        "tipVisible": false,
+        "identity": true,
+        "camera": {
+          "position": [
+            10,
+            10,
+            21
+          ],
+          "fov": 64
+        }
+      },
+      "hash": "cdb63a38198cb1af554f4e55d947e0d29c074cad40533a459260b602a1763534"
+    },
+    {
+      "frame": 2,
+      "name": "frame-00002",
+      "state": {
+        "frame": 2,
+        "time": 0.06666666666666667,
+        "phi": 0.8190044271676925,
+        "theta": -0.751791899627204,
+        "kick": 0,
+        "tip": 0,
+        "view": "wide",
+        "diePosition": [
+          -1.1387510667161085,
+          4.377041907199246,
+          -1
+        ],
+        "dieQuaternion": [
+          0,
+          0,
+          -0.3671060700966742,
+          0.9301790866807186
+        ],
+        "topValue": 6,
+        "topNormalY": 0.7304662665963515,
+        "contactTop": 0.697626172201125,
+        "tipVisible": false,
+        "identity": true,
+        "camera": {
+          "position": [
+            10,
+            10,
+            21
+          ],
+          "fov": 64
+        }
+      },
+      "hash": "4f4b3b5263a94d1a1dc7fa43d3d32d9f4cd448ee75782c8a165ae247eaeed52e"
+    },
+    {
+      "frame": 3,
+      "name": "frame-00003",
+      "state": {
+        "frame": 3,
+        "time": 0.1,
+        "phi": 0.8396501457725948,
+        "theta": -0.7311461810223018,
+        "kick": 0,
+        "tip": 0,
+        "view": "wide",
+        "diePosition": [
+          -1.2239238738902334,
+          4.373089404643958,
+          -1
+        ],
+        "dieQuaternion": [
+          0,
+          0,
+          -0.357484573294457,
+          0.9339190435238378
+        ],
+        "topValue": 6,
+        "topNormalY": 0.7444095597129601,
+        "contactTop": 0.697626172201125,
+        "tipVisible": false,
+        "identity": true,
+        "camera": {
+          "position": [
+            10,
+            10,
+            21
+          ],
+          "fov": 64
+        }
+      },
+      "hash": "3c94e71977dc391291b60cc71b4d01513f5f01a3370e20d2b144bc96431cdc6f"
+    },
+    {
+      "frame": 4,
+      "name": "frame-00004",
+      "state": {
+        "frame": 4,
+        "time": 0.13333333333333333,
+        "phi": 0.864960587409567,
+        "theta": -0.7058357393853295,
+        "kick": 0,
+        "tip": 0,
+        "view": "wide",
+        "diePosition": [
+          -1.328206792680257,
+          4.365993672836631,
+          -1
+        ],
+        "dieQuaternion": [
+          0,
+          0,
+          -0.34563731102629064,
+          0.9383681842573922
+        ],
+        "topValue": 6,
+        "topNormalY": 0.7610696984530305,
+        "contactTop": 0.697626172201125,
+        "tipVisible": false,
+        "identity": true,
+        "camera": {
+          "position": [
+            10,
+            10,
+            21
+          ],
+          "fov": 64
+        }
+      },
+      "hash": "d891979fb30338b675af30fd77d93429a344c112ed88c93031286eadcb3e415c"
+    },
+    {
+      "frame": 5,
+      "name": "frame-00005",
+      "state": {
+        "frame": 5,
+        "time": 0.16666666666666666,
+        "phi": 0.8928625418421338,
+        "theta": -0.6779337849527628,
+        "kick": 0,
+        "tip": 0,
+        "view": "wide",
+        "diePosition": [
+          -1.4429208690774484,
+          4.355545358599334,
+          -1
+        ],
+        "dieQuaternion": [
+          0,
+          0,
+          -0.3325129474089538,
+          0.9430986903847393
+        ],
+        "topValue": 6,
+        "topNormalY": 0.7788702796108207,
+        "contactTop": 0.697626172201125,
+        "tipVisible": false,
+        "identity": true,
+        "camera": {
+          "position": [
+            10,
+            10,
+            21
+          ],
+          "fov": 64
+        }
+      },
+      "hash": "1809439f537a7a0e50d50a762004be425d20d4c77015ab02bdb5960ba6456991"
+    },
+    {
+      "frame": 6,
+      "name": "frame-00006",
+      "state": {
+        "frame": 6,
+        "time": 0.2,
+        "phi": 0.9212827988338194,
+        "theta": -0.6495135279610772,
+        "kick": 0,
+        "tip": 0,
+        "view": "wide",
+        "diePosition": [
+          -1.5594108229955375,
+          4.341433311759998,
+          -1
+        ],
+        "dieQuaternion": [
+          0,
+          0,
+          -0.3190782736229867,
+          0.9477283657788103
+        ],
+        "topValue": 6,
+        "topNormalY": 0.7963781106035489,
+        "contactTop": 0.697626172201125,
+        "tipVisible": false,
+        "identity": true,
+        "camera": {
+          "position": [
+            10,
+            10,
+            21
+          ],
+          "fov": 64
+        }
+      },
+      "hash": "8a673a1e929a41ea7c8baff32c10945f6b7c94c99159b07417eb2517757db758"
+    },
+    {
+      "frame": 7,
+      "name": "frame-00007",
+      "state": {
+        "frame": 7,
+        "time": 0.23333333333333334,
+        "phi": 0.9481481481481482,
+        "theta": -0.6226481786467484,
+        "kick": 0,
+        "tip": 0,
+        "view": "wide",
+        "diePosition": [
+          -1.6691136303384382,
+          4.324884101234474,
+          -1
+        ],
+        "dieQuaternion": [
+          0,
+          0,
+          -0.3063193433708868,
+          0.9519288102987685
+        ],
+        "topValue": 6,
+        "topNormalY": 0.8123369197536575,
+        "contactTop": 0.697626172201125,
+        "tipVisible": false,
+        "identity": true,
+        "camera": {
+          "position": [
+            10,
+            10,
+            21
+          ],
+          "fov": 64
+        }
+      },
+      "hash": "21ebeb0d7ea72256dc846938b57994a6f7e1e5fea6c186ef9fbb55ce099c1df0"
+    },
+    {
+      "frame": 8,
+      "name": "frame-00008",
+      "state": {
+        "frame": 8,
+        "time": 0.26666666666666666,
+        "phi": 0.9713853795486449,
+        "theta": -0.5994109472462517,
+        "kick": 0,
+        "tip": 0,
+        "view": "wide",
+        "diePosition": [
+          -1.7636146506466068,
+          4.308063520574223,
+          -1
+        ],
+        "dieQuaternion": [
+          0,
+          0,
+          -0.2952388220530034,
+          0.9554234861844014
+        ],
+        "topValue": 6,
+        "topNormalY": 0.82566807590551,
+        "contactTop": 0.697626172201125,
+        "tipVisible": false,
+        "identity": true,
+        "camera": {
+          "position": [
+            10,
+            10,
+            21
+          ],
+          "fov": 64
+        }
+      },
+      "hash": "28825f11b7196c559c2b76ab724759cc17a37f235c963fe21604109f7bb556d9"
+    },
+    {
+      "frame": 9,
+      "name": "frame-00009",
+      "state": {
+        "frame": 9,
+        "time": 0.3,
+        "phi": 0.9889212827988338,
+        "theta": -0.5818750439960627,
+        "kick": 0,
+        "tip": 0.13518434228493373,
+        "view": "wide",
+        "diePosition": [
+          -1.8346593242658122,
+          4.293836483773131,
+          -1
+        ],
+        "dieQuaternion": [
+          0,
+          0,
+          -0.28685047401751645,
+          0.9579753679275507
+        ],
+        "topValue": 6,
+        "topNormalY": 0.8354336111118522,
+        "contactTop": 0.697626172201125,
+        "tipVisible": true,
+        "identity": true,
+        "camera": {
+          "position": [
+            10,
+            10,
+            21
+          ],
+          "fov": 64
+        }
+      },
+      "hash": "afdaca94b0c7925788f3f26afa83802e1ddbe3b1ee436e0364075b4e156942a9"
+    },
+    {
+      "frame": 10,
+      "name": "frame-00010",
+      "state": {
+        "frame": 10,
+        "time": 0.3333333333333333,
+        "phi": 0.9986826476622396,
+        "theta": -0.572113679132657,
+        "kick": 0,
+        "tip": 0.4807734452704863,
+        "view": "wide",
+        "diePosition": [
+          -1.8740965567255343,
+          4.2853473179301025,
+          -1
+        ],
+        "dieQuaternion": [
+          0,
+          0,
+          -0.28217150249756257,
+          0.9593639784660815
+        ],
+        "topValue": 6,
+        "topNormalY": 0.840758486356536,
+        "contactTop": 0.697626172201125,
+        "tipVisible": true,
+        "identity": true,
+        "camera": {
+          "position": [
+            10,
+            10,
+            21
+          ],
+          "fov": 64
+        }
+      },
+      "hash": "3cad9f2e8e788a200129d547e989ebe696b0b223ee899e7fdc8fae628c22c2ab"
+    },
+    {
+      "frame": 11,
+      "name": "frame-00011",
+      "state": {
+        "frame": 11,
+        "time": 0.36666666666666664,
+        "phi": 1,
+        "theta": -0.5707963267948966,
+        "kick": 0,
+        "tip": 0.8364773512702504,
+        "view": "wide",
+        "diePosition": [
+          -1.87941254250409,
+          4.284170512632515,
+          -1
+        ],
+        "dieQuaternion": [
+          0,
+          0,
+          -0.2815395311427007,
+          0.9595496299847904
+        ],
+        "topValue": 6,
+        "topNormalY": 0.8414709848078965,
+        "contactTop": 0.697626172201125,
+        "tipVisible": true,
+        "identity": true,
+        "camera": {
+          "position": [
+            10,
+            10,
+            21
+          ],
+          "fov": 64
+        }
+      },
+      "hash": "ca5c9f036fa9188bad4a8ad4b695eb1fa4b9460ea35fdba3732e068bb737de6f"
+    },
+    {
+      "frame": 12,
+      "name": "frame-00012",
+      "state": {
+        "frame": 12,
+        "time": 0.4,
+        "phi": 1,
+        "theta": -0.5707963267948966,
+        "kick": 0,
+        "tip": 1,
+        "view": "wide",
+        "diePosition": [
+          -1.87941254250409,
+          4.284170512632515,
+          -1
+        ],
+        "dieQuaternion": [
+          0,
+          0,
+          -0.2815395311427007,
+          0.9595496299847904
+        ],
+        "topValue": 6,
+        "topNormalY": 0.8414709848078965,
+        "contactTop": 0.697626172201125,
+        "tipVisible": true,
+        "identity": true,
+        "camera": {
+          "position": [
+            10,
+            10,
+            21
+          ],
+          "fov": 64
+        }
+      },
+      "hash": "0b54367e146648bb4a1d10a1646c19e673a2f6dd91e025b736f75002a439746a"
+    },
+    {
+      "frame": 13,
+      "name": "frame-00013",
+      "state": {
+        "frame": 13,
+        "time": 0.43333333333333335,
+        "phi": 0.9803240740740741,
+        "theta": -0.5904722527208225,
+        "kick": 0.01967592592592592,
+        "tip": 1,
+        "view": "wide",
+        "diePosition": [
+          -1.7998594482816803,
+          4.300975971253001,
+          -1
+        ],
+        "dieQuaternion": [
+          0,
+          0,
+          -0.29096576822384745,
+          0.9567334643054493
+        ],
+        "topValue": 6,
+        "topNormalY": 0.8306778434438126,
+        "contactTop": 0.697626172201125,
+        "tipVisible": true,
+        "identity": true,
+        "camera": {
+          "position": [
+            10,
+            10,
+            21
+          ],
+          "fov": 64
+        }
+      },
+      "hash": "92ff9ece054612177b64a28ca277d400d5d2d6986c8a204077b0713221b59f1e"
+    },
+    {
+      "frame": 14,
+      "name": "frame-00014",
+      "state": {
+        "frame": 14,
+        "time": 0.4666666666666667,
+        "phi": 0.9259259259259259,
+        "theta": -0.6448704008689706,
+        "kick": 0.07407407407407406,
+        "tip": 1,
+        "view": "wide",
+        "diePosition": [
+          -1.5784017882553636,
+          4.338795744188385,
+          -1
+        ],
+        "dieQuaternion": [
+          0,
+          0,
+          -0.3168772041129443,
+          0.948466571637379
+        ],
+        "topValue": 6,
+        "topNormalY": 0.7991776750271269,
+        "contactTop": 0.697626172201125,
+        "tipVisible": true,
+        "identity": true,
+        "camera": {
+          "position": [
+            10,
+            10,
+            21
+          ],
+          "fov": 64
+        }
+      },
+      "hash": "e5d1b1941ce29a03870922dd0d1e070a8f9adcf2d8ff0918f998ea040b571cd3"
+    },
+    {
+      "frame": 15,
+      "name": "frame-00015",
+      "state": {
+        "frame": 15,
+        "time": 0.5,
+        "phi": 0.84375,
+        "theta": -0.7270463267948966,
+        "kick": 0.15624999999999994,
+        "tip": 1,
+        "view": "wide",
+        "diePosition": [
+          -1.2408273981185265,
+          4.372083634380505,
+          -1
+        ],
+        "dieQuaternion": [
+          0,
+          0,
+          -0.3555693575551792,
+          0.9346498980729614
+        ],
+        "topValue": 6,
+        "topNormalY": 0.7471408639355943,
+        "contactTop": 0.697626172201125,
+        "tipVisible": true,
+        "identity": true,
+        "camera": {
+          "position": [
+            10,
+            10,
+            21
+          ],
+          "fov": 64
+        }
+      },
+      "hash": "74983f3b65f0a51dc57abd837e68a13c086664910686884ffd6328f9041ec9d0"
+    },
+    {
+      "frame": 16,
+      "name": "frame-00016",
+      "state": {
+        "frame": 16,
+        "time": 0.5333333333333333,
+        "phi": 0.7407407407407408,
+        "theta": -0.8300555860541557,
+        "kick": 0.2592592592592592,
+        "tip": 1,
+        "view": "wide",
+        "diePosition": [
+          -0.8156483015203585,
+          4.375157120978435,
+          -1
+        ],
+        "dieQuaternion": [
+          0,
+          0,
+          -0.40321536408257574,
+          0.9151051142725386
+        ],
+        "topValue": 4,
+        "topNormalY": 0.7379688836504574,
+        "contactTop": 0.697626172201125,
+        "tipVisible": true,
+        "identity": true,
+        "camera": {
+          "position": [
+            10,
+            10,
+            21
+          ],
+          "fov": 64
+        }
+      },
+      "hash": "8eadc9e27b99920344651c94d9e25fc8fa864398563b2017994eda1486c05f27"
+    },
+    {
+      "frame": 17,
+      "name": "frame-00017",
+      "state": {
+        "frame": 17,
+        "time": 0.5666666666666667,
+        "phi": 0.6238425925925928,
+        "theta": -0.9469537342023038,
+        "kick": 0.3761574074074073,
+        "tip": 1,
+        "view": "wide",
+        "diePosition": [
+          -0.33575400376657394,
+          4.325685957191165,
+          -1
+        ],
+        "dieQuaternion": [
+          0,
+          0,
+          -0.45598340620430977,
+          0.8899882770387009
+        ],
+        "topValue": 4,
+        "topNormalY": 0.8116397720920234,
+        "contactTop": 0.697626172201125,
+        "tipVisible": true,
+        "identity": true,
+        "camera": {
+          "position": [
+            10,
+            10,
+            21
+          ],
+          "fov": 64
+        }
+      },
+      "hash": "b1580db9c042345e19e10ee0a97e01257d7b9b4ed9869d3814818d84b078a05c"
+    },
+    {
+      "frame": 18,
+      "name": "frame-00018",
+      "state": {
+        "frame": 18,
+        "time": 0.6,
+        "phi": 0.5000000000000002,
+        "theta": -1.0707963267948963,
+        "kick": 0.4999999999999998,
+        "tip": 1,
+        "view": "wide",
+        "diePosition": [
+          0.1626185079956144,
+          4.212311772362721,
+          -1
+        ],
+        "dieQuaternion": [
+          0,
+          0,
+          -0.5101835264862031,
+          0.8600655610487503
+        ],
+        "topValue": 4,
+        "topNormalY": 0.8775825618903725,
+        "contactTop": 0.697626172201125,
+        "tipVisible": true,
+        "identity": true,
+        "camera": {
+          "position": [
+            10,
+            10,
+            21
+          ],
+          "fov": 64
+        }
+      },
+      "hash": "e07bde7eddb2da83b0f34546a616bbf52ac458a22868d0ec7982ff5e77f4374a"
+    },
+    {
+      "frame": 19,
+      "name": "frame-00019",
+      "state": {
+        "frame": 19,
+        "time": 0.6333333333333333,
+        "phi": 0.37615740740740766,
+        "theta": -1.194638919387489,
+        "kick": 0.6238425925925923,
+        "tip": 0.8878761574074074,
+        "view": "wide",
+        "diePosition": [
+          0.6431827318765269,
+          4.037622782662473,
+          -1
+        ],
+        "dieQuaternion": [
+          0,
+          0,
+          -0.5624281021019414,
+          0.8268461948669826
+        ],
+        "topValue": 4,
+        "topNormalY": 0.9300830722184981,
+        "contactTop": 0.697626172201125,
+        "tipVisible": true,
+        "identity": true,
+        "camera": {
+          "position": [
+            10,
+            10,
+            21
+          ],
+          "fov": 64
+        }
+      },
+      "hash": "5be95d7ab6f9eaaad2746975c4d3677db54964409bb2d6d5f6aa19d36bd36c52"
+    },
+    {
+      "frame": 20,
+      "name": "frame-00020",
+      "state": {
+        "frame": 20,
+        "time": 0.6666666666666666,
+        "phi": 0.2592592592592594,
+        "theta": -1.311537067535637,
+        "kick": 0.7407407407407406,
+        "tip": 0.6238425925925928,
+        "view": "wide",
+        "diePosition": [
+          1.0738292776024974,
+          3.820975198483422,
+          -1
+        ],
+        "dieQuaternion": [
+          0,
+          0,
+          -0.6097685474834978,
+          0.7925795344947189
+        ],
+        "topValue": 4,
+        "topNormalY": 0.9665801430279832,
+        "contactTop": 0.697626172201125,
+        "tipVisible": true,
+        "identity": true,
+        "camera": {
+          "position": [
+            10,
+            10,
+            21
+          ],
+          "fov": 64
+        }
+      },
+      "hash": "b2423a8c085bbd181db28b61da07792f9c6f5a55f48af64cc5c30f434cd27d4d"
+    },
+    {
+      "frame": 21,
+      "name": "frame-00021",
+      "state": {
+        "frame": 21,
+        "time": 0.7,
+        "phi": 0.15625000000000022,
+        "theta": -1.4145463267948963,
+        "kick": 0.8437499999999998,
+        "tip": 0.3164062500000001,
+        "view": "wide",
+        "diePosition": [
+          1.4300321498453137,
+          3.5879188318393087,
+          -1
+        ],
+        "dieQuaternion": [
+          0,
+          0,
+          -0.6497634212644029,
+          0.7601364985229812
+        ],
+        "topValue": 4,
+        "topNormalY": 0.9878177838164719,
+        "contactTop": 0.697626172201125,
+        "tipVisible": true,
+        "identity": true,
+        "camera": {
+          "position": [
+            10,
+            10,
+            21
+          ],
+          "fov": 64
+        }
+      },
+      "hash": "076094b0f7f1d63b0e8f4e51083a50c5b273479777994a9ea1ee0aa893efaec6"
+    },
+    {
+      "frame": 22,
+      "name": "frame-00022",
+      "state": {
+        "frame": 22,
+        "time": 0.7333333333333333,
+        "phi": 0.07407407407407429,
+        "theta": -1.4967222527208222,
+        "kick": 0.9259259259259257,
+        "tip": 0.07407407407407429,
+        "view": "wide",
+        "diePosition": [
+          1.695894139659753,
+          3.3774606249715617,
+          -1
+        ],
+        "dieQuaternion": [
+          0,
+          0,
+          -0.6804386995516674,
+          0.7328050055454287
+        ],
+        "topValue": 4,
+        "topNormalY": 0.9972577699965678,
+        "contactTop": 0.697626172201125,
+        "tipVisible": true,
+        "identity": true,
+        "camera": {
+          "position": [
+            10,
+            10,
+            21
+          ],
+          "fov": 64
+        }
+      },
+      "hash": "df875c853e4389e7743637a7093de25918f74c55ae7d7f262b64d815a3eea007"
+    },
+    {
+      "frame": 23,
+      "name": "frame-00023",
+      "state": {
+        "frame": 23,
+        "time": 0.7666666666666667,
+        "phi": 0.01967592592592593,
+        "theta": -1.5511204008689705,
+        "kick": 0.9803240740740741,
+        "tip": 0,
+        "view": "wide",
+        "diePosition": [
+          1.8619847941746661,
+          3.2268403644265002,
+          -1
+        ],
+        "dieQuaternion": [
+          0,
+          0,
+          -0.7001161845053238,
+          0.7140289407255895
+        ],
+        "topValue": 4,
+        "topNormalY": 0.9998064352143554,
+        "contactTop": 0.697626172201125,
+        "tipVisible": false,
+        "identity": true,
+        "camera": {
+          "position": [
+            10,
+            10,
+            21
+          ],
+          "fov": 64
+        }
+      },
+      "hash": "e59082878d37cc8e21a234b8cd63158bcec1643421891c68881080e4e6d6e2de"
+    },
+    {
+      "frame": 24,
+      "name": "frame-00024",
+      "state": {
+        "frame": 24,
+        "time": 0.8,
+        "phi": 0,
+        "theta": -1.5707963267948966,
+        "kick": 1,
+        "tip": 0,
+        "view": "wide",
+        "diePosition": [
+          1.9199999999999995,
+          3.170000095367432,
+          -1
+        ],
+        "dieQuaternion": [
+          0,
+          0,
+          -0.7071067811865475,
+          0.7071067811865476
+        ],
+        "topValue": 4,
+        "topNormalY": 1,
+        "contactTop": 0.697626172201125,
+        "tipVisible": false,
+        "identity": true,
+        "camera": {
+          "position": [
+            10,
+            10,
+            21
+          ],
+          "fov": 64
+        }
+      },
+      "hash": "04e9ceb78e7f26e8bb64af6344ecc16fd9a6fd0b2bbea503713d29a498c6ec71"
+    },
+    {
+      "frame": 25,
+      "name": "frame-00025",
+      "state": {
+        "frame": 25,
+        "time": 0.8333333333333334,
+        "phi": 0.012570201649462246,
+        "theta": -1.5582261251454343,
+        "kick": 1,
+        "tip": 0,
+        "view": "wide",
+        "diePosition": [
+          1.883065286283799,
+          3.206455256092221,
+          -1
+        ],
+        "dieQuaternion": [
+          0,
+          0,
+          -0.7026486068384818,
+          0.7115370231463297
+        ],
+        "topValue": 4,
+        "topNormalY": 0.9999209960555384,
+        "contactTop": 0.697626172201125,
+        "tipVisible": false,
+        "identity": true,
+        "camera": {
+          "position": [
+            10,
+            10,
+            21
+          ],
+          "fov": 64
+        }
+      },
+      "hash": "23437625bf7df13bdc611da254cdb5d2394154baa72ba7adfa9dab21b61a3543"
+    },
+    {
+      "frame": 26,
+      "name": "frame-00026",
+      "state": {
+        "frame": 26,
+        "time": 0.8666666666666667,
+        "phi": 0.023323208997792697,
+        "theta": -1.547473117797104,
+        "kick": 1,
+        "tip": 0,
+        "view": "wide",
+        "diePosition": [
+          1.851108240750801,
+          3.2372409759514658,
+          -1
+        ],
+        "dieQuaternion": [
+          0,
+          0,
+          -0.6988128882160707,
+          0.7153045136605203
+        ],
+        "topValue": 4,
+        "topNormalY": 0.9997280262902,
+        "contactTop": 0.697626172201125,
+        "tipVisible": false,
+        "identity": true,
+        "camera": {
+          "position": [
+            10,
+            10,
+            21
+          ],
+          "fov": 64
+        }
+      },
+      "hash": "db1567d2756ac9fb39f11d578820ecf7ffaa59bdc04353a5e9bcabffbaa818e5"
+    },
+    {
+      "frame": 27,
+      "name": "frame-00027",
+      "state": {
+        "frame": 27,
+        "time": 0.9,
+        "phi": 0.03082162607452437,
+        "theta": -1.5399747007203721,
+        "kick": 1,
+        "tip": 0,
+        "view": "wide",
+        "diePosition": [
+          1.82862825038911,
+          3.258488908577252,
+          -1
+        ],
+        "dieQuaternion": [
+          0,
+          0,
+          -0.6961261572602724,
+          0.7179194754135358
+        ],
+        "topValue": 4,
+        "topNormalY": 0.9995250512838706,
+        "contactTop": 0.697626172201125,
+        "tipVisible": false,
+        "identity": true,
+        "camera": {
+          "position": [
+            10,
+            10,
+            21
+          ],
+          "fov": 64
+        }
+      },
+      "hash": "c3a1a5f8f0f5a90f2c86f5a4e8a0d5e5641b3ef0c9237531751a1096ab2de806"
+    },
+    {
+      "frame": 28,
+      "name": "frame-00028",
+      "state": {
+        "frame": 28,
+        "time": 0.9333333333333333,
+        "phi": 0.03423401256951478,
+        "theta": -1.5365623142253817,
+        "kick": 1,
+        "tip": 0,
+        "view": "wide",
+        "diePosition": [
+          1.8183453021645888,
+          3.2680982214114094,
+          -1
+        ],
+        "dieQuaternion": [
+          0,
+          0,
+          -0.6949002352488005,
+          0.7191061556204075
+        ],
+        "topValue": 4,
+        "topNormalY": 0.9994140734189634,
+        "contactTop": 0.697626172201125,
+        "tipVisible": false,
+        "identity": true,
+        "camera": {
+          "position": [
+            10,
+            10,
+            21
+          ],
+          "fov": 64
+        }
+      },
+      "hash": "fb13e0aa59cdcf9ec52098789077ab673fa0aead846648d6fae8d2f377ec39ed"
+    },
+    {
+      "frame": 29,
+      "name": "frame-00029",
+      "state": {
+        "frame": 29,
+        "time": 0.9666666666666667,
+        "phi": 0.033431958664357206,
+        "theta": -1.5373643681305393,
+        "kick": 1,
+        "tip": 0,
+        "view": "wide",
+        "diePosition": [
+          1.8207651808711347,
+          3.265843026000543,
+          -1
+        ],
+        "dieQuaternion": [
+          0,
+          0,
+          -0.6951885603134036,
+          0.7188274240799228
+        ],
+        "topValue": 4,
+        "topNormalY": 0.999441204119828,
+        "contactTop": 0.697626172201125,
+        "tipVisible": false,
+        "identity": true,
+        "camera": {
+          "position": [
+            10,
+            10,
+            21
+          ],
+          "fov": 64
+        }
+      },
+      "hash": "8ff073789264925b18ee37308e02cf0d48fabddac886be031019e64fd1d5fe9d"
+    },
+    {
+      "frame": 30,
+      "name": "frame-00030",
+      "state": {
+        "frame": 30,
+        "time": 1,
+        "phi": 0.02895698914534167,
+        "theta": -1.541839337649555,
+        "kick": 1,
+        "tip": 0,
+        "view": "wide",
+        "diePosition": [
+          1.834233272779536,
+          3.2532221331623576,
+          -1
+        ],
+        "dieQuaternion": [
+          0,
+          0,
+          -0.6967951842037512,
+          0.7172701522233171
+        ],
+        "topValue": 4,
+        "topNormalY": 0.9995807756845978,
+        "contactTop": 0.697626172201125,
+        "tipVisible": false,
+        "identity": true,
+        "camera": {
+          "position": [
+            10,
+            10,
+            21
+          ],
+          "fov": 64
+        }
+      },
+      "hash": "03e277604ed5b0e94d04fe8b7db5f5821ac52135fe0fdbd27acd60986831b9a1"
+    },
+    {
+      "frame": 31,
+      "name": "frame-00031",
+      "state": {
+        "frame": 31,
+        "time": 1.0333333333333334,
+        "phi": 0.02187264301591937,
+        "theta": -1.5489236837789773,
+        "kick": 1,
+        "tip": 0,
+        "view": "wide",
+        "diePosition": [
+          1.8554385204009929,
+          3.2331096525230736,
+          -1
+        ],
+        "dieQuaternion": [
+          0,
+          0,
+          -0.6993315025675281,
+          0.7147974884655398
+        ],
+        "topValue": 4,
+        "topNormalY": 0.9997608032802026,
+        "contactTop": 0.697626172201125,
+        "tipVisible": false,
+        "identity": true,
+        "camera": {
+          "position": [
+            10,
+            10,
+            21
+          ],
+          "fov": 64
+        }
+      },
+      "hash": "2d6363323bf855769699cafdb9adde6b87b4f97918d4b8225bfbe6765028e6a6"
+    },
+    {
+      "frame": 32,
+      "name": "frame-00032",
+      "state": {
+        "frame": 32,
+        "time": 1.0666666666666667,
+        "phi": 0.01353630503786923,
+        "theta": -1.5572600217570274,
+        "kick": 1,
+        "tip": 0,
+        "view": "wide",
+        "diePosition": [
+          1.8802076823629248,
+          3.2092363147531713,
+          -1
+        ],
+        "dieQuaternion": [
+          0,
+          0,
+          -0.7023048157096906,
+          0.7118763557184474
+        ],
+        "topValue": 4,
+        "topNormalY": 0.9999083856218608,
+        "contactTop": 0.697626172201125,
+        "tipVisible": false,
+        "identity": true,
+        "camera": {
+          "position": [
+            10,
+            10,
+            21
+          ],
+          "fov": 64
+        }
+      },
+      "hash": "096617aee6fc5e7c9e0458290fc297202a6cb277dcb459d6983b122df92ba06f"
+    },
+    {
+      "frame": 33,
+      "name": "frame-00033",
+      "state": {
+        "frame": 33,
+        "time": 1.1,
+        "phi": 0.005337490919476708,
+        "theta": -1.5654588358754198,
+        "kick": 1,
+        "tip": 0,
+        "view": "wide",
+        "diePosition": [
+          1.9043730069540978,
+          3.185540625488189,
+          -1
+        ],
+        "dieQuaternion": [
+          0,
+          0,
+          -0.7052171773374546,
+          0.7089913488810657
+        ],
+        "topValue": 4,
+        "topNormalY": 0.9999857556291594,
+        "contactTop": 0.697626172201125,
+        "tipVisible": false,
+        "identity": true,
+        "camera": {
+          "position": [
+            10,
+            10,
+            21
+          ],
+          "fov": 64
+        }
+      },
+      "hash": "53cb6f46d7fdb5e9bf720db13deff7d3466e0f1af38ecca544a8963edd86b908"
+    },
+    {
+      "frame": 34,
+      "name": "frame-00034",
+      "state": {
+        "frame": 34,
+        "time": 1.1333333333333333,
+        "phi": -0.0015474475788413696,
+        "theta": -1.5723437743737378,
+        "kick": 1,
+        "tip": 0,
+        "view": "wide",
+        "diePosition": [
+          1.9245220412334247,
+          3.174514869127435,
+          -1
+        ],
+        "dieQuaternion": [
+          0,
+          0,
+          -0.7076536748160277,
+          0.706559464248673
+        ],
+        "topValue": 4,
+        "topNormalY": 0.9999988027032344,
+        "contactTop": 0.697626172201125,
+        "tipVisible": false,
+        "identity": true,
+        "camera": {
+          "position": [
+            10,
+            10,
+            21
+          ],
+          "fov": 64
+        }
+      },
+      "hash": "c2c0994deb7c6bd0288e37e4657cba84aced0d9bcef394d9826e11440b8f37c9"
+    },
+    {
+      "frame": 35,
+      "name": "frame-00035",
+      "state": {
+        "frame": 35,
+        "time": 1.1666666666666667,
+        "phi": -0.006340028031971961,
+        "theta": -1.5771363548268684,
+        "kick": 1,
+        "tip": 0,
+        "view": "wide",
+        "diePosition": [
+          1.9385714437281507,
+          3.18844954526123,
+          -1
+        ],
+        "dieQuaternion": [
+          0,
+          0,
+          -0.7093447629884015,
+          0.7048616936824759
+        ],
+        "topValue": 4,
+        "topNormalY": 0.9999799020895983,
+        "contactTop": 0.697626172201125,
+        "tipVisible": false,
+        "identity": true,
+        "camera": {
+          "position": [
+            10,
+            10,
+            21
+          ],
+          "fov": 64
+        }
+      },
+      "hash": "e9b44168b19f05a0f790fbb1bf31a142e33becbf676ad722f85a72aa5092b406"
+    },
+    {
+      "frame": 36,
+      "name": "frame-00036",
+      "state": {
+        "frame": 36,
+        "time": 1.2,
+        "phi": -0.008753098356387372,
+        "theta": -1.5795494251512838,
+        "kick": 1,
+        "tip": 0,
+        "view": "wide",
+        "diePosition": [
+          1.9456705805396188,
+          3.195438146277757,
+          -1
+        ],
+        "dieQuaternion": [
+          0,
+          0,
+          -0.710194686893854,
+          0.7040053314483781
+        ],
+        "topValue": 4,
+        "topNormalY": 0.9999616918791695,
+        "contactTop": 0.697626172201125,
+        "tipVisible": false,
+        "identity": true,
+        "camera": {
+          "position": [
+            10,
+            10,
+            21
+          ],
+          "fov": 64
+        }
+      },
+      "hash": "826fe60fe4d9e23b2a4dd110a6355a873af6ec9cf0f66bc1eb5862937b567bda"
+    },
+    {
+      "frame": 37,
+      "name": "frame-00037",
+      "state": {
+        "frame": 37,
+        "time": 1.2333333333333334,
+        "phi": -0.008981004187394179,
+        "theta": -1.5797773309822907,
+        "kick": 1,
+        "tip": 0,
+        "view": "wide",
+        "diePosition": [
+          1.9463419402156563,
+          3.1960972395559355,
+          -1
+        ],
+        "dieQuaternion": [
+          0,
+          0,
+          -0.710274905742695,
+          0.703924398122558
+        ],
+        "topValue": 4,
+        "topNormalY": 0.9999596710529665,
+        "contactTop": 0.697626172201125,
+        "tipVisible": false,
+        "identity": true,
+        "camera": {
+          "position": [
+            10,
+            10,
+            21
+          ],
+          "fov": 64
+        }
+      },
+      "hash": "beafe526d76521c82dc8203af2a9e1bb39ab91bdce5767dd5a8e9add80155cc2"
+    },
+    {
+      "frame": 38,
+      "name": "frame-00038",
+      "state": {
+        "frame": 38,
+        "time": 1.2666666666666666,
+        "phi": -0.007594661774625926,
+        "theta": -1.5783909885695224,
+        "kick": 1,
+        "tip": 0,
+        "view": "wide",
+        "diePosition": [
+          1.942260409968331,
+          3.1920854513303745,
+          -1
+        ],
+        "dieQuaternion": [
+          0,
+          0,
+          -0.7097867950188386,
+          0.7044165710833933
+        ],
+        "topValue": 4,
+        "topNormalY": 0.9999711606948832,
+        "contactTop": 0.697626172201125,
+        "tipVisible": false,
+        "identity": true,
+        "camera": {
+          "position": [
+            10,
+            10,
+            21
+          ],
+          "fov": 64
+        }
+      },
+      "hash": "f7b0618f7c0822f93a98887517edf0177e54688d7c19ad7382c24fc1468987f3"
+    },
+    {
+      "frame": 39,
+      "name": "frame-00039",
+      "state": {
+        "frame": 39,
+        "time": 1.3,
+        "phi": -0.005367947849014514,
+        "theta": -1.576164274643911,
+        "kick": 1,
+        "tip": 0,
+        "view": "wide",
+        "diePosition": [
+          1.9357164020438233,
+          3.1856290449168436,
+          -1
+        ],
+        "dieQuaternion": [
+          0,
+          0,
+          -0.7090020881737951,
+          0.7052063804059051
+        ],
+        "topValue": 4,
+        "topNormalY": 0.9999855926025408,
+        "contactTop": 0.697626172201125,
+        "tipVisible": false,
+        "identity": true,
+        "camera": {
+          "position": [
+            10,
+            10,
+            21
+          ],
+          "fov": 64
+        }
+      },
+      "hash": "0521fa5faf8c0150625213851b74f103b41b84907decaabbb2e558de33cdaf47"
+    },
+    {
+      "frame": 40,
+      "name": "frame-00040",
+      "state": {
+        "frame": 40,
+        "time": 1.3333333333333333,
+        "phi": -0.003074707492357332,
+        "theta": -1.573871034287254,
+        "kick": 1,
+        "tip": 0,
+        "view": "wide",
+        "diePosition": [
+          1.9289919343067097,
+          3.178963337568471,
+          -1
+        ],
+        "dieQuaternion": [
+          0,
+          0,
+          -0.7081930184094357,
+          0.7060188727478415
+        ],
+        "topValue": 4,
+        "topNormalY": 0.9999952730906423,
+        "contactTop": 0.697626172201125,
+        "tipVisible": false,
+        "identity": true,
+        "camera": {
+          "position": [
+            10,
+            10,
+            21
+          ],
+          "fov": 64
+        }
+      },
+      "hash": "e04391707e56fb99825d155e2d4497166194a447608a8b6486cac13ccadfebf8"
+    },
+    {
+      "frame": 41,
+      "name": "frame-00041",
+      "state": {
+        "frame": 41,
+        "time": 1.3666666666666667,
+        "phi": -0.0013009096894045493,
+        "theta": -1.572097236484301,
+        "kick": 1,
+        "tip": 0,
+        "view": "wide",
+        "diePosition": [
+          1.9238011260756491,
+          3.1737960852121048,
+          -1
+        ],
+        "dieQuaternion": [
+          0,
+          0,
+          -0.7075665726002284,
+          0.7066466906020049
+        ],
+        "topValue": 4,
+        "topNormalY": 0.9999991538171092,
+        "contactTop": 0.697626172201125,
+        "tipVisible": false,
+        "identity": true,
+        "camera": {
+          "position": [
+            10,
+            10,
+            21
+          ],
+          "fov": 64
+        }
+      },
+      "hash": "bf0d16be7b382f727db9536a3d8e026c36d16e377e9eb71405039589efe24a40"
+    },
+    {
+      "frame": 42,
+      "name": "frame-00042",
+      "state": {
+        "frame": 42,
+        "time": 1.4,
+        "phi": -0.00031305885053472166,
+        "theta": -1.5711093856454312,
+        "kick": 1,
+        "tip": 0,
+        "view": "wide",
+        "diePosition": [
+          1.92091427491716,
+          3.1709140728607372,
+          -1
+        ],
+        "dieQuaternion": [
+          0,
+          0,
+          -0.7072174555415827,
+          0.7069960895063632
+        ],
+        "topValue": 4,
+        "topNormalY": 0.9999999509970784,
+        "contactTop": 0.697626172201125,
+        "tipVisible": false,
+        "identity": true,
+        "camera": {
+          "position": [
+            10,
+            10,
+            21
+          ],
+          "fov": 64
+        }
+      },
+      "hash": "e7bde7321a4aa6eb776ef7dfb3969a313074403ad8476191d65c16cc0800549e"
+    },
+    {
+      "frame": 43,
+      "name": "frame-00043",
+      "state": {
+        "frame": 43,
+        "time": 1.4333333333333333,
+        "phi": -0.000012439385221357179,
+        "theta": -1.570808766180118,
+        "kick": 1,
+        "tip": 0,
+        "view": "wide",
+        "diePosition": [
+          1.9200363232307636,
+          3.1700364181295133,
+          -1
+        ],
+        "dieQuaternion": [
+          0,
+          0,
+          -0.7071111791596923,
+          0.7071023831860486
+        ],
+        "topValue": 4,
+        "topNormalY": 0.9999999999226309,
+        "contactTop": 0.697626172201125,
+        "tipVisible": false,
+        "identity": true,
+        "camera": {
+          "position": [
+            10,
+            10,
+            21
+          ],
+          "fov": 64
+        }
+      },
+      "hash": "d92f99308b3e422bb5da4f2f8db877a8d10cabaf28bfa8295bcc6d11b4c018b3"
+    },
+    {
+      "frame": 44,
+      "name": "frame-00044",
+      "state": {
+        "frame": 44,
+        "time": 1.4666666666666666,
+        "phi": 0,
+        "theta": -1.5707963267948966,
+        "kick": 1,
+        "tip": 0,
+        "view": "wide",
+        "diePosition": [
+          1.9199999999999995,
+          3.170000095367432,
+          -1
+        ],
+        "dieQuaternion": [
+          0,
+          0,
+          -0.7071067811865475,
+          0.7071067811865476
+        ],
+        "topValue": 4,
+        "topNormalY": 1,
+        "contactTop": 0.697626172201125,
+        "tipVisible": false,
+        "identity": true,
+        "camera": {
+          "position": [
+            10,
+            10,
+            21
+          ],
+          "fov": 64
+        }
+      },
+      "hash": "04e9ceb78e7f26e8bb64af6344ecc16fd9a6fd0b2bbea503713d29a498c6ec71"
+    }
+  ]
+}

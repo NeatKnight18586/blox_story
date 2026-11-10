@@ -1,0 +1,29 @@
+{
+  "status": "PASS",
+  "unchangedDecodedFrames": 3117,
+  "allPixelMd5Identical": true,
+  "ranges": [
+    [
+      0,
+      793
+    ],
+    [
+      886,
+      990
+    ],
+    [
+      1099,
+      1332
+    ],
+    [
+      1442,
+      2585
+    ],
+    [
+      2669,
+      3513
+    ]
+  ],
+  "method": "All YUV420 decoded frame MD5s compared with committed P4B1 movie in unchanged ranges, excluding the four repaired slots.",
+  "wallSeconds": 3.8745919460006917
+}
