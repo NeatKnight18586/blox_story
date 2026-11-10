@@ -254,3 +254,9 @@ Revised staging and acting: [film and validation](evidence/dice-town-p2a-polish/
 Local mother appearance/camera and one chair paint mark only; PR35 motion and earlier evidence preserved. [Comparison](evidence/dice-town-p3b2b/comparison.jpg), [3.5-second proof](evidence/dice-town-p3b2b/recognition.mp4), [validation and limitations](evidence/dice-town-p3b2b/REPORT.md).
 
 Reproduce: `node scripts/dice-town-p3b2b-proof.js --stills`, inspect the native frames, then `node scripts/dice-town-p3b2b-proof.js` for the single low-resolution proof. Verification: `node scripts/dice-town-p3b2b-qc.js`, `node scripts/dice-town-p3b2b-composition.js`, `node tests/dice-town-p3b2.js`, `npm test`. Boards: `python scripts/dice-town-p3b2b-comparison.py` and `python scripts/dice-town-p3b2b-sheet.py`. Raw frames remain ignored under renders/. No creative approval or other scene authorized.
+
+## Dice Town P3B-3 baker contact proof
+
+Isolated local D03/D04 setup at `/production/dice-town-p3b3/`; no editorial integration. [Native keyframes](evidence/dice-town-p3b3/phone-review.jpg), [single motion proof](evidence/dice-town-p3b3/baker.mp4), [report](evidence/dice-town-p3b3/REPORT.md).
+
+Commands: `node scripts/dice-town-p3b3-proof.js --stills`, inspect, then `node scripts/dice-town-p3b3-proof.js` for one96-frame3.2s low-res proof. `node scripts/dice-town-p3b3-qc.js`, `node tests/dice-town-p3b3.js`, `npm test`, `python scripts/dice-town-p3b3-sheet.py`. Raw PNGs remain ignored in renders/. Stop for creative review.

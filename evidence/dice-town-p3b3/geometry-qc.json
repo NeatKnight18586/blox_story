@@ -1,0 +1,78 @@
+{
+  "frames": 96,
+  "penetrationVertices": 0,
+  "minFloor": 0.0037825540796859597,
+  "minShoeGap": 1.7881393032936899e-9,
+  "maxScreen": 0.8797520270684491,
+  "maxContactError": 3.576279591910314e-9,
+  "maxContactDrift": 2.220446049250313e-16,
+  "snapshots": [
+    {
+      "frame": 0,
+      "root": [
+        0,
+        0.18,
+        -0.35
+      ],
+      "footMinY": 0.17999999999999983,
+      "shoeGap": 1.788139358804841e-9,
+      "shoeBottom": 0.02000000178813917
+    },
+    {
+      "frame": 18,
+      "root": [
+        0,
+        0.1718752627629203,
+        -0.07215202012091049
+      ],
+      "footMinY": 0.17187526276291998,
+      "shoeGap": 1.788139358804841e-9,
+      "shoeBottom": 0.01187526455105932
+    },
+    {
+      "frame": 53,
+      "root": [
+        0,
+        0.6275398052128809,
+        0.44545626640334446
+      ],
+      "footMinY": 0.6037825522915466,
+      "shoeGap": 1.7881394143159923e-9,
+      "shoeBottom": 0.4437825540796859
+    },
+    {
+      "frame": 57,
+      "root": [
+        0,
+        0.6275398052128809,
+        0.44545626640334446
+      ],
+      "footMinY": 0.6037825522915466,
+      "shoeGap": 1.7881394143159923e-9,
+      "shoeBottom": 0.4437825540796859
+    },
+    {
+      "frame": 75,
+      "root": [
+        0,
+        0.6275398052128809,
+        0.44545626640334446
+      ],
+      "footMinY": 0.6037825522915466,
+      "shoeGap": 0.25444495589676697,
+      "shoeBottom": 0.18933759997105837
+    },
+    {
+      "frame": 95,
+      "root": [
+        0,
+        0.6275398052128809,
+        0.44545626640334446
+      ],
+      "footMinY": 0.6037825522915466,
+      "shoeGap": 0.44000000178813936,
+      "shoeBottom": 0.0037825540796859597
+    }
+  ],
+  "method": "Actual transformed limb/shoe vertices against named stall solid and shoe bounds; 5mm interior tolerance. Not a universal triangle collision solver. D04 deliberately excludes upper leg from containment."
+}
