@@ -1,0 +1,6 @@
+{
+  "status": "PASS",
+  "nativeSamples": 16,
+  "wallSeconds": 16.077174791,
+  "backend": "Fresh Chromium/SwiftShader; exact logical state/pixels; signed-zero JSON normalization; state contains explicit transforms only; UUID-based identity is checked within each scene"
+}

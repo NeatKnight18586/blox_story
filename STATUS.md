@@ -400,3 +400,14 @@ From direction87f0857 on isolated codex/dice-town-p4b2-mystery-continuity. D11su
 3513 decoded frames/360×640/30fps/H.264/yuv420p/no audio; all38 cuts,183 decoded source samples, real Chromium playback/seek pass.3152 unchanged decoded frames including D35/D36 are bit-identical to P4B2.1417 existing files hash-preserved before authorized documentation updates. Full source regressions and isolated F1/P4B2/P3B4 browser checks pass;261-position gate sweep, child actual sole/contact and book/body checks pass. Native reverse/fresh-browser hashes exact; clean source-archive reassembly yields identical MP4. Proxy1434frames/40.8198%.
 
 Motion capture56.98s; FFmpeg assembly3.25s/8.80CPU-s/188.1MiB max individual child RSS; browser/GPU aggregate resources not measured. Existing short-step gait samples0–3 explicit gait seconds over30frames (~3.10× speed); full journey implied by destination insert, no fingers/speech animation. Private narration untouched; listening and iPad creative review pending. No native movie, other scene or next phase.
+
+
+## Dice Town P4B-4 — native backstory repair
+
+**Technical PASS; creative PARTIAL / human review pending.** Isolated from direction `dba5337`. Only D17–D22/D24 changed. Native720×1280 source stills and90 native motion frames; native1024 historical portrait from same mother/Pip rigs, cream-V/rust motif retained. Compact phone comprehension proof inspected before full implementation. Final D19 uses older mother alone in existing anticipation pose, avoiding an early reunion; no new mother acting or unrelated stand-ins.
+
+[Working117.100s edit](evidence/dice-town-p4b4/working-edit.mp4) · [390px continuity](evidence/dice-town-p4b4/phone-continuity.jpg) · [Before/after](evidence/dice-town-p4b4/phone-comparison.jpg) · [38-shot map](evidence/dice-town-p4b4/edit-map.json) · [Native images/tests/costs/limits](evidence/dice-town-p4b4/REPORT.md).
+
+3513frames/360×640/30fps/H.264/yuv420p/no audio; all38 boundaries,213 source checks, full decode and real browser playback/seek PASS.2863 untouched frames including D23/D25–D38 are pixel-identical.1465 prior files hash-preserved before authorized docs updates. Source regressions, F1/die/grounding/pin/mother browser checks,90-pose geometry and16 native reverse/cold hashes PASS. Leo's notebook stays open; same pin world pose at D24 start. Source-only rebuild matches final movieSHA. Proxy784frames/22.317%; stills+holds55.223%, not finished animation.
+
+One90-frame native capture54.76s, sampled process-tree CPU106.97s/peak summed RSS724.0MiB. Final incremental assembly5.82s; initial assembly9.71s retained. No3D motion recapture. Age cue mainly gray vs dark hair; exact30years relies on narration. D27/D30 symbolic gray photo unchanged, remains an exact-photo-graphic continuity limitation. Rigid gestures/holds and private listening/iPad review remain. No original WAV processing, full native movie, merge or next scene.
