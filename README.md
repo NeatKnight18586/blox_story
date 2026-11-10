@@ -1,3 +1,11 @@
+# Studio V2 stage 1 — look gate (awaiting review)
+
+Opt-in studio look (`studio/lookdev/look.js`) over the unchanged P3B4 plaza, rendered natively at **1080×1920**.
+
+- Review: [old vs new](evidence/studio-lookdev/comparison.jpg), [390px phone sheet](evidence/studio-lookdev/phone-390.jpg), [metrics](evidence/studio-lookdev/metrics.json), [style bible](studio/STYLE_BIBLE.md), [Higgsfield account check](studio/HIGGSFIELD.md).
+- Rebuild: `npm ci`, `node scripts/studio-lookdev-capture.js`, `python3 scripts/studio-lookdev-sheet.py`.
+- Live page: `npm run preview`, then `/production/studio-lookdev/?look=1` (or `?look=0` for legacy).
+
 # Dice Town P4B-4 — native backstory repair for review
 
 **Technical PASS; creative PARTIAL/pending review.** [117.100s silent edit](evidence/dice-town-p4b4/working-edit.mp4) · [390px narrative continuity](evidence/dice-town-p4b4/phone-continuity.jpg) · [Native before/after and limitations](evidence/dice-town-p4b4/REPORT.md) · [38-shot map](evidence/dice-town-p4b4/edit-map.json). Only D17–D22/D24 repaired with native scene-specific sources;90 new motion frames. D23 and all other shots preserved exactly; proxy22.317%. No merge or next phase.
