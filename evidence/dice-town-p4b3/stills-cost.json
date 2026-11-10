@@ -1,0 +1,7 @@
+{
+  "wallSeconds": 30.645193279000523,
+  "childUserCpuSeconds": 1.329014,
+  "childSystemCpuSeconds": 0.25248699999999996,
+  "maxChildRssKiB": 95540,
+  "scope": "Node child-process accounting only; browser subprocess/GPU accounting unavailable; max individual RSS, not aggregate memory"
+}
