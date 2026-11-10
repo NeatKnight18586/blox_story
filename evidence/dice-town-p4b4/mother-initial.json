@@ -1,0 +1,21 @@
+{
+  "status": "PASS",
+  "wallSeconds": 3.250559,
+  "state": {
+    "existingPoseFrame": 0,
+    "motherOnly": true,
+    "resolution": [
+      720,
+      1280
+    ],
+    "camera": [
+      1,
+      4.75,
+      2.9
+    ],
+    "source": "unchanged P3B2B mother/room; existing anticipation pose, new native camera only"
+  },
+  "hash": "2b926facc6fdf394d4232b0fa1661d6ab03461c2bd22d50281f488a8cae04bf2",
+  "errors": [],
+  "newMotherMotionFrames": 0
+}
