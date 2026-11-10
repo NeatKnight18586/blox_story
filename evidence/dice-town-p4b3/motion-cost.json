@@ -1,0 +1,7 @@
+{
+  "wallSeconds": 56.97710109300169,
+  "childUserCpuSeconds": 2.6091860000000002,
+  "childSystemCpuSeconds": 0.375216,
+  "maxChildRssKiB": 92596,
+  "scope": "capture command child-process accounting; excludes unreported browser grandchildren/GPU; max individual RSS, not total memory"
+}

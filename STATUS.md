@@ -389,3 +389,14 @@ Isolated codex/dice-town-p4b1-sixth-roll from direction1beac09. D25/26 real nati
 ## Dice Town P4B-2 — mystery continuity and D28 fair-die repair
 
 From direction87f0857 on isolated codex/dice-town-p4b2-mystery-continuity. D11supported near-six/kick/four outcome; D13same source cropped; D16old crank/coupling crop→same exterior contact/deflection, with unverified far-tip path explicitly implied. D28native legal5-up with1/4adjacent/2below; static Leo restaged for visible pips. Exactly45new540×960WebGL motionframes1.5s, native keyframes first; no extra mechanism animation. Technical PASS: actual support/tip/framing/order,reverse/cold pixels,full regressions,171source-pixel checks,3513frames/117.100s silent360×640/30fps/decode/playback/all38cuts. All3117unchanged decoded frames MD5-identical; empty-cache edit rebuild byte-identical. Proxy1584frames/45.090%,still21.435%,holds15.969%,motion17.506%. Creative PARTIAL/pending: tilted near-six read, small brass cue, soft inherited crop and implied mechanical connection. All1365earlier files byte-compared before docs updates; narration reference untouched. Motion capture35.488s; final edit3.553s plus scoped receipts in evidence/dice-town-p4b2/REPORT.md. No merge, other shots, native movie, audio or next phase.
+
+
+## Dice Town P4B-3 — ending integrated; creative review pending
+
+**Technical PASS; no merge/creative approval.** Isolated branch from `codex/dice-town-p4b3-ending-direction` / `97686e6`. Only D33/D34/D37/D38 replaced: installed gate opening, small Pip crossing toward the same home, native latest-mother crop, actual notebook cover closure. Native720×1280 keyframes inspected before84 unique new motion frames (27+30+27); D37 uses no new WebGL.
+
+[Silent117.100s working edit](evidence/dice-town-p4b3/working-edit.mp4) · [390px comparison](evidence/dice-town-p4b3/phone-comparison.jpg) · [Exact38-shot map](evidence/dice-town-p4b3/edit-map.json) · [Report/costs/limitations](evidence/dice-town-p4b3/REPORT.md).
+
+3513 decoded frames/360×640/30fps/H.264/yuv420p/no audio; all38 cuts,183 decoded source samples, real Chromium playback/seek pass.3152 unchanged decoded frames including D35/D36 are bit-identical to P4B2.1417 existing files hash-preserved before authorized documentation updates. Full source regressions and isolated F1/P4B2/P3B4 browser checks pass;261-position gate sweep, child actual sole/contact and book/body checks pass. Native reverse/fresh-browser hashes exact; clean source-archive reassembly yields identical MP4. Proxy1434frames/40.8198%.
+
+Motion capture56.98s; FFmpeg assembly3.25s/8.80CPU-s/188.1MiB max individual child RSS; browser/GPU aggregate resources not measured. Existing short-step gait samples0–3 explicit gait seconds over30frames (~3.10× speed); full journey implied by destination insert, no fingers/speech animation. Private narration untouched; listening and iPad creative review pending. No native movie, other scene or next phase.
