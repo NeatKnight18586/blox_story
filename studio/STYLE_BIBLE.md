@@ -14,6 +14,12 @@ Reference (private Short, 22 frames): saturation .47, colorfulness 98, luma .67.
 - Material: roughness ≤.5 (characters ≤.42) plus a soft studio environment at .22 for the smooth plastic sheen. No textures needed.
 - Tone: Neutral tone mapping, exposure 1.0. Bloom only on true highlights (threshold 1.2, strength .1).
 
+## Characters (studio/characters/characters.js)
+- One six-part rig; presets only change colours, attached garment blocks, hair and face. Skin is warm peach, never grey-beige.
+- Silhouette cues readable at 390px: Leo = swept chestnut hair + strap; Pip = child scale + golden crop + stripe; Mother = grey bun + round glasses + cream V.
+- Clothes: long sleeves end in a skin-coloured hand block; every character wears shoes; one light accent (collar, stripe, shawl) near the face to lift close-ups.
+- Faces: eyes ±.2 apart with a white catchlight, brows .028 thick, mouths at least .16 wide so expressions read on a phone. Six cached expressions; swap on story beats.
+
 ## Lens and framing (9:16, 1080×1920)
 - Wides stay sharp (no depth of field).
 - Close-ups: depth of field focused on the head, aperture .025.
@@ -25,5 +31,5 @@ Reference (private Short, 22 frames): saturation .47, colorfulness 98, luma .67.
 
 ## Known gaps (not solved by the look)
 - Wide plaza frames are mostly bare paving: needs environment-kit density (crowd, props, tiles, greenery).
-- Characters wear dark trousers/jackets that dominate close-ups: needs character-preset colour work.
-- Extras are bald; hair and wardrobe belong to the character stage.
+- Leo's teal/navy outfit keeps close-ups at ~0.49 luma; lighter wardrobe would raise it (owner decision).
+- Legacy extras are still bald; crowd presets come with the town kit.
