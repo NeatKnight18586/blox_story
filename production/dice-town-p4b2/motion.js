@@ -1,0 +1,4 @@
+import * as T from 'three';import{ease}from'../dice-town-p2a/motion.js';import{supportY}from'../dice-town-p4b1/die.js';
+export const FRAME_COUNT=45,CONTACT_FRAME=12;
+export function sample(frame){if(!Number.isInteger(frame)||frame<0||frame>=FRAME_COUNT)throw Error('Outside mystery wobble');const t=frame/30;let phi=.8+.2*ease(t/.35);const kick=ease((t-.4)/.4);phi*=1-kick;if(t>=.8){const u=(t-.8)/.65;phi=.04*Math.sin(Math.min(1,u)*Math.PI*2)*(1-ease(u));}return{frame,time:t,phi,theta:phi-Math.PI/2,kick,tip:ease((t-.27)/.13)*(1-ease((t-.60)/.16))};}
+export function transform(body,frame){const s=sample(frame),q=new T.Quaternion().setFromAxisAngle(new T.Vector3(0,0,1),s.theta);return{...s,quaternion:q,position:new T.Vector3(s.phi>=0?-1-2.92*(Math.cos(s.theta)+Math.sin(s.theta)):4.84-2.92*(Math.cos(s.theta)-Math.sin(s.theta)),supportY(body,q),-1)};}

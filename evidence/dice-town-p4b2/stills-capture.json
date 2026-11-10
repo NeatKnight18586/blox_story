@@ -1,0 +1,275 @@
+{
+  "status": "PASS",
+  "wallSeconds": 10.441770413999999,
+  "errors": [],
+  "samples": [
+    {
+      "frame": 0,
+      "view": "D28",
+      "name": "D28-five",
+      "state": {
+        "frame": 0,
+        "time": 0,
+        "phi": 0.8,
+        "theta": -0.7707963267948965,
+        "kick": 0,
+        "tip": 0,
+        "view": "D28",
+        "diePosition": [
+          -1,
+          3.170000095367431,
+          -1
+        ],
+        "dieQuaternion": [
+          4.329780281177466e-17,
+          0.7071067811865475,
+          -0.7071067811865475,
+          4.329780281177466e-17
+        ],
+        "topValue": 5,
+        "topNormalY": 0.9999999999999998,
+        "contactTop": 0.697626172201125,
+        "tipVisible": false,
+        "identity": true,
+        "camera": {
+          "position": [
+            8,
+            10,
+            21
+          ],
+          "fov": 54
+        }
+      },
+      "hash": "66675538366e0c6a7f66320fa044eb288c16df7ca445a2b4f7ccb7c2266d836a"
+    },
+    {
+      "frame": 0,
+      "name": "approach",
+      "state": {
+        "frame": 0,
+        "time": 0,
+        "phi": 0.8,
+        "theta": -0.7707963267948965,
+        "kick": 0,
+        "tip": 0,
+        "view": "wide",
+        "diePosition": [
+          -1.0602961941328837,
+          4.379038701097096,
+          -1
+        ],
+        "dieQuaternion": [
+          0,
+          0,
+          -0.375928124180991,
+          0.926648825310733
+        ],
+        "topValue": 6,
+        "topNormalY": 0.7173560908995229,
+        "contactTop": 0.697626172201125,
+        "tipVisible": false,
+        "identity": true,
+        "camera": {
+          "position": [
+            10,
+            10,
+            21
+          ],
+          "fov": 64
+        }
+      },
+      "hash": "74ad6226b67f6705203091edf83c0768ec5ce7c3df80b85f00a95711425de733"
+    },
+    {
+      "frame": 11,
+      "name": "near-six",
+      "state": {
+        "frame": 11,
+        "time": 0.36666666666666664,
+        "phi": 1,
+        "theta": -0.5707963267948966,
+        "kick": 0,
+        "tip": 0.8364773512702504,
+        "view": "wide",
+        "diePosition": [
+          -1.87941254250409,
+          4.284170512632515,
+          -1
+        ],
+        "dieQuaternion": [
+          0,
+          0,
+          -0.2815395311427007,
+          0.9595496299847904
+        ],
+        "topValue": 6,
+        "topNormalY": 0.8414709848078965,
+        "contactTop": 0.697626172201125,
+        "tipVisible": true,
+        "identity": true,
+        "camera": {
+          "position": [
+            10,
+            10,
+            21
+          ],
+          "fov": 64
+        }
+      },
+      "hash": "468e0e266d95026e4b131c18a0adfb82534ebca4b220cced39eed961d52e16c3"
+    },
+    {
+      "frame": 12,
+      "name": "brass-contact",
+      "state": {
+        "frame": 12,
+        "time": 0.4,
+        "phi": 1,
+        "theta": -0.5707963267948966,
+        "kick": 0,
+        "tip": 1,
+        "view": "wide",
+        "diePosition": [
+          -1.87941254250409,
+          4.284170512632515,
+          -1
+        ],
+        "dieQuaternion": [
+          0,
+          0,
+          -0.2815395311427007,
+          0.9595496299847904
+        ],
+        "topValue": 6,
+        "topNormalY": 0.8414709848078965,
+        "contactTop": 0.697626172201125,
+        "tipVisible": true,
+        "identity": true,
+        "camera": {
+          "position": [
+            10,
+            10,
+            21
+          ],
+          "fov": 64
+        }
+      },
+      "hash": "f36de37de90d4ccff10c815f09b61e78677e35d8666d058c6f4bfbf7037eda7b"
+    },
+    {
+      "frame": 16,
+      "name": "kick",
+      "state": {
+        "frame": 16,
+        "time": 0.5333333333333333,
+        "phi": 0.7407407407407408,
+        "theta": -0.8300555860541557,
+        "kick": 0.2592592592592592,
+        "tip": 1,
+        "view": "wide",
+        "diePosition": [
+          -0.8156483015203585,
+          4.375157120978435,
+          -1
+        ],
+        "dieQuaternion": [
+          0,
+          0,
+          -0.40321536408257574,
+          0.9151051142725386
+        ],
+        "topValue": 4,
+        "topNormalY": 0.7379688836504574,
+        "contactTop": 0.697626172201125,
+        "tipVisible": true,
+        "identity": true,
+        "camera": {
+          "position": [
+            10,
+            10,
+            21
+          ],
+          "fov": 64
+        }
+      },
+      "hash": "cef2c2cdf3a66e188385dfa8877210114474e4247a9aa95c6d970791c7732610"
+    },
+    {
+      "frame": 44,
+      "name": "non-six",
+      "state": {
+        "frame": 44,
+        "time": 1.4666666666666666,
+        "phi": 0,
+        "theta": -1.5707963267948966,
+        "kick": 1,
+        "tip": 0,
+        "view": "wide",
+        "diePosition": [
+          1.9199999999999995,
+          3.170000095367432,
+          -1
+        ],
+        "dieQuaternion": [
+          0,
+          0,
+          -0.7071067811865475,
+          0.7071067811865476
+        ],
+        "topValue": 4,
+        "topNormalY": 1,
+        "contactTop": 0.697626172201125,
+        "tipVisible": false,
+        "identity": true,
+        "camera": {
+          "position": [
+            10,
+            10,
+            21
+          ],
+          "fov": 64
+        }
+      },
+      "hash": "7b38eddefed8e64f634902e6edd6b18e929e7a394b6bd664ba5e7a4e498378ad"
+    },
+    {
+      "frame": 12,
+      "view": "clue",
+      "name": "D13-clue",
+      "state": {
+        "frame": 12,
+        "time": 0.4,
+        "phi": 1,
+        "theta": -0.5707963267948966,
+        "kick": 0,
+        "tip": 1,
+        "view": "clue",
+        "diePosition": [
+          -1.87941254250409,
+          4.284170512632515,
+          -1
+        ],
+        "dieQuaternion": [
+          0,
+          0,
+          -0.2815395311427007,
+          0.9595496299847904
+        ],
+        "topValue": 6,
+        "topNormalY": 0.8414709848078965,
+        "contactTop": 0.697626172201125,
+        "tipVisible": true,
+        "identity": true,
+        "camera": {
+          "position": [
+            10,
+            10,
+            21
+          ],
+          "fov": 64
+        }
+      },
+      "hash": "f51cbdb62972854a73c32782c3c80cbd683dff8bb1df0ee5c9fd03d451f9979a"
+    }
+  ]
+}

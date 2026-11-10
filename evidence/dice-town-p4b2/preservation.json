@@ -1,0 +1,14 @@
+{
+  "status": "PASS",
+  "base": "87f0857",
+  "previousTrackedFilesComparedByteForByte": 1365,
+  "preserved": [
+    "all earlier source/tests/films/native evidence",
+    "all38 original boundaries and private narration reference"
+  ],
+  "allowedSubsequentDocumentationUpdates": [
+    "AGENTS.md",
+    "README.md",
+    "STATUS.md"
+  ]
+}
