@@ -24,7 +24,7 @@ def build_map():
   if sid=='D33':
    add(10,'endpoint_hold',SOURCE,0,1);add(27,'motion',SOURCE,0,27);add(50,'endpoint_hold',SOURCE,26,27);s['selection']='installed_leaves_eased_open';s['note']='10f anticipation,27f hinge movement,50f open hold; waiting child matches next shot.'
   elif sid=='D34':
-   add(6,'endpoint_hold',SOURCE,27,28);add(30,'motion',SOURCE,27,57);add(9,'endpoint_hold',SOURCE,56,57);add(60,'still',HOME,0,1);s['selection']='child_crossing_then_same_house_plate';s['note']='Readable walk at3x explicit gait clock, child scale.65; only threshold crossing shown; destination insert implies rest of journey.'
+   add(6,'endpoint_hold',SOURCE,27,28);add(30,'motion',SOURCE,27,57);add(9,'endpoint_hold',SOURCE,56,57);add(60,'still',HOME,0,1);s['selection']='child_crossing_then_same_house_plate';s['note']='Readable walk samples gait seconds0-3 over30frames (~3.10x between samples), child scale.65; only threshold crossing shown; destination insert implies rest of journey.'
   elif sid=='D37':
    add(45,'still',MOTHER,0,1);s['selection']='native_latest_mother_welcome_crop';s['note']='Source PR37 response.png/frame95; exact same hair/creamV/purple appearance, no newly generated mouth/recognition footage.'
   else:

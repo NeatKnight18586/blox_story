@@ -2481,7 +2481,7 @@
         }
       ],
       "selection": "child_crossing_then_same_house_plate",
-      "note": "Readable walk at3x explicit gait clock, child scale.65; only threshold crossing shown; destination insert implies rest of journey.",
+      "note": "Readable walk samples gait seconds0-3 over30frames (~3.10x between samples), child scale.65; only threshold crossing shown; destination insert implies rest of journey.",
       "immediate_selection": "child_crossing_then_same_house_plate"
     },
     {
