@@ -260,3 +260,9 @@ Reproduce: `node scripts/dice-town-p3b2b-proof.js --stills`, inspect the native 
 Isolated local D03/D04 setup at `/production/dice-town-p3b3/`; no editorial integration. [Native keyframes](evidence/dice-town-p3b3/phone-review.jpg), [single motion proof](evidence/dice-town-p3b3/baker.mp4), [report](evidence/dice-town-p3b3/REPORT.md).
 
 Commands: `node scripts/dice-town-p3b3-proof.js --stills`, inspect, then `node scripts/dice-town-p3b3-proof.js` for one96-frame3.2s low-res proof. `node scripts/dice-town-p3b3-qc.js`, `node tests/dice-town-p3b3.js`, `npm test`, `python scripts/dice-town-p3b3-sheet.py`. Raw PNGs remain ignored in renders/. Stop for creative review.
+
+## Dice Town P3B-4 grounded exterior still proof
+
+Opt-in `/production/dice-town-p3b4/` imports the unchanged animatic scene, with camera-bounded plaza paving/street and an installed gate-to-house layout. [Plaza comparison](evidence/dice-town-p3b4/plaza-comparison.jpg), [gate comparison](evidence/dice-town-p3b4/gate-comparison.jpg), [native images and limitations](evidence/dice-town-p3b4/REPORT.md).
+
+Reproduce: `node scripts/dice-town-p3b4-capture.js`, `python scripts/dice-town-p3b4-sheet.py`, `node scripts/dice-town-p3b4-qc.js`, `node scripts/dice-town-p3b4-repeat.js`, `npm test`. No new motion or film. Separate A/G footprints use visual street continuity; no connected city map is claimed. Stop for creative review.

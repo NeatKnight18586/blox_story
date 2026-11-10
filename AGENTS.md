@@ -3,7 +3,7 @@
 Read **F1_SPEC.md** first: F1 v3 is the CURRENT product contract. Then read CODEX_HANDOFF.md, STATUS.md, README.md and existing code/tests. The previous Kai/Mira-first instructions are SUPERSEDED. If documents conflict, F1_SPEC.md wins; STATUS.md controls what has actually been verified.
 
 ## Current task boundary
-Dice Town P3B-3 D03/D04 baker contact and shoe separation only are authorized from codex/dice-town-p3b3-baker-direction /5664d5f. Follow P3B3_BAKER_CONTACT_DIRECTION.md: native keyframes first, then one short low-resolution local motion proof. Preserve all earlier shots, source, tests, evidence and story clocks. No other scenes, audio, framework expansion or merge. Draft implementation PR targets the baker direction branch. Stop for creative review. F1 requirements unchanged.
+Dice Town P3B-4 static world-grounding proof only is authorized from codex/dice-town-p3b4-world-direction /212968d. Follow P3B4_GROUNDED_WORLD_DIRECTION.md: camera-bounded setup A/G, five native stills and before/after comparisons. Preserve earlier P3B character/prop work, shared engine, evidence, tests and timeline. No new animation, audio, city framework, film render or merge. Draft PR targets the world direction branch; stop for creative review. F1 requirements unchanged.
 
 ## Goal and user constraints
 One neutral classic R6-like **six-part** block avatar first, then removable appearance layers (face/colors and one optional cosmetic). Original code-rendered Three.js, not official Roblox models. User is on iPad, wants autonomous execution, no manual modeling, recording, installs or gameplay capture. Minimize explanations and usage without sacrificing accuracy.
