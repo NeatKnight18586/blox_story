@@ -1,9 +1,12 @@
 // Classic-avatar hair accessories, built the way rigid hair accessories are made:
-// low-poly chunky clumps with pointed tips over a closed scalp shell, merged into
-// ONE watertight mesh (< 4k triangles) with ONE hand-painted strand texture
-// (dark roots → lighter tips, streaks along each clump). Original designs that
-// follow common hair archetypes; no catalog meshes are copied.
-// Coordinates are head-pivot local: head x ±.625, z ±.55, y 0…1.16 (top).
+// a few BROAD, flat, layered clumps over a closed scalp shell that hugs the
+// blocky head, merged into ONE watertight mesh (< 4k triangles) with ONE painted
+// texture. Shading is carried by paint, not geometry: baked vertex AO (darker
+// roots and under-layers) plus a painted highlight band and strand streaks.
+// Masculine cuts: compact, tight tapered sides, volume on top, clean fringe.
+// Feminine cuts: crown volume, long soft locks, face-framing pieces over the shoulders.
+// Original designs on common archetypes; no catalog meshes are copied.
+// Head-pivot coordinates: head x ±.625, z ±.55, y 0…1.16; torso below y 0 spans x ±1, z ±.5.
 import * as T from 'three';
 import {mergeGeometries} from 'three/addons/utils/BufferGeometryUtils.js';
 
@@ -12,16 +15,18 @@ const HEAD_CENTER = new T.Vector3(0, .55, 0);
 // Point on (or offset from) the oval head at angle a (degrees, 0 = front, + = character's left).
 export function around(a, y, r = 1.05) {
   const t = a * Math.PI / 180;
-  // Narrow toward the rolled top rim so crown points hug the scalp.
   const rim = y > .94 ? Math.sqrt(Math.max(0, 1 - ((y - .94) / .34) ** 2)) * .35 + .65 * Math.max(0, 1 - (y - .94) / .5) : 1;
   return [.625 * r * rim * Math.sin(t), y, .55 * r * rim * Math.cos(t)];
 }
 
-// One clump: a lofted low-poly prism (5 sides) along a curve, bulging in the
-// middle and tapering to a point; root capped so the clump is watertight.
-function clump(points, {w = .16, d = .08, tip = .04, bulge = .2, sides = 5, segments = 8, power = 1.5} = {}) {
+// Baked ambient occlusion: shade = layer depth × root darkening (vertex colours).
+function shadeAttr(count, fn) { const c = new Float32Array(count * 3); for (let i = 0; i < count; i++) { const v = fn(i); c.set([v, v, v], i * 3); } return new T.BufferAttribute(c, 3); }
+
+// One clump: a flat lofted prism along a curve, bulging mid-length, tapering to a
+// soft (tip≈.3) or sharp (tip≈.03) end; both ends capped → watertight.
+function clump(points, {w = .24, d = .08, tip = .1, bulge = .18, sides = 6, segments = 8, power = 1.6, shade = 1, root = .3} = {}) {
   const curve = new T.CatmullRomCurve3(points.map(p => new T.Vector3(...p)), false, 'centripetal');
-  const pos = [], uv = [], idx = [], ring = sides + 1;
+  const pos = [], uv = [], ts = [], idx = [], ring = sides + 1;
   for (let i = 0; i <= segments; i++) {
     const t = i / segments, c = curve.getPoint(t), tan = curve.getTangent(t).normalize();
     const out = c.clone().sub(HEAD_CENTER).normalize();
@@ -32,151 +37,160 @@ function clump(points, {w = .16, d = .08, tip = .04, bulge = .2, sides = 5, segm
     const env = (1 + bulge * Math.sin(Math.PI * t)) * (1 - (1 - tip) * Math.pow(t, power));
     for (let j = 0; j <= sides; j++) {
       const a = 2 * Math.PI * j / sides + Math.PI / sides;
+      // Flattened lens cross-section: wide ribbon, slightly domed on the outside.
       const p = c.clone().addScaledVector(across, Math.cos(a) * w * env).addScaledVector(up, Math.sin(a) * d * env);
-      pos.push(p.x, p.y, p.z); uv.push(j / sides, 1 - t * .96);
+      pos.push(p.x, p.y, p.z); uv.push(j / sides, 1 - t * .96); ts.push(t);
     }
   }
   for (let i = 0; i < segments; i++) for (let j = 0; j < sides; j++) {
     const a = i * ring + j, b = a + 1, c = a + ring, e = c + 1;
     idx.push(a, c, b, b, c, e);
   }
-  // Root and tip caps (fans) close the clump.
   for (const [i, flip] of [[0, true], [segments, false]]) {
     const center = curve.getPoint(i / segments), k = pos.length / 3;
-    pos.push(center.x, center.y, center.z); uv.push(.5, i ? .04 : 1);
+    pos.push(center.x, center.y, center.z); uv.push(.5, i ? .04 : 1); ts.push(i / segments);
     for (let j = 0; j < sides; j++) { const a = i * ring + j, b = a + 1; flip ? idx.push(k, b, a) : idx.push(k, a, b); }
   }
   const g = new T.BufferGeometry();
   g.setAttribute('position', new T.Float32BufferAttribute(pos, 3));
   g.setAttribute('uv', new T.Float32BufferAttribute(uv, 2));
+  g.setAttribute('color', shadeAttr(ts.length, i => shade * (1 - root * Math.max(0, 1 - ts[i] / .35))));
   g.setIndex(idx); g.computeVertexNormals(); return g;
 }
 
-// Closed scalp shell (the "hair cap" every hair accessory starts from).
-// Centred high and flattened so its front edge stays above the brow line (~.88).
-function scalp({y = 1.0, sx = .7, sy = .32, sz = .64, back = -.02} = {}) {
-  const g = new T.SphereGeometry(1, 12, 8);
-  g.scale(sx, sy, sz); g.translate(0, y, back); return g;
+// Closed shells (scalp cap, buns): low, flat dome that hugs the cylinder head.
+function shell({x = 0, y = 1.02, z = -.03, sx = .67, sy = .27, sz = .61, shade = .72, ws = 12, hs = 8} = {}) {
+  const g = new T.SphereGeometry(1, ws, hs); g.scale(sx, sy, sz); g.translate(x, y, z);
+  g.setAttribute('color', shadeAttr(g.attributes.position.count, i => shade * (.85 + .15 * Math.max(0, (g.attributes.position.getY(i) - y) / sy))));
+  return g;
 }
+const range = (from, to, n) => n === 1 ? [from] : Array.from({length: n}, (_, i) => from + (to - from) * i / (n - 1));
+const V = (...p) => p;
 
-// Clump recipes -------------------------------------------------------------
-// A strand that starts near the crown and falls over the scalp at angle a.
-function drape(a, yEnd, {r = 1.08, flick = 0, crown = .28, mid = 1.02, ...o} = {}) {
+// A clump that starts near the crown and falls over the scalp at angle a.
+function drape(a, yEnd, {r = 1.06, crown = .3, mid = 1.0, flick = 0, ...o} = {}) {
   return clump([around(a, 1.2, crown), around(a, mid, 1.04), around(a + flick * .5, (mid + yEnd) / 2, r), around(a + flick, yEnd, r + .02)], o);
 }
-// A spike rising from the scalp at angle a, tilted up by elev degrees.
-function spike(a, baseY, len, elev, o = {}) {
-  const b = new T.Vector3(...around(a, baseY, .92));
-  const out = b.clone().sub(HEAD_CENTER).setY(0).normalize();
-  const e = elev * Math.PI / 180, dir = out.multiplyScalar(Math.cos(e)).add(new T.Vector3(0, Math.sin(e), 0)).normalize();
-  const m = b.clone().addScaledVector(dir, len * .55).add(new T.Vector3(0, len * .08, 0)), tip = b.clone().addScaledVector(dir, len);
-  return clump([b.toArray(), m.toArray(), tip.toArray()], {w: .17, d: .1, tip: .02, bulge: .1, segments: 5, ...o});
+// A broad spike from a scalp point, aimed outward and up by elev degrees.
+function spike(base, len, elev, yaw, o = {}) {
+  const b = new T.Vector3(...base), y = yaw * Math.PI / 180, e = elev * Math.PI / 180;
+  const dir = new T.Vector3(Math.sin(y) * Math.cos(e), Math.sin(e), Math.cos(y) * Math.cos(e));
+  const mid = b.clone().addScaledVector(dir, len * .5).add(new T.Vector3(0, len * .05, 0));
+  return clump([b.toArray(), mid.toArray(), b.clone().addScaledVector(dir, len).toArray()], {w: .25, d: .12, tip: .03, bulge: .15, segments: 5, root: .2, ...o});
 }
-const range = (from, to, n) => Array.from({length: n}, (_, i) => from + (to - from) * i / (n - 1));
+// Tight masculine sides and nape: short, flat, close to the head.
+function shortSides(g, {front = 58, yEnd = .66, napeEnd = .52} = {}) {
+  for (const s of [-1, 1]) {
+    for (const a of range(front, 145, 4)) g.push(drape(s * a, yEnd, {r: 1.03, w: .25, d: .055, tip: .3, shade: .82, crown: .45}));
+    g.push(clump([around(s * 86, .95, 1.02), around(s * 88, .72, 1.025)], {w: .12, d: .045, tip: .55, segments: 3, shade: .8, root: .1})); // sideburn
+  }
+  for (const a of range(150, 210, 4)) g.push(drape(a, napeEnd, {r: 1.04, w: .27, d: .06, tip: .25, shade: .78, crown: .4}));
+}
 
-// A spike rooted at radius fraction r on the scalp (r<1 = closer to the crown centre).
-function spikeFrom(a, baseY, r, len, elev, o = {}) {
-  const b = new T.Vector3(...around(a, baseY, r));
-  const out = new T.Vector3(b.x, 0, b.z).normalize();
-  const e = elev * Math.PI / 180, dir = out.multiplyScalar(Math.cos(e)).add(new T.Vector3(0, Math.sin(e), 0)).normalize();
-  const m = b.clone().addScaledVector(dir, len * .5).add(new T.Vector3(0, len * .06, 0)), tip = b.clone().addScaledVector(dir, len);
-  return clump([b.toArray(), m.toArray(), tip.toArray()], {w: .17, d: .1, tip: .02, bulge: .12, segments: 5, ...o});
-}
-// The eight hair options (seven shapes; both buns share one mesh) ------------
 const STYLES = {
-  // Long straight hair with a centre part, falling behind the shoulders.
-  long_straight(g) {
-    g.push(scalp());
-    for (const s of [-1, 1]) g.push(clump([[s * .02, 1.25, .2], around(s * 25, 1.1, .9), around(s * 70, .9, 1.06), around(s * 82, .45, 1.1)], {w: .2, d: .08, tip: .2}));
-    for (const a of [...range(-110, -60, 3), ...range(60, 110, 3)]) g.push(drape(a, -.55, {r: 1.12, w: .19, d: .09, tip: .18, bulge: .1}));
-    for (const a of range(125, 235, 7)) g.push(drape(a, -1.1, {r: 1.1, w: .2, d: .09, tip: .25, bulge: .08}));
-    // Thin crown band (a woven-band accent common on long styles).
-    for (const a of range(-80, 80, 9)) g.push(clump([around(a - 9, 1.08, 1.07), around(a + 9, 1.1, 1.07)], {w: .045, d: .045, tip: .9, bulge: .3, segments: 2}));
-  },
-  // Short spiky crop: crown spikes standing up, short spikes over the forehead.
-  spiky(g) {
-    g.push(scalp());
-    // Spikes radiate from the crown in two staggered rings, not a single crown-like row.
-    for (const a of range(0, 300, 6)) g.push(spikeFrom(a, 1.24, .35, .42, 58, {w: .2}));
-    for (const a of range(15, 345, 12)) g.push(spikeFrom(a, 1.12, .78, .44 + .06 * Math.sin(a * .1), 30, {w: .19}));
-    for (const a of range(-45, 45, 5)) g.push(spikeFrom(a, 1.0, .98, .3, 12, {w: .16}));
-    for (const a of [...range(-160, -70, 4), ...range(70, 160, 4)]) g.push(drape(a, .72, {r: 1.06, w: .17, d: .07, tip: .1}));
-  },
-  // Messy shag: pointed clumps fanning from the crown, fringe falling over the brow line.
+  // MASCULINE — swept messy cut: broad fringe clumps swept to one side, lifting at the tips.
   messy_fringe(g) {
-    g.push(scalp());
-    // Fringe stops above the brow line so expressions stay readable.
-    for (const a of range(-40, 40, 6)) g.push(drape(a, .93, {r: 1.12, flick: a * .2, w: .15, d: .08, tip: .03, crown: .2}));
-    for (const a of [...range(-135, -55, 5), ...range(55, 135, 5)]) g.push(drape(a, .42, {r: 1.12, flick: a > 0 ? 10 : -10, w: .17, d: .08, tip: .03}));
-    for (const a of range(150, 210, 4)) g.push(drape(a, .3, {r: 1.1, w: .18, d: .08, tip: .04}));
-    // Top layer: short pointed clumps radiating from the crown give the shaggy dome.
-    for (const a of range(0, 330, 12)) g.push(drape(a, 1.0, {r: 1.13, crown: .08, mid: 1.24, w: .19, d: .09, tip: .05, flick: 14}));
+    g.push(shell());
+    shortSides(g);
+    for (const [i, x] of range(-.42, .42, 6).entries()) {
+      const lift = i % 2 ? .04 : 0;
+      g.push(clump([V(x * .4, 1.25, -.3), V(x * .85, 1.32, .02), V(x - .06, 1.2, .4), V(x - .17, .99 + lift, .62)], {w: .23, d: .1, tip: .12, bulge: .25, shade: i % 2 ? .95 : 1}));
+    }
+    for (const x of [-.22, .05, .3]) g.push(clump([V(x, 1.24, -.05), V(x + .02, 1.4, -.25), V(x + .06, 1.34, -.48)], {w: .22, d: .1, tip: .06, shade: .92}));
   },
-  // Swept quiff: front clumps sweep up and back into one tall peak, short sides.
+  // MASCULINE — spiky: a few broad spikes radiating up/back, short tight sides.
+  spiky(g) {
+    g.push(shell({sy: .29}));
+    shortSides(g, {front: 62});
+    // Low, swept-back spikes: front ones lift off the hairline, the rest lie back over the crown.
+    for (const [i, x] of range(-.36, .36, 4).entries()) g.push(clump([V(x, 1.0, .52), V(x * .9, 1.26, .38), V(x * 1.1, 1.42, .12 - (i % 2) * .08)], {w: .22, d: .11, tip: .03, bulge: .2, segments: 5, root: .2}));
+    for (const [i, x] of range(-.42, .42, 5).entries()) g.push(clump([V(x * .8, 1.22, .15), V(x, 1.36, -.12), V(x * 1.15, 1.38 - Math.abs(x) * .2, -.45)], {w: .24, d: .11, tip: .03, bulge: .2, segments: 5, root: .2, shade: i % 2 ? .9 : .97}));
+    for (const yaw of [-125, 125, 180]) g.push(spike(around(yaw, 1.12, .7), .32, 20, yaw, {shade: .86}));
+  },
+  // MASCULINE — swept quiff: front volume sweeping up and back into one peak.
   swept_quiff(g) {
-    g.push(scalp());
-    for (const [i, x] of range(-.38, .38, 5).entries()) g.push(clump([[x, .98, .5], [x * .9, 1.32, .4], [x * .6 + .05, 1.55 - Math.abs(x) * .4, .05], [x * .4 + .12, 1.5 - Math.abs(x) * .5, -.3]], {w: .17, d: .12, tip: .03, bulge: .25}));
-    g.push(clump([[.05, 1.1, .45], [.1, 1.5, .4], [.3, 1.85, .2]], {w: .2, d: .12, tip: .02, bulge: .2}));
-    for (const a of [...range(-150, -60, 4), ...range(60, 150, 4)]) g.push(drape(a, .66, {r: 1.04, w: .17, d: .06, tip: .15}));
-    for (const a of range(160, 200, 3)) g.push(drape(a, .45, {r: 1.08, flick: 8, w: .2, d: .07, tip: .05}));
+    g.push(shell({sy: .28}));
+    shortSides(g, {front: 62, yEnd: .64});
+    for (const [i, x] of range(-.36, .36, 4).entries()) g.push(clump([V(x, .98, .5), V(x * .9, 1.34, .4), V(x * .6 + .05, 1.52 - Math.abs(x) * .35, .05), V(x * .4 + .1, 1.44 - Math.abs(x) * .4, -.32)], {w: .24, d: .12, tip: .05, bulge: .25, shade: i % 2 ? .94 : 1}));
+    g.push(clump([V(.05, 1.12, .45), V(.12, 1.52, .38), V(.32, 1.8, .16)], {w: .24, d: .12, tip: .03, bulge: .2}));
   },
-  // Side-swept hair gathered into a ponytail that curls forward over one shoulder.
-  side_ponytail(g) {
-    g.push(scalp());
-    g.push(clump([[-.45, 1.22, .3], [.1, 1.12, .55], [.6, .9, .35]], {w: .24, d: .1, tip: .3}));
-    for (const a of [...range(-150, -60, 4), ...range(60, 150, 4)]) g.push(drape(a, .75, {r: 1.05, w: .18, d: .07, tip: .4, bulge: .05}));
-    g.push(clump([[.25, .85, -.62], [.75, .5, -.7], [1.0, 0, -.3], [.9, -.45, .25]], {w: .26, d: .2, tip: .03, bulge: .35, segments: 10}));
-    g.push(clump([[.2, .8, -.65], [.6, .3, -.75], [.8, -.2, -.4]], {w: .2, d: .15, tip: .03, bulge: .3, segments: 8}));
-    g.push(clump([[.16, .86, -.6], [.3, .86, -.68]], {w: .12, d: .12, tip: .9, segments: 2})); // tie
+  // FEMININE — long, centre part, face-framing locks resting in front of the shoulders.
+  long_straight(g) {
+    g.push(shell({sx: .69, sz: .63, sy: .3}));
+    for (const s of [-1, 1]) {
+      for (const [k, a] of [30, 58, 86].entries()) g.push(clump([V(s * .03, 1.28, .12 - k * .1), around(s * a, 1.12, .8), around(s * (a + 6), .8, 1.1), around(s * (a + 10), .35, 1.14)], {w: .27, d: .09, tip: .4, bulge: .15, shade: 1 - k * .05}));
+      for (const [k, z] of [.6, .56].entries()) g.push(clump([around(s * 50, 1.05, 1.02), V(s * .68, .45, .44), V(s * (.68 - k * .12), -.1, z), V(s * (.62 - k * .12), -.85 + k * .2, z + .02)], {w: .27, d: .09, tip: .45, bulge: .12, shade: .95 - k * .06}));
+    }
+    for (const [k, x] of range(-.5, .5, 5).entries()) g.push(clump([V(x * .3, 1.24, -.22), V(x * 1.05, .95, -.62), V(x * 1.12, .2, -.7), V(x * 1.08, -1.05, -.64)], {w: .28, d: .09, tip: .4, bulge: .1, shade: .84 + (k % 2) * .06}));
   },
-  // Long straight hair with a deep side-swept fringe; front lengths fall past the chest.
+  // FEMININE — long with a deep side-swept fringe.
   long_side_fringe(g) {
-    g.push(scalp());
-    g.push(clump([[.32, 1.25, .2], [.1, 1.1, .55], [-.4, .9, .52], [-.62, .7, .25]], {w: .24, d: .1, tip: .15}));
-    g.push(clump([[.32, 1.25, .2], [.45, 1.05, .48], [.62, .8, .3]], {w: .2, d: .09, tip: .2}));
-    for (const s of [-1, 1]) for (const z of [.18, .02]) g.push(clump([around(s * 60, 1.08, .9), around(s * 78, .7, 1.1), [s * .72, -.2, z], [s * .7, -1.25, z + .05]], {w: .17, d: .08, tip: .15, bulge: .05}));
-    for (const a of range(115, 245, 7)) g.push(drape(a, -1.0, {r: 1.1, w: .2, d: .09, tip: .25, bulge: .06}));
+    g.push(shell({sx: .69, sz: .63, sy: .3}));
+    g.push(clump([V(.3, 1.27, .18), V(.08, 1.16, .55), V(-.38, .98, .58), V(-.64, .78, .3)], {w: .3, d: .1, tip: .3, bulge: .2, shade: 1}));
+    g.push(clump([V(.3, 1.27, .18), V(.48, 1.08, .48), V(.66, .82, .34)], {w: .24, d: .09, tip: .35, shade: .95}));
+    for (const s of [-1, 1]) {
+      for (const a of [62, 88]) g.push(clump([around(s * a, 1.16, .8), around(s * a, .8, 1.1), around(s * (a + 8), .3, 1.14)], {w: .26, d: .09, tip: .4, shade: .92}));
+      for (const [k, z] of [.6, .56].entries()) g.push(clump([around(s * 48, 1.0, 1.04), V(s * .67, .4, .44), V(s * (.66 - k * .1), -.15, z), V(s * (.6 - k * .1), -1.05 + k * .25, z + .02)], {w: .2, d: .08, tip: .3, bulge: .1, shade: .96 - k * .06}));
+    }
+    for (const [k, x] of range(-.5, .5, 5).entries()) g.push(clump([V(x * .3, 1.24, -.22), V(x * 1.05, .95, -.62), V(x * 1.12, .2, -.7), V(x * 1.08, -1.0, -.64)], {w: .28, d: .09, tip: .4, shade: .84 + (k % 2) * .06}));
   },
-  // Voluminous crown with a high bun topped by two small peaks; side locks frame the face.
+  // FEMININE — sleek, swept back into a high ponytail; soft wisps frame the face.
+  side_ponytail(g) {
+    g.push(shell({sy: .28}));
+    for (const [i, x] of range(-.42, .42, 5).entries()) g.push(clump([V(x, .97, .56), V(x * .95, 1.27, .16), V(x * .5, 1.18, -.42), V(x * .08, 1.05, -.62)], {w: .24, d: .07, tip: .6, bulge: .1, shade: i % 2 ? .93 : 1}));
+    for (const s of [-1, 1]) {
+      g.push(clump([around(s * 70, .98, 1.03), around(s * 110, 1.0, 1.05), V(s * .1, 1.05, -.63)], {w: .26, d: .07, tip: .6, shade: .88}));
+      g.push(clump([around(s * 64, 1.0, 1.04), around(s * 70, .7, 1.1), around(s * 74, .36, 1.12)], {w: .11, d: .05, tip: .3, shade: .95})); // face-framing wisp
+    }
+    g.push(shell({x: 0, y: 1.06, z: -.66, sx: .16, sy: .14, sz: .12, shade: .7, ws: 8, hs: 6})); // hair tie
+    g.push(clump([V(0, 1.08, -.7), V(0, 1.14, -1.02), V(.04, .55, -1.05), V(.08, -.15, -.78)], {w: .3, d: .22, tip: .2, bulge: .35, segments: 10, shade: .96}));
+    g.push(clump([V(.02, 1.04, -.72), V(-.05, .8, -.98), V(-.08, .2, -.92)], {w: .22, d: .16, tip: .2, bulge: .3, shade: .86}));
+  },
+  // FEMININE — smooth crown into a high bun with two small knot points; long side locks.
   high_bun(g) {
-    g.push(scalp({sx: .74, sz: .67, sy: .34}));
-    for (const a of range(0, 330, 12)) g.push(clump([around(a, 1.0, 1.1), around(a, 1.22, .7), [0, 1.38, -.05]], {w: .2, d: .1, tip: .4, bulge: .3}));
-    const bun = new T.SphereGeometry(1, 10, 7); bun.scale(.38, .3, .36); bun.translate(0, 1.55, -.08); g.push(bun);
-    for (const s of [-1, 1]) g.push(clump([[s * .14, 1.72, -.06], [s * .22, 1.9, -.04]], {w: .12, d: .1, tip: .05, segments: 3}));
-    for (const s of [-1, 1]) g.push(clump([around(s * 55, 1.05, .95), around(s * 70, .8, 1.12), around(s * 66, .25, 1.14)], {w: .15, d: .08, tip: .15}));
-    for (const a of range(110, 250, 6)) g.push(drape(a, .45, {r: 1.12, w: .2, d: .1, tip: .2, bulge: .2}));
+    g.push(shell({sx: .69, sz: .63, sy: .3}));
+    for (const [i, a] of range(0, 330, 12).entries()) g.push(clump([around(a, .96, 1.07), around(a, 1.22, .72), V(0, 1.36, -.06)], {w: .27, d: .08, tip: .5, bulge: .25, shade: i % 2 ? .94 : 1}));
+    g.push(shell({x: 0, y: 1.55, z: -.08, sx: .37, sy: .29, sz: .35, shade: 1, ws: 10, hs: 7}));
+    for (const s of [-1, 1]) g.push(clump([V(s * .13, 1.74, -.06), V(s * .21, 1.9, -.04)], {w: .12, d: .1, tip: .08, segments: 3, shade: .95}));
+    for (const s of [-1, 1]) g.push(clump([around(s * 52, 1.02, 1.0), around(s * 66, .78, 1.12), around(s * 64, .3, 1.15)], {w: .15, d: .07, tip: .3, shade: .96}));
+    for (const [i, a] of range(120, 240, 5).entries()) g.push(drape(a, .5 - (i % 2) * .12, {r: 1.1, w: .32, d: .09, tip: .55, bulge: .2, shade: .84}));
   },
 };
 
 export const HAIR_OPTIONS = Object.freeze({
-  long_red:       {shape: 'long_straight',    color: '#b8301f'},
-  spiky_blonde:   {shape: 'spiky',            color: '#e3b43b'},
-  messy_brown:    {shape: 'messy_fringe',     color: '#8a5528'},
-  swept_blue:     {shape: 'swept_quiff',      color: '#2b3a8f'},
-  ponytail_black: {shape: 'side_ponytail',    color: '#2a2a30'},
-  long_blonde:    {shape: 'long_side_fringe', color: '#e9cf63'},
-  bun_red:        {shape: 'high_bun',         color: '#c23a22'},
-  bun_pink:       {shape: 'high_bun',         color: '#e4a3e0'},
+  long_red:       {shape: 'long_straight',    color: '#b8301f', style: 'feminine'},
+  spiky_blonde:   {shape: 'spiky',            color: '#e3b43b', style: 'masculine'},
+  messy_brown:    {shape: 'messy_fringe',     color: '#8a5528', style: 'masculine'},
+  swept_blue:     {shape: 'swept_quiff',      color: '#2b3a8f', style: 'masculine'},
+  ponytail_black: {shape: 'side_ponytail',    color: '#2a2a30', style: 'feminine'},
+  long_blonde:    {shape: 'long_side_fringe', color: '#e9cf63', style: 'feminine'},
+  bun_red:        {shape: 'high_bun',         color: '#c23a22', style: 'feminine'},
+  bun_pink:       {shape: 'high_bun',         color: '#e4a3e0', style: 'feminine'},
 });
 
-// Hand-painted strand texture: root shade at the top (v=1), streaks running down the clumps.
+// Painted texture (root at top, v=1): base, fine full-length strands, a soft
+// highlight band in the upper third, slightly lighter tips. AO lives in vertex colours.
 function rng(seed) { return () => ((seed = (seed * 1664525 + 1013904223) >>> 0) / 4294967296); }
 const textures = new Map();
 function paintTexture(color) {
   if (typeof document === 'undefined') return null;
   if (textures.has(color)) return textures.get(color);
   const W = 256, H = 512, c = document.createElement('canvas'); c.width = W; c.height = H;
-  const g = c.getContext('2d'), base = new T.Color(color), r = rng(7);
+  const g = c.getContext('2d'), base = new T.Color(color), r = rng(11);
   g.fillStyle = '#' + base.getHexString(); g.fillRect(0, 0, W, H);
-  for (let i = 0; i < 220; i++) {
-    const shade = base.clone().multiplyScalar(.62 + r() * .62), x = r() * W, w = 1 + r() * 5;
-    g.strokeStyle = '#' + shade.getHexString(); g.globalAlpha = .35 + r() * .4; g.lineWidth = w;
-    g.beginPath(); g.moveTo(x, r() * H * .3); g.bezierCurveTo(x + (r() - .5) * 20, H * .4, x + (r() - .5) * 20, H * .7, x + (r() - .5) * 14, H * (.75 + r() * .25)); g.stroke();
-  }
+  const streak = (light, n, alpha) => { for (let i = 0; i < n; i++) {
+    const tone = light ? base.clone().lerp(new T.Color(1, 1, 1), .18 + r() * .2) : base.clone().multiplyScalar(.6 + r() * .2);
+    const x = r() * W; g.strokeStyle = '#' + tone.getHexString(); g.globalAlpha = alpha * (.5 + r() * .5); g.lineWidth = 1 + r() * 3;
+    g.beginPath(); g.moveTo(x, 0); g.bezierCurveTo(x + (r() - .5) * 10, H * .35, x + (r() - .5) * 10, H * .7, x + (r() - .5) * 8, H); g.stroke();
+  } };
+  streak(false, 90, .55); streak(true, 60, .45);
   g.globalAlpha = 1;
-  const grad = g.createLinearGradient(0, 0, 0, H);
-  grad.addColorStop(0, 'rgba(0,0,0,0.45)'); grad.addColorStop(.25, 'rgba(0,0,0,0.12)'); grad.addColorStop(.5, 'rgba(255,255,255,0.10)'); grad.addColorStop(.62, 'rgba(255,255,255,0)'); grad.addColorStop(1, 'rgba(0,0,0,0.08)');
-  g.fillStyle = grad; g.fillRect(0, 0, W, H);
+  const band = g.createLinearGradient(0, H * .16, 0, H * .46);
+  band.addColorStop(0, 'rgba(255,255,255,0)'); band.addColorStop(.5, 'rgba(255,255,255,0.28)'); band.addColorStop(1, 'rgba(255,255,255,0)');
+  g.fillStyle = band; g.fillRect(0, 0, W, H);
+  g.globalAlpha = .5; streak(true, 40, .6); g.globalAlpha = 1; // broken highlight strands across the band
+  const tips = g.createLinearGradient(0, H * .75, 0, H); tips.addColorStop(0, 'rgba(255,255,255,0)'); tips.addColorStop(1, 'rgba(255,255,255,0.12)');
+  g.fillStyle = tips; g.fillRect(0, 0, W, H);
   const t = new T.CanvasTexture(c); t.colorSpace = T.SRGBColorSpace; t.wrapS = T.RepeatWrapping; t.anisotropy = 4;
   textures.set(color, t); return t;
 }
@@ -185,14 +199,13 @@ function paintTexture(color) {
 export function makeHair(option, {color} = {}) {
   const o = HAIR_OPTIONS[option]; if (!o) throw new Error('Unknown hair option: ' + option);
   const parts = []; STYLES[o.shape](parts);
-  const geometry = mergeGeometries(parts.map(p => p.index ? p : p.toNonIndexed()));
+  const geometry = mergeGeometries(parts);
   for (const p of parts) p.dispose();
   geometry.computeBoundingBox();
   const tint = color ?? o.color, map = paintTexture(tint);
-  const material = new T.MeshStandardMaterial({color: map ? 0xffffff : tint, map, roughness: .72});
+  const material = new T.MeshStandardMaterial({color: map ? 0xffffff : tint, map, vertexColors: true, roughness: .6});
   material.userData.authored = true;
   const mesh = new T.Mesh(geometry, material); mesh.name = `hair_${option}`; mesh.castShadow = mesh.receiveShadow = true;
-  // HairAttachment: on the visible head surface at the crown, as accessory specs require.
-  mesh.userData = {attachment: 'HairAttachment', attachmentPoint: [0, 1.16, 0], option, shape: o.shape, color: tint, triangles: geometry.index.count / 3};
+  mesh.userData = {attachment: 'HairAttachment', attachmentPoint: [0, 1.16, 0], option, shape: o.shape, style: o.style, color: tint, triangles: geometry.index.count / 3};
   return mesh;
 }

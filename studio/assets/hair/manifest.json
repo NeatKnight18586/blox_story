@@ -2,8 +2,8 @@
  {
   "id": "long_red",
   "file": "studio/assets/hair/long_red.glb",
-  "bytes": 174984,
-  "sha256": "abf6333facf86b601cbabdd29ebc22e88631139011836554c1eda92341992e0b",
+  "bytes": 151748,
+  "sha256": "50570ea73da1a758a7a7a5916accd25f9bc173d670d02290496b3281cf02b980",
   "triangles": 1788,
   "reimportedTriangles": 1788,
   "attachment": "HairAttachment",
@@ -20,10 +20,10 @@
  {
   "id": "spiky_blonde",
   "file": "studio/assets/hair/spiky_blonde.glb",
-  "bytes": 194528,
-  "sha256": "adbe96e05712864d2977557185b26b7f070682f19c5e5e7a360aa83f2bfd1d54",
-  "triangles": 2268,
-  "reimportedTriangles": 2268,
+  "bytes": 170652,
+  "sha256": "4174d1acaf7f8d4a5575ddf1d40db5ed7332c3d09412493c97980cd393e5b2bc",
+  "triangles": 2424,
+  "reimportedTriangles": 2424,
   "attachment": "HairAttachment",
   "attachmentPoint": [
    0,
@@ -38,10 +38,10 @@
  {
   "id": "messy_brown",
   "file": "studio/assets/hair/messy_brown.glb",
-  "bytes": 206468,
-  "sha256": "e5a329bab60be04cb67a58a91a5a48033ea20ad25ca8b322175d14c203e09bfb",
-  "triangles": 3048,
-  "reimportedTriangles": 3048,
+  "bytes": 175232,
+  "sha256": "28146946b54f07a5fe28118b41e7e1c6cc64c129be7c6798607bd05e9110b215",
+  "triangles": 2532,
+  "reimportedTriangles": 2532,
   "attachment": "HairAttachment",
   "attachmentPoint": [
    0,
@@ -56,10 +56,10 @@
  {
   "id": "swept_blue",
   "file": "studio/assets/hair/swept_blue.glb",
-  "bytes": 170488,
-  "sha256": "a70ec170cce935c6ee2eca2fb62e1ece88594984c45e29692c7057ec72a5f6b6",
-  "triangles": 1698,
-  "reimportedTriangles": 1698,
+  "bytes": 161380,
+  "sha256": "62989ba0b57bd3b17d494b6fc19cc996a9b20f397c791545d548bd7da017b324",
+  "triangles": 2100,
+  "reimportedTriangles": 2100,
   "attachment": "HairAttachment",
   "attachmentPoint": [
    0,
@@ -74,10 +74,10 @@
  {
   "id": "ponytail_black",
   "file": "studio/assets/hair/ponytail_black.glb",
-  "bytes": 129912,
-  "sha256": "9495481847b97d8e8ba031742939b2c0b491ac9058120efacdc073ebd448d608",
-  "triangles": 1208,
-  "reimportedTriangles": 1208,
+  "bytes": 127068,
+  "sha256": "566d4821fe6fb4ac7b79fd782f38a0cbbd821c0dff65386f124667c84c2912d8",
+  "triangles": 1460,
+  "reimportedTriangles": 1460,
   "attachment": "HairAttachment",
   "attachmentPoint": [
    0,
@@ -92,10 +92,10 @@
  {
   "id": "long_blonde",
   "file": "studio/assets/hair/long_blonde.glb",
-  "bytes": 171612,
-  "sha256": "184c4c97edcd8679b16dcfdcd84bb46ec320f5d2e7e3d575dc00b7eab208ab14",
-  "triangles": 1338,
-  "reimportedTriangles": 1338,
+  "bytes": 146668,
+  "sha256": "3e66dc96409650ac9f8d21abbd20ed78e8eb4a24641bada6670a50bedf6a0f8c",
+  "triangles": 1788,
+  "reimportedTriangles": 1788,
   "attachment": "HairAttachment",
   "attachmentPoint": [
    0,
@@ -110,10 +110,10 @@
  {
   "id": "bun_red",
   "file": "studio/assets/hair/bun_red.glb",
-  "bytes": 185936,
-  "sha256": "ef31550917080ea0059c0da1e5380c7644eb79457ecf01e992efb349fa949ecb",
-  "triangles": 2168,
-  "reimportedTriangles": 2168,
+  "bytes": 173576,
+  "sha256": "1f161083ebf683a84fa2be5cf9fc5215caeb6cb088ba5a1e65a9535eb019fc60",
+  "triangles": 2436,
+  "reimportedTriangles": 2436,
   "attachment": "HairAttachment",
   "attachmentPoint": [
    0,
@@ -128,10 +128,10 @@
  {
   "id": "bun_pink",
   "file": "studio/assets/hair/bun_pink.glb",
-  "bytes": 193000,
-  "sha256": "d6ce830de64a25142887d0b54a8547a60972a9de8721806125bc56bd1f7654a6",
-  "triangles": 2168,
-  "reimportedTriangles": 2168,
+  "bytes": 165016,
+  "sha256": "af6a83c0c6f4725b8ca52526505a551fbbc7e4bb2d6c15d8b32412e7d617ecc0",
+  "triangles": 2436,
+  "reimportedTriangles": 2436,
   "attachment": "HairAttachment",
   "attachmentPoint": [
    0,

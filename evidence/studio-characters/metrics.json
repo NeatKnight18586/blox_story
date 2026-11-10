@@ -12,9 +12,9 @@
   "contrast_p95_p5": 0.571
  },
  "leo-studio-cast": {
-  "saturation": 0.692,
-  "colorfulness": 105.8,
-  "luma": 0.453,
+  "saturation": 0.686,
+  "colorfulness": 105.7,
+  "luma": 0.457,
   "contrast_p95_p5": 0.59
  },
  "wide-legacy": {
@@ -30,15 +30,15 @@
   "contrast_p95_p5": 0.479
  },
  "wide-studio-cast": {
-  "saturation": 0.34,
-  "colorfulness": 66.4,
+  "saturation": 0.339,
+  "colorfulness": 66.3,
   "luma": 0.721,
-  "contrast_p95_p5": 0.482
+  "contrast_p95_p5": 0.481
  },
  "lineup": {
-  "saturation": 0.374,
-  "colorfulness": 84.1,
-  "luma": 0.711,
-  "contrast_p95_p5": 0.503
+  "saturation": 0.371,
+  "colorfulness": 83.7,
+  "luma": 0.713,
+  "contrast_p95_p5": 0.5
  }
 }
