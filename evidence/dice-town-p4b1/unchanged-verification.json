@@ -1,0 +1,21 @@
+{
+  "status": "PASS",
+  "unchangedDecodedFrames": 2923,
+  "allPixelMd5Identical": true,
+  "ranges": [
+    [
+      0,
+      2224
+    ],
+    [
+      2585,
+      2669
+    ],
+    [
+      2898,
+      3513
+    ]
+  ],
+  "method": "All YUV420 decoded frame MD5s compared with committed P4A movie in unchanged ranges, including D28.",
+  "wallSeconds": 4.8416291150006145
+}

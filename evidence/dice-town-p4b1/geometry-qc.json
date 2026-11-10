@@ -1,0 +1,306 @@
+{
+  "dieMeshIdentity": true,
+  "dieMeshCount": 22,
+  "maxDecorativeSupportTop": 0.018999999552965163,
+  "minArmMachineGap": 0.07999998664855923,
+  "screens": {
+    "face1:ivory_die": 0.9253959750137313,
+    "face2:ivory_die": 0.9253959750137313,
+    "face4:ivory_die": 0.9253959750137313,
+    "face3:ivory_die": 0.9253959750137308,
+    "face5:ivory_die": 0.9253959750137306,
+    "face6:ivory_die": 0.9085009057313539,
+    "D27:head": 0.8040246883417059,
+    "D27:leftArm": 0.45826592765470636,
+    "D27:faded_family_photo": 0.8089706365519147,
+    "D27:shaft": 0.4074928419489545,
+    "D27:handle_stem": 0.3315717542248457,
+    "D27:T_handle": 0.4072003712992866,
+    "D29:ivory_die": 0.930649720225299,
+    "D30:head": 0.8470344945514667,
+    "D30:leftArm": 0.45826592765470636,
+    "D30:faded_family_photo": 0.8089706365519147,
+    "D30:shaft": 0.3326147165024727,
+    "D30:handle_stem": 0.3315717542248457,
+    "D30:T_handle": 0.4072003712992866,
+    "D31:ivory_die": 0.7228927043598907
+  },
+  "faceChecks": [
+    {
+      "value": 1,
+      "upDot": 1,
+      "pips": 1
+    },
+    {
+      "value": 2,
+      "upDot": 0.9999999999999998,
+      "pips": 2
+    },
+    {
+      "value": 4,
+      "upDot": 0.9999999999999998,
+      "pips": 4
+    },
+    {
+      "value": 3,
+      "upDot": 0.9999999999999998,
+      "pips": 3
+    },
+    {
+      "value": 5,
+      "upDot": 0.9999999999999998,
+      "pips": 5
+    },
+    {
+      "value": 6,
+      "upDot": 1,
+      "pips": 6
+    }
+  ],
+  "minDieGap": -1.3149203947904198e-15,
+  "maxDieGap": 9.055256544598933e-16,
+  "maxScreen": 0.930649720225299,
+  "penetrationVertices": 0,
+  "minShaftFrontGap": 0.0984999880790709,
+  "minShaftSleeveDistance": 0.09850284336798155,
+  "endStates": {
+    "D27-0": {
+      "shot": "D27",
+      "frame": 0,
+      "u": 0,
+      "phi": null,
+      "arm": -1.5707963267948966,
+      "advance": 0,
+      "headPitch": 0.05,
+      "headYaw": 0.08,
+      "identity": true,
+      "pinInstalled": false,
+      "diePosition": null,
+      "dieQuaternion": null,
+      "pinWorld": [
+        -0.44925000000000037,
+        4.600000000000001,
+        2.6485
+      ],
+      "camera": {
+        "position": [
+          -3.7,
+          6.4,
+          8
+        ],
+        "fov": 54
+      }
+    },
+    "D27-53": {
+      "shot": "D27",
+      "frame": 53,
+      "u": 1,
+      "phi": null,
+      "arm": -0.6507963267948965,
+      "advance": 0,
+      "headPitch": 0.18,
+      "headYaw": 0.26,
+      "identity": true,
+      "pinInstalled": false,
+      "diePosition": null,
+      "dieQuaternion": null,
+      "pinWorld": [
+        -0.298748478969402,
+        3.486231920611991,
+        2.6485
+      ],
+      "camera": {
+        "position": [
+          -3.7,
+          6.4,
+          8
+        ],
+        "fov": 54
+      }
+    },
+    "D29-0": {
+      "shot": "D29",
+      "frame": 0,
+      "u": 0,
+      "phi": 1.05,
+      "arm": -0.6507963267948965,
+      "advance": 0,
+      "headPitch": 0.18,
+      "headYaw": 0.08,
+      "identity": true,
+      "pinInstalled": false,
+      "diePosition": [
+        -1,
+        4.2354078662356756,
+        0.07996835889068676
+      ],
+      "dieQuaternion": [
+        0.5012130046737979,
+        0,
+        0,
+        0.8653239416229412
+      ],
+      "pinWorld": null,
+      "camera": {
+        "position": [
+          10,
+          10,
+          16
+        ],
+        "fov": 60
+      }
+    },
+    "D29-35": {
+      "shot": "D29",
+      "frame": 35,
+      "u": 1,
+      "phi": 0.38,
+      "arm": -0.6507963267948965,
+      "advance": 0,
+      "headPitch": 0.18,
+      "headYaw": 0.08,
+      "identity": true,
+      "pinInstalled": false,
+      "diePosition": [
+        -1,
+        4.043984412280096,
+        -2.6286129651975005
+      ],
+      "dieQuaternion": [
+        0.18885889497650057,
+        0,
+        0,
+        0.9820042351172703
+      ],
+      "pinWorld": null,
+      "camera": {
+        "position": [
+          10,
+          10,
+          16
+        ],
+        "fov": 60
+      }
+    },
+    "D30-0": {
+      "shot": "D30",
+      "frame": 0,
+      "u": 0,
+      "phi": null,
+      "arm": -0.6507963267948965,
+      "advance": 0,
+      "headPitch": 0.18,
+      "headYaw": 0.26,
+      "identity": true,
+      "pinInstalled": false,
+      "diePosition": null,
+      "dieQuaternion": null,
+      "pinWorld": [
+        -0.298748478969402,
+        3.486231920611991,
+        2.6485
+      ],
+      "camera": {
+        "position": [
+          -3.7,
+          6.4,
+          8
+        ],
+        "fov": 54
+      }
+    },
+    "D30-41": {
+      "shot": "D30",
+      "frame": 41,
+      "u": 1,
+      "phi": null,
+      "arm": -0.6507963267948965,
+      "advance": 0,
+      "headPitch": 0.18,
+      "headYaw": 0.26,
+      "identity": true,
+      "pinInstalled": false,
+      "diePosition": null,
+      "dieQuaternion": null,
+      "pinWorld": [
+        -0.298748478969402,
+        3.486231920611991,
+        2.6485
+      ],
+      "camera": {
+        "position": [
+          -3.7,
+          6.4,
+          8
+        ],
+        "fov": 54
+      }
+    },
+    "D31-0": {
+      "shot": "D31",
+      "frame": 0,
+      "u": 0,
+      "phi": 0.38,
+      "arm": -0.6507963267948965,
+      "advance": 0,
+      "headPitch": 0.18,
+      "headYaw": 0.08,
+      "identity": true,
+      "pinInstalled": false,
+      "diePosition": [
+        -1,
+        4.043984412280096,
+        -2.6286129651975005
+      ],
+      "dieQuaternion": [
+        0.18885889497650057,
+        0,
+        0,
+        0.9820042351172703
+      ],
+      "pinWorld": null,
+      "camera": {
+        "position": [
+          10,
+          10,
+          16
+        ],
+        "fov": 60
+      }
+    },
+    "D31-41": {
+      "shot": "D31",
+      "frame": 41,
+      "u": 1,
+      "phi": 0,
+      "arm": -0.6507963267948965,
+      "advance": 0,
+      "headPitch": 0.18,
+      "headYaw": 0.08,
+      "identity": true,
+      "pinInstalled": false,
+      "diePosition": [
+        -1,
+        3.1700000953674317,
+        -3.92
+      ],
+      "dieQuaternion": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "pinWorld": null,
+      "camera": {
+        "position": [
+          10,
+          10,
+          16
+        ],
+        "fov": 60
+      }
+    }
+  },
+  "frames": 174,
+  "method": "Actual transformed complete die (body and all21 flush pips) support and critical mesh projection; pin vertices tested in canonical hand local box with5mm interior tolerance; shaft/front-sleeve separation. Not a universal mesh collider."
+}

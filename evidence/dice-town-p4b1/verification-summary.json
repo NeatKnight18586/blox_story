@@ -1,0 +1,111 @@
+{
+  "technicalStatus": "PASS for new material and integrated movie",
+  "overallCreativeStatus": "PARTIAL / human review pending",
+  "frames": 3513,
+  "durationSeconds": 117.1,
+  "fps": 30,
+  "size": [
+    360,
+    640
+  ],
+  "silent": true,
+  "nativePoses": 13,
+  "uniqueNewMotionFrames": 174,
+  "unchangedFramesPixelIdentical": 2923,
+  "sourcePixelSamples": 153,
+  "newProxyPercent": 53.97096498719044,
+  "runtimeByKind": {
+    "proxy": {
+      "frames": 1896,
+      "seconds": 63.2,
+      "percent": 53.97096498719044
+    },
+    "still": {
+      "frames": 753,
+      "seconds": 25.1,
+      "percent": 21.43467122117848
+    },
+    "endpoint_hold": {
+      "frames": 369,
+      "seconds": 12.3,
+      "percent": 10.503842869342442
+    },
+    "motion": {
+      "frames": 495,
+      "seconds": 16.5,
+      "percent": 14.090520922288643
+    }
+  },
+  "fullDecode": {
+    "frames": 3513,
+    "continuousPts": true,
+    "noErrors": true
+  },
+  "playback": {
+    "width": 360,
+    "height": 640,
+    "duration": 117.1,
+    "advancedTo": 0.1525,
+    "error": null,
+    "browser": "156.0.8078.79",
+    "fallback": true,
+    "seeks": [
+      58.55,
+      2.3000000000000003,
+      5.733333333333333,
+      8.6,
+      11.333333333333332,
+      12.833333333333332,
+      16.900000000000002,
+      21.133333333333336,
+      23.200000000000003,
+      24.833333333333336,
+      26.533333333333335,
+      29.633333333333336,
+      33.1,
+      36.733333333333334,
+      40.766666666666666,
+      44.5,
+      48.16666666666667,
+      49.93333333333334,
+      53.1,
+      57.1,
+      59.03333333333333,
+      63.6,
+      66.66666666666666,
+      71.06666666666666,
+      74.23333333333333,
+      78.06666666666666,
+      81.89999999999999,
+      86.26666666666667,
+      89.06666666666666,
+      90.63333333333333,
+      93,
+      95.1,
+      96.69999999999999,
+      99.6,
+      103.1,
+      107.76666666666667,
+      111.56666666666666,
+      113.06666666666666
+    ]
+  },
+  "maxScreen": 0.930649720225299,
+  "minArmMachineGap": 0.07999998664855923,
+  "minShaftFrontGap": 0.0984999880790709,
+  "dieSupportGapRange": [
+    -1.3149203947904198e-15,
+    9.055256544598933e-16
+  ],
+  "mp4Sha256": "05865b8d1db2a937ff5d20a9296b2493b86783e35f9d6c1ebdba250b20c5c04e",
+  "editMapSha256": "d9cdd38bdf04dc85ec3112868cf5e713e4591ee013b0a4f269ef2f8f69075945",
+  "inheritedLimitations": [
+    "D28 required static source shows5 adjacent2, contrary to opposite pairs",
+    "D33 remains static gate states",
+    "other unchanged proxy shots not implicitly approved"
+  ],
+  "forwardScreenshotsIncludingCorrections": 330,
+  "maxSourceMeanRgbError": 1.9605164930555554,
+  "dieMeshIdentity": true,
+  "decorativeRoadTop": 0.018999999552965163
+}

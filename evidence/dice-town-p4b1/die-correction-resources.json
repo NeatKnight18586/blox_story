@@ -1,0 +1,8 @@
+{
+  "wallSeconds": 121.33394726899996,
+  "childUserCpuSeconds": 2.233882,
+  "childSystemCpuSeconds": 0.377492,
+  "maxChildRssKiB": 91368,
+  "scope": "78 die frame correction only;96 existing Pip frames reused. Child metrics not summed Chromium tree.",
+  "exitCode": 0
+}
