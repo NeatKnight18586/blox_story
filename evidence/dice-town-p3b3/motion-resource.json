@@ -1,0 +1,8 @@
+{
+  "wallSeconds": 23.543709943000067,
+  "userCpuSeconds": 2.973559,
+  "systemCpuSeconds": 0.6407959999999999,
+  "maxChildRssKiB": 137432,
+  "rssMethod": "getrusage RUSAGE_CHILDREN maximum, not summed process-tree peak",
+  "exitCode": 0
+}

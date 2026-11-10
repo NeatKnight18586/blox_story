@@ -1,0 +1,16 @@
+{
+  "base": "5664d5f",
+  "trackedFilesComparedByteForByteBeforeDocumentation": 1223,
+  "allPreviousFilesUnchanged": true,
+  "protected": [
+    "all earlier films and evidence",
+    "all earlier source and tests",
+    "38-shot manifest and3513-frame plan",
+    "P3A and direction docs"
+  ],
+  "allowedLaterDocumentationUpdates": [
+    "AGENTS.md",
+    "README.md",
+    "STATUS.md"
+  ]
+}
