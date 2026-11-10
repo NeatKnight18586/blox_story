@@ -1,28 +1,28 @@
-# AGENTS.md — blox_story: Codex operating rules
+# AGENTS.md — blox_story studio rules (Studio V2)
+
 ## Source of truth
-Read **F1_SPEC.md** first: F1 v3 is the CURRENT product contract. Then read CODEX_HANDOFF.md, STATUS.md, README.md and existing code/tests. The previous Kai/Mira-first instructions are SUPERSEDED. If documents conflict, F1_SPEC.md wins; STATUS.md controls what has actually been verified.
+Read in order: `docs/CLAUDE_START_HERE.md` (handoff branch), `studio/STYLE_BIBLE.md`, `studio/HIGGSFIELD.md`, then STATUS.md (top entry) and the code. F1_SPEC.md still governs the six-part avatar contract. STATUS.md controls what has actually been verified. Older names100/S5 and per-stage Dice Town task boundaries are historical.
 
-## Current task boundary
-Dice Town P4B-4 native-source backstory repair only is authorized from codex/dice-town-p4b4-backstory-direction /dba5337. Follow P4B4_PIP_BACKSTORY_INTEGRATION_DIRECTION.md: only D17–D22 and D24; native720×1280 keyframes and phone comprehension review before bounded90-frame motion, integrated into unchanged3513-frame silent timeline. No unrelated substitutions or360px screenshots as native sources. Preserve D23/all other footage, earlier source/evidence/rigs and private narration. Draft PR targets backstory direction branch; no merge, native full movie or next scene. F1 requirements unchanged.
+## Goal
+A durable, original, Roblox-inspired 3D Shorts studio: one modular master character (Leo, Pip, Mother presets), a small modular town kit, reusable actions/camera presets, and native 1080×1920/30fps rendering, all reproducible from a clean checkout with no paid service. Story in production: Dice Town / The Sixth Roll (38 shots, 117.100s locked narration timing).
 
-## Goal and user constraints
-One neutral classic R6-like **six-part** block avatar first, then removable appearance layers (face/colors and one optional cosmetic). Original code-rendered Three.js, not official Roblox models. User is on iPad, wants autonomous execution, no manual modeling, recording, installs or gameplay capture. Minimize explanations and usage without sacrificing accuracy.
+## Current stage
+Studio V2 stage 1 (look gate) is done and awaiting the owner's visual review. Do not start the next stage (character presets, town kit, 8–15s native sequence) until the owner approves the look. Stop after each stage for review.
 
-## Scope discipline
-- Current work is bounded S5 speech/visible-detail proof; no body animation or caption-style redesign. No walking transitions, final-resolution episode, Blender/Roblox Studio, Remotion, soundtrack, broad environment library, wardrobe or general-purpose engine. Temporary frames must stay out of Git.
-- Keep existing source committed while migrating. Old `character.js` and Kai/Mira presets are legacy, not the F1 goal. Preserve functionality via history and replace paths only when the new implementation is testable.
-- Start with the neutral master, not two customized figures. Use simple proportions from F1_SPEC.md, with one softly rounded oval cylindrical head (latest user correction in F1_SPEC.md) and five beveled rectangular blocks.
-- No required full rig or separate fingers, hands, shoes or neck meshes. Distinct styling belongs to appearance layers.
-- Keep a simple vanilla Three.js ES module preview; currently pinned 0.187.0. A minimal test server/dependency install is fine when justified; avoid framework rebuild.
-- Keep deterministic `applyPose(avatar,poseName,t)`, persistent root and named pivots. No mesh regeneration when switching pose/face/cosmetic. Use caches and attach/detach layers as appropriate.
-- Reuse only the core geometry, rig concepts, and tests that actually help the new goal. It is acceptable to replace old implementation when new acceptance tests exist; do not blindly preserve old character visuals.
+## Hard rules
+- Opt-in only: new looks/assets layer over existing scenes; legacy renders must stay pixel-identical with them off. Never rewrite the engine or merge the stacked PR branches blindly.
+- Keep deterministic `applyPose(avatar,poseName,t)`, persistent root, named pivots, cached faces/cosmetics; no mesh regeneration on pose/face/cosmetic switch.
+- Native resolution only: never upscale 360p/720p output and call it 1080p. Never substitute unrelated footage for a missing shot.
+- Characters stay code-built six-part rigs. Generated meshes may be used only for static props, each approved by the owner, downloaded, validated in Three.js, and recorded with source, licence and hash.
+- Higgsfield: no credit spend without the owner's explicit approval of the exact model and cost. The repo must never depend on it.
+- Private narration (ElevenLabs Adam WAV, already 1.25×) stays outside Git; never re-time or regenerate it.
+- Owner is iPad-first: no manual modelling, recording or installs on their side.
 
 ## Test before calling it done
-- Source parsing and real module imports.
-- API tests for the canonical six-part base, five named pivots, deterministic reset, independent face, removable accessory and mesh identity.
-- Real Three.js/WebGL preview captures: front, three-quarter, side, face close-up, blank face, cosmetic attached/removed. Review mobile silhouette, joints, ground contact, face and lighting.
-- Stub/mock tests alone do NOT count as visual evidence. No AI concept images used as fake screenshots.
-- Reference user images are attached in a separate ChatGPT exchange and may not be accessible in Codex; follow the numerical spec and admit any reference-availability gap.
+- `npm test` (existing suite) passes; new code has a real browser capture, not mocks.
+- Visual evidence: native PNGs, an old-vs-new sheet, and a 390px phone sheet, reviewed by eye. Numeric gates (`studio/qa/color_metrics.py`) support but never replace review.
+- Report PASS only for genuinely completed checks; otherwise PARTIAL/FAIL with the reason and the next blocker. Record render times per frame.
 
-## Completion report
-Commit the tested implementation, update README.md and STATUS.md with exact commands and capture paths; mark PASS only for genuinely completed source + visual checks, else PARTIAL/FAIL. Provide concise evidence and the next blocker. Verify real encoded metadata, full decode/playback, frame completeness/determinism and cuts; provide MP4/contact sheet/resource measurements. Keep later additions as proposals only. The optional tapered torso is authorized in P2A with classic preserved as default. Stop after the S5 speech proof PR for creative review; do not automatically implement the next phase.
+## Tooling notes
+- Browser: repo pins Playwright 1.56.1; studio scripts use `/opt/pw-browsers/chromium` when present (override with `PW_CHROMIUM`).
+- Capture: `node scripts/studio-lookdev-capture.js` then `python3 scripts/studio-lookdev-sheet.py`.

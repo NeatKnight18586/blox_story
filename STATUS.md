@@ -1,3 +1,16 @@
+# Studio V2 stage 1 — look gate: PARTIAL (awaiting owner review)
+Verified 2026-11-10 on branch `claude/lucid-brahmagupta-jg9ad9` (based on PR #51 head `f1b8dd2`).
+
+- Native capture: `node scripts/studio-lookdev-capture.js` → 4 PNGs at 1080×1920 (`evidence/studio-lookdev/`), Chromium SwiftShader, no page errors, each frame re-rendered and hash-identical (deterministic).
+- Legacy untouched: `production/studio-lookdev/?look=0` and the original `production/dice-town-p3b4/` page give identical PNG hashes for D01 at 720×1280. No existing file modified; `npm test` passes.
+- Metrics (`python3 scripts/studio-lookdev-sheet.py`, gate colorfulness ≥80, luma ≥0.60; reference Short 98 / 0.67):
+  - Wide: colorfulness 37.2 → 64.2 (FAIL), luma 0.570 → 0.724 (PASS).
+  - Leo close-up: colorfulness 58.9 → 98.1 (PASS), luma 0.387 → 0.498 (FAIL).
+  - Remaining misses come from content, not the look: bare paving fills half the wide; dark jacket/trousers fill the close-up.
+- Render cost per 1080×1920 frame (CPU WebGL): legacy ~1.2–1.4s, studio look ~2.8–3.1s (first frame ~4.9s with shader compile). A 15s/450-frame shot ≈ 23 min single process.
+- Higgsfield: free plan, 10 credits, trial not eligible; 3D generation costs 14–44 credits. No credits spent. See `studio/HIGGSFIELD.md`.
+- Not done (next stages, need approval): character presets (hair, wardrobe, colours), town-kit density, 8–15s native sequence, asset manifest.
+
 # F1 v3 — verification status
 **Final F1 grade: PASS (A source/API + B real visual review + C reproducible HTTP preview).**
 Verified 2026-11-08. Current F2A implementation results appear below; F2B remains deferred. F1_SPEC.md remains authoritative.
