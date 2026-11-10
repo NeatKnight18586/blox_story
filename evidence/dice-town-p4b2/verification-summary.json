@@ -1,0 +1,99 @@
+{
+  "technicalStatus": "PASS",
+  "creativeStatus": "PARTIAL / human review pending",
+  "frames": 3513,
+  "durationSeconds": 117.1,
+  "size": [
+    360,
+    640
+  ],
+  "fps": 30,
+  "audioStreams": 0,
+  "newUniqueWebGLFrames": 45,
+  "sourceSize": [
+    540,
+    960
+  ],
+  "unchangedFramesPixelIdentical": 3117,
+  "sourcePixelChecks": 171,
+  "runtimeByKind": {
+    "proxy": {
+      "frames": 1584,
+      "seconds": 52.8,
+      "percent": 45.08966695132365
+    },
+    "still": {
+      "frames": 753,
+      "seconds": 25.1,
+      "percent": 21.43467122117848
+    },
+    "endpoint_hold": {
+      "frames": 561,
+      "seconds": 18.7,
+      "percent": 15.96925704526046
+    },
+    "motion": {
+      "frames": 615,
+      "seconds": 20.5,
+      "percent": 17.506404782237404
+    }
+  },
+  "d28FiveUpCorrect": true,
+  "physicalScope": "Actual new die support, tip clearance and explicit phase order; D16 far-tip global path remains implied.",
+  "fullDecode": {
+    "frames": 3513,
+    "continuousPts": true,
+    "noErrors": true
+  },
+  "player": {
+    "width": 360,
+    "height": 640,
+    "duration": 117.1,
+    "advancedTo": 0.1506,
+    "error": null,
+    "browser": "156.0.8078.79",
+    "fallback": true,
+    "seeks": [
+      58.55,
+      2.3000000000000003,
+      5.733333333333333,
+      8.6,
+      11.333333333333332,
+      12.833333333333332,
+      16.900000000000002,
+      21.133333333333336,
+      23.200000000000003,
+      24.833333333333336,
+      26.533333333333335,
+      29.633333333333336,
+      33.1,
+      36.733333333333334,
+      40.766666666666666,
+      44.5,
+      48.16666666666667,
+      49.93333333333334,
+      53.1,
+      57.1,
+      59.03333333333333,
+      63.6,
+      66.66666666666666,
+      71.06666666666666,
+      74.23333333333333,
+      78.06666666666666,
+      81.89999999999999,
+      86.26666666666667,
+      89.06666666666666,
+      90.63333333333333,
+      93,
+      95.1,
+      96.69999999999999,
+      99.6,
+      103.1,
+      107.76666666666667,
+      111.56666666666666,
+      113.06666666666666
+    ]
+  },
+  "mp4Sha256": "2e1457ea2a03c295c068e5bc84df5a041b95c861ebd1d110f42bfecfb2ec8fd9",
+  "editMapSha256": "3abfef416421873bede31d25f20ca5c2130818d2f9e53f9b6e976f13c26cb2fa"
+}

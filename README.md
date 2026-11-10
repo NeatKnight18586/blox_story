@@ -278,3 +278,9 @@ Reproduce: `python scripts/dice-town-p4a-proxy-boundaries.py`, `python scripts/d
 [Updated full silent edit](evidence/dice-town-p4b1/working-edit.mp4), [source map](evidence/dice-town-p4b1/edit-map.json), [phone comparison](evidence/dice-town-p4b1/before-after.jpg), [native review](evidence/dice-town-p4b1/native-phone-review.jpg), [verification/costs/limitations](evidence/dice-town-p4b1/REPORT.md). D25–D32 only;53.971% remains proxy. D28's inherited incompatible adjacent faces are explicitly retained as directed.
 
 `python scripts/dice-town-p4b1-assemble.py` edits from committed source archive/stills/P4A without raw caches. Verify with `python scripts/dice-town-p4b1-verify.py`, `node scripts/dice-town-p4b1-playback.js`, `python scripts/dice-town-p4b1-unchanged.py`, `python tests/dice-town-p4b1-map.py`. Opt-in WebGL `/production/dice-town-p4b1/`; native/motion capture commands and explicit rebuild option are in the report. No original footage/voice changed; stop for review.
+
+## Dice Town P4B-2 mystery continuity
+
+[Updated full silent edit](evidence/dice-town-p4b2/working-edit.mp4), [38-shot source map](evidence/dice-town-p4b2/edit-map.json), [phone comparison](evidence/dice-town-p4b2/before-after.jpg), [native review](evidence/dice-town-p4b2/native-phone-review.jpg), [report/costs/limitations](evidence/dice-town-p4b2/REPORT.md). One45-frame supported wobble reused for D11/D13/D16; canonical legal5-up D28 replaces old impossible adjacency. Proxy45.090%; all3117 other output frames identical. D16's cross-setup lever path is implied, not fully verified.
+
+Re-edit from included source media: `python scripts/dice-town-p4b2-assemble.py`. Verify with `python scripts/dice-town-p4b2-verify.py`, `node scripts/dice-town-p4b2-playback.js`, `python scripts/dice-town-p4b2-unchanged.py`, `python tests/dice-town-p4b2-map.py`. Opt-in native entry `/production/dice-town-p4b2/`; capture/rebuild details in report. Stop for creative review.

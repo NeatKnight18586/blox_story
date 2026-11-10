@@ -1,0 +1,8 @@
+{
+  "wallSeconds": 35.48845093100044,
+  "childUserCpuSeconds": 1.8266529999999999,
+  "childSystemCpuSeconds": 0.24790199999999998,
+  "maxChildRssKiB": 92724,
+  "scope": "45 unique540x960 WebGL frames and3 reverse checks; child receipts, not aggregate Chromium tree/GPU use",
+  "exitCode": 0
+}

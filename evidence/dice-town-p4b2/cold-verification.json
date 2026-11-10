@@ -1,0 +1,6 @@
+{
+  "status": "PASS",
+  "nativeSamples": 7,
+  "wallSeconds": 9.131481542000001,
+  "backend": "Fresh Chromium/SwiftShader; exact state/pixels with signed-zero JSON normalization"
+}
