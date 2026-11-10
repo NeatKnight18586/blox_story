@@ -1,0 +1,24 @@
+{
+  "status": "PASS_FOR_BOUNDED_CAPTURE",
+  "creativeApproval": "PENDING_HUMAN_REVIEW",
+  "nativeEvidence": "native-phone-proof.jpg",
+  "reviewedNativeSamples": 22,
+  "assessment": "Actual720x1280 WebGL stills reviewed at390px. Two full resident silhouettes/die3/ground contrast, visible diagonal tower-to-harness line, physical open book diagrams, cup/grounded baker, full backward walker, tally/near-six page and reclip/descent into an actual ground aperture read. Early framing/rope-arm interference corrected before motion. D10 deliberately uses a shorter D02 subwindow ending35 rather than41 to protect complete silhouettes.",
+  "limits": "Rigid block hands/poses; authored slack curve and a cut implying step into hatch; no full ladder/tower-to-hatch travel. Native reading review is self-review, not human creative approval.",
+  "newUniqueMotionBudget": 195,
+  "D10NewMotionFrames": 0,
+  "D09_post_capture_repair": {
+    "reason": "Bare floor edge in side profile; fixed by existing-wall three-quarter camera.",
+    "nativeProof": "D09-camera-comparison.jpg",
+    "retainedFrames": 195,
+    "actualGeneratedForwardFrames": 231,
+    "initialCeilingOverage": 21,
+    "beforeCaptureJustification": "D09_REPAIR_NOTE.md",
+    "newD09NativeKeyframesReviewed": [
+      0,
+      18,
+      35
+    ],
+    "noAddedGeometryOrChangedGait": true
+  }
+}

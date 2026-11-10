@@ -1,0 +1,5 @@
+import assert from'node:assert/strict';import{sample,counts}from'../production/dice-town-p4b5/motion.js';import{sampleAction}from'../avatar/actions.js';
+assert.equal(Object.values(counts).reduce((a,b)=>a+b),195);for(const[s,n]of Object.entries(counts))for(let f=0;f<n;f++){const a=sample(s,f);assert.deepEqual(sample(s,f),a);assert(a.s>=0&&a.s<=1);if(s==='D02')assert(a.lift[0].height>=0&&a.lift[2].height>=0);if(s==='D14')assert.equal(a.descent===null,f<18);}
+assert.equal(sample('D02',0).lift[0].height,0);assert(sample('D02',41).lift[0].height>1.5);assert(sample('D02',12).lift[0].height>sample('D02',12).lift[2].height);assert.equal(sample('D14',17).clip,1);assert.equal(sample('D14',41).descent,1);
+for(const s of['D10','D01','D15'])assert.throws(()=>sample(s,0));for(const f of[-1,.5,42,NaN])assert.throws(()=>sample('D02',f));for(let i=0;i<36;i++){const w=sampleAction('walk',i/30,{gait:'readable'});assert(w.action==='walk'&&w.contacts.support.length===1);}
+console.log('PASS195 deterministic opening samples, staggered lift, reclip-before-descent and reuse-onlyD10; existing walk API retained');

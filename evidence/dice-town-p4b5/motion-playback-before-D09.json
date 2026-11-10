@@ -1,0 +1,98 @@
+{
+  "status": "PASS",
+  "wallSeconds": 26.881929185,
+  "browser": "156.0.8078.79",
+  "method": "Actual real-time HTML video playback of all9 repaired shot slots in delivered full MP4; start/end and decoded/display/drop counters recorded. File completeness checked separately withFFmpeg.",
+  "samples": [
+    {
+      "shot": "D02",
+      "start": 2.2,
+      "targetEnd": 5.633333333333334,
+      "playedTo": 5.6418,
+      "totalVideoFramesDelta": 104,
+      "displayedFramesEstimate": 104,
+      "droppedFramesDelta": 0,
+      "error": null
+    },
+    {
+      "shot": "D05",
+      "start": 11.233333333333333,
+      "targetEnd": 12.733333333333333,
+      "playedTo": 12.745,
+      "totalVideoFramesDelta": 47,
+      "displayedFramesEstimate": 47,
+      "droppedFramesDelta": 0,
+      "error": null
+    },
+    {
+      "shot": "D06",
+      "start": 12.733333333333333,
+      "targetEnd": 16.8,
+      "playedTo": 16.8103,
+      "totalVideoFramesDelta": 124,
+      "displayedFramesEstimate": 123,
+      "droppedFramesDelta": 1,
+      "error": null
+    },
+    {
+      "shot": "D07",
+      "start": 16.8,
+      "targetEnd": 21.033333333333335,
+      "playedTo": 21.0443,
+      "totalVideoFramesDelta": 129,
+      "displayedFramesEstimate": 128,
+      "droppedFramesDelta": 1,
+      "error": null
+    },
+    {
+      "shot": "D08",
+      "start": 21.033333333333335,
+      "targetEnd": 23.1,
+      "playedTo": 23.1118,
+      "totalVideoFramesDelta": 64,
+      "displayedFramesEstimate": 63,
+      "droppedFramesDelta": 1,
+      "error": null
+    },
+    {
+      "shot": "D09",
+      "start": 23.1,
+      "targetEnd": 24.733333333333334,
+      "playedTo": 24.744,
+      "totalVideoFramesDelta": 50,
+      "displayedFramesEstimate": 49,
+      "droppedFramesDelta": 1,
+      "error": null
+    },
+    {
+      "shot": "D10",
+      "start": 24.733333333333334,
+      "targetEnd": 26.433333333333334,
+      "playedTo": 26.4438,
+      "totalVideoFramesDelta": 53,
+      "displayedFramesEstimate": 52,
+      "droppedFramesDelta": 1,
+      "error": null
+    },
+    {
+      "shot": "D12",
+      "start": 29.533333333333335,
+      "targetEnd": 33,
+      "playedTo": 33.0123,
+      "totalVideoFramesDelta": 106,
+      "displayedFramesEstimate": 105,
+      "droppedFramesDelta": 1,
+      "error": null
+    },
+    {
+      "shot": "D14",
+      "start": 36.63333333333333,
+      "targetEnd": 40.666666666666664,
+      "playedTo": 40.6784,
+      "totalVideoFramesDelta": 122,
+      "displayedFramesEstimate": 121,
+      "droppedFramesDelta": 1,
+      "error": null
+    }
+  ]
+}

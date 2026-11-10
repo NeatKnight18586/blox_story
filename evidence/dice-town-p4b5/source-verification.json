@@ -1,0 +1,2121 @@
+{
+  "status": "PASS",
+  "probe": {
+    "streams": [
+      {
+        "index": 0,
+        "codec_name": "h264",
+        "codec_long_name": "H.264 / AVC / MPEG-4 AVC / MPEG-4 part 10",
+        "profile": "Main",
+        "codec_type": "video",
+        "codec_tag_string": "avc1",
+        "codec_tag": "0x31637661",
+        "width": 360,
+        "height": 640,
+        "coded_width": 368,
+        "coded_height": 640,
+        "closed_captions": 0,
+        "film_grain": 0,
+        "has_b_frames": 2,
+        "sample_aspect_ratio": "1:1",
+        "display_aspect_ratio": "9:16",
+        "pix_fmt": "yuv420p",
+        "level": 31,
+        "color_range": "tv",
+        "color_space": "bt709",
+        "chroma_location": "left",
+        "field_order": "progressive",
+        "refs": 4,
+        "is_avc": "true",
+        "nal_length_size": "4",
+        "id": "0x1",
+        "r_frame_rate": "30/1",
+        "avg_frame_rate": "30/1",
+        "time_base": "1/15360",
+        "start_pts": 0,
+        "start_time": "0.000000",
+        "duration_ts": 1798656,
+        "duration": "117.100000",
+        "bit_rate": "190501",
+        "bits_per_raw_sample": "8",
+        "nb_frames": "3513",
+        "nb_read_frames": "3513",
+        "extradata_size": 45,
+        "disposition": {
+          "default": 1,
+          "dub": 0,
+          "original": 0,
+          "comment": 0,
+          "lyrics": 0,
+          "karaoke": 0,
+          "forced": 0,
+          "hearing_impaired": 0,
+          "visual_impaired": 0,
+          "clean_effects": 0,
+          "attached_pic": 0,
+          "timed_thumbnails": 0,
+          "non_diegetic": 0,
+          "captions": 0,
+          "descriptions": 0,
+          "metadata": 0,
+          "dependent": 0,
+          "still_image": 0,
+          "multilayer": 0
+        },
+        "tags": {
+          "language": "und",
+          "handler_name": "VideoHandler",
+          "vendor_id": "[0][0][0][0]",
+          "encoder": "Lavc61.19.101 libx264"
+        }
+      }
+    ],
+    "format": {
+      "filename": "/workspace/blox_story/evidence/dice-town-p4b5/working-edit.mp4",
+      "nb_streams": 1,
+      "nb_programs": 0,
+      "nb_stream_groups": 0,
+      "format_name": "mov,mp4,m4a,3gp,3g2,mj2",
+      "format_long_name": "QuickTime / MOV",
+      "start_time": "0.000000",
+      "duration": "117.100000",
+      "size": "2830985",
+      "bit_rate": "193406",
+      "probe_score": 100,
+      "tags": {
+        "major_brand": "isom",
+        "minor_version": "512",
+        "compatible_brands": "isomiso2avc1mp41",
+        "encoder": "Lavf61.7.103"
+      }
+    }
+  },
+  "selectedFrameChecks": [
+    {
+      "frame": 0,
+      "shot": "D01",
+      "kind": "still",
+      "source": "evidence/dice-town-p4b4/working-edit.mp4",
+      "source_frame": 0,
+      "meanRgbError": 0.0
+    },
+    {
+      "frame": 32,
+      "shot": "D01",
+      "kind": "still",
+      "source": "evidence/dice-town-p4b4/working-edit.mp4",
+      "source_frame": 32,
+      "meanRgbError": 0.0
+    },
+    {
+      "frame": 65,
+      "shot": "D01",
+      "kind": "still",
+      "source": "evidence/dice-town-p4b4/working-edit.mp4",
+      "source_frame": 65,
+      "meanRgbError": 0.0
+    },
+    {
+      "frame": 66,
+      "shot": "D02",
+      "kind": "endpoint_hold",
+      "source": "evidence/dice-town-p4b5/opening-source.mkv",
+      "source_frame": 0,
+      "meanRgbError": 2.0487413194444444
+    },
+    {
+      "frame": 71,
+      "shot": "D02",
+      "kind": "endpoint_hold",
+      "source": "evidence/dice-town-p4b5/opening-source.mkv",
+      "source_frame": 0,
+      "meanRgbError": 2.0478819444444443
+    },
+    {
+      "frame": 72,
+      "shot": "D02",
+      "kind": "motion",
+      "source": "evidence/dice-town-p4b5/opening-source.mkv",
+      "source_frame": 0,
+      "meanRgbError": 1.9668171296296297
+    },
+    {
+      "frame": 113,
+      "shot": "D02",
+      "kind": "motion",
+      "source": "evidence/dice-town-p4b5/opening-source.mkv",
+      "source_frame": 41,
+      "meanRgbError": 2.0629976851851852
+    },
+    {
+      "frame": 114,
+      "shot": "D02",
+      "kind": "endpoint_hold",
+      "source": "evidence/dice-town-p4b5/opening-source.mkv",
+      "source_frame": 41,
+      "meanRgbError": 1.914136284722222
+    },
+    {
+      "frame": 117,
+      "shot": "D02",
+      "kind": "endpoint_hold",
+      "source": "evidence/dice-town-p4b5/opening-source.mkv",
+      "source_frame": 41,
+      "meanRgbError": 1.9106380208333331
+    },
+    {
+      "frame": 168,
+      "shot": "D02",
+      "kind": "endpoint_hold",
+      "source": "evidence/dice-town-p4b5/opening-source.mkv",
+      "source_frame": 41,
+      "meanRgbError": 1.913621238425926
+    },
+    {
+      "frame": 169,
+      "shot": "D03",
+      "kind": "endpoint_hold",
+      "source": "evidence/dice-town-p4b4/working-edit.mp4",
+      "source_frame": 169,
+      "meanRgbError": 0.0
+    },
+    {
+      "frame": 174,
+      "shot": "D03",
+      "kind": "endpoint_hold",
+      "source": "evidence/dice-town-p4b4/working-edit.mp4",
+      "source_frame": 174,
+      "meanRgbError": 0.0
+    },
+    {
+      "frame": 175,
+      "shot": "D03",
+      "kind": "motion",
+      "source": "evidence/dice-town-p4b4/working-edit.mp4",
+      "source_frame": 175,
+      "meanRgbError": 0.0
+    },
+    {
+      "frame": 211,
+      "shot": "D03",
+      "kind": "motion",
+      "source": "evidence/dice-town-p4b4/working-edit.mp4",
+      "source_frame": 211,
+      "meanRgbError": 0.0
+    },
+    {
+      "frame": 231,
+      "shot": "D03",
+      "kind": "motion",
+      "source": "evidence/dice-town-p4b4/working-edit.mp4",
+      "source_frame": 231,
+      "meanRgbError": 0.0
+    },
+    {
+      "frame": 232,
+      "shot": "D03",
+      "kind": "endpoint_hold",
+      "source": "evidence/dice-town-p4b4/working-edit.mp4",
+      "source_frame": 232,
+      "meanRgbError": 0.0
+    },
+    {
+      "frame": 254,
+      "shot": "D03",
+      "kind": "endpoint_hold",
+      "source": "evidence/dice-town-p4b4/working-edit.mp4",
+      "source_frame": 254,
+      "meanRgbError": 0.0
+    },
+    {
+      "frame": 255,
+      "shot": "D04",
+      "kind": "motion",
+      "source": "evidence/dice-town-p4b4/working-edit.mp4",
+      "source_frame": 255,
+      "meanRgbError": 0.0
+    },
+    {
+      "frame": 293,
+      "shot": "D04",
+      "kind": "motion",
+      "source": "evidence/dice-town-p4b4/working-edit.mp4",
+      "source_frame": 293,
+      "meanRgbError": 0.0
+    },
+    {
+      "frame": 294,
+      "shot": "D04",
+      "kind": "endpoint_hold",
+      "source": "evidence/dice-town-p4b4/working-edit.mp4",
+      "source_frame": 294,
+      "meanRgbError": 0.0
+    },
+    {
+      "frame": 295,
+      "shot": "D04",
+      "kind": "endpoint_hold",
+      "source": "evidence/dice-town-p4b4/working-edit.mp4",
+      "source_frame": 295,
+      "meanRgbError": 0.0
+    },
+    {
+      "frame": 336,
+      "shot": "D04",
+      "kind": "endpoint_hold",
+      "source": "evidence/dice-town-p4b4/working-edit.mp4",
+      "source_frame": 336,
+      "meanRgbError": 0.0
+    },
+    {
+      "frame": 337,
+      "shot": "D05",
+      "kind": "endpoint_hold",
+      "source": "evidence/dice-town-p4b5/opening-source.mkv",
+      "source_frame": 42,
+      "meanRgbError": 2.08109375
+    },
+    {
+      "frame": 344,
+      "shot": "D05",
+      "kind": "endpoint_hold",
+      "source": "evidence/dice-town-p4b5/opening-source.mkv",
+      "source_frame": 42,
+      "meanRgbError": 2.0781568287037038
+    },
+    {
+      "frame": 345,
+      "shot": "D05",
+      "kind": "motion",
+      "source": "evidence/dice-town-p4b5/opening-source.mkv",
+      "source_frame": 42,
+      "meanRgbError": 2.0659230324074076
+    },
+    {
+      "frame": 359,
+      "shot": "D05",
+      "kind": "motion",
+      "source": "evidence/dice-town-p4b5/opening-source.mkv",
+      "source_frame": 56,
+      "meanRgbError": 2.172309027777778
+    },
+    {
+      "frame": 360,
+      "shot": "D05",
+      "kind": "endpoint_hold",
+      "source": "evidence/dice-town-p4b5/opening-source.mkv",
+      "source_frame": 56,
+      "meanRgbError": 2.045636574074074
+    },
+    {
+      "frame": 381,
+      "shot": "D05",
+      "kind": "endpoint_hold",
+      "source": "evidence/dice-town-p4b5/opening-source.mkv",
+      "source_frame": 56,
+      "meanRgbError": 2.0440162037037037
+    },
+    {
+      "frame": 382,
+      "shot": "D06",
+      "kind": "endpoint_hold",
+      "source": "evidence/dice-town-p4b5/opening-source.mkv",
+      "source_frame": 57,
+      "meanRgbError": 1.723839699074074
+    },
+    {
+      "frame": 416,
+      "shot": "D06",
+      "kind": "endpoint_hold",
+      "source": "evidence/dice-town-p4b5/opening-source.mkv",
+      "source_frame": 57,
+      "meanRgbError": 1.7220052083333333
+    },
+    {
+      "frame": 417,
+      "shot": "D06",
+      "kind": "motion",
+      "source": "evidence/dice-town-p4b5/opening-source.mkv",
+      "source_frame": 57,
+      "meanRgbError": 1.7938483796296296
+    },
+    {
+      "frame": 428,
+      "shot": "D06",
+      "kind": "motion",
+      "source": "evidence/dice-town-p4b5/opening-source.mkv",
+      "source_frame": 68,
+      "meanRgbError": 1.8192621527777775
+    },
+    {
+      "frame": 429,
+      "shot": "D06",
+      "kind": "endpoint_hold",
+      "source": "evidence/dice-town-p4b5/opening-source.mkv",
+      "source_frame": 68,
+      "meanRgbError": 1.7216724537037038
+    },
+    {
+      "frame": 442,
+      "shot": "D06",
+      "kind": "endpoint_hold",
+      "source": "evidence/dice-town-p4b5/opening-source.mkv",
+      "source_frame": 68,
+      "meanRgbError": 1.7210807291666665
+    },
+    {
+      "frame": 503,
+      "shot": "D06",
+      "kind": "endpoint_hold",
+      "source": "evidence/dice-town-p4b5/opening-source.mkv",
+      "source_frame": 68,
+      "meanRgbError": 1.7165711805555555
+    },
+    {
+      "frame": 504,
+      "shot": "D07",
+      "kind": "endpoint_hold",
+      "source": "evidence/dice-town-p4b5/opening-source.mkv",
+      "source_frame": 69,
+      "meanRgbError": 1.910234375
+    },
+    {
+      "frame": 518,
+      "shot": "D07",
+      "kind": "endpoint_hold",
+      "source": "evidence/dice-town-p4b5/opening-source.mkv",
+      "source_frame": 69,
+      "meanRgbError": 1.9120095486111113
+    },
+    {
+      "frame": 519,
+      "shot": "D07",
+      "kind": "motion",
+      "source": "evidence/dice-town-p4b5/opening-source.mkv",
+      "source_frame": 69,
+      "meanRgbError": 1.9791710069444441
+    },
+    {
+      "frame": 530,
+      "shot": "D07",
+      "kind": "motion",
+      "source": "evidence/dice-town-p4b5/opening-source.mkv",
+      "source_frame": 80,
+      "meanRgbError": 2.053453414351852
+    },
+    {
+      "frame": 531,
+      "shot": "D07",
+      "kind": "endpoint_hold",
+      "source": "evidence/dice-town-p4b5/opening-source.mkv",
+      "source_frame": 80,
+      "meanRgbError": 1.8479354745370369
+    },
+    {
+      "frame": 567,
+      "shot": "D07",
+      "kind": "endpoint_hold",
+      "source": "evidence/dice-town-p4b5/opening-source.mkv",
+      "source_frame": 80,
+      "meanRgbError": 1.845943287037037
+    },
+    {
+      "frame": 630,
+      "shot": "D07",
+      "kind": "endpoint_hold",
+      "source": "evidence/dice-town-p4b5/opening-source.mkv",
+      "source_frame": 80,
+      "meanRgbError": 1.7944950810185185
+    },
+    {
+      "frame": 631,
+      "shot": "D08",
+      "kind": "still",
+      "source": "evidence/dice-town-p4b5/one-0.png",
+      "source_frame": 0,
+      "meanRgbError": 2.000574363425926
+    },
+    {
+      "frame": 640,
+      "shot": "D08",
+      "kind": "still",
+      "source": "evidence/dice-town-p4b5/one-0.png",
+      "source_frame": 0,
+      "meanRgbError": 1.9995283564814816
+    },
+    {
+      "frame": 641,
+      "shot": "D08",
+      "kind": "endpoint_hold",
+      "source": "evidence/dice-town-p4b5/opening-source.mkv",
+      "source_frame": 81,
+      "meanRgbError": 1.6721281828703702
+    },
+    {
+      "frame": 652,
+      "shot": "D08",
+      "kind": "endpoint_hold",
+      "source": "evidence/dice-town-p4b5/opening-source.mkv",
+      "source_frame": 81,
+      "meanRgbError": 1.671663773148148
+    },
+    {
+      "frame": 653,
+      "shot": "D08",
+      "kind": "motion",
+      "source": "evidence/dice-town-p4b5/opening-source.mkv",
+      "source_frame": 81,
+      "meanRgbError": 1.6517115162037037
+    },
+    {
+      "frame": 661,
+      "shot": "D08",
+      "kind": "motion",
+      "source": "evidence/dice-town-p4b5/opening-source.mkv",
+      "source_frame": 89,
+      "meanRgbError": 1.6588469328703705
+    },
+    {
+      "frame": 676,
+      "shot": "D08",
+      "kind": "motion",
+      "source": "evidence/dice-town-p4b5/opening-source.mkv",
+      "source_frame": 104,
+      "meanRgbError": 1.6682494212962962
+    },
+    {
+      "frame": 677,
+      "shot": "D08",
+      "kind": "endpoint_hold",
+      "source": "evidence/dice-town-p4b5/opening-source.mkv",
+      "source_frame": 104,
+      "meanRgbError": 1.6554079861111113
+    },
+    {
+      "frame": 692,
+      "shot": "D08",
+      "kind": "endpoint_hold",
+      "source": "evidence/dice-town-p4b5/opening-source.mkv",
+      "source_frame": 104,
+      "meanRgbError": 1.656752025462963
+    },
+    {
+      "frame": 693,
+      "shot": "D09",
+      "kind": "still",
+      "source": "evidence/dice-town-p4b5/two-0.png",
+      "source_frame": 0,
+      "meanRgbError": 1.9981235532407409
+    },
+    {
+      "frame": 701,
+      "shot": "D09",
+      "kind": "still",
+      "source": "evidence/dice-town-p4b5/two-0.png",
+      "source_frame": 0,
+      "meanRgbError": 1.9977010995370368
+    },
+    {
+      "frame": 702,
+      "shot": "D09",
+      "kind": "motion",
+      "source": "evidence/dice-town-p4b5/opening-source.mkv",
+      "source_frame": 105,
+      "meanRgbError": 1.599324363425926
+    },
+    {
+      "frame": 717,
+      "shot": "D09",
+      "kind": "motion",
+      "source": "evidence/dice-town-p4b5/opening-source.mkv",
+      "source_frame": 120,
+      "meanRgbError": 1.5186357060185187
+    },
+    {
+      "frame": 737,
+      "shot": "D09",
+      "kind": "motion",
+      "source": "evidence/dice-town-p4b5/opening-source.mkv",
+      "source_frame": 140,
+      "meanRgbError": 1.6745326967592593
+    },
+    {
+      "frame": 738,
+      "shot": "D09",
+      "kind": "endpoint_hold",
+      "source": "evidence/dice-town-p4b5/opening-source.mkv",
+      "source_frame": 140,
+      "meanRgbError": 1.6466406249999999
+    },
+    {
+      "frame": 741,
+      "shot": "D09",
+      "kind": "endpoint_hold",
+      "source": "evidence/dice-town-p4b5/opening-source.mkv",
+      "source_frame": 140,
+      "meanRgbError": 1.6470978009259258
+    },
+    {
+      "frame": 742,
+      "shot": "D10",
+      "kind": "motion",
+      "source": "evidence/dice-town-p4b5/opening-source.mkv",
+      "source_frame": 12,
+      "meanRgbError": 1.9746629050925926
+    },
+    {
+      "frame": 765,
+      "shot": "D10",
+      "kind": "motion",
+      "source": "evidence/dice-town-p4b5/opening-source.mkv",
+      "source_frame": 35,
+      "meanRgbError": 2.095863715277778
+    },
+    {
+      "frame": 766,
+      "shot": "D10",
+      "kind": "endpoint_hold",
+      "source": "evidence/dice-town-p4b5/opening-source.mkv",
+      "source_frame": 35,
+      "meanRgbError": 1.968046875
+    },
+    {
+      "frame": 767,
+      "shot": "D10",
+      "kind": "endpoint_hold",
+      "source": "evidence/dice-town-p4b5/opening-source.mkv",
+      "source_frame": 35,
+      "meanRgbError": 1.9632320601851851
+    },
+    {
+      "frame": 792,
+      "shot": "D10",
+      "kind": "endpoint_hold",
+      "source": "evidence/dice-town-p4b5/opening-source.mkv",
+      "source_frame": 35,
+      "meanRgbError": 1.966708622685185
+    },
+    {
+      "frame": 793,
+      "shot": "D11",
+      "kind": "endpoint_hold",
+      "source": "evidence/dice-town-p4b4/working-edit.mp4",
+      "source_frame": 793,
+      "meanRgbError": 0.0
+    },
+    {
+      "frame": 802,
+      "shot": "D11",
+      "kind": "endpoint_hold",
+      "source": "evidence/dice-town-p4b4/working-edit.mp4",
+      "source_frame": 802,
+      "meanRgbError": 0.0
+    },
+    {
+      "frame": 803,
+      "shot": "D11",
+      "kind": "motion",
+      "source": "evidence/dice-town-p4b4/working-edit.mp4",
+      "source_frame": 803,
+      "meanRgbError": 0.0
+    },
+    {
+      "frame": 839,
+      "shot": "D11",
+      "kind": "motion",
+      "source": "evidence/dice-town-p4b4/working-edit.mp4",
+      "source_frame": 839,
+      "meanRgbError": 0.0
+    },
+    {
+      "frame": 847,
+      "shot": "D11",
+      "kind": "motion",
+      "source": "evidence/dice-town-p4b4/working-edit.mp4",
+      "source_frame": 847,
+      "meanRgbError": 0.0
+    },
+    {
+      "frame": 848,
+      "shot": "D11",
+      "kind": "endpoint_hold",
+      "source": "evidence/dice-town-p4b4/working-edit.mp4",
+      "source_frame": 848,
+      "meanRgbError": 0.0
+    },
+    {
+      "frame": 885,
+      "shot": "D11",
+      "kind": "endpoint_hold",
+      "source": "evidence/dice-town-p4b4/working-edit.mp4",
+      "source_frame": 885,
+      "meanRgbError": 0.0
+    },
+    {
+      "frame": 886,
+      "shot": "D12",
+      "kind": "endpoint_hold",
+      "source": "evidence/dice-town-p4b5/opening-source.mkv",
+      "source_frame": 141,
+      "meanRgbError": 1.5864033564814815
+    },
+    {
+      "frame": 903,
+      "shot": "D12",
+      "kind": "endpoint_hold",
+      "source": "evidence/dice-town-p4b5/opening-source.mkv",
+      "source_frame": 141,
+      "meanRgbError": 1.5858868634259258
+    },
+    {
+      "frame": 904,
+      "shot": "D12",
+      "kind": "motion",
+      "source": "evidence/dice-town-p4b5/opening-source.mkv",
+      "source_frame": 141,
+      "meanRgbError": 1.621556712962963
+    },
+    {
+      "frame": 915,
+      "shot": "D12",
+      "kind": "motion",
+      "source": "evidence/dice-town-p4b5/opening-source.mkv",
+      "source_frame": 152,
+      "meanRgbError": 1.5708984375000001
+    },
+    {
+      "frame": 916,
+      "shot": "D12",
+      "kind": "endpoint_hold",
+      "source": "evidence/dice-town-p4b5/opening-source.mkv",
+      "source_frame": 152,
+      "meanRgbError": 1.467232349537037
+    },
+    {
+      "frame": 937,
+      "shot": "D12",
+      "kind": "endpoint_hold",
+      "source": "evidence/dice-town-p4b5/opening-source.mkv",
+      "source_frame": 152,
+      "meanRgbError": 1.4664973958333334
+    },
+    {
+      "frame": 989,
+      "shot": "D12",
+      "kind": "endpoint_hold",
+      "source": "evidence/dice-town-p4b5/opening-source.mkv",
+      "source_frame": 152,
+      "meanRgbError": 1.465497685185185
+    },
+    {
+      "frame": 990,
+      "shot": "D13",
+      "kind": "endpoint_hold",
+      "source": "evidence/dice-town-p4b4/working-edit.mp4",
+      "source_frame": 990,
+      "meanRgbError": 0.0
+    },
+    {
+      "frame": 1003,
+      "shot": "D13",
+      "kind": "endpoint_hold",
+      "source": "evidence/dice-town-p4b4/working-edit.mp4",
+      "source_frame": 1003,
+      "meanRgbError": 0.0
+    },
+    {
+      "frame": 1004,
+      "shot": "D13",
+      "kind": "motion",
+      "source": "evidence/dice-town-p4b4/working-edit.mp4",
+      "source_frame": 1004,
+      "meanRgbError": 0.0
+    },
+    {
+      "frame": 1027,
+      "shot": "D13",
+      "kind": "motion",
+      "source": "evidence/dice-town-p4b4/working-edit.mp4",
+      "source_frame": 1027,
+      "meanRgbError": 0.0
+    },
+    {
+      "frame": 1028,
+      "shot": "D13",
+      "kind": "endpoint_hold",
+      "source": "evidence/dice-town-p4b4/working-edit.mp4",
+      "source_frame": 1028,
+      "meanRgbError": 0.0
+    },
+    {
+      "frame": 1044,
+      "shot": "D13",
+      "kind": "endpoint_hold",
+      "source": "evidence/dice-town-p4b4/working-edit.mp4",
+      "source_frame": 1044,
+      "meanRgbError": 0.0
+    },
+    {
+      "frame": 1098,
+      "shot": "D13",
+      "kind": "endpoint_hold",
+      "source": "evidence/dice-town-p4b4/working-edit.mp4",
+      "source_frame": 1098,
+      "meanRgbError": 0.0
+    },
+    {
+      "frame": 1099,
+      "shot": "D14",
+      "kind": "endpoint_hold",
+      "source": "evidence/dice-town-p4b5/opening-source.mkv",
+      "source_frame": 153,
+      "meanRgbError": 1.7643315972222222
+    },
+    {
+      "frame": 1110,
+      "shot": "D14",
+      "kind": "endpoint_hold",
+      "source": "evidence/dice-town-p4b5/opening-source.mkv",
+      "source_frame": 153,
+      "meanRgbError": 1.7657841435185186
+    },
+    {
+      "frame": 1111,
+      "shot": "D14",
+      "kind": "motion",
+      "source": "evidence/dice-town-p4b5/opening-source.mkv",
+      "source_frame": 153,
+      "meanRgbError": 1.823353587962963
+    },
+    {
+      "frame": 1128,
+      "shot": "D14",
+      "kind": "motion",
+      "source": "evidence/dice-town-p4b5/opening-source.mkv",
+      "source_frame": 170,
+      "meanRgbError": 1.9163440393518518
+    },
+    {
+      "frame": 1129,
+      "shot": "D14",
+      "kind": "endpoint_hold",
+      "source": "evidence/dice-town-p4b5/opening-source.mkv",
+      "source_frame": 170,
+      "meanRgbError": 1.7848914930555555
+    },
+    {
+      "frame": 1144,
+      "shot": "D14",
+      "kind": "endpoint_hold",
+      "source": "evidence/dice-town-p4b5/opening-source.mkv",
+      "source_frame": 170,
+      "meanRgbError": 1.7853443287037036
+    },
+    {
+      "frame": 1145,
+      "shot": "D14",
+      "kind": "motion",
+      "source": "evidence/dice-town-p4b5/opening-source.mkv",
+      "source_frame": 171,
+      "meanRgbError": 1.895256076388889
+    },
+    {
+      "frame": 1159,
+      "shot": "D14",
+      "kind": "motion",
+      "source": "evidence/dice-town-p4b5/opening-source.mkv",
+      "source_frame": 185,
+      "meanRgbError": 2.020072337962963
+    },
+    {
+      "frame": 1168,
+      "shot": "D14",
+      "kind": "motion",
+      "source": "evidence/dice-town-p4b5/opening-source.mkv",
+      "source_frame": 194,
+      "meanRgbError": 2.0822583912037036
+    },
+    {
+      "frame": 1169,
+      "shot": "D14",
+      "kind": "endpoint_hold",
+      "source": "evidence/dice-town-p4b5/opening-source.mkv",
+      "source_frame": 194,
+      "meanRgbError": 1.9087934027777778
+    },
+    {
+      "frame": 1219,
+      "shot": "D14",
+      "kind": "endpoint_hold",
+      "source": "evidence/dice-town-p4b5/opening-source.mkv",
+      "source_frame": 194,
+      "meanRgbError": 1.9079861111111114
+    },
+    {
+      "frame": 1220,
+      "shot": "D15",
+      "kind": "endpoint_hold",
+      "source": "evidence/dice-town-p4b4/working-edit.mp4",
+      "source_frame": 1220,
+      "meanRgbError": 0.0
+    },
+    {
+      "frame": 1235,
+      "shot": "D15",
+      "kind": "endpoint_hold",
+      "source": "evidence/dice-town-p4b4/working-edit.mp4",
+      "source_frame": 1235,
+      "meanRgbError": 0.0
+    },
+    {
+      "frame": 1236,
+      "shot": "D15",
+      "kind": "motion",
+      "source": "evidence/dice-town-p4b4/working-edit.mp4",
+      "source_frame": 1236,
+      "meanRgbError": 0.0
+    },
+    {
+      "frame": 1275,
+      "shot": "D15",
+      "kind": "motion",
+      "source": "evidence/dice-town-p4b4/working-edit.mp4",
+      "source_frame": 1275,
+      "meanRgbError": 0.0
+    },
+    {
+      "frame": 1283,
+      "shot": "D15",
+      "kind": "motion",
+      "source": "evidence/dice-town-p4b4/working-edit.mp4",
+      "source_frame": 1283,
+      "meanRgbError": 0.0
+    },
+    {
+      "frame": 1284,
+      "shot": "D15",
+      "kind": "endpoint_hold",
+      "source": "evidence/dice-town-p4b4/working-edit.mp4",
+      "source_frame": 1284,
+      "meanRgbError": 0.0
+    },
+    {
+      "frame": 1331,
+      "shot": "D15",
+      "kind": "endpoint_hold",
+      "source": "evidence/dice-town-p4b4/working-edit.mp4",
+      "source_frame": 1331,
+      "meanRgbError": 0.0
+    },
+    {
+      "frame": 1332,
+      "shot": "D16",
+      "kind": "endpoint_hold",
+      "source": "evidence/dice-town-p4b4/working-edit.mp4",
+      "source_frame": 1332,
+      "meanRgbError": 0.0
+    },
+    {
+      "frame": 1339,
+      "shot": "D16",
+      "kind": "endpoint_hold",
+      "source": "evidence/dice-town-p4b4/working-edit.mp4",
+      "source_frame": 1339,
+      "meanRgbError": 0.0
+    },
+    {
+      "frame": 1340,
+      "shot": "D16",
+      "kind": "motion",
+      "source": "evidence/dice-town-p4b4/working-edit.mp4",
+      "source_frame": 1340,
+      "meanRgbError": 0.0
+    },
+    {
+      "frame": 1357,
+      "shot": "D16",
+      "kind": "motion",
+      "source": "evidence/dice-town-p4b4/working-edit.mp4",
+      "source_frame": 1357,
+      "meanRgbError": 0.0
+    },
+    {
+      "frame": 1358,
+      "shot": "D16",
+      "kind": "endpoint_hold",
+      "source": "evidence/dice-town-p4b4/working-edit.mp4",
+      "source_frame": 1358,
+      "meanRgbError": 0.0
+    },
+    {
+      "frame": 1365,
+      "shot": "D16",
+      "kind": "endpoint_hold",
+      "source": "evidence/dice-town-p4b4/working-edit.mp4",
+      "source_frame": 1365,
+      "meanRgbError": 0.0
+    },
+    {
+      "frame": 1366,
+      "shot": "D16",
+      "kind": "motion",
+      "source": "evidence/dice-town-p4b4/working-edit.mp4",
+      "source_frame": 1366,
+      "meanRgbError": 0.0
+    },
+    {
+      "frame": 1377,
+      "shot": "D16",
+      "kind": "motion",
+      "source": "evidence/dice-town-p4b4/working-edit.mp4",
+      "source_frame": 1377,
+      "meanRgbError": 0.0
+    },
+    {
+      "frame": 1378,
+      "shot": "D16",
+      "kind": "motion",
+      "source": "evidence/dice-town-p4b4/working-edit.mp4",
+      "source_frame": 1378,
+      "meanRgbError": 0.0
+    },
+    {
+      "frame": 1386,
+      "shot": "D16",
+      "kind": "motion",
+      "source": "evidence/dice-town-p4b4/working-edit.mp4",
+      "source_frame": 1386,
+      "meanRgbError": 0.0
+    },
+    {
+      "frame": 1398,
+      "shot": "D16",
+      "kind": "motion",
+      "source": "evidence/dice-town-p4b4/working-edit.mp4",
+      "source_frame": 1398,
+      "meanRgbError": 0.0
+    },
+    {
+      "frame": 1399,
+      "shot": "D16",
+      "kind": "endpoint_hold",
+      "source": "evidence/dice-town-p4b4/working-edit.mp4",
+      "source_frame": 1399,
+      "meanRgbError": 0.0
+    },
+    {
+      "frame": 1441,
+      "shot": "D16",
+      "kind": "endpoint_hold",
+      "source": "evidence/dice-town-p4b4/working-edit.mp4",
+      "source_frame": 1441,
+      "meanRgbError": 0.0
+    },
+    {
+      "frame": 1442,
+      "shot": "D17",
+      "kind": "endpoint_hold",
+      "source": "evidence/dice-town-p4b4/working-edit.mp4",
+      "source_frame": 1442,
+      "meanRgbError": 0.0
+    },
+    {
+      "frame": 1449,
+      "shot": "D17",
+      "kind": "endpoint_hold",
+      "source": "evidence/dice-town-p4b4/working-edit.mp4",
+      "source_frame": 1449,
+      "meanRgbError": 0.0
+    },
+    {
+      "frame": 1450,
+      "shot": "D17",
+      "kind": "motion",
+      "source": "evidence/dice-town-p4b4/working-edit.mp4",
+      "source_frame": 1450,
+      "meanRgbError": 0.0
+    },
+    {
+      "frame": 1464,
+      "shot": "D17",
+      "kind": "motion",
+      "source": "evidence/dice-town-p4b4/working-edit.mp4",
+      "source_frame": 1464,
+      "meanRgbError": 0.0
+    },
+    {
+      "frame": 1465,
+      "shot": "D17",
+      "kind": "endpoint_hold",
+      "source": "evidence/dice-town-p4b4/working-edit.mp4",
+      "source_frame": 1465,
+      "meanRgbError": 0.0
+    },
+    {
+      "frame": 1468,
+      "shot": "D17",
+      "kind": "endpoint_hold",
+      "source": "evidence/dice-town-p4b4/working-edit.mp4",
+      "source_frame": 1468,
+      "meanRgbError": 0.0
+    },
+    {
+      "frame": 1494,
+      "shot": "D17",
+      "kind": "endpoint_hold",
+      "source": "evidence/dice-town-p4b4/working-edit.mp4",
+      "source_frame": 1494,
+      "meanRgbError": 0.0
+    },
+    {
+      "frame": 1495,
+      "shot": "D18",
+      "kind": "endpoint_hold",
+      "source": "evidence/dice-town-p4b4/working-edit.mp4",
+      "source_frame": 1495,
+      "meanRgbError": 0.0
+    },
+    {
+      "frame": 1509,
+      "shot": "D18",
+      "kind": "endpoint_hold",
+      "source": "evidence/dice-town-p4b4/working-edit.mp4",
+      "source_frame": 1509,
+      "meanRgbError": 0.0
+    },
+    {
+      "frame": 1510,
+      "shot": "D18",
+      "kind": "motion",
+      "source": "evidence/dice-town-p4b4/working-edit.mp4",
+      "source_frame": 1510,
+      "meanRgbError": 0.0
+    },
+    {
+      "frame": 1524,
+      "shot": "D18",
+      "kind": "motion",
+      "source": "evidence/dice-town-p4b4/working-edit.mp4",
+      "source_frame": 1524,
+      "meanRgbError": 0.0
+    },
+    {
+      "frame": 1525,
+      "shot": "D18",
+      "kind": "endpoint_hold",
+      "source": "evidence/dice-town-p4b4/working-edit.mp4",
+      "source_frame": 1525,
+      "meanRgbError": 0.0
+    },
+    {
+      "frame": 1542,
+      "shot": "D18",
+      "kind": "endpoint_hold",
+      "source": "evidence/dice-town-p4b4/working-edit.mp4",
+      "source_frame": 1542,
+      "meanRgbError": 0.0
+    },
+    {
+      "frame": 1589,
+      "shot": "D18",
+      "kind": "endpoint_hold",
+      "source": "evidence/dice-town-p4b4/working-edit.mp4",
+      "source_frame": 1589,
+      "meanRgbError": 0.0
+    },
+    {
+      "frame": 1590,
+      "shot": "D19",
+      "kind": "still",
+      "source": "evidence/dice-town-p4b4/working-edit.mp4",
+      "source_frame": 1590,
+      "meanRgbError": 0.0
+    },
+    {
+      "frame": 1643,
+      "shot": "D19",
+      "kind": "still",
+      "source": "evidence/dice-town-p4b4/working-edit.mp4",
+      "source_frame": 1643,
+      "meanRgbError": 0.0
+    },
+    {
+      "frame": 1644,
+      "shot": "D19",
+      "kind": "still",
+      "source": "evidence/dice-town-p4b4/working-edit.mp4",
+      "source_frame": 1644,
+      "meanRgbError": 0.0
+    },
+    {
+      "frame": 1649,
+      "shot": "D19",
+      "kind": "still",
+      "source": "evidence/dice-town-p4b4/working-edit.mp4",
+      "source_frame": 1649,
+      "meanRgbError": 0.0
+    },
+    {
+      "frame": 1709,
+      "shot": "D19",
+      "kind": "still",
+      "source": "evidence/dice-town-p4b4/working-edit.mp4",
+      "source_frame": 1709,
+      "meanRgbError": 0.0
+    },
+    {
+      "frame": 1710,
+      "shot": "D20",
+      "kind": "endpoint_hold",
+      "source": "evidence/dice-town-p4b4/working-edit.mp4",
+      "source_frame": 1710,
+      "meanRgbError": 0.0
+    },
+    {
+      "frame": 1717,
+      "shot": "D20",
+      "kind": "endpoint_hold",
+      "source": "evidence/dice-town-p4b4/working-edit.mp4",
+      "source_frame": 1717,
+      "meanRgbError": 0.0
+    },
+    {
+      "frame": 1718,
+      "shot": "D20",
+      "kind": "motion",
+      "source": "evidence/dice-town-p4b4/working-edit.mp4",
+      "source_frame": 1718,
+      "meanRgbError": 0.0
+    },
+    {
+      "frame": 1732,
+      "shot": "D20",
+      "kind": "motion",
+      "source": "evidence/dice-town-p4b4/working-edit.mp4",
+      "source_frame": 1732,
+      "meanRgbError": 0.0
+    },
+    {
+      "frame": 1733,
+      "shot": "D20",
+      "kind": "endpoint_hold",
+      "source": "evidence/dice-town-p4b4/working-edit.mp4",
+      "source_frame": 1733,
+      "meanRgbError": 0.0
+    },
+    {
+      "frame": 1738,
+      "shot": "D20",
+      "kind": "endpoint_hold",
+      "source": "evidence/dice-town-p4b4/working-edit.mp4",
+      "source_frame": 1738,
+      "meanRgbError": 0.0
+    },
+    {
+      "frame": 1767,
+      "shot": "D20",
+      "kind": "endpoint_hold",
+      "source": "evidence/dice-town-p4b4/working-edit.mp4",
+      "source_frame": 1767,
+      "meanRgbError": 0.0
+    },
+    {
+      "frame": 1768,
+      "shot": "D21",
+      "kind": "endpoint_hold",
+      "source": "evidence/dice-town-p4b4/working-edit.mp4",
+      "source_frame": 1768,
+      "meanRgbError": 0.0
+    },
+    {
+      "frame": 1785,
+      "shot": "D21",
+      "kind": "endpoint_hold",
+      "source": "evidence/dice-town-p4b4/working-edit.mp4",
+      "source_frame": 1785,
+      "meanRgbError": 0.0
+    },
+    {
+      "frame": 1786,
+      "shot": "D21",
+      "kind": "motion",
+      "source": "evidence/dice-town-p4b4/working-edit.mp4",
+      "source_frame": 1786,
+      "meanRgbError": 0.0
+    },
+    {
+      "frame": 1800,
+      "shot": "D21",
+      "kind": "motion",
+      "source": "evidence/dice-town-p4b4/working-edit.mp4",
+      "source_frame": 1800,
+      "meanRgbError": 0.0
+    },
+    {
+      "frame": 1801,
+      "shot": "D21",
+      "kind": "endpoint_hold",
+      "source": "evidence/dice-town-p4b4/working-edit.mp4",
+      "source_frame": 1801,
+      "meanRgbError": 0.0
+    },
+    {
+      "frame": 1819,
+      "shot": "D21",
+      "kind": "endpoint_hold",
+      "source": "evidence/dice-town-p4b4/working-edit.mp4",
+      "source_frame": 1819,
+      "meanRgbError": 0.0
+    },
+    {
+      "frame": 1820,
+      "shot": "D21",
+      "kind": "still",
+      "source": "evidence/dice-town-p4b4/working-edit.mp4",
+      "source_frame": 1820,
+      "meanRgbError": 0.0
+    },
+    {
+      "frame": 1836,
+      "shot": "D21",
+      "kind": "still",
+      "source": "evidence/dice-town-p4b4/working-edit.mp4",
+      "source_frame": 1836,
+      "meanRgbError": 0.0
+    },
+    {
+      "frame": 1864,
+      "shot": "D21",
+      "kind": "still",
+      "source": "evidence/dice-town-p4b4/working-edit.mp4",
+      "source_frame": 1864,
+      "meanRgbError": 0.0
+    },
+    {
+      "frame": 1865,
+      "shot": "D21",
+      "kind": "endpoint_hold",
+      "source": "evidence/dice-town-p4b4/working-edit.mp4",
+      "source_frame": 1865,
+      "meanRgbError": 0.0
+    },
+    {
+      "frame": 1904,
+      "shot": "D21",
+      "kind": "endpoint_hold",
+      "source": "evidence/dice-town-p4b4/working-edit.mp4",
+      "source_frame": 1904,
+      "meanRgbError": 0.0
+    },
+    {
+      "frame": 1905,
+      "shot": "D22",
+      "kind": "endpoint_hold",
+      "source": "evidence/dice-town-p4b4/working-edit.mp4",
+      "source_frame": 1905,
+      "meanRgbError": 0.0
+    },
+    {
+      "frame": 1926,
+      "shot": "D22",
+      "kind": "endpoint_hold",
+      "source": "evidence/dice-town-p4b4/working-edit.mp4",
+      "source_frame": 1926,
+      "meanRgbError": 0.0
+    },
+    {
+      "frame": 1927,
+      "shot": "D22",
+      "kind": "motion",
+      "source": "evidence/dice-town-p4b4/working-edit.mp4",
+      "source_frame": 1927,
+      "meanRgbError": 0.0
+    },
+    {
+      "frame": 1941,
+      "shot": "D22",
+      "kind": "motion",
+      "source": "evidence/dice-town-p4b4/working-edit.mp4",
+      "source_frame": 1941,
+      "meanRgbError": 0.0
+    },
+    {
+      "frame": 1942,
+      "shot": "D22",
+      "kind": "endpoint_hold",
+      "source": "evidence/dice-town-p4b4/working-edit.mp4",
+      "source_frame": 1942,
+      "meanRgbError": 0.0
+    },
+    {
+      "frame": 1950,
+      "shot": "D22",
+      "kind": "endpoint_hold",
+      "source": "evidence/dice-town-p4b4/working-edit.mp4",
+      "source_frame": 1950,
+      "meanRgbError": 0.0
+    },
+    {
+      "frame": 1996,
+      "shot": "D22",
+      "kind": "endpoint_hold",
+      "source": "evidence/dice-town-p4b4/working-edit.mp4",
+      "source_frame": 1996,
+      "meanRgbError": 0.0
+    },
+    {
+      "frame": 1997,
+      "shot": "D23",
+      "kind": "endpoint_hold",
+      "source": "evidence/dice-town-p4b4/working-edit.mp4",
+      "source_frame": 1997,
+      "meanRgbError": 0.0
+    },
+    {
+      "frame": 2014,
+      "shot": "D23",
+      "kind": "endpoint_hold",
+      "source": "evidence/dice-town-p4b4/working-edit.mp4",
+      "source_frame": 2014,
+      "meanRgbError": 0.0
+    },
+    {
+      "frame": 2015,
+      "shot": "D23",
+      "kind": "motion",
+      "source": "evidence/dice-town-p4b4/working-edit.mp4",
+      "source_frame": 2015,
+      "meanRgbError": 0.0
+    },
+    {
+      "frame": 2062,
+      "shot": "D23",
+      "kind": "motion",
+      "source": "evidence/dice-town-p4b4/working-edit.mp4",
+      "source_frame": 2062,
+      "meanRgbError": 0.0
+    },
+    {
+      "frame": 2086,
+      "shot": "D23",
+      "kind": "motion",
+      "source": "evidence/dice-town-p4b4/working-edit.mp4",
+      "source_frame": 2086,
+      "meanRgbError": 0.0
+    },
+    {
+      "frame": 2087,
+      "shot": "D23",
+      "kind": "endpoint_hold",
+      "source": "evidence/dice-town-p4b4/working-edit.mp4",
+      "source_frame": 2087,
+      "meanRgbError": 0.0
+    },
+    {
+      "frame": 2128,
+      "shot": "D23",
+      "kind": "endpoint_hold",
+      "source": "evidence/dice-town-p4b4/working-edit.mp4",
+      "source_frame": 2128,
+      "meanRgbError": 0.0
+    },
+    {
+      "frame": 2129,
+      "shot": "D24",
+      "kind": "endpoint_hold",
+      "source": "evidence/dice-town-p4b4/working-edit.mp4",
+      "source_frame": 2129,
+      "meanRgbError": 0.0
+    },
+    {
+      "frame": 2143,
+      "shot": "D24",
+      "kind": "endpoint_hold",
+      "source": "evidence/dice-town-p4b4/working-edit.mp4",
+      "source_frame": 2143,
+      "meanRgbError": 0.0
+    },
+    {
+      "frame": 2144,
+      "shot": "D24",
+      "kind": "motion",
+      "source": "evidence/dice-town-p4b4/working-edit.mp4",
+      "source_frame": 2144,
+      "meanRgbError": 0.0
+    },
+    {
+      "frame": 2158,
+      "shot": "D24",
+      "kind": "motion",
+      "source": "evidence/dice-town-p4b4/working-edit.mp4",
+      "source_frame": 2158,
+      "meanRgbError": 0.0
+    },
+    {
+      "frame": 2159,
+      "shot": "D24",
+      "kind": "endpoint_hold",
+      "source": "evidence/dice-town-p4b4/working-edit.mp4",
+      "source_frame": 2159,
+      "meanRgbError": 0.0
+    },
+    {
+      "frame": 2176,
+      "shot": "D24",
+      "kind": "endpoint_hold",
+      "source": "evidence/dice-town-p4b4/working-edit.mp4",
+      "source_frame": 2176,
+      "meanRgbError": 0.0
+    },
+    {
+      "frame": 2223,
+      "shot": "D24",
+      "kind": "endpoint_hold",
+      "source": "evidence/dice-town-p4b4/working-edit.mp4",
+      "source_frame": 2223,
+      "meanRgbError": 0.0
+    },
+    {
+      "frame": 2224,
+      "shot": "D25",
+      "kind": "still",
+      "source": "evidence/dice-town-p4b4/working-edit.mp4",
+      "source_frame": 2224,
+      "meanRgbError": 0.0
+    },
+    {
+      "frame": 2280,
+      "shot": "D25",
+      "kind": "still",
+      "source": "evidence/dice-town-p4b4/working-edit.mp4",
+      "source_frame": 2280,
+      "meanRgbError": 0.0
+    },
+    {
+      "frame": 2281,
+      "shot": "D25",
+      "kind": "still",
+      "source": "evidence/dice-town-p4b4/working-edit.mp4",
+      "source_frame": 2281,
+      "meanRgbError": 0.0
+    },
+    {
+      "frame": 2338,
+      "shot": "D25",
+      "kind": "still",
+      "source": "evidence/dice-town-p4b4/working-edit.mp4",
+      "source_frame": 2338,
+      "meanRgbError": 0.0
+    },
+    {
+      "frame": 2339,
+      "shot": "D26",
+      "kind": "still",
+      "source": "evidence/dice-town-p4b4/working-edit.mp4",
+      "source_frame": 2339,
+      "meanRgbError": 0.0
+    },
+    {
+      "frame": 2376,
+      "shot": "D26",
+      "kind": "still",
+      "source": "evidence/dice-town-p4b4/working-edit.mp4",
+      "source_frame": 2376,
+      "meanRgbError": 0.0
+    },
+    {
+      "frame": 2377,
+      "shot": "D26",
+      "kind": "still",
+      "source": "evidence/dice-town-p4b4/working-edit.mp4",
+      "source_frame": 2377,
+      "meanRgbError": 0.0
+    },
+    {
+      "frame": 2396,
+      "shot": "D26",
+      "kind": "still",
+      "source": "evidence/dice-town-p4b4/working-edit.mp4",
+      "source_frame": 2396,
+      "meanRgbError": 0.0
+    },
+    {
+      "frame": 2414,
+      "shot": "D26",
+      "kind": "still",
+      "source": "evidence/dice-town-p4b4/working-edit.mp4",
+      "source_frame": 2414,
+      "meanRgbError": 0.0
+    },
+    {
+      "frame": 2415,
+      "shot": "D26",
+      "kind": "still",
+      "source": "evidence/dice-town-p4b4/working-edit.mp4",
+      "source_frame": 2415,
+      "meanRgbError": 0.0
+    },
+    {
+      "frame": 2453,
+      "shot": "D26",
+      "kind": "still",
+      "source": "evidence/dice-town-p4b4/working-edit.mp4",
+      "source_frame": 2453,
+      "meanRgbError": 0.0
+    },
+    {
+      "frame": 2454,
+      "shot": "D27",
+      "kind": "endpoint_hold",
+      "source": "evidence/dice-town-p4b4/working-edit.mp4",
+      "source_frame": 2454,
+      "meanRgbError": 0.0
+    },
+    {
+      "frame": 2473,
+      "shot": "D27",
+      "kind": "endpoint_hold",
+      "source": "evidence/dice-town-p4b4/working-edit.mp4",
+      "source_frame": 2473,
+      "meanRgbError": 0.0
+    },
+    {
+      "frame": 2474,
+      "shot": "D27",
+      "kind": "motion",
+      "source": "evidence/dice-town-p4b4/working-edit.mp4",
+      "source_frame": 2474,
+      "meanRgbError": 0.0
+    },
+    {
+      "frame": 2519,
+      "shot": "D27",
+      "kind": "motion",
+      "source": "evidence/dice-town-p4b4/working-edit.mp4",
+      "source_frame": 2519,
+      "meanRgbError": 0.0
+    },
+    {
+      "frame": 2527,
+      "shot": "D27",
+      "kind": "motion",
+      "source": "evidence/dice-town-p4b4/working-edit.mp4",
+      "source_frame": 2527,
+      "meanRgbError": 0.0
+    },
+    {
+      "frame": 2528,
+      "shot": "D27",
+      "kind": "endpoint_hold",
+      "source": "evidence/dice-town-p4b4/working-edit.mp4",
+      "source_frame": 2528,
+      "meanRgbError": 0.0
+    },
+    {
+      "frame": 2584,
+      "shot": "D27",
+      "kind": "endpoint_hold",
+      "source": "evidence/dice-town-p4b4/working-edit.mp4",
+      "source_frame": 2584,
+      "meanRgbError": 0.0
+    },
+    {
+      "frame": 2585,
+      "shot": "D28",
+      "kind": "still",
+      "source": "evidence/dice-town-p4b4/working-edit.mp4",
+      "source_frame": 2585,
+      "meanRgbError": 0.0
+    },
+    {
+      "frame": 2626,
+      "shot": "D28",
+      "kind": "still",
+      "source": "evidence/dice-town-p4b4/working-edit.mp4",
+      "source_frame": 2626,
+      "meanRgbError": 0.0
+    },
+    {
+      "frame": 2668,
+      "shot": "D28",
+      "kind": "still",
+      "source": "evidence/dice-town-p4b4/working-edit.mp4",
+      "source_frame": 2668,
+      "meanRgbError": 0.0
+    },
+    {
+      "frame": 2669,
+      "shot": "D29",
+      "kind": "endpoint_hold",
+      "source": "evidence/dice-town-p4b4/working-edit.mp4",
+      "source_frame": 2669,
+      "meanRgbError": 0.0
+    },
+    {
+      "frame": 2671,
+      "shot": "D29",
+      "kind": "endpoint_hold",
+      "source": "evidence/dice-town-p4b4/working-edit.mp4",
+      "source_frame": 2671,
+      "meanRgbError": 0.0
+    },
+    {
+      "frame": 2672,
+      "shot": "D29",
+      "kind": "motion",
+      "source": "evidence/dice-town-p4b4/working-edit.mp4",
+      "source_frame": 2672,
+      "meanRgbError": 0.0
+    },
+    {
+      "frame": 2692,
+      "shot": "D29",
+      "kind": "motion",
+      "source": "evidence/dice-town-p4b4/working-edit.mp4",
+      "source_frame": 2692,
+      "meanRgbError": 0.0
+    },
+    {
+      "frame": 2707,
+      "shot": "D29",
+      "kind": "motion",
+      "source": "evidence/dice-town-p4b4/working-edit.mp4",
+      "source_frame": 2707,
+      "meanRgbError": 0.0
+    },
+    {
+      "frame": 2708,
+      "shot": "D29",
+      "kind": "endpoint_hold",
+      "source": "evidence/dice-town-p4b4/working-edit.mp4",
+      "source_frame": 2708,
+      "meanRgbError": 0.0
+    },
+    {
+      "frame": 2715,
+      "shot": "D29",
+      "kind": "endpoint_hold",
+      "source": "evidence/dice-town-p4b4/working-edit.mp4",
+      "source_frame": 2715,
+      "meanRgbError": 0.0
+    },
+    {
+      "frame": 2716,
+      "shot": "D30",
+      "kind": "endpoint_hold",
+      "source": "evidence/dice-town-p4b4/working-edit.mp4",
+      "source_frame": 2716,
+      "meanRgbError": 0.0
+    },
+    {
+      "frame": 2723,
+      "shot": "D30",
+      "kind": "endpoint_hold",
+      "source": "evidence/dice-town-p4b4/working-edit.mp4",
+      "source_frame": 2723,
+      "meanRgbError": 0.0
+    },
+    {
+      "frame": 2724,
+      "shot": "D30",
+      "kind": "motion",
+      "source": "evidence/dice-town-p4b4/working-edit.mp4",
+      "source_frame": 2724,
+      "meanRgbError": 0.0
+    },
+    {
+      "frame": 2751,
+      "shot": "D30",
+      "kind": "motion",
+      "source": "evidence/dice-town-p4b4/working-edit.mp4",
+      "source_frame": 2751,
+      "meanRgbError": 0.0
+    },
+    {
+      "frame": 2765,
+      "shot": "D30",
+      "kind": "motion",
+      "source": "evidence/dice-town-p4b4/working-edit.mp4",
+      "source_frame": 2765,
+      "meanRgbError": 0.0
+    },
+    {
+      "frame": 2766,
+      "shot": "D30",
+      "kind": "endpoint_hold",
+      "source": "evidence/dice-town-p4b4/working-edit.mp4",
+      "source_frame": 2766,
+      "meanRgbError": 0.0
+    },
+    {
+      "frame": 2786,
+      "shot": "D30",
+      "kind": "endpoint_hold",
+      "source": "evidence/dice-town-p4b4/working-edit.mp4",
+      "source_frame": 2786,
+      "meanRgbError": 0.0
+    },
+    {
+      "frame": 2787,
+      "shot": "D31",
+      "kind": "motion",
+      "source": "evidence/dice-town-p4b4/working-edit.mp4",
+      "source_frame": 2787,
+      "meanRgbError": 0.0
+    },
+    {
+      "frame": 2818,
+      "shot": "D31",
+      "kind": "motion",
+      "source": "evidence/dice-town-p4b4/working-edit.mp4",
+      "source_frame": 2818,
+      "meanRgbError": 0.0
+    },
+    {
+      "frame": 2828,
+      "shot": "D31",
+      "kind": "motion",
+      "source": "evidence/dice-town-p4b4/working-edit.mp4",
+      "source_frame": 2828,
+      "meanRgbError": 0.0
+    },
+    {
+      "frame": 2829,
+      "shot": "D31",
+      "kind": "endpoint_hold",
+      "source": "evidence/dice-town-p4b4/working-edit.mp4",
+      "source_frame": 2829,
+      "meanRgbError": 0.0
+    },
+    {
+      "frame": 2849,
+      "shot": "D31",
+      "kind": "endpoint_hold",
+      "source": "evidence/dice-town-p4b4/working-edit.mp4",
+      "source_frame": 2849,
+      "meanRgbError": 0.0
+    },
+    {
+      "frame": 2850,
+      "shot": "D32",
+      "kind": "still",
+      "source": "evidence/dice-town-p4b4/working-edit.mp4",
+      "source_frame": 2850,
+      "meanRgbError": 0.0
+    },
+    {
+      "frame": 2873,
+      "shot": "D32",
+      "kind": "still",
+      "source": "evidence/dice-town-p4b4/working-edit.mp4",
+      "source_frame": 2873,
+      "meanRgbError": 0.0
+    },
+    {
+      "frame": 2897,
+      "shot": "D32",
+      "kind": "still",
+      "source": "evidence/dice-town-p4b4/working-edit.mp4",
+      "source_frame": 2897,
+      "meanRgbError": 0.0
+    },
+    {
+      "frame": 2898,
+      "shot": "D33",
+      "kind": "endpoint_hold",
+      "source": "evidence/dice-town-p4b4/working-edit.mp4",
+      "source_frame": 2898,
+      "meanRgbError": 0.0
+    },
+    {
+      "frame": 2907,
+      "shot": "D33",
+      "kind": "endpoint_hold",
+      "source": "evidence/dice-town-p4b4/working-edit.mp4",
+      "source_frame": 2907,
+      "meanRgbError": 0.0
+    },
+    {
+      "frame": 2908,
+      "shot": "D33",
+      "kind": "motion",
+      "source": "evidence/dice-town-p4b4/working-edit.mp4",
+      "source_frame": 2908,
+      "meanRgbError": 0.0
+    },
+    {
+      "frame": 2934,
+      "shot": "D33",
+      "kind": "motion",
+      "source": "evidence/dice-town-p4b4/working-edit.mp4",
+      "source_frame": 2934,
+      "meanRgbError": 0.0
+    },
+    {
+      "frame": 2935,
+      "shot": "D33",
+      "kind": "endpoint_hold",
+      "source": "evidence/dice-town-p4b4/working-edit.mp4",
+      "source_frame": 2935,
+      "meanRgbError": 0.0
+    },
+    {
+      "frame": 2941,
+      "shot": "D33",
+      "kind": "endpoint_hold",
+      "source": "evidence/dice-town-p4b4/working-edit.mp4",
+      "source_frame": 2941,
+      "meanRgbError": 0.0
+    },
+    {
+      "frame": 2984,
+      "shot": "D33",
+      "kind": "endpoint_hold",
+      "source": "evidence/dice-town-p4b4/working-edit.mp4",
+      "source_frame": 2984,
+      "meanRgbError": 0.0
+    },
+    {
+      "frame": 2985,
+      "shot": "D34",
+      "kind": "endpoint_hold",
+      "source": "evidence/dice-town-p4b4/working-edit.mp4",
+      "source_frame": 2985,
+      "meanRgbError": 0.0
+    },
+    {
+      "frame": 2990,
+      "shot": "D34",
+      "kind": "endpoint_hold",
+      "source": "evidence/dice-town-p4b4/working-edit.mp4",
+      "source_frame": 2990,
+      "meanRgbError": 0.0
+    },
+    {
+      "frame": 2991,
+      "shot": "D34",
+      "kind": "motion",
+      "source": "evidence/dice-town-p4b4/working-edit.mp4",
+      "source_frame": 2991,
+      "meanRgbError": 0.0
+    },
+    {
+      "frame": 3020,
+      "shot": "D34",
+      "kind": "motion",
+      "source": "evidence/dice-town-p4b4/working-edit.mp4",
+      "source_frame": 3020,
+      "meanRgbError": 0.0
+    },
+    {
+      "frame": 3021,
+      "shot": "D34",
+      "kind": "endpoint_hold",
+      "source": "evidence/dice-town-p4b4/working-edit.mp4",
+      "source_frame": 3021,
+      "meanRgbError": 0.0
+    },
+    {
+      "frame": 3029,
+      "shot": "D34",
+      "kind": "endpoint_hold",
+      "source": "evidence/dice-town-p4b4/working-edit.mp4",
+      "source_frame": 3029,
+      "meanRgbError": 0.0
+    },
+    {
+      "frame": 3030,
+      "shot": "D34",
+      "kind": "still",
+      "source": "evidence/dice-town-p4b4/working-edit.mp4",
+      "source_frame": 3030,
+      "meanRgbError": 0.0
+    },
+    {
+      "frame": 3037,
+      "shot": "D34",
+      "kind": "still",
+      "source": "evidence/dice-town-p4b4/working-edit.mp4",
+      "source_frame": 3037,
+      "meanRgbError": 0.0
+    },
+    {
+      "frame": 3089,
+      "shot": "D34",
+      "kind": "still",
+      "source": "evidence/dice-town-p4b4/working-edit.mp4",
+      "source_frame": 3089,
+      "meanRgbError": 0.0
+    },
+    {
+      "frame": 3090,
+      "shot": "D35",
+      "kind": "endpoint_hold",
+      "source": "evidence/dice-town-p4b4/working-edit.mp4",
+      "source_frame": 3090,
+      "meanRgbError": 0.0
+    },
+    {
+      "frame": 3099,
+      "shot": "D35",
+      "kind": "endpoint_hold",
+      "source": "evidence/dice-town-p4b4/working-edit.mp4",
+      "source_frame": 3099,
+      "meanRgbError": 0.0
+    },
+    {
+      "frame": 3100,
+      "shot": "D35",
+      "kind": "motion",
+      "source": "evidence/dice-town-p4b4/working-edit.mp4",
+      "source_frame": 3100,
+      "meanRgbError": 0.0
+    },
+    {
+      "frame": 3159,
+      "shot": "D35",
+      "kind": "motion",
+      "source": "evidence/dice-town-p4b4/working-edit.mp4",
+      "source_frame": 3159,
+      "meanRgbError": 0.0
+    },
+    {
+      "frame": 3204,
+      "shot": "D35",
+      "kind": "motion",
+      "source": "evidence/dice-town-p4b4/working-edit.mp4",
+      "source_frame": 3204,
+      "meanRgbError": 0.0
+    },
+    {
+      "frame": 3205,
+      "shot": "D35",
+      "kind": "endpoint_hold",
+      "source": "evidence/dice-town-p4b4/working-edit.mp4",
+      "source_frame": 3205,
+      "meanRgbError": 0.0
+    },
+    {
+      "frame": 3229,
+      "shot": "D35",
+      "kind": "endpoint_hold",
+      "source": "evidence/dice-town-p4b4/working-edit.mp4",
+      "source_frame": 3229,
+      "meanRgbError": 0.0
+    },
+    {
+      "frame": 3230,
+      "shot": "D36",
+      "kind": "still",
+      "source": "evidence/dice-town-p4b4/working-edit.mp4",
+      "source_frame": 3230,
+      "meanRgbError": 0.0
+    },
+    {
+      "frame": 3286,
+      "shot": "D36",
+      "kind": "still",
+      "source": "evidence/dice-town-p4b4/working-edit.mp4",
+      "source_frame": 3286,
+      "meanRgbError": 0.0
+    },
+    {
+      "frame": 3343,
+      "shot": "D36",
+      "kind": "still",
+      "source": "evidence/dice-town-p4b4/working-edit.mp4",
+      "source_frame": 3343,
+      "meanRgbError": 0.0
+    },
+    {
+      "frame": 3344,
+      "shot": "D37",
+      "kind": "still",
+      "source": "evidence/dice-town-p4b4/working-edit.mp4",
+      "source_frame": 3344,
+      "meanRgbError": 0.0
+    },
+    {
+      "frame": 3366,
+      "shot": "D37",
+      "kind": "still",
+      "source": "evidence/dice-town-p4b4/working-edit.mp4",
+      "source_frame": 3366,
+      "meanRgbError": 0.0
+    },
+    {
+      "frame": 3388,
+      "shot": "D37",
+      "kind": "still",
+      "source": "evidence/dice-town-p4b4/working-edit.mp4",
+      "source_frame": 3388,
+      "meanRgbError": 0.0
+    },
+    {
+      "frame": 3389,
+      "shot": "D38",
+      "kind": "endpoint_hold",
+      "source": "evidence/dice-town-p4b4/working-edit.mp4",
+      "source_frame": 3389,
+      "meanRgbError": 0.0
+    },
+    {
+      "frame": 3404,
+      "shot": "D38",
+      "kind": "endpoint_hold",
+      "source": "evidence/dice-town-p4b4/working-edit.mp4",
+      "source_frame": 3404,
+      "meanRgbError": 0.0
+    },
+    {
+      "frame": 3405,
+      "shot": "D38",
+      "kind": "motion",
+      "source": "evidence/dice-town-p4b4/working-edit.mp4",
+      "source_frame": 3405,
+      "meanRgbError": 0.0
+    },
+    {
+      "frame": 3431,
+      "shot": "D38",
+      "kind": "motion",
+      "source": "evidence/dice-town-p4b4/working-edit.mp4",
+      "source_frame": 3431,
+      "meanRgbError": 0.0
+    },
+    {
+      "frame": 3432,
+      "shot": "D38",
+      "kind": "endpoint_hold",
+      "source": "evidence/dice-town-p4b4/working-edit.mp4",
+      "source_frame": 3432,
+      "meanRgbError": 0.0
+    },
+    {
+      "frame": 3450,
+      "shot": "D38",
+      "kind": "endpoint_hold",
+      "source": "evidence/dice-town-p4b4/working-edit.mp4",
+      "source_frame": 3450,
+      "meanRgbError": 0.0
+    },
+    {
+      "frame": 3512,
+      "shot": "D38",
+      "kind": "endpoint_hold",
+      "source": "evidence/dice-town-p4b4/working-edit.mp4",
+      "source_frame": 3512,
+      "meanRgbError": 0.0
+    }
+  ],
+  "checksCount": 252,
+  "all38CutStartsAndEndsChecked": true,
+  "substitutionSpanBoundariesChecked": true,
+  "maxMeanRgbError": 2.172309027777778,
+  "toleranceMeanRgbError": 6,
+  "method": "Decode final film and compare expected source-frame pixels at every shot start/mid/end plus all substituted span boundaries; tolerate H264 re-encode/color conversion. No regenerated3D.",
+  "wallSeconds": 19.80590821900114,
+  "childUserCpuSeconds": 13.229398,
+  "childSystemCpuSeconds": 0.478799,
+  "maxChildRssKiB": 61384
+}
