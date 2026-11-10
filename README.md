@@ -272,3 +272,9 @@ Reproduce: `node scripts/dice-town-p3b4-capture.js`, `python scripts/dice-town-p
 [117.100s silent360×640/30fps working MP4](evidence/dice-town-p4a/working-edit.mp4), [contact sheet](evidence/dice-town-p4a/editorial-contact.jpg), [38-shot source map](evidence/dice-town-p4a/edit-map.json), [remaining placeholders](evidence/dice-town-p4a/REMAINING_PLACEHOLDERS.md), [verification/costs](evidence/dice-town-p4a/REPORT.md). Original38 shots/3513 frames preserved.70.766% remains original proxy; no new3D footage or private audio.
 
 Reproduce: `python scripts/dice-town-p4a-proxy-boundaries.py`, `python scripts/dice-town-p4a-assemble.py`, `python scripts/dice-town-p4a-verify.py`, `node scripts/dice-town-p4a-playback.js`, `python tests/dice-town-p4a.py`. The measured proxy shot ranges correct its inherited one-frame offset; temporary clips/checks stay ignored under renders/. Stop for review.
+
+## Dice Town P4B-1 sixth-roll working edit
+
+[Updated full silent edit](evidence/dice-town-p4b1/working-edit.mp4), [source map](evidence/dice-town-p4b1/edit-map.json), [phone comparison](evidence/dice-town-p4b1/before-after.jpg), [native review](evidence/dice-town-p4b1/native-phone-review.jpg), [verification/costs/limitations](evidence/dice-town-p4b1/REPORT.md). D25–D32 only;53.971% remains proxy. D28's inherited incompatible adjacent faces are explicitly retained as directed.
+
+`python scripts/dice-town-p4b1-assemble.py` edits from committed source archive/stills/P4A without raw caches. Verify with `python scripts/dice-town-p4b1-verify.py`, `node scripts/dice-town-p4b1-playback.js`, `python scripts/dice-town-p4b1-unchanged.py`, `python tests/dice-town-p4b1-map.py`. Opt-in WebGL `/production/dice-town-p4b1/`; native/motion capture commands and explicit rebuild option are in the report. No original footage/voice changed; stop for review.
