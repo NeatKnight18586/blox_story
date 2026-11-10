@@ -20,7 +20,10 @@ try {
   await page.waitForFunction(() => window.__cast, null, {timeout: 120000});
   const jobs = [['lineup', 1080, 1920, `${out}/lineup-1080.png`], ['lineup34', 1080, 1920, `${out}/lineup34-1080.png`]];
   const exprs = await page.evaluate(() => __cast.EXPRESSIONS);
-  for (const who of ['leo', 'pip', 'mother']) for (const e of exprs) jobs.push([`face:${who}:${e}`, 640, 640, `${faces}/${who}-${e}.png`]);
+  // Leo carries the full 35-face sheet; Pip and Mother show a core eight.
+  const core = ['happy', 'sad', 'angry', 'shocked', 'scared', 'calm', 'nervous', 'excited'];
+  for (const e of exprs) jobs.push([`face:leo:${e}`, 480, 480, `${faces}/leo-${e}.png`]);
+  for (const who of ['pip', 'mother']) for (const e of core) jobs.push([`face:${who}:${e}`, 480, 480, `${faces}/${who}-${e}.png`]);
   for (const [shot, w, h, path] of jobs) {
     const state = await page.evaluate(([s, w, h]) => __cast.render(s, w, h), [shot, w, h]);
     const png = await grab(page); await writeFile(path, png);

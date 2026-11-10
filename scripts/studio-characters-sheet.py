@@ -8,7 +8,6 @@ sys.path.insert(0, 'studio/qa')
 from color_metrics import frame_metrics  # noqa: E402
 
 C, L = 'evidence/studio-characters', 'evidence/studio-lookdev'
-EXPR = ['neutral', 'happy', 'worried', 'surprised', 'determined', 'sad']
 CAST = ['leo', 'pip', 'mother']
 
 
@@ -23,13 +22,24 @@ for i, name in enumerate(['lineup', 'lineup34']):
 label(sheet, (12, 10), 'Mother · Pip · Leo — front'); label(sheet, (552, 10), 'three-quarter')
 sheet.save(f'{C}/lineup-sheet.jpg', quality=90)
 
-# 2. Expression grid: rows = characters, columns = expressions.
-t = 300
-grid = Image.new('RGB', (t * 6, t * 3 + 36), (18, 22, 28))
-for c, e in enumerate(EXPR):
-    label(grid, (c * t + 10, 6), e, 24)
+# 2. Leo performs the owner's full 35-expression sheet (same 5×7 order), then a cast row of core faces.
+SHEET = ['happy', 'sad', 'angry', 'confused', 'pleased', 'pain', 'scared', 'serious', 'silly', 'flirty', 'nervous', 'tired', 'shocked',
+         'irritated', 'wtf', 'rage', 'disgusted', 'confident', 'drunk', 'concerned', 'curious', 'pouty', 'sick', 'laughing', 'shame',
+         'incredulous', 'bored', 'snooty', 'cold', 'calm', 'crying', 'devious', 'pensive', 'excited', 'triumph']
+t = 260
+grid = Image.new('RGB', (t * 5, (t + 34) * 7), (18, 22, 28))
+for i, e in enumerate(SHEET):
+    x, y = (i % 5) * t, (i // 5) * (t + 34)
+    grid.paste(Image.open(f'{C}/faces/leo-{e}.png').convert('RGB').resize((t, t), Image.LANCZOS), (x, y))
+    label(grid, (x + 8, y + t + 4), e, 22)
+grid.save(f'{C}/expressions-35.jpg', quality=88)
+CORE = ['happy', 'sad', 'angry', 'shocked', 'scared', 'calm', 'nervous', 'excited']
+t = 220
+grid = Image.new('RGB', (t * 8, t * 3 + 36), (18, 22, 28))
+for c, e in enumerate(CORE):
+    label(grid, (c * t + 8, 6), e, 22)
 for r, who in enumerate(CAST):
-    for c, e in enumerate(EXPR):
+    for c, e in enumerate(CORE):
         grid.paste(Image.open(f'{C}/faces/{who}-{e}.png').convert('RGB').resize((t, t), Image.LANCZOS), (c * t, 36 + r * t))
 grid.save(f'{C}/expressions.jpg', quality=90)
 

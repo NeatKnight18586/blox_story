@@ -34,7 +34,7 @@ function lineupPose() {
   mother.pivots.head.rotation.set(.04, .12, -.05); leo.pivots.head.rotation.set(0, -.1, .04);
   pip.pivots.rightShoulder.rotation.set(-.15, 0, 2.85); pip.pivots.head.rotation.set(-.08, 0, .06);
   pip.pivots.leftHip.rotation.x = .08; pip.pivots.rightHip.rotation.x = -.06;
-  setExpression(mother, 'happy'); setExpression(leo, 'neutral'); setExpression(pip, 'happy');
+  setExpression(mother, 'pleased'); setExpression(leo, 'confident'); setExpression(pip, 'excited');
 }
 
 const shots = {

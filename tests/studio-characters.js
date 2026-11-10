@@ -6,7 +6,7 @@ import {applyPose} from '../avatar/poses.js';
 
 const PARTS = ['torso', 'head', 'leftArm', 'rightArm', 'leftLeg', 'rightLeg'];
 const PIVOTS = ['head', 'leftShoulder', 'rightShoulder', 'leftHip', 'rightHip'];
-const meshIds = a => { const ids = []; a.root.traverse(o => { if (o.isMesh && !o.name.startsWith('eye') && !o.name.startsWith('glint') && !o.name.startsWith('brow') && !['mouth', 'teeth'].includes(o.name) && !o.name.startsWith('blush')) ids.push(o.geometry.uuid); }); return ids; };
+const meshIds = a => { const ids = []; a.root.traverse(o => { if (o.isMesh && !o.name.startsWith('eye') && !o.name.startsWith('glint') && !o.name.startsWith('brow') && !['mouth', 'teeth', 'face_decal'].includes(o.name) && !o.name.startsWith('blush')) ids.push(o.geometry.uuid); }); return ids; };
 
 for (const name of Object.keys(PRESETS)) {
   const a = createCharacter(name);
@@ -34,4 +34,5 @@ assert.equal(createCharacter('pip').root.scale.x, .65, 'Pip keeps child scale');
 assert.ok(createCharacter('mother').glasses, 'Mother has the age cue');
 assert.throws(() => createCharacter('kai'), /Unknown character preset/);
 assert.throws(() => setExpression(createCharacter('leo'), 'smug'), /Unknown expression/);
-console.log(`PASS studio cast: ${Object.keys(PRESETS).length} presets, ${EXPRESSIONS.length} cached expressions each, six parts/five pivots, grounded, geometry identity, deterministic poses`);
+for (const old of ['neutral', 'worried', 'surprised', 'determined']) setExpression(createCharacter('leo'), old); // legacy names still resolve
+console.log(`PASS studio cast (classic): ${Object.keys(PRESETS).length} presets, ${EXPRESSIONS.length} cached sheet expressions each, six parts/five pivots, grounded, geometry identity, deterministic poses`);

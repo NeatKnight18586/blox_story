@@ -7,7 +7,7 @@
    "path": "evidence/studio-characters/lineup-1080.png",
    "width": 1080,
    "height": 1920,
-   "renderMs": 2585,
+   "renderMs": 4789,
    "deterministic": true
   },
   {
@@ -15,151 +15,415 @@
    "path": "evidence/studio-characters/lineup34-1080.png",
    "width": 1080,
    "height": 1920,
-   "renderMs": 1750,
-   "deterministic": true
-  },
-  {
-   "shot": "face:leo:neutral",
-   "path": "evidence/studio-characters/faces/leo-neutral.png",
-   "width": 640,
-   "height": 640,
-   "renderMs": 412,
+   "renderMs": 1763,
    "deterministic": true
   },
   {
    "shot": "face:leo:happy",
    "path": "evidence/studio-characters/faces/leo-happy.png",
-   "width": 640,
-   "height": 640,
-   "renderMs": 363,
-   "deterministic": true
-  },
-  {
-   "shot": "face:leo:worried",
-   "path": "evidence/studio-characters/faces/leo-worried.png",
-   "width": 640,
-   "height": 640,
-   "renderMs": 346,
-   "deterministic": true
-  },
-  {
-   "shot": "face:leo:surprised",
-   "path": "evidence/studio-characters/faces/leo-surprised.png",
-   "width": 640,
-   "height": 640,
-   "renderMs": 365,
-   "deterministic": true
-  },
-  {
-   "shot": "face:leo:determined",
-   "path": "evidence/studio-characters/faces/leo-determined.png",
-   "width": 640,
-   "height": 640,
-   "renderMs": 358,
+   "width": 480,
+   "height": 480,
+   "renderMs": 345,
    "deterministic": true
   },
   {
    "shot": "face:leo:sad",
    "path": "evidence/studio-characters/faces/leo-sad.png",
-   "width": 640,
-   "height": 640,
-   "renderMs": 356,
+   "width": 480,
+   "height": 480,
+   "renderMs": 259,
    "deterministic": true
   },
   {
-   "shot": "face:pip:neutral",
-   "path": "evidence/studio-characters/faces/pip-neutral.png",
-   "width": 640,
-   "height": 640,
-   "renderMs": 444,
+   "shot": "face:leo:angry",
+   "path": "evidence/studio-characters/faces/leo-angry.png",
+   "width": 480,
+   "height": 480,
+   "renderMs": 247,
+   "deterministic": true
+  },
+  {
+   "shot": "face:leo:confused",
+   "path": "evidence/studio-characters/faces/leo-confused.png",
+   "width": 480,
+   "height": 480,
+   "renderMs": 265,
+   "deterministic": true
+  },
+  {
+   "shot": "face:leo:pleased",
+   "path": "evidence/studio-characters/faces/leo-pleased.png",
+   "width": 480,
+   "height": 480,
+   "renderMs": 216,
+   "deterministic": true
+  },
+  {
+   "shot": "face:leo:pain",
+   "path": "evidence/studio-characters/faces/leo-pain.png",
+   "width": 480,
+   "height": 480,
+   "renderMs": 251,
+   "deterministic": true
+  },
+  {
+   "shot": "face:leo:scared",
+   "path": "evidence/studio-characters/faces/leo-scared.png",
+   "width": 480,
+   "height": 480,
+   "renderMs": 247,
+   "deterministic": true
+  },
+  {
+   "shot": "face:leo:serious",
+   "path": "evidence/studio-characters/faces/leo-serious.png",
+   "width": 480,
+   "height": 480,
+   "renderMs": 225,
+   "deterministic": true
+  },
+  {
+   "shot": "face:leo:silly",
+   "path": "evidence/studio-characters/faces/leo-silly.png",
+   "width": 480,
+   "height": 480,
+   "renderMs": 252,
+   "deterministic": true
+  },
+  {
+   "shot": "face:leo:flirty",
+   "path": "evidence/studio-characters/faces/leo-flirty.png",
+   "width": 480,
+   "height": 480,
+   "renderMs": 238,
+   "deterministic": true
+  },
+  {
+   "shot": "face:leo:nervous",
+   "path": "evidence/studio-characters/faces/leo-nervous.png",
+   "width": 480,
+   "height": 480,
+   "renderMs": 246,
+   "deterministic": true
+  },
+  {
+   "shot": "face:leo:tired",
+   "path": "evidence/studio-characters/faces/leo-tired.png",
+   "width": 480,
+   "height": 480,
+   "renderMs": 261,
+   "deterministic": true
+  },
+  {
+   "shot": "face:leo:shocked",
+   "path": "evidence/studio-characters/faces/leo-shocked.png",
+   "width": 480,
+   "height": 480,
+   "renderMs": 255,
+   "deterministic": true
+  },
+  {
+   "shot": "face:leo:irritated",
+   "path": "evidence/studio-characters/faces/leo-irritated.png",
+   "width": 480,
+   "height": 480,
+   "renderMs": 233,
+   "deterministic": true
+  },
+  {
+   "shot": "face:leo:wtf",
+   "path": "evidence/studio-characters/faces/leo-wtf.png",
+   "width": 480,
+   "height": 480,
+   "renderMs": 237,
+   "deterministic": true
+  },
+  {
+   "shot": "face:leo:rage",
+   "path": "evidence/studio-characters/faces/leo-rage.png",
+   "width": 480,
+   "height": 480,
+   "renderMs": 259,
+   "deterministic": true
+  },
+  {
+   "shot": "face:leo:disgusted",
+   "path": "evidence/studio-characters/faces/leo-disgusted.png",
+   "width": 480,
+   "height": 480,
+   "renderMs": 237,
+   "deterministic": true
+  },
+  {
+   "shot": "face:leo:confident",
+   "path": "evidence/studio-characters/faces/leo-confident.png",
+   "width": 480,
+   "height": 480,
+   "renderMs": 239,
+   "deterministic": true
+  },
+  {
+   "shot": "face:leo:drunk",
+   "path": "evidence/studio-characters/faces/leo-drunk.png",
+   "width": 480,
+   "height": 480,
+   "renderMs": 228,
+   "deterministic": true
+  },
+  {
+   "shot": "face:leo:concerned",
+   "path": "evidence/studio-characters/faces/leo-concerned.png",
+   "width": 480,
+   "height": 480,
+   "renderMs": 234,
+   "deterministic": true
+  },
+  {
+   "shot": "face:leo:curious",
+   "path": "evidence/studio-characters/faces/leo-curious.png",
+   "width": 480,
+   "height": 480,
+   "renderMs": 265,
+   "deterministic": true
+  },
+  {
+   "shot": "face:leo:pouty",
+   "path": "evidence/studio-characters/faces/leo-pouty.png",
+   "width": 480,
+   "height": 480,
+   "renderMs": 280,
+   "deterministic": true
+  },
+  {
+   "shot": "face:leo:sick",
+   "path": "evidence/studio-characters/faces/leo-sick.png",
+   "width": 480,
+   "height": 480,
+   "renderMs": 289,
+   "deterministic": true
+  },
+  {
+   "shot": "face:leo:laughing",
+   "path": "evidence/studio-characters/faces/leo-laughing.png",
+   "width": 480,
+   "height": 480,
+   "renderMs": 246,
+   "deterministic": true
+  },
+  {
+   "shot": "face:leo:shame",
+   "path": "evidence/studio-characters/faces/leo-shame.png",
+   "width": 480,
+   "height": 480,
+   "renderMs": 266,
+   "deterministic": true
+  },
+  {
+   "shot": "face:leo:incredulous",
+   "path": "evidence/studio-characters/faces/leo-incredulous.png",
+   "width": 480,
+   "height": 480,
+   "renderMs": 256,
+   "deterministic": true
+  },
+  {
+   "shot": "face:leo:bored",
+   "path": "evidence/studio-characters/faces/leo-bored.png",
+   "width": 480,
+   "height": 480,
+   "renderMs": 238,
+   "deterministic": true
+  },
+  {
+   "shot": "face:leo:snooty",
+   "path": "evidence/studio-characters/faces/leo-snooty.png",
+   "width": 480,
+   "height": 480,
+   "renderMs": 249,
+   "deterministic": true
+  },
+  {
+   "shot": "face:leo:cold",
+   "path": "evidence/studio-characters/faces/leo-cold.png",
+   "width": 480,
+   "height": 480,
+   "renderMs": 271,
+   "deterministic": true
+  },
+  {
+   "shot": "face:leo:calm",
+   "path": "evidence/studio-characters/faces/leo-calm.png",
+   "width": 480,
+   "height": 480,
+   "renderMs": 225,
+   "deterministic": true
+  },
+  {
+   "shot": "face:leo:crying",
+   "path": "evidence/studio-characters/faces/leo-crying.png",
+   "width": 480,
+   "height": 480,
+   "renderMs": 262,
+   "deterministic": true
+  },
+  {
+   "shot": "face:leo:devious",
+   "path": "evidence/studio-characters/faces/leo-devious.png",
+   "width": 480,
+   "height": 480,
+   "renderMs": 279,
+   "deterministic": true
+  },
+  {
+   "shot": "face:leo:pensive",
+   "path": "evidence/studio-characters/faces/leo-pensive.png",
+   "width": 480,
+   "height": 480,
+   "renderMs": 245,
+   "deterministic": true
+  },
+  {
+   "shot": "face:leo:excited",
+   "path": "evidence/studio-characters/faces/leo-excited.png",
+   "width": 480,
+   "height": 480,
+   "renderMs": 225,
+   "deterministic": true
+  },
+  {
+   "shot": "face:leo:triumph",
+   "path": "evidence/studio-characters/faces/leo-triumph.png",
+   "width": 480,
+   "height": 480,
+   "renderMs": 237,
    "deterministic": true
   },
   {
    "shot": "face:pip:happy",
    "path": "evidence/studio-characters/faces/pip-happy.png",
-   "width": 640,
-   "height": 640,
-   "renderMs": 480,
-   "deterministic": true
-  },
-  {
-   "shot": "face:pip:worried",
-   "path": "evidence/studio-characters/faces/pip-worried.png",
-   "width": 640,
-   "height": 640,
-   "renderMs": 462,
-   "deterministic": true
-  },
-  {
-   "shot": "face:pip:surprised",
-   "path": "evidence/studio-characters/faces/pip-surprised.png",
-   "width": 640,
-   "height": 640,
-   "renderMs": 432,
-   "deterministic": true
-  },
-  {
-   "shot": "face:pip:determined",
-   "path": "evidence/studio-characters/faces/pip-determined.png",
-   "width": 640,
-   "height": 640,
-   "renderMs": 452,
+   "width": 480,
+   "height": 480,
+   "renderMs": 279,
    "deterministic": true
   },
   {
    "shot": "face:pip:sad",
    "path": "evidence/studio-characters/faces/pip-sad.png",
-   "width": 640,
-   "height": 640,
-   "renderMs": 435,
+   "width": 480,
+   "height": 480,
+   "renderMs": 269,
    "deterministic": true
   },
   {
-   "shot": "face:mother:neutral",
-   "path": "evidence/studio-characters/faces/mother-neutral.png",
-   "width": 640,
-   "height": 640,
-   "renderMs": 356,
+   "shot": "face:pip:angry",
+   "path": "evidence/studio-characters/faces/pip-angry.png",
+   "width": 480,
+   "height": 480,
+   "renderMs": 273,
+   "deterministic": true
+  },
+  {
+   "shot": "face:pip:shocked",
+   "path": "evidence/studio-characters/faces/pip-shocked.png",
+   "width": 480,
+   "height": 480,
+   "renderMs": 295,
+   "deterministic": true
+  },
+  {
+   "shot": "face:pip:scared",
+   "path": "evidence/studio-characters/faces/pip-scared.png",
+   "width": 480,
+   "height": 480,
+   "renderMs": 266,
+   "deterministic": true
+  },
+  {
+   "shot": "face:pip:calm",
+   "path": "evidence/studio-characters/faces/pip-calm.png",
+   "width": 480,
+   "height": 480,
+   "renderMs": 264,
+   "deterministic": true
+  },
+  {
+   "shot": "face:pip:nervous",
+   "path": "evidence/studio-characters/faces/pip-nervous.png",
+   "width": 480,
+   "height": 480,
+   "renderMs": 286,
+   "deterministic": true
+  },
+  {
+   "shot": "face:pip:excited",
+   "path": "evidence/studio-characters/faces/pip-excited.png",
+   "width": 480,
+   "height": 480,
+   "renderMs": 291,
    "deterministic": true
   },
   {
    "shot": "face:mother:happy",
    "path": "evidence/studio-characters/faces/mother-happy.png",
-   "width": 640,
-   "height": 640,
-   "renderMs": 334,
-   "deterministic": true
-  },
-  {
-   "shot": "face:mother:worried",
-   "path": "evidence/studio-characters/faces/mother-worried.png",
-   "width": 640,
-   "height": 640,
-   "renderMs": 342,
-   "deterministic": true
-  },
-  {
-   "shot": "face:mother:surprised",
-   "path": "evidence/studio-characters/faces/mother-surprised.png",
-   "width": 640,
-   "height": 640,
-   "renderMs": 339,
-   "deterministic": true
-  },
-  {
-   "shot": "face:mother:determined",
-   "path": "evidence/studio-characters/faces/mother-determined.png",
-   "width": 640,
-   "height": 640,
-   "renderMs": 339,
+   "width": 480,
+   "height": 480,
+   "renderMs": 232,
    "deterministic": true
   },
   {
    "shot": "face:mother:sad",
    "path": "evidence/studio-characters/faces/mother-sad.png",
-   "width": 640,
-   "height": 640,
-   "renderMs": 346,
+   "width": 480,
+   "height": 480,
+   "renderMs": 242,
+   "deterministic": true
+  },
+  {
+   "shot": "face:mother:angry",
+   "path": "evidence/studio-characters/faces/mother-angry.png",
+   "width": 480,
+   "height": 480,
+   "renderMs": 224,
+   "deterministic": true
+  },
+  {
+   "shot": "face:mother:shocked",
+   "path": "evidence/studio-characters/faces/mother-shocked.png",
+   "width": 480,
+   "height": 480,
+   "renderMs": 254,
+   "deterministic": true
+  },
+  {
+   "shot": "face:mother:scared",
+   "path": "evidence/studio-characters/faces/mother-scared.png",
+   "width": 480,
+   "height": 480,
+   "renderMs": 238,
+   "deterministic": true
+  },
+  {
+   "shot": "face:mother:calm",
+   "path": "evidence/studio-characters/faces/mother-calm.png",
+   "width": 480,
+   "height": 480,
+   "renderMs": 252,
+   "deterministic": true
+  },
+  {
+   "shot": "face:mother:nervous",
+   "path": "evidence/studio-characters/faces/mother-nervous.png",
+   "width": 480,
+   "height": 480,
+   "renderMs": 240,
+   "deterministic": true
+  },
+  {
+   "shot": "face:mother:excited",
+   "path": "evidence/studio-characters/faces/mother-excited.png",
+   "width": 480,
+   "height": 480,
+   "renderMs": 228,
    "deterministic": true
   },
   {
@@ -167,17 +431,17 @@
     "mother": {
      "parts": 6,
      "pivots": 5,
-     "cachedFaces": 6
+     "cachedFaces": 9
     },
     "leo": {
      "parts": 6,
      "pivots": 5,
-     "cachedFaces": 6
+     "cachedFaces": 35
     },
     "pip": {
      "parts": 6,
      "pivots": 5,
-     "cachedFaces": 6
+     "cachedFaces": 8
     }
    }
   }

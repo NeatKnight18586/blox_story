@@ -1,80 +1,105 @@
-// Studio V2 faces: larger, readable eyes with catchlights, thick brows and
-// filled mouth shapes, all wrapped onto the oval head front. Cached per avatar.
+// Classic Roblox-style face decals: thin black ink drawn on a canvas and
+// wrapped onto the curved head front, like a Roblox face decal on the head mesh.
+// The 35 expressions follow the owner's "35 Expression Exercise" sheet
+// (dot eyes, line brows, simple mouths), redrawn as original vector strokes.
 import * as T from 'three';
 import {headFrontZ} from '../../avatar/headGeometry.js';
 
-export const EXPRESSIONS = Object.freeze(['neutral', 'happy', 'worried', 'surprised', 'determined', 'sad']);
+// Each expression is a list of strokes in a 100×100 box (like one sheet cell):
+// eyes sit near y≈40, mouths near y≈75; x 32/68 are the eye columns.
+// d=[x,y,r] filled dot · l=[x1,y1,x2,y2] line · q=[x1,y1,cx,cy,x2,y2] curve ·
+// o=[x,y,rx,ry] outline ellipse · p=[[x,y]...] closed outline · w=[x1,x2,y,amp,waves] wavy line
+const D = (x, y, r = 4.6) => ({d: [x, y, r]}), L = (...a) => ({l: a}), Q = (...a) => ({q: a}), O = (...a) => ({o: a}), P = (...pts) => ({p: pts}), W = (...a) => ({w: a});
+const dots = (y = 41, r) => [D(32, y, r), D(68, y, r)];
+const closedSmile = (y = 40) => [Q(25, y - 2, 32, y + 6, 39, y - 2), Q(61, y - 2, 68, y + 6, 75, y - 2)];
+const squeeze = (y = 40) => [L(25, y - 5, 37, y), L(37, y, 25, y + 5), L(75, y - 5, 63, y), L(63, y, 75, y + 5)];
 
-const INK = 0x231c1f, MOUTH = 0x5b1f27, WHITE = 0xffffff;
-const mat = (color, extra = {}) => new T.MeshBasicMaterial({color, ...extra});
+export const FACES = Object.freeze({
+  happy: [Q(23, 24, 30, 18, 37, 23), Q(63, 23, 70, 18, 77, 24), ...dots(), Q(31, 66, 50, 92, 69, 66)],
+  sad: [L(22, 27, 39, 24), L(61, 24, 78, 27), L(24, 36, 39, 36), L(61, 36, 76, 36), Q(34, 80, 50, 66, 66, 80)],
+  angry: [L(25, 16, 40, 32), L(75, 16, 60, 32), D(35, 44), D(65, 44), Q(30, 84, 50, 62, 70, 84)],
+  confused: [L(22, 22, 34, 20), Q(60, 22, 69, 12, 78, 21), ...dots(), W(43, 58, 77, 2.5, 1.5)],
+  pleased: [Q(24, 38, 31, 43, 38, 38), Q(62, 38, 69, 43, 76, 38), Q(43, 76, 51, 81, 58, 74)],
+  pain: [Q(22, 16, 30, 22, 38, 16), Q(62, 16, 70, 22, 78, 16), ...squeeze(38), P([36, 70], [50, 62], [66, 70], [62, 84], [50, 78], [38, 84])],
+  scared: [Q(22, 26, 30, 20, 38, 22), Q(62, 22, 70, 20, 78, 26), ...dots(40), P([34, 76], [44, 66], [58, 66], [68, 78], [56, 82], [50, 76], [42, 82])],
+  serious: [L(24, 24, 38, 24), L(62, 24, 76, 24), ...dots(), L(42, 78, 58, 78)],
+  silly: [Q(22, 22, 30, 16, 37, 21), Q(63, 21, 70, 16, 78, 22), L(24, 41, 38, 39), D(68, 41), L(34, 66, 68, 62), P([46, 66], [58, 64], [60, 78], [53, 85], [47, 79])],
+  flirty: [L(22, 22, 37, 24), L(63, 24, 78, 22), L(23, 42, 38, 39), L(62, 39, 77, 42), L(21, 44, 24, 40), L(79, 44, 76, 40), P([32, 66], [50, 70], [69, 62], [56, 82], [44, 82])],
+  nervous: [L(22, 24, 36, 26), L(64, 26, 78, 24), Q(84, 10, 80, 18, 86, 20), ...dots(40, 4), W(32, 68, 77, 2.2, 2)],
+  tired: [L(22, 24, 38, 27), L(62, 27, 78, 24), L(24, 40, 38, 40), L(62, 40, 76, 40), P([36, 80], [42, 70], [58, 70], [64, 80], [50, 76])],
+  shocked: [Q(22, 22, 30, 12, 38, 20), Q(62, 20, 70, 12, 78, 22), ...dots(40, 4), O(50, 75, 8, 12)],
+  irritated: [L(26, 22, 38, 30), L(74, 22, 62, 30), D(34, 42), D(66, 42), Q(42, 80, 50, 72, 58, 80)],
+  wtf: [W(18, 40, 18, 2, 2), W(60, 82, 18, 2, 2), O(32, 40, 12, 9), O(68, 40, 12, 9), D(32, 42, 4.2), D(68, 42, 4.2)],
+  rage: [L(22, 18, 40, 30), L(78, 18, 60, 30), L(28, 41, 38, 43), L(62, 43, 72, 41), P([30, 82], [38, 66], [50, 72], [62, 66], [70, 82], [50, 78])],
+  disgusted: [L(22, 22, 38, 22), L(62, 22, 78, 22), L(22, 30, 38, 31), L(62, 31, 78, 30), L(24, 41, 38, 41), L(62, 41, 76, 41), W(32, 70, 76, 3, 1.5)],
+  confident: [Q(24, 24, 31, 18, 38, 23), L(62, 22, 78, 20), Q(24, 38, 31, 46, 38, 38), L(62, 41, 76, 40), Q(40, 80, 58, 78, 66, 68)],
+  drunk: [L(20, 28, 38, 24), L(62, 24, 80, 28), L(22, 31, 36, 29), L(64, 29, 78, 31), P([30, 68], [50, 74], [72, 64], [64, 82], [44, 84])],
+  concerned: [L(26, 28, 36, 24), L(64, 24, 74, 28), D(34, 44, 4), D(66, 44, 4), L(44, 78, 56, 78)],
+  curious: [Q(24, 18, 28, 12, 34, 14), Q(62, 22, 69, 16, 76, 22), ...dots(42), O(50, 76, 4.5, 6.5)],
+  pouty: [L(26, 30, 38, 33), L(74, 30, 62, 33), D(34, 42), D(66, 42), Q(44, 80, 50, 70, 56, 80)],
+  sick: [L(24, 24, 38, 21), L(62, 21, 76, 24), W(24, 38, 40, 1.5, 1), W(62, 76, 40, 1.5, 1), L(20, 50, 26, 50), L(74, 50, 80, 50), L(44, 78, 54, 78)],
+  laughing: [L(24, 32, 40, 46), L(40, 32, 24, 46), L(60, 32, 76, 46), L(76, 32, 60, 46), P([30, 62], [70, 60], [62, 84], [40, 86]), Q(42, 82, 50, 74, 58, 82)],
+  shame: [L(24, 26, 36, 22), L(64, 22, 76, 26), D(34, 42, 3.6), D(66, 42, 3.6), L(18, 54, 22, 48), L(24, 54, 28, 48), L(72, 54, 76, 48), L(78, 54, 82, 48), Q(44, 80, 50, 72, 56, 80)],
+  incredulous: [L(22, 22, 38, 22), L(62, 20, 78, 22), L(24, 40, 38, 40), L(62, 40, 76, 40), L(40, 82, 54, 74)],
+  bored: [L(24, 34, 38, 34), L(62, 34, 76, 34), D(32, 39, 3.6), D(68, 39, 3.6), L(36, 78, 64, 78)],
+  snooty: [Q(22, 22, 30, 14, 38, 20), Q(62, 20, 70, 14, 78, 22), L(24, 40, 38, 40), L(62, 40, 76, 40), D(28, 42, 3), D(68, 42, 3), L(46, 82, 54, 82)],
+  cold: [L(22, 24, 36, 28), L(64, 28, 78, 24), L(24, 39, 36, 39), L(64, 39, 76, 39), D(30, 42, 3), D(70, 42, 3), W(30, 70, 76, 2.5, 3)],
+  calm: [...dots(42), L(48, 82, 52, 76)],
+  crying: [L(22, 24, 38, 24), L(62, 24, 78, 24), L(24, 38, 38, 38), L(62, 38, 76, 38), L(27, 42, 27, 92), L(35, 42, 35, 92), L(65, 42, 65, 92), L(73, 42, 73, 92)],
+  devious: [L(20, 14, 40, 30), L(80, 14, 60, 30), ...closedSmile(40), Q(34, 64, 50, 86, 66, 64)],
+  pensive: [L(24, 24, 36, 24), L(64, 22, 76, 26), D(32, 42, 3.6), D(64, 42, 3.6), Q(42, 80, 50, 73, 58, 80)],
+  excited: [Q(22, 22, 30, 12, 38, 20), Q(62, 20, 70, 12, 78, 22), Q(25, 42, 32, 34, 39, 42), Q(61, 42, 68, 34, 75, 42), P([30, 62], [70, 62], [64, 82], [50, 86], [36, 82]), L(32, 68, 68, 68)],
+  triumph: [L(22, 18, 38, 24), L(78, 18, 62, 24), ...squeeze(38), P([28, 60], [72, 58], [62, 82], [40, 84]), L(30, 66, 70, 64)],
+});
 
-// Per expression: eye size/height, brow inner/outer heights, mouth recipe.
-const SPEC = {
-  neutral:    {eye: [.068, .13], eyeY: .64, brow: [.89, .885], mouth: {kind: 'curve', w: .17, y: .33, bend: .045}},
-  happy:      {eye: [.07, .105], eyeY: .65, brow: [.915, .9], mouth: {kind: 'open', w: .22, y: .36, h: .17, smile: true}},
-  worried:    {eye: [.066, .124], eyeY: .63, brow: [.95, .855], mouth: {kind: 'wave', w: .16, y: .32}},
-  surprised:  {eye: [.074, .14], eyeY: .65, brow: [.98, .965], mouth: {kind: 'o', w: .085, y: .3, h: .11}},
-  determined: {eye: [.07, .11], eyeY: .63, brow: [.82, .91], mouth: {kind: 'curve', w: .16, y: .32, bend: -.012}},
-  sad:        {eye: [.066, .116], eyeY: .61, brow: [.94, .845], mouth: {kind: 'curve', w: .16, y: .29, bend: -.065}},
-};
+// Older scene code and tests use these six names; they map onto sheet faces.
+export const ALIASES = Object.freeze({neutral: 'calm', worried: 'nervous', surprised: 'shocked', determined: 'serious'});
+export const EXPRESSIONS = Object.freeze(Object.keys(FACES));
+export const resolveExpression = name => ALIASES[name] ?? name;
 
-function onFace(x, y, lift = .012) { return new T.Vector3(x, y, headFrontZ(x) + lift); }
-function faceYaw(x) { return Math.atan2(x / .625 ** 2, headFrontZ(x) / .55 ** 2); }
-
-function stroke(name, pts, radius, material) {
-  const m = new T.Mesh(new T.TubeGeometry(new T.CatmullRomCurve3(pts.map(([x, y]) => onFace(x, y))), 28, radius, 8, false), material);
-  m.name = name; return m;
-}
-// Flat shape whose outline vertices are pushed onto the curved head front.
-function patch(name, shape, material, lift = .011) {
-  // Densify the outline so every triangle is narrow and follows the curved front.
-  const g = new T.ShapeGeometry(new T.Shape(shape.getSpacedPoints(96)), 1), p = g.attributes.position;
-  for (let i = 0; i < p.count; i++) p.setZ(i, headFrontZ(p.getX(i)) + lift);
-  g.computeVertexNormals();
-  const m = new T.Mesh(g, material); m.name = name; return m;
-}
-
-export function makeFaceV2(name, {blush = 0, inkColor = INK} = {}) {
-  const s = SPEC[name]; if (!s) throw new Error('Unknown expression: ' + name);
-  const g = new T.Group(); g.name = `face_v2_${name}`;
-  const ink = mat(inkColor), mouthMat = mat(MOUTH), white = mat(WHITE);
-  for (const [side, x] of [['left', -.2], ['right', .2]]) {
-    const eye = new T.Mesh(new T.SphereGeometry(1, 20, 14), ink); eye.name = `eye_${side}`;
-    eye.scale.set(s.eye[0], s.eye[1], .014); eye.position.copy(onFace(x, s.eyeY, .006)); eye.rotation.y = faceYaw(x); g.add(eye);
-    const glint = new T.Mesh(new T.SphereGeometry(1, 12, 8), white); glint.name = `glint_${side}`;
-    glint.scale.set(s.eye[0] * .34, s.eye[1] * .26, .008); glint.position.copy(onFace(x + s.eye[0] * .35, s.eyeY + s.eye[1] * .42, .02)); glint.rotation.y = faceYaw(x); g.add(glint);
-    const sign = side === 'left' ? -1 : 1, [inner, outer] = s.brow;
-    g.add(stroke(`brow_${side}`, [[sign * .09, inner], [sign * .2, (inner + outer) / 2 + .014], [sign * .31, outer]], .028, ink));
+const INK = '#1b1a1c', RES = 512;
+const textures = new Map();
+function drawFace(name) {
+  const c = document.createElement('canvas'); c.width = c.height = RES;
+  const g = c.getContext('2d'), s = RES / 100;
+  g.strokeStyle = g.fillStyle = INK; g.lineWidth = 4.6 * s; g.lineCap = g.lineJoin = 'round';
+  for (const st of FACES[name]) {
+    g.beginPath();
+    if (st.d) { const [x, y, r] = st.d; g.arc(x * s, y * s, r * 1.15 * s, 0, Math.PI * 2); g.fill(); continue; }
+    if (st.l) { const [a, b, c2, d] = st.l; g.moveTo(a * s, b * s); g.lineTo(c2 * s, d * s); }
+    if (st.q) { const [a, b, cx, cy, c2, d] = st.q; g.moveTo(a * s, b * s); g.quadraticCurveTo(cx * s, cy * s, c2 * s, d * s); }
+    if (st.o) { const [x, y, rx, ry] = st.o; g.ellipse(x * s, y * s, rx * s, ry * s, 0, 0, Math.PI * 2); }
+    if (st.p) { st.p.forEach(([x, y], i) => i ? g.lineTo(x * s, y * s) : g.moveTo(x * s, y * s)); g.closePath(); }
+    if (st.w) { const [x1, x2, y, amp, waves] = st.w; for (let i = 0; i <= 40; i++) { const x = x1 + (x2 - x1) * i / 40; const yy = y + amp * Math.sin(i / 40 * Math.PI * 2 * waves); i ? g.lineTo(x * s, yy * s) : g.moveTo(x * s, yy * s); } }
+    g.stroke();
   }
-  const m = s.mouth;
-  if (m.kind === 'curve') {
-    const pts = []; for (let i = 0; i <= 24; i++) { const x = -m.w + 2 * m.w * i / 24; pts.push([x, m.y + m.bend * (x / m.w) ** 2]); }
-    g.add(stroke('mouth', pts, .024, ink));
-  } else if (m.kind === 'wave') {
-    const pts = []; for (let i = 0; i <= 24; i++) { const x = -m.w + 2 * m.w * i / 24; pts.push([x, m.y + .018 * Math.sin((x / m.w) * Math.PI * 1.5)]); }
-    g.add(stroke('mouth', pts, .022, ink));
-  } else if (m.kind === 'open') {
-    // Open smile: flat top lip line, round lower edge.
-    const sh = new T.Shape(); sh.moveTo(-m.w, m.y); sh.quadraticCurveTo(0, m.y + .02, m.w, m.y); sh.quadraticCurveTo(m.w * .7, m.y - m.h, 0, m.y - m.h); sh.quadraticCurveTo(-m.w * .7, m.y - m.h, -m.w, m.y);
-    g.add(patch('mouth', sh, mouthMat));
-    const tp = []; for (let i = 0; i <= 20; i++) { const x = -m.w * .72 + 1.44 * m.w * i / 20; tp.push([x, m.y - .024 + .006 * (x / m.w) ** 2]); }
-    const teeth = stroke('teeth', tp, .02, white); teeth.position.z += .004; g.add(teeth);
-  } else if (m.kind === 'o') {
-    const sh = new T.Shape(); sh.absellipse(0, m.y, m.w, m.h, 0, Math.PI * 2, false, 0);
-    g.add(patch('mouth', sh, mouthMat));
-  }
-  if (blush > 0) for (const x of [-.37, .37]) {
-    const sh = new T.Shape(); sh.absellipse(x, .46, .09, .05, 0, Math.PI * 2, false, 0);
-    g.add(patch(`blush_${x < 0 ? 'left' : 'right'}`, sh, mat(0xff8a8a, {transparent: true, opacity: blush, depthWrite: false}), .008));
-  }
-  return g;
+  const t = new T.CanvasTexture(c); t.colorSpace = T.SRGBColorSpace; t.anisotropy = 4; return t;
+}
+const faceTexture = name => { if (typeof document === 'undefined') return null; if (!textures.has(name)) textures.set(name, drawFace(name)); return textures.get(name); };
+
+// One shared decal surface: the head front from x −.5….5, y .05…1.05 (clear of fringes), hugging the oval.
+let decalGeometry = null;
+function decalSurface() {
+  if (decalGeometry) return decalGeometry;
+  const g = new T.PlaneGeometry(1, 1, 32, 8), p = g.attributes.position;
+  for (let i = 0; i < p.count; i++) { const x = p.getX(i); p.setXYZ(i, x, p.getY(i) + .55, headFrontZ(x) + .004); }
+  g.computeVertexNormals(); return (decalGeometry = g);
 }
 
-// Swap the visible face; every expression is built once per avatar and reused.
+export function makeFace(name) {
+  const key = resolveExpression(name);
+  if (!FACES[key]) throw new Error('Unknown expression: ' + name);
+  const m = new T.Mesh(decalSurface(), new T.MeshStandardMaterial({map: faceTexture(key), transparent: true, roughness: .55, polygonOffset: true, polygonOffsetFactor: -2}));
+  m.name = 'face_decal'; m.material.userData.authored = true;
+  const g = new T.Group(); g.name = `face_${key}`; g.add(m); return g;
+}
+
+// Swap the visible decal; every expression is built once per avatar and reused.
 export function setExpression(avatar, name) {
-  const key = 'v2:' + name;
-  if (!avatar.faceCache.has(key)) avatar.faceCache.set(key, makeFaceV2(name, avatar.faceStyle ?? {}));
+  const key = resolveExpression(name);
+  if (!FACES[key]) throw new Error('Unknown expression: ' + name);
+  if (!avatar.faceCache.has('decal:' + key)) avatar.faceCache.set('decal:' + key, makeFace(key));
   if (avatar.faceLayer) avatar.faceLayer.removeFromParent();
-  avatar.faceLayer = avatar.faceCache.get(key); avatar.pivots.head.add(avatar.faceLayer);
-  avatar.expression = name; return avatar;
+  avatar.faceLayer = avatar.faceCache.get('decal:' + key); avatar.pivots.head.add(avatar.faceLayer);
+  avatar.expression = key; return avatar;
 }

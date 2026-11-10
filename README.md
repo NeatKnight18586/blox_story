@@ -1,3 +1,7 @@
+# Studio V2 stage 2b — classic Roblox-style cast (awaiting review)
+
+Painted-clothing blocks + decal faces from the owner's 35-expression sheet. Review: [35 expressions](evidence/studio-characters/expressions-35.jpg), [cast faces](evidence/studio-characters/expressions.jpg), [lineup](evidence/studio-characters/lineup-sheet.jpg), [plaza Leo](evidence/studio-characters/plaza-leo-comparison.jpg). Rebuild: `npm run proof:studio`.
+
 # Studio V2 stage 2 — character presets (awaiting review)
 
 One master six-part rig, three presets: `createCharacter('leo'|'pip'|'mother')` and `setExpression(avatar, name)` in `studio/characters/`.
