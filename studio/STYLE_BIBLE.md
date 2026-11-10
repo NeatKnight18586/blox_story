@@ -23,7 +23,7 @@ Reference (private Short, 22 frames): saturation .47, colorfulness 98, luma .67.
 
 ## Lens and framing (9:16, 1080×1920)
 - Wides stay sharp (no depth of field).
-- Close-ups: depth of field focused on the head, aperture .025.
+- Close-ups: characters always sharp. Focus between the characters' heads, aperture .0005 (max blur .006): only far backgrounds soften.
 - Medium close-up: head plus upper torso, eyes in the upper third, camera slightly off-axis to the character's left.
 
 ## Movement (for later stages)
