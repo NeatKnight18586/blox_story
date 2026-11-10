@@ -1,0 +1,185 @@
+{
+ "status": "PASS",
+ "errors": [],
+ "results": [
+  {
+   "shot": "lineup",
+   "path": "evidence/studio-characters/lineup-1080.png",
+   "width": 1080,
+   "height": 1920,
+   "renderMs": 2585,
+   "deterministic": true
+  },
+  {
+   "shot": "lineup34",
+   "path": "evidence/studio-characters/lineup34-1080.png",
+   "width": 1080,
+   "height": 1920,
+   "renderMs": 1750,
+   "deterministic": true
+  },
+  {
+   "shot": "face:leo:neutral",
+   "path": "evidence/studio-characters/faces/leo-neutral.png",
+   "width": 640,
+   "height": 640,
+   "renderMs": 412,
+   "deterministic": true
+  },
+  {
+   "shot": "face:leo:happy",
+   "path": "evidence/studio-characters/faces/leo-happy.png",
+   "width": 640,
+   "height": 640,
+   "renderMs": 363,
+   "deterministic": true
+  },
+  {
+   "shot": "face:leo:worried",
+   "path": "evidence/studio-characters/faces/leo-worried.png",
+   "width": 640,
+   "height": 640,
+   "renderMs": 346,
+   "deterministic": true
+  },
+  {
+   "shot": "face:leo:surprised",
+   "path": "evidence/studio-characters/faces/leo-surprised.png",
+   "width": 640,
+   "height": 640,
+   "renderMs": 365,
+   "deterministic": true
+  },
+  {
+   "shot": "face:leo:determined",
+   "path": "evidence/studio-characters/faces/leo-determined.png",
+   "width": 640,
+   "height": 640,
+   "renderMs": 358,
+   "deterministic": true
+  },
+  {
+   "shot": "face:leo:sad",
+   "path": "evidence/studio-characters/faces/leo-sad.png",
+   "width": 640,
+   "height": 640,
+   "renderMs": 356,
+   "deterministic": true
+  },
+  {
+   "shot": "face:pip:neutral",
+   "path": "evidence/studio-characters/faces/pip-neutral.png",
+   "width": 640,
+   "height": 640,
+   "renderMs": 444,
+   "deterministic": true
+  },
+  {
+   "shot": "face:pip:happy",
+   "path": "evidence/studio-characters/faces/pip-happy.png",
+   "width": 640,
+   "height": 640,
+   "renderMs": 480,
+   "deterministic": true
+  },
+  {
+   "shot": "face:pip:worried",
+   "path": "evidence/studio-characters/faces/pip-worried.png",
+   "width": 640,
+   "height": 640,
+   "renderMs": 462,
+   "deterministic": true
+  },
+  {
+   "shot": "face:pip:surprised",
+   "path": "evidence/studio-characters/faces/pip-surprised.png",
+   "width": 640,
+   "height": 640,
+   "renderMs": 432,
+   "deterministic": true
+  },
+  {
+   "shot": "face:pip:determined",
+   "path": "evidence/studio-characters/faces/pip-determined.png",
+   "width": 640,
+   "height": 640,
+   "renderMs": 452,
+   "deterministic": true
+  },
+  {
+   "shot": "face:pip:sad",
+   "path": "evidence/studio-characters/faces/pip-sad.png",
+   "width": 640,
+   "height": 640,
+   "renderMs": 435,
+   "deterministic": true
+  },
+  {
+   "shot": "face:mother:neutral",
+   "path": "evidence/studio-characters/faces/mother-neutral.png",
+   "width": 640,
+   "height": 640,
+   "renderMs": 356,
+   "deterministic": true
+  },
+  {
+   "shot": "face:mother:happy",
+   "path": "evidence/studio-characters/faces/mother-happy.png",
+   "width": 640,
+   "height": 640,
+   "renderMs": 334,
+   "deterministic": true
+  },
+  {
+   "shot": "face:mother:worried",
+   "path": "evidence/studio-characters/faces/mother-worried.png",
+   "width": 640,
+   "height": 640,
+   "renderMs": 342,
+   "deterministic": true
+  },
+  {
+   "shot": "face:mother:surprised",
+   "path": "evidence/studio-characters/faces/mother-surprised.png",
+   "width": 640,
+   "height": 640,
+   "renderMs": 339,
+   "deterministic": true
+  },
+  {
+   "shot": "face:mother:determined",
+   "path": "evidence/studio-characters/faces/mother-determined.png",
+   "width": 640,
+   "height": 640,
+   "renderMs": 339,
+   "deterministic": true
+  },
+  {
+   "shot": "face:mother:sad",
+   "path": "evidence/studio-characters/faces/mother-sad.png",
+   "width": 640,
+   "height": 640,
+   "renderMs": 346,
+   "deterministic": true
+  },
+  {
+   "identity": {
+    "mother": {
+     "parts": 6,
+     "pivots": 5,
+     "cachedFaces": 6
+    },
+    "leo": {
+     "parts": 6,
+     "pivots": 5,
+     "cachedFaces": 6
+    },
+    "pip": {
+     "parts": 6,
+     "pivots": 5,
+     "cachedFaces": 6
+    }
+   }
+  }
+ ]
+}

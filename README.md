@@ -1,3 +1,11 @@
+# Studio V2 stage 2 — character presets (awaiting review)
+
+One master six-part rig, three presets: `createCharacter('leo'|'pip'|'mother')` and `setExpression(avatar, name)` in `studio/characters/`.
+
+- Review: [lineup](evidence/studio-characters/lineup-sheet.jpg), [18 expressions](evidence/studio-characters/expressions.jpg), [Leo in the plaza: old → look → preset](evidence/studio-characters/plaza-leo-comparison.jpg), [metrics](evidence/studio-characters/metrics.json).
+- Rebuild everything: `npm ci && npm run proof:studio`. API test: `npm run test:studio`.
+- Live pages: `npm run preview`, then `/production/studio-characters/` or `/production/studio-lookdev/?look=1&cast=v2`.
+
 # Studio V2 stage 1 — look gate (awaiting review)
 
 Opt-in studio look (`studio/lookdev/look.js`) over the unchanged P3B4 plaza, rendered natively at **1080×1920**.

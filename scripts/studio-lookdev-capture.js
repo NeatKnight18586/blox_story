@@ -15,14 +15,16 @@ const server = await startServer(process.cwd());
 const browser = await chromium.launch({executablePath, args: ['--no-sandbox', '--use-angle=swiftshader', '--enable-unsafe-swiftshader']});
 const results = [], errors = [];
 try {
-  for (const look of [0, 1]) {
+  // Variants: legacy, stage-1 look, stage-1 look + Studio V2 Leo preset (--cast adds the third).
+  const variants = [['legacy', '?look=0'], ['studio', '?look=1']].concat(process.argv.includes('--cast') ? [['studio-cast', '?look=1&cast=v2']] : []);
+  for (const [variant, query] of variants) {
     const page = await browser.newPage({viewport: {width, height}, deviceScaleFactor: 1});
     page.on('pageerror', e => errors.push(e.message));
     // Count real missing assets by URL; the browser's automatic favicon probe is not one.
     page.on('response', r => { if (r.status() >= 400 && !r.url().endsWith('/favicon.ico')) errors.push(`${r.status()} ${r.url()}`); });
     page.on('console', m => { if (m.type() === 'error' && !m.text().startsWith('Failed to load resource')) errors.push(m.text()); });
     const t0 = performance.now();
-    await page.goto(`${server.url}/production/studio-lookdev/?look=${look}`);
+    await page.goto(`${server.url}/production/studio-lookdev/${query}`);
     await page.waitForFunction(() => window.__lookdev, null, {timeout: 120000});
     const loadMs = performance.now() - t0;
     for (const shot of ['wide', 'leo']) {
@@ -31,13 +33,13 @@ try {
       for (let i = 0; i < 3; i++) { state = await page.evaluate(([s, w]) => __lookdev.render(s, w), [shot, width]); timings.push(state.ms); }
       const dataUrl = await page.evaluate(() => document.querySelector('canvas').toDataURL('image/png'));
       const png = Buffer.from(dataUrl.split(',')[1], 'base64');
-      const name = `${shot}-${look ? 'studio' : 'legacy'}-${width}.png`;
+      const name = `${shot}-${variant}-${width}.png`;
       await writeFile(`${out}/${name}`, png);
       // Determinism: render again and compare.
       await page.evaluate(([s, w]) => __lookdev.render(s, w), [shot, width]);
       const again = Buffer.from((await page.evaluate(() => document.querySelector('canvas').toDataURL('image/png'))).split(',')[1], 'base64');
       const hash = createHash('sha256').update(png).digest('hex');
-      results.push({name, shot, look: !!look, width: state.width, height: state.height, loadMs: Math.round(loadMs),
+      results.push({name, shot, variant, width: state.width, height: state.height, loadMs: Math.round(loadMs),
         renderMs: timings.map(Math.round), deterministic: hash === createHash('sha256').update(again).digest('hex'), sha256: hash, camera: state.camera});
       console.log(name, state.width + 'x' + state.height, 'render ms', timings.map(Math.round).join('/'));
     }

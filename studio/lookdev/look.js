@@ -57,7 +57,8 @@ export function applyStudioLook({scene, camera, renderer}, L = LOOK) {
     if (!m.isMeshStandardMaterial) return;
     if (!graded.has(m)) {
       graded.set(m, {color: m.color.clone(), roughness: m.roughness, metalness: m.metalness, envMapIntensity: m.envMapIntensity});
-      m.color.copy(L.overrides[o.name] !== undefined ? new T.Color(L.overrides[o.name]) : gradeColor(m.color, L.grade));
+      // Authored colours (studio characters) are already final; only legacy colours are graded.
+      if (!m.userData.authored) m.color.copy(L.overrides[o.name] !== undefined ? new T.Color(L.overrides[o.name]) : gradeColor(m.color, L.grade));
       m.roughness = Math.min(m.roughness, L.material.roughness);
       m.envMapIntensity = L.material.envIntensity;
     }
