@@ -1,0 +1,8 @@
+{
+  "wallSeconds": 142.43896843300035,
+  "childUserCpuSeconds": 3.531953,
+  "childSystemCpuSeconds": 0.49436199999999997,
+  "maxChildRssKiB": 91584,
+  "scope": "child receipts, not summed Chromium process-tree/GPU use",
+  "exitCode": 0
+}

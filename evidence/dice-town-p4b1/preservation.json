@@ -1,0 +1,15 @@
+{
+  "status": "PASS",
+  "base": "1beac09",
+  "previousTrackedFilesComparedByteForByte": 1300,
+  "preserved": [
+    "all earlier sources/tests/films/evidence",
+    "P4A edit and38 original shot boundaries",
+    "private audio timing reference, untouched"
+  ],
+  "allowedSubsequentDocumentationUpdates": [
+    "AGENTS.md",
+    "README.md",
+    "STATUS.md"
+  ]
+}

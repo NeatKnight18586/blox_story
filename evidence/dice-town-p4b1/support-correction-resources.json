@@ -1,0 +1,8 @@
+{
+  "wallSeconds": 48.012193068999295,
+  "childUserCpuSeconds": 2.056943,
+  "childSystemCpuSeconds": 0.255412,
+  "maxChildRssKiB": 91468,
+  "scope": "78 die-frame final support cleanup;96 Pip frames reused; one draw per frame instead of redundant inherited preparation draws. Not aggregate Chromium tree.",
+  "exitCode": 0
+}

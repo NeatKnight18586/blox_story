@@ -3,7 +3,7 @@
 Read **F1_SPEC.md** first: F1 v3 is the CURRENT product contract. Then read CODEX_HANDOFF.md, STATUS.md, README.md and existing code/tests. The previous Kai/Mira-first instructions are SUPERSEDED. If documents conflict, F1_SPEC.md wins; STATUS.md controls what has actually been verified.
 
 ## Current task boundary
-Dice Town P4A editorial assembly only is authorized from codex/dice-town-p4a-edit-direction /ae536aa. Follow P4A_EDITORIAL_ASSEMBLY_DIRECTION.md: reuse existing proof films/stills and proxy,38 shots/3513 frames/30fps/360×640/117.100s silent. No new WebGL exports, animation, scene changes, audio or native movie. Preserve earlier sources/tests/evidence and narration reference. Draft PR targets the edit direction branch; stop for review without merge. F1 requirements unchanged.
+Dice Town P4B-1 D25–D32 sixth-roll arc only is authorized from codex/dice-town-p4b1-finale-direction /1beac09. Follow P4B1_SIXTH_ROLL_ASSEMBLY_DIRECTION.md: native still gate, bounded motion, direct integration into3513-frame silent360×640 working edit. Preserve all38 boundaries, prior work and private narration reference. No gate animation, D19 scene, full native movie, new framework or merge. Draft PR targets the finale direction branch; stop for creative review. F1 requirements unchanged.
 
 ## Goal and user constraints
 One neutral classic R6-like **six-part** block avatar first, then removable appearance layers (face/colors and one optional cosmetic). Original code-rendered Three.js, not official Roblox models. User is on iPad, wants autonomous execution, no manual modeling, recording, installs or gameplay capture. Minimize explanations and usage without sacrificing accuracy.

@@ -1,0 +1,9 @@
+import * as T from 'three';
+import {block} from '../../avatar/baseAvatar.js';
+// Bounded complete appearance: durable pips on six faces, opposite pairs sum7.
+export const FACE_NORMALS={6:[0,1,0],1:[0,-1,0],2:[0,0,1],5:[0,0,-1],3:[1,0,0],4:[-1,0,0]};
+export function makeDie(){const group=new T.Group();group.name='complete_fair_die';const body=block('ivory_die',[6.3,6.3,6.3],0xf5e5c4,.23);group.add(body);const material=new T.MeshBasicMaterial({color:0x213b43,polygonOffset:true,polygonOffsetFactor:-1,polygonOffsetUnits:-1}),geometry=new T.CircleGeometry(.29,24).rotateX(-Math.PI/2);const layouts={1:[[0,0]],2:[[-1.4,-1.4],[1.4,1.4]],3:[[-1.4,-1.4],[0,0],[1.4,1.4]],4:[[-1.4,-1.4],[-1.4,1.4],[1.4,-1.4],[1.4,1.4]],5:[[-1.4,-1.4],[-1.4,1.4],[1.4,-1.4],[1.4,1.4],[0,0]],6:[[-1.4,-1.4],[-1.4,0],[-1.4,1.4],[1.4,-1.4],[1.4,0],[1.4,1.4]]};
+for(const [number,normal]of Object.entries(FACE_NORMALS)){const face=new T.Group();face.name='face_'+number;face.position.fromArray(normal).multiplyScalar(3.15);face.quaternion.setFromUnitVectors(new T.Vector3(0,1,0),new T.Vector3(...normal));for(const[x,z]of layouts[number]){const pip=new T.Mesh(geometry,material);pip.position.set(x,0,z);face.add(pip);}group.add(face);}return{group,body};}
+export function topQuaternion(value){const q=new T.Quaternion().setFromUnitVectors(new T.Vector3(...FACE_NORMALS[value]),new T.Vector3(0,1,0));if(value===5)q.premultiply(new T.Quaternion().setFromAxisAngle(new T.Vector3(0,1,0),Math.PI));return q;}
+export function supportY(body,q,top=.02){const p=body.geometry.attributes.position,v=new T.Vector3();let min=Infinity;for(let i=0;i<p.count;i++)min=Math.min(min,v.fromBufferAttribute(p,i).applyQuaternion(q).y);return top-min;}
+export function rollingTransform(body,phi){const q=new T.Quaternion().setFromAxisAngle(new T.Vector3(1,0,0),phi);return{quaternion:q,position:new T.Vector3(-1,supportY(body,q),-1+2.92*(Math.sin(phi)+(phi>=0?-Math.cos(phi):Math.cos(phi)-2)))};}
