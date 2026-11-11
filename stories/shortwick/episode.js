@@ -482,10 +482,10 @@ export const shots = [
       put(X.cast.nan, at(X.N, -2.2, 0, -6.4), 2.03, 'happy', .1); act(X.cast.nan, c.t, [[0, 'kneel']]); put(X.cast.boy, at(X.N, -1.0, 0, -7), .2, 'pleased'); act(X.cast.boy, c.t, [[0, 'crouch']]);
       return {rain: true, light: at(X.N, 10, 0, -4)};
     }},
-  {id: 'E03', at: 'Wren ran home', mood: 'storm', cam: {on: 'wren', size: 'FS', yaw: 75, pitch: 4, move: 'track'},
-    stage(c, X) { const w = X.cast.wren; w.root.visible = true; locomote(w, c.t, {gait: 'run', from: fromA(X.S, -40, .35, 7.4), dir: dirA(X.S, 1, 0)}); setExpression(w, 'sad'); return {rain: true}; }},
+  {id: 'E03', at: 'Wren ran home', mood: 'storm', cam: {on: 'wren', size: 'FS', yaw: 12, pitch: 4, move: 'track'},
+    stage(c, X) { const w = X.cast.wren; w.root.visible = true; locomote(w, c.t, {gait: 'run', from: fromA(X.S, -40, .12, 2.6), dir: dirA(X.S, 1, 0)}); setExpression(w, 'sad'); return {rain: true}; }},
   {id: 'E04', at: 'feeling silly', mood: 'storm', cam: {on: 'wren', size: 'MCU', yaw: 25, pitch: 0, move: 'hold'},
-    stage(c, X) { const w = X.cast.wren; w.root.visible = true; locomote(w, c.t + 3, {gait: 'run', from: fromA(X.S, -40, .35, 7.4), dir: dirA(X.S, 1, 0)}); setExpression(w, 'pouty'); return {rain: true}; }},
+    stage(c, X) { const w = X.cast.wren; w.root.visible = true; locomote(w, c.t + 3, {gait: 'run', from: fromA(X.S, -40, .12, 2.6), dir: dirA(X.S, 1, 0)}); setExpression(w, 'pouty'); return {rain: true}; }},
   // --- Stakes and choice ---
   {id: 'B01', at: 'That night', mood: 'interiorNight', cam: {on: ['bo', 'wren'], size: 'MLS', worldYaw: 35, pitch: 32, fov: 44, move: 'push'},
     stage(c, X) { return bedScene(c, X, {wrenFace: 'concerned', boFace: 'sick'}); }},
