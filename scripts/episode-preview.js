@@ -35,7 +35,7 @@ try {
     if (lint.clipping) flags.push(`camera touching ${lint.clipping}`);
     report.push({id, frame: f, ms: Math.round(r.ms), flags, faces: lint.faces});
   }
-  await writeFile(`${out}/lint.json`, JSON.stringify({ep, timing: seq.timing, frames: seq.FRAMES, shots: seq.SHOTS.length, report}, null, 1));
+  await writeFile(`${out}/lint.json`, JSON.stringify({ep, timing: seq.timing, frames: seq.FRAMES, shots: seq.SHOTS.length, ranges: seq.SHOTS, report}, null, 1));
   // Contact sheet with flags drawn in red.
   execFileSync('python3', ['-c', `
 import json,sys
