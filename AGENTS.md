@@ -7,7 +7,7 @@ Read in order: `docs/CLAUDE_START_HERE.md` (handoff branch), `studio/STYLE_BIBLE
 A durable, original, Roblox-inspired 3D Shorts studio: one modular master character (Leo, Pip, Mother presets), a small modular town kit, reusable actions/camera presets, and native 1080×1920/30fps rendering, all reproducible from a clean checkout with no paid service. Story in production: Dice Town / The Sixth Roll (38 shots, 117.100s locked narration timing).
 
 ## Current stage
-The full Dice Town film (117.1 s, 38 shots, native 1080×1920) is rendered on the studio pipeline (`production/dice-town-film/`), with narration and captions applied outside Git. Awaiting the owner's creative review; fix individual shots by editing their entry in `film.js` and re-rendering only that frame range. Stop after each stage for review.
+Dice Town is finished (clean retimed re-render in `renders/film-1080-v2`, finisher pending). Studio V3 plan approved: `stories/_format/FORMAT_BIBLE.md` is the series rulebook; `stories/_format/PITCHES_EP2.md` awaits the owner's pick. Next: director toolkit (`studio/director/`: auto-framing camera, word-anchored episode spec, lint), acting library, world ambient pass, captions v2 (~68 px), SFX stem, render cache + retry; then the next episode with a 15 s native 1080p proof gate. Episodes run 2:00–2:30, always 1080×1920. Commit only master, contact sheet, verification and spec per episode.
 
 ## Hard rules
 - Opt-in only: new looks/assets layer over existing scenes; legacy renders must stay pixel-identical with them off. Never rewrite the engine or merge the stacked PR branches blindly.
