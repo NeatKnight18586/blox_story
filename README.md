@@ -1,3 +1,7 @@
+# Dice Town — The Sixth Roll (117.1 s, native 1080×1920)
+
+[Silent master](evidence/dice-town-film/dice-town-1080x1920-silent.mp4) · [phone preview](evidence/dice-town-film/dice-town-720x1280-preview.mp4) · [38-shot contact sheet](evidence/dice-town-film/contact-sheet-38-shots.jpg) · [verification](evidence/dice-town-film/verification.json) · [add narration + captions](evidence/dice-town-film/ADD_NARRATION.md). Rebuild: `node scripts/studio-sequence-render.js --page=production/dice-town-film/ --total=3513 --width=1080 --workers=3 --out=renders/film-1080 && python3 scripts/dice-town-film-finish.py`.
+
 # Studio V2 stage 4 — 12 s native sequence, 1080×1920 (awaiting review)
 
 [Master MP4 1080×1920](evidence/studio-sequence/sequence-1080x1920.mp4) · [phone preview (downscale)](evidence/studio-sequence/sequence-720x1280-preview.mp4) · [contact sheet](evidence/studio-sequence/contact-sheet.jpg) · [verification](evidence/studio-sequence/verification.json). Rebuild: `node scripts/studio-sequence-render.js --width=1080 --workers=3 && node scripts/studio-sequence-render.js --width=1080 --frames=0,67,134,135,239,240,359 --out=renders/seq-check && python3 scripts/studio-sequence-finish.py renders/studio-sequence-1080 renders/seq-check`.
