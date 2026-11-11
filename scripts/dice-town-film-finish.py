@@ -17,7 +17,8 @@ SRC = sys.argv[1] if len(sys.argv) > 1 else 'renders/film-1080'
 CHECK = sys.argv[2] if len(sys.argv) > 2 else 'renders/film-check'
 OUT = 'evidence/dice-town-film'
 FPS, FRAMES = 30, 3513
-SHOTS = json.load(open('stories/dice-town/P3A_SHOT_OPTIMIZATION.json'))['shots']
+# Shot boundaries as retimed to the narration (production/dice-town-film/edit-timing.json).
+SHOTS = [{'id': x['id'], 'start_frame': x['new'][0], 'end_frame': x['new'][1]} for x in json.load(open('production/dice-town-film/edit-timing.json'))['shots']]
 CUES = json.load(open('stories/dice-town/Dice_Town_117s_Animatic_Plan.json'))['audio_cues']
 CUTS = [s['start_frame'] for s in SHOTS][1:]
 subprocess.run(['mkdir', '-p', OUT], check=True)

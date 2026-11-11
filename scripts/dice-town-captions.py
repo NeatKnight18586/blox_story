@@ -75,27 +75,45 @@ def ts(t):
     cs = int(round(t * 100)); return f'{cs // 360000}:{cs // 6000 % 60:02d}:{cs // 100 % 60:02d}.{cs % 100:02d}'
 
 events = []
-for cue in CUES:
-    s0, s1 = cue['start_frame'] / FPS, cue['end_frame'] / FPS
-    a, b = int(s0 * 100), int(s1 * 100)
-    active = np.flatnonzero(speech[a:b]) + a
-    if len(active) == 0: continue
-    t_on, t_off = active[0] / 100, (active[-1] + 1) / 100
-    cum = np.cumsum(speech[a:b])  # spoken time (10 ms units) up to each hop
-    total = cum[-1]
-    def at(frac):  # time where `frac` of this paragraph's speech has elapsed
-        k = int(np.searchsorted(cum, frac * total)); return (a + min(k, len(cum) - 1)) / 100
-    parts = chunks(re.sub(r'"([^"]*)"', r'“\1”', cue['transcript']))  # curly quotes throughout
-    weights = np.array([len(p) + 3 for p in parts], float); edges = np.r_[0, np.cumsum(weights) / weights.sum()]
-    times = [at(e) for e in edges[:-1]] + [t_off]
-    times[0] = t_on
-    # Snap inner boundaries to a real pause within 0.3 s.
-    for i in range(1, len(times) - 1):
-        near = [c for c, L in pauses if abs(c - times[i]) < .3 and s0 < c < s1]
-        if near: times[i] = min(near, key=lambda c: abs(c - times[i]))
-    for i, p in enumerate(parts):
-        st, en = times[i], max(times[i + 1], times[i] + .45)
-        events.append((st, min(en, s1), p))
+# Word-accurate timing from forced alignment (scripts/dice-town-align.py) when available.
+import os
+WT = 'evidence/dice-town-film/word-timings.json'
+if os.path.exists(WT):
+    WORDS, k = json.load(open(WT)), 0
+    for ci, cue in enumerate(CUES):
+        n = len(cue['transcript'].split()); ws = WORDS[k:k + n]; k += n
+        parts = chunks(re.sub(r'"([^"]*)"', r'“\1”', cue['transcript']))
+        j, spans = 0, []
+        for p in parts:
+            m = len(p.split()); spans.append((ws[j]['start'], ws[j + m - 1]['end'], p)); j += m
+        assert j == n, (cue['transcript'], parts)
+        nxt = WORDS[k]['start'] if k < len(WORDS) else 117.1
+        for i, (st, en, p) in enumerate(spans):
+            follow = spans[i + 1][0] if i + 1 < len(spans) else nxt
+            end = follow - .02 if follow - en < .5 else en + .3   # hold to the next phrase, or briefly past a pause
+            events.append((max(0, st - .05), min(end, follow - .02), p))
+else:
+    for cue in CUES:
+        s0, s1 = cue['start_frame'] / FPS, cue['end_frame'] / FPS
+        a, b = int(s0 * 100), int(s1 * 100)
+        active = np.flatnonzero(speech[a:b]) + a
+        if len(active) == 0: continue
+        t_on, t_off = active[0] / 100, (active[-1] + 1) / 100
+        cum = np.cumsum(speech[a:b])  # spoken time (10 ms units) up to each hop
+        total = cum[-1]
+        def at(frac):  # time where `frac` of this paragraph's speech has elapsed
+            k = int(np.searchsorted(cum, frac * total)); return (a + min(k, len(cum) - 1)) / 100
+        parts = chunks(re.sub(r'"([^"]*)"', r'“\1”', cue['transcript']))  # curly quotes throughout
+        weights = np.array([len(p) + 3 for p in parts], float); edges = np.r_[0, np.cumsum(weights) / weights.sum()]
+        times = [at(e) for e in edges[:-1]] + [t_off]
+        times[0] = t_on
+        # Snap inner boundaries to a real pause within 0.3 s.
+        for i in range(1, len(times) - 1):
+            near = [c for c, L in pauses if abs(c - times[i]) < .3 and s0 < c < s1]
+            if near: times[i] = min(near, key=lambda c: abs(c - times[i]))
+        for i, p in enumerate(parts):
+            st, en = times[i], max(times[i + 1], times[i] + .45)
+            events.append((st, min(en, s1), p))
 
 header = """[Script Info]
 ScriptType: v4.00+
