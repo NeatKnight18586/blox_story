@@ -5,7 +5,7 @@ import {existsSync} from 'node:fs';
 import {mkdir, writeFile} from 'node:fs/promises';
 import {startServer} from './pipeline/server.js';
 
-const arg = (k, d) => process.argv.find(a => a.startsWith(`--${k}=`))?.split('=')[1] ?? d;
+const arg = (k, d) => process.argv.find(a => a.startsWith(`--${k}=`))?.slice(k.length + 3) ?? d;
 const width = Number(arg('width', 1440)), workers = Number(arg('workers', 3)), PAGE = arg('page', 'production/studio-sequence/');
 const out = arg('out', `renders/studio-sequence-${width}`); await mkdir(out, {recursive: true});
 const only = arg('frames', null)?.split(',').map(Number);
