@@ -309,7 +309,7 @@ export const shots = [
       setExpression(f, faceAt(c.t, [[0, 'confident'], [tI + .05, 'shocked'], [tI + .9, 'shame']]));
       return {lightDir: [30, 50, 20]};
     }},
-  {id: 'F03', at: 'the sentence', cam: {on: 'fish', size: 'ECU', h: 1.7, worldYaw: wyaw(Q, -15), pitch: 6, y: .5, move: 'push', impact: .1},
+  {id: 'F03', at: 'the sentence', cam: {on: 'fisher', size: 'MS', scaleRef: .74, yaw: -55, pitch: 2, move: 'push', impact: .1},
     stage(c, X) {
       const f = X.cast.fisher; put(f, at(X.Q, .3, .4, -19), hd(X.Q, 0), 'shame', .74); act(f, c.t, [[0, 'gasp']]); f.pivots.head.rotation.x = .3; holdFish(X, f, c.t);
       return {lightDir: [30, 50, 20]};
@@ -320,7 +320,7 @@ export const shots = [
       X.carts[1].updateMatrixWorld(true);
       put(X.cast.sales, X.carts[1].localToWorld(V(-.9, 2.45, .2)), hd(X.S, .1), 'devious'); act(X.cast.sales, c.t, [[0, 'armsWide'], [.6, 'cheer'], [1.1, 'armsWide']]);
     }},
-  {id: 'L02', at: "He's about the size", cam: {on: 'sales', size: 'MS', yaw: 15, pitch: 4, scaleRef: .3, y: .48, move: 'push', impact: .15},
+  {id: 'L02', at: "He's about the size", cam: {on: 'sales', size: 'MS', yaw: 70, pitch: 14, scaleRef: .3, y: .48, move: 'push', impact: .15},
     stage(c, X) {
       const s = X.cast.sales, base = at(X.S, 14, .35, -8.2); put(s, base, hd(X.S, 0), null);
       act(s, c.t, [[0, 'point'], [c.at('shoe'), 'handsHips']]); talk(s, c.t);
@@ -355,7 +355,7 @@ export const shots = [
       const w = X.cast.wren; put(w, V(X.C.x, seatY(X.wrenChair.userData.seat, 1.2) - 1.2, X.C.z - 3.6), Math.PI, 'pouty'); act(w, c.t, [[0, 'sitHands']]);
       return {light: at(X.C, 0, 0, -10), mood: 'interior'};
     }},
-  {id: 'K07', at: 'Even her teacher', cam: {on: ['teacher', 'wren'], size: 'MS', worldYaw: 100, pitch: 4, fov: 46, move: 'push'},
+  {id: 'K07', at: 'Even her teacher', cam: {on: ['teacher', 'wren'], size: 'MLS', worldYaw: -110, pitch: 4, fov: 46, move: 'push'},
     stage(c, X) {
       const w = X.cast.wren; put(w, V(X.C.x, seatY(X.wrenChair.userData.seat, 1.2) - 1.2, X.C.z - 3.6), Math.PI, null); act(w, c.t, [[0, 'sitHands'], [c.at('talk'), 'shy']]);
       setExpression(w, faceAt(c.t, [[0, 'calm'], [c.at('talk'), 'shame']]));
@@ -367,8 +367,8 @@ export const shots = [
   // --- Re-hook ---
   {id: 'R01', at: 'But Wren noticed', cam: {on: 'wren', size: 'MCU', yaw: 30, pitch: -2, move: {type: 'push', amt: .15}},
     stage(c, X) {
-      const w = X.cast.wren; put(w, at(X.N, 8, .35, 3.4), -1.4, null); act(w, c.t, [[0, 'stand'], [c.at('strange', -.2), 'lookDown']]);
-      w.pivots.head.rotation.y = -.5 * ease((c.t - c.at('noticed')) / .3); setExpression(w, faceAt(c.t, [[0, 'calm'], [c.at('noticed'), 'curious']]));
+      const w = X.cast.wren; put(w, at(X.N, 8, .35, 3.4), -1.4, null); act(w, c.t, [[0, 'stand']]);
+      w.pivots.head.rotation.y = -.25 * ease((c.t - c.at('noticed')) / .3); setExpression(w, faceAt(c.t, [[0, 'calm'], [c.at('noticed'), 'curious']]));
     }},
   {id: 'R02', at: 'The kindest woman', cam: {on: 'nan', size: 'FS', scaleRef: .4, worldYaw: -12, pitch: 6, y: .45, move: 'push'},
     stage(c, X) {
@@ -395,9 +395,9 @@ export const shots = [
   // --- Investigation ---
   {id: 'I01', at: "Wren didn't believe", cam: {on: 'wren', size: 'CU', yaw: -20, pitch: -4, move: 'push', impact: .1},
     stage(c, X) { const w = X.cast.wren; put(w, at(X.N, 8, .35, 3.4), -2.2, 'serious'); act(w, c.t, [[0, 'tense']]); }},
-  {id: 'I02', at: 'So she decided', cam: {on: 'wren', size: 'MS', yaw: 40, pitch: 0, move: 'track'},
+  {id: 'I02', at: 'So she decided', cam: {on: 'wren', size: 'FS', yaw: 20, pitch: 4, move: 'push'},
     stage(c, X) {
-      const w = X.cast.wren; put(w, at(X.N, 7.4, .35, 4.0), -2.4, null); act(w, c.t, [[0, 'stand'], [c.at('find out', -.2), 'crouch']]);
+      const w = X.cast.wren; put(w, at(X.N, 7.4, .35, 4.0), -2.4, null); act(w, c.t, [[0, 'stand'], [c.at('find out', -.2), 'handsHips']]);
       setExpression(w, faceAt(c.t, [[0, 'serious'], [c.at('find out'), 'devious']]));
     }},
   {id: 'I03', at: 'She followed Nan', lintIgnore: ['too small', 'caption band'], cam: {on: 'nan', size: 'FS', scaleRef: .8, yaw: 0, pitch: 2, y: .7, move: 'track'},
@@ -452,7 +452,7 @@ export const shots = [
       const b = X.cast.boy; put(b, at(X.N, -1.0, 0, -7), .2, 'scared'); act(b, c.t, [[0, 'crouch']]); shiver(b, c.t, 1.2);
       return {rain: true, light: at(X.N, 0, 0, -6)};
     }},
-  {id: 'M04', at: 'Nan knelt beside', mood: 'storm', cam: {on: ['nan', 'boy'], size: 'MCU', worldYaw: 35, pitch: 4, scaleRef: .4, move: 'push'},
+  {id: 'M04', at: 'Nan knelt beside', mood: 'storm', cam: {on: ['nan', 'boy'], size: 'MCU', worldYaw: 0, pitch: 4, scaleRef: .4, move: 'push'},
     stage(c, X) {
       const b = X.cast.boy, n = X.cast.nan; put(b, at(X.N, -1.0, 0, -7), .2, 'scared'); act(b, c.t, [[0, 'crouch']]); shiver(b, c.t, .7);
       put(n, at(X.N, -2.2, 0, -6.4), 2.03, null); act(n, c.t, [[0, 'stand'], [c.at('knelt'), 'kneel']]);
@@ -504,15 +504,15 @@ export const shots = [
   {id: 'B08', at: 'Of course you are', mood: 'interiorNight', cam: {on: 'wren', size: 'CU', yaw: 20, pitch: -6, move: {type: 'push', amt: .08}},
     stage(c, X) { const r = bedScene(c, X, {wrenFace: 'pleased', boFace: 'pleased'}); talk(X.cast.wren, c.t, {amt: .3}); return r; }},
   // --- Twist ---
-  {id: 'T01', at: 'Her sleeves slid', mood: 'interiorNight', cam: {on: 'wren', size: 'MCU', yaw: 8, pitch: 2, y: .42, scaleRef: 1.2, move: 'hold'},
-    stage(c, X) { return bedScene(c, X, {shrinkAt: c.at('slid', -.15), shrinkDur: 1.1, wrenFace: 'shocked', standUp: true, pose: 'handsUp'}); }},
-  {id: 'T02', at: 'Her shoes went', mood: 'interiorNight', cam: {on: 'feetStand', size: 'CU', h: 3.2, worldYaw: wyaw({yaw: Math.PI / 2 + .45}, -75), pitch: 6, y: .55, move: 'hold'},
+  {id: 'T01', at: 'Her sleeves slid', mood: 'interiorNight', cam: {on: 'wren', size: 'MS', yaw: 25, pitch: 10, y: .42, scaleRef: 1.2, move: 'hold'},
+    stage(c, X) { return bedScene(c, X, {shrinkAt: c.at('slid', -.15), shrinkDur: 1.1, wrenFace: 'shocked', standUp: true, pose: 'stand'}); }},
+  {id: 'T02', at: 'Her shoes went', lintIgnore: ['head cut'], mood: 'interiorNight', cam: {on: 'feetStand', size: 'CU', h: 9, worldYaw: wyaw({yaw: Math.PI / 2 + .45}, -75), pitch: 35, y: .55, move: 'hold'},
     stage(c, X) { return bedScene(c, X, {shrunk: true, standUp: true, pose: 'lookDown', slip: .45 * ease((c.t - c.at('loose', -.2)) / .5)}); }},
-  {id: 'T03', at: 'She had shrunk', mood: 'interiorNight', cam: {on: 'wren', size: 'MS', yaw: 50, pitch: 2, fov: 50, move: 'pull', impact: .2},
+  {id: 'T03', at: 'She had shrunk', mood: 'interiorNight', cam: {on: 'wren', size: 'FS', yaw: -35, pitch: 6, fov: 50, move: 'pull', impact: .2},
     stage(c, X) { return bedScene(c, X, {shrunk: true, wrenFace: 'shocked', standUp: true}); }},
   {id: 'T04', at: 'And suddenly', mood: 'interiorNight', cam: {on: 'wren', size: 'ECU', yaw: 0, pitch: -2, move: {type: 'push', amt: .3}},
     stage(c, X) { return bedScene(c, X, {shrunk: true, standUp: true, wrenFace: faceAt(c.t, [[0, 'shocked'], [c.at('understood'), 'pensive']])}); }},
-  {id: 'T05', at: 'Nan Tilly had never', mood: 'golden', cam: {on: ['nan', 'boy'], size: 'MCU', worldYaw: 35, pitch: 4, scaleRef: .4, move: 'push'},
+  {id: 'T05', at: 'Nan Tilly had never', mood: 'golden', cam: {on: ['nan', 'boy'], size: 'MCU', worldYaw: 0, pitch: 4, scaleRef: .4, move: 'push'},
     stage(c, X) {
       put(X.cast.boy, at(X.N, -1.0, 0, -7), .2, 'pleased'); act(X.cast.boy, c.t, [[0, 'crouch']]);
       put(X.cast.nan, at(X.N, -2.2, 0, -6.4), 2.03, 'happy'); act(X.cast.nan, c.t, [[0, 'kneel']]);
