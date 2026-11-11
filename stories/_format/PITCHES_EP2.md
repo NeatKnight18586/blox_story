@@ -8,7 +8,7 @@ Scores: Hook image · Rule clarity · Gag density · Twist · Payoff · Set reus
 - **The kid:** Wren, the tallest girl in Shortwick. She has never told a lie, and the town treats her height as showing off.
 - **Escalation:** Wren notices the kindest person in town, old Nan Tilly, is barely ankle-high, and everyone whispers she must be the worst liar alive. Wren sets out to prove it. Midpoint: she catches Nan mid-lie, telling a frightened child the thunder is "just the sky clearing its throat".
 - **Twist:** Wren's little brother is sick and asks if he'll be all right. She says yes. She shrinks. Nan's size was never dishonesty; it was a lifetime of comfort given.
-- **Ending:** Wren, a head shorter, sits beside tiny Nan on a doorstep. "In Shortwick, the smallest people are the ones who loved the most." Leo writes it down, then crosses out the word *lie*.
+- **Ending:** Wren, a head shorter, sits beside tiny Nan on a doorstep. "In Shortwick, the smallest people are the ones who loved the most." 
 - **Cost:** very low. Scaling characters is one number in our rig; the whole town is the existing kit plus one bedroom.
 - **Scores:** 5 · 5 · 5 · 5 · 5 · 5 · 3
 
@@ -51,6 +51,9 @@ Scores: Hook image · Rule clarity · Gag density · Twist · Payoff · Set reus
 - **Ending:** she hands him the box. He remembers her name last. "He'd sold everything he had for her. She'd spent everything she earned on him."
 - **Cost:** medium. Reuses our photo renderer; needs a glow effect and two interiors.
 - **Scores:** 4 · 4 · 3 · 4 · 5 · 3 · 3
+
+## Decision
+Owner picked **A (Shortwick)**, with a new cast every episode (no recurring Leo). Script: `stories/shortwick/SCRIPT.md`.
 
 ## Recommendation
 **A (Shortwick)** first: the strongest hook image, the clearest rule, and almost free to build, so the effort goes into camera, acting and pacing — the things we're upgrading. **B (Milo's Weather)** second: its weather toolkit pays off across the series.

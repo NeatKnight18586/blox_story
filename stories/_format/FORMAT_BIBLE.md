@@ -6,8 +6,8 @@ Sources: our frame-by-frame analysis of the Waterville reference Short, the "in 
 ## The promise
 One town, one absurd rule, one kid who collides with it, one twist that changes what the rule meant. Viewers should be able to explain the episode to a friend in one sentence.
 
-## Series spine
-**Leo travels.** He left Dice Town with his notebook; each episode he arrives in a new town and writes down its rule. He is the viewer's guide and usually a witness, not the hero: the local kid carries the story. The last shot hands off to the next town. This gives returning viewers a reason to come back and lets every episode reuse Leo.
+## Series identity
+**A new cast every episode** (owner decision). What stays constant is the format itself: the "In this town…" cold open, the narrator's voice, the look, and the shape of the story. Characters are built fresh per story from the shared rig, hair and clothing system, so a new cast costs a preset file, not new code.
 
 ## Structure (2:00–2:30, 380–470 words at 1.25× narration)
 | Time | Beat | Must contain |
@@ -18,7 +18,7 @@ One town, one absurd rule, one kid who collides with it, one twist that changes 
 | 40–75 s | Escalation | Attempts and consequences; **midpoint reveal at ~60 s** |
 | 75–110 s | Stakes and choice | What it costs; a false ending |
 | 110–135 s | Twist and payoff | The rule meant something else; the image the whole episode built toward |
-| Last 5–8 s | Button | One emotional line; Leo's notebook; a thread to the next town |
+| Last 5–8 s | Button | One emotional line that recontextualises the rule (the quotable line) |
 
 ## Retention rules
 1. A **re-hook every 15–20 s**: a question, a reveal, or a visual escalation.
