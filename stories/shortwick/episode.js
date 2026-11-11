@@ -365,10 +365,9 @@ export const shots = [
       return {light: at(X.C, 0, 0, -6), mood: 'interior'};
     }},
   // --- Re-hook ---
-  {id: 'R01', at: 'But Wren noticed', cam: {on: 'wren', size: 'MCU', yaw: 30, pitch: -2, move: {type: 'push', amt: .15}},
+  {id: 'R01', at: 'But Wren noticed', cam: {on: 'wren', size: 'MCU', yaw: 18, pitch: -2, move: {type: 'push', amt: .15}},
     stage(c, X) {
-      const w = X.cast.wren; put(w, at(X.N, 8, .35, 3.4), -1.4, null); act(w, c.t, [[0, 'stand']]);
-      w.pivots.head.rotation.y = -.25 * ease((c.t - c.at('noticed')) / .3); setExpression(w, faceAt(c.t, [[0, 'calm'], [c.at('noticed'), 'curious']]));
+      const w = X.cast.wren; put(w, at(X.N, 8, .35, 3.4), -1.4 - .3 * ease((c.t - c.at('noticed')) / .3), null); act(w, c.t, [[0, 'stand']]); setExpression(w, faceAt(c.t, [[0, 'calm'], [c.at('noticed'), 'curious']]));
     }},
   {id: 'R02', at: 'The kindest woman', cam: {on: 'nan', size: 'FS', scaleRef: .4, worldYaw: -12, pitch: 6, y: .45, move: 'push'},
     stage(c, X) {
