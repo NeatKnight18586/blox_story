@@ -14,7 +14,10 @@ export function box(parent, name, size, pos, mat, round = 0) {
 const group = name => { const g = new T.Group(); g.name = name; return g; };
 const label = (text, {bg = '#2f6f8f', fg = '#fff6e0', w = 4, h = 1.2, font = 'bold'} = {}) => paintedMaterial(w * 64, h * 64, (g, W, H) => {
   g.fillStyle = bg; g.fillRect(0, 0, W, H); g.strokeStyle = fg; g.lineWidth = 5; g.strokeRect(7, 7, W - 14, H - 14);
-  g.fillStyle = fg; g.font = `${font} ${Math.round(H * .5)}px "Trebuchet MS", "DejaVu Sans", sans-serif`; g.textAlign = 'center'; g.textBaseline = 'middle'; g.fillText(text, W / 2, H / 2 + 2);
+  // Fit the text to the board (never clipped by the texture edge).
+  let px = Math.round(H * .5); const fam = '"Trebuchet MS", "DejaVu Sans", sans-serif';
+  g.font = `${font} ${px}px ${fam}`; const tw = g.measureText(text).width; if (tw > W * .86) px = Math.floor(px * W * .86 / tw);
+  g.fillStyle = fg; g.font = `${font} ${px}px ${fam}`; g.textAlign = 'center'; g.textBaseline = 'middle'; g.fillText(text, W / 2, H / 2 + 2);
 });
 
 // A free-standing sign board (optionally on a stake), for gags and labels.
@@ -223,3 +226,47 @@ export function steps({n = 8, w = 4, rise = .7, run = 1.4, color = '#c9c2b6'} = 
   for (let i = 0; i < n; i++) box(g, 'step', [w, rise * (i + 1), run], [0, rise * (i + 1) / 2, -i * run], ['stone', color]);
   g.userData.at = i => new T.Vector3(0, rise * (i + 1), -i * run); return g;
 }
+
+// ---------------- Civic and harbour pieces (Studio V3) ----------------
+// Town hall: wide facade with columns, a pediment, a clock and front steps.
+export function townHall({w = 24, color = '#f1e4c8', trim = '#ffffff', roof = '#3f7fa6', text = 'TOWN HALL'} = {}) {
+  const g = group('town_hall'), D = 10, h = 14;
+  box(g, 'hall_body', [w, h, D], [0, h / 2 + 1.6, -D / 2], ['plaster', color]);
+  for (let i = 0; i < 4; i++) box(g, 'hall_step', [w * .6 + i * 1.6, .4, 1.2 + (3 - i) * 1.2], [0, .2 + i * .4, .6 + (3 - i) * .6], ['stone', '#d8d3c9']);
+  for (let i = 0; i < 6; i++) { const c = new T.Mesh(new T.CylinderGeometry(.55, .65, h - 1, 14), flatMaterial(trim)); c.name = 'column'; c.castShadow = true; c.position.set(-w * .3 + i * w * .12, h / 2 + 1.1, 1.4); g.add(c); }
+  box(g, 'entablature', [w * .7, 1.2, 2.2], [0, h + 1.2, .9], trim, .05);
+  const tri = new T.Shape(); tri.moveTo(-w * .36, 0); tri.lineTo(w * .36, 0); tri.lineTo(0, 4.2); tri.closePath();
+  const ped = new T.Mesh(new T.ExtrudeGeometry(tri, {depth: 2, bevelEnabled: false}), flatMaterial(trim)); ped.name = 'pediment'; ped.position.set(0, h + 1.8, -.1); ped.castShadow = true; g.add(ped);
+  box(g, 'hall_roof', [w + 1, .6, D + 1], [0, h + 1.9, -D / 2], ['roof', roof]);
+  box(g, 'hall_sign', [8, 1.3, .2], [0, h - 1.4, 2.05], label(text, {bg: '#3f7fa6', fg: '#fff6e0', w: 8, h: 1.3}));
+  box(g, 'hall_door', [3.6, 6.5, .3], [0, 4.85, .05], ['planks', '#6b3f2a']);
+  for (const x of [-w * .38, w * .38]) { box(g, 'hall_window', [2.6, 4, .2], [x, 8, .05], '#9fd3f2'); box(g, 'window_frame', [3.1, .3, .4], [x, 10.1, .1], trim); }
+  return g;
+}
+// Lighthouse on a little rock: striped tower, lamp room, rail.
+export function lighthouse({h = 22} = {}) {
+  const g = group('lighthouse');
+  const rock = new T.Mesh(new T.IcosahedronGeometry(6, 0), flatMaterial('#8a8f96', {flatShading: true})); rock.name = 'rock'; rock.scale.y = .5; rock.position.y = .4; g.add(rock);
+  const stripe = paintedMaterial(64, 256, (c, W, H) => { for (let i = 0; i < 6; i++) { c.fillStyle = i % 2 ? '#e2483d' : '#fbf4e6'; c.fillRect(0, i * H / 6, W, H / 6 + 1); } });
+  const tower = new T.Mesh(new T.CylinderGeometry(1.8, 2.6, h, 18), stripe); tower.name = 'lighthouse_tower'; tower.castShadow = true; tower.position.y = h / 2 + 2; g.add(tower);
+  const lamp = new T.Mesh(new T.CylinderGeometry(1.5, 1.5, 2.2, 12), flatMaterial('#fff3c4', {emissive: '#ffd27a', emissiveIntensity: .8})); lamp.name = 'lamp_room'; lamp.position.y = h + 3.1; g.add(lamp);
+  const cap = new T.Mesh(new T.ConeGeometry(2.1, 2.2, 12), flatMaterial('#e2483d')); cap.name = 'lighthouse_cap'; cap.position.y = h + 5.3; g.add(cap);
+  box(g, 'gallery', [5, .3, 5], [0, h + 2, 0], '#3b3f45');
+  return g;
+}
+// Moored rowing boat (bobs when its group is animated by the episode).
+export function boat({color = '#2f80d1', len = 6} = {}) {
+  const g = group('boat');
+  box(g, 'hull', [2.6, 1.1, len], [0, .3, 0], ['planks', color], .3); box(g, 'hull_trim', [2.7, .25, len + .1], [0, .9, 0], '#fff4e6', .1);
+  box(g, 'thwart', [2.4, .2, .7], [0, .8, 0], ['planks', '#b98a5c']);
+  return g;
+}
+// Stone quay wall along the waterfront (front face toward -x, i.e. the sea).
+export function quay({len = 120, h = 1.6} = {}) {
+  const g = group('quay');
+  box(g, 'quay_wall', [3, h + .8, len], [0, (h - .8) / 2, 0], ['stone', '#c9c2b6']);
+  for (let z = -len / 2 + 4; z < len / 2; z += 9) { const b = new T.Mesh(new T.CylinderGeometry(.35, .45, .9, 10), flatMaterial('#3b3f45')); b.name = 'bollard'; b.position.set(-.8, h + .45, z); b.castShadow = true; g.add(b); }
+  return g;
+}
+// Low stone wall / planter border for the edges of yards and squares.
+export function lowWall({len = 10, h = 1.1, color = '#d8d3c9'} = {}) { const g = group('low_wall'); box(g, 'low_wall', [len, h, .8], [0, h / 2, 0], ['stone', color]); return g; }

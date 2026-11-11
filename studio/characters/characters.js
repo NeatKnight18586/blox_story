@@ -85,6 +85,7 @@ function buildCharacter(presetName, p, expression) {
   setHair(a, p.hair.option, {color: p.hair.color});
   for (const prop of p.props) PROPS[prop](a);
   a.root.scale.setScalar(p.scale);
+  a.faceStyle = p.faceStyle ?? null;   // opt-in face style (e.g. lively eyes); null = classic
   setExpression(a, expression);
   return a;
 }

@@ -18,6 +18,7 @@ const timingSource = wt.ok ? 'aligned' : 'estimated';
 
 const W = createWorld();
 const E = await import(new URL('episode.js', base).href);
+if (E.sun) W.sunDir = E.sun;
 const X = await E.build(W);                 // {cast, reset(), ambient(T, camPos, frameInfo)}
 W.finish();
 const WILD = []; W.scene.traverse(o => { if (o.userData.wild) WILD.push(o); });
@@ -48,11 +49,11 @@ function stage(f) {
   W.mood(out.mood ?? s.mood ?? 'day', {flashAmt: out.flash ?? 0});
   if (out.lamp) { W.lamp.position.copy(out.lamp[0]); W.lamp.intensity = out.lamp[1]; }
   const camSpec = resolve(typeof s.cam === 'function' ? s.cam(c, X) : {...s.cam, ...(out.cam ?? {})});
-  if (out.light) W.lightAt(out.light); else if (camSpec.subjects[0]) W.lightAt((camSpec.subjects[0].root?.position ?? camSpec.subjects[0]).clone().setY(0));
+  if (out.light) W.lightAt(out.light, out.lightDir); else if (camSpec.subjects[0]) W.lightAt((camSpec.subjects[0].root?.position ?? camSpec.subjects[0]).clone().setY(0), out.lightDir);
   const cam = cameraAt(camSpec, u, t, W.camera.aspect, n + 1);
   applyCamera(W.camera, cam);
-  for (const o of WILD) { const n = new T.Vector3(...o.userData.wild).applyQuaternion(o.getWorldQuaternion(new T.Quaternion())); o.visible = W.camera.position.clone().sub(o.getWorldPosition(new T.Vector3())).dot(n) > -.25; }
-  X.ambient?.(c.T, W.camera.position, out);
+  for (const o of WILD) { const n = new T.Vector3(...o.userData.wild).applyQuaternion(o.getWorldQuaternion(new T.Quaternion())); o.visible = W.camera.position.clone().sub(o.getWorldPosition(new T.Vector3())).dot(n) > 1.2; }   // hide a wall the camera is behind or hugging
+  X.ambient?.(c.T, W.camera.position, out, W.camera);
   const close = out.close ?? (SIZES[camSpec.size]?.h <= SIZES.MS.h);
   const focus = out.focus ?? (close && camSpec.subjects[0] ? (camSpec.subjects[0].root ? eyesOf(camSpec.subjects[0]) : camSpec.subjects[0]) : null);
   return {n, s, camSpec, focus, close};
@@ -73,6 +74,7 @@ export function renderFrame(f, width = 1080) {
 const ray = new T.Raycaster();
 function rootOf(o) { while (o.parent && o.parent.type !== 'Scene') o = o.parent; return o; }
 // Really visible: every ancestor visible, not a camera overlay, not rain/cloud, not fully transparent.
+const BODY = new Set(['head', 'torso', 'leftArm', 'rightArm', 'leftLeg', 'rightLeg', 'face_decal', 'hair', 'cardigan_body', 'cardigan_sleeve', 'loose_shoe', 'cuff', 'sole']);
 function solid(o) {
   if (['rain', 'tint'].includes(o.name) || o.name.startsWith('cloud') || (o.material?.transparent && o.material.opacity < .5)) return false;
   for (let p = o; p; p = p.parent) { if (!p.visible || p.isCamera) return false; }
@@ -96,11 +98,41 @@ export function lint(f) {
     const h = ray.intersectObjects(W.scene.children, true).find(h => solid(h.object));
     if (h) { clipping = h.object.name; break; }
   }
-  return {frame: f, shot: s.id, faces, clipping, cam: cam.toArray().map(v => +v.toFixed(2))};
+  // Harsher checks: cropped sign text, heads cut by the frame edge, unreadably small subjects.
+  const issues = [], corners = b => [0, 1, 2, 3, 4, 5, 6, 7].map(i => new T.Vector3(i & 1 ? b.max.x : b.min.x, i & 2 ? b.max.y : b.min.y, i & 4 ? b.max.z : b.min.z));
+  // Oriented box: the mesh's own bounds carried by its world matrix (no inflated world AABB).
+  const obb = o => { o.geometry.boundingBox ?? o.geometry.computeBoundingBox(); return corners(o.geometry.boundingBox).map(p => p.applyMatrix4(o.matrixWorld)); };
+  const onScreen = p => p.front && p.x >= 0 && p.x <= 1 && p.y >= 0 && p.y <= 1;
+  W.scene.traverse(o => {
+    if (!o.isMesh || !/^(sign_face|sign_board|hall_sign|podium_label|board)$/.test(o.name) || !solid(o)) return;   // story text, not background shop signs
+    const pts = obb(o).map(p => toScreen(W.camera, p)), inn = pts.filter(onScreen).length;
+    if (inn >= 2 && inn < 8 && pts.every(p => p.front)) {
+      const xs = pts.map(p => p.x), ys = pts.map(p => p.y), w = Math.max(...xs) - Math.min(...xs);
+      if (w > .3) issues.push(`text cropped: ${o.name}`);
+    }
+  });
+  const subjects = new Set(camSpec.subjects.filter(x => x.root).map(a => a.root));
+  W.scene.traverse(o => {
+    if (o.name !== 'head' || !o.isMesh || !solid(o)) return;
+    let r = o; while (r.parent && r.parent.type !== 'Scene') r = r.parent;
+    const pts = obb(o).map(p => toScreen(W.camera, p));
+    if (!pts.every(p => p.front)) return;
+    const xs = pts.map(p => p.x), ys = pts.map(p => p.y), cx = (Math.max(...xs) + Math.min(...xs)) / 2, cy = (Math.max(...ys) + Math.min(...ys)) / 2, h = Math.max(...ys) - Math.min(...ys);
+    const centreIn = cx > 0 && cx < 1 && cy > 0 && cy < 1, crosses = Math.min(...xs) < 0 || Math.max(...xs) > 1 || Math.min(...ys) < 0 || Math.max(...ys) > 1;
+    if (centreIn && crosses && camSpec.size !== 'ECU' && (subjects.has(r) || h > .05)) issues.push(`head cut by frame: ${r.name}`);
+    if (subjects.has(r) && centreIn && h < .022 && !['WS', 'EWS'].includes(camSpec.size)) issues.push(`subject too small: ${r.name}`);
+  });
+  // Anything solid between the lens and a point subject, or across a subject's body (poles, posts).
+  const blockedBy = (p, self) => { ray.set(cam, p.clone().sub(cam).normalize()); ray.far = cam.distanceTo(p) - .4; const h = ray.intersectObjects(W.scene.children, true).find(h => solid(h.object) && !BODY.has(h.object.name) && (!self || rootOf(h.object) !== self)); return h?.object.name; };   // other characters overlapping in a group shot are fine; props and set pieces are not
+  for (const sub of camSpec.subjects) {
+    if (sub.isVector3) { const b = blockedBy(sub); if (b) issues.push(`view blocked by ${b}`); }
+    else { sub.root.updateMatrixWorld(true); const b = blockedBy(sub.root.localToWorld(new T.Vector3(0, 3, .3)), sub.root); if (b) issues.push(`${sub.root.name} body blocked by ${b}`); }
+  }
+  return {frame: f, shot: s.id, faces, clipping, issues, cam: cam.toArray().map(v => +v.toFixed(2))};
 }
 
 // Cache keys: a shot re-renders only when its own spec, stage code or length changes.
 const keys = SHOTS.map((s, n) => ({id: s.id, start: ranges[n].start, end: ranges[n].end,
   src: [typeof s.cam === 'function' ? s.cam.toString() : JSON.stringify(s.cam), s.stage?.toString() ?? '', s.mood ?? '', ranges[n].end - ranges[n].start].join('\n')}));
 window.__lint = lint; window.__world = W;
-window.__sequence = {renderFrame, FPS, FRAMES, CUTS, SHOTS: ranges.map(r => [r.id, r.start, r.end]), keys, timingSource, words: words.length};
+window.__sequence = {renderFrame, FPS, FRAMES, CUTS, SHOTS: ranges.map(r => [r.id, r.start, r.end]), keys, timingSource, words: words.length, lintIgnore: Object.fromEntries(SHOTS.filter(s => s.lintIgnore).map(s => [s.id, s.lintIgnore]))};
