@@ -2,7 +2,7 @@
 
 **Logline:** In this town, every lie makes you shorter.
 **Cast (new for this episode):** Wren (the tallest girl in town, never lied), Bo (her little brother), Nan Tilly (tiny, the kindest woman in town), the Mayor, the Fisherman, the cart salesman, Wren's teacher, Mr. Pell, a scared little boy, townsfolk.
-**Length:** 403 words ≈ 2:08 at the Dice Town pace (1.25× narration, ~3.14 words/s).
+**Length:** 402 words ≈ 2:08 at the Dice Town pace (1.25× narration, ~3.14 words/s).
 
 ## Recording notes
 - Same voice and speed as Dice Town (ElevenLabs Adam, then 1.25×).
@@ -90,7 +90,7 @@ Every inch she'd lost, she'd given away.
 [beat — payoff, 125–132 s]
 The next morning, Bo's fever broke.
 
-Wren walked to Nan's house, a little shorter than yesterday, and sat beside her on the step. For the first time, they were almost the same size.
+Wren walked to Nan's house, a little shorter than yesterday, and sat beside her on the step. For the first time, they were eye to eye.
 
 "Did it hurt?" Wren asked.
 

@@ -2,7 +2,7 @@ import http from 'node:http';
 import path from 'node:path';
 import {realpath,stat} from 'node:fs/promises';
 import {createReadStream} from 'node:fs';
-const types={'.html':'text/html','.js':'text/javascript','.json':'application/json','.png':'image/png','.glb':'model/gltf-binary','.mp4':'video/mp4'};
+const types={'.html':'text/html','.js':'text/javascript','.json':'application/json','.png':'image/png','.glb':'model/gltf-binary','.mp4':'video/mp4','.md':'text/plain'};
 export async function startServer(root){
  root=await realpath(root);let video=null;
  const server=http.createServer(async(req,res)=>{
