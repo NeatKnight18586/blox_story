@@ -384,14 +384,19 @@ const SHOTS = [
     aim(V(G.x + 6.5, 5.2, G.z + 11), V(G.x - 2.5, 4.4, G.z - 3), 46);
   }],
 ];
-export const CUTS = SHOTS.map(s => s[1]).concat(FRAMES);
-const shotAt = f => SHOTS.find(s => f >= s[1] && f < s[2]);
+// Edit timing: shot boundaries retimed to the narration's forced-aligned word timings
+// (scripts/dice-town-retime.py). Each shot keeps its original choreography, played
+// over its new length (t is scaled back to the original shot duration).
+const RETIME = Object.fromEntries((await (await fetch(new URL('./edit-timing.json', import.meta.url))).json()).shots.map(s => [s.id, s.new]));
+const EDIT = SHOTS.map(([id, a, b, fn]) => [id, ...RETIME[id], a, b, fn]);
+export const CUTS = EDIT.map(s => s[1]).concat(FRAMES);
+const shotAt = f => EDIT.find(s => f >= s[1] && f < s[2]);
 
 export function renderFrame(f, width = 1080) {
   if (!Number.isInteger(f) || f < 0 || f >= FRAMES) throw Error('frame out of range');
   const t0 = performance.now(), height = Math.round(width * 16 / 9);
   renderer.setSize(width, height); camera.aspect = width / height;
-  const [id, a, b, fn] = shotAt(f), dur = (b - a) / FPS, t = (f - a) / FPS, u = (f - a) / Math.max(1, b - a - 1);
+  const [id, A, B, a, b, fn] = shotAt(f), dur = (b - a) / FPS, u = (f - A) / Math.max(1, B - A - 1), t = (f - A) / (B - A) * dur;
   resetWorld(); plazaLight();
   const r = fn(t, u, dur) ?? {};
   if (r.tint) { tint.material.color.set(r.tint[0]); tint.material.opacity = r.tint[1]; }
@@ -400,4 +405,4 @@ export function renderFrame(f, width = 1080) {
   const gl = renderer.getContext(); gl.readPixels(0, 0, 1, 1, gl.RGBA, gl.UNSIGNED_BYTE, new Uint8Array(4));
   return {frame: f, shot: id, width, height, ms: performance.now() - t0};
 }
-window.__sequence = {renderFrame, FPS, FRAMES, CUTS, SHOTS: SHOTS.map(([id, a, b]) => [id, a, b])};
+window.__sequence = {renderFrame, FPS, FRAMES, CUTS, SHOTS: EDIT.map(([id, A, B]) => [id, A, B])};
