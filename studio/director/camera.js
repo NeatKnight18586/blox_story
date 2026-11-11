@@ -17,9 +17,9 @@ export const easeOutBack = (x, s = 1.6) => { x = clamp01(x) - 1; return 1 + (s +
 // height of the anchor (0 = top, 1 = bottom), the anchor ('eyes' | 'body') and lens.
 export const SIZES = Object.freeze({
   // Vertical 9:16 frames are width-limited: a CU shows the head at about half the frame width.
-  ECU: {h: 2.4, y: .42, anchor: 'eyes', fov: 30},
-  CU: {h: 3.6, y: .36, anchor: 'eyes', fov: 32},
-  MCU: {h: 5.0, y: .34, anchor: 'eyes', fov: 34},
+  ECU: {h: 2.4, y: .45, anchor: 'eyes', fov: 30},
+  CU: {h: 3.6, y: .40, anchor: 'eyes', fov: 32},
+  MCU: {h: 5.0, y: .37, anchor: 'eyes', fov: 34},
   MS: {h: 6.6, y: .32, anchor: 'eyes', fov: 36},
   MLS: {h: 8.6, y: .30, anchor: 'eyes', fov: 38},
   FS: {h: 11, y: .30, anchor: 'eyes', fov: 40},
@@ -60,8 +60,8 @@ export function frameShot(spec, aspect = 9 / 16) {
   const sy0 = spec.y ?? S.y;
   if (anchors.length > 1) {
     const xs = anchors.map(p => p.clone().sub(anchor).dot(right)), ys = anchors.map(p => p.clone().sub(anchor).dot(up));
-    const span = Math.max(...xs) - Math.min(...xs) + 1.6 * scale;
-    H = Math.max(H, span / (aspect * .78), (Math.max(...ys) - Math.min(...ys)) / Math.max(.12, .56 - sy0));
+    const span = Math.max(...xs) - Math.min(...xs) + (spec.margin ?? 1.6) * scale;
+    H = Math.max(H, span / (aspect * (spec.fill ?? .78)), (Math.max(...ys) - Math.min(...ys)) / Math.max(.12, .56 - sy0));
     anchor.add(up.clone().multiplyScalar(Math.max(...ys)));
   }
   const d = H / (2 * Math.tan(fov * DEG / 2));

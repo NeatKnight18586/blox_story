@@ -20,7 +20,7 @@ try {
   await page.goto(`${server.url}/production/episode/?ep=${ep}`);
   await page.waitForFunction(() => window.__sequence || window.__failed, null, {timeout: 240000}).catch(() => {});
   if (errors.length) throw Error(errors.join('\n'));
-  const seq = await page.evaluate(() => ({SHOTS: __sequence.SHOTS, FRAMES: __sequence.FRAMES, timing: __sequence.timingSource}));
+  const seq = await page.evaluate(() => ({SHOTS: __sequence.SHOTS, FRAMES: __sequence.FRAMES, timing: __sequence.timingSource, ignore: __sequence.lintIgnore}));
   const want = arg('shots', null)?.split(',');
   let frames = arg('frames', null)?.split(',').map(Number).map(f => [f, seq.SHOTS.find(s => f >= s[1] && f < s[2])[0]]);
   frames ??= seq.SHOTS.filter(s => !want || want.includes(s[0])).flatMap(([id, a, b]) => atU.map(u => [Math.min(b - 1, a + Math.round((b - a - 1) * u)), id]));
@@ -33,6 +33,8 @@ try {
     const flags = [];
     for (const fc of lint.faces) { if (!fc.front) flags.push(`${fc.who} behind camera`); if (fc.inCaptionBand) flags.push(`${fc.who} face in caption band`); if (fc.outsideSafe) flags.push(`${fc.who} outside safe area (${fc.x},${fc.y})`); if (fc.occludedBy) flags.push(`${fc.who} occluded by ${fc.occludedBy}`); }
     if (lint.clipping) flags.push(`camera touching ${lint.clipping}`);
+    flags.push(...new Set(lint.issues ?? []));
+    const ign = seq.ignore?.[id] ?? []; for (let k = flags.length - 1; k >= 0; k--) if (ign.some(x => flags[k].includes(x))) flags.splice(k, 1);
     report.push({id, frame: f, ms: Math.round(r.ms), flags, faces: lint.faces});
   }
   await writeFile(`${out}/lint.json`, JSON.stringify({ep, timing: seq.timing, frames: seq.FRAMES, shots: seq.SHOTS.length, ranges: seq.SHOTS, report}, null, 1));

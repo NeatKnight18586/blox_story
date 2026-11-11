@@ -62,12 +62,30 @@ export const resolveExpression = name => ALIASES[name] ?? name;
 
 const INK = '#1b1a1c', RES = 512;
 const textures = new Map();
-function drawFace(name) {
+// Face styles (opt-in per avatar; legacy avatars keep the classic ink dots):
+// 'lively' turns dot eyes into tall glossy eyes with an iris tint and two catchlights
+// (the big-shiny-eye look popular on today's avatar faces, drawn originally here),
+// with optional lashes and a soft cheek blush.
+function livelyEye(g, s, x, y, r, st) {
+  const rx = r * 1.3 * s, ry = r * 2.0 * s, X = x * s, Y = y * s - ry * .15;
+  g.save();
+  g.beginPath(); g.ellipse(X, Y, rx, ry, 0, 0, Math.PI * 2); g.fillStyle = INK; g.fill();
+  const grad = g.createLinearGradient(0, Y - ry, 0, Y + ry); grad.addColorStop(0, 'rgba(0,0,0,0)'); grad.addColorStop(.55, 'rgba(0,0,0,0)'); grad.addColorStop(1, st.iris ?? '#6b4a2e');
+  g.beginPath(); g.ellipse(X, Y, rx * .82, ry * .86, 0, 0, Math.PI * 2); g.fillStyle = grad; g.fill();
+  g.fillStyle = '#ffffff';
+  g.beginPath(); g.ellipse(X + rx * .3, Y - ry * .42, rx * .42, ry * .3, -.4, 0, Math.PI * 2); g.fill();
+  g.beginPath(); g.arc(X - rx * .38, Y + ry * .38, rx * .2, 0, Math.PI * 2); g.fill();
+  if (st.lashes) { g.strokeStyle = INK; g.lineWidth = 2.4 * s; const sd = x < 50 ? -1 : 1; g.beginPath(); g.moveTo(X + sd * rx * .7, Y - ry * .62); g.lineTo(X + sd * rx * 1.45, Y - ry * .95); g.stroke(); g.beginPath(); g.moveTo(X + sd * rx * .95, Y - ry * .2); g.lineTo(X + sd * rx * 1.6, Y - ry * .38); g.stroke(); }
+  g.restore();
+}
+function drawFace(name, style = null) {
   const c = document.createElement('canvas'); c.width = c.height = RES;
   const g = c.getContext('2d'), s = RES / 100;
-  g.strokeStyle = g.fillStyle = INK; g.lineWidth = 4.6 * s; g.lineCap = g.lineJoin = 'round';
+  if (style?.blush) { for (const x of [21, 79]) { const rg = g.createRadialGradient(x * s, 57 * s, 0, x * s, 57 * s, 10 * s); rg.addColorStop(0, 'rgba(255,120,140,.42)'); rg.addColorStop(1, 'rgba(255,120,140,0)'); g.fillStyle = rg; g.fillRect(0, 0, RES, RES); } }
+  g.strokeStyle = g.fillStyle = INK; g.lineWidth = (style ? 5.2 : 4.6) * s; g.lineCap = g.lineJoin = 'round';
   for (const st of FACES[name]) {
     g.beginPath();
+    if (st.d && style && st.d[1] < 55) { livelyEye(g, s, ...st.d, style); continue; }
     if (st.d) { const [x, y, r] = st.d; g.arc(x * s, y * s, r * 1.15 * s, 0, Math.PI * 2); g.fill(); continue; }
     if (st.l) { const [a, b, c2, d] = st.l; g.moveTo(a * s, b * s); g.lineTo(c2 * s, d * s); }
     if (st.q) { const [a, b, cx, cy, c2, d] = st.q; g.moveTo(a * s, b * s); g.quadraticCurveTo(cx * s, cy * s, c2 * s, d * s); }
@@ -82,7 +100,8 @@ function drawFace(name) {
   }
   const t = new T.CanvasTexture(c); t.colorSpace = T.SRGBColorSpace; t.anisotropy = 4; return t;
 }
-const faceTexture = name => { if (typeof document === 'undefined') return null; if (!textures.has(name)) textures.set(name, drawFace(name)); return textures.get(name); };
+const styleKey = st => st ? '|' + JSON.stringify(st) : '';
+const faceTexture = (name, style = null) => { if (typeof document === 'undefined') return null; const k = name + styleKey(style); if (!textures.has(k)) textures.set(k, drawFace(name, style)); return textures.get(k); };
 
 // One shared decal surface: the head front from x −.5….5, y .05…1.05 (clear of fringes), hugging the oval.
 let decalGeometry = null;
@@ -93,10 +112,10 @@ function decalSurface() {
   g.computeVertexNormals(); return (decalGeometry = g);
 }
 
-export function makeFace(name) {
+export function makeFace(name, style = null) {
   const key = resolveExpression(name);
   if (!FACES[key]) throw new Error('Unknown expression: ' + name);
-  const m = new T.Mesh(decalSurface(), new T.MeshStandardMaterial({map: faceTexture(key), transparent: true, roughness: .55, polygonOffset: true, polygonOffsetFactor: -2}));
+  const m = new T.Mesh(decalSurface(), new T.MeshStandardMaterial({map: faceTexture(key, style), transparent: true, roughness: .55, polygonOffset: true, polygonOffsetFactor: -2}));
   m.name = 'face_decal'; m.material.userData.authored = true;
   const g = new T.Group(); g.name = `face_${key}`; g.add(m); return g;
 }
@@ -105,8 +124,9 @@ export function makeFace(name) {
 export function setExpression(avatar, name) {
   const key = resolveExpression(name);
   if (!FACES[key]) throw new Error('Unknown expression: ' + name);
-  if (!avatar.faceCache.has('decal:' + key)) avatar.faceCache.set('decal:' + key, makeFace(key));
+  const ck = 'decal:' + key + styleKey(avatar.faceStyle);
+  if (!avatar.faceCache.has(ck)) avatar.faceCache.set(ck, makeFace(key, avatar.faceStyle ?? null));
   if (avatar.faceLayer) avatar.faceLayer.removeFromParent();
-  avatar.faceLayer = avatar.faceCache.get('decal:' + key); avatar.pivots.head.add(avatar.faceLayer);
+  avatar.faceLayer = avatar.faceCache.get(ck); avatar.pivots.head.add(avatar.faceLayer);
   avatar.expression = key; return avatar;
 }

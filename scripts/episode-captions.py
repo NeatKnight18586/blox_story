@@ -47,12 +47,19 @@ pieces = [p for c in clauses for p in split(c)]
 # 3) Times: on with the first word (−0.05 s), hold to the next caption across short gaps.
 def curly(t):
     t = re.sub(r'"(\w)', r'“\1', t); t = re.sub(r'"', '”', t); return t.replace("'", '’')
-events = []
+events, karaoke = [], []
+HL = '&H0036D8FF&'   # the spoken word turns warm yellow (ASS colours are BGR)
 for n, p in enumerate(pieces):
     st, en = W[p[0]]['start'] - .05, W[p[-1]]['end']
     nxt = W[pieces[n + 1][0]]['start'] - .05 if n + 1 < len(pieces) else en + .6
     end = nxt - .02 if nxt - en < .6 else en + .35
     events.append((max(0, st), end, curly(' '.join(W[i]['word'] for i in p))))
+    words = [curly(W[i]['word']) for i in p]
+    for k, i in enumerate(p):
+        a = max(0, st) if k == 0 else W[i]['start'] - .03
+        b = (W[p[k + 1]]['start'] - .03) if k + 1 < len(p) else end
+        text = ' '.join(f'{{\\c{HL}}}{w}{{\\c&H00FFFFFF&}}' if j == k else w for j, w in enumerate(words))
+        karaoke.append((a, b, text, k == 0))
 
 def ts(t):
     cs = int(round(t * 100)); return f'{cs // 360000}:{cs // 6000 % 60:02d}:{cs // 100 % 60:02d}.{cs % 100:02d}'
@@ -72,9 +79,10 @@ Format: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text
 """
 with open(OUT, 'w') as fh:
     fh.write(header)
-    for st, en, text in events:
-        # A 120 ms pop-in (scale 92→100 %) so each caption lands like a beat, not a fade.
-        fh.write(f'Dialogue: 0,{ts(st)},{ts(en)},Cap,,0,0,0,,{{\\fad(40,60)\\fscx92\\fscy92\\t(0,120,\\fscx100\\fscy100)}}{text}\n')
+    for st, en, text, first in karaoke:
+        # Each phrase pops in (scale 92→100 % over 120 ms); then the spoken word stays highlighted.
+        tag = '{\\fad(40,0)\\fscx92\\fscy92\\t(0,120,\\fscx100\\fscy100)}' if first else ''
+        fh.write(f'Dialogue: 0,{ts(st)},{ts(en)},Cap,,0,0,0,,{tag}{text}\n')
 spoken = sum(w['end'] - w['start'] for w in W)
 covered = sum(min(en, w['end']) - max(st, w['start']) for st, en, _ in events for w in W if st < w['end'] and en > w['start'])
 print(json.dumps({'captions': len(events), 'max_words': max(len(t.split()) for *_, t in events), 'max_chars': max(len(t) for *_, t in events),

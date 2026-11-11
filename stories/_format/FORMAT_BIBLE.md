@@ -46,6 +46,17 @@ Hook image · Rule clarity · Gag density · Twist strength · Emotional payoff 
 3. `scripts/episode-align.py <ep> <wav>` writes word timings; every shot is anchored to a spoken phrase, so the edit is built on the real performance, never on estimates.
 4. Animatic + automatic lint → first ~15 s at native 1080p as the proof gate → full render → captions v2 + review file (voice stays private, out of Git).
 
+## Quality bar (checked on every shot before a 1080p render)
+Automatic (`scripts/episode-preview.js` lint) — a shot does not render until it is clean or the exception is written into the spec (`lintIgnore`, with the reason visible in the shot):
+- Faces: visible, not occluded, inside the safe area, never in the caption band; no head cut by the frame edge (except intentional ECU).
+- Nothing between lens and subject (posts, poles, props); camera never inside or touching geometry; walls the camera is behind drop out.
+- Story text (signs, labels) fully in frame and fitted to its board; subjects large enough to read on a phone.
+
+By eye (two frames per shot, 270 px sheet; flagged shots at full size):
+- One clear subject per shot; the gag reads without the narration.
+- No floating or sinking feet, no limbs through props, no pops between frames, no empty map edge or horizon void.
+- Expressions change on the word; hands do something on every beat; the camera always moves with intent.
+
 ## Production guardrails
 - Original characters, sets and names only; no Roblox assets or logos.
 - Native 1080×1920, 30 fps. Shots are anchored to narration **words**, never to estimated times.

@@ -35,7 +35,8 @@ export function createWorld() {
   const W = {scene, camera, renderer, hemi, key, fill, lamp, flash, look: null, sky: null, rim: null, windows: [], ambient: []};
 
   // Key light follows the set being shot so the shadow map stays tight around it.
-  W.lightAt = (c, dir = [30, 50, 36]) => { key.target.position.copy(c); key.position.copy(c).add(V(...dir)); };
+  W.sunDir = [30, 50, 36];
+  W.lightAt = (c, dir = W.sunDir) => { key.target.position.copy(c); key.position.copy(c).add(V(...dir)); };
   W.finish = () => {
     W.look = applyStudioLook({scene, camera, renderer}, LOOK, {skipIdleBokeh: true});
     scene.traverse(o => { if (o.name === 'studio_sky_gradient') W.sky = o; if (o.name === 'studio_rim') W.rim = o; });
@@ -99,11 +100,14 @@ export function rain(scene, {count = 1800, size = 36, height = 30} = {}) {
   const seeds = Array.from({length: count}, (_, i) => [Math.sin(i * 12.9898) * 43758.5453 % 1, Math.sin(i * 78.233) * 12543.21 % 1, Math.sin(i * 39.425) * 9631.7 % 1].map(x => Math.abs(x)));
   scene.add(im);
   const m4 = new T.Matrix4(), q = new T.Quaternion().setFromEuler(new T.Euler(0, 0, .12));
-  return (t, camPos, on) => {
+  const fwd = V(), far = V(0, -999, 0);
+  return (t, camPos, on, camera) => {
     im.visible = !!on; if (!on) return;
+    if (camera) camera.getWorldDirection(fwd).setY(0).normalize(); else fwd.set(0, 0, -1);
+    const cx = camPos.x + fwd.x * (size / 2 + 2), cz = camPos.z + fwd.z * (size / 2 + 2);
     seeds.forEach(([a, b, c], i) => {
-      const y = height - ((t * 28 + c * height) % height);
-      m4.compose(V(camPos.x + (a - .5) * size, camPos.y - 8 + y, camPos.z + (b - .5) * size - size * .35), q, V(1, 1, 1)); im.setMatrixAt(i, m4);
+      const y = height - ((t * 28 + c * height) % height), p = V(cx + (a - .5) * size, camPos.y - 8 + y, cz + (b - .5) * size);
+      m4.compose(p.distanceTo(camPos) < 3.5 ? far : p, q, V(1, 1, 1)); im.setMatrixAt(i, m4);
     });
     im.instanceMatrix.needsUpdate = true;
   };
