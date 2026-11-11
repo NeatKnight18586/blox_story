@@ -291,8 +291,8 @@ export const shots = [
     stage(c, X) {}},
   {id: 'D03', at: 'Now he gives', lintIgnore: ['view blocked'], cam: (c, X) => ({on: X.points.stackBase(), size: 'MLS', h: lerp(8.5, 5.8, ease(c.u)), worldYaw: 8, pitch: 4, y: lerp(.62, .45, ease(c.u)), offset: [0, lerp(0, 5.1, ease(Math.min(1, c.u * 1.3))), 0], move: 'hold'}),
     stage(c, X) {
-      const m = X.cast.mayor; put(m, X.stack.position.clone().setY(X.stack.position.y + X.stack.userData.top + .02), -Math.PI / 2, 'confident');
-      act(m, c.t, [[0, 'speech'], [c.at('books', -.3), 'pointUp']]); talk(m, c.t); m.pivots.head.rotation.y = .9 * ease((c.t - c.at('books', -.4)) / .3);
+      const m = X.cast.mayor; put(m, X.stack.position.clone().setY(X.stack.position.y + X.stack.userData.top + .02), -.55, 'confident');
+      act(m, c.t, [[0, 'speech'], [c.at('books', -.3), 'pointUp']]); talk(m, c.t);
       crowdAt(X, c.t, [[7, X.P.x + 16, X.P.z + 2, Math.PI / 2], [8, X.P.x + 15, X.P.z - 3, Math.PI / 2 + .3], [9, X.P.x + 13, X.P.z + 5, Math.PI / 2 - .3]], {look: -.2});
     }},
   {id: 'F01', at: 'The fisherman swore', cam: {on: 'fisher', size: 'MS', yaw: -22, pitch: 4, move: 'push'},
@@ -314,18 +314,18 @@ export const shots = [
       const f = X.cast.fisher; put(f, at(X.Q, .3, .4, -19), hd(X.Q, 0), 'shame', .74); act(f, c.t, [[0, 'gasp']]); f.pivots.head.rotation.x = .3; holdFish(X, f, c.t);
       return {lightDir: [30, 50, 20]};
     }},
-  {id: 'L01', at: 'And the man who sells', cam: {on: 'lot', size: 'WS', h: 13, worldYaw: wyaw(S, 15), pitch: 8, move: 'track'},
+  {id: 'L01', at: 'And the man who sells', cam: {on: 'sales', size: 'FS', scaleRef: .55, yaw: 10, pitch: 6, y: .45, move: 'push'},
     stage(c, X) {
       walkers(X, c.T, [[3, fromA(X.S, -18, .35, -7.2), dirA(X.S, 1, 0)]]);
       X.carts[1].updateMatrixWorld(true);
-      put(X.cast.sales, X.carts[1].localToWorld(V(.4, 2.45, 0)), hd(X.S, .1), 'devious'); act(X.cast.sales, c.t, [[0, 'armsWide'], [.6, 'cheer'], [1.1, 'armsWide']]);
+      put(X.cast.sales, X.carts[1].localToWorld(V(-.9, 2.45, .2)), hd(X.S, .1), 'devious'); act(X.cast.sales, c.t, [[0, 'armsWide'], [.6, 'cheer'], [1.1, 'armsWide']]);
     }},
   {id: 'L02', at: "He's about the size", cam: {on: 'sales', size: 'MS', yaw: 15, pitch: 4, scaleRef: .3, y: .48, move: 'push', impact: .15},
     stage(c, X) {
       const s = X.cast.sales, base = at(X.S, 14, .35, -8.2); put(s, base, hd(X.S, 0), null);
       act(s, c.t, [[0, 'point'], [c.at('shoe'), 'handsHips']]); talk(s, c.t);
       setExpression(s, faceAt(c.t, [[0, 'devious'], [c.at('shoe'), 'confident']]));
-      put(X.extras[12], at(X.S, 13.6, .35, -8.95), hd(X.S, .3), 'incredulous'); act(X.extras[12], c.t, [[0, 'lookDown']]);
+      put(X.extras[12], at(X.S, 13.2, .35, -8.55), hd(X.S, .3), 'incredulous'); act(X.extras[12], c.t, [[0, 'lookDown']]);
     }},
   // --- The kid ---
   {id: 'K01', at: 'Then there was Wren', cam: {on: 'wren', size: 'FS', yaw: 35, pitch: -6, move: {type: 'orbit', amt: 8}},

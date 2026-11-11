@@ -45,6 +45,8 @@ if opt.get('wav'):
     run('ffmpeg', '-y', '-v', 'error', '-i', silent, '-i', opt['wav'], '-map', '0:v', '-map', '1:a', '-t', f'{TO / FPS:.3f}',
         '-vf', f'ass={OUT}/captions.ass:fontsdir=studio/fonts', '-c:v', 'libx264', '-crf', '18', '-preset', 'slow', '-pix_fmt', 'yuv420p',
         '-c:a', 'aac', '-b:a', '192k', '-movflags', '+faststart', review)
+    if os.path.exists(f'{OUT}/sfx-stem.wav'):
+        run('ffmpeg', '-y', '-v', 'error', '-i', review, '-i', f'{OUT}/sfx-stem.wav', '-filter_complex', '[1:a]volume=0.55[s];[0:a][s]amix=inputs=2:duration=first:normalize=0[a]', '-map', '0:v', '-map', '[a]', '-c:v', 'copy', '-c:a', 'aac', '-b:a', '192k', '-movflags', '+faststart', review.replace('.mp4', '-plus-sfx.mp4'))
 
 def decoded(i):
     raw = subprocess.run(['ffmpeg', '-v', 'error', '-i', silent, '-vf', f'select=eq(n\\,{i})', '-vframes', '1', '-f', 'rawvideo', '-pix_fmt', 'rgb24', '-'], capture_output=True, check=True).stdout
