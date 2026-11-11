@@ -1,0 +1,113 @@
+{
+ "status": "PASS",
+ "episode": "shortwick",
+ "name": "master",
+ "frames": 3769,
+ "seconds": 125.633,
+ "shots": 66,
+ "native": {
+  "width": 1080,
+  "height": 1920,
+  "upscaled": false
+ },
+ "silent": {
+  "file": "evidence/shortwick/shortwick-1080x1920-silent.mp4",
+  "sha256": "f95424bee2ccc476172206c95a8882d42e4bf01120e125b2e51a10c975577654",
+  "codec": "h264",
+  "pix_fmt": "yuv420p",
+  "fps": "30/1",
+  "decoded_frames": 3769,
+  "duration": 125.633333,
+  "bytes": 40597660
+ },
+ "review_with_voice": {
+  "file": "(local only)",
+  "note": "contains the private voice-over; never committed"
+ },
+ "full_decode_errors": null,
+ "psnr_vs_source_db": {
+  "C01": 37.51,
+  "L01": 40.74,
+  "K07": 38.25,
+  "I03": 39.91,
+  "M02": 39.79,
+  "E03": 38.44,
+  "B07": 42.99,
+  "T07": 43.7,
+  "Z01": 39.09
+ },
+ "cuts": {
+  "count": 65,
+  "median_diff_at_cuts": 53.8,
+  "median_diff_inside_shots": 0.7
+ },
+ "determinism_recheck": {
+  "0": true,
+  "1256": true,
+  "2512": true,
+  "3768": true
+ },
+ "render_time": [
+  {
+   "rendered": 487,
+   "wallSeconds": 1175,
+   "secondsPerFrameWall": 2.41,
+   "msPerFrameInPage": 6976,
+   "workers": 3,
+   "restarts": 0
+  },
+  {
+   "rendered": 487,
+   "wallSeconds": 1184,
+   "secondsPerFrameWall": 2.43,
+   "msPerFrameInPage": 7018,
+   "workers": 3,
+   "restarts": 0
+  },
+  {
+   "rendered": 185,
+   "wallSeconds": 490,
+   "secondsPerFrameWall": 2.65,
+   "msPerFrameInPage": 7614,
+   "workers": 3,
+   "restarts": 0
+  },
+  {
+   "rendered": 2441,
+   "wallSeconds": 6602,
+   "secondsPerFrameWall": 2.7,
+   "msPerFrameInPage": 7876,
+   "workers": 3,
+   "restarts": 0
+  },
+  {
+   "rendered": 841,
+   "wallSeconds": 2552,
+   "secondsPerFrameWall": 3.03,
+   "msPerFrameInPage": 8830,
+   "workers": 3,
+   "restarts": 0
+  },
+  {
+   "rendered": 1111,
+   "wallSeconds": 3374,
+   "secondsPerFrameWall": 3.04,
+   "msPerFrameInPage": 8851,
+   "workers": 3,
+   "restarts": 0
+  },
+  {
+   "rendered": 62,
+   "wallSeconds": 201,
+   "secondsPerFrameWall": 3.25,
+   "msPerFrameInPage": 9232,
+   "workers": 3,
+   "restarts": 0
+  }
+ ],
+ "eye_review": "Every shot reviewed at full resolution (first/mid/last frame). 20 shots fixed and re-rendered: hair lock crossing faces (R01,K05,R04,T07,P03-P06,Z02), occluded faces (T01,T03,K07), unreadable inserts (F03,T02,L02), foreground posts (M04,T05), messy action (I02).",
+ "sfx_stem": {
+  "seconds": 125.633,
+  "note": "renders/shortwick-final/sfx-stem.wav, code-synthesised, delivered separately"
+ }
+}
