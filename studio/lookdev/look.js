@@ -50,7 +50,10 @@ function makeSky(L) {
   return sky;
 }
 
-export function applyStudioLook({scene, camera, renderer}, L = LOOK) {
+// opts.skipIdleBokeh (opt-in, new episodes only): skip the depth-of-field pass when the
+// aperture is 0, saving a full depth render on wide shots. Off by default so existing
+// renders stay pixel-identical.
+export function applyStudioLook({scene, camera, renderer}, L = LOOK, opts = {}) {
   const restoreList = [];
   // Grade every standard material once (shared materials are graded once).
   const graded = new Map();
@@ -123,6 +126,7 @@ export function applyStudioLook({scene, camera, renderer}, L = LOOK) {
     u.focus.value = focus ? camera.position.distanceTo(focus) : 20;
     u.aperture.value = close ? L.lens.closeAperture : L.lens.wideAperture;
     u.maxblur.value = L.lens.maxblur;
+    if (opts.skipIdleBokeh) bokeh.enabled = u.aperture.value > 0;
     composer.render();
   }
   function restore() { composer?.dispose(); env.dispose(); pmrem.dispose(); for (const f of restoreList.reverse()) f(); }

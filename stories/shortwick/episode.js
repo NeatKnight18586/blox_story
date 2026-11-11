@@ -15,7 +15,7 @@ import {easeOutBack} from '../../studio/director/camera.js';
 const V = (x = 0, y = 0, z = 0) => new T.Vector3(x, y, z);
 // Set origins, far apart so each set has its own light and horizon.
 export const P = V(0, 0, 0), S = V(500, 0, 0), N = V(900, 0, 0), Q = V(1400, 0, 0), C = V(2000, 0, 0), B = V(2400, 0, 0);
-export const tail = 2.2;
+export const tail = 1.8;   // button hold after the last word
 
 // ---------------- Cast: new for this episode ----------------
 const CAST = {
@@ -254,16 +254,11 @@ export const shots = [
     }},
   {id: 'D02', at: 'Twice', cam: {on: 'signs', size: 'MS', h: 10, worldYaw: -30, pitch: 4, y: .42, move: {type: 'push', amt: .1}, impact: .2},
     stage(c, X) { return {light: at(X.P, 6, 0, 38)}; }},
-  {id: 'D03', at: 'Now he gives', cam: (c, X) => ({on: X.points.stackBase(), size: 'MLS', h: 7.5, worldYaw: 55, pitch: 6, y: lerp(.62, .55, c.u), offset: [0, lerp(0, 3.6, ease(c.u)), 0], move: 'hold'}),
+  {id: 'D03', at: 'Now he gives', cam: (c, X) => ({on: X.points.stackBase(), size: 'MLS', h: lerp(7.5, 4.6, ease(c.u)), worldYaw: lerp(55, 25, ease(c.u)), pitch: 6, y: lerp(.62, .4, ease(c.u)), offset: [0, lerp(0, 3.3, ease(c.u * 1.3)), 0], move: 'hold'}),
     stage(c, X) {
       const m = X.cast.mayor; put(m, X.stack.position.clone().setY(X.stack.userData.top + .02), 0, 'confident');
       act(m, c.t, [[0, 'speech'], [1.2, 'pointUp']]); talk(m, c.t);
       crowdAt(X, c.t, [[7, X.P.x - 2, X.P.z + 2, Math.PI], [8, X.P.x + 5, X.P.z + 3, Math.PI + .3], [9, X.P.x + 1, X.P.z + 5, Math.PI - .2]], {look: -.2});
-    }},
-  {id: 'D04', at: 'standing on a stack', cam: {on: 'mayor', size: 'CU', yaw: -25, pitch: -8, move: 'orbit'},
-    stage(c, X) {
-      const m = X.cast.mayor; put(m, X.stack.position.clone().setY(X.stack.userData.top + .02), 0, 'confident');
-      act(m, c.t, [[0, 'speech'], [c.at('books'), 'armsWide']]); talk(m, c.t, {amt: 1.4});
     }},
   {id: 'F01', at: 'The fisherman swore', cam: {on: 'fisher', size: 'MS', yaw: 28, pitch: 4, move: 'push'},
     stage(c, X) {
@@ -280,7 +275,7 @@ export const shots = [
       setExpression(f, faceAt(c.t, [[0, 'confident'], [tI + .05, 'shocked'], [tI + .9, 'shame']]));
       return {light: at(X.Q, 0, 0, -10)};
     }},
-  {id: 'F03', at: 'before he finished', cam: {on: 'bucket', size: 'CU', h: 3.6, worldYaw: 20, pitch: 35, y: .45, move: 'push'},
+  {id: 'F03', at: 'the sentence', cam: {on: 'bucket', size: 'CU', h: 3.6, worldYaw: 20, pitch: 35, y: .45, move: 'push'},
     stage(c, X) {
       X.bucket.visible = true; X.bucket.position.copy(at(X.Q, 1.6, .38, -14));
       X.tinyFish.visible = true; X.tinyFish.position.copy(at(X.Q, 1.6, 1.0, -14)); X.tinyFish.rotation.set(0, .6, .5 * Math.sin(onTwos(c.t) * 9));

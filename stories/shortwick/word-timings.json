@@ -1,0 +1,2012 @@
+[
+{
+"word": "In",
+"start": 0.0,
+"end": 0.16
+},
+{
+"word": "this",
+"start": 0.16,
+"end": 0.33
+},
+{
+"word": "town,",
+"start": 0.33,
+"end": 0.75
+},
+{
+"word": "every",
+"start": 0.93,
+"end": 1.27
+},
+{
+"word": "lie",
+"start": 1.27,
+"end": 1.63
+},
+{
+"word": "makes",
+"start": 1.63,
+"end": 1.86
+},
+{
+"word": "you",
+"start": 1.86,
+"end": 1.93
+},
+{
+"word": "shorter.",
+"start": 1.93,
+"end": 2.39
+},
+{
+"word": "The",
+"start": 2.79,
+"end": 2.86
+},
+{
+"word": "mayor",
+"start": 2.86,
+"end": 3.11
+},
+{
+"word": "promised",
+"start": 3.11,
+"end": 3.48
+},
+{
+"word": "to",
+"start": 3.48,
+"end": 3.55
+},
+{
+"word": "fix",
+"start": 3.55,
+"end": 3.76
+},
+{
+"word": "the",
+"start": 3.76,
+"end": 3.86
+},
+{
+"word": "roads.",
+"start": 3.86,
+"end": 4.29
+},
+{
+"word": "Twice.",
+"start": 4.52,
+"end": 5.09
+},
+{
+"word": "Now",
+"start": 5.42,
+"end": 5.6
+},
+{
+"word": "he",
+"start": 5.6,
+"end": 5.67
+},
+{
+"word": "gives",
+"start": 5.67,
+"end": 5.85
+},
+{
+"word": "his",
+"start": 5.85,
+"end": 5.98
+},
+{
+"word": "speeches",
+"start": 5.98,
+"end": 6.38
+},
+{
+"word": "standing",
+"start": 6.38,
+"end": 6.69
+},
+{
+"word": "on",
+"start": 6.69,
+"end": 6.78
+},
+{
+"word": "a",
+"start": 6.78,
+"end": 6.82
+},
+{
+"word": "stack",
+"start": 6.82,
+"end": 7.08
+},
+{
+"word": "of",
+"start": 7.08,
+"end": 7.16
+},
+{
+"word": "books.",
+"start": 7.16,
+"end": 7.61
+},
+{
+"word": "The",
+"start": 8.03,
+"end": 8.12
+},
+{
+"word": "fisherman",
+"start": 8.12,
+"end": 8.48
+},
+{
+"word": "swore",
+"start": 8.48,
+"end": 8.93
+},
+{
+"word": "his",
+"start": 8.93,
+"end": 9.06
+},
+{
+"word": "catch",
+"start": 9.06,
+"end": 9.32
+},
+{
+"word": "was",
+"start": 9.32,
+"end": 9.45
+},
+{
+"word": "this",
+"start": 9.45,
+"end": 9.75
+},
+{
+"word": "big...",
+"start": 9.75,
+"end": 10.09
+},
+{
+"word": "and",
+"start": 10.42,
+"end": 10.55
+},
+{
+"word": "lost",
+"start": 10.55,
+"end": 10.78
+},
+{
+"word": "an",
+"start": 10.78,
+"end": 10.86
+},
+{
+"word": "inch",
+"start": 11.05,
+"end": 11.23
+},
+{
+"word": "before",
+"start": 11.23,
+"end": 11.49
+},
+{
+"word": "he",
+"start": 11.49,
+"end": 11.58
+},
+{
+"word": "finished",
+"start": 11.58,
+"end": 11.85
+},
+{
+"word": "the",
+"start": 11.85,
+"end": 11.91
+},
+{
+"word": "sentence.",
+"start": 11.91,
+"end": 12.38
+},
+{
+"word": "And",
+"start": 12.77,
+"end": 12.87
+},
+{
+"word": "the",
+"start": 12.87,
+"end": 12.93
+},
+{
+"word": "man",
+"start": 12.93,
+"end": 13.11
+},
+{
+"word": "who",
+"start": 13.11,
+"end": 13.19
+},
+{
+"word": "sells",
+"start": 13.19,
+"end": 13.46
+},
+{
+"word": "used",
+"start": 13.46,
+"end": 13.7
+},
+{
+"word": "carts?",
+"start": 13.7,
+"end": 14.12
+},
+{
+"word": "He's",
+"start": 14.44,
+"end": 14.56
+},
+{
+"word": "about",
+"start": 14.56,
+"end": 14.74
+},
+{
+"word": "the",
+"start": 14.74,
+"end": 14.81
+},
+{
+"word": "size",
+"start": 14.81,
+"end": 15.08
+},
+{
+"word": "of",
+"start": 15.08,
+"end": 15.15
+},
+{
+"word": "a",
+"start": 15.15,
+"end": 15.2
+},
+{
+"word": "shoe.",
+"start": 15.2,
+"end": 15.65
+},
+{
+"word": "Then",
+"start": 16.33,
+"end": 16.79
+},
+{
+"word": "there",
+"start": 16.91,
+"end": 17.05
+},
+{
+"word": "was",
+"start": 17.05,
+"end": 17.2
+},
+{
+"word": "Wren.",
+"start": 17.2,
+"end": 17.59
+},
+{
+"word": "Wren",
+"start": 18.05,
+"end": 18.27
+},
+{
+"word": "had",
+"start": 18.27,
+"end": 18.45
+},
+{
+"word": "never",
+"start": 18.45,
+"end": 18.68
+},
+{
+"word": "told",
+"start": 18.68,
+"end": 19.02
+},
+{
+"word": "a",
+"start": 19.02,
+"end": 19.07
+},
+{
+"word": "single",
+"start": 19.07,
+"end": 19.52
+},
+{
+"word": "lie.",
+"start": 19.52,
+"end": 19.88
+},
+{
+"word": "Not",
+"start": 20.11,
+"end": 20.36
+},
+{
+"word": "one.",
+"start": 20.36,
+"end": 20.71
+},
+{
+"word": "And",
+"start": 21.01,
+"end": 21.14
+},
+{
+"word": "in",
+"start": 21.14,
+"end": 21.22
+},
+{
+"word": "Shortwick,",
+"start": 21.22,
+"end": 21.84
+},
+{
+"word": "that",
+"start": 21.84,
+"end": 22.01
+},
+{
+"word": "made",
+"start": 22.01,
+"end": 22.18
+},
+{
+"word": "her",
+"start": 22.18,
+"end": 22.29
+},
+{
+"word": "the",
+"start": 22.29,
+"end": 22.39
+},
+{
+"word": "tallest",
+"start": 22.39,
+"end": 22.88
+},
+{
+"word": "girl",
+"start": 22.88,
+"end": 23.14
+},
+{
+"word": "in",
+"start": 23.14,
+"end": 23.26
+},
+{
+"word": "town.",
+"start": 23.26,
+"end": 23.66
+},
+{
+"word": "People",
+"start": 23.99,
+"end": 24.24
+},
+{
+"word": "called",
+"start": 24.24,
+"end": 24.44
+},
+{
+"word": "it",
+"start": 24.44,
+"end": 24.54
+},
+{
+"word": "showing",
+"start": 24.54,
+"end": 24.88
+},
+{
+"word": "off.",
+"start": 24.88,
+"end": 25.2
+},
+{
+"word": "Kids",
+"start": 25.53,
+"end": 25.75
+},
+{
+"word": "made",
+"start": 25.75,
+"end": 25.89
+},
+{
+"word": "her",
+"start": 25.89,
+"end": 25.97
+},
+{
+"word": "sit",
+"start": 25.97,
+"end": 26.16
+},
+{
+"word": "in",
+"start": 26.16,
+"end": 26.22
+},
+{
+"word": "the",
+"start": 26.22,
+"end": 26.29
+},
+{
+"word": "back",
+"start": 26.29,
+"end": 26.54
+},
+{
+"word": "row.",
+"start": 26.54,
+"end": 26.86
+},
+{
+"word": "Even",
+"start": 27.11,
+"end": 27.3
+},
+{
+"word": "her",
+"start": 27.3,
+"end": 27.39
+},
+{
+"word": "teacher",
+"start": 27.39,
+"end": 27.75
+},
+{
+"word": "stood",
+"start": 27.75,
+"end": 27.98
+},
+{
+"word": "on",
+"start": 27.98,
+"end": 28.07
+},
+{
+"word": "a",
+"start": 28.07,
+"end": 28.13
+},
+{
+"word": "chair",
+"start": 28.13,
+"end": 28.45
+},
+{
+"word": "to",
+"start": 28.45,
+"end": 28.52
+},
+{
+"word": "talk",
+"start": 28.52,
+"end": 28.79
+},
+{
+"word": "to",
+"start": 28.79,
+"end": 28.95
+},
+{
+"word": "her.",
+"start": 28.95,
+"end": 29.07
+},
+{
+"word": "But",
+"start": 29.53,
+"end": 29.65
+},
+{
+"word": "Wren",
+"start": 29.65,
+"end": 29.88
+},
+{
+"word": "noticed",
+"start": 29.88,
+"end": 30.29
+},
+{
+"word": "something",
+"start": 30.29,
+"end": 30.62
+},
+{
+"word": "strange.",
+"start": 30.62,
+"end": 31.22
+},
+{
+"word": "The",
+"start": 31.59,
+"end": 31.67
+},
+{
+"word": "kindest",
+"start": 31.67,
+"end": 32.18
+},
+{
+"word": "woman",
+"start": 32.18,
+"end": 32.41
+},
+{
+"word": "in",
+"start": 32.41,
+"end": 32.5
+},
+{
+"word": "Shortwick,",
+"start": 32.5,
+"end": 32.99
+},
+{
+"word": "old",
+"start": 33.2,
+"end": 33.53
+},
+{
+"word": "Nan",
+"start": 33.53,
+"end": 33.84
+},
+{
+"word": "Tilly,",
+"start": 33.84,
+"end": 34.21
+},
+{
+"word": "was",
+"start": 34.46,
+"end": 34.62
+},
+{
+"word": "barely",
+"start": 34.62,
+"end": 35.01
+},
+{
+"word": "as",
+"start": 35.01,
+"end": 35.11
+},
+{
+"word": "tall",
+"start": 35.11,
+"end": 35.38
+},
+{
+"word": "as",
+"start": 35.38,
+"end": 35.46
+},
+{
+"word": "a",
+"start": 35.46,
+"end": 35.51
+},
+{
+"word": "teacup.",
+"start": 35.51,
+"end": 35.99
+},
+{
+"word": "Everyone",
+"start": 36.43,
+"end": 36.79
+},
+{
+"word": "whispered",
+"start": 36.79,
+"end": 37.2
+},
+{
+"word": "that",
+"start": 37.2,
+"end": 37.32
+},
+{
+"word": "she",
+"start": 37.32,
+"end": 37.52
+},
+{
+"word": "must",
+"start": 37.52,
+"end": 37.74
+},
+{
+"word": "be",
+"start": 37.74,
+"end": 37.86
+},
+{
+"word": "the",
+"start": 37.86,
+"end": 37.96
+},
+{
+"word": "biggest",
+"start": 37.96,
+"end": 38.35
+},
+{
+"word": "liar",
+"start": 38.35,
+"end": 38.73
+},
+{
+"word": "who",
+"start": 38.73,
+"end": 38.87
+},
+{
+"word": "ever",
+"start": 38.95,
+"end": 39.15
+},
+{
+"word": "lived.",
+"start": 39.15,
+"end": 39.48
+},
+{
+"word": "Wren",
+"start": 40.01,
+"end": 40.31
+},
+{
+"word": "didn't",
+"start": 40.31,
+"end": 40.52
+},
+{
+"word": "believe",
+"start": 40.52,
+"end": 40.78
+},
+{
+"word": "it.",
+"start": 40.78,
+"end": 40.92
+},
+{
+"word": "So",
+"start": 41.22,
+"end": 41.36
+},
+{
+"word": "she",
+"start": 41.36,
+"end": 41.52
+},
+{
+"word": "decided",
+"start": 41.52,
+"end": 41.91
+},
+{
+"word": "to",
+"start": 41.91,
+"end": 41.97
+},
+{
+"word": "find",
+"start": 41.97,
+"end": 42.27
+},
+{
+"word": "out.",
+"start": 42.27,
+"end": 42.52
+},
+{
+"word": "She",
+"start": 42.93,
+"end": 43.1
+},
+{
+"word": "followed",
+"start": 43.1,
+"end": 43.5
+},
+{
+"word": "Nan",
+"start": 43.5,
+"end": 43.78
+},
+{
+"word": "everywhere.",
+"start": 43.78,
+"end": 44.41
+},
+{
+"word": "Nan",
+"start": 44.75,
+"end": 45.06
+},
+{
+"word": "fed",
+"start": 45.06,
+"end": 45.28
+},
+{
+"word": "the",
+"start": 45.28,
+"end": 45.34
+},
+{
+"word": "stray",
+"start": 45.34,
+"end": 45.61
+},
+{
+"word": "cats.",
+"start": 45.61,
+"end": 46.05
+},
+{
+"word": "Nan",
+"start": 46.29,
+"end": 46.59
+},
+{
+"word": "fixed",
+"start": 46.59,
+"end": 46.87
+},
+{
+"word": "the",
+"start": 46.87,
+"end": 46.97
+},
+{
+"word": "baker's",
+"start": 46.97,
+"end": 47.29
+},
+{
+"word": "broken",
+"start": 47.29,
+"end": 47.6
+},
+{
+"word": "sign.",
+"start": 47.6,
+"end": 48.03
+},
+{
+"word": "Nan",
+"start": 48.34,
+"end": 48.64
+},
+{
+"word": "carried",
+"start": 48.64,
+"end": 48.93
+},
+{
+"word": "groceries",
+"start": 48.93,
+"end": 49.41
+},
+{
+"word": "up",
+"start": 49.41,
+"end": 49.54
+},
+{
+"word": "the",
+"start": 49.54,
+"end": 49.62
+},
+{
+"word": "hill",
+"start": 49.62,
+"end": 49.87
+},
+{
+"word": "for",
+"start": 49.87,
+"end": 50.02
+},
+{
+"word": "old",
+"start": 50.02,
+"end": 50.19
+},
+{
+"word": "Mr.",
+"start": 50.19,
+"end": 50.45
+},
+{
+"word": "Pell,",
+"start": 50.45,
+"end": 50.83
+},
+{
+"word": "which,",
+"start": 51.05,
+"end": 51.33
+},
+{
+"word": "for",
+"start": 51.33,
+"end": 51.5
+},
+{
+"word": "Nan,",
+"start": 51.5,
+"end": 51.87
+},
+{
+"word": "took",
+"start": 52.09,
+"end": 52.24
+},
+{
+"word": "most",
+"start": 52.24,
+"end": 52.5
+},
+{
+"word": "of",
+"start": 52.5,
+"end": 52.57
+},
+{
+"word": "the",
+"start": 52.57,
+"end": 52.68
+},
+{
+"word": "afternoon.",
+"start": 52.68,
+"end": 53.24
+},
+{
+"word": "No",
+"start": 53.71,
+"end": 53.87
+},
+{
+"word": "lies.",
+"start": 53.87,
+"end": 54.42
+},
+{
+"word": "Not",
+"start": 54.7,
+"end": 54.93
+},
+{
+"word": "one.",
+"start": 54.93,
+"end": 55.37
+},
+{
+"word": "Then",
+"start": 55.93,
+"end": 56.34
+},
+{
+"word": "the",
+"start": 56.42,
+"end": 56.5
+},
+{
+"word": "storm",
+"start": 56.5,
+"end": 56.88
+},
+{
+"word": "came.",
+"start": 56.88,
+"end": 57.2
+},
+{
+"word": "Thunder",
+"start": 57.52,
+"end": 57.89
+},
+{
+"word": "cracked",
+"start": 57.89,
+"end": 58.27
+},
+{
+"word": "over",
+"start": 58.27,
+"end": 58.4
+},
+{
+"word": "the",
+"start": 58.4,
+"end": 58.49
+},
+{
+"word": "rooftops,",
+"start": 58.49,
+"end": 58.99
+},
+{
+"word": "and",
+"start": 59.18,
+"end": 59.29
+},
+{
+"word": "a",
+"start": 59.29,
+"end": 59.32
+},
+{
+"word": "little",
+"start": 59.32,
+"end": 59.53
+},
+{
+"word": "boy",
+"start": 59.53,
+"end": 59.8
+},
+{
+"word": "hid",
+"start": 59.8,
+"end": 60.01
+},
+{
+"word": "under",
+"start": 60.01,
+"end": 60.19
+},
+{
+"word": "Nan's",
+"start": 60.19,
+"end": 60.5
+},
+{
+"word": "porch,",
+"start": 60.5,
+"end": 60.9
+},
+{
+"word": "shaking.",
+"start": 60.97,
+"end": 61.42
+},
+{
+"word": "Nan",
+"start": 61.87,
+"end": 62.17
+},
+{
+"word": "knelt",
+"start": 62.17,
+"end": 62.36
+},
+{
+"word": "beside",
+"start": 62.36,
+"end": 62.72
+},
+{
+"word": "him",
+"start": 62.72,
+"end": 62.81
+},
+{
+"word": "and",
+"start": 62.81,
+"end": 62.92
+},
+{
+"word": "smiled.",
+"start": 62.92,
+"end": 63.4
+},
+{
+"word": "\"That's",
+"start": 63.81,
+"end": 64.03
+},
+{
+"word": "just",
+"start": 64.03,
+"end": 64.21
+},
+{
+"word": "the",
+"start": 64.21,
+"end": 64.3
+},
+{
+"word": "sky",
+"start": 64.3,
+"end": 64.69
+},
+{
+"word": "clearing",
+"start": 64.69,
+"end": 65.01
+},
+{
+"word": "its",
+"start": 65.01,
+"end": 65.14
+},
+{
+"word": "throat,\"",
+"start": 65.14,
+"end": 65.54
+},
+{
+"word": "she",
+"start": 65.65,
+"end": 65.83
+},
+{
+"word": "said.",
+"start": 65.83,
+"end": 66.12
+},
+{
+"word": "And",
+"start": 66.56,
+"end": 66.68
+},
+{
+"word": "Wren",
+"start": 66.68,
+"end": 66.93
+},
+{
+"word": "watched",
+"start": 66.93,
+"end": 67.23
+},
+{
+"word": "her",
+"start": 67.23,
+"end": 67.3
+},
+{
+"word": "shrink.",
+"start": 67.3,
+"end": 67.73
+},
+{
+"word": "Just",
+"start": 68.09,
+"end": 68.32
+},
+{
+"word": "a",
+"start": 68.32,
+"end": 68.36
+},
+{
+"word": "little.",
+"start": 68.36,
+"end": 68.63
+},
+{
+"word": "So",
+"start": 69.07,
+"end": 69.22
+},
+{
+"word": "it",
+"start": 69.22,
+"end": 69.28
+},
+{
+"word": "was",
+"start": 69.28,
+"end": 69.43
+},
+{
+"word": "true.",
+"start": 69.43,
+"end": 69.75
+},
+{
+"word": "Nan",
+"start": 70.13,
+"end": 70.54
+},
+{
+"word": "was",
+"start": 70.54,
+"end": 70.82
+},
+{
+"word": "a",
+"start": 70.82,
+"end": 70.86
+},
+{
+"word": "liar.",
+"start": 70.86,
+"end": 71.26
+},
+{
+"word": "Wren",
+"start": 71.72,
+"end": 71.95
+},
+{
+"word": "ran",
+"start": 71.95,
+"end": 72.2
+},
+{
+"word": "home,",
+"start": 72.2,
+"end": 72.53
+},
+{
+"word": "feeling",
+"start": 72.67,
+"end": 72.93
+},
+{
+"word": "silly",
+"start": 72.93,
+"end": 73.29
+},
+{
+"word": "for",
+"start": 73.29,
+"end": 73.47
+},
+{
+"word": "ever",
+"start": 73.47,
+"end": 73.69
+},
+{
+"word": "believing",
+"start": 73.69,
+"end": 74.08
+},
+{
+"word": "in",
+"start": 74.08,
+"end": 74.15
+},
+{
+"word": "her.",
+"start": 74.15,
+"end": 74.35
+},
+{
+"word": "That",
+"start": 74.81,
+"end": 74.99
+},
+{
+"word": "night,",
+"start": 74.99,
+"end": 75.23
+},
+{
+"word": "her",
+"start": 75.42,
+"end": 75.51
+},
+{
+"word": "little",
+"start": 75.51,
+"end": 75.72
+},
+{
+"word": "brother",
+"start": 75.72,
+"end": 75.95
+},
+{
+"word": "Bo",
+"start": 75.95,
+"end": 76.28
+},
+{
+"word": "had",
+"start": 76.28,
+"end": 76.41
+},
+{
+"word": "a",
+"start": 76.41,
+"end": 76.44
+},
+{
+"word": "fever.",
+"start": 76.44,
+"end": 76.85
+},
+{
+"word": "He",
+"start": 77.19,
+"end": 77.31
+},
+{
+"word": "looked",
+"start": 77.31,
+"end": 77.5
+},
+{
+"word": "up",
+"start": 77.5,
+"end": 77.64
+},
+{
+"word": "at",
+"start": 77.64,
+"end": 77.72
+},
+{
+"word": "her",
+"start": 77.72,
+"end": 77.83
+},
+{
+"word": "from",
+"start": 77.83,
+"end": 77.98
+},
+{
+"word": "his",
+"start": 77.98,
+"end": 78.13
+},
+{
+"word": "bed,",
+"start": 78.13,
+"end": 78.42
+},
+{
+"word": "scared.",
+"start": 78.56,
+"end": 79.04
+},
+{
+"word": "\"Am",
+"start": 79.62,
+"end": 79.76
+},
+{
+"word": "I",
+"start": 79.76,
+"end": 79.85
+},
+{
+"word": "going",
+"start": 79.85,
+"end": 80.03
+},
+{
+"word": "to",
+"start": 80.03,
+"end": 80.09
+},
+{
+"word": "be",
+"start": 80.09,
+"end": 80.24
+},
+{
+"word": "okay?\"",
+"start": 80.24,
+"end": 80.65
+},
+{
+"word": "Wren",
+"start": 81.2,
+"end": 81.44
+},
+{
+"word": "didn't",
+"start": 81.44,
+"end": 81.65
+},
+{
+"word": "know.",
+"start": 81.65,
+"end": 81.93
+},
+{
+"word": "She",
+"start": 82.22,
+"end": 82.36
+},
+{
+"word": "opened",
+"start": 82.36,
+"end": 82.59
+},
+{
+"word": "her",
+"start": 82.59,
+"end": 82.66
+},
+{
+"word": "mouth",
+"start": 82.66,
+"end": 82.9
+},
+{
+"word": "to",
+"start": 82.9,
+"end": 83.01
+},
+{
+"word": "tell",
+"start": 83.01,
+"end": 83.19
+},
+{
+"word": "the",
+"start": 83.19,
+"end": 83.26
+},
+{
+"word": "truth...",
+"start": 83.26,
+"end": 83.63
+},
+{
+"word": "and",
+"start": 84.1,
+"end": 84.22
+},
+{
+"word": "instead,",
+"start": 84.22,
+"end": 84.66
+},
+{
+"word": "she",
+"start": 84.93,
+"end": 85.07
+},
+{
+"word": "heard",
+"start": 85.07,
+"end": 85.24
+},
+{
+"word": "herself",
+"start": 85.24,
+"end": 85.55
+},
+{
+"word": "say:",
+"start": 85.55,
+"end": 85.86
+},
+{
+"word": "\"Of",
+"start": 86.2,
+"end": 86.3
+},
+{
+"word": "course",
+"start": 86.3,
+"end": 86.62
+},
+{
+"word": "you",
+"start": 86.62,
+"end": 86.75
+},
+{
+"word": "are.\"",
+"start": 86.75,
+"end": 87.01
+},
+{
+"word": "Her",
+"start": 87.58,
+"end": 87.68
+},
+{
+"word": "sleeves",
+"start": 87.68,
+"end": 88.15
+},
+{
+"word": "slid",
+"start": 88.15,
+"end": 88.46
+},
+{
+"word": "past",
+"start": 88.46,
+"end": 88.71
+},
+{
+"word": "her",
+"start": 88.71,
+"end": 88.78
+},
+{
+"word": "fingers.",
+"start": 88.78,
+"end": 89.22
+},
+{
+"word": "Her",
+"start": 89.41,
+"end": 89.5
+},
+{
+"word": "shoes",
+"start": 89.5,
+"end": 89.91
+},
+{
+"word": "went",
+"start": 89.91,
+"end": 90.07
+},
+{
+"word": "loose.",
+"start": 90.07,
+"end": 90.43
+},
+{
+"word": "She",
+"start": 90.72,
+"end": 90.86
+},
+{
+"word": "had",
+"start": 90.86,
+"end": 90.98
+},
+{
+"word": "shrunk.",
+"start": 90.98,
+"end": 91.41
+},
+{
+"word": "And",
+"start": 91.86,
+"end": 91.99
+},
+{
+"word": "suddenly,",
+"start": 91.99,
+"end": 92.46
+},
+{
+"word": "Wren",
+"start": 92.68,
+"end": 92.99
+},
+{
+"word": "understood.",
+"start": 92.99,
+"end": 93.59
+},
+{
+"word": "Nan",
+"start": 94.03,
+"end": 94.34
+},
+{
+"word": "Tilly",
+"start": 94.34,
+"end": 94.65
+},
+{
+"word": "had",
+"start": 94.65,
+"end": 94.81
+},
+{
+"word": "never",
+"start": 94.81,
+"end": 95.06
+},
+{
+"word": "lied",
+"start": 95.06,
+"end": 95.42
+},
+{
+"word": "to",
+"start": 95.42,
+"end": 95.5
+},
+{
+"word": "cheat",
+"start": 95.5,
+"end": 95.78
+},
+{
+"word": "anyone.",
+"start": 95.78,
+"end": 96.21
+},
+{
+"word": "She",
+"start": 96.51,
+"end": 96.65
+},
+{
+"word": "had",
+"start": 96.65,
+"end": 96.75
+},
+{
+"word": "spent",
+"start": 96.75,
+"end": 96.98
+},
+{
+"word": "her",
+"start": 96.98,
+"end": 97.09
+},
+{
+"word": "whole",
+"start": 97.09,
+"end": 97.39
+},
+{
+"word": "life",
+"start": 97.39,
+"end": 97.67
+},
+{
+"word": "telling",
+"start": 97.67,
+"end": 97.94
+},
+{
+"word": "scared",
+"start": 97.94,
+"end": 98.35
+},
+{
+"word": "people",
+"start": 98.35,
+"end": 98.64
+},
+{
+"word": "that",
+"start": 98.64,
+"end": 98.79
+},
+{
+"word": "everything",
+"start": 98.79,
+"end": 99.2
+},
+{
+"word": "would",
+"start": 99.2,
+"end": 99.3
+},
+{
+"word": "be",
+"start": 99.3,
+"end": 99.4
+},
+{
+"word": "fine.",
+"start": 99.4,
+"end": 99.82
+},
+{
+"word": "Every",
+"start": 100.18,
+"end": 100.54
+},
+{
+"word": "inch",
+"start": 100.54,
+"end": 100.71
+},
+{
+"word": "she'd",
+"start": 100.71,
+"end": 100.98
+},
+{
+"word": "lost,",
+"start": 100.98,
+"end": 101.4
+},
+{
+"word": "she'd",
+"start": 101.57,
+"end": 101.8
+},
+{
+"word": "given",
+"start": 101.8,
+"end": 102.03
+},
+{
+"word": "away.",
+"start": 102.03,
+"end": 102.43
+},
+{
+"word": "The",
+"start": 102.93,
+"end": 103.01
+},
+{
+"word": "next",
+"start": 103.01,
+"end": 103.23
+},
+{
+"word": "morning,",
+"start": 103.23,
+"end": 103.58
+},
+{
+"word": "Bo's",
+"start": 103.75,
+"end": 104.11
+},
+{
+"word": "fever",
+"start": 104.11,
+"end": 104.39
+},
+{
+"word": "broke.",
+"start": 104.39,
+"end": 104.78
+},
+{
+"word": "Wren",
+"start": 105.12,
+"end": 105.42
+},
+{
+"word": "walked",
+"start": 105.42,
+"end": 105.71
+},
+{
+"word": "to",
+"start": 105.71,
+"end": 105.83
+},
+{
+"word": "Nan's",
+"start": 105.83,
+"end": 106.14
+},
+{
+"word": "house,",
+"start": 106.14,
+"end": 106.49
+},
+{
+"word": "a",
+"start": 106.63,
+"end": 106.69
+},
+{
+"word": "little",
+"start": 106.69,
+"end": 106.89
+},
+{
+"word": "shorter",
+"start": 106.89,
+"end": 107.2
+},
+{
+"word": "than",
+"start": 107.2,
+"end": 107.34
+},
+{
+"word": "yesterday,",
+"start": 107.34,
+"end": 107.77
+},
+{
+"word": "and",
+"start": 107.77,
+"end": 108.07
+},
+{
+"word": "sat",
+"start": 108.07,
+"end": 108.29
+},
+{
+"word": "beside",
+"start": 108.29,
+"end": 108.62
+},
+{
+"word": "her",
+"start": 108.62,
+"end": 108.73
+},
+{
+"word": "on",
+"start": 108.73,
+"end": 108.83
+},
+{
+"word": "the",
+"start": 108.83,
+"end": 108.89
+},
+{
+"word": "step.",
+"start": 108.89,
+"end": 109.25
+},
+{
+"word": "For",
+"start": 109.61,
+"end": 109.69
+},
+{
+"word": "the",
+"start": 109.69,
+"end": 109.77
+},
+{
+"word": "first",
+"start": 109.77,
+"end": 110.08
+},
+{
+"word": "time,",
+"start": 110.08,
+"end": 110.43
+},
+{
+"word": "they",
+"start": 110.43,
+"end": 110.72
+},
+{
+"word": "were",
+"start": 110.72,
+"end": 110.85
+},
+{
+"word": "eye",
+"start": 111.53,
+"end": 111.71
+},
+{
+"word": "to",
+"start": 111.71,
+"end": 111.85
+},
+{
+"word": "eye.",
+"start": 111.85,
+"end": 112.13
+},
+{
+"word": "\"Did",
+"start": 112.77,
+"end": 112.9
+},
+{
+"word": "it",
+"start": 112.9,
+"end": 112.98
+},
+{
+"word": "hurt?\"",
+"start": 112.98,
+"end": 113.33
+},
+{
+"word": "Wren",
+"start": 113.58,
+"end": 113.77
+},
+{
+"word": "asked.",
+"start": 113.77,
+"end": 114.13
+},
+{
+"word": "Nan",
+"start": 114.51,
+"end": 114.78
+},
+{
+"word": "laughed.",
+"start": 114.78,
+"end": 115.16
+},
+{
+"word": "\"Only",
+"start": 115.52,
+"end": 115.79
+},
+{
+"word": "the",
+"start": 115.79,
+"end": 115.88
+},
+{
+"word": "first",
+"start": 115.88,
+"end": 116.17
+},
+{
+"word": "time.\"",
+"start": 116.17,
+"end": 116.5
+},
+{
+"word": "In",
+"start": 117.09,
+"end": 117.19
+},
+{
+"word": "Shortwick,",
+"start": 117.19,
+"end": 117.66
+},
+{
+"word": "everyone",
+"start": 117.86,
+"end": 118.21
+},
+{
+"word": "thinks",
+"start": 118.21,
+"end": 118.46
+},
+{
+"word": "the",
+"start": 118.46,
+"end": 118.55
+},
+{
+"word": "tallest",
+"start": 118.55,
+"end": 119.02
+},
+{
+"word": "people",
+"start": 119.02,
+"end": 119.32
+},
+{
+"word": "are",
+"start": 119.32,
+"end": 119.42
+},
+{
+"word": "the",
+"start": 119.42,
+"end": 119.5
+},
+{
+"word": "most",
+"start": 119.5,
+"end": 119.81
+},
+{
+"word": "honest.",
+"start": 119.81,
+"end": 120.23
+},
+{
+"word": "But",
+"start": 120.53,
+"end": 120.65
+},
+{
+"word": "the",
+"start": 120.65,
+"end": 120.73
+},
+{
+"word": "smallest",
+"start": 120.73,
+"end": 121.28
+},
+{
+"word": "people",
+"start": 121.28,
+"end": 121.54
+},
+{
+"word": "in",
+"start": 121.54,
+"end": 121.65
+},
+{
+"word": "town",
+"start": 121.65,
+"end": 121.99
+},
+{
+"word": "are",
+"start": 122.18,
+"end": 122.27
+},
+{
+"word": "the",
+"start": 122.27,
+"end": 122.35
+},
+{
+"word": "ones",
+"start": 122.35,
+"end": 122.7
+},
+{
+"word": "who",
+"start": 122.7,
+"end": 122.81
+},
+{
+"word": "loved",
+"start": 122.81,
+"end": 123.31
+},
+{
+"word": "the",
+"start": 123.31,
+"end": 123.4
+},
+{
+"word": "most.",
+"start": 123.4,
+"end": 123.85
+}
+]

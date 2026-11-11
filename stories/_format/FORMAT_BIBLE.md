@@ -40,6 +40,12 @@ One town, one absurd rule, one kid who collides with it, one twist that changes 
 ## Pitch rubric (1–5 each, 35 max)
 Hook image · Rule clarity · Gag density · Twist strength · Emotional payoff · Set reuse (5 = mostly existing kit) · Novelty
 
+## Workflow (owner decision: voice-over first)
+1. Pitch → script (`stories/<ep>/SCRIPT.md`).
+2. The owner records the ElevenLabs voice-over and sends the WAV **before any visuals are built**.
+3. `scripts/episode-align.py <ep> <wav>` writes word timings; every shot is anchored to a spoken phrase, so the edit is built on the real performance, never on estimates.
+4. Animatic + automatic lint → first ~15 s at native 1080p as the proof gate → full render → captions v2 + review file (voice stays private, out of Git).
+
 ## Production guardrails
 - Original characters, sets and names only; no Roblox assets or logos.
 - Native 1080×1920, 30 fps. Shots are anchored to narration **words**, never to estimated times.
