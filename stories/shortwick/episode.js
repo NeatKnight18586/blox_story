@@ -345,9 +345,9 @@ export const shots = [
   {id: 'K05', at: 'People called it showing', cam: {on: ['gossipA', 'gossipB'], size: 'MS', yaw: 15, pitch: 2, move: 'drift'},
     stage(c, X) {
       const a = X.cast.gossipA, b = X.cast.gossipB, p = at(X.S, -37, .35, 8.4);
-      put(a, p, hd(X.S, Math.PI + .9), 'snooty'); put(b, at(X.S, -35.4, .35, 8.2), hd(X.S, Math.PI - 1.2), 'devious');
+      put(a, p, hd(X.S, Math.PI + 1.15), 'snooty'); put(b, at(X.S, -35.4, .35, 8.2), hd(X.S, Math.PI - 1.2), 'devious');
       act(a, c.t, [[0, 'handsHips']]); act(b, c.t, [[0, 'shy']]); talk(b, c.t, {amt: .6});
-      a.pivots.head.rotation.y = .5; setExpression(a, faceAt(c.t, [[0, 'snooty'], [c.at('off', -.1), 'irritated']]));
+      a.pivots.head.rotation.y = .25; setExpression(a, faceAt(c.t, [[0, 'snooty'], [c.at('off', -.1), 'irritated']]));
     }},
   {id: 'K06', at: 'Kids made her sit', lintIgnore: ['head cut'], cam: {on: 'wren', size: 'WS', h: 12, worldYaw: 180, pitch: 10, y: .42, fov: 62, move: {type: 'pull', amt: .1}},
     stage(c, X) {
@@ -384,8 +384,8 @@ export const shots = [
   {id: 'R04', at: 'Everyone whispered', cam: {on: ['gossipA', 'gossipB'], size: 'MCU', yaw: -20, pitch: 0, move: 'drift'},
     stage(c, X) {
       const a = X.cast.gossipA, b = X.cast.gossipB, p = at(X.N, 16, .35, -2.2);
-      put(a, p, .2, 'devious'); put(b, p.clone().add(V(1.3, 0, -.2)), -.5, 'snooty');
-      act(a, c.t, [[0, 'shy']]); act(b, c.t, [[0, 'handsHips']]); talk(a, c.t, {amt: .7}); a.pivots.head.rotation.y = .6;
+      put(a, p, .5, 'devious'); put(b, p.clone().add(V(1.3, 0, -.2)), -.5, 'snooty');
+      act(a, c.t, [[0, 'shy']]); act(b, c.t, [[0, 'handsHips']]); talk(a, c.t, {amt: .7}); a.pivots.head.rotation.y = .3;
     }},
   {id: 'R05', at: 'that she must be', cam: {on: 'gossipB', size: 'CU', yaw: 15, pitch: 0, move: {type: 'push', amt: .12}},
     stage(c, X) {
@@ -524,10 +524,10 @@ export const shots = [
       put(n, at(X.P, 2.8, .3, 6.9), -2.4, 'happy'); act(n, c.t, [[0, 'reach']]);
       return {tint: ['#ffcf8a', .16]};
     }},
-  {id: 'T07', at: 'telling scared people', lintIgnore: ['too small'], mood: 'golden', cam: {on: 'nan', size: 'MS', yaw: 70, pitch: 2, scaleRef: .45, y: .42, move: 'push'},
+  {id: 'T07', at: 'telling scared people', lintIgnore: ['too small'], mood: 'golden', cam: {on: 'nan', size: 'MS', yaw: 20, pitch: 2, scaleRef: .45, y: .42, move: 'push'},
     stage(c, X) {
       const m = X.extras[13], n = X.cast.nan, B = X.plazaBench; B.updateMatrixWorld(true);
-      put(m, B.localToWorld(V(-.7, 0, .1)).setY(B.position.y + seatY(1.75, .92) - .92), B.rotation.y, faceAt(c.t, [[0, 'nervous'], [c.at('everything'), 'pleased']])); act(m, c.t, [[0, 'sit']]); m.pivots.head.rotation.y = .35;
+      put(m, B.localToWorld(V(-.7, 0, .1)).setY(B.position.y + seatY(1.75, .92) - .92), B.rotation.y, faceAt(c.t, [[0, 'nervous'], [c.at('everything'), 'pleased']])); act(m, c.t, [[0, 'sit']]); m.pivots.head.rotation.y = .12;
       put(n, B.localToWorld(V(1.25, 3.12, -.62)), B.rotation.y - Math.PI / 2, 'happy'); act(n, c.t, [[0, 'stand']]); talk(n, c.t, {amt: .5});
       return {tint: ['#ffcf8a', .16], cam: {on: [m, n]}, light: X.plazaBench.position.clone()};
     }},
@@ -538,22 +538,22 @@ export const shots = [
     stage(c, X) { return bedScene(c, X, {morning: true}); }},
   {id: 'P02', at: 'Wren walked to', mood: 'dawn', cam: {on: 'wren', size: 'FS', yaw: 30, pitch: 0, move: 'track'},
     stage(c, X) { const w = X.cast.wren; w.root.visible = true; locomote(w, c.t, {from: [X.N.x + 12, .35, X.N.z + 2.4], dir: [-1, 0]}); w.root.scale.setScalar(1.06); setExpression(w, 'pensive'); return {light: w.root.position.clone()}; }},
-  {id: 'P03', at: 'and sat beside', lintIgnore: ['view blocked'], mood: 'dawn', cam: {on: 'deck', size: 'MLS', h: 9, worldYaw: 25, pitch: 6, y: .45, move: 'push'},
-    stage(c, X) { return stepScene(c, X, {sit: c.at('sat')}); }},
+  {id: 'P03', at: 'and sat beside', lintIgnore: ['view blocked'], mood: 'dawn', cam: {on: 'deck', size: 'MLS', h: 9, worldYaw: -15, pitch: 6, y: .45, move: 'push'},
+    stage(c, X) { const r = stepScene(c, X, {sit: c.at('sat')}); if (c.t >= c.at('sat')) { const w = X.cast.wren; w.root.rotation.y = -.8; w.pivots.head.rotation.y = 0; } return r; }},
   {id: 'P04', at: 'For the first time', mood: 'dawn', lintIgnore: ['head cut', 'text cropped'], cam: {on: 'nan', size: 'MS', scaleRef: .3, worldYaw: -90, pitch: 0, x: -.22, y: .42, move: {type: 'push', amt: .08}},
-    stage(c, X) { return stepScene(c, X, {}); }},
+    stage(c, X) { const r = stepScene(c, X, {}); { const w = X.cast.wren; w.root.rotation.y = -.8; w.pivots.head.rotation.y = 0; } return r; }},
   {id: 'P05', at: 'Did it hurt', mood: 'dawn', cam: {on: 'wren', size: 'MCU', yaw: -35, pitch: 0, y: .42, move: 'drift'},
-    stage(c, X) { const r = stepScene(c, X, {wrenFace: 'curious', look: true}); talk(X.cast.wren, c.t, {amt: .3}); return r; }},
+    stage(c, X) { const r = stepScene(c, X, {wrenFace: 'curious', look: true}); { const w = X.cast.wren; w.root.rotation.y = -.8; w.pivots.head.rotation.y = 0; } talk(X.cast.wren, c.t, {amt: .3}); return r; }},
   {id: 'P06', at: 'Nan laughed', mood: 'dawn', cam: {on: 'nan', size: 'MCU', yaw: 60, pitch: 0, y: .5, move: {type: 'push', amt: .1}},
-    stage(c, X) { const r = stepScene(c, X, {nanFace: faceAt(c.t, [[0, 'laughing'], [c.at('Only'), 'pleased']]), look: true}); if (c.t > c.at('Only')) talk(X.cast.nan, c.t, {amt: .5}); return r; }},
+    stage(c, X) { const r = stepScene(c, X, {nanFace: faceAt(c.t, [[0, 'laughing'], [c.at('Only'), 'pleased']]), look: true}); { const w = X.cast.wren; w.root.rotation.y = -.8; w.pivots.head.rotation.y = 0; } if (c.t > c.at('Only')) talk(X.cast.nan, c.t, {amt: .5}); return r; }},
   // --- Button ---
   {id: 'Z01', at: 'In Shortwick, everyone', mood: 'dawn', cam: {on: 'plaza', size: 'WS', h: 44, worldYaw: -60, pitch: 35, y: .5, move: 'orbit'},
     stage(c, X) {
       walkers(X, c.T, [[0, fromA(X.P, -14, .3, 4), [1, 0]], [5, fromA(X.P, 12, .3, 9), [-1, 0]], [8, fromA(X.P, -6, .3, 12), [.6, -.8]]]);
       put(X.cast.mayor, X.stack.position.clone().setY(X.stack.position.y + X.stack.userData.top + .02), -Math.PI / 2, 'confident'); act(X.cast.mayor, c.t, [[0, 'speech']]);
     }},
-  {id: 'Z02', at: 'But the smallest', lintIgnore: ['too small', 'head cut'], mood: 'dawn', cam: {on: ['wren', 'nan'], size: 'CU', worldYaw: 12, pitch: 6, scaleRef: 1.06, margin: .3, fill: .95, move: {type: 'pull', amt: 3.2}},
-    stage(c, X) { return stepScene(c, X, {}); }},
+  {id: 'Z02', at: 'But the smallest', lintIgnore: ['too small', 'head cut'], mood: 'dawn', cam: {on: ['wren', 'nan'], size: 'CU', worldYaw: -30, pitch: 6, scaleRef: 1.06, margin: .3, fill: .95, move: {type: 'pull', amt: 3.2}},
+    stage(c, X) { const r = stepScene(c, X, {}); { const w = X.cast.wren; w.root.rotation.y = -.8; w.pivots.head.rotation.y = 0; } return r; }},
 ];
 
 // Bedroom: Bo in bed, Wren on the chair beside him; the shrink happens here.
