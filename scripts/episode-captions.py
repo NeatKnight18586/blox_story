@@ -2,7 +2,7 @@
 
 Usage: python3 scripts/episode-captions.py <episode> [out.ass]
 Reads stories/<episode>/word-timings.json (scripts/episode-align.py). Writes an ASS file
-(default renders/<episode>-final/captions.ass): white Montserrat ExtraBold ~68 px on 1080,
+(default renders/<episode>-final/captions.ass): white Montserrat ExtraBold 72 px on 1080,
 dark outline, 1–4 words per caption, never across a sentence end, sitting in the
 caption band (60–76% down the frame) that the camera solver keeps faces out of.
 Burn in with: -vf "ass=<file>:fontsdir=studio/fonts"
@@ -65,7 +65,7 @@ ScaledBorderAndShadow: yes
 
 [V4+ Styles]
 Format: Name, Fontname, Fontsize, PrimaryColour, SecondaryColour, OutlineColour, BackColour, Bold, Italic, Underline, StrikeOut, ScaleX, ScaleY, Spacing, Angle, BorderStyle, Outline, Shadow, Alignment, MarginL, MarginR, MarginV, Encoding
-Style: Cap,Montserrat ExtraBold,68,&H00FFFFFF,&H00FFFFFF,&H00141414,&H96000000,0,0,0,0,100,100,0.5,0,1,5,2.5,2,80,80,500,1
+Style: Cap,Montserrat ExtraBold,72,&H00FFFFFF,&H00FFFFFF,&H00141414,&H96000000,0,0,0,0,100,100,0.5,0,1,5,2.5,2,80,80,500,1
 
 [Events]
 Format: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text

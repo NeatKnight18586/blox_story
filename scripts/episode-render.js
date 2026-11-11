@@ -13,7 +13,7 @@ import {createHash} from 'node:crypto';
 import path from 'node:path';
 import {startServer} from './pipeline/server.js';
 
-const arg = (k, d) => process.argv.find(a => a.startsWith(`--${k}=`))?.split('=')[1] ?? d;
+const arg = (k, d) => process.argv.find(a => a.startsWith(`--${k}=`))?.slice(k.length + 3) ?? d;
 const ep = arg('ep'), width = Number(arg('width', 1080)), workers = Number(arg('workers', 3));
 const deadline = Date.now() + Number(arg('max-minutes', 110)) * 60000;
 const root = arg('out', `renders/${ep}-${width}`), seqDir = `${root}/seq`; await mkdir(seqDir, {recursive: true});

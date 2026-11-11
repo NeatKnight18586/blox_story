@@ -7,7 +7,7 @@ import {mkdir, writeFile} from 'node:fs/promises';
 import {execFileSync} from 'node:child_process';
 import {startServer} from './pipeline/server.js';
 
-const arg = (k, d) => process.argv.find(a => a.startsWith(`--${k}=`))?.split('=')[1] ?? d;
+const arg = (k, d) => process.argv.find(a => a.startsWith(`--${k}=`))?.slice(k.length + 3) ?? d;
 const ep = arg('ep'), width = Number(arg('width', 270)), atU = arg('at', '.5').split(',').map(Number);
 const out = arg('out', `renders/${ep}-preview`); await mkdir(out, {recursive: true});
 const executablePath = process.env.PW_CHROMIUM ?? (existsSync('/opt/pw-browsers/chromium') ? '/opt/pw-browsers/chromium' : undefined);
