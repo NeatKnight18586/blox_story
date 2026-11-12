@@ -1,0 +1,25 @@
+{
+ "slug": "nobody-stills",
+ "fps": 30,
+ "note": "Session 3 world sheet: the six §12 stills (8 frames each so movers and bench have time samples). Cameras come from world anchors.",
+ "world": "stories/nobody/world.js",
+ "castFile": "stories/nobody/cast.json",
+ "cast": {
+  "nobody": {"style": "v2", "preset": "nobody", "at": "heroStone", "yaw": 0, "keys": [[0, "pull"]], "faces": [[0, "determined"]]},
+  "pip": {"style": "v2", "preset": "pip", "at": "field", "offset": [-3, 0, 4], "yaw": 160, "keys": [[0, "toolHold"]], "faces": [[0, "smug"]]},
+  "kidKnight": {"style": "v2", "preset": "kidKnight", "at": "field", "offset": [-9.5, 0, 5], "yaw": 150, "keys": [[0, "cheer"]]},
+  "kidBaker": {"style": "v2", "preset": "kidBaker", "at": "field", "offset": [8, 0, 8], "yaw": 200, "keys": [[0, "point"]], "faces": [[0, "smug"]]},
+  "kidSmith": {"style": "v2", "preset": "kidSmith", "at": "field", "offset": [-5, 0, -9], "yaw": 180, "keys": [[0, "pull"]]},
+  "town1": {"style": "v2", "town": 3, "at": "square", "offset": [-6, 0, 5], "ambient": true},
+  "town2": {"style": "v2", "town": 6, "at": "square", "offset": [6, 0, -3], "ambient": true},
+  "town3": {"style": "v2", "town": 9, "at": "square", "offset": [-3, 0, -8], "ambient": true}
+ },
+ "shots": [
+  {"id": "W-whole-day", "size": "wide", "frames": 8, "anchor": "whole", "look": "day", "shadowRadius": 110},
+  {"id": "F-field-day", "size": "wide", "frames": 8, "anchor": "field", "look": "day", "shadowRadius": 60},
+  {"id": "S-square-day", "size": "wide", "frames": 8, "anchor": "square", "look": "day", "shadowRadius": 45},
+  {"id": "G-gate-golden", "size": "wide", "frames": 8, "anchor": "gate", "look": "goldenHour", "shadowRadius": 50},
+  {"id": "N-square-fire", "size": "wide", "frames": 8, "anchor": "dragonWall", "look": "fireNight", "shadowRadius": 60},
+  {"id": "H-hero-close", "size": "close", "frames": 8, "anchor": "heroStone", "look": "day", "shadowRadius": 14}
+ ]
+}
