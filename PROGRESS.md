@@ -35,3 +35,31 @@
 **Open problems / notes for later sessions:**
 - §5.4 output (render 720×1280, Lanczos-upscale to 1080×1920) contradicts the old AGENTS.md rule "native resolution only"; the brief supersedes it, and captions/grade stay native 1080 in FFmpeg. Flagged for the owner.
 - Review sheets: `review/engine-test/` (1-fps sheet, one cell per move, 3 s MP4).
+
+## Session 2: Avatars — plan (owner answers in chat 2026-11-12: native 1080p finals; avatar choice delegated)
+1. Legacy `avatar/baseAvatar.js` stays frozen (names100). New opt-in v2 actor with the same pivot names/rest positions so `avatar/actions.js` (idle, look_react, walk) still drives it.
+2. `avatar-style/body.js`: hero tier = 2-segment rounded blocks + low-poly head lathe (≤ 2.5k tris with hair/face/accessory); background tier = plain boxes (≤ 300 tris). Phong plastic, toy palette.
+3. `faces2.js` (10 faces, cached canvas decals), `hair.js` (10 faceted presets, hero ≤ 300 / bg ≤ 60 tris, vertex colours), `clothing.js` (tunic/armor/robe/apron/royal/peasant), `accessories.js`, `tools.js`.
+4. `engine/poses.js` (pure samplers + cross-fade), `engine/overhead.js` (name tag pop, stat, chat bubble), `engine/actors.js` (cast from data); `episode.js` uses actors for `style: 'v2'` cast.
+5. `stories/nobody/cast.json` (§11.3 cast); `scripts/v2/avatar-sheet.js` → `review/nobody/avatar-sheet.png` + phone crop; score the 8-item rubric (max 3 passes).
+6. Native 1080p: render default 1080×1920, bench reports 720 gates + 1080 timing. Tests for poses/budgets/caches; npm test, v2:test, bench, 10-frame re-render; push, update PR #54, stop.
+
+## Session 2: Avatars — report (2026-11-12)
+**Built:** `avatar-style/` body.js (v2 actor: same pivots/rest positions as the frozen legacy avatar), faces2.js (10 faces, cached 512 px decals), hair.js (10 faceted presets, vertex-colour shading), clothing.js (tunic/armor/robe/apron/royal/peasant, hero 512 px torso faces, bg 128 px), accessories.js (crown, helmet, hood, straw hat, scarf, cape, backpack), tools.js (sword, stone-hammer, torch, bread); `engine/poses.js` (17 poses, cross-fade 0.18 s, seeded background life), `engine/overhead.js` (name tag pop, stat, chat bubble, per-frame screen-size cap), `engine/actors.js`, `engine/studio.html/.js` (lookdev stage); `episode.js` runs `style: 'v2'` cast (`castFile`, timed `keys`/`faces`, `travel`, `town` seeds, `ambient`). `stories/nobody/cast.json` (§11.3 cast). `scripts/v2/avatar-sheet.js`, `scripts/v2/server.js`. Fixture `engine/fixtures/v2-cast.json` (10 heroes + 4 background). Font: Lilita One from npm (tags now, captions in S4).
+
+**Run:** `node scripts/v2/avatar-sheet.js` → `review/nobody/avatar-sheet.png`, `phone-390.png` · `npm run v2:bench -- --spec engine/fixtures/v2-cast.json` · `npm run v2:render -- --spec engine/fixtures/v2-cast.json --out renders/v2/v2-cast`
+
+**Numbers:** hero actors 2,006–2,174 triangles with hair, accessories, tool and face (budget 2.5k); background 220 (budget 300); hair hero 168–288, bg 56–60. Legacy avatar for comparison: 10,044 in frame (the "19k" in Session 1 included the shadow pass; corrected). Whole 14-person cast in one wide: 18.9k frustum triangles. Bench v2-cast PASS: 0.124 s/frame at 720, **0.199 s/frame at native 1080**; render 90 frames 1080×1920 in 25.9 s wall. 10/10 frames byte-identical on re-render. `npm test` exit 0, `v2:test` 16/16.
+
+**Rubric (final scores after 3 passes; 1–5):** 1 silhouette at 160 px **5** · 2 expression at 160 px **4** (clear in medium/close; at lineup size eyes+mouth still read) · 3 faceted hair, eyes uncovered **5** (test enforces hairline ≥ 0.24) · 4 clothing differs per character **5** · 5 plastic highlight, nothing muddy **4** (brighter yellow after pass 2; highlight subtle by design) · 6 hero by scarf < 1 s **5** · 7 tag legible at phone size **5** (names; role line small but readable) · 8 tool-hold reads **4** (sword and hammer clear; torch/bread not on the sheet).
+Fixed during passes: face shading seam (lathe wrap moved to the back), sword blade edge-on (flat now faces sideways), pull hands not on the hilt (pose solved numerically: fists at 3.0 high, 0.8 ahead), lineup/tool/pull framing, ponytail view, mustard skin (lights), soft clothing at 1080 (256 → 512 px), giant tags in close-ups (screen-size cap 6 % of frame height, hidden < 3.2 units), overlapping tags in the phone shot.
+
+**Decisions:**
+- Native 1080×1920 finals (owner, 2026-11-12): `render.js` default 1080×1920, no upscale anywhere; bench keeps the brief's 720 gates and also reports 1080 timing (target ≤ 1.0 s/frame; measured 0.2).
+- Legacy avatar frozen; v2 actor is a separate opt-in with the same pivot contract (legacy walk/idle/look_react samplers reused).
+- Bench gate = triangles of visible meshes intersecting the camera frustum (brief wording); `withShadowPass` reported alongside.
+- Classic tool grip: sword/hammer continue the arm (point ahead in toolHold); torch upright; bread across the fist.
+- Name tags cap at 6 % of frame height and hide inside 3.2 units, so close-ups never carry a banner.
+- PR base stays `claude/lucid-brahmagupta-jg9ad9`.
+
+**Open problems:** ~1,000 draw calls for 14 clothed actors (6 painted faces × 6 parts each); fine at 0.2 s/frame, but if Session 3's world pushes calls up, atlas each actor's clothing into one texture. The pull stone is a placeholder; the real Field of Stones stone, hilt height and anchor come in Session 3. Gate A follows Session 3.

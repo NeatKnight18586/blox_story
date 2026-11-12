@@ -1,6 +1,6 @@
 // scripts/v2/render.js — render an episode's frames (docs/V2_BRIEF.md §5.4).
 //   node scripts/v2/render.js --story <slug> | --spec <path/to/episode.json>
-//        [--out <dir>] [--width 720 --height 1280] [--from N --to M] [--every K] [--workers 1] [--aa 0|1]
+//        [--out <dir>] [--width 1080 --height 1920] [--from N --to M] [--every K] [--workers 1] [--aa 0|1]
 // Per-shot cache: <out>/cache/<shot>-<hash>/<n>.png, hash = engine + avatar code + the episode's
 // non-shot data + that shot's own JSON, so fixing one shot re-renders only that shot.
 // <out>/frames/frame-%05d.png are hard links into the cache (ready for ffmpeg); <out>/progress.json
@@ -9,7 +9,7 @@ import {createHash} from 'node:crypto';
 import {existsSync, readdirSync, readFileSync, statSync} from 'node:fs';
 import {mkdir, writeFile, link, unlink} from 'node:fs/promises';
 import path from 'node:path';
-import {startServer} from '../pipeline/server.js';
+import {startServer} from './server.js';
 import {launch} from './browser.js';
 
 const argv = process.argv.slice(2);
@@ -17,7 +17,8 @@ const arg = (k, d) => { const i = argv.indexOf(`--${k}`); return i >= 0 ? argv[i
 const story = arg('story'), specPath = arg('spec') ?? (story && `stories/${story}/episode.json`);
 if (!specPath) { console.error('usage: render.js --story <slug> | --spec <episode.json>'); process.exit(2); }
 const out = arg('out') ?? path.join(path.dirname(specPath), 'build');
-const width = Number(arg('width', 720)), height = Number(arg('height', 1280)), workers = Number(arg('workers', 1)), aa = arg('aa', '1');
+const width = Number(arg('width', 1080)), height = Number(arg('height', 1920)),   // native 1080p finals (owner decision)
+      workers = Number(arg('workers', 1)), aa = arg('aa', '1');
 const every = Number(arg('every', 1));
 
 const spec = JSON.parse(readFileSync(specPath, 'utf8')), fps = spec.fps ?? 30;
@@ -29,8 +30,9 @@ const sha = s => createHash('sha256').update(s).digest('hex');
 const walk = d => existsSync(d) ? readdirSync(d).flatMap(f => { const p = path.join(d, f); return statSync(p).isDirectory() ? (f === 'fixtures' ? [] : walk(p)) : /\.(js|json|html)$/.test(f) ? [p] : []; }) : [];
 const worldFile = path.join(path.dirname(specPath), 'world.js');
 const {shots: _omit, ...rest} = spec;
+const castFile = spec.castFile && existsSync(spec.castFile) ? readFileSync(spec.castFile, 'utf8') : '';
 const world = sha([...['engine', 'avatar', 'avatar-style', 'parts'].flatMap(walk).sort().map(f => f + '\n' + readFileSync(f, 'utf8')),
-  JSON.stringify(rest), existsSync(worldFile) ? readFileSync(worldFile, 'utf8') : '', `${width}x${height} aa=${aa}`].join('\n'));
+  JSON.stringify(rest), castFile, existsSync(worldFile) ? readFileSync(worldFile, 'utf8') : '', `${width}x${height} aa=${aa}`].join('\n'));
 const dirOf = s => path.join(out, 'cache', `${s.id}-${sha(world + JSON.stringify(s)).slice(0, 12)}`);
 const shotOf = f => shots.findLast(s => f >= s.start);
 const file = f => { const s = shotOf(f); return path.join(dirOf(s), `${String(f - s.start).padStart(4, '0')}.png`); };

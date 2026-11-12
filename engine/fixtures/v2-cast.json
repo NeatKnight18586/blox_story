@@ -1,0 +1,30 @@
+{
+ "slug": "v2-cast",
+ "fps": 30,
+ "note": "Session 2 fixture: the Nobody cast as v2 actors (10 heroes + 4 background) on a plate, for bench, determinism and pose checks.",
+ "castFile": "stories/nobody/cast.json",
+ "cast": {
+  "nobody": {"style": "v2", "preset": "nobody", "origin": [-1.5, 0, 2], "yaw": 90, "travel": {"dir": [1, 0], "speed": 0.67}, "keys": [[0, "walk"]], "faces": [[0, "determined"], [1.2, "sad"]]},
+  "pip": {"style": "v2", "preset": "pip", "origin": [2.5, 0, 3], "yaw": -30, "keys": [[0, "idle"], [1.0, "cheer"]]},
+  "king": {"style": "v2", "preset": "king", "origin": [-5, 0, -3], "yaw": 20, "keys": [[0, "toolHold"]]},
+  "knight1": {"style": "v2", "preset": "knight1", "origin": [-8, 0, -4.5], "yaw": 30, "keys": [[0, "toolHold"], [1.4, "toolSwing"]]},
+  "knight2": {"style": "v2", "preset": "knight2", "origin": [-7.5, 0, -5], "yaw": 30, "keys": [[0, "idle"]]},
+  "knight3": {"style": "v2", "preset": "knight3", "origin": [-9.5, 0, -3.5], "yaw": 35, "keys": [[0, "recoil"]]},
+  "kidBaker": {"style": "v2", "preset": "kidBaker", "origin": [4.5, 0, -1], "yaw": -50, "keys": [[0, "point"]], "faces": [[0, "smug"]]},
+  "kidKnight": {"style": "v2", "preset": "kidKnight", "origin": [6, 0, 1], "yaw": -60, "keys": [[0, "cheer"]]},
+  "kidSmith": {"style": "v2", "preset": "kidSmith", "origin": [6.5, 0, -2.5], "yaw": -45, "keys": [[0, "idle"], [0.8, "jump"]]},
+  "kidFarmer": {"style": "v2", "preset": "kidFarmer", "origin": [8, 0, 0], "yaw": -70, "keys": [[0, "wave"]]},
+  "town1": {"style": "v2", "town": 3, "origin": [-3, 0, -8], "ambient": true},
+  "town2": {"style": "v2", "town": 5, "origin": [1, 0, -9], "ambient": true},
+  "town3": {"style": "v2", "town": 8, "origin": [4, 0, -8.5], "ambient": true},
+  "town4": {"style": "v2", "town": 11, "origin": [-0.5, 0, -11], "ambient": true}
+ },
+ "shots": [
+  {"id": "W1", "size": "wide", "frames": 30, "openHit": true, "move": "push",
+   "from": {"position": [0, 9, 26], "target": [0, 2.5, -1], "fov": 50}, "to": {"position": [0, 8, 23], "target": [0, 2.5, -1], "fov": 48}},
+  {"id": "C1", "size": "close", "frames": 30, "move": "track", "follow": "nobody",
+   "from": {"position": [5.5, 4.6, 1.8], "target": [0, 4.0, 0], "fov": 38}, "to": {"position": [5, 4.6, 1.4], "target": [0, 4.0, 0], "fov": 38}},
+  {"id": "G1", "size": "medium", "frames": 30, "move": "gamecam", "follow": "nobody", "heading": 90, "distance": 9, "height": 5.5,
+   "from": {"position": [0, 0, 0], "target": [0, 0, 0], "fov": 67}}
+ ]
+}

@@ -1,8 +1,10 @@
 // npm run v2:bench -- --story <slug> | --spec <episode.json>   (docs/V2_BRIEF.md §5.4)
 // Renders 8 evenly spaced frames of every shot at 720×1280 and prints triangles, draw calls and s/frame.
 // PASS = every shot ≤ 50,000 triangles in the frustum and the mean ≤ 0.45 s/frame. Exit code 1 on FAIL.
+// Also reports s/frame at native 1080×1920 (finals; target ≤ 1.0). `triangles` = meshes in the camera
+// frustum (the gate); `withShadowPass` = what the renderer drew including shadow-map passes.
 // (Session 3 adds the world's anchors; until then every shot of the spec is benched.)
-import {startServer} from '../pipeline/server.js';
+import {startServer} from './server.js';
 import {launch} from './browser.js';
 
 const argv = process.argv.slice(2);
@@ -24,12 +26,19 @@ try {
   for (const s of shots) {
     const fr = Array.from({length: N}, (_, i) => s.start + Math.min(s.frames - 1, Math.round(i * (s.frames - 1) / Math.max(1, N - 1))));
     const r = await page.evaluate(([fr, w, h]) => fr.map(f => window.__episode.renderFrame(f, w, h)), [fr, W, H]);
-    rows.push({shot: s.id, size: s.size, triangles: Math.max(...r.map(x => x.triangles)), calls: Math.max(...r.map(x => x.calls)), sPerFrame: +(r.reduce((a, x) => a + x.ms, 0) / r.length / 1000).toFixed(3)});
+    rows.push({shot: s.id, size: s.size, triangles: Math.max(...r.map(x => x.triangles)), withShadowPass: Math.max(...r.map(x => x.drawnTriangles)), calls: Math.max(...r.map(x => x.calls)), sPerFrame: +(r.reduce((a, x) => a + x.ms, 0) / r.length / 1000).toFixed(3)});
+  }
+  // Native 1080×1920 finals (owner decision): same frames again at full size; target ≤ 1.0 s/frame.
+  if (W === 720) for (const [i, s] of shots.entries()) {
+    const fr = Array.from({length: Math.min(N, 4)}, (_, k) => s.start + Math.min(s.frames - 1, Math.round(k * (s.frames - 1) / 3)));
+    const r = await page.evaluate(fr => fr.map(f => window.__episode.renderFrame(f, 1080, 1920)), fr);
+    rows[i].sPerFrame1080 = +(r.reduce((a, x) => a + x.ms, 0) / r.length / 1000).toFixed(3);
   }
   const mean = +(rows.reduce((a, r) => a + r.sPerFrame, 0) / rows.length).toFixed(3);
+  const mean1080 = rows[0].sPerFrame1080 === undefined ? null : +(rows.reduce((a, r) => a + r.sPerFrame1080, 0) / rows.length).toFixed(3);
   const over = rows.filter(r => r.triangles > MAX_TRI).map(r => r.shot);
   const pass = !over.length && mean <= MAX_S && !errors.length;
   console.table(rows);
-  console.log(JSON.stringify({spec, size: `${W}x${H}`, browser: browser.resolved.executablePath ?? 'playwright', maxTriangles: Math.max(...rows.map(r => r.triangles)), meanSecondsPerFrame: mean, overBudget: over, errors, result: pass ? 'PASS' : 'FAIL'}));
+  console.log(JSON.stringify({spec, size: `${W}x${H}`, browser: browser.resolved.executablePath ?? 'playwright', maxTriangles: Math.max(...rows.map(r => r.triangles)), meanSecondsPerFrame: mean, meanSecondsPerFrame1080: mean1080, target1080: 1.0, overBudget: over, errors, result: pass ? 'PASS' : 'FAIL'}));
   process.exitCode = pass ? 0 : 1;
 } finally { await browser.close(); await server.close(); }
