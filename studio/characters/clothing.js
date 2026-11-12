@@ -2,6 +2,7 @@
 // (collar, buttons, belt, shoes, seams, shading) is painted onto the faces of
 // the plain body blocks. No extra 3D trim is added to the silhouette.
 import * as T from 'three';
+import {normalFromHeight} from '../town/materials.js';
 
 // Box face order used by BoxGeometry/RoundedBoxGeometry material groups.
 export const SIDES = ['right', 'left', 'top', 'bottom', 'front', 'back'];
@@ -44,7 +45,7 @@ function weave() {
 }
 function fabricBump() {
   if (bumpTex) return bumpTex;
-  bumpTex = new T.CanvasTexture(weave()); bumpTex.wrapS = bumpTex.wrapT = T.RepeatWrapping; bumpTex.anisotropy = 4;
+  bumpTex = normalFromHeight(weave(), 3);   // baked weave normal map (no derivative-bump NaNs)
   return bumpTex;
 }
 function fold(g, W, H, pts, width, dark = .1) {
@@ -101,7 +102,7 @@ export function paintedMaterials(size, paint, {roughness = .5, hd = false, part 
     if (hd) hdFinish(g, c.width, c.height, side, part, k.cloth);
     const t = new T.CanvasTexture(c); t.colorSpace = T.SRGBColorSpace; t.anisotropy = hd ? 8 : 4;
     const m = new T.MeshStandardMaterial({map: t, roughness});
-    if (hd && (k.cloth ?? [0, 1])[1] - (k.cloth ?? [0, 1])[0] >= .7) { const b = fabricBump().clone(); b.needsUpdate = true; b.repeat.set(w * 5, h * 5); m.bumpMap = b; m.bumpScale = .35; }
+    if (hd && (k.cloth ?? [0, 1])[1] - (k.cloth ?? [0, 1])[0] >= .7) { const b = fabricBump().clone(); b.needsUpdate = true; b.repeat.set(w * 5, h * 5); m.normalMap = b; m.normalScale.set(.5, .5); }
     if (hd) m.roughness = .72;
     m.userData.authored = true; return m;
   });

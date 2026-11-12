@@ -12,7 +12,7 @@ import {locomote, idle, ease, lerp, onTwos} from '../../studio/motion/r6.js';
 import {act, talk, shiver, faceAt} from '../../studio/motion/acting.js';
 import {makeGrounder} from '../../studio/motion/contact.js';
 import {clouds, birds, rain} from '../../studio/director/world.js';
-import {flatMaterial, paintedMaterial} from '../../studio/town/materials.js';
+import {flatMaterial, paintedMaterial, normalFromHeight} from '../../studio/town/materials.js';
 import {easeOutBack} from '../../studio/director/camera.js';
 import {landscape, roadCracks} from '../../studio/town/terrain.js';
 
@@ -55,7 +55,7 @@ function outerLayer(a) {
     g.fillStyle = '#b0b0b0'; g.fillRect(0, 0, 64, 64);
     for (let x = 0; x < 64; x += 8) for (let y = 0; y < 64; y += 8) { g.fillStyle = '#e8e8e8'; g.beginPath(); g.moveTo(x + 1, y); g.lineTo(x + 4, y + 7); g.lineTo(x + 7, y); g.lineTo(x + 5.5, y); g.lineTo(x + 4, y + 4); g.lineTo(x + 2.5, y); g.fill(); }
     const t = new T.CanvasTexture(c); t.wrapS = t.wrapT = T.RepeatWrapping; t.colorSpace = T.SRGBColorSpace; return t; })();
-  const knitMat = (color, rx, ry) => { const m = new T.MeshStandardMaterial({color, map: knit.clone(), bumpMap: knit.clone(), bumpScale: 1.2, roughness: .9}); m.map.repeat.set(rx, ry); m.bumpMap.repeat.set(rx, ry); m.map.needsUpdate = m.bumpMap.needsUpdate = true; m.userData.authored = true; return m; };
+  const knitMat = (color, rx, ry) => { const m = new T.MeshStandardMaterial({color, map: knit.clone(), normalMap: normalFromHeight(knit.image, 4).clone(), roughness: .9}); m.map.repeat.set(rx, ry); m.normalMap.repeat.set(rx, ry); m.map.needsUpdate = m.normalMap.needsUpdate = true; m.userData.authored = true; return m; };
   const yarn = knitMat('#f0b25a', 10, 12), cuff = knitMat('#d9963a', 10, 2);
   const front = paintedMaterial(512, 512, (g, W, H) => {
     g.fillStyle = '#f0b25a'; g.fillRect(0, 0, W, H);
@@ -307,7 +307,7 @@ export const shots = [
   // --- Three demonstrations ---
   {id: 'D01', at: 'The mayor promised', lintIgnore: ['view blocked'], cam: {on: 'pothole', size: 'MLS', worldYaw: 180, pitch: 24, h: 15, y: .55, move: 'push'},
     stage(c, X) {
-      walkers(X, c.t, [[6, fromA(X.S, -40, .35, -6.0), dirA(X.S, -1, 0)]]);   // pavement lane clear of lamps and trees
+      walkers(X, c.t, [[6, fromA(X.S, -40, .35, 9.5), dirA(X.S, -1, 0)]]);   // far pavement (road is |z| < 6; near side has lamps, carts, trees)
       const cartT = c.at('roads', -.25), k = ease((c.t - cartT) / .45), roll = Math.min(1, c.t / Math.max(.1, cartT));
       X.potCart.position.copy(at(X.S, -56 + 2.6 * (1 - roll), .1 - .75 * k, -2.4)); X.potCart.rotation.set(0, hd(X.S, 0), .35 * k);
     }},
@@ -340,7 +340,7 @@ export const shots = [
     }},
   {id: 'L01', at: 'And the man who sells', cam: {on: 'sales', size: 'FS', scaleRef: .55, yaw: 10, pitch: 6, y: .45, move: 'push'},
     stage(c, X) {
-      walkers(X, c.t, [[3, fromA(X.S, -18, .35, -5.8), dirA(X.S, 1, 0)]]);   // lane clear of the lamp posts
+      walkers(X, c.t, [[3, fromA(X.S, -18, .35, 9.5), dirA(X.S, 1, 0)]]);   // lane clear of the lamp posts
       X.carts[1].updateMatrixWorld(true);
       put(X.cast.sales, X.carts[1].localToWorld(V(-.9, 2.45, .2)), hd(X.S, .1), 'devious'); act(X.cast.sales, c.t, [[0, 'armsWide'], [.6, 'cheer'], [1.1, 'armsWide']]);
     }},
@@ -355,7 +355,7 @@ export const shots = [
   {id: 'K01', at: 'Then there was Wren', cam: {on: 'wren', size: 'FS', yaw: 35, pitch: -6, move: {type: 'orbit', amt: 8}},
     stage(c, X) {
       const w = X.cast.wren; w.root.visible = true; locomote(w, c.t, {from: fromA(X.S, 2, .35, -7.0), dir: dirA(X.S, -1, 0)}); setExpression(w, 'calm');   // walks the pavement in front of the carts
-      walkers(X, c.t, [[0, fromA(X.S, -16, .35, -5.8), dirA(X.S, 1, 0)], [9, fromA(X.S, 12, .35, -6.2), dirA(X.S, -1, 0), 'child_walk']]);
+      walkers(X, c.t, [[9, fromA(X.S, 12, .35, -11.4), dirA(X.S, -1, 0), 'child_walk']]);   // behind the carts
     }},
   {id: 'K02', at: 'Wren had never told', cam: {on: 'wren', size: 'MCU', yaw: 18, pitch: -4, move: 'push'},
     stage(c, X) { const w = X.cast.wren; put(w, at(X.S, -14, .35, -8.6), hd(X.S, .6), 'pleased'); act(w, c.t, [[0, 'stand']]); }},
@@ -406,7 +406,7 @@ export const shots = [
     stage(c, X) {
       const n = X.cast.nan; put(n, at(X.N, -1.95, X.deckTop + 1.5, -8.2), -.4, 'pleased');   // beside the cup, hands clear of it
       act(n, c.t, [[0, 'stand'], [c.at('teacup'), 'hold']]);
-      return {cam: {on: X.points.cup().add(V(.2, 0, 0)), scaleRef: .16, size: 'FS', y: .5}};
+      return {cam: {on: X.points.cup().add(V(.5, 0, 0)), scaleRef: .16, size: 'FS', y: .5}};   // cup and Nan both in frame
     }},
   {id: 'R04', at: 'Everyone whispered', cam: {on: ['gossipA', 'gossipB'], size: 'MCU', yaw: -20, pitch: 0, move: 'drift'},
     stage(c, X) {
@@ -431,7 +431,8 @@ export const shots = [
     stage(c, X) {
       const n = X.cast.nan, w = X.cast.wren; n.root.visible = true; locomote(n, c.t, {from: [X.N.x + 6, .35, X.N.z + 2.6], dir: [1, 0], gait: 'child_walk'}); setExpression(n, 'pleased');
       w.root.visible = true; w.root.scale.setScalar(1.2); locomote(w, c.t * .12, {from: [X.N.x + 2.2, .35, X.N.z + 2.6], dir: [1, 0], gait: 'walk', twos: false});
-      w.root.rotation.x = .28; w.pivots.leftShoulder.rotation.x -= .6; w.pivots.rightShoulder.rotation.x -= .6; setExpression(w, 'devious');
+      // Cartoon sneak: slight forward lean, hands up by the chest, head dipped; legs keep the slow walk.
+      w.root.rotation.x = .14; w.pivots.leftShoulder.rotation.set(-1.1, 0, .35); w.pivots.rightShoulder.rotation.set(-1.1, 0, -.35); w.pivots.head.rotation.x = .12; setExpression(w, 'devious');
     }},
   {id: 'I04', at: 'Nan fed the stray', cam: {on: 'nan', size: 'FS', worldYaw: 15, pitch: 8, y: .45, move: 'push', scaleRef: .5},
     stage(c, X) {
@@ -548,7 +549,7 @@ export const shots = [
       put(X.cast.nan, at(X.N, -2.2, 0, -6.4), 2.03, 'happy'); act(X.cast.nan, c.t, [[0, 'kneel']]);
       return {tint: ['#ffcf8a', .16], light: at(X.N, 0, 0, -6)};
     }},
-  {id: 'T06', at: 'She had spent', mood: 'golden', cam: {on: ['girl', 'nan'], size: 'MS', yaw: 20, pitch: 6, scaleRef: .5, move: 'orbit'},
+  {id: 'T06', at: 'She had spent', mood: 'golden', cam: {on: ['girl', 'nan'], size: 'MS', yaw: 40, pitch: 6, scaleRef: .5, move: 'orbit'},
     stage(c, X) {
       const g = X.cast.girl, n = X.cast.nan; put(g, at(X.P, 2, .3, 6), .8, faceAt(c.t, [[0, 'crying'], [c.dur * .55, 'pleased']])); act(g, c.t, [[0, 'kneel']]);
       put(n, at(X.P, 2.8, .3, 6.9), -2.4, 'happy'); act(n, c.t, [[0, 'reach']]);
@@ -567,8 +568,8 @@ export const shots = [
   {id: 'P01', at: 'The next morning', lintIgnore: ['body through prop: bo'], mood: 'interior', cam: {on: 'bo', size: 'MS', yaw: 20, pitch: 6, move: 'push'},
     stage(c, X) { return bedScene(c, X, {morning: true}); }},
   {id: 'P02', at: 'Wren walked to', mood: 'dawn', cam: {on: 'wren', size: 'FS', yaw: 30, pitch: 0, move: 'track'},
-    stage(c, X) { const w = X.cast.wren; w.root.visible = true; locomote(w, c.t, {from: [X.N.x + 12, .35, X.N.z + 2.4], dir: [-1, 0]}); w.root.scale.setScalar(1.06); setExpression(w, 'pensive'); return {light: w.root.position.clone()}; }},
-  {id: 'P03', at: 'and sat beside', lintIgnore: ['view blocked'], mood: 'dawn', cam: {on: 'deck', size: 'MLS', h: 9, worldYaw: -15, pitch: 6, y: .45, move: 'push'},
+    stage(c, X) { const w = X.cast.wren; w.root.visible = true; locomote(w, c.t, {from: [X.N.x + 8.6, .35, X.N.z + 2.4], dir: [-1, 0]}); w.root.scale.setScalar(1.06); /* starts past the lamp post (N 10, 4.5) */ setExpression(w, 'pensive'); return {light: w.root.position.clone()}; }},
+  {id: 'P03', at: 'and sat beside', lintIgnore: ['view blocked', 'head cut'],   /* she walks in from the frame edge */ mood: 'dawn', cam: {on: 'deck', size: 'MLS', h: 9, worldYaw: -15, pitch: 6, y: .45, move: 'push'},
     stage(c, X) { return stepScene(c, X, {sit: c.at('sat')}); }},
   {id: 'P04', at: 'For the first time', mood: 'dawn', lintIgnore: ['head cut', 'text cropped'], cam: {on: 'nan', size: 'MS', scaleRef: .3, worldYaw: -90, pitch: 0, x: -.22, y: .42, move: {type: 'push', amt: .08}},
     stage(c, X) { const r = stepScene(c, X, {}); return r; }},
