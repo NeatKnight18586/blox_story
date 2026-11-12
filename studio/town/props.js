@@ -157,10 +157,10 @@ export function fish({len = 1.6, color = '#7fa8c9', belly = '#e8eef2'} = {}) {
   const eye = mesh(new T.SphereGeometry(.07, 8, 6), flatMaterial('#1c1c1c'), 'fish_eye'); eye.position.set(len * .32, .08, .15); g.add(eye);
   return g;
 }
-export function cart({color = '#e2483d', tag = '$5'} = {}) {
+export function cart({color = '#e2483d', tag = '$5', lid = '#f6ecd9'} = {}) {
   const g = group('cart');
   box(g, 'cart_body', [3.2, 1.4, 2], [0, 1.6, 0], ['planks', color], .08);
-  box(g, 'cart_rim', [3.4, .2, 2.2], [0, 2.35, 0], '#f6ecd9', .04);
+  box(g, 'cart_rim', [3.4, .2, 2.2], [0, 2.35, 0], lid, .04);   // lid: colour or ['planks', colour]
   for (const x of [-1.1, 1.1]) for (const z of [-1.05, 1.05]) { const w = mesh(new T.CylinderGeometry(.55, .55, .25, 16), flatMaterial('#3b3f45'), 'wheel'); w.rotation.x = Math.PI / 2; w.position.set(x, .55, z); g.add(w); }
   const h = box(g, 'cart_handle', [2.2, .15, .15], [-2.5, 2.1, 0], '#7a5233'); h.rotation.z = .25;
   const t = box(g, 'price_tag', [.9, .55, .05], [.6, 2.9, 1.05], label(tag, {bg: '#fff6e0', fg: '#c23a22', w: .9, h: .55}));
