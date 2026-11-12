@@ -12,9 +12,8 @@ Source of truth: `docs/V2_BRIEF.md` (owner's brief). Progress and decisions: `PR
 - `stories/names100/**`, `production/render.js` and existing module behaviour are frozen; extend through new opt-in options only.
 - `npm test` (node-only) stays green. Do not run the legacy `test:*` browser suites.
 - Never read `evidence/`. Never open single frame PNGs: look at contact sheets ≤ 1600 px (`scripts/v2/sheet.py`).
-- Determinism = unit tests on pure functions + a 10-frame re-render spot check. No SHA receipts or manifests.
+- Determinism = unit tests on pure functions + a 10-frame re-render spot check. No SHA receipts or manifests. No new frameworks; tests only for new pure logic.
 - Branch `claude/engine-v2`. Commit source, `cues.json`, the voice file and `review/<slug>/` only; never `stories/*/build/` or `renders/`.
-- No new frameworks. Tests only for new pure logic.
 - Brand: never draw/show the Roblox logo or wordmark; never imply official. All hair, faces, outfits, accessories are our own.
 
 ## Commands
