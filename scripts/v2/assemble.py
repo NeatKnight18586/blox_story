@@ -1,0 +1,94 @@
+#!/usr/bin/env python3
+"""scripts/v2/assemble.py — finishing (docs/V2_BRIEF.md §9; owner decisions: native 1080p, no SFX).
+
+  python3 scripts/v2/assemble.py --story nobody --frames <dir> --captions <file.ass> --out <file.mp4>
+                                 [--voice-start 0] [--voice-dur 12] [--no-hold] [--fps 30]
+
+frames (native 1080×1920 PNGs, never upscaled) → subtle bloom + grade → captions (ASS, Lilita One) → voice
+from frame 0, never stretched, two-pass loudnorm to −14 LUFS / true peak ≤ −1 dB (+ optional
+stories/<slug>/music.mp3 at −20 dB under it). After the last word the final shot holds (still moving if the
+frames continue, otherwise a freeze) so the video ends at max(voice + 2.5 s, 122.5 s); --no-hold for demos.
+H.264 High yuv420p CRF 18, AAC 192k, +faststart. Prints a JSON report checked with ffprobe/ebur128.
+"""
+import argparse, glob, json, os, re, subprocess, sys
+from PIL import Image
+
+# The brief's grade, with one fix: FFmpeg blends in YUV, and a screen blend on the chroma planes shifts every
+# hue toward magenta. The bloom is therefore screened onto luma only (chroma passes through unchanged).
+GRADE = ("format=yuv444p,split[a][b];[b]gblur=sigma=24,eq=brightness=-0.25:contrast=1.6[bl];"
+         "[a][bl]blend=c0_mode=screen:c0_opacity=0.2:c1_mode=normal:c1_opacity=0:c2_mode=normal:c2_opacity=0,"
+         "eq=saturation=1.15:contrast=1.04,vignette=PI/8")
+FONTS = 'node_modules/@expo-google-fonts/lilita-one/400Regular'
+TARGET_LUFS, TARGET_TP = -14.0, -1.0
+
+
+def run(cmd, **kw):
+    return subprocess.run(cmd, capture_output=True, text=True, check=True, **kw)
+
+
+def probe_duration(path):
+    return float(run(['ffprobe', '-v', 'error', '-show_entries', 'format=duration', '-of', 'csv=p=0', path]).stdout.strip())
+
+
+def loudnorm_filter(voice, start, dur):
+    """Two-pass EBU R128: measure the slice, then normalise linearly to −14 LUFS, TP −1 dB."""
+    trim = f'atrim=start={start}' + (f':duration={dur}' if dur else '') + ',asetpts=PTS-STARTPTS'
+    out = run(['ffmpeg', '-hide_banner', '-nostats', '-i', voice, '-af', f'{trim},loudnorm=I={TARGET_LUFS}:TP={TARGET_TP}:LRA=11:print_format=json', '-f', 'null', '-']).stderr
+    m = json.loads(out[out.rindex('{'):out.rindex('}') + 1])
+    return (f"{trim},loudnorm=I={TARGET_LUFS}:TP={TARGET_TP}:LRA=11:measured_I={m['input_i']}:measured_TP={m['input_tp']}:"
+            f"measured_LRA={m['input_lra']}:measured_thresh={m['input_thresh']}:offset={m['target_offset']}:linear=true,aresample=48000")
+
+
+def measure(path):
+    err = run(['ffmpeg', '-hide_banner', '-nostats', '-i', path, '-map', '0:a', '-af', 'ebur128=peak=true', '-f', 'null', '-']).stderr
+    summ = err[err.rindex('Summary:'):]
+    i = float(re.search(r'I:\s+(-?[\d.]+) LUFS', summ).group(1)); tp = float(re.search(r'Peak:\s+(-?[\d.]+) dBFS', summ).group(1))
+    return i, tp
+
+
+def main():
+    a = argparse.ArgumentParser()
+    a.add_argument('--story', required=True); a.add_argument('--frames', required=True); a.add_argument('--captions'); a.add_argument('--out', required=True)
+    a.add_argument('--voice-start', type=float, default=0); a.add_argument('--voice-dur', type=float); a.add_argument('--no-hold', action='store_true')
+    a.add_argument('--fps', type=int, default=30); o = a.parse_args()
+
+    frames = sorted(glob.glob(os.path.join(o.frames, 'frame-*.png')))
+    if not frames: sys.exit('no frames in ' + o.frames)
+    w, h = Image.open(frames[0]).size
+    if (w, h) != (1080, 1920): sys.exit(f'frames are {w}×{h}: finals must be native 1080×1920 (owner decision; never upscale)')
+    voice = next((p for p in [f'stories/{o.story}/voice.flac', f'stories/{o.story}/voice.wav', f'stories/{o.story}/voice.mp3'] if os.path.exists(p)), None)
+    if not voice: sys.exit('no voice file in stories/' + o.story)
+    vlen = o.voice_dur if o.voice_dur else probe_duration(voice) - o.voice_start
+    pic = len(frames) / o.fps
+    total = pic if o.no_hold else max(pic, max(vlen + 2.5, 122.5))
+    hold = max(0.0, total - pic)
+
+    vf = f"[0:v]{GRADE}"
+    if o.captions: vf += f",ass={o.captions}:fontsdir={FONTS}"
+    if hold > 0: vf += f",tpad=stop_mode=clone:stop_duration={hold:.3f}"
+    vf += ",format=yuv420p[v]"
+    af = f"[1:a]{loudnorm_filter(voice, o.voice_start, o.voice_dur)}[vo]"
+    inputs = ['-framerate', str(o.fps), '-i', os.path.join(o.frames, 'frame-%05d.png'), '-i', voice]
+    music = f'stories/{o.story}/music.mp3'
+    if os.path.exists(music):
+        inputs += ['-i', music]; af += f";[2:a]volume=-20dB,aresample=48000[mu];[vo][mu]amix=inputs=2:duration=first:normalize=0[a]"
+    else:
+        af += ";[vo]anull[a]"
+    os.makedirs(os.path.dirname(o.out) or '.', exist_ok=True)
+    run(['ffmpeg', '-hide_banner', '-y', *inputs, '-filter_complex', vf + ';' + af, '-map', '[v]', '-map', '[a]',
+         '-c:v', 'libx264', '-profile:v', 'high', '-preset', 'medium', '-crf', '18', '-pix_fmt', 'yuv420p', '-r', str(o.fps),
+         '-c:a', 'aac', '-b:a', '192k', '-movflags', '+faststart', '-t', f'{total:.3f}', o.out])
+
+    pr = json.loads(run(['ffprobe', '-v', 'error', '-show_entries', 'stream=codec_type,codec_name,profile,width,height,r_frame_rate,nb_frames:format=duration,size', '-of', 'json', o.out]).stdout)
+    v = next(s for s in pr['streams'] if s['codec_type'] == 'video'); au = [s for s in pr['streams'] if s['codec_type'] == 'audio']
+    lufs, peak = measure(o.out)
+    rep = {'out': o.out, 'width': v['width'], 'height': v['height'], 'fps': v['r_frame_rate'], 'profile': v.get('profile'), 'frames': int(v.get('nb_frames', 0)),
+           'duration': round(float(pr['format']['duration']), 3), 'MB': round(int(pr['format']['size']) / 1e6, 2), 'audio': bool(au),
+           'lufs': lufs, 'truePeak': peak, 'hold': round(hold, 3), 'music': os.path.exists(music)}
+    rep['pass'] = (v['width'], v['height']) == (1080, 1920) and bool(au) and abs(lufs - TARGET_LUFS) <= 1 and rep['MB'] <= 60
+    print(json.dumps(rep))
+    if not rep['pass']: sys.exit(1)
+
+
+if __name__ == '__main__':
+    main()

@@ -95,3 +95,23 @@ Fixed across passes: sky shader compile (include mid-line), cameras inside house
 **Open problems:** square establishing shot favours the castle over the stalls (fine as a re-hook wide; a lower market shot can be added per shot in S5). The pull pose fits the hero's stone hilt (3.4 high) only roughly; Session 5 staging tunes the anchor offset. Draw calls ~1.2k in the busiest wide (fine at 0.56 s/frame).
 
 **→ GATE A: stop for the owner's review of `review/nobody/avatar-sheet.png` + `review/nobody/world-sheet.png`.**
+
+## Session 4: Captions, effects, demo — plan
+1. `engine/effects.js` (fadeColor, flash, ghost, glow, particles ×6 presets, melt, squash, shake, timeOfDay; pure in t) wired into `episode.js`; tag timelines in `actors.js`.
+2. `captions/pop-shorts-v2.json`, `scripts/v2/captions.py` (chunk / timing / emphasis / escaping), `CAPTION_STYLE_V2.md`.
+3. `scripts/v2/assemble.py` (grade, captions, two-pass loudnorm −14 LUFS, hold rule, native 1080 only, no SFX).
+4. `stories/nobody/demo.json`: 12 s, every camera move, openHit, cuts on word onsets; render native 1080, assemble with the real voice.
+5. `PUBLISHING.md`, `STORY_BIBLE.md`, `SERIES_LOG.md`; tests; sheets; push; PR.
+
+## Session 4: Captions, effects, demo — report (2026-11-12)
+**Built:** `engine/effects.js` (all §5.3 effects; overlay pass for fade/flash; effect targets get their own material copies so shared cached materials never leak), `driveActor` tag timelines (`tags: [[t, name, role]]`, pop on change), per-shot `tagMaxFrac` (a shot about the tag lets it read big). `captions/pop-shorts-v2.json`, `scripts/v2/captions.py`, `scripts/v2/assemble.py`, `stories/nobody/demo.json`, `PUBLISHING.md`, `STORY_BIBLE.md`, `SERIES_LOG.md`, `CAPTION_STYLE_V2.md`. Tests: `tests/v2/effects.test.js`, `tests/v2/test_captions.py` (now part of `npm run v2:test`).
+
+**Run:** `npm run v2:render -- --spec stories/nobody/demo.json --out renders/v2/demo --workers 3` · `python3 scripts/v2/captions.py --story nobody --spec stories/nobody/demo.json --until 12 --out renders/v2/demo/captions.ass` · `python3 scripts/v2/assemble.py --story nobody --frames renders/v2/demo/frames --captions renders/v2/demo/captions.ass --out review/nobody/demo.mp4 --voice-dur 12 --no-hold`
+
+**Numbers:** `review/nobody/demo.mp4`: 1080×1920 native, 30 fps, H.264 High, 360 frames, 12.000 s, 9.6 MB, AAC, −14.0 LUFS, true peak −1.0 dB. Render 360 frames at 1080 in 276 s wall with 3 workers (0.77 s/frame wall, 2.1 s/frame in page per worker). Bench (demo) PASS: max 30.8k frustum triangles, 0.34 s/frame at 720, 0.69 s at 1080. 10 frames (every 36th) re-rendered in a fresh single-worker process: 10/10 byte-identical to the 3-worker render. 16 captions for 0–12 s. `npm test` exit 0; `v2:test` 27 node + 10 python pass.
+
+**Checks by eye:** `review/nobody/demo-1fps.png` + `demo-shots.png`: 9 shots, every move once (push+openHit, track, orbit, crane, static-drift, whip, gamecam, pull, push), cuts on word onsets (1.80, 3.48, 4.92, 6.21, 7.28–7.44, 8.80, 10.59), captions in the band and never over a face, emphasis yellow on nobody/sword/stone. `openhit-30fps.png` (frames 0–12): punch-in + micro-shake visible, subject never leaves frame or blurs → amplitude kept (not halved).
+
+**Decisions:** Grade fix: the brief's chain screen-blends in YUV, which tinted the whole demo magenta; the bloom now screens luma only (chroma passes through) — first assemble showed a lilac sky, fixed one pass later. No SFX: `open.wav`/`sfx.json` not implemented (owner decision); optional `music.mp3` at −20 dB only if present. Finals are native 1080 (assemble refuses other sizes). Demo cuts use word onsets (plan.js will gate phrase onsets in S5). Particles are camera-facing instanced quads (star/soft/square textures), additive for sparkle/embers/fire/stars. SERIES_LOG includes the two pre-v2 episodes (Dice Town row summarised from its production docs).
+
+**Open problems:** caption band brushes the top of the hero's hair in the crane-to-tag shot (S5 `plan.js` reports face/band overlap → `captionY: "high"` per shot). The hook shot's foreground kid is cut by the left edge (fine for a hook; S5 staging). Render in page slows ~3× with 3 workers on 4 CPUs (wall time still 2.7× faster than one worker).

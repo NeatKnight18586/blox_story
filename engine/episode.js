@@ -9,6 +9,7 @@ import {sampleCamera} from './camera.js';
 import {buildActor, driveActor, townsperson} from './actors.js';
 import {loadFont, fitTags} from './overhead.js';
 import {createLook} from './look.js';
+import {createEffects} from './effects.js';
 import * as P from '../parts/parts.js';
 import * as B from '../parts/build.js';
 import * as A from '../parts/ambient.js';
@@ -74,7 +75,7 @@ function poseCast(t) {
     if (v2) {
       const o = c.origin ?? [0, 0, 0], tr = c.travel, d = tr ? tr.speed * t : 0;
       driveActor(a, t, {keys: c.keys ?? [[0, c.action ?? 'idle']], faces: c.faces, ambient: !!c.ambient,
-        origin: {position: tr ? [o[0] + tr.dir[0] * d, o[1], o[2] + tr.dir[1] * d] : o, yaw}});
+        origin: {position: tr ? [o[0] + tr.dir[0] * d, o[1], o[2] + tr.dir[1] * d] : o, yaw}, tags: c.tags, fps: FPS});
     } else {
       const s = sampleAction(c.action ?? 'idle', t, c.action === 'walk' ? {gait: c.gait ?? 'readable'} : {});
       applyActionSample(a, s, {position: c.origin ?? [0, 0, 0], yaw});
@@ -83,6 +84,21 @@ function poseCast(t) {
   }
   return out;
 }
+
+// ---- Effects (§5.3): targets are cast names ("knight1", "knight1.tool") or world object names; points
+// are [x,y,z], {anchor, offset} or {actor, offset} (follows the actor). ----
+const resolveTarget = tg => {
+  if (typeof tg !== 'string') return null;
+  const [who, part] = tg.split('.'), a = cast[who]?.a;
+  if (a) return part ? (a[part] ?? a.attachments?.[part] ?? a.parts?.[part]) : a.root;
+  return scene.getObjectByName(tg);
+};
+const resolvePoint = (p, t) => {
+  if (Array.isArray(p)) return p;
+  if (p?.actor) { const r = cast[p.actor].a.root.position; return [r.x + (p.offset?.[0] ?? 0), r.y + (p.offset?.[1] ?? 0), r.z + (p.offset?.[2] ?? 0)]; }
+  return resolve({anchor: p.anchor, offset: p.offset ?? [0, 0, 0]});
+};
+const effects = createEffects(spec.effects ?? [], {scene, renderer, resolveTarget, resolvePoint});
 
 // Triangles of visible meshes whose bounds touch the camera frustum (the brief's §5.4 budget). The
 // renderer's own counter also includes the shadow pass, so both are reported.
@@ -106,12 +122,14 @@ export function renderFrame(n, width = 720, height = 1280) {
   const shot = shots.findLast(s => n >= s.start), t = n / FPS;
   const actors = poseCast(t);
   const c = sampleCamera({...shot, fps: FPS}, (n - shot.start) / FPS, actors);
-  camera.fov = c.fov; camera.aspect = width / height; camera.position.fromArray(c.position);
-  camera.up.set(0, 1, 0); camera.lookAt(...c.target); camera.rotateZ(c.roll); camera.updateProjectionMatrix();
-  if (look) { look.apply(shot.look ?? spec.look ?? 'day'); look.frame(new T.Vector3(...c.target), camera.position, shot.shadowRadius ?? 34); look.update(t); }
   world?.update(t);
-  scene.updateMatrixWorld(true); fitTags(scene, camera);
-  renderer.render(scene, camera);
+  const fx = effects.apply(t, camera);   // poses effect targets; returns the shake offset and any timeOfDay blend
+  const pos = c.position.map((v, i) => v + fx.camOffset[i]), tgt = c.target.map((v, i) => v + fx.camOffset[i] * .6);
+  camera.fov = c.fov; camera.aspect = width / height; camera.position.fromArray(pos);
+  camera.up.set(0, 1, 0); camera.lookAt(...tgt); camera.rotateZ(c.roll); camera.updateProjectionMatrix();
+  if (look) { fx.look ? look.apply(...fx.look) : look.apply(shot.look ?? spec.look ?? 'day'); look.frame(new T.Vector3(...tgt), camera.position, shot.shadowRadius ?? 34); look.update(t); }
+  scene.updateMatrixWorld(true); effects.apply(t, camera); fitTags(scene, camera, {maxFrac: shot.tagMaxFrac ?? .06});   // a shot about the tag lets it read big   // second pass: particles face the final camera
+  renderer.render(scene, camera); effects.overlay(t);
   const gl = renderer.getContext(); gl.readPixels(0, 0, 1, 1, gl.RGBA, gl.UNSIGNED_BYTE, new Uint8Array(4));   // forces the GPU work to finish, so ms is real
   if (gl.isContextLost()) throw Error('WebGL context lost');
   return {frame: n, shot: shot.id, size: shot.size, triangles: frustumTriangles(), drawnTriangles: renderer.info.render.triangles, calls: renderer.info.render.calls, ms: performance.now() - t0};

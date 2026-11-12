@@ -37,9 +37,15 @@ export function townsperson(seed) {
 }
 
 // Per-frame drive: keys = [[t0, pose, opts]] (cross-faded), faces = [[t0, face]], or ambient (bg).
-export function driveActor(a, t, {keys, faces, origin = {position: [0, 0, 0], yaw: 0}, ambient = false} = {}) {
+// tags = [[t0, name, role?], ...]: the name tag shown from t0 (null hides it); it pops when it changes.
+export function driveActor(a, t, {keys, faces, tags, origin = {position: [0, 0, 0], yaw: 0}, ambient = false, fps = 30} = {}) {
   const s = ambient ? ambientPose(a.preset.seed ?? 1, t) : sampleTimeline(keys ?? [[0, 'idle']], t);
   applyPoseSample(a, s, origin);
   if (faces) { let f = faces[0][1]; for (const [t0, n] of faces) if (t >= t0) f = n; if (f !== a.face) setFace(a, f); }
+  if (tags) {
+    let cur = null; for (const k of tags) if (t >= k[0]) cur = k;
+    if (cur) setTag(a, cur[1], cur[2] ?? null, cur[0] > 0 ? Math.round((t - cur[0]) * fps) : 99);
+    else setTag(a, null, null);
+  }
   return a;
 }
