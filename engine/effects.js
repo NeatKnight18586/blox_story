@@ -45,20 +45,32 @@ const PRESETS = {
 export const PARTICLES = Object.keys(PRESETS);
 const hash = (i, k, s) => { const x = Math.sin(i * 127.1 + k * 311.7 + s * 74.7) * 43758.5453; return x - Math.floor(x); };
 const lerp = (a, b, w) => a + (b - a) * w;
+const norm = v => { const l = Math.hypot(...v) || 1; return v.map(x => x / l); };
+const cross = (a, b) => [a[1] * b[2] - a[2] * b[1], a[2] * b[0] - a[0] * b[2], a[0] * b[1] - a[1] * b[0]];
+const basis = d => { const u1 = norm(cross(d, Math.abs(d[1]) < .9 ? [0, 1, 0] : [1, 0, 0])); return [u1, cross(d, u1)]; };
 // State of particle i at time t for effect e: {pos: [x,y,z] relative to origin, size, color, alpha} or null.
 export function particleState(e, i, t) {
   const P = PRESETS[e.preset ?? 'sparkle']; if (!P) throw Error('unknown particle preset ' + e.preset);
   const seed = e.seed ?? 1, spread = e.spread ?? 1, delay = hash(i, 1, seed) * (e.stagger ?? .15), a = t - e.at - delay;
   const end = e.at + (e.dur ?? 1);
   if (a < 0 || (P.orbit ? t > end : false)) return null;
-  const life = lerp(...P.life, hash(i, 2, seed)), k = a / life;
+  const life = lerp(...(e.life ?? P.life), hash(i, 2, seed)), k = a / life;
   if (!P.orbit && k > 1) return null;
   const size = lerp(...P.size, hash(i, 3, seed)) * (e.scale ?? 1), color = P.colors[Math.floor(hash(i, 4, seed) * P.colors.length)];
   if (P.orbit) { const n = e.count ?? 5, ang = i / n * Math.PI * 2 + a * lerp(...P.speed, .5); return {pos: [Math.cos(ang) * .9 * spread, .15 * Math.sin(a * 6 + i), Math.sin(ang) * .9 * spread], size, color, alpha: 1}; }
-  const th = hash(i, 5, seed) * Math.PI * 2, ph = Math.acos(1 - 2 * hash(i, 6, seed) * .5), v = lerp(...P.speed, hash(i, 7, seed)) * spread;
+  const th = hash(i, 5, seed) * Math.PI * 2, ph = Math.acos(1 - 2 * hash(i, 6, seed) * .5), v = lerp(...(e.speed ?? P.speed), hash(i, 7, seed)) * spread;
+  const up = e.up ?? P.up, grav = e.gravity ?? P.gravity;
+  if (e.dir) {   // directed stream (fire breath, a split jet): unit `dir` ± `cone` radians, full speed along it
+    const d = norm(e.dir), cone = (e.cone ?? .2) * Math.sqrt(hash(i, 6, seed)), [u1, u2] = basis(d);
+    const ca = Math.cos(th) * Math.sin(cone), sa = Math.sin(th) * Math.sin(cone), cc = Math.cos(cone);
+    const dir = [0, 1, 2].map(k => d[k] * cc + u1[k] * ca + u2[k] * sa);
+    const pos = [dir[0] * v * a, dir[1] * v * a + up * a + .5 * grav * a * a, dir[2] * v * a];
+    const s = P.grow ? size * (1 + P.grow * k) : P.shrink ? size * (1 - k * .6) * (e.growAlong ? 1 + e.growAlong * k : 1) : size;
+    return {pos, size: Math.max(0, s), color, alpha: 1 - k * k, rot: (P.spin ?? 0) * a + i};
+  }
   const dir = [Math.sin(ph) * Math.cos(th), Math.cos(ph), Math.sin(ph) * Math.sin(th)];
   const w = P.wobble ? Math.sin(a * 5 + i) * .3 * P.wobble : 0;
-  const pos = [dir[0] * v * a + w, dir[1] * v * a * .4 + P.up * a + .5 * P.gravity * a * a, dir[2] * v * a];
+  const pos = [dir[0] * v * a + w, dir[1] * v * a * .4 + up * a + .5 * grav * a * a, dir[2] * v * a];
   const s = P.grow ? size * (1 + P.grow * k) : P.shrink ? size * (1 - k) : size * (k < .2 ? k / .2 : 1);
   return {pos, size: Math.max(0, s), color, alpha: 1 - k * k, rot: (P.spin ?? 0) * a + i};
 }

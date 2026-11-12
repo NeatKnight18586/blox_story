@@ -7,8 +7,8 @@ import {dress} from '../avatar-style/clothing.js';
 import {attachHair} from '../avatar-style/hair.js';
 import {setFace} from '../avatar-style/faces2.js';
 import {attachAccessory} from '../avatar-style/accessories.js';
-import {attachTool} from '../avatar-style/tools.js';
-import {setTag} from './overhead.js';
+import {attachTool, buildTool} from '../avatar-style/tools.js';
+import {setTag, statSprite, bubbleSprite} from './overhead.js';
 import {sampleTimeline, ambientPose, applyPoseSample} from './poses.js';
 
 export function buildActor(preset, name = 'actor') {
@@ -38,7 +38,14 @@ export function townsperson(seed) {
 
 // Per-frame drive: keys = [[t0, pose, opts]] (cross-faded), faces = [[t0, face]], or ambient (bg).
 // tags = [[t0, name, role?], ...]: the name tag shown from t0 (null hides it); it pops when it changes.
-export function driveActor(a, t, {keys, faces, tags, origin = {position: [0, 0, 0], yaw: 0}, ambient = false, fps = 30} = {}) {
+// Session 5 timelines (all optional, step keys [[t0, ...]]):
+//   tools / toolsLeft = [[t0, name | null]]   tool in the right / left fist (built once per name, cached)
+//   stat   = [[t0, kind, value, label?] | [t0, null]]   stat sprite above the tag (number / bar / tile)
+//   bubble = [[t0, text | null]]                        chat bubble (≤ 4 words) beside the head
+//   visible = [[t0, bool]]
+export function driveActor(a, t, {keys, faces, tags, origin = {position: [0, 0, 0], yaw: 0}, ambient = false, fps = 30,
+  tools, toolsLeft, stat, bubble, visible} = {}) {
+  if (visible) { let v = true; for (const [t0, x] of visible) if (t >= t0) v = x; a.root.visible = v; }
   const s = ambient ? ambientPose(a.preset.seed ?? 1, t) : sampleTimeline(keys ?? [[0, 'idle']], t);
   applyPoseSample(a, s, origin);
   if (faces) { let f = faces[0][1]; for (const [t0, n] of faces) if (t >= t0) f = n; if (f !== a.face) setFace(a, f); }
@@ -47,5 +54,40 @@ export function driveActor(a, t, {keys, faces, tags, origin = {position: [0, 0, 
     if (cur) setTag(a, cur[1], cur[2] ?? null, cur[0] > 0 ? Math.round((t - cur[0]) * fps) : 99);
     else setTag(a, null, null);
   }
+  if (tools) setTool(a, step(tools, t), 'right');
+  if (toolsLeft) setTool(a, step(toolsLeft, t), 'left');
+  if (stat) { let cur = null; for (const k of stat) if (t >= k[0]) cur = k; setOverlay(a, 'stat', cur?.[1] ? sprite(a, `s:${cur.slice(1).join('|')}`, () => statSprite(cur[1], cur[2], {label: cur[3] ?? ''})) : null, [0, 6.6, 0]); }
+  if (bubble) { const txt = step(bubble, t); setOverlay(a, 'bubble', txt ? sprite(a, 'b:' + txt, () => bubbleSprite(txt)) : null, [0, 7.0, 0]); }
   return a;
+}
+const sprite = (a, key, make) => { a._spr ??= new Map(); if (!a._spr.has(key)) a._spr.set(key, make()); return a._spr.get(key); };
+const step = (keys, t) => { let v = null; for (const k of keys) if (t >= k[0]) v = k[1]; return v; };
+
+// Cached tool groups: toolGroup(a, name, side) builds a tool once per actor, hand and name (effects can target it
+// before it is ever shown); setTool swaps which one hangs from the fist.
+export function toolGroup(a, name, side = 'right') {
+  a._tools ??= new Map(); const key = side + ':' + name;
+  if (!a._tools.has(key)) {
+    // the preset's own right-hand tool is reused, so effects on "<actor>.tool" keep working across swaps
+    const g = side === 'right' && a.toolName === name && a.tool ? a.tool : buildTool(name, {});
+    a._tools.set(key, g);
+  }
+  return a._tools.get(key);
+}
+export function setTool(a, name, side = 'right') {
+  const slot = side === 'right' ? 'tool' : 'toolLeft', nameSlot = side === 'right' ? 'toolName' : 'toolLeftName';
+  if (a[nameSlot] === name && (name === null || a[slot]?.parent)) return;
+  if (a[slot]) a[slot].removeFromParent();
+  if (!name) { a[slot] = null; a[nameSlot] = null; return; }
+  const g = toolGroup(a, name, side);
+  (side === 'right' ? a.pivots.rightShoulder : a.pivots.leftShoulder).add(g);
+  a[slot] = g; a[nameSlot] = name;
+}
+// One overlay sprite per slot (stat, bubble), re-parented only when its text changes (sprites are cached by text).
+function setOverlay(a, slot, sprite, at) {
+  a._ov ??= {};
+  if (a._ov[slot] === sprite) return;
+  a._ov[slot]?.removeFromParent();
+  a._ov[slot] = sprite;
+  if (sprite) { sprite.position.set(...at); sprite.scale.copy(sprite.userData.base ?? sprite.scale).multiplyScalar(1 / a.root.scale.x); a.root.add(sprite); }
 }
