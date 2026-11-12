@@ -63,3 +63,35 @@ Fixed during passes: face shading seam (lathe wrap moved to the back), sword bla
 - PR base stays `claude/lucid-brahmagupta-jg9ad9`.
 
 **Open problems:** ~1,000 draw calls for 14 clothed actors (6 painted faces × 6 parts each); fine at 0.2 s/frame, but if Session 3's world pushes calls up, atlas each actor's clothing into one texture. The pull stone is a placeholder; the real Field of Stones stone, hilt height and anchor come in Session 3. Gate A follows Session 3.
+
+## Session 3: World — plan
+1. `parts/materials.js`: our own 128 px tiling canvas textures (plastic, studs, grass, brick, woodPlanks, cobble, slate, sand, thatch, water, glass, neon), tinted Phong materials cached per (pattern, colour), world-space UV scale.
+2. `parts/parts.js`: block, wedge, cylinder, cone, sphere, arch, truss, stairs(n), gableRoof, plate (all with world-scaled UVs). `parts/build.js`: row, grid, ringOf, along(curve), scatter (seeded, avoid), stack, mirror, instance → InstancedMesh, mergeByDistrict, anchor. `parts/ambient.js`: flag, smoke, birds, flame, spinner, walkers, floaters (pure in frame).
+3. `engine/look.js`: day, goldenHour, night, storm (+ fireNight for the dragon): gradient sky dome, block clouds, horizon fog, matched ambient, sun with a 2048 shadow fitted per shot, night rim light.
+4. `stories/nobody/world.js` (≤ 450 lines): Field of Stones (~80 stones in loose rings, hero's big stone), curtain wall + towers + gatehouse, curved main street of timber-frame houses, market square (well, stalls, chapel tower), terraced castle mound with the dragon's wall; hero/mid/far tiers, district merge, ≥ 3 ambient movers per wide.
+5. `episode.js`: loads the world, per-shot look, anchor-relative cameras; bench anchor mode (8 frames per anchor's establishing camera).
+6. `review/nobody/world-sheet.png`: the six §12 stills (rendered native 1080×1920), `sheet.py --stats`; 8-item rubric, max 3 passes; tests for parts helpers; npm test, v2:test, bench; push; **stop at Gate A**.
+
+## Session 3: World — report (2026-11-12)
+**Built:** `parts/materials.js` (12 hand-drawn 128 px tiling patterns, tinted Phong, world tile sizes), `parts/parts.js` (block, plate, wedge, cylinder, cone, sphere, arch, truss, stairs, gableRoof, gableEnd; box-projected world UVs), `parts/build.js` (rng, row, grid, ringOf, along, scatter, stack, mirror, instance, mergeByDistrict, anchor), `parts/ambient.js` (flag, smoke, birds, flame, spinner, walkers, floaters; pure in t), `engine/look.js` (day, goldenHour, night, storm, fireNight; gradient sky dome, block clouds, horizon fog, sun shadow fitted per shot, night rim light, blendPreset), `stories/nobody/world.js` (259 lines; 10 local prefabs), `stories/nobody/stills.json`, `scripts/v2/world-sheet.py`. `episode.js`: loads `world.js`, per-shot `look`, anchor cameras/cast marks, `renderCamera`/`renderAnchor`. Bench: anchor mode (8 frames per establishing camera) + `--story` falls back to `stills.json` until `episode.json` exists (S5).
+
+**Run:** `python3 scripts/v2/world-sheet.py` → `review/nobody/world-sheet.png`, `world-stats.json` · `npm run v2:bench -- --story nobody`
+
+**Numbers:** bench PASS: max 31.5k frustum triangles (field wide), mean 0.29 s/frame at 720×1280, **0.56 s/frame at native 1080×1920** (all 7 anchors + 6 stills; draw calls ≤ 1,181). World build ~3 s in page. 10/10 frames byte-identical on a fresh re-render. `npm test` exit 0, `v2:test` 22/22.
+
+**Rubric (pass 3 of 3, all PASS):**
+1. Landmark (Field of Stones) visible in 4 of 6 stills (whole, field, gate, hero close) — PASS.
+2. No untrimmed flat wall > 8×8 in the hero tier — PASS after pass 3 (house gable sides got beam + framed window; gatehouse got plinth, quoins, string course, framed slits; chapel tower got pilasters, belfry arches, string course; curtain wall has plinth, pilasters, string course, merlons).
+3. Three depth planes in every wide — PASS (whole: trees / town / castle; field: stones / kids / gate+castle; square: well+stall / terrace / castle; gate: stones / gatehouse / roofs+smoke; night: well+stall / terrace / castle).
+4. ≤ 5 hues + accent — PASS: timber brown, cream (+ thatch), grey-blue (stone, slate), meadow green, sky blue (glass, banners, awnings); accent #ff2e63 only on the hero's scarf. Small gold on hilts.
+5. Doors 7 high = 1.35× the 5.2 avatar — PASS.
+6. Stats — PASS: whole 166/0.31, field 144/0.36, square 111/0.36, gate (golden) 111/0.44, fire night 78/0.63, hero close 113/0.37.
+7. ≥ 3 ambient movers per wide — PASS: whole (4 flags, chimney smoke ×3, 2 bird flocks, street + square walkers, clouds), field (gate flags, smoke, birds, clouds, kids acting), square (keep flag, walkers, smoke, clouds), gate (2 flags, smoke, clouds), night (keep flag, walkers, smoke).
+8. Built from parts with visible material variety — PASS (brick, slate, planks, cobble, grass, sand, thatch, glass, water).
+Fixed across passes: sky shader compile (include mid-line), cameras inside houses/behind stalls (added a top-down layout render to place cameras from a map), sun azimuth convention (golden hour lit the wrong side), crowded square → square moved 10 units north with terraces/castle, chapel tower moved off the castle sightline, street houses placed explicitly (curve offset collapsed them), ring stones cleared around the hero's stone and the path, fire-night too dark/oversaturated, white albedo kept off.
+
+**Decisions:** stills rendered at native 1080×1920 (owner) instead of the brief's 720×1280; bench gates still measured at 720. Frustum triangles count merged districts whole when any part is in view (conservative). Hero's stone is its own mesh (`keep`) so Session 5 can rip it free. Golden hour counts as "day" for the luma gate.
+
+**Open problems:** square establishing shot favours the castle over the stalls (fine as a re-hook wide; a lower market shot can be added per shot in S5). The pull pose fits the hero's stone hilt (3.4 high) only roughly; Session 5 staging tunes the anchor offset. Draw calls ~1.2k in the busiest wide (fine at 0.56 s/frame).
+
+**→ GATE A: stop for the owner's review of `review/nobody/avatar-sheet.png` + `review/nobody/world-sheet.png`.**

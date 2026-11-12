@@ -9,7 +9,9 @@ import {launch} from './browser.js';
 
 const argv = process.argv.slice(2);
 const arg = (k, d) => { const i = argv.indexOf(`--${k}`); return i >= 0 ? argv[i + 1] : d; };
-const spec = arg('spec') ?? (arg('story') && `stories/${arg('story')}/episode.json`);
+import {existsSync} from 'node:fs';
+const story = arg('story');
+const spec = arg('spec') ?? (story && (existsSync(`stories/${story}/episode.json`) ? `stories/${story}/episode.json` : `stories/${story}/stills.json`));
 if (!spec) { console.error('usage: bench.js --story <slug> | --spec <episode.json>'); process.exit(2); }
 const W = Number(arg('width', 720)), H = Number(arg('height', 1280)), N = Number(arg('frames', 8));
 const MAX_TRI = 50000, MAX_S = .45;
@@ -23,13 +25,21 @@ try {
   const shots = await page.evaluate(() => window.__episode.shots);
   await page.evaluate(([w, h]) => window.__episode.renderFrame(0, w, h), [W, H]);   // warm-up: shader compile, texture upload
   const rows = [];
+  // World anchors (Session 3+): 8 frames at every anchor's establishing camera, movers at 8 times.
+  const anchorNames = Object.keys(await page.evaluate(() => window.__episode.anchors ?? {}));
+  for (const name of anchorNames) {
+    const r = await page.evaluate(([n, w, h, N]) => Array.from({length: N}, (_, i) => window.__episode.renderAnchor(n, i * .5, w, h)), [name, W, H, N]);
+    const r1080 = await page.evaluate(([n, N]) => Array.from({length: N}, (_, i) => window.__episode.renderAnchor(n, i * .5, 1080, 1920)), [name, 2]);
+    rows.push({shot: '@' + name, size: 'anchor', triangles: Math.max(...r.map(x => x.triangles)), withShadowPass: Math.max(...r.map(x => x.drawnTriangles)), calls: Math.max(...r.map(x => x.calls)),
+      sPerFrame: +(r.reduce((a, x) => a + x.ms, 0) / r.length / 1000).toFixed(3), sPerFrame1080: +(r1080.reduce((a, x) => a + x.ms, 0) / r1080.length / 1000).toFixed(3)});
+  }
   for (const s of shots) {
     const fr = Array.from({length: N}, (_, i) => s.start + Math.min(s.frames - 1, Math.round(i * (s.frames - 1) / Math.max(1, N - 1))));
     const r = await page.evaluate(([fr, w, h]) => fr.map(f => window.__episode.renderFrame(f, w, h)), [fr, W, H]);
     rows.push({shot: s.id, size: s.size, triangles: Math.max(...r.map(x => x.triangles)), withShadowPass: Math.max(...r.map(x => x.drawnTriangles)), calls: Math.max(...r.map(x => x.calls)), sPerFrame: +(r.reduce((a, x) => a + x.ms, 0) / r.length / 1000).toFixed(3)});
   }
   // Native 1080×1920 finals (owner decision): same frames again at full size; target ≤ 1.0 s/frame.
-  if (W === 720) for (const [i, s] of shots.entries()) {
+  if (W === 720) for (const [k, s] of shots.entries()) { const i = anchorNames.length + k;
     const fr = Array.from({length: Math.min(N, 4)}, (_, k) => s.start + Math.min(s.frames - 1, Math.round(k * (s.frames - 1) / 3)));
     const r = await page.evaluate(fr => fr.map(f => window.__episode.renderFrame(f, 1080, 1920)), fr);
     rows[i].sPerFrame1080 = +(r.reduce((a, x) => a + x.ms, 0) / r.length / 1000).toFixed(3);
