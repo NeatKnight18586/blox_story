@@ -19,7 +19,7 @@ const key = new T.DirectionalLight('#fff1d6', 2.6); key.position.set(10, 18, 14)
 key.shadow.mapSize.set(2048, 2048); Object.assign(key.shadow.camera, {left: -22, right: 22, top: 14, bottom: -6, near: 1, far: 70}); key.shadow.bias = -.0004; scene.add(key);
 const rim = new T.DirectionalLight('#bcd8ff', .7); rim.position.set(-12, 10, -10); scene.add(rim);
 const plate = new T.Mesh(new T.BoxGeometry(80, .4, 40), new T.MeshPhongMaterial({color: '#86c76d', shininess: 8})); plate.position.y = -.2; plate.receiveShadow = true; scene.add(plate);
-const camera = new T.PerspectiveCamera(35, 9 / 16, .1, 300);
+const camera = new T.PerspectiveCamera(35, 9 / 16, .3, 300);
 
 const built = new Map();   // one instance per (preset id + slot) so a cell can show the same character twice
 function actorFor(id, slot, over = null) {

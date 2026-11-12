@@ -115,3 +115,41 @@ Fixed across passes: sky shader compile (include mid-line), cameras inside house
 **Decisions:** Grade fix: the brief's chain screen-blends in YUV, which tinted the whole demo magenta; the bloom now screens luma only (chroma passes through) — first assemble showed a lilac sky, fixed one pass later. No SFX: `open.wav`/`sfx.json` not implemented (owner decision); optional `music.mp3` at −20 dB only if present. Finals are native 1080 (assemble refuses other sizes). Demo cuts use word onsets (plan.js will gate phrase onsets in S5). Particles are camera-facing instanced quads (star/soft/square textures), additive for sparkle/embers/fire/stars. SERIES_LOG includes the two pre-v2 episodes (Dice Town row summarised from its production docs).
 
 **Open problems:** caption band brushes the top of the hero's hair in the crane-to-tag shot (S5 `plan.js` reports face/band overlap → `captionY: "high"` per shot). The hook shot's foreground kid is cut by the left edge (fine for a hook; S5 staging). Render in page slows ~3× with 3 workers on 4 CPUs (wall time still 2.7× faster than one worker).
+
+## Session 4.5 (Amendment A1): stability and detail — plan
+1. Amendment appended to `docs/V2_BRIEF.md`. `scripts/v2/stability.js` (4 mm camera-nudge test, 540×960, > 40/255 changed pixels, fail > 0.30 %); run it first for the before table.
+2. `world.js`: `groundY(x, z)` + `LAYER` table; terrain tops below layer surfaces; everything standing takes `groundY`; `B.ribbon` for the field path and main street; organic ground blobs + tufts/flowers near hero anchors (≤ 3k tris/view).
+3. Camera near 0.1 → 0.3; shadow box fitted once per shot (target-path midpoint, `shadowRadius` + half path), snapped to shadow texels; cache key check.
+4. `materials.js` at 256 px, calm albedo + separate height drawings → wrapped-Sobel normal maps (`heightToNormal`, pure); new rock, dirt, metal, moss.
+5. `parts/props.js`: shared `sword`, `ringStone` (3 variants), `heroStone` (3 crack stages, `stoneCracks` in shot data); `tools.js` hammer uses the same builders. Wall accents, moss strips, baked contact gradient.
+6. Tests; stability (world + demo); bench within +20 % of S3 (0.29 → ≤ 0.35 s/frame at 720); A/B sheet + rubric (≤ 3 passes); world sheet; demo re-render; D8 286–291 sheet; 10-frame determinism; CLAUDE.md; PR; stop.
+
+## Session 4.5 (Amendment A1): stability and detail — report (2026-11-12)
+**Built:** `scripts/v2/stability.js` (`npm run v2:stability`) + `scripts/v2/flicker.js` (pure metric); `renderFrame`/`renderCamera` take a camera `nudge`. Ground model in `stories/nobody/world.js`: exported `TERRAIN`, `groundY(x, z)`, `LAYER` (patch .06, path .12, cobble .12, dirt .11, square .18); everything standing takes `groundY`; cast marks and walkers follow the terrain in `episode.js`. `B.ribbon` (one strip mesh, world UVs, skirts) for the field path (now routed round the hero's stone) and the main street. Organic ground blobs (5–7 sides, clear of terrace steps, path and the dirt disc) + ≤ 110 grass tufts and flower dots near hero anchors. Camera near 0.1 → 0.3. Shadow box fitted once per shot (target-path midpoint, `shadowRadius` + half the path) and texel-snapped (`look.frameFixed`). `parts/materials.js` rewritten: calm 256 px albedo, separate height drawings → blurred wrapped-Sobel normal maps (`blurWrap`, `heightToNormal`), new rock/dirt/metal/moss; 14 albedo + 7 normal textures. `parts/props.js`: shared `sword` (hero 166 tris, ring 40), `ringStone` ×3 variants (66–78 tris, merged per material), `heroStone` (430 tris, carved band, socket, dirt disc, 3 crack stages via shot `stoneCracks`), `instanceGroup` with tone jitter; `avatar-style/tools.js` sword + stone-hammer use the same builders. Walls: ≤ 40 instanced accent blocks per run, moss strip on the shaded base, baked contact gradient (`mergeByDistrict` + `userData.gradient`). `scripts/v2/look-ab.py`. Tests: `tests/v2/a1.test.js`.
+
+**Stability (before → after), gate metric (raw literal metric in brackets):**
+| view | before | after |
+|---|---|---|
+| D8 pull-reveal first / mid / last | 24.8 / 8.8 / 3.4 % | 0.013 / 0.064 / 0.005 % |
+| D1 field hook first / mid / last | 5.9 / 4.8 / 4.5 % | 0.045 / 0.059 / 0.064 % |
+| @field anchor | 1.76 % | 0.003 % |
+| F-field still (worst) | 2.46 % | ≤ 0.10 % |
+| D6 whip mid (worst view after) | 2.21 % | 0.287 % |
+| D5 tag close (edges only) | 0.05 % (raw 1.4 %) | 0.04 % (raw 1.6 %) |
+Story: 25 views, worst 0.167 % PASS. Demo: 34 views, worst 0.287 % PASS. "Before" measured on a worktree at `ebe2904` with the same tool.
+
+**Numbers:** bench (`--story nobody`) PASS: max 35.0k frustum triangles, mean 0.416 s/frame at 720 (0.81 at 1080). Same machine, same hour: Session 4 tree 0.391–0.407 → +4 to +11 % (this container is ~35 % slower than on Session 3's day, when the S3 tree measured 0.289). Demo re-rendered (360 frames, 400 s wall, 3 workers) and re-assembled with the unchanged `demo.json` and captions: 1080×1920, 12.000 s, 9.5 MB, −14.0 LUFS, TP −1.0. 10/10 frames byte-identical (fresh 1-worker process vs 3 workers). `npm test` exit 0; `v2:test` 33 node + 10 python pass. World stills luma: whole 172, field 148, square 116, gate (golden) 111, fire night 80, hero close 113.
+
+**Rubric on `review/nobody/look-fix-ab.png` (2 passes):** (1) carved rock at phone size 4 · (2) blade/guard/grip/pommel + metal highlight 5 · (3) bricks catch the light, no flat hero wall 4 · (4) nothing photographic or noisy 4 · (5) hero and tags first 5 · (6) no tiles, clean path edges, no floating props 5 · (7) day stills luma ≥ 110 5. Pass 1 → 2: brick relief .7 → .5 with mortar raised off black (bevels had picked up green ground light), rock relief .8 → .5 with a narrower facet range (streaky on big chisel faces).
+
+**Decisions:**
+- The literal A1 metric (any channel > 40/255) cannot pass close-ups: with the camera ~4 units from the subject a 4 mm move slides every silhouette and tag-text edge ~1 px (difference maps show red only on edges). The gate therefore excuses pixels whose new colour exists in their 5×5 neighbourhood (edges sliding ≤ 2 px); a surface that flips colour is not excused. Validated: the old world still scores 25 % on D8; raw values stay in the JSON.
+- The nudge is 4 mm along the camera's right+up+back diagonal: a sideways-only move left ground-plane z-fighting invisible (old D8 read 0.1 %).
+- Bench B3 compared on the same machine/hour (old tree re-benched), since the container's speed changed since Session 3. Trims to stay under 0.45: normal-map anisotropy 2, albedo anisotropy 4, ring-stone chips/moss and ring swords cast no shadow, ring-stone parts merged per material.
+- Path rerouted round the hero's stone (it ran over it); street anchor camera moved out of the curtain wall.
+
+**Rules for later sessions (A1):** `v2:stability` must pass before any animatic or final reaches the owner — added to the Session 5 and 6 Done-when lists below and to be written into `/new-episode` (Session 6). Every world uses `groundY`, a `LAYER` table and `ribbon` for paths/streets; relief materials on structures, modelled detail only on story props, calm ground.
+- Session 5 Done-when + `npm run v2:stability -- --spec stories/nobody/episode.json` exits 0 before the animatic is shown.
+- Session 6 Done-when + `v2:stability` on the final spec exits 0; `/new-episode` runs it in E1 and E2.
+
+**Open problems:** the whip shot (D6) sits at 0.287 % — it brushes a walking kid; Session 5 staging should keep cameras ≥ 2 units from actors. Hand-to-hilt contact on the new hero sword is close but not exact (S5 pull staging).

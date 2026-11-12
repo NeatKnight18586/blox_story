@@ -62,11 +62,13 @@ export function mergeByDistrict(group, cellSize = 40) {
     if (!o.isMesh || o.isInstancedMesh) { if (o.isInstancedMesh) keep.push(o); return; }
     for (let p = o; p && p !== group; p = p.parent) if (p.userData.keep) { keep.push(p); return; }
     const c = new T.Vector3(); o.getWorldPosition(c);
-    const key = `${Math.floor(c.x / cellSize)},${Math.floor(c.z / cellSize)}|${o.material.uuid}|${o.castShadow ? 1 : 0}`;
+    const grad = !!o.userData.gradient;
+    const key = `${Math.floor(c.x / cellSize)},${Math.floor(c.z / cellSize)}|${o.material.uuid}|${o.castShadow ? 1 : 0}|${grad ? 'g' : ''}`;
     let g = o.geometry.index ? o.geometry.toNonIndexed() : o.geometry.clone();
     for (const k of Object.keys(g.attributes)) if (!['position', 'normal', 'uv'].includes(k)) g.deleteAttribute(k);
     g.applyMatrix4(o.matrixWorld);
-    if (!buckets.has(key)) buckets.set(key, {mat: o.material, cast: o.castShadow, geos: []});
+    if (grad) contactGradient(g);
+    if (!buckets.has(key)) buckets.set(key, {mat: grad ? gradientMaterial(o.material) : o.material, cast: o.castShadow, geos: []});
     buckets.get(key).geos.push(g);
   });
   const out = new T.Group(); out.name = group.name + '_merged';
@@ -77,6 +79,47 @@ export function mergeByDistrict(group, cellSize = 40) {
   for (const k of new Set(keep)) { const w = new T.Vector3(), q = new T.Quaternion(), s = new T.Vector3(); k.matrixWorld.decompose(w, q, s); k.position.copy(w); k.quaternion.copy(q); k.scale.copy(s); out.add(k); }
   return out;
 }
+
+// Ribbon (Amendment A1): ONE mesh following a curve — paths, streets, rivers. Top strip sampled every ~`step`
+// units, world-space UVs (u across in world units/tile, v along the arc length), and side skirts closed down
+// `thick` below the top so no gap shows against the terrain. heightFn(x, z) gives the top height at a point.
+// Never overlapping plates: a ribbon is one surface, so it cannot z-fight with itself.
+export function ribbon(curve, width, heightFn, {pattern = 'sand', color = '#d8c49a', thick = .3, step = .5, tile = 6, material = null} = {}) {
+  const L = curve.getLength(), n = Math.max(2, Math.ceil(L / step)), pos = [], uv = [], idx = [];
+  const ring = [];   // per sample: [left, right] top points
+  for (let i = 0; i <= n; i++) {
+    const u = i / n, p = curve.getPointAt(u), t = curve.getTangentAt(u), side = new T.Vector3(t.z, 0, -t.x).normalize().multiplyScalar(width / 2);
+    const l = [p.x - side.x, 0, p.z - side.z], r = [p.x + side.x, 0, p.z + side.z];
+    const h = Math.max(heightFn(l[0], l[2]), heightFn(p.x, p.z), heightFn(r[0], r[2])); l[1] = r[1] = h;
+    ring.push([l, r, u * L]);
+  }
+  const push = (v, uu, vv) => { pos.push(...v); uv.push(uu / tile, vv / tile); return pos.length / 3 - 1; };
+  // Top strip.
+  const top = ring.map(([l, r, s]) => [push(l, 0, s), push(r, width, s)]);
+  for (let i = 0; i < n; i++) { const [a, b] = top[i], [c, d] = top[i + 1]; idx.push(a, c, b, b, c, d); }
+  // Side skirts (outer edges), straight down by `thick`.
+  for (const k of [0, 1]) {
+    const col = ring.map(([l, r, s]) => { const v = k ? r : l; return [push(v, s, 0), push([v[0], v[1] - thick, v[2]], s, thick)]; });
+    for (let i = 0; i < n; i++) { const [a, b] = col[i], [c, d] = col[i + 1]; if (k) idx.push(a, b, c, c, b, d); else idx.push(a, c, b, b, c, d); }
+  }
+  const g = new T.BufferGeometry(); g.setAttribute('position', new T.Float32BufferAttribute(pos, 3)); g.setAttribute('uv', new T.Float32BufferAttribute(uv, 2)); g.setIndex(idx);
+  g.computeVertexNormals();
+  const m = new T.Mesh(g, material ?? new T.MeshPhongMaterial({color})); m.name = 'ribbon'; m.receiveShadow = true; m.userData.ribbon = {width, samples: n + 1};
+  return m;
+}
+
+// Baked contact shading (A1 B2): bottom 1.5 units up to 12 % darker, top 1.5 units 5 % lighter (vertex colours).
+export function contactGradient(g) {
+  g.computeBoundingBox(); const {min, max} = g.boundingBox, p = g.attributes.position, col = new Float32Array(p.count * 3);
+  for (let i = 0; i < p.count; i++) {
+    const y = p.getY(i), lo = y - min.y, hi = max.y - y;
+    const k = lo < 1.5 ? .88 + .12 * lo / 1.5 : hi < 1.5 ? 1 + .05 * (1 - hi / 1.5) : 1;
+    col[i * 3] = col[i * 3 + 1] = col[i * 3 + 2] = k;
+  }
+  g.setAttribute('color', new T.BufferAttribute(col, 3)); return g;
+}
+const gradMats = new Map();
+const gradientMaterial = m => { if (!gradMats.has(m.uuid)) { const c = m.clone(); c.vertexColors = true; gradMats.set(m.uuid, c); } return gradMats.get(m.uuid); };
 
 // Named anchors: shots reference these, never raw coordinates (brief §7.4.6).
 export function anchor(anchors, name, position, facing = 0, extra = {}) { anchors[name] = {position, facing, ...extra}; return anchors[name]; }

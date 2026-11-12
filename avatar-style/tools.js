@@ -8,6 +8,7 @@
 // giant block of rock. Scale it boldly.
 import * as T from 'three';
 import {mergeGeometries} from 'three/addons/utils/BufferGeometryUtils.js';
+import {sword as propSword, heroStone as propHeroStone} from '../parts/props.js';
 
 export const TOOLS = ['sword', 'hammer', 'torch', 'bread'];
 export const HAND = [0, -1.84, 0];                         // fist centre in shoulder-pivot coordinates
@@ -38,10 +39,13 @@ function boulderGeometry() {
 }
 
 const BUILD = {
-  sword: o => { const grp = new T.Group(); swordParts(grp, o); grp.userData.grip = 'extend'; return grp; },
+  // Sword and hammer come from the shared prop builder (parts/props.js), so the hammer is visibly the same stone
+  // and the same sword as the hero's stone in the field (A1 continuity). Guard just below the fist, grip in it.
+  sword: o => { const grp = new T.Group(), s = propSword({tier: 'hero', blade: o.blade ?? 2.6}); s.position.y = -.26; grp.add(s); grp.userData.grip = 'extend'; return grp; },
   hammer: o => {
-    const grp = new T.Group(); swordParts(grp, {blade: .5});
-    put(grp, boulderGeometry(), mat(o.stone ?? '#7f8a99'), [0, -1.55, 0], [.1, .4, .05]).scale.setScalar(o.scale ?? 1);
+    const grp = new T.Group(), s = propSword({tier: 'hero', blade: .55}); s.position.y = -.26; grp.add(s);
+    const k = o.scale ?? .8, st = propHeroStone({dirt: false}), rock = st.rock;   // socket at the blade's end
+    rock.scale.setScalar(k); rock.position.set(0, -.26 - .5 - st.socketTop * k, .2 * k); grp.add(rock);
     grp.userData.grip = 'extend'; return grp;
   },
   torch: () => {

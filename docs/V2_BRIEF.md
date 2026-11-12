@@ -345,3 +345,74 @@ The slow parts of an episode are world building, rendering, and review round-tri
 6. **Automated QC replaces manual looking:** `plan.js` errors, `bench` budgets, `sheet.py --stats` thresholds, `ffprobe` checks and the rubrics must all pass before anything reaches the owner, so the owner's review is about story and feel only.
 7. **Script backlog** (`STORY_BACKLOG.md`): keep council-approved scripts queued ahead of production so voice recording and building never wait on writing. Scripts are written with the owner outside Claude Code; this file only stores them with their scorecards.
 8. Record per-episode times (build, render, total) in `PROGRESS.md` and name the slowest step each time; fix that step next.
+
+## Amendment A1 (2026-11-12): stability and detail
+
+Read `docs/V2_BRIEF.md` §0–3, `PROGRESS.md` and `CLAUDE.md`, then do **Session 4.5: Stability and detail pass** below. It is an owner-ordered amendment that runs between Session 4 and Session 5. All §0 and §2 rules apply: plan first in `PROGRESS.md`, every Done-when check must be run, then stop. If Session 5 work already exists on the branch, keep it; this pass does not change shots, cameras, captions, cues, cast acting or the script.
+
+First, append this whole message to `docs/V2_BRIEF.md` under the heading `## Amendment A1 (2026-11-12): stability and detail`, so later sessions inherit its rules.
+
+### Why (owner's Gate A notes, diagnosed and reproduced)
+
+**1. Ground flicker is z-fighting, not a renderer fault.** In `stories/nobody/world.js` the path plates top out at y = 0.40 (`.3 + .2/2`) and the inner field terrace also tops out at y = 0.40 (`.25 + .3/2`), so sand and grass are exactly coplanar and swap every frame (see `review/nobody/demo.mp4`, shots D1 and D8). The path and the cobbled street are also built from overlapping rotated plates that fight each other. Measured with a camera-nudge test (render the same camera twice, second time moved by 4 mm; count pixels whose colour changes by more than 40/255):
+
+| view | now | path lifted off the terrace | street plates separated |
+|---|---|---|---|
+| D8 pull-reveal | 7.0 % | 0.04 % | |
+| field anchor | 1.0 % | 0.12 % | |
+| street | 1.4 % | | 0.16 % |
+
+A healthy frame scores 0.0–0.2 % (antialiased edges only).
+
+**2. Related faults seen in the same review:** ring stones outside the inner terrace float 0.2 above the ground; the dark rectangular grass plates read as glitch tiles; the sun's shadow box is re-fitted to the camera target every frame without texel snapping, so shadow edges crawl during moves.
+
+**3. The world reads as plain.** Stones are bare grey boxes, the sword is four boxes, and walls rely on a flat 128 px pattern.
+
+### Part A: stability (do this first; it is the blocker)
+
+1. **`scripts/v2/stability.js`** (`npm run v2:stability -- --story <slug>` or `--spec <file>`): for every anchor camera, and for the first, middle and last frame of every shot when a spec exists, run the camera-nudge test above at 540×960. **Fail (exit 1) if any view exceeds 0.30 %.** Print a table and write `review/<slug>/stability.json`. Add it to `CLAUDE.md` commands.
+2. **Ground by construction, never by luck:**
+   - One `groundY(x, z)` function in `world.js` returns the top of the terrain (base, terraces) at a point. Everything that stands on the ground (stones, props, cast marks, anchors) takes its height from it.
+   - One `LAYER` table of offsets above `groundY` (for example patch 0.06, path 0.12, cobble 0.12). No two surfaces that can overlap in plan may be closer than 0.05 in height. Unit-test the table and `groundY`.
+   - New `B.ribbon(curve, width, heightFn, {pattern, color, thick})` in `parts/build.js`: **one** mesh following the curve, world-space UVs, sides closed down to the terrain. Rebuild the field path and the main street with it. No overlapping plates anywhere; plates may only butt edge to edge.
+   - Replace the rectangular dark-grass plates with organic ground variety: irregular low-contrast blobs (5–7-sided, ≤ 8 % darker or lighter) plus, within 15 units of hero anchors, instanced grass tufts (2–3 small wedges) and a few flower dots. Budget ≤ 3,000 triangles in any view.
+3. **Depth precision:** camera near 0.1 → 0.3. Confirm no close-up clips.
+4. **Stable shadows** in `engine/look.js`: fit the sun's shadow box **once per shot** (centre = midpoint of the shot's target path, radius = `shadowRadius` + half the path length) and snap the centre to whole shadow-texel steps in light space. Stills and anchors keep the current behaviour.
+5. Make sure the per-shot render cache key includes `parts/`, `engine/look.js` and the story's `world.js`.
+
+### Part B: stylized detail (toy-like, never photographic)
+
+**Art rule:** detail is few, large and clean. Big shapes first, then trim and chips, then surface relief. No noise speckle, grunge overlays or photo textures. A viewer should read "well-built block world", and the avatars must still be the highest-contrast things in frame.
+
+**B1. Materials with relief** (`parts/materials.js`). Tested prototype on this repo: +7 to +11 % render time, bricks visibly catch the light.
+- Draw patterns at **256 px**.
+- For each relief pattern add a separate **height drawing** (white = high, clean shapes only), blur it about 1.5 px, convert to a normal map with a wrapped Sobel filter, and set it as `normalMap` on the Phong material with `normalScale` 0.5–0.8. Never derive height from the albedo: it turns tone variation into pits (tried, looks dirty). Do not use `bumpMap` (it produced NaN blobs earlier in this repo).
+- Albedo stays calm: tone variation within ± 8 %, gaps and mortar no darker than 80 % of the block tone.
+- Relief patterns: `brick` (raised rounded blocks), `cobble`, `slate`, `woodPlanks` (plank gaps and a few grain grooves), `thatch`, new `rock` (5–9 large angular chisel facets, two thin cracks), new `dirt` (cracked dry earth, for the clue). New flat patterns: `metal` (soft vertical streak, `shininess` 80, specular `#bbbbbb`), `moss`. `grass` and `sand` stay flat, with soft large blotches only.
+- Hard caps: tiling maps only, 256 px, ≤ 16 albedo + ≤ 10 normal textures in total, no per-object unique textures in the world.
+
+**B2. Hero props get modelled detail** (hero tier only; background copies stay cheap):
+- **Ring stones** (instanced, 3 variants, ≤ 80 triangles each): chiseled silhouette built from blocks and wedges with cut corners, `rock` material, a moss cap on about a third, 1–2 chip blocks at the base, a dark socket where the blade enters. Per-instance tone jitter ± 5 %.
+- **Hero stone** (≤ 600 triangles): larger chisel facets, a carved band, a clear dark socket, and the base cracks as modelled grooves over `dirt` in **three stages** (hairline, wider, split) selectable from shot data, because lines 14–15 of the script show them growing.
+- **Sword** (hero copy ≤ 250 triangles, ring copies ≤ 40): tapered blade with a centre ridge and a point, crossguard with flared ends, wrapped grip with three rings, faceted pommel; `metal` blade, gold guard and pommel with a visible highlight.
+- **Continuity:** the stone-hammer in `avatar-style/tools.js` must be visibly the same stone and the same sword as the hero stone in the field. Share the builder.
+- **Walls and buildings:** keep the existing trim. Add a few protruding and recessed accent blocks per wall run (instanced, ≤ 40), a `moss` strip along shaded bases, and a baked vertex-colour gradient (bottom 1.5 units up to 12 % darker, top 5 % lighter) on walls, towers and houses as cheap contact shading.
+
+**B3. Budgets stay binding:** `npm run v2:bench -- --story nobody` must still pass §5.4 (≤ 50k frustum triangles, mean ≤ 0.45 s/frame at 720), and the mean may rise by at most 20 % against the Session 3 numbers recorded in `PROGRESS.md`.
+
+### Done when
+
+- `npm test` and `npm run v2:test` pass (new tests: `groundY`, `LAYER` spacing, `ribbon` geometry has no overlapping top faces, normal-map generation is deterministic).
+- `npm run v2:stability -- --story nobody` **and** `-- --spec stories/nobody/demo.json` exit 0. Record the before and after table in `PROGRESS.md`.
+- `npm run v2:bench -- --story nobody` passes B3.
+- `review/nobody/look-fix-ab.png`: before and after, side by side, for four views (hero stone close, sword close, gate wall, field wide), each also as a 390 px-wide phone crop.
+- You have scored that sheet 1–5 on this rubric, fixed anything under 4, at most 3 passes, and recorded the scores: (1) stones read as carved rock at phone size, not grey boxes; (2) blade, guard, grip and pommel are distinct and the metal has a highlight; (3) bricks catch the light and no hero wall reads flat; (4) nothing looks photographic or noisy next to the avatars; (5) the hero and name tags are still the first thing the eye finds; (6) no rectangular ground tiles, clean path edges, no floating props; (7) day stills keep mean luma ≥ 110.
+- `review/nobody/world-sheet.png` regenerated; `review/nobody/demo.mp4` re-rendered and re-assembled with identical shots and captions, and its 30 fps sheet of D8 frames 286–291 shows a steady path.
+- A 10-frame re-render spot check is byte-identical.
+- `CLAUDE.md` library index updated (new patterns, `ribbon`, `groundY`, stability command). PR updated. **Stop for the owner's review.**
+
+### Rules that now apply to every later session and episode
+
+- `v2:stability` is a gate: it must pass before any animatic or final is shown to the owner (add it to the Done-when lists of Sessions 5 and 6 and to `/new-episode`).
+- Every world uses `groundY`, a `LAYER` table and `ribbon` for paths and streets.
+- Detail hierarchy for every world: relief materials on structures, modelled detail only on the props the story is about, calm ground.
