@@ -11,35 +11,35 @@
   "upscaled": false
  },
  "silent": {
-  "file": "evidence/shortwick/shortwick-1080x1920-silent.mp4",
-  "sha256": "f95424bee2ccc476172206c95a8882d42e4bf01120e125b2e51a10c975577654",
+  "file": "renders/shortwick-final/master-1080x1920-silent.mp4",
+  "sha256": "514631e28208cce014a5dc5038c314ab905a417d1b399a6fadbce3ae58a1a453",
   "codec": "h264",
   "pix_fmt": "yuv420p",
   "fps": "30/1",
   "decoded_frames": 3769,
   "duration": 125.633333,
-  "bytes": 40597660
+  "bytes": 49789364
  },
  "review_with_voice": {
-  "file": "(local only)",
+  "file": "renders/shortwick-final/master-review-with-voice-and-captions.mp4",
   "note": "contains the private voice-over; never committed"
  },
  "full_decode_errors": null,
  "psnr_vs_source_db": {
-  "C01": 37.51,
-  "L01": 40.74,
-  "K07": 38.25,
-  "I03": 39.91,
-  "M02": 39.79,
-  "E03": 38.44,
-  "B07": 42.99,
-  "T07": 43.7,
-  "Z01": 39.09
+  "C01": 37.19,
+  "L01": 39.79,
+  "K07": 38.38,
+  "I03": 39.23,
+  "M02": 39.57,
+  "E03": 38.2,
+  "B07": 42.79,
+  "T07": 43.68,
+  "Z01": 38.04
  },
  "cuts": {
   "count": 65,
-  "median_diff_at_cuts": 53.8,
-  "median_diff_inside_shots": 0.7
+  "median_diff_at_cuts": 52.54,
+  "median_diff_inside_shots": 0.74
  },
  "determinism_recheck": {
   "0": true,
@@ -103,11 +103,38 @@
    "msPerFrameInPage": 9232,
    "workers": 3,
    "restarts": 0
+  },
+  {
+   "rendered": 2125,
+   "wallSeconds": 6597,
+   "secondsPerFrameWall": 3.1,
+   "msPerFrameInPage": 9192,
+   "workers": 3,
+   "restarts": 0
+  },
+  {
+   "rendered": 1841,
+   "wallSeconds": 6598,
+   "secondsPerFrameWall": 3.58,
+   "msPerFrameInPage": 10440,
+   "workers": 3,
+   "restarts": 0
+  },
+  {
+   "rendered": 1703,
+   "wallSeconds": 6596,
+   "secondsPerFrameWall": 3.87,
+   "msPerFrameInPage": 11326,
+   "workers": 3,
+   "restarts": 0
+  },
+  {
+   "rendered": 225,
+   "wallSeconds": 1063,
+   "secondsPerFrameWall": 4.72,
+   "msPerFrameInPage": 13714,
+   "workers": 3,
+   "restarts": 0
   }
- ],
- "eye_review": "Every shot reviewed at full resolution (first/mid/last frame). 20 shots fixed and re-rendered: hair lock crossing faces (R01,K05,R04,T07,P03-P06,Z02), occluded faces (T01,T03,K07), unreadable inserts (F03,T02,L02), foreground posts (M04,T05), messy action (I02).",
- "sfx_stem": {
-  "seconds": 125.633,
-  "note": "renders/shortwick-final/sfx-stem.wav, code-synthesised, delivered separately"
- }
+ ]
 }
