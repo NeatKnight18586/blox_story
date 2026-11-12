@@ -21,12 +21,14 @@ Source of truth: `docs/V2_BRIEF.md` (owner's brief). Progress and decisions: `PR
 - `npm run v2:preflight`: environment check, one JSON object (~3 s).
 - `npm run v2:test`: pure-logic tests (`tests/v2/`).
 - `npm run v2:bench -- --spec <episode.json>` or `--story <slug>`: triangles, calls, s/frame per shot (PASS ≤ 50k tris, ≤ 0.45 s/frame).
-- `npm run v2:render -- --spec <episode.json> --out <dir>` or `--story <slug>`: frames with per-shot cache, `progress.json`.
+- `npm run v2:render -- --spec <episode.json> --out <dir>` or `--story <slug>`: frames (default native 1080×1920, owner decision) with per-shot cache, `progress.json`.
+- `node scripts/v2/avatar-sheet.js`: cast review sheet + 390 px phone shot → `review/nobody/`.
 - `python3 scripts/v2/sheet.py <frames dir|video> [--frames a,b] [--labels shots.json] [--stats]`: contact sheets.
 
 ## Folder map
 - `engine/`: `episode.html` + `episode.js` (data-driven renderer; `window.__episode.renderFrame(n, w, h)`), `camera.js` (pure `sampleCamera`, moves, easing, `openHit`, speed metric), `fixtures/` (test clips).
-- `avatar-style/` (S2), `parts/` (S3), `captions/pop-shorts-v2.json` (S4): v2 libraries, opt-in.
+- `avatar-style/`: v2 actor (`body.js`), `faces2.js`, `hair.js`, `clothing.js`, `accessories.js`, `tools.js`. `engine/poses.js`, `overhead.js`, `actors.js`, `studio.html` (lookdev). Legacy `avatar/` stays frozen.
+- `parts/` (S3), `captions/pop-shorts-v2.json` (S4).
 - `scripts/v2/`: `browser.js` (BLOX_CHROME → PATH chrome → Playwright), `preflight.js`, `render.js`, `bench.js`, `sheet.py`.
 - `stories/<slug>/`: `script.txt`, `voice.flac`, `cues.json`, `episode.json`, `world.js` (`build/` ignored).
 - `review/<slug>/`: gate material for the owner.
@@ -34,3 +36,8 @@ Source of truth: `docs/V2_BRIEF.md` (owner's brief). Progress and decisions: `PR
 
 ## Library index (one line per reusable addition; grows every episode)
 - camera moves: push, pull, orbit, track, crane, whip, gamecam, static-drift; eases: linear, inCubic, outCubic, inOutCubic, inOutSine, outBack.
+- faces: smile, neutral, determined, terrified, smug, sad, crying, shout, gasp, sleep.
+- hair: short_messy, side_swept, spiky, bowl, long_straight, ponytail, twin_buns, braids, curly_blocks, bald.
+- outfits: tunic, armor, robe, apron, royal, peasant. accessories: crown, helmet, hood, strawHat, scarf, cape, backpack. tools: sword, hammer (stone), torch, bread.
+- poses: idle, look_react, walk, run, jump, fall, climb, toolHold, toolSwing, pull, point, cheer, recoil, trip, sit, sleep, wave; ambientPose(seed) for background life.
+- overlays: name tag (pop, screen-size cap), stat (number/bar/tile), chat bubble (≤ 4 words).
