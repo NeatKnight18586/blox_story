@@ -166,7 +166,8 @@ export function audit(f) {
       }
       if (covered >= 1) issues.push(`hair over face: ${r.name} (${covered}/3)`);
     }
-    // Limb cores through other people or props.
+    // Limb cores through other people or props (not for someone lying in bed under the covers).
+    if (Math.abs(r.rotation.x) > 1 || Math.abs(r.rotation.z) > 1) continue;
     const core = [];
     for (const n of LIMBS) { const o = parts[n]; if (!o) continue; o.geometry.boundingBox ?? o.geometry.computeBoundingBox(); const b = o.geometry.boundingBox; for (const k of [.15, .5, .85]) core.push([n, o.localToWorld(new T.Vector3((b.min.x + b.max.x) / 2, b.min.y + (b.max.y - b.min.y) * k, (b.min.z + b.max.z) / 2))]); }
     for (const other of vis) if (other !== r) for (const n of LIMBS) { const o = other.getObjectByName(n); if (!o) continue; o.geometry.boundingBox ?? o.geometry.computeBoundingBox(); for (const [ln, p] of core) if (inside(o, p, .04 * other.scale.y)) { issues.push(`body through body: ${r.name}.${ln} in ${other.name}.${n}`); break; } }
