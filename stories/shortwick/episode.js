@@ -60,7 +60,7 @@ function outerLayer(a) {
   const front = paintedMaterial(512, 512, (g, W, H) => {
     g.fillStyle = '#f0b25a'; g.fillRect(0, 0, W, H);
     g.globalAlpha = .35; g.fillStyle = g.createPattern(knit.image, 'repeat'); g.save(); g.scale(.75, .75); g.fillRect(0, 0, W / .75, H / .75); g.restore(); g.globalAlpha = 1;
-    g.fillStyle = '#f4f1ea'; g.fillRect(W * .4, 0, W * .2, H * .9);                          // the tee under the open front
+    g.fillStyle = '#e6e2da'; g.fillRect(W * .4, 0, W * .2, H * .9);                          // the tee under the open front
     g.fillStyle = '#d9963a'; g.fillRect(W * .34, 0, W * .06, H * .9); g.fillRect(W * .6, 0, W * .06, H * .9); g.fillRect(0, H * .88, W, H * .12);   // button bands + rib hem
     for (let x = 0; x < W; x += 9) { g.fillStyle = 'rgba(0,0,0,.12)'; g.fillRect(x, H * .88, 3, H * .12); }
     for (const y of [.28, .48, .68]) { g.fillStyle = '#7a4a1e'; g.beginPath(); g.arc(W * .37, H * y, W * .026, 0, 7); g.fill(); g.fillStyle = 'rgba(255,255,255,.45)'; g.beginPath(); g.arc(W * .363, H * y - W * .008, W * .008, 0, 7); g.fill(); }
@@ -71,7 +71,7 @@ function outerLayer(a) {
   const L = {torso: mk(bodyShell(type, 'torso', .06), [yarn, yarn, yarn, yarn, front, yarn], a.parts.torso, 'cardigan_body'), arms: [], shoes: []};
   for (const side of ['left', 'right']) {
     const s = mk(bodyShell(type, 'arm', .05, {h: 2.0}), yarn, a.parts[side + 'Arm'], 'cardigan_sleeve'); mk(bodyShell(type, 'arm', .07, {h: .22}), cuff, s, 'cuff').position.y = -.9; L.arms.push(s);
-    const shoe = mk(new T.BoxGeometry(lw + .06, .5, ld + .24), flatMaterial('#e2483d'), a.parts[side + 'Leg'], 'loose_shoe'); mk(new T.BoxGeometry(lw + .08, .12, ld + .26), flatMaterial('#f4f1ea'), shoe, 'sole').position.y = -.2; L.shoes.push(shoe);
+    const shoe = mk(new T.BoxGeometry(lw + .06, .5, ld + .24), flatMaterial('#e2483d'), a.parts[side + 'Leg'], 'loose_shoe'); mk(new T.BoxGeometry(lw + .08, .12, ld + .26), flatMaterial('#e6e2da'), shoe, 'sole').position.y = -.2; L.shoes.push(shoe);
   }
   // k = original scale / current scale (1 = fits).
   L.set = (k = 1, on = true, slip = 0) => {
@@ -140,12 +140,13 @@ export async function build(W) {
   add(K.bench({}), S, -37, -10.6); add(K.hydrant(), S, -9.5, -7.6);
   const holes = [[-64, 1.5, 1.6], [-58, -2.4, 1.2], [-52, 2.6, 1.8], [-46, -1.2, 1.3]].map(([x, z, r]) => add(PR.pothole({r}), S, x, z));
   [[-70, 0, 9, 1], [-61, -3, 7, 2], [-55, 1, 10, 3], [-49, 3.5, 6, 4], [-43, -2, 8, 5], [-66, 3.6, 5, 6]].forEach(([x, z, len, seed]) => add(roadCracks({len, seed}), S, x, z, seed * .7));
-  const potCart = add(PR.cart({color: '#9b59b6', tag: '$2'}), S, -60, 0);
+  const LID = ['planks', '#b98a5a'];   // wooden lid: a cream slab blew out under the sun in top shots
+  const potCart = add(PR.cart({color: '#9b59b6', tag: '$2', lid: LID}), S, -60, 0);
   // Two promises, the newer nailed below the older one.
   const oldSigns = [add(PR.signBoard('ROADS FIXED SOON!', {w: 4.6, stake: 2.6}), S, -55.5, 9.6, Math.PI), add(PR.signBoard('ROADS FIXED VERY SOON!', {w: 5.4, bg: '#ffd23f', stake: .9}), S, -55.5, 9.35, Math.PI)];
   oldSigns[0].rotation.z = .04; oldSigns[1].rotation.z = -.07;
   const lotX = -5;
-  const carts = [['#e2483d', '$5'], ['#2f80d1', '$9'], ['#46a85a', '$3'], ['#f2b632', '$12']].map(([c, tag], i) => add(PR.cart({color: c, tag}), S, lotX - 6 + i * 4.2, -9.6, .2 - i * .15, .35));
+  const carts = [['#e2483d', '$5'], ['#2f80d1', '$9'], ['#46a85a', '$3'], ['#f2b632', '$12']].map(([c, tag], i) => add(PR.cart({color: c, tag, lid: LID}), S, lotX - 6 + i * 4.2, -9.6, .2 - i * .15, .35));
 
   // ---------- Tilly Lane (N): Nan's house with a raised porch, bakery, Mr. Pell's steps ----------
   add(K.street({len: 170, crossings: []}), N, 0, 12);

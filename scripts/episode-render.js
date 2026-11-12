@@ -52,6 +52,7 @@ for (const k of seq.keys) await mkdir(dirOf(k), {recursive: true});
 const todo = []; for (let f = from; f < to; f++) if (!existsSync(file(f))) todo.push(f);
 console.log(`${ep}: ${seq.FRAMES} frames (${seq.timing} timing); range ${from}-${to}; ${to - from - todo.length} cached, ${todo.length} to render at ${width}px, ${workers} workers`);
 
+const minBytes = Number(arg('min-bytes', width * 150));   // 162 KB at 1080
 const t0 = performance.now(), log = [], errors = []; let next = 0, restarts = 0;
 async function worker(k) {
   while (next < todo.length && Date.now() < deadline) {
@@ -62,6 +63,8 @@ async function worker(k) {
         const f = cur = todo[next++];
         const s = await page.evaluate(([f, w]) => __sequence.renderFrame(f, w), [f, width]);
         const png = Buffer.from((await page.evaluate(() => document.querySelector('canvas').toDataURL('image/png'))).split(',')[1], 'base64');
+        // Never cache a blank frame: a real 1080p frame is megabytes; a black/empty canvas compresses to ~50 KB.
+        if (png.length < minBytes) throw Error(`blank frame ${f} (${png.length} bytes)`);
         await writeFile(file(f), png); cur = null; log.push({frame: f, shot: s.shot, ms: Math.round(s.ms)});
         if (pe.length) throw Error(pe.join('; '));
         if (log.length % 50 === 0) console.log(`${log.length}/${todo.length} frames, ${((performance.now() - t0) / 1000).toFixed(0)}s`);

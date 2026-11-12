@@ -9,16 +9,28 @@ export const SIDES = ['right', 'left', 'top', 'bottom', 'front', 'back'];
 const PX = 256; // pixels per stud
 
 // Small drawing kit in normalized face coordinates (0..1, y down).
+// Physically plausible albedo (HD only): real white cloth reflects ~80%, so no painted channel goes
+// above sRGB 230. Pure-white paint clips to a flat, glowing patch in sunlight and loses its folds.
+export const ALBEDO_MAX = 230;
+export function albedo(c) {
+  const m = /^#([0-9a-f]{3}|[0-9a-f]{6})$/i.exec(c ?? ''); if (!m) return c;
+  const h = m[1].length === 3 ? [...m[1]].map(x => x + x).join('') : m[1];
+  const v = [0, 2, 4].map(i => parseInt(h.slice(i, i + 2), 16)), top = Math.max(...v);
+  if (top <= ALBEDO_MAX) return c;
+  return '#' + v.map(x => Math.round(x * ALBEDO_MAX / top).toString(16).padStart(2, '0')).join('');
+}
 function kit(g, W, H) {
-  return {
+  const k = {
     W, H,
-    fill(c) { g.fillStyle = c; g.fillRect(0, 0, W, H); },
-    rect(x, y, w, h, c) { g.fillStyle = c; g.fillRect(x * W, y * H, w * W, h * H); },
-    poly(pts, c) { g.fillStyle = c; g.beginPath(); pts.forEach(([x, y], i) => i ? g.lineTo(x * W, y * H) : g.moveTo(x * W, y * H)); g.closePath(); g.fill(); },
-    line(x1, y1, x2, y2, c, w = .012) { g.strokeStyle = c; g.lineWidth = w * Math.max(W, H); g.lineCap = 'round'; g.beginPath(); g.moveTo(x1 * W, y1 * H); g.lineTo(x2 * W, y2 * H); g.stroke(); },
-    dot(x, y, r, c) { g.fillStyle = c; g.beginPath(); g.arc(x * W, y * H, r * Math.min(W, H), 0, Math.PI * 2); g.fill(); },
-    band(x1, y1, x2, y2, width, c) { g.strokeStyle = c; g.lineWidth = width * Math.min(W, H); g.lineCap = 'butt'; g.beginPath(); g.moveTo(x1 * W, y1 * H); g.lineTo(x2 * W, y2 * H); g.stroke(); },
+    fill(c) { g.fillStyle = col(c); g.fillRect(0, 0, W, H); },
+    rect(x, y, w, h, c) { g.fillStyle = col(c); g.fillRect(x * W, y * H, w * W, h * H); },
+    poly(pts, c) { g.fillStyle = col(c); g.beginPath(); pts.forEach(([x, y], i) => i ? g.lineTo(x * W, y * H) : g.moveTo(x * W, y * H)); g.closePath(); g.fill(); },
+    line(x1, y1, x2, y2, c, w = .012) { g.strokeStyle = col(c); g.lineWidth = w * Math.max(W, H); g.lineCap = 'round'; g.beginPath(); g.moveTo(x1 * W, y1 * H); g.lineTo(x2 * W, y2 * H); g.stroke(); },
+    dot(x, y, r, c) { g.fillStyle = col(c); g.beginPath(); g.arc(x * W, y * H, r * Math.min(W, H), 0, Math.PI * 2); g.fill(); },
+    band(x1, y1, x2, y2, width, c) { g.strokeStyle = col(c); g.lineWidth = width * Math.min(W, H); g.lineCap = 'butt'; g.beginPath(); g.moveTo(x1 * W, y1 * H); g.lineTo(x2 * W, y2 * H); g.stroke(); },
   };
+  const col = c => k.hd ? albedo(c) : c;
+  return k;
 }
 // Drawn shading, as classic shirt artists paint it: light top, darker bottom, seam outline.
 function shade(g, W, H, side) {
@@ -66,13 +78,14 @@ const FOLDS = {
   leg: {front: [[[[.12, .46], [.5, .5], [.88, .46]], .05], [[[.2, .72], [.5, .69], [.8, .72]], .035]], back: [[[[.15, .52], [.5, .48], [.85, .52]], .04]],
         right: [[[[.2, .5], [.5, .53], [.8, .5]], .035]], left: [[[[.2, .5], [.5, .53], [.8, .5]], .035]]},
 };
-function hdFinish(g, W, H, side, part, cloth = [0, 1]) {
+function hdFinish(g, W, H, side, part, cloth = [0, 1], scale = 1) {
   if (side === 'top' || side === 'bottom' || cloth[1] - cloth[0] < .05) return;
   // Everything below stays on the fabric: never on hands, arms or legs left as skin.
   g.save(); g.beginPath(); g.rect(0, cloth[0] * H, W, (cloth[1] - cloth[0]) * H); g.clip();
   const span = cloth[1] - cloth[0];
-  g.save(); g.globalAlpha = .09; g.globalCompositeOperation = 'overlay'; g.fillStyle = g.createPattern(weave(), 'repeat');
-  g.fillRect(0, 0, W, H); g.restore();
+  g.save(); g.globalAlpha = .09; g.globalCompositeOperation = 'overlay'; const pat = g.createPattern(weave(), 'repeat');
+  if (scale !== 1) pat.setTransform(new DOMMatrix([scale, 0, 0, scale, 0, 0]));   // same weave size per stud at any resolution
+  g.fillStyle = pat; g.fillRect(0, 0, W, H); g.restore();
   // Folds are authored for full-length fabric; keep only those inside this garment.
   for (const [pts, w] of FOLDS[part]?.[side] ?? []) if (span > .7 && pts.every(([, y]) => y > cloth[0] + .03 && y < cloth[1] - .03)) fold(g, W, H, pts, w);
   // Edge occlusion: cloth darkens softly towards the block's rims.
@@ -92,14 +105,17 @@ function hdFinish(g, W, H, side, part, cloth = [0, 1]) {
 // resolution and adds the HD finish + fabric bump; part = 'torso' | 'arm' | 'leg'.
 export function paintedMaterials(size, paint, {roughness = .5, hd = false, part = null} = {}) {
   if (typeof document === 'undefined') return null; // Node tests: geometry only.
-  const [sx, sy, sz] = size, px = hd ? PX * 2 : PX;
+  // HD: 512 px/stud for the named cast (holds up in a 1080p close-up); 'lite' keeps the HD finish at the
+  // classic 256 px/stud for background extras. The underside (hip/hand/sole ends) is never seen up close,
+  // so it is painted at half resolution: this keeps ~40 characters inside a render worker's GPU memory.
+  const [sx, sy, sz] = size, px = hd === true ? PX * 2 : PX;
   const dims = {right: [sz, sy], left: [sz, sy], top: [sx, sz], bottom: [sx, sz], front: [sx, sy], back: [sx, sy]};
   return SIDES.map(side => {
-    const [w, h] = dims[side], c = document.createElement('canvas');
-    c.width = Math.round(w * px); c.height = Math.round(h * px);
+    const [w, h] = dims[side], c = document.createElement('canvas'), pp = hd && side === 'bottom' ? px / 2 : px;
+    c.width = Math.round(w * pp); c.height = Math.round(h * pp);
     const g = c.getContext('2d'), k = kit(g, c.width, c.height); k.hd = hd;
     paint(k, side); shade(g, c.width, c.height, side);
-    if (hd) hdFinish(g, c.width, c.height, side, part, k.cloth);
+    if (hd) hdFinish(g, c.width, c.height, side, part, k.cloth, px / (PX * 2));
     const t = new T.CanvasTexture(c); t.colorSpace = T.SRGBColorSpace; t.anisotropy = hd ? 8 : 4;
     const m = new T.MeshStandardMaterial({map: t, roughness});
     if (hd && (k.cloth ?? [0, 1])[1] - (k.cloth ?? [0, 1])[0] >= .7) { const b = fabricBump().clone(); b.needsUpdate = true; b.repeat.set(w * 5, h * 5); m.normalMap = b; m.normalScale.set(.5, .5); }

@@ -71,7 +71,7 @@ export function createExtra(seed, {expression, v3 = false} = {}) {
   const p = {scale: r() < .2 ? .7 : 1, skin: pick(SKINS), top, accent: pick(['#ffffff', '#ffd23f', '#35393f']), torso: pick(['tee', 'hoodie', 'stripe']),
     sleeves: r() < .5 ? 'short' : 'long', legs: pick(LEGS), hair: {option: hair[0], color: hair[1]}, props: []};
   // V3 extras: body follows the hair style (feminine cut → woman/girl build), HD clothes, hanging locks.
-  if (v3) { const fem = HAIR_OPTIONS[hair[0]].style === 'feminine', kid = v3 === 'kid'; Object.assign(p, {body: kid ? (fem ? 'girl' : 'boy') : (fem ? 'woman' : 'man'), hd: true, hairLocks: true}); }
+  if (v3) { const fem = HAIR_OPTIONS[hair[0]].style === 'feminine', kid = v3 === 'kid'; Object.assign(p, {body: kid ? (fem ? 'girl' : 'boy') : (fem ? 'woman' : 'man'), hd: 'lite', hairLocks: true}); }
   return buildCharacter('extra_' + seed, p, expression ?? pick(['happy', 'calm', 'pleased', 'confident', 'curious', 'excited']));
 }
 
@@ -81,7 +81,7 @@ function buildCharacter(presetName, p, expression) {
   a.parts.head.material.color.set(p.skin); a.parts.head.material.roughness = .5; a.parts.head.material.userData.authored = true;
   // Opt-in Studio V3 build: body type (man/woman/boy/girl), HD clothing, hair locks that hang.
   if (p.body) applyBody(a, p.body);
-  const hd = !!p.hd;
+  const hd = p.hd === 'lite' ? 'lite' : !!p.hd;   // 'lite': HD finish at classic resolution (background extras)
   // Canvas sized to the real body, so prints keep their shape on narrow or broad builds.
   const B = a.body, tS = B ? [B.torso.chest, 2, B.torso.dChest] : [2, 2, 1], aS = B ? [B.arm[0], 1.99, B.arm[1]] : [.98, 1.99, 1], lS = B ? [B.leg[0], 2, B.leg[1]] : [.98, 2, 1];
   dress(a.parts.torso, tS, TORSOS[p.torso](p), p.top, {hd, part: 'torso'});

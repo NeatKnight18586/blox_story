@@ -68,6 +68,8 @@ export function renderFrame(f, width = 1080) {
   W.camera.updateProjectionMatrix(); W.scene.updateMatrixWorld(true);
   W.look.render(focus, close);
   const gl = W.renderer.getContext(); gl.readPixels(0, 0, 1, 1, gl.RGBA, gl.UNSIGNED_BYTE, new Uint8Array(4));
+  // A lost WebGL context (e.g. GPU memory exhausted) silently draws nothing: fail loudly so the worker restarts.
+  if (gl.isContextLost()) throw Error('WebGL context lost');
   return {frame: f, shot: s.id, width, height, ms: performance.now() - t0};
 }
 
