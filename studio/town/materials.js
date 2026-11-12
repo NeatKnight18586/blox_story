@@ -71,14 +71,32 @@ const PAINTERS = {
   },
 };
 
+// Surface detail level. 'classic' (default) is the legacy look; 'hd' (opt-in per episode,
+// call before building sets) paints at 2× resolution, adds grain, wear and chips, and uses
+// the pattern as a bump map so mortar, grout, plank seams and shingles read as relief.
+let DETAIL = 'classic';
+export function setSurfaceDetail(level) { DETAIL = level; cache.clear(); }
+function wear(g, r, kind, S) {
+  if (kind === 'glass') return;
+  // Fine grain (light and dark specks), a few scuffs and chipped corners.
+  for (let i = 0; i < 9000; i++) { const v = r() < .5 ? 0 : 255; g.fillStyle = `rgba(${v},${v},${v},${.04 + r() * .05})`; g.fillRect(r() * S, r() * S, 1 + r() * 1.5, 1 + r() * 1.5); }
+  g.lineCap = 'round';
+  for (let i = 0; i < 14; i++) { g.strokeStyle = `rgba(0,0,0,${.05 + r() * .06})`; g.lineWidth = 1 + r() * 1.5; const x = r() * S, y = r() * S; g.beginPath(); g.moveTo(x, y); g.quadraticCurveTo(x + (r() - .5) * 40, y + (r() - .5) * 20, x + (r() - .5) * 70, y + (r() - .5) * 30); g.stroke(); }
+  if (kind === 'grass') for (let i = 0; i < 2600; i++) { const v = 180 + Math.floor(r() * 75); g.strokeStyle = `rgb(${v},${v},${v})`; g.lineWidth = 1.5; const x = r() * S, y = r() * S; g.beginPath(); g.moveTo(x, y); g.lineTo(x + (r() - .5) * 5, y - 5 - r() * 9); g.stroke(); }
+}
+
 export function texture(kind, seed = 3) {
   if (typeof document === 'undefined') return null;
-  const key = kind + seed; if (cache.has(key)) return cache.get(key);
-  const c = document.createElement('canvas'); c.width = c.height = PX;
-  PAINTERS[kind](c.getContext('2d'), rng(seed));
-  const t = new T.CanvasTexture(c); t.colorSpace = T.SRGBColorSpace; t.wrapS = t.wrapT = T.RepeatWrapping; t.anisotropy = 8;
+  const hd = DETAIL === 'hd', key = kind + seed + DETAIL; if (cache.has(key)) return cache.get(key);
+  const c = document.createElement('canvas'), S = hd ? PX * 2 : PX; c.width = c.height = S;
+  const g = c.getContext('2d');
+  if (hd) g.scale(2, 2);
+  PAINTERS[kind](g, rng(seed));
+  if (hd) { g.setTransform(1, 0, 0, 1, 0, 0); wear(g, rng(seed + 11), kind, S); }
+  const t = new T.CanvasTexture(c); t.colorSpace = T.SRGBColorSpace; t.wrapS = t.wrapT = T.RepeatWrapping; t.anisotropy = hd ? 16 : 8;
   cache.set(key, t); return t;
 }
+const BUMP = {brick: 2.2, siding: 1.6, stone: 2.2, plaster: .6, planks: 1.4, paving: 1.8, asphalt: .9, grass: 1.2, roof: 1.8};
 
 // Tile size (world units per pattern repeat) for each surface kind.
 const TILE = {brick: 4, siding: 3, stone: 5, plaster: 6, planks: 4, paving: 4, asphalt: 8, grass: 6, roof: 4, glass: 0};
@@ -88,6 +106,7 @@ function mat(kind, color, repeat, extra = {}) {
   let map = null;
   if (base) { map = base.clone(); map.needsUpdate = true; if (TILE[kind]) map.repeat.set(...repeat); }
   const m = new T.MeshStandardMaterial({color: kind === 'glass' ? 0xffffff : color, map, roughness: kind === 'glass' ? .15 : .8, metalness: 0, ...extra});
+  if (DETAIL === 'hd' && map && BUMP[kind]) { m.bumpMap = map; m.bumpScale = BUMP[kind]; }
   m.userData.authored = true; return m;
 }
 

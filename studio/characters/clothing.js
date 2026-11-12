@@ -28,18 +28,82 @@ function shade(g, W, H, side) {
   g.strokeStyle = 'rgba(0,0,0,0.22)'; g.lineWidth = Math.max(W, H) * .012; g.strokeRect(0, 0, W, H);
 }
 
-// size: [x,y,z] studs; paint(k, side) draws one face.
-export function paintedMaterials(size, paint, {roughness = .5} = {}) {
+// ---- HD finish (opt-in): what a top clothing artist adds to a template ----
+// Fine weave, stitched seams, baked fold shading per body part and a shared fabric bump.
+let weaveCanvas = null, bumpTex = null;
+function weave() {
+  if (weaveCanvas) return weaveCanvas;
+  const c = document.createElement('canvas'); c.width = c.height = 64; const g = c.getContext('2d');
+  let s = 7; const r = () => ((s = (s * 16807) % 2147483647) / 2147483647);
+  g.fillStyle = 'rgb(128,128,128)'; g.fillRect(0, 0, 64, 64);
+  for (let y = 0; y < 64; y++) for (let x = 0; x < 64; x++) {
+    const twill = ((x + y) % 4 < 2) ? 14 : -10, v = 128 + twill + Math.round((r() - .5) * 26);
+    g.fillStyle = `rgb(${v},${v},${v})`; g.fillRect(x, y, 1, 1);
+  }
+  return (weaveCanvas = c);
+}
+function fabricBump() {
+  if (bumpTex) return bumpTex;
+  bumpTex = new T.CanvasTexture(weave()); bumpTex.wrapS = bumpTex.wrapT = T.RepeatWrapping; bumpTex.anisotropy = 4;
+  return bumpTex;
+}
+function fold(g, W, H, pts, width, dark = .1) {
+  // A crease: soft shadow line with a thin highlight just above it.
+  g.save(); g.filter = `blur(${Math.max(1, W * .012)}px)`; g.lineCap = 'round';
+  g.strokeStyle = `rgba(0,0,0,${dark})`; g.lineWidth = width * W;
+  g.beginPath(); pts.forEach(([x, y], i) => i ? g.lineTo(x * W, y * H) : g.moveTo(x * W, y * H)); g.stroke();
+  g.strokeStyle = `rgba(255,255,255,${dark * .6})`; g.lineWidth = width * W * .5;
+  g.beginPath(); pts.forEach(([x, y], i) => i ? g.lineTo(x * W, y * H - width * W * .9) : g.moveTo(x * W, y * H - width * W * .9)); g.stroke();
+  g.restore();
+}
+const FOLDS = {
+  torso: {front: [[[[.04, .22], [.2, .36], [.3, .5]], .03], [[[.96, .22], [.8, .36], [.7, .5]], .03], [[[.3, .82], [.5, .79], [.7, .82]], .025]],
+          back: [[[[.2, .3], [.5, .36], [.8, .3]], .03], [[[.35, .8], [.65, .8]], .02]],
+          right: [[[[.2, .3], [.5, .45], [.8, .3]], .03]], left: [[[[.2, .3], [.5, .45], [.8, .3]], .03]]},
+  arm: {front: [[[[.15, .44], [.5, .4], [.85, .44]], .05], [[[.25, .5], [.55, .47], [.8, .5]], .03]], right: [[[[.15, .42], [.5, .46], [.85, .42]], .04]],
+        left: [[[[.15, .42], [.5, .46], [.85, .42]], .04]], back: [[[[.2, .2], [.5, .24], [.8, .2]], .03]]},
+  leg: {front: [[[[.12, .46], [.5, .5], [.88, .46]], .05], [[[.2, .72], [.5, .69], [.8, .72]], .035]], back: [[[[.15, .52], [.5, .48], [.85, .52]], .04]],
+        right: [[[[.2, .5], [.5, .53], [.8, .5]], .035]], left: [[[[.2, .5], [.5, .53], [.8, .5]], .035]]},
+};
+function hdFinish(g, W, H, side, part, cloth = [0, 1]) {
+  if (side === 'top' || side === 'bottom' || cloth[1] - cloth[0] < .05) return;
+  // Everything below stays on the fabric: never on hands, arms or legs left as skin.
+  g.save(); g.beginPath(); g.rect(0, cloth[0] * H, W, (cloth[1] - cloth[0]) * H); g.clip();
+  const span = cloth[1] - cloth[0];
+  g.save(); g.globalAlpha = .09; g.globalCompositeOperation = 'overlay'; g.fillStyle = g.createPattern(weave(), 'repeat');
+  g.fillRect(0, 0, W, H); g.restore();
+  // Folds are authored for full-length fabric; keep only those inside this garment.
+  for (const [pts, w] of FOLDS[part]?.[side] ?? []) if (span > .7 && pts.every(([, y]) => y > cloth[0] + .03 && y < cloth[1] - .03)) fold(g, W, H, pts, w);
+  // Edge occlusion: cloth darkens softly towards the block's rims.
+  const e = Math.min(W, H) * .07;
+  for (const [x0, y0, x1, y1, rx, ry, rw, rh] of [[0, 0, e, 0, 0, 0, e, H], [W, 0, W - e, 0, W - e, 0, e, H], [0, H, 0, H - e, 0, H - e, W, e]]) {
+    const gr = g.createLinearGradient(x0, y0, x1, y1); gr.addColorStop(0, 'rgba(0,0,0,.12)'); gr.addColorStop(1, 'rgba(0,0,0,0)'); g.fillStyle = gr; g.fillRect(rx, ry, rw, rh);
+  }
+  // Stitched seams just inside the vertical edges, like a sewn template.
+  g.save(); g.setLineDash([W * .03, W * .022]); g.strokeStyle = 'rgba(0,0,0,.2)'; g.lineWidth = Math.max(1.5, W * .006);
+  for (const x of [.035, .965]) { g.beginPath(); g.moveTo(x * W, 0); g.lineTo(x * W, H); g.stroke(); }
+  g.strokeStyle = 'rgba(255,255,255,.14)'; g.lineDashOffset = W * .01;
+  for (const x of [.045, .955]) { g.beginPath(); g.moveTo(x * W, 0); g.lineTo(x * W, H); g.stroke(); }
+  g.restore(); g.restore();
+}
+
+// size: [x,y,z] studs; paint(k, side) draws one face. opts.hd (opt-in) doubles the
+// resolution and adds the HD finish + fabric bump; part = 'torso' | 'arm' | 'leg'.
+export function paintedMaterials(size, paint, {roughness = .5, hd = false, part = null} = {}) {
   if (typeof document === 'undefined') return null; // Node tests: geometry only.
-  const [sx, sy, sz] = size;
+  const [sx, sy, sz] = size, px = hd ? PX * 2 : PX;
   const dims = {right: [sz, sy], left: [sz, sy], top: [sx, sz], bottom: [sx, sz], front: [sx, sy], back: [sx, sy]};
   return SIDES.map(side => {
     const [w, h] = dims[side], c = document.createElement('canvas');
-    c.width = Math.round(w * PX); c.height = Math.round(h * PX);
-    const g = c.getContext('2d'), k = kit(g, c.width, c.height);
+    c.width = Math.round(w * px); c.height = Math.round(h * px);
+    const g = c.getContext('2d'), k = kit(g, c.width, c.height); k.hd = hd;
     paint(k, side); shade(g, c.width, c.height, side);
-    const t = new T.CanvasTexture(c); t.colorSpace = T.SRGBColorSpace; t.anisotropy = 4;
-    const m = new T.MeshStandardMaterial({map: t, roughness}); m.userData.authored = true; return m;
+    if (hd) hdFinish(g, c.width, c.height, side, part, k.cloth);
+    const t = new T.CanvasTexture(c); t.colorSpace = T.SRGBColorSpace; t.anisotropy = hd ? 8 : 4;
+    const m = new T.MeshStandardMaterial({map: t, roughness});
+    if (hd && (k.cloth ?? [0, 1])[1] - (k.cloth ?? [0, 1])[0] >= .7) { const b = fabricBump().clone(); b.needsUpdate = true; b.repeat.set(w * 5, h * 5); m.bumpMap = b; m.bumpScale = .35; }
+    if (hd) m.roughness = .72;
+    m.userData.authored = true; return m;
   });
 }
 
@@ -51,6 +115,7 @@ export function longSleeve(top, skin) {
   return (k, side) => {
     if (side === 'bottom') return k.fill(skin);
     k.fill(top); if (side === 'top') return;
+    k.cloth = [0, .84];
     k.rect(0, .76, 1, .08, darken(top)); k.rect(0, .84, 1, .16, skin);
     if (side === 'left' || side === 'right') k.line(.5, 0, .5, .76, darken(top, .85), .02);
   };
@@ -59,6 +124,7 @@ export function shortSleeve(top, skin) {
   return (k, side) => {
     if (side === 'top') return k.fill(top);
     if (side === 'bottom') return k.fill(skin);
+    k.cloth = [0, .34];
     k.fill(skin); k.rect(0, 0, 1, .34, top); k.rect(0, .3, 1, .04, darken(top));
   };
 }
@@ -67,6 +133,7 @@ export function legs({cloth, skin, shoe, legLength = 1, belt = null, sock = null
   return (k, side) => {
     if (side === 'bottom') return k.fill(shoe);
     if (side === 'top') return k.fill(cloth);
+    k.cloth = [0, .84 * legLength];
     k.fill(skin); k.rect(0, 0, 1, .84 * legLength, cloth);
     if (legLength < 1) k.rect(0, .84 * legLength - .04, 1, .04, darken(cloth));
     if (belt) k.rect(0, 0, 1, .07, belt);
@@ -74,6 +141,13 @@ export function legs({cloth, skin, shoe, legLength = 1, belt = null, sock = null
     if (sock) k.rect(0, .74, 1, .1, sock);
     k.rect(0, .84, 1, .16, shoe); k.rect(0, .955, 1, .045, '#f2ece2');
     if (side === 'front') k.rect(.15, .86, .7, .04, darken(shoe, 1.25));
+    if (k.hd && side !== 'top') {
+      k.rect(0, .935, 1, .02, darken(shoe, .7));                                   // sole edge line
+      for (let x = .06; x < 1; x += .08) k.rect(x, .962, .03, .03, darken('#f2ece2', .9)); // tread
+      if (side === 'front') { for (const y of [.875, .905]) k.line(.32, y, .68, y + .012, '#f4f1ea', .01); k.dot(.5, .87, .02, '#f4f1ea'); } // laces
+      if (legLength === 1) k.rect(0, .8, 1, .02, darken(cloth, .8));               // trouser hem
+      if (side === 'back' && legLength === 1) { k.rect(.2, .12, .6, .14, darken(cloth, .9)); k.line(.2, .12, .8, .12, darken(cloth, .7), .008); } // pocket
+    }
   };
 }
 

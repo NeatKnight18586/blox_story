@@ -37,8 +37,8 @@ export function createWorld() {
   // Key light follows the set being shot so the shadow map stays tight around it.
   W.sunDir = [30, 50, 36];
   W.lightAt = (c, dir = W.sunDir) => { key.target.position.copy(c); key.position.copy(c).add(V(...dir)); };
-  W.finish = () => {
-    W.look = applyStudioLook({scene, camera, renderer}, LOOK, {skipIdleBokeh: true});
+  W.finish = (opts = {}) => {
+    W.look = applyStudioLook({scene, camera, renderer}, LOOK, {skipIdleBokeh: true, ...opts});
     scene.traverse(o => { if (o.name === 'studio_sky_gradient') W.sky = o; if (o.name === 'studio_rim') W.rim = o; });
     // Lit-window materials: every glass pane gets an emissive we can turn up at night.
     const seen = new Set();

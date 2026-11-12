@@ -5,7 +5,9 @@
 import * as T from 'three';
 import * as K from '../../studio/town/kit.js';
 import * as PR from '../../studio/town/props.js';
-import {createCustom, createExtra, setExpression} from '../../studio/characters/characters.js';
+import {createCustom, createExtra, setExpression, settleHair} from '../../studio/characters/characters.js';
+import {bodyShell} from '../../studio/characters/bodies.js';
+import {setSurfaceDetail} from '../../studio/town/materials.js';
 import {locomote, idle, ease, lerp, onTwos} from '../../studio/motion/r6.js';
 import {act, talk, shiver, faceAt} from '../../studio/motion/acting.js';
 import {clouds, birds, rain} from '../../studio/director/world.js';
@@ -24,23 +26,24 @@ export const Q = frame(-80, 6, Math.PI / 2);     // the pier: local -z runs out 
 export const C = frame(3000, 0), B = frame(3400, 0);   // interiors, closed sets away from town
 export const sun = [-34, 52, 30];                // afternoon sun from the sea side (west-south-west)
 export const tail = 1.8;   // button hold after the last word
+export const look = {ao: {intensity: 1, radius: 1.4}};   // contact shading (GTAO)
 
 // ---------------- Cast: new for this episode ----------------
 const CAST = {
-  wren: {scale: 1.2, skin: '#f2d0b0', top: '#f4f1ea', accent: '#e2483d', torso: 'tee', sleeves: 'long', legs: {cloth: '#3e6fb0', shoe: '#e2483d'}, hair: {option: 'long_red', color: '#c8692a'}, faceStyle: {iris: '#3f7f4a', lashes: true}, props: []},
-  bo: {scale: .58, skin: '#f2d0b0', top: '#7fb0e8', accent: '#ffffff', torso: 'stripe', sleeves: 'long', legs: {cloth: '#7fb0e8', shoe: '#f4f1ea', legLength: .52}, hair: {option: 'messy_brown', color: '#c8692a'}, faceStyle: {iris: '#3f7f4a', blush: true}, props: []},
-  nan: {scale: .11, skin: '#e0a882', top: '#c94f7c', torso: 'mother', sleeves: 'long', legs: {cloth: '#6b5a8a', shoe: '#5a3b2c'}, hair: {option: 'bun_red', color: '#d9d4cc'}, faceStyle: {iris: '#2f6f8f', lashes: true}, props: ['glasses']},
-  mayor: {scale: .34, skin: '#eab892', top: '#2b2f3a', accent: '#f2b632', torso: 'tee', sleeves: 'long', legs: {cloth: '#2b2f3a', shoe: '#111111'}, hair: {option: 'swept_blue', color: '#7a7a80'}, props: []},
-  fisher: {scale: .84, skin: '#cc8e69', top: '#f2b632', accent: '#2f6f8f', torso: 'hoodie', sleeves: 'long', legs: {cloth: '#2f5a92', shoe: '#2b2b2b'}, hair: {option: 'messy_brown', color: '#4a2c1e'}, props: []},
-  sales: {scale: .14, skin: '#eab892', top: '#e2483d', accent: '#ffffff', torso: 'stripe', sleeves: 'short', legs: {cloth: '#3b3f45', shoe: '#f2f2f2'}, hair: {option: 'swept_blue', color: '#2a2a30'}, props: []},
-  teacher: {scale: .85, skin: '#cc8e69', top: '#46a85a', torso: 'mother', sleeves: 'long', legs: {cloth: '#4c5a78', shoe: '#5a3b2c'}, hair: {option: 'bun_pink', color: '#3a2418'}, faceStyle: {iris: '#3f7f4a', lashes: true}, props: ['glasses']},
-  pell: {scale: 1, skin: '#e0a882', top: '#8a6a4a', torso: 'mother', sleeves: 'long', legs: {cloth: '#5a5d63', shoe: '#3b2a22'}, hair: {option: 'messy_brown', color: '#d9d4cc'}, props: []},
-  boy: {scale: .44, skin: '#a0694a', top: '#e2483d', accent: '#ffffff', torso: 'hoodie', sleeves: 'long', legs: {cloth: '#2f5a92', shoe: '#ffd23f', legLength: .52}, hair: {option: 'spiky_blonde', color: '#2a2a30'}, faceStyle: {iris: '#5a3a1e', blush: true}, props: []},
-  baker: {scale: .9, skin: '#cc8e69', top: '#ffffff', accent: '#e9a64b', torso: 'stripe', sleeves: 'short', legs: {cloth: '#3e6fb0', shoe: '#6b4428'}, hair: {option: 'messy_brown', color: '#3a2418'}, props: []},
-  gossipA: {scale: .72, skin: '#eab892', top: '#9b59b6', accent: '#ffd23f', torso: 'tee', sleeves: 'short', legs: {cloth: '#3b3f45', shoe: '#e2483d'}, hair: {option: 'long_blonde'}, faceStyle: {iris: '#2f6f8f', lashes: true}, props: []},
-  gossipB: {scale: .8, skin: '#7c4a32', top: '#1fb5a8', accent: '#ffffff', torso: 'stripe', sleeves: 'long', legs: {cloth: '#c9a46a', shoe: '#5a3b2c'}, hair: {option: 'ponytail_black'}, faceStyle: {iris: '#5a3a1e', lashes: true}, props: []},
-  liar: {scale: .95, skin: '#e0a882', top: '#2f80d1', accent: '#ffffff', torso: 'tee', sleeves: 'short', legs: {cloth: '#3b3f45', shoe: '#2b2b2b'}, hair: {option: 'spiky_blonde', color: '#8a5528'}, props: []},
-  girl: {scale: .5, skin: '#f2d0b0', top: '#ff7aa8', accent: '#ffffff', torso: 'tee', sleeves: 'short', legs: {cloth: '#7a4fa0', shoe: '#ffffff', legLength: .52, sock: '#ffffff'}, hair: {option: 'ponytail_black', color: '#5a3420'}, faceStyle: {iris: '#6b4a2e', lashes: true, blush: true}, props: []},
+  wren: {body: 'woman', hd: true, hairLocks: true, scale: 1.2, skin: '#f2d0b0', top: '#f4f1ea', accent: '#e2483d', torso: 'tee', sleeves: 'long', legs: {cloth: '#3e6fb0', shoe: '#e2483d'}, hair: {option: 'long_red', color: '#c8692a'}, faceStyle: {iris: '#3f7f4a', lashes: true}, props: []},
+  bo: {body: 'boy', hd: true, hairLocks: true, scale: .58, skin: '#f2d0b0', top: '#7fb0e8', accent: '#ffffff', torso: 'stripe', sleeves: 'long', legs: {cloth: '#7fb0e8', shoe: '#f4f1ea', legLength: .52}, hair: {option: 'messy_brown', color: '#c8692a'}, faceStyle: {iris: '#3f7f4a', blush: true}, props: []},
+  nan: {body: 'woman', hd: true, hairLocks: true, scale: .11, skin: '#e0a882', top: '#c94f7c', torso: 'mother', sleeves: 'long', legs: {cloth: '#6b5a8a', shoe: '#5a3b2c'}, hair: {option: 'bun_red', color: '#d9d4cc'}, faceStyle: {iris: '#2f6f8f', lashes: true}, props: ['glasses']},
+  mayor: {body: 'man', hd: true, hairLocks: true, scale: .34, skin: '#eab892', top: '#2b2f3a', accent: '#f2b632', torso: 'tee', sleeves: 'long', legs: {cloth: '#2b2f3a', shoe: '#111111'}, hair: {option: 'swept_blue', color: '#7a7a80'}, props: []},
+  fisher: {body: 'man', hd: true, hairLocks: true, scale: .84, skin: '#cc8e69', top: '#f2b632', accent: '#2f6f8f', torso: 'hoodie', sleeves: 'long', legs: {cloth: '#2f5a92', shoe: '#2b2b2b'}, hair: {option: 'messy_brown', color: '#4a2c1e'}, props: []},
+  sales: {body: 'man', hd: true, hairLocks: true, scale: .14, skin: '#eab892', top: '#e2483d', accent: '#ffffff', torso: 'stripe', sleeves: 'short', legs: {cloth: '#3b3f45', shoe: '#f2f2f2'}, hair: {option: 'swept_blue', color: '#2a2a30'}, props: []},
+  teacher: {body: 'woman', hd: true, hairLocks: true, scale: .85, skin: '#cc8e69', top: '#46a85a', torso: 'mother', sleeves: 'long', legs: {cloth: '#4c5a78', shoe: '#5a3b2c'}, hair: {option: 'bun_pink', color: '#3a2418'}, faceStyle: {iris: '#3f7f4a', lashes: true}, props: ['glasses']},
+  pell: {body: 'man', hd: true, hairLocks: true, scale: 1, skin: '#e0a882', top: '#8a6a4a', torso: 'mother', sleeves: 'long', legs: {cloth: '#5a5d63', shoe: '#3b2a22'}, hair: {option: 'messy_brown', color: '#d9d4cc'}, props: []},
+  boy: {body: 'boy', hd: true, hairLocks: true, scale: .44, skin: '#a0694a', top: '#e2483d', accent: '#ffffff', torso: 'hoodie', sleeves: 'long', legs: {cloth: '#2f5a92', shoe: '#ffd23f', legLength: .52}, hair: {option: 'spiky_blonde', color: '#2a2a30'}, faceStyle: {iris: '#5a3a1e', blush: true}, props: []},
+  baker: {body: 'man', hd: true, hairLocks: true, scale: .9, skin: '#cc8e69', top: '#ffffff', accent: '#e9a64b', torso: 'stripe', sleeves: 'short', legs: {cloth: '#3e6fb0', shoe: '#6b4428'}, hair: {option: 'messy_brown', color: '#3a2418'}, props: []},
+  gossipA: {body: 'woman', hd: true, hairLocks: true, scale: .72, skin: '#eab892', top: '#9b59b6', accent: '#ffd23f', torso: 'tee', sleeves: 'short', legs: {cloth: '#3b3f45', shoe: '#e2483d'}, hair: {option: 'long_blonde'}, faceStyle: {iris: '#2f6f8f', lashes: true}, props: []},
+  gossipB: {body: 'woman', hd: true, hairLocks: true, scale: .8, skin: '#7c4a32', top: '#1fb5a8', accent: '#ffffff', torso: 'stripe', sleeves: 'long', legs: {cloth: '#c9a46a', shoe: '#5a3b2c'}, hair: {option: 'ponytail_black'}, faceStyle: {iris: '#5a3a1e', lashes: true}, props: []},
+  liar: {body: 'man', hd: true, hairLocks: true, scale: .95, skin: '#e0a882', top: '#2f80d1', accent: '#ffffff', torso: 'tee', sleeves: 'short', legs: {cloth: '#3b3f45', shoe: '#2b2b2b'}, hair: {option: 'spiky_blonde', color: '#8a5528'}, props: []},
+  girl: {body: 'girl', hd: true, hairLocks: true, scale: .5, skin: '#f2d0b0', top: '#ff7aa8', accent: '#ffffff', torso: 'tee', sleeves: 'short', legs: {cloth: '#7a4fa0', shoe: '#ffffff', legLength: .52, sock: '#ffffff'}, hair: {option: 'ponytail_black', color: '#5a3420'}, faceStyle: {iris: '#6b4a2e', lashes: true, blush: true}, props: []},
 };
 
 // Wren's loose cardigan and shoes: shells parented to her limbs that keep her
@@ -49,10 +52,12 @@ function outerLayer(a) {
   const yarn = flatMaterial('#e9a64b'), cuff = flatMaterial('#d18a2e');
   const front = paintedMaterial(128, 128, (g, W, H) => { g.fillStyle = '#e9a64b'; g.fillRect(0, 0, W, H); g.fillStyle = '#f4f1ea'; g.fillRect(W * .38, 0, W * .24, H * .9); g.fillStyle = '#d18a2e'; g.fillRect(0, H * .88, W, H * .12); for (const y of [.3, .5, .7]) { g.beginPath(); g.arc(W * .35, H * y, 4, 0, 7); g.fill(); } });
   const mk = (geo, mats, parent, name) => { const m = new T.Mesh(geo, mats); m.name = name; m.castShadow = true; parent.add(m); return m; };
-  const L = {torso: mk(new T.BoxGeometry(2.1, 2.06, 1.1), [yarn, yarn, yarn, yarn, front, yarn], a.parts.torso, 'cardigan_body'), arms: [], shoes: []};
+  // Shells follow her body type (shaped like the body under them, a little looser).
+  const type = a.body.type, [aw, ad] = a.body.arm, [lw, ld] = a.body.leg;
+  const L = {torso: mk(bodyShell(type, 'torso', .06), [yarn, yarn, yarn, yarn, front, yarn], a.parts.torso, 'cardigan_body'), arms: [], shoes: []};
   for (const side of ['left', 'right']) {
-    const s = mk(new T.BoxGeometry(1.06, 2.0, 1.06), yarn, a.parts[side + 'Arm'], 'cardigan_sleeve'); mk(new T.BoxGeometry(1.08, .22, 1.08), cuff, s, 'cuff').position.y = -.9; L.arms.push(s);
-    const shoe = mk(new T.BoxGeometry(1.04, .5, 1.22), flatMaterial('#e2483d'), a.parts[side + 'Leg'], 'loose_shoe'); mk(new T.BoxGeometry(1.06, .12, 1.24), flatMaterial('#f4f1ea'), shoe, 'sole').position.y = -.2; L.shoes.push(shoe);
+    const s = mk(bodyShell(type, 'arm', .05, {h: 2.0}), yarn, a.parts[side + 'Arm'], 'cardigan_sleeve'); mk(bodyShell(type, 'arm', .07, {h: .22}), cuff, s, 'cuff').position.y = -.9; L.arms.push(s);
+    const shoe = mk(new T.BoxGeometry(lw + .06, .5, ld + .24), flatMaterial('#e2483d'), a.parts[side + 'Leg'], 'loose_shoe'); mk(new T.BoxGeometry(lw + .08, .12, ld + .26), flatMaterial('#f4f1ea'), shoe, 'sole').position.y = -.2; L.shoes.push(shoe);
   }
   // k = original scale / current scale (1 = fits).
   L.set = (k = 1, on = true, slip = 0) => {
@@ -73,6 +78,7 @@ function topHat(a) {
 
 export async function build(W) {
   const {scene, camera} = W;
+  setSurfaceDetail('hd');   // opt-in HD surfaces (2× texture resolution, bump relief, wear)
   const add = (o, F, x, z, ry = 0, y = 0) => { o.position.copy(at(F, x, y, z)); o.rotation.y = hd(F, ry); scene.add(o); return o; };
 
   // ---------- One connected harbour town on endless land and sea ----------
@@ -168,11 +174,11 @@ export async function build(W) {
   add(PR.shelf({w: 6}), C, -10, -23.1);
   const kids = [];
   for (const [r, z] of [-18.5, -14.5, -10.5].entries()) for (const [k, x] of [-7.5, -2.5, 2.5, 7.5].entries()) {
-    add(PR.desk({w: 2.4, d: 1.6, h: 1.75}), C, x, z);
+    add(PR.desk({w: 2.4, d: 1.6, h: 2.15}), C, x, z);   // top clears a seated kid's thighs
     const ch = add(PR.chair({scale: .62, color: ['#e2483d', '#2f80d1', '#f2b632', '#46a85a'][(r + k) % 4]}), C, x, z + 1.5, Math.PI);
-    const kid = createExtra(40 + r * 4 + k); kid.userData = {base: .58}; kid.root.scale.setScalar(.58); scene.add(kid.root); kids.push([kid, V(C.x + x, ch.userData.seat, C.z + z + 1.3)]);
+    const kid = createExtra(40 + r * 4 + k, {v3: 'kid'}); kid.userData = {base: .58}; kid.root.scale.setScalar(.58); scene.add(kid.root); kids.push([kid, V(C.x + x, ch.userData.seat, C.z + z + 1.3)]);
   }
-  add(PR.desk({w: 3.6, d: 2.2, h: 2.9}), C, 0, -5.2);
+  add(PR.desk({w: 3.6, d: 2.2, h: 3.8, shelf: false}), C, 0, -5.2);   // Wren's desk: high enough for her seated legs
   const wrenChair = add(PR.chair({}), C, 0, -3.4, Math.PI);
   const teacherChair = add(PR.chair({color: '#2f80d1'}), C, 2.6, -6.4, -.6);
   const bedRoom = add(PR.room({w: 22, d: 20, h: 11, wall: '#cfe0f2', floor: '#b98a5c', windowAt: [-5, 6], closed: true, night: true}), B, 0, 0);
@@ -187,7 +193,7 @@ export async function build(W) {
   topHat(cast.mayor);
   const layer = outerLayer(cast.wren);
   const IRIS = ['#6b4a2e', '#2f6f8f', '#3f7f4a', '#5a3a6e', '#8a5528'];
-  const extras = Array.from({length: 18}, (_, i) => { const e = createExtra(i + 7); e.userData = {base: [.62, .9, .78, .86, .55, .95, .7, .82, .9, .6, .88, .75, .8, .92, .66, .84, .58, .9][i]}; e.root.scale.setScalar(e.userData.base); scene.add(e.root); return e; });
+  const extras = Array.from({length: 18}, (_, i) => { const e = createExtra(i + 7, {v3: true}); e.userData = {base: [.62, .9, .78, .86, .55, .95, .7, .82, .9, .6, .88, .75, .8, .92, .66, .84, .58, .9][i]}; e.root.scale.setScalar(e.userData.base); scene.add(e.root); return e; });
   const people = [...Object.values(cast), ...extras, ...kids.map(k => k[0])];
   people.forEach((a, i) => { a.faceStyle ??= {iris: IRIS[i % IRIS.length], blush: a.userData.base < .7}; setExpression(a, a.expression); });
 
@@ -222,7 +228,10 @@ export async function build(W) {
     feet: () => cast.wren.root.localToWorld(V(0, 2.0, 1.9)), feetStand: () => cast.wren.root.localToWorld(V(0, .6, .5)), bed: () => V(B.x + 1, 2.8, B.z - 10.5), lot: () => at(S, lotX, 2.4, -9.6),
     plaza: () => V(P.x + 4, 4, P.z), town: () => V(N.x, 6, N.z - 6), deck: () => V(N.x + 1.8, 3.2, N.z - 4.4), pier: () => at(Q, 0, 2.4, -15),
   };
-  return {plazaBench, potCart, bedWindow: bedRoom.userData.window, cast, extras, kids, layer, reset, ambient, points, P, S, N, Q, C, B, podium, stack, holes, carts, cats, bag, nanFish, bucket, tinyFish, sign, crates, steps, rail, deckTop, newelTop: 3.62 + .09, cup, table,
+  // After each stage: front hair locks hang with the body (secondary motion).
+  const settle = () => { for (const a of people) if (a.root.visible) settleHair(a); };
+  return {settle, plazaBench, potCart, bedWindow: bedRoom.userData.window, cast, extras, kids, layer, reset, ambient, points, P, S, N, Q, C, B, podium, stack, holes, carts, cats, bag, nanFish, bucket, tinyFish, sign, crates, steps, rail, deckTop, newelTop: 3.62 + .02,   // cap top (cap centre 3.57, .14 tall)
+    cup, table,
     wrenChair, teacherChair, bedG, stand, bedChair, lotX, oldSigns};
 }
 
@@ -357,11 +366,15 @@ export const shots = [
     }},
   {id: 'K07', at: 'Even her teacher', cam: {on: ['teacher', 'wren'], size: 'MLS', worldYaw: -110, pitch: 4, fov: 46, move: 'push'},
     stage(c, X) {
-      const w = X.cast.wren; put(w, V(X.C.x, seatY(X.wrenChair.userData.seat, 1.2) - 1.2, X.C.z - 3.6), Math.PI, null); act(w, c.t, [[0, 'sitHands'], [c.at('talk'), 'shy']]);
+      const w = X.cast.wren; put(w, V(X.C.x, seatY(X.wrenChair.userData.seat, 1.2) - 1.2, X.C.z - 3.6), Math.PI, null); act(w, c.t, [[0, 'sitHands'], [c.at('talk'), 'shy']], {seated: true});
       setExpression(w, faceAt(c.t, [[0, 'calm'], [c.at('talk'), 'shame']]));
-      const tc = X.cast.teacher, up = ease((c.t - c.at('stood', -.2)) / .45), base = at(X.C, 2.6, 0, -6.4);
-      put(tc, base.clone().setY(X.teacherChair.userData.seat * up + .25 * Math.sin(Math.PI * up)), -.75, 'irritated');
-      act(tc, c.t, [[0, 'stand'], [c.at('talk'), 'point']]); if (c.t > c.at('talk')) talk(tc, c.t);
+      // Teacher: seated on her chair, then rises and steps forward clear of it before pointing.
+      const tc = X.cast.teacher, ts = .85, tUp = c.at('stood', -.2), up = ease((c.t - tUp) / .55), ry = -.75;
+      const seatPos = at(X.C, 2.6, 0, -6.4).setY(seatY(X.teacherChair.userData.seat, ts) - ts), standPos = seatPos.clone().add(V(Math.sin(ry), 0, Math.cos(ry)).multiplyScalar(1.3)).setY(0);
+      put(tc, seatPos.clone().lerp(standPos, up), ry, 'irritated');
+      if (c.t < tUp) act(tc, c.t, [[0, 'sitHands']], {seated: true});
+      else { act(tc, c.t, [[tUp - 1, 'sitHands'], [tUp, 'stand', {blend: .55, smooth: true}], [c.at('talk'), 'point']]); if (up < 1) tc.root.position.y = seatPos.y * (1 - up) - ts * (1 - up); }
+      if (c.t > c.at('talk')) talk(tc, c.t);
       return {light: at(X.C, 0, 0, -6), mood: 'interior'};
     }},
   // --- Re-hook ---
@@ -538,13 +551,13 @@ export const shots = [
   {id: 'P02', at: 'Wren walked to', mood: 'dawn', cam: {on: 'wren', size: 'FS', yaw: 30, pitch: 0, move: 'track'},
     stage(c, X) { const w = X.cast.wren; w.root.visible = true; locomote(w, c.t, {from: [X.N.x + 12, .35, X.N.z + 2.4], dir: [-1, 0]}); w.root.scale.setScalar(1.06); setExpression(w, 'pensive'); return {light: w.root.position.clone()}; }},
   {id: 'P03', at: 'and sat beside', lintIgnore: ['view blocked'], mood: 'dawn', cam: {on: 'deck', size: 'MLS', h: 9, worldYaw: -15, pitch: 6, y: .45, move: 'push'},
-    stage(c, X) { const r = stepScene(c, X, {sit: c.at('sat')}); if (c.t >= c.at('sat')) { const w = X.cast.wren; w.root.rotation.y = -.8; w.pivots.head.rotation.y = 0; } return r; }},
+    stage(c, X) { return stepScene(c, X, {sit: c.at('sat')}); }},
   {id: 'P04', at: 'For the first time', mood: 'dawn', lintIgnore: ['head cut', 'text cropped'], cam: {on: 'nan', size: 'MS', scaleRef: .3, worldYaw: -90, pitch: 0, x: -.22, y: .42, move: {type: 'push', amt: .08}},
-    stage(c, X) { const r = stepScene(c, X, {}); { const w = X.cast.wren; w.root.rotation.y = -.8; w.pivots.head.rotation.y = 0; } return r; }},
+    stage(c, X) { const r = stepScene(c, X, {}); return r; }},
   {id: 'P05', at: 'Did it hurt', mood: 'dawn', cam: {on: 'wren', size: 'MCU', yaw: -35, pitch: 0, y: .42, move: 'drift'},
-    stage(c, X) { const r = stepScene(c, X, {wrenFace: 'curious', look: true}); { const w = X.cast.wren; w.root.rotation.y = -.8; w.pivots.head.rotation.y = 0; } talk(X.cast.wren, c.t, {amt: .3}); return r; }},
+    stage(c, X) { const r = stepScene(c, X, {wrenFace: 'curious', look: true}); talk(X.cast.wren, c.t, {amt: .3}); return r; }},
   {id: 'P06', at: 'Nan laughed', mood: 'dawn', cam: {on: 'nan', size: 'MCU', yaw: 60, pitch: 0, y: .5, move: {type: 'push', amt: .1}},
-    stage(c, X) { const r = stepScene(c, X, {nanFace: faceAt(c.t, [[0, 'laughing'], [c.at('Only'), 'pleased']]), look: true}); { const w = X.cast.wren; w.root.rotation.y = -.8; w.pivots.head.rotation.y = 0; } if (c.t > c.at('Only')) talk(X.cast.nan, c.t, {amt: .5}); return r; }},
+    stage(c, X) { const r = stepScene(c, X, {nanFace: faceAt(c.t, [[0, 'laughing'], [c.at('Only'), 'pleased']]), look: true}); if (c.t > c.at('Only')) talk(X.cast.nan, c.t, {amt: .5}); return r; }},
   // --- Button ---
   {id: 'Z01', at: 'In Shortwick, everyone', mood: 'dawn', cam: {on: 'plaza', size: 'WS', h: 44, worldYaw: -60, pitch: 35, y: .5, move: 'orbit'},
     stage(c, X) {
@@ -552,7 +565,7 @@ export const shots = [
       put(X.cast.mayor, X.stack.position.clone().setY(X.stack.position.y + X.stack.userData.top + .02), -Math.PI / 2, 'confident'); act(X.cast.mayor, c.t, [[0, 'speech']]);
     }},
   {id: 'Z02', at: 'But the smallest', lintIgnore: ['too small', 'head cut'], mood: 'dawn', cam: {on: ['wren', 'nan'], size: 'CU', worldYaw: -30, pitch: 6, scaleRef: 1.06, margin: .3, fill: .95, move: {type: 'pull', amt: 3.2}},
-    stage(c, X) { const r = stepScene(c, X, {}); { const w = X.cast.wren; w.root.rotation.y = -.8; w.pivots.head.rotation.y = 0; } return r; }},
+    stage(c, X) { const r = stepScene(c, X, {}); return r; }},
 ];
 
 // Bedroom: Bo in bed, Wren on the chair beside him; the shrink happens here.
@@ -578,11 +591,19 @@ function bedScene(c, X, o) {
 // Morning porch: Wren sits on the bottom porch stair, Nan stands on the rail at her eye level.
 function stepScene(c, X, o) {
   const w = X.cast.wren, n = X.cast.nan, s = 1.06, stair = at(X.N, 2.4, 0, -4.1), seat = X.deckTop / 3;
-  const sitting = o.sit === undefined || c.t >= o.sit;
-  if (sitting) { put(w, V(stair.x, seatY(seat, s) - s, stair.z), 0, o.wrenFace ?? 'pleased', s); act(w, c.t, [[0, 'sit']]); }
-  else { w.root.visible = true; w.root.scale.setScalar(s); locomote(w, c.t - o.sit + 1.3, {from: [stair.x + 6.05, .35, stair.z + .2], dir: [-1, 0], stopAt: 1.3}); setExpression(w, 'pensive'); }
+  const sitting = o.sit === undefined || c.t >= o.sit, turn = o.look === false ? 0 : -.8;   // seated, she turns her body to Nan
+  const walk = {from: [stair.x + 6.05, .35, stair.z + .2], dir: [-1, 0], stopAt: 1.3};
+  if (sitting) {
+    // Sit-down: a quick hop from the end of her walk into the seat (position, heading, pose) in .25 s.
+    const k = o.sit === undefined ? 1 : ease((c.t - o.sit) / .25), seatPos = V(stair.x, seatY(seat, s) - s, stair.z);
+    w.root.visible = true; w.root.scale.setScalar(s); locomote(w, walk.stopAt, walk); const end = w.root.position.clone();
+    for (const p of Object.values(w.pivots)) p.rotation.set(0, 0, 0);
+    put(w, end.lerp(seatPos, k), -Math.PI / 2 + (turn + Math.PI / 2) * k, o.wrenFace ?? 'pleased', s);
+    act(w, c.t, o.sit === undefined ? [[0, 'sit']] : [[o.sit - 1, 'stand'], [o.sit, 'sit', {blend: .25, smooth: true}]]);
+    if (k < 1) w.root.position.y += .45 * s * Math.sin(Math.PI * k);   // quick hop into the seat, Roblox-style, so legs clear the step
+    w.pivots.head.rotation.y = 0;
+  } else { w.root.visible = true; w.root.scale.setScalar(s); locomote(w, c.t - o.sit + 1.3, walk); setExpression(w, 'pensive'); }
   // Nan stands on the stair's newel post, right beside Wren's head: eye to eye.
   put(n, at(X.N, 1.0, X.newelTop, -4.3), Math.PI / 2, o.nanFace ?? 'pleased', .1); act(n, c.t, [[0, 'stand']]);
-  if (sitting) w.pivots.head.rotation.y = o.look === false ? 0 : -.8;
   return {light: at(X.N, 0, 0, -5)};
 }

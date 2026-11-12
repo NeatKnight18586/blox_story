@@ -6,6 +6,7 @@ import {RenderPass} from 'three/addons/postprocessing/RenderPass.js';
 import {UnrealBloomPass} from 'three/addons/postprocessing/UnrealBloomPass.js';
 import {BokehPass} from 'three/addons/postprocessing/BokehPass.js';
 import {OutputPass} from 'three/addons/postprocessing/OutputPass.js';
+import {GTAOPass} from 'three/addons/postprocessing/GTAOPass.js';
 import {RoomEnvironment} from 'three/addons/environments/RoomEnvironment.js';
 
 // One place to tune the look. Values were chosen against the reference metrics
@@ -111,6 +112,15 @@ export function applyStudioLook({scene, camera, renderer}, L = LOOK, opts = {}) 
     const rt = new T.WebGLRenderTarget(w, h, {type: T.HalfFloatType, samples: 4});
     composer = new EffectComposer(renderer, rt); composer.setPixelRatio(1); composer.setSize(w, h);
     composer.addPass(new RenderPass(scene, camera));
+    // opts.ao (opt-in): ground-truth ambient occlusion for contact shading where props meet
+    // the ground, feet meet floors and limbs meet bodies. Off by default (legacy unchanged).
+    if (opts.ao) {
+      const ao = new GTAOPass(scene, camera, w, h);
+      ao.output = GTAOPass.OUTPUT.Default; ao.blendIntensity = opts.ao.intensity ?? 1;
+      ao.updateGtaoMaterial({radius: opts.ao.radius ?? 1.4, distanceExponent: 1.4, thickness: 2, scale: 1, samples: opts.ao.samples ?? 16, distanceFallOff: 1, screenSpaceRadius: false});
+      ao.updatePdMaterial({lumaPhi: 10, depthPhi: 2, normalPhi: 3, radius: 8, rings: 2, samples: 16});
+      composer.addPass(ao);
+    }
     bokeh = new BokehPass(scene, camera, {focus: 20, aperture: L.lens.wideAperture, maxblur: L.lens.maxblur});
     composer.addPass(bokeh);
     composer.addPass(new UnrealBloomPass(new T.Vector2(w, h), L.bloom.strength, L.bloom.radius, L.bloom.threshold));

@@ -22,6 +22,11 @@ export function around(a, y, r = 1.05) {
 // Baked ambient occlusion: shade = layer depth × root darkening (vertex colours).
 function shadeAttr(count, fn) { const c = new Float32Array(count * 3); for (let i = 0; i < count; i++) { const v = fn(i); c.set([v, v, v], i * 3); } return new T.BufferAttribute(c, 3); }
 
+// Front locks that rest on the shoulders. Legacy hair merges them like any clump (same order,
+// same mesh); with {locks: true} each becomes its own pivoted piece that settleHair() keeps
+// hanging with the body when the head turns, so a lock never swings across the face.
+function lock(g, geo, pivot) { if (g.locks) g.locks.push([geo, pivot]); else g.push(geo); }
+
 // One clump: a flat lofted prism along a curve, bulging mid-length, tapering to a
 // soft (tip≈.3) or sharp (tip≈.03) end; both ends capped → watertight.
 function clump(points, {w = .24, d = .08, tip = .1, bulge = .18, sides = 6, segments = 8, power = 1.6, shade = 1, root = .3} = {}) {
@@ -119,7 +124,7 @@ const STYLES = {
     g.push(shell({sx: .69, sz: .63, sy: .3}));
     for (const s of [-1, 1]) {
       for (const [k, a] of [30, 58, 86].entries()) g.push(clump([V(s * .03, 1.28, .12 - k * .1), around(s * a, 1.12, .8), around(s * (a + 6), .8, 1.1), around(s * (a + 10), .35, 1.14)], {w: .27, d: .09, tip: .4, bulge: .15, shade: 1 - k * .05}));
-      for (const [k, z] of [.6, .56].entries()) g.push(clump([around(s * 50, 1.05, 1.02), V(s * .68, .45, .44), V(s * (.68 - k * .12), -.1, z), V(s * (.62 - k * .12), -.85 + k * .2, z + .02)], {w: .27, d: .09, tip: .45, bulge: .12, shade: .95 - k * .06}));
+      for (const [k, z] of [.6, .56].entries()) lock(g, clump([around(s * 50, 1.05, 1.02), V(s * .68, .45, .44), V(s * (.68 - k * .12), -.1, z), V(s * (.62 - k * .12), -.85 + k * .2, z + .02)], {w: .27, d: .09, tip: .45, bulge: .12, shade: .95 - k * .06}), V(s * .66, .62, .44));
     }
     for (const [k, x] of range(-.5, .5, 5).entries()) g.push(clump([V(x * .3, 1.24, -.22), V(x * 1.05, .95, -.62), V(x * 1.12, .2, -.7), V(x * 1.08, -1.05, -.64)], {w: .28, d: .09, tip: .4, bulge: .1, shade: .84 + (k % 2) * .06}));
   },
@@ -130,7 +135,7 @@ const STYLES = {
     g.push(clump([V(.3, 1.27, .18), V(.48, 1.08, .48), V(.66, .82, .34)], {w: .24, d: .09, tip: .35, shade: .95}));
     for (const s of [-1, 1]) {
       for (const a of [62, 88]) g.push(clump([around(s * a, 1.16, .8), around(s * a, .8, 1.1), around(s * (a + 8), .3, 1.14)], {w: .26, d: .09, tip: .4, shade: .92}));
-      for (const [k, z] of [.6, .56].entries()) g.push(clump([around(s * 48, 1.0, 1.04), V(s * .67, .4, .44), V(s * (.66 - k * .1), -.15, z), V(s * (.6 - k * .1), -1.05 + k * .25, z + .02)], {w: .2, d: .08, tip: .3, bulge: .1, shade: .96 - k * .06}));
+      for (const [k, z] of [.6, .56].entries()) lock(g, clump([around(s * 48, 1.0, 1.04), V(s * .67, .4, .44), V(s * (.66 - k * .1), -.15, z), V(s * (.6 - k * .1), -1.05 + k * .25, z + .02)], {w: .2, d: .08, tip: .3, bulge: .1, shade: .96 - k * .06}), V(s * .66, .6, .44));
     }
     for (const [k, x] of range(-.5, .5, 5).entries()) g.push(clump([V(x * .3, 1.24, -.22), V(x * 1.05, .95, -.62), V(x * 1.12, .2, -.7), V(x * 1.08, -1.0, -.64)], {w: .28, d: .09, tip: .4, shade: .84 + (k % 2) * .06}));
   },
@@ -196,9 +201,9 @@ function paintTexture(color) {
 }
 
 // Build one hair option as a single mesh (one geometry, one material).
-export function makeHair(option, {color} = {}) {
+export function makeHair(option, {color, locks = false} = {}) {
   const o = HAIR_OPTIONS[option]; if (!o) throw new Error('Unknown hair option: ' + option);
-  const parts = []; STYLES[o.shape](parts);
+  const parts = []; if (locks) parts.locks = []; STYLES[o.shape](parts);
   const geometry = mergeGeometries(parts);
   for (const p of parts) p.dispose();
   geometry.computeBoundingBox();
@@ -207,5 +212,22 @@ export function makeHair(option, {color} = {}) {
   material.userData.authored = true;
   const mesh = new T.Mesh(geometry, material); mesh.name = `hair_${option}`; mesh.castShadow = mesh.receiveShadow = true;
   mesh.userData = {attachment: 'HairAttachment', attachmentPoint: [0, 1.16, 0], option, shape: o.shape, style: o.style, color: tint, triangles: geometry.index.count / 3};
+  mesh.userData.locks = [];
+  for (const [geo, pivot] of parts.locks ?? []) {
+    geo.translate(-pivot[0], -pivot[1], -pivot[2]);
+    const pv = new T.Group(); pv.name = 'hair_lock_pivot'; pv.position.set(...pivot);
+    const m = new T.Mesh(geo, material); m.name = 'hair_lock'; m.castShadow = m.receiveShadow = true;
+    pv.add(m); mesh.add(pv); mesh.userData.locks.push(pv);
+  }
   return mesh;
+}
+
+// Keep front locks hanging with the body: undo most of the head's own turn/tilt on each
+// lock pivot (they still ride on the head, so roots stay attached). follow = share of the
+// head motion the lock keeps (a little, so it reads as soft hair rather than glued on).
+const _q = new T.Quaternion(), _id = new T.Quaternion();
+export function settleHair(avatar, follow = .15) {
+  const locks = avatar.hair?.userData.locks; if (!locks?.length) return;
+  _q.copy(avatar.pivots.head.quaternion).invert().slerp(_id, follow);
+  for (const pv of locks) pv.quaternion.copy(_q);
 }

@@ -60,5 +60,5 @@ By eye (two frames per shot, 270 px sheet; flagged shots at full size):
 ## Production guardrails
 - Original characters, sets and names only; no Roblox assets or logos.
 - Native 1080×1920, 30 fps. Shots are anchored to narration **words**, never to estimated times.
-- Sound effects, when used, ship as a separate stem.
+- No sound effects (owner decision, 2026-11-12): the deliverable is picture + the owner's voice-over + captions; the owner adds music in their own mix.
 - After publishing, the retention graph decides the next revision of this page.
