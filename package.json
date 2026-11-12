@@ -36,7 +36,11 @@
     "render:speaking": "node scripts/s5-previews.js",
     "test:studio": "node tests/studio-characters.js && node tests/studio-town.js",
     "proof:studio": "node scripts/studio-lookdev-capture.js --cast && node scripts/studio-characters-capture.js && python3 scripts/studio-lookdev-sheet.py && python3 scripts/studio-characters-sheet.py",
-    "proof:town": "node scripts/studio-town-capture.js && python3 scripts/studio-town-sheet.py"
+    "proof:town": "node scripts/studio-town-capture.js && python3 scripts/studio-town-sheet.py",
+    "v2:preflight": "node scripts/v2/preflight.js",
+    "v2:test": "node --test tests/v2/*.test.js",
+    "v2:bench": "node scripts/v2/bench.js",
+    "v2:render": "node scripts/v2/render.js"
   },
   "dependencies": {
     "three": "0.187.0"

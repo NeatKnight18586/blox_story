@@ -1,5 +1,7 @@
 # AGENTS.md — blox_story studio rules (Studio V2)
 
+> **v2 engine (branch `claude/engine-v2`): `docs/V2_BRIEF.md` + `CLAUDE.md` are the source of truth and supersede the task limits below.** The rules here still describe the legacy studio toolkit (Dice Town, Shortwick).
+
 ## Source of truth
 Read in order: `docs/CLAUDE_START_HERE.md` (handoff branch), `studio/STYLE_BIBLE.md`, `studio/HIGGSFIELD.md`, then STATUS.md (top entry) and the code. F1_SPEC.md still governs the six-part avatar contract. STATUS.md controls what has actually been verified. Older names100/S5 and per-stage Dice Town task boundaries are historical.
 

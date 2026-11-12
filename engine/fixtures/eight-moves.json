@@ -1,0 +1,24 @@
+{
+ "slug": "eight-moves",
+ "fps": 30,
+ "note": "Session 1 test clip: 3 s, one shot per camera move, one legacy avatar walking across a ground plate.",
+ "cast": {"hero": {"action": "walk", "gait": "readable", "origin": [-1, 0, 0], "yaw": 90}},
+ "shots": [
+  {"id": "S1", "size": "wide", "frames": 12, "openHit": true, "move": "push", "ease": "inOutCubic",
+   "from": {"position": [0, 9, 22], "target": [0, 2.5, 0], "fov": 55}, "to": {"position": [0, 7.5, 18], "target": [0, 2.5, 0], "fov": 52}},
+  {"id": "S2", "size": "close", "frames": 12, "move": "pull", "follow": "hero", "followOffset": [0, 4.6, 0],
+   "from": {"position": [1, 5.2, 5], "target": [0, 4.6, 0], "fov": 40}, "to": {"position": [1.4, 5.4, 7.5], "target": [0, 4.6, 0], "fov": 42}},
+  {"id": "S3", "size": "medium", "frames": 12, "move": "orbit", "degrees": 60, "follow": "hero", "followOffset": [0, 3, 0],
+   "from": {"position": [-8, 4, 6], "target": [0, 3, 0], "fov": 42}},
+  {"id": "S4", "size": "wide", "frames": 11, "move": "track", "follow": "hero",
+   "from": {"position": [10, 3, 4], "target": [0, 3, 0], "fov": 45}, "to": {"position": [10, 3.4, 2], "target": [0, 3, 0], "fov": 45}},
+  {"id": "S5", "size": "insert", "frames": 5, "move": "whip", "ease": "inOutCubic",
+   "from": {"position": [10, 3, 2], "target": [0, 3, 0], "fov": 45}, "to": {"position": [-3, 2, -10], "target": [0, 2, 0], "fov": 45}},
+  {"id": "S6", "size": "medium", "frames": 13, "move": "crane",
+   "from": {"position": [-3, 1.5, -10], "target": [0, 2.5, 0], "fov": 45}, "to": {"position": [-3, 7, -9.5], "target": [0, 4.9, 0], "fov": 48}},
+  {"id": "S7", "size": "wide", "frames": 12, "move": "gamecam", "follow": "hero", "heading": 90, "distance": 9, "height": 5.5,
+   "from": {"position": [0, 0, 0], "target": [0, 0, 0], "fov": 67}},
+  {"id": "S8", "size": "close", "frames": 13, "move": "static-drift", "drift": 0.25, "seed": 4,
+   "from": {"position": [3.2, 4.9, 5.5], "target": [1, 4.4, 0], "fov": 36}, "to": {"position": [3.2, 4.9, 5.5], "target": [1, 4.4, 0], "fov": 36}}
+ ]
+}
