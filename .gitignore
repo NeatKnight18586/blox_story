@@ -23,3 +23,7 @@ evidence/studio-characters/hair/
 *-narrated*.mp4
 *.wav
 *.WAV
+
+# v2 engine (docs/V2_BRIEF.md §2.5): build outputs and caches never committed
+stories/*/build/
+.cache/
