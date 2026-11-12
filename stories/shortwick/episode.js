@@ -10,6 +10,7 @@ import {bodyShell} from '../../studio/characters/bodies.js';
 import {setSurfaceDetail} from '../../studio/town/materials.js';
 import {locomote, idle, ease, lerp, onTwos} from '../../studio/motion/r6.js';
 import {act, talk, shiver, faceAt} from '../../studio/motion/acting.js';
+import {makeGrounder} from '../../studio/motion/contact.js';
 import {clouds, birds, rain} from '../../studio/director/world.js';
 import {flatMaterial, paintedMaterial} from '../../studio/town/materials.js';
 import {easeOutBack} from '../../studio/director/camera.js';
@@ -49,8 +50,21 @@ const CAST = {
 // Wren's loose cardigan and shoes: shells parented to her limbs that keep her
 // original size when she shrinks, so sleeves slide past her fingers and shoes go loose.
 function outerLayer(a) {
-  const yarn = flatMaterial('#e9a64b'), cuff = flatMaterial('#d18a2e');
-  const front = paintedMaterial(128, 128, (g, W, H) => { g.fillStyle = '#e9a64b'; g.fillRect(0, 0, W, H); g.fillStyle = '#f4f1ea'; g.fillRect(W * .38, 0, W * .24, H * .9); g.fillStyle = '#d18a2e'; g.fillRect(0, H * .88, W, H * .12); for (const y of [.3, .5, .7]) { g.beginPath(); g.arc(W * .35, H * y, 4, 0, 7); g.fill(); } });
+  // Knitted yarn: stocking-stitch "V" columns with a rib at the hems, also used as a bump map.
+  const knit = (() => { const c = document.createElement('canvas'); c.width = c.height = 64; const g = c.getContext('2d');
+    g.fillStyle = '#b0b0b0'; g.fillRect(0, 0, 64, 64);
+    for (let x = 0; x < 64; x += 8) for (let y = 0; y < 64; y += 8) { g.fillStyle = '#e8e8e8'; g.beginPath(); g.moveTo(x + 1, y); g.lineTo(x + 4, y + 7); g.lineTo(x + 7, y); g.lineTo(x + 5.5, y); g.lineTo(x + 4, y + 4); g.lineTo(x + 2.5, y); g.fill(); }
+    const t = new T.CanvasTexture(c); t.wrapS = t.wrapT = T.RepeatWrapping; t.colorSpace = T.SRGBColorSpace; return t; })();
+  const knitMat = (color, rx, ry) => { const m = new T.MeshStandardMaterial({color, map: knit.clone(), bumpMap: knit.clone(), bumpScale: 1.2, roughness: .9}); m.map.repeat.set(rx, ry); m.bumpMap.repeat.set(rx, ry); m.map.needsUpdate = m.bumpMap.needsUpdate = true; m.userData.authored = true; return m; };
+  const yarn = knitMat('#f0b25a', 10, 12), cuff = knitMat('#d9963a', 10, 2);
+  const front = paintedMaterial(512, 512, (g, W, H) => {
+    g.fillStyle = '#f0b25a'; g.fillRect(0, 0, W, H);
+    g.globalAlpha = .35; g.fillStyle = g.createPattern(knit.image, 'repeat'); g.save(); g.scale(.75, .75); g.fillRect(0, 0, W / .75, H / .75); g.restore(); g.globalAlpha = 1;
+    g.fillStyle = '#f4f1ea'; g.fillRect(W * .4, 0, W * .2, H * .9);                          // the tee under the open front
+    g.fillStyle = '#d9963a'; g.fillRect(W * .34, 0, W * .06, H * .9); g.fillRect(W * .6, 0, W * .06, H * .9); g.fillRect(0, H * .88, W, H * .12);   // button bands + rib hem
+    for (let x = 0; x < W; x += 9) { g.fillStyle = 'rgba(0,0,0,.12)'; g.fillRect(x, H * .88, 3, H * .12); }
+    for (const y of [.28, .48, .68]) { g.fillStyle = '#7a4a1e'; g.beginPath(); g.arc(W * .37, H * y, W * .026, 0, 7); g.fill(); g.fillStyle = 'rgba(255,255,255,.45)'; g.beginPath(); g.arc(W * .363, H * y - W * .008, W * .008, 0, 7); g.fill(); }
+  }, {roughness: .9});
   const mk = (geo, mats, parent, name) => { const m = new T.Mesh(geo, mats); m.name = name; m.castShadow = true; parent.add(m); return m; };
   // Shells follow her body type (shaped like the body under them, a little looser).
   const type = a.body.type, [aw, ad] = a.body.arm, [lw, ld] = a.body.leg;
@@ -203,7 +217,7 @@ export async function build(W) {
 
   const props = [bag, nanFish, bucket, tinyFish, ...cats];
   function reset() {
-    for (const a of people) { a.root.visible = false; a.root.rotation.set(0, 0, 0); a.root.scale.setScalar(a.userData.base); for (const p of Object.values(a.pivots)) p.rotation.set(0, 0, 0); }
+    for (const a of people) { a.userData.noGround = false; a.root.visible = false; a.root.rotation.set(0, 0, 0); a.root.scale.setScalar(a.userData.base); for (const p of Object.values(a.pivots)) p.rotation.set(0, 0, 0); }
     for (const p of props) { p.visible = false; p.scale.setScalar(1); p.rotation.set(0, 0, 0); if (p.parent !== scene) scene.add(p); }
     layer.set(1, false); sign.userData.setTilt(1); tint.material.opacity = 0;
     potCart.position.copy(at(S, -60, 0, 0)); potCart.rotation.set(0, hd(S, 0), 0);
@@ -229,7 +243,8 @@ export async function build(W) {
     plaza: () => V(P.x + 4, 4, P.z), town: () => V(N.x, 6, N.z - 6), deck: () => V(N.x + 1.8, 3.2, N.z - 4.4), pier: () => at(Q, 0, 2.4, -15),
   };
   // After each stage: front hair locks hang with the body (secondary motion).
-  const settle = () => { for (const a of people) if (a.root.visible) settleHair(a); };
+  const ground = makeGrounder(scene, people);
+  const settle = () => { for (const a of people) if (a.root.visible) { settleHair(a); ground(a); } };
   return {settle, plazaBench, potCart, bedWindow: bedRoom.userData.window, cast, extras, kids, layer, reset, ambient, points, P, S, N, Q, C, B, podium, stack, holes, carts, cats, bag, nanFish, bucket, tinyFish, sign, crates, steps, rail, deckTop, newelTop: 3.62 + .02,   // cap top (cap centre 3.57, .14 tall)
     cup, table,
     wrenChair, teacherChair, bedG, stand, bedChair, lotX, oldSigns};
@@ -267,7 +282,7 @@ function crowdAt(X, t, list, {face = null, look = null} = {}) {
     act(e, t, [[0, 'stand']], {seed: k}); if (look) e.pivots.head.rotation.x = look;
   });
 }
-function walkers(X, t, list) {
+function walkers(X, t, list) {   // t = shot time: walkers cross the frame during the shot, wherever it sits in the episode
   for (const [i, from, dir, gait = 'walk'] of list) { const e = X.extras[i]; e.root.visible = true; e.root.scale.setScalar(e.userData.base); locomote(e, t, {gait, from, dir}); }
 }
 
@@ -276,14 +291,14 @@ export const shots = [
   // --- Cold open ---
   {id: 'C01', at: 'In this town', cam: {on: 'plaza', size: 'WS', worldYaw: -100, pitch: 16, h: 52, y: .55, move: {type: 'craneDown', amt: 18}},
     stage(c, X) {
-      walkers(X, c.T, [[0, fromA(X.P, -14, .3, 4), [1, 0]], [1, fromA(X.P, 12, .3, 9), [-1, 0]], [2, fromA(X.P, -6, .3, 12), [.6, -.8]], [3, fromA(X.P, 3, .3, -4), [-.7, .7]], [4, fromA(X.P, 9, .3, -1), [0, 1], 'child_walk']]);
+      walkers(X, c.t, [[0, fromA(X.P, -14, .3, 4), [1, 0]], [1, fromA(X.P, 12, .3, 9), [-1, 0]], [2, fromA(X.P, -6, .3, 12), [.8, -.6]], [3, fromA(X.P, 3, .3, -4), [-.7, .7]], [4, fromA(X.P, 9, .3, -1), [0, 1], 'child_walk']]);
       put(X.cast.wren, at(X.P, -4, .3, 6), -1.2, 'calm'); idle(X.cast.wren, c.t);
       put(X.cast.nan, at(X.P, -5.2, .3, 6.6), -1.6, 'pleased'); idle(X.cast.nan, c.t, {seed: 2});
     }},
   {id: 'C02', at: 'makes you shorter', cam: {on: 'liar', size: 'MS', yaw: 25, pitch: 2, move: 'push', impact: .25},
     stage(c, X) {
       const L = X.cast.liar, w = X.extras[5], p = at(X.P, -3, .3, -6.5);
-      put(L, p, .35, null); put(w, at(X.P, -7.2, .3, -5.2), facing(at(X.P, -7.2, 0, -5.2), p), 'curious');
+      put(L, p, .35, null); put(w, at(X.P, -6.0, .3, -3.0), facing(at(X.P, -6.0, 0, -3.0), p), 'curious');   // clear of the fountain basin
       const tS = c.at('shorter'); shrink(L, c.t, tS, .95, .66);
       act(L, c.t, [[0, 'shrug'], [tS + .1, 'recoil']]); if (c.t < tS) talk(L, c.t);
       setExpression(L, c.t < tS ? 'confident' : 'shocked'); act(w, c.t, [[0, 'stand'], [tS + .15, 'gasp']]);
@@ -292,7 +307,7 @@ export const shots = [
   // --- Three demonstrations ---
   {id: 'D01', at: 'The mayor promised', lintIgnore: ['view blocked'], cam: {on: 'pothole', size: 'MLS', worldYaw: 180, pitch: 24, h: 15, y: .55, move: 'push'},
     stage(c, X) {
-      walkers(X, c.T, [[6, fromA(X.S, -40, .35, -8.6), dirA(X.S, -1, 0)]]);
+      walkers(X, c.t, [[6, fromA(X.S, -40, .35, -6.0), dirA(X.S, -1, 0)]]);   // pavement lane clear of lamps and trees
       const cartT = c.at('roads', -.25), k = ease((c.t - cartT) / .45), roll = Math.min(1, c.t / Math.max(.1, cartT));
       X.potCart.position.copy(at(X.S, -56 + 2.6 * (1 - roll), .1 - .75 * k, -2.4)); X.potCart.rotation.set(0, hd(X.S, 0), .35 * k);
     }},
@@ -325,7 +340,7 @@ export const shots = [
     }},
   {id: 'L01', at: 'And the man who sells', cam: {on: 'sales', size: 'FS', scaleRef: .55, yaw: 10, pitch: 6, y: .45, move: 'push'},
     stage(c, X) {
-      walkers(X, c.T, [[3, fromA(X.S, -18, .35, -7.2), dirA(X.S, 1, 0)]]);
+      walkers(X, c.t, [[3, fromA(X.S, -18, .35, -5.8), dirA(X.S, 1, 0)]]);   // lane clear of the lamp posts
       X.carts[1].updateMatrixWorld(true);
       put(X.cast.sales, X.carts[1].localToWorld(V(-.9, 2.45, .2)), hd(X.S, .1), 'devious'); act(X.cast.sales, c.t, [[0, 'armsWide'], [.6, 'cheer'], [1.1, 'armsWide']]);
     }},
@@ -339,8 +354,8 @@ export const shots = [
   // --- The kid ---
   {id: 'K01', at: 'Then there was Wren', cam: {on: 'wren', size: 'FS', yaw: 35, pitch: -6, move: {type: 'orbit', amt: 8}},
     stage(c, X) {
-      const w = X.cast.wren; w.root.visible = true; locomote(w, c.t, {from: fromA(X.S, 2, .35, -8.6), dir: dirA(X.S, -1, 0)}); setExpression(w, 'calm');
-      walkers(X, c.T, [[0, fromA(X.S, -16, .35, -9.6), dirA(X.S, 1, 0)], [9, fromA(X.S, 12, .35, -9.8), dirA(X.S, -1, 0), 'child_walk'], [13, fromA(X.S, -12, .35, -7.4), dirA(X.S, 1, 0)]]);
+      const w = X.cast.wren; w.root.visible = true; locomote(w, c.t, {from: fromA(X.S, 2, .35, -7.0), dir: dirA(X.S, -1, 0)}); setExpression(w, 'calm');   // walks the pavement in front of the carts
+      walkers(X, c.t, [[0, fromA(X.S, -16, .35, -5.8), dirA(X.S, 1, 0)], [9, fromA(X.S, 12, .35, -6.2), dirA(X.S, -1, 0), 'child_walk']]);
     }},
   {id: 'K02', at: 'Wren had never told', cam: {on: 'wren', size: 'MCU', yaw: 18, pitch: -4, move: 'push'},
     stage(c, X) { const w = X.cast.wren; put(w, at(X.S, -14, .35, -8.6), hd(X.S, .6), 'pleased'); act(w, c.t, [[0, 'stand']]); }},
@@ -349,7 +364,7 @@ export const shots = [
   {id: 'K04', at: 'that made her the tallest', cam: {on: 'wren', size: 'WS', h: 14, yaw: 10, pitch: 10, y: .38, move: {type: 'crane', amt: 6}},
     stage(c, X) {
       const w = X.cast.wren; put(w, at(X.S, -14, .35, -8.6), hd(X.S, .6), 'pleased'); act(w, c.t, [[0, 'stand']]);
-      crowdAt(X, c.t, [[0, ...xz(at(X.S, -17, 0, -7.4)), hd(X.S, .8)], [1, ...xz(at(X.S, -11, 0, -7.8)), hd(X.S, -.6)], [4, ...xz(at(X.S, -15.6, 0, -5.6)), hd(X.S, 2.6)], [6, ...xz(at(X.S, -12.2, 0, -5.4)), hd(X.S, -2.6)], [10, ...xz(at(X.S, -18.4, 0, -9.6)), hd(X.S, .9)]], {look: -.25});
+      crowdAt(X, c.t, [[0, ...xz(at(X.S, -17, 0, -7.4)), hd(X.S, .8)], [1, ...xz(at(X.S, -11, 0, -6.6)), hd(X.S, -.6)], [4, ...xz(at(X.S, -15.6, 0, -5.6)), hd(X.S, 2.6)], [6, ...xz(at(X.S, -12.2, 0, -5.4)), hd(X.S, -2.6)], [10, ...xz(at(X.S, -20.5, 0, -6.4)), hd(X.S, .9)]], {look: -.25});
     }},
   {id: 'K05', at: 'People called it showing', cam: {on: ['gossipA', 'gossipB'], size: 'MS', yaw: 15, pitch: 2, move: 'drift'},
     stage(c, X) {
@@ -369,9 +384,9 @@ export const shots = [
       const w = X.cast.wren; put(w, V(X.C.x, seatY(X.wrenChair.userData.seat, 1.2) - 1.2, X.C.z - 3.6), Math.PI, null); act(w, c.t, [[0, 'sitHands'], [c.at('talk'), 'shy']], {seated: true});
       setExpression(w, faceAt(c.t, [[0, 'calm'], [c.at('talk'), 'shame']]));
       // Teacher: seated on her chair, then rises and steps forward clear of it before pointing.
-      const tc = X.cast.teacher, ts = .85, tUp = c.at('stood', -.2), up = ease((c.t - tUp) / .55), ry = -.75;
-      const seatPos = at(X.C, 2.6, 0, -6.4).setY(seatY(X.teacherChair.userData.seat, ts) - ts), standPos = seatPos.clone().add(V(Math.sin(ry), 0, Math.cos(ry)).multiplyScalar(1.3)).setY(0);
-      put(tc, seatPos.clone().lerp(standPos, up), ry, 'irritated');
+      const tc = X.cast.teacher, ts = .85, tUp = c.at('stood', -.2), up = ease((c.t - tUp) / .55), mv = ease((c.t - tUp + .1) / .3), ry = -.75;
+      const seatPos = at(X.C, 2.6, 0, -6.4).setY(seatY(X.teacherChair.userData.seat, ts) - ts), standPos = seatPos.clone().add(V(Math.sin(ry + Math.PI / 2), 0, Math.cos(ry + Math.PI / 2)).multiplyScalar(2.1)).setY(0);   // steps out sideways, away from Wren's desk
+      put(tc, seatPos.clone().lerp(standPos, mv), ry, 'irritated');   // she slides forward off the seat first, then straightens
       if (c.t < tUp) act(tc, c.t, [[0, 'sitHands']], {seated: true});
       else { act(tc, c.t, [[tUp - 1, 'sitHands'], [tUp, 'stand', {blend: .55, smooth: true}], [c.at('talk'), 'point']]); if (up < 1) tc.root.position.y = seatPos.y * (1 - up) - ts * (1 - up); }
       if (c.t > c.at('talk')) talk(tc, c.t);
@@ -389,14 +404,14 @@ export const shots = [
     }},
   {id: 'R03', at: 'was barely as tall', cam: {on: 'nan', size: 'MS', yaw: 25, pitch: 4, move: 'push', impact: .12},
     stage(c, X) {
-      const n = X.cast.nan; put(n, at(X.N, -2.2, X.deckTop + 1.5, -8.2), -.4, 'pleased');
+      const n = X.cast.nan; put(n, at(X.N, -1.95, X.deckTop + 1.5, -8.2), -.4, 'pleased');   // beside the cup, hands clear of it
       act(n, c.t, [[0, 'stand'], [c.at('teacup'), 'hold']]);
       return {cam: {on: X.points.cup().add(V(.2, 0, 0)), scaleRef: .16, size: 'FS', y: .5}};
     }},
   {id: 'R04', at: 'Everyone whispered', cam: {on: ['gossipA', 'gossipB'], size: 'MCU', yaw: -20, pitch: 0, move: 'drift'},
     stage(c, X) {
       const a = X.cast.gossipA, b = X.cast.gossipB, p = at(X.N, 16, .35, -2.2);
-      put(a, p, .5, 'devious'); put(b, p.clone().add(V(1.3, 0, -.2)), -.5, 'snooty');
+      put(a, p, .5, 'devious'); put(b, p.clone().add(V(1.75, 0, -.2)), -.5, 'snooty');
       act(a, c.t, [[0, 'shy']]); act(b, c.t, [[0, 'handsHips']]); talk(a, c.t, {amt: .7}); a.pivots.head.rotation.y = .3;
     }},
   {id: 'R05', at: 'that she must be', cam: {on: 'gossipB', size: 'CU', yaw: 15, pitch: 0, move: {type: 'push', amt: .12}},
@@ -421,7 +436,7 @@ export const shots = [
   {id: 'I04', at: 'Nan fed the stray', cam: {on: 'nan', size: 'FS', worldYaw: 15, pitch: 8, y: .45, move: 'push', scaleRef: .5},
     stage(c, X) {
       const n = X.cast.nan, p = at(X.N, -10, .35, 2.4); put(n, p, 2.2, 'happy'); act(n, c.t, [[0, 'reach']]);
-      X.nanFish.visible = true; n.root.updateMatrixWorld(true); X.nanFish.position.copy(n.parts.rightArm.localToWorld(V(0, -1.1, .3))); X.nanFish.rotation.y = 1.2;
+      X.nanFish.visible = true; n.root.updateMatrixWorld(true); X.nanFish.position.copy(n.parts.rightArm.localToWorld(V(0, -1.1, .3))).add(V(Math.sin(2.2), 0, Math.cos(2.2)).multiplyScalar(.32));   // held out in front, not through her X.nanFish.rotation.y = 1.2;
       X.cats.forEach((k, i) => { k.visible = true; k.position.copy(p).add(V(.9 + i * .9, 0, -1.4 - (i % 2) * .7)); k.rotation.y = facing(k.position, p); k.userData.tail.rotation.x = -.6 + .3 * Math.sin(onTwos(c.t) * 6 + i); k.userData.head.rotation.x = .2 * Math.sin(onTwos(c.t) * 4 + i); });
     }},
   {id: 'I05', at: "Nan fixed the baker's", lintIgnore: ['too small'], cam: {on: ['sign', 'nan'], size: 'MS', h: 9, scaleRef: 1, margin: .6, worldYaw: 60, pitch: -4, y: .4, move: 'push'},
@@ -432,18 +447,21 @@ export const shots = [
       setExpression(n, faceAt(c.t, [[0, 'serious'], [c.at('sign', .3), 'happy']]));
       return {light: at(X.N, 25, 0, -8)};
     }},
-  {id: 'I06', at: 'Nan carried groceries', cam: {on: 'nan', size: 'FS', worldYaw: 30, pitch: 14, y: .45, scaleRef: .42, move: 'push'},
+  {id: 'I06', at: 'Nan carried groceries', lintIgnore: ['feet floating: nan'], cam: {on: 'nan', size: 'FS', worldYaw: 30, pitch: 14, y: .45, scaleRef: .42, move: 'push'},
     stage(c, X) {
-      const n = X.cast.nan, i = Math.min(2.4, c.t * .5), pos = X.steps.userData.at(Math.floor(i)), base = X.steps.position;
-      put(n, base.clone().add(pos).add(V(0, .02, -.3)), Math.PI, 'tired'); act(n, c.t, [[0, 'carry']]);
-      X.bag.visible = true; n.root.updateMatrixWorld(true); X.bag.position.copy(n.root.localToWorld(V(0, 2.4, 2.6))); X.bag.rotation.y = Math.PI; X.bag.scale.setScalar(.4);
+      // Nan climbs one step every 2 s: a small hop (arc) over the last .3 of each interval, never a teleport.
+      const n = X.cast.nan, i = Math.min(2.4, c.t * .5), k = Math.floor(i), f = i - k, base = X.steps.position;
+      const hop = k < 2 ? ease(Math.max(0, (f - .7) / .3)) : 0, p0 = X.steps.userData.at(k), p1 = X.steps.userData.at(Math.min(5, k + 1));
+      put(n, base.clone().add(p0.clone().lerp(p1, hop)).add(V(0, .02 + .4 * Math.sin(Math.PI * hop), -.3)), Math.PI, 'tired'); act(n, c.t, [[0, 'carry']]);
+      if (hop > 0 && hop < 1) n.userData.noGround = true;
+      X.bag.visible = true; n.root.updateMatrixWorld(true); X.bag.position.copy(n.root.localToWorld(V(0, 2.4, 3.3))); X.bag.rotation.y = Math.PI; X.bag.scale.setScalar(.4);
       put(X.cast.pell, X.points.stepsTop(), .3, 'happy'); act(X.cast.pell, c.t, [[0, 'stand']]);
     }},
   {id: 'I07', at: 'which, for Nan', mood: 'golden', cam: {on: 'stepsTop', size: 'WS', h: 13, worldYaw: 35, pitch: 8, y: .45, move: 'push'},
     stage(c, X) {
       const n = X.cast.nan, pos = X.steps.userData.at(5), base = X.steps.position;
       put(n, base.clone().add(pos).add(V(0, .02, -.3)), Math.PI, 'tired'); act(n, c.t, [[0, 'carry']]); n.root.position.y += .04 * Math.abs(Math.sin(onTwos(c.t) * 6));
-      X.bag.visible = true; n.root.updateMatrixWorld(true); X.bag.position.copy(n.root.localToWorld(V(0, 2.4, 2.6))); X.bag.rotation.y = Math.PI; X.bag.scale.setScalar(.4);
+      X.bag.visible = true; n.root.updateMatrixWorld(true); X.bag.position.copy(n.root.localToWorld(V(0, 2.4, 3.3))); X.bag.rotation.y = Math.PI; X.bag.scale.setScalar(.4);
       put(X.cast.pell, X.points.stepsTop(), .3, 'bored'); act(X.cast.pell, c.t, [[0, 'handsHips']]);
       return {light: at(X.N, -24, 0, -6)};
     }},
@@ -464,7 +482,7 @@ export const shots = [
       const b = X.cast.boy; put(b, at(X.N, -1.0, 0, -7), .2, 'scared'); act(b, c.t, [[0, 'crouch']]); shiver(b, c.t, 1.2);
       return {rain: true, light: at(X.N, 0, 0, -6)};
     }},
-  {id: 'M04', at: 'Nan knelt beside', mood: 'storm', cam: {on: ['nan', 'boy'], size: 'MCU', worldYaw: 0, pitch: 4, scaleRef: .4, move: 'push'},
+  {id: 'M04', at: 'Nan knelt beside', lintIgnore: ['feet sunk: nan'], mood: 'storm', cam: {on: ['nan', 'boy'], size: 'MCU', worldYaw: 0, pitch: 4, scaleRef: .4, move: 'push'},
     stage(c, X) {
       const b = X.cast.boy, n = X.cast.nan; put(b, at(X.N, -1.0, 0, -7), .2, 'scared'); act(b, c.t, [[0, 'crouch']]); shiver(b, c.t, .7);
       put(n, at(X.N, -2.2, 0, -6.4), 2.03, null); act(n, c.t, [[0, 'stand'], [c.at('knelt'), 'kneel']]);
@@ -546,7 +564,7 @@ export const shots = [
   {id: 'T08', at: "Every inch she'd lost", mood: 'golden', cam: {on: 'nan', size: 'MS', yaw: 15, pitch: 2, move: {type: 'push', amt: .15}},
     stage(c, X) { const n = X.cast.nan; put(n, at(X.N, -1.2, X.deckTop + X.rail.userData.top, -6.2), .1, 'pleased', .1); act(n, c.t, [[0, 'stand']]); return {light: at(X.N, 0, 0, -6)}; }},
   // --- Payoff ---
-  {id: 'P01', at: 'The next morning', mood: 'interior', cam: {on: 'bo', size: 'MS', yaw: 20, pitch: 6, move: 'push'},
+  {id: 'P01', at: 'The next morning', lintIgnore: ['body through prop: bo'], mood: 'interior', cam: {on: 'bo', size: 'MS', yaw: 20, pitch: 6, move: 'push'},
     stage(c, X) { return bedScene(c, X, {morning: true}); }},
   {id: 'P02', at: 'Wren walked to', mood: 'dawn', cam: {on: 'wren', size: 'FS', yaw: 30, pitch: 0, move: 'track'},
     stage(c, X) { const w = X.cast.wren; w.root.visible = true; locomote(w, c.t, {from: [X.N.x + 12, .35, X.N.z + 2.4], dir: [-1, 0]}); w.root.scale.setScalar(1.06); setExpression(w, 'pensive'); return {light: w.root.position.clone()}; }},
@@ -561,7 +579,7 @@ export const shots = [
   // --- Button ---
   {id: 'Z01', at: 'In Shortwick, everyone', mood: 'dawn', cam: {on: 'plaza', size: 'WS', h: 44, worldYaw: -60, pitch: 35, y: .5, move: 'orbit'},
     stage(c, X) {
-      walkers(X, c.T, [[0, fromA(X.P, -14, .3, 4), [1, 0]], [5, fromA(X.P, 12, .3, 9), [-1, 0]], [8, fromA(X.P, -6, .3, 12), [.6, -.8]]]);
+      walkers(X, c.t, [[0, fromA(X.P, -14, .3, 4), [1, 0]], [5, fromA(X.P, 12, .3, 9), [-1, 0]], [8, fromA(X.P, -6, .3, 12), [.6, -.8]]]);
       put(X.cast.mayor, X.stack.position.clone().setY(X.stack.position.y + X.stack.userData.top + .02), -Math.PI / 2, 'confident'); act(X.cast.mayor, c.t, [[0, 'speech']]);
     }},
   {id: 'Z02', at: 'But the smallest', lintIgnore: ['too small', 'head cut'], mood: 'dawn', cam: {on: ['wren', 'nan'], size: 'CU', worldYaw: -30, pitch: 6, scaleRef: 1.06, margin: .3, fill: .95, move: {type: 'pull', amt: 3.2}},
@@ -591,16 +609,17 @@ function bedScene(c, X, o) {
 // Morning porch: Wren sits on the bottom porch stair, Nan stands on the rail at her eye level.
 function stepScene(c, X, o) {
   const w = X.cast.wren, n = X.cast.nan, s = 1.06, stair = at(X.N, 2.4, 0, -4.1), seat = X.deckTop / 3;
-  const sitting = o.sit === undefined || c.t >= o.sit, turn = o.look === false ? 0 : -.8;   // seated, she turns her body to Nan
-  const walk = {from: [stair.x + 6.05, .35, stair.z + .2], dir: [-1, 0], stopAt: 1.3};
+  const sitting = o.sit === undefined || c.t >= o.sit - .12, turn = o.look === false ? 0 : -.8;   // seated, she turns her body to Nan
+  const walk = {from: [stair.x + 6.05, .35, stair.z + 1.9], dir: [-1, 0], stopAt: 1.18};   // walks the path in front of the stair   // the walk ends .12 s before the sit, where she turns
   if (sitting) {
     // Sit-down: a quick hop from the end of her walk into the seat (position, heading, pose) in .25 s.
-    const k = o.sit === undefined ? 1 : ease((c.t - o.sit) / .25), seatPos = V(stair.x, seatY(seat, s) - s, stair.z);
+    const k = o.sit === undefined ? 1 : ease((c.t - o.sit - .04) / .26), seatPos = V(stair.x, seatY(seat, s) - s, stair.z);
     w.root.visible = true; w.root.scale.setScalar(s); locomote(w, walk.stopAt, walk); const end = w.root.position.clone();
     for (const p of Object.values(w.pivots)) p.rotation.set(0, 0, 0);
-    put(w, end.lerp(seatPos, k), -Math.PI / 2 + (turn + Math.PI / 2) * k, o.wrenFace ?? 'pleased', s);
-    act(w, c.t, o.sit === undefined ? [[0, 'sit']] : [[o.sit - 1, 'stand'], [o.sit, 'sit', {blend: .25, smooth: true}]]);
-    if (k < 1) w.root.position.y += .45 * s * Math.sin(Math.PI * k);   // quick hop into the seat, Roblox-style, so legs clear the step
+    const kt = o.sit === undefined ? 1 : ease((c.t - o.sit + .12) / .2);   // she turns to the seat first, then hops in
+    put(w, end.lerp(seatPos, k), -Math.PI / 2 + (turn + Math.PI / 2) * kt, o.wrenFace ?? 'pleased', s);
+    act(w, c.t, o.sit === undefined ? [[0, 'sit']] : [[o.sit - 1, 'stand'], [o.sit - .04, 'sit', {blend: .2, smooth: true}]]);   // legs swing up while she rises, before she comes down
+    if (k < 1) w.root.position.y += .75 * s * Math.sin(Math.PI * k);   // quick hop into the seat, Roblox-style, so legs clear the step
     w.pivots.head.rotation.y = 0;
   } else { w.root.visible = true; w.root.scale.setScalar(s); locomote(w, c.t - o.sit + 1.3, walk); setExpression(w, 'pensive'); }
   // Nan stands on the stair's newel post, right beside Wren's head: eye to eye.

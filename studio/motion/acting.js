@@ -63,8 +63,11 @@ export function act(a, t, keys, {twos = true, breathe = true, seed = 0, blend = 
   let i = 0; while (i + 1 < keys.length && keys[i + 1][0] <= tt) i++;
   const [t1, n1, o1 = {}] = keys[i], prev = i > 0 ? keys[i - 1] : null;
   const to = P(n1), from = prev ? P(prev[1]) : to;
-  const b = o1.blend ?? blend, x = prev ? (tt - t1) / b : 1;
-  const k = o1.smooth ? ease(x) : snap(x);
+  // Big moves take longer: even through the snap curve's steepest drawing (on twos) no joint jumps more than ~1 rad, so a
+  // large pose change never reads as a one-frame pop.
+  let travel = 0; if (prev) for (const piv of PIV) { const A = val(from, piv), B = val(to, piv); travel = Math.max(travel, Math.abs(B[0] - A[0]), Math.abs(B[1] - A[1]), Math.abs(B[2] - A[2])); }
+  const b = Math.max(o1.blend ?? blend, travel * .2), x = prev ? (tt - t1) / b : 1;
+  const k = o1.smooth || travel > 1.2 ? ease(x) : snap(x);   // big moves glide (eased), small ones snap
   for (const piv of PIV) {
     if (seated && piv.endsWith('Hip')) { a.pivots[piv].rotation.set(...POSES.sit[piv]); continue; }
     const A = val(from, piv), B = val(to, piv);
