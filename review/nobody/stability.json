@@ -1,0 +1,169 @@
+{
+ "spec": "stories/nobody/stills.json",
+ "size": "540x960",
+ "nudge": 0.004,
+ "threshold": 40,
+ "limit": 0.3,
+ "views": 25,
+ "worst": {
+  "view": "G-gate-golden:last",
+  "frame": 31,
+  "pct": 0.167,
+  "raw": 0.242
+ },
+ "failing": [],
+ "errors": [],
+ "result": "PASS",
+ "rows": [
+  {
+   "view": "@heroStone",
+   "frame": null,
+   "pct": 0.045,
+   "raw": 0.461
+  },
+  {
+   "view": "@field",
+   "frame": null,
+   "pct": 0.008,
+   "raw": 0.091
+  },
+  {
+   "view": "@gate",
+   "frame": null,
+   "pct": 0.003,
+   "raw": 0.039
+  },
+  {
+   "view": "@street",
+   "frame": null,
+   "pct": 0.015,
+   "raw": 0.21
+  },
+  {
+   "view": "@square",
+   "frame": null,
+   "pct": 0.004,
+   "raw": 0.016
+  },
+  {
+   "view": "@dragonWall",
+   "frame": null,
+   "pct": 0.021,
+   "raw": 0.084
+  },
+  {
+   "view": "@whole",
+   "frame": null,
+   "pct": 0.001,
+   "raw": 0.004
+  },
+  {
+   "view": "W-whole-day:first",
+   "frame": 0,
+   "pct": 0.001,
+   "raw": 0.004
+  },
+  {
+   "view": "W-whole-day:mid",
+   "frame": 4,
+   "pct": 0.02,
+   "raw": 0.032
+  },
+  {
+   "view": "W-whole-day:last",
+   "frame": 7,
+   "pct": 0.001,
+   "raw": 0.01
+  },
+  {
+   "view": "F-field-day:first",
+   "frame": 8,
+   "pct": 0.007,
+   "raw": 0.088
+  },
+  {
+   "view": "F-field-day:mid",
+   "frame": 12,
+   "pct": 0.006,
+   "raw": 0.074
+  },
+  {
+   "view": "F-field-day:last",
+   "frame": 15,
+   "pct": 0.01,
+   "raw": 0.084
+  },
+  {
+   "view": "S-square-day:first",
+   "frame": 16,
+   "pct": 0.004,
+   "raw": 0.019
+  },
+  {
+   "view": "S-square-day:mid",
+   "frame": 20,
+   "pct": 0.012,
+   "raw": 0.026
+  },
+  {
+   "view": "S-square-day:last",
+   "frame": 23,
+   "pct": 0.008,
+   "raw": 0.02
+  },
+  {
+   "view": "G-gate-golden:first",
+   "frame": 24,
+   "pct": 0.005,
+   "raw": 0.045
+  },
+  {
+   "view": "G-gate-golden:mid",
+   "frame": 28,
+   "pct": 0.007,
+   "raw": 0.055
+  },
+  {
+   "view": "G-gate-golden:last",
+   "frame": 31,
+   "pct": 0.167,
+   "raw": 0.242
+  },
+  {
+   "view": "N-square-fire:first",
+   "frame": 32,
+   "pct": 0.001,
+   "raw": 0.045
+  },
+  {
+   "view": "N-square-fire:mid",
+   "frame": 36,
+   "pct": 0,
+   "raw": 0.012
+  },
+  {
+   "view": "N-square-fire:last",
+   "frame": 39,
+   "pct": 0.001,
+   "raw": 0.014
+  },
+  {
+   "view": "H-hero-close:first",
+   "frame": 40,
+   "pct": 0.045,
+   "raw": 0.46
+  },
+  {
+   "view": "H-hero-close:mid",
+   "frame": 44,
+   "pct": 0.075,
+   "raw": 0.501
+  },
+  {
+   "view": "H-hero-close:last",
+   "frame": 47,
+   "pct": 0.058,
+   "raw": 0.551
+  }
+ ]
+}

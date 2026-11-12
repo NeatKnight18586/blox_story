@@ -14,6 +14,7 @@ import * as P from '../parts/parts.js';
 import * as B from '../parts/build.js';
 import * as A from '../parts/ambient.js';
 import * as M from '../parts/materials.js';
+import * as PR from '../parts/props.js';
 
 const q = new URLSearchParams(location.search);
 const specUrl = q.get('spec') ? new URL('../' + q.get('spec'), import.meta.url) : new URL(`../stories/${q.get('story')}/episode.json`, import.meta.url);
@@ -29,11 +30,11 @@ const renderer = new T.WebGLRenderer({antialias: q.get('aa') !== '0', preserveDr
 renderer.outputColorSpace = T.SRGBColorSpace; renderer.shadowMap.enabled = true; renderer.shadowMap.type = T.PCFSoftShadowMap;
 document.body.appendChild(renderer.domElement);
 const scene = new T.Scene();
-const camera = new T.PerspectiveCamera(45, 9 / 16, .1, 900);
+const camera = new T.PerspectiveCamera(45, 9 / 16, .3, 900);   // near 0.3 (A1): more depth precision for the ground layers
 let world = null, look = null;
 if (spec.world) {
   look = createLook(scene, renderer);
-  world = (await import(new URL('../' + spec.world, import.meta.url).href)).build(scene, {P, B, A, M});
+  world = (await import(new URL('../' + spec.world, import.meta.url).href)).build(scene, {P, B, A, M, PR});
 } else {
   scene.background = new T.Color('#8fc8ff'); scene.fog = new T.Fog('#8fc8ff', 60, 140);
   scene.add(new T.HemisphereLight('#dfefff', '#6b8f4e', 1.1));
@@ -74,8 +75,10 @@ function poseCast(t) {
     const yaw = (c.yaw ?? 0) * Math.PI / 180;
     if (v2) {
       const o = c.origin ?? [0, 0, 0], tr = c.travel, d = tr ? tr.speed * t : 0;
+      const at = tr ? [o[0] + tr.dir[0] * d, o[1], o[2] + tr.dir[1] * d] : [...o];
+      if (world?.groundY && c.at !== undefined) at[1] = world.groundY(at[0], at[2]) + (c.offset?.[1] ?? 0);   // feet on the terrain (A1)
       driveActor(a, t, {keys: c.keys ?? [[0, c.action ?? 'idle']], faces: c.faces, ambient: !!c.ambient,
-        origin: {position: tr ? [o[0] + tr.dir[0] * d, o[1], o[2] + tr.dir[1] * d] : o, yaw}, tags: c.tags, fps: FPS});
+        origin: {position: at, yaw}, tags: c.tags, fps: FPS});
     } else {
       const s = sampleAction(c.action ?? 'idle', t, c.action === 'walk' ? {gait: c.gait ?? 'readable'} : {});
       applyActionSample(a, s, {position: c.origin ?? [0, 0, 0], yaw});
@@ -114,20 +117,35 @@ function frustumTriangles() {
   return n;
 }
 
+// Stable shadows (A1): the sun's shadow box is fitted ONCE per shot — centre = midpoint of the shot's target
+// path, radius = shadowRadius + half the path length — and snapped to whole shadow texels in look.frameFixed.
+const shadowFit = new Map();
+function shotShadow(shot) {
+  if (shadowFit.has(shot.id)) return shadowFit.get(shot.id);
+  const pts = [0, .25, .5, .75, 1].map(u => { const tt = (shot.start + u * (shot.frames - 1)) / FPS; return sampleCamera({...shot, fps: FPS, openHit: false}, u * (shot.frames - 1) / FPS, poseCast(tt)).target; });
+  const lo = [0, 1, 2].map(i => Math.min(...pts.map(p => p[i]))), hi = [0, 1, 2].map(i => Math.max(...pts.map(p => p[i])));
+  let len = 0; for (let i = 1; i < pts.length; i++) len += Math.hypot(...pts[i].map((v, k) => v - pts[i - 1][k]));
+  const fit = {centre: new T.Vector3((lo[0] + hi[0]) / 2, (lo[1] + hi[1]) / 2, (lo[2] + hi[2]) / 2), radius: (shot.shadowRadius ?? 34) + len / 2};
+  shadowFit.set(shot.id, fit); return fit;
+}
+
 let lastSize = '';
-export function renderFrame(n, width = 720, height = 1280) {
+// nudge (world units, along the camera's right+up+back diagonal): the stability test renders each view twice,
+// 4 mm apart. A purely sideways move hides ground-plane z-fighting; changing the view angle exposes it.
+export function renderFrame(n, width = 720, height = 1280, nudge = 0) {
   if (!Number.isInteger(n) || n < 0 || n >= FRAMES) throw Error(`frame out of range: ${n}`);
   const t0 = performance.now();
   if (lastSize !== `${width}x${height}`) { renderer.setPixelRatio(1); renderer.setSize(width, height, false); lastSize = `${width}x${height}`; }
   const shot = shots.findLast(s => n >= s.start), t = n / FPS;
   const actors = poseCast(t);
   const c = sampleCamera({...shot, fps: FPS}, (n - shot.start) / FPS, actors);
-  world?.update(t);
+  world?.update(t); world?.setCracks?.(shot.stoneCracks ?? spec.stoneCracks ?? 1);   // the clue grows (script lines 14–15)
   const fx = effects.apply(t, camera);   // poses effect targets; returns the shake offset and any timeOfDay blend
   const pos = c.position.map((v, i) => v + fx.camOffset[i]), tgt = c.target.map((v, i) => v + fx.camOffset[i] * .6);
   camera.fov = c.fov; camera.aspect = width / height; camera.position.fromArray(pos);
   camera.up.set(0, 1, 0); camera.lookAt(...tgt); camera.rotateZ(c.roll); camera.updateProjectionMatrix();
-  if (look) { fx.look ? look.apply(...fx.look) : look.apply(shot.look ?? spec.look ?? 'day'); look.frame(new T.Vector3(...tgt), camera.position, shot.shadowRadius ?? 34); look.update(t); }
+  if (nudge) { const k = nudge / Math.sqrt(3); camera.translateX(k); camera.translateY(k); camera.translateZ(k); }
+  if (look) { fx.look ? look.apply(...fx.look) : look.apply(shot.look ?? spec.look ?? 'day'); const sf = shotShadow(shot); poseCast(t); look.frameFixed(sf.centre, sf.radius, camera.position); look.update(t); }
   scene.updateMatrixWorld(true); effects.apply(t, camera); fitTags(scene, camera, {maxFrac: shot.tagMaxFrac ?? .06});   // a shot about the tag lets it read big   // second pass: particles face the final camera
   renderer.render(scene, camera); effects.overlay(t);
   const gl = renderer.getContext(); gl.readPixels(0, 0, 1, 1, gl.RGBA, gl.UNSIGNED_BYTE, new Uint8Array(4));   // forces the GPU work to finish, so ms is real
@@ -140,14 +158,16 @@ export function renderAnchor(name, t, width = 720, height = 1280, lookName = 'da
   const a = anchors[name]; if (!a?.camera) throw Error('no camera on anchor ' + name);
   return {anchor: name, ...renderCamera(a.camera, t, width, height, lookName)};
 }
+export const renderAnchorNudged = (name, t, width, height, nudge) => renderCamera(anchors[name].camera, t, width, height, 'day', nudge);
 // Any camera {position, target, fov, up?} at time t (lookdev, layout maps, bench).
-export function renderCamera(cam, t = 0, width = 720, height = 1280, lookName = 'day') {
+export function renderCamera(cam, t = 0, width = 720, height = 1280, lookName = 'day', nudge = 0) {
   const t0 = performance.now(); renderer.setPixelRatio(1); renderer.setSize(width, height, false); lastSize = '';
   poseCast(t); camera.fov = cam.fov ?? 45; camera.aspect = width / height; camera.position.set(...cam.position); camera.up.set(...(cam.up ?? [0, 1, 0])); camera.lookAt(...cam.target); camera.updateProjectionMatrix();
-  if (look) { look.apply(lookName); look.frame(new T.Vector3(...cam.target), camera.position, cam.shadowRadius ?? 34); look.update(t); }
-  world?.update(t); scene.updateMatrixWorld(true); fitTags(scene, camera); renderer.render(scene, camera);
+  if (look) { look.apply(lookName); look.frame(new T.Vector3(...cam.target), camera.position.clone(), cam.shadowRadius ?? 34); look.update(t); }
+  if (nudge) { const k = nudge / Math.sqrt(3); camera.translateX(k); camera.translateY(k); camera.translateZ(k); }
+  world?.update(t); world?.setCracks?.(spec.stoneCracks ?? 1); scene.updateMatrixWorld(true); fitTags(scene, camera); renderer.render(scene, camera);
   const gl = renderer.getContext(); gl.readPixels(0, 0, 1, 1, gl.RGBA, gl.UNSIGNED_BYTE, new Uint8Array(4));
   return {triangles: frustumTriangles(), drawnTriangles: renderer.info.render.triangles, calls: renderer.info.render.calls, ms: performance.now() - t0};
 }
 
-window.__episode = {anchors: Object.fromEntries(Object.entries(anchors).filter(([, a]) => a.camera).map(([k]) => [k, true])), renderAnchor, renderCamera, FPS, FRAMES, shots: shots.map(({id, start, frames, size, move}) => ({id, start, frames, size, move})), renderFrame};
+window.__episode = {anchors: Object.fromEntries(Object.entries(anchors).filter(([, a]) => a.camera).map(([k]) => [k, true])), renderAnchor, renderAnchorNudged, renderCamera, FPS, FRAMES, shots: shots.map(({id, start, frames, size, move}) => ({id, start, frames, size, move})), renderFrame};

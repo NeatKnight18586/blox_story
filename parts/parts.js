@@ -34,6 +34,7 @@ export function place(g, o = {}) {
   if (o.rot) mesh.rotation.set(...o.rot.map(d => d * Math.PI / 180));
   if (o.scale) mesh.scale.set(...(Array.isArray(o.scale) ? o.scale : [o.scale, o.scale, o.scale]));
   mesh.castShadow = o.cast ?? false; mesh.receiveShadow = o.receive ?? true;
+  if (o.gradient) mesh.userData.gradient = true;   // baked contact shading when merged (build.mergeByDistrict)
   return mesh;
 }
 

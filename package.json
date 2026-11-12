@@ -42,7 +42,8 @@
     "v2:bench": "node scripts/v2/bench.js",
     "v2:render": "node scripts/v2/render.js",
     "v2:captions": "python3 scripts/v2/captions.py",
-    "v2:assemble": "python3 scripts/v2/assemble.py"
+    "v2:assemble": "python3 scripts/v2/assemble.py",
+    "v2:stability": "node scripts/v2/stability.js"
   },
   "dependencies": {
     "three": "0.187.0"

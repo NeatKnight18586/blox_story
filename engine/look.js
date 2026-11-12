@@ -74,6 +74,20 @@ export function createLook(scene, renderer, {radius = 420} = {}) {
       rim.target.position.copy(target); rim.position.copy(target).addScaledVector(back, 30).add(new T.Vector3(0, 18, 0));
       sky.position.copy(camPos); clouds.position.set(camPos.x * .9, 0, camPos.z * .9);
     },
+    // Fixed per-shot fit (A1): the shadow box never moves within a shot, and its centre is snapped to whole
+    // shadow-map texels in light space so edges cannot crawl. Rim light and sky still follow the camera.
+    frameFixed(centre, r, camPos) {
+      const p = current ?? PRESETS.day, el = p.sunEl * Math.PI / 180, az = p.sunAz * Math.PI / 180;
+      const dir = new T.Vector3(Math.sin(az) * Math.cos(el), Math.sin(el), Math.cos(az) * Math.cos(el));
+      const zA = dir.clone().negate(), xA = new T.Vector3().crossVectors(new T.Vector3(0, 1, 0), zA).normalize(), yA = new T.Vector3().crossVectors(zA, xA);
+      const texel = 2 * r / sun.shadow.mapSize.x, c = centre.clone();
+      for (const ax of [xA, yA]) { const d = c.dot(ax); c.addScaledVector(ax, Math.round(d / texel) * texel - d); }
+      sun.target.position.copy(c); sun.position.copy(c).addScaledVector(dir, 120);
+      Object.assign(sun.shadow.camera, {left: -r, right: r, top: r, bottom: -r, near: 20, far: 260}); sun.shadow.camera.updateProjectionMatrix();
+      const back = new T.Vector3().subVectors(c, camPos).setY(0).normalize();
+      rim.target.position.copy(c); rim.position.copy(c).addScaledVector(back, 30).add(new T.Vector3(0, 18, 0));
+      sky.position.copy(camPos); clouds.position.set(camPos.x * .9, 0, camPos.z * .9);
+    },
     update(t) { clouds.rotation.y = t * .004; },
   };
 }
