@@ -65,10 +65,10 @@ export function chair({color = '#c0804a', scale = 1} = {}) {
   for (const x of [-.8, .8]) for (const z of [-.8, .8]) box(g, 'chair_leg', [.25, 2, .25], [x, 1, z], '#7a5233');
   g.scale.setScalar(scale); g.userData.seat = 2.15 * scale; return g;
 }
-export function desk({color = '#d9a86c', w = 3, d = 2, h = 2.6} = {}) {
+export function desk({color = '#d9a86c', w = 3, d = 2, h = 2.6, shelf = true} = {}) {
   const g = group('desk');
   box(g, 'desk_top', [w, .25, d], [0, h, 0], ['planks', color], .05);
-  box(g, 'desk_shelf', [w - .3, .15, d - .3], [0, h - .9, 0], ['planks', color]);
+  if (shelf) box(g, 'desk_shelf', [w - .3, .15, d - .3], [0, h - .9, 0], ['planks', color]);
   for (const x of [-1, 1]) for (const z of [-1, 1]) box(g, 'desk_leg', [.2, h, .2], [x * (w / 2 - .2), h / 2, z * (d / 2 - .2)], '#5a6a7a');
   return g;
 }

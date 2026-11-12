@@ -55,7 +55,10 @@ export function snap(x, {antic = .06, over = .08} = {}) {
 
 // keys: [[t, 'pose', {blend, twos}], ...] sorted by time. Applies the blended pose to `a`.
 // opts.breathe adds a small held-pose sway so nothing freezes; opts.twos steps limbs.
-export function act(a, t, keys, {twos = true, breathe = true, seed = 0, blend = .28} = {}) {
+// opts.seated (layered acting): legs and hips stay in the sit pose and the root keeps the seat
+// height whatever the upper-body pose is, so a seated character can gasp or point without
+// straightening its legs through the chair or desk.
+export function act(a, t, keys, {twos = true, breathe = true, seed = 0, blend = .28, seated = false} = {}) {
   const tt = twos ? onTwos(t) : t;
   let i = 0; while (i + 1 < keys.length && keys[i + 1][0] <= tt) i++;
   const [t1, n1, o1 = {}] = keys[i], prev = i > 0 ? keys[i - 1] : null;
@@ -63,13 +66,14 @@ export function act(a, t, keys, {twos = true, breathe = true, seed = 0, blend = 
   const b = o1.blend ?? blend, x = prev ? (tt - t1) / b : 1;
   const k = o1.smooth ? ease(x) : snap(x);
   for (const piv of PIV) {
+    if (seated && piv.endsWith('Hip')) { a.pivots[piv].rotation.set(...POSES.sit[piv]); continue; }
     const A = val(from, piv), B = val(to, piv);
     a.pivots[piv].rotation.set(A[0] + (B[0] - A[0]) * k, A[1] + (B[1] - A[1]) * k, A[2] + (B[2] - A[2]) * k);
   }
   const ra = rootOf(from), rb = rootOf(to), s = a.root.scale.y;
   // The root moves smoothly (not stepped), eased, so the body never pops.
   const kr = prev ? ease((t - t1) / b) : 1;
-  a.root.position.y += (ra.dy + (rb.dy - ra.dy) * kr) * s;
+  a.root.position.y += (seated ? POSES.sit.root.dy : ra.dy + (rb.dy - ra.dy) * kr) * s;
   a.root.rotation.x += ra.lean + (rb.lean - ra.lean) * kr;
   if (breathe) {
     const w = Math.sin(tt * 2.1 + seed);

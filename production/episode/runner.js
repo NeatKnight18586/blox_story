@@ -20,7 +20,7 @@ const W = createWorld();
 const E = await import(new URL('episode.js', base).href);
 if (E.sun) W.sunDir = E.sun;
 const X = await E.build(W);                 // {cast, reset(), ambient(T, camPos, frameInfo)}
-W.finish();
+W.finish(E.look ?? {});   // episode-level look options (e.g. {ao: {...}})
 const WILD = []; W.scene.traverse(o => { if (o.userData.wild) WILD.push(o); });
 const SHOTS = E.shots;
 const ranges = layoutShots(SHOTS, words, {fps: FPS, tail: E.tail ?? 1.6});
@@ -46,6 +46,7 @@ function stage(f) {
   const c = {t, u, dur, T: f / FPS, at: clocks[n], f, shot: s.id};
   X.reset(); W.mood('day');
   const out = s.stage?.(c, X) ?? {};
+  X.settle?.(c);                              // secondary motion after posing (hair locks)
   W.mood(out.mood ?? s.mood ?? 'day', {flashAmt: out.flash ?? 0});
   if (out.lamp) { W.lamp.position.copy(out.lamp[0]); W.lamp.intensity = out.lamp[1]; }
   const camSpec = resolve(typeof s.cam === 'function' ? s.cam(c, X) : {...s.cam, ...(out.cam ?? {})});
@@ -131,8 +132,59 @@ export function lint(f) {
   return {frame: f, shot: s.id, faces, clipping, issues, cam: cam.toArray().map(v => +v.toFixed(2))};
 }
 
+// Audit (harsh QA, no pixels): physical glitches a viewer notices that framing lint can't see.
+//  • hair over face: a hair mesh of the same character is the first thing the lens hits on an eye/mouth point
+//  • penetration: a limb's core passes through another body or a prop
+//  • feet: lowest foot floats above, or sinks into, the surface below it
+// Also returns per-avatar pose samples so scripts/episode-audit.js can find pops between frames.
+const _m = new T.Matrix4(), _p = new T.Vector3(), _bb = new T.Box3();
+const LIMBS = ['torso', 'leftArm', 'rightArm', 'leftLeg', 'rightLeg'];
+let auditProps = null;
+export function audit(f) {
+  const {s, camSpec} = stage(f); W.camera.updateProjectionMatrix(); W.scene.updateMatrixWorld(true);
+  const cam = W.camera.position.clone(), issues = [], avatars = [];
+  const people = [];
+  W.scene.traverse(o => { if (o.isObject3D && o.parent?.type === 'Scene' && o.getObjectByName?.('torso') && o.getObjectByName('head')) people.push(o); });
+  auditProps ??= (() => { const l = []; W.scene.traverse(o => { if (o.isMesh && !BODY.has(o.name) && !o.name.startsWith('hair') && !/^(land|sea|hill|mountain|cloud|cloud_clump|rain|tint|studio_sky_gradient|hill_tree|crack|road_cracks)$/.test(o.name) && !o.userData.wild) { o.geometry.boundingBox ?? o.geometry.computeBoundingBox(); l.push(o); } }); return l; })();
+  const vis = people.filter(r => solid(r) && r.visible);
+  const inside = (o, p, shrink = .06) => { _m.copy(o.matrixWorld).invert(); _p.copy(p).applyMatrix4(_m); _bb.copy(o.geometry.boundingBox).expandByScalar(-shrink); return _bb.containsPoint(_p); };
+  for (const r of vis) {
+    const sc = r.scale.y, parts = Object.fromEntries(LIMBS.map(n => [n, r.getObjectByName(n)]));
+    const info = {who: r.name, pos: r.position.toArray().map(v => +v.toFixed(3)), q: {}};
+    r.traverse(o => { if (o.isGroup && /Shoulder|Hip|^head$/.test(o.name)) info.q[o.name] = o.quaternion.toArray().map(v => +v.toFixed(4)); });
+    avatars.push(info);
+    // Hair over face (only when the face points at the lens and is a meaningful size on screen).
+    const head = r.getObjectByName('head'), hp = head.parent;
+    const fwd = new T.Vector3(0, 0, 1).applyQuaternion(hp.getWorldQuaternion(new T.Quaternion())), toCam = cam.clone().sub(hp.getWorldPosition(new T.Vector3())).normalize();
+    const hs = toScreen(W.camera, hp.localToWorld(new T.Vector3(0, .55, 0))), size = toScreen(W.camera, hp.localToWorld(new T.Vector3(0, 1.1, 0)));
+    if (fwd.dot(toCam) > .25 && hs.front && hs.x > 0 && hs.x < 1 && hs.y > 0 && hs.y < 1 && Math.abs(size.y - hs.y) > .025) {
+      let covered = 0;
+      for (const lp of [[-.18, .66, .58], [.18, .66, .58], [0, .4, .58]]) {
+        const p = hp.localToWorld(new T.Vector3(...lp)); ray.set(cam, p.clone().sub(cam).normalize()); ray.far = cam.distanceTo(p) + .05;
+        const h = ray.intersectObjects([r], true).find(h => solid(h.object));
+        if (h && h.object.name.startsWith('hair') && h.distance < ray.far - .12 * sc) covered++;
+      }
+      if (covered >= 1) issues.push(`hair over face: ${r.name} (${covered}/3)`);
+    }
+    // Limb cores through other people or props.
+    const core = [];
+    for (const n of LIMBS) { const o = parts[n]; if (!o) continue; o.geometry.boundingBox ?? o.geometry.computeBoundingBox(); const b = o.geometry.boundingBox; for (const k of [.15, .5, .85]) core.push([n, o.localToWorld(new T.Vector3((b.min.x + b.max.x) / 2, b.min.y + (b.max.y - b.min.y) * k, (b.min.z + b.max.z) / 2))]); }
+    for (const other of vis) if (other !== r) for (const n of LIMBS) { const o = other.getObjectByName(n); if (!o) continue; o.geometry.boundingBox ?? o.geometry.computeBoundingBox(); for (const [ln, p] of core) if (inside(o, p, .04 * other.scale.y)) { issues.push(`body through body: ${r.name}.${ln} in ${other.name}.${n}`); break; } }
+    const near = auditProps.filter(o => solid(o) && o.getWorldPosition(_p).distanceTo(r.position) < 12 * Math.max(.5, sc));
+    for (const o of near) for (const [ln, p] of core) if (inside(o, p, .05)) { issues.push(`body through prop: ${r.name}.${ln} in ${o.name}`); break; }
+    // Feet against the surface below.
+    let low = Infinity; for (const n of ['leftLeg', 'rightLeg']) { const o = parts[n]; const b = o.geometry.boundingBox; for (const x of [b.min.x, b.max.x]) for (const z of [b.min.z, b.max.z]) low = Math.min(low, o.localToWorld(new T.Vector3(x, b.min.y, z)).y); }
+    const foot = parts.leftLeg.localToWorld(new T.Vector3(0, -1, 0)).add(parts.rightLeg.localToWorld(new T.Vector3(0, -1, 0))).multiplyScalar(.5);
+    ray.set(foot.clone().setY(low + .35 * sc), new T.Vector3(0, -1, 0)); ray.far = 6 * sc;   // from just above the feet: desks/tables overhead don't count
+    const g = ray.intersectObjects(W.scene.children, true).find(h => solid(h.object) && rootOf(h.object) !== r && !people.includes(rootOf(h.object)));
+    const bent = Math.max(Math.abs(r.getObjectByName('leftHip').rotation.x), Math.abs(r.getObjectByName('rightHip').rotation.x)) > .5;   // sitting/kneeling: legs may leave the ground
+    if (g) { const gap = low - g.point.y; info.gap = +gap.toFixed(3); if (gap > .2 * sc && !bent) issues.push(`feet floating: ${r.name} ${gap.toFixed(2)}`); if (gap < -.2 * sc) issues.push(`feet sunk: ${r.name} ${(-gap).toFixed(2)} in ${g.object.name}`); }
+  }
+  return {frame: f, shot: s.id, issues, avatars};
+}
+
 // Cache keys: a shot re-renders only when its own spec, stage code or length changes.
 const keys = SHOTS.map((s, n) => ({id: s.id, start: ranges[n].start, end: ranges[n].end,
   src: [typeof s.cam === 'function' ? s.cam.toString() : JSON.stringify(s.cam), s.stage?.toString() ?? '', s.mood ?? '', ranges[n].end - ranges[n].start].join('\n')}));
-window.__lint = lint; window.__world = W;
+window.__lint = lint; window.__audit = audit; window.__world = W;
 window.__sequence = {renderFrame, FPS, FRAMES, CUTS, SHOTS: ranges.map(r => [r.id, r.start, r.end]), keys, timingSource, words: words.length, lintIgnore: Object.fromEntries(SHOTS.filter(s => s.lintIgnore).map(s => [s.id, s.lintIgnore]))};
