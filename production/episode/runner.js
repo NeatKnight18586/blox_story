@@ -75,7 +75,7 @@ export function renderFrame(f, width = 1080) {
 const ray = new T.Raycaster();
 function rootOf(o) { while (o.parent && o.parent.type !== 'Scene') o = o.parent; return o; }
 // Really visible: every ancestor visible, not a camera overlay, not rain/cloud, not fully transparent.
-const BODY = new Set(['head', 'torso', 'leftArm', 'rightArm', 'leftLeg', 'rightLeg', 'face_decal', 'hair', 'cardigan_body', 'cardigan_sleeve', 'loose_shoe', 'cuff', 'sole']);
+const BODY = new Set(['head', 'torso', 'leftArm', 'rightArm', 'leftLeg', 'rightLeg', 'face_decal', 'hair', 'hair_lock', 'cardigan_body', 'cardigan_sleeve', 'loose_shoe', 'cuff', 'sole']);
 function solid(o) {
   if (['rain', 'tint'].includes(o.name) || o.name.startsWith('cloud') || (o.material?.transparent && o.material.opacity < .5)) return false;
   for (let p = o; p; p = p.parent) { if (!p.visible || p.isCamera) return false; }

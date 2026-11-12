@@ -96,6 +96,27 @@ export function texture(kind, seed = 3) {
   const t = new T.CanvasTexture(c); t.colorSpace = T.SRGBColorSpace; t.wrapS = t.wrapT = T.RepeatWrapping; t.anisotropy = hd ? 16 : 8;
   cache.set(key, t); return t;
 }
+// Baked tangent-space normal map from a height pattern (luminance = height), cached per image.
+// Used instead of bump maps: three's bump path can divide by a zero derivative and emit NaN
+// pixels that bloom into white blobs; the normal-map path guards that case.
+const normalCache = new WeakMap();
+export function normalFromHeight(image, strength = 2) {
+  const key = normalCache.get(image)?.[strength]; if (key) return key;
+  const W = image.width, H = image.height, src = image.getContext('2d').getImageData(0, 0, W, H).data;
+  const c = document.createElement('canvas'); c.width = W; c.height = H; const g = c.getContext('2d'), out = g.createImageData(W, H);
+  const raw = (x, y) => { const i = (((y + H) % H) * W + ((x + W) % W)) * 4; return (src[i] + src[i + 1] + src[i + 2]) / 765; };
+  // Softened height (3×3 average) so single-pixel grain reads as texture, not as craters.
+  const hb = new Float32Array(W * H); for (let y = 0; y < H; y++) for (let x = 0; x < W; x++) { let t = 0; for (let j = -1; j <= 1; j++) for (let i = -1; i <= 1; i++) t += raw(x + i, y + j); hb[y * W + x] = t / 9; }
+  const h = (x, y) => hb[((y + H) % H) * W + ((x + W) % W)];
+  for (let y = 0; y < H; y++) for (let x = 0; x < W; x++) {
+    const dx = (h(x + 1, y) - h(x - 1, y)) * strength, dv = (h(x, y + 1) - h(x, y - 1)) * strength;   // canvas y runs down, texture v runs up
+    let nx = -dx, ny = dv, nz = 1; const l = Math.hypot(nx, ny, nz); nx /= l; ny /= l; nz /= l;
+    const i = (y * W + x) * 4; out.data[i] = (nx * .5 + .5) * 255; out.data[i + 1] = (ny * .5 + .5) * 255; out.data[i + 2] = (nz * .5 + .5) * 255; out.data[i + 3] = 255;
+  }
+  g.putImageData(out, 0, 0);
+  const t = new T.CanvasTexture(c); t.colorSpace = T.NoColorSpace; t.wrapS = t.wrapT = T.RepeatWrapping; t.anisotropy = 8;
+  normalCache.set(image, {...(normalCache.get(image) ?? {}), [strength]: t}); return t;
+}
 const BUMP = {brick: 2.2, siding: 1.6, stone: 2.2, plaster: .6, planks: 1.4, paving: 1.8, asphalt: .9, grass: 1.2, roof: 1.8};
 
 // Tile size (world units per pattern repeat) for each surface kind.
@@ -106,7 +127,7 @@ function mat(kind, color, repeat, extra = {}) {
   let map = null;
   if (base) { map = base.clone(); map.needsUpdate = true; if (TILE[kind]) map.repeat.set(...repeat); }
   const m = new T.MeshStandardMaterial({color: kind === 'glass' ? 0xffffff : color, map, roughness: kind === 'glass' ? .15 : .8, metalness: 0, ...extra});
-  if (DETAIL === 'hd' && map && BUMP[kind]) { m.bumpMap = map; m.bumpScale = BUMP[kind]; }
+  if (DETAIL === 'hd' && map && BUMP[kind]) { const n = normalFromHeight(map.image, BUMP[kind] * 2).clone(); n.repeat.copy(map.repeat); n.needsUpdate = true; m.normalMap = n; }
   m.userData.authored = true; return m;
 }
 
