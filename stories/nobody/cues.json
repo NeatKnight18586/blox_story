@@ -1,0 +1,2345 @@
+{
+ "story": "nobody",
+ "audio": "voice.flac",
+ "duration": 119.722086,
+ "method": "sherpa-onnx zipformer-small-en + script DP + silence snap (accuracy about \u00b10.1 s inside phrases; line starts snapped to silence ends)",
+ "lines": [
+  {
+   "line": 1,
+   "text": "In this kingdom, you're nobody until you pull your sword from your stone.",
+   "start": 0.0,
+   "end": 3.12,
+   "words": [
+    {
+     "w": "In",
+     "start": 0.0,
+     "end": 0.12
+    },
+    {
+     "w": "this",
+     "start": 0.12,
+     "end": 0.32
+    },
+    {
+     "w": "kingdom",
+     "start": 0.32,
+     "end": 0.72
+    },
+    {
+     "w": "you're",
+     "start": 0.72,
+     "end": 0.96
+    },
+    {
+     "w": "nobody",
+     "start": 0.96,
+     "end": 1.44
+    },
+    {
+     "w": "until",
+     "start": 1.44,
+     "end": 1.68
+    },
+    {
+     "w": "you",
+     "start": 1.68,
+     "end": 1.8
+    },
+    {
+     "w": "pull",
+     "start": 1.8,
+     "end": 2.0
+    },
+    {
+     "w": "your",
+     "start": 2.0,
+     "end": 2.2
+    },
+    {
+     "w": "sword",
+     "start": 2.2,
+     "end": 2.48
+    },
+    {
+     "w": "from",
+     "start": 2.48,
+     "end": 2.64
+    },
+    {
+     "w": "your",
+     "start": 2.64,
+     "end": 2.8
+    },
+    {
+     "w": "stone",
+     "start": 2.8,
+     "end": 3.12
+    }
+   ]
+  },
+  {
+   "line": 2,
+   "text": "This boy is twelve. His name tag still says Nobody.",
+   "start": 3.48,
+   "end": 6.673,
+   "words": [
+    {
+     "w": "This",
+     "start": 3.48,
+     "end": 3.733
+    },
+    {
+     "w": "boy",
+     "start": 3.733,
+     "end": 4.04
+    },
+    {
+     "w": "is",
+     "start": 4.04,
+     "end": 4.2
+    },
+    {
+     "w": "twelve",
+     "start": 4.2,
+     "end": 4.497
+    },
+    {
+     "w": "His",
+     "start": 4.923,
+     "end": 4.96
+    },
+    {
+     "w": "name",
+     "start": 4.96,
+     "end": 5.16
+    },
+    {
+     "w": "tag",
+     "start": 5.16,
+     "end": 5.52
+    },
+    {
+     "w": "still",
+     "start": 5.52,
+     "end": 5.76
+    },
+    {
+     "w": "says",
+     "start": 5.76,
+     "end": 6.025
+    },
+    {
+     "w": "Nobody",
+     "start": 6.214,
+     "end": 6.673
+    }
+   ]
+  },
+  {
+   "line": 3,
+   "text": "The day you're born, a stone rises in the Field of Stones. Your sword is stuck inside it.",
+   "start": 7.444,
+   "end": 11.822,
+   "words": [
+    {
+     "w": "The",
+     "start": 7.444,
+     "end": 7.484
+    },
+    {
+     "w": "day",
+     "start": 7.484,
+     "end": 7.524
+    },
+    {
+     "w": "you're",
+     "start": 7.524,
+     "end": 7.84
+    },
+    {
+     "w": "born",
+     "start": 7.84,
+     "end": 8.24
+    },
+    {
+     "w": "a",
+     "start": 8.24,
+     "end": 8.4
+    },
+    {
+     "w": "stone",
+     "start": 8.4,
+     "end": 8.8
+    },
+    {
+     "w": "rises",
+     "start": 8.8,
+     "end": 9.2
+    },
+    {
+     "w": "in",
+     "start": 9.2,
+     "end": 9.32
+    },
+    {
+     "w": "the",
+     "start": 9.32,
+     "end": 9.44
+    },
+    {
+     "w": "Field",
+     "start": 9.44,
+     "end": 9.68
+    },
+    {
+     "w": "of",
+     "start": 9.68,
+     "end": 9.8
+    },
+    {
+     "w": "Stones",
+     "start": 9.8,
+     "end": 10.246
+    },
+    {
+     "w": "Your",
+     "start": 10.59,
+     "end": 10.68
+    },
+    {
+     "w": "sword",
+     "start": 10.68,
+     "end": 11.0
+    },
+    {
+     "w": "is",
+     "start": 11.0,
+     "end": 11.12
+    },
+    {
+     "w": "stuck",
+     "start": 11.12,
+     "end": 11.36
+    },
+    {
+     "w": "inside",
+     "start": 11.36,
+     "end": 11.76
+    },
+    {
+     "w": "it",
+     "start": 11.76,
+     "end": 11.822
+    }
+   ]
+  },
+  {
+   "line": 4,
+   "text": "Pull it out, and a name appears above your head. Baker. Knight. Even King.",
+   "start": 12.215,
+   "end": 16.569,
+   "words": [
+    {
+     "w": "Pull",
+     "start": 12.215,
+     "end": 12.28
+    },
+    {
+     "w": "it",
+     "start": 12.28,
+     "end": 12.48
+    },
+    {
+     "w": "out",
+     "start": 12.48,
+     "end": 12.615
+    },
+    {
+     "w": "and",
+     "start": 12.865,
+     "end": 12.88
+    },
+    {
+     "w": "a",
+     "start": 12.88,
+     "end": 13.0
+    },
+    {
+     "w": "name",
+     "start": 13.0,
+     "end": 13.28
+    },
+    {
+     "w": "appears",
+     "start": 13.28,
+     "end": 13.64
+    },
+    {
+     "w": "above",
+     "start": 13.64,
+     "end": 13.88
+    },
+    {
+     "w": "your",
+     "start": 13.88,
+     "end": 14.08
+    },
+    {
+     "w": "head",
+     "start": 14.08,
+     "end": 14.233
+    },
+    {
+     "w": "Baker",
+     "start": 14.609,
+     "end": 15.014
+    },
+    {
+     "w": "Knight",
+     "start": 15.325,
+     "end": 15.66
+    },
+    {
+     "w": "Even",
+     "start": 15.953,
+     "end": 16.24
+    },
+    {
+     "w": "King",
+     "start": 16.24,
+     "end": 16.569
+    }
+   ]
+  },
+  {
+   "line": 5,
+   "text": "Most kids do it by seven.",
+   "start": 17.114,
+   "end": 18.154,
+   "words": [
+    {
+     "w": "Most",
+     "start": 17.114,
+     "end": 17.24
+    },
+    {
+     "w": "kids",
+     "start": 17.24,
+     "end": 17.48
+    },
+    {
+     "w": "do",
+     "start": 17.48,
+     "end": 17.6
+    },
+    {
+     "w": "it",
+     "start": 17.6,
+     "end": 17.76
+    },
+    {
+     "w": "by",
+     "start": 17.76,
+     "end": 17.92
+    },
+    {
+     "w": "seven",
+     "start": 17.92,
+     "end": 18.154
+    }
+   ]
+  },
+  {
+   "line": 6,
+   "text": "His little sister did it at four. With one hand. While eating bread.",
+   "start": 18.533,
+   "end": 21.727,
+   "words": [
+    {
+     "w": "His",
+     "start": 18.533,
+     "end": 18.56
+    },
+    {
+     "w": "little",
+     "start": 18.56,
+     "end": 18.8
+    },
+    {
+     "w": "sister",
+     "start": 18.8,
+     "end": 19.12
+    },
+    {
+     "w": "did",
+     "start": 19.12,
+     "end": 19.24
+    },
+    {
+     "w": "it",
+     "start": 19.24,
+     "end": 19.36
+    },
+    {
+     "w": "at",
+     "start": 19.36,
+     "end": 19.52
+    },
+    {
+     "w": "four",
+     "start": 19.52,
+     "end": 19.778
+    },
+    {
+     "w": "With",
+     "start": 20.054,
+     "end": 20.16
+    },
+    {
+     "w": "one",
+     "start": 20.16,
+     "end": 20.4
+    },
+    {
+     "w": "hand",
+     "start": 20.4,
+     "end": 20.739
+    },
+    {
+     "w": "While",
+     "start": 20.95,
+     "end": 21.04
+    },
+    {
+     "w": "eating",
+     "start": 21.04,
+     "end": 21.36
+    },
+    {
+     "w": "bread",
+     "start": 21.36,
+     "end": 21.727
+    }
+   ]
+  },
+  {
+   "line": 7,
+   "text": "The boy tried every single morning. Over two thousand tries. The sword never moved an inch.",
+   "start": 22.04,
+   "end": 27.303,
+   "words": [
+    {
+     "w": "The",
+     "start": 22.04,
+     "end": 22.318
+    },
+    {
+     "w": "boy",
+     "start": 22.318,
+     "end": 22.56
+    },
+    {
+     "w": "tried",
+     "start": 22.56,
+     "end": 22.88
+    },
+    {
+     "w": "every",
+     "start": 22.88,
+     "end": 23.2
+    },
+    {
+     "w": "single",
+     "start": 23.2,
+     "end": 23.6
+    },
+    {
+     "w": "morning",
+     "start": 23.6,
+     "end": 23.858
+    },
+    {
+     "w": "Over",
+     "start": 24.173,
+     "end": 24.36
+    },
+    {
+     "w": "two",
+     "start": 24.36,
+     "end": 24.64
+    },
+    {
+     "w": "thousand",
+     "start": 24.64,
+     "end": 25.2
+    },
+    {
+     "w": "tries",
+     "start": 25.2,
+     "end": 25.616
+    },
+    {
+     "w": "The",
+     "start": 25.942,
+     "end": 25.982
+    },
+    {
+     "w": "sword",
+     "start": 25.982,
+     "end": 26.32
+    },
+    {
+     "w": "never",
+     "start": 26.32,
+     "end": 26.6
+    },
+    {
+     "w": "moved",
+     "start": 26.6,
+     "end": 26.84
+    },
+    {
+     "w": "an",
+     "start": 26.84,
+     "end": 27.04
+    },
+    {
+     "w": "inch",
+     "start": 27.04,
+     "end": 27.303
+    }
+   ]
+  },
+  {
+   "line": 8,
+   "text": "The other kids made it a game. \"Hey Nobody, need a hand?\"",
+   "start": 27.48,
+   "end": 30.329,
+   "words": [
+    {
+     "w": "The",
+     "start": 27.48,
+     "end": 27.765
+    },
+    {
+     "w": "other",
+     "start": 27.765,
+     "end": 27.92
+    },
+    {
+     "w": "kids",
+     "start": 27.92,
+     "end": 28.16
+    },
+    {
+     "w": "made",
+     "start": 28.16,
+     "end": 28.32
+    },
+    {
+     "w": "it",
+     "start": 28.32,
+     "end": 28.44
+    },
+    {
+     "w": "a",
+     "start": 28.44,
+     "end": 28.56
+    },
+    {
+     "w": "game",
+     "start": 28.56,
+     "end": 28.796
+    },
+    {
+     "w": "Hey",
+     "start": 29.169,
+     "end": 29.2
+    },
+    {
+     "w": "Nobody",
+     "start": 29.2,
+     "end": 29.76
+    },
+    {
+     "w": "need",
+     "start": 29.76,
+     "end": 29.96
+    },
+    {
+     "w": "a",
+     "start": 29.96,
+     "end": 30.12
+    },
+    {
+     "w": "hand",
+     "start": 30.12,
+     "end": 30.329
+    }
+   ]
+  },
+  {
+   "line": 9,
+   "text": "He never answered. He just came back the next day.",
+   "start": 30.56,
+   "end": 32.899,
+   "words": [
+    {
+     "w": "He",
+     "start": 30.56,
+     "end": 30.829
+    },
+    {
+     "w": "never",
+     "start": 30.829,
+     "end": 31.12
+    },
+    {
+     "w": "answered",
+     "start": 31.12,
+     "end": 31.438
+    },
+    {
+     "w": "He",
+     "start": 31.802,
+     "end": 31.842
+    },
+    {
+     "w": "just",
+     "start": 31.842,
+     "end": 31.882
+    },
+    {
+     "w": "came",
+     "start": 31.882,
+     "end": 32.16
+    },
+    {
+     "w": "back",
+     "start": 32.16,
+     "end": 32.36
+    },
+    {
+     "w": "the",
+     "start": 32.36,
+     "end": 32.44
+    },
+    {
+     "w": "next",
+     "start": 32.44,
+     "end": 32.76
+    },
+    {
+     "w": "day",
+     "start": 32.76,
+     "end": 32.899
+    }
+   ]
+  },
+  {
+   "line": 10,
+   "text": "He wasn't strong. He wasn't special. He was just too stubborn to stop.",
+   "start": 33.366,
+   "end": 36.902,
+   "words": [
+    {
+     "w": "He",
+     "start": 33.366,
+     "end": 33.406
+    },
+    {
+     "w": "wasn't",
+     "start": 33.406,
+     "end": 33.68
+    },
+    {
+     "w": "strong",
+     "start": 33.68,
+     "end": 34.13
+    },
+    {
+     "w": "He",
+     "start": 34.383,
+     "end": 34.423
+    },
+    {
+     "w": "wasn't",
+     "start": 34.423,
+     "end": 34.68
+    },
+    {
+     "w": "special",
+     "start": 34.68,
+     "end": 35.081
+    },
+    {
+     "w": "He",
+     "start": 35.436,
+     "end": 35.476
+    },
+    {
+     "w": "was",
+     "start": 35.476,
+     "end": 35.516
+    },
+    {
+     "w": "just",
+     "start": 35.516,
+     "end": 35.76
+    },
+    {
+     "w": "too",
+     "start": 35.76,
+     "end": 36.0
+    },
+    {
+     "w": "stubborn",
+     "start": 36.0,
+     "end": 36.4
+    },
+    {
+     "w": "to",
+     "start": 36.4,
+     "end": 36.56
+    },
+    {
+     "w": "stop",
+     "start": 36.56,
+     "end": 36.902
+    }
+   ]
+  },
+  {
+   "line": 11,
+   "text": "And here's the law. If you're still Nobody at thirteen, you leave the kingdom forever.",
+   "start": 37.12,
+   "end": 41.361,
+   "words": [
+    {
+     "w": "And",
+     "start": 37.12,
+     "end": 37.405
+    },
+    {
+     "w": "here's",
+     "start": 37.405,
+     "end": 37.68
+    },
+    {
+     "w": "the",
+     "start": 37.68,
+     "end": 37.84
+    },
+    {
+     "w": "law",
+     "start": 37.84,
+     "end": 38.062
+    },
+    {
+     "w": "If",
+     "start": 38.417,
+     "end": 38.457
+    },
+    {
+     "w": "you're",
+     "start": 38.457,
+     "end": 38.497
+    },
+    {
+     "w": "still",
+     "start": 38.497,
+     "end": 38.84
+    },
+    {
+     "w": "Nobody",
+     "start": 38.84,
+     "end": 39.28
+    },
+    {
+     "w": "at",
+     "start": 39.28,
+     "end": 39.4
+    },
+    {
+     "w": "thirteen",
+     "start": 39.4,
+     "end": 39.911
+    },
+    {
+     "w": "you",
+     "start": 40.132,
+     "end": 40.2
+    },
+    {
+     "w": "leave",
+     "start": 40.2,
+     "end": 40.4
+    },
+    {
+     "w": "the",
+     "start": 40.4,
+     "end": 40.56
+    },
+    {
+     "w": "kingdom",
+     "start": 40.56,
+     "end": 41.12
+    },
+    {
+     "w": "forever",
+     "start": 41.12,
+     "end": 41.361
+    }
+   ]
+  },
+  {
+   "line": 12,
+   "text": "He had one day left.",
+   "start": 41.969,
+   "end": 43.067,
+   "words": [
+    {
+     "w": "He",
+     "start": 41.969,
+     "end": 42.009
+    },
+    {
+     "w": "had",
+     "start": 42.009,
+     "end": 42.049
+    },
+    {
+     "w": "one",
+     "start": 42.049,
+     "end": 42.52
+    },
+    {
+     "w": "day",
+     "start": 42.52,
+     "end": 42.8
+    },
+    {
+     "w": "left",
+     "start": 42.8,
+     "end": 43.067
+    }
+   ]
+  },
+  {
+   "line": 13,
+   "text": "Nobodies can't sleep inside the walls. So every night, he slept in the field, next to his stone.",
+   "start": 43.36,
+   "end": 48.12,
+   "words": [
+    {
+     "w": "Nobodies",
+     "start": 43.36,
+     "end": 44.0
+    },
+    {
+     "w": "can't",
+     "start": 44.0,
+     "end": 44.2
+    },
+    {
+     "w": "sleep",
+     "start": 44.2,
+     "end": 44.48
+    },
+    {
+     "w": "inside",
+     "start": 44.48,
+     "end": 44.8
+    },
+    {
+     "w": "the",
+     "start": 44.8,
+     "end": 44.92
+    },
+    {
+     "w": "walls",
+     "start": 44.92,
+     "end": 45.267
+    },
+    {
+     "w": "So",
+     "start": 45.531,
+     "end": 45.64
+    },
+    {
+     "w": "every",
+     "start": 45.64,
+     "end": 45.92
+    },
+    {
+     "w": "night",
+     "start": 45.92,
+     "end": 46.154
+    },
+    {
+     "w": "he",
+     "start": 46.348,
+     "end": 46.36
+    },
+    {
+     "w": "slept",
+     "start": 46.36,
+     "end": 46.64
+    },
+    {
+     "w": "in",
+     "start": 46.64,
+     "end": 46.72
+    },
+    {
+     "w": "the",
+     "start": 46.72,
+     "end": 46.88
+    },
+    {
+     "w": "field",
+     "start": 46.88,
+     "end": 47.132
+    },
+    {
+     "w": "next",
+     "start": 47.341,
+     "end": 47.52
+    },
+    {
+     "w": "to",
+     "start": 47.52,
+     "end": 47.64
+    },
+    {
+     "w": "his",
+     "start": 47.64,
+     "end": 47.84
+    },
+    {
+     "w": "stone",
+     "start": 47.84,
+     "end": 48.12
+    }
+   ]
+  },
+  {
+   "line": 14,
+   "text": "Every morning, he pulled again. The sword stayed stuck.",
+   "start": 48.676,
+   "end": 51.544,
+   "words": [
+    {
+     "w": "Every",
+     "start": 48.676,
+     "end": 48.88
+    },
+    {
+     "w": "morning",
+     "start": 48.88,
+     "end": 49.228
+    },
+    {
+     "w": "he",
+     "start": 49.423,
+     "end": 49.48
+    },
+    {
+     "w": "pulled",
+     "start": 49.48,
+     "end": 49.8
+    },
+    {
+     "w": "again",
+     "start": 49.8,
+     "end": 50.129
+    },
+    {
+     "w": "The",
+     "start": 50.49,
+     "end": 50.53
+    },
+    {
+     "w": "sword",
+     "start": 50.53,
+     "end": 50.88
+    },
+    {
+     "w": "stayed",
+     "start": 50.88,
+     "end": 51.28
+    },
+    {
+     "w": "stuck",
+     "start": 51.28,
+     "end": 51.544
+    }
+   ]
+  },
+  {
+   "line": 15,
+   "text": "But the dirt around his stone kept cracking. He thought it was just the cold.",
+   "start": 51.913,
+   "end": 55.147,
+   "words": [
+    {
+     "w": "But",
+     "start": 51.913,
+     "end": 51.953
+    },
+    {
+     "w": "the",
+     "start": 51.953,
+     "end": 51.993
+    },
+    {
+     "w": "dirt",
+     "start": 51.993,
+     "end": 52.28
+    },
+    {
+     "w": "around",
+     "start": 52.28,
+     "end": 52.56
+    },
+    {
+     "w": "his",
+     "start": 52.56,
+     "end": 52.72
+    },
+    {
+     "w": "stone",
+     "start": 52.72,
+     "end": 53.04
+    },
+    {
+     "w": "kept",
+     "start": 53.04,
+     "end": 53.32
+    },
+    {
+     "w": "cracking",
+     "start": 53.32,
+     "end": 53.688
+    },
+    {
+     "w": "He",
+     "start": 53.84,
+     "end": 54.101
+    },
+    {
+     "w": "thought",
+     "start": 54.101,
+     "end": 54.24
+    },
+    {
+     "w": "it",
+     "start": 54.24,
+     "end": 54.36
+    },
+    {
+     "w": "was",
+     "start": 54.36,
+     "end": 54.48
+    },
+    {
+     "w": "just",
+     "start": 54.48,
+     "end": 54.68
+    },
+    {
+     "w": "the",
+     "start": 54.68,
+     "end": 54.84
+    },
+    {
+     "w": "cold",
+     "start": 54.84,
+     "end": 55.147
+    }
+   ]
+  },
+  {
+   "line": 16,
+   "text": "That last night, the sky turned orange.",
+   "start": 55.706,
+   "end": 57.72,
+   "words": [
+    {
+     "w": "That",
+     "start": 55.706,
+     "end": 55.8
+    },
+    {
+     "w": "last",
+     "start": 55.8,
+     "end": 56.12
+    },
+    {
+     "w": "night",
+     "start": 56.12,
+     "end": 56.326
+    },
+    {
+     "w": "the",
+     "start": 56.566,
+     "end": 56.606
+    },
+    {
+     "w": "sky",
+     "start": 56.606,
+     "end": 57.0
+    },
+    {
+     "w": "turned",
+     "start": 57.0,
+     "end": 57.32
+    },
+    {
+     "w": "orange",
+     "start": 57.32,
+     "end": 57.72
+    }
+   ]
+  },
+  {
+   "line": 17,
+   "text": "A dragon landed on the castle wall. Up close, it was bigger than the church.",
+   "start": 58.031,
+   "end": 61.808,
+   "words": [
+    {
+     "w": "A",
+     "start": 58.031,
+     "end": 58.04
+    },
+    {
+     "w": "dragon",
+     "start": 58.04,
+     "end": 58.52
+    },
+    {
+     "w": "landed",
+     "start": 58.52,
+     "end": 58.84
+    },
+    {
+     "w": "on",
+     "start": 58.84,
+     "end": 58.92
+    },
+    {
+     "w": "the",
+     "start": 58.92,
+     "end": 59.04
+    },
+    {
+     "w": "castle",
+     "start": 59.04,
+     "end": 59.4
+    },
+    {
+     "w": "wall",
+     "start": 59.4,
+     "end": 59.668
+    },
+    {
+     "w": "Up",
+     "start": 60.001,
+     "end": 60.12
+    },
+    {
+     "w": "close",
+     "start": 60.12,
+     "end": 60.478
+    },
+    {
+     "w": "it",
+     "start": 60.673,
+     "end": 60.68
+    },
+    {
+     "w": "was",
+     "start": 60.68,
+     "end": 60.84
+    },
+    {
+     "w": "bigger",
+     "start": 60.84,
+     "end": 61.2
+    },
+    {
+     "w": "than",
+     "start": 61.2,
+     "end": 61.32
+    },
+    {
+     "w": "the",
+     "start": 61.32,
+     "end": 61.48
+    },
+    {
+     "w": "church",
+     "start": 61.48,
+     "end": 61.808
+    }
+   ]
+  },
+  {
+   "line": 18,
+   "text": "The knights charged. Their swords melted like candles.",
+   "start": 62.161,
+   "end": 64.881,
+   "words": [
+    {
+     "w": "The",
+     "start": 62.161,
+     "end": 62.2
+    },
+    {
+     "w": "knights",
+     "start": 62.2,
+     "end": 62.6
+    },
+    {
+     "w": "charged",
+     "start": 62.6,
+     "end": 63.08
+    },
+    {
+     "w": "Their",
+     "start": 63.291,
+     "end": 63.4
+    },
+    {
+     "w": "swords",
+     "start": 63.4,
+     "end": 63.84
+    },
+    {
+     "w": "melted",
+     "start": 63.84,
+     "end": 64.24
+    },
+    {
+     "w": "like",
+     "start": 64.24,
+     "end": 64.44
+    },
+    {
+     "w": "candles",
+     "start": 64.44,
+     "end": 64.881
+    }
+   ]
+  },
+  {
+   "line": 19,
+   "text": "The king's sword melted too.",
+   "start": 65.138,
+   "end": 66.371,
+   "words": [
+    {
+     "w": "The",
+     "start": 65.138,
+     "end": 65.16
+    },
+    {
+     "w": "king's",
+     "start": 65.16,
+     "end": 65.48
+    },
+    {
+     "w": "sword",
+     "start": 65.48,
+     "end": 65.76
+    },
+    {
+     "w": "melted",
+     "start": 65.76,
+     "end": 66.16
+    },
+    {
+     "w": "too",
+     "start": 66.16,
+     "end": 66.371
+    }
+   ]
+  },
+  {
+   "line": 20,
+   "text": "Everyone ran. His sister tripped in the square. The dragon turned toward her.",
+   "start": 66.705,
+   "end": 70.267,
+   "words": [
+    {
+     "w": "Everyone",
+     "start": 66.705,
+     "end": 67.16
+    },
+    {
+     "w": "ran",
+     "start": 67.16,
+     "end": 67.458
+    },
+    {
+     "w": "His",
+     "start": 67.738,
+     "end": 67.76
+    },
+    {
+     "w": "sister",
+     "start": 67.76,
+     "end": 68.12
+    },
+    {
+     "w": "tripped",
+     "start": 68.12,
+     "end": 68.4
+    },
+    {
+     "w": "in",
+     "start": 68.4,
+     "end": 68.48
+    },
+    {
+     "w": "the",
+     "start": 68.48,
+     "end": 68.6
+    },
+    {
+     "w": "square",
+     "start": 68.6,
+     "end": 68.978
+    },
+    {
+     "w": "The",
+     "start": 69.204,
+     "end": 69.244
+    },
+    {
+     "w": "dragon",
+     "start": 69.244,
+     "end": 69.64
+    },
+    {
+     "w": "turned",
+     "start": 69.64,
+     "end": 69.88
+    },
+    {
+     "w": "toward",
+     "start": 69.88,
+     "end": 70.2
+    },
+    {
+     "w": "her",
+     "start": 70.2,
+     "end": 70.267
+    }
+   ]
+  },
+  {
+   "line": 21,
+   "text": "The boy didn't have a sword. He only had a stone.",
+   "start": 70.664,
+   "end": 72.79,
+   "words": [
+    {
+     "w": "The",
+     "start": 70.664,
+     "end": 70.68
+    },
+    {
+     "w": "boy",
+     "start": 70.68,
+     "end": 70.92
+    },
+    {
+     "w": "didn't",
+     "start": 70.92,
+     "end": 71.16
+    },
+    {
+     "w": "have",
+     "start": 71.16,
+     "end": 71.28
+    },
+    {
+     "w": "a",
+     "start": 71.28,
+     "end": 71.4
+    },
+    {
+     "w": "sword",
+     "start": 71.4,
+     "end": 71.699
+    },
+    {
+     "w": "He",
+     "start": 71.941,
+     "end": 71.981
+    },
+    {
+     "w": "only",
+     "start": 71.981,
+     "end": 72.021
+    },
+    {
+     "w": "had",
+     "start": 72.021,
+     "end": 72.32
+    },
+    {
+     "w": "a",
+     "start": 72.32,
+     "end": 72.44
+    },
+    {
+     "w": "stone",
+     "start": 72.44,
+     "end": 72.79
+    }
+   ]
+  },
+  {
+   "line": 22,
+   "text": "So he ran to it, grabbed the handle, and pulled harder than he ever had.",
+   "start": 73.026,
+   "end": 76.327,
+   "words": [
+    {
+     "w": "So",
+     "start": 73.026,
+     "end": 73.08
+    },
+    {
+     "w": "he",
+     "start": 73.08,
+     "end": 73.24
+    },
+    {
+     "w": "ran",
+     "start": 73.24,
+     "end": 73.48
+    },
+    {
+     "w": "to",
+     "start": 73.48,
+     "end": 73.64
+    },
+    {
+     "w": "it",
+     "start": 73.64,
+     "end": 73.84
+    },
+    {
+     "w": "grabbed",
+     "start": 73.84,
+     "end": 74.16
+    },
+    {
+     "w": "the",
+     "start": 74.16,
+     "end": 74.32
+    },
+    {
+     "w": "handle",
+     "start": 74.32,
+     "end": 74.618
+    },
+    {
+     "w": "and",
+     "start": 74.803,
+     "end": 74.88
+    },
+    {
+     "w": "pulled",
+     "start": 74.88,
+     "end": 75.2
+    },
+    {
+     "w": "harder",
+     "start": 75.2,
+     "end": 75.52
+    },
+    {
+     "w": "than",
+     "start": 75.52,
+     "end": 75.68
+    },
+    {
+     "w": "he",
+     "start": 75.68,
+     "end": 75.84
+    },
+    {
+     "w": "ever",
+     "start": 75.84,
+     "end": 76.12
+    },
+    {
+     "w": "had",
+     "start": 76.12,
+     "end": 76.327
+    }
+   ]
+  },
+  {
+   "line": 23,
+   "text": "The sword didn't come out.",
+   "start": 76.695,
+   "end": 77.612,
+   "words": [
+    {
+     "w": "The",
+     "start": 76.695,
+     "end": 76.735
+    },
+    {
+     "w": "sword",
+     "start": 76.735,
+     "end": 77.0
+    },
+    {
+     "w": "didn't",
+     "start": 77.0,
+     "end": 77.28
+    },
+    {
+     "w": "come",
+     "start": 77.28,
+     "end": 77.44
+    },
+    {
+     "w": "out",
+     "start": 77.44,
+     "end": 77.612
+    }
+   ]
+  },
+  {
+   "line": 24,
+   "text": "The whole stone did.",
+   "start": 77.851,
+   "end": 78.827,
+   "words": [
+    {
+     "w": "The",
+     "start": 77.851,
+     "end": 77.92
+    },
+    {
+     "w": "whole",
+     "start": 77.92,
+     "end": 78.16
+    },
+    {
+     "w": "stone",
+     "start": 78.16,
+     "end": 78.6
+    },
+    {
+     "w": "did",
+     "start": 78.6,
+     "end": 78.827
+    }
+   ]
+  },
+  {
+   "line": 25,
+   "text": "He stood there holding it. A handle. A giant block of rock on the end.",
+   "start": 79.21,
+   "end": 82.772,
+   "words": [
+    {
+     "w": "He",
+     "start": 79.21,
+     "end": 79.25
+    },
+    {
+     "w": "stood",
+     "start": 79.25,
+     "end": 79.48
+    },
+    {
+     "w": "there",
+     "start": 79.48,
+     "end": 79.68
+    },
+    {
+     "w": "holding",
+     "start": 79.68,
+     "end": 80.08
+    },
+    {
+     "w": "it",
+     "start": 80.08,
+     "end": 80.159
+    },
+    {
+     "w": "A",
+     "start": 80.41,
+     "end": 80.52
+    },
+    {
+     "w": "handle",
+     "start": 80.52,
+     "end": 80.871
+    },
+    {
+     "w": "A",
+     "start": 81.101,
+     "end": 81.16
+    },
+    {
+     "w": "giant",
+     "start": 81.16,
+     "end": 81.6
+    },
+    {
+     "w": "block",
+     "start": 81.6,
+     "end": 81.84
+    },
+    {
+     "w": "of",
+     "start": 81.84,
+     "end": 82.0
+    },
+    {
+     "w": "rock",
+     "start": 82.0,
+     "end": 82.28
+    },
+    {
+     "w": "on",
+     "start": 82.28,
+     "end": 82.4
+    },
+    {
+     "w": "the",
+     "start": 82.4,
+     "end": 82.56
+    },
+    {
+     "w": "end",
+     "start": 82.56,
+     "end": 82.772
+    }
+   ]
+  },
+  {
+   "line": 26,
+   "text": "And he finally understood.",
+   "start": 83.08,
+   "end": 84.174,
+   "words": [
+    {
+     "w": "And",
+     "start": 83.08,
+     "end": 83.12
+    },
+    {
+     "w": "he",
+     "start": 83.12,
+     "end": 83.16
+    },
+    {
+     "w": "finally",
+     "start": 83.16,
+     "end": 83.64
+    },
+    {
+     "w": "understood",
+     "start": 83.64,
+     "end": 84.174
+    }
+   ]
+  },
+  {
+   "line": 27,
+   "text": "It was never a sword in a stone.",
+   "start": 84.515,
+   "end": 86.047,
+   "words": [
+    {
+     "w": "It",
+     "start": 84.515,
+     "end": 84.52
+    },
+    {
+     "w": "was",
+     "start": 84.52,
+     "end": 84.68
+    },
+    {
+     "w": "never",
+     "start": 84.68,
+     "end": 85.0
+    },
+    {
+     "w": "a",
+     "start": 85.0,
+     "end": 85.12
+    },
+    {
+     "w": "sword",
+     "start": 85.12,
+     "end": 85.44
+    },
+    {
+     "w": "in",
+     "start": 85.44,
+     "end": 85.56
+    },
+    {
+     "w": "a",
+     "start": 85.56,
+     "end": 85.68
+    },
+    {
+     "w": "stone",
+     "start": 85.68,
+     "end": 86.047
+    }
+   ]
+  },
+  {
+   "line": 28,
+   "text": "It was a hammer.",
+   "start": 86.285,
+   "end": 86.967,
+   "words": [
+    {
+     "w": "It",
+     "start": 86.285,
+     "end": 86.325
+    },
+    {
+     "w": "was",
+     "start": 86.325,
+     "end": 86.365
+    },
+    {
+     "w": "a",
+     "start": 86.365,
+     "end": 86.6
+    },
+    {
+     "w": "hammer",
+     "start": 86.6,
+     "end": 86.967
+    }
+   ]
+  },
+  {
+   "line": 29,
+   "text": "The dragon's fire hit the stone and split in two. Stone doesn't melt.",
+   "start": 87.333,
+   "end": 90.866,
+   "words": [
+    {
+     "w": "The",
+     "start": 87.333,
+     "end": 87.373
+    },
+    {
+     "w": "dragon's",
+     "start": 87.373,
+     "end": 87.8
+    },
+    {
+     "w": "fire",
+     "start": 87.8,
+     "end": 88.08
+    },
+    {
+     "w": "hit",
+     "start": 88.08,
+     "end": 88.24
+    },
+    {
+     "w": "the",
+     "start": 88.24,
+     "end": 88.36
+    },
+    {
+     "w": "stone",
+     "start": 88.36,
+     "end": 88.68
+    },
+    {
+     "w": "and",
+     "start": 88.68,
+     "end": 88.8
+    },
+    {
+     "w": "split",
+     "start": 88.8,
+     "end": 89.12
+    },
+    {
+     "w": "in",
+     "start": 89.12,
+     "end": 89.32
+    },
+    {
+     "w": "two",
+     "start": 89.32,
+     "end": 89.558
+    },
+    {
+     "w": "Stone",
+     "start": 89.896,
+     "end": 90.24
+    },
+    {
+     "w": "doesn't",
+     "start": 90.24,
+     "end": 90.6
+    },
+    {
+     "w": "melt",
+     "start": 90.6,
+     "end": 90.866
+    }
+   ]
+  },
+  {
+   "line": 30,
+   "text": "He stepped in front of his sister. He swung once.",
+   "start": 91.271,
+   "end": 93.388,
+   "words": [
+    {
+     "w": "He",
+     "start": 91.271,
+     "end": 91.311
+    },
+    {
+     "w": "stepped",
+     "start": 91.311,
+     "end": 91.351
+    },
+    {
+     "w": "in",
+     "start": 91.351,
+     "end": 91.64
+    },
+    {
+     "w": "front",
+     "start": 91.64,
+     "end": 91.84
+    },
+    {
+     "w": "of",
+     "start": 91.84,
+     "end": 91.92
+    },
+    {
+     "w": "his",
+     "start": 91.92,
+     "end": 92.08
+    },
+    {
+     "w": "sister",
+     "start": 92.08,
+     "end": 92.342
+    },
+    {
+     "w": "He",
+     "start": 92.563,
+     "end": 92.64
+    },
+    {
+     "w": "swung",
+     "start": 92.64,
+     "end": 93.04
+    },
+    {
+     "w": "once",
+     "start": 93.04,
+     "end": 93.388
+    }
+   ]
+  },
+  {
+   "line": 31,
+   "text": "Bonk. Right on the nose.",
+   "start": 93.719,
+   "end": 95.08,
+   "words": [
+    {
+     "w": "Bonk",
+     "start": 93.719,
+     "end": 93.994
+    },
+    {
+     "w": "Right",
+     "start": 94.259,
+     "end": 94.44
+    },
+    {
+     "w": "on",
+     "start": 94.44,
+     "end": 94.56
+    },
+    {
+     "w": "the",
+     "start": 94.56,
+     "end": 94.72
+    },
+    {
+     "w": "nose",
+     "start": 94.72,
+     "end": 95.08
+    }
+   ]
+  },
+  {
+   "line": 32,
+   "text": "The dragon blinked, whimpered, and flew away crying.",
+   "start": 95.389,
+   "end": 97.942,
+   "words": [
+    {
+     "w": "The",
+     "start": 95.389,
+     "end": 95.429
+    },
+    {
+     "w": "dragon",
+     "start": 95.429,
+     "end": 95.8
+    },
+    {
+     "w": "blinked",
+     "start": 95.8,
+     "end": 96.24
+    },
+    {
+     "w": "whimpered",
+     "start": 96.24,
+     "end": 96.72
+    },
+    {
+     "w": "and",
+     "start": 96.72,
+     "end": 96.88
+    },
+    {
+     "w": "flew",
+     "start": 96.88,
+     "end": 97.2
+    },
+    {
+     "w": "away",
+     "start": 97.2,
+     "end": 97.52
+    },
+    {
+     "w": "crying",
+     "start": 97.52,
+     "end": 97.942
+    }
+   ]
+  },
+  {
+   "line": 33,
+   "text": "The whole kingdom went silent. Then his sister yelled, \"That's my brother!\"",
+   "start": 98.288,
+   "end": 101.822,
+   "words": [
+    {
+     "w": "The",
+     "start": 98.288,
+     "end": 98.32
+    },
+    {
+     "w": "whole",
+     "start": 98.32,
+     "end": 98.6
+    },
+    {
+     "w": "kingdom",
+     "start": 98.6,
+     "end": 99.0
+    },
+    {
+     "w": "went",
+     "start": 99.0,
+     "end": 99.24
+    },
+    {
+     "w": "silent",
+     "start": 99.24,
+     "end": 99.617
+    },
+    {
+     "w": "Then",
+     "start": 99.923,
+     "end": 99.96
+    },
+    {
+     "w": "his",
+     "start": 99.96,
+     "end": 100.16
+    },
+    {
+     "w": "sister",
+     "start": 100.16,
+     "end": 100.48
+    },
+    {
+     "w": "yelled",
+     "start": 100.48,
+     "end": 100.76
+    },
+    {
+     "w": "That's",
+     "start": 101.041,
+     "end": 101.2
+    },
+    {
+     "w": "my",
+     "start": 101.2,
+     "end": 101.44
+    },
+    {
+     "w": "brother",
+     "start": 101.44,
+     "end": 101.822
+    }
+   ]
+  },
+  {
+   "line": 34,
+   "text": "The next morning, the king offered him any name he wanted. Dragonbreaker. Sir Hammer. Anything.",
+   "start": 102.24,
+   "end": 107.412,
+   "words": [
+    {
+     "w": "The",
+     "start": 102.24,
+     "end": 102.529
+    },
+    {
+     "w": "next",
+     "start": 102.529,
+     "end": 102.8
+    },
+    {
+     "w": "morning",
+     "start": 102.8,
+     "end": 103.125
+    },
+    {
+     "w": "the",
+     "start": 103.322,
+     "end": 103.36
+    },
+    {
+     "w": "king",
+     "start": 103.36,
+     "end": 103.56
+    },
+    {
+     "w": "offered",
+     "start": 103.56,
+     "end": 103.92
+    },
+    {
+     "w": "him",
+     "start": 103.92,
+     "end": 104.08
+    },
+    {
+     "w": "any",
+     "start": 104.08,
+     "end": 104.32
+    },
+    {
+     "w": "name",
+     "start": 104.32,
+     "end": 104.56
+    },
+    {
+     "w": "he",
+     "start": 104.56,
+     "end": 104.76
+    },
+    {
+     "w": "wanted",
+     "start": 104.76,
+     "end": 104.993
+    },
+    {
+     "w": "Dragonbreaker",
+     "start": 105.68,
+     "end": 106.004
+    },
+    {
+     "w": "Sir",
+     "start": 106.213,
+     "end": 106.4
+    },
+    {
+     "w": "Hammer",
+     "start": 106.4,
+     "end": 106.756
+    },
+    {
+     "w": "Anything",
+     "start": 106.987,
+     "end": 107.412
+    }
+   ]
+  },
+  {
+   "line": 35,
+   "text": "The boy looked up at his tag. It still said Nobody.",
+   "start": 107.878,
+   "end": 110.681,
+   "words": [
+    {
+     "w": "The",
+     "start": 107.878,
+     "end": 107.88
+    },
+    {
+     "w": "boy",
+     "start": 107.88,
+     "end": 108.12
+    },
+    {
+     "w": "looked",
+     "start": 108.12,
+     "end": 108.36
+    },
+    {
+     "w": "up",
+     "start": 108.36,
+     "end": 108.48
+    },
+    {
+     "w": "at",
+     "start": 108.48,
+     "end": 108.6
+    },
+    {
+     "w": "his",
+     "start": 108.6,
+     "end": 108.76
+    },
+    {
+     "w": "tag",
+     "start": 108.76,
+     "end": 109.022
+    },
+    {
+     "w": "It",
+     "start": 109.373,
+     "end": 109.4
+    },
+    {
+     "w": "still",
+     "start": 109.4,
+     "end": 109.72
+    },
+    {
+     "w": "said",
+     "start": 109.72,
+     "end": 109.981
+    },
+    {
+     "w": "Nobody",
+     "start": 110.209,
+     "end": 110.681
+    }
+   ]
+  },
+  {
+   "line": 36,
+   "text": "He kept it.",
+   "start": 111.146,
+   "end": 111.567,
+   "words": [
+    {
+     "w": "He",
+     "start": 111.146,
+     "end": 111.2
+    },
+    {
+     "w": "kept",
+     "start": 111.2,
+     "end": 111.48
+    },
+    {
+     "w": "it",
+     "start": 111.48,
+     "end": 111.567
+    }
+   ]
+  },
+  {
+   "line": 37,
+   "text": "In this kingdom, you're nobody until you pull your sword from your stone.",
+   "start": 112.056,
+   "end": 115.198,
+   "words": [
+    {
+     "w": "In",
+     "start": 112.056,
+     "end": 112.096
+    },
+    {
+     "w": "this",
+     "start": 112.096,
+     "end": 112.136
+    },
+    {
+     "w": "kingdom",
+     "start": 112.136,
+     "end": 112.636
+    },
+    {
+     "w": "you're",
+     "start": 112.838,
+     "end": 112.92
+    },
+    {
+     "w": "nobody",
+     "start": 112.92,
+     "end": 113.4
+    },
+    {
+     "w": "until",
+     "start": 113.4,
+     "end": 113.64
+    },
+    {
+     "w": "you",
+     "start": 113.64,
+     "end": 113.8
+    },
+    {
+     "w": "pull",
+     "start": 113.8,
+     "end": 114.0
+    },
+    {
+     "w": "your",
+     "start": 114.0,
+     "end": 114.16
+    },
+    {
+     "w": "sword",
+     "start": 114.16,
+     "end": 114.48
+    },
+    {
+     "w": "from",
+     "start": 114.48,
+     "end": 114.64
+    },
+    {
+     "w": "your",
+     "start": 114.64,
+     "end": 114.84
+    },
+    {
+     "w": "stone",
+     "start": 114.84,
+     "end": 115.198
+    }
+   ]
+  },
+  {
+   "line": 38,
+   "text": "He never did.",
+   "start": 115.663,
+   "end": 116.214,
+   "words": [
+    {
+     "w": "He",
+     "start": 115.663,
+     "end": 115.68
+    },
+    {
+     "w": "never",
+     "start": 115.68,
+     "end": 116.0
+    },
+    {
+     "w": "did",
+     "start": 116.0,
+     "end": 116.214
+    }
+   ]
+  },
+  {
+   "line": 39,
+   "text": "And now every kid in the kingdom wants to be Nobody.",
+   "start": 116.621,
+   "end": 119.505,
+   "words": [
+    {
+     "w": "And",
+     "start": 116.621,
+     "end": 116.72
+    },
+    {
+     "w": "now",
+     "start": 116.72,
+     "end": 117.08
+    },
+    {
+     "w": "every",
+     "start": 117.08,
+     "end": 117.44
+    },
+    {
+     "w": "kid",
+     "start": 117.44,
+     "end": 117.6
+    },
+    {
+     "w": "in",
+     "start": 117.6,
+     "end": 117.72
+    },
+    {
+     "w": "the",
+     "start": 117.72,
+     "end": 117.84
+    },
+    {
+     "w": "kingdom",
+     "start": 117.84,
+     "end": 118.24
+    },
+    {
+     "w": "wants",
+     "start": 118.24,
+     "end": 118.48
+    },
+    {
+     "w": "to",
+     "start": 118.48,
+     "end": 118.64
+    },
+    {
+     "w": "be",
+     "start": 118.64,
+     "end": 118.804
+    },
+    {
+     "w": "Nobody",
+     "start": 118.999,
+     "end": 119.505
+    }
+   ]
+  }
+ ]
+}
