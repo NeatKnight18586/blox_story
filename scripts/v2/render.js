@@ -11,6 +11,7 @@ import {mkdir, writeFile, link, unlink} from 'node:fs/promises';
 import path from 'node:path';
 import {startServer} from './server.js';
 import {launch} from './browser.js';
+import {layoutShots, totalFrames} from '../../engine/timeline.js';
 
 const argv = process.argv.slice(2);
 const arg = (k, d) => { const i = argv.indexOf(`--${k}`); return i >= 0 ? argv[i + 1] : (argv.find(a => a.startsWith(`--${k}=`))?.split('=')[1] ?? d); };
@@ -22,8 +23,8 @@ const width = Number(arg('width', 1080)), height = Number(arg('height', 1920)), 
 const every = Number(arg('every', 1));
 
 const spec = JSON.parse(readFileSync(specPath, 'utf8')), fps = spec.fps ?? 30;
-const shots = []; { let start = 0; for (const s of spec.shots) { shots.push({...s, start}); start += s.frames; } }
-const total = shots.at(-1).start + shots.at(-1).frames;
+const shots = layoutShots(spec);            // `at` cut times or `frames` (engine/timeline.js)
+const total = totalFrames(shots);
 const from = Number(arg('from', 0)), to = Math.min(Number(arg('to', total)), total);
 
 const sha = s => createHash('sha256').update(s).digest('hex');
@@ -60,7 +61,7 @@ async function worker() {
       const r = await p.evaluate(([f, w, h]) => window.__episode.renderFrame(f, w, h), [f, width, height]);
       const png = Buffer.from((await p.evaluate(() => document.querySelector('canvas').toDataURL('image/png'))).split(',')[1], 'base64');
       if (errors.length) throw Error(errors.join('; '));
-      if (png.length < width * 40) throw Error(`blank frame ${f} (${png.length} bytes)`);   // never cache an empty canvas
+      if (png.length < width * height / 50) throw Error(`blank frame ${f} (${png.length} bytes)`);   // never cache an empty canvas
       await writeFile(file(f), png);
       times.push(r.ms); progress.done++; const ps = progress.perShot[r.shot] ??= {frames: 0, maxTriangles: 0, maxCalls: 0};
       ps.frames++; ps.maxTriangles = Math.max(ps.maxTriangles, r.triangles); ps.maxCalls = Math.max(ps.maxCalls, r.calls);

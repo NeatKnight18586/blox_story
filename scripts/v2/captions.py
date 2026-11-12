@@ -91,6 +91,11 @@ def ass_time(t):
 
 
 def shot_at(shots, t, fps=30):
+    if shots and 'at' in shots[0]:   # timed shots (engine/timeline.js): each runs from its cut to the next cut
+        cur = None
+        for s in shots:
+            if round(s['at'] * fps) / fps <= t: cur = s
+        return cur
     start = 0
     for s in shots or []:
         if start / fps <= t < (start + s['frames']) / fps: return s

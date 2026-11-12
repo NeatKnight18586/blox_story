@@ -1,0 +1,5933 @@
+{
+ "slug": "nobody",
+ "fps": 30,
+ "end": 122.5,
+ "note": "Episode 2 \"Nobody\" \u2014 Session 5 animatic shot plan (docs/V2_BRIEF.md \u00a711). Shots cut on phrase onsets from cues.json (at = cut time, s); the last shot holds to max(voice + 2.5, 122.5) s. Generated layout, hand-tuned.",
+ "world": "stories/nobody/world.js",
+ "castFile": "stories/nobody/cast.json",
+ "look": "day",
+ "emphasis": [
+  "nobody",
+  "sword",
+  "stone",
+  "four",
+  "bread",
+  "two thousand",
+  "thirteen",
+  "one day",
+  "cracking",
+  "orange",
+  "dragon",
+  "melted",
+  "whole stone",
+  "hammer",
+  "bonk",
+  "crying",
+  "brother",
+  "kept"
+ ],
+ "worldState": {
+  "cracks": [
+   [
+    0,
+    1
+   ],
+   [
+    50.49,
+    2
+   ],
+   [
+    51.91,
+    3
+   ]
+  ],
+  "heroStone": [
+   [
+    0,
+    "field"
+   ],
+   [
+    77.85,
+    "gone"
+   ]
+  ],
+  "rise": [
+   [
+    0,
+    0
+   ],
+   [
+    8.2,
+    0
+   ],
+   [
+    9.8,
+    1,
+    "ramp"
+   ]
+  ],
+  "pulled": [
+   [
+    0,
+    []
+   ],
+   [
+    0.8,
+    [
+     "baker"
+    ]
+   ],
+   [
+    1.6,
+    [
+     "baker",
+     "knight"
+    ]
+   ],
+   [
+    13.0,
+    [
+     "baker",
+     "knight",
+     "kidA"
+    ]
+   ],
+   [
+    14.61,
+    [
+     "baker",
+     "knight",
+     "kidA",
+     "kidB"
+    ]
+   ],
+   [
+    15.32,
+    [
+     "baker",
+     "knight",
+     "kidA",
+     "kidB",
+     "kidC"
+    ]
+   ],
+   [
+    15.95,
+    [
+     "baker",
+     "knight",
+     "kidA",
+     "kidB",
+     "kidC",
+     "farmer"
+    ]
+   ],
+   [
+    17.6,
+    [
+     "baker",
+     "knight",
+     "kidA",
+     "kidB",
+     "kidC",
+     "farmer",
+     "smith"
+    ]
+   ],
+   [
+    19.45,
+    [
+     "baker",
+     "knight",
+     "kidA",
+     "kidB",
+     "kidC",
+     "farmer",
+     "smith",
+     "pip"
+    ]
+   ],
+   [
+    112.0,
+    []
+   ]
+  ],
+  "walkers": [
+   [
+    0,
+    true
+   ],
+   [
+    55.6,
+    false
+   ],
+   [
+    102.0,
+    true
+   ]
+  ]
+ },
+ "cast": {
+  "nobody": {
+   "style": "v2",
+   "preset": "nobody",
+   "at": "heroStone",
+   "yaw": 0,
+   "marks": [
+    [
+     0,
+     {
+      "at": "heroStone",
+      "yaw": 0
+     }
+    ],
+    [
+     31.8,
+     {
+      "at": "heroStone",
+      "offset": [
+       0,
+       0,
+       -2.4
+      ],
+      "yaw": 0,
+      "travel": {
+       "dir": [
+        0,
+        1
+       ],
+       "speed": 0.938,
+       "max": 2.4
+      }
+     }
+    ],
+    [
+     33.37,
+     {
+      "at": "heroStone",
+      "yaw": 0
+     }
+    ],
+    [
+     37.138,
+     {
+      "origin": [
+       2.5,
+       0,
+       47
+      ],
+      "yaw": 180
+     }
+    ],
+    [
+     41.972,
+     {
+      "origin": [
+       2.5,
+       0,
+       46
+      ],
+      "yaw": 200
+     }
+    ],
+    [
+     43.372,
+     {
+      "origin": [
+       1.5,
+       0.2,
+       49
+      ],
+      "yaw": 10,
+      "travel": {
+       "dir": [
+        0.15,
+        1
+       ],
+       "speed": 0.67
+      }
+     }
+    ],
+    [
+     45.538,
+     {
+      "at": "heroStone",
+      "offset": [
+       -1.6,
+       0.25,
+       1.4
+      ],
+      "yaw": 90
+     }
+    ],
+    [
+     48.672,
+     {
+      "at": "heroStone",
+      "yaw": 0
+     }
+    ],
+    [
+     53.838,
+     {
+      "at": "heroStone",
+      "offset": [
+       0.4,
+       0,
+       -0.9
+      ],
+      "yaw": 15
+     }
+    ],
+    [
+     55.705,
+     {
+      "at": "heroStone",
+      "offset": [
+       -1.5,
+       0,
+       -2.5
+      ],
+      "yaw": 165
+     }
+    ],
+    [
+     70.672,
+     {
+      "at": "heroStone",
+      "offset": [
+       0,
+       0,
+       -7.5
+      ],
+      "yaw": 180
+     }
+    ],
+    [
+     72.2,
+     {
+      "at": "heroStone",
+      "offset": [
+       0,
+       0,
+       -7.5
+      ],
+      "yaw": 0
+     }
+    ],
+    [
+     73.038,
+     {
+      "at": "heroStone",
+      "offset": [
+       0,
+       0,
+       -6.5
+      ],
+      "yaw": 0,
+      "travel": {
+       "dir": [
+        0,
+        1
+       ],
+       "speed": 4.2,
+       "max": 6.5
+      }
+     }
+    ],
+    [
+     74.805,
+     {
+      "at": "heroStone",
+      "yaw": 0
+     }
+    ],
+    [
+     77.872,
+     {
+      "at": "heroStone",
+      "offset": [
+       0,
+       0,
+       -0.6
+      ],
+      "yaw": 0
+     }
+    ],
+    [
+     87.338,
+     {
+      "origin": [
+       5,
+       0.2,
+       14
+      ],
+      "yaw": 180,
+      "travel": {
+       "dir": [
+        0,
+        -1
+       ],
+       "speed": 4.2,
+       "max": 10
+      }
+     }
+    ],
+    [
+     91.27,
+     {
+      "origin": [
+       5,
+       0.2,
+       4
+      ],
+      "yaw": 180,
+      "travel": {
+       "dir": [
+        0,
+        -1
+       ],
+       "speed": 4.2,
+       "max": 9.6
+      }
+     }
+    ],
+    [
+     98.305,
+     {
+      "origin": [
+       5,
+       0.2,
+       -5.6
+      ],
+      "yaw": 15
+     }
+    ],
+    [
+     102.238,
+     {
+      "origin": [
+       7.5,
+       0.2,
+       -1
+      ],
+      "yaw": -20
+     }
+    ],
+    [
+     112.072,
+     {
+      "at": "heroStone",
+      "offset": [
+       -1.5,
+       0,
+       6
+      ],
+      "yaw": 20
+     }
+    ]
+   ],
+   "keys": [
+    [
+     0,
+     "pull"
+    ],
+    [
+     22.04,
+     "pull",
+     {
+      "effort": 1.2
+     }
+    ],
+    [
+     27.6,
+     "pull",
+     {
+      "effort": 0.6
+     }
+    ],
+    [
+     31.8,
+     "walk"
+    ],
+    [
+     33.37,
+     "pull",
+     {
+      "effort": 1.4
+     }
+    ],
+    [
+     34.55,
+     "recoil"
+    ],
+    [
+     35.44,
+     "pull",
+     {
+      "effort": 1.3
+     }
+    ],
+    [
+     37.0,
+     "idle"
+    ],
+    [
+     41.9,
+     "look_react",
+     {
+      "direction": "left"
+     }
+    ],
+    [
+     43.36,
+     "walk"
+    ],
+    [
+     45.4,
+     "sleep"
+    ],
+    [
+     48.6,
+     "pull"
+    ],
+    [
+     53.8,
+     "shiver"
+    ],
+    [
+     55.6,
+     "lookUp"
+    ],
+    [
+     70.6,
+     "idle"
+    ],
+    [
+     71.5,
+     "look_react",
+     {
+      "direction": "right"
+     }
+    ],
+    [
+     72.2,
+     "idle"
+    ],
+    [
+     73.03,
+     "run"
+    ],
+    [
+     74.6,
+     "pull",
+     {
+      "effort": 1.8
+     }
+    ],
+    [
+     77.85,
+     "raise"
+    ],
+    [
+     79.21,
+     "hammerHold"
+    ],
+    [
+     83.08,
+     "hammerHold"
+    ],
+    [
+     84.52,
+     "raise"
+    ],
+    [
+     87.2,
+     "run"
+    ],
+    [
+     88.9,
+     "raise"
+    ],
+    [
+     91.27,
+     "run"
+    ],
+    [
+     92.9,
+     "hammerHold"
+    ],
+    [
+     93.35,
+     "toolSwing"
+    ],
+    [
+     94.2,
+     "hammerHold"
+    ],
+    [
+     98.0,
+     "hammerHold"
+    ],
+    [
+     102.0,
+     "idle"
+    ],
+    [
+     107.88,
+     "lookUp"
+    ],
+    [
+     110.3,
+     "idle"
+    ],
+    [
+     112.0,
+     "walk"
+    ],
+    [
+     115.66,
+     "raise"
+    ],
+    [
+     119.0,
+     "cheer"
+    ]
+   ],
+   "faces": [
+    [
+     0,
+     "determined"
+    ],
+    [
+     27.6,
+     "neutral"
+    ],
+    [
+     30.56,
+     "determined"
+    ],
+    [
+     34.55,
+     "gasp"
+    ],
+    [
+     35.44,
+     "determined"
+    ],
+    [
+     37.0,
+     "neutral"
+    ],
+    [
+     41.97,
+     "sad"
+    ],
+    [
+     45.4,
+     "sleep"
+    ],
+    [
+     48.6,
+     "determined"
+    ],
+    [
+     53.8,
+     "neutral"
+    ],
+    [
+     55.6,
+     "gasp"
+    ],
+    [
+     70.6,
+     "sad"
+    ],
+    [
+     72.2,
+     "determined"
+    ],
+    [
+     74.6,
+     "shout"
+    ],
+    [
+     77.85,
+     "gasp"
+    ],
+    [
+     79.21,
+     "neutral"
+    ],
+    [
+     83.08,
+     "gasp"
+    ],
+    [
+     83.7,
+     "smile"
+    ],
+    [
+     84.52,
+     "determined"
+    ],
+    [
+     87.2,
+     "shout"
+    ],
+    [
+     89.1,
+     "determined"
+    ],
+    [
+     93.35,
+     "shout"
+    ],
+    [
+     94.2,
+     "determined"
+    ],
+    [
+     98.29,
+     "neutral"
+    ],
+    [
+     102.0,
+     "smile"
+    ],
+    [
+     107.88,
+     "neutral"
+    ],
+    [
+     110.21,
+     "smile"
+    ]
+   ],
+   "tools": [
+    [
+     0,
+     null
+    ],
+    [
+     77.85,
+     "hammer"
+    ]
+   ],
+   "tags": [
+    [
+     0,
+     "Nobody"
+    ]
+   ],
+   "stat": [
+    [
+     0,
+     null
+    ],
+    [
+     24.17,
+     "number",
+     "1,987 tries"
+    ],
+    [
+     24.5,
+     "number",
+     "2,004 tries"
+    ],
+    [
+     24.85,
+     "number",
+     "2,019 tries"
+    ],
+    [
+     25.2,
+     "number",
+     "2,031 tries"
+    ],
+    [
+     25.94,
+     null
+    ],
+    [
+     41.97,
+     "bar",
+     0.04,
+     "1 day left"
+    ],
+    [
+     43.36,
+     null
+    ]
+   ]
+  },
+  "kidBaker": {
+   "style": "v2",
+   "preset": "kidBaker",
+   "at": "stone_baker",
+   "yaw": 0,
+   "keys": [
+    [
+     0,
+     "pull",
+     {
+      "effort": 0.7
+     }
+    ],
+    [
+     0.8,
+     "cheer"
+    ],
+    [
+     3.0,
+     "idle"
+    ],
+    [
+     27.3,
+     "point"
+    ],
+    [
+     29.17,
+     "wave"
+    ],
+    [
+     30.6,
+     "idle"
+    ],
+    [
+     112.0,
+     "idle"
+    ],
+    [
+     119.0,
+     "lift",
+     {
+      "effort": 1
+     }
+    ]
+   ],
+   "faces": [
+    [
+     0,
+     "determined"
+    ],
+    [
+     0.8,
+     "smile"
+    ],
+    [
+     27.3,
+     "smug"
+    ],
+    [
+     31.7,
+     "smile"
+    ],
+    [
+     119.0,
+     "determined"
+    ]
+   ],
+   "tools": [
+    [
+     0,
+     null
+    ],
+    [
+     0.8,
+     "sword"
+    ],
+    [
+     3.0,
+     null
+    ],
+    [
+     112.0,
+     null
+    ]
+   ],
+   "tags": [
+    [
+     0,
+     "Nobody"
+    ],
+    [
+     0.8,
+     "Baker"
+    ],
+    [
+     119.05,
+     "Nobody"
+    ]
+   ],
+   "marks": [
+    [
+     0,
+     {
+      "at": "stone_baker",
+      "yaw": 0
+     }
+    ],
+    [
+     27.472,
+     {
+      "origin": [
+       0.4,
+       0.4,
+       66.4
+      ],
+      "yaw": 141
+     }
+    ],
+    [
+     31.805,
+     {
+      "at": "stone_baker",
+      "yaw": 0
+     }
+    ]
+   ],
+   "bubble": [
+    [
+     0,
+     null
+    ],
+    [
+     29.17,
+     "Need a hand?"
+    ],
+    [
+     30.6,
+     null
+    ]
+   ]
+  },
+  "kidKnight": {
+   "style": "v2",
+   "preset": "kidKnight",
+   "at": "stone_knight",
+   "yaw": 0,
+   "keys": [
+    [
+     0,
+     "pull",
+     {
+      "effort": 0.7
+     }
+    ],
+    [
+     1.6,
+     "cheer"
+    ],
+    [
+     3.8000000000000003,
+     "idle"
+    ],
+    [
+     27.3,
+     "cheer"
+    ],
+    [
+     28.6,
+     "point"
+    ],
+    [
+     31.0,
+     "idle"
+    ],
+    [
+     112.0,
+     "idle"
+    ],
+    [
+     119.0,
+     "lift",
+     {
+      "effort": 1
+     }
+    ]
+   ],
+   "faces": [
+    [
+     0,
+     "determined"
+    ],
+    [
+     1.6,
+     "smile"
+    ],
+    [
+     27.3,
+     "smug"
+    ],
+    [
+     31.7,
+     "smile"
+    ],
+    [
+     119.0,
+     "determined"
+    ]
+   ],
+   "tools": [
+    [
+     0,
+     null
+    ],
+    [
+     1.6,
+     "sword"
+    ],
+    [
+     3.8000000000000003,
+     null
+    ],
+    [
+     112.0,
+     null
+    ]
+   ],
+   "tags": [
+    [
+     0,
+     "Nobody"
+    ],
+    [
+     1.6,
+     "Knight"
+    ],
+    [
+     119.17,
+     "Nobody"
+    ]
+   ],
+   "marks": [
+    [
+     0,
+     {
+      "at": "stone_knight",
+      "yaw": 0
+     }
+    ],
+    [
+     27.472,
+     {
+      "origin": [
+       6.4,
+       0.4,
+       66.8
+      ],
+      "yaw": 222
+     }
+    ],
+    [
+     31.805,
+     {
+      "at": "stone_knight",
+      "yaw": 0
+     }
+    ]
+   ]
+  },
+  "kidSmith": {
+   "style": "v2",
+   "preset": "kidSmith",
+   "at": "stone_smith",
+   "yaw": 0,
+   "keys": [
+    [
+     0,
+     "pull",
+     {
+      "effort": 0.7
+     }
+    ],
+    [
+     17.6,
+     "cheer"
+    ],
+    [
+     19.8,
+     "idle"
+    ],
+    [
+     112.0,
+     "idle"
+    ],
+    [
+     119.0,
+     "lift",
+     {
+      "effort": 1
+     }
+    ]
+   ],
+   "faces": [
+    [
+     0,
+     "determined"
+    ],
+    [
+     17.6,
+     "smile"
+    ],
+    [
+     119.0,
+     "determined"
+    ]
+   ],
+   "tools": [
+    [
+     0,
+     null
+    ],
+    [
+     17.6,
+     "sword"
+    ],
+    [
+     19.8,
+     null
+    ],
+    [
+     112.0,
+     null
+    ]
+   ],
+   "tags": [
+    [
+     0,
+     "Nobody"
+    ],
+    [
+     17.6,
+     "Smith"
+    ],
+    [
+     119.28999999999999,
+     "Nobody"
+    ]
+   ]
+  },
+  "kidFarmer": {
+   "style": "v2",
+   "preset": "kidFarmer",
+   "at": "stone_farmer",
+   "yaw": 0,
+   "keys": [
+    [
+     0,
+     "idle"
+    ],
+    [
+     12.2,
+     "pull",
+     {
+      "effort": 0.8
+     }
+    ],
+    [
+     15.95,
+     "cheer"
+    ],
+    [
+     18.15,
+     "idle"
+    ],
+    [
+     112.0,
+     "idle"
+    ],
+    [
+     119.0,
+     "lift",
+     {
+      "effort": 1
+     }
+    ]
+   ],
+   "faces": [
+    [
+     0,
+     "determined"
+    ],
+    [
+     15.95,
+     "smile"
+    ],
+    [
+     119.0,
+     "determined"
+    ]
+   ],
+   "tools": [
+    [
+     0,
+     null
+    ],
+    [
+     15.95,
+     "sword"
+    ],
+    [
+     18.15,
+     null
+    ],
+    [
+     112.0,
+     null
+    ]
+   ],
+   "tags": [
+    [
+     0,
+     "Nobody"
+    ],
+    [
+     15.95,
+     "King"
+    ],
+    [
+     119.41,
+     "Nobody"
+    ]
+   ]
+  },
+  "kidA": {
+   "style": "v2",
+   "preset": "kidKnight",
+   "at": "stone_kidA",
+   "yaw": 0,
+   "keys": [
+    [
+     0,
+     "idle"
+    ],
+    [
+     12.21,
+     "pull",
+     {
+      "effort": 0.8
+     }
+    ],
+    [
+     13.0,
+     "cheer"
+    ],
+    [
+     15.2,
+     "idle"
+    ],
+    [
+     27.3,
+     "point"
+    ],
+    [
+     31.0,
+     "idle"
+    ],
+    [
+     112.0,
+     "idle"
+    ],
+    [
+     119.0,
+     "lift",
+     {
+      "effort": 1
+     }
+    ]
+   ],
+   "faces": [
+    [
+     0,
+     "determined"
+    ],
+    [
+     13.0,
+     "smile"
+    ],
+    [
+     27.3,
+     "smug"
+    ],
+    [
+     31.7,
+     "smile"
+    ],
+    [
+     119.0,
+     "determined"
+    ]
+   ],
+   "tools": [
+    [
+     0,
+     null
+    ],
+    [
+     13.0,
+     "sword"
+    ],
+    [
+     15.2,
+     null
+    ],
+    [
+     112.0,
+     null
+    ]
+   ],
+   "tags": [
+    [
+     0,
+     "Nobody"
+    ],
+    [
+     13.0,
+     "Archer"
+    ],
+    [
+     119.53,
+     "Nobody"
+    ]
+   ],
+   "marks": [
+    [
+     0,
+     {
+      "at": "stone_kidA",
+      "yaw": 0
+     }
+    ],
+    [
+     27.472,
+     {
+      "origin": [
+       -0.8,
+       0.4,
+       61.2
+      ],
+      "yaw": 60
+     }
+    ],
+    [
+     31.805,
+     {
+      "at": "stone_kidA",
+      "yaw": 0
+     }
+    ]
+   ],
+   "with": {
+    "hair": {
+     "style": "bowl",
+     "color": "#3a2418"
+    },
+    "skin": "#8d5a3b",
+    "outfit": {
+     "recipe": "tunic",
+     "main": "#d94f8a",
+     "trim": "#f7f3ea",
+     "legs": "#3b3f46",
+     "boots": "#3b2a1a",
+     "belt": "#5a4632",
+     "buckle": false
+    }
+   }
+  },
+  "kidB": {
+   "style": "v2",
+   "preset": "kidBaker",
+   "at": "stone_kidB",
+   "yaw": 0,
+   "keys": [
+    [
+     0,
+     "idle"
+    ],
+    [
+     12.21,
+     "pull",
+     {
+      "effort": 0.8
+     }
+    ],
+    [
+     14.61,
+     "cheer"
+    ],
+    [
+     16.81,
+     "idle"
+    ],
+    [
+     112.0,
+     "idle"
+    ],
+    [
+     119.0,
+     "lift",
+     {
+      "effort": 1
+     }
+    ]
+   ],
+   "faces": [
+    [
+     0,
+     "determined"
+    ],
+    [
+     14.61,
+     "smile"
+    ],
+    [
+     119.0,
+     "determined"
+    ]
+   ],
+   "tools": [
+    [
+     0,
+     null
+    ],
+    [
+     14.61,
+     "sword"
+    ],
+    [
+     16.81,
+     null
+    ],
+    [
+     112.0,
+     null
+    ]
+   ],
+   "tags": [
+    [
+     0,
+     "Nobody"
+    ],
+    [
+     14.61,
+     "Baker"
+    ],
+    [
+     119.64999999999999,
+     "Nobody"
+    ]
+   ],
+   "with": {
+    "hair": {
+     "style": "long_straight",
+     "color": "#e8c25a"
+    },
+    "skin": "#fbdcc0",
+    "outfit": {
+     "recipe": "apron",
+     "main": "#f2b632",
+     "accent": "#f7f3ea",
+     "legs": "#2f4a6b",
+     "boots": "#4a3222"
+    }
+   }
+  },
+  "kidC": {
+   "style": "v2",
+   "preset": "kidSmith",
+   "at": "stone_kidC",
+   "yaw": 0,
+   "keys": [
+    [
+     0,
+     "idle"
+    ],
+    [
+     12.21,
+     "pull",
+     {
+      "effort": 0.8
+     }
+    ],
+    [
+     15.32,
+     "cheer"
+    ],
+    [
+     17.52,
+     "idle"
+    ],
+    [
+     112.0,
+     "idle"
+    ],
+    [
+     119.0,
+     "lift",
+     {
+      "effort": 1
+     }
+    ]
+   ],
+   "faces": [
+    [
+     0,
+     "determined"
+    ],
+    [
+     15.32,
+     "smile"
+    ],
+    [
+     119.0,
+     "determined"
+    ]
+   ],
+   "tools": [
+    [
+     0,
+     null
+    ],
+    [
+     15.32,
+     "sword"
+    ],
+    [
+     17.52,
+     null
+    ],
+    [
+     112.0,
+     null
+    ]
+   ],
+   "tags": [
+    [
+     0,
+     "Nobody"
+    ],
+    [
+     15.32,
+     "Knight"
+    ],
+    [
+     119.77,
+     "Nobody"
+    ]
+   ],
+   "with": {
+    "hair": {
+     "style": "braids",
+     "color": "#202020"
+    },
+    "skin": "#c08457",
+    "outfit": {
+     "recipe": "tunic",
+     "main": "#2e9e78",
+     "trim": "#f2c230",
+     "legs": "#3b3f46",
+     "boots": "#2b2b2b",
+     "belt": "#5a4632",
+     "buckle": "#f2c230"
+    }
+   }
+  },
+  "pip": {
+   "style": "v2",
+   "preset": "pip",
+   "marks": [
+    [
+     0,
+     {
+      "at": "stone_pip",
+      "yaw": 0
+     }
+    ],
+    [
+     66.705,
+     {
+      "origin": [
+       8,
+       0.2,
+       -6
+      ],
+      "yaw": 0,
+      "travel": {
+       "dir": [
+        0,
+        1
+       ],
+       "speed": 3.3600000000000003,
+       "max": 4.5
+      }
+     }
+    ],
+    [
+     98.305,
+     {
+      "origin": [
+       8.5,
+       0.2,
+       0
+      ],
+      "yaw": 30
+     }
+    ],
+    [
+     102.238,
+     {
+      "origin": [
+       9.5,
+       0.2,
+       0.5
+      ],
+      "yaw": -30
+     }
+    ],
+    [
+     112.072,
+     {
+      "at": "stone_pip",
+      "offset": [
+       -1.5,
+       0,
+       0
+      ],
+      "yaw": 0
+     }
+    ]
+   ],
+   "keys": [
+    [
+     0,
+     "idle"
+    ],
+    [
+     18.53,
+     "pullOne"
+    ],
+    [
+     19.45,
+     "raise"
+    ],
+    [
+     22.0,
+     "idle"
+    ],
+    [
+     66.6,
+     "run"
+    ],
+    [
+     68.0,
+     "trip"
+    ],
+    [
+     98.0,
+     "idle"
+    ],
+    [
+     99.92,
+     "cheer"
+    ],
+    [
+     102.0,
+     "idle"
+    ],
+    [
+     112.0,
+     "cheer"
+    ]
+   ],
+   "faces": [
+    [
+     0,
+     "smug"
+    ],
+    [
+     66.6,
+     "terrified"
+    ],
+    [
+     68.4,
+     "crying"
+    ],
+    [
+     93.72,
+     "gasp"
+    ],
+    [
+     98.29,
+     "smile"
+    ],
+    [
+     99.92,
+     "shout"
+    ],
+    [
+     102.0,
+     "smile"
+    ]
+   ],
+   "tools": [
+    [
+     0,
+     null
+    ],
+    [
+     19.45,
+     "sword"
+    ],
+    [
+     60.0,
+     null
+    ]
+   ],
+   "toolsLeft": [
+    [
+     0,
+     "bread"
+    ],
+    [
+     60.0,
+     null
+    ]
+   ],
+   "tags": [
+    [
+     0,
+     null
+    ],
+    [
+     20.05,
+     "Pip",
+     "Knight"
+    ]
+   ],
+   "bubble": [
+    [
+     0,
+     null
+    ],
+    [
+     101.04,
+     "That's my brother!"
+    ],
+    [
+     102.2,
+     null
+    ]
+   ],
+   "visible": [
+    [
+     0,
+     false
+    ],
+    [
+     18.0,
+     true
+    ],
+    [
+     22.1,
+     false
+    ],
+    [
+     66.0,
+     true
+    ],
+    [
+     112.072,
+     false
+    ]
+   ]
+  },
+  "king": {
+   "style": "v2",
+   "preset": "king",
+   "marks": [
+    [
+     0,
+     {
+      "origin": [
+       0,
+       0,
+       38.5
+      ],
+      "yaw": 0
+     }
+    ],
+    [
+     62.172,
+     {
+      "origin": [
+       -2,
+       0.2,
+       -2
+      ],
+      "yaw": 158
+     }
+    ],
+    [
+     102.238,
+     {
+      "origin": [
+       1,
+       0.2,
+       -6
+      ],
+      "yaw": 45
+     }
+    ]
+   ],
+   "keys": [
+    [
+     0,
+     "point"
+    ],
+    [
+     40.1,
+     "idle"
+    ],
+    [
+     62.0,
+     "toolHold"
+    ],
+    [
+     65.9,
+     "recoil"
+    ],
+    [
+     102.0,
+     "wave"
+    ],
+    [
+     105.6,
+     "point"
+    ],
+    [
+     107.5,
+     "idle"
+    ]
+   ],
+   "faces": [
+    [
+     0,
+     "determined"
+    ],
+    [
+     62.0,
+     "determined"
+    ],
+    [
+     65.3,
+     "terrified"
+    ],
+    [
+     102.0,
+     "smile"
+    ]
+   ],
+   "tags": [
+    [
+     0,
+     "The King"
+    ]
+   ],
+   "tools": [
+    [
+     0,
+     "sword"
+    ],
+    [
+     100.0,
+     null
+    ]
+   ],
+   "bubble": [
+    [
+     0,
+     null
+    ],
+    [
+     105.68,
+     "Dragonbreaker?"
+    ],
+    [
+     106.21,
+     "Sir Hammer?"
+    ],
+    [
+     106.99,
+     "Anything!"
+    ],
+    [
+     107.85,
+     null
+    ]
+   ],
+   "visible": [
+    [
+     0,
+     false
+    ],
+    [
+     37.138,
+     true
+    ],
+    [
+     41.0,
+     false
+    ],
+    [
+     62.172,
+     true
+    ],
+    [
+     67.5,
+     false
+    ],
+    [
+     102.238,
+     true
+    ],
+    [
+     112.072,
+     false
+    ]
+   ]
+  },
+  "knight1": {
+   "style": "v2",
+   "preset": "knight1",
+   "marks": [
+    [
+     0,
+     {
+      "origin": [
+       -4.8999999999999995,
+       0,
+       37.5
+      ],
+      "yaw": 0
+     }
+    ],
+    [
+     62.172,
+     {
+      "origin": [
+       2.5,
+       0.2,
+       14
+      ],
+      "yaw": 180,
+      "travel": {
+       "dir": [
+        0,
+        -1
+       ],
+       "speed": 4.2,
+       "max": 12
+      }
+     }
+    ],
+    [
+     66.705,
+     {
+      "origin": [
+       2.5,
+       0.2,
+       2
+      ],
+      "yaw": 0,
+      "travel": {
+       "dir": [
+        -0.1,
+        1
+       ],
+       "speed": 4.2,
+       "max": 12
+      }
+     }
+    ]
+   ],
+   "keys": [
+    [
+     0,
+     "toolHold"
+    ],
+    [
+     62.0,
+     "run"
+    ],
+    [
+     63.95,
+     "toolHold"
+    ],
+    [
+     64.2,
+     "recoil"
+    ],
+    [
+     66.6,
+     "run"
+    ]
+   ],
+   "faces": [
+    [
+     0,
+     "determined"
+    ],
+    [
+     63.6,
+     "terrified"
+    ]
+   ],
+   "tags": [
+    [
+     0,
+     null
+    ]
+   ],
+   "visible": [
+    [
+     0,
+     false
+    ],
+    [
+     37.138,
+     true
+    ],
+    [
+     41.0,
+     false
+    ],
+    [
+     62.172,
+     true
+    ],
+    [
+     69.205,
+     false
+    ]
+   ]
+  },
+  "knight2": {
+   "style": "v2",
+   "preset": "knight2",
+   "marks": [
+    [
+     0,
+     {
+      "origin": [
+       0.0,
+       0,
+       37.5
+      ],
+      "yaw": 0
+     }
+    ],
+    [
+     62.172,
+     {
+      "origin": [
+       6.0,
+       0.2,
+       15
+      ],
+      "yaw": 180,
+      "travel": {
+       "dir": [
+        0,
+        -1
+       ],
+       "speed": 4.2,
+       "max": 12
+      }
+     }
+    ],
+    [
+     66.705,
+     {
+      "origin": [
+       6.0,
+       0.2,
+       3
+      ],
+      "yaw": 0,
+      "travel": {
+       "dir": [
+        0.0,
+        1
+       ],
+       "speed": 4.2,
+       "max": 12
+      }
+     }
+    ]
+   ],
+   "keys": [
+    [
+     0,
+     "toolHold"
+    ],
+    [
+     62.0,
+     "run"
+    ],
+    [
+     63.95,
+     "toolHold"
+    ],
+    [
+     64.2,
+     "recoil"
+    ],
+    [
+     66.6,
+     "run"
+    ]
+   ],
+   "faces": [
+    [
+     0,
+     "determined"
+    ],
+    [
+     63.6,
+     "terrified"
+    ]
+   ],
+   "tags": [
+    [
+     0,
+     null
+    ]
+   ],
+   "visible": [
+    [
+     0,
+     false
+    ],
+    [
+     37.138,
+     true
+    ],
+    [
+     41.0,
+     false
+    ],
+    [
+     62.172,
+     true
+    ],
+    [
+     69.205,
+     false
+    ]
+   ]
+  },
+  "knight3": {
+   "style": "v2",
+   "preset": "knight3",
+   "marks": [
+    [
+     0,
+     {
+      "origin": [
+       4.8999999999999995,
+       0,
+       37.5
+      ],
+      "yaw": 0
+     }
+    ],
+    [
+     62.172,
+     {
+      "origin": [
+       9.5,
+       0.2,
+       16
+      ],
+      "yaw": 180,
+      "travel": {
+       "dir": [
+        0,
+        -1
+       ],
+       "speed": 4.2,
+       "max": 12
+      }
+     }
+    ],
+    [
+     66.705,
+     {
+      "origin": [
+       9.5,
+       0.2,
+       4
+      ],
+      "yaw": 0,
+      "travel": {
+       "dir": [
+        0.1,
+        1
+       ],
+       "speed": 4.2,
+       "max": 12
+      }
+     }
+    ]
+   ],
+   "keys": [
+    [
+     0,
+     "toolHold"
+    ],
+    [
+     62.0,
+     "run"
+    ],
+    [
+     63.95,
+     "toolHold"
+    ],
+    [
+     64.2,
+     "recoil"
+    ],
+    [
+     66.6,
+     "run"
+    ]
+   ],
+   "faces": [
+    [
+     0,
+     "determined"
+    ],
+    [
+     63.6,
+     "terrified"
+    ]
+   ],
+   "tags": [
+    [
+     0,
+     null
+    ]
+   ],
+   "visible": [
+    [
+     0,
+     false
+    ],
+    [
+     37.138,
+     true
+    ],
+    [
+     41.0,
+     false
+    ],
+    [
+     62.172,
+     true
+    ],
+    [
+     69.205,
+     false
+    ]
+   ]
+  },
+  "exile": {
+   "style": "v2",
+   "tier": "hero",
+   "skin": "#e0a77a",
+   "scale": 1.0,
+   "outfit": {
+    "recipe": "peasant",
+    "main": "#7a8a4a",
+    "accent2": "#a0683a",
+    "legs": "#5a4632",
+    "boots": "#3b2a1a",
+    "belt": "#c9a86a"
+   },
+   "hair": {
+    "style": "curly_blocks",
+    "color": "#6b4428"
+   },
+   "accessories": [
+    "backpack"
+   ],
+   "tag": {
+    "name": "Nobody"
+   },
+   "face": "sad",
+   "origin": [
+    -3.4,
+    0.2,
+    40
+   ],
+   "yaw": 0,
+   "travel": {
+    "dir": [
+     -0.08,
+     1
+    ],
+    "speed": 0.67
+   },
+   "keys": [
+    [
+     0,
+     "walk"
+    ]
+   ],
+   "faces": [
+    [
+     0,
+     "sad"
+    ]
+   ],
+   "tags": [
+    [
+     0,
+     "Nobody"
+    ]
+   ],
+   "marks": [
+    [
+     0,
+     {
+      "origin": [
+       -3.2,
+       0.2,
+       39
+      ],
+      "yaw": 0,
+      "travel": {
+       "dir": [
+        -0.06,
+        1
+       ],
+       "speed": 0.67
+      }
+     }
+    ],
+    [
+     40.138,
+     {
+      "origin": [
+       -3.0,
+       0.2,
+       39.0
+      ],
+      "yaw": 3,
+      "travel": {
+       "dir": [
+        0.05,
+        1
+       ],
+       "speed": 0.67
+      }
+     }
+    ]
+   ],
+   "visible": [
+    [
+     0,
+     false
+    ],
+    [
+     37.138,
+     true
+    ],
+    [
+     42.0,
+     false
+    ]
+   ]
+  },
+  "field0": {
+   "style": "v2",
+   "town": 4,
+   "origin": [
+    14,
+    0.4,
+    72
+   ],
+   "yaw": -60,
+   "ambient": true,
+   "visible": [
+    [
+     0,
+     true
+    ],
+    [
+     37.138,
+     false
+    ],
+    [
+     112.072,
+     true
+    ]
+   ]
+  },
+  "field1": {
+   "style": "v2",
+   "town": 7,
+   "origin": [
+    -18,
+    0.2,
+    66
+   ],
+   "yaw": 60,
+   "ambient": true,
+   "visible": [
+    [
+     0,
+     true
+    ],
+    [
+     37.138,
+     false
+    ],
+    [
+     112.072,
+     true
+    ]
+   ]
+  },
+  "field2": {
+   "style": "v2",
+   "town": 11,
+   "origin": [
+    -6,
+    0.4,
+    92
+   ],
+   "yaw": 160,
+   "ambient": true,
+   "visible": [
+    [
+     0,
+     true
+    ],
+    [
+     37.138,
+     false
+    ],
+    [
+     112.072,
+     true
+    ]
+   ]
+  },
+  "field3": {
+   "style": "v2",
+   "town": 13,
+   "origin": [
+    9,
+    0.4,
+    60
+   ],
+   "yaw": -20,
+   "ambient": true,
+   "visible": [
+    [
+     0,
+     true
+    ],
+    [
+     37.138,
+     false
+    ],
+    [
+     112.072,
+     true
+    ]
+   ]
+  },
+  "sq0": {
+   "style": "v2",
+   "town": 21,
+   "yaw": 0,
+   "marks": [
+    [
+     0,
+     {
+      "origin": [
+       -9,
+       0.2,
+       -6
+      ],
+      "yaw": 0
+     }
+    ],
+    [
+     66.705,
+     {
+      "origin": [
+       -9,
+       0.2,
+       -6
+      ],
+      "yaw": 0,
+      "travel": {
+       "dir": [
+        -0.1,
+        1
+       ],
+       "speed": 4.2,
+       "max": 20
+      }
+     }
+    ],
+    [
+     98.305,
+     {
+      "origin": [
+       -10.799999999999999,
+       0.2,
+       3
+      ],
+      "yaw": 162
+     }
+    ]
+   ],
+   "keys": [
+    [
+     0,
+     "idle"
+    ],
+    [
+     61.9,
+     "look_react",
+     {
+      "direction": "left"
+     }
+    ],
+    [
+     66.6,
+     "run"
+    ],
+    [
+     98.0,
+     "idle"
+    ],
+    [
+     102.24,
+     "cheer"
+    ],
+    [
+     104.0,
+     "idle"
+    ]
+   ],
+   "faces": [
+    [
+     0,
+     "gasp"
+    ],
+    [
+     98.0,
+     "gasp"
+    ],
+    [
+     102.0,
+     "smile"
+    ]
+   ],
+   "visible": [
+    [
+     0,
+     false
+    ],
+    [
+     58.038,
+     true
+    ],
+    [
+     69.205,
+     false
+    ],
+    [
+     98.305,
+     true
+    ],
+    [
+     112.072,
+     false
+    ]
+   ]
+  },
+  "sq1": {
+   "style": "v2",
+   "town": 23,
+   "yaw": 0,
+   "marks": [
+    [
+     0,
+     {
+      "origin": [
+       10,
+       0.2,
+       -4
+      ],
+      "yaw": 0
+     }
+    ],
+    [
+     66.705,
+     {
+      "origin": [
+       10,
+       0.2,
+       -4
+      ],
+      "yaw": 0,
+      "travel": {
+       "dir": [
+        -0.05,
+        1
+       ],
+       "speed": 4.2,
+       "max": 20
+      }
+     }
+    ],
+    [
+     98.305,
+     {
+      "origin": [
+       12.0,
+       0.2,
+       5
+      ],
+      "yaw": 200
+     }
+    ]
+   ],
+   "keys": [
+    [
+     0,
+     "idle"
+    ],
+    [
+     61.9,
+     "look_react",
+     {
+      "direction": "left"
+     }
+    ],
+    [
+     66.6,
+     "run"
+    ],
+    [
+     98.0,
+     "idle"
+    ],
+    [
+     102.24,
+     "cheer"
+    ],
+    [
+     104.0,
+     "idle"
+    ]
+   ],
+   "faces": [
+    [
+     0,
+     "gasp"
+    ],
+    [
+     98.0,
+     "gasp"
+    ],
+    [
+     102.0,
+     "smile"
+    ]
+   ],
+   "visible": [
+    [
+     0,
+     false
+    ],
+    [
+     58.038,
+     true
+    ],
+    [
+     69.205,
+     false
+    ],
+    [
+     98.305,
+     true
+    ],
+    [
+     112.072,
+     false
+    ]
+   ]
+  },
+  "sq2": {
+   "style": "v2",
+   "town": 25,
+   "yaw": 0,
+   "marks": [
+    [
+     0,
+     {
+      "origin": [
+       -5,
+       0.2,
+       0
+      ],
+      "yaw": 0
+     }
+    ],
+    [
+     66.705,
+     {
+      "origin": [
+       -5,
+       0.2,
+       0
+      ],
+      "yaw": 0,
+      "travel": {
+       "dir": [
+        0.0,
+        1
+       ],
+       "speed": 4.2,
+       "max": 20
+      }
+     }
+    ],
+    [
+     98.305,
+     {
+      "origin": [
+       -6.0,
+       0.2,
+       9
+      ],
+      "yaw": 170
+     }
+    ]
+   ],
+   "keys": [
+    [
+     0,
+     "idle"
+    ],
+    [
+     61.9,
+     "look_react",
+     {
+      "direction": "left"
+     }
+    ],
+    [
+     66.6,
+     "run"
+    ],
+    [
+     98.0,
+     "idle"
+    ],
+    [
+     102.24,
+     "cheer"
+    ],
+    [
+     104.0,
+     "idle"
+    ]
+   ],
+   "faces": [
+    [
+     0,
+     "gasp"
+    ],
+    [
+     98.0,
+     "gasp"
+    ],
+    [
+     102.0,
+     "smile"
+    ]
+   ],
+   "visible": [
+    [
+     0,
+     false
+    ],
+    [
+     58.038,
+     true
+    ],
+    [
+     69.205,
+     false
+    ],
+    [
+     98.305,
+     true
+    ],
+    [
+     112.072,
+     false
+    ]
+   ]
+  },
+  "sq3": {
+   "style": "v2",
+   "town": 27,
+   "yaw": 0,
+   "marks": [
+    [
+     0,
+     {
+      "origin": [
+       13,
+       0.2,
+       -10
+      ],
+      "yaw": 0
+     }
+    ],
+    [
+     66.705,
+     {
+      "origin": [
+       13,
+       0.2,
+       -10
+      ],
+      "yaw": 0,
+      "travel": {
+       "dir": [
+        0.05,
+        1
+       ],
+       "speed": 4.2,
+       "max": 20
+      }
+     }
+    ],
+    [
+     98.305,
+     {
+      "origin": [
+       15.6,
+       0.2,
+       -1
+      ],
+      "yaw": 206
+     }
+    ]
+   ],
+   "keys": [
+    [
+     0,
+     "idle"
+    ],
+    [
+     61.9,
+     "look_react",
+     {
+      "direction": "left"
+     }
+    ],
+    [
+     66.6,
+     "run"
+    ],
+    [
+     98.0,
+     "idle"
+    ],
+    [
+     102.24,
+     "cheer"
+    ],
+    [
+     104.0,
+     "idle"
+    ]
+   ],
+   "faces": [
+    [
+     0,
+     "gasp"
+    ],
+    [
+     98.0,
+     "gasp"
+    ],
+    [
+     102.0,
+     "smile"
+    ]
+   ],
+   "visible": [
+    [
+     0,
+     false
+    ],
+    [
+     58.038,
+     true
+    ],
+    [
+     69.205,
+     false
+    ],
+    [
+     98.305,
+     true
+    ],
+    [
+     112.072,
+     false
+    ]
+   ]
+  },
+  "sq4": {
+   "style": "v2",
+   "town": 29,
+   "yaw": 0,
+   "marks": [
+    [
+     0,
+     {
+      "origin": [
+       -12,
+       0.2,
+       -12
+      ],
+      "yaw": 0
+     }
+    ],
+    [
+     66.705,
+     {
+      "origin": [
+       -12,
+       0.2,
+       -12
+      ],
+      "yaw": 0,
+      "travel": {
+       "dir": [
+        0.1,
+        1
+       ],
+       "speed": 4.2,
+       "max": 20
+      }
+     }
+    ],
+    [
+     98.305,
+     {
+      "origin": [
+       -14.399999999999999,
+       0.2,
+       -3
+      ],
+      "yaw": 156
+     }
+    ]
+   ],
+   "keys": [
+    [
+     0,
+     "idle"
+    ],
+    [
+     61.9,
+     "look_react",
+     {
+      "direction": "left"
+     }
+    ],
+    [
+     66.6,
+     "run"
+    ],
+    [
+     98.0,
+     "idle"
+    ],
+    [
+     102.24,
+     "cheer"
+    ],
+    [
+     104.0,
+     "idle"
+    ]
+   ],
+   "faces": [
+    [
+     0,
+     "gasp"
+    ],
+    [
+     98.0,
+     "gasp"
+    ],
+    [
+     102.0,
+     "smile"
+    ]
+   ],
+   "visible": [
+    [
+     0,
+     false
+    ],
+    [
+     58.038,
+     true
+    ],
+    [
+     69.205,
+     false
+    ],
+    [
+     98.305,
+     true
+    ],
+    [
+     112.072,
+     false
+    ]
+   ]
+  },
+  "sq5": {
+   "style": "v2",
+   "town": 31,
+   "yaw": 0,
+   "marks": [
+    [
+     0,
+     {
+      "origin": [
+       7,
+       0.2,
+       2
+      ],
+      "yaw": 0
+     }
+    ],
+    [
+     66.705,
+     {
+      "origin": [
+       7,
+       0.2,
+       2
+      ],
+      "yaw": 0,
+      "travel": {
+       "dir": [
+        0.15000000000000002,
+        1
+       ],
+       "speed": 4.2,
+       "max": 20
+      }
+     }
+    ],
+    [
+     98.305,
+     {
+      "origin": [
+       8.4,
+       0.2,
+       11
+      ],
+      "yaw": 194
+     }
+    ]
+   ],
+   "keys": [
+    [
+     0,
+     "idle"
+    ],
+    [
+     61.9,
+     "look_react",
+     {
+      "direction": "left"
+     }
+    ],
+    [
+     66.6,
+     "run"
+    ],
+    [
+     98.0,
+     "idle"
+    ],
+    [
+     102.24,
+     "cheer"
+    ],
+    [
+     104.0,
+     "idle"
+    ]
+   ],
+   "faces": [
+    [
+     0,
+     "gasp"
+    ],
+    [
+     98.0,
+     "gasp"
+    ],
+    [
+     102.0,
+     "smile"
+    ]
+   ],
+   "visible": [
+    [
+     0,
+     false
+    ],
+    [
+     58.038,
+     true
+    ],
+    [
+     69.205,
+     false
+    ],
+    [
+     98.305,
+     true
+    ],
+    [
+     112.072,
+     false
+    ]
+   ]
+  },
+  "dragon": {
+   "style": "dragon",
+   "scale": 1.5,
+   "marks": [
+    [
+     0,
+     {
+      "origin": [
+       0,
+       46,
+       -60
+      ],
+      "yaw": 0
+     }
+    ],
+    [
+     57.0,
+     {
+      "origin": [
+       0,
+       46,
+       -60
+      ],
+      "yaw": 0,
+      "travel": {
+       "dir": [
+        0,
+        -1
+       ],
+       "speed": 7,
+       "max": 14,
+       "climb": -8.8
+      }
+     }
+    ],
+    [
+     60.005,
+     {
+      "origin": [
+       6,
+       0.2,
+       -46
+      ],
+      "yaw": 0
+     }
+    ],
+    [
+     96.2,
+     {
+      "origin": [
+       6,
+       0.2,
+       -46
+      ],
+      "yaw": 0,
+      "travel": {
+       "dir": [
+        0,
+        -1
+       ],
+       "speed": 9,
+       "climb": 7
+      }
+     }
+    ]
+   ],
+   "keys": [
+    [
+     0,
+     "fly"
+    ],
+    [
+     59.0,
+     "perch"
+    ],
+    [
+     60.0,
+     "roar"
+    ],
+    [
+     61.6,
+     "perch"
+    ],
+    [
+     62.16,
+     "roar"
+    ],
+    [
+     63.0,
+     "breathe"
+    ],
+    [
+     64.3,
+     "roar"
+    ],
+    [
+     64.9,
+     "breathe"
+    ],
+    [
+     65.9,
+     "roar"
+    ],
+    [
+     67.0,
+     "perch"
+    ],
+    [
+     69.2,
+     "lower"
+    ],
+    [
+     87.2,
+     "breathe"
+    ],
+    [
+     90.2,
+     "lower"
+    ],
+    [
+     94.25,
+     "flinch"
+    ],
+    [
+     94.9,
+     "cry"
+    ],
+    [
+     96.2,
+     "flee"
+    ]
+   ],
+   "visible": [
+    [
+     0,
+     false
+    ],
+    [
+     57.0,
+     true
+    ],
+    [
+     98.305,
+     false
+    ]
+   ]
+  }
+ },
+ "effects": [
+  {
+   "type": "particles",
+   "preset": "sparkle",
+   "at": 0.8,
+   "dur": 1.0,
+   "count": 24,
+   "seed": 8,
+   "origin": {
+    "actor": "kidBaker",
+    "offset": [
+     0,
+     3.6,
+     0.6
+    ]
+   }
+  },
+  {
+   "type": "particles",
+   "preset": "sparkle",
+   "at": 1.6,
+   "dur": 1.0,
+   "count": 24,
+   "seed": 16,
+   "origin": {
+    "actor": "kidKnight",
+    "offset": [
+     0,
+     3.6,
+     0.6
+    ]
+   }
+  },
+  {
+   "type": "particles",
+   "preset": "sparkle",
+   "at": 13.0,
+   "dur": 1.0,
+   "count": 24,
+   "seed": 130,
+   "origin": {
+    "actor": "kidA",
+    "offset": [
+     0,
+     3.6,
+     0.6
+    ]
+   }
+  },
+  {
+   "type": "particles",
+   "preset": "sparkle",
+   "at": 14.61,
+   "dur": 1.0,
+   "count": 24,
+   "seed": 146,
+   "origin": {
+    "actor": "kidB",
+    "offset": [
+     0,
+     3.6,
+     0.6
+    ]
+   }
+  },
+  {
+   "type": "particles",
+   "preset": "sparkle",
+   "at": 15.32,
+   "dur": 1.0,
+   "count": 24,
+   "seed": 153,
+   "origin": {
+    "actor": "kidC",
+    "offset": [
+     0,
+     3.6,
+     0.6
+    ]
+   }
+  },
+  {
+   "type": "particles",
+   "preset": "sparkle",
+   "at": 15.95,
+   "dur": 1.0,
+   "count": 24,
+   "seed": 159,
+   "origin": {
+    "actor": "kidFarmer",
+    "offset": [
+     0,
+     3.6,
+     0.6
+    ]
+   }
+  },
+  {
+   "type": "particles",
+   "preset": "sparkle",
+   "at": 17.6,
+   "dur": 1.0,
+   "count": 24,
+   "seed": 176,
+   "origin": {
+    "actor": "kidSmith",
+    "offset": [
+     0,
+     3.6,
+     0.6
+    ]
+   }
+  },
+  {
+   "type": "particles",
+   "preset": "sparkle",
+   "at": 19.45,
+   "dur": 1.0,
+   "count": 24,
+   "seed": 194,
+   "origin": {
+    "actor": "pip",
+    "offset": [
+     0,
+     3.6,
+     0.6
+    ]
+   }
+  },
+  {
+   "type": "particles",
+   "preset": "dust",
+   "at": 8.2,
+   "dur": 1.8,
+   "count": 22,
+   "seed": 5,
+   "spread": 0.9,
+   "stagger": 0.8,
+   "origin": {
+    "anchor": "stone_newborn",
+    "offset": [
+     0,
+     0.3,
+     1
+    ]
+   }
+  },
+  {
+   "type": "particles",
+   "preset": "sparkle",
+   "at": 9.6,
+   "dur": 1.0,
+   "count": 18,
+   "seed": 6,
+   "origin": {
+    "anchor": "stone_newborn",
+    "offset": [
+     0,
+     2.4,
+     1
+    ]
+   }
+  },
+  {
+   "type": "particles",
+   "preset": "dust",
+   "at": 34.6,
+   "dur": 1.0,
+   "count": 14,
+   "seed": 7,
+   "spread": 0.7,
+   "origin": {
+    "anchor": "heroStone",
+    "offset": [
+     0,
+     0.2,
+     -0.6
+    ]
+   }
+  },
+  {
+   "type": "timeOfDay",
+   "from": "night",
+   "to": "fireNight",
+   "at": 56.6,
+   "dur": 1.2,
+   "hold": 0.4
+  },
+  {
+   "type": "particles",
+   "preset": "embers",
+   "at": 55.7,
+   "dur": 60,
+   "count": 40,
+   "seed": 8,
+   "spread": 2.5,
+   "stagger": 60,
+   "origin": {
+    "anchor": "heroStone",
+    "offset": [
+     0,
+     1,
+     -4
+    ]
+   }
+  },
+  {
+   "type": "melt",
+   "target": "knight1.tool",
+   "at": 63.4,
+   "dur": 0.9
+  },
+  {
+   "type": "melt",
+   "target": "knight2.tool",
+   "at": 63.55,
+   "dur": 0.9
+  },
+  {
+   "type": "melt",
+   "target": "knight3.tool",
+   "at": 63.699999999999996,
+   "dur": 0.9
+  },
+  {
+   "type": "melt",
+   "target": "king.tool",
+   "at": 65.4,
+   "dur": 0.8
+  },
+  {
+   "type": "particles",
+   "preset": "fire",
+   "at": 63.0,
+   "dur": 1.3,
+   "count": 60,
+   "seed": 11,
+   "stagger": 1.2,
+   "dir": [
+    0,
+    -0.4,
+    1
+   ],
+   "cone": 0.16,
+   "speed": [
+    18,
+    24
+   ],
+   "life": [
+    0.6,
+    0.8
+   ],
+   "up": 0,
+   "gravity": 0,
+   "scale": 2.2,
+   "origin": {
+    "actor": "dragon",
+    "part": "mouth"
+   }
+  },
+  {
+   "type": "particles",
+   "preset": "fire",
+   "at": 64.9,
+   "dur": 1.0,
+   "count": 50,
+   "seed": 12,
+   "stagger": 0.9,
+   "dir": [
+    -1,
+    -0.75,
+    0.5
+   ],
+   "cone": 0.16,
+   "speed": [
+    16,
+    22
+   ],
+   "life": [
+    0.6,
+    0.9
+   ],
+   "up": 0,
+   "gravity": 0,
+   "scale": 2.2,
+   "origin": {
+    "actor": "dragon",
+    "part": "mouth"
+   }
+  },
+  {
+   "type": "shake",
+   "at": 62.2,
+   "dur": 0.6,
+   "amp": 0.25,
+   "seed": 3
+  },
+  {
+   "type": "shake",
+   "at": 74.9,
+   "dur": 2.9,
+   "amp": 0.12,
+   "hz": 16,
+   "seed": 4
+  },
+  {
+   "type": "particles",
+   "preset": "dust",
+   "at": 74.8,
+   "dur": 3.0,
+   "count": 26,
+   "seed": 13,
+   "spread": 0.9,
+   "stagger": 2.6,
+   "origin": {
+    "anchor": "heroStone",
+    "offset": [
+     0,
+     0.3,
+     1.2
+    ]
+   }
+  },
+  {
+   "type": "flash",
+   "at": 77.85,
+   "dur": 0.45,
+   "peak": 0.8,
+   "color": "#fff3d6"
+  },
+  {
+   "type": "shake",
+   "at": 77.85,
+   "dur": 0.7,
+   "amp": 0.35,
+   "seed": 5
+  },
+  {
+   "type": "particles",
+   "preset": "dust",
+   "at": 77.85,
+   "dur": 2.0,
+   "count": 40,
+   "seed": 14,
+   "spread": 1.6,
+   "stagger": 0.3,
+   "origin": {
+    "anchor": "heroStone",
+    "offset": [
+     0,
+     0.2,
+     1
+    ]
+   }
+  },
+  {
+   "type": "glow",
+   "target": "nobody.tool:hammer",
+   "at": 86.28,
+   "dur": 1.05,
+   "level": 0.9,
+   "color": "#ff2e63",
+   "period": 0.5
+  },
+  {
+   "type": "particles",
+   "preset": "fire",
+   "at": 87.6,
+   "dur": 2.3,
+   "count": 70,
+   "seed": 15,
+   "stagger": 2.1,
+   "dir": [
+    0,
+    -0.33,
+    1
+   ],
+   "cone": 0.1,
+   "speed": [
+    16,
+    20
+   ],
+   "life": [
+    0.6,
+    0.7
+   ],
+   "up": 0,
+   "gravity": 0,
+   "scale": 2.2,
+   "origin": {
+    "actor": "dragon",
+    "part": "mouth"
+   }
+  },
+  {
+   "type": "particles",
+   "preset": "fire",
+   "at": 88.2,
+   "dur": 1.8,
+   "count": 40,
+   "seed": 16,
+   "stagger": 1.6,
+   "dir": [
+    -1,
+    0.1,
+    0.45
+   ],
+   "cone": 0.15,
+   "speed": [
+    10,
+    14
+   ],
+   "life": [
+    0.4,
+    0.6
+   ],
+   "up": 0,
+   "gravity": 0,
+   "scale": 1.8,
+   "origin": {
+    "actor": "nobody",
+    "offset": [
+     0,
+     7.4,
+     -0.4
+    ]
+   }
+  },
+  {
+   "type": "particles",
+   "preset": "fire",
+   "at": 88.2,
+   "dur": 1.8,
+   "count": 40,
+   "seed": 17,
+   "stagger": 1.6,
+   "dir": [
+    1,
+    0.1,
+    0.45
+   ],
+   "cone": 0.15,
+   "speed": [
+    10,
+    14
+   ],
+   "life": [
+    0.4,
+    0.6
+   ],
+   "up": 0,
+   "gravity": 0,
+   "scale": 1.8,
+   "origin": {
+    "actor": "nobody",
+    "offset": [
+     0,
+     7.4,
+     -0.4
+    ]
+   }
+  },
+  {
+   "type": "glow",
+   "target": "nobody.tool:hammer",
+   "at": 88.1,
+   "dur": 3.2,
+   "level": 0.8,
+   "color": "#ff8a1f",
+   "period": 0.6
+  },
+  {
+   "type": "squash",
+   "target": "dragon.head",
+   "at": 93.75,
+   "dur": 0.9,
+   "amount": 0.45
+  },
+  {
+   "type": "flash",
+   "at": 93.72,
+   "dur": 0.25,
+   "peak": 0.55
+  },
+  {
+   "type": "particles",
+   "preset": "stars",
+   "at": 93.8,
+   "dur": 2.6,
+   "count": 6,
+   "seed": 17,
+   "spread": 3,
+   "scale": 2.4,
+   "origin": {
+    "actor": "dragon",
+    "part": "head",
+    "offset": [
+     0,
+     4.5,
+     3
+    ]
+   }
+  },
+  {
+   "type": "particles",
+   "preset": "confetti",
+   "at": 102.24,
+   "dur": 2.5,
+   "count": 50,
+   "seed": 18,
+   "spread": 1.4,
+   "origin": {
+    "actor": "nobody",
+    "offset": [
+     0,
+     7,
+     0
+    ]
+   }
+  }
+ ],
+ "shots": [
+  {
+   "id": "S01-hook",
+   "at": 0.0,
+   "size": "wide",
+   "loc": "field",
+   "move": "push",
+   "see": [
+    "kidBaker",
+    "kidKnight",
+    "nobody"
+   ],
+   "why": "Rule as image on frame 0: kids pull swords free, tags pop; centre frame the hero strains, tag Nobody.",
+   "subject": "nobody",
+   "openHit": true,
+   "look": "day",
+   "shadowRadius": 40,
+   "from": {
+    "position": [
+     1.2,
+     2.7,
+     94
+    ],
+    "target": [
+     2.5,
+     4.3,
+     67
+    ],
+    "fov": 53
+   },
+   "to": {
+    "position": [
+     1.2,
+     2.6,
+     90.5
+    ],
+    "target": [
+     2.6,
+     4.3,
+     67
+    ],
+    "fov": 48
+   }
+  },
+  {
+   "id": "S02-boy-twelve",
+   "at": 3.48,
+   "size": "medium",
+   "loc": "field",
+   "move": "orbit",
+   "see": [
+    "nobody"
+   ],
+   "why": "Meet the hero: twelve, still straining.",
+   "subject": "nobody",
+   "follow": "nobody",
+   "followOffset": [
+    0,
+    3.4,
+    0
+   ],
+   "degrees": 10,
+   "ease": "linear",
+   "shadowRadius": 16,
+   "from": {
+    "position": [
+     7.5,
+     2.0,
+     9.5
+    ],
+    "target": [
+     0,
+     0,
+     0
+    ],
+    "fov": 40
+   }
+  },
+  {
+   "id": "S03-tag",
+   "at": 4.92,
+   "size": "insert",
+   "loc": "field",
+   "move": "crane",
+   "see": [
+    "nobody"
+   ],
+   "why": "His tag is the rule made visible: Nobody.",
+   "subject": "nobody",
+   "tagMaxFrac": 0.12,
+   "shadowRadius": 12,
+   "from": {
+    "position": [
+     4.6,
+     4.4,
+     68.8
+    ],
+    "target": [
+     3,
+     4.4,
+     63
+    ],
+    "fov": 34
+   },
+   "to": {
+    "position": [
+     4.4,
+     5.4,
+     68.5
+    ],
+    "target": [
+     3,
+     4.8,
+     63
+    ],
+    "fov": 32
+   }
+  },
+  {
+   "id": "S04-stone-rises",
+   "at": 7.44,
+   "size": "wide",
+   "loc": "field",
+   "move": "crane",
+   "see": [
+    "newborn stone"
+   ],
+   "why": "Birth: a stone rises out of the field with a sword inside.",
+   "shadowRadius": 30,
+   "from": {
+    "position": [
+     10.5,
+     6.5,
+     101
+    ],
+    "target": [
+     6.5,
+     1.6,
+     90
+    ],
+    "fov": 44
+   },
+   "to": {
+    "position": [
+     10.0,
+     4.6,
+     98.5
+    ],
+    "target": [
+     6.5,
+     1.9,
+     90
+    ],
+    "fov": 42
+   }
+  },
+  {
+   "id": "S05-sword-stuck",
+   "at": 10.59,
+   "size": "close",
+   "loc": "field",
+   "move": "push",
+   "see": [
+    "newborn stone"
+   ],
+   "why": "Your sword is stuck inside it.",
+   "shadowRadius": 12,
+   "from": {
+    "position": [
+     10,
+     2.6,
+     92.6
+    ],
+    "target": [
+     6.5,
+     2.0,
+     90
+    ],
+    "fov": 36
+   },
+   "to": {
+    "position": [
+     9.2,
+     2.5,
+     92.0
+    ],
+    "target": [
+     6.5,
+     2.0,
+     90
+    ],
+    "fov": 32
+   }
+  },
+  {
+   "id": "S06-pull-out",
+   "at": 12.21,
+   "size": "medium",
+   "loc": "field",
+   "move": "track",
+   "see": [
+    "kidA"
+   ],
+   "why": "Pull it out: sword free, sparkle, a name pops above the head.",
+   "subject": "kidA",
+   "follow": "kidA",
+   "shadowRadius": 16,
+   "from": {
+    "position": [
+     -3.5,
+     3.4,
+     9
+    ],
+    "target": [
+     0,
+     2.8,
+     0
+    ],
+    "fov": 42
+   },
+   "to": {
+    "position": [
+     -2.5,
+     3.6,
+     8.2
+    ],
+    "target": [
+     0,
+     3.2,
+     0
+    ],
+    "fov": 42
+   }
+  },
+  {
+   "id": "S07-names",
+   "at": 14.61,
+   "size": "wide",
+   "loc": "field",
+   "move": "pull",
+   "see": [
+    "kidB",
+    "kidC",
+    "kidFarmer"
+   ],
+   "why": "Baker. Knight. Even King: three tags pop on the beat; most kids do it by seven.",
+   "shadowRadius": 30,
+   "from": {
+    "position": [
+     -12,
+     3.4,
+     89.5
+    ],
+    "target": [
+     -12.4,
+     3.0,
+     76
+    ],
+    "fov": 46
+   },
+   "to": {
+    "position": [
+     -11.8,
+     4.0,
+     92.5
+    ],
+    "target": [
+     -12.4,
+     3.0,
+     76
+    ],
+    "fov": 50
+   }
+  },
+  {
+   "id": "S09-sister",
+   "at": 18.53,
+   "size": "medium",
+   "loc": "field",
+   "move": "push",
+   "see": [
+    "pip"
+   ],
+   "why": "His little sister: tiny, one hand on the hilt.",
+   "subject": "pip",
+   "shadowRadius": 14,
+   "from": {
+    "position": [
+     5.0,
+     2.4,
+     79.5
+    ],
+    "target": [
+     7.5,
+     2.0,
+     72.4
+    ],
+    "fov": 40
+   },
+   "to": {
+    "position": [
+     5.3,
+     2.3,
+     78.3
+    ],
+    "target": [
+     7.5,
+     2.1,
+     72.4
+    ],
+    "fov": 38
+   }
+  },
+  {
+   "id": "S10-bread",
+   "at": 20.05,
+   "size": "close",
+   "loc": "field",
+   "move": "orbit",
+   "see": [
+    "pip"
+   ],
+   "why": "With one hand, while eating bread: smug, tag pops Pip (laugh 1).",
+   "subject": "pip",
+   "follow": "pip",
+   "followOffset": [
+    0,
+    2.4,
+    0
+   ],
+   "degrees": 12,
+   "tagMaxFrac": 0.09,
+   "ease": "linear",
+   "shadowRadius": 10,
+   "from": {
+    "position": [
+     -2.6,
+     0.8,
+     5.6
+    ],
+    "target": [
+     0,
+     0,
+     0
+    ],
+    "fov": 38
+   }
+  },
+  {
+   "id": "S11-every-morning",
+   "at": 22.04,
+   "size": "wide",
+   "loc": "field",
+   "move": "push",
+   "see": [
+    "nobody"
+   ],
+   "why": "Every morning, alone in the field, he pulls.",
+   "subject": "nobody",
+   "look": "goldenHour",
+   "shadowRadius": 30,
+   "from": {
+    "position": [
+     15,
+     3.4,
+     80
+    ],
+    "target": [
+     3,
+     3.6,
+     63
+    ],
+    "fov": 46
+   },
+   "to": {
+    "position": [
+     13.5,
+     3.3,
+     77.5
+    ],
+    "target": [
+     3,
+     3.6,
+     63
+    ],
+    "fov": 44
+   }
+  },
+  {
+   "id": "S12-two-thousand",
+   "at": 24.17,
+   "size": "close",
+   "loc": "field",
+   "move": "push",
+   "see": [
+    "nobody",
+    "counter"
+   ],
+   "why": "The counter ticks past two thousand tries.",
+   "subject": "nobody",
+   "look": "goldenHour",
+   "shadowRadius": 12,
+   "tagMaxFrac": 0.08,
+   "from": {
+    "position": [
+     7.2,
+     4.4,
+     70.5
+    ],
+    "target": [
+     3,
+     4.6,
+     63
+    ],
+    "fov": 42
+   },
+   "to": {
+    "position": [
+     6.4,
+     4.5,
+     69.3
+    ],
+    "target": [
+     3,
+     4.6,
+     63
+    ],
+    "fov": 40
+   }
+  },
+  {
+   "id": "S13-never-moved",
+   "at": 25.94,
+   "size": "insert",
+   "loc": "field",
+   "move": "static-drift",
+   "see": [
+    "hilt"
+   ],
+   "why": "The hilt does not move an inch.",
+   "drift": 0.06,
+   "seed": 13,
+   "look": "goldenHour",
+   "shadowRadius": 8,
+   "from": {
+    "position": [
+     5.6,
+     2.6,
+     65.5
+    ],
+    "target": [
+     3,
+     2.9,
+     64
+    ],
+    "fov": 34
+   },
+   "to": {
+    "position": [
+     5.5,
+     2.6,
+     65.4
+    ],
+    "target": [
+     3,
+     2.9,
+     64
+    ],
+    "fov": 33
+   }
+  },
+  {
+   "id": "S14-game",
+   "at": 27.48,
+   "size": "wide",
+   "loc": "field",
+   "move": "push",
+   "see": [
+    "nobody",
+    "kidBaker",
+    "kidKnight"
+   ],
+   "why": "The other kids made it a game: they gather and point.",
+   "subject": "nobody",
+   "shadowRadius": 30,
+   "from": {
+    "position": [
+     -4,
+     5.5,
+     79
+    ],
+    "target": [
+     3,
+     3.2,
+     64
+    ],
+    "fov": 48
+   },
+   "to": {
+    "position": [
+     -3.2,
+     5.2,
+     77.2
+    ],
+    "target": [
+     3,
+     3.2,
+     64
+    ],
+    "fov": 46
+   }
+  },
+  {
+   "id": "S15-need-a-hand",
+   "at": 29.17,
+   "size": "close",
+   "loc": "field",
+   "move": "push",
+   "see": [
+    "kidBaker",
+    "nobody"
+   ],
+   "why": "Taunt as a chat bubble (Need a hand?) over his shoulder; he never answers.",
+   "subject": "kidBaker",
+   "shadowRadius": 14,
+   "from": {
+    "position": [
+     7.5,
+     4.6,
+     63.5
+    ],
+    "target": [
+     0.6,
+     4.0,
+     66.4
+    ],
+    "fov": 46
+   },
+   "to": {
+    "position": [
+     7.1,
+     4.6,
+     63.6
+    ],
+    "target": [
+     0.6,
+     4.0,
+     66.4
+    ],
+    "fov": 44
+   }
+  },
+  {
+   "id": "S17-came-back",
+   "at": 31.8,
+   "size": "medium",
+   "loc": "field",
+   "move": "gamecam",
+   "see": [
+    "nobody"
+   ],
+   "why": "Gamecam: next day he walks back to his stone like a player.",
+   "subject": "nobody",
+   "follow": "nobody",
+   "heading": 0,
+   "distance": 7,
+   "height": 4,
+   "look": "goldenHour",
+   "shadowRadius": 20,
+   "from": {
+    "position": [
+     0,
+     0,
+     0
+    ],
+    "target": [
+     0,
+     0,
+     0
+    ],
+    "fov": 66
+   }
+  },
+  {
+   "id": "S18-not-strong",
+   "at": 33.37,
+   "size": "close",
+   "loc": "field",
+   "move": "push",
+   "see": [
+    "nobody"
+   ],
+   "why": "He wasn't strong: strains, slips, falls back.",
+   "subject": "nobody",
+   "shadowRadius": 10,
+   "look": "goldenHour",
+   "from": {
+    "position": [
+     7.2,
+     3.0,
+     67.2
+    ],
+    "target": [
+     3,
+     3.8,
+     63
+    ],
+    "fov": 40
+   },
+   "to": {
+    "position": [
+     6.6,
+     3.0,
+     66.4
+    ],
+    "target": [
+     3,
+     3.8,
+     63
+    ],
+    "fov": 38
+   }
+  },
+  {
+   "id": "S19-stubborn",
+   "at": 35.44,
+   "size": "medium",
+   "loc": "field",
+   "move": "orbit",
+   "see": [
+    "nobody"
+   ],
+   "why": "Too stubborn to stop: grabs the hilt again.",
+   "subject": "nobody",
+   "follow": "nobody",
+   "followOffset": [
+    0,
+    3.2,
+    0
+   ],
+   "degrees": -12,
+   "ease": "linear",
+   "look": "goldenHour",
+   "shadowRadius": 14,
+   "from": {
+    "position": [
+     -5,
+     1.8,
+     8
+    ],
+    "target": [
+     0,
+     0,
+     0
+    ],
+    "fov": 42
+   }
+  },
+  {
+   "id": "S20-the-law",
+   "at": 37.12,
+   "size": "wide",
+   "loc": "gate",
+   "move": "push",
+   "see": [
+    "king",
+    "exile"
+   ],
+   "why": "The law: the King at the gate, knights, a Nobody leaving.",
+   "subject": "king",
+   "shadowRadius": 34,
+   "from": {
+    "position": [
+     7,
+     3.6,
+     56
+    ],
+    "target": [
+     0,
+     5.6,
+     34
+    ],
+    "fov": 48
+   },
+   "to": {
+    "position": [
+     6.5,
+     3.4,
+     54
+    ],
+    "target": [
+     0,
+     5.6,
+     34
+    ],
+    "fov": 46
+   }
+  },
+  {
+   "id": "S21-leave-forever",
+   "at": 40.13,
+   "size": "medium",
+   "loc": "gate",
+   "move": "track",
+   "see": [
+    "exile"
+   ],
+   "why": "You leave the kingdom forever: a grown Nobody walks away.",
+   "subject": "exile",
+   "follow": "exile",
+   "shadowRadius": 16,
+   "from": {
+    "position": [
+     -2.5,
+     5.5,
+     -4.6
+    ],
+    "target": [
+     1.3,
+     3,
+     4
+    ],
+    "fov": 46
+   },
+   "to": {
+    "position": [
+     -2.4,
+     5.6,
+     -4.8
+    ],
+    "target": [
+     1.3,
+     3,
+     4
+    ],
+    "fov": 46
+   }
+  },
+  {
+   "id": "S22-one-day-left",
+   "at": 41.97,
+   "size": "close",
+   "loc": "gate",
+   "move": "push",
+   "see": [
+    "nobody",
+    "counter"
+   ],
+   "why": "One day left: a bar over his head almost empty.",
+   "subject": "nobody",
+   "shadowRadius": 10,
+   "tagMaxFrac": 0.08,
+   "from": {
+    "position": [
+     0.5,
+     4.8,
+     52.5
+    ],
+    "target": [
+     2.5,
+     4.6,
+     46
+    ],
+    "fov": 48
+   },
+   "to": {
+    "position": [
+     0.8,
+     4.8,
+     51.6
+    ],
+    "target": [
+     2.5,
+     4.6,
+     46
+    ],
+    "fov": 46
+   }
+  },
+  {
+   "id": "S23-outside-walls",
+   "at": 43.36,
+   "size": "medium",
+   "loc": "gate",
+   "move": "track",
+   "see": [
+    "nobody"
+   ],
+   "why": "Nobodies sleep outside: he walks away from the closed gate at dusk.",
+   "subject": "nobody",
+   "follow": "nobody",
+   "look": "goldenHour",
+   "shadowRadius": 18,
+   "from": {
+    "position": [
+     -3,
+     3.5,
+     7.5
+    ],
+    "target": [
+     0,
+     3,
+     0
+    ],
+    "fov": 46
+   },
+   "to": {
+    "position": [
+     -2.7,
+     3.6,
+     7.7
+    ],
+    "target": [
+     0,
+     3,
+     0
+    ],
+    "fov": 46
+   }
+  },
+  {
+   "id": "S24-slept-field",
+   "at": 45.53,
+   "size": "wide",
+   "loc": "field",
+   "move": "push",
+   "see": [
+    "nobody"
+   ],
+   "why": "Night: every night he sleeps on the grass next to his stone.",
+   "subject": "nobody",
+   "look": "night",
+   "shadowRadius": 24,
+   "from": {
+    "position": [
+     -4.6,
+     4.6,
+     75.5
+    ],
+    "target": [
+     -1.6,
+     1.6,
+     64.5
+    ],
+    "fov": 44
+   },
+   "to": {
+    "position": [
+     -4.2,
+     4.1,
+     73.0
+    ],
+    "target": [
+     -1.6,
+     1.4,
+     64.5
+    ],
+    "fov": 40
+   }
+  },
+  {
+   "id": "S26-crack-1",
+   "at": 48.68,
+   "size": "insert",
+   "loc": "field",
+   "move": "static-drift",
+   "see": [
+    "cracks"
+   ],
+   "why": "Clue 1: hairline cracks in the dirt at the stone base (morning).",
+   "drift": 0.04,
+   "seed": 26,
+   "look": "goldenHour",
+   "shadowRadius": 8,
+   "from": {
+    "position": [
+     3.7,
+     1.9,
+     66.3
+    ],
+    "target": [
+     3.0,
+     0.3,
+     64.9
+    ],
+    "fov": 40
+   },
+   "to": {
+    "position": [
+     3.65,
+     1.85,
+     66.2
+    ],
+    "target": [
+     3.0,
+     0.3,
+     64.9
+    ],
+    "fov": 39
+   }
+  },
+  {
+   "id": "S27-crack-2",
+   "at": 50.49,
+   "size": "close",
+   "loc": "field",
+   "move": "push",
+   "see": [
+    "cracks",
+    "nobody"
+   ],
+   "why": "Clue 2 (wider): he pulls, the cracks have grown.",
+   "look": "goldenHour",
+   "shadowRadius": 10,
+   "from": {
+    "position": [
+     6.6,
+     2.6,
+     69.4
+    ],
+    "target": [
+     3,
+     1.4,
+     64.3
+    ],
+    "fov": 42
+   },
+   "to": {
+    "position": [
+     6.4,
+     2.7,
+     69.0
+    ],
+    "target": [
+     3,
+     1.4,
+     64.3
+    ],
+    "fov": 41
+   }
+  },
+  {
+   "id": "S28-crack-3",
+   "at": 51.91,
+   "size": "medium",
+   "loc": "field",
+   "move": "pull",
+   "see": [
+    "cracks",
+    "nobody"
+   ],
+   "why": "Clue 3 (widest): the ground around the stone is split open.",
+   "look": "goldenHour",
+   "shadowRadius": 14,
+   "from": {
+    "position": [
+     8.5,
+     4.4,
+     72.5
+    ],
+    "target": [
+     3,
+     1.5,
+     64
+    ],
+    "fov": 42
+   },
+   "to": {
+    "position": [
+     9.3,
+     5.0,
+     74
+    ],
+    "target": [
+     3,
+     1.6,
+     64
+    ],
+    "fov": 44
+   }
+  },
+  {
+   "id": "S29-the-cold",
+   "at": 53.84,
+   "size": "close",
+   "loc": "field",
+   "move": "push",
+   "see": [
+    "nobody"
+   ],
+   "why": "He thought it was just the cold: shivering.",
+   "subject": "nobody",
+   "look": "goldenHour",
+   "shadowRadius": 10,
+   "from": {
+    "position": [
+     5.4,
+     4.0,
+     68.4
+    ],
+    "target": [
+     3.3,
+     4.3,
+     62.1
+    ],
+    "fov": 40
+   },
+   "to": {
+    "position": [
+     5.1,
+     4.0,
+     67.6
+    ],
+    "target": [
+     3.3,
+     4.3,
+     62.1
+    ],
+    "fov": 38
+   }
+  },
+  {
+   "id": "S30-sky-orange",
+   "at": 55.71,
+   "size": "medium",
+   "loc": "field",
+   "move": "push",
+   "see": [
+    "nobody",
+    "sky"
+   ],
+   "why": "That last night the sky turns orange over the town.",
+   "subject": "nobody",
+   "look": "night",
+   "shadowRadius": 16,
+   "from": {
+    "position": [
+     4,
+     2.4,
+     70.5
+    ],
+    "target": [
+     1,
+     6.5,
+     52
+    ],
+    "fov": 50
+   },
+   "to": {
+    "position": [
+     3.6,
+     2.3,
+     69.5
+    ],
+    "target": [
+     1,
+     7.5,
+     52
+    ],
+    "fov": 52
+   }
+  },
+  {
+   "id": "S31-dragon-lands",
+   "at": 58.03,
+   "size": "wide",
+   "loc": "square",
+   "move": "push",
+   "see": [
+    "dragon"
+   ],
+   "why": "A dragon lands on the castle wall above the town.",
+   "look": "fireNight",
+   "shadowRadius": 60,
+   "from": {
+    "position": [
+     6,
+     7,
+     8
+    ],
+    "target": [
+     0,
+     32,
+     -70
+    ],
+    "fov": 52
+   },
+   "to": {
+    "position": [
+     5.5,
+     6.6,
+     6.5
+    ],
+    "target": [
+     0,
+     33,
+     -70
+    ],
+    "fov": 50
+   }
+  },
+  {
+   "id": "S32-bigger-than-church",
+   "at": 60.0,
+   "size": "close",
+   "loc": "square",
+   "move": "push",
+   "see": [
+    "dragon",
+    "chapel"
+   ],
+   "why": "Up close: it rears over the square, its head above the chapel steeple.",
+   "look": "fireNight",
+   "shadowRadius": 60,
+   "from": {
+    "position": [
+     4,
+     3,
+     22
+    ],
+    "target": [
+     11.5,
+     24.8,
+     -10.7
+    ],
+    "fov": 56
+   },
+   "to": {
+    "position": [
+     4.3,
+     3,
+     21
+    ],
+    "target": [
+     11.5,
+     25.6,
+     -10.7
+    ],
+    "fov": 54
+   }
+  },
+  {
+   "id": "S33-knights-charge",
+   "at": 62.16,
+   "size": "medium",
+   "loc": "square",
+   "move": "track",
+   "see": [
+    "knight1",
+    "knight2",
+    "knight3",
+    "dragon"
+   ],
+   "why": "The knights charge; fire; their swords melt like candles.",
+   "follow": "knight2",
+   "look": "fireNight",
+   "shadowRadius": 30,
+   "from": {
+    "position": [
+     4.5,
+     4,
+     8
+    ],
+    "target": [
+     5,
+     7,
+     -10
+    ],
+    "fov": 54
+   },
+   "to": {
+    "position": [
+     4.6,
+     4.2,
+     7.2
+    ],
+    "target": [
+     5,
+     7.4,
+     -10
+    ],
+    "fov": 54
+   }
+  },
+  {
+   "id": "S34-kings-sword",
+   "at": 65.14,
+   "size": "close",
+   "loc": "square",
+   "move": "push",
+   "see": [
+    "king"
+   ],
+   "why": "The king's sword melted too: he gapes.",
+   "subject": "king",
+   "look": "fireNight",
+   "shadowRadius": 10,
+   "from": {
+    "position": [
+     0.1,
+     4.4,
+     -7.2
+    ],
+    "target": [
+     -2,
+     4.8,
+     -2
+    ],
+    "fov": 40
+   },
+   "to": {
+    "position": [
+     -0.1,
+     4.4,
+     -6.6
+    ],
+    "target": [
+     -2,
+     4.8,
+     -2
+    ],
+    "fov": 38
+   }
+  },
+  {
+   "id": "S35-everyone-ran",
+   "at": 66.7,
+   "size": "wide",
+   "loc": "square",
+   "move": "pull",
+   "see": [
+    "pip"
+   ],
+   "why": "Everyone runs; his sister trips on the cobbles.",
+   "look": "fireNight",
+   "shadowRadius": 40,
+   "from": {
+    "position": [
+     3,
+     7,
+     24
+    ],
+    "target": [
+     6,
+     5,
+     -8
+    ],
+    "fov": 54
+   },
+   "to": {
+    "position": [
+     3,
+     7.6,
+     26.5
+    ],
+    "target": [
+     6,
+     5,
+     -8
+    ],
+    "fov": 56
+   }
+  },
+  {
+   "id": "S36-turned-to-her",
+   "at": 69.2,
+   "size": "medium",
+   "loc": "square",
+   "move": "push",
+   "see": [
+    "dragon",
+    "pip"
+   ],
+   "why": "The dragon brings its huge face down to her: she is tiny on the cobbles.",
+   "subject": "pip",
+   "look": "fireNight",
+   "shadowRadius": 24,
+   "from": {
+    "position": [
+     6.5,
+     2.0,
+     20
+    ],
+    "target": [
+     6.5,
+     1.5,
+     -10
+    ],
+    "fov": 40
+   },
+   "to": {
+    "position": [
+     6.5,
+     2.0,
+     17.6
+    ],
+    "target": [
+     6.5,
+     1.5,
+     -10
+    ],
+    "fov": 38
+   }
+  },
+  {
+   "id": "S37-no-sword",
+   "at": 70.66,
+   "size": "wide",
+   "loc": "field",
+   "move": "push",
+   "see": [
+    "nobody"
+   ],
+   "why": "The boy had no sword: alone in the firelit field, empty hands.",
+   "subject": "nobody",
+   "look": "fireNight",
+   "shadowRadius": 24,
+   "from": {
+    "position": [
+     -6,
+     3.8,
+     66
+    ],
+    "target": [
+     3,
+     3.6,
+     55.5
+    ],
+    "fov": 46
+   },
+   "to": {
+    "position": [
+     -5.4,
+     3.7,
+     65
+    ],
+    "target": [
+     3,
+     3.6,
+     55.5
+    ],
+    "fov": 44
+   }
+  },
+  {
+   "id": "S38-ran-to-it",
+   "at": 73.03,
+   "size": "medium",
+   "loc": "field",
+   "move": "track",
+   "see": [
+    "nobody"
+   ],
+   "why": "He ran to his stone and grabbed the handle (low angle).",
+   "subject": "nobody",
+   "follow": "nobody",
+   "look": "fireNight",
+   "shadowRadius": 16,
+   "from": {
+    "position": [
+     5,
+     1.0,
+     5
+    ],
+    "target": [
+     0,
+     3.6,
+     -1
+    ],
+    "fov": 46
+   },
+   "to": {
+    "position": [
+     4.6,
+     1.0,
+     5.4
+    ],
+    "target": [
+     0,
+     3.8,
+     -1
+    ],
+    "fov": 46
+   }
+  },
+  {
+   "id": "S39-pulled-harder",
+   "at": 74.8,
+   "size": "close",
+   "loc": "field",
+   "move": "push",
+   "see": [
+    "nobody",
+    "cracks"
+   ],
+   "why": "Pulled harder than ever: shake, dust, the cracks open (low).",
+   "subject": "nobody",
+   "look": "fireNight",
+   "shadowRadius": 10,
+   "from": {
+    "position": [
+     5.2,
+     1.3,
+     69.0
+    ],
+    "target": [
+     3,
+     4.0,
+     63.2
+    ],
+    "fov": 46
+   },
+   "to": {
+    "position": [
+     4.8,
+     1.2,
+     68.0
+    ],
+    "target": [
+     3,
+     4.0,
+     63.2
+    ],
+    "fov": 44
+   }
+  },
+  {
+   "id": "S40-whole-stone",
+   "at": 77.85,
+   "size": "wide",
+   "loc": "field",
+   "move": "push",
+   "see": [
+    "nobody",
+    "hammer"
+   ],
+   "why": "TWIST: the whole stone rips free: flash, dust burst (biggest change).",
+   "subject": "nobody",
+   "look": "fireNight",
+   "shadowRadius": 24,
+   "from": {
+    "position": [
+     0.5,
+     1.0,
+     74.5
+    ],
+    "target": [
+     3,
+     4.6,
+     62.4
+    ],
+    "fov": 50
+   },
+   "to": {
+    "position": [
+     0.2,
+     1.0,
+     76.5
+    ],
+    "target": [
+     3,
+     5.0,
+     62.4
+    ],
+    "fov": 52
+   }
+  },
+  {
+   "id": "S41-holding-it",
+   "at": 79.21,
+   "size": "medium",
+   "loc": "field",
+   "move": "orbit",
+   "see": [
+    "nobody",
+    "hammer"
+   ],
+   "why": "He stands holding it: slow orbit, low angle.",
+   "subject": "nobody",
+   "follow": "nobody",
+   "followOffset": [
+    0,
+    3.4,
+    0
+   ],
+   "degrees": 16,
+   "ease": "linear",
+   "look": "fireNight",
+   "shadowRadius": 16,
+   "from": {
+    "position": [
+     5.5,
+     -1.6,
+     8.5
+    ],
+    "target": [
+     0,
+     0,
+     0
+    ],
+    "fov": 46
+   }
+  },
+  {
+   "id": "S42-handle-rock",
+   "at": 81.1,
+   "size": "insert",
+   "loc": "field",
+   "move": "crane",
+   "see": [
+    "hammer"
+   ],
+   "why": "A handle; a giant block of rock on the end.",
+   "look": "fireNight",
+   "shadowRadius": 10,
+   "from": {
+    "position": [
+     6.0,
+     4.4,
+     59.8
+    ],
+    "target": [
+     3.6,
+     3.4,
+     64.2
+    ],
+    "fov": 40
+   },
+   "to": {
+    "position": [
+     6.3,
+     3.4,
+     60.2
+    ],
+    "target": [
+     3.6,
+     3.0,
+     64.4
+    ],
+    "fov": 41
+   }
+  },
+  {
+   "id": "S43-understood",
+   "at": 83.08,
+   "size": "close",
+   "loc": "field",
+   "move": "push",
+   "see": [
+    "nobody"
+   ],
+   "why": "He finally understood: gasp, then a small smile.",
+   "subject": "nobody",
+   "look": "fireNight",
+   "shadowRadius": 10,
+   "from": {
+    "position": [
+     1.2,
+     4.3,
+     67.6
+    ],
+    "target": [
+     3,
+     4.3,
+     62.4
+    ],
+    "fov": 38
+   },
+   "to": {
+    "position": [
+     1.4,
+     4.3,
+     66.8
+    ],
+    "target": [
+     3,
+     4.3,
+     62.4
+    ],
+    "fov": 36
+   }
+  },
+  {
+   "id": "S44-a-hammer",
+   "at": 84.52,
+   "size": "medium",
+   "loc": "field",
+   "move": "orbit",
+   "see": [
+    "nobody",
+    "hammer"
+   ],
+   "why": "It was never a sword in a stone; it was a hammer (glow, orbit).",
+   "subject": "nobody",
+   "follow": "nobody",
+   "followOffset": [
+    0,
+    4.4,
+    0
+   ],
+   "degrees": -20,
+   "ease": "linear",
+   "look": "fireNight",
+   "shadowRadius": 16,
+   "from": {
+    "position": [
+     -6,
+     -2.2,
+     8
+    ],
+    "target": [
+     0,
+     0,
+     0
+    ],
+    "fov": 50
+   }
+  },
+  {
+   "id": "S45-fire-splits",
+   "at": 87.33,
+   "size": "wide",
+   "loc": "square",
+   "move": "gamecam",
+   "see": [
+    "nobody",
+    "dragon"
+   ],
+   "why": "Gamecam run through the square: fire hits the stone and splits in two; stone doesn't melt.",
+   "subject": "nobody",
+   "follow": "nobody",
+   "heading": 180,
+   "distance": 11,
+   "height": 3,
+   "look": "fireNight",
+   "shadowRadius": 30,
+   "from": {
+    "position": [
+     0,
+     0,
+     0
+    ],
+    "target": [
+     0,
+     0,
+     0
+    ],
+    "fov": 68
+   }
+  },
+  {
+   "id": "S47-in-front",
+   "at": 91.27,
+   "size": "medium",
+   "loc": "square",
+   "move": "push",
+   "see": [
+    "nobody",
+    "pip",
+    "dragon"
+   ],
+   "why": "He steps in front of his sister; winds up one swing.",
+   "subject": "nobody",
+   "look": "fireNight",
+   "shadowRadius": 20,
+   "from": {
+    "position": [
+     4,
+     3,
+     18
+    ],
+    "target": [
+     5.5,
+     4,
+     -6
+    ],
+    "fov": 46
+   },
+   "to": {
+    "position": [
+     4.1,
+     3,
+     16.6
+    ],
+    "target": [
+     5.5,
+     4.2,
+     -6
+    ],
+    "fov": 46
+   }
+  },
+  {
+   "id": "S48-bonk",
+   "at": 93.72,
+   "size": "close",
+   "loc": "square",
+   "move": "push",
+   "see": [
+    "dragon"
+   ],
+   "why": "BONK on the nose: squash, stars, flash (cartoon).",
+   "look": "fireNight",
+   "shadowRadius": 14,
+   "from": {
+    "position": [
+     -3,
+     4.6,
+     0
+    ],
+    "target": [
+     5.5,
+     5.4,
+     -9
+    ],
+    "fov": 48
+   },
+   "to": {
+    "position": [
+     -2.6,
+     4.7,
+     -0.3
+    ],
+    "target": [
+     5.5,
+     5.6,
+     -9
+    ],
+    "fov": 46
+   }
+  },
+  {
+   "id": "S49-flew-away",
+   "at": 95.39,
+   "size": "medium",
+   "loc": "square",
+   "move": "crane",
+   "see": [
+    "dragon"
+   ],
+   "why": "It blinks, whimpers, and flies away crying.",
+   "look": "fireNight",
+   "shadowRadius": 60,
+   "from": {
+    "position": [
+     4,
+     4,
+     18
+    ],
+    "target": [
+     6,
+     16,
+     -30
+    ],
+    "fov": 54
+   },
+   "to": {
+    "position": [
+     4,
+     5,
+     20
+    ],
+    "target": [
+     6,
+     21,
+     -40
+    ],
+    "fov": 56
+   }
+  },
+  {
+   "id": "S50-silent",
+   "at": 98.29,
+   "size": "wide",
+   "loc": "square",
+   "move": "push",
+   "see": [
+    "nobody",
+    "pip"
+   ],
+   "why": "The whole kingdom went silent: everyone stares at him.",
+   "subject": "nobody",
+   "look": "fireNight",
+   "shadowRadius": 34,
+   "from": {
+    "position": [
+     3,
+     7,
+     18
+    ],
+    "target": [
+     6,
+     3,
+     -6
+    ],
+    "fov": 48
+   },
+   "to": {
+    "position": [
+     3.3,
+     6.6,
+     16.8
+    ],
+    "target": [
+     6,
+     3,
+     -6
+    ],
+    "fov": 46
+   }
+  },
+  {
+   "id": "S51-my-brother",
+   "at": 99.92,
+   "size": "close",
+   "loc": "square",
+   "move": "push",
+   "see": [
+    "pip"
+   ],
+   "why": "Pip yells That's my brother! (bubble).",
+   "subject": "pip",
+   "look": "fireNight",
+   "shadowRadius": 10,
+   "tagMaxFrac": 0.08,
+   "from": {
+    "position": [
+     10.5,
+     2.6,
+     4
+    ],
+    "target": [
+     8.5,
+     2.6,
+     0
+    ],
+    "fov": 42
+   },
+   "to": {
+    "position": [
+     10.3,
+     2.6,
+     3.5
+    ],
+    "target": [
+     8.5,
+     2.6,
+     0
+    ],
+    "fov": 40
+   }
+  },
+  {
+   "id": "S52-king-offers",
+   "at": 102.24,
+   "size": "wide",
+   "loc": "square",
+   "move": "push",
+   "see": [
+    "king",
+    "nobody"
+   ],
+   "why": "Next morning: the King offers any name; confetti, crowd.",
+   "subject": "nobody",
+   "look": "goldenHour",
+   "shadowRadius": 34,
+   "from": {
+    "position": [
+     3,
+     6,
+     18
+    ],
+    "target": [
+     5.5,
+     4,
+     -5
+    ],
+    "fov": 46
+   },
+   "to": {
+    "position": [
+     3.3,
+     5.7,
+     16.6
+    ],
+    "target": [
+     5.5,
+     4,
+     -5
+    ],
+    "fov": 44
+   }
+  },
+  {
+   "id": "S53-names",
+   "at": 105.68,
+   "size": "close",
+   "loc": "square",
+   "move": "push",
+   "see": [
+    "king"
+   ],
+   "why": "Dragonbreaker? Sir Hammer? Anything! (bubbles over the King).",
+   "subject": "king",
+   "look": "goldenHour",
+   "shadowRadius": 10,
+   "from": {
+    "position": [
+     4.5,
+     5,
+     -2.5
+    ],
+    "target": [
+     1,
+     5,
+     -6
+    ],
+    "fov": 42
+   },
+   "to": {
+    "position": [
+     4.2,
+     5,
+     -2.8
+    ],
+    "target": [
+     1,
+     5,
+     -6
+    ],
+    "fov": 40
+   }
+  },
+  {
+   "id": "S54-looked-up",
+   "at": 107.88,
+   "size": "medium",
+   "loc": "square",
+   "move": "push",
+   "see": [
+    "nobody"
+   ],
+   "why": "The boy looks up at his tag.",
+   "subject": "nobody",
+   "look": "goldenHour",
+   "shadowRadius": 14,
+   "from": {
+    "position": [
+     5.9,
+     2.2,
+     4.6
+    ],
+    "target": [
+     7.5,
+     4.0,
+     -1
+    ],
+    "fov": 44
+   },
+   "to": {
+    "position": [
+     6.1,
+     2.1,
+     4.0
+    ],
+    "target": [
+     7.5,
+     4.1,
+     -1
+    ],
+    "fov": 42
+   }
+  },
+  {
+   "id": "S55-kept-it",
+   "at": 109.37,
+   "size": "insert",
+   "loc": "square",
+   "move": "push",
+   "see": [
+    "nobody"
+   ],
+   "why": "It still said Nobody. He kept it.",
+   "subject": "nobody",
+   "look": "goldenHour",
+   "tagMaxFrac": 0.13,
+   "shadowRadius": 10,
+   "from": {
+    "position": [
+     6.3,
+     5.2,
+     4.0
+    ],
+    "target": [
+     7.5,
+     4.4,
+     -1
+    ],
+    "fov": 36
+   },
+   "to": {
+    "position": [
+     6.4,
+     5.2,
+     3.4
+    ],
+    "target": [
+     7.5,
+     4.4,
+     -1
+    ],
+    "fov": 34
+   }
+  },
+  {
+   "id": "S56-in-this-kingdom",
+   "at": 112.06,
+   "size": "wide",
+   "loc": "field",
+   "move": "push",
+   "see": [
+    "nobody"
+   ],
+   "why": "Bookend: the field by day again, kids at their stones.",
+   "subject": "nobody",
+   "look": "day",
+   "shadowRadius": 40,
+   "from": {
+    "position": [
+     -3,
+     4.5,
+     90
+    ],
+    "target": [
+     2.5,
+     4.0,
+     69
+    ],
+    "fov": 50
+   },
+   "to": {
+    "position": [
+     -2.4,
+     4.2,
+     87.5
+    ],
+    "target": [
+     2.5,
+     4.0,
+     69
+    ],
+    "fov": 48
+   }
+  },
+  {
+   "id": "S57-never-did",
+   "at": 115.66,
+   "size": "medium",
+   "loc": "field",
+   "move": "orbit",
+   "see": [
+    "nobody"
+   ],
+   "why": "He never did: the hammer held high, a grin.",
+   "subject": "nobody",
+   "follow": "nobody",
+   "followOffset": [
+    0,
+    3.6,
+    0
+   ],
+   "degrees": 12,
+   "ease": "linear",
+   "look": "day",
+   "shadowRadius": 16,
+   "from": {
+    "position": [
+     5,
+     1.0,
+     8
+    ],
+    "target": [
+     0,
+     0,
+     0
+    ],
+    "fov": 44
+   }
+  },
+  {
+   "id": "S58-everyone-nobody",
+   "at": 119.0,
+   "size": "wide",
+   "loc": "field",
+   "move": "push",
+   "see": [
+    "kidBaker",
+    "kidKnight",
+    "nobody"
+   ],
+   "why": "Rhymes with frame 0: every kid tag flips to Nobody; they try to lift whole stones.",
+   "subject": "nobody",
+   "look": "day",
+   "shadowRadius": 40,
+   "from": {
+    "position": [
+     1.2,
+     2.7,
+     94
+    ],
+    "target": [
+     2.5,
+     4.3,
+     67
+    ],
+    "fov": 50
+   },
+   "to": {
+    "position": [
+     1.2,
+     2.9,
+     97.5
+    ],
+    "target": [
+     2.5,
+     4.4,
+     67
+    ],
+    "fov": 52
+   }
+  }
+ ]
+}

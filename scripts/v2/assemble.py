@@ -9,6 +9,9 @@ from frame 0, never stretched, two-pass loudnorm to −14 LUFS / true peak ≤ �
 stories/<slug>/music.mp3 at −20 dB under it). After the last word the final shot holds (still moving if the
 frames continue, otherwise a freeze) so the video ends at max(voice + 2.5 s, 122.5 s); --no-hold for demos.
 H.264 High yuv420p CRF 18, AAC 192k, +faststart. Prints a JSON report checked with ffprobe/ebur128.
+
+--animatic (Gate B preview, never a final): 270×480 frames at 15 fps, Lanczos-scaled ×2 to 540×960, light grade,
+the same captions and voice, a small "ANIMATIC" label top-left; must come out ≤ 10 MB (CRF raised until it does).
 """
 import argparse, glob, json, os, re, subprocess, sys
 from PIL import Image
@@ -50,12 +53,15 @@ def main():
     a = argparse.ArgumentParser()
     a.add_argument('--story', required=True); a.add_argument('--frames', required=True); a.add_argument('--captions'); a.add_argument('--out', required=True)
     a.add_argument('--voice-start', type=float, default=0); a.add_argument('--voice-dur', type=float); a.add_argument('--no-hold', action='store_true')
-    a.add_argument('--fps', type=int, default=30); o = a.parse_args()
+    a.add_argument('--fps', type=int, default=30); a.add_argument('--animatic', action='store_true'); o = a.parse_args()
+    if o.animatic and o.fps == 30: o.fps = 15
 
     frames = sorted(glob.glob(os.path.join(o.frames, 'frame-*.png')))
     if not frames: sys.exit('no frames in ' + o.frames)
     w, h = Image.open(frames[0]).size
-    if (w, h) != (1080, 1920): sys.exit(f'frames are {w}×{h}: finals must be native 1080×1920 (owner decision; never upscale)')
+    if o.animatic:
+        if (w, h) != (270, 480): sys.exit(f'animatic frames must be 270×480, got {w}×{h}')
+    elif (w, h) != (1080, 1920): sys.exit(f'frames are {w}×{h}: finals must be native 1080×1920 (owner decision; never upscale)')
     voice = next((p for p in [f'stories/{o.story}/voice.flac', f'stories/{o.story}/voice.wav', f'stories/{o.story}/voice.mp3'] if os.path.exists(p)), None)
     if not voice: sys.exit('no voice file in stories/' + o.story)
     vlen = o.voice_dur if o.voice_dur else probe_duration(voice) - o.voice_start
@@ -63,7 +69,8 @@ def main():
     total = pic if o.no_hold else max(pic, max(vlen + 2.5, 122.5))
     hold = max(0.0, total - pic)
 
-    vf = f"[0:v]{GRADE}"
+    vf = f"[0:v]{GRADE}" if not o.animatic else ("[0:v]scale=540:960:flags=lanczos,eq=saturation=1.12:contrast=1.04,"
+        f"drawtext=fontfile={FONTS}/LilitaOne_400Regular.ttf:text='ANIMATIC':x=14:y=14:fontsize=22:fontcolor=white@0.85:box=1:boxcolor=black@0.45:boxborderw=6")
     if o.captions: vf += f",ass={o.captions}:fontsdir={FONTS}"
     if hold > 0: vf += f",tpad=stop_mode=clone:stop_duration={hold:.3f}"
     vf += ",format=yuv420p[v]"
@@ -75,9 +82,11 @@ def main():
     else:
         af += ";[vo]anull[a]"
     os.makedirs(os.path.dirname(o.out) or '.', exist_ok=True)
-    run(['ffmpeg', '-hide_banner', '-y', *inputs, '-filter_complex', vf + ';' + af, '-map', '[v]', '-map', '[a]',
-         '-c:v', 'libx264', '-profile:v', 'high', '-preset', 'medium', '-crf', '18', '-pix_fmt', 'yuv420p', '-r', str(o.fps),
-         '-c:a', 'aac', '-b:a', '192k', '-movflags', '+faststart', '-t', f'{total:.3f}', o.out])
+    for crf in ([18] if not o.animatic else [23, 27, 31]):
+        run(['ffmpeg', '-hide_banner', '-y', *inputs, '-filter_complex', vf + ';' + af, '-map', '[v]', '-map', '[a]',
+             '-c:v', 'libx264', '-profile:v', 'high', '-preset', 'medium', '-crf', str(crf), '-pix_fmt', 'yuv420p', '-r', str(o.fps),
+             '-c:a', 'aac', '-b:a', '192k' if not o.animatic else '128k', '-movflags', '+faststart', '-t', f'{total:.3f}', o.out])
+        if not o.animatic or os.path.getsize(o.out) <= 10e6: break
 
     pr = json.loads(run(['ffprobe', '-v', 'error', '-show_entries', 'stream=codec_type,codec_name,profile,width,height,r_frame_rate,nb_frames:format=duration,size', '-of', 'json', o.out]).stdout)
     v = next(s for s in pr['streams'] if s['codec_type'] == 'video'); au = [s for s in pr['streams'] if s['codec_type'] == 'audio']
@@ -85,7 +94,9 @@ def main():
     rep = {'out': o.out, 'width': v['width'], 'height': v['height'], 'fps': v['r_frame_rate'], 'profile': v.get('profile'), 'frames': int(v.get('nb_frames', 0)),
            'duration': round(float(pr['format']['duration']), 3), 'MB': round(int(pr['format']['size']) / 1e6, 2), 'audio': bool(au),
            'lufs': lufs, 'truePeak': peak, 'hold': round(hold, 3), 'music': os.path.exists(music)}
-    rep['pass'] = (v['width'], v['height']) == (1080, 1920) and bool(au) and abs(lufs - TARGET_LUFS) <= 1 and rep['MB'] <= 60
+    size, cap = ((540, 960), 10) if o.animatic else ((1080, 1920), 60)
+    rep['animatic'] = o.animatic
+    rep['pass'] = (v['width'], v['height']) == size and bool(au) and abs(lufs - TARGET_LUFS) <= 1 and rep['MB'] <= cap and rep['duration'] >= (122.5 if not o.no_hold else 0) - .05
     print(json.dumps(rep))
     if not rep['pass']: sys.exit(1)
 

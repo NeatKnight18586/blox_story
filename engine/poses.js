@@ -68,6 +68,20 @@ const POSES = {
   sit: (t, o) => make({leftHip: [-PI / 2, 0, -.04], rightHip: [-PI / 2, 0, .04], leftShoulder: [-.3, 0, -.05], rightShoulder: [-.3, 0, .05]}, {dy: o.ground ? -1.5 : 0}),
   sleep: t => make({leftShoulder: [0, 0, -.12], rightShoulder: [0, 0, .12], head: [.04 * Math.sin(t * 1.4), 0, 0]}, {lean: -PI / 2, dy: .5}),
   wave(t) { const w = Math.sin(twos(t) * 2 * PI * 1.6); return make({rightShoulder: [-.2, 0, 2.5 + .35 * w], leftShoulder: [0, 0, -.06], head: [0, 0, -.08]}); },
+  // Session 5 (episode "Nobody"): holding a heavy tool up, two-handed carry, one-hand pull, lifting a whole
+  // stone, shivering, looking up at the tag.
+  raise(t) { const b = .04 * Math.sin(2 * PI * t / 1.6); return make({rightShoulder: [-PI + b, 0, .12], leftShoulder: [-.35, 0, -.25], head: [-.28, 0, 0], leftHip: [-.12, 0, 0], rightHip: [.12, 0, 0]}, {lean: -.06}); },
+  hammerHold(t) { const b = .03 * Math.sin(2 * PI * t / 1.8); return make({rightShoulder: [-1.15 + b, 0, -.18], leftShoulder: [-1.15 + b, 0, .5], head: [.06, 0, 0], leftHip: [-.1, 0, 0], rightHip: [.1, 0, 0]}, {lean: -.1, dy: -.04}); },
+  pullOne(t, o) {
+    const strain = Math.floor(t * 15) % 2 ? 1 : -1, k = o.effort ?? .4;
+    return make({rightShoulder: [-.95 - .03 * strain * k, 0, .08], leftShoulder: [-1.75, 0, -.35], head: [.05, .25, 0], leftHip: [-.08, 0, 0], rightHip: [.22, 0, 0]}, {lean: -.08 * k});
+  },
+  lift(t, o) {
+    const strain = Math.floor(t * 15) % 2 ? 1 : -1, k = o.effort ?? 1;
+    return make({leftShoulder: [-.55 + .05 * strain * k, 0, .38], rightShoulder: [-.55 - .05 * strain * k, 0, -.38], leftHip: [-.55, 0, -.12], rightHip: [-.55, 0, .12], head: [-.35, 0, 0]}, {lean: .45, dy: -.35});
+  },
+  shiver(t) { const s = .05 * (Math.floor(t * 15) % 2 ? 1 : -1); return make({leftShoulder: [-1.25, 0, .75 + s], rightShoulder: [-1.25, 0, -.75 - s], head: [.12, 0, 0]}, {dx: s * .3}); },
+  lookUp(t, o) { const s = legacy('idle', t + (o.phase ?? 0), {}); s.pivots.head = [-.55, 0, 0]; return s; },
 };
 export const POSE_NAMES = Object.keys(POSES);
 

@@ -63,11 +63,16 @@ const BUILD = {
   },
 };
 
-export function attachTool(actor, name, opts = {}) {
+// A tool positioned at the fist, not yet attached (either hand's shoulder pivot can take it).
+export function buildTool(name, opts = {}) {
   if (!BUILD[name]) throw Error('unknown tool ' + name);
-  if (actor.tool) actor.tool.removeFromParent();
   const t = BUILD[name](opts); t.name = 'tool_' + name; t.position.set(...HAND);
   // 'upright' tools are authored vertical; in toolHold the arm is rotated -90° about x, so pre-rotate.
   if (t.userData.grip === 'upright') t.rotation.x = Math.PI / 2;
+  return t;
+}
+export function attachTool(actor, name, opts = {}) {
+  if (actor.tool) actor.tool.removeFromParent();
+  const t = buildTool(name, opts);
   actor.pivots.rightShoulder.add(t); actor.tool = t; actor.toolName = name; return t;
 }

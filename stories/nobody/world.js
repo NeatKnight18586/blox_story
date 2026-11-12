@@ -213,8 +213,10 @@ export function build(scene, {P, B, A, M, PR}) {
   // ---- Field of Stones: ~80 stones in loose rings, each with a sword hilt (instanced) --------------
   const FC = [0, 0, 70], rings = [[6, 8], [11, 16], [16, 24], [21, 32]];
   const HS = [3, groundY(3, 64), 64];   // the hero's stone (no ring stone may crowd it)
+  // Story stones (Session 5): the stones the named kids pull from. Separate, unmerged, so their swords can leave.
+  const STORY = {baker: [4, 85], knight: [-.6, 78.5], smith: [10, 79], farmer: [-9.5, 76.5], pip: [7.5, 73.5], kidA: [14, 88], kidB: [-12.5, 78.5], kidC: [-15.5, 76], newborn: [6.5, 90]};
   const stones = rings.flatMap(([r, n], k) => B.ringOf(n, r, {centre: FC, phase: k * .37, jitter: .5, seed: 40 + k})).map(p => ({...p, at: [p.at[0], groundY(p.at[0], p.at[2]) - .03, p.at[2]], s: .85 + R() * .3}))
-    .filter(p => Math.hypot(p.at[0] - HS[0], p.at[2] - HS[2]) > 4.2 && Math.abs(p.at[0] - pathX(p.at[2])) > 3.4);
+    .filter(p => Math.hypot(p.at[0] - HS[0], p.at[2] - HS[2]) > 4.2 && Math.abs(p.at[0] - pathX(p.at[2])) > 3.4 && Object.values(STORY).every(([x, z]) => Math.hypot(p.at[0] - x, p.at[2] - z) > 3));
   // Ring stones (A1 B2): 3 chiselled variants, a third with moss caps, ±5 % tone jitter, a cheap sword in each socket.
   const stoneSets = new Map();
   stones.forEach((p, i) => { const k = `${i % 3}:${Math.floor(i / 3) % 3 === 0 ? 1 : 0}`; if (!stoneSets.has(k)) stoneSets.set(k, []); stoneSets.get(k).push({...p, i}); });
@@ -227,6 +229,16 @@ export function build(scene, {P, B, A, M, PR}) {
   const hsword = PR.sword({tier: 'hero'}); hsword.position.set(0, HSt.socketTop + .5, -.2); heroStone.add(hsword);
   hero.add(heroStone);
   B.anchor(anchors, 'heroStone', [HS[0], groundY(HS[0], HS[2] - 1.1), HS[2] - 1.1], 0, {hilt: [HS[0], 3.4, HS[2] - .2], camera: {position: [HS[0] + 5.5, 4.6, HS[2] + 6], target: [HS[0], 3.4, HS[2]], fov: 40}});
+  const storyStones = {}, SS = 1.3;
+  Object.entries(STORY).forEach(([name, [x, z]], i) => {
+    const g = new T.Group(); g.userData.keep = true; g.name = 'stone_' + name; g.position.set(x, groundY(x, z) - .03, z);
+    const st = PR.ringStone(i % 3, {moss: i % 4 === 1}); st.scale.setScalar(SS); g.add(st);
+    st.traverse(o => { if (o.isMesh && o.material.color?.getHexString() === 'ffffff') { o.material = o.material.clone(); o.material.color.set(C.stone).offsetHSL(0, 0, (i % 3 - 1) * .03); } });   // rock is authored white for instance tinting
+    const sw = PR.sword({tier: 'ring', blade: .9}); sw.scale.setScalar(SS); sw.position.y = (PR.RING_TOP + .5) * SS; g.add(sw);
+    g.traverse(o => { if (o.isMesh) { o.castShadow = true; o.receiveShadow = true; } });
+    hero.add(g); storyStones[name] = {group: g, sword: sw, y0: g.position.y};
+    B.anchor(anchors, 'stone_' + name, [x, groundY(x, z - 1), z - 1.05], 0);
+  });
   B.anchor(anchors, 'field', [0, groundY(0, 70), 70], Math.PI, {camera: {position: [-3, 3.2, 104], target: [0, 7, 40], fov: 55}});
   const mill = new T.Group(); mill.position.set(-48, groundY(-48, 82), 82);
   mill.add(P.cylinder(3, 12, {rTop: 2.2, at: [0, 6, 0], color: C.cream, seg: 8, cast: true}), P.cone(3.2, 4, {at: [0, 14, 0], seg: 8, pattern: 'thatch', color: C.thatch, cast: true}));
@@ -299,5 +311,15 @@ export function build(scene, {P, B, A, M, PR}) {
   for (const g of [hero, mid, far]) world.add(B.mergeByDistrict(g, 40));
   for (const m of movers) if (m.free) world.add(m.object);
   scene.add(world);
-  return {anchors, groundY, setCracks: k => HSt.setCracks(k), update(t) { for (const m of movers) m.update(t); }};
+  // Story state, set every frame from the episode's worldState timelines (pure in t):
+  //   cracks 0–3 · heroStone 'field' | 'gone' (ripped free: the hero carries it as the hammer)
+  //   rise 0–1 (the newborn's stone rises out of the ground) · pulled [names whose swords are out]
+  const STATE = {
+    cracks: k => HSt.setCracks(k),
+    heroStone: v => { heroStone.visible = v !== 'gone'; },
+    rise: u => { const n = storyStones.newborn; n.group.position.y = n.y0 - (1 - u) * 2.6; n.group.visible = u > 0; },
+    pulled: list => { for (const [n, st] of Object.entries(storyStones)) st.sword.visible = !(list ?? []).includes(n); },
+    walkers: on => { sqWalk.object.visible = stWalk.object.visible = on !== false; },   // streets empty during the attack
+  };
+  return {anchors, groundY, setCracks: k => HSt.setCracks(k), setState: (k, v) => STATE[k]?.(v), update(t) { for (const m of movers) m.update(t); }};
 }
