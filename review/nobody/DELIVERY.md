@@ -4,9 +4,10 @@
 
 ## Where the master is
 - **Sent directly** to the owner in the Claude Code session (2026-11-13).
-- **GitHub prerelease:** created by the render farm (`.github/workflows/render.yml`) once its assemble and `v2:qc` pass.
-  - Link: _pending: see the PR comment / Releases page, tag `nobody-<short sha>`._
-  - The release also carries `final-review.mp4`, `report.json` and `qc.json`.
+- **GitHub prerelease** [`nobody-66fd10c`](https://github.com/NeatKnight18586/blox_story/releases/tag/nobody-66fd10c), made by the render farm (run 3: assemble 84.5 min, `v2:qc` PASS). Assets: `nobody-master.mp4`, `final-review.mp4`, `report.json`, `qc.json`.
+  - The farm master: CRF 14, 16.29 Mb/s, 253.6 MB, −14.0 LUFS, TP −1.5 dB; QC SSIM ≥ 0.990, PSNR ≥ 47.0 dB.
+  - It is graded from near-lossless segments, so CRF 14 already met the 16 Mb/s floor.
+  - Either master is fine to upload. The one sent directly (below) has the higher bitrate.
 
 ## Master (local render, the file that was sent)
 | | |

@@ -242,3 +242,13 @@ Also built: `render.js --final` (1440×2560, AA). `scripts/v2/qc.py` (`npm run v
 - Old 1080 render caches (Shortwick, Dice Town, Nobody 1080) deleted with the owner's approval. `review/nobody/final.mp4` removed from the branch (it stays in history).
 
 **Open problems:** the farm's first full end-to-end run (render + assemble + QC + release in one run) is still to come. Its wall time so far: shards ≈ 64 min; assemble on 2 cores is the slow step.
+- A2 farm close-out: run 3 (`reuse-run` of run 2's segments) assemble 84.5 min + `v2:qc` 2.1 min PASS → prerelease **`nobody-66fd10c`** (master CRF 14, 16.29 Mb/s, 253.6 MB; graded from near-lossless segments, so CRF 14 met the floor). Slowest step: farm assemble on 2 cores.
+
+## Session 7 (Amendment A3): intro class showcase — plan
+1. A3 appended to the brief. Scope: shots 0–18.53 s, class-kid cast data, class swords/cards/reveal, prop-only swaps later (C5); everything after 18.53 s keeps cameras/timing/staging.
+2. `parts/props.js` `classSword(cls, tier)` (6 original designs, hero ≤ 700 / bg ≤ 120 tris, emissive glow) + `CLASSES` table; `tools.js` `class:<cls>` tools; new accessories chefHat, featherCap, goggles; particle presets steam, flour, rays, leaves, petals.
+3. Pure `engine/classes.js`: `expandClassReveal` → effect entries (pillar, 2-frame highlight flash, ring, shake ≤ 0.03, sword swap, signature burst, card) + cast timeline patches (tools, raise, accessory, class-coloured tag); `cardState` (slam 140→100 % outBack 8 f, hold, fly to tag at 1.3 s); `cardRect` (x 10–90, y 10–56, never in 60–72 %).
+4. `episode.js`: expands reveals, draws class cards as a screen-space overlay, reports card rects; `actors.js` accessory timeline + tag style; `overhead.js` `classCard` + class tags.
+5. `plancheck.js`: `beat` flag (0.55–1.2 s, ≤ 3 in a row, < 20 s, on onsets) + card size/position rule; tests.
+6. Re-stage S01–S08 (hook with a revealed Knight + Baker reveal at 1.1 s, envy glow in S02, newborn shimmer, Archer template, Baker/Knight/King beats on 14.609/15.325/15.953, wide reveal wave 17.11–18.53); class outfits; C5 swaps.
+7. `review/nobody/class-swords.png` (+ self-score); gates: tests, plan, bench, stability; render 0–22 s at 1440 → `intro-preview.mp4` (1080 proxy) + `intro-10fps.png` + Knight-beat 30 fps sheet; intro rubric; PR; stop.
