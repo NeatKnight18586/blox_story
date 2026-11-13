@@ -358,3 +358,17 @@ Also built: `render.js --final` (1440×2560, AA). `scripts/v2/qc.py` (`npm run v
 - **Open:**
   - The landform giant reads as a mossy mountain-boulder; its arm reach is subtle at the demo distance.
   - Crowd heads are plain boxes with a face decal, which is fine at mid and far distance.
+
+## Session 8b: look fix (Amendment A5) — plan
+1. Merge `claude/season-1` (A5 doc, hair4 prototype, proof sheets); append A5 to the brief; §S acceptance rule → CLAUDE.md.
+2. A: finish `avatar-style/hair4.js` as data tables of volumes (mass, clump, bun + new braid, curls) → 20 styles, tiers
+   hero/mid/crowd; tests on the tables (5–14 volumes, clump ≥ .26×.16, fringe ≥ .40, EYE_LINE, budgets); `hair-gates.js`
+   (scalp leak, IoU outlines, thin bits) → `hair-gates.json`; troupe + crowd on v4; sheets re-rendered.
+3. B: crowd hair (crowd tier, 6 colours); pure promotion of near crowd members to mid-tier actors (≤ 8) in close/medium shots.
+4. C: pure min cap-height (tags 2.4 %, stats/plates 3.0 %, focusUi 4.5 %) + safe-area clamp; opt-in for v3 worlds only.
+5. D: per-pixel splat blend (world-space normal/height + noise), 1.5-unit near cells, smooth blob trees with leaves/bark,
+   wet band + stronger water, storm clouds with contrast. Landform geometry untouched (owner's rule this session).
+6. E: `nightBright` look + default actorLift + glowing props; luma gate script (frame, actor box, box − ring).
+7. F: pure `fit` framing (close ≥ 45 %, medium/heroLow ≥ 30 %, empty ground ≤ 28 %) + tests; demo shots use it.
+8. G: re-shoot tools-demo (+ nightBright medium, close-up with crowd), 3-column look-ab; bench, stability, Nobody 11-frame
+   re-render; three weakest things per sheet in this file; PR; stop.
