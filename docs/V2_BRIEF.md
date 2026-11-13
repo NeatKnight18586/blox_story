@@ -416,3 +416,70 @@ A healthy frame scores 0.0–0.2 % (antialiased edges only).
 - `v2:stability` is a gate: it must pass before any animatic or final is shown to the owner (add it to the Done-when lists of Sessions 5 and 6 and to `/new-episode`).
 - Every world uses `groundY`, a `LAYER` table and `ribbon` for paths and streets.
 - Detail hierarchy for every world: relief materials on structures, modelled detail only on the props the story is about, calm ground.
+
+## Amendment A2 (2026-11-13): picture quality
+
+Owner-ordered amendment after Gate C (Session 6.5). All §0 and §2 rules apply: plan first in `PROGRESS.md`, run every Done-when check, then stop. **The picture is locked:** do not change `episode.json`, `world.js`, cast, cameras, timing, captions text or the voice. This pass changes only how frames are rendered, finished, encoded and delivered.
+
+### Diagnosis (owner: "it says 1080p but looks blurry"; reproduced on `review/nobody/final.mp4`)
+
+The frames are rendered at a true 1080×1920 with 4× MSAA, and the raw renders are sharp. The softness is added afterwards, in three places:
+
+1. **The grade adds a haze (the main cause).** `GRADE` in `scripts/v2/assemble.py` screens a σ = 24 blur of the *whole* frame back on top at 20 %. Every edge gets a soft glow, dark areas next to bright ones are lifted, and colour visibly bleeds (green haze over grey stones, a yellow halo round the crossguard). At 1:1 the raw render is crisp and the graded frame is not.
+2. **The master is starved.** The ≤ 60 MB file cap forced CRF 20 at preset `medium`: 3.6 Mb/s for a 1080×1920 animation with constant camera motion and grass detail. YouTube recommends about 8 Mb/s for 1080p30 uploads; motion frames lose fine detail first.
+3. **A 1080p upload gets YouTube's weakest processing.** YouTube re-encodes every upload; a 1080p upload is typically given H.264 at a low bitrate, while 1440p and above get VP9/AV1 with more bits. Independent VMAF tests put a 1080p upload at about 97.3 and a 1440p upload at about 99.95 after YouTube's transcode; 4K adds nothing over 1440p.
+
+Minor contributors: 4:2:0 chroma halves colour resolution on saturated toy colours (helped by delivering at 1440); albedo anisotropy 4 and normal-map anisotropy 2 soften ground textures at grazing angles; GitHub's and the iPad's in-browser previews downscale further.
+
+### What to build
+
+**A. Finishing grade (`scripts/v2/assemble.py`)**
+- Replace `GRADE` with a highlight-only bloom in RGB. Prototype tested on frame 2, verified visually at 1:1 to remove the halo and colour bleed:
+  `format=gbrp,split[a][b];[b]lut=c0='if(gt(val,215),(val-215)*4,0)':c1='if(gt(val,215),(val-215)*4,0)':c2='if(gt(val,215),(val-215)*4,0)',gblur=sigma=6[bl];[a][bl]blend=all_mode=screen:all_opacity=0.35,eq=saturation=1.10:contrast=1.05,cas=strength=0.35,vignette=PI/9`
+  Only things brighter than about 84 % (sparkles, fire, neon, sky highlights) glow. `cas` is a light contrast-adaptive sharpen: never raise it above 0.5 (block edges ring). Scale the blur σ with output height (σ = 6 at 2560 tall).
+- Captions are burned **after** the grade at the delivery resolution, so text is never bloomed, scaled or sharpened.
+
+**B. Delivery resolution: 1440×2560, rendered natively**
+- Finals render at **1440×2560** (`render.js` default for `--final`), AA on. Measured here: 1440 costs 1.6–1.75× the time of 1080 per frame, which the 6-shard farm absorbs.
+- Raise albedo and overlay texture anisotropy to 8 and normal maps to 4, then re-run `v2:bench`. Keep only if the 720 mean stays ≤ 0.45 s/frame; otherwise revert normal maps to 2 and record it.
+- Fallback when the farm is unavailable and a local render would exceed 2.5 h: render 1080×1920 and upscale to 1440×2560 with Lanczos **before** grade and captions. Never upscale after captions. Record which path each final used.
+- Animatics stay low resolution.
+- `assemble.py` accepts 1440×2560 (native) and 1080×1920 (fallback, upscaled); it rejects anything else.
+
+**C. Encoding: a master and a review proxy**
+- **Master** (the upload file): x264 High, `-preset slow -tune animation -crf 14`, `-pix_fmt yuv420p`, BT.709 tags (`-colorspace bt709 -color_primaries bt709 -color_trc bt709 -color_range tv`), closed GOP of 15 frames (`-g 15 -keyint_min 15 -sc_threshold 0 -bf 2`), `+faststart`, AAC-LC 48 kHz 320 kb/s. **No size cap.** Bitrate floor: if the average comes out below 16 Mb/s, step CRF down (14 → 12 → 10) until it reaches 16 Mb/s or CRF 10.
+- **Review proxy** (iPad viewing): same grade and captions, 1080×1920, CRF 18, ≤ 45 MB, so it can be committed to `review/<slug>/final-review.mp4`.
+- The master is **never committed to git**. Deliver it as a GitHub Release asset (the farm already creates `<story>-<short sha>` prereleases; add the same for local finals with `gh release create … --prerelease`). Write the release URL and the master's ffprobe summary into `review/<slug>/DELIVERY.md`.
+- Fix the loudness note from Session 6: loudnorm target TP −1.5 dB so the true peak after AAC is ≤ −1 dB.
+
+**D. Quality gate: `scripts/v2/qc.py` (`npm run v2:qc -- --story <slug> --video <master.mp4>`)**
+Automated, run before anything reaches the owner. Exit 1 on any failure; write `review/<slug>/qc.json`.
+1. `ffprobe`: 1440×2560 (or the recorded fallback), 30 fps, yuv420p, BT.709 tags, AAC, average video bitrate ≥ 16 Mb/s, true peak ≤ −1 dB, −14 LUFS ± 1.
+2. **Encode loss:** pick 12 frames (the 6 shots with the fastest camera speed from `plan.json` plus 6 evenly spaced). For each, decode the master frame and compare it against the graded, captioned uncompressed frame at the same index (produce these with the same filter graph). Require SSIM ≥ 0.985 and PSNR ≥ 40 dB on Y.
+3. **Grade does not soften:** on the same 12 frames, compare raw render against graded (without captions) using the mean absolute Laplacian over the frame. Require graded ≥ 95 % of raw. Also require that the mean colour difference (ΔE76) inside the masks of hero-tier grey objects (stones, walls) is ≤ 4, so the grade never re-tints neighbours.
+4. Write `review/<slug>/qc-crops.png`: 1:1 crops (600×500) of raw / graded / master-decoded for 4 of those frames, including one fast-motion frame and one close-up of a face with a name tag. Score it yourself (crisp block edges, no halos, no colour bleed, readable tags) and record the scores.
+
+**E. Optimisation without quality loss** (measure each, keep only what helps)
+- Capture frames without PNG compression: read pixels from the WebGL canvas (or use `toBlob` with low compression) and stream raw RGBA into one `ffmpeg` per shard writing a lossless FFV1 or PNG-compression-level-1 intermediate. Measure s/frame at 1440 before and after; keep it only if it is faster and bit-identical (spot-check 10 frames).
+- One render produces both deliverables: the 1440 master, and the review proxy downscaled from the same graded frames. Never render twice.
+- The farm (`render.yml`) runs finals at 1440 and runs `v2:qc` in the assemble job; a failed QC means no release.
+
+**F. Re-deliver Nobody**
+Re-render the locked episode at 1440×2560 (farm if it works, otherwise local, recording which), assemble with the new grade, run `v2:qc`, and publish the release plus `review/nobody/final-review.mp4`. Use the per-shot cache. Delete the old 58.6 MB `review/nobody/final.mp4` from the branch (it stays in history) so the repo does not keep growing.
+
+### Done when
+- `npm test`, `npm run v2:test` (add tests for the new filter-graph builder, CRF stepping with the bitrate floor, and QC thresholds) and `v2:plan` pass. `v2:bench` passes after the anisotropy change, or the change is reverted and recorded.
+- `npm run v2:qc -- --story nobody --video <master>` exits 0. `qc.json` and `qc-crops.png` are in `review/nobody/`, and the crop scores are recorded in `PROGRESS.md`.
+- The release exists with the 1440×2560 master; `DELIVERY.md` links it; `final-review.mp4` ≤ 45 MB is committed.
+- `PROGRESS.md` records: render path (native or fallback), s/frame at 1440, wall time, master bitrate and size, the before/after table of grade-sharpness and encode SSIM/PSNR, and the result of the E measurements.
+- `CLAUDE.md` commands updated (`v2:qc`, the final preset, delivery). `/new-episode` updated: E2 = render at 1440 → assemble → `v2:stability` + `v2:qc` → release.
+- PR updated. **Stop for the owner's review.**
+
+### Standing rules from now on
+- Finals deliver at 1440×2560, rendered natively whenever the farm is available.
+- No full-frame blur or bloom in any grade; glow only on highlights.
+- The master is uncapped and published as a release asset; only review proxies go into git.
+- `v2:qc` must pass before any final reaches the owner.
+- `PUBLISHING.md`: upload the 1440 master, publish as Unlisted first, wait until 1440p appears in YouTube's quality menu, check it, then make it Public.
+
+Owner note with this amendment: the owner uploads to YouTube; delivery = the master file sent directly plus the farm prerelease (owner decision 2026-11-13).

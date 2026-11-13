@@ -1,4 +1,5 @@
-# Render farm (docs/V2_BRIEF.md §14.2): plan → 6 render shards → assemble + prerelease.
+# Render farm (docs/V2_BRIEF.md §14.2, Amendment A2): plan → 6 render shards (finals native 1440×2560) → assemble
+# (master + 1080 review proxy) → v2:qc gate → prerelease.
 # Trigger by hand (Actions → render → Run workflow: story, preset) or by pushing a change to
 # stories/<slug>/render.request (its first line may name the preset: final | animatic; default final).
 # UNTESTED until its first run: on first use compare 10 frames against a local render and record the
@@ -82,7 +83,7 @@ jobs:
       - run: sudo apt-get update && sudo apt-get install -y ffmpeg
       - name: Render shard ${{ matrix.index }} (frames ${{ matrix.from }}–${{ matrix.to }})
         run: |
-          if [ "$PRESET" = "animatic" ]; then size="--width 270 --height 480 --every 2 --aa 0"; else size="--width 1080 --height 1920 --aa 1"; fi
+          if [ "$PRESET" = "animatic" ]; then size="--width 270 --height 480 --every 2 --aa 0"; else size="--final"; fi   # A2: finals native 1440×2560
           node scripts/v2/render.js --story "$STORY" --out shard $size --from ${{ matrix.from }} --to ${{ matrix.to }} --workers 2
       - name: Encode near-lossless segment
         run: |
@@ -107,7 +108,7 @@ jobs:
       - uses: actions/setup-node@v4
         with: {node-version: 22, cache: npm}
       - run: npm ci
-      - run: sudo apt-get update && sudo apt-get install -y ffmpeg && pip install --break-system-packages pillow
+      - run: sudo apt-get update && sudo apt-get install -y ffmpeg && pip install --break-system-packages pillow numpy
       - uses: actions/download-artifact@v4
         with: {pattern: 'seg-*', merge-multiple: true, path: segs}
       - name: Concatenate segments
@@ -118,10 +119,15 @@ jobs:
         run: |
           mkdir -p out
           python3 scripts/v2/captions.py --story "$STORY" --spec "stories/$STORY/episode.json" --out out/captions.ass
-          extra=""; [ "$PRESET" = "animatic" ] && extra="--animatic"
-          python3 scripts/v2/assemble.py --story "$STORY" --video picture.mp4 --captions out/captions.ass --out "out/$PRESET.mp4" $extra | tee out/report.json
-      - name: ffprobe check
-        run: ffprobe -v error -show_entries stream=codec_type,width,height,r_frame_rate:format=duration,size -of json "out/$PRESET.mp4"
+          if [ "$PRESET" = "animatic" ]; then
+            python3 scripts/v2/assemble.py --story "$STORY" --video picture.mp4 --captions out/captions.ass --out out/animatic.mp4 --animatic | tee out/report.json
+          else   # A2: uncapped 1440 master + 1080 review proxy from the same graded frames
+            python3 scripts/v2/assemble.py --story "$STORY" --video picture.mp4 --captions out/captions.ass \
+              --out "out/$STORY-master.mp4" --proxy out/final-review.mp4 | tee out/report.json
+          fi
+      - name: Quality gate (v2:qc; a failure means no release)
+        if: needs.plan.outputs.preset == 'final'
+        run: python3 scripts/v2/qc.py --story "$STORY" --video "out/$STORY-master.mp4" --source-video picture.mp4 --captions out/captions.ass --out out/qc.json
       - uses: actions/upload-artifact@v4
         with:
           name: ${{ needs.plan.outputs.story }}-${{ needs.plan.outputs.preset }}
@@ -129,6 +135,7 @@ jobs:
       - name: Prerelease (downloadable on the iPad)
         run: |
           tag="$STORY-${GITHUB_SHA::7}"
-          gh release create "$tag" "out/$PRESET.mp4" out/report.json --prerelease --target "$GITHUB_SHA" \
-            --title "$STORY ($PRESET) ${GITHUB_SHA::7}" --notes "Render farm output for stories/$STORY ($PRESET). Report: report.json." \
-          || gh release upload "$tag" "out/$PRESET.mp4" out/report.json --clobber
+          if [ "$PRESET" = "animatic" ]; then files="out/animatic.mp4 out/report.json"; else files="out/$STORY-master.mp4 out/final-review.mp4 out/report.json out/qc.json"; fi
+          gh release create "$tag" $files --prerelease --target "$GITHUB_SHA" \
+            --title "$STORY ($PRESET) ${GITHUB_SHA::7}" --notes "Render farm output for stories/$STORY ($PRESET): 1440×2560 master (upload this), 1080 review proxy, assemble report and v2:qc report." \
+          || gh release upload "$tag" $files --clobber

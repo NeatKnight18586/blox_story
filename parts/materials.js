@@ -144,7 +144,7 @@ export function patternTexture(name) {
   let tex = null;
   if (typeof document !== 'undefined') {
     const c = document.createElement('canvas'); c.width = c.height = N; DRAW[name](c.getContext('2d'));
-    tex = new T.CanvasTexture(c); tex.colorSpace = T.SRGBColorSpace; tex.wrapS = tex.wrapT = T.RepeatWrapping; tex.anisotropy = 4;   // calm patterns: 4× is enough, and anisotropy is costly on CPU renderers
+    tex = new T.CanvasTexture(c); tex.colorSpace = T.SRGBColorSpace; tex.wrapS = tex.wrapT = T.RepeatWrapping; tex.anisotropy = 8;   // A2: 8× keeps ground textures crisp at grazing angles (bench-checked)
   }
   texCache.set(name, tex); return tex;
 }
@@ -157,7 +157,7 @@ export function normalTexture(name) {
     const px = g.getImageData(0, 0, N, N).data, h = new Float32Array(N * N);
     for (let y = 0; y < N; y++) for (let x = 0; x < N; x++) h[(N - 1 - y) * N + x] = px[(y * N + x) * 4] / 255;   // flip: row 0 = v 0, matching the albedo
     tex = new T.DataTexture(heightToNormal(blurWrap(h, N, N), N, N), N, N, T.RGBAFormat);
-    tex.wrapS = tex.wrapT = T.RepeatWrapping; tex.colorSpace = T.NoColorSpace; tex.magFilter = T.LinearFilter; tex.minFilter = T.LinearMipmapLinearFilter; tex.generateMipmaps = true; tex.anisotropy = 2; tex.needsUpdate = true;   // relief needs little anisotropy; it is costly on CPU renderers
+    tex.wrapS = tex.wrapT = T.RepeatWrapping; tex.colorSpace = T.NoColorSpace; tex.magFilter = T.LinearFilter; tex.minFilter = T.LinearMipmapLinearFilter; tex.generateMipmaps = true; tex.anisotropy = 4; tex.needsUpdate = true;   // A2: relief at 4× (bench-checked)
   }
   nrmCache.set(name, tex); return tex;
 }

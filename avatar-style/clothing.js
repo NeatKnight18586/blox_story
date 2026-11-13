@@ -121,7 +121,7 @@ export function outfitMaterials(outfit, part, size, skin, tier = 'hero') {
     mats = SIDES.map(side => {
       const [w, h] = dims[side], c = document.createElement('canvas'); c.width = Math.max(8, Math.round(w * per / 2)); c.height = Math.max(8, Math.round(h * per / 2));
       PAINT[o.recipe](kit(c.getContext('2d'), c.width, c.height), part, side, o);
-      const t = new T.CanvasTexture(c); t.colorSpace = T.SRGBColorSpace; t.anisotropy = 4;
+      const t = new T.CanvasTexture(c); t.colorSpace = T.SRGBColorSpace; t.anisotropy = 8;
       return new T.MeshPhongMaterial({map: t, ...PLASTIC});
     });
   }

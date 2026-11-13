@@ -1,6 +1,7 @@
 // scripts/v2/render.js — render an episode's frames (docs/V2_BRIEF.md §5.4).
 //   node scripts/v2/render.js --story <slug> | --spec <path/to/episode.json>
-//        [--out <dir>] [--width 1080 --height 1920] [--from N --to M] [--every K] [--workers 1] [--aa 0|1]
+//        [--out <dir>] [--final | --width 1080 --height 1920] [--from N --to M] [--every K] [--workers 1] [--aa 0|1]
+// Frames are captured as PNG (toDataURL): measured at 1440, raw readPixels transfer is 2.4× slower (A2 §E).
 // Per-shot cache: <out>/cache/<shot>-<hash>/<n>.png, hash = engine + avatar code + the episode's
 // non-shot data + that shot's own JSON, so fixing one shot re-renders only that shot.
 // <out>/frames/frame-%05d.png are hard links into the cache (ready for ffmpeg); <out>/progress.json
@@ -18,8 +19,10 @@ const arg = (k, d) => { const i = argv.indexOf(`--${k}`); return i >= 0 ? argv[i
 const story = arg('story'), specPath = arg('spec') ?? (story && `stories/${story}/episode.json`);
 if (!specPath) { console.error('usage: render.js --story <slug> | --spec <episode.json>'); process.exit(2); }
 const out = arg('out') ?? path.join(path.dirname(specPath), 'build');
-const width = Number(arg('width', 1080)), height = Number(arg('height', 1920)),   // native 1080p finals (owner decision)
-      workers = Number(arg('workers', 1)), aa = arg('aa', '1');
+// --final: the delivery preset (Amendment A2): native 1440×2560, antialiasing on. Without it the default stays 1080×1920.
+const final = argv.includes('--final');
+const width = Number(arg('width', final ? 1440 : 1080)), height = Number(arg('height', final ? 2560 : 1920)),
+      workers = Number(arg('workers', 1)), aa = final ? '1' : arg('aa', '1');
 const every = Number(arg('every', 1));
 
 const spec = JSON.parse(readFileSync(specPath, 'utf8')), fps = spec.fps ?? 30;

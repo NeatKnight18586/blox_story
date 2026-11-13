@@ -34,12 +34,16 @@ different attempts → stop and ask. Never read `evidence/`; look only at contac
 ## Session E2 (after the owner's notes)
 1. Apply the notes; a note that changes a shot re-renders only that shot (per-shot cache, §14.1).
 2. Re-run `v2:plan`, `v2:bench` and **`v2:stability` on the final spec (must exit 0, A1)**.
-3. **Render farm:** add or edit `stories/<slug>/render.request` (first line `final`) and push, or dispatch
-   `.github/workflows/render.yml` (story, preset final). It plans, renders 6 shards, assembles and attaches
-   `final.mp4` to a prerelease `<slug>-<sha>`. Fallback: local `npm run v2:render -- --story <slug> --out renders/v2/<slug>-final --workers 3`
-   then `assemble.py --frames …`.
-4. **Verify:** `final.mp4` is 1080×1920, 30 fps, 122–170 s, −14 ± 1 LUFS, ≤ 60 MB (ffprobe/ebur128); 10-frame
-   re-render spot check byte-identical; 1-fps sheets reviewed for caption/face collisions (fix with per-shot
-   `captionY: "high"`).
-5. Copy the final to `review/<slug>/final.mp4`, update `SERIES_LOG.md`, CLAUDE.md library index (one line per new
+3. **Render at 1440 (A2):** add or edit `stories/<slug>/render.request` (first line `final`) and push, or dispatch
+   `.github/workflows/render.yml` (story, preset final). It plans, renders 6 shards at native 1440×2560, assembles the
+   master + 1080 review proxy, runs `v2:qc`, and only on a QC pass attaches the master to a prerelease `<slug>-<sha>`.
+   Fallback: local `npm run v2:render -- --story <slug> --out renders/v2/<slug>-final1440 --final --workers 3`; if that
+   would exceed 2.5 h, render 1080×1920 and let `assemble.py` upscale before the grade (record the path).
+4. **Assemble + verify:** `python3 scripts/v2/assemble.py --story <slug> --frames <dir> --captions <ass> --out <master.mp4>
+   --proxy review/<slug>/final-review.mp4` → **`v2:stability` (A1) and `npm run v2:qc -- --story <slug> --video <master>`
+   must exit 0** (1440×2560, ≥ 16 Mb/s, BT.709, −14 ± 1 LUFS, TP ≤ −1, SSIM/PSNR, grade sharpness, stone ΔE,
+   `qc-crops.png` scored); 10-frame re-render spot check byte-identical; 1-fps sheets reviewed for caption/face
+   collisions (fix with per-shot `captionY: "high"`).
+5. **Deliver:** the master is never committed: prerelease asset (farm) or sent directly, linked from
+   `review/<slug>/DELIVERY.md` with its ffprobe summary; commit `final-review.mp4` (≤ 45 MB), `qc.json`, `qc-crops.png`. Update `SERIES_LOG.md`, CLAUDE.md library index (one line per new
    reusable addition), record times. Commit, push, update the PR. Stop.

@@ -78,7 +78,7 @@ export function faceMaterial(name, tier = 'hero') {
   else {
     const px = tier === 'hero' ? 512 : 128, c = document.createElement('canvas'); c.width = px; c.height = Math.round(px * H / W);
     const g = c.getContext('2d'); DRAW[name](painter(g, px));
-    const tex = new T.CanvasTexture(c); tex.colorSpace = T.SRGBColorSpace; tex.anisotropy = 4;
+    const tex = new T.CanvasTexture(c); tex.colorSpace = T.SRGBColorSpace; tex.anisotropy = 8;
     mat = new T.MeshBasicMaterial({map: tex, transparent: true, depthWrite: false, polygonOffset: true, polygonOffsetFactor: -2});
   }
   mat.name = 'face_' + name; texCache.set(key, mat); return mat;
