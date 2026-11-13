@@ -87,11 +87,11 @@ def main():
     else:
         af += ";[vo]anull[a]"
     os.makedirs(os.path.dirname(o.out) or '.', exist_ok=True)
-    for crf in ([18] if not o.animatic else [23, 27, 31]):
+    for crf in ([18, 20, 21, 22] if not o.animatic else [23, 27, 31]):   # finals ≤ 60 MB, animatics ≤ 10 MB: raise CRF until it fits
         run(['ffmpeg', '-hide_banner', '-y', *inputs, '-filter_complex', vf + ';' + af, '-map', '[v]', '-map', '[a]',
              '-c:v', 'libx264', '-profile:v', 'high', '-preset', 'medium', '-crf', str(crf), '-pix_fmt', 'yuv420p', '-r', str(o.fps),
              '-c:a', 'aac', '-b:a', '192k' if not o.animatic else '128k', '-movflags', '+faststart', '-t', f'{total:.3f}', o.out])
-        if not o.animatic or os.path.getsize(o.out) <= 10e6: break
+        if os.path.getsize(o.out) <= (10e6 if o.animatic else 60e6): break
 
     pr = json.loads(run(['ffprobe', '-v', 'error', '-show_entries', 'stream=codec_type,codec_name,profile,width,height,r_frame_rate,nb_frames:format=duration,size', '-of', 'json', o.out]).stdout)
     v = next(s for s in pr['streams'] if s['codec_type'] == 'video'); au = [s for s in pr['streams'] if s['codec_type'] == 'audio']
@@ -100,7 +100,7 @@ def main():
            'duration': round(float(pr['format']['duration']), 3), 'MB': round(int(pr['format']['size']) / 1e6, 2), 'audio': bool(au),
            'lufs': lufs, 'truePeak': peak, 'hold': round(hold, 3), 'music': os.path.exists(music)}
     size, cap = ((540, 960), 10) if o.animatic else ((1080, 1920), 60)
-    rep['animatic'] = o.animatic
+    rep['animatic'] = o.animatic; rep['crf'] = crf
     rep['pass'] = (v['width'], v['height']) == size and bool(au) and abs(lufs - TARGET_LUFS) <= 1 and rep['MB'] <= cap and rep['duration'] >= (122.5 if not o.no_hold else 0) - .05
     print(json.dumps(rep))
     if not rep['pass']: sys.exit(1)
