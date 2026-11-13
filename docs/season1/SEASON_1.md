@@ -248,6 +248,7 @@ picture (so a player recognises it in one second), never a game's name, map, UI 
 - **Clues:** half-buried sign at the village gate (B1) · a lake shaped like a footprint (B2 wide) · the shadow reaching the bridge (B4).
 - **Money shot:** one enormous eye opening in the clouds above a block-kid in the road. **World:** alpine valley, river, bridge, mill, school.
 - Script: `stories/mountain/script.txt` · beats: `stories/mountain/beats.md`.
+- **Before this episode's animatic:** rebuild the landform giant so a 64 px thumbnail reads as a sleeping face and shoulder (brow ridge, nose, closed eyelid line), not a boulder (A5, out-of-scope note).
 
 ### 12 · M · `mirror` · Every Mirror Shows Tomorrow 🪞
 - **Rule:** In this town, every mirror shows tomorrow. This morning, Max wasn't in his.
