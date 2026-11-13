@@ -5,7 +5,7 @@ This replaces the A2 master (`nobody-master.mp4`, prerelease `nobody-66fd10c`). 
 
 ## Where the master is
 - **Sent directly** to the owner in the Claude Code session (2026-11-13), as `nobody-a3-master.mp4`.
-- **GitHub prerelease** `nobody-3960d2b`, made by the render farm (run 6, commit 3960d2b). It is still rendering; the link is added here when it publishes.
+- **GitHub prerelease** [`nobody-3960d2b`](https://github.com/NeatKnight18586/blox_story/releases/tag/nobody-3960d2b), made by the render farm (run 6, commit 3960d2b, `v2:qc` PASS). Assets: `nobody-master.mp4` (259.8 MB, 1440×2560), `final-review.mp4`, `report.json`, `qc.json`. Either master is fine to upload; it is the same picture.
 
 ## Master (local render, the file that was sent)
 | | |
