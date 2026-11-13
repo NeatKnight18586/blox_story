@@ -1,0 +1,88 @@
+{
+  "status": "PASS",
+  "wallSeconds": 4.580861175999999,
+  "errors": [],
+  "states": [
+    {
+      "f": 0,
+      "name": "anticipation",
+      "chair": false,
+      "state": {
+        "frame": 0,
+        "time": 0,
+        "focus": 0,
+        "relief": 0,
+        "reach": 0,
+        "headPitch": 0.18,
+        "headYaw": 0.1,
+        "headTilt": 0,
+        "shoulder": 0,
+        "chairView": false,
+        "identity": true,
+        "faceIdentity": true
+      },
+      "hash": "80f713eae0737313d7a5133f59fae6259e39935c5f6f18791e02b9ed78af8ff6"
+    },
+    {
+      "f": 40,
+      "name": "recognition",
+      "chair": false,
+      "state": {
+        "frame": 40,
+        "time": 1.3333333333333333,
+        "focus": 1,
+        "relief": 0.4267061688189308,
+        "reach": 0,
+        "headPitch": 0.3693323457795267,
+        "headYaw": -0.07,
+        "headTilt": -0.008534123376378617,
+        "shoulder": 0,
+        "chairView": false,
+        "identity": true,
+        "faceIdentity": true
+      },
+      "hash": "6cd9279ace8c0fb52ddc30a0b7c84b3e2a6cbd3353396e0ef20f54d1bcb438b3"
+    },
+    {
+      "f": 95,
+      "name": "response",
+      "chair": false,
+      "state": {
+        "frame": 95,
+        "time": 3.1666666666666665,
+        "focus": 1,
+        "relief": 1,
+        "reach": 1,
+        "headPitch": 0.355,
+        "headYaw": -0.07,
+        "headTilt": -0.02,
+        "shoulder": -0.7477886606808648,
+        "chairView": false,
+        "identity": true,
+        "faceIdentity": true
+      },
+      "hash": "453b02d53762f660d280a931d58dcaa1259ce07da718100a6f61b14683196f53"
+    },
+    {
+      "f": 0,
+      "name": "chair",
+      "chair": true,
+      "state": {
+        "frame": 0,
+        "time": 0,
+        "focus": 0,
+        "relief": 0,
+        "reach": 0,
+        "headPitch": 0.18,
+        "headYaw": 0.1,
+        "headTilt": 0,
+        "shoulder": 0,
+        "chairView": true,
+        "identity": true,
+        "faceIdentity": true
+      },
+      "hash": "78782fa89371a9d803b25eaba7f3caa20ad02e661266e8a57a855bb37b77606d"
+    }
+  ],
+  "verification": null
+}

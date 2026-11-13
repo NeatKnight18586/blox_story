@@ -1,0 +1,13 @@
+{
+  "maxGazeDegrees": 5.143539082621261,
+  "frames": 105,
+  "maxFaceScreen": 0.4770568218112171,
+  "maxHandScreen": 0.8487306401928109,
+  "minJambGap": 0.11377944932539119,
+  "minChildGap": 2.0768631795360757,
+  "minHeadGap": 0.3350617467831939,
+  "identity": true,
+  "faceGeometryPersistent": true,
+  "reachAfterRecognition": true,
+  "method": "Actual projected head/distal-arm vertices and conservative world bounds clearance; intentional shoulder/OTS child crops allowed"
+}

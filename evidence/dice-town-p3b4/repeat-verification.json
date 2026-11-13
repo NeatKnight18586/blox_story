@@ -1,0 +1,6 @@
+{
+  "status": "PASS",
+  "authenticBaselines": 5,
+  "coldSamples": 5,
+  "method": "Baseline hashes equal unmodified animatic entry at native viewport; corrected native hashes equal fresh-load reverse order in same browser/backend"
+}

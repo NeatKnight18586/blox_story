@@ -12,3 +12,18 @@ evidence/names100-v1/raw/
 evidence/names100-ending/raw/
 evidence/names100-s1/raw/
 evidence/names100-s2/raw/
+
+evidence/dice-town-p2a/review/
+evidence/dice-town-p2a-polish/review/
+__pycache__/
+evidence/studio-characters/faces/
+evidence/studio-characters/hair/
+
+# Narrated outputs embed the private narration WAV; never commit them.
+*-narrated*.mp4
+*.wav
+*.WAV
+
+# v2 engine (docs/V2_BRIEF.md §2.5): build outputs and caches never committed
+stories/*/build/
+.cache/

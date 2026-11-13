@@ -1,0 +1,578 @@
+{
+  "status": "PROPOSED_PRODUCTION_LOCK_REQUIRES_USER_REVIEW",
+  "source_commit": "58f7a1302ba34271c3efcd15c858670ba2105f3c",
+  "scope": "documentation only; not renderer input",
+  "fps": 30,
+  "total_frames": 3513,
+  "duration_seconds": 117.1,
+  "audio_reference_seconds": 117.098231,
+  "audio_review": "not performed; narration unchanged",
+  "shots": [
+    {
+      "id": "D01",
+      "start_frame": 0,
+      "end_frame": 66,
+      "start_seconds": 0.0,
+      "end_seconds": 2.2,
+      "observed_animatic": "Circular dais and bare surround read as an island; opening needs three and airborne people together.",
+      "classification": [
+        "needs better grounding / background depth",
+        "needs stronger staging"
+      ],
+      "production_treatment": "Hold established result3; one short settle and staggered launch; avoid repeating the full four-second proof.",
+      "setup_family": "A",
+      "unique_motion_seconds_ceiling_estimate": 1.2
+    },
+    {
+      "id": "D02",
+      "start_frame": 66,
+      "end_frame": 169,
+      "start_seconds": 2.2,
+      "end_seconds": 5.633333333333334,
+      "observed_animatic": "Closer angle still exposes empty ground and overlapping raised arms/die.",
+      "classification": [
+        "tighten to close-up",
+        "needs overlap fix"
+      ],
+      "production_treatment": "Medium on two staggered residents; one lift arc each, held apex; keep result visible behind them.",
+      "setup_family": "A",
+      "unique_motion_seconds_ceiling_estimate": 1.2
+    },
+    {
+      "id": "D03",
+      "start_frame": 169,
+      "end_frame": 255,
+      "start_seconds": 5.633333333333334,
+      "end_seconds": 8.5,
+      "observed_animatic": "Baker leans beside the stall; leg/shoe/stall separation and actual grip are unresolved.",
+      "classification": [
+        "needs overlap fix",
+        "needs stronger staging"
+      ],
+      "production_treatment": "Three poses: brace, catch stall edge, arrested rise. Hide lower legs behind stall; hand contacts fixed before lift.",
+      "setup_family": "B",
+      "unique_motion_seconds_ceiling_estimate": 1.2
+    },
+    {
+      "id": "D04",
+      "start_frame": 255,
+      "end_frame": 337,
+      "start_seconds": 8.5,
+      "end_seconds": 11.233333333333333,
+      "observed_animatic": "Loose shoe blocks share stall/leg depth; detachment is ambiguous.",
+      "classification": [
+        "convert to insert",
+        "needs overlap fix"
+      ],
+      "production_treatment": "Calf/foot and shoe insert with visible air gap; one short shoe lift, then hold. Preserve sole identity.",
+      "setup_family": "B",
+      "unique_motion_seconds_ceiling_estimate": 0.5
+    },
+    {
+      "id": "D05",
+      "start_frame": 337,
+      "end_frame": 382,
+      "start_seconds": 11.233333333333333,
+      "end_seconds": 12.733333333333333,
+      "observed_animatic": "Floating extra crowds Leo; large contingency card obscures tether story.",
+      "classification": [
+        "needs stronger staging",
+        "needs overlap fix"
+      ],
+      "production_treatment": "Waist-up grounded Leo, diagonal tether to one visible anchor, floating resident in a separate background lane.",
+      "setup_family": "C",
+      "unique_motion_seconds_ceiling_estimate": 0.4
+    },
+    {
+      "id": "D06",
+      "start_frame": 382,
+      "end_frame": 504,
+      "start_seconds": 12.733333333333333,
+      "end_seconds": 16.8,
+      "observed_animatic": "View repeats hero composition rather than clearly explaining rope attachment.",
+      "classification": [
+        "convert to insert"
+      ],
+      "production_treatment": "Anchor ring, taut line and harness edge in one crop; hold tension pose, tiny body settle.",
+      "setup_family": "C",
+      "unique_motion_seconds_ceiling_estimate": 0.4
+    },
+    {
+      "id": "D07",
+      "start_frame": 504,
+      "end_frame": 631,
+      "start_seconds": 16.8,
+      "end_seconds": 21.033333333333335,
+      "observed_animatic": "Oversized floating page replaces a believable notebook and dominates face.",
+      "classification": [
+        "convert to insert",
+        "needs overlap fix"
+      ],
+      "production_treatment": "Page-only contingency sketch held with one page tap; no legible paragraph or page-turn simulation.",
+      "setup_family": "C",
+      "unique_motion_seconds_ceiling_estimate": 0.2
+    },
+    {
+      "id": "D08",
+      "start_frame": 631,
+      "end_frame": 693,
+      "start_seconds": 21.033333333333335,
+      "end_seconds": 23.1,
+      "observed_animatic": "Cups are visible but foreground body blocks their separation and grounded witness.",
+      "classification": [
+        "convert to insert",
+        "needs stronger staging"
+      ],
+      "production_treatment": "Cup lifts against stall backdrop; include one planted foot at frame edge and brief rule1 pip reference.",
+      "setup_family": "B",
+      "unique_motion_seconds_ceiling_estimate": 0.5
+    },
+    {
+      "id": "D09",
+      "start_frame": 693,
+      "end_frame": 742,
+      "start_seconds": 23.1,
+      "end_seconds": 24.733333333333334,
+      "observed_animatic": "One close body hides second walker; held endpoints do not establish backward travel.",
+      "classification": [
+        "use silhouette",
+        "needs stronger staging"
+      ],
+      "production_treatment": "Side-profile single rigid walker over existing wall/floor; brief reversed-root travel with contact-safe existing gait, then hold. Second walker optional offset silhouette.",
+      "setup_family": "A",
+      "unique_motion_seconds_ceiling_estimate": 0.8
+    },
+    {
+      "id": "D10",
+      "start_frame": 742,
+      "end_frame": 793,
+      "start_seconds": 24.733333333333334,
+      "end_seconds": 26.433333333333334,
+      "observed_animatic": "Repeated wide reveals the same sparse ground without new information.",
+      "classification": [
+        "tighten to close-up"
+      ],
+      "production_treatment": "Reuse D02 lift window with a rule3/result match; no additional crowd or angle.",
+      "setup_family": "A",
+      "unique_motion_seconds_ceiling_estimate": 0.4
+    },
+    {
+      "id": "D11",
+      "start_frame": 793,
+      "end_frame": 886,
+      "start_seconds": 26.433333333333334,
+      "end_seconds": 29.533333333333335,
+      "observed_animatic": "Top pip swap stands in for a physical near-six deflection.",
+      "classification": [
+        "convert to insert",
+        "needs stronger staging"
+      ],
+      "production_treatment": "One die corner and six-bearing face approach, directional kick away; reuse exact deflection signature in D13/D16.",
+      "setup_family": "D",
+      "unique_motion_seconds_ceiling_estimate": 0.7
+    },
+    {
+      "id": "D12",
+      "start_frame": 886,
+      "end_frame": 990,
+      "start_seconds": 29.533333333333335,
+      "end_seconds": 33.0,
+      "observed_animatic": "Card and frontal Leo repeat D07; evidence has no readable comparison.",
+      "classification": [
+        "use over-the-shoulder",
+        "needs overlap fix"
+      ],
+      "production_treatment": "Shoulder as dark frame, three repeated wobble sketches/tallies on page; hold with short eye/hand indication.",
+      "setup_family": "C",
+      "unique_motion_seconds_ceiling_estimate": 0.2
+    },
+    {
+      "id": "D13",
+      "start_frame": 990,
+      "end_frame": 1099,
+      "start_seconds": 33.0,
+      "end_seconds": 36.63333333333333,
+      "observed_animatic": "Brass clue is tiny; six-to-three substitution does not show impact cause.",
+      "classification": [
+        "convert to insert"
+      ],
+      "production_treatment": "Same corner/contact-axis as D11, lower crop reveals brass tip; short repeat of identical kick.",
+      "setup_family": "D",
+      "unique_motion_seconds_ceiling_estimate": 0.5
+    },
+    {
+      "id": "D14",
+      "start_frame": 1099,
+      "end_frame": 1220,
+      "start_seconds": 36.63333333333333,
+      "end_seconds": 40.666666666666664,
+      "observed_animatic": "Proxy hatch/Leo view has no convincing descent or tether reclip.",
+      "classification": [
+        "convert to insert",
+        "needs stronger staging"
+      ],
+      "production_treatment": "Two subbeats inside existing cut: reclip line to hatch ring, then boot/shoulder drops past rim. Imply descent offscreen.",
+      "setup_family": "E",
+      "unique_motion_seconds_ceiling_estimate": 0.8
+    },
+    {
+      "id": "D15",
+      "start_frame": 1220,
+      "end_frame": 1332,
+      "start_seconds": 40.666666666666664,
+      "end_seconds": 44.4,
+      "observed_animatic": "Flat gold plank/crank lacks legible hinge, pin function and die underside.",
+      "classification": [
+        "convert to insert",
+        "needs stronger staging"
+      ],
+      "production_treatment": "One side cutaway includes die support, paddle hinge, crank link and removable lock pin; crank turn visibly leads paddle contact.",
+      "setup_family": "E",
+      "unique_motion_seconds_ceiling_estimate": 1.0
+    },
+    {
+      "id": "D16",
+      "start_frame": 1332,
+      "end_frame": 1442,
+      "start_seconds": 44.4,
+      "end_seconds": 48.06666666666667,
+      "observed_animatic": "Nearly repeats plank shot; die response missing from causal chain.",
+      "classification": [
+        "convert to insert",
+        "needs stronger staging"
+      ],
+      "production_treatment": "Tighter contact insert: paddle touches underside, same kick direction as D11, held displaced state.",
+      "setup_family": "E",
+      "unique_motion_seconds_ceiling_estimate": 0.8
+    },
+    {
+      "id": "D17",
+      "start_frame": 1442,
+      "end_frame": 1495,
+      "start_seconds": 48.06666666666667,
+      "end_seconds": 49.833333333333336,
+      "observed_animatic": "Pip at a label does not prove he operates handle.",
+      "classification": [
+        "tighten to close-up",
+        "needs overlap fix"
+      ],
+      "production_treatment": "Pip face plus one rigid hand already resting on crank; eye flick up, guilty held stop.",
+      "setup_family": "E",
+      "unique_motion_seconds_ceiling_estimate": 0.4
+    },
+    {
+      "id": "D18",
+      "start_frame": 1495,
+      "end_frame": 1590,
+      "start_seconds": 49.833333333333336,
+      "end_seconds": 53.0,
+      "observed_animatic": "Two huge photo cards hide Pip and age-freeze emotion.",
+      "classification": [
+        "tighten to close-up",
+        "needs overlap fix"
+      ],
+      "production_treatment": "Pip stays child-sized; photo edge below chin, eyes lower and pause. D19 carries time comparison.",
+      "setup_family": "F",
+      "unique_motion_seconds_ceiling_estimate": 0.3
+    },
+    {
+      "id": "D19",
+      "start_frame": 1590,
+      "end_frame": 1710,
+      "start_seconds": 53.0,
+      "end_seconds": 57.0,
+      "observed_animatic": "Text-only BEFORE/OUTSIDE cards do not convey aging or family continuity.",
+      "classification": [
+        "convert to insert"
+      ],
+      "production_treatment": "Two related still family images sharing door/chair motif: younger mother then older mother, same child Pip. Slow crop over images, not extra animated rigs.",
+      "setup_family": "F",
+      "unique_motion_seconds_ceiling_estimate": 0
+    },
+    {
+      "id": "D20",
+      "start_frame": 1710,
+      "end_frame": 1768,
+      "start_seconds": 57.0,
+      "end_seconds": 58.93333333333333,
+      "observed_animatic": "Photo intersects head and substitutes text for emotional grip.",
+      "classification": [
+        "convert to insert",
+        "needs overlap fix"
+      ],
+      "production_treatment": "Block hands at lower photo corners; short tilt reveals image; maintain positive hand/card gap except intended grip.",
+      "setup_family": "F",
+      "unique_motion_seconds_ceiling_estimate": 0.3
+    },
+    {
+      "id": "D21",
+      "start_frame": 1768,
+      "end_frame": 1905,
+      "start_seconds": 58.93333333333333,
+      "end_seconds": 63.5,
+      "observed_animatic": "Gate behind Pip is a freestanding panel; fear pose unchanged across holds.",
+      "classification": [
+        "tighten to close-up",
+        "needs better grounding / background depth"
+      ],
+      "production_treatment": "Facial-only worry and glance to established gate silhouette; wall terminates background. Hold after glance.",
+      "setup_family": "F",
+      "unique_motion_seconds_ceiling_estimate": 0.5
+    },
+    {
+      "id": "D22",
+      "start_frame": 1905,
+      "end_frame": 1997,
+      "start_seconds": 63.5,
+      "end_seconds": 66.56666666666666,
+      "observed_animatic": "Worried face works, but page close and loss of certainty are absent.",
+      "classification": [
+        "keep as is",
+        "use held-frame / limited-animation approach"
+      ],
+      "production_treatment": "Keep close-up intent, replace card with notebook below chin; mouth closes, eyes pause, shoulders release. Do not add another walk.",
+      "setup_family": "F",
+      "unique_motion_seconds_ceiling_estimate": 0.5
+    },
+    {
+      "id": "D23",
+      "start_frame": 1997,
+      "end_frame": 2129,
+      "start_seconds": 66.56666666666666,
+      "end_seconds": 70.96666666666667,
+      "observed_animatic": "Wide two-shot makes tiny pin transfer unreadable; hand positions are schematic.",
+      "classification": [
+        "convert to insert",
+        "needs overlap fix",
+        "needs stronger staging"
+      ],
+      "production_treatment": "Two subposes within cut: pull pin clear of sleeve, match cut to Pip open block palm. Pin stays visible until received.",
+      "setup_family": "E",
+      "unique_motion_seconds_ceiling_estimate": 0.8
+    },
+    {
+      "id": "D24",
+      "start_frame": 2129,
+      "end_frame": 2224,
+      "start_seconds": 70.96666666666667,
+      "end_seconds": 74.13333333333334,
+      "observed_animatic": "Wide vignette exposes floor boundary and repeats static handoff tableau.",
+      "classification": [
+        "use over-the-shoulder",
+        "needs better grounding / background depth"
+      ],
+      "production_treatment": "Pip and pin foreground; Leo shoulder exits crop, then held Pip reaction. Imply exit offscreen.",
+      "setup_family": "F",
+      "unique_motion_seconds_ceiling_estimate": 0.4
+    },
+    {
+      "id": "D25",
+      "start_frame": 2224,
+      "end_frame": 2339,
+      "start_seconds": 74.13333333333334,
+      "end_seconds": 77.96666666666667,
+      "observed_animatic": "Only top faces change; same close die setup economically implies days1\u20132.",
+      "classification": [
+        "keep as is",
+        "use held-frame / limited-animation approach"
+      ],
+      "production_treatment": "Two held fair non-six outcomes; small dawn grade shift and match cut. No complete toss cycles.",
+      "setup_family": "D",
+      "unique_motion_seconds_ceiling_estimate": 0
+    },
+    {
+      "id": "D26",
+      "start_frame": 2339,
+      "end_frame": 2454,
+      "start_seconds": 77.96666666666667,
+      "end_seconds": 81.8,
+      "observed_animatic": "Same economical die setup for days3\u20134; Pip/pin agency is absent.",
+      "classification": [
+        "use held-frame / limited-animation approach",
+        "needs stronger staging"
+      ],
+      "production_treatment": "Retain two result holds; frame Pip/pin silhouette at one edge without covering pips. Reuse D25 camera.",
+      "setup_family": "D",
+      "unique_motion_seconds_ceiling_estimate": 0.2
+    },
+    {
+      "id": "D27",
+      "start_frame": 2454,
+      "end_frame": 2585,
+      "start_seconds": 81.8,
+      "end_seconds": 86.16666666666667,
+      "observed_animatic": "Photo cards occlude Pip; no near-reinstallation decision is readable.",
+      "classification": [
+        "convert to insert",
+        "needs overlap fix",
+        "needs stronger staging"
+      ],
+      "production_treatment": "Pin hand approaches empty sleeve, stops; eye/photo glance motivates withdrawal. Photo lower corner, not over face. Morning5 cue is editorial.",
+      "setup_family": "E",
+      "unique_motion_seconds_ceiling_estimate": 0.8
+    },
+    {
+      "id": "D28",
+      "start_frame": 2585,
+      "end_frame": 2669,
+      "start_seconds": 86.16666666666667,
+      "end_seconds": 88.96666666666667,
+      "observed_animatic": "Another close die image does not reset geography or mark sixth sunrise.",
+      "classification": [
+        "needs better grounding / background depth",
+        "needs stronger staging"
+      ],
+      "production_treatment": "Reuse grounded plaza A for sixth-sunrise anticipation; held residents/Pip, one restrained camera drift only.",
+      "setup_family": "A",
+      "unique_motion_seconds_ceiling_estimate": 0.2
+    },
+    {
+      "id": "D29",
+      "start_frame": 2669,
+      "end_frame": 2716,
+      "start_seconds": 88.96666666666667,
+      "end_seconds": 90.53333333333333,
+      "observed_animatic": "Static five/six swap is not a truthful edge rotation.",
+      "classification": [
+        "convert to insert"
+      ],
+      "production_treatment": "Use shared six-bearing die rig: slow near-contact rotation; keep horizon and contact edge in frame.",
+      "setup_family": "D",
+      "unique_motion_seconds_ceiling_estimate": 0.8
+    },
+    {
+      "id": "D30",
+      "start_frame": 2716,
+      "end_frame": 2787,
+      "start_seconds": 90.53333333333333,
+      "end_seconds": 92.9,
+      "observed_animatic": "Pip pose repeats reveal rather than visible reaching-and-stopping choice.",
+      "classification": [
+        "convert to insert",
+        "needs stronger staging"
+      ],
+      "production_treatment": "Hand begins toward pin/sleeve then decisively withdraws; leave pin unreinstalled. Face sliver or photo motivates choice.",
+      "setup_family": "E",
+      "unique_motion_seconds_ceiling_estimate": 0.6
+    },
+    {
+      "id": "D31",
+      "start_frame": 2787,
+      "end_frame": 2850,
+      "start_seconds": 92.9,
+      "end_seconds": 95.0,
+      "observed_animatic": "Already-settled six is duplicated before result reveal.",
+      "classification": [
+        "convert to insert"
+      ],
+      "production_treatment": "Final damped contact and brief stillness; use D29 rig, no number swaps mid-roll.",
+      "setup_family": "D",
+      "unique_motion_seconds_ceiling_estimate": 0.6
+    },
+    {
+      "id": "D32",
+      "start_frame": 2850,
+      "end_frame": 2898,
+      "start_seconds": 95.0,
+      "end_seconds": 96.6,
+      "observed_animatic": "Top six layout reads but repeats D31 framing.",
+      "classification": [
+        "keep as is",
+        "use held-frame / limited-animation approach"
+      ],
+      "production_treatment": "Hold unmistakable six; restrained tighter crop/digital push within native overscan; board response secondary.",
+      "setup_family": "D",
+      "unique_motion_seconds_ceiling_estimate": 0
+    },
+    {
+      "id": "D33",
+      "start_frame": 2898,
+      "end_frame": 2985,
+      "start_seconds": 96.6,
+      "end_seconds": 99.5,
+      "observed_animatic": "Opening leaves reveal a bare floor/wall, not a street through a boundary.",
+      "classification": [
+        "needs better grounding / background depth",
+        "needs stronger staging"
+      ],
+      "production_treatment": "Gate between two wall returns; visible road continues through doorway to two shallow facade silhouettes. Hinge once, hold open.",
+      "setup_family": "G",
+      "unique_motion_seconds_ceiling_estimate": 0.9
+    },
+    {
+      "id": "D34",
+      "start_frame": 2985,
+      "end_frame": 3090,
+      "start_seconds": 99.5,
+      "end_seconds": 103.0,
+      "observed_animatic": "Pip endpoints jump behind gate; no readable path toward home.",
+      "classification": [
+        "use silhouette",
+        "needs better grounding / background depth"
+      ],
+      "production_treatment": "Short silhouette crossing open threshold; doorway cut implies remaining travel. Same road direction, no long running track.",
+      "setup_family": "G",
+      "unique_motion_seconds_ceiling_estimate": 0.8
+    },
+    {
+      "id": "D35",
+      "start_frame": 3090,
+      "end_frame": 3230,
+      "start_seconds": 103.0,
+      "end_seconds": 107.66666666666667,
+      "observed_animatic": "Mother faces camera smiling; reciprocal recognition and doorway relationship missing.",
+      "classification": [
+        "use over-the-shoulder",
+        "needs stronger staging"
+      ],
+      "production_treatment": "Child shoulder foreground, mother framed by door jamb; recognition pause then softened eyes and short reach. Pip reverse implied within same cut if needed.",
+      "setup_family": "H",
+      "unique_motion_seconds_ceiling_estimate": 0.8
+    },
+    {
+      "id": "D36",
+      "start_frame": 3230,
+      "end_frame": 3344,
+      "start_seconds": 107.66666666666667,
+      "end_seconds": 111.46666666666667,
+      "observed_animatic": "Chair placeholder clearly reads, but isolated bare floor lacks home context.",
+      "classification": [
+        "keep as is",
+        "needs better grounding / background depth"
+      ],
+      "production_treatment": "Low chair/table-leg insert on continuous interior floor, repainted wall/skirting behind; hold, small camera move over still optional.",
+      "setup_family": "H",
+      "unique_motion_seconds_ceiling_estimate": 0
+    },
+    {
+      "id": "D37",
+      "start_frame": 3344,
+      "end_frame": 3389,
+      "start_seconds": 111.46666666666667,
+      "end_seconds": 112.96666666666667,
+      "observed_animatic": "Mother smile and chair position repeat without directed eyeline.",
+      "classification": [
+        "tighten to close-up",
+        "use held-frame / limited-animation approach"
+      ],
+      "production_treatment": "Mother looks toward child/chair, small nod/held welcome; no full lip-sync system. Narration carries quote.",
+      "setup_family": "H",
+      "unique_motion_seconds_ceiling_estimate": 0.3
+    },
+    {
+      "id": "D38",
+      "start_frame": 3389,
+      "end_frame": 3513,
+      "start_seconds": 112.96666666666667,
+      "end_seconds": 117.1,
+      "observed_animatic": "Text card changes instead of notebook closing; location jumps to home-like set.",
+      "classification": [
+        "needs stronger staging",
+        "needs better grounding / background depth"
+      ],
+      "production_treatment": "Leo at established open gate, house seen down same street; one notebook hinge closes below face, shoulders settle into unplanned hold.",
+      "setup_family": "G",
+      "unique_motion_seconds_ceiling_estimate": 0.6
+    }
+  ]
+}

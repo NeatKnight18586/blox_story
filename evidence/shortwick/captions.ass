@@ -1,0 +1,415 @@
+[Script Info]
+ScriptType: v4.00+
+PlayResX: 1080
+PlayResY: 1920
+WrapStyle: 2
+ScaledBorderAndShadow: yes
+
+[V4+ Styles]
+Format: Name, Fontname, Fontsize, PrimaryColour, SecondaryColour, OutlineColour, BackColour, Bold, Italic, Underline, StrikeOut, ScaleX, ScaleY, Spacing, Angle, BorderStyle, Outline, Shadow, Alignment, MarginL, MarginR, MarginV, Encoding
+Style: Cap,Montserrat ExtraBold,72,&H00FFFFFF,&H00FFFFFF,&H00141414,&H96000000,0,0,0,0,100,100,0.5,0,1,5,2.5,2,80,80,500,1
+
+[Events]
+Format: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text
+Dialogue: 0,0:00:00.00,0:00:00.13,Cap,,0,0,0,,{\fad(40,0)\fscx92\fscy92\t(0,120,\fscx100\fscy100)}{\c&H0036D8FF&}In{\c&H00FFFFFF&} this town,
+Dialogue: 0,0:00:00.13,0:00:00.30,Cap,,0,0,0,,In {\c&H0036D8FF&}this{\c&H00FFFFFF&} town,
+Dialogue: 0,0:00:00.30,0:00:00.86,Cap,,0,0,0,,In this {\c&H0036D8FF&}town,{\c&H00FFFFFF&}
+Dialogue: 0,0:00:00.88,0:00:01.24,Cap,,0,0,0,,{\fad(40,0)\fscx92\fscy92\t(0,120,\fscx100\fscy100)}{\c&H0036D8FF&}every{\c&H00FFFFFF&} lie makes
+Dialogue: 0,0:00:01.24,0:00:01.60,Cap,,0,0,0,,every {\c&H0036D8FF&}lie{\c&H00FFFFFF&} makes
+Dialogue: 0,0:00:01.60,0:00:01.79,Cap,,0,0,0,,every lie {\c&H0036D8FF&}makes{\c&H00FFFFFF&}
+Dialogue: 0,0:00:01.81,0:00:01.90,Cap,,0,0,0,,{\fad(40,0)\fscx92\fscy92\t(0,120,\fscx100\fscy100)}{\c&H0036D8FF&}you{\c&H00FFFFFF&} shorter.
+Dialogue: 0,0:00:01.90,0:00:02.72,Cap,,0,0,0,,you {\c&H0036D8FF&}shorter.{\c&H00FFFFFF&}
+Dialogue: 0,0:00:02.74,0:00:02.83,Cap,,0,0,0,,{\fad(40,0)\fscx92\fscy92\t(0,120,\fscx100\fscy100)}{\c&H0036D8FF&}The{\c&H00FFFFFF&} mayor promised
+Dialogue: 0,0:00:02.83,0:00:03.08,Cap,,0,0,0,,The {\c&H0036D8FF&}mayor{\c&H00FFFFFF&} promised
+Dialogue: 0,0:00:03.08,0:00:03.41,Cap,,0,0,0,,The mayor {\c&H0036D8FF&}promised{\c&H00FFFFFF&}
+Dialogue: 0,0:00:03.43,0:00:03.52,Cap,,0,0,0,,{\fad(40,0)\fscx92\fscy92\t(0,120,\fscx100\fscy100)}{\c&H0036D8FF&}to{\c&H00FFFFFF&} fix the roads.
+Dialogue: 0,0:00:03.52,0:00:03.73,Cap,,0,0,0,,to {\c&H0036D8FF&}fix{\c&H00FFFFFF&} the roads.
+Dialogue: 0,0:00:03.73,0:00:03.83,Cap,,0,0,0,,to fix {\c&H0036D8FF&}the{\c&H00FFFFFF&} roads.
+Dialogue: 0,0:00:03.83,0:00:04.45,Cap,,0,0,0,,to fix the {\c&H0036D8FF&}roads.{\c&H00FFFFFF&}
+Dialogue: 0,0:00:04.47,0:00:05.35,Cap,,0,0,0,,{\fad(40,0)\fscx92\fscy92\t(0,120,\fscx100\fscy100)}{\c&H0036D8FF&}Twice.{\c&H00FFFFFF&}
+Dialogue: 0,0:00:05.37,0:00:05.57,Cap,,0,0,0,,{\fad(40,0)\fscx92\fscy92\t(0,120,\fscx100\fscy100)}{\c&H0036D8FF&}Now{\c&H00FFFFFF&} he gives
+Dialogue: 0,0:00:05.57,0:00:05.64,Cap,,0,0,0,,Now {\c&H0036D8FF&}he{\c&H00FFFFFF&} gives
+Dialogue: 0,0:00:05.64,0:00:05.78,Cap,,0,0,0,,Now he {\c&H0036D8FF&}gives{\c&H00FFFFFF&}
+Dialogue: 0,0:00:05.80,0:00:05.95,Cap,,0,0,0,,{\fad(40,0)\fscx92\fscy92\t(0,120,\fscx100\fscy100)}{\c&H0036D8FF&}his{\c&H00FFFFFF&} speeches
+Dialogue: 0,0:00:05.95,0:00:06.31,Cap,,0,0,0,,his {\c&H0036D8FF&}speeches{\c&H00FFFFFF&}
+Dialogue: 0,0:00:06.33,0:00:06.66,Cap,,0,0,0,,{\fad(40,0)\fscx92\fscy92\t(0,120,\fscx100\fscy100)}{\c&H0036D8FF&}standing{\c&H00FFFFFF&} on a stack
+Dialogue: 0,0:00:06.66,0:00:06.75,Cap,,0,0,0,,standing {\c&H0036D8FF&}on{\c&H00FFFFFF&} a stack
+Dialogue: 0,0:00:06.75,0:00:06.79,Cap,,0,0,0,,standing on {\c&H0036D8FF&}a{\c&H00FFFFFF&} stack
+Dialogue: 0,0:00:06.79,0:00:07.01,Cap,,0,0,0,,standing on a {\c&H0036D8FF&}stack{\c&H00FFFFFF&}
+Dialogue: 0,0:00:07.03,0:00:07.13,Cap,,0,0,0,,{\fad(40,0)\fscx92\fscy92\t(0,120,\fscx100\fscy100)}{\c&H0036D8FF&}of{\c&H00FFFFFF&} books.
+Dialogue: 0,0:00:07.13,0:00:07.96,Cap,,0,0,0,,of {\c&H0036D8FF&}books.{\c&H00FFFFFF&}
+Dialogue: 0,0:00:07.98,0:00:08.09,Cap,,0,0,0,,{\fad(40,0)\fscx92\fscy92\t(0,120,\fscx100\fscy100)}{\c&H0036D8FF&}The{\c&H00FFFFFF&} fisherman swore
+Dialogue: 0,0:00:08.09,0:00:08.45,Cap,,0,0,0,,The {\c&H0036D8FF&}fisherman{\c&H00FFFFFF&} swore
+Dialogue: 0,0:00:08.45,0:00:08.86,Cap,,0,0,0,,The fisherman {\c&H0036D8FF&}swore{\c&H00FFFFFF&}
+Dialogue: 0,0:00:08.88,0:00:09.03,Cap,,0,0,0,,{\fad(40,0)\fscx92\fscy92\t(0,120,\fscx100\fscy100)}{\c&H0036D8FF&}his{\c&H00FFFFFF&} catch
+Dialogue: 0,0:00:09.03,0:00:09.25,Cap,,0,0,0,,his {\c&H0036D8FF&}catch{\c&H00FFFFFF&}
+Dialogue: 0,0:00:09.27,0:00:09.42,Cap,,0,0,0,,{\fad(40,0)\fscx92\fscy92\t(0,120,\fscx100\fscy100)}{\c&H0036D8FF&}was{\c&H00FFFFFF&} this big...
+Dialogue: 0,0:00:09.42,0:00:09.72,Cap,,0,0,0,,was {\c&H0036D8FF&}this{\c&H00FFFFFF&} big...
+Dialogue: 0,0:00:09.72,0:00:10.35,Cap,,0,0,0,,was this {\c&H0036D8FF&}big...{\c&H00FFFFFF&}
+Dialogue: 0,0:00:10.37,0:00:10.52,Cap,,0,0,0,,{\fad(40,0)\fscx92\fscy92\t(0,120,\fscx100\fscy100)}{\c&H0036D8FF&}and{\c&H00FFFFFF&} lost
+Dialogue: 0,0:00:10.52,0:00:10.71,Cap,,0,0,0,,and {\c&H0036D8FF&}lost{\c&H00FFFFFF&}
+Dialogue: 0,0:00:10.73,0:00:11.02,Cap,,0,0,0,,{\fad(40,0)\fscx92\fscy92\t(0,120,\fscx100\fscy100)}{\c&H0036D8FF&}an{\c&H00FFFFFF&} inch before
+Dialogue: 0,0:00:11.02,0:00:11.20,Cap,,0,0,0,,an {\c&H0036D8FF&}inch{\c&H00FFFFFF&} before
+Dialogue: 0,0:00:11.20,0:00:11.42,Cap,,0,0,0,,an inch {\c&H0036D8FF&}before{\c&H00FFFFFF&}
+Dialogue: 0,0:00:11.44,0:00:11.55,Cap,,0,0,0,,{\fad(40,0)\fscx92\fscy92\t(0,120,\fscx100\fscy100)}{\c&H0036D8FF&}he{\c&H00FFFFFF&} finished
+Dialogue: 0,0:00:11.55,0:00:11.78,Cap,,0,0,0,,he {\c&H0036D8FF&}finished{\c&H00FFFFFF&}
+Dialogue: 0,0:00:11.80,0:00:11.88,Cap,,0,0,0,,{\fad(40,0)\fscx92\fscy92\t(0,120,\fscx100\fscy100)}{\c&H0036D8FF&}the{\c&H00FFFFFF&} sentence.
+Dialogue: 0,0:00:11.88,0:00:12.70,Cap,,0,0,0,,the {\c&H0036D8FF&}sentence.{\c&H00FFFFFF&}
+Dialogue: 0,0:00:12.72,0:00:12.84,Cap,,0,0,0,,{\fad(40,0)\fscx92\fscy92\t(0,120,\fscx100\fscy100)}{\c&H0036D8FF&}And{\c&H00FFFFFF&} the man
+Dialogue: 0,0:00:12.84,0:00:12.90,Cap,,0,0,0,,And {\c&H0036D8FF&}the{\c&H00FFFFFF&} man
+Dialogue: 0,0:00:12.90,0:00:13.04,Cap,,0,0,0,,And the {\c&H0036D8FF&}man{\c&H00FFFFFF&}
+Dialogue: 0,0:00:13.06,0:00:13.16,Cap,,0,0,0,,{\fad(40,0)\fscx92\fscy92\t(0,120,\fscx100\fscy100)}{\c&H0036D8FF&}who{\c&H00FFFFFF&} sells
+Dialogue: 0,0:00:13.16,0:00:13.39,Cap,,0,0,0,,who {\c&H0036D8FF&}sells{\c&H00FFFFFF&}
+Dialogue: 0,0:00:13.41,0:00:13.67,Cap,,0,0,0,,{\fad(40,0)\fscx92\fscy92\t(0,120,\fscx100\fscy100)}{\c&H0036D8FF&}used{\c&H00FFFFFF&} carts?
+Dialogue: 0,0:00:13.67,0:00:14.37,Cap,,0,0,0,,used {\c&H0036D8FF&}carts?{\c&H00FFFFFF&}
+Dialogue: 0,0:00:14.39,0:00:14.53,Cap,,0,0,0,,{\fad(40,0)\fscx92\fscy92\t(0,120,\fscx100\fscy100)}{\c&H0036D8FF&}He’s{\c&H00FFFFFF&} about
+Dialogue: 0,0:00:14.53,0:00:14.67,Cap,,0,0,0,,He’s {\c&H0036D8FF&}about{\c&H00FFFFFF&}
+Dialogue: 0,0:00:14.69,0:00:14.78,Cap,,0,0,0,,{\fad(40,0)\fscx92\fscy92\t(0,120,\fscx100\fscy100)}{\c&H0036D8FF&}the{\c&H00FFFFFF&} size
+Dialogue: 0,0:00:14.78,0:00:15.01,Cap,,0,0,0,,the {\c&H0036D8FF&}size{\c&H00FFFFFF&}
+Dialogue: 0,0:00:15.03,0:00:15.12,Cap,,0,0,0,,{\fad(40,0)\fscx92\fscy92\t(0,120,\fscx100\fscy100)}{\c&H0036D8FF&}of{\c&H00FFFFFF&} a shoe.
+Dialogue: 0,0:00:15.12,0:00:15.17,Cap,,0,0,0,,of {\c&H0036D8FF&}a{\c&H00FFFFFF&} shoe.
+Dialogue: 0,0:00:15.17,0:00:16.00,Cap,,0,0,0,,of a {\c&H0036D8FF&}shoe.{\c&H00FFFFFF&}
+Dialogue: 0,0:00:16.28,0:00:16.88,Cap,,0,0,0,,{\fad(40,0)\fscx92\fscy92\t(0,120,\fscx100\fscy100)}{\c&H0036D8FF&}Then{\c&H00FFFFFF&} there was Wren.
+Dialogue: 0,0:00:16.88,0:00:17.02,Cap,,0,0,0,,Then {\c&H0036D8FF&}there{\c&H00FFFFFF&} was Wren.
+Dialogue: 0,0:00:17.02,0:00:17.17,Cap,,0,0,0,,Then there {\c&H0036D8FF&}was{\c&H00FFFFFF&} Wren.
+Dialogue: 0,0:00:17.17,0:00:17.98,Cap,,0,0,0,,Then there was {\c&H0036D8FF&}Wren.{\c&H00FFFFFF&}
+Dialogue: 0,0:00:18.00,0:00:18.24,Cap,,0,0,0,,{\fad(40,0)\fscx92\fscy92\t(0,120,\fscx100\fscy100)}{\c&H0036D8FF&}Wren{\c&H00FFFFFF&} had never
+Dialogue: 0,0:00:18.24,0:00:18.42,Cap,,0,0,0,,Wren {\c&H0036D8FF&}had{\c&H00FFFFFF&} never
+Dialogue: 0,0:00:18.42,0:00:18.61,Cap,,0,0,0,,Wren had {\c&H0036D8FF&}never{\c&H00FFFFFF&}
+Dialogue: 0,0:00:18.63,0:00:18.99,Cap,,0,0,0,,{\fad(40,0)\fscx92\fscy92\t(0,120,\fscx100\fscy100)}{\c&H0036D8FF&}told{\c&H00FFFFFF&} a single lie.
+Dialogue: 0,0:00:18.99,0:00:19.04,Cap,,0,0,0,,told {\c&H0036D8FF&}a{\c&H00FFFFFF&} single lie.
+Dialogue: 0,0:00:19.04,0:00:19.49,Cap,,0,0,0,,told a {\c&H0036D8FF&}single{\c&H00FFFFFF&} lie.
+Dialogue: 0,0:00:19.49,0:00:20.04,Cap,,0,0,0,,told a single {\c&H0036D8FF&}lie.{\c&H00FFFFFF&}
+Dialogue: 0,0:00:20.06,0:00:20.33,Cap,,0,0,0,,{\fad(40,0)\fscx92\fscy92\t(0,120,\fscx100\fscy100)}{\c&H0036D8FF&}Not{\c&H00FFFFFF&} one.
+Dialogue: 0,0:00:20.33,0:00:20.94,Cap,,0,0,0,,Not {\c&H0036D8FF&}one.{\c&H00FFFFFF&}
+Dialogue: 0,0:00:20.96,0:00:21.11,Cap,,0,0,0,,{\fad(40,0)\fscx92\fscy92\t(0,120,\fscx100\fscy100)}{\c&H0036D8FF&}And{\c&H00FFFFFF&} in Shortwick,
+Dialogue: 0,0:00:21.11,0:00:21.19,Cap,,0,0,0,,And {\c&H0036D8FF&}in{\c&H00FFFFFF&} Shortwick,
+Dialogue: 0,0:00:21.19,0:00:21.77,Cap,,0,0,0,,And in {\c&H0036D8FF&}Shortwick,{\c&H00FFFFFF&}
+Dialogue: 0,0:00:21.79,0:00:21.98,Cap,,0,0,0,,{\fad(40,0)\fscx92\fscy92\t(0,120,\fscx100\fscy100)}{\c&H0036D8FF&}that{\c&H00FFFFFF&} made
+Dialogue: 0,0:00:21.98,0:00:22.11,Cap,,0,0,0,,that {\c&H0036D8FF&}made{\c&H00FFFFFF&}
+Dialogue: 0,0:00:22.13,0:00:22.26,Cap,,0,0,0,,{\fad(40,0)\fscx92\fscy92\t(0,120,\fscx100\fscy100)}{\c&H0036D8FF&}her{\c&H00FFFFFF&} the tallest
+Dialogue: 0,0:00:22.26,0:00:22.36,Cap,,0,0,0,,her {\c&H0036D8FF&}the{\c&H00FFFFFF&} tallest
+Dialogue: 0,0:00:22.36,0:00:22.81,Cap,,0,0,0,,her the {\c&H0036D8FF&}tallest{\c&H00FFFFFF&}
+Dialogue: 0,0:00:22.83,0:00:23.11,Cap,,0,0,0,,{\fad(40,0)\fscx92\fscy92\t(0,120,\fscx100\fscy100)}{\c&H0036D8FF&}girl{\c&H00FFFFFF&} in town.
+Dialogue: 0,0:00:23.11,0:00:23.23,Cap,,0,0,0,,girl {\c&H0036D8FF&}in{\c&H00FFFFFF&} town.
+Dialogue: 0,0:00:23.23,0:00:23.92,Cap,,0,0,0,,girl in {\c&H0036D8FF&}town.{\c&H00FFFFFF&}
+Dialogue: 0,0:00:23.94,0:00:24.21,Cap,,0,0,0,,{\fad(40,0)\fscx92\fscy92\t(0,120,\fscx100\fscy100)}{\c&H0036D8FF&}People{\c&H00FFFFFF&} called
+Dialogue: 0,0:00:24.21,0:00:24.37,Cap,,0,0,0,,People {\c&H0036D8FF&}called{\c&H00FFFFFF&}
+Dialogue: 0,0:00:24.39,0:00:24.51,Cap,,0,0,0,,{\fad(40,0)\fscx92\fscy92\t(0,120,\fscx100\fscy100)}{\c&H0036D8FF&}it{\c&H00FFFFFF&} showing off.
+Dialogue: 0,0:00:24.51,0:00:24.85,Cap,,0,0,0,,it {\c&H0036D8FF&}showing{\c&H00FFFFFF&} off.
+Dialogue: 0,0:00:24.85,0:00:25.46,Cap,,0,0,0,,it showing {\c&H0036D8FF&}off.{\c&H00FFFFFF&}
+Dialogue: 0,0:00:25.48,0:00:25.72,Cap,,0,0,0,,{\fad(40,0)\fscx92\fscy92\t(0,120,\fscx100\fscy100)}{\c&H0036D8FF&}Kids{\c&H00FFFFFF&} made her sit
+Dialogue: 0,0:00:25.72,0:00:25.86,Cap,,0,0,0,,Kids {\c&H0036D8FF&}made{\c&H00FFFFFF&} her sit
+Dialogue: 0,0:00:25.86,0:00:25.94,Cap,,0,0,0,,Kids made {\c&H0036D8FF&}her{\c&H00FFFFFF&} sit
+Dialogue: 0,0:00:25.94,0:00:26.09,Cap,,0,0,0,,Kids made her {\c&H0036D8FF&}sit{\c&H00FFFFFF&}
+Dialogue: 0,0:00:26.11,0:00:26.19,Cap,,0,0,0,,{\fad(40,0)\fscx92\fscy92\t(0,120,\fscx100\fscy100)}{\c&H0036D8FF&}in{\c&H00FFFFFF&} the back row.
+Dialogue: 0,0:00:26.19,0:00:26.26,Cap,,0,0,0,,in {\c&H0036D8FF&}the{\c&H00FFFFFF&} back row.
+Dialogue: 0,0:00:26.26,0:00:26.51,Cap,,0,0,0,,in the {\c&H0036D8FF&}back{\c&H00FFFFFF&} row.
+Dialogue: 0,0:00:26.51,0:00:27.04,Cap,,0,0,0,,in the back {\c&H0036D8FF&}row.{\c&H00FFFFFF&}
+Dialogue: 0,0:00:27.06,0:00:27.27,Cap,,0,0,0,,{\fad(40,0)\fscx92\fscy92\t(0,120,\fscx100\fscy100)}{\c&H0036D8FF&}Even{\c&H00FFFFFF&} her teacher
+Dialogue: 0,0:00:27.27,0:00:27.36,Cap,,0,0,0,,Even {\c&H0036D8FF&}her{\c&H00FFFFFF&} teacher
+Dialogue: 0,0:00:27.36,0:00:27.68,Cap,,0,0,0,,Even her {\c&H0036D8FF&}teacher{\c&H00FFFFFF&}
+Dialogue: 0,0:00:27.70,0:00:27.91,Cap,,0,0,0,,{\fad(40,0)\fscx92\fscy92\t(0,120,\fscx100\fscy100)}{\c&H0036D8FF&}stood{\c&H00FFFFFF&}
+Dialogue: 0,0:00:27.93,0:00:28.04,Cap,,0,0,0,,{\fad(40,0)\fscx92\fscy92\t(0,120,\fscx100\fscy100)}{\c&H0036D8FF&}on{\c&H00FFFFFF&} a chair
+Dialogue: 0,0:00:28.04,0:00:28.10,Cap,,0,0,0,,on {\c&H0036D8FF&}a{\c&H00FFFFFF&} chair
+Dialogue: 0,0:00:28.10,0:00:28.38,Cap,,0,0,0,,on a {\c&H0036D8FF&}chair{\c&H00FFFFFF&}
+Dialogue: 0,0:00:28.40,0:00:28.49,Cap,,0,0,0,,{\fad(40,0)\fscx92\fscy92\t(0,120,\fscx100\fscy100)}{\c&H0036D8FF&}to{\c&H00FFFFFF&} talk to her.
+Dialogue: 0,0:00:28.49,0:00:28.76,Cap,,0,0,0,,to {\c&H0036D8FF&}talk{\c&H00FFFFFF&} to her.
+Dialogue: 0,0:00:28.76,0:00:28.92,Cap,,0,0,0,,to talk {\c&H0036D8FF&}to{\c&H00FFFFFF&} her.
+Dialogue: 0,0:00:28.92,0:00:29.46,Cap,,0,0,0,,to talk to {\c&H0036D8FF&}her.{\c&H00FFFFFF&}
+Dialogue: 0,0:00:29.48,0:00:29.62,Cap,,0,0,0,,{\fad(40,0)\fscx92\fscy92\t(0,120,\fscx100\fscy100)}{\c&H0036D8FF&}But{\c&H00FFFFFF&} Wren noticed
+Dialogue: 0,0:00:29.62,0:00:29.85,Cap,,0,0,0,,But {\c&H0036D8FF&}Wren{\c&H00FFFFFF&} noticed
+Dialogue: 0,0:00:29.85,0:00:30.22,Cap,,0,0,0,,But Wren {\c&H0036D8FF&}noticed{\c&H00FFFFFF&}
+Dialogue: 0,0:00:30.24,0:00:30.59,Cap,,0,0,0,,{\fad(40,0)\fscx92\fscy92\t(0,120,\fscx100\fscy100)}{\c&H0036D8FF&}something{\c&H00FFFFFF&} strange.
+Dialogue: 0,0:00:30.59,0:00:31.52,Cap,,0,0,0,,something {\c&H0036D8FF&}strange.{\c&H00FFFFFF&}
+Dialogue: 0,0:00:31.54,0:00:31.64,Cap,,0,0,0,,{\fad(40,0)\fscx92\fscy92\t(0,120,\fscx100\fscy100)}{\c&H0036D8FF&}The{\c&H00FFFFFF&} kindest woman
+Dialogue: 0,0:00:31.64,0:00:32.15,Cap,,0,0,0,,The {\c&H0036D8FF&}kindest{\c&H00FFFFFF&} woman
+Dialogue: 0,0:00:32.15,0:00:32.34,Cap,,0,0,0,,The kindest {\c&H0036D8FF&}woman{\c&H00FFFFFF&}
+Dialogue: 0,0:00:32.36,0:00:32.47,Cap,,0,0,0,,{\fad(40,0)\fscx92\fscy92\t(0,120,\fscx100\fscy100)}{\c&H0036D8FF&}in{\c&H00FFFFFF&} Shortwick,
+Dialogue: 0,0:00:32.47,0:00:33.13,Cap,,0,0,0,,in {\c&H0036D8FF&}Shortwick,{\c&H00FFFFFF&}
+Dialogue: 0,0:00:33.15,0:00:33.50,Cap,,0,0,0,,{\fad(40,0)\fscx92\fscy92\t(0,120,\fscx100\fscy100)}{\c&H0036D8FF&}old{\c&H00FFFFFF&} Nan Tilly,
+Dialogue: 0,0:00:33.50,0:00:33.81,Cap,,0,0,0,,old {\c&H0036D8FF&}Nan{\c&H00FFFFFF&} Tilly,
+Dialogue: 0,0:00:33.81,0:00:34.39,Cap,,0,0,0,,old Nan {\c&H0036D8FF&}Tilly,{\c&H00FFFFFF&}
+Dialogue: 0,0:00:34.41,0:00:34.59,Cap,,0,0,0,,{\fad(40,0)\fscx92\fscy92\t(0,120,\fscx100\fscy100)}{\c&H0036D8FF&}was{\c&H00FFFFFF&} barely as tall
+Dialogue: 0,0:00:34.59,0:00:34.98,Cap,,0,0,0,,was {\c&H0036D8FF&}barely{\c&H00FFFFFF&} as tall
+Dialogue: 0,0:00:34.98,0:00:35.08,Cap,,0,0,0,,was barely {\c&H0036D8FF&}as{\c&H00FFFFFF&} tall
+Dialogue: 0,0:00:35.08,0:00:35.31,Cap,,0,0,0,,was barely as {\c&H0036D8FF&}tall{\c&H00FFFFFF&}
+Dialogue: 0,0:00:35.33,0:00:35.43,Cap,,0,0,0,,{\fad(40,0)\fscx92\fscy92\t(0,120,\fscx100\fscy100)}{\c&H0036D8FF&}as{\c&H00FFFFFF&} a teacup.
+Dialogue: 0,0:00:35.43,0:00:35.48,Cap,,0,0,0,,as {\c&H0036D8FF&}a{\c&H00FFFFFF&} teacup.
+Dialogue: 0,0:00:35.48,0:00:36.36,Cap,,0,0,0,,as a {\c&H0036D8FF&}teacup.{\c&H00FFFFFF&}
+Dialogue: 0,0:00:36.38,0:00:36.76,Cap,,0,0,0,,{\fad(40,0)\fscx92\fscy92\t(0,120,\fscx100\fscy100)}{\c&H0036D8FF&}Everyone{\c&H00FFFFFF&} whispered
+Dialogue: 0,0:00:36.76,0:00:37.13,Cap,,0,0,0,,Everyone {\c&H0036D8FF&}whispered{\c&H00FFFFFF&}
+Dialogue: 0,0:00:37.15,0:00:37.29,Cap,,0,0,0,,{\fad(40,0)\fscx92\fscy92\t(0,120,\fscx100\fscy100)}{\c&H0036D8FF&}that{\c&H00FFFFFF&} she must
+Dialogue: 0,0:00:37.29,0:00:37.49,Cap,,0,0,0,,that {\c&H0036D8FF&}she{\c&H00FFFFFF&} must
+Dialogue: 0,0:00:37.49,0:00:37.67,Cap,,0,0,0,,that she {\c&H0036D8FF&}must{\c&H00FFFFFF&}
+Dialogue: 0,0:00:37.69,0:00:37.83,Cap,,0,0,0,,{\fad(40,0)\fscx92\fscy92\t(0,120,\fscx100\fscy100)}{\c&H0036D8FF&}be{\c&H00FFFFFF&} the biggest liar
+Dialogue: 0,0:00:37.83,0:00:37.93,Cap,,0,0,0,,be {\c&H0036D8FF&}the{\c&H00FFFFFF&} biggest liar
+Dialogue: 0,0:00:37.93,0:00:38.32,Cap,,0,0,0,,be the {\c&H0036D8FF&}biggest{\c&H00FFFFFF&} liar
+Dialogue: 0,0:00:38.32,0:00:38.66,Cap,,0,0,0,,be the biggest {\c&H0036D8FF&}liar{\c&H00FFFFFF&}
+Dialogue: 0,0:00:38.68,0:00:38.92,Cap,,0,0,0,,{\fad(40,0)\fscx92\fscy92\t(0,120,\fscx100\fscy100)}{\c&H0036D8FF&}who{\c&H00FFFFFF&} ever lived.
+Dialogue: 0,0:00:38.92,0:00:39.12,Cap,,0,0,0,,who {\c&H0036D8FF&}ever{\c&H00FFFFFF&} lived.
+Dialogue: 0,0:00:39.12,0:00:39.94,Cap,,0,0,0,,who ever {\c&H0036D8FF&}lived.{\c&H00FFFFFF&}
+Dialogue: 0,0:00:39.96,0:00:40.28,Cap,,0,0,0,,{\fad(40,0)\fscx92\fscy92\t(0,120,\fscx100\fscy100)}{\c&H0036D8FF&}Wren{\c&H00FFFFFF&} didn’t
+Dialogue: 0,0:00:40.28,0:00:40.45,Cap,,0,0,0,,Wren {\c&H0036D8FF&}didn’t{\c&H00FFFFFF&}
+Dialogue: 0,0:00:40.47,0:00:40.75,Cap,,0,0,0,,{\fad(40,0)\fscx92\fscy92\t(0,120,\fscx100\fscy100)}{\c&H0036D8FF&}believe{\c&H00FFFFFF&} it.
+Dialogue: 0,0:00:40.75,0:00:41.15,Cap,,0,0,0,,believe {\c&H0036D8FF&}it.{\c&H00FFFFFF&}
+Dialogue: 0,0:00:41.17,0:00:41.33,Cap,,0,0,0,,{\fad(40,0)\fscx92\fscy92\t(0,120,\fscx100\fscy100)}{\c&H0036D8FF&}So{\c&H00FFFFFF&} she decided
+Dialogue: 0,0:00:41.33,0:00:41.49,Cap,,0,0,0,,So {\c&H0036D8FF&}she{\c&H00FFFFFF&} decided
+Dialogue: 0,0:00:41.49,0:00:41.84,Cap,,0,0,0,,So she {\c&H0036D8FF&}decided{\c&H00FFFFFF&}
+Dialogue: 0,0:00:41.86,0:00:41.94,Cap,,0,0,0,,{\fad(40,0)\fscx92\fscy92\t(0,120,\fscx100\fscy100)}{\c&H0036D8FF&}to{\c&H00FFFFFF&} find out.
+Dialogue: 0,0:00:41.94,0:00:42.24,Cap,,0,0,0,,to {\c&H0036D8FF&}find{\c&H00FFFFFF&} out.
+Dialogue: 0,0:00:42.24,0:00:42.86,Cap,,0,0,0,,to find {\c&H0036D8FF&}out.{\c&H00FFFFFF&}
+Dialogue: 0,0:00:42.88,0:00:43.07,Cap,,0,0,0,,{\fad(40,0)\fscx92\fscy92\t(0,120,\fscx100\fscy100)}{\c&H0036D8FF&}She{\c&H00FFFFFF&} followed
+Dialogue: 0,0:00:43.07,0:00:43.43,Cap,,0,0,0,,She {\c&H0036D8FF&}followed{\c&H00FFFFFF&}
+Dialogue: 0,0:00:43.45,0:00:43.75,Cap,,0,0,0,,{\fad(40,0)\fscx92\fscy92\t(0,120,\fscx100\fscy100)}{\c&H0036D8FF&}Nan{\c&H00FFFFFF&} everywhere.
+Dialogue: 0,0:00:43.75,0:00:44.68,Cap,,0,0,0,,Nan {\c&H0036D8FF&}everywhere.{\c&H00FFFFFF&}
+Dialogue: 0,0:00:44.70,0:00:45.03,Cap,,0,0,0,,{\fad(40,0)\fscx92\fscy92\t(0,120,\fscx100\fscy100)}{\c&H0036D8FF&}Nan{\c&H00FFFFFF&} fed
+Dialogue: 0,0:00:45.03,0:00:45.21,Cap,,0,0,0,,Nan {\c&H0036D8FF&}fed{\c&H00FFFFFF&}
+Dialogue: 0,0:00:45.23,0:00:45.31,Cap,,0,0,0,,{\fad(40,0)\fscx92\fscy92\t(0,120,\fscx100\fscy100)}{\c&H0036D8FF&}the{\c&H00FFFFFF&} stray cats.
+Dialogue: 0,0:00:45.31,0:00:45.58,Cap,,0,0,0,,the {\c&H0036D8FF&}stray{\c&H00FFFFFF&} cats.
+Dialogue: 0,0:00:45.58,0:00:46.22,Cap,,0,0,0,,the stray {\c&H0036D8FF&}cats.{\c&H00FFFFFF&}
+Dialogue: 0,0:00:46.24,0:00:46.56,Cap,,0,0,0,,{\fad(40,0)\fscx92\fscy92\t(0,120,\fscx100\fscy100)}{\c&H0036D8FF&}Nan{\c&H00FFFFFF&} fixed
+Dialogue: 0,0:00:46.56,0:00:46.80,Cap,,0,0,0,,Nan {\c&H0036D8FF&}fixed{\c&H00FFFFFF&}
+Dialogue: 0,0:00:46.82,0:00:46.94,Cap,,0,0,0,,{\fad(40,0)\fscx92\fscy92\t(0,120,\fscx100\fscy100)}{\c&H0036D8FF&}the{\c&H00FFFFFF&} baker’s
+Dialogue: 0,0:00:46.94,0:00:47.22,Cap,,0,0,0,,the {\c&H0036D8FF&}baker’s{\c&H00FFFFFF&}
+Dialogue: 0,0:00:47.24,0:00:47.57,Cap,,0,0,0,,{\fad(40,0)\fscx92\fscy92\t(0,120,\fscx100\fscy100)}{\c&H0036D8FF&}broken{\c&H00FFFFFF&} sign.
+Dialogue: 0,0:00:47.57,0:00:48.27,Cap,,0,0,0,,broken {\c&H0036D8FF&}sign.{\c&H00FFFFFF&}
+Dialogue: 0,0:00:48.29,0:00:48.61,Cap,,0,0,0,,{\fad(40,0)\fscx92\fscy92\t(0,120,\fscx100\fscy100)}{\c&H0036D8FF&}Nan{\c&H00FFFFFF&} carried
+Dialogue: 0,0:00:48.61,0:00:48.86,Cap,,0,0,0,,Nan {\c&H0036D8FF&}carried{\c&H00FFFFFF&}
+Dialogue: 0,0:00:48.88,0:00:49.34,Cap,,0,0,0,,{\fad(40,0)\fscx92\fscy92\t(0,120,\fscx100\fscy100)}{\c&H0036D8FF&}groceries{\c&H00FFFFFF&}
+Dialogue: 0,0:00:49.36,0:00:49.51,Cap,,0,0,0,,{\fad(40,0)\fscx92\fscy92\t(0,120,\fscx100\fscy100)}{\c&H0036D8FF&}up{\c&H00FFFFFF&} the hill
+Dialogue: 0,0:00:49.51,0:00:49.59,Cap,,0,0,0,,up {\c&H0036D8FF&}the{\c&H00FFFFFF&} hill
+Dialogue: 0,0:00:49.59,0:00:49.80,Cap,,0,0,0,,up the {\c&H0036D8FF&}hill{\c&H00FFFFFF&}
+Dialogue: 0,0:00:49.82,0:00:49.99,Cap,,0,0,0,,{\fad(40,0)\fscx92\fscy92\t(0,120,\fscx100\fscy100)}{\c&H0036D8FF&}for{\c&H00FFFFFF&} old Mr.
+Dialogue: 0,0:00:49.99,0:00:50.16,Cap,,0,0,0,,for {\c&H0036D8FF&}old{\c&H00FFFFFF&} Mr.
+Dialogue: 0,0:00:50.16,0:00:50.38,Cap,,0,0,0,,for old {\c&H0036D8FF&}Mr.{\c&H00FFFFFF&}
+Dialogue: 0,0:00:50.40,0:00:50.98,Cap,,0,0,0,,{\fad(40,0)\fscx92\fscy92\t(0,120,\fscx100\fscy100)}{\c&H0036D8FF&}Pell,{\c&H00FFFFFF&}
+Dialogue: 0,0:00:51.00,0:00:51.26,Cap,,0,0,0,,{\fad(40,0)\fscx92\fscy92\t(0,120,\fscx100\fscy100)}{\c&H0036D8FF&}which,{\c&H00FFFFFF&}
+Dialogue: 0,0:00:51.28,0:00:51.47,Cap,,0,0,0,,{\fad(40,0)\fscx92\fscy92\t(0,120,\fscx100\fscy100)}{\c&H0036D8FF&}for{\c&H00FFFFFF&} Nan,
+Dialogue: 0,0:00:51.47,0:00:52.02,Cap,,0,0,0,,for {\c&H0036D8FF&}Nan,{\c&H00FFFFFF&}
+Dialogue: 0,0:00:52.04,0:00:52.21,Cap,,0,0,0,,{\fad(40,0)\fscx92\fscy92\t(0,120,\fscx100\fscy100)}{\c&H0036D8FF&}took{\c&H00FFFFFF&} most
+Dialogue: 0,0:00:52.21,0:00:52.43,Cap,,0,0,0,,took {\c&H0036D8FF&}most{\c&H00FFFFFF&}
+Dialogue: 0,0:00:52.45,0:00:52.54,Cap,,0,0,0,,{\fad(40,0)\fscx92\fscy92\t(0,120,\fscx100\fscy100)}{\c&H0036D8FF&}of{\c&H00FFFFFF&} the afternoon.
+Dialogue: 0,0:00:52.54,0:00:52.65,Cap,,0,0,0,,of {\c&H0036D8FF&}the{\c&H00FFFFFF&} afternoon.
+Dialogue: 0,0:00:52.65,0:00:53.64,Cap,,0,0,0,,of the {\c&H0036D8FF&}afternoon.{\c&H00FFFFFF&}
+Dialogue: 0,0:00:53.66,0:00:53.84,Cap,,0,0,0,,{\fad(40,0)\fscx92\fscy92\t(0,120,\fscx100\fscy100)}{\c&H0036D8FF&}No{\c&H00FFFFFF&} lies.
+Dialogue: 0,0:00:53.84,0:00:54.63,Cap,,0,0,0,,No {\c&H0036D8FF&}lies.{\c&H00FFFFFF&}
+Dialogue: 0,0:00:54.65,0:00:54.90,Cap,,0,0,0,,{\fad(40,0)\fscx92\fscy92\t(0,120,\fscx100\fscy100)}{\c&H0036D8FF&}Not{\c&H00FFFFFF&} one.
+Dialogue: 0,0:00:54.90,0:00:55.86,Cap,,0,0,0,,Not {\c&H0036D8FF&}one.{\c&H00FFFFFF&}
+Dialogue: 0,0:00:55.88,0:00:56.39,Cap,,0,0,0,,{\fad(40,0)\fscx92\fscy92\t(0,120,\fscx100\fscy100)}{\c&H0036D8FF&}Then{\c&H00FFFFFF&} the storm came.
+Dialogue: 0,0:00:56.39,0:00:56.47,Cap,,0,0,0,,Then {\c&H0036D8FF&}the{\c&H00FFFFFF&} storm came.
+Dialogue: 0,0:00:56.47,0:00:56.85,Cap,,0,0,0,,Then the {\c&H0036D8FF&}storm{\c&H00FFFFFF&} came.
+Dialogue: 0,0:00:56.85,0:00:57.45,Cap,,0,0,0,,Then the storm {\c&H0036D8FF&}came.{\c&H00FFFFFF&}
+Dialogue: 0,0:00:57.47,0:00:57.86,Cap,,0,0,0,,{\fad(40,0)\fscx92\fscy92\t(0,120,\fscx100\fscy100)}{\c&H0036D8FF&}Thunder{\c&H00FFFFFF&} cracked
+Dialogue: 0,0:00:57.86,0:00:58.20,Cap,,0,0,0,,Thunder {\c&H0036D8FF&}cracked{\c&H00FFFFFF&}
+Dialogue: 0,0:00:58.22,0:00:58.37,Cap,,0,0,0,,{\fad(40,0)\fscx92\fscy92\t(0,120,\fscx100\fscy100)}{\c&H0036D8FF&}over{\c&H00FFFFFF&} the rooftops,
+Dialogue: 0,0:00:58.37,0:00:58.46,Cap,,0,0,0,,over {\c&H0036D8FF&}the{\c&H00FFFFFF&} rooftops,
+Dialogue: 0,0:00:58.46,0:00:59.11,Cap,,0,0,0,,over the {\c&H0036D8FF&}rooftops,{\c&H00FFFFFF&}
+Dialogue: 0,0:00:59.13,0:00:59.26,Cap,,0,0,0,,{\fad(40,0)\fscx92\fscy92\t(0,120,\fscx100\fscy100)}{\c&H0036D8FF&}and{\c&H00FFFFFF&} a little
+Dialogue: 0,0:00:59.26,0:00:59.29,Cap,,0,0,0,,and {\c&H0036D8FF&}a{\c&H00FFFFFF&} little
+Dialogue: 0,0:00:59.29,0:00:59.46,Cap,,0,0,0,,and a {\c&H0036D8FF&}little{\c&H00FFFFFF&}
+Dialogue: 0,0:00:59.48,0:00:59.77,Cap,,0,0,0,,{\fad(40,0)\fscx92\fscy92\t(0,120,\fscx100\fscy100)}{\c&H0036D8FF&}boy{\c&H00FFFFFF&} hid
+Dialogue: 0,0:00:59.77,0:00:59.94,Cap,,0,0,0,,boy {\c&H0036D8FF&}hid{\c&H00FFFFFF&}
+Dialogue: 0,0:00:59.96,0:01:00.16,Cap,,0,0,0,,{\fad(40,0)\fscx92\fscy92\t(0,120,\fscx100\fscy100)}{\c&H0036D8FF&}under{\c&H00FFFFFF&} Nan’s porch,
+Dialogue: 0,0:01:00.16,0:01:00.47,Cap,,0,0,0,,under {\c&H0036D8FF&}Nan’s{\c&H00FFFFFF&} porch,
+Dialogue: 0,0:01:00.47,0:01:00.90,Cap,,0,0,0,,under Nan’s {\c&H0036D8FF&}porch,{\c&H00FFFFFF&}
+Dialogue: 0,0:01:00.92,0:01:01.80,Cap,,0,0,0,,{\fad(40,0)\fscx92\fscy92\t(0,120,\fscx100\fscy100)}{\c&H0036D8FF&}shaking.{\c&H00FFFFFF&}
+Dialogue: 0,0:01:01.82,0:01:02.14,Cap,,0,0,0,,{\fad(40,0)\fscx92\fscy92\t(0,120,\fscx100\fscy100)}{\c&H0036D8FF&}Nan{\c&H00FFFFFF&} knelt beside
+Dialogue: 0,0:01:02.14,0:01:02.33,Cap,,0,0,0,,Nan {\c&H0036D8FF&}knelt{\c&H00FFFFFF&} beside
+Dialogue: 0,0:01:02.33,0:01:02.65,Cap,,0,0,0,,Nan knelt {\c&H0036D8FF&}beside{\c&H00FFFFFF&}
+Dialogue: 0,0:01:02.67,0:01:02.78,Cap,,0,0,0,,{\fad(40,0)\fscx92\fscy92\t(0,120,\fscx100\fscy100)}{\c&H0036D8FF&}him{\c&H00FFFFFF&} and smiled.
+Dialogue: 0,0:01:02.78,0:01:02.89,Cap,,0,0,0,,him {\c&H0036D8FF&}and{\c&H00FFFFFF&} smiled.
+Dialogue: 0,0:01:02.89,0:01:03.74,Cap,,0,0,0,,him and {\c&H0036D8FF&}smiled.{\c&H00FFFFFF&}
+Dialogue: 0,0:01:03.76,0:01:04.00,Cap,,0,0,0,,{\fad(40,0)\fscx92\fscy92\t(0,120,\fscx100\fscy100)}{\c&H0036D8FF&}“That’s{\c&H00FFFFFF&} just the sky
+Dialogue: 0,0:01:04.00,0:01:04.18,Cap,,0,0,0,,“That’s {\c&H0036D8FF&}just{\c&H00FFFFFF&} the sky
+Dialogue: 0,0:01:04.18,0:01:04.27,Cap,,0,0,0,,“That’s just {\c&H0036D8FF&}the{\c&H00FFFFFF&} sky
+Dialogue: 0,0:01:04.27,0:01:04.62,Cap,,0,0,0,,“That’s just the {\c&H0036D8FF&}sky{\c&H00FFFFFF&}
+Dialogue: 0,0:01:04.64,0:01:04.98,Cap,,0,0,0,,{\fad(40,0)\fscx92\fscy92\t(0,120,\fscx100\fscy100)}{\c&H0036D8FF&}clearing{\c&H00FFFFFF&} its throat,”
+Dialogue: 0,0:01:04.98,0:01:05.11,Cap,,0,0,0,,clearing {\c&H0036D8FF&}its{\c&H00FFFFFF&} throat,”
+Dialogue: 0,0:01:05.11,0:01:05.58,Cap,,0,0,0,,clearing its {\c&H0036D8FF&}throat,”{\c&H00FFFFFF&}
+Dialogue: 0,0:01:05.60,0:01:05.80,Cap,,0,0,0,,{\fad(40,0)\fscx92\fscy92\t(0,120,\fscx100\fscy100)}{\c&H0036D8FF&}she{\c&H00FFFFFF&} said.
+Dialogue: 0,0:01:05.80,0:01:06.49,Cap,,0,0,0,,she {\c&H0036D8FF&}said.{\c&H00FFFFFF&}
+Dialogue: 0,0:01:06.51,0:01:06.65,Cap,,0,0,0,,{\fad(40,0)\fscx92\fscy92\t(0,120,\fscx100\fscy100)}{\c&H0036D8FF&}And{\c&H00FFFFFF&} Wren watched
+Dialogue: 0,0:01:06.65,0:01:06.90,Cap,,0,0,0,,And {\c&H0036D8FF&}Wren{\c&H00FFFFFF&} watched
+Dialogue: 0,0:01:06.90,0:01:07.16,Cap,,0,0,0,,And Wren {\c&H0036D8FF&}watched{\c&H00FFFFFF&}
+Dialogue: 0,0:01:07.18,0:01:07.27,Cap,,0,0,0,,{\fad(40,0)\fscx92\fscy92\t(0,120,\fscx100\fscy100)}{\c&H0036D8FF&}her{\c&H00FFFFFF&} shrink.
+Dialogue: 0,0:01:07.27,0:01:08.02,Cap,,0,0,0,,her {\c&H0036D8FF&}shrink.{\c&H00FFFFFF&}
+Dialogue: 0,0:01:08.04,0:01:08.29,Cap,,0,0,0,,{\fad(40,0)\fscx92\fscy92\t(0,120,\fscx100\fscy100)}{\c&H0036D8FF&}Just{\c&H00FFFFFF&} a little.
+Dialogue: 0,0:01:08.29,0:01:08.33,Cap,,0,0,0,,Just {\c&H0036D8FF&}a{\c&H00FFFFFF&} little.
+Dialogue: 0,0:01:08.33,0:01:09.00,Cap,,0,0,0,,Just a {\c&H0036D8FF&}little.{\c&H00FFFFFF&}
+Dialogue: 0,0:01:09.02,0:01:09.19,Cap,,0,0,0,,{\fad(40,0)\fscx92\fscy92\t(0,120,\fscx100\fscy100)}{\c&H0036D8FF&}So{\c&H00FFFFFF&} it was true.
+Dialogue: 0,0:01:09.19,0:01:09.25,Cap,,0,0,0,,So {\c&H0036D8FF&}it{\c&H00FFFFFF&} was true.
+Dialogue: 0,0:01:09.25,0:01:09.40,Cap,,0,0,0,,So it {\c&H0036D8FF&}was{\c&H00FFFFFF&} true.
+Dialogue: 0,0:01:09.40,0:01:10.06,Cap,,0,0,0,,So it was {\c&H0036D8FF&}true.{\c&H00FFFFFF&}
+Dialogue: 0,0:01:10.08,0:01:10.51,Cap,,0,0,0,,{\fad(40,0)\fscx92\fscy92\t(0,120,\fscx100\fscy100)}{\c&H0036D8FF&}Nan{\c&H00FFFFFF&} was a liar.
+Dialogue: 0,0:01:10.51,0:01:10.79,Cap,,0,0,0,,Nan {\c&H0036D8FF&}was{\c&H00FFFFFF&} a liar.
+Dialogue: 0,0:01:10.79,0:01:10.83,Cap,,0,0,0,,Nan was {\c&H0036D8FF&}a{\c&H00FFFFFF&} liar.
+Dialogue: 0,0:01:10.83,0:01:11.65,Cap,,0,0,0,,Nan was a {\c&H0036D8FF&}liar.{\c&H00FFFFFF&}
+Dialogue: 0,0:01:11.67,0:01:11.92,Cap,,0,0,0,,{\fad(40,0)\fscx92\fscy92\t(0,120,\fscx100\fscy100)}{\c&H0036D8FF&}Wren{\c&H00FFFFFF&} ran home,
+Dialogue: 0,0:01:11.92,0:01:12.17,Cap,,0,0,0,,Wren {\c&H0036D8FF&}ran{\c&H00FFFFFF&} home,
+Dialogue: 0,0:01:12.17,0:01:12.60,Cap,,0,0,0,,Wren ran {\c&H0036D8FF&}home,{\c&H00FFFFFF&}
+Dialogue: 0,0:01:12.62,0:01:12.90,Cap,,0,0,0,,{\fad(40,0)\fscx92\fscy92\t(0,120,\fscx100\fscy100)}{\c&H0036D8FF&}feeling{\c&H00FFFFFF&} silly
+Dialogue: 0,0:01:12.90,0:01:13.22,Cap,,0,0,0,,feeling {\c&H0036D8FF&}silly{\c&H00FFFFFF&}
+Dialogue: 0,0:01:13.24,0:01:13.44,Cap,,0,0,0,,{\fad(40,0)\fscx92\fscy92\t(0,120,\fscx100\fscy100)}{\c&H0036D8FF&}for{\c&H00FFFFFF&} ever
+Dialogue: 0,0:01:13.44,0:01:13.62,Cap,,0,0,0,,for {\c&H0036D8FF&}ever{\c&H00FFFFFF&}
+Dialogue: 0,0:01:13.64,0:01:14.05,Cap,,0,0,0,,{\fad(40,0)\fscx92\fscy92\t(0,120,\fscx100\fscy100)}{\c&H0036D8FF&}believing{\c&H00FFFFFF&} in her.
+Dialogue: 0,0:01:14.05,0:01:14.12,Cap,,0,0,0,,believing {\c&H0036D8FF&}in{\c&H00FFFFFF&} her.
+Dialogue: 0,0:01:14.12,0:01:14.74,Cap,,0,0,0,,believing in {\c&H0036D8FF&}her.{\c&H00FFFFFF&}
+Dialogue: 0,0:01:14.76,0:01:14.96,Cap,,0,0,0,,{\fad(40,0)\fscx92\fscy92\t(0,120,\fscx100\fscy100)}{\c&H0036D8FF&}That{\c&H00FFFFFF&} night,
+Dialogue: 0,0:01:14.96,0:01:15.35,Cap,,0,0,0,,That {\c&H0036D8FF&}night,{\c&H00FFFFFF&}
+Dialogue: 0,0:01:15.37,0:01:15.48,Cap,,0,0,0,,{\fad(40,0)\fscx92\fscy92\t(0,120,\fscx100\fscy100)}{\c&H0036D8FF&}her{\c&H00FFFFFF&} little brother
+Dialogue: 0,0:01:15.48,0:01:15.69,Cap,,0,0,0,,her {\c&H0036D8FF&}little{\c&H00FFFFFF&} brother
+Dialogue: 0,0:01:15.69,0:01:15.88,Cap,,0,0,0,,her little {\c&H0036D8FF&}brother{\c&H00FFFFFF&}
+Dialogue: 0,0:01:15.90,0:01:16.25,Cap,,0,0,0,,{\fad(40,0)\fscx92\fscy92\t(0,120,\fscx100\fscy100)}{\c&H0036D8FF&}Bo{\c&H00FFFFFF&} had a fever.
+Dialogue: 0,0:01:16.25,0:01:16.38,Cap,,0,0,0,,Bo {\c&H0036D8FF&}had{\c&H00FFFFFF&} a fever.
+Dialogue: 0,0:01:16.38,0:01:16.41,Cap,,0,0,0,,Bo had {\c&H0036D8FF&}a{\c&H00FFFFFF&} fever.
+Dialogue: 0,0:01:16.41,0:01:17.12,Cap,,0,0,0,,Bo had a {\c&H0036D8FF&}fever.{\c&H00FFFFFF&}
+Dialogue: 0,0:01:17.14,0:01:17.28,Cap,,0,0,0,,{\fad(40,0)\fscx92\fscy92\t(0,120,\fscx100\fscy100)}{\c&H0036D8FF&}He{\c&H00FFFFFF&} looked up
+Dialogue: 0,0:01:17.28,0:01:17.47,Cap,,0,0,0,,He {\c&H0036D8FF&}looked{\c&H00FFFFFF&} up
+Dialogue: 0,0:01:17.47,0:01:17.57,Cap,,0,0,0,,He looked {\c&H0036D8FF&}up{\c&H00FFFFFF&}
+Dialogue: 0,0:01:17.59,0:01:17.65,Cap,,0,0,0,,{\fad(40,0)\fscx92\fscy92\t(0,120,\fscx100\fscy100)}{\c&H0036D8FF&}at{\c&H00FFFFFF&}
+Dialogue: 0,0:01:17.67,0:01:17.80,Cap,,0,0,0,,{\fad(40,0)\fscx92\fscy92\t(0,120,\fscx100\fscy100)}{\c&H0036D8FF&}her{\c&H00FFFFFF&} from his bed,
+Dialogue: 0,0:01:17.80,0:01:17.95,Cap,,0,0,0,,her {\c&H0036D8FF&}from{\c&H00FFFFFF&} his bed,
+Dialogue: 0,0:01:17.95,0:01:18.10,Cap,,0,0,0,,her from {\c&H0036D8FF&}his{\c&H00FFFFFF&} bed,
+Dialogue: 0,0:01:18.10,0:01:18.49,Cap,,0,0,0,,her from his {\c&H0036D8FF&}bed,{\c&H00FFFFFF&}
+Dialogue: 0,0:01:18.51,0:01:19.55,Cap,,0,0,0,,{\fad(40,0)\fscx92\fscy92\t(0,120,\fscx100\fscy100)}{\c&H0036D8FF&}scared.{\c&H00FFFFFF&}
+Dialogue: 0,0:01:19.57,0:01:19.73,Cap,,0,0,0,,{\fad(40,0)\fscx92\fscy92\t(0,120,\fscx100\fscy100)}{\c&H0036D8FF&}“Am{\c&H00FFFFFF&} I going
+Dialogue: 0,0:01:19.73,0:01:19.82,Cap,,0,0,0,,“Am {\c&H0036D8FF&}I{\c&H00FFFFFF&} going
+Dialogue: 0,0:01:19.82,0:01:19.96,Cap,,0,0,0,,“Am I {\c&H0036D8FF&}going{\c&H00FFFFFF&}
+Dialogue: 0,0:01:19.98,0:01:20.06,Cap,,0,0,0,,{\fad(40,0)\fscx92\fscy92\t(0,120,\fscx100\fscy100)}{\c&H0036D8FF&}to{\c&H00FFFFFF&} be okay?”
+Dialogue: 0,0:01:20.06,0:01:20.21,Cap,,0,0,0,,to {\c&H0036D8FF&}be{\c&H00FFFFFF&} okay?”
+Dialogue: 0,0:01:20.21,0:01:21.13,Cap,,0,0,0,,to be {\c&H0036D8FF&}okay?”{\c&H00FFFFFF&}
+Dialogue: 0,0:01:21.15,0:01:21.41,Cap,,0,0,0,,{\fad(40,0)\fscx92\fscy92\t(0,120,\fscx100\fscy100)}{\c&H0036D8FF&}Wren{\c&H00FFFFFF&} didn’t know.
+Dialogue: 0,0:01:21.41,0:01:21.62,Cap,,0,0,0,,Wren {\c&H0036D8FF&}didn’t{\c&H00FFFFFF&} know.
+Dialogue: 0,0:01:21.62,0:01:22.15,Cap,,0,0,0,,Wren didn’t {\c&H0036D8FF&}know.{\c&H00FFFFFF&}
+Dialogue: 0,0:01:22.17,0:01:22.33,Cap,,0,0,0,,{\fad(40,0)\fscx92\fscy92\t(0,120,\fscx100\fscy100)}{\c&H0036D8FF&}She{\c&H00FFFFFF&} opened her mouth
+Dialogue: 0,0:01:22.33,0:01:22.56,Cap,,0,0,0,,She {\c&H0036D8FF&}opened{\c&H00FFFFFF&} her mouth
+Dialogue: 0,0:01:22.56,0:01:22.63,Cap,,0,0,0,,She opened {\c&H0036D8FF&}her{\c&H00FFFFFF&} mouth
+Dialogue: 0,0:01:22.63,0:01:22.83,Cap,,0,0,0,,She opened her {\c&H0036D8FF&}mouth{\c&H00FFFFFF&}
+Dialogue: 0,0:01:22.85,0:01:22.98,Cap,,0,0,0,,{\fad(40,0)\fscx92\fscy92\t(0,120,\fscx100\fscy100)}{\c&H0036D8FF&}to{\c&H00FFFFFF&} tell the truth...
+Dialogue: 0,0:01:22.98,0:01:23.16,Cap,,0,0,0,,to {\c&H0036D8FF&}tell{\c&H00FFFFFF&} the truth...
+Dialogue: 0,0:01:23.16,0:01:23.23,Cap,,0,0,0,,to tell {\c&H0036D8FF&}the{\c&H00FFFFFF&} truth...
+Dialogue: 0,0:01:23.23,0:01:24.03,Cap,,0,0,0,,to tell the {\c&H0036D8FF&}truth...{\c&H00FFFFFF&}
+Dialogue: 0,0:01:24.05,0:01:24.19,Cap,,0,0,0,,{\fad(40,0)\fscx92\fscy92\t(0,120,\fscx100\fscy100)}{\c&H0036D8FF&}and{\c&H00FFFFFF&} instead,
+Dialogue: 0,0:01:24.19,0:01:24.86,Cap,,0,0,0,,and {\c&H0036D8FF&}instead,{\c&H00FFFFFF&}
+Dialogue: 0,0:01:24.88,0:01:25.04,Cap,,0,0,0,,{\fad(40,0)\fscx92\fscy92\t(0,120,\fscx100\fscy100)}{\c&H0036D8FF&}she{\c&H00FFFFFF&} heard
+Dialogue: 0,0:01:25.04,0:01:25.17,Cap,,0,0,0,,she {\c&H0036D8FF&}heard{\c&H00FFFFFF&}
+Dialogue: 0,0:01:25.19,0:01:25.52,Cap,,0,0,0,,{\fad(40,0)\fscx92\fscy92\t(0,120,\fscx100\fscy100)}{\c&H0036D8FF&}herself{\c&H00FFFFFF&} say:
+Dialogue: 0,0:01:25.52,0:01:26.13,Cap,,0,0,0,,herself {\c&H0036D8FF&}say:{\c&H00FFFFFF&}
+Dialogue: 0,0:01:26.15,0:01:26.27,Cap,,0,0,0,,{\fad(40,0)\fscx92\fscy92\t(0,120,\fscx100\fscy100)}{\c&H0036D8FF&}“Of{\c&H00FFFFFF&} course you are.”
+Dialogue: 0,0:01:26.27,0:01:26.59,Cap,,0,0,0,,“Of {\c&H0036D8FF&}course{\c&H00FFFFFF&} you are.”
+Dialogue: 0,0:01:26.59,0:01:26.72,Cap,,0,0,0,,“Of course {\c&H0036D8FF&}you{\c&H00FFFFFF&} are.”
+Dialogue: 0,0:01:26.72,0:01:27.51,Cap,,0,0,0,,“Of course you {\c&H0036D8FF&}are.”{\c&H00FFFFFF&}
+Dialogue: 0,0:01:27.53,0:01:27.65,Cap,,0,0,0,,{\fad(40,0)\fscx92\fscy92\t(0,120,\fscx100\fscy100)}{\c&H0036D8FF&}Her{\c&H00FFFFFF&} sleeves slid
+Dialogue: 0,0:01:27.65,0:01:28.12,Cap,,0,0,0,,Her {\c&H0036D8FF&}sleeves{\c&H00FFFFFF&} slid
+Dialogue: 0,0:01:28.12,0:01:28.39,Cap,,0,0,0,,Her sleeves {\c&H0036D8FF&}slid{\c&H00FFFFFF&}
+Dialogue: 0,0:01:28.41,0:01:28.68,Cap,,0,0,0,,{\fad(40,0)\fscx92\fscy92\t(0,120,\fscx100\fscy100)}{\c&H0036D8FF&}past{\c&H00FFFFFF&} her fingers.
+Dialogue: 0,0:01:28.68,0:01:28.75,Cap,,0,0,0,,past {\c&H0036D8FF&}her{\c&H00FFFFFF&} fingers.
+Dialogue: 0,0:01:28.75,0:01:29.34,Cap,,0,0,0,,past her {\c&H0036D8FF&}fingers.{\c&H00FFFFFF&}
+Dialogue: 0,0:01:29.36,0:01:29.47,Cap,,0,0,0,,{\fad(40,0)\fscx92\fscy92\t(0,120,\fscx100\fscy100)}{\c&H0036D8FF&}Her{\c&H00FFFFFF&} shoes
+Dialogue: 0,0:01:29.47,0:01:29.84,Cap,,0,0,0,,Her {\c&H0036D8FF&}shoes{\c&H00FFFFFF&}
+Dialogue: 0,0:01:29.86,0:01:30.04,Cap,,0,0,0,,{\fad(40,0)\fscx92\fscy92\t(0,120,\fscx100\fscy100)}{\c&H0036D8FF&}went{\c&H00FFFFFF&} loose.
+Dialogue: 0,0:01:30.04,0:01:30.65,Cap,,0,0,0,,went {\c&H0036D8FF&}loose.{\c&H00FFFFFF&}
+Dialogue: 0,0:01:30.67,0:01:30.83,Cap,,0,0,0,,{\fad(40,0)\fscx92\fscy92\t(0,120,\fscx100\fscy100)}{\c&H0036D8FF&}She{\c&H00FFFFFF&} had shrunk.
+Dialogue: 0,0:01:30.83,0:01:30.95,Cap,,0,0,0,,She {\c&H0036D8FF&}had{\c&H00FFFFFF&} shrunk.
+Dialogue: 0,0:01:30.95,0:01:31.79,Cap,,0,0,0,,She had {\c&H0036D8FF&}shrunk.{\c&H00FFFFFF&}
+Dialogue: 0,0:01:31.81,0:01:31.96,Cap,,0,0,0,,{\fad(40,0)\fscx92\fscy92\t(0,120,\fscx100\fscy100)}{\c&H0036D8FF&}And{\c&H00FFFFFF&} suddenly,
+Dialogue: 0,0:01:31.96,0:01:32.61,Cap,,0,0,0,,And {\c&H0036D8FF&}suddenly,{\c&H00FFFFFF&}
+Dialogue: 0,0:01:32.63,0:01:32.96,Cap,,0,0,0,,{\fad(40,0)\fscx92\fscy92\t(0,120,\fscx100\fscy100)}{\c&H0036D8FF&}Wren{\c&H00FFFFFF&} understood.
+Dialogue: 0,0:01:32.96,0:01:33.96,Cap,,0,0,0,,Wren {\c&H0036D8FF&}understood.{\c&H00FFFFFF&}
+Dialogue: 0,0:01:33.98,0:01:34.31,Cap,,0,0,0,,{\fad(40,0)\fscx92\fscy92\t(0,120,\fscx100\fscy100)}{\c&H0036D8FF&}Nan{\c&H00FFFFFF&} Tilly had never
+Dialogue: 0,0:01:34.31,0:01:34.62,Cap,,0,0,0,,Nan {\c&H0036D8FF&}Tilly{\c&H00FFFFFF&} had never
+Dialogue: 0,0:01:34.62,0:01:34.78,Cap,,0,0,0,,Nan Tilly {\c&H0036D8FF&}had{\c&H00FFFFFF&} never
+Dialogue: 0,0:01:34.78,0:01:34.99,Cap,,0,0,0,,Nan Tilly had {\c&H0036D8FF&}never{\c&H00FFFFFF&}
+Dialogue: 0,0:01:35.01,0:01:35.39,Cap,,0,0,0,,{\fad(40,0)\fscx92\fscy92\t(0,120,\fscx100\fscy100)}{\c&H0036D8FF&}lied{\c&H00FFFFFF&} to cheat
+Dialogue: 0,0:01:35.39,0:01:35.47,Cap,,0,0,0,,lied {\c&H0036D8FF&}to{\c&H00FFFFFF&} cheat
+Dialogue: 0,0:01:35.47,0:01:35.71,Cap,,0,0,0,,lied to {\c&H0036D8FF&}cheat{\c&H00FFFFFF&}
+Dialogue: 0,0:01:35.73,0:01:36.44,Cap,,0,0,0,,{\fad(40,0)\fscx92\fscy92\t(0,120,\fscx100\fscy100)}{\c&H0036D8FF&}anyone.{\c&H00FFFFFF&}
+Dialogue: 0,0:01:36.46,0:01:36.62,Cap,,0,0,0,,{\fad(40,0)\fscx92\fscy92\t(0,120,\fscx100\fscy100)}{\c&H0036D8FF&}She{\c&H00FFFFFF&} had spent
+Dialogue: 0,0:01:36.62,0:01:36.72,Cap,,0,0,0,,She {\c&H0036D8FF&}had{\c&H00FFFFFF&} spent
+Dialogue: 0,0:01:36.72,0:01:36.91,Cap,,0,0,0,,She had {\c&H0036D8FF&}spent{\c&H00FFFFFF&}
+Dialogue: 0,0:01:36.93,0:01:37.06,Cap,,0,0,0,,{\fad(40,0)\fscx92\fscy92\t(0,120,\fscx100\fscy100)}{\c&H0036D8FF&}her{\c&H00FFFFFF&} whole
+Dialogue: 0,0:01:37.06,0:01:37.32,Cap,,0,0,0,,her {\c&H0036D8FF&}whole{\c&H00FFFFFF&}
+Dialogue: 0,0:01:37.34,0:01:37.64,Cap,,0,0,0,,{\fad(40,0)\fscx92\fscy92\t(0,120,\fscx100\fscy100)}{\c&H0036D8FF&}life{\c&H00FFFFFF&} telling scared
+Dialogue: 0,0:01:37.64,0:01:37.91,Cap,,0,0,0,,life {\c&H0036D8FF&}telling{\c&H00FFFFFF&} scared
+Dialogue: 0,0:01:37.91,0:01:38.28,Cap,,0,0,0,,life telling {\c&H0036D8FF&}scared{\c&H00FFFFFF&}
+Dialogue: 0,0:01:38.30,0:01:38.57,Cap,,0,0,0,,{\fad(40,0)\fscx92\fscy92\t(0,120,\fscx100\fscy100)}{\c&H0036D8FF&}people{\c&H00FFFFFF&}
+Dialogue: 0,0:01:38.59,0:01:38.76,Cap,,0,0,0,,{\fad(40,0)\fscx92\fscy92\t(0,120,\fscx100\fscy100)}{\c&H0036D8FF&}that{\c&H00FFFFFF&} everything
+Dialogue: 0,0:01:38.76,0:01:39.13,Cap,,0,0,0,,that {\c&H0036D8FF&}everything{\c&H00FFFFFF&}
+Dialogue: 0,0:01:39.15,0:01:39.27,Cap,,0,0,0,,{\fad(40,0)\fscx92\fscy92\t(0,120,\fscx100\fscy100)}{\c&H0036D8FF&}would{\c&H00FFFFFF&} be fine.
+Dialogue: 0,0:01:39.27,0:01:39.37,Cap,,0,0,0,,would {\c&H0036D8FF&}be{\c&H00FFFFFF&} fine.
+Dialogue: 0,0:01:39.37,0:01:40.11,Cap,,0,0,0,,would be {\c&H0036D8FF&}fine.{\c&H00FFFFFF&}
+Dialogue: 0,0:01:40.13,0:01:40.51,Cap,,0,0,0,,{\fad(40,0)\fscx92\fscy92\t(0,120,\fscx100\fscy100)}{\c&H0036D8FF&}Every{\c&H00FFFFFF&} inch
+Dialogue: 0,0:01:40.51,0:01:40.64,Cap,,0,0,0,,Every {\c&H0036D8FF&}inch{\c&H00FFFFFF&}
+Dialogue: 0,0:01:40.66,0:01:40.95,Cap,,0,0,0,,{\fad(40,0)\fscx92\fscy92\t(0,120,\fscx100\fscy100)}{\c&H0036D8FF&}she’d{\c&H00FFFFFF&} lost,
+Dialogue: 0,0:01:40.95,0:01:41.50,Cap,,0,0,0,,she’d {\c&H0036D8FF&}lost,{\c&H00FFFFFF&}
+Dialogue: 0,0:01:41.52,0:01:41.77,Cap,,0,0,0,,{\fad(40,0)\fscx92\fscy92\t(0,120,\fscx100\fscy100)}{\c&H0036D8FF&}she’d{\c&H00FFFFFF&} given away.
+Dialogue: 0,0:01:41.77,0:01:42.00,Cap,,0,0,0,,she’d {\c&H0036D8FF&}given{\c&H00FFFFFF&} away.
+Dialogue: 0,0:01:42.00,0:01:42.86,Cap,,0,0,0,,she’d given {\c&H0036D8FF&}away.{\c&H00FFFFFF&}
+Dialogue: 0,0:01:42.88,0:01:42.98,Cap,,0,0,0,,{\fad(40,0)\fscx92\fscy92\t(0,120,\fscx100\fscy100)}{\c&H0036D8FF&}The{\c&H00FFFFFF&} next morning,
+Dialogue: 0,0:01:42.98,0:01:43.20,Cap,,0,0,0,,The {\c&H0036D8FF&}next{\c&H00FFFFFF&} morning,
+Dialogue: 0,0:01:43.20,0:01:43.68,Cap,,0,0,0,,The next {\c&H0036D8FF&}morning,{\c&H00FFFFFF&}
+Dialogue: 0,0:01:43.70,0:01:44.08,Cap,,0,0,0,,{\fad(40,0)\fscx92\fscy92\t(0,120,\fscx100\fscy100)}{\c&H0036D8FF&}Bo’s{\c&H00FFFFFF&} fever broke.
+Dialogue: 0,0:01:44.08,0:01:44.36,Cap,,0,0,0,,Bo’s {\c&H0036D8FF&}fever{\c&H00FFFFFF&} broke.
+Dialogue: 0,0:01:44.36,0:01:45.05,Cap,,0,0,0,,Bo’s fever {\c&H0036D8FF&}broke.{\c&H00FFFFFF&}
+Dialogue: 0,0:01:45.07,0:01:45.39,Cap,,0,0,0,,{\fad(40,0)\fscx92\fscy92\t(0,120,\fscx100\fscy100)}{\c&H0036D8FF&}Wren{\c&H00FFFFFF&} walked
+Dialogue: 0,0:01:45.39,0:01:45.64,Cap,,0,0,0,,Wren {\c&H0036D8FF&}walked{\c&H00FFFFFF&}
+Dialogue: 0,0:01:45.66,0:01:45.80,Cap,,0,0,0,,{\fad(40,0)\fscx92\fscy92\t(0,120,\fscx100\fscy100)}{\c&H0036D8FF&}to{\c&H00FFFFFF&} Nan’s house,
+Dialogue: 0,0:01:45.80,0:01:46.11,Cap,,0,0,0,,to {\c&H0036D8FF&}Nan’s{\c&H00FFFFFF&} house,
+Dialogue: 0,0:01:46.11,0:01:46.56,Cap,,0,0,0,,to Nan’s {\c&H0036D8FF&}house,{\c&H00FFFFFF&}
+Dialogue: 0,0:01:46.58,0:01:46.66,Cap,,0,0,0,,{\fad(40,0)\fscx92\fscy92\t(0,120,\fscx100\fscy100)}{\c&H0036D8FF&}a{\c&H00FFFFFF&} little shorter
+Dialogue: 0,0:01:46.66,0:01:46.86,Cap,,0,0,0,,a {\c&H0036D8FF&}little{\c&H00FFFFFF&} shorter
+Dialogue: 0,0:01:46.86,0:01:47.13,Cap,,0,0,0,,a little {\c&H0036D8FF&}shorter{\c&H00FFFFFF&}
+Dialogue: 0,0:01:47.15,0:01:47.31,Cap,,0,0,0,,{\fad(40,0)\fscx92\fscy92\t(0,120,\fscx100\fscy100)}{\c&H0036D8FF&}than{\c&H00FFFFFF&} yesterday,
+Dialogue: 0,0:01:47.31,0:01:47.70,Cap,,0,0,0,,than {\c&H0036D8FF&}yesterday,{\c&H00FFFFFF&}
+Dialogue: 0,0:01:47.72,0:01:48.04,Cap,,0,0,0,,{\fad(40,0)\fscx92\fscy92\t(0,120,\fscx100\fscy100)}{\c&H0036D8FF&}and{\c&H00FFFFFF&} sat beside
+Dialogue: 0,0:01:48.04,0:01:48.26,Cap,,0,0,0,,and {\c&H0036D8FF&}sat{\c&H00FFFFFF&} beside
+Dialogue: 0,0:01:48.26,0:01:48.55,Cap,,0,0,0,,and sat {\c&H0036D8FF&}beside{\c&H00FFFFFF&}
+Dialogue: 0,0:01:48.57,0:01:48.70,Cap,,0,0,0,,{\fad(40,0)\fscx92\fscy92\t(0,120,\fscx100\fscy100)}{\c&H0036D8FF&}her{\c&H00FFFFFF&} on the step.
+Dialogue: 0,0:01:48.70,0:01:48.80,Cap,,0,0,0,,her {\c&H0036D8FF&}on{\c&H00FFFFFF&} the step.
+Dialogue: 0,0:01:48.80,0:01:48.86,Cap,,0,0,0,,her on {\c&H0036D8FF&}the{\c&H00FFFFFF&} step.
+Dialogue: 0,0:01:48.86,0:01:49.54,Cap,,0,0,0,,her on the {\c&H0036D8FF&}step.{\c&H00FFFFFF&}
+Dialogue: 0,0:01:49.56,0:01:49.66,Cap,,0,0,0,,{\fad(40,0)\fscx92\fscy92\t(0,120,\fscx100\fscy100)}{\c&H0036D8FF&}For{\c&H00FFFFFF&} the first time,
+Dialogue: 0,0:01:49.66,0:01:49.74,Cap,,0,0,0,,For {\c&H0036D8FF&}the{\c&H00FFFFFF&} first time,
+Dialogue: 0,0:01:49.74,0:01:50.05,Cap,,0,0,0,,For the {\c&H0036D8FF&}first{\c&H00FFFFFF&} time,
+Dialogue: 0,0:01:50.05,0:01:50.36,Cap,,0,0,0,,For the first {\c&H0036D8FF&}time,{\c&H00FFFFFF&}
+Dialogue: 0,0:01:50.38,0:01:50.69,Cap,,0,0,0,,{\fad(40,0)\fscx92\fscy92\t(0,120,\fscx100\fscy100)}{\c&H0036D8FF&}they{\c&H00FFFFFF&} were
+Dialogue: 0,0:01:50.69,0:01:51.20,Cap,,0,0,0,,they {\c&H0036D8FF&}were{\c&H00FFFFFF&}
+Dialogue: 0,0:01:51.48,0:01:51.68,Cap,,0,0,0,,{\fad(40,0)\fscx92\fscy92\t(0,120,\fscx100\fscy100)}{\c&H0036D8FF&}eye{\c&H00FFFFFF&} to eye.
+Dialogue: 0,0:01:51.68,0:01:51.82,Cap,,0,0,0,,eye {\c&H0036D8FF&}to{\c&H00FFFFFF&} eye.
+Dialogue: 0,0:01:51.82,0:01:52.70,Cap,,0,0,0,,eye to {\c&H0036D8FF&}eye.{\c&H00FFFFFF&}
+Dialogue: 0,0:01:52.72,0:01:52.87,Cap,,0,0,0,,{\fad(40,0)\fscx92\fscy92\t(0,120,\fscx100\fscy100)}{\c&H0036D8FF&}“Did{\c&H00FFFFFF&} it hurt?”
+Dialogue: 0,0:01:52.87,0:01:52.95,Cap,,0,0,0,,“Did {\c&H0036D8FF&}it{\c&H00FFFFFF&} hurt?”
+Dialogue: 0,0:01:52.95,0:01:53.51,Cap,,0,0,0,,“Did it {\c&H0036D8FF&}hurt?”{\c&H00FFFFFF&}
+Dialogue: 0,0:01:53.53,0:01:53.74,Cap,,0,0,0,,{\fad(40,0)\fscx92\fscy92\t(0,120,\fscx100\fscy100)}{\c&H0036D8FF&}Wren{\c&H00FFFFFF&} asked.
+Dialogue: 0,0:01:53.74,0:01:54.44,Cap,,0,0,0,,Wren {\c&H0036D8FF&}asked.{\c&H00FFFFFF&}
+Dialogue: 0,0:01:54.46,0:01:54.75,Cap,,0,0,0,,{\fad(40,0)\fscx92\fscy92\t(0,120,\fscx100\fscy100)}{\c&H0036D8FF&}Nan{\c&H00FFFFFF&} laughed.
+Dialogue: 0,0:01:54.75,0:01:55.45,Cap,,0,0,0,,Nan {\c&H0036D8FF&}laughed.{\c&H00FFFFFF&}
+Dialogue: 0,0:01:55.47,0:01:55.76,Cap,,0,0,0,,{\fad(40,0)\fscx92\fscy92\t(0,120,\fscx100\fscy100)}{\c&H0036D8FF&}“Only{\c&H00FFFFFF&} the first time.”
+Dialogue: 0,0:01:55.76,0:01:55.85,Cap,,0,0,0,,“Only {\c&H0036D8FF&}the{\c&H00FFFFFF&} first time.”
+Dialogue: 0,0:01:55.85,0:01:56.14,Cap,,0,0,0,,“Only the {\c&H0036D8FF&}first{\c&H00FFFFFF&} time.”
+Dialogue: 0,0:01:56.14,0:01:57.02,Cap,,0,0,0,,“Only the first {\c&H0036D8FF&}time.”{\c&H00FFFFFF&}
+Dialogue: 0,0:01:57.04,0:01:57.16,Cap,,0,0,0,,{\fad(40,0)\fscx92\fscy92\t(0,120,\fscx100\fscy100)}{\c&H0036D8FF&}In{\c&H00FFFFFF&} Shortwick,
+Dialogue: 0,0:01:57.16,0:01:57.79,Cap,,0,0,0,,In {\c&H0036D8FF&}Shortwick,{\c&H00FFFFFF&}
+Dialogue: 0,0:01:57.81,0:01:58.18,Cap,,0,0,0,,{\fad(40,0)\fscx92\fscy92\t(0,120,\fscx100\fscy100)}{\c&H0036D8FF&}everyone{\c&H00FFFFFF&} thinks
+Dialogue: 0,0:01:58.18,0:01:58.39,Cap,,0,0,0,,everyone {\c&H0036D8FF&}thinks{\c&H00FFFFFF&}
+Dialogue: 0,0:01:58.41,0:01:58.52,Cap,,0,0,0,,{\fad(40,0)\fscx92\fscy92\t(0,120,\fscx100\fscy100)}{\c&H0036D8FF&}the{\c&H00FFFFFF&} tallest
+Dialogue: 0,0:01:58.52,0:01:58.95,Cap,,0,0,0,,the {\c&H0036D8FF&}tallest{\c&H00FFFFFF&}
+Dialogue: 0,0:01:58.97,0:01:59.29,Cap,,0,0,0,,{\fad(40,0)\fscx92\fscy92\t(0,120,\fscx100\fscy100)}{\c&H0036D8FF&}people{\c&H00FFFFFF&} are the most
+Dialogue: 0,0:01:59.29,0:01:59.39,Cap,,0,0,0,,people {\c&H0036D8FF&}are{\c&H00FFFFFF&} the most
+Dialogue: 0,0:01:59.39,0:01:59.47,Cap,,0,0,0,,people are {\c&H0036D8FF&}the{\c&H00FFFFFF&} most
+Dialogue: 0,0:01:59.47,0:01:59.74,Cap,,0,0,0,,people are the {\c&H0036D8FF&}most{\c&H00FFFFFF&}
+Dialogue: 0,0:01:59.76,0:02:00.46,Cap,,0,0,0,,{\fad(40,0)\fscx92\fscy92\t(0,120,\fscx100\fscy100)}{\c&H0036D8FF&}honest.{\c&H00FFFFFF&}
+Dialogue: 0,0:02:00.48,0:02:00.62,Cap,,0,0,0,,{\fad(40,0)\fscx92\fscy92\t(0,120,\fscx100\fscy100)}{\c&H0036D8FF&}But{\c&H00FFFFFF&} the smallest
+Dialogue: 0,0:02:00.62,0:02:00.70,Cap,,0,0,0,,But {\c&H0036D8FF&}the{\c&H00FFFFFF&} smallest
+Dialogue: 0,0:02:00.70,0:02:01.21,Cap,,0,0,0,,But the {\c&H0036D8FF&}smallest{\c&H00FFFFFF&}
+Dialogue: 0,0:02:01.23,0:02:01.51,Cap,,0,0,0,,{\fad(40,0)\fscx92\fscy92\t(0,120,\fscx100\fscy100)}{\c&H0036D8FF&}people{\c&H00FFFFFF&} in town
+Dialogue: 0,0:02:01.51,0:02:01.62,Cap,,0,0,0,,people {\c&H0036D8FF&}in{\c&H00FFFFFF&} town
+Dialogue: 0,0:02:01.62,0:02:02.11,Cap,,0,0,0,,people in {\c&H0036D8FF&}town{\c&H00FFFFFF&}
+Dialogue: 0,0:02:02.13,0:02:02.24,Cap,,0,0,0,,{\fad(40,0)\fscx92\fscy92\t(0,120,\fscx100\fscy100)}{\c&H0036D8FF&}are{\c&H00FFFFFF&} the ones
+Dialogue: 0,0:02:02.24,0:02:02.32,Cap,,0,0,0,,are {\c&H0036D8FF&}the{\c&H00FFFFFF&} ones
+Dialogue: 0,0:02:02.32,0:02:02.63,Cap,,0,0,0,,are the {\c&H0036D8FF&}ones{\c&H00FFFFFF&}
+Dialogue: 0,0:02:02.65,0:02:02.78,Cap,,0,0,0,,{\fad(40,0)\fscx92\fscy92\t(0,120,\fscx100\fscy100)}{\c&H0036D8FF&}who{\c&H00FFFFFF&} loved the most.
+Dialogue: 0,0:02:02.78,0:02:03.28,Cap,,0,0,0,,who {\c&H0036D8FF&}loved{\c&H00FFFFFF&} the most.
+Dialogue: 0,0:02:03.28,0:02:03.37,Cap,,0,0,0,,who loved {\c&H0036D8FF&}the{\c&H00FFFFFF&} most.
+Dialogue: 0,0:02:03.37,0:02:04.43,Cap,,0,0,0,,who loved the {\c&H0036D8FF&}most.{\c&H00FFFFFF&}

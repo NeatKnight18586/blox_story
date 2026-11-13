@@ -1,0 +1,223 @@
+{
+ "spec": "stories/nobody/demo.json",
+ "size": "540x960",
+ "nudge": 0.004,
+ "threshold": 40,
+ "limit": 0.3,
+ "views": 34,
+ "worst": {
+  "view": "D6-whip:mid",
+  "frame": 220,
+  "pct": 0.287,
+  "raw": 1.14
+ },
+ "failing": [],
+ "errors": [],
+ "result": "PASS",
+ "rows": [
+  {
+   "view": "@heroStone",
+   "frame": null,
+   "pct": 0.044,
+   "raw": 0.454
+  },
+  {
+   "view": "@field",
+   "frame": null,
+   "pct": 0.007,
+   "raw": 0.115
+  },
+  {
+   "view": "@gate",
+   "frame": null,
+   "pct": 0.003,
+   "raw": 0.039
+  },
+  {
+   "view": "@street",
+   "frame": null,
+   "pct": 0.015,
+   "raw": 0.211
+  },
+  {
+   "view": "@square",
+   "frame": null,
+   "pct": 0.004,
+   "raw": 0.016
+  },
+  {
+   "view": "@dragonWall",
+   "frame": null,
+   "pct": 0.021,
+   "raw": 0.085
+  },
+  {
+   "view": "@whole",
+   "frame": null,
+   "pct": 0.001,
+   "raw": 0.004
+  },
+  {
+   "view": "D1-field-hook:first",
+   "frame": 0,
+   "pct": 0.062,
+   "raw": 0.291
+  },
+  {
+   "view": "D1-field-hook:mid",
+   "frame": 27,
+   "pct": 0.064,
+   "raw": 0.368
+  },
+  {
+   "view": "D1-field-hook:last",
+   "frame": 53,
+   "pct": 0.059,
+   "raw": 0.44
+  },
+  {
+   "view": "D2-track-stones:first",
+   "frame": 54,
+   "pct": 0.036,
+   "raw": 0.281
+  },
+  {
+   "view": "D2-track-stones:mid",
+   "frame": 79,
+   "pct": 0.112,
+   "raw": 0.369
+  },
+  {
+   "view": "D2-track-stones:last",
+   "frame": 103,
+   "pct": 0.059,
+   "raw": 0.365
+  },
+  {
+   "view": "D3-orbit-hero:first",
+   "frame": 104,
+   "pct": 0.067,
+   "raw": 0.74
+  },
+  {
+   "view": "D3-orbit-hero:mid",
+   "frame": 126,
+   "pct": 0.063,
+   "raw": 0.738
+  },
+  {
+   "view": "D3-orbit-hero:last",
+   "frame": 147,
+   "pct": 0.064,
+   "raw": 0.695
+  },
+  {
+   "view": "D4-crane-tag:first",
+   "frame": 148,
+   "pct": 0.091,
+   "raw": 0.909
+  },
+  {
+   "view": "D4-crane-tag:mid",
+   "frame": 167,
+   "pct": 0.063,
+   "raw": 0.997
+  },
+  {
+   "view": "D4-crane-tag:last",
+   "frame": 185,
+   "pct": 0.061,
+   "raw": 0.806
+  },
+  {
+   "view": "D5-tag-close:first",
+   "frame": 186,
+   "pct": 0.017,
+   "raw": 1.636
+  },
+  {
+   "view": "D5-tag-close:mid",
+   "frame": 202,
+   "pct": 0.023,
+   "raw": 1.651
+  },
+  {
+   "view": "D5-tag-close:last",
+   "frame": 217,
+   "pct": 0.025,
+   "raw": 1.701
+  },
+  {
+   "view": "D6-whip:first",
+   "frame": 218,
+   "pct": 0.008,
+   "raw": 1.209
+  },
+  {
+   "view": "D6-whip:mid",
+   "frame": 220,
+   "pct": 0.287,
+   "raw": 1.14
+  },
+  {
+   "view": "D6-whip:last",
+   "frame": 222,
+   "pct": 0.11,
+   "raw": 0.558
+  },
+  {
+   "view": "D7-gamecam:first",
+   "frame": 223,
+   "pct": 0.064,
+   "raw": 0.266
+  },
+  {
+   "view": "D7-gamecam:mid",
+   "frame": 243,
+   "pct": 0.087,
+   "raw": 0.28
+  },
+  {
+   "view": "D7-gamecam:last",
+   "frame": 263,
+   "pct": 0.075,
+   "raw": 0.288
+  },
+  {
+   "view": "D8-pull-reveal:first",
+   "frame": 264,
+   "pct": 0.013,
+   "raw": 0.146
+  },
+  {
+   "view": "D8-pull-reveal:mid",
+   "frame": 291,
+   "pct": 0.063,
+   "raw": 0.139
+  },
+  {
+   "view": "D8-pull-reveal:last",
+   "frame": 317,
+   "pct": 0.006,
+   "raw": 0.065
+  },
+  {
+   "view": "D9-push-sword:first",
+   "frame": 318,
+   "pct": 0.044,
+   "raw": 0.783
+  },
+  {
+   "view": "D9-push-sword:mid",
+   "frame": 339,
+   "pct": 0.002,
+   "raw": 1.093
+  },
+  {
+   "view": "D9-push-sword:last",
+   "frame": 359,
+   "pct": 0.043,
+   "raw": 1.713
+  }
+ ]
+}

@@ -1,0 +1,145 @@
+{
+  "status": "PASS",
+  "renderer": "Chromium SwiftShader (CPU WebGL)",
+  "errors": [],
+  "results": [
+    {
+      "name": "wide-legacy-1080.png",
+      "shot": "wide",
+      "variant": "legacy",
+      "width": 1080,
+      "height": 1920,
+      "loadMs": 802,
+      "renderMs": [
+        2356,
+        1149,
+        1203
+      ],
+      "deterministic": true,
+      "sha256": "afb7ff2438ad6b739d21577cb9bcffeead41947a9bfc6ebd8a8cdc46b93f4e53",
+      "camera": {
+        "position": [
+          10,
+          11,
+          27
+        ],
+        "fov": 57
+      }
+    },
+    {
+      "name": "leo-legacy-1080.png",
+      "shot": "leo",
+      "variant": "legacy",
+      "width": 1080,
+      "height": 1920,
+      "loadMs": 802,
+      "renderMs": [
+        1165,
+        1244,
+        1335
+      ],
+      "deterministic": true,
+      "sha256": "220ce9740af912324d9bc4031bafa4bfb2f7ff39e43c2beb9fa67851744f665d",
+      "camera": {
+        "position": [
+          5.803034659993079,
+          5.2912,
+          13.746995509943183
+        ],
+        "fov": 34
+      }
+    },
+    {
+      "name": "wide-studio-1080.png",
+      "shot": "wide",
+      "variant": "studio",
+      "width": 1080,
+      "height": 1920,
+      "loadMs": 1930,
+      "renderMs": [
+        4771,
+        2708,
+        2656
+      ],
+      "deterministic": true,
+      "sha256": "12c7e1cfb235c5a1a656e237a4275727037ffeccae775c58fe3e3de895bfb1a0",
+      "camera": {
+        "position": [
+          10,
+          11,
+          27
+        ],
+        "fov": 57
+      }
+    },
+    {
+      "name": "leo-studio-1080.png",
+      "shot": "leo",
+      "variant": "studio",
+      "width": 1080,
+      "height": 1920,
+      "loadMs": 1930,
+      "renderMs": [
+        3005,
+        2980,
+        2886
+      ],
+      "deterministic": true,
+      "sha256": "232d6e5e67427dc518bc2e37f6b4722b980a5abf87a30e1e082a7c47482d004e",
+      "camera": {
+        "position": [
+          5.803034659993079,
+          5.2912,
+          13.746995509943183
+        ],
+        "fov": 34
+      }
+    },
+    {
+      "name": "wide-studio-cast-1080.png",
+      "shot": "wide",
+      "variant": "studio-cast",
+      "width": 1080,
+      "height": 1920,
+      "loadMs": 1641,
+      "renderMs": [
+        6079,
+        3012,
+        2961
+      ],
+      "deterministic": true,
+      "sha256": "67463af3a2c0f56d1a79f83849881b0c71c6410cdaaee50de822e308d523904a",
+      "camera": {
+        "position": [
+          10,
+          11,
+          27
+        ],
+        "fov": 57
+      }
+    },
+    {
+      "name": "leo-studio-cast-1080.png",
+      "shot": "leo",
+      "variant": "studio-cast",
+      "width": 1080,
+      "height": 1920,
+      "loadMs": 1641,
+      "renderMs": [
+        3316,
+        3374,
+        3361
+      ],
+      "deterministic": true,
+      "sha256": "b4d075b6187a5032547ec9212ccebb0201ff36e529bfa48a04727b6d0a497380",
+      "camera": {
+        "position": [
+          5.803034659993079,
+          5.21,
+          13.746995509943183
+        ],
+        "fov": 34
+      }
+    }
+  ]
+}

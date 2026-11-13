@@ -1,0 +1,153 @@
+# Render farm (docs/V2_BRIEF.md §14.2, Amendment A2): plan → 6 render shards (finals native 1440×2560) → assemble
+# (master + 1080 review proxy) → v2:qc gate → prerelease.
+# Trigger by hand (Actions → render → Run workflow: story, preset) or by pushing a change to
+# stories/<slug>/render.request (its first line may name the preset: final | animatic; default final).
+# A line `reuse-run: <run id>` in render.request skips rendering and assembles from that run's segment artifacts
+# (kept 7 days): only valid when nothing that affects frames (engine/, avatar*/, parts/, the story) changed since.
+# First runs recorded in PROGRESS.md (Session 6.5). The local path (npm run v2:render + assemble.py) stays the fallback.
+name: render
+
+on:
+  workflow_dispatch:
+    inputs:
+      story:
+        description: story slug (stories/<slug>)
+        required: true
+      preset:
+        description: final (1080×1920, 30 fps, 6 shards) or animatic (270×480, 15 fps, 1 shard)
+        required: true
+        default: final
+        type: choice
+        options: [final, animatic]
+  push:
+    paths: ['stories/*/render.request']
+
+permissions:
+  contents: write
+  actions: read
+
+concurrency:
+  group: render-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  plan:
+    runs-on: ubuntu-24.04   # Playwright 1.56 cannot install Chromium on ubuntu-latest (26.04)
+    outputs:
+      story: ${{ steps.pick.outputs.story }}
+      preset: ${{ steps.pick.outputs.preset }}
+      matrix: ${{ steps.shards.outputs.matrix }}
+      reuse: ${{ steps.pick.outputs.reuse }}
+    steps:
+      - uses: actions/checkout@v4
+        with: {fetch-depth: 2}
+      - uses: actions/setup-node@v4
+        with: {node-version: 22, cache: npm}
+      - id: pick
+        name: Pick story and preset
+        run: |
+          if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
+            story="${{ inputs.story }}"; preset="${{ inputs.preset }}"
+          else
+            req=$(git diff --name-only HEAD^ HEAD -- 'stories/*/render.request' | head -n1)
+            story=$(basename "$(dirname "$req")"); preset=$(head -n1 "$req" | tr -d '[:space:]')
+            reuse=$(sed -n 's/^reuse-run: *\([0-9]\+\).*/\1/p' "$req" | head -n1)
+          fi
+          echo "reuse=${reuse:-}" >> "$GITHUB_OUTPUT"
+          case "$preset" in final|animatic) ;; *) preset=final ;; esac
+          test -f "stories/$story/episode.json" || { echo "no stories/$story/episode.json"; exit 1; }
+          echo "story=$story" >> "$GITHUB_OUTPUT"; echo "preset=$preset" >> "$GITHUB_OUTPUT"
+      - run: npm ci
+      - name: Plan gate (§5.2)
+        run: |
+          pip install --break-system-packages pillow >/dev/null 2>&1 || pip install pillow
+          npx playwright install --with-deps chromium || echo "playwright browser unavailable, browser.js uses the runner's google-chrome"
+          node scripts/v2/plan.js --story "${{ steps.pick.outputs.story }}"
+      - id: shards
+        name: Split shots into balanced shards
+        run: |
+          n=6; [ "${{ steps.pick.outputs.preset }}" = "animatic" ] && n=1
+          echo "matrix=$(node scripts/v2/shards.js --story '${{ steps.pick.outputs.story }}' --n $n)" >> "$GITHUB_OUTPUT"
+
+  render:
+    needs: plan
+    if: needs.plan.outputs.reuse == ''
+    runs-on: ubuntu-24.04   # Playwright 1.56 cannot install Chromium on ubuntu-latest (26.04)
+    timeout-minutes: 300
+    strategy:
+      fail-fast: true
+      matrix: ${{ fromJSON(needs.plan.outputs.matrix) }}
+    env:
+      STORY: ${{ needs.plan.outputs.story }}
+      PRESET: ${{ needs.plan.outputs.preset }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: {node-version: 22, cache: npm}
+      - run: npm ci
+      - run: npx playwright install --with-deps chromium || echo "playwright browser unavailable, browser.js uses the runner's google-chrome"
+      - run: sudo apt-get update && sudo apt-get install -y ffmpeg
+      - name: Render shard ${{ matrix.index }} (frames ${{ matrix.from }}–${{ matrix.to }})
+        run: |
+          if [ "$PRESET" = "animatic" ]; then size="--width 270 --height 480 --every 2 --aa 0"; else size="--final"; fi   # A2: finals native 1440×2560
+          node scripts/v2/render.js --story "$STORY" --out shard $size --from ${{ matrix.from }} --to ${{ matrix.to }} --workers 2
+      - name: Encode near-lossless segment
+        run: |
+          if [ "$PRESET" = "animatic" ]; then fps=15; start=0; else fps=30; start=${{ matrix.from }}; fi
+          ffmpeg -v error -y -framerate $fps -start_number $start -i shard/frames/frame-%05d.png \
+            -c:v libx264 -preset slow -crf 10 -pix_fmt yuv444p -profile:v high444 seg-$(printf %02d ${{ matrix.index }}).mp4
+      - uses: actions/upload-artifact@v4
+        with:
+          name: seg-${{ matrix.index }}
+          path: seg-*.mp4
+          retention-days: 7
+
+  assemble:
+    needs: [plan, render]
+    if: ${{ !cancelled() && needs.plan.result == 'success' && (needs.render.result == 'success' || needs.render.result == 'skipped') }}
+    runs-on: ubuntu-24.04   # Playwright 1.56 cannot install Chromium on ubuntu-latest (26.04)
+    env:
+      STORY: ${{ needs.plan.outputs.story }}
+      PRESET: ${{ needs.plan.outputs.preset }}
+      GH_TOKEN: ${{ github.token }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: {node-version: 22, cache: npm}
+      - run: npm ci
+      - run: sudo apt-get update && sudo apt-get install -y ffmpeg && pip install --break-system-packages pillow numpy
+      - uses: actions/download-artifact@v4
+        with:
+          pattern: 'seg-*'
+          merge-multiple: true
+          path: segs
+          run-id: ${{ needs.plan.outputs.reuse || github.run_id }}
+          github-token: ${{ github.token }}
+      - name: Concatenate segments
+        run: |
+          ls segs/seg-*.mp4 | sort | sed "s#^#file '$PWD/#; s#\$#'#" > segs/list.txt
+          ffmpeg -v error -y -f concat -safe 0 -i segs/list.txt -c copy picture.mp4
+      - name: Captions + finishing (assemble.py)
+        run: |
+          mkdir -p out
+          python3 scripts/v2/captions.py --story "$STORY" --spec "stories/$STORY/episode.json" --out out/captions.ass
+          if [ "$PRESET" = "animatic" ]; then
+            python3 scripts/v2/assemble.py --story "$STORY" --video picture.mp4 --captions out/captions.ass --out out/animatic.mp4 --animatic | tee out/report.json
+          else   # A2: uncapped 1440 master + 1080 review proxy from the same graded frames
+            python3 scripts/v2/assemble.py --story "$STORY" --video picture.mp4 --captions out/captions.ass \
+              --out "out/$STORY-master.mp4" --proxy out/final-review.mp4 | tee out/report.json
+          fi
+      - name: Quality gate (v2:qc; a failure means no release)
+        if: needs.plan.outputs.preset == 'final'
+        run: python3 scripts/v2/qc.py --story "$STORY" --video "out/$STORY-master.mp4" --source-video picture.mp4 --captions out/captions.ass --out out/qc.json
+      - uses: actions/upload-artifact@v4
+        with:
+          name: ${{ needs.plan.outputs.story }}-${{ needs.plan.outputs.preset }}
+          path: out/
+      - name: Prerelease (downloadable on the iPad)
+        run: |
+          tag="$STORY-${GITHUB_SHA::7}"
+          if [ "$PRESET" = "animatic" ]; then files="out/animatic.mp4 out/report.json"; else files="out/$STORY-master.mp4 out/final-review.mp4 out/report.json out/qc.json"; fi
+          gh release create "$tag" $files --prerelease --target "$GITHUB_SHA" \
+            --title "$STORY ($PRESET) ${GITHUB_SHA::7}" --notes "Render farm output for stories/$STORY ($PRESET): 1440×2560 master (upload this), 1080 review proxy, assemble report and v2:qc report." \
+          || gh release upload "$tag" $files --clobber

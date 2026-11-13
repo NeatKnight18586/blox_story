@@ -1,0 +1,911 @@
+{
+  "schema": "blox_story_preproduction_plan_v0_not_renderer_input",
+  "title": "The Sixth Roll — Narration-Synchronized Animatic PLAN",
+  "source_audio_original_filename": "ADAM 2(1).WAV",
+  "source_audio_sha256": "c7aef1553ad7bdcdeaae7a5e1fbc1f7d11ce4cb02ba7030eb84b71f0f9453e05",
+  "audio_duration_seconds": 117.098231,
+  "audio_channels": 2,
+  "audio_sample_rate": 44100,
+  "audio_subtype": "PCM_16",
+  "audio_speed_note": "User confirms WAV was already generated at signature 1.25x; no speed change.",
+  "video_fps": 30,
+  "video_duration_seconds": 117.1,
+  "video_total_frames": 3513,
+  "video_final_output": {
+    "width": 720,
+    "height": 1280,
+    "fps": 30
+  },
+  "video_animatic_proxy": {
+    "width": 180,
+    "height": 320,
+    "fps": 15
+  },
+  "narration_text_source": "Latest user-approved ElevenLabs text from conversation (368 words); semantic transcript not independently ASR-verified",
+  "cue_alignment_method": "Heuristic paragraph alignment using known text lengths and detected natural waveform pauses; not forced word-level alignment.",
+  "audio_cues": [
+    {
+      "paragraph": 1,
+      "start_seconds": 0.0,
+      "end_seconds": 5.62,
+      "start_frame": 0,
+      "end_frame": 169,
+      "transcript": "In this town, a giant die rolls every sunrise. Today, it landed on three.",
+      "timing_status": "estimated_from_script_length_and_waveform_pauses_not_word_level_forced_alignment"
+    },
+    {
+      "paragraph": 2,
+      "start_seconds": 5.62,
+      "end_seconds": 11.24,
+      "start_frame": 169,
+      "end_frame": 337,
+      "transcript": "All across the plaza, people rose off the ground. A baker grabbed his stall as his shoes floated away.",
+      "timing_status": "estimated_from_script_length_and_waveform_pauses_not_word_level_forced_alignment"
+    },
+    {
+      "paragraph": 3,
+      "start_seconds": 11.24,
+      "end_seconds": 12.74,
+      "start_frame": 337,
+      "end_frame": 382,
+      "transcript": "Everyone was rising. Except Leo.",
+      "timing_status": "estimated_from_script_length_and_waveform_pauses_not_word_level_forced_alignment"
+    },
+    {
+      "paragraph": 4,
+      "start_seconds": 12.74,
+      "end_seconds": 21.04,
+      "start_frame": 382,
+      "end_frame": 631,
+      "transcript": "He'd tied himself to the clock tower. Leo hated surprises. He even kept a notebook listing what to do if the town suddenly lost gravity.",
+      "timing_status": "estimated_from_script_length_and_waveform_pauses_not_word_level_forced_alignment"
+    },
+    {
+      "paragraph": 5,
+      "start_seconds": 21.04,
+      "end_seconds": 26.44,
+      "start_frame": 631,
+      "end_frame": 793,
+      "transcript": "Every roll changed the law. One floated loose objects. Two made everyone walk backward. Three lifted people into the air.",
+      "timing_status": "estimated_from_script_length_and_waveform_pauses_not_word_level_forced_alignment"
+    },
+    {
+      "paragraph": 6,
+      "start_seconds": 26.44,
+      "end_seconds": 29.54,
+      "start_frame": 793,
+      "end_frame": 886,
+      "transcript": "But in thirty years, the die had never landed on six.",
+      "timing_status": "estimated_from_script_length_and_waveform_pauses_not_word_level_forced_alignment"
+    },
+    {
+      "paragraph": 7,
+      "start_seconds": 29.54,
+      "end_seconds": 36.64,
+      "start_frame": 886,
+      "end_frame": 1099,
+      "transcript": "Leo had counted the rolls. And he'd noticed something strange: whenever six almost appeared, the die made the exact same wobble.",
+      "timing_status": "estimated_from_script_length_and_waveform_pauses_not_word_level_forced_alignment"
+    },
+    {
+      "paragraph": 8,
+      "start_seconds": 36.64,
+      "end_seconds": 40.68,
+      "start_frame": 1099,
+      "end_frame": 1220,
+      "transcript": "So while the town floated above him, Leo slipped underneath the stone platform.",
+      "timing_status": "estimated_from_script_length_and_waveform_pauses_not_word_level_forced_alignment"
+    },
+    {
+      "paragraph": 9,
+      "start_seconds": 40.68,
+      "end_seconds": 48.06,
+      "start_frame": 1220,
+      "end_frame": 1442,
+      "transcript": "There was a brass paddle and a crank. Somebody had been knocking the die away from six before it could settle.",
+      "timing_status": "estimated_from_script_length_and_waveform_pauses_not_word_level_forced_alignment"
+    },
+    {
+      "paragraph": 10,
+      "start_seconds": 48.06,
+      "end_seconds": 49.84,
+      "start_frame": 1442,
+      "end_frame": 1495,
+      "transcript": "Mayor Pip was holding the handle.",
+      "timing_status": "estimated_from_script_length_and_waveform_pauses_not_word_level_forced_alignment"
+    },
+    {
+      "paragraph": 11,
+      "start_seconds": 49.84,
+      "end_seconds": 57.0,
+      "start_frame": 1495,
+      "end_frame": 1710,
+      "transcript": "Pip looked ten, but he'd started the game thirty years earlier. Nobody inside the town grew older. Outside, his family had.",
+      "timing_status": "estimated_from_script_length_and_waveform_pauses_not_word_level_forced_alignment"
+    },
+    {
+      "paragraph": 12,
+      "start_seconds": 57.0,
+      "end_seconds": 58.92,
+      "start_frame": 1710,
+      "end_frame": 1768,
+      "transcript": "Pip held their faded photograph.",
+      "timing_status": "estimated_from_script_length_and_waveform_pauses_not_word_level_forced_alignment"
+    },
+    {
+      "paragraph": 13,
+      "start_seconds": 58.92,
+      "end_seconds": 63.5,
+      "start_frame": 1768,
+      "end_frame": 1905,
+      "transcript": "\"If six lands, the gate opens,\" he whispered. \"What if they've forgotten me?\"",
+      "timing_status": "estimated_from_script_length_and_waveform_pauses_not_word_level_forced_alignment"
+    },
+    {
+      "paragraph": 14,
+      "start_seconds": 63.5,
+      "end_seconds": 66.56,
+      "start_frame": 1905,
+      "end_frame": 1997,
+      "transcript": "Leo had an answer for almost everything. But not that.",
+      "timing_status": "estimated_from_script_length_and_waveform_pauses_not_word_level_forced_alignment"
+    },
+    {
+      "paragraph": 15,
+      "start_seconds": 66.56,
+      "end_seconds": 70.96,
+      "start_frame": 1997,
+      "end_frame": 2129,
+      "transcript": "He pulled a small pin from the machine, stopping the paddle, and placed it in Pip's hand.",
+      "timing_status": "estimated_from_script_length_and_waveform_pauses_not_word_level_forced_alignment"
+    },
+    {
+      "paragraph": 16,
+      "start_seconds": 70.96,
+      "end_seconds": 74.12,
+      "start_frame": 2129,
+      "end_frame": 2224,
+      "transcript": "\"You can put it back,\" Leo said. \"I won't stop you.\"",
+      "timing_status": "estimated_from_script_length_and_waveform_pauses_not_word_level_forced_alignment"
+    },
+    {
+      "paragraph": 17,
+      "start_seconds": 74.12,
+      "end_seconds": 77.96,
+      "start_frame": 2224,
+      "end_frame": 2339,
+      "transcript": "The next morning, the die didn't land on six. Neither did the next.",
+      "timing_status": "estimated_from_script_length_and_waveform_pauses_not_word_level_forced_alignment"
+    },
+    {
+      "paragraph": 18,
+      "start_seconds": 77.96,
+      "end_seconds": 86.18,
+      "start_frame": 2339,
+      "end_frame": 2585,
+      "transcript": "Five mornings went by. Pip watched each roll, holding the pin. Once, he almost returned it. Then he looked at the photograph and put it down.",
+      "timing_status": "estimated_from_script_length_and_waveform_pauses_not_word_level_forced_alignment"
+    },
+    {
+      "paragraph": 19,
+      "start_seconds": 86.18,
+      "end_seconds": 88.98,
+      "start_frame": 2585,
+      "end_frame": 2669,
+      "transcript": "On the sixth sunrise, the die began to turn.",
+      "timing_status": "estimated_from_script_length_and_waveform_pauses_not_word_level_forced_alignment"
+    },
+    {
+      "paragraph": 20,
+      "start_seconds": 88.98,
+      "end_seconds": 90.52,
+      "start_frame": 2669,
+      "end_frame": 2716,
+      "transcript": "It rocked toward six.",
+      "timing_status": "estimated_from_script_length_and_waveform_pauses_not_word_level_forced_alignment"
+    },
+    {
+      "paragraph": 21,
+      "start_seconds": 90.52,
+      "end_seconds": 92.9,
+      "start_frame": 2716,
+      "end_frame": 2787,
+      "transcript": "Pip reached for the pin, and stopped himself.",
+      "timing_status": "estimated_from_script_length_and_waveform_pauses_not_word_level_forced_alignment"
+    },
+    {
+      "paragraph": 22,
+      "start_seconds": 92.9,
+      "end_seconds": 95.0,
+      "start_frame": 2787,
+      "end_frame": 2850,
+      "transcript": "The die settled.",
+      "timing_status": "estimated_from_script_length_and_waveform_pauses_not_word_level_forced_alignment"
+    },
+    {
+      "paragraph": 23,
+      "start_seconds": 95.0,
+      "end_seconds": 96.6,
+      "start_frame": 2850,
+      "end_frame": 2898,
+      "transcript": "Six.",
+      "timing_status": "estimated_from_script_length_and_waveform_pauses_not_word_level_forced_alignment"
+    },
+    {
+      "paragraph": 24,
+      "start_seconds": 96.6,
+      "end_seconds": 103.0,
+      "start_frame": 2898,
+      "end_frame": 3090,
+      "transcript": "The town gate swung open. Pip ran through it, past streets he barely recognized, until he reached his old house.",
+      "timing_status": "estimated_from_script_length_and_waveform_pauses_not_word_level_forced_alignment"
+    },
+    {
+      "paragraph": 25,
+      "start_seconds": 103.0,
+      "end_seconds": 107.66,
+      "start_frame": 3090,
+      "end_frame": 3230,
+      "transcript": "An older woman stood in the doorway. She took one look at him and said his name.",
+      "timing_status": "estimated_from_script_length_and_waveform_pauses_not_word_level_forced_alignment"
+    },
+    {
+      "paragraph": 26,
+      "start_seconds": 107.66,
+      "end_seconds": 111.46,
+      "start_frame": 3230,
+      "end_frame": 3344,
+      "transcript": "Inside was a small chair by the kitchen table. Everything had changed except that chair.",
+      "timing_status": "estimated_from_script_length_and_waveform_pauses_not_word_level_forced_alignment"
+    },
+    {
+      "paragraph": 27,
+      "start_seconds": 111.46,
+      "end_seconds": 112.98,
+      "start_frame": 3344,
+      "end_frame": 3389,
+      "transcript": "\"We kept your chair,\" she said.",
+      "timing_status": "estimated_from_script_length_and_waveform_pauses_not_word_level_forced_alignment"
+    },
+    {
+      "paragraph": 28,
+      "start_seconds": 112.98,
+      "end_seconds": 117.098,
+      "start_frame": 3389,
+      "end_frame": 3513,
+      "transcript": "And Leo, watching from the open gate, finally closed his notebook without planning tomorrow.",
+      "timing_status": "estimated_from_script_length_and_waveform_pauses_not_word_level_forced_alignment"
+    }
+  ],
+  "storyboard_shots": [
+    {
+      "id": "D01",
+      "start_frame": 0,
+      "end_frame": 66,
+      "start_seconds": 0.0,
+      "end_seconds": 2.2,
+      "location": "plaza",
+      "camera_plan": "impact-wide",
+      "visual_action": "Die showing 3 immediately; first few residents lift as result becomes visible",
+      "asset_refs": [
+        "die",
+        "plaza",
+        "sky",
+        "extras"
+      ],
+      "scope": "REUSE+MOTION",
+      "production_note": "Existing P2B motion is reference, not a guaranteed timeline match"
+    },
+    {
+      "id": "D02",
+      "start_frame": 66,
+      "end_frame": 169,
+      "start_seconds": 2.2,
+      "end_seconds": 5.633,
+      "location": "plaza",
+      "camera_plan": "cause-and-effect-medium",
+      "visual_action": "Wave of levitation across plaza, readable legs leaving ground",
+      "asset_refs": [
+        "plaza",
+        "die",
+        "extras"
+      ],
+      "scope": "REUSE+MOTION",
+      "production_note": "Cut away before static hold becomes repetitive"
+    },
+    {
+      "id": "D03",
+      "start_frame": 169,
+      "end_frame": 255,
+      "start_seconds": 5.633,
+      "end_seconds": 8.5,
+      "location": "plaza-market",
+      "camera_plan": "baker-medium",
+      "visual_action": "Baker lunges for stall as light items lift",
+      "asset_refs": [
+        "extra-baker",
+        "market-stall",
+        "floating-objects"
+      ],
+      "scope": "NEW-SMALL",
+      "production_note": "Stall can be one modular prop"
+    },
+    {
+      "id": "D04",
+      "start_frame": 255,
+      "end_frame": 337,
+      "start_seconds": 8.5,
+      "end_seconds": 11.233,
+      "location": "plaza-market",
+      "camera_plan": "insert",
+      "visual_action": "Shoes lift, baker grips stall; exaggerate readable separation",
+      "asset_refs": [
+        "shoes",
+        "stall"
+      ],
+      "scope": "REUSE+MOTION",
+      "production_note": "Simple detached accessory motion"
+    },
+    {
+      "id": "D05",
+      "start_frame": 337,
+      "end_frame": 382,
+      "start_seconds": 11.233,
+      "end_seconds": 12.733,
+      "location": "plaza",
+      "camera_plan": "hero-reveal",
+      "visual_action": "Leo remains held by tether while others levitate behind",
+      "asset_refs": [
+        "leo",
+        "tether",
+        "extras"
+      ],
+      "scope": "NEW-SMALL",
+      "production_note": "Show tether anchor clearly"
+    },
+    {
+      "id": "D06",
+      "start_frame": 382,
+      "end_frame": 504,
+      "start_seconds": 12.733,
+      "end_seconds": 16.8,
+      "location": "clocktower-plaza",
+      "camera_plan": "rope-detail",
+      "visual_action": "Leo's harness/rope pulls taut against clocktower post",
+      "asset_refs": [
+        "leo",
+        "rope",
+        "anchor-post"
+      ],
+      "scope": "NEW-SMALL",
+      "production_note": "Tether must reach plaza and under-plinth later"
+    },
+    {
+      "id": "D07",
+      "start_frame": 504,
+      "end_frame": 631,
+      "start_seconds": 16.8,
+      "end_seconds": 21.033,
+      "location": "plaza",
+      "camera_plan": "notebook-insert",
+      "visual_action": "Leo checks hand-written contingency notebook amid chaos",
+      "asset_refs": [
+        "leo",
+        "notebook-page"
+      ],
+      "scope": "REUSE+DETAIL",
+      "production_note": "Page texture/label only at visible insert"
+    },
+    {
+      "id": "D08",
+      "start_frame": 631,
+      "end_frame": 693,
+      "start_seconds": 21.033,
+      "end_seconds": 23.1,
+      "location": "plaza-market",
+      "camera_plan": "rule-1-insert",
+      "visual_action": "Roll 1 flashback: loose cups float while people stay grounded",
+      "asset_refs": [
+        "die",
+        "cup"
+      ],
+      "scope": "NEW-SMALL",
+      "production_note": "Don't simulate full physics"
+    },
+    {
+      "id": "D09",
+      "start_frame": 693,
+      "end_frame": 742,
+      "start_seconds": 23.1,
+      "end_seconds": 24.733,
+      "location": "plaza",
+      "camera_plan": "rule-2-side",
+      "visual_action": "Roll 2 flashback: two people walk backward",
+      "asset_refs": [
+        "extras",
+        "backward-walk"
+      ],
+      "scope": "NEW-ACTION",
+      "production_note": "Can reverse existing walk cycle"
+    },
+    {
+      "id": "D10",
+      "start_frame": 742,
+      "end_frame": 793,
+      "start_seconds": 24.733,
+      "end_seconds": 26.433,
+      "location": "plaza",
+      "camera_plan": "rule-3-wide",
+      "visual_action": "Roll 3: people rise again; match opening event",
+      "asset_refs": [
+        "extras",
+        "levitation"
+      ],
+      "scope": "REUSE",
+      "production_note": "A deliberately short recap"
+    },
+    {
+      "id": "D11",
+      "start_frame": 793,
+      "end_frame": 886,
+      "start_seconds": 26.433,
+      "end_seconds": 29.533,
+      "location": "plaza",
+      "camera_plan": "die-insert",
+      "visual_action": "Die nearly displays 6 then suspiciously wobbles off",
+      "asset_refs": [
+        "die",
+        "wobble-mechanic"
+      ],
+      "scope": "NEW-STORY",
+      "production_note": "Plant the mechanical cheating clue"
+    },
+    {
+      "id": "D12",
+      "start_frame": 886,
+      "end_frame": 990,
+      "start_seconds": 29.533,
+      "end_seconds": 33.0,
+      "location": "plaza",
+      "camera_plan": "notebook-over-shoulder",
+      "visual_action": "Leo compares tally marks and near-six notes",
+      "asset_refs": [
+        "leo",
+        "notebook-page"
+      ],
+      "scope": "REUSE+DETAIL",
+      "production_note": "Only numbers needed on page"
+    },
+    {
+      "id": "D13",
+      "start_frame": 990,
+      "end_frame": 1099,
+      "start_seconds": 33.0,
+      "end_seconds": 36.633,
+      "location": "plaza",
+      "camera_plan": "die-close",
+      "visual_action": "Repeated unnatural sideways wobble; brass flash under base",
+      "asset_refs": [
+        "die",
+        "brass-paddle"
+      ],
+      "scope": "NEW-STORY",
+      "production_note": "One controlled animation reused in discovery"
+    },
+    {
+      "id": "D14",
+      "start_frame": 1099,
+      "end_frame": 1220,
+      "start_seconds": 36.633,
+      "end_seconds": 40.667,
+      "location": "under-plinth",
+      "camera_plan": "downward-reveal",
+      "visual_action": "Leo follows tether/slips through service hatch beneath stone platform",
+      "asset_refs": [
+        "leo",
+        "hatch",
+        "rope"
+      ],
+      "scope": "NEW-SET-MINIMAL",
+      "production_note": "Show only wall, steps and hatch, not full cellar"
+    },
+    {
+      "id": "D15",
+      "start_frame": 1220,
+      "end_frame": 1332,
+      "start_seconds": 40.667,
+      "end_seconds": 44.4,
+      "location": "under-plinth",
+      "camera_plan": "mechanism-insert",
+      "visual_action": "Brass paddle and crank mechanically tip die when six approaches",
+      "asset_refs": [
+        "paddle",
+        "crank",
+        "pin"
+      ],
+      "scope": "NEW-CRITICAL",
+      "production_note": "Clear single causal action"
+    },
+    {
+      "id": "D16",
+      "start_frame": 1332,
+      "end_frame": 1442,
+      "start_seconds": 44.4,
+      "end_seconds": 48.067,
+      "location": "under-plinth",
+      "camera_plan": "mechanism-reaction",
+      "visual_action": "Demonstrate crank tap and visible die wobble in cutaway",
+      "asset_refs": [
+        "paddle",
+        "die",
+        "crank"
+      ],
+      "scope": "NEW-CRITICAL",
+      "production_note": "Cutaway can be 2D/2.5D illustration-like mesh"
+    },
+    {
+      "id": "D17",
+      "start_frame": 1442,
+      "end_frame": 1495,
+      "start_seconds": 48.067,
+      "end_seconds": 49.833,
+      "location": "under-plinth",
+      "camera_plan": "mayor-reveal",
+      "visual_action": "Pip at handle, age-ten silhouette",
+      "asset_refs": [
+        "pip",
+        "crank"
+      ],
+      "scope": "REUSE+APPEARANCE",
+      "production_note": "Distinct from generic extra"
+    },
+    {
+      "id": "D18",
+      "start_frame": 1495,
+      "end_frame": 1590,
+      "start_seconds": 49.833,
+      "end_seconds": 53.0,
+      "location": "under-plinth",
+      "camera_plan": "pip-medium",
+      "visual_action": "Pip remembers starting game; age freeze visually indicated",
+      "asset_refs": [
+        "pip",
+        "family-photo"
+      ],
+      "scope": "NEW-SMALL",
+      "production_note": "Photo still provides visual backstory"
+    },
+    {
+      "id": "D19",
+      "start_frame": 1590,
+      "end_frame": 1710,
+      "start_seconds": 53.0,
+      "end_seconds": 57.0,
+      "location": "under-plinth",
+      "camera_plan": "photo-insert",
+      "visual_action": "Young family photo vs later aging outside boundary",
+      "asset_refs": [
+        "family-photo",
+        "aging-still"
+      ],
+      "scope": "NEW-SMALL",
+      "production_note": "No multiple full adult rigs here"
+    },
+    {
+      "id": "D20",
+      "start_frame": 1710,
+      "end_frame": 1768,
+      "start_seconds": 57.0,
+      "end_seconds": 58.933,
+      "location": "under-plinth",
+      "camera_plan": "hands-insert",
+      "visual_action": "Pip lifts faded photo, fingers tighten",
+      "asset_refs": [
+        "pip",
+        "family-photo"
+      ],
+      "scope": "REUSE+STAGING",
+      "production_note": "Close-up holds visual attention"
+    },
+    {
+      "id": "D21",
+      "start_frame": 1768,
+      "end_frame": 1905,
+      "start_seconds": 58.933,
+      "end_seconds": 63.5,
+      "location": "gate-cutaway",
+      "camera_plan": "dialogue-closeup",
+      "visual_action": "Pip fears six opening gate; show distant locked gate",
+      "asset_refs": [
+        "pip",
+        "gate"
+      ],
+      "scope": "NEW-CRITICAL",
+      "production_note": "Narrator quotes Pip; no lip sync required yet"
+    },
+    {
+      "id": "D22",
+      "start_frame": 1905,
+      "end_frame": 1997,
+      "start_seconds": 63.5,
+      "end_seconds": 66.567,
+      "location": "under-plinth",
+      "camera_plan": "leo-close",
+      "visual_action": "Leo's notebook shuts, no prepared response",
+      "asset_refs": [
+        "leo",
+        "notebook"
+      ],
+      "scope": "REUSE+ACTING",
+      "production_note": "Expression subtle, not default smirk"
+    },
+    {
+      "id": "D23",
+      "start_frame": 1997,
+      "end_frame": 2129,
+      "start_seconds": 66.567,
+      "end_seconds": 70.967,
+      "location": "under-plinth",
+      "camera_plan": "hands-and-pin",
+      "visual_action": "Leo removes brass pin and deliberately gives it to Pip",
+      "asset_refs": [
+        "leo",
+        "pip",
+        "pin"
+      ],
+      "scope": "NEW-CRITICAL",
+      "production_note": "Simple hand-off with cutaways avoids complex collision"
+    },
+    {
+      "id": "D24",
+      "start_frame": 2129,
+      "end_frame": 2224,
+      "start_seconds": 70.967,
+      "end_seconds": 74.133,
+      "location": "under-plinth",
+      "camera_plan": "two-shot",
+      "visual_action": "Pip holds pin; Leo exits, leaving choice with Pip",
+      "asset_refs": [
+        "leo",
+        "pip",
+        "pin"
+      ],
+      "scope": "REUSE+ACTING",
+      "production_note": "Both retain agency"
+    },
+    {
+      "id": "D25",
+      "start_frame": 2224,
+      "end_frame": 2339,
+      "start_seconds": 74.133,
+      "end_seconds": 77.967,
+      "location": "plaza",
+      "camera_plan": "montage-mornings-1-2",
+      "visual_action": "Two sunrise rolls without six; reuse one camera and change die face",
+      "asset_refs": [
+        "die",
+        "plaza",
+        "day-number"
+      ],
+      "scope": "REUSE+VARIANT",
+      "production_note": "No new locations"
+    },
+    {
+      "id": "D26",
+      "start_frame": 2339,
+      "end_frame": 2454,
+      "start_seconds": 77.967,
+      "end_seconds": 81.8,
+      "location": "plaza",
+      "camera_plan": "montage-mornings-3-4",
+      "visual_action": "Two more fair rolls; Pip watches pin from distance",
+      "asset_refs": [
+        "die",
+        "plaza",
+        "pip",
+        "pin"
+      ],
+      "scope": "REUSE+VARIANT",
+      "production_note": "Use cut on roll, not full physical bounce each time"
+    },
+    {
+      "id": "D27",
+      "start_frame": 2454,
+      "end_frame": 2585,
+      "start_seconds": 81.8,
+      "end_seconds": 86.167,
+      "location": "under-plinth",
+      "camera_plan": "montage-morning-5",
+      "visual_action": "Pip almost reinstalls pin, sees photograph, chooses not to",
+      "asset_refs": [
+        "pip",
+        "pin",
+        "family-photo"
+      ],
+      "scope": "REUSE+ACTING",
+      "production_note": "Biggest agency moment"
+    },
+    {
+      "id": "D28",
+      "start_frame": 2585,
+      "end_frame": 2669,
+      "start_seconds": 86.167,
+      "end_seconds": 88.967,
+      "location": "plaza",
+      "camera_plan": "sixth-sunrise-wide",
+      "visual_action": "Sixth sunrise: low sun behind die, anticipation",
+      "asset_refs": [
+        "plaza",
+        "die",
+        "sky"
+      ],
+      "scope": "REUSE",
+      "production_note": "Different color from previous days for significance"
+    },
+    {
+      "id": "D29",
+      "start_frame": 2669,
+      "end_frame": 2716,
+      "start_seconds": 88.967,
+      "end_seconds": 90.533,
+      "location": "plaza",
+      "camera_plan": "die-edge",
+      "visual_action": "Die slowly tips toward six",
+      "asset_refs": [
+        "die"
+      ],
+      "scope": "REUSE+MOTION",
+      "production_note": "Keep upper pip numbering logically correct"
+    },
+    {
+      "id": "D30",
+      "start_frame": 2716,
+      "end_frame": 2787,
+      "start_seconds": 90.533,
+      "end_seconds": 92.9,
+      "location": "under-plinth",
+      "camera_plan": "pin-hand",
+      "visual_action": "Pip reaches for pin, then lowers hand",
+      "asset_refs": [
+        "pip",
+        "pin"
+      ],
+      "scope": "REUSE+ACTING",
+      "production_note": "Convey his personal choice clearly"
+    },
+    {
+      "id": "D31",
+      "start_frame": 2787,
+      "end_frame": 2850,
+      "start_seconds": 92.9,
+      "end_seconds": 95.0,
+      "location": "plaza",
+      "camera_plan": "die-final-contact",
+      "visual_action": "Die settles with truthful upper six; plausible contact",
+      "asset_refs": [
+        "die",
+        "plaza"
+      ],
+      "scope": "REUSE+MOTION",
+      "production_note": "No forced outcome after removal"
+    },
+    {
+      "id": "D32",
+      "start_frame": 2850,
+      "end_frame": 2898,
+      "start_seconds": 95.0,
+      "end_seconds": 96.6,
+      "location": "plaza",
+      "camera_plan": "six-reveal",
+      "visual_action": "Unmistakable six upper face, rule board response",
+      "asset_refs": [
+        "die",
+        "law-board"
+      ],
+      "scope": "REUSE+DETAIL",
+      "production_note": "Build 6 pip layout explicitly"
+    },
+    {
+      "id": "D33",
+      "start_frame": 2898,
+      "end_frame": 2985,
+      "start_seconds": 96.6,
+      "end_seconds": 99.5,
+      "location": "town-gate",
+      "camera_plan": "gate-opening",
+      "visual_action": "Gate unbolts and opens; town boundary light changes",
+      "asset_refs": [
+        "gate",
+        "pip"
+      ],
+      "scope": "NEW-CRITICAL",
+      "production_note": "Reuse facade geometry with simple hinge animation"
+    },
+    {
+      "id": "D34",
+      "start_frame": 2985,
+      "end_frame": 3090,
+      "start_seconds": 99.5,
+      "end_seconds": 103.0,
+      "location": "home-exterior",
+      "camera_plan": "run-through",
+      "visual_action": "Pip runs through gate into old street toward family house",
+      "asset_refs": [
+        "pip",
+        "gate",
+        "house-facade"
+      ],
+      "scope": "NEW-SMALL",
+      "production_note": "Reuse townhouse/facade with recolors"
+    },
+    {
+      "id": "D35",
+      "start_frame": 3090,
+      "end_frame": 3230,
+      "start_seconds": 103.0,
+      "end_seconds": 107.667,
+      "location": "home-doorway",
+      "camera_plan": "mother-recognition",
+      "visual_action": "Older mother recognizes child Pip; face and eyeline sell payoff",
+      "asset_refs": [
+        "mother",
+        "pip",
+        "doorway"
+      ],
+      "scope": "NEW-CHARACTER",
+      "production_note": "One hero mother appearance necessary"
+    },
+    {
+      "id": "D36",
+      "start_frame": 3230,
+      "end_frame": 3344,
+      "start_seconds": 107.667,
+      "end_seconds": 111.467,
+      "location": "home-interior",
+      "camera_plan": "chair-insert",
+      "visual_action": "Small childhood chair unchanged beside repainted kitchen wall",
+      "asset_refs": [
+        "chair",
+        "kitchen-wall",
+        "table"
+      ],
+      "scope": "NEW-SET-MINIMAL",
+      "production_note": "Tiny single-angle interior"
+    },
+    {
+      "id": "D37",
+      "start_frame": 3344,
+      "end_frame": 3389,
+      "start_seconds": 111.467,
+      "end_seconds": 112.967,
+      "location": "home-doorway",
+      "camera_plan": "mother-medium",
+      "visual_action": "Mother says 'We kept your chair' as narrated quote",
+      "asset_refs": [
+        "mother",
+        "chair"
+      ],
+      "scope": "REUSE+ACTING",
+      "production_note": "Heart of payoff; use time-limited emotional hold"
+    },
+    {
+      "id": "D38",
+      "start_frame": 3389,
+      "end_frame": 3513,
+      "start_seconds": 112.967,
+      "end_seconds": 117.1,
+      "location": "town-gate",
+      "camera_plan": "leo-final",
+      "visual_action": "Leo closes notebook at gate; tomorrow is unplanned",
+      "asset_refs": [
+        "leo",
+        "notebook",
+        "gate"
+      ],
+      "scope": "REUSE",
+      "production_note": "Close with visual thematic decision"
+    }
+  ],
+  "production_stage": "Planning only; no episode generated",
+  "proxy_production_method": "Capture 1–3 real WebGL storyboard stills per shot (~38–114 total), then compose image holds/cuts using FFmpeg at 15fps. Optionally downscale/reuse existing four-second opening MP4. Do NOT render 1757 distinct WebGL frames for this animatic."
+}

@@ -1,0 +1,56 @@
+{
+  "method": "Actual head vertices projected through PR35 and corrected cameras at identical poses; 390px width",
+  "frames": [
+    {
+      "frame": 0,
+      "previous": {
+        "widthPhonePixels": 101.30891199590846,
+        "heightPhonePixels": 99.72048348284343
+      },
+      "corrected": {
+        "widthPhonePixels": 112.73737822254148,
+        "heightPhonePixels": 110.92667281426773
+      },
+      "widthGainPercent": 11.280810346768488
+    },
+    {
+      "frame": 40,
+      "previous": {
+        "widthPhonePixels": 103.73217949578385,
+        "heightPhonePixels": 108.77012239503557
+      },
+      "corrected": {
+        "widthPhonePixels": 115.24569750707207,
+        "heightPhonePixels": 121.08603677291921
+      },
+      "widthGainPercent": 11.099273212278526
+    },
+    {
+      "frame": 95,
+      "previous": {
+        "widthPhonePixels": 103.31925701806517,
+        "heightPhonePixels": 108.6559807369684
+      },
+      "corrected": {
+        "widthPhonePixels": 114.78964401052366,
+        "heightPhonePixels": 120.96928526841965
+      },
+      "widthGainPercent": 11.101886834564546
+    }
+  ],
+  "chair": {
+    "position": [
+      -1.6,
+      0,
+      -5
+    ],
+    "rotation": [
+      0,
+      0,
+      0,
+      "XYZ"
+    ],
+    "tableXGap": 0.500000023841858
+  },
+  "shawlHeadBoundsGap": 0.01313091941323874
+}

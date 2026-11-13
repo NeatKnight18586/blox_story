@@ -1,0 +1,1177 @@
+{
+  "status": "PASS",
+  "probe": {
+    "streams": [
+      {
+        "index": 0,
+        "codec_name": "h264",
+        "codec_long_name": "H.264 / AVC / MPEG-4 AVC / MPEG-4 part 10",
+        "profile": "Main",
+        "codec_type": "video",
+        "codec_tag_string": "avc1",
+        "codec_tag": "0x31637661",
+        "width": 360,
+        "height": 640,
+        "coded_width": 368,
+        "coded_height": 640,
+        "closed_captions": 0,
+        "film_grain": 0,
+        "has_b_frames": 2,
+        "sample_aspect_ratio": "1:1",
+        "display_aspect_ratio": "9:16",
+        "pix_fmt": "yuv420p",
+        "level": 31,
+        "color_range": "tv",
+        "color_space": "bt709",
+        "chroma_location": "left",
+        "field_order": "progressive",
+        "refs": 4,
+        "is_avc": "true",
+        "nal_length_size": "4",
+        "id": "0x1",
+        "r_frame_rate": "30/1",
+        "avg_frame_rate": "30/1",
+        "time_base": "1/15360",
+        "start_pts": 0,
+        "start_time": "0.000000",
+        "duration_ts": 1798656,
+        "duration": "117.100000",
+        "bit_rate": "106692",
+        "bits_per_raw_sample": "8",
+        "nb_frames": "3513",
+        "nb_read_frames": "3513",
+        "extradata_size": 45,
+        "disposition": {
+          "default": 1,
+          "dub": 0,
+          "original": 0,
+          "comment": 0,
+          "lyrics": 0,
+          "karaoke": 0,
+          "forced": 0,
+          "hearing_impaired": 0,
+          "visual_impaired": 0,
+          "clean_effects": 0,
+          "attached_pic": 0,
+          "timed_thumbnails": 0,
+          "non_diegetic": 0,
+          "captions": 0,
+          "descriptions": 0,
+          "metadata": 0,
+          "dependent": 0,
+          "still_image": 0,
+          "multilayer": 0
+        },
+        "tags": {
+          "language": "und",
+          "handler_name": "VideoHandler",
+          "vendor_id": "[0][0][0][0]",
+          "encoder": "Lavc61.19.101 libx264"
+        }
+      }
+    ],
+    "format": {
+      "filename": "/workspace/blox_story/evidence/dice-town-p4a/working-edit.mp4",
+      "nb_streams": 1,
+      "nb_programs": 0,
+      "nb_stream_groups": 0,
+      "format_name": "mov,mp4,m4a,3gp,3g2,mj2",
+      "format_long_name": "QuickTime / MOV",
+      "start_time": "0.000000",
+      "duration": "117.100000",
+      "size": "1604458",
+      "bit_rate": "109612",
+      "probe_score": 100,
+      "tags": {
+        "major_brand": "isom",
+        "minor_version": "512",
+        "compatible_brands": "isomiso2avc1mp41",
+        "encoder": "Lavf61.7.103"
+      }
+    }
+  },
+  "selectedFrameChecks": [
+    {
+      "frame": 0,
+      "shot": "D01",
+      "kind": "still",
+      "source": "evidence/dice-town-p3b4/after-D01.png",
+      "source_frame": 0,
+      "meanRgbError": 1.850546875
+    },
+    {
+      "frame": 32,
+      "shot": "D01",
+      "kind": "still",
+      "source": "evidence/dice-town-p3b4/after-D01.png",
+      "source_frame": 0,
+      "meanRgbError": 1.8416406250000001
+    },
+    {
+      "frame": 65,
+      "shot": "D01",
+      "kind": "still",
+      "source": "evidence/dice-town-p3b4/after-D01.png",
+      "source_frame": 0,
+      "meanRgbError": 1.9019169560185185
+    },
+    {
+      "frame": 66,
+      "shot": "D02",
+      "kind": "proxy",
+      "source": "evidence/dice-town-animatic/dice-town-animatic.mp4",
+      "source_frame": 32,
+      "meanRgbError": 2.2621455439814815
+    },
+    {
+      "frame": 117,
+      "shot": "D02",
+      "kind": "proxy",
+      "source": "evidence/dice-town-animatic/dice-town-animatic.mp4",
+      "source_frame": 57,
+      "meanRgbError": 2.263013599537037
+    },
+    {
+      "frame": 168,
+      "shot": "D02",
+      "kind": "proxy",
+      "source": "evidence/dice-town-animatic/dice-town-animatic.mp4",
+      "source_frame": 83,
+      "meanRgbError": 2.2577300347222224
+    },
+    {
+      "frame": 169,
+      "shot": "D03",
+      "kind": "endpoint_hold",
+      "source": "evidence/dice-town-p3b3/baker.mp4",
+      "source_frame": 0,
+      "meanRgbError": 0.23058015046296299
+    },
+    {
+      "frame": 174,
+      "shot": "D03",
+      "kind": "endpoint_hold",
+      "source": "evidence/dice-town-p3b3/baker.mp4",
+      "source_frame": 0,
+      "meanRgbError": 0.22691984953703703
+    },
+    {
+      "frame": 175,
+      "shot": "D03",
+      "kind": "proof_motion",
+      "source": "evidence/dice-town-p3b3/baker.mp4",
+      "source_frame": 0,
+      "meanRgbError": 0.22731047453703704
+    },
+    {
+      "frame": 211,
+      "shot": "D03",
+      "kind": "proof_motion",
+      "source": "evidence/dice-town-p3b3/baker.mp4",
+      "source_frame": 36,
+      "meanRgbError": 0.3403023726851852
+    },
+    {
+      "frame": 231,
+      "shot": "D03",
+      "kind": "proof_motion",
+      "source": "evidence/dice-town-p3b3/baker.mp4",
+      "source_frame": 56,
+      "meanRgbError": 0.29954716435185186
+    },
+    {
+      "frame": 232,
+      "shot": "D03",
+      "kind": "endpoint_hold",
+      "source": "evidence/dice-town-p3b3/baker.mp4",
+      "source_frame": 56,
+      "meanRgbError": 0.2993880208333333
+    },
+    {
+      "frame": 254,
+      "shot": "D03",
+      "kind": "endpoint_hold",
+      "source": "evidence/dice-town-p3b3/baker.mp4",
+      "source_frame": 56,
+      "meanRgbError": 0.29924623842592596
+    },
+    {
+      "frame": 255,
+      "shot": "D04",
+      "kind": "proof_motion",
+      "source": "evidence/dice-town-p3b3/baker.mp4",
+      "source_frame": 57,
+      "meanRgbError": 0.1526215277777778
+    },
+    {
+      "frame": 293,
+      "shot": "D04",
+      "kind": "proof_motion",
+      "source": "evidence/dice-town-p3b3/baker.mp4",
+      "source_frame": 95,
+      "meanRgbError": 0.22807146990740743
+    },
+    {
+      "frame": 294,
+      "shot": "D04",
+      "kind": "endpoint_hold",
+      "source": "evidence/dice-town-p3b3/baker.mp4",
+      "source_frame": 95,
+      "meanRgbError": 0.2280367476851852
+    },
+    {
+      "frame": 295,
+      "shot": "D04",
+      "kind": "endpoint_hold",
+      "source": "evidence/dice-town-p3b3/baker.mp4",
+      "source_frame": 95,
+      "meanRgbError": 0.2276924189814815
+    },
+    {
+      "frame": 336,
+      "shot": "D04",
+      "kind": "endpoint_hold",
+      "source": "evidence/dice-town-p3b3/baker.mp4",
+      "source_frame": 95,
+      "meanRgbError": 0.18949363425925925
+    },
+    {
+      "frame": 337,
+      "shot": "D05",
+      "kind": "proxy",
+      "source": "evidence/dice-town-animatic/dice-town-animatic.mp4",
+      "source_frame": 168,
+      "meanRgbError": 2.221216724537037
+    },
+    {
+      "frame": 359,
+      "shot": "D05",
+      "kind": "proxy",
+      "source": "evidence/dice-town-animatic/dice-town-animatic.mp4",
+      "source_frame": 179,
+      "meanRgbError": 2.2244126157407407
+    },
+    {
+      "frame": 381,
+      "shot": "D05",
+      "kind": "proxy",
+      "source": "evidence/dice-town-animatic/dice-town-animatic.mp4",
+      "source_frame": 189,
+      "meanRgbError": 2.2306655092592593
+    },
+    {
+      "frame": 382,
+      "shot": "D06",
+      "kind": "proxy",
+      "source": "evidence/dice-town-animatic/dice-town-animatic.mp4",
+      "source_frame": 190,
+      "meanRgbError": 2.206416377314815
+    },
+    {
+      "frame": 442,
+      "shot": "D06",
+      "kind": "proxy",
+      "source": "evidence/dice-town-animatic/dice-town-animatic.mp4",
+      "source_frame": 220,
+      "meanRgbError": 2.171575520833333
+    },
+    {
+      "frame": 503,
+      "shot": "D06",
+      "kind": "proxy",
+      "source": "evidence/dice-town-animatic/dice-town-animatic.mp4",
+      "source_frame": 250,
+      "meanRgbError": 2.443334780092593
+    },
+    {
+      "frame": 504,
+      "shot": "D07",
+      "kind": "proxy",
+      "source": "evidence/dice-town-animatic/dice-town-animatic.mp4",
+      "source_frame": 251,
+      "meanRgbError": 2.136043113425926
+    },
+    {
+      "frame": 567,
+      "shot": "D07",
+      "kind": "proxy",
+      "source": "evidence/dice-town-animatic/dice-town-animatic.mp4",
+      "source_frame": 282,
+      "meanRgbError": 2.074282407407407
+    },
+    {
+      "frame": 630,
+      "shot": "D07",
+      "kind": "proxy",
+      "source": "evidence/dice-town-animatic/dice-town-animatic.mp4",
+      "source_frame": 314,
+      "meanRgbError": 2.2149175347222223
+    },
+    {
+      "frame": 631,
+      "shot": "D08",
+      "kind": "proxy",
+      "source": "evidence/dice-town-animatic/dice-town-animatic.mp4",
+      "source_frame": 315,
+      "meanRgbError": 2.203995949074074
+    },
+    {
+      "frame": 661,
+      "shot": "D08",
+      "kind": "proxy",
+      "source": "evidence/dice-town-animatic/dice-town-animatic.mp4",
+      "source_frame": 330,
+      "meanRgbError": 2.2152213541666668
+    },
+    {
+      "frame": 692,
+      "shot": "D08",
+      "kind": "proxy",
+      "source": "evidence/dice-town-animatic/dice-town-animatic.mp4",
+      "source_frame": 345,
+      "meanRgbError": 2.351630497685185
+    },
+    {
+      "frame": 693,
+      "shot": "D09",
+      "kind": "proxy",
+      "source": "evidence/dice-town-animatic/dice-town-animatic.mp4",
+      "source_frame": 346,
+      "meanRgbError": 2.2778168402777776
+    },
+    {
+      "frame": 717,
+      "shot": "D09",
+      "kind": "proxy",
+      "source": "evidence/dice-town-animatic/dice-town-animatic.mp4",
+      "source_frame": 358,
+      "meanRgbError": 2.2785402199074074
+    },
+    {
+      "frame": 741,
+      "shot": "D09",
+      "kind": "proxy",
+      "source": "evidence/dice-town-animatic/dice-town-animatic.mp4",
+      "source_frame": 369,
+      "meanRgbError": 2.279343171296296
+    },
+    {
+      "frame": 742,
+      "shot": "D10",
+      "kind": "proxy",
+      "source": "evidence/dice-town-animatic/dice-town-animatic.mp4",
+      "source_frame": 370,
+      "meanRgbError": 2.2214699074074074
+    },
+    {
+      "frame": 767,
+      "shot": "D10",
+      "kind": "proxy",
+      "source": "evidence/dice-town-animatic/dice-town-animatic.mp4",
+      "source_frame": 382,
+      "meanRgbError": 2.214759837962963
+    },
+    {
+      "frame": 792,
+      "shot": "D10",
+      "kind": "proxy",
+      "source": "evidence/dice-town-animatic/dice-town-animatic.mp4",
+      "source_frame": 395,
+      "meanRgbError": 2.218158275462963
+    },
+    {
+      "frame": 793,
+      "shot": "D11",
+      "kind": "proxy",
+      "source": "evidence/dice-town-animatic/dice-town-animatic.mp4",
+      "source_frame": 396,
+      "meanRgbError": 2.296767939814815
+    },
+    {
+      "frame": 839,
+      "shot": "D11",
+      "kind": "proxy",
+      "source": "evidence/dice-town-animatic/dice-town-animatic.mp4",
+      "source_frame": 419,
+      "meanRgbError": 2.3047902199074075
+    },
+    {
+      "frame": 885,
+      "shot": "D11",
+      "kind": "proxy",
+      "source": "evidence/dice-town-animatic/dice-town-animatic.mp4",
+      "source_frame": 441,
+      "meanRgbError": 2.2930410879629632
+    },
+    {
+      "frame": 886,
+      "shot": "D12",
+      "kind": "proxy",
+      "source": "evidence/dice-town-animatic/dice-town-animatic.mp4",
+      "source_frame": 442,
+      "meanRgbError": 2.153020833333333
+    },
+    {
+      "frame": 937,
+      "shot": "D12",
+      "kind": "proxy",
+      "source": "evidence/dice-town-animatic/dice-town-animatic.mp4",
+      "source_frame": 467,
+      "meanRgbError": 2.1555324074074074
+    },
+    {
+      "frame": 989,
+      "shot": "D12",
+      "kind": "proxy",
+      "source": "evidence/dice-town-animatic/dice-town-animatic.mp4",
+      "source_frame": 493,
+      "meanRgbError": 2.086623263888889
+    },
+    {
+      "frame": 990,
+      "shot": "D13",
+      "kind": "proxy",
+      "source": "evidence/dice-town-animatic/dice-town-animatic.mp4",
+      "source_frame": 494,
+      "meanRgbError": 2.3177560763888887
+    },
+    {
+      "frame": 1044,
+      "shot": "D13",
+      "kind": "proxy",
+      "source": "evidence/dice-town-animatic/dice-town-animatic.mp4",
+      "source_frame": 521,
+      "meanRgbError": 2.3175694444444446
+    },
+    {
+      "frame": 1098,
+      "shot": "D13",
+      "kind": "proxy",
+      "source": "evidence/dice-town-animatic/dice-town-animatic.mp4",
+      "source_frame": 548,
+      "meanRgbError": 2.2935344328703704
+    },
+    {
+      "frame": 1099,
+      "shot": "D14",
+      "kind": "proxy",
+      "source": "evidence/dice-town-animatic/dice-town-animatic.mp4",
+      "source_frame": 549,
+      "meanRgbError": 1.9010619212962963
+    },
+    {
+      "frame": 1159,
+      "shot": "D14",
+      "kind": "proxy",
+      "source": "evidence/dice-town-animatic/dice-town-animatic.mp4",
+      "source_frame": 579,
+      "meanRgbError": 1.841947337962963
+    },
+    {
+      "frame": 1219,
+      "shot": "D14",
+      "kind": "proxy",
+      "source": "evidence/dice-town-animatic/dice-town-animatic.mp4",
+      "source_frame": 608,
+      "meanRgbError": 2.2310474537037037
+    },
+    {
+      "frame": 1220,
+      "shot": "D15",
+      "kind": "endpoint_hold",
+      "source": "evidence/dice-town-p3b1/mechanism.mp4",
+      "source_frame": 0,
+      "meanRgbError": 0.26695167824074073
+    },
+    {
+      "frame": 1235,
+      "shot": "D15",
+      "kind": "endpoint_hold",
+      "source": "evidence/dice-town-p3b1/mechanism.mp4",
+      "source_frame": 0,
+      "meanRgbError": 0.26404513888888886
+    },
+    {
+      "frame": 1236,
+      "shot": "D15",
+      "kind": "proof_motion",
+      "source": "evidence/dice-town-p3b1/mechanism.mp4",
+      "source_frame": 0,
+      "meanRgbError": 0.26404513888888886
+    },
+    {
+      "frame": 1275,
+      "shot": "D15",
+      "kind": "proof_motion",
+      "source": "evidence/dice-town-p3b1/mechanism.mp4",
+      "source_frame": 39,
+      "meanRgbError": 0.2514424189814815
+    },
+    {
+      "frame": 1283,
+      "shot": "D15",
+      "kind": "proof_motion",
+      "source": "evidence/dice-town-p3b1/mechanism.mp4",
+      "source_frame": 47,
+      "meanRgbError": 0.2606741898148148
+    },
+    {
+      "frame": 1284,
+      "shot": "D15",
+      "kind": "endpoint_hold",
+      "source": "evidence/dice-town-p3b1/mechanism.mp4",
+      "source_frame": 47,
+      "meanRgbError": 0.2595283564814815
+    },
+    {
+      "frame": 1331,
+      "shot": "D15",
+      "kind": "endpoint_hold",
+      "source": "evidence/dice-town-p3b1/mechanism.mp4",
+      "source_frame": 47,
+      "meanRgbError": 0.2579976851851852
+    },
+    {
+      "frame": 1332,
+      "shot": "D16",
+      "kind": "proxy",
+      "source": "evidence/dice-town-animatic/dice-town-animatic.mp4",
+      "source_frame": 665,
+      "meanRgbError": 1.721964699074074
+    },
+    {
+      "frame": 1386,
+      "shot": "D16",
+      "kind": "proxy",
+      "source": "evidence/dice-town-animatic/dice-town-animatic.mp4",
+      "source_frame": 692,
+      "meanRgbError": 1.7125593171296296
+    },
+    {
+      "frame": 1441,
+      "shot": "D16",
+      "kind": "proxy",
+      "source": "evidence/dice-town-animatic/dice-town-animatic.mp4",
+      "source_frame": 719,
+      "meanRgbError": 1.687595486111111
+    },
+    {
+      "frame": 1442,
+      "shot": "D17",
+      "kind": "proxy",
+      "source": "evidence/dice-town-animatic/dice-town-animatic.mp4",
+      "source_frame": 720,
+      "meanRgbError": 2.01140625
+    },
+    {
+      "frame": 1468,
+      "shot": "D17",
+      "kind": "proxy",
+      "source": "evidence/dice-town-animatic/dice-town-animatic.mp4",
+      "source_frame": 733,
+      "meanRgbError": 2.017248263888889
+    },
+    {
+      "frame": 1494,
+      "shot": "D17",
+      "kind": "proxy",
+      "source": "evidence/dice-town-animatic/dice-town-animatic.mp4",
+      "source_frame": 746,
+      "meanRgbError": 2.018739872685185
+    },
+    {
+      "frame": 1495,
+      "shot": "D18",
+      "kind": "proxy",
+      "source": "evidence/dice-town-animatic/dice-town-animatic.mp4",
+      "source_frame": 747,
+      "meanRgbError": 2.130269097222222
+    },
+    {
+      "frame": 1542,
+      "shot": "D18",
+      "kind": "proxy",
+      "source": "evidence/dice-town-animatic/dice-town-animatic.mp4",
+      "source_frame": 770,
+      "meanRgbError": 2.1320949074074074
+    },
+    {
+      "frame": 1589,
+      "shot": "D18",
+      "kind": "proxy",
+      "source": "evidence/dice-town-animatic/dice-town-animatic.mp4",
+      "source_frame": 793,
+      "meanRgbError": 2.089782986111111
+    },
+    {
+      "frame": 1590,
+      "shot": "D19",
+      "kind": "proxy",
+      "source": "evidence/dice-town-animatic/dice-town-animatic.mp4",
+      "source_frame": 794,
+      "meanRgbError": 2.0336516203703705
+    },
+    {
+      "frame": 1649,
+      "shot": "D19",
+      "kind": "proxy",
+      "source": "evidence/dice-town-animatic/dice-town-animatic.mp4",
+      "source_frame": 823,
+      "meanRgbError": 2.0437008101851855
+    },
+    {
+      "frame": 1709,
+      "shot": "D19",
+      "kind": "proxy",
+      "source": "evidence/dice-town-animatic/dice-town-animatic.mp4",
+      "source_frame": 853,
+      "meanRgbError": 2.0310185185185183
+    },
+    {
+      "frame": 1710,
+      "shot": "D20",
+      "kind": "proxy",
+      "source": "evidence/dice-town-animatic/dice-town-animatic.mp4",
+      "source_frame": 854,
+      "meanRgbError": 2.1172670717592594
+    },
+    {
+      "frame": 1738,
+      "shot": "D20",
+      "kind": "proxy",
+      "source": "evidence/dice-town-animatic/dice-town-animatic.mp4",
+      "source_frame": 868,
+      "meanRgbError": 2.1219965277777777
+    },
+    {
+      "frame": 1767,
+      "shot": "D20",
+      "kind": "proxy",
+      "source": "evidence/dice-town-animatic/dice-town-animatic.mp4",
+      "source_frame": 882,
+      "meanRgbError": 2.122361111111111
+    },
+    {
+      "frame": 1768,
+      "shot": "D21",
+      "kind": "proxy",
+      "source": "evidence/dice-town-animatic/dice-town-animatic.mp4",
+      "source_frame": 883,
+      "meanRgbError": 2.04017650462963
+    },
+    {
+      "frame": 1836,
+      "shot": "D21",
+      "kind": "proxy",
+      "source": "evidence/dice-town-animatic/dice-town-animatic.mp4",
+      "source_frame": 917,
+      "meanRgbError": 2.046038773148148
+    },
+    {
+      "frame": 1904,
+      "shot": "D21",
+      "kind": "proxy",
+      "source": "evidence/dice-town-animatic/dice-town-animatic.mp4",
+      "source_frame": 951,
+      "meanRgbError": 2.032889178240741
+    },
+    {
+      "frame": 1905,
+      "shot": "D22",
+      "kind": "proxy",
+      "source": "evidence/dice-town-animatic/dice-town-animatic.mp4",
+      "source_frame": 952,
+      "meanRgbError": 1.8468315972222225
+    },
+    {
+      "frame": 1950,
+      "shot": "D22",
+      "kind": "proxy",
+      "source": "evidence/dice-town-animatic/dice-town-animatic.mp4",
+      "source_frame": 974,
+      "meanRgbError": 1.8458463541666665
+    },
+    {
+      "frame": 1996,
+      "shot": "D22",
+      "kind": "proxy",
+      "source": "evidence/dice-town-animatic/dice-town-animatic.mp4",
+      "source_frame": 997,
+      "meanRgbError": 1.816043113425926
+    },
+    {
+      "frame": 1997,
+      "shot": "D23",
+      "kind": "endpoint_hold",
+      "source": "evidence/dice-town-p3b1/handoff.mp4",
+      "source_frame": 0,
+      "meanRgbError": 0.298359375
+    },
+    {
+      "frame": 2014,
+      "shot": "D23",
+      "kind": "endpoint_hold",
+      "source": "evidence/dice-town-p3b1/handoff.mp4",
+      "source_frame": 0,
+      "meanRgbError": 0.2976099537037037
+    },
+    {
+      "frame": 2015,
+      "shot": "D23",
+      "kind": "proof_motion",
+      "source": "evidence/dice-town-p3b1/handoff.mp4",
+      "source_frame": 0,
+      "meanRgbError": 0.29803530092592595
+    },
+    {
+      "frame": 2062,
+      "shot": "D23",
+      "kind": "proof_motion",
+      "source": "evidence/dice-town-p3b1/handoff.mp4",
+      "source_frame": 47,
+      "meanRgbError": 0.4201287615740741
+    },
+    {
+      "frame": 2086,
+      "shot": "D23",
+      "kind": "proof_motion",
+      "source": "evidence/dice-town-p3b1/handoff.mp4",
+      "source_frame": 71,
+      "meanRgbError": 0.2925708912037037
+    },
+    {
+      "frame": 2087,
+      "shot": "D23",
+      "kind": "endpoint_hold",
+      "source": "evidence/dice-town-p3b1/handoff.mp4",
+      "source_frame": 71,
+      "meanRgbError": 0.29193287037037036
+    },
+    {
+      "frame": 2128,
+      "shot": "D23",
+      "kind": "endpoint_hold",
+      "source": "evidence/dice-town-p3b1/handoff.mp4",
+      "source_frame": 71,
+      "meanRgbError": 0.3050072337962963
+    },
+    {
+      "frame": 2129,
+      "shot": "D24",
+      "kind": "proxy",
+      "source": "evidence/dice-town-animatic/dice-town-animatic.mp4",
+      "source_frame": 1064,
+      "meanRgbError": 1.9711574074074074
+    },
+    {
+      "frame": 2176,
+      "shot": "D24",
+      "kind": "proxy",
+      "source": "evidence/dice-town-animatic/dice-town-animatic.mp4",
+      "source_frame": 1087,
+      "meanRgbError": 1.9749956597222222
+    },
+    {
+      "frame": 2223,
+      "shot": "D24",
+      "kind": "proxy",
+      "source": "evidence/dice-town-animatic/dice-town-animatic.mp4",
+      "source_frame": 1110,
+      "meanRgbError": 1.9570746527777778
+    },
+    {
+      "frame": 2224,
+      "shot": "D25",
+      "kind": "proxy",
+      "source": "evidence/dice-town-animatic/dice-town-animatic.mp4",
+      "source_frame": 1111,
+      "meanRgbError": 2.309908854166667
+    },
+    {
+      "frame": 2281,
+      "shot": "D25",
+      "kind": "proxy",
+      "source": "evidence/dice-town-animatic/dice-town-animatic.mp4",
+      "source_frame": 1139,
+      "meanRgbError": 2.312446469907407
+    },
+    {
+      "frame": 2338,
+      "shot": "D25",
+      "kind": "proxy",
+      "source": "evidence/dice-town-animatic/dice-town-animatic.mp4",
+      "source_frame": 1168,
+      "meanRgbError": 2.292047164351852
+    },
+    {
+      "frame": 2339,
+      "shot": "D26",
+      "kind": "proxy",
+      "source": "evidence/dice-town-animatic/dice-town-animatic.mp4",
+      "source_frame": 1169,
+      "meanRgbError": 2.312131076388889
+    },
+    {
+      "frame": 2396,
+      "shot": "D26",
+      "kind": "proxy",
+      "source": "evidence/dice-town-animatic/dice-town-animatic.mp4",
+      "source_frame": 1197,
+      "meanRgbError": 2.312175925925926
+    },
+    {
+      "frame": 2453,
+      "shot": "D26",
+      "kind": "proxy",
+      "source": "evidence/dice-town-animatic/dice-town-animatic.mp4",
+      "source_frame": 1225,
+      "meanRgbError": 2.2839800347222226
+    },
+    {
+      "frame": 2454,
+      "shot": "D27",
+      "kind": "proxy",
+      "source": "evidence/dice-town-animatic/dice-town-animatic.mp4",
+      "source_frame": 1226,
+      "meanRgbError": 2.126281828703704
+    },
+    {
+      "frame": 2519,
+      "shot": "D27",
+      "kind": "proxy",
+      "source": "evidence/dice-town-animatic/dice-town-animatic.mp4",
+      "source_frame": 1258,
+      "meanRgbError": 2.0784924768518516
+    },
+    {
+      "frame": 2584,
+      "shot": "D27",
+      "kind": "proxy",
+      "source": "evidence/dice-town-animatic/dice-town-animatic.mp4",
+      "source_frame": 1291,
+      "meanRgbError": 2.1543750000000004
+    },
+    {
+      "frame": 2585,
+      "shot": "D28",
+      "kind": "still",
+      "source": "evidence/dice-town-p3b4/after-D28.png",
+      "source_frame": 0,
+      "meanRgbError": 1.959905960648148
+    },
+    {
+      "frame": 2626,
+      "shot": "D28",
+      "kind": "still",
+      "source": "evidence/dice-town-p3b4/after-D28.png",
+      "source_frame": 0,
+      "meanRgbError": 1.9570847800925926
+    },
+    {
+      "frame": 2668,
+      "shot": "D28",
+      "kind": "still",
+      "source": "evidence/dice-town-p3b4/after-D28.png",
+      "source_frame": 0,
+      "meanRgbError": 1.9329282407407407
+    },
+    {
+      "frame": 2669,
+      "shot": "D29",
+      "kind": "proxy",
+      "source": "evidence/dice-town-animatic/dice-town-animatic.mp4",
+      "source_frame": 1334,
+      "meanRgbError": 2.2978211805555553
+    },
+    {
+      "frame": 2692,
+      "shot": "D29",
+      "kind": "proxy",
+      "source": "evidence/dice-town-animatic/dice-town-animatic.mp4",
+      "source_frame": 1345,
+      "meanRgbError": 2.313423032407407
+    },
+    {
+      "frame": 2715,
+      "shot": "D29",
+      "kind": "proxy",
+      "source": "evidence/dice-town-animatic/dice-town-animatic.mp4",
+      "source_frame": 1356,
+      "meanRgbError": 2.31453125
+    },
+    {
+      "frame": 2716,
+      "shot": "D30",
+      "kind": "proxy",
+      "source": "evidence/dice-town-animatic/dice-town-animatic.mp4",
+      "source_frame": 1357,
+      "meanRgbError": 2.019108796296296
+    },
+    {
+      "frame": 2751,
+      "shot": "D30",
+      "kind": "proxy",
+      "source": "evidence/dice-town-animatic/dice-town-animatic.mp4",
+      "source_frame": 1374,
+      "meanRgbError": 2.0218865740740743
+    },
+    {
+      "frame": 2786,
+      "shot": "D30",
+      "kind": "proxy",
+      "source": "evidence/dice-town-animatic/dice-town-animatic.mp4",
+      "source_frame": 1392,
+      "meanRgbError": 2.059609375
+    },
+    {
+      "frame": 2787,
+      "shot": "D31",
+      "kind": "proxy",
+      "source": "evidence/dice-town-animatic/dice-town-animatic.mp4",
+      "source_frame": 1393,
+      "meanRgbError": 2.298933738425926
+    },
+    {
+      "frame": 2818,
+      "shot": "D31",
+      "kind": "proxy",
+      "source": "evidence/dice-town-animatic/dice-town-animatic.mp4",
+      "source_frame": 1408,
+      "meanRgbError": 2.299790219907407
+    },
+    {
+      "frame": 2849,
+      "shot": "D31",
+      "kind": "proxy",
+      "source": "evidence/dice-town-animatic/dice-town-animatic.mp4",
+      "source_frame": 1423,
+      "meanRgbError": 2.4375752314814814
+    },
+    {
+      "frame": 2850,
+      "shot": "D32",
+      "kind": "proxy",
+      "source": "evidence/dice-town-animatic/dice-town-animatic.mp4",
+      "source_frame": 1424,
+      "meanRgbError": 2.3022352430555557
+    },
+    {
+      "frame": 2873,
+      "shot": "D32",
+      "kind": "proxy",
+      "source": "evidence/dice-town-animatic/dice-town-animatic.mp4",
+      "source_frame": 1435,
+      "meanRgbError": 2.3031163194444444
+    },
+    {
+      "frame": 2897,
+      "shot": "D32",
+      "kind": "proxy",
+      "source": "evidence/dice-town-animatic/dice-town-animatic.mp4",
+      "source_frame": 1447,
+      "meanRgbError": 2.306964699074074
+    },
+    {
+      "frame": 2898,
+      "shot": "D33",
+      "kind": "still",
+      "source": "evidence/dice-town-p3b4/after-closed.png",
+      "source_frame": 0,
+      "meanRgbError": 1.5830714699074075
+    },
+    {
+      "frame": 2927,
+      "shot": "D33",
+      "kind": "still",
+      "source": "evidence/dice-town-p3b4/after-closed.png",
+      "source_frame": 0,
+      "meanRgbError": 1.5776750578703702
+    },
+    {
+      "frame": 2928,
+      "shot": "D33",
+      "kind": "still",
+      "source": "evidence/dice-town-p3b4/after-open.png",
+      "source_frame": 0,
+      "meanRgbError": 1.6210604745370372
+    },
+    {
+      "frame": 2941,
+      "shot": "D33",
+      "kind": "still",
+      "source": "evidence/dice-town-p3b4/after-open.png",
+      "source_frame": 0,
+      "meanRgbError": 1.6205902777777776
+    },
+    {
+      "frame": 2984,
+      "shot": "D33",
+      "kind": "still",
+      "source": "evidence/dice-town-p3b4/after-open.png",
+      "source_frame": 0,
+      "meanRgbError": 1.6088483796296298
+    },
+    {
+      "frame": 2985,
+      "shot": "D34",
+      "kind": "proxy",
+      "source": "evidence/dice-town-animatic/dice-town-animatic.mp4",
+      "source_frame": 1492,
+      "meanRgbError": 1.8039655671296295
+    },
+    {
+      "frame": 3037,
+      "shot": "D34",
+      "kind": "proxy",
+      "source": "evidence/dice-town-animatic/dice-town-animatic.mp4",
+      "source_frame": 1518,
+      "meanRgbError": 1.8053414351851853
+    },
+    {
+      "frame": 3089,
+      "shot": "D34",
+      "kind": "proxy",
+      "source": "evidence/dice-town-animatic/dice-town-animatic.mp4",
+      "source_frame": 1543,
+      "meanRgbError": 1.7928399884259258
+    },
+    {
+      "frame": 3090,
+      "shot": "D35",
+      "kind": "endpoint_hold",
+      "source": "evidence/dice-town-p3b2b/recognition.mp4",
+      "source_frame": 0,
+      "meanRgbError": 0.2358058449074074
+    },
+    {
+      "frame": 3099,
+      "shot": "D35",
+      "kind": "endpoint_hold",
+      "source": "evidence/dice-town-p3b2b/recognition.mp4",
+      "source_frame": 0,
+      "meanRgbError": 0.23624276620370374
+    },
+    {
+      "frame": 3100,
+      "shot": "D35",
+      "kind": "proof_motion",
+      "source": "evidence/dice-town-p3b2b/recognition.mp4",
+      "source_frame": 0,
+      "meanRgbError": 0.2362398726851852
+    },
+    {
+      "frame": 3159,
+      "shot": "D35",
+      "kind": "proof_motion",
+      "source": "evidence/dice-town-p3b2b/recognition.mp4",
+      "source_frame": 59,
+      "meanRgbError": 0.3628602430555556
+    },
+    {
+      "frame": 3204,
+      "shot": "D35",
+      "kind": "proof_motion",
+      "source": "evidence/dice-town-p3b2b/recognition.mp4",
+      "source_frame": 104,
+      "meanRgbError": 0.5167954282407408
+    },
+    {
+      "frame": 3205,
+      "shot": "D35",
+      "kind": "endpoint_hold",
+      "source": "evidence/dice-town-p3b2b/recognition.mp4",
+      "source_frame": 104,
+      "meanRgbError": 0.5166203703703703
+    },
+    {
+      "frame": 3229,
+      "shot": "D35",
+      "kind": "endpoint_hold",
+      "source": "evidence/dice-town-p3b2b/recognition.mp4",
+      "source_frame": 104,
+      "meanRgbError": 0.3499146412037037
+    },
+    {
+      "frame": 3230,
+      "shot": "D36",
+      "kind": "still",
+      "source": "evidence/dice-town-p3b2b/chair.png",
+      "source_frame": 0,
+      "meanRgbError": 1.5230946180555556
+    },
+    {
+      "frame": 3286,
+      "shot": "D36",
+      "kind": "still",
+      "source": "evidence/dice-town-p3b2b/chair.png",
+      "source_frame": 0,
+      "meanRgbError": 1.5201996527777777
+    },
+    {
+      "frame": 3343,
+      "shot": "D36",
+      "kind": "still",
+      "source": "evidence/dice-town-p3b2b/chair.png",
+      "source_frame": 0,
+      "meanRgbError": 1.4962615740740741
+    },
+    {
+      "frame": 3344,
+      "shot": "D37",
+      "kind": "proxy",
+      "source": "evidence/dice-town-animatic/dice-town-animatic.mp4",
+      "source_frame": 1671,
+      "meanRgbError": 2.134240451388889
+    },
+    {
+      "frame": 3366,
+      "shot": "D37",
+      "kind": "proxy",
+      "source": "evidence/dice-town-animatic/dice-town-animatic.mp4",
+      "source_frame": 1682,
+      "meanRgbError": 2.1385546875
+    },
+    {
+      "frame": 3388,
+      "shot": "D37",
+      "kind": "proxy",
+      "source": "evidence/dice-town-animatic/dice-town-animatic.mp4",
+      "source_frame": 1693,
+      "meanRgbError": 2.140626446759259
+    },
+    {
+      "frame": 3389,
+      "shot": "D38",
+      "kind": "still",
+      "source": "evidence/dice-town-p3b4/after-D38.png",
+      "source_frame": 0,
+      "meanRgbError": 1.6869849537037036
+    },
+    {
+      "frame": 3450,
+      "shot": "D38",
+      "kind": "still",
+      "source": "evidence/dice-town-p3b4/after-D38.png",
+      "source_frame": 0,
+      "meanRgbError": 1.6507060185185185
+    },
+    {
+      "frame": 3512,
+      "shot": "D38",
+      "kind": "still",
+      "source": "evidence/dice-town-p3b4/after-D38.png",
+      "source_frame": 0,
+      "meanRgbError": 1.7702879050925926
+    }
+  ],
+  "checksCount": 134,
+  "all38CutStartsAndEndsChecked": true,
+  "substitutionSpanBoundariesChecked": true,
+  "maxMeanRgbError": 2.443334780092593,
+  "toleranceMeanRgbError": 6,
+  "method": "Decode final film and compare expected source-frame pixels at every shot start/mid/end plus all substituted span boundaries; tolerate H264 re-encode/color conversion. No regenerated3D.",
+  "wallSeconds": 3.995797944999822,
+  "childUserCpuSeconds": 4.452888,
+  "childSystemCpuSeconds": 0.555203,
+  "maxChildRssKiB": 52032
+}

@@ -1,0 +1,270 @@
+{
+  "status": "PASS",
+  "browser": "141.0.7390.37",
+  "backend": "SwiftShader",
+  "wallSeconds": 27.978294254,
+  "errors": [],
+  "samples": [
+    {
+      "id": "D01",
+      "improved": false,
+      "name": "before-D01",
+      "state": {
+        "id": "D01",
+        "improved": false,
+        "source": {
+          "id": "D01",
+          "k": 0,
+          "value": 3,
+          "webgl": "WebGL 2.0 (OpenGL ES 3.0 Chromium)"
+        },
+        "camera": {
+          "position": [
+            8,
+            11.5,
+            27
+          ],
+          "target": null,
+          "fov": 53
+        }
+      },
+      "hash": "504a1cf658ba99f90e52d3a9f65715e50a21199bad55e5bbe7891f8b7c3d61a2"
+    },
+    {
+      "id": "D28",
+      "improved": false,
+      "name": "before-D28",
+      "state": {
+        "id": "D28",
+        "improved": false,
+        "source": {
+          "id": "D28",
+          "k": 0,
+          "value": 5,
+          "webgl": "WebGL 2.0 (OpenGL ES 3.0 Chromium)"
+        },
+        "camera": {
+          "position": [
+            8,
+            10,
+            13
+          ],
+          "target": null,
+          "fov": 43
+        }
+      },
+      "hash": "ee3ec2d26f8b55ae486c924faefde9d8ba45e1a9fd6672d6362653481a8dfa1a"
+    },
+    {
+      "id": "closed",
+      "improved": false,
+      "name": "before-closed",
+      "state": {
+        "id": "closed",
+        "improved": false,
+        "source": {
+          "id": "D33",
+          "k": 0,
+          "value": 6,
+          "webgl": "WebGL 2.0 (OpenGL ES 3.0 Chromium)"
+        },
+        "camera": {
+          "position": [
+            73,
+            7,
+            12
+          ],
+          "target": null,
+          "fov": 48
+        }
+      },
+      "hash": "c6278a8edcb502026b17c42f6e51444340ca29a34befdc7a263ef1da173bc69f"
+    },
+    {
+      "id": "open",
+      "improved": false,
+      "name": "before-open",
+      "state": {
+        "id": "open",
+        "improved": false,
+        "source": {
+          "id": "D33",
+          "k": 1,
+          "value": 6,
+          "webgl": "WebGL 2.0 (OpenGL ES 3.0 Chromium)"
+        },
+        "camera": {
+          "position": [
+            73,
+            7,
+            12
+          ],
+          "target": null,
+          "fov": 48
+        }
+      },
+      "hash": "c0ad1958a658be43b88202b91f94565ccf7fff53b26d9bc5ff95b04dd9867256"
+    },
+    {
+      "id": "D38",
+      "improved": false,
+      "name": "before-D38",
+      "state": {
+        "id": "D38",
+        "improved": false,
+        "source": {
+          "id": "D38",
+          "k": 1,
+          "value": 6,
+          "webgl": "WebGL 2.0 (OpenGL ES 3.0 Chromium)"
+        },
+        "camera": {
+          "position": [
+            69,
+            5,
+            8
+          ],
+          "target": null,
+          "fov": 35
+        }
+      },
+      "hash": "e04ba5e5865f6f9ad15ab5eb0abeb2529a61295890fded278be0dcb58dc40ab4"
+    },
+    {
+      "id": "D01",
+      "improved": true,
+      "name": "after-D01",
+      "state": {
+        "id": "D01",
+        "improved": true,
+        "family": "A",
+        "result": 3,
+        "dieSize": 6.3,
+        "camera": {
+          "position": [
+            10,
+            11,
+            27
+          ],
+          "target": [
+            -2,
+            4.5,
+            -2
+          ],
+          "fov": 57
+        },
+        "open": false
+      },
+      "hash": "8db06ba298db4b236e2d5ef34c4366fa2ea15e687bbb9da9592c8266a6d7f78b"
+    },
+    {
+      "id": "D28",
+      "improved": true,
+      "name": "after-D28",
+      "state": {
+        "id": "D28",
+        "improved": true,
+        "family": "A",
+        "result": 5,
+        "dieSize": 6.3,
+        "camera": {
+          "position": [
+            8,
+            10,
+            21
+          ],
+          "target": [
+            -1,
+            4.6,
+            -3
+          ],
+          "fov": 54
+        },
+        "open": false
+      },
+      "hash": "4c37ec8caa223146a07a993d01fe3e9417e5460c047b7d46d6248c471fcc5a6d"
+    },
+    {
+      "id": "closed",
+      "improved": true,
+      "name": "after-closed",
+      "state": {
+        "id": "closed",
+        "improved": true,
+        "family": "G",
+        "result": null,
+        "dieSize": 6.3,
+        "camera": {
+          "position": [
+            4,
+            7.5,
+            23
+          ],
+          "target": [
+            0,
+            3.2,
+            -6
+          ],
+          "fov": 52
+        },
+        "open": false
+      },
+      "hash": "d0f9e7c5903297737852737163533d17def8706ba0e9119d07ca39c37034a949"
+    },
+    {
+      "id": "open",
+      "improved": true,
+      "name": "after-open",
+      "state": {
+        "id": "open",
+        "improved": true,
+        "family": "G",
+        "result": null,
+        "dieSize": 6.3,
+        "camera": {
+          "position": [
+            4,
+            7.5,
+            23
+          ],
+          "target": [
+            0,
+            3.2,
+            -6
+          ],
+          "fov": 52
+        },
+        "open": true
+      },
+      "hash": "43a0f6f22c0d64402d6fb11d4a0e164925c796b3d3536d65cd13b24f6f477f56"
+    },
+    {
+      "id": "D38",
+      "improved": true,
+      "name": "after-D38",
+      "state": {
+        "id": "D38",
+        "improved": true,
+        "family": "G",
+        "result": null,
+        "dieSize": 6.3,
+        "camera": {
+          "position": [
+            4,
+            7.5,
+            23
+          ],
+          "target": [
+            0,
+            3.2,
+            -6
+          ],
+          "fov": 52
+        },
+        "open": true
+      },
+      "hash": "bad436aeb3b654030988ed4e0892194a905bf5171003f27f877673c39dc1055d"
+    }
+  ],
+  "reverseSamples": 10
+}

@@ -1,0 +1,6 @@
+{
+  "status": "PASS",
+  "nativeReverseSamples": 13,
+  "wallSeconds": 22.045784620000003,
+  "backend": "fresh Chromium/SwiftShader browser; exact native state/pixels"
+}

@@ -1,0 +1,27 @@
+{
+  "status": "PASS",
+  "engineSha256": "ca61d044c6f229b126b881016cac30af75e6d6f986a620d5669be4d1b022be98",
+  "frames": [
+    0,
+    259,
+    482,
+    776,
+    780,
+    788,
+    789,
+    889,
+    890,
+    925,
+    926,
+    945,
+    1202,
+    1232,
+    1248,
+    1392,
+    1528,
+    1529,
+    1600,
+    1640
+  ],
+  "visualReview": "Reviewed native phone board: joins/ghost/mouth/eyes/poses correct; no HUD; original S4/S5 direction retained."
+}

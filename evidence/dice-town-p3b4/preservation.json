@@ -1,0 +1,16 @@
+{
+  "base": "212968d",
+  "previousTrackedFilesComparedByteForByte": 1248,
+  "status": "PASS",
+  "preserved": [
+    "all earlier source/tests/evidence/films",
+    "P3B mechanism/mother/baker work",
+    "38-shot plan and3513-frame timeline",
+    "shared sky and character APIs"
+  ],
+  "allowedSubsequentDocumentationUpdates": [
+    "AGENTS.md",
+    "README.md",
+    "STATUS.md"
+  ]
+}

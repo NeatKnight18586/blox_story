@@ -1,0 +1,44 @@
+[
+ {
+  "still": "W-whole-day",
+  "look": "day",
+  "luma": 172.0,
+  "sat": 0.303,
+  "pass": true
+ },
+ {
+  "still": "F-field-day",
+  "look": "day",
+  "luma": 147.7,
+  "sat": 0.357,
+  "pass": true
+ },
+ {
+  "still": "S-square-day",
+  "look": "day",
+  "luma": 115.8,
+  "sat": 0.353,
+  "pass": true
+ },
+ {
+  "still": "G-gate-golden",
+  "look": "goldenHour",
+  "luma": 111.1,
+  "sat": 0.421,
+  "pass": true
+ },
+ {
+  "still": "N-square-fire",
+  "look": "fireNight",
+  "luma": 79.5,
+  "sat": 0.617,
+  "pass": true
+ },
+ {
+  "still": "H-hero-close",
+  "look": "day",
+  "luma": 113.1,
+  "sat": 0.398,
+  "pass": true
+ }
+]

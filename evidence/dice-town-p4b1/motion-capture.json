@@ -1,0 +1,6140 @@
+{
+  "status": "PASS",
+  "wallSeconds": 47.688285163,
+  "errors": [],
+  "samples": [
+    {
+      "shot": "D29",
+      "frame": 0,
+      "name": "D29/frame-00000",
+      "state": {
+        "shot": "D29",
+        "frame": 0,
+        "u": 0,
+        "phi": 1.05,
+        "arm": -0.6507963267948965,
+        "advance": 0,
+        "headPitch": 0.18,
+        "headYaw": 0.08,
+        "identity": true,
+        "pinInstalled": false,
+        "diePosition": [
+          -1,
+          4.2354078662356756,
+          0.07996835889068676
+        ],
+        "dieQuaternion": [
+          0.5012130046737979,
+          0,
+          0,
+          0.8653239416229412
+        ],
+        "pinWorld": null,
+        "camera": {
+          "position": [
+            10,
+            10,
+            16
+          ],
+          "fov": 60
+        }
+      },
+      "hash": "1aad2d30e64a1729b85455f377d6059e35beb8675edad39c955785adffcf63ac"
+    },
+    {
+      "shot": "D29",
+      "frame": 1,
+      "name": "D29/frame-00001",
+      "state": {
+        "shot": "D29",
+        "frame": 1,
+        "u": 0.02857142857142857,
+        "phi": 1.0483904373177844,
+        "arm": -0.6507963267948965,
+        "advance": 0,
+        "headPitch": 0.18,
+        "headYaw": 0.08,
+        "identity": true,
+        "pinInstalled": false,
+        "diePosition": [
+          -1,
+          4.237119536820687,
+          0.07355159470372086
+        ],
+        "dieQuaternion": [
+          0.5005164458756806,
+          0,
+          0,
+          0.8657270282300171
+        ],
+        "pinWorld": null,
+        "camera": {
+          "position": [
+            10,
+            10,
+            16
+          ],
+          "fov": 60
+        }
+      },
+      "hash": "bfd828bf796b95e61dd3f181dda38ee2c14a4967834d9a6533c2f14a34bf9431"
+    },
+    {
+      "shot": "D29",
+      "frame": 2,
+      "name": "D29/frame-00002",
+      "state": {
+        "shot": "D29",
+        "frame": 2,
+        "u": 0.05714285714285714,
+        "phi": 1.0436867638483966,
+        "arm": -0.6507963267948965,
+        "advance": 0,
+        "headPitch": 0.18,
+        "headYaw": 0.08,
+        "identity": true,
+        "pinInstalled": false,
+        "diePosition": [
+          -1,
+          4.242058972615389,
+          0.05478381290691536
+        ],
+        "dieQuaternion": [
+          0.4984790149137801,
+          0,
+          0,
+          0.8669017658827253
+        ],
+        "pinWorld": null,
+        "camera": {
+          "position": [
+            10,
+            10,
+            16
+          ],
+          "fov": 60
+        }
+      },
+      "hash": "efd5408350cfd00dfffda9339ad9f64a966395617d97a8f3b79bc0c3e95e0667"
+    },
+    {
+      "shot": "D29",
+      "frame": 3,
+      "name": "D29/frame-00003",
+      "state": {
+        "shot": "D29",
+        "frame": 3,
+        "u": 0.08571428571428572,
+        "phi": 1.036076501457726,
+        "arm": -0.6507963267948965,
+        "advance": 0,
+        "headPitch": 0.18,
+        "headYaw": 0.08,
+        "identity": true,
+        "pinInstalled": false,
+        "diePosition": [
+          -1,
+          4.24985280846469,
+          0.02436942261667574
+        ],
+        "dieQuaternion": [
+          0.4951767391810782,
+          0,
+          0,
+          0.8687922634174376
+        ],
+        "pinWorld": null,
+        "camera": {
+          "position": [
+            10,
+            10,
+            16
+          ],
+          "fov": 60
+        }
+      },
+      "hash": "16dc890287388e12bffa1421b112f038b55f0914a20e8ee59e44d1b34835fc59"
+    },
+    {
+      "shot": "D29",
+      "frame": 4,
+      "name": "D29/frame-00004",
+      "state": {
+        "shot": "D29",
+        "frame": 4,
+        "u": 0.11428571428571428,
+        "phi": 1.0257471720116618,
+        "arm": -0.6507963267948965,
+        "advance": 0,
+        "headPitch": 0.18,
+        "headYaw": 0.08,
+        "identity": true,
+        "pinInstalled": false,
+        "diePosition": [
+          -1,
+          4.260039314177045,
+          -0.01700628405215243
+        ],
+        "dieQuaternion": [
+          0.49068313427566596,
+          0,
+          0,
+          0.8713380869314785
+        ],
+        "pinWorld": null,
+        "camera": {
+          "position": [
+            10,
+            10,
+            16
+          ],
+          "fov": 60
+        }
+      },
+      "hash": "d3e6afaecdc5817ba52af8015eb5f1128201a7a9adc20ea9cb77b88dcfc93ea9"
+    },
+    {
+      "shot": "D29",
+      "frame": 5,
+      "name": "D29/frame-00005",
+      "state": {
+        "shot": "D29",
+        "frame": 5,
+        "u": 0.14285714285714285,
+        "phi": 1.0128862973760933,
+        "arm": -0.6507963267948965,
+        "advance": 0,
+        "headPitch": 0.18,
+        "headYaw": 0.08,
+        "identity": true,
+        "pinInstalled": false,
+        "diePosition": [
+          -1,
+          4.272269122155011,
+          -0.06866856233445096
+        ],
+        "dieQuaternion": [
+          0.4850699429726326,
+          0,
+          0,
+          0.8744753572425737
+        ],
+        "pinWorld": null,
+        "camera": {
+          "position": [
+            10,
+            10,
+            16
+          ],
+          "fov": 60
+        }
+      },
+      "hash": "42949f6f7cb93d3a15b993cbad6aa405d07bfe8845437aeff20f012e514b461d"
+    },
+    {
+      "shot": "D29",
+      "frame": 6,
+      "name": "D29/frame-00006",
+      "state": {
+        "shot": "D29",
+        "frame": 6,
+        "u": 0.17142857142857143,
+        "phi": 0.9976813994169097,
+        "arm": -0.6507963267948965,
+        "advance": 0,
+        "headPitch": 0.18,
+        "headYaw": 0.08,
+        "identity": true,
+        "pinInstalled": false,
+        "diePosition": [
+          -1,
+          4.286236793092325,
+          -0.12994485157741786
+        ],
+        "dieQuaternion": [
+          0.4784078349437859,
+          0,
+          0,
+          0.8781377702071579
+        ],
+        "pinWorld": null,
+        "camera": {
+          "position": [
+            10,
+            10,
+            16
+          ],
+          "fov": 60
+        }
+      },
+      "hash": "f483ed5aa78a8924809f9a63bf65dea079f757a672dd3409371ed18bf23667e1"
+    },
+    {
+      "shot": "D29",
+      "frame": 7,
+      "name": "D29/frame-00007",
+      "state": {
+        "shot": "D29",
+        "frame": 7,
+        "u": 0.2,
+        "phi": 0.9803200000000001,
+        "arm": -0.6507963267948965,
+        "advance": 0,
+        "headPitch": 0.18,
+        "headYaw": 0.08,
+        "identity": true,
+        "pinInstalled": false,
+        "diePosition": [
+          -1,
+          4.30097927957092,
+          -0.20015705701782116
+        ],
+        "dieQuaternion": [
+          0.470767055403922,
+          0,
+          0,
+          0.8822575471744748
+        ],
+        "pinWorld": null,
+        "camera": {
+          "position": [
+            10,
+            10,
+            16
+          ],
+          "fov": 60
+        }
+      },
+      "hash": "5640fa3b03343f59033345ced3bab11a7c4541bac9bb8f075c3d485eb6a81135"
+    },
+    {
+      "shot": "D29",
+      "frame": 8,
+      "name": "D29/frame-00008",
+      "state": {
+        "shot": "D29",
+        "frame": 8,
+        "u": 0.22857142857142856,
+        "phi": 0.9609896209912537,
+        "arm": -0.6507963267948965,
+        "advance": 0,
+        "headPitch": 0.18,
+        "headYaw": 0.08,
+        "identity": true,
+        "pinInstalled": false,
+        "diePosition": [
+          -1,
+          4.31587540867348,
+          -0.2786148225833912
+        ],
+        "dieQuaternion": [
+          0.4622180133905209,
+          0,
+          0,
+          0.8867663210211134
+        ],
+        "pinWorld": null,
+        "camera": {
+          "position": [
+            10,
+            10,
+            16
+          ],
+          "fov": 60
+        }
+      },
+      "hash": "dd281c35120f48334a6ee20f01b2e662afe7747ca1a8937485da1bbaa1636055"
+    },
+    {
+      "shot": "D29",
+      "frame": 9,
+      "name": "D29/frame-00009",
+      "state": {
+        "shot": "D29",
+        "frame": 9,
+        "u": 0.2571428571428571,
+        "phi": 0.9398777842565598,
+        "arm": -0.6507963267948965,
+        "advance": 0,
+        "headPitch": 0.18,
+        "headYaw": 0.08,
+        "identity": true,
+        "pinInstalled": false,
+        "diePosition": [
+          -1,
+          4.330310290412587,
+          -0.3646100555267122
+        ],
+        "dieQuaternion": [
+          0.4528318026929398,
+          0,
+          0,
+          0.8915959614477078
+        ],
+        "pinWorld": null,
+        "camera": {
+          "position": [
+            10,
+            10,
+            16
+          ],
+          "fov": 60
+        }
+      },
+      "hash": "76f6718bb0dd9ddbd1fd7f88c8c01dcee207755272c44b56d190cfdbd7b5cac3"
+    },
+    {
+      "shot": "D29",
+      "frame": 10,
+      "name": "D29/frame-00010",
+      "state": {
+        "shot": "D29",
+        "frame": 10,
+        "u": 0.2857142857142857,
+        "phi": 0.9171720116618076,
+        "arm": -0.6507963267948965,
+        "advance": 0,
+        "headPitch": 0.18,
+        "headYaw": 0.08,
+        "identity": true,
+        "pinInstalled": false,
+        "diePosition": [
+          -1,
+          4.343690726627056,
+          -0.45741288439446315
+        ],
+        "dieQuaternion": [
+          0.4426806505707208,
+          0,
+          0,
+          0.8966793415766214
+        ],
+        "pinWorld": null,
+        "camera": {
+          "position": [
+            10,
+            10,
+            16
+          ],
+          "fov": 60
+        }
+      },
+      "hash": "d37e8f24342297c140df22c44c438a5bb1d45c49d925786d41c76560fc17f0c7"
+    },
+    {
+      "shot": "D29",
+      "frame": 11,
+      "name": "D29/frame-00011",
+      "state": {
+        "shot": "D29",
+        "frame": 11,
+        "u": 0.3142857142857143,
+        "phi": 0.8930598250728863,
+        "arm": -0.6507963267948965,
+        "advance": 0,
+        "headPitch": 0.18,
+        "headYaw": 0.08,
+        "identity": true,
+        "pinInstalled": false,
+        "diePosition": [
+          -1,
+          4.355459455445441,
+          -0.5562691574238376
+        ],
+        "dieQuaternion": [
+          0.43183829136299734,
+          0,
+          0,
+          0.901951046405894
+        ],
+        "pinWorld": null,
+        "camera": {
+          "position": [
+            10,
+            10,
+            16
+          ],
+          "fov": 60
+        }
+      },
+      "hash": "79785a69fa42cab9f6fdd1c71a1c9ea1c9bdc7e7b7d2152d2ce8b1b14d2c70fc"
+    },
+    {
+      "shot": "D29",
+      "frame": 12,
+      "name": "D29/frame-00012",
+      "state": {
+        "shot": "D29",
+        "frame": 12,
+        "u": 0.34285714285714286,
+        "phi": 0.8677287463556852,
+        "arm": -0.6507963267948965,
+        "advance": 0,
+        "headPitch": 0.18,
+        "headYaw": 0.08,
+        "identity": true,
+        "pinInstalled": false,
+        "diePosition": [
+          -1,
+          4.36510815563736,
+          -0.660399518453464
+        ],
+        "dieQuaternion": [
+          0.42038026390819244,
+          0,
+          0,
+          0.9073480223797694
+        ],
+        "pinWorld": null,
+        "camera": {
+          "position": [
+            10,
+            10,
+            16
+          ],
+          "fov": 60
+        }
+      },
+      "hash": "3ba4d4012514c46027e86d62e53a461c1c96e0b80aba9beef92b7d7dbbf7e9cc"
+    },
+    {
+      "shot": "D29",
+      "frame": 13,
+      "name": "D29/frame-00013",
+      "state": {
+        "shot": "D29",
+        "frame": 13,
+        "u": 0.37142857142857144,
+        "phi": 0.8413662973760934,
+        "arm": -0.6507963267948965,
+        "advance": 0,
+        "headPitch": 0.18,
+        "headYaw": 0.08,
+        "identity": true,
+        "pinInstalled": false,
+        "diePosition": [
+          -1,
+          4.372677303675003,
+          -0.7690000318342873
+        ],
+        "dieQuaternion": [
+          0.40838413337340246,
+          0,
+          0,
+          0.9128101662497274
+        ],
+        "pinWorld": null,
+        "camera": {
+          "position": [
+            10,
+            10,
+            16
+          ],
+          "fov": 60
+        }
+      },
+      "hash": "08f03fb01873fee569c0e18ab0d89770e74ddabc5c79a0123e7735329b56b755"
+    },
+    {
+      "shot": "D29",
+      "frame": 14,
+      "name": "D29/frame-00014",
+      "state": {
+        "shot": "D29",
+        "frame": 14,
+        "u": 0.4,
+        "phi": 0.81416,
+        "arm": -0.6507963267948965,
+        "advance": 0,
+        "headPitch": 0.18,
+        "headYaw": 0.08,
+        "identity": true,
+        "pinInstalled": false,
+        "diePosition": [
+          -1,
+          4.377700385036247,
+          -0.8812442670392368
+        ],
+        "dieQuaternion": [
+          0.39592963963732347,
+          0,
+          0,
+          0.9182808505335713
+        ],
+        "pinWorld": null,
+        "camera": {
+          "position": [
+            10,
+            10,
+            16
+          ],
+          "fov": 60
+        }
+      },
+      "hash": "21511b839581def37c8295bf05bb78e879099f39bbce8ef388295197a81befee"
+    },
+    {
+      "shot": "D29",
+      "frame": 15,
+      "name": "D29/frame-00015",
+      "state": {
+        "shot": "D29",
+        "frame": 15,
+        "u": 0.42857142857142855,
+        "phi": 0.7862973760932945,
+        "arm": -0.6507963267948965,
+        "advance": 0,
+        "headPitch": 0.18,
+        "headYaw": 0.08,
+        "identity": true,
+        "pinInstalled": false,
+        "diePosition": [
+          -1,
+          4.3795016831104645,
+          -0.9962866984338413
+        ],
+        "dieQuaternion": [
+          0.38309877577469176,
+          0,
+          0,
+          0.9237073822374336
+        ],
+        "pinWorld": null,
+        "camera": {
+          "position": [
+            10,
+            10,
+            16
+          ],
+          "fov": 60
+        }
+      },
+      "hash": "5715a7a2ae75b847286469cc7a43c80f920d54213443f228639ca5d78c357500"
+    },
+    {
+      "shot": "D29",
+      "frame": 16,
+      "name": "D29/frame-00016",
+      "state": {
+        "shot": "D29",
+        "frame": 16,
+        "u": 0.45714285714285713,
+        "phi": 0.7579659475218659,
+        "arm": -0.6507963267948965,
+        "advance": 0,
+        "headPitch": 0.18,
+        "headYaw": 0.08,
+        "identity": true,
+        "pinInstalled": false,
+        "diePosition": [
+          -1,
+          4.377863227619644,
+          -1.1132672269275896
+        ],
+        "dieQuaternion": [
+          0.369975801444764,
+          0,
+          0,
+          0.9290413910829294
+        ],
+        "pinWorld": null,
+        "camera": {
+          "position": [
+            10,
+            10,
+            16
+          ],
+          "fov": 60
+        }
+      },
+      "hash": "8c5560b9edcf412336a945b7c8f8bd9d90a3c598624c351fe6d434321f629d3a"
+    },
+    {
+      "shot": "D29",
+      "frame": 17,
+      "name": "D29/frame-00017",
+      "state": {
+        "shot": "D29",
+        "frame": 17,
+        "u": 0.4857142857142857,
+        "phi": 0.7293532361516035,
+        "arm": -0.6507963267948965,
+        "advance": 0,
+        "headPitch": 0.18,
+        "headYaw": 0.08,
+        "identity": true,
+        "pinInstalled": false,
+        "diePosition": [
+          -1,
+          4.3726585635806545,
+          -1.2313165890120277
+        ],
+        "dieQuaternion": [
+          0.35664719707871056,
+          0,
+          0,
+          0.9342391432689487
+        ],
+        "pinWorld": null,
+        "camera": {
+          "position": [
+            10,
+            10,
+            16
+          ],
+          "fov": 60
+        }
+      },
+      "hash": "161b82700b11868d2a2f034f34daa396d044ce9c701eda555abd1b1d50910137"
+    },
+    {
+      "shot": "D29",
+      "frame": 18,
+      "name": "D29/frame-00018",
+      "state": {
+        "shot": "D29",
+        "frame": 18,
+        "u": 0.5142857142857142,
+        "phi": 0.7006467638483965,
+        "arm": -0.6507963267948965,
+        "advance": 0,
+        "headPitch": 0.18,
+        "headYaw": 0.08,
+        "identity": true,
+        "pinInstalled": false,
+        "diePosition": [
+          -1,
+          4.364306460257859,
+          -1.3495623860117727
+        ],
+        "dieQuaternion": [
+          0.3432015656761587,
+          0,
+          0,
+          0.9392617767786748
+        ],
+        "pinWorld": null,
+        "camera": {
+          "position": [
+            10,
+            10,
+            16
+          ],
+          "fov": 60
+        }
+      },
+      "hash": "ea8b567891e4d964a254eed1434b30663006a7f2600212899bc2e989448a7843"
+    },
+    {
+      "shot": "D29",
+      "frame": 19,
+      "name": "D29/frame-00019",
+      "state": {
+        "shot": "D29",
+        "frame": 19,
+        "u": 0.5428571428571428,
+        "phi": 0.6720340524781341,
+        "arm": -0.6507963267948965,
+        "advance": 0,
+        "headPitch": 0.18,
+        "headYaw": 0.08,
+        "identity": true,
+        "pinInstalled": false,
+        "diePosition": [
+          -1,
+          4.352903519473814,
+          -1.4671354430964652
+        ],
+        "dieQuaternion": [
+          0.329729489743739,
+          0,
+          0,
+          0.9440754543961692
+        ],
+        "pinWorld": null,
+        "camera": {
+          "position": [
+            10,
+            10,
+            16
+          ],
+          "fov": 60
+        }
+      },
+      "hash": "ca623f559507d2b62dc42ff4f30138c7d224c4e582b595e0f8a7165cff1bc084"
+    },
+    {
+      "shot": "D29",
+      "frame": 20,
+      "name": "D29/frame-00020",
+      "state": {
+        "shot": "D29",
+        "frame": 20,
+        "u": 0.5714285714285714,
+        "phi": 0.6437026239067056,
+        "arm": -0.6507963267948965,
+        "advance": 0,
+        "headPitch": 0.18,
+        "headYaw": 0.08,
+        "identity": true,
+        "pinInstalled": false,
+        "diePosition": [
+          -1,
+          4.338117723040115,
+          -1.5831761943642737
+        ],
+        "dieQuaternion": [
+          0.3163233514226943,
+          0,
+          0,
+          0.9486514308979429
+        ],
+        "pinWorld": null,
+        "camera": {
+          "position": [
+            10,
+            10,
+            16
+          ],
+          "fov": 60
+        }
+      },
+      "hash": "1d240c6618c0eb1a361ca42baf043c870070cac34c8e6a9a6eca8ff79425df98"
+    },
+    {
+      "shot": "D29",
+      "frame": 21,
+      "name": "D29/frame-00021",
+      "state": {
+        "shot": "D29",
+        "frame": 21,
+        "u": 0.6,
+        "phi": 0.6158399999999999,
+        "arm": -0.6507963267948965,
+        "advance": 0,
+        "headPitch": 0.18,
+        "headYaw": 0.08,
+        "identity": true,
+        "pinInstalled": false,
+        "diePosition": [
+          -1,
+          4.320196272489583,
+          -1.6968407874534799
+        ],
+        "dieQuaternion": [
+          0.3030771241438041,
+          0,
+          0,
+          0.9529660313047476
+        ],
+        "pinWorld": null,
+        "camera": {
+          "position": [
+            10,
+            10,
+            16
+          ],
+          "fov": 60
+        }
+      },
+      "hash": "3e41b6af576da11b62102a3ffe446ad451cfb846aba143148b5418f555c3f280"
+    },
+    {
+      "shot": "D29",
+      "frame": 22,
+      "name": "D29/frame-00022",
+      "state": {
+        "shot": "D29",
+        "frame": 22,
+        "u": 0.6285714285714286,
+        "phi": 0.5886337026239068,
+        "arm": -0.6507963267948965,
+        "advance": 0,
+        "headPitch": 0.18,
+        "headYaw": 0.08,
+        "identity": true,
+        "pinInstalled": false,
+        "diePosition": [
+          -1,
+          4.299475741350214,
+          -1.807306608675229
+        ],
+        "dieQuaternion": [
+          0.29008614420323997,
+          0,
+          0,
+          0.9570005375867335
+        ],
+        "pinWorld": null,
+        "camera": {
+          "position": [
+            10,
+            10,
+            16
+          ],
+          "fov": 60
+        }
+      },
+      "hash": "e00b26a546fff20eff309d84b87e2cbd01a0d4d895470088f98edb4388db0f95"
+    },
+    {
+      "shot": "D29",
+      "frame": 23,
+      "name": "D29/frame-00023",
+      "state": {
+        "shot": "D29",
+        "frame": 23,
+        "u": 0.6571428571428571,
+        "phi": 0.5622712536443149,
+        "arm": -0.6507963267948965,
+        "advance": 0,
+        "headPitch": 0.18,
+        "headYaw": 0.08,
+        "identity": true,
+        "pinInstalled": false,
+        "diePosition": [
+          -1,
+          4.27637616479125,
+          -1.9137769472521082
+        ],
+        "dieQuaternion": [
+          0.27744687046207844,
+          0,
+          0,
+          0.9607409817795839
+        ],
+        "pinWorld": null,
+        "camera": {
+          "position": [
+            10,
+            10,
+            16
+          ],
+          "fov": 60
+        }
+      },
+      "hash": "dcf8036dca64ff8899d8384ca4cadeda6af821d50d9bec462e81aa1536862b36"
+    },
+    {
+      "shot": "D29",
+      "frame": 24,
+      "name": "D29/frame-00024",
+      "state": {
+        "shot": "D29",
+        "frame": 24,
+        "u": 0.6857142857142857,
+        "phi": 0.5369401749271137,
+        "arm": -0.6507963267948965,
+        "advance": 0,
+        "headPitch": 0.18,
+        "headYaw": 0.08,
+        "identity": true,
+        "pinInstalled": false,
+        "diePosition": [
+          -1,
+          4.2520805735584775,
+          -2.015484544238759
+        ],
+        "dieQuaternion": [
+          0.26525663992737003,
+          0,
+          0,
+          0.9641778440590935
+        ],
+        "pinWorld": null,
+        "camera": {
+          "position": [
+            10,
+            10,
+            16
+          ],
+          "fov": 60
+        }
+      },
+      "hash": "99f3a291c1d0a5c9fe70b0898dc5734ef6cf0e571d6b4e522437cb8f816197fd"
+    },
+    {
+      "shot": "D29",
+      "frame": 25,
+      "name": "D29/frame-00025",
+      "state": {
+        "shot": "D29",
+        "frame": 25,
+        "u": 0.7142857142857143,
+        "phi": 0.5128279883381924,
+        "arm": -0.6507963267948965,
+        "advance": 0,
+        "headPitch": 0.18,
+        "headYaw": 0.08,
+        "identity": true,
+        "pinInstalled": false,
+        "diePosition": [
+          -1,
+          4.226773257147306,
+          -2.111693807173017
+        ],
+        "dieQuaternion": [
+          0.2536134262690728,
+          0,
+          0,
+          0.9673056549075176
+        ],
+        "pinWorld": null,
+        "camera": {
+          "position": [
+            10,
+            10,
+            16
+          ],
+          "fov": 60
+        }
+      },
+      "hash": "5963b493a9761fd9e4eadda4e11304013af4dd7ccfa9f664aebcb93b370dac41"
+    },
+    {
+      "shot": "D29",
+      "frame": 26,
+      "name": "D29/frame-00026",
+      "state": {
+        "shot": "D29",
+        "frame": 26,
+        "u": 0.7428571428571429,
+        "phi": 0.49012221574344017,
+        "arm": -0.6507963267948965,
+        "advance": 0,
+        "headPitch": 0.18,
+        "headYaw": 0.08,
+        "identity": true,
+        "pinInstalled": false,
+        "diePosition": [
+          -1,
+          4.200705912607616,
+          -2.20170151435613
+        ],
+        "dieQuaternion": [
+          0.24261560736286694,
+          0,
+          0,
+          0.9701225010605348
+        ],
+        "pinWorld": null,
+        "camera": {
+          "position": [
+            10,
+            10,
+            16
+          ],
+          "fov": 60
+        }
+      },
+      "hash": "311bbbdbb611df840bb645dffb983f3c891602347c2d05fa7cc39fcccdce3376"
+    },
+    {
+      "shot": "D29",
+      "frame": 27,
+      "name": "D29/frame-00027",
+      "state": {
+        "shot": "D29",
+        "frame": 27,
+        "u": 0.7714285714285715,
+        "phi": 0.4690103790087463,
+        "arm": -0.6507963267948965,
+        "advance": 0,
+        "headPitch": 0.18,
+        "headYaw": 0.08,
+        "identity": true,
+        "pinInstalled": false,
+        "diePosition": [
+          -1,
+          4.174534545478968,
+          -2.284835881705646
+        ],
+        "dieQuaternion": [
+          0.23236174672447604,
+          0,
+          0,
+          0.9726294354270544
+        ],
+        "pinWorld": null,
+        "camera": {
+          "position": [
+            10,
+            10,
+            16
+          ],
+          "fov": 60
+        }
+      },
+      "hash": "3ea32bd3656e8bc50a8f0b962fe1e9e7d5ddd09a68e862a4bc40079dfb3fc54d"
+    },
+    {
+      "shot": "D29",
+      "frame": 28,
+      "name": "D29/frame-00028",
+      "state": {
+        "shot": "D29",
+        "frame": 28,
+        "u": 0.8,
+        "phi": 0.44967999999999997,
+        "arm": -0.6507963267948965,
+        "advance": 0,
+        "headPitch": 0.18,
+        "headYaw": 0.08,
+        "identity": true,
+        "pinInstalled": false,
+        "diePosition": [
+          -1,
+          4.148947395350917,
+          -2.360453919219885
+        ],
+        "dieQuaternion": [
+          0.22295039221951843,
+          0,
+          0,
+          0.9748297916093676
+        ],
+        "pinWorld": null,
+        "camera": {
+          "position": [
+            10,
+            10,
+            16
+          ],
+          "fov": 60
+        }
+      },
+      "hash": "3641e72d4865f0c3241c9b7e4a13922e59f6c2bd71625775a33409620d34ef1e"
+    },
+    {
+      "shot": "D29",
+      "frame": 29,
+      "name": "D29/frame-00029",
+      "state": {
+        "shot": "D29",
+        "frame": 29,
+        "u": 0.8285714285714286,
+        "phi": 0.43231860058309035,
+        "arm": -0.6507963267948965,
+        "advance": 0,
+        "headPitch": 0.18,
+        "headYaw": 0.08,
+        "identity": true,
+        "pinInstalled": false,
+        "diePosition": [
+          -1,
+          4.124651175200923,
+          -2.4279370622576657
+        ],
+        "dieQuaternion": [
+          0.214479893698699,
+          0,
+          0,
+          0.9767284040095254
+        ],
+        "pinWorld": null,
+        "camera": {
+          "position": [
+            10,
+            10,
+            16
+          ],
+          "fov": 60
+        }
+      },
+      "hash": "a6140886c06ce3a338b0f038d5c1c40d7dda7ffccc2341703040943ea72f9d57"
+    },
+    {
+      "shot": "D29",
+      "frame": 30,
+      "name": "D29/frame-00030",
+      "state": {
+        "shot": "D29",
+        "frame": 30,
+        "u": 0.8571428571428571,
+        "phi": 0.4171137026239067,
+        "arm": -0.6507963267948965,
+        "advance": 0,
+        "headPitch": 0.18,
+        "headYaw": 0.08,
+        "identity": true,
+        "pinInstalled": false,
+        "diePosition": [
+          -1,
+          4.102356370351301,
+          -2.4866851243800268
+        ],
+        "dieQuaternion": [
+          0.20704823922717677,
+          0,
+          0,
+          0.9783307347890722
+        ],
+        "pinWorld": null,
+        "camera": {
+          "position": [
+            10,
+            10,
+            16
+          ],
+          "fov": 60
+        }
+      },
+      "hash": "011fab4a5de79177cf24790230471065c0478b484c42ae5a0b5832b346343c41"
+    },
+    {
+      "shot": "D29",
+      "frame": 31,
+      "name": "D29/frame-00031",
+      "state": {
+        "shot": "D29",
+        "frame": 31,
+        "u": 0.8857142857142857,
+        "phi": 0.40425282798833817,
+        "arm": -0.6507963267948965,
+        "advance": 0,
+        "headPitch": 0.18,
+        "headYaw": 0.08,
+        "identity": true,
+        "pinInstalled": false,
+        "diePosition": [
+          -1,
+          4.082761622926439,
+          -2.5361086831361215
+        ],
+        "dieQuaternion": [
+          0.20075290735578796,
+          0,
+          0,
+          0.979641909162832
+        ],
+        "pinWorld": null,
+        "camera": {
+          "position": [
+            10,
+            10,
+            16
+          ],
+          "fov": 60
+        }
+      },
+      "hash": "e88f9ef8d7fa9ef0313098104988e0231b5ce061e05e4d817834df4ab673ed0e"
+    },
+    {
+      "shot": "D29",
+      "frame": 32,
+      "name": "D29/frame-00032",
+      "state": {
+        "shot": "D29",
+        "frame": 32,
+        "u": 0.9142857142857143,
+        "phi": 0.39392349854227404,
+        "arm": -0.6507963267948965,
+        "advance": 0,
+        "headPitch": 0.18,
+        "headYaw": 0.08,
+        "identity": true,
+        "pinInstalled": false,
+        "diePosition": [
+          -1,
+          4.066537175341094,
+          -2.575620078121643
+        ],
+        "dieQuaternion": [
+          0.19569073042739385,
+          0,
+          0,
+          0.9806656606738063
+        ],
+        "pinWorld": null,
+        "camera": {
+          "position": [
+            10,
+            10,
+            16
+          ],
+          "fov": 60
+        }
+      },
+      "hash": "cb92b30599cab3dddbb5bc244ae507b264c58a468e242082064e3531b17ba82d"
+    },
+    {
+      "shot": "D29",
+      "frame": 33,
+      "name": "D29/frame-00033",
+      "state": {
+        "shot": "D29",
+        "frame": 33,
+        "u": 0.9428571428571428,
+        "phi": 0.3863132361516035,
+        "arm": -0.6507963267948965,
+        "advance": 0,
+        "headPitch": 0.18,
+        "headYaw": 0.08,
+        "identity": true,
+        "pinInstalled": false,
+        "diePosition": [
+          -1,
+          4.054307287843065,
+          -2.6046232726890746
+        ],
+        "dieQuaternion": [
+          0.19195776123103328,
+          0,
+          0,
+          0.9814031882479135
+        ],
+        "pinWorld": null,
+        "camera": {
+          "position": [
+            10,
+            10,
+            16
+          ],
+          "fov": 60
+        }
+      },
+      "hash": "f8cf98635b1c9e49500d7c21bdf97ccf3b5d185537829c99efc8263c67dfee16"
+    },
+    {
+      "shot": "D29",
+      "frame": 34,
+      "name": "D29/frame-00034",
+      "state": {
+        "shot": "D29",
+        "frame": 34,
+        "u": 0.9714285714285714,
+        "phi": 0.3816095626822157,
+        "arm": -0.6507963267948965,
+        "advance": 0,
+        "headPitch": 0.18,
+        "headYaw": 0.08,
+        "identity": true,
+        "pinInstalled": false,
+        "diePosition": [
+          -1,
+          4.046631483427701,
+          -2.622502908250871
+        ],
+        "dieQuaternion": [
+          0.18964913241710174,
+          0,
+          0,
+          0.9818519270100968
+        ],
+        "pinWorld": null,
+        "camera": {
+          "position": [
+            10,
+            10,
+            16
+          ],
+          "fov": 60
+        }
+      },
+      "hash": "1b581fbf50d00150db334bbe481a1e421ab139248911835ffc5aa08c20420028"
+    },
+    {
+      "shot": "D29",
+      "frame": 35,
+      "name": "D29/frame-00035",
+      "state": {
+        "shot": "D29",
+        "frame": 35,
+        "u": 1,
+        "phi": 0.38,
+        "arm": -0.6507963267948965,
+        "advance": 0,
+        "headPitch": 0.18,
+        "headYaw": 0.08,
+        "identity": true,
+        "pinInstalled": false,
+        "diePosition": [
+          -1,
+          4.043984412280096,
+          -2.6286129651975005
+        ],
+        "dieQuaternion": [
+          0.18885889497650057,
+          0,
+          0,
+          0.9820042351172703
+        ],
+        "pinWorld": null,
+        "camera": {
+          "position": [
+            10,
+            10,
+            16
+          ],
+          "fov": 60
+        }
+      },
+      "hash": "504ce9582ad9f97d8c9a0c4edc999f47e6fe2d37e746f5fe00ff995ff431120a"
+    },
+    {
+      "shot": "D31",
+      "frame": 0,
+      "name": "D31/frame-00000",
+      "state": {
+        "shot": "D31",
+        "frame": 0,
+        "u": 0,
+        "phi": 0.38,
+        "arm": -0.6507963267948965,
+        "advance": 0,
+        "headPitch": 0.18,
+        "headYaw": 0.08,
+        "identity": true,
+        "pinInstalled": false,
+        "diePosition": [
+          -1,
+          4.043984412280096,
+          -2.6286129651975005
+        ],
+        "dieQuaternion": [
+          0.18885889497650057,
+          0,
+          0,
+          0.9820042351172703
+        ],
+        "pinWorld": null,
+        "camera": {
+          "position": [
+            10,
+            10,
+            16
+          ],
+          "fov": 60
+        }
+      },
+      "hash": "504ce9582ad9f97d8c9a0c4edc999f47e6fe2d37e746f5fe00ff995ff431120a"
+    },
+    {
+      "shot": "D31",
+      "frame": 1,
+      "name": "D31/frame-00001",
+      "state": {
+        "shot": "D31",
+        "frame": 1,
+        "u": 0.024390243902439025,
+        "phi": 0.37901142169481916,
+        "arm": -0.6507963267948965,
+        "advance": 0,
+        "headPitch": 0.18,
+        "headYaw": 0.08,
+        "identity": true,
+        "pinInstalled": false,
+        "diePosition": [
+          -1,
+          4.042353437834681,
+          -2.632363614365677
+        ],
+        "dieQuaternion": [
+          0.1883734778838807,
+          0,
+          0,
+          0.982097466054124
+        ],
+        "pinWorld": null,
+        "camera": {
+          "position": [
+            10,
+            10,
+            16
+          ],
+          "fov": 60
+        }
+      },
+      "hash": "8a70b8b19d1699e79f9f7fe0b7bfa5670f09b5b9d155384aa3b0b2d389e70b23"
+    },
+    {
+      "shot": "D31",
+      "frame": 2,
+      "name": "D31/frame-00002",
+      "state": {
+        "shot": "D31",
+        "frame": 2,
+        "u": 0.04878048780487805,
+        "phi": 0.3761256850236774,
+        "arm": -0.6507963267948965,
+        "advance": 0,
+        "headPitch": 0.18,
+        "headYaw": 0.08,
+        "identity": true,
+        "pinInstalled": false,
+        "diePosition": [
+          -1,
+          4.037570017442488,
+          -2.6433029113769404
+        ],
+        "dieQuaternion": [
+          0.1869562449549266,
+          0,
+          0,
+          0.982368241787342
+        ],
+        "pinWorld": null,
+        "camera": {
+          "position": [
+            10,
+            10,
+            16
+          ],
+          "fov": 60
+        }
+      },
+      "hash": "7022a73f12e837879c1f68c0a3f0be1cebf46bce787546b7a12659b7013e6129"
+    },
+    {
+      "shot": "D31",
+      "frame": 3,
+      "name": "D31/frame-00003",
+      "state": {
+        "shot": "D31",
+        "frame": 3,
+        "u": 0.07317073170731707,
+        "phi": 0.37146278735317545,
+        "arm": -0.6507963267948965,
+        "advance": 0,
+        "headPitch": 0.18,
+        "headYaw": 0.08,
+        "identity": true,
+        "pinInstalled": false,
+        "diePosition": [
+          -1,
+          4.029770071838814,
+          -2.6609501385400756
+        ],
+        "dieQuaternion": [
+          0.18466539762227094,
+          0,
+          0,
+          0.9828014504064433
+        ],
+        "pinWorld": null,
+        "camera": {
+          "position": [
+            10,
+            10,
+            16
+          ],
+          "fov": 60
+        }
+      },
+      "hash": "72951c78c30ea160434b49c714f9e58cab160047e8ce17a005aea4963e27c159"
+    },
+    {
+      "shot": "D31",
+      "frame": 4,
+      "name": "D31/frame-00004",
+      "state": {
+        "shot": "D31",
+        "frame": 4,
+        "u": 0.0975609756097561,
+        "phi": 0.3651427260499145,
+        "arm": -0.6507963267948965,
+        "advance": 0,
+        "headPitch": 0.18,
+        "headYaw": 0.08,
+        "identity": true,
+        "pinInstalled": false,
+        "diePosition": [
+          -1,
+          4.019058943673424,
+          -2.684811357872638
+        ],
+        "dieQuaternion": [
+          0.18155879806878497,
+          0,
+          0,
+          0.9833800907298348
+        ],
+        "pinWorld": null,
+        "camera": {
+          "position": [
+            10,
+            10,
+            16
+          ],
+          "fov": 60
+        }
+      },
+      "hash": "9a8e6ccd6124d728758595654a89fd6b3db87b0052b850217c4da35245228f9e"
+    },
+    {
+      "shot": "D31",
+      "frame": 5,
+      "name": "D31/frame-00005",
+      "state": {
+        "shot": "D31",
+        "frame": 5,
+        "u": 0.12195121951219512,
+        "phi": 0.35728549848049534,
+        "arm": -0.6507963267948965,
+        "advance": 0,
+        "headPitch": 0.18,
+        "headYaw": 0.08,
+        "identity": true,
+        "pinInstalled": false,
+        "diePosition": [
+          -1,
+          4.005519967032545,
+          -2.7143821602985034
+        ],
+        "dieQuaternion": [
+          0.17769408633846767,
+          0,
+          0,
+          0.9840857745544019
+        ],
+        "pinWorld": null,
+        "camera": {
+          "position": [
+            10,
+            10,
+            16
+          ],
+          "fov": 60
+        }
+      },
+      "hash": "4eebe49894b02ed9090ec84e0a3cae3b9b236ed9a1f296a20a1686f2d6b3a335"
+    },
+    {
+      "shot": "D31",
+      "frame": 6,
+      "name": "D31/frame-00006",
+      "state": {
+        "shot": "D31",
+        "frame": 6,
+        "u": 0.14634146341463414,
+        "phi": 0.348011102011519,
+        "arm": -0.6507963267948965,
+        "advance": 0,
+        "headPitch": 0.18,
+        "headYaw": 0.08,
+        "identity": true,
+        "pinInstalled": false,
+        "diePosition": [
+          -1,
+          3.989538603213012,
+          -2.749150165342922
+        ],
+        "dieQuaternion": [
+          0.17312879134851425,
+          0,
+          0,
+          0.9848991936265369
+        ],
+        "pinWorld": null,
+        "camera": {
+          "position": [
+            10,
+            10,
+            16
+          ],
+          "fov": 60
+        }
+      },
+      "hash": "807eeb6442894f84c9a11658e165eab1a9c8bb18077d8440818276ace087d86d"
+    },
+    {
+      "shot": "D31",
+      "frame": 7,
+      "name": "D31/frame-00007",
+      "state": {
+        "shot": "D31",
+        "frame": 7,
+        "u": 0.17073170731707318,
+        "phi": 0.3374395340095864,
+        "arm": -0.6507963267948965,
+        "advance": 0,
+        "headPitch": 0.18,
+        "headYaw": 0.08,
+        "identity": true,
+        "pinInstalled": false,
+        "diePosition": [
+          -1,
+          3.97107594801102,
+          -2.788597371076965
+        ],
+        "dieQuaternion": [
+          0.16792043262887824,
+          0,
+          0,
+          0.9858005519909848
+        ],
+        "pinWorld": null,
+        "camera": {
+          "position": [
+            10,
+            10,
+            16
+          ],
+          "fov": 60
+        }
+      },
+      "hash": "c3819301306594e0726a8164e722594c2290adef0966a69eae098b2378b64321"
+    },
+    {
+      "shot": "D31",
+      "frame": 8,
+      "name": "D31/frame-00008",
+      "state": {
+        "shot": "D31",
+        "frame": 8,
+        "u": 0.1951219512195122,
+        "phi": 0.32569079184129845,
+        "arm": -0.6507963267948965,
+        "advance": 0,
+        "headPitch": 0.18,
+        "headYaw": 0.08,
+        "identity": true,
+        "pinInstalled": false,
+        "diePosition": [
+          -1,
+          3.9500394636630722,
+          -2.832202429405351
+        ],
+        "dieQuaternion": [
+          0.16212661036683373,
+          0,
+          0,
+          0.9867699641816023
+        ],
+        "pinWorld": null,
+        "camera": {
+          "position": [
+            10,
+            10,
+            16
+          ],
+          "fov": 60
+        }
+      },
+      "hash": "062d32503ffbc83a249184d85dc5262c6b4188cf24293201a1e33cb9b09a9163"
+    },
+    {
+      "shot": "D31",
+      "frame": 9,
+      "name": "D31/frame-00009",
+      "state": {
+        "shot": "D31",
+        "frame": 9,
+        "u": 0.21951219512195122,
+        "phi": 0.31288487287325617,
+        "arm": -0.6507963267948965,
+        "advance": 0,
+        "headPitch": 0.18,
+        "headYaw": 0.08,
+        "identity": true,
+        "pinInstalled": false,
+        "diePosition": [
+          -1,
+          3.926492289382779,
+          -2.879442898748458
+        ],
+        "dieQuaternion": [
+          0.15580508202538804,
+          0,
+          0,
+          0.9877878195316351
+        ],
+        "pinWorld": null,
+        "camera": {
+          "position": [
+            10,
+            10,
+            16
+          ],
+          "fov": 60
+        }
+      },
+      "hash": "04d16ccfe67ef356aa2542e927bcba114d6144f48d87eb3fd673522138882249"
+    },
+    {
+      "shot": "D31",
+      "frame": 10,
+      "name": "D31/frame-00010",
+      "state": {
+        "shot": "D31",
+        "frame": 10,
+        "u": 0.24390243902439024,
+        "phi": 0.2991417744720605,
+        "arm": -0.6507963267948965,
+        "advance": 0,
+        "headPitch": 0.18,
+        "headYaw": 0.08,
+        "identity": true,
+        "pinInstalled": false,
+        "diePosition": [
+          -1,
+          3.900509299228074,
+          -2.929797504940365
+        ],
+        "dieQuaternion": [
+          0.14901382443783256,
+          0,
+          0,
+          0.9888351127090961
+        ],
+        "pinWorld": null,
+        "camera": {
+          "position": [
+            10,
+            10,
+            16
+          ],
+          "fov": 60
+        }
+      },
+      "hash": "b718b24f72f37a0879b229143afebbf8616bb03b530b9a017731c13acd03aae9"
+    },
+    {
+      "shot": "D31",
+      "frame": 11,
+      "name": "D31/frame-00011",
+      "state": {
+        "shot": "D31",
+        "frame": 11,
+        "u": 0.2682926829268293,
+        "phi": 0.28458149400431226,
+        "arm": -0.6507963267948965,
+        "advance": 0,
+        "headPitch": 0.18,
+        "headYaw": 0.08,
+        "identity": true,
+        "pinInstalled": false,
+        "diePosition": [
+          -1,
+          3.872181859602684,
+          -2.9827484219143203
+        ],
+        "dieQuaternion": [
+          0.1418110808575826,
+          0,
+          0,
+          0.9898937404317719
+        ],
+        "pinWorld": null,
+        "camera": {
+          "position": [
+            10,
+            10,
+            16
+          ],
+          "fov": 60
+        }
+      },
+      "hash": "c5dd3d9994a4492585bb6283381c660faf202946025f5b609c13eddd8092cfb4"
+    },
+    {
+      "shot": "D31",
+      "frame": 12,
+      "name": "D31/frame-00012",
+      "state": {
+        "shot": "D31",
+        "frame": 12,
+        "u": 0.2926829268292683,
+        "phi": 0.2693240288366126,
+        "arm": -0.6507963267948965,
+        "advance": 0,
+        "headPitch": 0.18,
+        "headYaw": 0.08,
+        "identity": true,
+        "pinInstalled": false,
+        "diePosition": [
+          -1,
+          3.8416218859087112,
+          -3.037783566610881
+        ],
+        "dieQuaternion": [
+          0.13425539296348468,
+          0,
+          0,
+          0.9909467641908016
+        ],
+        "pinWorld": null,
+        "camera": {
+          "position": [
+            10,
+            10,
+            16
+          ],
+          "fov": 60
+        }
+      },
+      "hash": "0fcd2f9ace24a9add1329eaa2d247b41dfc58dc2827ea90abbbfd93ea12c087f"
+    },
+    {
+      "shot": "D31",
+      "frame": 13,
+      "name": "D31/frame-00013",
+      "state": {
+        "shot": "D31",
+        "frame": 13,
+        "u": 0.3170731707317073,
+        "phi": 0.2534893763355624,
+        "arm": -0.6507963267948965,
+        "advance": 0,
+        "headPitch": 0.18,
+        "headYaw": 0.08,
+        "identity": true,
+        "pinInstalled": false,
+        "diePosition": [
+          -1,
+          3.808965193723968,
+          -3.0943988876319497
+        ],
+        "dieQuaternion": [
+          0.12640561828617233,
+          0,
+          0,
+          0.9919786387144083
+        ],
+        "pinWorld": null,
+        "camera": {
+          "position": [
+            10,
+            10,
+            16
+          ],
+          "fov": 60
+        }
+      },
+      "hash": "f4f6c57b1cfad0bfa1abf5f5d902168d36f78282b459361488ca22db9d9bcc46"
+    },
+    {
+      "shot": "D31",
+      "frame": 14,
+      "name": "D31/frame-00014",
+      "state": {
+        "shot": "D31",
+        "frame": 14,
+        "u": 0.34146341463414637,
+        "phi": 0.2371975338677625,
+        "arm": -0.6507963267948965,
+        "advance": 0,
+        "headPitch": 0.18,
+        "headYaw": 0.08,
+        "identity": true,
+        "pinInstalled": false,
+        "diePosition": [
+          -1,
+          3.7743741460021036,
+          -3.152100614558714
+        ],
+        "dieQuaternion": [
+          0.11832093393058467,
+          0,
+          0,
+          0.9929754058353077
+        ],
+        "pinWorld": null,
+        "camera": {
+          "position": [
+            10,
+            10,
+            16
+          ],
+          "fov": 60
+        }
+      },
+      "hash": "7efefc007b6b86aaefcc7cf3844dc7617dc5b405cfc00ca09e84a49e7d06e266"
+    },
+    {
+      "shot": "D31",
+      "frame": 15,
+      "name": "D31/frame-00015",
+      "state": {
+        "shot": "D31",
+        "frame": 15,
+        "u": 0.36585365853658536,
+        "phi": 0.220568498799814,
+        "arm": -0.6507963267948965,
+        "advance": 0,
+        "headPitch": 0.18,
+        "headYaw": 0.08,
+        "identity": true,
+        "pinInstalled": false,
+        "diePosition": [
+          -1,
+          3.738039604277869,
+          -3.2104074246059895
+        ],
+        "dieQuaternion": [
+          0.11006082782283,
+          0,
+          0,
+          0.9939248533862877
+        ],
+        "pinWorld": null,
+        "camera": {
+          "position": [
+            10,
+            10,
+            16
+          ],
+          "fov": 60
+        }
+      },
+      "hash": "6014303256b821460a75aa527de727fc79641979c23bae81499f4f9726246921"
+    },
+    {
+      "shot": "D31",
+      "frame": 16,
+      "name": "D31/frame-00016",
+      "state": {
+        "shot": "D31",
+        "frame": 16,
+        "u": 0.3902439024390244,
+        "phi": 0.20372226849831773,
+        "arm": -0.6507963267948965,
+        "advance": 0,
+        "headPitch": 0.18,
+        "headYaw": 0.08,
+        "identity": true,
+        "pinInstalled": false,
+        "diePosition": [
+          -1,
+          3.700182198564328,
+          -3.2688524754191057
+        ],
+        "dieQuaternion": [
+          0.10168507900533418,
+          0,
+          0,
+          0.9948166387368473
+        ],
+        "pinWorld": null,
+        "camera": {
+          "position": [
+            10,
+            10,
+            16
+          ],
+          "fov": 60
+        }
+      },
+      "hash": "c0aaf4fe7a3b3e90e75d366cfe2627ea97bece10f0a4171d2db32ca8ce9a5e2d"
+    },
+    {
+      "shot": "D31",
+      "frame": 17,
+      "name": "D31/frame-00017",
+      "state": {
+        "shot": "D31",
+        "frame": 17,
+        "u": 0.4146341463414634,
+        "phi": 0.18677884032987474,
+        "arm": -0.6507963267948965,
+        "advance": 0,
+        "headPitch": 0.18,
+        "headYaw": 0.08,
+        "identity": true,
+        "pinInstalled": false,
+        "diePosition": [
+          -1,
+          3.661052937345503,
+          -3.3269852473148496
+        ],
+        "dieQuaternion": [
+          0.09325372874168084,
+          0,
+          0,
+          0.9956423765970255
+        ],
+        "pinWorld": null,
+        "camera": {
+          "position": [
+            10,
+            10,
+            16
+          ],
+          "fov": 60
+        }
+      },
+      "hash": "d9a82337e7e13dd8436c40e1fbb6d55538eb2d6490c615d03f019577709dfd1e"
+    },
+    {
+      "shot": "D31",
+      "frame": 18,
+      "name": "D31/frame-00018",
+      "state": {
+        "shot": "D31",
+        "frame": 18,
+        "u": 0.43902439024390244,
+        "phi": 0.16985821166108597,
+        "arm": -0.6507963267948965,
+        "advance": 0,
+        "headPitch": 0.18,
+        "headYaw": 0.08,
+        "identity": true,
+        "pinInstalled": false,
+        "diePosition": [
+          -1,
+          3.6209331855377895,
+          -3.3843731350685777
+        ],
+        "dieQuaternion": [
+          0.08482704437069864,
+          0,
+          0,
+          0.9963956907490776
+        ],
+        "pinWorld": null,
+        "camera": {
+          "position": [
+            10,
+            10,
+            16
+          ],
+          "fov": 60
+        }
+      },
+      "hash": "f28d796243cb4b6c4862d0d384f33b36c3e0d83b1e0e63652a6da484c5c1fc00"
+    },
+    {
+      "shot": "D31",
+      "frame": 19,
+      "name": "D31/frame-00019",
+      "state": {
+        "shot": "D31",
+        "frame": 19,
+        "u": 0.4634146341463415,
+        "phi": 0.15308037985855222,
+        "arm": -0.6507963267948965,
+        "advance": 0,
+        "headPitch": 0.18,
+        "headYaw": 0.08,
+        "identity": true,
+        "pinInstalled": false,
+        "diePosition": [
+          -1,
+          3.580134044223235,
+          -3.4406027283589404
+        ],
+        "dieQuaternion": [
+          0.07646547796721456,
+          0,
+          0,
+          0.9970722294193363
+        ],
+        "pinWorld": null,
+        "camera": {
+          "position": [
+            10,
+            10,
+            16
+          ],
+          "fov": 60
+        }
+      },
+      "hash": "f84c064ee0c66ff9fe3cd008ee2dee41285b9fe721057b602fa48eab151bfe5e"
+    },
+    {
+      "shot": "D31",
+      "frame": 20,
+      "name": "D31/frame-00020",
+      "state": {
+        "shot": "D31",
+        "frame": 20,
+        "u": 0.4878048780487805,
+        "phi": 0.13656534228887457,
+        "arm": -0.6507963267948965,
+        "advance": 0,
+        "headPitch": 0.18,
+        "headYaw": 0.08,
+        "identity": true,
+        "pinInstalled": false,
+        "diePosition": [
+          -1,
+          3.5389951710369205,
+          -3.4952807210652255
+        ],
+        "dieQuaternion": [
+          0.06822962192362386,
+          0,
+          0,
+          0.9976696440666917
+        ],
+        "pinWorld": null,
+        "camera": {
+          "position": [
+            10,
+            10,
+            16
+          ],
+          "fov": 60
+        }
+      },
+      "hash": "cffbd05e392e74429e3b51094838037bcd4f52b16a36ae69993b2482f7ed1eb6"
+    },
+    {
+      "shot": "D31",
+      "frame": 21,
+      "name": "D31/frame-00021",
+      "state": {
+        "shot": "D31",
+        "frame": 21,
+        "u": 0.5121951219512195,
+        "phi": 0.12043309631865404,
+        "arm": -0.6507963267948965,
+        "advance": 0,
+        "headPitch": 0.18,
+        "headYaw": 0.08,
+        "identity": true,
+        "pinInstalled": false,
+        "diePosition": [
+          -1,
+          3.4979988549145,
+          -3.5480343926009223
+        ],
+        "dieQuaternion": [
+          0.06018016356136818,
+          0,
+          0,
+          0.9981875314357153
+        ],
+        "pinWorld": null,
+        "camera": {
+          "position": [
+            10,
+            10,
+            16
+          ],
+          "fov": 60
+        }
+      },
+      "hash": "275f6c5eef1eab08925f2c88fe32b7e9c94b82ad11549603bb957feee5acb9dd"
+    },
+    {
+      "shot": "D31",
+      "frame": 22,
+      "name": "D31/frame-00022",
+      "state": {
+        "shot": "D31",
+        "frame": 22,
+        "u": 0.5365853658536586,
+        "phi": 0.10480363931449135,
+        "arm": -0.6507963267948965,
+        "advance": 0,
+        "headPitch": 0.18,
+        "headYaw": 0.08,
+        "identity": true,
+        "pinInstalled": false,
+        "diePosition": [
+          -1,
+          3.458183153812044,
+          -3.598511609164002
+        ],
+        "dieQuaternion": [
+          0.052377840814127385,
+          0,
+          0,
+          0.9986273387964351
+        ],
+        "pinWorld": null,
+        "camera": {
+          "position": [
+            10,
+            10,
+            16
+          ],
+          "fov": 60
+        }
+      },
+      "hash": "f13d97792002cf6d64621aec7c409ed47c53514d7634b9a0b7be6107ddd25c6e"
+    },
+    {
+      "shot": "D31",
+      "frame": 23,
+      "name": "D31/frame-00023",
+      "state": {
+        "shot": "D31",
+        "frame": 23,
+        "u": 0.5609756097560976,
+        "phi": 0.08979696864298771,
+        "arm": -0.6507963267948965,
+        "advance": 0,
+        "headPitch": 0.18,
+        "headYaw": 0.08,
+        "identity": true,
+        "pinInstalled": false,
+        "diePosition": [
+          -1,
+          3.419163533985985,
+          -3.646380298973729
+        ],
+        "dieQuaternion": [
+          0.04488340089481504,
+          0,
+          0,
+          0.9989922323642538
+        ],
+        "pinWorld": null,
+        "camera": {
+          "position": [
+            10,
+            10,
+            16
+          ],
+          "fov": 60
+        }
+      },
+      "hash": "511decf892582e051e4b97c60ea97a6d25830a0b20130109be1b9d700f995af1"
+    },
+    {
+      "shot": "D31",
+      "frame": 24,
+      "name": "D31/frame-00024",
+      "state": {
+        "shot": "D31",
+        "frame": 24,
+        "u": 0.5853658536585366,
+        "phi": 0.07553308167074385,
+        "arm": -0.6507963267948965,
+        "advance": 0,
+        "headPitch": 0.18,
+        "headYaw": 0.08,
+        "identity": true,
+        "pinInstalled": false,
+        "diePosition": [
+          -1,
+          3.3813655457563336,
+          -3.691327363022233
+        ],
+        "dieQuaternion": [
+          0.03775756366635165,
+          0,
+          0,
+          0.9992869289578351
+        ],
+        "pinWorld": null,
+        "camera": {
+          "position": [
+            10,
+            10,
+            16
+          ],
+          "fov": 60
+        }
+      },
+      "hash": "e04fd6ac91b3682c2947c8c9108c76261c500ffa3d9a05c84bf8e740616dc1b0"
+    },
+    {
+      "shot": "D31",
+      "frame": 25,
+      "name": "D31/frame-00025",
+      "state": {
+        "shot": "D31",
+        "frame": 25,
+        "u": 0.6097560975609756,
+        "phi": 0.06213197576436092,
+        "arm": -0.6507963267948965,
+        "advance": 0,
+        "headPitch": 0.18,
+        "headYaw": 0.08,
+        "identity": true,
+        "pinInstalled": false,
+        "diePosition": [
+          -1,
+          3.3452306165394265,
+          -3.733056991378546
+        ],
+        "dieQuaternion": [
+          0.031060991181916076,
+          0,
+          0,
+          0.9995174910059338
+        ],
+        "pinWorld": null,
+        "camera": {
+          "position": [
+            10,
+            10,
+            16
+          ],
+          "fov": 60
+        }
+      },
+      "hash": "68db1ffe1cd1475fc0cf1f8c36a3a661422386a42538c823a8d83076dd1690d0"
+    },
+    {
+      "shot": "D31",
+      "frame": 26,
+      "name": "D31/frame-00026",
+      "state": {
+        "shot": "D31",
+        "frame": 26,
+        "u": 0.6341463414634146,
+        "phi": 0.049713648290439706,
+        "arm": -0.6507963267948965,
+        "advance": 0,
+        "headPitch": 0.18,
+        "headYaw": 0.08,
+        "identity": true,
+        "pinInstalled": false,
+        "diePosition": [
+          -1,
+          3.3112124381774266,
+          -3.7712883644457493
+        ],
+        "dieQuaternion": [
+          0.024854264544330654,
+          0,
+          0,
+          0.9996910850527579
+        ],
+        "pinWorld": null,
+        "camera": {
+          "position": [
+            10,
+            10,
+            16
+          ],
+          "fov": 60
+        }
+      },
+      "hash": "d3aa3c48a6e0eb2d77739411a54335a57657fdcd85a3c81a811f125c29a09645"
+    },
+    {
+      "shot": "D31",
+      "frame": 27,
+      "name": "D31/frame-00027",
+      "state": {
+        "shot": "D31",
+        "frame": 27,
+        "u": 0.6585365853658537,
+        "phi": 0.038398096615581176,
+        "arm": -0.6507963267948965,
+        "advance": 0,
+        "headPitch": 0.18,
+        "headYaw": 0.08,
+        "identity": true,
+        "pinInstalled": false,
+        "diePosition": [
+          -1,
+          3.2797730734323207,
+          -3.8057527286262487
+        ],
+        "dieQuaternion": [
+          0.019197868856935495,
+          0,
+          0,
+          0.9998157039331558
+        ],
+        "pinWorld": null,
+        "camera": {
+          "position": [
+            10,
+            10,
+            16
+          ],
+          "fov": 60
+        }
+      },
+      "hash": "0f2606038ac4075736cc41997809139c992ec966353f1694d14920f534c288e0"
+    },
+    {
+      "shot": "D31",
+      "frame": 28,
+      "name": "D31/frame-00028",
+      "state": {
+        "shot": "D31",
+        "frame": 28,
+        "u": 0.6829268292682927,
+        "phi": 0.028305318106386333,
+        "arm": -0.6507963267948965,
+        "advance": 0,
+        "headPitch": 0.18,
+        "headYaw": 0.08,
+        "identity": true,
+        "pinInstalled": false,
+        "diePosition": [
+          -1,
+          3.251378798561509,
+          -3.8361898464861492
+        ],
+        "dieQuaternion": [
+          0.014152186600277755,
+          0,
+          0,
+          0.9998998527924838
+        ],
+        "pinWorld": null,
+        "camera": {
+          "position": [
+            10,
+            10,
+            16
+          ],
+          "fov": 60
+        }
+      },
+      "hash": "a918d00fe5cc06c9ad11c2d779342018ced3cbf0a9a3f2c11dcbd521e2eb7169"
+    },
+    {
+      "shot": "D31",
+      "frame": 29,
+      "name": "D31/frame-00029",
+      "state": {
+        "shot": "D31",
+        "frame": 29,
+        "u": 0.7073170731707317,
+        "phi": 0.019555310129456157,
+        "arm": -0.6507963267948965,
+        "advance": 0,
+        "headPitch": 0.18,
+        "headYaw": 0.08,
+        "identity": true,
+        "pinInstalled": false,
+        "diePosition": [
+          -1,
+          3.226495686323198,
+          -3.862343832685115
+        ],
+        "dieQuaternion": [
+          0.009777499270698563,
+          0,
+          0,
+          0.9999521991115433
+        ],
+        "pinWorld": null,
+        "camera": {
+          "position": [
+            10,
+            10,
+            16
+          ],
+          "fov": 60
+        }
+      },
+      "hash": "f0145f9b9eb944cfa6b227eab89d09e52360cc1a21e068cdbf9ab90e03b0113f"
+    },
+    {
+      "shot": "D31",
+      "frame": 30,
+      "name": "D31/frame-00030",
+      "state": {
+        "shot": "D31",
+        "frame": 30,
+        "u": 0.7317073170731707,
+        "phi": 0.012268070051391503,
+        "arm": -0.6507963267948965,
+        "advance": 0,
+        "headPitch": 0.18,
+        "headYaw": 0.08,
+        "identity": true,
+        "pinInstalled": false,
+        "diePosition": [
+          -1,
+          3.205584919008761,
+          -3.883958398694114
+        ],
+        "dieQuaternion": [
+          0.006133996558840161,
+          0,
+          0,
+          0.999981186866141
+        ],
+        "pinWorld": null,
+        "camera": {
+          "position": [
+            10,
+            10,
+            16
+          ],
+          "fov": 60
+        }
+      },
+      "hash": "94395931eaca9696314104754d3badf4e400f454dbfc573ca3e474052cafb436"
+    },
+    {
+      "shot": "D31",
+      "frame": 31,
+      "name": "D31/frame-00031",
+      "state": {
+        "shot": "D31",
+        "frame": 31,
+        "u": 0.7560975609756098,
+        "phi": 0.0065635952387934,
+        "arm": -0.6507963267948965,
+        "advance": 0,
+        "headPitch": 0.18,
+        "headYaw": 0.08,
+        "identity": true,
+        "pinInstalled": false,
+        "diePosition": [
+          -1,
+          3.189097804362719,
+          -3.9007715417980564
+        ],
+        "dieQuaternion": [
+          0.003281791728466151,
+          0,
+          0,
+          0.9999946149070259
+        ],
+        "pinWorld": null,
+        "camera": {
+          "position": [
+            10,
+            10,
+            16
+          ],
+          "fov": 60
+        }
+      },
+      "hash": "09e247a06bd6d3e7c2fbf7de81833134195ddd01ece333836747537566648376"
+    },
+    {
+      "shot": "D31",
+      "frame": 32,
+      "name": "D31/frame-00032",
+      "state": {
+        "shot": "D31",
+        "frame": 32,
+        "u": 0.7804878048780488,
+        "phi": 0.0025618830582627527,
+        "arm": -0.6507963267948965,
+        "advance": 0,
+        "headPitch": 0.18,
+        "headYaw": 0.08,
+        "identity": true,
+        "pinInstalled": false,
+        "diePosition": [
+          -1,
+          3.177470448804849,
+          -3.9125097273206393
+        ],
+        "dieQuaternion": [
+          0.0012809411788342036,
+          0,
+          0,
+          0.9999991795945117
+        ],
+        "pinWorld": null,
+        "camera": {
+          "position": [
+            10,
+            10,
+            16
+          ],
+          "fov": 60
+        }
+      },
+      "hash": "f13237cbff0cd888c77eddaedcf04d72bf363541e82ac871d4a404c5f7f1660d"
+    },
+    {
+      "shot": "D31",
+      "frame": 33,
+      "name": "D31/frame-00033",
+      "state": {
+        "shot": "D31",
+        "frame": 33,
+        "u": 0.8048780487804879,
+        "phi": 0.00038293087640054455,
+        "arm": -0.6507963267948965,
+        "advance": 0,
+        "headPitch": 0.18,
+        "headYaw": 0.08,
+        "identity": true,
+        "pinInstalled": false,
+        "diePosition": [
+          -1,
+          3.1711180225766173,
+          -3.918881627779598
+        ],
+        "dieQuaternion": [
+          0.00019146543703044993,
+          0,
+          0,
+          0.9999999816704931
+        ],
+        "pinWorld": null,
+        "camera": {
+          "position": [
+            10,
+            10,
+            16
+          ],
+          "fov": 60
+        }
+      },
+      "hash": "cf9c373e82012bfac2903fbd5e306f9467748675883f9a3579f33d19eaedd4ac"
+    },
+    {
+      "shot": "D31",
+      "frame": 34,
+      "name": "D31/frame-00034",
+      "state": {
+        "shot": "D31",
+        "frame": 34,
+        "u": 0.8292682926829268,
+        "phi": 0.007571239899115504,
+        "arm": -0.6507963267948965,
+        "advance": 0,
+        "headPitch": 0.18,
+        "headYaw": 0.08,
+        "identity": true,
+        "pinInstalled": false,
+        "diePosition": [
+          -1,
+          3.1920176208748816,
+          -3.897808498549128
+        ],
+        "dieQuaternion": [
+          0.0037856109076624643,
+          0,
+          0,
+          0.9999928345493561
+        ],
+        "pinWorld": null,
+        "camera": {
+          "position": [
+            10,
+            10,
+            16
+          ],
+          "fov": 60
+        }
+      },
+      "hash": "1aaaac17cdb29bb844c5c1e417e8fd825038c078b38c2abedbd7f7b26f0d1da2"
+    },
+    {
+      "shot": "D31",
+      "frame": 35,
+      "name": "D31/frame-00035",
+      "state": {
+        "shot": "D31",
+        "frame": 35,
+        "u": 0.8536585365853658,
+        "phi": 0.020110414866636516,
+        "arm": -0.6507963267948965,
+        "advance": 0,
+        "headPitch": 0.18,
+        "headYaw": 0.08,
+        "identity": true,
+        "pinInstalled": false,
+        "diePosition": [
+          -1,
+          3.2280815963298917,
+          -3.8606911005537783
+        ],
+        "dieQuaternion": [
+          0.010055037991869168,
+          0,
+          0,
+          0.9999494468276794
+        ],
+        "pinWorld": null,
+        "camera": {
+          "position": [
+            10,
+            10,
+            16
+          ],
+          "fov": 60
+        }
+      },
+      "hash": "97117dbec1e616c97a8a3c40228449dd35b7cf991d0033a126c06af554a399b7"
+    },
+    {
+      "shot": "D31",
+      "frame": 36,
+      "name": "D31/frame-00036",
+      "state": {
+        "shot": "D31",
+        "frame": 36,
+        "u": 0.8780487804878049,
+        "phi": 0.016274197449992145,
+        "arm": -0.6507963267948965,
+        "advance": 0,
+        "headPitch": 0.18,
+        "headYaw": 0.08,
+        "identity": true,
+        "pinInstalled": false,
+        "diePosition": [
+          -1,
+          3.2171015267809073,
+          -3.8720947693156953
+        ],
+        "dieQuaternion": [
+          0.008137008929187091,
+          0,
+          0,
+          0.9999668939948394
+        ],
+        "pinWorld": null,
+        "camera": {
+          "position": [
+            10,
+            10,
+            16
+          ],
+          "fov": 60
+        }
+      },
+      "hash": "4660075929e253e4aa88a65215efe0cc648bde63590d6e1065884fc23ad5a561"
+    },
+    {
+      "shot": "D31",
+      "frame": 37,
+      "name": "D31/frame-00037",
+      "state": {
+        "shot": "D31",
+        "frame": 37,
+        "u": 0.9024390243902439,
+        "phi": 0.0035240574704648274,
+        "arm": -0.6507963267948965,
+        "advance": 0,
+        "headPitch": 0.18,
+        "headYaw": 0.08,
+        "identity": true,
+        "pinInstalled": false,
+        "diePosition": [
+          -1,
+          3.180270762275489,
+          -3.9096916417917194
+        ],
+        "dieQuaternion": [
+          0.0017620278234574936,
+          0,
+          0,
+          0.9999984476277698
+        ],
+        "pinWorld": null,
+        "camera": {
+          "position": [
+            10,
+            10,
+            16
+          ],
+          "fov": 60
+        }
+      },
+      "hash": "b948aa3d9929eb19d7f6f9a06b9083deb6d6dcb0bf69f96ae0371cf023ccf53b"
+    },
+    {
+      "shot": "D31",
+      "frame": 38,
+      "name": "D31/frame-00038",
+      "state": {
+        "shot": "D31",
+        "frame": 38,
+        "u": 0.926829268292683,
+        "phi": -0.004807151408981738,
+        "arm": -0.6507963267948965,
+        "advance": 0,
+        "headPitch": 0.18,
+        "headYaw": 0.08,
+        "identity": true,
+        "pinInstalled": false,
+        "diePosition": [
+          -1,
+          3.184000527645249,
+          -3.934070566695773
+        ],
+        "dieQuaternion": [
+          -0.0024035733901781584,
+          0,
+          0,
+          0.999997111413307
+        ],
+        "pinWorld": null,
+        "camera": {
+          "position": [
+            10,
+            10,
+            16
+          ],
+          "fov": 60
+        }
+      },
+      "hash": "b1502d96f013a6a5fcf4c97dbf9f4e2a71f59437e30b958d3a71a8e55044a46a"
+    },
+    {
+      "shot": "D31",
+      "frame": 39,
+      "name": "D31/frame-00039",
+      "state": {
+        "shot": "D31",
+        "frame": 39,
+        "u": 0.9512195121951219,
+        "phi": -0.004294839099146676,
+        "arm": -0.6507963267948965,
+        "advance": 0,
+        "headPitch": 0.18,
+        "headYaw": 0.08,
+        "identity": true,
+        "pinInstalled": false,
+        "diePosition": [
+          -1,
+          3.182511935466621,
+          -3.9325678222125102
+        ],
+        "dieQuaternion": [
+          -0.002147417899134796,
+          0,
+          0,
+          0.9999976942955251
+        ],
+        "pinWorld": null,
+        "camera": {
+          "position": [
+            10,
+            10,
+            16
+          ],
+          "fov": 60
+        }
+      },
+      "hash": "741176f4f40117404b0554275806a46b5ad238e78ec93674cad14f9e26ae8988"
+    },
+    {
+      "shot": "D31",
+      "frame": 40,
+      "name": "D31/frame-00040",
+      "state": {
+        "shot": "D31",
+        "frame": 40,
+        "u": 0.975609756097561,
+        "phi": -0.0009045435763177918,
+        "arm": -0.6507963267948965,
+        "advance": 0,
+        "headPitch": 0.18,
+        "headYaw": 0.08,
+        "identity": true,
+        "pinInstalled": false,
+        "diePosition": [
+          -1,
+          3.172640073655606,
+          -3.9226424614532456
+        ],
+        "dieQuaternion": [
+          -0.00045227177274021434,
+          0,
+          0,
+          0.9999998977251165
+        ],
+        "pinWorld": null,
+        "camera": {
+          "position": [
+            10,
+            10,
+            16
+          ],
+          "fov": 60
+        }
+      },
+      "hash": "5f0a7f67e85e25a90ec9576799700f2848a0a191c1b91b2ce3729d2c7fbe524b"
+    },
+    {
+      "shot": "D31",
+      "frame": 41,
+      "name": "D31/frame-00041",
+      "state": {
+        "shot": "D31",
+        "frame": 41,
+        "u": 1,
+        "phi": 0,
+        "arm": -0.6507963267948965,
+        "advance": 0,
+        "headPitch": 0.18,
+        "headYaw": 0.08,
+        "identity": true,
+        "pinInstalled": false,
+        "diePosition": [
+          -1,
+          3.1700000953674317,
+          -3.92
+        ],
+        "dieQuaternion": [
+          0,
+          0,
+          0,
+          1
+        ],
+        "pinWorld": null,
+        "camera": {
+          "position": [
+            10,
+            10,
+            16
+          ],
+          "fov": 60
+        }
+      },
+      "hash": "2561ee070e84e61a8987326251ce7d5a33ec26064ff3c38f5cfc329906ecc997"
+    },
+    {
+      "shot": "D27",
+      "frame": 0,
+      "name": "D27/frame-00000",
+      "state": {
+        "shot": "D27",
+        "frame": 0,
+        "u": 0,
+        "phi": null,
+        "arm": -1.5707963267948966,
+        "advance": 0,
+        "headPitch": 0.05,
+        "headYaw": 0.08,
+        "identity": true,
+        "pinInstalled": false,
+        "diePosition": null,
+        "dieQuaternion": null,
+        "pinWorld": [
+          -0.44925000000000037,
+          4.600000000000001,
+          2.6485
+        ],
+        "camera": {
+          "position": [
+            -3.7,
+            6.4,
+            8
+          ],
+          "fov": 54
+        }
+      },
+      "hash": "9c1e364d8ddb31a2c722b44b5da99b3ef5b06e24273eb1da006ed3aa6b390a89"
+    },
+    {
+      "shot": "D27",
+      "frame": 1,
+      "name": "D27/frame-00001",
+      "state": {
+        "shot": "D27",
+        "frame": 1,
+        "u": 0.018867924528301886,
+        "phi": null,
+        "arm": -1.5707963267948966,
+        "advance": 0.006011805257024254,
+        "headPitch": 0.05,
+        "headYaw": 0.08,
+        "identity": true,
+        "pinInstalled": false,
+        "diePosition": null,
+        "dieQuaternion": null,
+        "pinWorld": [
+          -0.44925000000000037,
+          4.600000000000001,
+          2.6424881947429757
+        ],
+        "camera": {
+          "position": [
+            -3.7,
+            6.4,
+            8
+          ],
+          "fov": 54
+        }
+      },
+      "hash": "6e1ef5cd3040b189214de7b963bbebea5615e1f9437419cada76b30fa55232b0"
+    },
+    {
+      "shot": "D27",
+      "frame": 2,
+      "name": "D27/frame-00002",
+      "state": {
+        "shot": "D27",
+        "frame": 2,
+        "u": 0.03773584905660377,
+        "phi": null,
+        "arm": -1.5707963267948966,
+        "advance": 0.023063292180793532,
+        "headPitch": 0.05,
+        "headYaw": 0.08,
+        "identity": true,
+        "pinInstalled": false,
+        "diePosition": null,
+        "dieQuaternion": null,
+        "pinWorld": [
+          -0.44925000000000037,
+          4.600000000000001,
+          2.6254367078192065
+        ],
+        "camera": {
+          "position": [
+            -3.7,
+            6.4,
+            8
+          ],
+          "fov": 54
+        }
+      },
+      "hash": "7e7ba0045660b4dcebcdc0910eef774649937ae474c5a3c58bbe04ec19ac000c"
+    },
+    {
+      "shot": "D27",
+      "frame": 3,
+      "name": "D27/frame-00003",
+      "state": {
+        "shot": "D27",
+        "frame": 3,
+        "u": 0.05660377358490566,
+        "phi": null,
+        "arm": -1.5707963267948966,
+        "advance": 0.04967856750035263,
+        "headPitch": 0.05,
+        "headYaw": 0.08,
+        "identity": true,
+        "pinInstalled": false,
+        "diePosition": null,
+        "dieQuaternion": null,
+        "pinWorld": [
+          -0.44925000000000037,
+          4.600000000000001,
+          2.5988214324996473
+        ],
+        "camera": {
+          "position": [
+            -3.7,
+            6.4,
+            8
+          ],
+          "fov": 54
+        }
+      },
+      "hash": "b666dddc9c3ac61d133e6e149cab180c076a1ecae0829b719bcefd46c662bd0f"
+    },
+    {
+      "shot": "D27",
+      "frame": 4,
+      "name": "D27/frame-00004",
+      "state": {
+        "shot": "D27",
+        "frame": 4,
+        "u": 0.07547169811320754,
+        "phi": null,
+        "arm": -1.5707963267948966,
+        "advance": 0.08438173794474631,
+        "headPitch": 0.05,
+        "headYaw": 0.08,
+        "identity": true,
+        "pinInstalled": false,
+        "diePosition": null,
+        "dieQuaternion": null,
+        "pinWorld": [
+          -0.44925000000000037,
+          4.600000000000001,
+          2.5641182620552536
+        ],
+        "camera": {
+          "position": [
+            -3.7,
+            6.4,
+            8
+          ],
+          "fov": 54
+        }
+      },
+      "hash": "aceffdf9f2d4f49d37e0ad7a11a087bbe42109d1e68961e1ed2e127593327222"
+    },
+    {
+      "shot": "D27",
+      "frame": 5,
+      "name": "D27/frame-00005",
+      "state": {
+        "shot": "D27",
+        "frame": 5,
+        "u": 0.09433962264150944,
+        "phi": null,
+        "arm": -1.5707963267948966,
+        "advance": 0.12569691024301943,
+        "headPitch": 0.05,
+        "headYaw": 0.08,
+        "identity": true,
+        "pinInstalled": false,
+        "diePosition": null,
+        "dieQuaternion": null,
+        "pinWorld": [
+          -0.44925000000000037,
+          4.600000000000001,
+          2.52280308975698
+        ],
+        "camera": {
+          "position": [
+            -3.7,
+            6.4,
+            8
+          ],
+          "fov": 54
+        }
+      },
+      "hash": "d9ff97e2b34e1f9724f813a7451a94017f845b69f312904ae99b6345d47eab69"
+    },
+    {
+      "shot": "D27",
+      "frame": 6,
+      "name": "D27/frame-00006",
+      "state": {
+        "shot": "D27",
+        "frame": 6,
+        "u": 0.11320754716981132,
+        "phi": null,
+        "arm": -1.5707963267948966,
+        "advance": 0.17214819112421662,
+        "headPitch": 0.05,
+        "headYaw": 0.08,
+        "identity": true,
+        "pinInstalled": false,
+        "diePosition": null,
+        "dieQuaternion": null,
+        "pinWorld": [
+          -0.44925000000000037,
+          4.600000000000001,
+          2.4763518088757834
+        ],
+        "camera": {
+          "position": [
+            -3.7,
+            6.4,
+            8
+          ],
+          "fov": 54
+        }
+      },
+      "hash": "5dac7de936c31eed3bd8e3a91aa90bafd0e7c97c092fecc2c8c7d734902cbde4"
+    },
+    {
+      "shot": "D27",
+      "frame": 7,
+      "name": "D27/frame-00007",
+      "state": {
+        "shot": "D27",
+        "frame": 7,
+        "u": 0.1320754716981132,
+        "phi": null,
+        "arm": -1.5707963267948966,
+        "advance": 0.2222596873173828,
+        "headPitch": 0.05,
+        "headYaw": 0.08,
+        "identity": true,
+        "pinInstalled": false,
+        "diePosition": null,
+        "dieQuaternion": null,
+        "pinWorld": [
+          -0.44925000000000037,
+          4.600000000000001,
+          2.426240312682617
+        ],
+        "camera": {
+          "position": [
+            -3.7,
+            6.4,
+            8
+          ],
+          "fov": 54
+        }
+      },
+      "hash": "6be0306b83b6eb996d0ad77fa4aa31a52c866311a465d32442846dbbe912bbe7"
+    },
+    {
+      "shot": "D27",
+      "frame": 8,
+      "name": "D27/frame-00008",
+      "state": {
+        "shot": "D27",
+        "frame": 8,
+        "u": 0.1509433962264151,
+        "phi": null,
+        "arm": -1.5707963267948966,
+        "advance": 0.27455550555156266,
+        "headPitch": 0.05,
+        "headYaw": 0.08,
+        "identity": true,
+        "pinInstalled": false,
+        "diePosition": null,
+        "dieQuaternion": null,
+        "pinWorld": [
+          -0.44925000000000037,
+          4.600000000000001,
+          2.373944494448437
+        ],
+        "camera": {
+          "position": [
+            -3.7,
+            6.4,
+            8
+          ],
+          "fov": 54
+        }
+      },
+      "hash": "ed4f903b125a8425c8226d0049498521e623a5143e0b7877c1c0b9f2c7636586"
+    },
+    {
+      "shot": "D27",
+      "frame": 9,
+      "name": "D27/frame-00009",
+      "state": {
+        "shot": "D27",
+        "frame": 9,
+        "u": 0.16981132075471697,
+        "phi": null,
+        "arm": -1.5707963267948966,
+        "advance": 0.327559752555801,
+        "headPitch": 0.05,
+        "headYaw": 0.08,
+        "identity": true,
+        "pinInstalled": false,
+        "diePosition": null,
+        "dieQuaternion": null,
+        "pinWorld": [
+          -0.44925000000000037,
+          4.600000000000001,
+          2.3209402474441987
+        ],
+        "camera": {
+          "position": [
+            -3.7,
+            6.4,
+            8
+          ],
+          "fov": 54
+        }
+      },
+      "hash": "28b3fa4a3ea6f56b125c6c0ff228ce541f8465e6c4eb5eb599f43acc1d876bcb"
+    },
+    {
+      "shot": "D27",
+      "frame": 10,
+      "name": "D27/frame-00010",
+      "state": {
+        "shot": "D27",
+        "frame": 10,
+        "u": 0.18867924528301888,
+        "phi": null,
+        "arm": -1.5707963267948966,
+        "advance": 0.37979653505914274,
+        "headPitch": 0.05,
+        "headYaw": 0.08,
+        "identity": true,
+        "pinInstalled": false,
+        "diePosition": null,
+        "dieQuaternion": null,
+        "pinWorld": [
+          -0.44925000000000037,
+          4.600000000000001,
+          2.2687034649408573
+        ],
+        "camera": {
+          "position": [
+            -3.7,
+            6.4,
+            8
+          ],
+          "fov": 54
+        }
+      },
+      "hash": "4813d0daa6f7c2fbf5f9ca86046c6f12b08cecc7b79e56c253c2739b706d5ab2"
+    },
+    {
+      "shot": "D27",
+      "frame": 11,
+      "name": "D27/frame-00011",
+      "state": {
+        "shot": "D27",
+        "frame": 11,
+        "u": 0.20754716981132076,
+        "phi": null,
+        "arm": -1.5707963267948966,
+        "advance": 0.42978995979063256,
+        "headPitch": 0.05,
+        "headYaw": 0.08,
+        "identity": true,
+        "pinInstalled": false,
+        "diePosition": null,
+        "dieQuaternion": null,
+        "pinWorld": [
+          -0.44925000000000037,
+          4.600000000000001,
+          2.218710040209367
+        ],
+        "camera": {
+          "position": [
+            -3.7,
+            6.4,
+            8
+          ],
+          "fov": 54
+        }
+      },
+      "hash": "70b93eb1d2f67beb0330ddb6036b7bb26d2a255cee029af00995697ba6c5c1c9"
+    },
+    {
+      "shot": "D27",
+      "frame": 12,
+      "name": "D27/frame-00012",
+      "state": {
+        "shot": "D27",
+        "frame": 12,
+        "u": 0.22641509433962265,
+        "phi": null,
+        "arm": -1.5707963267948966,
+        "advance": 0.4760641334793151,
+        "headPitch": 0.05,
+        "headYaw": 0.08,
+        "identity": true,
+        "pinInstalled": false,
+        "diePosition": null,
+        "dieQuaternion": null,
+        "pinWorld": [
+          -0.44925000000000037,
+          4.600000000000001,
+          2.1724358665206847
+        ],
+        "camera": {
+          "position": [
+            -3.7,
+            6.4,
+            8
+          ],
+          "fov": 54
+        }
+      },
+      "hash": "0bafa86da6e82f4790d1abba4e99ab200fcc4e6512aeb3e993532d008aba0232"
+    },
+    {
+      "shot": "D27",
+      "frame": 13,
+      "name": "D27/frame-00013",
+      "state": {
+        "shot": "D27",
+        "frame": 13,
+        "u": 0.24528301886792453,
+        "phi": null,
+        "arm": -1.5707963267948966,
+        "advance": 0.5171431628542353,
+        "headPitch": 0.05,
+        "headYaw": 0.08,
+        "identity": true,
+        "pinInstalled": false,
+        "diePosition": null,
+        "dieQuaternion": null,
+        "pinWorld": [
+          -0.44925000000000037,
+          4.600000000000001,
+          2.1313568371457645
+        ],
+        "camera": {
+          "position": [
+            -3.7,
+            6.4,
+            8
+          ],
+          "fov": 54
+        }
+      },
+      "hash": "efa074751878c36a5f0f8587ae9c4a932296769d4f959ab020b772a5ceba05df"
+    },
+    {
+      "shot": "D27",
+      "frame": 14,
+      "name": "D27/frame-00014",
+      "state": {
+        "shot": "D27",
+        "frame": 14,
+        "u": 0.2641509433962264,
+        "phi": null,
+        "arm": -1.5707963267948966,
+        "advance": 0.551551154644438,
+        "headPitch": 0.05,
+        "headYaw": 0.08,
+        "identity": true,
+        "pinInstalled": false,
+        "diePosition": null,
+        "dieQuaternion": null,
+        "pinWorld": [
+          -0.44925000000000037,
+          4.600000000000001,
+          2.096948845355562
+        ],
+        "camera": {
+          "position": [
+            -3.7,
+            6.4,
+            8
+          ],
+          "fov": 54
+        }
+      },
+      "hash": "d7c355ebd9eaa9575207738b88515bcd2e11506e295995ca3ba2d545199235c6"
+    },
+    {
+      "shot": "D27",
+      "frame": 15,
+      "name": "D27/frame-00015",
+      "state": {
+        "shot": "D27",
+        "frame": 15,
+        "u": 0.2830188679245283,
+        "phi": null,
+        "arm": -1.5707963267948966,
+        "advance": 0.5778122155789679,
+        "headPitch": 0.05,
+        "headYaw": 0.08,
+        "identity": true,
+        "pinInstalled": false,
+        "diePosition": null,
+        "dieQuaternion": null,
+        "pinWorld": [
+          -0.44925000000000037,
+          4.600000000000001,
+          2.070687784421032
+        ],
+        "camera": {
+          "position": [
+            -3.7,
+            6.4,
+            8
+          ],
+          "fov": 54
+        }
+      },
+      "hash": "50dda89285f81661943d7f1ec9bb93016b810f63901c4151419e5753c5f16918"
+    },
+    {
+      "shot": "D27",
+      "frame": 16,
+      "name": "D27/frame-00016",
+      "state": {
+        "shot": "D27",
+        "frame": 16,
+        "u": 0.3018867924528302,
+        "phi": null,
+        "arm": -1.5707963267948966,
+        "advance": 0.5944504523868697,
+        "headPitch": 0.05,
+        "headYaw": 0.08,
+        "identity": true,
+        "pinInstalled": false,
+        "diePosition": null,
+        "dieQuaternion": null,
+        "pinWorld": [
+          -0.44925000000000037,
+          4.600000000000001,
+          2.05404954761313
+        ],
+        "camera": {
+          "position": [
+            -3.7,
+            6.4,
+            8
+          ],
+          "fov": 54
+        }
+      },
+      "hash": "2ce47b0d3ee5aa7d40858b5c20c1c72855cd083cb38f5b6234a069fc6cda0906"
+    },
+    {
+      "shot": "D27",
+      "frame": 17,
+      "name": "D27/frame-00017",
+      "state": {
+        "shot": "D27",
+        "frame": 17,
+        "u": 0.32075471698113206,
+        "phi": null,
+        "arm": -1.5707963267948966,
+        "advance": 0.6,
+        "headPitch": 0.05,
+        "headYaw": 0.08,
+        "identity": true,
+        "pinInstalled": false,
+        "diePosition": null,
+        "dieQuaternion": null,
+        "pinWorld": [
+          -0.44925000000000037,
+          4.600000000000001,
+          2.0484999999999998
+        ],
+        "camera": {
+          "position": [
+            -3.7,
+            6.4,
+            8
+          ],
+          "fov": 54
+        }
+      },
+      "hash": "76f152d6084d054c904d7c2e62c3c3a43896efbf83e40b6982eb6bd20d4ab376"
+    },
+    {
+      "shot": "D27",
+      "frame": 18,
+      "name": "D27/frame-00018",
+      "state": {
+        "shot": "D27",
+        "frame": 18,
+        "u": 0.33962264150943394,
+        "phi": null,
+        "arm": -1.5707963267948966,
+        "advance": 0.6,
+        "headPitch": 0.05,
+        "headYaw": 0.08,
+        "identity": true,
+        "pinInstalled": false,
+        "diePosition": null,
+        "dieQuaternion": null,
+        "pinWorld": [
+          -0.44925000000000037,
+          4.600000000000001,
+          2.0484999999999998
+        ],
+        "camera": {
+          "position": [
+            -3.7,
+            6.4,
+            8
+          ],
+          "fov": 54
+        }
+      },
+      "hash": "76f152d6084d054c904d7c2e62c3c3a43896efbf83e40b6982eb6bd20d4ab376"
+    },
+    {
+      "shot": "D27",
+      "frame": 19,
+      "name": "D27/frame-00019",
+      "state": {
+        "shot": "D27",
+        "frame": 19,
+        "u": 0.3584905660377358,
+        "phi": null,
+        "arm": -1.5707963267948966,
+        "advance": 0.6,
+        "headPitch": 0.05,
+        "headYaw": 0.08,
+        "identity": true,
+        "pinInstalled": false,
+        "diePosition": null,
+        "dieQuaternion": null,
+        "pinWorld": [
+          -0.44925000000000037,
+          4.600000000000001,
+          2.0484999999999998
+        ],
+        "camera": {
+          "position": [
+            -3.7,
+            6.4,
+            8
+          ],
+          "fov": 54
+        }
+      },
+      "hash": "76f152d6084d054c904d7c2e62c3c3a43896efbf83e40b6982eb6bd20d4ab376"
+    },
+    {
+      "shot": "D27",
+      "frame": 20,
+      "name": "D27/frame-00020",
+      "state": {
+        "shot": "D27",
+        "frame": 20,
+        "u": 0.37735849056603776,
+        "phi": null,
+        "arm": -1.5707963267948966,
+        "advance": 0.6,
+        "headPitch": 0.05424662340702524,
+        "headYaw": 0.08318496755526893,
+        "identity": true,
+        "pinInstalled": false,
+        "diePosition": null,
+        "dieQuaternion": null,
+        "pinWorld": [
+          -0.44925000000000037,
+          4.600000000000001,
+          2.0484999999999998
+        ],
+        "camera": {
+          "position": [
+            -3.7,
+            6.4,
+            8
+          ],
+          "fov": 54
+        }
+      },
+      "hash": "56ed7713028f67db2407f33ca85d2327aac3cd9188897f99da33fc1ba46d07dd"
+    },
+    {
+      "shot": "D27",
+      "frame": 21,
+      "name": "D27/frame-00021",
+      "state": {
+        "shot": "D27",
+        "frame": 21,
+        "u": 0.39622641509433965,
+        "phi": null,
+        "arm": -1.5707963267948966,
+        "advance": 0.6,
+        "headPitch": 0.06737947511842067,
+        "headYaw": 0.09303460633881551,
+        "identity": true,
+        "pinInstalled": false,
+        "diePosition": null,
+        "dieQuaternion": null,
+        "pinWorld": [
+          -0.44925000000000037,
+          4.600000000000001,
+          2.0484999999999998
+        ],
+        "camera": {
+          "position": [
+            -3.7,
+            6.4,
+            8
+          ],
+          "fov": 54
+        }
+      },
+      "hash": "54d9f42491914fc3638c97a68422736d30ec302c153387e5fb40d97e1efe6116"
+    },
+    {
+      "shot": "D27",
+      "frame": 22,
+      "name": "D27/frame-00022",
+      "state": {
+        "shot": "D27",
+        "frame": 22,
+        "u": 0.41509433962264153,
+        "phi": null,
+        "arm": -1.5707963267948966,
+        "advance": 0.6,
+        "headPitch": 0.08761584660620238,
+        "headYaw": 0.10821188495465178,
+        "identity": true,
+        "pinInstalled": false,
+        "diePosition": null,
+        "dieQuaternion": null,
+        "pinWorld": [
+          -0.44925000000000037,
+          4.600000000000001,
+          2.0484999999999998
+        ],
+        "camera": {
+          "position": [
+            -3.7,
+            6.4,
+            8
+          ],
+          "fov": 54
+        }
+      },
+      "hash": "89c7583a69cdccd1da555388f8a1271492757f878424950310196c25bab7b36c"
+    },
+    {
+      "shot": "D27",
+      "frame": 23,
+      "name": "D27/frame-00023",
+      "state": {
+        "shot": "D27",
+        "frame": 23,
+        "u": 0.4339622641509434,
+        "phi": null,
+        "arm": -1.5707963267948966,
+        "advance": 0.6,
+        "headPitch": 0.1131389808943125,
+        "headYaw": 0.12735423567073437,
+        "identity": true,
+        "pinInstalled": false,
+        "diePosition": null,
+        "dieQuaternion": null,
+        "pinWorld": [
+          -0.44925000000000037,
+          4.600000000000001,
+          2.0484999999999998
+        ],
+        "camera": {
+          "position": [
+            -3.7,
+            6.4,
+            8
+          ],
+          "fov": 54
+        }
+      },
+      "hash": "94f632c047f5ba524bd043a7d2c9c5ecb432d8d28a5c97dbc1df8078d426bd03"
+    },
+    {
+      "shot": "D27",
+      "frame": 24,
+      "name": "D27/frame-00024",
+      "state": {
+        "shot": "D27",
+        "frame": 24,
+        "u": 0.4528301886792453,
+        "phi": null,
+        "arm": -1.5707963267948966,
+        "advance": 0.6,
+        "headPitch": 0.14213212100669315,
+        "headYaw": 0.14909909075501987,
+        "identity": true,
+        "pinInstalled": false,
+        "diePosition": null,
+        "dieQuaternion": null,
+        "pinWorld": [
+          -0.44925000000000037,
+          4.600000000000001,
+          2.0484999999999998
+        ],
+        "camera": {
+          "position": [
+            -3.7,
+            6.4,
+            8
+          ],
+          "fov": 54
+        }
+      },
+      "hash": "f936d600ca9d23d0f6960a60c1648857f83f1dbda1628f5494dbd326ce5e8895"
+    },
+    {
+      "shot": "D27",
+      "frame": 25,
+      "name": "D27/frame-00025",
+      "state": {
+        "shot": "D27",
+        "frame": 25,
+        "u": 0.4716981132075472,
+        "phi": null,
+        "arm": -1.5707963267948966,
+        "advance": 0.6,
+        "headPitch": 0.17277850996728644,
+        "headYaw": 0.17208388247546486,
+        "identity": true,
+        "pinInstalled": false,
+        "diePosition": null,
+        "dieQuaternion": null,
+        "pinWorld": [
+          -0.44925000000000037,
+          4.600000000000001,
+          2.0484999999999998
+        ],
+        "camera": {
+          "position": [
+            -3.7,
+            6.4,
+            8
+          ],
+          "fov": 54
+        }
+      },
+      "hash": "ac964310402a73c23ffda6f56284fb9e5be0a7c54d2166780c397e07953d77c1"
+    },
+    {
+      "shot": "D27",
+      "frame": 26,
+      "name": "D27/frame-00026",
+      "state": {
+        "shot": "D27",
+        "frame": 26,
+        "u": 0.49056603773584906,
+        "phi": null,
+        "arm": -1.5707963267948966,
+        "advance": 0.6,
+        "headPitch": 0.20326139080003452,
+        "headYaw": 0.1949460431000259,
+        "identity": true,
+        "pinInstalled": false,
+        "diePosition": null,
+        "dieQuaternion": null,
+        "pinWorld": [
+          -0.44925000000000037,
+          4.600000000000001,
+          2.0484999999999998
+        ],
+        "camera": {
+          "position": [
+            -3.7,
+            6.4,
+            8
+          ],
+          "fov": 54
+        }
+      },
+      "hash": "0584266ff2a1da80b38ad7f91ae157e3a741fc787edb6f02ea7259df8e8f29d7"
+    },
+    {
+      "shot": "D27",
+      "frame": 27,
+      "name": "D27/frame-00027",
+      "state": {
+        "shot": "D27",
+        "frame": 27,
+        "u": 0.5094339622641509,
+        "phi": null,
+        "arm": -1.5707963267948966,
+        "advance": 0.6,
+        "headPitch": 0.23176400652887957,
+        "headYaw": 0.21632300489665968,
+        "identity": true,
+        "pinInstalled": false,
+        "diePosition": null,
+        "dieQuaternion": null,
+        "pinWorld": [
+          -0.44925000000000037,
+          4.600000000000001,
+          2.0484999999999998
+        ],
+        "camera": {
+          "position": [
+            -3.7,
+            6.4,
+            8
+          ],
+          "fov": 54
+        }
+      },
+      "hash": "ec80c914ebd39b5aa84671490ed513c6fbeb3055e2ab97bd5575dca829ca0105"
+    },
+    {
+      "shot": "D27",
+      "frame": 28,
+      "name": "D27/frame-00028",
+      "state": {
+        "shot": "D27",
+        "frame": 28,
+        "u": 0.5283018867924528,
+        "phi": null,
+        "arm": -1.5707963267948966,
+        "advance": 0.6,
+        "headPitch": 0.2564696001777636,
+        "headYaw": 0.2348522001333227,
+        "identity": true,
+        "pinInstalled": false,
+        "diePosition": null,
+        "dieQuaternion": null,
+        "pinWorld": [
+          -0.44925000000000037,
+          4.600000000000001,
+          2.0484999999999998
+        ],
+        "camera": {
+          "position": [
+            -3.7,
+            6.4,
+            8
+          ],
+          "fov": 54
+        }
+      },
+      "hash": "b96916ceb9f665dc1ac1bfd4923115e0ae83b219beeb94bacf9bdb0a7f44ebbc"
+    },
+    {
+      "shot": "D27",
+      "frame": 29,
+      "name": "D27/frame-00029",
+      "state": {
+        "shot": "D27",
+        "frame": 29,
+        "u": 0.5471698113207547,
+        "phi": null,
+        "arm": -1.5707963267948966,
+        "advance": 0.6,
+        "headPitch": 0.27556141477062884,
+        "headYaw": 0.24917106107797166,
+        "identity": true,
+        "pinInstalled": false,
+        "diePosition": null,
+        "dieQuaternion": null,
+        "pinWorld": [
+          -0.44925000000000037,
+          4.600000000000001,
+          2.0484999999999998
+        ],
+        "camera": {
+          "position": [
+            -3.7,
+            6.4,
+            8
+          ],
+          "fov": 54
+        }
+      },
+      "hash": "130b850b7883471721d980b962ae37de82c54039280415354d7e3ed8c6a8f593"
+    },
+    {
+      "shot": "D27",
+      "frame": 30,
+      "name": "D27/frame-00030",
+      "state": {
+        "shot": "D27",
+        "frame": 30,
+        "u": 0.5660377358490566,
+        "phi": null,
+        "arm": -1.5707963267948966,
+        "advance": 0.6,
+        "headPitch": 0.28722269333141737,
+        "headYaw": 0.25791701999856304,
+        "identity": true,
+        "pinInstalled": false,
+        "diePosition": null,
+        "dieQuaternion": null,
+        "pinWorld": [
+          -0.44925000000000037,
+          4.600000000000001,
+          2.0484999999999998
+        ],
+        "camera": {
+          "position": [
+            -3.7,
+            6.4,
+            8
+          ],
+          "fov": 54
+        }
+      },
+      "hash": "2ef8627dc2d69d1cc338f0993f1b483846135c48720f7dd93d7e85af9d0af4b4"
+    },
+    {
+      "shot": "D27",
+      "frame": 31,
+      "name": "D27/frame-00031",
+      "state": {
+        "shot": "D27",
+        "frame": 31,
+        "u": 0.5849056603773585,
+        "phi": null,
+        "arm": -1.570288476587252,
+        "advance": 0.5996687933428404,
+        "headPitch": 0.29,
+        "headYaw": 0.26,
+        "identity": true,
+        "pinInstalled": false,
+        "diePosition": null,
+        "dieQuaternion": null,
+        "pinWorld": [
+          -0.44945552467487526,
+          4.599390908437518,
+          2.0488312066571597
+        ],
+        "camera": {
+          "position": [
+            -3.7,
+            6.4,
+            8
+          ],
+          "fov": 54
+        }
+      },
+      "hash": "a4e54d0cdec9c17e397db494ef74f0a49bc2c5072e359becd014ebae54a4a774"
+    },
+    {
+      "shot": "D27",
+      "frame": 32,
+      "name": "D27/frame-00032",
+      "state": {
+        "shot": "D27",
+        "frame": 32,
+        "u": 0.6037735849056604,
+        "phi": null,
+        "arm": -1.5592899154620512,
+        "advance": 0.5924958186959705,
+        "headPitch": 0.29,
+        "headYaw": 0.26,
+        "identity": true,
+        "pinInstalled": false,
+        "diePosition": null,
+        "dieQuaternion": null,
+        "pinWorld": [
+          -0.4538306057835356,
+          4.5861744305023615,
+          2.0560041813040293
+        ],
+        "camera": {
+          "position": [
+            -3.7,
+            6.4,
+            8
+          ],
+          "fov": 54
+        }
+      },
+      "hash": "bd2fb85766c4058237e20401035e4d8f2deee9b136eb0ec6b3ca2d82a94a500e"
+    },
+    {
+      "shot": "D27",
+      "frame": 33,
+      "name": "D27/frame-00033",
+      "state": {
+        "shot": "D27",
+        "frame": 33,
+        "u": 0.6226415094339622,
+        "phi": null,
+        "arm": -1.5351310995005814,
+        "advance": 0.5767400691558814,
+        "headPitch": 0.29,
+        "headYaw": 0.26,
+        "identity": true,
+        "pinInstalled": false,
+        "diePosition": null,
+        "dieQuaternion": null,
+        "pinWorld": [
+          -0.4629287077988965,
+          4.556979988807809,
+          2.0717599308441184
+        ],
+        "camera": {
+          "position": [
+            -3.7,
+            6.4,
+            8
+          ],
+          "fov": 54
+        }
+      },
+      "hash": "13ff61bf9273c9c32e9654cd9a4f402ece6c042a1f643948bae9d5e70910c233"
+    },
+    {
+      "shot": "D27",
+      "frame": 34,
+      "name": "D27/frame-00034",
+      "state": {
+        "shot": "D27",
+        "frame": 34,
+        "u": 0.6415094339622641,
+        "phi": null,
+        "arm": -1.499401431460846,
+        "advance": 0.5534381117386625,
+        "headPitch": 0.29,
+        "headYaw": 0.26,
+        "identity": true,
+        "pinInstalled": false,
+        "diePosition": null,
+        "dieQuaternion": null,
+        "pinWorld": [
+          -0.47508524539071306,
+          4.513420640075321,
+          2.095061888261337
+        ],
+        "camera": {
+          "position": [
+            -3.7,
+            6.4,
+            8
+          ],
+          "fov": 54
+        }
+      },
+      "hash": "7f7c33da9eb5b9f53af88709ff5c8c035c65c33d0e04cde7d09b17af517f88ec"
+    },
+    {
+      "shot": "D27",
+      "frame": 35,
+      "name": "D27/frame-00035",
+      "state": {
+        "shot": "D27",
+        "frame": 35,
+        "u": 0.660377358490566,
+        "phi": null,
+        "arm": -1.4536903141008481,
+        "advance": 0.5236265134604031,
+        "headPitch": 0.29,
+        "headYaw": 0.26,
+        "identity": true,
+        "pinInstalled": false,
+        "diePosition": null,
+        "dieQuaternion": null,
+        "pinWorld": [
+          -0.48835585145924054,
+          4.45710751163723,
+          2.1248734865395966
+        ],
+        "camera": {
+          "position": [
+            -3.7,
+            6.4,
+            8
+          ],
+          "fov": 54
+        }
+      },
+      "hash": "3670d78bc59a253bb3fb7777f663b971fc2e1354f960fc40cdeb92001d0d6f32"
+    },
+    {
+      "shot": "D27",
+      "frame": 36,
+      "name": "D27/frame-00036",
+      "state": {
+        "shot": "D27",
+        "frame": 36,
+        "u": 0.6792452830188679,
+        "phi": null,
+        "arm": -1.3995871501785917,
+        "advance": 0.4883418413371924,
+        "headPitch": 0.29,
+        "headYaw": 0.26,
+        "identity": true,
+        "pinInstalled": false,
+        "diePosition": null,
+        "dieQuaternion": null,
+        "pinWorld": [
+          -0.5007177938329567,
+          4.3897577025168015,
+          2.1601581586628074
+        ],
+        "camera": {
+          "position": [
+            -3.7,
+            6.4,
+            8
+          ],
+          "fov": 54
+        }
+      },
+      "hash": "54c6a4d60a804695dc95a52f72392ebb7d6dc03d3acb7e604732e51408536e23"
+    },
+    {
+      "shot": "D27",
+      "frame": 37,
+      "name": "D27/frame-00037",
+      "state": {
+        "shot": "D27",
+        "frame": 37,
+        "u": 0.6981132075471698,
+        "phi": null,
+        "arm": -1.33868134245208,
+        "advance": 0.4486206623851197,
+        "headPitch": 0.29,
+        "headYaw": 0.26,
+        "identity": true,
+        "pinInstalled": false,
+        "diePosition": null,
+        "dieQuaternion": null,
+        "pinWorld": [
+          -0.5102532740350186,
+          4.3132676954371645,
+          2.19987933761488
+        ],
+        "camera": {
+          "position": [
+            -3.7,
+            6.4,
+            8
+          ],
+          "fov": 54
+        }
+      },
+      "hash": "c2543f5189b10c047b6264ee104b561079f4c19fcbb695138adeece2e550784a"
+    },
+    {
+      "shot": "D27",
+      "frame": 38,
+      "name": "D27/frame-00038",
+      "state": {
+        "shot": "D27",
+        "frame": 38,
+        "u": 0.7169811320754716,
+        "phi": null,
+        "arm": -1.272562293679317,
+        "advance": 0.40549954362027424,
+        "headPitch": 0.29,
+        "headYaw": 0.26,
+        "identity": true,
+        "pinInstalled": false,
+        "diePosition": null,
+        "dieQuaternion": null,
+        "pinWorld": [
+          -0.5153135859561802,
+          4.229743225162807,
+          2.2430004563797254
+        ],
+        "camera": {
+          "position": [
+            -3.7,
+            6.4,
+            8
+          ],
+          "fov": 54
+        }
+      },
+      "hash": "dfc8b9670b109b13452e8bf12d5f6765ec8404e6dd2029ff641f046799c31a78"
+    },
+    {
+      "shot": "D27",
+      "frame": 39,
+      "name": "D27/frame-00039",
+      "state": {
+        "shot": "D27",
+        "frame": 39,
+        "u": 0.7358490566037735,
+        "phi": null,
+        "arm": -1.2028194066183056,
+        "advance": 0.36001505205874507,
+        "headPitch": 0.29,
+        "headYaw": 0.26,
+        "identity": true,
+        "pinInstalled": false,
+        "diePosition": null,
+        "dieQuaternion": null,
+        "pinWorld": [
+          -0.5146586749423625,
+          4.1414836623727895,
+          2.288484947941255
+        ],
+        "camera": {
+          "position": [
+            -3.7,
+            6.4,
+            8
+          ],
+          "fov": 54
+        }
+      },
+      "hash": "d41f4041a066bea6e25471b27812dfe06749c7d2275b61b3ff90b3151d8f74f3"
+    },
+    {
+      "shot": "D27",
+      "frame": 40,
+      "name": "D27/frame-00040",
+      "state": {
+        "shot": "D27",
+        "frame": 40,
+        "u": 0.7547169811320755,
+        "phi": null,
+        "arm": -1.1310420840270494,
+        "advance": 0.3132037547166215,
+        "headPitch": 0.29,
+        "headYaw": 0.26,
+        "identity": true,
+        "pinInstalled": false,
+        "diePosition": null,
+        "dieQuaternion": null,
+        "pinWorld": [
+          -0.5075643607770514,
+          4.05092557130633,
+          2.335296245283379
+        ],
+        "camera": {
+          "position": [
+            -3.7,
+            6.4,
+            8
+          ],
+          "fov": 54
+        }
+      },
+      "hash": "f9fdb461536e01a38671588c2d1427ba183d533f355c85655a46de3535ae1e54"
+    },
+    {
+      "shot": "D27",
+      "frame": 41,
+      "name": "D27/frame-00041",
+      "state": {
+        "shot": "D27",
+        "frame": 41,
+        "u": 0.7735849056603774,
+        "phi": null,
+        "arm": -1.0588197286635528,
+        "advance": 0.26610221860999317,
+        "headPitch": 0.28898258293759277,
+        "headYaw": 0.26,
+        "identity": true,
+        "pinInstalled": false,
+        "diePosition": null,
+        "dieQuaternion": null,
+        "pinWorld": [
+          -0.4938896640873024,
+          3.9605558359080373,
+          2.3823977813900066
+        ],
+        "camera": {
+          "position": [
+            -3.7,
+            6.4,
+            8
+          ],
+          "fov": 54
+        }
+      },
+      "hash": "e598814e5ea5a9844f157bf2be4f3924c5135c95a2ad8717cd268abb1c2562cb"
+    },
+    {
+      "shot": "D27",
+      "frame": 42,
+      "name": "D27/frame-00042",
+      "state": {
+        "shot": "D27",
+        "frame": 42,
+        "u": 0.7924528301886793,
+        "phi": null,
+        "arm": -0.9877417432858188,
+        "advance": 0.2197470107549493,
+        "headPitch": 0.2845100554049216,
+        "headYaw": 0.26,
+        "identity": true,
+        "pinInstalled": false,
+        "diePosition": null,
+        "dieQuaternion": null,
+        "pinWorld": [
+          -0.47409908041209425,
+          3.872809056871137,
+          2.4287529892450506
+        ],
+        "camera": {
+          "position": [
+            -3.7,
+            6.4,
+            8
+          ],
+          "fov": 54
+        }
+      },
+      "hash": "1c773881e6be761e8b9c1e476f45e8ecd38ab039dd109080790cbd78c6904a75"
+    },
+    {
+      "shot": "D27",
+      "frame": 43,
+      "name": "D27/frame-00043",
+      "state": {
+        "shot": "D27",
+        "frame": 43,
+        "u": 0.8113207547169812,
+        "phi": null,
+        "arm": -0.9193975306518506,
+        "advance": 0.17517469816757872,
+        "headPitch": 0.2770615439690582,
+        "headYaw": 0.26,
+        "identity": true,
+        "pinInstalled": false,
+        "diePosition": null,
+        "dieQuaternion": null,
+        "pinWorld": [
+          -0.44923860351122824,
+          3.7899662552966227,
+          2.4733253018324213
+        ],
+        "camera": {
+          "position": [
+            -3.7,
+            6.4,
+            8
+          ],
+          "fov": 54
+        }
+      },
+      "hash": "319f17d7120d5675fad1d5938df0e1aa7d6a0102a365952d772d04b13d6de610"
+    },
+    {
+      "shot": "D27",
+      "frame": 44,
+      "name": "D27/frame-00044",
+      "state": {
+        "shot": "D27",
+        "frame": 44,
+        "u": 0.8301886792452831,
+        "phi": null,
+        "arm": -0.8553764935196521,
+        "advance": 0.133421847863971,
+        "headPitch": 0.26727842447120775,
+        "headYaw": 0.26,
+        "identity": true,
+        "pinInstalled": false,
+        "diePosition": null,
+        "dieQuaternion": null,
+        "pinWorld": [
+          -0.4208688168872289,
+          3.7140719636566177,
+          2.515078152136029
+        ],
+        "camera": {
+          "position": [
+            -3.7,
+            6.4,
+            8
+          ],
+          "fov": 54
+        }
+      },
+      "hash": "1f538681d441c0e12c9f5a7eec90801e6ede8aa0a2ac9c1853274f4c2256ad09"
+    },
+    {
+      "shot": "D27",
+      "frame": 45,
+      "name": "D27/frame-00045",
+      "state": {
+        "shot": "D27",
+        "frame": 45,
+        "u": 0.8490566037735849,
+        "phi": null,
+        "arm": -0.7972680346472267,
+        "advance": 0.09552502686021536,
+        "headPitch": 0.2558020727525755,
+        "headYaw": 0.26,
+        "identity": true,
+        "pinInstalled": false,
+        "diePosition": null,
+        "dieQuaternion": null,
+        "pinWorld": [
+          -0.3909623366954074,
+          3.6468845844691495,
+          2.5529749731397846
+        ],
+        "camera": {
+          "position": [
+            -3.7,
+            6.4,
+            8
+          ],
+          "fov": 54
+        }
+      },
+      "hash": "d46c09278a51e2bc4df3b842332433bb724f969e7388572dad0e5730894a7624"
+    },
+    {
+      "shot": "D27",
+      "frame": 46,
+      "name": "D27/frame-00046",
+      "state": {
+        "shot": "D27",
+        "frame": 46,
+        "u": 0.8679245283018868,
+        "phi": null,
+        "arm": -0.7466615567925782,
+        "advance": 0.06252080217240108,
+        "headPitch": 0.24327386465436662,
+        "headYaw": 0.26,
+        "identity": true,
+        "pinInstalled": false,
+        "diePosition": null,
+        "dieQuaternion": null,
+        "pinWorld": [
+          -0.3617752848053486,
+          3.589870857918752,
+          2.5859791978275988
+        ],
+        "camera": {
+          "position": [
+            -3.7,
+            6.4,
+            8
+          ],
+          "fov": 54
+        }
+      },
+      "hash": "c1d23173f4a34620d38e63b7fe6caae23313e9809f69fd82103d44e9e88e0d8b"
+    },
+    {
+      "shot": "D27",
+      "frame": 47,
+      "name": "D27/frame-00047",
+      "state": {
+        "shot": "D27",
+        "frame": 47,
+        "u": 0.8867924528301887,
+        "phi": null,
+        "arm": -0.7051464627137097,
+        "advance": 0.03544574081661731,
+        "headPitch": 0.23033517601778647,
+        "headYaw": 0.26,
+        "identity": true,
+        "pinInstalled": false,
+        "diePosition": null,
+        "dieQuaternion": null,
+        "pinWorld": [
+          -0.3357025707815738,
+          3.5442500554757745,
+          2.6130542591833827
+        ],
+        "camera": {
+          "position": [
+            -3.7,
+            6.4,
+            8
+          ],
+          "fov": 54
+        }
+      },
+      "hash": "a583c2d23c2bde32c01794a14fd9fd53f0d4fb8d7f02b7e7b040089a6087e81f"
+    },
+    {
+      "shot": "D27",
+      "frame": 48,
+      "name": "D27/frame-00048",
+      "state": {
+        "shot": "D27",
+        "frame": 48,
+        "u": 0.9056603773584906,
+        "phi": null,
+        "arm": -0.6743121551686252,
+        "advance": 0.015336409808953455,
+        "headPitch": 0.21762738268404017,
+        "headYaw": 0.26,
+        "identity": true,
+        "pinInstalled": false,
+        "diePosition": null,
+        "dieQuaternion": null,
+        "pinWorld": [
+          -0.3151242488310571,
+          3.511087800187716,
+          2.6331635901910464
+        ],
+        "camera": {
+          "position": [
+            -3.7,
+            6.4,
+            8
+          ],
+          "fov": 54
+        }
+      },
+      "hash": "fc690741d2babef152f8a8d10d6e0809b8e19b0856499a20f7909ca25d6161e7"
+    },
+    {
+      "shot": "D27",
+      "frame": 49,
+      "name": "D27/frame-00049",
+      "state": {
+        "shot": "D27",
+        "frame": 49,
+        "u": 0.9245283018867925,
+        "phi": null,
+        "arm": -0.6557480369153277,
+        "advance": 0.0032293761654985874,
+        "headPitch": 0.20579186049433296,
+        "headYaw": 0.26,
+        "identity": true,
+        "pinInstalled": false,
+        "diePosition": null,
+        "dieQuaternion": null,
+        "pinWorld": [
+          -0.3022452213660505,
+          3.491433687125149,
+          2.6452706238345014
+        ],
+        "camera": {
+          "position": [
+            -3.7,
+            6.4,
+            8
+          ],
+          "fov": 54
+        }
+      },
+      "hash": "f369b5be3fed6a5b6be0074156f6cd551e966a415af554742f2cb957ab0e1c89"
+    },
+    {
+      "shot": "D27",
+      "frame": 50,
+      "name": "D27/frame-00050",
+      "state": {
+        "shot": "D27",
+        "frame": 50,
+        "u": 0.9433962264150944,
+        "phi": null,
+        "arm": -0.6507963267948965,
+        "advance": 0,
+        "headPitch": 0.19546998528987014,
+        "headYaw": 0.26,
+        "identity": true,
+        "pinInstalled": false,
+        "diePosition": null,
+        "dieQuaternion": null,
+        "pinWorld": [
+          -0.298748478969402,
+          3.486231920611991,
+          2.6485
+        ],
+        "camera": {
+          "position": [
+            -3.7,
+            6.4,
+            8
+          ],
+          "fov": 54
+        }
+      },
+      "hash": "d1ac2830d7988d843b897cb2f53134e6aed9cb04288e954105e67386cc11a6a0"
+    },
+    {
+      "shot": "D27",
+      "frame": 51,
+      "name": "D27/frame-00051",
+      "state": {
+        "shot": "D27",
+        "frame": 51,
+        "u": 0.9622641509433962,
+        "phi": null,
+        "arm": -0.6507963267948965,
+        "advance": 0,
+        "headPitch": 0.18730313291185685,
+        "headYaw": 0.26,
+        "identity": true,
+        "pinInstalled": false,
+        "diePosition": null,
+        "dieQuaternion": null,
+        "pinWorld": [
+          -0.298748478969402,
+          3.486231920611991,
+          2.6485
+        ],
+        "camera": {
+          "position": [
+            -3.7,
+            6.4,
+            8
+          ],
+          "fov": 54
+        }
+      },
+      "hash": "c4fb059648e4cbaed4e610f10485d93a3864726caf570b1104877115b0d4d311"
+    },
+    {
+      "shot": "D27",
+      "frame": 52,
+      "name": "D27/frame-00052",
+      "state": {
+        "shot": "D27",
+        "frame": 52,
+        "u": 0.9811320754716981,
+        "phi": null,
+        "arm": -0.6507963267948965,
+        "advance": 0,
+        "headPitch": 0.18193267920149842,
+        "headYaw": 0.26,
+        "identity": true,
+        "pinInstalled": false,
+        "diePosition": null,
+        "dieQuaternion": null,
+        "pinWorld": [
+          -0.298748478969402,
+          3.486231920611991,
+          2.6485
+        ],
+        "camera": {
+          "position": [
+            -3.7,
+            6.4,
+            8
+          ],
+          "fov": 54
+        }
+      },
+      "hash": "a36f045579171534fbd4ed93c38f5bfb370788a124eabb344b801560d5e32cef"
+    },
+    {
+      "shot": "D27",
+      "frame": 53,
+      "name": "D27/frame-00053",
+      "state": {
+        "shot": "D27",
+        "frame": 53,
+        "u": 1,
+        "phi": null,
+        "arm": -0.6507963267948965,
+        "advance": 0,
+        "headPitch": 0.18,
+        "headYaw": 0.26,
+        "identity": true,
+        "pinInstalled": false,
+        "diePosition": null,
+        "dieQuaternion": null,
+        "pinWorld": [
+          -0.298748478969402,
+          3.486231920611991,
+          2.6485
+        ],
+        "camera": {
+          "position": [
+            -3.7,
+            6.4,
+            8
+          ],
+          "fov": 54
+        }
+      },
+      "hash": "3e13a7a397bc4eccb88cb4bd988a1e0badfc35c89b80fddc6bb902e5cdc042f2"
+    },
+    {
+      "shot": "D30",
+      "frame": 0,
+      "name": "D30/frame-00000",
+      "state": {
+        "shot": "D30",
+        "frame": 0,
+        "u": 0,
+        "phi": null,
+        "arm": -0.6507963267948965,
+        "advance": 0,
+        "headPitch": 0.18,
+        "headYaw": 0.26,
+        "identity": true,
+        "pinInstalled": false,
+        "diePosition": null,
+        "dieQuaternion": null,
+        "pinWorld": [
+          -0.298748478969402,
+          3.486231920611991,
+          2.6485
+        ],
+        "camera": {
+          "position": [
+            -3.7,
+            6.4,
+            8
+          ],
+          "fov": 54
+        }
+      },
+      "hash": "3e13a7a397bc4eccb88cb4bd988a1e0badfc35c89b80fddc6bb902e5cdc042f2"
+    },
+    {
+      "shot": "D30",
+      "frame": 1,
+      "name": "D30/frame-00001",
+      "state": {
+        "shot": "D30",
+        "frame": 1,
+        "u": 0.024390243902439025,
+        "phi": null,
+        "arm": -0.6615170772142193,
+        "advance": 0,
+        "headPitch": 0.17356754974840632,
+        "headYaw": 0.26,
+        "identity": true,
+        "pinInstalled": false,
+        "diePosition": null,
+        "dieQuaternion": null,
+        "pinWorld": [
+          -0.30628659099078825,
+          3.497515806492319,
+          2.6485
+        ],
+        "camera": {
+          "position": [
+            -3.7,
+            6.4,
+            8
+          ],
+          "fov": 54
+        }
+      },
+      "hash": "897110a16fb33fbd987f31e76825fc205f58a78542f947f77da7f0457d8f5986"
+    },
+    {
+      "shot": "D30",
+      "frame": 2,
+      "name": "D30/frame-00002",
+      "state": {
+        "shot": "D30",
+        "frame": 2,
+        "u": 0.04878048780487805,
+        "phi": null,
+        "arm": -0.6910354935968923,
+        "advance": 0,
+        "headPitch": 0.15585649991880254,
+        "headYaw": 0.26,
+        "identity": true,
+        "pinInstalled": false,
+        "diePosition": null,
+        "dieQuaternion": null,
+        "pinWorld": [
+          -0.3264120726958918,
+          3.528995035863444,
+          2.6485
+        ],
+        "camera": {
+          "position": [
+            -3.7,
+            6.4,
+            8
+          ],
+          "fov": 54
+        }
+      },
+      "hash": "73fcff0860bbff4bf6d5bb08801bc1f90a5e1791eec4040dc232dc67a586961d"
+    },
+    {
+      "shot": "D30",
+      "frame": 3,
+      "name": "D30/frame-00003",
+      "state": {
+        "shot": "D30",
+        "frame": 3,
+        "u": 0.07317073170731707,
+        "phi": null,
+        "arm": -0.7353858236299724,
+        "advance": 0,
+        "headPitch": 0.1292463018989545,
+        "headYaw": 0.26,
+        "identity": true,
+        "pinInstalled": false,
+        "diePosition": null,
+        "dieQuaternion": null,
+        "pinWorld": [
+          -0.35488147865122294,
+          3.577373510417916,
+          2.6485
+        ],
+        "camera": {
+          "position": [
+            -3.7,
+            6.4,
+            8
+          ],
+          "fov": 54
+        }
+      },
+      "hash": "df9f8a12954357816c075872e787a0f4f0fcd7bb7f3ee6dcc535ff0f7de159fb"
+    },
+    {
+      "shot": "D30",
+      "frame": 4,
+      "name": "D30/frame-00004",
+      "state": {
+        "shot": "D30",
+        "frame": 4,
+        "u": 0.0975609756097561,
+        "phi": null,
+        "arm": -0.7906023150005165,
+        "advance": 0,
+        "headPitch": 0.09611640707662804,
+        "headYaw": 0.26,
+        "identity": true,
+        "pinInstalled": false,
+        "diePosition": null,
+        "dieQuaternion": null,
+        "pinWorld": [
+          -0.38728343263544845,
+          3.6392914825621867,
+          2.6485
+        ],
+        "camera": {
+          "position": [
+            -3.7,
+            6.4,
+            8
+          ],
+          "fov": 54
+        }
+      },
+      "hash": "4254b103dce6161806835442c6f7d41ee826579c2e6634e3d112ac9833338a75"
+    },
+    {
+      "shot": "D30",
+      "frame": 5,
+      "name": "D30/frame-00005",
+      "state": {
+        "shot": "D30",
+        "frame": 5,
+        "u": 0.12195121951219512,
+        "phi": null,
+        "arm": -0.8527192153955816,
+        "advance": 0,
+        "headPitch": 0.05884626683958899,
+        "headYaw": 0.26,
+        "identity": true,
+        "pinInstalled": false,
+        "diePosition": null,
+        "dieQuaternion": null,
+        "pinWorld": [
+          -0.4195867250166808,
+          3.7109623411709,
+          2.6485
+        ],
+        "camera": {
+          "position": [
+            -3.7,
+            6.4,
+            8
+          ],
+          "fov": 54
+        }
+      },
+      "hash": "c871d6090f0a518c084742587ff8d462a773a029f307fb716da38c4dbbb92f06"
+    },
+    {
+      "shot": "D30",
+      "frame": 6,
+      "name": "D30/frame-00006",
+      "state": {
+        "shot": "D30",
+        "frame": 6,
+        "u": 0.14634146341463414,
+        "phi": null,
+        "arm": -0.9177707725022244,
+        "advance": 0,
+        "headPitch": 0.01981533257560325,
+        "headYaw": 0.26,
+        "identity": true,
+        "pinInstalled": false,
+        "diePosition": null,
+        "dieQuaternion": null,
+        "pinWorld": [
+          -0.44857812505932837,
+          3.7880159209142628,
+          2.6485
+        ],
+        "camera": {
+          "position": [
+            -3.7,
+            6.4,
+            8
+          ],
+          "fov": 54
+        }
+      },
+      "hash": "ab3ca2aff7a82708aaba5630ce446a57d1939ed1f4fc7dbcd3753fc648828587"
+    },
+    {
+      "shot": "D30",
+      "frame": 7,
+      "name": "D30/frame-00007",
+      "state": {
+        "shot": "D30",
+        "frame": 7,
+        "u": 0.17073170731707318,
+        "phi": null,
+        "arm": -0.9817912340075023,
+        "advance": 0,
+        "headPitch": -0.018596944327563453,
+        "headYaw": 0.26,
+        "identity": true,
+        "pinInstalled": false,
+        "diePosition": null,
+        "dieQuaternion": null,
+        "pinWorld": [
+          -0.47216021980048195,
+          3.8655307910635064,
+          2.6485
+        ],
+        "camera": {
+          "position": [
+            -3.7,
+            6.4,
+            8
+          ],
+          "fov": 54
+        }
+      },
+      "hash": "997224e903b1b814647776f3248cdf2c66077b46a6967930456bc545bc741243"
+    },
+    {
+      "shot": "D30",
+      "frame": 8,
+      "name": "D30/frame-00008",
+      "state": {
+        "shot": "D30",
+        "frame": 8,
+        "u": 0.1951219512195122,
+        "phi": null,
+        "arm": -1.0408148475984718,
+        "advance": 0,
+        "headPitch": -0.0540111124821451,
+        "headYaw": 0.26,
+        "identity": true,
+        "pinInstalled": false,
+        "diePosition": null,
+        "dieQuaternion": null,
+        "pinWorld": [
+          -0.4894671388769912,
+          3.938198960001938,
+          2.6485
+        ],
+        "camera": {
+          "position": [
+            -3.7,
+            6.4,
+            8
+          ],
+          "fov": 54
+        }
+      },
+      "hash": "2e920809e6bf10f47a2336c9d098dd639ba0fb8f7a7a2adaab966e9a3d64524e"
+    },
+    {
+      "shot": "D30",
+      "frame": 9,
+      "name": "D30/frame-00009",
+      "state": {
+        "shot": "D30",
+        "frame": 9,
+        "u": 0.21951219512195122,
+        "phi": null,
+        "arm": -1.0908758609621898,
+        "advance": 0,
+        "headPitch": -0.08404772050037596,
+        "headYaw": 0.26,
+        "identity": true,
+        "pinInstalled": false,
+        "diePosition": null,
+        "dieQuaternion": null,
+        "pinWorld": [
+          -0.5007646971095994,
+          4.000543745371013,
+          2.6485
+        ],
+        "camera": {
+          "position": [
+            -3.7,
+            6.4,
+            8
+          ],
+          "fov": 54
+        }
+      },
+      "hash": "69f1575a88b497faca854ff8d7f77b0296991badf33721391cbfb26926cc1b01"
+    },
+    {
+      "shot": "D30",
+      "frame": 10,
+      "name": "D30/frame-00010",
+      "state": {
+        "shot": "D30",
+        "frame": 10,
+        "u": 0.24390243902439024,
+        "phi": null,
+        "arm": -1.1280085217857134,
+        "advance": 0,
+        "headPitch": -0.10632731699449016,
+        "headYaw": 0.26,
+        "identity": true,
+        "pinInstalled": false,
+        "diePosition": null,
+        "dieQuaternion": null,
+        "pinWorld": [
+          -0.5071215163370654,
+          4.047111340318474,
+          2.6485
+        ],
+        "camera": {
+          "position": [
+            -3.7,
+            6.4,
+            8
+          ],
+          "fov": 54
+        }
+      },
+      "hash": "fd53ae1c4ddc8059909563d9ecba139e6e67216961ac6975db510714a4459474"
+    },
+    {
+      "shot": "D30",
+      "frame": 11,
+      "name": "D30/frame-00011",
+      "state": {
+        "shot": "D30",
+        "frame": 11,
+        "u": 0.2682926829268293,
+        "phi": null,
+        "arm": -1.1482470777560998,
+        "advance": 0,
+        "headPitch": -0.1184704505767219,
+        "headYaw": 0.26,
+        "identity": true,
+        "pinInstalled": false,
+        "diePosition": null,
+        "dieQuaternion": null,
+        "pinWorld": [
+          -0.509856915769174,
+          4.072582214165647,
+          2.6485
+        ],
+        "camera": {
+          "position": [
+            -3.7,
+            6.4,
+            8
+          ],
+          "fov": 54
+        }
+      },
+      "hash": "13a6dbc0e29fcb7b427b8c7afcf42baa9c89e91b3491f8ee0acf23be0ff7cc03"
+    },
+    {
+      "shot": "D30",
+      "frame": 12,
+      "name": "D30/frame-00012",
+      "state": {
+        "shot": "D30",
+        "frame": 12,
+        "u": 0.2926829268292683,
+        "phi": null,
+        "arm": -1.1507963267948966,
+        "advance": 0,
+        "headPitch": -0.12,
+        "headYaw": 0.26,
+        "identity": true,
+        "pinInstalled": false,
+        "diePosition": null,
+        "dieQuaternion": null,
+        "pinWorld": [
+          -0.510164895158662,
+          4.075794297494796,
+          2.6485
+        ],
+        "camera": {
+          "position": [
+            -3.7,
+            6.4,
+            8
+          ],
+          "fov": 54
+        }
+      },
+      "hash": "e1cb34a75e9d978088f98697391308e4cb76daa717651953d14604a0b413660a"
+    },
+    {
+      "shot": "D30",
+      "frame": 13,
+      "name": "D30/frame-00013",
+      "state": {
+        "shot": "D30",
+        "frame": 13,
+        "u": 0.3170731707317073,
+        "phi": null,
+        "arm": -1.1507963267948966,
+        "advance": 0,
+        "headPitch": -0.12,
+        "headYaw": 0.26,
+        "identity": true,
+        "pinInstalled": false,
+        "diePosition": null,
+        "dieQuaternion": null,
+        "pinWorld": [
+          -0.510164895158662,
+          4.075794297494796,
+          2.6485
+        ],
+        "camera": {
+          "position": [
+            -3.7,
+            6.4,
+            8
+          ],
+          "fov": 54
+        }
+      },
+      "hash": "e1cb34a75e9d978088f98697391308e4cb76daa717651953d14604a0b413660a"
+    },
+    {
+      "shot": "D30",
+      "frame": 14,
+      "name": "D30/frame-00014",
+      "state": {
+        "shot": "D30",
+        "frame": 14,
+        "u": 0.34146341463414637,
+        "phi": null,
+        "arm": -1.1507963267948966,
+        "advance": 0,
+        "headPitch": -0.12,
+        "headYaw": 0.26,
+        "identity": true,
+        "pinInstalled": false,
+        "diePosition": null,
+        "dieQuaternion": null,
+        "pinWorld": [
+          -0.510164895158662,
+          4.075794297494796,
+          2.6485
+        ],
+        "camera": {
+          "position": [
+            -3.7,
+            6.4,
+            8
+          ],
+          "fov": 54
+        }
+      },
+      "hash": "e1cb34a75e9d978088f98697391308e4cb76daa717651953d14604a0b413660a"
+    },
+    {
+      "shot": "D30",
+      "frame": 15,
+      "name": "D30/frame-00015",
+      "state": {
+        "shot": "D30",
+        "frame": 15,
+        "u": 0.36585365853658536,
+        "phi": null,
+        "arm": -1.1507963267948966,
+        "advance": 0,
+        "headPitch": -0.12,
+        "headYaw": 0.26,
+        "identity": true,
+        "pinInstalled": false,
+        "diePosition": null,
+        "dieQuaternion": null,
+        "pinWorld": [
+          -0.510164895158662,
+          4.075794297494796,
+          2.6485
+        ],
+        "camera": {
+          "position": [
+            -3.7,
+            6.4,
+            8
+          ],
+          "fov": 54
+        }
+      },
+      "hash": "e1cb34a75e9d978088f98697391308e4cb76daa717651953d14604a0b413660a"
+    },
+    {
+      "shot": "D30",
+      "frame": 16,
+      "name": "D30/frame-00016",
+      "state": {
+        "shot": "D30",
+        "frame": 16,
+        "u": 0.3902439024390244,
+        "phi": null,
+        "arm": -1.1507963267948966,
+        "advance": 0,
+        "headPitch": -0.12,
+        "headYaw": 0.26,
+        "identity": true,
+        "pinInstalled": false,
+        "diePosition": null,
+        "dieQuaternion": null,
+        "pinWorld": [
+          -0.510164895158662,
+          4.075794297494796,
+          2.6485
+        ],
+        "camera": {
+          "position": [
+            -3.7,
+            6.4,
+            8
+          ],
+          "fov": 54
+        }
+      },
+      "hash": "e1cb34a75e9d978088f98697391308e4cb76daa717651953d14604a0b413660a"
+    },
+    {
+      "shot": "D30",
+      "frame": 17,
+      "name": "D30/frame-00017",
+      "state": {
+        "shot": "D30",
+        "frame": 17,
+        "u": 0.4146341463414634,
+        "phi": null,
+        "arm": -1.1507963267948966,
+        "advance": 0,
+        "headPitch": -0.12,
+        "headYaw": 0.26,
+        "identity": true,
+        "pinInstalled": false,
+        "diePosition": null,
+        "dieQuaternion": null,
+        "pinWorld": [
+          -0.510164895158662,
+          4.075794297494796,
+          2.6485
+        ],
+        "camera": {
+          "position": [
+            -3.7,
+            6.4,
+            8
+          ],
+          "fov": 54
+        }
+      },
+      "hash": "e1cb34a75e9d978088f98697391308e4cb76daa717651953d14604a0b413660a"
+    },
+    {
+      "shot": "D30",
+      "frame": 18,
+      "name": "D30/frame-00018",
+      "state": {
+        "shot": "D30",
+        "frame": 18,
+        "u": 0.43902439024390244,
+        "phi": null,
+        "arm": -1.1507963267948966,
+        "advance": 0,
+        "headPitch": -0.12,
+        "headYaw": 0.26,
+        "identity": true,
+        "pinInstalled": false,
+        "diePosition": null,
+        "dieQuaternion": null,
+        "pinWorld": [
+          -0.510164895158662,
+          4.075794297494796,
+          2.6485
+        ],
+        "camera": {
+          "position": [
+            -3.7,
+            6.4,
+            8
+          ],
+          "fov": 54
+        }
+      },
+      "hash": "e1cb34a75e9d978088f98697391308e4cb76daa717651953d14604a0b413660a"
+    },
+    {
+      "shot": "D30",
+      "frame": 19,
+      "name": "D30/frame-00019",
+      "state": {
+        "shot": "D30",
+        "frame": 19,
+        "u": 0.4634146341463415,
+        "phi": null,
+        "arm": -1.1491469916412425,
+        "advance": 0,
+        "headPitch": -0.11901039890780751,
+        "headYaw": 0.26,
+        "identity": true,
+        "pinInstalled": false,
+        "diePosition": null,
+        "dieQuaternion": null,
+        "pinWorld": [
+          -0.5099665710751872,
+          4.073716026314123,
+          2.6485
+        ],
+        "camera": {
+          "position": [
+            -3.7,
+            6.4,
+            8
+          ],
+          "fov": 54
+        }
+      },
+      "hash": "324dfde9a9dddebd183ca41766b0a5d8bbb74701e2598420f1a8a965fc5ec637"
+    },
+    {
+      "shot": "D30",
+      "frame": 20,
+      "name": "D30/frame-00020",
+      "state": {
+        "shot": "D30",
+        "frame": 20,
+        "u": 0.4878048780487805,
+        "phi": null,
+        "arm": -1.1382417296383696,
+        "advance": 0,
+        "headPitch": -0.1124672417060838,
+        "headYaw": 0.26,
+        "identity": true,
+        "pinInstalled": false,
+        "diePosition": null,
+        "dieQuaternion": null,
+        "pinWorld": [
+          -0.5085690439253397,
+          4.059983244843992,
+          2.6485
+        ],
+        "camera": {
+          "position": [
+            -3.7,
+            6.4,
+            8
+          ],
+          "fov": 54
+        }
+      },
+      "hash": "5de124ec7d9b4b102214d90636f35becc92e6bbd3df45d3afe406f30fbd55da6"
+    },
+    {
+      "shot": "D30",
+      "frame": 21,
+      "name": "D30/frame-00021",
+      "state": {
+        "shot": "D30",
+        "frame": 21,
+        "u": 0.5121951219512195,
+        "phi": null,
+        "arm": -1.1182907848972892,
+        "advance": 0,
+        "headPitch": -0.10049667486143554,
+        "headYaw": 0.26,
+        "identity": true,
+        "pinInstalled": false,
+        "diePosition": null,
+        "dieQuaternion": null,
+        "pinWorld": [
+          -0.5056250385753087,
+          4.0349021392936315,
+          2.6485
+        ],
+        "camera": {
+          "position": [
+            -3.7,
+            6.4,
+            8
+          ],
+          "fov": 54
+        }
+      },
+      "hash": "69194f2ef05d21649c0c5ce9d8e99461aa348b09e5df4c006dd2bfd99e4bb10b"
+    },
+    {
+      "shot": "D30",
+      "frame": 22,
+      "name": "D30/frame-00022",
+      "state": {
+        "shot": "D30",
+        "frame": 22,
+        "u": 0.5365853658536586,
+        "phi": null,
+        "arm": -1.0906544104613407,
+        "advance": 0,
+        "headPitch": -0.0839148501998665,
+        "headYaw": 0.26,
+        "identity": true,
+        "pinInstalled": false,
+        "diePosition": null,
+        "dieQuaternion": null,
+        "pinWorld": [
+          -0.5007216040060174,
+          4.000266767672756,
+          2.6485
+        ],
+        "camera": {
+          "position": [
+            -3.7,
+            6.4,
+            8
+          ],
+          "fov": 54
+        }
+      },
+      "hash": "20f6cd049fea9d99f16ad87390bda774627d0a2c22cc10973069acd8c2d3a3ec"
+    },
+    {
+      "shot": "D30",
+      "frame": 23,
+      "name": "D30/frame-00023",
+      "state": {
+        "shot": "D30",
+        "frame": 23,
+        "u": 0.5609756097560976,
+        "phi": null,
+        "arm": -1.0566928593738636,
+        "advance": 0,
+        "headPitch": -0.0635379195473803,
+        "headYaw": 0.26,
+        "identity": true,
+        "pinInstalled": false,
+        "diePosition": null,
+        "dieQuaternion": null,
+        "pinWorld": [
+          -0.49338821895870766,
+          3.957910777438757,
+          2.6485
+        ],
+        "camera": {
+          "position": [
+            -3.7,
+            6.4,
+            8
+          ],
+          "fov": 54
+        }
+      },
+      "hash": "8e5643d016b6d66b48c72871918ec02e5346552ada7e7d65db3182624f53cb5c"
+    },
+    {
+      "shot": "D30",
+      "frame": 24,
+      "name": "D30/frame-00024",
+      "state": {
+        "shot": "D30",
+        "frame": 24,
+        "u": 0.5853658536585366,
+        "phi": null,
+        "arm": -1.0177663846781977,
+        "advance": 0,
+        "headPitch": -0.040182034729980776,
+        "headYaw": 0.26,
+        "identity": true,
+        "pinInstalled": false,
+        "diePosition": null,
+        "dieQuaternion": null,
+        "pinWorld": [
+          -0.4832195861550951,
+          3.909701884297395,
+          2.6485
+        ],
+        "camera": {
+          "position": [
+            -3.7,
+            6.4,
+            8
+          ],
+          "fov": 54
+        }
+      },
+      "hash": "bd4f93fac8a934ddbd15ebeef121e4636c3d07e8736951cc9b06a34ca001b670"
+    },
+    {
+      "shot": "D30",
+      "frame": 25,
+      "name": "D30/frame-00025",
+      "state": {
+        "shot": "D30",
+        "frame": 25,
+        "u": 0.6097560975609756,
+        "phi": null,
+        "arm": -0.9752352394176821,
+        "advance": 0,
+        "headPitch": -0.014663347573671354,
+        "headYaw": 0.26,
+        "identity": true,
+        "pinInstalled": false,
+        "diePosition": null,
+        "dieQuaternion": null,
+        "pinWorld": [
+          -0.46997397214243297,
+          3.857525453115327,
+          2.6485
+        ],
+        "camera": {
+          "position": [
+            -3.7,
+            6.4,
+            8
+          ],
+          "fov": 54
+        }
+      },
+      "hash": "ad11bc1713b45329738b758feba7533a98d5146599e49a3e46b48d7897fe2ea1"
+    },
+    {
+      "shot": "D30",
+      "frame": 26,
+      "name": "D30/frame-00026",
+      "state": {
+        "shot": "D30",
+        "frame": 26,
+        "u": 0.6341463414634146,
+        "phi": null,
+        "arm": -0.9304596766356563,
+        "advance": 0,
+        "headPitch": 0.012201990095544152,
+        "headYaw": 0.26,
+        "identity": true,
+        "pinInstalled": false,
+        "diePosition": null,
+        "dieQuaternion": null,
+        "pinWorld": [
+          -0.45364567923304777,
+          3.8032569191885885,
+          2.6485
+        ],
+        "camera": {
+          "position": [
+            -3.7,
+            6.4,
+            8
+          ],
+          "fov": 54
+        }
+      },
+      "hash": "a6af00cb42547364301a5f70f12bee9e73a260e7050390f90998879262170381"
+    },
+    {
+      "shot": "D30",
+      "frame": 27,
+      "name": "D30/frame-00027",
+      "state": {
+        "shot": "D30",
+        "frame": 27,
+        "u": 0.6585365853658537,
+        "phi": null,
+        "arm": -0.8847999493754598,
+        "advance": 0,
+        "headPitch": 0.039597826451662016,
+        "headYaw": 0.26,
+        "identity": true,
+        "pinInstalled": false,
+        "diePosition": null,
+        "dieQuaternion": null,
+        "pinWorld": [
+          -0.4345105427617776,
+          3.748726164125433,
+          2.6485
+        ],
+        "camera": {
+          "position": [
+            -3.7,
+            6.4,
+            8
+          ],
+          "fov": 54
+        }
+      },
+      "hash": "63704697e1d1f307961643b637be96b0089fc3ec5a6267a4cb9d4731c7531184"
+    },
+    {
+      "shot": "D30",
+      "frame": 28,
+      "name": "D30/frame-00028",
+      "state": {
+        "shot": "D30",
+        "frame": 28,
+        "u": 0.6829268292682927,
+        "phi": null,
+        "arm": -0.8396163106804321,
+        "advance": 0,
+        "headPitch": 0.06670800966867867,
+        "headYaw": 0.26,
+        "identity": true,
+        "pinInstalled": false,
+        "diePosition": null,
+        "dieQuaternion": null,
+        "pinWorld": [
+          -0.4131442077114542,
+          3.695679346944977,
+          2.6485
+        ],
+        "camera": {
+          "position": [
+            -3.7,
+            6.4,
+            8
+          ],
+          "fov": 54
+        }
+      },
+      "hash": "0de0a1831bbcf9a111c3e53b70d0bd733fa1498acd6e25482e6a59eae3e5049c"
+    },
+    {
+      "shot": "D30",
+      "frame": 29,
+      "name": "D30/frame-00029",
+      "state": {
+        "shot": "D30",
+        "frame": 29,
+        "u": 0.7073170731707317,
+        "phi": null,
+        "arm": -0.796269013593913,
+        "advance": 0,
+        "headPitch": 0.09271638792059014,
+        "headYaw": 0.26,
+        "identity": true,
+        "pinInstalled": false,
+        "diePosition": null,
+        "dieQuaternion": null,
+        "pinWorld": [
+          -0.3904141885820043,
+          3.6457450127847273,
+          2.6485
+        ],
+        "camera": {
+          "position": [
+            -3.7,
+            6.4,
+            8
+          ],
+          "fov": 54
+        }
+      },
+      "hash": "65b728fccb627267979f96184ed662281bfc0469753d947029ddec43ead1a106"
+    },
+    {
+      "shot": "D30",
+      "frame": 30,
+      "name": "D30/frame-00030",
+      "state": {
+        "shot": "D30",
+        "frame": 30,
+        "u": 0.7317073170731707,
+        "phi": null,
+        "arm": -0.7561183111592413,
+        "advance": 0,
+        "headPitch": 0.11680680938139314,
+        "headYaw": 0.26,
+        "identity": true,
+        "pinInstalled": false,
+        "diePosition": null,
+        "dieQuaternion": null,
+        "pinWorld": [
+          -0.3674480443932838,
+          3.6004115451998526,
+          2.6485
+        ],
+        "camera": {
+          "position": [
+            -3.7,
+            6.4,
+            8
+          ],
+          "fov": 54
+        }
+      },
+      "hash": "de4505450992e9cd4d007894573151739d94174cc7350b8f29da91d33ac063db"
+    },
+    {
+      "shot": "D30",
+      "frame": 31,
+      "name": "D30/frame-00031",
+      "state": {
+        "shot": "D30",
+        "frame": 31,
+        "u": 0.7560975609756098,
+        "phi": null,
+        "arm": -0.7205244564197569,
+        "advance": 0,
+        "headPitch": 0.13816312222508376,
+        "headYaw": 0.26,
+        "identity": true,
+        "pinInstalled": false,
+        "diePosition": null,
+        "dieQuaternion": null,
+        "pinWorld": [
+          -0.34558103251200145,
+          3.5610222687665303,
+          2.6485
+        ],
+        "camera": {
+          "position": [
+            -3.7,
+            6.4,
+            8
+          ],
+          "fov": 54
+        }
+      },
+      "hash": "3e941ee1d6e5d5d9f99f511eb5129bc4ec26a7c7031ed480d2bae40636012408"
+    },
+    {
+      "shot": "D30",
+      "frame": 32,
+      "name": "D30/frame-00032",
+      "state": {
+        "shot": "D30",
+        "frame": 32,
+        "u": 0.7804878048780488,
+        "phi": null,
+        "arm": -0.6908477024187992,
+        "advance": 0,
+        "headPitch": 0.15596917462565837,
+        "headYaw": 0.26,
+        "identity": true,
+        "pinInstalled": false,
+        "diePosition": null,
+        "dieQuaternion": null,
+        "pinWorld": [
+          -0.32628698385967675,
+          3.528792906916895,
+          2.6485
+        ],
+        "camera": {
+          "position": [
+            -3.7,
+            6.4,
+            8
+          ],
+          "fov": 54
+        }
+      },
+      "hash": "741ad491f7b964dc8a17db8a09676b8e70bb3cdcdd649ef89a9cebcabf108665"
+    },
+    {
+      "shot": "D30",
+      "frame": 33,
+      "name": "D30/frame-00033",
+      "state": {
+        "shot": "D30",
+        "frame": 33,
+        "u": 0.8048780487804879,
+        "phi": null,
+        "arm": -0.6684483021997079,
+        "advance": 0,
+        "headPitch": 0.16940881475711322,
+        "headYaw": 0.26,
+        "identity": true,
+        "pinInstalled": false,
+        "diePosition": null,
+        "dieQuaternion": null,
+        "pinWorld": [
+          -0.3110955992556633,
+          3.504853862040607,
+          2.6485
+        ],
+        "camera": {
+          "position": [
+            -3.7,
+            6.4,
+            8
+          ],
+          "fov": 54
+        }
+      },
+      "hash": "47ccb2ae449752c348c5f0fee46558b66e142cc7df5797cbcd49d3f6833bfc1c"
+    },
+    {
+      "shot": "D30",
+      "frame": 34,
+      "name": "D30/frame-00034",
+      "state": {
+        "shot": "D30",
+        "frame": 34,
+        "u": 0.8292682926829268,
+        "phi": null,
+        "arm": -0.654686508805822,
+        "advance": 0,
+        "headPitch": 0.17766589079344466,
+        "headYaw": 0.26,
+        "identity": true,
+        "pinInstalled": false,
+        "diePosition": null,
+        "dieQuaternion": null,
+        "pinWorld": [
+          -0.30149777323133625,
+          3.490317095858327,
+          2.6485
+        ],
+        "camera": {
+          "position": [
+            -3.7,
+            6.4,
+            8
+          ],
+          "fov": 54
+        }
+      },
+      "hash": "b143ea8ef663813aff6ec0d8ca5cd3c6b5e3aac27873a3e49a1100a6bc586bcb"
+    },
+    {
+      "shot": "D30",
+      "frame": 35,
+      "name": "D30/frame-00035",
+      "state": {
+        "shot": "D30",
+        "frame": 35,
+        "u": 0.8536585365853658,
+        "phi": null,
+        "arm": -0.6507963267948965,
+        "advance": 0,
+        "headPitch": 0.18,
+        "headYaw": 0.26,
+        "identity": true,
+        "pinInstalled": false,
+        "diePosition": null,
+        "dieQuaternion": null,
+        "pinWorld": [
+          -0.298748478969402,
+          3.486231920611991,
+          2.6485
+        ],
+        "camera": {
+          "position": [
+            -3.7,
+            6.4,
+            8
+          ],
+          "fov": 54
+        }
+      },
+      "hash": "3e13a7a397bc4eccb88cb4bd988a1e0badfc35c89b80fddc6bb902e5cdc042f2"
+    },
+    {
+      "shot": "D30",
+      "frame": 36,
+      "name": "D30/frame-00036",
+      "state": {
+        "shot": "D30",
+        "frame": 36,
+        "u": 0.8780487804878049,
+        "phi": null,
+        "arm": -0.6507963267948965,
+        "advance": 0,
+        "headPitch": 0.18,
+        "headYaw": 0.26,
+        "identity": true,
+        "pinInstalled": false,
+        "diePosition": null,
+        "dieQuaternion": null,
+        "pinWorld": [
+          -0.298748478969402,
+          3.486231920611991,
+          2.6485
+        ],
+        "camera": {
+          "position": [
+            -3.7,
+            6.4,
+            8
+          ],
+          "fov": 54
+        }
+      },
+      "hash": "3e13a7a397bc4eccb88cb4bd988a1e0badfc35c89b80fddc6bb902e5cdc042f2"
+    },
+    {
+      "shot": "D30",
+      "frame": 37,
+      "name": "D30/frame-00037",
+      "state": {
+        "shot": "D30",
+        "frame": 37,
+        "u": 0.9024390243902439,
+        "phi": null,
+        "arm": -0.6507963267948965,
+        "advance": 0,
+        "headPitch": 0.18,
+        "headYaw": 0.26,
+        "identity": true,
+        "pinInstalled": false,
+        "diePosition": null,
+        "dieQuaternion": null,
+        "pinWorld": [
+          -0.298748478969402,
+          3.486231920611991,
+          2.6485
+        ],
+        "camera": {
+          "position": [
+            -3.7,
+            6.4,
+            8
+          ],
+          "fov": 54
+        }
+      },
+      "hash": "3e13a7a397bc4eccb88cb4bd988a1e0badfc35c89b80fddc6bb902e5cdc042f2"
+    },
+    {
+      "shot": "D30",
+      "frame": 38,
+      "name": "D30/frame-00038",
+      "state": {
+        "shot": "D30",
+        "frame": 38,
+        "u": 0.926829268292683,
+        "phi": null,
+        "arm": -0.6507963267948965,
+        "advance": 0,
+        "headPitch": 0.18,
+        "headYaw": 0.26,
+        "identity": true,
+        "pinInstalled": false,
+        "diePosition": null,
+        "dieQuaternion": null,
+        "pinWorld": [
+          -0.298748478969402,
+          3.486231920611991,
+          2.6485
+        ],
+        "camera": {
+          "position": [
+            -3.7,
+            6.4,
+            8
+          ],
+          "fov": 54
+        }
+      },
+      "hash": "3e13a7a397bc4eccb88cb4bd988a1e0badfc35c89b80fddc6bb902e5cdc042f2"
+    },
+    {
+      "shot": "D30",
+      "frame": 39,
+      "name": "D30/frame-00039",
+      "state": {
+        "shot": "D30",
+        "frame": 39,
+        "u": 0.9512195121951219,
+        "phi": null,
+        "arm": -0.6507963267948965,
+        "advance": 0,
+        "headPitch": 0.18,
+        "headYaw": 0.26,
+        "identity": true,
+        "pinInstalled": false,
+        "diePosition": null,
+        "dieQuaternion": null,
+        "pinWorld": [
+          -0.298748478969402,
+          3.486231920611991,
+          2.6485
+        ],
+        "camera": {
+          "position": [
+            -3.7,
+            6.4,
+            8
+          ],
+          "fov": 54
+        }
+      },
+      "hash": "3e13a7a397bc4eccb88cb4bd988a1e0badfc35c89b80fddc6bb902e5cdc042f2"
+    },
+    {
+      "shot": "D30",
+      "frame": 40,
+      "name": "D30/frame-00040",
+      "state": {
+        "shot": "D30",
+        "frame": 40,
+        "u": 0.975609756097561,
+        "phi": null,
+        "arm": -0.6507963267948965,
+        "advance": 0,
+        "headPitch": 0.18,
+        "headYaw": 0.26,
+        "identity": true,
+        "pinInstalled": false,
+        "diePosition": null,
+        "dieQuaternion": null,
+        "pinWorld": [
+          -0.298748478969402,
+          3.486231920611991,
+          2.6485
+        ],
+        "camera": {
+          "position": [
+            -3.7,
+            6.4,
+            8
+          ],
+          "fov": 54
+        }
+      },
+      "hash": "3e13a7a397bc4eccb88cb4bd988a1e0badfc35c89b80fddc6bb902e5cdc042f2"
+    },
+    {
+      "shot": "D30",
+      "frame": 41,
+      "name": "D30/frame-00041",
+      "state": {
+        "shot": "D30",
+        "frame": 41,
+        "u": 1,
+        "phi": null,
+        "arm": -0.6507963267948965,
+        "advance": 0,
+        "headPitch": 0.18,
+        "headYaw": 0.26,
+        "identity": true,
+        "pinInstalled": false,
+        "diePosition": null,
+        "dieQuaternion": null,
+        "pinWorld": [
+          -0.298748478969402,
+          3.486231920611991,
+          2.6485
+        ],
+        "camera": {
+          "position": [
+            -3.7,
+            6.4,
+            8
+          ],
+          "fov": 54
+        }
+      },
+      "hash": "3e13a7a397bc4eccb88cb4bd988a1e0badfc35c89b80fddc6bb902e5cdc042f2"
+    }
+  ],
+  "reverseSamples": 12
+}

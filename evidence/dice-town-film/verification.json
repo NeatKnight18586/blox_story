@@ -1,0 +1,66 @@
+{
+ "status": "PASS",
+ "source": {
+  "frames": 3513,
+  "complete": true,
+  "sizes": [
+   [
+    1080,
+    1920
+   ]
+  ],
+  "native": true
+ },
+ "master": {
+  "file": "evidence/dice-town-film/dice-town-1080x1920-silent.mp4",
+  "sha256": "6bd5755a5059a839f70c009bec5b058791f8402f3a8590ddc0fe7cb76ec7d8e6",
+  "codec": "h264",
+  "profile": "High",
+  "width": 1080,
+  "height": 1920,
+  "pix_fmt": "yuv420p",
+  "fps": "30/1",
+  "decoded_frames": 3513,
+  "duration": 117.1,
+  "bytes": 12404780,
+  "audio": "none (private narration added separately, see ADD_NARRATION.md)"
+ },
+ "preview": {
+  "file": "evidence/dice-town-film/dice-town-720x1280-preview.mp4",
+  "note": "Lanczos downscale of the native master for phone review"
+ },
+ "full_decode_errors": null,
+ "psnr_vs_source_db": {
+  "D01": 37.43,
+  "D05": 39.46,
+  "D09": 40.11,
+  "D13": 42.96,
+  "D17": 41.44,
+  "D21": 42.67,
+  "D25": 42.01,
+  "D29": 41.3,
+  "D33": 39.83,
+  "D37": 43.25
+ },
+ "cuts": {
+  "locked_boundaries": 37,
+  "min_diff_at_cuts": 0.66,
+  "median_diff_at_cuts": 56.55,
+  "median_diff_inside_shots": 0.06,
+  "largest_jumps_inside_shots": [
+   1843,
+   1646,
+   2059,
+   903,
+   904
+  ]
+ },
+ "determinism_recheck": {
+  "0": true,
+  "700": true,
+  "1500": true,
+  "2300": true,
+  "3100": true,
+  "3512": true
+ }
+}

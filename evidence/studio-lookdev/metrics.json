@@ -1,0 +1,49 @@
+{
+ "reference": {
+  "saturation": 0.47,
+  "colorfulness": 98,
+  "luma": 0.67,
+  "contrast_p95_p5": 0.5,
+  "frames": 22
+ },
+ "gate": {
+  "colorfulness_min": 80,
+  "luma_min": 0.6
+ },
+ "frames": {
+  "wide-legacy": {
+   "saturation": 0.232,
+   "colorfulness": 37.2,
+   "luma": 0.57,
+   "contrast_p95_p5": 0.536
+  },
+  "wide-studio": {
+   "saturation": 0.354,
+   "colorfulness": 61.4,
+   "luma": 0.64,
+   "contrast_p95_p5": 0.518
+  },
+  "leo-legacy": {
+   "saturation": 0.501,
+   "colorfulness": 58.9,
+   "luma": 0.387,
+   "contrast_p95_p5": 0.532
+  },
+  "leo-studio": {
+   "saturation": 0.635,
+   "colorfulness": 88.0,
+   "luma": 0.419,
+   "contrast_p95_p5": 0.514
+  }
+ },
+ "pass": {
+  "wide-studio": {
+   "colorfulness": false,
+   "luma": true
+  },
+  "leo-studio": {
+   "colorfulness": true,
+   "luma": false
+  }
+ }
+}

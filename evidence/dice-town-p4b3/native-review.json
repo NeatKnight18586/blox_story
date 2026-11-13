@@ -1,0 +1,29 @@
+{
+  "status": "PASS_FOR_BOUNDED_CAPTURE",
+  "creativeApproval": "PENDING_HUMAN_REVIEW",
+  "nativeFramesReviewed": [
+    "gate-closed",
+    "gate-mid",
+    "gate-open",
+    "Pip-before",
+    "Pip-after",
+    "home",
+    "book-open",
+    "book-mid",
+    "book-closed"
+  ],
+  "review": "Actual720x1280 stills inspected before motion. Hinged leaves reveal established green home, child remains entirely framed, front cover open/mid/closed readable; final FOV44 leaves more cover margin. Mother source crop retains latest gray hair/creamV/purple clothing. Existing block hands and sparse destination facade retained; no speech or full travel claimed.",
+  "motionBudget": {
+    "D33": 27,
+    "D34": 30,
+    "D38": 27,
+    "D37": 0
+  },
+  "sourceMother": "evidence/dice-town-p3b2b/response.png",
+  "crop": [
+    120,
+    240,
+    450,
+    800
+  ]
+}
