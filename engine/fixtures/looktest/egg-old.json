@@ -4,14 +4,21 @@
  "kit": "old",
  "note": "A4 look test: egg base town at night",
  "world": "engine/fixtures/looktest/egg.js",
- "castFile": "engine/fixtures/v2-cast.json",
  "cast": {
-  "a": {
+  "kit": {
    "style": "v2",
-   "preset": "kidKnight",
+   "troupe": "SECOND",
+   "role": "Kit",
+   "outfit": {
+    "recipe": "hoodie",
+    "main": "#ff7aa8",
+    "accent": "#ffffff",
+    "legs": "#3b4a6b",
+    "trim": "#9b59b6"
+   },
    "at": "square",
    "offset": [
-    -3,
+    -2.5,
     0,
     9
    ],
@@ -21,11 +28,25 @@
      0,
      "idle"
     ]
+   ],
+   "faces": [
+    [
+     0,
+     "smile"
+    ]
    ]
   },
-  "b": {
+  "dax": {
    "style": "v2",
-   "preset": "kidBaker",
+   "troupe": "RIVAL",
+   "role": "Dax",
+   "outfit": {
+    "recipe": "hoodie",
+    "main": "#26262c",
+    "accent": "#e4574a",
+    "legs": "#4a4f57",
+    "trim": "#e4574a"
+   },
    "at": "square",
    "offset": [
     3,
@@ -38,11 +59,18 @@
      0,
      "cheer"
     ]
+   ],
+   "faces": [
+    [
+     0,
+     "smug"
+    ]
    ]
   },
-  "c": {
+  "kid": {
    "style": "v2",
-   "preset": "pip",
+   "troupe": "LITTLE",
+   "role": "Pom",
    "at": "street",
    "offset": [
     8,
@@ -57,16 +85,16 @@
     ]
    ]
   },
-  "d": {
+  "afk": {
    "style": "v2",
-   "town": 4,
+   "troupe": "AFK",
    "at": "street",
    "offset": [
     4,
     0,
     -14
    ],
-   "ambient": true
+   "yaw": 160
   }
  },
  "shots": [

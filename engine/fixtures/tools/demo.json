@@ -3,7 +3,6 @@
  "fps": 30,
  "note": "A4 Session 8 tools demo: drone \u2192 snap \u2192 heroLow \u2192 tiltUp on the landform rig, rain + lightning, a trail, a wrist stat, 40 crowd actors. No captions.",
  "world": "engine/fixtures/tools/world.js",
- "castFile": "engine/fixtures/v2-cast.json",
  "actorLift": 0,
  "landform": {
   "keys": [
@@ -28,10 +27,6 @@
  "cast": {
   "hero": {
    "style": "v2",
-   "preset": "pip",
-   "with": {
-    "scale": 1
-   },
    "at": "square",
    "offset": [
     0,
@@ -95,7 +90,9 @@
       }
      }
     ]
-   ]
+   ],
+   "troupe": "LEAD",
+   "role": "Stan"
   }
  },
  "crowds": [
