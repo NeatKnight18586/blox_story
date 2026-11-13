@@ -168,20 +168,20 @@
   {
    "view": "S07a-baker:first",
    "frame": 438,
-   "pct": 0.213,
-   "raw": 0.903
+   "pct": 0.203,
+   "raw": 0.817
   },
   {
    "view": "S07a-baker:mid",
    "frame": 449,
-   "pct": 0.217,
-   "raw": 0.849
+   "pct": 0.145,
+   "raw": 0.676
   },
   {
    "view": "S07a-baker:last",
    "frame": 459,
-   "pct": 0.188,
-   "raw": 0.894
+   "pct": 0.193,
+   "raw": 0.869
   },
   {
    "view": "S07b-knight:first",
