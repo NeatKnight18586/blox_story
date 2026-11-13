@@ -308,3 +308,53 @@ Also built: `render.js --final` (1440×2560, AA). `scripts/v2/qc.py` (`npm run v
 6. Look test (old kit vs new) on two fixtures that carry over to episodes 1–2 (egg base town at night + cloudtop; ragdoll alpine
    hill street) → `review/season1/look-ab.png` + rubric; `tools-demo` spec → 1080 proxy ≤ 20 s.
 7. Gates: `npm test`, `v2:test`, bench A7 (≤ 80k, ≤ 0.60 s at 720), stability, CLAUDE.md index; commit review files, PR, stop.
+
+## Session 8: Format v3 look, tools, troupe (Amendment A4 A/B/C/G) — report (2026-11-13)
+- **Built:**
+  - **A, look:** `parts/terrain.js`, `biomes.js` (9 biomes), `vegetation.js` (4 tree species with a far LOD, grass cards, shader wind), `water.js`.
+  - **A, materials and sky:** 11 new patterns (512 px on hero surfaces); `M.std` (Standard + generated env map) and `M.splatMaterial`; `createLookV3` (sun/moon, stars, two cloud layers, height fog, light shafts). A world opts in by exporting `LOOK`.
+  - **B, camera and scale:** camera moves `drone`, `heroLow`, `snap`, `tiltUp`; `parts/landform.js` giant rig (10.4k tris); `engine/crowd.js` (≤ 60 actors, 8 draw calls).
+  - **B, effects:** weather volumes plus `weather`, `lightning`, `shockwave`, `trail`.
+  - **C, rule UI:** `engine/ruleui.js` puts a tag, stat, bar, icon, card, checklist or plate on any pivot or object.
+  - **G, cast:** hair v3 (`hair3.js`, 20 original styles), modern outfits (`tee`, `hoodie`, `classic`), troupe (`cast/troupe.json`, `engine/troupe.js`) plus AFK (opacity 0.4, frozen pose).
+  - **Fixtures that carry over to episodes 1–2:** `engine/fixtures/looktest/{egg,ragdoll}.js`; tools demo in `engine/fixtures/tools/`.
+- **Review (`review/season1/`):**
+  - `look-ab.png`;
+  - `hair-sheet.png` + `hair-phone-390.png`;
+  - `troupe-sheet.png` + `troupe-phone-390.png`;
+  - `tools-demo.mp4` (19 s, 1080, no captions, no audio);
+  - `stability-*.json`.
+- **Commands:**
+  - `node scripts/v2/hair-sheet.js`
+  - `node scripts/v2/troupe-sheet.js`
+  - `python3 scripts/v2/look-ab-s1.py --views …`
+  - `npm run v2:bench -- --spec engine/fixtures/tools/demo.json`
+  - `npm run v2:stability -- --spec … --out review/season1/stability-<n>.json`
+- **Bench (A7, 720×1280):**
+
+  | Spec | Max tris | Mean s/frame | Result |
+  |---|---|---|---|
+  | Demo | 53,694 | 0.542 | PASS |
+  | Egg | 63,364 | 0.500 | PASS |
+  | Ragdoll | 79,074 | 0.567 | PASS |
+
+  - The demo started at 0.865 s/frame. Profiling showed the terrain splat cost ~0.45 s, and 8× anisotropic filtering on six fetches was the main cause.
+- **Stability:** PASS on the demo (worst 0.082 %), egg (0.025 %) and ragdoll (0.049 %).
+- **Tests:** `v2:test` 58 Node + 30 Python, `npm test` exit 0.
+- **"Nobody" unchanged:** 11 frames re-rendered at 1440 are byte-identical to the A3 master. This was also the determinism spot check.
+- **Rubrics** (the brief caps each at 3 fix passes; scores here are after the final pass):
+  - **Look:** egg 4/4/4/4/4 (pass 2 added two real point lights, gardens, the moon in frame and a brighter cloudtop); ragdoll 4/4/4/4/4. Item 5, motion, shows in `tools-demo.mp4` (river flow, grass and tree sway).
+  - **Hair** (pass 3): 4/4/4/4/4. Pass 1 had an inverted cap and paper-thin locks; pass 2 had cap z-fighting stripes and floating buns.
+  - **Troupe:** all slots distinct by height, hair and colour, and readable at 390 px.
+- **Decisions:**
+  - The terrain splat is Phong, 256 px, 2× anisotropy, because it isn't hero tier. Standard + env map is kept for hero set pieces and water.
+  - v3 hair is double-sided and casts no shadows (fringe shadows streaked the faces).
+  - Changed metrics and tests:
+    - the frustum triangle counter now culls instanced meshes by their instance bounds, as the renderer does;
+    - `renderer.info` is no longer reset by overlay passes;
+    - two old tests updated for the A4 additions (camera fixture covers the v2 moves; effects type count 18).
+  - Look-test fixtures live in `engine/fixtures/` (no episode started). `render.js` now hashes `spec.world` for fixture worlds.
+  - Night `actorLift` (avatar self-light) is opt-in.
+- **Open:**
+  - The landform giant reads as a mossy mountain-boulder; its arm reach is subtle at the demo distance.
+  - Crowd heads are plain boxes with a face decal, which is fine at mid and far distance.
