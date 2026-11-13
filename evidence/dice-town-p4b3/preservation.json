@@ -1,0 +1,7 @@
+{
+  "status": "PASS",
+  "baseCommit": "97686e69bcebacbf3220bf620bf801461fb4f6b0",
+  "trackedFilesChecked": 1417,
+  "allExistingSourceAssetsEvidenceIdentical": true,
+  "method": "git hash-object of every pre-existing tracked working-tree file compared to its index blob, before authorized AGENTS/README/STATUS updates. No previous source/media/test altered."
+}

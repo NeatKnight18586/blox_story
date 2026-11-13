@@ -1,0 +1,14 @@
+{
+  "command": [
+    "bash",
+    "-c",
+    "python3 scripts/assemble-s6.py --wav <private original WAV> && node scripts/s6-video-qc.js && python3 scripts/s6-contact.py && python3 scripts/s6-audio-check.py --wav <private original WAV>"
+  ],
+  "exitCode": 0,
+  "wallSeconds": 87.55070106500352,
+  "sampledTreeRssMiB": 1024.36328125,
+  "sampledTreeCpuSeconds": 53.94,
+  "processCount": 55,
+  "sampleIntervalSeconds": 0.2,
+  "method": "Linux ps summed subtree RSS (shared pages counted per process), /proc cumulative CPU samples retained by PID/start-time at 100Hz; sampled lower bounds; final pass only, not all development activity"
+}

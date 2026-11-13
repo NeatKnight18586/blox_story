@@ -33,12 +33,26 @@
     "test:s4": "node tests/s4-assembly.js && python3 scripts/s4-captions.py",
     "test:speaking": "node tests/speaking.js && node tests/speaking-browser.js",
     "proof:speaking": "node scripts/s5-keyframes.js && python3 scripts/s5-sheet.py",
-    "render:speaking": "node scripts/s5-previews.js"
+    "render:speaking": "node scripts/s5-previews.js",
+    "test:studio": "node tests/studio-characters.js && node tests/studio-town.js",
+    "proof:studio": "node scripts/studio-lookdev-capture.js --cast && node scripts/studio-characters-capture.js && python3 scripts/studio-lookdev-sheet.py && python3 scripts/studio-characters-sheet.py",
+    "proof:town": "node scripts/studio-town-capture.js && python3 scripts/studio-town-sheet.py",
+    "v2:preflight": "node scripts/v2/preflight.js",
+    "v2:test": "node --test tests/v2/*.test.js && python3 -m unittest tests/v2/test_captions.py tests/v2/test_align.py tests/v2/test_finish.py",
+    "v2:align": "python3 scripts/v2/align.py",
+    "v2:plan": "node scripts/v2/plan.js",
+    "v2:bench": "node scripts/v2/bench.js",
+    "v2:render": "node scripts/v2/render.js",
+    "v2:captions": "python3 scripts/v2/captions.py",
+    "v2:assemble": "python3 scripts/v2/assemble.py",
+    "v2:stability": "node scripts/v2/stability.js",
+    "v2:qc": "python3 scripts/v2/qc.py"
   },
   "dependencies": {
     "three": "0.187.0"
   },
   "devDependencies": {
+    "@expo-google-fonts/lilita-one": "^0.4.1",
     "playwright": "1.56.1"
   }
 }

@@ -1,0 +1,89 @@
+{
+  "status": "PASS",
+  "archiveResolution": [
+    720,
+    1280
+  ],
+  "archiveFrames": 90,
+  "archiveFps": 30,
+  "keyframeChecks": [
+    {
+      "nativeStill": "D17-0",
+      "archiveFrame": 0,
+      "meanRgbError": 1.4607722077546297
+    },
+    {
+      "nativeStill": "D17-14",
+      "archiveFrame": 14,
+      "meanRgbError": 1.4699710648148148
+    },
+    {
+      "nativeStill": "D18-0",
+      "archiveFrame": 15,
+      "meanRgbError": 1.336383101851852
+    },
+    {
+      "nativeStill": "D18-14",
+      "archiveFrame": 29,
+      "meanRgbError": 1.3390845630787036
+    },
+    {
+      "nativeStill": "D21-0",
+      "archiveFrame": 45,
+      "meanRgbError": 1.3245945457175925
+    },
+    {
+      "nativeStill": "D21-14",
+      "archiveFrame": 59,
+      "meanRgbError": 1.3440541811342595
+    },
+    {
+      "nativeStill": "D24-0",
+      "archiveFrame": 75,
+      "meanRgbError": 1.327887008101852
+    },
+    {
+      "nativeStill": "D24-7",
+      "archiveFrame": 82,
+      "meanRgbError": 1.3564453125
+    },
+    {
+      "nativeStill": "D24-14",
+      "archiveFrame": 89,
+      "meanRgbError": 1.3560753038194446
+    },
+    {
+      "nativeStill": "D20-0",
+      "archiveFrame": 30,
+      "meanRgbError": 1.3828851996527778
+    },
+    {
+      "nativeStill": "D20-7",
+      "archiveFrame": 37,
+      "meanRgbError": 1.3639789496527779
+    },
+    {
+      "nativeStill": "D20-14",
+      "archiveFrame": 44,
+      "meanRgbError": 1.3742751736111112
+    },
+    {
+      "nativeStill": "D22-0",
+      "archiveFrame": 60,
+      "meanRgbError": 1.59423828125
+    },
+    {
+      "nativeStill": "D22-7",
+      "archiveFrame": 67,
+      "meanRgbError": 1.586800853587963
+    },
+    {
+      "nativeStill": "D22-14",
+      "archiveFrame": 74,
+      "meanRgbError": 1.6077763310185185
+    }
+  ],
+  "maxMeanRgbError": 1.6077763310185185,
+  "toleranceMeanRgbError": 6,
+  "method": "Decoded native H264 action source compared to actual committed native WebGL PNGs and their capture hashes, at every recorded matching timestamp. Gate/current mother native720, historical portrait1024. No360px image used as a native substitute."
+}

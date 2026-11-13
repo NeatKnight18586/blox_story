@@ -1,0 +1,19 @@
+{
+  "status": "PASS_FOR_BOUNDED_NATIVE_ACTION_KEYFRAMES",
+  "creativeApproval": "PENDING_HUMAN_REVIEW",
+  "reviewedAtStage": "Before D20,D21,D22 implementation or any motion capture",
+  "proof": "comprehension-proof.jpg",
+  "findings": "Child at real crank, photo below face, same mother/child native portrait with dark historical hair vs gray present-day hair, same received brass pin. First proof caught photo crop and pin/eye overlap; camera corrections inspected. Exact30-year duration depends on narration, not claimed independently readable as a number. D24 final framing tightened after this proof to avoid unused upper space.",
+  "nativePhotoSource": [
+    1024,
+    1024
+  ],
+  "newNativeCompositions": [
+    "D17",
+    "D18",
+    "D19-photo",
+    "D24"
+  ],
+  "presentMother": "evidence/dice-town-p4b3/mother-close.png",
+  "approvedNarrativeUse": "D19 specified present-day cutaway only, not reused as another scene replacement."
+}

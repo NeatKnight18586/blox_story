@@ -1,0 +1,74 @@
+
+> test
+> node tests/api.js && node tests/actions.js && node tests/walk.js && node tests/walk-calibration.js && node tests/production.js && node tests/p1.js && node tests/casting.js && node tests/reveal.js && node tests/expressions.js && node tests/ending.js && node tests/style.js && node tests/roughcut.js && node tests/performance.js && node tests/counter-capture.js && node tests/finish.js && node tests/s4-assembly.js && node tests/speaking.js
+
+PASS: real Three.js imports, six meshes, five pivots, bounds, deterministic reset, face/cap caches, removal and identity
+PASS: rounded lathed head dimensions and curved face surface
+PASS F2A: deterministic shuffled sampling, 30/60fps, idle seam/velocity, reaction clamp, four transition pairs/endpoints, planted geometry, appearance/identity, reset and atomic validation
+PASS F2A: segment/transition velocity continuity and interruption snapshots
+PASS F2B1 real geometry: {
+  maxFootDrift: 2.220446049250313e-16,
+  rmsFootDrift: 4.66308592456282e-17,
+  maxPenetration: 2.220446049250313e-16,
+  rmsPenetration: 1.2566165084597348e-16,
+  maxGroundContactError: 4.440892098500626e-16,
+  rmsGroundContactError: 1.9624346787902205e-16,
+  minSwingClearance: 0,
+  maxSwingClearance: 0.04499999999999993,
+  maxHipCorrection: 0.045
+}
+PASS F2B1: monotonic root movement and support/edge velocity joins
+PASS calibration {
+  baseline: {
+    samples: 434,
+    metrics: {
+      maxFootDrift: 2.220446049250313e-16,
+      rmsFootDrift: 4.66308592456282e-17,
+      maxPatchDrift: 8.881784197001252e-16,
+      rmsPatchDrift: 2.4816402228041e-16,
+      maxPenetration: 2.220446049250313e-16,
+      rmsPenetration: 1.2566165084597348e-16,
+      maxContactError: 4.440892098500626e-16,
+      rmsContactError: 1.9624346787902205e-16,
+      minSwingClearance: 0,
+      maxSwingClearance: 0.04499999999999993,
+      maxJointOverlap: 0.02499999999999991,
+      maxLegSeparation: 0.19991667708271332,
+      maxArmSeparation: 0.27837253240338033,
+      maxRootRise: 0.021490521503639837
+    }
+  },
+  readable: {
+    samples: 434,
+    metrics: {
+      maxFootDrift: 4.440892098500626e-16,
+      rmsFootDrift: 1.0584951412078256e-16,
+      maxPatchDrift: 8.881784197001252e-16,
+      rmsPatchDrift: 3.357474734723895e-16,
+      maxPenetration: 2.220446049250313e-16,
+      rmsPenetration: 8.593143000294514e-17,
+      maxContactError: 4.440892098500626e-16,
+      rmsContactError: 1.4260077184820996e-16,
+      minSwingClearance: -2.220446049250313e-16,
+      maxSwingClearance: 0.04999999999999982,
+      maxJointOverlap: 0.03020856331819788,
+      maxLegSeparation: 0.3993336665873126,
+      maxArmSeparation: 0.7125377022347803,
+      maxRootRise: 0.03792836947543243
+    }
+  }
+}
+PASS production: contiguous shots, exact cuts, deterministic action/prop samples, origin continuity and malformed input rejection
+PASS P1: v2 flexible timeline, pure events/appearance, factory identity, malformed input, output ownership, live/stale locks, linked-path rejection and atomic writes
+PASS P2A casting, pure seeking, fixed cameras, independent cached appearances, removal, unchanged six-part/pivot/geometry identities, separation and both body/gait 30/60fps actual-vertex contact: { minActorAabbGap: 0.8139189194392715, maxPenetration: 0 }
+PASS names100: exact global clock, native 788/789 counter boundary, 15fps safe sampling, restoration confined to 29.63–30.92s, tag/lean/whisper/push order, deterministic seeks, closed door reset, malformed input rejection
+PASS V1: cached independent curved faces, legacy APIs, body/wardrobe identity, immutable counter/restoration/global clock; sole justified cut 938→927
+PASS ending: all696 pure native samples, monotone99/52/18/3/1/0, no early spoken numbers/forgetting, exact945–1641 clock, original cast/appearances and reveal timing, malformed cues rejected
+PASS S1: opt-in look, NEW94-frame opening schedule only, unchanged1159 reveal/ending clock and actor samples, original casts/styles/cuts, unknown look rejected
+PASS S2:23 authoritative slots,1641 absolute native samples, anonymous rule vs untouched Eli100, protected789/890–926/1529,98/97 spends and returns,15fps map/end hold,block seam and deterministic seeking
+PASS scaled child readable gait support, all75 approach frames, max actual-vertex contact error 3.3306690738754696e-16
+PASS S3B provisional source: original casts/cuts/cues, unchanged non-target scenes, actual Three.js pose identity/random access, max within-shot scalar delta 0.08499248685199112
+PASS counter mode: all1641 samples unchanged,unknown mode rejected,existing source values/actor separation,native pixel/state repetition
+PASS P5 opt-in, unknown finish rejection, all1641 source samples/appearance/camera/animation/counter clocks unchanged
+PASS S4 all1641 source clocks/actors/appearance,23 unchanged authoritative cuts,only first camera changed,correct S3B offsets/938–945 seam
+PASS speech: sealed outside authored whisper/three irregular name cues; no spoken numbers,1641 unchanged story/body samples,three persistent shapes/cached expressions,blank/ghost-compatible hierarchy and reverse reset

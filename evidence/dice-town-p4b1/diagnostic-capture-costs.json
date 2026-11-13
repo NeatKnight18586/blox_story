@@ -1,0 +1,12 @@
+[
+  {
+    "stage": "native before flat-pip correction",
+    "wallSeconds": 44.162741377,
+    "receiptScope": "superseded internal still capture, excluding earlier diagnostics"
+  },
+  {
+    "stage": "native before support-decoration correction",
+    "wallSeconds": 41.738665485,
+    "receiptScope": "superseded internal still capture, excluding earlier diagnostics"
+  }
+]

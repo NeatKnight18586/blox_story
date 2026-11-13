@@ -1,0 +1,44 @@
+{
+  "status": "PASS",
+  "native": [
+    720,
+    1280
+  ],
+  "browser": "141.0.7390.37",
+  "reversePixels": true,
+  "coldReloadPixels": true,
+  "focusVerified": true,
+  "checks": [
+    {
+      "frame": 0,
+      "name": "A",
+      "sha256": "013512d5216815827b973889063790787b2cb4c95a4010d3d77d277bed4388f8",
+      "expression": "surprise",
+      "buffer": [
+        720,
+        1280
+      ],
+      "webgl": "WebGL 2.0 (OpenGL ES 3.0 Chromium)",
+      "identity": true,
+      "parts": 6,
+      "extras": 4,
+      "dieResult": 3
+    },
+    {
+      "frame": 30,
+      "name": "B",
+      "sha256": "e93648d7388ea7ae80c9632da874ef9fe524043265caa9b41a34400990d587f5",
+      "expression": "annoyed",
+      "buffer": [
+        720,
+        1280
+      ],
+      "webgl": "WebGL 2.0 (OpenGL ES 3.0 Chromium)",
+      "identity": true,
+      "parts": 6,
+      "extras": 4,
+      "dieResult": 3
+    }
+  ],
+  "errors": []
+}

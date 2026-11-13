@@ -1,0 +1,49 @@
+{
+  "mirrorRepository": "replayablejs/replayable",
+  "mirrorCommit": "d49dffa28db5931f5fdc3f92c9719853f4ef5e24",
+  "asset": {
+    "generator": "UnityGLTF",
+    "version": "2.0"
+  },
+  "skins": [],
+  "animationNames": [
+    "static",
+    "idle",
+    "walk",
+    "sprint",
+    "sit",
+    "drive",
+    "die",
+    "pick-up",
+    "emote-yes",
+    "emote-no",
+    "holding-right",
+    "holding-left",
+    "holding-both",
+    "holding-right-shoot",
+    "holding-left-shoot",
+    "holding-both-shoot",
+    "attack-melee-right",
+    "attack-melee-left",
+    "attack-kick-right",
+    "attack-kick-left",
+    "interact-right",
+    "interact-left",
+    "wheelchair-sit",
+    "wheelchair-move-forward",
+    "wheelchair-move-back",
+    "wheelchair-move-left",
+    "wheelchair-move-right"
+  ],
+  "meshes": 6,
+  "nodes": [
+    "character-a",
+    "root",
+    "leg-left",
+    "leg-right",
+    "torso",
+    "arm-left",
+    "arm-right",
+    "head"
+  ]
+}

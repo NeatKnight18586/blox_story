@@ -1,0 +1,25 @@
+{
+  "status": "PASS",
+  "wallSeconds": 14.109503065999998,
+  "method": "Existing test source executed unchanged except URL and output-directory isolation. Prior source/media/evidence not overwritten.",
+  "checks": [
+    {
+      "originalSource": "tests/browser.js",
+      "exitCode": 0,
+      "stdout": "PASS: WebGL WebGL 2.0 (OpenGL ES 3.0 Chromium), controls, retained mesh identity, cosmetic removal, mobile and 10 captures; no page errors\n",
+      "stderr": ""
+    },
+    {
+      "originalSource": "scripts/dice-town-p4b2-qc.js",
+      "exitCode": 0,
+      "stdout": "{\n  d28Gap: 1.734723475976807e-17,\n  leoFootGap: 1.734723475976807e-17,\n  d28GroundTop: 0.018999999552965163,\n  d28Side4Occluded: 0,\n  frames: 45,\n  minGap: -1.3149203947904198e-15,\n  maxGap: 4.614364446098307e-16,\n  maxScreen: 0.7381017062791372,\n  minTipGap: 0.008568376189467486,\n  clueScreen: 0.5660538400741402,\n  d28Screen: 0.7555630084334735,\n  maxSixUp: 0.8414709848078965,\n  finalValue: 4,\n  finalUp: 1,\n  contactFrame: 12,\n  kickFirstFrame: 13,\n  contactTipVisible: true,\n  d28Top: 5,\n  d28Opposite2Up: -0.9999999999999998,\n  states: undefined,\n  method: 'All actual die body/pip support vertices; brass cap vertices vertically raycast against real die underside; native fixed-camera critical projections. Stub intentionally emerges through implied service slot; not a universal collider.'\n}\n",
+      "stderr": ""
+    },
+    {
+      "originalSource": "scripts/dice-town-p3b4-qc.js",
+      "exitCode": 0,
+      "stdout": "PASS five cameras, critical mesh containment, continuous land, sky and gate-to-home sightline\n",
+      "stderr": ""
+    }
+  ]
+}

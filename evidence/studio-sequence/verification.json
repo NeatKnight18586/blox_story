@@ -1,0 +1,89 @@
+{
+ "status": "PASS",
+ "source": {
+  "frames": 360,
+  "complete": true,
+  "sizes": [
+   [
+    1080,
+    1920
+   ]
+  ],
+  "native": true,
+  "renderer": "Chromium SwiftShader WebGL, explicit-frame Three.js"
+ },
+ "master": {
+  "file": "evidence/studio-sequence/sequence-1080x1920.mp4",
+  "sha256": "30884c24d1951c3c7157e97c7ba6ba8e5a97331fc0c8adb7a4cebc1c314bc339",
+  "codec": "h264",
+  "profile": "High",
+  "width": 1080,
+  "height": 1920,
+  "pix_fmt": "yuv420p",
+  "fps": "30/1",
+  "decoded_frames": 360,
+  "duration": 12.0,
+  "bytes": 7014220,
+  "bitrate": 4676146
+ },
+ "preview": {
+  "file": "evidence/studio-sequence/sequence-720x1280-preview.mp4",
+  "note": "Lanczos downscale of the native master for phone review; not a native render"
+ },
+ "full_decode_errors": null,
+ "psnr_vs_source_db": {
+  "0": 36.19,
+  "67": 35.49,
+  "134": 35.96,
+  "135": 39.7,
+  "200": 39.84,
+  "239": 39.76,
+  "240": 38.24,
+  "300": 37.51,
+  "359": 36.79
+ },
+ "cuts": {
+  "expected": [
+   135,
+   240
+  ],
+  "detected_largest_diffs": [
+   135,
+   240
+  ],
+  "diff_at_cuts": [
+   63.75,
+   56.21
+  ],
+  "max_diff_within_shots": 17.92
+ },
+ "determinism_recheck": {
+  "0": true,
+  "67": true,
+  "134": true,
+  "135": true,
+  "239": true,
+  "240": true,
+  "359": true
+ },
+ "shot_metrics": {
+  "A": {
+   "saturation": 0.313,
+   "colorfulness": 68.444,
+   "luma": 0.558,
+   "contrast_p95_p5": 0.648
+  },
+  "B": {
+   "saturation": 0.392,
+   "colorfulness": 75.843,
+   "luma": 0.628,
+   "contrast_p95_p5": 0.62
+  },
+  "C": {
+   "saturation": 0.418,
+   "colorfulness": 89.6,
+   "luma": 0.706,
+   "contrast_p95_p5": 0.535
+  }
+ }
+}

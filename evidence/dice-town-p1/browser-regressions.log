@@ -1,0 +1,12 @@
+PASS: WebGL WebGL 2.0 (OpenGL ES 3.0 Chromium), controls, retained mesh identity, cosmetic removal, mobile and 10 captures; no page errors
+PASS F2A WebGL: 285 frames, reverse repeat pixel equality, grounded geometry, controls and vertical captures
+PASS F2B1 WebGL: {
+  maxFootDrift: 1.1102230246251565e-16,
+  rmsFootDrift: 3.013620443605934e-17,
+  maxPenetration: 2.220446049250313e-16,
+  rmsPenetration: 1.2671882959866031e-16,
+  maxGroundContactError: 2.220446049250313e-16,
+  rmsGroundContactError: 1.9608141819027707e-16,
+  minSwingClearance: 0,
+  maxSwingClearance: 0.04499999999999993
+} (436 measurements, 146 captured frames)

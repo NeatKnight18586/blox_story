@@ -1,0 +1,8 @@
+{
+  "wallSeconds": 28.36392454700035,
+  "childUserCpuSeconds": 1.229407,
+  "childSystemCpuSeconds": 0.15226599999999998,
+  "maxChildRssKiB": 94452,
+  "resourceScope": "wrapper child receipts, not aggregate Chromium process-tree CPU/RSS",
+  "exitCode": 0
+}

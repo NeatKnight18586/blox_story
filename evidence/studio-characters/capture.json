@@ -1,0 +1,653 @@
+{
+ "status": "PASS",
+ "errors": [],
+ "results": [
+  {
+   "shot": "lineup",
+   "path": "evidence/studio-characters/lineup-1080.png",
+   "width": 1080,
+   "height": 1920,
+   "renderMs": 4463,
+   "deterministic": true
+  },
+  {
+   "shot": "lineup34",
+   "path": "evidence/studio-characters/lineup34-1080.png",
+   "width": 1080,
+   "height": 1920,
+   "renderMs": 1775,
+   "deterministic": true
+  },
+  {
+   "shot": "face:leo:happy",
+   "path": "evidence/studio-characters/faces/leo-happy.png",
+   "width": 480,
+   "height": 480,
+   "renderMs": 337,
+   "deterministic": true
+  },
+  {
+   "shot": "face:leo:sad",
+   "path": "evidence/studio-characters/faces/leo-sad.png",
+   "width": 480,
+   "height": 480,
+   "renderMs": 238,
+   "deterministic": true
+  },
+  {
+   "shot": "face:leo:angry",
+   "path": "evidence/studio-characters/faces/leo-angry.png",
+   "width": 480,
+   "height": 480,
+   "renderMs": 274,
+   "deterministic": true
+  },
+  {
+   "shot": "face:leo:confused",
+   "path": "evidence/studio-characters/faces/leo-confused.png",
+   "width": 480,
+   "height": 480,
+   "renderMs": 267,
+   "deterministic": true
+  },
+  {
+   "shot": "face:leo:pleased",
+   "path": "evidence/studio-characters/faces/leo-pleased.png",
+   "width": 480,
+   "height": 480,
+   "renderMs": 238,
+   "deterministic": true
+  },
+  {
+   "shot": "face:leo:pain",
+   "path": "evidence/studio-characters/faces/leo-pain.png",
+   "width": 480,
+   "height": 480,
+   "renderMs": 275,
+   "deterministic": true
+  },
+  {
+   "shot": "face:leo:scared",
+   "path": "evidence/studio-characters/faces/leo-scared.png",
+   "width": 480,
+   "height": 480,
+   "renderMs": 309,
+   "deterministic": true
+  },
+  {
+   "shot": "face:leo:serious",
+   "path": "evidence/studio-characters/faces/leo-serious.png",
+   "width": 480,
+   "height": 480,
+   "renderMs": 271,
+   "deterministic": true
+  },
+  {
+   "shot": "face:leo:silly",
+   "path": "evidence/studio-characters/faces/leo-silly.png",
+   "width": 480,
+   "height": 480,
+   "renderMs": 269,
+   "deterministic": true
+  },
+  {
+   "shot": "face:leo:flirty",
+   "path": "evidence/studio-characters/faces/leo-flirty.png",
+   "width": 480,
+   "height": 480,
+   "renderMs": 293,
+   "deterministic": true
+  },
+  {
+   "shot": "face:leo:nervous",
+   "path": "evidence/studio-characters/faces/leo-nervous.png",
+   "width": 480,
+   "height": 480,
+   "renderMs": 281,
+   "deterministic": true
+  },
+  {
+   "shot": "face:leo:tired",
+   "path": "evidence/studio-characters/faces/leo-tired.png",
+   "width": 480,
+   "height": 480,
+   "renderMs": 267,
+   "deterministic": true
+  },
+  {
+   "shot": "face:leo:shocked",
+   "path": "evidence/studio-characters/faces/leo-shocked.png",
+   "width": 480,
+   "height": 480,
+   "renderMs": 260,
+   "deterministic": true
+  },
+  {
+   "shot": "face:leo:irritated",
+   "path": "evidence/studio-characters/faces/leo-irritated.png",
+   "width": 480,
+   "height": 480,
+   "renderMs": 261,
+   "deterministic": true
+  },
+  {
+   "shot": "face:leo:wtf",
+   "path": "evidence/studio-characters/faces/leo-wtf.png",
+   "width": 480,
+   "height": 480,
+   "renderMs": 275,
+   "deterministic": true
+  },
+  {
+   "shot": "face:leo:rage",
+   "path": "evidence/studio-characters/faces/leo-rage.png",
+   "width": 480,
+   "height": 480,
+   "renderMs": 264,
+   "deterministic": true
+  },
+  {
+   "shot": "face:leo:disgusted",
+   "path": "evidence/studio-characters/faces/leo-disgusted.png",
+   "width": 480,
+   "height": 480,
+   "renderMs": 297,
+   "deterministic": true
+  },
+  {
+   "shot": "face:leo:confident",
+   "path": "evidence/studio-characters/faces/leo-confident.png",
+   "width": 480,
+   "height": 480,
+   "renderMs": 247,
+   "deterministic": true
+  },
+  {
+   "shot": "face:leo:drunk",
+   "path": "evidence/studio-characters/faces/leo-drunk.png",
+   "width": 480,
+   "height": 480,
+   "renderMs": 255,
+   "deterministic": true
+  },
+  {
+   "shot": "face:leo:concerned",
+   "path": "evidence/studio-characters/faces/leo-concerned.png",
+   "width": 480,
+   "height": 480,
+   "renderMs": 256,
+   "deterministic": true
+  },
+  {
+   "shot": "face:leo:curious",
+   "path": "evidence/studio-characters/faces/leo-curious.png",
+   "width": 480,
+   "height": 480,
+   "renderMs": 340,
+   "deterministic": true
+  },
+  {
+   "shot": "face:leo:pouty",
+   "path": "evidence/studio-characters/faces/leo-pouty.png",
+   "width": 480,
+   "height": 480,
+   "renderMs": 296,
+   "deterministic": true
+  },
+  {
+   "shot": "face:leo:sick",
+   "path": "evidence/studio-characters/faces/leo-sick.png",
+   "width": 480,
+   "height": 480,
+   "renderMs": 268,
+   "deterministic": true
+  },
+  {
+   "shot": "face:leo:laughing",
+   "path": "evidence/studio-characters/faces/leo-laughing.png",
+   "width": 480,
+   "height": 480,
+   "renderMs": 272,
+   "deterministic": true
+  },
+  {
+   "shot": "face:leo:shame",
+   "path": "evidence/studio-characters/faces/leo-shame.png",
+   "width": 480,
+   "height": 480,
+   "renderMs": 260,
+   "deterministic": true
+  },
+  {
+   "shot": "face:leo:incredulous",
+   "path": "evidence/studio-characters/faces/leo-incredulous.png",
+   "width": 480,
+   "height": 480,
+   "renderMs": 278,
+   "deterministic": true
+  },
+  {
+   "shot": "face:leo:bored",
+   "path": "evidence/studio-characters/faces/leo-bored.png",
+   "width": 480,
+   "height": 480,
+   "renderMs": 255,
+   "deterministic": true
+  },
+  {
+   "shot": "face:leo:snooty",
+   "path": "evidence/studio-characters/faces/leo-snooty.png",
+   "width": 480,
+   "height": 480,
+   "renderMs": 267,
+   "deterministic": true
+  },
+  {
+   "shot": "face:leo:cold",
+   "path": "evidence/studio-characters/faces/leo-cold.png",
+   "width": 480,
+   "height": 480,
+   "renderMs": 266,
+   "deterministic": true
+  },
+  {
+   "shot": "face:leo:calm",
+   "path": "evidence/studio-characters/faces/leo-calm.png",
+   "width": 480,
+   "height": 480,
+   "renderMs": 249,
+   "deterministic": true
+  },
+  {
+   "shot": "face:leo:crying",
+   "path": "evidence/studio-characters/faces/leo-crying.png",
+   "width": 480,
+   "height": 480,
+   "renderMs": 269,
+   "deterministic": true
+  },
+  {
+   "shot": "face:leo:devious",
+   "path": "evidence/studio-characters/faces/leo-devious.png",
+   "width": 480,
+   "height": 480,
+   "renderMs": 276,
+   "deterministic": true
+  },
+  {
+   "shot": "face:leo:pensive",
+   "path": "evidence/studio-characters/faces/leo-pensive.png",
+   "width": 480,
+   "height": 480,
+   "renderMs": 263,
+   "deterministic": true
+  },
+  {
+   "shot": "face:leo:excited",
+   "path": "evidence/studio-characters/faces/leo-excited.png",
+   "width": 480,
+   "height": 480,
+   "renderMs": 245,
+   "deterministic": true
+  },
+  {
+   "shot": "face:leo:triumph",
+   "path": "evidence/studio-characters/faces/leo-triumph.png",
+   "width": 480,
+   "height": 480,
+   "renderMs": 254,
+   "deterministic": true
+  },
+  {
+   "shot": "face:pip:happy",
+   "path": "evidence/studio-characters/faces/pip-happy.png",
+   "width": 480,
+   "height": 480,
+   "renderMs": 276,
+   "deterministic": true
+  },
+  {
+   "shot": "face:pip:sad",
+   "path": "evidence/studio-characters/faces/pip-sad.png",
+   "width": 480,
+   "height": 480,
+   "renderMs": 276,
+   "deterministic": true
+  },
+  {
+   "shot": "face:pip:angry",
+   "path": "evidence/studio-characters/faces/pip-angry.png",
+   "width": 480,
+   "height": 480,
+   "renderMs": 282,
+   "deterministic": true
+  },
+  {
+   "shot": "face:pip:shocked",
+   "path": "evidence/studio-characters/faces/pip-shocked.png",
+   "width": 480,
+   "height": 480,
+   "renderMs": 298,
+   "deterministic": true
+  },
+  {
+   "shot": "face:pip:scared",
+   "path": "evidence/studio-characters/faces/pip-scared.png",
+   "width": 480,
+   "height": 480,
+   "renderMs": 305,
+   "deterministic": true
+  },
+  {
+   "shot": "face:pip:calm",
+   "path": "evidence/studio-characters/faces/pip-calm.png",
+   "width": 480,
+   "height": 480,
+   "renderMs": 306,
+   "deterministic": true
+  },
+  {
+   "shot": "face:pip:nervous",
+   "path": "evidence/studio-characters/faces/pip-nervous.png",
+   "width": 480,
+   "height": 480,
+   "renderMs": 307,
+   "deterministic": true
+  },
+  {
+   "shot": "face:pip:excited",
+   "path": "evidence/studio-characters/faces/pip-excited.png",
+   "width": 480,
+   "height": 480,
+   "renderMs": 292,
+   "deterministic": true
+  },
+  {
+   "shot": "face:mother:happy",
+   "path": "evidence/studio-characters/faces/mother-happy.png",
+   "width": 480,
+   "height": 480,
+   "renderMs": 253,
+   "deterministic": true
+  },
+  {
+   "shot": "face:mother:sad",
+   "path": "evidence/studio-characters/faces/mother-sad.png",
+   "width": 480,
+   "height": 480,
+   "renderMs": 268,
+   "deterministic": true
+  },
+  {
+   "shot": "face:mother:angry",
+   "path": "evidence/studio-characters/faces/mother-angry.png",
+   "width": 480,
+   "height": 480,
+   "renderMs": 251,
+   "deterministic": true
+  },
+  {
+   "shot": "face:mother:shocked",
+   "path": "evidence/studio-characters/faces/mother-shocked.png",
+   "width": 480,
+   "height": 480,
+   "renderMs": 239,
+   "deterministic": true
+  },
+  {
+   "shot": "face:mother:scared",
+   "path": "evidence/studio-characters/faces/mother-scared.png",
+   "width": 480,
+   "height": 480,
+   "renderMs": 245,
+   "deterministic": true
+  },
+  {
+   "shot": "face:mother:calm",
+   "path": "evidence/studio-characters/faces/mother-calm.png",
+   "width": 480,
+   "height": 480,
+   "renderMs": 238,
+   "deterministic": true
+  },
+  {
+   "shot": "face:mother:nervous",
+   "path": "evidence/studio-characters/faces/mother-nervous.png",
+   "width": 480,
+   "height": 480,
+   "renderMs": 239,
+   "deterministic": true
+  },
+  {
+   "shot": "face:mother:excited",
+   "path": "evidence/studio-characters/faces/mother-excited.png",
+   "width": 480,
+   "height": 480,
+   "renderMs": 271,
+   "deterministic": true
+  },
+  {
+   "shot": "hair:long_red:front",
+   "path": "evidence/studio-characters/hair/long_red-front.png",
+   "width": 480,
+   "height": 480,
+   "renderMs": 485,
+   "deterministic": true
+  },
+  {
+   "shot": "hair:long_red:34",
+   "path": "evidence/studio-characters/hair/long_red-34.png",
+   "width": 480,
+   "height": 480,
+   "renderMs": 282,
+   "deterministic": true
+  },
+  {
+   "shot": "hair:long_red:back",
+   "path": "evidence/studio-characters/hair/long_red-back.png",
+   "width": 480,
+   "height": 480,
+   "renderMs": 253,
+   "deterministic": true
+  },
+  {
+   "shot": "hair:spiky_blonde:front",
+   "path": "evidence/studio-characters/hair/spiky_blonde-front.png",
+   "width": 480,
+   "height": 480,
+   "renderMs": 243,
+   "deterministic": true
+  },
+  {
+   "shot": "hair:spiky_blonde:34",
+   "path": "evidence/studio-characters/hair/spiky_blonde-34.png",
+   "width": 480,
+   "height": 480,
+   "renderMs": 241,
+   "deterministic": true
+  },
+  {
+   "shot": "hair:spiky_blonde:back",
+   "path": "evidence/studio-characters/hair/spiky_blonde-back.png",
+   "width": 480,
+   "height": 480,
+   "renderMs": 246,
+   "deterministic": true
+  },
+  {
+   "shot": "hair:messy_brown:front",
+   "path": "evidence/studio-characters/hair/messy_brown-front.png",
+   "width": 480,
+   "height": 480,
+   "renderMs": 243,
+   "deterministic": true
+  },
+  {
+   "shot": "hair:messy_brown:34",
+   "path": "evidence/studio-characters/hair/messy_brown-34.png",
+   "width": 480,
+   "height": 480,
+   "renderMs": 238,
+   "deterministic": true
+  },
+  {
+   "shot": "hair:messy_brown:back",
+   "path": "evidence/studio-characters/hair/messy_brown-back.png",
+   "width": 480,
+   "height": 480,
+   "renderMs": 213,
+   "deterministic": true
+  },
+  {
+   "shot": "hair:swept_blue:front",
+   "path": "evidence/studio-characters/hair/swept_blue-front.png",
+   "width": 480,
+   "height": 480,
+   "renderMs": 268,
+   "deterministic": true
+  },
+  {
+   "shot": "hair:swept_blue:34",
+   "path": "evidence/studio-characters/hair/swept_blue-34.png",
+   "width": 480,
+   "height": 480,
+   "renderMs": 221,
+   "deterministic": true
+  },
+  {
+   "shot": "hair:swept_blue:back",
+   "path": "evidence/studio-characters/hair/swept_blue-back.png",
+   "width": 480,
+   "height": 480,
+   "renderMs": 213,
+   "deterministic": true
+  },
+  {
+   "shot": "hair:ponytail_black:front",
+   "path": "evidence/studio-characters/hair/ponytail_black-front.png",
+   "width": 480,
+   "height": 480,
+   "renderMs": 262,
+   "deterministic": true
+  },
+  {
+   "shot": "hair:ponytail_black:34",
+   "path": "evidence/studio-characters/hair/ponytail_black-34.png",
+   "width": 480,
+   "height": 480,
+   "renderMs": 208,
+   "deterministic": true
+  },
+  {
+   "shot": "hair:ponytail_black:back",
+   "path": "evidence/studio-characters/hair/ponytail_black-back.png",
+   "width": 480,
+   "height": 480,
+   "renderMs": 224,
+   "deterministic": true
+  },
+  {
+   "shot": "hair:long_blonde:front",
+   "path": "evidence/studio-characters/hair/long_blonde-front.png",
+   "width": 480,
+   "height": 480,
+   "renderMs": 271,
+   "deterministic": true
+  },
+  {
+   "shot": "hair:long_blonde:34",
+   "path": "evidence/studio-characters/hair/long_blonde-34.png",
+   "width": 480,
+   "height": 480,
+   "renderMs": 239,
+   "deterministic": true
+  },
+  {
+   "shot": "hair:long_blonde:back",
+   "path": "evidence/studio-characters/hair/long_blonde-back.png",
+   "width": 480,
+   "height": 480,
+   "renderMs": 223,
+   "deterministic": true
+  },
+  {
+   "shot": "hair:bun_red:front",
+   "path": "evidence/studio-characters/hair/bun_red-front.png",
+   "width": 480,
+   "height": 480,
+   "renderMs": 260,
+   "deterministic": true
+  },
+  {
+   "shot": "hair:bun_red:34",
+   "path": "evidence/studio-characters/hair/bun_red-34.png",
+   "width": 480,
+   "height": 480,
+   "renderMs": 240,
+   "deterministic": true
+  },
+  {
+   "shot": "hair:bun_red:back",
+   "path": "evidence/studio-characters/hair/bun_red-back.png",
+   "width": 480,
+   "height": 480,
+   "renderMs": 230,
+   "deterministic": true
+  },
+  {
+   "shot": "hair:bun_pink:front",
+   "path": "evidence/studio-characters/hair/bun_pink-front.png",
+   "width": 480,
+   "height": 480,
+   "renderMs": 306,
+   "deterministic": true
+  },
+  {
+   "shot": "hair:bun_pink:34",
+   "path": "evidence/studio-characters/hair/bun_pink-34.png",
+   "width": 480,
+   "height": 480,
+   "renderMs": 243,
+   "deterministic": true
+  },
+  {
+   "shot": "hair:bun_pink:back",
+   "path": "evidence/studio-characters/hair/bun_pink-back.png",
+   "width": 480,
+   "height": 480,
+   "renderMs": 245,
+   "deterministic": true
+  },
+  {
+   "hairExport": [
+    "long_red 1788t 151748B reimport 1788t",
+    "spiky_blonde 2424t 170652B reimport 2424t",
+    "messy_brown 2532t 175232B reimport 2532t",
+    "swept_blue 2100t 161380B reimport 2100t",
+    "ponytail_black 1460t 127068B reimport 1460t",
+    "long_blonde 1788t 146668B reimport 1788t",
+    "bun_red 2436t 173576B reimport 2436t",
+    "bun_pink 2436t 165016B reimport 2436t"
+   ]
+  },
+  {
+   "identity": {
+    "mother": {
+     "parts": 6,
+     "pivots": 5,
+     "cachedFaces": 9
+    },
+    "leo": {
+     "parts": 6,
+     "pivots": 5,
+     "cachedFaces": 35
+    },
+    "pip": {
+     "parts": 6,
+     "pivots": 5,
+     "cachedFaces": 8
+    }
+   }
+  }
+ ]
+}

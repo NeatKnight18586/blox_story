@@ -1,3 +1,93 @@
+# Shortwick (Episode 2) V3 — detail, body types, harsh QA, no SFX: full 125.6 s re-render at native 1080×1920: PASS (technical + eye review) / owner review pending
+Verified 2026-11-12 on `claude/lucid-brahmagupta-jg9ad9` (owner notes: better texture/detail and body composition, fix every glitch, no SFX).
+- Look V3 (opt-in; Dice Town frames 1200/2900 re-render byte-identical): man/woman/boy/girl bodies (`studio/characters/bodies.js`, R6 shoulder joint), HD clothing (512 px/stud cast, 256 px/stud extras, weave, folds, seams, laces), HD town surfaces with baked normal maps (bump maps removed: NaN bloom blobs), GTAO contact shading, hanging hair locks, seated acting layer, ground contact, HD albedo capped at sRGB 230 so whites keep their shading, wooden cart lids.
+- Harsh QA: `scripts/episode-audit.js` checks every frame (hair over face, body through body/prop, feet floating/sunk, joint/position pops, appear/vanish): 101 → 0 issues; framing lint clean; eye review of all 66 shots plus two full-res contact passes of the final frames.
+- Render incident (fixed): the first V3 pass wrote 1,481 black frames. Cause: 3.1 GB of clothing textures per worker → the container OOM-killed a GPU process → lost WebGL context drew nothing. Fixes: texture memory halved to 1.46 GB/worker; `renderFrame` throws on a lost context; the renderer refuses PNGs under 162 KB; black frames purged. Final pass: 0 blank frames, 0 restarts, GPU processes ~2.3 GB.
+- Render time: 3769 frames in 3 chunks (1841 / 1703 / 225 frames; 3.6 / 3.9 / 4.7 s/frame wall, 10.4–13.7 s in page per worker), ≈4.0 h wall; first frame per browser ~90 s (was 210–280 s).
+- Master `evidence/shortwick/shortwick-1080x1920-silent.mp4`: H.264 yuv420p, 1080×1920, 30 fps, 3769 decoded frames, 125.633 s, 49.8 MB; PSNR vs source 37.2–43.7 dB; frames 0/1256/2512/3768 re-rendered byte-identical; 65 cuts (median diff 52.5 at cuts vs 0.74 inside shots). `contact-sheet-66-shots.jpg`, `phone-390.jpg`, `old-vs-new.jpg`, `verification.json`.
+- SFX removed from the pipeline (`sfx-stem.py`, `sfx.json` deleted). Review MP4 with the private voice-over and captions kept out of Git and delivered directly.
+
+# Shortwick (Episode 2) — full 125.6 s episode at native 1080×1920: PASS (technical + full-res eye review) / owner review pending
+Verified 2026-11-11 on `claude/lucid-brahmagupta-jg9ad9`. Voice-over first: owner's ElevenLabs WAV → `scripts/episode-align.py` → `stories/shortwick/word-timings.json`; all 66 shots anchored to spoken phrases (`stories/shortwick/episode.js`).
+- Render: 3769 frames, 3 SwiftShader workers. First full pass 2.7 s/frame wall (≈7.9 s in page); fixes re-rendered only the changed shots via the per-shot cache (1111 + 62 frames, 3.0–3.3 s/frame wall). No worker restarts.
+- Eye review (every shot, first/mid/last frame at full res) found and fixed 20 shots: long front hair lock crossing faces when heads turned far (R01, K05, R04, T07, P03–P06, Z02 → body turns, small head turns), faces hidden by arms/furniture (T01, T03, K07), unreadable inserts (F03 fish, T02 shoe, L02 giant customer), foreground posts (M04, T05), messy crouch track (I02). Strict lint: 66/66 shots clean.
+- Master `evidence/shortwick/shortwick-1080x1920-silent.mp4`: H.264 High yuv420p, 1080×1920, 30 fps, 3769 decoded frames, 125.633 s, 40.6 MB, no decode errors; PSNR vs source 37.5–43.7 dB; frames 0/1256/2512/3768 re-rendered in a fresh process byte-identical; 65 cuts (median diff 53.8 at cuts vs 0.7 inside shots). `verification.json`, `contact-sheet-66-shots.jpg`, `phone-390.jpg`, `captions.ass` (152 karaoke captions, Montserrat ExtraBold 72 px, ≤4 words, 98.5% speech coverage).
+- Not committed: review MP4s with the private voice-over (with/without SFX) and the 125.633 s SFX stem (`renders/shortwick-final/`), delivered directly.
+- Known limits: Wren's shrunk-body shots (T03) show the head sunk in the oversized cardigan by design; Nan is deliberately tiny, so some shots carry her as a small figure; long-hair front locks still hang in head space (fixed per shot, not in the hair rig).
+
+# Dice Town — The Sixth Roll: full 117.1 s film at native 1080×1920: PASS (technical) / creative review pending
+Verified 2026-11-11 on `claude/lucid-brahmagupta-jg9ad9`. Built autonomously at the owner's request while away.
+- Film: `production/dice-town-film/film.js` — 38 shots at the locked boundaries (P3A_SHOT_OPTIMIZATION.json), 3513 frames @ 30 fps, all native WebGL renders on the studio look, cast, hair and town kit. New sets in `studio/dice/sets.js`: dais + floor hatch + brass tip, tether/harness, sketched notebook, underground crank/paddle/pin chamber, town gate road, Mother's doorway and kitchen with the small chair, family photo rendered from the 3D characters. No storyboard proxies, no unrelated footage.
+- Process: every shot previewed at 360 px and reframed until it read; a full every-third-frame motion pass reviewed; then the final render.
+- Render: 3513 frames in 6640 s (1.89 s/frame wall, 3 CPU WebGL workers). Frames in `renders/film-1080/` (git-ignored).
+- Silent master `evidence/dice-town-film/dice-town-1080x1920-silent.mp4`: H.264 High yuv420p, 1080×1920, 3513 decoded frames, 117.1 s, 12.4 MB, no decode errors; PSNR vs source 37.0–43.2 dB; 9 frames re-rendered in a fresh process byte-identical; all 37 locked cuts present (median frame difference 56.6 at cuts vs 0.06 inside shots). `python3 scripts/dice-town-film-finish.py` → `verification.json`, `contact-sheet-38-shots.jpg`, 720p preview (labelled downscale).
+- Narration: owner-supplied ADAM WAV verified identical to the locked reference (sha256 c7aef155…, 117.098231 s, already 1.25×); muxed without re-timing. The narrated video embeds the private narration and is kept out of Git (`renders/dice-town-1080x1920-narrated-captions.mp4`, delivered directly).
+- Captions: `scripts/dice-town-captions.py` → `evidence/dice-town-film/captions.ass`: 105 short white captions (≤28 chars, 56 px, outline + soft shadow, lower-middle safe area), timed from the narration's own pauses inside each locked paragraph (no ASR model reachable; not word-perfect), full speech coverage, no overlaps.
+- Weakest shots (honest): D02 busy foreground crowd; D04 baker-shoe insert is dark and abstract; D13/D16 mechanism inserts read better with narration than alone; D20 repeats D19's photo close-up; D26 Pip not visible at the frame edge; D27/D30 Pip's raised arm partly covers his face; floating residents are simple arm-out poses; limbs on twos may read as stiff to some viewers.
+
+# Studio V2 stage 4b — sequence re-rendered at native 1080×1920 with sharp characters: PASS (technical)
+Verified 2026-11-10. Close-shot depth of field had blurred Pip and softened Leo (aperture .025); now .0005 with focus between both heads. Master `evidence/studio-sequence/sequence-1080x1920.mp4`: H.264 High yuv420p, 360 decoded frames, 12.0 s, 7.0 MB, cuts exactly at 135/240, 7 re-rendered frames byte-identical, PSNR ≥ 35.5 dB. Render 755 s (2.10 s/frame wall, 3 workers) vs 1208 s at 1440p. The 1440p master with the blur defect was removed (kept in git history at b6e7edb). 1080×1920 is now the production resolution.
+
+# Studio V2 stage 4 — native 1440p sequence proof: PASS (technical) / creative review pending
+Verified 2026-11-10.
+- Look v2 (owner: lively, less bright): exposure .86, less fill/env/haze, deeper sky; town frames 0.55–0.70 luma. All studio evidence regenerated with it.
+- Motion (`studio/motion/r6.js`): Roblox-classic R6 cycles (walk, child walk, run, idle, wave, hop, head look); limbs/faces on twos (15 poses/s), root travel and camera smooth at 30 fps.
+- Sequence (`production/studio-sequence/`): 12.0 s, 360 frames, 3 shots — A street establishing dolly (0–134), B tracking two-shot with Pip's wave and Leo's shocked look-up (135–239), C plaza: die drops and lands on 3, crowd reacts, Leo and Pip run in (240–359). Per-shot set cheats remove props from the walking line.
+- Render: `node scripts/studio-sequence-render.js --width=1440 --workers=3` → 360 native 1440×2560 PNGs in 1208 s (3.36 s/frame wall, 3 SwiftShader workers on 4 CPUs). Frames stay in `renders/` (git-ignored).
+- Master: `evidence/studio-sequence/sequence-1440x2560.mp4` — H.264 High, yuv420p, 1440×2560, 30 fps, 360 decoded frames, 12.0 s, 9.0 MB, no decode errors. Encode PSNR vs source frames 36.5–43.0 dB. Cuts detected exactly at 135 and 240 (diff 63.9/56.0 vs ≤17.4 within shots). Determinism: 7 frames re-rendered in a fresh process are byte-identical. `python3 scripts/studio-sequence-finish.py` → `verification.json`.
+- Preview: `sequence-720x1280-preview.mp4` is a labelled Lanczos downscale of the master for phone review, not a native render.
+- Shot metrics (colourfulness/luma): A 68.9/0.557, B 75.7/0.629, C 89.8/0.705.
+- Creative limits: shot C's crowd hop happens mostly at frame edges and Pip enters only in the last second; an opposite-lane walker crowds Leo at the start of B; no audio, captions or narration (silent proof).
+
+# Studio V2 stage 3 — hair refinement + town kit v1: PARTIAL (awaiting owner review)
+Verified 2026-11-10.
+- Hair: rebuilt from broad, flat, layered clumps with baked vertex AO (darker roots/under-layers) and a painted strand texture with a highlight band. Masculine cuts (spiky, messy, swept) compact with tight tapered sides; feminine cuts (long ×2, ponytail, buns) with crown volume and face-framing locks in front of the shoulders. Still one watertight mesh per hair, 1.5k–2.5k triangles; GLBs re-exported to `studio/assets/hair/`.
+- Town kit (`studio/town/`): painted surface materials (brick, siding, stone, plaster, planks, paving, asphalt, grass, roof, glass) and 14 modules (shopFront, house, clockTower, street, plaza, grassField, tree, bush, lampPost, bench, hydrant, marketStall, fountain, skylineBlock). Seeded crowd extras (`createExtra`) with tee/hoodie/stripe tops and the hair options. Notes: `studio/town/TOWN_NOTES.md`.
+- Sets (`production/studio-town/`): street with seven facades, props, skyline and 12 extras; Dice Town plaza with the existing die (result 3), shops ring, stalls, crowd. ~488k scene triangles.
+- Captures (`node scripts/studio-town-capture.js`): 4 native 1080×1920 frames, deterministic, no page errors, ~2.3–2.8s/frame after a ~9.5s first frame.
+- Metrics (gate colorfulness ≥80, luma ≥0.60): street medium and plaza low PASS both; street wide and plaza wide ~70 colorfulness (FAIL), luma PASS. Plaza wide colorfulness 37 (old) → 64 (look) → ~69 (kit).
+- Tests: `node tests/studio-town.js` PASS (budgets, grounding, shallow facades, seeded crowd); `npm run test:studio` and `npm test` PASS.
+
+# Studio V2 stage 2c — eight hair options + coloured mouths: PARTIAL (awaiting owner review)
+Verified 2026-11-10.
+- Hair (`studio/characters/hair.js`): eight options matching the owner's reference archetypes (long_red, spiky_blonde, messy_brown, swept_blue, ponytail_black, long_blonde, bun_red, bun_pink; the two buns share one shape). Original geometry built with rigid-accessory practice: low-poly faceted clumps with pointed tips over a closed scalp shell, merged into ONE mesh with ONE painted strand texture (dark roots, streaks), 1,208–3,048 triangles (limit 4k), watertight (0 open edges), HairAttachment at the crown. Not 1:1 copies of the catalog meshes (copyright); same construction methods.
+- Durable assets: `studio/assets/hair/*.glb` + `manifest.json` (bytes, sha256, triangles, re-import triangle check, attachment, origin, licence). GLB re-import matches source triangle counts.
+- Presets: Leo = messy_brown, Pip = spiky_blonde, Mother = bun shape in grey. `setHair(avatar, option, {color})` swaps cached accessories.
+- Mouths: open mouths filled dark red, tongues pink (silly, laughing), teeth white (excited, triumph); outlines stay ink.
+- Checks: `npm run test:studio` PASS (adds per-hair triangle budget, watertight, attachment and cached-swap checks); `npm test` PASS; all captures deterministic, no page errors.
+- Evidence: `evidence/studio-characters/hair-options.jpg`, `expressions-35.jpg`, `expressions.jpg`, `lineup-sheet.jpg`.
+
+# Studio V2 stage 2b — classic Roblox construction: PARTIAL (awaiting owner review)
+Verified 2026-11-10. Owner feedback on 2a: "cartoony, not true Roblox-like". Rebuilt the presets the way Roblox avatars are made:
+- Six plain blocks only (classic box torso, normal head size); all clothing detail (collars, lapels, buttons, strap, stripes, shawl, belts, shorts, socks, shoes, seams, drawn shading) is painted per block face like a classic shirt/pants template (`studio/characters/clothing.js`). Removed the 3D hand/cuff/shoe/hem blocks, catchlight eyes, blush and red mouths.
+- Faces are flat ink decals wrapped on the head front (`studio/characters/faces.js`), drawn from the owner's 35-expression sheet (all 35: happy … triumph). Old names neutral/worried/surprised/determined alias to calm/nervous/shocked/serious.
+- Accessories stay meshes (hair, Mother's glasses, Leo's notebook), as in Roblox.
+- Checks: `npm run test:studio` PASS (35 cached expressions per preset, six parts/five pivots, grounded, geometry identity, deterministic poses); `npm test` PASS; 53 captures deterministic, no page errors. Face close-up ~0.3s, lineup ~1.6–4.8s, plaza 1080p ~3.4s per frame.
+- Metrics: lineup colorfulness 84.3 / luma 0.711; plaza Leo close-up 105.7 / 0.458 (brightness gate still FAILS: teal/denim outfit).
+- Evidence: `evidence/studio-characters/expressions-35.jpg`, `expressions.jpg`, `lineup-sheet.jpg`, `plaza-leo-comparison.jpg`.
+
+# Studio V2 stage 2 — character presets: PARTIAL (awaiting owner review)
+Verified 2026-11-10 on `claude/lucid-brahmagupta-jg9ad9`.
+
+- Built: Leo (teal jacket, cream collar, ochre strap, notebook, denim, chestnut side-part), Pip (child scale .65, orange tee with cream stripe, blue shorts, red shoes, golden crop), Mother (lavender cardigan with cream V shawl, grey low bun, round glasses as the age cue). Long sleeves with hands, shoes on every preset. Six expressions (neutral, happy, worried, surprised, determined, sad) with catchlight eyes, thick brows and filled mouths, cached per avatar.
+- Compatibility: same six parts and five pivots; `applyPose` deterministic; expression swaps reuse cached groups and never rebuild body/hair geometry; all presets grounded at y=0 (`npm run test:studio` PASS). Existing `npm test` PASS. Stage-1 frames regenerated byte-identical.
+- Captures (`node scripts/studio-characters-capture.js`): 2 lineup frames at 1080×1920 + 18 face close-ups at 640×640, all deterministic, no page errors. Lineup ~2.6s/frame, face ~0.35s/frame (CPU WebGL).
+- Plaza Leo close-up, same camera: colorfulness 58.9 (old) → 98.1 (stage 1) → 109.9 (stage 2); luma 0.387 → 0.498 → 0.485. Brightness gate (0.60) still FAILS: teal jacket and navy trousers are mid-dark by design; reaching it needs lighter wardrobe colours (owner decision) or brighter close-up lighting. Lineup frame: 86.6 / 0.708 (passes both).
+- Not done: walking/acting on the new presets, crowd extras, town kit, 8–15s native sequence.
+
+# Studio V2 stage 1 — look gate: PARTIAL (awaiting owner review)
+Verified 2026-11-10 on branch `claude/lucid-brahmagupta-jg9ad9` (based on PR #51 head `f1b8dd2`).
+
+- Native capture: `node scripts/studio-lookdev-capture.js` → 4 PNGs at 1080×1920 (`evidence/studio-lookdev/`), Chromium SwiftShader, no page errors, each frame re-rendered and hash-identical (deterministic).
+- Legacy untouched: `production/studio-lookdev/?look=0` and the original `production/dice-town-p3b4/` page give identical PNG hashes for D01 at 720×1280. No existing file modified; `npm test` passes.
+- Metrics (`python3 scripts/studio-lookdev-sheet.py`, gate colorfulness ≥80, luma ≥0.60; reference Short 98 / 0.67):
+  - Wide: colorfulness 37.2 → 64.2 (FAIL), luma 0.570 → 0.724 (PASS).
+  - Leo close-up: colorfulness 58.9 → 98.1 (PASS), luma 0.387 → 0.498 (FAIL).
+  - Remaining misses come from content, not the look: bare paving fills half the wide; dark jacket/trousers fill the close-up.
+- Render cost per 1080×1920 frame (CPU WebGL): legacy ~1.2–1.4s, studio look ~2.8–3.1s (first frame ~4.9s with shader compile). A 15s/450-frame shot ≈ 23 min single process.
+- Higgsfield: free plan, 10 credits, trial not eligible; 3D generation costs 14–44 credits. No credits spent. See `studio/HIGGSFIELD.md`.
+- Not done (next stages, need approval): character presets (hair, wardrobe, colours), town-kit density, 8–15s native sequence, asset manifest.
+
 # F1 v3 — verification status
 **Final F1 grade: PASS (A source/API + B real visual review + C reproducible HTTP preview).**
 Verified 2026-11-08. Current F2A implementation results appear below; F2B remains deferred. F1_SPEC.md remains authoritative.
@@ -320,3 +410,94 @@ Seven true native720x1280 pairs30/780/1115/1232/1248/1392/1600; one comparison s
 Original WAV unchanged; private audio clips sample-trimmed at exact global offset,no stretch/regeneration. Both fully played unmuted;AAC/sourcePCM correlations0.999630/0.998952 at zero coarse lag. Human listening/creative approval still needed; silent preview files committed,voiced files/WAV ignored,no downloadable voiced link claimed.899 prior files/734 evidence files/13 films/private full S4 review unchanged.
 
 Measured native proof16.988s,two native motion captures+all-frame checks/encode133.366s (1652.46MiB peak sampled summed RSS),affected regression54.305s. Unprofiled diagnostics/overlaps and unavailable model-token counts explicit in report. [Evidence,previews,tests,costs,limits](evidence/names100-s5/REPORT.md). No whole episode/sound pass/final production or next stage. Stop for user review.
+
+
+# S6 — native final candidate awaiting iPad review
+
+Native720×1280/30fps master **PASS**:1641 frames/54.700s,clean3D separate from captions/counters/narration. [Silent final candidate](evidence/names100-s6/silent-master.mp4) · [Clean master](evidence/names100-s6/clean-master.mp4) · [Native contact sheet](evidence/names100-s6/23-shot-contact.png) · [Report,tests,costs,limits](evidence/names100-s6/REPORT.md).
+
+PR19 merged after verification. Approved S4+S5 unchanged; no upscale/art changes. Checkpointed capture resumed from1155 verified frames after usage interruption; only486 remaining captured,20 protected reverse checks pass. All15 prior movies/code/tests preserved. Original narration muxed at t=0 and technically verified privately; narrated delivery PARTIAL,real iPad approval PENDING. No publishing. Model-token/total interrupted-run costs unavailable; measured scopes explicitly reported.
+
+New native exporter uses g=i with1GiB cache; complete nativePTS/22cuts/decode/playback verified. Original WAV54.682993s leaves17.0068ms pad; zero coarse audio lag. All1641 overlay masks pass. Middle interrupted timing unavailable; final resume390.776s and assembly87.551s are partial scopes,not task totals. Stop for full iPad review.
+
+## 2026-11-09 — Dice Town P0–P1
+
+Isolated branch `codex/dice-town-p1` from inspected S6 c4dbd75; no S6/S7/V2 merge. Added only an opt-in plaza/Leo path, isolated V2 hair factory, three proposal documents and verification evidence. Existing avatar/animation/appearance/pilot source and films are byte-preserved (preservation.json). Native720×1280 A/B WebGL captures, reverse-order and cold-reload pixel equality, focused source checks and full npm regression suite PASS. Creative verdict PARTIAL: improved identity/depth but repeated shop vocabulary, partly obscured plaque and ambiguous annoyed mouth remain. See evidence/dice-town-p1/REPORT.md for actual images, browser results and capture cost. No creative approval claimed, video/audio created, pilot outputs overwritten, merge or P2 progression.
+
+## 2026-11-09 — Dice Town P1B bounded quality experiment
+
+Isolated codex/dice-town-p1b from aac0a5f; no merges. Two native revised WebGL stills, P1 phone comparison and a real Kenney character-a comparison delivered. Nine-unit die, higher suspended staging, clock/bakery/archive detail, opt-in tapered/side-part Leo and corrected annoyed mouth. Technical PASS: full source regressions, focused asset/identity tests and native reverse/cold-reload hashes. Creative PARTIAL: simple architecture, chunky hair and background clutter remain; human approval required. Kenney CC0 candidate rejected for Leo; no drop-in action/face compatibility claimed. Previous source/films/P1 evidence byte-preserved; existing safe server adds GLB MIME only. Costs and limits: evidence/dice-town-p1b/REPORT.md. No motion proof, video, audio, merge or P2.
+
+## 2026-11-09 — Dice Town P1C still-frame polish
+
+Isolated codex/dice-town-p1c from055d585. Two native720×1280 WebGL stills plus P1/P1B/P1C390px comparison. Die reduced9→6.3, plaque restaged, gradient sky/sun/two cloud clumps/distant roofs, small bench/planters and bakery correction, triangular collar/strap clearance/portrait separation. Existing engine/APIs, pilot films and P1/P1B source/evidence byte-preserved. Source regressions and native reverse/cold-reload pixel checks PASS. Creative PARTIAL: more coherent world, but plain facades, chunky hair, repeated extras, large foreground and minor crowd/frame-edge tangencies remain. See evidence/dice-town-p1c/REPORT.md for measured cost and limits. No animation, video, audio, merge or P2. Stop for visual review.
+
+## 2026-11-09 — Dice Town P2A first motion proof
+
+Isolated codex/dice-town-p2a from3711b7c. One native4.000s silent H.264720×1280/30fps film,120 decoded frames, all-frame contact sheet, deterministic die settle/three distinct lifts/Leo face reaction and world-oriented sky. Existing exporter reused via bounded opt-in entry; recovery/source regressions PASS. Vertex contact, persistent identity and all120 reverse pixel/state samples PASS. Overall technical PARTIAL: raised arm clips wide-shot right edge; conservative border warnings disclosed. Creative review PENDING. Evidence/report at evidence/dice-town-p2a/. No merge, full episode or next phase.
+
+## Dice Town PR28 bounded motion polish
+
+Branch codex/dice-town-p2a-polish preserves PR28 and previous pilot history. Corrected raised-arm cropping with camera/pose/staging edits; actual mesh vertices stay inside all75 wide-shot frames. Stronger anticipation, staggered lift/overshoot, counterposed legs and Leo surprise hold. Technical PASS: source regressions,120-state contact/identity/sky QC, exact4s/120-frame silent720×1280 H.264, all120 reverse pixel matches, full decode and browser playback. Creative approval PENDING; rigid articulation, hard shadows and die/foreground silhouette crowding remain. Native job191.34s, sampled1402.5MiB summed RSS. Evidence: evidence/dice-town-p2a-polish/REPORT.md. No merge or next phase.
+
+## Dice Town117s storyboard animatic
+
+From PR30 plan branch ea87785, isolated codex/dice-town-117s-animatic. Technical PASS:38-shot silent360×640/15fps H.264,1757 decoded frames/117.133s,76 final WebGL boards,38 cut-start matches, playback/decode/source tests. Source3513/30fps boundaries preserved; proxy rounding and35.102ms audio-reference difference documented. Audio untouched; creative/listening review PENDING. Placeholders for missing mechanism/photo/tether/gate/home/mother/chair assets. Evidence: evidence/dice-town-animatic/REPORT.md. No merge/full-resolution episode or next phase.
+
+## Dice Town P3A production-lock proposal
+
+Documentation only on codex/dice-town-p3a-production-lock from PR31/58f7a13. Reviewed76 held states decoded from existing film, timing manifest, missing assets and scene/motion code. Preserves38 source cuts/3513 frames; proposes eight setup families, per-shot treatment, prioritized contact/grounding/asset fixes, safe cheats and no-spend list. Recommended first production batch D03/D15/D23/D35, not authorized to render yet. JSON/CSV/table consistency and unchanged engine/test/evidence bytes verified; existing animatic source test PASS. Technical documentation validation PASS; strategy/creative approval PENDING. No new WebGL frames, assets, MP4 or merges.
+
+## Dice Town P3B-1 — mechanism and pin proof
+
+Isolated branch codex/dice-town-p3b1-mechanism-pin from PR32/a78b7f2. Seven native720×1280 stills;1.6s D15 and2.4s D23 silent360×640/30fps H.264 proofs; phone/contact sheets. One chamber, bored coupling plates/pin, conditional transmission, vertex-supported6.3 die, continuous supported pin extraction/carry/receipt. Technical checks PASS: contact/no hand penetration, pin frame containment, identity/reverse samples, source regressions, full video decode/browser playback. Creative PARTIAL/pending review: rigid open-block support, tight identity context, authored die dynamics and small coupling readability. Costs are partial scoped receipts, not a task total. Evidence: evidence/dice-town-p3b1/REPORT.md. No merge, native movie, full intervals, other shot or next phase.
+
+## Dice Town P3B-2 — D35/D36 directed proof
+
+From direction branch100e496 on isolated codex/dice-town-p3b2-mother-proof. Native anticipation/recognition/response and one D36 chair view, then one3.5s/105-frame360×640/30fps silent H.264 proof. Fixed OTS child/adult staging, continuous warm doorway/home footprint, local soft expression blend and delayed short reach, reused low-bun with restrained gray cue. Targeted/source regressions, persistent geometry/reverse samples, face/hand frame containment, jamb/child/head clearance, gaze direction, full decode/browser playback PASS. Creative approval PENDING; D19 photo comparison unavailable, elbowless/simple eye limitations documented. Prior source/evidence/timestamps unchanged. Evidence: evidence/dice-town-p3b2/REPORT.md. No merge or other shots.
+
+## Dice Town P3B-2B — one-pass recognition correction
+
+From creative-fix brief60a544a on isolated codex/dice-town-p3b2b-recognition-fix. Existing low-bun pieces locally reshaped/highlighted, one cream shawl edge, slightly tighter OTS and one faded chair paint bar. PR35 motion, rigs, shared hair, tests and prior evidence preserved byte-for-byte. Four native720×1280 stills inspected before the one360×640/30fps silent105-frame/3.5s proof. Technical PASS: source regressions,105-frame geometry/gaze/identity checks, reverse pixel/state equality, full decode and browser playback. Face width improves11.1–11.3% at390px; minimum arm/jamb gap0.114. Creative PARTIAL / review pending: chunky hairstyle, subtle age identity and generic elbowless greeting remain. Capture/export wall38.93s combined scoped receipts; CPU/RSS not sampled. Evidence: evidence/dice-town-p3b2b/REPORT.md. No merge, D19, other scene or native movie.
+
+## Dice Town P3B-3 — D03/D04 baker contact and shoe release
+
+Isolated codex/dice-town-p3b3-baker-proof from direction5664d5f. New opt-in baker/bakery fragment, actual-vertex anchored arm support, small rigid-pivot arrested rise, shared sole/toe attachments and clear cut to shoe release. Six native720×1280 keyframes reviewed before one360×640/30fps96-frame3.2s silent H.264 proof. Technical PASS: targeted geometry/framing, stable identity, selected reverse pixel/state seeks, existing full source regressions and Dice Town tests, full decode/browser playback. Intentional support clearance0.015; no tested penetration vertices, hero sole gap0.440, floor minimum0.00378, projected critical bounds0.880. Creative PARTIAL/pending: rigid corner-brace and simple footwear/descent remain. All1223 prior files byte-compared before docs updates; locked38-shot/3513-frame plan unchanged. Final native job5.683s; single motion23.544s wrapper wall (partial cost scope). Evidence/report: evidence/dice-town-p3b3/REPORT.md. No merge, other shots or editorial integration.
+
+## Dice Town P3B-4 — static plaza and gate grounding
+
+Isolated codex/dice-town-p3b4-grounded-world from direction212968d. Opt-in adapter, continuous land/near-flush inset plaza, shallow street returns; installed two-leaf gate with wall returns, onward road and matching destination-home doorway. Five native720×1280 after views and five authentic unmodified-source baselines with390px comparisons. Technical PASS: critical vertex containment,20land rays per view, shared sun/cloud visibility, D01 resident/die separation,3.71wide open corridor/unblocked home sightline, reverse/cold pixel equality, full npm and Dice Town source regressions. Creative PARTIAL/pending: simple repeated facades, broad widest-view margins and separate visual-continuity footprints; no complete geography or other-shot certification. All1248 earlier files byte-compared before docs updates; P3B sources/films/evidence/timeline preserved. Final capture/reverse job28.364s wrapper wall; diagnostic batches/tests excluded. Evidence: evidence/dice-town-p3b4/REPORT.md. No motion/video/audio, merge or next phase.
+
+## Dice Town P4A — complete silent working assembly
+
+Isolated codex/dice-town-p4a-working-edit from directionae536aa. Technical PASS: exact3513 frames/117.100s,360×640/30fps/H.264/yuv420p/BT.709,all38 authoritative shots, no audio. Reuses proof motion at1×, native stills and labeled original proxy; baker source57 split cuts atglobal255.134 source-pixel samples/all38 boundaries pass,continuousPTS/full decode/real browser playback and37 cut seeks pass. Full source regressions and source-map tests PASS. Corrected measured inherited proxy boundary offset and mixed color interpretation during verification; all retry costs retained. Runtime70.766% proxy,13.521% stills,6.576% proof holds,9.137% proof footage. Creative PARTIAL: major placeholder actions and proxy/clean-proof continuity jumps remain; private listening review pending. All1275 prior tracked files byte-compared before docs updates. Assembly passes total41.517s plus final sourcecheck3.996s/playback3.491s (partial scopes). Evidence: evidence/dice-town-p4a/REPORT.md. No new WebGL/animation/environment, narration changes, native movie, merge or next phase.
+
+## Dice Town P4B-1 — integrated sixth-roll arc
+
+Isolated codex/dice-town-p4b1-sixth-roll from direction1beac09. D25/26 real native die orientations1/2/4/3/5; D27photo-motivated withdrawal; D30smaller urge/non-interference; supported continuous D29→D31 roll; D32real six. Same pin/rig/chamber, one reusable flat photo and bounded complete-faced die helper. D28 compiled still exactly reused; its5/2 adjacent-face conflict remains disclosed. Technical PASS: native/cold/reverse, whole-die support, hand/sleeve/framing, all regressions,3513frames/117.100s silent360×640/30fps/full decode/playback and153source-pixel checks. All2923unchanged output frames MD5-identical to P4A; clean edit rebuild byte-identical without ignored caches. Proxy70.766→53.971%; still21.435%,holds10.504%,motion14.091%. Overall PARTIAL/creative pending: inherited D28 inconsistency, symbolic photo, rigid acting, hard-cut days and weak roll contact shadow.174unique motionframes5.8s; two78-frame geometry-correction repeats disclosed (330forward captures). Capture job walls142.439+121.334+48.012s; final encode6.457s; additional scoped receipts/report retained. All1300 earlier files byte-compared before docs updates; timeline/audio reference untouched. Evidence: evidence/dice-town-p4b1/REPORT.md. No merge, gate animation, D19 scene, native movie or next phase.
+
+## Dice Town P4B-2 — mystery continuity and D28 fair-die repair
+
+From direction87f0857 on isolated codex/dice-town-p4b2-mystery-continuity. D11supported near-six/kick/four outcome; D13same source cropped; D16old crank/coupling crop→same exterior contact/deflection, with unverified far-tip path explicitly implied. D28native legal5-up with1/4adjacent/2below; static Leo restaged for visible pips. Exactly45new540×960WebGL motionframes1.5s, native keyframes first; no extra mechanism animation. Technical PASS: actual support/tip/framing/order,reverse/cold pixels,full regressions,171source-pixel checks,3513frames/117.100s silent360×640/30fps/decode/playback/all38cuts. All3117unchanged decoded frames MD5-identical; empty-cache edit rebuild byte-identical. Proxy1584frames/45.090%,still21.435%,holds15.969%,motion17.506%. Creative PARTIAL/pending: tilted near-six read, small brass cue, soft inherited crop and implied mechanical connection. All1365earlier files byte-compared before docs updates; narration reference untouched. Motion capture35.488s; final edit3.553s plus scoped receipts in evidence/dice-town-p4b2/REPORT.md. No merge, other shots, native movie, audio or next phase.
+
+
+## Dice Town P4B-3 — ending integrated; creative review pending
+
+**Technical PASS; no merge/creative approval.** Isolated branch from `codex/dice-town-p4b3-ending-direction` / `97686e6`. Only D33/D34/D37/D38 replaced: installed gate opening, small Pip crossing toward the same home, native latest-mother crop, actual notebook cover closure. Native720×1280 keyframes inspected before84 unique new motion frames (27+30+27); D37 uses no new WebGL.
+
+[Silent117.100s working edit](evidence/dice-town-p4b3/working-edit.mp4) · [390px comparison](evidence/dice-town-p4b3/phone-comparison.jpg) · [Exact38-shot map](evidence/dice-town-p4b3/edit-map.json) · [Report/costs/limitations](evidence/dice-town-p4b3/REPORT.md).
+
+3513 decoded frames/360×640/30fps/H.264/yuv420p/no audio; all38 cuts,183 decoded source samples, real Chromium playback/seek pass.3152 unchanged decoded frames including D35/D36 are bit-identical to P4B2.1417 existing files hash-preserved before authorized documentation updates. Full source regressions and isolated F1/P4B2/P3B4 browser checks pass;261-position gate sweep, child actual sole/contact and book/body checks pass. Native reverse/fresh-browser hashes exact; clean source-archive reassembly yields identical MP4. Proxy1434frames/40.8198%.
+
+Motion capture56.98s; FFmpeg assembly3.25s/8.80CPU-s/188.1MiB max individual child RSS; browser/GPU aggregate resources not measured. Existing short-step gait samples0–3 explicit gait seconds over30frames (~3.10× speed); full journey implied by destination insert, no fingers/speech animation. Private narration untouched; listening and iPad creative review pending. No native movie, other scene or next phase.
+
+
+## Dice Town P4B-4 — native backstory repair
+
+**Technical PASS; creative PARTIAL / human review pending.** Isolated from direction `dba5337`. Only D17–D22/D24 changed. Native720×1280 source stills and90 native motion frames; native1024 historical portrait from same mother/Pip rigs, cream-V/rust motif retained. Compact phone comprehension proof inspected before full implementation. Final D19 uses older mother alone in existing anticipation pose, avoiding an early reunion; no new mother acting or unrelated stand-ins.
+
+[Working117.100s edit](evidence/dice-town-p4b4/working-edit.mp4) · [390px continuity](evidence/dice-town-p4b4/phone-continuity.jpg) · [Before/after](evidence/dice-town-p4b4/phone-comparison.jpg) · [38-shot map](evidence/dice-town-p4b4/edit-map.json) · [Native images/tests/costs/limits](evidence/dice-town-p4b4/REPORT.md).
+
+3513frames/360×640/30fps/H.264/yuv420p/no audio; all38 boundaries,213 source checks, full decode and real browser playback/seek PASS.2863 untouched frames including D23/D25–D38 are pixel-identical.1465 prior files hash-preserved before authorized docs updates. Source regressions, F1/die/grounding/pin/mother browser checks,90-pose geometry and16 native reverse/cold hashes PASS. Leo's notebook stays open; same pin world pose at D24 start. Source-only rebuild matches final movieSHA. Proxy784frames/22.317%; stills+holds55.223%, not finished animation.
+
+One90-frame native capture54.76s, sampled process-tree CPU106.97s/peak summed RSS724.0MiB. Final incremental assembly5.82s; initial assembly9.71s retained. No3D motion recapture. Age cue mainly gray vs dark hair; exact30years relies on narration. D27/D30 symbolic gray photo unchanged, remains an exact-photo-graphic continuity limitation. Rigid gestures/holds and private listening/iPad review remain. No original WAV processing, full native movie, merge or next scene.

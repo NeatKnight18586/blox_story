@@ -1,0 +1,2762 @@
+{
+  "fps": 30,
+  "width": 360,
+  "height": 640,
+  "frame_count": 3513,
+  "duration_seconds": 117.1,
+  "silent": true,
+  "audio_touched": false,
+  "private_audio_reference_seconds": 117.098231,
+  "audio_delta_seconds": 0.0017689999999959127,
+  "source_clock": "All38 end-exclusive slots unchanged; onlyD33,D34,D37,D38 replaced.",
+  "proxy_mapping": "Unchanged proxy packet copied from P4B2; nested provenance retained.",
+  "sources": {
+    "evidence/dice-town-p4b2/working-edit.mp4": {
+      "sha256": "2e1457ea2a03c295c068e5bc84df5a041b95c861ebd1d110f42bfecfb2ec8fd9"
+    },
+    "evidence/dice-town-p4b3/ending-source.mp4": {
+      "sha256": "630df4d962c88926fbbb695f4b531daeeba32e42e7070044f604c22715f354ba"
+    },
+    "evidence/dice-town-p4b3/home.png": {
+      "sha256": "920de95be9a6c8a201f7e5676495c4be0f939504dcfacc2fac886df93142ea12"
+    },
+    "evidence/dice-town-p4b3/mother-close.png": {
+      "sha256": "4c2d0125fb35509817e882b288ee13d7f29903bc4197701be5337276f8477396"
+    }
+  },
+  "runtime_by_kind": {
+    "proxy": {
+      "frames": 1434,
+      "seconds": 47.8,
+      "percent": 40.8198121263877
+    },
+    "still": {
+      "frames": 647,
+      "seconds": 21.566666666666666,
+      "percent": 18.417307144890408
+    },
+    "endpoint_hold": {
+      "frames": 733,
+      "seconds": 24.433333333333334,
+      "percent": 20.865357244520354
+    },
+    "motion": {
+      "frames": 699,
+      "seconds": 23.3,
+      "percent": 19.89752348420154
+    }
+  },
+  "shots": [
+    {
+      "id": "D01",
+      "start_frame": 0,
+      "end_frame": 66,
+      "frame_count": 66,
+      "original_intent": "Die showing 3 immediately; first few residents lift as result becomes visible",
+      "final_approved": false,
+      "spans": [
+        {
+          "output_start_frame": 0,
+          "output_end_frame": 66,
+          "kind": "still",
+          "source": "evidence/dice-town-p4b2/working-edit.mp4",
+          "source_start_frame": 0,
+          "source_end_frame": 66,
+          "sampling": "direct_30fps",
+          "source_fps": 30,
+          "provenance": {
+            "output_start_frame": 0,
+            "output_end_frame": 66,
+            "kind": "still",
+            "source": "evidence/dice-town-p4b1/working-edit.mp4",
+            "source_start_frame": 0,
+            "source_end_frame": 66,
+            "sampling": "direct_30fps",
+            "source_fps": 30,
+            "provenance": {
+              "output_start_frame": 0,
+              "output_end_frame": 66,
+              "kind": "still",
+              "source": "evidence/dice-town-p4a/working-edit.mp4",
+              "source_start_frame": 0,
+              "source_end_frame": 66,
+              "sampling": "direct_30fps",
+              "source_fps": 30,
+              "provenance": {
+                "output_start_frame": 0,
+                "output_end_frame": 66,
+                "kind": "still",
+                "source": "evidence/dice-town-p3b4/after-D01.png",
+                "source_start_frame": 0,
+                "source_end_frame": 1
+              }
+            }
+          }
+        }
+      ],
+      "selection": "native_still_hold",
+      "note": "Rule3 readable, but no new opening animation.",
+      "immediate_selection": "unchanged_committed_P4B2"
+    },
+    {
+      "id": "D02",
+      "start_frame": 66,
+      "end_frame": 169,
+      "frame_count": 103,
+      "original_intent": "Wave of levitation across plaza, readable legs leaving ground",
+      "final_approved": false,
+      "spans": [
+        {
+          "output_start_frame": 66,
+          "output_end_frame": 169,
+          "kind": "proxy",
+          "source": "evidence/dice-town-p4b2/working-edit.mp4",
+          "source_start_frame": 66,
+          "source_end_frame": 169,
+          "sampling": "direct_30fps",
+          "source_fps": 30,
+          "provenance": {
+            "output_start_frame": 66,
+            "output_end_frame": 169,
+            "kind": "proxy",
+            "source": "evidence/dice-town-p4b1/working-edit.mp4",
+            "source_start_frame": 66,
+            "source_end_frame": 169,
+            "sampling": "direct_30fps",
+            "source_fps": 30,
+            "provenance": {
+              "output_start_frame": 66,
+              "output_end_frame": 169,
+              "kind": "proxy",
+              "source": "evidence/dice-town-p4a/working-edit.mp4",
+              "source_start_frame": 66,
+              "source_end_frame": 169,
+              "sampling": "direct_30fps",
+              "source_fps": 30,
+              "provenance": {
+                "output_start_frame": 66,
+                "output_end_frame": 169,
+                "kind": "proxy",
+                "source": "evidence/dice-town-animatic/dice-town-animatic.mp4",
+                "source_start_frame": 32,
+                "source_end_frame": 84,
+                "declared_proxy_start": 33,
+                "declared_proxy_end": 85,
+                "source_fps": 15,
+                "output_fps": 30,
+                "formula": "source_start_frame + min(floor(local_output_frame/2), source_count-1)",
+                "boundary_shift_frames30": -2,
+                "expanded_source_frames": 104,
+                "tail_adjustment_frames": -1
+              }
+            }
+          }
+        }
+      ],
+      "selection": "unfinished_proxy",
+      "note": "Original15fps labeled storyboard proxy, NOT FINAL. No missing action invented.",
+      "immediate_selection": "unchanged_committed_P4B2"
+    },
+    {
+      "id": "D03",
+      "start_frame": 169,
+      "end_frame": 255,
+      "frame_count": 86,
+      "original_intent": "Baker lunges for stall as light items lift",
+      "final_approved": false,
+      "spans": [
+        {
+          "output_start_frame": 169,
+          "output_end_frame": 175,
+          "kind": "endpoint_hold",
+          "source": "evidence/dice-town-p4b2/working-edit.mp4",
+          "source_start_frame": 169,
+          "source_end_frame": 175,
+          "sampling": "direct_30fps",
+          "source_fps": 30,
+          "provenance": {
+            "output_start_frame": 169,
+            "output_end_frame": 175,
+            "kind": "endpoint_hold",
+            "source": "evidence/dice-town-p4b1/working-edit.mp4",
+            "source_start_frame": 169,
+            "source_end_frame": 175,
+            "sampling": "direct_30fps",
+            "source_fps": 30,
+            "provenance": {
+              "output_start_frame": 169,
+              "output_end_frame": 175,
+              "kind": "endpoint_hold",
+              "source": "evidence/dice-town-p4a/working-edit.mp4",
+              "source_start_frame": 169,
+              "source_end_frame": 175,
+              "sampling": "direct_30fps",
+              "source_fps": 30,
+              "provenance": {
+                "output_start_frame": 169,
+                "output_end_frame": 175,
+                "kind": "endpoint_hold",
+                "source": "evidence/dice-town-p3b3/baker.mp4",
+                "source_start_frame": 0,
+                "source_end_frame": 1
+              }
+            }
+          }
+        },
+        {
+          "output_start_frame": 175,
+          "output_end_frame": 232,
+          "kind": "motion",
+          "source": "evidence/dice-town-p4b2/working-edit.mp4",
+          "source_start_frame": 175,
+          "source_end_frame": 232,
+          "sampling": "direct_30fps",
+          "source_fps": 30,
+          "provenance": {
+            "output_start_frame": 175,
+            "output_end_frame": 232,
+            "kind": "motion",
+            "source": "evidence/dice-town-p4b1/working-edit.mp4",
+            "source_start_frame": 175,
+            "source_end_frame": 232,
+            "sampling": "direct_30fps",
+            "source_fps": 30,
+            "provenance": {
+              "output_start_frame": 175,
+              "output_end_frame": 232,
+              "kind": "motion",
+              "source": "evidence/dice-town-p4a/working-edit.mp4",
+              "source_start_frame": 175,
+              "source_end_frame": 232,
+              "sampling": "direct_30fps",
+              "source_fps": 30,
+              "provenance": {
+                "output_start_frame": 175,
+                "output_end_frame": 232,
+                "kind": "proof_motion",
+                "source": "evidence/dice-town-p3b3/baker.mp4",
+                "source_start_frame": 0,
+                "source_end_frame": 57
+              }
+            }
+          }
+        },
+        {
+          "output_start_frame": 232,
+          "output_end_frame": 255,
+          "kind": "endpoint_hold",
+          "source": "evidence/dice-town-p4b2/working-edit.mp4",
+          "source_start_frame": 232,
+          "source_end_frame": 255,
+          "sampling": "direct_30fps",
+          "source_fps": 30,
+          "provenance": {
+            "output_start_frame": 232,
+            "output_end_frame": 255,
+            "kind": "endpoint_hold",
+            "source": "evidence/dice-town-p4b1/working-edit.mp4",
+            "source_start_frame": 232,
+            "source_end_frame": 255,
+            "sampling": "direct_30fps",
+            "source_fps": 30,
+            "provenance": {
+              "output_start_frame": 232,
+              "output_end_frame": 255,
+              "kind": "endpoint_hold",
+              "source": "evidence/dice-town-p4a/working-edit.mp4",
+              "source_start_frame": 232,
+              "source_end_frame": 255,
+              "sampling": "direct_30fps",
+              "source_fps": 30,
+              "provenance": {
+                "output_start_frame": 232,
+                "output_end_frame": 255,
+                "kind": "endpoint_hold",
+                "source": "evidence/dice-town-p3b3/baker.mp4",
+                "source_start_frame": 56,
+                "source_end_frame": 57
+              }
+            }
+          }
+        }
+      ],
+      "selection": "proof_motion_with_endpoint_holds",
+      "note": "Unretimed original30fps proof; real endpoints held, no generated motion.",
+      "immediate_selection": "unchanged_committed_P4B2"
+    },
+    {
+      "id": "D04",
+      "start_frame": 255,
+      "end_frame": 337,
+      "frame_count": 82,
+      "original_intent": "Shoes lift, baker grips stall; exaggerate readable separation",
+      "final_approved": false,
+      "spans": [
+        {
+          "output_start_frame": 255,
+          "output_end_frame": 294,
+          "kind": "motion",
+          "source": "evidence/dice-town-p4b2/working-edit.mp4",
+          "source_start_frame": 255,
+          "source_end_frame": 294,
+          "sampling": "direct_30fps",
+          "source_fps": 30,
+          "provenance": {
+            "output_start_frame": 255,
+            "output_end_frame": 294,
+            "kind": "motion",
+            "source": "evidence/dice-town-p4b1/working-edit.mp4",
+            "source_start_frame": 255,
+            "source_end_frame": 294,
+            "sampling": "direct_30fps",
+            "source_fps": 30,
+            "provenance": {
+              "output_start_frame": 255,
+              "output_end_frame": 294,
+              "kind": "motion",
+              "source": "evidence/dice-town-p4a/working-edit.mp4",
+              "source_start_frame": 255,
+              "source_end_frame": 294,
+              "sampling": "direct_30fps",
+              "source_fps": 30,
+              "provenance": {
+                "output_start_frame": 255,
+                "output_end_frame": 294,
+                "kind": "proof_motion",
+                "source": "evidence/dice-town-p3b3/baker.mp4",
+                "source_start_frame": 57,
+                "source_end_frame": 96
+              }
+            }
+          }
+        },
+        {
+          "output_start_frame": 294,
+          "output_end_frame": 337,
+          "kind": "endpoint_hold",
+          "source": "evidence/dice-town-p4b2/working-edit.mp4",
+          "source_start_frame": 294,
+          "source_end_frame": 337,
+          "sampling": "direct_30fps",
+          "source_fps": 30,
+          "provenance": {
+            "output_start_frame": 294,
+            "output_end_frame": 337,
+            "kind": "endpoint_hold",
+            "source": "evidence/dice-town-p4b1/working-edit.mp4",
+            "source_start_frame": 294,
+            "source_end_frame": 337,
+            "sampling": "direct_30fps",
+            "source_fps": 30,
+            "provenance": {
+              "output_start_frame": 294,
+              "output_end_frame": 337,
+              "kind": "endpoint_hold",
+              "source": "evidence/dice-town-p4a/working-edit.mp4",
+              "source_start_frame": 294,
+              "source_end_frame": 337,
+              "sampling": "direct_30fps",
+              "source_fps": 30,
+              "provenance": {
+                "output_start_frame": 294,
+                "output_end_frame": 337,
+                "kind": "endpoint_hold",
+                "source": "evidence/dice-town-p3b3/baker.mp4",
+                "source_start_frame": 95,
+                "source_end_frame": 96
+              }
+            }
+          }
+        }
+      ],
+      "selection": "proof_motion_with_endpoint_holds",
+      "note": "Unretimed original30fps proof; real endpoints held, no generated motion.",
+      "immediate_selection": "unchanged_committed_P4B2"
+    },
+    {
+      "id": "D05",
+      "start_frame": 337,
+      "end_frame": 382,
+      "frame_count": 45,
+      "original_intent": "Leo remains held by tether while others levitate behind",
+      "final_approved": false,
+      "spans": [
+        {
+          "output_start_frame": 337,
+          "output_end_frame": 382,
+          "kind": "proxy",
+          "source": "evidence/dice-town-p4b2/working-edit.mp4",
+          "source_start_frame": 337,
+          "source_end_frame": 382,
+          "sampling": "direct_30fps",
+          "source_fps": 30,
+          "provenance": {
+            "output_start_frame": 337,
+            "output_end_frame": 382,
+            "kind": "proxy",
+            "source": "evidence/dice-town-p4b1/working-edit.mp4",
+            "source_start_frame": 337,
+            "source_end_frame": 382,
+            "sampling": "direct_30fps",
+            "source_fps": 30,
+            "provenance": {
+              "output_start_frame": 337,
+              "output_end_frame": 382,
+              "kind": "proxy",
+              "source": "evidence/dice-town-p4a/working-edit.mp4",
+              "source_start_frame": 337,
+              "source_end_frame": 382,
+              "sampling": "direct_30fps",
+              "source_fps": 30,
+              "provenance": {
+                "output_start_frame": 337,
+                "output_end_frame": 382,
+                "kind": "proxy",
+                "source": "evidence/dice-town-animatic/dice-town-animatic.mp4",
+                "source_start_frame": 168,
+                "source_end_frame": 190,
+                "declared_proxy_start": 169,
+                "declared_proxy_end": 191,
+                "source_fps": 15,
+                "output_fps": 30,
+                "formula": "source_start_frame + min(floor(local_output_frame/2), source_count-1)",
+                "boundary_shift_frames30": -1,
+                "expanded_source_frames": 44,
+                "tail_adjustment_frames": 1
+              }
+            }
+          }
+        }
+      ],
+      "selection": "unfinished_proxy",
+      "note": "Original15fps labeled storyboard proxy, NOT FINAL. No missing action invented.",
+      "immediate_selection": "unchanged_committed_P4B2"
+    },
+    {
+      "id": "D06",
+      "start_frame": 382,
+      "end_frame": 504,
+      "frame_count": 122,
+      "original_intent": "Leo's harness/rope pulls taut against clocktower post",
+      "final_approved": false,
+      "spans": [
+        {
+          "output_start_frame": 382,
+          "output_end_frame": 504,
+          "kind": "proxy",
+          "source": "evidence/dice-town-p4b2/working-edit.mp4",
+          "source_start_frame": 382,
+          "source_end_frame": 504,
+          "sampling": "direct_30fps",
+          "source_fps": 30,
+          "provenance": {
+            "output_start_frame": 382,
+            "output_end_frame": 504,
+            "kind": "proxy",
+            "source": "evidence/dice-town-p4b1/working-edit.mp4",
+            "source_start_frame": 382,
+            "source_end_frame": 504,
+            "sampling": "direct_30fps",
+            "source_fps": 30,
+            "provenance": {
+              "output_start_frame": 382,
+              "output_end_frame": 504,
+              "kind": "proxy",
+              "source": "evidence/dice-town-p4a/working-edit.mp4",
+              "source_start_frame": 382,
+              "source_end_frame": 504,
+              "sampling": "direct_30fps",
+              "source_fps": 30,
+              "provenance": {
+                "output_start_frame": 382,
+                "output_end_frame": 504,
+                "kind": "proxy",
+                "source": "evidence/dice-town-animatic/dice-town-animatic.mp4",
+                "source_start_frame": 190,
+                "source_end_frame": 251,
+                "declared_proxy_start": 191,
+                "declared_proxy_end": 252,
+                "source_fps": 15,
+                "output_fps": 30,
+                "formula": "source_start_frame + min(floor(local_output_frame/2), source_count-1)",
+                "boundary_shift_frames30": -2,
+                "expanded_source_frames": 122,
+                "tail_adjustment_frames": 0
+              }
+            }
+          }
+        }
+      ],
+      "selection": "unfinished_proxy",
+      "note": "Original15fps labeled storyboard proxy, NOT FINAL. No missing action invented.",
+      "immediate_selection": "unchanged_committed_P4B2"
+    },
+    {
+      "id": "D07",
+      "start_frame": 504,
+      "end_frame": 631,
+      "frame_count": 127,
+      "original_intent": "Leo checks hand-written contingency notebook amid chaos",
+      "final_approved": false,
+      "spans": [
+        {
+          "output_start_frame": 504,
+          "output_end_frame": 631,
+          "kind": "proxy",
+          "source": "evidence/dice-town-p4b2/working-edit.mp4",
+          "source_start_frame": 504,
+          "source_end_frame": 631,
+          "sampling": "direct_30fps",
+          "source_fps": 30,
+          "provenance": {
+            "output_start_frame": 504,
+            "output_end_frame": 631,
+            "kind": "proxy",
+            "source": "evidence/dice-town-p4b1/working-edit.mp4",
+            "source_start_frame": 504,
+            "source_end_frame": 631,
+            "sampling": "direct_30fps",
+            "source_fps": 30,
+            "provenance": {
+              "output_start_frame": 504,
+              "output_end_frame": 631,
+              "kind": "proxy",
+              "source": "evidence/dice-town-p4a/working-edit.mp4",
+              "source_start_frame": 504,
+              "source_end_frame": 631,
+              "sampling": "direct_30fps",
+              "source_fps": 30,
+              "provenance": {
+                "output_start_frame": 504,
+                "output_end_frame": 631,
+                "kind": "proxy",
+                "source": "evidence/dice-town-animatic/dice-town-animatic.mp4",
+                "source_start_frame": 251,
+                "source_end_frame": 315,
+                "declared_proxy_start": 252,
+                "declared_proxy_end": 316,
+                "source_fps": 15,
+                "output_fps": 30,
+                "formula": "source_start_frame + min(floor(local_output_frame/2), source_count-1)",
+                "boundary_shift_frames30": -2,
+                "expanded_source_frames": 128,
+                "tail_adjustment_frames": -1
+              }
+            }
+          }
+        }
+      ],
+      "selection": "unfinished_proxy",
+      "note": "Original15fps labeled storyboard proxy, NOT FINAL. No missing action invented.",
+      "immediate_selection": "unchanged_committed_P4B2"
+    },
+    {
+      "id": "D08",
+      "start_frame": 631,
+      "end_frame": 693,
+      "frame_count": 62,
+      "original_intent": "Roll 1 flashback: loose cups float while people stay grounded",
+      "final_approved": false,
+      "spans": [
+        {
+          "output_start_frame": 631,
+          "output_end_frame": 693,
+          "kind": "proxy",
+          "source": "evidence/dice-town-p4b2/working-edit.mp4",
+          "source_start_frame": 631,
+          "source_end_frame": 693,
+          "sampling": "direct_30fps",
+          "source_fps": 30,
+          "provenance": {
+            "output_start_frame": 631,
+            "output_end_frame": 693,
+            "kind": "proxy",
+            "source": "evidence/dice-town-p4b1/working-edit.mp4",
+            "source_start_frame": 631,
+            "source_end_frame": 693,
+            "sampling": "direct_30fps",
+            "source_fps": 30,
+            "provenance": {
+              "output_start_frame": 631,
+              "output_end_frame": 693,
+              "kind": "proxy",
+              "source": "evidence/dice-town-p4a/working-edit.mp4",
+              "source_start_frame": 631,
+              "source_end_frame": 693,
+              "sampling": "direct_30fps",
+              "source_fps": 30,
+              "provenance": {
+                "output_start_frame": 631,
+                "output_end_frame": 693,
+                "kind": "proxy",
+                "source": "evidence/dice-town-animatic/dice-town-animatic.mp4",
+                "source_start_frame": 315,
+                "source_end_frame": 346,
+                "declared_proxy_start": 316,
+                "declared_proxy_end": 347,
+                "source_fps": 15,
+                "output_fps": 30,
+                "formula": "source_start_frame + min(floor(local_output_frame/2), source_count-1)",
+                "boundary_shift_frames30": -1,
+                "expanded_source_frames": 62,
+                "tail_adjustment_frames": 0
+              }
+            }
+          }
+        }
+      ],
+      "selection": "unfinished_proxy",
+      "note": "Original15fps labeled storyboard proxy, NOT FINAL. No missing action invented.",
+      "immediate_selection": "unchanged_committed_P4B2"
+    },
+    {
+      "id": "D09",
+      "start_frame": 693,
+      "end_frame": 742,
+      "frame_count": 49,
+      "original_intent": "Roll 2 flashback: two people walk backward",
+      "final_approved": false,
+      "spans": [
+        {
+          "output_start_frame": 693,
+          "output_end_frame": 742,
+          "kind": "proxy",
+          "source": "evidence/dice-town-p4b2/working-edit.mp4",
+          "source_start_frame": 693,
+          "source_end_frame": 742,
+          "sampling": "direct_30fps",
+          "source_fps": 30,
+          "provenance": {
+            "output_start_frame": 693,
+            "output_end_frame": 742,
+            "kind": "proxy",
+            "source": "evidence/dice-town-p4b1/working-edit.mp4",
+            "source_start_frame": 693,
+            "source_end_frame": 742,
+            "sampling": "direct_30fps",
+            "source_fps": 30,
+            "provenance": {
+              "output_start_frame": 693,
+              "output_end_frame": 742,
+              "kind": "proxy",
+              "source": "evidence/dice-town-p4a/working-edit.mp4",
+              "source_start_frame": 693,
+              "source_end_frame": 742,
+              "sampling": "direct_30fps",
+              "source_fps": 30,
+              "provenance": {
+                "output_start_frame": 693,
+                "output_end_frame": 742,
+                "kind": "proxy",
+                "source": "evidence/dice-town-animatic/dice-town-animatic.mp4",
+                "source_start_frame": 346,
+                "source_end_frame": 370,
+                "declared_proxy_start": 347,
+                "declared_proxy_end": 371,
+                "source_fps": 15,
+                "output_fps": 30,
+                "formula": "source_start_frame + min(floor(local_output_frame/2), source_count-1)",
+                "boundary_shift_frames30": -1,
+                "expanded_source_frames": 48,
+                "tail_adjustment_frames": 1
+              }
+            }
+          }
+        }
+      ],
+      "selection": "unfinished_proxy",
+      "note": "Original15fps labeled storyboard proxy, NOT FINAL. No missing action invented.",
+      "immediate_selection": "unchanged_committed_P4B2"
+    },
+    {
+      "id": "D10",
+      "start_frame": 742,
+      "end_frame": 793,
+      "frame_count": 51,
+      "original_intent": "Roll 3: people rise again; match opening event",
+      "final_approved": false,
+      "spans": [
+        {
+          "output_start_frame": 742,
+          "output_end_frame": 793,
+          "kind": "proxy",
+          "source": "evidence/dice-town-p4b2/working-edit.mp4",
+          "source_start_frame": 742,
+          "source_end_frame": 793,
+          "sampling": "direct_30fps",
+          "source_fps": 30,
+          "provenance": {
+            "output_start_frame": 742,
+            "output_end_frame": 793,
+            "kind": "proxy",
+            "source": "evidence/dice-town-p4b1/working-edit.mp4",
+            "source_start_frame": 742,
+            "source_end_frame": 793,
+            "sampling": "direct_30fps",
+            "source_fps": 30,
+            "provenance": {
+              "output_start_frame": 742,
+              "output_end_frame": 793,
+              "kind": "proxy",
+              "source": "evidence/dice-town-p4a/working-edit.mp4",
+              "source_start_frame": 742,
+              "source_end_frame": 793,
+              "sampling": "direct_30fps",
+              "source_fps": 30,
+              "provenance": {
+                "output_start_frame": 742,
+                "output_end_frame": 793,
+                "kind": "proxy",
+                "source": "evidence/dice-town-animatic/dice-town-animatic.mp4",
+                "source_start_frame": 370,
+                "source_end_frame": 396,
+                "declared_proxy_start": 371,
+                "declared_proxy_end": 397,
+                "source_fps": 15,
+                "output_fps": 30,
+                "formula": "source_start_frame + min(floor(local_output_frame/2), source_count-1)",
+                "boundary_shift_frames30": -2,
+                "expanded_source_frames": 52,
+                "tail_adjustment_frames": -1
+              }
+            }
+          }
+        }
+      ],
+      "selection": "unfinished_proxy",
+      "note": "Original15fps labeled storyboard proxy, NOT FINAL. No missing action invented.",
+      "immediate_selection": "unchanged_committed_P4B2"
+    },
+    {
+      "id": "D11",
+      "start_frame": 793,
+      "end_frame": 886,
+      "frame_count": 93,
+      "original_intent": "Die nearly displays 6 then suspiciously wobbles off",
+      "final_approved": false,
+      "spans": [
+        {
+          "output_start_frame": 793,
+          "output_end_frame": 803,
+          "kind": "endpoint_hold",
+          "source": "evidence/dice-town-p4b2/working-edit.mp4",
+          "source_start_frame": 793,
+          "source_end_frame": 803,
+          "sampling": "direct_30fps",
+          "source_fps": 30,
+          "provenance": {
+            "output_start_frame": 793,
+            "output_end_frame": 803,
+            "kind": "endpoint_hold",
+            "source": "evidence/dice-town-p4b2/wobble-source.mp4",
+            "source_start_frame": 0,
+            "source_end_frame": 1,
+            "sampling": "hold"
+          }
+        },
+        {
+          "output_start_frame": 803,
+          "output_end_frame": 848,
+          "kind": "motion",
+          "source": "evidence/dice-town-p4b2/working-edit.mp4",
+          "source_start_frame": 803,
+          "source_end_frame": 848,
+          "sampling": "direct_30fps",
+          "source_fps": 30,
+          "provenance": {
+            "output_start_frame": 803,
+            "output_end_frame": 848,
+            "kind": "motion",
+            "source": "evidence/dice-town-p4b2/wobble-source.mp4",
+            "source_start_frame": 0,
+            "source_end_frame": 45,
+            "sampling": "direct_30fps"
+          }
+        },
+        {
+          "output_start_frame": 848,
+          "output_end_frame": 886,
+          "kind": "endpoint_hold",
+          "source": "evidence/dice-town-p4b2/working-edit.mp4",
+          "source_start_frame": 848,
+          "source_end_frame": 886,
+          "sampling": "direct_30fps",
+          "source_fps": 30,
+          "provenance": {
+            "output_start_frame": 848,
+            "output_end_frame": 886,
+            "kind": "endpoint_hold",
+            "source": "evidence/dice-town-p4b2/wobble-source.mp4",
+            "source_start_frame": 44,
+            "source_end_frame": 45,
+            "sampling": "hold"
+          }
+        }
+      ],
+      "selection": "single_supported_wobble",
+      "note": "One45-frame clockwise deflection with real endpoint holds; control system not shown.",
+      "immediate_selection": "unchanged_committed_P4B2"
+    },
+    {
+      "id": "D12",
+      "start_frame": 886,
+      "end_frame": 990,
+      "frame_count": 104,
+      "original_intent": "Leo compares tally marks and near-six notes",
+      "final_approved": false,
+      "spans": [
+        {
+          "output_start_frame": 886,
+          "output_end_frame": 990,
+          "kind": "proxy",
+          "source": "evidence/dice-town-p4b2/working-edit.mp4",
+          "source_start_frame": 886,
+          "source_end_frame": 990,
+          "sampling": "direct_30fps",
+          "source_fps": 30,
+          "provenance": {
+            "output_start_frame": 886,
+            "output_end_frame": 990,
+            "kind": "proxy",
+            "source": "evidence/dice-town-p4b1/working-edit.mp4",
+            "source_start_frame": 886,
+            "source_end_frame": 990,
+            "sampling": "direct_30fps",
+            "source_fps": 30,
+            "provenance": {
+              "output_start_frame": 886,
+              "output_end_frame": 990,
+              "kind": "proxy",
+              "source": "evidence/dice-town-p4a/working-edit.mp4",
+              "source_start_frame": 886,
+              "source_end_frame": 990,
+              "sampling": "direct_30fps",
+              "source_fps": 30,
+              "provenance": {
+                "output_start_frame": 886,
+                "output_end_frame": 990,
+                "kind": "proxy",
+                "source": "evidence/dice-town-animatic/dice-town-animatic.mp4",
+                "source_start_frame": 442,
+                "source_end_frame": 494,
+                "declared_proxy_start": 443,
+                "declared_proxy_end": 495,
+                "source_fps": 15,
+                "output_fps": 30,
+                "formula": "source_start_frame + min(floor(local_output_frame/2), source_count-1)",
+                "boundary_shift_frames30": -2,
+                "expanded_source_frames": 104,
+                "tail_adjustment_frames": 0
+              }
+            }
+          }
+        }
+      ],
+      "selection": "unfinished_proxy",
+      "note": "Original15fps labeled storyboard proxy, NOT FINAL. No missing action invented.",
+      "immediate_selection": "unchanged_committed_P4B2"
+    },
+    {
+      "id": "D13",
+      "start_frame": 990,
+      "end_frame": 1099,
+      "frame_count": 109,
+      "original_intent": "Repeated unnatural sideways wobble; brass flash under base",
+      "final_approved": false,
+      "spans": [
+        {
+          "output_start_frame": 990,
+          "output_end_frame": 1004,
+          "kind": "endpoint_hold",
+          "source": "evidence/dice-town-p4b2/working-edit.mp4",
+          "source_start_frame": 990,
+          "source_end_frame": 1004,
+          "sampling": "direct_30fps",
+          "source_fps": 30,
+          "provenance": {
+            "output_start_frame": 990,
+            "output_end_frame": 1004,
+            "kind": "endpoint_hold",
+            "source": "evidence/dice-town-p4b2/wobble-insert.mp4",
+            "source_start_frame": 0,
+            "source_end_frame": 1,
+            "sampling": "hold"
+          }
+        },
+        {
+          "output_start_frame": 1004,
+          "output_end_frame": 1028,
+          "kind": "motion",
+          "source": "evidence/dice-town-p4b2/working-edit.mp4",
+          "source_start_frame": 1004,
+          "source_end_frame": 1028,
+          "sampling": "direct_30fps",
+          "source_fps": 30,
+          "provenance": {
+            "output_start_frame": 1004,
+            "output_end_frame": 1028,
+            "kind": "motion",
+            "source": "evidence/dice-town-p4b2/wobble-insert.mp4",
+            "source_start_frame": 0,
+            "source_end_frame": 24,
+            "sampling": "direct_30fps"
+          }
+        },
+        {
+          "output_start_frame": 1028,
+          "output_end_frame": 1099,
+          "kind": "endpoint_hold",
+          "source": "evidence/dice-town-p4b2/working-edit.mp4",
+          "source_start_frame": 1028,
+          "source_end_frame": 1099,
+          "sampling": "direct_30fps",
+          "source_fps": 30,
+          "provenance": {
+            "output_start_frame": 1028,
+            "output_end_frame": 1099,
+            "kind": "endpoint_hold",
+            "source": "evidence/dice-town-p4b2/non-six.png",
+            "source_start_frame": 0,
+            "source_end_frame": 1,
+            "sampling": "hold"
+          }
+        }
+      ],
+      "selection": "same_wobble_crop_then_native_outcome",
+      "note": "Same captured frames0-23 cropped, then native frame44 outcome. No second unique motion.",
+      "immediate_selection": "unchanged_committed_P4B2"
+    },
+    {
+      "id": "D14",
+      "start_frame": 1099,
+      "end_frame": 1220,
+      "frame_count": 121,
+      "original_intent": "Leo follows tether/slips through service hatch beneath stone platform",
+      "final_approved": false,
+      "spans": [
+        {
+          "output_start_frame": 1099,
+          "output_end_frame": 1220,
+          "kind": "proxy",
+          "source": "evidence/dice-town-p4b2/working-edit.mp4",
+          "source_start_frame": 1099,
+          "source_end_frame": 1220,
+          "sampling": "direct_30fps",
+          "source_fps": 30,
+          "provenance": {
+            "output_start_frame": 1099,
+            "output_end_frame": 1220,
+            "kind": "proxy",
+            "source": "evidence/dice-town-p4b1/working-edit.mp4",
+            "source_start_frame": 1099,
+            "source_end_frame": 1220,
+            "sampling": "direct_30fps",
+            "source_fps": 30,
+            "provenance": {
+              "output_start_frame": 1099,
+              "output_end_frame": 1220,
+              "kind": "proxy",
+              "source": "evidence/dice-town-p4a/working-edit.mp4",
+              "source_start_frame": 1099,
+              "source_end_frame": 1220,
+              "sampling": "direct_30fps",
+              "source_fps": 30,
+              "provenance": {
+                "output_start_frame": 1099,
+                "output_end_frame": 1220,
+                "kind": "proxy",
+                "source": "evidence/dice-town-animatic/dice-town-animatic.mp4",
+                "source_start_frame": 549,
+                "source_end_frame": 609,
+                "declared_proxy_start": 550,
+                "declared_proxy_end": 610,
+                "source_fps": 15,
+                "output_fps": 30,
+                "formula": "source_start_frame + min(floor(local_output_frame/2), source_count-1)",
+                "boundary_shift_frames30": -1,
+                "expanded_source_frames": 120,
+                "tail_adjustment_frames": 1
+              }
+            }
+          }
+        }
+      ],
+      "selection": "unfinished_proxy",
+      "note": "Original15fps labeled storyboard proxy, NOT FINAL. No missing action invented.",
+      "immediate_selection": "unchanged_committed_P4B2"
+    },
+    {
+      "id": "D15",
+      "start_frame": 1220,
+      "end_frame": 1332,
+      "frame_count": 112,
+      "original_intent": "Brass paddle and crank mechanically tip die when six approaches",
+      "final_approved": false,
+      "spans": [
+        {
+          "output_start_frame": 1220,
+          "output_end_frame": 1236,
+          "kind": "endpoint_hold",
+          "source": "evidence/dice-town-p4b2/working-edit.mp4",
+          "source_start_frame": 1220,
+          "source_end_frame": 1236,
+          "sampling": "direct_30fps",
+          "source_fps": 30,
+          "provenance": {
+            "output_start_frame": 1220,
+            "output_end_frame": 1236,
+            "kind": "endpoint_hold",
+            "source": "evidence/dice-town-p4b1/working-edit.mp4",
+            "source_start_frame": 1220,
+            "source_end_frame": 1236,
+            "sampling": "direct_30fps",
+            "source_fps": 30,
+            "provenance": {
+              "output_start_frame": 1220,
+              "output_end_frame": 1236,
+              "kind": "endpoint_hold",
+              "source": "evidence/dice-town-p4a/working-edit.mp4",
+              "source_start_frame": 1220,
+              "source_end_frame": 1236,
+              "sampling": "direct_30fps",
+              "source_fps": 30,
+              "provenance": {
+                "output_start_frame": 1220,
+                "output_end_frame": 1236,
+                "kind": "endpoint_hold",
+                "source": "evidence/dice-town-p3b1/mechanism.mp4",
+                "source_start_frame": 0,
+                "source_end_frame": 1
+              }
+            }
+          }
+        },
+        {
+          "output_start_frame": 1236,
+          "output_end_frame": 1284,
+          "kind": "motion",
+          "source": "evidence/dice-town-p4b2/working-edit.mp4",
+          "source_start_frame": 1236,
+          "source_end_frame": 1284,
+          "sampling": "direct_30fps",
+          "source_fps": 30,
+          "provenance": {
+            "output_start_frame": 1236,
+            "output_end_frame": 1284,
+            "kind": "motion",
+            "source": "evidence/dice-town-p4b1/working-edit.mp4",
+            "source_start_frame": 1236,
+            "source_end_frame": 1284,
+            "sampling": "direct_30fps",
+            "source_fps": 30,
+            "provenance": {
+              "output_start_frame": 1236,
+              "output_end_frame": 1284,
+              "kind": "motion",
+              "source": "evidence/dice-town-p4a/working-edit.mp4",
+              "source_start_frame": 1236,
+              "source_end_frame": 1284,
+              "sampling": "direct_30fps",
+              "source_fps": 30,
+              "provenance": {
+                "output_start_frame": 1236,
+                "output_end_frame": 1284,
+                "kind": "proof_motion",
+                "source": "evidence/dice-town-p3b1/mechanism.mp4",
+                "source_start_frame": 0,
+                "source_end_frame": 48
+              }
+            }
+          }
+        },
+        {
+          "output_start_frame": 1284,
+          "output_end_frame": 1332,
+          "kind": "endpoint_hold",
+          "source": "evidence/dice-town-p4b2/working-edit.mp4",
+          "source_start_frame": 1284,
+          "source_end_frame": 1332,
+          "sampling": "direct_30fps",
+          "source_fps": 30,
+          "provenance": {
+            "output_start_frame": 1284,
+            "output_end_frame": 1332,
+            "kind": "endpoint_hold",
+            "source": "evidence/dice-town-p4b1/working-edit.mp4",
+            "source_start_frame": 1284,
+            "source_end_frame": 1332,
+            "sampling": "direct_30fps",
+            "source_fps": 30,
+            "provenance": {
+              "output_start_frame": 1284,
+              "output_end_frame": 1332,
+              "kind": "endpoint_hold",
+              "source": "evidence/dice-town-p4a/working-edit.mp4",
+              "source_start_frame": 1284,
+              "source_end_frame": 1332,
+              "sampling": "direct_30fps",
+              "source_fps": 30,
+              "provenance": {
+                "output_start_frame": 1284,
+                "output_end_frame": 1332,
+                "kind": "endpoint_hold",
+                "source": "evidence/dice-town-p3b1/mechanism.mp4",
+                "source_start_frame": 47,
+                "source_end_frame": 48
+              }
+            }
+          }
+        }
+      ],
+      "selection": "proof_motion_with_endpoint_holds",
+      "note": "Unretimed original30fps proof; real endpoints held, no generated motion.",
+      "immediate_selection": "unchanged_committed_P4B2"
+    },
+    {
+      "id": "D16",
+      "start_frame": 1332,
+      "end_frame": 1442,
+      "frame_count": 110,
+      "original_intent": "Demonstrate crank tap and visible die wobble in cutaway",
+      "final_approved": false,
+      "spans": [
+        {
+          "output_start_frame": 1332,
+          "output_end_frame": 1340,
+          "kind": "endpoint_hold",
+          "source": "evidence/dice-town-p4b2/working-edit.mp4",
+          "source_start_frame": 1332,
+          "source_end_frame": 1340,
+          "sampling": "direct_30fps",
+          "source_fps": 30,
+          "provenance": {
+            "output_start_frame": 1332,
+            "output_end_frame": 1340,
+            "kind": "endpoint_hold",
+            "source": "evidence/dice-town-p4b2/crank-contact.mp4",
+            "source_start_frame": 0,
+            "source_end_frame": 1,
+            "sampling": "hold"
+          }
+        },
+        {
+          "output_start_frame": 1340,
+          "output_end_frame": 1358,
+          "kind": "motion",
+          "source": "evidence/dice-town-p4b2/working-edit.mp4",
+          "source_start_frame": 1340,
+          "source_end_frame": 1358,
+          "sampling": "direct_30fps",
+          "source_fps": 30,
+          "provenance": {
+            "output_start_frame": 1340,
+            "output_end_frame": 1358,
+            "kind": "motion",
+            "source": "evidence/dice-town-p4b2/crank-contact.mp4",
+            "source_start_frame": 0,
+            "source_end_frame": 18,
+            "sampling": "direct_30fps"
+          }
+        },
+        {
+          "output_start_frame": 1358,
+          "output_end_frame": 1366,
+          "kind": "endpoint_hold",
+          "source": "evidence/dice-town-p4b2/working-edit.mp4",
+          "source_start_frame": 1358,
+          "source_end_frame": 1366,
+          "sampling": "direct_30fps",
+          "source_fps": 30,
+          "provenance": {
+            "output_start_frame": 1358,
+            "output_end_frame": 1366,
+            "kind": "endpoint_hold",
+            "source": "evidence/dice-town-p4b2/crank-contact.mp4",
+            "source_start_frame": 17,
+            "source_end_frame": 18,
+            "sampling": "hold"
+          }
+        },
+        {
+          "output_start_frame": 1366,
+          "output_end_frame": 1378,
+          "kind": "motion",
+          "source": "evidence/dice-town-p4b2/working-edit.mp4",
+          "source_start_frame": 1366,
+          "source_end_frame": 1378,
+          "sampling": "direct_30fps",
+          "source_fps": 30,
+          "provenance": {
+            "output_start_frame": 1366,
+            "output_end_frame": 1378,
+            "kind": "motion",
+            "source": "evidence/dice-town-p4b2/wobble-insert.mp4",
+            "source_start_frame": 12,
+            "source_end_frame": 24,
+            "sampling": "direct_30fps"
+          }
+        },
+        {
+          "output_start_frame": 1378,
+          "output_end_frame": 1399,
+          "kind": "motion",
+          "source": "evidence/dice-town-p4b2/working-edit.mp4",
+          "source_start_frame": 1378,
+          "source_end_frame": 1399,
+          "sampling": "direct_30fps",
+          "source_fps": 30,
+          "provenance": {
+            "output_start_frame": 1378,
+            "output_end_frame": 1399,
+            "kind": "motion",
+            "source": "evidence/dice-town-p4b2/wobble-source.mp4",
+            "source_start_frame": 24,
+            "source_end_frame": 45,
+            "sampling": "direct_30fps"
+          }
+        },
+        {
+          "output_start_frame": 1399,
+          "output_end_frame": 1442,
+          "kind": "endpoint_hold",
+          "source": "evidence/dice-town-p4b2/working-edit.mp4",
+          "source_start_frame": 1399,
+          "source_end_frame": 1442,
+          "sampling": "direct_30fps",
+          "source_fps": 30,
+          "provenance": {
+            "output_start_frame": 1399,
+            "output_end_frame": 1442,
+            "kind": "endpoint_hold",
+            "source": "evidence/dice-town-p4b2/wobble-source.mp4",
+            "source_start_frame": 44,
+            "source_end_frame": 45,
+            "sampling": "hold"
+          }
+        }
+      ],
+      "selection": "existing_drive_cutaway_then_same_contact_and_deflection",
+      "note": "Crank/coupling only; inherited far-tip geometry/whole-die trajectory intentionally offscreen and not claimed to match exactly.",
+      "immediate_selection": "unchanged_committed_P4B2"
+    },
+    {
+      "id": "D17",
+      "start_frame": 1442,
+      "end_frame": 1495,
+      "frame_count": 53,
+      "original_intent": "Pip at handle, age-ten silhouette",
+      "final_approved": false,
+      "spans": [
+        {
+          "output_start_frame": 1442,
+          "output_end_frame": 1495,
+          "kind": "proxy",
+          "source": "evidence/dice-town-p4b2/working-edit.mp4",
+          "source_start_frame": 1442,
+          "source_end_frame": 1495,
+          "sampling": "direct_30fps",
+          "source_fps": 30,
+          "provenance": {
+            "output_start_frame": 1442,
+            "output_end_frame": 1495,
+            "kind": "proxy",
+            "source": "evidence/dice-town-p4b1/working-edit.mp4",
+            "source_start_frame": 1442,
+            "source_end_frame": 1495,
+            "sampling": "direct_30fps",
+            "source_fps": 30,
+            "provenance": {
+              "output_start_frame": 1442,
+              "output_end_frame": 1495,
+              "kind": "proxy",
+              "source": "evidence/dice-town-p4a/working-edit.mp4",
+              "source_start_frame": 1442,
+              "source_end_frame": 1495,
+              "sampling": "direct_30fps",
+              "source_fps": 30,
+              "provenance": {
+                "output_start_frame": 1442,
+                "output_end_frame": 1495,
+                "kind": "proxy",
+                "source": "evidence/dice-town-animatic/dice-town-animatic.mp4",
+                "source_start_frame": 720,
+                "source_end_frame": 747,
+                "declared_proxy_start": 721,
+                "declared_proxy_end": 748,
+                "source_fps": 15,
+                "output_fps": 30,
+                "formula": "source_start_frame + min(floor(local_output_frame/2), source_count-1)",
+                "boundary_shift_frames30": -2,
+                "expanded_source_frames": 54,
+                "tail_adjustment_frames": -1
+              }
+            }
+          }
+        }
+      ],
+      "selection": "unfinished_proxy",
+      "note": "Original15fps labeled storyboard proxy, NOT FINAL. No missing action invented.",
+      "immediate_selection": "unchanged_committed_P4B2"
+    },
+    {
+      "id": "D18",
+      "start_frame": 1495,
+      "end_frame": 1590,
+      "frame_count": 95,
+      "original_intent": "Pip remembers starting game; age freeze visually indicated",
+      "final_approved": false,
+      "spans": [
+        {
+          "output_start_frame": 1495,
+          "output_end_frame": 1590,
+          "kind": "proxy",
+          "source": "evidence/dice-town-p4b2/working-edit.mp4",
+          "source_start_frame": 1495,
+          "source_end_frame": 1590,
+          "sampling": "direct_30fps",
+          "source_fps": 30,
+          "provenance": {
+            "output_start_frame": 1495,
+            "output_end_frame": 1590,
+            "kind": "proxy",
+            "source": "evidence/dice-town-p4b1/working-edit.mp4",
+            "source_start_frame": 1495,
+            "source_end_frame": 1590,
+            "sampling": "direct_30fps",
+            "source_fps": 30,
+            "provenance": {
+              "output_start_frame": 1495,
+              "output_end_frame": 1590,
+              "kind": "proxy",
+              "source": "evidence/dice-town-p4a/working-edit.mp4",
+              "source_start_frame": 1495,
+              "source_end_frame": 1590,
+              "sampling": "direct_30fps",
+              "source_fps": 30,
+              "provenance": {
+                "output_start_frame": 1495,
+                "output_end_frame": 1590,
+                "kind": "proxy",
+                "source": "evidence/dice-town-animatic/dice-town-animatic.mp4",
+                "source_start_frame": 747,
+                "source_end_frame": 794,
+                "declared_proxy_start": 748,
+                "declared_proxy_end": 795,
+                "source_fps": 15,
+                "output_fps": 30,
+                "formula": "source_start_frame + min(floor(local_output_frame/2), source_count-1)",
+                "boundary_shift_frames30": -1,
+                "expanded_source_frames": 94,
+                "tail_adjustment_frames": 1
+              }
+            }
+          }
+        }
+      ],
+      "selection": "unfinished_proxy",
+      "note": "Original15fps labeled storyboard proxy, NOT FINAL. No missing action invented.",
+      "immediate_selection": "unchanged_committed_P4B2"
+    },
+    {
+      "id": "D19",
+      "start_frame": 1590,
+      "end_frame": 1710,
+      "frame_count": 120,
+      "original_intent": "Young family photo vs later aging outside boundary",
+      "final_approved": false,
+      "spans": [
+        {
+          "output_start_frame": 1590,
+          "output_end_frame": 1710,
+          "kind": "proxy",
+          "source": "evidence/dice-town-p4b2/working-edit.mp4",
+          "source_start_frame": 1590,
+          "source_end_frame": 1710,
+          "sampling": "direct_30fps",
+          "source_fps": 30,
+          "provenance": {
+            "output_start_frame": 1590,
+            "output_end_frame": 1710,
+            "kind": "proxy",
+            "source": "evidence/dice-town-p4b1/working-edit.mp4",
+            "source_start_frame": 1590,
+            "source_end_frame": 1710,
+            "sampling": "direct_30fps",
+            "source_fps": 30,
+            "provenance": {
+              "output_start_frame": 1590,
+              "output_end_frame": 1710,
+              "kind": "proxy",
+              "source": "evidence/dice-town-p4a/working-edit.mp4",
+              "source_start_frame": 1590,
+              "source_end_frame": 1710,
+              "sampling": "direct_30fps",
+              "source_fps": 30,
+              "provenance": {
+                "output_start_frame": 1590,
+                "output_end_frame": 1710,
+                "kind": "proxy",
+                "source": "evidence/dice-town-animatic/dice-town-animatic.mp4",
+                "source_start_frame": 794,
+                "source_end_frame": 854,
+                "declared_proxy_start": 795,
+                "declared_proxy_end": 855,
+                "source_fps": 15,
+                "output_fps": 30,
+                "formula": "source_start_frame + min(floor(local_output_frame/2), source_count-1)",
+                "boundary_shift_frames30": -2,
+                "expanded_source_frames": 120,
+                "tail_adjustment_frames": 0
+              }
+            }
+          }
+        }
+      ],
+      "selection": "unfinished_proxy",
+      "note": "Original15fps labeled storyboard proxy, NOT FINAL. No missing action invented.",
+      "immediate_selection": "unchanged_committed_P4B2"
+    },
+    {
+      "id": "D20",
+      "start_frame": 1710,
+      "end_frame": 1768,
+      "frame_count": 58,
+      "original_intent": "Pip lifts faded photo, fingers tighten",
+      "final_approved": false,
+      "spans": [
+        {
+          "output_start_frame": 1710,
+          "output_end_frame": 1768,
+          "kind": "proxy",
+          "source": "evidence/dice-town-p4b2/working-edit.mp4",
+          "source_start_frame": 1710,
+          "source_end_frame": 1768,
+          "sampling": "direct_30fps",
+          "source_fps": 30,
+          "provenance": {
+            "output_start_frame": 1710,
+            "output_end_frame": 1768,
+            "kind": "proxy",
+            "source": "evidence/dice-town-p4b1/working-edit.mp4",
+            "source_start_frame": 1710,
+            "source_end_frame": 1768,
+            "sampling": "direct_30fps",
+            "source_fps": 30,
+            "provenance": {
+              "output_start_frame": 1710,
+              "output_end_frame": 1768,
+              "kind": "proxy",
+              "source": "evidence/dice-town-p4a/working-edit.mp4",
+              "source_start_frame": 1710,
+              "source_end_frame": 1768,
+              "sampling": "direct_30fps",
+              "source_fps": 30,
+              "provenance": {
+                "output_start_frame": 1710,
+                "output_end_frame": 1768,
+                "kind": "proxy",
+                "source": "evidence/dice-town-animatic/dice-town-animatic.mp4",
+                "source_start_frame": 854,
+                "source_end_frame": 883,
+                "declared_proxy_start": 855,
+                "declared_proxy_end": 884,
+                "source_fps": 15,
+                "output_fps": 30,
+                "formula": "source_start_frame + min(floor(local_output_frame/2), source_count-1)",
+                "boundary_shift_frames30": -2,
+                "expanded_source_frames": 58,
+                "tail_adjustment_frames": 0
+              }
+            }
+          }
+        }
+      ],
+      "selection": "unfinished_proxy",
+      "note": "Original15fps labeled storyboard proxy, NOT FINAL. No missing action invented.",
+      "immediate_selection": "unchanged_committed_P4B2"
+    },
+    {
+      "id": "D21",
+      "start_frame": 1768,
+      "end_frame": 1905,
+      "frame_count": 137,
+      "original_intent": "Pip fears six opening gate; show distant locked gate",
+      "final_approved": false,
+      "spans": [
+        {
+          "output_start_frame": 1768,
+          "output_end_frame": 1905,
+          "kind": "proxy",
+          "source": "evidence/dice-town-p4b2/working-edit.mp4",
+          "source_start_frame": 1768,
+          "source_end_frame": 1905,
+          "sampling": "direct_30fps",
+          "source_fps": 30,
+          "provenance": {
+            "output_start_frame": 1768,
+            "output_end_frame": 1905,
+            "kind": "proxy",
+            "source": "evidence/dice-town-p4b1/working-edit.mp4",
+            "source_start_frame": 1768,
+            "source_end_frame": 1905,
+            "sampling": "direct_30fps",
+            "source_fps": 30,
+            "provenance": {
+              "output_start_frame": 1768,
+              "output_end_frame": 1905,
+              "kind": "proxy",
+              "source": "evidence/dice-town-p4a/working-edit.mp4",
+              "source_start_frame": 1768,
+              "source_end_frame": 1905,
+              "sampling": "direct_30fps",
+              "source_fps": 30,
+              "provenance": {
+                "output_start_frame": 1768,
+                "output_end_frame": 1905,
+                "kind": "proxy",
+                "source": "evidence/dice-town-animatic/dice-town-animatic.mp4",
+                "source_start_frame": 883,
+                "source_end_frame": 952,
+                "declared_proxy_start": 884,
+                "declared_proxy_end": 953,
+                "source_fps": 15,
+                "output_fps": 30,
+                "formula": "source_start_frame + min(floor(local_output_frame/2), source_count-1)",
+                "boundary_shift_frames30": -2,
+                "expanded_source_frames": 138,
+                "tail_adjustment_frames": -1
+              }
+            }
+          }
+        }
+      ],
+      "selection": "unfinished_proxy",
+      "note": "Original15fps labeled storyboard proxy, NOT FINAL. No missing action invented.",
+      "immediate_selection": "unchanged_committed_P4B2"
+    },
+    {
+      "id": "D22",
+      "start_frame": 1905,
+      "end_frame": 1997,
+      "frame_count": 92,
+      "original_intent": "Leo's notebook shuts, no prepared response",
+      "final_approved": false,
+      "spans": [
+        {
+          "output_start_frame": 1905,
+          "output_end_frame": 1997,
+          "kind": "proxy",
+          "source": "evidence/dice-town-p4b2/working-edit.mp4",
+          "source_start_frame": 1905,
+          "source_end_frame": 1997,
+          "sampling": "direct_30fps",
+          "source_fps": 30,
+          "provenance": {
+            "output_start_frame": 1905,
+            "output_end_frame": 1997,
+            "kind": "proxy",
+            "source": "evidence/dice-town-p4b1/working-edit.mp4",
+            "source_start_frame": 1905,
+            "source_end_frame": 1997,
+            "sampling": "direct_30fps",
+            "source_fps": 30,
+            "provenance": {
+              "output_start_frame": 1905,
+              "output_end_frame": 1997,
+              "kind": "proxy",
+              "source": "evidence/dice-town-p4a/working-edit.mp4",
+              "source_start_frame": 1905,
+              "source_end_frame": 1997,
+              "sampling": "direct_30fps",
+              "source_fps": 30,
+              "provenance": {
+                "output_start_frame": 1905,
+                "output_end_frame": 1997,
+                "kind": "proxy",
+                "source": "evidence/dice-town-animatic/dice-town-animatic.mp4",
+                "source_start_frame": 952,
+                "source_end_frame": 998,
+                "declared_proxy_start": 953,
+                "declared_proxy_end": 999,
+                "source_fps": 15,
+                "output_fps": 30,
+                "formula": "source_start_frame + min(floor(local_output_frame/2), source_count-1)",
+                "boundary_shift_frames30": -1,
+                "expanded_source_frames": 92,
+                "tail_adjustment_frames": 0
+              }
+            }
+          }
+        }
+      ],
+      "selection": "unfinished_proxy",
+      "note": "Original15fps labeled storyboard proxy, NOT FINAL. No missing action invented.",
+      "immediate_selection": "unchanged_committed_P4B2"
+    },
+    {
+      "id": "D23",
+      "start_frame": 1997,
+      "end_frame": 2129,
+      "frame_count": 132,
+      "original_intent": "Leo removes brass pin and deliberately gives it to Pip",
+      "final_approved": false,
+      "spans": [
+        {
+          "output_start_frame": 1997,
+          "output_end_frame": 2015,
+          "kind": "endpoint_hold",
+          "source": "evidence/dice-town-p4b2/working-edit.mp4",
+          "source_start_frame": 1997,
+          "source_end_frame": 2015,
+          "sampling": "direct_30fps",
+          "source_fps": 30,
+          "provenance": {
+            "output_start_frame": 1997,
+            "output_end_frame": 2015,
+            "kind": "endpoint_hold",
+            "source": "evidence/dice-town-p4b1/working-edit.mp4",
+            "source_start_frame": 1997,
+            "source_end_frame": 2015,
+            "sampling": "direct_30fps",
+            "source_fps": 30,
+            "provenance": {
+              "output_start_frame": 1997,
+              "output_end_frame": 2015,
+              "kind": "endpoint_hold",
+              "source": "evidence/dice-town-p4a/working-edit.mp4",
+              "source_start_frame": 1997,
+              "source_end_frame": 2015,
+              "sampling": "direct_30fps",
+              "source_fps": 30,
+              "provenance": {
+                "output_start_frame": 1997,
+                "output_end_frame": 2015,
+                "kind": "endpoint_hold",
+                "source": "evidence/dice-town-p3b1/handoff.mp4",
+                "source_start_frame": 0,
+                "source_end_frame": 1
+              }
+            }
+          }
+        },
+        {
+          "output_start_frame": 2015,
+          "output_end_frame": 2087,
+          "kind": "motion",
+          "source": "evidence/dice-town-p4b2/working-edit.mp4",
+          "source_start_frame": 2015,
+          "source_end_frame": 2087,
+          "sampling": "direct_30fps",
+          "source_fps": 30,
+          "provenance": {
+            "output_start_frame": 2015,
+            "output_end_frame": 2087,
+            "kind": "motion",
+            "source": "evidence/dice-town-p4b1/working-edit.mp4",
+            "source_start_frame": 2015,
+            "source_end_frame": 2087,
+            "sampling": "direct_30fps",
+            "source_fps": 30,
+            "provenance": {
+              "output_start_frame": 2015,
+              "output_end_frame": 2087,
+              "kind": "motion",
+              "source": "evidence/dice-town-p4a/working-edit.mp4",
+              "source_start_frame": 2015,
+              "source_end_frame": 2087,
+              "sampling": "direct_30fps",
+              "source_fps": 30,
+              "provenance": {
+                "output_start_frame": 2015,
+                "output_end_frame": 2087,
+                "kind": "proof_motion",
+                "source": "evidence/dice-town-p3b1/handoff.mp4",
+                "source_start_frame": 0,
+                "source_end_frame": 72
+              }
+            }
+          }
+        },
+        {
+          "output_start_frame": 2087,
+          "output_end_frame": 2129,
+          "kind": "endpoint_hold",
+          "source": "evidence/dice-town-p4b2/working-edit.mp4",
+          "source_start_frame": 2087,
+          "source_end_frame": 2129,
+          "sampling": "direct_30fps",
+          "source_fps": 30,
+          "provenance": {
+            "output_start_frame": 2087,
+            "output_end_frame": 2129,
+            "kind": "endpoint_hold",
+            "source": "evidence/dice-town-p4b1/working-edit.mp4",
+            "source_start_frame": 2087,
+            "source_end_frame": 2129,
+            "sampling": "direct_30fps",
+            "source_fps": 30,
+            "provenance": {
+              "output_start_frame": 2087,
+              "output_end_frame": 2129,
+              "kind": "endpoint_hold",
+              "source": "evidence/dice-town-p4a/working-edit.mp4",
+              "source_start_frame": 2087,
+              "source_end_frame": 2129,
+              "sampling": "direct_30fps",
+              "source_fps": 30,
+              "provenance": {
+                "output_start_frame": 2087,
+                "output_end_frame": 2129,
+                "kind": "endpoint_hold",
+                "source": "evidence/dice-town-p3b1/handoff.mp4",
+                "source_start_frame": 71,
+                "source_end_frame": 72
+              }
+            }
+          }
+        }
+      ],
+      "selection": "proof_motion_with_endpoint_holds",
+      "note": "Unretimed original30fps proof; real endpoints held, no generated motion.",
+      "immediate_selection": "unchanged_committed_P4B2"
+    },
+    {
+      "id": "D24",
+      "start_frame": 2129,
+      "end_frame": 2224,
+      "frame_count": 95,
+      "original_intent": "Pip holds pin; Leo exits, leaving choice with Pip",
+      "final_approved": false,
+      "spans": [
+        {
+          "output_start_frame": 2129,
+          "output_end_frame": 2224,
+          "kind": "proxy",
+          "source": "evidence/dice-town-p4b2/working-edit.mp4",
+          "source_start_frame": 2129,
+          "source_end_frame": 2224,
+          "sampling": "direct_30fps",
+          "source_fps": 30,
+          "provenance": {
+            "output_start_frame": 2129,
+            "output_end_frame": 2224,
+            "kind": "proxy",
+            "source": "evidence/dice-town-p4b1/working-edit.mp4",
+            "source_start_frame": 2129,
+            "source_end_frame": 2224,
+            "sampling": "direct_30fps",
+            "source_fps": 30,
+            "provenance": {
+              "output_start_frame": 2129,
+              "output_end_frame": 2224,
+              "kind": "proxy",
+              "source": "evidence/dice-town-p4a/working-edit.mp4",
+              "source_start_frame": 2129,
+              "source_end_frame": 2224,
+              "sampling": "direct_30fps",
+              "source_fps": 30,
+              "provenance": {
+                "output_start_frame": 2129,
+                "output_end_frame": 2224,
+                "kind": "proxy",
+                "source": "evidence/dice-town-animatic/dice-town-animatic.mp4",
+                "source_start_frame": 1064,
+                "source_end_frame": 1111,
+                "declared_proxy_start": 1065,
+                "declared_proxy_end": 1112,
+                "source_fps": 15,
+                "output_fps": 30,
+                "formula": "source_start_frame + min(floor(local_output_frame/2), source_count-1)",
+                "boundary_shift_frames30": -1,
+                "expanded_source_frames": 94,
+                "tail_adjustment_frames": 1
+              }
+            }
+          }
+        }
+      ],
+      "selection": "unfinished_proxy",
+      "note": "Original15fps labeled storyboard proxy, NOT FINAL. No missing action invented.",
+      "immediate_selection": "unchanged_committed_P4B2"
+    },
+    {
+      "id": "D25",
+      "start_frame": 2224,
+      "end_frame": 2339,
+      "frame_count": 115,
+      "original_intent": "Two sunrise rolls without six; reuse one camera and change die face",
+      "final_approved": false,
+      "spans": [
+        {
+          "output_start_frame": 2224,
+          "output_end_frame": 2281,
+          "kind": "still",
+          "source": "evidence/dice-town-p4b2/working-edit.mp4",
+          "source_start_frame": 2224,
+          "source_end_frame": 2281,
+          "sampling": "direct_30fps",
+          "source_fps": 30,
+          "provenance": {
+            "output_start_frame": 2224,
+            "output_end_frame": 2281,
+            "kind": "still",
+            "source": "evidence/dice-town-p4b1/working-edit.mp4",
+            "source_start_frame": 2224,
+            "source_end_frame": 2281,
+            "sampling": "direct_30fps",
+            "source_fps": 30,
+            "provenance": {
+              "output_start_frame": 2224,
+              "output_end_frame": 2281,
+              "kind": "still",
+              "source": "evidence/dice-town-p4b1/face-1.png",
+              "source_start_frame": 0,
+              "source_end_frame": 1,
+              "sampling": "hold"
+            }
+          }
+        },
+        {
+          "output_start_frame": 2281,
+          "output_end_frame": 2339,
+          "kind": "still",
+          "source": "evidence/dice-town-p4b2/working-edit.mp4",
+          "source_start_frame": 2281,
+          "source_end_frame": 2339,
+          "sampling": "direct_30fps",
+          "source_fps": 30,
+          "provenance": {
+            "output_start_frame": 2281,
+            "output_end_frame": 2339,
+            "kind": "still",
+            "source": "evidence/dice-town-p4b1/working-edit.mp4",
+            "source_start_frame": 2281,
+            "source_end_frame": 2339,
+            "sampling": "direct_30fps",
+            "source_fps": 30,
+            "provenance": {
+              "output_start_frame": 2281,
+              "output_end_frame": 2339,
+              "kind": "still",
+              "source": "evidence/dice-town-p4b1/face-2.png",
+              "source_start_frame": 0,
+              "source_end_frame": 1,
+              "sampling": "hold"
+            }
+          }
+        }
+      ],
+      "selection": "native_orientation_match_cuts",
+      "note": "Same complete die/camera, real orientations, no top-number substitution.",
+      "immediate_selection": "unchanged_committed_P4B2"
+    },
+    {
+      "id": "D26",
+      "start_frame": 2339,
+      "end_frame": 2454,
+      "frame_count": 115,
+      "original_intent": "Two more fair rolls; Pip watches pin from distance",
+      "final_approved": false,
+      "spans": [
+        {
+          "output_start_frame": 2339,
+          "output_end_frame": 2377,
+          "kind": "still",
+          "source": "evidence/dice-town-p4b2/working-edit.mp4",
+          "source_start_frame": 2339,
+          "source_end_frame": 2377,
+          "sampling": "direct_30fps",
+          "source_fps": 30,
+          "provenance": {
+            "output_start_frame": 2339,
+            "output_end_frame": 2377,
+            "kind": "still",
+            "source": "evidence/dice-town-p4b1/working-edit.mp4",
+            "source_start_frame": 2339,
+            "source_end_frame": 2377,
+            "sampling": "direct_30fps",
+            "source_fps": 30,
+            "provenance": {
+              "output_start_frame": 2339,
+              "output_end_frame": 2377,
+              "kind": "still",
+              "source": "evidence/dice-town-p4b1/face-4.png",
+              "source_start_frame": 0,
+              "source_end_frame": 1,
+              "sampling": "hold"
+            }
+          }
+        },
+        {
+          "output_start_frame": 2377,
+          "output_end_frame": 2415,
+          "kind": "still",
+          "source": "evidence/dice-town-p4b2/working-edit.mp4",
+          "source_start_frame": 2377,
+          "source_end_frame": 2415,
+          "sampling": "direct_30fps",
+          "source_fps": 30,
+          "provenance": {
+            "output_start_frame": 2377,
+            "output_end_frame": 2415,
+            "kind": "still",
+            "source": "evidence/dice-town-p4b1/working-edit.mp4",
+            "source_start_frame": 2377,
+            "source_end_frame": 2415,
+            "sampling": "direct_30fps",
+            "source_fps": 30,
+            "provenance": {
+              "output_start_frame": 2377,
+              "output_end_frame": 2415,
+              "kind": "still",
+              "source": "evidence/dice-town-p4b1/face-3.png",
+              "source_start_frame": 0,
+              "source_end_frame": 1,
+              "sampling": "hold"
+            }
+          }
+        },
+        {
+          "output_start_frame": 2415,
+          "output_end_frame": 2454,
+          "kind": "still",
+          "source": "evidence/dice-town-p4b2/working-edit.mp4",
+          "source_start_frame": 2415,
+          "source_end_frame": 2454,
+          "sampling": "direct_30fps",
+          "source_fps": 30,
+          "provenance": {
+            "output_start_frame": 2415,
+            "output_end_frame": 2454,
+            "kind": "still",
+            "source": "evidence/dice-town-p4b1/working-edit.mp4",
+            "source_start_frame": 2415,
+            "source_end_frame": 2454,
+            "sampling": "direct_30fps",
+            "source_fps": 30,
+            "provenance": {
+              "output_start_frame": 2415,
+              "output_end_frame": 2454,
+              "kind": "still",
+              "source": "evidence/dice-town-p4b1/face-5.png",
+              "source_start_frame": 0,
+              "source_end_frame": 1,
+              "sampling": "hold"
+            }
+          }
+        }
+      ],
+      "selection": "native_orientation_match_cuts",
+      "note": "Same complete die/camera, real orientations, no top-number substitution.",
+      "immediate_selection": "unchanged_committed_P4B2"
+    },
+    {
+      "id": "D27",
+      "start_frame": 2454,
+      "end_frame": 2585,
+      "frame_count": 131,
+      "original_intent": "Pip almost reinstalls pin, sees photograph, chooses not to",
+      "final_approved": false,
+      "spans": [
+        {
+          "output_start_frame": 2454,
+          "output_end_frame": 2474,
+          "kind": "endpoint_hold",
+          "source": "evidence/dice-town-p4b2/working-edit.mp4",
+          "source_start_frame": 2454,
+          "source_end_frame": 2474,
+          "sampling": "direct_30fps",
+          "source_fps": 30,
+          "provenance": {
+            "output_start_frame": 2454,
+            "output_end_frame": 2474,
+            "kind": "endpoint_hold",
+            "source": "evidence/dice-town-p4b1/working-edit.mp4",
+            "source_start_frame": 2454,
+            "source_end_frame": 2474,
+            "sampling": "direct_30fps",
+            "source_fps": 30,
+            "provenance": {
+              "output_start_frame": 2454,
+              "output_end_frame": 2474,
+              "kind": "endpoint_hold",
+              "source": "evidence/dice-town-p4b1/motion-sources.mp4",
+              "source_start_frame": 0,
+              "source_end_frame": 1,
+              "sampling": "hold"
+            }
+          }
+        },
+        {
+          "output_start_frame": 2474,
+          "output_end_frame": 2528,
+          "kind": "motion",
+          "source": "evidence/dice-town-p4b2/working-edit.mp4",
+          "source_start_frame": 2474,
+          "source_end_frame": 2528,
+          "sampling": "direct_30fps",
+          "source_fps": 30,
+          "provenance": {
+            "output_start_frame": 2474,
+            "output_end_frame": 2528,
+            "kind": "motion",
+            "source": "evidence/dice-town-p4b1/working-edit.mp4",
+            "source_start_frame": 2474,
+            "source_end_frame": 2528,
+            "sampling": "direct_30fps",
+            "source_fps": 30,
+            "provenance": {
+              "output_start_frame": 2474,
+              "output_end_frame": 2528,
+              "kind": "motion",
+              "source": "evidence/dice-town-p4b1/motion-sources.mp4",
+              "source_start_frame": 0,
+              "source_end_frame": 54,
+              "sampling": "direct_30fps"
+            }
+          }
+        },
+        {
+          "output_start_frame": 2528,
+          "output_end_frame": 2585,
+          "kind": "endpoint_hold",
+          "source": "evidence/dice-town-p4b2/working-edit.mp4",
+          "source_start_frame": 2528,
+          "source_end_frame": 2585,
+          "sampling": "direct_30fps",
+          "source_fps": 30,
+          "provenance": {
+            "output_start_frame": 2528,
+            "output_end_frame": 2585,
+            "kind": "endpoint_hold",
+            "source": "evidence/dice-town-p4b1/working-edit.mp4",
+            "source_start_frame": 2528,
+            "source_end_frame": 2585,
+            "sampling": "direct_30fps",
+            "source_fps": 30,
+            "provenance": {
+              "output_start_frame": 2528,
+              "output_end_frame": 2585,
+              "kind": "endpoint_hold",
+              "source": "evidence/dice-town-p4b1/motion-sources.mp4",
+              "source_start_frame": 53,
+              "source_end_frame": 54,
+              "sampling": "hold"
+            }
+          }
+        }
+      ],
+      "selection": "bounded_motion_and_endpoint_holds",
+      "note": "Explicit authored motion at1x; no generated in-between or time stretch.",
+      "immediate_selection": "unchanged_committed_P4B2"
+    },
+    {
+      "id": "D28",
+      "start_frame": 2585,
+      "end_frame": 2669,
+      "frame_count": 84,
+      "original_intent": "Sixth sunrise: low sun behind die, anticipation",
+      "final_approved": false,
+      "spans": [
+        {
+          "output_start_frame": 2585,
+          "output_end_frame": 2669,
+          "kind": "still",
+          "source": "evidence/dice-town-p4b2/working-edit.mp4",
+          "source_start_frame": 2585,
+          "source_end_frame": 2669,
+          "sampling": "direct_30fps",
+          "source_fps": 30,
+          "provenance": {
+            "output_start_frame": 2585,
+            "output_end_frame": 2669,
+            "kind": "still",
+            "source": "evidence/dice-town-p4b2/D28-five.png",
+            "source_start_frame": 0,
+            "source_end_frame": 1,
+            "sampling": "hold"
+          }
+        }
+      ],
+      "selection": "corrected_native_five_up",
+      "note": "Legal5-up,1/4adjacent,2bottom; static Leo staging opens view of all4 side dots.",
+      "immediate_selection": "unchanged_committed_P4B2"
+    },
+    {
+      "id": "D29",
+      "start_frame": 2669,
+      "end_frame": 2716,
+      "frame_count": 47,
+      "original_intent": "Die slowly tips toward six",
+      "final_approved": false,
+      "spans": [
+        {
+          "output_start_frame": 2669,
+          "output_end_frame": 2672,
+          "kind": "endpoint_hold",
+          "source": "evidence/dice-town-p4b2/working-edit.mp4",
+          "source_start_frame": 2669,
+          "source_end_frame": 2672,
+          "sampling": "direct_30fps",
+          "source_fps": 30,
+          "provenance": {
+            "output_start_frame": 2669,
+            "output_end_frame": 2672,
+            "kind": "endpoint_hold",
+            "source": "evidence/dice-town-p4b1/working-edit.mp4",
+            "source_start_frame": 2669,
+            "source_end_frame": 2672,
+            "sampling": "direct_30fps",
+            "source_fps": 30,
+            "provenance": {
+              "output_start_frame": 2669,
+              "output_end_frame": 2672,
+              "kind": "endpoint_hold",
+              "source": "evidence/dice-town-p4b1/motion-sources.mp4",
+              "source_start_frame": 54,
+              "source_end_frame": 55,
+              "sampling": "hold"
+            }
+          }
+        },
+        {
+          "output_start_frame": 2672,
+          "output_end_frame": 2708,
+          "kind": "motion",
+          "source": "evidence/dice-town-p4b2/working-edit.mp4",
+          "source_start_frame": 2672,
+          "source_end_frame": 2708,
+          "sampling": "direct_30fps",
+          "source_fps": 30,
+          "provenance": {
+            "output_start_frame": 2672,
+            "output_end_frame": 2708,
+            "kind": "motion",
+            "source": "evidence/dice-town-p4b1/working-edit.mp4",
+            "source_start_frame": 2672,
+            "source_end_frame": 2708,
+            "sampling": "direct_30fps",
+            "source_fps": 30,
+            "provenance": {
+              "output_start_frame": 2672,
+              "output_end_frame": 2708,
+              "kind": "motion",
+              "source": "evidence/dice-town-p4b1/motion-sources.mp4",
+              "source_start_frame": 54,
+              "source_end_frame": 90,
+              "sampling": "direct_30fps"
+            }
+          }
+        },
+        {
+          "output_start_frame": 2708,
+          "output_end_frame": 2716,
+          "kind": "endpoint_hold",
+          "source": "evidence/dice-town-p4b2/working-edit.mp4",
+          "source_start_frame": 2708,
+          "source_end_frame": 2716,
+          "sampling": "direct_30fps",
+          "source_fps": 30,
+          "provenance": {
+            "output_start_frame": 2708,
+            "output_end_frame": 2716,
+            "kind": "endpoint_hold",
+            "source": "evidence/dice-town-p4b1/working-edit.mp4",
+            "source_start_frame": 2708,
+            "source_end_frame": 2716,
+            "sampling": "direct_30fps",
+            "source_fps": 30,
+            "provenance": {
+              "output_start_frame": 2708,
+              "output_end_frame": 2716,
+              "kind": "endpoint_hold",
+              "source": "evidence/dice-town-p4b1/motion-sources.mp4",
+              "source_start_frame": 89,
+              "source_end_frame": 90,
+              "sampling": "hold"
+            }
+          }
+        }
+      ],
+      "selection": "bounded_motion_and_endpoint_holds",
+      "note": "Explicit authored motion at1x; no generated in-between or time stretch.",
+      "immediate_selection": "unchanged_committed_P4B2"
+    },
+    {
+      "id": "D30",
+      "start_frame": 2716,
+      "end_frame": 2787,
+      "frame_count": 71,
+      "original_intent": "Pip reaches for pin, then lowers hand",
+      "final_approved": false,
+      "spans": [
+        {
+          "output_start_frame": 2716,
+          "output_end_frame": 2724,
+          "kind": "endpoint_hold",
+          "source": "evidence/dice-town-p4b2/working-edit.mp4",
+          "source_start_frame": 2716,
+          "source_end_frame": 2724,
+          "sampling": "direct_30fps",
+          "source_fps": 30,
+          "provenance": {
+            "output_start_frame": 2716,
+            "output_end_frame": 2724,
+            "kind": "endpoint_hold",
+            "source": "evidence/dice-town-p4b1/working-edit.mp4",
+            "source_start_frame": 2716,
+            "source_end_frame": 2724,
+            "sampling": "direct_30fps",
+            "source_fps": 30,
+            "provenance": {
+              "output_start_frame": 2716,
+              "output_end_frame": 2724,
+              "kind": "endpoint_hold",
+              "source": "evidence/dice-town-p4b1/motion-sources.mp4",
+              "source_start_frame": 90,
+              "source_end_frame": 91,
+              "sampling": "hold"
+            }
+          }
+        },
+        {
+          "output_start_frame": 2724,
+          "output_end_frame": 2766,
+          "kind": "motion",
+          "source": "evidence/dice-town-p4b2/working-edit.mp4",
+          "source_start_frame": 2724,
+          "source_end_frame": 2766,
+          "sampling": "direct_30fps",
+          "source_fps": 30,
+          "provenance": {
+            "output_start_frame": 2724,
+            "output_end_frame": 2766,
+            "kind": "motion",
+            "source": "evidence/dice-town-p4b1/working-edit.mp4",
+            "source_start_frame": 2724,
+            "source_end_frame": 2766,
+            "sampling": "direct_30fps",
+            "source_fps": 30,
+            "provenance": {
+              "output_start_frame": 2724,
+              "output_end_frame": 2766,
+              "kind": "motion",
+              "source": "evidence/dice-town-p4b1/motion-sources.mp4",
+              "source_start_frame": 90,
+              "source_end_frame": 132,
+              "sampling": "direct_30fps"
+            }
+          }
+        },
+        {
+          "output_start_frame": 2766,
+          "output_end_frame": 2787,
+          "kind": "endpoint_hold",
+          "source": "evidence/dice-town-p4b2/working-edit.mp4",
+          "source_start_frame": 2766,
+          "source_end_frame": 2787,
+          "sampling": "direct_30fps",
+          "source_fps": 30,
+          "provenance": {
+            "output_start_frame": 2766,
+            "output_end_frame": 2787,
+            "kind": "endpoint_hold",
+            "source": "evidence/dice-town-p4b1/working-edit.mp4",
+            "source_start_frame": 2766,
+            "source_end_frame": 2787,
+            "sampling": "direct_30fps",
+            "source_fps": 30,
+            "provenance": {
+              "output_start_frame": 2766,
+              "output_end_frame": 2787,
+              "kind": "endpoint_hold",
+              "source": "evidence/dice-town-p4b1/motion-sources.mp4",
+              "source_start_frame": 131,
+              "source_end_frame": 132,
+              "sampling": "hold"
+            }
+          }
+        }
+      ],
+      "selection": "bounded_motion_and_endpoint_holds",
+      "note": "Explicit authored motion at1x; no generated in-between or time stretch.",
+      "immediate_selection": "unchanged_committed_P4B2"
+    },
+    {
+      "id": "D31",
+      "start_frame": 2787,
+      "end_frame": 2850,
+      "frame_count": 63,
+      "original_intent": "Die settles with truthful upper six; plausible contact",
+      "final_approved": false,
+      "spans": [
+        {
+          "output_start_frame": 2787,
+          "output_end_frame": 2829,
+          "kind": "motion",
+          "source": "evidence/dice-town-p4b2/working-edit.mp4",
+          "source_start_frame": 2787,
+          "source_end_frame": 2829,
+          "sampling": "direct_30fps",
+          "source_fps": 30,
+          "provenance": {
+            "output_start_frame": 2787,
+            "output_end_frame": 2829,
+            "kind": "motion",
+            "source": "evidence/dice-town-p4b1/working-edit.mp4",
+            "source_start_frame": 2787,
+            "source_end_frame": 2829,
+            "sampling": "direct_30fps",
+            "source_fps": 30,
+            "provenance": {
+              "output_start_frame": 2787,
+              "output_end_frame": 2829,
+              "kind": "motion",
+              "source": "evidence/dice-town-p4b1/motion-sources.mp4",
+              "source_start_frame": 132,
+              "source_end_frame": 174,
+              "sampling": "direct_30fps"
+            }
+          }
+        },
+        {
+          "output_start_frame": 2829,
+          "output_end_frame": 2850,
+          "kind": "endpoint_hold",
+          "source": "evidence/dice-town-p4b2/working-edit.mp4",
+          "source_start_frame": 2829,
+          "source_end_frame": 2850,
+          "sampling": "direct_30fps",
+          "source_fps": 30,
+          "provenance": {
+            "output_start_frame": 2829,
+            "output_end_frame": 2850,
+            "kind": "endpoint_hold",
+            "source": "evidence/dice-town-p4b1/working-edit.mp4",
+            "source_start_frame": 2829,
+            "source_end_frame": 2850,
+            "sampling": "direct_30fps",
+            "source_fps": 30,
+            "provenance": {
+              "output_start_frame": 2829,
+              "output_end_frame": 2850,
+              "kind": "endpoint_hold",
+              "source": "evidence/dice-town-p4b1/motion-sources.mp4",
+              "source_start_frame": 173,
+              "source_end_frame": 174,
+              "sampling": "hold"
+            }
+          }
+        }
+      ],
+      "selection": "bounded_motion_and_endpoint_holds",
+      "note": "Explicit authored motion at1x; no generated in-between or time stretch.",
+      "immediate_selection": "unchanged_committed_P4B2"
+    },
+    {
+      "id": "D32",
+      "start_frame": 2850,
+      "end_frame": 2898,
+      "frame_count": 48,
+      "original_intent": "Unmistakable six upper face, rule board response",
+      "final_approved": false,
+      "spans": [
+        {
+          "output_start_frame": 2850,
+          "output_end_frame": 2898,
+          "kind": "still",
+          "source": "evidence/dice-town-p4b2/working-edit.mp4",
+          "source_start_frame": 2850,
+          "source_end_frame": 2898,
+          "sampling": "direct_30fps",
+          "source_fps": 30,
+          "provenance": {
+            "output_start_frame": 2850,
+            "output_end_frame": 2898,
+            "kind": "still",
+            "source": "evidence/dice-town-p4b1/working-edit.mp4",
+            "source_start_frame": 2850,
+            "source_end_frame": 2898,
+            "sampling": "direct_30fps",
+            "source_fps": 30,
+            "provenance": {
+              "output_start_frame": 2850,
+              "output_end_frame": 2898,
+              "kind": "still",
+              "source": "evidence/dice-town-p4b1/six-settled.png",
+              "source_start_frame": 0,
+              "source_end_frame": 1,
+              "sampling": "hold"
+            }
+          }
+        }
+      ],
+      "selection": "native_six_payoff_hold",
+      "note": "Real six upper face; no text overlay.",
+      "immediate_selection": "unchanged_committed_P4B2"
+    },
+    {
+      "id": "D33",
+      "start_frame": 2898,
+      "end_frame": 2985,
+      "frame_count": 87,
+      "original_intent": "Gate unbolts and opens; town boundary light changes",
+      "final_approved": false,
+      "spans": [
+        {
+          "output_start_frame": 2898,
+          "output_end_frame": 2908,
+          "kind": "endpoint_hold",
+          "source": "evidence/dice-town-p4b3/ending-source.mp4",
+          "source_start_frame": 0,
+          "source_end_frame": 1,
+          "sampling": "hold"
+        },
+        {
+          "output_start_frame": 2908,
+          "output_end_frame": 2935,
+          "kind": "motion",
+          "source": "evidence/dice-town-p4b3/ending-source.mp4",
+          "source_start_frame": 0,
+          "source_end_frame": 27,
+          "sampling": "direct_30fps"
+        },
+        {
+          "output_start_frame": 2935,
+          "output_end_frame": 2985,
+          "kind": "endpoint_hold",
+          "source": "evidence/dice-town-p4b3/ending-source.mp4",
+          "source_start_frame": 26,
+          "source_end_frame": 27,
+          "sampling": "hold"
+        }
+      ],
+      "selection": "installed_leaves_eased_open",
+      "note": "10f anticipation,27f hinge movement,50f open hold; waiting child matches next shot.",
+      "immediate_selection": "installed_leaves_eased_open"
+    },
+    {
+      "id": "D34",
+      "start_frame": 2985,
+      "end_frame": 3090,
+      "frame_count": 105,
+      "original_intent": "Pip runs through gate into old street toward family house",
+      "final_approved": false,
+      "spans": [
+        {
+          "output_start_frame": 2985,
+          "output_end_frame": 2991,
+          "kind": "endpoint_hold",
+          "source": "evidence/dice-town-p4b3/ending-source.mp4",
+          "source_start_frame": 27,
+          "source_end_frame": 28,
+          "sampling": "hold"
+        },
+        {
+          "output_start_frame": 2991,
+          "output_end_frame": 3021,
+          "kind": "motion",
+          "source": "evidence/dice-town-p4b3/ending-source.mp4",
+          "source_start_frame": 27,
+          "source_end_frame": 57,
+          "sampling": "direct_30fps"
+        },
+        {
+          "output_start_frame": 3021,
+          "output_end_frame": 3030,
+          "kind": "endpoint_hold",
+          "source": "evidence/dice-town-p4b3/ending-source.mp4",
+          "source_start_frame": 56,
+          "source_end_frame": 57,
+          "sampling": "hold"
+        },
+        {
+          "output_start_frame": 3030,
+          "output_end_frame": 3090,
+          "kind": "still",
+          "source": "evidence/dice-town-p4b3/home.png",
+          "source_start_frame": 0,
+          "source_end_frame": 1,
+          "sampling": "hold"
+        }
+      ],
+      "selection": "child_crossing_then_same_house_plate",
+      "note": "Readable walk samples gait seconds0-3 over30frames (~3.10x between samples), child scale.65; only threshold crossing shown; destination insert implies rest of journey.",
+      "immediate_selection": "child_crossing_then_same_house_plate"
+    },
+    {
+      "id": "D35",
+      "start_frame": 3090,
+      "end_frame": 3230,
+      "frame_count": 140,
+      "original_intent": "Older mother recognizes child Pip; face and eyeline sell payoff",
+      "final_approved": false,
+      "spans": [
+        {
+          "output_start_frame": 3090,
+          "output_end_frame": 3100,
+          "kind": "endpoint_hold",
+          "source": "evidence/dice-town-p4b2/working-edit.mp4",
+          "source_start_frame": 3090,
+          "source_end_frame": 3100,
+          "sampling": "direct_30fps",
+          "source_fps": 30,
+          "provenance": {
+            "output_start_frame": 3090,
+            "output_end_frame": 3100,
+            "kind": "endpoint_hold",
+            "source": "evidence/dice-town-p4b1/working-edit.mp4",
+            "source_start_frame": 3090,
+            "source_end_frame": 3100,
+            "sampling": "direct_30fps",
+            "source_fps": 30,
+            "provenance": {
+              "output_start_frame": 3090,
+              "output_end_frame": 3100,
+              "kind": "endpoint_hold",
+              "source": "evidence/dice-town-p4a/working-edit.mp4",
+              "source_start_frame": 3090,
+              "source_end_frame": 3100,
+              "sampling": "direct_30fps",
+              "source_fps": 30,
+              "provenance": {
+                "output_start_frame": 3090,
+                "output_end_frame": 3100,
+                "kind": "endpoint_hold",
+                "source": "evidence/dice-town-p3b2b/recognition.mp4",
+                "source_start_frame": 0,
+                "source_end_frame": 1
+              }
+            }
+          }
+        },
+        {
+          "output_start_frame": 3100,
+          "output_end_frame": 3205,
+          "kind": "motion",
+          "source": "evidence/dice-town-p4b2/working-edit.mp4",
+          "source_start_frame": 3100,
+          "source_end_frame": 3205,
+          "sampling": "direct_30fps",
+          "source_fps": 30,
+          "provenance": {
+            "output_start_frame": 3100,
+            "output_end_frame": 3205,
+            "kind": "motion",
+            "source": "evidence/dice-town-p4b1/working-edit.mp4",
+            "source_start_frame": 3100,
+            "source_end_frame": 3205,
+            "sampling": "direct_30fps",
+            "source_fps": 30,
+            "provenance": {
+              "output_start_frame": 3100,
+              "output_end_frame": 3205,
+              "kind": "motion",
+              "source": "evidence/dice-town-p4a/working-edit.mp4",
+              "source_start_frame": 3100,
+              "source_end_frame": 3205,
+              "sampling": "direct_30fps",
+              "source_fps": 30,
+              "provenance": {
+                "output_start_frame": 3100,
+                "output_end_frame": 3205,
+                "kind": "proof_motion",
+                "source": "evidence/dice-town-p3b2b/recognition.mp4",
+                "source_start_frame": 0,
+                "source_end_frame": 105
+              }
+            }
+          }
+        },
+        {
+          "output_start_frame": 3205,
+          "output_end_frame": 3230,
+          "kind": "endpoint_hold",
+          "source": "evidence/dice-town-p4b2/working-edit.mp4",
+          "source_start_frame": 3205,
+          "source_end_frame": 3230,
+          "sampling": "direct_30fps",
+          "source_fps": 30,
+          "provenance": {
+            "output_start_frame": 3205,
+            "output_end_frame": 3230,
+            "kind": "endpoint_hold",
+            "source": "evidence/dice-town-p4b1/working-edit.mp4",
+            "source_start_frame": 3205,
+            "source_end_frame": 3230,
+            "sampling": "direct_30fps",
+            "source_fps": 30,
+            "provenance": {
+              "output_start_frame": 3205,
+              "output_end_frame": 3230,
+              "kind": "endpoint_hold",
+              "source": "evidence/dice-town-p4a/working-edit.mp4",
+              "source_start_frame": 3205,
+              "source_end_frame": 3230,
+              "sampling": "direct_30fps",
+              "source_fps": 30,
+              "provenance": {
+                "output_start_frame": 3205,
+                "output_end_frame": 3230,
+                "kind": "endpoint_hold",
+                "source": "evidence/dice-town-p3b2b/recognition.mp4",
+                "source_start_frame": 104,
+                "source_end_frame": 105
+              }
+            }
+          }
+        }
+      ],
+      "selection": "proof_motion_with_endpoint_holds",
+      "note": "Unretimed original30fps proof; real endpoints held, no generated motion.",
+      "immediate_selection": "unchanged_committed_P4B2"
+    },
+    {
+      "id": "D36",
+      "start_frame": 3230,
+      "end_frame": 3344,
+      "frame_count": 114,
+      "original_intent": "Small childhood chair unchanged beside repainted kitchen wall",
+      "final_approved": false,
+      "spans": [
+        {
+          "output_start_frame": 3230,
+          "output_end_frame": 3344,
+          "kind": "still",
+          "source": "evidence/dice-town-p4b2/working-edit.mp4",
+          "source_start_frame": 3230,
+          "source_end_frame": 3344,
+          "sampling": "direct_30fps",
+          "source_fps": 30,
+          "provenance": {
+            "output_start_frame": 3230,
+            "output_end_frame": 3344,
+            "kind": "still",
+            "source": "evidence/dice-town-p4b1/working-edit.mp4",
+            "source_start_frame": 3230,
+            "source_end_frame": 3344,
+            "sampling": "direct_30fps",
+            "source_fps": 30,
+            "provenance": {
+              "output_start_frame": 3230,
+              "output_end_frame": 3344,
+              "kind": "still",
+              "source": "evidence/dice-town-p4a/working-edit.mp4",
+              "source_start_frame": 3230,
+              "source_end_frame": 3344,
+              "sampling": "direct_30fps",
+              "source_fps": 30,
+              "provenance": {
+                "output_start_frame": 3230,
+                "output_end_frame": 3344,
+                "kind": "still",
+                "source": "evidence/dice-town-p3b2b/chair.png",
+                "source_start_frame": 0,
+                "source_end_frame": 1
+              }
+            }
+          }
+        }
+      ],
+      "selection": "native_still_hold",
+      "note": "Chair continuity insert, static.",
+      "immediate_selection": "unchanged_committed_P4B2"
+    },
+    {
+      "id": "D37",
+      "start_frame": 3344,
+      "end_frame": 3389,
+      "frame_count": 45,
+      "original_intent": "Mother says 'We kept your chair' as narrated quote",
+      "final_approved": false,
+      "spans": [
+        {
+          "output_start_frame": 3344,
+          "output_end_frame": 3389,
+          "kind": "still",
+          "source": "evidence/dice-town-p4b3/mother-close.png",
+          "source_start_frame": 0,
+          "source_end_frame": 1,
+          "sampling": "hold"
+        }
+      ],
+      "selection": "native_latest_mother_welcome_crop",
+      "note": "Source PR37 response.png/frame95; exact same hair/creamV/purple appearance, no newly generated mouth/recognition footage.",
+      "immediate_selection": "native_latest_mother_welcome_crop"
+    },
+    {
+      "id": "D38",
+      "start_frame": 3389,
+      "end_frame": 3513,
+      "frame_count": 124,
+      "original_intent": "Leo closes notebook at gate; tomorrow is unplanned",
+      "final_approved": false,
+      "spans": [
+        {
+          "output_start_frame": 3389,
+          "output_end_frame": 3405,
+          "kind": "endpoint_hold",
+          "source": "evidence/dice-town-p4b3/ending-source.mp4",
+          "source_start_frame": 57,
+          "source_end_frame": 58,
+          "sampling": "hold"
+        },
+        {
+          "output_start_frame": 3405,
+          "output_end_frame": 3432,
+          "kind": "motion",
+          "source": "evidence/dice-town-p4b3/ending-source.mp4",
+          "source_start_frame": 57,
+          "source_end_frame": 84,
+          "sampling": "direct_30fps"
+        },
+        {
+          "output_start_frame": 3432,
+          "output_end_frame": 3513,
+          "kind": "endpoint_hold",
+          "source": "evidence/dice-town-p4b3/ending-source.mp4",
+          "source_start_frame": 83,
+          "source_end_frame": 84,
+          "sampling": "hold"
+        }
+      ],
+      "selection": "actual_notebook_cover_closure",
+      "note": "Single inherited notebook body; hinged front cover closes in27f, subtle existing shoulder/head pivots, reflective endpoint hold.",
+      "immediate_selection": "actual_notebook_cover_closure"
+    }
+  ],
+  "parent_edit": "evidence/dice-town-p4b2/working-edit.mp4",
+  "inherited_proxy_mapping": "Use measured Dxx header-verified shot ranges; the inherited proxy switches one15fps frame before declared boundaries. Duplicate each original15fps frame twice, then trim/last-frame-pad to authoritative30fps slot. Explicit per-shot source offsets; output clocks unchanged.",
+  "inherited_die_limitation": "D28 impossible5/2 adjacency resolved with complete canonical die. Existing D15 footage unchanged; D16 only implies its connection to the new exterior contact.",
+  "ending_recipes": {
+    "source_archive": {
+      "path": "evidence/dice-town-p4b3/ending-source.mp4",
+      "frames": 84,
+      "ranges": {
+        "D33": [
+          0,
+          27
+        ],
+        "D34": [
+          27,
+          57
+        ],
+        "D38": [
+          57,
+          84
+        ]
+      }
+    },
+    "mother": {
+      "source": "evidence/dice-town-p3b2b/response.png",
+      "crop_xywh": [
+        120,
+        240,
+        450,
+        800
+      ],
+      "output": "evidence/dice-town-p4b3/mother-close.png",
+      "newWebGLFrames": 0
+    }
+  }
+}

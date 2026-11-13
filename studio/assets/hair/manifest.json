@@ -1,0 +1,146 @@
+[
+ {
+  "id": "long_red",
+  "file": "studio/assets/hair/long_red.glb",
+  "bytes": 151748,
+  "sha256": "50570ea73da1a758a7a7a5916accd25f9bc173d670d02290496b3281cf02b980",
+  "triangles": 1788,
+  "reimportedTriangles": 1788,
+  "attachment": "HairAttachment",
+  "attachmentPoint": [
+   0,
+   1.16,
+   0
+  ],
+  "shape": "long_straight",
+  "color": "#b8301f",
+  "origin": "procedural, studio/characters/hair.js (original design; no catalog mesh copied)",
+  "license": "owned by repository owner"
+ },
+ {
+  "id": "spiky_blonde",
+  "file": "studio/assets/hair/spiky_blonde.glb",
+  "bytes": 170652,
+  "sha256": "4174d1acaf7f8d4a5575ddf1d40db5ed7332c3d09412493c97980cd393e5b2bc",
+  "triangles": 2424,
+  "reimportedTriangles": 2424,
+  "attachment": "HairAttachment",
+  "attachmentPoint": [
+   0,
+   1.16,
+   0
+  ],
+  "shape": "spiky",
+  "color": "#e3b43b",
+  "origin": "procedural, studio/characters/hair.js (original design; no catalog mesh copied)",
+  "license": "owned by repository owner"
+ },
+ {
+  "id": "messy_brown",
+  "file": "studio/assets/hair/messy_brown.glb",
+  "bytes": 175232,
+  "sha256": "28146946b54f07a5fe28118b41e7e1c6cc64c129be7c6798607bd05e9110b215",
+  "triangles": 2532,
+  "reimportedTriangles": 2532,
+  "attachment": "HairAttachment",
+  "attachmentPoint": [
+   0,
+   1.16,
+   0
+  ],
+  "shape": "messy_fringe",
+  "color": "#8a5528",
+  "origin": "procedural, studio/characters/hair.js (original design; no catalog mesh copied)",
+  "license": "owned by repository owner"
+ },
+ {
+  "id": "swept_blue",
+  "file": "studio/assets/hair/swept_blue.glb",
+  "bytes": 161380,
+  "sha256": "62989ba0b57bd3b17d494b6fc19cc996a9b20f397c791545d548bd7da017b324",
+  "triangles": 2100,
+  "reimportedTriangles": 2100,
+  "attachment": "HairAttachment",
+  "attachmentPoint": [
+   0,
+   1.16,
+   0
+  ],
+  "shape": "swept_quiff",
+  "color": "#2b3a8f",
+  "origin": "procedural, studio/characters/hair.js (original design; no catalog mesh copied)",
+  "license": "owned by repository owner"
+ },
+ {
+  "id": "ponytail_black",
+  "file": "studio/assets/hair/ponytail_black.glb",
+  "bytes": 127068,
+  "sha256": "566d4821fe6fb4ac7b79fd782f38a0cbbd821c0dff65386f124667c84c2912d8",
+  "triangles": 1460,
+  "reimportedTriangles": 1460,
+  "attachment": "HairAttachment",
+  "attachmentPoint": [
+   0,
+   1.16,
+   0
+  ],
+  "shape": "side_ponytail",
+  "color": "#2a2a30",
+  "origin": "procedural, studio/characters/hair.js (original design; no catalog mesh copied)",
+  "license": "owned by repository owner"
+ },
+ {
+  "id": "long_blonde",
+  "file": "studio/assets/hair/long_blonde.glb",
+  "bytes": 146668,
+  "sha256": "3e66dc96409650ac9f8d21abbd20ed78e8eb4a24641bada6670a50bedf6a0f8c",
+  "triangles": 1788,
+  "reimportedTriangles": 1788,
+  "attachment": "HairAttachment",
+  "attachmentPoint": [
+   0,
+   1.16,
+   0
+  ],
+  "shape": "long_side_fringe",
+  "color": "#e9cf63",
+  "origin": "procedural, studio/characters/hair.js (original design; no catalog mesh copied)",
+  "license": "owned by repository owner"
+ },
+ {
+  "id": "bun_red",
+  "file": "studio/assets/hair/bun_red.glb",
+  "bytes": 173576,
+  "sha256": "1f161083ebf683a84fa2be5cf9fc5215caeb6cb088ba5a1e65a9535eb019fc60",
+  "triangles": 2436,
+  "reimportedTriangles": 2436,
+  "attachment": "HairAttachment",
+  "attachmentPoint": [
+   0,
+   1.16,
+   0
+  ],
+  "shape": "high_bun",
+  "color": "#c23a22",
+  "origin": "procedural, studio/characters/hair.js (original design; no catalog mesh copied)",
+  "license": "owned by repository owner"
+ },
+ {
+  "id": "bun_pink",
+  "file": "studio/assets/hair/bun_pink.glb",
+  "bytes": 165016,
+  "sha256": "af6a83c0c6f4725b8ca52526505a551fbbc7e4bb2d6c15d8b32412e7d617ecc0",
+  "triangles": 2436,
+  "reimportedTriangles": 2436,
+  "attachment": "HairAttachment",
+  "attachmentPoint": [
+   0,
+   1.16,
+   0
+  ],
+  "shape": "high_bun",
+  "color": "#e4a3e0",
+  "origin": "procedural, studio/characters/hair.js (original design; no catalog mesh copied)",
+  "license": "owned by repository owner"
+ }
+]

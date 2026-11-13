@@ -1,3 +1,53 @@
+# Dice Town — The Sixth Roll (117.1 s, native 1080×1920)
+
+[Silent master](evidence/dice-town-film/dice-town-1080x1920-silent.mp4) · [phone preview](evidence/dice-town-film/dice-town-720x1280-preview.mp4) · [38-shot contact sheet](evidence/dice-town-film/contact-sheet-38-shots.jpg) · [verification](evidence/dice-town-film/verification.json) · [add narration + captions](evidence/dice-town-film/ADD_NARRATION.md). Rebuild: `node scripts/studio-sequence-render.js --page=production/dice-town-film/ --total=3513 --width=1080 --workers=3 --out=renders/film-1080 && python3 scripts/dice-town-film-finish.py`.
+
+# Studio V2 stage 4 — 12 s native sequence, 1080×1920 (awaiting review)
+
+[Master MP4 1080×1920](evidence/studio-sequence/sequence-1080x1920.mp4) · [phone preview (downscale)](evidence/studio-sequence/sequence-720x1280-preview.mp4) · [contact sheet](evidence/studio-sequence/contact-sheet.jpg) · [verification](evidence/studio-sequence/verification.json). Rebuild: `node scripts/studio-sequence-render.js --width=1080 --workers=3 && node scripts/studio-sequence-render.js --width=1080 --frames=0,67,134,135,239,240,359 --out=renders/seq-check && python3 scripts/studio-sequence-finish.py renders/studio-sequence-1080 renders/seq-check`.
+
+# Studio V2 stage 3 — town kit v1 (awaiting review)
+
+Modular Roblox-style town (`studio/town/`) + refined hair. Review: [town shots](evidence/studio-town/town-sheet.jpg), [plaza old → look → kit](evidence/studio-town/plaza-comparison.jpg), [hair options](evidence/studio-characters/hair-options.jpg), [what matters](studio/town/TOWN_NOTES.md). Rebuild: `npm run proof:studio && node scripts/studio-town-capture.js && python3 scripts/studio-town-sheet.py`.
+
+# Studio V2 stage 2c — hair options (awaiting review)
+
+Eight hair accessories built like rigid hair accessories (one mesh, < 4k triangles, painted strand texture, GLB exports in `studio/assets/hair/`). Review: [hair options](evidence/studio-characters/hair-options.jpg), [35 expressions with coloured mouths](evidence/studio-characters/expressions-35.jpg), [lineup](evidence/studio-characters/lineup-sheet.jpg).
+
+# Studio V2 stage 2b — classic Roblox-style cast (awaiting review)
+
+Painted-clothing blocks + decal faces from the owner's 35-expression sheet. Review: [35 expressions](evidence/studio-characters/expressions-35.jpg), [cast faces](evidence/studio-characters/expressions.jpg), [lineup](evidence/studio-characters/lineup-sheet.jpg), [plaza Leo](evidence/studio-characters/plaza-leo-comparison.jpg). Rebuild: `npm run proof:studio`.
+
+# Studio V2 stage 2 — character presets (awaiting review)
+
+One master six-part rig, three presets: `createCharacter('leo'|'pip'|'mother')` and `setExpression(avatar, name)` in `studio/characters/`.
+
+- Review: [lineup](evidence/studio-characters/lineup-sheet.jpg), [18 expressions](evidence/studio-characters/expressions.jpg), [Leo in the plaza: old → look → preset](evidence/studio-characters/plaza-leo-comparison.jpg), [metrics](evidence/studio-characters/metrics.json).
+- Rebuild everything: `npm ci && npm run proof:studio`. API test: `npm run test:studio`.
+- Live pages: `npm run preview`, then `/production/studio-characters/` or `/production/studio-lookdev/?look=1&cast=v2`.
+
+# Studio V2 stage 1 — look gate (awaiting review)
+
+Opt-in studio look (`studio/lookdev/look.js`) over the unchanged P3B4 plaza, rendered natively at **1080×1920**.
+
+- Review: [old vs new](evidence/studio-lookdev/comparison.jpg), [390px phone sheet](evidence/studio-lookdev/phone-390.jpg), [metrics](evidence/studio-lookdev/metrics.json), [style bible](studio/STYLE_BIBLE.md), [Higgsfield account check](studio/HIGGSFIELD.md).
+- Rebuild: `npm ci`, `node scripts/studio-lookdev-capture.js`, `python3 scripts/studio-lookdev-sheet.py`.
+- Live page: `npm run preview`, then `/production/studio-lookdev/?look=1` (or `?look=0` for legacy).
+
+# Dice Town P4B-4 — native backstory repair for review
+
+**Technical PASS; creative PARTIAL/pending review.** [117.100s silent edit](evidence/dice-town-p4b4/working-edit.mp4) · [390px narrative continuity](evidence/dice-town-p4b4/phone-continuity.jpg) · [Native before/after and limitations](evidence/dice-town-p4b4/REPORT.md) · [38-shot map](evidence/dice-town-p4b4/edit-map.json). Only D17–D22/D24 repaired with native scene-specific sources;90 new motion frames. D23 and all other shots preserved exactly; proxy22.317%. No merge or next phase.
+
+# Dice Town P4B-3 — ending working edit for review
+
+**Technical PASS; creative approval pending.** [117.100s silent edit](evidence/dice-town-p4b3/working-edit.mp4) · [Phone before/after](evidence/dice-town-p4b3/phone-comparison.jpg) · [Source map](evidence/dice-town-p4b3/edit-map.json) · [Report and commands](evidence/dice-town-p4b3/REPORT.md). Only D33/D34/D37/D38 changed; D35/D36 and3152 untouched frames preserved exactly.84 new motion frames; proxy40.82%. Isolated draft PR; no merge or next stage.
+
+# S6 — native final candidate awaiting iPad review
+
+Native720×1280/30fps master **PASS**:1641 frames/54.700s,clean3D separate from captions/counters/narration. [Silent final candidate](evidence/names100-s6/silent-master.mp4) · [Clean master](evidence/names100-s6/clean-master.mp4) · [Native contact sheet](evidence/names100-s6/23-shot-contact.png) · [Report,tests,costs,limits](evidence/names100-s6/REPORT.md).
+
+PR19 merged after verification. Approved S4+S5 unchanged; no upscale/art changes. Checkpointed capture resumed from1155 verified frames after usage interruption; only486 remaining captured,20 protected reverse checks pass. All15 prior movies/code/tests preserved. Original narration muxed at t=0 and technically verified privately; narrated delivery PARTIAL,real iPad approval PENDING. No publishing. Model-token/total interrupted-run costs unavailable; measured scopes explicitly reported.
+
 # S5 — restrained speaking review
 
 **PASS for bounded technical/visible proof; awaiting human creative/listening approval.** PR18 is merged; full S4 story/style/timing preserved. Added only an optional cached three-shape mouth layer: Eli whispers Mara and implies three short names between narrated numbers. Lips stay sealed during ordinary narration/silent beats; no new background geometry or camera changes.
@@ -206,3 +256,75 @@ npm run render:shots -- --shots production/not-today.json --out renders/not-toda
 The CLI starts its own server, resumes verified cached frames, repairs damaged frames and publishes only after WebGL repeat-seeking, complete MP4 decode and native playback checks. Output is found through `<out>/latest.json`; temporary frames stay outside Git. No added dependencies. The original 7.2s three-shot scene and a distinct 4s two-shot scene share the renderer.
 
 [P1 commands and JSON contract](P1_PIPELINE.md) · [verified movies, contact sheets and resources](evidence/p1/REPORT.md). Run `npm run test:p1` for actual interrupted-render recovery and MP4 tests. Earlier “no MP4” statements above describe their historical F1/F2 stages; production work is now explicitly authorized within P1. Avatar anatomy, appearance, both gaits and walking-transition restrictions remain unchanged. Stop for review after the P1 PR.
+
+## Dice Town P0–P1 isolated proof
+
+See [creative draft](stories/dice-town/CREATIVE_LOCK.md), [art target](stories/dice-town/ART_TARGET.md), [asset ledger](stories/dice-town/ASSET_LEDGER.md) and [verified report](evidence/dice-town-p1/REPORT.md). Run `npm run preview`, open `/production/dice-town/`; console `__dice.renderFrame(0)` selects plaza A, `30` selects reaction B, `60` selects focus. These are static deterministic pose choices, not a motion proof. Reproduce the two native captures with `node scripts/dice-town-proof.js`; source checks: `node tests/dice-town.js`. No new dependencies. P2 is not authorized.
+
+## Dice Town P1B visual experiment
+
+[Native proof and limitations](evidence/dice-town-p1b/REPORT.md) · [asset decision](stories/dice-town/P1B_ASSET_DECISION.md). Preview `/production/dice-town-p1b/` or `candidate.html` after `npm run preview`. Reproduce with `node scripts/dice-town-p1b-proof.js`; tests `node tests/dice-town-p1b.js`. Technical PASS, creative PARTIAL/pending review; Kenney candidate not adopted.
+
+## Dice Town P1C still polish
+
+[Native stills, comparison and report](evidence/dice-town-p1c/REPORT.md). Preview `/production/dice-town-p1c/`; capture `node scripts/dice-town-p1c-proof.js`, board `python3 scripts/dice-town-p1c-board.py`. Isolated static art pass; technical PASS, creative PARTIAL/pending review. No motion/video/P2.
+
+## Dice Town P2A motion proof
+
+[Four-second silent native film](evidence/dice-town-p2a/dice-town-p2a.mp4) · [all120 frames](evidence/dice-town-p2a/all-120-frames.jpg) · [validation / limitations](evidence/dice-town-p2a/REPORT.md). Export with `node scripts/render-shot-list.js --entry dice-town-p2a --shots production/dice-town-p2a/sequence.json --out renders/dice-town-p2a-native`; resume supported. Technical PARTIAL: encoding/contact/determinism pass; wide-shot arm crop remains. Creative review pending.
+
+## Dice Town bounded motion polish
+
+Revised staging and acting: [film and validation](evidence/dice-town-p2a-polish/REPORT.md). Reproduce with `python3 scripts/dice-town-p2a-polish-cost.py`; original PR28 evidence retained. No merge or next phase.
+
+## Dice Town full storyboard animatic
+
+[Silent117s proxy and evidence](evidence/dice-town-animatic/REPORT.md):38 shots,76 WebGL boards held at15fps,360×640. Source plans and existing renderer unchanged; placeholders and audio-review limitations documented.
+
+## Dice Town P3A production strategy
+
+[Proposed production lock](stories/dice-town/P3A_PRODUCTION_LOCK.md) · [38-shot optimization](stories/dice-town/P3A_SHOT_OPTIMIZATION.md) · [priorities, overlap/world fixes and safe cheats](stories/dice-town/P3A_FIX_AND_ASSET_PRIORITIES.md). Documentation only; no revised assets/animation rendered or creatively approved.
+
+## Dice Town P3B-1 contact proof
+
+[D15/D23 films, native stills, geometric verification and limitations](evidence/dice-town-p3b1/REPORT.md). `node scripts/dice-town-p3b1-proof.js --stills` then `node scripts/dice-town-p3b1-proof.js`; original engine/characters preserved. Technical PASS, creative review pending. No final episode or merge.
+
+## Dice Town P3B-2 mother recognition
+
+[D35 local motion, native keyframes and D36 chair reference](evidence/dice-town-p3b2/REPORT.md). Technical PASS; creative review pending. Reproduce with `node scripts/dice-town-p3b2-proof.js --stills`, then the same script without the flag. No episode or other shots.
+
+## Dice Town P3B-2B recognition correction
+
+Local mother appearance/camera and one chair paint mark only; PR35 motion and earlier evidence preserved. [Comparison](evidence/dice-town-p3b2b/comparison.jpg), [3.5-second proof](evidence/dice-town-p3b2b/recognition.mp4), [validation and limitations](evidence/dice-town-p3b2b/REPORT.md).
+
+Reproduce: `node scripts/dice-town-p3b2b-proof.js --stills`, inspect the native frames, then `node scripts/dice-town-p3b2b-proof.js` for the single low-resolution proof. Verification: `node scripts/dice-town-p3b2b-qc.js`, `node scripts/dice-town-p3b2b-composition.js`, `node tests/dice-town-p3b2.js`, `npm test`. Boards: `python scripts/dice-town-p3b2b-comparison.py` and `python scripts/dice-town-p3b2b-sheet.py`. Raw frames remain ignored under renders/. No creative approval or other scene authorized.
+
+## Dice Town P3B-3 baker contact proof
+
+Isolated local D03/D04 setup at `/production/dice-town-p3b3/`; no editorial integration. [Native keyframes](evidence/dice-town-p3b3/phone-review.jpg), [single motion proof](evidence/dice-town-p3b3/baker.mp4), [report](evidence/dice-town-p3b3/REPORT.md).
+
+Commands: `node scripts/dice-town-p3b3-proof.js --stills`, inspect, then `node scripts/dice-town-p3b3-proof.js` for one96-frame3.2s low-res proof. `node scripts/dice-town-p3b3-qc.js`, `node tests/dice-town-p3b3.js`, `npm test`, `python scripts/dice-town-p3b3-sheet.py`. Raw PNGs remain ignored in renders/. Stop for creative review.
+
+## Dice Town P3B-4 grounded exterior still proof
+
+Opt-in `/production/dice-town-p3b4/` imports the unchanged animatic scene, with camera-bounded plaza paving/street and an installed gate-to-house layout. [Plaza comparison](evidence/dice-town-p3b4/plaza-comparison.jpg), [gate comparison](evidence/dice-town-p3b4/gate-comparison.jpg), [native images and limitations](evidence/dice-town-p3b4/REPORT.md).
+
+Reproduce: `node scripts/dice-town-p3b4-capture.js`, `python scripts/dice-town-p3b4-sheet.py`, `node scripts/dice-town-p3b4-qc.js`, `node scripts/dice-town-p3b4-repeat.js`, `npm test`. No new motion or film. Separate A/G footprints use visual street continuity; no connected city map is claimed. Stop for creative review.
+
+## Dice Town P4A full working edit
+
+[117.100s silent360×640/30fps working MP4](evidence/dice-town-p4a/working-edit.mp4), [contact sheet](evidence/dice-town-p4a/editorial-contact.jpg), [38-shot source map](evidence/dice-town-p4a/edit-map.json), [remaining placeholders](evidence/dice-town-p4a/REMAINING_PLACEHOLDERS.md), [verification/costs](evidence/dice-town-p4a/REPORT.md). Original38 shots/3513 frames preserved.70.766% remains original proxy; no new3D footage or private audio.
+
+Reproduce: `python scripts/dice-town-p4a-proxy-boundaries.py`, `python scripts/dice-town-p4a-assemble.py`, `python scripts/dice-town-p4a-verify.py`, `node scripts/dice-town-p4a-playback.js`, `python tests/dice-town-p4a.py`. The measured proxy shot ranges correct its inherited one-frame offset; temporary clips/checks stay ignored under renders/. Stop for review.
+
+## Dice Town P4B-1 sixth-roll working edit
+
+[Updated full silent edit](evidence/dice-town-p4b1/working-edit.mp4), [source map](evidence/dice-town-p4b1/edit-map.json), [phone comparison](evidence/dice-town-p4b1/before-after.jpg), [native review](evidence/dice-town-p4b1/native-phone-review.jpg), [verification/costs/limitations](evidence/dice-town-p4b1/REPORT.md). D25–D32 only;53.971% remains proxy. D28's inherited incompatible adjacent faces are explicitly retained as directed.
+
+`python scripts/dice-town-p4b1-assemble.py` edits from committed source archive/stills/P4A without raw caches. Verify with `python scripts/dice-town-p4b1-verify.py`, `node scripts/dice-town-p4b1-playback.js`, `python scripts/dice-town-p4b1-unchanged.py`, `python tests/dice-town-p4b1-map.py`. Opt-in WebGL `/production/dice-town-p4b1/`; native/motion capture commands and explicit rebuild option are in the report. No original footage/voice changed; stop for review.
+
+## Dice Town P4B-2 mystery continuity
+
+[Updated full silent edit](evidence/dice-town-p4b2/working-edit.mp4), [38-shot source map](evidence/dice-town-p4b2/edit-map.json), [phone comparison](evidence/dice-town-p4b2/before-after.jpg), [native review](evidence/dice-town-p4b2/native-phone-review.jpg), [report/costs/limitations](evidence/dice-town-p4b2/REPORT.md). One45-frame supported wobble reused for D11/D13/D16; canonical legal5-up D28 replaces old impossible adjacency. Proxy45.090%; all3117 other output frames identical. D16's cross-setup lever path is implied, not fully verified.
+
+Re-edit from included source media: `python scripts/dice-town-p4b2-assemble.py`. Verify with `python scripts/dice-town-p4b2-verify.py`, `node scripts/dice-town-p4b2-playback.js`, `python scripts/dice-town-p4b2-unchanged.py`, `python tests/dice-town-p4b2-map.py`. Opt-in native entry `/production/dice-town-p4b2/`; capture/rebuild details in report. Stop for creative review.

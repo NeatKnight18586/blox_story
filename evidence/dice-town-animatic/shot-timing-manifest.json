@@ -1,0 +1,1246 @@
+{
+  "source30fpsFrames": 3513,
+  "proxyFrames": 1757,
+  "proxyFps": 15,
+  "proxyDuration": 117.13333333333334,
+  "audioReferenceDuration": 117.098231,
+  "audioTouched": false,
+  "rounding": "ceil(source frame / 2), max boundary shift 1/30s",
+  "shots": [
+    {
+      "id": "D01",
+      "start_frame": 0,
+      "end_frame": 66,
+      "start_seconds": 0.0,
+      "end_seconds": 2.2,
+      "location": "plaza",
+      "camera_plan": "impact-wide",
+      "visual_action": "Die showing 3 immediately; first few residents lift as result becomes visible",
+      "asset_refs": [
+        "die",
+        "plaza",
+        "sky",
+        "extras"
+      ],
+      "scope": "REUSE+MOTION",
+      "production_note": "Existing P2B motion is reference, not a guaranteed timeline match",
+      "proxy_start_frame": 0,
+      "proxy_end_frame": 33,
+      "boards": [
+        {
+          "file": "D01-0.png",
+          "proxy_start_frame": 0,
+          "proxy_end_frame": 16,
+          "placeholder": false
+        },
+        {
+          "file": "D01-1.png",
+          "proxy_start_frame": 16,
+          "proxy_end_frame": 33,
+          "placeholder": false
+        }
+      ]
+    },
+    {
+      "id": "D02",
+      "start_frame": 66,
+      "end_frame": 169,
+      "start_seconds": 2.2,
+      "end_seconds": 5.633,
+      "location": "plaza",
+      "camera_plan": "cause-and-effect-medium",
+      "visual_action": "Wave of levitation across plaza, readable legs leaving ground",
+      "asset_refs": [
+        "plaza",
+        "die",
+        "extras"
+      ],
+      "scope": "REUSE+MOTION",
+      "production_note": "Cut away before static hold becomes repetitive",
+      "proxy_start_frame": 33,
+      "proxy_end_frame": 85,
+      "boards": [
+        {
+          "file": "D02-0.png",
+          "proxy_start_frame": 33,
+          "proxy_end_frame": 59,
+          "placeholder": false
+        },
+        {
+          "file": "D02-1.png",
+          "proxy_start_frame": 59,
+          "proxy_end_frame": 85,
+          "placeholder": false
+        }
+      ]
+    },
+    {
+      "id": "D03",
+      "start_frame": 169,
+      "end_frame": 255,
+      "start_seconds": 5.633,
+      "end_seconds": 8.5,
+      "location": "plaza-market",
+      "camera_plan": "baker-medium",
+      "visual_action": "Baker lunges for stall as light items lift",
+      "asset_refs": [
+        "extra-baker",
+        "market-stall",
+        "floating-objects"
+      ],
+      "scope": "NEW-SMALL",
+      "production_note": "Stall can be one modular prop",
+      "proxy_start_frame": 85,
+      "proxy_end_frame": 128,
+      "boards": [
+        {
+          "file": "D03-0.png",
+          "proxy_start_frame": 85,
+          "proxy_end_frame": 106,
+          "placeholder": true
+        },
+        {
+          "file": "D03-1.png",
+          "proxy_start_frame": 106,
+          "proxy_end_frame": 128,
+          "placeholder": true
+        }
+      ]
+    },
+    {
+      "id": "D04",
+      "start_frame": 255,
+      "end_frame": 337,
+      "start_seconds": 8.5,
+      "end_seconds": 11.233,
+      "location": "plaza-market",
+      "camera_plan": "insert",
+      "visual_action": "Shoes lift, baker grips stall; exaggerate readable separation",
+      "asset_refs": [
+        "shoes",
+        "stall"
+      ],
+      "scope": "REUSE+MOTION",
+      "production_note": "Simple detached accessory motion",
+      "proxy_start_frame": 128,
+      "proxy_end_frame": 169,
+      "boards": [
+        {
+          "file": "D04-0.png",
+          "proxy_start_frame": 128,
+          "proxy_end_frame": 148,
+          "placeholder": false
+        },
+        {
+          "file": "D04-1.png",
+          "proxy_start_frame": 148,
+          "proxy_end_frame": 169,
+          "placeholder": false
+        }
+      ]
+    },
+    {
+      "id": "D05",
+      "start_frame": 337,
+      "end_frame": 382,
+      "start_seconds": 11.233,
+      "end_seconds": 12.733,
+      "location": "plaza",
+      "camera_plan": "hero-reveal",
+      "visual_action": "Leo remains held by tether while others levitate behind",
+      "asset_refs": [
+        "leo",
+        "tether",
+        "extras"
+      ],
+      "scope": "NEW-SMALL",
+      "production_note": "Show tether anchor clearly",
+      "proxy_start_frame": 169,
+      "proxy_end_frame": 191,
+      "boards": [
+        {
+          "file": "D05-0.png",
+          "proxy_start_frame": 169,
+          "proxy_end_frame": 180,
+          "placeholder": true
+        },
+        {
+          "file": "D05-1.png",
+          "proxy_start_frame": 180,
+          "proxy_end_frame": 191,
+          "placeholder": true
+        }
+      ]
+    },
+    {
+      "id": "D06",
+      "start_frame": 382,
+      "end_frame": 504,
+      "start_seconds": 12.733,
+      "end_seconds": 16.8,
+      "location": "clocktower-plaza",
+      "camera_plan": "rope-detail",
+      "visual_action": "Leo's harness/rope pulls taut against clocktower post",
+      "asset_refs": [
+        "leo",
+        "rope",
+        "anchor-post"
+      ],
+      "scope": "NEW-SMALL",
+      "production_note": "Tether must reach plaza and under-plinth later",
+      "proxy_start_frame": 191,
+      "proxy_end_frame": 252,
+      "boards": [
+        {
+          "file": "D06-0.png",
+          "proxy_start_frame": 191,
+          "proxy_end_frame": 221,
+          "placeholder": true
+        },
+        {
+          "file": "D06-1.png",
+          "proxy_start_frame": 221,
+          "proxy_end_frame": 252,
+          "placeholder": true
+        }
+      ]
+    },
+    {
+      "id": "D07",
+      "start_frame": 504,
+      "end_frame": 631,
+      "start_seconds": 16.8,
+      "end_seconds": 21.033,
+      "location": "plaza",
+      "camera_plan": "notebook-insert",
+      "visual_action": "Leo checks hand-written contingency notebook amid chaos",
+      "asset_refs": [
+        "leo",
+        "notebook-page"
+      ],
+      "scope": "REUSE+DETAIL",
+      "production_note": "Page texture/label only at visible insert",
+      "proxy_start_frame": 252,
+      "proxy_end_frame": 316,
+      "boards": [
+        {
+          "file": "D07-0.png",
+          "proxy_start_frame": 252,
+          "proxy_end_frame": 284,
+          "placeholder": false
+        },
+        {
+          "file": "D07-1.png",
+          "proxy_start_frame": 284,
+          "proxy_end_frame": 316,
+          "placeholder": false
+        }
+      ]
+    },
+    {
+      "id": "D08",
+      "start_frame": 631,
+      "end_frame": 693,
+      "start_seconds": 21.033,
+      "end_seconds": 23.1,
+      "location": "plaza-market",
+      "camera_plan": "rule-1-insert",
+      "visual_action": "Roll 1 flashback: loose cups float while people stay grounded",
+      "asset_refs": [
+        "die",
+        "cup"
+      ],
+      "scope": "NEW-SMALL",
+      "production_note": "Don't simulate full physics",
+      "proxy_start_frame": 316,
+      "proxy_end_frame": 347,
+      "boards": [
+        {
+          "file": "D08-0.png",
+          "proxy_start_frame": 316,
+          "proxy_end_frame": 331,
+          "placeholder": true
+        },
+        {
+          "file": "D08-1.png",
+          "proxy_start_frame": 331,
+          "proxy_end_frame": 347,
+          "placeholder": true
+        }
+      ]
+    },
+    {
+      "id": "D09",
+      "start_frame": 693,
+      "end_frame": 742,
+      "start_seconds": 23.1,
+      "end_seconds": 24.733,
+      "location": "plaza",
+      "camera_plan": "rule-2-side",
+      "visual_action": "Roll 2 flashback: two people walk backward",
+      "asset_refs": [
+        "extras",
+        "backward-walk"
+      ],
+      "scope": "NEW-ACTION",
+      "production_note": "Can reverse existing walk cycle",
+      "proxy_start_frame": 347,
+      "proxy_end_frame": 371,
+      "boards": [
+        {
+          "file": "D09-0.png",
+          "proxy_start_frame": 347,
+          "proxy_end_frame": 359,
+          "placeholder": true
+        },
+        {
+          "file": "D09-1.png",
+          "proxy_start_frame": 359,
+          "proxy_end_frame": 371,
+          "placeholder": true
+        }
+      ]
+    },
+    {
+      "id": "D10",
+      "start_frame": 742,
+      "end_frame": 793,
+      "start_seconds": 24.733,
+      "end_seconds": 26.433,
+      "location": "plaza",
+      "camera_plan": "rule-3-wide",
+      "visual_action": "Roll 3: people rise again; match opening event",
+      "asset_refs": [
+        "extras",
+        "levitation"
+      ],
+      "scope": "REUSE",
+      "production_note": "A deliberately short recap",
+      "proxy_start_frame": 371,
+      "proxy_end_frame": 397,
+      "boards": [
+        {
+          "file": "D10-0.png",
+          "proxy_start_frame": 371,
+          "proxy_end_frame": 384,
+          "placeholder": false
+        },
+        {
+          "file": "D10-1.png",
+          "proxy_start_frame": 384,
+          "proxy_end_frame": 397,
+          "placeholder": false
+        }
+      ]
+    },
+    {
+      "id": "D11",
+      "start_frame": 793,
+      "end_frame": 886,
+      "start_seconds": 26.433,
+      "end_seconds": 29.533,
+      "location": "plaza",
+      "camera_plan": "die-insert",
+      "visual_action": "Die nearly displays 6 then suspiciously wobbles off",
+      "asset_refs": [
+        "die",
+        "wobble-mechanic"
+      ],
+      "scope": "NEW-STORY",
+      "production_note": "Plant the mechanical cheating clue",
+      "proxy_start_frame": 397,
+      "proxy_end_frame": 443,
+      "boards": [
+        {
+          "file": "D11-0.png",
+          "proxy_start_frame": 397,
+          "proxy_end_frame": 420,
+          "placeholder": true
+        },
+        {
+          "file": "D11-1.png",
+          "proxy_start_frame": 420,
+          "proxy_end_frame": 443,
+          "placeholder": true
+        }
+      ]
+    },
+    {
+      "id": "D12",
+      "start_frame": 886,
+      "end_frame": 990,
+      "start_seconds": 29.533,
+      "end_seconds": 33.0,
+      "location": "plaza",
+      "camera_plan": "notebook-over-shoulder",
+      "visual_action": "Leo compares tally marks and near-six notes",
+      "asset_refs": [
+        "leo",
+        "notebook-page"
+      ],
+      "scope": "REUSE+DETAIL",
+      "production_note": "Only numbers needed on page",
+      "proxy_start_frame": 443,
+      "proxy_end_frame": 495,
+      "boards": [
+        {
+          "file": "D12-0.png",
+          "proxy_start_frame": 443,
+          "proxy_end_frame": 469,
+          "placeholder": false
+        },
+        {
+          "file": "D12-1.png",
+          "proxy_start_frame": 469,
+          "proxy_end_frame": 495,
+          "placeholder": false
+        }
+      ]
+    },
+    {
+      "id": "D13",
+      "start_frame": 990,
+      "end_frame": 1099,
+      "start_seconds": 33.0,
+      "end_seconds": 36.633,
+      "location": "plaza",
+      "camera_plan": "die-close",
+      "visual_action": "Repeated unnatural sideways wobble; brass flash under base",
+      "asset_refs": [
+        "die",
+        "brass-paddle"
+      ],
+      "scope": "NEW-STORY",
+      "production_note": "One controlled animation reused in discovery",
+      "proxy_start_frame": 495,
+      "proxy_end_frame": 550,
+      "boards": [
+        {
+          "file": "D13-0.png",
+          "proxy_start_frame": 495,
+          "proxy_end_frame": 522,
+          "placeholder": true
+        },
+        {
+          "file": "D13-1.png",
+          "proxy_start_frame": 522,
+          "proxy_end_frame": 550,
+          "placeholder": true
+        }
+      ]
+    },
+    {
+      "id": "D14",
+      "start_frame": 1099,
+      "end_frame": 1220,
+      "start_seconds": 36.633,
+      "end_seconds": 40.667,
+      "location": "under-plinth",
+      "camera_plan": "downward-reveal",
+      "visual_action": "Leo follows tether/slips through service hatch beneath stone platform",
+      "asset_refs": [
+        "leo",
+        "hatch",
+        "rope"
+      ],
+      "scope": "NEW-SET-MINIMAL",
+      "production_note": "Show only wall, steps and hatch, not full cellar",
+      "proxy_start_frame": 550,
+      "proxy_end_frame": 610,
+      "boards": [
+        {
+          "file": "D14-0.png",
+          "proxy_start_frame": 550,
+          "proxy_end_frame": 580,
+          "placeholder": true
+        },
+        {
+          "file": "D14-1.png",
+          "proxy_start_frame": 580,
+          "proxy_end_frame": 610,
+          "placeholder": true
+        }
+      ]
+    },
+    {
+      "id": "D15",
+      "start_frame": 1220,
+      "end_frame": 1332,
+      "start_seconds": 40.667,
+      "end_seconds": 44.4,
+      "location": "under-plinth",
+      "camera_plan": "mechanism-insert",
+      "visual_action": "Brass paddle and crank mechanically tip die when six approaches",
+      "asset_refs": [
+        "paddle",
+        "crank",
+        "pin"
+      ],
+      "scope": "NEW-CRITICAL",
+      "production_note": "Clear single causal action",
+      "proxy_start_frame": 610,
+      "proxy_end_frame": 666,
+      "boards": [
+        {
+          "file": "D15-0.png",
+          "proxy_start_frame": 610,
+          "proxy_end_frame": 638,
+          "placeholder": true
+        },
+        {
+          "file": "D15-1.png",
+          "proxy_start_frame": 638,
+          "proxy_end_frame": 666,
+          "placeholder": true
+        }
+      ]
+    },
+    {
+      "id": "D16",
+      "start_frame": 1332,
+      "end_frame": 1442,
+      "start_seconds": 44.4,
+      "end_seconds": 48.067,
+      "location": "under-plinth",
+      "camera_plan": "mechanism-reaction",
+      "visual_action": "Demonstrate crank tap and visible die wobble in cutaway",
+      "asset_refs": [
+        "paddle",
+        "die",
+        "crank"
+      ],
+      "scope": "NEW-CRITICAL",
+      "production_note": "Cutaway can be 2D/2.5D illustration-like mesh",
+      "proxy_start_frame": 666,
+      "proxy_end_frame": 721,
+      "boards": [
+        {
+          "file": "D16-0.png",
+          "proxy_start_frame": 666,
+          "proxy_end_frame": 693,
+          "placeholder": true
+        },
+        {
+          "file": "D16-1.png",
+          "proxy_start_frame": 693,
+          "proxy_end_frame": 721,
+          "placeholder": true
+        }
+      ]
+    },
+    {
+      "id": "D17",
+      "start_frame": 1442,
+      "end_frame": 1495,
+      "start_seconds": 48.067,
+      "end_seconds": 49.833,
+      "location": "under-plinth",
+      "camera_plan": "mayor-reveal",
+      "visual_action": "Pip at handle, age-ten silhouette",
+      "asset_refs": [
+        "pip",
+        "crank"
+      ],
+      "scope": "REUSE+APPEARANCE",
+      "production_note": "Distinct from generic extra",
+      "proxy_start_frame": 721,
+      "proxy_end_frame": 748,
+      "boards": [
+        {
+          "file": "D17-0.png",
+          "proxy_start_frame": 721,
+          "proxy_end_frame": 734,
+          "placeholder": false
+        },
+        {
+          "file": "D17-1.png",
+          "proxy_start_frame": 734,
+          "proxy_end_frame": 748,
+          "placeholder": false
+        }
+      ]
+    },
+    {
+      "id": "D18",
+      "start_frame": 1495,
+      "end_frame": 1590,
+      "start_seconds": 49.833,
+      "end_seconds": 53.0,
+      "location": "under-plinth",
+      "camera_plan": "pip-medium",
+      "visual_action": "Pip remembers starting game; age freeze visually indicated",
+      "asset_refs": [
+        "pip",
+        "family-photo"
+      ],
+      "scope": "NEW-SMALL",
+      "production_note": "Photo still provides visual backstory",
+      "proxy_start_frame": 748,
+      "proxy_end_frame": 795,
+      "boards": [
+        {
+          "file": "D18-0.png",
+          "proxy_start_frame": 748,
+          "proxy_end_frame": 771,
+          "placeholder": true
+        },
+        {
+          "file": "D18-1.png",
+          "proxy_start_frame": 771,
+          "proxy_end_frame": 795,
+          "placeholder": true
+        }
+      ]
+    },
+    {
+      "id": "D19",
+      "start_frame": 1590,
+      "end_frame": 1710,
+      "start_seconds": 53.0,
+      "end_seconds": 57.0,
+      "location": "under-plinth",
+      "camera_plan": "photo-insert",
+      "visual_action": "Young family photo vs later aging outside boundary",
+      "asset_refs": [
+        "family-photo",
+        "aging-still"
+      ],
+      "scope": "NEW-SMALL",
+      "production_note": "No multiple full adult rigs here",
+      "proxy_start_frame": 795,
+      "proxy_end_frame": 855,
+      "boards": [
+        {
+          "file": "D19-0.png",
+          "proxy_start_frame": 795,
+          "proxy_end_frame": 825,
+          "placeholder": true
+        },
+        {
+          "file": "D19-1.png",
+          "proxy_start_frame": 825,
+          "proxy_end_frame": 855,
+          "placeholder": true
+        }
+      ]
+    },
+    {
+      "id": "D20",
+      "start_frame": 1710,
+      "end_frame": 1768,
+      "start_seconds": 57.0,
+      "end_seconds": 58.933,
+      "location": "under-plinth",
+      "camera_plan": "hands-insert",
+      "visual_action": "Pip lifts faded photo, fingers tighten",
+      "asset_refs": [
+        "pip",
+        "family-photo"
+      ],
+      "scope": "REUSE+STAGING",
+      "production_note": "Close-up holds visual attention",
+      "proxy_start_frame": 855,
+      "proxy_end_frame": 884,
+      "boards": [
+        {
+          "file": "D20-0.png",
+          "proxy_start_frame": 855,
+          "proxy_end_frame": 869,
+          "placeholder": false
+        },
+        {
+          "file": "D20-1.png",
+          "proxy_start_frame": 869,
+          "proxy_end_frame": 884,
+          "placeholder": false
+        }
+      ]
+    },
+    {
+      "id": "D21",
+      "start_frame": 1768,
+      "end_frame": 1905,
+      "start_seconds": 58.933,
+      "end_seconds": 63.5,
+      "location": "gate-cutaway",
+      "camera_plan": "dialogue-closeup",
+      "visual_action": "Pip fears six opening gate; show distant locked gate",
+      "asset_refs": [
+        "pip",
+        "gate"
+      ],
+      "scope": "NEW-CRITICAL",
+      "production_note": "Narrator quotes Pip; no lip sync required yet",
+      "proxy_start_frame": 884,
+      "proxy_end_frame": 953,
+      "boards": [
+        {
+          "file": "D21-0.png",
+          "proxy_start_frame": 884,
+          "proxy_end_frame": 918,
+          "placeholder": true
+        },
+        {
+          "file": "D21-1.png",
+          "proxy_start_frame": 918,
+          "proxy_end_frame": 953,
+          "placeholder": true
+        }
+      ]
+    },
+    {
+      "id": "D22",
+      "start_frame": 1905,
+      "end_frame": 1997,
+      "start_seconds": 63.5,
+      "end_seconds": 66.567,
+      "location": "under-plinth",
+      "camera_plan": "leo-close",
+      "visual_action": "Leo's notebook shuts, no prepared response",
+      "asset_refs": [
+        "leo",
+        "notebook"
+      ],
+      "scope": "REUSE+ACTING",
+      "production_note": "Expression subtle, not default smirk",
+      "proxy_start_frame": 953,
+      "proxy_end_frame": 999,
+      "boards": [
+        {
+          "file": "D22-0.png",
+          "proxy_start_frame": 953,
+          "proxy_end_frame": 976,
+          "placeholder": false
+        },
+        {
+          "file": "D22-1.png",
+          "proxy_start_frame": 976,
+          "proxy_end_frame": 999,
+          "placeholder": false
+        }
+      ]
+    },
+    {
+      "id": "D23",
+      "start_frame": 1997,
+      "end_frame": 2129,
+      "start_seconds": 66.567,
+      "end_seconds": 70.967,
+      "location": "under-plinth",
+      "camera_plan": "hands-and-pin",
+      "visual_action": "Leo removes brass pin and deliberately gives it to Pip",
+      "asset_refs": [
+        "leo",
+        "pip",
+        "pin"
+      ],
+      "scope": "NEW-CRITICAL",
+      "production_note": "Simple hand-off with cutaways avoids complex collision",
+      "proxy_start_frame": 999,
+      "proxy_end_frame": 1065,
+      "boards": [
+        {
+          "file": "D23-0.png",
+          "proxy_start_frame": 999,
+          "proxy_end_frame": 1032,
+          "placeholder": true
+        },
+        {
+          "file": "D23-1.png",
+          "proxy_start_frame": 1032,
+          "proxy_end_frame": 1065,
+          "placeholder": true
+        }
+      ]
+    },
+    {
+      "id": "D24",
+      "start_frame": 2129,
+      "end_frame": 2224,
+      "start_seconds": 70.967,
+      "end_seconds": 74.133,
+      "location": "under-plinth",
+      "camera_plan": "two-shot",
+      "visual_action": "Pip holds pin; Leo exits, leaving choice with Pip",
+      "asset_refs": [
+        "leo",
+        "pip",
+        "pin"
+      ],
+      "scope": "REUSE+ACTING",
+      "production_note": "Both retain agency",
+      "proxy_start_frame": 1065,
+      "proxy_end_frame": 1112,
+      "boards": [
+        {
+          "file": "D24-0.png",
+          "proxy_start_frame": 1065,
+          "proxy_end_frame": 1088,
+          "placeholder": false
+        },
+        {
+          "file": "D24-1.png",
+          "proxy_start_frame": 1088,
+          "proxy_end_frame": 1112,
+          "placeholder": false
+        }
+      ]
+    },
+    {
+      "id": "D25",
+      "start_frame": 2224,
+      "end_frame": 2339,
+      "start_seconds": 74.133,
+      "end_seconds": 77.967,
+      "location": "plaza",
+      "camera_plan": "montage-mornings-1-2",
+      "visual_action": "Two sunrise rolls without six; reuse one camera and change die face",
+      "asset_refs": [
+        "die",
+        "plaza",
+        "day-number"
+      ],
+      "scope": "REUSE+VARIANT",
+      "production_note": "No new locations",
+      "proxy_start_frame": 1112,
+      "proxy_end_frame": 1170,
+      "boards": [
+        {
+          "file": "D25-0.png",
+          "proxy_start_frame": 1112,
+          "proxy_end_frame": 1141,
+          "placeholder": false
+        },
+        {
+          "file": "D25-1.png",
+          "proxy_start_frame": 1141,
+          "proxy_end_frame": 1170,
+          "placeholder": false
+        }
+      ]
+    },
+    {
+      "id": "D26",
+      "start_frame": 2339,
+      "end_frame": 2454,
+      "start_seconds": 77.967,
+      "end_seconds": 81.8,
+      "location": "plaza",
+      "camera_plan": "montage-mornings-3-4",
+      "visual_action": "Two more fair rolls; Pip watches pin from distance",
+      "asset_refs": [
+        "die",
+        "plaza",
+        "pip",
+        "pin"
+      ],
+      "scope": "REUSE+VARIANT",
+      "production_note": "Use cut on roll, not full physical bounce each time",
+      "proxy_start_frame": 1170,
+      "proxy_end_frame": 1227,
+      "boards": [
+        {
+          "file": "D26-0.png",
+          "proxy_start_frame": 1170,
+          "proxy_end_frame": 1198,
+          "placeholder": false
+        },
+        {
+          "file": "D26-1.png",
+          "proxy_start_frame": 1198,
+          "proxy_end_frame": 1227,
+          "placeholder": false
+        }
+      ]
+    },
+    {
+      "id": "D27",
+      "start_frame": 2454,
+      "end_frame": 2585,
+      "start_seconds": 81.8,
+      "end_seconds": 86.167,
+      "location": "under-plinth",
+      "camera_plan": "montage-morning-5",
+      "visual_action": "Pip almost reinstalls pin, sees photograph, chooses not to",
+      "asset_refs": [
+        "pip",
+        "pin",
+        "family-photo"
+      ],
+      "scope": "REUSE+ACTING",
+      "production_note": "Biggest agency moment",
+      "proxy_start_frame": 1227,
+      "proxy_end_frame": 1293,
+      "boards": [
+        {
+          "file": "D27-0.png",
+          "proxy_start_frame": 1227,
+          "proxy_end_frame": 1260,
+          "placeholder": false
+        },
+        {
+          "file": "D27-1.png",
+          "proxy_start_frame": 1260,
+          "proxy_end_frame": 1293,
+          "placeholder": false
+        }
+      ]
+    },
+    {
+      "id": "D28",
+      "start_frame": 2585,
+      "end_frame": 2669,
+      "start_seconds": 86.167,
+      "end_seconds": 88.967,
+      "location": "plaza",
+      "camera_plan": "sixth-sunrise-wide",
+      "visual_action": "Sixth sunrise: low sun behind die, anticipation",
+      "asset_refs": [
+        "plaza",
+        "die",
+        "sky"
+      ],
+      "scope": "REUSE",
+      "production_note": "Different color from previous days for significance",
+      "proxy_start_frame": 1293,
+      "proxy_end_frame": 1335,
+      "boards": [
+        {
+          "file": "D28-0.png",
+          "proxy_start_frame": 1293,
+          "proxy_end_frame": 1314,
+          "placeholder": false
+        },
+        {
+          "file": "D28-1.png",
+          "proxy_start_frame": 1314,
+          "proxy_end_frame": 1335,
+          "placeholder": false
+        }
+      ]
+    },
+    {
+      "id": "D29",
+      "start_frame": 2669,
+      "end_frame": 2716,
+      "start_seconds": 88.967,
+      "end_seconds": 90.533,
+      "location": "plaza",
+      "camera_plan": "die-edge",
+      "visual_action": "Die slowly tips toward six",
+      "asset_refs": [
+        "die"
+      ],
+      "scope": "REUSE+MOTION",
+      "production_note": "Keep upper pip numbering logically correct",
+      "proxy_start_frame": 1335,
+      "proxy_end_frame": 1358,
+      "boards": [
+        {
+          "file": "D29-0.png",
+          "proxy_start_frame": 1335,
+          "proxy_end_frame": 1346,
+          "placeholder": false
+        },
+        {
+          "file": "D29-1.png",
+          "proxy_start_frame": 1346,
+          "proxy_end_frame": 1358,
+          "placeholder": false
+        }
+      ]
+    },
+    {
+      "id": "D30",
+      "start_frame": 2716,
+      "end_frame": 2787,
+      "start_seconds": 90.533,
+      "end_seconds": 92.9,
+      "location": "under-plinth",
+      "camera_plan": "pin-hand",
+      "visual_action": "Pip reaches for pin, then lowers hand",
+      "asset_refs": [
+        "pip",
+        "pin"
+      ],
+      "scope": "REUSE+ACTING",
+      "production_note": "Convey his personal choice clearly",
+      "proxy_start_frame": 1358,
+      "proxy_end_frame": 1394,
+      "boards": [
+        {
+          "file": "D30-0.png",
+          "proxy_start_frame": 1358,
+          "proxy_end_frame": 1376,
+          "placeholder": false
+        },
+        {
+          "file": "D30-1.png",
+          "proxy_start_frame": 1376,
+          "proxy_end_frame": 1394,
+          "placeholder": false
+        }
+      ]
+    },
+    {
+      "id": "D31",
+      "start_frame": 2787,
+      "end_frame": 2850,
+      "start_seconds": 92.9,
+      "end_seconds": 95.0,
+      "location": "plaza",
+      "camera_plan": "die-final-contact",
+      "visual_action": "Die settles with truthful upper six; plausible contact",
+      "asset_refs": [
+        "die",
+        "plaza"
+      ],
+      "scope": "REUSE+MOTION",
+      "production_note": "No forced outcome after removal",
+      "proxy_start_frame": 1394,
+      "proxy_end_frame": 1425,
+      "boards": [
+        {
+          "file": "D31-0.png",
+          "proxy_start_frame": 1394,
+          "proxy_end_frame": 1409,
+          "placeholder": false
+        },
+        {
+          "file": "D31-1.png",
+          "proxy_start_frame": 1409,
+          "proxy_end_frame": 1425,
+          "placeholder": false
+        }
+      ]
+    },
+    {
+      "id": "D32",
+      "start_frame": 2850,
+      "end_frame": 2898,
+      "start_seconds": 95.0,
+      "end_seconds": 96.6,
+      "location": "plaza",
+      "camera_plan": "six-reveal",
+      "visual_action": "Unmistakable six upper face, rule board response",
+      "asset_refs": [
+        "die",
+        "law-board"
+      ],
+      "scope": "REUSE+DETAIL",
+      "production_note": "Build 6 pip layout explicitly",
+      "proxy_start_frame": 1425,
+      "proxy_end_frame": 1449,
+      "boards": [
+        {
+          "file": "D32-0.png",
+          "proxy_start_frame": 1425,
+          "proxy_end_frame": 1437,
+          "placeholder": false
+        },
+        {
+          "file": "D32-1.png",
+          "proxy_start_frame": 1437,
+          "proxy_end_frame": 1449,
+          "placeholder": false
+        }
+      ]
+    },
+    {
+      "id": "D33",
+      "start_frame": 2898,
+      "end_frame": 2985,
+      "start_seconds": 96.6,
+      "end_seconds": 99.5,
+      "location": "town-gate",
+      "camera_plan": "gate-opening",
+      "visual_action": "Gate unbolts and opens; town boundary light changes",
+      "asset_refs": [
+        "gate",
+        "pip"
+      ],
+      "scope": "NEW-CRITICAL",
+      "production_note": "Reuse facade geometry with simple hinge animation",
+      "proxy_start_frame": 1449,
+      "proxy_end_frame": 1493,
+      "boards": [
+        {
+          "file": "D33-0.png",
+          "proxy_start_frame": 1449,
+          "proxy_end_frame": 1471,
+          "placeholder": true
+        },
+        {
+          "file": "D33-1.png",
+          "proxy_start_frame": 1471,
+          "proxy_end_frame": 1493,
+          "placeholder": true
+        }
+      ]
+    },
+    {
+      "id": "D34",
+      "start_frame": 2985,
+      "end_frame": 3090,
+      "start_seconds": 99.5,
+      "end_seconds": 103.0,
+      "location": "home-exterior",
+      "camera_plan": "run-through",
+      "visual_action": "Pip runs through gate into old street toward family house",
+      "asset_refs": [
+        "pip",
+        "gate",
+        "house-facade"
+      ],
+      "scope": "NEW-SMALL",
+      "production_note": "Reuse townhouse/facade with recolors",
+      "proxy_start_frame": 1493,
+      "proxy_end_frame": 1545,
+      "boards": [
+        {
+          "file": "D34-0.png",
+          "proxy_start_frame": 1493,
+          "proxy_end_frame": 1519,
+          "placeholder": true
+        },
+        {
+          "file": "D34-1.png",
+          "proxy_start_frame": 1519,
+          "proxy_end_frame": 1545,
+          "placeholder": true
+        }
+      ]
+    },
+    {
+      "id": "D35",
+      "start_frame": 3090,
+      "end_frame": 3230,
+      "start_seconds": 103.0,
+      "end_seconds": 107.667,
+      "location": "home-doorway",
+      "camera_plan": "mother-recognition",
+      "visual_action": "Older mother recognizes child Pip; face and eyeline sell payoff",
+      "asset_refs": [
+        "mother",
+        "pip",
+        "doorway"
+      ],
+      "scope": "NEW-CHARACTER",
+      "production_note": "One hero mother appearance necessary",
+      "proxy_start_frame": 1545,
+      "proxy_end_frame": 1615,
+      "boards": [
+        {
+          "file": "D35-0.png",
+          "proxy_start_frame": 1545,
+          "proxy_end_frame": 1580,
+          "placeholder": true
+        },
+        {
+          "file": "D35-1.png",
+          "proxy_start_frame": 1580,
+          "proxy_end_frame": 1615,
+          "placeholder": true
+        }
+      ]
+    },
+    {
+      "id": "D36",
+      "start_frame": 3230,
+      "end_frame": 3344,
+      "start_seconds": 107.667,
+      "end_seconds": 111.467,
+      "location": "home-interior",
+      "camera_plan": "chair-insert",
+      "visual_action": "Small childhood chair unchanged beside repainted kitchen wall",
+      "asset_refs": [
+        "chair",
+        "kitchen-wall",
+        "table"
+      ],
+      "scope": "NEW-SET-MINIMAL",
+      "production_note": "Tiny single-angle interior",
+      "proxy_start_frame": 1615,
+      "proxy_end_frame": 1672,
+      "boards": [
+        {
+          "file": "D36-0.png",
+          "proxy_start_frame": 1615,
+          "proxy_end_frame": 1643,
+          "placeholder": true
+        },
+        {
+          "file": "D36-1.png",
+          "proxy_start_frame": 1643,
+          "proxy_end_frame": 1672,
+          "placeholder": true
+        }
+      ]
+    },
+    {
+      "id": "D37",
+      "start_frame": 3344,
+      "end_frame": 3389,
+      "start_seconds": 111.467,
+      "end_seconds": 112.967,
+      "location": "home-doorway",
+      "camera_plan": "mother-medium",
+      "visual_action": "Mother says 'We kept your chair' as narrated quote",
+      "asset_refs": [
+        "mother",
+        "chair"
+      ],
+      "scope": "REUSE+ACTING",
+      "production_note": "Heart of payoff; use time-limited emotional hold",
+      "proxy_start_frame": 1672,
+      "proxy_end_frame": 1695,
+      "boards": [
+        {
+          "file": "D37-0.png",
+          "proxy_start_frame": 1672,
+          "proxy_end_frame": 1683,
+          "placeholder": false
+        },
+        {
+          "file": "D37-1.png",
+          "proxy_start_frame": 1683,
+          "proxy_end_frame": 1695,
+          "placeholder": false
+        }
+      ]
+    },
+    {
+      "id": "D38",
+      "start_frame": 3389,
+      "end_frame": 3513,
+      "start_seconds": 112.967,
+      "end_seconds": 117.1,
+      "location": "town-gate",
+      "camera_plan": "leo-final",
+      "visual_action": "Leo closes notebook at gate; tomorrow is unplanned",
+      "asset_refs": [
+        "leo",
+        "notebook",
+        "gate"
+      ],
+      "scope": "REUSE",
+      "production_note": "Close with visual thematic decision",
+      "proxy_start_frame": 1695,
+      "proxy_end_frame": 1757,
+      "boards": [
+        {
+          "file": "D38-0.png",
+          "proxy_start_frame": 1695,
+          "proxy_end_frame": 1726,
+          "placeholder": false
+        },
+        {
+          "file": "D38-1.png",
+          "proxy_start_frame": 1726,
+          "proxy_end_frame": 1757,
+          "placeholder": false
+        }
+      ]
+    }
+  ]
+}

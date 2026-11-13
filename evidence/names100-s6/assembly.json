@@ -1,0 +1,829 @@
+{
+  "status": "TECHNICAL_PASS_HUMAN_REVIEW_PENDING",
+  "cleanSourceSha256": "f159c6db7eba61f83544503a8a8380553ef3ade8fa49b23dc0fb50aa26fe14c3",
+  "new3dRenders": 0,
+  "silent": {
+    "file": "renders/names100-s6-review/silent-captioned.mp4",
+    "sha256": "eafc030ed4f67a1fb568a7827d906df29c85771f1c591228a794e8a5aa5952c4",
+    "probe": {
+      "streams": [
+        {
+          "index": 0,
+          "codec_name": "h264",
+          "codec_long_name": "H.264 / AVC / MPEG-4 AVC / MPEG-4 part 10",
+          "profile": "Main",
+          "codec_type": "video",
+          "codec_tag_string": "avc1",
+          "codec_tag": "0x31637661",
+          "width": 720,
+          "height": 1280,
+          "coded_width": 720,
+          "coded_height": 1280,
+          "closed_captions": 0,
+          "film_grain": 0,
+          "has_b_frames": 2,
+          "sample_aspect_ratio": "1:1",
+          "display_aspect_ratio": "9:16",
+          "pix_fmt": "yuv420p",
+          "level": 31,
+          "color_range": "tv",
+          "color_space": "bt709",
+          "chroma_location": "left",
+          "field_order": "progressive",
+          "refs": 4,
+          "is_avc": "true",
+          "nal_length_size": "4",
+          "id": "0x1",
+          "r_frame_rate": "30/1",
+          "avg_frame_rate": "30/1",
+          "time_base": "1/15360",
+          "start_pts": 0,
+          "start_time": "0.000000",
+          "duration_ts": 840192,
+          "duration": "54.700000",
+          "bit_rate": "533117",
+          "bits_per_raw_sample": "8",
+          "nb_frames": "1641",
+          "nb_read_frames": "1641",
+          "extradata_size": 44,
+          "disposition": {
+            "default": 1,
+            "dub": 0,
+            "original": 0,
+            "comment": 0,
+            "lyrics": 0,
+            "karaoke": 0,
+            "forced": 0,
+            "hearing_impaired": 0,
+            "visual_impaired": 0,
+            "clean_effects": 0,
+            "attached_pic": 0,
+            "timed_thumbnails": 0,
+            "non_diegetic": 0,
+            "captions": 0,
+            "descriptions": 0,
+            "metadata": 0,
+            "dependent": 0,
+            "still_image": 0,
+            "multilayer": 0
+          },
+          "tags": {
+            "language": "und",
+            "handler_name": "VideoHandler",
+            "vendor_id": "[0][0][0][0]",
+            "encoder": "Lavc61.19.101 libx264"
+          }
+        }
+      ],
+      "format": {
+        "filename": "/workspace/blox_story/renders/names100-s6-review/silent-captioned.mp4",
+        "nb_streams": 1,
+        "nb_programs": 0,
+        "nb_stream_groups": 0,
+        "format_name": "mov,mp4,m4a,3gp,3g2,mj2",
+        "format_long_name": "QuickTime / MOV",
+        "start_time": "0.000000",
+        "duration": "54.700000",
+        "size": "3665540",
+        "bit_rate": "536093",
+        "probe_score": 100,
+        "tags": {
+          "major_brand": "isom",
+          "minor_version": "512",
+          "compatible_brands": "isomiso2avc1mp41",
+          "encoder": "Lavf61.7.103"
+        }
+      }
+    },
+    "fullDecodePass": true,
+    "verification": {
+      "probe": {
+        "streams": [
+          {
+            "index": 0,
+            "codec_name": "h264",
+            "codec_long_name": "H.264 / AVC / MPEG-4 AVC / MPEG-4 part 10",
+            "profile": "Main",
+            "codec_type": "video",
+            "codec_tag_string": "avc1",
+            "codec_tag": "0x31637661",
+            "width": 720,
+            "height": 1280,
+            "coded_width": 720,
+            "coded_height": 1280,
+            "closed_captions": 0,
+            "film_grain": 0,
+            "has_b_frames": 2,
+            "sample_aspect_ratio": "1:1",
+            "display_aspect_ratio": "9:16",
+            "pix_fmt": "yuv420p",
+            "level": 31,
+            "color_range": "tv",
+            "color_space": "bt709",
+            "chroma_location": "left",
+            "field_order": "progressive",
+            "refs": 4,
+            "is_avc": "true",
+            "nal_length_size": "4",
+            "id": "0x1",
+            "r_frame_rate": "30/1",
+            "avg_frame_rate": "30/1",
+            "time_base": "1/15360",
+            "start_pts": 0,
+            "start_time": "0.000000",
+            "duration_ts": 840192,
+            "duration": "54.700000",
+            "bit_rate": "533117",
+            "bits_per_raw_sample": "8",
+            "nb_frames": "1641",
+            "nb_read_frames": "1641",
+            "extradata_size": 44,
+            "disposition": {
+              "default": 1,
+              "dub": 0,
+              "original": 0,
+              "comment": 0,
+              "lyrics": 0,
+              "karaoke": 0,
+              "forced": 0,
+              "hearing_impaired": 0,
+              "visual_impaired": 0,
+              "clean_effects": 0,
+              "attached_pic": 0,
+              "timed_thumbnails": 0,
+              "non_diegetic": 0,
+              "captions": 0,
+              "descriptions": 0,
+              "metadata": 0,
+              "dependent": 0,
+              "still_image": 0,
+              "multilayer": 0
+            },
+            "tags": {
+              "language": "und",
+              "handler_name": "VideoHandler",
+              "vendor_id": "[0][0][0][0]",
+              "encoder": "Lavc61.19.101 libx264"
+            }
+          }
+        ],
+        "format": {
+          "filename": "/workspace/blox_story/renders/names100-s6-review/silent-captioned.mp4",
+          "nb_streams": 1,
+          "nb_programs": 0,
+          "nb_stream_groups": 0,
+          "format_name": "mov,mp4,m4a,3gp,3g2,mj2",
+          "format_long_name": "QuickTime / MOV",
+          "start_time": "0.000000",
+          "duration": "54.700000",
+          "size": "3665540",
+          "bit_rate": "536093",
+          "probe_score": 100,
+          "tags": {
+            "major_brand": "isom",
+            "minor_version": "512",
+            "compatible_brands": "isomiso2avc1mp41",
+            "encoder": "Lavf61.7.103"
+          }
+        }
+      },
+      "decode": {
+        "frames": 1641,
+        "continuousPts": true,
+        "noErrors": true
+      },
+      "cuts": [
+        {
+          "frame": 94,
+          "time": 3.1333333333333333
+        },
+        {
+          "frame": 169,
+          "time": 5.633333333333334
+        },
+        {
+          "frame": 259,
+          "time": 8.633333333333333
+        },
+        {
+          "frame": 320,
+          "time": 10.666666666666666
+        },
+        {
+          "frame": 398,
+          "time": 13.266666666666667
+        },
+        {
+          "frame": 482,
+          "time": 16.066666666666666
+        },
+        {
+          "frame": 573,
+          "time": 19.1
+        },
+        {
+          "frame": 630,
+          "time": 21
+        },
+        {
+          "frame": 719,
+          "time": 23.966666666666665
+        },
+        {
+          "frame": 769,
+          "time": 25.633333333333333
+        },
+        {
+          "frame": 823,
+          "time": 27.433333333333334
+        },
+        {
+          "frame": 882,
+          "time": 29.4
+        },
+        {
+          "frame": 938,
+          "time": 31.266666666666666
+        },
+        {
+          "frame": 1046,
+          "time": 34.86666666666667
+        },
+        {
+          "frame": 1096,
+          "time": 36.53333333333333
+        },
+        {
+          "frame": 1203,
+          "time": 40.1
+        },
+        {
+          "frame": 1296,
+          "time": 43.2
+        },
+        {
+          "frame": 1371,
+          "time": 45.7
+        },
+        {
+          "frame": 1406,
+          "time": 46.86666666666667
+        },
+        {
+          "frame": 1450,
+          "time": 48.333333333333336
+        },
+        {
+          "frame": 1490,
+          "time": 49.666666666666664
+        },
+        {
+          "frame": 1546,
+          "time": 51.53333333333333
+        }
+      ],
+      "playback": {
+        "width": 720,
+        "height": 1280,
+        "duration": 54.7,
+        "advancedTo": 0.1495,
+        "error": null,
+        "browser": "156.0.8078.79",
+        "fallback": true,
+        "seeks": [
+          27.35,
+          3.2333333333333334,
+          5.733333333333333,
+          8.733333333333333,
+          10.766666666666666,
+          13.366666666666667,
+          16.166666666666668,
+          19.200000000000003,
+          21.1,
+          24.066666666666666,
+          25.733333333333334,
+          27.533333333333335,
+          29.5,
+          31.366666666666667,
+          34.96666666666667,
+          36.63333333333333,
+          40.2,
+          43.300000000000004,
+          45.800000000000004,
+          46.96666666666667,
+          48.43333333333334,
+          49.766666666666666,
+          51.63333333333333
+        ]
+      }
+    }
+  },
+  "sourceResolution": [
+    720,
+    1280
+  ],
+  "reviewResolution": [
+    720,
+    1280
+  ],
+  "upscaled3d": false,
+  "commands": [
+    [
+      "ffmpeg",
+      "-y",
+      "-v",
+      "error",
+      "-i",
+      "/workspace/blox_story/renders/names100-s6/results/8b2d73f2ab67-06d360d0-683c-47b8-ad35-3889b3c8a487/movie.mp4",
+      "-vf",
+      "settb=1/1000,setpts=trunc(N*1000/30)+1,ass=stories/names100/counter/generated/p5-editorial.ass,ass=stories/names100/captions/generated/S4.ass,settb=1/30,setpts=N,setsar=1",
+      "-frames:v",
+      "1641",
+      "-r",
+      "30",
+      "-c:v",
+      "libx264",
+      "-threads",
+      "2",
+      "-preset",
+      "medium",
+      "-crf",
+      "20",
+      "-profile:v",
+      "main",
+      "-level:v",
+      "3.1",
+      "-pix_fmt",
+      "yuv420p",
+      "-g",
+      "30",
+      "-force_key_frames",
+      "3.1333333333333333,5.633333333333334,8.633333333333333,10.666666666666666,13.266666666666667,16.066666666666666,19.1,21.0,23.966666666666665,25.633333333333333,27.433333333333334,29.4,31.266666666666666,34.86666666666667,36.53333333333333,40.1,43.2,45.7,46.86666666666667,48.333333333333336,49.666666666666664,51.53333333333333",
+      "-movflags",
+      "+faststart",
+      "-an",
+      "/workspace/blox_story/renders/names100-s6-review/silent.pending.mp4"
+    ],
+    [
+      "ffmpeg",
+      "-y",
+      "-v",
+      "error",
+      "-i",
+      "/workspace/blox_story/renders/names100-s6-review/silent-captioned.mp4",
+      "-i",
+      "<private original WAV>",
+      "-map",
+      "0:v:0",
+      "-map",
+      "1:a:0",
+      "-c:v",
+      "copy",
+      "-c:a",
+      "aac",
+      "-b:a",
+      "192k",
+      "-movflags",
+      "+faststart",
+      "/workspace/blox_story/renders/names100-s6-review/narrated.pending.mp4"
+    ]
+  ],
+  "narration": "Original WAV at t=0, unchanged source; AAC encode only, no trim/stretch/regeneration. Human listening pending.",
+  "voiced": {
+    "file": "renders/names100-s6-review/narrated-captioned.mp4",
+    "sha256": "fc34e8846f6da37debea0d93e994e840306a7144c0b13df2106a064e5370d6b7",
+    "probe": {
+      "streams": [
+        {
+          "index": 0,
+          "codec_name": "h264",
+          "codec_long_name": "H.264 / AVC / MPEG-4 AVC / MPEG-4 part 10",
+          "profile": "Main",
+          "codec_type": "video",
+          "codec_tag_string": "avc1",
+          "codec_tag": "0x31637661",
+          "width": 720,
+          "height": 1280,
+          "coded_width": 720,
+          "coded_height": 1280,
+          "closed_captions": 0,
+          "film_grain": 0,
+          "has_b_frames": 2,
+          "sample_aspect_ratio": "1:1",
+          "display_aspect_ratio": "9:16",
+          "pix_fmt": "yuv420p",
+          "level": 31,
+          "color_range": "tv",
+          "color_space": "bt709",
+          "chroma_location": "left",
+          "field_order": "progressive",
+          "refs": 4,
+          "is_avc": "true",
+          "nal_length_size": "4",
+          "id": "0x1",
+          "r_frame_rate": "30/1",
+          "avg_frame_rate": "30/1",
+          "time_base": "1/15360",
+          "start_pts": 0,
+          "start_time": "0.000000",
+          "duration_ts": 840192,
+          "duration": "54.700000",
+          "bit_rate": "533117",
+          "bits_per_raw_sample": "8",
+          "nb_frames": "1641",
+          "nb_read_frames": "1641",
+          "extradata_size": 44,
+          "disposition": {
+            "default": 1,
+            "dub": 0,
+            "original": 0,
+            "comment": 0,
+            "lyrics": 0,
+            "karaoke": 0,
+            "forced": 0,
+            "hearing_impaired": 0,
+            "visual_impaired": 0,
+            "clean_effects": 0,
+            "attached_pic": 0,
+            "timed_thumbnails": 0,
+            "non_diegetic": 0,
+            "captions": 0,
+            "descriptions": 0,
+            "metadata": 0,
+            "dependent": 0,
+            "still_image": 0,
+            "multilayer": 0
+          },
+          "tags": {
+            "language": "und",
+            "handler_name": "VideoHandler",
+            "vendor_id": "[0][0][0][0]",
+            "encoder": "Lavc61.19.101 libx264"
+          }
+        },
+        {
+          "index": 1,
+          "codec_name": "aac",
+          "codec_long_name": "AAC (Advanced Audio Coding)",
+          "profile": "LC",
+          "codec_type": "audio",
+          "codec_tag_string": "mp4a",
+          "codec_tag": "0x6134706d",
+          "sample_fmt": "fltp",
+          "sample_rate": "44100",
+          "channels": 2,
+          "channel_layout": "stereo",
+          "bits_per_sample": 0,
+          "initial_padding": 0,
+          "id": "0x2",
+          "r_frame_rate": "0/0",
+          "avg_frame_rate": "0/0",
+          "time_base": "1/44100",
+          "start_pts": 0,
+          "start_time": "0.000000",
+          "duration_ts": 2411520,
+          "duration": "54.682993",
+          "bit_rate": "192779",
+          "nb_frames": "2356",
+          "nb_read_frames": "2355",
+          "extradata_size": 5,
+          "disposition": {
+            "default": 1,
+            "dub": 0,
+            "original": 0,
+            "comment": 0,
+            "lyrics": 0,
+            "karaoke": 0,
+            "forced": 0,
+            "hearing_impaired": 0,
+            "visual_impaired": 0,
+            "clean_effects": 0,
+            "attached_pic": 0,
+            "timed_thumbnails": 0,
+            "non_diegetic": 0,
+            "captions": 0,
+            "descriptions": 0,
+            "metadata": 0,
+            "dependent": 0,
+            "still_image": 0,
+            "multilayer": 0
+          },
+          "tags": {
+            "language": "und",
+            "handler_name": "SoundHandler",
+            "vendor_id": "[0][0][0][0]"
+          }
+        }
+      ],
+      "format": {
+        "filename": "/workspace/blox_story/renders/names100-s6-review/narrated-captioned.mp4",
+        "nb_streams": 2,
+        "nb_programs": 0,
+        "nb_stream_groups": 0,
+        "format_name": "mov,mp4,m4a,3gp,3g2,mj2",
+        "format_long_name": "QuickTime / MOV",
+        "start_time": "0.000000",
+        "duration": "54.700000",
+        "size": "5024019",
+        "bit_rate": "734774",
+        "probe_score": 100,
+        "tags": {
+          "major_brand": "isom",
+          "minor_version": "512",
+          "compatible_brands": "isomiso2avc1mp41",
+          "encoder": "Lavf61.7.103"
+        }
+      }
+    },
+    "fullDecodePass": true,
+    "verification": {
+      "probe": {
+        "streams": [
+          {
+            "index": 0,
+            "codec_name": "h264",
+            "codec_long_name": "H.264 / AVC / MPEG-4 AVC / MPEG-4 part 10",
+            "profile": "Main",
+            "codec_type": "video",
+            "codec_tag_string": "avc1",
+            "codec_tag": "0x31637661",
+            "width": 720,
+            "height": 1280,
+            "coded_width": 720,
+            "coded_height": 1280,
+            "closed_captions": 0,
+            "film_grain": 0,
+            "has_b_frames": 2,
+            "sample_aspect_ratio": "1:1",
+            "display_aspect_ratio": "9:16",
+            "pix_fmt": "yuv420p",
+            "level": 31,
+            "color_range": "tv",
+            "color_space": "bt709",
+            "chroma_location": "left",
+            "field_order": "progressive",
+            "refs": 4,
+            "is_avc": "true",
+            "nal_length_size": "4",
+            "id": "0x1",
+            "r_frame_rate": "30/1",
+            "avg_frame_rate": "30/1",
+            "time_base": "1/15360",
+            "start_pts": 0,
+            "start_time": "0.000000",
+            "duration_ts": 840192,
+            "duration": "54.700000",
+            "bit_rate": "533117",
+            "bits_per_raw_sample": "8",
+            "nb_frames": "1641",
+            "nb_read_frames": "1641",
+            "extradata_size": 44,
+            "disposition": {
+              "default": 1,
+              "dub": 0,
+              "original": 0,
+              "comment": 0,
+              "lyrics": 0,
+              "karaoke": 0,
+              "forced": 0,
+              "hearing_impaired": 0,
+              "visual_impaired": 0,
+              "clean_effects": 0,
+              "attached_pic": 0,
+              "timed_thumbnails": 0,
+              "non_diegetic": 0,
+              "captions": 0,
+              "descriptions": 0,
+              "metadata": 0,
+              "dependent": 0,
+              "still_image": 0,
+              "multilayer": 0
+            },
+            "tags": {
+              "language": "und",
+              "handler_name": "VideoHandler",
+              "vendor_id": "[0][0][0][0]",
+              "encoder": "Lavc61.19.101 libx264"
+            }
+          },
+          {
+            "index": 1,
+            "codec_name": "aac",
+            "codec_long_name": "AAC (Advanced Audio Coding)",
+            "profile": "LC",
+            "codec_type": "audio",
+            "codec_tag_string": "mp4a",
+            "codec_tag": "0x6134706d",
+            "sample_fmt": "fltp",
+            "sample_rate": "44100",
+            "channels": 2,
+            "channel_layout": "stereo",
+            "bits_per_sample": 0,
+            "initial_padding": 0,
+            "id": "0x2",
+            "r_frame_rate": "0/0",
+            "avg_frame_rate": "0/0",
+            "time_base": "1/44100",
+            "start_pts": 0,
+            "start_time": "0.000000",
+            "duration_ts": 2411520,
+            "duration": "54.682993",
+            "bit_rate": "192779",
+            "nb_frames": "2356",
+            "nb_read_frames": "2355",
+            "extradata_size": 5,
+            "disposition": {
+              "default": 1,
+              "dub": 0,
+              "original": 0,
+              "comment": 0,
+              "lyrics": 0,
+              "karaoke": 0,
+              "forced": 0,
+              "hearing_impaired": 0,
+              "visual_impaired": 0,
+              "clean_effects": 0,
+              "attached_pic": 0,
+              "timed_thumbnails": 0,
+              "non_diegetic": 0,
+              "captions": 0,
+              "descriptions": 0,
+              "metadata": 0,
+              "dependent": 0,
+              "still_image": 0,
+              "multilayer": 0
+            },
+            "tags": {
+              "language": "und",
+              "handler_name": "SoundHandler",
+              "vendor_id": "[0][0][0][0]"
+            }
+          }
+        ],
+        "format": {
+          "filename": "/workspace/blox_story/renders/names100-s6-review/narrated-captioned.mp4",
+          "nb_streams": 2,
+          "nb_programs": 0,
+          "nb_stream_groups": 0,
+          "format_name": "mov,mp4,m4a,3gp,3g2,mj2",
+          "format_long_name": "QuickTime / MOV",
+          "start_time": "0.000000",
+          "duration": "54.700000",
+          "size": "5024019",
+          "bit_rate": "734774",
+          "probe_score": 100,
+          "tags": {
+            "major_brand": "isom",
+            "minor_version": "512",
+            "compatible_brands": "isomiso2avc1mp41",
+            "encoder": "Lavf61.7.103"
+          }
+        }
+      },
+      "decode": {
+        "frames": 1641,
+        "continuousPts": true,
+        "noErrors": true
+      },
+      "cuts": [
+        {
+          "frame": 94,
+          "time": 3.1333333333333333
+        },
+        {
+          "frame": 169,
+          "time": 5.633333333333334
+        },
+        {
+          "frame": 259,
+          "time": 8.633333333333333
+        },
+        {
+          "frame": 320,
+          "time": 10.666666666666666
+        },
+        {
+          "frame": 398,
+          "time": 13.266666666666667
+        },
+        {
+          "frame": 482,
+          "time": 16.066666666666666
+        },
+        {
+          "frame": 573,
+          "time": 19.1
+        },
+        {
+          "frame": 630,
+          "time": 21
+        },
+        {
+          "frame": 719,
+          "time": 23.966666666666665
+        },
+        {
+          "frame": 769,
+          "time": 25.633333333333333
+        },
+        {
+          "frame": 823,
+          "time": 27.433333333333334
+        },
+        {
+          "frame": 882,
+          "time": 29.4
+        },
+        {
+          "frame": 938,
+          "time": 31.266666666666666
+        },
+        {
+          "frame": 1046,
+          "time": 34.86666666666667
+        },
+        {
+          "frame": 1096,
+          "time": 36.53333333333333
+        },
+        {
+          "frame": 1203,
+          "time": 40.1
+        },
+        {
+          "frame": 1296,
+          "time": 43.2
+        },
+        {
+          "frame": 1371,
+          "time": 45.7
+        },
+        {
+          "frame": 1406,
+          "time": 46.86666666666667
+        },
+        {
+          "frame": 1450,
+          "time": 48.333333333333336
+        },
+        {
+          "frame": 1490,
+          "time": 49.666666666666664
+        },
+        {
+          "frame": 1546,
+          "time": 51.53333333333333
+        }
+      ],
+      "playback": {
+        "width": 720,
+        "height": 1280,
+        "duration": 54.7,
+        "advancedTo": 0.111925,
+        "error": null,
+        "browser": "156.0.8078.79",
+        "fallback": true,
+        "seeks": [
+          27.35,
+          3.2333333333333334,
+          5.733333333333333,
+          8.733333333333333,
+          10.766666666666666,
+          13.366666666666667,
+          16.166666666666668,
+          19.200000000000003,
+          21.1,
+          24.066666666666666,
+          25.733333333333334,
+          27.533333333333335,
+          29.5,
+          31.366666666666667,
+          34.96666666666667,
+          36.63333333333333,
+          40.2,
+          43.300000000000004,
+          45.800000000000004,
+          46.96666666666667,
+          48.43333333333334,
+          49.766666666666666,
+          51.63333333333333
+        ]
+      }
+    }
+  },
+  "wavSha256": "3d5e0a116971d3d17a7c3adac79423e443d63040b2120be7562a0660f22b4ae4",
+  "wallSeconds": 18.826099158002762,
+  "videoPacketsIdenticalAfterAudioMux": true,
+  "fullVoicedPlayback": {
+    "ended": true,
+    "duration": 54.7,
+    "currentTime": 54.7,
+    "wallSeconds": 54.71170000000298,
+    "muted": false,
+    "windows": 547,
+    "audibleWindows": 441,
+    "peakRms": 0.20521097944475666,
+    "frameCallbacks": 1640,
+    "error": null
+  }
+}

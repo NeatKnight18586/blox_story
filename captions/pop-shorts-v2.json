@@ -1,0 +1,22 @@
+{
+ "name": "pop-shorts-v2",
+ "doc": "CAPTION_STYLE_V2.md",
+ "playRes": [1080, 1920],
+ "font": "Lilita One",
+ "fontFile": "node_modules/@expo-google-fonts/lilita-one/400Regular/LilitaOne_400Regular.ttf",
+ "size": 96,
+ "openerSize": 112,
+ "primary": "&H00FFFFFF",
+ "outline": 7,
+ "outlineColour": "&H00101010",
+ "shadow": 3,
+ "emphasisColour": "&H004AD8FF",
+ "emphasisScale": 115,
+ "y": 1267,
+ "yHigh": 580,
+ "x": 540,
+ "maxWords": 3,
+ "leadSeconds": 0.04,
+ "blankPause": 0.35,
+ "pop": "\\fscx82\\fscy82\\t(0,80,\\fscx108\\fscy108)\\t(80,130,\\fscx100\\fscy100)"
+}
