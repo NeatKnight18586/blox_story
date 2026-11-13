@@ -128,3 +128,33 @@ test('A4 effects: weather volumes loop inside their box, bolt, flicker, shockwav
   assert.ok(shockwave({at: 0, dur: 1, radius: 10}, .99).r > 9.5); assert.equal(shockwave({at: 0, dur: 1}, 1.2), null);
   const tr = trailSamples({at: 0, dur: 3, fade: 1}, 2, 5); assert.equal(tr[0].t, 2); assert.equal(tr[0].a, 1); assert.ok(tr.at(-1).a <= 1e-9);
 });
+
+// ---- G: hair v3 and the troupe -----------------------------------------------------------------------------
+import {HAIR3_STYLES, HAIR3_BOYS, HAIR3_GIRLS, HAIR3_BUDGET, EYE_CLEAR, EYE_BAND, hair3Geometry, hair3Triangles} from '../../avatar-style/hair3.js';
+import {HAIR_STYLES} from '../../avatar-style/hair.js';
+import {resolveTroupe, SLOTS} from '../../engine/troupe.js';
+import {readFileSync} from 'node:fs';
+
+test('hair v3: 8 + 10 + 2 styles, budgets hero ≤ 600 / bg ≤ 80, never in the eye band, v2 presets untouched', () => {
+  assert.equal(HAIR3_BOYS.length, 8); assert.equal(HAIR3_GIRLS.length, 10); assert.equal(HAIR3_STYLES.length, 20);
+  assert.equal(HAIR_STYLES.length, 10);   // the v2 set stays for "Nobody"
+  for (const s of HAIR3_STYLES) for (const tier of ['hero', 'bg']) {
+    const g = hair3Geometry(s, tier, '#5a3a22'); assert.ok(hair3Triangles(g) <= HAIR3_BUDGET[tier], `${s} ${tier} ${hair3Triangles(g)}`);
+    if (!g) { assert.equal(s, 'bald'); continue; }
+    const p = g.attributes.position; for (let i = 0; i < p.count; i++) if (p.getZ(i) > .3 && Math.abs(p.getX(i)) < EYE_BAND) assert.ok(p.getY(i) >= EYE_CLEAR - 1e-6, `${s} ${tier} covers the eyes`);
+  }
+  assert.ok(hair3Triangles(hair3Geometry('long_layered', 'hero')) > hair3Triangles(hair3Geometry('buzz', 'hero')));
+  assert.equal(hair3Geometry('wavy_bob', 'hero', '#123456'), hair3Geometry('wavy_bob', 'hero', '#123456'));   // cached + deterministic
+});
+
+test('troupe: five fixed slots + AFK; episodes re-costume but cannot change who a slot is', () => {
+  const data = JSON.parse(readFileSync('cast/troupe.json', 'utf8'));
+  assert.deepEqual(Object.keys(data.troupe), SLOTS);
+  const want = {LEAD: 'messy_fringe', SECOND: 'long_layered', LITTLE: 'space_buns', RIVAL: 'quiff', ELDER: 'side_part'};
+  for (const [k, h] of Object.entries(want)) { assert.equal(data.troupe[k].hair.style, h); assert.equal(data.troupe[k].hair.v, 3); assert.equal(data.troupe[k].expressions.length, 3); }
+  assert.equal(data.troupe.LITTLE.scale, .62); assert.ok(data.troupe.RIVAL.scale > data.troupe.LEAD.scale);
+  const kit = resolveTroupe({troupe: 'SECOND', role: 'Kit', outfit: {recipe: 'hoodie', main: '#111111'}, with: {skin: '#000000', scale: 3}}, data);
+  assert.equal(kit.tag.name, 'Kit'); assert.equal(kit.outfit.main, '#111111'); assert.equal(kit.skin, data.troupe.SECOND.skin); assert.equal(kit.scale, .82);
+  const afk = resolveTroupe({troupe: 'AFK', role: 'whatever'}, data);
+  assert.equal(afk.opacity, .4); assert.equal(afk.tag.name, 'AFK'); assert.equal(afk.hair.style, 'buzz'); assert.equal(afk.outfit.recipe, 'classic'); assert.ok(afk.freeze > 0);
+});

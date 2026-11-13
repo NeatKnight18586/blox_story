@@ -4,7 +4,7 @@
 // Everything is built once; per frame only pivots, faces, tags and the root move.
 import {createActor, SKINS} from '../avatar-style/body.js';
 import {dress} from '../avatar-style/clothing.js';
-import {attachHair} from '../avatar-style/hair.js';
+import {attachHair, attachHair3} from '../avatar-style/hair.js';
 import {attachAccessory} from '../avatar-style/accessories.js';
 import {setFace} from '../avatar-style/faces2.js';
 import {attachTool, buildTool} from '../avatar-style/tools.js';
@@ -15,11 +15,14 @@ import {sampleTimeline, ambientPose, applyPoseSample} from './poses.js';
 export function buildActor(preset, name = 'actor') {
   const tier = preset.tier ?? 'hero', skin = preset.skin ?? SKINS[0];
   const a = createActor({tier, skin, scale: preset.scale ?? 1, name, materials: preset.outfit ? dress(preset.outfit, skin, tier) : {}});
-  if (preset.hair) attachHair(a, preset.hair.style, preset.hair.color);
+  if (preset.hair) (preset.hair.v === 3 || preset.hairStyle === 'v3' ? attachHair3(a, preset.hair.style, preset.hair.color, {streak: preset.hair.streak}) : attachHair(a, preset.hair.style, preset.hair.color));   // A4: v3 is opt-in
   for (const acc of preset.accessories ?? []) typeof acc === 'string' ? attachAccessory(a, acc) : attachAccessory(a, acc.name, acc);
   if (preset.tool) typeof preset.tool === 'string' ? attachTool(a, preset.tool) : attachTool(a, preset.tool.name, preset.tool);
+  if (preset.opacity !== undefined && preset.opacity < 1) a.ghost = preset.opacity;
   setFace(a, preset.face ?? 'smile');
   if (preset.tag) setTag(a, preset.tag.name, preset.tag.role ?? null);
+  if (preset.opacity !== undefined && preset.opacity < 1) a.root.traverse(o => {   // A4 AFK: see-through, own material copies
+    if (!o.isMesh || o.name === 'face_decal') return; o.material = [].concat(o.material).map(m => { const c = m.clone(); c.transparent = true; c.opacity = preset.opacity; c.depthWrite = true; return c; }); if (o.material.length === 1) o.material = o.material[0]; });
   a.preset = preset; return a;
 }
 
@@ -47,7 +50,7 @@ export function townsperson(seed) {
 export function driveActor(a, t, {keys, faces, tags, origin = {position: [0, 0, 0], yaw: 0}, ambient = false, fps = 30,
   tools, toolsLeft, stat, bubble, visible, kit} = {}) {
   if (visible) { let v = true; for (const [t0, x] of visible) if (t >= t0) v = x; a.root.visible = v; }
-  const s = ambient ? ambientPose(a.preset.seed ?? 1, t) : sampleTimeline(keys ?? [[0, 'idle']], t);
+  const s = ambient ? ambientPose(a.preset.seed ?? 1, t) : sampleTimeline(keys ?? [[0, 'idle']], a.preset.freeze ?? t);   // A4: preset.freeze holds one instant (AFK mid-step)
   applyPoseSample(a, s, origin);
   if (faces) { let f = faces[0][1]; for (const [t0, n] of faces) if (t >= t0) f = n; if (f !== a.face) setFace(a, f); }
   if (tags) {

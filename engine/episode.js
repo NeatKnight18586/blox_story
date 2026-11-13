@@ -10,6 +10,7 @@ import {layoutShots, totalFrames, valueAt, keyAt} from './timeline.js';
 import {buildDragon, driveDragon} from '../avatar-style/dragon.js';
 import {expandClassReveal, applyPatch} from './classes.js';
 import {buildActor, driveActor, townsperson, toolGroup} from './actors.js';
+import {resolveTroupe} from './troupe.js';
 import {loadFont, fitTags} from './overhead.js';
 import {createLook, createLookV3} from './look.js';
 import {createEffects} from './effects.js';
@@ -84,13 +85,15 @@ for (const s of shots) {
 // {dir: [x, z], speed} moves the mark at constant speed (e.g. WALK_SPEED for 'walk').
 const presets = spec.castFile ? (await (await fetch(new URL('../' + spec.castFile, import.meta.url))).json()).cast : {};
 const cast = {};
+const troupeData = Object.values(spec.cast ?? {}).some(c => c.troupe) ? await (await fetch(new URL('../' + (spec.troupeFile ?? 'cast/troupe.json'), import.meta.url))).json() : null;   // A4 troupe slots
 // Marks (Session 5): `marks: [[t0, {at, offset, yaw, travel}], ...]` re-block an actor over the episode; the
 // entry's own at/offset/yaw/travel is the mark before the first key.
 const markOf = (c, t) => { const k = keyAt(c.marks, t); return k ? {...k[1], t0: k[0]} : {at: c.at, offset: c.offset, yaw: c.yaw, travel: c.travel, origin: c.origin, t0: 0}; };
 for (const [name, c] of Object.entries(spec.cast ?? {})) {
   if (c.at) c.origin = resolve({anchor: c.at, offset: c.offset ?? [0, 0, 0]});
   if (c.style === 'dragon') { const d = buildDragon({scale: c.scale ?? 1, name}); scene.add(d.root); cast[name] = {a: d, c, dragon: true}; continue; }
-  if (c.style === 'v2') { const a = buildActor(c.town ? townsperson(c.town) : c.preset ? {...presets[c.preset], ...(c.with ?? {})} : c, name); scene.add(a.root); cast[name] = {a, c, v2: true}; }
+  if (c.style === 'v2') { if (c.troupe === 'AFK') { c.keys ??= [[0, troupeData.AFK.pose ?? 'walk']]; c.faces ??= [[0, 'neutral']]; }
+    const a = buildActor(c.troupe ? resolveTroupe(c, troupeData) : c.town ? townsperson(c.town) : c.preset ? {...presets[c.preset], ...(c.with ?? {})} : c, name); scene.add(a.root); cast[name] = {a, c, v2: true}; }
   else { const a = createBaseAvatar({color: c.color ?? 0xf2c94c}); scene.add(a.root); cast[name] = {a, c}; }
 }
 if (Object.values(cast).some(x => x.v2)) await loadFont();

@@ -122,3 +122,16 @@ export function attachHair(actor, style, color) {
   const m = new T.Mesh(g, hairMaterial()); m.name = 'hair'; m.position.y = HEAD.centre; m.castShadow = true;
   actor.pivots.head.add(m); actor.hair = m; return actor;
 }
+
+// ---- Amendment A4: hair v3 (opt-in). attachHair3(actor, style, colour, {streak}) — v2 presets above stay for "Nobody".
+import {hair3Geometry, HAIR3_STYLES} from './hair3.js';
+export {HAIR3_STYLES};
+let hair3Mat = null;   // double-sided: thin locks show both faces
+const hair3Material = () => hair3Mat ??= new T.MeshPhongMaterial({vertexColors: true, flatShading: true, shininess: 18, specular: '#1c1c1c', side: T.DoubleSide});
+export function attachHair3(actor, style, color, opts = {}) {
+  if (actor.hair) actor.hair.removeFromParent();
+  const g = hair3Geometry(style, actor.tier, color, opts); actor.hairStyle = style;
+  if (!g) { actor.hair = null; return actor; }
+  const m = new T.Mesh(g, hair3Material()); m.name = 'hair'; m.position.y = HEAD.centre; m.castShadow = false;   // fringe shadows streak the face
+  actor.pivots.head.add(m); actor.hair = m; return actor;
+}
