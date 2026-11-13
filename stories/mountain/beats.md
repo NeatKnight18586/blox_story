@@ -1,4 +1,4 @@
-# 01 `mountain` — scene plan (targets; real cut times come from `cues.json` word onsets)
+# 11 `mountain` — scene plan (targets; real cut times come from `cues.json` word onsets)
 
 Cast (troupe): LEAD = Bo · LITTLE = his sister Pia (6) · ELDER = head elder · RIVAL = bell-keeper who shushes him ·
 SECOND = neighbour girl · crowd 20–30 · AFK ×2. The giant: a landform rig (ridge = shoulder, cliff = face, one eye that
