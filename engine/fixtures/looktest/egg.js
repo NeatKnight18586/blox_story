@@ -11,7 +11,7 @@
 import * as T from 'three';
 
 export const TEAM = ['#e4574a', '#f2b632', '#2f80d1', '#9b59b6', '#1fb5a8', '#ff7aa8', '#7fc241', '#ff8c2e', '#4ad8ff', '#c0392b', '#f2e14a', '#8a6be8'];
-export const LOOK = spec => spec.kit === 'old' ? null : {fog: {color: '#2a3a66', near: 80, far: 340, height: {base: 0, falloff: 5, amount: .32, near: 30}}, envPreset: 'night', envIntensity: .5, cloudCover: .55, moon: {az: 168, el: 24, size: 2.6}, starDensity: 1.6};
+export const LOOK = spec => spec.kit === 'old' ? null : {fog: {color: '#2a3a66', near: 80, far: 340, height: {base: 0, falloff: 5, amount: .32, near: 30}}, envPreset: 'night', envIntensity: .5, cloudCover: .55, moon: {az: 172, el: 14, size: 3.2}, starDensity: 1.6};
 export const LAYER = {plaza: .14, road: .1};
 const SQ = 18, ROAD = 33, BASE_R = 47, POND = [52, 44];
 
@@ -38,8 +38,8 @@ export function build(scene, {P, B, A, M, PR, TR, BI, V, W, look, spec}) {
     const veg = V.vegetation({height, veg: {...bio.vegetation, flowerColors: ['#ffffff', '#9fc2ff', '#ffd23f']}, area: {x0: -150, x1: 150, z0: -150, z1: 130}, seed: 9, avoid, focus: [[0, 30], [36, 36]], nearR: 26, waterY: -1.1});
     scene.add(veg.group); movers.push(veg);
     // cloudtop bank beyond the town (the nest's world): soft white mounds lit by the moon
-    const cm = new T.MeshLambertMaterial({color: '#e8ecf8', emissive: '#4a5a88', emissiveIntensity: .55, flatShading: true}), cg = [];
-    for (let i = 0; i < 46; i++) { const g = new T.IcosahedronGeometry(16 + R() * 26, 1); g.scale(1.6, .7 + R() * .3, 1); g.translate(-300 + i * 13 + R() * 10, 52 + R() * 40 + Math.sin(i * .7) * 14, -330 - R() * 60); cg.push(g); }
+    const cm = new T.MeshLambertMaterial({color: '#f4f6ff', emissive: '#8a9ad0', emissiveIntensity: .7, flatShading: true, fog: false}), cg = [];
+    for (let i = 0; i < 46; i++) { const g = new T.IcosahedronGeometry(16 + R() * 26, 2); g.scale(1.6, .7 + R() * .3, 1); g.translate(-300 + i * 13 + R() * 10, 52 + R() * 40 + Math.sin(i * .7) * 14, -330 - R() * 60); cg.push(g); }
     const bank = new T.Mesh(merge(cg), cm); bank.name = 'cloudtop'; scene.add(bank);
   } else {
     scene.add(P.plate(420, 420, {at: [0, -.2, 0], pattern: 'grass', color: '#79a85a'}));
@@ -109,6 +109,19 @@ export function build(scene, {P, B, A, M, PR, TR, BI, V, W, look, spec}) {
   if (NEW) for (const b of bases) { const dx = -Math.sin(b.a), dz = -Math.cos(b.a); pool(b.x + dx * 8, b.z + dz * 8, 5, TEAM[b.i], .35); }
   for (let i = 0; i < 4; i++) { const a = i * 1.57 + .4, bch = benchOf(P, mt); bch.position.set(Math.sin(a) * (SQ - 3), groundY(0, 0) + .1, Math.cos(a) * (SQ - 3)); bch.rotation.y = a; add(bch); }
   scene.add(hero);
+  if (NEW) {
+    // warm practical light: two real point lights over the square (≤ 4 allowed) key the avatars and pool on the cobbles
+    for (const [x, z] of [[-9, 10], [9, 6]]) { const l = new T.PointLight('#ffb866', 26, 30, 1.6); l.position.set(x, groundY(x, z) + 6.5, z); scene.add(l); }
+    // gardens: a hedge pair flanking every base door + a tree between neighbouring bases
+    const hedge = new T.MeshPhongMaterial({color: '#4f7a3a', flatShading: true, shininess: 6}), trunk = new T.MeshPhongMaterial({color: '#5a4232', flatShading: true}), crown = new T.MeshPhongMaterial({color: '#3f6a34', flatShading: true});
+    for (const b of bases) {
+      const fx = -Math.sin(b.a), fz = -Math.cos(b.a), sx = Math.cos(b.a), sz = -Math.sin(b.a);
+      for (const k of [-1, 1]) { const h = new T.Mesh(new T.IcosahedronGeometry(1.3, 0), hedge); h.scale.set(1.5, .9, 1); const x = b.x + fx * 6.5 + sx * k * 4.2, z = b.z + fz * 6.5 + sz * k * 4.2; h.position.set(x, groundY(x, z) + .9, z); h.rotation.y = b.a; h.castShadow = true; scene.add(h); }
+      const a2 = b.a + Math.PI / 12, x = Math.sin(a2) * (BASE_R + 3), z = Math.cos(a2) * (BASE_R + 3), y = groundY(x, z);
+      const tr = new T.Mesh(new T.CylinderGeometry(.4, .55, 4, 5), trunk); tr.position.set(x, y + 2, z); scene.add(tr);
+      for (const [dy, r] of [[5.2, 2.8], [6.8, 2.1]]) { const c = new T.Mesh(new T.IcosahedronGeometry(r, 0), crown); c.position.set(x, y + dy, z); c.castShadow = true; scene.add(c); }
+    }
+  }
   movers.push(A.birds({centre: [10, 46, -40], n: 4, r: 30, seed: 3}));
   for (const m of movers) if (m.group || m.object) scene.add(m.group ?? m.object);
   anchors.square = {position: [0, 0, 0], camera: {position: [0, 24, 76], target: [0, 9, -12], fov: 50}};
