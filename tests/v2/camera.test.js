@@ -11,7 +11,7 @@ const finite = c => [...c.position, ...c.target, c.fov, c.roll].every(Number.isF
 const dist = (a, b) => Math.hypot(a[0] - b[0], a[1] - b[1], a[2] - b[2]);
 
 test('fixture covers every move once', () => {
-  assert.deepEqual([...new Set(shots.map(s => s.move))].sort(), [...MOVES].sort());
+  assert.deepEqual([...new Set(shots.map(s => s.move))].sort(), MOVES.filter(m => !['drone', 'heroLow', 'snap', 'tiltUp'].includes(m)).sort());   // the A4 moves are tested in s8.test.js
   assert.equal(shots.at(-1).start + shots.at(-1).frames, 90);
 });
 
