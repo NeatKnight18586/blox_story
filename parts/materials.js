@@ -234,8 +234,10 @@ export function std(pattern = 'plastic', color = '#cccccc', {hero = true, flat =
 // albedo AND normal maps blended, plus a low-frequency macro tone so big slopes never show the tile repeat.
 let flatN = null;
 const flatNormal = () => { if (!flatN) { flatN = new T.DataTexture(new Uint8Array([128, 128, 255, 255]), 1, 1); flatN.needsUpdate = true; } return flatN; };
-export function splatMaterial(layers, {baseTile = 8, standard = true, macro = .12} = {}) {
-  const L = layers.map(l => ({...l, tex: l.pattern === 'plastic' ? patternTexture('snow', 512) : patternTexture(l.pattern, 512), nrm: normalTexture(l.pattern, 512) ?? flatNormal(),
+export function splatMaterial(layers, {baseTile = 8, standard = false, macro = .12, aniso = 2, res = N} = {}) {   // terrain is not hero tier: 256 px (A4 A3)
+  // own texture copies at low anisotropy: 6 grazing-angle fetches per pixel at 8× aniso cost ~0.3 s/frame on SwiftShader (A7 bench)
+  const lo = t => { if (!t || t === flatN) return t; const c = t.clone(); c.anisotropy = aniso; c.needsUpdate = true; return c; };
+  const L = layers.map(l => ({...l, tex: lo(l.pattern === 'plastic' ? patternTexture('snow', res) : patternTexture(l.pattern, res)), nrm: lo(normalTexture(l.pattern, res)) ?? flatNormal(),
     k: RELIEF[l.pattern] ?? 0, rep: baseTile / (l.tile ?? TILE[l.pattern] ?? 4)}));
   const Mat = standard ? T.MeshStandardMaterial : T.MeshPhongMaterial;
   const m = new Mat(standard ? {color: '#ffffff', map: L[0].tex, normalMap: L[0].nrm, roughness: .9, metalness: 0, envMap: ENV.map, envMapIntensity: ENV.intensity * .6}

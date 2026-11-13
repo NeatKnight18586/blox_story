@@ -1,0 +1,91 @@
+{
+ "spec": "engine/fixtures/looktest/egg-new.json",
+ "size": "540x960",
+ "nudge": 0.004,
+ "threshold": 40,
+ "limit": 0.3,
+ "views": 12,
+ "worst": {
+  "view": "street:first",
+  "frame": 8,
+  "pct": 0.025,
+  "raw": 0.037
+ },
+ "failing": [],
+ "errors": [],
+ "result": "PASS",
+ "rows": [
+  {
+   "view": "@square",
+   "frame": null,
+   "pct": 0.005,
+   "raw": 0.034
+  },
+  {
+   "view": "@street",
+   "frame": null,
+   "pct": 0.001,
+   "raw": 0.023
+  },
+  {
+   "view": "@wide",
+   "frame": null,
+   "pct": 0.001,
+   "raw": 0.008
+  },
+  {
+   "view": "square:first",
+   "frame": 0,
+   "pct": 0.003,
+   "raw": 0.023
+  },
+  {
+   "view": "square:mid",
+   "frame": 4,
+   "pct": 0.009,
+   "raw": 0.036
+  },
+  {
+   "view": "square:last",
+   "frame": 7,
+   "pct": 0.012,
+   "raw": 0.037
+  },
+  {
+   "view": "street:first",
+   "frame": 8,
+   "pct": 0.025,
+   "raw": 0.037
+  },
+  {
+   "view": "street:mid",
+   "frame": 12,
+   "pct": 0.004,
+   "raw": 0.02
+  },
+  {
+   "view": "street:last",
+   "frame": 15,
+   "pct": 0.009,
+   "raw": 0.021
+  },
+  {
+   "view": "wide:first",
+   "frame": 16,
+   "pct": 0,
+   "raw": 0.001
+  },
+  {
+   "view": "wide:mid",
+   "frame": 20,
+   "pct": 0,
+   "raw": 0.002
+  },
+  {
+   "view": "wide:last",
+   "frame": 23,
+   "pct": 0,
+   "raw": 0.002
+  }
+ ]
+}

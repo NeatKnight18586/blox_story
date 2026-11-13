@@ -1,0 +1,121 @@
+{
+ "spec": "engine/fixtures/tools/demo.json",
+ "size": "540x960",
+ "nudge": 0.004,
+ "threshold": 40,
+ "limit": 0.3,
+ "views": 17,
+ "worst": {
+  "view": "T2-snap:last",
+  "frame": 179,
+  "pct": 0.082,
+  "raw": 0.375
+ },
+ "failing": [],
+ "errors": [],
+ "result": "PASS",
+ "rows": [
+  {
+   "view": "@square",
+   "frame": null,
+   "pct": 0.02,
+   "raw": 0.111
+  },
+  {
+   "view": "@giant",
+   "frame": null,
+   "pct": 0.003,
+   "raw": 0.012
+  },
+  {
+   "view": "T1-drone:first",
+   "frame": 0,
+   "pct": 0,
+   "raw": 0.013
+  },
+  {
+   "view": "T1-drone:mid",
+   "frame": 60,
+   "pct": 0,
+   "raw": 0.006
+  },
+  {
+   "view": "T1-drone:last",
+   "frame": 119,
+   "pct": 0.001,
+   "raw": 0.007
+  },
+  {
+   "view": "T2-snap:first",
+   "frame": 120,
+   "pct": 0.002,
+   "raw": 0.128
+  },
+  {
+   "view": "T2-snap:mid",
+   "frame": 150,
+   "pct": 0.054,
+   "raw": 0.361
+  },
+  {
+   "view": "T2-snap:last",
+   "frame": 179,
+   "pct": 0.082,
+   "raw": 0.375
+  },
+  {
+   "view": "T3-heroLow:first",
+   "frame": 180,
+   "pct": 0.001,
+   "raw": 0.009
+  },
+  {
+   "view": "T3-heroLow:mid",
+   "frame": 240,
+   "pct": 0.001,
+   "raw": 0.012
+  },
+  {
+   "view": "T3-heroLow:last",
+   "frame": 299,
+   "pct": 0.001,
+   "raw": 0.013
+  },
+  {
+   "view": "T4-tiltUp:first",
+   "frame": 300,
+   "pct": 0.001,
+   "raw": 0.136
+  },
+  {
+   "view": "T4-tiltUp:mid",
+   "frame": 375,
+   "pct": 0.001,
+   "raw": 0.011
+  },
+  {
+   "view": "T4-tiltUp:last",
+   "frame": 449,
+   "pct": 0.001,
+   "raw": 0.016
+  },
+  {
+   "view": "T5-trail:first",
+   "frame": 450,
+   "pct": 0.001,
+   "raw": 0.129
+  },
+  {
+   "view": "T5-trail:mid",
+   "frame": 510,
+   "pct": 0.001,
+   "raw": 0.129
+  },
+  {
+   "view": "T5-trail:last",
+   "frame": 569,
+   "pct": 0.008,
+   "raw": 0.142
+  }
+ ]
+}

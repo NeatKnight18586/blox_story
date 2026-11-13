@@ -45,7 +45,7 @@ export function build(scene, {P, B, A, M, PR, TR, BI, V, W, look, spec}) {
     const wat = W.water({height, x0: -300, x1: 300, z0: 128, z1: 172, y: VALLEY_Y - 1.4, ...bio.water, sky: '#cfe4f5', flow: [1, .1], speed: .08, envMap: look.envMap?.()});
     scene.add(wat.mesh); movers.push(wat);
     const avoid = (x, z) => (Math.abs(x) < 24 && z > -110 && z < 92) || lots.some(l => Math.abs(x - l.x) < 8 && Math.abs(z - l.z) < 8);
-    const veg = V.vegetation({height, veg: {...bio.vegetation, treeDensity: .7}, area: {x0: -200, x1: 200, z0: -220, z1: 200}, seed: 4, avoid, focus: [[0, 70], [0, 20]], nearR: 26, waterY: VALLEY_Y - 1});
+    const veg = V.vegetation({height, veg: {...bio.vegetation, treeDensity: .55}, area: {x0: -200, x1: 200, z0: -220, z1: 200}, seed: 4, avoid, focus: [[0, 70], [0, 20]], nearR: 26, waterY: VALLEY_Y - 1});
     scene.add(veg.group); movers.push(veg);
     look.addShaft?.({at: [-30, 10, -40], height: 90, width: 12, opacity: .12, tilt: [0, .35]}); look.addShaft?.({at: [26, 18, -70], height: 90, width: 9, opacity: .1, tilt: [0, .35]});
   } else {
