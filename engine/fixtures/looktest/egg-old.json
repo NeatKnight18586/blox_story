@@ -1,0 +1,98 @@
+{
+ "slug": "looktest-egg-old",
+ "fps": 30,
+ "kit": "old",
+ "note": "A4 look test: egg base town at night",
+ "world": "engine/fixtures/looktest/egg.js",
+ "castFile": "engine/fixtures/v2-cast.json",
+ "cast": {
+  "a": {
+   "style": "v2",
+   "preset": "kidKnight",
+   "at": "square",
+   "offset": [
+    -3,
+    0,
+    9
+   ],
+   "yaw": 0,
+   "keys": [
+    [
+     0,
+     "idle"
+    ]
+   ]
+  },
+  "b": {
+   "style": "v2",
+   "preset": "kidBaker",
+   "at": "square",
+   "offset": [
+    3,
+    0,
+    7
+   ],
+   "yaw": -20,
+   "keys": [
+    [
+     0,
+     "cheer"
+    ]
+   ]
+  },
+  "c": {
+   "style": "v2",
+   "preset": "pip",
+   "at": "street",
+   "offset": [
+    8,
+    0,
+    -8
+   ],
+   "yaw": 200,
+   "keys": [
+    [
+     0,
+     "walk"
+    ]
+   ]
+  },
+  "d": {
+   "style": "v2",
+   "town": 4,
+   "at": "street",
+   "offset": [
+    4,
+    0,
+    -14
+   ],
+   "ambient": true
+  }
+ },
+ "shots": [
+  {
+   "id": "square",
+   "size": "wide",
+   "frames": 8,
+   "anchor": "square",
+   "look": "night",
+   "shadowRadius": 60
+  },
+  {
+   "id": "street",
+   "size": "medium",
+   "frames": 8,
+   "anchor": "street",
+   "look": "night",
+   "shadowRadius": 30
+  },
+  {
+   "id": "wide",
+   "size": "wide",
+   "frames": 8,
+   "anchor": "wide",
+   "look": "night",
+   "shadowRadius": 110
+  }
+ ]
+}

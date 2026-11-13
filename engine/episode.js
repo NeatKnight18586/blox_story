@@ -11,13 +11,17 @@ import {buildDragon, driveDragon} from '../avatar-style/dragon.js';
 import {expandClassReveal, applyPatch} from './classes.js';
 import {buildActor, driveActor, townsperson, toolGroup} from './actors.js';
 import {loadFont, fitTags} from './overhead.js';
-import {createLook} from './look.js';
+import {createLook, createLookV3} from './look.js';
 import {createEffects} from './effects.js';
 import * as P from '../parts/parts.js';
 import * as B from '../parts/build.js';
 import * as A from '../parts/ambient.js';
 import * as M from '../parts/materials.js';
 import * as PR from '../parts/props.js';
+import * as TR from '../parts/terrain.js';
+import * as BI from '../parts/biomes.js';
+import * as V from '../parts/vegetation.js';
+import * as W from '../parts/water.js';
 
 const q = new URLSearchParams(location.search);
 const specUrl = q.get('spec') ? new URL('../' + q.get('spec'), import.meta.url) : new URL(`../stories/${q.get('story')}/episode.json`, import.meta.url);
@@ -45,8 +49,11 @@ const scene = new T.Scene();
 const camera = new T.PerspectiveCamera(45, 9 / 16, .3, 900);   // near 0.3 (A1): more depth precision for the ground layers
 let world = null, look = null;
 if (spec.world) {
-  look = createLook(scene, renderer);
-  world = (await import(new URL('../' + spec.world, import.meta.url).href)).build(scene, {P, B, A, M, PR});
+  const mod = await import(new URL('../' + spec.world, import.meta.url).href);
+  // A4: a world opts into the v3 look by exporting LOOK (an object, or a function of the spec); "Nobody" does not
+  const lk = typeof mod.LOOK === 'function' ? mod.LOOK(spec) : mod.LOOK;
+  look = lk ? createLookV3(scene, renderer, {...lk, onEnv: tex => M.setEnvMap(tex, lk.envIntensity ?? .45)}) : createLook(scene, renderer);
+  world = mod.build(scene, {P, B, A, M, PR, TR, BI, V, W, look, spec});
 } else {
   scene.background = new T.Color('#8fc8ff'); scene.fog = new T.Fog('#8fc8ff', 60, 140);
   scene.add(new T.HemisphereLight('#dfefff', '#6b8f4e', 1.1));
@@ -85,6 +92,13 @@ for (const [name, c] of Object.entries(spec.cast ?? {})) {
   else { const a = createBaseAvatar({color: c.color ?? 0xf2c94c}); scene.add(a.root); cast[name] = {a, c}; }
 }
 if (Object.values(cast).some(x => x.v2)) await loadFont();
+// A4 night "actor lift" (opt-in spec.actorLift, v3 looks only): plastic avatars get a small self-light (emissive = their
+// own colour / texture × k) so they stay the highest-contrast thing in a dark frame. Faces (MeshBasic) are untouched.
+if (look?.v3 && spec.actorLift) {
+  const k = spec.actorLift, seen = new Set();
+  for (const {a, v2} of Object.values(cast)) if (v2) a.root.traverse(o => { if (!o.isMesh || seen.has(o.material) || o.material.isMeshBasicMaterial || !o.material.emissive) return; const m = o.material; seen.add(m);
+    if (m.map) { m.emissiveMap = m.map; m.emissive.setRGB(k, k, k); } else if (m.vertexColors) m.emissive.setRGB(k * .5, k * .45, k * .4); else m.emissive.copy(m.color).multiplyScalar(k); m.needsUpdate = true; });
+}
 const markPos = {};
 function poseCast(t) {
   const out = {};
