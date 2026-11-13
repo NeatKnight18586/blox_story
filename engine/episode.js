@@ -263,4 +263,4 @@ export function inspectFrame(n, width = 540, height = 960) {
 }
 export function shotSpeed(i) { const s = shots[i]; return maxTargetSpeed({...s, fps: FPS, openHit: false}, tt => poseCast(s.start / FPS + tt), FPS); }
 
-window.__episode = {breakdown, inspectFrame, shotSpeed, END: FRAMES / FPS, anchors: Object.fromEntries(Object.entries(anchors).filter(([, a]) => a.camera).map(([k]) => [k, true])), renderAnchor, renderAnchorNudged, renderCamera, FPS, FRAMES, shots: shots.map(({id, start, frames, size, move, loc, subject, see, openHit, at, why, captionY}) => ({id, start, frames, size, move, loc, subject, see, openHit: !!openHit, at, why, captionY})), renderFrame};
+window.__episode = {debug: {scene, renderer}, breakdown, inspectFrame, shotSpeed, END: FRAMES / FPS, anchors: Object.fromEntries(Object.entries(anchors).filter(([, a]) => a.camera).map(([k]) => [k, true])), renderAnchor, renderAnchorNudged, renderCamera, FPS, FRAMES, shots: shots.map(({id, start, frames, size, move, loc, subject, see, openHit, at, why, captionY}) => ({id, start, frames, size, move, loc, subject, see, openHit: !!openHit, at, why, captionY})), renderFrame};
