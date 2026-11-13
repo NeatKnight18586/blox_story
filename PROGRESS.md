@@ -341,7 +341,7 @@ Also built: `render.js --final` (1440×2560, AA). `scripts/v2/qc.py` (`npm run v
   - The demo started at 0.865 s/frame. Profiling showed the terrain splat cost ~0.45 s, and 8× anisotropic filtering on six fetches was the main cause.
 - **Stability:** PASS on the demo (worst 0.082 %), egg (0.025 %) and ragdoll (0.049 %).
 - **Tests:** `v2:test` 58 Node + 30 Python, `npm test` exit 0.
-- **"Nobody" unchanged:** 11 frames re-rendered at 1440 are byte-identical to the A3 master. This was also the determinism spot check.
+- **"Nobody" unchanged:** 11 frames re-rendered at 1440 are byte-identical to the A3 master. This was also the determinism spot check. Nobody bench (v2 budget) PASS: 37,609 tris, 0.324 s/frame.
 - **Rubrics** (the brief caps each at 3 fix passes; scores here are after the final pass):
   - **Look:** egg 4/4/4/4/4 (pass 2 added two real point lights, gardens, the moon in frame and a brighter cloudtop); ragdoll 4/4/4/4/4. Item 5, motion, shows in `tools-demo.mp4` (river flow, grass and tree sway).
   - **Hair** (pass 3): 4/4/4/4/4. Pass 1 had an inverted cap and paper-thin locks; pass 2 had cap z-fighting stripes and floating buns.
