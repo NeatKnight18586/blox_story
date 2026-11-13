@@ -263,3 +263,9 @@ Also built: `render.js --final` (1440×2560, AA). `scripts/v2/qc.py` (`npm run v
 - **Intro rubric (pass 2 of ≤ 3).** Frame 0 readable + exciting muted 4 · class names readable on their word 5 (wave mini cards 4) · six classes distinct by sword/colour/outfit 4 (Smith and Farmer only in the wave) · reveal reads as a transformation 4 · hero's dull sword contrasts 4 (in the wave he is tiny and hard to find, as briefed) · nothing cut off / under captions 4 · no flicker 5 (stability 0.284 %). Pass 1 fixes (low-res sheets): Knight card covered the hero's tag (camera aim), kid tags under cards, cards over raised blades (`cardDx`), King beat camera inside the stone, wave kids at the frame edge, hook kids cluttering S04. Pass 2: a neighbour's Nobody tag cut at the Baker beat's edge (beat kids' tags hide from 14.0 s).
 - **Open.** Mean shot 2.10 s (warning only, from the 4 beat shots). Later shots (C5) checked only on a low-res sheet; full 1440 re-render, `v2:qc`, prerelease, `DELIVERY.md`/`final-review.mp4`, CLAUDE.md library lines wait for "finish A3".
 - **Gate (2026-11-13): owner approved the A3 intro preview ("Approve").** Next session: "finish A3" (E4) — full 1440 re-render (local cache or farm), `v2:qc`, new prerelease, `DELIVERY.md` + `final-review.mp4`, CLAUDE.md library lines.
+
+## Session 7b: finish A3 (E4) — plan
+1. Farm: `stories/nobody/render.request` → `final` without `reuse-run` (frames changed) → 6 shards at 1440 + assemble + `v2:qc` → prerelease `nobody-<sha>`.
+2. In parallel, local: `render.js --final` into `renders/v2/a3intro` (0–22 s already cached) → full captions → `assemble.py` (hold, master + `final-review.mp4` proxy ≤ 45 MB) → `v2:qc` PASS → send the master directly.
+3. Low-res check of the C5 later shots at full res via a 1 fps sheet; 10-frame determinism spot check.
+4. `DELIVERY.md` (new prerelease + local master numbers), CLAUDE.md library lines (class swords, cards, classReveal, beat flag, kit/introStones), PR #54, stop.
