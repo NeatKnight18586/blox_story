@@ -8,14 +8,12 @@
  "worst": {
   "view": "S15-need-a-hand:mid",
   "frame": 914,
-  "pct": 0.304,
+  "pct": 0.296,
   "raw": 1.233
  },
- "failing": [
-  "S15-need-a-hand:mid"
- ],
+ "failing": [],
  "errors": [],
- "result": "FAIL",
+ "result": "PASS",
  "rows": [
   {
    "view": "@heroStone",
@@ -74,8 +72,8 @@
   {
    "view": "S01-hook:last",
    "frame": 103,
-   "pct": 0.161,
-   "raw": 0.416
+   "pct": 0.157,
+   "raw": 0.413
   },
   {
    "view": "S02-boy-twelve:first",
@@ -339,37 +337,37 @@
    "view": "S14-game:mid",
    "frame": 849,
    "pct": 0.008,
-   "raw": 0.198
+   "raw": 0.188
   },
   {
    "view": "S14-game:last",
    "frame": 874,
-   "pct": 0.03,
-   "raw": 0.231
+   "pct": 0.023,
+   "raw": 0.22
   },
   {
    "view": "S15-need-a-hand:first",
    "frame": 875,
-   "pct": 0.081,
-   "raw": 0.583
+   "pct": 0.088,
+   "raw": 0.577
   },
   {
    "view": "S15-need-a-hand:mid",
    "frame": 914,
-   "pct": 0.304,
+   "pct": 0.296,
    "raw": 1.233
   },
   {
    "view": "S15-need-a-hand:last",
    "frame": 953,
-   "pct": 0.132,
-   "raw": 0.707
+   "pct": 0.129,
+   "raw": 0.677
   },
   {
    "view": "S17-came-back:first",
    "frame": 954,
    "pct": 0.073,
-   "raw": 0.35
+   "raw": 0.351
   },
   {
    "view": "S17-came-back:mid",
@@ -441,7 +439,7 @@
    "view": "S21-leave-forever:first",
    "frame": 1204,
    "pct": 0.046,
-   "raw": 0.611
+   "raw": 0.609
   },
   {
    "view": "S21-leave-forever:mid",
@@ -1070,20 +1068,20 @@
   {
    "view": "S58-everyone-nobody:first",
    "frame": 3570,
-   "pct": 0.059,
-   "raw": 0.34
+   "pct": 0.06,
+   "raw": 0.343
   },
   {
    "view": "S58-everyone-nobody:mid",
    "frame": 3622,
-   "pct": 0.046,
-   "raw": 0.251
+   "pct": 0.051,
+   "raw": 0.243
   },
   {
    "view": "S58-everyone-nobody:last",
    "frame": 3674,
-   "pct": 0.033,
-   "raw": 0.193
+   "pct": 0.026,
+   "raw": 0.18
   }
  ]
 }

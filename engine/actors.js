@@ -66,7 +66,7 @@ export function driveActor(a, t, {keys, faces, tags, origin = {position: [0, 0, 
   return a;
 }
 // How far a kit hat's crown rises above the name tag's normal height (world units at actor scale 1).
-const KIT_LIFT = {chefHat: .62, featherCap: .25};
+const KIT_LIFT = {chefHat: .5, featherCap: .25};
 // Accessory timeline `kit` (A3): [[t0, [names]]] — every named accessory is built once and shown or hidden; the preset's own
 // accessories are untouched. A pop-on lands with a quick scale-in (pure in the frame count).
 function setAccessories(a, names) {
