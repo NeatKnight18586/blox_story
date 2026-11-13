@@ -269,3 +269,28 @@ Also built: `render.js --final` (1440×2560, AA). `scripts/v2/qc.py` (`npm run v
 2. In parallel, local: `render.js --final` into `renders/v2/a3intro` (0–22 s already cached) → full captions → `assemble.py` (hold, master + `final-review.mp4` proxy ≤ 45 MB) → `v2:qc` PASS → send the master directly.
 3. Low-res check of the C5 later shots at full res via a 1 fps sheet; 10-frame determinism spot check.
 4. `DELIVERY.md` (new prerelease + local master numbers), CLAUDE.md library lines (class swords, cards, classReveal, beat flag, kit/introStones), PR #54, stop.
+
+## Session 7b: finish A3 (E4) — report
+- **Built:** the CLAUDE.md library lines (class swords + `CLASSES`, chefHat/featherCap/goggles, `class:<cls>` tools, class card, `kit` timeline, pillar/ring/halo/morph/card effects + presets, `classReveal`, `beat`).
+  - The tag lift: `KIT_LIFT` in `engine/actors.js` raises the name tag above tall class hats (chefHat 0.5, featherCap 0.25).
+  - The first full render showed the chef hat poking through the final shot's flipped "Nobody" tag.
+- **Gates:**
+  - `v2:test` 44 Node + 30 Python pass; `npm test` green;
+  - `v2:plan` exit 0 (warning: mean shot 2.10 s);
+  - `v2:stability` PASS (worst S15 0.296 %).
+- **Full 1440 render:** 3675 frames, 66.1 min, 2.92 s/frame.
+- **Assemble:** master 251.4 MB, CRF 14, 16.15 Mb/s, −14.0 LUFS, TP −1.5; proxy 41.1 MB.
+- **`v2:qc` PASS:** SSIM ≥ 0.9908, PSNR ≥ 47.29, sharpness ≥ 1.617, stone ΔE ≤ 4.1.
+- **Sent:** the master directly to the owner.
+- **Farm:** run 6 (3960d2b) → prerelease `nobody-3960d2b`.
+- **Commands:**
+  - `node scripts/v2/render.js --spec stories/nobody/episode.json --out renders/v2/a3intro --final --workers 3`
+  - `python3 scripts/v2/assemble.py --story nobody --frames renders/v2/a3intro/frames --captions renders/v2/a3intro/captions-full.ass --out renders/v2/deliver/nobody-a3-master.mp4 --proxy review/nobody/final-review.mp4`
+  - `npm run v2:qc -- --story nobody --video renders/v2/deliver/nobody-a3-master.mp4 --frames renders/v2/a3intro/frames`
+- **Decisions:**
+  - chefHat lift: 0.62 failed stability (S15 0.304 %); 0.5 passes.
+  - The chat bubble is not lifted, because lifting it pushed "Need a hand?" out of frame.
+  - Determinism spot check: 1–3 px per frame differ by 1/255 at the King card's edge (history-dependent texture upload). Accepted; it is invisible.
+  - The A2 frame cache (`renders/v2/final1440`) was deleted. `qc.py` therefore needs `--frames` pointed at the new frames dir.
+  - Farm runs 4 (48a521b) and 5 (1537177) were cancelled: they were superseded by the tag-lift fix. Run 5 was pushed by a `&&` chain that piped through `tail`, so the stability failure did not stop it.
+- **Open (accepted):** in the final shot's lift pose, the kids' class swords are held in data but hidden behind their stones. Showing them needs restaging after 18.53 s, which is out of A3 scope.
