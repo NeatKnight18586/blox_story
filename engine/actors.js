@@ -57,12 +57,16 @@ export function driveActor(a, t, {keys, faces, tags, origin = {position: [0, 0, 
     else setTag(a, null, null);
   }
   if (kit) setAccessories(a, step(kit, t) ?? []);
+  const lift = kit ? Math.max(0, ...(step(kit, t) ?? []).map(n => KIT_LIFT[n] ?? 0)) : 0;   // tall class hats push the tag up
+  if (a.tag) a.tag.position.y = 5.75 + lift;
   if (tools) setTool(a, step(tools, t), 'right');
   if (toolsLeft) setTool(a, step(toolsLeft, t), 'left');
   if (stat) { let cur = null; for (const k of stat) if (t >= k[0]) cur = k; setOverlay(a, 'stat', cur?.[1] ? sprite(a, `s:${cur.slice(1).join('|')}`, () => statSprite(cur[1], cur[2], {label: cur[3] ?? ''})) : null, [0, 6.6, 0]); }
   if (bubble) { const txt = step(bubble, t); setOverlay(a, 'bubble', txt ? sprite(a, 'b:' + txt, () => bubbleSprite(txt)) : null, [0, 7.0, 0]); }
   return a;
 }
+// How far a kit hat's crown rises above the name tag's normal height (world units at actor scale 1).
+const KIT_LIFT = {chefHat: .62, featherCap: .25};
 // Accessory timeline `kit` (A3): [[t0, [names]]] — every named accessory is built once and shown or hidden; the preset's own
 // accessories are untouched. A pop-on lands with a quick scale-in (pure in the frame count).
 function setAccessories(a, names) {

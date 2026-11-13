@@ -6,14 +6,16 @@
  "limit": 0.3,
  "views": 178,
  "worst": {
-  "view": "S07b-knight:first",
-  "frame": 460,
-  "pct": 0.284,
-  "raw": 0.927
+  "view": "S15-need-a-hand:mid",
+  "frame": 914,
+  "pct": 0.304,
+  "raw": 1.233
  },
- "failing": [],
+ "failing": [
+  "S15-need-a-hand:mid"
+ ],
  "errors": [],
- "result": "PASS",
+ "result": "FAIL",
  "rows": [
   {
    "view": "@heroStone",
@@ -72,8 +74,8 @@
   {
    "view": "S01-hook:last",
    "frame": 103,
-   "pct": 0.166,
-   "raw": 0.424
+   "pct": 0.161,
+   "raw": 0.416
   },
   {
    "view": "S02-boy-twelve:first",
@@ -336,38 +338,38 @@
   {
    "view": "S14-game:mid",
    "frame": 849,
-   "pct": 0.009,
-   "raw": 0.191
+   "pct": 0.008,
+   "raw": 0.198
   },
   {
    "view": "S14-game:last",
    "frame": 874,
-   "pct": 0.02,
-   "raw": 0.204
+   "pct": 0.03,
+   "raw": 0.231
   },
   {
    "view": "S15-need-a-hand:first",
    "frame": 875,
-   "pct": 0.053,
-   "raw": 0.43
+   "pct": 0.081,
+   "raw": 0.583
   },
   {
    "view": "S15-need-a-hand:mid",
    "frame": 914,
-   "pct": 0.266,
-   "raw": 1.078
+   "pct": 0.304,
+   "raw": 1.233
   },
   {
    "view": "S15-need-a-hand:last",
    "frame": 953,
-   "pct": 0.087,
-   "raw": 0.498
+   "pct": 0.132,
+   "raw": 0.707
   },
   {
    "view": "S17-came-back:first",
    "frame": 954,
    "pct": 0.073,
-   "raw": 0.345
+   "raw": 0.35
   },
   {
    "view": "S17-came-back:mid",
@@ -439,7 +441,7 @@
    "view": "S21-leave-forever:first",
    "frame": 1204,
    "pct": 0.046,
-   "raw": 0.608
+   "raw": 0.611
   },
   {
    "view": "S21-leave-forever:mid",
@@ -1068,20 +1070,20 @@
   {
    "view": "S58-everyone-nobody:first",
    "frame": 3570,
-   "pct": 0.049,
-   "raw": 0.286
+   "pct": 0.059,
+   "raw": 0.34
   },
   {
    "view": "S58-everyone-nobody:mid",
    "frame": 3622,
-   "pct": 0.04,
-   "raw": 0.234
+   "pct": 0.046,
+   "raw": 0.251
   },
   {
    "view": "S58-everyone-nobody:last",
    "frame": 3674,
-   "pct": 0.027,
-   "raw": 0.184
+   "pct": 0.033,
+   "raw": 0.193
   }
  ]
 }
