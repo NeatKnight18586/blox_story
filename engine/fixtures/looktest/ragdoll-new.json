@@ -1,0 +1,104 @@
+{
+ "slug": "looktest-ragdoll-new",
+ "fps": 30,
+ "kit": "new",
+ "note": "A4 look test: ragdoll hill street (alpine)",
+ "world": "engine/fixtures/looktest/ragdoll.js",
+ "castFile": "engine/fixtures/v2-cast.json",
+ "cast": {
+  "stan": {
+   "style": "v2",
+   "preset": "pip",
+   "at": "bottom",
+   "offset": [
+    1,
+    0,
+    -2
+   ],
+   "yaw": 20,
+   "keys": [
+    [
+     0,
+     "idle"
+    ]
+   ]
+  },
+  "f1": {
+   "style": "v2",
+   "town": 2,
+   "at": "bottom",
+   "offset": [
+    -4,
+    0,
+    -12
+   ],
+   "yaw": 30,
+   "keys": [
+    [
+     0,
+     "fall"
+    ]
+   ]
+  },
+  "f2": {
+   "style": "v2",
+   "town": 5,
+   "at": "street",
+   "offset": [
+    5,
+    0,
+    -10
+   ],
+   "yaw": 160,
+   "keys": [
+    [
+     0,
+     "trip"
+    ]
+   ]
+  },
+  "f3": {
+   "style": "v2",
+   "town": 8,
+   "at": "street",
+   "offset": [
+    -4,
+    0,
+    -6
+   ],
+   "yaw": 0,
+   "keys": [
+    [
+     0,
+     "sit"
+    ]
+   ]
+  }
+ },
+ "shots": [
+  {
+   "id": "bottom",
+   "size": "wide",
+   "frames": 8,
+   "anchor": "bottom",
+   "look": "day",
+   "shadowRadius": 60
+  },
+  {
+   "id": "street",
+   "size": "medium",
+   "frames": 8,
+   "anchor": "street",
+   "look": "day",
+   "shadowRadius": 30
+  },
+  {
+   "id": "wide",
+   "size": "wide",
+   "frames": 8,
+   "anchor": "wide",
+   "look": "day",
+   "shadowRadius": 110
+  }
+ ]
+}
