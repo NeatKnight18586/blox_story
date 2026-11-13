@@ -1,0 +1,2581 @@
+{
+ "story": "egg",
+ "audio": "voice.flac",
+ "duration": 143.54575,
+ "method": "sherpa-onnx zipformer-small-en + script DP + silence snap (scripts/v2/align.py)",
+ "lines": [
+  {
+   "line": 1,
+   "text": "In this town, everybody steals eggs.",
+   "start": 0.0,
+   "end": 2.161,
+   "words": [
+    {
+     "w": "In",
+     "start": 0.0,
+     "end": 0.16
+    },
+    {
+     "w": "this",
+     "start": 0.16,
+     "end": 0.36
+    },
+    {
+     "w": "town",
+     "start": 0.36,
+     "end": 0.735
+    },
+    {
+     "w": "everybody",
+     "start": 0.993,
+     "end": 1.48
+    },
+    {
+     "w": "steals",
+     "start": 1.48,
+     "end": 1.88
+    },
+    {
+     "w": "eggs",
+     "start": 1.88,
+     "end": 2.161
+    }
+   ]
+  },
+  {
+   "line": 2,
+   "text": "And there's only one rule. Never hold one at midnight.",
+   "start": 2.521,
+   "end": 5.65,
+   "words": [
+    {
+     "w": "And",
+     "start": 2.521,
+     "end": 2.541
+    },
+    {
+     "w": "there's",
+     "start": 2.541,
+     "end": 2.72
+    },
+    {
+     "w": "only",
+     "start": 2.72,
+     "end": 3.04
+    },
+    {
+     "w": "one",
+     "start": 3.04,
+     "end": 3.32
+    },
+    {
+     "w": "rule",
+     "start": 3.32,
+     "end": 3.616
+    },
+    {
+     "w": "Never",
+     "start": 4.0,
+     "end": 4.32
+    },
+    {
+     "w": "hold",
+     "start": 4.32,
+     "end": 4.64
+    },
+    {
+     "w": "one",
+     "start": 4.64,
+     "end": 4.92
+    },
+    {
+     "w": "at",
+     "start": 4.92,
+     "end": 5.12
+    },
+    {
+     "w": "midnight",
+     "start": 5.12,
+     "end": 5.65
+    }
+   ]
+  },
+  {
+   "line": 3,
+   "text": "Every kid has a base. Every base has a nest.",
+   "start": 6.242,
+   "end": 8.762,
+   "words": [
+    {
+     "w": "Every",
+     "start": 6.242,
+     "end": 6.4
+    },
+    {
+     "w": "kid",
+     "start": 6.4,
+     "end": 6.68
+    },
+    {
+     "w": "has",
+     "start": 6.68,
+     "end": 6.84
+    },
+    {
+     "w": "a",
+     "start": 6.84,
+     "end": 6.96
+    },
+    {
+     "w": "base",
+     "start": 6.96,
+     "end": 7.316
+    },
+    {
+     "w": "Every",
+     "start": 7.589,
+     "end": 7.8
+    },
+    {
+     "w": "base",
+     "start": 7.8,
+     "end": 8.12
+    },
+    {
+     "w": "has",
+     "start": 8.12,
+     "end": 8.28
+    },
+    {
+     "w": "a",
+     "start": 8.28,
+     "end": 8.44
+    },
+    {
+     "w": "nest",
+     "start": 8.44,
+     "end": 8.762
+    }
+   ]
+  },
+  {
+   "line": 4,
+   "text": "Grab an egg. Run. Lock your door for sixty seconds.",
+   "start": 9.12,
+   "end": 11.913,
+   "words": [
+    {
+     "w": "Grab",
+     "start": 9.12,
+     "end": 9.28
+    },
+    {
+     "w": "an",
+     "start": 9.28,
+     "end": 9.44
+    },
+    {
+     "w": "egg",
+     "start": 9.44,
+     "end": 9.8
+    },
+    {
+     "w": "Run",
+     "start": 9.8,
+     "end": 10.127
+    },
+    {
+     "w": "Lock",
+     "start": 10.452,
+     "end": 10.56
+    },
+    {
+     "w": "your",
+     "start": 10.56,
+     "end": 10.76
+    },
+    {
+     "w": "door",
+     "start": 10.76,
+     "end": 10.96
+    },
+    {
+     "w": "for",
+     "start": 10.96,
+     "end": 11.16
+    },
+    {
+     "w": "sixty",
+     "start": 11.16,
+     "end": 11.52
+    },
+    {
+     "w": "seconds",
+     "start": 11.52,
+     "end": 11.913
+    }
+   ]
+  },
+  {
+   "line": 5,
+   "text": "Then somebody steals it right back.",
+   "start": 12.204,
+   "end": 13.644,
+   "words": [
+    {
+     "w": "Then",
+     "start": 12.204,
+     "end": 12.24
+    },
+    {
+     "w": "somebody",
+     "start": 12.24,
+     "end": 12.68
+    },
+    {
+     "w": "steals",
+     "start": 12.68,
+     "end": 13.0
+    },
+    {
+     "w": "it",
+     "start": 13.0,
+     "end": 13.12
+    },
+    {
+     "w": "right",
+     "start": 13.12,
+     "end": 13.4
+    },
+    {
+     "w": "back",
+     "start": 13.4,
+     "end": 13.644
+    }
+   ]
+  },
+  {
+   "line": 6,
+   "text": "There's a scoreboard on the town hall. Most eggs wins.",
+   "start": 14.147,
+   "end": 17.015,
+   "words": [
+    {
+     "w": "There's",
+     "start": 14.147,
+     "end": 14.2
+    },
+    {
+     "w": "a",
+     "start": 14.2,
+     "end": 14.6
+    },
+    {
+     "w": "scoreboard",
+     "start": 14.6,
+     "end": 14.84
+    },
+    {
+     "w": "on",
+     "start": 14.84,
+     "end": 14.92
+    },
+    {
+     "w": "the",
+     "start": 14.92,
+     "end": 15.04
+    },
+    {
+     "w": "town",
+     "start": 15.04,
+     "end": 15.36
+    },
+    {
+     "w": "hall",
+     "start": 15.36,
+     "end": 15.592
+    },
+    {
+     "w": "Most",
+     "start": 15.897,
+     "end": 16.16
+    },
+    {
+     "w": "eggs",
+     "start": 16.16,
+     "end": 16.6
+    },
+    {
+     "w": "wins",
+     "start": 16.6,
+     "end": 17.015
+    }
+   ]
+  },
+  {
+   "line": 7,
+   "text": "Grandmas play. Mailmen play. The mayor plays in a ski mask.",
+   "start": 17.349,
+   "end": 20.841,
+   "words": [
+    {
+     "w": "Grandmas",
+     "start": 17.349,
+     "end": 17.84
+    },
+    {
+     "w": "play",
+     "start": 17.84,
+     "end": 18.52
+    },
+    {
+     "w": "Mailmen",
+     "start": 18.52,
+     "end": 18.8
+    },
+    {
+     "w": "play",
+     "start": 18.8,
+     "end": 19.117
+    },
+    {
+     "w": "The",
+     "start": 19.36,
+     "end": 19.4
+    },
+    {
+     "w": "mayor",
+     "start": 19.4,
+     "end": 19.72
+    },
+    {
+     "w": "plays",
+     "start": 19.72,
+     "end": 20.0
+    },
+    {
+     "w": "in",
+     "start": 20.0,
+     "end": 20.12
+    },
+    {
+     "w": "a",
+     "start": 20.12,
+     "end": 20.24
+    },
+    {
+     "w": "ski",
+     "start": 20.24,
+     "end": 20.48
+    },
+    {
+     "w": "mask",
+     "start": 20.48,
+     "end": 20.841
+    }
+   ]
+  },
+  {
+   "line": 8,
+   "text": "And at one minute to midnight, the whole town plays hot potato.",
+   "start": 21.134,
+   "end": 24.141,
+   "words": [
+    {
+     "w": "And",
+     "start": 21.134,
+     "end": 21.154
+    },
+    {
+     "w": "at",
+     "start": 21.154,
+     "end": 21.28
+    },
+    {
+     "w": "one",
+     "start": 21.28,
+     "end": 21.48
+    },
+    {
+     "w": "minute",
+     "start": 21.48,
+     "end": 21.72
+    },
+    {
+     "w": "to",
+     "start": 21.72,
+     "end": 21.88
+    },
+    {
+     "w": "midnight",
+     "start": 21.88,
+     "end": 22.257
+    },
+    {
+     "w": "the",
+     "start": 22.482,
+     "end": 22.6
+    },
+    {
+     "w": "whole",
+     "start": 22.6,
+     "end": 22.88
+    },
+    {
+     "w": "town",
+     "start": 22.88,
+     "end": 23.2
+    },
+    {
+     "w": "plays",
+     "start": 23.2,
+     "end": 23.52
+    },
+    {
+     "w": "hot",
+     "start": 23.52,
+     "end": 23.72
+    },
+    {
+     "w": "potato",
+     "start": 23.72,
+     "end": 24.141
+    }
+   ]
+  },
+  {
+   "line": 9,
+   "text": "Because whoever is holding an egg at midnight is gone by morning.",
+   "start": 24.544,
+   "end": 27.6,
+   "words": [
+    {
+     "w": "Because",
+     "start": 24.544,
+     "end": 24.68
+    },
+    {
+     "w": "whoever",
+     "start": 24.68,
+     "end": 25.0
+    },
+    {
+     "w": "is",
+     "start": 25.0,
+     "end": 25.12
+    },
+    {
+     "w": "holding",
+     "start": 25.12,
+     "end": 25.4
+    },
+    {
+     "w": "an",
+     "start": 25.4,
+     "end": 25.52
+    },
+    {
+     "w": "egg",
+     "start": 25.52,
+     "end": 25.72
+    },
+    {
+     "w": "at",
+     "start": 25.72,
+     "end": 25.88
+    },
+    {
+     "w": "midnight",
+     "start": 25.88,
+     "end": 26.259
+    },
+    {
+     "w": "is",
+     "start": 26.461,
+     "end": 26.68
+    },
+    {
+     "w": "gone",
+     "start": 26.68,
+     "end": 27.04
+    },
+    {
+     "w": "by",
+     "start": 27.04,
+     "end": 27.28
+    },
+    {
+     "w": "morning",
+     "start": 27.28,
+     "end": 27.6
+    }
+   ]
+  },
+  {
+   "line": 10,
+   "text": "Then there's Kit.",
+   "start": 28.335,
+   "end": 29.057,
+   "words": [
+    {
+     "w": "Then",
+     "start": 28.335,
+     "end": 28.4
+    },
+    {
+     "w": "there's",
+     "start": 28.4,
+     "end": 28.8
+    },
+    {
+     "w": "Kit",
+     "start": 28.8,
+     "end": 29.057
+    }
+   ]
+  },
+  {
+   "line": 11,
+   "text": "Kit is eleven. And Kit has never stolen anything.",
+   "start": 29.469,
+   "end": 32.468,
+   "words": [
+    {
+     "w": "Kit",
+     "start": 29.469,
+     "end": 29.68
+    },
+    {
+     "w": "is",
+     "start": 29.68,
+     "end": 29.88
+    },
+    {
+     "w": "eleven",
+     "start": 29.88,
+     "end": 30.311
+    },
+    {
+     "w": "And",
+     "start": 30.596,
+     "end": 30.68
+    },
+    {
+     "w": "Kit",
+     "start": 30.68,
+     "end": 30.96
+    },
+    {
+     "w": "has",
+     "start": 30.96,
+     "end": 31.16
+    },
+    {
+     "w": "never",
+     "start": 31.16,
+     "end": 31.52
+    },
+    {
+     "w": "stolen",
+     "start": 31.52,
+     "end": 32.0
+    },
+    {
+     "w": "anything",
+     "start": 32.0,
+     "end": 32.468
+    }
+   ]
+  },
+  {
+   "line": 12,
+   "text": "She found an egg once. She returned it. With a sorry note.",
+   "start": 32.859,
+   "end": 35.877,
+   "words": [
+    {
+     "w": "She",
+     "start": 32.859,
+     "end": 32.92
+    },
+    {
+     "w": "found",
+     "start": 32.92,
+     "end": 33.16
+    },
+    {
+     "w": "an",
+     "start": 33.16,
+     "end": 33.32
+    },
+    {
+     "w": "egg",
+     "start": 33.32,
+     "end": 33.6
+    },
+    {
+     "w": "once",
+     "start": 33.6,
+     "end": 33.889
+    },
+    {
+     "w": "She",
+     "start": 34.123,
+     "end": 34.2
+    },
+    {
+     "w": "returned",
+     "start": 34.2,
+     "end": 34.64
+    },
+    {
+     "w": "it",
+     "start": 34.64,
+     "end": 34.719
+    },
+    {
+     "w": "With",
+     "start": 35.016,
+     "end": 35.04
+    },
+    {
+     "w": "a",
+     "start": 35.04,
+     "end": 35.16
+    },
+    {
+     "w": "sorry",
+     "start": 35.16,
+     "end": 35.6
+    },
+    {
+     "w": "note",
+     "start": 35.6,
+     "end": 35.877
+    }
+   ]
+  },
+  {
+   "line": 13,
+   "text": "Her score is zero. It has always been zero.",
+   "start": 36.276,
+   "end": 39.013,
+   "words": [
+    {
+     "w": "Her",
+     "start": 36.276,
+     "end": 36.36
+    },
+    {
+     "w": "score",
+     "start": 36.36,
+     "end": 36.58
+    },
+    {
+     "w": "is",
+     "start": 36.58,
+     "end": 36.8
+    },
+    {
+     "w": "zero",
+     "start": 36.8,
+     "end": 37.439
+    },
+    {
+     "w": "It",
+     "start": 37.81,
+     "end": 37.83
+    },
+    {
+     "w": "has",
+     "start": 37.83,
+     "end": 38.04
+    },
+    {
+     "w": "always",
+     "start": 38.04,
+     "end": 38.22
+    },
+    {
+     "w": "been",
+     "start": 38.22,
+     "end": 38.4
+    },
+    {
+     "w": "zero",
+     "start": 38.4,
+     "end": 39.013
+    }
+   ]
+  },
+  {
+   "line": 14,
+   "text": "Her big brother Dax is number one. Two hundred eggs.",
+   "start": 39.531,
+   "end": 42.554,
+   "words": [
+    {
+     "w": "Her",
+     "start": 39.531,
+     "end": 39.551
+    },
+    {
+     "w": "big",
+     "start": 39.551,
+     "end": 39.76
+    },
+    {
+     "w": "brother",
+     "start": 39.76,
+     "end": 39.973
+    },
+    {
+     "w": "Dax",
+     "start": 39.973,
+     "end": 40.187
+    },
+    {
+     "w": "is",
+     "start": 40.187,
+     "end": 40.4
+    },
+    {
+     "w": "number",
+     "start": 40.4,
+     "end": 40.88
+    },
+    {
+     "w": "one",
+     "start": 40.88,
+     "end": 41.098
+    },
+    {
+     "w": "Two",
+     "start": 41.426,
+     "end": 41.64
+    },
+    {
+     "w": "hundred",
+     "start": 41.64,
+     "end": 42.16
+    },
+    {
+     "w": "eggs",
+     "start": 42.16,
+     "end": 42.554
+    }
+   ]
+  },
+  {
+   "line": 15,
+   "text": "He calls her the slowest thief alive.",
+   "start": 42.941,
+   "end": 44.736,
+   "words": [
+    {
+     "w": "He",
+     "start": 42.941,
+     "end": 42.961
+    },
+    {
+     "w": "calls",
+     "start": 42.961,
+     "end": 43.24
+    },
+    {
+     "w": "her",
+     "start": 43.24,
+     "end": 43.36
+    },
+    {
+     "w": "the",
+     "start": 43.36,
+     "end": 43.52
+    },
+    {
+     "w": "slowest",
+     "start": 43.52,
+     "end": 44.0
+    },
+    {
+     "w": "thief",
+     "start": 44.0,
+     "end": 44.28
+    },
+    {
+     "w": "alive",
+     "start": 44.28,
+     "end": 44.736
+    }
+   ]
+  },
+  {
+   "line": 16,
+   "text": "She isn't slow. She just keeps saying excuse me.",
+   "start": 45.146,
+   "end": 47.867,
+   "words": [
+    {
+     "w": "She",
+     "start": 45.146,
+     "end": 45.166
+    },
+    {
+     "w": "isn't",
+     "start": 45.166,
+     "end": 45.52
+    },
+    {
+     "w": "slow",
+     "start": 45.52,
+     "end": 45.959
+    },
+    {
+     "w": "She",
+     "start": 46.183,
+     "end": 46.24
+    },
+    {
+     "w": "just",
+     "start": 46.24,
+     "end": 46.44
+    },
+    {
+     "w": "keeps",
+     "start": 46.44,
+     "end": 46.72
+    },
+    {
+     "w": "saying",
+     "start": 46.72,
+     "end": 47.04
+    },
+    {
+     "w": "excuse",
+     "start": 47.04,
+     "end": 47.64
+    },
+    {
+     "w": "me",
+     "start": 47.64,
+     "end": 47.867
+    }
+   ]
+  },
+  {
+   "line": 17,
+   "text": "But Kit notices things. Running kids don't.",
+   "start": 48.367,
+   "end": 50.843,
+   "words": [
+    {
+     "w": "But",
+     "start": 48.367,
+     "end": 48.44
+    },
+    {
+     "w": "Kit",
+     "start": 48.44,
+     "end": 48.68
+    },
+    {
+     "w": "notices",
+     "start": 48.68,
+     "end": 49.24
+    },
+    {
+     "w": "things",
+     "start": 49.24,
+     "end": 49.551
+    },
+    {
+     "w": "Running",
+     "start": 49.877,
+     "end": 50.16
+    },
+    {
+     "w": "kids",
+     "start": 50.16,
+     "end": 50.52
+    },
+    {
+     "w": "don't",
+     "start": 50.52,
+     "end": 50.843
+    }
+   ]
+  },
+  {
+   "line": 18,
+   "text": "The town is full of eggs. But nobody has ever seen a bird.",
+   "start": 51.345,
+   "end": 54.471,
+   "words": [
+    {
+     "w": "The",
+     "start": 51.345,
+     "end": 51.365
+    },
+    {
+     "w": "town",
+     "start": 51.365,
+     "end": 51.68
+    },
+    {
+     "w": "is",
+     "start": 51.68,
+     "end": 51.88
+    },
+    {
+     "w": "full",
+     "start": 51.88,
+     "end": 52.12
+    },
+    {
+     "w": "of",
+     "start": 52.12,
+     "end": 52.28
+    },
+    {
+     "w": "eggs",
+     "start": 52.28,
+     "end": 52.612
+    },
+    {
+     "w": "But",
+     "start": 52.89,
+     "end": 52.91
+    },
+    {
+     "w": "nobody",
+     "start": 52.91,
+     "end": 53.4
+    },
+    {
+     "w": "has",
+     "start": 53.4,
+     "end": 53.56
+    },
+    {
+     "w": "ever",
+     "start": 53.56,
+     "end": 53.8
+    },
+    {
+     "w": "seen",
+     "start": 53.8,
+     "end": 54.04
+    },
+    {
+     "w": "a",
+     "start": 54.04,
+     "end": 54.16
+    },
+    {
+     "w": "bird",
+     "start": 54.16,
+     "end": 54.471
+    }
+   ]
+  },
+  {
+   "line": 19,
+   "text": "And the eggs are cold. Always cold.",
+   "start": 54.856,
+   "end": 56.997,
+   "words": [
+    {
+     "w": "And",
+     "start": 54.856,
+     "end": 54.876
+    },
+    {
+     "w": "the",
+     "start": 54.876,
+     "end": 54.96
+    },
+    {
+     "w": "eggs",
+     "start": 54.96,
+     "end": 55.28
+    },
+    {
+     "w": "are",
+     "start": 55.28,
+     "end": 55.48
+    },
+    {
+     "w": "cold",
+     "start": 55.48,
+     "end": 55.882
+    },
+    {
+     "w": "Always",
+     "start": 56.182,
+     "end": 56.68
+    },
+    {
+     "w": "cold",
+     "start": 56.68,
+     "end": 56.997
+    }
+   ]
+  },
+  {
+   "line": 20,
+   "text": "Unless you stand very still. Then they get warm.",
+   "start": 57.324,
+   "end": 59.924,
+   "words": [
+    {
+     "w": "Unless",
+     "start": 57.324,
+     "end": 57.48
+    },
+    {
+     "w": "you",
+     "start": 57.48,
+     "end": 57.68
+    },
+    {
+     "w": "stand",
+     "start": 57.68,
+     "end": 58.04
+    },
+    {
+     "w": "very",
+     "start": 58.04,
+     "end": 58.4
+    },
+    {
+     "w": "still",
+     "start": 58.4,
+     "end": 58.739
+    },
+    {
+     "w": "Then",
+     "start": 59.119,
+     "end": 59.2
+    },
+    {
+     "w": "they",
+     "start": 59.2,
+     "end": 59.36
+    },
+    {
+     "w": "get",
+     "start": 59.36,
+     "end": 59.6
+    },
+    {
+     "w": "warm",
+     "start": 59.6,
+     "end": 59.924
+    }
+   ]
+  },
+  {
+   "line": 21,
+   "text": "Nobody else stands still long enough to know.",
+   "start": 60.396,
+   "end": 62.295,
+   "words": [
+    {
+     "w": "Nobody",
+     "start": 60.396,
+     "end": 60.64
+    },
+    {
+     "w": "else",
+     "start": 60.64,
+     "end": 60.92
+    },
+    {
+     "w": "stands",
+     "start": 60.92,
+     "end": 61.24
+    },
+    {
+     "w": "still",
+     "start": 61.24,
+     "end": 61.52
+    },
+    {
+     "w": "long",
+     "start": 61.52,
+     "end": 61.72
+    },
+    {
+     "w": "enough",
+     "start": 61.72,
+     "end": 61.96
+    },
+    {
+     "w": "to",
+     "start": 61.96,
+     "end": 62.08
+    },
+    {
+     "w": "know",
+     "start": 62.08,
+     "end": 62.295
+    }
+   ]
+  },
+  {
+   "line": 22,
+   "text": "One night, Dax got greedy.",
+   "start": 63.036,
+   "end": 64.606,
+   "words": [
+    {
+     "w": "One",
+     "start": 63.036,
+     "end": 63.24
+    },
+    {
+     "w": "night",
+     "start": 63.24,
+     "end": 63.496
+    },
+    {
+     "w": "Dax",
+     "start": 63.693,
+     "end": 64.04
+    },
+    {
+     "w": "got",
+     "start": 64.04,
+     "end": 64.28
+    },
+    {
+     "w": "greedy",
+     "start": 64.28,
+     "end": 64.606
+    }
+   ]
+  },
+  {
+   "line": 23,
+   "text": "One more egg, he said. Just one more.",
+   "start": 65.014,
+   "end": 67.335,
+   "words": [
+    {
+     "w": "One",
+     "start": 65.014,
+     "end": 65.16
+    },
+    {
+     "w": "more",
+     "start": 65.16,
+     "end": 65.4
+    },
+    {
+     "w": "egg",
+     "start": 65.4,
+     "end": 65.7
+    },
+    {
+     "w": "he",
+     "start": 65.9,
+     "end": 66.0
+    },
+    {
+     "w": "said",
+     "start": 66.0,
+     "end": 66.221
+    },
+    {
+     "w": "Just",
+     "start": 66.504,
+     "end": 66.72
+    },
+    {
+     "w": "one",
+     "start": 66.72,
+     "end": 67.04
+    },
+    {
+     "w": "more",
+     "start": 67.04,
+     "end": 67.335
+    }
+   ]
+  },
+  {
+   "line": 24,
+   "text": "The clock struck twelve. A shadow covered the moon.",
+   "start": 67.68,
+   "end": 70.548,
+   "words": [
+    {
+     "w": "The",
+     "start": 67.68,
+     "end": 67.92
+    },
+    {
+     "w": "clock",
+     "start": 67.92,
+     "end": 68.28
+    },
+    {
+     "w": "struck",
+     "start": 68.28,
+     "end": 68.6
+    },
+    {
+     "w": "twelve",
+     "start": 68.6,
+     "end": 68.977
+    },
+    {
+     "w": "A",
+     "start": 69.329,
+     "end": 69.36
+    },
+    {
+     "w": "shadow",
+     "start": 69.36,
+     "end": 69.8
+    },
+    {
+     "w": "covered",
+     "start": 69.8,
+     "end": 70.12
+    },
+    {
+     "w": "the",
+     "start": 70.12,
+     "end": 70.24
+    },
+    {
+     "w": "moon",
+     "start": 70.24,
+     "end": 70.548
+    }
+   ]
+  },
+  {
+   "line": 25,
+   "text": "In the morning, his bed was empty.",
+   "start": 71.008,
+   "end": 72.585,
+   "words": [
+    {
+     "w": "In",
+     "start": 71.008,
+     "end": 71.028
+    },
+    {
+     "w": "the",
+     "start": 71.028,
+     "end": 71.12
+    },
+    {
+     "w": "morning",
+     "start": 71.12,
+     "end": 71.522
+    },
+    {
+     "w": "his",
+     "start": 71.732,
+     "end": 71.8
+    },
+    {
+     "w": "bed",
+     "start": 71.8,
+     "end": 72.08
+    },
+    {
+     "w": "was",
+     "start": 72.08,
+     "end": 72.24
+    },
+    {
+     "w": "empty",
+     "start": 72.24,
+     "end": 72.585
+    }
+   ]
+  },
+  {
+   "line": 26,
+   "text": "There was one feather on his pillow. It was bigger than Kit.",
+   "start": 73.009,
+   "end": 75.986,
+   "words": [
+    {
+     "w": "There",
+     "start": 73.009,
+     "end": 73.029
+    },
+    {
+     "w": "was",
+     "start": 73.029,
+     "end": 73.24
+    },
+    {
+     "w": "one",
+     "start": 73.24,
+     "end": 73.52
+    },
+    {
+     "w": "feather",
+     "start": 73.52,
+     "end": 73.88
+    },
+    {
+     "w": "on",
+     "start": 73.88,
+     "end": 74.04
+    },
+    {
+     "w": "his",
+     "start": 74.04,
+     "end": 74.2
+    },
+    {
+     "w": "pillow",
+     "start": 74.2,
+     "end": 74.497
+    },
+    {
+     "w": "It",
+     "start": 74.946,
+     "end": 74.966
+    },
+    {
+     "w": "was",
+     "start": 74.966,
+     "end": 75.12
+    },
+    {
+     "w": "bigger",
+     "start": 75.12,
+     "end": 75.52
+    },
+    {
+     "w": "than",
+     "start": 75.52,
+     "end": 75.72
+    },
+    {
+     "w": "Kit",
+     "start": 75.72,
+     "end": 75.986
+    }
+   ]
+  },
+  {
+   "line": 27,
+   "text": "So that night, Kit did the unthinkable. She stole an egg.",
+   "start": 76.32,
+   "end": 80.091,
+   "words": [
+    {
+     "w": "So",
+     "start": 76.32,
+     "end": 76.64
+    },
+    {
+     "w": "that",
+     "start": 76.64,
+     "end": 76.92
+    },
+    {
+     "w": "night",
+     "start": 76.92,
+     "end": 77.161
+    },
+    {
+     "w": "Kit",
+     "start": 77.451,
+     "end": 77.68
+    },
+    {
+     "w": "did",
+     "start": 77.68,
+     "end": 77.84
+    },
+    {
+     "w": "the",
+     "start": 77.84,
+     "end": 77.96
+    },
+    {
+     "w": "unthinkable",
+     "start": 77.96,
+     "end": 78.583
+    },
+    {
+     "w": "She",
+     "start": 78.998,
+     "end": 79.12
+    },
+    {
+     "w": "stole",
+     "start": 79.12,
+     "end": 79.56
+    },
+    {
+     "w": "an",
+     "start": 79.56,
+     "end": 79.8
+    },
+    {
+     "w": "egg",
+     "start": 79.8,
+     "end": 80.091
+    }
+   ]
+  },
+  {
+   "line": 28,
+   "text": "She was terrible at it. She apologized to the nest.",
+   "start": 80.516,
+   "end": 83.075,
+   "words": [
+    {
+     "w": "She",
+     "start": 80.516,
+     "end": 80.56
+    },
+    {
+     "w": "was",
+     "start": 80.56,
+     "end": 80.76
+    },
+    {
+     "w": "terrible",
+     "start": 80.76,
+     "end": 81.28
+    },
+    {
+     "w": "at",
+     "start": 81.28,
+     "end": 81.44
+    },
+    {
+     "w": "it",
+     "start": 81.44,
+     "end": 81.489
+    },
+    {
+     "w": "She",
+     "start": 81.781,
+     "end": 81.801
+    },
+    {
+     "w": "apologized",
+     "start": 81.801,
+     "end": 82.56
+    },
+    {
+     "w": "to",
+     "start": 82.56,
+     "end": 82.64
+    },
+    {
+     "w": "the",
+     "start": 82.64,
+     "end": 82.76
+    },
+    {
+     "w": "nest",
+     "start": 82.76,
+     "end": 83.075
+    }
+   ]
+  },
+  {
+   "line": 29,
+   "text": "Then she walked to the middle of town. And she stopped.",
+   "start": 83.456,
+   "end": 85.981,
+   "words": [
+    {
+     "w": "Then",
+     "start": 83.456,
+     "end": 83.52
+    },
+    {
+     "w": "she",
+     "start": 83.52,
+     "end": 83.76
+    },
+    {
+     "w": "walked",
+     "start": 83.76,
+     "end": 84.08
+    },
+    {
+     "w": "to",
+     "start": 84.08,
+     "end": 84.2
+    },
+    {
+     "w": "the",
+     "start": 84.2,
+     "end": 84.32
+    },
+    {
+     "w": "middle",
+     "start": 84.32,
+     "end": 84.6
+    },
+    {
+     "w": "of",
+     "start": 84.6,
+     "end": 84.72
+    },
+    {
+     "w": "town",
+     "start": 84.72,
+     "end": 85.01
+    },
+    {
+     "w": "And",
+     "start": 85.374,
+     "end": 85.394
+    },
+    {
+     "w": "she",
+     "start": 85.394,
+     "end": 85.6
+    },
+    {
+     "w": "stopped",
+     "start": 85.6,
+     "end": 85.981
+    }
+   ]
+  },
+  {
+   "line": 30,
+   "text": "One minute to midnight. The whole town screamed. Kit, drop it!",
+   "start": 86.404,
+   "end": 90.696,
+   "words": [
+    {
+     "w": "One",
+     "start": 86.404,
+     "end": 86.64
+    },
+    {
+     "w": "minute",
+     "start": 86.64,
+     "end": 86.96
+    },
+    {
+     "w": "to",
+     "start": 86.96,
+     "end": 87.12
+    },
+    {
+     "w": "midnight",
+     "start": 87.12,
+     "end": 87.553
+    },
+    {
+     "w": "The",
+     "start": 87.952,
+     "end": 88.0
+    },
+    {
+     "w": "whole",
+     "start": 88.0,
+     "end": 88.32
+    },
+    {
+     "w": "town",
+     "start": 88.32,
+     "end": 88.8
+    },
+    {
+     "w": "screamed",
+     "start": 88.8,
+     "end": 89.417
+    },
+    {
+     "w": "Kit",
+     "start": 89.742,
+     "end": 90.023
+    },
+    {
+     "w": "drop",
+     "start": 90.235,
+     "end": 90.56
+    },
+    {
+     "w": "it",
+     "start": 90.56,
+     "end": 90.696
+    }
+   ]
+  },
+  {
+   "line": 31,
+   "text": "Kit held on.",
+   "start": 91.221,
+   "end": 91.94,
+   "words": [
+    {
+     "w": "Kit",
+     "start": 91.221,
+     "end": 91.36
+    },
+    {
+     "w": "held",
+     "start": 91.36,
+     "end": 91.72
+    },
+    {
+     "w": "on",
+     "start": 91.72,
+     "end": 91.94
+    }
+   ]
+  },
+  {
+   "line": 32,
+   "text": "She tucked the egg under her chin. It was getting warm.",
+   "start": 92.248,
+   "end": 94.724,
+   "words": [
+    {
+     "w": "She",
+     "start": 92.248,
+     "end": 92.32
+    },
+    {
+     "w": "tucked",
+     "start": 92.32,
+     "end": 92.6
+    },
+    {
+     "w": "the",
+     "start": 92.6,
+     "end": 92.72
+    },
+    {
+     "w": "egg",
+     "start": 92.72,
+     "end": 92.96
+    },
+    {
+     "w": "under",
+     "start": 92.96,
+     "end": 93.08
+    },
+    {
+     "w": "her",
+     "start": 93.08,
+     "end": 93.2
+    },
+    {
+     "w": "chin",
+     "start": 93.2,
+     "end": 93.617
+    },
+    {
+     "w": "It",
+     "start": 93.931,
+     "end": 93.951
+    },
+    {
+     "w": "was",
+     "start": 93.951,
+     "end": 94.08
+    },
+    {
+     "w": "getting",
+     "start": 94.08,
+     "end": 94.4
+    },
+    {
+     "w": "warm",
+     "start": 94.4,
+     "end": 94.724
+    }
+   ]
+  },
+  {
+   "line": 33,
+   "text": "The bell rang twelve times.",
+   "start": 95.224,
+   "end": 96.767,
+   "words": [
+    {
+     "w": "The",
+     "start": 95.224,
+     "end": 95.244
+    },
+    {
+     "w": "bell",
+     "start": 95.244,
+     "end": 95.52
+    },
+    {
+     "w": "rang",
+     "start": 95.52,
+     "end": 95.84
+    },
+    {
+     "w": "twelve",
+     "start": 95.84,
+     "end": 96.32
+    },
+    {
+     "w": "times",
+     "start": 96.32,
+     "end": 96.767
+    }
+   ]
+  },
+  {
+   "line": 34,
+   "text": "The shadow came down. Its wings were as wide as the street.",
+   "start": 97.02,
+   "end": 100.065,
+   "words": [
+    {
+     "w": "The",
+     "start": 97.02,
+     "end": 97.04
+    },
+    {
+     "w": "shadow",
+     "start": 97.04,
+     "end": 97.48
+    },
+    {
+     "w": "came",
+     "start": 97.48,
+     "end": 97.72
+    },
+    {
+     "w": "down",
+     "start": 97.72,
+     "end": 98.017
+    },
+    {
+     "w": "Its",
+     "start": 98.325,
+     "end": 98.44
+    },
+    {
+     "w": "wings",
+     "start": 98.44,
+     "end": 98.8
+    },
+    {
+     "w": "were",
+     "start": 98.8,
+     "end": 98.96
+    },
+    {
+     "w": "as",
+     "start": 98.96,
+     "end": 99.12
+    },
+    {
+     "w": "wide",
+     "start": 99.12,
+     "end": 99.44
+    },
+    {
+     "w": "as",
+     "start": 99.44,
+     "end": 99.6
+    },
+    {
+     "w": "the",
+     "start": 99.6,
+     "end": 99.72
+    },
+    {
+     "w": "street",
+     "start": 99.72,
+     "end": 100.065
+    }
+   ]
+  },
+  {
+   "line": 35,
+   "text": "It wasn't a bird. It was a dragon.",
+   "start": 100.438,
+   "end": 102.343,
+   "words": [
+    {
+     "w": "It",
+     "start": 100.438,
+     "end": 100.458
+    },
+    {
+     "w": "wasn't",
+     "start": 100.458,
+     "end": 100.76
+    },
+    {
+     "w": "a",
+     "start": 100.76,
+     "end": 100.92
+    },
+    {
+     "w": "bird",
+     "start": 100.92,
+     "end": 101.264
+    },
+    {
+     "w": "It",
+     "start": 101.552,
+     "end": 101.572
+    },
+    {
+     "w": "was",
+     "start": 101.572,
+     "end": 101.72
+    },
+    {
+     "w": "a",
+     "start": 101.72,
+     "end": 101.88
+    },
+    {
+     "w": "dragon",
+     "start": 101.88,
+     "end": 102.343
+    }
+   ]
+  },
+  {
+   "line": 36,
+   "text": "And very, very gently, it lifted Kit into the clouds.",
+   "start": 102.67,
+   "end": 106.024,
+   "words": [
+    {
+     "w": "And",
+     "start": 102.67,
+     "end": 102.8
+    },
+    {
+     "w": "very",
+     "start": 102.8,
+     "end": 103.28
+    },
+    {
+     "w": "very",
+     "start": 103.28,
+     "end": 103.68
+    },
+    {
+     "w": "gently",
+     "start": 103.68,
+     "end": 104.1
+    },
+    {
+     "w": "it",
+     "start": 104.335,
+     "end": 104.4
+    },
+    {
+     "w": "lifted",
+     "start": 104.4,
+     "end": 104.88
+    },
+    {
+     "w": "Kit",
+     "start": 104.88,
+     "end": 105.16
+    },
+    {
+     "w": "into",
+     "start": 105.16,
+     "end": 105.4
+    },
+    {
+     "w": "the",
+     "start": 105.4,
+     "end": 105.52
+    },
+    {
+     "w": "clouds",
+     "start": 105.52,
+     "end": 106.024
+    }
+   ]
+  },
+  {
+   "line": 37,
+   "text": "Up there was a nest the size of the town.",
+   "start": 106.553,
+   "end": 108.647,
+   "words": [
+    {
+     "w": "Up",
+     "start": 106.553,
+     "end": 106.64
+    },
+    {
+     "w": "there",
+     "start": 106.64,
+     "end": 106.88
+    },
+    {
+     "w": "was",
+     "start": 106.88,
+     "end": 107.08
+    },
+    {
+     "w": "a",
+     "start": 107.08,
+     "end": 107.2
+    },
+    {
+     "w": "nest",
+     "start": 107.2,
+     "end": 107.56
+    },
+    {
+     "w": "the",
+     "start": 107.56,
+     "end": 107.72
+    },
+    {
+     "w": "size",
+     "start": 107.72,
+     "end": 108.08
+    },
+    {
+     "w": "of",
+     "start": 108.08,
+     "end": 108.16
+    },
+    {
+     "w": "the",
+     "start": 108.16,
+     "end": 108.32
+    },
+    {
+     "w": "town",
+     "start": 108.32,
+     "end": 108.647
+    }
+   ]
+  },
+  {
+   "line": 38,
+   "text": "Every missing kid was in it. Even Dax.",
+   "start": 109.059,
+   "end": 111.437,
+   "words": [
+    {
+     "w": "Every",
+     "start": 109.059,
+     "end": 109.36
+    },
+    {
+     "w": "missing",
+     "start": 109.36,
+     "end": 109.76
+    },
+    {
+     "w": "kid",
+     "start": 109.76,
+     "end": 110.0
+    },
+    {
+     "w": "was",
+     "start": 110.0,
+     "end": 110.2
+    },
+    {
+     "w": "in",
+     "start": 110.2,
+     "end": 110.36
+    },
+    {
+     "w": "it",
+     "start": 110.36,
+     "end": 110.424
+    },
+    {
+     "w": "Even",
+     "start": 110.734,
+     "end": 111.14
+    },
+    {
+     "w": "Dax",
+     "start": 111.14,
+     "end": 111.437
+    }
+   ]
+  },
+  {
+   "line": 39,
+   "text": "Each one had a baby dragon asleep in their lap.",
+   "start": 111.805,
+   "end": 114.098,
+   "words": [
+    {
+     "w": "Each",
+     "start": 111.805,
+     "end": 111.96
+    },
+    {
+     "w": "one",
+     "start": 111.96,
+     "end": 112.2
+    },
+    {
+     "w": "had",
+     "start": 112.2,
+     "end": 112.4
+    },
+    {
+     "w": "a",
+     "start": 112.4,
+     "end": 112.48
+    },
+    {
+     "w": "baby",
+     "start": 112.48,
+     "end": 112.8
+    },
+    {
+     "w": "dragon",
+     "start": 112.8,
+     "end": 113.16
+    },
+    {
+     "w": "asleep",
+     "start": 113.16,
+     "end": 113.56
+    },
+    {
+     "w": "in",
+     "start": 113.56,
+     "end": 113.68
+    },
+    {
+     "w": "their",
+     "start": 113.68,
+     "end": 113.84
+    },
+    {
+     "w": "lap",
+     "start": 113.84,
+     "end": 114.098
+    }
+   ]
+  },
+  {
+   "line": 40,
+   "text": "Because eggs only hatch if you hold them still through midnight.",
+   "start": 114.469,
+   "end": 117.359,
+   "words": [
+    {
+     "w": "Because",
+     "start": 114.469,
+     "end": 114.68
+    },
+    {
+     "w": "eggs",
+     "start": 114.68,
+     "end": 115.04
+    },
+    {
+     "w": "only",
+     "start": 115.04,
+     "end": 115.36
+    },
+    {
+     "w": "hatch",
+     "start": 115.36,
+     "end": 115.64
+    },
+    {
+     "w": "if",
+     "start": 115.64,
+     "end": 115.76
+    },
+    {
+     "w": "you",
+     "start": 115.76,
+     "end": 115.92
+    },
+    {
+     "w": "hold",
+     "start": 115.92,
+     "end": 116.16
+    },
+    {
+     "w": "them",
+     "start": 116.16,
+     "end": 116.36
+    },
+    {
+     "w": "still",
+     "start": 116.36,
+     "end": 116.68
+    },
+    {
+     "w": "through",
+     "start": 116.68,
+     "end": 116.92
+    },
+    {
+     "w": "midnight",
+     "start": 116.92,
+     "end": 117.359
+    }
+   ]
+  },
+  {
+   "line": 41,
+   "text": "The town had been stealing them for a hundred years.",
+   "start": 117.818,
+   "end": 120.08,
+   "words": [
+    {
+     "w": "The",
+     "start": 117.818,
+     "end": 117.838
+    },
+    {
+     "w": "town",
+     "start": 117.838,
+     "end": 118.16
+    },
+    {
+     "w": "had",
+     "start": 118.16,
+     "end": 118.24
+    },
+    {
+     "w": "been",
+     "start": 118.24,
+     "end": 118.44
+    },
+    {
+     "w": "stealing",
+     "start": 118.44,
+     "end": 118.8
+    },
+    {
+     "w": "them",
+     "start": 118.8,
+     "end": 119.0
+    },
+    {
+     "w": "for",
+     "start": 119.0,
+     "end": 119.16
+    },
+    {
+     "w": "a",
+     "start": 119.16,
+     "end": 119.32
+    },
+    {
+     "w": "hundred",
+     "start": 119.32,
+     "end": 119.68
+    },
+    {
+     "w": "years",
+     "start": 119.68,
+     "end": 120.08
+    }
+   ]
+  },
+  {
+   "line": 42,
+   "text": "Not one had ever hatched.",
+   "start": 120.387,
+   "end": 121.934,
+   "words": [
+    {
+     "w": "Not",
+     "start": 120.387,
+     "end": 120.6
+    },
+    {
+     "w": "one",
+     "start": 120.6,
+     "end": 120.96
+    },
+    {
+     "w": "had",
+     "start": 120.96,
+     "end": 121.2
+    },
+    {
+     "w": "ever",
+     "start": 121.2,
+     "end": 121.52
+    },
+    {
+     "w": "hatched",
+     "start": 121.52,
+     "end": 121.934
+    }
+   ]
+  },
+  {
+   "line": 43,
+   "text": "Kit's egg cracked. A tiny dragon sneezed on her.",
+   "start": 122.417,
+   "end": 125.263,
+   "words": [
+    {
+     "w": "Kit's",
+     "start": 122.417,
+     "end": 122.68
+    },
+    {
+     "w": "egg",
+     "start": 122.68,
+     "end": 123.0
+    },
+    {
+     "w": "cracked",
+     "start": 123.0,
+     "end": 123.406
+    },
+    {
+     "w": "A",
+     "start": 123.707,
+     "end": 123.727
+    },
+    {
+     "w": "tiny",
+     "start": 123.727,
+     "end": 124.12
+    },
+    {
+     "w": "dragon",
+     "start": 124.12,
+     "end": 124.52
+    },
+    {
+     "w": "sneezed",
+     "start": 124.52,
+     "end": 125.0
+    },
+    {
+     "w": "on",
+     "start": 125.0,
+     "end": 125.16
+    },
+    {
+     "w": "her",
+     "start": 125.16,
+     "end": 125.263
+    }
+   ]
+  },
+  {
+   "line": 44,
+   "text": "The mother wasn't taking thieves.",
+   "start": 125.681,
+   "end": 127.112,
+   "words": [
+    {
+     "w": "The",
+     "start": 125.681,
+     "end": 125.701
+    },
+    {
+     "w": "mother",
+     "start": 125.701,
+     "end": 125.96
+    },
+    {
+     "w": "wasn't",
+     "start": 125.96,
+     "end": 126.32
+    },
+    {
+     "w": "taking",
+     "start": 126.32,
+     "end": 126.64
+    },
+    {
+     "w": "thieves",
+     "start": 126.64,
+     "end": 127.112
+    }
+   ]
+  },
+  {
+   "line": 45,
+   "text": "She was taking babysitters.",
+   "start": 127.377,
+   "end": 128.674,
+   "words": [
+    {
+     "w": "She",
+     "start": 127.377,
+     "end": 127.4
+    },
+    {
+     "w": "was",
+     "start": 127.4,
+     "end": 127.6
+    },
+    {
+     "w": "taking",
+     "start": 127.6,
+     "end": 128.32
+    },
+    {
+     "w": "babysitters",
+     "start": 128.32,
+     "end": 128.674
+    }
+   ]
+  },
+  {
+   "line": 46,
+   "text": "Dax came home the next morning. On a dragon.",
+   "start": 128.9,
+   "end": 131.64,
+   "words": [
+    {
+     "w": "Dax",
+     "start": 128.9,
+     "end": 129.48
+    },
+    {
+     "w": "came",
+     "start": 129.48,
+     "end": 129.68
+    },
+    {
+     "w": "home",
+     "start": 129.68,
+     "end": 129.92
+    },
+    {
+     "w": "the",
+     "start": 129.92,
+     "end": 130.0
+    },
+    {
+     "w": "next",
+     "start": 130.0,
+     "end": 130.32
+    },
+    {
+     "w": "morning",
+     "start": 130.32,
+     "end": 130.591
+    },
+    {
+     "w": "On",
+     "start": 130.971,
+     "end": 131.04
+    },
+    {
+     "w": "a",
+     "start": 131.04,
+     "end": 131.2
+    },
+    {
+     "w": "dragon",
+     "start": 131.2,
+     "end": 131.64
+    }
+   ]
+  },
+  {
+   "line": 47,
+   "text": "That night, nobody played hot potato.",
+   "start": 132.139,
+   "end": 134.147,
+   "words": [
+    {
+     "w": "That",
+     "start": 132.139,
+     "end": 132.32
+    },
+    {
+     "w": "night",
+     "start": 132.32,
+     "end": 132.583
+    },
+    {
+     "w": "nobody",
+     "start": 132.831,
+     "end": 133.28
+    },
+    {
+     "w": "played",
+     "start": 133.28,
+     "end": 133.56
+    },
+    {
+     "w": "hot",
+     "start": 133.56,
+     "end": 133.76
+    },
+    {
+     "w": "potato",
+     "start": 133.76,
+     "end": 134.147
+    }
+   ]
+  },
+  {
+   "line": 48,
+   "text": "The scoreboard got a new word. Hatched.",
+   "start": 134.548,
+   "end": 136.769,
+   "words": [
+    {
+     "w": "The",
+     "start": 134.548,
+     "end": 134.84
+    },
+    {
+     "w": "scoreboard",
+     "start": 134.84,
+     "end": 135.12
+    },
+    {
+     "w": "got",
+     "start": 135.12,
+     "end": 135.28
+    },
+    {
+     "w": "a",
+     "start": 135.28,
+     "end": 135.4
+    },
+    {
+     "w": "new",
+     "start": 135.4,
+     "end": 135.68
+    },
+    {
+     "w": "word",
+     "start": 135.68,
+     "end": 135.946
+    },
+    {
+     "w": "Hatched",
+     "start": 136.303,
+     "end": 136.769
+    }
+   ]
+  },
+  {
+   "line": 49,
+   "text": "Kit is number one.",
+   "start": 137.202,
+   "end": 138.339,
+   "words": [
+    {
+     "w": "Kit",
+     "start": 137.202,
+     "end": 137.28
+    },
+    {
+     "w": "is",
+     "start": 137.28,
+     "end": 137.48
+    },
+    {
+     "w": "number",
+     "start": 137.48,
+     "end": 138.08
+    },
+    {
+     "w": "one",
+     "start": 138.08,
+     "end": 138.339
+    }
+   ]
+  },
+  {
+   "line": 50,
+   "text": "In this town, everybody steals eggs.",
+   "start": 138.856,
+   "end": 140.961,
+   "words": [
+    {
+     "w": "In",
+     "start": 138.856,
+     "end": 138.88
+    },
+    {
+     "w": "this",
+     "start": 138.88,
+     "end": 139.12
+    },
+    {
+     "w": "town",
+     "start": 139.12,
+     "end": 139.525
+    },
+    {
+     "w": "everybody",
+     "start": 139.761,
+     "end": 140.24
+    },
+    {
+     "w": "steals",
+     "start": 140.24,
+     "end": 140.64
+    },
+    {
+     "w": "eggs",
+     "start": 140.64,
+     "end": 140.961
+    }
+   ]
+  },
+  {
+   "line": 51,
+   "text": "And at midnight, everybody holds on.",
+   "start": 141.247,
+   "end": 143.307,
+   "words": [
+    {
+     "w": "And",
+     "start": 141.247,
+     "end": 141.267
+    },
+    {
+     "w": "at",
+     "start": 141.267,
+     "end": 141.44
+    },
+    {
+     "w": "midnight",
+     "start": 141.44,
+     "end": 141.911
+    },
+    {
+     "w": "everybody",
+     "start": 142.232,
+     "end": 142.72
+    },
+    {
+     "w": "holds",
+     "start": 142.72,
+     "end": 143.12
+    },
+    {
+     "w": "on",
+     "start": 143.12,
+     "end": 143.307
+    }
+   ]
+  }
+ ]
+}
