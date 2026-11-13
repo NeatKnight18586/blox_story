@@ -51,21 +51,26 @@ def measure(path):
 
 def main():
     a = argparse.ArgumentParser()
-    a.add_argument('--story', required=True); a.add_argument('--frames', required=True); a.add_argument('--captions'); a.add_argument('--out', required=True)
+    a.add_argument('--story', required=True); a.add_argument('--frames'); a.add_argument('--video', help='near-lossless picture (render farm segments, concatenated) instead of --frames'); a.add_argument('--captions'); a.add_argument('--out', required=True)
     a.add_argument('--voice-start', type=float, default=0); a.add_argument('--voice-dur', type=float); a.add_argument('--no-hold', action='store_true')
     a.add_argument('--fps', type=int, default=30); a.add_argument('--animatic', action='store_true'); o = a.parse_args()
     if o.animatic and o.fps == 30: o.fps = 15
 
-    frames = sorted(glob.glob(os.path.join(o.frames, 'frame-*.png')))
-    if not frames: sys.exit('no frames in ' + o.frames)
-    w, h = Image.open(frames[0]).size
+    if o.video:
+        st = json.loads(run(['ffprobe', '-v', 'error', '-select_streams', 'v:0', '-count_packets', '-show_entries', 'stream=width,height,nb_read_packets', '-of', 'json', o.video]).stdout)['streams'][0]
+        w, h, nframes = st['width'], st['height'], int(st['nb_read_packets'])
+    else:
+        if not o.frames: sys.exit('give --frames <dir> or --video <mp4>')
+        frames = sorted(glob.glob(os.path.join(o.frames, 'frame-*.png')))
+        if not frames: sys.exit('no frames in ' + o.frames)
+        w, h = Image.open(frames[0]).size; nframes = len(frames)
     if o.animatic:
         if (w, h) != (270, 480): sys.exit(f'animatic frames must be 270×480, got {w}×{h}')
     elif (w, h) != (1080, 1920): sys.exit(f'frames are {w}×{h}: finals must be native 1080×1920 (owner decision; never upscale)')
     voice = next((p for p in [f'stories/{o.story}/voice.flac', f'stories/{o.story}/voice.wav', f'stories/{o.story}/voice.mp3'] if os.path.exists(p)), None)
     if not voice: sys.exit('no voice file in stories/' + o.story)
     vlen = o.voice_dur if o.voice_dur else probe_duration(voice) - o.voice_start
-    pic = len(frames) / o.fps
+    pic = nframes / o.fps
     total = pic if o.no_hold else max(pic, max(vlen + 2.5, 122.5))
     hold = max(0.0, total - pic)
 
@@ -75,7 +80,7 @@ def main():
     if hold > 0: vf += f",tpad=stop_mode=clone:stop_duration={hold:.3f}"
     vf += ",format=yuv420p[v]"
     af = f"[1:a]{loudnorm_filter(voice, o.voice_start, o.voice_dur)}[vo]"
-    inputs = ['-framerate', str(o.fps), '-i', os.path.join(o.frames, 'frame-%05d.png'), '-i', voice]
+    inputs = (['-i', o.video] if o.video else ['-framerate', str(o.fps), '-start_number', os.path.basename(frames[0])[6:11].lstrip('0') or '0', '-i', os.path.join(o.frames, 'frame-%05d.png')]) + ['-i', voice]
     music = f'stories/{o.story}/music.mp3'
     if os.path.exists(music):
         inputs += ['-i', music]; af += f";[2:a]volume=-20dB,aresample=48000[mu];[vo][mu]amix=inputs=2:duration=first:normalize=0[a]"

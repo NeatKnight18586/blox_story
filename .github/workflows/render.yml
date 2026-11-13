@@ -1,0 +1,134 @@
+# Render farm (docs/V2_BRIEF.md §14.2): plan → 6 render shards → assemble + prerelease.
+# Trigger by hand (Actions → render → Run workflow: story, preset) or by pushing a change to
+# stories/<slug>/render.request (its first line may name the preset: final | animatic; default final).
+# UNTESTED until its first run: on first use compare 10 frames against a local render and record the
+# wall-clock time in PROGRESS.md. The local path (npm run v2:render + assemble.py) stays the fallback.
+name: render
+
+on:
+  workflow_dispatch:
+    inputs:
+      story:
+        description: story slug (stories/<slug>)
+        required: true
+      preset:
+        description: final (1080×1920, 30 fps, 6 shards) or animatic (270×480, 15 fps, 1 shard)
+        required: true
+        default: final
+        type: choice
+        options: [final, animatic]
+  push:
+    paths: ['stories/*/render.request']
+
+permissions:
+  contents: write
+
+concurrency:
+  group: render-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  plan:
+    runs-on: ubuntu-latest
+    outputs:
+      story: ${{ steps.pick.outputs.story }}
+      preset: ${{ steps.pick.outputs.preset }}
+      matrix: ${{ steps.shards.outputs.matrix }}
+    steps:
+      - uses: actions/checkout@v4
+        with: {fetch-depth: 2}
+      - uses: actions/setup-node@v4
+        with: {node-version: 22, cache: npm}
+      - id: pick
+        name: Pick story and preset
+        run: |
+          if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
+            story="${{ inputs.story }}"; preset="${{ inputs.preset }}"
+          else
+            req=$(git diff --name-only HEAD^ HEAD -- 'stories/*/render.request' | head -n1)
+            story=$(basename "$(dirname "$req")"); preset=$(head -n1 "$req" | tr -d '[:space:]')
+          fi
+          case "$preset" in final|animatic) ;; *) preset=final ;; esac
+          test -f "stories/$story/episode.json" || { echo "no stories/$story/episode.json"; exit 1; }
+          echo "story=$story" >> "$GITHUB_OUTPUT"; echo "preset=$preset" >> "$GITHUB_OUTPUT"
+      - run: npm ci
+      - name: Plan gate (§5.2)
+        run: |
+          pip install --break-system-packages pillow >/dev/null 2>&1 || pip install pillow
+          npx playwright install --with-deps chromium
+          node scripts/v2/plan.js --story "${{ steps.pick.outputs.story }}"
+      - id: shards
+        name: Split shots into balanced shards
+        run: |
+          n=6; [ "${{ steps.pick.outputs.preset }}" = "animatic" ] && n=1
+          echo "matrix=$(node scripts/v2/shards.js --story '${{ steps.pick.outputs.story }}' --n $n)" >> "$GITHUB_OUTPUT"
+
+  render:
+    needs: plan
+    runs-on: ubuntu-latest
+    timeout-minutes: 300
+    strategy:
+      fail-fast: true
+      matrix: ${{ fromJSON(needs.plan.outputs.matrix) }}
+    env:
+      STORY: ${{ needs.plan.outputs.story }}
+      PRESET: ${{ needs.plan.outputs.preset }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: {node-version: 22, cache: npm}
+      - run: npm ci
+      - run: npx playwright install --with-deps chromium
+      - run: sudo apt-get update && sudo apt-get install -y ffmpeg
+      - name: Render shard ${{ matrix.index }} (frames ${{ matrix.from }}–${{ matrix.to }})
+        run: |
+          if [ "$PRESET" = "animatic" ]; then size="--width 270 --height 480 --every 2 --aa 0"; else size="--width 1080 --height 1920 --aa 1"; fi
+          node scripts/v2/render.js --story "$STORY" --out shard $size --from ${{ matrix.from }} --to ${{ matrix.to }} --workers 2
+      - name: Encode near-lossless segment
+        run: |
+          if [ "$PRESET" = "animatic" ]; then fps=15; start=0; else fps=30; start=${{ matrix.from }}; fi
+          ffmpeg -v error -y -framerate $fps -start_number $start -i shard/frames/frame-%05d.png \
+            -c:v libx264 -preset slow -crf 10 -pix_fmt yuv444p -profile:v high444 seg-$(printf %02d ${{ matrix.index }}).mp4
+      - uses: actions/upload-artifact@v4
+        with:
+          name: seg-${{ matrix.index }}
+          path: seg-*.mp4
+          retention-days: 7
+
+  assemble:
+    needs: [plan, render]
+    runs-on: ubuntu-latest
+    env:
+      STORY: ${{ needs.plan.outputs.story }}
+      PRESET: ${{ needs.plan.outputs.preset }}
+      GH_TOKEN: ${{ github.token }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: {node-version: 22, cache: npm}
+      - run: npm ci
+      - run: sudo apt-get update && sudo apt-get install -y ffmpeg && pip install --break-system-packages pillow
+      - uses: actions/download-artifact@v4
+        with: {pattern: 'seg-*', merge-multiple: true, path: segs}
+      - name: Concatenate segments
+        run: |
+          ls segs/seg-*.mp4 | sort | sed "s#^#file '$PWD/#; s#\$#'#" > segs/list.txt
+          ffmpeg -v error -y -f concat -safe 0 -i segs/list.txt -c copy picture.mp4
+      - name: Captions + finishing (assemble.py)
+        run: |
+          mkdir -p out
+          python3 scripts/v2/captions.py --story "$STORY" --spec "stories/$STORY/episode.json" --out out/captions.ass
+          extra=""; [ "$PRESET" = "animatic" ] && extra="--animatic"
+          python3 scripts/v2/assemble.py --story "$STORY" --video picture.mp4 --captions out/captions.ass --out "out/$PRESET.mp4" $extra | tee out/report.json
+      - name: ffprobe check
+        run: ffprobe -v error -show_entries stream=codec_type,width,height,r_frame_rate:format=duration,size -of json "out/$PRESET.mp4"
+      - uses: actions/upload-artifact@v4
+        with:
+          name: ${{ needs.plan.outputs.story }}-${{ needs.plan.outputs.preset }}
+          path: out/
+      - name: Prerelease (downloadable on the iPad)
+        run: |
+          tag="$STORY-${GITHUB_SHA::7}"
+          gh release create "$tag" "out/$PRESET.mp4" out/report.json --prerelease --target "$GITHUB_SHA" \
+            --title "$STORY ($PRESET) ${GITHUB_SHA::7}" --notes "Render farm output for stories/$STORY ($PRESET). Report: report.json." \
+          || gh release upload "$tag" "out/$PRESET.mp4" out/report.json --clobber
