@@ -24,7 +24,7 @@ export function build(scene, {P, B, A, M, PR, TR, BI, V, W, look, spec}) {
   // stone square + path
   scene.add(P.cylinder(13, .4, {seg: 32, mat: M.std('cobble', '#c9c0b0'), at: [0, height(0, 22) + .02, 22]}));
   scene.add(B.ribbon(new T.CatmullRomCurve3([[0, 0, 10], [1, 0, -4], [-1, 0, -14]].map(p => new T.Vector3(...p))), 3.5, (x, z) => height(x, z) + .1, {material: M.std('dirt', '#a88c66'), tile: 4}));
-  for (const [x, z, k] of [[-9, 30, 'barrel'], [-10.5, 28.5, 'crate'], [-8.6, 27.4, 'sack'], [9, 31, 'bench'], [10, 14, 'lantern']]) { const o = PR.smallProp(k, 3); o.position.set(x, height(x, z), z); scene.add(o); }
+  for (const [x, z, k] of [[-9, 30, 'barrel'], [-10.5, 28.5, 'crate'], [-8.6, 27.4, 'sack'], [9, 35.5, 'bench'], [10, 14, 'lantern']]) { const o = PR.smallProp(k, 3); o.position.set(x, height(x, z), z); scene.add(o); }
   movers.push(A.birds({centre: [0, 50, -20], n: 6, r: 40, seed: 2}));
   for (const m of movers) if (m.group || m.object) scene.add(m.group ?? m.object);
   anchors.square = {position: [0, 0, 22], camera: {position: [0, 9, 60], target: [0, 4, 0], fov: 50}};
