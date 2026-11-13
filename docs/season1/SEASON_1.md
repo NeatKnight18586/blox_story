@@ -59,18 +59,41 @@ person; family-safe (peril resolves, no on-screen harm, no weapons used on peopl
 Never two episodes of the same lane in a row. Never the same twist type twice within five episodes. After every five uploads,
 `docs/season1/RESULTS.md` decides whether lane weights shift (§7).
 
-## 5. Calendar (the gate decides, not the date)
+## 5. Calendar: one episode per day, in card order
 
-| Days | Work | Uploads |
+| Day | Work | Owner's part |
 |---|---|---|
-| 1–3 | Session 8 (A4 Format v3 build). Owner records voice for 01 and 02. | — |
-| 4–14 | One episode every two days: 01–06. Day 14: results checkpoint 1. | 6 |
-| 15 | Long compilation #1 (01–05, 16:9 or vertical, chapters). | 1 long |
-| 16–30 | Daily **only if** E1 + E2 fit in one day for three episodes running; otherwise keep every two days. Day 29: compilation #2. | 8–15 |
+| 0 | Sessions 8 and 9 (A4 build). Scripts 01 and 02 already exist. | review the look, hair, troupe and captions; voice 01 |
+| 1–30 | The daily loop below, cards 01 → 30 in order. | voice the next script; say approve, continue, or give notes |
+| every 5th episode | Long compilation of the last five finals with chapters (assembled from existing masters, no re-render). | upload |
 
-The 30 cards below are the running order. Whatever does not ship by day 30 rolls into the next month unchanged.
+**Daily loop (`/season`, state kept in `docs/season1/STATE.md`):**
+1. `animatic`: the voice for episode N is committed → align, world, cast, shots, gates, animatic. Stop.
+2. Owner: "approve" or notes (one revision round).
+3. `final`: 1440 final, QC, release, proxy, title and pinned comment. **In the same session, write the script and scene
+   plan for episode N+1** (§5b), show the script in the report, and stop. The owner voices it for the next day.
+
+A day slips only when a gate fails; nothing is skipped to keep the date, and the order never changes.
+Time budget per episode: animatic session ≤ 1 session; final render + assemble ≤ 3 h wall. If that is exceeded two
+episodes running, cut vegetation density and far-tier detail (never hero tier, never resolution) and record it.
 Backlog after 30 (already outlined with the owner): the spy who narrates, the talking van, the piggy-bank parade, the red
 string, doors to other yous, the paint-duel arena, one wish and you are forgotten, you may own one thing, kids are the bosses.
+
+## 5b. How scripts 03–30 are written (by Claude Code, from the card; the owner approves before voicing)
+
+Models: `stories/mountain/script.txt` and `stories/mirror/script.txt`. Match their rhythm and plainness.
+- B1 uses the card's **Rule** sentence(s) word for word; the ending uses the card's **last line** word for word, after
+  repeating the first sentence of the Rule.
+- Everything on the card appears: the three expansion examples, the defect, the crisis, the reversal, the second surprise.
+  Clues are shown, and at most one of the three is spoken. Nothing on the card is changed or "improved".
+- 410–440 words. Sentences ≤ 12 words. Third person only: the narrator never says "I", "me", "my" or "we".
+  One tense per script. ~5th-grade words. Characters' spoken lines: ≤ 6 words each, at most six per script, no quotation
+  marks; first-person words may appear only inside those lines.
+- One laugh inside B2, one inside B3–B4. A full stop of silence (a blank line) before the reversal line.
+- No brand names, no real games' names, no on-screen harm, no romance.
+- Then write `stories/<slug>/beats.md` in the same table form as the two models, using §3's beats and cameras.
+- Run `python3 scripts/v2/scriptcheck.py --story <slug>` (A4 §I) and the §10 council scorecard (all ≥ 4, one revision
+  pass). Print the final script in the session report inside one code block so the owner can copy it.
 
 ## 6. The 30 cards
 
