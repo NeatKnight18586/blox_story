@@ -15,7 +15,11 @@
 - **Sound effects:** none (owner decision, 2026-11-12).
 - **Voice:** confirm the ElevenLabs plan in use permits commercial use before uploading.
 
-## File checks before upload (assemble.py prints these)
-- 1080×1920 native (never an upscale), 30 fps, H.264 High, AAC, `+faststart`.
+## File checks before upload (Amendment A2: `assemble.py` and `npm run v2:qc` print these)
+- Upload the **1440×2560 master** (`<slug>-master.mp4`, from the GitHub prerelease or sent directly), never the
+  review proxy. 30 fps, H.264 High, yuv420p, BT.709, AAC 320k, `+faststart`, ≥ 16 Mb/s, no size cap.
+  `v2:qc` must have passed (`review/<slug>/qc.json`).
 - Length 2:02–2:50 (final shot held to `max(voice + 2.5 s, 122.5 s)`).
-- Loudness −14 LUFS ± 1, true peak ≤ −1 dB. File ≤ 60 MB.
+- Loudness −14 LUFS ± 1, true peak ≤ −1 dB.
+- **Publish as Unlisted first**, wait until **1440p** appears in YouTube's quality menu (YouTube's 1440p+ processing
+  uses VP9/AV1 with more bits; it can take a while after upload), check it on a phone, then make it Public.

@@ -22,7 +22,7 @@ function canvasSprite(key, draw, worldH) {
   if (typeof document === 'undefined') { const s = new T.Sprite(new T.SpriteMaterial()); s.userData.key = key; return s; }
   const c = document.createElement('canvas'), g = c.getContext('2d');
   const {w, h} = draw(g, c, true); c.width = w; c.height = h; draw(g, c, false);
-  const tex = new T.CanvasTexture(c); tex.colorSpace = T.SRGBColorSpace; tex.anisotropy = 4;
+  const tex = new T.CanvasTexture(c); tex.colorSpace = T.SRGBColorSpace; tex.anisotropy = 8;
   const m = new T.SpriteMaterial({map: tex, depthWrite: false, transparent: true});
   const s = new T.Sprite(m); s.center.set(.5, 0); s.scale.set(worldH * w / h, worldH, 1); s.userData = {key, base: s.scale.clone()}; s.renderOrder = 10;
   return s;
