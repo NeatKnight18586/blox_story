@@ -1,4 +1,4 @@
-# 02 `mirror` — scene plan (targets; real cut times come from `cues.json` word onsets)
+# 12 `mirror` — scene plan (targets; real cut times come from `cues.json` word onsets)
 
 Cast (troupe): LEAD = Max · LITTLE = his sister Dot (7, early riser, neat) · ELDER = Dad · SECOND = Mom / Mrs. Park ·
 RIVAL = Brick · AFK ×2. Mirrors are staged, not reflected: behind each mirror frame sits a mirrored copy of the room
