@@ -5,10 +5,11 @@
 import {createActor, SKINS} from '../avatar-style/body.js';
 import {dress} from '../avatar-style/clothing.js';
 import {attachHair} from '../avatar-style/hair.js';
-import {setFace} from '../avatar-style/faces2.js';
 import {attachAccessory} from '../avatar-style/accessories.js';
+import {setFace} from '../avatar-style/faces2.js';
 import {attachTool, buildTool} from '../avatar-style/tools.js';
 import {setTag, statSprite, bubbleSprite} from './overhead.js';
+import {CLASSES} from '../parts/props.js';
 import {sampleTimeline, ambientPose, applyPoseSample} from './poses.js';
 
 export function buildActor(preset, name = 'actor') {
@@ -44,21 +45,30 @@ export function townsperson(seed) {
 //   bubble = [[t0, text | null]]                        chat bubble (≤ 4 words) beside the head
 //   visible = [[t0, bool]]
 export function driveActor(a, t, {keys, faces, tags, origin = {position: [0, 0, 0], yaw: 0}, ambient = false, fps = 30,
-  tools, toolsLeft, stat, bubble, visible} = {}) {
+  tools, toolsLeft, stat, bubble, visible, kit} = {}) {
   if (visible) { let v = true; for (const [t0, x] of visible) if (t >= t0) v = x; a.root.visible = v; }
   const s = ambient ? ambientPose(a.preset.seed ?? 1, t) : sampleTimeline(keys ?? [[0, 'idle']], t);
   applyPoseSample(a, s, origin);
   if (faces) { let f = faces[0][1]; for (const [t0, n] of faces) if (t >= t0) f = n; if (f !== a.face) setFace(a, f); }
   if (tags) {
     let cur = null; for (const k of tags) if (t >= k[0]) cur = k;
-    if (cur) setTag(a, cur[1], cur[2] ?? null, cur[0] > 0 ? Math.round((t - cur[0]) * fps) : 99);
+    const st = cur?.[3]?.cls ? {cls: cur[3].cls, color: CLASSES[cur[3].cls].color, icon: CLASSES[cur[3].cls].icon} : null;   // A3 class-coloured tag
+    if (cur) setTag(a, cur[1], cur[2] ?? null, cur[0] > 0 ? Math.round((t - cur[0]) * fps) : 99, st);
     else setTag(a, null, null);
   }
+  if (kit) setAccessories(a, step(kit, t) ?? []);
   if (tools) setTool(a, step(tools, t), 'right');
   if (toolsLeft) setTool(a, step(toolsLeft, t), 'left');
   if (stat) { let cur = null; for (const k of stat) if (t >= k[0]) cur = k; setOverlay(a, 'stat', cur?.[1] ? sprite(a, `s:${cur.slice(1).join('|')}`, () => statSprite(cur[1], cur[2], {label: cur[3] ?? ''})) : null, [0, 6.6, 0]); }
   if (bubble) { const txt = step(bubble, t); setOverlay(a, 'bubble', txt ? sprite(a, 'b:' + txt, () => bubbleSprite(txt)) : null, [0, 7.0, 0]); }
   return a;
+}
+// Accessory timeline `kit` (A3): [[t0, [names]]] — every named accessory is built once and shown or hidden; the preset's own
+// accessories are untouched. A pop-on lands with a quick scale-in (pure in the frame count).
+function setAccessories(a, names) {
+  a._acc ??= {};
+  for (const n of names) if (!a._acc[n]) { const before = a.attachments?.[n]; a._acc[n] = attachAccessory(a, n, n === 'cape' ? {color: '#6b2fa3', accent: '#f2c230'} : {}); if (before) a.attachments[n] = before; }
+  for (const [n, g] of Object.entries(a._acc)) g.visible = names.includes(n);
 }
 const sprite = (a, key, make) => { a._spr ??= new Map(); if (!a._spr.has(key)) a._spr.set(key, make()); return a._spr.get(key); };
 const step = (keys, t) => { let v = null; for (const k of keys) if (t >= k[0]) v = k[1]; return v; };

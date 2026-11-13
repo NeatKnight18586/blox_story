@@ -33,22 +33,67 @@ const cached = (key, f) => { if (!cache.has(key)) cache.set(key, f()); return ca
 
 // Name tag: {name, role?} → Sprite (cached per text; one instance per key, so it is safe to reuse
 // only once per scene — actors get their own via tagSprite()).
-function drawTag(name, role) {
-  const S = 128, pad = 26;
+function drawTag(name, role, style = null) {
+  const S = 128, pad = 26, icon = style?.icon ? S * 1.05 : 0;
   return (g, c, measure) => {
-    g.font = `${S}px "${FONT}", "Arial Black", sans-serif`; const nw = g.measureText(name).width;
+    g.font = `${S}px "${FONT}", "Arial Black", sans-serif`; const nw = g.measureText(name).width + icon;
     g.font = `${S * .5}px "${FONT}", "Arial Black", sans-serif`; const rw = role ? g.measureText(role).width : 0;
     const w = Math.ceil(Math.max(nw, rw) + pad * 2), h = Math.ceil(S * 1.2 + (role ? S * .62 : 0) + pad);
     if (measure) return {w, h};
     g.textAlign = 'center'; g.textBaseline = 'alphabetic'; g.lineJoin = 'round';
-    const line = (txt, size, y, fill) => { g.font = `${size}px "${FONT}", "Arial Black", sans-serif`; g.lineWidth = size * .2; g.strokeStyle = '#141414'; g.strokeText(txt, w / 2, y); g.fillStyle = fill; g.fillText(txt, w / 2, y); };
+    const line = (txt, size, y, fill, x = w / 2) => { g.font = `${size}px "${FONT}", "Arial Black", sans-serif`; g.lineWidth = size * .2; g.strokeStyle = '#141414'; g.strokeText(txt, x, y); g.fillStyle = fill; g.fillText(txt, x, y); };
     if (role) line(role, S * .5, S * .56 + pad * .5, '#ffd84a');
-    line(name, S, h - pad * .7 - S * .12, '#ffffff');
+    const base = h - pad * .7 - S * .12;
+    if (icon) drawIcon(g, style.icon, pad + icon * .45, base - S * .36, S * .9, style.color, '#141414');   // A3: class icon before the name
+    line(name, S, base, style?.color ?? '#ffffff', w / 2 + icon / 2);
     return {w, h};
   };
 }
-export function tagSprite(name, role = null) {
-  return canvasSprite(`tag:${name}:${role}`, drawTag(name, role), TAG_HEIGHT * (role ? 1.52 : 1));
+export function tagSprite(name, role = null, style = null) {
+  return canvasSprite(`tag:${name}:${role}:${style?.cls ?? ''}`, drawTag(name, role, style), TAG_HEIGHT * (role ? 1.52 : 1));
+}
+
+// ---- Amendment A3: class icons and the class card ------------------------------------------------------------
+// drawIcon: our own simple drawn icons (loaf, shield, crown, leafbow, anvil, wheat), centred at (x, y), size s.
+export function drawIcon(g, icon, x, y, s, fill, line = '#141414') {
+  g.save(); g.translate(x, y); g.scale(s / 100, s / 100); g.lineJoin = 'round'; g.lineCap = 'round'; g.lineWidth = 9; g.strokeStyle = line; g.fillStyle = fill;
+  const P = pts => { g.beginPath(); pts.forEach(([a, b], i) => (i ? g.lineTo(a, b) : g.moveTo(a, b))); g.closePath(); g.fill(); g.stroke(); };
+  if (icon === 'loaf') { g.beginPath(); g.ellipse(0, 6, 46, 28, 0, Math.PI, 0); g.lineTo(46, 24); g.lineTo(-46, 24); g.closePath(); g.fill(); g.stroke(); for (const k of [-22, 0, 22]) { g.beginPath(); g.moveTo(k - 8, 0); g.lineTo(k + 8, -16); g.stroke(); } }
+  else if (icon === 'shield') { P([[-38, -40], [38, -40], [38, 4], [0, 46], [-38, 4]]); g.beginPath(); g.moveTo(0, -30); g.lineTo(0, 30); g.moveTo(-26, -8); g.lineTo(26, -8); g.stroke(); }
+  else if (icon === 'crown') { P([[-46, 30], [-46, -22], [-24, 4], [0, -36], [24, 4], [46, -22], [46, 30]]); g.fillStyle = line; g.fillRect(-46, 18, 92, 6); }
+  else if (icon === 'leafbow') { g.beginPath(); g.arc(-6, 0, 42, -1.2, 1.2); g.stroke(); g.beginPath(); g.moveTo(-6 + 42 * Math.cos(-1.2), 42 * Math.sin(-1.2)); g.lineTo(-6 + 42 * Math.cos(1.2), 42 * Math.sin(1.2)); g.lineWidth = 4; g.stroke(); g.lineWidth = 9; P([[34, 0], [6, -16], [-26, 0], [6, 16]]); }
+  else if (icon === 'anvil') { P([[-44, -24], [30, -24], [46, -12], [30, -6], [20, -6], [14, 12], [28, 30], [-28, 30], [-14, 12], [-20, -6], [-44, -6]]); }
+  else if (icon === 'wheat') { g.beginPath(); g.moveTo(0, 44); g.lineTo(0, -40); g.stroke(); for (let i = 0; i < 4; i++) for (const sd of [-1, 1]) { g.beginPath(); g.ellipse(sd * 12, -30 + i * 16, 11, 7, sd * -.6, 0, Math.PI * 2); g.fill(); g.stroke(); } }
+  g.restore();
+}
+// The class card canvas (512 × 640): a "CLASS UNLOCKED" ribbon, a shield-shaped plate in the class colour with a
+// thick dark outline, the big icon, the class name (Lilita One, white, dark outline) and a diagonal shine at `shine`
+// (0..1, the sweep position). Pure drawing: the same inputs always give the same pixels.
+export function drawClassCard(g, {name, color, dark, icon}, shine = -1, W = 512, H = 640) {
+  g.clearRect(0, 0, W, H); g.lineJoin = 'round';
+  const plate = () => { g.beginPath(); g.moveTo(40, 120); g.quadraticCurveTo(40, 92, 70, 92); g.lineTo(W - 70, 92); g.quadraticCurveTo(W - 40, 92, W - 40, 120); g.lineTo(W - 40, 430); g.quadraticCurveTo(W - 40, 520, W / 2, 610); g.quadraticCurveTo(40, 520, 40, 430); g.closePath(); };
+  plate(); g.fillStyle = '#141414'; g.lineWidth = 34; g.strokeStyle = '#141414'; g.stroke();
+  const grad = g.createLinearGradient(0, 92, 0, 610); grad.addColorStop(0, color); grad.addColorStop(1, dark); g.fillStyle = grad; g.fill();
+  g.save(); plate(); g.clip();
+  g.fillStyle = 'rgba(255,255,255,.18)'; g.fillRect(40, 92, W - 80, 70);   // top highlight
+  if (shine >= 0 && shine <= 1) { const x = -200 + shine * (W + 400); const sg = g.createLinearGradient(x - 90, 0, x + 90, 0); sg.addColorStop(0, 'rgba(255,255,255,0)'); sg.addColorStop(.5, 'rgba(255,255,255,.75)'); sg.addColorStop(1, 'rgba(255,255,255,0)'); g.fillStyle = sg; g.beginPath(); g.moveTo(x - 90, 92); g.lineTo(x + 90, 92); g.lineTo(x - 30, 610); g.lineTo(x - 210, 610); g.closePath(); g.fill(); }
+  g.restore();
+  // ribbon
+  g.fillStyle = '#141414'; g.beginPath(); g.roundRect(70, 20, W - 140, 84, 22); g.fill();
+  g.fillStyle = '#ffd84a'; g.beginPath(); g.roundRect(80, 30, W - 160, 64, 16); g.fill();
+  g.font = `44px "${FONT}", "Arial Black", sans-serif`; g.textAlign = 'center'; g.textBaseline = 'middle'; g.fillStyle = '#141414'; g.fillText('CLASS UNLOCKED', W / 2, 64);
+  drawIcon(g, icon, W / 2, 280, 230, '#ffffff', '#141414');
+  // class name: cap height ≈ 0.19 × card height (CARD.capOfHeight in engine/classes.js)
+  const size = Math.round(H * .19 / .72); g.font = `${size}px "${FONT}", "Arial Black", sans-serif`; g.textBaseline = 'alphabetic';
+  g.lineWidth = size * .2; g.strokeStyle = '#141414'; g.strokeText(name, W / 2, 520); g.fillStyle = '#ffffff'; g.fillText(name, W / 2, 520);
+}
+const cardCanvases = new Map();
+export function classCardCanvas(cls, info, shineStep = -1) {   // cached per class and shine step (12 steps)
+  const k = cls + ':' + shineStep;
+  if (!cardCanvases.has(k) && typeof document !== 'undefined') {
+    const c = document.createElement('canvas'); c.width = 512; c.height = 640; drawClassCard(c.getContext('2d'), info, shineStep < 0 ? -1 : shineStep / 11); cardCanvases.set(k, c);
+  }
+  return cardCanvases.get(k);
 }
 
 // Stat variants: number ("2,031"), bar (0..1 with label), icon tile (emoji-free: a letter in a tile).
@@ -79,11 +124,11 @@ export function bubbleSprite(text) {
 }
 
 // Per-actor tag slot: shows `name`/`role`, pops when they change (pure in the frame number).
-export function setTag(actor, name, role, framesSinceChange = 99) {
-  const key = `${name}:${role}`;
+export function setTag(actor, name, role, framesSinceChange = 99, style = null) {
+  const key = `${name}:${role}:${style?.cls ?? ''}`;
   if (actor.tagKey !== key) {
     if (actor.tag) actor.tag.removeFromParent();
-    actor.tag = name ? cached(`${actor.root.uuid}:${key}`, () => tagSprite(name, role)) : null; actor.tagKey = key;
+    actor.tag = name ? cached(`${actor.root.uuid}:${key}`, () => tagSprite(name, role, style)) : null; actor.tagKey = key;
     if (actor.tag) { actor.tag.position.set(0, 5.75, 0); actor.root.add(actor.tag); }
   }
   // Tags keep one on-screen size whatever the actor's scale (Pip at 0.6 still gets a readable tag).

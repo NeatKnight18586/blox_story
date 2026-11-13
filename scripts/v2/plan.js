@@ -25,12 +25,14 @@ try {
   if (errors.length) throw Error(errors.join('; '));
   info = await page.evaluate(list => list.map((s, i) => {
     const E = window.__episode, at = f => E.inspectFrame(Math.min(s.start + s.frames - 1, Math.max(s.start, f)));
-    return {speed: E.shotSpeed(i), first: at(s.start), early: at(s.start + 6), mid: at(s.start + Math.floor(s.frames / 2)), last: at(s.start + s.frames - 1)};
+    const cards = [];   // A3: class cards sampled every 3rd frame
+    for (let f = s.start; f < s.start + s.frames; f += 3) { const r = E.inspectFrame(f); if (r.cards.length) cards.push({frame: f, cards: r.cards}); }
+    return {speed: E.shotSpeed(i), first: at(s.start), early: at(s.start + 6), mid: at(s.start + Math.floor(s.frames / 2)), last: at(s.start + s.frames - 1), cards};
   }), shots.map(({start, frames}) => ({start, frames})));
 } finally { await browser.close(); await server.close(); }
 
 const r = checkPlan({shots, cues, fps, end: spec.end, info});
-const table = shots.map((s, i) => ({id: s.id, t: +(s.start / fps).toFixed(2), dur: +(s.frames / fps).toFixed(2), size: s.size, move: s.move, loc: s.loc, speed: +(info[i].speed * 100).toFixed(0),
+const table = shots.map((s, i) => ({id: s.id, beat: !!s.beat, t: +(s.start / fps).toFixed(2), dur: +(s.frames / fps).toFixed(2), size: s.size, move: s.move, loc: s.loc, speed: +(info[i].speed * 100).toFixed(0),
   subject: s.subject ? `${s.subject}@${(info[i].mid.heads[s.subject]?.x * 100).toFixed(0)},${(info[i].mid.heads[s.subject]?.y * 100).toFixed(0)}` : '', why: s.why}));
 console.table(table.map(({why, ...x}) => x));
 for (const w of r.warnings) console.log('WARN ', w);

@@ -69,53 +69,61 @@
   "pulled": [
    [
     0,
-    []
-   ],
-   [
-    0.8,
     [
+     "hookK",
+     "knight",
      "baker"
     ]
    ],
    [
-    1.6,
+    1.1,
     [
+     "hookK",
+     "knight",
      "baker",
-     "knight"
+     "hookB"
     ]
    ],
    [
-    13.0,
+    12.48,
     [
-     "baker",
+     "hookK",
      "knight",
+     "baker",
+     "hookB",
      "kidA"
     ]
    ],
    [
-    14.61,
+    14.059,
     [
-     "baker",
+     "hookK",
      "knight",
+     "baker",
+     "hookB",
      "kidA",
      "kidB"
     ]
    ],
    [
-    15.32,
+    14.774999999999999,
     [
-     "baker",
+     "hookK",
      "knight",
+     "baker",
+     "hookB",
      "kidA",
      "kidB",
      "kidC"
     ]
    ],
    [
-    15.95,
+    15.402999999999999,
     [
-     "baker",
+     "hookK",
      "knight",
+     "baker",
+     "hookB",
      "kidA",
      "kidB",
      "kidC",
@@ -123,10 +131,12 @@
     ]
    ],
    [
-    17.6,
+    17.14,
     [
-     "baker",
+     "hookK",
      "knight",
+     "baker",
+     "hookB",
      "kidA",
      "kidB",
      "kidC",
@@ -135,20 +145,159 @@
     ]
    ],
    [
-    19.45,
+    17.26,
     [
-     "baker",
+     "hookK",
      "knight",
+     "baker",
+     "hookB",
      "kidA",
      "kidB",
      "kidC",
      "farmer",
      "smith",
-     "pip"
+     "w2"
     ]
    ],
    [
-    112.0,
+    17.38,
+    [
+     "hookK",
+     "knight",
+     "baker",
+     "hookB",
+     "kidA",
+     "kidB",
+     "kidC",
+     "farmer",
+     "smith",
+     "w2",
+     "w7"
+    ]
+   ],
+   [
+    17.5,
+    [
+     "hookK",
+     "knight",
+     "baker",
+     "hookB",
+     "kidA",
+     "kidB",
+     "kidC",
+     "farmer",
+     "smith",
+     "w2",
+     "w7",
+     "w1"
+    ]
+   ],
+   [
+    17.62,
+    [
+     "hookK",
+     "knight",
+     "baker",
+     "hookB",
+     "kidA",
+     "kidB",
+     "kidC",
+     "farmer",
+     "smith",
+     "w2",
+     "w7",
+     "w1",
+     "w6"
+    ]
+   ],
+   [
+    17.74,
+    [
+     "hookK",
+     "knight",
+     "baker",
+     "hookB",
+     "kidA",
+     "kidB",
+     "kidC",
+     "farmer",
+     "smith",
+     "w2",
+     "w7",
+     "w1",
+     "w6",
+     "w3"
+    ]
+   ],
+   [
+    17.86,
+    [
+     "hookK",
+     "knight",
+     "baker",
+     "hookB",
+     "kidA",
+     "kidB",
+     "kidC",
+     "farmer",
+     "smith",
+     "w2",
+     "w7",
+     "w1",
+     "w6",
+     "w3",
+     "w4"
+    ]
+   ],
+   [
+    19.45,
+    [
+     "hookK",
+     "knight",
+     "baker",
+     "hookB",
+     "kidA",
+     "kidB",
+     "kidC",
+     "farmer",
+     "smith",
+     "w2",
+     "w7",
+     "w1",
+     "w6",
+     "w3",
+     "w4",
+     "pip"
+    ]
+   ]
+  ],
+  "introStones": [
+   [
+    0,
+    [
+     "hookK",
+     "hookB",
+     "w2",
+     "w7",
+     "w1",
+     "w6",
+     "w3",
+     "w4"
+    ]
+   ],
+   [
+    7.44,
+    [
+     "w2",
+     "w7",
+     "w1",
+     "w6",
+     "w3",
+     "w4"
+    ]
+   ],
+   [
+    18.53,
     []
    ]
   ],
@@ -761,10 +910,127 @@
     ]
    ]
   },
+  "kidKnight": {
+   "style": "v2",
+   "preset": "kidKnight",
+   "at": "stone_hookK",
+   "yaw": 0,
+   "keys": [
+    [
+     27.3,
+     "cheer"
+    ],
+    [
+     28.6,
+     "point"
+    ],
+    [
+     31.0,
+     "idle"
+    ],
+    [
+     112.0,
+     "idle"
+    ],
+    [
+     119.0,
+     "lift",
+     {
+      "effort": 1
+     }
+    ]
+   ],
+   "faces": [
+    [
+     0,
+     "shout"
+    ],
+    [
+     0.7,
+     "smile"
+    ],
+    [
+     27.3,
+     "smug"
+    ],
+    [
+     31.7,
+     "smile"
+    ],
+    [
+     119.0,
+     "determined"
+    ]
+   ],
+   "tools": [
+    [
+     18.53,
+     null
+    ],
+    [
+     112.0,
+     "class:knight"
+    ]
+   ],
+   "tags": [
+    [
+     119.17,
+     "Nobody"
+    ]
+   ],
+   "visible": [
+    [
+     0,
+     true
+    ],
+    [
+     7.44,
+     false
+    ],
+    [
+     18.538,
+     true
+    ]
+   ],
+   "marks": [
+    [
+     0,
+     {
+      "at": "stone_hookK",
+      "yaw": 0
+     }
+    ],
+    [
+     7.44,
+     {
+      "at": "stone_knight",
+      "yaw": 0
+     }
+    ],
+    [
+     27.472,
+     {
+      "origin": [
+       6.4,
+       0.4,
+       66.8
+      ],
+      "yaw": 222
+     }
+    ],
+    [
+     31.805,
+     {
+      "at": "stone_knight",
+      "yaw": 0
+     }
+    ]
+   ]
+  },
   "kidBaker": {
    "style": "v2",
    "preset": "kidBaker",
-   "at": "stone_baker",
+   "at": "stone_hookB",
    "yaw": 0,
    "keys": [
     [
@@ -773,14 +1039,6 @@
      {
       "effort": 0.7
      }
-    ],
-    [
-     0.8,
-     "cheer"
-    ],
-    [
-     3.0,
-     "idle"
     ],
     [
      27.3,
@@ -812,7 +1070,11 @@
      "determined"
     ],
     [
-     0.8,
+     1.55,
+     "shout"
+    ],
+    [
+     2.4000000000000004,
      "smile"
     ],
     [
@@ -834,16 +1096,12 @@
      null
     ],
     [
-     0.8,
-     "sword"
-    ],
-    [
-     3.0,
+     18.53,
      null
     ],
     [
      112.0,
-     null
+     "class:baker"
     ]
    ],
    "tags": [
@@ -852,17 +1110,48 @@
      "Nobody"
     ],
     [
-     0.8,
-     "Baker"
-    ],
-    [
      119.05,
      "Nobody"
+    ]
+   ],
+   "bubble": [
+    [
+     0,
+     null
+    ],
+    [
+     29.17,
+     "Need a hand?"
+    ],
+    [
+     30.6,
+     null
+    ]
+   ],
+   "visible": [
+    [
+     0,
+     true
+    ],
+    [
+     7.44,
+     false
+    ],
+    [
+     18.538,
+     true
     ]
    ],
    "marks": [
     [
      0,
+     {
+      "at": "stone_hookB",
+      "yaw": 0
+     }
+    ],
+    [
+     7.44,
      {
       "at": "stone_baker",
       "yaw": 0
@@ -886,311 +1175,6 @@
       "yaw": 0
      }
     ]
-   ],
-   "bubble": [
-    [
-     0,
-     null
-    ],
-    [
-     29.17,
-     "Need a hand?"
-    ],
-    [
-     30.6,
-     null
-    ]
-   ]
-  },
-  "kidKnight": {
-   "style": "v2",
-   "preset": "kidKnight",
-   "at": "stone_knight",
-   "yaw": 0,
-   "keys": [
-    [
-     0,
-     "pull",
-     {
-      "effort": 0.7
-     }
-    ],
-    [
-     1.6,
-     "cheer"
-    ],
-    [
-     3.8000000000000003,
-     "idle"
-    ],
-    [
-     27.3,
-     "cheer"
-    ],
-    [
-     28.6,
-     "point"
-    ],
-    [
-     31.0,
-     "idle"
-    ],
-    [
-     112.0,
-     "idle"
-    ],
-    [
-     119.0,
-     "lift",
-     {
-      "effort": 1
-     }
-    ]
-   ],
-   "faces": [
-    [
-     0,
-     "determined"
-    ],
-    [
-     1.6,
-     "smile"
-    ],
-    [
-     27.3,
-     "smug"
-    ],
-    [
-     31.7,
-     "smile"
-    ],
-    [
-     119.0,
-     "determined"
-    ]
-   ],
-   "tools": [
-    [
-     0,
-     null
-    ],
-    [
-     1.6,
-     "sword"
-    ],
-    [
-     3.8000000000000003,
-     null
-    ],
-    [
-     112.0,
-     null
-    ]
-   ],
-   "tags": [
-    [
-     0,
-     "Nobody"
-    ],
-    [
-     1.6,
-     "Knight"
-    ],
-    [
-     119.17,
-     "Nobody"
-    ]
-   ],
-   "marks": [
-    [
-     0,
-     {
-      "at": "stone_knight",
-      "yaw": 0
-     }
-    ],
-    [
-     27.472,
-     {
-      "origin": [
-       6.4,
-       0.4,
-       66.8
-      ],
-      "yaw": 222
-     }
-    ],
-    [
-     31.805,
-     {
-      "at": "stone_knight",
-      "yaw": 0
-     }
-    ]
-   ]
-  },
-  "kidSmith": {
-   "style": "v2",
-   "preset": "kidSmith",
-   "at": "stone_smith",
-   "yaw": 0,
-   "keys": [
-    [
-     0,
-     "pull",
-     {
-      "effort": 0.7
-     }
-    ],
-    [
-     17.6,
-     "cheer"
-    ],
-    [
-     19.8,
-     "idle"
-    ],
-    [
-     112.0,
-     "idle"
-    ],
-    [
-     119.0,
-     "lift",
-     {
-      "effort": 1
-     }
-    ]
-   ],
-   "faces": [
-    [
-     0,
-     "determined"
-    ],
-    [
-     17.6,
-     "smile"
-    ],
-    [
-     119.0,
-     "determined"
-    ]
-   ],
-   "tools": [
-    [
-     0,
-     null
-    ],
-    [
-     17.6,
-     "sword"
-    ],
-    [
-     19.8,
-     null
-    ],
-    [
-     112.0,
-     null
-    ]
-   ],
-   "tags": [
-    [
-     0,
-     "Nobody"
-    ],
-    [
-     17.6,
-     "Smith"
-    ],
-    [
-     119.28999999999999,
-     "Nobody"
-    ]
-   ]
-  },
-  "kidFarmer": {
-   "style": "v2",
-   "preset": "kidFarmer",
-   "at": "stone_farmer",
-   "yaw": 0,
-   "keys": [
-    [
-     0,
-     "idle"
-    ],
-    [
-     12.2,
-     "pull",
-     {
-      "effort": 0.8
-     }
-    ],
-    [
-     15.95,
-     "cheer"
-    ],
-    [
-     18.15,
-     "idle"
-    ],
-    [
-     112.0,
-     "idle"
-    ],
-    [
-     119.0,
-     "lift",
-     {
-      "effort": 1
-     }
-    ]
-   ],
-   "faces": [
-    [
-     0,
-     "determined"
-    ],
-    [
-     15.95,
-     "smile"
-    ],
-    [
-     119.0,
-     "determined"
-    ]
-   ],
-   "tools": [
-    [
-     0,
-     null
-    ],
-    [
-     15.95,
-     "sword"
-    ],
-    [
-     18.15,
-     null
-    ],
-    [
-     112.0,
-     null
-    ]
-   ],
-   "tags": [
-    [
-     0,
-     "Nobody"
-    ],
-    [
-     15.95,
-     "King"
-    ],
-    [
-     119.41,
-     "Nobody"
-    ]
    ]
   },
   "kidA": {
@@ -1211,14 +1195,6 @@
      }
     ],
     [
-     13.0,
-     "cheer"
-    ],
-    [
-     15.2,
-     "idle"
-    ],
-    [
      27.3,
      "point"
     ],
@@ -1244,7 +1220,11 @@
      "determined"
     ],
     [
-     13.0,
+     12.93,
+     "shout"
+    ],
+    [
+     13.780000000000001,
      "smile"
     ],
     [
@@ -1266,16 +1246,12 @@
      null
     ],
     [
-     13.0,
-     "sword"
-    ],
-    [
-     15.2,
+     18.53,
      null
     ],
     [
      112.0,
-     null
+     "class:archer"
     ]
    ],
    "tags": [
@@ -1284,14 +1260,26 @@
      "Nobody"
     ],
     [
-     13.0,
-     "Archer"
-    ],
-    [
      119.53,
      "Nobody"
     ]
    ],
+   "with": {
+    "hair": {
+     "style": "bowl",
+     "color": "#3a2418"
+    },
+    "skin": "#8d5a3b",
+    "outfit": {
+     "recipe": "tunic",
+     "main": "#37c45a",
+     "trim": "#8a5a2b",
+     "legs": "#4a3a28",
+     "boots": "#3b2a1a",
+     "belt": "#8a5a2b",
+     "buckle": false
+    }
+   },
    "marks": [
     [
      0,
@@ -1318,23 +1306,7 @@
       "yaw": 0
      }
     ]
-   ],
-   "with": {
-    "hair": {
-     "style": "bowl",
-     "color": "#3a2418"
-    },
-    "skin": "#8d5a3b",
-    "outfit": {
-     "recipe": "tunic",
-     "main": "#d94f8a",
-     "trim": "#f7f3ea",
-     "legs": "#3b3f46",
-     "boots": "#3b2a1a",
-     "belt": "#5a4632",
-     "buckle": false
-    }
-   }
+   ]
   },
   "kidB": {
    "style": "v2",
@@ -1354,14 +1326,6 @@
      }
     ],
     [
-     14.61,
-     "cheer"
-    ],
-    [
-     16.81,
-     "idle"
-    ],
-    [
      112.0,
      "idle"
     ],
@@ -1379,7 +1343,11 @@
      "determined"
     ],
     [
-     14.61,
+     14.508999999999999,
+     "shout"
+    ],
+    [
+     15.359,
      "smile"
     ],
     [
@@ -1393,26 +1361,18 @@
      null
     ],
     [
-     14.61,
-     "sword"
-    ],
-    [
-     16.81,
+     18.53,
      null
     ],
     [
      112.0,
-     null
+     "class:baker"
     ]
    ],
    "tags": [
     [
      0,
      "Nobody"
-    ],
-    [
-     14.61,
-     "Baker"
     ],
     [
      119.64999999999999,
@@ -1427,7 +1387,7 @@
     "skin": "#fbdcc0",
     "outfit": {
      "recipe": "apron",
-     "main": "#f2b632",
+     "main": "#f5a623",
      "accent": "#f7f3ea",
      "legs": "#2f4a6b",
      "boots": "#4a3222"
@@ -1452,12 +1412,92 @@
      }
     ],
     [
-     15.32,
-     "cheer"
+     112.0,
+     "idle"
     ],
     [
-     17.52,
+     119.0,
+     "lift",
+     {
+      "effort": 1
+     }
+    ]
+   ],
+   "faces": [
+    [
+     0,
+     "determined"
+    ],
+    [
+     15.224999999999998,
+     "shout"
+    ],
+    [
+     16.075,
+     "smile"
+    ],
+    [
+     119.0,
+     "determined"
+    ]
+   ],
+   "tools": [
+    [
+     0,
+     null
+    ],
+    [
+     18.53,
+     null
+    ],
+    [
+     112.0,
+     "class:knight"
+    ]
+   ],
+   "tags": [
+    [
+     0,
+     "Nobody"
+    ],
+    [
+     119.77,
+     "Nobody"
+    ]
+   ],
+   "with": {
+    "hair": {
+     "style": "braids",
+     "color": "#202020"
+    },
+    "skin": "#c08457",
+    "outfit": {
+     "recipe": "armor",
+     "main": "#c3ccd8",
+     "accent": "#3d8bf0",
+     "legs": "#2f5f9e",
+     "boots": "#3b3f46",
+     "belt": "#5a4632",
+     "buckle": "#d7dde6"
+    }
+   }
+  },
+  "kidKing": {
+   "style": "v2",
+   "preset": "kidKing",
+   "at": "stone_farmer",
+   "yaw": 0,
+   "keys": [
+    [
+     0,
      "idle"
+    ],
+    [
+     12.2,
+     "pull",
+     {
+      "effort": 0.8
+     }
     ],
     [
      112.0,
@@ -1477,7 +1517,11 @@
      "determined"
     ],
     [
-     15.32,
+     15.852999999999998,
+     "shout"
+    ],
+    [
+     16.703,
      "smile"
     ],
     [
@@ -1491,16 +1535,12 @@
      null
     ],
     [
-     15.32,
-     "sword"
-    ],
-    [
-     17.52,
+     18.53,
      null
     ],
     [
      112.0,
-     null
+     "class:king"
     ]
    ],
    "tags": [
@@ -1509,30 +1549,486 @@
      "Nobody"
     ],
     [
-     15.32,
-     "Knight"
-    ],
-    [
-     119.77,
+     119.41,
      "Nobody"
     ]
+   ]
+  },
+  "kidSmith": {
+   "style": "v2",
+   "preset": "kidSmith",
+   "at": "stone_smith",
+   "yaw": 0,
+   "keys": [
+    [
+     0,
+     "pull",
+     {
+      "effort": 0.7
+     }
+    ],
+    [
+     112.0,
+     "idle"
+    ],
+    [
+     119.0,
+     "lift",
+     {
+      "effort": 1
+     }
+    ]
    ],
-   "with": {
-    "hair": {
-     "style": "braids",
-     "color": "#202020"
-    },
-    "skin": "#c08457",
-    "outfit": {
-     "recipe": "tunic",
-     "main": "#2e9e78",
-     "trim": "#f2c230",
-     "legs": "#3b3f46",
-     "boots": "#2b2b2b",
-     "belt": "#5a4632",
-     "buckle": "#f2c230"
-    }
-   }
+   "faces": [
+    [
+     0,
+     "determined"
+    ],
+    [
+     17.59,
+     "shout"
+    ],
+    [
+     18.44,
+     "smile"
+    ],
+    [
+     119.0,
+     "determined"
+    ]
+   ],
+   "tools": [
+    [
+     0,
+     null
+    ],
+    [
+     18.53,
+     null
+    ],
+    [
+     112.0,
+     "class:smith"
+    ]
+   ],
+   "tags": [
+    [
+     0,
+     "Nobody"
+    ],
+    [
+     119.28999999999999,
+     "Nobody"
+    ]
+   ]
+  },
+  "w2": {
+   "style": "v2",
+   "tier": "bg",
+   "skin": "#f6c9a0",
+   "scale": 0.8,
+   "outfit": {
+    "recipe": "tunic",
+    "main": "#a8d43a",
+    "accent": "#f5a623",
+    "trim": "#f7f3ea",
+    "legs": "#7a5233",
+    "boots": "#3b2a1a",
+    "belt": "#5a4632",
+    "buckle": false
+   },
+   "hair": {
+    "style": "side_swept",
+    "color": "#202020"
+   },
+   "face": "determined",
+   "at": "stone_w2",
+   "yaw": 0,
+   "keys": [
+    [
+     0,
+     "pull",
+     {
+      "effort": 0.7
+     }
+    ]
+   ],
+   "faces": [
+    [
+     0,
+     "determined"
+    ],
+    [
+     17.71,
+     "shout"
+    ]
+   ],
+   "tools": [
+    [
+     0,
+     null
+    ]
+   ],
+   "tags": [
+    [
+     0,
+     null
+    ]
+   ],
+   "visible": [
+    [
+     0,
+     false
+    ],
+    [
+     7.44,
+     true
+    ],
+    [
+     18.538,
+     false
+    ]
+   ]
+  },
+  "w7": {
+   "style": "v2",
+   "tier": "bg",
+   "skin": "#8d5a3b",
+   "scale": 0.8,
+   "outfit": {
+    "recipe": "armor",
+    "main": "#c3ccd8",
+    "accent": "#3d8bf0",
+    "trim": "#f7f3ea",
+    "legs": "#2f5f9e",
+    "boots": "#3b2a1a",
+    "belt": "#5a4632",
+    "buckle": false
+   },
+   "hair": {
+    "style": "spiky",
+    "color": "#6b4428"
+   },
+   "face": "determined",
+   "at": "stone_w7",
+   "yaw": 0,
+   "keys": [
+    [
+     0,
+     "pull",
+     {
+      "effort": 0.7
+     }
+    ]
+   ],
+   "faces": [
+    [
+     0,
+     "determined"
+    ],
+    [
+     17.83,
+     "shout"
+    ]
+   ],
+   "tools": [
+    [
+     0,
+     null
+    ]
+   ],
+   "tags": [
+    [
+     0,
+     null
+    ]
+   ],
+   "visible": [
+    [
+     0,
+     false
+    ],
+    [
+     7.44,
+     true
+    ],
+    [
+     18.538,
+     false
+    ]
+   ]
+  },
+  "w1": {
+   "style": "v2",
+   "tier": "bg",
+   "skin": "#e0a77a",
+   "scale": 0.8,
+   "outfit": {
+    "recipe": "tunic",
+    "main": "#37c45a",
+    "accent": "#f5a623",
+    "trim": "#f7f3ea",
+    "legs": "#4a3a28",
+    "boots": "#3b2a1a",
+    "belt": "#5a4632",
+    "buckle": false
+   },
+   "hair": {
+    "style": "bowl",
+    "color": "#c8692a"
+   },
+   "face": "determined",
+   "at": "stone_w1",
+   "yaw": 0,
+   "keys": [
+    [
+     0,
+     "pull",
+     {
+      "effort": 0.7
+     }
+    ]
+   ],
+   "faces": [
+    [
+     0,
+     "determined"
+    ],
+    [
+     17.95,
+     "shout"
+    ]
+   ],
+   "tools": [
+    [
+     0,
+     null
+    ]
+   ],
+   "tags": [
+    [
+     0,
+     null
+    ]
+   ],
+   "visible": [
+    [
+     0,
+     false
+    ],
+    [
+     7.44,
+     true
+    ],
+    [
+     18.538,
+     false
+    ]
+   ]
+  },
+  "w6": {
+   "style": "v2",
+   "tier": "bg",
+   "skin": "#fbdcc0",
+   "scale": 0.8,
+   "outfit": {
+    "recipe": "apron",
+    "main": "#f7f3ea",
+    "accent": "#f5a623",
+    "trim": "#f7f3ea",
+    "legs": "#3b3f46",
+    "boots": "#3b2a1a",
+    "belt": "#5a4632",
+    "buckle": false
+   },
+   "hair": {
+    "style": "curly_blocks",
+    "color": "#e8c25a"
+   },
+   "face": "determined",
+   "at": "stone_w6",
+   "yaw": 0,
+   "keys": [
+    [
+     0,
+     "pull",
+     {
+      "effort": 0.7
+     }
+    ]
+   ],
+   "faces": [
+    [
+     0,
+     "determined"
+    ],
+    [
+     18.07,
+     "shout"
+    ]
+   ],
+   "tools": [
+    [
+     0,
+     null
+    ]
+   ],
+   "tags": [
+    [
+     0,
+     null
+    ]
+   ],
+   "visible": [
+    [
+     0,
+     false
+    ],
+    [
+     7.44,
+     true
+    ],
+    [
+     18.538,
+     false
+    ]
+   ]
+  },
+  "w3": {
+   "style": "v2",
+   "tier": "bg",
+   "skin": "#c08457",
+   "scale": 0.8,
+   "outfit": {
+    "recipe": "tunic",
+    "main": "#a8d43a",
+    "accent": "#f5a623",
+    "trim": "#f7f3ea",
+    "legs": "#7a5233",
+    "boots": "#3b2a1a",
+    "belt": "#5a4632",
+    "buckle": false
+   },
+   "hair": {
+    "style": "side_swept",
+    "color": "#202020"
+   },
+   "face": "determined",
+   "at": "stone_w3",
+   "yaw": 0,
+   "keys": [
+    [
+     0,
+     "pull",
+     {
+      "effort": 0.7
+     }
+    ]
+   ],
+   "faces": [
+    [
+     0,
+     "determined"
+    ],
+    [
+     18.189999999999998,
+     "shout"
+    ]
+   ],
+   "tools": [
+    [
+     0,
+     null
+    ]
+   ],
+   "tags": [
+    [
+     0,
+     null
+    ]
+   ],
+   "visible": [
+    [
+     0,
+     false
+    ],
+    [
+     7.44,
+     true
+    ],
+    [
+     18.538,
+     false
+    ]
+   ]
+  },
+  "w4": {
+   "style": "v2",
+   "tier": "bg",
+   "skin": "#f5cd30",
+   "scale": 0.8,
+   "outfit": {
+    "recipe": "apron",
+    "main": "#4a4f57",
+    "accent": "#f5a623",
+    "trim": "#f7f3ea",
+    "legs": "#2f4a6b",
+    "boots": "#3b2a1a",
+    "belt": "#5a4632",
+    "buckle": false
+   },
+   "hair": {
+    "style": "ponytail",
+    "color": "#6b4428"
+   },
+   "face": "determined",
+   "at": "stone_w4",
+   "yaw": 0,
+   "keys": [
+    [
+     0,
+     "pull",
+     {
+      "effort": 0.7
+     }
+    ]
+   ],
+   "faces": [
+    [
+     0,
+     "determined"
+    ],
+    [
+     18.31,
+     "shout"
+    ]
+   ],
+   "tools": [
+    [
+     0,
+     null
+    ]
+   ],
+   "tags": [
+    [
+     0,
+     null
+    ]
+   ],
+   "visible": [
+    [
+     0,
+     false
+    ],
+    [
+     7.44,
+     true
+    ],
+    [
+     18.538,
+     false
+    ]
+   ]
   },
   "pip": {
    "style": "v2",
@@ -1678,7 +2174,7 @@
     ],
     [
      19.45,
-     "sword"
+     "class:knight"
     ],
     [
      60.0,
@@ -1703,7 +2199,10 @@
     [
      20.05,
      "Pip",
-     "Knight"
+     "Knight",
+     {
+      "cls": "knight"
+     }
     ]
    ],
    "bubble": [
@@ -3279,116 +3778,13 @@
  },
  "effects": [
   {
-   "type": "particles",
-   "preset": "sparkle",
-   "at": 0.8,
-   "dur": 1.0,
-   "count": 24,
-   "seed": 8,
-   "origin": {
-    "actor": "kidBaker",
-    "offset": [
-     0,
-     3.6,
-     0.6
-    ]
-   }
-  },
-  {
-   "type": "particles",
-   "preset": "sparkle",
-   "at": 1.6,
-   "dur": 1.0,
-   "count": 24,
-   "seed": 16,
-   "origin": {
-    "actor": "kidKnight",
-    "offset": [
-     0,
-     3.6,
-     0.6
-    ]
-   }
-  },
-  {
-   "type": "particles",
-   "preset": "sparkle",
-   "at": 13.0,
-   "dur": 1.0,
-   "count": 24,
-   "seed": 130,
-   "origin": {
-    "actor": "kidA",
-    "offset": [
-     0,
-     3.6,
-     0.6
-    ]
-   }
-  },
-  {
-   "type": "particles",
-   "preset": "sparkle",
-   "at": 14.61,
-   "dur": 1.0,
-   "count": 24,
-   "seed": 146,
-   "origin": {
-    "actor": "kidB",
-    "offset": [
-     0,
-     3.6,
-     0.6
-    ]
-   }
-  },
-  {
-   "type": "particles",
-   "preset": "sparkle",
-   "at": 15.32,
-   "dur": 1.0,
-   "count": 24,
-   "seed": 153,
-   "origin": {
-    "actor": "kidC",
-    "offset": [
-     0,
-     3.6,
-     0.6
-    ]
-   }
-  },
-  {
-   "type": "particles",
-   "preset": "sparkle",
-   "at": 15.95,
-   "dur": 1.0,
-   "count": 24,
-   "seed": 159,
-   "origin": {
-    "actor": "kidFarmer",
-    "offset": [
-     0,
-     3.6,
-     0.6
-    ]
-   }
-  },
-  {
-   "type": "particles",
-   "preset": "sparkle",
-   "at": 17.6,
-   "dur": 1.0,
-   "count": 24,
-   "seed": 176,
-   "origin": {
-    "actor": "kidSmith",
-    "offset": [
-     0,
-     3.6,
-     0.6
-    ]
-   }
+   "type": "glow",
+   "target": "kidKnight.tool:class:knight",
+   "at": 3.3,
+   "dur": 1.8,
+   "level": 0.9,
+   "color": "#9cc8ff",
+   "period": 0.7
   },
   {
    "type": "particles",
@@ -3403,6 +3799,25 @@
      0,
      3.6,
      0.6
+    ]
+   }
+  },
+  {
+   "type": "particles",
+   "preset": "sparkle",
+   "at": 7.6,
+   "dur": 4.2,
+   "count": 16,
+   "seed": 76,
+   "stagger": 3.8,
+   "spread": 0.35,
+   "scale": 0.6,
+   "origin": {
+    "anchor": "stone_newborn",
+    "offset": [
+     0,
+     2.6,
+     1.05
     ]
    }
   },
@@ -3806,40 +4221,56 @@
    "loc": "field",
    "move": "push",
    "see": [
-    "kidBaker",
+    "nobody",
     "kidKnight",
-    "nobody"
+    "kidBaker"
    ],
-   "why": "Rule as image on frame 0: kids pull swords free, tags pop; centre frame the hero strains, tag Nobody.",
+   "why": "Rule as image on frame 0: behind the straining hero (tag Nobody) a kid already holds a glowing class blade under a Knight card; a second kid transforms into a Baker on \"nobody\".",
    "subject": "nobody",
    "openHit": true,
    "look": "day",
-   "shadowRadius": 40,
+   "shadowRadius": 34,
+   "classReveal": [
+    {
+     "actor": "kidKnight",
+     "cls": "knight",
+     "at": -0.9,
+     "cardScale": 0.75,
+     "cardDx": 0.3
+    },
+    {
+     "actor": "kidBaker",
+     "cls": "baker",
+     "at": 1.1,
+     "cardScale": 0.75,
+     "cardDx": -0.3
+    }
+   ],
    "from": {
     "position": [
-     1.2,
-     2.7,
-     94
+     3,
+     8,
+     75
     ],
     "target": [
-     2.5,
-     4.3,
-     67
+     3,
+     2.7,
+     56
     ],
-    "fov": 53
+    "fov": 46
    },
    "to": {
     "position": [
-     1.2,
-     2.6,
-     90.5
+     3,
+     7.7,
+     73.8
     ],
     "target": [
-     2.6,
-     4.3,
-     67
+     3,
+     2.8,
+     56
     ],
-    "fov": 48
+    "fov": 45
    }
   },
   {
@@ -4001,75 +4432,287 @@
    "see": [
     "kidA"
    ],
-   "why": "Pull it out: sword free, sparkle, a name pops above the head.",
+   "why": "The template reveal, unhurried: pull, light, the plain sword becomes the Galeleaf Edge, Archer card.",
    "subject": "kidA",
    "follow": "kidA",
    "shadowRadius": 16,
+   "classReveal": [
+    {
+     "actor": "kidA",
+     "cls": "archer",
+     "at": 0.27,
+     "cardScale": 0.8,
+     "cardDx": -0.2
+    }
+   ],
    "from": {
     "position": [
-     -3.5,
-     3.4,
-     9
+     -3.0,
+     2.6,
+     9.4
     ],
     "target": [
      0,
-     2.8,
+     3.85,
      0
     ],
-    "fov": 42
+    "fov": 44
    },
    "to": {
     "position": [
-     -2.5,
-     3.6,
-     8.2
+     -2.4,
+     2.7,
+     8.6
     ],
     "target": [
      0,
-     3.2,
+     4.05,
      0
     ],
-    "fov": 42
+    "fov": 44
    }
   },
   {
-   "id": "S07-names",
-   "at": 14.61,
-   "size": "wide",
+   "id": "S07a-baker",
+   "at": 14.609,
+   "size": "close",
    "loc": "field",
-   "move": "pull",
+   "move": "push",
    "see": [
-    "kidB",
-    "kidC",
-    "kidFarmer"
+    "kidB"
    ],
-   "why": "Baker. Knight. Even King: three tags pop on the beat; most kids do it by seven.",
-   "shadowRadius": 30,
+   "why": "Beat on \"Baker\": a girl at the peak of her reveal, Goldcrust Saber up, steam and flour, Baker card slams in.",
+   "subject": "kidB",
+   "beat": true,
+   "shadowRadius": 10,
+   "classReveal": [
+    {
+     "actor": "kidB",
+     "cls": "baker",
+     "at": -0.55,
+     "cardScale": 0.8,
+     "cardDx": -0.2
+    }
+   ],
    "from": {
     "position": [
-     -12,
-     3.4,
-     89.5
+     -13.0,
+     3.6,
+     86.2
     ],
     "target": [
-     -12.4,
-     3.0,
-     76
+     -12.5,
+     4.4,
+     77.45
     ],
-    "fov": 46
+    "fov": 44
    },
    "to": {
     "position": [
-     -11.8,
-     4.0,
-     92.5
+     -13.0,
+     3.6,
+     85.6
     ],
     "target": [
-     -12.4,
-     3.0,
-     76
+     -12.5,
+     4.4,
+     77.45
+    ],
+    "fov": 43
+   }
+  },
+  {
+   "id": "S07b-knight",
+   "at": 15.325,
+   "size": "medium",
+   "loc": "field",
+   "move": "push",
+   "see": [
+    "kidC"
+   ],
+   "why": "Beat on \"Knight\": Bastion Blade raised, blue rays and a ring shockwave, Knight card slams in.",
+   "subject": "kidC",
+   "beat": true,
+   "shadowRadius": 14,
+   "classReveal": [
+    {
+     "actor": "kidC",
+     "cls": "knight",
+     "at": -0.55,
+     "cardScale": 0.8,
+     "cardDx": -0.2
+    }
+   ],
+   "from": {
+    "position": [
+     -16.4,
+     3.4,
+     85.0
+    ],
+    "target": [
+     -15.5,
+     4.8,
+     74.95
+    ],
+    "fov": 44
+   },
+   "to": {
+    "position": [
+     -16.3,
+     3.4,
+     84.4
+    ],
+    "target": [
+     -15.5,
+     4.8,
+     74.95
+    ],
+    "fov": 43
+   }
+  },
+  {
+   "id": "S07c-king",
+   "at": 15.953,
+   "size": "close",
+   "loc": "field",
+   "move": "push",
+   "see": [
+    "kidKing"
+   ],
+   "why": "Beat on \"Even King\", the biggest: low angle, sun halo, gold confetti, Sunfire Regalia, King card, held to 17.11.",
+   "subject": "kidKing",
+   "beat": true,
+   "shadowRadius": 10,
+   "classReveal": [
+    {
+     "actor": "kidKing",
+     "cls": "king",
+     "at": -0.55,
+     "cardScale": 0.85,
+     "cardDx": -0.2
+    }
+   ],
+   "from": {
+    "position": [
+     -6.9,
+     1.6,
+     80.3
+    ],
+    "target": [
+     -9.6,
+     4.3,
+     75.45
     ],
     "fov": 50
+   },
+   "to": {
+    "position": [
+     -7.0,
+     1.5,
+     79.7
+    ],
+    "target": [
+     -9.6,
+     4.4,
+     75.45
+    ],
+    "fov": 51
+   }
+  },
+  {
+   "id": "S08-wave",
+   "at": 17.114,
+   "size": "wide",
+   "loc": "field",
+   "move": "crane",
+   "see": [
+    "nobody",
+    "kidSmith"
+   ],
+   "why": "Most kids do it by seven: a staggered wave of reveals across the field; the hero tiny in the middle with no light.",
+   "shadowRadius": 40,
+   "classReveal": [
+    {
+     "actor": "kidSmith",
+     "cls": "smith",
+     "at": 0.026,
+     "card": "mini",
+     "scale": 0.8
+    },
+    {
+     "actor": "w2",
+     "cls": "farmer",
+     "at": 0.146,
+     "tier": "bg",
+     "card": "mini",
+     "scale": 0.8
+    },
+    {
+     "actor": "w7",
+     "cls": "knight",
+     "at": 0.266,
+     "tier": "bg",
+     "card": false,
+     "scale": 0.8
+    },
+    {
+     "actor": "w1",
+     "cls": "archer",
+     "at": 0.386,
+     "tier": "bg",
+     "card": "mini",
+     "scale": 0.8
+    },
+    {
+     "actor": "w6",
+     "cls": "baker",
+     "at": 0.506,
+     "tier": "bg",
+     "card": false,
+     "scale": 0.8
+    },
+    {
+     "actor": "w3",
+     "cls": "farmer",
+     "at": 0.626,
+     "tier": "bg",
+     "card": false,
+     "scale": 0.8
+    },
+    {
+     "actor": "w4",
+     "cls": "smith",
+     "at": 0.746,
+     "tier": "bg",
+     "card": false,
+     "scale": 0.8
+    }
+   ],
+   "from": {
+    "position": [
+     3.5,
+     17,
+     108
+    ],
+    "target": [
+     3,
+     1.5,
+     70
+    ],
+    "fov": 54
+   },
+   "to": {
+    "position": [
+     3.5,
+     18.2,
+     107
+    ],
+    "target": [
+     3,
+     1.5,
+     70
+    ],
+    "fov": 54
    }
   },
   {

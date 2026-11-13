@@ -4,8 +4,8 @@
 import * as T from 'three';
 import {plastic, HEAD} from './body.js';
 
-export const ACCESSORIES = ['crown', 'helmet', 'hood', 'strawHat', 'scarf', 'cape', 'backpack'];
-const HEAD_ITEMS = new Set(['crown', 'helmet', 'hood', 'strawHat']);
+export const ACCESSORIES = ['crown', 'helmet', 'hood', 'strawHat', 'scarf', 'cape', 'backpack', 'chefHat', 'featherCap', 'goggles'];
+const HEAD_ITEMS = new Set(['crown', 'helmet', 'hood', 'strawHat', 'chefHat', 'featherCap', 'goggles']);
 const geo = new Map();
 const g = (k, f) => { if (!geo.has(k)) geo.set(k, f()); return geo.get(k); };
 const flat = c => { const k = 'flat:' + c; if (!geo.has(k)) geo.set(k, new T.MeshPhongMaterial({color: c, shininess: 35, specular: '#3a3a3a', flatShading: true})); return geo.get(k); };
@@ -56,6 +56,30 @@ const BUILD = {
   cape(o) {
     const grp = new T.Group(); put(grp, g('cape', () => new T.BoxGeometry(2.1, 3.3, .1)), flat(o.color ?? '#b3203a'), [0, 2.42, -.58], [.06, 0, 0]);
     put(grp, g('cape_collar', () => new T.BoxGeometry(2.2, .22, .3)), flat(o.accent ?? '#f2c230'), [0, 3.98, -.5]);
+    return grp;
+  },
+  // Amendment A3 class accessories.
+  chefHat(o) {   // Baker: a tall puffy white toque on a band
+    const grp = new T.Group(), white = flat(o.color ?? '#f7f3ea');
+    put(grp, g('chef_band', () => new T.CylinderGeometry(.6, .6, .26, 10)), white, [0, TOP + .02, 0]);
+    put(grp, g('chef_puff', () => new T.CylinderGeometry(.74, .58, .62, 10)), white, [0, TOP + .44, 0]);
+    for (const [x, z] of [[-.3, 0], [.3, 0], [0, .25], [0, -.25]]) put(grp, g('chef_bump', () => new T.SphereGeometry(.32, 6, 4)), white, [x, TOP + .78, z]);
+    return grp;
+  },
+  featherCap(o) {   // Archer: a peaked green cap with one long feather
+    const grp = new T.Group(), cap = flat(o.color ?? '#2e8a3e');
+    put(grp, g('fcap_body', () => { const c = new T.CylinderGeometry(.5, .66, .36, 8); c.scale(1, 1, .95); return c; }), cap, [0, TOP + .1, 0]);
+    put(grp, g('fcap_peak', () => new T.BoxGeometry(.9, .07, .5)), cap, [0, TOP - .04, .58], [-.15, 0, 0]);
+    put(grp, g('fcap_feather', () => new T.BoxGeometry(.1, .14, 1.2)), flat(o.accent ?? '#e2483d'), [.42, TOP + .38, -.25], [.7, .25, 0]);
+    return grp;
+  },
+  goggles(o) {   // Smith: forge goggles pushed up on the forehead
+    const grp = new T.Group(), strap = flat('#3b2a1a'), brass = flat(o.color ?? '#c9a24a'), lens = flat(o.accent ?? '#ff8a3a');
+    put(grp, g('gog_strap', () => new T.CylinderGeometry(.66, .66, .14, 12, 1, true)), strap, [0, HEAD.centre + .38, 0]);
+    for (const s of [-1, 1]) {
+      put(grp, g('gog_rim', () => new T.CylinderGeometry(.2, .2, .14, 8)), brass, [s * .24, HEAD.centre + .42, .6], [Math.PI / 2, 0, 0]);
+      put(grp, g('gog_lens', () => new T.CylinderGeometry(.14, .14, .04, 8)), lens, [s * .24, HEAD.centre + .42, .68], [Math.PI / 2, 0, 0]);
+    }
     return grp;
   },
   backpack(o) {

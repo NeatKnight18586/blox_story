@@ -6,6 +6,7 @@ import {buildActor, townsperson, driveActor} from './actors.js';
 import {loadFont, setTag, fitTags} from './overhead.js';
 import {setFace} from '../avatar-style/faces2.js';
 import {triangles} from '../avatar-style/body.js';
+import {classSword} from '../parts/props.js';
 
 await loadFont();
 const cast = await (await fetch(new URL('../' + (new URLSearchParams(location.search).get('cast') ?? 'stories/nobody/cast.json'), import.meta.url))).json();
@@ -47,9 +48,13 @@ function addProps(list = []) {
       add2(new T.BoxGeometry(.16, .13, .8), m('#f2c230'), 2.26);         // guard
       add2(new T.BoxGeometry(.18, .7, .18), m('#6b4428'), 2.65);         // hilt, gripped at its top
       g.position.set(...p.at); scene.add(g); propMeshes.push(g);
+    } else if (p.kind === 'classSword') {   // A3 lookdev: a class sword standing point-down, flat face to +x
+      const g = classSword(p.cls, {tier: p.tier ?? 'hero'}); g.position.set(...p.at); g.rotation.set(...(p.rot ?? [0, 0, 0])); g.scale.setScalar(p.scale ?? 1);
+      scene.add(g); propMeshes.push(g);
     }
   }
 }
+const grey = new T.MeshBasicMaterial({color: '#555555'}), sky = scene.background.clone();
 
 export function render(cell, w, h) {
   for (const a of built.values()) a.root.visible = false;
@@ -62,6 +67,8 @@ export function render(cell, w, h) {
     if (a.tag) a.tag.userData.show = spec.tag !== false;
   }
   addProps(cell.props);
+  // silhouette cells (A3 grey-fill check): every surface flat grey on white, no ground
+  scene.overrideMaterial = cell.silhouette ? grey : null; scene.background = cell.silhouette ? new T.Color('#ffffff') : sky; plate.visible = !cell.silhouette;
   renderer.setPixelRatio(1); renderer.setSize(w, h, false);
   camera.aspect = w / h; camera.fov = cell.camera.fov ?? 35; camera.position.set(...cell.camera.position); camera.lookAt(...cell.camera.target); camera.updateProjectionMatrix();
   scene.updateMatrixWorld(true); fitTags(scene, camera); renderer.render(scene, camera);

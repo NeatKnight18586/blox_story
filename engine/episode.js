@@ -8,6 +8,7 @@ import {sampleAction, applyActionSample} from '../avatar/actions.js';
 import {sampleCamera, maxTargetSpeed} from './camera.js';
 import {layoutShots, totalFrames, valueAt, keyAt} from './timeline.js';
 import {buildDragon, driveDragon} from '../avatar-style/dragon.js';
+import {expandClassReveal, applyPatch} from './classes.js';
 import {buildActor, driveActor, townsperson, toolGroup} from './actors.js';
 import {loadFont, fitTags} from './overhead.js';
 import {createLook} from './look.js';
@@ -26,6 +27,15 @@ const FPS = spec.fps ?? 30;
 // Shots on the frame timeline: each shot owns [start, start + frames) (timeline.js: `at` cut times or `frames`).
 const shots = layoutShots(spec);
 const FRAMES = totalFrames(shots);
+
+// Amendment A3 class reveals: shot.classReveal ({actor, cls, at} with `at` relative to the shot, or a list) and
+// spec.classReveals (absolute seconds) expand into ordinary effect entries + cast timeline patches (engine/classes.js).
+const revealEffects = [];
+for (const r of [...(spec.classReveals ?? []), ...shots.flatMap(s => [].concat(s.classReveal ?? []).map(r => ({...r, at: s.start / FPS + r.at})))]) {
+  const x = expandClassReveal(r); revealEffects.push(...x.effects);
+  if (!spec.cast?.[r.actor]) throw Error('classReveal: unknown actor ' + r.actor);
+  spec.cast[r.actor] = applyPatch(spec.cast[r.actor], x.patch);
+}
 
 // ---- Scene: the episode's world.js (Session 3+) or the Session 1 placeholder plate ----
 const renderer = new T.WebGLRenderer({antialias: q.get('aa') !== '0', preserveDrawingBuffer: true});
@@ -89,7 +99,7 @@ function poseCast(t) {
       markPos[name] = [...at];
       if (dragon) driveDragon(a, t, {keys: c.keys ?? [[0, 'perch']], origin: {position: at, yaw}});
       else driveActor(a, t, {keys: c.keys ?? [[0, c.action ?? 'idle']], faces: c.faces, ambient: !!c.ambient,
-        origin: {position: at, yaw}, tags: c.tags, fps: FPS, tools: c.tools, toolsLeft: c.toolsLeft, stat: c.stat, bubble: c.bubble, visible: c.visible});
+        origin: {position: at, yaw}, tags: c.tags, fps: FPS, tools: c.tools, toolsLeft: c.toolsLeft, stat: c.stat, bubble: c.bubble, visible: c.visible, kit: c.kit});
       if (dragon && c.visible) a.root.visible = valueAt(c.visible, t, true);
     } else {
       const s = sampleAction(c.action ?? 'idle', t, c.action === 'walk' ? {gait: c.gait ?? 'readable'} : {});
@@ -116,7 +126,9 @@ const resolvePoint = (p, t) => {
   if (p?.actor) { const r = cast[p.actor].a.root.position; return [r.x + (p.offset?.[0] ?? 0), r.y + (p.offset?.[1] ?? 0), r.z + (p.offset?.[2] ?? 0)]; }
   return resolve({anchor: p.anchor, offset: p.offset ?? [0, 0, 0]});
 };
-const effects = createEffects(spec.effects ?? [], {scene, renderer, resolveTarget, resolvePoint});
+const effects = createEffects([...(spec.effects ?? []), ...revealEffects], {scene, renderer, resolveTarget, resolvePoint,
+  shotAt: tt => Math.max(0, shots.findLastIndex(s => Math.max(0, Math.round(tt * FPS)) >= s.start)),
+  actorOf: name => { const a = cast[name]?.a; if (!a) throw Error('effect: unknown actor ' + name); return a; }, toolGroup: (a, name) => toolGroup(a, name, 'right')});
 
 // Triangles of visible meshes whose bounds touch the camera frustum (the brief's §5.4 budget). The
 // renderer's own counter also includes the shadow pass, so both are reported.
@@ -170,7 +182,7 @@ export function renderFrame(n, width = 720, height = 1280, nudge = 0) {
   if (nudge) { const k = nudge / Math.sqrt(3); camera.translateX(k); camera.translateY(k); camera.translateZ(k); }
   if (look) { fx.look ? look.apply(...fx.look) : look.apply(shot.look ?? spec.look ?? 'day'); const sf = shotShadow(shot); poseCast(t); look.frameFixed(sf.centre, sf.radius, camera.position); look.update(t); }
   scene.updateMatrixWorld(true); effects.apply(t, camera); fitTags(scene, camera, {maxFrac: shot.tagMaxFrac ?? .06});   // a shot about the tag lets it read big   // second pass: particles face the final camera
-  renderer.render(scene, camera); effects.overlay(t);
+  renderer.render(scene, camera); effects.overlay(t, camera, width / height);
   const gl = renderer.getContext(); gl.readPixels(0, 0, 1, 1, gl.RGBA, gl.UNSIGNED_BYTE, new Uint8Array(4));   // forces the GPU work to finish, so ms is real
   if (gl.isContextLost()) throw Error('WebGL context lost');
   return {frame: n, shot: shot.id, size: shot.size, triangles: frustumTriangles(), drawnTriangles: renderer.info.render.triangles, calls: renderer.info.render.calls, ms: performance.now() - t0};
@@ -207,7 +219,8 @@ export function inspectFrame(n, width = 540, height = 960) {
     const h = headOf(e), dist = h.distanceTo(camera.position), p = h.clone().project(camera), r = e.a.root.position;
     heads[name] = {x: (p.x + 1) / 2, y: (1 - p.y) / 2, inFront: p.z < 1, dist: +dist.toFixed(2), rootDist: +camera.position.distanceTo(r).toFixed(2)};
   }
-  return {frame: n, shot: shot.id, camera: {position: c.position, target: c.target, fov: c.fov}, heads};
+  const cards = effects.cards(t, camera, width / height).map(k => ({cls: k.cls, kind: k.kind, rect: k.rect, landed: k.state.landed, fly: k.state.fly}));   // A3
+  return {frame: n, shot: shot.id, camera: {position: c.position, target: c.target, fov: c.fov}, heads, cards};
 }
 export function shotSpeed(i) { const s = shots[i]; return maxTargetSpeed({...s, fps: FPS, openHit: false}, tt => poseCast(s.start / FPS + tt), FPS); }
 
