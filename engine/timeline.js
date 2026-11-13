@@ -44,3 +44,18 @@ export function valueAt(keys, t, fallback = undefined) {
 }
 // The key in force at t (whole entry), or null.
 export function keyAt(keys, t) { let cur = null; for (const k of keys ?? []) if (k[0] <= t) cur = k; return cur; }
+
+// Render-farm shards (brief §14.2): split laid-out shots into ≤ n contiguous runs balanced by frame count.
+// Returns [{index, from, to, frames, shots: [ids]}] with `to` exclusive; every frame lands in exactly one shard.
+// Greedy against the ideal running total, so no shard strays far from total/n (one shot is the granularity).
+export function shardShots(shots, n = 6) {
+  const total = totalFrames(shots), out = []; let cur = null, k = 0;
+  for (const s of shots) {
+    if (!cur) cur = {index: out.length, from: s.start, shots: []};
+    cur.shots.push(s.id); cur.to = s.start + s.frames;
+    const target = total * (k + 1) / n;
+    if (out.length < n - 1 && cur.to >= target - s.frames / 2) { cur.frames = cur.to - cur.from; out.push(cur); cur = null; k++; }
+  }
+  if (cur) { cur.frames = cur.to - cur.from; out.push(cur); }
+  return out;
+}

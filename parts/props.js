@@ -131,3 +131,47 @@ export function instanceGroup(group, list, {jitter = .05, cast = true, tone = '#
   return out;
 }
 export const triangleCount = obj => { let n = 0; obj.traverse(o => { if (o.isMesh) n += tris(o.geometry); }); return n; };
+
+// ---- Small-props library (brief §14.3): generic clutter shared by every episode; grows each episode. ---------
+// Buildings, landmarks, layouts and palettes stay bespoke per world. Every builder: (seed, colours) → Group,
+// origin at the ground contact, merged per material (mergeParts) so it instances cheaply; ≤ 400 triangles each.
+// Seeded from the Nobody world's clutter cluster, trees and well-roof styles.
+export const SMALL_COLORS = {wood: '#7a5233', woodDk: '#5a3a22', woodLt: '#a97c4a', sack: '#d9b26a', iron: '#4a4f57', leaf: '#7cc36a', leafDk: '#5fa552',
+  rock: '#8d9aae', cloud: '#f7f9fc', cream: '#f2e6c8', banner: '#3f6fb5', flame: '#ffb02e'};
+const S = SMALL_COLORS;
+const g0 = () => new T.Group();
+const box = (grp, size, at, color, {pattern = 'plastic', rot = [0, 0, 0], cast = true, flat = false} = {}) => {
+  const m = mesh(boxUV(new T.BoxGeometry(...size)), mat(pattern, color, {flat}), at, 'part', cast); m.rotation.set(...rot.map(d => d * Math.PI / 180)); grp.add(m); return m; };
+const cyl = (grp, r, h, at, color, {pattern = 'plastic', seg = 8, rTop = r, rot = [0, 0, 0], cast = true} = {}) => {
+  const m = mesh(boxUV(new T.CylinderGeometry(rTop, r, h, seg)), mat(pattern, color), at, 'part', cast); m.rotation.set(...rot.map(d => d * Math.PI / 180)); grp.add(m); return m; };
+const lump = (grp, r, at, color, {pattern = 'plastic', scale = [1, 1, 1], detail = 0, cast = true, flat = true} = {}) => {
+  const g = new T.IcosahedronGeometry(r, detail); g.scale(...scale); const m = mesh(boxUV(g), mat(pattern, color, {flat}), at, 'part', cast); grp.add(m); return m; };
+const done = (g, name) => { g.name = name; return mergeParts(g); };
+const grounded = (g, name) => { const y = new T.Box3().setFromObject(g).min.y; g.position.y -= y; const w = g0(); w.add(g); return done(w, name); };   // lumpy props: lowest point on y = 0
+
+export const SMALL_PROPS = {
+  barrel: (seed = 1, {color = S.wood} = {}) => { const g = g0(); cyl(g, .8, 1.8, [0, .9, 0], color, {pattern: 'woodPlanks', seg: 10}); for (const y of [.35, 1.45]) cyl(g, .84, .14, [0, y, 0], S.iron, {seg: 10}); return done(g, 'barrel'); },
+  crate: (seed = 1, {color = S.woodLt, size = 1.6} = {}) => { const g = g0(), k = size; box(g, [k, k, k], [0, k / 2, 0], color, {pattern: 'woodPlanks'}); for (const s of [-1, 1]) box(g, [k * 1.02, .14, .14], [0, k / 2, s * k * .51], S.woodDk, {rot: [0, 0, 38]}); return done(g, 'crate'); },
+  sack: (seed = 1, {color = S.sack} = {}) => { const r = rnd(seed), g = g0(), sy = .8 + r() * .2; lump(g, .75, [0, .75 * sy, 0], color, {scale: [1, sy, .9]}); cyl(g, .18, .3, [0, 1.5 * sy, 0], S.woodDk, {seg: 6}); return grounded(g, 'sack'); },
+  lantern: (seed = 1, {glow = S.flame} = {}) => { const g = g0(); box(g, [.6, .1, .6], [0, .05, 0], S.iron); box(g, [.42, .6, .42], [0, .4, 0], glow, {cast: false}); box(g, [.6, .1, .6], [0, .75, 0], S.iron); cyl(g, .32, .3, [0, .95, 0], S.iron, {rTop: .02, seg: 4}); return done(g, 'lantern'); },
+  torch: (seed = 1) => { const g = g0(); box(g, [.2, 2.6, .2], [0, 1.3, 0], S.woodDk, {pattern: 'woodPlanks'}); cyl(g, .26, .3, [0, 2.7, 0], S.iron, {rTop: .3, seg: 6}); cyl(g, .26, .7, [0, 3.2, 0], S.flame, {rTop: .02, seg: 5, cast: false}); return done(g, 'torch'); },
+  bench: (seed = 1, {color = S.wood, len = 3} = {}) => { const g = g0(); box(g, [len, .2, .8], [0, .9, 0], color, {pattern: 'woodPlanks'}); for (const s of [-1, 1]) box(g, [.2, .9, .7], [s * (len / 2 - .3), .45, 0], S.woodDk); box(g, [len, .5, .15], [0, 1.4, -.35], color, {pattern: 'woodPlanks'}); return done(g, 'bench'); },
+  fence: (seed = 1, {color = S.woodLt, len = 4, posts = 3} = {}) => { const g = g0(); for (let i = 0; i < posts; i++) box(g, [.25, 1.5, .25], [-len / 2 + i * len / (posts - 1), .75, 0], S.woodDk); for (const y of [.55, 1.15]) box(g, [len + .2, .18, .12], [0, y, .14], color, {pattern: 'woodPlanks'}); return done(g, 'fence'); },
+  cart: (seed = 1, {color = S.woodLt} = {}) => { const g = g0(); box(g, [2.4, .25, 1.6], [0, 1.1, 0], color, {pattern: 'woodPlanks'}); for (const s of [-1, 1]) { box(g, [2.4, .5, .12], [0, 1.45, s * .8], color, {pattern: 'woodPlanks'}); cyl(g, .55, .2, [0, .55, s * .95], S.woodDk, {seg: 10, rot: [90, 0, 0]}); } box(g, [1.8, .12, .12], [2, 1, -.4], S.woodDk); box(g, [1.8, .12, .12], [2, 1, .4], S.woodDk); return done(g, 'cart'); },
+  sign: (seed = 1, {color = S.cream} = {}) => { const g = g0(); box(g, [.22, 2.4, .22], [0, 1.2, 0], S.woodDk); box(g, [1.6, .8, .12], [0, 2.1, .16], color, {pattern: 'woodPlanks'}); return done(g, 'sign'); },
+  tree: (seed = 1, {kind = seed % 3} = {}) => {   // kind 0 stacked blocks · 1 round lumps · 2 tall pine cones
+    const r = rnd(seed), g = g0(), s = .85 + r() * .4;
+    box(g, [.9 * s, 4 * s, .9 * s], [0, 2 * s, 0], S.woodDk, {pattern: 'woodPlanks'});
+    if (kind === 0) for (let i = 0; i < 3; i++) box(g, [(4.4 - i) * s, 2.4 * s, (4.4 - i) * s], [(r() - .5) * .6, (4.6 + i * 2) * s, (r() - .5) * .6], i ? S.leaf : S.leafDk, {rot: [0, r() * 90, 0], flat: true});
+    else if (kind === 1) for (let i = 0; i < 3; i++) lump(g, (2 - i * .3) * s, [(r() - .5) * 1.4, (5 + i * 1.3) * s, (r() - .5) * 1.4], i % 2 ? S.leaf : S.leafDk);
+    else for (let i = 0; i < 3; i++) cyl(g, (2.6 - i * .7) * s, 2.6 * s, [0, (4.2 + i * 1.7) * s, 0], i % 2 ? S.leaf : S.leafDk, {rTop: .2, seg: 6});
+    return done(g, 'tree' + kind);
+  },
+  bush: (seed = 1) => { const r = rnd(seed), g = g0(); for (let i = 0; i < 3; i++) lump(g, .7 + r() * .4, [(r() - .5) * 1.4, .55, (r() - .5) * 1.2], i % 2 ? S.leaf : S.leafDk); return grounded(g, 'bush'); },
+  rock: (seed = 1, {size = [1.4, .9, 1.1][seed % 3]} = {}) => { const g = g0(), k = size; g.add(mesh(chisel(k * .7, k * .55, k * .6, k * .22, 300 + seed), mat('rock', S.rock, {flat: true}), [0, k * .55, 0], 'rock')); return done(g, 'rock' + (seed % 3)); },
+  cloud: (seed = 1) => { const r = rnd(seed), g = g0(); for (let i = 0; i < 4; i++) box(g, [3 + r() * 3, 1.2 + r(), 2.5 + r() * 2], [(i - 1.5) * 2.2, r() * .8, (r() - .5) * 1.5], S.cloud, {cast: false, flat: true}); return done(g, 'cloud'); },
+  banner: (seed = 1, {color = S.banner, h = 4} = {}) => { const g = g0(); box(g, [.2, h + 1, .2], [0, (h + 1) / 2, 0], S.woodDk); box(g, [1.6, .14, .14], [0, h + .8, .1], S.woodDk); box(g, [1.4, h * .6, .06], [0, h + .7 - h * .3, .12], color, {cast: false}); return done(g, 'banner'); },
+};
+export const SMALL_PROP_NAMES = Object.keys(SMALL_PROPS);
+// The brief's list: tree ×3 and rock ×3 are seeds/kinds 0–2 of `tree` and `rock`.
+export const smallProp = (name, seed = 1, opts = {}) => { if (!SMALL_PROPS[name]) throw Error('unknown small prop ' + name); return SMALL_PROPS[name](seed, opts); };

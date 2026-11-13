@@ -25,7 +25,7 @@ Source of truth: `docs/V2_BRIEF.md` (owner's brief). Progress and decisions: `PR
 - `node scripts/v2/avatar-sheet.js` / `python3 scripts/v2/world-sheet.py`: cast sheet + 390 px phone shot / world stills + luma stats → `review/nobody/`.
 - `python3 scripts/v2/sheet.py <frames dir|video> [--frames a,b] [--labels shots.json] [--stats]`: contact sheets; `look-ab.py`: before/after sheets.
 - `python3 scripts/v2/captions.py --story <slug> --spec <episode.json> [--until s] --out <file.ass>`: pop captions from `cues.json`.
-- `python3 scripts/v2/assemble.py --story <slug> --frames <dir> --captions <ass> --out <mp4> [--animatic] [--no-hold]`: grade, captions, −14 LUFS voice, hold, checks (finals native 1080 only; `--animatic` 270×480@15 → 540×960 ≤ 10 MB; no SFX).
+- `python3 scripts/v2/assemble.py --story <slug> --frames <dir> | --video <mp4> --captions <ass> --out <mp4> [--animatic] [--no-hold]`: grade, captions, −14 LUFS voice, hold, checks (finals native 1080; `--animatic` → 540×960 ≤ 10 MB; no SFX). Farm: `.github/workflows/render.yml` (dispatch or `stories/<slug>/render.request`; `scripts/v2/shards.js`). New episode: `/new-episode <slug> [E1|E2]`.
 
 ## Folder map
 - `engine/`: `episode.html` + `episode.js` (data-driven renderer; `__episode.renderFrame/inspectFrame`), `timeline.js` (shots cut at `at` s, step/ramp keys), `plancheck.js` (pure §5.2 rules), `camera.js` (pure `sampleCamera`, moves, `openHit`, speed metric).
@@ -45,6 +45,6 @@ Source of truth: `docs/V2_BRIEF.md` (owner's brief). Progress and decisions: `PR
 - poses: idle, look_react, walk, run, jump, fall, climb, toolHold, toolSwing, pull, pullOne, lift, raise, hammerHold, point, cheer, recoil, trip, shiver, lookUp, sit, sleep, wave; ambientPose(seed). dragon (`avatar-style/dragon.js`, ≤ 4k tris): perch, fly, roar, breathe, lower, turn, flinch, cry, flee.
 - overlays: name tag (pop, screen cap), stat (number/bar/tile), chat bubble (≤ 4 words). cast timelines: `marks`, `visible`, `tools`/`toolsLeft`, `stat`, `bubble`, `tags`, `faces`, `keys`; `worldState` keys → `world.setState`.
 - patterns: plastic, studs, grass, sand, water, glass, neon, metal, moss (flat); brick, cobble, slate, woodPlanks, thatch, rock, dirt (relief, normal-mapped). looks: day, goldenHour, night, storm, fireNight.
-- props: sword (hero/ring), ringStone ×3 (+moss), heroStone (3 crack stages, `stoneCracks`), instanceGroup, mergeParts. ground: ribbon, groundY/LAYER, blobs, tufts.
+- props: sword (hero/ring), ringStone ×3 (+moss), heroStone (3 crack stages), instanceGroup, mergeParts; small props (`smallProp(name, seed)`, ≤ 400 tris): barrel, crate, sack, lantern, torch, bench, fence, cart, sign, tree ×3, bush, rock ×3, cloud, banner. ground: ribbon, groundY/LAYER, blobs, tufts.
 - movers: flag, smoke, birds, flame, spinner, walkers, floaters.
 - effects: fadeColor, flash, ghost, glow, particles (sparkle, dust, embers, confetti, fire, stars; directed `dir`/`cone` streams), melt, squash, shake, timeOfDay; per-shot `tagMaxFrac`, `captionY`.
