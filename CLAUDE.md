@@ -7,6 +7,10 @@ Source of truth: `docs/V2_BRIEF.md` (owner's brief). Progress and decisions: `PR
 - Plan (≤ 15 lines) in `PROGRESS.md` before coding; afterwards append what was built, commands, numbers, decisions, open problems (≤ 40 lines).
 - A block is done only when every Done-when check has been run and passes. Uncovered choice → cheaper option, logged under Decisions.
 - Review material goes to `review/<slug>/` on the branch + the PR (owner works from an iPad).
+- Acceptance (A5 §S): a self-score is never a gate. Every visual gate = (1) a measured check in code with a number and a pass
+  line, (2) a before/after sheet at 390 px phone width, (3) a written list of the three weakest things visible in that sheet,
+  before any score (empty list → look again). The owner decides the look; report what is weak, never round up. A measured
+  check that still fails after two fix passes: stop and report the number; never loosen it.
 
 ## Ground rules (brief §2)
 - `stories/names100/**`, `production/render.js` and existing module behaviour are frozen; extend through new opt-in options only.
