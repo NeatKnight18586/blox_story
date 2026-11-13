@@ -77,6 +77,9 @@ shot ids), `moneyShot` (shot id).
 - Episode length 122–150 s.
 - `sheet.py --stats`: the `twist` or `moneyShot` cell has the largest frame-to-frame colour change of the episode (warning).
 
+- A5 additions to the plan gates: `framing` (A5 §F sizes per shot size; error) and `uiSize` (A5 §C minimum text
+  heights and safe area; error). Both use the pure functions built in Session 8b.
+
 ## F. Sound
 
 Music is the owner's: `stories/<slug>/music.mp3` is mixed if present (existing ducking); nothing else is assumed.
