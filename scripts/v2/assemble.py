@@ -36,13 +36,14 @@ def bloom_sigma(height):
     return round(6 * height / 2560, 3)
 
 
-def grade_graph(height, cas=CAS_DEFAULT, label='g'):
+def grade_graph(height, cas=CAS_DEFAULT, label='g', vignette=True):
     """Highlight-only bloom in RGB: only values above ~84 % (215/255) glow; then a light grade, a contrast-adaptive
-    sharpen (never above 0.5: block edges ring) and a soft vignette. Input: one unlabelled stream; output: [label]."""
+    sharpen (never above 0.5: block edges ring) and a soft vignette. Input: one unlabelled stream; output: [label].
+    vignette=False exists only for qc.py's tint check (the vignette is a deliberate lightness falloff, not a tint)."""
     if cas > CAS_MAX: raise ValueError(f'cas {cas} > {CAS_MAX}')
     hi = "if(gt(val,215),(val-215)*4,0)"
     return (f"format=gbrp,split[ga][gb];[gb]lut=c0='{hi}':c1='{hi}':c2='{hi}',gblur=sigma={bloom_sigma(height)}[gbl];"
-            f"[ga][gbl]blend=all_mode=screen:all_opacity=0.35,eq=saturation=1.10:contrast=1.05,cas=strength={cas},vignette=PI/9[{label}]")
+            f"[ga][gbl]blend=all_mode=screen:all_opacity=0.35,eq=saturation=1.10:contrast=1.05,cas=strength={cas}{',vignette=PI/9' if vignette else ''}[{label}]")
 
 
 def to_yuv(fmt='yuv420p'):
@@ -50,7 +51,7 @@ def to_yuv(fmt='yuv420p'):
     return f"scale=out_color_matrix=bt709:out_range=tv,format={fmt}"
 
 
-def final_graph(src_size, captions=None, hold=0.0, offset_frames=0, fps=30, outputs=('master',), fmt='yuv420p'):
+def final_graph(src_size, captions=None, hold=0.0, offset_frames=0, fps=30, outputs=('master',), fmt='yuv420p', vignette=True):
     """filter_complex for finals. src_size (w, h) of the frames; 1080×1920 is upscaled to 1440×2560 BEFORE the grade.
     outputs: 'master' (1440×2560), 'proxy' (1080×1920, downscaled from the same graded frames), 'graded' (master size,
     no captions: QC sharpness). offset_frames shifts timestamps so captions match a single frame pulled for QC.
@@ -60,7 +61,7 @@ def final_graph(src_size, captions=None, hold=0.0, offset_frames=0, fps=30, outp
     pre = f"setpts=PTS+{offset_frames}/({fps}*TB)," if offset_frames else ""
     up = f"scale={MASTER_SIZE[0]}:{MASTER_SIZE[1]}:flags=lanczos," if (w, h) == FALLBACK_SIZE else ""
     n = len(outputs)
-    g = f"[0:v]{pre}{up}{grade_graph(MASTER_SIZE[1], label='graded0')}"
+    g = f"[0:v]{pre}{up}{grade_graph(MASTER_SIZE[1], label='graded0', vignette=vignette)}"
     g += f";[graded0]split={n}" + ''.join(f"[s{i}]" for i in range(n)) if n > 1 else ";[graded0]null[s0]"
     labels = []
     for i, kind in enumerate(outputs):

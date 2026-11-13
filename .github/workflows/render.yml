@@ -2,8 +2,9 @@
 # (master + 1080 review proxy) → v2:qc gate → prerelease.
 # Trigger by hand (Actions → render → Run workflow: story, preset) or by pushing a change to
 # stories/<slug>/render.request (its first line may name the preset: final | animatic; default final).
-# UNTESTED until its first run: on first use compare 10 frames against a local render and record the
-# wall-clock time in PROGRESS.md. The local path (npm run v2:render + assemble.py) stays the fallback.
+# A line `reuse-run: <run id>` in render.request skips rendering and assembles from that run's segment artifacts
+# (kept 7 days): only valid when nothing that affects frames (engine/, avatar*/, parts/, the story) changed since.
+# First runs recorded in PROGRESS.md (Session 6.5). The local path (npm run v2:render + assemble.py) stays the fallback.
 name: render
 
 on:
@@ -23,6 +24,7 @@ on:
 
 permissions:
   contents: write
+  actions: read
 
 concurrency:
   group: render-${{ github.ref }}
@@ -35,6 +37,7 @@ jobs:
       story: ${{ steps.pick.outputs.story }}
       preset: ${{ steps.pick.outputs.preset }}
       matrix: ${{ steps.shards.outputs.matrix }}
+      reuse: ${{ steps.pick.outputs.reuse }}
     steps:
       - uses: actions/checkout@v4
         with: {fetch-depth: 2}
@@ -48,7 +51,9 @@ jobs:
           else
             req=$(git diff --name-only HEAD^ HEAD -- 'stories/*/render.request' | head -n1)
             story=$(basename "$(dirname "$req")"); preset=$(head -n1 "$req" | tr -d '[:space:]')
+            reuse=$(sed -n 's/^reuse-run: *\([0-9]\+\).*/\1/p' "$req" | head -n1)
           fi
+          echo "reuse=${reuse:-}" >> "$GITHUB_OUTPUT"
           case "$preset" in final|animatic) ;; *) preset=final ;; esac
           test -f "stories/$story/episode.json" || { echo "no stories/$story/episode.json"; exit 1; }
           echo "story=$story" >> "$GITHUB_OUTPUT"; echo "preset=$preset" >> "$GITHUB_OUTPUT"
@@ -66,6 +71,7 @@ jobs:
 
   render:
     needs: plan
+    if: needs.plan.outputs.reuse == ''
     runs-on: ubuntu-24.04   # Playwright 1.56 cannot install Chromium on ubuntu-latest (26.04)
     timeout-minutes: 300
     strategy:
@@ -98,6 +104,7 @@ jobs:
 
   assemble:
     needs: [plan, render]
+    if: ${{ !cancelled() && needs.plan.result == 'success' && (needs.render.result == 'success' || needs.render.result == 'skipped') }}
     runs-on: ubuntu-24.04   # Playwright 1.56 cannot install Chromium on ubuntu-latest (26.04)
     env:
       STORY: ${{ needs.plan.outputs.story }}
@@ -110,7 +117,12 @@ jobs:
       - run: npm ci
       - run: sudo apt-get update && sudo apt-get install -y ffmpeg && pip install --break-system-packages pillow numpy
       - uses: actions/download-artifact@v4
-        with: {pattern: 'seg-*', merge-multiple: true, path: segs}
+        with:
+          pattern: 'seg-*'
+          merge-multiple: true
+          path: segs
+          run-id: ${{ needs.plan.outputs.reuse || github.run_id }}
+          github-token: ${{ github.token }}
       - name: Concatenate segments
         run: |
           ls segs/seg-*.mp4 | sort | sed "s#^#file '$PWD/#; s#\$#'#" > segs/list.txt

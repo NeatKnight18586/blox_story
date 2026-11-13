@@ -16,6 +16,11 @@ class Graph(unittest.TestCase):
         self.assertEqual(A.bloom_sigma(2560), 6); self.assertEqual(A.bloom_sigma(1920), 4.5)
         self.assertNotIn('sigma=24', g)
 
+    def test_vignette_only_for_tint_check(self):
+        self.assertIn('vignette=PI/9', A.grade_graph(2560))
+        self.assertNotIn('vignette', A.grade_graph(2560, vignette=False))
+        self.assertNotIn('vignette', A.final_graph((1440, 2560), outputs=('graded',), vignette=False)[0])
+
     def test_cas_cap(self):
         self.assertIn('cas=strength=0.35', A.grade_graph(2560))
         A.grade_graph(2560, cas=.5)
@@ -84,13 +89,23 @@ class Metrics(unittest.TestCase):
 
     def test_evaluate(self):
         good = {'width': 1440, 'height': 2560, 'fps': '30/1', 'pix_fmt': 'yuv420p', 'color': ['bt709', 'bt709', 'bt709', 'tv'], 'audio_codec': 'aac',
-                'video_kbps': 20000, 'lufs': -14.1, 'true_peak': -1.3, 'frames': [{'frame': 1, 'ssim': .99, 'psnr': 44, 'sharp_ratio': 1.02, 'delta_e': 2.0}]}
+                'video_kbps': 20000, 'lufs': -14.1, 'true_peak': -1.3, 'frames': [{'frame': i, 'ssim': .99, 'psnr': 44, 'sharp_ratio': 1.02, 'delta_e': 2.0} for i in range(4)]}
         self.assertEqual(Q.evaluate(good), [])
         bad = {**good, 'video_kbps': 3600, 'true_peak': -.7, 'width': 1080, 'height': 1920,
-               'frames': [{'frame': 5, 'ssim': .97, 'psnr': 38, 'sharp_ratio': .8, 'delta_e': 6}]}
+               'frames': good['frames'][:3] + [{'frame': 5, 'ssim': .97, 'psnr': 38, 'sharp_ratio': .8, 'delta_e': 6}]}
         f = Q.evaluate(bad)
         self.assertEqual(len(f), 7)
         self.assertEqual(Q.evaluate({**good, 'width': 1080, 'height': 1920}, fallback=True), [])
+
+    def test_tint_check_needs_real_stone(self):
+        px = 1440 * 2560
+        fr = lambda i, de, n: {'frame': i, 'ssim': .99, 'psnr': 45, 'sharp_ratio': 1.2, 'delta_e': de, 'stone_px': n}
+        base = {'width': 1440, 'height': 2560, 'fps': '30/1', 'pix_fmt': 'yuv420p', 'color': ['bt709', 'bt709', 'bt709', 'tv'], 'audio_codec': 'aac',
+                'video_kbps': 20000, 'lufs': -14, 'true_peak': -1.5}
+        big = [fr(i, 2.0, px // 10) for i in range(4)]
+        self.assertEqual(Q.evaluate({**base, 'frames': big + [fr(9, 6.0, 1500)]}), [])           # stray pixels in a dark frame: not a stone
+        self.assertEqual(len(Q.evaluate({**base, 'frames': big + [fr(9, 6.0, px // 50)]})), 1)  # a real stone area that shifted: fail
+        self.assertEqual(len(Q.evaluate({**base, 'frames': big[:3]})), 1)                       # too few stone frames: cannot pass vacuously
 
 
 if __name__ == '__main__':

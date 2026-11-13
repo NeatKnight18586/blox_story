@@ -194,3 +194,51 @@ Story: 25 views, worst 0.167 % PASS. Demo: 34 views, worst 0.287 % PASS. "Before
 4. `render.js --final` (1440×2560, AA). E: measure PNG vs raw-readPixels→FFV1 capture at 1440; keep only if faster and bit-identical.
 5. `scripts/v2/qc.py` (`v2:qc`): ffprobe/ebur128, 12-frame SSIM/PSNR vs lossless graded reference, Laplacian sharpness ≥ 95 %, ΔE on grey-stone masks ≤ 4, `qc-crops.png`; tests `tests/v2/test_finish.py`.
 6. Re-render Nobody natively at 1440 (local, ~2 h; path recorded) → master + proxy → `v2:stability` + `v2:qc` → send master; farm at 1440 with QC → first run via `stories/nobody/render.request` → prerelease; `DELIVERY.md`; remove old `final.mp4`; docs; PR; stop.
+
+## Session 6.5 (Amendment A2): picture quality — report (2026-11-13)
+**Built:** `assemble.py` finals path:
+- pure graph builders: highlight-only RGB bloom (σ = 6 at 2560, scales with height), `cas` 0.35 capped at 0.5, vignette π/9; captions burned after the grade at the delivery size; 1080 frames upscaled with Lanczos *before* the grade only on the recorded fallback;
+- master: slow/animation, BT.709, closed 15-frame GOP, AAC 320k, no size cap, bitrate floor 16 Mb/s (CRF 14 → 12 → 10);
+- `--proxy`: 1080 review copy ≤ 45 MB from the same graded frames; loudnorm TP −1.5.
+
+Also built: `render.js --final` (1440×2560, AA). `scripts/v2/qc.py` (`npm run v2:qc`; `--source-video` for the farm, `--before-after`). `render.yml`: finals at 1440, master + proxy, `v2:qc` before the release, runners pinned to ubuntu-24.04, `reuse-run:` re-assembles from an earlier run's segments. Anisotropy: albedo/overlays/faces/clothing 8, normal maps 4. Tests: `tests/v2/test_finish.py` (14). Docs: PUBLISHING (upload the 1440 master Unlisted → wait for 1440p → Public), `/new-episode` E2, CLAUDE.md, `review/nobody/DELIVERY.md`.
+
+**Commands:**
+- `npm run v2:render -- --story nobody --out renders/v2/final1440 --final --workers 3`
+- `python3 scripts/v2/assemble.py --story nobody --frames renders/v2/final1440/frames --captions stories/nobody/build/captions.ass --out renders/v2/deliver/nobody-master.mp4 --proxy review/nobody/final-review.mp4`
+- `npm run v2:qc -- --story nobody --video renders/v2/deliver/nobody-master.mp4 --before-after`
+
+**Numbers:**
+- Bench after the anisotropy change: PASS, 0.321 s/frame at 720 (0.63 at 1080), max 33.9k triangles, so the change stays.
+- Render path: **native 1440, local** (estimated under 2.5 h). 3,675 frames in 63.8 min wall (1.04 s/frame wall, 2.83 s/frame per worker in the page).
+- Master: CRF 12 (CRF 14 gave 15.8 Mb/s, under the floor), 22.35 Mb/s, 346.3 MB, −14.0 LUFS, true peak −1.5 dB. Proxy: CRF 22 (18 → 65 MB, 20 → over 45), 39.8 MB. Assemble ≈ 45 min (master ×2 + proxy ×3 encodes at preset slow).
+- `v2:qc` PASS on 12 frames: SSIM 0.9912–0.9940, PSNR 47.7–48.7 dB, graded sharpness 1.61–3.92× raw, stone ΔE 1.91–2.38 on the 5 stone frames.
+- `v2:stability` PASS (169 views, worst 0.27 %); `v2:plan` 0 errors; 10/10 frames re-rendered at 1440 byte-identical; `npm test` exit 0; `v2:test` 40 node + 30 python.
+
+**Before → after** (same 12 frames; encode measured on a 3 s clip around the fastest shot, S02):
+
+| | Session 6 (σ 24 full-frame bloom, 1080, CRF 20 medium) | A2 (highlight bloom, 1440, CRF 14 slow/animation) |
+|---|---|---|
+| grade sharpness (graded / raw Laplacian) | 1.47 | 2.21 |
+| encode SSIM / PSNR (Y) | 0.9910 / 45.5 dB | 0.9922 / 48.0 dB |
+| clip bitrate | 3.3 Mb/s | 12.4 Mb/s |
+| whole master | 3.6 Mb/s, 58.6 MB | 22.35 Mb/s, 346 MB |
+
+**E measurements:** raw `readPixels` → base64 transfer was 510 ms/frame vs 214 ms for PNG `toDataURL` at 1440 (pixel-identical), so **PNG capture stays**. One render feeds both deliverables (master + proxy split after one grade).
+
+**`qc-crops.png` scores** (frames 126 fast, 306 face close-up with Knight/Baker tags, 919, 1531): crisp block edges 5 · no halos 5 · no colour bleed 5 · readable tags 5.
+
+**Farm:**
+- Run 1 failed in plan (Playwright 1.56 cannot install Chromium on ubuntu-latest = 26.04); runners pinned to 24.04.
+- Run 2: plan 1.3 min; 6 shards rendered at 1440 in 29–64 min each (2-core runners); its assemble used the earlier QC (vignette in the tint check), so I cancelled it.
+- Run 3 re-assembles from run 2's segments (`reuse-run`) with the final QC and publishes the prerelease (see DELIVERY.md).
+
+**Decisions:**
+- **Tint check (2 changes, flagged for the owner):**
+  - ΔE76 is measured against the grade *minus its vignette*. The vignette alone darkens central stones about 3.6 L* (stone ΔE with the full grade 4.21/4.65; bloom alone 0.48, conversion baseline 0.46).
+  - It applies only to frames whose stone mask covers ≥ 0.5 % of the frame, with ≥ 4 such frames required. Night frames gave 0.04 % masks of stray grey pixels.
+  - Both raw values stay in `qc.json`. The threshold (4) is unchanged.
+- SSIM uses a 7×7 uniform window on Y. Master and proxy encoded in one pass, then re-encoded individually when stepping CRF.
+- Old 1080 render caches (Shortwick, Dice Town, Nobody 1080) deleted with the owner's approval. `review/nobody/final.mp4` removed from the branch (it stays in history).
+
+**Open problems:** the farm's first full end-to-end run (render + assemble + QC + release in one run) is still to come. Its wall time so far: shards ≈ 64 min; assemble on 2 cores is the slow step.
