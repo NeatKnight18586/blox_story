@@ -7,9 +7,16 @@
 //   from/to: {position:[x,y,z], target:[x,y,z], fov}   (track/gamecam: offsets from the followed actor)
 //   duration (s), ease, follow (actor name), followOffset, drift (units), seed,
 //   degrees (orbit sweep), heading/distance/height (gamecam), start (episode frame), openHit (bool), fps.
+// A4 moves: drone {path: [[x,y,z]…≥3], targets?: [[x,y,z]…] | lookAhead (s), bankDeg} — a Catmull-Rom fly-over (3–5 s)
+//   that banks into its turns · heroLow {ground} — from/to with the camera clamped 0.6–1.2 above `ground`, fov 60–70, looking up
+//   · snap {snapAt} — a 2-frame punch from the wide `from` to the close `to` along the SAME axis (target → camera), then
+//   holds · tiltUp — the camera stays (or rises gently) while the target climbs from feet (from.target) to sky (to.target).
 
 export const FPS = 30;
-export const MOVES = ['push', 'pull', 'orbit', 'track', 'crane', 'whip', 'gamecam', 'static-drift'];
+export const MOVES = ['push', 'pull', 'orbit', 'track', 'crane', 'whip', 'gamecam', 'static-drift', 'drone', 'heroLow', 'snap', 'tiltUp'];   // last four: A4
+export const HERO_LOW = {minH: .6, maxH: 1.2, minFov: 60, maxFov: 70, fov: 66};
+export const DRONE = {minDur: 3, maxDur: 5, bankDeg: 8};
+export const SNAP_FRAMES = 2;
 export const ASPECT = 9 / 16;
 export const SPEED_CAP = .35;                 // max target speed, fraction of frame width per second
 export const OPEN_HIT = {frames: 8, punch: .07, amp: .05, hz: 18, decay: 14, rollDeg: .5};
@@ -41,6 +48,7 @@ export function rng(seed = 1) {
 // Default `to` for a shot that names only `from`: a gentle push toward the target.
 function endPose(shot) {
   const f = shot.from;
+  if (!f.position) return {...f};   // A4 drone: no from/to poses
   if (shot.to) return {position: shot.to.position ?? f.position, target: shot.to.target ?? f.target, fov: shot.to.fov ?? f.fov};
   const k = shot.move === 'pull' ? -DEFAULT_PUSH : DEFAULT_PUSH;
   return {position: lerp3(f.position, f.target, k), target: f.target, fov: f.fov};
@@ -74,6 +82,22 @@ export function openHitOffset(shot, localT) {
   };
 }
 
+// Centripetal-free uniform Catmull-Rom through points (pure), u in [0, 1] over the whole path.
+export function catmull(points, u) {
+  const n = points.length - 1, x = Math.min(n - 1e-9, Math.max(0, u * n)), i = Math.floor(x), t = x - i;
+  const p0 = points[Math.max(0, i - 1)], p1 = points[i], p2 = points[i + 1], p3 = points[Math.min(n, i + 2)];
+  return [0, 1, 2].map(k => .5 * ((2 * p1[k]) + (-p0[k] + p2[k]) * t + (2 * p0[k] - 5 * p1[k] + 4 * p2[k] - p3[k]) * t * t + (-p0[k] + 3 * p1[k] - 3 * p2[k] + p3[k]) * t * t * t));
+}
+// Drone bank (radians): proportional to how fast the horizontal heading turns, capped at bankDeg.
+export function droneBank(points, u, bankDeg = DRONE.bankDeg) {
+  const e = .01, a = catmull(points, Math.max(0, u - e)), b = catmull(points, u), c = catmull(points, Math.min(1, u + e));
+  const h1 = Math.atan2(b[0] - a[0], b[2] - a[2]), h2 = Math.atan2(c[0] - b[0], c[2] - b[2]);
+  let dh = h2 - h1; dh = Math.atan2(Math.sin(dh), Math.cos(dh));
+  const cap = bankDeg * Math.PI / 180; return Math.max(-cap, Math.min(cap, -dh * 6));
+}
+const clampHeroLow = (pose, ground) => ({...pose, position: [pose.position[0], ground + Math.min(HERO_LOW.maxH, Math.max(HERO_LOW.minH, pose.position[1] - ground)), pose.position[2]],
+  fov: Math.min(HERO_LOW.maxFov, Math.max(HERO_LOW.minFov, pose.fov ?? HERO_LOW.fov))});
+
 export function sampleCamera(shot, localT, actorPositions = {}) {
   if (!MOVES.includes(shot.move)) throw Error(`unknown camera move: ${shot.move}`);
   const dur = Math.max(1e-6, shot.duration ?? 1), ease = EASE[shot.ease ?? 'inOutCubic'];
@@ -99,6 +123,26 @@ export function sampleCamera(shot, localT, actorPositions = {}) {
     const back = shot.distance ?? 9, up = shot.height ?? 5.5, fwd = [Math.sin(hd), 0, Math.cos(hd)];
     position = add(base, [-fwd[0] * back, up, -fwd[2] * back]); target = add(base, [fwd[0] * 3, 2.6, fwd[2] * 3]);
     fov = shot.from.fov ?? 67;
+  } else if (shot.move === 'drone') {
+    const pts = shot.path, uu = EASE[shot.ease ?? 'inOutSine'](clamp01(localT / dur));
+    if (!pts || pts.length < 3) throw Error('drone needs a path of ≥ 3 points');
+    position = catmull(pts, uu);
+    target = shot.targets ? catmull(shot.targets.length > 2 ? shot.targets : [shot.targets[0], lerp3(shot.targets[0], shot.targets.at(-1), .5), shot.targets.at(-1)], uu)
+      : (() => { const ahead = catmull(pts, Math.min(1, uu + (shot.lookAhead ?? .6) / dur)), d = sub(ahead, position), l = len(d) || 1; return add(position, add(scale(d, 10 / l), [0, -(shot.lookDown ?? 3), 0])); })();
+    const roll = droneBank(pts, uu, shot.bankDeg ?? DRONE.bankDeg);
+    const [dp2, dt2] = drift(shot.seed ?? 1, localT, shot.drift ?? 0), hit2 = openHitOffset(shot, localT);
+    return {position: add(add(position, dp2), hit2.pos), target: add(add(target, dt2), hit2.target), fov: fov * hit2.fovScale, roll: roll + hit2.roll};
+  } else if (shot.move === 'heroLow') {
+    const g = shot.ground ?? 0, a = clampHeroLow(f, g), b = clampHeroLow(e, g);
+    position = lerp3(a.position, b.position, u); target = lerp3(a.target, b.target, u); fov = lerp(a.fov, b.fov, u);
+  } else if (shot.move === 'snap') {
+    // same axis: the close pose sits on the line from the target back to the wide camera
+    const fps = shot.fps ?? FPS, k = clamp01((Math.round(localT * fps) - Math.round((shot.snapAt ?? 0) * fps)) / SNAP_FRAMES);
+    const tgt = e.target, d = sub(f.position, tgt), far = len(d), close = shot.closeDist ?? len(sub(e.position, tgt)), dir = scale(d, 1 / far);
+    position = add(tgt, scale(dir, lerp(far, close, k))); target = lerp3(f.target, tgt, k); fov = lerp(f.fov ?? 40, e.fov ?? f.fov ?? 40, k);
+  } else if (shot.move === 'tiltUp') {
+    // the camera barely moves (≤ its own from→to rise); the look direction climbs from the feet to the sky
+    position = lerp3(f.position, e.position, u); target = lerp3(f.target, e.target, u);
   } else {
     // push, pull, crane, whip, static-drift: eased interpolation from→to.
     position = lerp3(f.position, e.position, u); target = lerp3(f.target, e.target, u);
@@ -131,4 +175,4 @@ export function maxTargetSpeed(shot, actorsAt = () => ({}), fps = FPS) {
   }
   return peak;
 }
-export const speedOk = (shot, actorsAt, fps) => shot.move === 'whip' || maxTargetSpeed(shot, actorsAt, fps) <= SPEED_CAP;
+export const speedOk = (shot, actorsAt, fps) => shot.move === 'whip' || shot.move === 'snap' || maxTargetSpeed(shot, actorsAt, fps) <= SPEED_CAP;   // A4: snap is exempt like whip
