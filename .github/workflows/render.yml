@@ -30,7 +30,7 @@ concurrency:
 
 jobs:
   plan:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04   # Playwright 1.56 cannot install Chromium on ubuntu-latest (26.04)
     outputs:
       story: ${{ steps.pick.outputs.story }}
       preset: ${{ steps.pick.outputs.preset }}
@@ -56,7 +56,7 @@ jobs:
       - name: Plan gate (§5.2)
         run: |
           pip install --break-system-packages pillow >/dev/null 2>&1 || pip install pillow
-          npx playwright install --with-deps chromium
+          npx playwright install --with-deps chromium || echo "playwright browser unavailable, browser.js uses the runner's google-chrome"
           node scripts/v2/plan.js --story "${{ steps.pick.outputs.story }}"
       - id: shards
         name: Split shots into balanced shards
@@ -66,7 +66,7 @@ jobs:
 
   render:
     needs: plan
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04   # Playwright 1.56 cannot install Chromium on ubuntu-latest (26.04)
     timeout-minutes: 300
     strategy:
       fail-fast: true
@@ -79,7 +79,7 @@ jobs:
       - uses: actions/setup-node@v4
         with: {node-version: 22, cache: npm}
       - run: npm ci
-      - run: npx playwright install --with-deps chromium
+      - run: npx playwright install --with-deps chromium || echo "playwright browser unavailable, browser.js uses the runner's google-chrome"
       - run: sudo apt-get update && sudo apt-get install -y ffmpeg
       - name: Render shard ${{ matrix.index }} (frames ${{ matrix.from }}–${{ matrix.to }})
         run: |
@@ -98,7 +98,7 @@ jobs:
 
   assemble:
     needs: [plan, render]
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04   # Playwright 1.56 cannot install Chromium on ubuntu-latest (26.04)
     env:
       STORY: ${{ needs.plan.outputs.story }}
       PRESET: ${{ needs.plan.outputs.preset }}

@@ -17,15 +17,15 @@ Source of truth: `docs/V2_BRIEF.md` (owner's brief). Progress and decisions: `PR
 - Brand: never draw/show the Roblox logo or wordmark; never imply official. All hair, faces, outfits, accessories are our own.
 
 ## Commands
-- `npm run v2:preflight`: environment check, one JSON object (~3 s).
-- `npm run v2:test`: pure-logic tests (`tests/v2/`).
+- `npm run v2:preflight`: environment check, one JSON object (~3 s) · `npm run v2:test`: pure-logic tests (`tests/v2/`).
 - `npm run v2:bench -- --spec <episode.json>` or `--story <slug>`: triangles, calls, s/frame per shot (PASS ≤ 50k tris, ≤ 0.45 s/frame).
 - `npm run v2:stability -- --story <slug>` or `--spec <file>`: camera-nudge flicker gate (4 mm, ≤ 0.30 %) → `review/<slug>/stability*.json`. **Must pass before any animatic/final is shown.**
-- `npm run v2:align -- --story <slug> [--ref cues.json]` (voice → `build/cues.json`) · `npm run v2:plan -- --story <slug>` (§5.2 gate, exit 1 on error → `review/<slug>/plan.json`) · `npm run v2:render -- --spec <episode.json> --out <dir> [--width 270 --height 480 --every 2 --aa 0]` (cached frames, `progress.json`; default native 1080).
+- `npm run v2:align -- --story <slug> [--ref cues.json]` (voice → `build/cues.json`) · `npm run v2:plan -- --story <slug>` (§5.2 gate, exit 1 on error → `review/<slug>/plan.json`) · `npm run v2:render -- --spec <episode.json> --out <dir> [--final | --width 270 --height 480 --every 2 --aa 0]` (cached frames, `progress.json`; `--final` = native 1440×2560 + AA, the A2 delivery preset).
 - `node scripts/v2/avatar-sheet.js` / `python3 scripts/v2/world-sheet.py`: cast sheet + 390 px phone shot / world stills + luma stats → `review/nobody/`.
 - `python3 scripts/v2/sheet.py <frames dir|video> [--frames a,b] [--labels shots.json] [--stats]`: contact sheets; `look-ab.py`: before/after sheets.
 - `python3 scripts/v2/captions.py --story <slug> --spec <episode.json> [--until s] --out <file.ass>`: pop captions from `cues.json`.
-- `python3 scripts/v2/assemble.py --story <slug> --frames <dir> | --video <mp4> --captions <ass> --out <mp4> [--animatic] [--no-hold]`: grade, captions, −14 LUFS voice, hold, checks (finals native 1080; `--animatic` → 540×960 ≤ 10 MB; no SFX). Farm: `.github/workflows/render.yml` (dispatch or `stories/<slug>/render.request`; `scripts/v2/shards.js`). New episode: `/new-episode <slug> [E1|E2]`.
+- `python3 scripts/v2/assemble.py --story <slug> --frames <dir> | --video <mp4> --captions <ass> --out <master.mp4> [--proxy review/<slug>/final-review.mp4] [--animatic] [--no-hold]`: A2 highlight-only grade, captions after it, −14 LUFS/TP −1.5 voice, hold; uncapped 1440 master (CRF 14, ≥ 16 Mb/s floor) + 1080 proxy ≤ 45 MB (1080 frames = recorded fallback, upscaled before the grade); `--animatic` → 540×960 ≤ 10 MB; no SFX.
+- `npm run v2:qc -- --story <slug> --video <master>`: final gate (ffprobe/loudness, SSIM/PSNR, grade sharpness, stone ΔE, `qc-crops.png`) → `review/<slug>/qc.json`; **must pass before a final reaches the owner**. Masters never go in git: prerelease or sent directly, linked in `review/<slug>/DELIVERY.md`. Farm: `.github/workflows/render.yml` (dispatch or `stories/<slug>/render.request`). New episode: `/new-episode <slug> [E1|E2]`.
 
 ## Folder map
 - `engine/`: `episode.html` + `episode.js` (data-driven renderer; `__episode.renderFrame/inspectFrame`), `timeline.js` (shots cut at `at` s, step/ramp keys), `plancheck.js` (pure §5.2 rules), `camera.js` (pure `sampleCamera`, moves, `openHit`, speed metric).
