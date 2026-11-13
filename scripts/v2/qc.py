@@ -203,14 +203,15 @@ def main():
     a = argparse.ArgumentParser(); a.add_argument('--story', required=True); a.add_argument('--video', required=True)
     a.add_argument('--frames', default='renders/v2/final1440/frames'); a.add_argument('--captions'); a.add_argument('--fallback', action='store_true')
     a.add_argument('--before-after', action='store_true'); a.add_argument('--out')
-    a.add_argument('--source-video', help='near-lossless picture instead of --frames (render farm)'); o = a.parse_args()
+    a.add_argument('--source-video', help='near-lossless picture instead of --frames (render farm)')
+    a.add_argument('--plan', help='plan.json (default review/<slug>/plan.json)'); o = a.parse_args()
     slug = o.story; out = o.out or f'review/{slug}/qc.json'; captions = o.captions or f'stories/{slug}/build/captions.ass'
     pr, v, au = A.probe_video(o.video); lufs, tp = A.measure(o.video)
     m = {'video': o.video, 'width': v['width'], 'height': v['height'], 'fps': v['r_frame_rate'], 'pix_fmt': v.get('pix_fmt'),
          'color': [v.get('color_space'), v.get('color_primaries'), v.get('color_transfer'), v.get('color_range')],
          'audio_codec': au[0]['codec_name'] if au else None, 'video_kbps': round(int(v.get('bit_rate') or 0) / 1000), 'MB': round(int(pr['format']['size']) / 1e6, 1),
          'duration': round(float(pr['format']['duration']), 3), 'lufs': lufs, 'true_peak': tp, 'render_path': 'fallback-1080-upscaled' if o.fallback else 'native-1440'}
-    plan = json.load(open(f'review/{slug}/plan.json'))
+    plan = json.load(open(o.plan or f'review/{slug}/plan.json'))
     tmp = None
     if o.source_video:   # render farm: the raw reference is the near-lossless concatenated segments; pull only the 12 frames
         st = json.loads(subprocess.run(['ffprobe', '-v', 'error', '-select_streams', 'v:0', '-count_packets', '-show_entries', 'stream=nb_read_packets', '-of', 'json', o.source_video],
@@ -250,7 +251,7 @@ def main():
         x0, y0 = busiest_window(luma(graded).astype(np.uint8))
         for c, (name, img) in enumerate([('raw render', raw), ('graded (A2)', graded), ('master decoded', mst)]):
             sheet.paste(Image.fromarray(img[y0:y0 + ch, x0:x0 + cw]), (c * cw, r * (ch + lab) + lab))
-            d.text((c * cw + 6, r * (ch + lab) + 4), f'{name} — frame {f} ({why}) 1:1 at {x0},{y0}', fill='#ffd84a', font=font)
+            d.text((c * cw + 6, r * (ch + lab) + 4), f'{name} - frame {f} ({why}) 1:1 at {x0},{y0}', fill='#ffd84a', font=font)
     os.makedirs(os.path.dirname(out), exist_ok=True); sheet.save(os.path.join(os.path.dirname(out), 'qc-crops.png'))
     rep = {**m, 'thresholds': TH, 'failures': fails, 'result': 'FAIL' if fails else 'PASS', 'crops': [c[0] for c in chosen],
            'stoneMask': 'raw pixels with saturation < 0.2, 70 < luma < 200, blue ≥ red, inside the central 70 % (vignette excluded)'}
