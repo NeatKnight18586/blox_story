@@ -10,7 +10,9 @@ Exit 1 on any failure; writes review/<slug>/qc.json and review/<slug>/qc-crops.p
     graded, captioned, uncompressed frame from the SAME filter graph (assemble.final_graph): SSIM ≥ 0.985, PSNR ≥ 40 dB.
  3. Grade does not soften: mean |Laplacian| of graded (no captions) ≥ 95 % of the raw render; ΔE76 inside grey-stone
     masks ≤ 4 (mask = low-saturation, mid-luma, blue-leaning grey pixels of the raw render, inside the central 70 % of
-    the frame so the vignette is not counted as a tint).
+    the frame; applies to frames where that mask covers ≥ 0.5 % of the frame, ≥ 4 such frames required). The tint is
+    measured against the grade minus its vignette (a deliberate radial lightness falloff, not a
+    tint; on Nobody it alone darkens central stones ~3.6 L*); the full-grade ΔE is reported beside it.
  4. qc-crops.png: 600×500 1:1 crops (raw / graded / master) of 4 frames incl. a fast-motion frame and a face close-up.
 --before-after adds the Session 6 pipeline (σ 24 full-frame bloom, 1080, CRF 20 preset medium) measured on the same
 frames for the PROGRESS table. Pure metric helpers are tested in tests/v2/test_finish.py.
@@ -24,7 +26,8 @@ sys.path.insert(0, str(Path(__file__).resolve().parent))
 import assemble as A  # noqa: E402
 
 TH = {'width_height': [1440, 2560], 'fps': '30/1', 'pix_fmt': 'yuv420p', 'color': ['bt709', 'bt709', 'bt709', 'tv'], 'min_video_kbps': 16000,
-      'lufs': -14.0, 'lufs_tol': 1.0, 'max_true_peak': -1.0, 'min_ssim': .985, 'min_psnr': 40.0, 'min_sharp_ratio': .95, 'max_delta_e': 4.0}
+      'lufs': -14.0, 'lufs_tol': 1.0, 'max_true_peak': -1.0, 'min_ssim': .985, 'min_psnr': 40.0, 'min_sharp_ratio': .95, 'max_delta_e': 4.0,
+      'min_stone_frac': .005, 'min_tint_frames': 4}   # tint applies where stone/wall covers ≥ 0.5 % of the frame
 
 
 # ---------------- pure helpers ----------------
@@ -110,11 +113,14 @@ def evaluate(m, th=TH, fallback=False):
     if m['video_kbps'] < th['min_video_kbps']: f.append(f"video bitrate {m['video_kbps']} kb/s < {th['min_video_kbps']}")
     if abs(m['lufs'] - th['lufs']) > th['lufs_tol']: f.append(f"loudness {m['lufs']} LUFS")
     if m['true_peak'] > th['max_true_peak']: f.append(f"true peak {m['true_peak']} dB > {th['max_true_peak']}")
+    px = m['width'] * m['height']
+    tint = [fr for fr in m.get('frames', []) if fr.get('delta_e') is not None and fr.get('stone_px', px) >= th['min_stone_frac'] * px]
+    if m.get('frames') and len(tint) < th['min_tint_frames']: f.append(f"only {len(tint)} frames with ≥ {th['min_stone_frac']:.1%} stone/wall (need {th['min_tint_frames']}) for the tint check")
     for fr in m.get('frames', []):
         if fr['ssim'] < th['min_ssim']: f.append(f"frame {fr['frame']}: SSIM {fr['ssim']:.4f} < {th['min_ssim']}")
         if fr['psnr'] < th['min_psnr']: f.append(f"frame {fr['frame']}: PSNR {fr['psnr']:.2f} < {th['min_psnr']}")
         if fr['sharp_ratio'] < th['min_sharp_ratio']: f.append(f"frame {fr['frame']}: graded sharpness {fr['sharp_ratio']:.3f} of raw < {th['min_sharp_ratio']}")
-        if fr['delta_e'] is not None and fr['delta_e'] > th['max_delta_e']: f.append(f"frame {fr['frame']}: stone ΔE {fr['delta_e']:.2f} > {th['max_delta_e']}")
+        if fr in tint and fr['delta_e'] > th['max_delta_e']: f.append(f"frame {fr['frame']}: stone ΔE {fr['delta_e']:.2f} > {th['max_delta_e']}")
     return f
 
 
@@ -145,6 +151,15 @@ def reference(frames_dir, f, src_size, captions, fps=30):
              '-filter_complex', g, '-map', '[master]', '-frames:v', '1', '-f', 'rawvideo', f'{t}/m.yuv', '-map', '[graded]', '-frames:v', '1', '-f', 'rawvideo', f'{t}/g.yuv'])
         W, H = A.MASTER_SIZE
         return raw_planes(open(f'{t}/m.yuv', 'rb').read(), W, H, 'yuv444p'), raw_planes(open(f'{t}/g.yuv', 'rb').read(), W, H, 'yuv444p')
+
+
+def graded_no_vignette(frames_dir, f, src_size, fps=30):
+    """The same grade without its vignette (for the tint check only: the vignette darkens, it does not tint)."""
+    g, _ = A.final_graph(src_size, None, 0.0, offset_frames=f, fps=fps, outputs=('graded',), vignette=False)
+    with tempfile.TemporaryDirectory() as t:
+        run(['ffmpeg', '-v', 'error', '-y', '-framerate', str(fps), '-start_number', str(f), '-i', os.path.join(frames_dir, 'frame-%05d.png'), '-frames:v', '1',
+             '-filter_complex', g, '-map', '[graded]', '-frames:v', '1', '-f', 'rawvideo', f'{t}/n.yuv'])
+        return yuv444_to_rgb(*raw_planes(open(f'{t}/n.yuv', 'rb').read(), *A.MASTER_SIZE, 'yuv444p'))
 
 
 def raw_rgb(frames_dir, f, up=False):
@@ -234,8 +249,10 @@ def main():
         my = dec[f][0]
         raw = raw_rgb(o.frames, f, up=src_size != A.MASTER_SIZE); graded = yuv444_to_rgb(gy, gu, gv)
         sharp = laplacian_mean((gy.astype(float) - 16) * 255 / 219) / laplacian_mean(luma(raw))
+        mask = stone_mask(raw); r2 = lambda d: None if d is None else round(d, 2)
         rows.append({'frame': f, 'why': why, 'ssim': round(ssim(ry, my), 4), 'psnr': round(psnr(ry, my), 2), 'sharp_ratio': round(sharp, 3),
-                     'delta_e': (lambda d: None if d is None else round(d, 2))(delta_e(raw, graded, stone_mask(raw))), 'stone_px': int(stone_mask(raw).sum())})
+                     'delta_e': r2(delta_e(raw, graded_no_vignette(o.frames, f, src_size), mask)),       # gate: tint (grade minus its vignette)
+                     'delta_e_with_vignette': r2(delta_e(raw, graded, mask)), 'stone_px': int(mask.sum())})
         crops.append((f, why, raw, graded, yuv444_to_rgb(*dec[f])))
     m['frames'] = rows
     fails = evaluate(m, fallback=o.fallback)
@@ -254,7 +271,8 @@ def main():
             d.text((c * cw + 6, r * (ch + lab) + 4), f'{name} - frame {f} ({why}) 1:1 at {x0},{y0}', fill='#ffd84a', font=font)
     os.makedirs(os.path.dirname(out), exist_ok=True); sheet.save(os.path.join(os.path.dirname(out), 'qc-crops.png'))
     rep = {**m, 'thresholds': TH, 'failures': fails, 'result': 'FAIL' if fails else 'PASS', 'crops': [c[0] for c in chosen],
-           'stoneMask': 'raw pixels with saturation < 0.2, 70 < luma < 200, blue ≥ red, inside the central 70 % (vignette excluded)'}
+           'stoneMask': 'raw pixels with saturation < 0.2, 70 < luma < 200, blue ≥ red, inside the central 70 %',
+           'tintCheck': 'ΔE76 raw vs the A2 grade without its vignette (vignette = lightness falloff, not a tint), on frames whose stone/wall mask covers ≥ 0.5 % of the frame (smaller masks are stray grey pixels in dark scenes; their values are still listed); delta_e_with_vignette reported'}
     if o.before_after: rep['beforeAfter'] = before_after(o.frames, picks, src_size, captions)
     with open(out, 'w') as fh: json.dump(rep, fh, indent=1)
     print(json.dumps({k: rep[k] for k in ('width', 'height', 'video_kbps', 'MB', 'lufs', 'true_peak', 'result', 'failures')} |

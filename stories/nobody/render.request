@@ -1,3 +1,4 @@
 final
 # Amendment A2 re-delivery of Nobody: native 1440×2560 master + 1080 review proxy, gated by v2:qc.
-# attempt 2: runners pinned to ubuntu-24.04
+# attempt 3: assemble + QC + prerelease from run 43371033806 segments (render inputs unchanged since)
+reuse-run: 43371033806
