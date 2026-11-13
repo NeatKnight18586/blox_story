@@ -1,4 +1,4 @@
-# Amendment A4 (2026-11-13): Format v3, Season 1 system — Session 8
+# Amendment A4 (2026-11-13): Format v3, Season 1 system — Sessions 8 and 9
 
 Owner-ordered. All `docs/V2_BRIEF.md` §0 and §2 rules apply: plan first in `PROGRESS.md`, run every Done-when check, stop
 at the gate. First, append this file to `docs/V2_BRIEF.md` under `## Amendment A4`. Creative source for all episodes is
@@ -9,7 +9,9 @@ spectacle and richer custom environments on top of the shared rule → defect �
 tuned for a small town and plain materials. This session upgrades the look, adds the scale and rule-UI tools the season
 needs, enlarges captions, and wires the season's gates into `plan.js` and `/new-episode`.
 
-Build in this order. Measure before and after each of A–C with `v2:bench`; keep a change only if its budget line holds.
+**Two sessions.** Session 8 = A, B, C, G (the look, the tools, the cast). Session 9 = D, E, F, H, I (captions, gates,
+sound, commands). Each has its own Done-when list at the end and stops there. Measure before and after each of A–C with
+`v2:bench`; keep a change only if its budget line holds.
 
 ## A. Richer, more realistic environments (avatars stay blocky plastic)
 
@@ -66,7 +68,7 @@ height is ≥ 2.6 % of frame height.
 
 Episode data gains: `beats` (B1–B9 shot ranges), `clues` (exactly three shot ids), `twist` (shot id), `afk` (exactly two
 shot ids), `moneyShot` (shot id).
-- B1: first narration line ≤ 9 words; the rule lines end ≤ 8.5 s; shot 1 is tagged `spectacle`; a shot starting ≤ 5.0 s
+- B1: first narration line ≤ 9 words; the rule lines end ≤ 8.5 s; shot 1 is tagged `spectacle` (world-scale wide) or `ruleImage` (the rule visible as one close picture); a shot starting ≤ 5.0 s
   shows the hero's face at ≥ 20 % of frame height.
 - B2 holds at least three shots, each ≤ 2.5 s.
 - All three `clues` shots start before the `twist` shot. Each clue object's projected size ≥ 3 % of frame height.
@@ -85,20 +87,28 @@ Music is the owner's: `stories/<slug>/music.mp3` is mixed if present (existing d
   or card pop → pop, `shake` → thud, B5 → rumble, 1.0 s before the reversal → riser, then 8 frames of silence).
   Mixed at −16 dB under the voice. Off with `"sfx": false` in the episode file. Drop-in overrides: `assets/sfx/<name>.wav`.
 
-## G. The Troupe, AFK and real avatars
+## G. Hair upgrade, the Troupe and AFK (all original designs)
 
-1. `cast/troupe.json`: five recurring **original** actors with fixed faces, hair and skin, re-costumed per episode: `LEAD`
-   (boy, short messy hair), `SECOND` (girl, ponytail), `LITTLE` (0.62 scale, twin buns), `RIVAL` (tall, spiky),
-   `ELDER` (grey, side-swept). Episode casts reference them by slot and give the role name and outfit.
-   `AFK`: plain grey classic outfit, neutral face, opacity 0.4, frozen mid-step, tag `AFK`.
+1. **Hair v3** (`avatar-style/hair.js`, opt-in `hairStyle:'v3'`; v2 presets stay for "Nobody"). The current chunky shells
+   read as helmets. Rebuild in the general manner of classic block-avatar catalog hair: a fitted cap plus **layered,
+   overlapping locks** with tapered tips, a clear hairline and parting, asymmetric fringe, and volume that breaks the
+   head silhouette. Still rigid, still flat-shaded, three tones (shadow, base, highlight) by vertex colour plus an
+   optional streak colour. Hero ≤ 600 triangles, background ≤ 80. Hair never covers the eyes from the front.
+   Our own designs: do not reproduce any specific marketplace item, and use no item names.
+   - Classic boys' set (8): messy fringe, side part, swept-back quiff, curtains, short fade with textured top, spiky
+     crop, curly top, shaggy mop.
+   - Modern girls' set (10): long layered with curtain bangs, high ponytail with face-framing strands, half-up space
+     buns, low twin tails, wavy shoulder bob, sleek long with side part, messy bun with loose strands, two long braids,
+     curly puffs, wolf-cut layers.
+   - Neutral (2): buzz, bald.
+   `review/season1/hair-sheet.png`: all 20 on a grey head, front, three-quarter and back, plus a 390 px crop of six.
+   Self-score 1–5, fix under 4, max 3 passes: (1) reads as hair, not a helmet; (2) each style is told apart in silhouette
+   alone; (3) locks overlap and taper; (4) boys' and girls' sets feel current, not generic; (5) still matches the block body.
+2. `cast/troupe.json`: five recurring actors with fixed faces, hair and skin, re-costumed per episode: `LEAD` (boy, messy
+   fringe), `SECOND` (girl, long layered with curtain bangs), `LITTLE` (0.62 scale, half-up space buns), `RIVAL` (tall,
+   swept-back quiff), `ELDER` (grey side part). Episode casts reference them by slot and give the role name and outfit.
+   `AFK`: plain grey classic outfit, neutral face, buzz hair, opacity 0.4, frozen mid-step, tag `AFK`.
    `review/season1/troupe-sheet.png`: all six, front and three-quarter, three expressions each.
-2. **Owner-supplied official avatars** (`avatar-style/imported.js`): if `assets/avatars/<slot>.glb` exists, load it with
-   three's `GLTFLoader`, group its meshes into our six rigid parts by node name (R6 names directly; R15 by merging
-   upper/lower/hand or foot parts per limb), map them to our pivots, keep its textures, and use it for that troupe slot.
-   Faces from our face system are applied only if the file has no face texture. Unit-test with a synthetic six-box GLB.
-   Rules: only files the owner exported from their own Roblox Studio session, wearing items published by Roblox itself
-   (not community-made items); never the Roblox logo or wordmark; record each file and its source in `PUBLISHING.md`.
-   Do not hand-model copies of official hair, faces or accessories; without a file, the original troupe design is used.
 
 ## H. `/new-episode` update
 
@@ -111,17 +121,42 @@ Music is the owner's: `stories/<slug>/music.mp3` is mixed if present (existing d
 - E2 unchanged (1440 final, `v2:qc`, release, proxy) plus a suggested title and pinned comment from the card.
 - Append a row stub to `docs/season1/RESULTS.md`.
 
-## Done when (Session 8)
+## I. The daily loop: `/season`, state and the script checker
 
-- `npm test`, `npm run v2:test` pass with new tests for: camera moves, terrain `groundY`, biome tables, plan gates E,
-  caption chunking v3, sfx placement, GLB part grouping.
+1. `docs/season1/STATE.md`: one line of state: `episode: <n> <slug>` and `step: voice | animatic | review | final`, plus a
+   dated log line per step. `/season` reads it; nothing else decides what happens next.
+2. `.claude/commands/season.md` (`/season [approve | notes: …]`), which wraps `/new-episode`:
+   - `step: voice` → check `stories/<slug>/voice.*` exists (else say so and stop) → run E1 → `step: review` → stop.
+   - `step: review` + `approve` (or `notes: …`, one revision round, then treat as approved) → run E2 → then write the
+     script and `beats.md` for the next card per SEASON_1.md §5b → print that script in a code block → set
+     `episode: <n+1>`, `step: voice` → stop.
+   - After every fifth final, also assemble the compilation (concat of the five masters with 1 s title cards and a
+     chapter list in `review/season1/compilation-<k>.md`); no re-render.
+   - Initial state after Session 9: `episode: 1 mountain`, `step: voice` (scripts 01 and 02 already exist; when the
+     loop reaches 02 it does not rewrite its script).
+3. `scripts/v2/scriptcheck.py --story <slug>` (exit 1 on failure): 410–440 words; no sentence over 12 words; first line
+   ≤ 9 words and equal to the card's Rule opening; last line equal to the card's last line; at most six sentences contain
+   first-person words (characters' spoken lines only); reading grade ≤ 6 (Flesch–Kincaid); every card field's key noun appears. Unit-tested on
+   scripts 01 and 02 (both must pass).
+
+## Done when (Session 8: A, B, C, G)
+
+- `npm test`, `npm run v2:test` pass with new tests for: camera moves, terrain `groundY`, biome tables, hair v3 triangle
+  budgets and eye clearance.
 - `review/season1/look-ab.png`: the same alpine valley view built with the old kit and the new one, plus a 390 px crop.
   Self-score 1–5, fix under 4, max 3 passes: (1) reads as a rich, believable place; (2) avatars still pop; (3) nothing
   noisy or photographic next to the plastic characters; (4) depth: foreground, subject, haze, sky; (5) water and
   vegetation move.
-- `review/season1/tools-demo.mp4` (≤ 20 s, 1080 proxy, v3 captions with placeholder text): `drone` → `snap` → `heroLow` →
-  `tiltUp` on the landform test rig, one weather preset, one trail, a wrist-attached stat, 40 crowd actors, sfx on.
-- `review/season1/troupe-sheet.png` and `review/season1/caption-v3-phone.png` committed.
-- `v2:bench` on the demo passes A7; numbers recorded. `v2:stability` passes on the demo.
-- `.claude/commands/new-episode.md` and `CLAUDE.md` updated (commands, folder map, library index).
-- PR updated. **Stop for the owner's review of the look, troupe and captions.**
+- `review/season1/hair-sheet.png` and `review/season1/troupe-sheet.png` committed with their scores.
+- `review/season1/tools-demo.mp4` (≤ 20 s, 1080 proxy, no captions): `drone` → `snap` → `heroLow` → `tiltUp` on the
+  landform test rig, one weather preset, one trail, a wrist-attached stat, 40 crowd actors.
+- `v2:bench` on the demo passes A7; `v2:stability` passes; numbers recorded. `CLAUDE.md` library index updated.
+- PR updated. **Stop for the owner's review of the look, hair and troupe.**
+
+## Done when (Session 9: D, E, F, H, I)
+
+- Tests pass for: plan gates E, caption chunking v3, sfx placement, `scriptcheck` (scripts 01 and 02 pass), the `/season`
+  state transitions (pure function).
+- `review/season1/caption-v3-phone.png` committed; `tools-demo.mp4` re-assembled with v3 captions and sfx.
+- `.claude/commands/season.md`, `.claude/commands/new-episode.md` (H) and `CLAUDE.md` updated; `STATE.md` initialised.
+- PR updated. **Stop. The owner commits `stories/mountain/voice.flac` and sends `/season`.**
