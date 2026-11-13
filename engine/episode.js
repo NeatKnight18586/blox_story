@@ -13,6 +13,8 @@ import {buildActor, driveActor, townsperson, toolGroup} from './actors.js';
 import {loadFont, fitTags} from './overhead.js';
 import {createLook, createLookV3} from './look.js';
 import {createEffects} from './effects.js';
+import {createCrowds} from './crowd.js';
+import {createRuleUI} from './ruleui.js';
 import * as P from '../parts/parts.js';
 import * as B from '../parts/build.js';
 import * as A from '../parts/ambient.js';
@@ -100,16 +102,21 @@ if (look?.v3 && spec.actorLift) {
     if (m.map) { m.emissiveMap = m.map; m.emissive.setRGB(k, k, k); } else if (m.vertexColors) m.emissive.setRGB(k * .5, k * .45, k * .4); else m.emissive.copy(m.color).multiplyScalar(k); m.needsUpdate = true; });
 }
 const markPos = {};
+// Where an actor's mark is at time t (pure: no posing). poseCast and A4 trails share it.
+function markAt(c, t) {
+  const m = markOf(c, t), o = m.at ? resolve({anchor: m.at, offset: m.offset ?? [0, 0, 0]}) : (m.origin ?? [0, 0, 0]), tr = m.travel, d = tr ? tr.speed * Math.max(0, t - m.t0 - (tr.delay ?? 0)) : 0;
+  const dd = tr?.max !== undefined ? Math.min(d, tr.max) : d;
+  const at = tr ? [o[0] + tr.dir[0] * dd, o[1], o[2] + tr.dir[1] * dd] : [...o];
+  if (world?.groundY && m.at !== undefined) at[1] = world.groundY(at[0], at[2]) + (m.offset?.[1] ?? 0);   // feet on the terrain (A1)
+  if (tr?.climb) at[1] += tr.climb * dd / Math.max(1e-6, tr.speed);
+  return at;
+}
 function poseCast(t) {
   const out = {};
   for (const [name, {a, c, v2, dragon}] of Object.entries(cast)) {
     const m = markOf(c, t), yaw = (m.yaw ?? 0) * Math.PI / 180;
     if (v2 || dragon) {
-      const o = m.at ? resolve({anchor: m.at, offset: m.offset ?? [0, 0, 0]}) : (m.origin ?? [0, 0, 0]), tr = m.travel, d = tr ? tr.speed * Math.max(0, t - m.t0 - (tr.delay ?? 0)) : 0;
-      const dd = tr?.max !== undefined ? Math.min(d, tr.max) : d;
-      const at = tr ? [o[0] + tr.dir[0] * dd, o[1], o[2] + tr.dir[1] * dd] : [...o];
-      if (world?.groundY && m.at !== undefined) at[1] = world.groundY(at[0], at[2]) + (m.offset?.[1] ?? 0);   // feet on the terrain (A1)
-      if (tr?.climb) at[1] += tr.climb * dd / Math.max(1e-6, tr.speed);
+      const at = markAt(c, t);
       markPos[name] = [...at];
       if (dragon) driveDragon(a, t, {keys: c.keys ?? [[0, 'perch']], origin: {position: at, yaw}});
       else driveActor(a, t, {keys: c.keys ?? [[0, c.action ?? 'idle']], faces: c.faces, ambient: !!c.ambient,
@@ -131,7 +138,7 @@ const resolveTarget = tg => {
   if (typeof tg !== 'string') return null;
   const [who, part] = tg.split('.'), a = cast[who]?.a;
   if (a && part?.startsWith('tool:')) return toolGroup(a, part.slice(5), 'right');   // "nobody.tool:hammer" (cached, even before it is held)
-  if (a) return part ? (a[part] ?? a.attachments?.[part] ?? a.parts?.[part]) : a.root;
+  if (a) return part ? (a[part] ?? a.attachments?.[part] ?? a.parts?.[part] ?? a.pivots?.[part]) : a.root;
   return scene.getObjectByName(tg);
 };
 const resolvePoint = (p, t) => {
@@ -142,17 +149,31 @@ const resolvePoint = (p, t) => {
 };
 const effects = createEffects([...(spec.effects ?? []), ...revealEffects], {scene, renderer, resolveTarget, resolvePoint,
   shotAt: tt => Math.max(0, shots.findLastIndex(s => Math.max(0, Math.round(tt * FPS)) >= s.start)),
-  actorOf: name => { const a = cast[name]?.a; if (!a) throw Error('effect: unknown actor ' + name); return a; }, toolGroup: (a, name) => toolGroup(a, name, 'right')});
+  actorOf: name => { const a = cast[name]?.a; if (!a) throw Error('effect: unknown actor ' + name); return a; }, toolGroup: (a, name) => toolGroup(a, name, 'right'),
+  actorAt: (name, tt) => { const c = cast[name]?.c; if (!c) throw Error('trail: unknown actor ' + name); return markAt(c, tt); }, groundY: world?.groundY});
+
+// A4: instanced crowds (spec.crowds) and rule UI attached to any pivot/object (spec.ui).
+const crowds = createCrowds(scene, spec.crowds ?? [], {groundY: world?.groundY ?? (() => 0), resolveCentre: c => Array.isArray(c) ? c : (p => [p[0], p[2]])(resolve(c))});
+const ui = createRuleUI(spec.ui ?? [], {scene, resolveTarget, fps: FPS});
+const updateExtras = t => { crowds.update(t); ui.update(t); };
 
 // Triangles of visible meshes whose bounds touch the camera frustum (the brief's §5.4 budget). The
 // renderer's own counter also includes the shadow pass, so both are reported.
 const frustum = new T.Frustum(), pv = new T.Matrix4(), sphere = new T.Sphere();
+// Debug (A4 budget work): frustum triangles per top-level object name.
+function breakdown() {
+  pv.multiplyMatrices(camera.projectionMatrix, camera.matrixWorldInverse); frustum.setFromProjectionMatrix(pv); const out = {};
+  scene.traverseVisible(o => { if (!o.isMesh) return; const g = o.geometry; if (!g.boundingSphere) g.computeBoundingSphere(); if (o.isInstancedMesh && !o.boundingSphere) o.computeBoundingSphere(); sphere.copy(o.isInstancedMesh && o.frustumCulled ? o.boundingSphere : g.boundingSphere).applyMatrix4(o.matrixWorld); if (o.frustumCulled && !frustum.intersectsSphere(sphere)) return;
+    let top = o; while (top.parent && top.parent !== scene) top = top.parent; const k = (top.name || o.name || o.type).split('_')[0]; out[k] = (out[k] ?? 0) + (g.index ? g.index.count : g.attributes.position.count) / 3 * (o.isInstancedMesh ? o.count : 1); });
+  return Object.fromEntries(Object.entries(out).map(([k, v]) => [k, Math.round(v)]).sort((a, b) => b[1] - a[1]));
+}
 function frustumTriangles() {
   pv.multiplyMatrices(camera.projectionMatrix, camera.matrixWorldInverse); frustum.setFromProjectionMatrix(pv);
   let n = 0;
   scene.traverseVisible(o => {
     if (!o.isMesh) return; const g = o.geometry; if (!g.boundingSphere) g.computeBoundingSphere();
-    sphere.copy(g.boundingSphere).applyMatrix4(o.matrixWorld); if (!frustum.intersectsSphere(sphere)) return;
+    if (o.isInstancedMesh && !o.boundingSphere) o.computeBoundingSphere();
+    sphere.copy(o.isInstancedMesh && o.frustumCulled ? o.boundingSphere : g.boundingSphere).applyMatrix4(o.matrixWorld); if (o.frustumCulled && !frustum.intersectsSphere(sphere)) return;   // A4: instanced meshes cull by their instances' bounds, as the renderer does
     n += (g.index ? g.index.count : g.attributes.position.count) / 3 * (o.isInstancedMesh ? o.count : 1);
   });
   return n;
@@ -188,14 +209,15 @@ export function renderFrame(n, width = 720, height = 1280, nudge = 0) {
   const shot = shots.findLast(s => n >= s.start), t = n / FPS;
   const actors = poseCast(t);
   const c = sampleCamera({...shot, fps: FPS}, (n - shot.start) / FPS, actors);
-  world?.update(t); applyWorldState(shot, t);
+  world?.update(t); applyWorldState(shot, t); updateExtras(t);
   const fx = effects.apply(t, camera);   // poses effect targets; returns the shake offset and any timeOfDay blend
   const pos = c.position.map((v, i) => v + fx.camOffset[i]), tgt = c.target.map((v, i) => v + fx.camOffset[i] * .6);
   camera.fov = c.fov; camera.aspect = width / height; camera.position.fromArray(pos);
   camera.up.set(0, 1, 0); camera.lookAt(...tgt); camera.rotateZ(c.roll); camera.updateProjectionMatrix();
   if (nudge) { const k = nudge / Math.sqrt(3); camera.translateX(k); camera.translateY(k); camera.translateZ(k); }
   if (look) { fx.look ? look.apply(...fx.look) : look.apply(shot.look ?? spec.look ?? 'day'); const sf = shotShadow(shot); poseCast(t); look.frameFixed(sf.centre, sf.radius, camera.position); look.update(t); }
-  scene.updateMatrixWorld(true); effects.apply(t, camera); fitTags(scene, camera, {maxFrac: shot.tagMaxFrac ?? .06});   // a shot about the tag lets it read big   // second pass: particles face the final camera
+  scene.updateMatrixWorld(true); effects.apply(t, camera); fitTags(scene, camera, {maxFrac: shot.tagMaxFrac ?? .06});
+  renderer.info.autoReset = false; renderer.info.reset();   // A4: overlay passes (weather, cards) must not reset the scene counts
   renderer.render(scene, camera); effects.overlay(t, camera, width / height);
   const gl = renderer.getContext(); gl.readPixels(0, 0, 1, 1, gl.RGBA, gl.UNSIGNED_BYTE, new Uint8Array(4));   // forces the GPU work to finish, so ms is real
   if (gl.isContextLost()) throw Error('WebGL context lost');
@@ -214,7 +236,7 @@ export function renderCamera(cam, t = 0, width = 720, height = 1280, lookName = 
   poseCast(t); camera.fov = cam.fov ?? 45; camera.aspect = width / height; camera.position.set(...cam.position); camera.up.set(...(cam.up ?? [0, 1, 0])); camera.lookAt(...cam.target); camera.updateProjectionMatrix();
   if (look) { look.apply(lookName); look.frame(new T.Vector3(...cam.target), camera.position.clone(), cam.shadowRadius ?? 34); look.update(t); }
   if (nudge) { const k = nudge / Math.sqrt(3); camera.translateX(k); camera.translateY(k); camera.translateZ(k); }
-  world?.update(t); applyWorldState(null, t); scene.updateMatrixWorld(true); fitTags(scene, camera); renderer.render(scene, camera);
+  world?.update(t); applyWorldState(null, t); updateExtras(t); scene.updateMatrixWorld(true); fitTags(scene, camera); renderer.render(scene, camera);
   const gl = renderer.getContext(); gl.readPixels(0, 0, 1, 1, gl.RGBA, gl.UNSIGNED_BYTE, new Uint8Array(4));
   return {triangles: frustumTriangles(), drawnTriangles: renderer.info.render.triangles, calls: renderer.info.render.calls, ms: performance.now() - t0};
 }
@@ -224,7 +246,7 @@ const headOf = ({a, v2, dragon}) => { const v = new T.Vector3(); if (dragon) { c
 export function inspectFrame(n, width = 540, height = 960) {
   const shot = shots.findLast(s => n >= s.start), t = n / FPS, actors = poseCast(t);
   const c = sampleCamera({...shot, fps: FPS}, (n - shot.start) / FPS, actors);
-  applyWorldState(shot, t); effects.apply(t, camera);
+  applyWorldState(shot, t); updateExtras(t); effects.apply(t, camera);
   camera.fov = c.fov; camera.aspect = width / height; camera.position.fromArray(c.position); camera.up.set(0, 1, 0); camera.lookAt(...c.target); camera.updateProjectionMatrix();
   scene.updateMatrixWorld(true); camera.updateMatrixWorld(true);
   const heads = {};
@@ -238,4 +260,4 @@ export function inspectFrame(n, width = 540, height = 960) {
 }
 export function shotSpeed(i) { const s = shots[i]; return maxTargetSpeed({...s, fps: FPS, openHit: false}, tt => poseCast(s.start / FPS + tt), FPS); }
 
-window.__episode = {inspectFrame, shotSpeed, END: FRAMES / FPS, anchors: Object.fromEntries(Object.entries(anchors).filter(([, a]) => a.camera).map(([k]) => [k, true])), renderAnchor, renderAnchorNudged, renderCamera, FPS, FRAMES, shots: shots.map(({id, start, frames, size, move, loc, subject, see, openHit, at, why, captionY}) => ({id, start, frames, size, move, loc, subject, see, openHit: !!openHit, at, why, captionY})), renderFrame};
+window.__episode = {breakdown, inspectFrame, shotSpeed, END: FRAMES / FPS, anchors: Object.fromEntries(Object.entries(anchors).filter(([, a]) => a.camera).map(([k]) => [k, true])), renderAnchor, renderAnchorNudged, renderCamera, FPS, FRAMES, shots: shots.map(({id, start, frames, size, move, loc, subject, see, openHit, at, why, captionY}) => ({id, start, frames, size, move, loc, subject, see, openHit: !!openHit, at, why, captionY})), renderFrame};

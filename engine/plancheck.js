@@ -55,7 +55,7 @@ export function checkPlan({shots, cues, fps = 30, end, info = []}) {
     if (whip && !nearOnset(s.start) && !nearOnset(s.start + s.frames)) err(s, 'whip touches no phrase onset');
     // camera motion
     if (I.first && I.last && same(I.first.camera.position, I.last.camera.position) && same(I.first.camera.target, I.last.camera.target) && Math.abs(I.first.camera.fov - I.last.camera.fov) < 1e-4) err(s, 'no camera motion');
-    if (!whip && I.speed !== undefined && I.speed > SPEED_CAP) err(s, `pan speed ${(I.speed * 100).toFixed(0)} %/s > ${SPEED_CAP * 100} %`);
+    if (!whip && s.move !== 'snap' && I.speed !== undefined && I.speed > SPEED_CAP) err(s, `pan speed ${(I.speed * 100).toFixed(0)} %/s > ${SPEED_CAP * 100} %`);
     if (!whip) {
       if (prev && prev.size === s.size) err(s, `same size as ${prev.id} (${s.size})`);
       if (prev && s.loc && prev.loc && s.loc !== prev.loc && s.size !== 'wide') err(s, `location change ${prev.loc} → ${s.loc} must open on a wide`);

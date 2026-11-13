@@ -22,9 +22,15 @@ const at = (g, x, y, z, s = [1, 1, 1], r = [0, 0, 0]) => { g.scale(...s); g.rota
 const LEAF = {conifer: ['#2f5a3a', '#3f7448', '#5a8c56'], broadleaf: ['#3f6f2f', '#5c8f3c', '#86b052'], poplar: ['#4a7a34', '#6a9a42', '#93b85a'], palm: ['#3f7a3a', '#5e9a46', '#8cbf5a']};
 const BARK = {conifer: '#5a4232', broadleaf: '#6a5038', poplar: '#8a7a64', palm: '#9a7f5c'};
 
-export function treeGeometry(species, seed = 1) {
+export function treeGeometry(species, seed = 1, {lod = 'near'} = {}) {
   const R = rng(seed * 7 + species.length), trunk = [], leaves = [];
-  if (species === 'conifer') {
+  if (lod === 'far') {   // far LOD (≤ 40 triangles): the same silhouette from one or two primitives
+    trunk.push(at(new T.CylinderGeometry(.3, .45, species === 'palm' ? 7 : 3.4, 4, 1, true), 0, species === 'palm' ? 3.5 : 1.7, 0));
+    if (species === 'conifer') leaves.push(at(new T.ConeGeometry(2.6, 8.4, 6), 0, 6.6, 0));
+    else if (species === 'poplar') leaves.push(at(new T.OctahedronGeometry(1.6, 0), 0, 5.8, 0, [1, 2.6, 1]));
+    else if (species === 'palm') leaves.push(at(new T.ConeGeometry(3.2, 1.6, 6), 1.6, 7.2, 0, [1, 1, 1], [Math.PI, 0, 0]));
+    else leaves.push(at(new T.OctahedronGeometry(2.8, 0), 0, 6, 0, [1, .85, 1]), at(new T.OctahedronGeometry(1.9, 0), 1.3, 5.2, .6));
+  } else if (species === 'conifer') {
     trunk.push(at(new T.CylinderGeometry(.28, .42, 3.2, 5, 1, true), 0, 1.6, 0));
     for (let i = 0; i < 4; i++) leaves.push(at(new T.ConeGeometry(2.8 - i * .58, 3.4 - i * .3, 7), (R() - .5) * .2, 3.2 + i * 2.05, (R() - .5) * .2, [1, 1, 1], [0, R() * 3, 0]));
   } else if (species === 'broadleaf') {
@@ -86,12 +92,14 @@ const vMat = (key, make) => (mats[key] ??= make());
 // ---- placement -----------------------------------------------------------------------------------------
 // Scatter a biome's vegetation over `area` {x0,x1,z0,z1} on height(x,z). avoid(x,z) keeps paths/pads clear; trees skip
 // slopes steeper than maxSlope and anything under waterY. Grass cards and flowers only inside `nearR` of a focus point.
-export function vegetation({height, veg, area, seed = 1, avoid = () => false, focus = [[0, 0]], nearR = 30, shadowR = 45, waterY = -Infinity, density = 1, maxSlope = .45}) {
+export function vegetation({height, veg, area, seed = 1, avoid = () => false, focus = [[0, 0]], nearR = 30, shadowR = 45, waterY = -Infinity, density = 1, maxSlope = .45, cell = 60, grassCard = [2.4, 1.1]}) {
   const group = new T.Group(); group.name = 'vegetation'; const R = rng(seed), stats = {trees: 0, bushes: 0, rocks: 0, grass: 0, flowers: 0, triangles: 0};
   const slope = (x, z) => Math.hypot(height(x + 1, z) - height(x - 1, z), height(x, z + 1) - height(x, z - 1)) / 2;
   const nearest = (x, z) => Math.min(...focus.map(f => Math.hypot(x - f[0], z - f[1])));
   const sample = (perHundred, ok) => { const n = Math.round((area.x1 - area.x0) * (area.z1 - area.z0) / 100 * perHundred * density), out = []; for (let i = 0, tries = 0; out.length < n && tries < n * 12; tries++) { const x = area.x0 + R() * (area.x1 - area.x0), z = area.z0 + R() * (area.z1 - area.z0); if (avoid(x, z) || height(x, z) < waterY + .3 || !ok(x, z)) continue; out.push({x, z, y: height(x, z), r: R() * 6.283, s: .75 + R() * .5, k: R()}); i++; } return out; };
-  const inst = (geo, mat, list, {cast, name, sx = p => [p.s, p.s, p.s], tint = null}) => {
+  // one InstancedMesh per `cell` × `cell` square, so frustum culling drops what the camera cannot see
+  const inst = (geo, mat, list, o) => { const cells = new Map(); for (const p of list) { const k = Math.floor(p.x / cell) + ',' + Math.floor(p.z / cell); if (!cells.has(k)) cells.set(k, []); cells.get(k).push(p); } for (const l of cells.values()) inst1(geo, mat, l, o); };
+  const inst1 = (geo, mat, list, {cast, name, sx = p => [p.s, p.s, p.s], tint = null}) => {
     if (!list.length) return; const im = new T.InstancedMesh(geo, mat, list.length), m = new T.Matrix4(), q = new T.Quaternion(), e = new T.Euler();
     list.forEach((p, i) => { e.set(0, p.r, 0); q.setFromEuler(e); m.compose(new T.Vector3(p.x, p.y - .05, p.z), q, new T.Vector3(...sx(p))); im.setMatrixAt(i, m); if (tint) im.setColorAt(i, tint(p)); });
     im.instanceMatrix.needsUpdate = true; im.computeBoundingSphere(); im.castShadow = cast; im.receiveShadow = true; im.name = name; group.add(im); stats.triangles += triCount(geo) * list.length;
@@ -101,10 +109,11 @@ export function vegetation({height, veg, area, seed = 1, avoid = () => false, fo
   // trees: each species gets an even share of the biome's density
   const species = veg.trees ?? [];
   species.forEach((sp, si) => {
-    const list = sample((veg.treeDensity ?? 0) / Math.max(1, species.length), (x, z) => slope(x, z) < maxSlope), geo = treeGeometry(sp, seed + si);
+    const list = sample((veg.treeDensity ?? 0) / Math.max(1, species.length), (x, z) => slope(x, z) < maxSlope), geoNear = treeGeometry(sp, seed + si), geoFar = treeGeometry(sp, seed + si, {lod: 'far'});
     const bark = vMat('bark', () => windMaterial(new T.MeshPhongMaterial({vertexColors: true, flatShading: true, shininess: 6}), {amp: .0025}));
     const leaf = vMat('leaf' + sp, () => windMaterial(new T.MeshPhongMaterial({vertexColors: true, flatShading: true, shininess: 10, specular: '#1a1a1a'}), {amp: sp === 'palm' ? .004 : .0035, flutter: .03}));
     for (const [part, near] of split(list).map((l, k) => [l, k === 0])) {
+      const geo = near ? geoNear : geoFar;
       inst(geo.trunk, bark, part, {cast: near, name: `tree_${sp}_trunk_${near ? 'near' : 'far'}`});
       inst(geo.leaves, leaf, part, {cast: near, name: `tree_${sp}_leaves_${near ? 'near' : 'far'}`, tint: p => tw.setHSL(0, 0, .9 + p.k * .2)});
     }
@@ -122,14 +131,14 @@ export function vegetation({height, veg, area, seed = 1, avoid = () => false, fo
   if (veg.grass) {
     grassTex ??= cardTexture('grass');
     const gm = vMat('grass', () => windMaterial(new T.MeshPhongMaterial({map: grassTex, alphaTest: .5, side: T.DoubleSide, shininess: 4, color: '#ffffff'}), {amp: .14, byUv: true}));
-    const list = nearSample(veg.grass * 6);
-    inst(cardGeometry(), gm, list, {cast: false, name: 'grass_cards', tint: p => tw.set(veg.grassColor ?? '#9ccf6a').offsetHSL(0, 0, (p.k - .5) * .12)}); stats.grass = list.length;
+    const list = nearSample(veg.grass * 1.6);
+    inst(cardGeometry(...grassCard), gm, list, {cast: false, name: 'grass_cards', tint: p => tw.set(veg.grassColor ?? '#9ccf6a').offsetHSL(0, 0, (p.k - .5) * .12)}); stats.grass = list.length;
   }
   if (veg.flowers) {
     flowerTex ??= cardTexture('flower');
     const fm = vMat('flower', () => windMaterial(new T.MeshPhongMaterial({map: flowerTex, alphaTest: .5, side: T.DoubleSide, shininess: 4}), {amp: .12, byUv: true}));
     const cols = veg.flowerColors ?? ['#ffffff', '#ffd23f', '#ff8fb1', '#9fc2ff'];
-    const list = nearSample(veg.flowers * 1.5);
+    const list = nearSample(veg.flowers * .8);
     inst(cardGeometry(1.2, .7), fm, list, {cast: false, name: 'flowers', tint: p => tw.set(cols[Math.floor(p.k * cols.length)])}); stats.flowers = list.length;
   }
   group.userData.stats = stats;
