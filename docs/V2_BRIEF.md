@@ -483,3 +483,80 @@ Re-render the locked episode at 1440×2560 (farm if it works, otherwise local, r
 - `PUBLISHING.md`: upload the 1440 master, publish as Unlisted first, wait until 1440p appears in YouTube's quality menu, check it, then make it Public.
 
 Owner note with this amendment: the owner uploads to YouTube; delivery = the master file sent directly plus the farm prerelease (owner decision 2026-11-13).
+
+## Amendment A3 (2026-11-13): intro class showcase
+
+Owner-ordered creative revision of the **intro only** (Session 7). All §0 and §2 rules apply: plan first in `PROGRESS.md`, run every Done-when check, and stop at the gate.
+
+### Scope (strict)
+- **May change:** shots in 0.00–18.53 s (S01–S07; S08 if it exists), the cast data for the class kids, new class swords, class cards, the transformation effect, and prop-only swaps of class swords in later shots (see C5).
+- **Must not change:** the script, voice, `cues.json`, captions text and style, every shot after 18.53 s (cameras, timing, staging), the hero's own plain sword and stone, the stone-hammer twist, the grade, encode, QC and delivery systems. Reuse the existing engine. This is data plus a few new library entries.
+
+### Problems to fix (seen in `review/nobody/final-review.mp4`, 0–22 s)
+1. Class names are not readable. Tags at frame 0 are tiny and cut off at the frame edge ("Bake", "Nobod"). In the "Baker. Knight. Even King." shot all tags are small, and the kids look alike (similar tunics; the "King" kid is not dressed as a king).
+2. Pulling a sword changes nothing but a sparkle and a small tag. There is no "you got your class" moment.
+3. Every sword is the same plain sword, so there is nothing to want.
+
+### Goal
+An RPG "class reveal" moment the viewer craves: pull, then light, then the sword **transforms** into a glorious class blade, then a big class card slams in, then a hero pose. Show it in the hook and as a rapid showcase exactly on the narration's beats. The hero's sword stays the plain, dull one. That contrast *is* the story: everyone gets a legendary blade except him.
+
+### A. Class swords (`parts/props.js` → `classSword(cls, tier)`; library entry)
+Original designs. Do not echo famous game or film swords (no Master Sword, Buster Sword, Keyblade, Excalibur look-alikes). Each sword has one unmistakable silhouette readable at phone size, its class colour, a signature glow and particle, and the same block-toy style as the world. Hero-tier ≤ 700 triangles; background tier ≤ 120. Blades glow through emissive and highlight-bloom only (the A2 grade already blooms highlights).
+
+| Class | Sword | Silhouette and look | Signature FX |
+|---|---|---|---|
+| Baker | **Goldcrust Saber** | wide curved golden blade scored like a baguette crust, wheat-sheaf crossguard, glowing ember-orange core seam like an oven | warm steam wisps and flour sparkles |
+| Knight | **Bastion Blade** | tall broad silver longsword, winged crossguard holding a blue gem, shield emblem on the pommel | blue-white light rays and a ring shockwave |
+| King | **Sunfire Regalia** | white-gold blade with a crown-shaped crossguard, big ruby, sun-ray spikes behind the guard | gold confetti and a sun halo |
+| Archer | **Galeleaf Edge** | slim green leaf-shaped blade whose crossguard curls like bow limbs with a glowing string | swirling leaves and wind streaks |
+| Smith | **Forgeheart Cleaver** | thick dark-iron cleaver with glowing lava cracks, anvil-shaped pommel | embers and sparks |
+| Farmer | **Harvest Crescent** | crescent sickle-curve sword, green-gold, vines wrapping the grip, a sprout on the pommel | petals and seed sparkles |
+
+Write the designs into `review/nobody/class-swords.png`: all six hero swords large, plus each one held in `toolHold` at 390 px phone width. Self-score: every sword is identifiable by silhouette alone (grey-fill check) and by colour alone, and none looks like a famous sword. Fix anything under 4/5 (max 3 passes).
+
+### B. Class cards and the transformation
+**B1. Class card** (`engine/overhead.js` → `classCard`; library entry). An RPG unlock banner of our own design: rounded shield-shaped plate in the class colour with a thick dark outline; a big drawn class icon (loaf, shield, crown, leaf-bow, anvil, wheat); the class name in the caption font (Lilita One), white with a dark outline; a shine sweep across it after it lands; a small "CLASS UNLOCKED" ribbon above.
+- Motion: slams in at 140 % → 100 % with `outBack` over 8 frames, holds, and after 1.3 s shrinks and flies into the persistent name tag above the head.
+- From then on the name tag is in the class colour with the small icon.
+- Size and position rule (screen space, checked by `plan.js` on frames where a card is fully visible): class-name cap height ≥ 4.5 % of frame height; card fully inside x 10–90 % and y 10–56 %; never in the caption band (60–72 %). Cards override `tagMaxFrac`.
+
+**B2. Transformation** (`engine/effects.js` → `classReveal`; pure in t, deterministic; library entry). About 1.1 s, triggered from shot data `{"classReveal": {"actor": "kidKnight", "cls": "knight", "at": 0.35}}`:
+1. **0.00 s:** the plain sword pops free (existing pull), with a light pillar in the class colour shooting up from the stone.
+2. **0.12 s:** a 2-frame highlight flash (not white-out), a ring shockwave on the ground, `shake` ≤ 0.03 units over 4 frames.
+3. **0.15–0.45 s:** the plain sword squashes thin and dissolves into light; the class sword grows in with `outBack` and spins half a turn.
+4. **0.45 s:** the class-signature particle burst; the kid snaps into a `raise` hero pose with the sword up; a class accessory pops on (chef hat for Baker, helmet for Knight, crown and small cape for King, feathered cap for Archer, goggles or apron for Smith, straw hat for Farmer; add any missing ones to `accessories.js`).
+5. **0.55 s:** the class card slams in (B1).
+
+Outfits must also read as their class at a glance; update the class kids' outfits in `cast.json`. The King kid wears royal purple and gold.
+
+**Safety:** swords are raised to the sky, never pointed at anyone.
+
+### C. The intro, rebuilt on the narration's beats
+Timings come from `cues.json` (word starts). Cuts land on onsets exactly as the plan rules require.
+
+1. **0.00–3.12, line 1, hook.** Frame 0 must already be irresistible: centre frame, the hero straining at his dull sword with his "Nobody" tag clearly readable; one side kid is already mid-pose with a glowing Bastion Blade and its class card fully on screen. A second `classReveal` (Baker) fires at about 1.1 s, while "nobody" is spoken. Keep the `openHit`. All tags inside the frame, none cut off.
+2. **3.48–6.67, line 2:** unchanged in content. Make sure one background class sword's glow is visible behind the hero (envy contrast).
+3. **7.44–11.82, line 3:** unchanged, except the newborn stone's hilt gets a faint mysterious shimmer (the sword inside is unknown).
+4. **12.21–14.60, "Pull it out, and a name appears above your head":** one full, unhurried `classReveal` (Archer) in a medium shot. This is the template the viewer learns.
+5. **14.61–17.11, "Baker. Knight. Even King.":** a rapid showcase. Three beat-cuts landing on the onsets of "Baker" (14.609), "Knight" (15.325) and "Even" (15.953). Each beat is a close or medium hero shot of that kid at the peak of their reveal: sword raised, signature FX, class card slamming in on the word. Escalate size and spectacle: the King is the biggest (low angle, sun halo, gold confetti), held to 17.11.
+6. **17.11–18.53, "Most kids do it by seven":** a wide spectacle shot. Across the field 6–10 more kids reveal in a staggered wave (light pillars popping one after another; Smith, Farmer and repeats of others), class cards small but readable, and the hero tiny in the middle with no light. Keep it within the frustum and bench budgets.
+
+**`plan.js` exception:** add a `beat` shot flag permitting 0.55–1.2 s shots, at most 3 in a row, only before 20 s, each cut on a word onset. Unit-test it. All other plan rules still apply.
+
+**C5. Continuity (prop and data swaps only, no restaging):** in later shots, any class kid who holds or wears a sword uses their class sword and class-coloured tag, and Pip's sword and tag match her class. Where the King's and knights' swords melt (lines about 62–66 s), use Sunfire Regalia and Bastion Blades so the melt lands harder. The final shot's kids keep their class swords while their tags flip to "Nobody".
+
+### D. Budgets and gates (unchanged systems)
+`v2:test`, `v2:plan`, `v2:bench` (≤ 50k frustum triangles, mean ≤ 0.45 s/frame at 720) and `v2:stability` must pass. Particles stay instanced.
+
+### E. Gate and delivery
+1. Render only 0.00–22.00 s at 1440×2560 (per-shot cache) and assemble `review/nobody/intro-preview.mp4` with voice and captions, plus `review/nobody/intro-10fps.png` (contact sheet at 10 fps over 0–19 s) and a 30 fps sheet of the Knight beat (15.2–16.0 s).
+2. Self-check against this rubric and fix anything under 4 (max 3 passes); record the scores in `PROGRESS.md`:
+   - frame 0 is readable and exciting muted;
+   - every class name is readable at phone size on its word;
+   - the six classes are distinguishable by sword, colour and outfit;
+   - the reveal reads as a transformation, not a cut;
+   - the hero's dull sword clearly contrasts;
+   - nothing is cut off or covered by captions;
+   - no flicker.
+3. **Stop for the owner's review of the intro preview.**
+4. After approval (a later session, kickoff `Read docs/V2_BRIEF.md §0–3 and PROGRESS.md, then finish A3`): re-render the full episode at 1440 (only changed shots re-render from cache), assemble, `v2:qc`, new prerelease, update `DELIVERY.md` and `final-review.mp4`, and add the new library entries to `CLAUDE.md`.
