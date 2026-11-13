@@ -175,3 +175,133 @@ export const SMALL_PROPS = {
 export const SMALL_PROP_NAMES = Object.keys(SMALL_PROPS);
 // The brief's list: tree ×3 and rock ×3 are seeds/kinds 0–2 of `tree` and `rock`.
 export const smallProp = (name, seed = 1, opts = {}) => { if (!SMALL_PROPS[name]) throw Error('unknown small prop ' + name); return SMALL_PROPS[name](seed, opts); };
+
+// ---- Class swords (Amendment A3): six original class blades, one silhouette each, block-toy style ----------
+// classSword(cls, tier): origin = crossguard centre, blade along −Y, grip +Y (same as sword()). Blade width runs
+// along z (the flat faces ±x), so a held sword reads in profile like the plain one. Glow is emissive only (the A2
+// grade blooms highlights). hero ≤ 700 tris, bg ≤ 120. CLASSES holds each class's colour, icon, accessory and FX.
+export const CLASSES = {
+  baker:  {name: 'Baker',  sword: 'Goldcrust Saber',    color: '#f5a623', dark: '#7a3f0c', icon: 'loaf',    accessory: 'chefHat',   fx: ['steam', 'flour']},
+  knight: {name: 'Knight', sword: 'Bastion Blade',      color: '#3d8bf0', dark: '#123a74', icon: 'shield',  accessory: 'helmet',    fx: ['rays']},
+  king:   {name: 'King',   sword: 'Sunfire Regalia',    color: '#f7c82c', dark: '#5a2a7a', icon: 'crown',   accessory: 'crown',     fx: ['goldConfetti', 'halo']},
+  archer: {name: 'Archer', sword: 'Galeleaf Edge',      color: '#37c45a', dark: '#145a28', icon: 'leafbow', accessory: 'featherCap', fx: ['leaves']},
+  smith:  {name: 'Smith',  sword: 'Forgeheart Cleaver', color: '#ff6a1f', dark: '#5a1a08', icon: 'anvil',   accessory: 'goggles',   fx: ['embers']},
+  farmer: {name: 'Farmer', sword: 'Harvest Crescent',   color: '#a8d43a', dark: '#3f5a12', icon: 'wheat',   accessory: 'strawHat',  fx: ['petals']},
+};
+export const CLASS_NAMES = Object.keys(CLASSES);
+const classMats = new Map(), cachedMat = (k, f) => { if (!classMats.has(k)) classMats.set(k, f()); return classMats.get(k); };   // shared, so parts merge
+const glowMat = (color, intensity = 1.2, base = color) => cachedMat(`g:${color}:${intensity}:${base}`, () => { const m = new T.MeshPhongMaterial({color: base, emissive: new T.Color(color), emissiveIntensity: intensity, shininess: 60, specular: '#ffffff', flatShading: true}); m.userData = {pattern: 'glow'}; return m; });
+const toyMat = (color, shininess = 70) => cachedMat(`t:${color}:${shininess}`, () => new T.MeshPhongMaterial({color, shininess, specular: '#cfcfcf', flatShading: true}));
+// A flat profile in the (z, y) plane, extruded `t` thick along x and centred on it.
+function profile(points, t, curveSeg = 1) {
+  const s = new T.Shape(); points.forEach(([z, y], i) => (i ? s.lineTo(z, y) : s.moveTo(z, y)));
+  const g = new T.ExtrudeGeometry(s, {depth: t, bevelEnabled: false, curveSegments: curveSeg});
+  g.translate(0, 0, -t / 2); g.rotateY(-Math.PI / 2); g.computeVertexNormals(); return boxUV(g, 2);
+}
+const bx = (grp, size, at, m, rot = [0, 0, 0], cast = true) => { const x = mesh(boxUV(new T.BoxGeometry(...size)), m, at, 'part', cast); x.rotation.set(...rot); grp.add(x); return x; };
+const arc = (n, f) => Array.from({length: n + 1}, (_, i) => f(i / n));
+
+const CLASS_BUILD = {
+  // Goldcrust Saber: wide curved golden blade with baguette scoring, glowing ember seam, wheat-sheaf guard, loaf pommel.
+  baker(g, hero) {
+    const gold = toyMat('#e8a93a'), crust = toyMat('#a8621c'), L = 2.5;
+    // saber curve sweeping forward, widening, ending in a rounded loaf-end tip
+    const cz = u => .72 * u * u, back = arc(7, u => [-.2 + cz(u), -u * L]);
+    const tip = arc(4, v => [cz(1) + .1 + .24 * Math.cos(Math.PI * v) * -1, -L - .14 * Math.sin(Math.PI * v)]);
+    const edge = arc(7, u => [.28 + .1 * u + cz(u), -u * L]).reverse();
+    g.add(mesh(profile([...back, ...tip.reverse(), ...edge], .09), gold, [0, -.05, 0], 'blade'));
+    if (hero) {
+      for (let i = 0; i < 5; i++) { const u = .15 + i * .16; bx(g, [.11, .05, .34], [0, -.05 - u * L, .05 + .05 * u + cz(u)], crust, [-.6, 0, 0], false); }
+      g.add(mesh(profile([...arc(6, u => [.0 + cz(u), -.15 - u * (L - .4)]), ...arc(6, u => [.08 + cz(u), -.15 - u * (L - .4)]).reverse()], .1), glowMat('#ff7a1a', 1.4), [0, -.05, 0], 'seam'));
+      for (const s of [-1, 1]) for (let k = 0; k < 3; k++) bx(g, [.1, .32, .08], [0, .08 + k * .03, s * (.18 + k * .1)], gold, [s * (.5 + k * .35), 0, 0]);
+      bx(g, [.14, .12, .3], [0, 0, 0], crust);
+      bx(g, [.12, .5, .12], [0, .32, 0], toyMat('#6b4428', 20));
+      g.add(mesh(boxUV(new T.CapsuleGeometry(.12, .22, 2, 6).rotateX(Math.PI / 2)), gold, [0, .66, 0], 'pommel'));
+    } else { bx(g, [.12, .1, .5], [0, 0, 0], crust); bx(g, [.1, .5, .1], [0, .3, 0], toyMat('#6b4428', 20)); }
+  },
+  // Bastion Blade: tall broad silver longsword, winged guard with a blue gem, shield pommel.
+  knight(g, hero) {
+    const steel = toyMat('#dfe6f0', 110), blue = glowMat('#5aaaff', 1.3, '#3d8bf0'), L = 3.0, w = .21;
+    g.add(mesh(profile([[-w, 0], [w, 0], [w * .9, -L * .82], [0, -L], [-w * .9, -L * .82]], .1), steel, [0, -.05, 0], 'blade'));
+    if (hero) {
+      bx(g, [.12, L * .7, .05], [0, -.1 - L * .35, 0], toyMat('#a9b6c8', 90), [0, 0, 0], false);   // fuller
+      // winged guard as blocky shield-plates that fold DOWN along the blade (a bastion's flanking walls)
+      for (const s of [-1, 1]) for (let k = 0; k < 3; k++) bx(g, [.12, .3 - k * .05, .16], [0, -.05 - k * .2, s * (.36 - k * .07)], k ? steel : blue, [-s * .35, 0, 0]);
+      bx(g, [.16, .16, .62], [0, 0, 0], steel);
+      for (const z of [-.24, 0, .24]) bx(g, [.16, .1, .1], [0, .12, z], steel);   // battlement teeth on top of the guard
+      g.add(mesh(boxUV(new T.OctahedronGeometry(.13)), blue, [0, .02, 0], 'gem', false));
+      bx(g, [.12, .5, .12], [0, .32, 0], toyMat('#2a3a5a', 20));
+      g.add(mesh(profile([[-.18, .12], [.18, .12], [.18, -.02], [0, -.2], [-.18, -.02]], .1), blue, [0, .68, 0], 'pommel'));
+    } else { bx(g, [.12, .12, .62], [0, 0, 0], steel); bx(g, [.1, .5, .1], [0, .3, 0], toyMat('#2a3a5a', 20)); }
+  },
+  // Sunfire Regalia: white-gold blade, crown-shaped guard with a ruby, sun-ray spikes fanned behind the guard.
+  king(g, hero) {
+    const wg = glowMat('#fff3c0', .35, '#fff1c4'), gold = toyMat('#f2c230', 90), L = 2.7, w = .18;
+    g.add(mesh(profile([[-w, 0], [w, 0], [w * .55, -L * .9], [0, -L], [-w * .55, -L * .9]], .09), wg, [0, -.05, 0], 'blade'));
+    if (hero) {
+      for (let i = 0; i < 9; i++) { const a = (i / 8 - .5) * Math.PI * .95; bx(g, [.05, .5, .07], [-.05, .2 + Math.cos(a) * .32, Math.sin(a) * .42], glowMat('#ffd84a', .9), [-a, 0, 0], false); }
+      bx(g, [.16, .16, .58], [0, 0, 0], gold);
+      for (let i = 0; i < 5; i++) { const z = (i - 2) * .13; g.add(mesh(boxUV(new T.ConeGeometry(.055, .22, 4)), gold, [0, .18, z], 'spike')); }
+      g.add(mesh(boxUV(new T.OctahedronGeometry(.14)), glowMat('#ff2240', 1.1, '#d0102c'), [.08, .02, 0], 'ruby', false));
+      bx(g, [.12, .5, .12], [0, .32, 0], toyMat('#5a2a7a', 30));
+      g.add(mesh(boxUV(new T.OctahedronGeometry(.12)), gold, [0, .66, 0], 'pommel'));
+    } else { bx(g, [.14, .14, .5], [0, 0, 0], gold); bx(g, [.1, .5, .1], [0, .3, 0], toyMat('#5a2a7a', 30)); }
+  },
+  // Galeleaf Edge: slim leaf blade with a light rib; the guard curls down like bow limbs with a glowing string.
+  archer(g, hero) {
+    const leaf = toyMat('#3fbf5a', 60), L = 2.5;
+    const half = arc(6, u => [.17 * Math.sin(Math.PI * Math.pow(u, .8)) + .02, -u * L]);
+    g.add(mesh(profile([...half, ...half.slice(0, -1).reverse().map(([z, y]) => [-z, y])], .07), leaf, [0, -.05, 0], 'blade'));
+    if (hero) {
+      bx(g, [.09, L * .85, .035], [0, -.05 - L * .43, 0], toyMat('#b6f07a', 40), [0, 0, 0], false);
+      const limb = arc(5, u => [.08 + .52 * Math.sin(u * 1.9), .12 - .7 * u * u]);
+      for (const s of [-1, 1]) for (let i = 0; i < 5; i++) {
+        const [z0, y0] = limb[i], [z1, y1] = limb[i + 1], len = Math.hypot(z1 - z0, y1 - y0);
+        bx(g, [.09, .09, len + .02], [0, (y0 + y1) / 2, s * (z0 + z1) / 2], toyMat('#8a5a2a', 30), [-s * Math.atan2(y1 - y0, z1 - z0), 0, 0]);
+      }
+      const tip = limb.at(-1); bx(g, [.03, .03, tip[0] * 2], [0, tip[1], 0], glowMat('#d8ffb0', 1.5), [0, 0, 0], false);
+      bx(g, [.1, .5, .1], [0, .32, 0], toyMat('#2a5a2a', 20));
+      g.add(mesh(profile([[0, .14], [.1, 0], [0, -.12], [-.1, 0]], .08), leaf, [0, .66, 0], 'pommel'));
+    } else { bx(g, [.1, .1, .5], [0, 0, 0], toyMat('#8a5a2a', 30)); bx(g, [.08, .5, .08], [0, .3, 0], toyMat('#2a5a2a', 20)); }
+  },
+  // Forgeheart Cleaver: thick dark-iron cleaver, glowing lava cracks on both faces, anvil pommel.
+  smith(g, hero) {
+    // a true cleaver: short neck, then a wide square head with a flat tip and a hanging hole
+    const iron = toyMat('#3a3f48', 50), lava = glowMat('#ff5a10', 1.5, '#ff7a20'), L = 1.9;
+    g.add(mesh(profile([[-.1, 0], [.12, 0], [.12, -.3], [.78, -.36], [.78, -L], [-.16, -L], [-.16, -.36], [-.1, -.3]], .16), iron, [0, -.05, 0], 'blade'));
+    if (hero) {
+      g.add(mesh(boxUV(new T.CylinderGeometry(.11, .11, .18, 8).rotateZ(Math.PI / 2)), toyMat('#0d0f12', 10), [0, -.62, .56], 'hole', false));
+      bx(g, [.18, .08, .94], [0, -.05 - L + .04, .31], toyMat('#9aa3ad', 90), [0, 0, 0], false);   // honed edge
+      const crack = [[.05, -.5], [.3, -.8], [.12, -1.1], [.42, -1.4], [.2, -1.7]];
+      for (const s of [-1, 1]) for (let i = 0; i < crack.length - 1; i++) {
+        const [z0, y0] = crack[i], [z1, y1] = crack[i + 1], len = Math.hypot(z1 - z0, y1 - y0);
+        bx(g, [.02, .06, len], [s * .085, -.05 + (y0 + y1) / 2, (z0 + z1) / 2], lava, [-Math.atan2(y1 - y0, z1 - z0), 0, 0], false);
+      }
+      bx(g, [.22, .16, .5], [0, 0, .05], iron);
+      bx(g, [.14, .5, .14], [0, .32, 0], toyMat('#5a3a22', 20));
+      bx(g, [.24, .16, .42], [0, .66, 0], iron); bx(g, [.18, .12, .22], [0, .58, 0], iron);
+      g.add(mesh(boxUV(new T.ConeGeometry(.08, .26, 4).rotateX(Math.PI / 2)), iron, [0, .66, .3], 'horn'));
+    } else { bx(g, [.2, .14, .4], [0, 0, .05], iron); bx(g, [.12, .5, .12], [0, .3, 0], toyMat('#5a3a22', 20)); }
+  },
+  // Harvest Crescent: a crescent sickle-curve blade, green-gold, vines round the grip, a sprout on the pommel.
+  farmer(g, hero) {
+    const blade = toyMat('#c8d24a', 80), vine = toyMat('#3f8a2a', 20), L = 2.3;
+    const outer = arc(8, u => [.55 * Math.sin(Math.PI * u) - .08 * u, -u * L]);
+    const inner = arc(8, u => [.32 * Math.sin(Math.PI * u) + .02 - .06 * u, -u * L * .97]).reverse();
+    g.add(mesh(profile([...outer, ...inner], .08), blade, [0, -.05, 0], 'blade'));
+    if (hero) {
+      g.add(mesh(profile([...arc(6, u => [.5 * Math.sin(Math.PI * u) - .06 * u, -.1 - u * (L - .2)]), ...arc(6, u => [.45 * Math.sin(Math.PI * u) - .05 * u, -.1 - u * (L - .2)]).reverse()], .09), glowMat('#e8ff7a', 1.1), [0, -.05, 0], 'edge'));
+      bx(g, [.14, .12, .46], [0, 0, 0], toyMat('#8a6a2a', 40));
+      bx(g, [.11, .52, .11], [0, .32, 0], toyMat('#6b4428', 20));
+      for (let i = 0; i < 4; i++) bx(g, [.14, .05, .14], [0, .12 + i * .12, 0], vine, [0, i * .7, .35]);
+      bx(g, [.04, .2, .04], [0, .68, 0], vine);
+      for (const s of [-1, 1]) bx(g, [.05, .07, .18], [0, .76, s * .08], toyMat('#6fd04a', 30), [s * .5, 0, 0]);
+    } else { bx(g, [.12, .1, .4], [0, 0, 0], toyMat('#8a6a2a', 40)); bx(g, [.1, .5, .1], [0, .3, 0], toyMat('#6b4428', 20)); }
+  },
+};
+
+export function classSword(cls, {tier = 'hero'} = {}) {
+  if (!CLASS_BUILD[cls]) throw Error('unknown class ' + cls);
+  const g = new T.Group(); g.name = 'classSword_' + cls; CLASS_BUILD[cls](g, tier === 'hero');
+  g.userData = {cls, tier}; return mergeParts(g);
+}

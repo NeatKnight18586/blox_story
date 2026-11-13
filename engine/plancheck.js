@@ -7,9 +7,10 @@
 //   middle, last frame and first frame + 6.
 import {episodeEnd} from './timeline.js';
 import {SPEED_CAP} from './camera.js';
+import {cardOk} from './classes.js';
 
 export const SIZES = ['wide', 'medium', 'close', 'insert'];
-export const LIMITS = {minShot: 1.2, maxShot: 5.0, cutTol: 2, firstWide: 6, headX: [.15, .85], headY: [.18, .58], meanShot: [2.2, 3.0], band: [.6, .72], minCam: 2, whipFrames: [4, 6]};
+export const LIMITS = {beat: [.55, 1.2], beatRun: 3, beatBefore: 20, minShot: 1.2, maxShot: 5.0, cutTol: 2, firstWide: 6, headX: [.15, .85], headY: [.18, .58], meanShot: [2.2, 3.0], band: [.6, .72], minCam: 2, whipFrames: [4, 6]};
 
 // Phrase onsets (s): every line start, plus every word that follows a pause (its start is later than the
 // previous word's end: align.py closes words at the next word unless a ≥ 0.18 s silence lies between).
@@ -21,8 +22,13 @@ export function phraseOnsets(cues) {
 const same = (a, b) => a && b && a.every((v, i) => Math.abs(v - b[i]) < 1e-4);
 const inBox = (h, [x0, x1], [y0, y1]) => h && h.inFront && h.x >= x0 && h.x <= x1 && h.y >= y0 && h.y <= y1;
 
+// Every word start (A3 beat shots may cut on any word, not only after a pause).
+export const wordOnsets = cues => cues.lines.flatMap(l => l.words.map(w => w.start));
+
 export function checkPlan({shots, cues, fps = 30, end, info = []}) {
-  const errors = [], warnings = [], L = LIMITS, onsetF = phraseOnsets(cues).map(t => Math.round(t * fps));
+  const errors = [], warnings = [], L = LIMITS, onsetF = phraseOnsets(cues).map(t => Math.round(t * fps)), wordF = wordOnsets(cues).map(t => Math.round(t * fps));
+  const nearWord = f => Math.min(...wordF.map(o => Math.abs(o - f))) <= L.cutTol;
+  let beatRun = 0;
   const voiceEnd = cues.duration, err = (s, m) => errors.push(`${s.id}: ${m}`), warn = (s, m) => warnings.push(`${s.id}: ${m}`);
   const nearOnset = f => Math.min(...onsetF.map(o => Math.abs(o - f))) <= L.cutTol;
   const want = episodeEnd(voiceEnd), last = shots.at(-1), endS = (last.start + last.frames) / fps;
@@ -35,10 +41,17 @@ export function checkPlan({shots, cues, fps = 30, end, info = []}) {
     if (s.size && !SIZES.includes(s.size)) err(s, `unknown size "${s.size}"`);
     // length (the held tail after the last word of the final shot is mandated by §9 and does not count)
     const fullS = s.frames / fps, durS = (Math.min(s.start + s.frames, i === shots.length - 1 ? Math.ceil(voiceEnd * fps) : Infinity) - s.start) / fps;
-    if (whip) { if (s.frames < L.whipFrames[0] || s.frames > L.whipFrames[1]) err(s, `whip is ${s.frames} frames (4–6)`); }
+    beatRun = s.beat ? beatRun + 1 : 0;
+    if (s.beat) {   // A3 beat shots: 0.55–1.2 s, ≤ 3 in a row, only before 20 s, cut on a word onset
+      if (fullS < L.beat[0] - 1e-6 || fullS > L.beat[1] + 1e-6) err(s, `beat shot ${fullS.toFixed(2)} s long (0.55–1.2)`);
+      if (beatRun > L.beatRun) err(s, `more than ${L.beatRun} beat shots in a row`);
+      if (s.start / fps >= L.beatBefore) err(s, `beat shot after ${L.beatBefore} s`);
+      if (!nearWord(s.start)) err(s, `beat cut at ${(s.start / fps).toFixed(2)} s is not on a word onset`);
+    }
+    else if (whip) { if (s.frames < L.whipFrames[0] || s.frames > L.whipFrames[1]) err(s, `whip is ${s.frames} frames (4–6)`); }
     else if (fullS < L.minShot - 1e-6 || durS > L.maxShot + 1e-6) err(s, `${(fullS < L.minShot ? fullS : durS).toFixed(2)} s long (1.2–5.0)`);
     // cuts on phrase onsets (a whip is one transition: one of its two edges must sit on an onset)
-    if (i > 0 && !whip && shots[i - 1].move !== 'whip' && !nearOnset(s.start)) err(s, `cut at ${(s.start / fps).toFixed(2)} s is > ${L.cutTol} frames from a phrase onset`);
+    if (i > 0 && !whip && !s.beat && shots[i - 1].move !== 'whip' && !nearOnset(s.start)) err(s, `cut at ${(s.start / fps).toFixed(2)} s is > ${L.cutTol} frames from a phrase onset`);
     if (whip && !nearOnset(s.start) && !nearOnset(s.start + s.frames)) err(s, 'whip touches no phrase onset');
     // camera motion
     if (I.first && I.last && same(I.first.camera.position, I.last.camera.position) && same(I.first.camera.target, I.last.camera.target) && Math.abs(I.first.camera.fov - I.last.camera.fov) < 1e-4) err(s, 'no camera motion');
@@ -49,6 +62,11 @@ export function checkPlan({shots, cues, fps = 30, end, info = []}) {
       prev = s;
     }
     if (s.openHit && (i !== 0 || s.start !== 0)) err(s, 'openHit only on episode frame 0');
+    // A3 class cards: on frames where a card is fully visible (landed, not flying), it must sit in the safe area,
+    // out of the caption band, with the class name's cap height at least the minimum for its kind
+    const bad = new Map();
+    for (const fr of I.cards ?? []) for (const c of fr.cards) if (c.landed && !c.fly) for (const m of cardOk(c.rect)) bad.set(`${c.cls} card ${m}`, fr.frame);
+    for (const [m, f] of bad) err(s, `${m} (frame ${f})`);
     // framing of the named subject at the shot midpoint
     if (s.subject) {
       const h = I.mid?.heads?.[s.subject];

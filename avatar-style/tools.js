@@ -8,7 +8,7 @@
 // giant block of rock. Scale it boldly.
 import * as T from 'three';
 import {mergeGeometries} from 'three/addons/utils/BufferGeometryUtils.js';
-import {sword as propSword, heroStone as propHeroStone} from '../parts/props.js';
+import {sword as propSword, heroStone as propHeroStone, classSword as propClassSword} from '../parts/props.js';
 
 export const TOOLS = ['sword', 'hammer', 'torch', 'bread'];
 export const HAND = [0, -1.84, 0];                         // fist centre in shoulder-pivot coordinates
@@ -64,9 +64,15 @@ const BUILD = {
 };
 
 // A tool positioned at the fist, not yet attached (either hand's shoulder pivot can take it).
+// Class swords (Amendment A3): tool name 'class:<cls>' or 'class:<cls>:bg' (background tier), held like the sword.
+function classTool(name) {
+  const [, cls, tier = 'hero'] = name.split(':'), grp = new T.Group(), s = propClassSword(cls, {tier});
+  // flat face forward (a raised class blade shows its full silhouette to the viewer), 1.2× for phone-size reads
+  s.position.y = -.26; s.rotation.y = Math.PI / 2; s.scale.setScalar(1.2); grp.add(s); grp.userData.grip = 'extend'; grp.userData.cls = cls; return grp;
+}
 export function buildTool(name, opts = {}) {
-  if (!BUILD[name]) throw Error('unknown tool ' + name);
-  const t = BUILD[name](opts); t.name = 'tool_' + name; t.position.set(...HAND);
+  if (!BUILD[name] && !name.startsWith('class:')) throw Error('unknown tool ' + name);
+  const t = name.startsWith('class:') ? classTool(name) : BUILD[name](opts); t.name = 'tool_' + name; t.position.set(...HAND);
   // 'upright' tools are authored vertical; in toolHold the arm is rotated -90° about x, so pre-rotate.
   if (t.userData.grip === 'upright') t.rotation.x = Math.PI / 2;
   return t;

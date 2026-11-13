@@ -60,3 +60,61 @@ test('directed particles travel along dir within the cone; defaults unchanged', 
   const plain = {preset: 'sparkle', at: 0, dur: 1, seed: 1};
   assert.deepEqual(particleState(plain, 2, .3), particleState({...plain}, 2, .3));
 });
+
+// ---- Amendment A3 (Session 7): class reveal maths, beat shots and card rules ----
+import {expandClassReveal, applyPatch, cardState, cardRect, cardOk, CARD} from '../../engine/classes.js';
+import {classSword, CLASS_NAMES, triangleCount as tc} from '../../parts/props.js';
+
+test('A3 class swords: six classes, budgets, deterministic', () => {
+  assert.equal(CLASS_NAMES.length, 6);
+  for (const c of CLASS_NAMES) {
+    const h = tc(classSword(c)), b = tc(classSword(c, {tier: 'bg'}));
+    assert.ok(h > 0 && h <= 700, `${c} hero ${h}`); assert.ok(b > 0 && b <= 120, `${c} bg ${b}`);
+    assert.equal(h, tc(classSword(c)));
+  }
+  assert.throws(() => classSword('wizard'));
+});
+
+test('A3 reveal expands to timed effects and timeline patches', () => {
+  const x = expandClassReveal({actor: 'k', cls: 'knight', at: 10});
+  const at = type => x.effects.find(e => e.type === type).at;
+  assert.equal(at('pillar'), 10); assert.equal(at('flash'), 10.12); assert.equal(at('morph'), 10.15); assert.equal(at('card'), 10.55);
+  assert.ok(x.effects.find(e => e.type === 'flash').dur <= 2 / 30 + 1e-9 && x.effects.find(e => e.type === 'flash').peak < .5);   // not a white-out
+  assert.ok(x.effects.find(e => e.type === 'shake').amp <= .03);
+  assert.deepEqual(x.patch.tools, [[10, 'sword'], [10.15, 'class:knight']]);
+  assert.equal(x.patch.keys[1][1], 'raise'); assert.deepEqual(x.patch.kit[0][1], ['helmet']);
+  assert.deepEqual(x.patch.tags[0], [10.55, null]); assert.deepEqual(x.patch.tags[1].slice(1), ['Knight', null, {cls: 'knight'}]);
+  assert.deepEqual(expandClassReveal({actor: 'k', cls: 'king', at: 0}).patch.kit[0][1], ['crown', 'cape']);
+  // later keys of the actor survive the patch (e.g. a taunt at 27 s)
+  const merged = applyPatch({keys: [[0, 'pull'], [27, 'point']], tags: [[0, 'Nobody']]}, x.patch);
+  assert.deepEqual(merged.keys.map(k => k[1]), ['pull', 'pull', 'raise', 'idle', 'point']);
+  assert.deepEqual(merged.tags.map(k => k[1]), ['Nobody', null, 'Knight']);
+  const early = applyPatch({keys: [[0, 'pull'], [11, 'point']]}, x.patch);   // a key inside the window wins over later patch keys
+  assert.deepEqual(early.keys.map(k => k[1]), ['pull', 'pull', 'raise', 'point']);
+});
+
+test('A3 card motion and placement', () => {
+  assert.equal(cardState(-.1), null);
+  assert.ok(Math.abs(cardState(0).scale - 1.4) < 1e-9); assert.equal(cardState(8 / 30).scale, 1); assert.ok(cardState(.5).landed);
+  assert.ok(cardState(1.5).fly > 0 && cardState(1.5).scale < 1); assert.equal(cardState(1.7), null);
+  const r = cardRect({x: .5, y: .4}); assert.deepEqual(cardOk(r), []); assert.ok(r.cap >= CARD.big.minCap);
+  const edge = cardRect({x: .02, y: .95}); assert.deepEqual(cardOk(edge), []);   // clamped into the safe area, above the caption band
+  assert.ok(edge.x0 >= .1 && edge.y1 <= .56);
+  assert.ok(cardOk({...r, y0: .55, y1: .65}).some(m => m.includes('caption band')));
+  assert.ok(cardOk({...r, cap: .03}).some(m => m.includes('cap height')));
+  assert.deepEqual(cardOk(cardRect({x: .5, y: .3}, 'mini')), []);
+});
+
+test('A3 beat shots: 0.55–1.2 s, ≤ 3 in a row, before 20 s, on word onsets', () => {
+  const base = s => ({see: ['x'], why: 'y', move: 'push', loc: 'field', ...s});
+  const sizes = ['medium', 'close', 'medium', 'close', 'wide', 'close'];
+  const mk = list => layoutShots({fps: 30, end: 122.5, shots: [base({id: 'a', at: 0, openHit: true, size: 'wide'}), ...list.map((s, i) => base({size: sizes[i], ...s})), base({id: 'z', at: 119.002, size: 'medium'})]});
+  const cam = p => ({camera: {position: p, target: [0, 0, 0], fov: 40}, heads: {}});
+  const run = shots => checkPlan({shots, cues, fps: 30, end: 122.5, info: shots.map(() => ({speed: .1, first: cam([0, 1, 5]), last: cam([0, 1, 4]), mid: cam([0, 1, 4.5]), early: cam([0, 1, 5])}))}).errors;
+  const good = run(mk([{id: 'b1', at: 14.609, beat: true}, {id: 'b2', at: 15.325, beat: true}, {id: 'b3', at: 15.953, beat: true}, {id: 'w', at: 17.114}]));
+  assert.ok(!good.some(e => /^b\d/.test(e)), good.join('; '));
+  const four = run(mk([{id: 'b1', at: 14.609, beat: true}, {id: 'b2', at: 15.325, beat: true}, {id: 'b3', at: 15.953, beat: true}, {id: 'b4', at: 17.114, beat: true}, {id: 'w', at: 18.533}]));
+  assert.ok(four.some(e => e.startsWith('b4: more than 3')));
+  const short = run(mk([{id: 'b1', at: 14.609, beat: true}, {id: 'b2', at: 15.0, beat: true}, {id: 'w', at: 15.953}]));
+  assert.ok(short.some(e => e.startsWith('b1: beat shot 0.40 s')) && short.some(e => e.startsWith('b2: beat cut at 15.00')));
+});

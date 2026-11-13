@@ -4,8 +4,11 @@
 // seconds. Every sampler is a pure function of t — no state carries between frames, so any frame
 // renders the same in any order. Particles are seeded instanced quads that always face the camera.
 import * as T from 'three';
+import {cardState, cardRect, CARD} from './classes.js';
+import {CLASSES} from '../parts/props.js';
+import {classCardCanvas} from './overhead.js';
 
-export const TYPES = ['fadeColor', 'flash', 'ghost', 'glow', 'particles', 'melt', 'squash', 'shake', 'timeOfDay'];
+export const TYPES = ['fadeColor', 'flash', 'ghost', 'glow', 'particles', 'melt', 'squash', 'shake', 'timeOfDay', 'pillar', 'ring', 'halo', 'morph', 'card'];   // last five: A3 class reveal
 const clamp01 = x => Math.min(1, Math.max(0, x));
 const easeIO = x => { x = clamp01(x); return x < .5 ? 4 * x * x * x : 1 - (-2 * x + 2) ** 3 / 2; };
 
@@ -41,6 +44,13 @@ const PRESETS = {
   confetti: {colors: ['#e2483d', '#2f80d1', '#f2c230', '#46a85a', '#ff7aa8'], speed: [3, 6], up: 5, gravity: -6, life: [1.2, 2], size: [.18, .3], tex: 'square', spin: 8},
   fire: {additive: true, colors: ['#ff8a1f', '#ffd84a', '#ff5a1f'], speed: [.3, .9], up: 3.5, gravity: 1, life: [.4, .9], size: [.5, .9], tex: 'soft', shrink: true},
   stars: {additive: true, colors: ['#ffd84a', '#ffffff'], orbit: true, life: [99, 99], size: [.3, .4], tex: 'star', speed: [2.5, 3.5]},   // cartoon dizzy ring
+  // A3 class signatures
+  steam: {colors: ['#ffffff', '#f3ece0'], speed: [.3, .8], up: 1.6, gravity: .2, life: [1, 1.8], size: [.6, 1.2], tex: 'soft', grow: 1.2},
+  flour: {colors: ['#ffffff', '#fff6e0'], speed: [1.5, 3], up: 1, gravity: -2, life: [.6, 1.1], size: [.12, .22], tex: 'square', spin: 6},
+  rays: {additive: true, colors: ['#cfe6ff', '#ffffff', '#7ab8ff'], speed: [6, 9], up: 0, gravity: 0, life: [.3, .5], size: [.6, 1.0], tex: 'star'},
+  leaves: {colors: ['#3fbf5a', '#7ad04a', '#2e8a3e'], speed: [2, 4], up: 1.5, gravity: -1.5, life: [1, 1.6], size: [.22, .36], tex: 'square', spin: 9, wobble: 1.5},
+  petals: {colors: ['#ff9ec7', '#ffd84a', '#ffffff'], speed: [2, 3.5], up: 1.5, gravity: -1.8, life: [1, 1.6], size: [.18, .3], tex: 'soft', spin: 6, wobble: 1},
+  goldConfetti: {colors: ['#f2c230', '#ffe27a', '#fff3c0'], speed: [3, 6], up: 5, gravity: -6, life: [1.2, 2], size: [.18, .3], tex: 'square', spin: 8},
 };
 export const PARTICLES = Object.keys(PRESETS);
 const hash = (i, k, s) => { const x = Math.sin(i * 127.1 + k * 311.7 + s * 74.7) * 43758.5453; return x - Math.floor(x); };
@@ -82,8 +92,12 @@ function particleTexture(kind) {
   if (kind === 'star') { g.fillStyle = '#fff'; g.beginPath(); for (let i = 0; i < 10; i++) { const r = i % 2 ? 12 : 30, a = i / 10 * Math.PI * 2 - Math.PI / 2; g.lineTo(32 + Math.cos(a) * r, 32 + Math.sin(a) * r); } g.fill(); }
   else if (kind === 'square') { g.fillStyle = '#fff'; g.fillRect(14, 20, 36, 24); }
   else { const gr = g.createRadialGradient(32, 32, 0, 32, 32, 30); gr.addColorStop(0, 'rgba(255,255,255,1)'); gr.addColorStop(1, 'rgba(255,255,255,0)'); g.fillStyle = gr; g.fillRect(0, 0, 64, 64); }
+  if (kind === 'beam') { g.clearRect(0, 0, 64, 64); const gr = g.createLinearGradient(0, 0, 0, 64); gr.addColorStop(0, 'rgba(255,255,255,0)'); gr.addColorStop(.6, 'rgba(255,255,255,.55)'); gr.addColorStop(1, 'rgba(255,255,255,1)'); g.fillStyle = gr; g.fillRect(0, 0, 64, 64); }
+  if (kind === 'sun') { g.clearRect(0, 0, 64, 64); const gr = g.createRadialGradient(32, 32, 0, 32, 32, 32); gr.addColorStop(0, 'rgba(255,255,255,.9)'); gr.addColorStop(.35, 'rgba(255,255,255,.35)'); gr.addColorStop(1, 'rgba(255,255,255,0)'); g.fillStyle = gr; g.fillRect(0, 0, 64, 64);
+    g.fillStyle = 'rgba(255,255,255,.55)'; for (let i = 0; i < 12; i++) { const a = i / 12 * Math.PI * 2; g.beginPath(); g.moveTo(32, 32); g.lineTo(32 + Math.cos(a - .08) * 31, 32 + Math.sin(a - .08) * 31); g.lineTo(32 + Math.cos(a + .08) * 31, 32 + Math.sin(a + .08) * 31); g.fill(); } }
   const t = new T.CanvasTexture(c); t.colorSpace = T.SRGBColorSpace; return t;
 }
+const outBack = x => { const c1 = 1.70158, c3 = c1 + 1; return 1 + c3 * (x - 1) ** 3 + c1 * (x - 1) ** 2; };
 
 // ctx: {scene, renderer, look, resolveTarget(spec) → Object3D, resolvePoint(spec, t) → [x,y,z]}
 export function createEffects(list = [], ctx) {
@@ -93,6 +107,8 @@ export function createEffects(list = [], ctx) {
   const ovScene = new T.Scene(), ovCam = new T.OrthographicCamera(-1, 1, 1, -1, 0, 1);
   const ovMat = new T.MeshBasicMaterial({transparent: true, depthTest: false, depthWrite: false, toneMapped: false});
   ovScene.add(new T.Mesh(new T.PlaneGeometry(2, 2), ovMat));
+  const cardScene = new T.Scene(), cardMat = new T.MeshBasicMaterial({transparent: true, depthTest: false, depthWrite: false, toneMapped: false});
+  const cardQuad = new T.Mesh(new T.PlaneGeometry(2, 2), cardMat); cardScene.add(cardQuad);
   // Targets get their own material copies so an effect never leaks onto shared (cached) materials.
   const own = new Map();
   const ownMaterials = obj => { if (own.has(obj)) return own.get(obj); const mats = []; obj.traverse(o => { if (!o.isMesh) return; o.material = Array.isArray(o.material) ? o.material.map(m => m.clone()) : o.material.clone(); for (const m of [].concat(o.material)) mats.push(m); }); own.set(obj, mats); return mats; };
@@ -103,6 +119,13 @@ export function createEffects(list = [], ctx) {
       if (e.type !== 'squash') { r.mats = ownMaterials(r.obj); r.base = r.mats.map(m => ({opacity: m.opacity, transparent: m.transparent, emissive: m.emissive?.clone(), ei: m.emissiveIntensity})); }
       r.scale0 = r.obj.scale.clone();
     }
+    if (e.type === 'pillar' || e.type === 'ring' || e.type === 'halo') {
+      const m = new T.MeshBasicMaterial({color: e.color ?? '#ffffff', map: particleTexture(e.type === 'pillar' ? 'beam' : e.type === 'halo' ? 'sun' : 'soft'), transparent: true, depthWrite: false, toneMapped: false, blending: T.AdditiveBlending, side: T.DoubleSide});
+      const geo = e.type === 'pillar' ? new T.CylinderGeometry(1, 1, 1, 16, 1, true).translate(0, .5, 0) : e.type === 'ring' ? new T.RingGeometry(.82, 1, 40).rotateX(-Math.PI / 2) : new T.PlaneGeometry(1, 1);
+      r.fx = new T.Mesh(geo, m); r.fx.visible = false; r.fx.renderOrder = 6; r.fx.frustumCulled = false; scene.add(r.fx);
+    }
+    if (e.type === 'morph') { r.a = ctx.actorOf(e.actor); r.from = ctx.toolGroup(r.a, e.from); r.to = ctx.toolGroup(r.a, e.to); }
+    if (e.type === 'card') { r.info = CLASSES[e.cls]; if (!r.info) throw Error('unknown class ' + e.cls); r.a = ctx.actorOf(e.actor); r.tex = new Map(); }
     if (e.type === 'particles') {
       const P = PRESETS[e.preset ?? 'sparkle'], n = e.count ?? 20;
       const m = new T.MeshBasicMaterial({map: particleTexture(P.tex), transparent: true, depthWrite: false, toneMapped: false, blending: P.additive ? T.AdditiveBlending : T.NormalBlending});
@@ -125,6 +148,24 @@ export function createEffects(list = [], ctx) {
         else if (e.type === 'glow') { const g = glowLevel(e, t); r.mats.forEach((m, i) => { if (!m.emissive) return; m.emissive.copy(g > 0 ? C.set(e.color ?? '#ffd84a') : r.base[i].emissive); m.emissiveIntensity = g > 0 ? g : r.base[i].ei; }); }
         else if (e.type === 'melt') { const s = meltState(e, t); r.obj.scale.set(r.scale0.x * (s ? 1 + (1 - s.scaleY) * .4 : 1), r.scale0.y * (s ? s.scaleY : 1), r.scale0.z * (s ? 1 + (1 - s.scaleY) * .4 : 1)); r.mats.forEach((m, i) => { if (!m.emissive) return; m.emissive.copy(s?.glow ? C.set('#ff7a1f') : r.base[i].emissive); m.emissiveIntensity = s?.glow ? s.glow : r.base[i].ei; }); }
         else if (e.type === 'squash') { const k = squashScale(e, t); r.obj.scale.set(r.scale0.x * k[0], r.scale0.y * k[1], r.scale0.z * k[2]); }
+        else if (e.type === 'pillar' || e.type === 'ring' || e.type === 'halo') {
+          const u = progress(e, t); r.fx.visible = u !== null && u < 1;
+          if (r.fx.visible) {
+            const o = ctx.resolvePoint(e.origin, t); r.fx.position.set(...o);
+            if (e.type === 'pillar') { const grow = Math.min(1, u * e.dur / .12), w = (e.radius ?? .75) * (1 - .4 * u); r.fx.scale.set(w, (e.height ?? 16) * grow, w); r.fx.material.opacity = (1 - u) ** 1.5; }
+            else if (e.type === 'ring') { const k = (e.radius ?? 4.5) * (1 - (1 - u) ** 3); r.fx.scale.set(k, 1, k); r.fx.material.opacity = (1 - u) * .9; }
+            else { camera.getWorldQuaternion(r.fx.quaternion); r.fx.rotateZ((t - e.at) * .6); const k = (e.size ?? 5) * (.6 + .4 * Math.min(1, u * 5)); r.fx.scale.set(k, k, 1); r.fx.material.opacity = Math.min(1, u * 6, (1 - u) * 3) * .85; }
+          }
+        }
+        else if (e.type === 'morph') {   // plain sword squashes thin into light; the class blade grows in (outBack) with a half spin
+          const u = progress(e, t), pivot = r.a.pivots.rightShoulder;
+          if (u === null || u >= 1) { r.to.scale.set(1, 1, 1); r.to.rotation.y = 0; r.from.scale.set(1, 1, 1); if (r.from.parent === pivot && r.a.tool !== r.from) pivot.remove(r.from); }
+          else {
+            if (r.from.parent !== pivot) pivot.add(r.from);
+            const k = Math.max(.001, 1 - u); r.from.scale.set(k * .25 + .02, 1 + .15 * u, k * .25 + .02);
+            const g = Math.max(.001, outBack(u)); r.to.scale.set(g, g, g); r.to.rotation.y = Math.PI * (1 - u);
+          }
+        }
         else if (e.type === 'particles') {
           const origin = ctx.resolvePoint(e.origin, t); camera.getWorldQuaternion(Z); let live = 0;
           for (let i = 0; i < r.n; i++) {
@@ -139,16 +180,41 @@ export function createEffects(list = [], ctx) {
       }
       return {camOffset, look: lookOverride};
     },
+    // A3 class cards on screen at t: [{cls, rect, state}] (frame fractions; same maths as the overlay draws).
+    cards(t, camera, aspect = 9 / 16) {
+      const out = [];
+      for (const r of rigs) {
+        if (r.e.type !== 'card') continue;
+        const st = cardState(t - r.e.at); if (!st) continue;
+        if (ctx.shotAt && ctx.shotAt(t) !== ctx.shotAt(r.e.at)) continue;   // a card lives only in the shot it slams into (beat cuts end it)
+        const s = r.a.root.scale.y, head = new T.Vector3().copy(r.a.root.position).add(new T.Vector3(0, 5.9 * s, 0)).project(camera);
+        if (head.z > 1) continue;
+        const anchor = {x: (head.x + 1) / 2, y: (1 - head.y) / 2};
+        const rest = cardRect({x: anchor.x + (r.e.dx ?? 0), y: anchor.y}, r.e.kind, aspect, r.e.scale ?? 1);
+        // flying into the tag: centre moves to the head anchor, the card shrinks and fades
+        const cx = (rest.x0 + rest.x1) / 2 + (anchor.x - (rest.x0 + rest.x1) / 2) * st.fly, cy = (rest.y0 + rest.y1) / 2 + (anchor.y - .02 - (rest.y0 + rest.y1) / 2) * st.fly;
+        const w = rest.w * st.scale, h = rest.h * st.scale;
+        out.push({cls: r.e.cls, kind: r.e.kind ?? 'big', state: st, rest, rect: {x0: cx - w / 2, x1: cx + w / 2, y0: cy - h / 2, y1: cy + h / 2, cap: rest.cap * st.scale, kind: r.e.kind ?? 'big'}, r});
+      }
+      return out;
+    },
     // After render: fades and flashes over the frame (alpha-composited, one quad).
-    overlay(t) {
+    overlay(t, camera = null, aspect = 9 / 16) {
       let a = 0, col = '#000000';
       for (const {e} of rigs) {
         if (e.type === 'fadeColor') { const v = fadeAlpha(e, t); if (v > a) { a = v; col = e.color ?? '#000000'; } }
         if (e.type === 'flash') { const v = flashAlpha(e, t); if (v > a) { a = v; col = e.color ?? '#ffffff'; } }
       }
-      if (a <= 0) return;
-      ovMat.color.set(col); ovMat.opacity = a;
-      const auto = renderer.autoClear; renderer.autoClear = false; renderer.render(ovScene, ovCam); renderer.autoClear = auto;
+      const auto = renderer.autoClear; renderer.autoClear = false;
+      if (a > 0) { ovMat.color.set(col); ovMat.opacity = a; renderer.render(ovScene, ovCam); }
+      if (camera) for (const c of this.cards(t, camera, aspect)) {   // A3 cards: textured quads in screen space, after the flash
+        const step = c.state.landed ? Math.min(11, Math.floor(c.state.shine * 11)) : -1, key = c.cls + ':' + step;
+        if (!c.r.tex.has(key)) { const cv = classCardCanvas(c.cls, c.r.info, step); const tx = new T.CanvasTexture(cv); tx.colorSpace = T.SRGBColorSpace; c.r.tex.set(key, tx); }
+        cardMat.map = c.r.tex.get(key); cardMat.opacity = c.state.alpha; cardMat.needsUpdate = true;
+        cardQuad.position.set((c.rect.x0 + c.rect.x1) - 1, 1 - (c.rect.y0 + c.rect.y1), 0); cardQuad.scale.set(c.rect.x1 - c.rect.x0, c.rect.y1 - c.rect.y0, 1);
+        renderer.render(cardScene, ovCam);
+      }
+      renderer.autoClear = auto;
     },
   };
 }
