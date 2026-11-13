@@ -294,3 +294,17 @@ Also built: `render.js --final` (1440×2560, AA). `scripts/v2/qc.py` (`npm run v
   - The A2 frame cache (`renders/v2/final1440`) was deleted. `qc.py` therefore needs `--frames` pointed at the new frames dir.
   - Farm runs 4 (48a521b) and 5 (1537177) were cancelled: they were superseded by the tag-lift fix. Run 5 was pushed by a `&&` chain that piped through `tail`, so the stability failure did not stop it.
 - **Open (accepted):** in the final shot's lift pose, the kids' class swords are held in data but hidden behind their stones. Showing them needs restaging after 18.53 s, which is out of A3 scope.
+
+## Session 8: Format v3 look, tools, troupe (Amendment A4 A/B/C/G) — plan
+1. Merge `claude/season-1` (docs + 4 story folders); append A4 to `docs/V2_BRIEF.md`. Bench "before" on the Nobody spec.
+2. A: `parts/terrain.js` (seeded heightfield, `groundY`, slope/height blend, skirts, 2-level LOD chunks), `parts/biomes.js` (9 tables),
+   11 new patterns (512 hero / 256), Standard + tiny PMREM env on hero environment only, `parts/vegetation.js` (4 trees ≤ 220 tris,
+   bushes, near grass cards, rocks, flowers; shader wind sway pure in t), `parts/water.js` (normal scroll, fresnel, foam band),
+   `engine/look.js` v3 sky (sun disc/glow, 2 cloud layers, height fog + haze, stars/moon, shafts). All opt-in; Nobody unchanged.
+3. B: camera `drone`/`heroLow`/`snap`/`tiltUp` (+tests); `parts/landform.js` rig ≤ 12k tris; instanced crowd (≤ 60);
+   weather/particle presets + screen-space overlay; `trail` effect.
+4. C: `overhead.js` attach to any pivot/object, `checklist`, `plate`.
+5. G: hair v3 (20 styles, ≤ 600/80 tris, eye clearance tests), `cast/troupe.json` + AFK; hair + troupe sheets, rubric ≤ 3 passes.
+6. Look test (old kit vs new) on two fixtures that carry over to episodes 1–2 (egg base town at night + cloudtop; ragdoll alpine
+   hill street) → `review/season1/look-ab.png` + rubric; `tools-demo` spec → 1080 proxy ≤ 20 s.
+7. Gates: `npm test`, `v2:test`, bench A7 (≤ 80k, ≤ 0.60 s at 720), stability, CLAUDE.md index; commit review files, PR, stop.
