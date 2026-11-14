@@ -72,6 +72,8 @@ const POSES = {
     return make({leftShoulder: [-2.3 * u, 0, -.2 * u], rightShoulder: [-2.3 * u, 0, .2 * u], leftHip: [.45 * u, 0, 0], rightHip: [.1 * u, 0, 0], head: [-.35 * u, 0, 0]}, {lean: 1.5 * u, dy: .5 * u, dz: .6 * u});
   },
   sit: (t, o) => make({leftHip: [-PI / 2, 0, -.04], rightHip: [-PI / 2, 0, .04], leftShoulder: [-.3, 0, -.05], rightShoulder: [-.3, 0, .05]}, {dy: o.ground ? -1.5 : 0}),
+  sitEgg: (t, o) => { const s = POSES.sit(t, {ground: true}), {alpha: a, theta: h} = EGG_HOLD.eggHold; s.pivots.rightShoulder = [-a, 0, -h]; s.pivots.leftShoulder = [-a, 0, h]; s.pivots.head = [.15, 0, 0]; return s; },   // opt-in (egg nest): seated on the ground, an egg held in both hands
+  bow: t => { const u = smooth(clamp01(t / .5)); return make({leftShoulder: [.1 * u, 0, -.06], rightShoulder: [.1 * u, 0, .06], head: [.3 * u, 0, 0]}, {lean: .6 * u}); },   // opt-in (egg S33): a small polite bow
   sleep: t => make({leftShoulder: [0, 0, -.12], rightShoulder: [0, 0, .12], head: [.04 * Math.sin(t * 1.4), 0, 0]}, {lean: -PI / 2, dy: .5}),
   wave(t) { const w = Math.sin(twos(t) * 2 * PI * 1.6); return make({rightShoulder: [-.2, 0, 2.5 + .35 * w], leftShoulder: [0, 0, -.06], head: [0, 0, -.08]}); },
   // Session 5 (episode "Nobody"): holding a heavy tool up, two-handed carry, one-hand pull, lifting a whole

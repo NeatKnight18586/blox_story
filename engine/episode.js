@@ -94,7 +94,7 @@ const troupeData = Object.values(spec.cast ?? {}).some(c => c.troupe) ? await (a
 const markOf = (c, t) => { const k = keyAt(c.marks, t); return k ? {...k[1], t0: k[0]} : {at: c.at, offset: c.offset, yaw: c.yaw, travel: c.travel, origin: c.origin, t0: 0}; };
 for (const [name, c] of Object.entries(spec.cast ?? {})) {
   if (c.at) c.origin = resolve({anchor: c.at, offset: c.offset ?? [0, 0, 0]});
-  if (c.style === 'dragon') { const d = buildDragon({scale: c.scale ?? 1, name, colors: c.colors ?? null}); scene.add(d.root); cast[name] = {a: d, c, dragon: true}; continue; }
+  if (c.style === 'dragon') { const d = buildDragon({scale: c.scale ?? 1, name, colors: c.colors ?? null, face: c.dragonFace ?? null, baby: !!c.baby}); scene.add(d.root); cast[name] = {a: d, c, dragon: true}; continue; }
   if (c.style === 'v2') { if (c.troupe === 'AFK') { c.keys ??= [[0, troupeData.AFK.pose ?? 'walk']]; c.faces ??= [[0, 'neutral']]; }
     const pre0 = c.troupe ? resolveTroupe(c, troupeData) : c.town ? townsperson(c.town) : c.preset ? {...presets[c.preset], ...(c.with ?? {})} : c;
     const pre = FACES_V3 && !pre0.faceStyle ? {...pre0, faceStyle: 'v3'} : pre0;   // Faces v3: default for season 1 (or spec.faces 'v3')
@@ -333,7 +333,8 @@ function placesNow() {
 export function seasonMeasure(n, objects = [], width = 360, height = 640) {
   renderFrame(n, width, height); camera.updateMatrixWorld(true); scene.updateMatrixWorld(true);
   const shot = shots.findLast(s => n >= s.start), obj = {};
-  for (const name of objects) { const o = cast[name]?.a.root ?? scene.getObjectByName(name); obj[name] = o ? projBox(new T.Box3().setFromObject(o)) : null; }
+  for (const name of objects) { const o = cast[name]?.a.root ?? scene.getObjectByName(name); obj[name] = o ? projBox(new T.Box3().setFromObject(o)) : null;
+    if (o && obj[name]) { const wp = o.getWorldPosition(new T.Vector3()), fd = o.getWorldDirection(new T.Vector3()); let vis = o.visible; for (let p = o.parent; p && vis; p = p.parent) vis = p.visible; obj[name].facing = fd.dot(camera.position.clone().sub(wp)) > 0; obj[name].visible = vis; } }   // owner rule 2: a clock face / board seen from behind (or hidden) does not count
   // Season 1 eggs (parts/eggs.js groups carry userData.egg): on-screen height of the shell alone (h) and with its rarity beam (hb)
   const eggs = []; scene.traverseVisible(o => { if (!o.userData?.egg) return; const body = o.getObjectByName('eggBody'); if (!body) return;
     const b = projBox(new T.Box3().setFromObject(body)), bb = projBox(new T.Box3().setFromObject(o)); if (!b.allFront) return; eggs.push({kind: o.userData.egg, box: b, h: b.h, hb: bb.allFront ? bb.h : b.h, front: b.front, dist: +body.getWorldPosition(new T.Vector3()).distanceTo(camera.position).toFixed(2)}); });

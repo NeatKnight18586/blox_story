@@ -14,7 +14,8 @@ test('clock ≤ 3 shots each ≤ 1.5 s, scoreboard ≤ 3 shots', () => {
   assert.deepEqual(clockBoardIssues([r('a', 1, .1), r('b', 1.2, .05), r('c', 1, .2), r('d', 4, .01), r('e', 2, 0, .2)]), []);
   assert.ok(clockBoardIssues([r('a', 1, .1), r('b', 1, .1), r('c', 1, .1), r('d', 1, .1)])[0].startsWith('clock in 4 shots'));
   assert.ok(clockBoardIssues([r('a', 2, .1)])[0].includes('a: clock shot is 2.00 s'));
-  assert.ok(clockBoardIssues([1, 2, 3, 4].map(k => r('s' + k, 3, 0, .1)))[0].startsWith('scoreboard in 4'));
+  assert.ok(clockBoardIssues([1, 2, 3, 4].map(k => r('s' + k, 3, 0, .25)))[0].startsWith('scoreboard in 4'));
+  assert.deepEqual(clockBoardIssues([1, 2, 3, 4].map(k => r('s' + k, 3, 0, .1))), [], 'a board in the background is not a board shot');
 });
 test('no framing held > 3 s except the exempt shots', () => {
   const shots = [{id: 'a', start: 0, frames: 90}, {id: 'b', start: 90, frames: 91}, {id: 'c', start: 181, frames: 300}];

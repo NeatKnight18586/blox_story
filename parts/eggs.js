@@ -23,7 +23,8 @@ export const HEAD_H = 1.16, EGG_ASPECT = 2.6;   // egg height = EGG_ASPECT × r
 export const EGG_R = {held: .95 * HEAD_H / EGG_ASPECT, nest: 1.2 * HEAD_H / EGG_ASPECT, cosmic: 1.5 * HEAD_H / EGG_ASPECT};
 export const eggRadius = name => name === 'cosmic' ? EGG_R.cosmic : EGG_R.nest;
 export const DRAGON_PERCH_H = 20.2;   // avatar-style/dragon.js perched bbox height at scale 1 (measured)
-export const hatchlingScale = (holderScale = .82) => 1.3 * HEAD_H * holderScale / DRAGON_PERCH_H;
+export const BABY_PERCH_H = 17.65;   // buildDragon({baby: true}) perched bbox height at scale 1 (measured, owner 2026-11-14)
+export const hatchlingScale = (holderScale = .82, baby = false) => 1.3 * HEAD_H * holderScale / (baby ? BABY_PERCH_H : DRAGON_PERCH_H);
 // Two-hand holds (engine/poses.js eggHold / eggChin): shoulder rotations [−alpha, 0, ∓theta]; the egg sits centred above the fists.
 export const EGG_HOLD = {eggHold: {alpha: .82, theta: .62}, eggChin: {alpha: 1.3, theta: .72}};
 

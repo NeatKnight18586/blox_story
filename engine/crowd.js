@@ -42,6 +42,7 @@ export function memberPose(m, mode, t) {
   if (mode === 'panic') return samplePose('run', t + m.phase);
   if (mode === 'lookUp') return samplePose('lookUp', t + m.phase * .3);
   if (mode === 'cheer') return samplePose('cheer', t + m.phase);
+  if (mode === 'sit') { const p = samplePose('sit', t, {ground: true}); p.pivots.leftShoulder = [-.75, 0, .35]; p.pivots.rightShoulder = [-.75, 0, -.35]; p.pivots.head = [.22, 0, 0]; return p; }   // opt-in (egg S51): seated, hands round a lap egg, looking down at it
   return ambientPose(m.seed, t);
 }
 // Where the member stands at t (pure): panic members run along dir from their spot.
@@ -64,14 +65,14 @@ const BODY = [   // instanced parts: [name, pivot, size]
   ['torso', null, PARTS.torso.size], ['head', 'head', [1, 1, 1]], ['hair', 'head', [1, 1, 1]],
   ['leftArm', 'leftShoulder', PARTS.leftArm.size], ['rightArm', 'rightShoulder', PARTS.rightArm.size], ['leftLeg', 'leftHip', PARTS.leftLeg.size], ['rightLeg', 'rightHip', PARTS.rightLeg.size]];
 const PIVOT_AT = {head: [0, 4.03, 0], leftShoulder: PARTS.leftArm.pivotAt, rightShoulder: PARTS.rightArm.pivotAt, leftHip: PARTS.leftLeg.pivotAt, rightHip: PARTS.rightLeg.pivotAt};
-const PART_AT = {face: [0, .56, .555], torso: PARTS.torso.at, head: [0, .58, 0], hair: [0, .58, 0], leftArm: PARTS.leftArm.at, rightArm: PARTS.rightArm.at, leftLeg: PARTS.leftLeg.at, rightLeg: PARTS.rightLeg.at};
+const PART_AT = {lap: [0, 2.45, .95], face: [0, .56, .555], torso: PARTS.torso.at, head: [0, .58, 0], hair: [0, .58, 0], leftArm: PARTS.leftArm.at, rightArm: PARTS.rightArm.at, leftLeg: PARTS.leftLeg.at, rightLeg: PARTS.rightLeg.at};
 
 // Matrices for one member: {part: Matrix4} (pure, THREE math only).
 const _r = new T.Matrix4(), _p = new T.Matrix4(), _o = new T.Matrix4(), _e = new T.Euler(), _q = new T.Quaternion(), _v = new T.Vector3(), _s = new T.Vector3();
 export function memberMatrices(m, s, at) {
   const root = new T.Matrix4().compose(_v.set(at[0] + s.root.dx * m.scale, at[1] + s.root.dy * m.scale, at[2] + s.root.dz * m.scale), _q.setFromEuler(_e.set(s.root.lean, m.yaw + s.root.yaw, s.root.roll, 'YXZ')), _s.setScalar(m.scale));
   const out = {};
-  for (const [name, pivot, size] of [...BODY, ['face', 'head', [1, 1, 1]]]) {
+  for (const [name, pivot, size] of [...BODY, ['face', 'head', [1, 1, 1]], ['lap', null, [.5, .65, .5]]]) {
     _o.compose(_v.fromArray(PART_AT[name]), _q.identity(), _s.fromArray(size));
     if (pivot) { _p.compose(_v.fromArray(PIVOT_AT[pivot]), _q.setFromEuler(_e.set(...s.pivots[pivot], 'XYZ')), _s.setScalar(1)); out[name] = root.clone().multiply(_p).multiply(_o); }
     else out[name] = root.clone().multiply(_o);
@@ -102,7 +103,10 @@ export function createCrowds(scene, list = [], {groundY = () => 0, resolveCentre
       const a = createActor({tier: 'bg', name: group.name + '_mid' + k, materials: {torso: mats.torso, leftArm: mats.arm, rightArm: mats.arm, leftLeg: mats.leg, rightLeg: mats.leg, head: mats.skin}});
       if (faces === 'v3') setFace3(a, c.expression ?? 'smile'); else setFace(a, c.expression ?? 'smile'); const hm = new T.Mesh(hair4Geometry(CROWD_HAIR[0], '#ffffff', 'mid'), hair4Material()); hm.position.y = .58; hm.castShadow = true; a.pivots.head.add(hm);
       a.root.visible = false; group.add(a.root); return {a, mats, hm}; });
-    scene.add(group); return {c, members, meshes, hairs, group, pool};
+    let lap = null;   // opt-in lapEggs: '#rrggbb' → one glowing egg in every lap (sit mode)
+    if (c.lapEggs) { const eg = new T.SphereGeometry(1, 10, 7); lap = new T.InstancedMesh(eg, new T.MeshPhongMaterial({color: c.lapEggs, emissive: c.lapEggs, emissiveIntensity: 1.3, shininess: 60}), n); lap.name = group.name + '_lapEggs'; lap.frustumCulled = false; group.add(lap); }
+    const exprMats = c.expressions && faces === 'v3' ? Object.fromEntries(c.expressions.map(([, e]) => [e, faceMaterial3(e, 'crowd', '#5a3826')])) : null;   // opt-in: [[t, expression]]
+    scene.add(group); return {c, members, meshes, hairs, group, pool, lap, exprMats};
   });
   const Z = new T.Matrix4().makeScale(0, 0, 0);
   const last = new Map();   // per crowd: positions from the last update (overlap check)
@@ -111,14 +115,16 @@ export function createCrowds(scene, list = [], {groundY = () => 0, resolveCentre
     // ctx (optional): {camPos, size} of the current shot → near members are promoted to mid-tier actors
     places: () => crowds.filter(x => x.group.visible).flatMap(x => { const L = last.get(x.c); return L ? L.at.map((p, i) => ({name: `${x.c.id ?? 'crowd'}#${i}`, crowd: x.c.mode ?? 'ambient', x: p[0], z: p[2], y: p[1], r: .95 * L.members[i].scale})) : []; }),
     update(t, ctx = {}) {
-      for (const {c, members, meshes, hairs, group, pool} of crowds) {
+      for (const {c, members, meshes, hairs, group, pool, lap, exprMats} of crowds) {
         let vis = true; for (const [t0, v] of c.visible ?? []) if (t >= t0) vis = v; group.visible = vis; if (!vis) continue;
         const at = members.map(m => memberAt(m, c, t, groundY)); last.set(c, {at, members}); const promoted = ctx.camPos ? promoteNear(at, ctx.camPos, ctx.size) : [], P = new Set(promoted);
         members.forEach((m, i) => {
           const pose = memberPose(m, c.mode, Math.max(0, t)), mm = memberMatrices(m, pose, at[i]);
           for (const [name, im] of Object.entries(meshes)) im.setMatrixAt(i, P.has(i) ? Z : mm[name]);
-          hairs[m.hairStyle]?.setMatrixAt(m.hairSlot, P.has(i) ? Z : mm.hair);
+          hairs[m.hairStyle]?.setMatrixAt(m.hairSlot, P.has(i) ? Z : mm.hair); lap?.setMatrixAt(i, mm.lap);
         });
+        if (lap) { lap.instanceMatrix.needsUpdate = true; lap.computeBoundingSphere(); }
+        if (exprMats) { let e = null; for (const [t0, x] of c.expressions) if (t >= t0) e = x; if (e) meshes.face.material = exprMats[e]; }
         pool.forEach((p, k) => { const i = promoted[k]; p.a.root.visible = i !== undefined; if (i === undefined) return; const m = members[i];
           p.mats.torso.color.set(m.shirt); p.mats.arm.color.set(m.i % 3 ? m.shirt : m.skin); p.mats.leg.color.set(m.pants); p.mats.skin.color.set(m.skin);
           p.hm.geometry = hair4Geometry(CROWD_HAIR[m.hairStyle], m.hair, 'mid'); p.a.root.scale.setScalar(m.scale);
