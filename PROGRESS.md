@@ -1051,3 +1051,4 @@ Three weakest things:
 **Cause:** the pass-2 opt-ins `heroSpotSubject` / `subjectLift` swap the lit subject (spot retarget + shadow toggle, cloned materials) at a cut. The first render after the swap is unsettled. A camera change cannot fix this, so no camera pass was made.
 
 **Proposed fix (not applied):** one warm-up render in `episode.js` when that state changes. It touches the engine, which the owner's instruction forbids this session, so the final render was not started; stopped for the owner's call.
+**Owner (2026-11-14): "Render as is"**: the final ships with the two first-frame flashes (S36 cut 8.8 %, S37a cut 1.7 %); stability stays FAIL on record, waived by the owner for egg. Farm assemble now passes `--spec` (sfx, music if present) and `--style v3` for v3 specs; no music.mp3 → `review/egg/audio-cues.md`.
