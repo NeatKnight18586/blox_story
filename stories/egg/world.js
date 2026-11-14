@@ -180,8 +180,8 @@ export function build(scene, {P, B, A, M, PR, TR, BI, V, W, look, spec}) {
   const layer = (n, r0, r1, y, size, col, emi, seed) => { const RR = B.rng(seed), gs = [];
     for (let i = 0; i < n; i++) { const a = RR() * Math.PI * 2, r = r0 + RR() * (r1 - r0), g0 = new T.IcosahedronGeometry(size * (.6 + RR() * .7), 2); g0.deleteAttribute('uv'); g0.deleteAttribute('normal'); const g = mergeVertices(g0);
       g.scale(1.7, .42 + RR() * .2, 1.7); g.translate(Math.sin(a) * r, y + RR() * 3, Math.cos(a) * r); gs.push(g); }
-    const m = new T.Mesh((x => { x.computeVertexNormals(); return x; })(mergeGeometries(gs)), new T.MeshLambertMaterial({color: col, emissive: emi, emissiveIntensity: .5})); m.receiveShadow = true; return m; };
-  nest.add(layer(26, 14, 70, -7, 13, cb.palette.grass, '#e8b88a', 21), layer(34, 60, 170, -16, 22, '#fde7d2', '#f0a878', 22), layer(30, 160, 340, -30, 40, '#f6d2c0', '#e89a7a', 23));   // near, mid, far banks
+    const m = new T.Mesh((x => { x.computeVertexNormals(); return x; })(mergeGeometries(gs)), new T.MeshLambertMaterial({color: col, emissive: emi, emissiveIntensity: .22})); m.receiveShadow = true; return m; };
+  nest.add(layer(26, 30, 80, -15, 9, '#ffffff', '#ffe2c4', 21), layer(34, 60, 170, -16, 22, '#fff4ea', '#ffc9a0', 22), layer(30, 160, 340, -30, 40, '#ffe8dc', '#f0a88a', 23));   // white tops, warm sunrise underlight   // near, mid, far banks
   const bowl0 = new T.CylinderGeometry(16, 10, 6, 40, 1, true); bowl0.translate(0, -1.5, 0);
   const bowl = new T.Mesh(bowl0, new T.MeshPhongMaterial({color: '#a8763e', map: M.patternTexture('thatch'), side: T.DoubleSide, shininess: 4})); nest.add(bowl);
   const floorN = new T.Mesh(new T.CircleGeometry(10.5, 40), new T.MeshPhongMaterial({color: '#c9a064', map: M.patternTexture('thatch'), shininess: 4})); floorN.rotation.x = -Math.PI / 2; floorN.position.y = -4.4; nest.add(floorN);

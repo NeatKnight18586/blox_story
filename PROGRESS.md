@@ -880,3 +880,65 @@ Three weakest things:
 3. Assets: dragon face (brow ridge, eyes, snout) + own colour; `buildDragon({baby: true})` hatchling proportions (head ≥ 40 %); a real bed; a soft gold-orange feather; rooftop nests; cloudtop nest (biome, layered clouds, woven nest, ring of seated kids, mother curled outside); mailbag eggs; a door that slams.
 4. Hair: long v4 styles clamp lock tips outside the torso box (opt-in for v4 only), plus a pure test.
 5. C: 1 fps preview → `review/egg/preview/`, `v2:plan` 0 errors + warnings listed, three weakest per sheet, commit/push/PR, send the sheets. No animatic.
+
+### Egg preview fixes: report (2026-11-14)
+**Built.**
+- **A (season warnings, pure, `tests/v2/shotrules.test.js`).** All live in `engine/seasoncheck.js`:
+  - `staticShotIssue`: no cast actor in frame → insert ≤ 1.5 s only;
+  - `clockBoardIssues`: ≤ 3 clock shots, each ≤ 1.5 s; ≤ 3 scoreboard shots;
+  - `holdIssues`: ≤ 3.0 s, except B6 and the money shot; the final shot's mandated tail doesn't count;
+  - `crowdCover`: the union area of crowd members nearer than the subject (or 12 units) ≤ 15 %;
+  - `moodIssues`: the `faceMap` from `gen.py`; Kit never angry or rage.
+  - `seasonMeasure` now also returns crowd boxes, the subject distance, and whether each object faces the camera and is visible.
+- **B.** `stories/egg/gen.py` rewritten: 74 shots, 25 cast (7 runners), and the line-by-line mood map. In `world.js`:
+  - base 10 has a hinged door that slams and a lock ring that fills round the door frame;
+  - a red-pulsing hot egg tossed away (S03b); rooftop nests; a window under the board;
+  - the vault fence; the dawn base with one cold egg; the grass egg and the returned note;
+  - bigger moonlit claw marks; a shadow-sweep spotlight (S29b);
+  - a real bed and a soft gold-orange feather 5.6 long (Kit is 4.35);
+  - the cloud nest rebuilt: three cloud layers, a woven thatch bowl with 72 crossed sticks, kids seated in a ring with hatchlings in their laps, the mother curled outside. The nest set is shown only in nest shots.
+- **Dragon** (opt-in): `face: 'v2'` (white eye, glowing iris, slit pupil, shine, brow ridge, nostril bumps); `baby` (head 61 % of body height, test ≥ 40 %); a `curl` state. The mother has her own colours (violet, gold, copper).
+- **Other assets:** tool `eggs:a,b,c,d` (an armful); accessory `mailBagEggs`; poses `bow` and `sitEgg`; crowd mode `sit` + `lapEggs` + an `expressions` timeline; `hatchlingScale(…, baby)`.
+- **Hair clipping bug:** pure `clampOutsideTorso` in `hair4.js`. Before the fix, 10 v4 styles had vertices inside the torso box (long_braids 480, long_layered 143, sleek_long 131, wavy_bob 112, low_twintails 86, …). Now 0 for every style at hero and mid tiers (`tests/v2/eggfix.test.js`).
+
+**Checks.**
+- `v2:plan` **PASS**: 0 errors, 36 warnings. 0 overlaps; every egg shot passes the size check (S41 is the tightest at 4.3 %).
+- Crowd cover ≤ 15 % in every shot (S01 was 47.7 %; `runA` moved).
+- Clock: S03, S29, S51. Featured board: S09, S18, S50.
+- `v2:test` 93 node + 51 python OK. `npm test` 0. "Nobody" 11/11 byte-identical (`dragon.js` changed).
+- **Owner-rule warnings that remain** (forced by the cut grid, not fixable without moving cuts off phrase onsets):
+  - S15a claws 1.93 s (the line has no onset inside, so the minimum is 1.92);
+  - S15b dawn base is a static wide (no person, by design);
+  - S51 drone ends on a 7 % glimpse of the clock face for 4.8 s;
+  - held framings: S22 3.23 s, S29b 3.33 s, S44a 3.37 s (no phrase onset inside the line);
+  - mean shot 1.94 s (target 2.2–3.0): the ≤ 3 s rule needs 74 cuts.
+- The rest of the 36 warnings are "see not in frame by frame 6" and "wide with no tagged character in the foreground" notes.
+
+**Decisions.**
+- Scoreboard = featured at ≥ 20 % of frame height; background sightings at 10–18 % are in `plan.json` stats. The clock stays strict (any face ≥ 3 %).
+- S12 mailman is a full-figure "close" (fit ≥ 45 %) because three mediums in a row break the same-size rule.
+- The S13 mayor is 1.77 s and the S29 clock is 1.25 s: beats are only allowed before 20 s, and the minimum shot length is 1.2 s.
+- S44a (flashback) is tagged `loc: nest` + `flashback` so the match cut can stay a medium/insert instead of forcing a wide.
+- Moon moved to az 110°, el 18° so it clears the tower and bases from Kit's spot.
+
+**Three weakest things** (`review/egg/preview/`; the owner decides):
+- **`preview-1fps.png` (0–29 s):**
+  1. The S03b toss and S07 dive fall between the 1 fps samples (only one frame each).
+  2. S05: the kid's head is cut by the top edge.
+  3. S14 hot potato: dark, with the flying eggs small.
+- **`-2` (30–59 s):**
+  1. S18: the board crop shows STOLEN/X/YOR, and the "KIT 0" row is cut.
+  2. S22 queue: all backs, so Kit's polite face doesn't read.
+  3. S24b: the back of Kit's head fills the frame; the vane is a sliver.
+- **`-3` (60–89 s):**
+  1. S29b: the shadow sweep isn't visible at 1 fps.
+  2. S31b: the feather is low-contrast next to Kit.
+  3. S32b: Kit is cut at the frame edge while taking the egg.
+- **`-4` (90–119 s):**
+  1. S37b: the mother reads as a vertical "totem" (neck + legs) more than a wingspan.
+  2. S39: her head is a dark block; it doesn't read as "lowering gently".
+  3. S41 clouds are flat peach, like sand.
+- **`-5` (120–146 s):**
+  1. S48b: Dax among huge back spikes; the dragon under him doesn't read.
+  2. S50: Kit's hair covers half the board.
+  3. S51a: sitting kids crowd the bottom; the gold lap eggs are small.
