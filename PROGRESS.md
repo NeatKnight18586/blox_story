@@ -628,3 +628,50 @@ Plan:
    - JS: `tests/v2/s9.test.js`.
    - Python: `tests/v2/test_s9.py` (chunking, sfx placement, scriptcheck, state).
 6. Re-assemble `tools-demo.mp4` with v3 captions and sfx. Update `CLAUDE.md`, the PR, and send the files. Stop at `episode: 1 egg`, `step: voice`.
+
+### Session 9: built, numbers, decisions
+- **D, captions v3:**
+  - `captions/pop-shorts-v3.json`; `captions.py` adds `chunk_cap` (2 words when one has 7+ letters), `fit_size` (width ≤ 960 px) and `--style` / `spec.captionStyle`. v2 is unchanged and stays the default.
+  - `caption-phone.py` → `caption-v3-phone.png/.json`: **PASS**.
+    - Smallest size used across the whole egg episode is \fs116: cap **3.61 %** of the 390 px frame (≥ 2.6 %), spanning 62.8–67.5 %.
+    - \fs150: cap 4.62 %, spanning 62.2–68.1 %. Both sit inside the 58–74 % band.
+    - v2 cap was 3.03 %.
+- **E, season gates:**
+  - Pure `engine/seasoncheck.js`: beats B1–B9, B1 (≤ 9 words, rule ≤ 8.5 s, spectacle/ruleImage, face ≥ 20 % by 5 s), B2, clues (before the twist, ≥ 3 %), AFK (0.35–0.5, not the subject, one before the twist), rhyme ≤ 10 %, 122–150 s, faces and clue objects out of the caption band, A5 framing and uiSize.
+  - Page: `seasonMeasure` (face box, object boxes, `uiMeasure`). `plan.js` runs it when `spec.season` (framing/uiSize on v3 worlds too); band 58–74 %.
+  - `sheet.py --stats --spec`: WARN unless the twist/moneyShot cell has the largest colour change.
+  - Nobody plan: PASS, unchanged (season off). Tools demo: framing 3 shots (45.6 / 33.8 / 34.5 %) and 8 UI items, all clean.
+- **F, sound:**
+  - `sfx.py`: ten seeded numpy WAVs, `assets/sfx` overrides, pure `place`, −30 dB RMS hits, riser + 8 silent frames before B7.
+  - `audiocues.py` → `review/<slug>/audio-cues.md`.
+  - `assemble.py --spec` mixes sfx (+ `music.mp3`) and a −2 dBFS mix limiter.
+  - `tools-demo.mp4` re-assembled with v3 captions and 5 sfx: **−14.6 LUFS, TP −1.9 dB, PASS**.
+- **Found while assembling (fixed, opt-in): egg's voice cannot reach −14 LUFS** under A2's linear loudnorm.
+  - The full voice measures −15.7 LUFS / TP −1.5, so egg's animatic and final would have failed.
+  - With `--spec`, `prelimit_db` limits the voice peaks just enough first: egg full voice **−14.5 / −1.5**.
+  - "Nobody" never passes `--spec`, so its audio path is unchanged.
+- **H/I:** `.claude/commands/season.md` (new); `new-episode.md` gained a Season 1 section.
+  - `season_state.py` (pure `transition` + `plan|set|init`); `STATE.md` initialised to `episode: 1 egg`, `step: voice`.
+  - `scriptcheck.py`: egg / ragdoll / mountain / mirror **PASS**:
+
+    | Script | Words | FK grade | Key nouns |
+    |---|---|---|---|
+    | egg | 433 | 1.71 | 30 |
+    | ragdoll | 437 | 0.87 | 28 |
+    | mountain | 421 | 1.32 | 16 |
+    | mirror | 430 | 1.03 | 21 |
+
+    Longest sentence 12.
+- **Checks:** `v2:test` 72 node + 48 python pass. `npm test` exit 0. "Nobody" 11/11 frames byte-identical at 1440.
+- **Decisions:**
+  1. The tools demo borrows egg's first 18 s of voice and cues; it has no narration of its own.
+  2. "Key nouns" = content words of Rule/Hero/Expansion/Crisis minus function words, common verbs/adjectives and generic person/place words (person, kid, edge, square…). Any inflection counts.
+  3. Demo `sfxCues` adds a crack (lightning) and a rumble (shockwave).
+- **Three weakest things (`caption-v3-phone.png`):**
+  1. The demo is not staged for the band: at 11.2 s "for sixty" sits across Stan in the crowd. Real episodes get the face-in-band error; the demo never ran it.
+  2. The 7-letter rule strands words and splits phrases oddly ("for sixty" / "seconds", "scoreboard on").
+  3. Width-fitted chunks (\fs116–122) next to \fs128 ones change size from caption to caption, which reads as an extra pop.
+- **Open:**
+  - Speed is still 0.69 s/frame (owner decides at episode 1).
+  - The sfx set is synthesized and unheard by a person: the owner should listen to `tools-demo.mp4` (5 hits).
+  - Next `/season` runs E1 for egg straight away: `stories/egg/voice.flac` is already committed.
