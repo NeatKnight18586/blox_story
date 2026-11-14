@@ -10,7 +10,7 @@ import {SPEED_CAP} from './camera.js';
 import {cardOk} from './classes.js';
 
 export const SIZES = ['wide', 'medium', 'close', 'insert'];
-export const LIMITS = {beat: [.55, 1.2], beatRun: 3, beatBefore: 20, minShot: 1.2, maxShot: 5.0, cutTol: 2, firstWide: 6, headX: [.15, .85], headY: [.18, .58], meanShot: [2.2, 3.0], band: [.6, .72], minCam: 2, whipFrames: [4, 6]};
+export const LIMITS = {beat: [.55, 1.2], beatRun: 3, beatBefore: 20, minShot: 1.2, maxShot: 5.0, cutTol: 2, firstWide: 6, headX: [.15, .85], headY: [.18, .58], meanShot: [2.2, 3.0], band: [.58, .74], minCam: 2, whipFrames: [4, 6]};
 
 // Phrase onsets (s): every line start, plus every word that follows a pause (its start is later than the
 // previous word's end: align.py closes words at the next word unless a ≥ 0.18 s silence lies between).

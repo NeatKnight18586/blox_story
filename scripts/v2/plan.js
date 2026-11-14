@@ -7,6 +7,7 @@ import {mkdir, writeFile} from 'node:fs/promises';
 import {startServer} from './server.js';
 import {launch} from './browser.js';
 import {checkPlan} from '../../engine/plancheck.js';
+import {checkSeason} from '../../engine/seasoncheck.js';
 import {layoutShots} from '../../engine/timeline.js';
 
 const argv = process.argv.slice(2), arg = (k, d) => { const i = argv.indexOf(`--${k}`); return i >= 0 ? argv[i + 1] : d; };
@@ -16,7 +17,7 @@ const spec = JSON.parse(readFileSync(specPath, 'utf8')), cues = JSON.parse(readF
 const shots = layoutShots(spec);
 
 const server = await startServer(), browser = await launch();
-let info;
+let info, meas = [];
 try {
   const page = await browser.newPage({viewport: {width: 360, height: 640}});
   const errors = []; page.on('pageerror', e => errors.push(e.message));
@@ -29,9 +30,15 @@ try {
     for (let f = s.start; f < s.start + s.frames; f += 3) { const r = E.inspectFrame(f); if (r.cards.length) cards.push({frame: f, cards: r.cards}); }
     return {speed: E.shotSpeed(i), first: at(s.start), early: at(s.start + 6), mid: at(s.start + Math.floor(s.frames / 2)), last: at(s.start + s.frames - 1), cards};
   }), shots.map(({start, frames}) => ({start, frames})));
+  // A4 §E season gates + A5 framing/uiSize: season episodes and v3 worlds (rendered at 360×640, first/middle/last frame)
+  const probe = await page.evaluate(() => window.__episode.seasonMeasure(0));
+  if (spec.season || probe.v3) meas = await page.evaluate(list => list.map(s => [s.start, s.start + Math.floor(s.frames / 2), s.start + s.frames - 1].map(f => window.__episode.seasonMeasure(f, s.objects))),
+    shots.map(({start, frames, clueObject}) => ({start, frames, objects: clueObject ? [clueObject] : []})));
 } finally { await browser.close(); await server.close(); }
 
 const r = checkPlan({shots, cues, fps, end: spec.end, info});
+const sz = checkSeason({spec, shots, cues, fps, end: spec.end, info, meas});
+r.errors.push(...sz.errors); r.warnings.push(...sz.warnings); r.stats.season = !!spec.season; r.stats.framing = sz.stats.framing; r.stats.uiItems = sz.stats.ui;
 const table = shots.map((s, i) => ({id: s.id, beat: !!s.beat, t: +(s.start / fps).toFixed(2), dur: +(s.frames / fps).toFixed(2), size: s.size, move: s.move, loc: s.loc, speed: +(info[i].speed * 100).toFixed(0),
   subject: s.subject ? `${s.subject}@${(info[i].mid.heads[s.subject]?.x * 100).toFixed(0)},${(info[i].mid.heads[s.subject]?.y * 100).toFixed(0)}` : '', why: s.why}));
 console.table(table.map(({why, ...x}) => x));
