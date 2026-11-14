@@ -102,11 +102,11 @@ for (const s of shots) if (s.fit && s.fit.h === undefined && cast[s.fit.actor]) 
 // camera side at the chest, shadow-casting (the actor screens the ground behind). Real lights stay ≤ 4 with the world's own.
 const NIGHT = ['night', 'nightBright'];
 const heroSpots = look?.v3 ? Object.entries(cast).filter(([, x]) => x.v2 && x.c.troupe && x.c.troupe !== 'AFK' && spec.heroSpots !== false).slice(0, 2).map(([name]) => {
-  const l = new T.SpotLight('#fff0dc', 0, 16, .2, .55, 1.6); l.castShadow = true; l.shadow.mapSize.set(512, 512); l.shadow.bias = -.002; l.name = 'heroSpot_' + name; scene.add(l, l.target); return {name, l}; }) : [];
+  const l = new T.SpotLight('#fff0dc', 0, 16, .2, .55, 1.6); l.castShadow = false; l.visible = false; l.shadow.mapSize.set(512, 512); l.shadow.bias = -.002; l.name = 'heroSpot_' + name; scene.add(l, l.target); return {name, l}; }) : [];
 function aimHeroSpots(shot, camPos) {
   for (const {name, l} of heroSpots) {
     const on = NIGHT.includes(shot?.look ?? spec.look) && ['medium', 'close'].includes(shot?.size) && cast[name].a.root.visible, m = markPos[name];
-    l.intensity = on ? (spec.heroSpotIntensity ?? 40) : 0; if (!on || !m) continue;
+    l.intensity = on ? (spec.heroSpotIntensity ?? 40) : 0; l.visible = !!(on && m); l.castShadow = l.visible; if (!on || !m) continue;   // off = no light and no shadow pass
     const H = 5.3 * cast[name].a.root.scale.y, chest = new T.Vector3(m[0], m[1] + .62 * H, m[2]), dir = new T.Vector3(camPos[0] - m[0], 0, camPos[2] - m[2]).normalize();
     l.position.copy(chest).addScaledVector(dir, 8).add(new T.Vector3(0, 2.2, 0)); l.target.position.copy(chest); l.target.updateMatrixWorld();
   }

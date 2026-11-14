@@ -33,7 +33,7 @@ export function build(scene, {P, B, A, M, PR, TR, BI, V, W, look, spec}) {
       ...bases.map(b => ({type: 'pad', x0: b.x - 8, x1: b.x + 8, z0: b.z - 8, z1: b.z + 8, y: .4 + (b.i % 3) * .3, blend: 8})),
       {type: 'valley', from: [POND[0] - 8, POND[1]], to: [POND[0] + 10, POND[1] + 6], w: 16, depth: 3.2}];
     const height = TR.heightFn({seed: 5, controls}); groundY = height;
-    const terr = TR.buildTerrain({height, size: 660, chunk: 30, fine: 1.5, fullR: 60, focus: [[0, 10], [30, 40], [0, -30], [0, 76], [11, 32]], material: M.splatMaterial(bio.terrain.layers, {splat: bio.terrain, wetY: -1.1}), splat: bio.terrain});   // A5: per-pixel blend, 1.5-unit cells near the cameras
+    const terr = TR.buildTerrain({height, size: 660, chunk: 30, fine: 1.5, fullR: 60, focus: [[0, 76], [11, 32], [-6, 24], [8, 22]], material: M.splatMaterial(bio.terrain.layers, {splat: bio.terrain, wetY: -1.1}), splat: bio.terrain});   // A5: per-pixel blend, 1.5-unit cells near the cameras
     scene.add(terr);
     const wat = W.water({height, x0: POND[0] - 22, x1: POND[0] + 24, z0: POND[1] - 14, z1: POND[1] + 18, y: -1.1, ...bio.water, sky: '#3a5aa0', foam: .1, envMap: look.envMap?.()});
     scene.add(wat.mesh); movers.push(wat);
