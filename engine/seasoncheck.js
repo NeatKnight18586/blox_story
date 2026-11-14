@@ -55,9 +55,9 @@ export function overlapIssues(places = [], k = .85) {
 }
 
 // ---- owner shot rules (2026-11-14), season *warnings* (pure) ------------------------------------------------------------
-export const SHOT_RULES = {staticMax: 1.5, clockMax: 3, clockDur: 1.5, boardMax: 3, objFrac: .03, holdMax: 3.0, crowdCover: .15, grid: [36, 64], neverOnHero: ['angry', 'rage']};
+export const SHOT_RULES = {staticMax: 1.5, clockMax: 3, clockDur: 1.5, boardMax: 3, objFrac: .03, boardFrac: .2, holdMax: 3.0, crowdCover: .15, grid: [36, 64], neverOnHero: ['angry', 'rage']};
 const inFrame = b => b && b.front && b.x1 > 0 && b.x0 < 1 && b.y1 > 0 && b.y0 < 1;
-const visH = b => inFrame(b) ? Math.min(b.y1, 1) - Math.max(b.y0, 0) : 0;
+const visH = b => inFrame(b) && b.allFront !== false && b.facing !== false && b.visible !== false ? Math.min(b.y1, 1) - Math.max(b.y0, 0) : 0;
 // 1. Show the verb: a shot whose frames hold no cast actor is a static-object shot; it may only be an insert ≤ 1.5 s.
 //    actorsSeen: number of cast actors in frame (front, on screen) in the shot's measured frames (max).
 export function staticShotIssue(shot, dur, actorsSeen) {
@@ -66,10 +66,11 @@ export function staticShotIssue(shot, dur, actorsSeen) {
   if (dur > SHOT_RULES.staticMax + 1e-6) return `${shot.id}: static insert is ${dur.toFixed(2)} s (≤ ${SHOT_RULES.staticMax})`;
   return null;
 }
-// 2. Clock and scoreboard: a shot "shows" the clock / board when any clock face / the scoreboard is ≥ 3 % of frame height.
+// 2. Clock and scoreboard: a shot "shows" the clock when any clock face facing the camera is ≥ 3 % of frame height (strict:
+//    background glimpses count), and features the scoreboard when the board is ≥ 20 % of frame height (lower: background).
 //    rows: [{id, dur, clock: frac, board: frac}] → issues
 export function clockBoardIssues(rows) {
-  const L = SHOT_RULES, out = [], clock = rows.filter(r => r.clock >= L.objFrac), board = rows.filter(r => r.board >= L.objFrac);
+  const L = SHOT_RULES, out = [], clock = rows.filter(r => r.clock >= L.objFrac), board = rows.filter(r => r.board >= L.boardFrac);
   if (clock.length > L.clockMax) out.push(`clock in ${clock.length} shots (≤ ${L.clockMax}): ${clock.map(r => r.id).join(', ')}`);
   for (const r of clock) if (r.dur > L.clockDur + 1e-6) out.push(`${r.id}: clock shot is ${r.dur.toFixed(2)} s (≤ ${L.clockDur})`);
   if (board.length > L.boardMax) out.push(`scoreboard in ${board.length} shots (≤ ${L.boardMax}): ${board.map(r => r.id).join(', ')}`);
@@ -194,7 +195,7 @@ export function checkSeason({spec, shots, cues, fps = 30, end, info = [], meas =
     stats.cover = [];
     shots.forEach((s, i) => {
       const ms = (meas[i] ?? []).filter(Boolean); if (!ms.length) return;
-      const seen = Math.max(...ms.map(m => Object.entries(m.actors ?? {}).filter(([n, a]) => castNames.has(n) && a.opacity !== 0 && inFrame(a.box) && (a.box.y1 - a.box.y0) > .02).length));
+      const seen = Math.max(...ms.map(m => Object.entries(m.actors ?? {}).filter(([n, a]) => castNames.has(n) && a.opacity !== 0 && inFrame({...a.box, front: a.front}) && (a.box.y1 - a.box.y0) > .02).length));
       const x = staticShotIssue(s, shotS(s), seen); if (x) W(x);
       const mx = k => Math.max(0, ...ms.map(m => Math.max(0, ...Object.entries(m.objects ?? {}).filter(([n]) => n.startsWith(k)).map(([, b]) => visH(b)))));
       rows.push({id: s.id, dur: shotS(s), clock: mx('clockFace'), board: mx('scoreboard')});

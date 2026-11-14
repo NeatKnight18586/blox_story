@@ -11,12 +11,12 @@
 // Cross-fades between states over 0.3 s. driveDragon applies a sample to the rig built by buildDragon.
 import * as T from 'three';
 
-export const DRAGON_STATES = ['perch', 'fly', 'roar', 'breathe', 'lower', 'turn', 'flinch', 'cry', 'flee'];
+export const DRAGON_STATES = ['perch', 'fly', 'roar', 'breathe', 'lower', 'turn', 'flinch', 'cry', 'flee', 'curl'];
 export const DRAGON_COLORS = {body: '#2f6d7a', dark: '#24525c', belly: '#f2a33a', horn: '#f7f3ea', wing: '#c0392b', wingDk: '#8e2a22', eye: '#c8ff3a', pupil: '#141414', tear: '#7fd6ff', mouth: '#5a1a1a', tooth: '#ffffff'};
 const NECK = 4, TAIL = 6, FADE = .3, PI = Math.PI;
 const clamp01 = x => Math.min(1, Math.max(0, x)), smooth = x => { x = clamp01(x); return x * x * (3 - 2 * x); };
 
-const BASE = {bodyY: 0, pitch: 0, neck: .45, neckBend: 0, headPitch: 0, headYaw: 0, jaw: .05, wingUp: -.25, wingFold: .9, wingSpread: .35, legs: 0, tailAmp: .12, eyes: 1, tears: 0, tremble: 0};
+const BASE = {curl: 0, bodyY: 0, pitch: 0, neck: .45, neckBend: 0, headPitch: 0, headYaw: 0, jaw: .05, wingUp: -.25, wingFold: .9, wingSpread: .35, legs: 0, tailAmp: .12, eyes: 1, tears: 0, tremble: 0};
 const STATES = {
   perch: t => ({bodyY: .25 * Math.sin(2 * PI * t / 2.6), neck: 1.1 + .04 * Math.sin(2 * PI * t / 2.6), headPitch: .05, neckBend: -.45, tailAmp: .14}),
   fly: t => { const f = Math.sin(2 * PI * t * 1.6); return {wingUp: .55 * f, wingFold: .1 + .25 * Math.max(0, -f), wingSpread: 1, legs: 1, pitch: .12, bodyY: -1.2 * f, neck: 1.0, headPitch: 0, tailAmp: .2}; },
@@ -26,6 +26,7 @@ const STATES = {
   turn: (t, o) => ({headYaw: (o.yaw ?? 40) * PI / 180, neck: 1.0, neckBend: -.2, headPitch: .1, tailAmp: .2}),
   flinch: t => ({neck: 1.0, headPitch: -.75, jaw: .3, eyes: 0, wingUp: .4, wingFold: .4, wingSpread: .9, pitch: -.18, bodyY: .3, tremble: .06 * Math.sin(t * 60) * Math.exp(-t * 3)}),
   cry: t => ({neck: 1.1, neckBend: -.4, headPitch: -.2, jaw: .35 + .12 * Math.sin(t * 9), eyes: 0, tears: 1, tremble: .03 * Math.sin(t * 30), wingFold: .7, tailAmp: .05}),
+  curl: t => ({curl: 1, neck: 1.25, neckBend: -.15, headPitch: .35, jaw: .05, wingFold: 1, wingSpread: .2, wingUp: -.15, tailAmp: .03, bodyY: .1 * Math.sin(2 * PI * t / 3.2)}),   // opt-in: lying curled round a nest (head resting, tail wrapped)
   flee: t => { const f = STATES.fly(t); return {...f, eyes: 0, tears: 1, jaw: .3 + .1 * Math.sin(t * 9), headPitch: -.2}; },
 };
 export function dragonPose(state, t, o = {}) {
@@ -59,7 +60,12 @@ function wingSegment(parent, len, chord, side, C = DRAGON_COLORS) {
   spike(parent, .35, 1.2, [side * (len + .3), 0, 0], C.horn, [0, 0, -side * PI / 2]);
 }
 
-export function buildDragon({scale = 1, name = 'dragon', colors = null} = {}) {   // colors (opt-in): override DRAGON_COLORS keys (hatchlings)
+// Opt-in (Season 1 egg, 2026-11-14): face 'v2' = a readable face (white eye with a glowing iris and slit pupil, a shine dot, a heavy
+// brow ridge, a longer snout with nostril bumps); baby = hatchling proportions (head ≥ 40 % of the body height, short neck,
+// stubby legs, small wings, nub horns, big eyes). Neither changes the default dragon.
+export const BABY = {head: 1.8, neck: .55, wings: .42, tail: .6, legs: .62, spikes: .45};
+export function buildDragon({scale = 1, name = 'dragon', colors = null, face = null, baby = false} = {}) {   // colors (opt-in): override DRAGON_COLORS keys (hatchlings)
+  if (baby) face = face ?? 'v2';
   const C = colors ? {...DRAGON_COLORS, ...colors} : DRAGON_COLORS, root = new T.Group(); root.name = name; root.scale.setScalar(scale);
   const body = pivot(root, [0, 9, 0], 'body');
   box(body, [7, 6, 13], [0, 0, 0], C.body);
@@ -90,9 +96,19 @@ export function buildDragon({scale = 1, name = 'dragon', colors = null} = {}) { 
   const eyes = [], tears = [];
   for (const sx of [-1, 1]) {
     const e = pivot(head, [sx * 1.75, 1.45, 4.25], 'eye');
-    box(e, [.9, 1.1, .4], [0, 0, 0], C.eye, {cast: false, extra: {emissive: C.eye, emissiveIntensity: .9}});
-    box(e, [.38, .6, .2], [-sx * .12, -.05, .24], C.pupil, {cast: false});
-    box(e, [1.2, .35, .5], [0, .8, .05], C.dark, {cast: false});                                         // brow
+    if (face === 'v2') {   // readable face: white eye, glowing iris, slit pupil, shine dot; a heavy brow ridge over it
+      e.position.set(sx * 1.95, 1.5, 4.0); e.rotation.y = sx * .35;
+      box(e, [1.5, 1.55, .5], [0, 0, 0], '#f4f1e8', {cast: false, extra: {emissive: '#f4f1e8', emissiveIntensity: .35}});
+      box(e, [1.0, 1.15, .2], [-sx * .12, -.05, .3], C.eye, {cast: false, extra: {emissive: C.eye, emissiveIntensity: 1.6}});
+      box(e, [.26, .95, .12], [-sx * .12, -.05, .42], C.pupil, {cast: false});
+      box(e, [.3, .3, .1], [-sx * .4 + sx * .02, .32, .5], '#ffffff', {cast: false, extra: {emissive: '#ffffff', emissiveIntensity: 1}});
+      box(head, [1.9, .7, 1.5], [sx * 1.85, 2.55, 4.0], C.dark, {rot: [.25, 0, sx * -.22]});                 // brow ridge (on the head: it does not blink)
+      box(head, [.7, .5, .6], [sx * .7, 1.0, 7.75], C.dark);                                                   // nostril bump
+    } else {
+      box(e, [.9, 1.1, .4], [0, 0, 0], C.eye, {cast: false, extra: {emissive: C.eye, emissiveIntensity: .9}});
+      box(e, [.38, .6, .2], [-sx * .12, -.05, .24], C.pupil, {cast: false});
+      box(e, [1.2, .35, .5], [0, .8, .05], C.dark, {cast: false});                                         // brow
+    }
     eyes.push(e);
     const tr = pivot(head, [sx * 1.9, .6, 4.3], 'tear');
     for (let k = 0; k < 3; k++) box(tr, [.3, .55, .3], [sx * .05 * k, -k * .9, .05 * k], C.tear, {cast: false, extra: {emissive: C.tear, emissiveIntensity: .35, transparent: true, opacity: .9}});
@@ -116,18 +132,27 @@ export function buildDragon({scale = 1, name = 'dragon', colors = null} = {}) { 
     tail.push(p); p = pivot(p, [0, 0, -2.9], 'tail' + (i + 1));
   }
   spike(p, 1.1, 2.2, [0, 0, -.6], C.horn, [-PI / 2, 0, 0]);                                              // tail tip
-  return {root, body, neck, head, jaw, eyes, tears, wings, tail, legs, mouth, nose, preset: {kind: 'dragon'}, isDragon: true};
+  const d = {root, body, neck, head, jaw, eyes, tears, wings, tail, legs, mouth, nose, preset: {kind: 'dragon'}, isDragon: true};
+  if (baby) {   // uniform scales per pivot (no shear): the neck chain shrinks, the head (inside it) grows back to BABY.head
+    const B = BABY; neck[0].scale.setScalar(B.neck); head.scale.setScalar(B.head / B.neck); tail[0].scale.setScalar(B.tail);
+    for (const w of wings) w.inner.scale.setScalar(B.wings); for (const l of legs) l.scale.setScalar(B.legs);
+    body.traverse(o => { if (o.isMesh && o.geometry.type === 'ConeGeometry' && o.parent === body) o.scale.setScalar(B.spikes); });
+    head.traverse(o => { if (o.isMesh && o.geometry.type === 'ConeGeometry' && o.parent === head && o.position.y > 2) o.scale.set(.6, .45, .6); });   // nub horns
+    d.bodyY0 = 9 - 6.4 * (1 - B.legs); d.baby = true;
+  }
+  return d;
 }
 
 // Apply a sample (absolute, never accumulated). origin: {position, yaw (radians)}.
 export function applyDragonSample(d, s, origin = {position: [0, 0, 0], yaw: 0}, t = 0) {
   d.root.position.set(...origin.position); d.root.rotation.set(0, origin.yaw ?? 0, 0);
-  d.body.position.y = 9 + s.bodyY + s.tremble * 8; d.body.rotation.set(s.pitch, 0, s.tremble);
+  d.body.position.y = (d.bodyY0 ?? 9) + s.bodyY * (d.baby ? .3 : 1) - (s.curl ?? 0) * 3 + s.tremble * 8; d.body.rotation.set(s.pitch, 0, s.tremble);
   // neck: `neck` tilts the chain forward from vertical-ish; `neckBend` curls the upper links down
   // the chain is nested: link 0 sets the neck's tilt (neck 0 = up, ~1.25 = level forward), later links add the bend;
   // the head undoes the accumulated tilt so headPitch is its world pitch (+ = nose down)
   const tilt = -(PI / 2 - .35) + s.neck, bend = s.neckBend * .35;
-  d.neck.forEach((n, i) => n.rotation.set(i === 0 ? tilt : bend, i === NECK - 1 ? s.headYaw * .4 : 0, 0));
+  const cu = s.curl ?? 0;
+  d.neck.forEach((n, i) => n.rotation.set(i === 0 ? tilt : bend, (i === NECK - 1 ? s.headYaw * .4 : 0) + cu * .38, 0));
   d.head.rotation.set(-(tilt + bend * (NECK - 1)) - s.pitch + s.headPitch, s.headYaw * .6, s.tremble * 3);
   d.jaw.rotation.x = s.jaw * .8;
   for (const e of d.eyes) e.scale.set(1 + .15 * Math.max(0, s.eyes - 1), Math.max(.12, s.eyes), 1);
@@ -136,8 +161,8 @@ export function applyDragonSample(d, s, origin = {position: [0, 0, 0], yaw: 0}, 
     w.inner.rotation.set(0, w.sx * (1 - s.wingSpread) * 1.1, w.sx * s.wingUp);
     w.outer.rotation.set(0, w.sx * s.wingFold * 1.6, w.sx * s.wingUp * .6);
   }
-  d.tail.forEach((p, i) => p.rotation.set(-.12 + i * .03, s.tailAmp * Math.sin(t * 2.2 - i * .7), 0));
-  d.legs.forEach((l, i) => l.rotation.set(s.legs * (i < 2 ? -.9 : .9), 0, 0));
+  d.tail.forEach((p, i) => p.rotation.set(-.12 + i * .03 + cu * .12, s.tailAmp * Math.sin(t * 2.2 - i * .7) + cu * .42, 0));
+  d.legs.forEach((l, i) => l.rotation.set(s.legs * (i < 2 ? -.9 : .9) + cu * (i < 2 ? -1.2 : 1.2), 0, 0));
   return d;
 }
 export function driveDragon(d, t, {keys = [[0, 'perch']], origin} = {}) { return applyDragonSample(d, sampleDragon(keys, t), origin, t); }

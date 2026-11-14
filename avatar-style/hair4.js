@@ -179,6 +179,24 @@ export const STYLES = {
 export const HAIR4_STYLES = Object.keys(STYLES);
 export const HAIR4_BOYS = HAIR4_STYLES.slice(0, 8), HAIR4_GIRLS = HAIR4_STYLES.slice(8, 18), HAIR4_NEUTRAL = ['buzz', 'bald'];
 
+// ---- torso clamp (owner bug 2026-11-14: long hair clipped through the hoodie) ------------------------------------------
+// Hair coordinates: origin at the head centre (HEAD.centre above the head pivot = the torso top). The torso is the box
+// |x| ≤ 1, z ∈ [−.5, .5] below y = TORSO_TOP (widest build: 2 studs, 1 deep). Every hair vertex below the shoulder line that
+// falls inside the box grown by `m` is pushed out through the nearest of the back / front planes (front only for locks that
+// already hang in front, z > .1): the mass stays behind the shoulder plane, and lock tips never enter the torso (pure).
+export const TORSO_BOX = {x: 1, z: .5, top: -(HEAD.centre + .01)};
+export function clampOutsideTorso(pos, m = .06) {
+  const B = TORSO_BOX; let moved = 0;
+  for (let i = 0; i < pos.length; i += 3) {
+    const x = pos[i], y = pos[i + 1], z = pos[i + 2];
+    if (y > B.top + .04 || Math.abs(x) > B.x + m || z < -B.z - m || z > B.z + m) continue;
+    pos[i + 2] = z > .1 ? B.z + m : -B.z - m; moved++;
+  }
+  return moved;
+}
+export const insideTorso = (x, y, z, m = .06) => y <= TORSO_BOX.top + .04 && Math.abs(x) < TORSO_BOX.x + m - 1e-6 && z > -TORSO_BOX.z - m + 1e-6 && z < TORSO_BOX.z + m - 1e-6;
+const clampGeo = g => { if (clampOutsideTorso(g.attributes.position.array)) { g.attributes.position.needsUpdate = true; g.computeVertexNormals(); } return g; };
+
 // ---- builder ------------------------------------------------------------------------------------------------------
 const strip = x => { for (const k of Object.keys(x.attributes)) if (!['position', 'normal', 'color'].includes(k)) x.deleteAttribute(k); return x; };
 export function volumeGeometries(style, color = '#5a3a22', tier = 'hero') {
@@ -194,7 +212,7 @@ export function volumeGeometries(style, color = '#5a3a22', tier = 'hero') {
     if (v.t === 'braid') for (const b of braidParts(v.from, v.to, v)) out.push(bun(color, b.at, b.r, {squash: b.squash, tone: v.tone ?? 1, detail: T0.bead}));
     if (v.t === 'curls') for (const b of curlParts(v.at, v)) out.push(bun(color, b.at, b.r, {tone: v.tone ?? 1, detail: T0.curl}));
   }
-  return out.map(strip);
+  return out.map(clampGeo).map(strip);
 }
 const cache = new Map();
 export function hair4Geometry(style, color = '#5a3a22', tier = 'hero') {

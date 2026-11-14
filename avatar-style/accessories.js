@@ -3,8 +3,9 @@
 // (head centre is .58 above it); body items ride the root. Geometry and materials are cached.
 import * as T from 'three';
 import {plastic, HEAD} from './body.js';
+import {eggMesh, EGG_R} from '../parts/eggs.js';
 
-export const ACCESSORIES = ['crown', 'helmet', 'hood', 'strawHat', 'scarf', 'cape', 'backpack', 'chefHat', 'featherCap', 'goggles', 'topHat', 'skiMask', 'mailBag'];
+export const ACCESSORIES = ['crown', 'helmet', 'hood', 'strawHat', 'scarf', 'cape', 'backpack', 'chefHat', 'featherCap', 'goggles', 'topHat', 'skiMask', 'mailBag', 'mailBagEggs'];
 const HEAD_ITEMS = new Set(['crown', 'helmet', 'hood', 'strawHat', 'chefHat', 'featherCap', 'goggles', 'topHat', 'skiMask']);
 const geo = new Map();
 const g = (k, f) => { if (!geo.has(k)) geo.set(k, f()); return geo.get(k); };
@@ -100,6 +101,11 @@ const BUILD = {
     const grp = new T.Group(), m = flat(o.color ?? '#3d5a8a');
     put(grp, g('mail_bag', () => new T.BoxGeometry(1.1, 1.0, .5)), m, [1.05, 2.4, .2]);
     put(grp, g('mail_strap', () => new T.BoxGeometry(.18, 2.8, .06)), flat('#2a2a2a'), [0, 3.3, .53], [0, 0, .6]);
+    return grp;
+  },
+  mailBagEggs(o) {   // owner 2026-11-14: the mailman's satchel stuffed with eggs (three peek out of the open top)
+    const grp = BUILD.mailBag(o);
+    [['frost', -.28], ['sprinkle', .02], ['moss', .3]].forEach(([d, dx], i) => { const e = eggMesh(d, {r: EGG_R.held * .8, rim: true}); e.position.set(1.05 + dx, 2.95 + (i % 2) * .12, .2); e.rotation.z = dx; grp.add(e); });
     return grp;
   },
   backpack(o) {
