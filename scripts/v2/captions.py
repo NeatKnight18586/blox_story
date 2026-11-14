@@ -95,39 +95,87 @@ def chunk(cues, max_words=3, blank_pause=.35, max_long=None, long_letters=7):
 
 # ---- owner caption grouping (Season 1, style "grouping": "v3") -----------------------------------------------------------
 # A new sentence always starts a new caption; breaks prefer punctuation (and voice pauses); a caption never ends on a
-# NO_END word; at most 3 words (2 if one has 7+ letters); a one-word caption only for a 7+ letter word or a one-word
-# sentence. Each sentence is split by a small dynamic programme: the fewest captions, then the most natural breaks.
+# NO_END word; 1–3 words, and only as many as fit: its rendered width at the episode size (body 111, opener 130) must be
+# ≤ maxWidthFrac (86 %) of the frame width, measured with the real font (rendered_width); a one-word caption only for a
+# 7+ letter word or a one-word sentence. Each sentence is split by a small dynamic programme: the fewest captions, then
+# the most natural breaks; when no split obeys every rule, the least bad one, keeping noun phrases ("the town hall") whole.
 NO_END = {'a', 'an', 'the', 'and', 'or', 'but', 'so', 'to', 'of', 'in', 'on', 'at', 'for', 'with', 'from', 'his', 'her',
           'its', 'their', 'my', 'your', 'is', 'was', 'are', 'were'}
+DETS = {'a', 'an', 'the', 'his', 'her', 'its', 'their', 'my', 'your', 'our', 'this', 'that', 'these', 'those', 'every', 'each',
+        'one', 'two', 'no', 'some', 'any', 'whole'}
+FUNCTION = NO_END | DETS | {'he', 'she', 'it', 'they', 'we', 'you', 'i', 'him', 'them', 'not', 'if', 'then', 'there', "there's",
+                            'just', 'very', 'than', 'as', 'by', 'up', 'down', 'into', 'onto', 'over', 'under', 'out', 'off'}
 SENT_END = re.compile(r'[.!?…]["\'”’)]*$')
-BAD_END, BAD_ONE = 60.0, 40.0   # rule breaks, taken only when a sentence has no valid split: ending on a NO_END word is worse
+BAD_END, BAD_ONE, BAD_NP = 60.0, 40.0, 70.0   # rule breaks (only when unavoidable); a split noun phrase costs most (owner: keep "the town hall" whole)
 
 
-def split_sentence(words, lens, punct, pause, max_words=3, max_long=2, long_letters=7):
-    """Pure. words: display words of one sentence; punct[i]/pause[i]: a comma-type mark / a voice pause after word i.
-    → list of (i, j) word ranges. Cost per caption 1, + BAD for a NO_END ending or a short one-word caption mid-sentence,
-    + 0.4 for a break that is neither punctuation nor a pause."""
+def rendered_width(words, size, style, emph_range=None):
+    """Width (px, in the 1080 frame) of a caption as libass draws it: libass sets \\fs as ascent + descent, so the PIL
+    advance at `size` is scaled by size / (ascent + descent); emphasis words at emphasisScale; + outline and shadow."""
+    from PIL import ImageFont
+    ff = style['fontFile']; f = ImageFont.truetype(ff, size); a, d = f.getmetrics(); k = size / (a + d); e = style['emphasisScale'] / 100
+    w = sum(text_width(t, size, ff) * (e if emph_range and emph_range[0] <= i < emph_range[1] else 1) for i, t in enumerate(words)) + text_width(' ', size, ff) * (len(words) - 1)
+    return w * k + 2 * style['outline'] + style.get('shadow', 0)
+
+
+def fits(words, size, style, emph=()):
+    """1–3 words whose rendered width ≤ maxWidthFrac of the frame width."""
+    return 1 <= len(words) <= style['maxWords'] and rendered_width(words, size, style, emphasis(words, emph)) <= style['maxWidthFrac'] * style['playRes'][0]
+
+
+ADJ = {'big', 'small', 'tiny', 'little', 'whole', 'sorry', 'old', 'new', 'baby', 'giant', 'huge', 'empty', 'cold', 'warm', 'golden',
+       'only', 'last', 'first', 'next', 'same', 'other', 'every', 'slowest', 'missing'}
+
+
+def np_split(g, nxt, nxt_closes=False):
+    """Does ending caption g before word nxt cut a noun phrase? Yes when g ends on a determiner or a common adjective
+    ("In this" | "town", "a sorry" | "note"), or when g holds a determiner followed only by content words and nxt is a
+    content word that closes the phrase (nxt_closes: punctuation or the sentence end right after it: "on the town" | "hall."). "The clock" | "struck twelve" is not a split (struck does not close a phrase)."""
+    if nxt is None or norm(nxt) in FUNCTION or not g: return False
+    ws = [norm(w) for w in g]
+    if ws[-1] in DETS or ws[-1] in ADJ: return True
+    if not nxt_closes: return False
+    for k in range(len(ws) - 1, -1, -1):
+        if ws[k] in DETS: return k < len(ws) - 1 and all(w not in FUNCTION for w in ws[k + 1:])
+    return False
+
+
+def split_sentence(words, ok, punct, pause, long_letters=7):
+    """Owner order: a split that obeys every rule wins (noun phrases only a soft preference among those); only when none
+    exists, the least bad split, where keeping a noun phrase whole outranks the other breaks."""
+    strict = _split(words, ok, punct, pause, long_letters, bad_end=1000.0, bad_one=1000.0, bad_np=5.0)
+    if strict[1] < 1000: return strict[0]
+    return _split(words, ok, punct, pause, long_letters)[0]
+
+
+def _split(words, ok, punct, pause, long_letters=7, bad_end=BAD_END, bad_one=BAD_ONE, bad_np=BAD_NP):
+    """Pure. words: display words of one sentence; ok(group) → may this group be one caption (count + width);
+    punct[i]/pause[i]: a comma-type mark / a voice pause after word i. → list of (i, j) word ranges. Cost per caption 1,
+    + BAD_END for a NO_END ending, + BAD_ONE for a short one-word caption in a longer sentence, + BAD_NP for a split noun
+    phrase, + 0.4 for a break that is neither punctuation nor a pause (0.1 just before a NO_END word: a phrase boundary)."""
     n = len(words); best = [0.0] + [float('inf')] * n; back = [0] * (n + 1)
     for i in range(1, n + 1):
-        for j in range(max(0, i - max_words), i):
+        for j in range(max(0, i - 3), i):
             g = words[j:i]
-            if len(g) > chunk_cap(g, max_words, max_long, long_letters): continue
+            if not ok(g) and len(g) > 1: continue   # a single word is always placeable (never dropped)
             c = 1.0
-            if i < n and norm(g[-1]) in NO_END: c += BAD_END
-            if len(g) == 1 and n > 1 and letters(g[0]) < long_letters: c += BAD_ONE
-            if i < n and not punct[i - 1] and not pause[i - 1]: c += .4
+            if i < n and norm(g[-1]) in NO_END: c += bad_end
+            if len(g) == 1 and n > 1 and letters(g[0]) < long_letters: c += bad_one
+            if i < n and np_split(g, words[i], punct[i] or i + 1 == n): c += bad_np
+            if i < n and not punct[i - 1] and not pause[i - 1]: c += .1 if norm(words[i]) in NO_END else .4   # before a preposition/conjunction: a phrase boundary
             if best[j] + c < best[i]: best[i], back[i] = best[j] + c, j
     out, i = [], n
     while i > 0: out.append((back[i], i)); i = back[i]
-    return out[::-1]
+    return out[::-1], best[n]
 
 
-def group(cues, style):
-    """Owner grouping → chunks like chunk(): [{words, start, end, onset, line}]."""
-    bp, out = style['blankPause'], []
+def group(cues, style, emph=()):
+    """Owner grouping → chunks like chunk(): [{words, start, end, onset, line, sentenceEnd, sentenceLen, size}]."""
+    bp, out, first = style['blankPause'], [], cues['lines'][0]['line'] if cues['lines'] else None
     for line in cues['lines']:
         words, toks, raw = line['words'], display_words(line), line['text'].split()
         if len(raw) != len(words): raw = [w['w'] for w in words]
+        size = style['openerSize'] if line['line'] == first else style['size']
         onsets, onset = [], line['start']
         for i, w in enumerate(words):
             if i and w['start'] - words[i - 1]['end'] > bp: onset = w['start']
@@ -138,36 +186,37 @@ def group(cues, style):
             idx = list(range(s0, k + 1)); ws = [toks[i][0] for i in idx]
             punct = [toks[i][1] for i in idx]
             pause = [i + 1 < len(words) and words[i + 1]['start'] - words[i]['end'] > bp for i in idx]
-            parts = split_sentence(ws, None, punct, pause, style['maxWords'], style.get('maxWordsLong') or style['maxWords'], style.get('longLetters', 7))
+            parts = split_sentence(ws, lambda g: fits(g, size, style, emph), punct, pause, style.get('longLetters', 7))
             for a, b in parts:
                 i0, i1 = idx[a], idx[b - 1]
                 out.append({'words': ws[a:b], 'start': words[i0]['start'], 'end': words[i1]['end'], 'onset': onsets[i0], 'line': line['line'],
-                            'sentenceEnd': b == len(ws), 'sentenceLen': len(ws)})
+                            'sentenceEnd': b == len(ws), 'sentenceLen': len(ws), 'size': size, 'next': ws[b] if b < len(ws) else None,
+                            'npSplit': b < len(ws) and np_split(ws[a:b], ws[b], punct[b] or b + 1 == len(ws))})
             s0 = k + 1
     return out
 
 
-def grouping_issues(chunks, style):
+def grouping_issues(chunks, style, emph=()):
     """Pure check of the owner rules on finished groups → [str]."""
     out = []
     for c in chunks:
-        w = c['words']
-        if len(w) > chunk_cap(w, style['maxWords'], style.get('maxWordsLong'), style.get('longLetters', 7)): out.append(f'too many words: {w}')
+        w = c['words']; size = c.get('size', style['size'])
+        if len(w) > 1 and not fits(w, size, style, emph): out.append(f'too wide or too long: {w}')
         if norm(w[-1]) in NO_END and not c.get('sentenceEnd'): out.append(f'ends on "{w[-1]}": {w}')
         if len(w) == 1 and letters(w[0]) < style.get('longLetters', 7) and c.get('sentenceLen', 1) > 1: out.append(f'short one-word caption: {w}')
     return out
 
 
-def make_chunks(cues, style):
+def make_chunks(cues, style, emph=()):
     """The style's grouping: "v3" (owner rules) or the original chunker (v2, "Nobody")."""
-    if style.get('grouping') == 'v3': return group(cues, style)
+    if style.get('grouping') == 'v3': return group(cues, style, emph)
     return chunk(cues, style['maxWords'], style['blankPause'], style.get('maxWordsLong'), style.get('longLetters', 7))
 
 
 def episode_sizes(timed, style, emph=()):
     """oneSize styles: one body size and one opener size for the whole episode, each the largest that fits the widest group
     at that size (emphasis words at emphasisScale). → (opener, body)."""
-    if not timed: return style['openerSize'], style['size']
+    if not timed or style.get('maxWidthFrac'): return style['openerSize'], style['size']   # width-rule styles: the sizes are fixed
     first = timed[0]['line']; op = [c for c in timed if c['line'] == first]; body = [c for c in timed if c['line'] != first] or op
     fit = lambda cs, sz: min(fit_size(c['words'], sz, style, emphasis(c['words'], emph)) for c in cs)
     return fit(op, style['openerSize']), fit(body, style['size'])
@@ -274,7 +323,7 @@ def main():
     cues = json.load(open(o.cues or f'stories/{o.story}/cues.json'))
     spec = json.load(open(o.spec)) if o.spec else {}
     style = load_style(o.style or spec.get('captionStyle'))
-    timed = timing(make_chunks(cues, style), style['leadSeconds'], style['blankPause'])
+    timed = timing(make_chunks(cues, style, spec.get('emphasis', [])), style['leadSeconds'], style['blankPause'])
     ass = to_ass(timed, style, spec.get('emphasis', []), spec.get('shots'), spec.get('fps', 30), o.until)
     out = o.out or f'stories/{o.story}/build/captions.ass'
     import os; os.makedirs(os.path.dirname(out), exist_ok=True); open(out, 'w').write(ass)

@@ -5,6 +5,7 @@
 // spec.crowds = [{id, count, centre: [x, z] | {anchor, offset}, radius | area: [w, d], mode: 'ambient'|'panic'|'lookUp'|'cheer',
 //   dir: [x, z] (panic), speed, seed, face: [x, z] (look toward), expression (face decal), visible: [[t, bool]], scale}]
 import * as T from 'three';
+import {crowdColours} from './heroread.js';
 import {ambientPose, samplePose, RUN_SPEED} from './poses.js';
 import {PARTS, SKINS, headGeometry, createActor, plastic} from '../avatar-style/body.js';
 import {hair4Geometry} from '../avatar-style/hair4.js';
@@ -73,11 +74,11 @@ export function memberMatrices(m, s, at) {
   return out;
 }
 
-export function createCrowds(scene, list = [], {groundY = () => 0, resolveCentre = c => c} = {}) {
+export function createCrowds(scene, list = [], {groundY = () => 0, resolveCentre = c => c, avoidColours = []} = {}) {   // avoidColours: Season 1 hero readability (engine/heroread.js)
   const box = new T.BoxGeometry(1, 1, 1), mat = new T.MeshPhongMaterial({color: '#ffffff', shininess: 30, specular: '#333333'});
   const hairWhite = CROWD_HAIR.map(st => hair4Geometry(st, '#ffffff', 'crowd'));
   const crowds = list.map(c => {
-    const members = crowdMembers({...c, centre: resolveCentre(c.centre ?? [0, 0])}), n = members.length, group = new T.Group(); group.name = 'crowd_' + (c.id ?? 'x');
+    const members = crowdColours(crowdMembers({...c, centre: resolveCentre(c.centre ?? [0, 0])}), avoidColours), n = members.length, group = new T.Group(); group.name = 'crowd_' + (c.id ?? 'x');
     members.forEach(m => { m.hairStyle = m.i % CROWD_HAIR.length; });
     const meshes = {};
     for (const [name] of BODY) {

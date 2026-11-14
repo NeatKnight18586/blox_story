@@ -718,3 +718,16 @@ Three weakest things:
   1. Without his name tag, Stan is hard to pick out of the crowd in the rain wides (9–11 s). Only the camera singles him out.
   2. Captions sit on the two kids' torsos in the night shot (15–17 s).
   3. The demo has no in-world text at all, so the allowed case (scoreboard, sign) is not shown yet.
+
+## Owner decisions before episode 1: caption width rule + hero readability (2026-11-14)
+- **Captions:**
+  - The 7-letter rule is replaced by a measured width rule: a group holds 1–3 words if `rendered_width` at the episode size is ≤ 86 % of 1080. The measure is libass-calibrated: PIL advance × fs / (ascent + descent), plus outline and shadow; "There's a scoreboard" = 873 px measured vs 868 predicted.
+  - Sizes: body 111, opener 130.
+  - Split is two-stage: a fully legal split always wins (noun phrases a soft preference). Only when none exists does keeping a noun phrase whole outrank the other breaks.
+  - Egg: 177 groups. **9 rule breaks in 7 sentences**, each proven unavoidable by a brute-force test: lone "on", "With"; "plays in", "stealing them for"; one-word "It" ×2, "Kit".
+  - Phone check PASS: cap 3.46 % / 4.04 %.
+- **Hero readability** (`engine/heroread.js`, Season 1 or `heroRead`):
+  - a soft rim SpotLight behind the shot subject in wides and mediums, no shadow, off in close-ups;
+  - crowds never wear any subject's main outfit colour (RGB distance ≥ 90; stronger than the 6-unit rule, cheaper);
+  - `v2:plan` errors when a wide's subject leaves the middle 60 %.
+- **Checks:** tests 77 node + 51 python. "Nobody" 11/11 byte-identical.

@@ -7,8 +7,8 @@
  ],
  "font": "Lilita One",
  "fontFile": "node_modules/@expo-google-fonts/lilita-one/400Regular/LilitaOne_400Regular.ttf",
- "size": 128,
- "openerSize": 150,
+ "size": 111,
+ "openerSize": 130,
  "primary": "&H00FFFFFF",
  "outline": 9,
  "outlineColour": "&H00101010",
@@ -22,10 +22,9 @@
  "leadSeconds": 0.04,
  "blankPause": 0.35,
  "pop": "\\fscx82\\fscy82\\t(0,80,\\fscx108\\fscy108)\\t(80,130,\\fscx100\\fscy100)",
- "maxWordsLong": 2,
  "longLetters": 7,
- "fitWidth": 960,
  "minCap": 0.026,
  "grouping": "v3",
- "oneSize": true
+ "oneSize": true,
+ "maxWidthFrac": 0.86
 }
