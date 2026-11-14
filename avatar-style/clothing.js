@@ -110,7 +110,7 @@ const sneakers = (k, c, y = .84) => { k.rect(0, y, 1, 1, '#f4f4f4'); k.rect(0, y
 const jeans = (k, side, o) => { k.fill(o.legs); if (side === 'front') { k.line([[.5, 0], [.5, .1]], shade(o.legs, .7), .015); k.line([[.12, .05], [.3, .22]], tint(o.legs, .25), .012, [.03, .02]); } k.rect(0, .78, 1, .06, shade(o.legs, .8)); };
 Object.assign(PAINT, {
   tee(k, part, side, o) {
-    if (part === 'torso') { k.fill(o.main); if (side === 'front') { collarShade(k); k.poly([[.38, 0], [.62, 0], [.5, .1]], o.skin); k.line([[.36, 0], [.5, .12], [.64, 0]], shade(o.main, .78), .025); if (o.accent) { k.rect(.3, .32, .4, .26, o.accent); k.rect(.36, .38, .28, .14, shade(o.accent, .78)); } }
+    if (part === 'torso') { k.fill(o.main); if (side === 'front') { collarShade(k); k.poly([[.38, 0], [.62, 0], [.5, .1]], o.skin); k.line([[.36, 0], [.5, .12], [.64, 0]], shade(o.main, .78), .025); if (o.accent) { if (o.fitted) { k.rect(.34, .125, .32, .13, o.accent); k.rect(.385, .155, .23, .07, shade(o.accent, .78)); } else { k.rect(.3, .32, .4, .26, o.accent); k.rect(.36, .38, .28, .14, shade(o.accent, .78)); } } }   // fitted (adult_f): decal inside the straight top block (top 27 %)
       if (side === 'top') k.rect(.38, 0, .24, .2, o.skin); if (side !== 'top' && side !== 'bottom') k.rect(0, .92, 1, .08, shade(o.main, .82)); }
     else if (part === 'arm') { k.fill(o.skin); if (side !== 'bottom') { k.rect(0, 0, 1, .36, o.main); k.rect(0, .32, 1, .05, shade(o.main, .8)); } }
     else { jeans(k, side, o); if (side !== 'top') sneakers(k, o.trim); if (side === 'bottom') k.fill('#d8d8d8'); }
@@ -152,9 +152,10 @@ export function outfitMaterials(outfit, part, size, skin, tier = 'hero') {
 }
 
 // Materials for all six parts of an actor wearing `outfit` (arms and legs share their painter).
-export function dress(outfit, skin, tier) {
+// `fitted` (opt-in, set by engine/actors.js for profile builds such as adult_f): front decals move into the straight top block.
+export function dress(outfit, skin, tier, {fitted = false} = {}) {
   return {
-    torso: outfitMaterials(outfit, 'torso', [2, 2, 1], skin, tier),
+    torso: outfitMaterials(fitted ? {...outfit, fitted: true} : outfit, 'torso', [2, 2, 1], skin, tier),
     leftArm: outfitMaterials(outfit, 'arm', [.98, 1.99, 1], skin, tier), rightArm: outfitMaterials(outfit, 'arm', [.98, 1.99, 1], skin, tier),
     leftLeg: outfitMaterials(outfit, 'leg', [.98, 2, 1], skin, tier), rightLeg: outfitMaterials(outfit, 'leg', [.98, 2, 1], skin, tier),
   };

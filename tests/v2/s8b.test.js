@@ -101,8 +101,14 @@ test('lumagate: mask mean and a 6–14 px ring on a synthetic image', () => {
 import {BUILDS, torsoWidthAt, buildError, buildLayout, createActor} from '../../avatar-style/body.js';
 test('body builds: torso widths, youth height, no adult build under 18, adult_m unchanged', () => {
   const near = (a, b) => Math.abs(a - b) < 1e-9;
-  assert.ok(near(torsoWidthAt('adult_f', 0), 1.9) && near(torsoWidthAt('adult_f', .55), 1.6) && near(torsoWidthAt('adult_f', 1), 1.85));
-  assert.ok(torsoWidthAt('adult_f', .3) < 1.9 && torsoWidthAt('adult_f', .3) > 1.6, 'tapers between shoulders and waist');
+  // adult_f (owner reference 2026-11-14): u is from the top, the owner's heights are from the bottom (h = 1 − u)
+  const fw = h => torsoWidthAt('adult_f', 1 - h) / torsoWidthAt('adult_f', 0);
+  assert.ok(near(torsoWidthAt('adult_f', 0), 2) && near(torsoWidthAt('adult_f', 1), 2), 'top and hips 2.0');
+  let narrow = 1, at = 0; for (let h = 0; h <= 1.0001; h += .005) if (fw(h) < narrow) { narrow = fw(h); at = h; }
+  assert.ok(Math.abs(narrow - .68) <= .01 && Math.abs(at - .37) <= .01, `narrowest ${narrow.toFixed(3)} at ${at.toFixed(3)}`);
+  for (let h = .73; h <= 1.0001; h += .01) assert.ok(near(fw(h), 1), `straight from 0.73 to 1.00 (h ${h.toFixed(2)})`);
+  for (const [a, b] of [[.73, .37], [.37, 0]]) { const mid = (a + b) / 2; assert.ok(near(fw(mid), (fw(a) + fw(b)) / 2), 'straight lines between rows'); }
+  assert.ok(near(torsoWidthAt('adult_f', 1 - .37), 1.36), 'waist 1.36');
   for (const u of [0, .3, .55, .8, 1]) assert.equal(torsoWidthAt('adult_m', u), 2);
   assert.ok(torsoWidthAt('elder_f', .55) > torsoWidthAt('elder_f', 0) && BUILDS.elder_f.stoop > 0);
   assert.ok(near(buildLayout('youth').torso.size[1], 1.8) && near(buildLayout('youth').headPivot[1], 3.83));
@@ -110,7 +116,13 @@ test('body builds: torso widths, youth height, no adult build under 18, adult_m 
   assert.equal(buildError({age: 11, build: 'youth'}), null); assert.equal(buildError({age: 11}), null); assert.equal(buildError({age: 40, build: 'adult_f'}), null);
   assert.ok(buildError({age: 30, build: 'youth'})); assert.ok(buildError({build: 'giant'}));
   const m = createActor({}), f = createActor({build: 'adult_f'});
-  assert.deepEqual(m.restPositions.leftShoulder, [-1.51, 4.02, 0]); assert.ok(Math.abs(f.restPositions.leftShoulder[0] + 1.46) < 1e-9);
-  const p = f.parts.torso.geometry.attributes.position; let maxX = 0; for (let i = 0; i < p.count; i++) maxX = Math.max(maxX, Math.abs(p.getX(i))); assert.ok(maxX <= .951 && maxX > .9);
+  assert.deepEqual(m.restPositions.leftShoulder, [-1.51, 4.02, 0]);
+  for (const k of Object.keys(m.restPositions)) for (let i = 0; i < 3; i++) assert.ok(Math.abs(f.restPositions[k][i] - m.restPositions[k][i]) < 1e-9, `adult_f ${k} pivot = adult_m`);
+  for (const k of ['leftArm', 'rightArm', 'leftLeg', 'rightLeg']) assert.equal(f.parts[k].geometry, m.parts[k].geometry, `adult_f ${k} = adult_m`);
+  const p = f.parts.torso.geometry.attributes.position, ys = new Map(); let maxX = 0;
+  for (let i = 0; i < p.count; i++) { maxX = Math.max(maxX, Math.abs(p.getX(i))); const y = +p.getY(i).toFixed(4); ys.set(y, Math.max(ys.get(y) ?? 0, Math.abs(p.getX(i)))); }
+  assert.ok(near(maxX, 1)); assert.equal(ys.size, 4, 'four rows'); assert.ok(Math.abs(ys.get(+(-1 + .37 * 2).toFixed(4)) - .68) < 1e-6, 'waist row at 0.37 (float32)');
+  assert.ok(ys.has(-1.02) && Math.abs(3.02 - 1.02 - 2) < 1e-9, 'hip row meets the leg tops at y 2.0');
+  assert.equal(f.parts.torso.geometry.index, null, 'non-indexed: flat faces, sharp edges');
   const data = JSON.parse(rf('cast/troupe.json', 'utf8')); for (const k of ['LEAD', 'SECOND', 'LITTLE', 'RIVAL']) { assert.equal(data.troupe[k].build, 'youth'); assert.ok(data.troupe[k].age < 18); }
 });

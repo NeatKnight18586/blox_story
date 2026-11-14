@@ -1,0 +1,107 @@
+{
+ "limits": {
+  "waist": [
+   0.66,
+   0.7
+  ],
+  "band": [
+   0.6,
+   0.66
+  ],
+  "armGap": 0.12,
+  "shoulderGap": 1,
+  "hipMatch": 1
+ },
+ "frame": [
+  390,
+  693
+ ],
+ "failures": [],
+ "adult_f": {
+  "pxPerUnit": 88.64,
+  "torsoPx": {
+   "top": 243,
+   "bottom": 421,
+   "height": 179
+  },
+  "topWidthPx": 178,
+  "waist": {
+   "px": 120,
+   "ratio": 0.6742,
+   "atDown": 0.6236
+  },
+  "narrowest": {
+   "ratio": 0.6742,
+   "atDown": 0.6236
+  },
+  "armGapAtWaist": {
+   "px": [
+    30,
+    30
+   ],
+   "fracOfTop": [
+    0.1685,
+    0.1685
+   ]
+  },
+  "shoulderGapPx": {
+   "max": 1,
+   "rows": 19
+  },
+  "hips": {
+   "torsoPx": [
+    107,
+    282
+   ],
+   "legsPx": [
+    107,
+    282
+   ],
+   "rowsBetween": 0
+  }
+ },
+ "adult_m": {
+  "pxPerUnit": 88.64,
+  "torsoPx": {
+   "top": 243,
+   "bottom": 419,
+   "height": 177
+  },
+  "topWidthPx": 178,
+  "waist": {
+   "px": 178,
+   "ratio": 1,
+   "atDown": 0.6023
+  },
+  "narrowest": {
+   "ratio": 1,
+   "atDown": 0.0511
+  },
+  "armGapAtWaist": {
+   "px": [
+    1,
+    1
+   ],
+   "fracOfTop": [
+    0.0056,
+    0.0056
+   ]
+  },
+  "shoulderGapPx": {
+   "max": 1,
+   "rows": 18
+  },
+  "hips": {
+   "torsoPx": [
+    107,
+    282
+   ],
+   "legsPx": [
+    107,
+    282
+   ],
+   "rowsBetween": 2
+  }
+ },
+ "pass": true
+}

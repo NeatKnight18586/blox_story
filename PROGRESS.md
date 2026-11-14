@@ -579,3 +579,37 @@ Also built: `render.js --final` (1440×2560, AA). `scripts/v2/qc.py` (`npm run v
     1. With youth torsos the kids read stockier, not younger: the heads stay full size.
     2. Line-up figures are still 14 % of frame height with 55 % sky above.
     3. AFK (adult_m) towers over the youth troupe, so he reads as a grown-up, not a frozen player.
+
+## Session 8b fix: adult_f torso to the owner's reference (2026-11-14)
+Plan:
+1. Change `BUILDS.adult_f` to a `profile` (rows from the bottom: 1.00→1.00, 0.73→1.00, 0.37→0.68, 0.00→1.00; top 2.0, waist 1.36, hips 2.0, depth 1.0).
+2. `torsoWidthAt` becomes piecewise-linear through the rows. The torso is one box row per profile row, non-indexed: flat faces, sharp edges, no bevel.
+3. Arms and legs are exactly adult_m. Revert the 0.9 / inward idea. elder_f, youth, adult_m and the age rule are unchanged.
+4. Outfits: the texture follows the faces; `dress(…, {fitted})` moves the tee decal into the top block (0.73–1.00).
+5. Tests: waist/top 0.68 ± 0.01 at 0.37 ± 0.01, straight from 0.73 to 1.00.
+6. Add `scripts/v2/build-gates.js` (flat, ortho, 390 px; exit 1 on fail), plus `builds-390.png` with an outfit row.
+
+Built:
+- `avatar-style/body.js`: `profile` builds and `profileTorso`. The hip row drops 0.02 (`HIP_DROP`) onto the leg tops: the legacy torso floats 0.02 above the legs, which measured 2 background rows. That was fix pass 1.
+- `buildLayout` puts adult_f pivots equal to adult_m, and the arm/leg geometries are the same cached objects (tested).
+- `clothing.js` `dress(outfit, skin, tier, {fitted})`; `actors.js` passes `fitted` for profile builds.
+- Tee decal for fitted builds sits at 0.125–0.255 of the height, inside the straight block.
+- `engine/buildgate.{html,js}` + `scripts/v2/build-gates.js` → `review/season1/build-gates.json`. `builds-sheet.js` has a third row: tee, hoodie, robe (the dress-like recipe), the flat gate render, and a side view.
+
+Commands and numbers:
+- `node scripts/v2/build-gates.js` → **PASS** at 88.64 px/unit:
+
+  | Check | adult_f | Limit |
+  |---|---|---|
+  | waist/top | **0.674**, at 62.4 % down (narrowest row) | 0.66–0.70 at 60–66 % down |
+  | arm gap at waist | 30 px = **16.9 %** of top, each side | ≥ 12 % |
+  | shoulder gap (rows 5–15 %) | max **1 px** | ≤ 1 px |
+  | hips vs legs | 107–282 vs 107–282, **0** rows between | match |
+
+  - adult_m reference: shoulder 1 px; **2 rows** between hips and legs (legacy, unchanged).
+- `node --test tests/v2/s8b.test.js` 9/9. `npm run v2:test` 67 pass. `npm test` pass.
+
+Three weakest things (`builds-390.png`, row 3 + adult_f cells):
+1. The fitted tee decal is small (0.64 × 0.26 units). At 390 px it reads as a name badge, not a print.
+2. The hoodie pocket and the robe's trim follow the taper, so the pocket becomes a trapezoid; and at 3/4 the waist notch facets catch light very differently from the front, so the cut reads sharper than the reference.
+3. From the side, adult_f is a plain 1.0-deep box, the same as adult_m. The build only reads from the front and three-quarter.

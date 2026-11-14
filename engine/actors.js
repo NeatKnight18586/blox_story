@@ -15,7 +15,7 @@ import {sampleTimeline, ambientPose, applyPoseSample} from './poses.js';
 export function buildActor(preset, name = 'actor') {
   const tier = preset.tier ?? 'hero', skin = preset.skin ?? SKINS[0];
   const err = buildError({...preset, name}); if (err) throw Error('build: ' + err);   // A5 Decision 5: never an adult build under 18
-  const a = createActor({tier, skin, scale: preset.scale ?? 1, name, build: preset.build ?? null, materials: preset.outfit ? dress(preset.outfit, skin, tier) : {}});
+  const a = createActor({tier, skin, scale: preset.scale ?? 1, name, build: preset.build ?? null, materials: preset.outfit ? dress(preset.outfit, skin, tier, {fitted: !!BUILDS[preset.build]?.profile}) : {}});
   if (preset.hair) (preset.hair.v === 4 ? attachHair4(a, preset.hair.style, preset.hair.color, preset.hairTier ?? null)   // A5: v4 sculpted (Season 1)
     : preset.hair.v === 3 || preset.hairStyle === 'v3' ? attachHair3(a, preset.hair.style, preset.hair.color, {streak: preset.hair.streak}) : attachHair(a, preset.hair.style, preset.hair.color));
   for (const acc of preset.accessories ?? []) typeof acc === 'string' ? attachAccessory(a, acc) : attachAccessory(a, acc.name, acc);
