@@ -1,9 +1,10 @@
 // parts/vegetation.js — instanced trees, bushes, near-camera grass cards, rocks, flowers (Amendment A4 A4).
-// Four tree species (trunk + leaf clusters, each ≤ 220 triangles, flat-shaded low-poly, three leaf tones by vertex colour).
+// Four tree species (A5: smooth welded canopy blobs + bark trunks, each ≤ 260 triangles, gradient darker underneath).
 // Every set is ONE InstancedMesh per (species, part, near|far): near instances cast shadows, far ones never do.
 // Wind sway is in the vertex shader from a shared uniform uTime set by update(t): a pure function of the frame.
 import * as T from 'three';
-import {mergeGeometries} from 'three/addons/utils/BufferGeometryUtils.js';
+import {mergeGeometries, mergeVertices} from 'three/addons/utils/BufferGeometryUtils.js';
+import {patternTexture} from './materials.js';
 import {rng} from './build.js';
 
 // ---- geometry (pure, Node-safe) -------------------------------------------------------------------------
@@ -22,40 +23,51 @@ const at = (g, x, y, z, s = [1, 1, 1], r = [0, 0, 0]) => { g.scale(...s); g.rota
 const LEAF = {conifer: ['#2f5a3a', '#3f7448', '#5a8c56'], broadleaf: ['#3f6f2f', '#5c8f3c', '#86b052'], poplar: ['#4a7a34', '#6a9a42', '#93b85a'], palm: ['#3f7a3a', '#5e9a46', '#8cbf5a']};
 const BARK = {conifer: '#5a4232', broadleaf: '#6a5038', poplar: '#8a7a64', palm: '#9a7f5c'};
 
+// ---- A5 §D: smooth canopies. A canopy is 3–7 WELDED rounded blobs (indexed → smooth normals), leaves pattern via a planar
+// uv, vertex gradient darker underneath; trunks carry the bark pattern. Tree ≤ 260 triangles; the far LOD stays tiny.
+const weld = g => { for (const k of ['uv', 'normal']) if (g.attributes[k]) g.deleteAttribute(k); g = mergeVertices(g); return g; };
+const blob = (r, x, y, z, s = [1, 1, 1], detail = 1) => weld(new T.IcosahedronGeometry(r, detail)).scale(...s).translate(x, y, z);
+const roundCone = (r, h, y, segs = 8) => { const prof = [[.001, h], [r * .42, h * .78], [r * .86, h * .38], [r, h * .12], [r * .55, 0]].map(([a, b]) => new T.Vector2(a, b)); return weld(new T.LatheGeometry(prof, segs)).translate(0, y, 0); };
+// planar uv (x+z, y) + gradient colour: dark underneath → light on top, ±tone per blob index
+function finishCanopy(geos, cols, tile = .45) {
+  const g = mergeGeometries(geos.map(x => { for (const k of Object.keys(x.attributes)) if (k !== 'position') x.deleteAttribute(k); return x; }));
+  g.computeVertexNormals(); g.computeBoundingBox();
+  const p = g.attributes.position, uv = new Float32Array(p.count * 2), c = new Float32Array(p.count * 3), {min, max} = g.boundingBox, lo = new T.Color(cols[0]), mid = new T.Color(cols[1]), hi = new T.Color(cols[2]), t = new T.Color();
+  for (let i = 0; i < p.count; i++) { const x = p.getX(i), y = p.getY(i), z = p.getZ(i), h = (y - min.y) / Math.max(1e-6, max.y - min.y), n = g.attributes.normal.getY(i);
+    uv[i * 2] = (x + z) * tile; uv[i * 2 + 1] = y * tile; t.copy(lo).lerp(mid, Math.min(1, h * 1.6)).lerp(hi, Math.max(0, (h - .55) * 1.6 + n * .25)); if (n < -.3) t.lerp(lo, .5); c.set([t.r, t.g, t.b], i * 3); }
+  g.setAttribute('uv', new T.BufferAttribute(uv, 2)); g.setAttribute('color', new T.BufferAttribute(c, 3)); return g;
+}
+function finishTrunk(geos, col) {
+  const g = mergeGeometries(geos.map(x => { const n = x.index ? x : x; for (const k of Object.keys(n.attributes)) if (!['position', 'normal', 'uv'].includes(k)) n.deleteAttribute(k); return n; }));
+  const p = g.attributes.position, c = new Float32Array(p.count * 3), k = new T.Color(col); for (let i = 0; i < p.count; i++) c.set([k.r, k.g, k.b], i * 3);
+  g.setAttribute('color', new T.BufferAttribute(c, 3)); return g;
+}
+const cyl = (r0, r1, h, segs, x, y, z, rz = 0) => { const g = new T.CylinderGeometry(r0, r1, h, segs, 1, true); g.rotateZ(rz); g.translate(x, y, z); return g; };
 export function treeGeometry(species, seed = 1, {lod = 'near'} = {}) {
   const R = rng(seed * 7 + species.length), trunk = [], leaves = [];
-  if (lod === 'far') {   // far LOD (≤ 40 triangles): the same silhouette from one or two primitives
-    trunk.push(at(new T.CylinderGeometry(.3, .45, species === 'palm' ? 7 : 3.4, 4, 1, true), 0, species === 'palm' ? 3.5 : 1.7, 0));
-    if (species === 'conifer') leaves.push(at(new T.ConeGeometry(2.6, 8.4, 6), 0, 6.6, 0));
-    else if (species === 'poplar') leaves.push(at(new T.OctahedronGeometry(1.6, 0), 0, 5.8, 0, [1, 2.6, 1]));
-    else if (species === 'palm') leaves.push(at(new T.ConeGeometry(3.2, 1.6, 6), 1.6, 7.2, 0, [1, 1, 1], [Math.PI, 0, 0]));
-    else leaves.push(at(new T.OctahedronGeometry(2.8, 0), 0, 6, 0, [1, .85, 1]), at(new T.OctahedronGeometry(1.9, 0), 1.3, 5.2, .6));
+  if (lod === 'far') {   // far LOD (≤ 50 triangles): one or two smooth blobs on a 4-sided trunk
+    trunk.push(cyl(.3, .45, species === 'palm' ? 7 : 3.4, 4, 0, species === 'palm' ? 3.5 : 1.7, 0));
+    if (species === 'conifer') leaves.push(roundCone(2.6, 7.6, 2.6, 6));
+    else if (species === 'poplar') leaves.push(blob(1.6, 0, 5.8, 0, [1, 2.4, 1], 0));
+    else if (species === 'palm') leaves.push(blob(2.6, 1.6, 7.2, 0, [1, .35, 1], 0));
+    else leaves.push(blob(2.7, 0, 6, 0, [1, .85, 1], 0), blob(1.8, 1.3, 5.2, .6, [1, .9, 1], 0));
   } else if (species === 'conifer') {
-    trunk.push(at(new T.CylinderGeometry(.28, .42, 3.2, 5, 1, true), 0, 1.6, 0));
-    for (let i = 0; i < 4; i++) leaves.push(at(new T.ConeGeometry(2.8 - i * .58, 3.4 - i * .3, 7), (R() - .5) * .2, 3.2 + i * 2.05, (R() - .5) * .2, [1, 1, 1], [0, R() * 3, 0]));
+    trunk.push(cyl(.28, .42, 3.2, 5, 0, 1.6, 0));
+    for (let i = 0; i < 3; i++) leaves.push(roundCone(2.9 - i * .75, 3.8 - i * .4, 2.6 + i * 2.4).translate((R() - .5) * .2, 0, (R() - .5) * .2));
   } else if (species === 'broadleaf') {
-    trunk.push(at(new T.CylinderGeometry(.32, .5, 4.2, 6, 1, true), 0, 2.1, 0));
-    for (const s of [-1, 1]) trunk.push(at(new T.CylinderGeometry(.14, .22, 2.2, 4, 1, true), s * .7, 4.2, 0, [1, 1, 1], [0, 0, -s * .7]));
-    const blobs = [[0, 6.4, 0, 2.6], [1.7, 5.6, .4, 1.9], [-1.6, 5.7, -.3, 2], [.3, 5.4, 1.6, 1.8], [-.4, 5.5, -1.6, 1.8]];
-    for (const [x, y, z, r] of blobs) leaves.push(at(new T.IcosahedronGeometry(r, 0), x + (R() - .5) * .4, y + (R() - .5) * .4, z, [1, .82, 1], [R(), R(), 0]));
+    trunk.push(cyl(.32, .5, 4.4, 6, 0, 2.2, 0));
+    for (const [x, y, z, r] of [[0, 6.3, 0, 2.6], [1.6, 5.4, .5, 1.9], [-1.5, 5.6, -.4, 2]]) leaves.push(blob(r, x + (R() - .5) * .4, y + (R() - .5) * .4, z, [1, .84, 1]));
   } else if (species === 'poplar') {
-    trunk.push(at(new T.CylinderGeometry(.22, .36, 3, 5, 1, true), 0, 1.5, 0));
-    leaves.push(at(new T.IcosahedronGeometry(1.5, 0), 0, 4.2, 0, [1, 1.7, 1], [0, R(), 0]), at(new T.IcosahedronGeometry(1.25, 0), .1, 6.6, -.1, [1, 1.6, 1], [0, R(), 0]), at(new T.IcosahedronGeometry(.9, 0), 0, 8.6, .05, [1, 1.5, 1]));
+    trunk.push(cyl(.22, .36, 3, 5, 0, 1.5, 0));
+    leaves.push(blob(1.5, 0, 4.4, 0, [1, 1.6, 1]), blob(1.2, .1, 6.6, -.1, [1, 1.6, 1]), blob(.85, 0, 8.4, .05, [1, 1.5, 1]));
   } else if (species === 'palm') {
-    let x = 0, y = 0; for (let i = 0; i < 5; i++) { const dx = .18 + i * .06; trunk.push(at(new T.CylinderGeometry(.24, .3, 1.5, 5, 1, true), x + dx / 2, y + .75, 0, [1, 1, 1], [0, 0, -Math.atan2(dx, 1.5)])); x += dx; y += 1.45; }
-    for (let i = 0; i < 7; i++) {   // fronds: a bent 3-segment strip each
-      const a = i / 7 * Math.PI * 2 + R() * .3, g = new T.PlaneGeometry(.9, 3.6, 1, 3), p = g.attributes.position;
-      for (let k = 0; k < p.count; k++) { const v = p.getY(k) + 1.8; p.setXYZ(k, p.getX(k) * (1 - v / 4.2), -.12 * v * v, v); }
-      g.computeVertexNormals(); leaves.push(at(g, x, y + .2, 0, [1, 1, 1], [0, a, 0]));
-    }
-    leaves.push(at(new T.IcosahedronGeometry(.45, 0), x, y, 0));
+    let x = 0, y = 0; for (let i = 0; i < 5; i++) { const dx = .18 + i * .06; trunk.push(cyl(.24, .3, 1.5, 5, x + dx / 2, y + .75, 0, -Math.atan2(dx, 1.5))); x += dx; y += 1.45; }
+    for (let i = 0; i < 6; i++) { const a = i / 6 * Math.PI * 2 + R() * .3, g = blob(1, 0, 0, 0, [.45, .14, 1.9], 0); g.translate(0, -.25, 1.6); g.rotateX(.28); g.rotateY(a); g.translate(x, y + .3, 0); leaves.push(g); }
+    leaves.push(blob(.5, x, y, 0, [1, 1, 1], 0));
   } else throw Error('unknown tree ' + species);
-  const tg = tone(mergeGeometries(trunk.map(nonIdx)), [BARK[species], BARK[species], new T.Color(BARK[species]).offsetHSL(0, 0, .06).getStyle()], seed);
-  const lg = tone(mergeGeometries(leaves.map(nonIdx)), LEAF[species], seed + 3);
-  tg.computeVertexNormals(); lg.computeVertexNormals();
-  return {trunk: tg, leaves: lg};
+  return {trunk: finishTrunk(trunk, BARK[species]), leaves: finishCanopy(leaves, LEAF[species])};
 }
-export const bushGeometry = seed => { const R = rng(seed), parts = [0, 1, 2].map(i => at(new T.IcosahedronGeometry(.9 - i * .15, 0), (i - 1) * .7, .6 + R() * .2, (R() - .5) * .6, [1, .8, 1], [R(), R(), 0])); const g = tone(mergeGeometries(parts.map(nonIdx)), ['#3f6a32', '#5a8a40', '#7fae55'], seed); g.computeVertexNormals(); return g; };
+export const bushGeometry = seed => { const R = rng(seed); return finishCanopy([0, 1, 2].map(i => blob(.9 - i * .15, (i - 1) * .7, .6 + R() * .2, (R() - .5) * .6, [1, .8, 1], 0)), ['#3f6a32', '#5a8a40', '#7fae55']); };
 export const rockGeometry = seed => { const R = rng(seed), g = nonIdx(new T.DodecahedronGeometry(1, 0)), p = g.attributes.position; for (let i = 0; i < p.count; i++) { const k = .85 + R() * .3; p.setXYZ(i, p.getX(i) * k, p.getY(i) * k * .7, p.getZ(i) * k); } const out = tone(g, ['#7c7a76', '#9a968e', '#b5b0a6'], seed); out.computeVertexNormals(); return out; };
 // crossed quads for grass/flowers (alpha-tested texture, uv.y = height for the sway)
 export function cardGeometry(w = 1.6, h = .9) { const a = new T.PlaneGeometry(w, h); a.translate(0, h / 2, 0); const b = a.clone(); b.rotateY(Math.PI / 2); return mergeGeometries([a, b]); }
@@ -110,8 +122,8 @@ export function vegetation({height, veg, area, seed = 1, avoid = () => false, fo
   const species = veg.trees ?? [];
   species.forEach((sp, si) => {
     const list = sample((veg.treeDensity ?? 0) / Math.max(1, species.length), (x, z) => slope(x, z) < maxSlope), geoNear = treeGeometry(sp, seed + si), geoFar = treeGeometry(sp, seed + si, {lod: 'far'});
-    const bark = vMat('bark', () => windMaterial(new T.MeshPhongMaterial({vertexColors: true, flatShading: true, shininess: 6}), {amp: .0025}));
-    const leaf = vMat('leaf' + sp, () => windMaterial(new T.MeshPhongMaterial({vertexColors: true, flatShading: true, shininess: 10, specular: '#1a1a1a'}), {amp: sp === 'palm' ? .004 : .0035, flutter: .03}));
+    const bark = vMat('bark', () => windMaterial(new T.MeshPhongMaterial({vertexColors: true, map: patternTexture('bark'), shininess: 6}), {amp: .0025}));
+    const leaf = vMat('leaf' + sp, () => windMaterial(new T.MeshPhongMaterial({vertexColors: true, map: patternTexture('leaves'), shininess: 12, specular: '#1a1a1a'}), {amp: sp === 'palm' ? .004 : .0035, flutter: .03}));
     for (const [part, near] of split(list).map((l, k) => [l, k === 0])) {
       const geo = near ? geoNear : geoFar;
       inst(geo.trunk, bark, part, {cast: near, name: `tree_${sp}_trunk_${near ? 'near' : 'far'}`});
@@ -120,7 +132,7 @@ export function vegetation({height, veg, area, seed = 1, avoid = () => false, fo
     stats.trees += list.length;
   });
   const bushes = sample(veg.bushes ?? 0, (x, z) => slope(x, z) < .6), rocks = sample(veg.rocks ?? 0, () => true);
-  const bushMat = vMat('bush', () => windMaterial(new T.MeshPhongMaterial({vertexColors: true, flatShading: true, shininess: 8}), {amp: .02, flutter: .02}));
+  const bushMat = vMat('bush', () => windMaterial(new T.MeshPhongMaterial({vertexColors: true, map: patternTexture('leaves'), shininess: 8}), {amp: .02, flutter: .02}));
   const rockMat = vMat('rock', () => new T.MeshPhongMaterial({vertexColors: true, flatShading: true, shininess: 14}));
   for (const [part, near] of split(bushes).map((l, k) => [l, k === 0])) inst(bushGeometry(seed + 41), bushMat, part, {cast: near, name: 'bushes_' + (near ? 'near' : 'far'), tint: p => tw.setHSL(0, 0, .85 + p.k * .3)});
   for (const [part, near] of split(rocks).map((l, k) => [l, k === 0])) inst(rockGeometry(seed + 43), rockMat, part, {cast: near, name: 'rocks_' + (near ? 'near' : 'far'), sx: p => [p.s * (1 + p.k), p.s * (.6 + p.k * .8), p.s * (1.3 - p.k * .4)]});

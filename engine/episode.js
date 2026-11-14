@@ -97,10 +97,12 @@ for (const [name, c] of Object.entries(spec.cast ?? {})) {
   else { const a = createBaseAvatar({color: c.color ?? 0xf2c94c}); scene.add(a.root); cast[name] = {a, c}; }
 }
 if (Object.values(cast).some(x => x.v2)) await loadFont();
+for (const s of shots) if (s.fit && s.fit.h === undefined && cast[s.fit.actor]) s.fit.h = 5.3 * cast[s.fit.actor].a.root.scale.y;   // A5 §F: actor height for `fit`
 // A4 night "actor lift" (opt-in spec.actorLift, v3 looks only): plastic avatars get a small self-light (emissive = their
 // own colour / texture × k) so they stay the highest-contrast thing in a dark frame. Faces (MeshBasic) are untouched.
-if (look?.v3 && spec.actorLift) {
-  const k = spec.actorLift, seen = new Set();
+const usesNightBright = spec.look === 'nightBright' || (spec.shots ?? []).some(s => s.look === 'nightBright');
+if (look?.v3 && (spec.actorLift ?? (usesNightBright ? .24 : 0))) {   // A5 §E: on by default under nightBright
+  const k = spec.actorLift ?? .24, seen = new Set();
   for (const {a, v2} of Object.values(cast)) if (v2) a.root.traverse(o => { if (!o.isMesh || seen.has(o.material) || o.material.isMeshBasicMaterial || !o.material.emissive) return; const m = o.material; seen.add(m);
     if (m.map) { m.emissiveMap = m.map; m.emissive.setRGB(k, k, k); } else if (m.vertexColors) m.emissive.setRGB(k * .5, k * .45, k * .4); else m.emissive.copy(m.color).multiplyScalar(k); m.needsUpdate = true; });
 }

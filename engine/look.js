@@ -14,6 +14,9 @@ export const PRESETS = {
     sun: '#a9c4ff', sunI: .7, sunEl: 48, sunAz: 140, rim: '#9fc2ff', rimI: 1.2, cloud: '#33456e', exposure: 1.3, windows: 1.2},
   storm: {skyTop: '#4a5566', skyHorizon: '#8a96a6', fog: '#8a96a6', fogNear: 40, fogFar: 200, hemiSky: '#b8c2d0', hemiGround: '#55604a', hemi: 1.0,
     sun: '#dfe6f0', sunI: 1.0, sunEl: 60, sunAz: 20, rim: '#cfd8e6', rimI: .3, cloud: '#7d8796', exposure: 1.05, windows: .3},
+  // A5 §E: a night bright enough for a phone: strong cool moon key, teal-blue ambient, raised exposure (episode 1 is all night)
+  nightBright: {skyTop: '#123a6a', skyHorizon: '#4a86b8', fog: '#2f5a86', fogNear: 90, fogFar: 340, hemiSky: '#8fd0e0', hemiGround: '#35566e', hemi: 1.9,
+    sun: '#cfe0ff', sunI: 2.3, sunEl: 38, sunAz: 168, rim: '#b8dcff', rimI: 1.5, cloud: '#5a76a8', exposure: 1.5, windows: 1.5},
   fireNight: {skyTop: '#3a2244', skyHorizon: '#ff9a5a', fog: '#8a4a42', fogNear: 60, fogFar: 260, hemiSky: '#ffb487', hemiGround: '#4a3a5a', hemi: 1.5,
     sun: '#ff9a4a', sunI: 1.6, sunEl: 26, sunAz: 300, rim: '#9fc2ff', rimI: 1.2, cloud: '#6a3a48', exposure: 1.35, windows: 1.2},
 };
@@ -120,8 +123,8 @@ export function patchHeightFog({base = 0, falloff = 8, amount = .3, near = 40} =
 }
 // v3 extras per preset (stars/moon on dark skies, sun disc size and glow)
 export const SKY_V3 = {
-  day: {disc: 1, glow: .35, stars: 0, moon: 0}, goldenHour: {disc: 1.4, glow: .6, stars: 0, moon: 0}, storm: {disc: 0, glow: .1, stars: 0, moon: 0},
-  night: {disc: 0, glow: .18, stars: 1, moon: 1}, fireNight: {disc: 0, glow: .3, stars: .4, moon: 0},
+  day: {disc: 1, glow: .35, stars: 0, moon: 0}, goldenHour: {disc: 1.4, glow: .6, stars: 0, moon: 0}, storm: {disc: 0, glow: .1, stars: 0, moon: 0, cloudLit: '#e2e6ec', cloudShade: '#353c48', cloudOp: 1.5},   // A5: storm clouds read as shapes
+  night: {disc: 0, glow: .18, stars: 1, moon: 1}, nightBright: {disc: 0, glow: .25, stars: 1, moon: 1}, fireNight: {disc: 0, glow: .3, stars: .4, moon: 0},
 };
 export const sunDir = (el, az) => [Math.sin(az * Math.PI / 180) * Math.cos(el * Math.PI / 180), Math.sin(el * Math.PI / 180), Math.cos(az * Math.PI / 180) * Math.cos(el * Math.PI / 180)];
 
@@ -172,7 +175,7 @@ export function createLookV3(scene, renderer, {radius = 820, fog = {}, clouds = 
         #include <colorspace_fragment>
         }`});
     const p = new T.Mesh(new T.PlaneGeometry(size, size), m); p.rotation.x = Math.PI / 2; p.position.y = y; p.renderOrder = -1; p.name = 'cloudLayer' + k; p.frustumCulled = false;
-    scene.add(p); layers.push({p, m, par, speed, y});
+    scene.add(p); layers.push({p, m, par, speed, y, op0: op});
   }
   // generated environment map (PMREM of a gradient sky scene) for hero environment materials
   let envTex = null;
@@ -198,7 +201,7 @@ export function createLookV3(scene, renderer, {radius = 820, fog = {}, clouds = 
       const p = base.apply(name, b, w), x = SKY_V3[typeof name === 'string' ? name : 'day'] ?? SKY_V3.day, xb = b ? (SKY_V3[b] ?? x) : x, mix = k => x[k] + (xb[k] - x[k]) * (b ? w : 0);
       su.top.value.set(p.skyTop); su.horizon.value.set(p.skyHorizon); su.ground.value.set(p.fog); su.sunCol.value.set(p.sun);
       su.sunDir.value.set(...sunDir(p.sunEl, p.sunAz)); su.disc.value = mix('disc'); su.glow.value = mix('glow'); su.stars.value = mix('stars'); su.moon.value = mix('moon');
-      for (const l of layers) { l.m.uniforms.col.value.set(p.cloud).lerp(new T.Color('#ffffff'), .35); l.m.uniforms.shade.value.set(p.cloud).lerp(new T.Color(p.skyTop), .45); }
+      for (const l of layers) { l.m.uniforms.col.value.set(x.cloudLit ?? p.cloud); if (!x.cloudLit) l.m.uniforms.col.value.lerp(new T.Color('#ffffff'), .35); l.m.uniforms.shade.value.set(x.cloudShade ?? p.cloud); if (!x.cloudShade) l.m.uniforms.shade.value.lerp(new T.Color(p.skyTop), .45); l.m.uniforms.op.value = l.op0 * (x.cloudOp ?? 1); }
       if (fog.color) scene.fog.color.set(fog.color);
       if (fog.near) scene.fog.near = fog.near; if (fog.far) scene.fog.far = fog.far;
       return p;
