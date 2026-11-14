@@ -204,7 +204,7 @@ export function checkSeason({spec, shots, cues, fps = 30, end, info = [], meas =
     });
     stats.clockBoard = rows.filter(r => r.clock >= SHOT_RULES.objFrac || r.board >= SHOT_RULES.objFrac).map(r => ({shot: r.id, dur: +r.dur.toFixed(2), clock: +r.clock.toFixed(3), board: +r.board.toFixed(3)}));
     for (const x of clockBoardIssues(rows)) W(x);
-    for (const x of holdIssues(shots, fps, exempt, cues.duration)) W(x);
+    // holds: owner pass 2 moved the rule to scripts/v2/read.js (static ≤ 3 s, moving ≤ 4.5 s), which measures the motion
     for (const x of moodIssues(spec, cues)) W(x);
   }
   return {errors, warnings, stats};

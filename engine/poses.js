@@ -50,6 +50,7 @@ const POSES = {
   eggHold: (t, o) => { const s = legacy('idle', t + (o.phase ?? 0), {}), {alpha: a, theta: h} = EGG_HOLD.eggHold; s.pivots.rightShoulder = [-a, 0, -h]; s.pivots.leftShoulder = [-a, 0, h]; return s; },
   eggWalk: (t, o) => { const s = POSES.walk(t, o), {alpha: a, theta: h} = EGG_HOLD.eggHold; s.pivots.rightShoulder = [-a, 0, -h]; s.pivots.leftShoulder = [-a, 0, h]; return s; },
   eggRun: (t, o) => { const s = POSES.run(t, o), {alpha: a, theta: h} = EGG_HOLD.eggHold; s.pivots.rightShoulder = [-a, 0, -h]; s.pivots.leftShoulder = [-a, 0, h]; return s; },
+  eggRunLow: (t, o) => { const s = POSES.run(t, o); s.pivots.rightShoulder = [-.5, 0, -.5]; s.pivots.leftShoulder = [-.5, 0, .5]; return s; },   // opt-in (owner pass 2): an armful carried low, the face clear
   eggChin: (t, o) => { const s = legacy('idle', t + (o.phase ?? 0), {}), {alpha: a, theta: h} = EGG_HOLD.eggChin; s.pivots.rightShoulder = [-a, 0, -h]; s.pivots.leftShoulder = [-a, 0, h]; s.pivots.head = [.18, 0, 0]; return s; },
   toolSwing(t) {
     const u = clamp01(t / .45);
@@ -73,6 +74,10 @@ const POSES = {
   },
   sit: (t, o) => make({leftHip: [-PI / 2, 0, -.04], rightHip: [-PI / 2, 0, .04], leftShoulder: [-.3, 0, -.05], rightShoulder: [-.3, 0, .05]}, {dy: o.ground ? -1.5 : 0}),
   sitEgg: (t, o) => { const s = POSES.sit(t, {ground: true}), {alpha: a, theta: h} = EGG_HOLD.eggHold; s.pivots.rightShoulder = [-a, 0, -h]; s.pivots.leftShoulder = [-a, 0, h]; s.pivots.head = [.15, 0, 0]; return s; },   // opt-in (egg nest): seated on the ground, an egg held in both hands
+  sneak(t) {   // opt-in (egg, owner pass 2): a sly tiptoe, knees bent, the egg tucked under the right arm, the left hand raised for balance
+    const p = Math.sin(2 * PI * twos(t) / 1.1), lift = Math.abs(Math.sin(2 * PI * t / 1.1));
+    return make({leftShoulder: [-.45 + .1 * p, 0, -.4], rightShoulder: [-.1, 0, .18], leftHip: [-.55 * p - .25, 0, 0], rightHip: [.55 * p - .25, 0, 0], head: [-.05, 0, 0]}, {lean: .22, dy: -.25 + .12 * lift});
+  },
   bow: t => { const u = smooth(clamp01(t / .5)); return make({leftShoulder: [.1 * u, 0, -.06], rightShoulder: [.1 * u, 0, .06], head: [.3 * u, 0, 0]}, {lean: .6 * u}); },   // opt-in (egg S33): a small polite bow
   sleep: t => make({leftShoulder: [0, 0, -.12], rightShoulder: [0, 0, .12], head: [.04 * Math.sin(t * 1.4), 0, 0]}, {lean: -PI / 2, dy: .5}),
   wave(t) { const w = Math.sin(twos(t) * 2 * PI * 1.6); return make({rightShoulder: [-.2, 0, 2.5 + .35 * w], leftShoulder: [0, 0, -.06], head: [0, 0, -.08]}); },

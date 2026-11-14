@@ -11,7 +11,7 @@
 // Cross-fades between states over 0.3 s. driveDragon applies a sample to the rig built by buildDragon.
 import * as T from 'three';
 
-export const DRAGON_STATES = ['perch', 'fly', 'roar', 'breathe', 'lower', 'turn', 'flinch', 'cry', 'flee', 'curl'];
+export const DRAGON_STATES = ['perch', 'fly', 'roar', 'breathe', 'lower', 'turn', 'flinch', 'cry', 'flee', 'curl', 'wiggle'];
 export const DRAGON_COLORS = {body: '#2f6d7a', dark: '#24525c', belly: '#f2a33a', horn: '#f7f3ea', wing: '#c0392b', wingDk: '#8e2a22', eye: '#c8ff3a', pupil: '#141414', tear: '#7fd6ff', mouth: '#5a1a1a', tooth: '#ffffff'};
 const NECK = 4, TAIL = 6, FADE = .3, PI = Math.PI;
 const clamp01 = x => Math.min(1, Math.max(0, x)), smooth = x => { x = clamp01(x); return x * x * (3 - 2 * x); };
@@ -26,6 +26,7 @@ const STATES = {
   turn: (t, o) => ({headYaw: (o.yaw ?? 40) * PI / 180, neck: 1.0, neckBend: -.2, headPitch: .1, tailAmp: .2}),
   flinch: t => ({neck: 1.0, headPitch: -.75, jaw: .3, eyes: 0, wingUp: .4, wingFold: .4, wingSpread: .9, pitch: -.18, bodyY: .3, tremble: .06 * Math.sin(t * 60) * Math.exp(-t * 3)}),
   cry: t => ({neck: 1.1, neckBend: -.4, headPitch: -.2, jaw: .35 + .12 * Math.sin(t * 9), eyes: 0, tears: 1, tremble: .03 * Math.sin(t * 30), wingFold: .7, tailAmp: .05}),
+  wiggle: t => ({bodyY: .5 * Math.abs(Math.sin(2 * PI * t / .9)), neck: .9, neckBend: -.4, headPitch: -.1, headYaw: .35 * Math.sin(2 * PI * t / 1.3), wingUp: .3 * Math.sin(2 * PI * t / .45), wingFold: .5, wingSpread: .6, tailAmp: .45}),   // opt-in: a happy baby wiggle
   curl: t => ({curl: 1, neck: 1.25, neckBend: -.15, headPitch: .35, jaw: .05, wingFold: 1, wingSpread: .2, wingUp: -.15, tailAmp: .03, bodyY: .1 * Math.sin(2 * PI * t / 3.2)}),   // opt-in: lying curled round a nest (head resting, tail wrapped)
   flee: t => { const f = STATES.fly(t); return {...f, eyes: 0, tears: 1, jaw: .3 + .1 * Math.sin(t * 9), headPitch: -.2}; },
 };
@@ -64,13 +65,16 @@ function wingSegment(parent, len, chord, side, C = DRAGON_COLORS) {
 // brow ridge, a longer snout with nostril bumps); baby = hatchling proportions (head ≥ 40 % of the body height, short neck,
 // stubby legs, small wings, nub horns, big eyes). Neither changes the default dragon.
 export const BABY = {head: 1.8, neck: .55, wings: .42, tail: .6, legs: .62, spikes: .45};
-export function buildDragon({scale = 1, name = 'dragon', colors = null, face = null, baby = false} = {}) {   // colors (opt-in): override DRAGON_COLORS keys (hatchlings)
+// Opt-in (owner pass 2): wingScale (span wider than the body), rim '#hex' (bright edges on the wing bones and tips, for a
+// moon backlight), spikes (back-ridge scale; < 1 also drops every other spike) + saddle (a flat seat on the shoulders).
+export function buildDragon({scale = 1, name = 'dragon', colors = null, face = null, baby = false, wingScale = 1, rim = null, spikes = 1, saddle = false} = {}) {   // colors (opt-in): override DRAGON_COLORS keys (hatchlings)
   if (baby) face = face ?? 'v2';
   const C = colors ? {...DRAGON_COLORS, ...colors} : DRAGON_COLORS, root = new T.Group(); root.name = name; root.scale.setScalar(scale);
   const body = pivot(root, [0, 9, 0], 'body');
   box(body, [7, 6, 13], [0, 0, 0], C.body);
   box(body, [5.2, 1.2, 11], [0, -3.2, .5], C.belly);                                                     // belly plates
-  for (let i = 0; i < 5; i++) spike(body, .7, 1.8, [0, 3.6, 5 - i * 2.5], C.horn);                     // back ridge
+  for (let i = 0; i < 5; i++) if (spikes >= 1 || i % 2 === 0) { const sp = spike(body, .7, 1.8, [0, 3.6, 5 - i * 2.5], C.horn); if (spikes !== 1) { sp.scale.setScalar(spikes); sp.position.y = 3 + .6 * spikes; } }   // back ridge
+  if (saddle) { box(body, [4.6, .7, 3.4], [0, 3.35, 3.4], '#8a4a2a'); box(body, [4.8, .9, .5], [0, 3.6, 1.6], '#6a3a20'); }
   box(body, [7.4, 1.2, 4], [0, 1.4, 5.8], C.dark);                                                        // shoulders
   // legs (4): thigh blocks + feet with claws
   const legs = [];
@@ -124,6 +128,9 @@ export function buildDragon({scale = 1, name = 'dragon', colors = null, face = n
   for (const sx of [-1, 1]) {
     const inner = pivot(body, [sx * 3.4, 2.6, 3], 'wing'), outer = pivot(inner, [sx * 8, 0, 0], 'wingOuter');
     wingSegment(inner, 8, 8, sx, C); wingSegment(outer, 8.5, 6.5, sx, C); wings.push({inner, outer, sx});
+    if (wingScale !== 1) inner.scale.set(wingScale, 1, wingScale);
+    if (rim) { const rm = new T.MeshBasicMaterial({color: rim, toneMapped: false}); for (const [pv, len] of [[inner, 8], [outer, 8.5]]) { const e = new T.Mesh(new T.BoxGeometry(len, .5, .5), rm); e.position.set(sx * len / 2, .1, .3); pv.add(e);
+      const t = new T.Mesh(new T.BoxGeometry(len * .8, .3, .3), rm); t.position.set(sx * len * .45, -.1, -(len === 8 ? 8 : 6.5) + .2); pv.add(t); } }
   }
   // tail chain (tapers backward)
   const tail = []; p = pivot(body, [0, -.5, -6.5], 'tail0');

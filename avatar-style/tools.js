@@ -85,7 +85,7 @@ function eggTool(name) {
 function eggsTool(name) {
   const designs = name.slice(5).split(','), grp = eggTool('egg:' + designs[0]), base = grp.children[0], r = EGG_R.held * .8, k = designs.length;
   base.scale.setScalar(.8); const at = base.position.clone();
-  const spots = [[-.95, 0, 0], [.95, 0, 0], [0, 1.25, .1], [0, .2, .9], [0, 2.3, .2]];
+  const spots = [[-.95, -.15, 0], [.95, -.15, 0], [0, -.4, 1.0], [0, .55, -.6], [.5, .3, .8]];   // a low heap: no egg above the chin (owner pass 2)
   designs.slice(1).forEach((d, i) => { const e = eggMesh(d, {r, rim: true}); const [x, y, z] = spots[i]; e.position.set(at.x + x * r * 1.4, at.y + y * r * 1.2, at.z + z * r); e.rotation.z = (i % 2 ? -.35 : .35); grp.add(e); });
   base.position.y -= r * .2; grp.userData.eggs = k; return grp;
 }
