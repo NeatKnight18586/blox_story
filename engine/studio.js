@@ -5,6 +5,7 @@ import * as T from 'three';
 import {buildActor, townsperson, driveActor} from './actors.js';
 import {loadFont, setTag, fitTags} from './overhead.js';
 import {setFace} from '../avatar-style/faces2.js';
+import {setFace3} from '../avatar-style/faces3.js';
 import {triangles} from '../avatar-style/body.js';
 import {classSword} from '../parts/props.js';
 
@@ -63,7 +64,7 @@ export function render(cell, w, h) {
     const slot = used.get(spec.id) ?? 0; used.set(spec.id, slot + 1);
     const a = actorFor(spec.id, slot, spec.with ?? null); a.root.visible = true;
     driveActor(a, spec.t ?? 0, {keys: [[0, spec.pose ?? 'idle', spec.opts ?? {}]], origin: {position: spec.at ?? [0, 0, 0], yaw: (spec.yaw ?? 0) * Math.PI / 180}, ambient: false});
-    setFace(a, spec.face ?? a.preset.face ?? 'smile');
+    if (a.faceStyle === 'v3') setFace3(a, spec.face ?? a.preset.face ?? 'smile'); else setFace(a, spec.face ?? a.preset.face ?? 'smile');
     if (a.tag) a.tag.userData.show = spec.tag !== false;
   }
   addProps(cell.props);

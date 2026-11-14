@@ -87,6 +87,7 @@ for (const s of shots) {
 // {dir: [x, z], speed} moves the mark at constant speed (e.g. WALK_SPEED for 'walk').
 const presets = spec.castFile ? (await (await fetch(new URL('../' + spec.castFile, import.meta.url))).json()).cast : {};
 const cast = {};
+const FACES_V3 = spec.faces === 'v3' || (spec.season === 1 && spec.faces !== 'v2');
 const troupeData = Object.values(spec.cast ?? {}).some(c => c.troupe) ? await (await fetch(new URL('../' + (spec.troupeFile ?? 'cast/troupe.json'), import.meta.url))).json() : null;   // A4 troupe slots
 // Marks (Session 5): `marks: [[t0, {at, offset, yaw, travel}], ...]` re-block an actor over the episode; the
 // entry's own at/offset/yaw/travel is the mark before the first key.
@@ -95,7 +96,8 @@ for (const [name, c] of Object.entries(spec.cast ?? {})) {
   if (c.at) c.origin = resolve({anchor: c.at, offset: c.offset ?? [0, 0, 0]});
   if (c.style === 'dragon') { const d = buildDragon({scale: c.scale ?? 1, name, colors: c.colors ?? null}); scene.add(d.root); cast[name] = {a: d, c, dragon: true}; continue; }
   if (c.style === 'v2') { if (c.troupe === 'AFK') { c.keys ??= [[0, troupeData.AFK.pose ?? 'walk']]; c.faces ??= [[0, 'neutral']]; }
-    const pre = c.troupe ? resolveTroupe(c, troupeData) : c.town ? townsperson(c.town) : c.preset ? {...presets[c.preset], ...(c.with ?? {})} : c;
+    const pre0 = c.troupe ? resolveTroupe(c, troupeData) : c.town ? townsperson(c.town) : c.preset ? {...presets[c.preset], ...(c.with ?? {})} : c;
+    const pre = FACES_V3 && !pre0.faceStyle ? {...pre0, faceStyle: 'v3'} : pre0;   // Faces v3: default for season 1 (or spec.faces 'v3')
     const a = buildActor(c.noTag ? {...pre, tag: null} : pre, name); scene.add(a.root); cast[name] = {a, c, v2: true}; }
   else { const a = createBaseAvatar({color: c.color ?? 0xf2c94c}); scene.add(a.root); cast[name] = {a, c}; }
 }
@@ -138,6 +140,8 @@ function markAt(c, t) {
   if (tr?.climb) at[1] += tr.climb * dd / Math.max(1e-6, tr.speed);
   return at;
 }
+// Faces v3 blink: no blink in a held close-up of ≤ 1 s (the shot at t)
+const blinkOff = t => { const f = Math.round(t * FPS), sh = shots.findLast(s => f >= s.start); return !!sh && sh.size === 'close' && sh.frames / FPS <= 1 + 1e-9; };
 function poseCast(t) {
   const out = {};
   for (const [name, {a, c, v2, dragon}] of Object.entries(cast)) {
@@ -147,7 +151,7 @@ function poseCast(t) {
       markPos[name] = [...at];
       if (dragon) driveDragon(a, t, {keys: c.keys ?? [[0, 'perch']], origin: {position: at, yaw}});
       else driveActor(a, t, {keys: c.keys ?? [[0, c.action ?? 'idle']], faces: c.faces, ambient: !!c.ambient,
-        origin: {position: at, yaw}, tags: c.tags, fps: FPS, tools: c.tools, toolsLeft: c.toolsLeft, stat: c.stat, bubble: c.bubble, visible: c.visible, kit: c.kit});
+        origin: {position: at, yaw}, tags: c.tags, fps: FPS, tools: c.tools, toolsLeft: c.toolsLeft, stat: c.stat, bubble: c.bubble, visible: c.visible, kit: c.kit, blinkSuppress: blinkOff(t)});
       if (dragon && c.visible) a.root.visible = valueAt(c.visible, t, true);
     } else {
       const s = sampleAction(c.action ?? 'idle', t, c.action === 'walk' ? {gait: c.gait ?? 'readable'} : {});
@@ -184,7 +188,7 @@ const effects = createEffects([...(spec.effects ?? []), ...revealEffects], {scen
 // from behind the current subject in wides and mediums (one SpotLight, no shadow); "Nobody" and older specs: off.
 const HERO_READ = spec.season === 1 || spec.heroRead === true;
 const subjectMains = HERO_READ ? [...new Set(shots.map(s => s.subject ?? s.fit?.actor).filter(n => cast[n]?.a.preset?.outfit?.main).map(n => cast[n].a.preset.outfit.main))] : [];
-const crowds = createCrowds(scene, spec.crowds ?? [], {groundY: world?.groundY ?? (() => 0), resolveCentre: c => Array.isArray(c) ? c : (p => [p[0], p[2]])(resolve(c)), avoidColours: subjectMains});
+const crowds = createCrowds(scene, spec.crowds ?? [], {groundY: world?.groundY ?? (() => 0), resolveCentre: c => Array.isArray(c) ? c : (p => [p[0], p[2]])(resolve(c)), avoidColours: subjectMains, faces: FACES_V3 ? 'v3' : 'v2'});
 const rim = HERO_READ ? (() => { const l = new T.SpotLight(RIM.color, 0, RIM.distance, RIM.angle, RIM.penumbra, RIM.decay); l.castShadow = false; l.visible = false; l.name = 'subjectRim'; scene.add(l, l.target); return l; })() : null;
 function aimRim(shot, camPos) {
   if (!rim) return; const n = shot?.subject ?? shot?.fit?.actor, m = n && markPos[n], r = m && cast[n].a.root.visible ? rimFor(shot.size, m, camPos, 5.3 * cast[n].a.root.scale.y) : null;

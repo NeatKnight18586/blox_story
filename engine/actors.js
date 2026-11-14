@@ -7,6 +7,7 @@ import {dress} from '../avatar-style/clothing.js';
 import {attachHair, attachHair3, attachHair4} from '../avatar-style/hair.js';
 import {attachAccessory} from '../avatar-style/accessories.js';
 import {setFace} from '../avatar-style/faces2.js';
+import {setFace3, faceError, blinkClosed} from '../avatar-style/faces3.js';
 import {attachTool, buildTool} from '../avatar-style/tools.js';
 import {setTag, statSprite, bubbleSprite} from './overhead.js';
 import {CLASSES} from '../parts/props.js';
@@ -21,7 +22,10 @@ export function buildActor(preset, name = 'actor') {
   for (const acc of preset.accessories ?? []) typeof acc === 'string' ? attachAccessory(a, acc) : attachAccessory(a, acc.name, acc);
   if (preset.tool) typeof preset.tool === 'string' ? attachTool(a, preset.tool) : attachTool(a, preset.tool.name, preset.tool);
   if (preset.opacity !== undefined && preset.opacity < 1) a.ghost = preset.opacity;
-  setFace(a, preset.face ?? 'smile');
+  if (preset.faceStyle === 'v3') {   // Faces v3 (season 1 and the troupe): adult-only face parts never on a youth build
+    const fe = faceError(preset.face ?? 'smile', a.build); if (fe) throw Error('face: ' + fe);
+    a.faceStyle = 'v3'; a.blinkSeed = [...name].reduce((h, ch) => (h * 31 + ch.charCodeAt(0)) % 9973, 7); setFace3(a, preset.face ?? 'smile');
+  } else setFace(a, preset.face ?? 'smile');
   if (preset.tag) setTag(a, preset.tag.name, preset.tag.role ?? null);
   if (preset.opacity !== undefined && preset.opacity < 1) a.root.traverse(o => {   // A4 AFK: see-through, own material copies
     if (!o.isMesh || o.name === 'face_decal') return; o.material = [].concat(o.material).map(m => { const c = m.clone(); c.transparent = true; c.opacity = preset.opacity; c.depthWrite = true; return c; }); if (o.material.length === 1) o.material = o.material[0]; });
@@ -50,12 +54,16 @@ export function townsperson(seed) {
 //   bubble = [[t0, text | null]]                        chat bubble (≤ 4 words) beside the head
 //   visible = [[t0, bool]]
 export function driveActor(a, t, {keys, faces, tags, origin = {position: [0, 0, 0], yaw: 0}, ambient = false, fps = 30,
-  tools, toolsLeft, stat, bubble, visible, kit} = {}) {
+  tools, toolsLeft, stat, bubble, visible, kit, blinkSuppress = false} = {}) {
   if (visible) { let v = true; for (const [t0, x] of visible) if (t >= t0) v = x; a.root.visible = v; }
   const s = ambient ? ambientPose(a.preset.seed ?? 1, t) : sampleTimeline(keys ?? [[0, 'idle']], a.preset.freeze ?? t);   // A4: preset.freeze holds one instant (AFK mid-step)
   applyPoseSample(a, s, origin);
   const stoop = BUILDS[a.build]?.stoop; if (stoop) { a.root.rotation.x += stoop; a.pivots.head.rotation.x -= stoop * .6; }   // elder_f: slight forward stoop, eyes kept forward
-  if (faces) { let f = faces[0][1]; for (const [t0, n] of faces) if (t >= t0) f = n; if (f !== a.face) setFace(a, f); }
+  if (a.faceStyle === 'v3') {   // v3: the timeline face plus a seeded blink (3 frames every 2.5–5 s; not at a face change or in a held close-up ≤ 1 s)
+    let f = a.preset.face ?? 'smile'; if (faces) { f = faces[0][1]; for (const [t0, n] of faces) if (t >= t0) f = n; }
+    const bl = blinkClosed(a.blinkSeed, t, {fps, changes: (faces ?? []).map(k => k[0]), suppress: !!blinkSuppress});
+    if (f !== a.face || bl !== !!a.faceBlink) setFace3(a, f, {blink: bl});
+  } else if (faces) { let f = faces[0][1]; for (const [t0, n] of faces) if (t >= t0) f = n; if (f !== a.face) setFace(a, f); }
   if (tags) {
     let cur = null; for (const k of tags) if (t >= k[0]) cur = k;
     const st = cur?.[3]?.cls ? {cls: cur[3].cls, color: CLASSES[cur[3].cls].color, icon: CLASSES[cur[3].cls].icon} : null;   // A3 class-coloured tag

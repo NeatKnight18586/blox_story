@@ -805,3 +805,71 @@ Three weakest things:
   1. S47: the mother is cropped to legs above the kids; "curled around them all" is not visible.
   2. S48: the dragons landing at sunrise are tiny dark shapes; the sunrise look barely changes the frame.
   3. S49: AFK cameo 2 is a faint ghost behind the bench; the hatchling on his head is not visible.
+
+## Faces v3: style study, then build (2026-11-14)
+**References studied** (docs/season1/refs/faces; style only; README exclusions honoured: ref4's red-marked faces, the meme face, sunglasses-egg, demon/creepy heads).
+- ref1 (main target): thick hand-inked strokes that swell and taper; huge white eyes with tiny pupils; wide open mouths with a dark interior, tongue and a teeth band; sweat drops; brows that carry most of the emotion.
+- ref2: modern girl faces with three to four tapered lashes, glossy eyes with two highlights, hatched or oval blush, the kiss/wink, ">  <" squeeze eyes, spirals, the wavy mouth and ":3"/"w" mouths.
+
+**Style table**, in face-width units (face = the decal = 1.0 wide, about 80 % of the head front; y measured up from the face centre; ranges, not single values):
+
+| Measure | Range |
+|---|---|
+| eye width | small 0.08–0.13 · normal 0.14–0.20 · big 0.20–0.27 |
+| eye height | 0.03 (lines) to 0.30 (goggle) |
+| eye-centre spacing | 0.34–0.52 |
+| eye line | y +0.00 to +0.12 |
+| mouth line (centre) | y −0.10 to −0.26 |
+| mouth height | 0.02 (flat) to 0.30 (scream) |
+| mouth width | 0.08–0.56 |
+| main stroke | 0.035–0.065 (swells mid-stroke, tapers to points) |
+| brow thickness | 0.03–0.08 · brows at eye line + 0.10 to + 0.20 |
+| highlight diameter | 0.025–0.09 (1–2 per pupil, upper side) |
+| blush | 0.12–0.20 wide × 0.05–0.10 tall · x ±0.22 to ±0.33 · y = eye line − 0.08 to − 0.18 |
+
+**Plan:**
+1. `avatar-style/faces3.js`: pure draw lists (SVG path strings → `Path2D`), tapered-stroke and outline builders, 10 brows, 18 eyes, 20 mouths, 10 extras, 50 presets plus story aliases, a placement grid from this table, and tiers (1024 / 512 / 128; crowd drops highlights and lashes).
+2. Rules as pure functions with tests:
+   - adult-only parts never on youth;
+   - dark skin (luma < 0.35): white sclera, a 1 px light edge on the ink, ≥ 3:1;
+   - a seeded blink every 2.5–5 s for 3 frames, never during a face change or a held close-up of ≤ 1 s;
+   - old face names map to presets.
+3. Integration: `setFace` uses faces3 when `faceStyle: 'v3'`, which is the default for `season: 1` and the troupe. "Nobody" is untouched (byte check).
+4. `scripts/v2/face-gates.js` (ranges, stroke ≥ 1.5 px at 390, pairwise ≥ 8 %, contrast, age) → `face-gates.json`; `faces-sheet.png`, `faces-phone-390.png`.
+5. `faces-vs-ref.png`, then fix the three weakest things per group, twice (pass 1 and pass 2 kept). Then stop.
+
+### Faces v3: built, numbers, passes (2026-11-14)
+**Built:**
+- `avatar-style/faces3.js`: 10 brows, 18 eyes, 20 mouths, 10 extras, 50 presets + 6 story aliases, runtime `{brows, eyes, mouth, extras}`.
+  - Every stroke is a filled taper (sin^0.45 swell, pointed ends, 4 % overshoot); outlines are bands heavier at the bottom; parts are scaled about their own anchors, with a small per-side tilt.
+  - Pure rules: `faceError` (age), `darkSkin` / `contrast`, `blinkClosed` (integer frames), `OLD_NAMES`.
+- Integration:
+  - `actors.js` (`faceStyle: 'v3'`: age check, seeded blink, `blinkSuppress` for held closes ≤ 1 s);
+  - `episode.js` (default for `season: 1` / `spec.faces`; this also applies to the egg spec, which is otherwise untouched);
+  - troupe default; studio; crowds (128 px tier, light edge).
+- Pages and scripts: `engine/facepage.*`, `scripts/v2/face-gates.js`, `face-sheets.js`, `faces-phone.js`.
+- `tests/v2/faces3.test.js` (4).
+
+**Gates** (`face-gates.json`): **PASS**.
+- All 56 presets inside the style table.
+- Main stroke 2.78 px (grid) / 3 px measured on the smile at a 390 px head; ≥ 1.5.
+- Most-alike pair: neutral~determined, 14.4 % of face pixels different at 128 px (≥ 8 %, 1,540 pairs).
+- Dark-skin edge contrast 8.7–10.6 : 1.
+- The age rule refuses g_lips, g_glam and custom lip colour on youth.
+
+**Fix passes** (gate fixes along the way): g_lips was 5.3 % from g_soft (it now has glossy eyes); the scream mouth ran off the decal (raised); blinks of 2 frames (rounding; now integer frames).
+- **Pass 1** (from `faces-vs-ref-pass0.png`): features too small and clustered; thin, even lines; weak accents.
+  - Parts scaled about their anchors (eyes ×1.25, mouth ×1.3/1.1, brows ×1.15), wider spacing, stroke 0.05 → 0.058.
+  - Fuller swell, per-side tilt, longer lashes, 4 bold blush hatches, a 1.45× sweat drop.
+- **Pass 2** (from `-pass1.png`):
+  - Wedge-shaped flat mouths and lash "fans" (now 3 sweeping from the outer corner, heavier upper lid).
+  - Filled-in spirals (thin stroke), doughnut eye rings (thinner), tiny dots and highlights (bigger), smile lines that read as dots (longer).
+- Tests: `v2:test` 84 node + python OK. `npm test` 0. "Nobody" 11/11 byte-identical.
+
+**Three weakest things per group** (`faces-vs-ref-pass2.png`; the owner decides):
+- **Base:** the dot eyes are still smaller and less inky than the reference's bold dots; smile strokes are cleaner and more even than the hand-inked ones; few faces use asymmetry.
+- **Girl:** glossy iris colour is faint at 96 px; blush ovals are flat and uniform; the upper lid could be heavier on `lashed`.
+- **Men:** elder smile lines read as brackets; m_brows brows are uniform slabs; the glasses rings are thin.
+- **Reactions:** mouths are tidy ellipses and arcs, not the reference's exaggerated asymmetric shapes; teeth and tongue have no shading line; sclera rings are uniform.
+- **Story:** brave (squeeze + flat) can read as pain; curious is close to the base set; wonder and shock share the "o" mouth.
+- **`faces-phone-390.png`:** at medium size the features use about 60 % of the head front; the rival's quiff hides his brows (smug loses its eyebrow); the elder's glasses read small.
