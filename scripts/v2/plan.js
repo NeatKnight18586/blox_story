@@ -39,7 +39,8 @@ try {
 
 const r = checkPlan({shots, cues, fps, end: spec.end, info});
 const sz = checkSeason({spec, shots, cues, fps, end: spec.end, info, meas});
-r.errors.push(...sz.errors, ...labelIssues(spec));   // owner rule §2c: noLabels (Season 1 / labels: false) r.warnings.push(...sz.warnings); r.stats.season = !!spec.season; r.stats.framing = sz.stats.framing; r.stats.uiItems = sz.stats.ui;
+r.errors.push(...sz.errors, ...labelIssues(spec));   // owner rule §2c: noLabels (Season 1 / labels: false)
+r.warnings.push(...sz.warnings); r.stats.season = !!spec.season; r.stats.framing = sz.stats.framing; r.stats.uiItems = sz.stats.ui; r.stats.eggs = sz.stats.eggs; r.stats.overlaps = sz.stats.overlaps;
 const table = shots.map((s, i) => ({id: s.id, beat: !!s.beat, t: +(s.start / fps).toFixed(2), dur: +(s.frames / fps).toFixed(2), size: s.size, move: s.move, loc: s.loc, speed: +(info[i].speed * 100).toFixed(0),
   subject: s.subject ? `${s.subject}@${(info[i].mid.heads[s.subject]?.x * 100).toFixed(0)},${(info[i].mid.heads[s.subject]?.y * 100).toFixed(0)}` : '', why: s.why}));
 console.table(table.map(({why, ...x}) => x));

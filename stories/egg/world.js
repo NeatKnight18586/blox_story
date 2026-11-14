@@ -9,7 +9,7 @@
 // World state (spec.worldState): board 'race' | 'hatched' · clock '1159' | '12' · nestKids true/false.
 import * as T from 'three';
 import {mergeGeometries, mergeVertices} from 'three/addons/utils/BufferGeometryUtils.js';
-import {eggMesh, nestMesh, EGGS} from '../../parts/eggs.js';
+import {eggMesh, nestMesh, EGGS, EGG_R, eggRadius} from '../../parts/eggs.js';
 
 export const TEAM = ['#e4574a', '#f2b632', '#2f80d1', '#9b59b6', '#1fb5a8', '#ff7aa8', '#7fc241', '#ff8c2e', '#4ad8ff', '#c0392b', '#f2e14a', '#8a6be8'];
 // base i → egg design (base 0 = Kit's empty base, south; base 6 = the mayor's observatory, north)
@@ -80,8 +80,8 @@ export function build(scene, {P, B, A, M, PR, TR, BI, V, W, look, spec}) {
     g.add(P.block([3.6, 5, .3], {at: [0, 3.3, d / 2 + .1], mat: mt('woodPlanks', c), cast: true}));
     for (const sx of [-1, 1]) { const m = new T.Mesh(new T.BoxGeometry(2, 2, .2), win); m.position.set(sx * (w / 2 - 2.2), 4.2, d / 2 + .12); g.add(m); }
     const lock = new T.Mesh(new T.RingGeometry(1.6, 2.3, 32, 1, 0, .01), new T.MeshBasicMaterial({color: c, toneMapped: false, side: T.DoubleSide})); lock.rotation.x = -Math.PI / 2; lock.position.set(0, .07, d / 2 + 3.2); g.add(lock); locks.push({lock, phase: b.i * .37});
-    const nest = nestMesh(.8); nest.position.set(3.2, .5, d / 2 + 1.8); g.add(nest);
-    if (kind !== 'plain') { const e = eggMesh(kind, {r: .5, beam: true}); e.position.set(3.2, 1.05, d / 2 + 1.8); g.add(e); eggs.push(e); { const gl = glow(EGGS[kind].detail, 4); gl.position.set(3.2, 1.1, d / 2 + 1.8); g.add(gl); } }
+    const er = eggRadius(kind), nest = nestMesh(er * 1.6); nest.position.set(3.2, .5, d / 2 + 1.8); g.add(nest);
+    if (kind !== 'plain') { const e = eggMesh(kind, {r: er, beam: true}); e.position.set(3.2, .55 + er * 1.15, d / 2 + 1.8); e.name = 'nestEgg_' + kind; g.add(e); eggs.push(e); { const gl = glow(EGGS[kind].detail, 7); gl.position.set(3.2, .6 + er * 1.2, d / 2 + 1.8); g.add(gl); } }
     theme(g, kind, d);
     g.position.set(b.x, groundY(b.x, b.z), b.z); g.rotation.y = b.yaw; g.name = 'base_' + b.i + '_' + kind; return g;
   }
@@ -130,13 +130,13 @@ export function build(scene, {P, B, A, M, PR, TR, BI, V, W, look, spec}) {
   const th = townHall(); th.position.set(-22, groundY(-22, -SQ - 10), -SQ - 12); th.rotation.y = .5; hero.add(th);
   for (let i = 0; i < 8; i++) { const a = (i + .25) / 8 * Math.PI * 2, l = lamp(); l.position.set(Math.sin(a) * (SQ + 1), groundY(Math.sin(a) * (SQ + 1), Math.cos(a) * (SQ + 1)), Math.cos(a) * (SQ + 1)); hero.add(l); }
   for (let i = 0; i < 4; i++) { const a = i * 1.57 + .4, bch = PR.smallProp('bench', i); bch.position.set(Math.sin(a) * (SQ - 3), groundY(0, 0) + .1, Math.cos(a) * (SQ - 3)); bch.rotation.y = a; bch.name = i === 0 ? 'bench' : 'bench' + i; hero.add(bch); }
-  const benchEgg = eggMesh('tide', {r: .5}); benchEgg.position.set(Math.sin(.4) * (SQ - 3), groundY(0, 0) + 1.2, Math.cos(.4) * (SQ - 3)); benchEgg.name = 'benchEgg'; benchEgg.visible = false; scene.add(benchEgg);
+  const benchEgg = eggMesh('tide', {r: EGG_R.nest}); benchEgg.position.set(Math.sin(.4) * (SQ - 3), groundY(0, 0) + 1.2, Math.cos(.4) * (SQ - 3)); benchEgg.name = 'benchEgg'; benchEgg.visible = false; scene.add(benchEgg);
   for (const [x, z] of [[-3.5, 14], [4.5, 12]]) { const l = new T.PointLight('#ffc27a', 9, 11, 2); l.position.set(x, groundY(x, z) + 4.2, z); scene.add(l); }   // warm practicals over the square (≤ 4 real lights)
-  const plainNest = nestMesh(.8); plainNest.position.set(14, groundY(14, 2) + .25, 2); scene.add(plainNest);   // the egg nobody wanted: a garden nest at the square's edge
-  const plainEgg = eggMesh('plain', {r: .5}); plainEgg.position.set(14, groundY(14, 2) + .8, 2); plainEgg.name = 'plainEggNest'; scene.add(plainEgg);
+  const plainNest = nestMesh(EGG_R.nest * 1.6); plainNest.position.set(14, groundY(14, 2) + .25, 2); scene.add(plainNest);   // the egg nobody wanted: a garden nest at the square's edge
+  const plainEgg = eggMesh('plain', {r: EGG_R.nest}); plainEgg.position.set(14, groundY(14, 2) + .3 + EGG_R.nest * 1.15, 2); plainEgg.name = 'plainEggNest'; scene.add(plainEgg);
   // hot potato: eggs arcing hand to hand over the square (visible only while the town plays)
   const flyers = new T.Group(); flyers.name = 'flyingEggs'; flyers.visible = false; scene.add(flyers);
-  const arcs = Array.from({length: 9}, (_, k) => { const e = eggMesh(['ember', 'frost', 'geode', 'storm', 'sprinkle', 'tide', 'moss', 'ember', 'storm'][k], {r: .45, rim: false}); flyers.add(e); const a0 = R() * 6.28, a1 = a0 + 1 + R() * 2; return {e, p0: [Math.sin(a0) * 12, Math.cos(a0) * 12], p1: [Math.sin(a1) * 12, Math.cos(a1) * 12], ph: R()}; });
+  const arcs = Array.from({length: 9}, (_, k) => { const e = eggMesh(['ember', 'frost', 'geode', 'storm', 'sprinkle', 'tide', 'moss', 'ember', 'storm'][k], {r: EGG_R.nest, rim: false}); flyers.add(e); const a0 = R() * 6.28, a1 = a0 + 1 + R() * 2; return {e, p0: [Math.sin(a0) * 12, Math.cos(a0) * 12], p1: [Math.sin(a1) * 12, Math.cos(a1) * 12], ph: R()}; });
   movers.push({update: t => { for (const a of arcs) { const u = (t * .7 + a.ph) % 1, x = a.p0[0] + (a.p1[0] - a.p0[0]) * u, z = a.p0[1] + (a.p1[1] - a.p0[1]) * u; a.e.position.set(x, groundY(x, z) + 3 + Math.sin(u * Math.PI) * 6, z); a.e.rotation.z = t * 5; } }});
   movers.push({update: t => { for (const l of locks) { const f = ((t * .45 + l.phase) % 1.4) / 1.2; l.lock.geometry.dispose(); l.lock.geometry = new T.RingGeometry(1.6, 2.3, 32, 1, 0, Math.max(.01, Math.min(1, f)) * Math.PI * 2); } for (const e of eggs) e.rotation.y = t * .4; }});
   // ---- Dax's bedroom (off-map interior): empty bed, a feather longer than Kit, an open window -------------------------------
@@ -157,7 +157,7 @@ export function build(scene, {P, B, A, M, PR, TR, BI, V, W, look, spec}) {
   nest.add(new T.Mesh((m => { m.computeVertexNormals(); return m; })(mergeGeometries(cg)), cm));
   const ringN = new T.Mesh(new T.TorusGeometry(26, 5, 8, 48), new T.MeshPhongMaterial({color: '#b48a52', map: M.patternTexture('thatch'), shininess: 4})); ringN.rotation.x = Math.PI / 2; ringN.position.y = 1; nest.add(ringN);
   const inner = new T.Mesh(new T.CircleGeometry(24, 40), new T.MeshPhongMaterial({color: '#c9a46a', map: M.patternTexture('thatch')})); inner.rotation.x = -Math.PI / 2; inner.position.y = -.4; nest.add(inner);
-  for (let k = 0; k < 7; k++) { const s = eggMesh(['ember', 'frost', 'moss', 'tide', 'geode', 'storm', 'sprinkle'][k], {r: .5, rim: false}); const a = k / 7 * 6.28; s.scale.set(1.1, .6, 1.1); s.position.set(Math.sin(a) * 18, .2, Math.cos(a) * 18); s.rotation.z = 1.2; nest.add(s); }   // hatched shells
+  for (let k = 0; k < 7; k++) { const s = eggMesh(['ember', 'frost', 'moss', 'tide', 'geode', 'storm', 'sprinkle'][k], {r: .5, rim: false}); const a = k / 7 * 6.28; s.scale.set(1.1, .6, 1.1); s.position.set(Math.sin(a) * 18, .2, Math.cos(a) * 18); s.rotation.z = 1.2; s.userData.egg = null; s.name = 'shell'; nest.add(s); }   // hatched shells (not eggs any more)
   const sun = new T.PointLight('#ffd08a', 30, 70, 1.4); sun.position.set(0, 26, 10); const sg = glow('#ffcf7a', 60); sg.position.set(0, 30, -30); nest.add(sun, sg);
   nest.position.set(...NEST); scene.add(nest);
   scene.add(hero);

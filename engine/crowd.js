@@ -21,13 +21,17 @@ const HAIR = ['#3a2418', '#6b4428', '#c8692a', '#e8c25a', '#202020', '#9a9a9a'];
 const r1 = (seed, k) => { const x = Math.sin(seed * 91.7 + k * 47.3) * 43758.5453; return x - Math.floor(x); };
 
 // Members (pure): seeded positions inside a disc or rectangle, colours, phase.
-export function crowdMembers({count = 20, centre = [0, 0], radius = 12, inner = 0, area = null, seed = 1, mode = 'ambient', dir = [0, 1], speed = RUN_SPEED * .8, face = null, scale = 1} = {}) {   // inner (opt-in): a ring, members between inner and radius
-  const n = Math.min(CROWD_MAX, count), out = [];
+export function crowdMembers({count = 20, centre = [0, 0], radius = 12, inner = 0, area = null, seed = 1, mode = 'ambient', dir = [0, 1], speed = RUN_SPEED * .8, face = null, scale = 1,
+  spacing = 0, clear = []} = {}) {   // inner (opt-in): a ring · spacing / clear [[x, z, r]] (opt-in): no two members closer than spacing, none inside a clear circle
+  const n = Math.min(CROWD_MAX, count), out = [], spot = s => { const a = r1(s, 1) * Math.PI * 2, d = inner ? Math.sqrt(inner * inner + r1(s, 2) * (radius * radius - inner * inner)) : Math.sqrt(r1(s, 2)) * radius;
+    return area ? [centre[0] + (r1(s, 1) - .5) * area[0], centre[1] + (r1(s, 2) - .5) * area[1]] : [centre[0] + Math.sin(a) * d, centre[1] + Math.cos(a) * d]; };
+  const ok = ([x, z]) => out.every(m => Math.hypot(m.x - x, m.z - z) >= spacing) && clear.every(([cx, cz, cr]) => Math.hypot(cx - x, cz - z) >= cr);
   for (let i = 0; i < n; i++) {
-    const s = seed * 1000 + i, a = r1(s, 1) * Math.PI * 2, d = inner ? Math.sqrt(inner * inner + r1(s, 2) * (radius * radius - inner * inner)) : Math.sqrt(r1(s, 2)) * radius;
-    const x = area ? centre[0] + (r1(s, 1) - .5) * area[0] : centre[0] + Math.sin(a) * d, z = area ? centre[1] + (r1(s, 2) - .5) * area[1] : centre[1] + Math.cos(a) * d;
+    let s = seed * 1000 + i, p = spot(s);
+    if (spacing || clear.length) { let k = 0; while (!ok(p) && k < 60) { k++; s = seed * 1000 + i + k * 7919; p = spot(s); } if (!ok(p)) continue; }   // a member that cannot fit is left out
+    const [x, z] = p;
     const yaw = mode === 'panic' ? Math.atan2(dir[0], dir[1]) + (r1(s, 3) - .5) * .5 : face ? Math.atan2(face[0] - x, face[1] - z) + (r1(s, 3) - .5) * .6 : r1(s, 3) * Math.PI * 2;
-    out.push({i, x, z, yaw, seed: s, phase: r1(s, 4) * 3, speed: speed * (.8 + r1(s, 5) * .4), scale: scale * (.86 + r1(s, 6) * .2),
+    out.push({i: out.length, x, z, yaw, seed: s, phase: r1(s, 4) * 3, speed: speed * (.8 + r1(s, 5) * .4), scale: scale * (.86 + r1(s, 6) * .2),
       skin: SKINS[Math.floor(r1(s, 7) * SKINS.length)], shirt: SHIRTS[Math.floor(r1(s, 8) * SHIRTS.length)], pants: PANTS[Math.floor(r1(s, 9) * PANTS.length)], hair: HAIR[Math.floor(r1(s, 10) * HAIR.length)]});
   }
   return out;
@@ -100,13 +104,15 @@ export function createCrowds(scene, list = [], {groundY = () => 0, resolveCentre
     scene.add(group); return {c, members, meshes, hairs, group, pool};
   });
   const Z = new T.Matrix4().makeScale(0, 0, 0);
+  const last = new Map();   // per crowd: positions from the last update (overlap check)
   return {
     crowds,
     // ctx (optional): {camPos, size} of the current shot → near members are promoted to mid-tier actors
+    places: () => crowds.filter(x => x.group.visible).flatMap(x => { const L = last.get(x.c); return L ? L.at.map((p, i) => ({name: `${x.c.id ?? 'crowd'}#${i}`, crowd: x.c.mode ?? 'ambient', x: p[0], z: p[2], y: p[1], r: .95 * L.members[i].scale})) : []; }),
     update(t, ctx = {}) {
       for (const {c, members, meshes, hairs, group, pool} of crowds) {
         let vis = true; for (const [t0, v] of c.visible ?? []) if (t >= t0) vis = v; group.visible = vis; if (!vis) continue;
-        const at = members.map(m => memberAt(m, c, t, groundY)), promoted = ctx.camPos ? promoteNear(at, ctx.camPos, ctx.size) : [], P = new Set(promoted);
+        const at = members.map(m => memberAt(m, c, t, groundY)); last.set(c, {at, members}); const promoted = ctx.camPos ? promoteNear(at, ctx.camPos, ctx.size) : [], P = new Set(promoted);
         members.forEach((m, i) => {
           const pose = memberPose(m, c.mode, Math.max(0, t)), mm = memberMatrices(m, pose, at[i]);
           for (const [name, im] of Object.entries(meshes)) im.setMatrixAt(i, P.has(i) ? Z : mm[name]);

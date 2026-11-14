@@ -731,3 +731,77 @@ Three weakest things:
   - crowds never wear any subject's main outfit colour (RGB distance ≥ 90; stronger than the 6-unit rule, cheaper);
   - `v2:plan` errors when a wide's subject leaves the middle 60 %.
 - **Checks:** tests 77 node + 51 python. "Nobody" 11/11 byte-identical.
+
+## Episode 1 egg: E1 paused for owner changes (eggs, overlaps, weak shots), 2026-11-14
+**State:** `/season` E1 is paused at `step: animatic`. Plan PASS; bench and stability not yet run; no animatic yet. The WIP was committed first (b784529).
+
+**Built:**
+- **Egg sizes** (`parts/eggs.js` HEAD_H 1.16):
+  - held egg 0.95 × the holder's head (r 0.424 in hand units; it already was 0.94 ×);
+  - nest eggs 1.2 × HEAD_H (r 0.535); Cosmic 1.5 × (r 0.669);
+  - hatchlings 1.3 × a troupe kid's head (scale 0.061). This **shrinks** them: at 0.2 they were ~4 × a head tall.
+- **Rarity beams:** 18 units tall, 0.85 opacity plus a white core, no fog.
+- **Two-hand holds:**
+  - new poses `eggHold` (chest), `eggChin` (S36, "under her chin"), `eggWalk`, `eggRun`;
+  - the egg tool sits centred between both fists (tested to 1e-6).
+- **Measured egg check** (pure `eggSizeCheck`, in `v2:plan`): medium/close/insert ≥ 5 % (eggs within 25 units of the camera); wides ≥ 2 % including the beam. Eggs crossing the near plane are not counted.
+- **Overlaps:**
+  - pure `overlapIssues` on cast and crowd footprints in `v2:plan` (0 found);
+  - crowds gained opt-in `spacing` / `clear` circles;
+  - the mother is now scale 2 and airborne over the square (at 3 she ran through the tower and bases), and sits behind the nest;
+  - AFK moved off the bench; the mayor exits after his beat.
+- **Shot fixes:**
+  - S07: base 10's door and lock ring (it was inside the town hall);
+  - S35: lead on the north side, lit, with a clear corridor;
+  - S40: Kit rising under the hovering mother;
+  - S38: camera clear of the ring;
+  - S37: off the lamp post;
+  - S19: mayor gone;
+  - S25: the egg in her hands;
+  - S42/S43: seated framing.
+- **Bug found:** a comment in `plan.js` had swallowed the season warnings and stats line (errors were unaffected). Fixed.
+
+**Egg sizes per shot** (largest visible egg; wides include the beam). All 39 shots with eggs pass:
+
+| Shot | Size | Egg | | Shot | Size | Egg | | Shot | Size | Egg |
+|---|---|---|---|---|---|---|---|---|---|---|
+| S01 | wide | 28.2 % | | S17 | wide | 100 % | | S32 | wide | 56.4 % |
+| S04 | medium | 32.6 % | | S19 | wide | 39.8 % | | S33 | medium | 12.5 % |
+| S05 | wide | 100 % | | S20 | medium | 31.5 % | | S34 | wide | 38.3 % |
+| S06 | medium | 13.9 % | | S22 | medium | 8.9 % | | S36 | close | 48.8 % |
+| S07 | insert | 24.0 % | | S23 | close | 20.3 % | | S37 | wide | 29.8 % |
+| S08 | medium | 14.1 % | | S24 | wide | 56.0 % | | S38 | medium | 13.6 % |
+| S09 | wide | 59.8 % | | S25 | insert | 72.4 % | | S39 | close | 49.0 % |
+| S11 | medium | 12.8 % | | S26 | close | 53.8 % | | S40 | medium | 11.5 % |
+| S12 | close | 57.5 % | | S27 | wide | 37.7 % | | S41 | wide | 4.3 % |
+| S13 | medium | 17.1 % | | S28 | medium | 30.8 % | | S44 | medium | 13.3 % |
+| S14 | wide | 30.5 % | | S29 | insert | 11.8 % | | S45 | wide | 9.0 % |
+| S15 | close | 53.3 % | | S30 | wide | 13.2 % | | S48 | wide | 30.8 % |
+| S16 | medium | 16.3 % | | | | | | S49 | medium | 46.3 % |
+| | | | | | | | | S51 | wide | 28.1 % |
+
+100 % means a nearby base's beam spans the frame. S41 (nest wide) is the tightest at 4.3 %.
+
+**Checks:** `v2:plan` egg PASS (0 errors, 0 overlaps). `v2:test` 80 node + python OK. `npm test` exit 0. "Nobody" 11/11 byte-identical.
+
+**Three weakest things** (`review/egg/preview/`):
+- **`preview-1fps.png` (0–29 s):**
+  1. S07: the door fills the frame and the filling lock ring is a sliver at the bottom; "lock your door for sixty seconds" does not read.
+  2. Three flat inserts in 17 s (clock, scoreboard ×2): B2 plays as cards, not people.
+  3. S14: the flying eggs are small, and the claw marks (clue 2) are thin dark stripes at phone size.
+- **`preview-1fps-2.png` (30–59 s):**
+  1. S17: Kit is small and from behind; the egg she returns is hidden by her body.
+  2. S22: the queue is all backs, so the "excuse me" gag does not read.
+  3. S24: AFK is a faint ghost under the scoreboard (cameo 1 is too subtle), and the "empty sky" is just dark.
+- **`preview-1fps-3.png` (60–89 s):**
+  1. S31: the feather is blue slats on a white bed with nothing for scale; "bigger than Kit" is not shown.
+  2. S29: the stroke of twelve has no visible change at this size, and the shadow is a dark shape at the top edge.
+  3. S34: the ring crowd is grey and uniform; Kit in the middle is small.
+- **`preview-1fps-4.png` (90–119 s):**
+  1. S37/S38: the mother is a dark silhouette high above; "wings as wide as the street" does not land.
+  2. S41/S45: kids and the new 1.3-head hatchlings are specks in a huge orange bowl. The money shot does not read on a phone (egg 4.3 %).
+  3. S43: the pale hatchling in the little kid's lap reads as a pile of blocks, not a dragon.
+- **`preview-1fps-5.png` (120–146 s):**
+  1. S47: the mother is cropped to legs above the kids; "curled around them all" is not visible.
+  2. S48: the dragons landing at sunrise are tiny dark shapes; the sunrise look barely changes the frame.
+  3. S49: AFK cameo 2 is a faint ghost behind the bench; the hatchling on his head is not visible.

@@ -1,3 +1,4 @@
+import {EGG_HOLD} from '../parts/eggs.js';
 // engine/poses.js — pose library for the v2 block avatar (docs/V2_BRIEF.md §6.5).
 // Rigid blocks swinging from shoulders and hips, slightly stiff and bouncy: that stiffness IS the style.
 // Every sampler is a pure function of time: samplePose(name, t, opts) → {pivots, root}.
@@ -45,6 +46,11 @@ const POSES = {
     return make({leftShoulder: [-2.6 + .45 * p, 0, .1], rightShoulder: [-2.6 - .45 * p, 0, -.1], leftHip: [-.7 * Math.max(0, p), 0, 0], rightHip: [-.7 * Math.max(0, -p), 0, 0], head: [-.3, 0, 0]}, {dy: .25 * p});
   },
   toolHold: (t, o) => { const s = legacy('idle', t + (o.phase ?? 0), {}); s.pivots.rightShoulder = [-PI / 2, 0, 0]; return s; },
+  // Season 1 eggs: both hands round the egg at chest height (eggHold) or high under the chin (eggChin); parts/eggs.js EGG_HOLD
+  eggHold: (t, o) => { const s = legacy('idle', t + (o.phase ?? 0), {}), {alpha: a, theta: h} = EGG_HOLD.eggHold; s.pivots.rightShoulder = [-a, 0, -h]; s.pivots.leftShoulder = [-a, 0, h]; return s; },
+  eggWalk: (t, o) => { const s = POSES.walk(t, o), {alpha: a, theta: h} = EGG_HOLD.eggHold; s.pivots.rightShoulder = [-a, 0, -h]; s.pivots.leftShoulder = [-a, 0, h]; return s; },
+  eggRun: (t, o) => { const s = POSES.run(t, o), {alpha: a, theta: h} = EGG_HOLD.eggHold; s.pivots.rightShoulder = [-a, 0, -h]; s.pivots.leftShoulder = [-a, 0, h]; return s; },
+  eggChin: (t, o) => { const s = legacy('idle', t + (o.phase ?? 0), {}), {alpha: a, theta: h} = EGG_HOLD.eggChin; s.pivots.rightShoulder = [-a, 0, -h]; s.pivots.leftShoulder = [-a, 0, h]; s.pivots.head = [.18, 0, 0]; return s; },
   toolSwing(t) {
     const u = clamp01(t / .45);
     const x = u < .35 ? -PI / 2 - (2.95 - PI / 2) * ease(u / .35) : u < .6 ? -2.95 + 2.5 * ease((u - .35) / .25) : -.45 - (PI / 2 - .45) * smooth((u - .6) / .4);
