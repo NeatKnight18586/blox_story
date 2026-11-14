@@ -7,14 +7,14 @@ dressed as it will be **tomorrow** (`world.mirrorRoom(state)`), with its own act
 | # | Target | Line(s) | Shot | Camera | Notes |
 |---|---|---|---|---|---|
 | 1 | 0:00–0:03 | In this town, every mirror shows tomorrow. | close | `openHit`; Max in pyjamas facing his mirror; the "reflection" is the room with no Max | clue 1: the reflected bed is perfectly made; clue 2: a stuffed rabbit on its pillow (never spoken) |
-| 2 | 0:03–0:06 | This morning, Max looked in his. He wasn't there. | over-shoulder | he waves; nothing waves back; push in | rule UI: a small "TOMORROW" plate glowing on every mirror frame |
+| 2 | 0:03–0:06 | This morning, Max looked in his. He wasn't there. | over-shoulder | he waves; nothing waves back; push in | rule UI: a a soft blue glow inside every mirror frame (no text) |
 | 3 | 0:06–0:09 | Every mirror here runs one day ahead. | wide | drone down a street of windows and shop mirrors, each showing a different tomorrow | spectacle of the mechanic |
 | 4 | 0:09–0:15 | See a bruise? … Everybody checks… | 3 inserts, `beat` | hard cuts | helmet kid · bus-stop queue at a mirror · student with an A+ in the glass |
 | 5 | 0:15–0:20 | Mrs. Park saw herself holding a trophy… | medium | whip to her mirror, then her marching off with a pie | laugh 1 |
 | 6 | 0:20–0:27 | But nobody had ever seen nothing. …never made his bed in his life. | close ×2 | his real messy bed vs the made one in the glass | |
 | 7 | 0:27–0:36 | Max was twelve… a later kid… Way later. | 3 quick mediums | cuts on each "later": unsent sorry note, team sign-up sheet, broken window with a ball | |
 | 8 | 0:36–0:40 | Now there was no later. He had one day. | close | static-drift; a "1 DAY" stat pops over his head | |
-| 9 | 0:40–0:45 | So Max made a list. One. Cake for breakfast. | insert + medium | list on paper; whole cake, fork | list numbers appear as on-screen checkboxes (overhead `stat`) |
+| 9 | 0:40–0:45 | So Max made a list. One. Cake for breakfast. | insert + medium | list on paper; whole cake, fork | the list is a real sheet of paper; each item gets ticked with a pencil in an insert |
 | 10 | 0:45–0:51 | Two. …you can have my room. | medium | Dot drops her spoon, `gasp` | |
 | 11 | 0:51–1:00 | Three. …You're just loud. Brick cried. | low angle then close | `heroLow` on Brick towering; cut to his `crying` face | laugh 2; AFK cameo 1 on the bleachers behind |
 | 12 | 1:00–1:07 | Four. …terrible. He did not care. The coach wrote something down. | wide + insert | `gamecam` on the field; ball misses; coach's clipboard | plant for the jersey |
