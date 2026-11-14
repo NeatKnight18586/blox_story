@@ -54,6 +54,57 @@ export function overlapIssues(places = [], k = .85) {
   return out;
 }
 
+// ---- owner shot rules (2026-11-14), season *warnings* (pure) ------------------------------------------------------------
+export const SHOT_RULES = {staticMax: 1.5, clockMax: 3, clockDur: 1.5, boardMax: 3, objFrac: .03, holdMax: 3.0, crowdCover: .15, grid: [36, 64], neverOnHero: ['angry', 'rage']};
+const inFrame = b => b && b.front && b.x1 > 0 && b.x0 < 1 && b.y1 > 0 && b.y0 < 1;
+const visH = b => inFrame(b) ? Math.min(b.y1, 1) - Math.max(b.y0, 0) : 0;
+// 1. Show the verb: a shot whose frames hold no cast actor is a static-object shot; it may only be an insert ≤ 1.5 s.
+//    actorsSeen: number of cast actors in frame (front, on screen) in the shot's measured frames (max).
+export function staticShotIssue(shot, dur, actorsSeen) {
+  if (actorsSeen > 0) return null;
+  if (shot.size !== 'insert') return `${shot.id}: shows no person doing its line (a static ${shot.size}); static objects only as an insert ≤ ${SHOT_RULES.staticMax} s`;
+  if (dur > SHOT_RULES.staticMax + 1e-6) return `${shot.id}: static insert is ${dur.toFixed(2)} s (≤ ${SHOT_RULES.staticMax})`;
+  return null;
+}
+// 2. Clock and scoreboard: a shot "shows" the clock / board when any clock face / the scoreboard is ≥ 3 % of frame height.
+//    rows: [{id, dur, clock: frac, board: frac}] → issues
+export function clockBoardIssues(rows) {
+  const L = SHOT_RULES, out = [], clock = rows.filter(r => r.clock >= L.objFrac), board = rows.filter(r => r.board >= L.objFrac);
+  if (clock.length > L.clockMax) out.push(`clock in ${clock.length} shots (≤ ${L.clockMax}): ${clock.map(r => r.id).join(', ')}`);
+  for (const r of clock) if (r.dur > L.clockDur + 1e-6) out.push(`${r.id}: clock shot is ${r.dur.toFixed(2)} s (≤ ${L.clockDur})`);
+  if (board.length > L.boardMax) out.push(`scoreboard in ${board.length} shots (≤ ${L.boardMax}): ${board.map(r => r.id).join(', ')}`);
+  return out;
+}
+// 3. No framing held > 3.0 s, except the low point (beat B6) and the money shot.
+export function holdIssues(shots, fps, exempt = new Set(), voiceEnd = Infinity) {   // the final shot's held tail after the voice (§9) does not count
+  const held = (s, i) => (Math.min(s.start + s.frames, i === shots.length - 1 ? Math.ceil(voiceEnd * fps) : Infinity) - s.start) / fps;
+  return shots.map((s, i) => [s, held(s, i)]).filter(([s, d]) => !exempt.has(s.id) && d > SHOT_RULES.holdMax + 1e-6).map(([s, d]) => `${s.id}: one framing held ${d.toFixed(2)} s (≤ ${SHOT_RULES.holdMax})`);
+}
+// 4. Foreground crowd: crowd members nearer the camera than the shot's subject (or within `near` units when there is none)
+//    never cover > 15 % of the frame. boxes: [{x0, x1, y0, y1, dist}] (screen 0–1); coverage = union area on a grid.
+export function crowdCover(boxes, subjectDist = null, near = 12) {
+  const [gw, gh] = SHOT_RULES.grid, g = new Uint8Array(gw * gh), lim = subjectDist ?? near;
+  for (const b of boxes) {
+    if (b.dist >= lim) continue;
+    const x0 = Math.max(0, Math.floor(b.x0 * gw)), x1 = Math.min(gw, Math.ceil(b.x1 * gw)), y0 = Math.max(0, Math.floor(b.y0 * gh)), y1 = Math.min(gh, Math.ceil(b.y1 * gh));
+    for (let y = y0; y < y1; y++) for (let x = x0; x < x1; x++) g[y * gw + x] = 1;
+  }
+  let n = 0; for (const v of g) n += v; return n / g.length;
+}
+// 5. Face mood map: faceMap [[line, actor, face]] — the actor shows that face at some time inside the line; the hero never
+//    shows angry/rage. faces: the actor's faces timeline [[t, name]] (+ the cast default face).
+export function faceAt(c, t) { let f = c?.face ?? 'neutral'; for (const [k, n] of c?.faces ?? []) if (k <= t + 1e-6) f = n; return f; }
+export function moodIssues(spec, cues) {
+  const out = [], cast = spec.cast ?? {}, hero = cast[spec.hero];
+  if (hero) for (const n of [hero.face, ...(hero.faces ?? []).map(f => f[1])]) if (SHOT_RULES.neverOnHero.includes(n)) out.push(`mood: ${spec.hero} shows "${n}" (never on the hero)`);
+  for (const [line, who, face] of spec.faceMap ?? []) {
+    const L = cues.lines.find(l => l.line === line), c = cast[who]; if (!L || !c) { out.push(`mood: line ${line} / ${who} not found`); continue; }
+    const ts = [L.start, ...(c.faces ?? []).map(f => f[0]).filter(t => t > L.start && t < L.end)];
+    if (!ts.some(t => faceAt(c, t) === face)) out.push(`mood: line ${line} wants ${who} "${face}", shows ${[...new Set(ts.map(t => faceAt(c, t)))].join('/')}`);
+  }
+  return out;
+}
+
 export function checkSeason({spec, shots, cues, fps = 30, end, info = [], meas = []}) {
   const L = SEASON, errors = [], warnings = [], season = !!spec.season, byId = Object.fromEntries(shots.map((s, i) => [s.id, i]));
   const v3 = meas.some(ms => ms?.some(m => m?.v3));
@@ -137,5 +188,23 @@ export function checkSeason({spec, shots, cues, fps = 30, end, info = [], meas =
     const ui = uiSizeIssues(mid.ui ?? [], {band: s.captionY === 'high' ? L.bandHigh : L.band}); stats.ui += (mid.ui ?? []).length;
     for (const x of ui) E(`${s.id}: uiSize ${x}`);
   });
+  if (season) {   // owner shot rules: warnings
+    const W = m => warnings.push(m), B6 = spec.beats?.B6 && beatShots(shots, spec.beats.B6), exempt = new Set([spec.moneyShot, ...(B6 ?? []).map(s => s.id)]);
+    const castNames = new Set(Object.keys(spec.cast ?? {})), rows = [];
+    stats.cover = [];
+    shots.forEach((s, i) => {
+      const ms = (meas[i] ?? []).filter(Boolean); if (!ms.length) return;
+      const seen = Math.max(...ms.map(m => Object.entries(m.actors ?? {}).filter(([n, a]) => castNames.has(n) && a.opacity !== 0 && inFrame(a.box) && (a.box.y1 - a.box.y0) > .02).length));
+      const x = staticShotIssue(s, shotS(s), seen); if (x) W(x);
+      const mx = k => Math.max(0, ...ms.map(m => Math.max(0, ...Object.entries(m.objects ?? {}).filter(([n]) => n.startsWith(k)).map(([, b]) => visH(b)))));
+      rows.push({id: s.id, dur: shotS(s), clock: mx('clockFace'), board: mx('scoreboard')});
+      const who = s.subject ?? s.fit?.actor, cov = Math.max(...ms.map(m => crowdCover(m.crowdBoxes ?? [], who ? m.dist?.[who] ?? null : null)));
+      stats.cover.push({shot: s.id, cover: +cov.toFixed(3)}); if (cov > SHOT_RULES.crowdCover + 1e-6) W(`${s.id}: foreground crowd covers ${(cov * 100).toFixed(1)} % of the frame (≤ ${SHOT_RULES.crowdCover * 100} %)`);
+    });
+    stats.clockBoard = rows.filter(r => r.clock >= SHOT_RULES.objFrac || r.board >= SHOT_RULES.objFrac).map(r => ({shot: r.id, dur: +r.dur.toFixed(2), clock: +r.clock.toFixed(3), board: +r.board.toFixed(3)}));
+    for (const x of clockBoardIssues(rows)) W(x);
+    for (const x of holdIssues(shots, fps, exempt, cues.duration)) W(x);
+    for (const x of moodIssues(spec, cues)) W(x);
+  }
   return {errors, warnings, stats};
 }
