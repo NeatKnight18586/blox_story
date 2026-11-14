@@ -14,11 +14,11 @@ const story = arg('story');
 const spec = arg('spec') ?? (story && (existsSync(`stories/${story}/episode.json`) ? `stories/${story}/episode.json` : `stories/${story}/stills.json`));
 if (!spec) { console.error('usage: bench.js --story <slug> | --spec <episode.json>'); process.exit(2); }
 const W = Number(arg('width', 720)), H = Number(arg('height', 1280)), N = Number(arg('frames', 8));
-// A4 A7: finals of v3 worlds (spec.world exports LOOK, or spec.budget === 'v3') may use ≤ 80,000 triangles and ≤ 0.60 s/frame.
+// A4 A7 + owner Decision 4: Season 1 (v3) worlds (spec.world exports LOOK, or spec.budget === 'v3') ≤ 90,000 triangles, ≤ 0.62 s/frame.
 import {readFileSync} from 'node:fs';
 const specJson = JSON.parse(readFileSync(spec, 'utf8')), worldSrc = specJson.world ? readFileSync(specJson.world, 'utf8') : '';
 const V3 = specJson.budget === 'v3' || /export const LOOK\b/.test(worldSrc);
-const MAX_TRI = V3 ? 80000 : 50000, MAX_S = V3 ? .60 : .45;
+const MAX_TRI = V3 ? 90000 : 50000, MAX_S = V3 ? .62 : .45;   // owner Decision 4 (A5): Season 1 worlds ≤ 90k, ≤ 0.62 s at 720
 
 const server = await startServer(process.cwd()), browser = await launch();
 try {
@@ -53,6 +53,6 @@ try {
   const over = rows.filter(r => r.triangles > MAX_TRI).map(r => r.shot);
   const pass = !over.length && mean <= MAX_S && !errors.length;
   console.table(rows);
-  console.log(JSON.stringify({spec, budget: V3 ? 'A4 v3 (80k, 0.60 s)' : 'v2 (50k, 0.45 s)', size: `${W}x${H}`, browser: browser.resolved.executablePath ?? 'playwright', maxTriangles: Math.max(...rows.map(r => r.triangles)), meanSecondsPerFrame: mean, meanSecondsPerFrame1080: mean1080, target1080: 1.0, overBudget: over, errors, result: pass ? 'PASS' : 'FAIL'}));
+  console.log(JSON.stringify({spec, budget: V3 ? 'Season 1 (90k, 0.62 s)' : 'v2 (50k, 0.45 s)', size: `${W}x${H}`, browser: browser.resolved.executablePath ?? 'playwright', maxTriangles: Math.max(...rows.map(r => r.triangles)), meanSecondsPerFrame: mean, meanSecondsPerFrame1080: mean1080, target1080: 1.0, overBudget: over, errors, result: pass ? 'PASS' : 'FAIL'}));
   process.exitCode = pass ? 0 : 1;
 } finally { await browser.close(); await server.close(); }

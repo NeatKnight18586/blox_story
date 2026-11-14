@@ -539,3 +539,43 @@ Also built: `render.js --final` (1440×2560, AA). `scripts/v2/qc.py` (`npm run v
     1. The giant stays a mossy boulder (out of scope).
     2. The 40-strong crowd behind Stan in the heroLow reads as a wall of torsos.
     3. Mia's wave is cut by the right edge in the night shot.
+
+## Session 8b, Decisions 3–5 (owner, 2026-11-14) — done; stop for owner review
+- **Decisions 3–5:** appended to `docs/season1/A5_LOOK_FIX.md` and the brief. **§E: PASS (owner, Decision 3).**
+- **Decision 3 (night polish):**
+  - nightBright sky one step deeper (`#0b2550` / `#33649a`). A comment had swallowed this preset's fog and ambient keys; the look test caught it and it is fixed.
+  - Eggs get an emissive gold back-face rim plus a soft additive halo (`glowEgg`).
+  - `night-egg-390.png` refreshed: square 0.421; kitMed frame 0.401, Kit 0.437, diff 0.080; daxMed frame 0.339, Dax 0.247, diff −0.096 (accepted by owner review).
+- **Decision 4 (speed):** fine terrain cells only within 30 units of the shot cameras. Ragdoll gets near LOD within 25 units and its repeated houses, fences and lamps merged per district. Bench limit set to 90k / 0.62 s for Season 1 worlds.
+  - One pass, at 720:
+
+    | | Demo | Egg | Ragdoll |
+    |---|---|---|---|
+    | Triangles | 61,482 | 80,604 | 86,896 |
+    | s/frame | **0.692** | **0.696** | **0.678** |
+
+  - Triangles pass (≤ 90k). Time is over 0.62 s. Reported; continuing per the owner, who will decide at episode 1 from the farm time.
+- **Decision 5 (builds):**
+  - `avatar-style/body.js`: `BUILDS`, pure `torsoWidthAt`, `buildLayout`, `buildError` (tested: widths 1.9/1.6/1.85, youth torso 1.8, no adult build under 18, adult_m unchanged). `createActor({build})`; `buildActor` refuses a mismatch; elder_f stoops in `driveActor`.
+  - Troupe kids (LEAD 12, SECOND 11, LITTLE 7, RIVAL 15) are `youth`; ELDER is `adult_m`.
+  - Tapered builds use a 10-row box: the rounded box only has rows at its bevels, so a waist was impossible. **This drops the 0.03 bevel on adult_f/elder_f torsos only.**
+  - `scripts/v2/builds-sheet.js` → `builds-390.png`.
+- **Checks:**
+  - `v2:stability`: demo 0.046 %, egg 0.047 %, ragdoll 0.048 %.
+  - "Nobody": 11/11 byte-identical.
+  - `hair-gates.json`: PASS.
+  - `v2:test` 67 + `npm test` pass.
+  - `CLAUDE.md`: builds line, Season 1 budget, nightBright.
+- **Three weakest things per new or refreshed sheet:**
+  - **`builds-390.png`:**
+    1. The adult_f waist is subtle at 390 px and mostly hidden behind the arms from three-quarter.
+    2. Youth arms are unchanged in length, so they hang below the shorter torso.
+    3. The elder_f stoop barely reads in idle, and her wider waist is lost under the hoodie.
+  - **`night-egg-390.png`:**
+    1. The lit lavender cloud bank still fills the top third, so the deeper sky shows only in strips.
+    2. The egg halo at Kit's feet is big and bright enough to compete with her face.
+    3. Kit's tag and Dax's tag both float in the Kit medium, which crowds the top.
+  - **`troupe-sheet.png` / `troupe-phone-390.png`** (youth builds now):
+    1. With youth torsos the kids read stockier, not younger: the heads stay full size.
+    2. Line-up figures are still 14 % of frame height with 55 % sky above.
+    3. AFK (adult_m) towers over the youth troupe, so he reads as a grown-up, not a frozen player.

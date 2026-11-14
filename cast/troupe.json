@@ -22,7 +22,9 @@
     "smile",
     "determined",
     "gasp"
-   ]
+   ],
+   "age": 12,
+   "build": "youth"
   },
   "SECOND": {
    "tier": "hero",
@@ -45,7 +47,9 @@
     "smile",
     "sad",
     "shout"
-   ]
+   ],
+   "age": 11,
+   "build": "youth"
   },
   "LITTLE": {
    "tier": "hero",
@@ -68,7 +72,9 @@
     "smile",
     "crying",
     "gasp"
-   ]
+   ],
+   "age": 7,
+   "build": "youth"
   },
   "RIVAL": {
    "tier": "hero",
@@ -91,7 +97,9 @@
     "smug",
     "shout",
     "terrified"
-   ]
+   ],
+   "age": 15,
+   "build": "youth"
   },
   "ELDER": {
    "tier": "hero",
@@ -114,7 +122,9 @@
     "neutral",
     "smile",
     "sad"
-   ]
+   ],
+   "age": 64,
+   "build": "adult_m"
   }
  },
  "AFK": {

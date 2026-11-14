@@ -56,17 +56,59 @@ export const PARTS = {
 
 // createActor: {tier: 'hero'|'bg', skin, scale, materials: {torso, leftArm, ...}} → avatar-shaped object.
 // `materials[part]` may be one material or a 6-face array (clothing paint); default is skin plastic.
-export function createActor({tier = 'hero', skin = SKINS[0], scale = 1, materials = {}, name = 'actor'} = {}) {
+// ---- A5 Decision 5: body builds (opt-in `build`; adult_m = the original torso) -----------------------------------
+// Widths in studs at the shoulders (top), waist (at waistAt of the torso height, from the top) and hips (bottom).
+export const BUILDS = {
+  adult_m: {shoulder: 2, waist: 2, hip: 2, waistAt: .55, height: 1, leg: .98},
+  adult_f: {shoulder: 1.9, waist: 1.6, hip: 1.85, waistAt: .55, height: 1, leg: .9},     // subtle hourglass, adult women only
+  youth: {shoulder: 2, waist: 2, hip: 2, waistAt: .55, height: .9, leg: .98},            // anyone under 18: straight, 0.9 torso
+  elder_f: {shoulder: 2, waist: 2.12, hip: 2.04, waistAt: .55, height: 1, leg: .98, stoop: .09},   // grandmas: wider waist, stoop
+};
+export const ADULT_ONLY = ['adult_f', 'elder_f', 'adult_m'];
+// Torso width at u (0 = top/shoulders … 1 = bottom/hips): linear shoulder → waist → hip (pure).
+export function torsoWidthAt(build, u) {
+  const b = BUILDS[build] ?? BUILDS.adult_m, w = Math.min(1, Math.max(0, u));
+  return w <= b.waistAt ? b.shoulder + (b.waist - b.shoulder) * (w / b.waistAt) : b.waist + (b.hip - b.waist) * ((w - b.waistAt) / (1 - b.waistAt));
+}
+// A cast entry's build must fit its age: under 18 → youth only (never adult_f / elder_f / adult_m). Returns an error or null.
+export function buildError(entry) {
+  const b = entry.build ?? (entry.age !== undefined && entry.age < 18 ? 'youth' : 'adult_m');
+  if (!BUILDS[b]) return `unknown build ${b}`;
+  if (entry.age !== undefined && entry.age < 18 && b !== 'youth') return `${entry.name ?? 'actor'} is ${entry.age}: build must be youth, not ${b}`;
+  if (entry.age !== undefined && entry.age >= 18 && b === 'youth') return `${entry.name ?? 'actor'} is ${entry.age}: youth is for under 18`;
+  return null;
+}
+// Part layout for a build (pure): torso size/centre, shoulder and hip pivots, leg width.
+export function buildLayout(build) {
+  const b = BUILDS[build] ?? BUILDS.adult_m, th = 2 * b.height, top = 2.02 + th;
+  return {torso: {size: [2, th, 1], at: [0, 2.02 + th / 2, 0]}, headPivot: [0, top + .01, 0], shoulderX: b.shoulder / 2 + .51, shoulderY: top, hipX: Math.max(b.leg / 2 + .005, b.hip / 2 - b.leg / 2 - .005), leg: b.leg};
+}
+function torsoGeometry(build, tier) {
+  if (!build || build === 'adult_m') return blockGeometry(PARTS.torso.size, tier);
+  const L = buildLayout(build), [w, h, d] = L.torso.size;
+  return cached(`torso:${build}:${tier}`, () => {
+    const g = new T.BoxGeometry(w, h, d, 1, tier === 'hero' ? 10 : 6, 1);   // rows through the height so the waist exists (a rounded box only has rows at its bevels)
+    const p = g.attributes.position;
+    for (let i = 0; i < p.count; i++) { const u = (h / 2 - p.getY(i)) / h; p.setX(i, p.getX(i) * torsoWidthAt(build, u) / 2); }
+    g.computeVertexNormals(); return g;
+  });
+}
+
+export function createActor({tier = 'hero', skin = SKINS[0], scale = 1, materials = {}, name = 'actor', build = null} = {}) {
+  const L = build && build !== 'adult_m' ? buildLayout(build) : null;
+  const layout = L ? {torso: {...PARTS.torso, size: L.torso.size, at: L.torso.at}, head: {...PARTS.head, pivotAt: L.headPivot},
+    leftArm: {...PARTS.leftArm, pivotAt: [-L.shoulderX, L.shoulderY, 0]}, rightArm: {...PARTS.rightArm, pivotAt: [L.shoulderX, L.shoulderY, 0]},
+    leftLeg: {...PARTS.leftLeg, size: [L.leg, 2, 1], pivotAt: [-L.hipX, 2, 0]}, rightLeg: {...PARTS.rightLeg, size: [L.leg, 2, 1], pivotAt: [L.hipX, 2, 0]}} : PARTS;
   const root = new T.Group(); root.name = name; root.scale.setScalar(scale);
   const parts = {}, pivots = {};
-  for (const [part, d] of Object.entries(PARTS)) {
+  for (const [part, d] of Object.entries(layout)) {
     let parent = root;
     if (d.pivot) { const p = new T.Group(); p.name = d.pivot; p.position.set(...d.pivotAt); root.add(p); pivots[d.pivot] = p; parent = p; }
-    const geo = part === 'head' ? headGeometry(tier) : blockGeometry(d.size, tier);
+    const geo = part === 'head' ? headGeometry(tier) : part === 'torso' ? torsoGeometry(build, tier) : blockGeometry(d.size, tier);
     const m = new T.Mesh(geo, materials[part] ?? plastic(skin)); m.name = part; m.position.set(...d.at);
     m.castShadow = true; m.receiveShadow = tier === 'hero'; parent.add(m); parts[part] = m;
   }
-  return {root, parts, pivots, tier, skin, restPositions: Object.fromEntries(Object.entries(pivots).map(([n, p]) => [n, p.position.toArray()])),
+  return {root, parts, pivots, tier, skin, build: build ?? 'adult_m', restPositions: Object.fromEntries(Object.entries(pivots).map(([n, p]) => [n, p.position.toArray()])),
     faceCache: new Map(), cosmeticCache: new Map(), faceLayer: null, cosmetic: null, attachments: {}};
 }
 

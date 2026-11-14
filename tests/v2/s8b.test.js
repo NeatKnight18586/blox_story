@@ -97,3 +97,20 @@ test('lumagate: mask mean and a 6–14 px ring on a synthetic image', () => {
   const s = maskStats(luma, mask, w, h); assert.ok(Math.abs(s.actor - .7) < 1e-6); assert.equal(s.actorPx, 400);
   assert.ok(Math.abs(s.ring - .3) < .02, String(s.ring)); assert.ok(Math.abs(s.contrast - .4) < .02);
 });
+
+import {BUILDS, torsoWidthAt, buildError, buildLayout, createActor} from '../../avatar-style/body.js';
+test('body builds: torso widths, youth height, no adult build under 18, adult_m unchanged', () => {
+  const near = (a, b) => Math.abs(a - b) < 1e-9;
+  assert.ok(near(torsoWidthAt('adult_f', 0), 1.9) && near(torsoWidthAt('adult_f', .55), 1.6) && near(torsoWidthAt('adult_f', 1), 1.85));
+  assert.ok(torsoWidthAt('adult_f', .3) < 1.9 && torsoWidthAt('adult_f', .3) > 1.6, 'tapers between shoulders and waist');
+  for (const u of [0, .3, .55, .8, 1]) assert.equal(torsoWidthAt('adult_m', u), 2);
+  assert.ok(torsoWidthAt('elder_f', .55) > torsoWidthAt('elder_f', 0) && BUILDS.elder_f.stoop > 0);
+  assert.ok(near(buildLayout('youth').torso.size[1], 1.8) && near(buildLayout('youth').headPivot[1], 3.83));
+  assert.ok(buildError({age: 11, build: 'adult_f'}) && buildError({age: 9, build: 'elder_f'}) && buildError({age: 14, build: 'adult_m'}));
+  assert.equal(buildError({age: 11, build: 'youth'}), null); assert.equal(buildError({age: 11}), null); assert.equal(buildError({age: 40, build: 'adult_f'}), null);
+  assert.ok(buildError({age: 30, build: 'youth'})); assert.ok(buildError({build: 'giant'}));
+  const m = createActor({}), f = createActor({build: 'adult_f'});
+  assert.deepEqual(m.restPositions.leftShoulder, [-1.51, 4.02, 0]); assert.ok(Math.abs(f.restPositions.leftShoulder[0] + 1.46) < 1e-9);
+  const p = f.parts.torso.geometry.attributes.position; let maxX = 0; for (let i = 0; i < p.count; i++) maxX = Math.max(maxX, Math.abs(p.getX(i))); assert.ok(maxX <= .951 && maxX > .9);
+  const data = JSON.parse(rf('cast/troupe.json', 'utf8')); for (const k of ['LEAD', 'SECOND', 'LITTLE', 'RIVAL']) { assert.equal(data.troupe[k].build, 'youth'); assert.ok(data.troupe[k].age < 18); }
+});

@@ -4,10 +4,11 @@
 //   cast entry: {style: 'v2', troupe: 'LEAD' | 'SECOND' | 'LITTLE' | 'RIVAL' | 'ELDER' | 'AFK', role: 'Kit', outfit: {...},
 //                accessories: [...], tool, face}
 export const SLOTS = ['LEAD', 'SECOND', 'LITTLE', 'RIVAL', 'ELDER'];
-const FIXED = ['skin', 'hair', 'scale', 'tier'];
+const FIXED = ['skin', 'hair', 'scale', 'tier', 'build', 'age'];
 export function resolveTroupe(entry, data) {
   const slot = entry.troupe;
   if (slot === 'AFK') { const {expressions, pose, ...p} = data.AFK; return {...p, hair: {...p.hair}}; }
+  // build + age are fixed per slot (A5 Decision 5): the kids are youth, the elder an adult
   const base = data.troupe?.[slot]; if (!base) throw Error('unknown troupe slot ' + slot);
   const {expressions, ...p} = base, out = {...p, hair: {...p.hair}};
   if (entry.outfit) out.outfit = {...entry.outfit};

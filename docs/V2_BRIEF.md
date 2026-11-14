@@ -866,3 +866,22 @@ If the medium shots still fail after one pass, stop and report the numbers. Do n
 One pass. Then, pass or fail, commit `review/season1/night-egg-390.png` (the three views side by side at 390 px, numbers
 printed under each) and continue Session 8b. If it still fails, mark §E "owner review" in `PROGRESS.md` and do not stop.
 
+
+### A5 Decisions 3–5 (owner, 2026-11-14)
+
+**Decision 3 (owner, 2026-11-14) — §E night: ACCEPTED** by owner review of `night-egg-390.png`; §E is PASS (owner). Two fixes for
+`nightBright`: the sky one step deeper blue (moon and clouds kept), and the egg prop gets an emissive gold rim + a soft halo so it reads
+as glowing at 390 px.
+
+**Decision 4 (owner, 2026-11-14) — speed budget.** Do not lower final resolution. Fine terrain cells (≤ 1.5) only within 30 units of
+a shot camera; coarser beyond. Ragdoll look test: instance repeated houses/fences/lamps and use far LOD so it is ≤ 90k triangles.
+Limit for Season 1 worlds: ≤ 90k triangles and ≤ 0.62 s/frame at 720. One pass; if still over, report the numbers and continue (the
+real gate, decided at episode 1 from farm time: a final render + assemble ≤ 3 h).
+
+**Decision 5 (owner, 2026-11-14) — body builds** (opt-in `build` on actors and troupe/cast presets): `adult_f` = subtle hourglass in
+the classic blocky style (torso ≈ 1.9 wide at the shoulders, waist ≈ 1.6 at about 55 % of torso height, hips ≈ 1.85; same depth and
+bevels; no chest geometry; arms and legs re-attached to fit), for adult women only (moms, teachers, shopkeepers, ≈ half of adult
+crowds) · `youth` = anyone under 18, boys and girls: straight torso, 0.9 torso height, head unchanged; never `adult_f` under 18 ·
+`elder_f` = grandmas: straight, slightly wider waist, slight forward stoop in idle · `adult_m` = the current torso. Pure torso-shape
+function + tests (widths; a cast entry with an age under 18 cannot get `adult_f`). Review: `review/season1/builds-390.png`.
+
