@@ -21,41 +21,46 @@
    "shot": "square",
    "frame": 4,
    "look": "nightBright",
-   "frameLuma": 0.429,
-   "actors": {
-    "kit": {
-     "luma": 0.461,
-     "ring": 0.506,
-     "contrast": -0.045
-    },
-    "dax": {
-     "luma": 0.453,
-     "ring": 0.462,
-     "contrast": -0.009
-    }
-   }
+   "frameLuma": 0.477,
+   "actors": {}
   },
   {
-   "shot": "street",
+   "shot": "kitMed",
    "frame": 12,
    "look": "nightBright",
-   "frameLuma": 0.378,
+   "frameLuma": 0.452,
    "actors": {
-    "kid": {
-     "luma": 0.331,
-     "ring": 0.365,
-     "contrast": -0.034
+    "kit": {
+     "luma": 0.403,
+     "ring": 0.449,
+     "contrast": -0.046
     }
-   }
+   },
+   "fitFrac": 0.37
+  },
+  {
+   "shot": "daxMed",
+   "frame": 20,
+   "look": "nightBright",
+   "frameLuma": 0.409,
+   "actors": {
+    "dax": {
+     "luma": 0.377,
+     "ring": 0.433,
+     "contrast": -0.056
+    }
+   },
+   "fitFrac": 0.37
   }
  ],
  "framing": [],
  "failures": [
-  "square: frame luma 0.429 outside 0.24,0.42",
-  "square/kit: box − ring -0.045 < 0.12",
-  "square/dax: box − ring -0.009 < 0.12",
-  "street/kid: actor luma 0.331 < 0.4",
-  "street/kid: box − ring -0.034 < 0.12"
+  "square: frame luma 0.477 outside 0.24,0.42",
+  "kitMed: frame luma 0.452 outside 0.24,0.42",
+  "kitMed/kit: box − ring -0.046 < 0.12",
+  "daxMed/dax: actor luma 0.377 < 0.4",
+  "daxMed/dax: box − ring -0.056 < 0.12"
  ],
+ "palette": [],
  "result": "FAIL"
 }

@@ -842,3 +842,14 @@ on card 11) · per-episode buildings and set dressing · captions, plan gates, s
 - Review files committed: the four hair/troupe sheets, `hair-gates.json`, `look-ab.png`, `tools-demo.mp4`, its 1 fps
   sheet. For each sheet, `PROGRESS.md` lists the three weakest things you can see in it (§S). No rubric scores.
 - `CLAUDE.md` updated (§S rule, library lines). PR updated. **Stop for the owner's review. Do not start Session 9.**
+
+### A5 §E Decision 1 (owner, 2026-11-14)
+
+1. Measure the actor numbers (actor luma ≥ 0.40, box − ring ≥ 0.12) only on shots sized medium or close, framed with §F
+   `fit` (actor ≥ 30 % of frame height). Wide/spectacle shots are checked on frame luma only (0.24–0.42). The egg look-test
+   views become a medium on Kit and a medium on Dax + a wide of the square.
+2. Night palette rule (pure function + test): in any shot whose look is night/nightBright, every hero and troupe outfit
+   colour has HSL lightness ≥ 0.32. Dax's hoodie becomes a deep red (#9a2f2f or close), not near-black. Crowds may stay darker.
+3. Keep lamp pools small and the plaza darker away from them, so the cast is brighter than the ground around them.
+If the medium shots still fail after one pass, stop and report the numbers. Do not loosen.
+

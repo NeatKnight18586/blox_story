@@ -48,7 +48,7 @@ export function build(scene, {P, B, A, M, PR, TR, BI, V, W, look, spec}) {
     for (let i = 0; i < 40; i++) { const a = R() * 6.28, r = 70 + R() * 80, t = PR.smallProp('tree', i); t.position.set(Math.sin(a) * r, 0, Math.cos(a) * r); scene.add(t); }
   }
   // plaza disc and ring road (ribbons follow the ground)
-  const plaza = P.cylinder(SQ, .4, {seg: 40, mat: mt('cobble', NEW ? '#7d786e' : '#b9b2a6'), name: 'plaza'});   // A5: darker under the night key so the cast reads brighter than the ground plaza.position.set(0, groundY(0, 0) + LAYER.plaza - .2, 0); scene.add(plaza);
+  const plaza = P.cylinder(SQ, .4, {seg: 40, mat: mt('cobble', NEW ? '#625e57' : '#b9b2a6'), name: 'plaza'});   // A5: darker under the night key so the cast reads brighter than the ground plaza.position.set(0, groundY(0, 0) + LAYER.plaza - .2, 0); scene.add(plaza);
   const ring = new T.EllipseCurve(0, 0, ROAD, ROAD, 0, Math.PI * 2), rp = ring.getPoints(64).map(p => new T.Vector3(p.x, 0, p.y)), road = new T.CatmullRomCurve3(rp, true);
   scene.add(B.ribbon(road, 8, (x, z) => groundY(x, z) + LAYER.road, {material: mt('asphalt', '#5a5d66'), tile: 6}));
   for (const k of [0, 3, 6, 9]) { const a = (k + .5) / 12 * Math.PI * 2, c = new T.LineCurve3(new T.Vector3(Math.sin(a) * (SQ - 1), 0, Math.cos(a) * (SQ - 1)), new T.Vector3(Math.sin(a) * (ROAD - 3), 0, Math.cos(a) * (ROAD - 3))); scene.add(B.ribbon(c, 5, (x, z) => groundY(x, z) + LAYER.road + .02, {material: mt('concrete', '#a8a49a')})); }
@@ -98,7 +98,7 @@ export function build(scene, {P, B, A, M, PR, TR, BI, V, W, look, spec}) {
   const lamp = () => { const g = new T.Group(); g.add(P.cylinder(.16, 5, {at: [0, 2.5, 0], seg: 6, mat: mt('metal', '#2e3138')})); const l = new T.Mesh(new T.BoxGeometry(.7, .9, .7), new T.MeshPhongMaterial({color: '#fff1c8', emissive: '#ffc46b', emissiveIntensity: 1.4})); l.position.y = 5.3; g.add(l); return g; };
   // warm light pools under lamps and doors (additive ground decals: cheap practical light at night)
   let poolTex = null;
-  const pool = (x, z, r = 5, c = '#ffb45a', o = .32) => {
+  const pool = (x, z, r = 3.2, c = '#ffb45a', o = .3) => {   // A5 Decision 1: small pools; the plaza stays dark between them
     if (!poolTex && typeof document !== 'undefined') { const cv = document.createElement('canvas'); cv.width = cv.height = 128; const g = cv.getContext('2d'), gr = g.createRadialGradient(64, 64, 0, 64, 64, 64); gr.addColorStop(0, 'rgba(255,255,255,1)'); gr.addColorStop(.5, 'rgba(255,255,255,.35)'); gr.addColorStop(1, 'rgba(255,255,255,0)'); g.fillStyle = gr; g.fillRect(0, 0, 128, 128); poolTex = new T.CanvasTexture(cv); }
     const m = new T.Mesh(new T.PlaneGeometry(2 * r, 2 * r), new T.MeshBasicMaterial({map: poolTex, color: c, transparent: true, opacity: o, blending: T.AdditiveBlending, depthWrite: false, fog: true}));
     m.rotation.x = -Math.PI / 2; m.position.set(x, groundY(x, z) + .3, z); m.renderOrder = 2; scene.add(m); return m; };
@@ -106,16 +106,16 @@ export function build(scene, {P, B, A, M, PR, TR, BI, V, W, look, spec}) {
   for (const b of bases) add(base(b));
   const ct = clockTower(); ct.position.set(0, groundY(0, -SQ - 4), -SQ - 4); add(ct);
   const th = townHall(); th.position.set(-22, groundY(-22, -SQ - 10), -SQ - 12); th.rotation.y = .5; add(th);
-  for (let i = 0; i < 8; i++) { const a = (i + .25) / 8 * Math.PI * 2, l = lamp(); l.position.set(Math.sin(a) * (SQ + 1), groundY(Math.sin(a) * (SQ + 1), Math.cos(a) * (SQ + 1)), Math.cos(a) * (SQ + 1)); add(l); if (NEW) pool(l.position.x, l.position.z, 6); }
-  if (NEW) for (const b of bases) { const dx = -Math.sin(b.a), dz = -Math.cos(b.a); pool(b.x + dx * 8, b.z + dz * 8, 5, TEAM[b.i], .35); }
+  for (let i = 0; i < 8; i++) { const a = (i + .25) / 8 * Math.PI * 2, l = lamp(); l.position.set(Math.sin(a) * (SQ + 1), groundY(Math.sin(a) * (SQ + 1), Math.cos(a) * (SQ + 1)), Math.cos(a) * (SQ + 1)); add(l); if (NEW) pool(l.position.x, l.position.z); }
+  if (NEW) for (const b of bases) { const dx = -Math.sin(b.a), dz = -Math.cos(b.a); pool(b.x + dx * 8, b.z + dz * 8, 3, TEAM[b.i], .3); }
   for (let i = 0; i < 4; i++) { const a = i * 1.57 + .4, bch = benchOf(P, mt); bch.position.set(Math.sin(a) * (SQ - 3), groundY(0, 0) + .1, Math.cos(a) * (SQ - 3)); bch.rotation.y = a; add(bch); }
   scene.add(hero);
   if (NEW) {
     // warm practical light: two real point lights over the square (≤ 4 allowed) key the avatars and pool on the cobbles
-    for (const [x, z] of [[-9, 10], [9, 6]]) { const l = new T.PointLight('#ffb866', 14, 26, 1.6); l.position.set(x, groundY(x, z) + 7.5, z); scene.add(l); }
+    for (const [x, z] of [[-3.5, 14], [4.5, 12]]) { const l = new T.PointLight('#ffc27a', 9, 11, 2); l.position.set(x, groundY(x, z) + 4.2, z); scene.add(l); }   // warm practicals keyed on the cast's faces, short reach
     // A5 §E: a glowing egg on the square is a real light source (third point light of ≤ 4)
     const eg = new T.Mesh(new T.SphereGeometry(.55, 16, 12), new T.MeshPhongMaterial({color: '#fff3c8', emissive: '#ffc14a', emissiveIntensity: 1.6})); eg.scale.set(1, 1.3, 1); eg.position.set(-.6, groundY(0, 10) + .75, 11.5); eg.name = 'egg'; scene.add(eg);
-    const el = new T.PointLight('#ffcc66', 18, 14, 1.4); el.position.set(-.6, groundY(0, 10) + 1.6, 11.5); scene.add(el);
+    // (the egg glows by emission only: a light at its height would pool on the cobbles around the cast)
     // gardens: a hedge pair flanking every base door + a tree between neighbouring bases
     const hedge = new T.MeshPhongMaterial({color: '#4f7a3a', shininess: 6, map: M.patternTexture('leaves')}), trunk = new T.MeshPhongMaterial({color: '#5a4232', map: M.patternTexture('bark')}), crown = new T.MeshPhongMaterial({color: '#3f6a34', shininess: 8, map: M.patternTexture('leaves')});   // A5: smooth
     for (const b of bases) {

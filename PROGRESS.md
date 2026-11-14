@@ -420,3 +420,24 @@ Also built: `render.js --final` (1440×2560, AA). `scripts/v2/qc.py` (`npm run v
     2. RIVAL's quiff is cropped by the frame top and reads as a pile.
     3. AFK's buzz in ghosted grey-blue reads as a helmet.
   - **`troupe-phone-390.png`:** not re-inspected after v4 (stopped).
+
+## Session 8b, Decision 1 (owner, 2026-11-14) — STOPPED again at §E (medium shots fail after the one allowed pass)
+- **Done for Decision 1:**
+  - The decision is appended to `docs/season1/A5_LOOK_FIX.md` §E and to the brief.
+  - Night palette rule: pure `nightPaletteCheck` in `engine/troupe.js`, tested, and run by `look-gates.js`. The egg cast complies (Dax hoodie `#9a2f2f`, legs `#5a6274`; Kit legs `#4a5a80`).
+  - Egg views: a wide of the square (spectacle, frame luma only), a medium on Kit and a medium on Dax. Both mediums use `fit` with height 0.36, measured fit fraction 0.37.
+  - Small lamp pools (r 3.2), darker plaza (`#625e57`). The two point lights now key the cast's faces at short reach; the egg glows by emission only.
+- **Measured** (`node scripts/v2/look-gates.js --spec engine/fixtures/looktest/egg-new.json --night square,kitMed,daxMed`; lines: frame 0.24–0.42, actor ≥ 0.40, box − ring ≥ 0.12):
+
+  | | square frame | kitMed frame | Kit actor | Kit box − ring | daxMed frame | Dax actor | Dax box − ring |
+  |---|---|---|---|---|---|---|---|
+  | After Decision 1 | 0.422 | 0.367 | 0.288 | −0.098 | 0.334 | 0.319 | −0.027 |
+  | After the one fix pass | 0.477 | 0.452 | 0.403 | −0.046 | 0.409 | 0.377 | −0.056 |
+
+  - The fix pass moved the moon key to the camera side at a low angle (the old key came from behind the cast) and stopped vertex-coloured hair from lifting grey.
+- **What the sheet shows:** at 390 px the mediums read clearly (Kit pink, Dax deep red, faces lit). Their boxes stay no brighter than the ring around them for two reasons:
+  - The ring is mostly moonlit grass and lit walls, about 0.43–0.45.
+  - Each box includes the dark gaps around raised arms and the navy jeans, about 30 % of the box.
+
+  Anything that brightens the cast also brightens the ground at the same distance. A key that lights only the cast (a spotlight per hero, which is still within the ≤ 4 real lights) is the untried route. So is a darker ground material at night.
+- **Not done (stopped per Decision 1):** hair polish (quiff, curls, tighter short cuts), troupe-phone re-shoot with `fit`, §F on real shots, §G, bench, stability, the "Nobody" re-render, `CLAUDE.md` lines.

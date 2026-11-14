@@ -1,8 +1,9 @@
 // scripts/v2/look-gates.js — measured look gates (Amendment A5 §E night brightness, §F framing). Exit 1 on failure.
 //   node scripts/v2/look-gates.js --spec <episode.json> [--night <shot ids>] [--framing] [--out <file.json>]
 // Renders each tested shot's middle frame at 390×693 (phone width) and measures, on the sRGB pixels (luma 0–1, Rec. 709):
-//   night (§E): frame mean 0.24–0.42 · mean inside each hero actor's box ≥ 0.40 · box − its surrounding ring ≥ 0.12
-//     (ring = the box grown by 50 % of its size on every side, minus the box; hero = troupe actors except AFK, or spec.lumaActors)
+//   night (§E + owner Decision 1): every night shot: frame mean 0.24–0.42. Only medium/close shots framed with `fit` (actor
+//     ≥ 30 % of frame height) are also checked on the fit actor: mean inside its box ≥ 0.40 · box − surrounding ring ≥ 0.12
+//     (ring = the box grown by 50 % of its size on every side, minus the box). Plus the night palette rule (engine/troupe.js).
 //   framing (§F, shots with `fit`): subject height (head & shoulders for part 'head', else the full actor) ≥ 45 % close,
 //     ≥ 30 % medium/heroLow; empty ground below the feet ≤ 28 % unless the shot is `spectacle`.
 import {writeFile, mkdir} from 'node:fs/promises';
@@ -11,6 +12,7 @@ import {readFileSync} from 'node:fs';
 import {startServer} from './server.js';
 import {launch} from './browser.js';
 import {framingCheck} from '../../engine/camera.js';
+import {nightPaletteCheck} from '../../engine/troupe.js';
 
 const argv = process.argv.slice(2), arg = (k, d) => { const i = argv.indexOf('--' + k); return i >= 0 ? argv[i + 1] : d; };
 const spec = arg('spec'), out = arg('out', `review/season1/look-gates-${path.basename(spec, '.json')}.json`), nightIds = (arg('night', '') || '').split(',').filter(Boolean), doFraming = argv.includes('--framing');
@@ -34,11 +36,13 @@ try {
       return {frame, actors};
     }, [n, W, H]);
     if (isNight) {
-      const heroes = Object.entries(m.actors).filter(([k, a]) => (S.lumaActors ? S.lumaActors.includes(k) : a.troupe && a.troupe !== 'AFK') && a.front && a.box.x1 > 0 && a.box.x0 < 1 && a.box.y1 > 0 && a.box.y0 < 1);
+      const actorShot = ['medium', 'close'].includes(sh.size) && sh.fit && !sh.spectacle;   // Decision 1
+      const heroes = actorShot ? Object.entries(m.actors).filter(([k, a]) => k === sh.fit.actor && a.front) : [];
       const row = {shot: sh.id, frame: n, look: sh.look, frameLuma: +m.frame.toFixed(3), actors: Object.fromEntries(heroes.map(([k, a]) => [k, {luma: +a.luma.toFixed(3), ring: +a.ring.toFixed(3), contrast: +(a.luma - a.ring).toFixed(3)}]))};
       report.night.push(row);
       if (m.frame < LIM.frame[0] || m.frame > LIM.frame[1]) report.failures.push(`${sh.id}: frame luma ${m.frame.toFixed(3)} outside ${LIM.frame}`);
-      if (!heroes.length) report.failures.push(`${sh.id}: no hero actor in frame`);
+      if (actorShot && !heroes.length) report.failures.push(`${sh.id}: fit actor not in frame`);
+      if (actorShot) { const a = m.actors[sh.fit.actor], f = a ? a.feet - a.top : 0; row.fitFrac = +f.toFixed(3); if (f < .3) report.failures.push(`${sh.id}: fit actor only ${(f * 100).toFixed(1)} % of frame height (< 30 %)`); }
       for (const [k, a] of heroes) { if (a.luma < LIM.actor) report.failures.push(`${sh.id}/${k}: actor luma ${a.luma.toFixed(3)} < ${LIM.actor}`); if (a.luma - a.ring < LIM.contrast) report.failures.push(`${sh.id}/${k}: box − ring ${(a.luma - a.ring).toFixed(3)} < ${LIM.contrast}`); }
     }
     if (isFit) {
@@ -49,6 +53,7 @@ try {
       for (const i of chk.issues) report.failures.push(`${sh.id}: ${i}`);
     }
   }
+  if (nightIds.length) { const troupe = JSON.parse(readFileSync('cast/troupe.json', 'utf8')); report.palette = nightPaletteCheck(S, troupe); for (const p of report.palette) report.failures.push(`night palette: ${p.actor}.${p.key} ${p.color} lightness ${p.l} < 0.32`); }
   if (errors.length) report.failures.push(...errors);
   report.result = report.failures.length ? 'FAIL' : 'PASS';
   await mkdir(path.dirname(out), {recursive: true}); await writeFile(out, JSON.stringify(report, null, 1));
