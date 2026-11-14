@@ -1,9 +1,8 @@
 {
  "slug": "tools-demo",
  "fps": 30,
- "note": "A4 Session 8 tools demo: drone \u2192 snap \u2192 heroLow \u2192 tiltUp on the landform rig, rain + lightning, a trail, a wrist stat, 40 crowd actors. No captions.",
+ "note": "A5 Session 8b tools demo (\u2264 20 s, no captions): drone \u2192 snap (close, fit, crowd behind, wrist stat in focus) \u2192 heroLow (fit) \u2192 tiltUp onto the landform rig, rain + lightning, a trail, 40 crowd actors, then a nightBright medium on LEAD + SECOND.",
  "world": "engine/fixtures/tools/world.js",
- "actorLift": 0,
  "landform": {
   "keys": [
    [
@@ -11,15 +10,15 @@
     "sleep"
    ],
    [
-    5,
+    4,
     "stir"
    ],
    [
-    7,
+    5.6,
     "open"
    ],
    [
-    10.6,
+    8.6,
     "reach"
    ]
   ]
@@ -27,6 +26,8 @@
  "cast": {
   "hero": {
    "style": "v2",
+   "troupe": "LEAD",
+   "role": "Stan",
    "at": "square",
    "offset": [
     0,
@@ -40,16 +41,20 @@
      "idle"
     ],
     [
-     7.2,
+     5.2,
      "lookUp"
     ],
     [
-     10.4,
+     8.4,
      "recoil"
     ],
     [
-     15,
+     12,
      "run"
+    ],
+    [
+     15,
+     "idle"
     ]
    ],
    "faces": [
@@ -58,21 +63,25 @@
      "smile"
     ],
     [
-     7.2,
+     5.2,
      "gasp"
     ],
     [
-     10.4,
+     8.4,
      "terrified"
     ],
     [
-     15,
+     12,
      "determined"
+    ],
+    [
+     15,
+     "smile"
     ]
    ],
    "marks": [
     [
-     15,
+     12,
      {
       "at": "square",
       "offset": [
@@ -89,10 +98,54 @@
        "speed": 4.2
       }
      }
+    ],
+    [
+     15,
+     {
+      "at": "square",
+      "offset": [
+       -1.3,
+       0,
+       8
+      ],
+      "yaw": 10
+     }
+    ]
+   ]
+  },
+  "mia": {
+   "style": "v2",
+   "troupe": "SECOND",
+   "role": "Mia",
+   "at": "square",
+   "offset": [
+    1.6,
+    0,
+    8.4
+   ],
+   "yaw": -12,
+   "keys": [
+    [
+     0,
+     "wave"
     ]
    ],
-   "troupe": "LEAD",
-   "role": "Stan"
+   "faces": [
+    [
+     0,
+     "smile"
+    ]
+   ],
+   "visible": [
+    [
+     0,
+     false
+    ],
+    [
+     15,
+     true
+    ]
+   ]
   }
  },
  "crowds": [
@@ -104,7 +157,7 @@
     "offset": [
      0,
      0,
-     -7
+     -4
     ]
    },
    "radius": 9,
@@ -120,7 +173,7 @@
      true
     ],
     [
-     13,
+     11,
      false
     ]
    ]
@@ -133,7 +186,7 @@
     "offset": [
      0,
      0,
-     -7
+     -4
     ]
    },
    "radius": 9,
@@ -143,20 +196,20 @@
     -1,
     0.25
    ],
-   "at": 13,
+   "at": 11,
    "visible": [
     [
      0,
      false
     ],
     [
-     13,
+     11,
      true
+    ],
+    [
+     15,
+     false
     ]
-   ],
-   "face": [
-    0,
-    -95
    ]
   }
  ],
@@ -174,14 +227,13 @@
    "size": 0.55,
    "keys": [
     [
-     4.25,
+     3.7,
      "99",
      "GRIP"
     ],
     [
-     10.4,
-     "100",
-     "GRIP"
+     5.0,
+     null
     ]
    ]
   }
@@ -204,14 +256,14 @@
     60
    ],
    "count": 420,
-   "at": 6,
-   "dur": 13
+   "at": 5,
+   "dur": 10
   },
   {
    "type": "weather",
    "kind": "rain",
-   "at": 6,
-   "dur": 13,
+   "at": 5,
+   "dur": 10,
    "density": 0.9,
    "opacity": 0.8
   },
@@ -227,12 +279,12 @@
     24,
     -82
    ],
-   "at": 8.1,
+   "at": 6.6,
    "seed": 3
   },
   {
    "type": "shake",
-   "at": 8.15,
+   "at": 6.65,
    "dur": 0.5,
    "amp": 0.12
   },
@@ -246,7 +298,7 @@
      -50
     ]
    },
-   "at": 12.4,
+   "at": 10.2,
    "dur": 1.4,
    "radius": 30
   },
@@ -259,15 +311,15 @@
     -80
    ],
    "count": 30,
-   "at": 10.9,
+   "at": 8.9,
    "dur": 2
   },
   {
    "type": "trail",
    "actor": "hero",
-   "at": 15,
-   "dur": 4,
-   "fade": 2.6,
+   "at": 12,
+   "dur": 2.8,
+   "fade": 1.2,
    "color": "#7fe8ff",
    "width": 1.8,
    "level": 1.3,
@@ -278,9 +330,10 @@
   {
    "id": "T1-drone",
    "size": "wide",
-   "frames": 120,
+   "spectacle": true,
+   "frames": 105,
    "move": "drone",
-   "duration": 4,
+   "duration": 3.5,
    "from": {
     "fov": 52
    },
@@ -330,10 +383,10 @@
   {
    "id": "T2-snap",
    "size": "close",
-   "frames": 60,
+   "frames": 45,
    "move": "snap",
-   "duration": 2,
-   "snapAt": 0.15,
+   "duration": 1.5,
+   "snapAt": 0.1,
    "from": {
     "position": [
      0,
@@ -360,15 +413,23 @@
     ],
     "fov": 40
    },
+   "fit": {
+    "actor": "hero",
+    "height": 0.46,
+    "part": "head"
+   },
+   "focusUi": [
+    "wristStat"
+   ],
    "shadowRadius": 20,
    "look": "storm"
   },
   {
    "id": "T3-heroLow",
    "size": "medium",
-   "frames": 120,
+   "frames": 90,
    "move": "heroLow",
-   "duration": 4,
+   "duration": 3,
    "ground": 0,
    "from": {
     "position": [
@@ -381,7 +442,7 @@
      15,
      0
     ],
-    "fov": 66
+    "fov": 64
    },
    "to": {
     "position": [
@@ -394,7 +455,13 @@
      17,
      -6
     ],
-    "fov": 64
+    "fov": 62
+   },
+   "fit": {
+    "actor": "hero",
+    "height": 0.32,
+    "part": "full",
+    "y": 0.62
    },
    "shadowRadius": 40,
    "look": "storm"
@@ -402,9 +469,10 @@
   {
    "id": "T4-tiltUp",
    "size": "wide",
-   "frames": 150,
+   "spectacle": true,
+   "frames": 120,
    "move": "tiltUp",
-   "duration": 5,
+   "duration": 4,
    "ease": "inOutSine",
    "from": {
     "position": [
@@ -437,10 +505,11 @@
   },
   {
    "id": "T5-trail",
-   "size": "medium",
-   "frames": 120,
+   "size": "wide",
+   "spectacle": true,
+   "frames": 90,
    "move": "static-drift",
-   "duration": 4,
+   "duration": 3,
    "from": {
     "position": [
      8,
@@ -469,6 +538,34 @@
    },
    "shadowRadius": 30,
    "look": "storm"
+  },
+  {
+   "id": "T6-night",
+   "size": "medium",
+   "frames": 90,
+   "move": "push",
+   "duration": 3,
+   "from": {
+    "position": [
+     10,
+     3.2,
+     23
+    ],
+    "target": [
+     0,
+     2.6,
+     8.2
+    ],
+    "fov": 42
+   },
+   "fit": {
+    "actor": "hero",
+    "height": 0.33,
+    "part": "full",
+    "y": 0.66
+   },
+   "shadowRadius": 20,
+   "look": "nightBright"
   }
  ]
 }

@@ -27,9 +27,9 @@ export function safeShift(r, {side = SAFE.side, top = SAFE.top, bottom = SAFE.bo
   let y0 = r.y0, y1 = r.y1;
   if (y0 < top) { dy = top - y0; } else if (y1 > bottom) { dy = bottom - y1; }
   y0 += dy; y1 += dy;
-  if (band && y1 > band[0] && y0 < band[1]) {   // overlaps the caption band: go to whichever side its centre is on (above if it fits)
+  if (band && y1 > band[0] && y0 < band[1]) {   // overlaps the caption band: move above it (below only if it cannot fit above)
     const c = (y0 + y1) / 2, up = band[0] - y1, down = band[1] - y0;
-    const goUp = (c < (band[0] + band[1]) / 2 || band[1] + h > bottom) && band[0] - h >= top;
+    const goUp = band[0] - h >= top;   // above the band whenever it fits: a tag pushed below the band would sit on its own actor's face
     dy += goUp ? up : down;
   }
   return {dx, dy};
@@ -47,7 +47,7 @@ export function enforceReadable(scene, camera, {focus = [], band = SAFE.band} = 
     const d = _w.clone().sub(_c).dot(new T.Vector3(0, 0, -1).applyQuaternion(_q)); if (d <= .1) continue;
     const frameH = 2 * d * tanH, frameW = frameH * camera.aspect;
     const key = kind === 'nameTag' || kind === 'nameTagRole' ? 'tag' : kind, minF = focus.includes(o.userData.uiId) ? MIN_CAP.focus : MIN_CAP[key] ?? .03;
-    const ndc0 = _w.clone().project(camera); if (Math.abs(ndc0.x) > 1 || Math.abs(ndc0.y) > 1 || d > MAX_DIST) continue;   // only elements anchored inside the frame and near enough to matter
+    const ndc0 = _w.clone().project(camera); if (Math.abs(ndc0.x) > 1.6 || Math.abs(ndc0.y) > 1.6 || d > MAX_DIST) continue;   // anchored at or near the frame (a wrist just off the edge still clamps in) and near enough to matter
     const k = minScale(Hw / frameH * (CAP_RATIO[kind] ?? .35), minF); if (k > 1) o.scale.multiplyScalar(k);
     const ndc = _w.clone().project(camera), cx = (ndc.x + 1) / 2, by = (1 - ndc.y) / 2, h = Hw * k / frameH, w = Ww * k / frameW;   // sprites anchor bottom-centre
     const {dx, dy} = safeShift({x0: cx - w / 2, x1: cx + w / 2, y0: by - h, y1: by}, {band});
