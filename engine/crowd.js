@@ -13,6 +13,7 @@ import {hair4Material} from '../avatar-style/hair.js';
 import {setFace} from '../avatar-style/faces2.js';
 import {applyPoseSample} from './poses.js';
 import {faceMaterial} from '../avatar-style/faces2.js';
+import {faceMaterial3, setFace3} from '../avatar-style/faces3.js';
 
 export const CROWD_MAX = 60;
 const SHIRTS = ['#4f7cc4', '#c0392b', '#7a8a4a', '#6b4a8f', '#2e9e78', '#a0683a', '#d9a440', '#e2733a', '#3f8fb0', '#b84a7a'];
@@ -78,7 +79,7 @@ export function memberMatrices(m, s, at) {
   return out;
 }
 
-export function createCrowds(scene, list = [], {groundY = () => 0, resolveCentre = c => c, avoidColours = []} = {}) {   // avoidColours: Season 1 hero readability (engine/heroread.js)
+export function createCrowds(scene, list = [], {groundY = () => 0, resolveCentre = c => c, avoidColours = [], faces = 'v2'} = {}) {   // faces 'v3': Faces v3 crowd tier (season 1)   // avoidColours: Season 1 hero readability (engine/heroread.js)
   const box = new T.BoxGeometry(1, 1, 1), mat = new T.MeshPhongMaterial({color: '#ffffff', shininess: 30, specular: '#333333'});
   const hairWhite = CROWD_HAIR.map(st => hair4Geometry(st, '#ffffff', 'crowd'));
   const crowds = list.map(c => {
@@ -95,11 +96,11 @@ export function createCrowds(scene, list = [], {groundY = () => 0, resolveCentre
     const col = new T.Color();
     members.forEach((m, i) => { for (const [name, im] of Object.entries(meshes)) im.setColorAt(i, col.set(name === 'torso' || name.endsWith('Arm') ? (name === 'torso' ? m.shirt : (m.i % 3 ? m.shirt : m.skin)) : name.endsWith('Leg') ? m.pants : m.skin)); });
     for (const im of Object.values(meshes)) im.instanceColor.needsUpdate = true;
-    const face = new T.InstancedMesh(new T.PlaneGeometry(1, .68), faceMaterial(c.expression ?? 'smile', 'bg'), n); face.name = group.name + '_face'; face.frustumCulled = false; group.add(face); meshes.face = face;
+    const face = new T.InstancedMesh(new T.PlaneGeometry(1, .68), faces === 'v3' ? faceMaterial3(c.expression ?? 'smile', 'crowd', '#5a3826') : faceMaterial(c.expression ?? 'smile', 'bg'), n); face.name = group.name + '_face'; face.frustumCulled = false; group.add(face); meshes.face = face;
     // promotion pool: up to PROMOTE.max mid-tier actors (lathe body, faces, v4 mid hair), recoloured per assignment
     const pool = Array.from({length: Math.min(PROMOTE.max, n)}, (_, k) => { const mats = {torso: plastic('#ffffff').clone(), arm: plastic('#ffffff').clone(), leg: plastic('#ffffff').clone(), skin: plastic('#ffffff').clone()};
       const a = createActor({tier: 'bg', name: group.name + '_mid' + k, materials: {torso: mats.torso, leftArm: mats.arm, rightArm: mats.arm, leftLeg: mats.leg, rightLeg: mats.leg, head: mats.skin}});
-      setFace(a, c.expression ?? 'smile'); const hm = new T.Mesh(hair4Geometry(CROWD_HAIR[0], '#ffffff', 'mid'), hair4Material()); hm.position.y = .58; hm.castShadow = true; a.pivots.head.add(hm);
+      if (faces === 'v3') setFace3(a, c.expression ?? 'smile'); else setFace(a, c.expression ?? 'smile'); const hm = new T.Mesh(hair4Geometry(CROWD_HAIR[0], '#ffffff', 'mid'), hair4Material()); hm.position.y = .58; hm.castShadow = true; a.pivots.head.add(hm);
       a.root.visible = false; group.add(a.root); return {a, mats, hm}; });
     scene.add(group); return {c, members, meshes, hairs, group, pool};
   });
