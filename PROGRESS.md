@@ -873,3 +873,10 @@ Three weakest things:
 - **Reactions:** mouths are tidy ellipses and arcs, not the reference's exaggerated asymmetric shapes; teeth and tongue have no shading line; sclera rings are uniform.
 - **Story:** brave (squeeze + flat) can read as pain; curious is close to the base set; wonder and shock share the "o" mouth.
 - **`faces-phone-390.png`:** at medium size the features use about 60 % of the head front; the rival's quiff hides his brows (smug loses its eyebrow); the elder's glasses read small.
+
+## Egg preview fixes, one pass (owner notes, 2026-11-14): plan
+1. A: pure season *warnings* in `engine/seasoncheck.js` (+ tests): `showVerb` (static-object shots only as inserts ≤ 1.5 s), `clockBoard` (≤ 3 clock shots each ≤ 1.5 s, ≤ 3 scoreboard), `holdMax` (no framing > 3.0 s but low point + money shot), `crowdCover` (foreground crowd ≤ 15 % of frame), `moodMap` (Kit never angry/rage; line moods from `gen.py`'s map).
+2. B: rework the `gen.py` shot table per the owner's list (S01 drone lower with runners, S03 clock insert + hot egg toss, S07 diving kid + door slam, S09–S10 tiltUp to the board, S12–S13 three quick mediums, S14 crane hot potato, S15 claws + dawn base, S16 return + note, S19 side-on vault, S21–S23 queue, S24 rooftop nests, S25–S26 warm egg with runners, S28 track, S29–S30 clock + heroLow shadow, S30–S31 bed + feather, S32–S33 tiptoe/bow, S37–S38 mother silhouette + head lower, S40 claws lift, nest rebuild, proof match cut, S51 seated town).
+3. Assets: dragon face (brow ridge, eyes, snout) + own colour; `buildDragon({baby: true})` hatchling proportions (head ≥ 40 %); a real bed; a soft gold-orange feather; rooftop nests; cloudtop nest (biome, layered clouds, woven nest, ring of seated kids, mother curled outside); mailbag eggs; a door that slams.
+4. Hair: long v4 styles clamp lock tips outside the torso box (opt-in for v4 only), plus a pure test.
+5. C: 1 fps preview → `review/egg/preview/`, `v2:plan` 0 errors + warnings listed, three weakest per sheet, commit/push/PR, send the sheets. No animatic.

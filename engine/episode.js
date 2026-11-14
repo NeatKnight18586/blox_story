@@ -337,7 +337,10 @@ export function seasonMeasure(n, objects = [], width = 360, height = 640) {
   // Season 1 eggs (parts/eggs.js groups carry userData.egg): on-screen height of the shell alone (h) and with its rarity beam (hb)
   const eggs = []; scene.traverseVisible(o => { if (!o.userData?.egg) return; const body = o.getObjectByName('eggBody'); if (!body) return;
     const b = projBox(new T.Box3().setFromObject(body)), bb = projBox(new T.Box3().setFromObject(o)); if (!b.allFront) return; eggs.push({kind: o.userData.egg, box: b, h: b.h, hb: bb.allFront ? bb.h : b.h, front: b.front, dist: +body.getWorldPosition(new T.Vector3()).distanceTo(camera.position).toFixed(2)}); });
-  return {frame: n, actors: measureFrame(), objects: obj, eggs, places: placesNow(), ui: (spec.readableUi ?? !!look?.v3) ? uiMeasure(scene, camera, {focus: shot.focusUi ?? []}) : [], v3: !!look?.v3};
+  const crowdBoxes = (crowds.places?.() ?? []).map(m => { const sc = m.r / .95, b = projBox(new T.Box3(new T.Vector3(m.x - m.r, m.y, m.z - m.r), new T.Vector3(m.x + m.r, m.y + 5.3 * sc, m.z + m.r)));
+    return b.allFront ? {x0: b.x0, x1: b.x1, y0: b.y0, y1: b.y1, dist: +Math.hypot(m.x - camera.position.x, m.y + 2.6 * sc - camera.position.y, m.z - camera.position.z).toFixed(2)} : null; }).filter(Boolean);   // owner rule 4: foreground crowd cover
+  const dist = Object.fromEntries(Object.entries(cast).filter(([n, c]) => c.v2 && markPos[n]).map(([n]) => [n, +Math.hypot(markPos[n][0] - camera.position.x, markPos[n][1] + 2.6 - camera.position.y, markPos[n][2] - camera.position.z).toFixed(2)]));
+  return {frame: n, actors: measureFrame(), objects: obj, eggs, places: placesNow(), crowdBoxes, dist, ui: (spec.readableUi ?? !!look?.v3) ? uiMeasure(scene, camera, {focus: shot.focusUi ?? []}) : [], v3: !!look?.v3};
 }
 // A5 Decision 2: silhouette mask of one actor (actor-only pass, same camera, after renderFrame): Uint8 array, row 0 = top.
 const maskMat = new T.MeshBasicMaterial({color: '#ffffff'});
