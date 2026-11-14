@@ -86,3 +86,13 @@ test('night palette rule: hero/troupe outfit colours ≥ 0.32 lightness in night
   assert.deepEqual(nightPaletteCheck(JSON.parse(rf('engine/fixtures/looktest/egg-new.json', 'utf8')), data), []);
   const egg = JSON.parse(rf('engine/fixtures/looktest/egg-new.json', 'utf8')); assert.ok(lightness(egg.cast.dax.outfit.main) >= NIGHT_MIN_L && egg.cast.dax.outfit.main === '#9a2f2f');
 });
+
+import {distanceToMask, maskStats} from '../../engine/lumagate.js';
+test('lumagate: mask mean and a 6–14 px ring on a synthetic image', () => {
+  const w = 80, h = 80, luma = new Float32Array(w * h), mask = new Uint8Array(w * h);
+  for (let y = 0; y < h; y++) for (let x = 0; x < w; x++) { const i = y * w + x, inBox = x >= 30 && x < 50 && y >= 30 && y < 50, d = Math.max(30 - x, x - 49, 30 - y, y - 49, 0);
+    mask[i] = inBox ? 1 : 0; luma[i] = inBox ? .7 : d >= 6 && d <= 14 ? .3 : .9; }   // ring band dark, far field bright: only the band may count
+  const dist = distanceToMask(mask, w, h); assert.equal(dist[40 * w + 40], 0); assert.ok(Math.abs(dist[40 * w + 55] - 6) < .01);
+  const s = maskStats(luma, mask, w, h); assert.ok(Math.abs(s.actor - .7) < 1e-6); assert.equal(s.actorPx, 400);
+  assert.ok(Math.abs(s.ring - .3) < .02, String(s.ring)); assert.ok(Math.abs(s.contrast - .4) < .02);
+});

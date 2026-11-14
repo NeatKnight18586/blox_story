@@ -98,6 +98,19 @@ for (const [name, c] of Object.entries(spec.cast ?? {})) {
 }
 if (Object.values(cast).some(x => x.v2)) await loadFont();
 for (const s of shots) if (s.fit && s.fit.h === undefined && cast[s.fit.actor]) s.fit.h = 5.3 * cast[s.fit.actor].a.root.scale.y;   // A5 §F: actor height for `fit`
+// A5 §E Decision 2: one narrow, soft spotlight per hero (troupe except AFK) for medium/close night shots, aimed from the
+// camera side at the chest, shadow-casting (the actor screens the ground behind). Real lights stay ≤ 4 with the world's own.
+const NIGHT = ['night', 'nightBright'];
+const heroSpots = look?.v3 ? Object.entries(cast).filter(([, x]) => x.v2 && x.c.troupe && x.c.troupe !== 'AFK' && spec.heroSpots !== false).slice(0, 2).map(([name]) => {
+  const l = new T.SpotLight('#fff0dc', 0, 16, .2, .55, 1.6); l.castShadow = true; l.shadow.mapSize.set(512, 512); l.shadow.bias = -.002; l.name = 'heroSpot_' + name; scene.add(l, l.target); return {name, l}; }) : [];
+function aimHeroSpots(shot, camPos) {
+  for (const {name, l} of heroSpots) {
+    const on = NIGHT.includes(shot?.look ?? spec.look) && ['medium', 'close'].includes(shot?.size) && cast[name].a.root.visible, m = markPos[name];
+    l.intensity = on ? (spec.heroSpotIntensity ?? 40) : 0; if (!on || !m) continue;
+    const H = 5.3 * cast[name].a.root.scale.y, chest = new T.Vector3(m[0], m[1] + .62 * H, m[2]), dir = new T.Vector3(camPos[0] - m[0], 0, camPos[2] - m[2]).normalize();
+    l.position.copy(chest).addScaledVector(dir, 8).add(new T.Vector3(0, 2.2, 0)); l.target.position.copy(chest); l.target.updateMatrixWorld();
+  }
+}
 // A4 night "actor lift" (opt-in spec.actorLift, v3 looks only): plastic avatars get a small self-light (emissive = their
 // own colour / texture × k) so they stay the highest-contrast thing in a dark frame. Faces (MeshBasic) are untouched.
 const usesNightBright = spec.look === 'nightBright' || (spec.shots ?? []).some(s => s.look === 'nightBright');
@@ -214,7 +227,7 @@ export function renderFrame(n, width = 720, height = 1280, nudge = 0) {
   const shot = shots.findLast(s => n >= s.start), t = n / FPS;
   const actors = poseCast(t);
   const c = sampleCamera({...shot, fps: FPS}, (n - shot.start) / FPS, actors);
-  world?.update(t); applyWorldState(shot, t); updateExtras(t, {camPos: c.position, size: shot.size});
+  world?.update(t); applyWorldState(shot, t); updateExtras(t, {camPos: c.position, size: shot.size}); aimHeroSpots(shot, c.position);
   const fx = effects.apply(t, camera);   // poses effect targets; returns the shake offset and any timeOfDay blend
   const pos = c.position.map((v, i) => v + fx.camOffset[i]), tgt = c.target.map((v, i) => v + fx.camOffset[i] * .6);
   camera.fov = c.fov; camera.aspect = width / height; camera.position.fromArray(pos);
@@ -278,6 +291,17 @@ export function measureFrame() {
   }
   return out;
 }
+// A5 Decision 2: silhouette mask of one actor (actor-only pass, same camera, after renderFrame): Uint8 array, row 0 = top.
+const maskMat = new T.MeshBasicMaterial({color: '#ffffff'});
+export function actorMask(name, w, h) {
+  const keep = cast[name].a.root, vis = []; scene.traverse(o => { if ((o.isMesh || o.isSprite || o.isPoints || o.isLine) && o.visible) { let p = o, inActor = false; while (p) { if (p === keep) { inActor = true; break; } p = p.parent; } if (!inActor || o.isSprite) { vis.push(o); o.visible = false; } } });
+  const bg = scene.background, fog = scene.fog; scene.background = new T.Color('#000000'); scene.fog = null; scene.overrideMaterial = maskMat;
+  renderer.render(scene, camera);
+  const gl = renderer.getContext(), px = new Uint8Array(w * h * 4); gl.readPixels(0, 0, w, h, gl.RGBA, gl.UNSIGNED_BYTE, px);
+  scene.overrideMaterial = null; scene.background = bg; scene.fog = fog; for (const o of vis) o.visible = true;
+  const m = new Uint8Array(w * h); for (let y = 0; y < h; y++) for (let x = 0; x < w; x++) m[y * w + x] = px[((h - 1 - y) * w + x) * 4] > 127 ? 1 : 0;
+  return m;
+}
 export function shotSpeed(i) { const s = shots[i]; return maxTargetSpeed({...s, fps: FPS, openHit: false}, tt => poseCast(s.start / FPS + tt), FPS); }
 
-window.__episode = {debug: {scene, renderer}, breakdown, measureFrame, inspectFrame, shotSpeed, END: FRAMES / FPS, anchors: Object.fromEntries(Object.entries(anchors).filter(([, a]) => a.camera).map(([k]) => [k, true])), renderAnchor, renderAnchorNudged, renderCamera, FPS, FRAMES, shots: shots.map(({id, start, frames, size, move, loc, subject, see, openHit, at, why, captionY, fit, spectacle, look: lk}) => ({id, start, frames, size, move, loc, subject, see, openHit: !!openHit, at, why, captionY, fit, spectacle: !!spectacle, look: lk})), renderFrame};
+window.__episode = {debug: {scene, renderer}, breakdown, measureFrame, actorMask, inspectFrame, shotSpeed, END: FRAMES / FPS, anchors: Object.fromEntries(Object.entries(anchors).filter(([, a]) => a.camera).map(([k]) => [k, true])), renderAnchor, renderAnchorNudged, renderCamera, FPS, FRAMES, shots: shots.map(({id, start, frames, size, move, loc, subject, see, openHit, at, why, captionY, fit, spectacle, look: lk}) => ({id, start, frames, size, move, loc, subject, see, openHit: !!openHit, at, why, captionY, fit, spectacle: !!spectacle, look: lk})), renderFrame};

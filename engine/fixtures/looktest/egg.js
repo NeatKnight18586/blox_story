@@ -14,18 +14,20 @@ import {mergeGeometries, mergeVertices} from 'three/addons/utils/BufferGeometryU
 export const TEAM = ['#e4574a', '#f2b632', '#2f80d1', '#9b59b6', '#1fb5a8', '#ff7aa8', '#7fc241', '#ff8c2e', '#4ad8ff', '#c0392b', '#f2e14a', '#8a6be8'];
 export const LOOK = spec => spec.kit === 'old' ? null : {fog: {color: '#2f5a86', near: 90, far: 360, height: {base: 0, falloff: 5, amount: .26, near: 30}}, envPreset: 'nightBright', envIntensity: .5, cloudCover: .55, moon: {az: 172, el: 14, size: 3.2}, starDensity: 1.6};
 export const LAYER = {plaza: .14, road: .1};
-const SQ = 18, ROAD = 33, BASE_R = 47, POND = [52, 44];
+const NIGHT_DIM = .6, SQ = 18, ROAD = 33, BASE_R = 47, POND = [52, 44];
 
 const OLD = {asphalt: ['plastic', '#55585f'], concrete: ['plastic'], plaster: ['plastic'], roofTile: ['slate']};   // the v2 kit had no such patterns
 export function build(scene, {P, B, A, M, PR, TR, BI, V, W, look, spec}) {
   const NEW = spec.kit !== 'old', R = B.rng(11), anchors = {}, movers = [], hero = new T.Group(); hero.name = 'hero';
-  const mt = (pattern, color, o = {}) => NEW ? M.std(pattern, color, o) : M.mat(OLD[pattern]?.[0] ?? pattern, OLD[pattern]?.[1] ?? color, o);
+  const dim = (c, k = NIGHT_DIM) => '#' + new T.Color(c).multiplyScalar(k).getHexString();   // A5 Decision 2: night ground/walls at ~60 %
+  const DIMMED = ['plaster', 'concrete', 'cobble', 'asphalt', 'brick'];
+  const mt = (pattern, color, o = {}) => NEW ? (DIMMED.includes(pattern) ? M.std(pattern, dim(color), o) : M.std(pattern, color, o)) : M.mat(OLD[pattern]?.[0] ?? pattern, OLD[pattern]?.[1] ?? color, o);
   const add = o => { hero.add(o); return o; };
   // ---- ground --------------------------------------------------------------------------------------------
   const bases = Array.from({length: 12}, (_, i) => { const a = (i + .5) / 12 * Math.PI * 2; return {i, a, x: Math.sin(a) * BASE_R, z: Math.cos(a) * BASE_R, yaw: a + Math.PI}; });
   let groundY = () => 0;
   if (NEW) {
-    const bio = BI.biome('suburb');
+    const bio0 = BI.biome('suburb'), bio = {...bio0, terrain: {...bio0.terrain, layers: bio0.terrain.layers.map(l => ({...l, color: dim(l.color)}))}};
     const controls = [{type: 'noise', amp: 1.2, scale: 45, octaves: 3}, {type: 'hill', at: [-120, -60], r: 90, h: 22}, {type: 'hill', at: [130, -40], r: 80, h: 18}, {type: 'ridge', from: [-200, -170], to: [200, -150], w: 70, h: 26},
       {type: 'hill', at: [-90, 110], r: 70, h: 12}, {type: 'pad', x0: -SQ - 2, x1: SQ + 2, z0: -SQ - 8, z1: SQ + 2, y: 0, blend: 14},
       ...bases.map(b => ({type: 'pad', x0: b.x - 8, x1: b.x + 8, z0: b.z - 8, z1: b.z + 8, y: .4 + (b.i % 3) * .3, blend: 8})),

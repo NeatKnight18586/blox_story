@@ -2,8 +2,9 @@
 //   node scripts/v2/look-gates.js --spec <episode.json> [--night <shot ids>] [--framing] [--out <file.json>]
 // Renders each tested shot's middle frame at 390×693 (phone width) and measures, on the sRGB pixels (luma 0–1, Rec. 709):
 //   night (§E + owner Decision 1): every night shot: frame mean 0.24–0.42. Only medium/close shots framed with `fit` (actor
-//     ≥ 30 % of frame height) are also checked on the fit actor: mean inside its box ≥ 0.40 · box − surrounding ring ≥ 0.12
-//     (ring = the box grown by 50 % of its size on every side, minus the box). Plus the night palette rule (engine/troupe.js).
+//     ≥ 30 % of frame height) are also checked on the fit actor, measured on its SILHOUETTE (Decision 2: actor-only mask pass,
+//     same camera): mean over the mask ≥ 0.40 · mask − ring ≥ 0.12 (ring = 6–14 px outside the mask at 390 px). Plus the
+//     night palette rule (engine/troupe.js). `--png <file>` writes the measured views side by side with the numbers under each.
 //   framing (§F, shots with `fit`): subject height (head & shoulders for part 'head', else the full actor) ≥ 45 % close,
 //     ≥ 30 % medium/heroLow; empty ground below the feet ≤ 28 % unless the shot is `spectacle`.
 import {writeFile, mkdir} from 'node:fs/promises';
@@ -13,10 +14,12 @@ import {startServer} from './server.js';
 import {launch} from './browser.js';
 import {framingCheck} from '../../engine/camera.js';
 import {nightPaletteCheck} from '../../engine/troupe.js';
+import {maskStats} from '../../engine/lumagate.js';
 
 const argv = process.argv.slice(2), arg = (k, d) => { const i = argv.indexOf('--' + k); return i >= 0 ? argv[i + 1] : d; };
 const spec = arg('spec'), out = arg('out', `review/season1/look-gates-${path.basename(spec, '.json')}.json`), nightIds = (arg('night', '') || '').split(',').filter(Boolean), doFraming = argv.includes('--framing');
 const S = JSON.parse(readFileSync(spec, 'utf8')), W = 390, H = 693, LIM = {frame: [.24, .42], actor: .40, contrast: .12};
+const shotsPng = [], pngOut = arg('png');
 const server = await startServer(), browser = await launch(), report = {spec, limits: {night: LIM, framing: {close: .45, medium: .30, heroLow: .30, groundMax: .28}}, night: [], framing: [], failures: []};
 try {
   const page = await browser.newPage(); const errors = []; page.on('pageerror', e => errors.push(e.message));
@@ -33,13 +36,17 @@ try {
       for (const [name, a] of Object.entries(meas)) { const b = a.box, X0 = Math.round(b.x0 * W), X1 = Math.round(b.x1 * W), Y0 = Math.round(b.y0 * H), Y1 = Math.round(b.y1 * H), gw = Math.round((X1 - X0) * .5), gh = Math.round((Y1 - Y0) * .5);
         const inBox = mean(X0, X1, Y0, Y1), ring = mean(X0 - gw, X1 + gw, Y0 - gh, Y1 + gh, (x, y) => x >= X0 && x < X1 && y >= Y0 && y < Y1);
         actors[name] = {...a, luma: inBox, ring}; }
-      return {frame, actors};
+      const lum = new Array(W * H); for (let y = 0; y < H; y++) for (let x = 0; x < W; x++) lum[y * W + x] = L(x, y);
+      const png = E.debug.renderer.domElement.toDataURL('image/png');
+      return {frame, actors, lum, png};
     }, [n, W, H]);
+    if (isNight && ['medium', 'close'].includes(sh.size) && sh.fit) m.mask = await page.evaluate(([nm, W, H]) => Array.from(window.__episode.actorMask(nm, W, H)), [sh.fit.actor, W, H]);
     if (isNight) {
       const actorShot = ['medium', 'close'].includes(sh.size) && sh.fit && !sh.spectacle;   // Decision 1
-      const heroes = actorShot ? Object.entries(m.actors).filter(([k, a]) => k === sh.fit.actor && a.front) : [];
+      let heroes = actorShot ? Object.entries(m.actors).filter(([k, a]) => k === sh.fit.actor && a.front) : [];
+      if (actorShot && m.mask) { const st = maskStats(Float32Array.from(m.lum), Uint8Array.from(m.mask), W, H, {r0: 6, r1: 14}); heroes = heroes.map(([k, a]) => [k, {...a, luma: st.actor, ring: st.ring, maskPx: st.actorPx}]); }
       const row = {shot: sh.id, frame: n, look: sh.look, frameLuma: +m.frame.toFixed(3), actors: Object.fromEntries(heroes.map(([k, a]) => [k, {luma: +a.luma.toFixed(3), ring: +a.ring.toFixed(3), contrast: +(a.luma - a.ring).toFixed(3)}]))};
-      report.night.push(row);
+      report.night.push(row); shotsPng.push({id: sh.id, png: m.png, row});
       if (m.frame < LIM.frame[0] || m.frame > LIM.frame[1]) report.failures.push(`${sh.id}: frame luma ${m.frame.toFixed(3)} outside ${LIM.frame}`);
       if (actorShot && !heroes.length) report.failures.push(`${sh.id}: fit actor not in frame`);
       if (actorShot) { const a = m.actors[sh.fit.actor], f = a ? a.feet - a.top : 0; row.fitFrac = +f.toFixed(3); if (f < .3) report.failures.push(`${sh.id}: fit actor only ${(f * 100).toFixed(1)} % of frame height (< 30 %)`); }
@@ -56,6 +63,19 @@ try {
   if (nightIds.length) { const troupe = JSON.parse(readFileSync('cast/troupe.json', 'utf8')); report.palette = nightPaletteCheck(S, troupe); for (const p of report.palette) report.failures.push(`night palette: ${p.actor}.${p.key} ${p.color} lightness ${p.l} < 0.32`); }
   if (errors.length) report.failures.push(...errors);
   report.result = report.failures.length ? 'FAIL' : 'PASS';
+  if (pngOut && shotsPng.length) {   // the measured views side by side at 390 px, numbers printed under each
+    const {execFileSync} = await import('node:child_process'), tmp = path.join(path.dirname(pngOut), '.night-tmp'); await mkdir(tmp, {recursive: true});
+    const items = []; for (const [k, v] of shotsPng.entries()) { const f = path.join(tmp, k + '.png'); await writeFile(f, Buffer.from(v.png.split(',')[1], 'base64'));
+      const a = Object.entries(v.row.actors)[0]; items.push({f, label: `${v.id}: frame ${v.row.frameLuma}` + (a ? `\n${a[0]} ${a[1].luma} · ring ${a[1].ring} · diff ${a[1].contrast}` : '\n(frame only)')}); }
+    execFileSync('python3', ['-c', `
+import json, sys
+from PIL import Image, ImageDraw, ImageFont
+I = json.loads(sys.argv[1]); f = ImageFont.load_default(size=17); W, H = 390, 693
+s = Image.new('RGB', (W * len(I), H + 54), '#111'); d = ImageDraw.Draw(s)
+for k, it in enumerate(I): s.paste(Image.open(it['f']).convert('RGB'), (k * W, 0)); d.multiline_text((k * W + 8, H + 6), it['label'], fill='#ffd84a', font=f, spacing=4)
+s.save(sys.argv[2])`, JSON.stringify(items), pngOut]);
+    const {rm} = await import('node:fs/promises'); await rm(tmp, {recursive: true, force: true});
+  }
   await mkdir(path.dirname(out), {recursive: true}); await writeFile(out, JSON.stringify(report, null, 1));
   console.log(JSON.stringify({result: report.result, night: report.night, framing: report.framing, failures: report.failures}, null, 1));
   process.exitCode = report.failures.length ? 1 : 0;
