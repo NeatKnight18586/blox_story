@@ -134,6 +134,7 @@ picture (so a player recognises it in one second), never a game's name, map, UI 
 - **Clues:** the town-hall weathervane is a dragon · claw marks on the clock-tower roof · eggs glow warm only in still hands (spoken).
 - **Money shot:** a cloud nest the size of the town, full of kids with sleeping baby dragons. **World:** base town at night + cloudtop nest. Mother = `dragon.js` at 3×; hatchlings at 0.2×. Nobody is shown being taken; everyone comes home.
 - **Game echo:** base-stealing games (bases, lock timers, a scoreboard). No game's name, map, UI art or characters.
+- **Eggs:** nine original egg designs, one per themed base, with rarity glows (table in `beats.md`); Kit holds the Plain egg nobody wanted, and it hatches the only gold dragon.
 - Script: `stories/egg/script.txt` · beats: `stories/egg/beats.md`.
 
 ### 02 · Q · `ragdoll` · Ragdoll Town 🪆
