@@ -29,7 +29,7 @@ export function water({height, x0, x1, z0, z1, y = 0, deep = '#1f6f93', shallow 
   // plane uv: 0..1 over the extent (depth map); the normal layers use uv × extent / tile
   let nrm = null, dep = null;
   if (typeof document !== 'undefined') {
-    const n = 128; nrm = new T.DataTexture(heightToNormal(rippleHeight(n), n, n, 3), n, n, T.RGBAFormat); nrm.wrapS = nrm.wrapT = T.RepeatWrapping; nrm.magFilter = T.LinearFilter; nrm.minFilter = T.LinearMipmapLinearFilter; nrm.generateMipmaps = true; nrm.needsUpdate = true;
+    const n = 128; nrm = new T.DataTexture(heightToNormal(rippleHeight(n), n, n, 5.5), n, n, T.RGBAFormat);   // A5: stronger ripples nrm.wrapS = nrm.wrapT = T.RepeatWrapping; nrm.magFilter = T.LinearFilter; nrm.minFilter = T.LinearMipmapLinearFilter; nrm.generateMipmaps = true; nrm.needsUpdate = true;
     const r = 128, dm = height ? depthMap(height, {x0, x1, z0, z1, y, res: r}) : new Float32Array(r * r).fill(1), px = new Uint8Array(r * r * 4);
     for (let i = 0; i < r * r; i++) { const v = Math.round(dm[i] * 255); px[i * 4] = px[i * 4 + 1] = px[i * 4 + 2] = v; px[i * 4 + 3] = 255; }
     dep = new T.DataTexture(px, r, r, T.RGBAFormat); dep.magFilter = dep.minFilter = T.LinearFilter; dep.flipY = false; dep.needsUpdate = true;
@@ -43,14 +43,14 @@ export function water({height, x0, x1, z0, z1, y = 0, deep = '#1f6f93', shallow 
     sh.fragmentShader = sh.fragmentShader.replace('#include <common>', `#include <common>
       varying vec2 vWUv; uniform float wTime; uniform vec3 wDeep; uniform vec3 wShallow; uniform vec3 wSky; uniform sampler2D wDepth; uniform sampler2D wNrm; uniform vec2 wFlow; uniform vec2 wRep; uniform float wFoam;`)
       .replace('#include <map_fragment>', `float dp = texture2D(wDepth, vec2(vWUv.x, 1. - vWUv.y)).r;
-        vec3 wcol = mix(wShallow, wDeep, smoothstep(0., .8, dp));
+        vec3 wcol = mix(wShallow, wDeep * .8, smoothstep(0., .65, dp));   // A5: light shallows → deep centre
         vec2 q = vWUv * wRep; float fn = texture2D(wNrm, q * 2.3 - wFlow * wTime * 1.7).r;
         float band = 1. - smoothstep(0., wFoam, dp); float foamK = band * smoothstep(.35, .7, fn + band * .4 + .25 * sin(wTime * 1.6 + dp * 40.));
-        diffuseColor.rgb = mix(wcol, vec3(.96, .98, 1.), foamK * .85);`)
+        diffuseColor.rgb = mix(wcol, vec3(.96, .98, 1.), foamK * .9); diffuseColor.rgb = mix(diffuseColor.rgb, vec3(1.), smoothstep(.06, 0., dp) * .7);`)   // + a crisp foam line at the shore
       .replace('#include <normal_fragment_maps>', `vec3 nA = texture2D(wNrm, q + wFlow * wTime).xyz * 2. - 1.; vec3 nB = texture2D(wNrm, q * 1.7 + vec2(-wFlow.y, wFlow.x) * wTime * 1.3 + .37).xyz * 2. - 1.;
         vec3 mapN = normalize(vec3((nA.xy + nB.xy) * .5, 1.)); normal = normalize(tbn * mapN);`)
       .replace('#include <opaque_fragment>', `float fres = pow(1. - saturate(dot(normal, normalize(vViewPosition))), 4.);
-        outgoingLight = mix(outgoingLight, wSky, fres * .55 * (1. - foamK));
+        outgoingLight = mix(outgoingLight, wSky, fres * .32 * (1. - foamK));
         #include <opaque_fragment>`);
   };
   m.customProgramCacheKey = () => 'water3';

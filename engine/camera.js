@@ -98,12 +98,44 @@ export function droneBank(points, u, bankDeg = DRONE.bankDeg) {
 const clampHeroLow = (pose, ground) => ({...pose, position: [pose.position[0], ground + Math.min(HERO_LOW.maxH, Math.max(HERO_LOW.minH, pose.position[1] - ground)), pose.position[2]],
   fov: Math.min(HERO_LOW.maxFov, Math.max(HERO_LOW.minFov, pose.fov ?? HERO_LOW.fov))});
 
+// ---- A5 §F: framing that fills the phone (pure) ----------------------------------------------------------------
+export const FRAMING = {close: .45, medium: .30, heroLow: .30, groundMax: .28};
+export const FIT_MOVES = ['heroLow', 'snap', 'push', 'orbit'];
+// Distance at which a span of height `spanH` fills `frac` of the frame height at vertical fov `fovDeg`.
+export const fitDistance = (spanH, frac, fovDeg) => spanH / (2 * Math.tan(fovDeg * Math.PI / 360) * frac);
+// The part of an actor of height H a fit frames: 'head' = head and shoulders (0.6 H → 1.02 H), else the full actor.
+export const fitSpan = (part, H) => part === 'head' ? {lo: .6 * H, hi: 1.02 * H} : {lo: 0, hi: 1.02 * H};
+// fit {actor, height (frame fraction), part: 'full'|'head', y: screen y of the subject centre (0 top), h: actor height}
+// → the pose moved along its own view direction so the subject's on-screen height = fit.height; the target sits above the
+// subject centre so the centre lands at screen y (full-body shots default 0.6, which keeps empty ground ≤ 28 %).
+export function applyFit(pose, fit, actorPos, H = fit.h ?? 5.3) {
+  const {lo, hi} = fitSpan(fit.part, H), span = hi - lo, fov = pose.fov ?? 40, d = fitDistance(span, fit.height, fov);
+  const yc = fit.y ?? (fit.part === 'head' ? .5 : .6), frameH = span / fit.height, centre = [actorPos[0], actorPos[1] + (lo + hi) / 2, actorPos[2]];
+  const target = [centre[0], centre[1] + (yc - .5) * frameH, centre[2]];
+  const dir = sub(pose.position, pose.target), l = len(dir) || 1;
+  return {...pose, position: add(centre, scale(dir, d / l)), target, fov};
+}
+// Framing check (pure): {size, subjectFrac (on-screen height of the framed part), groundGap (frame fraction below the feet,
+// 0 when they are off-frame), spectacle} → {ok, need, issues}.
+export function framingCheck({size, move, subjectFrac, groundGap = 0, spectacle = false}) {
+  const need = size === 'close' ? FRAMING.close : (size === 'medium' || move === 'heroLow') ? FRAMING.medium : 0, issues = [];
+  if (need && subjectFrac < need) issues.push(`subject ${(subjectFrac * 100).toFixed(1)} % < ${need * 100} %`);
+  if (!spectacle && groundGap > FRAMING.groundMax) issues.push(`empty ground ${(groundGap * 100).toFixed(1)} % > ${FRAMING.groundMax * 100} %`);
+  return {ok: !issues.length, need, issues};
+}
+
 export function sampleCamera(shot, localT, actorPositions = {}) {
   if (!MOVES.includes(shot.move)) throw Error(`unknown camera move: ${shot.move}`);
   const dur = Math.max(1e-6, shot.duration ?? 1), ease = EASE[shot.ease ?? 'inOutCubic'];
   if (!ease) throw Error(`unknown ease: ${shot.ease}`);
   const u = ease(clamp01(localT / dur));
-  const f = shot.from, e = endPose(shot), actor = shot.follow ? actorPositions[shot.follow] : null;
+  let f = shot.from, e = endPose(shot); const actor = shot.follow ? actorPositions[shot.follow] : null;
+  const fa = shot.fit && FIT_MOVES.includes(shot.move) ? actorPositions[shot.fit.actor] : null;   // A5 §F
+  if (fa) {
+    if (shot.move === 'snap') e = applyFit(e, shot.fit, fa);
+    else if (shot.move === 'push') { f = applyFit(f, shot.fit, fa); e = shot.to ? applyFit(e, shot.fit, fa) : {position: lerp3(f.position, f.target, DEFAULT_PUSH), target: f.target, fov: f.fov}; }
+    else { f = applyFit(f, shot.fit, fa); e = applyFit(e, shot.fit, fa); }
+  }
   let position, target, fov = lerp(f.fov ?? 40, e.fov ?? f.fov ?? 40, u);
 
   if (shot.move === 'orbit') {

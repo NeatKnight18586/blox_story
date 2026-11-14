@@ -78,8 +78,8 @@ test('biome tables are complete and point at real patterns, sky presets and tree
   assert.equal(biome('alpine', {terrain: {highY: 80}}).terrain.highY, 80); assert.equal(biome('alpine', {terrain: {highY: 80}}).terrain.layers.length, 3);
 });
 
-test('trees ≤ 220 triangles each; water depth map is shore 0 → deep 1', () => {
-  for (const sp of TREE_SPECIES) { const g = treeGeometry(sp, 2); assert.ok(triCount(g.trunk) + triCount(g.leaves) <= 220, sp); }
+test('trees ≤ 260 triangles each (A5); water depth map is shore 0 → deep 1', () => {
+  for (const sp of TREE_SPECIES) { const g = treeGeometry(sp, 2); assert.ok(triCount(g.trunk) + triCount(g.leaves) <= 260, sp); assert.ok(g.leaves.index, sp + ' welded'); }   // A5: ≤ 260, smooth
   const dm = depthMap((x, z) => -Math.abs(x) / 5, {x0: -20, x1: 20, z0: -2, z1: 2, y: -1, res: 16, maxDepth: 2});
   assert.equal(dm[8], 0); assert.ok(dm[0] > .99);
 });
@@ -151,7 +151,7 @@ test('troupe: five fixed slots + AFK; episodes re-costume but cannot change who 
   const data = JSON.parse(readFileSync('cast/troupe.json', 'utf8'));
   assert.deepEqual(Object.keys(data.troupe), SLOTS);
   const want = {LEAD: 'messy_fringe', SECOND: 'long_layered', LITTLE: 'space_buns', RIVAL: 'quiff', ELDER: 'side_part'};
-  for (const [k, h] of Object.entries(want)) { assert.equal(data.troupe[k].hair.style, h); assert.equal(data.troupe[k].hair.v, 3); assert.equal(data.troupe[k].expressions.length, 3); }
+  for (const [k, h] of Object.entries(want)) { assert.equal(data.troupe[k].hair.style, h); assert.equal(data.troupe[k].hair.v, 4); assert.equal(data.troupe[k].expressions.length, 3); }
   assert.equal(data.troupe.LITTLE.scale, .62); assert.ok(data.troupe.RIVAL.scale > data.troupe.LEAD.scale);
   const kit = resolveTroupe({troupe: 'SECOND', role: 'Kit', outfit: {recipe: 'hoodie', main: '#111111'}, with: {skin: '#000000', scale: 3}}, data);
   assert.equal(kit.tag.name, 'Kit'); assert.equal(kit.outfit.main, '#111111'); assert.equal(kit.skin, data.troupe.SECOND.skin); assert.equal(kit.scale, .82);
