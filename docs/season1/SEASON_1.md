@@ -50,6 +50,13 @@ Before writing any script (§5b) Claude Code searches the web, when a search too
 sentence and title together with "roblox story", and reports anything close in two lines **before** the script. The
 owner is the final check: `/season swap` replaces a card he has already seen elsewhere (A4 §I).
 
+## 2c. Owner rule: no labels (from episode 1 on)
+
+No name tags, no role tags, no "AFK" tag, no rarity or stat text over people or objects, no chat bubbles. Characters
+are introduced by the narration and the camera; AFK is recognised by his grey, see-through, frozen look. Text appears
+only where it physically exists in the world and the story needs it (a scoreboard, a clock, a note, a sign, a switch)
+and in the captions. Every card's "Game echo" is shown through colour, light, shapes and motion, not on-screen UI.
+
 ## 3. Format v3 (target 2:02–2:15, 410–440 words, third-person narration)
 
 | Beat | Target time | What happens | Camera | Must be on screen |
