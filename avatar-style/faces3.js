@@ -193,6 +193,7 @@ export const PRESETS = {
   // story aliases
   curious: P('one-up', 'oval', 'small o'), brave: P('flat', 'squeeze', 'flat'), wonder: P('raised', 'glossy', 'o'), polite: P('soft', 'happy ^', 'small smile'),
   sheepish: P('soft', 'happy ^', 'small smile', ['blush lines', 'sweat drop']), determined: P('flat', 'oval', 'flat'),
+  steady: P('soft', 'oval', 'flat'),   // owner pass 2: determined with soft brows (Kit never reads angry)
 };
 export const PRESET_GROUPS = {
   base: ['smile', 'grin', 'neutral', 'smirk', 'chill', 'blocky', 'dots', 'vsmile'],

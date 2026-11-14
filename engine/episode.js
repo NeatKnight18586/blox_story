@@ -8,6 +8,7 @@ import {sampleAction, applyActionSample} from '../avatar/actions.js';
 import {sampleCamera, maxTargetSpeed} from './camera.js';
 import {layoutShots, totalFrames, valueAt, keyAt} from './timeline.js';
 import {buildDragon, driveDragon} from '../avatar-style/dragon.js';
+import {maskStats} from './lumagate.js';
 import {expandClassReveal, applyPatch} from './classes.js';
 import {buildActor, driveActor, townsperson, toolGroup} from './actors.js';
 import {resolveTroupe} from './troupe.js';
@@ -94,7 +95,7 @@ const troupeData = Object.values(spec.cast ?? {}).some(c => c.troupe) ? await (a
 const markOf = (c, t) => { const k = keyAt(c.marks, t); return k ? {...k[1], t0: k[0]} : {at: c.at, offset: c.offset, yaw: c.yaw, travel: c.travel, origin: c.origin, t0: 0}; };
 for (const [name, c] of Object.entries(spec.cast ?? {})) {
   if (c.at) c.origin = resolve({anchor: c.at, offset: c.offset ?? [0, 0, 0]});
-  if (c.style === 'dragon') { const d = buildDragon({scale: c.scale ?? 1, name, colors: c.colors ?? null, face: c.dragonFace ?? null, baby: !!c.baby}); scene.add(d.root); cast[name] = {a: d, c, dragon: true}; continue; }
+  if (c.style === 'dragon') { const d = buildDragon({scale: c.scale ?? 1, name, colors: c.colors ?? null, face: c.dragonFace ?? null, baby: !!c.baby, wingScale: c.wingScale ?? 1, rim: c.rim ?? null, spikes: c.spikes ?? 1, saddle: !!c.saddle}); scene.add(d.root); cast[name] = {a: d, c, dragon: true}; continue; }
   if (c.style === 'v2') { if (c.troupe === 'AFK') { c.keys ??= [[0, troupeData.AFK.pose ?? 'walk']]; c.faces ??= [[0, 'neutral']]; }
     const pre0 = c.troupe ? resolveTroupe(c, troupeData) : c.town ? townsperson(c.town) : c.preset ? {...presets[c.preset], ...(c.with ?? {})} : c;
     const pre = FACES_V3 && !pre0.faceStyle ? {...pre0, faceStyle: 'v3'} : pre0;   // Faces v3: default for season 1 (or spec.faces 'v3')
@@ -107,10 +108,13 @@ for (const s of shots) if (s.fit && s.fit.h === undefined && cast[s.fit.actor]) 
 // camera side at the chest, shadow-casting (the actor screens the ground behind). Real lights stay ≤ 4 with the world's own.
 const NIGHT = ['night', 'nightBright'];
 const heroSpots = look?.v3 ? Object.entries(cast).filter(([, x]) => x.v2 && x.c.troupe && x.c.troupe !== 'AFK' && spec.heroSpots !== false).slice(0, 2).map(([name]) => {
-  const l = new T.SpotLight('#fff0dc', 0, 16, .2, .55, 1.6); l.castShadow = false; l.visible = false; l.shadow.mapSize.set(512, 512); l.shadow.bias = -.002; l.name = 'heroSpot_' + name; scene.add(l, l.target); return {name, l}; }) : [];
+  const l = new T.SpotLight('#fff0dc', 0, 16, .2, .55, 1.6); l.castShadow = false; l.visible = false; l.shadow.mapSize.set(512, 512); l.shadow.bias = -.002; l.name = 'heroSpot_' + name; scene.add(l, l.target); return {name, name0: name, l}; }) : [];
 function aimHeroSpots(shot, camPos) {
+  if (spec.heroSpotSubject && heroSpots.length) {   // opt-in (owner pass 2, check 3): the first spot follows the shot's subject, whoever it is
+    const who = shot?.subject ?? shot?.fit?.actor; if (who && cast[who]?.v2) heroSpots[0].name = who; else if (heroSpots[0].name0) heroSpots[0].name = heroSpots[0].name0;
+  }
   for (const {name, l} of heroSpots) {
-    const on = NIGHT.includes(shot?.look ?? spec.look) && ['medium', 'close'].includes(shot?.size) && cast[name].a.root.visible, m = markPos[name];
+    const subjOnly = spec.heroSpotSubject && heroSpots[0].l === l, on = (subjOnly ? !!(shot?.subject ?? shot?.fit?.actor) && heroSpots[0].name === (shot?.subject ?? shot?.fit?.actor) : NIGHT.includes(shot?.look ?? spec.look) && ['medium', 'close'].includes(shot?.size)) && cast[name].a.root.visible, m = markPos[name];   // heroSpotSubject: the spot lights the shot's subject in any size and look
     l.intensity = on ? (spec.heroSpotIntensity ?? 40) : 0; l.visible = !!(on && m); l.castShadow = l.visible; if (!on || !m) continue;   // off = no light and no shadow pass
     const H = 5.3 * cast[name].a.root.scale.y, chest = new T.Vector3(m[0], m[1] + .62 * H, m[2]), dir = new T.Vector3(camPos[0] - m[0], 0, camPos[2] - m[2]).normalize();
     l.position.copy(chest).addScaledVector(dir, 8).add(new T.Vector3(0, 2.2, 0)); l.target.position.copy(chest); l.target.updateMatrixWorld();
@@ -127,6 +131,21 @@ if (look?.v3 && (spec.actorLift ?? (usesNightBright ? .5 : 0))) {   // A5 §E: o
     if (m.map) { m.emissiveMap = m.map; m.emissive.setRGB(k, k, k); } else if (m.vertexColors) { if (!o.geometry.attributes.color) return; const c = o.geometry.attributes.color, avg = [0, 0, 0]; for (let i = 0; i < c.count; i++) { avg[0] += c.getX(i); avg[1] += c.getY(i); avg[2] += c.getZ(i); } m = m.clone(); m.emissive.setRGB(...avg.map(v => v / c.count * k)); o.material = m; seen.add(m); }   // hair lifts by its own colour
     else m.emissive.copy(m.color).multiplyScalar(k);
     m.needsUpdate = true; liftMats.push([m, m.emissive.clone()]); });
+}
+// opt-in spec.subjectLift (owner pass 2, check 3): the shot's subject (a v2 actor) gets its own self-light on cloned materials,
+// so it stands out from its surround; other actors and later shots keep the originals
+let lifted = null; const liftClones = new Map();
+function liftSubject(shot) {
+  const k = spec.subjectLift, who = k ? (shot?.subject ?? shot?.fit?.actor) : null, want = who && cast[who]?.v2 ? who : null;
+  if (lifted === want) return;
+  if (lifted) cast[lifted].a.root.traverse(o => { const e = liftClones.get(o); if (e) o.material = e.orig; });
+  lifted = want; if (!want) return;
+  cast[want].a.root.traverse(o => { if (!o.isMesh || !o.material?.emissive || o.material.isMeshBasicMaterial) return; let e = liftClones.get(o);
+    if (!e || e.orig !== o.material && e.lift !== o.material) { const m = o.material.clone(); let base = m.color.clone();
+      if (m.map) { m.emissiveMap = m.map; base = new T.Color(1, 1, 1); }
+      else if (m.vertexColors && o.geometry.attributes.color) { const cc = o.geometry.attributes.color, avg = [0, 0, 0]; for (let i = 0; i < cc.count; i++) { avg[0] += cc.getX(i); avg[1] += cc.getY(i); avg[2] += cc.getZ(i); } base = new T.Color(avg[0] / cc.count, avg[1] / cc.count, avg[2] / cc.count); }   // hair keeps its own colour (never white)
+      m.emissive = base.multiplyScalar(k); e = {orig: o.material, lift: m}; liftClones.set(o, e); }
+    o.material = e.lift; });
 }
 const applyLift = shot => { const f = spec.actorLift !== undefined ? 1 : ['night', 'nightBright'].includes(shot?.look ?? spec.look) ? 1 : 0; for (const [m, e] of liftMats) m.emissive.copy(e).multiplyScalar(f); };
 
@@ -250,7 +269,7 @@ export function renderFrame(n, width = 720, height = 1280, nudge = 0) {
   const shot = shots.findLast(s => n >= s.start), t = n / FPS;
   const actors = poseCast(t);
   const c = sampleCamera({...shot, fps: FPS}, (n - shot.start) / FPS, actors);
-  world?.update(t); applyWorldState(shot, t); updateExtras(t, {camPos: c.position, size: shot.size}); aimHeroSpots(shot, c.position); aimRim(shot, c.position); applyLift(shot);
+  world?.update(t); applyWorldState(shot, t); updateExtras(t, {camPos: c.position, size: shot.size}); aimHeroSpots(shot, c.position); aimRim(shot, c.position); applyLift(shot); liftSubject(shot);
   const fx = effects.apply(t, camera);   // poses effect targets; returns the shake offset and any timeOfDay blend
   const pos = c.position.map((v, i) => v + fx.camOffset[i]), tgt = c.target.map((v, i) => v + fx.camOffset[i] * .6);
   camera.fov = c.fov; camera.aspect = width / height; camera.position.fromArray(pos);
@@ -354,6 +373,73 @@ export function actorMask(name, w, h) {
   const m = new Uint8Array(w * h); for (let y = 0; y < h; y++) for (let x = 0; x < w; x++) m[y * w + x] = px[((h - 1 - y) * w + x) * 4] > 127 ? 1 : 0;
   return m;
 }
+// Owner readability checks (engine/readcheck.js, scripts/v2/read.js): id-mask renders of the frame left by renderFrame.
+// maskPass(keep, w, h, far): render only meshes for which keep(o) is true, white on black, fog off; far clips the camera.
+function maskPass(keep, w, h, far = null) {
+  const hidden = []; scene.traverse(o => { if ((o.isMesh || o.isSprite || o.isPoints || o.isLine) && o.visible && !keep(o)) { hidden.push(o); o.visible = false; } });
+  const bg = scene.background, fog = scene.fog, f0 = camera.far; scene.background = new T.Color('#000000'); scene.fog = null; scene.overrideMaterial = maskMat;
+  if (far !== null) { camera.far = Math.max(camera.near * 2, far); camera.updateProjectionMatrix(); }
+  renderer.render(scene, camera);
+  const gl = renderer.getContext(), px = new Uint8Array(w * h * 4); gl.readPixels(0, 0, w, h, gl.RGBA, gl.UNSIGNED_BYTE, px);
+  scene.overrideMaterial = null; scene.background = bg; scene.fog = fog; for (const o of hidden) o.visible = true;
+  if (far !== null) { camera.far = f0; camera.updateProjectionMatrix(); }
+  const m = new Uint8Array(w * h); for (let y = 0; y < h; y++) for (let x = 0; x < w; x++) m[y * w + x] = px[((h - 1 - y) * w + x) * 4] > 127 ? 1 : 0;
+  return m;
+}
+const under = (o, root) => { for (let p = o; p; p = p.parent) if (p === root) return true; return false; };
+const visibleChain = o => { for (let p = o; p; p = p.parent) if (!p.visible) return false; return true; };
+function frameLuma(w, h) {
+  const gl = renderer.getContext(), px = new Uint8Array(w * h * 4); gl.readPixels(0, 0, w, h, gl.RGBA, gl.UNSIGNED_BYTE, px);
+  const L = new Float32Array(w * h); for (let y = 0; y < h; y++) for (let x = 0; x < w; x++) { const i = ((h - 1 - y) * w + x) * 4; L[y * w + x] = (.2126 * px[i] + .7152 * px[i + 1] + .0722 * px[i + 2]) / 255; }
+  return L;
+}
+export function lumaAt(n, w = 135, h = 240) { renderFrame(n, w, h); return Array.from(frameLuma(w, h)); }
+export function readMeasure(n, {subject = null, prop = null, w = 390, h = 693} = {}) {
+  renderFrame(n, w, h); camera.updateMatrixWorld(true); scene.updateMatrixWorld(true);
+  const luma = frameLuma(w, h), cam = camera.position.clone(), out = {frame: n};
+  const c = subject ? cast[subject] : null, root = c ? c.a.root : (subject || prop) ? scene.getObjectByName(subject ?? prop) : null;
+  if (!root || !visibleChain(root)) { out.missing = subject ?? prop; return out; }
+  const meshesOf = r => { const l = []; r.traverse(o => { if ((o.isMesh) && o.visible && visibleChain(o) && !(o.material?.transparent && o.material.opacity < .5) && !o.isSprite) l.push(o); }); return l; };
+  const boxOf = r => { const b = new T.Box3(); for (const o of meshesOf(r)) b.expandByObject(o); return b; };
+  const sb = boxOf(root); out.box = projBox(sb);
+  const subjMask = maskPass(o => under(o, root) && !(o.material?.transparent && o.material.opacity < .5), w, h);
+  const lm = maskStats(luma, subjMask, w, h, {r0: 6 * w / 390, r1: 14 * w / 390}); out.subj = lm.actor; out.ring = lm.ring; out.px = lm.actorPx;   // the A5 night-actor rule
+  // head (v2 actor: head pivot subtree; dragon: head pivot)
+  const headRoot = c?.v2 ? c.a.pivots.head : c?.dragon ? c.a.head : null;
+  if (headRoot) {
+    const hm = []; headRoot.traverse(o => { if (o.isMesh && visibleChain(o) && (o.geometry?.type === 'LatheGeometry' || c.dragon)) hm.push(o); });   // the head itself (not hair, hats or a hood)
+    const hb = new T.Box3(); for (const o of hm) hb.expandByObject(o); if (hb.isEmpty()) hb.copy(boxOf(headRoot)); const hc = hb.getCenter(new T.Vector3()), fwd = new T.Vector3(0, 0, 1).transformDirection(headRoot.matrixWorld), toCam = cam.clone().sub(hc).normalize();
+    out.head = {box: projBox(hb), front: projBox(hb).allFront, angle: THREE_DEG * Math.acos(Math.max(-1, Math.min(1, fwd.dot(toCam))))};
+    // own body parts in front of the head (hands, a held egg, a hatchling held up)
+    const arms = c.v2 ? [c.a.pivots.leftShoulder, c.a.pivots.rightShoulder].filter(Boolean) : [];   // arms and anything they hold (tools ride the hands)
+    const hands = maskPass(o => arms.some(r => under(o, r)) && !(o.material?.transparent), w, h, hb.distanceToPoint(cam));
+    out.handsOnFace = rectFrac(hands, out.head.box, w, h);
+  }
+  // objects nearer than the subject (ground-level meshes and see-through effects excluded)
+  // in front = clearly in the foreground (nearer than 0.6 × the subject's distance); flat, wide meshes (terrain, roads, plaza) are ground, not occluders
+  const far = sb.distanceToPoint(cam), flat = o => { const b = new T.Box3().setFromObject(o), sz = b.getSize(new T.Vector3()); return sz.y < .35 * Math.max(sz.x, sz.z); };
+  const solid = o => !(under(o, root) || o.isSprite || o.isPoints || o.isLine || o.material?.transparent) && !flat(o);
+  const occ = maskPass(solid, w, h, .6 * far);
+  let k = 0; for (const v of occ) k += v; out.frontFrac = k / (w * h);
+  if (out.head) { const hb2 = new T.Box3(); headRoot.traverse(o => { if (o.isMesh && (o.geometry?.type === 'LatheGeometry' || c.dragon)) hb2.expandByObject(o); });
+    const occF = maskPass(solid, w, h, hb2.isEmpty() ? far : hb2.distanceToPoint(cam)); out.faceCover = Math.max(rectFrac(occF, out.head.box, w, h), out.handsOnFace ?? 0); } else out.faceCover = 0;
+  // same scale: Kit's whole body and whole buildings in frame
+  const kit = cast.kit;
+  if (kit && visibleChain(kit.a.root)) { const kb = projBox(boxOf(kit.a.root)); if (kb.allFront && insideAll(kb)) {
+    const kd = new T.Box3().setFromObject(kit.a.root).distanceToPoint(cam);   // buildings at a depth comparable to Kit's (≤ 2 × her distance): far ones shrink by perspective
+    const blds = []; scene.traverse(o => { if (/^(base_\d+_|clockTower$|townHall$)/.test(o.name) && visibleChain(o)) { const B = new T.Box3().setFromObject(o), pb = projBox(B); if (pb.allFront && insideAll(pb) && B.distanceToPoint(cam) <= 2 * kd) blds.push({name: o.name, h: pb.h, worldH: B.max.y - B.min.y}); } });
+    const kw = new T.Box3().setFromObject(kit.a.root); out.scale = {kitH: kb.h, kitWorldH: kw.max.y - kw.min.y, blds}; } }
+  // the plain egg's shading (held tool) on this frame
+  if (kit) { let egg = null; kit.a.root.traverse(o => { if (o.name === 'eggBody' && visibleChain(o) && o.parent?.userData?.egg === 'plain') egg = o; });
+    if (egg) { const eb = projBox(new T.Box3().setFromObject(egg)); if (eb.allFront && eb.h > .06) { const em = maskPass(o => o === egg, w, h); let n = 0; for (const v of em) n += v; if (n > 40) out.eggRange = maskRowRange(luma, em, w, h); } } }
+  return out;
+}
+const THREE_DEG = 180 / Math.PI;
+const insideAll = b => b.x0 >= 0 && b.x1 <= 1 && b.y0 >= 0 && b.y1 <= 1;
+function rectFrac(m, b, w, h) { const x0 = Math.max(0, Math.floor(b.x0 * w)), x1 = Math.min(w, Math.ceil(b.x1 * w)), y0 = Math.max(0, Math.floor(b.y0 * h)), y1 = Math.min(h, Math.ceil(b.y1 * h)); let k = 0, n = 0; for (let y = y0; y < y1; y++) for (let x = x0; x < x1; x++) { n++; k += m[y * w + x]; } return n ? k / n : 0; }
+function maskRowRange(L, m, w, h) { const rows = []; for (let y = 0; y < h; y++) { let s = 0, n = 0; for (let x = 0; x < w; x++) if (m[y * w + x]) { s += L[y * w + x]; n++; } if (n >= 3) rows.push(s / n); } return rows.length > 2 ? Math.max(...rows) - Math.min(...rows) : 0; }
+function colRange(L, b, w, h) { const x0 = Math.floor((b.x0 + (b.x1 - b.x0) * .3) * w), x1 = Math.ceil((b.x0 + (b.x1 - b.x0) * .7) * w), y0 = Math.max(0, Math.floor(b.y0 * h)), y1 = Math.min(h, Math.ceil(b.y1 * h)); const rows = [];
+  for (let y = y0; y < y1; y++) { let s = 0, n = 0; for (let x = Math.max(0, x0); x < Math.min(w, x1); x++) { s += L[y * w + x]; n++; } if (n) rows.push(s / n); } return rows.length ? Math.max(...rows) - Math.min(...rows) : 0; }
 export function shotSpeed(i) { const s = shots[i]; return maxTargetSpeed({...s, fps: FPS, openHit: false}, tt => poseCast(s.start / FPS + tt), FPS); }
 
-window.__episode = {debug: {scene, renderer}, breakdown, measureFrame, seasonMeasure, actorMask, inspectFrame, shotSpeed, END: FRAMES / FPS, anchors: Object.fromEntries(Object.entries(anchors).filter(([, a]) => a.camera).map(([k]) => [k, true])), renderAnchor, renderAnchorNudged, renderCamera, FPS, FRAMES, shots: shots.map(({id, start, frames, size, move, loc, subject, see, openHit, at, why, captionY, fit, spectacle, look: lk}) => ({id, start, frames, size, move, loc, subject, see, openHit: !!openHit, at, why, captionY, fit, spectacle: !!spectacle, look: lk})), renderFrame};
+window.__episode = {debug: {scene, renderer}, breakdown, measureFrame, seasonMeasure, actorMask, readMeasure, lumaAt, inspectFrame, shotSpeed, END: FRAMES / FPS, anchors: Object.fromEntries(Object.entries(anchors).filter(([, a]) => a.camera).map(([k]) => [k, true])), renderAnchor, renderAnchorNudged, renderCamera, FPS, FRAMES, shots: shots.map(({id, start, frames, size, move, loc, subject, see, openHit, at, why, captionY, fit, spectacle, look: lk}) => ({id, start, frames, size, move, loc, subject, see, openHit: !!openHit, at, why, captionY, fit, spectacle: !!spectacle, look: lk})), renderFrame};

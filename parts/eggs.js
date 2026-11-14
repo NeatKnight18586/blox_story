@@ -51,6 +51,9 @@ function paint(name) {
   const out = {map: tx(col), emissiveMap: tx(emi)}; texCache.set(name, out); return out;
 }
 const COLD = new T.Color('#5aa8ff'), GOLD = new T.Color('#ffc23a');
+let haloT = null;
+function haloTex() { if (haloT || typeof document === 'undefined') return haloT; const c = document.createElement('canvas'); c.width = c.height = 64; const x = c.getContext('2d'), g = x.createRadialGradient(32, 32, 0, 32, 32, 32);
+  g.addColorStop(0, 'rgba(255,255,255,1)'); g.addColorStop(.45, 'rgba(255,255,255,.45)'); g.addColorStop(1, 'rgba(255,255,255,0)'); x.fillStyle = g; x.fillRect(0, 0, 64, 64); haloT = new T.CanvasTexture(c); return haloT; }
 // warm (Plain egg only): a whole-shell glow from cold blue (0) to gold (1); other eggs glow through their details.
 export function eggMesh(name, {r = .45, warm = null, rim = true, beam = false} = {}) {
   const e = EGGS[name]; if (!e) throw Error('unknown egg ' + name);
@@ -58,9 +61,21 @@ export function eggMesh(name, {r = .45, warm = null, rim = true, beam = false} =
   const shell = geo('shell', () => { const g = new T.SphereGeometry(1, 12, 9); g.scale(1, 1.3, 1); return g; });   // 198 triangles
   const m = new T.MeshPhongMaterial({color: '#ffffff', map: p.map ?? null, emissive: '#ffffff', emissiveMap: p.emissiveMap ?? null, emissiveIntensity: e.glow, shininess: name === 'frost' ? 90 : 40, flatShading: name === 'frost'});
   if (!p.map) m.color.set(e.shell);
-  if (warm !== null) { m.emissiveMap = null; m.emissive.copy(COLD).lerp(GOLD, Math.min(1, Math.max(0, warm))); m.emissiveIntensity = .35 + .9 * warm; }
+  // warm (Plain egg; owner pass 2): the shell stays shaded and speckled; the warmth shows as a glowing crack line that grows with
+  // `warm` and a soft halo behind the egg (never a flat emissive colour over the whole shell)
+  const wv = warm === null ? null : Math.min(1, Math.max(0, warm));
+  if (wv !== null) { m.emissiveMap = null; m.emissive.copy(COLD).lerp(GOLD, wv); m.emissiveIntensity = .08 + .12 * wv; }
   const body = new T.Mesh(shell, m); body.scale.setScalar(r); body.castShadow = true; body.name = 'eggBody'; grp.add(body);
-  if (rim) { const rm = new T.Mesh(shell, new T.MeshBasicMaterial({color: warm !== null ? m.emissive : RARITY[e.rarity], side: T.BackSide, toneMapped: false, transparent: true, opacity: .9})); rm.scale.setScalar(r * 1.1); grp.add(rm); }
+  if (rim && wv === null) { const rm = new T.Mesh(shell, new T.MeshBasicMaterial({color: RARITY[e.rarity], side: T.BackSide, toneMapped: false, transparent: true, opacity: .9})); rm.scale.setScalar(r * 1.1); grp.add(rm); }
+  if (wv !== null) {
+    const col = new T.Color().copy(COLD).lerp(GOLD, wv);
+    if (rim) { const rm = new T.Mesh(shell, new T.MeshBasicMaterial({color: col, side: T.BackSide, toneMapped: false, transparent: true, opacity: .55})); rm.scale.setScalar(r * 1.06); grp.add(rm); }
+    const halo = new T.Sprite(new T.SpriteMaterial({map: haloTex(), color: col, transparent: true, opacity: .35 + .45 * wv, blending: T.AdditiveBlending, depthWrite: false, toneMapped: false}));
+    halo.scale.setScalar(r * (3.2 + 2 * wv)); halo.name = 'halo'; halo.renderOrder = -1; grp.add(halo);   // a sprite at the centre: the shell hides its middle, so it glows round the egg
+    const n = Math.max(3, Math.round(4 + 14 * wv)), cm = new T.MeshBasicMaterial({color: '#fff3c0', toneMapped: false});   // the crack: a zigzag round the waist, longer as it warms
+    for (let k = 0; k < n; k++) { const a0 = k * .42, y0 = .18 + (k % 2 ? .1 : -.1), seg = new T.Mesh(geo('crack', () => new T.BoxGeometry(1, 1, 1)), cm);
+      seg.position.set(Math.sin(a0) * 1.0 * r, y0 * 1.3 * r, Math.cos(a0) * 1.0 * r); seg.scale.set(.42 * r, .05 * r, .05 * r); seg.rotation.set(0, a0, (k % 2 ? -.45 : .45)); seg.name = 'crack'; grp.add(seg); }
+  }
   const det = new T.MeshPhongMaterial({color: e.detail, emissive: e.detail, emissiveIntensity: e.glow * .8, flatShading: true});
   if (e.extra === 'sprout') { const s = new T.Mesh(geo('sprout', () => new T.ConeGeometry(.12, .5, 4)), det); s.position.y = r * 1.4; s.rotation.z = .25; s.name = 'sway'; grp.add(s); }
   if (e.extra === 'crystal' || e.extra === 'shard') { const c = new T.Mesh(geo('cryst', () => new T.OctahedronGeometry(.18, 0)), det); c.position.set(r * .55, r * .5, r * .5); c.scale.set(1, 1.8, 1); grp.add(c); }

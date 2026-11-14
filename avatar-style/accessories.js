@@ -5,8 +5,8 @@ import * as T from 'three';
 import {plastic, HEAD} from './body.js';
 import {eggMesh, EGG_R} from '../parts/eggs.js';
 
-export const ACCESSORIES = ['crown', 'helmet', 'hood', 'strawHat', 'scarf', 'cape', 'backpack', 'chefHat', 'featherCap', 'goggles', 'topHat', 'skiMask', 'mailBag', 'mailBagEggs'];
-const HEAD_ITEMS = new Set(['crown', 'helmet', 'hood', 'strawHat', 'chefHat', 'featherCap', 'goggles', 'topHat', 'skiMask']);
+export const ACCESSORIES = ['crown', 'helmet', 'hood', 'strawHat', 'scarf', 'cape', 'backpack', 'chefHat', 'featherCap', 'goggles', 'topHat', 'skiMask', 'mailBag', 'mailBagEggs', 'topHatTilt'];
+const HEAD_ITEMS = new Set(['crown', 'helmet', 'hood', 'strawHat', 'chefHat', 'featherCap', 'goggles', 'topHat', 'skiMask', 'topHatTilt']);
 const geo = new Map();
 const g = (k, f) => { if (!geo.has(k)) geo.set(k, f()); return geo.get(k); };
 const flat = c => { const k = 'flat:' + c; if (!geo.has(k)) geo.set(k, new T.MeshPhongMaterial({color: c, shininess: 35, specular: '#3a3a3a', flatShading: true})); return geo.get(k); };
@@ -103,6 +103,7 @@ const BUILD = {
     put(grp, g('mail_strap', () => new T.BoxGeometry(.18, 2.8, .06)), flat('#2a2a2a'), [0, 3.3, .53], [0, 0, .6]);
     return grp;
   },
+  topHatTilt(o) { const g = BUILD.topHat(o); g.rotation.x = -.38; g.position.y += .18; g.position.z -= .12; return g; },   // owner pass 2: tipped back so the face reads
   mailBagEggs(o) {   // owner 2026-11-14: the mailman's satchel stuffed with eggs (three peek out of the open top)
     const grp = BUILD.mailBag(o);
     [['frost', -.28], ['sprinkle', .02], ['moss', .3]].forEach(([d, dx], i) => { const e = eggMesh(d, {r: EGG_R.held * .8, rim: true}); e.position.set(1.05 + dx, 2.95 + (i % 2) * .12, .2); e.rotation.z = dx; grp.add(e); });

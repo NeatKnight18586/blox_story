@@ -81,10 +81,16 @@ export function build(scene, {P, B, A, M, PR, TR, BI, V, W, look, spec}) {
     if (b.i === 10) {   // S07: a hinged door that slams, and a lock ring round the door frame that fills like a timer
       const hinge = new T.Group(); hinge.position.set(-1.8, 0, d / 2 + .1); hinge.add(P.block([3.6, 5, .3], {at: [1.8, 3.3, 0], mat: mt('woodPlanks', c), cast: true})); g.add(hinge);
       g.add(P.block([4.4, 5.6, .1], {at: [0, 3.1, d / 2 + .02], mat: new T.MeshBasicMaterial({color: '#151018'})}));   // dark doorway behind the door
-      const fr = new T.Mesh(new T.RingGeometry(3.25, 3.75, 40, 1, 0, Math.PI * 2), new T.MeshBasicMaterial({color: '#2a2a33', side: T.DoubleSide})); fr.position.set(0, 3.1, d / 2 + .3); g.add(fr);
-      const ring = new T.Mesh(new T.RingGeometry(3.25, 3.75, 40, 1, Math.PI / 2, .01), new T.MeshBasicMaterial({color: '#ffe14a', toneMapped: false, side: T.DoubleSide})); ring.position.set(0, 3.1, d / 2 + .34); g.add(ring);
-      door10 = {hinge, ring};
-    } else g.add(P.block([3.6, 5, .3], {at: [0, 3.3, d / 2 + .1], mat: mt('woodPlanks', c), cast: true}));
+      // owner pass 2: a real lock — a round brass dial on the door (its pointer sweeps like a 60 s timer) and a bolt that slides into the frame
+      const brass = new T.MeshPhongMaterial({color: '#f2c45a', emissive: '#c8921e', emissiveIntensity: 1.0, shininess: 90});
+      const dial = new T.Group(); dial.name = 'lockDial'; dial.position.set(2.7, 3.3, .3); hinge.add(dial);
+      const face = new T.Mesh(new T.CylinderGeometry(.75, .75, .18, 24), brass); face.rotation.x = Math.PI / 2; dial.add(face);
+      const face2 = new T.Mesh(new T.CircleGeometry(.58, 24), new T.MeshBasicMaterial({color: '#fff6dc'})); face2.position.z = .1; dial.add(face2);
+      const ptr = new T.Mesh(new T.BoxGeometry(.1, .52, .04), new T.MeshBasicMaterial({color: '#1c1c22'})); ptr.geometry.translate(0, .26, 0); ptr.position.z = .13; dial.add(ptr);
+      const bolt = new T.Mesh(new T.BoxGeometry(1.4, .32, .26), brass); bolt.position.set(3.0, 2.3, .32); hinge.add(bolt);
+      const keep = P.block([.5, .7, .4], {at: [2.25, 2.3, d / 2 + .35], mat: brass}); g.add(keep);
+      door10 = {hinge, ptr, bolt};
+    } else g.add(P.block([3.6, 5, .3], {at: [0, 3.3, d / 2 + .1], mat: b.i === 4 ? mt('woodPlanks', '#e0b27a', {emissive: '#5a3a1a'}) : mt('woodPlanks', c), cast: true}));   // base 4: a natural wooden door for the claw marks
     for (const sx of [-1, 1]) { const m = new T.Mesh(new T.BoxGeometry(2, 2, .2), win); m.position.set(sx * (w / 2 - 2.2), 4.2, d / 2 + .12); g.add(m); }
     const lock = new T.Mesh(new T.RingGeometry(1.6, 2.3, 32, 1, 0, .01), new T.MeshBasicMaterial({color: c, toneMapped: false, side: T.DoubleSide})); lock.rotation.x = -Math.PI / 2; lock.position.set(0, .07, d / 2 + 3.2); g.add(lock); locks.push({lock, phase: b.i * .37});
     const er = eggRadius(kind), nest = nestMesh(er * 1.6); nest.position.set(3.2, .5, d / 2 + 1.8); g.add(nest);
@@ -94,6 +100,15 @@ export function build(scene, {P, B, A, M, PR, TR, BI, V, W, look, spec}) {
       const rk = BASE_EGG[(b.i + 4) % 12] === 'plain' ? 'moss' : BASE_EGG[(b.i + 4) % 12], rn = nestMesh(EGG_R.nest * 1.7); rn.position.set(-w / 4, .8 + h + 2.3, 0); g.add(rn);
       const re = eggMesh(rk, {r: EGG_R.nest}); re.position.set(-w / 4, .8 + h + 2.4 + EGG_R.nest * 1.1, 0); re.name = 'roofEgg_' + b.i; g.add(re); eggs.push(re);
       const gl = glow(EGGS[rk].detail, 5); gl.position.copy(re.position); g.add(gl); }
+    if (b.i === 4) {   // owner pass 2, clue 2: three deep gouges torn into the wooden door (dark inside, splintered light edges), a handle
+      const cl = new T.Group(); cl.name = 'clawMarks'; const dark = new T.MeshBasicMaterial({color: '#160b05'}), lite = new T.MeshPhongMaterial({color: '#f4dcae', emissive: '#6a5030', emissiveIntensity: .4, flatShading: true});
+      for (const [x, k] of [[-.95, 0], [0, 1], [.95, 2]]) { const gg = new T.Group(); gg.position.set(x, 3.4, d / 2 + .27); gg.rotation.z = .32;
+        gg.add(P.block([.42, 3.4 - k * .25, .06], {at: [0, 0, 0], mat: dark}));
+        for (const sx of [-1, 1]) { gg.add(P.block([.09, 3.3 - k * .25, .1], {at: [sx * .27, 0, .02], mat: lite})); for (let j = 0; j < 3; j++) { const sp = new T.Mesh(new T.ConeGeometry(.07, .5, 3), lite); sp.position.set(sx * .32, -1 + j * .9, .05); sp.rotation.z = sx * 1.1; gg.add(sp); } }
+        cl.add(gg); }
+      for (let k = 0; k < 7; k++) cl.add(P.block([3.5, .04, .02], {at: [0, 1.2 + k * .62, d / 2 + .26], mat: new T.MeshBasicMaterial({color: '#3a2412'})}));   // wood grain
+      const knob = new T.Mesh(new T.SphereGeometry(.26, 12, 8), new T.MeshPhongMaterial({color: '#d9a640', emissive: '#5a3a10', emissiveIntensity: .5, shininess: 90})); knob.position.set(1.35, 2.9, d / 2 + .45); cl.add(knob);
+      g.add(cl); }
     theme(g, kind, d);
     g.position.set(b.x, groundY(b.x, b.z), b.z); g.rotation.y = b.yaw; g.name = 'base_' + b.i + '_' + kind; return g;
   }
@@ -113,10 +128,7 @@ export function build(scene, {P, B, A, M, PR, TR, BI, V, W, look, spec}) {
       f.position.set(Math.sin(k * Math.PI / 2) * 3.75, H - 1, Math.cos(k * Math.PI / 2) * 3.75); f.rotation.y = k * Math.PI / 2; f.name = k === 0 ? 'clockFace' : 'clockFace' + k; g.add(f);
     }
     const roof = P.cone(5.6, 9, {seg: 4, mat: mt('roofTile', '#4f6688'), cast: true}); roof.position.y = H + 6.5; roof.rotation.y = Math.PI / 4; g.add(roof);
-    const claws = new T.Group(); claws.name = 'clawMarks';   // clue 2: four deep gouges, lit by the moon
-    const rimM = new T.MeshBasicMaterial({color: '#d9e6ff'});   // owner fix pass: deeper, wider gouges with moonlit pale rims (reads at 390 px)
-    for (const x of [-2.1, -.8, .5, 1.8]) { claws.add(P.block([.62, 4.6, .14], {at: [x, 23.2, 3.27], rot: [0, 0, 22], mat: new T.MeshBasicMaterial({color: '#0c080e'})})); claws.add(P.block([.14, 4.6, .16], {at: [x - .38, 23.2, 3.28], rot: [0, 0, 22], mat: rimM})); }
-    g.add(claws); return g;
+    return g;   // (owner pass 2: the claw marks moved to base 4's door)
   }
   const board = textPanel(8, 5.2, 48);
   function townHall() {
@@ -131,7 +143,7 @@ export function build(scene, {P, B, A, M, PR, TR, BI, V, W, look, spec}) {
     return g;
   }
   const drawBoard = mode => board.draw(mode, (x, w, h) => {
-    x.fillStyle = '#10131c'; x.fillRect(0, 0, w, h); x.textBaseline = 'middle'; const f = s => `${h * s}px "Lilita One", Arial`;
+    x.fillStyle = '#2f56a8'; x.fillRect(0, 0, w, h); x.strokeStyle = '#ffd24a'; x.lineWidth = h * .03; x.strokeRect(h * .02, h * .02, w - h * .04, h - h * .04); x.textBaseline = 'middle'; const f = s => `${h * s}px "Lilita One", Arial`;
     x.fillStyle = '#ffd24a'; x.font = f(.16); x.textAlign = 'center'; x.fillText(mode === 'hatched' ? 'HATCHED' : 'STOLEN', w / 2, h * .13);
     const rows = mode === 'hatched' ? [['KIT', 1], ['DAX', 0], ['MAYOR', 0], ['NAN', 0]] : [['DAX', 200], ['MAYOR', 41], ['NAN', 17], ['KIT', 0]];
     rows.forEach(([n, v], k) => { const y = h * (.34 + k * .18); x.fillStyle = k === 0 ? '#ffffff' : '#c8d0e0'; x.font = f(.13); x.textAlign = 'left'; x.fillText(n, w * .1, y); x.textAlign = 'right'; x.fillText(String(v), w * .9, y); });
@@ -166,28 +178,43 @@ export function build(scene, {P, B, A, M, PR, TR, BI, V, W, look, spec}) {
   const blanket = P.block([4.5, .25, 4.6], {at: [0, 2.35, bz + 1.15], mat: mt('plastic', '#3f6fb8'), cast: true}); room.add(blanket); room.add(P.block([4.5, .32, .8], {at: [0, 2.42, bz - 1.2], rot: [-8, 0, 0], mat: mt('plastic', '#f2d16b')}), P.block([4.4, 1.1, .2], {at: [2.32, 1.8, bz + 1.6], rot: [0, 0, 14], mat: mt('plastic', '#3f6fb8')}));   // folded edge + a corner hanging off the side
   const windowHole = new T.Mesh(new T.PlaneGeometry(3.4, 3.4), new T.MeshBasicMaterial({color: '#1b2f5a'})); windowHole.position.set(3.5, 5.4, -5.78); room.add(windowHole);
   const feather = new T.Group(); feather.name = 'feather';
-  { const L = 5.6, half = (side) => { const sh = new T.Shape(); sh.moveTo(0, 0); for (let k = 1; k <= 12; k++) { const u = k / 12, wdt = .95 * Math.sin(Math.PI * Math.pow(u, .8)) * (1 - .25 * u); sh.lineTo(side * wdt + side * .05 * Math.sin(u * 30), u * L); } sh.lineTo(0, L); sh.lineTo(0, 0); return sh; };
-    for (const side of [-1, 1]) { const gg = new T.ShapeGeometry(half(side), 3), pp = gg.attributes.position, cc = []; for (let i = 0; i < pp.count; i++) { const u = pp.getY(i) / L, col = new T.Color('#ffd25a').lerp(new T.Color('#ff7a2a'), Math.min(1, u * 1.1 + Math.abs(pp.getX(i)) * .25)); cc.push(col.r, col.g, col.b); }
-      gg.setAttribute('color', new T.Float32BufferAttribute(cc, 3)); const vm = new T.Mesh(gg, new T.MeshPhongMaterial({vertexColors: true, side: T.DoubleSide, emissive: '#ff9a3a', emissiveIntensity: .35, shininess: 10})); vm.rotation.x = -Math.PI / 2 + .06 * side; vm.castShadow = true; feather.add(vm); }
-    const shaft = new T.Mesh(new T.CylinderGeometry(.03, .07, L + .5, 6), mt('plastic', '#fff1c8')); shaft.rotation.x = Math.PI / 2; shaft.position.set(0, .03, -L / 2 + .25); feather.add(shaft);
-    for (let k = 0; k < 7; k++) { const f = new T.Mesh(new T.ConeGeometry(.12, .7, 4), new T.MeshPhongMaterial({color: '#ffe6a8', emissive: '#ffb45a', emissiveIntensity: .3})); f.position.set((k % 2 ? 1 : -1) * .2, .05, .3 + k * .12); f.rotation.set(Math.PI / 2, 0, (k % 2 ? -1 : 1) * .9); feather.add(f); }   // fluffy down at the quill
-    feather.scale.z = -1; }
+  { // owner pass 2: ONE long feather — an ivory quill down the middle, smooth soft vanes either side (gold at the quill → orange at the
+    // edge), a gentle curve, laid across the bed and swaying a little
+    const L = 5.6, vane = side => { const sh = new T.Shape(); sh.moveTo(0, .2); for (let k = 1; k <= 20; k++) { const u = k / 20, wdt = 1.05 * Math.pow(Math.sin(Math.PI * Math.min(1, u * 1.08)), .7) * (1 - .35 * u); sh.lineTo(side * wdt, .2 + u * (L - .4)); } sh.lineTo(0, L); sh.lineTo(0, .2); return sh; };
+    for (const side of [-1, 1]) { const gg = new T.ShapeGeometry(vane(side), 2), pp = gg.attributes.position, cc = [];
+      for (let i = 0; i < pp.count; i++) { const u = pp.getY(i) / L, x = Math.abs(pp.getX(i)), col = new T.Color('#ffe08a').lerp(new T.Color('#ff8a3a'), Math.min(1, x * .9 + u * .3)); cc.push(col.r, col.g, col.b); pp.setZ(i, .18 * Math.sin(u * Math.PI) - .12 * x * x); }
+      gg.setAttribute('color', new T.Float32BufferAttribute(cc, 3)); gg.computeVertexNormals();
+      const vm = new T.Mesh(gg, new T.MeshPhongMaterial({vertexColors: true, side: T.DoubleSide, emissive: '#ff9a3a', emissiveIntensity: .22, shininess: 20})); vm.rotation.x = -Math.PI / 2; vm.castShadow = true; feather.add(vm); }
+    const quill = new T.Mesh(new T.CylinderGeometry(.035, .085, L + .6, 8), new T.MeshPhongMaterial({color: '#fff6dc', emissive: '#806a40', emissiveIntensity: .3})); quill.rotation.x = Math.PI / 2; quill.position.set(0, .06, -L / 2 + .1); feather.add(quill);
+    movers.push({update: t => { feather.rotation.z = .05 * Math.sin(t * 1.3); feather.position.y = 2.62 + .04 * Math.sin(t * 1.7); }}); }
   feather.position.set(-.3, 2.62, bz + 2.2); feather.rotation.y = .42; room.add(feather);
   room.position.set(ROOM[0], ry, ROOM[2]); scene.add(room);
   // ---- cloudtop nest (money shot), rebuilt (owner fix pass): cloudtop biome at sunrise — three cloud layers to the horizon,
   // a large woven nest (thatch bowl + crossed sticks), the kids' ring inside (cast), hatched shells, warm sun ------------------
   const nest = new T.Group(); nest.name = 'cloudNest'; const cb = BI.biome('cloudtop');
-  const layer = (n, r0, r1, y, size, col, emi, seed) => { const RR = B.rng(seed), gs = [];
-    for (let i = 0; i < n; i++) { const a = RR() * Math.PI * 2, r = r0 + RR() * (r1 - r0), g0 = new T.IcosahedronGeometry(size * (.6 + RR() * .7), 2); g0.deleteAttribute('uv'); g0.deleteAttribute('normal'); const g = mergeVertices(g0);
-      g.scale(1.7, .42 + RR() * .2, 1.7); g.translate(Math.sin(a) * r, y + RR() * 3, Math.cos(a) * r); gs.push(g); }
-    const m = new T.Mesh((x => { x.computeVertexNormals(); return x; })(mergeGeometries(gs)), new T.MeshLambertMaterial({color: col, emissive: emi, emissiveIntensity: .22})); m.receiveShadow = true; return m; };
-  nest.add(layer(26, 30, 80, -15, 9, '#ffffff', '#ffe2c4', 21), layer(34, 60, 170, -16, 22, '#fff4ea', '#ffc9a0', 22), layer(30, 160, 340, -30, 40, '#ffe8dc', '#f0a88a', 23));   // white tops, warm sunrise underlight   // near, mid, far banks
+  // owner pass 2: cloud puffs (clusters of blobs) with soft white tops and blue-grey undersides (vertex colour from the normal),
+  // gaps between them showing the sky and the town far below, a warm sunrise wash on the sides
+  const layer = (nc, r0, r1, y, size, seed) => { const RR = B.rng(seed), gs = [];
+    for (let c = 0; c < nc; c++) { const a = RR() * Math.PI * 2, r = r0 + RR() * (r1 - r0), cx = Math.sin(a) * r, cz = Math.cos(a) * r, nb = 3 + Math.floor(RR() * 3);
+      for (let i = 0; i < nb; i++) { const g0 = new T.IcosahedronGeometry(size * (.55 + RR() * .5), 2); g0.deleteAttribute('uv'); g0.deleteAttribute('normal'); const g = mergeVertices(g0);
+        g.scale(1.5, .55 + RR() * .2, 1.5); g.translate(cx + (RR() - .5) * size * 2.2, y + RR() * size * .25, cz + (RR() - .5) * size * 2.2); gs.push(g); } }
+    const geom = mergeGeometries(gs); geom.computeVertexNormals(); const nrm = geom.attributes.normal, cc = [], top = new T.Color('#ffffff'), side = new T.Color('#ffd6b4'), under = new T.Color('#8291b2');
+    for (let i = 0; i < nrm.count; i++) { const ny = nrm.getY(i), c = ny >= 0 ? side.clone().lerp(top, Math.min(1, ny * 1.4)) : side.clone().lerp(under, Math.min(1, -ny * 1.3)); cc.push(c.r, c.g, c.b); }
+    geom.setAttribute('color', new T.Float32BufferAttribute(cc, 3));
+    const m = new T.Mesh(geom, new T.MeshLambertMaterial({vertexColors: true, emissive: '#ffe6cc', emissiveIntensity: .12})); m.receiveShadow = true; return m; };
+  nest.add(layer(9, 32, 70, -16, 8, 21), layer(14, 70, 170, -20, 16, 22), layer(16, 170, 340, -34, 30, 23));   // near, mid, far puffs
+  // a woven (basket) texture for the nest: over/under strips, not scattered planks
+  const weave = (() => { if (typeof document === 'undefined') return null; const c = document.createElement('canvas'); c.width = c.height = 256; const x = c.getContext('2d'); x.fillStyle = '#3a2410'; x.fillRect(0, 0, 256, 256);
+    const n = 8, q = 256 / n; for (let i = 0; i < n; i++) for (let j = 0; j < n; j++) { const hor = (i + j) % 2 === 0, gx = i * q, gy = j * q, gr = x.createLinearGradient(gx, gy, hor ? gx : gx + q, hor ? gy + q : gy);
+      gr.addColorStop(0, '#5a3818'); gr.addColorStop(.5, '#a8743a'); gr.addColorStop(1, '#5a3818');   // darker: the kids stand out (check 3) x.fillStyle = gr; x.fillRect(gx + 2, gy + 2, q - 4, q - 4);
+      x.strokeStyle = 'rgba(60,35,15,.6)'; x.lineWidth = 1.5; for (let k = 1; k < 4; k++) { x.beginPath(); if (hor) { x.moveTo(gx + 3, gy + k * q / 4); x.lineTo(gx + q - 3, gy + k * q / 4); } else { x.moveTo(gx + k * q / 4, gy + 3); x.lineTo(gx + k * q / 4, gy + q - 3); } x.stroke(); } }
+    const t = new T.CanvasTexture(c); t.colorSpace = T.SRGBColorSpace; t.wrapS = t.wrapT = T.RepeatWrapping; return t; })();
+  const weaveMat = rep => { const t = weave?.clone(); if (t) { t.needsUpdate = true; t.repeat.set(...rep); } return new T.MeshPhongMaterial({color: '#ffffff', map: t ?? null, side: T.DoubleSide, shininess: 6}); };
   const bowl0 = new T.CylinderGeometry(16, 10, 6, 40, 1, true); bowl0.translate(0, -1.5, 0);
-  const bowl = new T.Mesh(bowl0, new T.MeshPhongMaterial({color: '#a8763e', map: M.patternTexture('thatch'), side: T.DoubleSide, shininess: 4})); nest.add(bowl);
-  const floorN = new T.Mesh(new T.CircleGeometry(10.5, 40), new T.MeshPhongMaterial({color: '#c9a064', map: M.patternTexture('thatch'), shininess: 4})); floorN.rotation.x = -Math.PI / 2; floorN.position.y = -4.4; nest.add(floorN);
-  const rimN = new T.Mesh(new T.TorusGeometry(16, 2.6, 8, 56), new T.MeshPhongMaterial({color: '#b48a52', map: M.patternTexture('thatch'), shininess: 4})); rimN.rotation.x = Math.PI / 2; rimN.position.y = 1.4; rimN.castShadow = true; nest.add(rimN);
-  { const sg = [], R2 = B.rng(31); for (let k = 0; k < 72; k++) { const a = k / 72 * Math.PI * 2, g = new T.CylinderGeometry(.32, .38, 12 + R2() * 5, 5); g.rotateZ(Math.PI / 2); g.rotateX((k % 2 ? 1 : -1) * .38); g.rotateY(-a); g.translate(Math.sin(a) * (15.6 + R2()), .6 + (k % 3) * 1.1, Math.cos(a) * (15.6 + R2())); sg.push(g); }   // woven sticks crossing the rim
-    const sticks = new T.Mesh(mergeGeometries(sg), mt('bark', '#6e4a2a')); sticks.castShadow = true; nest.add(sticks); }
+  const bowl = new T.Mesh(bowl0, weaveMat([14, 2])); nest.add(bowl);
+  const floorN = new T.Mesh(new T.CircleGeometry(10.5, 40), weaveMat([5, 5])); floorN.rotation.x = -Math.PI / 2; floorN.position.y = -4.4; nest.add(floorN);
+  const rimN = new T.Mesh(new T.TorusGeometry(16, 2.6, 8, 56), weaveMat([24, 2])); rimN.rotation.x = Math.PI / 2; rimN.position.y = 1.4; rimN.castShadow = true; nest.add(rimN);
+  // (owner pass 2: no scattered sticks; the weave carries the texture)
   for (let k = 0; k < 9; k++) { const s2 = eggMesh(['ember', 'frost', 'moss', 'tide', 'geode', 'storm', 'sprinkle', 'cosmic', 'plain'][k], {r: .5, rim: false}); const a = k / 9 * 6.28 + .3; s2.scale.set(1.1, .55, 1.1); s2.position.set(Math.sin(a) * 9.4, -4, Math.cos(a) * 9.4); s2.rotation.z = 1.2; s2.userData.egg = null; s2.name = 'shell'; nest.add(s2); }   // hatched shells
   const sun = new T.PointLight('#ffd08a', 40, 60, 1.2); sun.position.set(0, 18, 14); const sg = glow('#ffcf7a', 90); sg.position.set(-60, 30, 180); nest.add(sun, sg);
   nest.position.set(...NEST); scene.add(nest);
@@ -205,13 +232,21 @@ export function build(scene, {P, B, A, M, PR, TR, BI, V, W, look, spec}) {
   const fence = new T.Group(); fence.name = 'vaultFence'; for (let k = 0; k < 3; k++) { const f = PR.smallProp('fence', k); f.position.set(0, 0, (k - 1) * 3.2); fence.add(f); } fence.rotation.y = Math.PI / 2; fence.position.set(-12, groundY(-12, 9), 9); fence.visible = false; scene.add(fence);   // S19
   const spot = new T.SpotLight('#cfe0ff', 0, 160, .5, .4, 1); spot.castShadow = true; spot.shadow.mapSize.set(1024, 1024); spot.shadow.camera.near = 20; spot.shadow.camera.far = 170; scene.add(spot, spot.target);   // S29b: the shadow sweep
   const coldFly = eggMesh('plain', {r: EGG_R.held * 1.3, warm: 0}); coldFly.visible = false; coldFly.name = 'coldFly'; scene.add(coldFly);   // the proof match cut: a cold egg flying hand to hand
+  // owner pass 2: a large moon to backlight the mother (S37b), and the warm light of Kit's egg on faces (S36, S39)
+  const moonTex = (() => { if (typeof document === 'undefined') return null; const c = document.createElement('canvas'); c.width = c.height = 128; const x = c.getContext('2d'), g = x.createRadialGradient(64, 64, 0, 64, 64, 64);
+    g.addColorStop(0, 'rgba(255,255,250,1)'); g.addColorStop(.42, 'rgba(240,246,255,1)'); g.addColorStop(.5, 'rgba(200,220,255,.55)'); g.addColorStop(1, 'rgba(160,190,255,0)'); x.fillStyle = g; x.fillRect(0, 0, 128, 128); return new T.CanvasTexture(c); })();
+  const bigMoon = new T.Sprite(new T.SpriteMaterial({map: moonTex, color: '#ffffff', fog: false, depthWrite: false, toneMapped: false, transparent: true})); bigMoon.visible = false; bigMoon.renderOrder = -2; bigMoon.name = 'bigMoon'; scene.add(bigMoon);
+  const eggLight = new T.PointLight('#ffc46b', 0, 12, 1.4); scene.add(eggLight);
   movers.push({update: t => {
+    const bm = state.bigMoon; bigMoon.visible = !!bm; if (bm) { bigMoon.position.set(...bm.pos); bigMoon.scale.setScalar(bm.size); }
+    const el = state.eggLight; eggLight.intensity = el ? el.i : 0; if (el) eggLight.position.set(...el.pos);
     const ct = state.coldToss; coldFly.visible = !!ct && t >= ct.t0 && t < ct.t1;
     if (coldFly.visible) { const k = (t - ct.t0) / .8, leg = Math.floor(k), u = k - leg, [f, q] = leg % 2 ? [ct.b, ct.a] : [ct.a, ct.b]; coldFly.position.set(f[0] + (q[0] - f[0]) * u, f[1] + (q[1] - f[1]) * u + Math.sin(u * Math.PI) * 1.8, f[2] + (q[2] - f[2]) * u); coldFly.rotation.z = t * 7; }
     const ht = state.hotToss; hot.visible = !!ht && t >= ht.t0 && t < ht.t0 + 3;
     if (hot.visible) { const u = Math.min(1, (t - ht.t0) / .9), f = ht.from, q = ht.to; hot.position.set(f[0] + (q[0] - f[0]) * u, f[1] + (q[1] - f[1]) * u + Math.sin(u * Math.PI) * 3, f[2] + (q[2] - f[2]) * u); hot.rotation.z = t * 9; hotGlow.scale.setScalar(3 + 2.2 * Math.abs(Math.sin(t * 9))); }
-    if (door10) { const sl = state.slam ?? -99, k = Math.min(1, Math.max(0, (t - sl + .14) / .14)); door10.hinge.rotation.y = 1.55 * (1 - k * k); const f = Math.min(1, Math.max(0, (t - sl) / 1.6));
-      door10.ring.geometry.dispose(); door10.ring.geometry = new T.RingGeometry(3.25, 3.75, 40, 1, Math.PI / 2, Math.max(.01, f * Math.PI * 2)); }
+    if (door10) { const sl = state.slam ?? -99, k = Math.min(1, Math.max(0, (t - sl + .14) / .14)); door10.hinge.rotation.y = 1.55 * (1 - k * k);
+      const b = Math.min(1, Math.max(0, (t - sl - .1) / .25)); door10.bolt.position.x = 3.0 + 1.0 * b;   // the bolt shoots across into the keeper
+      door10.ptr.rotation.z = -Math.min(1, Math.max(0, (t - sl - .3) / 1.5)) * Math.PI * 1.5; }
     const sp = state.moonSpot; spot.intensity = sp ? sp.i ?? 1.6 : 0; spot.decay = 0; if (sp) { spot.position.set(...sp.pos); spot.target.position.set(...sp.target); spot.angle = sp.angle ?? .5; }
   }});
   movers.push(A.birds({centre: [10, 46, -40], n: 0, r: 30, seed: 3}));   // no birds: "nobody has ever seen a bird"
@@ -230,5 +265,5 @@ export function build(scene, {P, B, A, M, PR, TR, BI, V, W, look, spec}) {
   setClock('1159');
   return {anchors, groundY, update(t) { for (const m of movers) m.update?.(t); },
     setState(k, v) { state[k] = v; if (k === 'board') drawBoard(v); if (k === 'clock') setClock(v); if (k === 'flyers') flyers.visible = !!v; if (k === 'benchEgg') benchEgg.visible = !!v; if (k === 'plainEgg') plainEgg.visible = !!v;
-      if (k === 'coldBase') { cold.visible = !!v; nestEggs[4].visible = !v; } if (k === 'geodeAway') nestEggs[5].visible = !v; if (k === 'grassEgg') grassEgg.visible = !!v; if (k === 'returnNote') note5.mesh.visible = !!v; if (k === 'fence') fence.visible = !!v; if (k === 'nestSet') nest.visible = !!v; }};
+      if (k === 'coldBase') { cold.visible = !!v; nestEggs[4].visible = !v; } if (k === 'geodeAway') nestEggs[5].visible = !v; if (k === 'grassEgg') { grassEgg.visible = !!v; if (Array.isArray(v)) grassEgg.position.set(v[0], groundY(v[0], v[1]) + .45, v[1]); } if (k === 'returnNote') note5.mesh.visible = !!v; if (k === 'fence') fence.visible = !!v; if (k === 'nestSet') nest.visible = !!v; }};
 }
