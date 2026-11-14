@@ -21,10 +21,10 @@ const HAIR = ['#3a2418', '#6b4428', '#c8692a', '#e8c25a', '#202020', '#9a9a9a'];
 const r1 = (seed, k) => { const x = Math.sin(seed * 91.7 + k * 47.3) * 43758.5453; return x - Math.floor(x); };
 
 // Members (pure): seeded positions inside a disc or rectangle, colours, phase.
-export function crowdMembers({count = 20, centre = [0, 0], radius = 12, area = null, seed = 1, mode = 'ambient', dir = [0, 1], speed = RUN_SPEED * .8, face = null, scale = 1} = {}) {
+export function crowdMembers({count = 20, centre = [0, 0], radius = 12, inner = 0, area = null, seed = 1, mode = 'ambient', dir = [0, 1], speed = RUN_SPEED * .8, face = null, scale = 1} = {}) {   // inner (opt-in): a ring, members between inner and radius
   const n = Math.min(CROWD_MAX, count), out = [];
   for (let i = 0; i < n; i++) {
-    const s = seed * 1000 + i, a = r1(s, 1) * Math.PI * 2, d = Math.sqrt(r1(s, 2)) * radius;
+    const s = seed * 1000 + i, a = r1(s, 1) * Math.PI * 2, d = inner ? Math.sqrt(inner * inner + r1(s, 2) * (radius * radius - inner * inner)) : Math.sqrt(r1(s, 2)) * radius;
     const x = area ? centre[0] + (r1(s, 1) - .5) * area[0] : centre[0] + Math.sin(a) * d, z = area ? centre[1] + (r1(s, 2) - .5) * area[1] : centre[1] + Math.cos(a) * d;
     const yaw = mode === 'panic' ? Math.atan2(dir[0], dir[1]) + (r1(s, 3) - .5) * .5 : face ? Math.atan2(face[0] - x, face[1] - z) + (r1(s, 3) - .5) * .6 : r1(s, 3) * Math.PI * 2;
     out.push({i, x, z, yaw, seed: s, phase: r1(s, 4) * 3, speed: speed * (.8 + r1(s, 5) * .4), scale: scale * (.86 + r1(s, 6) * .2),

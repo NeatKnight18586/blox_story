@@ -50,8 +50,7 @@ function box(parent, size, at, color, {rot = [0, 0, 0], cast = true, extra} = {}
 function spike(parent, r, h, at, color, rot = [0, 0, 0]) { const m = new T.Mesh(new T.ConeGeometry(r, h, 4), mat(color)); m.position.set(...at); m.rotation.set(...rot); m.castShadow = true; parent.add(m); return m; }
 function pivot(parent, at, name) { const p = new T.Group(); p.position.set(...at); p.name = name; parent.add(p); return p; }
 // A flat wing membrane: a fan of wedge-like panels between finger bones (+x is outward).
-function wingSegment(parent, len, chord, side) {
-  const C = DRAGON_COLORS;
+function wingSegment(parent, len, chord, side, C = DRAGON_COLORS) {
   box(parent, [len, .45, .45], [side * len / 2, 0, 0], C.dark);                                         // arm bone
   for (let i = 0; i < 3; i++) {
     const w = len * (1 - i * .18), m = box(parent, [w, .16, chord / 3], [side * w / 2, -.1, -(i + .5) * chord / 3], i % 2 ? C.wingDk : C.wing);
@@ -60,8 +59,8 @@ function wingSegment(parent, len, chord, side) {
   spike(parent, .35, 1.2, [side * (len + .3), 0, 0], C.horn, [0, 0, -side * PI / 2]);
 }
 
-export function buildDragon({scale = 1, name = 'dragon'} = {}) {
-  const C = DRAGON_COLORS, root = new T.Group(); root.name = name; root.scale.setScalar(scale);
+export function buildDragon({scale = 1, name = 'dragon', colors = null} = {}) {   // colors (opt-in): override DRAGON_COLORS keys (hatchlings)
+  const C = colors ? {...DRAGON_COLORS, ...colors} : DRAGON_COLORS, root = new T.Group(); root.name = name; root.scale.setScalar(scale);
   const body = pivot(root, [0, 9, 0], 'body');
   box(body, [7, 6, 13], [0, 0, 0], C.body);
   box(body, [5.2, 1.2, 11], [0, -3.2, .5], C.belly);                                                     // belly plates
@@ -108,7 +107,7 @@ export function buildDragon({scale = 1, name = 'dragon'} = {}) {
   const wings = [];
   for (const sx of [-1, 1]) {
     const inner = pivot(body, [sx * 3.4, 2.6, 3], 'wing'), outer = pivot(inner, [sx * 8, 0, 0], 'wingOuter');
-    wingSegment(inner, 8, 8, sx); wingSegment(outer, 8.5, 6.5, sx); wings.push({inner, outer, sx});
+    wingSegment(inner, 8, 8, sx, C); wingSegment(outer, 8.5, 6.5, sx, C); wings.push({inner, outer, sx});
   }
   // tail chain (tapers backward)
   const tail = []; p = pivot(body, [0, -.5, -6.5], 'tail0');

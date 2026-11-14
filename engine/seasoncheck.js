@@ -67,7 +67,7 @@ export function checkSeason({spec, shots, cues, fps = 30, end, info = [], meas =
       if (h < L.clue) E(`clue ${id}: ${s.clueObject} is ${(h * 100).toFixed(1)} % of frame height (≥ ${L.clue * 100} %)`);
     }
     // AFK
-    const afkName = spec.afkActor ?? Object.entries(actorsIn(byId[spec.afk?.[0]])[0] ?? {}).find(([, a]) => a.troupe === 'AFK')?.[0];
+    const afkName = spec.afkActor ?? Object.entries(spec.cast ?? {}).find(([, c]) => c.troupe === 'AFK')?.[0] ?? (spec.afk ?? []).flatMap(id => actorsIn(byId[id])).flatMap(A => Object.entries(A)).find(([, a]) => a.troupe === 'AFK')?.[0];   // the cast entry first: a measured frame may fall before he appears
     let afkBefore = false;
     for (const id of spec.afk ?? []) {
       const s = at(id); if (!s) continue; const i = byId[id];

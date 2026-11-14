@@ -149,7 +149,8 @@ class SeasonState(unittest.TestCase):
     def test_cards_and_state_file(self):
         self.assertEqual(self.cards[:2], [(1, 'egg'), (2, 'ragdoll')]); self.assertEqual(len(self.cards), 30); self.assertEqual(self.cards[10], (11, 'mountain'))
         st = self.SS.parse(open(os.path.join(ROOT, 'docs/season1/STATE.md')).read())
-        self.assertEqual((st['episode'], st['slug'], st['step']), (1, 'egg', 'voice'), 'initial state after Session 9')
+        self.assertIn(st['step'], self.SS.STEPS); self.assertEqual(st['slug'], dict(self.cards)[st['episode']], 'state names a real card')
+        self.assertTrue(any('init (Session 9): episode 1 egg, step voice' in l for l in st['log']), 'initialised at episode 1 egg, step voice')
         self.assertEqual(self.SS.parse(self.SS.fmt(st)), st, 'format round-trips')
 
     def test_voice_step(self):
