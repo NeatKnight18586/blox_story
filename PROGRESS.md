@@ -1032,3 +1032,22 @@ Three weakest things:
   1. S48: the mother reads as purple blocks at the top of the frame.
   2. S49: AFK is a faint ghost.
   3. S51a: the sitting crowd is dense and yellow; the lap eggs are small.
+
+## Egg final (owner, 2026-11-14)
+**Decisions:** 2026-11-14 owner: animatic skipped for egg only (token budget); process unchanged for later episodes. No further shot changes (spec as of f68ab77).
+**Stability (`npm run v2:stability -- --story egg`): FAIL.** 187 views; four fail the 0.30 % gate:
+- S36-holds:first 7.241 %
+- S37a-bell:first 0.774 %
+- S39-dragon:mid 12.760 %
+- S44a-cold:mid 12.814 %
+
+**Diagnosis (measured):** not camera flicker. The same nudge pair rendered a second time is clean: 7.241 → 0.049, 12.760 → 0.023, 12.814 → 0.017.
+
+**What it means for the final:** in sequential render (as on the farm), the first frame of two cuts differs from the settled frame:
+- S36 cut, frame 2737: 8.753 % of pixels;
+- S37a cut, frame 2857: 1.745 %;
+- S39 and S44a: 0 % (their spikes only occur when the harness jumps around the timeline).
+
+**Cause:** the pass-2 opt-ins `heroSpotSubject` / `subjectLift` swap the lit subject (spot retarget + shadow toggle, cloned materials) at a cut. The first render after the swap is unsettled. A camera change cannot fix this, so no camera pass was made.
+
+**Proposed fix (not applied):** one warm-up render in `episode.js` when that state changes. It touches the engine, which the owner's instruction forbids this session, so the final render was not started; stopped for the owner's call.
