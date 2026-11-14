@@ -17,6 +17,17 @@ export const LAYER = {plaza: .14, road: .1};
 const NIGHT_DIM = .6, SQ = 18, ROAD = 33, BASE_R = 47, POND = [52, 44];
 
 const OLD = {asphalt: ['plastic', '#55585f'], concrete: ['plastic'], plaster: ['plastic'], roofTile: ['slate']};   // the v2 kit had no such patterns
+// Decision 3: a glowing egg reads at 390 px: warm emissive body, a gold back-face rim shell, and a soft additive halo sprite.
+let haloTex = null;
+function glowEgg(r, glow = true) {
+  const g = new T.Group(), body = new T.Mesh(new T.SphereGeometry(r, 16, 12), new T.MeshPhongMaterial({color: '#fff3c8', emissive: '#ffc14a', emissiveIntensity: glow ? 1.5 : .9}));
+  body.scale.set(1, 1.3, 1); g.add(body); if (!glow) return g;
+  const rim = new T.Mesh(new T.SphereGeometry(r * 1.12, 16, 12), new T.MeshBasicMaterial({color: '#ffd24a', side: T.BackSide, toneMapped: false})); rim.scale.set(1, 1.3, 1); g.add(rim);
+  if (!haloTex && typeof document !== 'undefined') { const c = document.createElement('canvas'); c.width = c.height = 128; const x = c.getContext('2d'), gr = x.createRadialGradient(64, 64, 0, 64, 64, 64);
+    gr.addColorStop(0, 'rgba(255,214,110,.85)'); gr.addColorStop(.35, 'rgba(255,190,70,.35)'); gr.addColorStop(1, 'rgba(255,170,40,0)'); x.fillStyle = gr; x.fillRect(0, 0, 128, 128); haloTex = new T.CanvasTexture(c); haloTex.colorSpace = T.SRGBColorSpace; }
+  const halo = new T.Sprite(new T.SpriteMaterial({map: haloTex, blending: T.AdditiveBlending, depthWrite: false, transparent: true, toneMapped: false})); halo.scale.setScalar(r * 6); halo.renderOrder = 3; g.add(halo);
+  return g;
+}
 export function build(scene, {P, B, A, M, PR, TR, BI, V, W, look, spec}) {
   const NEW = spec.kit !== 'old', R = B.rng(11), anchors = {}, movers = [], hero = new T.Group(); hero.name = 'hero';
   const dim = (c, k = NIGHT_DIM) => '#' + new T.Color(c).multiplyScalar(k).getHexString();   // A5 Decision 2: night ground/walls at ~60 %
@@ -33,7 +44,7 @@ export function build(scene, {P, B, A, M, PR, TR, BI, V, W, look, spec}) {
       ...bases.map(b => ({type: 'pad', x0: b.x - 8, x1: b.x + 8, z0: b.z - 8, z1: b.z + 8, y: .4 + (b.i % 3) * .3, blend: 8})),
       {type: 'valley', from: [POND[0] - 8, POND[1]], to: [POND[0] + 10, POND[1] + 6], w: 16, depth: 3.2}];
     const height = TR.heightFn({seed: 5, controls}); groundY = height;
-    const terr = TR.buildTerrain({height, size: 660, chunk: 30, fine: 1.5, fullR: 60, focus: [[0, 76], [11, 32], [-6, 24], [8, 22]], material: M.splatMaterial(bio.terrain.layers, {splat: bio.terrain, wetY: -1.1}), splat: bio.terrain});   // A5: per-pixel blend, 1.5-unit cells near the cameras
+    const terr = TR.buildTerrain({height, size: 660, chunk: 30, fine: 1.5, fullR: 30, focus: [[0, 76], [11, 32], [-6, 24], [8, 22]], material: M.splatMaterial(bio.terrain.layers, {splat: bio.terrain, wetY: -1.1}), splat: bio.terrain});   // A5: per-pixel blend, 1.5-unit cells near the cameras
     scene.add(terr);
     const wat = W.water({height, x0: POND[0] - 22, x1: POND[0] + 24, z0: POND[1] - 14, z1: POND[1] + 18, y: -1.1, ...bio.water, sky: '#3a5aa0', foam: .1, envMap: look.envMap?.()});
     scene.add(wat.mesh); movers.push(wat);
@@ -66,7 +77,7 @@ export function build(scene, {P, B, A, M, PR, TR, BI, V, W, look, spec}) {
     g.add(P.block([3.6, 5, .3], {at: [0, 3.3, d / 2 + .1], mat: mt('woodPlanks', c), cast: true}));                      // door
     for (const sx of [-1, 1]) { const m = new T.Mesh(new T.BoxGeometry(2, 2, .2), win); m.position.set(sx * (w / 2 - 2.2), 4.2, d / 2 + .12); g.add(m); }
     const pad = new T.Mesh(new T.RingGeometry(1.6, 2.3, 32), new T.MeshBasicMaterial({color: c, fog: true})); pad.rotation.x = -Math.PI / 2; pad.position.set(0, .06, d / 2 + 3.2); g.add(pad);   // lock ring
-    const egg = new T.Mesh(new T.SphereGeometry(.45, 12, 8), new T.MeshPhongMaterial({color: '#fff3c8', emissive: '#ffcf6b', emissiveIntensity: .9})); egg.scale.set(1, 1.3, 1); egg.position.set(2.6, 1.2, d / 2 + 1.6); g.add(egg);
+    const egg = glowEgg(.45, NEW); egg.position.set(2.6, 1.2, d / 2 + 1.6); g.add(egg);
     g.position.set(b.x, groundY(b.x, b.z), b.z); g.rotation.y = b.yaw; return g;
   }
   function clockTower() {
@@ -116,7 +127,7 @@ export function build(scene, {P, B, A, M, PR, TR, BI, V, W, look, spec}) {
     // warm practical light: two real point lights over the square (≤ 4 allowed) key the avatars and pool on the cobbles
     for (const [x, z] of [[-3.5, 14], [4.5, 12]]) { const l = new T.PointLight('#ffc27a', 9, 11, 2); l.position.set(x, groundY(x, z) + 4.2, z); scene.add(l); }   // warm practicals keyed on the cast's faces, short reach
     // A5 §E: a glowing egg on the square is a real light source (third point light of ≤ 4)
-    const eg = new T.Mesh(new T.SphereGeometry(.55, 16, 12), new T.MeshPhongMaterial({color: '#fff3c8', emissive: '#ffc14a', emissiveIntensity: 1.6})); eg.scale.set(1, 1.3, 1); eg.position.set(-.6, groundY(0, 10) + .75, 11.5); eg.name = 'egg'; scene.add(eg);
+    const eg = glowEgg(.55, true); eg.position.set(-.6, groundY(0, 10) + .75, 11.5); eg.name = 'egg'; scene.add(eg);
     // (the egg glows by emission only: a light at its height would pool on the cobbles around the cast)
     // gardens: a hedge pair flanking every base door + a tree between neighbouring bases
     const hedge = new T.MeshPhongMaterial({color: '#4f7a3a', shininess: 6, map: M.patternTexture('leaves')}), trunk = new T.MeshPhongMaterial({color: '#5a4232', map: M.patternTexture('bark')}), crown = new T.MeshPhongMaterial({color: '#3f6a34', shininess: 8, map: M.patternTexture('leaves')});   // A5: smooth

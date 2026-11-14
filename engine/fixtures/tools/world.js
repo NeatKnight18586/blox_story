@@ -13,7 +13,7 @@ export function build(scene, {P, B, A, M, PR, TR, BI, V, W, look, spec}) {
     {type: 'pad', x0: -14, x1: 14, z0: 10, z1: 34, y: 0, blend: 8}, {type: 'river', points: [[-200, 70], [0, 62], [200, 74]], w: 12, depth: 2.4, bank: 6}];
   const height = TR.heightFn({seed: 31, controls});
   const mat = M.splatMaterial(bio.terrain.layers);   // per-vertex: the landform giant keeps its Session 8 material (out of scope in 8b)
-  scene.add(TR.buildTerrain({height, size: 570, chunk: 30, fine: 1.5, fullR: 60, focus: [[0, 50], [4, 43], [10, 23], [8, 58]], material: M.splatMaterial(bio.terrain.layers, {splat: bio.terrain, wetY: -1.2}), splat: bio.terrain}));   // A5: per-pixel blend
+  scene.add(TR.buildTerrain({height, size: 570, chunk: 30, fine: 1.5, fullR: 30, focus: [[0, 40], [4, 43], [0, 50], [8, 58], [10, 23]], material: M.splatMaterial(bio.terrain.layers, {splat: bio.terrain, wetY: -1.2}), splat: bio.terrain}));   // A5: per-pixel blend
   const wat = W.water({height, x0: -220, x1: 220, z0: 52, z1: 84, y: -1.2, ...bio.water, sky: '#b9c9d6', flow: [1, 0], speed: .06, envMap: look.envMap?.()}); scene.add(wat.mesh); movers.push(wat);
   const veg = V.vegetation({height, veg: bio.vegetation, area: {x0: -180, x1: 180, z0: -160, z1: 140}, seed: 6, focus: [[0, 26]], nearR: 22, waterY: -1.2,
     avoid: (x, z) => (Math.abs(x) < 20 && z > 0 && z < 40) || Math.hypot(x - GIANT[0], (z - GIANT[1]) * .8) < 90 || (Math.abs(x) < 4 && z < 10 && z > -20)});

@@ -8,8 +8,8 @@
  "worst": {
   "view": "T2-snap:mid",
   "frame": 127,
-  "pct": 0.059,
-  "raw": 0.616
+  "pct": 0.046,
+  "raw": 0.609
  },
  "failing": [],
  "errors": [],
@@ -18,8 +18,8 @@
   {
    "view": "@square",
    "frame": null,
-   "pct": 0.016,
-   "raw": 0.108
+   "pct": 0.006,
+   "raw": 0.098
   },
   {
    "view": "@giant",
@@ -37,7 +37,7 @@
    "view": "T1-drone:mid",
    "frame": 52,
    "pct": 0,
-   "raw": 0.004
+   "raw": 0.005
   },
   {
    "view": "T1-drone:last",
@@ -49,31 +49,31 @@
    "view": "T2-snap:first",
    "frame": 105,
    "pct": 0.002,
-   "raw": 0.085
+   "raw": 0.086
   },
   {
    "view": "T2-snap:mid",
    "frame": 127,
-   "pct": 0.059,
-   "raw": 0.616
+   "pct": 0.046,
+   "raw": 0.609
   },
   {
    "view": "T2-snap:last",
    "frame": 149,
-   "pct": 0.057,
-   "raw": 0.64
+   "pct": 0.035,
+   "raw": 0.619
   },
   {
    "view": "T3-heroLow:first",
    "frame": 150,
    "pct": 0.002,
-   "raw": 0.017
+   "raw": 0.016
   },
   {
    "view": "T3-heroLow:mid",
    "frame": 195,
    "pct": 0.003,
-   "raw": 0.027
+   "raw": 0.028
   },
   {
    "view": "T3-heroLow:last",
@@ -84,8 +84,8 @@
   {
    "view": "T4-tiltUp:first",
    "frame": 240,
-   "pct": 0.001,
-   "raw": 0.116
+   "pct": 0.005,
+   "raw": 0.123
   },
   {
    "view": "T4-tiltUp:mid",
@@ -108,8 +108,8 @@
   {
    "view": "T5-trail:mid",
    "frame": 405,
-   "pct": 0.001,
-   "raw": 0.113
+   "pct": 0.002,
+   "raw": 0.114
   },
   {
    "view": "T5-trail:last",
@@ -120,20 +120,20 @@
   {
    "view": "T6-night:first",
    "frame": 450,
-   "pct": 0.014,
-   "raw": 0.133
+   "pct": 0.016,
+   "raw": 0.13
   },
   {
    "view": "T6-night:mid",
    "frame": 495,
-   "pct": 0.026,
-   "raw": 0.151
+   "pct": 0.02,
+   "raw": 0.135
   },
   {
    "view": "T6-night:last",
    "frame": 539,
-   "pct": 0.028,
-   "raw": 0.165
+   "pct": 0.02,
+   "raw": 0.152
   }
  ]
 }

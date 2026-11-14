@@ -41,11 +41,11 @@ export function build(scene, {P, B, A, M, PR, TR, BI, V, W, look, spec}) {
       {type: 'river', points: [[-400, 150], [-100, 156], [100, 146], [400, 152]], w: 16, depth: 3, bank: 8}];
     const height = TR.heightFn({seed: 17, base: BASE, controls}); groundY = height;
 
-    scene.add(TR.buildTerrain({height, size: 720, chunk: 30, fine: 1.5, fullR: 60, focus: [[3, 96], [-5, 30]], centre: [0, -20], material: M.splatMaterial(bio.terrain.layers, {splat: bio.terrain, wetY: VALLEY_Y - 1.4}), splat: bio.terrain}));   // A5: per-pixel blend, 1.5-unit cells
+    scene.add(TR.buildTerrain({height, size: 720, chunk: 30, fine: 1.5, fullR: 30, focus: [[3, 96], [-5, 30]], centre: [0, -20], material: M.splatMaterial(bio.terrain.layers, {splat: bio.terrain, wetY: VALLEY_Y - 1.4}), splat: bio.terrain}));   // A5: per-pixel blend, 1.5-unit cells
     const wat = W.water({height, x0: -300, x1: 300, z0: 128, z1: 172, y: VALLEY_Y - 1.4, ...bio.water, sky: '#cfe4f5', flow: [1, .1], speed: .08, envMap: look.envMap?.()});
     scene.add(wat.mesh); movers.push(wat);
     const avoid = (x, z) => (Math.abs(x) < 24 && z > -110 && z < 92) || lots.some(l => Math.abs(x - l.x) < 8 && Math.abs(z - l.z) < 8);
-    const veg = V.vegetation({height, veg: {...bio.vegetation, treeDensity: .55}, area: {x0: -200, x1: 200, z0: -220, z1: 200}, seed: 4, avoid, focus: [[0, 70], [0, 20]], nearR: 26, waterY: VALLEY_Y - 1});
+    const veg = V.vegetation({height, veg: {...bio.vegetation, treeDensity: .55}, area: {x0: -200, x1: 200, z0: -220, z1: 200}, seed: 4, avoid, focus: [[0, 70], [0, 20]], nearR: 26, shadowR: 25, waterY: VALLEY_Y - 1});   // Decision 4: near LOD only close to the shots
     scene.add(veg.group); movers.push(veg);
     look.addShaft?.({at: [-30, 10, -40], height: 90, width: 12, opacity: .12, tilt: [0, .35]}); look.addShaft?.({at: [26, 18, -70], height: 90, width: 9, opacity: .1, tilt: [0, .35]});
   } else {
@@ -95,7 +95,7 @@ export function build(scene, {P, B, A, M, PR, TR, BI, V, W, look, spec}) {
   const puff = new T.MeshLambertMaterial({color: '#ffffff', transparent: true, opacity: .92, emissive: '#cfd8e6', emissiveIntensity: .25});
   for (let i = 0; i < 14; i++) { const a = i / 14 * Math.PI * 2, m = new T.Mesh(new T.IcosahedronGeometry(6 + R() * 5, 1), puff); m.scale.set(1.5, .55, 1); m.position.set(SUMMIT[0] + Math.sin(a) * 18, sy + 5 + R() * 9, SUMMIT[1] + Math.cos(a) * 14); hero.add(m); }
   for (let i = 0; i < 8; i++) { const l = lots[i * 2 % lots.length], b = PR.smallProp(['barrel', 'crate', 'bench', 'fence'][i % 4], i); b.position.set(l.x - l.s * 6.5, l.y - .4, l.z + 4); add(b); }
-  scene.add(hero);
+  scene.add(NEW ? B.mergeByDistrict(hero, 40) : hero);   // Decision 4: repeated houses/fences/lamps merged per district (one mesh per material per cell)
   movers.push(A.birds({centre: [0, 70, -30], n: 5, r: 30, seed: 5}), A.flag({w: 3, h: 2, color: '#e2483d', pole: 7, seed: 2}));
   const fl = movers[movers.length - 1]; (fl.group ?? fl.object)?.position.set(-8, groundY(-8, 70), 70);
   for (const m of movers) if (m.group || m.object) scene.add(m.group ?? m.object);

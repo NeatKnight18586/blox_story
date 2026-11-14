@@ -2,7 +2,7 @@
 // Preset: {tier: 'hero'|'bg', skin, scale, outfit: {recipe, ...colours}, hair: {style, color},
 //          accessories: ['crown' | {name, ...opts}], tool: 'sword' | {name, ...opts}, tag: {name, role}, face}
 // Everything is built once; per frame only pivots, faces, tags and the root move.
-import {createActor, SKINS} from '../avatar-style/body.js';
+import {createActor, SKINS, BUILDS, buildError} from '../avatar-style/body.js';
 import {dress} from '../avatar-style/clothing.js';
 import {attachHair, attachHair3, attachHair4} from '../avatar-style/hair.js';
 import {attachAccessory} from '../avatar-style/accessories.js';
@@ -14,7 +14,8 @@ import {sampleTimeline, ambientPose, applyPoseSample} from './poses.js';
 
 export function buildActor(preset, name = 'actor') {
   const tier = preset.tier ?? 'hero', skin = preset.skin ?? SKINS[0];
-  const a = createActor({tier, skin, scale: preset.scale ?? 1, name, materials: preset.outfit ? dress(preset.outfit, skin, tier) : {}});
+  const err = buildError({...preset, name}); if (err) throw Error('build: ' + err);   // A5 Decision 5: never an adult build under 18
+  const a = createActor({tier, skin, scale: preset.scale ?? 1, name, build: preset.build ?? null, materials: preset.outfit ? dress(preset.outfit, skin, tier) : {}});
   if (preset.hair) (preset.hair.v === 4 ? attachHair4(a, preset.hair.style, preset.hair.color, preset.hairTier ?? null)   // A5: v4 sculpted (Season 1)
     : preset.hair.v === 3 || preset.hairStyle === 'v3' ? attachHair3(a, preset.hair.style, preset.hair.color, {streak: preset.hair.streak}) : attachHair(a, preset.hair.style, preset.hair.color));
   for (const acc of preset.accessories ?? []) typeof acc === 'string' ? attachAccessory(a, acc) : attachAccessory(a, acc.name, acc);
@@ -53,6 +54,7 @@ export function driveActor(a, t, {keys, faces, tags, origin = {position: [0, 0, 
   if (visible) { let v = true; for (const [t0, x] of visible) if (t >= t0) v = x; a.root.visible = v; }
   const s = ambient ? ambientPose(a.preset.seed ?? 1, t) : sampleTimeline(keys ?? [[0, 'idle']], a.preset.freeze ?? t);   // A4: preset.freeze holds one instant (AFK mid-step)
   applyPoseSample(a, s, origin);
+  const stoop = BUILDS[a.build]?.stoop; if (stoop) { a.root.rotation.x += stoop; a.pivots.head.rotation.x -= stoop * .6; }   // elder_f: slight forward stoop, eyes kept forward
   if (faces) { let f = faces[0][1]; for (const [t0, n] of faces) if (t >= t0) f = n; if (f !== a.face) setFace(a, f); }
   if (tags) {
     let cur = null; for (const k of tags) if (t >= k[0]) cur = k;

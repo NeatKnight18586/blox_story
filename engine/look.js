@@ -15,7 +15,7 @@ export const PRESETS = {
   storm: {skyTop: '#4a5566', skyHorizon: '#8a96a6', fog: '#8a96a6', fogNear: 40, fogFar: 200, hemiSky: '#b8c2d0', hemiGround: '#55604a', hemi: 1.0,
     sun: '#dfe6f0', sunI: 1.0, sunEl: 60, sunAz: 20, rim: '#cfd8e6', rimI: .3, cloud: '#7d8796', exposure: 1.05, windows: .3},
   // A5 §E: a night bright enough for a phone: strong cool moon key, teal-blue ambient, raised exposure (episode 1 is all night)
-  nightBright: {skyTop: '#123a6a', skyHorizon: '#4a86b8', fog: '#2f5a86', fogNear: 90, fogFar: 340, hemiSky: '#7cc0d4', hemiGround: '#22394a', hemi: 1.15,
+  nightBright: {skyTop: '#0b2550', skyHorizon: '#33649a', fog: '#2f5a86', fogNear: 90, fogFar: 340, hemiSky: '#7cc0d4', hemiGround: '#22394a', hemi: 1.15,   // Decision 3: sky one step deeper blue
     sun: '#cfe0ff', sunI: 1.6, sunEl: 22, sunAz: 25, rim: '#c4e2ff', rimI: 3.4,   // A5 Decision 1: low key from the camera side → upright fronts outshine flat ground
     cloud: '#5a76a8', exposure: 1.16, windows: 1.5},
   fireNight: {skyTop: '#3a2244', skyHorizon: '#ff9a5a', fog: '#8a4a42', fogNear: 60, fogFar: 260, hemiSky: '#ffb487', hemiGround: '#4a3a5a', hemi: 1.5,
