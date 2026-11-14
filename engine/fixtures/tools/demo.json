@@ -1,7 +1,7 @@
 {
  "slug": "tools-demo",
  "fps": 30,
- "note": "A5 Session 8b tools demo (\u2264 20 s, no captions): drone \u2192 snap (close, fit, crowd behind, wrist stat in focus) \u2192 heroLow (fit) \u2192 tiltUp onto the landform rig, rain + lightning, a trail, 40 crowd actors, then a nightBright medium on LEAD + SECOND.",
+ "note": "A5 Session 8b tools demo (≤ 20 s, no captions): drone → snap (close, fit, crowd behind, wrist stat in focus) → heroLow (fit) → tiltUp onto the landform rig, rain + lightning, a trail, 40 crowd actors, then a nightBright medium on LEAD + SECOND.",
  "world": "engine/fixtures/tools/world.js",
  "landform": {
   "keys": [
@@ -567,5 +567,16 @@
    "shadowRadius": 20,
    "look": "nightBright"
   }
- ]
+ ],
+ "sfxCues": [
+  [
+   6.6,
+   "crack"
+  ],
+  [
+   10.2,
+   "rumble"
+  ]
+ ],
+ "captionStyle": "pop-shorts-v3"
 }

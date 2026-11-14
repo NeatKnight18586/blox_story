@@ -57,5 +57,129 @@ class SheetStats(unittest.TestCase):
         self.assertEqual(S.biggest_change_check([(0, 0), (30, 4.0), (60, 12.0)], shots, ['TW'])[0], False)
 
 
+class Sfx(unittest.TestCase):
+    def setUp(self):
+        import sfx; self.S = sfx
+
+    def test_set_is_deterministic_finite_and_short(self):
+        import numpy as np
+        for n in self.S.NAMES:
+            a, b = self.S.synth(n), self.S.synth(n)
+            self.assertTrue(np.array_equal(a, b), n); self.assertTrue(np.isfinite(a).all(), n)
+            self.assertAlmostEqual(float(np.max(np.abs(a))), 1.0, places=4); self.assertLess(len(a) / self.S.SR, 3, n)
+        x = self.S.level(self.S.synth('pop')); act = x[np.abs(x) > .01 * np.max(np.abs(x))]
+        rms_db = 20 * np.log10(np.sqrt(np.mean(act ** 2))); self.assertLessEqual(rms_db, -30 + .01); self.assertLessEqual(20 * np.log10(np.max(np.abs(x))), -6 + .01)
+
+    def test_placement_from_shot_data(self):
+        shots = [{'id': 'A', 'start': 0, 'frames': 60, 'move': 'drone'}, {'id': 'B', 'start': 60, 'frames': 30, 'move': 'snap'}, {'id': 'C', 'start': 90, 'frames': 6, 'move': 'whip'},
+                 {'id': 'D', 'start': 96, 'frames': 300, 'move': 'crane'}, {'id': 'E', 'start': 396, 'frames': 300, 'move': 'heroLow'}]
+        spec = {'cast': {'kit': {'tags': [[1.5, 'Kit'], [4.0, None]]}}, 'ui': [{'id': 'clock', 'keys': [[2, '11:59'], [2.5, '11:59'], [3, '12:00'], [4, None]]}],
+                'shots': [{'classReveal': {'actor': 'kit', 'cls': 'baker', 'at': 5}}], 'effects': [{'type': 'shake', 'at': 7.25}, {'type': 'flash', 'at': 8}],
+                'beats': {'B5': ['D', 'D'], 'B7': ['E', 'E']}, 'sfxCues': [[9, 'bell']]}
+        p = self.S.place(spec, shots, 30); got = [(h[0], h[1]) for h in p['hits']]
+        self.assertEqual(sorted(got), [(1.5, 'pop'), (2.0, 'pop'), (2.0, 'whoosh'), (3.0, 'pop'), (3.0, 'whoosh'), (3.2, 'rumble'), (5.55, 'pop'), (7.25, 'thud'), (9.0, 'bell'), (12.2, 'riser')])
+        riser = next(h for h in p['hits'] if h[1] == 'riser'); self.assertAlmostEqual(riser[3], 1 - 8 / 30, places=6)
+        self.assertEqual(p['silence'], [[round(13.2 - 8 / 30, 4), 13.2]])
+        tr = self.S.render_track(p, 14); i0, i1 = int((13.2 - 8 / 30) * self.S.SR), int(13.2 * self.S.SR)
+        self.assertEqual(float(abs(tr[i0:i1]).max()), 0.0, '8 frames of silence before the reversal'); self.assertGreater(float(abs(tr[int(12.5 * self.S.SR):i0]).max()), 0)
+
+    def test_unknown_name_and_off_switch(self):
+        with self.assertRaises(ValueError): self.S.place({'sfxCues': [[1, 'kazoo']]}, [], 30)
+
+
+class AudioGraph(unittest.TestCase):
+    def test_voice_music_sfx_and_silence(self):
+        import assemble as A
+        self.assertEqual(A.audio_graph('X'), '[1:a]X[vo];[vo]anull[a]', 'no music, no sfx: unchanged voice path')
+        g = A.audio_graph('X', music=True, sfx=True, silence=[[12.9333, 13.2]])
+        self.assertIn("[2:a]volume=-20dB,aresample=48000,volume=enable='between(t,12.9333,13.2000)':volume=0[mu]", g)
+        self.assertIn("[3:a]aresample=48000,volume=enable='between(t,12.9333,13.2000)':volume=0[sx]", g)
+        self.assertTrue(g.endswith('[vo][mu][sx]amix=inputs=3:duration=first:normalize=0,alimiter=limit=0.7943:attack=1:release=40:level=disabled[a]'))
+        self.assertIsNone(A.prelimit_db(-16.0, -5.0), 'gain 2 dB fits under −1.5 TP: no limiter')
+        self.assertEqual(A.prelimit_db(-17.5, -1.0), -6.0, 'gain 3.5 dB: peaks limited to −1.5 − 3.5 − 1.0 margin')
+        self.assertEqual(A.audio_graph('X', sfx=True), '[1:a]X[vo];[2:a]aresample=48000[sx];[vo][sx]amix=inputs=2:duration=first:normalize=0,alimiter=limit=0.7943:attack=1:release=40:level=disabled[a]')
+
+
+class AudioCues(unittest.TestCase):
+    def test_sections_and_marks_snap_to_word_onsets(self):
+        import audiocues as AC
+        shots = [{'id': f'S{i}', 'start': i * 300, 'frames': 300, 'beat': i == 2} for i in range(10)]
+        spec = {'beats': {f'B{i}': [f'S{i}', f'S{i}'] for i in range(1, 10)}, 'moods': {'B7': 'awe'}}
+        spec['beats']['B1'] = ['S0', 'S1']
+        cues = {'lines': [{'words': [{'w': 'x', 'start': t, 'end': t + .3} for t in [0, 10.1, 19.95, 30.4, 60.05, 89.9]]}]}
+        r = AC.audio_cues(spec, shots, cues, 30)
+        self.assertEqual([s['beat'] for s in r['sections']], AC.BEATS); self.assertEqual(r['sections'][0]['start'], 0)
+        self.assertEqual(r['sections'][1]['start'], 19.95, 'B2 cut at 20.0 s snaps to the word at 19.95')
+        self.assertEqual(r['sections'][5]['start'], 60.05); self.assertEqual(r['sections'][6]['mood'], 'awe')
+        labels = dict((l, t) for t, l in r['marks']); self.assertEqual(labels['REVERSAL'], 70.0, 'no word near 70.0: kept'); self.assertEqual(labels['END (picture)'], 100.0)
+        self.assertEqual(labels['beat cut S2'], 19.95); self.assertIn('| B6 low point |', AC.to_md('t', r))
+
+
+class ScriptCheck(unittest.TestCase):
+    def setUp(self):
+        import scriptcheck as SC; self.SC = SC; self.md = open(os.path.join(ROOT, 'docs/season1/SEASON_1.md')).read()
+
+    def run_one(self, slug, mutate=None):
+        txt = open(os.path.join(ROOT, f'stories/{slug}/script.txt')).read()
+        return self.SC.check(mutate(txt) if mutate else txt, self.SC.card_for(slug, self.md))
+
+    def test_the_four_existing_scripts_pass(self):
+        for slug in ('egg', 'ragdoll', 'mountain', 'mirror'):
+            r = self.run_one(slug); self.assertTrue(r['pass'], f"{slug}: {r['failures']}")
+            self.assertGreaterEqual(r['numbers']['keyNouns'], 10, slug)
+
+    def test_each_rule_fails_when_broken(self):
+        f = lambda m: self.run_one('egg', m)['failures']
+        self.assertTrue(any('words (want 410' in x for x in f(lambda t: t + ' extra' * 10)))
+        self.assertTrue(any('sentence of 14 words' in x for x in f(lambda t: t.replace('Kit held on.', 'Kit held on to the egg with both hands and did not let go.'))))
+        self.assertTrue(any("first line" in x for x in f(lambda t: t.replace('In this town, everybody steals eggs.', 'In this town, everybody steals all the shiny eggs.', 1))))
+        self.assertTrue(any("last line" in x for x in f(lambda t: t.rstrip().rsplit('\n', 1)[0] + '\nAnd at midnight, everybody sleeps.')))
+        self.assertTrue(any('first-person' in x for x in f(lambda t: t.replace('Kit is number one.', 'I win. We win. My egg. Our egg. Me too. Us too. I said so.'))))
+        self.assertTrue(any('key nouns missing: scoreboard' in x for x in f(lambda t: t.replace('scoreboard', 'board'))))
+        self.assertTrue(any('Flesch' in x for x in f(lambda t: t.replace('.\n', ', and ').replace('. ', ', and '))))
+        self.assertGreater(self.SC.fk_grade('Unquestionably, extraordinary institutional responsibilities overwhelmed the committee.'), 6)
+
+    def test_helpers(self):
+        self.assertTrue(self.SC.forms('whispering') & self.SC.forms('whispers')); self.assertTrue(self.SC.forms('snaps') & self.SC.forms('snapped'))
+        self.assertTrue(self.SC.forms('bases') & self.SC.forms('base')); self.assertFalse(self.SC.forms('egg') & self.SC.forms('edge'))
+        self.assertEqual(self.SC.card_last_line({'Second surprise / last line': 'x / "…every night, one loud boy tells them goodnight."'}), '…every night, one loud boy tells them goodnight.')
+        self.assertEqual(self.SC.rule_opening({'Rule': 'In this town, everybody steals eggs. One rule: never hold one at midnight.'}), 'In this town, everybody steals eggs.')
+
+
+class SeasonState(unittest.TestCase):
+    def setUp(self):
+        import season_state as SS; self.SS = SS
+        self.cards = SS.cards(open(os.path.join(ROOT, 'docs/season1/SEASON_1.md')).read())
+
+    def t(self, ep, slug, step, cmd=None, **kw):
+        return self.SS.transition({'episode': ep, 'slug': slug, 'step': step}, cmd, cards_list=self.cards, **kw)
+
+    def test_cards_and_state_file(self):
+        self.assertEqual(self.cards[:2], [(1, 'egg'), (2, 'ragdoll')]); self.assertEqual(len(self.cards), 30); self.assertEqual(self.cards[10], (11, 'mountain'))
+        st = self.SS.parse(open(os.path.join(ROOT, 'docs/season1/STATE.md')).read())
+        self.assertEqual((st['episode'], st['slug'], st['step']), (1, 'egg', 'voice'), 'initial state after Session 9')
+        self.assertEqual(self.SS.parse(self.SS.fmt(st)), st, 'format round-trips')
+
+    def test_voice_step(self):
+        r = self.t(1, 'egg', 'voice', voice=False); self.assertEqual(r['actions'], []); self.assertIn('voice', r['stop']); self.assertEqual(r['state']['step'], 'voice')
+        r = self.t(1, 'egg', 'voice', voice=True); self.assertEqual(r['actions'], ['E1']); self.assertEqual(r['state']['step'], 'review')
+        self.assertEqual(self.t(1, 'egg', 'voice', 'approve', voice=True)['actions'], [], 'approve before an animatic does nothing')
+
+    def test_review_approve_notes_and_next_card(self):
+        self.assertEqual(self.t(1, 'egg', 'review')['actions'], [], 'review waits for the owner')
+        r = self.t(1, 'egg', 'review', 'approve'); self.assertEqual(r['state'], {'episode': 2, 'slug': 'ragdoll', 'step': 'voice'})
+        self.assertEqual(r['actions'], ['E2', 'print-existing-script'], 'ragdoll exists: printed, never rewritten')
+        r = self.t(2, 'ragdoll', 'review', 'notes'); self.assertEqual(r['actions'][:2], ['revise', 'E2']); self.assertIn('write-script', r['actions']); self.assertEqual(r['state']['slug'], 'eight')
+        self.assertEqual(self.t(10, 'levelone', 'review', 'approve')['actions'][-1], 'print-existing-script', 'card 11 mountain exists')
+
+    def test_compilation_every_fifth_final_and_swap(self):
+        self.assertIn('compilation-1', self.t(5, 'oneword', 'review', 'approve', finals_done=4)['actions'])
+        self.assertNotIn('compilation-1', ' '.join(self.t(4, 'duel', 'review', 'approve', finals_done=3)['actions']))
+        self.assertIn('compilation-2', self.t(10, 'levelone', 'review', 'approve', finals_done=9)['actions'])
+        r = self.t(3, 'eight', 'voice', 'swap'); self.assertEqual(r['actions'][0], 'swap-card'); self.assertEqual(r['state']['episode'], 3)
+        self.assertEqual(self.t(3, 'eight', 'review', 'swap')['actions'], [], 'swap only while step is voice')
+        r = self.t(30, 'afk', 'review', 'approve', finals_done=29); self.assertIn('season-complete', r['actions']); self.assertIn('compilation-6', r['actions'])
+
+
 if __name__ == '__main__':
     unittest.main()
