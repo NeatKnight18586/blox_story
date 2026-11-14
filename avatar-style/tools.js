@@ -7,6 +7,7 @@
 // The stone-hammer is the episode's twist prop: the sword's hilt and a short stub of blade, sunk in a
 // giant block of rock. Scale it boldly.
 import * as T from 'three';
+import {eggMesh} from '../parts/eggs.js';
 import {mergeGeometries} from 'three/addons/utils/BufferGeometryUtils.js';
 import {sword as propSword, heroStone as propHeroStone, classSword as propClassSword} from '../parts/props.js';
 
@@ -70,9 +71,14 @@ function classTool(name) {
   // flat face forward (a raised class blade shows its full silhouette to the viewer), 1.2× for phone-size reads
   s.position.y = -.26; s.rotation.y = Math.PI / 2; s.scale.setScalar(1.2); grp.add(s); grp.userData.grip = 'extend'; grp.userData.cls = cls; return grp;
 }
+// Eggs (Season 1 ep. 1, parts/eggs.js): tool name 'egg:<design>' or 'egg:<design>:<warm 0..1>' (the Plain egg's glow), held in the fist.
+function eggTool(name) {
+  const [, design, warm] = name.split(':'), grp = new T.Group(), e = eggMesh(design, {r: .42, warm: warm === undefined ? null : +warm});
+  e.position.set(0, -.15, .32); grp.add(e); grp.userData.grip = 'hold'; return grp;
+}
 export function buildTool(name, opts = {}) {
-  if (!BUILD[name] && !name.startsWith('class:')) throw Error('unknown tool ' + name);
-  const t = name.startsWith('class:') ? classTool(name) : BUILD[name](opts); t.name = 'tool_' + name; t.position.set(...HAND);
+  if (!BUILD[name] && !name.startsWith('class:') && !name.startsWith('egg:')) throw Error('unknown tool ' + name);
+  const t = name.startsWith('class:') ? classTool(name) : name.startsWith('egg:') ? eggTool(name) : BUILD[name](opts); t.name = 'tool_' + name; t.position.set(...HAND);
   // 'upright' tools are authored vertical; in toolHold the arm is rotated -90° about x, so pre-rotate.
   if (t.userData.grip === 'upright') t.rotation.x = Math.PI / 2;
   return t;

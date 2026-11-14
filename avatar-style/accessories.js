@@ -4,8 +4,8 @@
 import * as T from 'three';
 import {plastic, HEAD} from './body.js';
 
-export const ACCESSORIES = ['crown', 'helmet', 'hood', 'strawHat', 'scarf', 'cape', 'backpack', 'chefHat', 'featherCap', 'goggles'];
-const HEAD_ITEMS = new Set(['crown', 'helmet', 'hood', 'strawHat', 'chefHat', 'featherCap', 'goggles']);
+export const ACCESSORIES = ['crown', 'helmet', 'hood', 'strawHat', 'scarf', 'cape', 'backpack', 'chefHat', 'featherCap', 'goggles', 'topHat', 'skiMask', 'mailBag'];
+const HEAD_ITEMS = new Set(['crown', 'helmet', 'hood', 'strawHat', 'chefHat', 'featherCap', 'goggles', 'topHat', 'skiMask']);
 const geo = new Map();
 const g = (k, f) => { if (!geo.has(k)) geo.set(k, f()); return geo.get(k); };
 const flat = c => { const k = 'flat:' + c; if (!geo.has(k)) geo.set(k, new T.MeshPhongMaterial({color: c, shininess: 35, specular: '#3a3a3a', flatShading: true})); return geo.get(k); };
@@ -80,6 +80,26 @@ const BUILD = {
       put(grp, g('gog_rim', () => new T.CylinderGeometry(.2, .2, .14, 8)), brass, [s * .24, HEAD.centre + .42, .6], [Math.PI / 2, 0, 0]);
       put(grp, g('gog_lens', () => new T.CylinderGeometry(.14, .14, .04, 8)), lens, [s * .24, HEAD.centre + .42, .68], [Math.PI / 2, 0, 0]);
     }
+    return grp;
+  },
+  topHat(o) {   // the mayor's: a tall black hat with a band (worn over the ski mask)
+    const grp = new T.Group(), black = flat(o.color ?? '#1c1c22');
+    put(grp, g('top_brim', () => new T.CylinderGeometry(.82, .82, .08, 12)), black, [0, TOP + .1, 0]);
+    put(grp, g('top_crown', () => new T.CylinderGeometry(.56, .56, 1.0, 12)), black, [0, TOP + .62, 0]);
+    put(grp, g('top_band', () => new T.CylinderGeometry(.575, .575, .16, 12)), flat(o.accent ?? '#c0392b'), [0, TOP + .22, 0]);
+    return grp;
+  },
+  skiMask(o) {   // a knitted head-cover: a shell over the head with an eye band left open, and a bobble on top
+    const grp = new T.Group(), knit = flat(o.color ?? '#2a2f3a'), R = HEAD.radius;
+    put(grp, g('ski_top', () => { const c = new T.CylinderGeometry(R + .04, R + .04, .5, 14); c.scale(1, 1, HEAD.depth + .04); return c; }), knit, [0, HEAD.centre + .38, 0]);
+    put(grp, g('ski_low', () => { const c = new T.CylinderGeometry(R + .04, R + .04, .42, 14); c.scale(1, 1, HEAD.depth + .04); return c; }), knit, [0, HEAD.centre - .4, 0]);
+    put(grp, g('ski_bob', () => new T.SphereGeometry(.18, 6, 4)), flat(o.accent ?? '#e24a4a'), [0, TOP + .12, 0]);
+    return grp;
+  },
+  mailBag(o) {   // a satchel on the hip with a strap across the chest
+    const grp = new T.Group(), m = flat(o.color ?? '#3d5a8a');
+    put(grp, g('mail_bag', () => new T.BoxGeometry(1.1, 1.0, .5)), m, [1.05, 2.4, .2]);
+    put(grp, g('mail_strap', () => new T.BoxGeometry(.18, 2.8, .06)), flat('#2a2a2a'), [0, 3.3, .53], [0, 0, .6]);
     return grp;
   },
   backpack(o) {
