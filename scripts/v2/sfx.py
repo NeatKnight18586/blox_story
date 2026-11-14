@@ -7,7 +7,7 @@
 Set (numpy, seeded, royalty-free, ours): whoosh, pop, thud, rumble, riser, sparkle, crack, bell, splash, zap.
 A drop-in `assets/sfx/<name>.wav` (any format ffmpeg reads) replaces the synthesized one.
 Placement (pure, `place`): whip/snap shot → whoosh at the cut · tag pop (cast `tags`), rule-UI change (`ui` keys) and class
-card (`classReveal`, card at +0.55 s) → pop · `shake` effect → thud · B5's first shot → rumble · 1.0 s before the reversal
+card (`classReveal`, card at +0.55 s) → pop (Season 1 / labels off: no tag or card pops; only in-world text UI pops) · `shake` effect → thud · B5's first shot → rumble · 1.0 s before the reversal
 (B7's first shot) → riser, ending 8 frames early, then 8 frames of silence (the sfx track and the music are muted) ·
 explicit `spec.sfxCues: [[t, name], …]` are added as written. Off with `"sfx": false` in the episode file.
 Level: every hit is set to −30 dB RMS (16 dB under the voice's −14 LUFS), peaks capped at −6 dBFS.
@@ -91,15 +91,29 @@ def shot_start(shots, sid, fps):
     s = next((s for s in shots if s['id'] == sid), None); return None if s is None else s['start'] / fps
 
 
+WORLD_TEXT_KINDS = ('plate', 'stat', 'bar', 'checklist')
+
+
+def labels_off(spec):
+    """Owner rule §2c (engine/nolabels.js labelsOff): Season 1 or labels: false."""
+    return spec.get('labels') is False or spec.get('season') == 1
+
+
+def ui_allowed(u, cast_names):
+    return u.get('facing', 'screen') == 'world' and u.get('kind') in WORLD_TEXT_KINDS and str(u.get('to', '')).split('.')[0] not in cast_names
+
+
 def place(spec, shots, fps=30):
-    """→ {'hits': [[t, name, why]], 'silence': [[t0, t1]]} sorted by time. shots: laid out ({id, start, frames, move})."""
-    hits, silence = [], []
+    """→ {'hits': [[t, name, why]], 'silence': [[t0, t1]]} sorted by time. shots: laid out ({id, start, frames, move}).
+    With labels off (Season 1) there are no name-tag or card pops, and only in-world text UI (a scoreboard flip) pops."""
+    hits, silence, off = [], [], labels_off(spec); names = list((spec.get('cast') or {}).keys())
     for s in shots:
         if s.get('move') in ('whip', 'snap'): hits.append([s['start'] / fps, 'whoosh', f"{s['id']} {s['move']}"])
-    for name, c in (spec.get('cast') or {}).items():
+    for name, c in ({} if off else (spec.get('cast') or {})).items():
         for k in c.get('tags') or []:
             if isinstance(k, list) and len(k) > 1 and k[1]: hits.append([float(k[0]), 'pop', f'{name} tag'])
     for u in spec.get('ui') or []:
+        if off and not ui_allowed(u, names): continue
         prev = None
         for k in u.get('keys') or []:
             v = k[1:] if isinstance(k, list) else None
@@ -108,7 +122,7 @@ def place(spec, shots, fps=30):
     reveals = list(spec.get('classReveals') or []) + [s['classReveal'] for s in spec.get('shots') or [] if s.get('classReveal')]
     for r in reveals:
         for rv in r if isinstance(r, list) else [r]:
-            if rv.get('card', True) is not False: hits.append([float(rv['at']) + POP_DELAY_CARD, 'pop', f"{rv.get('cls')} card"])
+            if rv.get('card', True) is not False and not off: hits.append([float(rv['at']) + POP_DELAY_CARD, 'pop', f"{rv.get('cls')} card"])
     for e in spec.get('effects') or []:
         if e.get('type') == 'shake': hits.append([float(e['at']), 'thud', 'shake'])
     beats = spec.get('beats') or {}

@@ -1,7 +1,7 @@
 {
  "slug": "tools-demo",
  "fps": 30,
- "note": "A5 Session 8b tools demo (≤ 20 s, no captions): drone → snap (close, fit, crowd behind, wrist stat in focus) → heroLow (fit) → tiltUp onto the landform rig, rain + lightning, a trail, 40 crowd actors, then a nightBright medium on LEAD + SECOND.",
+ "note": "A5 Session 8b tools demo (≤ 20 s, no captions): drone → snap (close, fit, crowd behind, wrist stat in focus) → heroLow (fit) → tiltUp onto the landform rig, rain + lightning, a trail, 40 crowd actors, then a nightBright medium on LEAD + SECOND. Owner rule §2c: labels false (no name tags, no wrist stat).",
  "world": "engine/fixtures/tools/world.js",
  "landform": {
   "keys": [
@@ -213,31 +213,7 @@
    ]
   }
  ],
- "ui": [
-  {
-   "id": "wristStat",
-   "to": "hero.rightArm",
-   "offset": [
-    0,
-    -0.75,
-    0.62
-   ],
-   "kind": "stat",
-   "facing": "screen",
-   "size": 0.55,
-   "keys": [
-    [
-     3.7,
-     "99",
-     "GRIP"
-    ],
-    [
-     5.0,
-     null
-    ]
-   ]
-  }
- ],
+ "ui": [],
  "effects": [
   {
    "type": "particles",
@@ -578,5 +554,6 @@
    "rumble"
   ]
  ],
- "captionStyle": "pop-shorts-v3"
+ "captionStyle": "pop-shorts-v3",
+ "labels": false
 }

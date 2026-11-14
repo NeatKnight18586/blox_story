@@ -16,6 +16,7 @@ import {createLook, createLookV3} from './look.js';
 import {createEffects} from './effects.js';
 import {createCrowds} from './crowd.js';
 import {createRuleUI, enforceReadable, uiMeasure} from './ruleui.js';
+import {stripLabels} from './nolabels.js';
 import * as P from '../parts/parts.js';
 import * as B from '../parts/build.js';
 import * as A from '../parts/ambient.js';
@@ -28,7 +29,7 @@ import * as W from '../parts/water.js';
 
 const q = new URLSearchParams(location.search);
 const specUrl = q.get('spec') ? new URL('../' + q.get('spec'), import.meta.url) : new URL(`../stories/${q.get('story')}/episode.json`, import.meta.url);
-const spec = await (await fetch(specUrl)).json();
+const spec = stripLabels(await (await fetch(specUrl)).json());   // owner rule §2c: Season 1 (or labels: false) draws no labels
 const FPS = spec.fps ?? 30;
 
 // Shots on the frame timeline: each shot owns [start, start + frames) (timeline.js: `at` cut times or `frames`).
@@ -93,7 +94,8 @@ for (const [name, c] of Object.entries(spec.cast ?? {})) {
   if (c.at) c.origin = resolve({anchor: c.at, offset: c.offset ?? [0, 0, 0]});
   if (c.style === 'dragon') { const d = buildDragon({scale: c.scale ?? 1, name}); scene.add(d.root); cast[name] = {a: d, c, dragon: true}; continue; }
   if (c.style === 'v2') { if (c.troupe === 'AFK') { c.keys ??= [[0, troupeData.AFK.pose ?? 'walk']]; c.faces ??= [[0, 'neutral']]; }
-    const a = buildActor(c.troupe ? resolveTroupe(c, troupeData) : c.town ? townsperson(c.town) : c.preset ? {...presets[c.preset], ...(c.with ?? {})} : c, name); scene.add(a.root); cast[name] = {a, c, v2: true}; }
+    const pre = c.troupe ? resolveTroupe(c, troupeData) : c.town ? townsperson(c.town) : c.preset ? {...presets[c.preset], ...(c.with ?? {})} : c;
+    const a = buildActor(c.noTag ? {...pre, tag: null} : pre, name); scene.add(a.root); cast[name] = {a, c, v2: true}; }
   else { const a = createBaseAvatar({color: c.color ?? 0xf2c94c}); scene.add(a.root); cast[name] = {a, c}; }
 }
 if (Object.values(cast).some(x => x.v2)) await loadFont();

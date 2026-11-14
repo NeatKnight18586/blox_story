@@ -1,5 +1,5 @@
 {
- "note": "Amendment A4 G2: the Season 1 troupe. Five recurring actors with FIXED skin, hair and face; every episode re-costumes them (outfit, accessories, role name) by slot. AFK is the season's frozen cameo. All designs are our own. Defaults obey the A5 night palette rule (outfit colours HSL lightness \u2265 0.32): Season 1 opens at night.",
+ "note": "Amendment A4 G2: the Season 1 troupe. Five recurring actors with FIXED skin, hair and face; every episode re-costumes them (outfit, accessories, role name) by slot. AFK is the season's frozen cameo (grey, see-through 0.4, frozen; no tag: owner rule SEASON_1.md §2c). All designs are our own. Defaults obey the A5 night palette rule (outfit colours HSL lightness ≥ 0.32): Season 1 opens at night.",
  "troupe": {
   "LEAD": {
    "tier": "hero",
@@ -145,9 +145,6 @@
   "opacity": 0.4,
   "freeze": 0.35,
   "pose": "walk",
-  "tag": {
-   "name": "AFK"
-  },
   "expressions": [
    "neutral",
    "sleep",

@@ -1,6 +1,6 @@
 """npm run v2:test (python part) — Session 9 (Amendment A4 D, F, I): caption chunking v3, sfx placement, scriptcheck,
 the /season state transitions."""
-import json, os, sys, unittest
+import json, os, re, sys, unittest
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..', '..', 'scripts', 'v2'))
 import captions as C  # noqa: E402
 
@@ -82,6 +82,12 @@ class Sfx(unittest.TestCase):
         self.assertEqual(p['silence'], [[round(13.2 - 8 / 30, 4), 13.2]])
         tr = self.S.render_track(p, 14); i0, i1 = int((13.2 - 8 / 30) * self.S.SR), int(13.2 * self.S.SR)
         self.assertEqual(float(abs(tr[i0:i1]).max()), 0.0, '8 frames of silence before the reversal'); self.assertGreater(float(abs(tr[int(12.5 * self.S.SR):i0]).max()), 0)
+
+    def test_season1_has_no_tag_or_card_pops(self):
+        spec = {'season': 1, 'cast': {'kit': {'tags': [[1.5, 'Kit']]}}, 'shots': [{'classReveal': {'actor': 'kit', 'cls': 'baker', 'at': 5}}],
+                'ui': [{'id': 'wrist', 'to': 'kit.rightArm', 'kind': 'stat', 'keys': [[2, '99']]}, {'id': 'board', 'to': 'scoreboard', 'kind': 'plate', 'facing': 'world', 'keys': [[3, 'DAX 200'], [4, 'KIT 1']]}]}
+        p = self.S.place(spec, [], 30); self.assertEqual([(h[0], h[1], h[2]) for h in p['hits']], [(3.0, 'pop', 'ui board'), (4.0, 'pop', 'ui board')])
+        p2 = self.S.place({**spec, 'season': None}, [], 30); self.assertEqual(len(p2['hits']), 5, 'older specs keep tag, card and UI pops')
 
     def test_unknown_name_and_off_switch(self):
         with self.assertRaises(ValueError): self.S.place({'sfxCues': [[1, 'kazoo']]}, [], 30)
@@ -179,6 +185,58 @@ class SeasonState(unittest.TestCase):
         r = self.t(3, 'eight', 'voice', 'swap'); self.assertEqual(r['actions'][0], 'swap-card'); self.assertEqual(r['state']['episode'], 3)
         self.assertEqual(self.t(3, 'eight', 'review', 'swap')['actions'], [], 'swap only while step is voice')
         r = self.t(30, 'afk', 'review', 'approve', finals_done=29); self.assertIn('season-complete', r['actions']); self.assertIn('compilation-6', r['actions'])
+
+
+class OwnerGrouping(unittest.TestCase):
+    """Owner caption rules on stories/egg (cues aligned to stories/egg/script.txt)."""
+    def setUp(self):
+        self.cues = json.load(open(os.path.join(ROOT, 'stories/egg/cues.json'))); self.g = C.group(self.cues, V3)
+
+    def test_every_word_once_and_sentences_start_captions(self):
+        self.assertEqual([w for c in self.g for w in c['words']], [t for l in self.cues['lines'] for t, _ in C.display_words(l)])
+        script = open(os.path.join(ROOT, 'stories/egg/script.txt')).read()
+        n_sent = len([s for l in script.splitlines() if l.strip() for s in re.split(r'(?<=[.!?])\s+', l.strip()) if s])
+        self.assertEqual(sum(c['sentenceEnd'] for c in self.g), n_sent, 'every sentence ends a caption (and so the next starts one)')
+        self.assertEqual(self.g[0]['words'], ['In', 'this', 'town']); self.assertEqual(self.g[12]['words'], ['Run'], 'a one-word sentence stands alone')
+
+    def test_caps_hold_and_rule_breaks_only_where_no_split_exists(self):
+        import itertools
+        def ok(ws):
+            if len(ws) > C.chunk_cap(ws, 3, 2): return False
+            return True
+        def valid(parts, n):
+            for k, g in enumerate(parts):
+                if not ok(g): return False
+                if k < len(parts) - 1 and C.norm(g[-1]) in C.NO_END: return False
+                if len(g) == 1 and n > 1 and C.letters(g[0]) < 7: return False
+            return True
+        for c in self.g: self.assertLessEqual(len(c['words']), C.chunk_cap(c['words'], 3, 2), c['words'])
+        sents, cur = [], []
+        for c in self.g:
+            cur.append(c)
+            if c['sentenceEnd']: sents.append(cur); cur = []
+        broken = 0
+        for sent in sents:
+            ws = [w for c in sent for w in c['words']]
+            if C.grouping_issues(sent, V3):
+                broken += 1
+                for cuts in itertools.chain.from_iterable(itertools.combinations(range(1, len(ws)), k) for k in range(len(ws))):
+                    b = (0, *cuts, len(ws)); parts = [ws[b[i]:b[i + 1]] for i in range(len(b) - 1)]
+                    self.assertFalse(valid(parts, len(ws)), f'a valid split exists for {ws}: {parts}')
+        self.assertEqual(broken, 16, 'sentences with no valid split under the owner rules (17 captions)')
+        self.assertEqual(len(C.grouping_issues(self.g, V3)), 17)
+
+    def test_split_prefers_punctuation_and_never_ends_on_no_end_words(self):
+        ws = 'And at one minute to midnight the whole town plays hot potato'.split()
+        punct = [w == 'midnight' for w in ws]; parts = C.split_sentence(ws, None, punct, [False] * len(ws), 3, 2, 7)
+        groups = [ws[a:b] for a, b in parts]
+        self.assertTrue(all(C.norm(g[-1]) not in C.NO_END for g in groups[:-1]), groups)
+        self.assertIn(['to', 'midnight'], groups, 'the comma after midnight is a break')
+
+    def test_one_size_per_episode(self):
+        ass = C.to_ass(C.timing(self.g, .04, .35), V3)
+        sizes = sorted({int(x) for x in re.findall(r'\\fs(\d+)\\fsc', ass)})
+        self.assertEqual(len(sizes), 2, f'one opener size + one body size: {sizes}'); self.assertEqual(sizes, [111, 150])
 
 
 if __name__ == '__main__':

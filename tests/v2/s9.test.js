@@ -63,3 +63,31 @@ test('season helpers: rhyme, beatShots, uiSizeIssues', () => {
   assert.equal(uiSizeIssues([{id: 't', cap: .03, min: .024, rect: {x0: .01, x1: .2, y0: .3, y1: .36}}]).length, 1);
   assert.equal(SEASON.band[0], .58); assert.equal(SEASON.band[1], .74);
 });
+
+// Owner rule §2c (no labels): the gate, the default for Season 1, and the troupe's AFK.
+import {labelsOff, labelIssues, stripLabels, uiAllowed} from '../../engine/nolabels.js';
+import {readFileSync} from 'node:fs';
+test('noLabels: Season 1 default, gate errors for every label kind, Nobody untouched', () => {
+  assert.equal(labelsOff({season: 1}), true); assert.equal(labelsOff({}), false); assert.equal(labelsOff({labels: false}), true);
+  const clean = {season: 1, cast: {kit: {troupe: 'SECOND', role: 'Kit'}, afk: {troupe: 'AFK'}}, ui: [{id: 'board', to: 'scoreboard', kind: 'plate', facing: 'world', keys: [[0, 'DAX 200']]}], effects: [{type: 'shake', at: 3}]};
+  assert.deepEqual(labelIssues(clean), [], 'a role name and a world-facing scoreboard plate are fine');
+  const dirty = {season: 1, labels: true, cast: {kit: {tag: {name: 'Kit'}, tags: [[0, 'Kit']], bubble: [[2, 'DROP IT']], stat: [[1, 0]]}, mom: {preset: 'mom', with: {tag: {name: 'Mom'}}}},
+    ui: [{id: 'wrist', to: 'kit.rightArm', kind: 'stat', facing: 'screen'}, {id: 'egg', to: 'egg1', kind: 'tag', facing: 'world'}, {id: 'star', to: 'sign', kind: 'icon', facing: 'world'}, {id: 'onKit', to: 'kit', kind: 'plate', facing: 'world'}],
+    classReveals: [{actor: 'kit', cls: 'baker', at: 1}], shots: [{id: 'S1', classReveal: {actor: 'kit', cls: 'knight', at: 0, card: false}}], effects: [{type: 'card', at: 4}]};
+  const e = labelIssues(dirty);
+  for (const k of ['"labels": true', 'uses "tag"', 'uses "tags"', 'uses "bubble"', 'uses "stat"', 'with.tag', 'kit/baker draws a class card', 'effect "card"', 'ui wrist', 'ui egg', 'ui star', 'ui onKit']) assert.ok(e.some(x => x.includes(k)), `missing error for ${k}: ${e.join(' | ')}`);
+  assert.ok(!e.some(x => x.includes('kit/knight')), 'card: false is fine');
+  assert.equal(e.length, 12);
+  assert.deepEqual(labelIssues({...dirty, season: undefined, labels: undefined}), [], '"Nobody" and older specs are not checked');
+  assert.deepEqual(labelIssues({cast: {a: {tags: [[0, null]]}}, season: 1}), [], 'a tags timeline that only clears is no label');
+});
+test('noLabels: stripLabels removes every label for the renderer; AFK has no tag in the troupe', () => {
+  const s = stripLabels({season: 1, cast: {kit: {troupe: 'SECOND', role: 'Kit', tags: [[0, 'Kit']], bubble: [[1, 'hi']]}}, ui: [{to: 'kit.rightArm', kind: 'stat'}, {to: 'clock', kind: 'plate', facing: 'world'}],
+    effects: [{type: 'card', at: 1}, {type: 'flash', at: 2}], classReveals: [{actor: 'kit', cls: 'baker', at: 1}], shots: [{id: 'a', classReveal: {actor: 'kit', cls: 'king', at: 0}}]});
+  assert.equal(s.cast.kit.tags, undefined); assert.equal(s.cast.kit.bubble, undefined); assert.equal(s.cast.kit.noTag, true); assert.equal(s.cast.kit.role, 'Kit');
+  assert.deepEqual(s.ui.map(u => u.to), ['clock']); assert.deepEqual(s.effects.map(e => e.type), ['flash']);
+  assert.equal(s.classReveals[0].card, false); assert.equal(s.shots[0].classReveal.card, false);
+  const nobody = {cast: {a: {tags: [[0, 'Nobody']]}}}; assert.equal(stripLabels(nobody), nobody, 'unchanged object for older specs');
+  assert.ok(uiAllowed({to: 'scoreboard', kind: 'stat', facing: 'world'}, ['kit'])); assert.ok(!uiAllowed({to: 'scoreboard', kind: 'icon', facing: 'world'}, ['kit']));
+  const t = JSON.parse(readFileSync('cast/troupe.json', 'utf8')); assert.equal(t.AFK.tag, undefined); assert.equal(t.AFK.opacity, .4); assert.ok(t.AFK.freeze !== undefined);
+});

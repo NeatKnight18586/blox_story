@@ -15,6 +15,9 @@ different attempts → stop and ask. Never read `evidence/`; look only at contac
 - **Shot plan:** read the episode's card in `docs/season1/SEASON_1.md` §6 and `stories/<slug>/beats.md`. The beats' target
   times are replaced by `cues.json` word onsets. If there is no `beats.md`, write one from the card and the script using
   §3's beat table, then build from it. Step 2's council scorecard and SERIES_LOG check still run; `scriptcheck.py` must pass.
+- **No labels (owner rule, SEASON_1.md §2c):** no name/role/AFK tags, bubbles, class cards or overhead UI; characters are
+  introduced by narration and camera; text only on real objects (world-facing `plate`/`stat` on a scoreboard, clock, note,
+  sign, switch) and in captions. `v2:plan`'s `noLabels` gate fails anything else.
 - **World:** terrain + biome + bespoke set pieces (`world.js` ≤ 320 lines, exports `LOOK`); see the CLAUDE.md library.
   **Cast:** troupe slots (`cast/troupe.json`: `{style: 'v2', troupe: SLOT, role, outfit, accessories}`), AFK ×2.
 - **episode.json fields:**

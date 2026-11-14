@@ -24,7 +24,7 @@ def run(cmd): return subprocess.run(cmd, capture_output=True, text=True, check=T
 
 def ass_for(story, style_name, until, out, cues_path=None):
     cues = json.load(open(cues_path or f'stories/{story}/cues.json')); st = C.load_style(style_name)
-    timed = C.timing(C.chunk(cues, st['maxWords'], st['blankPause'], st.get('maxWordsLong'), st.get('longLetters', 7)), st['leadSeconds'], st['blankPause'])
+    timed = C.timing(C.make_chunks(cues, st), st['leadSeconds'], st['blankPause'])
     ass = C.to_ass(timed, st, (), None, 30, until); open(out, 'w').write(ass)
     sizes = [int(x) for x in re.findall(r'\\fs(\d+)\\fsc', ass)]
     return ass, min(sizes), max(sizes)
