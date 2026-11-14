@@ -61,9 +61,9 @@ shot('S04-ember', on(3), 'medium', 'push', 'bases', 'Every kid has a base: the E
 f5 = basecam(2, 26, 7, 9, 46, 2); t5 = basecam(2, 20, 5, 7, 44, 1.5)
 shot('S05-frost', on(3, 5), 'wide', 'push', 'bases', 'Every base has a nest: the Frost base.', see=[], **{'from': f5, 'to': t5}, shadowRadius=30)
 shot('S06-run', on(4), 'medium', 'gamecam', 'bases', 'Grab an egg. Run: behind a runner leaving the Sprinkle base.', see=['lead'], follow='lead', heading=75, distance=8, height=4.6, **{'from': {'fov': 62}}, shadowRadius=20)
-lk = B[4]; ring = [lk['c'][0] + lk['n'][0] * 7.2, lk['y'] + .1, lk['c'][1] + lk['n'][1] * 7.2]
+lk = B[10]; ring = [lk['c'][0] + lk['n'][0] * 7.2, lk['y'] + .1, lk['c'][1] + lk['n'][1] * 7.2]; door = [lk['c'][0] + lk['n'][0] * 4.2, lk['y'] + 2.4, lk['c'][1] + lk['n'][1] * 4.2]
 shot('S07-lock', on(4, 4), 'insert', 'push', 'bases', 'Lock your door: the ring on the pad fills like a timer (no numbers).', see=[],
-     **{'from': cam([ring[0] + lk['n'][0] * 8, ring[1] + 7, ring[2] + lk['n'][1] * 8], ring, 40), 'to': cam([ring[0] + lk['n'][0] * 6, ring[1] + 5.5, ring[2] + lk['n'][1] * 6], ring, 38)}, shadowRadius=12)
+     **{'from': cam([door[0] + lk['n'][0] * 15, door[1] + 3.2, door[2] + lk['n'][1] * 15], [door[0], door[1] - 1.2, door[2]], 40), 'to': cam([door[0] + lk['n'][0] * 12.5, door[1] + 2.6, door[2] + lk['n'][1] * 12.5], [door[0], door[1] - 1.2, door[2]], 40)}, shadowRadius=12)
 shot('S08-steal', on(5), 'medium', 'push', 'bases', 'Somebody steals it right back: the Moss egg lifted from its nest.', subject='lead', see=['lead'],
      **{'from': basecam(3, 9, 3, 3.6, 40, 1)}, fit={'actor': 'lead', 'height': .34, 'part': 'full', 'y': .62}, shadowRadius=16)
 shot('S09-hall', on(6), 'wide', 'tiltUp', 'square', 'The town hall: a scoreboard on its front.', see=[],
@@ -105,8 +105,8 @@ shot('S23-notice', on(17), 'close', 'push', 'square', 'But Kit notices things: s
      **{'from': cam([3, 4.2, 15], [2, 4.8, 8], 38)}, fit={'actor': 'kit', 'height': .48, 'part': 'head', 'y': .38}, shadowRadius=12)
 shot('S24-sky', on(18), 'wide', 'push', 'square', 'Nests everywhere, an empty sky; the hall weathervane is a dragon (clue 1); AFK frozen by a wall (cameo 1).', see=['afk'], clueObject='weathervane',
      **{'from': cam([-4, 4.5, 6], [-20, 11, -25], 50), 'to': cam([-6, 5, 2], [-20.5, 11.5, -25.5], 48)}, shadowRadius=40)
-shot('S25-cold', on(19), 'insert', 'static-drift', 'square', 'The eggs are cold, always cold: the Plain egg in Kit\'s still hands (clue 3, spoken).', see=['kit'], clueObject='egg_plain',
-     **{'from': cam([3.6, 5.2, 12.4], [3.2, 3.3, 9.6], 34), 'to': cam([3.55, 5.15, 12.2], [3.2, 3.3, 9.6], 34)}, shadowRadius=8)
+shot('S25-cold', on(19), 'insert', 'static-drift', 'square', 'The eggs are cold, always cold: the Plain egg in Kit\'s still hands (clue 3, spoken).', see=['kit'], clueObject='egg_plain', captionY='high',
+     **{'from': cam([2.5, 5.0, 12.0], [2, 3.25, 9.1], 34), 'to': cam([2.45, 4.95, 11.8], [2, 3.25, 9.1], 34)}, shadowRadius=8)
 shot('S26-warm', on(20), 'close', 'push', 'square', 'Unless you stand very still: the egg warms from blue to gold and lights her face.', subject='kit', see=['kit'],
      **{'from': cam([3.5, 4.4, 15], [2, 4.6, 8], 36)}, fit={'actor': 'kit', 'height': .5, 'part': 'head', 'y': .38}, shadowRadius=12)
 shot('S27-still', on(21), 'wide', 'push', 'square', 'Nobody else stands still long enough: runners streak past the one still girl.', subject='kit', see=['kit'],
@@ -127,19 +127,19 @@ shot('S33-sorry', on(28), 'medium', 'push', 'square', 'She was terrible at it; s
 shot('S34-middle', on(29), 'wide', 'crane', 'square', 'She walks to the middle of town and stops; the town gathers in a ring.', subject='kit', see=['kit'],
      **{'from': cam([0, 30, 34], [0, 1, 0], 50), 'to': cam([0, 16, 28], [0, 2, 0], 48)}, shadowRadius=40)
 shot('S35-drop', on(30), 'medium', 'push', 'square', 'One minute to midnight. Everyone points, mouths open: drop it! (no bubbles)', subject='lead', see=['lead', 'kit'],
-     **{'from': cam([-3, 3.6, 4.5], [-1.2, 3, 10], 40)}, fit={'actor': 'lead', 'height': .34, 'part': 'full', 'y': .62}, shadowRadius=16)
+     **{'from': cam([3, 3.6, -2], [-1.2, 2.6, -10], 50), 'to': cam([2.7, 3.6, -2.4], [-1.2, 2.6, -10], 50)}, shadowRadius=16)
 # B6 low point ---------------------------------------------------------------------------------------------------------------------
 shot('S36-holds', on(31), 'close', 'push', 'square', 'Kit held on: the egg under her chin lights her face gold. The narration slows.', subject='kit', see=['kit'],
      **{'from': cam([.4, 4.6, 6.8], [0, 4.6, 0], 34), 'to': cam([.3, 4.6, 6], [0, 4.6, 0], 32)}, fit={'actor': 'kit', 'height': .5, 'part': 'head', 'y': .38}, shadowRadius=10)
 # B7 reversal ----------------------------------------------------------------------------------------------------------------------
 shot('S37-wings', on(33), 'wide', 'heroLow', 'square', 'The bell rings twelve; the shadow comes down; wings fill the frame edge to edge.', see=['mother'], ground=0,
-     **{'from': cam([3, 1, 22], [0, 20, -8], 64), 'to': cam([3, .9, 21], [0, 24, -10], 66)}, shadowRadius=60)
+     **{'from': cam([-3, 1, 23], [0, 20, -8], 64), 'to': cam([-3, .9, 22], [0, 24, -10], 66)}, shadowRadius=60)
 shot('S38-lower', on(34, 4), 'medium', 'push', 'square', 'Its wings are as wide as the street; the mother lowers her head to Kit.', see=['mother', 'kit'],
-     **{'from': cam([5, 3, 6.5], [0, 5, -2], 50), 'to': cam([4.4, 3, 5.8], [0, 5, -2], 50)}, shadowRadius=30)
+     **{'from': cam([4, 1.6, 9], [0, 26, -26], 56), 'to': cam([3.6, 1.6, 8.2], [0, 26, -26], 56)}, shadowRadius=30)
 shot('S39-dragon', on(35), 'close', 'push', 'square', 'It was not a bird. It was a dragon. (the twist: the crowd gasps)', subject='kit', see=['kit'],
      **{'from': cam([-.6, 4.4, 6.6], [0, 4.6, 0], 34)}, fit={'actor': 'kit', 'height': .48, 'part': 'head', 'y': .38}, shadowRadius=10)
 shot('S40-lift', on(36), 'medium', 'tiltUp', 'square', 'Very, very gently, it lifts Kit into the clouds.', see=['kit', 'mother'],
-     **{'from': cam([14, 6, 26], [0, 8, -4], 50), 'to': cam([14, 6.4, 26], [0, 18, -8], 52)}, shadowRadius=30)
+     **{'from': cam([7, 7.5, 16], [0, 9, 0], 52), 'to': cam([7, 7.8, 16], [0, 15, -2], 54)}, shadowRadius=30)
 # B8 second surprise ---------------------------------------------------------------------------------------------------------------
 N = NEST
 shot('S41-nest', on(37), 'wide', 'drone', 'nest', 'Money shot: a nest the size of the town, kids with sleeping baby dragons in golden light.', see=[], spectacle=True, look='goldenHour',
@@ -147,9 +147,9 @@ shot('S41-nest', on(37), 'wide', 'drone', 'nest', 'Money shot: a nest the size o
 DAXN = [N[0] - 4, N[1] + .3, N[2] + 8]; LITN = [N[0] + 5, N[1] + .3, N[2] + 7]; KITN = [N[0] + 1, N[1] + .3, N[2] + 11]; LEADN = [N[0] - 10, N[1] + .3, N[2] + 4]
 shot('S42-daxnest', on(38), 'medium', 'snap', 'nest', 'Every missing kid was in it. Even Dax, a hatchling asleep on his head.', subject='dax', see=['dax'], look='goldenHour', snapAt=.6,
      **{'from': cam([DAXN[0] - 2, N[1] + 9, DAXN[2] + 22], [DAXN[0], N[1] + 2.4, DAXN[2]], 44), 'to': cam([DAXN[0] - 1, N[1] + 4, DAXN[2] + 7], [DAXN[0], N[1] + 2.4, DAXN[2]], 40)},
-     fit={'actor': 'dax', 'height': .36, 'part': 'full', 'y': .6}, shadowRadius=14)
+     fit={'actor': 'dax', 'height': .36, 'part': 'full', 'y': .56}, captionY='high', shadowRadius=14)
 shot('S43-lap', on(39), 'close', 'push', 'nest', 'Each one had a baby dragon asleep in their lap.', subject='little', see=['little'], look='goldenHour',
-     **{'from': cam([LITN[0] + 1, N[1] + 3.4, LITN[2] + 5], [LITN[0], N[1] + 2.6, LITN[2]], 36)}, fit={'actor': 'little', 'height': .48, 'part': 'head', 'y': .38}, shadowRadius=10)
+     **{'from': cam([LITN[0] + 1, N[1] + 3.4, LITN[2] + 5], [LITN[0], N[1] + 2.6, LITN[2]], 36)}, fit={'actor': 'little', 'height': .46, 'part': 'head', 'y': .02}, shadowRadius=10)
 shot('S44-still', on(40), 'medium', 'push', 'nest', 'Eggs only hatch if you hold them still through midnight: Kit, still, the egg gold.', subject='kit', see=['kit'], look='goldenHour',
      **{'from': cam([KITN[0] + 3, N[1] + 3.4, KITN[2] + 7], [KITN[0], N[1] + 2.4, KITN[2]], 40)}, fit={'actor': 'kit', 'height': .36, 'part': 'full', 'y': .6}, shadowRadius=14)
 shot('S45-years', on(41), 'wide', 'drone', 'nest', 'A hundred years of stealing: not one had ever hatched. The camera rises over the nest.', see=[], look='goldenHour',
@@ -180,10 +180,10 @@ cast = {
       (t['S19-zero'], {**sq(-8, 9), 'yaw': 0}), (t['S22-queue'], {'at': 'base9', 'offset': [b9['n'][0] * 3.5, 0, b9['n'][1] * 3.5], 'yaw': yaw_to([0, 0], [-b9['n'][0], -b9['n'][1]])}),
       (t['S23-notice'], {**sq(2, 8), 'yaw': 0}), (t['S32-tiptoe'], {**sq(2, 4.6), 'yaw': 98, 'travel': {'dir': [.99, -.14], 'speed': 2.6, 'max': 10.5}}),
       (t['S33-sorry'], {**sq(13, 3.4), 'yaw': 144}), (t['S34-middle'], {**sq(0, 0), 'yaw': 0}),
-      (t['S40-lift'] + 1.6, {**sq(0, 0), 'yaw': 0, 'travel': {'dir': [0, -.2], 'speed': .4, 'climb': 3.2}}),
+      (t['S40-lift'] + 1.6, {**sq(0, 0), 'yaw': 0, 'travel': {'dir': [0, -.25], 'speed': .4, 'climb': 13}}),
       (t['S41-nest'], {'origin': KITN, 'yaw': 10})),
-    'keys': [[0, 'idle'], [t['S17-return'], 'toolHold'], [t['S18-note'], 'idle'], [t['S22-queue'], 'wave'], [t['S23-notice'], 'lookUp'], [t['S25-cold'], 'toolHold'],
-             [t['S27-still'], 'idle'], [t['S32-tiptoe'], 'walk'], [t['S33-sorry'], 'toolHold'], [t['S34-middle'], 'toolHold'], [t['S40-lift'] + 1.6, 'fall'], [t['S41-nest'], 'sit']],
+    'keys': [[0, 'idle'], [t['S17-return'], 'eggHold'], [t['S18-note'], 'idle'], [t['S22-queue'], 'wave'], [t['S23-notice'], 'lookUp'], [t['S25-cold'], 'eggHold'],
+             [t['S27-still'], 'idle'], [t['S32-tiptoe'], 'walk'], [t['S33-sorry'], 'eggHold'], [t['S34-middle'], 'eggWalk'], [on(29, 8), 'eggHold'], [t['S36-holds'], 'eggChin'], [t['S37-wings'], 'eggHold'], [t['S40-lift'] + 1.6, 'eggChin'], [t['S41-nest'], 'eggHold'], [on(43), 'idle']],
     'faces': [[0, 'neutral'], [t['S16-kit'], 'smile'], [t['S21-slow'], 'sad'], [t['S23-notice'], 'determined'], [t['S26-warm'], 'smile'], [t['S35-drop'], 'determined'],
               [t['S39-dragon'], 'gasp'], [t['S41-nest'], 'smile']],
     'tools': [[0, None], [t['S17-return'], 'egg:geode'], [t['S18-note'], None], [t['S25-cold'], kitE(0)], [on(20, 5), kitE(.5)], [on(20, 5) + .9, kitE(1)], [t['S27-still'], None],
@@ -193,55 +193,58 @@ cast = {
     'marks': marks((0, {**sq(14, 2), 'yaw': 280, 'travel': {'dir': [-1, 0], 'speed': 4.2, 'max': 10}}), (t['S19-zero'], {**sq(-12, -8), 'yaw': 120, 'travel': {'dir': [.6, .8], 'speed': 4, 'max': 8}}),
       (t['S20-dax'], {**sq(-6, 2), 'yaw': 90, 'travel': {'dir': [1, 0], 'speed': 1.4, 'max': 6}}), (t['S28-greedy'], {**sq(-5, -4), 'yaw': 90, 'travel': {'dir': [1, 0], 'speed': 1.2, 'max': 6}}),
       (t['S29-twelve'] + 1, {**sq(60, 60), 'yaw': 0}), (t['S41-nest'], {'origin': DAXN, 'yaw': 20}), (t['S48-sunrise'], {**sq(4, 2), 'yaw': 0})),
-    'keys': [[0, 'run'], [t['S19-zero'], 'jump'], [t['S20-dax'], 'walk'], [t['S28-greedy'], 'walk'], [t['S41-nest'], 'sit'], [t['S48-sunrise'], 'cheer']],
+    'keys': [[0, 'eggRun'], [t['S19-zero'], 'eggRun'], [t['S20-dax'], 'eggWalk'], [t['S28-greedy'], 'eggWalk'], [t['S41-nest'], 'sit', {'ground': True}], [t['S48-sunrise'], 'cheer']],
     'faces': [[0, 'smug'], [t['S41-nest'], 'smile']], 'tools': [[0, 'egg:storm'], [t['S41-nest'], None]]},
   'lead': {'style': 'v2', 'troupe': 'LEAD', 'role': 'thief', 'outfit': {'recipe': 'hoodie', 'main': '#3fae6a', 'accent': '#ffffff', 'legs': '#3a4a6a', 'trim': '#2e7a4a'},
     **sq(10, 10), 'yaw': 0,
     'marks': marks((0, {**sq(10, 10), 'yaw': 0}), (t['S06-run'], {'at': 'base8', 'offset': [0, 0, 0], 'yaw': 75, 'travel': {'dir': [.966, .259], 'speed': 5.5}}),
       (t['S08-steal'], {'at': 'base3', 'offset': [B[3]['s'][0] * 3.2 - B[3]['n'][0] * 2.6, 0, B[3]['s'][1] * 3.2 - B[3]['n'][1] * 2.6], 'yaw': yaw_to([0, 0], [B[3]['n'][0], B[3]['n'][1]])}),
       (t['S14-potato'], {**sq(-7, 6), 'yaw': 10}), (t['S16-kit'], {**sq(-16, 12), 'yaw': 10}), (t['S22-queue'], {'at': 'base9', 'offset': [b9['n'][0] * 1.2, 0, b9['n'][1] * 1.2], 'yaw': yaw_to([0, 0], [-b9['n'][0], -b9['n'][1]])}),
-      (t['S34-middle'], {**sq(-1.2, 10), 'yaw': 180}), (t['S41-nest'], {'origin': LEADN, 'yaw': 40})),
-    'keys': [[0, 'run'], [t['S08-steal'], 'raise'], [t['S14-potato'], 'toolHold'], [t['S22-queue'], 'idle'], [t['S35-drop'], 'point'], [t['S41-nest'], 'sit']],
+      (t['S34-middle'], {**sq(-1.2, -10), 'yaw': 0}), (t['S41-nest'], {'origin': LEADN, 'yaw': 40})),
+    'keys': [[0, 'eggRun'], [t['S08-steal'], 'eggHold'], [t['S14-potato'], 'eggHold'], [t['S22-queue'], 'idle'], [t['S35-drop'], 'point'], [t['S41-nest'], 'sit', {'ground': True}]],
     'faces': [[0, 'smug'], [t['S15-gone'], 'terrified'], [t['S35-drop'], 'shout'], [t['S41-nest'], 'smile']],
     'tools': [[0, 'egg:ember'], [t['S08-steal'], 'egg:moss'], [t['S14-potato'], 'egg:frost'], [t['S22-queue'], None]]},
   'little': {'style': 'v2', 'troupe': 'LITTLE', 'role': 'nest kid', 'outfit': {'recipe': 'tee', 'main': '#4ad8ff', 'accent': '#ffffff', 'legs': '#4a5a80', 'trim': '#f2b632'},
-    'origin': LITN, 'yaw': -20, 'visible': [[0, False], [t['S41-nest'], True], [t['S48-sunrise'], False]], 'marks': marks((0, {**sq(-14, 4), 'yaw': 60}), (t['S41-nest'], {'origin': LITN, 'yaw': -20})), 'keys': [[0, 'idle'], [t['S41-nest'], 'sit']], 'faces': [[0, 'smile'], [t['S41-nest'], 'sleep']]},
+    'origin': LITN, 'yaw': -20, 'visible': [[0, False], [t['S41-nest'], True], [t['S48-sunrise'], False]], 'marks': marks((0, {**sq(-14, 4), 'yaw': 60}), (t['S41-nest'], {'origin': LITN, 'yaw': -20})), 'keys': [[0, 'idle'], [t['S41-nest'], 'sit', {'ground': True}]], 'faces': [[0, 'smile'], [t['S41-nest'], 'sleep']]},
   'grandma': {'style': 'v2', 'build': 'elder_f', 'age': 72, 'skin': '#f6c9a0', 'face': 'smug', 'hair': {'style': 'messy_bun', 'color': '#d8d8d8', 'v': 4}, 'tier': 'hero',
-    'outfit': {'recipe': 'robe', 'main': '#9a86d8', 'trim': '#f2d16b', 'belt': '#5a3a26', 'legs': '#9a86d8'}, **sq(*grandma), 'yaw': 30, 'keys': [[0, 'cheer']], 'tools': [[0, 'egg:sprinkle']], 'visible': [[0, True], [t['S16-kit'], False]]},
+    'outfit': {'recipe': 'robe', 'main': '#9a86d8', 'trim': '#f2d16b', 'belt': '#5a3a26', 'legs': '#9a86d8'}, **sq(*grandma), 'yaw': 30, 'keys': [[0, 'eggHold']], 'tools': [[0, 'egg:sprinkle']], 'visible': [[0, True], [t['S16-kit'], False]]},
   'mailman': {'style': 'v2', 'build': 'adult_m', 'age': 41, 'skin': '#c08457', 'face': 'determined', 'hair': {'style': 'side_part', 'color': '#2a1a12', 'v': 4}, 'tier': 'hero',
-    'outfit': {'recipe': 'tee', 'main': '#3d6fb8', 'accent': '#f2f2f2', 'legs': '#2f3d5a', 'trim': '#f2d16b'}, 'accessories': ['mailBag'], **sq(*mailman), 'yaw': -20, 'keys': [[0, 'run']], 'tools': [[0, 'egg:frost']], 'visible': [[0, True], [t['S16-kit'], False]]},
+    'outfit': {'recipe': 'tee', 'main': '#3d6fb8', 'accent': '#f2f2f2', 'legs': '#2f3d5a', 'trim': '#f2d16b'}, 'accessories': ['mailBag'], **sq(*mailman), 'yaw': -20, 'keys': [[0, 'eggHold']], 'tools': [[0, 'egg:frost']], 'visible': [[0, True], [t['S16-kit'], False]]},
   'mayor': {'style': 'v2', 'troupe': 'ELDER', 'role': 'mayor', 'outfit': {'recipe': 'tee', 'main': '#6a6f86', 'accent': '#c0392b', 'legs': '#4a4e5e', 'trim': '#c0392b'},
-    'accessories': ['skiMask', 'topHat'], **sq(*mayor), 'yaw': 15, 'keys': [[0, 'toolHold']], 'tools': [[0, 'egg:cosmic']], 'faces': [[0, 'smug']], 'visible': [[0, True], [t['S30-bed'], False], [t['S48-sunrise'], True]]},
+    'accessories': ['skiMask', 'topHat'], **sq(*mayor), 'yaw': 15, 'keys': [[0, 'eggHold']], 'tools': [[0, 'egg:cosmic']], 'faces': [[0, 'smug']], 'visible': [[0, True], [t['S14-potato'], False], [t['S48-sunrise'], True], [t['S49-bench'], False]]},
   'afk': {'style': 'v2', 'troupe': 'AFK', 'visible': [[0, False], [t['S24-sky'] - .1, True], [t['S25-cold'], False], [t['S49-bench'] - .1, True], [t['S50-hatched'], False]],
-    'marks': marks((0, {**sq(-15, -15), 'yaw': 40}), (t['S48-sunrise'], {**sq(4.2, 12.6), 'yaw': 30}))},
-  'mother': {'style': 'dragon', 'scale': 3, 'origin': [0, 80, -120], 'yaw': 180,
+    'marks': marks((0, {**sq(-15, -15), 'yaw': 40}), (t['S48-sunrise'], {**sq(3.1, 11.2), 'yaw': 30}))},
+  'mother': {'style': 'dragon', 'scale': 2, 'origin': [0, 400, -600], 'yaw': 0,
     'marks': marks((0, {'origin': [-160, 120, -320], 'yaw': 90, 'travel': {'dir': [1, 0], 'speed': 260}}), (1.0, {'origin': [0, 400, -600], 'yaw': 0}),
-      (t['S29-twelve'] + 1.4, {'origin': [-60, 60, -10], 'yaw': 90, 'travel': {'dir': [1, 0], 'speed': 60}}), (t['S29-twelve'] + 3.2, {'origin': [0, 400, -600], 'yaw': 0}),
-      (t['S37-wings'], {'origin': [0, 40, -18], 'yaw': 0, 'travel': {'dir': [0, .2], 'speed': 2, 'climb': -3, 'max': 8}}), (t['S38-lower'], {'origin': [0, 0, -22], 'yaw': 0}),
-      (t['S40-lift'] + 1.6, {'origin': [0, 0, -22], 'yaw': 0, 'travel': {'dir': [0, .2], 'speed': .5, 'climb': 3.2}}),
-      (t['S41-nest'], {'origin': [N[0], N[1] - 1, N[2] - 30], 'yaw': 0}), (t['S48-sunrise'], {'origin': [-8, 0, -6], 'yaw': 150}), (t['S49-bench'], {'origin': [0, 400, -600], 'yaw': 0})),
-    'keys': [[0, 'fly'], [t['S37-wings'], 'fly'], [t['S38-lower'], 'lower'], [t['S40-lift'] + 1.6, 'fly'], [t['S41-nest'], 'perch'], [t['S48-sunrise'], 'lower']]},
+      (t['S29-twelve'] + 1.4, {'origin': [-60, 70, -10], 'yaw': 90, 'travel': {'dir': [1, 0], 'speed': 60}}), (t['S29-twelve'] + 3.2, {'origin': [0, 400, -600], 'yaw': 0}),
+      (t['S37-wings'], {'origin': [0, 70, -40], 'yaw': 0, 'travel': {'dir': [0, .6], 'speed': 6, 'climb': -4, 'max': 18}}), (t['S38-lower'], {'origin': [0, 44, -48], 'yaw': 0}),
+      (t['S40-lift'] + 1.6, {'origin': [0, 44, -48], 'yaw': 0, 'travel': {'dir': [0, -.2], 'speed': .6, 'climb': 3}}),
+      (t['S41-nest'], {'origin': [N[0], N[1] - 1, N[2] - 62], 'yaw': 0}), (t['S48-sunrise'], {'origin': [-6, 52, -44], 'yaw': 20}), (t['S49-bench'], {'origin': [0, 400, -600], 'yaw': 0})),
+    'keys': [[0, 'fly'], [t['S37-wings'], 'fly'], [t['S38-lower'], 'lower'], [t['S40-lift'] + 1.6, 'fly'], [t['S41-nest'], 'perch'], [t['S48-sunrise'], 'fly']]},
 }
 HATCH = {'ember': {'body': '#2a2224', 'dark': '#1a1416', 'horn': '#ff7a1a', 'belly': '#ff9a3a'}, 'frost': {'body': '#bfe2ff', 'dark': '#8fc0e8', 'horn': '#ffffff', 'belly': '#e8f6ff'},
          'moss': {'body': '#6fa04a', 'dark': '#4f7a34', 'belly': '#c8e08a'}, 'tide': {'body': '#4fc4b8', 'dark': '#2f8f86', 'belly': '#e8fffb'},
          'geode': {'body': '#8a8580', 'dark': '#6a6560', 'horn': '#c45cff', 'belly': '#d9b6ff'}, 'storm': {'body': '#1f2b5a', 'dark': '#141c3a', 'horn': '#ffe14a', 'belly': '#ffe14a'},
          'sprinkle': {'body': '#ff9ccb', 'dark': '#e07aa8', 'belly': '#ffffff'}, 'cosmic': {'body': '#3a1a6e', 'dark': '#28124e', 'horn': '#fff6c8', 'belly': '#7a5ad8'}}
-spots = [(DAXN[0], DAXN[2], 'dax', 5.1), (LITN[0], LITN[2], 'little', 0), (LEADN[0], LEADN[2], 'lead', 0)] + [(N[0] + 9 * math.sin(a), N[2] + 9 * math.cos(a), None, 0) for a in (1.6, 2.6, 3.4, 4.2, 4.9)]
+HS = 1.3 * 1.16 * .82 / 20.2   # parts/eggs.js hatchlingScale(.82): curled height 1.3 × a troupe kid's head
+lap = lambda P, yaw: [P[0] + math.sin(math.radians(yaw)) * 1.05, P[1] + .85, P[2] + math.cos(math.radians(yaw)) * 1.05]
+spots = [('dax', [DAXN[0], N[1] + .3 + 3.2, DAXN[2]], 20), ('little', lap(LITN, -20), -20), ('lead', lap(LEADN, 40), 40)] + [(None, [N[0] + 6.5 * math.sin(a), N[1] + .4, N[2] + 6.5 * math.cos(a)], 0) for a in (1.6, 2.4, 3.2, 4.0, 4.8)]
 for k, (name, cols) in enumerate(HATCH.items()):
-    x, z, on_kid, up = spots[k]
-    pos = [x + (0 if on_kid == 'dax' else 1.3 if on_kid else 0), N[1] + .3 + (up if on_kid == 'dax' else .1), z + (0 if on_kid == 'dax' else .9 if on_kid else 0)]
-    bench = [[t['S49-bench'], {'origin': [4.2, 4.6, 12.6], 'yaw': 30}]] if name == 'moss' else [[t['S49-bench'], {'origin': [0, -400, 0], 'yaw': 0}]]
-    cast['h_' + name] = {'style': 'dragon', 'scale': .2, 'colors': {**cols, 'wing': cols.get('horn', cols['belly']), 'wingDk': cols['dark']}, 'origin': pos, 'yaw': 20,
-                         'marks': marks((0, {'origin': [0, -400, 0], 'yaw': 0}), (t['S41-nest'], {'origin': pos, 'yaw': 20 + k * 30}), (t['S48-sunrise'], {'origin': [-12 + k * 3, 8 + k % 3, -10], 'yaw': 160})) + bench,
+    who, pos, yaw = spots[k]; pos = [round(v, 3) for v in pos]
+    bench = [[t['S49-bench'], {'origin': [3.1, 4.7, 11.2], 'yaw': 30}]] if name == 'moss' else [[t['S49-bench'], {'origin': [0, -400, 0], 'yaw': 0}]]
+    cast['h_' + name] = {'style': 'dragon', 'scale': round(HS, 4), 'colors': {**cols, 'wing': cols.get('horn', cols['belly']), 'wingDk': cols['dark']}, 'origin': pos, 'yaw': yaw,
+                         'marks': marks((0, {'origin': [0, -400, 0], 'yaw': 0}), (t['S41-nest'], {'origin': pos, 'yaw': yaw + 90}), (t['S48-sunrise'], {'origin': [-12 + k * 3, 8 + k % 3, -10], 'yaw': 160})) + bench,
                          'keys': [[0, 'perch'], [t['S41-nest'], 'perch'], [t['S48-sunrise'], 'fly']]}
-cast['goldling'] = {'style': 'dragon', 'scale': .2, 'colors': {'body': '#ffc23a', 'dark': '#e09a1a', 'belly': '#fff1b0', 'horn': '#ffffff', 'wing': '#ffd86a', 'wingDk': '#e0a83a', 'eye': '#7a3aff'},
-                    'origin': [KITN[0] + 1.2, N[1] + 2.6, KITN[2] + .2], 'yaw': 250, 'scale': .15,
-                    'marks': marks((0, {'origin': [0, -400, 0], 'yaw': 0}), (on(43), {'origin': [KITN[0] + 1.2, N[1] + 2.6, KITN[2] + .2], 'yaw': 250}), (t['S49-bench'], {'origin': [0, -400, 0], 'yaw': 0})),
+KSH = [KITN[0] + .95, N[1] + .3 + 3.25, KITN[2] - .1]   # on Kit's right shoulder (she stands), where it sneezes at her face
+cast['goldling'] = {'style': 'dragon', 'scale': round(HS, 4), 'colors': {'body': '#ffc23a', 'dark': '#e09a1a', 'belly': '#fff1b0', 'horn': '#ffffff', 'wing': '#ffd86a', 'wingDk': '#e0a83a', 'eye': '#7a3aff'},
+                    'origin': KSH, 'yaw': 280,
+                    'marks': marks((0, {'origin': [0, -400, 0], 'yaw': 0}), (on(43), {'origin': KSH, 'yaw': 280}), (t['S49-bench'], {'origin': [0, -400, 0], 'yaw': 0})),
                     'keys': [[0, 'perch'], [on(43, 3), 'roar'], [on(43, 3) + .6, 'perch']]}
 
+# ring clear circles: around lead, the camera-to-lead corridor (S35) and S38's camera
 crowds = [
-  {'id': 'town', 'count': 36, 'centre': [4, -10], 'radius': 8, 'mode': 'ambient', 'seed': 4, 'visible': [[0, True], [t['S28-greedy'], False], [t['S48-sunrise'], True]]},
-  {'id': 'ring', 'count': 44, 'centre': [0, 0], 'radius': 13, 'inner': 7.5, 'mode': 'ambient', 'face': [0, 0], 'seed': 9, 'visible': [[0, False], [t['S34-middle'], True], [t['S41-nest'], False]]},
+  {'id': 'town', 'count': 30, 'centre': [4, -10], 'radius': 9, 'mode': 'ambient', 'seed': 4, 'spacing': 1.8, 'clear': [[-2.5, 7, 2.4], [5, 5, 2.4], [-5, 4, 2.4], [1, 3, 2.4], [0, -22, 6]], 'visible': [[0, True], [t['S28-greedy'], False], [t['S48-sunrise'], True]]},
+  {'id': 'ring', 'count': 40, 'centre': [0, 0], 'radius': 13.5, 'inner': 7.5, 'mode': 'ambient', 'face': [0, 0], 'seed': 9, 'spacing': 1.8, 'clear': [[-1.2, -10, 2.2], [.4, -6.8, 1.9], [-.4, -8.4, 1.9], [4, 9, 2.8], [3.6, 8.2, 2.4]], 'visible': [[0, False], [t['S34-middle'], True], [t['S41-nest'], False]]},
   {'id': 'runA', 'count': 14, 'centre': [-16, 6], 'radius': 5, 'mode': 'panic', 'dir': [1, .1], 'at': 0, 'seed': 7, 'visible': [[0, True], [t['S02-kit'], False]]},
   {'id': 'runB', 'count': 14, 'centre': [-14, 10], 'radius': 4, 'mode': 'panic', 'dir': [1, 0], 'at': t['S27-still'] - .5, 'seed': 8, 'visible': [[0, False], [t['S27-still'], True], [t['S28-greedy'], False]]},
 ]
@@ -249,7 +252,7 @@ effects = [
   {'type': 'shake', 'at': round(on(24, 3) + .2, 2), 'dur': .5, 'amp': .08},
   {'type': 'flash', 'at': round(on(33, 4), 2), 'dur': .3, 'color': '#fff6e0'},
   {'type': 'particles', 'preset': 'dust', 'origin': {'anchor': 'square', 'offset': [0, .5, 0]}, 'count': 120, 'at': on(34), 'dur': 3},
-  {'type': 'particles', 'preset': 'sparkle', 'origin': [KITN[0] + .8, N[1] + 3.0, KITN[2] + .4], 'count': 40, 'at': round(on(43, 3) + .3, 2), 'dur': 1.2},
+  {'type': 'particles', 'preset': 'sparkle', 'origin': [KSH[0] - .4, KSH[1] + .4, KSH[2] + .4], 'count': 40, 'at': round(on(43, 3) + .3, 2), 'dur': 1.2},
 ]
 spec = {'slug': 'egg', 'fps': 30, 'end': END, 'season': 1, 'hero': 'kit', 'captionStyle': 'pop-shorts-v3', 'look': 'nightBright',
   'note': 'Season 1 episode 01 egg (card 01). Generated by stories/egg/gen.py from stories/egg/beats.md; no labels (SEASON_1.md §2c).',

@@ -314,9 +314,15 @@ export function measureFrame() {
 }
 // Projected box of a world Box3 (frame fractions, y down) + height fraction; front = any corner in front of the camera.
 function projBox(b) {
-  const v = new T.Vector3(); let x0 = 1, x1 = 0, y0 = 1, y1 = 0, front = false;
-  for (let i = 0; i < 8; i++) { v.set(i & 1 ? b.max.x : b.min.x, i & 2 ? b.max.y : b.min.y, i & 4 ? b.max.z : b.min.z).project(camera); if (v.z < 1) front = true; const x = (v.x + 1) / 2, y = (1 - v.y) / 2; x0 = Math.min(x0, x); x1 = Math.max(x1, x); y0 = Math.min(y0, y); y1 = Math.max(y1, y); }
-  return {x0: +x0.toFixed(4), x1: +x1.toFixed(4), y0: +y0.toFixed(4), y1: +y1.toFixed(4), h: +(y1 - y0).toFixed(4), front};
+  const v = new T.Vector3(); let x0 = 1, x1 = 0, y0 = 1, y1 = 0, front = false, all = true;
+  for (let i = 0; i < 8; i++) { v.set(i & 1 ? b.max.x : b.min.x, i & 2 ? b.max.y : b.min.y, i & 4 ? b.max.z : b.min.z).project(camera); if (v.z < 1) front = true; else all = false; const x = (v.x + 1) / 2, y = (1 - v.y) / 2; x0 = Math.min(x0, x); x1 = Math.max(x1, x); y0 = Math.min(y0, y); y1 = Math.max(y1, y); }
+  return {x0: +x0.toFixed(4), x1: +x1.toFixed(4), y0: +y0.toFixed(4), y1: +y1.toFixed(4), h: +(y1 - y0).toFixed(4), front, allFront: all};
+}
+// Footprints for the overlap check: visible v2 cast actors and crowd members, [x, z, radius] (radius ≈ half the shoulder span).
+function placesNow() {
+  const out = []; for (const [name, {a, v2}] of Object.entries(cast)) if (v2 && a.root.visible && markPos[name]) out.push({name, x: markPos[name][0], z: markPos[name][2], y: markPos[name][1], r: .95 * a.root.scale.x});
+  for (const m of crowds.places?.() ?? []) out.push(m);
+  return out;
 }
 // A4 §E season gates (plan.js): render frame n, then report actors (measureFrame + face), named objects' projected boxes
 // (scene objects by name, or cast actors) and the rule UI as it was left on screen (v3 worlds).
@@ -324,7 +330,10 @@ export function seasonMeasure(n, objects = [], width = 360, height = 640) {
   renderFrame(n, width, height); camera.updateMatrixWorld(true); scene.updateMatrixWorld(true);
   const shot = shots.findLast(s => n >= s.start), obj = {};
   for (const name of objects) { const o = cast[name]?.a.root ?? scene.getObjectByName(name); obj[name] = o ? projBox(new T.Box3().setFromObject(o)) : null; }
-  return {frame: n, actors: measureFrame(), objects: obj, ui: (spec.readableUi ?? !!look?.v3) ? uiMeasure(scene, camera, {focus: shot.focusUi ?? []}) : [], v3: !!look?.v3};
+  // Season 1 eggs (parts/eggs.js groups carry userData.egg): on-screen height of the shell alone (h) and with its rarity beam (hb)
+  const eggs = []; scene.traverseVisible(o => { if (!o.userData?.egg) return; const body = o.getObjectByName('eggBody'); if (!body) return;
+    const b = projBox(new T.Box3().setFromObject(body)), bb = projBox(new T.Box3().setFromObject(o)); if (!b.allFront) return; eggs.push({kind: o.userData.egg, box: b, h: b.h, hb: bb.allFront ? bb.h : b.h, front: b.front, dist: +body.getWorldPosition(new T.Vector3()).distanceTo(camera.position).toFixed(2)}); });
+  return {frame: n, actors: measureFrame(), objects: obj, eggs, places: placesNow(), ui: (spec.readableUi ?? !!look?.v3) ? uiMeasure(scene, camera, {focus: shot.focusUi ?? []}) : [], v3: !!look?.v3};
 }
 // A5 Decision 2: silhouette mask of one actor (actor-only pass, same camera, after renderFrame): Uint8 array, row 0 = top.
 const maskMat = new T.MeshBasicMaterial({color: '#ffffff'});

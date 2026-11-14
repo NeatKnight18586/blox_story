@@ -82,7 +82,7 @@
    "size": "insert",
    "move": "push",
    "loc": "town",
-   "speed": 6,
+   "speed": 2,
    "subject": "",
    "why": "Lock your door: the ring on the pad fills like a timer (no numbers)."
   },
@@ -95,7 +95,7 @@
    "move": "push",
    "loc": "town",
    "speed": 0,
-   "subject": "lead@51,51",
+   "subject": "lead@50,51",
    "why": "Somebody steals it right back: the Moss egg lifted from its nest."
   },
   {
@@ -131,7 +131,7 @@
    "move": "push",
    "loc": "town",
    "speed": 0,
-   "subject": "grandma@50,48",
+   "subject": "grandma@50,49",
    "why": "Grandmas play (laugh 1 builds)."
   },
   {
@@ -143,7 +143,7 @@
    "move": "push",
    "loc": "town",
    "speed": 0,
-   "subject": "mailman@48,30",
+   "subject": "mailman@50,30",
    "why": "Mailmen play."
   },
   {
@@ -418,8 +418,8 @@
    "size": "medium",
    "move": "push",
    "loc": "town",
-   "speed": 0,
-   "subject": "lead@50,51",
+   "speed": 1,
+   "subject": "lead@50,37",
    "why": "One minute to midnight. Everyone points, mouths open: drop it! (no bubbles)"
   },
   {
@@ -454,7 +454,7 @@
    "size": "medium",
    "move": "push",
    "loc": "town",
-   "speed": 5,
+   "speed": 2,
    "subject": "",
    "why": "Its wings are as wide as the street; the mother lowers her head to Kit."
   },
@@ -478,7 +478,7 @@
    "size": "medium",
    "move": "tiltUp",
    "loc": "town",
-   "speed": 21,
+   "speed": 22,
    "subject": "",
    "why": "Very, very gently, it lifts Kit into the clouds."
   },
@@ -502,8 +502,8 @@
    "size": "medium",
    "move": "snap",
    "loc": "nest",
-   "speed": 188,
-   "subject": "dax@50,49",
+   "speed": 130,
+   "subject": "dax@50,54",
    "why": "Every missing kid was in it. Even Dax, a hatchling asleep on his head."
   },
   {
@@ -515,7 +515,7 @@
    "move": "push",
    "loc": "nest",
    "speed": 0,
-   "subject": "little@50,35",
+   "subject": "little@50,32",
    "why": "Each one had a baby dragon asleep in their lap."
   },
   {
@@ -619,21 +619,466 @@
  "end": 146.03,
  "gamecam": 1,
  "wides": 16,
+ "season": true,
+ "framing": [
+  {
+   "shot": "S02-kit",
+   "part": "head",
+   "frac": 0.482,
+   "need": 0.45
+  },
+  {
+   "shot": "S08-steal",
+   "part": "full",
+   "frac": 0.348,
+   "need": 0.3
+  },
+  {
+   "shot": "S11-grandma",
+   "part": "full",
+   "frac": 0.372,
+   "need": 0.3
+  },
+  {
+   "shot": "S12-mailman",
+   "part": "head",
+   "frac": 0.516,
+   "need": 0.45
+  },
+  {
+   "shot": "S13-mayor",
+   "part": "full",
+   "frac": 0.392,
+   "need": 0.3
+  },
+  {
+   "shot": "S15-gone",
+   "part": "head",
+   "frac": 0.496,
+   "need": 0.45
+  },
+  {
+   "shot": "S16-kit",
+   "part": "full",
+   "frac": 0.372,
+   "need": 0.3
+  },
+  {
+   "shot": "S20-dax",
+   "part": "full",
+   "frac": 0.834,
+   "need": 0.3
+  },
+  {
+   "shot": "S21-slow",
+   "part": "head",
+   "frac": 0.497,
+   "need": 0.45
+  },
+  {
+   "shot": "S22-queue",
+   "part": "full",
+   "frac": 0.33,
+   "need": 0.3
+  },
+  {
+   "shot": "S23-notice",
+   "part": "head",
+   "frac": 0.495,
+   "need": 0.45
+  },
+  {
+   "shot": "S26-warm",
+   "part": "head",
+   "frac": 0.517,
+   "need": 0.45
+  },
+  {
+   "shot": "S28-greedy",
+   "part": "full",
+   "frac": 0.874,
+   "need": 0.3
+  },
+  {
+   "shot": "S33-sorry",
+   "part": "full",
+   "frac": 0.371,
+   "need": 0.3
+  },
+  {
+   "shot": "S35-drop",
+   "part": "full",
+   "frac": 0.529,
+   "need": 0.3
+  },
+  {
+   "shot": "S36-holds",
+   "part": "head",
+   "frac": 0.502,
+   "need": 0.45
+  },
+  {
+   "shot": "S39-dragon",
+   "part": "head",
+   "frac": 0.496,
+   "need": 0.45
+  },
+  {
+   "shot": "S42-daxnest",
+   "part": "full",
+   "frac": 0.346,
+   "need": 0.3
+  },
+  {
+   "shot": "S43-lap",
+   "part": "head",
+   "frac": 0.514,
+   "need": 0.45
+  },
+  {
+   "shot": "S44-still",
+   "part": "full",
+   "frac": 0.369,
+   "need": 0.3
+  },
+  {
+   "shot": "S46-gold",
+   "part": "head",
+   "frac": 0.49,
+   "need": 0.45
+  }
+ ],
+ "uiItems": 0,
+ "eggs": [
+  {
+   "shot": "S01-town",
+   "size": "wide",
+   "max": 0.282,
+   "kind": "geode",
+   "need": 0.02,
+   "n": 6
+  },
+  {
+   "shot": "S04-ember",
+   "size": "medium",
+   "max": 0.3263,
+   "kind": "ember",
+   "need": 0.05,
+   "n": 1
+  },
+  {
+   "shot": "S05-frost",
+   "size": "wide",
+   "max": 1,
+   "kind": "frost",
+   "need": 0.02,
+   "n": 1
+  },
+  {
+   "shot": "S06-run",
+   "size": "medium",
+   "max": 0.1394,
+   "kind": "ember",
+   "need": 0.05,
+   "n": 1
+  },
+  {
+   "shot": "S07-lock",
+   "size": "insert",
+   "max": 0.2401,
+   "kind": "frost",
+   "need": 0.05,
+   "n": 1
+  },
+  {
+   "shot": "S08-steal",
+   "size": "medium",
+   "max": 0.141,
+   "kind": "moss",
+   "need": 0.05,
+   "n": 2
+  },
+  {
+   "shot": "S09-hall",
+   "size": "wide",
+   "max": 0.598,
+   "kind": "storm",
+   "need": 0.02,
+   "n": 1
+  },
+  {
+   "shot": "S11-grandma",
+   "size": "medium",
+   "max": 0.1285,
+   "kind": "sprinkle",
+   "need": 0.05,
+   "n": 3
+  },
+  {
+   "shot": "S12-mailman",
+   "size": "close",
+   "max": 0.5753,
+   "kind": "frost",
+   "need": 0.05,
+   "n": 1
+  },
+  {
+   "shot": "S13-mayor",
+   "size": "medium",
+   "max": 0.1712,
+   "kind": "sprinkle",
+   "need": 0.05,
+   "n": 3
+  },
+  {
+   "shot": "S14-potato",
+   "size": "wide",
+   "max": 0.305,
+   "kind": "cosmic",
+   "need": 0.02,
+   "n": 7
+  },
+  {
+   "shot": "S15-gone",
+   "size": "close",
+   "max": 0.5331,
+   "kind": "frost",
+   "need": 0.05,
+   "n": 3
+  },
+  {
+   "shot": "S16-kit",
+   "size": "medium",
+   "max": 0.1633,
+   "kind": "sprinkle",
+   "need": 0.05,
+   "n": 2
+  },
+  {
+   "shot": "S17-return",
+   "size": "wide",
+   "max": 1,
+   "kind": "geode",
+   "need": 0.02,
+   "n": 2
+  },
+  {
+   "shot": "S19-zero",
+   "size": "wide",
+   "max": 0.3981,
+   "kind": "sprinkle",
+   "need": 0.02,
+   "n": 3
+  },
+  {
+   "shot": "S20-dax",
+   "size": "medium",
+   "max": 0.315,
+   "kind": "storm",
+   "need": 0.05,
+   "n": 1
+  },
+  {
+   "shot": "S22-queue",
+   "size": "medium",
+   "max": 0.0895,
+   "kind": "ember",
+   "need": 0.05,
+   "n": 1
+  },
+  {
+   "shot": "S23-notice",
+   "size": "close",
+   "max": 0.2034,
+   "kind": "storm",
+   "need": 0.05,
+   "n": 1
+  },
+  {
+   "shot": "S24-sky",
+   "size": "wide",
+   "max": 0.5602,
+   "kind": "storm",
+   "need": 0.02,
+   "n": 1
+  },
+  {
+   "shot": "S25-cold",
+   "size": "insert",
+   "max": 0.7236,
+   "kind": "plain",
+   "need": 0.05,
+   "n": 2
+  },
+  {
+   "shot": "S26-warm",
+   "size": "close",
+   "max": 0.5379,
+   "kind": "plain",
+   "need": 0.05,
+   "n": 2
+  },
+  {
+   "shot": "S27-still",
+   "size": "wide",
+   "max": 0.3772,
+   "kind": "geode",
+   "need": 0.02,
+   "n": 3
+  },
+  {
+   "shot": "S28-greedy",
+   "size": "medium",
+   "max": 0.3079,
+   "kind": "storm",
+   "need": 0.05,
+   "n": 1
+  },
+  {
+   "shot": "S29-twelve",
+   "size": "insert",
+   "max": 0.1178,
+   "kind": "storm",
+   "need": 0.05,
+   "n": 1
+  },
+  {
+   "shot": "S30-bed",
+   "size": "wide",
+   "max": 0.1316,
+   "kind": "moss",
+   "need": 0.02,
+   "n": 3
+  },
+  {
+   "shot": "S32-tiptoe",
+   "size": "wide",
+   "max": 0.5643,
+   "kind": "tide",
+   "need": 0.02,
+   "n": 2
+  },
+  {
+   "shot": "S33-sorry",
+   "size": "medium",
+   "max": 0.1248,
+   "kind": "plain",
+   "need": 0.05,
+   "n": 1
+  },
+  {
+   "shot": "S34-middle",
+   "size": "wide",
+   "max": 0.3834,
+   "kind": "geode",
+   "need": 0.02,
+   "n": 3
+  },
+  {
+   "shot": "S36-holds",
+   "size": "close",
+   "max": 0.4883,
+   "kind": "plain",
+   "need": 0.05,
+   "n": 1
+  },
+  {
+   "shot": "S37-wings",
+   "size": "wide",
+   "max": 0.2984,
+   "kind": "cosmic",
+   "need": 0.02,
+   "n": 3
+  },
+  {
+   "shot": "S38-lower",
+   "size": "medium",
+   "max": 0.1355,
+   "kind": "plain",
+   "need": 0.05,
+   "n": 1
+  },
+  {
+   "shot": "S39-dragon",
+   "size": "close",
+   "max": 0.4901,
+   "kind": "plain",
+   "need": 0.05,
+   "n": 1
+  },
+  {
+   "shot": "S40-lift",
+   "size": "medium",
+   "max": 0.1147,
+   "kind": "plain",
+   "need": 0.05,
+   "n": 1
+  },
+  {
+   "shot": "S41-nest",
+   "size": "wide",
+   "max": 0.043,
+   "kind": "plain",
+   "need": 0.02,
+   "n": 1
+  },
+  {
+   "shot": "S44-still",
+   "size": "medium",
+   "max": 0.1331,
+   "kind": "plain",
+   "need": 0.05,
+   "n": 1
+  },
+  {
+   "shot": "S45-years",
+   "size": "wide",
+   "max": 0.0902,
+   "kind": "plain",
+   "need": 0.02,
+   "n": 1
+  },
+  {
+   "shot": "S48-sunrise",
+   "size": "wide",
+   "max": 0.3082,
+   "kind": "storm",
+   "need": 0.02,
+   "n": 3
+  },
+  {
+   "shot": "S49-bench",
+   "size": "medium",
+   "max": 0.4631,
+   "kind": "tide",
+   "need": 0.05,
+   "n": 1
+  },
+  {
+   "shot": "S51-rhyme",
+   "size": "wide",
+   "max": 0.2812,
+   "kind": "geode",
+   "need": 0.02,
+   "n": 2
+  }
+ ],
+ "overlaps": 0,
  "errors": [],
  "warnings": [
   "S01-town: wide shot with no tagged character in the foreground",
   "S05-frost: wide shot with no tagged character in the foreground",
   "S09-hall: wide shot with no tagged character in the foreground",
   "S14-potato: wide shot with no tagged character in the foreground",
-  "S25-cold: \"kit\" (see) not in frame by frame 6",
   "S30-bed: wide shot with no tagged character in the foreground",
+  "S34-middle: wide shot with no tagged character in the foreground",
   "S35-drop: \"kit\" (see) not in frame by frame 6",
   "S37-wings: \"mother\" (see) not in frame by frame 6",
   "S38-lower: \"mother\" (see) not in frame by frame 6",
+  "S38-lower: \"kit\" (see) not in frame by frame 6",
   "S40-lift: \"mother\" (see) not in frame by frame 6",
   "S41-nest: wide shot with no tagged character in the foreground",
   "S45-years: wide shot with no tagged character in the foreground",
-  "S46-gold: \"goldling\" (see) not in frame by frame 6",
   "S47-babysitters: \"mother\" (see) not in frame by frame 6",
   "S48-sunrise: wide shot with no tagged character in the foreground",
   "S51-rhyme: \"kit\" (see) not in frame by frame 6",

@@ -32,6 +32,28 @@ export function subjectFrac(act, part) {
   return {frac, groundGap};
 }
 
+// Eggs read on a phone (owner, 2026-11-14): in medium, close and insert shots the largest visible egg's shell (within 25 units
+// of the camera) is ≥ 5 % of frame height; in wides the largest egg plus its rarity beam is ≥ 2 %. Shots that show no egg are not checked (pure).
+export const EGG_MIN = {near: .05, wide: .02, nearDist: 25};   // medium/close/insert: eggs within 25 units of the camera (far bases are scenery; their beams count in wides)
+export function eggSizeCheck(size, eggs = []) {
+  const vis = eggs.filter(e => e.front && e.box.x1 > 0 && e.box.x0 < 1 && e.box.y1 > 0 && e.box.y0 < 1 && (size === 'wide' || (e.dist ?? 0) <= EGG_MIN.nearDist));
+  if (!vis.length) return null;
+  const wide = size === 'wide', clamp = e => Math.min(e.box.y1, 1) - Math.max(e.box.y0, 0), val = e => wide ? Math.max(clamp(e), e.hb ?? 0) : clamp(e);
+  const best = vis.reduce((a, e) => val(e) > val(a) ? e : a), max = +Math.min(1, val(best)).toFixed(4), need = wide ? EGG_MIN.wide : EGG_MIN.near;
+  return {n: vis.length, max, kind: best.kind, need, ok: max >= need};
+}
+// Overlap (owner bug, 2026-11-14): no two bodies share space. places: [{name, x, z, y, r, crowd?}] (r ≈ half the shoulder span);
+// a pair overlaps when its centres are closer than k × (ra + rb) on the same level. Running crowds pass through each other and
+// are skipped (pure).
+export function overlapIssues(places = [], k = .85) {
+  const out = [], P = places.filter(p => p.crowd !== 'panic');
+  for (let i = 0; i < P.length; i++) for (let j = i + 1; j < P.length; j++) {
+    const a = P[i], b = P[j], d = Math.hypot(a.x - b.x, a.z - b.z);
+    if (Math.abs((a.y ?? 0) - (b.y ?? 0)) < 2 && d < k * (a.r + b.r)) out.push(`${a.name} and ${b.name} overlap (${d.toFixed(2)} apart, need ${(k * (a.r + b.r)).toFixed(2)})`);
+  }
+  return out;
+}
+
 export function checkSeason({spec, shots, cues, fps = 30, end, info = [], meas = []}) {
   const L = SEASON, errors = [], warnings = [], season = !!spec.season, byId = Object.fromEntries(shots.map((s, i) => [s.id, i]));
   const v3 = meas.some(ms => ms?.some(m => m?.v3));
@@ -97,7 +119,14 @@ export function checkSeason({spec, shots, cues, fps = 30, end, info = [], meas =
     });
   }
   // A5 framing + uiSize (season episodes and v3 worlds)
-  const stats = {framing: [], ui: 0};
+  const stats = {framing: [], ui: 0, eggs: [], overlaps: 0};
+  if (season) shots.forEach((s, i) => {
+    const ms = (meas[i] ?? []).filter(Boolean); if (!ms.length) return;
+    const checks = ms.map(m => eggSizeCheck(s.size, m.eggs)).filter(Boolean);
+    if (checks.length) { const c = checks.reduce((a, b) => b.max > a.max ? b : a); stats.eggs.push({shot: s.id, size: s.size, max: c.max, kind: c.kind, need: c.need, n: c.n});
+      if (!c.ok) E(`${s.id}: largest visible egg (${c.kind}) is ${(c.max * 100).toFixed(1)} % of frame height (≥ ${c.need * 100} % ${s.size === 'wide' ? 'with its beam, in a wide' : 'in a ' + s.size})`); }
+    const ov = overlapIssues(ms[1]?.places ?? ms[0].places ?? []); stats.overlaps += ov.length; for (const x of ov.slice(0, 3)) E(`${s.id}: ${x}`);
+  });
   if (season || v3) shots.forEach((s, i) => {
     const mid = meas[i]?.[1]; if (!mid) return; const who = s.fit?.actor ?? s.subject;
     if (who && (['close', 'medium'].includes(s.size) || s.move === 'heroLow')) {

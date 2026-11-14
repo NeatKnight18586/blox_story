@@ -7,7 +7,7 @@
 // The stone-hammer is the episode's twist prop: the sword's hilt and a short stub of blade, sunk in a
 // giant block of rock. Scale it boldly.
 import * as T from 'three';
-import {eggMesh} from '../parts/eggs.js';
+import {eggMesh, EGG_R, EGG_HOLD} from '../parts/eggs.js';
 import {mergeGeometries} from 'three/addons/utils/BufferGeometryUtils.js';
 import {sword as propSword, heroStone as propHeroStone, classSword as propClassSword} from '../parts/props.js';
 
@@ -73,8 +73,13 @@ function classTool(name) {
 }
 // Eggs (Season 1 ep. 1, parts/eggs.js): tool name 'egg:<design>' or 'egg:<design>:<warm 0..1>' (the Plain egg's glow), held in the fist.
 function eggTool(name) {
-  const [, design, warm] = name.split(':'), grp = new T.Group(), e = eggMesh(design, {r: .42, warm: warm === undefined ? null : +warm});
-  e.position.set(0, -.15, .32); grp.add(e); grp.userData.grip = 'hold'; return grp;
+  // the tool rides the right fist; the egg is placed so that, in the eggHold pose, it sits centred between both fists
+  // (actor x = 0), a little above them: the arm rotation is undone for that offset (pure trigonometry, see EGG_HOLD)
+  const [, design, warm] = name.split(':'), grp = new T.Group(), e = eggMesh(design, {r: EGG_R.held, warm: warm === undefined ? null : +warm, rim: true});
+  const {alpha, theta} = EGG_HOLD.eggHold, R = new T.Matrix4().makeRotationFromEuler(new T.Euler(-alpha, 0, -theta));
+  const fist = new T.Vector3(...HAND).applyMatrix4(R).add(new T.Vector3(1.51, 4.02, 0));   // fist in actor space (right shoulder pivot)
+  const want = new T.Vector3(0, fist.y + EGG_R.held * 1.15, fist.z + .1), d = want.sub(fist).applyMatrix4(R.clone().transpose());
+  e.position.copy(d); grp.add(e); grp.userData.grip = 'hold'; return grp;
 }
 export function buildTool(name, opts = {}) {
   if (!BUILD[name] && !name.startsWith('class:') && !name.startsWith('egg:')) throw Error('unknown tool ' + name);

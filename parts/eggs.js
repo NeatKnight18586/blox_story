@@ -17,6 +17,15 @@ export const EGGS = {
   plain: {rarity: 'COMMON', shell: '#f2e6cc', detail: '#8a5a36', glow: 0, pattern: 'speckles', extra: null},
 };
 export const EGG_NAMES = Object.keys(EGGS);
+// Sizes (owner, 2026-11-14): HEAD_H = a scale-1 avatar's head height. Held egg 0.95 × the holder's head (tool units, so the
+// holder's scale applies), nest egg 1.2 × HEAD_H, the Cosmic egg 1.5 ×; hatchling curled height 1.3 × the kid's head.
+export const HEAD_H = 1.16, EGG_ASPECT = 2.6;   // egg height = EGG_ASPECT × r
+export const EGG_R = {held: .95 * HEAD_H / EGG_ASPECT, nest: 1.2 * HEAD_H / EGG_ASPECT, cosmic: 1.5 * HEAD_H / EGG_ASPECT};
+export const eggRadius = name => name === 'cosmic' ? EGG_R.cosmic : EGG_R.nest;
+export const DRAGON_PERCH_H = 20.2;   // avatar-style/dragon.js perched bbox height at scale 1 (measured)
+export const hatchlingScale = (holderScale = .82) => 1.3 * HEAD_H * holderScale / DRAGON_PERCH_H;
+// Two-hand holds (engine/poses.js eggHold / eggChin): shoulder rotations [−alpha, 0, ∓theta]; the egg sits centred above the fists.
+export const EGG_HOLD = {eggHold: {alpha: .82, theta: .62}, eggChin: {alpha: 1.3, theta: .72}};
 
 const texCache = new Map(), geoCache = new Map();
 const geo = (k, f) => { if (!geoCache.has(k)) geoCache.set(k, f()); return geoCache.get(k); };
@@ -49,13 +58,15 @@ export function eggMesh(name, {r = .45, warm = null, rim = true, beam = false} =
   const m = new T.MeshPhongMaterial({color: '#ffffff', map: p.map ?? null, emissive: '#ffffff', emissiveMap: p.emissiveMap ?? null, emissiveIntensity: e.glow, shininess: name === 'frost' ? 90 : 40, flatShading: name === 'frost'});
   if (!p.map) m.color.set(e.shell);
   if (warm !== null) { m.emissiveMap = null; m.emissive.copy(COLD).lerp(GOLD, Math.min(1, Math.max(0, warm))); m.emissiveIntensity = .35 + .9 * warm; }
-  const body = new T.Mesh(shell, m); body.scale.setScalar(r); body.castShadow = true; grp.add(body);
+  const body = new T.Mesh(shell, m); body.scale.setScalar(r); body.castShadow = true; body.name = 'eggBody'; grp.add(body);
   if (rim) { const rm = new T.Mesh(shell, new T.MeshBasicMaterial({color: warm !== null ? m.emissive : RARITY[e.rarity], side: T.BackSide, toneMapped: false, transparent: true, opacity: .9})); rm.scale.setScalar(r * 1.1); grp.add(rm); }
   const det = new T.MeshPhongMaterial({color: e.detail, emissive: e.detail, emissiveIntensity: e.glow * .8, flatShading: true});
   if (e.extra === 'sprout') { const s = new T.Mesh(geo('sprout', () => new T.ConeGeometry(.12, .5, 4)), det); s.position.y = r * 1.4; s.rotation.z = .25; s.name = 'sway'; grp.add(s); }
   if (e.extra === 'crystal' || e.extra === 'shard') { const c = new T.Mesh(geo('cryst', () => new T.OctahedronGeometry(.18, 0)), det); c.position.set(r * .55, r * .5, r * .5); c.scale.set(1, 1.8, 1); grp.add(c); }
   if (e.extra === 'embers') for (const k of [0, 1]) { const c = new T.Mesh(geo('ember', () => new T.OctahedronGeometry(.05, 0)), det); c.position.set((k - .5) * .3, r * 1.6 + k * .2, .1); c.name = 'rise'; grp.add(c); }
-  if (beam) { const b = new T.Mesh(geo('beam', () => new T.CylinderGeometry(.05, .05, 8, 5, 1, true)), new T.MeshBasicMaterial({color: RARITY[e.rarity], transparent: true, opacity: .35, blending: T.AdditiveBlending, depthWrite: false, toneMapped: false})); b.position.y = 4.4; grp.add(b); }
+  if (beam) { const bm = new T.MeshBasicMaterial({color: RARITY[e.rarity], transparent: true, opacity: .85, blending: T.AdditiveBlending, depthWrite: false, toneMapped: false, fog: false});   // owner: brighter, taller, reads in wides
+    const b = new T.Mesh(geo('beam', () => new T.CylinderGeometry(.16, .3, 18, 6, 1, true)), bm); b.position.y = 9.6; b.name = 'beam'; grp.add(b);
+    const core = new T.Mesh(geo('beamCore', () => new T.CylinderGeometry(.06, .1, 18, 5, 1, true)), new T.MeshBasicMaterial({color: '#ffffff', transparent: true, opacity: .7, blending: T.AdditiveBlending, depthWrite: false, toneMapped: false, fog: false})); core.position.y = 9.6; core.name = 'beam'; grp.add(core); }
   grp.userData.egg = name; return grp;
 }
 // A thatch-ring nest (≤ 120 triangles).

@@ -115,3 +115,37 @@ test('hero readability: no crowd member near the subject wears its main colour; 
   assert.equal(crowdColours(members, []), members, 'no subjects: unchanged (older specs)');
   assert.ok(wideCentred(.2) && wideCentred(.5) && wideCentred(.8) && !wideCentred(.15) && !wideCentred(.86));
 });
+
+// Owner changes before episode 1: egg sizes, two-hand holds, the egg-size check, overlaps.
+import {eggSizeCheck, overlapIssues, EGG_MIN} from '../../engine/seasoncheck.js';
+import {EGG_R, HEAD_H, EGG_ASPECT, hatchlingScale, DRAGON_PERCH_H, EGG_HOLD} from '../../parts/eggs.js';
+import {buildTool, HAND} from '../../avatar-style/tools.js';
+import * as THREE from 'three';
+test('eggs: sizes from head height; hatchling 1.3 heads; the held egg sits centred between both fists at chest height', () => {
+  assert.ok(Math.abs(EGG_R.held * EGG_ASPECT / HEAD_H - .95) < 1e-9 && Math.abs(EGG_R.nest * EGG_ASPECT / HEAD_H - 1.2) < 1e-9 && Math.abs(EGG_R.cosmic * EGG_ASPECT / HEAD_H - 1.5) < 1e-9);
+  assert.ok(Math.abs(hatchlingScale(.82) * DRAGON_PERCH_H - 1.3 * HEAD_H * .82) < 1e-9);
+  const tool = buildTool('egg:plain:0'), egg = tool.children[0], {alpha, theta} = EGG_HOLD.eggHold;
+  const R = new THREE.Matrix4().makeRotationFromEuler(new THREE.Euler(-alpha, 0, -theta)), p = egg.position.clone().add(new THREE.Vector3(...HAND)).applyMatrix4(R).add(new THREE.Vector3(1.51, 4.02, 0));
+  assert.ok(Math.abs(p.x) < 1e-6, `egg centred between the hands (x ${p.x.toFixed(3)})`); assert.ok(p.y > 2.6 && p.y < 3.8, `chest height (y ${p.y.toFixed(2)})`); assert.ok(p.z > .5, 'in front of the body');
+  const fistL = new THREE.Vector3(...HAND).applyMatrix4(new THREE.Matrix4().makeRotationFromEuler(new THREE.Euler(-alpha, 0, theta))).add(new THREE.Vector3(-1.51, 4.02, 0));
+  const fistR = new THREE.Vector3(...HAND).applyMatrix4(R).add(new THREE.Vector3(1.51, 4.02, 0));
+  assert.ok(Math.abs(fistL.x + fistR.x) < 1e-9 && fistR.x < 1, 'fists mirror each other, both near the middle');
+});
+test('egg size check: ≥ 5 % in medium/close/insert, ≥ 2 % with the beam in wides; no egg, no check', () => {
+  const egg = (y0, y1, hb, dist = 10) => ({kind: 'ember', front: true, box: {x0: .4, x1: .5, y0, y1}, h: y1 - y0, hb: hb ?? y1 - y0, dist});
+  assert.equal(eggSizeCheck('medium', []), null);
+  assert.equal(eggSizeCheck('medium', [egg(.5, .53)]).ok, false); assert.equal(eggSizeCheck('close', [egg(.5, .53), egg(.4, .46)]).ok, true, 'the largest visible egg counts');
+  assert.equal(eggSizeCheck('wide', [egg(.5, .51, .015)]).ok, false); assert.equal(eggSizeCheck('wide', [egg(.5, .51, .2)]).ok, true, 'the beam counts in wides');
+  assert.equal(eggSizeCheck('medium', [{...egg(.5, .6), box: {x0: 1.2, x1: 1.3, y0: .5, y1: .6}}]), null, 'off-frame eggs are not visible');
+  assert.equal(eggSizeCheck('close', [egg(.5, .52, null, 50)]), null, 'far eggs are scenery in a close'); assert.equal(eggSizeCheck('wide', [egg(.5, .51, .2, 80)]).ok, true);
+  assert.deepEqual(EGG_MIN, {near: .05, wide: .02, nearDist: 25});
+});
+test('overlaps: bodies closer than 0.85 × (ra + rb) on one level; running crowds skipped; crowd spacing/clear keep members apart', () => {
+  const P = [{name: 'kit', x: 0, z: 0, y: 0, r: .78}, {name: 'lead', x: 1.0, z: 0, y: 0, r: .78}, {name: 'dax', x: 0, z: 0, y: 118, r: .9}, {name: 'r#1', x: .2, z: 0, y: 0, r: .9, crowd: 'panic'}];
+  const o = overlapIssues(P); assert.equal(o.length, 1); assert.ok(o[0].startsWith('kit and lead overlap'));
+  assert.deepEqual(overlapIssues([{name: 'a', x: 0, z: 0, r: .8}, {name: 'b', x: 1.4, z: 0, r: .8}]), []);
+  const ms = crowdMembers({count: 40, radius: 13, inner: 7.5, seed: 9, spacing: 1.7, clear: [[0, 0, 7], [-1.2, -10, 1.8]]});
+  for (let i = 0; i < ms.length; i++) { assert.ok(Math.hypot(ms[i].x, ms[i].z) >= 7 && Math.hypot(ms[i].x + 1.2, ms[i].z + 10) >= 1.8); for (let j = i + 1; j < ms.length; j++) assert.ok(Math.hypot(ms[i].x - ms[j].x, ms[i].z - ms[j].z) >= 1.7); }
+  assert.ok(ms.length >= 30, `${ms.length} members fit`);
+  assert.deepEqual(crowdMembers({count: 5, seed: 2}).map(m => m.x), crowdMembers({count: 5, seed: 2, spacing: 0}).map(m => m.x), 'no spacing: unchanged');
+});
