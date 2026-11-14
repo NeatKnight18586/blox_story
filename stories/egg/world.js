@@ -230,5 +230,5 @@ export function build(scene, {P, B, A, M, PR, TR, BI, V, W, look, spec}) {
   setClock('1159');
   return {anchors, groundY, update(t) { for (const m of movers) m.update?.(t); },
     setState(k, v) { state[k] = v; if (k === 'board') drawBoard(v); if (k === 'clock') setClock(v); if (k === 'flyers') flyers.visible = !!v; if (k === 'benchEgg') benchEgg.visible = !!v; if (k === 'plainEgg') plainEgg.visible = !!v;
-      if (k === 'coldBase') { cold.visible = !!v; nestEggs[4].visible = !v; } if (k === 'geodeAway') nestEggs[5].visible = !v; if (k === 'grassEgg') grassEgg.visible = !!v; if (k === 'returnNote') note5.mesh.visible = !!v; if (k === 'fence') fence.visible = !!v; }};
+      if (k === 'coldBase') { cold.visible = !!v; nestEggs[4].visible = !v; } if (k === 'geodeAway') nestEggs[5].visible = !v; if (k === 'grassEgg') grassEgg.visible = !!v; if (k === 'returnNote') note5.mesh.visible = !!v; if (k === 'fence') fence.visible = !!v; if (k === 'nestSet') nest.visible = !!v; }};
 }

@@ -120,7 +120,7 @@ CK5 = [K5[0] + g5['n'][0] * 2.2 + g5['s'][0] * 4.2, K5[1] + g5['n'][1] * 2.2 + g
 shot('S17r-return', on(12, 5), 'close', 'push', 'bases', 'She returned it, with a sorry note: the egg back in its nest, then the folded note.', see=['kit'],
      **{'from': cam([CK5[0], 3.6, CK5[1]], [(N5[0] + K5[0]) / 2, 1.9, (N5[2] + K5[1]) / 2], 38), 'to': cam([CK5[0] - g5['s'][0] * .6, 3.3, CK5[1] - g5['s'][1] * .6], [(N5[0] + K5[0]) / 2, 1.7, (N5[2] + K5[1]) / 2], 36)}, shadowRadius=10)
 shot('S18-zero', on(13), 'insert', 'push', 'square', 'Her score is zero: KIT 0 at the bottom of the scoreboard.', see=[],
-     **{'from': cam(NB(15), [BOARD[0], 6.4, BOARD[2]], 30), 'to': cam(NB(12.5), [BOARD[0], 6.2, BOARD[2]], 30)}, shadowRadius=12)
+     **{'from': cam([NB(20)[0], 6.2, NB(20)[2]], [BOARD[0], 6.6, BOARD[2]], 24), 'to': cam([NB(18)[0], 6.1, NB(18)[2]], [BOARD[0], 6.4, BOARD[2]], 24)}, shadowRadius=12)
 FENCE = [-12, 9]
 shot('S19-vault', F(on(13, 4), -2), 'medium', 'push', 'square', 'It has always been zero: Dax vaults the fence side-on, mid-air, four eggs in his arms.', see=['dax'],
      **{'from': cam([FENCE[0] + .5, 3.4, FENCE[1] + 12], [FENCE[0] + .5, 3.2, FENCE[1]], 44), 'to': cam([FENCE[0] + .8, 3.4, FENCE[1] + 11], [FENCE[0] + .8, 3.2, FENCE[1]], 44)}, shadowRadius=16)
@@ -141,9 +141,9 @@ shot('S23-notice', on(17), 'close', 'push', 'square', 'But Kit notices things; r
 AFKR = [18, -27]
 shot('S24-roofs', on(18), 'wide', 'push', 'square', 'The town is full of eggs: nests on the rooftops under an empty starry sky; AFK frozen by a wall (cameo 1).', see=['afk'],
      **{'from': cam([12, 3.2, -10], [22, 13, -40], 50), 'to': cam([12.6, 3.4, -12], [22, 13.5, -40], 48)}, shadowRadius=40)
-KV = [-6, -36]
+KV = [-1.2, -38.1]
 shot('S24b-vane', on(18, 6), 'medium', 'push', 'square', 'Nobody has ever seen a bird: Kit looks up at the dragon weathervane against the stars (clue 1).', see=['kit'], clueObject='weathervane',
-     **{'from': cam([0, 2.4, -38.5], [-17, 12, -31], 50), 'to': cam([-.6, 2.4, -38.2], [-17.5, 12.5, -31], 48)}, shadowRadius=20)
+     **{'from': cam([8, 1.8, -42], [-23.5, 16, -28.5], 50), 'to': cam([7.4, 1.8, -41.6], [-23.5, 16.4, -28.5], 48)}, shadowRadius=20)
 shot('S25-cold', on(19), 'insert', 'static-drift', 'square', 'The eggs are cold, always cold: the Plain egg in Kit\'s still hands (clue 3, spoken).', see=['kit'], clueObject='egg_plain', captionY='high',
      **{'from': cam([2.5, 5.0, 12.0], [2, 3.25, 9.1], 34), 'to': cam([2.45, 4.95, 11.8], [2, 3.25, 9.1], 34)}, shadowRadius=8)
 shot('S26-still', on(20), 'medium', 'push', 'square', 'Unless you stand very still: Kit, curious, does not move; runners blur past behind her.', subject='kit', see=['kit'],
@@ -201,7 +201,7 @@ shot('S39-dragon', F(on(35, 4), 2), 'medium', 'push', 'square', 'It was a dragon
      **{'from': cam([-7, 4.5, -20], [-7, 6.5, 0], 56), 'to': cam([-6.5, 4.3, -18.5], [-6.5, 6.3, 0], 54)}, shadowRadius=30)
 LIFT0 = [0, 30, 6]
 shot('S40-lift', on(36, 4), 'close', 'push', 'square', 'It lifted Kit into the clouds: Kit in the mother\'s front claws, the town small below.', see=['kit', 'mother'],
-     **{'from': cam([LIFT0[0] + 10, LIFT0[1] + 8, LIFT0[2] + 9], [LIFT0[0] + 18, LIFT0[1] + 1, LIFT0[2]], 50), 'to': cam([LIFT0[0] + 18.5, LIFT0[1] + 17.5, LIFT0[2] + 9], [LIFT0[0] + 28, LIFT0[1] + 11, LIFT0[2]], 50)}, shadowRadius=40)
+     **{'from': cam([LIFT0[0] + 25, LIFT0[1] + 3, LIFT0[2] + 4.5], [LIFT0[0] + 18, LIFT0[1] - .5, LIFT0[2]], 50), 'to': cam([LIFT0[0] + 34, LIFT0[1] + 8, LIFT0[2] + 4.5], [LIFT0[0] + 27, LIFT0[1] + 5, LIFT0[2]], 50)}, shadowRadius=40)
 # B8 second surprise ---------------------------------------------------------------------------------------------------------------
 N = NEST; FL = N[1] - 4.4   # nest floor
 RING = ['kit', 'dax', 'lead', 'little', 'r1', 'r2', 'r3', 'r4', 'r5']; RR = 6.2
@@ -335,7 +335,7 @@ cast = {
       (t['S37-down'], {'origin': [MOM37[0] + .5 * 6.6, MOM37[1] + 2, MOM37[2] - .866 * 6.6], 'yaw': yaw_to(MOM37, LOWC), 'travel': {'dir': [-.5, .866], 'speed': 5, 'climb': -1.5}}),
       (t['S38-bird'], {'origin': [-54, 0, 0], 'yaw': 90}),
       (t['S40-lift'], {'origin': LIFT0, 'yaw': 90, 'travel': {'dir': [1, 0], 'speed': 4, 'climb': 2.5}}),
-      (t['S41-nest'], {'origin': [N[0] - 24, N[1] - 6, N[2] - 4], 'yaw': 0}), (t['S44a-cold'], {'origin': [0, 400, -600], 'yaw': 0}), (t['S44b-gold'], {'origin': [N[0] - 24, N[1] - 6, N[2] - 4], 'yaw': 0}),
+      (t['S41-nest'], {'origin': [N[0] + 24, N[1] - 6, N[2] + 6], 'yaw': 180}), (t['S44a-cold'], {'origin': [0, 400, -600], 'yaw': 0}), (t['S44b-gold'], {'origin': [N[0] + 24, N[1] - 6, N[2] + 6], 'yaw': 180}),
       (t['S48-sunrise'], {'origin': [10, 46, 80], 'yaw': 180, 'travel': {'dir': [0, -1], 'speed': 14, 'climb': -4}}), (t['S48b-ride'], {'origin': [6, 22, 24], 'yaw': 180, 'travel': {'dir': [0, -1], 'speed': 5}}),
       (t['S49-bench'], {'origin': [0, 400, -600], 'yaw': 0})),
     'keys': [[0, 'fly'], [t['S38-bird'], 'lower'], [t['S40-lift'], 'fly'], [t['S41-nest'], 'curl'], [t['S48-sunrise'], 'fly']]},
@@ -416,7 +416,7 @@ crowds = [
   {'id': 'town', 'count': 30, 'centre': [4, -10], 'radius': 9, 'mode': 'ambient', 'seed': 4, 'spacing': 1.8, 'clear': [[-2.5, 7, 2.4], [5, 5, 2.4], [-5, 4, 2.4], [1, 3, 2.4], [0, -22, 6]], 'visible': [[0, True], [t['S14a-minute'], False], [t['S16-kit'], True], [t['S20-dax'], False], [t['S22-queue'], True], [t['S28-greedy'], False]]},
   {**POTATO, 'visible': [[0, False], [t['S14-potato'], True], [t['S15a-claws'], False], [t['S44a-cold'], True], [t['S44b-gold'], False]], 'clear': [[1.7, 12, 2], [-1.7, 12, 2], [0, 17, 4.5], [3, -15, 4], [3, -11, 4]]},
   {'id': 'ring', **RINGC, 'mode': 'ambient', 'visible': [[0, False], [t['S34-middle'], True], [t['S37a-bell'], False]]},
-  {'id': 'ringUp', **RINGC, 'mode': 'lookUp', 'visible': [[0, False], [t['S37a-bell'], True], [t['S40-lift'], False]]},
+  {'id': 'ringUp', **RINGC, 'mode': 'lookUp', 'visible': [[0, False], [t['S37a-bell'], True], [t['S39-dragon'], False]]},
   {'id': 'runA', 'count': 14, 'centre': [-16, -4], 'radius': 5, 'mode': 'panic', 'dir': PERP, 'at': 0, 'seed': 7, 'visible': [[0, True], [t['S02-kit'], False]]},
   {'id': 'runB', 'count': 12, 'centre': [-12, 2.5], 'radius': 3, 'mode': 'panic', 'dir': [1, 0], 'at': t['S23-notice'] - .3, 'seed': 8, 'visible': [[0, False], [t['S23-notice'], True], [t['S24-roofs'], False]]},
   {'id': 'runC', 'count': 12, 'centre': [-12, 2.5], 'radius': 3, 'mode': 'panic', 'dir': [1, 0], 'at': t['S26-still'] - .3, 'seed': 18, 'visible': [[0, False], [t['S26-still'], True], [t['S27-still'], False]]},
@@ -445,7 +445,7 @@ spec = {'slug': 'egg', 'fps': 30, 'end': END, 'season': 1, 'hero': 'kit', 'capti
                  'hotToss': [[0, None], [t['S03b-toss'], {'t0': 5.5, 'from': [TOSS[0], 3.4, TOSS[1] + .9], 'to': [TOSS[0] + 6.5, .5, TOSS[1] + 2.5]}], [9.0, None]],
                  'slam': [[0, -99], [t['S06-run'], SLAM]], 'coldBase': [[0, False], [t['S15b-dawn'], True], [t['S16-kit'], False]],
                  'geodeAway': [[0, False], [30.0, True], [34.9, False]], 'grassEgg': [[0, False], [30.0, True], [33.7, False]], 'returnNote': [[0, False], [35.5, True]],
-                 'fence': [[0, False], [t['S19-vault'], True], [t['S20-dax'], False]],
+                 'fence': [[0, False], [t['S19-vault'], True], [t['S20-dax'], False]], 'nestSet': [[0, False], [t['S41-nest'], True], [t['S44a-cold'], False], [t['S44b-gold'], True], [t['S48-sunrise'], False]],
                  'moonSpot': [[0, None], [t['S29b-shadow'], {'pos': [31.4, 140, 7.6], 'target': [31.4, 0, 7.6], 'angle': .5, 'i': 1.6}], [t['S30-bed'], None]],
                  'coldToss': [[0, None], [t['S44a-cold'], {'t0': t['S44a-cold'], 't1': t['S44b-gold'], 'a': [TA[0] - .8, 3.6, TA[2]], 'b': [TB[0] + .8, 3.6, TB[2]]}], [t['S44b-gold'], None]]},
   'sfxCues': [[5.5, 'whoosh'], [SLAM, 'thud'], [on(33) + .1, 'bell'], [on(33) + .6, 'bell'], [on(33) + 1.1, 'bell'], [on(43) + .1, 'crack'], [SNEEZE + .05, 'sparkle'], [t['S40-lift'], 'whoosh']],
