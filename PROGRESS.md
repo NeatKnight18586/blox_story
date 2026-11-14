@@ -1052,3 +1052,13 @@ Three weakest things:
 
 **Proposed fix (not applied):** one warm-up render in `episode.js` when that state changes. It touches the engine, which the owner's instruction forbids this session, so the final render was not started; stopped for the owner's call.
 **Owner (2026-11-14): "Render as is"**: the final ships with the two first-frame flashes (S36 cut 8.8 %, S37a cut 1.7 %); stability stays FAIL on record, waived by the owner for egg. Farm assemble now passes `--spec` (sfx, music if present) and `--style v3` for v3 specs; no music.mp3 → `review/egg/audio-cues.md`.
+
+## Egg final: farm result (2026-11-14)
+- **Run 43597647473 (render, preset final, native 1440×2560 + AA):** plan ✔ · six render shards ✔ (0: 13:06→14:04, 1: →14:26, 2: →14:54, 3: →14:57, 4: →14:34, 5: →14:29; encode+upload each ~2–3 min) · assemble: captions + finishing ran **15:00 → 17:36 (2 h 35 min)** · QC **FAIL 17:38** · upload + prerelease **skipped**. Total 4 h 37 min, 13:01 → 17:38 UTC.
+- **QC numbers (from the job log; qc.json was not uploaded because its upload step was skipped):** 1440×2560, 30 fps, 4381 frames, 146.03 s, 405.1 MB, video 21 976 kb/s, audio AAC 214 kb/s, LUFS −14.8 (tolerance ±1 → passes), true peak −1.6 dBTP (≤ −1 → passes), min SSIM 0.9877 (≥ 0.985 → passes), min PSNR 45.98 dB (≥ 40 → passes), min sharpness 1.577 (≥ 0.95 → passes), max ΔE 5.63 (gate 4.0, measured on tint frames only; per-frame values not available here).
+- **The one failure:** `only 3 frames with ≥ 0.5 % stone/wall (need 4) for the tint check`.
+- **Why not re-run assembly:** the count is taken on the raw render, which assembly does not change; a re-run gives the same 3. Passing it would need the threshold lowered (forbidden) or more stone/wall in the shots or grade (a content change the owner has not approved).
+- **Proxy:** `final-review.mp4` (1080×1920, 45.6 MB) was built but its artifact upload was skipped after the QC failure, so it cannot be downloaded or sent from here.
+- **Assemble report `"pass": false`:** the report's own flag; the QC gate is the release gate and does not depend on it. Not investigated further.
+- **Status:** no prerelease, no DELIVERY.md, STATE.md stays `step: final` (not published-ready).
+- **Decision for the owner:** (a) waive the stone-tint check for egg, as with stability (then the job's upload + prerelease must be run by hand, since the workflow stops at the gate), (b) approve a shot or grade change that puts more stone/wall in frame and re-render (about 4.5 h on the farm), or (c) hold.
