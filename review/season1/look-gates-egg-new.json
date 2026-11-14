@@ -1,0 +1,61 @@
+{
+ "spec": "engine/fixtures/looktest/egg-new.json",
+ "limits": {
+  "night": {
+   "frame": [
+    0.24,
+    0.42
+   ],
+   "actor": 0.4,
+   "contrast": 0.12
+  },
+  "framing": {
+   "close": 0.45,
+   "medium": 0.3,
+   "heroLow": 0.3,
+   "groundMax": 0.28
+  }
+ },
+ "night": [
+  {
+   "shot": "square",
+   "frame": 4,
+   "look": "nightBright",
+   "frameLuma": 0.429,
+   "actors": {
+    "kit": {
+     "luma": 0.461,
+     "ring": 0.506,
+     "contrast": -0.045
+    },
+    "dax": {
+     "luma": 0.453,
+     "ring": 0.462,
+     "contrast": -0.009
+    }
+   }
+  },
+  {
+   "shot": "street",
+   "frame": 12,
+   "look": "nightBright",
+   "frameLuma": 0.378,
+   "actors": {
+    "kid": {
+     "luma": 0.331,
+     "ring": 0.365,
+     "contrast": -0.034
+    }
+   }
+  }
+ ],
+ "framing": [],
+ "failures": [
+  "square: frame luma 0.429 outside 0.24,0.42",
+  "square/kit: box − ring -0.045 < 0.12",
+  "square/dax: box − ring -0.009 < 0.12",
+  "street/kid: actor luma 0.331 < 0.4",
+  "street/kid: box − ring -0.034 < 0.12"
+ ],
+ "result": "FAIL"
+}

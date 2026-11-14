@@ -103,7 +103,7 @@
    "size": "wide",
    "frames": 8,
    "anchor": "square",
-   "look": "night",
+   "look": "nightBright",
    "shadowRadius": 60
   },
   {
@@ -111,7 +111,7 @@
    "size": "medium",
    "frames": 8,
    "anchor": "street",
-   "look": "night",
+   "look": "nightBright",
    "shadowRadius": 30
   },
   {
@@ -119,9 +119,8 @@
    "size": "wide",
    "frames": 8,
    "anchor": "wide",
-   "look": "night",
+   "look": "nightBright",
    "shadowRadius": 110
   }
- ],
- "actorLift": 0.28
+ ]
 }

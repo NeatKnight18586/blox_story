@@ -101,8 +101,8 @@ for (const s of shots) if (s.fit && s.fit.h === undefined && cast[s.fit.actor]) 
 // A4 night "actor lift" (opt-in spec.actorLift, v3 looks only): plastic avatars get a small self-light (emissive = their
 // own colour / texture × k) so they stay the highest-contrast thing in a dark frame. Faces (MeshBasic) are untouched.
 const usesNightBright = spec.look === 'nightBright' || (spec.shots ?? []).some(s => s.look === 'nightBright');
-if (look?.v3 && (spec.actorLift ?? (usesNightBright ? .24 : 0))) {   // A5 §E: on by default under nightBright
-  const k = spec.actorLift ?? .24, seen = new Set();
+if (look?.v3 && (spec.actorLift ?? (usesNightBright ? .5 : 0))) {   // A5 §E: on by default under nightBright
+  const k = spec.actorLift ?? .5, seen = new Set();
   for (const {a, v2} of Object.values(cast)) if (v2) a.root.traverse(o => { if (!o.isMesh || seen.has(o.material) || o.material.isMeshBasicMaterial || !o.material.emissive) return; const m = o.material; seen.add(m);
     if (m.map) { m.emissiveMap = m.map; m.emissive.setRGB(k, k, k); } else if (m.vertexColors) m.emissive.setRGB(k * .5, k * .45, k * .4); else m.emissive.copy(m.color).multiplyScalar(k); m.needsUpdate = true; });
 }
@@ -264,6 +264,20 @@ export function inspectFrame(n, width = 540, height = 960) {
   const cards = effects.cards(t, camera, width / height).map(k => ({cls: k.cls, kind: k.kind, rect: k.rect, landed: k.state.landed, fly: k.state.fly}));   // A3
   return {frame: n, shot: shot.id, camera: {position: c.position, target: c.target, fov: c.fov}, heads, cards};
 }
+// A5 gates: after renderFrame(n), projected boxes (frame fractions, y down) of visible v2 actors' meshes (no tags/sprites)
+// and their framing spans (feet, shoulders at 0.6 H, top at 1.02 H, projected at the actor's mark).
+export function measureFrame() {
+  const out = {}; camera.updateMatrixWorld(true); const v = new T.Vector3(), b = new T.Box3(), mb = new T.Box3();
+  for (const [name, {a, c, v2}] of Object.entries(cast)) {
+    if (!v2 || !a.root.visible) continue; b.makeEmpty();
+    a.root.traverseVisible(o => { if (!o.isMesh || o.isSprite) return; if (!o.geometry.boundingBox) o.geometry.computeBoundingBox(); mb.copy(o.geometry.boundingBox).applyMatrix4(o.matrixWorld); b.union(mb); });
+    if (b.isEmpty()) continue; let x0 = 1, x1 = 0, y0 = 1, y1 = 0, front = false;
+    for (let i = 0; i < 8; i++) { v.set(i & 1 ? b.max.x : b.min.x, i & 2 ? b.max.y : b.min.y, i & 4 ? b.max.z : b.min.z).project(camera); if (v.z < 1) front = true; const x = (v.x + 1) / 2, y = (1 - v.y) / 2; x0 = Math.min(x0, x); x1 = Math.max(x1, x); y0 = Math.min(y0, y); y1 = Math.max(y1, y); }
+    const H = 5.3 * a.root.scale.y, m = markPos[name] ?? a.root.position.toArray(), py = h => (1 - v.set(m[0], m[1] + h, m[2]).project(camera).y) / 2;
+    out[name] = {front, box: {x0, x1, y0, y1}, feet: py(0), shoulder: py(.6 * H), top: py(1.02 * H), troupe: c.troupe ?? null};
+  }
+  return out;
+}
 export function shotSpeed(i) { const s = shots[i]; return maxTargetSpeed({...s, fps: FPS, openHit: false}, tt => poseCast(s.start / FPS + tt), FPS); }
 
-window.__episode = {debug: {scene, renderer}, breakdown, inspectFrame, shotSpeed, END: FRAMES / FPS, anchors: Object.fromEntries(Object.entries(anchors).filter(([, a]) => a.camera).map(([k]) => [k, true])), renderAnchor, renderAnchorNudged, renderCamera, FPS, FRAMES, shots: shots.map(({id, start, frames, size, move, loc, subject, see, openHit, at, why, captionY}) => ({id, start, frames, size, move, loc, subject, see, openHit: !!openHit, at, why, captionY})), renderFrame};
+window.__episode = {debug: {scene, renderer}, breakdown, measureFrame, inspectFrame, shotSpeed, END: FRAMES / FPS, anchors: Object.fromEntries(Object.entries(anchors).filter(([, a]) => a.camera).map(([k]) => [k, true])), renderAnchor, renderAnchorNudged, renderCamera, FPS, FRAMES, shots: shots.map(({id, start, frames, size, move, loc, subject, see, openHit, at, why, captionY, fit, spectacle, look: lk}) => ({id, start, frames, size, move, loc, subject, see, openHit: !!openHit, at, why, captionY, fit, spectacle: !!spectacle, look: lk})), renderFrame};

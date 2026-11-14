@@ -9,9 +9,10 @@
 // Two kits from one layout (spec.kit): 'old' = the v2 kit (flat plates, Phong, block clouds), 'new' = A4 (terrain,
 // suburb biome, Standard hero materials with the env map, vegetation, water, v3 sky with stars and moon, height fog).
 import * as T from 'three';
+import {mergeGeometries, mergeVertices} from 'three/addons/utils/BufferGeometryUtils.js';
 
 export const TEAM = ['#e4574a', '#f2b632', '#2f80d1', '#9b59b6', '#1fb5a8', '#ff7aa8', '#7fc241', '#ff8c2e', '#4ad8ff', '#c0392b', '#f2e14a', '#8a6be8'];
-export const LOOK = spec => spec.kit === 'old' ? null : {fog: {color: '#2a3a66', near: 80, far: 340, height: {base: 0, falloff: 5, amount: .32, near: 30}}, envPreset: 'night', envIntensity: .5, cloudCover: .55, moon: {az: 172, el: 14, size: 3.2}, starDensity: 1.6};
+export const LOOK = spec => spec.kit === 'old' ? null : {fog: {color: '#2f5a86', near: 90, far: 360, height: {base: 0, falloff: 5, amount: .26, near: 30}}, envPreset: 'nightBright', envIntensity: .5, cloudCover: .55, moon: {az: 172, el: 14, size: 3.2}, starDensity: 1.6};
 export const LAYER = {plaza: .14, road: .1};
 const SQ = 18, ROAD = 33, BASE_R = 47, POND = [52, 44];
 
@@ -30,7 +31,7 @@ export function build(scene, {P, B, A, M, PR, TR, BI, V, W, look, spec}) {
       ...bases.map(b => ({type: 'pad', x0: b.x - 8, x1: b.x + 8, z0: b.z - 8, z1: b.z + 8, y: .4 + (b.i % 3) * .3, blend: 8})),
       {type: 'valley', from: [POND[0] - 8, POND[1]], to: [POND[0] + 10, POND[1] + 6], w: 16, depth: 3.2}];
     const height = TR.heightFn({seed: 5, controls}); groundY = height;
-    const terr = TR.buildTerrain({height, size: 640, chunk: 40, fine: 2, fullR: 70, focus: [[0, 10], [30, 40], [0, -30]], material: M.splatMaterial(bio.terrain.layers), splat: bio.terrain});
+    const terr = TR.buildTerrain({height, size: 660, chunk: 30, fine: 1.5, fullR: 60, focus: [[0, 10], [30, 40], [0, -30], [0, 76], [11, 32]], material: M.splatMaterial(bio.terrain.layers, {splat: bio.terrain, wetY: -1.1}), splat: bio.terrain});   // A5: per-pixel blend, 1.5-unit cells near the cameras
     scene.add(terr);
     const wat = W.water({height, x0: POND[0] - 22, x1: POND[0] + 24, z0: POND[1] - 14, z1: POND[1] + 18, y: -1.1, ...bio.water, sky: '#3a5aa0', foam: .1, envMap: look.envMap?.()});
     scene.add(wat.mesh); movers.push(wat);
@@ -38,16 +39,16 @@ export function build(scene, {P, B, A, M, PR, TR, BI, V, W, look, spec}) {
     const veg = V.vegetation({height, veg: {...bio.vegetation, flowerColors: ['#ffffff', '#9fc2ff', '#ffd23f']}, area: {x0: -150, x1: 150, z0: -150, z1: 130}, seed: 9, avoid, focus: [[0, 30], [36, 36]], nearR: 26, waterY: -1.1});
     scene.add(veg.group); movers.push(veg);
     // cloudtop bank beyond the town (the nest's world): soft white mounds lit by the moon
-    const cm = new T.MeshLambertMaterial({color: '#f4f6ff', emissive: '#8a9ad0', emissiveIntensity: .7, flatShading: true, fog: false}), cg = [];
-    for (let i = 0; i < 46; i++) { const g = new T.IcosahedronGeometry(16 + R() * 26, 2); g.scale(1.6, .7 + R() * .3, 1); g.translate(-300 + i * 13 + R() * 10, 52 + R() * 40 + Math.sin(i * .7) * 14, -330 - R() * 60); cg.push(g); }
-    const bank = new T.Mesh(merge(cg), cm); bank.name = 'cloudtop'; scene.add(bank);
+    const cm = new T.MeshLambertMaterial({color: '#f4f6ff', emissive: '#8a9ad0', emissiveIntensity: .7, fog: false}), cg = [];   // A5: smooth
+    for (let i = 0; i < 46; i++) { const g = mergeVertices((g0 => { g0.deleteAttribute('uv'); g0.deleteAttribute('normal'); return g0; })(new T.IcosahedronGeometry(16 + R() * 26, 3))); g.scale(1.6, .7 + R() * .3, 1); g.translate(-300 + i * 13 + R() * 10, 52 + R() * 40 + Math.sin(i * .7) * 14, -330 - R() * 60); cg.push(g); }
+    const bank = new T.Mesh((m => { m.computeVertexNormals(); return m; })(mergeGeometries(cg)), cm); bank.name = 'cloudtop'; scene.add(bank);
   } else {
     scene.add(P.plate(420, 420, {at: [0, -.2, 0], pattern: 'grass', color: '#79a85a'}));
     scene.add(P.plate(46, 32, {at: [POND[0], -.15, POND[1]], pattern: 'water', color: '#4f8fae', thick: .2}));
     for (let i = 0; i < 40; i++) { const a = R() * 6.28, r = 70 + R() * 80, t = PR.smallProp('tree', i); t.position.set(Math.sin(a) * r, 0, Math.cos(a) * r); scene.add(t); }
   }
   // plaza disc and ring road (ribbons follow the ground)
-  const plaza = P.cylinder(SQ, .4, {seg: 40, mat: mt('cobble', '#b9b2a6'), name: 'plaza'}); plaza.position.set(0, groundY(0, 0) + LAYER.plaza - .2, 0); scene.add(plaza);
+  const plaza = P.cylinder(SQ, .4, {seg: 40, mat: mt('cobble', NEW ? '#7d786e' : '#b9b2a6'), name: 'plaza'});   // A5: darker under the night key so the cast reads brighter than the ground plaza.position.set(0, groundY(0, 0) + LAYER.plaza - .2, 0); scene.add(plaza);
   const ring = new T.EllipseCurve(0, 0, ROAD, ROAD, 0, Math.PI * 2), rp = ring.getPoints(64).map(p => new T.Vector3(p.x, 0, p.y)), road = new T.CatmullRomCurve3(rp, true);
   scene.add(B.ribbon(road, 8, (x, z) => groundY(x, z) + LAYER.road, {material: mt('asphalt', '#5a5d66'), tile: 6}));
   for (const k of [0, 3, 6, 9]) { const a = (k + .5) / 12 * Math.PI * 2, c = new T.LineCurve3(new T.Vector3(Math.sin(a) * (SQ - 1), 0, Math.cos(a) * (SQ - 1)), new T.Vector3(Math.sin(a) * (ROAD - 3), 0, Math.cos(a) * (ROAD - 3))); scene.add(B.ribbon(c, 5, (x, z) => groundY(x, z) + LAYER.road + .02, {material: mt('concrete', '#a8a49a')})); }
@@ -97,7 +98,7 @@ export function build(scene, {P, B, A, M, PR, TR, BI, V, W, look, spec}) {
   const lamp = () => { const g = new T.Group(); g.add(P.cylinder(.16, 5, {at: [0, 2.5, 0], seg: 6, mat: mt('metal', '#2e3138')})); const l = new T.Mesh(new T.BoxGeometry(.7, .9, .7), new T.MeshPhongMaterial({color: '#fff1c8', emissive: '#ffc46b', emissiveIntensity: 1.4})); l.position.y = 5.3; g.add(l); return g; };
   // warm light pools under lamps and doors (additive ground decals: cheap practical light at night)
   let poolTex = null;
-  const pool = (x, z, r = 5, c = '#ffb45a', o = .55) => {
+  const pool = (x, z, r = 5, c = '#ffb45a', o = .32) => {
     if (!poolTex && typeof document !== 'undefined') { const cv = document.createElement('canvas'); cv.width = cv.height = 128; const g = cv.getContext('2d'), gr = g.createRadialGradient(64, 64, 0, 64, 64, 64); gr.addColorStop(0, 'rgba(255,255,255,1)'); gr.addColorStop(.5, 'rgba(255,255,255,.35)'); gr.addColorStop(1, 'rgba(255,255,255,0)'); g.fillStyle = gr; g.fillRect(0, 0, 128, 128); poolTex = new T.CanvasTexture(cv); }
     const m = new T.Mesh(new T.PlaneGeometry(2 * r, 2 * r), new T.MeshBasicMaterial({map: poolTex, color: c, transparent: true, opacity: o, blending: T.AdditiveBlending, depthWrite: false, fog: true}));
     m.rotation.x = -Math.PI / 2; m.position.set(x, groundY(x, z) + .3, z); m.renderOrder = 2; scene.add(m); return m; };
@@ -111,15 +112,18 @@ export function build(scene, {P, B, A, M, PR, TR, BI, V, W, look, spec}) {
   scene.add(hero);
   if (NEW) {
     // warm practical light: two real point lights over the square (≤ 4 allowed) key the avatars and pool on the cobbles
-    for (const [x, z] of [[-9, 10], [9, 6]]) { const l = new T.PointLight('#ffb866', 26, 30, 1.6); l.position.set(x, groundY(x, z) + 6.5, z); scene.add(l); }
+    for (const [x, z] of [[-9, 10], [9, 6]]) { const l = new T.PointLight('#ffb866', 14, 26, 1.6); l.position.set(x, groundY(x, z) + 7.5, z); scene.add(l); }
+    // A5 §E: a glowing egg on the square is a real light source (third point light of ≤ 4)
+    const eg = new T.Mesh(new T.SphereGeometry(.55, 16, 12), new T.MeshPhongMaterial({color: '#fff3c8', emissive: '#ffc14a', emissiveIntensity: 1.6})); eg.scale.set(1, 1.3, 1); eg.position.set(-.6, groundY(0, 10) + .75, 11.5); eg.name = 'egg'; scene.add(eg);
+    const el = new T.PointLight('#ffcc66', 18, 14, 1.4); el.position.set(-.6, groundY(0, 10) + 1.6, 11.5); scene.add(el);
     // gardens: a hedge pair flanking every base door + a tree between neighbouring bases
-    const hedge = new T.MeshPhongMaterial({color: '#4f7a3a', flatShading: true, shininess: 6}), trunk = new T.MeshPhongMaterial({color: '#5a4232', flatShading: true}), crown = new T.MeshPhongMaterial({color: '#3f6a34', flatShading: true});
+    const hedge = new T.MeshPhongMaterial({color: '#4f7a3a', shininess: 6, map: M.patternTexture('leaves')}), trunk = new T.MeshPhongMaterial({color: '#5a4232', map: M.patternTexture('bark')}), crown = new T.MeshPhongMaterial({color: '#3f6a34', shininess: 8, map: M.patternTexture('leaves')});   // A5: smooth
     for (const b of bases) {
       const fx = -Math.sin(b.a), fz = -Math.cos(b.a), sx = Math.cos(b.a), sz = -Math.sin(b.a);
-      for (const k of [-1, 1]) { const h = new T.Mesh(new T.IcosahedronGeometry(1.3, 0), hedge); h.scale.set(1.5, .9, 1); const x = b.x + fx * 6.5 + sx * k * 4.2, z = b.z + fz * 6.5 + sz * k * 4.2; h.position.set(x, groundY(x, z) + .9, z); h.rotation.y = b.a; h.castShadow = true; scene.add(h); }
+      for (const k of [-1, 1]) { const h = new T.Mesh(new T.IcosahedronGeometry(1.3, 1), hedge); h.scale.set(1.5, .9, 1); const x = b.x + fx * 6.5 + sx * k * 4.2, z = b.z + fz * 6.5 + sz * k * 4.2; h.position.set(x, groundY(x, z) + .9, z); h.rotation.y = b.a; h.castShadow = true; scene.add(h); }
       const a2 = b.a + Math.PI / 12, x = Math.sin(a2) * (BASE_R + 3), z = Math.cos(a2) * (BASE_R + 3), y = groundY(x, z);
       const tr = new T.Mesh(new T.CylinderGeometry(.4, .55, 4, 5), trunk); tr.position.set(x, y + 2, z); scene.add(tr);
-      for (const [dy, r] of [[5.2, 2.8], [6.8, 2.1]]) { const c = new T.Mesh(new T.IcosahedronGeometry(r, 0), crown); c.position.set(x, y + dy, z); c.castShadow = true; scene.add(c); }
+      for (const [dy, r] of [[5.2, 2.8], [6.8, 2.1]]) { const c = new T.Mesh(new T.IcosahedronGeometry(r, 1), crown); c.position.set(x, y + dy, z); c.castShadow = true; scene.add(c); }
     }
   }
   movers.push(A.birds({centre: [10, 46, -40], n: 4, r: 30, seed: 3}));
