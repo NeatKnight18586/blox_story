@@ -441,3 +441,19 @@ Also built: `render.js --final` (1440×2560, AA). `scripts/v2/qc.py` (`npm run v
 
   Anything that brightens the cast also brightens the ground at the same distance. A key that lights only the cast (a spotlight per hero, which is still within the ≤ 4 real lights) is the untried route. So is a darker ground material at night.
 - **Not done (stopped per Decision 1):** hair polish (quiff, curls, tighter short cuts), troupe-phone re-shoot with `fit`, §F on real shots, §G, bench, stability, the "Nobody" re-render, `CLAUDE.md` lines.
+
+## Session 8b, Decision 2 (owner, 2026-11-14) — §E: **owner review**
+- **Measure:** `engine/lumagate.js` (pure `distanceToMask`, `maskStats`; synthetic-image test) plus `__episode.actorMask` (actor-only silhouette pass, same camera). The actor value is the mean over the mask; the ring is 6–14 px outside it at 390 px.
+- **Both routes applied:**
+  - **Hero spotlights:** one per hero (narrow, soft, aimed from the camera side at the chest, shadow-casting), on only in medium/close night shots. Real lights: 2 point + 2 spot = 4.
+  - **Darker night ground:** terrain layers, plaza, walls and paths at 60 %. Sky and moon unchanged.
+- **One pass** (`node scripts/v2/look-gates.js --spec engine/fixtures/looktest/egg-new.json --night square,kitMed,daxMed --png review/season1/night-egg-390.png`):
+
+  | View | Frame (0.24–0.42) | Actor (≥ 0.40) | Mask − ring (≥ 0.12) |
+  |---|---|---|---|
+  | square | **0.431** | — | — |
+  | kitMed | 0.404 | Kit 0.441 | **0.095** |
+  | daxMed | 0.351 | Dax **0.242** | **−0.106** |
+
+  The failing numbers are in bold. Kit is close. Dax's deep-red hoodie and navy jeans stay darker than the lit grey wall behind him. **§E marked owner review**; judge from `review/season1/night-egg-390.png`.
+- **Decision:** three.js lights filter by camera layers, not by object, so a spot cannot light "only the cast's layer". The spot is narrow and shadow-casting instead (the actor screens the ground directly behind it).

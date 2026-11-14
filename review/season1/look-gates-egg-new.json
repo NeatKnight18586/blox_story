@@ -21,19 +21,19 @@
    "shot": "square",
    "frame": 4,
    "look": "nightBright",
-   "frameLuma": 0.477,
+   "frameLuma": 0.431,
    "actors": {}
   },
   {
    "shot": "kitMed",
    "frame": 12,
    "look": "nightBright",
-   "frameLuma": 0.452,
+   "frameLuma": 0.404,
    "actors": {
     "kit": {
-     "luma": 0.403,
-     "ring": 0.449,
-     "contrast": -0.046
+     "luma": 0.441,
+     "ring": 0.347,
+     "contrast": 0.095
     }
    },
    "fitFrac": 0.37
@@ -42,12 +42,12 @@
    "shot": "daxMed",
    "frame": 20,
    "look": "nightBright",
-   "frameLuma": 0.409,
+   "frameLuma": 0.351,
    "actors": {
     "dax": {
-     "luma": 0.377,
-     "ring": 0.433,
-     "contrast": -0.056
+     "luma": 0.242,
+     "ring": 0.348,
+     "contrast": -0.106
     }
    },
    "fitFrac": 0.37
@@ -55,11 +55,10 @@
  ],
  "framing": [],
  "failures": [
-  "square: frame luma 0.477 outside 0.24,0.42",
-  "kitMed: frame luma 0.452 outside 0.24,0.42",
-  "kitMed/kit: box − ring -0.046 < 0.12",
-  "daxMed/dax: actor luma 0.377 < 0.4",
-  "daxMed/dax: box − ring -0.056 < 0.12"
+  "square: frame luma 0.431 outside 0.24,0.42",
+  "kitMed/kit: box − ring 0.095 < 0.12",
+  "daxMed/dax: actor luma 0.242 < 0.4",
+  "daxMed/dax: box − ring -0.106 < 0.12"
  ],
  "palette": [],
  "result": "FAIL"

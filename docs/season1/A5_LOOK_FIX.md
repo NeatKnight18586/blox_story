@@ -93,6 +93,17 @@ frame mean luma 0.24–0.42 · mean luma inside each hero actor's box ≥ 0.40 �
 3. Keep lamp pools small and the plaza darker away from them, so the cast is brighter than the ground around them.
 If the medium shots still fail after one pass, stop and report the numbers. Do not loosen.
 
+**Decision 2 (owner, 2026-11-14, after Decision 1 still failed on the mediums):**
+1. Measure the character, not a box: render a silhouette mask of each hero (actor-only pass, same camera). Actor luma =
+   mean over the mask pixels. Ring = a band 6–14 px outside the mask at 390 px width. Same limits: actor ≥ 0.40,
+   actor − ring ≥ 0.12, frame 0.24–0.42. Pure helpers + a unit test on a synthetic image.
+2. Apply both routes: one spotlight per hero in medium/close night shots (narrow cone, soft edge, aimed from the camera
+   side, lights only the cast's layer; stay within the 4 real lights), and a darker night ground (grass, cobbles and walls
+   away from lamp pools drop to about 60 % of their current brightness; sky and moon unchanged).
+3. Bring the frame mean back down to 0.24–0.42.
+One pass. Then, pass or fail, commit `review/season1/night-egg-390.png` (the three views side by side at 390 px, numbers
+printed under each) and continue Session 8b. If it still fails, mark §E "owner review" in `PROGRESS.md` and do not stop.
+
 ## F. Framing: the subject fills the phone
 Pure function in `engine/camera.js` + tests, and a `fit: {actor, height}` option on `heroLow`, `snap`, `push`, `orbit`
 that sets the distance so the actor's on-screen height hits the target.
