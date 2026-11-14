@@ -10,9 +10,9 @@
    "size": "wide",
    "move": "drone",
    "loc": "town",
-   "speed": 25,
+   "speed": 18,
    "subject": "",
-   "why": "Frame 0: the base town at night, every base glowing its egg colour, kids sprinting between them."
+   "why": "Frame 0: low drone toward the moon; runners with glowing eggs cross the lens, the beams behind; the dragon crosses the moon; Kit stands still, empty-handed."
   },
   {
    "id": "S02-kit",
@@ -22,52 +22,64 @@
    "size": "close",
    "move": "snap",
    "loc": "town",
-   "speed": 187,
+   "speed": 203,
    "subject": "kit@50,35",
-   "why": "The hero, empty-handed, watching the thieves: face by 5 s."
+   "why": "The hero, still and empty-handed while the thieves run: face by 5 s."
   },
   {
    "id": "S03-clock",
-   "beat": false,
+   "beat": true,
    "t": 4,
-   "dur": 2.23,
+   "dur": 1.13,
    "size": "insert",
    "move": "push",
    "loc": "town",
-   "speed": 15,
+   "speed": 29,
    "subject": "",
-   "why": "The rule as one picture: the clock at 11:59."
+   "why": "Never hold one: the clock at 11:59 (insert ≤ 1.2 s)."
+  },
+  {
+   "id": "S03b-toss",
+   "beat": true,
+   "t": 5.13,
+   "dur": 1.1,
+   "size": "medium",
+   "move": "push",
+   "loc": "town",
+   "speed": 5,
+   "subject": "",
+   "why": "At midnight: a kid flings away a red-pulsing egg like it burns."
   },
   {
    "id": "S04-ember",
    "beat": false,
    "t": 6.23,
    "dur": 1.37,
-   "size": "medium",
+   "size": "wide",
    "move": "push",
    "loc": "town",
-   "speed": 4,
+   "speed": 9,
    "subject": "",
-   "why": "Every kid has a base: the Ember base, its egg glowing in the nest."
+   "why": "Every kid has a base: the Ember base and its kid guarding the nest."
   },
   {
    "id": "S05-frost",
    "beat": false,
    "t": 7.6,
    "dur": 1.53,
-   "size": "wide",
+   "size": "close",
    "move": "push",
    "loc": "town",
-   "speed": 7,
+   "speed": 9,
    "subject": "",
-   "why": "Every base has a nest: the Frost base."
+   "why": "Every base has a nest: a kid leans over the Frost nest, the egg glowing."
   },
   {
    "id": "S06-run",
    "beat": false,
    "t": 9.13,
    "dur": 1.33,
-   "size": "medium",
+   "size": "wide",
    "move": "gamecam",
    "loc": "town",
    "speed": 0,
@@ -79,48 +91,48 @@
    "beat": false,
    "t": 10.47,
    "dur": 1.73,
-   "size": "insert",
+   "size": "medium",
    "move": "push",
    "loc": "town",
-   "speed": 2,
+   "speed": 5,
    "subject": "",
-   "why": "Lock your door: the ring on the pad fills like a timer (no numbers)."
+   "why": "Lock your door for sixty seconds: a kid dives through the door, slams it, the lock ring fills round the frame."
   },
   {
    "id": "S08-steal",
    "beat": false,
    "t": 12.2,
    "dur": 1.93,
-   "size": "medium",
+   "size": "wide",
    "move": "push",
    "loc": "town",
-   "speed": 0,
-   "subject": "lead@50,51",
+   "speed": 8,
+   "subject": "",
    "why": "Somebody steals it right back: the Moss egg lifted from its nest."
   },
   {
-   "id": "S09-hall",
+   "id": "S09-board",
    "beat": false,
    "t": 14.13,
    "dur": 1.77,
-   "size": "wide",
+   "size": "medium",
    "move": "tiltUp",
    "loc": "town",
-   "speed": 22,
+   "speed": 18,
    "subject": "",
-   "why": "The town hall: a scoreboard on its front."
+   "why": "There is a scoreboard on the town hall: a kid lifts an egg through a window; tilt up to DAX 200 on top."
   },
   {
-   "id": "S10-board",
+   "id": "S10-wins",
    "beat": false,
    "t": 15.9,
    "dur": 1.43,
-   "size": "insert",
+   "size": "wide",
    "move": "push",
    "loc": "town",
-   "speed": 1,
+   "speed": 6,
    "subject": "",
-   "why": "Most eggs wins: DAX 200 on top, KIT 0 at the bottom."
+   "why": "Most eggs wins: Dax sprints across the square, arms full, kids chasing."
   },
   {
    "id": "S11-grandma",
@@ -131,8 +143,8 @@
    "move": "push",
    "loc": "town",
    "speed": 0,
-   "subject": "grandma@50,49",
-   "why": "Grandmas play (laugh 1 builds)."
+   "subject": "grandma@78,19",
+   "why": "Grandmas play: a grandma sprints with an egg."
   },
   {
    "id": "S12-mailman",
@@ -143,8 +155,8 @@
    "move": "push",
    "loc": "town",
    "speed": 0,
-   "subject": "mailman@50,30",
-   "why": "Mailmen play."
+   "subject": "mailman@50,36",
+   "why": "Mailmen play: the mailman pulls eggs out of his mailbag."
   },
   {
    "id": "S13-mayor",
@@ -155,95 +167,155 @@
    "move": "push",
    "loc": "town",
    "speed": 0,
-   "subject": "mayor@50,48",
-   "why": "The mayor plays in a ski mask, top hat on top (laugh 1)."
+   "subject": "mayor@50,40",
+   "why": "The mayor plays in a ski mask, top hat on top: both read (laugh 1)."
   },
   {
-   "id": "S14-potato",
+   "id": "S14a-minute",
    "beat": false,
    "t": 21.13,
-   "dur": 3.4,
-   "size": "wide",
-   "move": "crane",
-   "loc": "town",
-   "speed": 24,
-   "subject": "",
-   "why": "One minute to midnight: eggs fly hand to hand; claw marks on the clock-tower roof (clue 2)."
-  },
-  {
-   "id": "S15-gone",
-   "beat": false,
-   "t": 24.53,
-   "dur": 3.8,
+   "dur": 1.33,
    "size": "close",
    "move": "push",
    "loc": "town",
    "speed": 0,
-   "subject": "lead@50,35",
-   "why": "Whoever holds one at midnight is gone by morning: a kid stares at his egg."
+   "subject": "r5@50,35",
+   "why": "One minute to midnight: a kid stares at the egg in her hands."
+  },
+  {
+   "id": "S14-potato",
+   "beat": false,
+   "t": 22.47,
+   "dur": 2.07,
+   "size": "wide",
+   "move": "crane",
+   "loc": "town",
+   "speed": 14,
+   "subject": "",
+   "why": "The whole town plays hot potato: crane over the square, eggs flying hand to hand (looking south: no clock)."
+  },
+  {
+   "id": "S15a-claws",
+   "beat": false,
+   "t": 24.53,
+   "dur": 1.93,
+   "size": "insert",
+   "move": "push",
+   "loc": "town",
+   "speed": 15,
+   "subject": "",
+   "why": "Clue 2: claw marks gouged into the clock tower, moonlit."
+  },
+  {
+   "id": "S15b-dawn",
+   "beat": false,
+   "t": 26.47,
+   "dur": 1.87,
+   "size": "wide",
+   "move": "push",
+   "loc": "town",
+   "speed": 2,
+   "subject": "",
+   "why": "Gone by morning: an empty base at dawn, one cold egg in the nest."
   },
   {
    "id": "S16-kit",
    "beat": false,
    "t": 28.33,
-   "dur": 4.53,
+   "dur": 2.27,
    "size": "medium",
    "move": "push",
    "loc": "town",
    "speed": 0,
    "subject": "kit@50,51",
-   "why": "Then there is Kit: eleven, never stolen anything; her base is a mat."
+   "why": "Then there is Kit, eleven: her base is a mat."
   },
   {
-   "id": "S17-return",
+   "id": "S16b-never",
    "beat": false,
-   "t": 32.87,
-   "dur": 2.13,
+   "t": 30.6,
+   "dur": 2.27,
    "size": "wide",
    "move": "push",
    "loc": "town",
-   "speed": 7,
-   "subject": "kit@42,44",
-   "why": "She found an egg once. She returned it: Kit sets the Geode egg back in its nest."
+   "speed": 9,
+   "subject": "",
+   "why": "Kit has never stolen anything: she walks right past a glowing egg."
   },
   {
-   "id": "S18-note",
+   "id": "S17-found",
    "beat": false,
-   "t": 35,
+   "t": 32.87,
    "dur": 1.27,
+   "size": "medium",
+   "move": "push",
+   "loc": "town",
+   "speed": 0,
+   "subject": "kit@67,50",
+   "why": "She found an egg once: Kit picks the Geode egg out of the grass."
+  },
+  {
+   "id": "S17r-return",
+   "beat": false,
+   "t": 34.13,
+   "dur": 2.13,
+   "size": "close",
+   "move": "push",
+   "loc": "town",
+   "speed": 27,
+   "subject": "",
+   "why": "She returned it, with a sorry note: the egg back in its nest, then the folded note."
+  },
+  {
+   "id": "S18-zero",
+   "beat": false,
+   "t": 36.27,
+   "dur": 1.47,
    "size": "insert",
    "move": "push",
    "loc": "town",
-   "speed": 7,
+   "speed": 13,
    "subject": "",
-   "why": "With a sorry note: the folded note reads SORRY."
+   "why": "Her score is zero: KIT 0 at the bottom of the scoreboard."
   },
   {
-   "id": "S19-zero",
+   "id": "S19-vault",
    "beat": false,
-   "t": 36.27,
-   "dur": 3.27,
-   "size": "wide",
-   "move": "tiltUp",
+   "t": 37.73,
+   "dur": 1.8,
+   "size": "medium",
+   "move": "push",
    "loc": "town",
-   "speed": 31,
+   "speed": 0,
    "subject": "",
-   "why": "Her score is zero: Dax vaults a fence, the scoreboard behind."
+   "why": "It has always been zero: Dax vaults the fence side-on, mid-air, four eggs in his arms."
   },
   {
    "id": "S20-dax",
    "beat": false,
    "t": 39.53,
-   "dur": 3.4,
-   "size": "medium",
-   "move": "track",
+   "dur": 1.9,
+   "size": "wide",
+   "move": "push",
    "loc": "town",
-   "speed": 27,
-   "subject": "dax@50,30",
-   "why": "Her big brother Dax, number one, arms full of eggs."
+   "speed": 5,
+   "subject": "",
+   "why": "Her big brother Dax is number one: kids gather round him on the square."
   },
   {
-   "id": "S21-slow",
+   "id": "S20b-eggs",
+   "beat": false,
+   "t": 41.43,
+   "dur": 1.5,
+   "size": "medium",
+   "move": "push",
+   "loc": "town",
+   "speed": 0,
+   "subject": "dax@50,44",
+   "why": "Two hundred eggs: Dax, arms piled high."
+  },
+  {
+   "id": "S21-laugh",
    "beat": false,
    "t": 42.93,
    "dur": 2.2,
@@ -251,8 +323,8 @@
    "move": "push",
    "loc": "town",
    "speed": 0,
-   "subject": "kit@50,35",
-   "why": "He calls her the slowest thief alive."
+   "subject": "dax@50,35",
+   "why": "He calls her the slowest thief alive: Dax laughs."
   },
   {
    "id": "S22-queue",
@@ -264,7 +336,7 @@
    "loc": "town",
    "speed": 0,
    "subject": "kit@50,50",
-   "why": "She just keeps saying excuse me: Kit waits politely behind a queue of thieves."
+   "why": "She just keeps saying excuse me: Kit at the back of a queue, kids cutting in front, Kit polite."
   },
   {
    "id": "S23-notice",
@@ -276,19 +348,31 @@
    "loc": "town",
    "speed": 0,
    "subject": "kit@50,35",
-   "why": "But Kit notices things: she looks up."
+   "why": "But Kit notices things; running kids do not: runners blur past behind her."
   },
   {
-   "id": "S24-sky",
+   "id": "S24-roofs",
    "beat": false,
    "t": 51.33,
-   "dur": 3.53,
+   "dur": 1.57,
    "size": "wide",
    "move": "push",
    "loc": "town",
-   "speed": 2,
+   "speed": 6,
    "subject": "",
-   "why": "Nests everywhere, an empty sky; the hall weathervane is a dragon (clue 1); AFK frozen by a wall (cameo 1)."
+   "why": "The town is full of eggs: nests on the rooftops under an empty starry sky; AFK frozen by a wall (cameo 1)."
+  },
+  {
+   "id": "S24b-vane",
+   "beat": false,
+   "t": 52.9,
+   "dur": 1.97,
+   "size": "medium",
+   "move": "push",
+   "loc": "town",
+   "speed": 5,
+   "subject": "",
+   "why": "Nobody has ever seen a bird: Kit looks up at the dragon weathervane against the stars (clue 1)."
   },
   {
    "id": "S25-cold",
@@ -303,16 +387,28 @@
    "why": "The eggs are cold, always cold: the Plain egg in Kit's still hands (clue 3, spoken)."
   },
   {
-   "id": "S26-warm",
+   "id": "S26-still",
    "beat": false,
    "t": 57.33,
-   "dur": 3.07,
+   "dur": 1.8,
+   "size": "medium",
+   "move": "push",
+   "loc": "town",
+   "speed": 0,
+   "subject": "kit@50,48",
+   "why": "Unless you stand very still: Kit, curious, does not move; runners blur past behind her."
+  },
+  {
+   "id": "S26b-warm",
+   "beat": false,
+   "t": 59.13,
+   "dur": 1.27,
    "size": "close",
    "move": "push",
    "loc": "town",
    "speed": 0,
    "subject": "kit@50,34",
-   "why": "Unless you stand very still: the egg warms from blue to gold and lights her face."
+   "why": "Then they get warm: the egg goes cold blue to gold and lights her face."
   },
   {
    "id": "S27-still",
@@ -330,25 +426,49 @@
    "id": "S28-greedy",
    "beat": false,
    "t": 63.03,
-   "dur": 4.63,
+   "dur": 1.97,
    "size": "medium",
    "move": "track",
    "loc": "town",
-   "speed": 22,
-   "subject": "dax@50,37",
-   "why": "One night, Dax got greedy: one more egg, arms full, the clock behind him."
+   "speed": 21,
+   "subject": "dax@33,28",
+   "why": "One night, Dax got greedy: tracking him running, arms full, grinning."
   },
   {
-   "id": "S29-twelve",
+   "id": "S28b-more",
+   "beat": false,
+   "t": 65,
+   "dur": 1.43,
+   "size": "close",
+   "move": "push",
+   "loc": "town",
+   "speed": 0,
+   "subject": "dax@50,35",
+   "why": "One more egg, just one more: Dax grins, reaching."
+  },
+  {
+   "id": "S29-clock",
+   "beat": false,
+   "t": 66.43,
+   "dur": 1.23,
+   "size": "insert",
+   "move": "push",
+   "loc": "town",
+   "speed": 11,
+   "subject": "",
+   "why": "The clock: 11:59, the hand clicks to twelve (insert ≤ 1.3 s)."
+  },
+  {
+   "id": "S29b-shadow",
    "beat": false,
    "t": 67.67,
    "dur": 3.33,
-   "size": "insert",
+   "size": "medium",
    "move": "heroLow",
    "loc": "town",
-   "speed": 8,
+   "speed": 7,
    "subject": "",
-   "why": "The clock struck twelve; a shadow covers the moon (he is never shown taken)."
+   "why": "The clock struck twelve; a shadow sweeps across the houses and cobbles, covering the moon (Dax never shown taken)."
   },
   {
    "id": "S30-bed",
@@ -358,33 +478,57 @@
    "size": "wide",
    "move": "push",
    "loc": "bedroom",
-   "speed": 3,
+   "speed": 6,
    "subject": "",
-   "why": "In the morning, his bed was empty."
+   "why": "In the morning his bed was empty: Kit beside it."
   },
   {
    "id": "S31-feather",
    "beat": false,
    "t": 73,
-   "dur": 3.33,
+   "dur": 1.93,
    "size": "insert",
    "move": "push",
    "loc": "bedroom",
-   "speed": 3,
+   "speed": 1,
    "subject": "",
-   "why": "One feather on his pillow, bigger than Kit."
+   "why": "One feather on his pillow: soft, gold-orange, Kit's hand beside it."
+  },
+  {
+   "id": "S31b-bigger",
+   "beat": false,
+   "t": 74.93,
+   "dur": 1.4,
+   "size": "medium",
+   "move": "push",
+   "loc": "bedroom",
+   "speed": 0,
+   "subject": "kit@50,49",
+   "why": "It was bigger than Kit: Kit beside the bed, the feather longer than she is tall."
   },
   {
    "id": "S32-tiptoe",
    "beat": false,
    "t": 76.33,
-   "dur": 4.17,
+   "dur": 2.67,
    "size": "wide",
    "move": "push",
    "loc": "town",
-   "speed": 29,
-   "subject": "kit@56,40",
-   "why": "So that night, Kit did the unthinkable: she tiptoes to the nest nobody wanted."
+   "speed": 10,
+   "subject": "",
+   "why": "So that night Kit did the unthinkable: she tiptoes to the nest nobody wanted."
+  },
+  {
+   "id": "S32b-take",
+   "beat": false,
+   "t": 79,
+   "dur": 1.5,
+   "size": "close",
+   "move": "push",
+   "loc": "town",
+   "speed": 5,
+   "subject": "",
+   "why": "She stole an egg: Kit lifts the Plain egg out of the nest, sheepish."
   },
   {
    "id": "S33-sorry",
@@ -395,8 +539,8 @@
    "move": "push",
    "loc": "town",
    "speed": 0,
-   "subject": "kit@50,51",
-   "why": "She was terrible at it; she apologizes to the nest (small laugh)."
+   "subject": "kit@44,51",
+   "why": "She was terrible at it: she bows to the nest and apologizes (small laugh)."
   },
   {
    "id": "S34-middle",
@@ -411,16 +555,40 @@
    "why": "She walks to the middle of town and stops; the town gathers in a ring."
   },
   {
-   "id": "S35-drop",
+   "id": "S35-minute",
    "beat": false,
    "t": 86.4,
-   "dur": 4.83,
-   "size": "medium",
+   "dur": 1.57,
+   "size": "close",
+   "move": "push",
+   "loc": "town",
+   "speed": 0,
+   "subject": "kit@50,35",
+   "why": "One minute to midnight: Kit, the egg in her hands, determined."
+  },
+  {
+   "id": "S35b-scream",
+   "beat": false,
+   "t": 87.97,
+   "dur": 1.77,
+   "size": "wide",
    "move": "push",
    "loc": "town",
    "speed": 1,
-   "subject": "lead@50,37",
-   "why": "One minute to midnight. Everyone points, mouths open: drop it! (no bubbles)"
+   "subject": "",
+   "why": "The whole town screamed: the ring of faces shouting at her (no bubbles)."
+  },
+  {
+   "id": "S35c-drop",
+   "beat": false,
+   "t": 89.73,
+   "dur": 1.5,
+   "size": "medium",
+   "move": "push",
+   "loc": "town",
+   "speed": 2,
+   "subject": "lead@50,35",
+   "why": "Kit, drop it!: a kid points and shouts."
   },
   {
    "id": "S36-holds",
@@ -435,52 +603,76 @@
    "why": "Kit held on: the egg under her chin lights her face gold. The narration slows."
   },
   {
-   "id": "S37-wings",
+   "id": "S37a-bell",
    "beat": false,
    "t": 95.23,
-   "dur": 3.1,
+   "dur": 1.8,
    "size": "wide",
-   "move": "heroLow",
-   "loc": "town",
-   "speed": 6,
-   "subject": "",
-   "why": "The bell rings twelve; the shadow comes down; wings fill the frame edge to edge."
-  },
-  {
-   "id": "S38-lower",
-   "beat": false,
-   "t": 98.33,
-   "dur": 2.1,
-   "size": "medium",
    "move": "push",
    "loc": "town",
-   "speed": 2,
-   "subject": "",
-   "why": "Its wings are as wide as the street; the mother lowers her head to Kit."
+   "speed": 1,
+   "subject": "kit@50,47",
+   "why": "The bell rang twelve times: the ring freezes, faces up; Kit small in the middle."
   },
   {
-   "id": "S39-dragon",
+   "id": "S37-down",
    "beat": false,
-   "t": 100.43,
-   "dur": 2.23,
+   "t": 97.03,
+   "dur": 1.3,
    "size": "close",
    "move": "push",
    "loc": "town",
    "speed": 0,
-   "subject": "kit@50,35",
-   "why": "It was not a bird. It was a dragon. (the twist: the crowd gasps)"
+   "subject": "kit@50,37",
+   "why": "The shadow came down: Kit looks up in wonder, the shadow crossing her face."
+  },
+  {
+   "id": "S37b-wings",
+   "beat": false,
+   "t": 98.33,
+   "dur": 2.03,
+   "size": "wide",
+   "move": "heroLow",
+   "loc": "town",
+   "speed": 4,
+   "subject": "",
+   "why": "Its wings were as wide as the street: from Kit's spot, her full silhouette against the moon, wings spanning the frame, eyes glowing."
+  },
+  {
+   "id": "S38-bird",
+   "beat": false,
+   "t": 100.37,
+   "dur": 1.27,
+   "size": "close",
+   "move": "push",
+   "loc": "town",
+   "speed": 0,
+   "subject": "kit@50,37",
+   "why": "It was not a bird: Kit's face lit by two glowing eyes."
+  },
+  {
+   "id": "S39-dragon",
+   "beat": false,
+   "t": 101.63,
+   "dur": 2.7,
+   "size": "medium",
+   "move": "push",
+   "loc": "town",
+   "speed": 1,
+   "subject": "",
+   "why": "It was a dragon. Very, very gently: the mother lowers her head to Kit (the twist; Kit in wonder)."
   },
   {
    "id": "S40-lift",
    "beat": false,
-   "t": 102.67,
-   "dur": 3.9,
-   "size": "medium",
-   "move": "tiltUp",
+   "t": 104.33,
+   "dur": 2.23,
+   "size": "close",
+   "move": "push",
    "loc": "town",
-   "speed": 22,
+   "speed": 19,
    "subject": "",
-   "why": "Very, very gently, it lifts Kit into the clouds."
+   "why": "It lifted Kit into the clouds: Kit in the mother's front claws, the town small below."
   },
   {
    "id": "S41-nest",
@@ -490,103 +682,163 @@
    "size": "wide",
    "move": "drone",
    "loc": "nest",
-   "speed": 23,
+   "speed": 33,
    "subject": "",
-   "why": "Money shot: a nest the size of the town, kids with sleeping baby dragons in golden light."
+   "why": "Money shot: drone low over the sunrise clouds onto a woven nest the size of the town, kids and baby dragons in a ring, the mother curled outside."
+  },
+  {
+   "id": "S41b-ring",
+   "beat": false,
+   "t": 109.07,
+   "dur": 1.6,
+   "size": "medium",
+   "move": "push",
+   "loc": "nest",
+   "speed": 4,
+   "subject": "",
+   "why": "Every missing kid was in it: the ring of kids, a baby dragon in every lap."
   },
   {
    "id": "S42-daxnest",
    "beat": false,
-   "t": 109.07,
-   "dur": 2.73,
-   "size": "medium",
-   "move": "snap",
+   "t": 110.67,
+   "dur": 1.2,
+   "size": "close",
+   "move": "push",
    "loc": "nest",
-   "speed": 130,
-   "subject": "dax@50,54",
-   "why": "Every missing kid was in it. Even Dax, a hatchling asleep on his head."
+   "speed": 0,
+   "subject": "dax@50,36",
+   "why": "Even Dax: a hatchling asleep on his head."
   },
   {
    "id": "S43-lap",
    "beat": false,
-   "t": 111.8,
-   "dur": 2.67,
-   "size": "close",
-   "move": "push",
-   "loc": "nest",
-   "speed": 0,
-   "subject": "little@50,32",
-   "why": "Each one had a baby dragon asleep in their lap."
-  },
-  {
-   "id": "S44-still",
-   "beat": false,
-   "t": 114.47,
-   "dur": 3.37,
+   "t": 111.87,
+   "dur": 2.6,
    "size": "medium",
    "move": "push",
    "loc": "nest",
    "speed": 0,
-   "subject": "kit@50,48",
-   "why": "Eggs only hatch if you hold them still through midnight: Kit, still, the egg gold."
+   "subject": "little@50,48",
+   "why": "Each one had a baby dragon asleep in their lap: Little and her frost hatchling."
+  },
+  {
+   "id": "S44a-cold",
+   "beat": false,
+   "t": 114.47,
+   "dur": 3.37,
+   "size": "insert",
+   "move": "push",
+   "loc": "nest",
+   "speed": 0,
+   "subject": "",
+   "why": "Proof match cut (flashback): a cold blue egg flying hand to hand in the town at night…"
+  },
+  {
+   "id": "S44b-gold",
+   "beat": false,
+   "t": 117.83,
+   "dur": 2.57,
+   "size": "close",
+   "move": "push",
+   "loc": "nest",
+   "speed": 3,
+   "subject": "",
+   "why": "…cut to a gold egg in still hands: Kit in the nest, the egg glowing."
   },
   {
    "id": "S45-years",
    "beat": false,
-   "t": 117.83,
-   "dur": 4.6,
+   "t": 120.4,
+   "dur": 2.03,
    "size": "wide",
    "move": "drone",
    "loc": "nest",
-   "speed": 27,
+   "speed": 20,
    "subject": "",
-   "why": "A hundred years of stealing: not one had ever hatched. The camera rises over the nest."
+   "why": "Not one had ever hatched: the camera rises over the ring in the nest."
   },
   {
-   "id": "S46-gold",
+   "id": "S46a-crack",
    "beat": false,
    "t": 122.43,
-   "dur": 3.23,
+   "dur": 1.27,
+   "size": "insert",
+   "move": "push",
+   "loc": "nest",
+   "speed": 11,
+   "subject": "",
+   "why": "Kit's egg cracked: the gold egg splits in her hands."
+  },
+  {
+   "id": "S46b-sneeze",
+   "beat": false,
+   "t": 123.7,
+   "dur": 1.97,
    "size": "close",
    "move": "push",
    "loc": "nest",
    "speed": 0,
-   "subject": "kit@50,35",
-   "why": "Kit's egg cracked: the only gold dragon in the nest sneezes a spark on her (laugh 3)."
+   "subject": "kit@50,34",
+   "why": "A tiny dragon sneezed on her: the only gold dragon; Kit knocked dizzy, then laughing (laugh 3)."
   },
   {
-   "id": "S47-babysitters",
+   "id": "S47a-mother",
    "beat": false,
    "t": 125.67,
-   "dur": 3.23,
-   "size": "medium",
-   "move": "pull",
+   "dur": 1.7,
+   "size": "wide",
+   "move": "push",
    "loc": "nest",
-   "speed": 5,
+   "speed": 2,
    "subject": "",
-   "why": "She was never taking thieves. She was taking babysitters: the mother curled around them all."
+   "why": "The mother was not taking thieves: she lies curled round the outside of the nest."
+  },
+  {
+   "id": "S47b-sitters",
+   "beat": false,
+   "t": 127.37,
+   "dur": 1.53,
+   "size": "medium",
+   "move": "push",
+   "loc": "nest",
+   "speed": 3,
+   "subject": "",
+   "why": "She was taking babysitters: kids with sleeping babies, her head resting on the rim behind them."
   },
   {
    "id": "S48-sunrise",
    "beat": false,
    "t": 128.9,
-   "dur": 3.23,
+   "dur": 2,
    "size": "wide",
    "move": "crane",
    "loc": "town",
-   "speed": 9,
+   "speed": 0,
    "subject": "",
-   "why": "Dax came home the next morning, on a dragon: dragons land in the square at sunrise."
+   "why": "Dax came home the next morning: dragons fly in over the square at sunrise."
+  },
+  {
+   "id": "S48b-ride",
+   "beat": false,
+   "t": 130.9,
+   "dur": 1.3,
+   "size": "medium",
+   "move": "track",
+   "loc": "town",
+   "speed": 10,
+   "subject": "dax@50,33",
+   "why": "On a dragon: Dax rides on the mother's back, cheering."
   },
   {
    "id": "S49-bench",
    "beat": false,
-   "t": 132.13,
-   "dur": 2.4,
-   "size": "medium",
+   "t": 132.2,
+   "dur": 2.33,
+   "size": "wide",
    "move": "push",
    "loc": "town",
-   "speed": 2,
+   "speed": 1,
    "subject": "",
    "why": "That night nobody played hot potato: an egg left on a bench; AFK, still frozen, a hatchling asleep on his head (cameo 2)."
   },
@@ -594,67 +846,85 @@
    "id": "S50-hatched",
    "beat": false,
    "t": 134.53,
-   "dur": 4.33,
-   "size": "insert",
+   "dur": 1.77,
+   "size": "medium",
+   "move": "push",
+   "loc": "town",
+   "speed": 2,
+   "subject": "",
+   "why": "The scoreboard got a new word: over Kit's shoulder it flips to HATCHED."
+  },
+  {
+   "id": "S50b-one",
+   "beat": false,
+   "t": 136.3,
+   "dur": 2.57,
+   "size": "close",
    "move": "push",
    "loc": "town",
    "speed": 0,
-   "subject": "",
-   "why": "The scoreboard got a new word: HATCHED. Kit is number one."
+   "subject": "kit@50,41",
+   "why": "Hatched. Kit is number one: Kit laughing, the gold dragon on her head."
+  },
+  {
+   "id": "S51a-sit",
+   "beat": false,
+   "t": 138.87,
+   "dur": 2.37,
+   "size": "medium",
+   "move": "push",
+   "loc": "town",
+   "speed": 0,
+   "subject": "kit@50,54",
+   "why": "In this town everybody steals eggs: now the kids sit still, gold eggs glowing in their laps."
   },
   {
    "id": "S51-rhyme",
    "beat": false,
-   "t": 138.87,
-   "dur": 7.17,
+   "t": 141.23,
+   "dur": 4.8,
    "size": "wide",
    "move": "drone",
    "loc": "town",
-   "speed": 9,
+   "speed": 10,
    "subject": "",
-   "why": "The first line again, flipped: the same drone, the town sitting still, eggs glowing gold in every lap."
+   "why": "And at midnight everybody holds on: the same drone path, the whole town sitting still on the square, gold eggs in every lap."
   }
  ],
- "meanShot": 2.81,
+ "meanShot": 1.94,
  "end": 146.03,
  "gamecam": 1,
- "wides": 16,
+ "wides": 23,
  "season": true,
  "framing": [
   {
    "shot": "S02-kit",
    "part": "head",
-   "frac": 0.482,
+   "frac": 0.483,
    "need": 0.45
-  },
-  {
-   "shot": "S08-steal",
-   "part": "full",
-   "frac": 0.348,
-   "need": 0.3
   },
   {
    "shot": "S11-grandma",
    "part": "full",
-   "frac": 0.372,
+   "frac": 0.822,
    "need": 0.3
   },
   {
    "shot": "S12-mailman",
-   "part": "head",
-   "frac": 0.516,
+   "part": "full",
+   "frac": 0.529,
    "need": 0.45
   },
   {
    "shot": "S13-mayor",
    "part": "full",
-   "frac": 0.392,
+   "frac": 0.451,
    "need": 0.3
   },
   {
-   "shot": "S15-gone",
+   "shot": "S14a-minute",
    "part": "head",
-   "frac": 0.496,
+   "frac": 0.495,
    "need": 0.45
   },
   {
@@ -664,13 +934,19 @@
    "need": 0.3
   },
   {
-   "shot": "S20-dax",
+   "shot": "S17-found",
    "part": "full",
-   "frac": 0.834,
+   "frac": 0.409,
    "need": 0.3
   },
   {
-   "shot": "S21-slow",
+   "shot": "S20b-eggs",
+   "part": "full",
+   "frac": 0.433,
+   "need": 0.3
+  },
+  {
+   "shot": "S21-laugh",
    "part": "head",
    "frac": 0.497,
    "need": 0.45
@@ -688,7 +964,13 @@
    "need": 0.45
   },
   {
-   "shot": "S26-warm",
+   "shot": "S26-still",
+   "part": "full",
+   "frac": 0.392,
+   "need": 0.3
+  },
+  {
+   "shot": "S26b-warm",
    "part": "head",
    "frac": 0.517,
    "need": 0.45
@@ -696,7 +978,19 @@
   {
    "shot": "S28-greedy",
    "part": "full",
-   "frac": 0.874,
+   "frac": 0.846,
+   "need": 0.3
+  },
+  {
+   "shot": "S28b-more",
+   "part": "head",
+   "frac": 0.496,
+   "need": 0.45
+  },
+  {
+   "shot": "S31b-bigger",
+   "part": "full",
+   "frac": 0.35,
    "need": 0.3
   },
   {
@@ -706,9 +1000,15 @@
    "need": 0.3
   },
   {
-   "shot": "S35-drop",
+   "shot": "S35-minute",
+   "part": "head",
+   "frac": 0.496,
+   "need": 0.45
+  },
+  {
+   "shot": "S35c-drop",
    "part": "full",
-   "frac": 0.529,
+   "frac": 0.786,
    "need": 0.3
   },
   {
@@ -718,7 +1018,13 @@
    "need": 0.45
   },
   {
-   "shot": "S39-dragon",
+   "shot": "S37-down",
+   "part": "head",
+   "frac": 0.489,
+   "need": 0.45
+  },
+  {
+   "shot": "S38-bird",
    "part": "head",
    "frac": 0.496,
    "need": 0.45
@@ -726,26 +1032,38 @@
   {
    "shot": "S42-daxnest",
    "part": "full",
-   "frac": 0.346,
-   "need": 0.3
+   "frac": 0.802,
+   "need": 0.45
   },
   {
    "shot": "S43-lap",
-   "part": "head",
-   "frac": 0.514,
-   "need": 0.45
-  },
-  {
-   "shot": "S44-still",
    "part": "full",
-   "frac": 0.369,
+   "frac": 0.7,
    "need": 0.3
   },
   {
-   "shot": "S46-gold",
-   "part": "head",
-   "frac": 0.49,
+   "shot": "S46b-sneeze",
+   "part": "full",
+   "frac": 0.753,
    "need": 0.45
+  },
+  {
+   "shot": "S48b-ride",
+   "part": "full",
+   "frac": 0.438,
+   "need": 0.3
+  },
+  {
+   "shot": "S50b-one",
+   "part": "head",
+   "frac": 0.473,
+   "need": 0.45
+  },
+  {
+   "shot": "S51a-sit",
+   "part": "full",
+   "frac": 0.542,
+   "need": 0.3
   }
  ],
  "uiItems": 0,
@@ -753,152 +1071,184 @@
   {
    "shot": "S01-town",
    "size": "wide",
-   "max": 0.282,
-   "kind": "geode",
+   "max": 0.5431,
+   "kind": "ember",
    "need": 0.02,
-   "n": 6
+   "n": 14
+  },
+  {
+   "shot": "S02-kit",
+   "size": "close",
+   "max": 0.177,
+   "kind": "storm",
+   "need": 0.05,
+   "n": 2
+  },
+  {
+   "shot": "S03b-toss",
+   "size": "medium",
+   "max": 0.2551,
+   "kind": "ember",
+   "need": 0.05,
+   "n": 2
   },
   {
    "shot": "S04-ember",
-   "size": "medium",
-   "max": 0.3263,
+   "size": "wide",
+   "max": 1,
    "kind": "ember",
-   "need": 0.05,
+   "need": 0.02,
    "n": 1
   },
   {
    "shot": "S05-frost",
-   "size": "wide",
-   "max": 1,
+   "size": "close",
+   "max": 0.4738,
    "kind": "frost",
-   "need": 0.02,
-   "n": 1
-  },
-  {
-   "shot": "S06-run",
-   "size": "medium",
-   "max": 0.1394,
-   "kind": "ember",
    "need": 0.05,
    "n": 1
   },
   {
+   "shot": "S06-run",
+   "size": "wide",
+   "max": 1,
+   "kind": "sprinkle",
+   "need": 0.02,
+   "n": 9
+  },
+  {
    "shot": "S07-lock",
-   "size": "insert",
-   "max": 0.2401,
+   "size": "medium",
+   "max": 0.28,
    "kind": "frost",
    "need": 0.05,
    "n": 1
   },
   {
    "shot": "S08-steal",
-   "size": "medium",
-   "max": 0.141,
-   "kind": "moss",
-   "need": 0.05,
-   "n": 2
-  },
-  {
-   "shot": "S09-hall",
    "size": "wide",
-   "max": 0.598,
-   "kind": "storm",
+   "max": 1,
+   "kind": "moss",
    "need": 0.02,
    "n": 1
+  },
+  {
+   "shot": "S09-board",
+   "size": "medium",
+   "max": 0.0707,
+   "kind": "moss",
+   "need": 0.05,
+   "n": 1
+  },
+  {
+   "shot": "S10-wins",
+   "size": "wide",
+   "max": 0.3705,
+   "kind": "cosmic",
+   "need": 0.02,
+   "n": 5
   },
   {
    "shot": "S11-grandma",
    "size": "medium",
-   "max": 0.1285,
+   "max": 0.2972,
    "kind": "sprinkle",
    "need": 0.05,
-   "n": 3
+   "n": 1
   },
   {
    "shot": "S12-mailman",
    "size": "close",
-   "max": 0.5753,
+   "max": 0.1348,
    "kind": "frost",
    "need": 0.05,
-   "n": 1
+   "n": 4
   },
   {
    "shot": "S13-mayor",
    "size": "medium",
-   "max": 0.1712,
-   "kind": "sprinkle",
-   "need": 0.05,
-   "n": 3
-  },
-  {
-   "shot": "S14-potato",
-   "size": "wide",
-   "max": 0.305,
+   "max": 0.168,
    "kind": "cosmic",
-   "need": 0.02,
-   "n": 7
-  },
-  {
-   "shot": "S15-gone",
-   "size": "close",
-   "max": 0.5331,
-   "kind": "frost",
-   "need": 0.05,
-   "n": 3
-  },
-  {
-   "shot": "S16-kit",
-   "size": "medium",
-   "max": 0.1633,
-   "kind": "sprinkle",
-   "need": 0.05,
-   "n": 2
-  },
-  {
-   "shot": "S17-return",
-   "size": "wide",
-   "max": 1,
-   "kind": "geode",
-   "need": 0.02,
-   "n": 2
-  },
-  {
-   "shot": "S19-zero",
-   "size": "wide",
-   "max": 0.3981,
-   "kind": "sprinkle",
-   "need": 0.02,
-   "n": 3
-  },
-  {
-   "shot": "S20-dax",
-   "size": "medium",
-   "max": 0.315,
-   "kind": "storm",
    "need": 0.05,
    "n": 1
   },
   {
-   "shot": "S22-queue",
-   "size": "medium",
-   "max": 0.0895,
+   "shot": "S14a-minute",
+   "size": "close",
+   "max": 0.5542,
    "kind": "ember",
    "need": 0.05,
    "n": 1
   },
   {
-   "shot": "S23-notice",
-   "size": "close",
-   "max": 0.2034,
-   "kind": "storm",
+   "shot": "S14-potato",
+   "size": "wide",
+   "max": 0.4883,
+   "kind": "sprinkle",
+   "need": 0.02,
+   "n": 5
+  },
+  {
+   "shot": "S15b-dawn",
+   "size": "wide",
+   "max": 0.1748,
+   "kind": "plain",
+   "need": 0.02,
+   "n": 1
+  },
+  {
+   "shot": "S16b-never",
+   "size": "wide",
+   "max": 1,
+   "kind": "sprinkle",
+   "need": 0.02,
+   "n": 1
+  },
+  {
+   "shot": "S17-found",
+   "size": "medium",
+   "max": 0.1979,
+   "kind": "geode",
    "need": 0.05,
    "n": 1
   },
   {
-   "shot": "S24-sky",
+   "shot": "S17r-return",
+   "size": "close",
+   "max": 0.4533,
+   "kind": "geode",
+   "need": 0.05,
+   "n": 1
+  },
+  {
+   "shot": "S20-dax",
    "size": "wide",
-   "max": 0.5602,
+   "max": 0.1473,
    "kind": "storm",
+   "need": 0.02,
+   "n": 5
+  },
+  {
+   "shot": "S20b-eggs",
+   "size": "medium",
+   "max": 0.1155,
+   "kind": "storm",
+   "need": 0.05,
+   "n": 4
+  },
+  {
+   "shot": "S21-laugh",
+   "size": "close",
+   "max": 0.4483,
+   "kind": "frost",
+   "need": 0.05,
+   "n": 4
+  },
+  {
+   "shot": "S24-roofs",
+   "size": "wide",
+   "max": 0.7118,
+   "kind": "geode",
    "need": 0.02,
    "n": 1
   },
@@ -908,15 +1258,23 @@
    "max": 0.7236,
    "kind": "plain",
    "need": 0.05,
-   "n": 2
+   "n": 1
   },
   {
-   "shot": "S26-warm",
+   "shot": "S26-still",
+   "size": "medium",
+   "max": 0.1302,
+   "kind": "plain",
+   "need": 0.05,
+   "n": 5
+  },
+  {
+   "shot": "S26b-warm",
    "size": "close",
    "max": 0.5379,
    "kind": "plain",
    "need": 0.05,
-   "n": 2
+   "n": 1
   },
   {
    "shot": "S27-still",
@@ -924,44 +1282,60 @@
    "max": 0.3772,
    "kind": "geode",
    "need": 0.02,
-   "n": 3
+   "n": 8
   },
   {
    "shot": "S28-greedy",
    "size": "medium",
-   "max": 0.3079,
+   "max": 0.2459,
    "kind": "storm",
    "need": 0.05,
-   "n": 1
+   "n": 5
   },
   {
-   "shot": "S29-twelve",
-   "size": "insert",
-   "max": 0.1178,
-   "kind": "storm",
+   "shot": "S28b-more",
+   "size": "close",
+   "max": 0.4341,
+   "kind": "frost",
    "need": 0.05,
-   "n": 1
+   "n": 4
+  },
+  {
+   "shot": "S29b-shadow",
+   "size": "medium",
+   "max": 0.09,
+   "kind": "moss",
+   "need": 0.05,
+   "n": 4
   },
   {
    "shot": "S30-bed",
    "size": "wide",
-   "max": 0.1316,
-   "kind": "moss",
+   "max": 0.1333,
+   "kind": "frost",
    "need": 0.02,
-   "n": 3
+   "n": 12
   },
   {
    "shot": "S32-tiptoe",
    "size": "wide",
-   "max": 0.5643,
+   "max": 0.5551,
    "kind": "tide",
    "need": 0.02,
-   "n": 2
+   "n": 3
+  },
+  {
+   "shot": "S32b-take",
+   "size": "close",
+   "max": 0.555,
+   "kind": "plain",
+   "need": 0.05,
+   "n": 1
   },
   {
    "shot": "S33-sorry",
    "size": "medium",
-   "max": 0.1248,
+   "max": 0.1398,
    "kind": "plain",
    "need": 0.05,
    "n": 1
@@ -972,7 +1346,23 @@
    "max": 0.3834,
    "kind": "geode",
    "need": 0.02,
-   "n": 3
+   "n": 4
+  },
+  {
+   "shot": "S35-minute",
+   "size": "close",
+   "max": 0.5117,
+   "kind": "plain",
+   "need": 0.05,
+   "n": 1
+  },
+  {
+   "shot": "S35b-scream",
+   "size": "wide",
+   "max": 0.5548,
+   "kind": "cosmic",
+   "need": 0.02,
+   "n": 2
   },
   {
    "shot": "S36-holds",
@@ -983,33 +1373,49 @@
    "n": 1
   },
   {
-   "shot": "S37-wings",
+   "shot": "S37a-bell",
    "size": "wide",
-   "max": 0.2984,
+   "max": 0.4758,
    "kind": "cosmic",
    "need": 0.02,
    "n": 3
   },
   {
-   "shot": "S38-lower",
-   "size": "medium",
-   "max": 0.1355,
+   "shot": "S37-down",
+   "size": "close",
+   "max": 0.3862,
+   "kind": "plain",
+   "need": 0.05,
+   "n": 1
+  },
+  {
+   "shot": "S37b-wings",
+   "size": "wide",
+   "max": 0.3736,
+   "kind": "moss",
+   "need": 0.02,
+   "n": 1
+  },
+  {
+   "shot": "S38-bird",
+   "size": "close",
+   "max": 0.3797,
    "kind": "plain",
    "need": 0.05,
    "n": 1
   },
   {
    "shot": "S39-dragon",
-   "size": "close",
-   "max": 0.4901,
+   "size": "medium",
+   "max": 0.0561,
    "kind": "plain",
    "need": 0.05,
    "n": 1
   },
   {
    "shot": "S40-lift",
-   "size": "medium",
-   "max": 0.1147,
+   "size": "close",
+   "max": 0.123,
    "kind": "plain",
    "need": 0.05,
    "n": 1
@@ -1017,15 +1423,31 @@
   {
    "shot": "S41-nest",
    "size": "wide",
-   "max": 0.043,
+   "max": 0.0469,
    "kind": "plain",
    "need": 0.02,
    "n": 1
   },
   {
-   "shot": "S44-still",
+   "shot": "S41b-ring",
    "size": "medium",
-   "max": 0.1331,
+   "max": 0.0835,
+   "kind": "plain",
+   "need": 0.05,
+   "n": 1
+  },
+  {
+   "shot": "S44a-cold",
+   "size": "insert",
+   "max": 0.391,
+   "kind": "plain",
+   "need": 0.05,
+   "n": 4
+  },
+  {
+   "shot": "S44b-gold",
+   "size": "close",
+   "max": 0.6539,
    "kind": "plain",
    "need": 0.05,
    "n": 1
@@ -1033,55 +1455,474 @@
   {
    "shot": "S45-years",
    "size": "wide",
-   "max": 0.0902,
+   "max": 0.0538,
    "kind": "plain",
    "need": 0.02,
    "n": 1
   },
   {
-   "shot": "S48-sunrise",
-   "size": "wide",
-   "max": 0.3082,
-   "kind": "storm",
-   "need": 0.02,
-   "n": 3
-  },
-  {
-   "shot": "S49-bench",
-   "size": "medium",
-   "max": 0.4631,
-   "kind": "tide",
+   "shot": "S46a-crack",
+   "size": "insert",
+   "max": 0.8664,
+   "kind": "plain",
    "need": 0.05,
    "n": 1
   },
   {
-   "shot": "S51-rhyme",
+   "shot": "S48-sunrise",
    "size": "wide",
-   "max": 0.2812,
-   "kind": "geode",
+   "max": 0.4242,
+   "kind": "sprinkle",
    "need": 0.02,
    "n": 2
+  },
+  {
+   "shot": "S49-bench",
+   "size": "wide",
+   "max": 0.4389,
+   "kind": "storm",
+   "need": 0.02,
+   "n": 2
+  },
+  {
+   "shot": "S51a-sit",
+   "size": "medium",
+   "max": 0.2301,
+   "kind": "plain",
+   "need": 0.05,
+   "n": 4
+  },
+  {
+   "shot": "S51-rhyme",
+   "size": "wide",
+   "max": 0.5112,
+   "kind": "ember",
+   "need": 0.02,
+   "n": 11
   }
  ],
  "overlaps": 0,
+ "crowdCover": [
+  {
+   "shot": "S01-town",
+   "cover": 0.477
+  },
+  {
+   "shot": "S02-kit",
+   "cover": 0
+  },
+  {
+   "shot": "S03-clock",
+   "cover": 0
+  },
+  {
+   "shot": "S03b-toss",
+   "cover": 0
+  },
+  {
+   "shot": "S04-ember",
+   "cover": 0
+  },
+  {
+   "shot": "S05-frost",
+   "cover": 0
+  },
+  {
+   "shot": "S06-run",
+   "cover": 0
+  },
+  {
+   "shot": "S07-lock",
+   "cover": 0
+  },
+  {
+   "shot": "S08-steal",
+   "cover": 0
+  },
+  {
+   "shot": "S09-board",
+   "cover": 0
+  },
+  {
+   "shot": "S10-wins",
+   "cover": 0
+  },
+  {
+   "shot": "S11-grandma",
+   "cover": 0
+  },
+  {
+   "shot": "S12-mailman",
+   "cover": 0
+  },
+  {
+   "shot": "S13-mayor",
+   "cover": 0
+  },
+  {
+   "shot": "S14a-minute",
+   "cover": 0
+  },
+  {
+   "shot": "S14-potato",
+   "cover": 0
+  },
+  {
+   "shot": "S15a-claws",
+   "cover": 0
+  },
+  {
+   "shot": "S15b-dawn",
+   "cover": 0
+  },
+  {
+   "shot": "S16-kit",
+   "cover": 0
+  },
+  {
+   "shot": "S16b-never",
+   "cover": 0
+  },
+  {
+   "shot": "S17-found",
+   "cover": 0
+  },
+  {
+   "shot": "S17r-return",
+   "cover": 0
+  },
+  {
+   "shot": "S18-zero",
+   "cover": 0
+  },
+  {
+   "shot": "S19-vault",
+   "cover": 0
+  },
+  {
+   "shot": "S20-dax",
+   "cover": 0
+  },
+  {
+   "shot": "S20b-eggs",
+   "cover": 0
+  },
+  {
+   "shot": "S21-laugh",
+   "cover": 0
+  },
+  {
+   "shot": "S22-queue",
+   "cover": 0
+  },
+  {
+   "shot": "S23-notice",
+   "cover": 0
+  },
+  {
+   "shot": "S24-roofs",
+   "cover": 0
+  },
+  {
+   "shot": "S24b-vane",
+   "cover": 0
+  },
+  {
+   "shot": "S25-cold",
+   "cover": 0
+  },
+  {
+   "shot": "S26-still",
+   "cover": 0
+  },
+  {
+   "shot": "S26b-warm",
+   "cover": 0
+  },
+  {
+   "shot": "S27-still",
+   "cover": 0
+  },
+  {
+   "shot": "S28-greedy",
+   "cover": 0
+  },
+  {
+   "shot": "S28b-more",
+   "cover": 0
+  },
+  {
+   "shot": "S29-clock",
+   "cover": 0
+  },
+  {
+   "shot": "S29b-shadow",
+   "cover": 0
+  },
+  {
+   "shot": "S30-bed",
+   "cover": 0
+  },
+  {
+   "shot": "S31-feather",
+   "cover": 0
+  },
+  {
+   "shot": "S31b-bigger",
+   "cover": 0
+  },
+  {
+   "shot": "S32-tiptoe",
+   "cover": 0
+  },
+  {
+   "shot": "S32b-take",
+   "cover": 0
+  },
+  {
+   "shot": "S33-sorry",
+   "cover": 0
+  },
+  {
+   "shot": "S34-middle",
+   "cover": 0.082
+  },
+  {
+   "shot": "S35-minute",
+   "cover": 0
+  },
+  {
+   "shot": "S35b-scream",
+   "cover": 0
+  },
+  {
+   "shot": "S35c-drop",
+   "cover": 0
+  },
+  {
+   "shot": "S36-holds",
+   "cover": 0
+  },
+  {
+   "shot": "S37a-bell",
+   "cover": 0.017
+  },
+  {
+   "shot": "S37-down",
+   "cover": 0
+  },
+  {
+   "shot": "S37b-wings",
+   "cover": 0.302
+  },
+  {
+   "shot": "S38-bird",
+   "cover": 0
+  },
+  {
+   "shot": "S39-dragon",
+   "cover": 0
+  },
+  {
+   "shot": "S40-lift",
+   "cover": 0
+  },
+  {
+   "shot": "S41-nest",
+   "cover": 0
+  },
+  {
+   "shot": "S41b-ring",
+   "cover": 0
+  },
+  {
+   "shot": "S42-daxnest",
+   "cover": 0
+  },
+  {
+   "shot": "S43-lap",
+   "cover": 0
+  },
+  {
+   "shot": "S44a-cold",
+   "cover": 0
+  },
+  {
+   "shot": "S44b-gold",
+   "cover": 0
+  },
+  {
+   "shot": "S45-years",
+   "cover": 0
+  },
+  {
+   "shot": "S46a-crack",
+   "cover": 0
+  },
+  {
+   "shot": "S46b-sneeze",
+   "cover": 0
+  },
+  {
+   "shot": "S47a-mother",
+   "cover": 0
+  },
+  {
+   "shot": "S47b-sitters",
+   "cover": 0
+  },
+  {
+   "shot": "S48-sunrise",
+   "cover": 0
+  },
+  {
+   "shot": "S48b-ride",
+   "cover": 0
+  },
+  {
+   "shot": "S49-bench",
+   "cover": 0
+  },
+  {
+   "shot": "S50-hatched",
+   "cover": 0
+  },
+  {
+   "shot": "S50b-one",
+   "cover": 0
+  },
+  {
+   "shot": "S51a-sit",
+   "cover": 0
+  },
+  {
+   "shot": "S51-rhyme",
+   "cover": 0.135
+  }
+ ],
+ "clockBoard": [
+  {
+   "shot": "S03-clock",
+   "dur": 1.13,
+   "clock": 0.732,
+   "board": 0
+  },
+  {
+   "shot": "S09-board",
+   "dur": 1.77,
+   "clock": 0,
+   "board": 0.476
+  },
+  {
+   "shot": "S10-wins",
+   "dur": 1.43,
+   "clock": 0,
+   "board": 0.136
+  },
+  {
+   "shot": "S11-grandma",
+   "dur": 1.2,
+   "clock": 0,
+   "board": 0.176
+  },
+  {
+   "shot": "S13-mayor",
+   "dur": 1.77,
+   "clock": 0,
+   "board": 0.176
+  },
+  {
+   "shot": "S14a-minute",
+   "dur": 1.33,
+   "clock": 0,
+   "board": 0.176
+  },
+  {
+   "shot": "S18-zero",
+   "dur": 1.47,
+   "clock": 0,
+   "board": 0.818
+  },
+  {
+   "shot": "S19-vault",
+   "dur": 1.8,
+   "clock": 0,
+   "board": 0.162
+  },
+  {
+   "shot": "S29-clock",
+   "dur": 1.23,
+   "clock": 1,
+   "board": 0
+  },
+  {
+   "shot": "S34-middle",
+   "dur": 2.93,
+   "clock": 0,
+   "board": 0.122
+  },
+  {
+   "shot": "S49-bench",
+   "dur": 2.33,
+   "clock": 0,
+   "board": 0.142
+  },
+  {
+   "shot": "S50-hatched",
+   "dur": 1.77,
+   "clock": 0,
+   "board": 0.57
+  },
+  {
+   "shot": "S51a-sit",
+   "dur": 2.37,
+   "clock": 0,
+   "board": 0.186
+  },
+  {
+   "shot": "S51-rhyme",
+   "dur": 4.8,
+   "clock": 0.073,
+   "board": 0
+  }
+ ],
  "errors": [],
  "warnings": [
   "S01-town: wide shot with no tagged character in the foreground",
-  "S05-frost: wide shot with no tagged character in the foreground",
-  "S09-hall: wide shot with no tagged character in the foreground",
-  "S14-potato: wide shot with no tagged character in the foreground",
-  "S30-bed: wide shot with no tagged character in the foreground",
+  "S07-lock: \"r4\" (see) not in frame by frame 6",
+  "S14-potato: \"r1\" (see) not in frame by frame 6",
+  "S15b-dawn: wide shot with no tagged character in the foreground",
+  "S16b-never: \"kit\" (see) not in frame by frame 6",
+  "S16b-never: wide shot with no tagged character in the foreground",
+  "S17r-return: \"kit\" (see) not in frame by frame 6",
+  "S19-vault: \"dax\" (see) not in frame by frame 6",
+  "S22-queue: \"r1\" (see) not in frame by frame 6",
+  "S31-feather: \"kit\" (see) not in frame by frame 6",
+  "S32b-take: \"kit\" (see) not in frame by frame 6",
   "S34-middle: wide shot with no tagged character in the foreground",
-  "S35-drop: \"kit\" (see) not in frame by frame 6",
-  "S37-wings: \"mother\" (see) not in frame by frame 6",
-  "S38-lower: \"mother\" (see) not in frame by frame 6",
-  "S38-lower: \"kit\" (see) not in frame by frame 6",
+  "S35c-drop: \"kit\" (see) not in frame by frame 6",
+  "S39-dragon: \"kit\" (see) not in frame by frame 6",
   "S40-lift: \"mother\" (see) not in frame by frame 6",
   "S41-nest: wide shot with no tagged character in the foreground",
-  "S45-years: wide shot with no tagged character in the foreground",
-  "S47-babysitters: \"mother\" (see) not in frame by frame 6",
+  "S41b-ring: \"little\" (see) not in frame by frame 6",
+  "S41b-ring: \"lead\" (see) not in frame by frame 6",
+  "S44a-cold: \"r1\" (see) not in frame by frame 6",
+  "S44a-cold: \"r2\" (see) not in frame by frame 6",
+  "S46a-crack: \"kit\" (see) not in frame by frame 6",
+  "S47a-mother: wide shot with no tagged character in the foreground",
+  "S47b-sitters: \"mother\" (see) not in frame by frame 6",
+  "S48-sunrise: \"dax\" (see) not in frame by frame 6",
   "S48-sunrise: wide shot with no tagged character in the foreground",
-  "S51-rhyme: \"kit\" (see) not in frame by frame 6",
-  "S51-rhyme: wide shot with no tagged character in the foreground"
+  "S50b-one: \"goldling\" (see) not in frame by frame 6",
+  "S51-rhyme: wide shot with no tagged character in the foreground",
+  "mean shot length 1.94 s (target 2.2–3.0)",
+  "S01-town: foreground crowd covers 47.7 % of the frame (≤ 15 %)",
+  "S15a-claws: static insert is 1.93 s (≤ 1.5)",
+  "S15b-dawn: shows no person doing its line (a static wide); static objects only as an insert ≤ 1.5 s",
+  "S37b-wings: foreground crowd covers 30.2 % of the frame (≤ 15 %)",
+  "S51-rhyme: clock shot is 4.80 s (≤ 1.5)",
+  "S22-queue: one framing held 3.23 s (≤ 3)",
+  "S29b-shadow: one framing held 3.33 s (≤ 3)",
+  "S44a-cold: one framing held 3.37 s (≤ 3)"
  ]
 }
