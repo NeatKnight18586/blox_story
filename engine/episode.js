@@ -17,6 +17,7 @@ import {createEffects} from './effects.js';
 import {createCrowds} from './crowd.js';
 import {createRuleUI, enforceReadable, uiMeasure} from './ruleui.js';
 import {stripLabels} from './nolabels.js';
+import {rimFor, RIM} from './heroread.js';
 import * as P from '../parts/parts.js';
 import * as B from '../parts/build.js';
 import * as A from '../parts/ambient.js';
@@ -179,7 +180,17 @@ const effects = createEffects([...(spec.effects ?? []), ...revealEffects], {scen
   actorAt: (name, tt) => { const c = cast[name]?.c; if (!c) throw Error('trail: unknown actor ' + name); return markAt(c, tt); }, groundY: world?.groundY});
 
 // A4: instanced crowds (spec.crowds) and rule UI attached to any pivot/object (spec.ui).
-const crowds = createCrowds(scene, spec.crowds ?? [], {groundY: world?.groundY ?? (() => 0), resolveCentre: c => Array.isArray(c) ? c : (p => [p[0], p[2]])(resolve(c))});
+// Season 1 hero readability (engine/heroread.js): crowds never wear a shot subject's main outfit colour; a soft rim light
+// from behind the current subject in wides and mediums (one SpotLight, no shadow); "Nobody" and older specs: off.
+const HERO_READ = spec.season === 1 || spec.heroRead === true;
+const subjectMains = HERO_READ ? [...new Set(shots.map(s => s.subject ?? s.fit?.actor).filter(n => cast[n]?.a.preset?.outfit?.main).map(n => cast[n].a.preset.outfit.main))] : [];
+const crowds = createCrowds(scene, spec.crowds ?? [], {groundY: world?.groundY ?? (() => 0), resolveCentre: c => Array.isArray(c) ? c : (p => [p[0], p[2]])(resolve(c)), avoidColours: subjectMains});
+const rim = HERO_READ ? (() => { const l = new T.SpotLight(RIM.color, 0, RIM.distance, RIM.angle, RIM.penumbra, RIM.decay); l.castShadow = false; l.visible = false; l.name = 'subjectRim'; scene.add(l, l.target); return l; })() : null;
+function aimRim(shot, camPos) {
+  if (!rim) return; const n = shot?.subject ?? shot?.fit?.actor, m = n && markPos[n], r = m && cast[n].a.root.visible ? rimFor(shot.size, m, camPos, 5.3 * cast[n].a.root.scale.y) : null;
+  rim.visible = !!r; rim.intensity = r ? r.intensity * (spec.rimScale ?? 1) : 0; if (!r) return;
+  rim.position.set(...r.position); rim.target.position.set(...r.target); rim.target.updateMatrixWorld();
+}
 const ui = createRuleUI(spec.ui ?? [], {scene, resolveTarget, fps: FPS});
 const updateExtras = (t, ctx = {}) => { crowds.update(t, ctx); ui.update(t); };   // ctx {camPos, size}: crowd promotion (A5 B)
 
@@ -235,7 +246,7 @@ export function renderFrame(n, width = 720, height = 1280, nudge = 0) {
   const shot = shots.findLast(s => n >= s.start), t = n / FPS;
   const actors = poseCast(t);
   const c = sampleCamera({...shot, fps: FPS}, (n - shot.start) / FPS, actors);
-  world?.update(t); applyWorldState(shot, t); updateExtras(t, {camPos: c.position, size: shot.size}); aimHeroSpots(shot, c.position); applyLift(shot);
+  world?.update(t); applyWorldState(shot, t); updateExtras(t, {camPos: c.position, size: shot.size}); aimHeroSpots(shot, c.position); aimRim(shot, c.position); applyLift(shot);
   const fx = effects.apply(t, camera);   // poses effect targets; returns the shake offset and any timeOfDay blend
   const pos = c.position.map((v, i) => v + fx.camOffset[i]), tgt = c.target.map((v, i) => v + fx.camOffset[i] * .6);
   camera.fov = c.fov; camera.aspect = width / height; camera.position.fromArray(pos);

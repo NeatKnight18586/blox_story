@@ -31,7 +31,7 @@
  "v3": {
   "sizes": [
    111,
-   150
+   130
   ],
   "smallest": {
    "size": 111,
@@ -41,11 +41,11 @@
    "bottom": 0.6753
   },
   "largest": {
-   "size": 150,
-   "capPx": 32,
-   "cap": 0.0462,
-   "top": 0.6219,
-   "bottom": 0.6811
+   "size": 130,
+   "capPx": 28,
+   "cap": 0.0404,
+   "top": 0.6248,
+   "bottom": 0.6782
   }
  },
  "failures": [],

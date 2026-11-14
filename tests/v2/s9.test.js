@@ -48,6 +48,11 @@ test('season gates: B2, clues, AFK, rhyme, length', () => {
   e = episode(); e.end = 151; assert.ok(errs(e).some(x => x.startsWith('episode length 151.00')));
   e = episode(); e.spec.beats.B7 = ['S10', 'S9']; assert.ok(errs(e).some(x => x.startsWith('season: beats.B7')));
 });
+test('season gates: a wide keeps its subject in the middle 60 %', () => {
+  const e = episode(); e.shots[0].subject = 'kit'; e.info[0] = {...e.info[0], first: {...e.info[0].first, heads: {kit: {x: .5, y: .3, inFront: true}}}, mid: {heads: {kit: {x: .9, y: .3, inFront: true}}}};
+  assert.ok(errs(e).some(x => x.startsWith('S1: wide subject kit at x 90 % (mid frame)')));
+  e.info[0].mid.heads.kit.x = .7; assert.ok(!errs(e).some(x => x.includes('wide subject')));
+});
 test('season gates: caption band, framing, uiSize; Nobody-style specs skip the season rules', () => {
   let e = episode(); e.meas[1] = e.meas[1].map(m => ({...m, actors: {...m.actors, kit: {...m.actors.kit, face: {y0: .55, y1: .7, front: true, toward: true}}}})); assert.ok(errs(e).some(x => x.startsWith("S2: kit's face (55–70 %) in the caption band")));
   e.shots[1].captionY = 'high'; assert.ok(!errs(e).some(x => x.includes('caption band')), 'high captions move the band');
@@ -90,4 +95,23 @@ test('noLabels: stripLabels removes every label for the renderer; AFK has no tag
   const nobody = {cast: {a: {tags: [[0, 'Nobody']]}}}; assert.equal(stripLabels(nobody), nobody, 'unchanged object for older specs');
   assert.ok(uiAllowed({to: 'scoreboard', kind: 'stat', facing: 'world'}, ['kit'])); assert.ok(!uiAllowed({to: 'scoreboard', kind: 'icon', facing: 'world'}, ['kit']));
   const t = JSON.parse(readFileSync('cast/troupe.json', 'utf8')); assert.equal(t.AFK.tag, undefined); assert.equal(t.AFK.opacity, .4); assert.ok(t.AFK.freeze !== undefined);
+});
+
+// Hero readability without tags (owner rule, Season 1): rim light, crowd colours, wides keep the subject centred.
+import {rimFor, crowdColours, crowdClashes, wideCentred, rgbDist, RIM, CLASH} from '../../engine/heroread.js';
+import {crowdMembers} from '../../engine/crowd.js';
+test('hero readability: rim from behind in wides and mediums, off in close-ups', () => {
+  assert.equal(rimFor('close', [0, 0, 0], [0, 3, 10]), null); assert.equal(rimFor('insert', [0, 0, 0], [0, 3, 10]), null);
+  const r = rimFor('medium', [0, 0, 0], [0, 3, 10]); assert.ok(r.position[2] < -5, 'behind the subject, away from the camera'); assert.ok(r.position[1] > 5.3, 'above the head');
+  assert.deepEqual(r.target.map(v => +v.toFixed(2)), [0, 3.71, 0]); assert.equal(r.intensity, RIM.medium);
+  const w = rimFor('wide', [4, 1, 4], [4 + 30, 9, 4]); assert.ok(w.position[0] < 4 - 5, 'opposite side to the camera'); assert.equal(w.intensity, RIM.wide);
+});
+test('hero readability: no crowd member near the subject wears its main colour; wides keep it in the middle 60 %', () => {
+  const main = '#3f6fd8', members = crowdMembers({count: 60, radius: 8, seed: 3}).map(m => ({...m, shirt: m.i % 4 ? m.shirt : main}));
+  assert.ok(crowdClashes(members, [0, 0, 0], main).length > 0, 'the raw crowd clashes');
+  const fixed = crowdColours(members, [main, '#e24a4a']);
+  assert.equal(crowdClashes(fixed, [0, 0, 0], main).length, 0, 'none within 6 units after the fix');
+  assert.ok(fixed.every(m => rgbDist(m.shirt, main) >= CLASH.rgb && rgbDist(m.pants, main) >= CLASH.rgb && rgbDist(m.shirt, '#e24a4a') >= CLASH.rgb));
+  assert.equal(crowdColours(members, []), members, 'no subjects: unchanged (older specs)');
+  assert.ok(wideCentred(.2) && wideCentred(.5) && wideCentred(.8) && !wideCentred(.15) && !wideCentred(.86));
 });

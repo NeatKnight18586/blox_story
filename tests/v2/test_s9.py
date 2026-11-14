@@ -18,35 +18,21 @@ def seq(text, t0=0, step=.3, n=1):
 
 
 class CaptionsV3(unittest.TestCase):
-    def ch(self, cues): return C.chunk(cues, V3['maxWords'], V3['blankPause'], V3['maxWordsLong'], V3['longLetters'])
-
     def test_style_numbers(self):
-        self.assertEqual((V3['size'], V3['openerSize'], V3['emphasisScale'], V3['outline'], V3['y'], V3['yHigh']), (128, 150, 120, 9, 1250, 560))
+        self.assertEqual((V3['size'], V3['openerSize'], V3['emphasisScale'], V3['outline'], V3['y'], V3['yHigh'], V3['maxWidthFrac']), (111, 130, 120, 9, 1250, 560, .86))
         self.assertEqual(json.load(open(os.path.join(ROOT, 'captions/pop-shorts-v2.json')))['size'], 96, 'v2 untouched')
 
-    def test_two_words_when_one_is_long(self):
-        out = [c['words'] for c in self.ch({'lines': [seq('the whole town plays hot potato every single midnight')]})]
-        self.assertEqual(out, [['the', 'whole', 'town'], ['plays', 'hot', 'potato'], ['every', 'single'], ['midnight']])
-        for c in self.ch({'lines': [seq('everybody steals eggs and nobody remembers anything at all')]}):
-            cap = 2 if any(C.letters(w) >= 7 for w in c['words']) else 3
-            self.assertLessEqual(len(c['words']), cap, c['words'])
-
-    def test_cap_function_and_v2_default(self):
-        self.assertEqual(C.chunk_cap(['for', 'sixty']), 3); self.assertEqual(C.chunk_cap(['for', 'seconds'], 3, 2), 2)
-        self.assertEqual(C.chunk_cap(["there's", 'a'], 3, 2), 3, 'apostrophes are not letters: there\'s has 6')
-        self.assertEqual(C.chunk_cap(['scoreboard'], 3, 2), 2)
+    def test_v2_chunking_unchanged(self):
         v2 = [c['words'] for c in C.chunk({'lines': [seq('the whole town plays hot potato every single midnight')]})]
-        self.assertEqual(v2, [['the', 'whole', 'town'], ['plays', 'hot', 'potato'], ['every', 'single', 'midnight']], 'v2 chunking unchanged')
+        self.assertEqual(v2, [['the', 'whole', 'town'], ['plays', 'hot', 'potato'], ['every', 'single', 'midnight']])
+        self.assertEqual(C.make_chunks({'lines': [seq('a b c d')]}, json.load(open(os.path.join(ROOT, 'captions/pop-shorts-v2.json'))))[0]['words'], ['a', 'b', 'c'])
 
-    def test_every_word_once_on_egg(self):
-        cues = json.load(open(os.path.join(ROOT, 'stories/egg/cues.json')))
-        ch = self.ch(cues); self.assertEqual(sum(len(c['words']) for c in ch), sum(len(l['words']) for l in cues['lines']))
-        self.assertTrue(all(len(c['words']) <= (2 if any(C.letters(w) >= 7 for w in c['words']) else 3) for c in ch))
-
-    def test_width_fit(self):
-        self.assertEqual(C.fit_size(['In', 'this', 'town'], 150, V3), 150)
-        s = C.fit_size(['remembered', 'everything'], 128, V3); self.assertLess(s, 128)
-        self.assertLessEqual(C.text_width('remembered everything', s, V3['fontFile']), V3['fitWidth'] + 1)
+    def test_rendered_width_matches_libass(self):
+        # measured: libass draws "There's a scoreboard" at \fs111 with a fill 851 px and ink (outline + shadow) 873 px wide
+        w = C.rendered_width(["There's", 'a', 'scoreboard'], 111, V3); self.assertTrue(851 <= w <= 885, w)
+        self.assertTrue(C.fits(["There's", 'a', 'scoreboard'], 111, V3)); self.assertFalse(C.fits(['everybody', 'steals', 'eggs'], 111, V3), 'too wide at 111')
+        self.assertFalse(C.fits(['a', 'b', 'c', 'd'], 111, V3), 'never 4 words')
+        self.assertTrue(C.rendered_width(['steals'], 111, V3, (0, 1)) > C.rendered_width(['steals'], 111, V3), 'emphasis at 120 %')
 
 
 class SheetStats(unittest.TestCase):
@@ -188,29 +174,28 @@ class SeasonState(unittest.TestCase):
 
 
 class OwnerGrouping(unittest.TestCase):
-    """Owner caption rules on stories/egg (cues aligned to stories/egg/script.txt)."""
+    """Owner caption rules on stories/egg (cues aligned to stories/egg/script.txt): width rule (≤ 86 % at 111 / opener 130)."""
     def setUp(self):
         self.cues = json.load(open(os.path.join(ROOT, 'stories/egg/cues.json'))); self.g = C.group(self.cues, V3)
 
-    def test_every_word_once_and_sentences_start_captions(self):
+    def test_every_word_once_sentences_start_captions_and_everything_fits(self):
         self.assertEqual([w for c in self.g for w in c['words']], [t for l in self.cues['lines'] for t, _ in C.display_words(l)])
         script = open(os.path.join(ROOT, 'stories/egg/script.txt')).read()
         n_sent = len([s for l in script.splitlines() if l.strip() for s in re.split(r'(?<=[.!?])\s+', l.strip()) if s])
         self.assertEqual(sum(c['sentenceEnd'] for c in self.g), n_sent, 'every sentence ends a caption (and so the next starts one)')
-        self.assertEqual(self.g[0]['words'], ['In', 'this', 'town']); self.assertEqual(self.g[12]['words'], ['Run'], 'a one-word sentence stands alone')
+        for c in self.g:
+            self.assertLessEqual(len(c['words']), 3); self.assertLessEqual(C.rendered_width(c['words'], c['size'], V3), .86 * 1080 + 1e-6, c['words'])
+        self.assertEqual({c['size'] for c in self.g if c['line'] == 1}, {130}); self.assertEqual({c['size'] for c in self.g if c['line'] != 1}, {111})
+        self.assertIn(['for', 'sixty', 'seconds'], [c['words'] for c in self.g], '3 words with a long word when they fit')
 
-    def test_caps_hold_and_rule_breaks_only_where_no_split_exists(self):
+    def test_rule_breaks_only_where_no_split_exists_and_noun_phrases_kept(self):
         import itertools
-        def ok(ws):
-            if len(ws) > C.chunk_cap(ws, 3, 2): return False
-            return True
-        def valid(parts, n):
+        def valid(parts, n, size):
             for k, g in enumerate(parts):
-                if not ok(g): return False
+                if not C.fits(g, size, V3): return False
                 if k < len(parts) - 1 and C.norm(g[-1]) in C.NO_END: return False
                 if len(g) == 1 and n > 1 and C.letters(g[0]) < 7: return False
             return True
-        for c in self.g: self.assertLessEqual(len(c['words']), C.chunk_cap(c['words'], 3, 2), c['words'])
         sents, cur = [], []
         for c in self.g:
             cur.append(c)
@@ -222,22 +207,22 @@ class OwnerGrouping(unittest.TestCase):
                 broken += 1
                 for cuts in itertools.chain.from_iterable(itertools.combinations(range(1, len(ws)), k) for k in range(len(ws))):
                     b = (0, *cuts, len(ws)); parts = [ws[b[i]:b[i + 1]] for i in range(len(b) - 1)]
-                    self.assertFalse(valid(parts, len(ws)), f'a valid split exists for {ws}: {parts}')
-        self.assertEqual(broken, 16, 'sentences with no valid split under the owner rules (17 captions)')
-        self.assertEqual(len(C.grouping_issues(self.g, V3)), 17)
+                    self.assertFalse(valid(parts, len(ws), sent[0]['size']), f'a valid split exists for {ws}: {parts}')
+        self.assertEqual(broken, 7); self.assertEqual(len(C.grouping_issues(self.g, V3)), 9)
+        groups = [c['words'] for c in self.g]
+        for np in (['There\'s', 'a', 'scoreboard'], ['the', 'town', 'hall'], ['a', 'ski', 'mask'], ['a', 'sorry', 'note']): self.assertIn(np, groups)
 
-    def test_split_prefers_punctuation_and_never_ends_on_no_end_words(self):
+    def test_split_prefers_punctuation_and_phrase_boundaries(self):
         ws = 'And at one minute to midnight the whole town plays hot potato'.split()
-        punct = [w == 'midnight' for w in ws]; parts = C.split_sentence(ws, None, punct, [False] * len(ws), 3, 2, 7)
+        punct = [w == 'midnight' for w in ws]; parts = C.split_sentence(ws, lambda g: C.fits(g, 111, V3), punct, [False] * len(ws))
         groups = [ws[a:b] for a, b in parts]
         self.assertTrue(all(C.norm(g[-1]) not in C.NO_END for g in groups[:-1]), groups)
-        self.assertIn(['to', 'midnight'], groups, 'the comma after midnight is a break')
+        self.assertIn(['the', 'whole', 'town'], groups); self.assertIn(['minute', 'to', 'midnight'], groups); self.assertFalse(C.np_split(['The', 'clock'], 'struck'), 'a verb does not continue the phrase')
+        self.assertTrue(C.np_split(['on', 'the', 'town'], 'hall', True)); self.assertTrue(C.np_split(['In', 'this'], 'town'))
 
-    def test_one_size_per_episode(self):
+    def test_fixed_sizes(self):
         ass = C.to_ass(C.timing(self.g, .04, .35), V3)
-        sizes = sorted({int(x) for x in re.findall(r'\\fs(\d+)\\fsc', ass)})
-        self.assertEqual(len(sizes), 2, f'one opener size + one body size: {sizes}'); self.assertEqual(sizes, [111, 150])
-
+        sizes = sorted({int(x) for x in re.findall(r'\\fs(\d+)\\fsc', ass)}); self.assertEqual(sizes, [111, 130])
 
 if __name__ == '__main__':
     unittest.main()

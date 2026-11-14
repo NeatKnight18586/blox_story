@@ -8,6 +8,7 @@
 //                    objects: {name: {y0, y1, h, front} | null}, ui: [uiMeasure items], v3}
 import {framingCheck} from './camera.js';
 import {uiSizeIssues, SAFE} from './ruleui.js';
+import {wideCentred, SUBJECT_BAND} from './heroread.js';
 
 export const SEASON = {firstWords: 9, ruleEnd: 8.5, faceBy: 5.0, face: .20, b2Shots: 3, b2Max: 2.5, clue: .03, afkOpacity: [.35, .5],
   rhyme: .10, length: [122, 150], band: SAFE.band, bandHigh: [.25, .34], beats: ['B1', 'B2', 'B3', 'B4', 'B5', 'B6', 'B7', 'B8', 'B9']};
@@ -83,6 +84,11 @@ export function checkSeason({spec, shots, cues, fps = 30, end, info = [], meas =
     // length
     const len = end ?? (shots.at(-1).start + shots.at(-1).frames) / fps;
     if (len < L.length[0] - 1e-6 || len > L.length[1] + 1e-6) E(`episode length ${len.toFixed(2)} s outside ${L.length.join('–')} s`);
+    // hero readability: in wides the subject's head stays inside the middle 60 % of the frame width (first, middle, last frame)
+    shots.forEach((s, i) => {
+      const who = s.subject ?? s.fit?.actor; if (s.size !== 'wide' || !who) return;
+      for (const k of ['first', 'mid', 'last']) { const h = info[i]?.[k]?.heads?.[who]; if (h && h.inFront && !wideCentred(h.x)) { E(`${s.id}: wide subject ${who} at x ${(h.x * 100).toFixed(0)} % (${k} frame), outside the middle ${((SUBJECT_BAND[1] - SUBJECT_BAND[0]) * 100).toFixed(0)} %`); break; } }
+    });
     // caption band: the subject's / fit actor's face and the clue objects stay out of it
     shots.forEach((s, i) => {
       const mid = meas[i]?.[1]; if (!mid) return; const band = s.captionY === 'high' ? L.bandHigh : L.band;
