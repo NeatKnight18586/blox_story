@@ -7,7 +7,7 @@
   ]
  },
  "story": "egg",
- "video": "review/season1/tools-demo.mp4",
+ "video": "/tmp/claude-0/-home-user-blox-story/c98f2186-5321-5c23-8827-3bb90c415523/scratchpad/demo-clean.mp4",
  "v2": {
   "sizes": [
    96,
@@ -30,13 +30,13 @@
  },
  "v3": {
   "sizes": [
-   116,
+   111,
    150
   ],
   "smallest": {
-   "size": 116,
-   "capPx": 25,
-   "cap": 0.0361,
+   "size": 111,
+   "capPx": 24,
+   "cap": 0.0346,
    "top": 0.6277,
    "bottom": 0.6753
   },

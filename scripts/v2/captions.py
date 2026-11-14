@@ -93,6 +93,86 @@ def chunk(cues, max_words=3, blank_pause=.35, max_long=None, long_letters=7):
     return chunks
 
 
+# ---- owner caption grouping (Season 1, style "grouping": "v3") -----------------------------------------------------------
+# A new sentence always starts a new caption; breaks prefer punctuation (and voice pauses); a caption never ends on a
+# NO_END word; at most 3 words (2 if one has 7+ letters); a one-word caption only for a 7+ letter word or a one-word
+# sentence. Each sentence is split by a small dynamic programme: the fewest captions, then the most natural breaks.
+NO_END = {'a', 'an', 'the', 'and', 'or', 'but', 'so', 'to', 'of', 'in', 'on', 'at', 'for', 'with', 'from', 'his', 'her',
+          'its', 'their', 'my', 'your', 'is', 'was', 'are', 'were'}
+SENT_END = re.compile(r'[.!?…]["\'”’)]*$')
+BAD_END, BAD_ONE = 60.0, 40.0   # rule breaks, taken only when a sentence has no valid split: ending on a NO_END word is worse
+
+
+def split_sentence(words, lens, punct, pause, max_words=3, max_long=2, long_letters=7):
+    """Pure. words: display words of one sentence; punct[i]/pause[i]: a comma-type mark / a voice pause after word i.
+    → list of (i, j) word ranges. Cost per caption 1, + BAD for a NO_END ending or a short one-word caption mid-sentence,
+    + 0.4 for a break that is neither punctuation nor a pause."""
+    n = len(words); best = [0.0] + [float('inf')] * n; back = [0] * (n + 1)
+    for i in range(1, n + 1):
+        for j in range(max(0, i - max_words), i):
+            g = words[j:i]
+            if len(g) > chunk_cap(g, max_words, max_long, long_letters): continue
+            c = 1.0
+            if i < n and norm(g[-1]) in NO_END: c += BAD_END
+            if len(g) == 1 and n > 1 and letters(g[0]) < long_letters: c += BAD_ONE
+            if i < n and not punct[i - 1] and not pause[i - 1]: c += .4
+            if best[j] + c < best[i]: best[i], back[i] = best[j] + c, j
+    out, i = [], n
+    while i > 0: out.append((back[i], i)); i = back[i]
+    return out[::-1]
+
+
+def group(cues, style):
+    """Owner grouping → chunks like chunk(): [{words, start, end, onset, line}]."""
+    bp, out = style['blankPause'], []
+    for line in cues['lines']:
+        words, toks, raw = line['words'], display_words(line), line['text'].split()
+        if len(raw) != len(words): raw = [w['w'] for w in words]
+        onsets, onset = [], line['start']
+        for i, w in enumerate(words):
+            if i and w['start'] - words[i - 1]['end'] > bp: onset = w['start']
+            onsets.append(onset)
+        s0 = 0
+        for k in range(len(words)):
+            if k < len(words) - 1 and not SENT_END.search(raw[k]): continue
+            idx = list(range(s0, k + 1)); ws = [toks[i][0] for i in idx]
+            punct = [toks[i][1] for i in idx]
+            pause = [i + 1 < len(words) and words[i + 1]['start'] - words[i]['end'] > bp for i in idx]
+            parts = split_sentence(ws, None, punct, pause, style['maxWords'], style.get('maxWordsLong') or style['maxWords'], style.get('longLetters', 7))
+            for a, b in parts:
+                i0, i1 = idx[a], idx[b - 1]
+                out.append({'words': ws[a:b], 'start': words[i0]['start'], 'end': words[i1]['end'], 'onset': onsets[i0], 'line': line['line'],
+                            'sentenceEnd': b == len(ws), 'sentenceLen': len(ws)})
+            s0 = k + 1
+    return out
+
+
+def grouping_issues(chunks, style):
+    """Pure check of the owner rules on finished groups → [str]."""
+    out = []
+    for c in chunks:
+        w = c['words']
+        if len(w) > chunk_cap(w, style['maxWords'], style.get('maxWordsLong'), style.get('longLetters', 7)): out.append(f'too many words: {w}')
+        if norm(w[-1]) in NO_END and not c.get('sentenceEnd'): out.append(f'ends on "{w[-1]}": {w}')
+        if len(w) == 1 and letters(w[0]) < style.get('longLetters', 7) and c.get('sentenceLen', 1) > 1: out.append(f'short one-word caption: {w}')
+    return out
+
+
+def make_chunks(cues, style):
+    """The style's grouping: "v3" (owner rules) or the original chunker (v2, "Nobody")."""
+    if style.get('grouping') == 'v3': return group(cues, style)
+    return chunk(cues, style['maxWords'], style['blankPause'], style.get('maxWordsLong'), style.get('longLetters', 7))
+
+
+def episode_sizes(timed, style, emph=()):
+    """oneSize styles: one body size and one opener size for the whole episode, each the largest that fits the widest group
+    at that size (emphasis words at emphasisScale). → (opener, body)."""
+    if not timed: return style['openerSize'], style['size']
+    first = timed[0]['line']; op = [c for c in timed if c['line'] == first]; body = [c for c in timed if c['line'] != first] or op
+    fit = lambda cs, sz: min(fit_size(c['words'], sz, style, emphasis(c['words'], emph)) for c in cs)
+    return fit(op, style['openerSize']), fit(body, style['size'])
+
+
 def timing(chunks, lead=.04, blank_pause=.35):
     """Apply the 40 ms lead (clamped to the phrase onset) and hold each chunk until the next one starts,
     unless the gap is a pause > blank_pause (then the screen goes blank after the last word)."""
@@ -166,6 +246,7 @@ Format: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text
 """
     first_line = timed[0]['line'] if timed else None
     rows = []
+    one = episode_sizes(timed, st, emph) if st.get('oneSize') else None   # owner rule: one size per episode, no per-caption shrinking
     for c in timed:
         if until is not None and c['start'] >= until: break
         end = min(c['end'], until) if until is not None else c['end']
@@ -173,7 +254,7 @@ Format: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text
         y = st['yHigh'] if sh and sh.get('captionY') == 'high' else st['y']
         size = st['openerSize'] if c['line'] == first_line else st['size']
         e = emphasis(c['words'], emph)
-        size = fit_size(c['words'], size, st, e)
+        size = (one[0] if c['line'] == first_line else one[1]) if one else fit_size(c['words'], size, st, e)
         parts = []
         for i, w in enumerate(c['words']):
             txt = ass_escape(w)
@@ -193,7 +274,7 @@ def main():
     cues = json.load(open(o.cues or f'stories/{o.story}/cues.json'))
     spec = json.load(open(o.spec)) if o.spec else {}
     style = load_style(o.style or spec.get('captionStyle'))
-    timed = timing(chunk(cues, style['maxWords'], style['blankPause'], style.get('maxWordsLong'), style.get('longLetters', 7)), style['leadSeconds'], style['blankPause'])
+    timed = timing(make_chunks(cues, style), style['leadSeconds'], style['blankPause'])
     ass = to_ass(timed, style, spec.get('emphasis', []), spec.get('shots'), spec.get('fps', 30), o.until)
     out = o.out or f'stories/{o.story}/build/captions.ass'
     import os; os.makedirs(os.path.dirname(out), exist_ok=True); open(out, 'w').write(ass)

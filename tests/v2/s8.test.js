@@ -156,5 +156,5 @@ test('troupe: five fixed slots + AFK; episodes re-costume but cannot change who 
   const kit = resolveTroupe({troupe: 'SECOND', role: 'Kit', outfit: {recipe: 'hoodie', main: '#111111'}, with: {skin: '#000000', scale: 3}}, data);
   assert.equal(kit.tag.name, 'Kit'); assert.equal(kit.outfit.main, '#111111'); assert.equal(kit.skin, data.troupe.SECOND.skin); assert.equal(kit.scale, .82);
   const afk = resolveTroupe({troupe: 'AFK', role: 'whatever'}, data);
-  assert.equal(afk.opacity, .4); assert.equal(afk.tag.name, 'AFK'); assert.equal(afk.hair.style, 'buzz'); assert.equal(afk.outfit.recipe, 'classic'); assert.ok(afk.freeze > 0);
+  assert.equal(afk.opacity, .4); assert.equal(afk.tag, undefined, 'no AFK tag (owner rule §2c)'); assert.equal(afk.hair.style, 'buzz'); assert.equal(afk.outfit.recipe, 'classic'); assert.ok(afk.freeze > 0);
 });

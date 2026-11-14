@@ -675,3 +675,46 @@ Plan:
   - Speed is still 0.69 s/frame (owner decides at episode 1).
   - The sfx set is synthesized and unheard by a person: the owner should listen to `tools-demo.mp4` (5 hits).
   - Next `/season` runs E1 for egg straight away: `stories/egg/voice.flac` is already committed.
+
+## Owner rules before episode 1: no labels (§2c) + caption grouping (2026-11-14)
+Plan:
+1. Merge `claude/season-1` (§2c + four beats.md).
+2. Pure `engine/nolabels.js` (labelsOff / stripLabels / labelIssues / uiAllowed): the renderer strips labels for `season: 1` (or `labels: false`); `plan.js` adds the `noLabels` error gate.
+3. Drop the AFK tag from the troupe; sfx skips tag and card pops for Season 1.
+4. `captions.py` owner grouping (sentence-bounded dynamic programme, NO_END words, one-word rule, one size per episode).
+5. Tests; demo re-render without labels; captions sheet; CLAUDE.md.
+
+Built:
+- **No labels:**
+  - `engine/nolabels.js`; `episode.js` loads `stripLabels(spec)`, and troupe role names no longer become tags when labels are off.
+  - `plan.js` pushes `labelIssues` (noLabels). The only allowed text is a world-facing plate/stat/bar/checklist on a scene object, never on an actor.
+  - `cast/troupe.json`: AFK tag removed (still grey, 0.4, frozen).
+  - `sfx.py`: with labels off, no tag/card pops; only in-world text UI pops.
+  - The tools demo is `labels: false` with its wrist stat removed (the gate flagged it). Re-rendered: 540 frames at 1080, 709 s with 3 workers. `tools-demo-1fps.png` shows no tag, stat or bubble anywhere.
+- **Captions:**
+  - `captions.group` (style `"grouping": "v3"`) and `grouping_issues`; `episode_sizes` gives one body size and one opener size per episode (`oneSize`).
+  - `caption-phone.py` and `captions.py` use `make_chunks`. v2 / "Nobody" chunking is unchanged.
+
+Numbers:
+- Egg: 196 captions, every word once, every sentence starts a new caption. Sizes: opener \fs150, body \fs111 (was 111–128 per caption).
+- **17 captions in 16 sentences break a rule**, and a brute-force test proves none of those sentences has a split that obeys all three rules:
+  - 7 end on a NO_END word (her, the, was, a, at ×2, on);
+  - 10 are short one-word captions (There's, hall, mask, minute, She ×2, note, Two, It, Every, got, Kit…).
+
+  Breaks are ranked: the word cap is never exceeded, then a NO_END ending is avoided before a one-word caption.
+  - If 3 words were allowed with a 7+ letter word, egg would have 7 breaks, but the body size would drop to \fs101.
+  - **Owner decision.** Also yours: I kept the A4 opener (\fs150) as the one size exception.
+- First 30 groups: In this town | everybody | steals eggs | And there's | only one rule | Never hold one | at midnight | Every kid | has a base | Every base | has a nest | Grab an egg | Run | Lock your door | for sixty | seconds | Then somebody | steals it | right back | There's | a scoreboard | on the town | hall | Most eggs wins | Grandmas play | Mailmen play | The mayor plays | in a ski | mask | And at one
+- `caption-phone.py` **PASS**: body \fs111 cap 3.46 % (≥ 2.6 %); text spans 62.8–67.5 %; opener 4.62 %.
+- Demo: **−14.6 LUFS, TP −1.9 dB, PASS**, 4 sfx (the wrist-stat pop is gone).
+- `v2:test` 74 node + 53 python pass. `npm test` exit 0. "Nobody" 11/11 frames byte-identical at 1440.
+
+Three weakest things:
+- **`caption-v3-phone.png`:**
+  1. At 11.2 s "for sixty" still sits across Stan in the crowd: the demo is not staged for the band.
+  2. The opener (150) to body (111) jump is large: after "In this town" every caption suddenly reads smaller.
+  3. Forced breaks still read oddly where no legal split exists ("There's / a scoreboard / on the town / hall").
+- **`tools-demo-1fps.png`:**
+  1. Without his name tag, Stan is hard to pick out of the crowd in the rain wides (9–11 s). Only the camera singles him out.
+  2. Captions sit on the two kids' torsos in the night shot (15–17 s).
+  3. The demo has no in-world text at all, so the allowed case (scoreboard, sign) is not shown yet.
