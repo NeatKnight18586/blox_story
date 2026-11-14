@@ -41,7 +41,7 @@ export function build(scene, {P, B, A, M, PR, TR, BI, V, W, look, spec}) {
       {type: 'river', points: [[-400, 150], [-100, 156], [100, 146], [400, 152]], w: 16, depth: 3, bank: 8}];
     const height = TR.heightFn({seed: 17, base: BASE, controls}); groundY = height;
 
-    scene.add(TR.buildTerrain({height, size: 720, chunk: 30, fine: 1.5, fullR: 60, focus: [[0, 60], [0, 0], [0, -60], [3, 96], [-5, 30]], centre: [0, -20], material: M.splatMaterial(bio.terrain.layers, {splat: bio.terrain, wetY: VALLEY_Y - 1.4}), splat: bio.terrain}));   // A5: per-pixel blend, 1.5-unit cells
+    scene.add(TR.buildTerrain({height, size: 720, chunk: 30, fine: 1.5, fullR: 60, focus: [[3, 96], [-5, 30]], centre: [0, -20], material: M.splatMaterial(bio.terrain.layers, {splat: bio.terrain, wetY: VALLEY_Y - 1.4}), splat: bio.terrain}));   // A5: per-pixel blend, 1.5-unit cells
     const wat = W.water({height, x0: -300, x1: 300, z0: 128, z1: 172, y: VALLEY_Y - 1.4, ...bio.water, sky: '#cfe4f5', flow: [1, .1], speed: .08, envMap: look.envMap?.()});
     scene.add(wat.mesh); movers.push(wat);
     const avoid = (x, z) => (Math.abs(x) < 24 && z > -110 && z < 92) || lots.some(l => Math.abs(x - l.x) < 8 && Math.abs(z - l.z) < 8);

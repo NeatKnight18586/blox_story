@@ -4,12 +4,12 @@
  "nudge": 0.004,
  "threshold": 40,
  "limit": 0.3,
- "views": 17,
+ "views": 20,
  "worst": {
-  "view": "T2-snap:last",
-  "frame": 179,
-  "pct": 0.082,
-  "raw": 0.375
+  "view": "T2-snap:mid",
+  "frame": 127,
+  "pct": 0.059,
+  "raw": 0.616
  },
  "failing": [],
  "errors": [],
@@ -18,104 +18,122 @@
   {
    "view": "@square",
    "frame": null,
-   "pct": 0.02,
-   "raw": 0.111
+   "pct": 0.016,
+   "raw": 0.108
   },
   {
    "view": "@giant",
    "frame": null,
-   "pct": 0.003,
+   "pct": 0.002,
    "raw": 0.012
   },
   {
    "view": "T1-drone:first",
    "frame": 0,
    "pct": 0,
-   "raw": 0.013
+   "raw": 0.014
   },
   {
    "view": "T1-drone:mid",
-   "frame": 60,
+   "frame": 52,
+   "pct": 0,
+   "raw": 0.004
+  },
+  {
+   "view": "T1-drone:last",
+   "frame": 104,
    "pct": 0,
    "raw": 0.006
   },
   {
-   "view": "T1-drone:last",
-   "frame": 119,
-   "pct": 0.001,
-   "raw": 0.007
-  },
-  {
    "view": "T2-snap:first",
-   "frame": 120,
+   "frame": 105,
    "pct": 0.002,
-   "raw": 0.128
+   "raw": 0.085
   },
   {
    "view": "T2-snap:mid",
-   "frame": 150,
-   "pct": 0.054,
-   "raw": 0.361
+   "frame": 127,
+   "pct": 0.059,
+   "raw": 0.616
   },
   {
    "view": "T2-snap:last",
-   "frame": 179,
-   "pct": 0.082,
-   "raw": 0.375
+   "frame": 149,
+   "pct": 0.057,
+   "raw": 0.64
   },
   {
    "view": "T3-heroLow:first",
-   "frame": 180,
-   "pct": 0.001,
-   "raw": 0.009
+   "frame": 150,
+   "pct": 0.002,
+   "raw": 0.017
   },
   {
    "view": "T3-heroLow:mid",
-   "frame": 240,
-   "pct": 0.001,
-   "raw": 0.012
+   "frame": 195,
+   "pct": 0.003,
+   "raw": 0.027
   },
   {
    "view": "T3-heroLow:last",
-   "frame": 299,
+   "frame": 239,
    "pct": 0.001,
-   "raw": 0.013
+   "raw": 0.017
   },
   {
    "view": "T4-tiltUp:first",
-   "frame": 300,
+   "frame": 240,
    "pct": 0.001,
-   "raw": 0.136
+   "raw": 0.116
   },
   {
    "view": "T4-tiltUp:mid",
-   "frame": 375,
-   "pct": 0.001,
-   "raw": 0.011
+   "frame": 300,
+   "pct": 0.008,
+   "raw": 0.023
   },
   {
    "view": "T4-tiltUp:last",
-   "frame": 449,
+   "frame": 359,
    "pct": 0.001,
-   "raw": 0.016
+   "raw": 0.014
   },
   {
    "view": "T5-trail:first",
-   "frame": 450,
-   "pct": 0.001,
-   "raw": 0.129
+   "frame": 360,
+   "pct": 0.002,
+   "raw": 0.124
   },
   {
    "view": "T5-trail:mid",
-   "frame": 510,
+   "frame": 405,
    "pct": 0.001,
-   "raw": 0.129
+   "raw": 0.113
   },
   {
    "view": "T5-trail:last",
-   "frame": 569,
-   "pct": 0.008,
-   "raw": 0.142
+   "frame": 449,
+   "pct": 0.003,
+   "raw": 0.124
+  },
+  {
+   "view": "T6-night:first",
+   "frame": 450,
+   "pct": 0.014,
+   "raw": 0.133
+  },
+  {
+   "view": "T6-night:mid",
+   "frame": 495,
+   "pct": 0.026,
+   "raw": 0.151
+  },
+  {
+   "view": "T6-night:last",
+   "frame": 539,
+   "pct": 0.028,
+   "raw": 0.165
   }
  ]
 }

@@ -234,6 +234,20 @@ export function std(pattern = 'plastic', color = '#cccccc', {hero = true, flat =
 // albedo AND normal maps blended, plus a low-frequency macro tone so big slopes never show the tile repeat.
 let flatN = null;
 const flatNormal = () => { if (!flatN) { flatN = new T.DataTexture(new Uint8Array([128, 128, 255, 255]), 1, 1); flatN.needsUpdate = true; } return flatN; };
+// Tiling smooth value noise (128², linear, repeat) for the per-pixel splat boundaries: 2 fetches instead of 8 sin() hashes
+// per pixel (A7: the procedural version cost ~0.3 s/frame at 720 on SwiftShader).
+let noiseTex = null;
+export function noiseField(n = 128, cells = 8, seed = 5) {   // pure: Float32 n×n in 0..1, tiles seamlessly
+  const g = (i, j) => hash(((i % cells) + cells) % cells, ((j % cells) + cells) % cells, seed), out = new Float32Array(n * n), sm = t => t * t * (3 - 2 * t);
+  for (let y = 0; y < n; y++) for (let x = 0; x < n; x++) { const fx = x / n * cells, fy = y / n * cells, i = Math.floor(fx), j = Math.floor(fy), u = sm(fx - i), v = sm(fy - j);
+    out[y * n + x] = (g(i, j) * (1 - u) + g(i + 1, j) * u) * (1 - v) + (g(i, j + 1) * (1 - u) + g(i + 1, j + 1) * u) * v; }
+  return out;
+}
+function noiseTexture() {
+  if (noiseTex) return noiseTex; const n = 128, f = noiseField(n), px = new Uint8Array(n * n * 4);
+  for (let i = 0; i < n * n; i++) { const v = Math.round(f[i] * 255); px[i * 4] = px[i * 4 + 1] = px[i * 4 + 2] = v; px[i * 4 + 3] = 255; }
+  noiseTex = new T.DataTexture(px, n, n); noiseTex.wrapS = noiseTex.wrapT = T.RepeatWrapping; noiseTex.magFilter = T.LinearFilter; noiseTex.minFilter = T.LinearFilter; noiseTex.needsUpdate = true; return noiseTex;
+}
 // A5 §D: `splat` thresholds given → PER-PIXEL blend: weights from the world normal and world height in the fragment shader,
 // with world-space value noise on every boundary (no per-triangle colour patches); `wetY` darkens a wet band above water.
 // Without `splat` the old per-vertex `splat` attribute is used (the landform rig keeps it).
@@ -248,24 +262,30 @@ export function splatMaterial(layers, {baseTile = 8, standard = false, macro = .
   m.onBeforeCompile = sh => {
     L.forEach((l, i) => { sh.uniforms['sT' + i] = {value: l.tex}; sh.uniforms['sN' + i] = {value: l.nrm}; sh.uniforms['sC' + i] = {value: new T.Color(l.color)}; sh.uniforms['sR' + i] = {value: l.rep}; sh.uniforms['sK' + i] = {value: l.k}; });
     sh.uniforms.sMacro = {value: macro};
-    if (PP) Object.assign(sh.uniforms, {pRock: {value: splat.rockSlope ?? .78}, pRockSoft: {value: splat.rockSoft ?? .08}, pHigh: {value: Number.isFinite(splat.highY) ? splat.highY : 1e5}, pHighSoft: {value: splat.highSoft ?? 4}, pWet: {value: wetY ?? -1e5}});
+    if (PP) Object.assign(sh.uniforms, {pNoise: {value: noiseTexture()}, pRock: {value: splat.rockSlope ?? .78}, pRockSoft: {value: splat.rockSoft ?? .08}, pHigh: {value: Number.isFinite(splat.highY) ? splat.highY : 1e5}, pHighSoft: {value: splat.highSoft ?? 4}, pWet: {value: wetY ?? -1e5}});
     sh.vertexShader = PP ? sh.vertexShader.replace('#include <common>', '#include <common>\nvarying vec3 vSWPos; varying vec3 vSWNor;').replace('#include <worldpos_vertex>', '#include <worldpos_vertex>\nvSWPos = (modelMatrix * vec4(transformed, 1.)).xyz; vSWNor = normalize(mat3(modelMatrix) * objectNormal);')
       : sh.vertexShader.replace('#include <common>', '#include <common>\nattribute vec3 splat; varying vec3 vSplat;').replace('#include <uv_vertex>', '#include <uv_vertex>\nvSplat = splat;');
     const U = [0, 1, 2].map(i => `uniform sampler2D sT${i}; uniform sampler2D sN${i}; uniform vec3 sC${i}; uniform float sR${i}; uniform float sK${i};`).join('\n');
-    const W = PP ? `float sh2(vec2 p){ return fract(sin(dot(p, vec2(127.1, 311.7))) * 43758.5453); }
-        float sn2(vec2 p){ vec2 i = floor(p), f = fract(p); f = f * f * (3. - 2. * f); return mix(mix(sh2(i), sh2(i + vec2(1, 0)), f.x), mix(sh2(i + vec2(0, 1)), sh2(i + vec2(1, 1)), f.x), f.y); }
-        vec3 splatW(){ float nz = sn2(vSWPos.xz * .35) * .6 + sn2(vSWPos.xz * 1.3) * .4 - .5;   // world-space noise breaks every boundary
+    const W = PP ? `uniform sampler2D pNoise;
+        vec3 splatW(){ float nz = texture2D(pNoise, vSWPos.xz * .0273).r * .6 + texture2D(pNoise, vSWPos.xz * .1016).r * .4 - .5;   // world-space noise (2 texture fetches) breaks every boundary
           float rock = smoothstep(0., 1., clamp((pRock - normalize(vSWNor).y) / pRockSoft + .5 + nz * .9, 0., 1.));
           float high = smoothstep(0., 1., clamp((vSWPos.y - pHigh) / pHighSoft + .5 + nz * 1.2, 0., 1.)) * (1. - rock * .7);
           float low = max(0., 1. - rock - high); return vec3(low, rock, high); }` : '';
     sh.fragmentShader = sh.fragmentShader.replace('#include <common>', PP ? `#include <common>\nvarying vec3 vSWPos; varying vec3 vSWNor; uniform float sMacro; uniform float pRock; uniform float pRockSoft; uniform float pHigh; uniform float pHighSoft; uniform float pWet;\n${U}\n${W}`
         : `#include <common>\nvarying vec3 vSplat; uniform float sMacro;\n${U}`)
       .replace('#include <map_fragment>', `${PP ? 'vec3 sw = splatW(); sw /= max(1e-4, sw.x + sw.y + sw.z);' : 'vec3 sw = vSplat / max(1e-4, vSplat.x + vSplat.y + vSplat.z);'}
-        vec3 alb = texture2D(sT0, vMapUv * sR0).rgb * sC0 * sw.x + texture2D(sT1, vMapUv * sR1).rgb * sC1 * sw.y + texture2D(sT2, vMapUv * sR2).rgb * sC2 * sw.z;
-        float mac = texture2D(sT0, vMapUv * .061).g * .6 + texture2D(sT1, vMapUv * .023).g * .4;
+        ${PP ? `vec3 alb = vec3(0.); if (sw.x > .01) alb += texture2D(sT0, vMapUv * sR0).rgb * sC0 * sw.x; if (sw.y > .01) alb += texture2D(sT1, vMapUv * sR1).rgb * sC1 * sw.y; if (sw.z > .01) alb += texture2D(sT2, vMapUv * sR2).rgb * sC2 * sw.z;
+        float mac = texture2D(pNoise, vSWPos.xz * .013).r;   // A7: skip zero-weight layers; macro tone from the noise texture` :
+        `vec3 alb = texture2D(sT0, vMapUv * sR0).rgb * sC0 * sw.x + texture2D(sT1, vMapUv * sR1).rgb * sC1 * sw.y + texture2D(sT2, vMapUv * sR2).rgb * sC2 * sw.z;
+        float mac = texture2D(sT0, vMapUv * .061).g * .6 + texture2D(sT1, vMapUv * .023).g * .4;`}
         diffuseColor.rgb *= alb * (1. - sMacro + sMacro * 2. * mac);
         ${PP ? 'float wet = 1. - smoothstep(0., .7, vSWPos.y - pWet); diffuseColor.rgb *= 1. - .38 * wet * step(pWet + .0001, vSWPos.y + 50.);' : ''}`)
-      .replace('#include <normal_fragment_maps>', `vec3 n0 = texture2D(sN0, vNormalMapUv * sR0).xyz * 2. - 1.; n0.xy *= sK0;
+      .replace('#include <normal_fragment_maps>', PP ? `vec3 mapN = vec3(0., 0., 1.) * (sw.x * float(sK0 <= 0.) + sw.y * float(sK1 <= 0.) + sw.z * float(sK2 <= 0.));
+        if (sK0 > 0. && sw.x > .01) { vec3 n = texture2D(sN0, vNormalMapUv * sR0).xyz * 2. - 1.; n.xy *= sK0; mapN += n * sw.x; }
+        if (sK1 > 0. && sw.y > .01) { vec3 n = texture2D(sN1, vNormalMapUv * sR1).xyz * 2. - 1.; n.xy *= sK1; mapN += n * sw.y; }
+        if (sK2 > 0. && sw.z > .01) { vec3 n = texture2D(sN2, vNormalMapUv * sR2).xyz * 2. - 1.; n.xy *= sK2; mapN += n * sw.z; }
+        mapN = normalize(mapN + vec3(0., 0., 1e-4));
+        normal = normalize(tbn * mapN);` : `vec3 n0 = texture2D(sN0, vNormalMapUv * sR0).xyz * 2. - 1.; n0.xy *= sK0;
         vec3 n1 = texture2D(sN1, vNormalMapUv * sR1).xyz * 2. - 1.; n1.xy *= sK1;
         vec3 n2 = texture2D(sN2, vNormalMapUv * sR2).xyz * 2. - 1.; n2.xy *= sK2;
         vec3 mapN = normalize(n0 * sw.x + n1 * sw.y + n2 * sw.z);

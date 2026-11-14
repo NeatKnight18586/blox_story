@@ -457,3 +457,85 @@ Also built: `render.js --final` (1440×2560, AA). `scripts/v2/qc.py` (`npm run v
 
   The failing numbers are in bold. Kit is close. Dax's deep-red hoodie and navy jeans stay darker than the lit grey wall behind him. **§E marked owner review**; judge from `review/season1/night-egg-390.png`.
 - **Decision:** three.js lights filter by camera layers, not by object, so a spot cannot light "only the cast's layer". The spot is narrow and shadow-casting instead (the actor screens the ground directly behind it).
+
+## Session 8b, after Decision 2 — STOPPED at the A7 bench (fails after two fix passes; reported, not loosened) — 2026-11-14
+- **Done since Decision 2:**
+  - **Hair polish:**
+    - quiff = one rolled front volume plus a slicked top;
+    - curls merge (bun radius larger than spacing);
+    - quiff, fade_textured and spiky_crop sit tight over the ears. The scalp gate allows < 3 % for those three only (owner); they measure ≤ 0.17 %.
+    - `hair-gates.json` PASS for all 20.
+  - **Troupe:**
+    - the line-up is re-shot with `fitDistance` (all six inside, 6 % side margin, ground 26 %; `troupe-phone-390.json`);
+    - troupe defaults obey the night palette (RIVAL deep red, lighter legs for LEAD and ELDER);
+    - `render.js` hashes `cast/troupe.json`.
+  - **Engine fixes:**
+    - actor lift is per shot (on under night looks, off in daylight);
+    - UI clamps now prefer going above the caption band, and an anchor just off-frame still clamps in (never clip);
+    - hero spots are hidden (no shadow pass) when off.
+  - **§F on real shots — PASS:**
+
+    | Shot | Subject | Need | Empty ground |
+    |---|---|---|---|
+    | demo T2 close | 45.6 % | 45 % | — |
+    | demo T3 heroLow | 33.8 % | 30 % | 20 % |
+    | demo T6 night medium | 34.5 % | 30 % | 16 % |
+    | egg kitMed / daxMed | 37 % | 30 % | 21 % |
+
+  - **§G:** `tools-demo.mp4` (18 s, 1080, 7.3 MB) + `tools-demo-1fps.png`; three-column `look-ab.png` (OLD · S8 · S8b, egg + ragdoll, 390 px row + 1:1 crops).
+    - The demo shows drone, snap to a fit close-up with the crowd behind and a 4.5 % focus stat, fit heroLow, tiltUp onto the giant with rain and lightning, crowd panic, the trail, and a nightBright medium of LEAD + SECOND.
+    - It was rendered before the two bench fix passes. Those change only terrain shading (texture noise, skipped zero-weight layers) and the spot shadow pass when off.
+  - `CLAUDE.md` library lines updated (hair v4, troupe + night palette + per-shot lift + hero spots, fit, nightBright, per-pixel splat, smooth trees, crowd promotion, UI minimums, gate commands).
+- **§E (owner review):** night numbers on the current code (`night-egg-390.png`):
+
+  | View | Frame | Actor | Mask − ring |
+  |---|---|---|---|
+  | square | 0.427 | — | — |
+  | kitMed | 0.399 | Kit 0.441 | 0.104 |
+  | daxMed | 0.346 | Dax 0.245 | −0.096 |
+
+  All three views still miss their lines; Kit misses only narrowly.
+- **A7 bench FAILS** after two fix passes (limit ≤ 80k triangles, ≤ 0.60 s/frame at 720):
+
+  | | Demo | Egg | Ragdoll |
+  |---|---|---|---|
+  | Start | 77,358 · 1.072 s | 90,984 · 0.991 s | 112,420 · 1.072 s |
+  | After pass 1 (spots hidden when off, fine cells within 35 units) | 61,698 · 0.836 s | 77,934 · 0.853 s | 95,020 · 0.842 s |
+  | After pass 2 (splat shader; cells back to 60 units as A5 §D requires) | **68,658 · 0.688 s** | **84,894 (@wide) · 0.680 s** | **101,980 (wide) · 0.641 s** |
+
+  - **Where the time goes** (kitMed at 720): terrain 1.5-unit cells within 60 units of the cameras ≈ 235 ms as plain Phong; splat shading ≈ +110 ms; the rest is actors with v4 hair, two point lights and two hero spots.
+  - **Cause:** A5 §D's cell rule (≤ 1.5 units within 60 units of a camera) and A7's 0.60 s budget conflict on this CPU renderer.
+  - **Owner's call:** e.g. allow 1.5-unit cells only within ~30 units, or render v3 finals at 540×960 per brief §5.4.
+- **Also passing:**
+  - `v2:stability`: demo 0.059 %, egg 0.055 %, ragdoll 0.047 %.
+  - "Nobody": 11/11 frames byte-identical at 1440.
+  - `v2:test`: 66 Node tests pass.
+- **Three weakest things per sheet:**
+  - **`hair-sheet.png`:**
+    1. The quiff roll plus slick top still reads a little like a cap from the front.
+    2. long_braids' braids are bead stacks at the jaw, hardly visible from the front.
+    3. Every long style has the same flat back sheet from behind (long_layered, sleek_long and wolf_cut differ mostly at the tips).
+  - **`hair-phone-390.png`:**
+    1. The medium framing cuts the top of tall styles (quiff, messy_bun) at the frame edge.
+    2. Skin and shirt colours change per cell, so the hair is not the only variable.
+    3. wavy_bob's S-bend still does not read at phone size.
+  - **`troupe-sheet.png`:**
+    1. LEAD's fringe throws a dark band over the brow in front views.
+    2. AFK's buzz in ghosted grey reads as a helmet.
+    3. The upper-body crop cuts the hands, so tees and hoodies read as the same block.
+  - **`troupe-phone-390.png`:**
+    1. Everyone is small (14 % of frame height) with 55 % empty sky above.
+    2. The studio ground plate ends at 86 % and shows bare sky below.
+    3. AFK at 0.4 opacity nearly vanishes against the pale sky.
+  - **`look-ab.png`:**
+    1. In S8b ragdoll, Stan's tag floats a quarter-frame above him, because his head sits below the caption band in that old camera.
+    2. The S8b egg square is still a tiny-cast wide: the night improvement shows on the ground and sky, not on the characters.
+    3. The S8 and S8b columns differ little for ragdoll at phone size; the terrain and tree changes show only in the 1:1 crop.
+  - **`night-egg-390.png`:**
+    1. Dax's deep red and navy read dark against the lit grey wall behind him (−0.096).
+    2. The full moon and lit cloud bank keep the square's frame mean just over 0.42.
+    3. The fallen egg at Kit's feet reads as a beige blob, not a glowing egg.
+  - **`tools-demo-1fps.png`:**
+    1. The giant stays a mossy boulder (out of scope).
+    2. The 40-strong crowd behind Stan in the heroLow reads as a wall of torsos.
+    3. Mia's wave is cut by the right edge in the night shot.

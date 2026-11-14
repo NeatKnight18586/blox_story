@@ -6,10 +6,10 @@
  "limit": 0.3,
  "views": 12,
  "worst": {
-  "view": "street:first",
+  "view": "kitMed:first",
   "frame": 8,
-  "pct": 0.025,
-  "raw": 0.037
+  "pct": 0.055,
+  "raw": 0.168
  },
  "failing": [],
  "errors": [],
@@ -18,74 +18,74 @@
   {
    "view": "@square",
    "frame": null,
-   "pct": 0.005,
-   "raw": 0.034
+   "pct": 0.002,
+   "raw": 0.023
   },
   {
    "view": "@street",
    "frame": null,
-   "pct": 0.001,
-   "raw": 0.023
+   "pct": 0.002,
+   "raw": 0.027
   },
   {
    "view": "@wide",
    "frame": null,
-   "pct": 0.001,
-   "raw": 0.008
+   "pct": 0,
+   "raw": 0.005
   },
   {
    "view": "square:first",
    "frame": 0,
-   "pct": 0.003,
-   "raw": 0.023
+   "pct": 0.002,
+   "raw": 0.019
   },
   {
    "view": "square:mid",
    "frame": 4,
-   "pct": 0.009,
+   "pct": 0.008,
    "raw": 0.036
   },
   {
    "view": "square:last",
    "frame": 7,
    "pct": 0.012,
-   "raw": 0.037
+   "raw": 0.044
   },
   {
-   "view": "street:first",
+   "view": "kitMed:first",
    "frame": 8,
-   "pct": 0.025,
-   "raw": 0.037
+   "pct": 0.055,
+   "raw": 0.168
   },
   {
-   "view": "street:mid",
+   "view": "kitMed:mid",
    "frame": 12,
-   "pct": 0.004,
-   "raw": 0.02
+   "pct": 0.024,
+   "raw": 0.144
   },
   {
-   "view": "street:last",
+   "view": "kitMed:last",
    "frame": 15,
-   "pct": 0.009,
-   "raw": 0.021
+   "pct": 0.043,
+   "raw": 0.155
   },
   {
-   "view": "wide:first",
+   "view": "daxMed:first",
    "frame": 16,
-   "pct": 0,
-   "raw": 0.001
+   "pct": 0.011,
+   "raw": 0.125
   },
   {
-   "view": "wide:mid",
+   "view": "daxMed:mid",
    "frame": 20,
-   "pct": 0,
-   "raw": 0.002
+   "pct": 0.026,
+   "raw": 0.133
   },
   {
-   "view": "wide:last",
+   "view": "daxMed:last",
    "frame": 23,
-   "pct": 0,
-   "raw": 0.002
+   "pct": 0.013,
+   "raw": 0.114
   }
  ]
 }
