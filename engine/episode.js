@@ -15,7 +15,7 @@ import {loadFont, fitTags} from './overhead.js';
 import {createLook, createLookV3} from './look.js';
 import {createEffects} from './effects.js';
 import {createCrowds} from './crowd.js';
-import {createRuleUI, enforceReadable} from './ruleui.js';
+import {createRuleUI, enforceReadable, uiMeasure} from './ruleui.js';
 import * as P from '../parts/parts.js';
 import * as B from '../parts/build.js';
 import * as A from '../parts/ambient.js';
@@ -293,9 +293,25 @@ export function measureFrame() {
     if (b.isEmpty()) continue; let x0 = 1, x1 = 0, y0 = 1, y1 = 0, front = false;
     for (let i = 0; i < 8; i++) { v.set(i & 1 ? b.max.x : b.min.x, i & 2 ? b.max.y : b.min.y, i & 4 ? b.max.z : b.min.z).project(camera); if (v.z < 1) front = true; const x = (v.x + 1) / 2, y = (1 - v.y) / 2; x0 = Math.min(x0, x); x1 = Math.max(x1, x); y0 = Math.min(y0, y); y1 = Math.max(y1, y); }
     const H = 5.3 * a.root.scale.y, m = markPos[name] ?? a.root.position.toArray(), py = h => (1 - v.set(m[0], m[1] + h, m[2]).project(camera).y) / 2;
-    out[name] = {front, box: {x0, x1, y0, y1}, feet: py(0), shoulder: py(.6 * H), top: py(1.02 * H), troupe: c.troupe ?? null};
+    const hd = a.parts?.head, face = hd ? projBox(new T.Box3().setFromObject(hd)) : null;   // A4 §E: the face (head block) on screen
+    if (face) { const fw = new T.Vector3(0, 0, 1).transformDirection(hd.matrixWorld), hp = hd.getWorldPosition(new T.Vector3()); face.toward = fw.dot(camera.position.clone().sub(hp).normalize()) > .2; }
+    out[name] = {front, box: {x0, x1, y0, y1}, feet: py(0), shoulder: py(.6 * H), top: py(1.02 * H), troupe: c.troupe ?? null, face, opacity: a.preset?.opacity ?? 1};
   }
   return out;
+}
+// Projected box of a world Box3 (frame fractions, y down) + height fraction; front = any corner in front of the camera.
+function projBox(b) {
+  const v = new T.Vector3(); let x0 = 1, x1 = 0, y0 = 1, y1 = 0, front = false;
+  for (let i = 0; i < 8; i++) { v.set(i & 1 ? b.max.x : b.min.x, i & 2 ? b.max.y : b.min.y, i & 4 ? b.max.z : b.min.z).project(camera); if (v.z < 1) front = true; const x = (v.x + 1) / 2, y = (1 - v.y) / 2; x0 = Math.min(x0, x); x1 = Math.max(x1, x); y0 = Math.min(y0, y); y1 = Math.max(y1, y); }
+  return {x0: +x0.toFixed(4), x1: +x1.toFixed(4), y0: +y0.toFixed(4), y1: +y1.toFixed(4), h: +(y1 - y0).toFixed(4), front};
+}
+// A4 §E season gates (plan.js): render frame n, then report actors (measureFrame + face), named objects' projected boxes
+// (scene objects by name, or cast actors) and the rule UI as it was left on screen (v3 worlds).
+export function seasonMeasure(n, objects = [], width = 360, height = 640) {
+  renderFrame(n, width, height); camera.updateMatrixWorld(true); scene.updateMatrixWorld(true);
+  const shot = shots.findLast(s => n >= s.start), obj = {};
+  for (const name of objects) { const o = cast[name]?.a.root ?? scene.getObjectByName(name); obj[name] = o ? projBox(new T.Box3().setFromObject(o)) : null; }
+  return {frame: n, actors: measureFrame(), objects: obj, ui: (spec.readableUi ?? !!look?.v3) ? uiMeasure(scene, camera, {focus: shot.focusUi ?? []}) : [], v3: !!look?.v3};
 }
 // A5 Decision 2: silhouette mask of one actor (actor-only pass, same camera, after renderFrame): Uint8 array, row 0 = top.
 const maskMat = new T.MeshBasicMaterial({color: '#ffffff'});
@@ -310,4 +326,4 @@ export function actorMask(name, w, h) {
 }
 export function shotSpeed(i) { const s = shots[i]; return maxTargetSpeed({...s, fps: FPS, openHit: false}, tt => poseCast(s.start / FPS + tt), FPS); }
 
-window.__episode = {debug: {scene, renderer}, breakdown, measureFrame, actorMask, inspectFrame, shotSpeed, END: FRAMES / FPS, anchors: Object.fromEntries(Object.entries(anchors).filter(([, a]) => a.camera).map(([k]) => [k, true])), renderAnchor, renderAnchorNudged, renderCamera, FPS, FRAMES, shots: shots.map(({id, start, frames, size, move, loc, subject, see, openHit, at, why, captionY, fit, spectacle, look: lk}) => ({id, start, frames, size, move, loc, subject, see, openHit: !!openHit, at, why, captionY, fit, spectacle: !!spectacle, look: lk})), renderFrame};
+window.__episode = {debug: {scene, renderer}, breakdown, measureFrame, seasonMeasure, actorMask, inspectFrame, shotSpeed, END: FRAMES / FPS, anchors: Object.fromEntries(Object.entries(anchors).filter(([, a]) => a.camera).map(([k]) => [k, true])), renderAnchor, renderAnchorNudged, renderCamera, FPS, FRAMES, shots: shots.map(({id, start, frames, size, move, loc, subject, see, openHit, at, why, captionY, fit, spectacle, look: lk}) => ({id, start, frames, size, move, loc, subject, see, openHit: !!openHit, at, why, captionY, fit, spectacle: !!spectacle, look: lk})), renderFrame};

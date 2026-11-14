@@ -613,3 +613,18 @@ Three weakest things (`builds-390.png`, row 3 + adult_f cells):
 1. The fitted tee decal is small (0.64 × 0.26 units). At 390 px it reads as a name badge, not a print.
 2. The hoodie pocket and the robe's trim follow the taper, so the pocket becomes a trapezoid; and at 3/4 the waist notch facets catch light very differently from the front, so the cut reads sharper than the reference.
 3. From the side, adult_f is a plain 1.0-deep box, the same as adult_m. The build only reads from the front and three-quarter.
+
+## Session 9 (A4 D, E, F, H, I): captions v3, season gates, sound, commands (2026-11-14)
+Plan:
+1. D: `captions/pop-shorts-v3.json` (128 / 150 / 120 % / outline 9, y 1250, high 560). In `captions.py`: pure `chunk_cap` (2 words if one has 7+ letters, else 3), `--style` / `spec.captionStyle`, a width fit, and a measured cap-height check on a 390 px crop → `caption-v3-phone.png`.
+2. E: pure `engine/seasoncheck.js` (B1, B2, clues, AFK, rhyme, length, framing, uiSize) on measurements from the page.
+   - The page gains `measureFrame().head`, `objectBox` and `uiMeasure` (ruleui).
+   - `plan.js` runs it when `spec.season` is set (framing/uiSize also on v3 worlds), and the caption band becomes 58–74 %.
+3. F:
+   - `scripts/v2/sfx.py` (10 numpy WAVs, `assets/sfx/<name>.wav` overrides); pure `sfx_cues(spec, cues)` placement; an `assemble.py` mix at −16 dB (off with `"sfx": false`); `music.mp3` is used if present.
+   - `scripts/v2/audiocues.py` → `review/<slug>/audio-cues.md`.
+4. H/I: `.claude/commands/{new-episode,season}.md`, `docs/season1/STATE.md`, pure `scripts/v2/season_state.py` (transitions), `scripts/v2/scriptcheck.py` (four scripts pass).
+5. Tests:
+   - JS: `tests/v2/s9.test.js`.
+   - Python: `tests/v2/test_s9.py` (chunking, sfx placement, scriptcheck, state).
+6. Re-assemble `tools-demo.mp4` with v3 captions and sfx. Update `CLAUDE.md`, the PR, and send the files. Stop at `episode: 1 egg`, `step: voice`.

@@ -54,6 +54,34 @@ export function enforceReadable(scene, camera, {focus = [], band = SAFE.band} = 
     if (dx || dy) { const target = _w.clone().addScaledVector(_r, dx * frameW).addScaledVector(_u, -dy * frameH); o.parent ? o.position.copy(o.parent.worldToLocal(target)) : o.position.copy(target); }
   }
 }
+// A4 §E uiSize gate (plan.js): what enforceReadable left on screen, measured, never changed. Same element set and skip
+// rules as enforceReadable. → [{id, kind, cap, min, rect: {x0, x1, y0, y1}}] (frame fractions, y down).
+export function uiMeasure(scene, camera, {focus = []} = {}) {
+  camera.getWorldPosition(_c); camera.getWorldQuaternion(_q); const tanH = Math.tan(camera.fov * Math.PI / 360), out = [];
+  scene.traverseVisible(o => {
+    const kind = o.userData.uiKind ?? (o.isSprite && o.userData.key?.startsWith('tag:') ? (o.userData.key.split(':')[2] !== 'null' ? 'nameTagRole' : 'nameTag') : null); if (!kind) return;
+    o.getWorldPosition(_w); const pk = o.parent ? o.parent.getWorldScale(new T.Vector3()).y : 1, Hw = (o.userData.uiH ?? o.scale.y) * pk * (o.userData.uiH ? o.scale.y : 1), Ww = Hw * (o.userData.uiAspect ?? o.scale.x / o.scale.y);
+    const d = _w.clone().sub(_c).dot(new T.Vector3(0, 0, -1).applyQuaternion(_q)); if (d <= .1 || d > MAX_DIST) return;
+    const ndc = _w.clone().project(camera); if (Math.abs(ndc.x) > 1.6 || Math.abs(ndc.y) > 1.6) return;
+    const frameH = 2 * d * tanH, frameW = frameH * camera.aspect, h = Hw / frameH, w = Ww / frameW, cx = (ndc.x + 1) / 2, by = (1 - ndc.y) / 2;
+    const key = kind === 'nameTag' || kind === 'nameTagRole' ? 'tag' : kind;
+    out.push({id: o.userData.uiId ?? o.userData.key ?? kind, kind, cap: +(h * (CAP_RATIO[kind] ?? .35)).toFixed(4), min: focus.includes(o.userData.uiId) ? MIN_CAP.focus : MIN_CAP[key] ?? .03,
+      rect: {x0: +(cx - w / 2).toFixed(4), x1: +(cx + w / 2).toFixed(4), y0: +(by - h).toFixed(4), y1: +by.toFixed(4)}});
+  });
+  return out;
+}
+// Pure: issues for measured UI items (cap height below its minimum, outside the safe area, in the caption band).
+export function uiSizeIssues(items, {band = SAFE.band, tol = .002} = {}) {
+  const out = [];
+  for (const u of items) {
+    const r = u.rect, small = r.x1 - r.x0 <= 1 - 2 * SAFE.side;
+    if (u.cap < u.min - tol) out.push(`${u.id}: cap ${(u.cap * 100).toFixed(2)} % < ${(u.min * 100).toFixed(1)} %`);
+    if (small && (r.x0 < SAFE.side - tol || r.x1 > 1 - SAFE.side + tol)) out.push(`${u.id}: x ${(r.x0 * 100).toFixed(1)}–${(r.x1 * 100).toFixed(1)} % outside the ${SAFE.side * 100} % sides`);
+    if (r.y0 < SAFE.top - tol || r.y1 > SAFE.bottom + tol) out.push(`${u.id}: y ${(r.y0 * 100).toFixed(1)}–${(r.y1 * 100).toFixed(1)} % outside ${SAFE.top * 100}–${SAFE.bottom * 100} %`);
+    if (band && r.y1 > band[0] + tol && r.y0 < band[1] - tol) out.push(`${u.id}: in the caption band (${(r.y0 * 100).toFixed(1)}–${(r.y1 * 100).toFixed(1)} %)`);
+  }
+  return out;
+}
 // Current key and frames since it took effect (pure).
 export function uiState(keys = [], t, fps = 30) {
   let cur = null; for (const k of keys) if (t >= k[0]) cur = k;

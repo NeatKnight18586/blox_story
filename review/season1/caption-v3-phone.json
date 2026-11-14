@@ -1,0 +1,53 @@
+{
+ "limits": {
+  "minCap": 0.026,
+  "band": [
+   0.58,
+   0.74
+  ]
+ },
+ "story": "egg",
+ "video": "review/season1/tools-demo.mp4",
+ "v2": {
+  "sizes": [
+   96,
+   112
+  ],
+  "smallest": {
+   "size": 96,
+   "capPx": 21,
+   "cap": 0.0303,
+   "top": 0.6407,
+   "bottom": 0.6811
+  },
+  "largest": {
+   "size": 112,
+   "capPx": 24,
+   "cap": 0.0346,
+   "top": 0.6378,
+   "bottom": 0.6825
+  }
+ },
+ "v3": {
+  "sizes": [
+   116,
+   150
+  ],
+  "smallest": {
+   "size": 116,
+   "capPx": 25,
+   "cap": 0.0361,
+   "top": 0.6277,
+   "bottom": 0.6753
+  },
+  "largest": {
+   "size": 150,
+   "capPx": 32,
+   "cap": 0.0462,
+   "top": 0.6219,
+   "bottom": 0.6811
+  }
+ },
+ "failures": [],
+ "pass": true
+}
