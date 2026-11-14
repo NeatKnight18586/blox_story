@@ -60,14 +60,22 @@ export const PARTS = {
 // Widths in studs at the shoulders (top), waist (at waistAt of the torso height, from the top) and hips (bottom).
 export const BUILDS = {
   adult_m: {shoulder: 2, waist: 2, hip: 2, waistAt: .55, height: 1, leg: .98},
-  adult_f: {shoulder: 1.9, waist: 1.6, hip: 1.85, waistAt: .55, height: 1, leg: .9},     // subtle hourglass, adult women only
+  // adult women only (owner reference 2026-11-14): straight block down to 0.73 of the height from the bottom, flat taper to the
+  // waist (0.68 of the top width at 0.37), flat flare back to full width at the hips; arms and legs exactly as adult_m.
+  adult_f: {shoulder: 2, waist: 1.36, hip: 2, height: 1, leg: .98, profile: [[1, 1], [.73, 1], [.37, .68], [0, 1]]},
   youth: {shoulder: 2, waist: 2, hip: 2, waistAt: .55, height: .9, leg: .98},            // anyone under 18: straight, 0.9 torso
   elder_f: {shoulder: 2, waist: 2.12, hip: 2.04, waistAt: .55, height: 1, leg: .98, stoop: .09},   // grandmas: wider waist, stoop
 };
 export const ADULT_ONLY = ['adult_f', 'elder_f', 'adult_m'];
-// Torso width at u (0 = top/shoulders … 1 = bottom/hips): linear shoulder → waist → hip (pure).
+// Torso width at u (0 = top/shoulders … 1 = bottom/hips), pure. A `profile` build is piecewise linear through its rows
+// ([height from the bottom 0..1, width as a fraction of the top]); the others are linear shoulder → waist → hip.
 export function torsoWidthAt(build, u) {
   const b = BUILDS[build] ?? BUILDS.adult_m, w = Math.min(1, Math.max(0, u));
+  if (b.profile) {
+    const hgt = 1 - w, P = b.profile;
+    for (let i = 0; i < P.length - 1; i++) { const [h0, f0] = P[i], [h1, f1] = P[i + 1]; if (hgt <= h0 && hgt >= h1) return b.shoulder * (h0 === h1 ? f0 : f1 + (f0 - f1) * (hgt - h1) / (h0 - h1)); }
+    return b.shoulder;
+  }
   return w <= b.waistAt ? b.shoulder + (b.waist - b.shoulder) * (w / b.waistAt) : b.waist + (b.hip - b.waist) * ((w - b.waistAt) / (1 - b.waistAt));
 }
 // A cast entry's build must fit its age: under 18 → youth only (never adult_f / elder_f / adult_m). Returns an error or null.
@@ -81,10 +89,26 @@ export function buildError(entry) {
 // Part layout for a build (pure): torso size/centre, shoulder and hip pivots, leg width.
 export function buildLayout(build) {
   const b = BUILDS[build] ?? BUILDS.adult_m, th = 2 * b.height, top = 2.02 + th;
-  return {torso: {size: [2, th, 1], at: [0, 2.02 + th / 2, 0]}, headPivot: [0, top + .01, 0], shoulderX: b.shoulder / 2 + .51, shoulderY: top, hipX: Math.max(b.leg / 2 + .005, b.hip / 2 - b.leg / 2 - .005), leg: b.leg};
+  return {torso: {size: [2, th, 1], at: [0, 2.02 + th / 2, 0]}, headPivot: [0, top + .01, 0], shoulderX: b.shoulder / 2 + .51, shoulderY: top, hipX: b.profile ? -PARTS.leftLeg.pivotAt[0] : Math.max(b.leg / 2 + .005, b.hip / 2 - b.leg / 2 - .005), leg: b.leg};   // profile builds: legs exactly as adult_m
+}
+// Profile torso: one box row per profile row, moved to its height and scaled to its width; flat faces and sharp edges
+// (non-indexed, so no normal is shared across a row); front/back/side v re-mapped to the moved rows (no vertical stretch),
+// u keeps the box mapping, so the paint follows the faces and the straight top block stays undistorted. Same at all tiers.
+// The hip row drops HIP_DROP (0.02) to the leg tops (y 2.0): the legacy torso floats 0.02 above the legs; this one meets them.
+export const HIP_DROP = .02;
+function profileTorso(build) {
+  const b = BUILDS[build], [w, h, d] = buildLayout(build).torso.size, P = b.profile, n = P.length - 1;
+  const g = new T.BoxGeometry(w, h, d, 1, n, 1), p = g.attributes.position, uv = g.attributes.uv, nr = g.attributes.normal;
+  for (let i = 0; i < p.count; i++) {
+    const row = Math.round((h / 2 - p.getY(i)) / h * n), hgt = P[row][0], y = -h / 2 + hgt * h - (row === n ? HIP_DROP : 0);
+    if (Math.abs(nr.getY(i)) < .5) { p.setY(i, y); uv.setY(i, hgt); } else p.setY(i, y);   // caps: rows 0 and n, v unchanged
+    p.setX(i, p.getX(i) * P[row][1]);
+  }
+  const ng = g.toNonIndexed(); ng.computeVertexNormals(); g.dispose(); return ng;
 }
 function torsoGeometry(build, tier) {
   if (!build || build === 'adult_m') return blockGeometry(PARTS.torso.size, tier);
+  if (BUILDS[build]?.profile) return cached(`torso:${build}`, () => profileTorso(build));
   const L = buildLayout(build), [w, h, d] = L.torso.size;
   return cached(`torso:${build}:${tier}`, () => {
     const g = new T.BoxGeometry(w, h, d, 1, tier === 'hero' ? 10 : 6, 1);   // rows through the height so the waist exists (a rounded box only has rows at its bevels)
