@@ -10,6 +10,48 @@ import {FONT, drawIcon, popScale, classCardCanvas} from './overhead.js';
 import {CLASSES} from '../parts/props.js';
 
 export const UI_KINDS = ['tag', 'stat', 'bar', 'icon', 'card', 'checklist', 'plate'];
+
+// ---- A5 §C: readable and inside the frame (pure; enforced per frame for v3 worlds only) -----------------------------
+export const MIN_CAP = {tag: .024, stat: .03, bar: .03, plate: .03, icon: .03, checklist: .03, card: .03, focus: .045};   // text cap height / frame height
+// Text cap height as a fraction of the drawn sprite's height (measured from the canvas layouts below and in overhead.js).
+export const CAP_RATIO = {nameTag: .5, nameTagRole: .35, tag: .5, stat: .35, bar: .17, plate: .41, icon: .6, checklist: .12, card: .1};
+export const SAFE = {side: .05, top: .08, bottom: .95, band: [.58, .74]};
+// Scale factor (≥ 1) that lifts a cap height of `capFrac` to at least `minFrac`.
+export const minScale = (capFrac, minFrac) => capFrac > 0 && capFrac < minFrac ? minFrac / capFrac : 1;
+// Shift {dx, dy} (frame fractions, y down) that moves rect {x0, x1, y0, y1} inside the safe area and out of the caption band.
+// Never clips: an element larger than the area keeps its size and is centred on it.
+export function safeShift(r, {side = SAFE.side, top = SAFE.top, bottom = SAFE.bottom, band = SAFE.band} = {}) {
+  let dx = 0, dy = 0; const w = r.x1 - r.x0, h = r.y1 - r.y0;
+  if (w > 1 - 2 * side) dx = .5 - (r.x0 + r.x1) / 2; else if (r.x0 < side) dx = side - r.x0; else if (r.x1 > 1 - side) dx = 1 - side - r.x1;
+  let y0 = r.y0, y1 = r.y1;
+  if (y0 < top) { dy = top - y0; } else if (y1 > bottom) { dy = bottom - y1; }
+  y0 += dy; y1 += dy;
+  if (band && y1 > band[0] && y0 < band[1]) {   // overlaps the caption band: go to whichever side its centre is on (above if it fits)
+    const c = (y0 + y1) / 2, up = band[0] - y1, down = band[1] - y0;
+    const goUp = (c < (band[0] + band[1]) / 2 || band[1] + h > bottom) && band[0] - h >= top;
+    dy += goUp ? up : down;
+  }
+  return {dx, dy};
+}
+// Per-frame enforcement (call after the camera is final). Restores last frame's shift first, so frames stay order-independent.
+const _w = new T.Vector3(), _c = new T.Vector3(), _r = new T.Vector3(), _u = new T.Vector3(), _q = new T.Quaternion();
+export function enforceReadable(scene, camera, {focus = [], band = SAFE.band} = {}) {
+  camera.getWorldPosition(_c); camera.getWorldQuaternion(_q); _r.set(1, 0, 0).applyQuaternion(_q); _u.set(0, 1, 0).applyQuaternion(_q);
+  const tanH = Math.tan(camera.fov * Math.PI / 360), list = [];
+  scene.traverseVisible(o => { const k = o.userData.uiKind ?? (o.isSprite && o.userData.key?.startsWith('tag:') ? (o.userData.key.split(':')[2] !== 'null' ? 'nameTagRole' : 'nameTag') : null); if (k) list.push([o, k]); });
+  for (const [o, kind] of list) {
+    if (o.userData._ePos) o.position.copy(o.userData._ePos); else o.userData._ePos = o.position.clone();
+    o.updateWorldMatrix(true, false); o.getWorldPosition(_w);
+    const pk = o.parent ? o.parent.getWorldScale(new T.Vector3()).y : 1, Hw = (o.userData.uiH ?? o.scale.y) * pk * (o.userData.uiH ? o.scale.y : 1), Ww = Hw * (o.userData.uiAspect ?? o.scale.x / o.scale.y);
+    const d = _w.clone().sub(_c).dot(new T.Vector3(0, 0, -1).applyQuaternion(_q)); if (d <= .1) continue;
+    const frameH = 2 * d * tanH, frameW = frameH * camera.aspect;
+    const key = kind === 'nameTag' || kind === 'nameTagRole' ? 'tag' : kind, minF = focus.includes(o.userData.uiId) ? MIN_CAP.focus : MIN_CAP[key] ?? .03;
+    const k = minScale(Hw / frameH * (CAP_RATIO[kind] ?? .35), minF); if (k > 1) o.scale.multiplyScalar(k);
+    const ndc = _w.clone().project(camera), cx = (ndc.x + 1) / 2, by = (1 - ndc.y) / 2, h = Hw * k / frameH, w = Ww * k / frameW;   // sprites anchor bottom-centre
+    const {dx, dy} = safeShift({x0: cx - w / 2, x1: cx + w / 2, y0: by - h, y1: by}, {band});
+    if (dx || dy) { const target = _w.clone().addScaledVector(_r, dx * frameW).addScaledVector(_u, -dy * frameH); o.parent ? o.position.copy(o.parent.worldToLocal(target)) : o.position.copy(target); }
+  }
+}
 // Current key and frames since it took effect (pure).
 export function uiState(keys = [], t, fps = 30) {
   let cur = null; for (const k of keys) if (t >= k[0]) cur = k;
@@ -58,7 +100,7 @@ export function createRuleUI(list = [], {scene, resolveTarget, fps = 30}) {
     let o;
     if ((it.u.facing ?? 'screen') === 'screen') { o = new T.Sprite(new T.SpriteMaterial({map: tex, depthWrite: false, transparent: true, depthTest: it.u.depthTest ?? true})); o.center.set(.5, 0); o.scale.set(W, H, 1); }
     else { o = new T.Mesh(new T.PlaneGeometry(W, H).translate(0, H / 2, 0), new T.MeshBasicMaterial({map: tex, transparent: true, depthWrite: false, side: T.DoubleSide, polygonOffset: true, polygonOffsetFactor: -2})); }
-    o.renderOrder = 11; o.userData.base = o.scale.clone(); it.cache.set(key, o); return o;
+    o.renderOrder = 11; o.userData.base = o.scale.clone(); o.userData.uiKind = it.u.kind; o.userData.uiId = it.u.id; o.userData.uiH = (it.u.facing ?? 'screen') === 'screen' ? null : H; o.userData.uiAspect = W / H; it.cache.set(key, o); return o;
   };
   return {
     items,

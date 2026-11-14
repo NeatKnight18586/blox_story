@@ -234,31 +234,44 @@ export function std(pattern = 'plastic', color = '#cccccc', {hero = true, flat =
 // albedo AND normal maps blended, plus a low-frequency macro tone so big slopes never show the tile repeat.
 let flatN = null;
 const flatNormal = () => { if (!flatN) { flatN = new T.DataTexture(new Uint8Array([128, 128, 255, 255]), 1, 1); flatN.needsUpdate = true; } return flatN; };
-export function splatMaterial(layers, {baseTile = 8, standard = false, macro = .12, aniso = 2, res = N} = {}) {   // terrain is not hero tier: 256 px (A4 A3)
+// A5 §D: `splat` thresholds given → PER-PIXEL blend: weights from the world normal and world height in the fragment shader,
+// with world-space value noise on every boundary (no per-triangle colour patches); `wetY` darkens a wet band above water.
+// Without `splat` the old per-vertex `splat` attribute is used (the landform rig keeps it).
+export function splatMaterial(layers, {baseTile = 8, standard = false, macro = .12, aniso = 2, res = N, splat = null, wetY = null} = {}) {   // terrain is not hero tier: 256 px (A4 A3)
   // own texture copies at low anisotropy: 6 grazing-angle fetches per pixel at 8× aniso cost ~0.3 s/frame on SwiftShader (A7 bench)
   const lo = t => { if (!t || t === flatN) return t; const c = t.clone(); c.anisotropy = aniso; c.needsUpdate = true; return c; };
   const L = layers.map(l => ({...l, tex: lo(l.pattern === 'plastic' ? patternTexture('snow', res) : patternTexture(l.pattern, res)), nrm: lo(normalTexture(l.pattern, res)) ?? flatNormal(),
     k: RELIEF[l.pattern] ?? 0, rep: baseTile / (l.tile ?? TILE[l.pattern] ?? 4)}));
-  const Mat = standard ? T.MeshStandardMaterial : T.MeshPhongMaterial;
+  const PP = !!splat, Mat = standard ? T.MeshStandardMaterial : T.MeshPhongMaterial;
   const m = new Mat(standard ? {color: '#ffffff', map: L[0].tex, normalMap: L[0].nrm, roughness: .9, metalness: 0, envMap: ENV.map, envMapIntensity: ENV.intensity * .6}
     : {color: '#ffffff', map: L[0].tex, normalMap: L[0].nrm, shininess: 8, specular: '#111111'});
   m.onBeforeCompile = sh => {
     L.forEach((l, i) => { sh.uniforms['sT' + i] = {value: l.tex}; sh.uniforms['sN' + i] = {value: l.nrm}; sh.uniforms['sC' + i] = {value: new T.Color(l.color)}; sh.uniforms['sR' + i] = {value: l.rep}; sh.uniforms['sK' + i] = {value: l.k}; });
     sh.uniforms.sMacro = {value: macro};
-    sh.vertexShader = sh.vertexShader.replace('#include <common>', '#include <common>\nattribute vec3 splat; varying vec3 vSplat;').replace('#include <uv_vertex>', '#include <uv_vertex>\nvSplat = splat;');
+    if (PP) Object.assign(sh.uniforms, {pRock: {value: splat.rockSlope ?? .78}, pRockSoft: {value: splat.rockSoft ?? .08}, pHigh: {value: Number.isFinite(splat.highY) ? splat.highY : 1e5}, pHighSoft: {value: splat.highSoft ?? 4}, pWet: {value: wetY ?? -1e5}});
+    sh.vertexShader = PP ? sh.vertexShader.replace('#include <common>', '#include <common>\nvarying vec3 vSWPos; varying vec3 vSWNor;').replace('#include <worldpos_vertex>', '#include <worldpos_vertex>\nvSWPos = (modelMatrix * vec4(transformed, 1.)).xyz; vSWNor = normalize(mat3(modelMatrix) * objectNormal);')
+      : sh.vertexShader.replace('#include <common>', '#include <common>\nattribute vec3 splat; varying vec3 vSplat;').replace('#include <uv_vertex>', '#include <uv_vertex>\nvSplat = splat;');
     const U = [0, 1, 2].map(i => `uniform sampler2D sT${i}; uniform sampler2D sN${i}; uniform vec3 sC${i}; uniform float sR${i}; uniform float sK${i};`).join('\n');
-    sh.fragmentShader = sh.fragmentShader.replace('#include <common>', `#include <common>\nvarying vec3 vSplat; uniform float sMacro;\n${U}`)
-      .replace('#include <map_fragment>', `vec3 sw = vSplat / max(1e-4, vSplat.x + vSplat.y + vSplat.z);
+    const W = PP ? `float sh2(vec2 p){ return fract(sin(dot(p, vec2(127.1, 311.7))) * 43758.5453); }
+        float sn2(vec2 p){ vec2 i = floor(p), f = fract(p); f = f * f * (3. - 2. * f); return mix(mix(sh2(i), sh2(i + vec2(1, 0)), f.x), mix(sh2(i + vec2(0, 1)), sh2(i + vec2(1, 1)), f.x), f.y); }
+        vec3 splatW(){ float nz = sn2(vSWPos.xz * .35) * .6 + sn2(vSWPos.xz * 1.3) * .4 - .5;   // world-space noise breaks every boundary
+          float rock = smoothstep(0., 1., clamp((pRock - normalize(vSWNor).y) / pRockSoft + .5 + nz * .9, 0., 1.));
+          float high = smoothstep(0., 1., clamp((vSWPos.y - pHigh) / pHighSoft + .5 + nz * 1.2, 0., 1.)) * (1. - rock * .7);
+          float low = max(0., 1. - rock - high); return vec3(low, rock, high); }` : '';
+    sh.fragmentShader = sh.fragmentShader.replace('#include <common>', PP ? `#include <common>\nvarying vec3 vSWPos; varying vec3 vSWNor; uniform float sMacro; uniform float pRock; uniform float pRockSoft; uniform float pHigh; uniform float pHighSoft; uniform float pWet;\n${U}\n${W}`
+        : `#include <common>\nvarying vec3 vSplat; uniform float sMacro;\n${U}`)
+      .replace('#include <map_fragment>', `${PP ? 'vec3 sw = splatW(); sw /= max(1e-4, sw.x + sw.y + sw.z);' : 'vec3 sw = vSplat / max(1e-4, vSplat.x + vSplat.y + vSplat.z);'}
         vec3 alb = texture2D(sT0, vMapUv * sR0).rgb * sC0 * sw.x + texture2D(sT1, vMapUv * sR1).rgb * sC1 * sw.y + texture2D(sT2, vMapUv * sR2).rgb * sC2 * sw.z;
         float mac = texture2D(sT0, vMapUv * .061).g * .6 + texture2D(sT1, vMapUv * .023).g * .4;
-        diffuseColor.rgb *= alb * (1. - sMacro + sMacro * 2. * mac);`)
+        diffuseColor.rgb *= alb * (1. - sMacro + sMacro * 2. * mac);
+        ${PP ? 'float wet = 1. - smoothstep(0., .7, vSWPos.y - pWet); diffuseColor.rgb *= 1. - .38 * wet * step(pWet + .0001, vSWPos.y + 50.);' : ''}`)
       .replace('#include <normal_fragment_maps>', `vec3 n0 = texture2D(sN0, vNormalMapUv * sR0).xyz * 2. - 1.; n0.xy *= sK0;
         vec3 n1 = texture2D(sN1, vNormalMapUv * sR1).xyz * 2. - 1.; n1.xy *= sK1;
         vec3 n2 = texture2D(sN2, vNormalMapUv * sR2).xyz * 2. - 1.; n2.xy *= sK2;
         vec3 mapN = normalize(n0 * sw.x + n1 * sw.y + n2 * sw.z);
         normal = normalize(tbn * mapN);`);
   };
-  m.customProgramCacheKey = () => 'splat3';
+  m.customProgramCacheKey = () => PP ? 'splat3pp' : 'splat3';
   m.userData.pattern = 'splat'; m.userData.layers = layers; m.name = 'splat:' + layers.map(l => l.pattern + l.color).join(',');
   return m;
 }

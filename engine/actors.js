@@ -4,7 +4,7 @@
 // Everything is built once; per frame only pivots, faces, tags and the root move.
 import {createActor, SKINS} from '../avatar-style/body.js';
 import {dress} from '../avatar-style/clothing.js';
-import {attachHair, attachHair3} from '../avatar-style/hair.js';
+import {attachHair, attachHair3, attachHair4} from '../avatar-style/hair.js';
 import {attachAccessory} from '../avatar-style/accessories.js';
 import {setFace} from '../avatar-style/faces2.js';
 import {attachTool, buildTool} from '../avatar-style/tools.js';
@@ -15,7 +15,8 @@ import {sampleTimeline, ambientPose, applyPoseSample} from './poses.js';
 export function buildActor(preset, name = 'actor') {
   const tier = preset.tier ?? 'hero', skin = preset.skin ?? SKINS[0];
   const a = createActor({tier, skin, scale: preset.scale ?? 1, name, materials: preset.outfit ? dress(preset.outfit, skin, tier) : {}});
-  if (preset.hair) (preset.hair.v === 3 || preset.hairStyle === 'v3' ? attachHair3(a, preset.hair.style, preset.hair.color, {streak: preset.hair.streak}) : attachHair(a, preset.hair.style, preset.hair.color));   // A4: v3 is opt-in
+  if (preset.hair) (preset.hair.v === 4 ? attachHair4(a, preset.hair.style, preset.hair.color, preset.hairTier ?? null)   // A5: v4 sculpted (Season 1)
+    : preset.hair.v === 3 || preset.hairStyle === 'v3' ? attachHair3(a, preset.hair.style, preset.hair.color, {streak: preset.hair.streak}) : attachHair(a, preset.hair.style, preset.hair.color));
   for (const acc of preset.accessories ?? []) typeof acc === 'string' ? attachAccessory(a, acc) : attachAccessory(a, acc.name, acc);
   if (preset.tool) typeof preset.tool === 'string' ? attachTool(a, preset.tool) : attachTool(a, preset.tool.name, preset.tool);
   if (preset.opacity !== undefined && preset.opacity < 1) a.ghost = preset.opacity;

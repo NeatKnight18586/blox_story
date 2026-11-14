@@ -15,7 +15,7 @@ import {loadFont, fitTags} from './overhead.js';
 import {createLook, createLookV3} from './look.js';
 import {createEffects} from './effects.js';
 import {createCrowds} from './crowd.js';
-import {createRuleUI} from './ruleui.js';
+import {createRuleUI, enforceReadable} from './ruleui.js';
 import * as P from '../parts/parts.js';
 import * as B from '../parts/build.js';
 import * as A from '../parts/ambient.js';
@@ -158,7 +158,7 @@ const effects = createEffects([...(spec.effects ?? []), ...revealEffects], {scen
 // A4: instanced crowds (spec.crowds) and rule UI attached to any pivot/object (spec.ui).
 const crowds = createCrowds(scene, spec.crowds ?? [], {groundY: world?.groundY ?? (() => 0), resolveCentre: c => Array.isArray(c) ? c : (p => [p[0], p[2]])(resolve(c))});
 const ui = createRuleUI(spec.ui ?? [], {scene, resolveTarget, fps: FPS});
-const updateExtras = t => { crowds.update(t); ui.update(t); };
+const updateExtras = (t, ctx = {}) => { crowds.update(t, ctx); ui.update(t); };   // ctx {camPos, size}: crowd promotion (A5 B)
 
 // Triangles of visible meshes whose bounds touch the camera frustum (the brief's §5.4 budget). The
 // renderer's own counter also includes the shadow pass, so both are reported.
@@ -212,7 +212,7 @@ export function renderFrame(n, width = 720, height = 1280, nudge = 0) {
   const shot = shots.findLast(s => n >= s.start), t = n / FPS;
   const actors = poseCast(t);
   const c = sampleCamera({...shot, fps: FPS}, (n - shot.start) / FPS, actors);
-  world?.update(t); applyWorldState(shot, t); updateExtras(t);
+  world?.update(t); applyWorldState(shot, t); updateExtras(t, {camPos: c.position, size: shot.size});
   const fx = effects.apply(t, camera);   // poses effect targets; returns the shake offset and any timeOfDay blend
   const pos = c.position.map((v, i) => v + fx.camOffset[i]), tgt = c.target.map((v, i) => v + fx.camOffset[i] * .6);
   camera.fov = c.fov; camera.aspect = width / height; camera.position.fromArray(pos);
@@ -220,6 +220,7 @@ export function renderFrame(n, width = 720, height = 1280, nudge = 0) {
   if (nudge) { const k = nudge / Math.sqrt(3); camera.translateX(k); camera.translateY(k); camera.translateZ(k); }
   if (look) { fx.look ? look.apply(...fx.look) : look.apply(shot.look ?? spec.look ?? 'day'); const sf = shotShadow(shot); poseCast(t); look.frameFixed(sf.centre, sf.radius, camera.position); look.update(t); }
   scene.updateMatrixWorld(true); effects.apply(t, camera); fitTags(scene, camera, {maxFrac: shot.tagMaxFrac ?? .06});
+  if (spec.readableUi ?? !!look?.v3) { scene.updateMatrixWorld(true); enforceReadable(scene, camera, {focus: shot.focusUi ?? []}); }   // A5 §C: min text size + safe area (v3 worlds; "Nobody" untouched)
   renderer.info.autoReset = false; renderer.info.reset();   // A4: overlay passes (weather, cards) must not reset the scene counts
   renderer.render(scene, camera); effects.overlay(t, camera, width / height);
   const gl = renderer.getContext(); gl.readPixels(0, 0, 1, 1, gl.RGBA, gl.UNSIGNED_BYTE, new Uint8Array(4));   // forces the GPU work to finish, so ms is real
