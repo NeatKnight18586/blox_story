@@ -28,11 +28,11 @@
    "shot": "kitMed",
    "frame": 12,
    "look": "nightBright",
-   "frameLuma": 0.404,
+   "frameLuma": 0.405,
    "actors": {
     "kit": {
      "luma": 0.441,
-     "ring": 0.347,
+     "ring": 0.346,
      "contrast": 0.095
     }
    },
@@ -42,23 +42,46 @@
    "shot": "daxMed",
    "frame": 20,
    "look": "nightBright",
-   "frameLuma": 0.351,
+   "frameLuma": 0.352,
    "actors": {
     "dax": {
-     "luma": 0.242,
-     "ring": 0.348,
-     "contrast": -0.106
+     "luma": 0.245,
+     "ring": 0.347,
+     "contrast": -0.103
     }
    },
    "fitFrac": 0.37
   }
  ],
- "framing": [],
+ "framing": [
+  {
+   "shot": "kitMed",
+   "frame": 12,
+   "size": "medium",
+   "move": "push",
+   "part": "full",
+   "subjectFrac": 0.37,
+   "groundGap": 0.213,
+   "need": 0.3,
+   "ok": true
+  },
+  {
+   "shot": "daxMed",
+   "frame": 20,
+   "size": "medium",
+   "move": "push",
+   "part": "full",
+   "subjectFrac": 0.37,
+   "groundGap": 0.213,
+   "need": 0.3,
+   "ok": true
+  }
+ ],
  "failures": [
   "square: frame luma 0.431 outside 0.24,0.42",
   "kitMed/kit: box − ring 0.095 < 0.12",
-  "daxMed/dax: actor luma 0.242 < 0.4",
-  "daxMed/dax: box − ring -0.106 < 0.12"
+  "daxMed/dax: actor luma 0.245 < 0.4",
+  "daxMed/dax: box − ring -0.103 < 0.12"
  ],
  "palette": [],
  "result": "FAIL"

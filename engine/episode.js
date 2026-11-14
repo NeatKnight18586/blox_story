@@ -114,11 +114,17 @@ function aimHeroSpots(shot, camPos) {
 // A4 night "actor lift" (opt-in spec.actorLift, v3 looks only): plastic avatars get a small self-light (emissive = their
 // own colour / texture × k) so they stay the highest-contrast thing in a dark frame. Faces (MeshBasic) are untouched.
 const usesNightBright = spec.look === 'nightBright' || (spec.shots ?? []).some(s => s.look === 'nightBright');
+// A5: the lift follows each shot: full under night looks (or spec.actorLift everywhere when given), off in daylight shots
+const liftMats = [];
 if (look?.v3 && (spec.actorLift ?? (usesNightBright ? .5 : 0))) {   // A5 §E: on by default under nightBright
   const k = spec.actorLift ?? .5, seen = new Set();
-  for (const {a, v2} of Object.values(cast)) if (v2) a.root.traverse(o => { if (!o.isMesh || seen.has(o.material) || o.material.isMeshBasicMaterial || !o.material.emissive) return; const m = o.material; seen.add(m);
-    if (m.map) { m.emissiveMap = m.map; m.emissive.setRGB(k, k, k); } else if (m.vertexColors) { if (o.geometry.attributes.color) { const c = o.geometry.attributes.color, avg = [0, 0, 0]; for (let i = 0; i < c.count; i++) { avg[0] += c.getX(i); avg[1] += c.getY(i); avg[2] += c.getZ(i); } const cl = m.clone(); cl.emissive.setRGB(...avg.map(v => v / c.count * k)); o.material = cl; seen.add(cl); return; } } else m.emissive.copy(m.color).multiplyScalar(k); m.needsUpdate = true; });   // A5: vertex-coloured hair lifts by its own average colour, not grey
+  for (const {a, v2} of Object.values(cast)) if (v2) a.root.traverse(o => { if (!o.isMesh || seen.has(o.material) || o.material.isMeshBasicMaterial || !o.material.emissive) return; let m = o.material; seen.add(m);
+    if (m.map) { m.emissiveMap = m.map; m.emissive.setRGB(k, k, k); } else if (m.vertexColors) { if (!o.geometry.attributes.color) return; const c = o.geometry.attributes.color, avg = [0, 0, 0]; for (let i = 0; i < c.count; i++) { avg[0] += c.getX(i); avg[1] += c.getY(i); avg[2] += c.getZ(i); } m = m.clone(); m.emissive.setRGB(...avg.map(v => v / c.count * k)); o.material = m; seen.add(m); }   // hair lifts by its own colour
+    else m.emissive.copy(m.color).multiplyScalar(k);
+    m.needsUpdate = true; liftMats.push([m, m.emissive.clone()]); });
 }
+const applyLift = shot => { const f = spec.actorLift !== undefined ? 1 : ['night', 'nightBright'].includes(shot?.look ?? spec.look) ? 1 : 0; for (const [m, e] of liftMats) m.emissive.copy(e).multiplyScalar(f); };
+
 const markPos = {};
 // Where an actor's mark is at time t (pure: no posing). poseCast and A4 trails share it.
 function markAt(c, t) {
@@ -227,7 +233,7 @@ export function renderFrame(n, width = 720, height = 1280, nudge = 0) {
   const shot = shots.findLast(s => n >= s.start), t = n / FPS;
   const actors = poseCast(t);
   const c = sampleCamera({...shot, fps: FPS}, (n - shot.start) / FPS, actors);
-  world?.update(t); applyWorldState(shot, t); updateExtras(t, {camPos: c.position, size: shot.size}); aimHeroSpots(shot, c.position);
+  world?.update(t); applyWorldState(shot, t); updateExtras(t, {camPos: c.position, size: shot.size}); aimHeroSpots(shot, c.position); applyLift(shot);
   const fx = effects.apply(t, camera);   // poses effect targets; returns the shake offset and any timeOfDay blend
   const pos = c.position.map((v, i) => v + fx.camOffset[i]), tgt = c.target.map((v, i) => v + fx.camOffset[i] * .6);
   camera.fov = c.fov; camera.aspect = width / height; camera.position.fromArray(pos);

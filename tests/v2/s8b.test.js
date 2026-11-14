@@ -54,7 +54,8 @@ test('UI: minimum cap heights and the safe area (clamp, never clip, never in the
   const s1 = safeShift({x0: .92, x1: 1.05, y0: .3, y1: .34}); assert.ok(Math.abs(1.05 + s1.dx - (1 - SAFE.side)) < 1e-9);
   const s2 = safeShift({x0: .4, x1: .6, y0: .02, y1: .05}); assert.ok(Math.abs(.02 + s2.dy - SAFE.top) < 1e-9);
   const s3 = safeShift({x0: .4, x1: .6, y0: .6, y1: .64}); assert.ok(.64 + s3.dy <= SAFE.band[0] + 1e-9, 'pushed above the band');
-  const s4 = safeShift({x0: .4, x1: .6, y0: .72, y1: .78}); assert.ok(.72 + s4.dy >= SAFE.band[1] - 1e-9, 'pushed below the band');
+  const s4 = safeShift({x0: .4, x1: .6, y0: .72, y1: .78}); assert.ok(.78 + s4.dy <= SAFE.band[0] + 1e-9, 'pushed above the band, not down onto the actor');
+  const s6 = safeShift({x0: .4, x1: .6, y0: .1, y1: .62}); assert.ok(.1 + s6.dy >= SAFE.band[1] - 1e-9, 'too tall to fit above: goes below');
   const s5 = safeShift({x0: -.1, x1: 1.1, y0: .2, y1: .3}); assert.ok(Math.abs((-.1 + 1.1) / 2 + s5.dx - .5) < 1e-9, 'too wide: centred, not clipped');
 });
 

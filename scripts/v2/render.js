@@ -35,8 +35,9 @@ const walk = d => existsSync(d) ? readdirSync(d).flatMap(f => { const p = path.j
 const worldFile = spec.world ?? path.join(path.dirname(specPath), 'world.js');   // A4: fixture worlds live outside stories/
 const {shots: _omit, ...rest} = spec;
 const castFile = spec.castFile && existsSync(spec.castFile) ? readFileSync(spec.castFile, 'utf8') : '';
+const troupeFile = Object.values(spec.cast ?? {}).some(c => c.troupe) ? readFileSync(spec.troupeFile ?? 'cast/troupe.json', 'utf8') : '';   // A5: troupe slots feed the cache hash
 const world = sha([...['engine', 'avatar', 'avatar-style', 'parts'].flatMap(walk).sort().map(f => f + '\n' + readFileSync(f, 'utf8')),
-  JSON.stringify(rest), castFile, existsSync(worldFile) ? readFileSync(worldFile, 'utf8') : '', `${width}x${height} aa=${aa}`].join('\n'));
+  JSON.stringify(rest), castFile, troupeFile, existsSync(worldFile) ? readFileSync(worldFile, 'utf8') : '', `${width}x${height} aa=${aa}`].join('\n'));
 const dirOf = s => path.join(out, 'cache', `${s.id}-${sha(world + JSON.stringify(s)).slice(0, 12)}`);
 const shotOf = f => shots.findLast(s => f >= s.start);
 const file = f => { const s = shotOf(f); return path.join(dirOf(s), `${String(f - s.start).padStart(4, '0')}.png`); };

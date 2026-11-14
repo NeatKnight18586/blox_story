@@ -123,17 +123,18 @@ export const STYLES = {
   side_part: [M(.4, -.42, -.55, .09, .06, .05), C([P(-40, .8, .12), P(-5, .9, .26), P(40, .62, .26), P(70, .25, .2), [.66, .2, .2]], {w: .95, th: .3, taper: .4, belly: .2, fringe: true, tone: 1.04}),
     C([P(-30, .7, .1), P(5, .62, .22), P(35, .42, .22), [.5, .34, .5]], {w: .55, th: .24, taper: .3, fringe: true}),
     C([P(-60, .55, .08), P(-75, .2, .12), P(-80, -.25, .1)], {w: .3, th: .16, tone: .95}), HANG(140, -.45, {w: .5}), HANG(-140, -.45, {w: .5, tone: .96}), HANG(180, -.5, {tone: 1.03})],
-  quiff: [M(.42, -.4, -.5, .05, .06, .03), ...[-1, 0, 1].map(s => C([P(s * 16, .55, .08), [s * .18, HH + .3, .5], [s * .2, HH + .38, .2], [s * .16, HH + .26, -.12]], {w: .5, th: .3, taper: .4, belly: .25, tone: 1 + s * .04, up: [0, 1, .2]})),
-    C([P(0, .85, .1), [0, HH + .32, -.2], [0, HH + .12, -.5]], {w: .7, th: .26, taper: .4, tone: .97, up: [0, 1, 0]}), HANG(150, -.42, {w: .5, th: .16}), HANG(-150, -.42, {w: .5, th: .16, tone: .96}), HANG(180, -.45, {th: .16})],
+  // one rolled front volume: a single thick roll rising off the forehead and curling back over the crown; tight sides
+  quiff: [M(.42, -.44, -.5, .05, .06, .03, {tight: true}), C([P(0, .32, .1), [0, HH + .1, .56], [0, HH + .3, .38], [0, HH + .3, .06], [0, HH + .12, -.24]], {w: .98, th: .4, taper: .6, belly: .22, rings: 8, sides: 10, up: [0, 1, .3]}),
+    C([P(0, .9, .12), [0, HH + .22, -.24], [0, HH + .04, -.56]], {w: .78, th: .26, taper: .45, tone: .96, up: [0, 1, 0]}), HANG(150, -.42, {w: .5, th: .16}), HANG(-150, -.42, {w: .5, th: .16, tone: .96}), HANG(180, -.45, {th: .16})],
   curtains: [M(.42, -.45, -.62, .1, .08, .05), ...[-1, 1].flatMap(s => [C([[s * .05, HH + .14, .38], [s * .32, .62, .58], [s * .58, .32, .52], [s * .72, .02, .34]], {w: .5, th: .22, taper: .3, fringe: true, tone: s < 0 ? .98 : 1.04, up: [s * .3, .4, 1]}),
     C([P(s * 70, .45, .1), P(s * 78, .05, .18), [s * .74, -.4, .12]], {w: .4, th: .2, taper: .3, tone: s < 0 ? 1.03 : .96})]), HANG(140, -.55), HANG(-140, -.55, {tone: .96}), HANG(180, -.6, {tone: 1.04})],
-  fade_textured: [M(.42, -.45, -.5, .05, .05, .02, {sides: .035}), ...[[-28, .74], [0, .82], [28, .74], [-60, .62], [60, .62], [180, .72], [140, .7]].map(([a, h], i) => {
+  fade_textured: [M(.42, -.45, -.5, .05, .05, .02, {sides: .035, tight: true}), ...[[-28, .74], [0, .82], [28, .74], [-60, .62], [60, .62], [180, .72], [140, .7]].map(([a, h], i) => {
     const b = skull(a, h, .06), dir = b.n.clone().add(V(0, .9, .35)).normalize();
     return C([b.p.toArray(), b.p.clone().addScaledVector(dir, .16).toArray(), b.p.clone().addScaledVector(dir, .3).toArray()].map(p => p.map(v => +v.toFixed(4))), {w: .4, th: .26, taper: .3, belly: .2, tone: .94 + (i % 3) * .05}); })],
-  spiky_crop: [M(.4, -.38, -.5, .07, .08, .03), ...[[0, .9, [0, 1, .45]], [-30, .78, [-.5, 1, .3]], [30, .78, [.5, 1, .3]], [-80, .62, [-1, .9, 0]], [80, .62, [1, .9, 0]], [180, .75, [0, 1, -.7]], [-135, .7, [-.6, 1, -.5]], [135, .7, [.6, 1, -.5]]].map(([a, h, d], i) => {
+  spiky_crop: [M(.4, -.38, -.5, .07, .08, .03, {tight: true}), ...[[0, .9, [0, 1, .45]], [-30, .78, [-.5, 1, .3]], [30, .78, [.5, 1, .3]], [-80, .62, [-1, .9, 0]], [80, .62, [1, .9, 0]], [180, .75, [0, 1, -.7]], [-135, .7, [-.6, 1, -.5]], [135, .7, [.6, 1, -.5]]].map(([a, h, d], i) => {
     const b = skull(a, h, .05), dir = V(...d).normalize();
     return C([b.p.toArray(), b.p.clone().addScaledVector(dir, .26).toArray(), b.p.clone().addScaledVector(dir, .55).toArray()].map(p => p.map(v => +v.toFixed(4))), {w: .38, th: .3, taper: .05, belly: .1, tone: .95 + (i % 3) * .05}); })],
-  curly_top: [M(.42, -.36, -.5, .06, .05, .03), {t: 'curls', at: [0, HH + .04, -.02], n: 12, R: .36, r: .16, seed: 2, flat: .45}, {t: 'curls', at: [0, .55, .42], n: 7, R: .3, r: .14, seed: 5, flat: .5},
+  curly_top: [M(.42, -.36, -.5, .06, .05, .03), {t: 'curls', at: [0, HH + .06, -.02], n: 12, R: .27, r: .21, seed: 2, flat: .45}, {t: 'curls', at: [0, .58, .4], n: 7, R: .19, r: .17, seed: 5, flat: .5},
     C([P(-75, .4, .08), P(-80, .05, .12), [-.7, -.2, .02]], {w: .3, th: .16, tone: .96}), C([P(75, .4, .08), P(80, .05, .12), [.7, -.2, .02]], {w: .3, th: .16, tone: 1.03}), HANG(180, -.35, {w: .55, th: .16})],
   shaggy_mop: [M(.3, -.5, -.7, .16, .1, .06), ...[-36, -12, 12, 36].map((a, i) => FR(a, 0, {tipY: .3, w: .52, th: .26, tone: .95 + i * .03})),
     ...[-1, 1].flatMap(s => [HANG(s * 70, -.62, {w: .52, th: .26, flare: .06, tone: 1 + s * .03}), HANG(s * 105, -.7, {w: .52, th: .26, flare: .08})]), HANG(150, -.75, {w: .56}), HANG(-150, -.75, {w: .56, tone: .96}), HANG(180, -.78, {w: .6, tone: 1.04})],
@@ -165,7 +166,7 @@ export const STYLES = {
     FR(-10, .25, {w: .5, th: .22, tone: 1.03})],
   long_braids: [M(.36, -.45, -.62, .09, .06, .03), ...[-28, 0, 28].map((a, i) => FR(a, 0, {tipY: .33, w: .52, tone: .97 + i * .03})),
     {t: 'braid', from: [-.66, -.2, -.1], to: [-.78, -1.6, .2], n: 8, r0: .19, r1: .12}, {t: 'braid', from: [.66, -.2, -.1], to: [.78, -1.6, .2], n: 8, r0: .19, r1: .12}],
-  curly_puffs: [M(.4, -.45, -.6, .1, .06, .03), {t: 'curls', at: [-.5, .8, -.05], n: 10, R: .26, r: .18, seed: 3}, {t: 'curls', at: [.5, .8, -.05], n: 10, R: .26, r: .18, seed: 7},
+  curly_puffs: [M(.4, -.45, -.6, .1, .06, .03), {t: 'curls', at: [-.5, .8, -.05], n: 10, R: .2, r: .21, seed: 3}, {t: 'curls', at: [.5, .8, -.05], n: 10, R: .2, r: .21, seed: 7},
     FR(-14, 0, {w: .48, th: .22}), FR(14, 0, {w: .48, th: .22, tone: 1.05})],
   wolf_cut: [M(.36, -.5, -.66, .12, .1, .05), ...[-30, 0, 30].map((a, i) => FR(a, i - 1 ? .1 : -.1, {tipY: .32, w: .5, tone: .96 + i * .04})),
     ...[-1, 1].flatMap(s => [C([P(s * 75, .5, .12), P(s * 82, -.1, .2), [s * .7, -.5, .1], [s * .98, -.68, -.05]], {w: .46, th: .26, taper: .2, belly: .2, tone: 1 + s * .03}),
@@ -184,7 +185,8 @@ export function volumeGeometries(style, color = '#5a3a22', tier = 'hero') {
   const T0 = TIER[tier]; if (!T0) throw Error('unknown hair tier ' + tier);
   const out = [];
   for (const v of STYLES[style] ?? (() => { throw Error('unknown hair v4 style ' + style); })()) {
-    if (v.t === 'mass') { const sd = v.sides ?? v.top; out.push(mass(color, {segs: T0.segs, rings: T0.rings, hairline: line(v.fore, Math.min(v.temple, -.62), Math.max(-1, v.nape - .28)),   // sideburns reach below cheek height so the face edge is screened from behind   // the back always covers down to the nape
+    if (v.t === 'mass') { const sd = v.sides ?? v.top; out.push(mass(color, {segs: T0.segs, rings: T0.rings, hairline: line(v.fore, Math.min(v.temple, v.tight ? -.44 : -.62), Math.max(-1, v.nape - .28)),   // tight short cuts sit higher over the ears (scalp gate relaxed to < 3 % for them, owner 2026-11-14)
+        // sideburns reach below cheek height so the face edge is screened from behind   // the back always covers down to the nape
       thick: (a, h) => v.base + v.top * Math.max(0, h) + v.back * Math.max(0, -Math.cos(a * deg)) - (v.sides !== undefined ? (v.base - v.sides) * Math.abs(Math.sin(a * deg)) * (h < .3 ? 1 : 0) : 0)})); }
     if (tier === 'crowd') continue;   // the crowd tier is the mass alone
     if (v.t === 'clump') out.push(clump(color, v.pts, {w: v.w, th: v.th, taper: v.taper, belly: v.belly, tone: v.tone, up: v.up, twist: v.twist, rings: tier === 'hero' ? (v.rings ?? T0.cr) : T0.cr, sides: tier === 'hero' ? (v.sides ?? T0.cs) : T0.cs}));

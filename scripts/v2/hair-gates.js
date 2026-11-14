@@ -14,7 +14,8 @@ import {launch} from './browser.js';
 import {HAIR4_STYLES, HAIR4_BUDGET, EYE_LINE, FACE_X, hair4Geometry, hair4Triangles} from '../../avatar-style/hair4.js';
 
 const argv = process.argv.slice(2), out = argv[argv.indexOf('--out') + 1] && argv.includes('--out') ? argv[argv.indexOf('--out') + 1] : 'review/season1/hair-gates.json';
-const LIM = {leak: 0, leakBuzz: .02, iou: .86, thin: .06};
+const LIM = {leak: 0, leakBuzz: .02, leakTight: .03, iou: .86, thin: .06};
+const TIGHT = ['quiff', 'fade_textured', 'spiky_crop'];   // owner 2026-11-14: short boy cuts sit tighter above the ears; scalp leak < 3 % allowed for these three
 const mask = (buf, px, test) => { const m = new Uint8Array(px * px); for (let i = 0; i < px * px; i++) m[i] = test(buf[i * 4], buf[i * 4 + 1], buf[i * 4 + 2]) ? 1 : 0; return m; };   // row 0 = bottom (GL)
 const isMag = (r, g, b) => r > 180 && g < 80 && b > 180, isHair = (r, g, b) => r < 60 && g < 60 && b < 60, isAny = (r, g, b) => !(r > 240 && g > 240 && b > 240);
 const morph = (m, px, op) => { const o = new Uint8Array(px * px); for (let y = 0; y < px; y++) for (let x = 0; x < px; x++) { let v = op === 'erode' ? 1 : 0; for (let dy = -1; dy <= 1; dy++) for (let dx = -1; dx <= 1; dx++) { const yy = y + dy, xx = x + dx, s = yy < 0 || xx < 0 || yy >= px || xx >= px ? 0 : m[yy * px + xx]; if (op === 'erode') v &= s; else v |= s; } o[y * px + x] = v; } return o; };
@@ -45,7 +46,7 @@ try {
       const H = mask(headOnly, px, isMag), Mg = mask(both, px, isMag); let y0 = px, y1 = -1; for (let i = 0; i < px * px; i++) if (H[i]) { const y = Math.floor(i / px); y0 = Math.min(y0, y); y1 = Math.max(y1, y); }
       const mid = (y0 + y1) / 2; let n = 0, tot = 0; for (let i = 0; i < px * px; i++) { const y = Math.floor(i / px); if (H[i] && y > mid) { tot++; if (Mg[i]) n++; } }   // GL row 0 = bottom: y > mid = upper half (top view: up = −z → rear half)
       r.leak[view.key] = +(n / Math.max(1, tot)).toFixed(4);
-      const lim = style === 'buzz' ? LIM.leakBuzz : LIM.leak;
+      const lim = style === 'buzz' ? LIM.leakBuzz : TIGHT.includes(style) ? LIM.leakTight : LIM.leak;
       if (n / Math.max(1, tot) > lim) report.failures.push(`${style} scalp leak ${view.key} ${(100 * n / tot).toFixed(2)} % (${n} px) > ${lim * 100} %`);
     }
     // 2. silhouettes for IoU (hair only, 128 px)

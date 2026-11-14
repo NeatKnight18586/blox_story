@@ -6,6 +6,7 @@ import {execFileSync} from 'node:child_process';
 import {startServer} from './server.js';
 import {launch} from './browser.js';
 import {resolveTroupe, SLOTS} from '../../engine/troupe.js';
+import {fitDistance} from '../../engine/camera.js';
 
 const argv = process.argv.slice(2), arg = (k, d) => { const i = argv.indexOf(`--${k}`); return i >= 0 ? argv[i + 1] : d; };
 const out = arg('out', 'review/season1'), raw = 'renders/v2/troupe-sheet';
@@ -16,7 +17,13 @@ await writeFile(`${raw}/cast.json`, JSON.stringify(cast));
 const exprs = id => (id === 'AFK' ? data.AFK : data.troupe[id]).expressions;
 const upper = (id, face, az) => { const k = cast.cast[id].scale, y = 4.0 * k, d = 7.2 * k, a = az * Math.PI / 180;
   return {actors: [{id, at: [0, 0, 0], face, tag: false, pose: id === 'AFK' ? 'walk' : 'idle', t: id === 'AFK' ? data.AFK.freeze : .3}], camera: {position: [Math.sin(a) * d, y + .2 * k, Math.cos(a) * d], target: [0, y - .25 * k, 0], fov: 30}}; };
-const line = {actors: ids.map((id, i) => ({id, at: [-6.5 + i * 2.6, 0, (i % 2) * -1.4], yaw: 0, pose: id === 'AFK' ? 'walk' : 'idle', t: id === 'AFK' ? data.AFK.freeze : i * .3, tag: true, face: cast.cast[id].face})), camera: {position: [0, 5.6, 30], target: [0, 2.6, -.7], fov: 46}};
+// A5 `fit` line-up: the camera distance fits the line's WIDTH (all six inside with a 6 % margin each side) and the target is
+// raised so the feet sit at 74 % down the frame (empty ground ≤ 28 %). Numbers are printed and kept in troupe-phone-390.json.
+const LINE_X = [-6.5, 6.5], BODY = 1.1, FOV = 40, ASPECT = 9 / 16, FEET_Y = .74;
+const lineW = (LINE_X[1] - LINE_X[0]) + 2 * BODY, frameW = lineW / .88, frameH = frameW / ASPECT, D = fitDistance(frameH, 1, FOV);
+const line = {actors: ids.map((id, i) => ({id, at: [-6.5 + i * 2.6, 0, 0], yaw: 0, pose: id === 'AFK' ? 'walk' : 'idle', t: id === 'AFK' ? data.AFK.freeze : i * .3, tag: true, face: cast.cast[id].face})),
+  camera: {position: [0, 3, D], target: [0, (FEET_Y - .5) * frameH, 0], fov: FOV}};
+const tallest = Math.max(...ids.map(id => cast.cast[id].scale * 5.3 + .5)), lineFit = {distance: +D.toFixed(2), groundGap: +(1 - FEET_Y).toFixed(2), topOfTallest: +(FEET_Y - tallest / frameH).toFixed(3), sideMargin: .06, actorFrac: +(4.35 / frameH).toFixed(3)};
 const server = await startServer(), browser = await launch();
 try {
   const page = await browser.newPage({viewport: {width: 360, height: 640}});
@@ -47,5 +54,5 @@ for r, i in enumerate(ids):
 sheet.save(out + '/troupe-sheet.png')
 g = Image.open(sys.argv[3]).convert('RGB'); g.resize((390, round(390 * g.height / g.width)), Image.LANCZOS).save(out + '/troupe-phone-390.png')
 print(sheet.size)`, JSON.stringify(cells), out, `${raw}/line.png`], {stdio: 'inherit'});
-  console.log(JSON.stringify(Object.fromEntries(ids.map(i => [i, budget[i]]))));
+  console.log(JSON.stringify(Object.fromEntries(ids.map(i => [i, budget[i]])))); console.log(JSON.stringify({lineFit})); await writeFile(out + '/troupe-phone-390.json', JSON.stringify({lineFit}, null, 1));
 } finally { await browser.close(); await server.close(); }
