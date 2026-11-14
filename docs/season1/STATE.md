@@ -8,3 +8,4 @@ step: final
 - 2026-11-14 · egg: E1 started
 - 2026-11-14 owner: animatic skipped for egg only (token budget); process unchanged for later episodes.
 - 2026-11-14 egg: farm final run 43597647473 finished; QC FAIL (stone/wall tint: 3 frames, need 4); no prerelease. Waiting for owner: waive / change / hold.
+- 2026-11-14 owner: QC stone-tint check waived for egg (recorded in qc.json "waived"); assemble-only farm re-run from run 43597647473.
