@@ -372,3 +372,51 @@ Also built: `render.js --final` (1440×2560, AA). `scripts/v2/qc.py` (`npm run v
 7. F: pure `fit` framing (close ≥ 45 %, medium/heroLow ≥ 30 %, empty ground ≤ 28 %) + tests; demo shots use it.
 8. G: re-shoot tools-demo (+ nightBright medium, close-up with crowd), 3-column look-ab; bench, stability, Nobody 11-frame
    re-render; three weakest things per sheet in this file; PR; stop.
+
+## Session 8b — STOPPED at §E (night luma check failed after two fix passes; reported, not loosened) — 2026-11-14
+- **Done:**
+  - **§S:** the acceptance rule is in `CLAUDE.md`.
+  - **§A:** `avatar-style/hair4.js` holds all 20 styles as data tables. They use only the blocks `mass`, `clump`, `bun`, `braid` and `curls`, in hero, mid and crowd tiers. `hair: {v: 4}` is wired in, and the troupe uses it.
+  - **§A gates:** `scripts/v2/hair-gates.js` (+ `engine/hairgate.html`) → `hair-gates.json` **PASS** for all 20 styles:
+    - scalp leak 0 px on every view (buzz included);
+    - closest outline pair IoU 0.763 / 0.839 (`messy_fringe`–`curtains`, front/side);
+    - thin bits ≤ 6 %;
+    - hero ≤ 2,276 tris (curly_top), mid ≤ 618, crowd 50;
+    - eye line held on every tier.
+  - **§B:** crowd heads are the low lathe head with v4 crowd hair in six colours. A pure `promoteNear` (close/medium, < 9 units, ≤ 8, nearest first) swaps near members for mid-tier actors.
+  - **§C:** pure `minScale` / `safeShift` (tags 2.4 %, stats/plates 3 %, `focusUi` 4.5 %; 5 % sides, 8 % top, caption band 58–74 %), applied per frame in v3 worlds only. Elements anchored off-frame or farther than 45 units are left alone; this fixes a bug where far tags were enlarged.
+  - **§D:** per-pixel splat blend (world normal + height + world-space noise; wet band at the waterline), 1.5-unit near cells, smooth welded blob trees (≤ 252 tris, `leaves`/`bark`), stronger water, contrasty storm clouds. Landform geometry and material untouched (owner's rule).
+  - **§E (partly):** `nightBright` look; `actorLift` on by default under it; a glowing egg as a third point light.
+  - **§F:** pure `fitDistance` / `applyFit` / `framingCheck` + `fit` on heroLow, snap, push and orbit.
+  - Tests: `v2:test` 64 Node pass (new `tests/v2/s8b.test.js`).
+- **§E night check FAILS** (`node scripts/v2/look-gates.js --spec engine/fixtures/looktest/egg-new.json --night square,street` → `review/season1/look-gates-egg-new.json`). Pass lines: frame 0.24–0.42, actor ≥ 0.40, box − ring ≥ 0.12.
+
+  | View | Frame luma | Actor luma | Box − ring |
+  |---|---|---|---|
+  | square (start) | 0.523 | Kit 0.532 · Dax 0.551 | Kit −0.074 · Dax −0.017 |
+  | square (after pass 2) | 0.429 | Kit 0.461 · Dax 0.453 | Kit −0.045 · Dax −0.009 |
+  | street (after pass 2) | 0.378 | LITTLE 0.331 | −0.034 |
+
+  - Pass 1: lower exposure/ambient, darker plaza, softer lamp pools, actor lift 0.34.
+  - Pass 2: exposure 1.16, rim 3.4, actor lift 0.5.
+  - **Why it fails:** in the square view the heroes are small figures (about 4 % of frame height) standing on lamp-lit cobbles; Dax wears a near-black hoodie. Light added to the cast also lifts the ground around them; the sky and moon keep the frame mean up.
+  - **Likely next step (owner's call):** brighter clothing for night casts plus a darker ground tone, or a closer egg view for the gate.
+- **Not done (stopped before):**
+  - §F framing measured on real shots;
+  - §G (tools-demo re-shoot, three-column `look-ab.png`, 1 fps sheet);
+  - `v2:bench`, `v2:stability`, and the 11-frame Nobody re-render on the new code;
+  - the `CLAUDE.md` library lines for v4 / nightBright / fit.
+- **Three weakest things per sheet:**
+  - **`hair-sheet.png`:**
+    1. Sideburn mass reaches cheek height on every short cut, so fade/spiky/quiff read as wearing side panels in three-quarter view. It is needed to screen the face edge for the scalp-leak gate.
+    2. The quiff reads as a stacked orange pile on top, not a rolled front.
+    3. Curls (curly_top, curly_puffs) still read as separate beads, and long_braids' braids are small bead clusters at the jaw, barely visible from the front.
+  - **`hair-phone-390.png`:**
+    1. At medium size the fringe locks of messy_fringe/wolf_cut merge into one dark band over the brow.
+    2. wavy_bob's S-bend is invisible at phone size.
+    3. Six one-person cells instead of a group, so the styles are never compared side by side.
+  - **`troupe-sheet.png`:**
+    1. LEAD's heavy fringe throws a dark band across the forehead.
+    2. RIVAL's quiff is cropped by the frame top and reads as a pile.
+    3. AFK's buzz in ghosted grey-blue reads as a helmet.
+  - **`troupe-phone-390.png`:** not re-inspected after v4 (stopped).

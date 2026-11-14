@@ -16,6 +16,7 @@ export const MIN_CAP = {tag: .024, stat: .03, bar: .03, plate: .03, icon: .03, c
 // Text cap height as a fraction of the drawn sprite's height (measured from the canvas layouts below and in overhead.js).
 export const CAP_RATIO = {nameTag: .5, nameTagRole: .35, tag: .5, stat: .35, bar: .17, plate: .41, icon: .6, checklist: .12, card: .1};
 export const SAFE = {side: .05, top: .08, bottom: .95, band: [.58, .74]};
+const MAX_DIST = 45;   // world units: farther tags/UI keep their natural size (a far crowd of tags must not grow to 2.4 %)
 // Scale factor (≥ 1) that lifts a cap height of `capFrac` to at least `minFrac`.
 export const minScale = (capFrac, minFrac) => capFrac > 0 && capFrac < minFrac ? minFrac / capFrac : 1;
 // Shift {dx, dy} (frame fractions, y down) that moves rect {x0, x1, y0, y1} inside the safe area and out of the caption band.
@@ -46,6 +47,7 @@ export function enforceReadable(scene, camera, {focus = [], band = SAFE.band} = 
     const d = _w.clone().sub(_c).dot(new T.Vector3(0, 0, -1).applyQuaternion(_q)); if (d <= .1) continue;
     const frameH = 2 * d * tanH, frameW = frameH * camera.aspect;
     const key = kind === 'nameTag' || kind === 'nameTagRole' ? 'tag' : kind, minF = focus.includes(o.userData.uiId) ? MIN_CAP.focus : MIN_CAP[key] ?? .03;
+    const ndc0 = _w.clone().project(camera); if (Math.abs(ndc0.x) > 1 || Math.abs(ndc0.y) > 1 || d > MAX_DIST) continue;   // only elements anchored inside the frame and near enough to matter
     const k = minScale(Hw / frameH * (CAP_RATIO[kind] ?? .35), minF); if (k > 1) o.scale.multiplyScalar(k);
     const ndc = _w.clone().project(camera), cx = (ndc.x + 1) / 2, by = (1 - ndc.y) / 2, h = Hw * k / frameH, w = Ww * k / frameW;   // sprites anchor bottom-centre
     const {dx, dy} = safeShift({x0: cx - w / 2, x1: cx + w / 2, y0: by - h, y1: by}, {band});
