@@ -109,21 +109,21 @@ shot('S15b-dawn', on(9, 8), 'wide', 'push', 'bases', 'Gone by morning: an empty 
 kb = B[0]; KIT_B = [kb['front'][0], kb['front'][1]]
 shot('S16-kit', on(10), 'medium', 'push', 'kitbase', 'Then there is Kit, eleven: her base is a mat.', subject='kit', see=['kit'],
      **{'from': cam([KIT_B[0] + kb['n'][0] * 8 + 2, 3.5, KIT_B[1] + kb['n'][1] * 8], [KIT_B[0], 3, KIT_B[1]], 40)}, fit={'actor': 'kit', 'height': .36, 'part': 'full', 'y': .62}, shadowRadius=16)
-b11 = B[11]; WALK11 = bp(11, 4.5, -6)
+b11 = B[11]; WALK11 = bp(11, 3.2, -3.4); KMID = [WALK11[0] + b11['s'][0] * 2.4, WALK11[1] + b11['s'][1] * 2.4]
 shot('S16b-never', on(11, 3), 'wide', 'push', 'bases', 'Kit has never stolen anything: she walks right past a glowing egg.', see=['kit'],
-     **{'from': cam([WALK11[0] + b11['n'][0] * 13 + b11['s'][0] * 6, 5, WALK11[1] + b11['n'][1] * 13 + b11['s'][1] * 6], [B[11]['nest'][0], 2, B[11]['nest'][2]], 46),
-        'to': cam([WALK11[0] + b11['n'][0] * 11.5 + b11['s'][0] * 5.5, 4.6, WALK11[1] + b11['n'][1] * 11.5 + b11['s'][1] * 5.5], [B[11]['nest'][0], 2, B[11]['nest'][2]], 44)}, shadowRadius=24)
+     **{'from': cam([WALK11[0] + b11['n'][0] * 13 + b11['s'][0] * 6, 5, WALK11[1] + b11['n'][1] * 13 + b11['s'][1] * 6], [KMID[0], 2.4, KMID[1]], 46),
+        'to': cam([WALK11[0] + b11['n'][0] * 11.5 + b11['s'][0] * 5.5, 4.6, WALK11[1] + b11['n'][1] * 11.5 + b11['s'][1] * 5.5], [KMID[0], 2.4, KMID[1]], 44)}, shadowRadius=24)
 g5 = B[5]; N5 = g5['nest']; GE = [N5[0] + g5['n'][0] * 7 + 2.5, N5[2] + g5['n'][1] * 7]; K5 = [N5[0] + g5['n'][0] * 2.3, N5[2] + g5['n'][1] * 2.3]
 shot('S17-found', on(12), 'medium', 'push', 'bases', 'She found an egg once: Kit picks the Geode egg out of the grass.', subject='kit', see=['kit'],
      **{'from': cam([GE[0] + 3, 3.2, GE[1] + 6], [GE[0] - .8, 2.2, GE[1]], 40)}, fit={'actor': 'kit', 'height': .4, 'part': 'full', 'y': .6}, shadowRadius=14)
-CK5 = [K5[0] + g5['n'][0] * 2.2 + g5['s'][0] * 4.2, K5[1] + g5['n'][1] * 2.2 + g5['s'][1] * 4.2]
+CK5 = [K5[0] + g5['n'][0] * 6.5 + g5['s'][0] * 8.5, K5[1] + g5['n'][1] * 6.5 + g5['s'][1] * 8.5]
 shot('S17r-return', on(12, 5), 'close', 'push', 'bases', 'She returned it, with a sorry note: the egg back in its nest, then the folded note.', see=['kit'],
-     **{'from': cam([CK5[0], 3.6, CK5[1]], [(N5[0] + K5[0]) / 2, 1.9, (N5[2] + K5[1]) / 2], 38), 'to': cam([CK5[0] - g5['s'][0] * .6, 3.3, CK5[1] - g5['s'][1] * .6], [(N5[0] + K5[0]) / 2, 1.7, (N5[2] + K5[1]) / 2], 36)}, shadowRadius=10)
+     **{'from': cam([CK5[0], 7.2, CK5[1]], [(N5[0] + K5[0]) / 2, 1.6, (N5[2] + K5[1]) / 2], 40), 'to': cam([CK5[0] - g5['s'][0] * 1.2, 6.8, CK5[1] - g5['s'][1] * 1.2], [(N5[0] + K5[0]) / 2, 1.5, (N5[2] + K5[1]) / 2], 38)}, shadowRadius=10)
 shot('S18-zero', on(13), 'insert', 'push', 'square', 'Her score is zero: KIT 0 at the bottom of the scoreboard.', see=[],
      **{'from': cam([NB(20)[0], 6.2, NB(20)[2]], [BOARD[0], 6.6, BOARD[2]], 24), 'to': cam([NB(18)[0], 6.1, NB(18)[2]], [BOARD[0], 6.4, BOARD[2]], 24)}, shadowRadius=12)
 FENCE = [-12, 9]
 shot('S19-vault', F(on(13, 4), -2), 'medium', 'push', 'square', 'It has always been zero: Dax vaults the fence side-on, mid-air, four eggs in his arms.', see=['dax'],
-     **{'from': cam([FENCE[0] + .5, 3.4, FENCE[1] + 12], [FENCE[0] + .5, 3.2, FENCE[1]], 44), 'to': cam([FENCE[0] + .8, 3.4, FENCE[1] + 11], [FENCE[0] + .8, 3.2, FENCE[1]], 44)}, shadowRadius=16)
+     **{'from': cam([FENCE[0] - 2.4, 3.4, FENCE[1] + 11.5], [FENCE[0] + .5, 3.2, FENCE[1]], 46), 'to': cam([FENCE[0] - 2.1, 3.4, FENCE[1] + 10.6], [FENCE[0] + .8, 3.2, FENCE[1]], 46)}, shadowRadius=16)
 DAX1 = [4, 8]
 shot('S20-dax', on(14), 'wide', 'push', 'square', 'Her big brother Dax is number one: kids gather round him on the square.', see=['dax'],
      **{'from': cam([6, 6.5, -7], [4, 3, 9], 48), 'to': cam([5.6, 6, -5.5], [4, 3, 9], 46)}, shadowRadius=26)
@@ -192,16 +192,16 @@ shot('S37a-bell', on(33), 'wide', 'push', 'square', 'The bell rang twelve times:
      **{'from': cam([-4, 15, 24], [0, 3, 0], 46), 'to': cam([-3.6, 14, 22], [0, 3, 0], 44)}, shadowRadius=40)
 shot('S37-down', on(34), 'close', 'push', 'square', 'The shadow came down: Kit looks up in wonder, the shadow crossing her face.', subject='kit', see=['kit'],
      **{'from': cam([-.4, 3.9, 6.6], [0, 4.9, 0], 36)}, fit={'actor': 'kit', 'height': .48, 'part': 'head', 'y': .4}, shadowRadius=10)
-LOWC = [-1.5, .9, 2.6]; LOWT = add(LOWC, [MOON[0] * 50, MOON[1] * 50 + 8, MOON[2] * 50]); MOM37 = add(LOWC, [MOON[0] * 92, MOON[1] * 92 - 4, MOON[2] * 92])
+LOWC = [-1.5, .9, 2.6]; LOWT = add(LOWC, [MOON[0] * 50, MOON[1] * 50 + 8, MOON[2] * 50]); MOM37 = add(LOWC, [MOON[0] * 110, MOON[1] * 110 - 2, MOON[2] * 110])
 shot('S37b-wings', on(34, 4), 'wide', 'heroLow', 'square', 'Its wings were as wide as the street: from Kit\'s spot, her full silhouette against the moon, wings spanning the frame, eyes glowing.', see=['mother'], ground=0,
      **{'from': cam(LOWC, LOWT, 64), 'to': cam([LOWC[0] - .2, .8, LOWC[2] + .4], add(LOWT, [0, 2, 0]), 66)}, shadowRadius=60)
 shot('S38-bird', F(on(35), -2), 'close', 'push', 'square', 'It was not a bird: Kit\'s face lit by two glowing eyes.', subject='kit', see=['kit'],
      **{'from': cam([-6, 4.4, 2.5], [0, 4.5, 0], 36)}, fit={'actor': 'kit', 'height': .48, 'part': 'head', 'y': .4}, shadowRadius=10)
 shot('S39-dragon', F(on(35, 4), 2), 'medium', 'push', 'square', 'It was a dragon. Very, very gently: the mother lowers her head to Kit (the twist; Kit in wonder).', see=['mother', 'kit'],
-     **{'from': cam([-7, 4.5, -20], [-7, 6.5, 0], 56), 'to': cam([-6.5, 4.3, -18.5], [-6.5, 6.3, 0], 54)}, shadowRadius=30)
-LIFT0 = [0, 30, 6]
+     **{'from': cam([-3.5, 4.2, -15.5], [-3.5, 5.2, 0], 58), 'to': cam([-3.3, 4.0, -14.5], [-3.3, 5.0, 0], 56)}, shadowRadius=30)
+LIFT0 = [0, 30, 6]; LIFTK = [LIFT0[0] + 18, LIFT0[1], LIFT0[2]]   # front claws: 18 ahead (she flies east, away from the clock tower)
 shot('S40-lift', on(36, 4), 'close', 'push', 'square', 'It lifted Kit into the clouds: Kit in the mother\'s front claws, the town small below.', see=['kit', 'mother'],
-     **{'from': cam([LIFT0[0] + 25, LIFT0[1] + 3, LIFT0[2] + 4.5], [LIFT0[0] + 18, LIFT0[1] - .5, LIFT0[2]], 50), 'to': cam([LIFT0[0] + 34, LIFT0[1] + 8, LIFT0[2] + 4.5], [LIFT0[0] + 27, LIFT0[1] + 5, LIFT0[2]], 50)}, shadowRadius=40)
+     **{'from': cam([LIFTK[0] - 8, LIFTK[1] + 4.5, LIFTK[2] + 3.5], [LIFTK[0] + 1.5, LIFTK[1] - .5, LIFTK[2]], 50), 'to': cam([LIFTK[0] - 8 + 8.5, LIFTK[1] + 4.5 + 5.5, LIFTK[2] + 3.5], [LIFTK[0] + 1.5 + 8.5, LIFTK[1] - .5 + 5.5, LIFTK[2]], 50)}, shadowRadius=40)
 # B8 second surprise ---------------------------------------------------------------------------------------------------------------
 N = NEST; FL = N[1] - 4.4   # nest floor
 RING = ['kit', 'dax', 'lead', 'little', 'r1', 'r2', 'r3', 'r4', 'r5']; RR = 6.2
@@ -209,9 +209,9 @@ SEAT = {n: [N[0] + RR * math.sin(math.radians(180 + 40 * k)), FL, N[2] + RR * ma
 SEAT = {n: [round(v, 3) for v in p] for n, p in SEAT.items()}
 seat_yaw = lambda n: yaw_to(SEAT[n], N)
 shot('S41-nest', on(37), 'wide', 'drone', 'nest', 'Money shot: drone low over the sunrise clouds onto a woven nest the size of the town, kids and baby dragons in a ring, the mother curled outside.', see=[], spectacle=True, look='goldenHour',
-     path=[[N[0] + 30, N[1] + 6, N[2] + 120], [N[0] + 18, N[1] + 6, N[2] + 74], [N[0] + 8, N[1] + 9, N[2] + 34]], targets=[[N[0], N[1] - 4, N[2] + 1], [N[0], N[1] - 4, N[2] + 1]], **{'from': {'fov': 50}}, shadowRadius=60)
+     ease='linear', path=[[N[0] + 30, N[1] + 8, N[2] + 120], [N[0] + 18, N[1] + 10, N[2] + 72], [N[0] + 8, N[1] + 12.5, N[2] + 38]], targets=[[N[0], N[1] - 4, N[2] + 1], [N[0], N[1] - 4, N[2] + 1]], **{'from': {'fov': 50}}, shadowRadius=60)
 shot('S41b-ring', on(38), 'medium', 'push', 'nest', 'Every missing kid was in it: the ring of kids, a baby dragon in every lap.', see=['little', 'lead', 'kit'], look='goldenHour',
-     **{'from': cam([N[0] + 2, N[1] + 10, N[2] + 17], [N[0], FL + 1, N[2] + 1], 50), 'to': cam([N[0] + 1.6, N[1] + 9, N[2] + 15.5], [N[0], FL + 1, N[2] + 1], 50)}, shadowRadius=20)
+     **{'from': cam([N[0] + .5, N[1] + 5.5, N[2] + 12.2], [N[0], FL + 1.4, N[2] - 2], 50), 'to': cam([N[0] + .4, N[1] + 5.2, N[2] + 11.6], [N[0], FL + 1.4, N[2] - 2], 50)}, shadowRadius=20)
 DAXN = SEAT['dax']
 shot('S42-daxnest', F(on(38, 6), -2), 'close', 'push', 'nest', 'Even Dax: a hatchling asleep on his head.', subject='dax', see=['dax'], look='goldenHour',
      **{'from': cam(add(DAXN, [(N[0] - DAXN[0]) * .7, 3.4, (N[2] - DAXN[2]) * .7]), add(DAXN, [0, 2.2, 0]), 40)}, fit={'actor': 'dax', 'height': .55, 'part': 'full', 'y': .5, 'h': 3.6}, shadowRadius=12)
@@ -233,7 +233,7 @@ shot('S46b-sneeze', on(43, 3), 'close', 'push', 'nest', 'A tiny dragon sneezed o
 shot('S47a-mother', on(44), 'wide', 'push', 'nest', 'The mother was not taking thieves: she lies curled round the outside of the nest.', see=['mother'], look='goldenHour',
      **{'from': cam([N[0] + 34, N[1] + 22, N[2] + 46], [N[0] - 6, N[1], N[2]], 50), 'to': cam([N[0] + 30, N[1] + 20, N[2] + 42], [N[0] - 6, N[1], N[2]], 48)}, shadowRadius=60)
 shot('S47b-sitters', on(45), 'medium', 'push', 'nest', 'She was taking babysitters: kids with sleeping babies, her head resting on the rim behind them.', see=['mother', 'little'], look='goldenHour',
-     **{'from': cam([N[0] + 3, N[1] + 5.5, N[2] + 22], [N[0] - 1, FL + 3, N[2] + 4], 48), 'to': cam([N[0] + 2.6, N[1] + 5.2, N[2] + 20.5], [N[0] - 1, FL + 3, N[2] + 4], 48)}, shadowRadius=30)
+     **{'from': cam([N[0] - 4, N[1] + 3.5, N[2] + 11.5], [N[0] + 2, FL + 4, N[2] - 10], 50), 'to': cam([N[0] - 3.7, N[1] + 3.4, N[2] + 10.9], [N[0] + 2, FL + 4, N[2] - 10], 50)}, shadowRadius=30)
 # B9 flip --------------------------------------------------------------------------------------------------------------------------
 shot('S48-sunrise', on(46), 'wide', 'crane', 'square', 'Dax came home the next morning: dragons fly in over the square at sunrise.', see=['dax'], look='goldenHour',
      ease='inOutSine', **{'from': cam([3, 5, -8], [0, 16, 30], 52), 'to': cam([3, 7.5, -6.5], [0, 18, 30], 51)}, shadowRadius=60)
@@ -253,7 +253,7 @@ shot('S51-rhyme', on(51), 'wide', 'drone', 'square', 'And at midnight everybody 
 
 # ---- cast ----------------------------------------------------------------------------------------------------------------------
 t = {s['id']: s['at'] for s in S}
-def marks(*m): return [[round(a, 3), p] for a, p in m]
+def marks(*m): return [[round(a, 3), p] for a, p in sorted(m, key=lambda x: x[0])]
 kitE = lambda w: f'egg:plain:{w}'
 def sqy(x, z, y=0): return {'at': 'square', 'offset': [x, y, z]}
 face_cam = lambda p, c: yaw_to(p, c)
@@ -266,14 +266,13 @@ FACEMAP = [[12, 'kit', 'polite'], [15, 'dax', 'laugh'], [16, 'kit', 'polite'], [
 SNEEZE = round(on(43, 6) + .08, 3)
 Q5, CUT0 = Q(5), [Q(4)[0] + b9['s'][0] * 3.2, Q(4)[1] + b9['s'][1] * 3.2]
 N9 = [b9['nest'][0], b9['nest'][2]]
-LIFTK = [LIFT0[0] + 18, LIFT0[1], LIFT0[2]]   # front claws: 18 ahead (she flies east, away from the clock tower)
 _c = [DRONE['path'][1][i] + (DRONE['path'][2][i] - DRONE['path'][1][i]) * .43 for i in range(3)]   # the drone camera near t = 1.2 s
 MOM0 = [round(_c[i] + MOON[i] * 320 - ([PERP[0], 0, PERP[1]][i]) * 70 * 1.2, 2) for i in range(3)]   # crosses the moon at ~1.2 s
 cast = {
   'kit': {'style': 'v2', 'troupe': 'SECOND', 'role': 'Kit', 'outfit': {'recipe': 'hoodie', 'main': '#ff7aa8', 'accent': '#ffffff', 'legs': '#4a5a80', 'trim': '#9b59b6'},
     **sq(*K0), 'yaw': yaw_to(K0, [K0[0] - D2[0], K0[1] - D2[1]]),
     'marks': marks((0, {**sq(*K0), 'yaw': yaw_to(K0, [K0[0] - D2[0], K0[1] - D2[1]])}), (t['S16-kit'], {'at': 'kitBase', 'yaw': yaw_to(KIT_B, [KIT_B[0] + kb['n'][0], KIT_B[1] + kb['n'][1]])}),
-      (t['S16b-never'], {**sq(*WALK11), 'yaw': yaw_to([0, 0], b11['s']), 'travel': {'dir': b11['s'], 'speed': 1.7, 'max': 5}}),
+      (t['S16b-never'], {**sq(*WALK11), 'yaw': yaw_to([0, 0], b11['s']), 'travel': {'dir': b11['s'], 'speed': 1.6, 'max': 4.5}}),
       (t['S17-found'], {**sq(GE[0] - 1.3, GE[1]), 'yaw': 90}), (t['S17r-return'], {**sq(*K5), 'yaw': yaw_to(K5, [N5[0], N5[2]])}),
       (t['S18-zero'], {**sq(-8, 9), 'yaw': 0}), (t['S22-queue'], {**sq(*Q5), 'yaw': yaw_to(Q5, N9)}), (t['S23-notice'], {**sq(*K2), 'yaw': 0}),
       (t['S24b-vane'], {**sq(*KV), 'yaw': yaw_to(KV, [VANE[0], VANE[2]])}), (t['S25-cold'], {**sq(*K2), 'yaw': 0}),
@@ -307,10 +306,10 @@ cast = {
     'tools': [[0, 'egg:storm'], [t['S10-wins'], EGGS4], [t['S41-nest'], None]]},
   'lead': {'style': 'v2', 'troupe': 'LEAD', 'role': 'thief', 'outfit': {'recipe': 'hoodie', 'main': '#3fae6a', 'accent': '#ffffff', 'legs': '#3a4a6a', 'trim': '#2e7a4a'},
     **sq(10, 10), 'yaw': 0,
-    'marks': marks((0, {**sq(-30, 20), 'yaw': 0}), (t['S06-run'], {'at': 'base8', 'offset': [0, 0, 0], 'yaw': 75, 'travel': {'dir': [.966, .259], 'speed': 5.5}}),
+    'marks': marks((0, {**sq(-30, 20), 'yaw': 0}), (t['S06-run'], {'at': 'base8', 'offset': [-math.sin(math.radians(255)) * 8, 0, -math.cos(math.radians(255)) * 8], 'yaw': 75, 'travel': {'dir': [.966, .259], 'speed': 5.5}}),
       (t['S08-steal'], {'at': 'base3', 'offset': [B[3]['s'][0] * 3.2 - B[3]['n'][0] * 2.6, 0, B[3]['s'][1] * 3.2 - B[3]['n'][1] * 2.6], 'yaw': yaw_to([0, 0], [B[3]['n'][0], B[3]['n'][1]])}),
       (t['S09-board'], {**sq(*LEADW), 'yaw': 28.6}), (t['S10-wins'], {**sq(-30, 20), 'yaw': 0}),
-      (t['S34-middle'], {**sq(9.5, -2), 'yaw': yaw_to([9.5, -2], [0, 0])}), (t['S41-nest'], SEATM('lead'))),
+      (t['S34-middle'], {**sq(9.5, -2), 'yaw': yaw_to([9.5, -2], [0, 0])}), (t['S36-holds'], {**sq(-50, 50), 'yaw': 0}), (t['S41-nest'], SEATM('lead'))),
     'keys': [[0, 'eggRun'], [t['S08-steal'], 'eggHold'], [t['S09-board'], 'raise'], [t['S10-wins'], 'idle'], [t['S35c-drop'] - .3, 'point'], [t['S41-nest'], 'sit', {'ground': True}]],
     'faces': [[0, 'smug'], [t['S35b-scream'], 'scream'], [t['S41-nest'], 'smile']],
     'tools': [[0, 'egg:ember'], [t['S08-steal'], 'egg:moss'], [t['S10-wins'], None]]},
@@ -332,7 +331,7 @@ cast = {
     'colors': {'body': '#6b4fb8', 'dark': '#4a3486', 'belly': '#ffd27a', 'horn': '#fff3d6', 'wing': '#e8794a', 'wingDk': '#b8512e', 'eye': '#7affe4'},
     'marks': marks((0, {'origin': MOM0, 'yaw': yaw_to([0, 0], PERP), 'travel': {'dir': PERP, 'speed': 70}}), (2.6, {'origin': [0, 400, -600], 'yaw': 0}),
       (t['S29b-shadow'] + 1.5, {'origin': [31.4 - 55, 60, 7.6 + 10], 'yaw': 100, 'travel': {'dir': [.98, -.18], 'speed': 70}}), (t['S30-bed'], {'origin': [0, 400, -600], 'yaw': 0}),
-      (t['S37-down'], {'origin': [MOM37[0] + .5 * 6.6, MOM37[1] + 2, MOM37[2] - .866 * 6.6], 'yaw': yaw_to(MOM37, LOWC), 'travel': {'dir': [-.5, .866], 'speed': 5, 'climb': -1.5}}),
+      (t['S37-down'], {'origin': [MOM37[0] + .5 * 6.6, MOM37[1] + 2, MOM37[2] - .866 * 6.6], 'yaw': yaw_to(MOM37, LOWC) + 30, 'travel': {'dir': [-.5, .866], 'speed': 5, 'climb': -1.5}}),
       (t['S38-bird'], {'origin': [-54, 0, 0], 'yaw': 90}),
       (t['S40-lift'], {'origin': LIFT0, 'yaw': 90, 'travel': {'dir': [1, 0], 'speed': 4, 'climb': 2.5}}),
       (t['S41-nest'], {'origin': [N[0] + 24, N[1] - 6, N[2] + 6], 'yaw': 180}), (t['S44a-cold'], {'origin': [0, 400, -600], 'yaw': 0}), (t['S44b-gold'], {'origin': [N[0] + 24, N[1] - 6, N[2] + 6], 'yaw': 180}),
@@ -416,8 +415,8 @@ crowds = [
   {'id': 'town', 'count': 30, 'centre': [4, -10], 'radius': 9, 'mode': 'ambient', 'seed': 4, 'spacing': 1.8, 'clear': [[-2.5, 7, 2.4], [5, 5, 2.4], [-5, 4, 2.4], [1, 3, 2.4], [0, -22, 6]], 'visible': [[0, True], [t['S14a-minute'], False], [t['S16-kit'], True], [t['S20-dax'], False], [t['S22-queue'], True], [t['S28-greedy'], False]]},
   {**POTATO, 'visible': [[0, False], [t['S14-potato'], True], [t['S15a-claws'], False], [t['S44a-cold'], True], [t['S44b-gold'], False]], 'clear': [[1.7, 12, 2], [-1.7, 12, 2], [0, 17, 4.5], [3, -15, 4], [3, -11, 4]]},
   {'id': 'ring', **RINGC, 'mode': 'ambient', 'visible': [[0, False], [t['S34-middle'], True], [t['S37a-bell'], False]]},
-  {'id': 'ringUp', **RINGC, 'mode': 'lookUp', 'visible': [[0, False], [t['S37a-bell'], True], [t['S39-dragon'], False]]},
-  {'id': 'runA', 'count': 14, 'centre': [-16, -4], 'radius': 5, 'mode': 'panic', 'dir': PERP, 'at': 0, 'seed': 7, 'visible': [[0, True], [t['S02-kit'], False]]},
+  {'id': 'ringUp', **RINGC, 'mode': 'lookUp', 'visible': [[0, False], [t['S37a-bell'], True], [t['S37b-wings'], False]]},
+  {'id': 'runA', 'count': 14, 'centre': [-2, -10], 'radius': 5, 'mode': 'panic', 'dir': PERP, 'at': 0, 'seed': 7, 'visible': [[0, True], [t['S02-kit'], False]]},
   {'id': 'runB', 'count': 12, 'centre': [-12, 2.5], 'radius': 3, 'mode': 'panic', 'dir': [1, 0], 'at': t['S23-notice'] - .3, 'seed': 8, 'visible': [[0, False], [t['S23-notice'], True], [t['S24-roofs'], False]]},
   {'id': 'runC', 'count': 12, 'centre': [-12, 2.5], 'radius': 3, 'mode': 'panic', 'dir': [1, 0], 'at': t['S26-still'] - .3, 'seed': 18, 'visible': [[0, False], [t['S26-still'], True], [t['S27-still'], False]]},
   {'id': 'runD', 'count': 14, 'centre': [-14, 3], 'radius': 4, 'mode': 'panic', 'dir': [1, 0], 'at': t['S27-still'] - .5, 'seed': 28, 'visible': [[0, False], [t['S27-still'], True], [t['S28-greedy'], False]]},
@@ -427,7 +426,7 @@ crowds = [
 effects = [
   {'type': 'shake', 'at': round(on(24, 3) + .2, 2), 'dur': .5, 'amp': .08},
   {'type': 'flash', 'at': round(on(33, 4), 2), 'dur': .3, 'color': '#fff6e0'},
-  {'type': 'particles', 'preset': 'dust', 'origin': {'anchor': 'square', 'offset': [0, .5, 0]}, 'count': 120, 'at': on(34), 'dur': 3},
+  {'type': 'particles', 'preset': 'dust', 'origin': {'anchor': 'square', 'offset': [0, .5, 0]}, 'count': 120, 'at': on(34), 'dur': 1.2},
   {'type': 'particles', 'preset': 'sparkle', 'origin': add(KITN, [0, 1.7, .9]), 'count': 50, 'at': round(on(43, 2), 2), 'dur': 1.0},
   {'type': 'particles', 'preset': 'sparkle', 'origin': [GL[0], GL[1] + .5, GL[2]], 'count': 40, 'at': SNEEZE, 'dur': 1.2},
 ]

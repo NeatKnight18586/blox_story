@@ -238,7 +238,7 @@
    "size": "wide",
    "move": "push",
    "loc": "town",
-   "speed": 9,
+   "speed": 2,
    "subject": "",
    "why": "Kit has never stolen anything: she walks right past a glowing egg."
   },
@@ -262,7 +262,7 @@
    "size": "close",
    "move": "push",
    "loc": "town",
-   "speed": 27,
+   "speed": 24,
    "subject": "",
    "why": "She returned it, with a sorry note: the egg back in its nest, then the folded note."
   },
@@ -274,7 +274,7 @@
    "size": "insert",
    "move": "push",
    "loc": "town",
-   "speed": 13,
+   "speed": 2,
    "subject": "",
    "why": "Her score is zero: KIT 0 at the bottom of the scoreboard."
   },
@@ -286,7 +286,7 @@
    "size": "medium",
    "move": "push",
    "loc": "town",
-   "speed": 0,
+   "speed": 7,
    "subject": "",
    "why": "It has always been zero: Dax vaults the fence side-on, mid-air, four eggs in his arms."
   },
@@ -370,7 +370,7 @@
    "size": "medium",
    "move": "push",
    "loc": "town",
-   "speed": 5,
+   "speed": 3,
    "subject": "",
    "why": "Nobody has ever seen a bird: Kit looks up at the dragon weathervane against the stars (clue 1)."
   },
@@ -658,7 +658,7 @@
    "size": "medium",
    "move": "push",
    "loc": "town",
-   "speed": 1,
+   "speed": 0,
    "subject": "",
    "why": "It was a dragon. Very, very gently: the mother lowers her head to Kit (the twist; Kit in wonder)."
   },
@@ -670,7 +670,7 @@
    "size": "close",
    "move": "push",
    "loc": "town",
-   "speed": 19,
+   "speed": 0,
    "subject": "",
    "why": "It lifted Kit into the clouds: Kit in the mother's front claws, the town small below."
   },
@@ -682,7 +682,7 @@
    "size": "wide",
    "move": "drone",
    "loc": "nest",
-   "speed": 33,
+   "speed": 25,
    "subject": "",
    "why": "Money shot: drone low over the sunrise clouds onto a woven nest the size of the town, kids and baby dragons in a ring, the mother curled outside."
   },
@@ -694,7 +694,7 @@
    "size": "medium",
    "move": "push",
    "loc": "nest",
-   "speed": 4,
+   "speed": 2,
    "subject": "",
    "why": "Every missing kid was in it: the ring of kids, a baby dragon in every lap."
   },
@@ -802,7 +802,7 @@
    "size": "medium",
    "move": "push",
    "loc": "nest",
-   "speed": 3,
+   "speed": 2,
    "subject": "",
    "why": "She was taking babysitters: kids with sleeping babies, her head resting on the rim behind them."
   },
@@ -1111,10 +1111,10 @@
   {
    "shot": "S06-run",
    "size": "wide",
-   "max": 1,
-   "kind": "sprinkle",
+   "max": 0.257,
+   "kind": "moss",
    "need": 0.02,
-   "n": 9
+   "n": 7
   },
   {
    "shot": "S07-lock",
@@ -1215,10 +1215,18 @@
   {
    "shot": "S17r-return",
    "size": "close",
-   "max": 0.4533,
+   "max": 0.2229,
    "kind": "geode",
    "need": 0.05,
    "n": 1
+  },
+  {
+   "shot": "S19-vault",
+   "size": "medium",
+   "max": 0.1393,
+   "kind": "storm",
+   "need": 0.05,
+   "n": 4
   },
   {
    "shot": "S20-dax",
@@ -1407,7 +1415,7 @@
   {
    "shot": "S39-dragon",
    "size": "medium",
-   "max": 0.0561,
+   "max": 0.0676,
    "kind": "plain",
    "need": 0.05,
    "n": 1
@@ -1415,7 +1423,7 @@
   {
    "shot": "S40-lift",
    "size": "close",
-   "max": 0.123,
+   "max": 0.1399,
    "kind": "plain",
    "need": 0.05,
    "n": 1
@@ -1423,7 +1431,7 @@
   {
    "shot": "S41-nest",
    "size": "wide",
-   "max": 0.0469,
+   "max": 0.0429,
    "kind": "plain",
    "need": 0.02,
    "n": 1
@@ -1431,7 +1439,7 @@
   {
    "shot": "S41b-ring",
    "size": "medium",
-   "max": 0.0835,
+   "max": 0.0998,
    "kind": "plain",
    "need": 0.05,
    "n": 1
@@ -1505,7 +1513,7 @@
  "crowdCover": [
   {
    "shot": "S01-town",
-   "cover": 0.477
+   "cover": 0
   },
   {
    "shot": "S02-kit",
@@ -1713,7 +1721,7 @@
   },
   {
    "shot": "S37b-wings",
-   "cover": 0.302
+   "cover": 0
   },
   {
    "shot": "S38-bird",
@@ -1841,13 +1849,7 @@
    "shot": "S18-zero",
    "dur": 1.47,
    "clock": 0,
-   "board": 0.818
-  },
-  {
-   "shot": "S19-vault",
-   "dur": 1.8,
-   "clock": 0,
-   "board": 0.162
+   "board": 0.712
   },
   {
    "shot": "S29-clock",
@@ -1892,34 +1894,34 @@
   "S07-lock: \"r4\" (see) not in frame by frame 6",
   "S14-potato: \"r1\" (see) not in frame by frame 6",
   "S15b-dawn: wide shot with no tagged character in the foreground",
-  "S16b-never: \"kit\" (see) not in frame by frame 6",
-  "S16b-never: wide shot with no tagged character in the foreground",
-  "S17r-return: \"kit\" (see) not in frame by frame 6",
   "S19-vault: \"dax\" (see) not in frame by frame 6",
   "S22-queue: \"r1\" (see) not in frame by frame 6",
   "S31-feather: \"kit\" (see) not in frame by frame 6",
   "S32b-take: \"kit\" (see) not in frame by frame 6",
   "S34-middle: wide shot with no tagged character in the foreground",
   "S35c-drop: \"kit\" (see) not in frame by frame 6",
-  "S39-dragon: \"kit\" (see) not in frame by frame 6",
+  "S37b-wings: \"mother\" (see) not in frame by frame 6",
+  "S37b-wings: wide shot with no tagged character in the foreground",
+  "S39-dragon: \"mother\" (see) not in frame by frame 6",
+  "S40-lift: \"kit\" (see) not in frame by frame 6",
   "S40-lift: \"mother\" (see) not in frame by frame 6",
   "S41-nest: wide shot with no tagged character in the foreground",
   "S41b-ring: \"little\" (see) not in frame by frame 6",
   "S41b-ring: \"lead\" (see) not in frame by frame 6",
   "S44a-cold: \"r1\" (see) not in frame by frame 6",
   "S44a-cold: \"r2\" (see) not in frame by frame 6",
+  "S45-years: wide shot with no tagged character in the foreground",
   "S46a-crack: \"kit\" (see) not in frame by frame 6",
   "S47a-mother: wide shot with no tagged character in the foreground",
   "S47b-sitters: \"mother\" (see) not in frame by frame 6",
+  "S47b-sitters: \"little\" (see) not in frame by frame 6",
   "S48-sunrise: \"dax\" (see) not in frame by frame 6",
   "S48-sunrise: wide shot with no tagged character in the foreground",
   "S50b-one: \"goldling\" (see) not in frame by frame 6",
   "S51-rhyme: wide shot with no tagged character in the foreground",
   "mean shot length 1.94 s (target 2.2–3.0)",
-  "S01-town: foreground crowd covers 47.7 % of the frame (≤ 15 %)",
   "S15a-claws: static insert is 1.93 s (≤ 1.5)",
   "S15b-dawn: shows no person doing its line (a static wide); static objects only as an insert ≤ 1.5 s",
-  "S37b-wings: foreground crowd covers 30.2 % of the frame (≤ 15 %)",
   "S51-rhyme: clock shot is 4.80 s (≤ 1.5)",
   "S22-queue: one framing held 3.23 s (≤ 3)",
   "S29b-shadow: one framing held 3.33 s (≤ 3)",
