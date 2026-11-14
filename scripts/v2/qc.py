@@ -101,6 +101,18 @@ def pick_frames(plan_shots, total, fps=30, n_fast=6, n_even=6):
     return sorted(picks.items())
 
 
+WAIVABLE = {'tint': ('stone ΔE', 'for the tint check')}
+
+
+def split_waived(fails, waive):
+    """Owner waiver (opt-in): failures of the named checks move to a recorded 'waived' list → (fails, waived)."""
+    keys = [k.strip() for k in waive.split(',') if k.strip()]
+    bad = [k for k in keys if k not in WAIVABLE]
+    if bad: raise SystemExit(f'unknown waiver {bad} (waivable: {sorted(WAIVABLE)})')
+    hit = lambda f: any(p in f for k in keys for p in WAIVABLE[k])
+    return [f for f in fails if not hit(f)], [f for f in fails if hit(f)]
+
+
 def evaluate(m, th=TH, fallback=False):
     """Pass/fail of a metrics dict → list of failure strings (empty = pass)."""
     f = []
@@ -219,7 +231,9 @@ def main():
     a.add_argument('--frames', default='renders/v2/final1440/frames'); a.add_argument('--captions'); a.add_argument('--fallback', action='store_true')
     a.add_argument('--before-after', action='store_true'); a.add_argument('--out')
     a.add_argument('--source-video', help='near-lossless picture instead of --frames (render farm)')
-    a.add_argument('--plan', help='plan.json (default review/<slug>/plan.json)'); o = a.parse_args()
+    a.add_argument('--plan', help='plan.json (default review/<slug>/plan.json)')
+    a.add_argument('--waive', default='', help='owner waiver (opt-in, per story): comma list of checks (tint) whose failures are recorded under "waived", not dropped')
+    o = a.parse_args()
     slug = o.story; out = o.out or f'review/{slug}/qc.json'; captions = o.captions or f'stories/{slug}/build/captions.ass'
     pr, v, au = A.probe_video(o.video); lufs, tp = A.measure(o.video)
     m = {'video': o.video, 'width': v['width'], 'height': v['height'], 'fps': v['r_frame_rate'], 'pix_fmt': v.get('pix_fmt'),
@@ -256,6 +270,7 @@ def main():
         crops.append((f, why, raw, graded, yuv444_to_rgb(*dec[f])))
     m['frames'] = rows
     fails = evaluate(m, fallback=o.fallback)
+    fails, waived = split_waived(fails, o.waive)
     # crop sheet: the fastest frame, the frame with the biggest face (close-up shots: S03/S55-like inserts), two more
     order = [c for c in crops if c[1].startswith('fast')][:1] + [c for c in crops if not c[1].startswith('fast')]
     chosen = order[:1]
@@ -270,12 +285,12 @@ def main():
             sheet.paste(Image.fromarray(img[y0:y0 + ch, x0:x0 + cw]), (c * cw, r * (ch + lab) + lab))
             d.text((c * cw + 6, r * (ch + lab) + 4), f'{name} - frame {f} ({why}) 1:1 at {x0},{y0}', fill='#ffd84a', font=font)
     os.makedirs(os.path.dirname(out), exist_ok=True); sheet.save(os.path.join(os.path.dirname(out), 'qc-crops.png'))
-    rep = {**m, 'thresholds': TH, 'failures': fails, 'result': 'FAIL' if fails else 'PASS', 'crops': [c[0] for c in chosen],
+    rep = {**m, 'thresholds': TH, 'failures': fails, 'waived': waived, 'result': 'FAIL' if fails else 'PASS', 'crops': [c[0] for c in chosen],
            'stoneMask': 'raw pixels with saturation < 0.2, 70 < luma < 200, blue ≥ red, inside the central 70 %',
            'tintCheck': 'ΔE76 raw vs the A2 grade without its vignette (vignette = lightness falloff, not a tint), on frames whose stone/wall mask covers ≥ 0.5 % of the frame (smaller masks are stray grey pixels in dark scenes; their values are still listed); delta_e_with_vignette reported'}
     if o.before_after: rep['beforeAfter'] = before_after(o.frames, picks, src_size, captions)
     with open(out, 'w') as fh: json.dump(rep, fh, indent=1)
-    print(json.dumps({k: rep[k] for k in ('width', 'height', 'video_kbps', 'MB', 'lufs', 'true_peak', 'result', 'failures')} |
+    print(json.dumps({k: rep[k] for k in ('width', 'height', 'video_kbps', 'MB', 'lufs', 'true_peak', 'result', 'failures', 'waived')} |
                      {'minSSIM': min(r['ssim'] for r in rows), 'minPSNR': min(r['psnr'] for r in rows), 'minSharp': min(r['sharp_ratio'] for r in rows),
                       'maxDeltaE': max((r['delta_e'] or 0) for r in rows)} | ({'beforeAfter': rep['beforeAfter']} if o.before_after else {})))
     sys.exit(1 if fails else 0)

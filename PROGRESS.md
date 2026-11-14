@@ -1062,3 +1062,8 @@ Three weakest things:
 - **Assemble report `"pass": false`:** the report's own flag; the QC gate is the release gate and does not depend on it. Not investigated further.
 - **Status:** no prerelease, no DELIVERY.md, STATE.md stays `step: final` (not published-ready).
 - **Decision for the owner:** (a) waive the stone-tint check for egg, as with stability (then the job's upload + prerelease must be run by hand, since the workflow stops at the gate), (b) approve a shot or grade change that puts more stone/wall in frame and re-render (about 4.5 h on the farm), or (c) hold.
+
+### Egg final: QC waiver (owner, 2026-11-14)
+- Owner: "waive" the stone/wall tint check for egg only (QC failed on its count: 3 of 4 frames had ≥ 0.5 % stone; maxΔE 5.63). The threshold is not loosened.
+- `qc.py --waive tint` (opt-in): matching failures move to `waived` in qc.json, recorded rather than dropped. The farm reads `stories/<slug>/qc.waive`; only egg has one.
+- Re-assembled from the run 43597647473 segments (`reuse-run`), no re-render. Captions, assemble and QC are unchanged.

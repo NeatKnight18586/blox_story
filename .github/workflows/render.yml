@@ -139,7 +139,7 @@ jobs:
           fi
       - name: Quality gate (v2:qc; a failure means no release)
         if: needs.plan.outputs.preset == 'final'
-        run: python3 scripts/v2/qc.py --story "$STORY" --video "out/$STORY-master.mp4" --source-video picture.mp4 --captions out/captions.ass --out out/qc.json
+        run: python3 scripts/v2/qc.py --story "$STORY" --video "out/$STORY-master.mp4" --source-video picture.mp4 --captions out/captions.ass --out out/qc.json $( [ -f "stories/$STORY/qc.waive" ] && echo --waive "$(head -n1 stories/$STORY/qc.waive)" )   # owner waiver, recorded in qc.json
       - uses: actions/upload-artifact@v4
         with:
           name: ${{ needs.plan.outputs.story }}-${{ needs.plan.outputs.preset }}
