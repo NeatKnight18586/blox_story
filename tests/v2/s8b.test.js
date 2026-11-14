@@ -74,3 +74,15 @@ test('fit framing: the subject hits its target height; framing check thresholds'
   assert.ok(!framingCheck({size: 'wide', subjectFrac: .1, groundGap: .45}).ok); assert.ok(framingCheck({size: 'wide', subjectFrac: .1, groundGap: .45, spectacle: true}).ok);
   assert.equal(FRAMING.groundMax, .28);
 });
+
+import {lightness, nightPaletteCheck, NIGHT_MIN_L} from '../../engine/troupe.js';
+import {readFileSync as rf} from 'node:fs';
+test('night palette rule: hero/troupe outfit colours ≥ 0.32 lightness in night shots; the egg look test complies', () => {
+  assert.ok(Math.abs(lightness('#808080') - .502) < .01); assert.equal(lightness('#000000'), 0); assert.equal(lightness('#ffffff'), 1);
+  const data = JSON.parse(rf('cast/troupe.json', 'utf8'));
+  const bad = {look: 'nightBright', cast: {dax: {troupe: 'RIVAL', outfit: {main: '#26262c', legs: '#4a4f57'}}, afk: {troupe: 'AFK'}, crowd1: {town: 3}}};
+  const f = nightPaletteCheck(bad, data); assert.deepEqual(f.map(x => x.key).sort(), ['legs', 'main']); assert.ok(f.every(x => x.l < NIGHT_MIN_L));
+  assert.deepEqual(nightPaletteCheck({...bad, look: 'day'}, data), []);
+  assert.deepEqual(nightPaletteCheck(JSON.parse(rf('engine/fixtures/looktest/egg-new.json', 'utf8')), data), []);
+  const egg = JSON.parse(rf('engine/fixtures/looktest/egg-new.json', 'utf8')); assert.ok(lightness(egg.cast.dax.outfit.main) >= NIGHT_MIN_L && egg.cast.dax.outfit.main === '#9a2f2f');
+});

@@ -13,7 +13,7 @@
     "recipe": "hoodie",
     "main": "#ff7aa8",
     "accent": "#ffffff",
-    "legs": "#3b4a6b",
+    "legs": "#4a5a80",
     "trim": "#9b59b6"
    },
    "at": "square",
@@ -42,10 +42,10 @@
    "role": "Dax",
    "outfit": {
     "recipe": "hoodie",
-    "main": "#26262c",
-    "accent": "#e4574a",
-    "legs": "#4a4f57",
-    "trim": "#e4574a"
+    "main": "#9a2f2f",
+    "accent": "#f2d16b",
+    "legs": "#5a6274",
+    "trim": "#f2b632"
    },
    "at": "square",
    "offset": [
@@ -83,7 +83,14 @@
      0,
      "walk"
     ]
-   ]
+   ],
+   "outfit": {
+    "recipe": "tee",
+    "main": "#7fc241",
+    "accent": "#ffffff",
+    "legs": "#f2b632",
+    "trim": "#2f80d1"
+   }
   },
   "afk": {
    "style": "v2",
@@ -101,26 +108,65 @@
   {
    "id": "square",
    "size": "wide",
+   "spectacle": true,
    "frames": 8,
    "anchor": "square",
    "look": "nightBright",
    "shadowRadius": 60
   },
   {
-   "id": "street",
+   "id": "kitMed",
    "size": "medium",
    "frames": 8,
-   "anchor": "street",
+   "move": "push",
+   "duration": 1,
+   "from": {
+    "position": [
+     -6,
+     4.2,
+     24
+    ],
+    "target": [
+     -2.5,
+     2.4,
+     9
+    ],
+    "fov": 40
+   },
+   "fit": {
+    "actor": "kit",
+    "height": 0.36,
+    "part": "full"
+   },
    "look": "nightBright",
-   "shadowRadius": 30
+   "shadowRadius": 20
   },
   {
-   "id": "wide",
-   "size": "wide",
+   "id": "daxMed",
+   "size": "medium",
    "frames": 8,
-   "anchor": "wide",
+   "move": "push",
+   "duration": 1,
+   "from": {
+    "position": [
+     8,
+     4.2,
+     22
+    ],
+    "target": [
+     3,
+     2.4,
+     7
+    ],
+    "fov": 40
+   },
+   "fit": {
+    "actor": "dax",
+    "height": 0.36,
+    "part": "full"
+   },
    "look": "nightBright",
-   "shadowRadius": 110
+   "shadowRadius": 20
   }
  ]
 }
