@@ -1,0 +1,398 @@
+{
+ "thresholds": {
+  "w": 0.55,
+  "h": 0.4,
+  "eye": 0.022,
+  "strokePx": 2
+ },
+ "face": {
+  "w": 1,
+  "h": 0.6206896551724137,
+  "headArea": 1,
+  "note": "face = the flat front band of the classic head (between the rounded top and bottom rims), full width; eye area is a share of the whole head front (1 × 1)"
+ },
+ "mediumShot": {
+  "d": 7,
+  "fov": 35,
+  "headPx": 157
+ },
+ "atMinimumMedium": {
+  "note": "actor = 30 % of frame height (the framing floor)",
+  "headPx": 41.3,
+  "minStrokePx": 0.87
+ },
+ "wobble": 0.006,
+ "talkHeights": {
+  "hero_grin": [
+   0.04,
+   0.08,
+   0.129
+  ],
+  "smile": [
+   0.04,
+   0.08,
+   0.129
+  ],
+  "neutral": [
+   0.04,
+   0.08,
+   0.13
+  ]
+ },
+ "rows": [
+  {
+   "face": "hero_wink",
+   "widthFrac": 0.618,
+   "heightFrac": 0.715,
+   "heightOfWholeHead": 0.444,
+   "eyeAreaL": null,
+   "eyeAreaR": 2.24,
+   "minStrokePx": 3.3,
+   "blushOverlap": 0,
+   "pass": true
+  },
+  {
+   "face": "hero_grin",
+   "widthFrac": 0.6,
+   "heightFrac": 0.723,
+   "heightOfWholeHead": 0.449,
+   "eyeAreaL": 2.24,
+   "eyeAreaR": 2.24,
+   "minStrokePx": 3.3,
+   "blushOverlap": 0,
+   "pass": true
+  },
+  {
+   "face": "hero_shock",
+   "widthFrac": 0.626,
+   "heightFrac": 0.754,
+   "heightOfWholeHead": 0.468,
+   "eyeAreaL": 3.44,
+   "eyeAreaR": 3.44,
+   "minStrokePx": 4.4,
+   "blushOverlap": 0,
+   "pass": true
+  },
+  {
+   "face": "hero_panic",
+   "widthFrac": 0.626,
+   "heightFrac": 0.693,
+   "heightOfWholeHead": 0.43,
+   "eyeAreaL": 3.44,
+   "eyeAreaR": 3.44,
+   "minStrokePx": 3.85,
+   "blushOverlap": 0,
+   "pass": true
+  },
+  {
+   "face": "hero_scheme",
+   "widthFrac": 0.695,
+   "heightFrac": 0.639,
+   "heightOfWholeHead": 0.396,
+   "eyeAreaL": 2.62,
+   "eyeAreaR": 2.62,
+   "minStrokePx": 4.4,
+   "blushOverlap": 0,
+   "pass": true
+  },
+  {
+   "face": "hero_cry",
+   "widthFrac": 0.578,
+   "heightFrac": 0.751,
+   "heightOfWholeHead": 0.466,
+   "eyeAreaL": null,
+   "eyeAreaR": null,
+   "minStrokePx": 4.4,
+   "blushOverlap": 0,
+   "pass": true
+  },
+  {
+   "face": "hero_rage",
+   "widthFrac": 0.6,
+   "heightFrac": 0.76,
+   "heightOfWholeHead": 0.471,
+   "eyeAreaL": 2.24,
+   "eyeAreaR": 2.24,
+   "minStrokePx": 4.13,
+   "blushOverlap": 0,
+   "pass": true
+  },
+  {
+   "face": "hero_soft",
+   "widthFrac": 0.609,
+   "heightFrac": 0.487,
+   "heightOfWholeHead": 0.302,
+   "eyeAreaL": null,
+   "eyeAreaR": null,
+   "minStrokePx": 3.3,
+   "blushOverlap": 0,
+   "pass": true
+  },
+  {
+   "face": "smile",
+   "widthFrac": 0.6,
+   "heightFrac": 0.507,
+   "heightOfWholeHead": 0.315,
+   "eyeAreaL": 2.24,
+   "eyeAreaR": 2.24,
+   "minStrokePx": 5.49,
+   "blushOverlap": 0,
+   "pass": true
+  },
+  {
+   "face": "grin",
+   "widthFrac": 0.6,
+   "heightFrac": 0.723,
+   "heightOfWholeHead": 0.449,
+   "eyeAreaL": 2.24,
+   "eyeAreaR": 2.24,
+   "minStrokePx": 4.4,
+   "blushOverlap": 0,
+   "pass": true
+  },
+  {
+   "face": "neutral",
+   "widthFrac": 0.6,
+   "heightFrac": 0.492,
+   "heightOfWholeHead": 0.305,
+   "eyeAreaL": 2.24,
+   "eyeAreaR": 2.24,
+   "minStrokePx": 5.49,
+   "blushOverlap": 0,
+   "pass": true
+  },
+  {
+   "face": "determined",
+   "widthFrac": 0.6,
+   "heightFrac": 0.607,
+   "heightOfWholeHead": 0.377,
+   "eyeAreaL": 2.24,
+   "eyeAreaR": 2.24,
+   "minStrokePx": 4.4,
+   "blushOverlap": 0,
+   "pass": true
+  },
+  {
+   "face": "steady",
+   "widthFrac": 0.6,
+   "heightFrac": 0.616,
+   "heightOfWholeHead": 0.382,
+   "eyeAreaL": 2.24,
+   "eyeAreaR": 2.24,
+   "minStrokePx": 4.4,
+   "blushOverlap": 0,
+   "pass": true
+  },
+  {
+   "face": "brave",
+   "widthFrac": 0.695,
+   "heightFrac": 0.607,
+   "heightOfWholeHead": 0.377,
+   "eyeAreaL": 2.62,
+   "eyeAreaR": 2.62,
+   "minStrokePx": 4.4,
+   "blushOverlap": 0,
+   "pass": true
+  },
+  {
+   "face": "rage",
+   "widthFrac": 0.6,
+   "heightFrac": 0.76,
+   "heightOfWholeHead": 0.472,
+   "eyeAreaL": 2.24,
+   "eyeAreaR": 2.24,
+   "minStrokePx": 4.13,
+   "blushOverlap": 0,
+   "pass": true
+  },
+  {
+   "face": "smug",
+   "widthFrac": 0.695,
+   "heightFrac": 0.638,
+   "heightOfWholeHead": 0.396,
+   "eyeAreaL": 2.62,
+   "eyeAreaR": 2.62,
+   "minStrokePx": 4.4,
+   "blushOverlap": 0,
+   "pass": true
+  },
+  {
+   "face": "shock",
+   "widthFrac": 0.637,
+   "heightFrac": 0.754,
+   "heightOfWholeHead": 0.468,
+   "eyeAreaL": 3.44,
+   "eyeAreaR": 3.44,
+   "minStrokePx": 4.4,
+   "blushOverlap": 0,
+   "pass": true
+  },
+  {
+   "face": "sad",
+   "widthFrac": 0.6,
+   "heightFrac": 0.687,
+   "heightOfWholeHead": 0.427,
+   "eyeAreaL": 2.24,
+   "eyeAreaR": 2.24,
+   "minStrokePx": 4.4,
+   "blushOverlap": 0,
+   "pass": true
+  },
+  {
+   "face": "terrified",
+   "widthFrac": 0.637,
+   "heightFrac": 0.752,
+   "heightOfWholeHead": 0.467,
+   "eyeAreaL": 3.44,
+   "eyeAreaR": 3.44,
+   "minStrokePx": 3.85,
+   "blushOverlap": 0,
+   "pass": true
+  },
+  {
+   "face": "scream",
+   "widthFrac": 0.637,
+   "heightFrac": 0.76,
+   "heightOfWholeHead": 0.472,
+   "eyeAreaL": 3.44,
+   "eyeAreaR": 3.44,
+   "minStrokePx": 4.4,
+   "blushOverlap": 0,
+   "pass": true
+  },
+  {
+   "face": "wonder",
+   "widthFrac": 0.61,
+   "heightFrac": 0.754,
+   "heightOfWholeHead": 0.468,
+   "eyeAreaL": 2.53,
+   "eyeAreaR": 2.53,
+   "minStrokePx": 4.4,
+   "blushOverlap": 0,
+   "pass": true
+  },
+  {
+   "face": "starry",
+   "widthFrac": 0.61,
+   "heightFrac": 0.775,
+   "heightOfWholeHead": 0.481,
+   "eyeAreaL": 2.53,
+   "eyeAreaR": 2.53,
+   "minStrokePx": 4.4,
+   "blushOverlap": 0,
+   "pass": true
+  },
+  {
+   "face": "curious",
+   "widthFrac": 0.6,
+   "heightFrac": 0.753,
+   "heightOfWholeHead": 0.467,
+   "eyeAreaL": 2.24,
+   "eyeAreaR": 2.24,
+   "minStrokePx": 4.4,
+   "blushOverlap": 0,
+   "pass": true
+  },
+  {
+   "face": "polite",
+   "widthFrac": 0.609,
+   "heightFrac": 0.468,
+   "heightOfWholeHead": 0.291,
+   "eyeAreaL": null,
+   "eyeAreaR": null,
+   "minStrokePx": 3.3,
+   "blushOverlap": 0,
+   "pass": true
+  },
+  {
+   "face": "laugh",
+   "widthFrac": 0.609,
+   "heightFrac": 0.775,
+   "heightOfWholeHead": 0.481,
+   "eyeAreaL": null,
+   "eyeAreaR": null,
+   "minStrokePx": 4.4,
+   "blushOverlap": 0,
+   "pass": true
+  },
+  {
+   "face": "sleep",
+   "widthFrac": 0.605,
+   "heightFrac": 0.481,
+   "heightOfWholeHead": 0.299,
+   "eyeAreaL": null,
+   "eyeAreaR": null,
+   "minStrokePx": 3.3,
+   "blushOverlap": 0,
+   "pass": true
+  },
+  {
+   "face": "cry",
+   "widthFrac": 0.578,
+   "heightFrac": 0.752,
+   "heightOfWholeHead": 0.467,
+   "eyeAreaL": null,
+   "eyeAreaR": null,
+   "minStrokePx": 4.4,
+   "blushOverlap": 0,
+   "pass": true
+  },
+  {
+   "face": "worried",
+   "widthFrac": 0.6,
+   "heightFrac": 0.678,
+   "heightOfWholeHead": 0.421,
+   "eyeAreaL": 2.24,
+   "eyeAreaR": 2.24,
+   "minStrokePx": 4.4,
+   "blushOverlap": 0,
+   "pass": true
+  },
+  {
+   "face": "sheepish",
+   "widthFrac": 0.609,
+   "heightFrac": 0.683,
+   "heightOfWholeHead": 0.424,
+   "eyeAreaL": null,
+   "eyeAreaR": null,
+   "minStrokePx": 3.3,
+   "blushOverlap": 0,
+   "pass": true
+  },
+  {
+   "face": "ko",
+   "widthFrac": 0.57,
+   "heightFrac": 0.534,
+   "heightOfWholeHead": 0.332,
+   "eyeAreaL": null,
+   "eyeAreaR": null,
+   "minStrokePx": 5.49,
+   "blushOverlap": 0,
+   "pass": true
+  },
+  {
+   "face": "evil_grin",
+   "widthFrac": 0.695,
+   "heightFrac": 0.707,
+   "heightOfWholeHead": 0.439,
+   "eyeAreaL": 2.62,
+   "eyeAreaR": 2.62,
+   "minStrokePx": 4.4,
+   "blushOverlap": 0,
+   "pass": true
+  },
+  {
+   "face": "xd",
+   "widthFrac": 0.57,
+   "heightFrac": 0.593,
+   "heightOfWholeHead": 0.368,
+   "eyeAreaL": null,
+   "eyeAreaR": null,
+   "minStrokePx": 5.49,
+   "blushOverlap": 0,
+   "pass": true
+  }
+ ],
+ "failures": [],
+ "result": "PASS"
+}

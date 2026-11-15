@@ -17,7 +17,8 @@ export const LIMB = [1, 2, 1], TORSO = [2, 2, 1];
 const geo = new Map();
 export function rbox(size, tier = 'hero', dy = 0) {
   const k = `${tier}:${size.join(',')}:${dy}`;
-  if (!geo.has(k)) { const g = new RoundedBoxGeometry(...size, tier === 'bg' ? 1 : SEGMENTS, BEVEL); if (dy) g.translate(0, dy, 0); geo.set(k, g); }
+  if (!geo.has(k)) { const g = Math.min(...size) < 2 * BEVEL + 1e-3 ? new T.BoxGeometry(...size) : new RoundedBoxGeometry(...size, tier === 'bg' ? 1 : SEGMENTS, BEVEL);   // thin trims: plain box
+    if (dy) g.translate(0, dy, 0); geo.set(k, g); }
   return geo.get(k);
 }
 const mats = new Map();
@@ -43,8 +44,16 @@ export function regionBlocks(part, r, {torsoH = 2} = {}) {
   if (!r) return null;
   if (part === 'torso' && r.torso) {
     const t = r.torso, sw = t.stripW ?? .6, lw = t.lapelW ?? .14, h = torsoH - 2 * BEVEL;
-    return [{size: [sw, h, .06], at: [0, 0, .5 + .005], color: t.strip},
+    const out = [{size: [sw, h, .06], at: [0, 0, .5 + .005], color: t.strip},
       ...[-1, 1].map(s => ({size: [lw, h, .08], at: [s * (sw / 2 + lw / 2 - .02), 0, .5 + .015], color: t.lapel ?? t.main}))];
+    if (t.edge) {   // Phase 1b: lapel edges along the opening and a collar line, so the open jacket reads from the front
+      const ew = t.edgeW ?? .03, top = torsoH / 2 - BEVEL - ew / 2, cw = .62;
+      for (const s of [-1, 1]) {
+        out.push({size: [ew, h, .09], at: [s * (sw / 2 - .02 + ew / 2), 0, .5 + .02], color: t.edge, edge: true});
+        out.push({size: [cw, ew, .09], at: [s * (sw / 2 - .02 + cw / 2), top, .5 + .02], color: t.edge, edge: true});
+      }
+    }
+    return out;
   }
   if ((part === 'leftArm' || part === 'rightArm') && r.arms) {
     const a = r.arms, hu = 2 * (a.split ?? .5);
@@ -81,10 +90,31 @@ export function createActor5({tier = 'hero', skin, scale = 1, materials = {}, na
   return a;
 }
 
+// Hero colours (pure): jacket, centre strip, trousers and the yellow head/hands.
+export const heroColours = hero => [...new Set([hero.regions?.torso?.main, hero.regions?.torso?.strip, hero.regions?.legs?.main, hero.skin].filter(Boolean).map(c => c.toUpperCase()))];
+const hexOf = v => '#' + v.map(x => Math.round(x).toString(16).padStart(2, '0')).join('').toUpperCase();
+const hsl = c => { const n = parseInt(c.replace('#', ''), 16), r = (n >> 16 & 255) / 255, g = (n >> 8 & 255) / 255, b = (n & 255) / 255; return (Math.max(r, g, b) + Math.min(r, g, b)) / 2; };
+// Nearest colour (RGB distance) that keeps ≥ min from every avoided colour (and HSL L ≥ minL); grid search, deterministic.
+export function safeColour(c, avoid, {min = 90, minL = 0, step = 15} = {}) {
+  if (avoid.every(a => rgbDist(c, a) >= min) && hsl(c) >= minL) return c;
+  let best = null, bd = Infinity;
+  for (let r = 0; r <= 255; r += step) for (let g = 0; g <= 255; g += step) for (let b = 0; b <= 255; b += step) {
+    const h = hexOf([r, g, b]); if (hsl(h) < minL || !avoid.every(a => rgbDist(h, a) >= min)) continue;
+    const d = rgbDist(c, h); if (d < bd) { bd = d; best = h; }
+  }
+  return best ?? c;
+}
+// Phase 1b (owner): in an episode with HERO, troupe and crowd outfits closer than RGB 90 to a hero colour swap to the
+// nearest colour that passes. Pure; returns a new outfit (main and legs only: the colours that read at a distance).
+export function heroSafeOutfit(outfit, avoid, o = {}) {
+  if (!outfit) return outfit; const out = {...outfit};
+  for (const k of ['main', 'legs']) if (typeof out[k] === 'string') out[k] = safeColour(out[k], avoid, o);
+  return out;
+}
 // Hero check (pure): torso and legs main colours differ from every troupe outfit main/legs by RGB distance ≥ 90.
 export const rgbDist = (a, b) => { const p = c => [0, 2, 4].map(i => parseInt(c.replace('#', '').slice(i, i + 2), 16)), x = p(a), y = p(b); return Math.hypot(x[0] - y[0], x[1] - y[1], x[2] - y[2]); };
 export function heroColourCheck(hero, troupe, min = 90) {
-  const mine = {torso: regionMain(hero.regions, 'torso'), legs: regionMain(hero.regions, 'legs')}, out = [];   // the jacket and trousers (the strip is a detail)
+  const mine = Object.fromEntries(heroColours(hero).map(c => [c, c])), out = [];   // Phase 1b: every hero colour (jacket, strip, trousers, yellow)
   for (const [slot, p] of Object.entries(troupe)) for (const k of ['main', 'legs']) { const c = p.outfit?.[k]; if (!c) continue;
     for (const [part, h] of Object.entries(mine)) if (h) { const d = rgbDist(h, c); if (d < min) out.push({slot, key: k, part, hero: h, troupe: c, d: Math.round(d)}); } }
   return out;

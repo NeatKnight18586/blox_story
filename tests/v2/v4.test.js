@@ -26,42 +26,63 @@ test('v5 regions: arms half sleeve / half hand, shoes = bottom 20 %, blocks fill
   const arm = B5.regionBlocks('leftArm', hero.regions), leg = B5.regionBlocks('leftLeg', hero.regions);
   assert.deepEqual(arm.map(b => b.size[1]), [1, 1]); assert.equal(arm[1].color, '#FFD542');
   assert.ok(Math.abs(leg[1].size[1] - .4) < 1e-9); assert.ok(Math.abs(leg[0].size[1] + leg[1].size[1] - 2) < 1e-9);
-  const tor = B5.regionBlocks('torso', hero.regions); assert.equal(tor[0].color, '#0D7CD4'); assert.equal(tor.length, 3);
+  const tor = B5.regionBlocks('torso', hero.regions); assert.equal(tor[0].color, '#0D7CD4'); assert.equal(tor.length, 7, 'strip, 2 lapels, 2 lapel edges, 2 collar edges');
 });
 test('hero slot: no hair, v5 + faces v4, resolves through the troupe', () => {
   const p = resolveTroupe({troupe: 'HERO'}, {troupe: {HERO: hero}});
   assert.equal(p.hair, null); assert.equal(p.body, 'v5'); assert.equal(p.faceStyle, 'v4'); assert.equal(p.skin, '#FFD542');
   assert.equal(resolveTroupe({troupe: 'LEAD'}, troupe).faceStyle, 'v3', 'troupe default unchanged');
 });
-test('hero colours vs the troupe (RGB distance ≥ 90): measured', () => {
-  const issues = B5.heroColourCheck(hero, {...troupe.troupe, AFK: troupe.AFK});
-  // recorded, not asserted away: the owner fixes the hero colours; a clash is reported per troupe outfit
-  console.log('heroColourCheck', JSON.stringify(issues));
-  assert.ok(Array.isArray(issues));
-  assert.equal(B5.heroColourCheck(hero, {X: {outfit: {main: '#73985E'}}}).length, 1);
-});
-test('faces v4: eye centres 0.30 of head width apart, sketch on brows/mouth only, 8 hero presets', () => {
-  for (const f of F4.HERO_PRESETS) { const [l, r] = F4.eyeCentres4(f); assert.ok(Math.abs((r - l) * F4.DECAL_PER_HEAD - .30) < .02, `${f}: ${(r - l) * .8}`); }
-  assert.equal(F4.HERO_PRESETS.length, 8);
-  for (const f of F4.HERO_PRESETS) {
-    const L4 = F4.faceParts4(f, {px: 512}), sk = L4.filter(it => it.kind === 'sketch');
-    assert.ok(sk.length >= 3, f); assert.ok(sk.every(it => it.alpha === .35));
-    for (const it of L4) { if (it.clip) continue; const [x0, y0, x1, y1] = it.bbox; assert.ok(x0 >= -.5 && x1 <= .5 && y0 >= -.345 && y1 <= .345, `${f} outside ${it.bbox}`); }
+test('hero colours: troupe/crowd outfits closer than RGB 90 swap to the nearest passing colour; the check then passes', () => {
+  const all = {...troupe.troupe, AFK: troupe.AFK}, cols = B5.heroColours(hero);
+  assert.deepEqual(cols, ['#2B2D33', '#0D7CD4', '#73985E', '#FFD542']);
+  assert.ok(B5.heroColourCheck(hero, all).length > 0, 'today\'s troupe defaults clash');
+  const fixed = Object.fromEntries(Object.entries(all).map(([k, p]) => [k, {...p, outfit: B5.heroSafeOutfit(p.outfit, cols)}]));
+  assert.deepEqual(B5.heroColourCheck(hero, fixed), [], 'passes after the swap');
+  for (const [k, p] of Object.entries(fixed)) for (const key of ['main', 'legs']) {   // nearest: never further than needed + one grid step
+    const o = all[k].outfit[key], n = p.outfit[key]; if (o === n) continue;
+    const need = Math.max(...cols.map(c => 90 - B5.rgbDist(o, c))); assert.ok(B5.rgbDist(o, n) <= need + 15 * Math.sqrt(3) + 1, `${k}.${key} ${o}→${n}`);
   }
-  // no sketch line near an eye centre
-  const [l, r] = F4.eyeCentres4('hero_grin');
-  for (const it of F4.faceParts4('hero_grin').filter(it => it.kind === 'sketch')) { const cx = (it.bbox[0] + it.bbox[2]) / 2, cy = (it.bbox[1] + it.bbox[3]) / 2; assert.ok(!([l, r].some(e => Math.abs(cx - e) < .03) && Math.abs(cy - .06) < .03)); }
-  assert.deepEqual(F4.faceParts4('hero_wink'), F4.faceParts4('hero_wink'), 'deterministic');
-  assert.ok(F4.faceParts4('hero_rage', {tier: 'crowd'}).every(it => it.kind !== 'sketch'));
+  assert.equal(B5.safeColour('#ff00ff', cols), '#ff00ff', 'passing colours stay');
+  const night = B5.safeColour('#3a3d44', cols, {minL: .32}); assert.ok(B5.rgbDist(night, '#2B2D33') >= 90);
+  assert.deepEqual(B5.heroSafeOutfit({main: '#73985E', legs: '#4a5a80', recipe: 'tee'}, cols), B5.heroSafeOutfit({main: '#73985E', legs: '#4a5a80', recipe: 'tee'}, cols), 'deterministic');
 });
-test('faces v4: talking mouths, 4 shapes per family; held faces never change', () => {
-  for (const [fam, shapes] of Object.entries(F4.TALK)) { assert.equal(shapes.length, 4, fam); for (const m of shapes) assert.ok(F4.hasMouth(m), m); assert.equal(F4.talkFamily(shapes[0]), fam); }
-  const m = k => JSON.stringify(F4.faceParts4('hero_grin', {talk: k}).filter(it => it.kind === 'mouth' || it.fill === '#5a1f2a'));
-  assert.equal(new Set([0, 1, 2, 3].map(m)).size, 4);
-  assert.ok(F4.isHeld('hero_shock') && F4.isHeld('hero_cry') && F4.isHeld('hero_rage') && F4.isHeld('terrified'));
-  assert.ok(!F4.isHeld('hero_wink') && !F4.isHeld('smile'));
-  assert.deepEqual(F4.faceParts4('hero_shock', {talk: 3}), F4.faceParts4('hero_shock'));
-  for (const f of ['hero_wink', 'hero_grin', 'hero_soft']) for (const k of [null, 0, 1, 2, 3]) assert.equal(F4.blushOverlap(f, k), 0, `${f} talk ${k}: blush touches the mouth`);
+test('hero jacket: charcoal with #4A4E57 lapel and collar edges; charcoal sleeves', () => {
+  assert.equal(hero.regions.torso.main, '#2B2D33'); assert.equal(hero.regions.arms.upper, '#2B2D33');
+  const t = B5.regionBlocks('torso', hero.regions), e = t.filter(b => b.edge);
+  assert.equal(e.length, 4); assert.ok(e.every(b => b.color === '#4A4E57' && Math.min(b.size[0], b.size[1]) === .03));
+});
+test('faces v4 (1b): placement, sizes, no sketch pass, marker strokes', () => {
+  const G = F4.GRID4; assert.ok(Math.abs(G.eyeY - (.5 - .48)) < 1e-12); assert.ok(Math.abs(G.eyeX * 2 - .4) < 1e-12); assert.ok(Math.abs(G.mouthY - (.5 - .70)) < 1e-12); assert.equal(G.stroke, .035);
+  assert.deepEqual(F4.eyeCentres4('hero_grin').map(v => +v.toFixed(3)), [-.2, .2]);
+  const names = [...F4.HERO_PRESETS, ...F4.RESKINNED]; assert.equal(F4.HERO_PRESETS.length, 8); assert.equal(F4.RESKINNED.length, 24);
+  for (const n of names) {
+    const it = F4.faceItems4(n);
+    assert.ok(!it.some(i => i.sketch || (i.alpha === .35)), `${n}: no sketch pass`);
+    assert.ok(it.filter(i => i.line && i.color === F4.INK).length >= 1);
+    assert.ok(it.every(i => !i.line || i.color !== '#808080'), 'ink is never grey');
+    const g = F4.faceGates4(n); assert.ok(g.w >= .55, `${n} width ${g.w}`); assert.ok(g.h >= .40, `${n} height ${g.h}`);
+    for (const e of [g.eyeL, g.eyeR]) if (e !== null) assert.ok(e >= .022, `${n} eye area ${e}`);
+  }
+  const a = F4.faceItems4('smile'), b = F4.faceItems4('smile'); assert.deepEqual(a, b, 'wobble is fixed per face (never animated)');
+  // wobble ≤ 1 % of head width: compare against the unwobbled line
+  for (const k of [0, 1, 2]) assert.ok(F4.GRID4.wobble <= .01);
+  // almond default: solid black 0.20 × 0.13 with one shine 30 % of the eye
+  const eye = a.find(i => i.kind === 'eye' && i.pts), bb = F4.bbox(eye.pts); assert.ok(Math.abs(bb[2] - bb[0] - .2) < .002 && Math.abs(bb[3] - bb[1] - .13) < .03);
+  const sh = a.filter(i => i.shine).map(i => i.r).sort((x, y) => y - x); assert.ok(Math.abs(sh[0] * 2 - .06) < 1e-9);
+  for (const n of names) assert.equal(F4.faceItems4(n).filter(i => i.eyeLine).length <= 2, true, 'single outline only');
+  for (const n of Object.keys(F4.ALIAS4)) assert.ok(F4.resolveFace4(n).name);
+  for (const o of ['gasp', 'shout', 'crying']) assert.ok(F4.resolveFace4(o).name);
+});
+test('faces v4 (1b): talk shapes step .04/.08/.13, held faces never flap, blush clear of the mouth', () => {
+  for (const [fam, shapes] of Object.entries(F4.TALK)) { assert.equal(shapes.length, 4, fam); for (const m of shapes) assert.ok(F4.hasMouth(m), m); }
+  for (const f of ['hero_grin', 'hero_wink', 'smile', 'neutral', 'worried']) for (const k of [1, 2, 3]) assert.ok(Math.abs(F4.mouthHeight(f, k) - F4.TALK_H[k]) < .002, `${f} ${k}: ${F4.mouthHeight(f, k)}`);
+  assert.ok(F4.faceItems4('smile', {talk: 3}).some(i => i.fill === F4.TONGUE), 'wide shows the tongue');
+  assert.ok(F4.isHeld('hero_shock') && F4.isHeld('hero_cry') && F4.isHeld('hero_rage') && F4.isHeld('gasp'));
+  assert.deepEqual(F4.faceItems4('hero_shock', {talk: 3}), F4.faceItems4('hero_shock'));
+  for (const f of [...F4.HERO_PRESETS, ...F4.RESKINNED]) for (const k of [null, 0, 1, 2, 3]) assert.equal(F4.blushOverlap(f, k), 0, `${f} ${k}`);
+  assert.ok(!F4.faceItems4('hero_rage').some(i => i.pts && i.alpha < 1 && F4.bbox(i.pts)[1] < .1 && F4.bbox(i.pts)[3] > -.05 && i.fill !== F4.BLUSH), 'no flush over the eyes');
+  const w = F4.faceItems4('hero_wink'); assert.ok(w.some(i => i.fang) && w.some(i => i.blush));
 });
 test('lip flaps: envelope, shapes with a 2-frame hold, who flaps', () => {
   const sr = 3000, s = new Float32Array(sr * 2); for (let i = 0; i < s.length; i++) s[i] = (i < sr ? .5 : 0) * Math.sin(i / 3);

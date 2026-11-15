@@ -158,21 +158,25 @@ class SeasonState(unittest.TestCase):
 
     def test_voice_step(self):
         r = self.t(1, 'egg', 'voice', voice=False); self.assertEqual(r['actions'], []); self.assertIn('voice', r['stop']); self.assertEqual(r['state']['step'], 'voice')
-        r = self.t(1, 'egg', 'voice', voice=True); self.assertEqual(r['actions'], ['E1']); self.assertEqual(r['state']['step'], 'review')
+        r = self.t(1, 'egg', 'voice', voice=True, script=True); self.assertEqual(r['actions'], [], 'v4: waits for the beats prompt too'); self.assertIn('beats prompt', r['stop']); self.assertIn('never writes', r['stop'])
+        r = self.t(1, 'egg', 'voice', voice=True, script=True, beats=True); self.assertEqual(r['actions'], ['E1']); self.assertEqual(r['state']['step'], 'review')
         self.assertEqual(self.t(1, 'egg', 'voice', 'approve', voice=True)['actions'], [], 'approve before an animatic does nothing')
 
     def test_review_approve_notes_and_next_card(self):
         self.assertEqual(self.t(1, 'egg', 'review')['actions'], [], 'review waits for the owner')
         r = self.t(1, 'egg', 'review', 'approve'); self.assertEqual(r['state'], {'episode': 2, 'slug': 'ragdoll', 'step': 'voice'})
-        self.assertEqual(r['actions'], ['E2', 'print-existing-script'], 'ragdoll exists: printed, never rewritten')
-        r = self.t(2, 'ragdoll', 'review', 'notes'); self.assertEqual(r['actions'][:2], ['revise', 'E2']); self.assertIn('write-script', r['actions']); self.assertEqual(r['state']['slug'], 'eight')
-        self.assertEqual(self.t(10, 'levelone', 'review', 'approve')['actions'][-1], 'print-existing-script', 'card 11 mountain exists')
+        self.assertEqual(r['actions'], ['E2'], 'v4 D1: no script planned, printed or written'); self.assertIn("owner's script.txt", r['stop'])
+        r = self.t(2, 'ragdoll', 'review', 'notes'); self.assertEqual(r['actions'], ['revise', 'E2']); self.assertEqual(r['state']['slug'], 'eight')
+        BAN = ('write-script', 'write-beats', 'scriptcheck', 'print-script', 'print-existing-script', 'originality-check')
+        for n, slug in self.cards: 
+            for st in ('voice', 'review', 'published-ready', 'final'):
+                for cmd in (None, 'approve', 'notes', 'swap'): self.assertFalse(set(self.t(n, slug, st, cmd, voice=True, script=True, beats=True, finals_done=n - 1)['actions']) & set(BAN), f'{slug} {st} {cmd}')
 
     def test_compilation_every_fifth_final_and_swap(self):
         self.assertIn('compilation-1', self.t(5, 'oneword', 'review', 'approve', finals_done=4)['actions'])
         self.assertNotIn('compilation-1', ' '.join(self.t(4, 'duel', 'review', 'approve', finals_done=3)['actions']))
         self.assertIn('compilation-2', self.t(10, 'levelone', 'review', 'approve', finals_done=9)['actions'])
-        r = self.t(3, 'eight', 'voice', 'swap'); self.assertEqual(r['actions'][0], 'swap-card'); self.assertEqual(r['state']['episode'], 3)
+        r = self.t(3, 'eight', 'voice', 'swap'); self.assertEqual(r['actions'], ['swap-card', 'log-swap']); self.assertEqual(r['state']['episode'], 3)
         self.assertEqual(self.t(3, 'eight', 'review', 'swap')['actions'], [], 'swap only while step is voice')
         r = self.t(30, 'afk', 'review', 'approve', finals_done=29); self.assertIn('season-complete', r['actions']); self.assertIn('compilation-6', r['actions'])
 

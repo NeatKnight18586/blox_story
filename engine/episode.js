@@ -13,6 +13,7 @@ import {expandClassReveal, applyPatch} from './classes.js';
 import {buildActor, driveActor, townsperson, toolGroup} from './actors.js';
 import {resolveTroupe} from './troupe.js';
 import {flapActive, shapeAt} from './lipflap.js';
+import {heroColours, heroSafeOutfit} from '../avatar-style/body5.js';
 import {loadFont, fitTags} from './overhead.js';
 import {createLook, createLookV3} from './look.js';
 import {createEffects} from './effects.js';
@@ -93,6 +94,8 @@ const FACES_V3 = spec.faces === 'v3' || (spec.season === 1 && spec.faces !== 'v2
 const troupeData = Object.values(spec.cast ?? {}).some(c => c.troupe) ? await (await fetch(new URL('../' + (spec.troupeFile ?? 'cast/troupe.json'), import.meta.url))).json() : null;   // A4 troupe slots
 if (Object.values(spec.cast ?? {}).some(c => c.troupe === 'HERO')) troupeData.troupe.HERO = (await (await fetch(new URL('../' + (spec.heroFile ?? 'cast/hero.json'), import.meta.url))).json()).HERO;   // format v4 hero slot
 // format v4 lip flaps: per-frame mouth shapes from the voice envelope (scripts/v2/envelope.js; the voice file is only read)
+const HERO_COLS = troupeData?.troupe?.HERO ? heroColours(troupeData.troupe.HERO) : null;   // format v4 1b: hero colours to keep clear
+const NIGHT_EP = ['night', 'nightBright'].includes(spec.look) || (spec.shots ?? []).some(sh => ['night', 'nightBright'].includes(sh.look));
 const flapShapes = spec.lipFlap ? (await (await fetch(new URL('../' + (spec.lipFlap.envelope ?? `stories/${spec.slug}/build/envelope.json`), import.meta.url))).json()).shapes : null;
 // Marks (Session 5): `marks: [[t0, {at, offset, yaw, travel}], ...]` re-block an actor over the episode; the
 // entry's own at/offset/yaw/travel is the mark before the first key.
@@ -103,7 +106,8 @@ for (const [name, c] of Object.entries(spec.cast ?? {})) {
   if (c.style === 'v2' || c.style === 'v5') { if (c.troupe === 'AFK') { c.keys ??= [[0, troupeData.AFK.pose ?? 'walk']]; c.faces ??= [[0, 'neutral']]; }
     const pre0 = c.troupe ? resolveTroupe(c, troupeData) : c.town ? townsperson(c.town) : c.preset ? {...presets[c.preset], ...(c.with ?? {})} : c;
     const pre1 = c.style === 'v5' ? {...pre0, body: 'v5', faceStyle: pre0.faceStyle ?? 'v4'} : pre0;   // format v4: Actor v5 + Faces v4
-    const pre = FACES_V3 && !pre1.faceStyle ? {...pre1, faceStyle: 'v3'} : pre1;   // Faces v3: default for season 1 (or spec.faces 'v3')
+    const pre2 = HERO_COLS && c.troupe !== 'HERO' && pre1.outfit ? {...pre1, outfit: heroSafeOutfit(pre1.outfit, HERO_COLS, {minL: NIGHT_EP ? .32 : 0})} : pre1;   // v4 1b: nobody dresses like the hero
+    const pre = FACES_V3 && !pre2.faceStyle ? {...pre2, faceStyle: 'v3'} : pre2;   // Faces v3: default for season 1 (or spec.faces 'v3')
     const a = buildActor(c.noTag ? {...pre, tag: null} : pre, name); scene.add(a.root); cast[name] = {a, c, v2: true}; }
   else { const a = createBaseAvatar({color: c.color ?? 0xf2c94c}); scene.add(a.root); cast[name] = {a, c}; }
 }
@@ -214,7 +218,7 @@ const effects = createEffects([...(spec.effects ?? []), ...revealEffects], {scen
 // from behind the current subject in wides and mediums (one SpotLight, no shadow); "Nobody" and older specs: off.
 const HERO_READ = spec.season === 1 || spec.heroRead === true;
 const subjectMains = HERO_READ ? [...new Set(shots.map(s => s.subject ?? s.fit?.actor).filter(n => cast[n]?.a.preset?.outfit?.main).map(n => cast[n].a.preset.outfit.main))] : [];
-const crowds = createCrowds(scene, spec.crowds ?? [], {groundY: world?.groundY ?? (() => 0), resolveCentre: c => Array.isArray(c) ? c : (p => [p[0], p[2]])(resolve(c)), avoidColours: subjectMains, faces: FACES_V3 ? 'v3' : 'v2'});
+const crowds = createCrowds(scene, spec.crowds ?? [], {groundY: world?.groundY ?? (() => 0), resolveCentre: c => Array.isArray(c) ? c : (p => [p[0], p[2]])(resolve(c)), avoidColours: HERO_COLS ? [...subjectMains, ...HERO_COLS] : subjectMains, faces: FACES_V3 ? 'v3' : 'v2'});
 const rim = HERO_READ ? (() => { const l = new T.SpotLight(RIM.color, 0, RIM.distance, RIM.angle, RIM.penumbra, RIM.decay); l.castShadow = false; l.visible = false; l.name = 'subjectRim'; scene.add(l, l.target); return l; })() : null;
 function aimRim(shot, camPos) {
   if (!rim) return; const n = shot?.subject ?? shot?.fit?.actor, m = n && markPos[n], r = m && cast[n].a.root.visible ? rimFor(shot.size, m, camPos, 5.3 * cast[n].a.root.scale.y) : null;

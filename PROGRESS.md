@@ -1117,3 +1117,35 @@ Open:
 - `/season` still lists write-script actions for new cards, which conflicts with V4 D1.
 - Frame budget (≤ 0.69 s) not measured: no v4 episode yet, and satin costs more per pixel than Phong.
 - Lip flaps are wired in but not yet seen in a render.
+
+## Format v4, Phase 1b (2026-11-15): faces redo + hero legs, jacket, /season
+Plan: rewrite faces4.js in the owner's "bold shapes + doodle marker lines" style (refs/faces-v4, style only); add face gates;
+pure hero-colour swap wired into episode.js; jacket charcoal with edge trims; /season and new-episode never plan or write a
+script. Sheets redone at true 390 px pixels.
+Built:
+- faces4.js rewritten: marker lines, decal over the whole head front, 9 eye types, 7 brow types, 11 mouths + 10 talk shapes, 5 extras, 8 hero presets + 24 re-skins + aliases.
+- Scripts: `face4-gates.js`, `hero-gates.js`.
+- body5.js: `heroColours`, `safeColour`, `heroSafeOutfit`, trim blocks. Hero jacket #2B2D33 with #4A4E57 edges.
+- episode.js: HERO swaps troupe outfits (night-aware) and crowd colours.
+- season_state.py + season.md + new-episode.md: no script work; wait for the owner's script.txt, voice and beats.md.
+Numbers:
+- faces4-gates PASS on 32 presets: width ≥ 57 %, height ≥ 46.8 % of the face band, open eyes ≥ 2.24 %, thinnest stroke 3.3 px at the 390 medium (head 157 px), blush overlap 0.
+- Talk heights .04 / .08 / .13.
+- hero-gates PASS: 8 clashes → 0 after 8 swaps; jacket edges 2.6 px full body, 4.7 px medium.
+- v2:test 104 node + 52 py OK; npm test green; "Nobody" 11/11 byte-identical.
+Weakest 3, faces4-390.png (after wobble pass 1):
+1. hero_rage's anger mark reads as a red blob/flower at medium.
+2. The fang on hero_wink / hero_grin is ~2–3 px at medium; the open grin reads as a red wedge.
+3. Talk "small" (6 px opening at medium) is close to "closed". The 40 % blush ovals barely show on yellow: only the hatches read.
+Weakest 3, hero-390.png:
+1. At full body the #4A4E57 edges are 2.6 px and low contrast; the jacket still reads as one dark block (the opening shows at medium).
+2. The collar is a flat bar, not a fold around the neck; the opening reads as stripes rather than lapels.
+3. Lineup faces ~12 px; v2 vs v5 troupe still indistinguishable at lineup scale.
+Decisions:
+- "Face" for the 55 %/40 % gate = the flat front band between the classic head's rounded rims (0.62 of head height). As a share of the whole head height, calm faces measure 30–40 %; the spec'd placement can't reach 40 % without brows.
+- Eye area = share of the whole head front (1 × 1). The almond is a superellipse n = 2.7: 0.20 × 0.13, 2.24 %.
+- Wobble: one gentle bend per stroke, amplitude min(0.006, 3 % of stroke length).
+- AFK's grey legs (45 from sage) swap to #5A4B87 purple, the nearest passing colour, so AFK is no longer all grey in HERO episodes.
+- The Session-9 scripts (ragdoll, mountain, mirror) are not the owner's: never printed or proposed.
+Open:
+- The frame budget is still unmeasured (no v4 episode yet).
