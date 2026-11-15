@@ -63,6 +63,24 @@
   "medium": 7.85
  },
  "headTorsoRatio": 0.593,
+ "builds": {
+  "adult_m": {
+   "headShoulder": 0.593,
+   "headTorsoBox": 0.593
+  },
+  "adult_f": {
+   "headShoulder": 0.593,
+   "headTorsoBox": 0.593
+  },
+  "youth": {
+   "headShoulder": 0.593,
+   "headTorsoBox": 0.593
+  },
+  "elder_f": {
+   "headShoulder": 0.593,
+   "headTorsoBox": 0.561
+  }
+ },
  "collar": "raised rim around the neck (back, sides, front tips)",
  "failures": [],
  "result": "PASS"

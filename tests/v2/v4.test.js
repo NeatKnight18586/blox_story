@@ -124,6 +124,26 @@ test('v4 surfaces: six generators, deterministic, roughness/height ranges, cache
 });
 test('v4 presets (data): comedy and mystery with fixed numbers', async () => {
   const P = JSON.parse(readFileSync('engine/looks4.json', 'utf8'));
-  for (const k of ['comedy', 'mystery']) { assert.equal(P[k].v4.toneMapping, 'AgX'); assert.equal(P[k].v4.lut, k); assert.ok(P[k].base.exposure > 0); }
+  assert.equal(P.comedy.v4.toneMapping, 'Neutral'); assert.equal(P.mystery.v4.toneMapping, 'AgX');
+  for (const k of ['comedy', 'mystery']) { assert.equal(P[k].v4.lut, k); assert.ok(P[k].base.exposure > 0); }
   assert.equal(P.comedy.v4.clouds, 'puffy'); assert.equal(P.comedy.v4.heightFog, null); assert.ok(P.mystery.v4.heightFog.amount > 0); assert.equal(P.mystery.v4.bake.lights, true);
+});
+
+// ---- Phase 2b: whole cast on v5, crowd low tier ----
+import * as CR from '../../engine/crowd.js';
+test('2b: outfit recipes become colour regions; every build keeps head/shoulder 0.58–0.62', () => {
+  const r = B5.outfitRegions({recipe: 'tee', main: '#2f80d1', legs: '#4a5a80'}, '#e0a77a');
+  assert.deepEqual(r, {torso: {main: '#2f80d1'}, arms: {upper: '#2f80d1', lower: '#e0a77a', split: .35}, legs: {main: '#4a5a80', shoes: B5.SHOES, shoeFrac: .15}});
+  assert.equal(B5.outfitRegions({recipe: 'hoodie', main: '#f00'}, '#fff').arms.split, .85); assert.equal(B5.outfitRegions(null, '#fff'), null);
+  assert.equal(B5.regionBlocks('torso', r), null, 'plain torso: no strip blocks');
+  for (const b of ['adult_m', 'adult_f', 'youth', 'elder_f']) { const a = B5.createActor5({skin: '#f6c9a0', build: b, regions: r}), q = B5.headShoulderRatio(a); assert.ok(q >= .58 && q <= .62, `${b} ${q}`);
+    assert.equal(a.parts.torso.material, B5.satin('#2f80d1')); }
+});
+test('2b: crowd v5 low tier ≤ 300 tris a member, chamfered parts, the 1.2 head about its pivot', () => {
+  assert.ok(CR.crowdV5Triangles() <= 300); const g = CR.v5PartGeometry([1, 2, 1]); assert.equal(g.attributes.position.count / 3, 28);
+  g.computeBoundingBox(); assert.deepEqual(g.boundingBox.min.toArray().map(v => +v.toFixed(6)), [-.5, -.5, -.5]);
+  const m = {scale: 1, yaw: 0}, pose = {root: {dx: 0, dy: 0, dz: 0, lean: 0, yaw: 0, roll: 0}, pivots: {head: [0, 0, 0], leftShoulder: [0, 0, 0], rightShoulder: [0, 0, 0], leftHip: [0, 0, 0], rightHip: [0, 0, 0]}};
+  const a = CR.memberMatrices(m, pose, [0, 0, 0]), b = CR.memberMatrices(m, pose, [0, 0, 0], {headScale: B5.HEAD5});
+  const sx = M => Math.hypot(M.elements[0], M.elements[1], M.elements[2]);
+  assert.ok(Math.abs(sx(b.head) / sx(a.head) - B5.HEAD5[0]) < 1e-9); assert.equal(sx(b.torso), sx(a.torso));
 });

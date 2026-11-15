@@ -1,5 +1,5 @@
 {
- "note": "Format v4 Phase 2 look presets (data, not code). base = the createLook preset fields; v4 = tone mapping, env, bake, glow, grade. Tuning pass 1 (look-ab sheet): comedy exposure 1.1\u21921.45 + LUT saturation 1.15\u21921.3 (AgX desaturates); mystery exposure 1.0\u21921.7, hemi .35\u2192.9, moon .55\u21921.3, baked sky .38\u2192.7 (actors were unreadable).",
+ "note": "Format v4 Phase 2 look presets (data, not code). base = the createLook preset fields; v4 = tone mapping, env, bake, glow, grade. Tuning pass 1 (look-ab sheet): comedy exposure 1.1\u21921.45 + LUT saturation 1.15\u21921.3 (AgX desaturates); mystery exposure 1.0\u21921.7, hemi .35\u2192.9, moon .55\u21921.3, baked sky .38\u2192.7 (actors were unreadable). Phase 2b: comedy tone mapping Khronos PBR Neutral (keeps saturation), exposure 1.0; mystery keeps AgX.",
  "comedy": {
   "base": {
    "skyTop": "#1f7cff",
@@ -17,11 +17,11 @@
    "rim": "#ffffff",
    "rimI": 0.35,
    "cloud": "#ffffff",
-   "exposure": 1.45,
+   "exposure": 1.0,
    "windows": 0
   },
   "v4": {
-   "toneMapping": "AgX",
+   "toneMapping": "Neutral",
    "envIntensity": 0.7,
    "clouds": "puffy",
    "heightFog": null,

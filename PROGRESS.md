@@ -1188,3 +1188,38 @@ Decisions:
 Open:
 - The 0.69 budget is not met. The medium shot's per-pixel actor shading (satin PBR + env + shadow) is the cost.
 - Options for the owner: Lambert/Phong satin for mid-tier actors, a lower final AA, or accept ~0.72.
+
+## Format v4, Phase 2b (2026-11-15): whole cast on v5 + baked actor light (matcap) + look fixes
+Plan:
+1. `spec.look4` episodes: every v2/v5 cast entry, troupe slot and promoted crowd member is built on body5. Outfit recipes become colour regions (`outfitRegions`, pure). The instanced crowd gets a v5 low tier (1-segment rounded boxes, 1.2 head, ≤ 300 tris).
+2. Gates: head/torso 0.58–0.62 per build (shoulder width), `hair-gates --v5` (scalp leak on the 1.2 head).
+3. Matcap: a per-preset satin sphere rendered once (lights + env, lights ×0.5, chroma kept 25 %), disk-cached PNG. Actors and crowds use MeshMatcapMaterial; the close-shot subject keeps MeshStandard (`heroLit`).
+4. Measure the hero head hue in mystery (40–60°, S ≥ 0.45).
+5. Comedy switches to Neutral tone mapping (target graded saturation ≥ 0.384). Cloud shading: white top, blue-grey underside, rim. Mystery wide shot frames the houses.
+6. Bench both presets (≤ 0.69) → look-cost.json. Sheets: cast-v5-390 and look-ab-390 redo. "Nobody" 11/11.
+Built:
+- body5: `outfitRegions`, optional strip, `headShoulderRatio`. episode.js: look4 episodes put every actor on v5 + faces v4 with outfits as regions; matcap materials; `setHeroLit`.
+- crowd.js: v5 low tier (`v5PartGeometry`, chamfered octagonal prisms, `headScale`), faces v4, v5 promotion pool, matcap options.
+- look4: per-preset tone mapping, cloud shading (top/underside/rim, not tone mapped), `matcapBytes` / `preloadMatcap` / `matcap`.
+- Scripts: `matcap4.js` (disk cache), `hairgate.js ?v5` + `hair-gates --v5`, `look-ab4.js --set cast` + hue probe.
+- Fixture: cast-comedy / cast-mystery specs; the mystery wide frames the houses. Tests: 2 new.
+Numbers:
+- Bench at 1080 PASS: comedy 0.391, mystery 0.417, cast + crowd 0.436 / 0.458 (Phase 2: 0.719 / 0.714). Medium 0.46–0.50, close (heroLit) 0.47–0.49.
+- Native final 1440 + AA: 0.697 / 0.719 s vs today's pipeline 1.105 / 1.481.
+- Hero head in mystery v4: hue 51.4–52.3°, S 0.458–0.476 (PASS, 0.008 over the floor). Comedy 51–53°, S 0.96.
+- Comedy graded saturation: wide 0.477 (≥ 0.384 PASS), medium 0.742. Luma 0.417 / 0.277 (today 0.492 / 0.371).
+- Head / shoulder 0.593 on all four builds (elder_f full torso box 0.561). hair-gates --v5 PASS (no scalp leak on the 1.2 head).
+- Crowd 272 tris a member. v2:test 109 node + 53 py; npm test green; "Nobody" 11/11.
+Weakest 3, look-ab-390.png:
+1. Mystery v4 house walls read near-daylight cream under the baked practicals, which flattens the dark-pocket mood.
+2. The mystery hero head still reads khaki-olive in the medium (S 0.476).
+3. Comedy v4 medium is darker than today (luma 0.277 vs 0.371): the matcap's dark side and the charcoal jacket.
+Weakest 3, cast-v5-390.png:
+1. The test lineup crowds the troupe: LITTLE and RIVAL out of frame, ELDER half hidden.
+2. Mystery skins read khaki/olive.
+3. Matcap shading is flat: one light direction for every shot, the highlight never follows the shot's sun.
+Decisions:
+- The crowd low tier chamfers only the 4 vertical edges (a 1-segment RoundedBox would be 108 tris a part, 672 a member, over the 300 budget).
+- Matcap: lights at ×0.5 and colours ×2 (8-bit headroom), chroma kept 25 %.
+- Head ratio measured against shoulder width (2 studs on every build).
+- 0.69 compared at the 1080 bench, as it was set; the native-1440 numbers are reported beside it.
