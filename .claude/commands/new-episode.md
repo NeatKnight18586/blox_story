@@ -13,8 +13,9 @@ different attempts → stop and ask. Never read `evidence/`; look only at contac
 
 ## Season 1 episodes (Amendment A4 §H; `/season` calls this; the steps below apply with these changes)
 - **Shot plan:** read the episode's card in `docs/season1/SEASON_1.md` §6 and `stories/<slug>/beats.md`. The beats' target
-  times are replaced by `cues.json` word onsets. If there is no `beats.md`, write one from the card and the script using
-  §3's beat table, then build from it. Step 2's council scorecard and SERIES_LOG check still run; `scriptcheck.py` must pass.
+  times are replaced by `cues.json` word onsets. Format v4 (`docs/season1/V4.md` D1): `beats.md` is the owner's beats
+  prompt; if it (or `script.txt`, or the voice file) is missing, stop and ask the owner for it. Never write, edit or
+  "fix" a script or beats file; `scriptcheck.py` results are reported to the owner, never acted on by rewriting.
 - **No labels (owner rule, SEASON_1.md §2c):** no name/role/AFK tags, bubbles, class cards or overhead UI; characters are
   introduced by narration and camera; text only on real objects (world-facing `plate`/`stat` on a scoreboard, clock, note,
   sign, switch) and in captions. `v2:plan`'s `noLabels` gate fails anything else.

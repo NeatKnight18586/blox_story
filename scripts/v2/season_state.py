@@ -13,7 +13,8 @@ import argparse, datetime, json, os, re, sys
 
 STATE = 'docs/season1/STATE.md'
 STEPS = ('voice', 'animatic', 'review', 'final', 'published-ready')   # published-ready: the final passed QC and was delivered
-EXISTING = ('egg', 'ragdoll', 'mountain', 'mirror')   # scripts + beats already written: printed, never rewritten
+OWNER_INPUTS = ('script.txt', 'voice file', 'beats prompt')   # format v4 D1: the owner writes every script; /season never plans or writes one
+WAIT = 'waits for the owner\'s script.txt, voice file and beats prompt (stories/{slug}/script.txt, voice.*, beats.md); Claude Code never writes or edits a script (V4 D1)'
 HEADER = '# Season 1 state (read by `/season`; nothing else decides what happens next. A4 §I)'
 
 
@@ -33,28 +34,29 @@ def cards(md):
     return [(int(n), slug) for n, slug in re.findall(r'^### (\d+) · [^·]+ · `([^`]+)`', md, re.M)]
 
 
-def transition(state, cmd=None, *, voice=False, cards_list=(), finals_done=0):
-    """Pure. state: {episode, slug, step}; cmd: None | 'approve' | 'notes' | 'swap'; voice: stories/<slug>/voice.* exists;
+def transition(state, cmd=None, *, voice=False, script=False, beats=False, cards_list=(), finals_done=0):
+    """Pure. state: {episode, slug, step}; cmd: None | 'approve' | 'notes' | 'swap'; voice / script / beats: the owner's
+    stories/<slug>/voice.*, script.txt and beats.md exist;
     finals_done: finals delivered before this one. → {'state': new or same, 'actions': [...], 'stop': reason or None}."""
     s, ep, slug, step = dict(state), state['episode'], state['slug'], state['step']
     nxt = next((c for c in cards_list if c[0] == ep + 1), None)
     if cmd == 'swap':
         if step != 'voice': return {'state': s, 'actions': [], 'stop': f'swap only while step is voice (now {step})'}
-        return {'state': s, 'actions': ['swap-card', 'write-script', 'write-beats', 'scriptcheck', 'print-script', 'log-swap'], 'stop': 'after the swap: the owner voices the new script'}
+        return {'state': s, 'actions': ['swap-card', 'log-swap'], 'stop': f'card swapped: episode {ep} ' + WAIT.format(slug='<new slug>')}
     if step in ('voice', 'animatic'):
         if cmd in ('approve', 'notes'): return {'state': s, 'actions': [], 'stop': f'nothing to approve yet: episode {ep} {slug} is at step {step}'}
-        if not voice: return {'state': s, 'actions': [], 'stop': f'no stories/{slug}/voice.* yet: the owner records and commits the voice first'}
+        missing = [n for n, ok in zip(OWNER_INPUTS, (script, voice, beats)) if not ok]
+        if missing: return {'state': s, 'actions': [], 'stop': f'episode {ep} {slug} ' + WAIT.format(slug=slug) + f'; missing: {", ".join(missing)}'}
         return {'state': {**s, 'step': 'review'}, 'actions': ['E1'], 'stop': 'animatic delivered: wait for approve or notes'}
     if step == 'review':
         if cmd not in ('approve', 'notes'): return {'state': s, 'actions': [], 'stop': f'episode {ep} {slug} is waiting for the owner: /season approve or /season notes: …'}
         acts = (['revise'] if cmd == 'notes' else []) + ['E2']
         if (finals_done + 1) % 5 == 0: acts.append(f'compilation-{(finals_done + 1) // 5}')
         if not nxt: return {'state': {**s, 'step': 'final'}, 'actions': acts + ['season-complete'], 'stop': 'last card delivered'}
-        acts += ['print-existing-script'] if nxt[1] in EXISTING else ['originality-check', 'write-script', 'write-beats', 'scriptcheck', 'print-script']
-        return {'state': {'episode': nxt[0], 'slug': nxt[1], 'step': 'voice'}, 'actions': acts, 'stop': f'next: the owner voices episode {nxt[0]} {nxt[1]}'}
+        return {'state': {'episode': nxt[0], 'slug': nxt[1], 'step': 'voice'}, 'actions': acts, 'stop': f'next: episode {nxt[0]} {nxt[1]} ' + WAIT.format(slug=nxt[1])}
     if step == 'published-ready':   # delivered: move on; format v4 (docs/season1/V4.md D1): the owner writes and voices every script
         if not nxt: return {'state': s, 'actions': ['season-complete'], 'stop': 'last card delivered'}
-        return {'state': {'episode': nxt[0], 'slug': nxt[1], 'step': 'voice'}, 'actions': [], 'stop': f'next: the owner writes and voices episode {nxt[0]} {nxt[1]}'}
+        return {'state': {'episode': nxt[0], 'slug': nxt[1], 'step': 'voice'}, 'actions': [], 'stop': f'next: episode {nxt[0]} {nxt[1]} ' + WAIT.format(slug=nxt[1])}
     if step == 'final':   # an E2 that was interrupted: finish it, then continue as an approval
         return transition({**s, 'step': 'review'}, 'approve', voice=voice, cards_list=cards_list, finals_done=finals_done)
     raise ValueError(step)
@@ -77,10 +79,11 @@ def main():
         open(o.state, 'w').write(fmt(s)); print(json.dumps({k: s[k] for k in ('episode', 'slug', 'step')})); return
     cmd = (o.cmd or '').split(':')[0].strip().lower() or None
     voice = any(os.path.exists(f"stories/{s['slug']}/voice.{e}") for e in ('flac', 'wav', 'mp3', 'm4a'))
+    script = os.path.exists(f"stories/{s['slug']}/script.txt"); beats = os.path.exists(f"stories/{s['slug']}/beats.md")
     finals = sum(1 for l in s['log'] if ' final delivered' in l)
-    r = transition(s, cmd, voice=voice, cards_list=cards(open(o.season).read()), finals_done=finals)
+    r = transition(s, cmd, voice=voice, script=script, beats=beats, cards_list=cards(open(o.season).read()), finals_done=finals)
     r['state'] = {k: r['state'][k] for k in ('episode', 'slug', 'step')}
-    print(json.dumps({'now': {k: s[k] for k in ('episode', 'slug', 'step')}, 'cmd': cmd, 'voice': voice, **r}, ensure_ascii=False))
+    print(json.dumps({'now': {k: s[k] for k in ('episode', 'slug', 'step')}, 'cmd': cmd, 'voice': voice, 'script': script, 'beats': beats, **r}, ensure_ascii=False))
 
 
 if __name__ == '__main__':

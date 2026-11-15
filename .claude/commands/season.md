@@ -26,32 +26,24 @@ owner the `stop` line in one sentence and stop. Never skip or reorder actions.
 - **compilation-<k>** (after every fifth final): concatenate the last five masters (from their prereleases) with a 1 s title
   card before each (episode title, Lilita One, the season's colours), no re-render, no re-grade; write the chapter list
   (start times, titles) to `review/season1/compilation-<k>.md`; release the file like a master (never in git).
-- **print-existing-script**: the next card's script already exists (`egg`, `ragdoll`, `mountain`, `mirror`): print
-  `stories/<next>/script.txt` in one code block for the owner to voice. Do not rewrite it or its `beats.md`.
-- **originality-check**, **write-script**, **write-beats**, **scriptcheck**, **print-script** (any other next card), per
-  SEASON_1.md §5b:
-  1. Originality check (§2b): search the web, if a search tool is available, for the card's Rule sentence with the title
-     and "roblox story". Report anything close in two lines before the script.
-  2. Write `stories/<next>/script.txt` from the card, matching the four model scripts.
-  3. Write `stories/<next>/beats.md` in the models' table form with §3's beats and cameras.
-  4. `python3 scripts/v2/scriptcheck.py --story <next>` must exit 0. Fix and re-run, at most two passes. If it still
-     fails, stop and report the failures.
-  5. Run the §10 council scorecard (all ≥ 4, one revision pass).
-  6. Print the final script in one code block.
-- **swap** actions (`swap-card`, `write-script`, `write-beats`, `scriptcheck`, `print-script`, `log-swap`; only while
-  `step: voice`). The owner has seen this premise elsewhere.
+- **No script work, ever** (format v4, `docs/season1/V4.md` D1): `/season` never plans, writes, edits, prints or checks a
+  script or beats file. For a new episode it waits for the owner's `stories/<slug>/script.txt`, voice file
+  (`stories/<slug>/voice.*`, used exactly as delivered: D3) and beats prompt (`stories/<slug>/beats.md`), and says so with
+  the printed `stop` line (it names what is missing). Episodes are built only from those three.
+- **swap** actions (`swap-card`, `log-swap`; only while `step: voice`). The owner has seen this premise elsewhere.
   1. Take the first unused backlog line in SEASON_1.md §5.
   2. Write a full card in the nine fields, plus the §2b check.
   3. Replace the current card in §6, keeping its number and lane. This is the only edit `/season` makes to a card.
-  4. Write its script and `beats.md` per §5b, run scriptcheck and print the script.
-  5. `set --slug <new> --log "swap: <old> → <new> (backlog: …)"`. Stop.
+  4. `set --slug <new> --log "swap: <old> → <new> (backlog: …)"`. Tell the owner the episode waits for their script.txt,
+     voice and beats prompt. Stop.
 - **season-complete**: report the season totals from `docs/season1/RESULTS.md`; stop.
 
 ## 3. Write the new state and stop
 `python3 scripts/v2/season_state.py set --episode <n> --slug <slug> --step <step> --log "<what happened>"` with the
-`state` printed in step 1. Commit source, `cues.json`, `review/<slug>/`, `STATE.md` and the new script/beats (never
+`state` printed in step 1. Commit source, `cues.json`, `review/<slug>/` and `STATE.md` (never
 `build/`, `renders/` or masters). Push, update the PR, send the owner the review files and a ≤ 15-line report (passes,
 numbers, open problems, what the owner does next). Stop.
 
-Initial state after Session 9: `episode: 1 egg`, `step: voice`. `stories/egg/voice.flac` is already committed, so the
-first `/season` runs E1 for egg (straight to the animatic).
+State after episode 1: `episode: 1 egg`, `step: published-ready`; the next `/season` moves to episode 2 and waits for the
+owner's script, voice and beats prompt. Note: `stories/{ragdoll,mountain,mirror}/script.txt` were written before D1; they are
+not the owner's scripts and are never printed or proposed. The owner replaces them with their own.
