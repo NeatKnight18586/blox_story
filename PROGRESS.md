@@ -1067,3 +1067,9 @@ Three weakest things:
 - Owner: "waive" the stone/wall tint check for egg only (QC failed on its count: 3 of 4 frames had ≥ 0.5 % stone; maxΔE 5.63). The threshold is not loosened.
 - `qc.py --waive tint` (opt-in): matching failures move to `waived` in qc.json, recorded rather than dropped. The farm reads `stories/<slug>/qc.waive`; only egg has one.
 - Re-assembled from the run 43597647473 segments (`reuse-run`), no re-render. Captions, assemble and QC are unchanged.
+
+### Egg final: delivered (2026-11-15)
+- Farm run 43645715262 (assemble only, reuse-run): 2 h 31 min. QC PASS with `waived: [tint count 3/4]`. Prerelease egg-5d6b439, master 405.06 MB.
+- Open problem: the farm proxy was 45.6 MB (> 45; the CRF steps 18/20/22 ran out). The workflow hid assemble's `pass: false` behind `| tee`.
+  - Fix for the delivery: proxy re-encoded locally from the master at CRF 23 → 41.4 MB.
+  - Follow-up (not done, owner said stop): add CRF 24 to PROXY_CRF_STEPS and `set -o pipefail` in render.yml.
