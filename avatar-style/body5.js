@@ -44,6 +44,7 @@ export function toSatin(m) {
 export function regionBlocks(part, r, {torsoH = 2} = {}) {
   if (!r) return null;
   if (part === 'torso' && r.torso) {
+    if (!r.torso.strip) return null;   // a plain torso (outfitRegions): just its main colour
     const t = r.torso, sw = t.stripW ?? .6, lw = t.lapelW ?? .14, h = torsoH - 2 * BEVEL;
     const out = [{size: [sw, h, .06], at: [0, 0, .5 + .005], color: t.strip},
       ...[-1, 1].map(s => ({size: [lw, h, .08], at: [s * (sw / 2 + lw / 2 - .02), 0, .5 + .015], color: t.lapel ?? t.main}))];
@@ -80,6 +81,7 @@ export function createActor5({tier = 'hero', skin, scale = 1, materials = {}, na
     if (part === 'torso' && (!build || build === 'adult_m')) m.geometry = rbox(TORSO, tier);
     else if (part !== 'torso') m.geometry = rbox(LIMB, tier);
     m.material = toSatin(m.material);
+    if (part === 'torso' && regions?.torso?.main) m.material = satin(regions.torso.main);
     const blocks = regionBlocks(part, regions, {torsoH: m.geometry.parameters?.height ?? 2});
     if (!blocks) continue;
     for (const b of blocks) {
@@ -99,6 +101,23 @@ export function headTorsoRatio(a) {
   a.root.updateMatrixWorld(true); const box = m => new T.Box3().setFromObject(m, true), w = b => b.max.x - b.min.x, t = new T.Box3();
   a.parts.torso.geometry.computeBoundingBox(); t.copy(a.parts.torso.geometry.boundingBox).applyMatrix4(a.parts.torso.matrixWorld);
   return +(w(box(a.parts.head)) / w(t)).toFixed(3);
+}
+// Outfit recipe → colour regions (pure; Phase 2b: the whole cast on v5 is built from data, not painted textures).
+//   tee: short sleeves (upper 35 % main, then skin) · hoodie / robe / armor / tunic / royal / apron / peasant: long sleeves
+//   (85 % main, then the hand) · classic: sleeves = main to 50 % · trousers = legs + dark shoes (bottom 15 %)
+export const SHOES = '#2b2b2f';
+export function outfitRegions(outfit, skin) {
+  if (!outfit) return null;
+  const main = outfit.main ?? '#cccccc', legs = outfit.legs ?? '#3b3f46', split = outfit.recipe === 'tee' ? .35 : outfit.recipe === 'classic' ? .5 : .85;
+  return {torso: {main}, arms: {upper: main, lower: skin, split}, legs: {main: legs, shoes: outfit.shoes ?? SHOES, shoeFrac: .15}};
+}
+// Head width / shoulder width (the torso's top row: 2 studs on every build), from the built geometry. Pure-ish (three, no GL).
+export function headShoulderRatio(a) {
+  a.root.updateMatrixWorld(true); const hb = new T.Box3().setFromObject(a.parts.head, true), g = a.parts.torso.geometry, p = g.attributes.position;
+  let top = -Infinity; for (let i = 0; i < p.count; i++) top = Math.max(top, p.getY(i));
+  let x0 = Infinity, x1 = -Infinity; for (let i = 0; i < p.count; i++) if (p.getY(i) > top - .05) { x0 = Math.min(x0, p.getX(i)); x1 = Math.max(x1, p.getX(i)); }
+  const sx = new T.Vector3().setFromMatrixScale(a.parts.torso.matrixWorld).x;
+  return +((hb.max.x - hb.min.x) / ((x1 - x0) * sx)).toFixed(3);
 }
 // Hero colours (pure): jacket, centre strip, trousers and the yellow head/hands.
 export const heroColours = hero => [...new Set([hero.regions?.torso?.main, hero.regions?.torso?.strip, hero.regions?.legs?.main, hero.skin].filter(Boolean).map(c => c.toUpperCase()))];

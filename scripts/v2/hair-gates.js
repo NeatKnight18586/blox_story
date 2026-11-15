@@ -13,7 +13,7 @@ import {startServer} from './server.js';
 import {launch} from './browser.js';
 import {HAIR4_STYLES, HAIR4_BUDGET, EYE_LINE, FACE_X, hair4Geometry, hair4Triangles} from '../../avatar-style/hair4.js';
 
-const argv = process.argv.slice(2), out = argv[argv.indexOf('--out') + 1] && argv.includes('--out') ? argv[argv.indexOf('--out') + 1] : 'review/season1/hair-gates.json';
+const argv = process.argv.slice(2), V5 = argv.includes('--v5'), out = argv[argv.indexOf('--out') + 1] && argv.includes('--out') ? argv[argv.indexOf('--out') + 1] : V5 ? 'review/v4/hair-gates-v5.json' : 'review/season1/hair-gates.json';   // --v5: on the Actor v5 1.2 head (format v4 2b)
 const LIM = {leak: 0, leakBuzz: .02, leakTight: .03, iou: .86, thin: .06};
 const TIGHT = ['quiff', 'fade_textured', 'spiky_crop'];   // owner 2026-11-14: short boy cuts sit tighter above the ears; scalp leak < 3 % allowed for these three
 const mask = (buf, px, test) => { const m = new Uint8Array(px * px); for (let i = 0; i < px * px; i++) m[i] = test(buf[i * 4], buf[i * 4 + 1], buf[i * 4 + 2]) ? 1 : 0; return m; };   // row 0 = bottom (GL)
@@ -25,7 +25,7 @@ const server = await startServer(), browser = await launch();
 const report = {limits: {...LIM, budget: HAIR4_BUDGET, eyeLine: EYE_LINE}, styles: {}, pairs: [], failures: []};
 try {
   const page = await browser.newPage(); const errors = []; page.on('pageerror', e => errors.push(e.message));
-  await page.goto(`${server.url}/engine/hairgate.html`); await page.waitForFunction(() => window.__hg, null, {timeout: 60000});
+  await page.goto(`${server.url}/engine/hairgate.html${V5 ? '?v5=1' : ''}`); await page.waitForFunction(() => window.__hg, null, {timeout: 60000});
   const R = o => page.evaluate(o => window.__hg.render(o), o);
   const sil = {};
   for (const style of HAIR4_STYLES) {

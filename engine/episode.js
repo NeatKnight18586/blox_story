@@ -13,7 +13,8 @@ import {expandClassReveal, applyPatch} from './classes.js';
 import {buildActor, driveActor, townsperson, toolGroup} from './actors.js';
 import {resolveTroupe} from './troupe.js';
 import {flapActive, shapeAt} from './lipflap.js';
-import {heroColours, heroSafeOutfit} from '../avatar-style/body5.js';
+import {heroColours, heroSafeOutfit, outfitRegions} from '../avatar-style/body5.js';
+import {hair4Material} from '../avatar-style/hair.js';
 import {loadFont, fitTags} from './overhead.js';
 import {createLook, createLookV3, sunDir} from './look.js';
 import {createEffects} from './effects.js';
@@ -119,13 +120,28 @@ for (const [name, c] of Object.entries(spec.cast ?? {})) {
   if (c.style === 'dragon') { const d = buildDragon({scale: c.scale ?? 1, name, colors: c.colors ?? null, face: c.dragonFace ?? null, baby: !!c.baby, wingScale: c.wingScale ?? 1, rim: c.rim ?? null, spikes: c.spikes ?? 1, saddle: !!c.saddle}); scene.add(d.root); cast[name] = {a: d, c, dragon: true}; continue; }
   if (c.style === 'v2' || c.style === 'v5') { if (c.troupe === 'AFK') { c.keys ??= [[0, troupeData.AFK.pose ?? 'walk']]; c.faces ??= [[0, 'neutral']]; }
     const pre0 = c.troupe ? resolveTroupe(c, troupeData) : c.town ? townsperson(c.town) : c.preset ? {...presets[c.preset], ...(c.with ?? {})} : c;
-    const pre1 = c.style === 'v5' ? {...pre0, body: 'v5', faceStyle: pre0.faceStyle ?? 'v4'} : pre0;   // format v4: Actor v5 + Faces v4
+    const pre1 = c.style === 'v5' || spec.look4 ? {...pre0, body: 'v5', faceStyle: pre0.faceStyle ?? 'v4'} : pre0;   // format v4: Actor v5 + Faces v4 (2b: every actor of a look4 episode)
     const pre2 = HERO_COLS && c.troupe !== 'HERO' && pre1.outfit ? {...pre1, outfit: heroSafeOutfit(pre1.outfit, HERO_COLS, {minL: NIGHT_EP ? .32 : 0})} : pre1;   // v4 1b: nobody dresses like the hero
-    const pre = FACES_V3 && !pre2.faceStyle ? {...pre2, faceStyle: 'v3'} : pre2;   // Faces v3: default for season 1 (or spec.faces 'v3')
+    const pre3 = spec.look4 && !pre2.regions && pre2.outfit ? {...pre2, regions: outfitRegions(pre2.outfit, pre2.skin ?? '#f5cd30'), outfit: null} : pre2;   // 2b: outfits as colour regions (data)
+    const pre = FACES_V3 && !pre3.faceStyle ? {...pre3, faceStyle: 'v3'} : pre3;   // Faces v3: default for season 1 (or spec.faces 'v3')
     const a = buildActor(c.noTag ? {...pre, tag: null} : pre, name); scene.add(a.root); cast[name] = {a, c, v2: true}; }
   else { const a = createBaseAvatar({color: c.color ?? 0xf2c94c}); scene.add(a.root); cast[name] = {a, c}; }
 }
 if (Object.values(cast).some(x => x.v2)) await loadFont();
+// Format v4 2b: baked actor light. Every actor and crowd mesh gets MeshMatcapMaterial with the preset's matcap (colour ×
+// 1 / MC_LIGHT, the matcap's light scale); the close shot's subject may keep its MeshStandard (shot `heroLit`, default on).
+const MATCAP = spec.look4 ? (await look.preloadMatcap(new URL('../', import.meta.url), spec.look4), look.matcap(spec.look4)) : null;
+const mcCache = new Map();
+const toMatcap = m => { if (Array.isArray(m)) return m.map(toMatcap); if (!m || m.isMeshBasicMaterial || m.isSpriteMaterial || m.isMeshMatcapMaterial) return m;
+  if (!mcCache.has(m)) { const x = new T.MeshMatcapMaterial({matcap: MATCAP, color: (m.color ?? new T.Color('#ffffff')).clone().multiplyScalar(1 / look.MC_LIGHT), map: m.map ?? null, transparent: m.transparent, opacity: m.opacity, side: m.side, vertexColors: m.vertexColors});
+    x.name = 'matcap:' + (m.name ?? ''); mcCache.set(m, x); } return mcCache.get(m); };
+const litSwap = [];   // [{name, mesh, std, mc}]
+if (MATCAP) for (const [name, x] of Object.entries(cast)) if (x.v2) x.a.root.traverse(o => { if (!o.isMesh || o.name === 'face_decal') return; const mc = toMatcap(o.material); if (mc === o.material) return; litSwap.push({name, mesh: o, std: o.material, mc}); o.material = mc; });
+let litNow = null;
+function setHeroLit(shot) {   // the close shot's subject keeps real light (MeshStandard), everyone else the matcap
+  if (!MATCAP) return; const who = shot.size === 'close' && shot.heroLit !== false ? (shot.subject ?? shot.fit?.actor ?? null) : null;
+  if (who === litNow) return; litNow = who; for (const e of litSwap) e.mesh.material = e.name === who ? e.std : e.mc;
+}
 for (const s of shots) if (s.fit && s.fit.h === undefined && cast[s.fit.actor]) s.fit.h = 5.3 * cast[s.fit.actor].a.root.scale.y;   // A5 §F: actor height for `fit`
 // A5 §E Decision 2: one narrow, soft spotlight per hero (troupe except AFK) for medium/close night shots, aimed from the
 // camera side at the chest, shadow-casting (the actor screens the ground behind). Real lights stay ≤ 4 with the world's own.
@@ -232,7 +248,7 @@ const effects = createEffects([...(spec.effects ?? []), ...revealEffects], {scen
 // from behind the current subject in wides and mediums (one SpotLight, no shadow); "Nobody" and older specs: off.
 const HERO_READ = spec.season === 1 || spec.heroRead === true;
 const subjectMains = HERO_READ ? [...new Set(shots.map(s => s.subject ?? s.fit?.actor).filter(n => cast[n]?.a.preset?.outfit?.main).map(n => cast[n].a.preset.outfit.main))] : [];
-const crowds = createCrowds(scene, spec.crowds ?? [], {groundY: world?.groundY ?? (() => 0), resolveCentre: c => Array.isArray(c) ? c : (p => [p[0], p[2]])(resolve(c)), avoidColours: HERO_COLS ? [...subjectMains, ...HERO_COLS] : subjectMains, faces: FACES_V3 ? 'v3' : 'v2'});
+const crowds = createCrowds(scene, spec.crowds ?? [], {...(spec.look4 ? {body: 'v5', material: toMatcap(new T.MeshStandardMaterial({color: '#ffffff', roughness: .45})), colourScale: 1 / look.MC_LIGHT, hairMaterial: toMatcap(hair4Material())} : {}), groundY: world?.groundY ?? (() => 0), resolveCentre: c => Array.isArray(c) ? c : (p => [p[0], p[2]])(resolve(c)), avoidColours: HERO_COLS ? [...subjectMains, ...HERO_COLS] : subjectMains, faces: spec.look4 ? 'v4' : FACES_V3 ? 'v3' : 'v2'});
 const rim = HERO_READ ? (() => { const l = new T.SpotLight(RIM.color, 0, RIM.distance, RIM.angle, RIM.penumbra, RIM.decay); l.castShadow = false; l.visible = false; l.name = 'subjectRim'; scene.add(l, l.target); return l; })() : null;
 function aimRim(shot, camPos) {
   if (!rim) return; const n = shot?.subject ?? shot?.fit?.actor, m = n && markPos[n], r = m && cast[n].a.root.visible ? rimFor(shot.size, m, camPos, 5.3 * cast[n].a.root.scale.y) : null;
@@ -292,7 +308,7 @@ export function renderFrame(n, width = 720, height = 1280, nudge = 0) {
   const t0 = performance.now();
   if (lastSize !== `${width}x${height}`) { renderer.setPixelRatio(1); renderer.setSize(width, height, false); lastSize = `${width}x${height}`; }
   const shot = shots.findLast(s => n >= s.start), t = n / FPS;
-  const actors = poseCast(t);
+  setHeroLit(shot); const actors = poseCast(t);
   const c = sampleCamera({...shot, fps: FPS}, (n - shot.start) / FPS, actors);
   world?.update(t); applyWorldState(shot, t); updateExtras(t, {camPos: c.position, size: shot.size}); aimHeroSpots(shot, c.position); aimRim(shot, c.position); applyLift(shot); liftSubject(shot);
   const fx = effects.apply(t, camera);   // poses effect targets; returns the shake offset and any timeOfDay blend
@@ -467,4 +483,4 @@ function colRange(L, b, w, h) { const x0 = Math.floor((b.x0 + (b.x1 - b.x0) * .3
   for (let y = y0; y < y1; y++) { let s = 0, n = 0; for (let x = Math.max(0, x0); x < Math.min(w, x1); x++) { s += L[y * w + x]; n++; } if (n) rows.push(s / n); } return rows.length ? Math.max(...rows) - Math.min(...rows) : 0; }
 export function shotSpeed(i) { const s = shots[i]; return maxTargetSpeed({...s, fps: FPS, openHit: false}, tt => poseCast(s.start / FPS + tt), FPS); }
 
-window.__episode = {debug: {scene, renderer}, bake: BAKE, breakdown, measureFrame, seasonMeasure, actorMask, readMeasure, lumaAt, inspectFrame, shotSpeed, END: FRAMES / FPS, anchors: Object.fromEntries(Object.entries(anchors).filter(([, a]) => a.camera).map(([k]) => [k, true])), renderAnchor, renderAnchorNudged, renderCamera, FPS, FRAMES, shots: shots.map(({id, start, frames, size, move, loc, subject, see, openHit, at, why, captionY, fit, spectacle, look: lk}) => ({id, start, frames, size, move, loc, subject, see, openHit: !!openHit, at, why, captionY, fit, spectacle: !!spectacle, look: lk})), renderFrame};
+window.__episode = {debug: {scene, renderer, camera}, bake: BAKE, matcapBytes: MATCAP ? (n => Array.from(look.matcapBytes(n ?? spec.look4))) : null, breakdown, measureFrame, seasonMeasure, actorMask, readMeasure, lumaAt, inspectFrame, shotSpeed, END: FRAMES / FPS, anchors: Object.fromEntries(Object.entries(anchors).filter(([, a]) => a.camera).map(([k]) => [k, true])), renderAnchor, renderAnchorNudged, renderCamera, FPS, FRAMES, shots: shots.map(({id, start, frames, size, move, loc, subject, see, openHit, at, why, captionY, fit, spectacle, look: lk}) => ({id, start, frames, size, move, loc, subject, see, openHit: !!openHit, at, why, captionY, fit, spectacle: !!spectacle, look: lk})), renderFrame};

@@ -1,0 +1,196 @@
+{
+ "slug": "v4cast-mystery",
+ "fps": 30,
+ "note": "Format v4 2b cast sheet: the whole troupe on Actor v5 + a crowd (v5 low tier), mystery",
+ "world": "engine/fixtures/v4look/world.js",
+ "labels": false,
+ "look4": "mystery",
+ "look": "mystery",
+ "cast": {
+  "hero": {
+   "style": "v5",
+   "troupe": "HERO",
+   "at": "street",
+   "offset": [
+    0,
+    0,
+    4
+   ],
+   "yaw": 0,
+   "keys": [
+    [
+     0,
+     "idle"
+    ]
+   ],
+   "faces": [
+    [
+     0,
+     "hero_wink"
+    ]
+   ]
+  },
+  "lead": {
+   "style": "v5",
+   "troupe": "LEAD",
+   "at": "street",
+   "offset": [
+    -3.2,
+    0,
+    4.6
+   ],
+   "yaw": 0,
+   "keys": [
+    [
+     0,
+     "idle"
+    ]
+   ]
+  },
+  "second": {
+   "style": "v5",
+   "troupe": "SECOND",
+   "at": "street",
+   "offset": [
+    3.2,
+    0,
+    4.6
+   ],
+   "yaw": 0,
+   "keys": [
+    [
+     0,
+     "idle"
+    ]
+   ]
+  },
+  "little": {
+   "style": "v5",
+   "troupe": "LITTLE",
+   "at": "street",
+   "offset": [
+    -5.6,
+    0,
+    5.6
+   ],
+   "yaw": 0,
+   "keys": [
+    [
+     0,
+     "idle"
+    ]
+   ]
+  },
+  "rival": {
+   "style": "v5",
+   "troupe": "RIVAL",
+   "at": "street",
+   "offset": [
+    5.6,
+    0,
+    5.4
+   ],
+   "yaw": 0,
+   "keys": [
+    [
+     0,
+     "idle"
+    ]
+   ]
+  },
+  "elder": {
+   "style": "v5",
+   "troupe": "ELDER",
+   "at": "street",
+   "offset": [
+    -1.6,
+    0,
+    2.2
+   ],
+   "yaw": 0,
+   "keys": [
+    [
+     0,
+     "idle"
+    ]
+   ]
+  },
+  "afk": {
+   "style": "v5",
+   "troupe": "AFK",
+   "at": "street",
+   "offset": [
+    2,
+    0,
+    2
+   ],
+   "yaw": 0,
+   "keys": [
+    [
+     0,
+     "idle"
+    ]
+   ]
+  }
+ },
+ "crowds": [
+  {
+   "id": "street",
+   "count": 24,
+   "area": [
+    14,
+    8
+   ],
+   "centre": [
+    0,
+    -6
+   ],
+   "seed": 5,
+   "mode": "ambient"
+  }
+ ],
+ "shots": [
+  {
+   "id": "W",
+   "size": "wide",
+   "frames": 30,
+   "move": "static-drift",
+   "from": {
+    "position": [
+     0,
+     5.2,
+     24
+    ],
+    "target": [
+     0,
+     3.4,
+     0
+    ],
+    "fov": 48
+   },
+   "subject": "hero",
+   "shadowRadius": 14
+  },
+  {
+   "id": "M",
+   "size": "medium",
+   "frames": 30,
+   "move": "static-drift",
+   "from": {
+    "position": [
+     0,
+     4.6,
+     14.5
+    ],
+    "target": [
+     0,
+     3.6,
+     3.5
+    ],
+    "fov": 44
+   },
+   "subject": "hero",
+   "shadowRadius": 10
+  }
+ ]
+}

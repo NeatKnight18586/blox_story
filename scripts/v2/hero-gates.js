@@ -2,14 +2,17 @@
 //   heroColourCheck on the troupe before and after heroSafeOutfit (RGB ≥ 90 from every hero colour) · jacket edge width in
 //   px at the 390 px sheet shots (≥ 2 px at the full-body shot).
 import {readFileSync, writeFileSync} from 'node:fs';
-import {heroColours, heroSafeOutfit, heroColourCheck, regionBlocks, createActor5, headTorsoRatio} from '../../avatar-style/body5.js';
+import {heroColours, heroSafeOutfit, heroColourCheck, regionBlocks, createActor5, headTorsoRatio, headShoulderRatio, outfitRegions} from '../../avatar-style/body5.js';
 const hero = JSON.parse(readFileSync('cast/hero.json', 'utf8')).HERO, t = JSON.parse(readFileSync('cast/troupe.json', 'utf8'));
 const all = {...t.troupe, AFK: t.AFK}, cols = heroColours(hero);
 const fixed = Object.fromEntries(Object.entries(all).map(([k, p]) => [k, {...p, outfit: heroSafeOutfit(p.outfit, cols)}]));
 const swaps = Object.entries(all).flatMap(([k, p]) => ['main', 'legs'].filter(x => p.outfit[x] !== fixed[k].outfit[x]).map(x => ({slot: k, key: x, from: p.outfit[x], to: fixed[k].outfit[x]})));
 const pxPerUnit = d => 693 / (2 * d * Math.tan(17.5 * Math.PI / 180)), edge = regionBlocks('torso', hero.regions).find(b => b.edge && !b.collar).size[0];
 const ratio = headTorsoRatio(createActor5({skin: hero.skin, regions: hero.regions}));
+// 2b: every build on v5 — head width / shoulder width (the torso's top row) 0.58–0.62; the full torso box listed too
+const builds = Object.fromEntries(['adult_m', 'adult_f', 'youth', 'elder_f'].map(b => { const a = createActor5({skin: '#f6c9a0', build: b, regions: outfitRegions({recipe: 'tee', main: '#2f80d1', legs: '#4a5a80'}, '#f6c9a0')});
+  return [b, {headShoulder: headShoulderRatio(a), headTorsoBox: headTorsoRatio(a)}]; }));
 const shots = {fullBody: Math.hypot(1.5, .7, 12.5), medium: 7}, edgePx = Object.fromEntries(Object.entries(shots).map(([k, d]) => [k, +(edge * pxPerUnit(d)).toFixed(2)]));
-const before = heroColourCheck(hero, all), after = heroColourCheck(hero, fixed), fails = [...after.map(x => `${x.slot}.${x.key} ${x.troupe} vs ${x.hero}: ${x.d}`), ...(edgePx.fullBody < 4 ? [`lapel trim ${edgePx.fullBody} px at full body (≥ 4)`] : []), ...(ratio < .58 || ratio > .62 ? [`head/torso ${ratio}`] : [])];
-const rep = {heroColours: cols, before: before.length, after: after.length, swaps, edgeUnits: edge, edgePx, headTorsoRatio: ratio, collar: 'raised rim around the neck (back, sides, front tips)', failures: fails, result: fails.length ? 'FAIL' : 'PASS'};
+const before = heroColourCheck(hero, all), after = heroColourCheck(hero, fixed), fails = [...after.map(x => `${x.slot}.${x.key} ${x.troupe} vs ${x.hero}: ${x.d}`), ...(edgePx.fullBody < 4 ? [`lapel trim ${edgePx.fullBody} px at full body (≥ 4)`] : []), ...(ratio < .58 || ratio > .62 ? [`head/torso ${ratio}`] : []), ...Object.entries(builds).filter(([, v]) => v.headShoulder < .58 || v.headShoulder > .62).map(([b, v]) => `${b} head/shoulder ${v.headShoulder}`)];
+const rep = {heroColours: cols, before: before.length, after: after.length, swaps, edgeUnits: edge, edgePx, headTorsoRatio: ratio, builds, collar: 'raised rim around the neck (back, sides, front tips)', failures: fails, result: fails.length ? 'FAIL' : 'PASS'};
 writeFileSync('review/v4/hero-gates.json', JSON.stringify(rep, null, 1)); console.log(JSON.stringify(rep)); process.exitCode = fails.length ? 1 : 0;
