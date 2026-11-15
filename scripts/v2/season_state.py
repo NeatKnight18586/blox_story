@@ -12,14 +12,14 @@ the actions in order and then calls `set` with the new state.
 import argparse, datetime, json, os, re, sys
 
 STATE = 'docs/season1/STATE.md'
-STEPS = ('voice', 'animatic', 'review', 'final')
+STEPS = ('voice', 'animatic', 'review', 'final', 'published-ready')   # published-ready: the final passed QC and was delivered
 EXISTING = ('egg', 'ragdoll', 'mountain', 'mirror')   # scripts + beats already written: printed, never rewritten
 HEADER = '# Season 1 state (read by `/season`; nothing else decides what happens next. A4 §I)'
 
 
 def parse(text):
     ep = re.search(r'^episode:\s*(\d+)\s+(\S+)\s*$', text, re.M); st = re.search(r'^step:\s*(\S+)\s*$', text, re.M)
-    if not ep or not st or st.group(1) not in STEPS: raise ValueError('STATE.md needs "episode: <n> <slug>" and "step: voice|animatic|review|final"')
+    if not ep or not st or st.group(1) not in STEPS: raise ValueError('STATE.md needs "episode: <n> <slug>" and "step: voice|animatic|review|final|published-ready"')
     log = [l[2:] for l in text.split('## Log', 1)[1].splitlines() if l.startswith('- ')] if '## Log' in text else []
     return {'episode': int(ep.group(1)), 'slug': ep.group(2), 'step': st.group(1), 'log': log}
 
@@ -52,6 +52,9 @@ def transition(state, cmd=None, *, voice=False, cards_list=(), finals_done=0):
         if not nxt: return {'state': {**s, 'step': 'final'}, 'actions': acts + ['season-complete'], 'stop': 'last card delivered'}
         acts += ['print-existing-script'] if nxt[1] in EXISTING else ['originality-check', 'write-script', 'write-beats', 'scriptcheck', 'print-script']
         return {'state': {'episode': nxt[0], 'slug': nxt[1], 'step': 'voice'}, 'actions': acts, 'stop': f'next: the owner voices episode {nxt[0]} {nxt[1]}'}
+    if step == 'published-ready':   # delivered: move on; format v4 (docs/season1/V4.md D1): the owner writes and voices every script
+        if not nxt: return {'state': s, 'actions': ['season-complete'], 'stop': 'last card delivered'}
+        return {'state': {'episode': nxt[0], 'slug': nxt[1], 'step': 'voice'}, 'actions': [], 'stop': f'next: the owner writes and voices episode {nxt[0]} {nxt[1]}'}
     if step == 'final':   # an E2 that was interrupted: finish it, then continue as an approval
         return transition({**s, 'step': 'review'}, 'approve', voice=voice, cards_list=cards_list, finals_done=finals_done)
     raise ValueError(step)

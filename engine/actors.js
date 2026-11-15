@@ -8,6 +8,8 @@ import {attachHair, attachHair3, attachHair4} from '../avatar-style/hair.js';
 import {attachAccessory} from '../avatar-style/accessories.js';
 import {setFace} from '../avatar-style/faces2.js';
 import {setFace3, faceError, blinkClosed} from '../avatar-style/faces3.js';
+import {setFace4, faceError4, isHeld} from '../avatar-style/faces4.js';
+import {createActor5} from '../avatar-style/body5.js';
 import {attachTool, buildTool} from '../avatar-style/tools.js';
 import {setTag, statSprite, bubbleSprite} from './overhead.js';
 import {CLASSES} from '../parts/props.js';
@@ -16,13 +18,17 @@ import {sampleTimeline, ambientPose, applyPoseSample} from './poses.js';
 export function buildActor(preset, name = 'actor') {
   const tier = preset.tier ?? 'hero', skin = preset.skin ?? SKINS[0];
   const err = buildError({...preset, name}); if (err) throw Error('build: ' + err);   // A5 Decision 5: never an adult build under 18
-  const a = createActor({tier, skin, scale: preset.scale ?? 1, name, build: preset.build ?? null, materials: preset.outfit ? dress(preset.outfit, skin, tier, {fitted: !!BUILDS[preset.build]?.profile}) : {}});
+  const mk = preset.body === 'v5' ? createActor5 : createActor;   // format v4: Actor v5 (classic R6, satin), opt-in
+  const a = mk({tier, skin, scale: preset.scale ?? 1, name, build: preset.build ?? null, regions: preset.regions ?? null, materials: preset.outfit ? dress(preset.outfit, skin, tier, {fitted: !!BUILDS[preset.build]?.profile}) : {}});
   if (preset.hair) (preset.hair.v === 4 ? attachHair4(a, preset.hair.style, preset.hair.color, preset.hairTier ?? null)   // A5: v4 sculpted (Season 1)
     : preset.hair.v === 3 || preset.hairStyle === 'v3' ? attachHair3(a, preset.hair.style, preset.hair.color, {streak: preset.hair.streak}) : attachHair(a, preset.hair.style, preset.hair.color));
   for (const acc of preset.accessories ?? []) typeof acc === 'string' ? attachAccessory(a, acc) : attachAccessory(a, acc.name, acc);
   if (preset.tool) typeof preset.tool === 'string' ? attachTool(a, preset.tool) : attachTool(a, preset.tool.name, preset.tool);
   if (preset.opacity !== undefined && preset.opacity < 1) a.ghost = preset.opacity;
-  if (preset.faceStyle === 'v3') {   // Faces v3 (season 1 and the troupe): adult-only face parts never on a youth build
+  if (preset.faceStyle === 'v4') {   // format v4: Faces v4 (wide-set, sketch pass, talking mouths)
+    const fe = faceError4(preset.face ?? 'smile', a.build); if (fe) throw Error('face: ' + fe);
+    a.faceStyle = 'v4'; a.blinkSeed = [...name].reduce((h, ch) => (h * 31 + ch.charCodeAt(0)) % 9973, 7); setFace4(a, preset.face ?? 'smile');
+  } else if (preset.faceStyle === 'v3') {   // Faces v3 (season 1 and the troupe): adult-only face parts never on a youth build
     const fe = faceError(preset.face ?? 'smile', a.build); if (fe) throw Error('face: ' + fe);
     a.faceStyle = 'v3'; a.blinkSeed = [...name].reduce((h, ch) => (h * 31 + ch.charCodeAt(0)) % 9973, 7); setFace3(a, preset.face ?? 'smile');
   } else setFace(a, preset.face ?? 'smile');
@@ -54,12 +60,16 @@ export function townsperson(seed) {
 //   bubble = [[t0, text | null]]                        chat bubble (≤ 4 words) beside the head
 //   visible = [[t0, bool]]
 export function driveActor(a, t, {keys, faces, tags, origin = {position: [0, 0, 0], yaw: 0}, ambient = false, fps = 30,
-  tools, toolsLeft, stat, bubble, visible, kit, blinkSuppress = false} = {}) {
+  tools, toolsLeft, stat, bubble, visible, kit, blinkSuppress = false, talk = null} = {}) {
   if (visible) { let v = true; for (const [t0, x] of visible) if (t >= t0) v = x; a.root.visible = v; }
   const s = ambient ? ambientPose(a.preset.seed ?? 1, t) : sampleTimeline(keys ?? [[0, 'idle']], a.preset.freeze ?? t);   // A4: preset.freeze holds one instant (AFK mid-step)
   applyPoseSample(a, s, origin);
   const stoop = BUILDS[a.build]?.stoop; if (stoop) { a.root.rotation.x += stoop; a.pivots.head.rotation.x -= stoop * .6; }   // elder_f: slight forward stoop, eyes kept forward
-  if (a.faceStyle === 'v3') {   // v3: the timeline face plus a seeded blink (3 frames every 2.5–5 s; not at a face change or in a held close-up ≤ 1 s)
+  if (a.faceStyle === 'v4') {   // v4: the timeline face, a seeded blink, and the lip-flap shape (never on a held reaction face)
+    let f = a.preset.face ?? 'smile'; if (faces) { f = faces[0][1]; for (const [t0, n] of faces) if (t >= t0) f = n; }
+    const bl = blinkClosed(a.blinkSeed, t, {fps, changes: (faces ?? []).map(k => k[0]), suppress: !!blinkSuppress}), tk = talk !== null && !isHeld(f) ? talk : null;
+    if (f !== a.face || bl !== !!a.faceBlink || tk !== (a.faceTalk ?? null)) setFace4(a, f, {blink: bl, talk: tk});
+  } else if (a.faceStyle === 'v3') {   // v3: the timeline face plus a seeded blink (3 frames every 2.5–5 s; not at a face change or in a held close-up ≤ 1 s)
     let f = a.preset.face ?? 'smile'; if (faces) { f = faces[0][1]; for (const [t0, n] of faces) if (t >= t0) f = n; }
     const bl = blinkClosed(a.blinkSeed, t, {fps, changes: (faces ?? []).map(k => k[0]), suppress: !!blinkSuppress});
     if (f !== a.face || bl !== !!a.faceBlink) setFace3(a, f, {blink: bl});

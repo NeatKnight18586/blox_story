@@ -49,11 +49,11 @@ export const ellipsePts = (cx, cy, rx, ry, n = 32) => arc(cx, cy, rx, ry, 0, 2 *
 
 // ---- part builders: each returns [{pts | rings, fill, ink?, lash?, hi?}] in face units -------------------------------------
 const S = GRID.stroke;
-const shape = (pts, fill, o = {}) => ({pts, fill, ...o});
-const stroke = (pts, w = S, o = {}) => shape(taper(pts, w, o), o.fill ?? INK, {ink: true, ...o});
-const outlined = (pts, fill, w = S * .7, o = {}) => { const r = []; r.push(shape(pts, fill, o)); r.push(shape(closedTaper(pts, w), INK, {ink: true})); return r; };
+export const shape = (pts, fill, o = {}) => ({pts, fill, ...o});
+export const stroke = (pts, w = S, o = {}) => shape(taper(pts, w, o), o.fill ?? INK, {ink: true, ...o});
+export const outlined = (pts, fill, w = S * .7, o = {}) => { const r = []; r.push(shape(pts, fill, o)); r.push(shape(closedTaper(pts, w), INK, {ink: true})); return r; };
 // a closed outline as one filled band (constant-ish but slightly heavier along the bottom)
-function closedTaper(pts, w) {
+export function closedTaper(pts, w) {
   const L = pts.length, out = [], inn = [];
   let cy = 0; for (const p of pts) cy += p[1]; cy /= L; let lo = Infinity, hi = -Infinity; for (const p of pts) { lo = Math.min(lo, p[1]); hi = Math.max(hi, p[1]); }
   let cx = 0; for (const p of pts) cx += p[0]; cx /= L;
@@ -63,7 +63,7 @@ function closedTaper(pts, w) {
     out.push([p[0] + nx * hw, p[1] + ny * hw]); inn.push([p[0] - nx * hw, p[1] - ny * hw]); }
   return {outer: out, inner: inn.reverse()};
 }
-const sym = (fn) => [...fn(-1), ...fn(1)];   // build both sides; s = −1 left (viewer's left), +1 right
+export const sym = (fn) => [...fn(-1), ...fn(1)];   // build both sides; s = −1 left (viewer's left), +1 right
 
 export const BROWS = {
   none: () => [],
@@ -80,8 +80,8 @@ export const BROWS = {
 };
 
 // highlight helper (dropped at crowd tier)
-const hi = (x, y, r) => shape(ellipsePts(x, y, r, r, 14), WHITE, {hi: true});
-const sclera = (x, y, rx, ry, wT = S * .9, wB = S * .55) => { const rg = ring(x, y, rx, ry, wT, wB); return [shape(ellipsePts(x, y, rx, ry), WHITE, {sclera: true}), shape(rg, INK, {ink: true})]; };
+export const hi = (x, y, r) => shape(ellipsePts(x, y, r, r, 14), WHITE, {hi: true});
+export const sclera = (x, y, rx, ry, wT = S * .9, wB = S * .55) => { const rg = ring(x, y, rx, ry, wT, wB); return [shape(ellipsePts(x, y, rx, ry), WHITE, {sclera: true}), shape(rg, INK, {ink: true})]; };
 export const EYES = {
   dot: g => sym(s => [shape(ellipsePts(s * g.eyeX, g.eyeY, .055, .068), INK, {ink: true, eye: true}), hi(s * g.eyeX + .016, g.eyeY + .026, .016)]),
   oval: g => sym(s => [shape(ellipsePts(s * g.eyeX, g.eyeY, .056, .085), INK, {ink: true, eye: true}), hi(s * g.eyeX + .018, g.eyeY + .035, .019)]),
@@ -113,7 +113,7 @@ export const EYES = {
 };
 
 // open-mouth helper: interior + optional tongue and teeth + inked outline
-function openMouth(pts, {tongue = null, teethTop = null, teethBot = null, w = S * .85} = {}) {
+export function openMouth(pts, {tongue = null, teethTop = null, teethBot = null, w = S * .85} = {}) {
   const out = [shape(pts, MOUTH)];
   if (tongue) out.push(shape(tongue, TONGUE, {clip: pts}));
   if (teethTop) out.push(shape(teethTop, TEETH, {clip: pts}));
@@ -251,10 +251,10 @@ export function faceParts(f, {px = 512, tier = 'mid', blink = false, grid = GRID
   return list.map(it => ({d: it.pts.outer ? path(it.pts.outer) + path(it.pts.inner) : path(it.pts), fill: it.fill, rule: it.pts.outer ? 'evenodd' : 'nonzero', ink: !!it.ink, alpha: it.alpha ?? 1,
     clip: it.clip ? path(it.clip) : null, kind: it.eye ? 'eye' : it.mouth ? 'mouth' : it.sclera ? 'sclera' : null, bbox: bbox(it.pts.outer ?? it.pts)}));
 }
-const centreX = it => { const b = bbox(it.pts.outer ?? it.pts); return (b[0] + b[2]) / 2; };
+export const centreX = it => { const b = bbox(it.pts.outer ?? it.pts); return (b[0] + b[2]) / 2; };
 // Scale a part about its own anchor (each eye about its centre, the mouth about the mouth line, brows about the brow line)
 // and give each side a slight hand-drawn tilt (left +wobble, right −wobble·0.7 radians). Pure.
-function partXf(items, part, g) {
+export function partXf(items, part, g) {
   const k = part === 'eye' ? [g.ek, g.ek] : part === 'mouth' ? [g.mkx, g.mky] : part === 'brow' ? [g.bk, g.bk] : [1, 1];
   return items.map(it => {
     const side = centreX(it) < -.02 ? -1 : centreX(it) > .02 ? 1 : 0, ax = part === 'mouth' ? 0 : side * g.eyeX, ay = part === 'eye' ? g.eyeY : part === 'brow' ? g.browY : g.mouthY;
@@ -264,7 +264,7 @@ function partXf(items, part, g) {
     return {...it, pts: P, clip: it.clip ? it.clip.map(f) : it.clip};
   });
 }
-const shiftPts = (p, dx) => p.outer ? {outer: p.outer.map(([x, y]) => [x + dx, y]), inner: p.inner.map(([x, y]) => [x + dx, y])} : p.map(([x, y]) => [x + dx, y]);
+export const shiftPts = (p, dx) => p.outer ? {outer: p.outer.map(([x, y]) => [x + dx, y]), inner: p.inner.map(([x, y]) => [x + dx, y])} : p.map(([x, y]) => [x + dx, y]);
 export function bbox(p) { let x0 = Infinity, y0 = Infinity, x1 = -Infinity, y1 = -Infinity; for (const [x, y] of p) { x0 = Math.min(x0, x); x1 = Math.max(x1, x); y0 = Math.min(y0, y); y1 = Math.max(y1, y); } return [x0, y0, x1, y1]; }
 // Measurements of a preset in face units (pure; the gates check them against the style table).
 export function faceMeasure(f) {
