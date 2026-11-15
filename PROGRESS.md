@@ -1073,3 +1073,47 @@ Three weakest things:
 - Open problem: the farm proxy was 45.6 MB (> 45; the CRF steps 18/20/22 ran out). The workflow hid assemble's `pass: false` behind `| tee`.
   - Fix for the delivery: proxy re-encoded locally from the master at CRF 23 → 41.4 MB.
   - Follow-up (not done, owner said stop): add CRF 24 to PROXY_CRF_STEPS and `set -o pipefail` in render.yml.
+
+## Format v4, Phase 1 (2026-11-15): actor v5, hero, faces v4, lip flaps
+Plan (rules in docs/season1/V4.md):
+1. `avatar-style/body5.js`, opt-in `body: 'v5'` (cast `style: 'v5'`). Reuses `createActor`'s layout and builds; arms/legs 1×2×1 and the adult_m torso 2×2×1 become RoundedBox (bevel .04, 2 seg). Material: shared satin `MeshStandardMaterial` per colour (roughness .45, metalness 0). The head is the classic lathe scaled into 1×1×1, through the head pivot, so v4 hair, hats and decals fit unchanged. Outfit maps are converted to satin.
+2. Colour regions as data (`regions`): torso jacket + strip + lapels, sleeve/hand, leg/shoe as stacked rigid sub-blocks per colour. `cast/hero.json` slot HERO; `heroColourCheck` (RGB distance ≥ 90 vs troupe).
+3. `avatar-style/faces4.js`: faces3 parts + new hero parts (wink, wide oval-pupil eye, arched brow, lopsided grin, hatch blush, waterfall, flush, jagged teeth). Grid eye centres 0.30 of head width apart. Sketch pass on brows and mouth only; 8 hero presets; talk families of 4 shapes.
+4. `engine/lipflap.js` (pure): 30 fps RMS envelope → shape with a 2-frame hold. `scripts/v2/envelope.py` reads `voice.flac` (read only). The episode applies flaps to the speaker in close/medium shots; held faces never flap.
+5. Sheets: `review/v4/hero-390.png`, `faces4-390.png`, `hero-key.png`. Tests in `tests/v2/v4.test.js`.
+Built:
+- `docs/season1/V4.md` (owner D1–D4 + v4 session rules, verbatim).
+- `avatar-style/body5.js` (createActor5, satin, regionBlocks, heroColourCheck); `cast/hero.json`.
+- `avatar-style/faces4.js`; `engine/lipflap.js`; `scripts/v2/envelope.js`; `scripts/v2/hero-sheet.js`.
+- Opt-in hooks: actors.js `body: 'v5'`/`faceStyle: 'v4'`/`talk`; episode.js `style: 'v5'`, the HERO slot, `lipFlap`; troupe.js HERO (no hair, own faceStyle); studio.js v4 faces + key-art cell.
+- faces3 helpers exported (no behaviour change). Tests: `tests/v2/v4.test.js` (7).
+Numbers:
+- npm test green; v2:test 103 node + 52 py OK. "Nobody" 11/11 byte-identical.
+- Hero 3,980 tris (LEAD 3,428).
+- Egg voice envelope: 4,307 frames = 143.57 s. Runs min 2 frames (hold kept), mean 3.34; 9.0 changes/s. Voice sha256 unchanged.
+- Key art outline margin 88 px (≥ 24 PASS).
+- blushOverlap 0 on wink/grin/soft × 5 talk shapes. Eye centres 0.30 head width on all 8 presets.
+- **heroColourCheck FAILS** vs today's troupe defaults: hero sage legs vs LITTLE tee 52, AFK legs 45, LEAD legs 82, RIVAL legs 63, ELDER legs 61 (need ≥ 90). Not loosened; the owner picks per-episode troupe outfits (or the hero's legs).
+Weakest 3, hero-390.png:
+1. At 390 px the lineup actors are ~110 px tall with ~10 px faces; v2 vs v5 troupe can't be told apart there (only the LEAD pair shows the 20 % narrower classic head).
+2. From the front the hero's black jacket + black sleeves read as one flat black mass; the lapel relief barely shows in daylight.
+3. The pair panel crops both LEADs' outer arms. The 1×1×1 head (owner spec) is small on 4-wide shoulders: the face is ~45 px in the full-body shot.
+Weakest 3, faces4-390.png (second view, before fix pass 2; not re-opened, image budget):
+1. The grin's teeth were a thin sliver. Pass 2 made the band fuller; not seen since.
+2. The blush touched the raised mouth corner. Pass 2 fixed it, measured at 0 overlap.
+3. The sketch lines barely show at 390. Talk "open" and "wide" look almost the same. The wink is a heavy dark blob.
+Key art (viewed once, then fix pass 1 blind):
+- Arm cut at the top: fixed, 88 px margin.
+- Warm rim browned the jacket: rim halved; warm-dark pixels now 2.6 % of dark pixels.
+- Face small and turned away: not fixed.
+Decisions:
+- "Classic rounded head" = the v2 lathe head scaled into 1×1×1, not a 0.04 cube, so hair, hats and decals fit unchanged.
+- Colour regions are rigid sub-blocks; the seam reads as a cuff. No textures.
+- The troupe keeps faces v3 on v5 unless given `faceStyle: 'v4'`.
+- Held faces = the faces3 reactions + hero_shock, hero_cry, hero_rage.
+- Flap gate .06; steps .30 / .62 of the voiced 95th percentile.
+- `season_state.py` accepts step `published-ready` and moves to the next card's voice step with no actions. Last session's STATE edit had broken v2:test; fixed here.
+Open:
+- `/season` still lists write-script actions for new cards, which conflicts with V4 D1.
+- Frame budget (≤ 0.69 s) not measured: no v4 episode yet, and satin costs more per pixel than Phong.
+- Lip flaps are wired in but not yet seen in a render.

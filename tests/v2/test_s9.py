@@ -153,6 +153,9 @@ class SeasonState(unittest.TestCase):
         self.assertTrue(any('init (Session 9): episode 1 egg, step voice' in l for l in st['log']), 'initialised at episode 1 egg, step voice')
         self.assertEqual(self.SS.parse(self.SS.fmt(st)), st, 'format round-trips')
 
+    def test_published_ready_moves_on(self):
+        r = self.t(1, 'egg', 'published-ready'); self.assertEqual(r['state'], {'episode': 2, 'slug': 'ragdoll', 'step': 'voice'}); self.assertEqual(r['actions'], [], 'v4 D1: no script writing')
+
     def test_voice_step(self):
         r = self.t(1, 'egg', 'voice', voice=False); self.assertEqual(r['actions'], []); self.assertIn('voice', r['stop']); self.assertEqual(r['state']['step'], 'voice')
         r = self.t(1, 'egg', 'voice', voice=True); self.assertEqual(r['actions'], ['E1']); self.assertEqual(r['state']['step'], 'review')
