@@ -10,8 +10,9 @@ import {createActor, HEAD} from './body.js';
 
 export const SATIN = {roughness: .45, metalness: 0};
 export const BEVEL = .04, SEGMENTS = 2;
-// Classic head inside a 1×1×1 box: the lathe head is 1.25 wide, 1.16 tall, 1.10 deep.
-export const HEAD5 = [1 / (2 * HEAD.radius), 1 / (2 * HEAD.halfHeight), 1 / (2 * HEAD.radius * HEAD.depth)];
+// Classic head inside a 1.2 × 1.2 × 1.2 box (owner P1, 2026-11-15: real classic R6 heads read ~1.2 studs, 60 % of the torso
+// width): the lathe head is 1.25 wide, 1.16 tall, 1.10 deep.
+export const HEAD_SIZE = 1.2, HEAD5 = [HEAD_SIZE / (2 * HEAD.radius), HEAD_SIZE / (2 * HEAD.halfHeight), HEAD_SIZE / (2 * HEAD.radius * HEAD.depth)];
 export const LIMB = [1, 2, 1], TORSO = [2, 2, 1];
 
 const geo = new Map();
@@ -46,11 +47,14 @@ export function regionBlocks(part, r, {torsoH = 2} = {}) {
     const t = r.torso, sw = t.stripW ?? .6, lw = t.lapelW ?? .14, h = torsoH - 2 * BEVEL;
     const out = [{size: [sw, h, .06], at: [0, 0, .5 + .005], color: t.strip},
       ...[-1, 1].map(s => ({size: [lw, h, .08], at: [s * (sw / 2 + lw / 2 - .02), 0, .5 + .015], color: t.lapel ?? t.main}))];
-    if (t.edge) {   // Phase 1b: lapel edges along the opening and a collar line, so the open jacket reads from the front
-      const ew = t.edgeW ?? .03, top = torsoH / 2 - BEVEL - ew / 2, cw = .62;
+    if (t.edge) {   // lapel trims along the opening (≥ 4 px at the full-body 390 px shot: P4) and a raised collar rim that
+      // folds around the neck (back + two sides + two front tips stopping at the opening), standing above the shoulders
+      const ew = t.edgeW ?? .05, top = torsoH / 2, rh = .12, rw = .09, cx = .62, cz = .36;
+      for (const s of [-1, 1]) out.push({size: [ew, h, .09], at: [s * (sw / 2 - .02 + ew / 2), 0, .5 + .02], color: t.edge, edge: true});
+      out.push({size: [2 * cx + rw, rh, rw], at: [0, top + rh / 2 - .02, -cz], color: t.edge, edge: true, collar: true});
       for (const s of [-1, 1]) {
-        out.push({size: [ew, h, .09], at: [s * (sw / 2 - .02 + ew / 2), 0, .5 + .02], color: t.edge, edge: true});
-        out.push({size: [cw, ew, .09], at: [s * (sw / 2 - .02 + cw / 2), top, .5 + .02], color: t.edge, edge: true});
+        out.push({size: [rw, rh, 2 * cz], at: [s * cx, top + rh / 2 - .02, 0], color: t.edge, edge: true, collar: true});
+        out.push({size: [cx - sw / 2 + .02, rh, rw], at: [s * (sw / 2 - .02 + (cx - sw / 2 + .02) / 2 + rw / 2), top + rh / 2 - .02, cz], color: t.edge, edge: true, collar: true});
       }
     }
     return out;
@@ -90,6 +94,12 @@ export function createActor5({tier = 'hero', skin, scale = 1, materials = {}, na
   return a;
 }
 
+// Head width / torso width at a front orthographic view (world-space boxes of the head and torso meshes; P1 target .58–.62).
+export function headTorsoRatio(a) {
+  a.root.updateMatrixWorld(true); const box = m => new T.Box3().setFromObject(m, true), w = b => b.max.x - b.min.x, t = new T.Box3();
+  a.parts.torso.geometry.computeBoundingBox(); t.copy(a.parts.torso.geometry.boundingBox).applyMatrix4(a.parts.torso.matrixWorld);
+  return +(w(box(a.parts.head)) / w(t)).toFixed(3);
+}
 // Hero colours (pure): jacket, centre strip, trousers and the yellow head/hands.
 export const heroColours = hero => [...new Set([hero.regions?.torso?.main, hero.regions?.torso?.strip, hero.regions?.legs?.main, hero.skin].filter(Boolean).map(c => c.toUpperCase()))];
 const hexOf = v => '#' + v.map(x => Math.round(x).toString(16).padStart(2, '0')).join('').toUpperCase();

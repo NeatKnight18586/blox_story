@@ -57,11 +57,13 @@
    "to": "#5A4B87"
   }
  ],
- "edgeUnits": 0.03,
+ "edgeUnits": 0.05,
  "edgePx": {
-  "fullBody": 2.61,
-  "medium": 4.71
+  "fullBody": 4.36,
+  "medium": 7.85
  },
+ "headTorsoRatio": 0.593,
+ "collar": "raised rim around the neck (back, sides, front tips)",
  "failures": [],
  "result": "PASS"
 }

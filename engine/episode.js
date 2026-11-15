@@ -15,7 +15,7 @@ import {resolveTroupe} from './troupe.js';
 import {flapActive, shapeAt} from './lipflap.js';
 import {heroColours, heroSafeOutfit} from '../avatar-style/body5.js';
 import {loadFont, fitTags} from './overhead.js';
-import {createLook, createLookV3} from './look.js';
+import {createLook, createLookV3, sunDir} from './look.js';
 import {createEffects} from './effects.js';
 import {createCrowds} from './crowd.js';
 import {createRuleUI, enforceReadable, uiMeasure} from './ruleui.js';
@@ -25,6 +25,9 @@ import * as P from '../parts/parts.js';
 import * as B from '../parts/build.js';
 import * as A from '../parts/ambient.js';
 import * as M from '../parts/materials.js';
+import * as M4 from '../parts/materials4.js';
+import {createLookV4, loadLooks4, halo, water4} from './look4.js';
+import {bakeScene} from './bake.js';
 import * as PR from '../parts/props.js';
 import * as TR from '../parts/terrain.js';
 import * as BI from '../parts/biomes.js';
@@ -55,13 +58,24 @@ renderer.outputColorSpace = T.SRGBColorSpace; renderer.shadowMap.enabled = true;
 document.body.appendChild(renderer.domElement);
 const scene = new T.Scene();
 const camera = new T.PerspectiveCamera(45, 9 / 16, .3, 900);   // near 0.3 (A1): more depth precision for the ground layers
-let world = null, look = null;
+let world = null, look = null, BAKE = null;
 if (spec.world) {
   const mod = await import(new URL('../' + spec.world, import.meta.url).href);
+  if (spec.look4) {   // format v4 Phase 2 (opt-in): AgX + PMREM sky env + v4 surfaces + baked static light (engine/look4.js, bake.js)
+    const presets = await loadLooks4(new URL('./', import.meta.url)), P4 = presets[spec.look4]; if (!P4) throw Error('unknown look4 ' + spec.look4);
+    await M4.loadTex4(new URL('../', import.meta.url));
+    look = createLookV4(scene, renderer, presets, {initial: spec.look4}); look.apply(spec.look4);
+    world = mod.build(scene, {P, B, A, M, M4, PR, TR, BI, V, W, look, spec, look4: {preset: P4, halo, water4}});
+    look.setGround(world.groundY ?? (() => 0));
+    const bk = P4.v4.bake;
+    BAKE = bakeScene(scene, {sunDir: sunDir(P4.base.sunEl, P4.base.sunAz), sun: bk.sun, sunI: bk.sunI, sky: bk.sky, skyI: bk.skyI, ground: bk.ground, groundI: bk.groundI, aoDist: bk.aoDist,
+      lights: bk.lights ? (world.lights ?? []) : []}, {env: look.envMap(), reflect: P4.v4.staticReflect});
+  } else {
   // A4: a world opts into the v3 look by exporting LOOK (an object, or a function of the spec); "Nobody" does not
   const lk = typeof mod.LOOK === 'function' ? mod.LOOK(spec) : mod.LOOK;
   look = lk ? createLookV3(scene, renderer, {...lk, onEnv: tex => M.setEnvMap(tex, lk.envIntensity ?? .45)}) : createLook(scene, renderer);
   world = mod.build(scene, {P, B, A, M, PR, TR, BI, V, W, look, spec});
+  }
 } else {
   scene.background = new T.Color('#8fc8ff'); scene.fog = new T.Fog('#8fc8ff', 60, 140);
   scene.add(new T.HemisphereLight('#dfefff', '#6b8f4e', 1.1));
@@ -453,4 +467,4 @@ function colRange(L, b, w, h) { const x0 = Math.floor((b.x0 + (b.x1 - b.x0) * .3
   for (let y = y0; y < y1; y++) { let s = 0, n = 0; for (let x = Math.max(0, x0); x < Math.min(w, x1); x++) { s += L[y * w + x]; n++; } if (n) rows.push(s / n); } return rows.length ? Math.max(...rows) - Math.min(...rows) : 0; }
 export function shotSpeed(i) { const s = shots[i]; return maxTargetSpeed({...s, fps: FPS, openHit: false}, tt => poseCast(s.start / FPS + tt), FPS); }
 
-window.__episode = {debug: {scene, renderer}, breakdown, measureFrame, seasonMeasure, actorMask, readMeasure, lumaAt, inspectFrame, shotSpeed, END: FRAMES / FPS, anchors: Object.fromEntries(Object.entries(anchors).filter(([, a]) => a.camera).map(([k]) => [k, true])), renderAnchor, renderAnchorNudged, renderCamera, FPS, FRAMES, shots: shots.map(({id, start, frames, size, move, loc, subject, see, openHit, at, why, captionY, fit, spectacle, look: lk}) => ({id, start, frames, size, move, loc, subject, see, openHit: !!openHit, at, why, captionY, fit, spectacle: !!spectacle, look: lk})), renderFrame};
+window.__episode = {debug: {scene, renderer}, bake: BAKE, breakdown, measureFrame, seasonMeasure, actorMask, readMeasure, lumaAt, inspectFrame, shotSpeed, END: FRAMES / FPS, anchors: Object.fromEntries(Object.entries(anchors).filter(([, a]) => a.camera).map(([k]) => [k, true])), renderAnchor, renderAnchorNudged, renderCamera, FPS, FRAMES, shots: shots.map(({id, start, frames, size, move, loc, subject, see, openHit, at, why, captionY, fit, spectacle, look: lk}) => ({id, start, frames, size, move, loc, subject, see, openHit: !!openHit, at, why, captionY, fit, spectacle: !!spectacle, look: lk})), renderFrame};

@@ -1149,3 +1149,42 @@ Decisions:
 - The Session-9 scripts (ragdoll, mountain, mirror) are not the owner's: never printed or proposed.
 Open:
 - The frame budget is still unmeasured (no v4 episode yet).
+
+## Format v4, Phase 2 (2026-11-15): polish P1–P4 + look ("blocky shapes, realistic surfaces, cinematic light")
+Plan:
+- Polish: head 1.2³, 2× fang, vein anger mark, open mouths to 0.40, ≥ 4 px lapel trim + collar rim. Re-render the sheets once.
+- Then: AgX look v4, PMREM sky env, the v4 surface set with disk cache, a per-vertex baker (sun + sky AO + practicals), a shadow catcher, halos, flat water, ffmpeg LUT grade, comedy/mystery presets as data.
+- Fixture `engine/fixtures/v4look`; bench today vs v4; sheet `look-ab-390.png`.
+Built:
+- Polish: body5 `HEAD_SIZE` 1.2 + `headTorsoRatio`; faces4 `FANG`, vein anger mark (#E0262F + ink), big open 0.38; trims .05 + collar rim (back, sides, front tips).
+- `engine/look4.js` (createLookV4, halo, water4), `engine/looks4.json`, `engine/bake.js` (voxelize, occluded, hemiDirs, bakeVertex, bakeScene).
+- `parts/materials4.js` + `scripts/v2/tex4.js` (disk cache `renders/cache/tex4`); `materials.js` `roughnessTexture` (opt-in).
+- `scripts/v2/lut4.py`; assemble.py `lut` (a spec with `look4`); server `.bin`; episode.js `spec.look4` path.
+- `scripts/v2/look-ab4.js`; fixture world + 4 specs; tests: 3 node + 1 py.
+Numbers:
+- Polish gates PASS: head/torso .593 · fang 10.8 px visible at medium · anger strokes ≥ 4.6 px · big open .38 · lapel trim 4.36 px full body / 7.85 medium · faces4 gates still PASS.
+- **Cost (look-cost.json, bench s/frame at 1080): FAIL vs the 0.69 budget.**
+  - comedy: today 0.924 → v4 0.719;
+  - mystery: today 1.061 → v4 0.714;
+  - v4 is 22 % / 33 % faster than today on the same scene, but over budget after two fix passes (pass 1: catcher 24², env only on gloss ≥ .5; pass 2: PCF shadows, no rim light).
+  - Medium shots (actors filling the frame) cost 0.87–0.89; wides 0.55–0.57.
+- Bake 143–226 ms (23 meshes, 21.8k vertices). Texture cache cuts page load 2.3 → 0.94 s.
+- Grade (luma, saturation): comedy v4 wide .515 / .315 vs today .492 / .384; mystery v4 .123 / .64 vs today .159 / .805.
+- v2:test 107 node + 53 py OK; npm test green; "Nobody" 11/11 byte-identical.
+Weakest 3, polish sheet (faces4-390 + hero-390):
+1. The anger mark reads as a red plus more than a curved vein.
+2. Lapel trims still faint at full body (low contrast at 4.4 px).
+3. The collar rim reads as two shoulder bumps from the front.
+Weakest 3, look-ab-390.png:
+1. Comedy v4 is pastel: AgX desaturates the yellow head to cream (sat .315 vs .384) even with the LUT at 1.5.
+2. The puffy cloud is a flat grey-beige blob.
+3. Mystery v4: the hero's head goes khaki and faces are low-contrast. The fixture camera never frames the houses, so baked AO/shadows and the window glow barely show.
+Decisions:
+- Static meshes don't cast real-time shadows: static-on-static is baked; actors' shadows fall on a catcher plane. Actors walking into a building's shadow aren't darkened.
+- The env highlight on baked materials only where gloss ≥ .5 (glass, polished floor).
+- v4 uses PCF (not soft) shadows and no rim light.
+- Exposure: comedy 1.45, mystery 1.7; LUT gamma .9.
+- Cost is compared with the same tool as today's 0.69 (v2:bench at 1080).
+Open:
+- The 0.69 budget is not met. The medium shot's per-pixel actor shading (satin PBR + env + shadow) is the cost.
+- Options for the owner: Lambert/Phong satin for mid-tier actors, a lower final AA, or accept ~0.72.

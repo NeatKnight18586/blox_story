@@ -234,3 +234,20 @@ class OwnerGrouping(unittest.TestCase):
 
 if __name__ == '__main__':
     unittest.main()
+
+
+class Lut4(unittest.TestCase):
+    """Format v4 Phase 2 grade LUTs (scripts/v2/lut4.py): pure, fixed numbers per preset."""
+    def setUp(self):
+        sys.path.insert(0, os.path.join(ROOT, 'scripts/v2')); import lut4; self.L = lut4
+
+    def test_cube_shape_and_direction(self):
+        txt = self.L.cube('comedy', 5).splitlines(); self.assertEqual(txt[1], 'LUT_3D_SIZE 5'); self.assertEqual(len(txt), 2 + 125)
+        sat = lambda c: max(c) - min(c)
+        self.assertGreater(sat(self.L.grade('comedy', (.6, .4, .3))), sat((.6, .4, .3)), 'comedy saturates')
+        self.assertLess(sat(self.L.grade('mystery', (.6, .4, .3))), sat((.6, .4, .3)), 'mystery desaturates')
+        lo = self.L.grade('mystery', (.1, .1, .1)); self.assertGreater(lo[2], lo[0], 'mystery shadows cool')
+        hi = self.L.grade('mystery', (.85, .85, .85)); self.assertGreater(hi[0], hi[2], 'mystery highlights warm')
+        self.assertEqual(self.L.cube('mystery', 3), self.L.cube('mystery', 3))
+        for p in self.L.PRESETS:
+            for c in [(0, 0, 0), (1, 1, 1), (.5, .2, .9)]: self.assertTrue(all(0 <= v <= 1 for v in self.L.grade(p, c)))

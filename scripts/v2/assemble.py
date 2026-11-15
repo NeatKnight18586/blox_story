@@ -16,6 +16,8 @@ max(voice + 2.5 s, 122.5 s); --no-hold for demos.
 ≤ 10 MB. Prints a JSON report checked with ffprobe/ebur128. Filter graphs are pure functions (tests/v2/test_finish.py).
 """
 import argparse, glob, json, os, re, subprocess, sys
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+import lut4 as LUT4
 from PIL import Image
 
 FONTS = 'node_modules/@expo-google-fonts/lilita-one/400Regular'
@@ -53,7 +55,7 @@ def to_yuv(fmt='yuv420p'):
     return f"scale=out_color_matrix=bt709:out_range=tv,format={fmt}"
 
 
-def final_graph(src_size, captions=None, hold=0.0, offset_frames=0, fps=30, outputs=('master',), fmt='yuv420p', vignette=True):
+def final_graph(src_size, captions=None, hold=0.0, offset_frames=0, fps=30, outputs=('master',), fmt='yuv420p', vignette=True, lut=None):
     """filter_complex for finals. src_size (w, h) of the frames; 1080×1920 is upscaled to 1440×2560 BEFORE the grade.
     outputs: 'master' (1440×2560), 'proxy' (1080×1920, downscaled from the same graded frames), 'graded' (master size,
     no captions: QC sharpness). offset_frames shifts timestamps so captions match a single frame pulled for QC.
@@ -64,7 +66,11 @@ def final_graph(src_size, captions=None, hold=0.0, offset_frames=0, fps=30, outp
     up = f"scale={MASTER_SIZE[0]}:{MASTER_SIZE[1]}:flags=lanczos," if (w, h) == FALLBACK_SIZE else ""
     n = len(outputs)
     g = f"[0:v]{pre}{up}{grade_graph(MASTER_SIZE[1], label='graded0', vignette=vignette)}"
-    g += f";[graded0]split={n}" + ''.join(f"[s{i}]" for i in range(n)) if n > 1 else ";[graded0]null[s0]"
+    src = 'graded0'
+    if lut:   # format v4 (opt-in, spec `look4`): the preset's .cube LUT + a light vignette after the A2 grade (scripts/v2/lut4.py)
+        g += f";[graded0]lut3d=file='{lut}',{LUT4.VIGNETTE}[graded0l]"; src = 'graded0l'
+    g += f";[{src}]split={n}" + ''.join(f"[s{i}]" for i in range(n)) if n > 1 else f";[{src}]null[s0]"
+
     labels = []
     for i, kind in enumerate(outputs):
         chain = f"[s{i}]"
@@ -202,6 +208,9 @@ def main():
             placed = SFX.place(spec, SFX.layout(o.spec), spec.get('fps', o.fps)); silence = placed['silence']
             track = os.path.join(tempfile.mkdtemp(), 'sfx.wav'); SFX.write_wav(track, SFX.render_track(placed, total))
             inputs += ['-i', track]; sfx_rep = {'hits': len(placed['hits']), 'byName': {n: sum(h[1] == n for h in placed['hits']) for n in SFX.NAMES if any(h[1] == n for h in placed['hits'])}, 'silence': silence}
+    lut_file = None   # format v4: a spec with `look4` gets its preset's LUT + light vignette (older specs: unchanged)
+    if o.spec and json.load(open(o.spec)).get('look4') in LUT4.PRESETS:
+        lut_file = os.path.join(os.path.dirname(os.path.abspath(o.out)), json.load(open(o.spec))['look4'] + '.cube'); open(lut_file, 'w').write(LUT4.cube(json.load(open(o.spec))['look4']))
     af = audio_graph(loudnorm_filter(voice, o.voice_start, o.voice_dur, prelimit=bool(o.spec)), has_music, sfx_rep is not None, silence)
     for p in (o.out, o.proxy):
         if p: os.makedirs(os.path.dirname(p) or '.', exist_ok=True)
@@ -227,7 +236,7 @@ def main():
     # ---- finals: one decode + grade feeds the master and (first pass) the proxy ----
     rep['path'] = 'native-1440' if (w, h) == MASTER_SIZE else 'fallback-1080-upscaled'
     outs = ('master', 'proxy') if o.proxy else ('master',)
-    graph, labels = final_graph((w, h), o.captions, hold, fps=o.fps, outputs=outs)
+    graph, labels = final_graph((w, h), o.captions, hold, fps=o.fps, lut=lut_file, outputs=outs)
     crf, pcrf = MASTER_CRF, PROXY_CRF_STEPS[0]
     cmd = ['ffmpeg', '-hide_banner', '-y', *inputs, '-filter_complex', graph + ';' + af + (';[a]asplit=2[a1][a2]' if o.proxy else ''),
            '-map', '[master]', '-map', '[a1]' if o.proxy else '[a]', '-r', str(o.fps), *master_encode_args(crf), '-t', f'{total:.3f}', o.out]
@@ -238,12 +247,12 @@ def main():
     def kbps(path): return int(probe_video(path)[1].get('bit_rate') or 0) / 1000
     while (nxt := next_crf(crf, kbps(o.out))) is not None:   # bitrate floor: re-encode the master only
         steps.append({'crf': crf, 'kbps': round(kbps(o.out))}); crf = nxt
-        g1, _ = final_graph((w, h), o.captions, hold, fps=o.fps, outputs=('master',))
+        g1, _ = final_graph((w, h), o.captions, hold, fps=o.fps, lut=lut_file, outputs=('master',))
         run(['ffmpeg', '-hide_banner', '-y', *inputs, '-filter_complex', g1 + ';' + af, '-map', '[master]', '-map', '[a]', '-r', str(o.fps), *master_encode_args(crf), '-t', f'{total:.3f}', o.out])
     if o.proxy:
         while (nxt := next_proxy_crf(pcrf, os.path.getsize(o.proxy) / 1e6)) is not None:
             pcrf = nxt
-            g2, _ = final_graph((w, h), o.captions, hold, fps=o.fps, outputs=('proxy',))
+            g2, _ = final_graph((w, h), o.captions, hold, fps=o.fps, lut=lut_file, outputs=('proxy',))
             run(['ffmpeg', '-hide_banner', '-y', *inputs, '-filter_complex', g2 + ';' + af, '-map', '[proxy]', '-map', '[a]', '-r', str(o.fps), *proxy_encode_args(pcrf), '-t', f'{total:.3f}', o.proxy])
 
     pr, v, au = probe_video(o.out); lufs, peak = measure(o.out)
