@@ -25,7 +25,7 @@ const X = i => i < 4 ? [-6.3 + i * 4.2, 0, 3] : [-4.2 + (i - 4) * 4.2, 0, -3], l
   face: cast.cast[id].face, with: v5 && id !== 'HERO' ? {body: 'v5'} : null})), camera: {position: [0, 9, 44], target: [0, 4.2, 0], fov: 40}});
 const full = {actors: [{id: 'HERO', at: [0, 0, 0], pose: 'idle', t: .3, face: 'hero_wink'}], camera: {position: [1.5, 3.6, 12.5], target: [0, 2.9, 0], fov: 35}};
 // face shots: head centre (y 4.53) on the camera axis's frame line; medium puts it 35 % down the frame, close 45 % down
-const HEAD_Y = 4.53, frameH = d => 2 * d * Math.tan(17.5 * Math.PI / 180);
+const HEAD_Y = 4.63, frameH = d => 2 * d * Math.tan(17.5 * Math.PI / 180);
 const shot = (kind, face, talk = null) => { const d = SHOTS4[kind].d, ty = HEAD_Y - (kind === 'medium' ? .15 : .05) * frameH(d);
   return {actors: [{id: 'HERO', at: [0, 0, 0], pose: 'idle', t: .3, face, talk}], camera: {position: [0, ty, d], target: [0, ty, 0], fov: 35}}; };
 const key = sil => ({keyArt: !sil, silhouette: sil, actors: [{id: 'HERO', at: [0, 0, 0], yaw: -28, pose: 'cheer', t: .45, face: 'hero_wink'}], camera: {position: [3.6, 1.9, 12.6], target: [0, 3.7, 0], fov: 38}});

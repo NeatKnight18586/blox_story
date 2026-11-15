@@ -14,14 +14,23 @@
  "mediumShot": {
   "d": 7,
   "fov": 35,
-  "headPx": 157
+  "headPx": 188.4
  },
  "atMinimumMedium": {
   "note": "actor = 30 % of frame height (the framing floor)",
-  "headPx": 41.3,
-  "minStrokePx": 0.87
+  "headPx": 49.6,
+  "minStrokePx": 1.04
  },
  "wobble": 0.006,
+ "polish": {
+  "fangVisiblePxAtMedium": 10.8,
+  "angerColours": [
+   "#1A1A1A",
+   "#E0262F"
+  ],
+  "angerMinStrokePx": 4.6,
+  "bigOpenWidth": 0.38
+ },
  "talkHeights": {
   "hero_grin": [
    0.04,
@@ -47,7 +56,7 @@
    "heightOfWholeHead": 0.444,
    "eyeAreaL": null,
    "eyeAreaR": 2.24,
-   "minStrokePx": 3.3,
+   "minStrokePx": 3.96,
    "blushOverlap": 0,
    "pass": true
   },
@@ -58,7 +67,7 @@
    "heightOfWholeHead": 0.449,
    "eyeAreaL": 2.24,
    "eyeAreaR": 2.24,
-   "minStrokePx": 3.3,
+   "minStrokePx": 3.96,
    "blushOverlap": 0,
    "pass": true
   },
@@ -69,7 +78,7 @@
    "heightOfWholeHead": 0.468,
    "eyeAreaL": 3.44,
    "eyeAreaR": 3.44,
-   "minStrokePx": 4.4,
+   "minStrokePx": 5.27,
    "blushOverlap": 0,
    "pass": true
   },
@@ -80,7 +89,7 @@
    "heightOfWholeHead": 0.43,
    "eyeAreaL": 3.44,
    "eyeAreaR": 3.44,
-   "minStrokePx": 3.85,
+   "minStrokePx": 4.62,
    "blushOverlap": 0,
    "pass": true
   },
@@ -91,29 +100,29 @@
    "heightOfWholeHead": 0.396,
    "eyeAreaL": 2.62,
    "eyeAreaR": 2.62,
-   "minStrokePx": 4.4,
+   "minStrokePx": 5.27,
    "blushOverlap": 0,
    "pass": true
   },
   {
    "face": "hero_cry",
    "widthFrac": 0.578,
-   "heightFrac": 0.751,
-   "heightOfWholeHead": 0.466,
+   "heightFrac": 0.768,
+   "heightOfWholeHead": 0.476,
    "eyeAreaL": null,
    "eyeAreaR": null,
-   "minStrokePx": 4.4,
+   "minStrokePx": 5.27,
    "blushOverlap": 0,
    "pass": true
   },
   {
    "face": "hero_rage",
    "widthFrac": 0.6,
-   "heightFrac": 0.76,
-   "heightOfWholeHead": 0.471,
+   "heightFrac": 0.776,
+   "heightOfWholeHead": 0.481,
    "eyeAreaL": 2.24,
    "eyeAreaR": 2.24,
-   "minStrokePx": 4.13,
+   "minStrokePx": 4.62,
    "blushOverlap": 0,
    "pass": true
   },
@@ -124,7 +133,7 @@
    "heightOfWholeHead": 0.302,
    "eyeAreaL": null,
    "eyeAreaR": null,
-   "minStrokePx": 3.3,
+   "minStrokePx": 3.96,
    "blushOverlap": 0,
    "pass": true
   },
@@ -135,7 +144,7 @@
    "heightOfWholeHead": 0.315,
    "eyeAreaL": 2.24,
    "eyeAreaR": 2.24,
-   "minStrokePx": 5.49,
+   "minStrokePx": 6.59,
    "blushOverlap": 0,
    "pass": true
   },
@@ -146,7 +155,7 @@
    "heightOfWholeHead": 0.449,
    "eyeAreaL": 2.24,
    "eyeAreaR": 2.24,
-   "minStrokePx": 4.4,
+   "minStrokePx": 5.27,
    "blushOverlap": 0,
    "pass": true
   },
@@ -157,7 +166,7 @@
    "heightOfWholeHead": 0.305,
    "eyeAreaL": 2.24,
    "eyeAreaR": 2.24,
-   "minStrokePx": 5.49,
+   "minStrokePx": 6.59,
    "blushOverlap": 0,
    "pass": true
   },
@@ -168,7 +177,7 @@
    "heightOfWholeHead": 0.377,
    "eyeAreaL": 2.24,
    "eyeAreaR": 2.24,
-   "minStrokePx": 4.4,
+   "minStrokePx": 5.27,
    "blushOverlap": 0,
    "pass": true
   },
@@ -179,7 +188,7 @@
    "heightOfWholeHead": 0.382,
    "eyeAreaL": 2.24,
    "eyeAreaR": 2.24,
-   "minStrokePx": 4.4,
+   "minStrokePx": 5.27,
    "blushOverlap": 0,
    "pass": true
   },
@@ -190,18 +199,18 @@
    "heightOfWholeHead": 0.377,
    "eyeAreaL": 2.62,
    "eyeAreaR": 2.62,
-   "minStrokePx": 4.4,
+   "minStrokePx": 5.27,
    "blushOverlap": 0,
    "pass": true
   },
   {
    "face": "rage",
    "widthFrac": 0.6,
-   "heightFrac": 0.76,
-   "heightOfWholeHead": 0.472,
+   "heightFrac": 0.776,
+   "heightOfWholeHead": 0.481,
    "eyeAreaL": 2.24,
    "eyeAreaR": 2.24,
-   "minStrokePx": 4.13,
+   "minStrokePx": 4.62,
    "blushOverlap": 0,
    "pass": true
   },
@@ -212,7 +221,7 @@
    "heightOfWholeHead": 0.396,
    "eyeAreaL": 2.62,
    "eyeAreaR": 2.62,
-   "minStrokePx": 4.4,
+   "minStrokePx": 5.27,
    "blushOverlap": 0,
    "pass": true
   },
@@ -223,7 +232,7 @@
    "heightOfWholeHead": 0.468,
    "eyeAreaL": 3.44,
    "eyeAreaR": 3.44,
-   "minStrokePx": 4.4,
+   "minStrokePx": 5.27,
    "blushOverlap": 0,
    "pass": true
   },
@@ -234,29 +243,29 @@
    "heightOfWholeHead": 0.427,
    "eyeAreaL": 2.24,
    "eyeAreaR": 2.24,
-   "minStrokePx": 4.4,
+   "minStrokePx": 5.27,
    "blushOverlap": 0,
    "pass": true
   },
   {
    "face": "terrified",
    "widthFrac": 0.637,
-   "heightFrac": 0.752,
-   "heightOfWholeHead": 0.467,
+   "heightFrac": 0.769,
+   "heightOfWholeHead": 0.477,
    "eyeAreaL": 3.44,
    "eyeAreaR": 3.44,
-   "minStrokePx": 3.85,
+   "minStrokePx": 4.62,
    "blushOverlap": 0,
    "pass": true
   },
   {
    "face": "scream",
    "widthFrac": 0.637,
-   "heightFrac": 0.76,
-   "heightOfWholeHead": 0.472,
+   "heightFrac": 0.776,
+   "heightOfWholeHead": 0.482,
    "eyeAreaL": 3.44,
    "eyeAreaR": 3.44,
-   "minStrokePx": 4.4,
+   "minStrokePx": 5.27,
    "blushOverlap": 0,
    "pass": true
   },
@@ -267,18 +276,18 @@
    "heightOfWholeHead": 0.468,
    "eyeAreaL": 2.53,
    "eyeAreaR": 2.53,
-   "minStrokePx": 4.4,
+   "minStrokePx": 5.27,
    "blushOverlap": 0,
    "pass": true
   },
   {
    "face": "starry",
    "widthFrac": 0.61,
-   "heightFrac": 0.775,
-   "heightOfWholeHead": 0.481,
+   "heightFrac": 0.791,
+   "heightOfWholeHead": 0.491,
    "eyeAreaL": 2.53,
    "eyeAreaR": 2.53,
-   "minStrokePx": 4.4,
+   "minStrokePx": 5.27,
    "blushOverlap": 0,
    "pass": true
   },
@@ -289,7 +298,7 @@
    "heightOfWholeHead": 0.467,
    "eyeAreaL": 2.24,
    "eyeAreaR": 2.24,
-   "minStrokePx": 4.4,
+   "minStrokePx": 5.27,
    "blushOverlap": 0,
    "pass": true
   },
@@ -300,18 +309,18 @@
    "heightOfWholeHead": 0.291,
    "eyeAreaL": null,
    "eyeAreaR": null,
-   "minStrokePx": 3.3,
+   "minStrokePx": 3.96,
    "blushOverlap": 0,
    "pass": true
   },
   {
    "face": "laugh",
    "widthFrac": 0.609,
-   "heightFrac": 0.775,
-   "heightOfWholeHead": 0.481,
+   "heightFrac": 0.791,
+   "heightOfWholeHead": 0.491,
    "eyeAreaL": null,
    "eyeAreaR": null,
-   "minStrokePx": 4.4,
+   "minStrokePx": 5.27,
    "blushOverlap": 0,
    "pass": true
   },
@@ -322,18 +331,18 @@
    "heightOfWholeHead": 0.299,
    "eyeAreaL": null,
    "eyeAreaR": null,
-   "minStrokePx": 3.3,
+   "minStrokePx": 3.96,
    "blushOverlap": 0,
    "pass": true
   },
   {
    "face": "cry",
    "widthFrac": 0.578,
-   "heightFrac": 0.752,
-   "heightOfWholeHead": 0.467,
+   "heightFrac": 0.769,
+   "heightOfWholeHead": 0.477,
    "eyeAreaL": null,
    "eyeAreaR": null,
-   "minStrokePx": 4.4,
+   "minStrokePx": 5.27,
    "blushOverlap": 0,
    "pass": true
   },
@@ -344,7 +353,7 @@
    "heightOfWholeHead": 0.421,
    "eyeAreaL": 2.24,
    "eyeAreaR": 2.24,
-   "minStrokePx": 4.4,
+   "minStrokePx": 5.27,
    "blushOverlap": 0,
    "pass": true
   },
@@ -355,7 +364,7 @@
    "heightOfWholeHead": 0.424,
    "eyeAreaL": null,
    "eyeAreaR": null,
-   "minStrokePx": 3.3,
+   "minStrokePx": 3.96,
    "blushOverlap": 0,
    "pass": true
   },
@@ -366,7 +375,7 @@
    "heightOfWholeHead": 0.332,
    "eyeAreaL": null,
    "eyeAreaR": null,
-   "minStrokePx": 5.49,
+   "minStrokePx": 6.59,
    "blushOverlap": 0,
    "pass": true
   },
@@ -377,18 +386,18 @@
    "heightOfWholeHead": 0.439,
    "eyeAreaL": 2.62,
    "eyeAreaR": 2.62,
-   "minStrokePx": 4.4,
+   "minStrokePx": 5.27,
    "blushOverlap": 0,
    "pass": true
   },
   {
    "face": "xd",
    "widthFrac": 0.57,
-   "heightFrac": 0.593,
-   "heightOfWholeHead": 0.368,
+   "heightFrac": 0.609,
+   "heightOfWholeHead": 0.378,
    "eyeAreaL": null,
    "eyeAreaR": null,
-   "minStrokePx": 5.49,
+   "minStrokePx": 6.59,
    "blushOverlap": 0,
    "pass": true
   }

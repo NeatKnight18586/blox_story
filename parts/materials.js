@@ -199,6 +199,23 @@ export function normalTexture(name, size = N) {
   nrmCache.set(ck, tex); return tex;
 }
 
+// Format v4 Phase 2 (opt-in, unused by older specs): roughness maps for the relief patterns, from the same height drawing
+// (crevices rough, tops a little smoother; green channel, as three reads roughness).
+const roughCache = new Map();
+export const roughFromHeight = (v, base = .86, span = .22) => Math.round(Math.min(1, base + span * (.5 - v)) * 255);   // pure
+export function roughnessTexture(name, size = 512) {
+  if (!HEIGHT[name]) return null;
+  const ck = name + '@' + size; if (roughCache.has(ck)) return roughCache.get(ck);
+  let tex = null;
+  if (typeof document !== 'undefined') {
+    const S = size, c = document.createElement('canvas'); c.width = c.height = S; const g = c.getContext('2d', {willReadFrequently: true}); g.scale(S / N, S / N); HEIGHT[name](g);
+    const px = g.getImageData(0, 0, S, S).data, out = new Uint8Array(S * S * 4);
+    for (let y = 0; y < S; y++) for (let x = 0; x < S; x++) { const o = ((S - 1 - y) * S + x) * 4; out[o + 1] = roughFromHeight(px[(y * S + x) * 4] / 255); out[o + 3] = 255; }
+    tex = new T.DataTexture(out, S, S, T.RGBAFormat); tex.wrapS = tex.wrapT = T.RepeatWrapping; tex.colorSpace = T.NoColorSpace; tex.generateMipmaps = true; tex.minFilter = T.LinearMipmapLinearFilter; tex.needsUpdate = true;
+  }
+  roughCache.set(ck, tex); return tex;
+}
+
 const matCache = new Map();
 // mat('brick', '#c9a27a'), mat('neon', '#ffcf6b') (emissive), mat('metal', '#d7dde6') (shiny), mat('rock', c, {vertexColors}).
 export function mat(pattern = 'plastic', color = '#cccccc', {flat = false, vertexColors = false} = {}) {

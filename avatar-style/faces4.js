@@ -13,7 +13,7 @@ import * as T from 'three';
 import {HEAD, headFrontZ} from './body.js';
 import {OLD_NAMES, darkSkin, PRESET_GROUPS} from './faces3.js';
 
-export const INK = '#1A1A1A', WHITE = '#ffffff', MOUTH = '#8B1E2B', TONGUE = '#E06A7A', BLUSH = '#ff8fa3', HATCH = '#e0577a', WATER = '#6cc3ff', ANGER = '#e53935';
+export const INK = '#1A1A1A', WHITE = '#ffffff', MOUTH = '#8B1E2B', TONGUE = '#E06A7A', BLUSH = '#ff8fa3', HATCH = '#e0577a', WATER = '#6cc3ff', ANGER = '#E0262F';
 export const GRID4 = {eyeY: .02, eyeX: .20, mouthY: -.20, stroke: .035, browGap: .06, eyeW: .20, eyeH: .13, wobble: .006};
 export const TIER_PX = {hero: 1024, mid: 512, crowd: 128, bg: 128};
 const G = GRID4, S = G.stroke;
@@ -76,10 +76,11 @@ export const EYES4 = {
 const LINE_EYES = ['squeeze', 'happy', 'wink', 'closed'];
 // mouths (centre y −.20). D = an open mouth: interior, optional tongue/fang (clipped), one outline.
 const my = G.mouthY;
+export const FANG = {w: .046, h: .075};   // fang triangle below the mouth's top edge (the outline covers stroke/2 of it)
 function open(pts, {tongue = false, fang = null} = {}) {
   const b = bbox(pts), out = [fill(pts, MOUTH, {mouth: true, interior: true})];
   if (tongue) out.push(fill(ellipse((b[0] + b[2]) / 2, b[1] + (b[3] - b[1]) * .25, (b[2] - b[0]) * .3, (b[3] - b[1]) * .32), TONGUE, {clip: pts}));
-  if (fang !== null) out.push(fill([[fang - .016, b[3] + .01], [fang + .016, b[3] + .01], [fang, b[3] - .03]], WHITE, {clip: pts, fang: true}));
+  if (fang !== null) out.push(fill([[fang - FANG.w / 2, b[3] + .01], [fang + FANG.w / 2, b[3] + .01], [fang, b[3] - FANG.h]], WHITE, {clip: pts, fang: true}));   // P2: 2× the 1b fang
   out.push(line([...pts, pts[0]], S, {mouth: true})); return out;
 }
 // interior opening h at the centre column (x = 0); `lift` raises the right corner (top and bottom move together there)
@@ -96,7 +97,7 @@ export const MOUTHS4 = {
   smirk: () => [line(cubic([-.055, my - .005], [-.01, my - .025], [.035, my - .02], [.065, my + .03]), S, {mouth: true})],
   'fang smile': () => open(D(.17, .075), {fang: .04}),
   'lopsided fang': () => open(D(.2, .08, {lift: .045}), {fang: .05}),
-  'big open': () => open(D(.3, .12), {tongue: true}),
+  'big open': () => open(D(.38, .14), {tongue: true}),   // P4: big open mouths up to 0.40 of face width
   // talk shapes: clear size steps (height .04 / .08 / .13; the wide one shows the tongue)
   'smile small': () => open(D(.12, .04)), 'smile open': () => open(D(.16, .08)), 'smile wide': () => open(D(.22, .13), {tongue: true}),
   'grin small': () => open(D(.13, .04, {lift: .02}), {fang: .03}), 'grin open': () => open(D(.17, .08, {lift: .03}), {fang: .04}), 'grin wide': () => open(D(.23, .13, {lift: .035}), {fang: .05, tongue: true}),
@@ -119,8 +120,12 @@ export const EXTRAS4 = {
   sweat: () => { const c = [.36, .2], p = [...cubic([c[0], c[1] + .07], [c[0] + .05, c[1]], [c[0] + .045, c[1] - .055], [c[0], c[1] - .055], 10), ...cubic([c[0], c[1] - .055], [c[0] - .045, c[1] - .055], [c[0] - .05, c[1]], [c[0], c[1] + .07], 10).slice(1)];
     return [fill(p, WATER), line(p, S * .7)]; },
   tears: () => sides(s => { const x = s * G.eyeX, p = [[x - .035, G.eyeY - .06], [x + .035, G.eyeY - .06], [x + .05, -.46], [x - .05, -.46]]; return [fill(p, WATER, {alpha: .92})]; }),
-  anger: () => { const c = [.31, .31], r = .045; return [0, 1, 2, 3].map(k => { const a = k * Math.PI / 2 + Math.PI / 4, b = [c[0] + Math.cos(a) * r * .35, c[1] + Math.sin(a) * r * .35];
-    return line(quad(b, [c[0] + Math.cos(a) * r * 1.2, c[1] + Math.sin(a) * r * 1.2], [c[0] + Math.cos(a + .9) * r, c[1] + Math.sin(a + .9) * r], 6), S * .75, {color: ANGER}); }); },
+  // P3: the classic four-curve vein mark, sharp red with an ink outline (each curve bulges toward the centre)
+  anger: () => { const c = [.31, .31], R = .05, out = [];
+    for (let k = 0; k < 4; k++) { const a = Math.PI / 4 + k * Math.PI / 2, o = [c[0] + Math.cos(a) * R * 1.25, c[1] + Math.sin(a) * R * 1.25], pts = [];
+      for (let i = 0; i <= 10; i++) { const u = a + Math.PI + (i / 10 - .5) * 1.5; pts.push([o[0] + Math.cos(u) * R * .8, o[1] + Math.sin(u) * R * .8]); }
+      out.push(line(pts, S * 1.35, {color: INK, anger: true}), line(pts, S * .7, {color: ANGER, anger: true})); }
+    return out; },
   z: () => [line([[.27, .33], [.34, .33], [.27, .26], [.34, .26]], S * .7), line([[.37, .4], [.41, .4], [.37, .36], [.41, .36]], S * .6)],
 };
 

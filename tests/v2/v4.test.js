@@ -13,7 +13,8 @@ test('v5 body: six rigid parts, R6 sizes, bevel .04, shared satin per colour, cl
   const a = B5.createActor5({skin: '#FFD542', name: 'h', regions: hero.regions});
   assert.deepEqual(Object.keys(a.parts).sort(), ['head', 'leftArm', 'leftLeg', 'rightArm', 'rightLeg', 'torso']);
   const p = a.parts.torso.geometry.parameters; assert.deepEqual([p.width, p.height, p.depth], [2, 2, 1]);
-  const h = B5.HEAD5; assert.ok(Math.abs(1.25 * h[0] - 1) < 1e-9 && Math.abs(1.16 * h[1] - 1) < 1e-9 && Math.abs(1.1 * h[2] - 1) < 1e-9);
+  const h = B5.HEAD5; assert.ok(Math.abs(1.25 * h[0] - 1.2) < 1e-9 && Math.abs(1.16 * h[1] - 1.2) < 1e-9 && Math.abs(1.1 * h[2] - 1.2) < 1e-9, 'P1: classic head 1.2³');
+  const r = B5.headTorsoRatio(a); assert.ok(r >= .58 && r <= .62, `head / torso width at a front ortho view ${r}`);
   assert.deepEqual(a.pivots.head.scale.toArray(), h);
   assert.equal(B5.satin('#73985E'), B5.satin('#73985e'), 'one material per colour');
   assert.equal(B5.satin('#000').roughness, .45); assert.equal(B5.satin('#000').metalness, 0); assert.ok(B5.satin('#000').isMeshStandardMaterial);
@@ -26,7 +27,7 @@ test('v5 regions: arms half sleeve / half hand, shoes = bottom 20 %, blocks fill
   const arm = B5.regionBlocks('leftArm', hero.regions), leg = B5.regionBlocks('leftLeg', hero.regions);
   assert.deepEqual(arm.map(b => b.size[1]), [1, 1]); assert.equal(arm[1].color, '#FFD542');
   assert.ok(Math.abs(leg[1].size[1] - .4) < 1e-9); assert.ok(Math.abs(leg[0].size[1] + leg[1].size[1] - 2) < 1e-9);
-  const tor = B5.regionBlocks('torso', hero.regions); assert.equal(tor[0].color, '#0D7CD4'); assert.equal(tor.length, 7, 'strip, 2 lapels, 2 lapel edges, 2 collar edges');
+  const tor = B5.regionBlocks('torso', hero.regions); assert.equal(tor[0].color, '#0D7CD4'); assert.equal(tor.length, 10, 'strip, 2 lapels, 2 trims, collar rim back + 2 sides + 2 front tips');
 });
 test('hero slot: no hair, v5 + faces v4, resolves through the troupe', () => {
   const p = resolveTroupe({troupe: 'HERO'}, {troupe: {HERO: hero}});
@@ -50,7 +51,8 @@ test('hero colours: troupe/crowd outfits closer than RGB 90 swap to the nearest 
 test('hero jacket: charcoal with #4A4E57 lapel and collar edges; charcoal sleeves', () => {
   assert.equal(hero.regions.torso.main, '#2B2D33'); assert.equal(hero.regions.arms.upper, '#2B2D33');
   const t = B5.regionBlocks('torso', hero.regions), e = t.filter(b => b.edge);
-  assert.equal(e.length, 4); assert.ok(e.every(b => b.color === '#4A4E57' && Math.min(b.size[0], b.size[1]) === .03));
+  assert.equal(e.length, 7); assert.ok(e.every(b => b.color === '#4A4E57')); assert.ok(e.filter(b => !b.collar).every(b => b.size[0] === .05));
+  assert.ok(e.filter(b => b.collar).every(b => b.at[1] + b.size[1] / 2 > 1), 'collar rim stands above the shoulders');
 });
 test('faces v4 (1b): placement, sizes, no sketch pass, marker strokes', () => {
   const G = F4.GRID4; assert.ok(Math.abs(G.eyeY - (.5 - .48)) < 1e-12); assert.ok(Math.abs(G.eyeX * 2 - .4) < 1e-12); assert.ok(Math.abs(G.mouthY - (.5 - .70)) < 1e-12); assert.equal(G.stroke, .035);
@@ -93,4 +95,35 @@ test('lip flaps: envelope, shapes with a 2-frame hold, who flaps', () => {
   assert.equal(L.flapActive({size: 'close'}, 'HERO'), true); assert.equal(L.flapActive({size: 'medium'}, 'HERO'), false);
   assert.equal(L.flapActive({size: 'medium', speaker: 'Dax'}, 'Dax'), true); assert.equal(L.flapActive({size: 'wide', speaker: 'Dax'}, 'Dax'), false);
   assert.equal(L.flapActive({size: 'close', speaker: 'Dax'}, 'HERO'), false);
+});
+
+// ---- Phase 2: baking, surfaces, presets ----
+import * as BK from '../../engine/bake.js';
+import * as M4 from '../../parts/materials4.js';
+test('bake: voxel grid, occlusion, sun shadow, AO and practicals per vertex (pure, deterministic)', () => {
+  const quad = (y, x0, x1, z0, z1) => [x0, y, z0, x1, y, z0, x1, y, z1, x0, y, z0, x1, y, z1, x0, y, z1];
+  const roofTris = quad(3, -1, 1, -1, 1), G = BK.voxelize(new Float32Array([...quad(0, -10, 10, -10, 10), ...roofTris]), .5);
+  assert.ok(G.n.every(v => v > 0));
+  assert.equal(BK.occluded(G, [0, .6, 0], [0, 1, 0], 10), true, 'the roof blocks the sky above');
+  assert.equal(BK.occluded(G, [6, .6, 6], [0, 1, 0], 10), false, 'open sky away from it');
+  const cfg = {sunDir: [0, 1, 0], sun: [1, 1, 1], sunI: 1, sky: [.5, .6, .9], skyI: .6, ground: [.3, .3, .3], groundI: .1, aoDist: 3.5, lights: []};
+  const under = BK.bakeVertex([0, 0, 0], [0, 1, 0], G, cfg), open = BK.bakeVertex([6, 0, 6], [0, 1, 0], G, cfg);
+  assert.ok(open[0] > under[0] + .5, `sun shadow under the roof ${under[0]} vs ${open[0]}`);
+  assert.deepEqual(BK.bakeVertex([6, 0, 6], [0, 1, 0], G, cfg), open, 'deterministic');
+  const lit = BK.bakeVertex([6, 0, 6], [0, 1, 0], G, {...cfg, lights: [{p: [6, 2, 6], color: [1, .8, .5], i: 2, range: 6}]});
+  assert.ok(lit[0] > open[0] && lit[2] > open[2], 'a practical adds light');
+  const d = BK.hemiDirs(12); assert.equal(d.length, 12); assert.ok(d.every(v => v[2] > 0 && Math.abs(Math.hypot(...v) - 1) < 1e-9));
+});
+test('v4 surfaces: six generators, deterministic, roughness/height ranges, cache pack size', () => {
+  assert.deepEqual(M4.NAMES4, ['asphaltLane', 'plaster', 'timber', 'roofTile', 'glassPanel', 'polishedFloor']);
+  for (const n of M4.NAMES4) { const a = M4.gen4(n, 32), b = M4.gen4(n, 32); assert.deepEqual(a.albedo, b.albedo); assert.equal(a.rough.length, 32 * 32); assert.ok(a.height.every(h => h >= 0 && h <= 1.2)); }
+  const g = M4.gen4('glassPanel', 64), r = [...g.rough]; assert.ok(Math.min(...r) < 30 && Math.max(...r) > 90, 'glass panes glossy, mullions rough');
+  const asph = M4.gen4('asphaltLane', 128); assert.ok([...asph.albedo].some((v, i) => i % 4 === 0 && v > 200), 'lane paint present');
+  assert.equal(M4.pack4(M4.gen4('plaster', 16)).length, 16 * 16 * 9);
+  assert.deepEqual([...M4.roughnessFromHeight(new Float32Array([0, .5, 1]))], [247, 219, 191]);
+});
+test('v4 presets (data): comedy and mystery with fixed numbers', async () => {
+  const P = JSON.parse(readFileSync('engine/looks4.json', 'utf8'));
+  for (const k of ['comedy', 'mystery']) { assert.equal(P[k].v4.toneMapping, 'AgX'); assert.equal(P[k].v4.lut, k); assert.ok(P[k].base.exposure > 0); }
+  assert.equal(P.comedy.v4.clouds, 'puffy'); assert.equal(P.comedy.v4.heightFog, null); assert.ok(P.mystery.v4.heightFog.amount > 0); assert.equal(P.mystery.v4.bake.lights, true);
 });

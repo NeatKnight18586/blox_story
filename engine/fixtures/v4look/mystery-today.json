@@ -1,0 +1,195 @@
+{
+ "slug": "v4look-mystery-today",
+ "fps": 30,
+ "note": "Format v4 Phase 2 look test (mystery-today): street, two houses, glass tower, lamp post, hero + two actors.",
+ "world": "engine/fixtures/v4look/world.js",
+ "labels": false,
+ "cast": {
+  "hero": {
+   "style": "v5",
+   "troupe": "HERO",
+   "at": "street",
+   "yaw": -10,
+   "keys": [
+    [
+     0,
+     "idle"
+    ],
+    [
+     2.0,
+     "wave"
+    ],
+    [
+     4.0,
+     "idle"
+    ]
+   ],
+   "faces": [
+    [
+     0,
+     "hero_wink"
+    ],
+    [
+     2,
+     "hero_grin"
+    ]
+   ],
+   "offset": [
+    0.5,
+    0,
+    6
+   ]
+  },
+  "lead": {
+   "style": "v5",
+   "troupe": "LEAD",
+   "at": "street",
+   "yaw": 30,
+   "keys": [
+    [
+     0,
+     "idle"
+    ]
+   ],
+   "faces": [
+    [
+     0,
+     "smile"
+    ]
+   ],
+   "offset": [
+    -2.4,
+    0,
+    4.2
+   ]
+  },
+  "second": {
+   "style": "v5",
+   "troupe": "SECOND",
+   "at": "street",
+   "yaw": -35,
+   "keys": [
+    [
+     0,
+     "idle"
+    ]
+   ],
+   "faces": [
+    [
+     0,
+     "curious"
+    ]
+   ],
+   "offset": [
+    3.2,
+    0,
+    3.4
+   ]
+  }
+ },
+ "shots": [
+  {
+   "id": "A-wide",
+   "size": "wide",
+   "move": "push",
+   "from": {
+    "position": [
+     4,
+     4.2,
+     26
+    ],
+    "target": [
+     -2,
+     4,
+     -4
+    ],
+    "fov": 50
+   },
+   "to": {
+    "position": [
+     3.4,
+     4,
+     23
+    ],
+    "target": [
+     -2,
+     4,
+     -4
+    ],
+    "fov": 50
+   },
+   "subject": "hero",
+   "shadowRadius": 14,
+   "frames": 60
+  },
+  {
+   "id": "B-medium",
+   "size": "medium",
+   "move": "orbit",
+   "from": {
+    "position": [
+     4,
+     4.2,
+     14
+    ],
+    "target": [
+     0.5,
+     3.8,
+     6
+    ],
+    "fov": 40
+   },
+   "to": {
+    "position": [
+     2,
+     4.2,
+     14.4
+    ],
+    "target": [
+     0.5,
+     3.8,
+     6
+    ],
+    "fov": 40
+   },
+   "subject": "hero",
+   "shadowRadius": 10,
+   "frames": 60
+  },
+  {
+   "id": "C-close",
+   "size": "close",
+   "move": "push",
+   "from": {
+    "position": [
+     0.9,
+     4.7,
+     10.4
+    ],
+    "target": [
+     0.5,
+     4.6,
+     6
+    ],
+    "fov": 35
+   },
+   "to": {
+    "position": [
+     0.8,
+     4.7,
+     9.6
+    ],
+    "target": [
+     0.5,
+     4.6,
+     6
+    ],
+    "fov": 35
+   },
+   "subject": "hero",
+   "shadowRadius": 8,
+   "frames": 60
+  }
+ ],
+ "look": "night"
+}
