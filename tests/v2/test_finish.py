@@ -110,3 +110,13 @@ class Metrics(unittest.TestCase):
 
 if __name__ == '__main__':
     unittest.main()
+
+
+class TestEndTotalV5(unittest.TestCase):
+    """Toy House E1 fix: format 5 = no padding, 0.85 s after the voice."""
+    def test_v5(self):
+        self.assertAlmostEqual(A.end_total(81.75, 80.9, 5), 81.75)
+        self.assertAlmostEqual(A.end_total(80.0, 80.9, 5), 81.75)
+    def test_older_and_no_hold(self):
+        self.assertAlmostEqual(A.end_total(100, 80.9, None), 122.5)
+        self.assertAlmostEqual(A.end_total(81.75, 80.9, 5, True), 81.75)

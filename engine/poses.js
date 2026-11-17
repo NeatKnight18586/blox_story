@@ -107,6 +107,14 @@ const POSES = {
   gaspHands: () => make({rightShoulder: [-2.45, 0, -.28], leftShoulder: [-2.45, 0, .28], head: [-.12, 0, 0]}, {lean: -.09}),
   doubleTake(t) { return t < .22 ? make({head: [0, .75, 0]}) : make({head: [-.16, 0, 0], leftShoulder: [-.6, 0, -.35], rightShoulder: [-.6, 0, .35]}, {lean: -.12, dy: .06}); },
   flail(t) { const a = Math.sin(Math.floor(t * 12) * 1.9); return make({rightShoulder: [-2.2 + .65 * a, 0, .9], leftShoulder: [-2.2 - .65 * a, 0, -.9], head: [-.1, 0, .12 * a]}, {dy: .06 * Math.abs(a)}); },
+  // Toy House E1 fix (opt-in): blasterAim — both hands on a foam blaster (right fist on the grip, left under the barrel); every
+  // o.every s (default .5, from o.fire0) a 3-frame recoil kick (24 fps). drive — seated, both hands on a kart wheel.
+  // holdHands — the walk with the inner arm (o.side 'left' | 'right', toward the partner) angled out to meet the partner's hand (kids 3.4 apart); o.still: standing.
+  blasterAim(t, o) { const ev = o.every ?? .5, u = ((t - (o.fire0 ?? 0)) % ev + ev) % ev, k = u < 3 / 24 ? 1 - u / (3 / 24) : 0;
+    return make({rightShoulder: [-1.5 - .3 * k, 0, -.05], leftShoulder: [-1.38 - .3 * k, 0, .55], head: [.05 + .06 * k, 0, 0], leftHip: [-.12, 0, 0], rightHip: [.12, 0, 0]}, {lean: -.04 - .08 * k, dz: -.12 * k}); },
+  drive(t, o) { const s = POSES.sit(t, o), b = .03 * Math.sin(2 * PI * t / .4); s.pivots.rightShoulder = [-.95 + b, 0, -.45]; s.pivots.leftShoulder = [-.95 - b, 0, .45]; s.pivots.head = [-.05, 0, 0];
+    if (o.aim) { const a = POSES.blasterAim(t, o); s.pivots.rightShoulder = a.pivots.rightShoulder; s.root.lean = a.root.lean; } return s; },   // aim: one hand on the wheel, the other firing
+  holdHands(t, o) { const s = o.still ? legacy('idle', t + (o.phase ?? 0), {}) : POSES.walk(t, o), out = o.reach ?? .2; if ((o.side ?? 'left') === 'left') s.pivots.leftShoulder = [-.04, 0, -out]; else s.pivots.rightShoulder = [-.2, 0, out]; return s; },   // the two fists side by side, one a little ahead (no coplanar overlap)
   // taped up: legs together, arms pinned; a waddle — hops side to side, the body rolling over each foot (period 0.6 s)
   waddle(t) { const w = 2 * PI * t / .6, r = Math.sin(w), hop = Math.abs(Math.sin(w)); return make({leftHip: [.08 * r, 0, -.04], rightHip: [-.08 * r, 0, .04], leftShoulder: [0, 0, -.03], rightShoulder: [0, 0, .03], head: [.04, 0, -.1 * r]}, {roll: .15 * r, dy: .16 * hop, dx: .12 * r, lean: -.03}); },
   slump: () => make({head: [.48, 0, 0], rightShoulder: [.15, 0, .1], leftShoulder: [.15, 0, -.1]}, {lean: .13, dy: -.06}),

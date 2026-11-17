@@ -8,7 +8,7 @@ Finals (A2): 1440×2560 frames (native) or 1080×1920 (recorded fallback: Lanczo
 grade) → highlight-only RGB bloom + light grade + contrast-adaptive sharpen → captions burned at the delivery size
 (text is never bloomed, scaled or sharpened) → voice from frame 0, never stretched, two-pass loudnorm to −14 LUFS,
 TP −1.5 dB (≤ −1 dB after AAC). After the last word the final shot holds so the video ends at
-max(voice + 2.5 s, 122.5 s); --no-hold for demos.
+max(voice + 2.5 s, 122.5 s); format 5 specs (--spec): no padding, voice + 0.85 s; --no-hold for demos.
   master  x264 High, preset slow, tune animation, CRF 14, BT.709, closed 15-frame GOP, AAC-LC 48 kHz 320k,
           +faststart, no size cap; bitrate floor 16 Mb/s (CRF 14 → 12 → 10). Never committed to git.
   --proxy the review copy: same graded frames, downscaled to 1080×1920, captions burned at 1080, CRF 18, ≤ 45 MB.
@@ -180,6 +180,16 @@ def picture_inputs(o, fps):
     return ['-framerate', str(fps), '-start_number', start, '-i', os.path.join(o.frames, 'frame-%05d.png')], Image.open(frames[0]).size, len(frames)
 
 
+V5_HOLD = 0.85   # format v5 (owner, E1 fix): no padding to 122.5 s; the video ends 0.85 s after the voice
+
+
+def end_total(pic, vlen, fmt=None, no_hold=False):
+    """Pure: the finished length (s). --no-hold: the picture; format 5: max(picture, voice + 0.85); older: max(picture, voice + 2.5, 122.5)."""
+    if no_hold: return pic
+    if fmt == 5: return max(pic, vlen + V5_HOLD)
+    return max(pic, max(vlen + 2.5, 122.5))
+
+
 def main():
     a = argparse.ArgumentParser()
     a.add_argument('--story', required=True); a.add_argument('--frames'); a.add_argument('--video', help='near-lossless picture (render farm segments, concatenated) instead of --frames')
@@ -199,7 +209,8 @@ def main():
     if not voice: sys.exit('no voice file in stories/' + o.story)
     vlen = o.voice_dur if o.voice_dur else probe_duration(voice) - o.voice_start
     pic = nframes / o.fps
-    total = pic if o.no_hold else max(pic, max(vlen + 2.5, 122.5))
+    fmt = json.load(open(o.spec)).get('format') if o.spec else None
+    total = end_total(pic, vlen, fmt, o.no_hold)
     hold = max(0.0, total - pic)
     inputs = pic_in + ['-i', voice]
     music = f'stories/{o.story}/music.mp3'; has_music = os.path.exists(music)
@@ -274,7 +285,7 @@ def main():
                 'videoMbps': round(int(v.get('bit_rate') or 0) / 1e6, 2), 'audio': bool(au), 'audioKbps': round(int(au[0].get('bit_rate') or 0) / 1e3) if au else 0,
                 'lufs': lufs, 'truePeak': peak})
     rep['pass'] = ((v['width'], v['height']) == MASTER_SIZE and bool(au) and abs(lufs - TARGET_LUFS) <= 1 and peak <= MAX_TP
-                   and rep['duration'] >= (122.5 if not o.no_hold else 0) - .05)
+                   and rep['duration'] >= (end_total(0, vlen, fmt, o.no_hold)) - .05)
     if o.proxy:
         ppr, pv, pau = probe_video(o.proxy)
         rep['proxy'] = {'out': o.proxy, 'crf': pcrf, 'width': pv['width'], 'height': pv['height'], 'MB': round(int(ppr['format']['size']) / 1e6, 2), 'audio': bool(pau)}

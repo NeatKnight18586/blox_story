@@ -10,7 +10,6 @@ import {setFace} from '../avatar-style/faces2.js';
 import {setFace3, faceError, blinkClosed} from '../avatar-style/faces3.js';
 import {setFace4, faceError4, isHeld} from '../avatar-style/faces4.js';
 import {setFace5, faceError5, isHeld as isHeld5} from '../avatar-style/faces5.js';
-import {clampLen} from './look6.js';
 import {createActor5} from '../avatar-style/body5.js';
 import {attachTool, buildTool} from '../avatar-style/tools.js';
 import {setTag, statSprite, bubbleSprite} from './overhead.js';
@@ -100,23 +99,9 @@ export function driveActor(a, t, {keys, faces, tags, origin = {position: [0, 0, 
   if (bubble) { const txt = step(bubble, t); setOverlay(a, 'bubble', txt ? sprite(a, 'b:' + txt, () => bubbleSprite(txt)) : null, [0, 7.0, 0]); }
   return a;
 }
-// Look 5b (opt-in, engine/motion5b.js maths): idle breathing on the torso (per-actor seed) and springs on up to `springs`
-// hanging accessories — the beanie pompom (rides the head: lags head pitch/roll) and hoodie strings (ride the body: lag lean/roll/hops).
-const SPRING_GAIN = 1.6, POM_ARM = 1.1, POM_MAX = .15;
+// Look 5b (opt-in, engine/motion5b.js maths): idle breathing on the torso (per-actor seed). The spring path (pompom, hoodie strings) was removed (Toy House E1 fix).
 function motion5b(a, t, sampleAt, o) {
   const torso = a.parts?.torso; if (torso && o.breathe) { a._torsoRest ??= torso.scale.clone(); const b = o.breatheFn(a.blinkSeed ?? a.preset.seed ?? 1, t); torso.scale.set(a._torsoRest.x * b, a._torsoRest.y * b, a._torsoRest.z * b); }
-  if (!o.springs) return;
-  if (a._springs === undefined) { const l = []; a.root.traverse(m => { if (m.name === 'beanie_pom') l.push({kind: 'pom', m, rest: m.position.clone()}); if (m.name === 'hoodie_string') l.push({kind: 'string', m}); });
-    const kinds = [...new Set(l.map(x => x.kind))].slice(0, o.springs); a._springs = l.filter(x => kinds.includes(x.kind)); }
-  if (!a._springs.length) return;
-  const memo = new Map(), at = tt => { let v = memo.get(tt); if (!v) { v = sampleAt(Math.max(0, tt)); memo.set(tt, v); } return v; };
-  const sig = {headX: tt => at(tt).pivots.head[0] + at(tt).root.lean + 1.5 * at(tt).root.dy, headZ: tt => at(tt).pivots.head[2] + at(tt).root.roll + .5 * at(tt).pivots.head[1],
-    bodyX: tt => at(tt).root.lean + 1.5 * at(tt).root.dy, bodyZ: tt => at(tt).root.roll};
-  const lag = {}; for (const k of new Set(a._springs.flatMap(x => x.kind === 'pom' ? ['headX', 'headZ'] : ['bodyX', 'bodyZ']))) lag[k] = o.springLag(sig[k], t) * SPRING_GAIN;
-  for (const x of a._springs) {
-    if (x.kind === 'pom') { const d = clampLen([-POM_ARM * lag.headZ, -.25 * POM_ARM * Math.abs(lag.headX), -POM_ARM * lag.headX], POM_MAX); x.m.position.set(x.rest.x + d[0], x.rest.y + d[1], x.rest.z + d[2]); }   // Look 6: ≤ .15 from the beanie
-    else x.m.rotation.set(lag.bodyX, 0, lag.bodyZ);
-  }
 }
 // How far a kit hat's crown rises above the name tag's normal height (world units at actor scale 1).
 const KIT_LIFT = {chefHat: .5, featherCap: .25};

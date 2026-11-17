@@ -1,5 +1,6 @@
 // scripts/v2/motion5b-demo.js — Look 5b motion demo (8 s, 24 fps): Mo in the candy zone (beanie pompom + hoodie strings on
 // springs), pose changes with 12 % overshoot + settle, idle breathing, camera micro-noise on the static shots, and a closing
+// NOTE (Toy House E1 fix): the pompom and hoodie strings and their springs were removed; this demo is kept for the record and no longer runs.
 // crashZoom with the 2-sub-frame motion blur. Writes engine/fixtures/toyhouse/motion5b.json, renders it (540×960), measures
 // the motion (pompom swing after a pose change, torso breathing) and the blur cost at 1080, assembles
 // review/toyhouse/motion-demo2.mp4 (no audio).                                   node scripts/v2/motion5b-demo.js
