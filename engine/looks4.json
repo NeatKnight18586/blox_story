@@ -1,5 +1,5 @@
 {
- "note": "Format v4 Phase 2 look presets (data, not code). base = the createLook preset fields; v4 = tone mapping, env, bake, glow, grade. Tuning pass 1 (look-ab sheet): comedy exposure 1.1\u21921.45 + LUT saturation 1.15\u21921.3 (AgX desaturates); mystery exposure 1.0\u21921.7, hemi .35\u2192.9, moon .55\u21921.3, baked sky .38\u2192.7 (actors were unreadable). Phase 2b: comedy tone mapping Khronos PBR Neutral (keeps saturation), exposure 1.0; mystery keeps AgX.",
+ "note": "Format v4 Phase 2 look presets (data, not code). base = the createLook preset fields; v4 = tone mapping, env, bake, glow, grade. Tuning pass 1 (look-ab sheet): comedy exposure 1.1\u21921.45 + LUT saturation 1.15\u21921.3 (AgX desaturates); mystery exposure 1.0\u21921.7, hemi .35\u2192.9, moon .55\u21921.3, baked sky .38\u2192.7 (actors were unreadable). Phase 2b: comedy tone mapping Khronos PBR Neutral (keeps saturation), exposure 1.0; mystery keeps AgX. Phase 3b: `toy` (bright interior, practicals baked) and `dawn` (rose horizon, low warm sun) for the Toy House sets.",
  "comedy": {
   "base": {
    "skyTop": "#1f7cff",
@@ -115,6 +115,118 @@
    },
    "staticReflect": 0.08,
    "lut": "mystery"
+  }
+ },
+ "toy": {
+  "base": {
+   "skyTop": "#2f86ff",
+   "skyHorizon": "#bfe2ff",
+   "fog": "#e6e2ff",
+   "fogNear": 120,
+   "fogFar": 520,
+   "hemiSky": "#fff1dc",
+   "hemiGround": "#c9b79a",
+   "hemi": 1.0,
+   "sun": "#fff0d2",
+   "sunI": 1.2,
+   "sunEl": 70,
+   "sunAz": 20,
+   "rim": "#ffffff",
+   "rimI": 0.0,
+   "cloud": "#ffffff",
+   "exposure": 1.0,
+   "windows": 0
+  },
+  "v4": {
+   "toneMapping": "Neutral",
+   "envIntensity": 0.6,
+   "clouds": null,
+   "heightFog": null,
+   "shadowCatcher": 0.35,
+   "glass": {
+    "color": "#9fc4e8",
+    "reflect": 0.6
+   },
+   "bake": {
+    "sun": [
+     1.0,
+     0.94,
+     0.82
+    ],
+    "sunI": 0.55,
+    "sky": [
+     0.95,
+     0.9,
+     0.85
+    ],
+    "skyI": 0.95,
+    "ground": [
+     0.7,
+     0.62,
+     0.55
+    ],
+    "groundI": 0.35,
+    "aoDist": 4.0,
+    "lights": true
+   },
+   "staticReflect": 0.1,
+   "lut": "comedy"
+  }
+ },
+ "dawn": {
+  "base": {
+   "skyTop": "#3a4f93",
+   "skyHorizon": "#ffb98a",
+   "fog": "#e7b9a0",
+   "fogNear": 60,
+   "fogFar": 300,
+   "hemiSky": "#8fa2d8",
+   "hemiGround": "#6b5a58",
+   "hemi": 0.8,
+   "sun": "#ff9d5c",
+   "sunI": 2.0,
+   "sunEl": 9,
+   "sunAz": -70,
+   "rim": "#ffd2a0",
+   "rimI": 0.35,
+   "cloud": "#ffc8a8",
+   "exposure": 1.2,
+   "windows": 1.0
+  },
+  "v4": {
+   "toneMapping": "AgX",
+   "envIntensity": 0.5,
+   "clouds": "puffy",
+   "heightFog": null,
+   "shadowCatcher": 0.4,
+   "glass": {
+    "color": "#7f9ac8",
+    "reflect": 0.9
+   },
+   "bake": {
+    "sun": [
+     1.0,
+     0.62,
+     0.36
+    ],
+    "sunI": 1.3,
+    "sky": [
+     0.5,
+     0.58,
+     0.85
+    ],
+    "skyI": 0.6,
+    "ground": [
+     0.38,
+     0.3,
+     0.3
+    ],
+    "groundI": 0.2,
+    "aoDist": 3.5,
+    "lights": true
+   },
+   "staticReflect": 0.12,
+   "lut": "dawn"
   }
  }
 }

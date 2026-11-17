@@ -5,8 +5,8 @@ import * as T from 'three';
 import {plastic, HEAD} from './body.js';
 import {eggMesh, EGG_R} from '../parts/eggs.js';
 
-export const ACCESSORIES = ['crown', 'helmet', 'hood', 'strawHat', 'scarf', 'cape', 'backpack', 'chefHat', 'featherCap', 'goggles', 'topHat', 'skiMask', 'mailBag', 'mailBagEggs', 'topHatTilt'];
-const HEAD_ITEMS = new Set(['crown', 'helmet', 'hood', 'strawHat', 'chefHat', 'featherCap', 'goggles', 'topHat', 'skiMask', 'topHatTilt']);
+export const ACCESSORIES = ['crown', 'helmet', 'hood', 'strawHat', 'scarf', 'cape', 'backpack', 'chefHat', 'featherCap', 'goggles', 'topHat', 'skiMask', 'mailBag', 'mailBagEggs', 'topHatTilt', 'beanie'];
+const HEAD_ITEMS = new Set(['crown', 'helmet', 'hood', 'strawHat', 'chefHat', 'featherCap', 'goggles', 'topHat', 'skiMask', 'topHatTilt', 'beanie']);
 const geo = new Map();
 const g = (k, f) => { if (!geo.has(k)) geo.set(k, f()); return geo.get(k); };
 const flat = c => { const k = 'flat:' + c; if (!geo.has(k)) geo.set(k, new T.MeshPhongMaterial({color: c, shininess: 35, specular: '#3a3a3a', flatShading: true})); return geo.get(k); };
@@ -60,6 +60,14 @@ const BUILD = {
     return grp;
   },
   // Amendment A3 class accessories.
+  // format v5 (Toy House): a knit beanie pushed back — a shell over the top 55 % of the head, a folded cuff and a pom-pom
+  beanie(o) {
+    const grp = new T.Group(), c = flat(o.color ?? '#ffd542'), cuff = flat(o.cuff ?? o.color ?? '#ffd542'), cy = HEAD.centre + .18;
+    put(grp, g('beanie_shell', () => { const s = new T.SphereGeometry(.94, 16, 10, 0, Math.PI * 2, 0, Math.PI * .5); s.scale(1, 1.0, .98); return s; }), c, [0, cy, -.05], [-.1, 0, 0]);
+    put(grp, g('beanie_cuff', () => { const t = new T.CylinderGeometry(.945, .95, .24, 16, 1, true); t.scale(1, 1, .98); return t; }), cuff, [0, cy - .03, -.05], [-.1, 0, 0]);
+    put(grp, g('beanie_pom', () => new T.IcosahedronGeometry(.2, 0)), cuff, [0, cy + 1.06, -.12]);
+    return grp;
+  },
   chefHat(o) {   // Baker: a tall puffy white toque on a band
     const grp = new T.Group(), white = flat(o.color ?? '#f7f3ea');
     put(grp, g('chef_band', () => new T.CylinderGeometry(.6, .6, .26, 10)), white, [0, TOP + .02, 0]);
