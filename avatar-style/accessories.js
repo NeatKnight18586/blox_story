@@ -65,7 +65,14 @@ const BUILD = {
     const grp = new T.Group(), c = flat(o.color ?? '#ffd542'), cuff = flat(o.cuff ?? o.color ?? '#ffd542'), cy = HEAD.centre + .18;
     put(grp, g('beanie_shell', () => { const s = new T.SphereGeometry(.94, 16, 10, 0, Math.PI * 2, 0, Math.PI * .5); s.scale(1, 1.0, .98); return s; }), c, [0, cy, -.05], [-.1, 0, 0]);
     put(grp, g('beanie_cuff', () => { const t = new T.CylinderGeometry(.945, .95, .24, 16, 1, true); t.scale(1, 1, .98); return t; }), cuff, [0, cy - .03, -.05], [-.1, 0, 0]);
-    put(grp, g('beanie_pom', () => new T.IcosahedronGeometry(.2, 0)), cuff, [0, cy + 1.06, -.12]);
+    put(grp, g('beanie_pom', () => new T.IcosahedronGeometry(.2, 0)), cuff, [0, cy + 1.06, -.12], [0, 0, 0], 'beanie_pom');   // named: Look 5b springs find it
+    return grp;
+  },
+  // Look 5b (opt-in, cast data): two hoodie drawstrings hanging from the collar; each hangs from a pivot group so a spring can swing it
+  hoodieStrings(o) {
+    const grp = new T.Group(), c = flat(o.color ?? '#f4f1ea'), top = o.top ?? 3.7, L = o.length ?? .8;
+    for (const sx of [-1, 1]) { const piv = new T.Group(); piv.name = 'hoodie_string'; piv.position.set(sx * (o.spread ?? .26), top, o.z ?? .53); grp.add(piv);
+      put(piv, g('hoodie_cord', () => new T.BoxGeometry(.07, L, .07)), c, [0, -L / 2, 0]); put(piv, g('hoodie_tip', () => new T.BoxGeometry(.11, .14, .11)), c, [0, -L - .04, 0]); }
     return grp;
   },
   chefHat(o) {   // Baker: a tall puffy white toque on a band

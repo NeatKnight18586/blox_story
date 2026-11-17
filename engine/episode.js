@@ -14,6 +14,8 @@ import {buildActor, driveActor, townsperson, toolGroup} from './actors.js';
 import {resolveTroupe} from './troupe.js';
 import {flapActive, shapeAt} from './lipflap.js';
 import {motionFrame, cascadeOn} from './motion5.js';
+import {overshootEase, breathe, springLag, camNoise, blurOffsets} from './motion5b.js';
+import * as L5B from './look5b.js';
 import {createFill} from './fill.js';
 import {heroColours, heroSafeOutfit, outfitRegions} from '../avatar-style/body5.js';
 import {hair4Material} from '../avatar-style/hair.js';
@@ -155,6 +157,33 @@ function setHeroLit(shot) {   // the close shot's subject keeps real light (Mesh
   if (!MATCAP) return; const who = shot.size === 'close' && shot.heroLit !== false ? (shot.subject ?? shot.fit?.actor ?? null) : null;
   if (who === litNow) return; litNow = who; for (const e of litSwap) e.mesh.material = e.name === who ? e.std : e.mc;
 }
+// Look 5b (opt-in spec.look5b; data looks4.json <preset>.v5b, engine/look5b.js): cast materials get their own clones with a fresnel
+// rim + an actor exposure lift (shared uniforms, set per shot's preset); the world is graded −0.15 EV and 5 % cooler once; daylight
+// presets add exposure; one soft contact blob per actor; motion (overshoot, breathing, springs), static-shot camera noise, and a
+// 2-sub-frame motion blur on whip / crashZoom shots.
+const LOOK5B = !!(spec.look5b && look?.v4), P5B = name => L5B.params(look.presets[name] ?? look.presets[spec.look4]);
+const U5B = LOOK5B ? {...L5B.makeUniforms(P5B(spec.look4)), uRelief: {value: 0}} : null;
+const M5B = LOOK5B ? {overshoot: {os: P5B(spec.look4).overshoot, settle: .3, ease: u => overshootEase(u, P5B(spec.look4).overshoot)}, breathe: P5B(spec.look4).breathe, springs: P5B(spec.look4).springs, breatheFn: breathe, springLag} : null;
+const blobs5b = {};
+if (LOOK5B) {
+  const own = new Map(), mine = (m, who) => { if (Array.isArray(m)) return m.map(x => mine(x, who)); if (!m || m.isMeshBasicMaterial || m.isSpriteMaterial) return m; const k = who + '|' + m.uuid;
+    if (!own.has(k)) own.set(k, L5B.patchActor(m.clone(), {...U5B, uShade: U5B.shadeOf[who]})); return own.get(k); };   // per-actor clones: each actor its own shadow depth
+  U5B.shadeOf = Object.fromEntries(Object.entries(cast).filter(([, x]) => x.v2).map(([n, x]) => [n, {value: 1, skin: x.a.preset?.skin}]));
+  for (const e of litSwap) { e.mc = mine(e.mc, e.name); e.std = mine(e.std, e.name); e.mesh.material = e.name === litNow ? e.std : e.mc; }
+  for (const x of Object.values(cast)) if (x.v2) x.a.root.traverse(o => { if (o.name === 'face_decal') for (const m of [].concat(o.material)) L5B.patchDecal(m, U5B); });   // in place: setFace4 swaps the decal's map
+  for (const [name, x] of Object.entries(cast)) if (x.v2) { const w = 4.2 * x.a.root.scale.x, b = L5B.contactBlob(P5B(spec.look4).blob.radius * w, P5B(spec.look4).blob.opacity); b.visible = false; scene.add(b); blobs5b[name] = b; }
+}
+function apply5b(shot) {
+  if (!LOOK5B) return; const p = P5B(shot.look ?? spec.look4);
+  U5B.uRimColor.value.set(p.rim.color); U5B.uRim.value = p.rim.strength; U5B.uRimPow.value = p.rim.power; U5B.uLift.value = L5B.ev(p.actorEV); U5B.uShade.value = p.shade; U5B.uKnee.value = p.knee; for (const v of Object.values(U5B.shadeOf)) v.value = L5B.actorShade(v.skin, p.shade);
+  U5B.uRelief.value = ['close', 'medium'].includes(shot.size) ? p.relief : 0;
+  renderer.toneMappingExposure *= L5B.ev(p.exposureEV);
+  const gc = c => { const v = L5B.envGrade([c.r, c.g, c.b], p); c.setRGB(...v); };   // fog and sky are environment too
+  if (scene.fog) { gc(scene.fog.color); if (p.fogFar) scene.fog.far = p.fogFar; } if (look.sky?.material?.uniforms) { gc(look.sky.material.uniforms.top.value); gc(look.sky.material.uniforms.horizon.value); }
+  for (const [name, b] of Object.entries(blobs5b)) { const m = markPos[name], vis = cast[name].a.root.visible && m; b.visible = !!vis; if (vis) b.position.set(m[0], (world?.groundY?.(m[0], m[2]) ?? m[1]) + .14, m[2]); }   // above the .12 zone plates
+}
+const STATIC_MOVES = ['topDown'];   // plus any shot marked static: true
+const camNoise5b = (shot, t) => LOOK5B && (shot.static || STATIC_MOVES.includes(shot.move)) ? camNoise(t, shots.indexOf(shot) + 1, P5B(shot.look ?? spec.look4).camNoiseDeg) : null;
 for (const s of shots) if (s.fit && s.fit.h === undefined && cast[s.fit.actor]) s.fit.h = 5.3 * cast[s.fit.actor].a.root.scale.y;   // A5 §F: actor height for `fit`
 // A5 §E Decision 2: one narrow, soft spotlight per hero (troupe except AFK) for medium/close night shots, aimed from the
 // camera side at the chest, shadow-casting (the actor screens the ground behind). Real lights stay ≤ 4 with the world's own.
@@ -224,7 +253,7 @@ function poseCast(t) {
       markPos[name] = [...at];
       if (dragon) driveDragon(a, t, {keys: c.keys ?? [[0, 'perch']], origin: {position: at, yaw}});
       else driveActor(a, t, {keys: c.keys ?? [[0, c.action ?? 'idle']], faces: c.faces, ambient: !!c.ambient,
-        origin: {position: at, yaw}, tags: c.tags, fps: FPS, tools: c.tools, toolsLeft: c.toolsLeft, stat: c.stat, bubble: c.bubble, visible: c.visible, kit: c.kit, blinkSuppress: blinkOff(t), talk: talkOf(name, t)});
+        origin: {position: at, yaw}, tags: c.tags, fps: FPS, tools: c.tools, toolsLeft: c.toolsLeft, stat: c.stat, bubble: c.bubble, visible: c.visible, kit: c.kit, blinkSuppress: blinkOff(t), talk: talkOf(name, t), ...(M5B ? {m5b: M5B} : {})});
       if (dragon && c.visible) a.root.visible = valueAt(c.visible, t, true);
     } else {
       const s = sampleAction(c.action ?? 'idle', t, c.action === 'walk' ? {gait: c.gait ?? 'readable'} : {});
@@ -273,6 +302,12 @@ function aimRim(shot, camPos) {
 }
 const ui = createRuleUI(spec.ui ?? [], {scene, resolveTarget, fps: FPS});
 const fill = spec.fill ? createFill(scene, spec.fill, {groundY: world?.groundY ?? (() => 0)}) : null;   // format v5: ~200 instanced fill kids
+if (LOOK5B) { const roots = Object.values(cast).map(x => x.a.root), skip = o => { for (let p = o; p; p = p.parent) if (roots.includes(p)) return true; return o.name === 'contactBlob'; };
+  L5B.gradeWorld(scene, P5B(spec.look4), skip);
+  const plain = M4.tex4('plaster')?.normalMap, seen = new Set();   // set relief: baked statics and the gondolas get their pattern's normal map back as an emboss
+  scene.traverse(o => { if (skip(o) || !o.isMesh || !o.geometry?.attributes?.uv) return; if (!(o.material?.userData?.baked || [].concat(o.material).some(m => m?.userData?.baked) || /^gondola_/.test(o.name))) return;
+    for (const m of [].concat(o.material)) { if (!m?.isMeshBasicMaterial || seen.has(m) || m.transparent || m.toneMapped === false) continue; seen.add(m); const pat = m.userData?.pattern4 && M4.tex4(m.userData.pattern4);
+      L5B.patchRelief(m, pat?.normalMap ?? plain, pat && m.map ? [m.map.repeat.x, m.map.repeat.y] : [1, 1], U5B); } }); }   // Look 5b: environment −0.15 EV, 5 % cooler (baked vertex light × material colour)
 const updateExtras = (t, ctx = {}) => { crowds.update(t, ctx); fill?.update(t, {camY: ctx.camPos?.[1] ?? ctx.camPos?.y ?? 0, shotFill: ctx.fill}); ui.update(t); };   // ctx {camPos, size}: crowd promotion (A5 B)
 
 // Triangles of visible meshes whose bounds touch the camera frustum (the brief's §5.4 budget). The
@@ -333,9 +368,30 @@ export function renderFrame(n, width = 720, height = 1280, nudge = 0) {
   if (!Number.isInteger(n) || n < 0 || n >= FRAMES) throw Error(`frame out of range: ${n}`);
   const t0 = performance.now();
   if (lastSize !== `${width}x${height}`) { renderer.setPixelRatio(1); renderer.setSize(width, height, false); lastSize = `${width}x${height}`; }
-  const shot = shots.findLast(s => n >= s.start), mf = motionFrame(n, shot, FPS), t = mf.anim / FPS;   // format v5: freeze / impact / step (shots without them: mf.anim = n)
+  const shot = shots.findLast(s => n >= s.start), mf = motionFrame(n, shot, FPS), offs = LOOK5B ? blurOffsets(shot.move, P5B(shot.look ?? spec.look4).motionBlur) : [0];   // format v5: freeze / impact / step (shots without them: mf.anim = n)
+  if (offs.length > 1) { const rts = offs.map((o, i) => blurTarget(i, width, height)); let c;
+    offs.forEach((o, i) => { renderer.setRenderTarget(rts[i]); c = drawFrame(shot, mf, o, width, height, nudge); }); renderer.setRenderTarget(null); blendTargets(rts);
+    effects.overlay((mf.anim) / FPS, camera, width / height); return finishFrame(n, shot, t0); }
+  const t = mf.anim / FPS, c = drawFrame(shot, mf, 0, width, height, nudge);
+  effects.overlay(t, camera, width / height);
+  return finishFrame(n, shot, t0);
+}
+// Look 5b motion blur: two sub-frame targets, averaged by a fullscreen quad (only whip / crashZoom shots of a look5b spec).
+const blurRTs = [], blurQuad = (() => { const m = new T.ShaderMaterial({uniforms: {a: {value: null}, b: {value: null}}, vertexShader: 'varying vec2 vUv; void main(){ vUv = uv; gl_Position = vec4(position.xy, 0., 1.); }',
+  fragmentShader: 'uniform sampler2D a; uniform sampler2D b; varying vec2 vUv; void main(){ gl_FragColor = .5 * (texture2D(a, vUv) + texture2D(b, vUv));\n#include <tonemapping_fragment>\n#include <colorspace_fragment>\n}', depthTest: false, depthWrite: false});   // linear HDR targets: tone map + encode once, after the average
+  const q = new T.Mesh(new T.PlaneGeometry(2, 2), m); q.frustumCulled = false; const sc = new T.Scene(); sc.add(q); return {m, sc, cam: new T.OrthographicCamera(-1, 1, 1, -1, 0, 1)}; })();
+function blurTarget(i, w, h) { if (!blurRTs[i] || blurRTs[i].width !== w || blurRTs[i].height !== h) { blurRTs[i]?.dispose(); blurRTs[i] = new T.WebGLRenderTarget(w, h, {type: T.HalfFloatType}); } return blurRTs[i]; }   // no MSAA: the average hides the stair-steps (cost)
+function blendTargets(rts) { blurQuad.m.uniforms.a.value = rts[0].texture; blurQuad.m.uniforms.b.value = rts[1].texture; renderer.render(blurQuad.sc, blurQuad.cam); }
+function finishFrame(n, shot, t0) {
+  const gl = renderer.getContext(); gl.readPixels(0, 0, 1, 1, gl.RGBA, gl.UNSIGNED_BYTE, new Uint8Array(4));   // forces the GPU work to finish, so ms is real
+  if (gl.isContextLost()) throw Error('WebGL context lost');
+  return {frame: n, shot: shot.id, size: shot.size, triangles: frustumTriangles(), drawnTriangles: renderer.info.render.triangles, calls: renderer.info.render.calls, ms: performance.now() - t0};
+}
+// One scene state + render at frame mf (+ off frames, Look 5b sub-frames), into the current render target.
+function drawFrame(shot, mf, off, width, height, nudge) {
+  const t = (mf.anim + off) / FPS;
   setHeroLit(shot); const actors = poseCast(t);
-  const c = sampleCamera({...shot, fps: FPS}, (mf.cam - shot.start) / FPS, actors);
+  const c = sampleCamera({...shot, fps: FPS}, Math.max(0, (mf.cam + off - shot.start) / FPS), actors);
   if (mf.shake.some(v => v)) c.position = c.position.map((v, i) => v + mf.shake[i]);
   updateCascades(t);
   world?.update(t); applyWorldState(shot, t); updateExtras(t, {camPos: c.position, size: shot.size, fill: shot.fill}); aimHeroSpots(shot, c.position); aimRim(shot, c.position); applyLift(shot); liftSubject(shot);
@@ -343,17 +399,16 @@ export function renderFrame(n, width = 720, height = 1280, nudge = 0) {
   const pos = c.position.map((v, i) => v + fx.camOffset[i]), tgt = c.target.map((v, i) => v + fx.camOffset[i] * .6);
   camera.fov = c.fov; camera.aspect = width / height; camera.position.fromArray(pos);
   camera.up.set(0, 1, 0); camera.lookAt(...tgt); camera.rotateZ(c.roll); camera.updateProjectionMatrix();
+  const cn = camNoise5b(shot, t); if (cn) { camera.rotateX(cn[0]); camera.rotateY(cn[1]); }   // Look 5b: static-shot micro-noise
   if (nudge) { const k = nudge / Math.sqrt(3); camera.translateX(k); camera.translateY(k); camera.translateZ(k); }
   world?.onCamera?.(camera.position.toArray());   // format v5 3b-R (opt-in): a world may hide what this camera cannot see (hall ↔ street)
   if (look) { fx.look ? look.apply(...fx.look) : look.apply(shot.look ?? spec.look ?? 'day'); const sf = shotShadow(shot); poseCast(t); look.frameFixed(sf.centre, sf.radius, camera.position); look.update(t); }
+  apply5b(shot);
   scene.updateMatrixWorld(true); effects.apply(t, camera); fitTags(scene, camera, {maxFrac: shot.tagMaxFrac ?? .06});
   if (spec.readableUi ?? !!look?.v3) { scene.updateMatrixWorld(true); enforceReadable(scene, camera, {focus: shot.focusUi ?? []}); }   // A5 §C: min text size + safe area (v3 worlds; "Nobody" untouched)
   renderer.info.autoReset = false; renderer.info.reset();   // A4: overlay passes (weather, cards) must not reset the scene counts
   if (c.split) renderSplit(c.split, width, height); else renderer.render(scene, camera);
-  effects.overlay(t, camera, width / height);
-  const gl = renderer.getContext(); gl.readPixels(0, 0, 1, 1, gl.RGBA, gl.UNSIGNED_BYTE, new Uint8Array(4));   // forces the GPU work to finish, so ms is real
-  if (gl.isContextLost()) throw Error('WebGL context lost');
-  return {frame: n, shot: shot.id, size: shot.size, triangles: frustumTriangles(), drawnTriangles: renderer.info.render.triangles, calls: renderer.info.render.calls, ms: performance.now() - t0};
+  return c;
 }
 
 // Bench / stills: render a world anchor's establishing camera at time t (no shot needed).
@@ -547,4 +602,42 @@ export function lumaProbe(n, points, {w = 540, h = 960} = {}) {
   return points.map(p => { const v = new T.Vector3(...p).project(camera), x = Math.round((v.x * .5 + .5) * w), y = Math.round((-v.y * .5 + .5) * h); let s = 0, k = 0;
     for (let dy = -1; dy <= 1; dy++) for (let dx = -1; dx <= 1; dx++) { const xx = x + dx, yy = y + dy; if (xx >= 0 && yy >= 0 && xx < w && yy < h) { s += L[yy * w + xx]; k++; } } return {p, x, y, luma: k ? s / k : null}; });
 }
-window.__episode = {satMeasure, depthLuma, lumaProbe, debug: {scene, renderer, camera}, bake: BAKE, matcapBytes: MATCAP ? (n => Array.from(look.matcapBytes(n ?? spec.look4))) : null, breakdown, measureFrame, seasonMeasure, actorMask, readMeasure, lumaAt, inspectFrame, shotSpeed, END: FRAMES / FPS, anchors: Object.fromEntries(Object.entries(anchors).filter(([, a]) => a.camera).map(([k]) => [k, true])), renderAnchor, renderAnchorNudged, renderCamera, FPS, FRAMES, shots: shots.map(({id, start, frames, size, move, loc, subject, see, openHit, at, why, captionY, fit, spectacle, look: lk}) => ({id, start, frames, size, move, loc, subject, see, openHit: !!openHit, at, why, captionY, fit, spectacle: !!spectacle, look: lk})), renderFrame};
+// Look 5b gates (scripts/v2/sep5b-gates.js), after renderFrame(n) at w×h:
+//   sepMeasure: the subject's silhouette (actor-only pass) → rim = mean luma of the 3 px inner edge band / the eroded interior;
+//   link = subject mean luma / background mean luma; head = 20th / 99th percentile luma of the head block (ink < .12 excluded);
+//   lap = Laplacian variance of the background (≥ 3 px outside) / the actor interior; contact = mean luma beside the feet
+//   (inside the blob, off the silhouette) vs 1 unit further out.
+//   classHaze: RMS luma contrast of gondola-frame pixels (the same class of object) nearer than `near` vs farther than `far`.
+function erode(m, w, h, k) { let a = m; for (let i = 0; i < k; i++) { const b = new Uint8Array(w * h); for (let y = 1; y < h - 1; y++) for (let x = 1; x < w - 1; x++) { const j = y * w + x; b[j] = a[j] && a[j - 1] && a[j + 1] && a[j - w] && a[j + w] ? 1 : 0; } a = b; } return a; }
+const dilate = (m, w, h, k) => { const inv = m.map(v => 1 - v); return erode(inv, w, h, k).map(v => 1 - v); };
+export function sepMeasure(n, {w = 540, h = 960, subject = null} = {}) {
+  const shot = shots.findLast(s => n >= s.start), who = subject ?? shot.subject; renderFrame(n, w, h); camera.updateMatrixWorld(true);
+  if (!who || !cast[who]?.a.root.visible) return {frame: n, missing: who};
+  const L = frameLuma(w, h), m = actorMask(who, w, h), inner = erode(m, w, h, 3), outer = dilate(m, w, h, 3);
+  let band = 0, bn = 0, int = 0, inn = 0, bg = 0, bgn = 0; for (let i = 0; i < w * h; i++) { if (m[i] && !inner[i]) { band += L[i]; bn++; } if (inner[i]) { int += L[i]; inn++; } if (!m[i]) { bg += L[i]; bgn++; } }
+  const out = {frame: n, shot: shot.id, size: shot.size, subject: who, px: bn + inn, rim: bn && inn ? (band / bn) / (int / inn) : null, link: inn && bgn ? ((band + int) / (bn + inn)) / (bg / bgn) : null};
+  const head = cast[who].a.parts?.head; if (head) { const hm = maskPass(o => o === head, w, h); let L1 = null;
+    if (U5B) { const sv = U5B.shadeOf[who], k = sv.value; sv.value = 1; renderer.render(scene, camera); L1 = frameLuma(w, h); sv.value = k; }   // shadow side = head pixels the key shading darkens by > 10 %
+    const v = [], sh = []; for (let i = 0; i < w * h; i++) if (hm[i] && m[i] && L[i] >= .12) { v.push(L[i]); if (L1 && L[i] < .9 * L1[i]) sh.push(L[i]); } v.sort((a, b) => a - b);
+    out.head = v.length > 30 ? {px: v.length, shadowPx: sh.length, shadow: sh.length > 20 ? sh.reduce((a, b) => a + b, 0) / sh.length : v[Math.floor(.2 * v.length)], high: v[Math.floor(.99 * (v.length - 1))]} : null; }
+  const lap = new Float32Array(w * h); for (let y = 1; y < h - 1; y++) for (let x = 1; x < w - 1; x++) { const j = y * w + x; lap[j] = 4 * L[j] - L[j - 1] - L[j + 1] - L[j - w] - L[j + w]; }
+  const vr = sel => { let s1 = 0, s2 = 0, k = 0; for (let y = 1; y < h - 1; y++) for (let x = 1; x < w - 1; x++) { const j = y * w + x; if (!sel(j)) continue; s1 += lap[j]; s2 += lap[j] * lap[j]; k++; } return k > 50 ? s2 / k - (s1 / k) ** 2 : null; };
+  out.lapActor = vr(j => inner[j]); out.lapBg = vr(j => !outer[j]); out.lap = out.lapActor && out.lapBg ? out.lapBg / out.lapActor : null;
+  const mk = markPos[who], b5 = blobs5b[who]; if (mk && b5) { const R = b5.geometry.parameters.width / 2, right = new T.Vector3().setFromMatrixColumn(camera.matrixWorld, 0).setY(0).normalize(), gy = (x, z) => world?.groundY?.(x, z) ?? mk[1];
+    const probe = r => { let s = 0, k = 0; for (let q8 = 0; q8 < 8; q8++) { const an = q8 * Math.PI / 4, x = mk[0] + r * Math.cos(an), z = mk[2] + r * Math.sin(an), v = new T.Vector3(x, gy(x, z) + .02, z).project(camera), px = Math.round((v.x * .5 + .5) * w), py = Math.round((-v.y * .5 + .5) * h);
+      if (px < 1 || py < 1 || px >= w - 1 || py >= h - 1 || outer[py * w + px]) continue; s += L[py * w + px]; k++; } return k ? s / k : null; };
+    const r0 = Math.max(.5 * R, 1.25 * cast[who].a.root.scale.x), a0 = probe(r0), a1 = probe(r0 + 1); out.contact = a0 !== null && a1 ? {under: a0, floor: a1, drop: 1 - a0 / a1, r: r0} : null; }
+  return out;
+}
+const occMat = new T.MeshBasicMaterial({colorWrite: false});
+export function classHaze(n, {w = 390, h = 693, near = 15, far = 60, match = /^gondola_/} = {}) {
+  renderFrame(n, w, h); const L = frameLuma(w, h), swapped = [], hidden = [];
+  scene.traverse(o => { if (!o.visible) return; if (o.isSprite || o.isPoints || o.isLine || (o.isMesh && [].concat(o.material).some(m => m.transparent))) { hidden.push(o); o.visible = false; return; } if (!o.isMesh) return;
+    swapped.push([o, o.material]); o.material = match.test(o.name) && Array.isArray(o.material) ? o.material.map((m, i) => (/_far_/.test(o.name) ? i === 1 : i === 0) ? distMat : occMat) : occMat; });
+  const bg = scene.background, fog = scene.fog; scene.background = new T.Color('#000000'); scene.fog = null; renderer.render(scene, camera);
+  const px = frameRGBA(w, h); scene.background = bg; scene.fog = fog; for (const [o, m] of swapped) o.material = m; for (const o of hidden) o.visible = true;
+  const acc = {near: [], far: []}; for (let y = 0; y < h; y++) for (let x = 0; x < w; x++) { const i = ((h - 1 - y) * w + x) * 4; if (px[i + 2] < 128) continue; const d = (px[i] + px[i + 1] / 255) * 4; if (d < near) acc.near.push(L[y * w + x]); else if (d > far) acc.far.push(L[y * w + x]); }
+  const rms = a => { if (a.length < 50) return null; const mu = a.reduce((s, v) => s + v, 0) / a.length; return Math.sqrt(a.reduce((s, v) => s + (v - mu) ** 2, 0) / a.length); };
+  const rn = rms(acc.near), rf = rms(acc.far); return {frame: n, nearRms: rn, farRms: rf, nearPx: acc.near.length, farPx: acc.far.length, ratio: rn && rf !== null ? rf / rn : null};
+}
+window.__episode = {sepMeasure, classHaze, satMeasure, depthLuma, lumaProbe, debug: {scene, renderer, camera, look}, bake: BAKE, matcapBytes: MATCAP ? (n => Array.from(look.matcapBytes(n ?? spec.look4))) : null, breakdown, measureFrame, seasonMeasure, actorMask, readMeasure, lumaAt, inspectFrame, shotSpeed, END: FRAMES / FPS, anchors: Object.fromEntries(Object.entries(anchors).filter(([, a]) => a.camera).map(([k]) => [k, true])), renderAnchor, renderAnchorNudged, renderCamera, FPS, FRAMES, shots: shots.map(({id, start, frames, size, move, loc, subject, see, openHit, at, why, captionY, fit, spectacle, look: lk}) => ({id, start, frames, size, move, loc, subject, see, openHit: !!openHit, at, why, captionY, fit, spectacle: !!spectacle, look: lk})), renderFrame};

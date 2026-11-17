@@ -121,8 +121,8 @@ export function samplePose(name, t, opts = {}) {
   return POSES[name](t, opts);
 }
 
-export function blendPoses(a, b, w) {
-  const s = blank(); w = clamp01(w);
+export function blendPoses(a, b, w, {extrapolate = false} = {}) {   // Look 5b: extrapolate lets an overshooting weight (> 1) through
+  const s = blank(); w = extrapolate ? w : clamp01(w);
   for (const p of PIVOTS) s.pivots[p] = a.pivots[p].map((v, i) => v + (b.pivots[p][i] - v) * w);
   for (const k of Object.keys(s.root)) s.root[k] = a.root[k] + (b.root[k] - a.root[k]) * w;
   if (a.offsets || b.offsets) { s.offsets = {}; for (const h of ['leftHip', 'rightHip']) { const x = a.offsets?.[h] ?? [0, 0, 0], y = b.offsets?.[h] ?? [0, 0, 0]; s.offsets[h] = x.map((v, i) => v + (y[i] - v) * w); } }
@@ -130,12 +130,14 @@ export function blendPoses(a, b, w) {
 }
 
 // keys: [[t0, 'pose', opts?], ...] sorted by t0. Pure: the pose at t depends only on t.
-export function sampleTimeline(keys, t, {fade = FADE} = {}) {
+export function sampleTimeline(keys, t, {fade = FADE, overshoot = null} = {}) {
   let i = 0; while (i + 1 < keys.length && keys[i + 1][0] <= t) i++;
   const [t0, name, o = {}] = keys[i], cur = samplePose(name, Math.max(0, t - t0), o);
   if (o.snap) fade = SNAP_FADE_FRAMES / (o.fps ?? 24);   // format v5: snappy key (opt-in per key)
+  if (overshoot) fade += overshoot.settle;   // Look 5b (opt-in): the change overshoots by overshoot.os and settles (engine/motion5b.js)
   if (i === 0 || t - t0 >= fade) return cur;
   const [p0, pn, po = {}] = keys[i - 1];
+  if (overshoot) return blendPoses(samplePose(pn, Math.max(0, t - p0), po), cur, overshoot.ease((t - t0) / fade), {extrapolate: true});
   return blendPoses(samplePose(pn, Math.max(0, t - p0), po), cur, smooth((t - t0) / fade));
 }
 

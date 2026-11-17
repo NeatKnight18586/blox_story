@@ -72,7 +72,7 @@
       "h": 0.32,
       "w": 4.2,
       "d": 1.12,
-      "color": "#9aa0a6"
+      "color": "#FFD542"
      },
      {
       "part": "torso",
@@ -80,7 +80,7 @@
       "h": 0.32,
       "w": 4.2,
       "d": 1.12,
-      "color": "#9aa0a6"
+      "color": "#0D7CD4"
      },
      {
       "part": "leftLeg",
@@ -88,7 +88,7 @@
       "h": 0.3,
       "w": 2.1,
       "x": 0.5,
-      "color": "#9aa0a6"
+      "color": "#0D7CD4"
      },
      {
       "part": "leftLeg",
@@ -96,13 +96,13 @@
       "h": 0.3,
       "w": 2.1,
       "x": 0.5,
-      "color": "#9aa0a6"
+      "color": "#FFD542"
      },
      {
       "part": "head",
       "y": -0.23,
       "h": 0.22,
-      "color": "#9aa0a6"
+      "color": "#0D7CD4"
      }
     ]
    }
@@ -126,6 +126,9 @@
      "name": "beanie",
      "color": "#ffc233",
      "cuff": "#ffb000"
+    },
+    {
+     "name": "hoodieStrings"
     }
    ],
    "role": "Mo, teal hoodie + beanie",

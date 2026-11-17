@@ -1,0 +1,271 @@
+{
+ "spec": "engine/fixtures/toyhouse/set5b.json",
+ "sep": {
+  "S2-aisle": {
+   "size": "wide",
+   "subject": "hero",
+   "px": 255792,
+   "rim": 1.425,
+   "link": 0.688,
+   "headShadow": 0.701,
+   "headHigh": 0.915,
+   "lap": 0.382,
+   "lapActor": 0.00348,
+   "lapBg": 0.00133,
+   "contact": {
+    "under": 0.293,
+    "floor": 0.415,
+    "drop": 0.293
+   }
+  },
+  "S3-counter": {
+   "size": "close",
+   "subject": "pip",
+   "px": 628281,
+   "rim": 1.329,
+   "link": 0.834,
+   "headShadow": 0.678,
+   "headHigh": 0.898,
+   "lap": 1.438,
+   "lapActor": 0.0016,
+   "lapBg": 0.0023,
+   "contact": null
+  },
+  "S4-candy": {
+   "size": "medium",
+   "subject": "mo",
+   "px": 299700,
+   "rim": 1.062,
+   "link": 1.166,
+   "headShadow": 0.519,
+   "headHigh": 0.869,
+   "lap": 0.291,
+   "lapActor": 0.00146,
+   "lapBg": 0.000424,
+   "contact": {
+    "under": 0.386,
+    "floor": 0.538,
+    "drop": 0.282
+   }
+  },
+  "S6-scale": {
+   "size": "wide",
+   "subject": "hero",
+   "px": 124550,
+   "rim": 1.336,
+   "link": 0.694,
+   "headShadow": 0.689,
+   "headHigh": 0.909,
+   "lap": 0.105,
+   "lapActor": 0.00549,
+   "lapBg": 0.000576,
+   "contact": {
+    "under": 0.381,
+    "floor": 0.486,
+    "drop": 0.218
+   }
+  },
+  "S8-track": {
+   "size": "wide",
+   "subject": "taped",
+   "px": 221074,
+   "rim": 1.211,
+   "link": 1.015,
+   "headShadow": 0.737,
+   "headHigh": 0.945,
+   "lap": 0.127,
+   "lapActor": 0.00853,
+   "lapBg": 0.00109,
+   "contact": {
+    "under": 0.264,
+    "floor": 0.276,
+    "drop": 0.043
+   }
+  },
+  "S9-arena": {
+   "size": "wide",
+   "subject": "dad",
+   "px": 89394,
+   "rim": 1.208,
+   "link": 0.934,
+   "headShadow": 0.208,
+   "headHigh": 0.862,
+   "lap": 0.224,
+   "lapActor": 0.00333,
+   "lapBg": 0.000744,
+   "contact": {
+    "under": 0.396,
+    "floor": 0.423,
+    "drop": 0.063
+   }
+  },
+  "S10-pit": {
+   "size": "wide",
+   "subject": "youngpip",
+   "px": 301104,
+   "rim": 1.346,
+   "link": 0.92,
+   "headShadow": 0.52,
+   "headHigh": 0.874,
+   "lap": 0.567,
+   "lapActor": 0.00275,
+   "lapBg": 0.00156,
+   "contact": {
+    "under": 0.414,
+    "floor": 0.462,
+    "drop": 0.105
+   }
+  }
+ },
+ "haze": {
+  "S1-top": {
+   "result": "n/a",
+   "nearPx": 0,
+   "farPx": 21150
+  },
+  "S2-aisle": {
+   "nearRms": 0.103,
+   "farRms": 0.036,
+   "nearPx": 1075,
+   "farPx": 6193,
+   "ratio": 0.349
+  },
+  "S3-counter": {
+   "result": "n/a",
+   "nearPx": 0,
+   "farPx": 0
+  },
+  "S4-candy": {
+   "result": "n/a",
+   "nearPx": 0,
+   "farPx": 0
+  },
+  "S6-scale": {
+   "nearRms": 0.136,
+   "farRms": 0.228,
+   "nearPx": 396,
+   "farPx": 7400,
+   "ratio": 1.68
+  },
+  "S7-hall": {
+   "result": "n/a",
+   "nearPx": 0,
+   "farPx": 26431
+  },
+  "S8-track": {
+   "result": "n/a",
+   "nearPx": 0,
+   "farPx": 35047
+  },
+  "S9-arena": {
+   "result": "n/a",
+   "nearPx": 0,
+   "farPx": 17114
+  },
+  "S10-pit": {
+   "result": "n/a",
+   "nearPx": 0,
+   "farPx": 35073
+  },
+  "S11-hyperbox": {
+   "result": "n/a",
+   "nearPx": 0,
+   "farPx": 0
+  },
+  "S12-overlook": {
+   "nearRms": 0.026,
+   "farRms": 0.046,
+   "nearPx": 66,
+   "farPx": 24893,
+   "ratio": 1.783
+  },
+  "S13-mountain": {
+   "nearRms": 0.032,
+   "farRms": 0.095,
+   "nearPx": 14193,
+   "farPx": 15422,
+   "ratio": 3.029
+  },
+  "S14-train": {
+   "result": "n/a",
+   "nearPx": 0,
+   "farPx": 3621
+  }
+ },
+ "sat": {
+  "S2-aisle": {
+   "ratio": 2.23,
+   "subj": 0.334,
+   "bg": 0.15
+  },
+  "S3-counter": {
+   "ratio": 3.16,
+   "subj": 0.652,
+   "bg": 0.207
+  },
+  "S4-candy": {
+   "ratio": 2.27,
+   "subj": 0.53,
+   "bg": 0.234
+  },
+  "S6-scale": {
+   "ratio": 2.33,
+   "subj": 0.302,
+   "bg": 0.13
+  },
+  "S8-track": {
+   "ratio": 2.84,
+   "subj": 0.418,
+   "bg": 0.147
+  },
+  "S9-arena": {
+   "ratio": 1.96,
+   "subj": 0.358,
+   "bg": 0.183
+  },
+  "S10-pit": {
+   "ratio": 1.27,
+   "subj": 0.285,
+   "bg": 0.225
+  },
+  "S11-hyperbox": {
+   "ratio": 3.37,
+   "subj": 0.713,
+   "bg": 0.212
+  }
+ },
+ "bench": {
+  "s720": 0.18,
+  "s1080": 0.337,
+  "maxTriangles": 87666
+ },
+ "failures": [
+  "light link S2-aisle: subject/background 0.688 outside 1.15–1.6",
+  "head shadow S2-aisle: 0.701 outside .35–.45",
+  "light link S3-counter: subject/background 0.834 outside 1.15–1.6",
+  "head shadow S3-counter: 0.678 outside .35–.45",
+  "texture S3-counter: Laplacian bg/actor 1.438 < 2",
+  "rim S4-candy: edge/interior 1.062 < 1.3",
+  "head shadow S4-candy: 0.519 outside .35–.45",
+  "texture S4-candy: Laplacian bg/actor 0.291 < 2",
+  "light link S6-scale: subject/background 0.694 outside 1.15–1.6",
+  "head shadow S6-scale: 0.689 outside .35–.45",
+  "rim S8-track: edge/interior 1.211 < 1.3",
+  "light link S8-track: subject/background 1.015 outside 1.15–1.6",
+  "head shadow S8-track: 0.737 outside .35–.45",
+  "head highlight S8-track: 0.945 > .92",
+  "contact S8-track: drop 0.043 < 0.20",
+  "rim S9-arena: edge/interior 1.208 < 1.3",
+  "light link S9-arena: subject/background 0.934 outside 1.15–1.6",
+  "head shadow S9-arena: 0.208 outside .35–.45",
+  "contact S9-arena: drop 0.063 < 0.20",
+  "light link S10-pit: subject/background 0.92 outside 1.15–1.6",
+  "head shadow S10-pit: 0.52 outside .35–.45",
+  "contact S10-pit: drop 0.105 < 0.20",
+  "haze S6-scale: same-class far/near 1.68 > 0.50",
+  "haze S12-overlook: same-class far/near 1.783 > 0.50",
+  "haze S13-mountain: same-class far/near 3.029 > 0.50",
+  "saturation S10-pit: 1.27 < 1.6"
+ ],
+ "result": "FAIL"
+}

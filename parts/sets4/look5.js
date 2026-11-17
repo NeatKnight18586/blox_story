@@ -21,6 +21,8 @@ export function hexOf([h, s, l]) {
   return '#' + [r, g, b].map(v => Math.round(Math.min(1, Math.max(0, v + m)) * 255).toString(16).padStart(2, '0')).join('');
 }
 export const ENV_S = .45, ENV_L = [.35, .75], STORY_S = .60;
+export const ZONE_S = .65;   // owner (Look 5b): zone floor plates may reach S .65 (top-down charm); still L .35–.75
+export const zoneColor = hex => { const [h, sa, l] = hslOf(hex); const s2 = Math.min(ZONE_S, sa), l2 = Math.min(ENV_L[1], Math.max(ENV_L[0], l)); return s2 === sa && l2 === l ? hex : hexOf([h, s2, l2]); };
 export const envColor = hex => { const [h, s, l] = hslOf(hex); return hexOf([h, Math.min(s, ENV_S - .005), Math.min(ENV_L[1] - .005, Math.max(ENV_L[0] + .005, l))]); };
 export const storyColor = hex => { const [h, s, l] = hslOf(hex); return s >= STORY_S ? hex : hexOf([h, STORY_S + .02, Math.min(.68, Math.max(.3, l))]); };
 
@@ -75,14 +77,14 @@ export function bevelCensus(root, cams, range = 20) {
 // classes: {plastic: {roughness, metalness?, pattern?}, floor: {...}, cardboard, metal, glass}; story: S ≥ .60, otherwise env clamp.
 // The baker turns static materials into unlit + env highlight; userData.gloss = 1 − roughness drives that highlight.
 const cmCache = new Map(), ANISO5 = 2;   // software rasteriser: 8× anisotropic taps on a floor-filling texture cost ~0.3 s a frame
-export function classMat(M4, classes, cls, color, {story = false, repeat = [1, 1], map = null, live = false, transparent = false, opacity = 1} = {}) {
-  const C = classes?.[cls] ?? {roughness: .5}, col = story ? storyColor(color) : envColor(color), key = [cls, col, repeat, !!map, live, transparent, opacity].join('|');
+export function classMat(M4, classes, cls, color, {story = false, zone = false, repeat = [1, 1], map = null, live = false, transparent = false, opacity = 1} = {}) {
+  const C = classes?.[cls] ?? {roughness: .5}, col = story ? storyColor(color) : zone ? zoneColor(color) : envColor(color), key = [cls, col, repeat, !!map, live, transparent, opacity, zone ? 'zone' : ''].join('|');
   if (cmCache.has(key)) return cmCache.get(key);
   let m;
   let src = null; if (C.pattern && M4) { src = M4.mat4(C.pattern, col, {repeat, live}); m = src.clone(); m.roughness = Math.min(1, C.roughness / .5);
     for (const k of ['map', 'normalMap', 'roughnessMap']) if (m[k]) { m[k] = m[k].clone(); m[k].anisotropy = ANISO5; m[k].needsUpdate = true; } }   // clone() JSON-copies userData: textures come back from src below   // the roughness map (~.15–.2) × scale
   else m = new T.MeshStandardMaterial({color: col, roughness: C.roughness, metalness: C.metalness ?? 0, map, transparent, opacity, depthWrite: !transparent});
-  m.userData = {...(src?.userData ?? m.userData), ...(src?.userData?.glossMap ? {glossMap: Object.assign(src.userData.glossMap.clone(), {anisotropy: ANISO5})} : {}), cls, gloss: C.envHighlight === false ? 0 : 1 - C.roughness, live, story}; m.name = 'c5:' + key; cmCache.set(key, m); return m;
+  m.userData = {...(src?.userData ?? m.userData), ...(src?.userData?.glossMap ? {glossMap: Object.assign(src.userData.glossMap.clone(), {anisotropy: ANISO5})} : {}), cls, gloss: C.envHighlight === false ? 0 : 1 - C.roughness, live, story, ...(zone ? {zone: true} : {})}; m.name = 'c5:' + key; cmCache.set(key, m); return m;
 }
 // ---- contact AO decals ----------------------------------------------------------------------------------------------------------
 // n×n alpha mask: a rectangle footprint (inner 60 %) dark, falling off over the outer 20 % → a soft contact shadow (pure).
@@ -129,10 +131,11 @@ export function applyHierarchy(root) {
 }
 // Census of base colours: environment (S ≤ .45, L .35–.75) and story (S ≥ .60 on main colours). Plain colours only.
 export function envCensus(root) {
-  const seen = new Set(), out = {env: {n: 0, ok: 0, bad: []}, story: {n: 0, ok: 0, bad: []}};
+  const seen = new Set(), out = {env: {n: 0, ok: 0, bad: []}, story: {n: 0, ok: 0, bad: []}, zone: {n: 0, ok: 0, bad: []}};
   root.traverse(o => { if (!o.isMesh || (o.isInstancedMesh && o.instanceColor)) return; const st = isStory(o);
     for (const m of [].concat(o.material)) { if (!plain(m) || seen.has(m.uuid + st)) continue; seen.add(m.uuid + st); const hex = '#' + m.color.getHexString(), [, s, l] = hslOf(hex);
       if (st) { if (l <= .2 || l >= .9) continue; out.story.n++; if (s >= STORY_S - 1e-3) out.story.ok++; else out.story.bad.push(hex); }
+      else if (m.userData?.zone) { out.zone.n++; if (s <= ZONE_S + 1e-3 && l >= ENV_L[0] - 1e-3 && l <= ENV_L[1] + 1e-3) out.zone.ok++; else out.zone.bad.push(hex); }
       else { out.env.n++; if (s <= ENV_S + 1e-3 && l >= ENV_L[0] - 1e-3 && l <= ENV_L[1] + 1e-3) out.env.ok++; else out.env.bad.push(hex); } } });
   out.env.bad = out.env.bad.slice(0, 10); out.story.bad = out.story.bad.slice(0, 10); return out;
 }
