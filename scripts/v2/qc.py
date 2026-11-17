@@ -232,9 +232,12 @@ def main():
     a.add_argument('--before-after', action='store_true'); a.add_argument('--out')
     a.add_argument('--source-video', help='near-lossless picture instead of --frames (render farm)')
     a.add_argument('--plan', help='plan.json (default review/<slug>/plan.json)')
+    a.add_argument('--fps', type=int, help='output fps (default: the story spec fps, else 30)')
     a.add_argument('--waive', default='', help='owner waiver (opt-in, per story): comma list of checks (tint) whose failures are recorded under "waived", not dropped')
     o = a.parse_args()
     slug = o.story; out = o.out or f'review/{slug}/qc.json'; captions = o.captions or f'stories/{slug}/build/captions.ass'
+    spec_p = f'stories/{slug}/episode.json'   # format v5 specs run at 24 fps; others stay at 30
+    fps = o.fps or (json.load(open(spec_p)).get('fps', 30) if os.path.exists(spec_p) else 30); th = {**TH, 'fps': f'{fps}/1'}
     pr, v, au = A.probe_video(o.video); lufs, tp = A.measure(o.video)
     m = {'video': o.video, 'width': v['width'], 'height': v['height'], 'fps': v['r_frame_rate'], 'pix_fmt': v.get('pix_fmt'),
          'color': [v.get('color_space'), v.get('color_primaries'), v.get('color_transfer'), v.get('color_range')],
@@ -245,7 +248,7 @@ def main():
     if o.source_video:   # render farm: the raw reference is the near-lossless concatenated segments; pull only the 12 frames
         st = json.loads(subprocess.run(['ffprobe', '-v', 'error', '-select_streams', 'v:0', '-count_packets', '-show_entries', 'stream=nb_read_packets', '-of', 'json', o.source_video],
                                        capture_output=True, text=True, check=True).stdout)['streams'][0]
-        total = int(st['nb_read_packets']); picks = pick_frames(plan['shots'], total)
+        total = int(st['nb_read_packets']); picks = pick_frames(plan['shots'], total, fps)
         tmp = tempfile.TemporaryDirectory(); o.frames = tmp.name
         expr = '+'.join(f'eq(n\\,{f})' for f, _ in picks)
         run(['ffmpeg', '-v', 'error', '-i', o.source_video, '-vf', f"select='{expr}'", '-vsync', '0', f'{tmp.name}/x-%02d.png'])
@@ -254,22 +257,22 @@ def main():
     else:
         srcs = sorted(Path(o.frames).glob('frame-*.png')); total = len(srcs)
         src_size = Image.open(srcs[0]).size
-        picks = pick_frames(plan['shots'], total)
+        picks = pick_frames(plan['shots'], total, fps)
     W, H = A.MASTER_SIZE
     dec = decode_master(o.video, [f for f, _ in picks], W, H)
     rows, crops = [], []
     for f, why in picks:
-        (ry, _, _), (gy, gu, gv) = reference(o.frames, f, src_size, captions)
+        (ry, _, _), (gy, gu, gv) = reference(o.frames, f, src_size, captions, fps)
         my = dec[f][0]
         raw = raw_rgb(o.frames, f, up=src_size != A.MASTER_SIZE); graded = yuv444_to_rgb(gy, gu, gv)
         sharp = laplacian_mean((gy.astype(float) - 16) * 255 / 219) / laplacian_mean(luma(raw))
         mask = stone_mask(raw); r2 = lambda d: None if d is None else round(d, 2)
         rows.append({'frame': f, 'why': why, 'ssim': round(ssim(ry, my), 4), 'psnr': round(psnr(ry, my), 2), 'sharp_ratio': round(sharp, 3),
-                     'delta_e': r2(delta_e(raw, graded_no_vignette(o.frames, f, src_size), mask)),       # gate: tint (grade minus its vignette)
+                     'delta_e': r2(delta_e(raw, graded_no_vignette(o.frames, f, src_size, fps), mask)),       # gate: tint (grade minus its vignette)
                      'delta_e_with_vignette': r2(delta_e(raw, graded, mask)), 'stone_px': int(mask.sum())})
         crops.append((f, why, raw, graded, yuv444_to_rgb(*dec[f])))
     m['frames'] = rows
-    fails = evaluate(m, fallback=o.fallback)
+    fails = evaluate(m, th, fallback=o.fallback)
     fails, waived = split_waived(fails, o.waive)
     # crop sheet: the fastest frame, the frame with the biggest face (close-up shots: S03/S55-like inserts), two more
     order = [c for c in crops if c[1].startswith('fast')][:1] + [c for c in crops if not c[1].startswith('fast')]
@@ -285,7 +288,7 @@ def main():
             sheet.paste(Image.fromarray(img[y0:y0 + ch, x0:x0 + cw]), (c * cw, r * (ch + lab) + lab))
             d.text((c * cw + 6, r * (ch + lab) + 4), f'{name} - frame {f} ({why}) 1:1 at {x0},{y0}', fill='#ffd84a', font=font)
     os.makedirs(os.path.dirname(out), exist_ok=True); sheet.save(os.path.join(os.path.dirname(out), 'qc-crops.png'))
-    rep = {**m, 'thresholds': TH, 'failures': fails, 'waived': waived, 'result': 'FAIL' if fails else 'PASS', 'crops': [c[0] for c in chosen],
+    rep = {**m, 'thresholds': th, 'failures': fails, 'waived': waived, 'result': 'FAIL' if fails else 'PASS', 'crops': [c[0] for c in chosen],
            'stoneMask': 'raw pixels with saturation < 0.2, 70 < luma < 200, blue ≥ red, inside the central 70 %',
            'tintCheck': 'ΔE76 raw vs the A2 grade without its vignette (vignette = lightness falloff, not a tint), on frames whose stone/wall mask covers ≥ 0.5 % of the frame (smaller masks are stray grey pixels in dark scenes; their values are still listed); delta_e_with_vignette reported'}
     if o.before_after: rep['beforeAfter'] = before_after(o.frames, picks, src_size, captions)
