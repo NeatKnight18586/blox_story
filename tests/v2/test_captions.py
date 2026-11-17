@@ -62,6 +62,12 @@ class Emphasis(unittest.TestCase):
         self.assertIn('\\fscx115', ass)
 
 
+class SpecKeywords(unittest.TestCase):
+    def test_phrases_and_possessive(self):
+        timed = [{'words': ['in', 'the', 'Toy', 'House.']}, {'words': ["Mo's", 'hand', 'Mom']}, {'words': ['Toy', 'car']}]
+        self.assertEqual(C.spec_keyword_slots(timed, ['Toy House', 'Mo', 'hand']), {(0, 2), (0, 3), (1, 0), (1, 1)})
+
+
 class Escaping(unittest.TestCase):
     def test_braces_backslashes_newlines(self):
         self.assertEqual(C.ass_escape('a{b}c\\d\ne'), 'a(b)c/d\\Ne')

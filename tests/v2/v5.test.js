@@ -61,3 +61,13 @@ test('poses v5: 11 snappy poses, snap keys land in 2 frames, older keys still bl
   assert.notDeepEqual(PO.sampleTimeline(k, 1 + 1 / 24).pivots.rightShoulder, end); assert.deepEqual(PO.sampleTimeline(k, 1 + 2 / 24).pivots.rightShoulder, end);
   const k2 = [[0, 'idle'], [1, 'shrug']]; assert.notDeepEqual(PO.sampleTimeline(k2, 1 + 2 / 24).pivots.rightShoulder, end, 'no snap: 0.18 s blend as before');
 });
+import * as PC from '../../engine/plancheck.js';
+test('plan v5: length rule 75–90 s for format 5, older formats keep a 100–168 s voice and the 122.5 s end', () => {
+  assert.deepEqual(PC.lengthRule(5).voice, [75, 90]); assert.deepEqual(PC.lengthRule(undefined).voice, [100, 168]);
+  const cues = {duration: 80.9, lines: [{words: [{w: 'a', start: 0, end: .5}, {w: 'b', start: 40, end: 80.9}]}]};
+  const shots = [{id: 'a', start: 0, frames: 960, size: 'wide', see: ['x'], why: 'y', move: 'push'}, {id: 'b', start: 960, frames: 1018, size: 'wide', see: ['x'], why: 'y', move: 'push'}];
+  assert.deepEqual(PC.checkPlan({shots, cues, fps: 24, format: 5}).errors, []);
+  assert.ok(PC.checkPlan({shots, cues, fps: 24}).errors.some(e => /122\.5/.test(e)));
+  const long = [{...shots[0]}, {...shots[1], frames: 1300}];
+  assert.ok(PC.checkPlan({shots: long, cues, fps: 24, format: 5}).errors.some(e => /format v5/.test(e)));
+});

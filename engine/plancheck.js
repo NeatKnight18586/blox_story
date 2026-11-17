@@ -25,15 +25,22 @@ const inBox = (h, [x0, x1], [y0, y1]) => h && h.inFront && h.x >= x0 && h.x <= x
 // Every word start (A3 beat shots may cut on any word, not only after a pause).
 export const wordOnsets = cues => cues.lines.flatMap(l => l.words.map(w => w.start));
 
-export function checkPlan({shots, cues, fps = 30, end, info = []}) {
+// Voice / episode length per format (owner V4 D-format): format v5 runs 75–90 s, older formats keep a 100–168 s voice.
+export const lengthRule = format => format === 5 ? {voice: [75, 90], end: [75, 90]} : {voice: [100, 168], end: null};
+export function checkPlan({shots, cues, fps = 30, end, info = [], format}) {
+  const V5 = format === 5;   // format v5: length, cuts and shot sizes follow engine/plancheck5.js (cut on any word; no size/location/openHit rules)
   const errors = [], warnings = [], L = LIMITS, onsetF = phraseOnsets(cues).map(t => Math.round(t * fps)), wordF = wordOnsets(cues).map(t => Math.round(t * fps));
   const nearWord = f => Math.min(...wordF.map(o => Math.abs(o - f))) <= L.cutTol;
   let beatRun = 0;
   const voiceEnd = cues.duration, err = (s, m) => errors.push(`${s.id}: ${m}`), warn = (s, m) => warnings.push(`${s.id}: ${m}`);
   const nearOnset = f => Math.min(...onsetF.map(o => Math.abs(o - f))) <= L.cutTol;
   const want = episodeEnd(voiceEnd), last = shots.at(-1), endS = (last.start + last.frames) / fps;
+  if (V5) { const R = lengthRule(5);
+    if (voiceEnd < R.voice[0] || voiceEnd > R.voice[1]) errors.push(`voice ${voiceEnd.toFixed(2)} s outside ${R.voice[0]}–${R.voice[1]} s (format v5)`);
+    if (endS < voiceEnd - 1e-6 || endS > R.end[1] + 1e-6) errors.push(`last frame ends at ${endS.toFixed(2)} s, want voice end ${voiceEnd.toFixed(2)}–${R.end[1]} s (format v5)`); }
+  else {
   if (end !== undefined && Math.abs(end - want) > 1 / fps) errors.push(`episode end ${end} s ≠ max(voice + 2.5, 122.5) = ${want.toFixed(2)} s`);
-  if (Math.abs(endS - want) > 1.5 / fps) errors.push(`last frame ends at ${endS.toFixed(2)} s, want ${want.toFixed(2)} s`);
+  if (Math.abs(endS - want) > 1.5 / fps) errors.push(`last frame ends at ${endS.toFixed(2)} s, want ${want.toFixed(2)} s`); }
   let prev = null;   // previous non-whip shot
   shots.forEach((s, i) => {
     const whip = s.move === 'whip', I = info[i] ?? {};
@@ -42,7 +49,8 @@ export function checkPlan({shots, cues, fps = 30, end, info = []}) {
     // length (the held tail after the last word of the final shot is mandated by §9 and does not count)
     const fullS = s.frames / fps, durS = (Math.min(s.start + s.frames, i === shots.length - 1 ? Math.ceil(voiceEnd * fps) : Infinity) - s.start) / fps;
     beatRun = s.beat ? beatRun + 1 : 0;
-    if (s.beat) {   // A3 beat shots: 0.55–1.2 s, ≤ 3 in a row, only before 20 s, cut on a word onset
+    if (V5) { if (i > 0 && !nearWord(s.start)) err(s, `cut at ${(s.start / fps).toFixed(2)} s is > ${L.cutTol} frames from a word onset`); }
+    else if (s.beat) {   // A3 beat shots: 0.55–1.2 s, ≤ 3 in a row, only before 20 s, cut on a word onset
       if (fullS < L.beat[0] - 1e-6 || fullS > L.beat[1] + 1e-6) err(s, `beat shot ${fullS.toFixed(2)} s long (0.55–1.2)`);
       if (beatRun > L.beatRun) err(s, `more than ${L.beatRun} beat shots in a row`);
       if (s.start / fps >= L.beatBefore) err(s, `beat shot after ${L.beatBefore} s`);
@@ -51,12 +59,12 @@ export function checkPlan({shots, cues, fps = 30, end, info = []}) {
     else if (whip) { if (s.frames < L.whipFrames[0] || s.frames > L.whipFrames[1]) err(s, `whip is ${s.frames} frames (4–6)`); }
     else if (fullS < L.minShot - 1e-6 || durS > L.maxShot + 1e-6) err(s, `${(fullS < L.minShot ? fullS : durS).toFixed(2)} s long (1.2–5.0)`);
     // cuts on phrase onsets (a whip is one transition: one of its two edges must sit on an onset)
-    if (i > 0 && !whip && !s.beat && shots[i - 1].move !== 'whip' && !nearOnset(s.start)) err(s, `cut at ${(s.start / fps).toFixed(2)} s is > ${L.cutTol} frames from a phrase onset`);
+    if (!V5 && i > 0 && !whip && !s.beat && shots[i - 1].move !== 'whip' && !nearOnset(s.start)) err(s, `cut at ${(s.start / fps).toFixed(2)} s is > ${L.cutTol} frames from a phrase onset`);
     if (whip && !nearOnset(s.start) && !nearOnset(s.start + s.frames)) err(s, 'whip touches no phrase onset');
     // camera motion
-    if (I.first && I.last && same(I.first.camera.position, I.last.camera.position) && same(I.first.camera.target, I.last.camera.target) && Math.abs(I.first.camera.fov - I.last.camera.fov) < 1e-4) err(s, 'no camera motion');
+    if (!V5 && I.first && I.last && same(I.first.camera.position, I.last.camera.position) && same(I.first.camera.target, I.last.camera.target) && Math.abs(I.first.camera.fov - I.last.camera.fov) < 1e-4) err(s, 'no camera motion');
     if (!whip && s.move !== 'snap' && I.speed !== undefined && I.speed > SPEED_CAP) err(s, `pan speed ${(I.speed * 100).toFixed(0)} %/s > ${SPEED_CAP * 100} %`);
-    if (!whip) {
+    if (!whip && !V5) {
       if (prev && prev.size === s.size) err(s, `same size as ${prev.id} (${s.size})`);
       if (prev && s.loc && prev.loc && s.loc !== prev.loc && s.size !== 'wide') err(s, `location change ${prev.loc} → ${s.loc} must open on a wide`);
       prev = s;
@@ -86,8 +94,8 @@ export function checkPlan({shots, cues, fps = 30, end, info = []}) {
   });
   const firstWide = shots.find(s => s.size === 'wide');
   if (!firstWide || firstWide.start / fps > L.firstWide) errors.push(`no wide shot in the first ${L.firstWide} s`);
-  if (shots.filter(s => s.openHit).length !== 1 || !shots[0].openHit) errors.push('exactly one openHit, on the first shot');
+  if (!V5 && (shots.filter(s => s.openHit).length !== 1 || !shots[0].openHit)) errors.push('exactly one openHit, on the first shot');
   const nonWhip = shots.filter(s => s.move !== 'whip'), mean = (Math.min(endS, voiceEnd)) / nonWhip.length;
-  if (mean < L.meanShot[0] || mean > L.meanShot[1]) warnings.push(`mean shot length ${mean.toFixed(2)} s (target 2.2–3.0)`);
+  if (!V5 && (mean < L.meanShot[0] || mean > L.meanShot[1])) warnings.push(`mean shot length ${mean.toFixed(2)} s (target 2.2–3.0)`);
   return {errors, warnings, stats: {shots: shots.length, meanShot: +mean.toFixed(2), end: +endS.toFixed(2), gamecam: shots.filter(s => s.move === 'gamecam').length, wides: shots.filter(s => s.size === 'wide').length}};
 }

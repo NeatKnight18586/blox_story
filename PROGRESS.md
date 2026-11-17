@@ -1371,3 +1371,23 @@ Weakest 3, look6-before-after-390: street sky is a flat orange slab (no gradient
 Weakest 3, lightstates-390: toyDawn barely differs from toyLate in the aisle (slat light only reaches the front) · toyLate looks like toyNight minus one lamp, little mood change · the foreground pendant is oversized and crops the top.
 Decisions: light states mix baked layers (no re-bake); cascade drives layer weights by fraction + lamps/signs individually in order. Actors get pool light as a per-actor gain (owner's +0.3 EV lift kept on top). "1.5 body widths" = subject bbox grown by 1.5 × its width. Brows need the beanie tipped back (tilt −.45), a lift alone cannot clear them. Hall front lamp stays at [0, 14] (moving it broke top-down legibility), its cord crosses the hall wide.
 Open: rim gate vs owner's rim settings; wide-shot subject luma; haze same-class ratio; toyDawn needs light deeper into the hall.
+
+## Toy House E1 (2026-11-17): animatic from BEATS.md
+Plan (≤ 10 lines):
+1. Format v5 length: align.py `voice_range(format)` (v5 75–90 s, older 100–168) + plancheck `lengthRule`/`format` (v5: end ≥ voice ≤ 90 s, cuts on any word, no v2 size/location/openHit/mean rules; plan5 owns the rest).
+2. `scripts/v2/toyhouse-episode.js` → stories/toyhouse/episode.json: 53 shots on the BEATS word times, cameras computed from actor marks, light states + clock times as data.
+3. Missing pieces as opt-in data: spec `props` (toy props on timelines, engine/episode.js), props plush/tapeRoll/drone/gummyBear/moveBox, accessories headset/droneBack/gummyChest, captions spec `keywords`.
+4. Gates plan → read → stability (≤ 2 fix passes each), preview 270×480/2, assemble --animatic, sheets.
+Built: as planned. Spec: 53 shots, 81.75 s (voice 80.92 + 0.83 s hold), avg 1.54 s, every cut on a cues word start; look4 toyNight + look5b + look6, lightsCascade at 2.04, toyLate 38.61, toyDawn 66.86, dawn street 73.08; grades memory (T34), dawn (T41–42); clock 9:00 / spin / 9:05 / 9:20 / 4:00 / 7:58 / 7:59 / 8:00 via worldState; shutter slams 2.04, rolls up 73.08; lip flaps (narrator hero, build/envelope.json); keywords Toy House, eight, forever, key, Mo, hand (16 words yellow).
+Commands: `node scripts/v2/toyhouse-episode.js`; `node scripts/v2/envelope.js --story toyhouse`; v2:plan / v2:read / v2:stability --story toyhouse; v2:render --width 270 --height 480 --every 2 --aa 0 --workers 4 (981 frames, 81 s); captions.py; assemble.py --animatic --no-hold --spec.
+Numbers:
+- v2:plan PASS after 2 passes (11 → 0 errors); length 81.75, avg 1.54, inserts 0.43–0.95 of frame height.
+- v2:read FAIL 14 errors after 2 passes (36 → 14): faceShown head 68 % (T07, T21) / 43 % (T52); objectReads T23 89 %, T46 81 %, T47 22 %; standsOut T42 T46 T48 T51 T52 (0.049–0.073 < 0.12); moves T32, T42; T21 face 2.2 % covered.
+- v2:stability FAIL 4/181 views after 2 passes (11 → 4): T24 first .33 %, T26 first/mid .51/.45 %, T52 first .37 % (limit .30). Pass 2 = spec key moved off the baked key (z-fight) + rotor/gummy-head offsets; the accessory half missed on the first try (string mismatch), re-run once with the same fix.
+- Animatic review/toyhouse/animatic.mp4: 540×960, 12 fps, 81.75 s, 7.46 MB, −14.0 LUFS, TP −1.6. v2:test 149 node + 61 py; npm test 0; "Nobody" 62/62 byte-identical vs e5d41c5.
+Images: 3 of 6 (1 working sheet, animatic-390, hook-390).
+Weakest 3, animatic-390: T17 over-shoulder loses the clock behind Mo's beanie · T32 top-down (300 up) renders near-black (fog far) · grab/hands inserts T14/T15/T43 show torsos, not hands.
+Weakest 3, hook-390: no face before 4.5 s (HERO + MO only as cropped heads at 3 s) · T02 crash zoom lands on a dim shelf, the kart/dart chaos does not read · T03 shutter slam is a flat wall from outside (no kids, no scale).
+Decisions: 53 shots exactly (rows 15 and 23 keep one shot each: their extra cuts have no word time); T01 is a crane straight down (topDown counts as static, the first second needs motion); T03 shows the shutter from the street at night; T12/T29 split screens sized wide (read needs one subject per medium); T20 box held at chest so the face reads; T32 uses toyNightTop (toyLate top-down unreadable); hand-holds = two kids side by side (no hand-contact pose); assemble --no-hold (the 122.5 s pad is pre-v5).
+Open: the read/stability residuals above; whether assemble should get the v5 length rule too (today --no-hold).
+

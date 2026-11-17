@@ -300,6 +300,19 @@ def keyword_slots(timed, marks):
     return out
 
 
+def spec_keyword_slots(timed, phrases):
+    """Pure: {(chunk index, word index)} of every occurrence of the spec's keyword phrases (format v5, opt-in spec `keywords`,
+    for scripts without *word* marks). A phrase of several words marks a run of consecutive words; a possessive counts ("Mo's")."""
+    words = [(ci, wi, norm(w)) for ci, c in enumerate(timed) for wi, w in enumerate(c['words'])]
+    out = set()
+    for ph in phrases:
+        ks = [norm(t) for t in ph.split() if norm(t)]
+        for i in range(len(words) - len(ks) + 1):
+            if all(words[i + j][2] in (k, k + "'s") for j, k in enumerate(ks)):
+                out.update((words[i + j][0], words[i + j][1]) for j in range(len(ks)))
+    return out
+
+
 def to_ass(timed, style, emph=(), shots=None, fps=30, until=None, keywords=()):
     st = style
     head = f"""[Script Info]
@@ -352,6 +365,7 @@ def main():
     if style.get('keywordColour'):   # format v5: *word* marks in the owner's script (read only)
         import os; sp = f'stories/{o.story}/script.txt'
         if os.path.exists(sp): kw = keyword_slots(timed, script_marks(open(sp).read()))
+        if spec.get('keywords'): kw |= spec_keyword_slots(timed, spec['keywords'])   # opt-in: keywords listed in the spec
     ass = to_ass(timed, style, spec.get('emphasis', []), spec.get('shots'), spec.get('fps', 30), o.until, keywords=kw)
     out = o.out or f'stories/{o.story}/build/captions.ass'
     import os; os.makedirs(os.path.dirname(out), exist_ok=True); open(out, 'w').write(ass)

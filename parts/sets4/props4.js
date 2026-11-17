@@ -1,5 +1,5 @@
 // parts/sets4/props4.js — Toy House small props (format v5, Phase 3b): bright toys, never realistic. Each ≤ 400 triangles.
-//   toyProp(name, seed) → Group. Names: blaster, kart, gumball, hyperbox, key, hook, photoFrame, register, clock, cone, ballRack, foamBlock
+//   toyProp(name, seed) → Group. Names: blaster, kart, gumball, hyperbox, key, hook, photoFrame, register, clock, cone, ballRack, foamBlock, plush, tapeRoll, drone, gummyBear, moveBox
 import * as T from 'three';
 import {box, cyl, plastic, textPlate, TOY, flat} from './common.js';
 
@@ -43,6 +43,19 @@ const SP = {
   register() { const g = new T.Group(); g.add(box(2.4, 1.0, 1.8, '#d8d2c8', [0, .5, 0], {cell: 3}), box(2.0, .8, .3, '#3a3f48', [0, 1.45, -.6], {cell: 3}), box(1.6, .15, 1.0, '#7bd850', [0, 1.05, .1], {cell: 3}));
     const d = textPlate('$', {w: .9, h: .5, bg: '#2ec4b6', fg: '#fff', name: 'registerDisplay'}); d.position.set(0, 1.5, -.43); g.add(d); g.name = 'register'; return g; },
   cone() { const m = new T.Mesh(new T.ConeGeometry(.45, 1.0, 8), plastic('#ff8a00')); m.position.y = .5; m.name = 'cone'; return m; },
+  // Toy House episode props (format v5): giant plush bear, tape roll, toy drone, gummy bear, moving box
+  plush(seed = 1) { const g = new T.Group(), c = ['#ff7aa8', '#9b5de5', '#2ec4b6'][seed % 3], w = '#fff1e6';
+    g.add(box(2.4, 2.4, 1.7, c, [0, 1.9, 0], {cell: 3}), box(2.0, 1.8, 1.6, c, [0, 3.95, 0], {cell: 3}), box(.9, .6, .3, w, [0, 3.65, .85], {cell: 3}), box(.24, .24, .1, '#2b2b2f', [0, 3.85, 1.02], {cell: 3}));
+    for (const s of [-1, 1]) g.add(box(.6, .6, .4, c, [s * .85, 5.0, 0], {cell: 3}), box(.6, 1.6, .7, c, [s * 1.45, 2.3, .3], {cell: 3}), box(.8, .9, 1.0, c, [s * .7, .45, .25], {cell: 3}), box(.18, .18, .08, '#2b2b2f', [s * .45, 4.25, .82], {cell: 3}));
+    g.name = 'plush'; return g; },
+  tapeRoll() { const g = new T.Group(), r = new T.Mesh(new T.TorusGeometry(.42, .2, 6, 14), plastic('#d8dce2')); r.rotation.x = Math.PI / 2; r.position.y = .2; g.add(r, cyl(.26, .4, '#b8956a', [0, .2, 0], {seg: 10, cell: 3})); g.name = 'tapeRoll'; return g; },
+  drone() { const g = new T.Group(); g.add(box(.9, .32, .9, '#3a86ff', [0, 0, 0], {cell: 3}), box(.3, .14, .3, '#ffd542', [0, .22, 0], {cell: 3}));
+    for (const [x, z] of [[1, 1], [1, -1], [-1, 1], [-1, -1]]) { g.add(box(.7, .1, .12, '#2b2b2f', [x * .55, .05, z * .55], {cell: 3, rot: [0, x * z * Math.PI / 4, 0]})); const p = cyl(.38, .05, '#ff5a5f', [x * .8, .16, z * .8], {seg: 10, cell: 3}); g.add(p); }
+    g.name = 'drone'; return g; },
+  gummyBear() { const g = new T.Group(), c = '#ff3b3b'; g.add(box(1.0, 1.1, .6, c, [0, .75, 0], {cell: 3}), box(.85, .75, .55, c, [0, 1.65, 0], {cell: 3}));
+    for (const s of [-1, 1]) g.add(box(.25, .25, .25, c, [s * .33, 2.05, 0], {cell: 3}), box(.3, .55, .3, c, [s * .62, .95, .05], {cell: 3}), box(.35, .45, .35, c, [s * .3, .2, .05], {cell: 3}));
+    g.name = 'gummyBear'; return g; },
+  moveBox(seed = 1) { const g = new T.Group(), c = ['#c99a5b', '#b98a4e', '#d4a86c'][seed % 3]; g.add(box(2.0, 1.6, 1.6, c, [0, .8, 0], {cell: 3}), box(2.02, .1, .4, '#e6dcc4', [0, 1.62, 0], {cell: 3})); g.name = 'moveBox'; return g; },
   foamBlock(seed = 1) { const g = new T.Group(); g.add(box(1.6, 1.6, 1.6, TOY[seed % TOY.length], [0, .8, 0], {cell: 3})); g.name = 'foamBlock'; return g; },
 };
 export const TOY_PROPS = Object.keys(SP);

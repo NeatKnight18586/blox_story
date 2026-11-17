@@ -168,8 +168,20 @@ def recognise(wav):
     return join_tokens(st.result.tokens, st.result.timestamps), len(audio) / sr
 
 
+def voice_range(fmt=None):
+    """Pure: the allowed voice length (s) per episode format: format v5 75–90 s, older formats 100–168 s."""
+    return (75, 90) if fmt == 5 else (100, 168)
+
+
+def spec_format(story_dir, override=None):
+    """The episode format: --format, else stories/<slug>/episode.json `format`, else None (older formats)."""
+    if override is not None: return override
+    p = Path(story_dir) / 'episode.json'
+    return json.loads(p.read_text()).get('format') if p.exists() else None
+
+
 def main():
-    a = argparse.ArgumentParser(); a.add_argument('--story', required=True); a.add_argument('--out'); a.add_argument('--ref')
+    a = argparse.ArgumentParser(); a.add_argument('--story', required=True); a.add_argument('--out'); a.add_argument('--ref'); a.add_argument('--format', type=int)
     o = a.parse_args()
     sd = ROOT / 'stories' / o.story; build = sd / 'build'; build.mkdir(parents=True, exist_ok=True)
     voice = next((sd / f for f in ('voice.flac', 'voice.wav', 'voice.mp3') if (sd / f).exists()), None)
@@ -193,8 +205,9 @@ def main():
     matched = sum(j is not None for j in m)
     print(json.dumps({'out': str(out.relative_to(ROOT)) if out.is_relative_to(ROOT) else str(out), 'duration': round(duration, 2),
                       'script_words': len(flat), 'recognised': len(hyp), 'mapped': matched, 'silences': len(sil)}))
-    if not 100 <= duration <= 168:
-        sys.exit(f'STOP: voice is {duration:.1f} s, outside 100–168 s; tell the owner')
+    lo, hi = voice_range(spec_format(sd, o.format))
+    if not lo <= duration <= hi:
+        sys.exit(f'STOP: voice is {duration:.1f} s, outside {lo}–{hi} s; tell the owner')
     if o.ref:
         mx, bad = compare(cues, json.loads(Path(o.ref).read_text()))
         print(json.dumps({'reference': o.ref, 'max_line_start_diff': mx, 'over_tolerance': bad, 'pass': not bad}))

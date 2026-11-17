@@ -350,8 +350,16 @@ function shotShadow(shot) {
   shadowFit.set(shot.id, fit); return fit;
 }
 
+// format v5 story props (opt-in spec.props): toy props (parts/sets4/props4.js) placed and moved by timelines —
+//   {id, prop, seed, scale, pos: [[t, [x, y, z]], [t, [x, y, z], 'ramp']…], rot: [[t, [x°, y°, z°]]…], visible: [[t, bool]…]}; named `prop_<id>`.
+const storyProps = [];
+if (spec.props?.length) { const {toyProp} = await import('../parts/sets4/props4.js');
+  for (const p of spec.props) { const g = toyProp(p.prop, p.seed ?? 1); g.name = 'prop_' + p.id; g.scale.setScalar(p.scale ?? 1); g.traverse(o => { o.userData.live = true; }); scene.add(g); storyProps.push({p, g}); } }
+const vecAt = (keys, t, d) => keys?.length ? d.map((v, i) => valueAt(keys.map(k => [k[0], k[1][i], k[2], k[3]]), t, v)) : d;
+function updateProps(t) { for (const {p, g} of storyProps) { g.position.fromArray(vecAt(p.pos, t, [0, 0, 0])); const r = vecAt(p.rot, t, [0, 0, 0]); g.rotation.set(...r.map(v => v * Math.PI / 180)); g.visible = valueAt(p.visible, t, true); } }
 // World story state (Session 5): spec.worldState = {name: [[t, value], [t, value, 'ramp']...]} → world.setState.
 function applyWorldState(shot, t) {
+  if (storyProps.length) updateProps(t);
   if (!world) return;
   const ws = spec.worldState ?? {};
   if (!ws.cracks) world.setCracks?.(shot?.stoneCracks ?? spec.stoneCracks ?? 1);   // the clue grows (script lines 14–15)
