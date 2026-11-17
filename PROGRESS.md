@@ -1282,3 +1282,13 @@ Weakest 3, set-390 (viewed once, before the fill fixes): fill kids hid every eye
 Weakest 3, cast-390 (viewed after pass 1): MO's curls poked through the beanie (fixed by number: 0 vertices outside; unviewed) · C5 sepia reads grey (strengthened, unviewed) · lineup cell small (6 actors ~60 px each).
 Decisions: one composite location (`toyhouse_all`) because an episode has one `world`; each module is baked with its own preset (toy / dawn). The top-down camera sees through an open top (no roof); lamps hang from trusses. Animated kids 48 (not 60) and balls 800 to fit 90k. `elder_m` and `beanie` are new opt-in parts. YOUNG_PIP is a sepia-coloured youth preset (the framed photo is a canvas drawing). Fill only when camera y ≥ 20 (shot `fill` overrides).
 Open: no HYPERBOX/clock/photo close-ups of the street truck yet; MATCAP for `dawn` is generated at load (no disk cache for toy/dawn until `node scripts/v2/matcap4.js` runs); keyword captions, lip flap and audio for this world not exercised.
+
+## Format v5, Phase 3b-R (2026-11-17): Toy House scale + look rework
+Plan (≤ 10 lines):
+1. Hall ×3: 150 × 210 (x ±75, z −175..35, front wall stays z = 35), ceiling 36 (down-facing plane: invisible from the top camera), mezzanines y 12 / 24 with railings + stairs; zones spread, aisles of 14-tall gondolas (instanced modules: bevelled near / sharp mid / low-LOD box far half, chunked for culling), plush mountain, toy-train loop; fill 300; statics merged per district (frustum culling works).
+2. `parts/sets4/look5.js` (pure): bevelBox + roundCyl (RoundedBox family, r .04), HSL clamps (env S ≤ .45, L .35–.75; story S ≥ .60), material classes from looks4.json `toy.v4.materials`, contact-AO decals, module vertex AO, bevel census.
+3. Box-art atlas (1024, 16 invented designs, 5×7 pixel font, muted) in materials4 → cached by tex4.js.
+4. Haze: toy fog 30–260 + height fog; `toyTop` preset for top-down shots; dawn retuned gold, shutter metal.
+5. Light: cool fluorescent strips baked + warm practicals counter/candy; coaster practicals spread for lightsCascade.
+6. episode.js opt-in: shot `dof` (half-res blur by depth; keep only if ≤ +0.08 s), `satMeasure`/`depthLuma` for gates; Nobody 11/11.
+7. Gates `scripts/v2/toy5-gates.js` → review/toyhouse/look5-gates.json: sat ratio ≥ 1.6, bevel 100 % near, AO drop ≥ 15 %, haze ≤ 50 %, kids clear, bench ≤ 90k / 0.69 (1080). Sheets before-after-390 + scale-390.

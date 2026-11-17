@@ -68,6 +68,7 @@ if (spec.world) {
     const presets = await loadLooks4(new URL('./', import.meta.url)), P4 = presets[spec.look4]; if (!P4) throw Error('unknown look4 ' + spec.look4);
     await M4.loadTex4(new URL('../', import.meta.url));
     look = createLookV4(scene, renderer, presets, {initial: spec.look4}); look.apply(spec.look4);
+    if (mod.preload) await mod.preload(new URL('../', import.meta.url));   // format v5 3b-R (opt-in): async world assets (box-art atlas)
     world = mod.build(scene, {P, B, A, M, M4, PR, TR, BI, V, W, look, spec, look4: {preset: P4, halo, water4}});
     look.setGround(world.groundY ?? (() => 0));
     const bakeWith = (root, pr, lights) => { const PP = presets[pr], bk = PP.v4.bake;
@@ -261,6 +262,9 @@ const effects = createEffects([...(spec.effects ?? []).filter(e => e.type !== 'l
 const HERO_READ = spec.season === 1 || spec.heroRead === true;
 const subjectMains = HERO_READ ? [...new Set(shots.map(s => s.subject ?? s.fit?.actor).filter(n => cast[n]?.a.preset?.outfit?.main).map(n => cast[n].a.preset.outfit.main))] : [];
 const crowds = createCrowds(scene, spec.crowds ?? [], {...(spec.look4 ? {body: 'v5', material: toMatcap(new T.MeshStandardMaterial({color: '#ffffff', roughness: .45})), colourScale: 1 / look.MC_LIGHT, hairMaterial: toMatcap(hair4Material())} : {}), groundY: world?.groundY ?? (() => 0), resolveCentre: c => Array.isArray(c) ? c : (p => [p[0], p[2]])(resolve(c)), avoidColours: HERO_COLS ? [...subjectMains, ...HERO_COLS] : subjectMains, faces: spec.look4 ? 'v4' : FACES_V3 ? 'v3' : 'v2'});
+// format v5 3b-R (opt-in spec.crowdCull): each crowd group is culled by its own bounds (ambient kids stay in their area), so a
+// shot pays only for the groups it sees. Bounds = the group's area + 3 units, computed once from the members after the first pose.
+if (spec.crowdCull) { crowds.update(0, {}); scene.traverse(o => { if (o.isInstancedMesh && /^crowd_/.test(o.parent?.name ?? '')) { o.computeBoundingSphere(); o.boundingSphere.radius += 3; o.frustumCulled = true; } }); }
 const rim = HERO_READ ? (() => { const l = new T.SpotLight(RIM.color, 0, RIM.distance, RIM.angle, RIM.penumbra, RIM.decay); l.castShadow = false; l.visible = false; l.name = 'subjectRim'; scene.add(l, l.target); return l; })() : null;
 function aimRim(shot, camPos) {
   if (!rim) return; const n = shot?.subject ?? shot?.fit?.actor, m = n && markPos[n], r = m && cast[n].a.root.visible ? rimFor(shot.size, m, camPos, 5.3 * cast[n].a.root.scale.y) : null;
@@ -325,6 +329,30 @@ function renderSplit(cams, width, height) {
   renderer.setViewport(0, H - 3, width, 6); renderer.setScissor(0, H - 3, width, 6); renderer.setClearColor('#111318', 1); renderer.clear(true, true, false);
   renderer.setScissorTest(false); renderer.setViewport(0, 0, width, height);
 }
+// format v5 3b-R (opt-in shot `dof: true | {range, max}`): shallow background blur for close / medium shots. The scene renders
+// into a half-float target with a depth texture; one full-screen pass blurs only what lies behind the focus distance (the
+// camera → target distance), 12 Poisson taps scaled by the circle of confusion; tone mapping and sRGB happen in that pass.
+let dofRT = null, dofPass = null;
+function renderDof(shot, c, width, height) {
+  if (!dofRT || dofRT.width !== width || dofRT.height !== height) { dofRT?.dispose(); const dt = new T.DepthTexture(width, height); dt.type = T.UnsignedIntType;
+    dofRT = new T.WebGLRenderTarget(width, height, {type: T.HalfFloatType, depthTexture: dt, depthBuffer: true}); }
+  if (!dofPass) { const m = new T.ShaderMaterial({uniforms: {tColor: {value: null}, tDepth: {value: null}, focus: {value: 10}, range: {value: 6}, maxR: {value: 6}, px: {value: new T.Vector2()}, cn: {value: .3}, cf: {value: 900}},
+      vertexShader: 'varying vec2 vUv; void main(){ vUv = uv; gl_Position = vec4(position.xy, 0., 1.); }',
+      fragmentShader: `uniform sampler2D tColor; uniform sampler2D tDepth; uniform float focus, range, maxR, cn, cf; uniform vec2 px; varying vec2 vUv;
+        float lin(float d){ float z = d * 2. - 1.; return 2. * cn * cf / (cf + cn - z * (cf - cn)); }
+        void main(){ vec4 c0 = texture2D(tColor, vUv); float d0 = lin(texture2D(tDepth, vUv).x); float coc = clamp((d0 - focus) / range, 0., 1.) * maxR; vec3 acc = c0.rgb; float ws = 1.;
+          if (coc > .6) { for (int i = 0; i < 12; i++) { float a = float(i) * 2.39996; float r = sqrt((float(i) + .5) / 12.); vec2 uv = vUv + vec2(cos(a), sin(a)) * r * coc * px;
+            float w = lin(texture2D(tDepth, uv).x) > focus ? 1. : 0.; acc += texture2D(tColor, uv).rgb * w; ws += w; } }
+          gl_FragColor = vec4(acc / ws, 1.);
+          #include <tonemapping_fragment>
+          #include <colorspace_fragment>
+        }`, depthTest: false, depthWrite: false, toneMapped: true});
+    dofPass = {mesh: new T.Mesh(new T.PlaneGeometry(2, 2), m), scene: new T.Scene(), cam: new T.OrthographicCamera(-1, 1, 1, -1, 0, 1)}; dofPass.mesh.frustumCulled = false; dofPass.scene.add(dofPass.mesh); }
+  renderer.setRenderTarget(dofRT); renderer.clear(); renderer.render(scene, camera); renderer.setRenderTarget(null);
+  const o = typeof shot.dof === 'object' ? shot.dof : {}, u = dofPass.mesh.material.uniforms, focus = Math.hypot(...c.target.map((v, i) => v - c.position[i]));
+  u.tColor.value = dofRT.texture; u.tDepth.value = dofRT.depthTexture; u.focus.value = focus + (o.margin ?? 1.5); u.range.value = o.range ?? Math.max(4, focus * 1.2); u.maxR.value = (o.max ?? 7) * width / 1080; u.px.value.set(1 / width, 1 / height); u.cn.value = camera.near; u.cf.value = camera.far;
+  renderer.render(dofPass.scene, dofPass.cam);
+}
 export function renderFrame(n, width = 720, height = 1280, nudge = 0) {
   if (!Number.isInteger(n) || n < 0 || n >= FRAMES) throw Error(`frame out of range: ${n}`);
   const t0 = performance.now();
@@ -340,11 +368,12 @@ export function renderFrame(n, width = 720, height = 1280, nudge = 0) {
   camera.fov = c.fov; camera.aspect = width / height; camera.position.fromArray(pos);
   camera.up.set(0, 1, 0); camera.lookAt(...tgt); camera.rotateZ(c.roll); camera.updateProjectionMatrix();
   if (nudge) { const k = nudge / Math.sqrt(3); camera.translateX(k); camera.translateY(k); camera.translateZ(k); }
+  world?.onCamera?.(camera.position.toArray());   // format v5 3b-R (opt-in): a world may hide what this camera cannot see (hall ↔ street)
   if (look) { fx.look ? look.apply(...fx.look) : look.apply(shot.look ?? spec.look ?? 'day'); const sf = shotShadow(shot); poseCast(t); look.frameFixed(sf.centre, sf.radius, camera.position); look.update(t); }
   scene.updateMatrixWorld(true); effects.apply(t, camera); fitTags(scene, camera, {maxFrac: shot.tagMaxFrac ?? .06});
   if (spec.readableUi ?? !!look?.v3) { scene.updateMatrixWorld(true); enforceReadable(scene, camera, {focus: shot.focusUi ?? []}); }   // A5 §C: min text size + safe area (v3 worlds; "Nobody" untouched)
   renderer.info.autoReset = false; renderer.info.reset();   // A4: overlay passes (weather, cards) must not reset the scene counts
-  if (c.split) renderSplit(c.split, width, height); else renderer.render(scene, camera);
+  if (c.split) renderSplit(c.split, width, height); else if (shot.dof) renderDof(shot, c, width, height); else renderer.render(scene, camera);
   effects.overlay(t, camera, width / height);
   const gl = renderer.getContext(); gl.readPixels(0, 0, 1, 1, gl.RGBA, gl.UNSIGNED_BYTE, new Uint8Array(4));   // forces the GPU work to finish, so ms is real
   if (gl.isContextLost()) throw Error('WebGL context lost');
@@ -363,7 +392,7 @@ export function renderCamera(cam, t = 0, width = 720, height = 1280, lookName = 
   poseCast(t); camera.fov = cam.fov ?? 45; camera.aspect = width / height; camera.position.set(...cam.position); camera.up.set(...(cam.up ?? [0, 1, 0])); camera.lookAt(...cam.target); camera.updateProjectionMatrix();
   if (look) { look.apply(lookName); look.frame(new T.Vector3(...cam.target), camera.position.clone(), cam.shadowRadius ?? 34); look.update(t); }
   if (nudge) { const k = nudge / Math.sqrt(3); camera.translateX(k); camera.translateY(k); camera.translateZ(k); }
-  world?.update(t); applyWorldState(null, t); updateExtras(t); scene.updateMatrixWorld(true); fitTags(scene, camera); renderer.render(scene, camera);
+  world?.update(t); applyWorldState(null, t); world?.onCamera?.(camera.position.toArray()); updateExtras(t); scene.updateMatrixWorld(true); fitTags(scene, camera); renderer.render(scene, camera);
   const gl = renderer.getContext(); gl.readPixels(0, 0, 1, 1, gl.RGBA, gl.UNSIGNED_BYTE, new Uint8Array(4));
   return {triangles: frustumTriangles(), drawnTriangles: renderer.info.render.triangles, calls: renderer.info.render.calls, ms: performance.now() - t0};
 }
@@ -508,4 +537,38 @@ function colRange(L, b, w, h) { const x0 = Math.floor((b.x0 + (b.x1 - b.x0) * .3
   for (let y = y0; y < y1; y++) { let s = 0, n = 0; for (let x = Math.max(0, x0); x < Math.min(w, x1); x++) { s += L[y * w + x]; n++; } if (n) rows.push(s / n); } return rows.length ? Math.max(...rows) - Math.min(...rows) : 0; }
 export function shotSpeed(i) { const s = shots[i]; return maxTargetSpeed({...s, fps: FPS, openHit: false}, tt => poseCast(s.start / FPS + tt), FPS); }
 
-window.__episode = {debug: {scene, renderer, camera}, bake: BAKE, matcapBytes: MATCAP ? (n => Array.from(look.matcapBytes(n ?? spec.look4))) : null, breakdown, measureFrame, seasonMeasure, actorMask, readMeasure, lumaAt, inspectFrame, shotSpeed, END: FRAMES / FPS, anchors: Object.fromEntries(Object.entries(anchors).filter(([, a]) => a.camera).map(([k]) => [k, true])), renderAnchor, renderAnchorNudged, renderCamera, FPS, FRAMES, shots: shots.map(({id, start, frames, size, move, loc, subject, see, openHit, at, why, captionY, fit, spectacle, look: lk}) => ({id, start, frames, size, move, loc, subject, see, openHit: !!openHit, at, why, captionY, fit, spectacle: !!spectacle, look: lk})), renderFrame};
+// format v5 3b-R gates (scripts/v2/toy5-gates.js), all after renderFrame(n):
+//   satMeasure: mean HSL saturation of subject pixels (cast actors + every object tagged userData.story, the silhouette mask path)
+//   vs everything else; depthLuma: RMS luma contrast of pixels nearer than `near` vs farther than `far` (a distance pass);
+//   lumaProbe: mean luma (3×3) at projected world points.
+function frameRGBA(w, h) { const gl = renderer.getContext(), px = new Uint8Array(w * h * 4); gl.readPixels(0, 0, w, h, gl.RGBA, gl.UNSIGNED_BYTE, px); return px; }
+const satOf = (r, g, b) => { const mx = Math.max(r, g, b) / 255, mn = Math.min(r, g, b) / 255, l = (mx + mn) / 2, d = mx - mn; return d < 1e-6 ? 0 : d / (1 - Math.abs(2 * l - 1)); };
+export function satMeasure(n, {w = 390, h = 693} = {}) {
+  renderFrame(n, w, h); const px = frameRGBA(w, h), roots = [];
+  for (const x of Object.values(cast)) if (x.a.root.visible) roots.push(x.a.root);
+  scene.traverse(o => { if (o.userData?.story && visibleChain(o)) roots.push(o); });
+  const m = maskPass(o => roots.some(r => under(o, r)) && !(o.material?.transparent && o.material.opacity < .5), w, h);
+  let ss = 0, sn = 0, bs = 0, bn = 0; for (let y = 0; y < h; y++) for (let x = 0; x < w; x++) { const i = ((h - 1 - y) * w + x) * 4, s = satOf(px[i], px[i + 1], px[i + 2]); if (m[y * w + x]) { ss += s; sn++; } else { bs += s; bn++; } }
+  return {frame: n, subj: sn ? ss / sn : 0, bg: bn ? bs / bn : 0, subjPx: sn, ratio: sn && bs ? (ss / sn) / (bs / bn) : 0, subjects: roots.length};
+}
+const distMat = new T.ShaderMaterial({vertexShader: `varying vec3 vw;
+void main(){ vec4 p = vec4(position, 1.);
+#ifdef USE_INSTANCING
+  p = instanceMatrix * p;
+#endif
+  vec4 wp = modelMatrix * p; vw = wp.xyz; gl_Position = projectionMatrix * viewMatrix * wp; }`,
+  fragmentShader: 'varying vec3 vw; void main(){ float d = min(length(vw - cameraPosition), 1000.); gl_FragColor = vec4(floor(d / 4.) / 255., fract(d / 4.), 1., 1.); }'});
+export function depthLuma(n, {w = 390, h = 693, near = 15, far = 60} = {}) {
+  renderFrame(n, w, h); const L = frameLuma(w, h), hidden = []; scene.traverse(o => { if ((o.isSprite || o.isPoints || o.isLine || (o.isMesh && [].concat(o.material).some(m => m.transparent))) && o.visible) { hidden.push(o); o.visible = false; } });
+  const bg = scene.background, fog = scene.fog; scene.background = new T.Color('#000000'); scene.fog = null; scene.overrideMaterial = distMat; renderer.render(scene, camera);
+  const px = frameRGBA(w, h); scene.overrideMaterial = null; scene.background = bg; scene.fog = fog; for (const o of hidden) o.visible = true;
+  const acc = {near: [], far: []}; for (let y = 0; y < h; y++) for (let x = 0; x < w; x++) { const i = ((h - 1 - y) * w + x) * 4; if (px[i + 2] < 128) continue; const d = (px[i] + px[i + 1] / 255) * 4, l = L[y * w + x]; if (d < near) acc.near.push(l); else if (d > far) acc.far.push(l); }
+  const rms = a => { if (a.length < 50) return null; const mu = a.reduce((s, v) => s + v, 0) / a.length; return Math.sqrt(a.reduce((s, v) => s + (v - mu) ** 2, 0) / a.length); };
+  return {frame: n, nearRms: rms(acc.near), farRms: rms(acc.far), nearPx: acc.near.length, farPx: acc.far.length, ratio: rms(acc.near) && rms(acc.far) !== null ? rms(acc.far) / rms(acc.near) : null};
+}
+export function lumaProbe(n, points, {w = 540, h = 960} = {}) {
+  renderFrame(n, w, h); camera.updateMatrixWorld(true); const L = frameLuma(w, h);
+  return points.map(p => { const v = new T.Vector3(...p).project(camera), x = Math.round((v.x * .5 + .5) * w), y = Math.round((-v.y * .5 + .5) * h); let s = 0, k = 0;
+    for (let dy = -1; dy <= 1; dy++) for (let dx = -1; dx <= 1; dx++) { const xx = x + dx, yy = y + dy; if (xx >= 0 && yy >= 0 && xx < w && yy < h) { s += L[yy * w + xx]; k++; } } return {p, x, y, luma: k ? s / k : null}; });
+}
+window.__episode = {satMeasure, depthLuma, lumaProbe, debug: {scene, renderer, camera}, bake: BAKE, matcapBytes: MATCAP ? (n => Array.from(look.matcapBytes(n ?? spec.look4))) : null, breakdown, measureFrame, seasonMeasure, actorMask, readMeasure, lumaAt, inspectFrame, shotSpeed, END: FRAMES / FPS, anchors: Object.fromEntries(Object.entries(anchors).filter(([, a]) => a.camera).map(([k]) => [k, true])), renderAnchor, renderAnchorNudged, renderCamera, FPS, FRAMES, shots: shots.map(({id, start, frames, size, move, loc, subject, see, openHit, at, why, captionY, fit, spectacle, look: lk}) => ({id, start, frames, size, move, loc, subject, see, openHit: !!openHit, at, why, captionY, fit, spectacle: !!spectacle, look: lk})), renderFrame};
