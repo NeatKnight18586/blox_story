@@ -122,8 +122,8 @@
    "skyTop": "#dcd6cc",
    "skyHorizon": "#efe7da",
    "fog": "#e4dccf",
-   "fogNear": 30,
-   "fogFar": 260,
+   "fogNear": 8,
+   "fogFar": 170,
    "hemiSky": "#f2ece2",
    "hemiGround": "#b9ab96",
    "hemi": 1.0,
@@ -143,9 +143,9 @@
    "clouds": null,
    "heightFog": {
     "base": 0,
-    "falloff": 16,
-    "amount": 0.3,
-    "near": 70
+    "falloff": 22,
+    "amount": 0.45,
+    "near": 40
    },
    "shadowCatcher": 0.35,
    "glass": {
@@ -166,11 +166,11 @@
     ],
     "skyI": 0.55,
     "ground": [
-     0.7,
-     0.64,
-     0.56
+     0.86,
+     0.82,
+     0.76
     ],
-    "groundI": 0.3,
+    "groundI": 0.55,
     "aoDist": 4.0,
     "lights": true
    },
@@ -338,9 +338,9 @@
    "clouds": null,
    "heightFog": {
     "base": 0,
-    "falloff": 16,
-    "amount": 0.3,
-    "near": 70
+    "falloff": 22,
+    "amount": 0.45,
+    "near": 40
    },
    "shadowCatcher": 0.35,
    "glass": {
@@ -361,11 +361,11 @@
     ],
     "skyI": 0.55,
     "ground": [
-     0.7,
-     0.64,
-     0.56
+     0.86,
+     0.82,
+     0.76
     ],
-    "groundI": 0.3,
+    "groundI": 0.55,
     "aoDist": 4.0,
     "lights": true
    },

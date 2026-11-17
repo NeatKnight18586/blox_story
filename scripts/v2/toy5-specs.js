@@ -8,14 +8,14 @@ import {ANCHORS as STREET} from '../../parts/sets4/toyhouse_street.js';
 import {corridorClear} from '../../parts/sets4/look5.js';
 import {MODULE} from '../../parts/sets4/shelves.js';
 
-const F = 24, CLEAR_R = 3.2;
+const F = 24, CLEAR_R = 4.5;
 const add = (a, o) => a.map((v, i) => v + (o[i] ?? 0));
 // shots: id, anchor (or explicit from), size, subject (cast name), where the subject stands, look, dof
 const SHOTS = [
   {id: 'S1-top', anchor: 'hall', move: 'topDown', size: 'wide', look: 'toyTop', subject: 'hero', static: true, degrees: 0},
   {id: 'S2-aisle', anchor: 'aisle', size: 'wide', subject: 'hero'},
-  {id: 'S3-counter', from: {position: [-2.6, 5.4, 20.5], target: [0, 5.2, 30], fov: 34}, size: 'close', subject: 'pip', dof: true},
-  {id: 'S4-candy', from: {position: [-41.5, 5.6, 2], target: [-50, 3.6, 13.5], fov: 46}, size: 'medium', subject: 'mo', dof: true},
+  {id: 'S3-counter', from: {position: [-3.2, 5.6, 17.5], target: [-.6, 5.3, 30], fov: 38}, size: 'close', subject: 'pip'},
+  {id: 'S4-candy', from: {position: [-41.5, 5.6, 2], target: [-50, 3.6, 13.5], fov: 46}, size: 'medium', subject: 'mo'},
   {id: 'S5-street', anchor: 'street', size: 'wide', look: 'dawn'},
   {id: 'S6-scale', anchor: 'scale', size: 'wide', subject: 'hero'},
   {id: 'S7-hall', anchor: 'hall', size: 'wide', subject: 'hero'},
@@ -31,13 +31,15 @@ const SHOTS = [
 const t = id => SHOTS.findIndex(s => s.id === id) * F / F;
 const cast = {
   hero: {style: 'v5', preset: 'HERO', at: 'hall', offset: [0, 0, 4], yaw: 180, keys: [[0, 'heroPose', {snap: true}], [t('S6-scale'), 'lookUp'], [t('S7-hall'), 'heroPose', {snap: true}]], faces: [[0, 'hero_wink']],
-    marks: [[0, {at: 'hall', offset: [0, 0, 4], yaw: 180}], [t('S2-aisle'), {at: 'aisle', offset: [0, 0, 0], yaw: 4}], [t('S6-scale'), {at: 'scale', offset: [-1.5, 0, 0], yaw: 168}], [t('S7-hall'), {at: 'hall', offset: [0, 0, 4], yaw: 0}]]},
+    marks: [[0, {at: 'hall', offset: [0, 0, 4], yaw: 180}], [t('S2-aisle'), {at: 'aisle', offset: [0, 0, 0], yaw: 4}], [t('S6-scale'), {at: 'scale', offset: [-4, 0, -4], yaw: 168}], [t('S7-hall'), {at: 'hall', offset: [0, 0, 4], yaw: 0}]]},
   pip: {style: 'v5', preset: 'PIP', at: 'counter', offset: [0, 0, 1.6], yaw: 180, keys: [[0, 'idle']], faces: [[0, 'steady']]},
   mo: {style: 'v5', preset: 'MO', at: 'candy', offset: [4, 0, -7], yaw: 215, keys: [[0, 'point']], faces: [[0, 'grin']]},
   taped: {style: 'v5', preset: 'HERO_TAPED', at: 'track', offset: [11, 0, 12], yaw: 35, keys: [[0, 'waddle']], faces: [[0, 'hero_panic']]},
   dad: {style: 'v5', preset: 'MO_DAD', at: 'arena', offset: [-1, 0, 7], yaw: 170, keys: [[0, 'armsCrossed', {snap: true}]], faces: [[0, 'smile']]},
   youngpip: {style: 'v5', preset: 'YOUNG_PIP', at: 'pit', offset: [3, 0, 11], yaw: 20, keys: [[0, 'wave']], faces: [[0, 'polite']]},
 };
+// each actor shows only in the shots where it is the subject (an episode shows who the shot needs; the fixture should too)
+for (const [name, c] of Object.entries(cast)) { const vis = [[0, false]]; SHOTS.forEach((s, i) => { const on = s.subject === name; if (on !== vis.at(-1)[1]) vis.push([i, on]); }); c.visible = vis.filter((v, i, a) => i === 0 || v[1] !== a[i - 1][1]); }
 const anchorAt = n => ANCHORS[n]?.at ?? STREET[n]?.at;
 const markFor = (name, shotIndex) => { const c = cast[name], ts = shotIndex; const m = c.marks ? [...c.marks].reverse().find(([t0]) => t0 <= ts)[1] : {at: c.at, offset: c.offset}; return add(anchorAt(m.at), m.offset); };
 const camOf = s => s.from ?? (ANCHORS[s.anchor] ?? STREET[s.anchor]).camera;

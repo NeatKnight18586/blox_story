@@ -329,30 +329,6 @@ function renderSplit(cams, width, height) {
   renderer.setViewport(0, H - 3, width, 6); renderer.setScissor(0, H - 3, width, 6); renderer.setClearColor('#111318', 1); renderer.clear(true, true, false);
   renderer.setScissorTest(false); renderer.setViewport(0, 0, width, height);
 }
-// format v5 3b-R (opt-in shot `dof: true | {range, max}`): shallow background blur for close / medium shots. The scene renders
-// into a half-float target with a depth texture; one full-screen pass blurs only what lies behind the focus distance (the
-// camera → target distance), 12 Poisson taps scaled by the circle of confusion; tone mapping and sRGB happen in that pass.
-let dofRT = null, dofPass = null;
-function renderDof(shot, c, width, height) {
-  if (!dofRT || dofRT.width !== width || dofRT.height !== height) { dofRT?.dispose(); const dt = new T.DepthTexture(width, height); dt.type = T.UnsignedIntType;
-    dofRT = new T.WebGLRenderTarget(width, height, {type: T.HalfFloatType, depthTexture: dt, depthBuffer: true}); }
-  if (!dofPass) { const m = new T.ShaderMaterial({uniforms: {tColor: {value: null}, tDepth: {value: null}, focus: {value: 10}, range: {value: 6}, maxR: {value: 6}, px: {value: new T.Vector2()}, cn: {value: .3}, cf: {value: 900}},
-      vertexShader: 'varying vec2 vUv; void main(){ vUv = uv; gl_Position = vec4(position.xy, 0., 1.); }',
-      fragmentShader: `uniform sampler2D tColor; uniform sampler2D tDepth; uniform float focus, range, maxR, cn, cf; uniform vec2 px; varying vec2 vUv;
-        float lin(float d){ float z = d * 2. - 1.; return 2. * cn * cf / (cf + cn - z * (cf - cn)); }
-        void main(){ vec4 c0 = texture2D(tColor, vUv); float d0 = lin(texture2D(tDepth, vUv).x); float coc = clamp((d0 - focus) / range, 0., 1.) * maxR; vec3 acc = c0.rgb; float ws = 1.;
-          if (coc > .6) { for (int i = 0; i < 12; i++) { float a = float(i) * 2.39996; float r = sqrt((float(i) + .5) / 12.); vec2 uv = vUv + vec2(cos(a), sin(a)) * r * coc * px;
-            float w = lin(texture2D(tDepth, uv).x) > focus ? 1. : 0.; acc += texture2D(tColor, uv).rgb * w; ws += w; } }
-          gl_FragColor = vec4(acc / ws, 1.);
-          #include <tonemapping_fragment>
-          #include <colorspace_fragment>
-        }`, depthTest: false, depthWrite: false, toneMapped: true});
-    dofPass = {mesh: new T.Mesh(new T.PlaneGeometry(2, 2), m), scene: new T.Scene(), cam: new T.OrthographicCamera(-1, 1, 1, -1, 0, 1)}; dofPass.mesh.frustumCulled = false; dofPass.scene.add(dofPass.mesh); }
-  renderer.setRenderTarget(dofRT); renderer.clear(); renderer.render(scene, camera); renderer.setRenderTarget(null);
-  const o = typeof shot.dof === 'object' ? shot.dof : {}, u = dofPass.mesh.material.uniforms, focus = Math.hypot(...c.target.map((v, i) => v - c.position[i]));
-  u.tColor.value = dofRT.texture; u.tDepth.value = dofRT.depthTexture; u.focus.value = focus + (o.margin ?? 1.5); u.range.value = o.range ?? Math.max(4, focus * 1.2); u.maxR.value = (o.max ?? 7) * width / 1080; u.px.value.set(1 / width, 1 / height); u.cn.value = camera.near; u.cf.value = camera.far;
-  renderer.render(dofPass.scene, dofPass.cam);
-}
 export function renderFrame(n, width = 720, height = 1280, nudge = 0) {
   if (!Number.isInteger(n) || n < 0 || n >= FRAMES) throw Error(`frame out of range: ${n}`);
   const t0 = performance.now();
@@ -373,7 +349,7 @@ export function renderFrame(n, width = 720, height = 1280, nudge = 0) {
   scene.updateMatrixWorld(true); effects.apply(t, camera); fitTags(scene, camera, {maxFrac: shot.tagMaxFrac ?? .06});
   if (spec.readableUi ?? !!look?.v3) { scene.updateMatrixWorld(true); enforceReadable(scene, camera, {focus: shot.focusUi ?? []}); }   // A5 §C: min text size + safe area (v3 worlds; "Nobody" untouched)
   renderer.info.autoReset = false; renderer.info.reset();   // A4: overlay passes (weather, cards) must not reset the scene counts
-  if (c.split) renderSplit(c.split, width, height); else if (shot.dof) renderDof(shot, c, width, height); else renderer.render(scene, camera);
+  if (c.split) renderSplit(c.split, width, height); else renderer.render(scene, camera);
   effects.overlay(t, camera, width / height);
   const gl = renderer.getContext(); gl.readPixels(0, 0, 1, 1, gl.RGBA, gl.UNSIGNED_BYTE, new Uint8Array(4));   // forces the GPU work to finish, so ms is real
   if (gl.isContextLost()) throw Error('WebGL context lost');
