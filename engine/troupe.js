@@ -16,7 +16,7 @@ export function resolveTroupe(entry, data) {
   if (entry.tool) out.tool = entry.tool;
   if (entry.face) out.face = entry.face;
   out.tag = entry.role ? {name: entry.role, role: entry.roleLine ?? null} : null;
-  out.faceStyle = entry.faceStyle ?? p.faceStyle ?? 'v3';   // Faces v3 default for the troupe; HERO carries v4
+  out.faceStyle = entry.faceStyle ?? p.faceStyle ?? 'v3';   // Faces v3 default for the troupe; HERO carries v5
   for (const k of Object.keys(entry.with ?? {})) if (!FIXED.includes(k)) out[k] = entry.with[k];   // slots keep who they are
   return out;
 }
