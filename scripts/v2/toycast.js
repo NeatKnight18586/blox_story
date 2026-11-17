@@ -10,12 +10,13 @@ const make = (name, d) => { const {regions, safe} = outfit(d.recipe, d.main, d.l
 const cast = Object.fromEntries([
   // the hero, 11 years old: the same yellow head and charcoal jacket, youth build (a kid is shorter than every adult)
   ['HERO', P({skin: hero.skin, scale: .84, build: 'youth', age: 11, hair: null, face: 'hero_wink', regions: hero.regions, role: 'the hero, 11'})],
-  // the hero taped up: the jacket wrapped in grey duct tape (arms pinned, legs bound, tape across the mouth) → `waddle`
+  // the hero taped up: arms pinned, legs bound, tape across the mouth → `waddle`. Look 5b (owner, cast change approved): the tape is
+  // bright yellow #FFD542 and blue #0D7CD4 bands (was grey #9aa0a6), alternating, so the taped hero out-saturates the set
   ['HERO_TAPED', P({skin: hero.skin, scale: .84, build: 'youth', age: 11, hair: null, face: 'hero_panic', role: 'the hero, taped',
     regions: {...hero.regions, bands: [
-      {part: 'torso', y: .55, h: .32, w: 4.2, d: 1.12, color: '#9aa0a6'}, {part: 'torso', y: -.35, h: .32, w: 4.2, d: 1.12, color: '#9aa0a6'},
-      {part: 'leftLeg', y: .55, h: .3, w: 2.1, x: .5, color: '#9aa0a6'}, {part: 'leftLeg', y: -.45, h: .3, w: 2.1, x: .5, color: '#9aa0a6'}, {part: 'head', y: -.23, h: .22, color: '#9aa0a6'}]}})],
-  make('MO', {skin: '#c08457', scale: .84, build: 'youth', age: 11, hair: {style: 'curly_top', color: '#2e1a12', v: 4}, face: 'grin', accessories: [{name: 'beanie', color: '#ffc233', cuff: '#ffb000'}], recipe: 'hoodie', main: '#2fd6bf', legs: '#e8d9b5', role: 'Mo, teal hoodie + beanie'}),
+      {part: 'torso', y: .55, h: .32, w: 4.2, d: 1.12, color: '#FFD542'}, {part: 'torso', y: -.35, h: .32, w: 4.2, d: 1.12, color: '#0D7CD4'},
+      {part: 'leftLeg', y: .55, h: .3, w: 2.1, x: .5, color: '#0D7CD4'}, {part: 'leftLeg', y: -.45, h: .3, w: 2.1, x: .5, color: '#FFD542'}, {part: 'head', y: -.23, h: .22, color: '#0D7CD4'}]}})],
+  make('MO', {skin: '#c08457', scale: .84, build: 'youth', age: 11, hair: {style: 'curly_top', color: '#2e1a12', v: 4}, face: 'grin', accessories: [{name: 'beanie', color: '#ffc233', cuff: '#ffb000'}, {name: 'hoodieStrings'}], recipe: 'hoodie', main: '#2fd6bf', legs: '#e8d9b5', role: 'Mo, teal hoodie + beanie'}),
   make('PIP', {skin: '#e0a77a', build: 'elder_m', age: 71, hair: {style: 'side_part', color: '#c9c9c9', v: 4}, face: 'steady', recipe: 'tunic', main: '#8c3b4a', legs: '#d8cfc0', role: 'Pip, the old man'}),
   make('YOUNG_PIP', {skin: '#c9a982', scale: .8, build: 'youth', age: 12, hair: {style: 'messy_fringe', color: '#6b5238', v: 4}, face: 'polite', recipe: 'tee', main: '#8a6a44', legs: '#b8a07a', role: 'Young Pip, as in the photo (sepia)'}),
   make('MO_DAD', {skin: '#c08457', build: 'adult_m', age: 41, hair: {style: 'quiff', color: '#2e1a12', v: 4}, face: 'smile', recipe: 'hoodie', main: '#e8742a', legs: '#9fb0c4', role: "Mo's dad, orange work jacket"}),

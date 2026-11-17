@@ -119,8 +119,9 @@ export function build(scene, {M4, look4, spec, front = true} = {}) {   // front:
     for (const [list, geo, nm] of [[nearS, bevelBoxGeometry(14, .3, .9, BEVEL, 100), 'stripsNear'], [STRIPS.filter(p => !nearS.includes(p)), new T.BoxGeometry(14, .3, .9), 'strips']]) { if (!list.length) continue;
       const im = new T.InstancedMesh(geo, sm, list.length); list.forEach((p, i) => im.setMatrixAt(i, M.makeTranslation(...p))); im.name = nm; im.userData.live = true; im.computeBoundingSphere(); live.add(im); } }
   // ---- zone floor plates (muted; the top-down view still reads by value and hue) -----------------------------------------------
-  const plate = (z, c, y = .06) => bx('plates', z[2] - z[0], .12, z[3] - z[1], mat('plastic', c), [(z[0] + z[2]) / 2, y, (z[1] + z[3]) / 2], {cell: 4});
-  plate(ZONES.arena, '#7fb3ad'); plate(ZONES.candy, '#d9a7b8'); plate([-75, -42, -60, -12], '#6f74a8'); plate(ZONES.counter, '#e2c9a1'); plate([46, 10, 66, 34], '#d8c27a'); plate([42, -30, 61, -11], '#8aa6c9');
+  // Look 5b (owner): zone plates may reach S .65 (top-down charm); the environment proper stays ≤ .45
+  const plate = (z, c, y = .06) => bx('plates', z[2] - z[0], .12, z[3] - z[1], mat('plastic', c, {zone: true}), [(z[0] + z[2]) / 2, y, (z[1] + z[3]) / 2], {cell: 4});
+  plate(ZONES.arena, '#4fc4b8'); plate(ZONES.candy, '#ee8fb0'); plate([-75, -42, -60, -12], '#6d74d6'); plate(ZONES.counter, '#f0bf73'); plate([46, 10, 66, 34], '#ecc84e'); plate([42, -30, 61, -11], '#7f9fc8');
   // ---- go-kart track (right): elliptical ribbon, kerbs, karts (story) -----------------------------------------------------------
   { const n = 80, pos = [], idx = [], uv = [];
     for (let i = 0; i <= n; i++) { const a = i / n * Math.PI * 2, nx = Math.sin(a) / TRACK.a, nz = Math.cos(a) / TRACK.b, l = Math.hypot(nx, nz), o = [nx / l, nz / l];

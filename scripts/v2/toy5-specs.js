@@ -63,4 +63,6 @@ const spec = {
     for (const k of ['look', 'subject', 'dof', 'static', 'degrees']) if (s[k] !== undefined) o[k] = s[k]; return o; }),
 };
 writeFileSync('engine/fixtures/toyhouse/set5.json', JSON.stringify(spec, null, 1));
+// Look 5b fixture: the same shots with the opt-in Look 5b (rim, light linking, brightness, contact blobs, motion)
+writeFileSync('engine/fixtures/toyhouse/set5b.json', JSON.stringify({...spec, slug: 'toyhouse-set5b', look5b: true, note: spec.note.replace('Phase 3b-R', 'Look 5b')}, null, 1));
 console.log(JSON.stringify({shots: spec.shots.length, frames: spec.shots.length * F, clearCircles: clear.length, kids: crowds.reduce((a, c) => a + c.count, 0)}));

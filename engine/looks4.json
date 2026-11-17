@@ -1,5 +1,5 @@
 {
- "note": "Format v4 Phase 2 look presets (data, not code). base = the createLook preset fields; v4 = tone mapping, env, bake, glow, grade. Tuning pass 1 (look-ab sheet): comedy exposure 1.1\u21921.45 + LUT saturation 1.15\u21921.3 (AgX desaturates); mystery exposure 1.0\u21921.7, hemi .35\u2192.9, moon .55\u21921.3, baked sky .38\u2192.7 (actors were unreadable). Phase 2b: comedy tone mapping Khronos PBR Neutral (keeps saturation), exposure 1.0; mystery keeps AgX. Phase 3b: `toy` (bright interior, practicals baked) and `dawn` (rose horizon, low warm sun) for the Toy House sets. Phase 3b-R: toy = muted hazy interior (fog 30-260 + height haze), material classes (v4.materials), cool strips baked; toyTop = toy for straight-down shots (haze pushed past the floor); dawn retuned warm gold (less mauve).",
+ "note": "Format v4 Phase 2 look presets (data, not code). base = the createLook preset fields; v4 = tone mapping, env, bake, glow, grade. Tuning pass 1 (look-ab sheet): comedy exposure 1.1→1.45 + LUT saturation 1.15→1.3 (AgX desaturates); mystery exposure 1.0→1.7, hemi .35→.9, moon .55→1.3, baked sky .38→.7 (actors were unreadable). Phase 2b: comedy tone mapping Khronos PBR Neutral (keeps saturation), exposure 1.0; mystery keeps AgX. Phase 3b: `toy` (bright interior, practicals baked) and `dawn` (rose horizon, low warm sun) for the Toy House sets. Phase 3b-R: toy = muted hazy interior (fog 30-260 + height haze), material classes (v4.materials), cool strips baked; toyTop = toy for straight-down shots (haze pushed past the floor); dawn retuned warm gold (less mauve). Look 5b (opt-in spec look5b): `v5b` per preset = actor fresnel rim (colour, strength, power), actor lift actorEV vs the world, world grade envEV + envCool, exposureEV (daylight/toy +0.5, night 0), contact blob, camera noise, overshoot, breathing, springs, motion blur.",
  "comedy": {
   "base": {
    "skyTop": "#1f7cff",
@@ -54,6 +54,29 @@
    },
    "staticReflect": 0.12,
    "lut": "comedy"
+  },
+  "v5b": {
+   "rim": {
+    "color": "#BFD8FF",
+    "strength": 1.0,
+    "power": 1.8
+   },
+   "shade": 0.45,
+   "knee": 0.55,
+   "relief": 0.6,
+   "actorEV": 0.3,
+   "envEV": -0.15,
+   "envCool": 0.05,
+   "exposureEV": 0.5,
+   "blob": {
+    "opacity": 0.45,
+    "radius": 0.6
+   },
+   "camNoiseDeg": 0.15,
+   "overshoot": 0.12,
+   "breathe": true,
+   "springs": 2,
+   "motionBlur": true
   }
  },
  "mystery": {
@@ -115,6 +138,29 @@
    },
    "staticReflect": 0.08,
    "lut": "mystery"
+  },
+  "v5b": {
+   "rim": {
+    "color": "#BFD8FF",
+    "strength": 1.0,
+    "power": 1.8
+   },
+   "shade": 0.45,
+   "knee": 0.55,
+   "relief": 0.6,
+   "actorEV": 0.3,
+   "envEV": -0.15,
+   "envCool": 0.05,
+   "exposureEV": 0.0,
+   "blob": {
+    "opacity": 0.45,
+    "radius": 0.6
+   },
+   "camNoiseDeg": 0.15,
+   "overshoot": 0.12,
+   "breathe": true,
+   "springs": 2,
+   "motionBlur": true
   }
  },
  "toy": {
@@ -215,6 +261,30 @@
      "envHighlight": false
     }
    }
+  },
+  "v5b": {
+   "rim": {
+    "color": "#BFD8FF",
+    "strength": 1.0,
+    "power": 1.8
+   },
+   "shade": 0.45,
+   "knee": 0.55,
+   "relief": 0.6,
+   "actorEV": 0.3,
+   "envEV": -0.15,
+   "envCool": 0.05,
+   "exposureEV": 0.5,
+   "blob": {
+    "opacity": 0.45,
+    "radius": 0.6
+   },
+   "camNoiseDeg": 0.15,
+   "overshoot": 0.12,
+   "breathe": true,
+   "springs": 2,
+   "motionBlur": true,
+   "fogFar": 120
   }
  },
  "dawn": {
@@ -310,6 +380,29 @@
      "envHighlight": false
     }
    }
+  },
+  "v5b": {
+   "rim": {
+    "color": "#BFD8FF",
+    "strength": 1.0,
+    "power": 1.8
+   },
+   "shade": 0.45,
+   "knee": 0.55,
+   "relief": 0.6,
+   "actorEV": 0.3,
+   "envEV": -0.15,
+   "envCool": 0.05,
+   "exposureEV": 0.5,
+   "blob": {
+    "opacity": 0.45,
+    "radius": 0.6
+   },
+   "camNoiseDeg": 0.15,
+   "overshoot": 0.12,
+   "breathe": true,
+   "springs": 2,
+   "motionBlur": true
   }
  },
  "toyTop": {
@@ -410,6 +503,29 @@
      "envHighlight": false
     }
    }
+  },
+  "v5b": {
+   "rim": {
+    "color": "#BFD8FF",
+    "strength": 1.0,
+    "power": 1.8
+   },
+   "shade": 0.45,
+   "knee": 0.55,
+   "relief": 0.6,
+   "actorEV": 0.3,
+   "envEV": -0.15,
+   "envCool": 0.05,
+   "exposureEV": 0.5,
+   "blob": {
+    "opacity": 0.45,
+    "radius": 0.6
+   },
+   "camNoiseDeg": 0.15,
+   "overshoot": 0.12,
+   "breathe": true,
+   "springs": 2,
+   "motionBlur": true
   }
  }
 }
