@@ -1,0 +1,165 @@
+{
+ "what": "v2:bench mean s/frame at native 1080x1920 (the measure behind today's 0.69), engine/fixtures/v4look, 8 frames per shot + the street anchor; plus render.js --final (1440x2560 + AA) ms/frame on 30 frames",
+ "budget": 0.69,
+ "phase2b": {
+  "change": "actors and crowds on MeshMatcapMaterial (baked actor light, one 256 px matcap per preset); the close-shot subject keeps MeshStandard (heroLit)",
+  "bench1080": {
+   "comedy-v4": 0.391,
+   "mystery-v4": 0.417,
+   "cast-comedy (troupe + 24 crowd)": 0.436,
+   "cast-mystery": 0.458
+  },
+  "bench720": {
+   "comedy-v4": 0.231,
+   "mystery-v4": 0.239,
+   "cast-comedy": 0.224,
+   "cast-mystery": 0.255
+  },
+  "perShot1080": {
+   "comedy": {
+    "wide": 0.349,
+    "medium": 0.459,
+    "close (heroLit)": 0.473
+   },
+   "mystery": {
+    "wide": 0.324,
+    "medium": 0.502,
+    "close (heroLit)": 0.486
+   }
+  },
+  "final1440AA_msPerFrame": {
+   "comedy-v4": 697,
+   "mystery-v4": 719,
+   "comedy-today": 1105,
+   "mystery-today": 1481
+  },
+  "maxTriangles": {
+   "comedy-v4": 63018,
+   "mystery-v4": 52094,
+   "cast-comedy": 80888,
+   "cast-mystery": 71168
+  },
+  "result": "PASS at the 1080 bench (0.391 / 0.417 <= 0.69); at native 1440 + AA 0.697 / 0.719 s (today's pipeline 1.105 / 1.481)"
+ },
+ "phase2": {
+  "what": "v2:bench mean s/frame at native 1080x1920 (the measure behind today's 0.69: Nobody demo bench, PROGRESS.md), engine/fixtures/v4look, 8 frames per shot + the street anchor",
+  "budget": 0.69,
+  "today": {
+   "comedy-today (v3 look, real-time light, M.std)": {
+    "s720": 0.478,
+    "s1080": 0.924,
+    "maxTris": 50900
+   },
+   "mystery-today (v3 night)": {
+    "s720": 0.581,
+    "s1080": 1.061,
+    "maxTris": 50900
+   }
+  },
+  "v4": {
+   "comedy-v4": {
+    "first": {
+     "s720": 0.379,
+     "s1080": 0.716
+    },
+    "pass1 (catcher 24x24, env only on gloss >= .5)": {
+     "s720": 0.368,
+     "s1080": 0.71
+    },
+    "pass2 (PCF shadows, rim light off)": {
+     "s720": 0.369,
+     "s1080": 0.719
+    },
+    "maxTris": 60618
+   },
+   "mystery-v4": {
+    "first": {
+     "s720": 0.39,
+     "s1080": 0.735
+    },
+    "pass1": {
+     "s720": 0.38,
+     "s1080": 0.743
+    },
+    "pass2": {
+     "s720": 0.369,
+     "s1080": 0.714
+    },
+    "maxTris": 50898
+   }
+  },
+  "perShot1080_v4_pass2": {
+   "comedy": {
+    "wide": 0.569,
+    "medium": 0.87,
+    "close": 0.668
+   },
+   "mystery": {
+    "wide": 0.552,
+    "medium": 0.893,
+    "close": 0.707
+   }
+  },
+  "speedupVsToday": {
+   "comedy": 0.222,
+   "mystery": 0.327
+  },
+  "result": "FAIL",
+  "failures": [
+   "comedy-v4 0.719 s/frame > 0.69",
+   "mystery-v4 0.714 s/frame > 0.69"
+  ],
+  "notes": [
+   "v4 is 22 % (comedy) and 33 % (mystery) faster than today's pipeline on the same scene, but still above 0.69 after two fix passes (run-to-run noise about +-0.02).",
+   "The medium shot (actors filling the frame: satin PBR + env + sun shadow per pixel) is the slow one: 0.87-0.89; wide 0.55-0.57.",
+   "Bake at load: 23 static meshes, 21,751 vertices, voxel grid 242x72x242, 143-226 ms; texture disk cache: page load 2.3 s -> 0.94 s."
+  ],
+  "grade": {
+   "note": "mean luma / mean saturation of the graded frames (270x480), today = A2 grade, v4 = A2 + LUT + vignette, after tuning pass 2",
+   "comedy": {
+    "today": {
+     "wide": [
+      0.492,
+      0.384
+     ],
+     "medium": [
+      0.371,
+      0.606
+     ]
+    },
+    "v4": {
+     "wide": [
+      0.515,
+      0.315
+     ],
+     "medium": [
+      0.434,
+      0.406
+     ]
+    }
+   },
+   "mystery": {
+    "today": {
+     "wide": [
+      0.159,
+      0.805
+     ],
+     "medium": [
+      0.153,
+      0.865
+     ]
+    },
+    "v4": {
+     "wide": [
+      0.123,
+      0.64
+     ],
+     "medium": [
+      0.122,
+      0.716
+     ]
+    }
+   }
+  }
+ }
+}

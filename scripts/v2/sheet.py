@@ -6,7 +6,10 @@
 
 Default: one cell per second of footage (frame 0, 30, 60, ...), at most 60 cells per sheet (extra sheets
 get -2, -3 suffixes), long side at most 1600 px. --frames picks explicit frames. --stats prints mean luma
-(0-255) and mean saturation (0-1) for every cell. Reviewers look at sheets, never at single frames.
+(0-255) and mean saturation (0-1) for every cell, plus `change` = mean absolute RGB difference (0-255) from the previous
+cell. With --spec <episode.json> and --labels, --stats also checks A4 §E: the cell with the largest frame-to-frame colour
+change should lie in the `twist` or `moneyShot` shot (WARN line if not; never an error). Reviewers look at sheets, never at
+single frames.
 """
 import argparse, glob, json, math, os, subprocess, sys, tempfile
 from PIL import Image, ImageDraw, ImageFont
@@ -27,11 +30,27 @@ def stats(im):
     return ImageStat.Stat(small.convert('L')).mean[0], ImageStat.Stat(small.convert('HSV')).mean[1] / 255
 
 
+def change(a, b):
+    """Mean absolute RGB difference (0-255) between two cells at 90×160."""
+    from PIL import ImageChops, ImageStat
+    if a is None: return 0.0
+    return sum(ImageStat.Stat(ImageChops.difference(a.convert('RGB').resize((90, 160)), b.convert('RGB').resize((90, 160)))).mean) / 3
+
+
+def biggest_change_check(cells, shots, ids):
+    """cells: [(frame, change)]; shots: [{id, start, frames}]; ids: shot ids (twist, moneyShot). → (ok, frame, shot id)."""
+    if not cells: return True, None, None
+    f, _ = max(cells, key=lambda c: c[1])
+    sid = next((s['id'] for s in shots if s['start'] <= f < s['start'] + s['frames']), None)
+    return sid in ids, f, sid
+
+
 def main():
     a = argparse.ArgumentParser()
     a.add_argument('src'); a.add_argument('--out'); a.add_argument('--fps', type=float, default=30)
     a.add_argument('--every-sec', type=float, default=1.0); a.add_argument('--frames')
     a.add_argument('--labels', help='JSON list of {start, frames, id} shots to label cells with')
+    a.add_argument('--spec', help='episode.json: with --stats and --labels, warn unless twist/moneyShot holds the largest change')
     a.add_argument('--stats', action='store_true'); a.add_argument('--max', type=int, default=60); a.add_argument('--long', type=int, default=1600)
     o = a.parse_args()
 
@@ -45,6 +64,7 @@ def main():
     shots = json.load(open(o.labels)) if o.labels else None
     label = lambda i: next((f"{s['id']} " for s in shots if s['start'] <= i < s['start'] + s['frames']), '') if shots else ''
 
+    prev, cells = None, []
     with tempfile.TemporaryDirectory() as tmp:
         paths = frames_from_video(o.src, idx, tmp) if video else [files[i] for i in idx]
         base = o.out or os.path.join(o.src if not video else os.path.dirname(o.src) or '.', 'sheet.png')
@@ -59,12 +79,18 @@ def main():
             for k, j in enumerate(page):
                 im = Image.open(paths[j]).convert('RGB')
                 if o.stats:
-                    l, s = stats(im); print(json.dumps({'frame': idx[j], 'sec': round(idx[j] / o.fps, 2), 'luma': round(l, 1), 'sat': round(s, 3)}))
+                    l, s = stats(im); c = change(prev, im); prev = im; cells.append((idx[j], c))
+                    print(json.dumps({'frame': idx[j], 'sec': round(idx[j] / o.fps, 2), 'luma': round(l, 1), 'sat': round(s, 3), 'change': round(c, 2)}))
                 x, y = (k % cols) * cw, (k // cols) * (ch + 18)
                 sheet.paste(im.resize((cw, ch), Image.LANCZOS), (x, y + 18))
                 d.text((x + 4, y + 2), f'{label(idx[j])}f{idx[j]} {idx[j] / o.fps:.2f}s', fill='#ffd84a', font=font)
             path = base if pn == 0 else base.replace('.png', f'-{pn + 1}.png').replace('.jpg', f'-{pn + 1}.jpg')
             sheet.save(path); print(path, sheet.size, file=sys.stderr)
+    if o.stats and o.spec and shots:
+        sp = json.load(open(o.spec)); ids = [x for x in (sp.get('twist'), sp.get('moneyShot')) if x]
+        ok, f, sid = biggest_change_check(cells, shots, ids)
+        print(json.dumps({'largestChange': {'frame': f, 'shot': sid, 'want': ids, 'ok': ok}}))
+        if not ok: print(f'WARN largest colour change is in {sid} (frame {f}), not in {" / ".join(ids)} (A4 §E)')
 
 
 if __name__ == '__main__':

@@ -11,6 +11,37 @@ second argument is missing or `E1`; E2 runs after the owner's notes on the anima
 time and the slowest step). Every check below must actually run and pass; a check that fails twice after two
 different attempts → stop and ask. Never read `evidence/`; look only at contact sheets ≤ 1600 px.
 
+## Season 1 episodes (Amendment A4 §H; `/season` calls this; the steps below apply with these changes)
+- **Shot plan:** read the episode's card in `docs/season1/SEASON_1.md` §6 and `stories/<slug>/beats.md`. The beats' target
+  times are replaced by `cues.json` word onsets. Format v4 (`docs/season1/V4.md` D1): `beats.md` is the owner's beats
+  prompt; if it (or `script.txt`, or the voice file) is missing, stop and ask the owner for it. Never write, edit or
+  "fix" a script or beats file; `scriptcheck.py` results are reported to the owner, never acted on by rewriting.
+- **No labels (owner rule, SEASON_1.md §2c):** no name/role/AFK tags, bubbles, class cards or overhead UI; characters are
+  introduced by narration and camera; text only on real objects (world-facing `plate`/`stat` on a scoreboard, clock, note,
+  sign, switch) and in captions. `v2:plan`'s `noLabels` gate fails anything else.
+- **World:** terrain + biome + bespoke set pieces (`world.js` ≤ 320 lines, exports `LOOK`); see the CLAUDE.md library.
+  **Cast:** troupe slots (`cast/troupe.json`: `{style: 'v2', troupe: SLOT, role, outfit, accessories}`), AFK ×2.
+- **episode.json fields:**
+  - `"season": 1`, `"hero"`, `"captionStyle": "pop-shorts-v3"`;
+  - `beats` {B1…B9: [firstShot, lastShot]}, `clues` (3 shot ids, each shot naming its `clueObject`), `twist`, `afk`
+    (2 shot ids), `moneyShot`, `ruleLines` (default 2);
+  - shot 1 tagged `spectacle` or `ruleImage`; the last shot re-uses shot 1's camera;
+  - `sfx` (default on); `moods` (optional, for `audio-cues.md`).
+- **Gates before the owner sees anything:** `npm run v2:test` · `npm run v2:plan -- --story <slug>`, which now also runs the
+  season gates (B1, B2, clues, AFK, rhyme, 122–150 s, faces out of the 58–74 % caption band) plus A5 framing and uiSize ·
+  `npm run v2:bench` (Season 1 limits) · `npm run v2:stability`. Then `sheet.py <animatic> --stats --labels <shots> --spec
+  <episode.json>`: a WARN if the twist / money shot is not the largest colour change.
+- **Captions** `python3 scripts/v2/captions.py --story <slug> --spec stories/<slug>/episode.json` (v3 via `captionStyle`).
+  **Sound:** `assemble.py … --spec stories/<slug>/episode.json` mixes the auto-placed sfx (−16 dB under the voice, riser +
+  8 silent frames before the reversal) and `stories/<slug>/music.mp3` if the owner added one.
+- **Deliver with the animatic:**
+  - `python3 scripts/v2/audiocues.py --story <slug>` → `review/<slug>/audio-cues.md`;
+  - a 1-fps sheet;
+  - the frame-0 still at 390 px ("mute test"): `sheet.py <animatic> --frames 0 --long 390`.
+- **E2** is unchanged (1440 final, `v2:qc`, release, proxy), plus a suggested title (3–6 words + one emoji, §3) and a pinned
+  comment (one either/or question) from the card in `review/<slug>/DELIVERY.md`. Append a row stub (`| n | slug | lane |
+  title | | | | | | | | |`) to `docs/season1/RESULTS.md`.
+
 ## Session E1 (ends at the one owner gate)
 1. **Align:** `npm run v2:align -- --story <slug>` → `stories/<slug>/build/cues.json`; copy it to
    `stories/<slug>/cues.json` (commit it). Duration outside 100–168 s → stop and tell the owner.

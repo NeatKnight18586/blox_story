@@ -1,0 +1,639 @@
+{
+ "limits": {
+  "ranges": {
+   "eyeW": [
+    0.08,
+    0.27
+   ],
+   "eyeH": [
+    0.03,
+    0.3
+   ],
+   "spacing": [
+    0.34,
+    0.52
+   ],
+   "eyeY": [
+    0,
+    0.12
+   ],
+   "mouthY": [
+    -0.26,
+    -0.1
+   ],
+   "mouthH": [
+    0.02,
+    0.3
+   ],
+   "mouthW": [
+    0.08,
+    0.56
+   ],
+   "stroke": [
+    0.035,
+    0.065
+   ]
+  },
+  "strokePx": 1.5,
+  "distinct": 0.08,
+  "contrast": 3,
+  "facePx390": 48
+ },
+ "ranges": {
+  "smile": {
+   "eyeW": 0.14,
+   "eyeH": 0.212,
+   "spacing": 0.42,
+   "eyeY": 0.06,
+   "mouthY": -0.167,
+   "mouthH": 0.12,
+   "mouthW": 0.402,
+   "stroke": 0.058
+  },
+  "grin": {
+   "eyeW": 0.14,
+   "eyeH": 0.212,
+   "spacing": 0.42,
+   "eyeY": 0.06,
+   "mouthY": -0.242,
+   "mouthH": 0.295,
+   "mouthW": 0.555,
+   "stroke": 0.058
+  },
+  "neutral": {
+   "eyeW": 0.14,
+   "eyeH": 0.212,
+   "spacing": 0.42,
+   "eyeY": 0.06,
+   "mouthY": -0.165,
+   "mouthH": 0.06,
+   "mouthW": 0.3,
+   "stroke": 0.058
+  },
+  "smirk": {
+   "eyeW": 0.14,
+   "eyeH": 0.212,
+   "spacing": 0.42,
+   "eyeY": 0.06,
+   "mouthY": -0.164,
+   "mouthH": 0.119,
+   "mouthW": 0.328,
+   "stroke": 0.058
+  },
+  "chill": {
+   "eyeW": 0.187,
+   "eyeH": 0.08,
+   "spacing": 0.42,
+   "eyeY": 0.025,
+   "mouthY": -0.175,
+   "mouthH": 0.081,
+   "mouthW": 0.207,
+   "stroke": 0.058
+  },
+  "blocky": {
+   "eyeW": 0.118,
+   "eyeH": 0.118,
+   "spacing": 0.42,
+   "eyeY": 0.06,
+   "mouthY": -0.176,
+   "mouthH": 0.136,
+   "mouthW": 0.312,
+   "stroke": 0.058
+  },
+  "dots": {
+   "eyeW": 0.137,
+   "eyeH": 0.17,
+   "spacing": 0.42,
+   "eyeY": 0.06,
+   "mouthY": -0.175,
+   "mouthH": 0.081,
+   "mouthW": 0.207,
+   "stroke": 0.058
+  },
+  "vsmile": {
+   "eyeW": 0.137,
+   "eyeH": 0.17,
+   "spacing": 0.42,
+   "eyeY": 0.06,
+   "mouthY": -0.155,
+   "mouthH": 0.284,
+   "mouthW": 0.403,
+   "stroke": 0.058
+  },
+  "g_soft": {
+   "eyeW": 0.205,
+   "eyeH": 0.17,
+   "spacing": 0.42,
+   "eyeY": 0.06,
+   "mouthY": -0.175,
+   "mouthH": 0.081,
+   "mouthW": 0.207,
+   "stroke": 0.058
+  },
+  "g_glossy": {
+   "eyeW": 0.212,
+   "eyeH": 0.262,
+   "spacing": 0.42,
+   "eyeY": 0.06,
+   "mouthY": -0.175,
+   "mouthH": 0.081,
+   "mouthW": 0.207,
+   "stroke": 0.058
+  },
+  "g_closed": {
+   "eyeW": 0.2,
+   "eyeH": 0.108,
+   "spacing": 0.422,
+   "eyeY": 0.045,
+   "mouthY": -0.175,
+   "mouthH": 0.081,
+   "mouthW": 0.207,
+   "stroke": 0.058
+  },
+  "g_blush": {
+   "eyeW": 0.205,
+   "eyeH": 0.17,
+   "spacing": 0.42,
+   "eyeY": 0.06,
+   "mouthY": -0.175,
+   "mouthH": 0.081,
+   "mouthW": 0.207,
+   "stroke": 0.058
+  },
+  "g_uwu": {
+   "eyeW": 0.197,
+   "eyeH": 0.158,
+   "spacing": 0.412,
+   "eyeY": 0.058,
+   "mouthY": -0.174,
+   "mouthH": 0.106,
+   "mouthW": 0.267,
+   "stroke": 0.058
+  },
+  "g_wink_kid": {
+   "eyeW": 0.205,
+   "eyeH": 0.17,
+   "spacing": 0.42,
+   "eyeY": 0.06,
+   "mouthY": -0.167,
+   "mouthH": 0.147,
+   "mouthW": 0.094,
+   "stroke": 0.058
+  },
+  "g_sleepy": {
+   "eyeW": 0.187,
+   "eyeH": 0.061,
+   "spacing": 0.419,
+   "eyeY": 0.022,
+   "mouthY": -0.176,
+   "mouthH": 0.124,
+   "mouthW": 0.126,
+   "stroke": 0.058
+  },
+  "g_teary": {
+   "eyeW": 0.212,
+   "eyeH": 0.262,
+   "spacing": 0.42,
+   "eyeY": 0.06,
+   "mouthY": -0.169,
+   "mouthH": 0.113,
+   "mouthW": 0.461,
+   "stroke": 0.058
+  },
+  "g_lips": {
+   "eyeW": 0.212,
+   "eyeH": 0.262,
+   "spacing": 0.42,
+   "eyeY": 0.06,
+   "mouthY": -0.175,
+   "mouthH": 0.081,
+   "mouthW": 0.207,
+   "stroke": 0.058
+  },
+  "g_glam": {
+   "eyeW": 0.187,
+   "eyeH": 0.08,
+   "spacing": 0.42,
+   "eyeY": 0.025,
+   "mouthY": -0.164,
+   "mouthH": 0.119,
+   "mouthW": 0.328,
+   "stroke": 0.058
+  },
+  "m_brows": {
+   "eyeW": 0.137,
+   "eyeH": 0.17,
+   "spacing": 0.42,
+   "eyeY": 0.06,
+   "mouthY": -0.175,
+   "mouthH": 0.081,
+   "mouthW": 0.207,
+   "stroke": 0.058
+  },
+  "m_dad": {
+   "eyeW": 0.14,
+   "eyeH": 0.212,
+   "spacing": 0.42,
+   "eyeY": 0.06,
+   "mouthY": -0.167,
+   "mouthH": 0.12,
+   "mouthW": 0.402,
+   "stroke": 0.058
+  },
+  "m_pixel": {
+   "eyeW": 0.118,
+   "eyeH": 0.118,
+   "spacing": 0.42,
+   "eyeY": 0.06,
+   "mouthY": -0.165,
+   "mouthH": 0.06,
+   "mouthW": 0.3,
+   "stroke": 0.058
+  },
+  "elder_soft": {
+   "eyeW": 0.2,
+   "eyeH": 0.108,
+   "spacing": 0.422,
+   "eyeY": 0.045,
+   "mouthY": -0.167,
+   "mouthH": 0.12,
+   "mouthW": 0.402,
+   "stroke": 0.058
+  },
+  "elder_glasses": {
+   "eyeW": 0.137,
+   "eyeH": 0.17,
+   "spacing": 0.42,
+   "eyeY": 0.06,
+   "mouthY": -0.175,
+   "mouthH": 0.081,
+   "mouthW": 0.207,
+   "stroke": 0.058
+  },
+  "laugh": {
+   "eyeW": 0.202,
+   "eyeH": 0.128,
+   "spacing": 0.417,
+   "eyeY": 0.073,
+   "mouthY": -0.215,
+   "mouthH": 0.24,
+   "mouthW": 0.456,
+   "stroke": 0.058
+  },
+  "xd": {
+   "eyeW": 0.197,
+   "eyeH": 0.158,
+   "spacing": 0.412,
+   "eyeY": 0.058,
+   "mouthY": -0.215,
+   "mouthH": 0.24,
+   "mouthW": 0.456,
+   "stroke": 0.058
+  },
+  "shock": {
+   "eyeW": 0.262,
+   "eyeH": 0.295,
+   "spacing": 0.42,
+   "eyeY": 0.06,
+   "mouthY": -0.199,
+   "mouthH": 0.199,
+   "mouthW": 0.189,
+   "stroke": 0.058
+  },
+  "nervous": {
+   "eyeW": 0.14,
+   "eyeH": 0.212,
+   "spacing": 0.42,
+   "eyeY": 0.06,
+   "mouthY": -0.169,
+   "mouthH": 0.113,
+   "mouthW": 0.461,
+   "stroke": 0.058
+  },
+  "scream": {
+   "eyeW": 0.262,
+   "eyeH": 0.295,
+   "spacing": 0.42,
+   "eyeY": 0.06,
+   "mouthY": -0.182,
+   "mouthH": 0.292,
+   "mouthW": 0.324,
+   "stroke": 0.058
+  },
+  "terrified": {
+   "eyeW": 0.225,
+   "eyeH": 0.25,
+   "spacing": 0.42,
+   "eyeY": 0.06,
+   "mouthY": -0.182,
+   "mouthH": 0.292,
+   "mouthW": 0.324,
+   "stroke": 0.058
+  },
+  "dizzy": {
+   "eyeW": 0.213,
+   "eyeH": 0.19,
+   "spacing": 0.44,
+   "eyeY": 0.049,
+   "mouthY": -0.169,
+   "mouthH": 0.113,
+   "mouthW": 0.461,
+   "stroke": 0.058
+  },
+  "ko": {
+   "eyeW": 0.168,
+   "eyeH": 0.155,
+   "spacing": 0.42,
+   "eyeY": 0.063,
+   "mouthY": -0.217,
+   "mouthH": 0.195,
+   "mouthW": 0.373,
+   "stroke": 0.058
+  },
+  "cry": {
+   "eyeW": 0.2,
+   "eyeH": 0.108,
+   "spacing": 0.422,
+   "eyeY": 0.045,
+   "mouthY": -0.178,
+   "mouthH": 0.106,
+   "mouthW": 0.346,
+   "stroke": 0.058
+  },
+  "sob": {
+   "eyeW": 0.197,
+   "eyeH": 0.158,
+   "spacing": 0.412,
+   "eyeY": 0.058,
+   "mouthY": -0.226,
+   "mouthH": 0.284,
+   "mouthW": 0.409,
+   "stroke": 0.058
+  },
+  "sad": {
+   "eyeW": 0.14,
+   "eyeH": 0.212,
+   "spacing": 0.42,
+   "eyeY": 0.06,
+   "mouthY": -0.178,
+   "mouthH": 0.106,
+   "mouthW": 0.346,
+   "stroke": 0.058
+  },
+  "worried": {
+   "eyeW": 0.14,
+   "eyeH": 0.212,
+   "spacing": 0.42,
+   "eyeY": 0.06,
+   "mouthY": -0.176,
+   "mouthH": 0.124,
+   "mouthW": 0.126,
+   "stroke": 0.058
+  },
+  "angry": {
+   "eyeW": 0.216,
+   "eyeH": 0.099,
+   "spacing": 0.42,
+   "eyeY": 0.073,
+   "mouthY": -0.178,
+   "mouthH": 0.106,
+   "mouthW": 0.346,
+   "stroke": 0.058
+  },
+  "rage": {
+   "eyeW": 0.225,
+   "eyeH": 0.25,
+   "spacing": 0.42,
+   "eyeY": 0.06,
+   "mouthY": -0.226,
+   "mouthH": 0.284,
+   "mouthW": 0.409,
+   "stroke": 0.058
+  },
+  "evil_grin": {
+   "eyeW": 0.187,
+   "eyeH": 0.061,
+   "spacing": 0.419,
+   "eyeY": 0.022,
+   "mouthY": -0.242,
+   "mouthH": 0.295,
+   "mouthW": 0.555,
+   "stroke": 0.058
+  },
+  "monster": {
+   "eyeW": 0.262,
+   "eyeH": 0.295,
+   "spacing": 0.42,
+   "eyeY": 0.06,
+   "mouthY": -0.221,
+   "mouthH": 0.273,
+   "mouthW": 0.545,
+   "stroke": 0.058
+  },
+  "smug": {
+   "eyeW": 0.187,
+   "eyeH": 0.061,
+   "spacing": 0.419,
+   "eyeY": 0.022,
+   "mouthY": -0.164,
+   "mouthH": 0.119,
+   "mouthW": 0.328,
+   "stroke": 0.058
+  },
+  "side_eye": {
+   "eyeW": 0.187,
+   "eyeH": 0.08,
+   "spacing": 0.42,
+   "eyeY": 0.025,
+   "mouthY": -0.165,
+   "mouthH": 0.06,
+   "mouthW": 0.3,
+   "stroke": 0.058
+  },
+  "suspicious": {
+   "eyeW": 0.216,
+   "eyeH": 0.099,
+   "spacing": 0.42,
+   "eyeY": 0.073,
+   "mouthY": -0.169,
+   "mouthH": 0.099,
+   "mouthW": 0.336,
+   "stroke": 0.058
+  },
+  "unimpressed": {
+   "eyeW": 0.187,
+   "eyeH": 0.061,
+   "spacing": 0.419,
+   "eyeY": 0.022,
+   "mouthY": -0.165,
+   "mouthH": 0.06,
+   "mouthW": 0.3,
+   "stroke": 0.058
+  },
+  "embarrassed": {
+   "eyeW": 0.2,
+   "eyeH": 0.108,
+   "spacing": 0.422,
+   "eyeY": 0.045,
+   "mouthY": -0.169,
+   "mouthH": 0.113,
+   "mouthW": 0.461,
+   "stroke": 0.058
+  },
+  "sweat_smile": {
+   "eyeW": 0.202,
+   "eyeH": 0.128,
+   "spacing": 0.417,
+   "eyeY": 0.073,
+   "mouthY": -0.167,
+   "mouthH": 0.12,
+   "mouthW": 0.402,
+   "stroke": 0.058
+  },
+  "confused": {
+   "eyeW": 0.137,
+   "eyeH": 0.17,
+   "spacing": 0.42,
+   "eyeY": 0.06,
+   "mouthY": -0.169,
+   "mouthH": 0.099,
+   "mouthW": 0.336,
+   "stroke": 0.058
+  },
+  "sleep": {
+   "eyeW": 0.2,
+   "eyeH": 0.108,
+   "spacing": 0.422,
+   "eyeY": 0.045,
+   "mouthY": -0.176,
+   "mouthH": 0.124,
+   "mouthW": 0.126,
+   "stroke": 0.058
+  },
+  "hum": {
+   "eyeW": 0.2,
+   "eyeH": 0.108,
+   "spacing": 0.422,
+   "eyeY": 0.045,
+   "mouthY": -0.182,
+   "mouthH": 0.067,
+   "mouthW": 0.207,
+   "stroke": 0.058
+  },
+  "love": {
+   "eyeW": 0.177,
+   "eyeH": 0.156,
+   "spacing": 0.422,
+   "eyeY": 0.043,
+   "mouthY": -0.215,
+   "mouthH": 0.24,
+   "mouthW": 0.456,
+   "stroke": 0.058
+  },
+  "starry": {
+   "eyeW": 0.226,
+   "eyeH": 0.218,
+   "spacing": 0.423,
+   "eyeY": 0.07,
+   "mouthY": -0.215,
+   "mouthH": 0.24,
+   "mouthW": 0.456,
+   "stroke": 0.058
+  },
+  "curious": {
+   "eyeW": 0.14,
+   "eyeH": 0.212,
+   "spacing": 0.42,
+   "eyeY": 0.06,
+   "mouthY": -0.176,
+   "mouthH": 0.124,
+   "mouthW": 0.126,
+   "stroke": 0.058
+  },
+  "brave": {
+   "eyeW": 0.197,
+   "eyeH": 0.158,
+   "spacing": 0.412,
+   "eyeY": 0.058,
+   "mouthY": -0.165,
+   "mouthH": 0.06,
+   "mouthW": 0.3,
+   "stroke": 0.058
+  },
+  "wonder": {
+   "eyeW": 0.212,
+   "eyeH": 0.262,
+   "spacing": 0.42,
+   "eyeY": 0.06,
+   "mouthY": -0.199,
+   "mouthH": 0.199,
+   "mouthW": 0.189,
+   "stroke": 0.058
+  },
+  "polite": {
+   "eyeW": 0.202,
+   "eyeH": 0.128,
+   "spacing": 0.417,
+   "eyeY": 0.073,
+   "mouthY": -0.175,
+   "mouthH": 0.081,
+   "mouthW": 0.207,
+   "stroke": 0.058
+  },
+  "sheepish": {
+   "eyeW": 0.202,
+   "eyeH": 0.128,
+   "spacing": 0.417,
+   "eyeY": 0.073,
+   "mouthY": -0.175,
+   "mouthH": 0.081,
+   "mouthW": 0.207,
+   "stroke": 0.058
+  },
+  "determined": {
+   "eyeW": 0.14,
+   "eyeH": 0.212,
+   "spacing": 0.42,
+   "eyeY": 0.06,
+   "mouthY": -0.165,
+   "mouthH": 0.06,
+   "mouthW": 0.3,
+   "stroke": 0.058
+  }
+ },
+ "failures": [],
+ "darkSkin": [
+  {
+   "skin": "#5a3826",
+   "luma": 0.243,
+   "edgeContrast": 8.74,
+   "sclera": "#ffffff"
+  },
+  {
+   "skin": "#4a2c1d",
+   "luma": 0.193,
+   "edgeContrast": 10.62,
+   "sclera": "#ffffff"
+  }
+ ],
+ "age": {
+  "g_lips": "face g_lips uses adult-only parts and cannot go on a youth build",
+  "g_glam": "face g_glam uses adult-only parts and cannot go on a youth build",
+  "smile": null,
+  "custom": "face custom uses adult-only parts and cannot go on a youth build"
+ },
+ "stroke": {
+  "gridPx": 2.78,
+  "smileMouthPx": 3
+ },
+ "distinct": {
+  "min": {
+   "d": 0.1438,
+   "a": "neutral",
+   "b": "determined"
+  },
+  "pairs": 1540,
+  "under": []
+ },
+ "pass": true
+}

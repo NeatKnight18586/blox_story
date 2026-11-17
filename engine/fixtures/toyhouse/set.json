@@ -1,0 +1,375 @@
+{
+ "slug": "toyhouse-set",
+ "fps": 24,
+ "format": 5,
+ "note": "Phase 3b set sheet: hall + dawn street (composite), cast, 60 animated kids + 200 fill. Not an episode.",
+ "world": "parts/sets4/toyhouse_all.js",
+ "look4": "toy",
+ "look": "toy",
+ "labels": false,
+ "castFile": "cast/toyhouse.json",
+ "cast": {
+  "hero": {
+   "style": "v5",
+   "preset": "HERO",
+   "at": "hall",
+   "offset": [
+    3,
+    0,
+    20
+   ],
+   "yaw": 200,
+   "keys": [
+    [
+     0,
+     "heroPose",
+     {
+      "snap": true
+     }
+    ]
+   ],
+   "faces": [
+    [
+     0,
+     "hero_wink"
+    ]
+   ]
+  },
+  "taped": {
+   "style": "v5",
+   "preset": "HERO_TAPED",
+   "at": "hall",
+   "offset": [
+    -6,
+    0,
+    -9
+   ],
+   "yaw": 40,
+   "keys": [
+    [
+     0,
+     "waddle"
+    ]
+   ],
+   "faces": [
+    [
+     0,
+     "hero_panic"
+    ]
+   ]
+  },
+  "mo": {
+   "style": "v5",
+   "preset": "MO",
+   "at": "hall",
+   "offset": [
+    -18.5,
+    0,
+    -12
+   ],
+   "yaw": 60,
+   "keys": [
+    [
+     0,
+     "point"
+    ]
+   ],
+   "faces": [
+    [
+     0,
+     "grin"
+    ]
+   ]
+  },
+  "pip": {
+   "style": "v5",
+   "preset": "PIP",
+   "at": "hall",
+   "offset": [
+    0,
+    0,
+    29.6
+   ],
+   "yaw": 180,
+   "keys": [
+    [
+     0,
+     "idle"
+    ]
+   ],
+   "faces": [
+    [
+     0,
+     "steady"
+    ]
+   ]
+  },
+  "youngpip": {
+   "style": "v5",
+   "preset": "YOUNG_PIP",
+   "at": "hall",
+   "offset": [
+    -12,
+    0,
+    19
+   ],
+   "yaw": 30,
+   "keys": [
+    [
+     0,
+     "wave"
+    ]
+   ],
+   "faces": [
+    [
+     0,
+     "polite"
+    ]
+   ]
+  },
+  "dad": {
+   "style": "v5",
+   "preset": "MO_DAD",
+   "at": "hall",
+   "offset": [
+    12,
+    0,
+    -5
+   ],
+   "yaw": 200,
+   "keys": [
+    [
+     0,
+     "armsCrossed",
+     {
+      "snap": true
+     }
+    ]
+   ],
+   "faces": [
+    [
+     0,
+     "smile"
+    ]
+   ]
+  }
+ },
+ "crowds": [
+  {
+   "id": "arena",
+   "count": 10,
+   "area": [
+    14,
+    20
+   ],
+   "centre": [
+    11,
+    -20
+   ],
+   "seed": 4,
+   "mode": "ambient",
+   "scale": 0.84
+  },
+  {
+   "id": "pit",
+   "count": 8,
+   "area": [
+    11,
+    11
+   ],
+   "centre": [
+    15.5,
+    8.5
+   ],
+   "seed": 5,
+   "mode": "ambient",
+   "scale": 0.84
+  },
+  {
+   "id": "tramp",
+   "count": 5,
+   "area": [
+    6,
+    6
+   ],
+   "centre": [
+    16,
+    25
+   ],
+   "seed": 6,
+   "mode": "ambient",
+   "scale": 0.84
+  },
+  {
+   "id": "candy",
+   "count": 10,
+   "area": [
+    11,
+    14
+   ],
+   "centre": [
+    -16,
+    19
+   ],
+   "seed": 7,
+   "mode": "ambient",
+   "scale": 0.84
+  },
+  {
+   "id": "floor",
+   "count": 11,
+   "area": [
+    26,
+    5
+   ],
+   "centre": [
+    -2,
+    12
+   ],
+   "seed": 8,
+   "mode": "ambient",
+   "scale": 0.84
+  },
+  {
+   "id": "gadget",
+   "count": 4,
+   "area": [
+    3,
+    14
+   ],
+   "centre": [
+    -22,
+    -26
+   ],
+   "seed": 9,
+   "mode": "ambient",
+   "scale": 0.84
+  }
+ ],
+ "fill": [
+  {
+   "id": "floor",
+   "count": 200,
+   "area": [
+    46,
+    66,
+    0,
+    0
+   ],
+   "avoid": [
+    [
+     -17,
+     -28,
+     5,
+     0
+    ],
+    [
+     -9,
+     23,
+     9,
+     34
+    ],
+    [
+     -26,
+     -36,
+     -17,
+     -27
+    ]
+   ],
+   "seed": 2
+  }
+ ],
+ "shots": [
+  {
+   "id": "T1-top",
+   "frames": 24,
+   "move": "topDown",
+   "size": "wide",
+   "anchor": "hall",
+   "shadowRadius": 16,
+   "static": true,
+   "degrees": 0
+  },
+  {
+   "id": "T2-hall",
+   "frames": 24,
+   "move": "push",
+   "size": "wide",
+   "anchor": "hall",
+   "shadowRadius": 16
+  },
+  {
+   "id": "T3-counter",
+   "frames": 24,
+   "move": "push",
+   "size": "medium",
+   "anchor": "counter",
+   "shadowRadius": 16,
+   "subject": "pip"
+  },
+  {
+   "id": "T4-track",
+   "frames": 24,
+   "move": "push",
+   "size": "wide",
+   "anchor": "track",
+   "shadowRadius": 16,
+   "subject": "taped"
+  },
+  {
+   "id": "T5-arena",
+   "frames": 24,
+   "move": "push",
+   "size": "wide",
+   "anchor": "arena",
+   "shadowRadius": 16
+  },
+  {
+   "id": "T6-pit",
+   "frames": 24,
+   "move": "push",
+   "size": "wide",
+   "anchor": "pit",
+   "shadowRadius": 16
+  },
+  {
+   "id": "T7-gadget",
+   "frames": 24,
+   "move": "push",
+   "size": "close",
+   "anchor": "hyperbox",
+   "shadowRadius": 16,
+   "subject": "mo"
+  },
+  {
+   "id": "T8-street",
+   "frames": 24,
+   "move": "push",
+   "size": "wide",
+   "anchor": "street",
+   "shadowRadius": 16,
+   "look": "dawn"
+  }
+ ],
+ "worldState": {
+  "clock": [
+   [
+    0,
+    475
+   ]
+  ],
+  "shutter": [
+   [
+    0,
+    0
+   ]
+  ],
+  "truck": [
+   [
+    0,
+    0.8
+   ]
+  ]
+ },
+ "budget": "v3"
+}

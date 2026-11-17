@@ -114,6 +114,41 @@ const HEIGHT = {   // clean shapes only, white = high
 };
 export const RELIEF_PATTERNS = Object.keys(HEIGHT);
 
+// ---- A4 (Format v3) patterns: opt-in names, drawn the same way (calm albedo + a separate clean height drawing) --------
+export const PATTERNS_V3 = ['bark', 'leaves', 'cliff', 'snow', 'mud', 'concrete', 'asphalt', 'roofTile', 'plaster', 'crystal', 'ice'];
+Object.assign(TILE, {bark: 2, leaves: 3, cliff: 6, snow: 8, mud: 5, concrete: 4, asphalt: 6, roofTile: 2.5, plaster: 5, crystal: 3, ice: 6});
+Object.assign(RELIEF, {bark: .7, leaves: .6, cliff: .8, snow: .25, mud: .45, concrete: .35, roofTile: .7, crystal: .6, ice: .35});
+const strata = seed => { const out = []; let y = 0, k = 0; while (y < N) { const h = 18 + hash(k, 1, seed) * 30; out.push({y, h, k}); y += h; k++; } out[out.length - 1].h = N - out[out.length - 1].y; return out; };
+const tiles = (rows, cols) => { const out = [], h = N / rows, w = N / cols; for (let r = 0; r < rows; r++) for (let c = 0; c < cols; c++) out.push({x: c * w + (r % 2) * w / 2, y: r * h, w, h, k: r * 9 + c}); return out; };
+const leafBlobs = () => Array.from({length: 26}, (_, i) => ({x: hash(i, 1, 61) * N, y: hash(i, 2, 61) * N, r: 14 + hash(i, 3, 61) * 16, k: i}));
+const crystalCells = () => { const P = jgrid(3, 71, .45), out = []; for (let i = 0; i < 3; i++) for (let l = 0; l < 3; l++) out.push({c: [P(i, l), P(i + 1, l), P(i + 1, l + 1), P(i, l + 1)], k: i * 3 + l}); return out; };
+const crackPath = (g, s, n = 5, len = 46) => { let x = hash(s, 1, 1) * N, y = hash(s, 2, 1) * N; g.beginPath(); g.moveTo(x, y); for (let k = 0; k < n; k++) { x += (hash(s, k, 3) - .5) * len; y += (hash(s, k, 5) - .5) * len; g.lineTo(x, y); } g.stroke(); };
+const speckle = (g, seed, n, lo, hi, r = 1.6) => { for (let i = 0; i < n; i++) { g.fillStyle = grey(lo + hash(i, 3, seed) * (hi - lo)); g.fillRect(hash(i, 1, seed) * N, hash(i, 2, seed) * N, r, r); } };
+Object.assign(DRAW, {
+  bark(g) { g.fillStyle = grey(222); g.fillRect(0, 0, N, N); for (let i = 0; i < 9; i++) { const x = i * N / 9 + hash(i, 1, 81) * 8; g.fillStyle = grey(236 + hash(i, 2, 81) * 19); wrap((dx, dy) => { g.beginPath(); g.moveTo(x + dx, dy); g.bezierCurveTo(x + dx + 8, dy + N * .3, x + dx - 8, dy + N * .7, x + dx, dy + N); g.lineTo(x + dx + N / 9 - 6, dy + N); g.bezierCurveTo(x + dx + N / 9 - 14, dy + N * .7, x + dx + N / 9 + 2, dy + N * .3, x + dx + N / 9 - 6, dy); g.fill(); }); } },
+  leaves(g) { g.fillStyle = grey(200); g.fillRect(0, 0, N, N); for (const b of leafBlobs()) wrap((dx, dy) => { g.fillStyle = grey(226 + hash(b.k, 4, 61) * 29); g.beginPath(); g.ellipse(b.x + dx, b.y + dy, b.r, b.r * .62, hash(b.k, 5, 61) * 3, 0, 7); g.fill(); }); },
+  cliff(g) { for (const b of strata(91)) { g.fillStyle = grey(228 + hash(b.k, 2, 91) * 27); g.fillRect(0, b.y, N, b.h); g.fillStyle = grey(206); g.fillRect(0, b.y, N, 2); } g.strokeStyle = grey(208); g.lineWidth = 2; for (const s of [93, 97, 101]) crackPath(g, s, 3, 60); },
+  snow(g) { g.fillStyle = grey(250); g.fillRect(0, 0, N, N); softBlotches(g, 111, 8, .04); },
+  mud(g) { g.fillStyle = grey(236); g.fillRect(0, 0, N, N); softBlotches(g, 121, 12, .08); for (let i = 0; i < 5; i++) { const x = hash(i, 1, 123) * N, y = hash(i, 2, 123) * N; wrap((dx, dy) => { g.fillStyle = grey(214); g.beginPath(); g.ellipse(x + dx, y + dy, 18 + hash(i, 3, 123) * 14, 8, hash(i, 4, 123) * 3, 0, 7); g.fill(); }); } },
+  concrete(g) { g.fillStyle = grey(240); g.fillRect(0, 0, N, N); speckle(g, 131, 900, 222, 252); g.fillStyle = grey(212); g.fillRect(0, 0, N, 2); g.fillRect(0, 0, 2, N); },
+  asphalt(g) { g.fillStyle = grey(236); g.fillRect(0, 0, N, N); speckle(g, 141, 2200, 214, 255, 1.4); softBlotches(g, 143, 6, .04); },
+  roofTile(g) { g.fillStyle = grey(200); g.fillRect(0, 0, N, N); for (const t of tiles(4, 4)) wrap((dx, dy) => { g.fillStyle = grey(232 + hash(t.k, 1, 151) * 23); g.beginPath(); g.moveTo(t.x + dx + 2, t.y + dy); g.lineTo(t.x + dx + t.w - 2, t.y + dy); g.lineTo(t.x + dx + t.w - 2, t.y + dy + t.h * .7); g.quadraticCurveTo(t.x + dx + t.w / 2, t.y + dy + t.h + 4, t.x + dx + 2, t.y + dy + t.h * .7); g.fill(); }); },
+  plaster(g) { g.fillStyle = grey(242); g.fillRect(0, 0, N, N); softBlotches(g, 161, 12, .05); },
+  crystal(g) { g.fillStyle = grey(230); g.fillRect(0, 0, N, N); for (const f of crystalCells()) wrap((dx, dy) => { g.fillStyle = grey(222 + hash(f.k, 1, 171) * 33); g.beginPath(); f.c.forEach(([x, y], k) => (k ? g.lineTo : g.moveTo).call(g, x + dx, y + dy)); g.closePath(); g.fill(); g.strokeStyle = 'rgba(255,255,255,.9)'; g.lineWidth = 2; g.stroke(); }); },
+  ice(g) { g.fillStyle = grey(246); g.fillRect(0, 0, N, N); softBlotches(g, 181, 7, .05); g.strokeStyle = 'rgba(255,255,255,1)'; g.lineWidth = 2; for (const s of [183, 187, 191]) crackPath(g, s, 4, 50); },
+});
+Object.assign(HEIGHT, {
+  bark(g) { g.fillStyle = '#000'; g.fillRect(0, 0, N, N); for (let i = 0; i < 9; i++) { const x = i * N / 9 + hash(i, 1, 81) * 8; wrap((dx, dy) => { const gr = g.createLinearGradient(x + dx, 0, x + dx + N / 9, 0); gr.addColorStop(0, grey(60)); gr.addColorStop(.5, grey(255)); gr.addColorStop(1, grey(60)); g.fillStyle = gr; g.beginPath(); g.moveTo(x + dx, dy); g.bezierCurveTo(x + dx + 8, dy + N * .3, x + dx - 8, dy + N * .7, x + dx, dy + N); g.lineTo(x + dx + N / 9 - 6, dy + N); g.bezierCurveTo(x + dx + N / 9 - 14, dy + N * .7, x + dx + N / 9 + 2, dy + N * .3, x + dx + N / 9 - 6, dy); g.fill(); }); } },
+  leaves(g) { g.fillStyle = '#000'; g.fillRect(0, 0, N, N); for (const b of leafBlobs()) wrap((dx, dy) => { const gr = g.createRadialGradient(b.x + dx, b.y + dy, 1, b.x + dx, b.y + dy, b.r); gr.addColorStop(0, grey(255)); gr.addColorStop(1, grey(90)); g.fillStyle = gr; g.beginPath(); g.ellipse(b.x + dx, b.y + dy, b.r, b.r * .62, hash(b.k, 5, 61) * 3, 0, 7); g.fill(); }); },
+  cliff(g) { for (const b of strata(91)) { const gr = g.createLinearGradient(0, b.y, 0, b.y + b.h); gr.addColorStop(0, grey(255)); gr.addColorStop(.85, grey(150)); gr.addColorStop(1, grey(40)); g.fillStyle = gr; g.fillRect(0, b.y, N, b.h); } g.strokeStyle = '#000'; g.lineWidth = 3; for (const s of [93, 97, 101]) crackPath(g, s, 3, 60); },
+  snow(g) { g.fillStyle = grey(128); g.fillRect(0, 0, N, N); softBlotches(g, 113, 10, .5); },
+  mud(g) { g.fillStyle = grey(170); g.fillRect(0, 0, N, N); softBlotches(g, 125, 10, .4); for (let i = 0; i < 5; i++) { const x = hash(i, 1, 123) * N, y = hash(i, 2, 123) * N; wrap((dx, dy) => { g.fillStyle = grey(70); g.beginPath(); g.ellipse(x + dx, y + dy, 18 + hash(i, 3, 123) * 14, 8, hash(i, 4, 123) * 3, 0, 7); g.fill(); }); } },
+  concrete(g) { g.fillStyle = grey(220); g.fillRect(0, 0, N, N); g.fillStyle = '#000'; g.fillRect(0, 0, N, 3); g.fillRect(0, 0, 3, N); },
+  roofTile(g) { g.fillStyle = '#000'; g.fillRect(0, 0, N, N); for (const t of tiles(4, 4)) wrap((dx, dy) => { const gr = g.createLinearGradient(0, t.y + dy, 0, t.y + dy + t.h); gr.addColorStop(0, grey(90)); gr.addColorStop(1, grey(255)); g.fillStyle = gr; g.beginPath(); g.moveTo(t.x + dx + 2, t.y + dy); g.lineTo(t.x + dx + t.w - 2, t.y + dy); g.lineTo(t.x + dx + t.w - 2, t.y + dy + t.h * .7); g.quadraticCurveTo(t.x + dx + t.w / 2, t.y + dy + t.h + 4, t.x + dx + 2, t.y + dy + t.h * .7); g.fill(); }); },
+  crystal(g) { g.fillStyle = grey(128); g.fillRect(0, 0, N, N); for (const f of crystalCells()) { const cx = f.c.reduce((a, p) => a + p[0], 0) / 4, cy = f.c.reduce((a, p) => a + p[1], 0) / 4, a = hash(f.k, 2, 171) * 6.28; wrap((dx, dy) => { const gr = g.createLinearGradient(cx + dx - Math.cos(a) * 40, cy + dy - Math.sin(a) * 40, cx + dx + Math.cos(a) * 40, cy + dy + Math.sin(a) * 40); gr.addColorStop(0, grey(100)); gr.addColorStop(1, grey(230)); g.fillStyle = gr; g.beginPath(); f.c.forEach(([x, y], k) => (k ? g.lineTo : g.moveTo).call(g, x + dx, y + dy)); g.closePath(); g.fill(); }); } },
+  ice(g) { g.fillStyle = grey(200); g.fillRect(0, 0, N, N); g.strokeStyle = '#000'; g.lineWidth = 3; for (const s of [183, 187, 191]) crackPath(g, s, 4, 50); },
+});
+
 // ---- pure helpers (Node-testable) ------------------------------------------------------------------------
 // Wrapped binomial blur [1 4 6 4 1]/16 (σ ≈ 1), applied twice ≈ 1.4 px.
 export function blurWrap(h, w, hh, passes = 2) {
@@ -138,28 +173,47 @@ export function heightToNormal(h, w, hh, strength = 2.5) {
 
 // ---- textures --------------------------------------------------------------------------------------------
 const texCache = new Map(), nrmCache = new Map();
-export function patternTexture(name) {
+export function patternTexture(name, size = N) {
   if (!DRAW[name]) throw Error('unknown pattern ' + name);
-  if (texCache.has(name)) return texCache.get(name);
+  const ck = size === N ? name : name + '@' + size;
+  if (texCache.has(ck)) return texCache.get(ck);
   let tex = null;
   if (typeof document !== 'undefined') {
-    const c = document.createElement('canvas'); c.width = c.height = N; DRAW[name](c.getContext('2d'));
+    const c = document.createElement('canvas'); c.width = c.height = size; const g = c.getContext('2d'); g.scale(size / N, size / N); DRAW[name](g);   // A4: hero tier draws the same vectors at 512
     tex = new T.CanvasTexture(c); tex.colorSpace = T.SRGBColorSpace; tex.wrapS = tex.wrapT = T.RepeatWrapping; tex.anisotropy = 8;   // A2: 8× keeps ground textures crisp at grazing angles (bench-checked)
   }
-  texCache.set(name, tex); return tex;
+  texCache.set(ck, tex); return tex;
 }
-export function normalTexture(name) {
+export function normalTexture(name, size = N) {
   if (!HEIGHT[name]) return null;
-  if (nrmCache.has(name)) return nrmCache.get(name);
+  const ck = size === N ? name : name + '@' + size;
+  if (nrmCache.has(ck)) return nrmCache.get(ck);
   let tex = null;
   if (typeof document !== 'undefined') {
-    const c = document.createElement('canvas'); c.width = c.height = N; const g = c.getContext('2d', {willReadFrequently: true}); HEIGHT[name](g);
-    const px = g.getImageData(0, 0, N, N).data, h = new Float32Array(N * N);
-    for (let y = 0; y < N; y++) for (let x = 0; x < N; x++) h[(N - 1 - y) * N + x] = px[(y * N + x) * 4] / 255;   // flip: row 0 = v 0, matching the albedo
-    tex = new T.DataTexture(heightToNormal(blurWrap(h, N, N), N, N), N, N, T.RGBAFormat);
+    const S = size, c = document.createElement('canvas'); c.width = c.height = S; const g = c.getContext('2d', {willReadFrequently: true}); g.scale(S / N, S / N); HEIGHT[name](g);
+    const px = g.getImageData(0, 0, S, S).data, h = new Float32Array(S * S);
+    for (let y = 0; y < S; y++) for (let x = 0; x < S; x++) h[(S - 1 - y) * S + x] = px[(y * S + x) * 4] / 255;   // flip: row 0 = v 0, matching the albedo
+    tex = new T.DataTexture(heightToNormal(blurWrap(h, S, S, S === N ? 2 : 3), S, S, 2.5 * S / N), S, S, T.RGBAFormat);
     tex.wrapS = tex.wrapT = T.RepeatWrapping; tex.colorSpace = T.NoColorSpace; tex.magFilter = T.LinearFilter; tex.minFilter = T.LinearMipmapLinearFilter; tex.generateMipmaps = true; tex.anisotropy = 4; tex.needsUpdate = true;   // A2: relief at 4× (bench-checked)
   }
-  nrmCache.set(name, tex); return tex;
+  nrmCache.set(ck, tex); return tex;
+}
+
+// Format v4 Phase 2 (opt-in, unused by older specs): roughness maps for the relief patterns, from the same height drawing
+// (crevices rough, tops a little smoother; green channel, as three reads roughness).
+const roughCache = new Map();
+export const roughFromHeight = (v, base = .86, span = .22) => Math.round(Math.min(1, base + span * (.5 - v)) * 255);   // pure
+export function roughnessTexture(name, size = 512) {
+  if (!HEIGHT[name]) return null;
+  const ck = name + '@' + size; if (roughCache.has(ck)) return roughCache.get(ck);
+  let tex = null;
+  if (typeof document !== 'undefined') {
+    const S = size, c = document.createElement('canvas'); c.width = c.height = S; const g = c.getContext('2d', {willReadFrequently: true}); g.scale(S / N, S / N); HEIGHT[name](g);
+    const px = g.getImageData(0, 0, S, S).data, out = new Uint8Array(S * S * 4);
+    for (let y = 0; y < S; y++) for (let x = 0; x < S; x++) { const o = ((S - 1 - y) * S + x) * 4; out[o + 1] = roughFromHeight(px[(y * S + x) * 4] / 255); out[o + 3] = 255; }
+    tex = new T.DataTexture(out, S, S, T.RGBAFormat); tex.wrapS = tex.wrapT = T.RepeatWrapping; tex.colorSpace = T.NoColorSpace; tex.generateMipmaps = true; tex.minFilter = T.LinearMipmapLinearFilter; tex.needsUpdate = true;
+  }
+  roughCache.set(ck, tex); return tex;
 }
 
 const matCache = new Map();
@@ -174,4 +228,87 @@ export function mat(pattern = 'plastic', color = '#cccccc', {flat = false, verte
   m.userData.pattern = pattern; m.name = key; matCache.set(key, m); return m;
 }
 export const tileOf = m => TILE[m?.userData?.pattern] ?? 4;
-export const textureCounts = () => ({albedo: Object.keys(DRAW).filter(k => k !== 'plastic' && k !== 'neon').length, normal: RELIEF_PATTERNS.length});
+export const textureCounts = () => ({albedo: PATTERNS.filter(k => k !== 'plastic' && k !== 'neon').length, normal: RELIEF_PATTERNS.length});   // the v2 ("Nobody") set
+export const textureCountsV3 = () => ({albedo: Object.keys(DRAW).filter(k => k !== 'plastic' && k !== 'neon').length, normal: Object.keys(HEIGHT).length});
+
+// ---- A4 environment materials (hero-tier ENVIRONMENT only; avatars keep Phong) -----------------------------------
+// One small generated environment map (engine/look.js v3 sets it before the world builds). std() = MeshStandardMaterial
+// with the pattern at 512 px (hero) or 256, its normal map, roughness by pattern, a little env reflection.
+export const ENV = {map: null, intensity: .45};
+export const setEnvMap = (tex, intensity = .45) => { ENV.map = tex; ENV.intensity = intensity; };
+const ROUGH = {glass: .15, water: .1, metal: .35, ice: .2, crystal: .25, snow: .7, asphalt: .9, concrete: .85};
+const stdCache = new Map();
+export function std(pattern = 'plastic', color = '#cccccc', {hero = true, flat = false, vertexColors = false, emissive = null} = {}) {
+  const key = `${pattern}|${color}|${hero}|${flat}|${vertexColors}|${emissive}`; if (stdCache.has(key)) return stdCache.get(key);
+  const size = hero ? 512 : N, map = pattern === 'plastic' || pattern === 'neon' ? null : patternTexture(pattern, size);
+  const m = new T.MeshStandardMaterial({color, map, roughness: ROUGH[pattern] ?? .82, metalness: pattern === 'metal' ? .5 : 0, flatShading: flat, vertexColors,
+    envMap: ENV.map, envMapIntensity: ENV.intensity});
+  const nm = normalTexture(pattern, size); if (nm) { m.normalMap = nm; m.normalScale = new T.Vector2(RELIEF[pattern], RELIEF[pattern]); }
+  if (pattern === 'neon' || emissive) { m.emissive = new T.Color(emissive ?? color); m.emissiveIntensity = 1.1; }
+  m.userData.pattern = pattern; m.name = 'std:' + key; stdCache.set(key, m); return m;
+}
+// Terrain splat material: three layers [{pattern, color, tile}] mixed by the geometry's `splat` attribute (terrain.js),
+// albedo AND normal maps blended, plus a low-frequency macro tone so big slopes never show the tile repeat.
+let flatN = null;
+const flatNormal = () => { if (!flatN) { flatN = new T.DataTexture(new Uint8Array([128, 128, 255, 255]), 1, 1); flatN.needsUpdate = true; } return flatN; };
+// Tiling smooth value noise (128², linear, repeat) for the per-pixel splat boundaries: 2 fetches instead of 8 sin() hashes
+// per pixel (A7: the procedural version cost ~0.3 s/frame at 720 on SwiftShader).
+let noiseTex = null;
+export function noiseField(n = 128, cells = 8, seed = 5) {   // pure: Float32 n×n in 0..1, tiles seamlessly
+  const g = (i, j) => hash(((i % cells) + cells) % cells, ((j % cells) + cells) % cells, seed), out = new Float32Array(n * n), sm = t => t * t * (3 - 2 * t);
+  for (let y = 0; y < n; y++) for (let x = 0; x < n; x++) { const fx = x / n * cells, fy = y / n * cells, i = Math.floor(fx), j = Math.floor(fy), u = sm(fx - i), v = sm(fy - j);
+    out[y * n + x] = (g(i, j) * (1 - u) + g(i + 1, j) * u) * (1 - v) + (g(i, j + 1) * (1 - u) + g(i + 1, j + 1) * u) * v; }
+  return out;
+}
+function noiseTexture() {
+  if (noiseTex) return noiseTex; const n = 128, f = noiseField(n), px = new Uint8Array(n * n * 4);
+  for (let i = 0; i < n * n; i++) { const v = Math.round(f[i] * 255); px[i * 4] = px[i * 4 + 1] = px[i * 4 + 2] = v; px[i * 4 + 3] = 255; }
+  noiseTex = new T.DataTexture(px, n, n); noiseTex.wrapS = noiseTex.wrapT = T.RepeatWrapping; noiseTex.magFilter = T.LinearFilter; noiseTex.minFilter = T.LinearFilter; noiseTex.needsUpdate = true; return noiseTex;
+}
+// A5 §D: `splat` thresholds given → PER-PIXEL blend: weights from the world normal and world height in the fragment shader,
+// with world-space value noise on every boundary (no per-triangle colour patches); `wetY` darkens a wet band above water.
+// Without `splat` the old per-vertex `splat` attribute is used (the landform rig keeps it).
+export function splatMaterial(layers, {baseTile = 8, standard = false, macro = .12, aniso = 2, res = N, splat = null, wetY = null} = {}) {   // terrain is not hero tier: 256 px (A4 A3)
+  // own texture copies at low anisotropy: 6 grazing-angle fetches per pixel at 8× aniso cost ~0.3 s/frame on SwiftShader (A7 bench)
+  const lo = t => { if (!t || t === flatN) return t; const c = t.clone(); c.anisotropy = aniso; c.needsUpdate = true; return c; };
+  const L = layers.map(l => ({...l, tex: lo(l.pattern === 'plastic' ? patternTexture('snow', res) : patternTexture(l.pattern, res)), nrm: lo(normalTexture(l.pattern, res)) ?? flatNormal(),
+    k: RELIEF[l.pattern] ?? 0, rep: baseTile / (l.tile ?? TILE[l.pattern] ?? 4)}));
+  const PP = !!splat, Mat = standard ? T.MeshStandardMaterial : T.MeshPhongMaterial;
+  const m = new Mat(standard ? {color: '#ffffff', map: L[0].tex, normalMap: L[0].nrm, roughness: .9, metalness: 0, envMap: ENV.map, envMapIntensity: ENV.intensity * .6}
+    : {color: '#ffffff', map: L[0].tex, normalMap: L[0].nrm, shininess: 8, specular: '#111111'});
+  m.onBeforeCompile = sh => {
+    L.forEach((l, i) => { sh.uniforms['sT' + i] = {value: l.tex}; sh.uniforms['sN' + i] = {value: l.nrm}; sh.uniforms['sC' + i] = {value: new T.Color(l.color)}; sh.uniforms['sR' + i] = {value: l.rep}; sh.uniforms['sK' + i] = {value: l.k}; });
+    sh.uniforms.sMacro = {value: macro};
+    if (PP) Object.assign(sh.uniforms, {pNoise: {value: noiseTexture()}, pRock: {value: splat.rockSlope ?? .78}, pRockSoft: {value: splat.rockSoft ?? .08}, pHigh: {value: Number.isFinite(splat.highY) ? splat.highY : 1e5}, pHighSoft: {value: splat.highSoft ?? 4}, pWet: {value: wetY ?? -1e5}});
+    sh.vertexShader = PP ? sh.vertexShader.replace('#include <common>', '#include <common>\nvarying vec3 vSWPos; varying vec3 vSWNor;').replace('#include <worldpos_vertex>', '#include <worldpos_vertex>\nvSWPos = (modelMatrix * vec4(transformed, 1.)).xyz; vSWNor = normalize(mat3(modelMatrix) * objectNormal);')
+      : sh.vertexShader.replace('#include <common>', '#include <common>\nattribute vec3 splat; varying vec3 vSplat;').replace('#include <uv_vertex>', '#include <uv_vertex>\nvSplat = splat;');
+    const U = [0, 1, 2].map(i => `uniform sampler2D sT${i}; uniform sampler2D sN${i}; uniform vec3 sC${i}; uniform float sR${i}; uniform float sK${i};`).join('\n');
+    const W = PP ? `uniform sampler2D pNoise;
+        vec3 splatW(){ float nz = texture2D(pNoise, vSWPos.xz * .0273).r * .6 + texture2D(pNoise, vSWPos.xz * .1016).r * .4 - .5;   // world-space noise (2 texture fetches) breaks every boundary
+          float rock = smoothstep(0., 1., clamp((pRock - normalize(vSWNor).y) / pRockSoft + .5 + nz * .9, 0., 1.));
+          float high = smoothstep(0., 1., clamp((vSWPos.y - pHigh) / pHighSoft + .5 + nz * 1.2, 0., 1.)) * (1. - rock * .7);
+          float low = max(0., 1. - rock - high); return vec3(low, rock, high); }` : '';
+    sh.fragmentShader = sh.fragmentShader.replace('#include <common>', PP ? `#include <common>\nvarying vec3 vSWPos; varying vec3 vSWNor; uniform float sMacro; uniform float pRock; uniform float pRockSoft; uniform float pHigh; uniform float pHighSoft; uniform float pWet;\n${U}\n${W}`
+        : `#include <common>\nvarying vec3 vSplat; uniform float sMacro;\n${U}`)
+      .replace('#include <map_fragment>', `${PP ? 'vec3 sw = splatW(); sw /= max(1e-4, sw.x + sw.y + sw.z);' : 'vec3 sw = vSplat / max(1e-4, vSplat.x + vSplat.y + vSplat.z);'}
+        ${PP ? `vec3 alb = vec3(0.); if (sw.x > .01) alb += texture2D(sT0, vMapUv * sR0).rgb * sC0 * sw.x; if (sw.y > .01) alb += texture2D(sT1, vMapUv * sR1).rgb * sC1 * sw.y; if (sw.z > .01) alb += texture2D(sT2, vMapUv * sR2).rgb * sC2 * sw.z;
+        float mac = texture2D(pNoise, vSWPos.xz * .013).r;   // A7: skip zero-weight layers; macro tone from the noise texture` :
+        `vec3 alb = texture2D(sT0, vMapUv * sR0).rgb * sC0 * sw.x + texture2D(sT1, vMapUv * sR1).rgb * sC1 * sw.y + texture2D(sT2, vMapUv * sR2).rgb * sC2 * sw.z;
+        float mac = texture2D(sT0, vMapUv * .061).g * .6 + texture2D(sT1, vMapUv * .023).g * .4;`}
+        diffuseColor.rgb *= alb * (1. - sMacro + sMacro * 2. * mac);
+        ${PP ? 'float wet = 1. - smoothstep(0., .7, vSWPos.y - pWet); diffuseColor.rgb *= 1. - .38 * wet * step(pWet + .0001, vSWPos.y + 50.);' : ''}`)
+      .replace('#include <normal_fragment_maps>', PP ? `vec3 mapN = vec3(0., 0., 1.) * (sw.x * float(sK0 <= 0.) + sw.y * float(sK1 <= 0.) + sw.z * float(sK2 <= 0.));
+        if (sK0 > 0. && sw.x > .01) { vec3 n = texture2D(sN0, vNormalMapUv * sR0).xyz * 2. - 1.; n.xy *= sK0; mapN += n * sw.x; }
+        if (sK1 > 0. && sw.y > .01) { vec3 n = texture2D(sN1, vNormalMapUv * sR1).xyz * 2. - 1.; n.xy *= sK1; mapN += n * sw.y; }
+        if (sK2 > 0. && sw.z > .01) { vec3 n = texture2D(sN2, vNormalMapUv * sR2).xyz * 2. - 1.; n.xy *= sK2; mapN += n * sw.z; }
+        mapN = normalize(mapN + vec3(0., 0., 1e-4));
+        normal = normalize(tbn * mapN);` : `vec3 n0 = texture2D(sN0, vNormalMapUv * sR0).xyz * 2. - 1.; n0.xy *= sK0;
+        vec3 n1 = texture2D(sN1, vNormalMapUv * sR1).xyz * 2. - 1.; n1.xy *= sK1;
+        vec3 n2 = texture2D(sN2, vNormalMapUv * sR2).xyz * 2. - 1.; n2.xy *= sK2;
+        vec3 mapN = normalize(n0 * sw.x + n1 * sw.y + n2 * sw.z);
+        normal = normalize(tbn * mapN);`);
+  };
+  m.customProgramCacheKey = () => PP ? 'splat3pp' : 'splat3';
+  m.userData.pattern = 'splat'; m.userData.layers = layers; m.name = 'splat:' + layers.map(l => l.pattern + l.color).join(',');
+  return m;
+}

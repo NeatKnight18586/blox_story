@@ -1,0 +1,139 @@
+{
+ "spec": "engine/fixtures/tools/demo.json",
+ "size": "540x960",
+ "nudge": 0.004,
+ "threshold": 40,
+ "limit": 0.3,
+ "views": 20,
+ "worst": {
+  "view": "T2-snap:mid",
+  "frame": 127,
+  "pct": 0.046,
+  "raw": 0.609
+ },
+ "failing": [],
+ "errors": [],
+ "result": "PASS",
+ "rows": [
+  {
+   "view": "@square",
+   "frame": null,
+   "pct": 0.006,
+   "raw": 0.098
+  },
+  {
+   "view": "@giant",
+   "frame": null,
+   "pct": 0.002,
+   "raw": 0.012
+  },
+  {
+   "view": "T1-drone:first",
+   "frame": 0,
+   "pct": 0,
+   "raw": 0.014
+  },
+  {
+   "view": "T1-drone:mid",
+   "frame": 52,
+   "pct": 0,
+   "raw": 0.005
+  },
+  {
+   "view": "T1-drone:last",
+   "frame": 104,
+   "pct": 0,
+   "raw": 0.006
+  },
+  {
+   "view": "T2-snap:first",
+   "frame": 105,
+   "pct": 0.002,
+   "raw": 0.086
+  },
+  {
+   "view": "T2-snap:mid",
+   "frame": 127,
+   "pct": 0.046,
+   "raw": 0.609
+  },
+  {
+   "view": "T2-snap:last",
+   "frame": 149,
+   "pct": 0.035,
+   "raw": 0.619
+  },
+  {
+   "view": "T3-heroLow:first",
+   "frame": 150,
+   "pct": 0.002,
+   "raw": 0.016
+  },
+  {
+   "view": "T3-heroLow:mid",
+   "frame": 195,
+   "pct": 0.003,
+   "raw": 0.028
+  },
+  {
+   "view": "T3-heroLow:last",
+   "frame": 239,
+   "pct": 0.001,
+   "raw": 0.017
+  },
+  {
+   "view": "T4-tiltUp:first",
+   "frame": 240,
+   "pct": 0.005,
+   "raw": 0.123
+  },
+  {
+   "view": "T4-tiltUp:mid",
+   "frame": 300,
+   "pct": 0.008,
+   "raw": 0.023
+  },
+  {
+   "view": "T4-tiltUp:last",
+   "frame": 359,
+   "pct": 0.001,
+   "raw": 0.014
+  },
+  {
+   "view": "T5-trail:first",
+   "frame": 360,
+   "pct": 0.002,
+   "raw": 0.124
+  },
+  {
+   "view": "T5-trail:mid",
+   "frame": 405,
+   "pct": 0.002,
+   "raw": 0.114
+  },
+  {
+   "view": "T5-trail:last",
+   "frame": 449,
+   "pct": 0.003,
+   "raw": 0.124
+  },
+  {
+   "view": "T6-night:first",
+   "frame": 450,
+   "pct": 0.016,
+   "raw": 0.13
+  },
+  {
+   "view": "T6-night:mid",
+   "frame": 495,
+   "pct": 0.02,
+   "raw": 0.135
+  },
+  {
+   "view": "T6-night:last",
+   "frame": 539,
+   "pct": 0.02,
+   "raw": 0.152
+  }
+ ]
+}

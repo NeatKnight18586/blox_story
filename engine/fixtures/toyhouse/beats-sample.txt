@@ -1,0 +1,11 @@
+# sample owner list (a format test, NOT a script): timestamps + plain words
+0:00  crash zoom on the shutter, street
+0:02  top down street, truck
+0:04  low angle HERO at the facade, impact
+0:06.5  close on MO, reveal
+0:08  aisle track hall, lights cascade
+0:10.5  top down hall
+0:13  split counter | track
+0:15.5  medium PIP at the counter, freeze 8f
+0:18  close key on the counter
+0:20  wide hall, memory

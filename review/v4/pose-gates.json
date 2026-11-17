@@ -1,0 +1,58 @@
+{
+ "poses": [
+  "shrug",
+  "facepalm",
+  "armsCrossed",
+  "heroPose",
+  "fistPump",
+  "pointUp",
+  "thinker",
+  "gaspHands",
+  "doubleTake",
+  "flail",
+  "slump"
+ ],
+ "fromIdle": {
+  "shrug": 1.4,
+  "facepalm": 3.417,
+  "armsCrossed": 2.437,
+  "heroPose": 1.276,
+  "fistPump": 3.474,
+  "pointUp": 3.986,
+  "thinker": 3.241,
+  "gaspHands": 3.69,
+  "doubleTake": 1.212,
+  "flail": 3.605,
+  "slump": 0.928
+ },
+ "closestPairs": [
+  [
+   "shrug",
+   "doubleTake",
+   0.692
+  ],
+  [
+   "shrug",
+   "heroPose",
+   0.934
+  ],
+  [
+   "armsCrossed",
+   "thinker",
+   1.065
+  ],
+  [
+   "heroPose",
+   "doubleTake",
+   1.243
+  ],
+  [
+   "shrug",
+   "slump",
+   1.245
+  ]
+ ],
+ "snapLandsInFrames": 2,
+ "failures": [],
+ "result": "PASS"
+}

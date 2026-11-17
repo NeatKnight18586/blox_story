@@ -1,0 +1,9 @@
+{
+ "lineFit": {
+  "distance": 42.18,
+  "groundGap": 0.26,
+  "topOfTallest": 0.551,
+  "sideMargin": 0.06,
+  "actorFrac": 0.142
+ }
+}

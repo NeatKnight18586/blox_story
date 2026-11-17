@@ -1,0 +1,85 @@
+{
+ "spec": "engine/fixtures/tools/demo.json",
+ "limits": {
+  "night": {
+   "frame": [
+    0.24,
+    0.42
+   ],
+   "actor": 0.4,
+   "contrast": 0.12
+  },
+  "framing": {
+   "close": 0.45,
+   "medium": 0.3,
+   "heroLow": 0.3,
+   "groundMax": 0.28
+  }
+ },
+ "night": [
+  {
+   "shot": "T6-night",
+   "frame": 495,
+   "look": "nightBright",
+   "frameLuma": 0.444,
+   "actors": {
+    "hero": {
+     "luma": 0.393,
+     "ring": 0.569,
+     "contrast": -0.176
+    }
+   },
+   "fitFrac": 0.345
+  }
+ ],
+ "framing": [
+  {
+   "shot": "T2-snap",
+   "frame": 127,
+   "size": "close",
+   "move": "snap",
+   "part": "head",
+   "subjectFrac": 0.456,
+   "groundGap": 0,
+   "need": 0.45,
+   "ok": true
+  },
+  {
+   "shot": "T3-heroLow",
+   "frame": 195,
+   "size": "medium",
+   "move": "heroLow",
+   "part": "full",
+   "subjectFrac": 0.338,
+   "groundGap": 0.2,
+   "need": 0.3,
+   "ok": true
+  },
+  {
+   "shot": "T6-night",
+   "frame": 495,
+   "size": "medium",
+   "move": "push",
+   "part": "full",
+   "subjectFrac": 0.345,
+   "groundGap": 0.161,
+   "need": 0.3,
+   "ok": true
+  }
+ ],
+ "failures": [
+  "T6-night: frame luma 0.444 outside 0.24,0.42",
+  "T6-night/hero: actor luma 0.393 < 0.4",
+  "T6-night/hero: box − ring -0.176 < 0.12",
+  "night palette: hero.legs #2f3b52 lightness 0.253 < 0.32"
+ ],
+ "palette": [
+  {
+   "actor": "hero",
+   "key": "legs",
+   "color": "#2f3b52",
+   "l": 0.253
+  }
+ ],
+ "result": "FAIL"
+}

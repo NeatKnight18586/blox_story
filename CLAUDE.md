@@ -7,6 +7,13 @@ Source of truth: `docs/V2_BRIEF.md` (owner's brief). Progress and decisions: `PR
 - Plan (≤ 15 lines) in `PROGRESS.md` before coding; afterwards append what was built, commands, numbers, decisions, open problems (≤ 40 lines).
 - A block is done only when every Done-when check has been run and passes. Uncovered choice → cheaper option, logged under Decisions.
 - Review material goes to `review/<slug>/` on the branch + the PR (owner works from an iPad).
+- Acceptance (A5 §S): a self-score is never a gate. Every visual gate = (1) a measured check in code with a number and a pass
+  line, (2) a before/after sheet at 390 px phone width, (3) a written list of the three weakest things visible in that sheet,
+  before any score (empty list → look again). The owner decides the look; report what is weak, never round up. A measured
+  check that still fails after two fix passes: stop and report the number; never loosen it.
+- **Season 1: no labels** (owner rule, permanent; `docs/season1/SEASON_1.md` §2c): no name/role/AFK tags, chat bubbles, class cards
+  or overhead tag/stat/card/icon UI on people or objects. Text only on real in-world objects (scoreboard, clock, note, sign,
+  switch) and in captions. Default for `season: 1` (`engine/nolabels.js`); `v2:plan` fails it with `noLabels`.
 
 ## Ground rules (brief §2)
 - `stories/names100/**`, `production/render.js` and existing module behaviour are frozen; extend through new opt-in options only.
@@ -18,33 +25,27 @@ Source of truth: `docs/V2_BRIEF.md` (owner's brief). Progress and decisions: `PR
 
 ## Commands
 - `npm run v2:preflight`: environment check, one JSON object (~3 s) · `npm run v2:test`: pure-logic tests (`tests/v2/`).
-- `npm run v2:bench -- --spec <episode.json>` or `--story <slug>`: triangles, calls, s/frame per shot (PASS ≤ 50k tris, ≤ 0.45 s/frame).
+- `npm run v2:bench -- --spec <episode.json>` or `--story <slug>`: triangles, calls, s/frame per shot (PASS ≤ 50k tris, ≤ 0.45 s/frame; Season 1 / v3 worlds ≤ 90k, ≤ 0.62 — owner Decision 4; the real gate is final render + assemble ≤ 3 h on the farm).
+- `npm run v2:read -- --story <slug>`: owner readability checks on the rendered frames (face shown, nothing in front, subject stands out, insert object reads, something moves, Kit/building scale, plain-egg shading; static framing ≤ 3 s, moving ≤ 4.5 s) → `review/<slug>/read.json`, ERRORS (`engine/readcheck.js`, `episode.js readMeasure`).
 - `npm run v2:stability -- --story <slug>` or `--spec <file>`: camera-nudge flicker gate (4 mm, ≤ 0.30 %) → `review/<slug>/stability*.json`. **Must pass before any animatic/final is shown.**
 - `npm run v2:align -- --story <slug> [--ref cues.json]` (voice → `build/cues.json`) · `npm run v2:plan -- --story <slug>` (§5.2 gate, exit 1 on error → `review/<slug>/plan.json`) · `npm run v2:render -- --spec <episode.json> --out <dir> [--final | --width 270 --height 480 --every 2 --aa 0]` (cached frames, `progress.json`; `--final` = native 1440×2560 + AA, the A2 delivery preset).
-- `node scripts/v2/avatar-sheet.js` / `python3 scripts/v2/world-sheet.py`: cast sheet + 390 px phone shot / world stills + luma stats → `review/nobody/`.
+- `node scripts/v2/avatar-sheet.js` / `python3 scripts/v2/world-sheet.py`: cast sheet + 390 px phone shot / world stills + luma stats → `review/nobody/`. A4: `node scripts/v2/hair-sheet.js` · `troupe-sheet.js` · `python3 scripts/v2/look-ab-s1.py` → `review/season1/`.
+- A5 gates: `node scripts/v2/build-gates.js` (adult_f torso, flat ortho 390 px) → `build-gates.json`; `node scripts/v2/hair-gates.js` → `review/season1/hair-gates.json`; `node scripts/v2/look-gates.js --spec <f> [--night ids] [--framing] [--png f]` (night luma on silhouette masks, framing) → `look-gates-*.json`.
 - `python3 scripts/v2/sheet.py <frames dir|video> [--frames a,b] [--labels shots.json] [--stats]`: contact sheets; `look-ab.py`: before/after sheets.
-- `python3 scripts/v2/captions.py --story <slug> --spec <episode.json> [--until s] --out <file.ass>`: pop captions from `cues.json`.
-- `python3 scripts/v2/assemble.py --story <slug> --frames <dir> | --video <mp4> --captions <ass> --out <master.mp4> [--proxy review/<slug>/final-review.mp4] [--animatic] [--no-hold]`: A2 highlight-only grade, captions after it, −14 LUFS/TP −1.5 voice, hold; uncapped 1440 master (CRF 14, ≥ 16 Mb/s floor) + 1080 proxy ≤ 45 MB (1080 frames = recorded fallback, upscaled before the grade); `--animatic` → 540×960 ≤ 10 MB; no SFX.
-- `npm run v2:qc -- --story <slug> --video <master>`: final gate (ffprobe/loudness, SSIM/PSNR, grade sharpness, stone ΔE, `qc-crops.png`) → `review/<slug>/qc.json`; **must pass before a final reaches the owner**. Masters never go in git: prerelease or sent directly, linked in `review/<slug>/DELIVERY.md`. Farm: `.github/workflows/render.yml` (dispatch or `stories/<slug>/render.request`). New episode: `/new-episode <slug> [E1|E2]`.
+- `python3 scripts/v2/captions.py --story <slug> --spec <episode.json> [--style v3] [--until s] --out <file.ass>`: pop captions from `cues.json` (v2 default for "Nobody"; Season 1 = spec `captionStyle: "pop-shorts-v3"`). `python3 scripts/v2/caption-phone.py` → `caption-v3-phone.png/.json` (cap ≥ 2.6 % on 390 px, inside the 58–74 % band).
+- `python3 scripts/v2/assemble.py --story <slug> --frames <dir> | --video <mp4> --captions <ass> --out <master.mp4> [--proxy review/<slug>/final-review.mp4] [--animatic] [--no-hold]`: A2 highlight-only grade, captions after it, −14 LUFS/TP −1.5 voice, hold; uncapped 1440 master (CRF 14, ≥ 16 Mb/s floor) + 1080 proxy ≤ 45 MB (1080 frames = recorded fallback, upscaled before the grade); `--animatic` → 540×960 ≤ 10 MB; `--spec <episode.json>` mixes the auto-placed sfx (A4 §F; off with `"sfx": false`) and `music.mp3` if present.
+- `npm run v2:qc -- --story <slug> --video <master>`: final gate (ffprobe/loudness, SSIM/PSNR, grade sharpness, stone ΔE, `qc-crops.png`) → `review/<slug>/qc.json`; **must pass before a final reaches the owner**. Masters never go in git: prerelease or sent directly, linked in `review/<slug>/DELIVERY.md`. Farm: `.github/workflows/render.yml` (dispatch or `stories/<slug>/render.request`). New episode: `/new-episode <slug> [E1|E2]`. **Season 1 loop: `/season [approve | notes: … | swap]`** (state in `docs/season1/STATE.md`; `python3 scripts/v2/season_state.py plan|set`).
 
 ## Folder map
 - `engine/`: `episode.html` + `episode.js` (data-driven renderer; `__episode.renderFrame/inspectFrame`), `timeline.js` (shots cut at `at` s, step/ramp keys), `plancheck.js` (pure §5.2 rules), `camera.js` (pure `sampleCamera`, moves, `openHit`, speed metric).
 - `avatar-style/`: v2 actor (`body.js`), `faces2.js`, `hair.js`, `clothing.js`, `accessories.js`, `tools.js`. `engine/poses.js`, `overhead.js`, `actors.js`, `studio.html` (lookdev). Legacy `avatar/` stays frozen.
 - `parts/`: `materials.js` (256 px patterns + normal maps), `parts.js` (primitives, world UVs), `build.js` (placement, instance, `ribbon`, mergeByDistrict + contact gradient, anchors), `ambient.js` (movers), `props.js` (shared story props: sword, ring/hero stones). `engine/look.js` (time-of-day presets, per-shot snapped shadows).
-- Worlds (A1): export `groundY(x, z)` + `LAYER` (≥ 0.05 apart) and build paths/streets with `B.ribbon`; everything standing takes `groundY`.
+- Worlds (A1): export `groundY(x, z)` + `LAYER` (≥ 0.05 apart) and build paths/streets with `B.ribbon`; everything standing takes `groundY`. A4 worlds also export `LOOK` (v3 sky/fog/env) and get `TR` terrain, `BI` biomes, `V` vegetation, `W` water, `look` in `build()`; examples `engine/fixtures/looktest/{egg,ragdoll}.js`, `engine/fixtures/tools/world.js`.
+- A4 (Season 1): `parts/terrain.js`, `biomes.js`, `vegetation.js`, `water.js`, `landform.js`; `engine/crowd.js`, `ruleui.js`, `troupe.js`, `lumagate.js`; `avatar-style/hair4.js` (v4; `hair3.js` unused); `cast/troupe.json`.
 - `engine/effects.js` (§5.3 effects, pure in t). `captions/pop-shorts-v2.json` + `CAPTION_STYLE_V2.md`. Docs: `PUBLISHING.md`, `STORY_BIBLE.md`, `SERIES_LOG.md`.
-- `scripts/v2/`: `browser.js`, `preflight.js`, `align.py`, `plan.js`, `render.js`, `bench.js`, `stability.js` + `flicker.js`, `sheet.py`, `captions.py`, `assemble.py`.
+- `scripts/v2/`: `browser.js`, `preflight.js`, `align.py`, `plan.js`, `render.js`, `bench.js`, `stability.js` + `flicker.js`, `sheet.py`, `captions.py`, `assemble.py`; A4 §F/§I: `sfx.py` (set + placement), `audiocues.py` (→ `review/<slug>/audio-cues.md`), `scriptcheck.py --story <slug>` (410–440 words, ≤ 12-word sentences, card first/last line, ≤ 6 first-person sentences, FK ≤ 6, card key nouns), `season_state.py`, `layout.js`.
 - `stories/<slug>/`: `script.txt`, `voice.flac`, `cues.json`, `episode.json`, `world.js` (`build/` ignored); `review/<slug>/`: gate material for the owner.
 - Legacy (frozen or reference only): `avatar/`, `production/`, `stories/names100/`, `studio/` (Dice Town / Shortwick toolkit).
 
-## Library index (one line per reusable addition; grows every episode)
-- camera moves: push, pull, orbit, track, crane, whip, gamecam, static-drift; eases: linear, inCubic, outCubic, inOutCubic, inOutSine, outBack.
-- faces: smile, neutral, determined, terrified, smug, sad, crying, shout, gasp, sleep.
-- hair: short_messy, side_swept, spiky, bowl, long_straight, ponytail, twin_buns, braids, curly_blocks, bald.
-- outfits: tunic, armor, robe, apron, royal, peasant. accessories: crown, helmet, hood, strawHat, scarf, cape, backpack, chefHat, featherCap, goggles. tools: sword, hammer (stone), torch, bread, `class:<cls>[:bg]`.
-- poses: idle, look_react, walk, run, jump, fall, climb, toolHold, toolSwing, pull, pullOne, lift, raise, hammerHold, point, cheer, recoil, trip, shiver, lookUp, sit, sleep, wave; ambientPose(seed). dragon (`avatar-style/dragon.js`, ≤ 4k tris): perch, fly, roar, breathe, lower, turn, flinch, cry, flee.
-- overlays: name tag (pop, screen cap), stat (number/bar/tile), chat bubble (≤ 4 words), class card (`big`/`mini`, slam → fly into a class-coloured tag; `tags` entry `[t, name, role, {cls}]`). cast timelines: `kit` (accessories), `marks`, `visible`, `tools`/`toolsLeft`, `stat`, `bubble`, `tags`, `faces`, `keys`; `worldState` keys → `world.setState`.
-- patterns: plastic, studs, grass, sand, water, glass, neon, metal, moss (flat); brick, cobble, slate, woodPlanks, thatch, rock, dirt (relief, normal-mapped). looks: day, goldenHour, night, storm, fireNight.
-- props: `classSword(cls, {tier})` ×6 + `CLASSES` (baker, knight, king, archer, smith, farmer: sword, colour, icon, accessory, fx), sword (hero/ring), ringStone ×3 (+moss), heroStone (3 crack stages), instanceGroup, mergeParts; small props (`smallProp(name, seed)`, ≤ 400 tris): barrel, crate, sack, lantern, torch, bench, fence, cart, sign, tree ×3, bush, rock ×3, cloud, banner. ground: ribbon, groundY/LAYER, blobs, tufts.
-- movers: flag, smoke, birds, flame, spinner, walkers, floaters.
-- effects: fadeColor, flash, ghost, glow, particles (sparkle, dust, embers, confetti, fire, stars; directed `dir`/`cone` streams), melt, squash, shake, timeOfDay, pillar, ring, halo, morph, card (+ presets steam, flour, rays, leaves, petals, goldConfetti); `classReveal` {actor, cls, at, tier, card, cardScale, cardDx} on a shot or `spec.classReveals` (`engine/classes.js`); per-shot `tagMaxFrac`, `captionY`, `beat` (0.55–1.2 s cuts on words, ≤ 3 in a row, < 20 s).
+## Library index
+Library index: docs/LIBRARY.md (read only the lines a task needs; add one line per new reusable piece there).

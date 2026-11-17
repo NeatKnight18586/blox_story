@@ -1,0 +1,87 @@
+{
+ "heroColours": [
+  "#2B2D33",
+  "#0D7CD4",
+  "#73985E",
+  "#FFD542"
+ ],
+ "before": 8,
+ "after": 0,
+ "swaps": [
+  {
+   "slot": "LEAD",
+   "key": "main",
+   "from": "#2f80d1",
+   "to": "#6987D2"
+  },
+  {
+   "slot": "LEAD",
+   "key": "legs",
+   "from": "#4a5a80",
+   "to": "#3C5A87"
+  },
+  {
+   "slot": "SECOND",
+   "key": "legs",
+   "from": "#3b4a6b",
+   "to": "#3C4B87"
+  },
+  {
+   "slot": "LITTLE",
+   "key": "main",
+   "from": "#7fc241",
+   "to": "#87E12D"
+  },
+  {
+   "slot": "LITTLE",
+   "key": "legs",
+   "from": "#f2b632",
+   "to": "#E1871E"
+  },
+  {
+   "slot": "RIVAL",
+   "key": "legs",
+   "from": "#5a6274",
+   "to": "#5A4B87"
+  },
+  {
+   "slot": "ELDER",
+   "key": "legs",
+   "from": "#7a6048",
+   "to": "#874B2D"
+  },
+  {
+   "slot": "AFK",
+   "key": "legs",
+   "from": "#6e7378",
+   "to": "#5A4B87"
+  }
+ ],
+ "edgeUnits": 0.05,
+ "edgePx": {
+  "fullBody": 4.36,
+  "medium": 7.85
+ },
+ "headTorsoRatio": 0.593,
+ "builds": {
+  "adult_m": {
+   "headShoulder": 0.593,
+   "headTorsoBox": 0.593
+  },
+  "adult_f": {
+   "headShoulder": 0.593,
+   "headTorsoBox": 0.593
+  },
+  "youth": {
+   "headShoulder": 0.593,
+   "headTorsoBox": 0.593
+  },
+  "elder_f": {
+   "headShoulder": 0.593,
+   "headTorsoBox": 0.561
+  }
+ },
+ "collar": "raised rim around the neck (back, sides, front tips)",
+ "failures": [],
+ "result": "PASS"
+}

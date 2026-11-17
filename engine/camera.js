@@ -7,9 +7,24 @@
 //   from/to: {position:[x,y,z], target:[x,y,z], fov}   (track/gamecam: offsets from the followed actor)
 //   duration (s), ease, follow (actor name), followOffset, drift (units), seed,
 //   degrees (orbit sweep), heading/distance/height (gamecam), start (episode frame), openHit (bool), fps.
+// A4 moves: drone {path: [[x,y,z]…≥3], targets?: [[x,y,z]…] | lookAhead (s), bankDeg} — a Catmull-Rom fly-over (3–5 s)
+//   that banks into its turns · heroLow {ground} — from/to with the camera clamped 0.6–1.2 above `ground`, fov 60–70, looking up
+//   · snap {snapAt} — a 2-frame punch from the wide `from` to the close `to` along the SAME axis (target → camera), then
+//   holds · tiltUp — the camera stays (or rises gently) while the target climbs from feet (from.target) to sky (to.target).
 
 export const FPS = 30;
-export const MOVES = ['push', 'pull', 'orbit', 'track', 'crane', 'whip', 'gamecam', 'static-drift'];
+export const MOVES = ['push', 'pull', 'orbit', 'track', 'crane', 'whip', 'gamecam', 'static-drift', 'drone', 'heroLow', 'snap', 'tiltUp'];   // last four: A4
+// Format v5 (Phase 3a) camera grammar, opt-in by name; the moves above are unchanged.
+export const MOVES5 = ['crashZoom', 'topDown', 'splitScreen', 'lowAuthority', 'aisleTrack'];
+MOVES.push(...MOVES5);
+export const CRASH = {frames: 5, overshoot: .06, push: .04};       // crashZoom: fov from→to in 5 frames with a 6 % overshoot, 4 % dolly in
+export const TOPDOWN = {tiltDeg: 3, degrees: 40};                  // topDown: ~straight down (3° off so 'up' stays defined), slow turn
+export const SPLIT = {maxDur: 3};                                  // splitScreen: two half-frame cameras, ≤ 3 s
+export const LOW_AUTH = {maxH: .8, minFov: 28, maxFov: 40, minUpDeg: 8, push: .03};   // lowAuthority: low, long lens, looking up
+
+export const HERO_LOW = {minH: .6, maxH: 1.2, minFov: 60, maxFov: 70, fov: 66};
+export const DRONE = {minDur: 3, maxDur: 5, bankDeg: 8};
+export const SNAP_FRAMES = 2;
 export const ASPECT = 9 / 16;
 export const SPEED_CAP = .35;                 // max target speed, fraction of frame width per second
 export const OPEN_HIT = {frames: 8, punch: .07, amp: .05, hz: 18, decay: 14, rollDeg: .5};
@@ -41,6 +56,7 @@ export function rng(seed = 1) {
 // Default `to` for a shot that names only `from`: a gentle push toward the target.
 function endPose(shot) {
   const f = shot.from;
+  if (!f.position) return {...f};   // A4 drone: no from/to poses
   if (shot.to) return {position: shot.to.position ?? f.position, target: shot.to.target ?? f.target, fov: shot.to.fov ?? f.fov};
   const k = shot.move === 'pull' ? -DEFAULT_PUSH : DEFAULT_PUSH;
   return {position: lerp3(f.position, f.target, k), target: f.target, fov: f.fov};
@@ -74,12 +90,61 @@ export function openHitOffset(shot, localT) {
   };
 }
 
+// Centripetal-free uniform Catmull-Rom through points (pure), u in [0, 1] over the whole path.
+export function catmull(points, u) {
+  const n = points.length - 1, x = Math.min(n - 1e-9, Math.max(0, u * n)), i = Math.floor(x), t = x - i;
+  const p0 = points[Math.max(0, i - 1)], p1 = points[i], p2 = points[i + 1], p3 = points[Math.min(n, i + 2)];
+  return [0, 1, 2].map(k => .5 * ((2 * p1[k]) + (-p0[k] + p2[k]) * t + (2 * p0[k] - 5 * p1[k] + 4 * p2[k] - p3[k]) * t * t + (-p0[k] + 3 * p1[k] - 3 * p2[k] + p3[k]) * t * t * t));
+}
+// Drone bank (radians): proportional to how fast the horizontal heading turns, capped at bankDeg.
+export function droneBank(points, u, bankDeg = DRONE.bankDeg) {
+  const e = .01, a = catmull(points, Math.max(0, u - e)), b = catmull(points, u), c = catmull(points, Math.min(1, u + e));
+  const h1 = Math.atan2(b[0] - a[0], b[2] - a[2]), h2 = Math.atan2(c[0] - b[0], c[2] - b[2]);
+  let dh = h2 - h1; dh = Math.atan2(Math.sin(dh), Math.cos(dh));
+  const cap = bankDeg * Math.PI / 180; return Math.max(-cap, Math.min(cap, -dh * 6));
+}
+const clampHeroLow = (pose, ground) => ({...pose, position: [pose.position[0], ground + Math.min(HERO_LOW.maxH, Math.max(HERO_LOW.minH, pose.position[1] - ground)), pose.position[2]],
+  fov: Math.min(HERO_LOW.maxFov, Math.max(HERO_LOW.minFov, pose.fov ?? HERO_LOW.fov))});
+
+// ---- A5 §F: framing that fills the phone (pure) ----------------------------------------------------------------
+export const FRAMING = {close: .45, medium: .30, heroLow: .30, groundMax: .28};
+export const FIT_MOVES = ['heroLow', 'snap', 'push', 'orbit'];
+// Distance at which a span of height `spanH` fills `frac` of the frame height at vertical fov `fovDeg`.
+export const fitDistance = (spanH, frac, fovDeg) => spanH / (2 * Math.tan(fovDeg * Math.PI / 360) * frac);
+// The part of an actor of height H a fit frames: 'head' = head and shoulders (0.6 H → 1.02 H), else the full actor.
+export const fitSpan = (part, H) => part === 'head' ? {lo: .6 * H, hi: 1.02 * H} : {lo: 0, hi: 1.02 * H};
+// fit {actor, height (frame fraction), part: 'full'|'head', y: screen y of the subject centre (0 top), h: actor height}
+// → the pose moved along its own view direction so the subject's on-screen height = fit.height; the target sits above the
+// subject centre so the centre lands at screen y (full-body shots default 0.6, which keeps empty ground ≤ 28 %).
+export function applyFit(pose, fit, actorPos, H = fit.h ?? 5.3) {
+  const {lo, hi} = fitSpan(fit.part, H), span = hi - lo, fov = pose.fov ?? 40, d = fitDistance(span, fit.height, fov);
+  const yc = fit.y ?? (fit.part === 'head' ? .5 : .6), frameH = span / fit.height, centre = [actorPos[0], actorPos[1] + (lo + hi) / 2, actorPos[2]];
+  const target = [centre[0], centre[1] + (yc - .5) * frameH, centre[2]];
+  const dir = sub(pose.position, pose.target), l = len(dir) || 1;
+  return {...pose, position: add(centre, scale(dir, d / l)), target, fov};
+}
+// Framing check (pure): {size, subjectFrac (on-screen height of the framed part), groundGap (frame fraction below the feet,
+// 0 when they are off-frame), spectacle} → {ok, need, issues}.
+export function framingCheck({size, move, subjectFrac, groundGap = 0, spectacle = false}) {
+  const need = size === 'close' ? FRAMING.close : (size === 'medium' || move === 'heroLow') ? FRAMING.medium : 0, issues = [];
+  if (need && subjectFrac < need) issues.push(`subject ${(subjectFrac * 100).toFixed(1)} % < ${need * 100} %`);
+  if (!spectacle && groundGap > FRAMING.groundMax) issues.push(`empty ground ${(groundGap * 100).toFixed(1)} % > ${FRAMING.groundMax * 100} %`);
+  return {ok: !issues.length, need, issues};
+}
+
 export function sampleCamera(shot, localT, actorPositions = {}) {
   if (!MOVES.includes(shot.move)) throw Error(`unknown camera move: ${shot.move}`);
+  if (MOVES5.includes(shot.move)) return sampleMove5(shot, localT, actorPositions);
   const dur = Math.max(1e-6, shot.duration ?? 1), ease = EASE[shot.ease ?? 'inOutCubic'];
   if (!ease) throw Error(`unknown ease: ${shot.ease}`);
   const u = ease(clamp01(localT / dur));
-  const f = shot.from, e = endPose(shot), actor = shot.follow ? actorPositions[shot.follow] : null;
+  let f = shot.from, e = endPose(shot); const actor = shot.follow ? actorPositions[shot.follow] : null;
+  const fa = shot.fit && FIT_MOVES.includes(shot.move) ? actorPositions[shot.fit.actor] : null;   // A5 §F
+  if (fa) {
+    if (shot.move === 'snap') e = applyFit(e, shot.fit, fa);
+    else if (shot.move === 'push') { f = applyFit(f, shot.fit, fa); e = shot.to ? applyFit(e, shot.fit, fa) : {position: lerp3(f.position, f.target, DEFAULT_PUSH), target: f.target, fov: f.fov}; }
+    else { f = applyFit(f, shot.fit, fa); e = applyFit(e, shot.fit, fa); }
+  }
   let position, target, fov = lerp(f.fov ?? 40, e.fov ?? f.fov ?? 40, u);
 
   if (shot.move === 'orbit') {
@@ -99,6 +164,26 @@ export function sampleCamera(shot, localT, actorPositions = {}) {
     const back = shot.distance ?? 9, up = shot.height ?? 5.5, fwd = [Math.sin(hd), 0, Math.cos(hd)];
     position = add(base, [-fwd[0] * back, up, -fwd[2] * back]); target = add(base, [fwd[0] * 3, 2.6, fwd[2] * 3]);
     fov = shot.from.fov ?? 67;
+  } else if (shot.move === 'drone') {
+    const pts = shot.path, uu = EASE[shot.ease ?? 'inOutSine'](clamp01(localT / dur));
+    if (!pts || pts.length < 3) throw Error('drone needs a path of ≥ 3 points');
+    position = catmull(pts, uu);
+    target = shot.targets ? catmull(shot.targets.length > 2 ? shot.targets : [shot.targets[0], lerp3(shot.targets[0], shot.targets.at(-1), .5), shot.targets.at(-1)], uu)
+      : (() => { const ahead = catmull(pts, Math.min(1, uu + (shot.lookAhead ?? .6) / dur)), d = sub(ahead, position), l = len(d) || 1; return add(position, add(scale(d, 10 / l), [0, -(shot.lookDown ?? 3), 0])); })();
+    const roll = droneBank(pts, uu, shot.bankDeg ?? DRONE.bankDeg);
+    const [dp2, dt2] = drift(shot.seed ?? 1, localT, shot.drift ?? 0), hit2 = openHitOffset(shot, localT);
+    return {position: add(add(position, dp2), hit2.pos), target: add(add(target, dt2), hit2.target), fov: fov * hit2.fovScale, roll: roll + hit2.roll};
+  } else if (shot.move === 'heroLow') {
+    const g = shot.ground ?? 0, a = clampHeroLow(f, g), b = clampHeroLow(e, g);
+    position = lerp3(a.position, b.position, u); target = lerp3(a.target, b.target, u); fov = lerp(a.fov, b.fov, u);
+  } else if (shot.move === 'snap') {
+    // same axis: the close pose sits on the line from the target back to the wide camera
+    const fps = shot.fps ?? FPS, k = clamp01((Math.round(localT * fps) - Math.round((shot.snapAt ?? 0) * fps)) / SNAP_FRAMES);
+    const tgt = e.target, d = sub(f.position, tgt), far = len(d), close = shot.closeDist ?? len(sub(e.position, tgt)), dir = scale(d, 1 / far);
+    position = add(tgt, scale(dir, lerp(far, close, k))); target = lerp3(f.target, tgt, k); fov = lerp(f.fov ?? 40, e.fov ?? f.fov ?? 40, k);
+  } else if (shot.move === 'tiltUp') {
+    // the camera barely moves (≤ its own from→to rise); the look direction climbs from the feet to the sky
+    position = lerp3(f.position, e.position, u); target = lerp3(f.target, e.target, u);
   } else {
     // push, pull, crane, whip, static-drift: eased interpolation from→to.
     position = lerp3(f.position, e.position, u); target = lerp3(f.target, e.target, u);
@@ -131,4 +216,42 @@ export function maxTargetSpeed(shot, actorsAt = () => ({}), fps = FPS) {
   }
   return peak;
 }
-export const speedOk = (shot, actorsAt, fps) => shot.move === 'whip' || maxTargetSpeed(shot, actorsAt, fps) <= SPEED_CAP;
+export const speedOk = (shot, actorsAt, fps) => shot.move === 'whip' || shot.move === 'snap' || maxTargetSpeed(shot, actorsAt, fps) <= SPEED_CAP;   // A4: snap is exempt like whip
+
+// ---- format v5 moves (pure) ----------------------------------------------------------------------------------------------
+// crashZoom: locked-off camera; at `zoomAt` (s) the fov snaps from→to in CRASH.frames with an overshoot, and a small dolly in.
+// topDown: above `from.target` at `height` (default from.position height), looking down, turning `degrees` over the shot.
+// splitScreen: {split: [camA, camB]} — top and bottom halves, each sampled as a push from `a`/`b` ({from, to}).
+// lowAuthority: from/to clamped low (≤ 0.8 above `ground`), long lens (28–40°), looking up ≥ 8°, a slow 3 % push.
+// aisleTrack: constant speed along from.position → to.position, looking down the aisle (target moves with it).
+export function sampleMove5(shot, localT, actorPositions = {}) {
+  const dur = Math.max(1e-6, shot.duration ?? 1), f = shot.from, e = shot.to ?? shot.from, k = clamp01(localT / dur), fps = shot.fps ?? FPS;
+  if (shot.move === 'crashZoom') {
+    const n = Math.round(localT * fps) - Math.round((shot.zoomAt ?? 0) * fps), x = clamp01(n / CRASH.frames);
+    const over = x < 1 ? EASE.outBack(x) : 1, fov = lerp(f.fov ?? 40, e.fov ?? 20, over), pos = lerp3(f.position, f.target, CRASH.push * clamp01(n / CRASH.frames));
+    return {position: pos, target: f.target, fov: Math.max(5, fov), roll: 0};
+  }
+  if (shot.move === 'topDown') {
+    const c = f.target, h = shot.height ?? (f.position[1] - c[1]), a = ((shot.startDeg ?? 0) + (shot.degrees ?? TOPDOWN.degrees) * k) * Math.PI / 180, off = h * Math.tan(TOPDOWN.tiltDeg * Math.PI / 180);
+    return {position: [c[0] + Math.sin(a) * off, c[1] + h, c[2] + Math.cos(a) * off], target: c, fov: lerp(f.fov ?? 45, e.fov ?? f.fov ?? 45, k), roll: 0};
+  }
+  if (shot.move === 'splitScreen') {
+    const half = side => { const s = shot[side], u = EASE.inOutSine(k), a = s.from, b = s.to ?? s.from; return {position: lerp3(a.position, b.position, u), target: lerp3(a.target, b.target, u), fov: lerp(a.fov ?? 40, b.fov ?? a.fov ?? 40, u), roll: 0}; };
+    const A = half('a'); return {...A, split: [A, half('b')]};
+  }
+  if (shot.move === 'lowAuthority') {
+    const g = shot.ground ?? 0, clampP = p => { const pos = [p.position[0], Math.min(p.position[1], g + LOW_AUTH.maxH), p.position[2]], t = [...p.target];
+      const dx = Math.hypot(t[0] - pos[0], t[2] - pos[2]), minRise = Math.tan(LOW_AUTH.minUpDeg * Math.PI / 180) * dx; if (t[1] - pos[1] < minRise) t[1] = pos[1] + minRise;
+      return {position: pos, target: t, fov: Math.min(LOW_AUTH.maxFov, Math.max(LOW_AUTH.minFov, p.fov ?? 34))}; };
+    const a = clampP(f), b0 = shot.to ? clampP(e) : {position: lerp3(a.position, a.target, LOW_AUTH.push), target: a.target, fov: a.fov}, u = EASE.inOutSine(k);
+    const pos = lerp3(a.position, b0.position, u); pos[1] = Math.min(pos[1], g + LOW_AUTH.maxH);   // the push never lifts it out of the low band
+    return {position: pos, target: lerp3(a.target, b0.target, u), fov: lerp(a.fov, b0.fov, u), roll: 0};
+  }
+  if (shot.move === 'aisleTrack') {
+    const p = lerp3(f.position, e.position, k), dir = sub(e.position, f.position), l = len(dir) || 1, ahead = shot.lookAhead ?? 8, dy = (f.target?.[1] ?? p[1]) - f.position[1];
+    const follow = shot.follow ? actorPositions[shot.follow] : null;
+    const target = follow ? add(follow, shot.followOffset ?? [0, 3.2, 0]) : add(p, [dir[0] / l * ahead, dy, dir[2] / l * ahead]);
+    return {position: p, target, fov: f.fov ?? 45, roll: 0};
+  }
+  throw Error('unknown v5 move ' + shot.move);
+}
