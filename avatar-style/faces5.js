@@ -134,7 +134,8 @@ function blinkEyes(eyeItems) {
   return out;
 }
 const bboxOf = it => bbox(it.line ?? it.pts);
-export function faceItems5(f, {tier = 'mid', blink = false, talk = null} = {}) {
+// box (Look 6, opt-in): the cell's share of the head front (default GRID5.cell = .8); eyeUp: eyes + brows raised (head units)
+export function faceItems5(f, {tier = 'mid', blink = false, talk = null, box = K, eyeUp = 0} = {}) {
   const r = resolveFace5(f), items = [], push = (list, kind) => list.forEach(it => items.push({...it, kind, color: INK}));
   const prims = (cell, k) => part(cell, k).map(primItem);
   push(prims(r.brows, 'brows'), 'brow');
@@ -142,7 +143,8 @@ export function faceItems5(f, {tier = 'mid', blink = false, talk = null} = {}) {
   const fam = talk !== null && !isHeld(f) ? talkFamily(f) : null;
   push((fam ? mouthPrims(TALK[fam][talk]) : part(r.mouth, 'mouth')).map(primItem), 'mouth');
   for (const e of r.extras) { const cell = e in LEGACY_EXTRAS ? LEGACY_EXTRAS[e] : e; if (cell) push(prims(cell, 'extras'), 'extra'); }
-  return items.map(it => it.line ? {...it, line: it.line.map(([x, y]) => [x * K, y * K]), w: it.w * K} : {...it, pts: it.pts.map(([x, y]) => [x * K, y * K]), holes: it.holes?.map(h => h.map(([x, y]) => [x * K, y * K])), more: it.more?.map(h => h.map(([x, y]) => [x * K, y * K]))});
+  const tf = it => { const up = it.kind === 'eye' || it.kind === 'brow' ? eyeUp : 0, q = ([x, y]) => [x * box, y * box + up]; return it.line ? {...it, line: it.line.map(q), w: it.w * box} : {...it, pts: it.pts.map(q), holes: it.holes?.map(h => h.map(q)), more: it.more?.map(h => h.map(q))}; };
+  return items.map(tf);
 }
 export function faceParts5(f, {px = 512, ...o} = {}) {
   const X = x => +((x + .5) * px).toFixed(1), Y = y => +((.5 - y) * px).toFixed(1);
@@ -160,9 +162,9 @@ export function mouthHeight(f, talk) {
 }
 
 // ---- browser --------------------------------------------------------------------------------------------------------------------
-export function drawFace5(g2, f, {px, tier, skin = '#f6c9a0', blink = false, talk = null} = {}) {
+export function drawFace5(g2, f, {px, tier, skin = '#f6c9a0', blink = false, talk = null, ...box} = {}) {
   const edge = darkSkin(skin);   // dark skin: a light edge under the ink so the black still reads
-  for (const it of faceParts5(f, {px, tier, blink, talk})) {
+  for (const it of faceParts5(f, {px, tier, blink, talk, ...box})) {
     const p = new Path2D(it.d); g2.save(); g2.lineCap = 'round'; g2.lineJoin = 'round';
     if (it.stroke) { if (edge) { g2.strokeStyle = EDGE; g2.lineWidth = it.w + 3; g2.stroke(p); } g2.strokeStyle = it.stroke; g2.lineWidth = it.w; g2.stroke(p); }
     else { if (edge) { g2.strokeStyle = EDGE; g2.lineWidth = 3; g2.stroke(p); } g2.fillStyle = it.fill; g2.fill(p, it.rule); }
@@ -177,13 +179,13 @@ export function decalGeometry5() {   // over the whole head front (classic head 
   g.computeVertexNormals(); return (decal5 = g);
 }
 const cache = new Map();
-export function faceMaterial5(f, tier = 'hero', skin = '#f6c9a0', {blink = false, talk = null} = {}) {
-  const key = JSON.stringify([f, tier, darkSkin(skin), blink, talk]); if (cache.has(key)) return cache.get(key);
+export function faceMaterial5(f, tier = 'hero', skin = '#f6c9a0', {blink = false, talk = null, faceBox = null} = {}) {
+  const key = JSON.stringify([f, tier, darkSkin(skin), blink, talk, ...(faceBox ? [faceBox] : [])]); if (cache.has(key)) return cache.get(key);
   let mat;
   if (typeof document === 'undefined') mat = new T.MeshBasicMaterial({transparent: true, opacity: 0});
   else {
     const px = TIER_PX[tier] ?? 512, c = document.createElement('canvas'); c.width = c.height = px;
-    drawFace5(c.getContext('2d'), f, {px, tier, skin, blink, talk});
+    drawFace5(c.getContext('2d'), f, {px, tier, skin, blink, talk, ...(faceBox ? {box: faceBox[0], eyeUp: faceBox[1]} : {})});
     const tex = new T.CanvasTexture(c); tex.colorSpace = T.SRGBColorSpace; tex.anisotropy = 8;
     mat = new T.MeshBasicMaterial({map: tex, transparent: true, depthWrite: false, polygonOffset: true, polygonOffsetFactor: -2});
   }
@@ -191,7 +193,8 @@ export function faceMaterial5(f, tier = 'hero', skin = '#f6c9a0', {blink = false
 }
 export function setFace5(actor, f, {blink = false, talk = null} = {}) {
   const tier = actor.tier === 'hero' ? 'hero' : 'mid', skin = actor.skin ?? '#f6c9a0';
-  if (!actor.faceLayer) { const m = new T.Mesh(decalGeometry5(), faceMaterial5(f, tier, skin)); m.name = 'face_decal'; m.renderOrder = 2; m.position.y = HEAD.centre; actor.pivots.head.add(m); actor.faceLayer = m; }
-  actor.faceLayer.material = faceMaterial5(f, tier, skin, {blink, talk}); actor.face = f; actor.faceBlink = blink; actor.faceTalk = talk; return actor;
+  const faceBox = actor.preset?.faceBox ?? null;   // Look 6 (opt-in preset faceBox [box, eyeUp], e.g. [.9, .03])
+  if (!actor.faceLayer) { const m = new T.Mesh(decalGeometry5(), faceMaterial5(f, tier, skin, {faceBox})); m.name = 'face_decal'; m.renderOrder = 2; m.position.y = HEAD.centre; actor.pivots.head.add(m); actor.faceLayer = m; }
+  actor.faceLayer.material = faceMaterial5(f, tier, skin, {blink, talk, faceBox}); actor.face = f; actor.faceBlink = blink; actor.faceTalk = talk; return actor;
 }
 export const SHOTS5 = {medium: {d: 7, fov: 35}, close: {d: 5, fov: 35}};

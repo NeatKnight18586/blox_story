@@ -48,19 +48,58 @@ export function bakeVertex(p, n, G, cfg) {
   for (const h of HEMI) { const d = toBasis(n, h); if (occluded(G, o, d, cfg.aoDist ?? 3.5)) continue; if (d[1] >= 0) sky += 1; else ground += 1; }
   sky /= HEMI.length; ground /= HEMI.length;
   for (let k = 0; k < 3; k++) out[k] += cfg.sky[k] * cfg.skyI * sky + cfg.ground[k] * cfg.groundI * (ground + .5 * Math.max(0, -n[1]));
-  for (const L of cfg.lights ?? []) {
+  if (cfg.heightFade) { const k = heightFade(p[1], cfg.heightFade); for (let j = 0; j < 3; j++) out[j] *= k; }   // Look 6: ambient falls off toward the ceiling
+  lightsInto(out, p, n, G, o, cfg.lights);
+  return out;
+}
+// Look 6 (pure): ambient scale at height y — 1 below y0, `min` above y1, smooth in between.
+export function heightFade(y, {y0 = 4, y1 = 30, min = .2} = {}) { const u = Math.min(1, Math.max(0, (y - y0) / (y1 - y0))), s = u * u * (3 - 2 * u); return 1 + (min - 1) * s; }
+// Look 6 (pure): a pendant's floor pool. Light only below the lamp, within horizontal radius `pool` (full to .35 r, smooth to 0 at r),
+// fading with height toward the lamp (upper shelves stay dark); cosine to the lamp. Returns the scalar factor (× colour × i).
+export function poolFactor(p, n, L) {
+  const v = [L.p[0] - p[0], L.p[1] - p[1], L.p[2] - p[2]]; if (v[1] <= 0) return 0;
+  const dh = Math.hypot(v[0], v[2]), r = L.pool; if (dh >= r) return 0;
+  const d = Math.hypot(...v), c = (n[0] * v[0] + n[1] * v[1] + n[2] * v[2]) / d; if (c <= 0) return 0;
+  const u = Math.min(1, Math.max(0, (dh - .35 * r) / (.65 * r))), radial = 1 - u * u * (3 - 2 * u), h = Math.sqrt(Math.min(1, v[1] / Math.max(1e-6, L.p[1])));
+  return radial * h * (.35 + .65 * c);
+}
+// Point lights (range falloff) and pool lights (`pool` radius) into out; G null = no occlusion (live objects, CPU side).
+export function lightsInto(out, p, n, G, o, lights = []) {
+  for (const L of lights ?? []) {
+    if (L.pool) { const f = poolFactor(p, n, L); if (f <= 0) continue; if (G && occluded(G, o, normal3([L.p[0] - p[0], L.p[1] - p[1], L.p[2] - p[2]]), Math.hypot(L.p[0] - p[0], L.p[1] - p[1], L.p[2] - p[2]) - .5)) continue;
+      for (let k = 0; k < 3; k++) out[k] += L.color[k] * L.i * f; continue; }
     const v = [L.p[0] - p[0], L.p[1] - p[1], L.p[2] - p[2]], d = Math.hypot(...v); if (d >= L.range || d < 1e-6) continue;
-    const u = v.map(x => x / d), c = n[0] * u[0] + n[1] * u[1] + n[2] * u[2]; if (c <= 0 || occluded(G, o, u, d - .3)) continue;
+    const u = v.map(x => x / d), c = n[0] * u[0] + n[1] * u[1] + n[2] * u[2]; if (c <= 0 || (G && occluded(G, o, u, d - .3))) continue;
     const f = (1 - d / L.range) ** 2 * c * L.i; for (let k = 0; k < 3; k++) out[k] += L.color[k] * f;
   }
   return out;
+}
+const normal3 = v => { const l = Math.hypot(...v) || 1; return v.map(x => x / l); };
+// Look 6: light layers — the contribution of each layer's lights alone at a vertex (same maths as bakeVertex's light loop).
+export function bakeLayers(p, n, G, layers) { const off = G.cell * 1.05, o = [p[0] + n[0] * off, p[1] + n[1] * off, p[2] + n[2] * off]; return layers.map(ls => lightsInto([0, 0, 0], p, n, G, o, ls)); }
+export const LAYER_ATTRS = ['bakeL0', 'bakeL1', 'bakeL2', 'bakeL3'];
+// Baked material patch: vColor = base × uBase + Σ uLayers[i] × layer i (uniforms shared by every baked material of the episode).
+export function patchLayers(m, U) {
+  if (!m || m.userData?.layers6) return m; m.userData = {...m.userData, layers6: true};
+  const prev = m.onBeforeCompile, prevKey = m.customProgramCacheKey?.bind(m);
+  m.onBeforeCompile = (sh, r) => { sh.uniforms.uLayers = U.uLayers; sh.uniforms.uBase = U.uBase;
+    sh.vertexShader = 'attribute vec3 bakeL0; attribute vec3 bakeL1; attribute vec3 bakeL2; attribute vec3 bakeL3; uniform vec4 uLayers; uniform float uBase;\n' + sh.vertexShader.replace('#include <color_vertex>',
+      `#include <color_vertex>
+#ifdef USE_COLOR
+  vColor.rgb = vColor.rgb * uBase + uLayers.x * bakeL0 + uLayers.y * bakeL1 + uLayers.z * bakeL2 + uLayers.w * bakeL3;
+#endif`);
+    prev?.call(m, sh, r); };
+  m.customProgramCacheKey = () => 'layers6|' + (prevKey ? prevKey() : ''); m.needsUpdate = true; return m;
 }
 
 // ---- three: bake a built world -------------------------------------------------------------------------------------------
 // Static = every Mesh under `root` that is not instanced/skinned, not transparent, and not marked userData.live (glass,
 // water, glow, movers). Shared geometries are cloned before their colours are written. Materials become MeshBasic
 // (map × colour × baked vertex light) with an env highlight scaled by the pattern's gloss; the result is cached per material.
-export function bakeScene(root, cfg, {cell = .5, env = null, reflect = .12} = {}) {
+// Look 6 (opt-in): `layers` = up to 4 light lists baked into their own attributes (bakeL0..3) and mixed per frame by `layerU`
+// ({uLayers, uBase}); cfg.lights stays in the base colour.
+export function bakeScene(root, cfg, {cell = .5, env = null, reflect = .12, layers = null, layerU = null} = {}) {
+  if (layers) { layers = [0, 1, 2, 3].map(i => layers[i] ?? []); }
   const t0 = performance.now(), meshes = [];
   root.updateMatrixWorld(true);
   const skip = o => { for (let p = o; p; p = p.parent) if (!p.visible || p.userData?.live) return true; return false; };   // hidden or live (any ancestor)
@@ -77,16 +116,18 @@ export function bakeScene(root, cfg, {cell = .5, env = null, reflect = .12} = {}
   for (const m of meshes) {
     if (users.get(m.geometry) > 1) m.geometry = m.geometry.clone();
     const g = m.geometry; if (!g.attributes.normal) g.computeVertexNormals();
-    const p = g.attributes.position, no = g.attributes.normal, col = new Float32Array(p.count * 3); nm.getNormalMatrix(m.matrixWorld);
+    const p = g.attributes.position, no = g.attributes.normal, col = new Float32Array(p.count * 3), lay = layers ? LAYER_ATTRS.map(() => new Float32Array(p.count * 3)) : null; nm.getNormalMatrix(m.matrixWorld);
     for (let i = 0; i < p.count; i++) {
       v.fromBufferAttribute(p, i).applyMatrix4(m.matrixWorld); n.fromBufferAttribute(no, i).applyMatrix3(nm).normalize();
       const c = bakeVertex([v.x, v.y, v.z], [n.x, n.y, n.z], G, cfg); col.set(c, i * 3);
+      if (lay) bakeLayers([v.x, v.y, v.z], [n.x, n.y, n.z], G, layers).forEach((c2, j) => lay[j].set(c2, i * 3));
     }
     g.setAttribute('color', new T.BufferAttribute(col, 3)); verts += p.count;
+    if (lay) lay.forEach((a, j) => g.setAttribute(LAYER_ATTRS[j], new T.BufferAttribute(a, 3)));
     const swap = old => { if (mats.has(old)) return mats.get(old);
       const b = new T.MeshBasicMaterial({map: old.map ?? null, color: old.color ?? new T.Color('#ffffff'), vertexColors: true, side: old.side, fog: true,
         ...((old.userData?.gloss ?? .25) >= .5 ? {envMap: env, combine: T.AddOperation, reflectivity: old.userData.gloss * reflect * 4, specularMap: old.userData?.glossMap ?? null} : {})});   // pass 1: env highlight only on glossy surfaces
-      b.name = 'baked:' + (old.name ?? ''); b.userData = {...old.userData, baked: true}; mats.set(old, b); return b; };
+      b.name = 'baked:' + (old.name ?? ''); b.userData = {...old.userData, baked: true}; if (layerU) patchLayers(b, layerU); mats.set(old, b); return b; };
     m.material = Array.isArray(m.material) ? m.material.map(swap) : swap(m.material);
     m.castShadow = false; m.receiveShadow = false;   // static-on-static shadows are baked; actors cast on the shadow catcher
   }

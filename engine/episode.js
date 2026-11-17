@@ -14,6 +14,7 @@ import {buildActor, driveActor, townsperson, toolGroup} from './actors.js';
 import {resolveTroupe} from './troupe.js';
 import {flapActive, shapeAt} from './lipflap.js';
 import {motionFrame, cascadeOn} from './motion5.js';
+import {cascadeFrac, localContrast, actorPool} from './look6.js';
 import {overshootEase, breathe, springLag, camNoise, blurOffsets} from './motion5b.js';
 import * as L5B from './look5b.js';
 import {createFill} from './fill.js';
@@ -73,9 +74,9 @@ if (spec.world) {
     if (mod.preload) await mod.preload(new URL('../', import.meta.url));   // format v5 3b-R (opt-in): async world assets (box-art atlas)
     world = mod.build(scene, {P, B, A, M, M4, PR, TR, BI, V, W, look, spec, look4: {preset: P4, halo, water4}});
     look.setGround(world.groundY ?? (() => 0));
-    const bakeWith = (root, pr, lights) => { const PP = presets[pr], bk = PP.v4.bake;
-      return bakeScene(root, {sunDir: sunDir(PP.base.sunEl, PP.base.sunAz), sun: bk.sun, sunI: bk.sunI, sky: bk.sky, skyI: bk.skyI, ground: bk.ground, groundI: bk.groundI, aoDist: bk.aoDist, lights: bk.lights ? (lights ?? []) : []}, {env: look.envMap(), reflect: PP.v4.staticReflect}); };
-    BAKE = world.bakeGroups ? world.bakeGroups.map(gr => bakeWith(gr.root, gr.preset, gr.lights)) : bakeWith(scene, spec.look4, world.lights);   // format v5: composite worlds bake each module with its own preset
+    const bakeWith = (root, pr, lights, layers = null) => { const PP = presets[pr], bk = PP.v4.bake;   // Look 6 (opt-in): light layers + height fade
+      return bakeScene(root, {sunDir: sunDir(PP.base.sunEl, PP.base.sunAz), sun: bk.sun, sunI: bk.sunI, sky: bk.sky, skyI: bk.skyI, ground: bk.ground, groundI: bk.groundI, aoDist: bk.aoDist, lights: bk.lights ? (lights ?? []) : [], ...(bk.heightFade ? {heightFade: bk.heightFade} : {})}, {env: look.envMap(), reflect: PP.v4.staticReflect, ...(layers ? {layers, layerU: world.lightU} : {})}); };
+    BAKE = world.bakeGroups ? world.bakeGroups.map(gr => bakeWith(gr.root, gr.preset, gr.lights, gr.layers)) : bakeWith(scene, spec.look4, world.lights, world.lightLayers);   // format v5: composite worlds bake each module with its own preset
   } else {
   // A4: a world opts into the v3 look by exporting LOOK (an object, or a function of the spec); "Nobody" does not
   const lk = typeof mod.LOOK === 'function' ? mod.LOOK(spec) : mod.LOOK;
@@ -142,6 +143,11 @@ const cascades = (spec.effects ?? []).filter(e => e.type === 'lightsCascade').ma
     const h = halo([0, 0, 0], e.color ?? '#ffd68a', e.size ?? 2.4, .85); h.position.set(0, 0, 0); b.add(h); g.add(b); return b; });
   scene.add(g); return {e, bulbs}; });
 function updateCascades(t) { for (const {e, bulbs} of cascades) { const on = cascadeOn(t, bulbs.length, e); bulbs.forEach((b, i) => { b.visible = on[i]; }); } }
+// Look 6 (opt-in spec.look6): the shot's light state (looks4 <preset>.v6) mixed into the baked layers; the first lightsCascade drives the
+// pendants and zone signs on (its fraction of bulbs lit; no cascade = fully on). Presets without v6 (the dawn street) keep the last state.
+const LOOK6 = !!(spec.look6 && world?.setLight6), CASC6 = cascades[0]?.e ?? null;
+function apply6(shot, t) { if (!LOOK6) return; const v6 = look.presets[shot.look ?? spec.look4]?.v6; if (!v6) return; world.setLight6(v6, CASC6 ? cascadeFrac(t, CASC6, cascades[0].bulbs.length) : 1);
+  if (U5B) for (const [name, u] of Object.entries(U5B.poolOf)) { const m = markPos[name]; u.value = m ? actorPool(world.lightAt6([m[0], (world.groundY?.(m[0], m[2]) ?? 0) + 2.5, m[2]]), v6.actorPool) : 1; } }   // actors in a pool read brighter
 if (Object.values(cast).some(x => x.v2)) await loadFont();
 // Format v4 2b: baked actor light. Every actor and crowd mesh gets MeshMatcapMaterial with the preset's matcap (colour ×
 // 1 / MC_LIGHT, the matcap's light scale); the close shot's subject may keep its MeshStandard (shot `heroLit`, default on).
@@ -162,12 +168,12 @@ function setHeroLit(shot) {   // the close shot's subject keeps real light (Mesh
 // presets add exposure; one soft contact blob per actor; motion (overshoot, breathing, springs), static-shot camera noise, and a
 // 2-sub-frame motion blur on whip / crashZoom shots.
 const LOOK5B = !!(spec.look5b && look?.v4), P5B = name => L5B.params(look.presets[name] ?? look.presets[spec.look4]);
-const U5B = LOOK5B ? {...L5B.makeUniforms(P5B(spec.look4)), uRelief: {value: 0}} : null;
+const U5B = LOOK5B ? {...L5B.makeUniforms(P5B(spec.look4)), uRelief: {value: 0}, poolOf: {}} : null;
 const M5B = LOOK5B ? {overshoot: {os: P5B(spec.look4).overshoot, settle: .3, ease: u => overshootEase(u, P5B(spec.look4).overshoot)}, breathe: P5B(spec.look4).breathe, springs: P5B(spec.look4).springs, breatheFn: breathe, springLag} : null;
 const blobs5b = {};
 if (LOOK5B) {
   const own = new Map(), mine = (m, who) => { if (Array.isArray(m)) return m.map(x => mine(x, who)); if (!m || m.isMeshBasicMaterial || m.isSpriteMaterial) return m; const k = who + '|' + m.uuid;
-    if (!own.has(k)) own.set(k, L5B.patchActor(m.clone(), {...U5B, uShade: U5B.shadeOf[who]})); return own.get(k); };   // per-actor clones: each actor its own shadow depth
+    if (!own.has(k)) own.set(k, L5B.patchActor(m.clone(), {...U5B, uShade: U5B.shadeOf[who], uPool: (U5B.poolOf[who] ??= {value: 1})})); return own.get(k); };   // per-actor clones: each actor its own shadow depth
   U5B.shadeOf = Object.fromEntries(Object.entries(cast).filter(([, x]) => x.v2).map(([n, x]) => [n, {value: 1, skin: x.a.preset?.skin}]));
   for (const e of litSwap) { e.mc = mine(e.mc, e.name); e.std = mine(e.std, e.name); e.mesh.material = e.name === litNow ? e.std : e.mc; }
   for (const x of Object.values(cast)) if (x.v2) x.a.root.traverse(o => { if (o.name === 'face_decal') for (const m of [].concat(o.material)) L5B.patchDecal(m, U5B); });   // in place: setFace4 swaps the decal's map
@@ -175,7 +181,7 @@ if (LOOK5B) {
 }
 function apply5b(shot) {
   if (!LOOK5B) return; const p = P5B(shot.look ?? spec.look4);
-  U5B.uRimColor.value.set(p.rim.color); U5B.uRim.value = p.rim.strength; U5B.uRimPow.value = p.rim.power; U5B.uLift.value = L5B.ev(p.actorEV); U5B.uShade.value = p.shade; U5B.uKnee.value = p.knee; for (const v of Object.values(U5B.shadeOf)) v.value = L5B.actorShade(v.skin, p.shade);
+  U5B.uRimColor.value.set(p.rim.color); U5B.uRim.value = p.rim.strength; U5B.uRimPow.value = p.rim.power; U5B.uRimAway.value = p.rim.away ?? 0; U5B.uLift.value = L5B.ev(p.actorEV); U5B.uShade.value = p.shade; U5B.uKnee.value = p.knee; for (const v of Object.values(U5B.shadeOf)) v.value = L5B.actorShade(v.skin, p.shade);
   U5B.uRelief.value = ['close', 'medium'].includes(shot.size) ? p.relief : 0;
   renderer.toneMappingExposure *= L5B.ev(p.exposureEV);
   const gc = c => { const v = L5B.envGrade([c.r, c.g, c.b], p); c.setRGB(...v); };   // fog and sky are environment too
@@ -403,7 +409,7 @@ function drawFrame(shot, mf, off, width, height, nudge) {
   if (nudge) { const k = nudge / Math.sqrt(3); camera.translateX(k); camera.translateY(k); camera.translateZ(k); }
   world?.onCamera?.(camera.position.toArray());   // format v5 3b-R (opt-in): a world may hide what this camera cannot see (hall ↔ street)
   if (look) { fx.look ? look.apply(...fx.look) : look.apply(shot.look ?? spec.look ?? 'day'); const sf = shotShadow(shot); poseCast(t); look.frameFixed(sf.centre, sf.radius, camera.position); look.update(t); }
-  apply5b(shot);
+  apply5b(shot); apply6(shot, t);
   scene.updateMatrixWorld(true); effects.apply(t, camera); fitTags(scene, camera, {maxFrac: shot.tagMaxFrac ?? .06});
   if (spec.readableUi ?? !!look?.v3) { scene.updateMatrixWorld(true); enforceReadable(scene, camera, {focus: shot.focusUi ?? []}); }   // A5 §C: min text size + safe area (v3 worlds; "Nobody" untouched)
   renderer.info.autoReset = false; renderer.info.reset();   // A4: overlay passes (weather, cards) must not reset the scene counts
@@ -616,6 +622,12 @@ export function sepMeasure(n, {w = 540, h = 960, subject = null} = {}) {
   const L = frameLuma(w, h), m = actorMask(who, w, h), inner = erode(m, w, h, 3), outer = dilate(m, w, h, 3);
   let band = 0, bn = 0, int = 0, inn = 0, bg = 0, bgn = 0; for (let i = 0; i < w * h; i++) { if (m[i] && !inner[i]) { band += L[i]; bn++; } if (inner[i]) { int += L[i]; inn++; } if (!m[i]) { bg += L[i]; bgn++; } }
   const out = {frame: n, shot: shot.id, size: shot.size, subject: who, px: bn + inn, rim: bn && inn ? (band / bn) / (int / inn) : null, link: inn && bgn ? ((band + int) / (bn + inn)) / (bg / bgn) : null};
+  // Look 6 (owner, 8159612): value targets (subject mean luma, background mean luma) + local contrast in either direction against the
+  // background within 1.5 body widths (the subject's bounding box grown by 1.5 × its width on every side, subject pixels excluded)
+  { let x0 = w, x1 = -1, y0 = h, y1 = -1; for (let i = 0; i < w * h; i++) if (m[i]) { const x = i % w, y = (i / w) | 0; if (x < x0) x0 = x; if (x > x1) x1 = x; if (y < y0) y0 = y; if (y > y1) y1 = y; }
+    const bw = x1 - x0 + 1, X0 = Math.max(0, x0 - 1.5 * bw), X1 = Math.min(w - 1, x1 + 1.5 * bw), Y0 = Math.max(0, y0 - 1.5 * bw), Y1 = Math.min(h - 1, y1 + 1.5 * bw); let ls = 0, ln = 0;
+    for (let y = Y0 | 0; y <= Y1; y++) for (let x = X0 | 0; x <= X1; x++) { const j = y * w + x; if (!outer[j]) { ls += L[j]; ln++; } }
+    out.subjL = (band + int) / Math.max(1, bn + inn); out.bgL = bg / Math.max(1, bgn); out.localBg = ln ? ls / ln : null; out.contrast = out.localBg ? localContrast(out.subjL, out.localBg) : null; out.bodyPx = bw; }
   const head = cast[who].a.parts?.head; if (head) { const hm = maskPass(o => o === head, w, h); let L1 = null;
     if (U5B) { const sv = U5B.shadeOf[who], k = sv.value; sv.value = 1; renderer.render(scene, camera); L1 = frameLuma(w, h); sv.value = k; }   // shadow side = head pixels the key shading darkens by > 10 %
     const v = [], sh = []; for (let i = 0; i < w * h; i++) if (hm[i] && m[i] && L[i] >= .12) { v.push(L[i]); if (L1 && L[i] < .9 * L1[i]) sh.push(L[i]); } v.sort((a, b) => a - b);
@@ -629,7 +641,15 @@ export function sepMeasure(n, {w = 540, h = 960, subject = null} = {}) {
     const r0 = Math.max(.5 * R, 1.25 * cast[who].a.root.scale.x), a0 = probe(r0), a1 = probe(r0 + 1); out.contact = a0 !== null && a1 ? {under: a0, floor: a1, drop: 1 - a0 / a1, r: r0} : null; }
   return out;
 }
-const occMat = new T.MeshBasicMaterial({colorWrite: false});
+// Look 6: ceiling luma = median luma of the pixels the ceiling plane covers (meshes whose bounds start at ≥ ceilingY), null when unseen.
+export function ceilingLuma(n, {w = 390, h = 693, ceilingY = 35.9} = {}) {
+  renderFrame(n, w, h); const L = frameLuma(w, h), isC = o => { if (!o.isMesh || o.isInstancedMesh) return false; const g = o.geometry; if (!g.boundingBox) g.computeBoundingBox(); const b = new T.Box3().copy(g.boundingBox).applyMatrix4(o.matrixWorld); return b.min.y >= ceilingY && b.max.y <= ceilingY + .6; };   // the flat ceiling plane only
+  const sw = [], hid = []; scene.traverse(o => { if (!o.visible) return; if (o.isSprite || o.isPoints || o.isLine || (o.isMesh && [].concat(o.material).some(m => m.transparent))) { hid.push(o); o.visible = false; return; } if (o.isMesh) { sw.push([o, o.material]); o.material = isC(o) ? maskMat : blackMat; } });
+  const bg = scene.background, fog = scene.fog; scene.background = new T.Color('#000000'); scene.fog = null; renderer.render(scene, camera); const px = frameRGBA(w, h); scene.background = bg; scene.fog = fog;
+  for (const [o, m] of sw) o.material = m; for (const o of hid) o.visible = true;   // occlusion-aware: only ceiling pixels nothing stands in front of
+  const v = []; for (let y = 0; y < h; y++) for (let x = 0; x < w; x++) if (px[((h - 1 - y) * w + x) * 4] > 127) v.push(L[y * w + x]); v.sort((a, b) => a - b); return {frame: n, px: v.length, median: v.length > 50 ? v[v.length >> 1] : null};
+}
+const occMat = new T.MeshBasicMaterial({colorWrite: false}), blackMat = new T.MeshBasicMaterial({color: '#000000'});
 export function classHaze(n, {w = 390, h = 693, near = 15, far = 60, match = /^gondola_/} = {}) {
   renderFrame(n, w, h); const L = frameLuma(w, h), swapped = [], hidden = [];
   scene.traverse(o => { if (!o.visible) return; if (o.isSprite || o.isPoints || o.isLine || (o.isMesh && [].concat(o.material).some(m => m.transparent))) { hidden.push(o); o.visible = false; return; } if (!o.isMesh) return;
@@ -640,4 +660,4 @@ export function classHaze(n, {w = 390, h = 693, near = 15, far = 60, match = /^g
   const rms = a => { if (a.length < 50) return null; const mu = a.reduce((s, v) => s + v, 0) / a.length; return Math.sqrt(a.reduce((s, v) => s + (v - mu) ** 2, 0) / a.length); };
   const rn = rms(acc.near), rf = rms(acc.far); return {frame: n, nearRms: rn, farRms: rf, nearPx: acc.near.length, farPx: acc.far.length, ratio: rn && rf !== null ? rf / rn : null};
 }
-window.__episode = {sepMeasure, classHaze, satMeasure, depthLuma, lumaProbe, debug: {scene, renderer, camera, look}, bake: BAKE, matcapBytes: MATCAP ? (n => Array.from(look.matcapBytes(n ?? spec.look4))) : null, breakdown, measureFrame, seasonMeasure, actorMask, readMeasure, lumaAt, inspectFrame, shotSpeed, END: FRAMES / FPS, anchors: Object.fromEntries(Object.entries(anchors).filter(([, a]) => a.camera).map(([k]) => [k, true])), renderAnchor, renderAnchorNudged, renderCamera, FPS, FRAMES, shots: shots.map(({id, start, frames, size, move, loc, subject, see, openHit, at, why, captionY, fit, spectacle, look: lk}) => ({id, start, frames, size, move, loc, subject, see, openHit: !!openHit, at, why, captionY, fit, spectacle: !!spectacle, look: lk})), renderFrame};
+window.__episode = {sepMeasure, ceilingLuma, classHaze, satMeasure, depthLuma, lumaProbe, debug: {scene, renderer, camera, look, pool: U5B?.poolOf ?? null}, bake: BAKE, matcapBytes: MATCAP ? (n => Array.from(look.matcapBytes(n ?? spec.look4))) : null, breakdown, measureFrame, seasonMeasure, actorMask, readMeasure, lumaAt, inspectFrame, shotSpeed, END: FRAMES / FPS, anchors: Object.fromEntries(Object.entries(anchors).filter(([, a]) => a.camera).map(([k]) => [k, true])), renderAnchor, renderAnchorNudged, renderCamera, FPS, FRAMES, shots: shots.map(({id, start, frames, size, move, loc, subject, see, openHit, at, why, captionY, fit, spectacle, look: lk}) => ({id, start, frames, size, move, loc, subject, see, openHit: !!openHit, at, why, captionY, fit, spectacle: !!spectacle, look: lk})), renderFrame};
