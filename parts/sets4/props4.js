@@ -20,11 +20,11 @@ const SP = {
     g.name = 'kart'; return g;
   },
   gumball(seed = 1) { const m = new T.Mesh(new T.IcosahedronGeometry(.28, 0), plastic(TOY[seed % TOY.length])); m.name = 'gumball'; return m; },
-  // the owner's box: HYPERBOX 9 on its pedestal-ready crate, label on four sides (real in-world text)
+  // the owner's box: HYPERBOX 9 (electric violet since 3b-R: a story prop, S ≥ .60) on its pedestal-ready crate, label on four sides (real in-world text)
   hyperbox(seed = 1) {
-    const g = new T.Group(); g.add(box(3, 2.2, 2.2, '#1d1f2a', [0, 1.1, 0], {cell: 3}), box(3.04, .3, 2.24, '#ffd542', [0, 2.3, 0], {cell: 3}), box(3.04, .25, 2.24, '#ffd542', [0, .15, 0], {cell: 3}));
+    const g = new T.Group(); g.add(box(3, 2.2, 2.2, '#4b22c9', [0, 1.1, 0], {cell: 3}), box(3.04, .3, 2.24, '#ffd542', [0, 2.3, 0], {cell: 3}), box(3.04, .25, 2.24, '#ffd542', [0, .15, 0], {cell: 3}));
     for (const [yaw, z, x] of [[0, 1.13, 0], [Math.PI, -1.13, 0], [Math.PI / 2, 0, 1.53], [-Math.PI / 2, 0, -1.53]]) {
-      const p = textPlate('HYPERBOX 9', {w: yaw % Math.PI ? 1.9 : 2.7, h: 1.2, bg: '#1d1f2a', fg: '#ffd542', lines: ['HYPER', 'BOX 9'], name: 'hyperboxLabel'}); p.position.set(x, 1.2, z); p.rotation.y = yaw; g.add(p); }
+      const p = textPlate('HYPERBOX 9', {w: yaw % Math.PI ? 1.9 : 2.7, h: 1.2, bg: '#4b22c9', fg: '#ffd542', lines: ['HYPER', 'BOX 9'], name: 'hyperboxLabel'}); p.position.set(x, 1.2, z); p.rotation.y = yaw; g.add(p); }
     g.name = 'hyperbox'; return g;
   },
   key(seed = 1) {

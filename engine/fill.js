@@ -5,21 +5,22 @@
 import * as T from 'three';
 import {mergeGeometries} from 'three/addons/utils/BufferGeometryUtils.js';
 import {rnd} from '../parts/sets4/common.js';
+import {envColor} from '../parts/sets4/look5.js';
 const SHIRTS = ['#ff5a5f', '#ffb400', '#2ec4b6', '#3a86ff', '#9b5de5', '#ff7aa8', '#7bd850', '#ff8a00', '#4f7cc4', '#e2733a'];
 export const FILL_TRIS = 60;   // body (4 boxes: torso, legs block, two arms) + head box = 60 tris
 // two geometries, one matrix: the body (torso, arms, legs; shirt colour) and the head (skin colour)
 const part = (w, h, d, x, y, z) => { const g = new T.BoxGeometry(w, h, d); g.translate(x, y, z); g.deleteAttribute('uv'); return g; };
-export function fillGeometry() {
-  const g = mergeGeometries([part(2, 2, 1, 0, 3, 0), part(1.9, 2, 1, 0, 1, 0), part(.9, 1.8, .9, -1.45, 3.1, 0), part(.9, 1.8, .9, 1.45, 3.1, 0)]); g.computeVertexNormals(); return g;
+export function fillGeometry(lite = false) {   // lite (opt-in, 3b-R): arms folded into a wider torso — 24 tris, for 300 kids seen from far above
+  const g = lite ? mergeGeometries([part(3.6, 2, 1, 0, 3, 0), part(1.9, 2, 1, 0, 1, 0)]) : mergeGeometries([part(2, 2, 1, 0, 3, 0), part(1.9, 2, 1, 0, 1, 0), part(.9, 1.8, .9, -1.45, 3.1, 0), part(.9, 1.8, .9, 1.45, 3.1, 0)]); g.computeVertexNormals(); return g;
 }
 export function fillHeadGeometry() { const g = part(1.2, 1.2, 1.2, 0, 4.6, 0); g.computeVertexNormals(); return g; }
 // from above only (owner: "~200 from above"): the fill shows when the camera is high (≥ 20 units) unless the shot says `fill: false|true`
 export const fillVisible = (camY, shotFill) => shotFill === undefined ? camY >= 20 : !!shotFill;
-export function fillMembers({count = 200, area = [40, 50, 0, 0], avoid = [], seed = 1, scale = .8} = {}) {
+export function fillMembers({count = 200, area = [40, 50, 0, 0], avoid = [], seed = 1, scale = .8, muted = false} = {}) {   // muted (opt-in, 3b-R): shirts in the environment range (S ≤ .45)
   const r = rnd(seed), out = [], [w, d, cx, cz] = area; let tries = 0;
   while (out.length < count && tries++ < count * 40) {
     const x = cx + (r() - .5) * w, z = cz + (r() - .5) * d; if (avoid.some(([x0, z0, x1, z1]) => x >= x0 && x <= x1 && z >= z0 && z <= z1)) continue;
-    out.push({x, z, yaw: r() * Math.PI * 2, colour: SHIRTS[Math.floor(r() * SHIRTS.length)], scale: scale * (.85 + r() * .3), phase: r() * 6.283, skin: ['#f5cd30', '#f6c9a0', '#e0a77a', '#c08457', '#8d5a3b'][Math.floor(r() * 5)]});
+    const yaw = r() * Math.PI * 2, shirt = SHIRTS[Math.floor(r() * SHIRTS.length)]; out.push({x, z, yaw, colour: muted ? envColor(shirt) : shirt, scale: scale * (.85 + r() * .3), phase: r() * 6.283, skin: ['#f5cd30', '#f6c9a0', '#e0a77a', '#c08457', '#8d5a3b'][Math.floor(r() * 5)]});
   }
   return out;
 }
@@ -29,8 +30,8 @@ export function fillMatrix(m, t, y = 0, out = new T.Matrix4()) {
   return out.compose(_p.set(m.x, y + bob, m.z), _q.setFromEuler(_e.set(0, m.yaw, sway)), _s.setScalar(m.scale));
 }
 export function createFill(scene, list = [], {groundY = () => 0} = {}) {
-  const geo = fillGeometry(), hgeo = fillHeadGeometry(), mat = () => new T.MeshLambertMaterial({color: '#ffffff'});
-  const groups = list.map(c => { const mem = fillMembers(c), body = new T.InstancedMesh(geo, mat(), mem.length), head = new T.InstancedMesh(hgeo, mat(), mem.length);
+  const hgeo = fillHeadGeometry(), mat = () => new T.MeshLambertMaterial({color: '#ffffff'});
+  const groups = list.map(c => { const mem = fillMembers(c), body = new T.InstancedMesh(fillGeometry(!!c.lite), mat(), mem.length), head = new T.InstancedMesh(hgeo, mat(), mem.length);
     for (const im of [body, head]) { im.frustumCulled = false; im.userData.live = true; scene.add(im); } body.name = 'fill_' + (c.id ?? 'x'); head.name = 'fillHead_' + (c.id ?? 'x');
     mem.forEach((m, i) => { body.setColorAt(i, new T.Color(m.colour)); head.setColorAt(i, new T.Color(m.skin)); }); body.instanceColor.needsUpdate = head.instanceColor.needsUpdate = true; return {c, mem, body, head}; });
   const M4 = new T.Matrix4();

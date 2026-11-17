@@ -4,8 +4,11 @@
 import * as T from 'three';
 import * as M from '../materials.js';
 import {mergeGeometries} from 'three/addons/utils/BufferGeometryUtils.js';
+import {bevelBoxGeometry, roundCylGeometry} from './look5.js';
+// Phase 3b-R (opt-in): while setBevel(r) is on, box() and cyl() build the bevelled RoundedBox-family geometry (look5.js).
+let BEV = 0; export const setBevel = r => { const p = BEV; BEV = r || 0; return p; };
 
-export const HALL = {w: 50, d: 70, h: 18, mezz: 8.5, front: 35};   // x ∈ [−25, 25], z ∈ [−35, 35]; the front wall (street side) is z = +35
+export const HALL = {w: 150, d: 210, h: 36, x: 75, z0: -175, z1: 35, l2: 12, l3: 24, front: 35};   // Phase 3b-R: x ∈ [−75, 75], z ∈ [−175, 35] (front wall, street side, z = +35); levels: floor, 12, 24
 export const TOY = ['#ff5a5f', '#ffb400', '#2ec4b6', '#3a86ff', '#9b5de5', '#ff7aa8', '#7bd850', '#ff8a00'];   // toy palette
 export const seg = (v, cell = 1.5) => Math.max(1, Math.ceil(v / cell));
 const matCache = new Map();
@@ -13,14 +16,14 @@ export const plastic = (color, o = {}) => { const k = color + JSON.stringify(o);
 export const flat = color => { const k = 'flat' + color; if (!matCache.has(k)) { const m = new T.MeshBasicMaterial({color}); m.userData.live = true; matCache.set(k, m); } return matCache.get(k); };
 
 export function box(w, h, d, mat, at, o = {}) {
-  const m = new T.Mesh(new T.BoxGeometry(w, h, d, seg(w, o.cell), seg(h, o.cell), seg(d, o.cell)), typeof mat === 'string' ? plastic(mat) : mat);
+  const m = new T.Mesh(BEV && !o.sharp ? bevelBoxGeometry(w, h, d, BEV, o.cell ?? 1.5) : new T.BoxGeometry(w, h, d, seg(w, o.cell), seg(h, o.cell), seg(d, o.cell)), typeof mat === 'string' ? plastic(mat) : mat);
   m.position.set(...at); if (o.rot) m.rotation.set(...o.rot); m.castShadow = m.receiveShadow = false; if (o.live) m.userData.live = true; if (o.name) m.name = o.name; return m;
 }
 export function plane(w, d, mat, at, o = {}) {
   const g = new T.PlaneGeometry(w, d, seg(w, o.cell), seg(d, o.cell)); g.rotateX(-Math.PI / 2); const m = new T.Mesh(g, typeof mat === 'string' ? plastic(mat) : mat); m.position.set(...at); if (o.live) m.userData.live = true; return m;
 }
 export function cyl(r, h, mat, at, o = {}) {
-  const m = new T.Mesh(new T.CylinderGeometry(o.rTop ?? r, r, h, o.seg ?? 14, seg(h, o.cell ?? 2)), typeof mat === 'string' ? plastic(mat) : mat); m.position.set(...at); if (o.live) m.userData.live = true; if (o.name) m.name = o.name; return m;
+  const m = new T.Mesh(BEV && !o.sharp ? roundCylGeometry(r, h, BEV, o.seg ?? 14, o.cell ?? 2, o.rTop ?? r) : new T.CylinderGeometry(o.rTop ?? r, r, h, o.seg ?? 14, seg(h, o.cell ?? 2)), typeof mat === 'string' ? plastic(mat) : mat); m.position.set(...at); if (o.live) m.userData.live = true; if (o.name) m.name = o.name; return m;
 }
 // Text plate (a real in-world sign, owner rule §2c: text only on real objects). Canvas texture; a plain colour in node.
 export function textPlate(text, {w = 6, h = 1.6, bg = '#ffffff', fg = '#222222', font = 'bold 120px Lilita One, Arial Black, sans-serif', border = null, name = 'sign', lines = null} = {}) {
@@ -50,11 +53,12 @@ export function triCount(o) { let n = 0; o.traverse(m => { if (m.isMesh) { const
 export function mergeByMaterial(root) {
   root.updateMatrixWorld(true); const inv = new T.Matrix4().copy(root.matrixWorld).invert(), groups = new Map(), kill = [];
   const live = o => { for (let p = o; p && p !== root.parent; p = p.parent) if (p.userData?.live || !p.visible) return true; return false; };
+  const story = o => { for (let p = o; p; p = p.parent) if (p.userData?.story) return true; return false; };   // 3b-R: a merged mesh of story props only keeps the tag
   root.traverse(o => { if (!o.isMesh || o.isInstancedMesh || o.isSkinnedMesh || live(o) || Array.isArray(o.material) || !o.geometry.attributes.position) return;
     const g = (o.geometry.index ? o.geometry.toNonIndexed() : o.geometry.clone()); for (const k of Object.keys(g.attributes)) if (!['position', 'normal', 'uv'].includes(k)) g.deleteAttribute(k);
     if (!g.attributes.normal) g.computeVertexNormals(); if (!g.attributes.uv) g.setAttribute('uv', new T.BufferAttribute(new Float32Array(g.attributes.position.count * 2), 2));
-    g.applyMatrix4(new T.Matrix4().multiplyMatrices(inv, o.matrixWorld)); const k = o.material.uuid; if (!groups.has(k)) groups.set(k, {mat: o.material, geos: []}); groups.get(k).geos.push(g); kill.push(o); });
+    g.applyMatrix4(new T.Matrix4().multiplyMatrices(inv, o.matrixWorld)); const k = o.material.uuid; if (!groups.has(k)) groups.set(k, {mat: o.material, geos: [], story: true}); const gr = groups.get(k); gr.geos.push(g); gr.story &&= story(o); kill.push(o); });
   for (const o of kill) o.removeFromParent();
-  let n = 0; for (const {mat, geos} of groups.values()) { const m = new T.Mesh(mergeGeometries(geos, false), mat); m.name = 'merged_' + (mat.name || n); root.add(m); n++; }
+  let n = 0; for (const {mat, geos, story} of groups.values()) { const m = new T.Mesh(mergeGeometries(geos, false), mat); m.name = 'merged_' + (mat.name || n); if (story) m.userData.story = true; root.add(m); n++; }
   return {merged: kill.length, into: n};
 }
