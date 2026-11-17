@@ -1,0 +1,360 @@
+{
+ "fps": 24,
+ "format": 5,
+ "world": "parts/sets4/toyhouse_all.js",
+ "look4": "toy",
+ "look": "toy",
+ "labels": false,
+ "castFile": "cast/toyhouse.json",
+ "worldState": {
+  "clock": [
+   [
+    0,
+    475
+   ]
+  ],
+  "shutter": [
+   [
+    0,
+    0
+   ]
+  ],
+  "truck": [
+   [
+    0,
+    0.8
+   ]
+  ]
+ },
+ "budget": "v3",
+ "slug": "toyhouse-cast",
+ "note": "Phase 3b cast sheet: the six cast presets on body5 + a v5 crowd.",
+ "cast": {
+  "hero": {
+   "style": "v5",
+   "preset": "HERO",
+   "at": "hall",
+   "offset": [
+    -6,
+    0,
+    6
+   ],
+   "yaw": 0,
+   "keys": [
+    [
+     0,
+     "heroPose",
+     {
+      "snap": true
+     }
+    ]
+   ],
+   "faces": [
+    [
+     0,
+     "hero_wink"
+    ]
+   ]
+  },
+  "taped": {
+   "style": "v5",
+   "preset": "HERO_TAPED",
+   "at": "hall",
+   "offset": [
+    -3.6,
+    0,
+    6
+   ],
+   "yaw": 0,
+   "keys": [
+    [
+     0,
+     "waddle"
+    ]
+   ],
+   "faces": [
+    [
+     0,
+     "hero_panic"
+    ]
+   ]
+  },
+  "mo": {
+   "style": "v5",
+   "preset": "MO",
+   "at": "hall",
+   "offset": [
+    -1.2,
+    0,
+    6
+   ],
+   "yaw": 0,
+   "keys": [
+    [
+     0,
+     "idle"
+    ]
+   ],
+   "faces": [
+    [
+     0,
+     "grin"
+    ]
+   ]
+  },
+  "youngpip": {
+   "style": "v5",
+   "preset": "YOUNG_PIP",
+   "at": "hall",
+   "offset": [
+    1.2,
+    0,
+    6
+   ],
+   "yaw": 0,
+   "keys": [
+    [
+     0,
+     "idle"
+    ]
+   ],
+   "faces": [
+    [
+     0,
+     "polite"
+    ]
+   ]
+  },
+  "dad": {
+   "style": "v5",
+   "preset": "MO_DAD",
+   "at": "hall",
+   "offset": [
+    3.6,
+    0,
+    6
+   ],
+   "yaw": 0,
+   "keys": [
+    [
+     0,
+     "armsCrossed",
+     {
+      "snap": true
+     }
+    ]
+   ],
+   "faces": [
+    [
+     0,
+     "smile"
+    ]
+   ]
+  },
+  "pip": {
+   "style": "v5",
+   "preset": "PIP",
+   "at": "hall",
+   "offset": [
+    6,
+    0,
+    6
+   ],
+   "yaw": 0,
+   "keys": [
+    [
+     0,
+     "idle"
+    ]
+   ],
+   "faces": [
+    [
+     0,
+     "steady"
+    ]
+   ]
+  }
+ },
+ "crowds": [
+  {
+   "id": "arena",
+   "count": 10,
+   "area": [
+    14,
+    20
+   ],
+   "centre": [
+    11,
+    -20
+   ],
+   "seed": 4,
+   "mode": "ambient",
+   "scale": 0.84
+  }
+ ],
+ "shots": [
+  {
+   "id": "C1-lineup",
+   "frames": 24,
+   "move": "push",
+   "size": "wide",
+   "from": {
+    "position": [
+     0,
+     5,
+     24
+    ],
+    "target": [
+     0,
+     3,
+     6
+    ],
+    "fov": 62
+   },
+   "shadowRadius": 10,
+   "fill": false
+  },
+  {
+   "id": "C2-hero",
+   "frames": 24,
+   "move": "push",
+   "size": "close",
+   "from": {
+    "position": [
+     -5.5,
+     4.0,
+     11.2
+    ],
+    "target": [
+     -6,
+     3.55,
+     6
+    ],
+    "fov": 28
+   },
+   "shadowRadius": 10,
+   "fill": false,
+   "subject": "hero"
+  },
+  {
+   "id": "C3-taped",
+   "frames": 24,
+   "move": "push",
+   "size": "medium",
+   "from": {
+    "position": [
+     -2.2,
+     3.1,
+     17
+    ],
+    "target": [
+     -3.6,
+     2.3,
+     6
+    ],
+    "fov": 34
+   },
+   "shadowRadius": 10,
+   "fill": false,
+   "subject": "taped"
+  },
+  {
+   "id": "C4-mo",
+   "frames": 24,
+   "move": "push",
+   "size": "close",
+   "from": {
+    "position": [
+     -0.7,
+     3.9,
+     11.6
+    ],
+    "target": [
+     -1.2,
+     3.6,
+     6
+    ],
+    "fov": 28
+   },
+   "shadowRadius": 10,
+   "fill": false,
+   "subject": "mo"
+  },
+  {
+   "id": "C5-youngpip",
+   "frames": 24,
+   "move": "push",
+   "size": "medium",
+   "from": {
+    "position": [
+     2.0,
+     3.0,
+     14.2
+    ],
+    "target": [
+     1.2,
+     2.35,
+     6
+    ],
+    "fov": 32
+   },
+   "shadowRadius": 10,
+   "fill": false,
+   "subject": "youngpip",
+   "grade": "memory"
+  },
+  {
+   "id": "C6-dad",
+   "frames": 24,
+   "move": "push",
+   "size": "medium",
+   "from": {
+    "position": [
+     4.8,
+     3.8,
+     15.5
+    ],
+    "target": [
+     3.6,
+     3.0,
+     6
+    ],
+    "fov": 34
+   },
+   "shadowRadius": 10,
+   "fill": false,
+   "subject": "dad"
+  },
+  {
+   "id": "C7-pip",
+   "frames": 24,
+   "move": "push",
+   "size": "close",
+   "from": {
+    "position": [
+     5.5,
+     4.6,
+     11.6
+    ],
+    "target": [
+     6,
+     4.2,
+     6
+    ],
+    "fov": 28
+   },
+   "shadowRadius": 10,
+   "fill": false,
+   "subject": "pip"
+  },
+  {
+   "id": "C8-crowd",
+   "frames": 24,
+   "move": "push",
+   "size": "wide",
+   "anchor": "arena",
+   "shadowRadius": 16,
+   "fill": false
+  }
+ ]
+}

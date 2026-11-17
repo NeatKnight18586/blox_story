@@ -107,6 +107,8 @@ const POSES = {
   gaspHands: () => make({rightShoulder: [-2.45, 0, -.28], leftShoulder: [-2.45, 0, .28], head: [-.12, 0, 0]}, {lean: -.09}),
   doubleTake(t) { return t < .22 ? make({head: [0, .75, 0]}) : make({head: [-.16, 0, 0], leftShoulder: [-.6, 0, -.35], rightShoulder: [-.6, 0, .35]}, {lean: -.12, dy: .06}); },
   flail(t) { const a = Math.sin(Math.floor(t * 12) * 1.9); return make({rightShoulder: [-2.2 + .65 * a, 0, .9], leftShoulder: [-2.2 - .65 * a, 0, -.9], head: [-.1, 0, .12 * a]}, {dy: .06 * Math.abs(a)}); },
+  // taped up: legs together, arms pinned; a waddle — hops side to side, the body rolling over each foot (period 0.6 s)
+  waddle(t) { const w = 2 * PI * t / .6, r = Math.sin(w), hop = Math.abs(Math.sin(w)); return make({leftHip: [.08 * r, 0, -.04], rightHip: [-.08 * r, 0, .04], leftShoulder: [0, 0, -.03], rightShoulder: [0, 0, .03], head: [.04, 0, -.1 * r]}, {roll: .15 * r, dy: .16 * hop, dx: .12 * r, lean: -.03}); },
   slump: () => make({head: [.48, 0, 0], rightShoulder: [.15, 0, .1], leftShoulder: [.15, 0, -.1]}, {lean: .13, dy: -.06}),
 };
 export const SNAPPY = ['shrug', 'facepalm', 'armsCrossed', 'heroPose', 'fistPump', 'pointUp', 'thinker', 'gaspHands', 'doubleTake', 'flail', 'slump'];

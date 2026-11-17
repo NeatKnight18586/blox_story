@@ -6,9 +6,9 @@ import {launch} from './browser.js';
 mkdirSync('renders/cache/tex4', {recursive: true});
 const server = await startServer(), browser = await launch(), out = {};
 try {
-  for (const p of ['comedy', 'mystery']) {
+  for (const p of ['comedy', 'mystery', 'toy', 'dawn']) {
     const page = await browser.newPage(), errs = []; page.on('pageerror', e => errs.push(e.message));
-    await page.goto(`${server.url}/engine/episode.html?spec=${encodeURIComponent(`engine/fixtures/v4look/${p}-v4.json`)}&aa=0`);
+    await page.goto(`${server.url}/engine/episode.html?spec=${encodeURIComponent((p === 'comedy' || p === 'mystery') ? `engine/fixtures/v4look/${p}-v4.json` : `engine/fixtures/toyhouse/${p === 'toy' ? 'hall' : 'street'}.json`)}&aa=0`);
     await page.waitForFunction(() => window.__episode || document.title === 'error', null, {timeout: 120000}); if (errs.length) throw Error(errs.join('; '));
     const b = await page.evaluate(n => window.__episode.matcapBytes(n), p); writeFileSync(`renders/cache/tex4/matcap-${p}.bin`, Buffer.from(b)); out[p] = b.length; await page.close();
   }

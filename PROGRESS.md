@@ -1257,3 +1257,28 @@ Decisions:
 - Captions v5 keywords are matched by occurrence order (script → cues).
 - Story-prop inserts are measured on the middle frame.
 Open: the demo has no captions (no voice or cues to drive them; keyword colouring is unit-tested); no format-5 episode exists yet to run plan5 on.
+
+## Format v5, Phase 3b (2026-11-17): Toy House world, street, crowd, cast, beats intake
+Plan (≤ 10 lines):
+1. `parts/sets4/` (common text plates + zone helpers, `props4.js` small props ≤ 400 tris, `toyhouse.js` hall, `toyhouse_street.js` dawn street + moving truck); anchors in both; presets `toy` (interior) and `dawn` in looks4.json.
+2. Hall 50×70, two levels, zones: karts, foam arena, ball pit (instanced ≤ 3k), trampoline, candy zone, gadget wall + HYPERBOX 9, counter (key on hook, sepia photo, wall clock, register), roll-up shutter + OPENS 8:00 AM, ceiling coaster mover, `practicals` for lightsCascade.
+3. `engine/fill.js`: instanced low fill kids (~200, ≤ 60 tris); animated kids = createCrowds v5 (≤ 60).
+4. `cast/toyhouse.json` (body5 presets): HERO youth 11, MO, PIP (build elder_m, opt-in), YOUNG_PIP, MO_DAD, HERO_TAPED + `waddle` pose; `bands` regions for tape.
+5. `scripts/v2/beats.py`: owner timestamp list → spec shots (anchors, freeze/impact, reveal), + test.
+6. Gates: top-down legibility (zone ΔRGB ≥ 40), bench ≤ 0.69 at 1080, prop tris ≤ 400, cast heights/head ratio/hero colour distance. Sheets set-390, cast-390. Nobody check (episode.js touched).
+Built:
+- `parts/sets4/`: common.js (tessellated boxes, text plates, mergeByMaterial), props4.js (10 toys ≤ 200 tris), toyhouse.js (hall, 8 zones, 12 anchors, 24 practicals), toyhouse_street.js (dawn street, truck), toyhouse_all.js (composite, per-module bake), anchors.json.
+- `engine/fill.js` (~200 fill kids, 40 tris, only when the camera is high); looks4 `toy` + `dawn`; episode.js: `fill`, `bakeGroups`, anchor `top`, split anchors, aisleTrack default.
+- Cast: `cast/toyhouse.json` (scripts/v2/toycast.js): HERO youth 11, HERO_TAPED (+ `bands`, `waddle`), MO (+ `beanie`), PIP (build `elder_m`), YOUNG_PIP, MO_DAD.
+- `scripts/v2/beats.py` + `engine/fixtures/toyhouse/beats-sample.txt`; gates toyset-gates.js, toycast-gates.js, beanie-check.js; sheets via toy-sheets.py. Tests: toy.test.js (8), 3 py.
+Numbers:
+- Top-down zone ΔRGB vs floor (≥ 40): track 196.7 (ring sampled; the bbox mean was 20, a measuring error, threshold kept), arena 135.9, pit 88.3, tramp 107.8, candy 62.6, gadget 129.7, counter 62.8, mezz 54.3.
+- Bench at 1080: 0.473 s/frame (≤ 0.69), max 89,568 frustum triangles (≤ 90k); pass 1 98.4k (balls 1800→1200, coarse walls/street, fill 72→40 tris), pass 2 (balls 800, gumballs 300, floor cell 3, 48 kids) → 88.9k.
+- Ball pit 800 ≤ 3,000. 48 animated kids (≤ 60, 272 tris each) + 200 fill (40 tris). Props ≤ 196 tris.
+- Cast: head/shoulder 0.593 (taped 0.619 after band 1.32 → 1.29), PIP +0.69 % high (≤ 3 %), MO_DAD 0 %, kids 4.02–4.23 < adults; hero colour clashes 0; waddle roll .15 / hop .16 / hip .08. Beanie: 0 of 1,086 hair vertices outside the shell (52 before).
+- v2:test 123 node + 59 py; npm test green; "Nobody" 11/11.
+Images: the 6-image budget ran out after cast-390 pass 1. NOT re-viewed: set-390 after the fill/prune fixes, cast-390 after the beanie fix and the sepia strengthening.
+Weakest 3, set-390 (viewed once, before the fill fixes): fill kids hid every eye-level shot (fixed: top-down only, unviewed) · dawn street reads mauve/muddy, shutter dull, truck not in the street shot · animated crowd kids stand right on the cameras of pit/gadget/arena.
+Weakest 3, cast-390 (viewed after pass 1): MO's curls poked through the beanie (fixed by number: 0 vertices outside; unviewed) · C5 sepia reads grey (strengthened, unviewed) · lineup cell small (6 actors ~60 px each).
+Decisions: one composite location (`toyhouse_all`) because an episode has one `world`; each module is baked with its own preset (toy / dawn). The top-down camera sees through an open top (no roof); lamps hang from trusses. Animated kids 48 (not 60) and balls 800 to fit 90k. `elder_m` and `beanie` are new opt-in parts. YOUNG_PIP is a sepia-coloured youth preset (the framed photo is a canvas drawing). Fill only when camera y ≥ 20 (shot `fill` overrides).
+Open: no HYPERBOX/clock/photo close-ups of the street truck yet; MATCAP for `dawn` is generated at load (no disk cache for toy/dawn until `node scripts/v2/matcap4.js` runs); keyword captions, lip flap and audio for this world not exercised.

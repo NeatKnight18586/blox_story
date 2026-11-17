@@ -1,0 +1,53 @@
+{
+ "slug": "toyhouse-street",
+ "fps": 24,
+ "format": 5,
+ "world": "parts/sets4/toyhouse_street.js",
+ "look4": "dawn",
+ "look": "dawn",
+ "labels": false,
+ "cast": {},
+ "shots": [
+  {
+   "id": "S-top",
+   "frames": 24,
+   "move": "topDown",
+   "size": "wide",
+   "anchor": "street",
+   "static": true,
+   "shadowRadius": 30
+  },
+  {
+   "id": "S-street",
+   "frames": 24,
+   "move": "push",
+   "size": "wide",
+   "anchor": "street",
+   "shadowRadius": 30
+  },
+  {
+   "id": "S-facade",
+   "frames": 24,
+   "move": "push",
+   "size": "medium",
+   "anchor": "facade",
+   "shadowRadius": 30
+  },
+  {
+   "id": "S-truck",
+   "frames": 24,
+   "move": "push",
+   "size": "medium",
+   "anchor": "truck",
+   "shadowRadius": 30
+  }
+ ],
+ "worldState": {
+  "truck": [
+   [
+    0,
+    0.8
+   ]
+  ]
+ }
+}

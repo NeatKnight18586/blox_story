@@ -65,6 +65,7 @@ export const BUILDS = {
   adult_f: {shoulder: 2, waist: 1.36, hip: 2, height: 1, leg: .98, profile: [[1, 1], [.73, 1], [.37, .68], [0, 1]]},
   youth: {shoulder: 2, waist: 2, hip: 2, waistAt: .55, height: .9, leg: .98},            // anyone under 18: straight, 0.9 torso
   elder_f: {shoulder: 2, waist: 2.12, hip: 2.04, waistAt: .55, height: 1, leg: .98, stoop: .09},   // grandmas: wider waist, stoop
+  elder_m: {shoulder: 2, waist: 2.06, hip: 2.0, waistAt: .55, height: 1, leg: .98, stoop: .08},   // format v5 (Toy House): an old man, same height ≤ 3 % lost to the stoop
 };
 export const ADULT_ONLY = ['adult_f', 'elder_f', 'adult_m'];
 // Torso width at u (0 = top/shoulders … 1 = bottom/hips), pure. A `profile` build is piecewise linear through its rows

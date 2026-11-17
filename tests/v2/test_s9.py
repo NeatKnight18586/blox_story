@@ -277,3 +277,35 @@ class CaptionsV5(unittest.TestCase):
         g2, _ = A.final_graph((1080, 1920), None, 0, fps=24, outputs=('graded',), shot_luts=[('/x/m.cube', 2.0, 4.0)])
         self.assertIn("lut3d=file='/x/m.cube':enable='between(t,2.0000,3.9999)'", g2)
         g0, _ = A.final_graph((1080, 1920), None, 0, outputs=('graded',)); self.assertNotIn('lut3d', g0, 'older specs: no LUT')
+
+
+class BeatsIntake(unittest.TestCase):
+    """Phase 3b scripts/v2/beats.py: the owner's timestamp list → spec shots (no script, no voice)."""
+    def setUp(self):
+        sys.path.insert(0, os.path.join(ROOT, 'scripts/v2')); import beats; self.B = beats
+
+    def test_parse(self):
+        rows = self.B.parse_list("# c\n0:00 crash zoom street\n0:02.5 top down hall\n1:05  wide hall\n")
+        self.assertEqual([r[0] for r in rows], [0, 2.5, 65.0])
+        for bad, msg in (("0:01 push hall", 'first beat'), ("0:00 push hall\n0:00 pull hall", 'does not follow'), ("0:00 push hall\nhello", 'no timestamp')):
+            with self.assertRaises(ValueError) as e: self.B.parse_list(bad)
+            self.assertIn(msg, str(e.exception))
+
+    def test_build(self):
+        rows = self.B.parse_list("0:00 crash zoom on the shutter\n0:02 top down hall, lights cascade\n0:04.5 low angle HERO at the counter, impact\n0:07 medium PIP, freeze 8f, on twos\n0:09 split counter | track\n0:11 wide hall memory")
+        r = self.B.build(rows, 'toyhouse', 24, end=14)
+        s = {x['move']: x for x in r['shots']}; self.assertEqual(sum(x['frames'] for x in r['shots']), 14 * 24)
+        self.assertEqual(s['crashZoom']['to'], {'fov': 12}); self.assertTrue(s['crashZoom']['reveal']); self.assertEqual(s['topDown']['anchor'], 'hall'); self.assertTrue(s['topDown']['static'])
+        self.assertEqual(s['lowAuthority']['subject'], 'hero'); self.assertEqual(s['lowAuthority']['impact'], round(s['lowAuthority']['frames'] / 24 * .5, 2))
+        self.assertEqual(r['shots'][3]['freeze'][1], 8); self.assertEqual(r['shots'][3]['subject'], 'pip')
+        self.assertEqual(s['splitScreen']['a'], {'anchor': 'counter'}); self.assertEqual(s['splitScreen']['b'], {'anchor': 'track'}); self.assertNotIn('anchor', s['splitScreen'])
+        self.assertEqual(r['shots'][-1]['grade'], 'memory'); self.assertEqual(len(r['effects']), 1); self.assertEqual(len(r['effects'][0]['points']), 24); self.assertEqual(r['effects'][0]['at'], 2.0)
+        self.assertEqual(r['shots'][3]['step'], 2); self.assertTrue(any('length 14' in w for w in r['summary']['warnings']), 'a 14 s list is outside 75–90 s')
+
+    def test_errors_and_limits(self):
+        with self.assertRaises(ValueError): self.B.build(self.B.parse_list("0:00 push the thing"), 'toyhouse')
+        with self.assertRaises(ValueError): self.B.build(self.B.parse_list("0:00 push hall\n0:02 split counter"), 'toyhouse')
+        rows = [(i * 1.7, 'push hall', i) for i in range(48)]; r = self.B.build(rows, 'toyhouse', 24, end=82)
+        self.assertEqual(r['summary']['warnings'], [], '48 shots in 82 s: inside every limit')
+        long = self.B.build(self.B.parse_list("0:00 top down hall\n0:04 push hall"), 'toyhouse', 24, end=80)
+        self.assertTrue(any('static shot 4.00' in w for w in long['summary']['warnings']))

@@ -91,6 +91,10 @@ export function createActor5({tier = 'hero', skin, scale = 1, materials = {}, na
       s.castShadow = true; s.receiveShadow = tier === 'hero'; m.add(s);
     }
   }
+  // taped / strapped looks (data): regions.bands = [{part, y, h, color, w?, d?, x?}] — a slightly oversized box around the part
+  for (const b of regions?.bands ?? []) { const m = a.parts[b.part]; if (!m) continue; const head = b.part === 'head', th = m.geometry.parameters?.height ?? 2;
+    const size = head ? [b.w ?? 1.29, b.h, b.d ?? 1.16] : b.part === 'torso' ? [b.w ?? 2.08, b.h, b.d ?? 1.08] : [b.w ?? 1.08, b.h, b.d ?? 1.08];
+    const bm = new T.Mesh(rbox(size, tier), satin(b.color)); bm.name = `band_${b.part}`; bm.position.set(b.x ?? 0, b.y, 0); bm.castShadow = true; m.add(bm); }
   a.pivots.head.scale.set(...HEAD5);   // classic head 1×1×1 (hair, hats and the face decal ride the same pivot)
   a.parts.head.material = satin(skin);
   return a;

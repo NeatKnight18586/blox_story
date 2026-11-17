@@ -14,6 +14,7 @@ import {buildActor, driveActor, townsperson, toolGroup} from './actors.js';
 import {resolveTroupe} from './troupe.js';
 import {flapActive, shapeAt} from './lipflap.js';
 import {motionFrame, cascadeOn} from './motion5.js';
+import {createFill} from './fill.js';
 import {heroColours, heroSafeOutfit, outfitRegions} from '../avatar-style/body5.js';
 import {hair4Material} from '../avatar-style/hair.js';
 import {loadFont, fitTags} from './overhead.js';
@@ -69,9 +70,9 @@ if (spec.world) {
     look = createLookV4(scene, renderer, presets, {initial: spec.look4}); look.apply(spec.look4);
     world = mod.build(scene, {P, B, A, M, M4, PR, TR, BI, V, W, look, spec, look4: {preset: P4, halo, water4}});
     look.setGround(world.groundY ?? (() => 0));
-    const bk = P4.v4.bake;
-    BAKE = bakeScene(scene, {sunDir: sunDir(P4.base.sunEl, P4.base.sunAz), sun: bk.sun, sunI: bk.sunI, sky: bk.sky, skyI: bk.skyI, ground: bk.ground, groundI: bk.groundI, aoDist: bk.aoDist,
-      lights: bk.lights ? (world.lights ?? []) : []}, {env: look.envMap(), reflect: P4.v4.staticReflect});
+    const bakeWith = (root, pr, lights) => { const PP = presets[pr], bk = PP.v4.bake;
+      return bakeScene(root, {sunDir: sunDir(PP.base.sunEl, PP.base.sunAz), sun: bk.sun, sunI: bk.sunI, sky: bk.sky, skyI: bk.skyI, ground: bk.ground, groundI: bk.groundI, aoDist: bk.aoDist, lights: bk.lights ? (lights ?? []) : []}, {env: look.envMap(), reflect: PP.v4.staticReflect}); };
+    BAKE = world.bakeGroups ? world.bakeGroups.map(gr => bakeWith(gr.root, gr.preset, gr.lights)) : bakeWith(scene, spec.look4, world.lights);   // format v5: composite worlds bake each module with its own preset
   } else {
   // A4: a world opts into the v3 look by exporting LOOK (an object, or a function of the spec); "Nobody" does not
   const lk = typeof mod.LOOK === 'function' ? mod.LOOK(spec) : mod.LOOK;
@@ -95,8 +96,10 @@ const anchors = world?.anchors ?? {};
 // Anchor-relative vectors: {anchor: 'square', offset: [x, y, z]} → world position.
 const resolve = v => (v && !Array.isArray(v) && v.anchor) ? anchors[v.anchor].position.map((x, i) => x + (v.offset?.[i] ?? 0)) : v;
 for (const s of shots) {
-  if (s.anchor && !s.from) { const c = anchors[s.anchor].camera; s.from = {position: c.position, target: c.target, fov: c.fov}; s.move ??= 'push'; }
+  if (s.move === 'splitScreen') for (const k of ['a', 'b']) if (s[k]?.anchor && !s[k].from) { const c = anchors[s[k].anchor].camera; s[k] = {...s[k], from: {position: c.position, target: c.target, fov: c.fov}}; }   // format v5: split halves by anchor
+  if (s.anchor && !s.from) { const c = s.move === 'topDown' && anchors[s.anchor].top ? anchors[s.anchor].top : anchors[s.anchor].camera; s.from = {position: c.position, target: c.target, fov: c.fov}; s.move ??= 'push'; }   // format v5: topDown uses the anchor's `top` camera
   for (const k of ['from', 'to']) if (s[k]) s[k] = {...s[k], position: resolve(s[k].position), target: resolve(s[k].target)};
+  if (s.move === 'aisleTrack' && s.from && !s.to) { const f = s.from; s.to = {position: f.position.map((v, i) => i === 1 ? v : v + (f.target[i] - v) * .55), target: f.target, fov: f.fov}; }   // format v5: default aisle run = 55 % of the way in
 }
 
 // ---- Cast ----
@@ -265,7 +268,8 @@ function aimRim(shot, camPos) {
   rim.position.set(...r.position); rim.target.position.set(...r.target); rim.target.updateMatrixWorld();
 }
 const ui = createRuleUI(spec.ui ?? [], {scene, resolveTarget, fps: FPS});
-const updateExtras = (t, ctx = {}) => { crowds.update(t, ctx); ui.update(t); };   // ctx {camPos, size}: crowd promotion (A5 B)
+const fill = spec.fill ? createFill(scene, spec.fill, {groundY: world?.groundY ?? (() => 0)}) : null;   // format v5: ~200 instanced fill kids
+const updateExtras = (t, ctx = {}) => { crowds.update(t, ctx); fill?.update(t, {camY: ctx.camPos?.[1] ?? ctx.camPos?.y ?? 0, shotFill: ctx.fill}); ui.update(t); };   // ctx {camPos, size}: crowd promotion (A5 B)
 
 // Triangles of visible meshes whose bounds touch the camera frustum (the brief's §5.4 budget). The
 // renderer's own counter also includes the shadow pass, so both are reported.
@@ -330,7 +334,7 @@ export function renderFrame(n, width = 720, height = 1280, nudge = 0) {
   const c = sampleCamera({...shot, fps: FPS}, (mf.cam - shot.start) / FPS, actors);
   if (mf.shake.some(v => v)) c.position = c.position.map((v, i) => v + mf.shake[i]);
   updateCascades(t);
-  world?.update(t); applyWorldState(shot, t); updateExtras(t, {camPos: c.position, size: shot.size}); aimHeroSpots(shot, c.position); aimRim(shot, c.position); applyLift(shot); liftSubject(shot);
+  world?.update(t); applyWorldState(shot, t); updateExtras(t, {camPos: c.position, size: shot.size, fill: shot.fill}); aimHeroSpots(shot, c.position); aimRim(shot, c.position); applyLift(shot); liftSubject(shot);
   const fx = effects.apply(t, camera);   // poses effect targets; returns the shake offset and any timeOfDay blend
   const pos = c.position.map((v, i) => v + fx.camOffset[i]), tgt = c.target.map((v, i) => v + fx.camOffset[i] * .6);
   camera.fov = c.fov; camera.aspect = width / height; camera.position.fromArray(pos);
