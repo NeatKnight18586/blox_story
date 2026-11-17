@@ -4,7 +4,7 @@
   "HERO": {
    "tier": "hero",
    "body": "v5",
-   "faceStyle": "v4",
+   "faceStyle": "v5",
    "skin": "#FFD542",
    "scale": 0.84,
    "build": "youth",
@@ -37,7 +37,7 @@
   "HERO_TAPED": {
    "tier": "hero",
    "body": "v5",
-   "faceStyle": "v4",
+   "faceStyle": "v5",
    "skin": "#FFD542",
    "scale": 0.84,
    "build": "youth",
@@ -110,7 +110,7 @@
   "MO": {
    "tier": "hero",
    "body": "v5",
-   "faceStyle": "v4",
+   "faceStyle": "v5",
    "skin": "#c08457",
    "scale": 0.84,
    "build": "youth",
@@ -156,7 +156,7 @@
   "PIP": {
    "tier": "hero",
    "body": "v5",
-   "faceStyle": "v4",
+   "faceStyle": "v5",
    "skin": "#e0a77a",
    "build": "elder_m",
    "age": 71,
@@ -191,7 +191,7 @@
   "YOUNG_PIP": {
    "tier": "hero",
    "body": "v5",
-   "faceStyle": "v4",
+   "faceStyle": "v5",
    "skin": "#c9a982",
    "scale": 0.8,
    "build": "youth",
@@ -227,7 +227,7 @@
   "MO_DAD": {
    "tier": "hero",
    "body": "v5",
-   "faceStyle": "v4",
+   "faceStyle": "v5",
    "skin": "#c08457",
    "build": "adult_m",
    "age": 41,

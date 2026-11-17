@@ -27,7 +27,7 @@ if (process.argv.includes('--sheet')) {
   const {startServer} = await import('./server.js'), {launch} = await import('./browser.js'), {resolveTroupe} = await import('../../engine/troupe.js');
   const raw = 'renders/v4/heights'; await mkdir(raw, {recursive: true});
   const T5 = JSON.parse(readFileSync('cast/troupe.json', 'utf8')), hero = JSON.parse(readFileSync('cast/hero.json', 'utf8')).HERO, data = {...T5, troupe: {...T5.troupe, HERO: hero}};
-  const v5 = p => ({...p, body: 'v5', faceStyle: 'v4'}), cast = {HERO: resolveTroupe({troupe: 'HERO'}, data), ELDER: {...v5(resolveTroupe({troupe: 'ELDER'}, data)), scale: 1},
+  const v5 = p => ({...p, body: 'v5', faceStyle: 'v5'}), cast = {HERO: resolveTroupe({troupe: 'HERO'}, data), ELDER: {...v5(resolveTroupe({troupe: 'ELDER'}, data)), scale: 1},
     ADULT_F: {...v5(resolveTroupe({troupe: 'ELDER'}, data)), build: 'adult_f', age: 35, scale: 1, hair: {style: 'long_layered', color: '#5a3a22', v: 4}},
     ELDER_F: {...v5(resolveTroupe({troupe: 'ELDER'}, data)), build: 'elder_f', age: 72, scale: 1}, RIVAL: v5(resolveTroupe({troupe: 'RIVAL'}, data)), LEAD: v5(resolveTroupe({troupe: 'LEAD'}, data)), LITTLE: v5(resolveTroupe({troupe: 'LITTLE'}, data))};
   await writeFile(`${raw}/cast.json`, JSON.stringify({cast}));

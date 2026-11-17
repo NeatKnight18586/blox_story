@@ -1,0 +1,637 @@
+{
+ "thresholds": {
+  "iou": 0.8,
+  "strokeTol": 0.1
+ },
+ "minIoU": 0.8618,
+ "meanIoU": 0.945,
+ "cellsBelow": [],
+ "strokeOutOfTolerance": [],
+ "rows": [
+  {
+   "cell": 0,
+   "name": "smile",
+   "iou": 0.9666,
+   "shift": [
+    2.09,
+    0.06
+   ],
+   "strokeSheetPct": 5.54,
+   "strokeMinePct": 5.53,
+   "strokeRatio": 1,
+   "inkRatio": 0.998
+  },
+  {
+   "cell": 1,
+   "name": "grin",
+   "iou": 0.9612,
+   "shift": [
+    1.52,
+    0.12
+   ],
+   "strokeSheetPct": 5.55,
+   "strokeMinePct": 5.54,
+   "strokeRatio": 0.999,
+   "inkRatio": 0.998
+  },
+  {
+   "cell": 2,
+   "name": "happy",
+   "iou": 0.9656,
+   "shift": [
+    2.7,
+    -0.05
+   ],
+   "strokeSheetPct": 6.4,
+   "strokeMinePct": 6.38,
+   "strokeRatio": 0.996,
+   "inkRatio": 0.986
+  },
+  {
+   "cell": 3,
+   "name": "sparkle",
+   "iou": 0.9211,
+   "shift": [
+    1.69,
+    -0.06
+   ],
+   "strokeSheetPct": 5.55,
+   "strokeMinePct": 5.57,
+   "strokeRatio": 1.004,
+   "inkRatio": 0.976
+  },
+  {
+   "cell": 4,
+   "name": "content",
+   "iou": 0.9592,
+   "shift": [
+    -0.17,
+    0.2
+   ],
+   "strokeSheetPct": 5.95,
+   "strokeMinePct": 5.87,
+   "strokeRatio": 0.987,
+   "inkRatio": 0.995
+  },
+  {
+   "cell": 5,
+   "name": "wink_soft",
+   "iou": 0.9643,
+   "shift": [
+    -6.68,
+    0.1
+   ],
+   "strokeSheetPct": 5.61,
+   "strokeMinePct": 5.63,
+   "strokeRatio": 1.003,
+   "inkRatio": 1.006
+  },
+  {
+   "cell": 6,
+   "name": "wink_shine",
+   "iou": 0.9572,
+   "shift": [
+    6.18,
+    0.13
+   ],
+   "strokeSheetPct": 5.6,
+   "strokeMinePct": 5.58,
+   "strokeRatio": 0.995,
+   "inkRatio": 1.001
+  },
+  {
+   "cell": 7,
+   "name": "laugh_xd",
+   "iou": 0.9567,
+   "shift": [
+    1.66,
+    -0.02
+   ],
+   "strokeSheetPct": 5.5,
+   "strokeMinePct": 5.49,
+   "strokeRatio": 0.999,
+   "inkRatio": 0.993
+  },
+  {
+   "cell": 8,
+   "name": "o_small",
+   "iou": 0.9325,
+   "shift": [
+    1.81,
+    0.2
+   ],
+   "strokeSheetPct": 5.48,
+   "strokeMinePct": 5.48,
+   "strokeRatio": 0.999,
+   "inkRatio": 0.987
+  },
+  {
+   "cell": 9,
+   "name": "shock",
+   "iou": 0.9176,
+   "shift": [
+    5.87,
+    0.6
+   ],
+   "strokeSheetPct": 5.37,
+   "strokeMinePct": 5.44,
+   "strokeRatio": 1.013,
+   "inkRatio": 0.997
+  },
+  {
+   "cell": 10,
+   "name": "dot_o",
+   "iou": 0.9581,
+   "shift": [
+    0,
+    0.16
+   ],
+   "strokeSheetPct": 4.56,
+   "strokeMinePct": 4.53,
+   "strokeRatio": 0.994,
+   "inkRatio": 0.994
+  },
+  {
+   "cell": 11,
+   "name": "gasp",
+   "iou": 0.9416,
+   "shift": [
+    0.77,
+    -0.21
+   ],
+   "strokeSheetPct": 5.46,
+   "strokeMinePct": 5.5,
+   "strokeRatio": 1.008,
+   "inkRatio": 1.005
+  },
+  {
+   "cell": 12,
+   "name": "stare",
+   "iou": 0.9508,
+   "shift": [
+    -0.88,
+    -0.26
+   ],
+   "strokeSheetPct": 5.42,
+   "strokeMinePct": 5.42,
+   "strokeRatio": 1,
+   "inkRatio": 0.992
+  },
+  {
+   "cell": 13,
+   "name": "stare_o",
+   "iou": 0.8752,
+   "shift": [
+    17.28,
+    -0.35
+   ],
+   "strokeSheetPct": 5.12,
+   "strokeMinePct": 5.17,
+   "strokeRatio": 1.01,
+   "inkRatio": 0.986
+  },
+  {
+   "cell": 14,
+   "name": "ring_eyes",
+   "iou": 0.9487,
+   "shift": [
+    0.66,
+    0
+   ],
+   "strokeSheetPct": 5.43,
+   "strokeMinePct": 5.46,
+   "strokeRatio": 1.006,
+   "inkRatio": 0.99
+  },
+  {
+   "cell": 15,
+   "name": "beam",
+   "iou": 0.9105,
+   "shift": [
+    -0.87,
+    -0.29
+   ],
+   "strokeSheetPct": 5.7,
+   "strokeMinePct": 5.66,
+   "strokeRatio": 0.992,
+   "inkRatio": 1.016
+  },
+  {
+   "cell": 16,
+   "name": "side_eye",
+   "iou": 0.9503,
+   "shift": [
+    -2.57,
+    0.25
+   ],
+   "strokeSheetPct": 5.51,
+   "strokeMinePct": 5.52,
+   "strokeRatio": 1.002,
+   "inkRatio": 0.998
+  },
+  {
+   "cell": 17,
+   "name": "side_eye_frown",
+   "iou": 0.9171,
+   "shift": [
+    1.2,
+    0.11
+   ],
+   "strokeSheetPct": 5.69,
+   "strokeMinePct": 5.53,
+   "strokeRatio": 0.971,
+   "inkRatio": 0.988
+  },
+  {
+   "cell": 18,
+   "name": "confused",
+   "iou": 0.9289,
+   "shift": [
+    10.69,
+    0.18
+   ],
+   "strokeSheetPct": 5.53,
+   "strokeMinePct": 5.53,
+   "strokeRatio": 1,
+   "inkRatio": 1.003
+  },
+  {
+   "cell": 19,
+   "name": "flat_brows",
+   "iou": 0.9449,
+   "shift": [
+    1.21,
+    -0.41
+   ],
+   "strokeSheetPct": 6.63,
+   "strokeMinePct": 6.63,
+   "strokeRatio": 1,
+   "inkRatio": 0.997
+  },
+  {
+   "cell": 20,
+   "name": "blank",
+   "iou": 0.9551,
+   "shift": [
+    -1.62,
+    0.02
+   ],
+   "strokeSheetPct": 0,
+   "strokeMinePct": 0,
+   "strokeRatio": null,
+   "inkRatio": 0.995
+  },
+  {
+   "cell": 21,
+   "name": "worried",
+   "iou": 0.9654,
+   "shift": [
+    -0.05,
+    -0.01
+   ],
+   "strokeSheetPct": 5.52,
+   "strokeMinePct": 5.53,
+   "strokeRatio": 1.001,
+   "inkRatio": 0.994
+  },
+  {
+   "cell": 22,
+   "name": "worried2",
+   "iou": 0.9552,
+   "shift": [
+    -1.38,
+    0.11
+   ],
+   "strokeSheetPct": 5.52,
+   "strokeMinePct": 5.52,
+   "strokeRatio": 1,
+   "inkRatio": 0.985
+  },
+  {
+   "cell": 23,
+   "name": "sweat_frown",
+   "iou": 0.9375,
+   "shift": [
+    10.16,
+    0.11
+   ],
+   "strokeSheetPct": 4.83,
+   "strokeMinePct": 4.8,
+   "strokeRatio": 0.992,
+   "inkRatio": 0.992
+  },
+  {
+   "cell": 24,
+   "name": "beam2",
+   "iou": 0.932,
+   "shift": [
+    1.58,
+    -0.34
+   ],
+   "strokeSheetPct": 5.58,
+   "strokeMinePct": 5.58,
+   "strokeRatio": 1.001,
+   "inkRatio": 0.983
+  },
+  {
+   "cell": 25,
+   "name": "xd_grin",
+   "iou": 0.937,
+   "shift": [
+    0.14,
+    -0.26
+   ],
+   "strokeSheetPct": 5.57,
+   "strokeMinePct": 5.58,
+   "strokeRatio": 1.001,
+   "inkRatio": 0.988
+  },
+  {
+   "cell": 26,
+   "name": "xd_laugh",
+   "iou": 0.9447,
+   "shift": [
+    2.2,
+    -0.12
+   ],
+   "strokeSheetPct": 5.52,
+   "strokeMinePct": 5.53,
+   "strokeRatio": 1.002,
+   "inkRatio": 1.002
+  },
+  {
+   "cell": 27,
+   "name": "beam3",
+   "iou": 0.9498,
+   "shift": [
+    -0.38,
+    0.06
+   ],
+   "strokeSheetPct": 5.54,
+   "strokeMinePct": 5.53,
+   "strokeRatio": 0.998,
+   "inkRatio": 0.975
+  },
+  {
+   "cell": 28,
+   "name": "blush_smile",
+   "iou": 0.9468,
+   "shift": [
+    -0.01,
+    0.31
+   ],
+   "strokeSheetPct": 5.08,
+   "strokeMinePct": 5.16,
+   "strokeRatio": 1.015,
+   "inkRatio": 0.997
+  },
+  {
+   "cell": 29,
+   "name": "love",
+   "iou": 0.9325,
+   "shift": [
+    -2,
+    0.26
+   ],
+   "strokeSheetPct": 5.51,
+   "strokeMinePct": 5.54,
+   "strokeRatio": 1.006,
+   "inkRatio": 0.999
+  },
+  {
+   "cell": 30,
+   "name": "starry",
+   "iou": 0.9616,
+   "shift": [
+    0.96,
+    0.1
+   ],
+   "strokeSheetPct": 5.15,
+   "strokeMinePct": 5.09,
+   "strokeRatio": 0.988,
+   "inkRatio": 0.987
+  },
+  {
+   "cell": 31,
+   "name": "calm",
+   "iou": 0.9806,
+   "shift": [
+    0.96,
+    0
+   ],
+   "strokeSheetPct": 6.26,
+   "strokeMinePct": 6.25,
+   "strokeRatio": 0.997,
+   "inkRatio": 0.992
+  },
+  {
+   "cell": 32,
+   "name": "frown",
+   "iou": 0.9531,
+   "shift": [
+    0.75,
+    -0.17
+   ],
+   "strokeSheetPct": 5.54,
+   "strokeMinePct": 5.54,
+   "strokeRatio": 1,
+   "inkRatio": 0.984
+  },
+  {
+   "cell": 33,
+   "name": "cry",
+   "iou": 0.9562,
+   "shift": [
+    -1.13,
+    0.1
+   ],
+   "strokeSheetPct": 4.86,
+   "strokeMinePct": 4.88,
+   "strokeRatio": 1.004,
+   "inkRatio": 0.989
+  },
+  {
+   "cell": 34,
+   "name": "bored_o",
+   "iou": 0.9445,
+   "shift": [
+    0.02,
+    -0.19
+   ],
+   "strokeSheetPct": 6.08,
+   "strokeMinePct": 5.95,
+   "strokeRatio": 0.98,
+   "inkRatio": 0.961
+  },
+  {
+   "cell": 35,
+   "name": "sleep",
+   "iou": 0.9522,
+   "shift": [
+    3.53,
+    0.23
+   ],
+   "strokeSheetPct": 5.11,
+   "strokeMinePct": 5.03,
+   "strokeRatio": 0.984,
+   "inkRatio": 0.991
+  },
+  {
+   "cell": 36,
+   "name": "unimpressed",
+   "iou": 0.9887,
+   "shift": [
+    0.65,
+    0
+   ],
+   "strokeSheetPct": 5.52,
+   "strokeMinePct": 5.52,
+   "strokeRatio": 1,
+   "inkRatio": 0.994
+  },
+  {
+   "cell": 37,
+   "name": "angry",
+   "iou": 0.954,
+   "shift": [
+    -0.52,
+    -0.29
+   ],
+   "strokeSheetPct": 5.55,
+   "strokeMinePct": 5.54,
+   "strokeRatio": 0.999,
+   "inkRatio": 0.984
+  },
+  {
+   "cell": 38,
+   "name": "xd_shout",
+   "iou": 0.9149,
+   "shift": [
+    -2.99,
+    0.33
+   ],
+   "strokeSheetPct": 5.58,
+   "strokeMinePct": 5.59,
+   "strokeRatio": 1.001,
+   "inkRatio": 1.005
+  },
+  {
+   "cell": 39,
+   "name": "xd_wince",
+   "iou": 0.9633,
+   "shift": [
+    1.39,
+    0.17
+   ],
+   "strokeSheetPct": 5.63,
+   "strokeMinePct": 5.59,
+   "strokeRatio": 0.993,
+   "inkRatio": 0.995
+  },
+  {
+   "cell": 40,
+   "name": "kiss",
+   "iou": 0.9403,
+   "shift": [
+    11.6,
+    0.17
+   ],
+   "strokeSheetPct": 5,
+   "strokeMinePct": 5.05,
+   "strokeRatio": 1.01,
+   "inkRatio": 1.002
+  },
+  {
+   "cell": 41,
+   "name": "xd_squint",
+   "iou": 0.9677,
+   "shift": [
+    0.48,
+    0.04
+   ],
+   "strokeSheetPct": 5.23,
+   "strokeMinePct": 5.24,
+   "strokeRatio": 1.002,
+   "inkRatio": 0.991
+  },
+  {
+   "cell": 42,
+   "name": "meh",
+   "iou": 0.9878,
+   "shift": [
+    -0.57,
+    -0.16
+   ],
+   "strokeSheetPct": 6.63,
+   "strokeMinePct": 6.63,
+   "strokeRatio": 1,
+   "inkRatio": 0.994
+  },
+  {
+   "cell": 43,
+   "name": "flat_meh",
+   "iou": 0.9227,
+   "shift": [
+    -0.14,
+    -0.73
+   ],
+   "strokeSheetPct": 6.63,
+   "strokeMinePct": 6.63,
+   "strokeRatio": 1,
+   "inkRatio": 0.975
+  },
+  {
+   "cell": 44,
+   "name": "tongue",
+   "iou": 0.8989,
+   "shift": [
+    0.92,
+    0.15
+   ],
+   "strokeSheetPct": 5.03,
+   "strokeMinePct": 5.2,
+   "strokeRatio": 1.035,
+   "inkRatio": 0.991
+  },
+  {
+   "cell": 45,
+   "name": "sweat_smile",
+   "iou": 0.9633,
+   "shift": [
+    8,
+    -0.02
+   ],
+   "strokeSheetPct": 5.17,
+   "strokeMinePct": 5.25,
+   "strokeRatio": 1.016,
+   "inkRatio": 0.991
+  },
+  {
+   "cell": 46,
+   "name": "shades",
+   "iou": 0.8618,
+   "shift": [
+    0.72,
+    0.84
+   ],
+   "strokeSheetPct": 5.07,
+   "strokeMinePct": 4.9,
+   "strokeRatio": 0.965,
+   "inkRatio": 1.044
+  },
+  {
+   "cell": 47,
+   "name": "dots",
+   "iou": 0.9629,
+   "shift": [
+    -3.63,
+    0.12
+   ],
+   "strokeSheetPct": 0,
+   "strokeMinePct": 0,
+   "strokeRatio": null,
+   "inkRatio": 0.97
+  }
+ ],
+ "result": "PASS"
+}

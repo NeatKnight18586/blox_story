@@ -7,6 +7,7 @@ import {loadFont, setTag, fitTags} from './overhead.js';
 import {setFace} from '../avatar-style/faces2.js';
 import {setFace3} from '../avatar-style/faces3.js';
 import {setFace4} from '../avatar-style/faces4.js';
+import {setFace5} from '../avatar-style/faces5.js';
 import {triangles} from '../avatar-style/body.js';
 import {classSword} from '../parts/props.js';
 
@@ -69,7 +70,8 @@ export function render(cell, w, h) {
     const slot = used.get(spec.id) ?? 0; used.set(spec.id, slot + 1);
     const a = actorFor(spec.id, slot, spec.with ?? null); a.root.visible = true;
     driveActor(a, spec.t ?? 0, {keys: [[0, spec.pose ?? 'idle', spec.opts ?? {}]], origin: {position: spec.at ?? [0, 0, 0], yaw: (spec.yaw ?? 0) * Math.PI / 180}, ambient: false});
-    if (a.faceStyle === 'v4') setFace4(a, spec.face ?? a.preset.face ?? 'smile', {talk: spec.talk ?? null});   // format v4
+    if (a.faceStyle === 'v5') setFace5(a, spec.face ?? a.preset.face ?? 'smile', {talk: spec.talk ?? null});
+    else if (a.faceStyle === 'v4') setFace4(a, spec.face ?? a.preset.face ?? 'smile', {talk: spec.talk ?? null});   // format v4
     else if (a.faceStyle === 'v3') setFace3(a, spec.face ?? a.preset.face ?? 'smile'); else setFace(a, spec.face ?? a.preset.face ?? 'smile');
     if (a.tag) a.tag.userData.show = spec.tag !== false;
   }
@@ -90,4 +92,5 @@ export function budget() {
   for (const id of [...Object.keys(cast.cast), 'town:3', 'town:8']) out[id] = triangles(actorFor(id, 99).root);
   return out;
 }
-window.__studio = {render, budget, castIds: Object.keys(cast.cast)};
+const headWorld = (id, slot = 0) => { const a = actorFor(id, slot); a.root.updateMatrixWorld(true); return new T.Vector3().setFromMatrixPosition(a.pivots.head.matrixWorld).toArray(); };   // head pivot, world (after a render)
+window.__studio = {render, budget, headWorld, castIds: Object.keys(cast.cast)};
