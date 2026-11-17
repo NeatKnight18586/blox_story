@@ -1223,3 +1223,37 @@ Decisions:
 - Matcap: lights at ×0.5 and colours ×2 (8-bit headroom), chroma kept 25 %.
 - Head ratio measured against shoulder width (2 studs on every build).
 - 0.69 compared at the 1080 bench, as it was set; the native-1440 numbers are reported beside it.
+
+## Format v5, Phase 3a (2026-11-17): motion and camera grammar
+Plan (≤ 10 lines):
+1. STATE.md `paused: true` (season_state understands it); V4.md gets the format v5 line.
+2. 24 fps opt-in via `spec.fps: 24`: renderer and render.js already read it. assemble takes fps from the spec; captions and envelope take spec fps.
+3. `format: 5` specs: adults stand at scale 1 (heights within 1 %, elder stoop ≤ 3 %); `height-gates.js`.
+4. poses.js: 11 snappy key poses + key opt `snap` (2-frame blend). `engine/motion5.js` (pure): shot `freeze`, `impact` (2-frame hold + decaying shake), `step: 2`.
+5. camera.js: crashZoom, topDown, splitScreen (two half-frame cameras), lowAuthority, aisleTrack.
+6. Effect `lightsCascade`; shot `grade` (memory / dawn) as timed LUTs in assemble.
+7. Captions v5: `*word*` marks in script.txt → yellow #FFD542. `engine/plancheck5.js` rules in v2:plan for format 5.
+8. Demo (24 fps): `review/v4/motion-demo.mp4`, `poses-390.png`, `heights-390.png`. Gates + tests.
+Built:
+- STATE `paused: true` (season_state: parse/fmt/transition); V4.md format v5 line.
+- 24 fps: assemble takes the spec fps (animatic 12), envelope `--fps`/spec, lip flaps use FPS.
+- format 5: adults at scale 1. poses.js: 11 SNAPPY poses + key `snap`.
+- camera.js MOVES5: crashZoom, topDown, splitScreen (renderSplit), lowAuthority, aisleTrack.
+- motion5.js: freeze, impact, step, cascadeOn; episode effect `lightsCascade`.
+- lut4 memory / dawn + assemble `shot_luts` (shot `grade`).
+- captions v5 (`pop-shorts-v5`, `script_marks` / `keyword_slots`); plancheck5.js + plan.js (format 5, insert heights measured).
+- Gates: `height-gates.js`, `pose-gates.js`. Demo: `motion-demo.py` + `engine/fixtures/v5demo`. Tests: v5.test.js (6), 2 py.
+Numbers:
+- Heights PASS: adults 5.23 (0.00 %), stooped elder_f +0.73 %, kids 3.12–4.78.
+- Poses PASS: min 0.928 from idle, closest pair 0.692 (fix pass 1: fistPump vs pointUp was 0.381); snap lands in 2 frames.
+- Demo PASS: 24/1 fps, 384 frames, freeze 12 identical frames, impact hold 0 diff then shake 0.69, split divider luma 0.078, cascade warm pixels 259 → 2677 (fix pass 1: lamps were out of the aisle view; S7 camera moved off the arm).
+- Render 187 ms/frame at 540×960. v2:test 115 node + 56 py; npm test green; "Nobody" 11/11.
+Weakest 3, poses-390: facepalm hand lands beside the head (one data fix, not re-viewed) · thinker/armsCrossed arms cut into the chest · shrug vs heroPose read alike, slump ≈ idle.
+Weakest 3, motion-demo-390: hero head khaki under mystery · split framing crops LEAD/ELDER and the facepalm hides SECOND's face · cascade bulbs float without posts; topDown actors read as scattered blocks.
+Weakest 3, heights-390: line-up small in a sky-heavy frame · neighbours overlap at the arms · labels far from their actors.
+Decisions:
+- Freeze holds everything, then real time resumes (the voice never waits).
+- Impact = a 2-frame hold + a 9-frame decaying shake. step 2 applies to actors/world only (the camera stays smooth). topDown counts as a static framing.
+- Captions v5 keywords are matched by occurrence order (script → cues).
+- Story-prop inserts are measured on the middle frame.
+Open: the demo has no captions (no voice or cues to drive them; keyword colouring is unit-tested); no format-5 episode exists yet to run plan5 on.

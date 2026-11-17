@@ -15,7 +15,7 @@ opener 150, emphasis 120 %, outline 9, y 1250 / high 560; a chunk holds at most 
 import argparse, json, re, sys
 
 STYLE_FILE = 'captions/pop-shorts-v2.json'
-STYLES = {'v2': 'captions/pop-shorts-v2.json', 'pop-shorts-v2': 'captions/pop-shorts-v2.json', 'v3': 'captions/pop-shorts-v3.json', 'pop-shorts-v3': 'captions/pop-shorts-v3.json'}
+STYLES = {'v2': 'captions/pop-shorts-v2.json', 'pop-shorts-v2': 'captions/pop-shorts-v2.json', 'v3': 'captions/pop-shorts-v3.json', 'pop-shorts-v3': 'captions/pop-shorts-v3.json', 'v5': 'captions/pop-shorts-v5.json', 'pop-shorts-v5': 'captions/pop-shorts-v5.json'}
 
 
 def load_style(name=None):
@@ -277,7 +277,30 @@ def shot_at(shots, t, fps=30):
     return None
 
 
-def to_ass(timed, style, emph=(), shots=None, fps=30, until=None):
+# ---- format v5 keywords: the owner marks *word* in script.txt; those words show in style['keywordColour'] -------------------
+def script_marks(text):
+    """Pure: the marked words of a script, in order, as (normalised word, occurrence) — occurrence counts every appearance
+    of that word in the script (marked or not), so it lines up with the cue words, which follow the script."""
+    seen, marks = {}, []
+    for tok in re.findall(r"\*?[\w'’-]+\*?", text):
+        w = norm(tok.strip('*'))
+        if not w: continue
+        k = seen.get(w, 0); seen[w] = k + 1
+        if tok.startswith('*') and tok.endswith('*') and len(tok) > 2: marks.append((w, k))
+    return marks
+
+
+def keyword_slots(timed, marks):
+    """Pure: {(chunk index, word index)} of the marked words, walking the captions in order."""
+    want, seen, out = set(marks), {}, set()
+    for ci, c in enumerate(timed):
+        for wi, w in enumerate(c['words']):
+            n = norm(w); k = seen.get(n, 0); seen[n] = k + 1
+            if (n, k) in want: out.add((ci, wi))
+    return out
+
+
+def to_ass(timed, style, emph=(), shots=None, fps=30, until=None, keywords=()):
     st = style
     head = f"""[Script Info]
 ScriptType: v4.00+
@@ -296,7 +319,7 @@ Format: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text
     first_line = timed[0]['line'] if timed else None
     rows = []
     one = episode_sizes(timed, st, emph) if st.get('oneSize') else None   # owner rule: one size per episode, no per-caption shrinking
-    for c in timed:
+    for ci, c in enumerate(timed):
         if until is not None and c['start'] >= until: break
         end = min(c['end'], until) if until is not None else c['end']
         sh = shot_at(shots, c['start'], fps)
@@ -310,6 +333,7 @@ Format: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text
             if e and e[0] <= i < e[1]:
                 if i == e[0]: txt = f"{{\\c{st['emphasisColour']}\\fscx{st['emphasisScale']}\\fscy{st['emphasisScale']}}}" + txt
                 if i == e[1] - 1: txt += '{\\c' + st['primary'] + '\\fscx100\\fscy100}'
+            if st.get('keywordColour') and (ci, i) in keywords: txt = f"{{\\c{st['keywordColour']}}}" + txt + f"{{\\c{st['primary']}}}"   # v5 keyword
             parts.append(txt)
         tag = f"{{\\an5\\pos({st['x']},{y})\\fs{size}{st['pop']}}}"
         rows.append(f"Dialogue: 0,{ass_time(c['start'])},{ass_time(end)},Pop,,0,0,0,,{tag}{' '.join(parts)}")
@@ -324,7 +348,11 @@ def main():
     spec = json.load(open(o.spec)) if o.spec else {}
     style = load_style(o.style or spec.get('captionStyle'))
     timed = timing(make_chunks(cues, style, spec.get('emphasis', [])), style['leadSeconds'], style['blankPause'])
-    ass = to_ass(timed, style, spec.get('emphasis', []), spec.get('shots'), spec.get('fps', 30), o.until)
+    kw = set()
+    if style.get('keywordColour'):   # format v5: *word* marks in the owner's script (read only)
+        import os; sp = f'stories/{o.story}/script.txt'
+        if os.path.exists(sp): kw = keyword_slots(timed, script_marks(open(sp).read()))
+    ass = to_ass(timed, style, spec.get('emphasis', []), spec.get('shots'), spec.get('fps', 30), o.until, keywords=kw)
     out = o.out or f'stories/{o.story}/build/captions.ass'
     import os; os.makedirs(os.path.dirname(out), exist_ok=True); open(out, 'w').write(ass)
     n = ass.count('Dialogue:'); print(json.dumps({'out': out, 'style': style['name'], 'captions': n, 'words': sum(len(c['words']) for c in timed), 'maxChunk': max(len(c['words']) for c in timed)}))

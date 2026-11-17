@@ -1,0 +1,513 @@
+{
+ "slug": "v5-motion-demo",
+ "fps": 24,
+ "format": 5,
+ "note": "Format v5 Phase 3a motion demo (no voice, not an episode): crashZoom, lowAuthority + impact, aisleTrack + lightsCascade, topDown on twos, splitScreen, freeze, memory and dawn grades, snappy poses.",
+ "world": "engine/fixtures/v4look/world.js",
+ "look4": "mystery",
+ "look": "mystery",
+ "labels": false,
+ "cast": {
+  "hero": {
+   "style": "v5",
+   "troupe": "HERO",
+   "at": "street",
+   "offset": [
+    0,
+    0,
+    4
+   ],
+   "yaw": 0,
+   "keys": [
+    [
+     0,
+     "idle"
+    ],
+    [
+     2.0,
+     "heroPose",
+     {
+      "snap": true
+     }
+    ],
+    [
+     6.0,
+     "flail",
+     {
+      "snap": true
+     }
+    ],
+    [
+     8.0,
+     "idle"
+    ],
+    [
+     10.55,
+     "doubleTake",
+     {
+      "snap": true
+     }
+    ],
+    [
+     12.7,
+     "thinker",
+     {
+      "snap": true
+     }
+    ],
+    [
+     14.75,
+     "fistPump",
+     {
+      "snap": true
+     }
+    ]
+   ],
+   "faces": [
+    [
+     0,
+     "hero_wink"
+    ],
+    [
+     10.5,
+     "hero_shock"
+    ],
+    [
+     12.5,
+     "hero_soft"
+    ],
+    [
+     14.5,
+     "hero_grin"
+    ]
+   ]
+  },
+  "lead": {
+   "style": "v5",
+   "troupe": "LEAD",
+   "at": "street",
+   "offset": [
+    -2.6,
+    0,
+    3
+   ],
+   "yaw": 15,
+   "keys": [
+    [
+     0,
+     "idle"
+    ],
+    [
+     8.5,
+     "shrug",
+     {
+      "snap": true
+     }
+    ]
+   ]
+  },
+  "second": {
+   "style": "v5",
+   "troupe": "SECOND",
+   "at": "street",
+   "offset": [
+    2.6,
+    0,
+    3
+   ],
+   "yaw": -15,
+   "keys": [
+    [
+     0,
+     "idle"
+    ],
+    [
+     8.8,
+     "facepalm",
+     {
+      "snap": true
+     }
+    ]
+   ]
+  },
+  "elder": {
+   "style": "v5",
+   "troupe": "ELDER",
+   "at": "street",
+   "offset": [
+    -5,
+    0,
+    1
+   ],
+   "yaw": 25,
+   "keys": [
+    [
+     0,
+     "idle"
+    ],
+    [
+     10.6,
+     "armsCrossed",
+     {
+      "snap": true
+     }
+    ]
+   ]
+  }
+ },
+ "shots": [
+  {
+   "id": "S1-crash",
+   "frames": 36,
+   "move": "crashZoom",
+   "size": "wide",
+   "subject": "hero",
+   "reveal": true,
+   "zoomAt": 0.4,
+   "from": {
+    "position": [
+     0,
+     4.2,
+     30
+    ],
+    "target": [
+     0,
+     3.9,
+     4
+    ],
+    "fov": 50
+   },
+   "to": {
+    "fov": 12
+   },
+   "shadowRadius": 12,
+   "why": "crash zoom reveal in the first second"
+  },
+  {
+   "id": "S2-authority",
+   "frames": 48,
+   "move": "lowAuthority",
+   "size": "medium",
+   "subject": "hero",
+   "impact": 0.6,
+   "ground": 0,
+   "from": {
+    "position": [
+     1.6,
+     0.5,
+     9.5
+    ],
+    "target": [
+     0,
+     4.4,
+     4
+    ],
+    "fov": 34
+   },
+   "shadowRadius": 10,
+   "why": "low authority on the hero pose; impact at the snap"
+  },
+  {
+   "id": "S3-aisle",
+   "frames": 60,
+   "move": "aisleTrack",
+   "size": "wide",
+   "subject": "hero",
+   "lookAhead": 10,
+   "from": {
+    "position": [
+     0,
+     3.4,
+     30
+    ],
+    "target": [
+     0,
+     3.4,
+     0
+    ],
+    "fov": 46
+   },
+   "to": {
+    "position": [
+     0,
+     3.4,
+     13
+    ]
+   },
+   "shadowRadius": 14,
+   "why": "aisle track down the street; the street lamps switch on in a cascade"
+  },
+  {
+   "id": "S4-topdown",
+   "frames": 48,
+   "move": "topDown",
+   "size": "wide",
+   "subject": "hero",
+   "step": 2,
+   "degrees": 35,
+   "from": {
+    "position": [
+     0,
+     17,
+     3.5
+    ],
+    "target": [
+     0,
+     0,
+     3.5
+    ],
+    "fov": 44
+   },
+   "shadowRadius": 12,
+   "why": "top-down timelapse, the hero flails on twos"
+  },
+  {
+   "id": "S5-split",
+   "frames": 60,
+   "move": "splitScreen",
+   "size": "medium",
+   "subject": "lead",
+   "a": {
+    "from": {
+     "position": [
+      -2.2,
+      4.3,
+      8.4
+     ],
+     "target": [
+      -2.6,
+      4.1,
+      3
+     ],
+     "fov": 30
+    },
+    "to": {
+     "position": [
+      -2.2,
+      4.3,
+      7.9
+     ],
+     "target": [
+      -2.6,
+      4.1,
+      3
+     ],
+     "fov": 30
+    }
+   },
+   "b": {
+    "from": {
+     "position": [
+      3.0,
+      4.3,
+      8.4
+     ],
+     "target": [
+      2.6,
+      4.1,
+      3
+     ],
+     "fov": 30
+    },
+    "to": {
+     "position": [
+      3.0,
+      4.3,
+      7.9
+     ],
+     "target": [
+      2.6,
+      4.1,
+      3
+     ],
+     "fov": 30
+    }
+   },
+   "from": {
+    "position": [
+     0,
+     4,
+     9
+    ],
+    "target": [
+     0,
+     4,
+     3
+    ],
+    "fov": 30
+   },
+   "shadowRadius": 10,
+   "why": "split screen: shrug above, facepalm below"
+  },
+  {
+   "id": "S6-freeze",
+   "frames": 48,
+   "move": "push",
+   "size": "medium",
+   "subject": "hero",
+   "freeze": [
+    0.75,
+    12
+   ],
+   "from": {
+    "position": [
+     0.6,
+     4.4,
+     12
+    ],
+    "target": [
+     0,
+     3.9,
+     4
+    ],
+    "fov": 36
+   },
+   "to": {
+    "position": [
+     0.5,
+     4.4,
+     10.8
+    ],
+    "target": [
+     0,
+     3.9,
+     4
+    ],
+    "fov": 36
+   },
+   "shadowRadius": 10,
+   "why": "double take, freeze frame for 12 frames"
+  },
+  {
+   "id": "S7-memory",
+   "frames": 48,
+   "move": "static-drift",
+   "size": "close",
+   "subject": "hero",
+   "grade": "memory",
+   "from": {
+    "position": [
+     -1.5,
+     4.7,
+     8.6
+    ],
+    "target": [
+     0,
+     4.5,
+     4
+    ],
+    "fov": 30
+   },
+   "shadowRadius": 8,
+   "why": "memory grade (sepia): the thinker (fix pass 1: camera on the open side; the raised arm hid the face)"
+  },
+  {
+   "id": "S8-dawn",
+   "frames": 36,
+   "move": "push",
+   "size": "close",
+   "subject": "hero",
+   "grade": "dawn",
+   "from": {
+    "position": [
+     0,
+     4.7,
+     8.6
+    ],
+    "target": [
+     0,
+     4.6,
+     4
+    ],
+    "fov": 32
+   },
+   "to": {
+    "position": [
+     0,
+     4.7,
+     7.9
+    ],
+    "target": [
+     0,
+     4.6,
+     4
+    ],
+    "fov": 32
+   },
+   "shadowRadius": 8,
+   "why": "dawn grade: fist pump"
+  }
+ ],
+ "effects": [
+  {
+   "type": "lightsCascade",
+   "at": 3.9,
+   "step": 0.11,
+   "points": [
+    [
+     -3.2,
+     6.4,
+     8
+    ],
+    [
+     3.2,
+     6.4,
+     8
+    ],
+    [
+     -3.2,
+     6.4,
+     2
+    ],
+    [
+     3.2,
+     6.4,
+     2
+    ],
+    [
+     -3.2,
+     6.4,
+     -4
+    ],
+    [
+     3.2,
+     6.4,
+     -4
+    ],
+    [
+     -3.2,
+     6.4,
+     -10
+    ],
+    [
+     3.2,
+     6.4,
+     -10
+    ],
+    [
+     -3.2,
+     6.4,
+     -16
+    ],
+    [
+     3.2,
+     6.4,
+     -16
+    ],
+    [
+     -3.2,
+     6.4,
+     -22
+    ],
+    [
+     3.2,
+     6.4,
+     -22
+    ]
+   ],
+   "color": "#ffd68a",
+   "size": 2.6,
+   "note": "fix pass 1: lamps hung over the street (x \u00b13.2, y 6.4) so the aisle track sees them"
+  }
+ ]
+}

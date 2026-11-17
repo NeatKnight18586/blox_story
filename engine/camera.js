@@ -14,6 +14,14 @@
 
 export const FPS = 30;
 export const MOVES = ['push', 'pull', 'orbit', 'track', 'crane', 'whip', 'gamecam', 'static-drift', 'drone', 'heroLow', 'snap', 'tiltUp'];   // last four: A4
+// Format v5 (Phase 3a) camera grammar, opt-in by name; the moves above are unchanged.
+export const MOVES5 = ['crashZoom', 'topDown', 'splitScreen', 'lowAuthority', 'aisleTrack'];
+MOVES.push(...MOVES5);
+export const CRASH = {frames: 5, overshoot: .06, push: .04};       // crashZoom: fov from→to in 5 frames with a 6 % overshoot, 4 % dolly in
+export const TOPDOWN = {tiltDeg: 3, degrees: 40};                  // topDown: ~straight down (3° off so 'up' stays defined), slow turn
+export const SPLIT = {maxDur: 3};                                  // splitScreen: two half-frame cameras, ≤ 3 s
+export const LOW_AUTH = {maxH: .8, minFov: 28, maxFov: 40, minUpDeg: 8, push: .03};   // lowAuthority: low, long lens, looking up
+
 export const HERO_LOW = {minH: .6, maxH: 1.2, minFov: 60, maxFov: 70, fov: 66};
 export const DRONE = {minDur: 3, maxDur: 5, bankDeg: 8};
 export const SNAP_FRAMES = 2;
@@ -126,6 +134,7 @@ export function framingCheck({size, move, subjectFrac, groundGap = 0, spectacle 
 
 export function sampleCamera(shot, localT, actorPositions = {}) {
   if (!MOVES.includes(shot.move)) throw Error(`unknown camera move: ${shot.move}`);
+  if (MOVES5.includes(shot.move)) return sampleMove5(shot, localT, actorPositions);
   const dur = Math.max(1e-6, shot.duration ?? 1), ease = EASE[shot.ease ?? 'inOutCubic'];
   if (!ease) throw Error(`unknown ease: ${shot.ease}`);
   const u = ease(clamp01(localT / dur));
@@ -208,3 +217,41 @@ export function maxTargetSpeed(shot, actorsAt = () => ({}), fps = FPS) {
   return peak;
 }
 export const speedOk = (shot, actorsAt, fps) => shot.move === 'whip' || shot.move === 'snap' || maxTargetSpeed(shot, actorsAt, fps) <= SPEED_CAP;   // A4: snap is exempt like whip
+
+// ---- format v5 moves (pure) ----------------------------------------------------------------------------------------------
+// crashZoom: locked-off camera; at `zoomAt` (s) the fov snaps from→to in CRASH.frames with an overshoot, and a small dolly in.
+// topDown: above `from.target` at `height` (default from.position height), looking down, turning `degrees` over the shot.
+// splitScreen: {split: [camA, camB]} — top and bottom halves, each sampled as a push from `a`/`b` ({from, to}).
+// lowAuthority: from/to clamped low (≤ 0.8 above `ground`), long lens (28–40°), looking up ≥ 8°, a slow 3 % push.
+// aisleTrack: constant speed along from.position → to.position, looking down the aisle (target moves with it).
+export function sampleMove5(shot, localT, actorPositions = {}) {
+  const dur = Math.max(1e-6, shot.duration ?? 1), f = shot.from, e = shot.to ?? shot.from, k = clamp01(localT / dur), fps = shot.fps ?? FPS;
+  if (shot.move === 'crashZoom') {
+    const n = Math.round(localT * fps) - Math.round((shot.zoomAt ?? 0) * fps), x = clamp01(n / CRASH.frames);
+    const over = x < 1 ? EASE.outBack(x) : 1, fov = lerp(f.fov ?? 40, e.fov ?? 20, over), pos = lerp3(f.position, f.target, CRASH.push * clamp01(n / CRASH.frames));
+    return {position: pos, target: f.target, fov: Math.max(5, fov), roll: 0};
+  }
+  if (shot.move === 'topDown') {
+    const c = f.target, h = shot.height ?? (f.position[1] - c[1]), a = ((shot.startDeg ?? 0) + (shot.degrees ?? TOPDOWN.degrees) * k) * Math.PI / 180, off = h * Math.tan(TOPDOWN.tiltDeg * Math.PI / 180);
+    return {position: [c[0] + Math.sin(a) * off, c[1] + h, c[2] + Math.cos(a) * off], target: c, fov: lerp(f.fov ?? 45, e.fov ?? f.fov ?? 45, k), roll: 0};
+  }
+  if (shot.move === 'splitScreen') {
+    const half = side => { const s = shot[side], u = EASE.inOutSine(k), a = s.from, b = s.to ?? s.from; return {position: lerp3(a.position, b.position, u), target: lerp3(a.target, b.target, u), fov: lerp(a.fov ?? 40, b.fov ?? a.fov ?? 40, u), roll: 0}; };
+    const A = half('a'); return {...A, split: [A, half('b')]};
+  }
+  if (shot.move === 'lowAuthority') {
+    const g = shot.ground ?? 0, clampP = p => { const pos = [p.position[0], Math.min(p.position[1], g + LOW_AUTH.maxH), p.position[2]], t = [...p.target];
+      const dx = Math.hypot(t[0] - pos[0], t[2] - pos[2]), minRise = Math.tan(LOW_AUTH.minUpDeg * Math.PI / 180) * dx; if (t[1] - pos[1] < minRise) t[1] = pos[1] + minRise;
+      return {position: pos, target: t, fov: Math.min(LOW_AUTH.maxFov, Math.max(LOW_AUTH.minFov, p.fov ?? 34))}; };
+    const a = clampP(f), b0 = shot.to ? clampP(e) : {position: lerp3(a.position, a.target, LOW_AUTH.push), target: a.target, fov: a.fov}, u = EASE.inOutSine(k);
+    const pos = lerp3(a.position, b0.position, u); pos[1] = Math.min(pos[1], g + LOW_AUTH.maxH);   // the push never lifts it out of the low band
+    return {position: pos, target: lerp3(a.target, b0.target, u), fov: lerp(a.fov, b0.fov, u), roll: 0};
+  }
+  if (shot.move === 'aisleTrack') {
+    const p = lerp3(f.position, e.position, k), dir = sub(e.position, f.position), l = len(dir) || 1, ahead = shot.lookAhead ?? 8, dy = (f.target?.[1] ?? p[1]) - f.position[1];
+    const follow = shot.follow ? actorPositions[shot.follow] : null;
+    const target = follow ? add(follow, shot.followOffset ?? [0, 3.2, 0]) : add(p, [dir[0] / l * ahead, dy, dir[2] / l * ahead]);
+    return {position: p, target, fov: f.fov ?? 45, roll: 0};
+  }
+  throw Error('unknown v5 move ' + shot.move);
+}

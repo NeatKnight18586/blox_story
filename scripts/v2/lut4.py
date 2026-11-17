@@ -5,12 +5,16 @@
 
 Pure: grade(preset, rgb) maps one colour; cube(preset, size) is the .cube text. Fixed numbers per preset:
   comedy  : bright, saturated, warm sun   — saturation 1.5 (AgX desaturates), warm highlights, gentle S-curve, lifted shadows, gamma .9
+  memory  : sepia (mono, warm split, lifted blacks) · dawn: rose highlights, cool shadows
   mystery : desaturated, cool shadows, warm practicals — saturation 0.8, blue in the lows, amber in the highs, gamma .9 (the night base is already dark)
 """
 import argparse, sys
 
 PRESETS = {
     'comedy': {'sat': 1.5, 'contrast': .12, 'lift': .02, 'gamma': .9, 'shadow': (0.0, 0.0, .01), 'high': (.035, .012, -.03)},
+    # format v5 per-shot grades (shot `grade`, applied over the shot's time range only)
+    'memory': {'sat': 0.0, 'contrast': .06, 'lift': .05, 'gamma': .95, 'shadow': (.05, .02, -.05), 'high': (.09, .04, -.08)},   # sepia: mono + warm split, lifted blacks
+    'dawn': {'sat': .9, 'contrast': .08, 'lift': .03, 'gamma': .93, 'shadow': (-.01, .0, .04), 'high': (.07, .025, -.01)},       # rose highlights, cool lows
     'mystery': {'sat': .8, 'contrast': .1, 'lift': 0.0, 'gamma': .9, 'shadow': (-.015, .005, .045), 'high': (.045, .015, -.035)},
 }
 VIGNETTE = 'vignette=angle=0.42'   # light vignette after the LUT (ffmpeg)

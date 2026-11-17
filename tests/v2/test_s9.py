@@ -153,6 +153,11 @@ class SeasonState(unittest.TestCase):
         self.assertTrue(any('init (Session 9): episode 1 egg, step voice' in l for l in st['log']), 'initialised at episode 1 egg, step voice')
         self.assertEqual(self.SS.parse(self.SS.fmt(st)), st, 'format round-trips')
 
+    def test_paused(self):
+        r = self.SS.transition({'episode': 2, 'slug': 'ragdoll', 'step': 'voice', 'paused': True}, 'approve', voice=True, script=True, beats=True, cards_list=self.cards)
+        self.assertEqual(r['actions'], []); self.assertIn('paused', r['stop'])
+        st = self.SS.parse(open(os.path.join(ROOT, 'docs/season1/STATE.md')).read()); self.assertTrue(st.get('paused'))
+
     def test_published_ready_moves_on(self):
         r = self.t(1, 'egg', 'published-ready'); self.assertEqual(r['state'], {'episode': 2, 'slug': 'ragdoll', 'step': 'voice'}); self.assertEqual(r['actions'], [], 'v4 D1: no script writing')
 
@@ -251,3 +256,24 @@ class Lut4(unittest.TestCase):
         self.assertEqual(self.L.cube('mystery', 3), self.L.cube('mystery', 3))
         for p in self.L.PRESETS:
             for c in [(0, 0, 0), (1, 1, 1), (.5, .2, .9)]: self.assertTrue(all(0 <= v <= 1 for v in self.L.grade(p, c)))
+
+
+class CaptionsV5(unittest.TestCase):
+    """Format v5 keywords: *word* marks in script.txt → yellow #FFD542 on that occurrence only."""
+    def test_marks_and_slots(self):
+        m = C.script_marks("I saw the *egg*. The egg was mine. The *egg* cracked! *Gone*.")
+        self.assertEqual(m, [('egg', 0), ('egg', 2), ('gone', 0)])
+        timed = [{'words': ['I', 'saw', 'the', 'egg.']}, {'words': ['The', 'egg', 'was', 'mine.']}, {'words': ['The', 'egg', 'cracked!']}, {'words': ['Gone.']}]
+        self.assertEqual(C.keyword_slots(timed, m), {(0, 3), (2, 1), (3, 0)})
+        st = C.load_style('v5'); self.assertEqual(st['keywordColour'], '&H0042D5FF')
+        ass = C.to_ass([{'words': ['the', 'egg'], 'start': 0, 'end': 1, 'line': 0}], st, keywords={(0, 1)})
+        self.assertIn('{\\c&H0042D5FF}egg{\\c' + st['primary'] + '}', ass)
+        self.assertNotIn('&H0042D5FF}the', ass)
+
+    def test_shot_grades_and_fps(self):
+        sys.path.insert(0, os.path.join(ROOT, 'scripts/v2')); import lut4, assemble as A
+        for p in ('memory', 'dawn'): self.assertTrue(lut4.cube(p, 3).startswith('TITLE'))
+        r, g, b = lut4.grade('memory', (.2, .5, .8)); self.assertGreater(r, b, 'memory is warm sepia')
+        g2, _ = A.final_graph((1080, 1920), None, 0, fps=24, outputs=('graded',), shot_luts=[('/x/m.cube', 2.0, 4.0)])
+        self.assertIn("lut3d=file='/x/m.cube':enable='between(t,2.0000,3.9999)'", g2)
+        g0, _ = A.final_graph((1080, 1920), None, 0, outputs=('graded',)); self.assertNotIn('lut3d', g0, 'older specs: no LUT')

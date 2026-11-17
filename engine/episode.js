@@ -13,6 +13,7 @@ import {expandClassReveal, applyPatch} from './classes.js';
 import {buildActor, driveActor, townsperson, toolGroup} from './actors.js';
 import {resolveTroupe} from './troupe.js';
 import {flapActive, shapeAt} from './lipflap.js';
+import {motionFrame, cascadeOn} from './motion5.js';
 import {heroColours, heroSafeOutfit, outfitRegions} from '../avatar-style/body5.js';
 import {hair4Material} from '../avatar-style/hair.js';
 import {loadFont, fitTags} from './overhead.js';
@@ -124,9 +125,17 @@ for (const [name, c] of Object.entries(spec.cast ?? {})) {
     const pre2 = HERO_COLS && c.troupe !== 'HERO' && pre1.outfit ? {...pre1, outfit: heroSafeOutfit(pre1.outfit, HERO_COLS, {minL: NIGHT_EP ? .32 : 0})} : pre1;   // v4 1b: nobody dresses like the hero
     const pre3 = spec.look4 && !pre2.regions && pre2.outfit ? {...pre2, regions: outfitRegions(pre2.outfit, pre2.skin ?? '#f5cd30'), outfit: null} : pre2;   // 2b: outfits as colour regions (data)
     const pre = FACES_V3 && !pre3.faceStyle ? {...pre3, faceStyle: 'v3'} : pre3;   // Faces v3: default for season 1 (or spec.faces 'v3')
+    if (spec.format === 5 && pre.build !== 'youth' && !(pre.age < 18)) pre.scale = 1;   // format v5: every adult stands at the same height (builds differ in shape, not size)
     const a = buildActor(c.noTag ? {...pre, tag: null} : pre, name); scene.add(a.root); cast[name] = {a, c, v2: true}; }
   else { const a = createBaseAvatar({color: c.color ?? 0xf2c94c}); scene.add(a.root); cast[name] = {a, c}; }
 }
+// format v5 lightsCascade (world effect): spec.effects [{type: 'lightsCascade', at, step, on, color, size, points: [[x, y, z]...] | {anchor, offset}[]}]
+const cascades = (spec.effects ?? []).filter(e => e.type === 'lightsCascade').map(e => { const g = new T.Group(); g.name = 'lightsCascade';
+  const bulbs = e.points.map(p => { const at = resolve(p), b = new T.Group(); b.position.set(...at);
+    const core = new T.Mesh(new T.SphereGeometry(e.bulb ?? .22, 12, 8), new T.MeshBasicMaterial({color: e.color ?? '#ffd68a', toneMapped: false})); core.userData.live = true; b.add(core);
+    const h = halo([0, 0, 0], e.color ?? '#ffd68a', e.size ?? 2.4, .85); h.position.set(0, 0, 0); b.add(h); g.add(b); return b; });
+  scene.add(g); return {e, bulbs}; });
+function updateCascades(t) { for (const {e, bulbs} of cascades) { const on = cascadeOn(t, bulbs.length, e); bulbs.forEach((b, i) => { b.visible = on[i]; }); } }
 if (Object.values(cast).some(x => x.v2)) await loadFont();
 // Format v4 2b: baked actor light. Every actor and crowd mesh gets MeshMatcapMaterial with the preset's matcap (colour ×
 // 1 / MC_LIGHT, the matcap's light scale); the close shot's subject may keep its MeshStandard (shot `heroLit`, default on).
@@ -201,7 +210,7 @@ function markAt(c, t) {
 // Faces v3 blink: no blink in a held close-up of ≤ 1 s (the shot at t)
 const blinkOff = t => { const f = Math.round(t * FPS), sh = shots.findLast(s => f >= s.start); return !!sh && sh.size === 'close' && sh.frames / FPS <= 1 + 1e-9; };
 const talkOf = (name, t) => { if (!flapShapes) return null; const f = Math.round(t * FPS), sh = shots.findLast(s => f >= s.start);
-  return flapActive(sh, name, {narrator: spec.lipFlap.narrator ?? 'HERO'}) ? shapeAt(flapShapes, t) : null; };
+  return flapActive(sh, name, {narrator: spec.lipFlap.narrator ?? 'HERO'}) ? shapeAt(flapShapes, t, FPS) : null; };
 function poseCast(t) {
   const out = {};
   for (const [name, {a, c, v2, dragon}] of Object.entries(cast)) {
@@ -238,7 +247,7 @@ const resolvePoint = (p, t) => {
   if (p?.actor) { const r = cast[p.actor].a.root.position; return [r.x + (p.offset?.[0] ?? 0), r.y + (p.offset?.[1] ?? 0), r.z + (p.offset?.[2] ?? 0)]; }
   return resolve({anchor: p.anchor, offset: p.offset ?? [0, 0, 0]});
 };
-const effects = createEffects([...(spec.effects ?? []), ...revealEffects], {scene, renderer, resolveTarget, resolvePoint,
+const effects = createEffects([...(spec.effects ?? []).filter(e => e.type !== 'lightsCascade'), ...revealEffects], {scene, renderer, resolveTarget, resolvePoint,
   shotAt: tt => Math.max(0, shots.findLastIndex(s => Math.max(0, Math.round(tt * FPS)) >= s.start)),
   actorOf: name => { const a = cast[name]?.a; if (!a) throw Error('effect: unknown actor ' + name); return a; }, toolGroup: (a, name) => toolGroup(a, name, 'right'),
   actorAt: (name, tt) => { const c = cast[name]?.c; if (!c) throw Error('trail: unknown actor ' + name); return markAt(c, tt); }, groundY: world?.groundY});
@@ -303,13 +312,24 @@ function applyWorldState(shot, t) {
 let lastSize = '';
 // nudge (world units, along the camera's right+up+back diagonal): the stability test renders each view twice,
 // 4 mm apart. A purely sideways move hides ground-plane z-fighting; changing the view angle exposes it.
+// format v5 splitScreen: two cameras, top and bottom halves, a 6 px dark divider
+function renderSplit(cams, width, height) {
+  const H = Math.floor(height / 2); renderer.setScissorTest(true);
+  cams.forEach((cc, i) => { const y = i === 0 ? height - H : 0; renderer.setViewport(0, y, width, H); renderer.setScissor(0, y, width, H);
+    camera.fov = cc.fov; camera.aspect = width / H; camera.position.fromArray(cc.position); camera.up.set(0, 1, 0); camera.lookAt(...cc.target); camera.updateProjectionMatrix();
+    scene.updateMatrixWorld(true); renderer.render(scene, camera); });
+  renderer.setViewport(0, H - 3, width, 6); renderer.setScissor(0, H - 3, width, 6); renderer.setClearColor('#111318', 1); renderer.clear(true, true, false);
+  renderer.setScissorTest(false); renderer.setViewport(0, 0, width, height);
+}
 export function renderFrame(n, width = 720, height = 1280, nudge = 0) {
   if (!Number.isInteger(n) || n < 0 || n >= FRAMES) throw Error(`frame out of range: ${n}`);
   const t0 = performance.now();
   if (lastSize !== `${width}x${height}`) { renderer.setPixelRatio(1); renderer.setSize(width, height, false); lastSize = `${width}x${height}`; }
-  const shot = shots.findLast(s => n >= s.start), t = n / FPS;
+  const shot = shots.findLast(s => n >= s.start), mf = motionFrame(n, shot, FPS), t = mf.anim / FPS;   // format v5: freeze / impact / step (shots without them: mf.anim = n)
   setHeroLit(shot); const actors = poseCast(t);
-  const c = sampleCamera({...shot, fps: FPS}, (n - shot.start) / FPS, actors);
+  const c = sampleCamera({...shot, fps: FPS}, (mf.cam - shot.start) / FPS, actors);
+  if (mf.shake.some(v => v)) c.position = c.position.map((v, i) => v + mf.shake[i]);
+  updateCascades(t);
   world?.update(t); applyWorldState(shot, t); updateExtras(t, {camPos: c.position, size: shot.size}); aimHeroSpots(shot, c.position); aimRim(shot, c.position); applyLift(shot); liftSubject(shot);
   const fx = effects.apply(t, camera);   // poses effect targets; returns the shake offset and any timeOfDay blend
   const pos = c.position.map((v, i) => v + fx.camOffset[i]), tgt = c.target.map((v, i) => v + fx.camOffset[i] * .6);
@@ -320,7 +340,8 @@ export function renderFrame(n, width = 720, height = 1280, nudge = 0) {
   scene.updateMatrixWorld(true); effects.apply(t, camera); fitTags(scene, camera, {maxFrac: shot.tagMaxFrac ?? .06});
   if (spec.readableUi ?? !!look?.v3) { scene.updateMatrixWorld(true); enforceReadable(scene, camera, {focus: shot.focusUi ?? []}); }   // A5 §C: min text size + safe area (v3 worlds; "Nobody" untouched)
   renderer.info.autoReset = false; renderer.info.reset();   // A4: overlay passes (weather, cards) must not reset the scene counts
-  renderer.render(scene, camera); effects.overlay(t, camera, width / height);
+  if (c.split) renderSplit(c.split, width, height); else renderer.render(scene, camera);
+  effects.overlay(t, camera, width / height);
   const gl = renderer.getContext(); gl.readPixels(0, 0, 1, 1, gl.RGBA, gl.UNSIGNED_BYTE, new Uint8Array(4));   // forces the GPU work to finish, so ms is real
   if (gl.isContextLost()) throw Error('WebGL context lost');
   return {frame: n, shot: shot.id, size: shot.size, triangles: frustumTriangles(), drawnTriangles: renderer.info.render.triangles, calls: renderer.info.render.calls, ms: performance.now() - t0};
