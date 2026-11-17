@@ -87,13 +87,18 @@ jobs:
       - run: npm ci
       - run: npx playwright install --with-deps chromium || echo "playwright browser unavailable, browser.js uses the runner's google-chrome"
       - run: sudo apt-get update && sudo apt-get install -y ffmpeg
+      - name: Bake caches (format v4/v5 surfaces, matcaps; lip-flap envelope when the spec has lipFlap)
+        run: |
+          node scripts/v2/tex4.js; node scripts/v2/matcap4.js
+          if grep -q '"lipFlap"' "stories/$STORY/episode.json"; then node scripts/v2/envelope.js --story "$STORY"; fi
       - name: Render shard ${{ matrix.index }} (frames ${{ matrix.from }}–${{ matrix.to }})
         run: |
           if [ "$PRESET" = "animatic" ]; then size="--width 270 --height 480 --every 2 --aa 0"; else size="--final"; fi   # A2: finals native 1440×2560
           node scripts/v2/render.js --story "$STORY" --out shard $size --from ${{ matrix.from }} --to ${{ matrix.to }} --workers 2
       - name: Encode near-lossless segment
         run: |
-          if [ "$PRESET" = "animatic" ]; then fps=15; start=0; else fps=30; start=${{ matrix.from }}; fi
+          sfps=$(python3 -c "import json,sys; print(json.load(open(sys.argv[1])).get('fps', 30))" "stories/$STORY/episode.json")   # format v5 specs render at 24 fps
+          if [ "$PRESET" = "animatic" ]; then fps=$((sfps / 2)); start=0; else fps=$sfps; start=${{ matrix.from }}; fi
           ffmpeg -v error -y -framerate $fps -start_number $start -i shard/frames/frame-%05d.png \
             -c:v libx264 -preset slow -crf 10 -pix_fmt yuv444p -profile:v high444 seg-$(printf %02d ${{ matrix.index }}).mp4
       - uses: actions/upload-artifact@v4
