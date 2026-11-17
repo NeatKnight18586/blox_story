@@ -180,8 +180,8 @@ if (LOOK5B) {
   for (const [name, x] of Object.entries(cast)) if (x.v2) { const w = 4.2 * x.a.root.scale.x, b = L5B.contactBlob(P5B(spec.look4).blob.radius * w, P5B(spec.look4).blob.opacity); b.visible = false; scene.add(b); blobs5b[name] = b; }
 }
 function apply5b(shot) {
-  if (!LOOK5B) return; const p = P5B(shot.look ?? spec.look4);
-  U5B.uRimColor.value.set(p.rim.color); U5B.uRim.value = p.rim.strength; U5B.uRimPow.value = p.rim.power; U5B.uRimAway.value = p.rim.away ?? 0; U5B.uLift.value = L5B.ev(p.actorEV); U5B.uShade.value = p.shade; U5B.uKnee.value = p.knee; for (const v of Object.values(U5B.shadeOf)) v.value = L5B.actorShade(v.skin, p.shade);
+  if (!LOOK5B) return; const p = P5B(shot.look ?? spec.look4);   // E1 fix 2 (opt-in per shot): shot.rim {color, strength, power, away}, shot.actorEV
+  U5B.uRimColor.value.set(shot.rim?.color ?? p.rim.color); U5B.uRim.value = shot.rim?.strength ?? p.rim.strength; U5B.uRimPow.value = shot.rim?.power ?? p.rim.power; U5B.uRimAway.value = shot.rim?.away ?? p.rim.away ?? 0; U5B.uLift.value = L5B.ev(shot.actorEV ?? p.actorEV); U5B.uShade.value = p.shade; U5B.uKnee.value = p.knee; for (const v of Object.values(U5B.shadeOf)) v.value = L5B.actorShade(v.skin, p.shade);
   U5B.uRelief.value = ['close', 'medium'].includes(shot.size) ? p.relief : 0;
   renderer.toneMappingExposure *= L5B.ev(p.exposureEV);
   const gc = c => { const v = L5B.envGrade([c.r, c.g, c.b], p); c.setRGB(...v); };   // fog and sky are environment too
@@ -234,6 +234,18 @@ function liftSubject(shot) {
       else if (m.vertexColors && o.geometry.attributes.color) { const cc = o.geometry.attributes.color, avg = [0, 0, 0]; for (let i = 0; i < cc.count; i++) { avg[0] += cc.getX(i); avg[1] += cc.getY(i); avg[2] += cc.getZ(i); } base = new T.Color(avg[0] / cc.count, avg[1] / cc.count, avg[2] / cc.count); }   // hair keeps its own colour (never white)
       m.emissive = base.multiplyScalar(k); e = {orig: o.material, lift: m, k}; liftClones.set(o, e); }
     o.material = e.lift; });
+}
+// E1 fix 2 (opt-in shot.propGlow = k with shot.prop): the shot's prop gets a self-light (emissive = colour × k; basic materials ×(1 + 2k)),
+// restored on the next shot, so a prop stands out from its surround (read check 3).
+let glowing = null; const glowSaved = [];
+function glowProp(shot) {
+  const want = shot?.propGlow && shot.prop ? shot.prop + ':' + shot.propGlow : null; if (want === glowing) return;
+  for (const g of glowSaved) { const m = g.m; if (g.emissive) { m.emissive.copy(g.emissive); m.emissiveMap = g.emissiveMap; } else m.color.copy(g.color); m.needsUpdate = true; } glowSaved.length = 0;
+  glowing = want; if (!want) return; const root = scene.getObjectByName(shot.prop), k = shot.propGlow; if (!root) return;
+  const seen = new Set(); root.traverse(o => { const m = o.isMesh && !Array.isArray(o.material) ? o.material : null; if (!m || seen.has(m) || m.transparent) return; seen.add(m);
+    if (m.emissive) { glowSaved.push({m, emissive: m.emissive.clone(), emissiveMap: m.emissiveMap}); if (m.map) { m.emissiveMap = m.map; m.emissive.setRGB(k, k, k); } else m.emissive.copy(m.color).multiplyScalar(k); }
+    else if (m.color) { glowSaved.push({m, color: m.color.clone()}); m.color.multiplyScalar(1 + 2 * k); }
+    m.needsUpdate = true; });
 }
 const applyLift = shot => { const f = spec.actorLift !== undefined ? 1 : ['night', 'nightBright'].includes(shot?.look ?? spec.look) ? 1 : 0; for (const [m, e] of liftMats) m.emissive.copy(e).multiplyScalar(f); };
 
@@ -411,7 +423,7 @@ function drawFrame(shot, mf, off, width, height, nudge) {
   const c = sampleCamera({...shot, fps: FPS}, Math.max(0, (mf.cam + off - shot.start) / FPS), actors);
   if (mf.shake.some(v => v)) c.position = c.position.map((v, i) => v + mf.shake[i]);
   updateCascades(t);
-  world?.update(t); applyWorldState(shot, t); updateExtras(t, {camPos: c.position, size: shot.size, fill: shot.fill}); aimHeroSpots(shot, c.position); aimRim(shot, c.position); applyLift(shot); liftSubject(shot);
+  world?.update(t); applyWorldState(shot, t); updateExtras(t, {camPos: c.position, size: shot.size, fill: shot.fill}); aimHeroSpots(shot, c.position); aimRim(shot, c.position); applyLift(shot); liftSubject(shot); glowProp(shot);
   const fx = effects.apply(t, camera);   // poses effect targets; returns the shake offset and any timeOfDay blend
   const pos = c.position.map((v, i) => v + fx.camOffset[i]), tgt = c.target.map((v, i) => v + fx.camOffset[i] * .6);
   camera.fov = c.fov; camera.aspect = width / height; camera.position.fromArray(pos);

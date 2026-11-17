@@ -405,6 +405,37 @@
    "breathe": true,
    "springs": 2,
    "motionBlur": true
+  },
+  "v6": {
+   "note": "Look 6 light state. layers = weights of the baked light layers [pendants A, pendants B, zone colour lights, shutter slats]; base = ambient scale; cascade: pendants + signs ramp with lightsCascade (pre = layer weights before it starts); strips = cool fluorescent strips (0 off); signs / shelfGlow = emissive levels; banners = banner colour scale; shelfTop = gondola colour at the top shelf (fall-off into dark).",
+   "layers": [
+    1,
+    0,
+    0.55,
+    1
+   ],
+   "base": 1.15,
+   "cascade": false,
+   "pre": [
+    0,
+    0,
+    0,
+    0.55
+   ],
+   "strips": 0,
+   "signs": 0.7,
+   "shelfGlow": 0.5,
+   "banners": 0.3,
+   "shelfTop": 0.25,
+   "pendants": [
+    1,
+    0
+   ],
+   "actorPool": {
+    "base": 0.6,
+    "k": 2.0,
+    "max": 3.0
+   }
   }
  },
  "toyTop": {

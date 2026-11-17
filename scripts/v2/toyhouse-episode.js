@@ -29,7 +29,7 @@ const azTo = (P, Q) => Math.atan2(Q[0] - P[0], Q[2] - P[2]) / R;   // yaw (deg) 
 // ---- places (ground points) ---------------------------------------------------------------------------------------------------
 const CLOCK = [1.4, 8.4, 31.3], KEY = [-2.0, 5.05, 30.95], PHOTO = [2.5, 5.6, 31.25], HYPER = [-66, 1.42, -27], GUMS = [-44, 5, 26], FOUNT = [-52, 0, 14];
 // E1 fix places: T02 kart, T11 kart run, T12 duel yaws, T13 fountain, T14/T15 grab spots, T49 hands
-const K2 = [7, 0, 6], K11 = {x: -12.6, z0: -10, z1: -29}, FT = [-52, 0, 14], G14 = [-25, 0, -30], G15 = [-47, 0, -46], H49 = [.9, 0, 24.5];
+const K2 = [7, 0, 6], K11 = {x: -14.2, z0: -10, z1: -29}, FT = [-52, 0, 14], G14 = [-25, 0, -30], G15 = [-47, 0, -46], H49 = [.9, 0, 24.5];
 const P = {
   front: [0, 0, 14], heroFront: [-2.2, 0, 16], moFront: [2.2, 0, 16], plushKid: [-14, 0, 6], fountKid: [-49.2, 0, 11.4], tramp: [56, 0, 22],
   aisleA: [-12, 0, -16], aisleB: [-12, 0, -52], arenaA: [-55, 0, -60], arenaB: [-50, 0, -68], moStill: [-4, 0, 4], hero18: [-3, 0, 0],
@@ -38,9 +38,11 @@ const P = {
   street: [0, 0, 50], truckBack: [-14.6, 0, 52.5], dadStreet: [-11.5, 0, 50.5], walkOut: [0, 0, 40],
 };
 
+// E1 fix 2 places: T06/T07 plush in the kid's arms, T14 the grab (kid K14 faces +x; right fist at C14), T28 pit camera
+const PL6 = [P.plushKid[0] + .34 * 1.25, 0, P.plushKid[2] + .94 * 1.25], C14 = [-25, 0, -30], K14 = [C14[0] - 1.87, 0, C14[2] + 1.27];
 const YA = azTo(P.arenaA, P.arenaB), YB = azTo(P.arenaB, P.arenaA);
 const seat = (K, yaw) => [K[0] - .35 * Math.sin(yaw * R), -.32, K[2] - .35 * Math.cos(yaw * R)];
-const K2yaw = 75, K11yaw = 205;
+const K2yaw = 55, K11yaw = 205, ARM11 = .3, CAZ2 = 100, LOW2 = 1.2, AO2 = [0, 0, 0], C2 = (a, d = 12.5) => [Math.sin(a * R) * d, 6.2, Math.cos(a * R) * d];
 // ---- the 53 shots (BEATS.md) ------------------------------------------------------------------------------------------------------
 // t: cut time (cues word start) · m: move · sz: size · sub: subject · cam: {from, to} · plus look, grade, freeze, impact, reveal, clock, why
 const S = [];
@@ -50,7 +52,7 @@ const top = (c, h, fov, deg = 30) => ({cam: {from: {position: [c[0], h, c[2] + .
 add5(1, 0.0, {m: 'push', sz: 'wide', look: 'toyPartyTop', reveal: true, why: "god's-eye over the full hall, slow spiral down",
   cam: {from: {position: [6, 230, -64], target: [0, 0, -70], fov: 50}, to: {position: [-5.2, 150, -66], target: [0, 0, -72], fov: 46}}, ease: 'inOutSine'});
 add5(2, 1.16, {m: 'crashZoom', sz: 'close', sub: 'kidc', look: 'toyParty', impact: .64, why: 'crashZoom into the chaos: ends on a grinning kid in a kart firing a foam blaster; dart hit 1.80',
-  cam: {from: {position: add(K2, [7.5, 6.2, 9.0]), target: add(seat(K2, K2yaw), [0, 3.55, 0]), fov: 62}, to: {fov: 13}}, zoomAt: .1, subjectAimY: 3.55});
+  cam: {from: {position: add(K2, C2(CAZ2)), target: add(add(seat(K2, K2yaw), [0, 2.5, 0]), AO2), fov: 62}, to: {fov: 24}}, zoomAt: .1, subjectAimY: 2.5, subjectAimOffset: AO2});
 add5(3, 2.04, {m: 'push', sz: 'wide', look: 'toyPartyWide', freeze: [.12, 2], why: 'the shutter slams shut, seen from inside; kids cheering in front',
   cam: {from: {position: [0, 3.2, 15.5], target: [0, 3.9, 35], fov: 48}, to: {position: [0, 3.2, 16.6], target: [0, 3.9, 35], fov: 48}}, see: ['shutter', 'kida', 'kidb']});
 add5(4, 2.56, {m: 'push', sz: 'wide', look: 'toyPartyWide', why: 'wide hall reveal, lights finishing; HERO + MO small in the foreground', spectacle: true,
@@ -58,21 +60,21 @@ add5(4, 2.56, {m: 'push', sz: 'wide', look: 'toyPartyWide', why: 'wide hall reve
 add5(5, 3.556, {m: 'crashZoom', sz: 'insert', clock: true, why: 'crashZoom to the wall clock, 9:00', prop: 'clock',
   cam: {from: {position: [0.4, 6.2, 18], target: CLOCK, fov: 42}, to: {fov: 12}}, zoomAt: .12});
 add5(6, 4.56, {m: 'push', sz: 'medium', sub: 'kida', why: 'kid hugging a giant plush, push in', cam: frame(P.plushKid, 'medium', {az: 20, dist: 6.4, push: .12})});
-add5(7, 6.08, {m: 'push', sz: 'close', sub: 'kida', why: 'same kid, snap to close, face starry', cam: frame(P.plushKid, 'close', {az: 20, dist: 3.5})});
+add5(7, 6.08, {m: 'push', sz: 'close', sub: 'kida', why: 'same kid, snap to close, face starry', cam: frame(P.plushKid, 'close', {az: 20, dist: 5.2, fov: 40, aim: 3.0})});
 add5(8, 7.41, {m: 'topDown', sz: 'wide', look: 'toyNightTop', static: true, why: 'top-down timelapse, kids flooding the zones', ...top([0, 0, -30], 150, 52, 25)});
 add5(9, 8.54, {m: 'push', sz: 'insert', clock: true, prop: 'clock', why: 'clock hands spin (insert)', cam: {from: {position: [1.32, 8.32, 28.0], target: CLOCK, fov: 46}, to: {position: [1.34, 8.34, 28.2], target: CLOCK, fov: 46}}});
 add5(10, 8.96, {m: 'heroLow', sz: 'wide', sub: 'kidb', freeze: [.9, 3], why: 'trampoline kid at the top of a jump, freeze 3 frames',
   cam: {from: {position: [49.5, 1.0, 13.2], target: [56, 6.5, 22], fov: 64}, to: {position: [51.2, 1.0, 15.6], target: [56, 8.0, 22], fov: 64}}, ground: 0});
-add5(11, 10.95, {m: 'aisleTrack', sz: 'wide', sub: 'kidc', prop: 'prop_kart', why: 'aisle track: the kart drifts past right beside the camera, tyre smoke',
-  cam: {from: {position: [-8.4, 2.6, K11.z0 + 2.5], target: [-12, 2.2, K11.z0 - 6], fov: 52}, to: {position: [-8.4, 2.6, K11.z1 + 4.0], target: [-12, 2.2, K11.z1 - 6], fov: 52}}, follow: 'kidc', followOffset: [0, 1.4, 0], subjectLift: .35});
+add5(11, 10.95, {m: 'aisleTrack', sz: 'wide', prop: 'prop_kart', see: ['kidc'], propGlow: 4, why: 'aisle track: the kart drifts past right beside the camera, tyre smoke',
+  cam: {from: {position: [-9.0, 2.8, K11.z0 - 8], target: [-14.2, 2.2, K11.z0], fov: 62}, to: {position: [-9.0, 2.8, K11.z1 - 8], target: [-14.2, 2.2, K11.z1], fov: 62}}, follow: 'kidc', followOffset: [0, 2.0, 0], subjectLift: .35});
 add5(12, 12.30, {m: 'splitScreen', sz: 'wide', impact: .74, why: 'foam blaster duel; split screen, darts mid-air, a hit at 13.04',
   a: frame(P.arenaA, 'medium', {az: YA - 55, dist: 6.0, aim: 2.9}), b: frame(P.arenaB, 'medium', {az: YB + 55, dist: 6.0, aim: 2.9}), see: ['kidb', 'kidc']});
 add5(13, 13.61, {m: 'push', sz: 'medium', prop: 'prop_fountain', see: ['kida'], why: 'candy zone push: a kid face-first in the flowing chocolate fountain',
   cam: {from: {position: add(FT, [5.6, 4.4, 8.6]), target: add(FT, [.9, 3.1, 0]), fov: 44}, to: {position: add(FT, [5.1, 4.3, 7.8]), target: add(FT, [.9, 3.1, 0]), fov: 44}}});
 add5(14, 15.92, {m: 'push', sz: 'insert', prop: 'prop_grabPlush', see: ['kidc'], why: 'a hand grabs a plush off the shelf (beat cut)',
-  cam: {from: {position: add(G14, [2.4, 3.6, 4.4]), target: add(G14, [0, 3.0, 0]), fov: 46}, to: {position: add(G14, [2.1, 3.6, 3.8]), target: add(G14, [0, 3.1, 0]), fov: 46}}});
-add5(15, 16.64, {m: 'push', sz: 'insert', prop: 'prop_grabBlaster', see: ['kidb'], why: 'two hands snatch a foam blaster (beat cut)',
-  cam: {from: {position: add(G15, [-4.4, 4.9, 7.4]), target: add(G15, [-.9, 3.5, 0]), fov: 50}, to: {position: add(G15, [-4.1, 5.0, 6.8]), target: add(G15, [-.9, 3.8, 0]), fov: 50}}});
+  cam: {from: {position: add(C14, [1.6, 3.9, 4.8]), target: add(C14, [-.3, 3.3, .2]), fov: 50}, to: {position: add(C14, [1.4, 3.9, 4.2]), target: add(C14, [-.3, 3.3, .2]), fov: 50}}});
+add5(15, 16.64, {m: 'push', sz: 'insert', prop: 'tool_blaster:2', see: ['kidb'], why: 'two hands snatch a foam blaster (beat cut)',
+  cam: {from: {position: add(G15, [2.0, 3.7, 6.6]), target: add(G15, [1.15, 3.0, 1.8]), fov: 42}, to: {position: add(G15, [1.8, 3.7, 6.0]), target: add(G15, [1.15, 3.0, 1.8]), fov: 42}}});
 add5(16, 17.60, {m: 'push', sz: 'medium', sub: 'mo', why: 'MO standing still, empty hands, chaos blurred past', cam: frame(P.moStill, 'medium', {az: 10, dist: 5.6})});
 add5(17, 18.92, {m: 'push', sz: 'medium', sub: 'mo', clock: true, why: "over MO's shoulder to the clock 9:xx (back view: Mo faces the clock)", back: true,
   cam: {from: {position: [-1.8, 1.6, 16.8], target: CLOCK, fov: 46}, to: {position: [-1.76, 1.62, 17.1], target: CLOCK, fov: 46}}});
@@ -88,9 +90,9 @@ add5(23, 29.58, {m: 'push', sz: 'insert', prop: 'prop_tape', why: 'tape roll spi
 add5(24, 31.40, {m: 'push', sz: 'medium', sub: 'taped', why: 'a drone taped to his back', cam: frame(P.tapeSpot, 'medium', {az: 170, dist: 5.2}), back: true});
 add5(25, 32.48, {m: 'snap', sz: 'close', sub: 'taped', why: 'a headset slapped on', snapAt: .04,
   cam: {from: frame(P.tapeSpot, 'medium', {az: 20, dist: 5.4}).from, to: frame(P.tapeSpot, 'close', {az: 20, dist: 3.2}).from}});
-add5(26, 32.92, {m: 'pull', sz: 'medium', sub: 'taped', why: 'pull back: a giant gummy bear on his chest', cam: (c => ({from: c.to, to: c.from}))(frame(P.tapeSpot, 'medium', {az: 50, dist: 4.0, push: -.6, aim: 2.9}))});
+add5(26, 32.92, {m: 'pull', sz: 'medium', sub: 'taped', why: 'pull back: a giant gummy bear on his chest', cam: (c => ({from: c.to, to: c.from}))(frame(P.tapeSpot, 'medium', {az: 50, dist: 3.4, push: -.6, aim: 3.1}))});
 add5(27, 34.67, {m: 'push', sz: 'wide', sub: 'taped', why: 'HERO_TAPED full body, empty tape rolls around him', cam: frame(P.tapeSpot, 'wide', {az: 30, dist: 9, fov: 42, aim: 2.2})});
-add5(28, 36.09, {m: 'push', sz: 'wide', sub: 'taped', impact: 1.83, why: 'one waddle step, falls backward into the ball pit; impact 37.92, ball splash', cam: frame(P.pitEdge, 'wide', {az: -35, dist: 9.5, aim: 1.8, fov: 48})});
+add5(28, 36.09, {m: 'push', sz: 'wide', sub: 'taped', ease: 'inCubic', impact: 1.83, why: 'one waddle step, falls backward into the ball pit; impact 37.92, ball splash', cam: {from: {position: [36.5, 4.6, -12.0], target: [51.5, 2.2, -12.0], fov: 52}, to: {position: [36.5, 4.4, -18.0], target: [51.5, 2.2, -18.0], fov: 52}}});   // a lateral dolly along the pit edge: follows the fall without a pan
 add5(29, 38.61, {m: 'splitScreen', sz: 'wide', look: 'toyLate', clock: true, why: 'clock 4:00 (toyLate), then HERO in the pit, side_eye',
   a: {from: {position: [1.36, 8.36, 26.6], target: CLOCK, fov: 24}, to: {position: [1.37, 8.37, 27.0], target: CLOCK, fov: 24}}, b: {from: {position: [51.5, 4.8, -11], target: [51.5, 2.8, -20.5], fov: 30}, to: {position: [51.5, 4.7, -11.6], target: [51.5, 2.8, -20.5], fov: 30}}, see: ['taped']});
 add5(30, 40.77, {m: 'crashZoom', sz: 'insert', prop: 'prop_key', why: 'crashZoom to the key on its hook (insert ≥ 40 %)',
@@ -110,20 +112,20 @@ add5(39, 56.70, {m: 'aisleTrack', sz: 'wide', sub: 'taped', why: 'HERO_TAPED wad
 add5(40, 58.90, {m: 'push', sz: 'close', sub: 'mo', why: 'MO close, crying', cam: frame(P.moCry, 'close', {az: -15, dist: 3.1})});
 add5(41, 60.03, {m: 'push', sz: 'wide', sub: 'mo', look: 'dawn', grade: 'dawn', why: "memory: MO's house, the moving truck", cam: frame([-12, 0, 47], 'wide', {az: 60, dist: 13, aim: 3.0, fov: 50})});
 add5(42, 61.94, {m: 'push', sz: 'medium', look: 'dawn', grade: 'dawn', prop: 'prop_box1', why: 'truck doors close on the boxes',
-  cam: {from: {position: [-5.8, 3.4, 53.8], target: [-14.5, 2.6, 52.5], fov: 44}, to: {position: [-7.6, 3.4, 53.3], target: [-14.5, 2.6, 52.5], fov: 44}}});
+  cam: {from: {position: [-5.8, 3.4, 53.8], target: [-14.5, 2.6, 52.5], fov: 44}, to: {position: [-7.6, 3.4, 53.3], target: [-14.5, 2.6, 52.5], fov: 44}}, propGlow: .4});
 add5(43, 63.47, {m: 'push', sz: 'insert', see: ['mo'], why: "MO's empty hands, insert", cam: frame(P.moCry, 'close', {az: -15, dist: 4.6, h: 2.8, aim: 2.2, fov: 40, push: .2})});
 add5(44, 65.22, {m: 'push', sz: 'medium', sub: 'mo', why: 'push on MO looking at HERO, sad', cam: frame(P.moCry, 'medium', {az: 35, dist: 5.2, push: .1})});
 add5(45, 66.86, {m: 'crashZoom', sz: 'insert', clock: true, prop: 'clock', look: 'toyDawn', why: 'clock 7:59, crashZoom, dawn slats glowing', cam: {from: {position: [-2, 5.4, 18], target: CLOCK, fov: 50}, to: {fov: 12}}, zoomAt: .42});
-add5(46, 68.19, {m: 'push', sz: 'insert', look: 'toyDawn', prop: 'prop_hyper', freeze: [.4, 2], impact: .55, why: 'HYPERBOX 9 falls; freeze 2 + impact', cam: {from: {position: [4.2, 1.8, 12.2], target: [6.8, 1.3, 6.6], fov: 52}, to: {position: [4.3, 1.8, 12.0], target: [6.8, 1.2, 6.6], fov: 52}}});
-add5(47, 69.33, {m: 'push', sz: 'insert', look: 'toyDawn', prop: 'prop_drone', why: 'the drone drops', cam: {from: {position: [14.2, 3.0, 16.0], target: [8.6, 1.0, 6.0], fov: 42}, to: {position: [14.0, 3.0, 15.6], target: [8.6, .9, 6.0], fov: 42}}});
-add5(48, 70.40, {m: 'push', sz: 'wide', look: 'toyDawn', sub: 'taped', why: 'tape tears, everything falls off, high angle', cam: frame([7.4, 0, 6], 'wide', {az: 20, dist: 6, h: 12, aim: 1.4, fov: 46}), subjectLift: .4});
+add5(46, 68.19, {m: 'push', sz: 'insert', look: 'toyDawn', prop: 'prop_hyper', freeze: [.4, 2], impact: .55, why: 'HYPERBOX 9 falls; freeze 2 + impact', cam: {from: {position: [4.2, 1.8, 12.2], target: [7.14, 1.46, 6.6], fov: 47}, to: {position: [4.3, 1.8, 12.0], target: [7.14, 1.36, 6.6], fov: 47}}, propGlow: .5});
+add5(47, 69.33, {m: 'push', sz: 'insert', look: 'toyDawn', prop: 'prop_drone', why: 'the drone drops', cam: {from: {position: [8.9, 9.6, 6.9], target: [8.6, 1.2, 6.0], fov: 76}, to: {position: [8.9, 9.3, 6.8], target: [8.6, 1.2, 6.0], fov: 76}}});
+add5(48, 70.40, {m: 'push', sz: 'wide', look: 'toyDawn', sub: 'taped', why: 'tape tears, everything falls off, high angle', cam: frame([7.4, 0, 6], 'wide', {az: 20, dist: 6, h: 12, aim: 1.4, fov: 46}), actorEV: 2.0, rim: {color: '#ffd9a0', strength: .5, away: 0}});
 add5(49, 71.54, {m: 'push', sz: 'insert', look: 'toyDawn', clock: true, why: 'close insert of the two hands holding; the clock 8:00 behind', see: ['hero', 'mo', 'clock'],
   cam: {from: {position: [H49[0], 2.6, H49[2] - 9.0], target: [H49[0], 4.6, 31.3], fov: 40}, to: {position: [H49[0], 2.6, H49[2] - 8.2], target: [H49[0], 4.6, 31.3], fov: 40}}});
 add5(50, 73.08, {m: 'lowAuthority', sz: 'wide', look: 'dawn', why: 'the shutter rolls up, gold dawn floods in (low, from outside)', see: ['shutter'],
   cam: {from: {position: [0, .7, 62], target: [0, 7, 35], fov: 38}, to: {position: [0, .7, 59], target: [0, 7, 35], fov: 38}}});
-add5(51, 74.19, {m: 'push', sz: 'wide', look: 'dawn', sub: 'dad', why: "street dawn: MO'S DAD carrying a box OUT of the truck", cam: frame(P.dadStreet, 'wide', {az: 120, dist: 12, aim: 3.2, fov: 46}, true), subjectLift: .4});
-add5(52, 76.87, {m: 'push', sz: 'close', look: 'dawn', sub: 'dad', why: 'DAD close, confused', cam: frame(P.dadStreet, 'close', {az: 120, dist: 5.0, aim: 3.8}, true), subjectLift: .5});
-add5(53, 78.30, {m: 'crane', sz: 'medium', sub: 'mo', look: 'dawn', ease: 'inOutSine', why: 'HERO + MO walk out hand in hand, faces readable (medium); then crane up to the TOY HOUSE sign; hold to end', see: ['hero', 'mo'], subjectLift: .5,
+add5(51, 74.19, {m: 'push', sz: 'wide', look: 'dawn', sub: 'dad', why: "street dawn: MO'S DAD carrying a box OUT of the truck", cam: frame(P.dadStreet, 'wide', {az: 120, dist: 12, aim: 3.2, fov: 46}, true), actorEV: 1.5, rim: {color: '#ffd9a0', strength: .5, away: 0}});
+add5(52, 76.87, {m: 'push', sz: 'close', look: 'dawn', sub: 'dad', why: 'DAD close, confused', cam: frame(P.dadStreet, 'close', {az: 120, dist: 5.0, aim: 4.3}, true), actorEV: -1.0, rim: {color: '#ffd9a0', strength: .5, away: 0}});
+add5(53, 78.30, {m: 'crane', sz: 'medium', sub: 'mo', look: 'dawn', ease: 'inOutSine', why: 'HERO + MO walk out hand in hand, faces readable (medium); then crane up to the TOY HOUSE sign; hold to end', see: ['hero', 'mo'], actorEV: -2.4, rim: {color: '#ffd9a0', strength: 0, away: 0},
   cam: {from: {position: [6.3, 3.3, 47.4], target: [0, 2.7, 38.4], fov: 50}, to: {position: [9, 7.5, 61], target: [0, 6.5, 37], fov: 50}}});
 
 // ---- cast: marks, poses, faces, visibility per shot ---------------------------------------------------------------------------
@@ -140,24 +142,24 @@ actor('kida', 'MO', {with: kidWith('MO', '#e8b48f', '#ff5a5f', {style: 'space_bu
 actor('kidb', 'MO', {with: kidWith('MO', '#8d5a3b', '#7bd850', {style: 'spiky_crop', color: '#1d1410', v: 4})});
 actor('kidc', 'MO', {with: kidWith('MO', '#f1c9a5', '#ffd542', {style: 'wavy_bob', color: '#c2702f', v: 4})});
 const face = (P0, Q) => azTo(P0, Q);
-C.kidc.tools = [[0, null], [T0[2], 'blaster:1'], [T0[3], null], [T0[12], 'blaster:1'], [T0[13], null]]; C.kidb.tools = [[0, null], [T0[12], 'blaster:0'], [T0[13], null]];
+C.kidc.tools = [[0, null], [T0[2], 'blaster:1'], [T0[3], null], [T0[12], 'blaster:1'], [T0[13], null]]; C.kidb.tools = [[0, null], [T0[12], 'blaster:0'], [T0[13], null], [T0[15], 'blaster:2'], [T0[16], null]];
 const camPos = n => { const s = S.find(x => x.n === n); return s.cam?.from?.position ?? s.a?.from?.position; };
 // 04 spectacle: HERO + MO small in the foreground, backs to camera, facing the hall
 at('hero', 4, 'heroFront', {yaw: 180, pose: 'lookUp', face: 'wonder'}); at('mo', 4, 'moFront', {yaw: 180, pose: 'lookUp', face: 'grin'});
-at('kida', 6, 'plushKid', {yaw: 20, pose: 'idle', face: 'love'}); at('kida', 7, 'plushKid', {yaw: 20, pose: 'idle', face: 'starry'});
+at('kida', 6, 'plushKid', {yaw: 20, pose: 'lift', face: 'love'}); at('kida', 7, 'plushKid', {yaw: 20, pose: 'lift', face: 'starry'});
 at('kidb', 10, [56, 3.4, 22], {yaw: face(P.tramp, [50, 0, 14]), pose: 'jump', face: 'laugh', travel: {dir: [0, 0], speed: 1, climb: 1.4, max: 1.1}});
 // E1 fix: kart kids ride their kart (same path; the kid sits KART_SEAT back from the kart origin, rotated with its yaw)
-at('kidc', 2, seat(K2, K2yaw), {yaw: K2yaw, pose: 'drive', face: 'laugh', opt: {aim: true, fire0: .05}});   // a burnout on the spot: smoke + lean, no travel (the crash zoom stays locked on the face)
+at('kidc', 2, seat(K2, K2yaw), {yaw: K2yaw, pose: 'drive', face: 'laugh', opt: {aim: true, fire0: .05, lower: LOW2}});   // a burnout on the spot: smoke + lean, no travel (the crash zoom stays locked on the face)
 at('kida', 3, [-2.4, 0, 23.5], {yaw: 175, pose: 'cheer', face: 'laugh'}); at('kidb', 3, [2.6, 0, 24.5], {yaw: 185, pose: 'cheer', face: 'shout'});
-at('kidc', 11, seat([K11.x, 0, K11.z0], K11yaw), {yaw: K11yaw, pose: 'drive', face: 'laugh', travel: {dir: [0, -1], speed: r2((K11.z0 - K11.z1) / (T0[12] - T0[11]))}});
+at('kidc', 11, seat([K11.x, 0, K11.z0], K11yaw), {yaw: K11yaw, pose: 'drive', face: 'laugh', opt: {arm: ARM11}, travel: {dir: [0, -1], speed: r2((K11.z0 - K11.z1) / (T0[12] - T0[11]))}});
 at('kidb', 12, 'arenaA', {yaw: YA, pose: 'blasterAim', face: 'shout', opt: {fire0: -.21}}); at('kidc', 12, 'arenaB', {yaw: YB, pose: 'blasterAim', face: 'laugh', opt: {fire0: -.10}});
 at('kida', 13, add(FT, [4.04, 0, -.71]), {yaw: -80, pose: 'bow', face: 'love'});
-at('kidc', 14, add(G14, [-1.25 * Math.cos(-90 * R) - 1.6 * Math.sin(-90 * R), 0, 1.25 * Math.sin(-90 * R) - 1.6 * Math.cos(-90 * R)]), {yaw: -90, pose: 'point', face: 'grin'});
-at('kidb', 15, add(G15, [0, 0, -1.45]), {yaw: 0, pose: 'hammerHold', face: 'shout'});
+at('kidc', 14, K14, {yaw: 90, pose: 'toolHold', face: 'grin'});
+at('kidb', 15, G15, {yaw: 0, pose: 'blasterAim', face: 'shout', opt: {fire0: .1}});
 at('mo', 16, 'moStill', {yaw: 10, pose: 'idle', face: 'neutral'});
 at('mo', 17, [-0.14, 0, 21.52], {yaw: 8, pose: 'idle', face: 'neutral'});
 at('hero', 18, 'hero18', {yaw: 0, pose: 'heroPose', face: 'smug', snap: true}); C.hero.faces.push([22.2, 'beam']); C.hero.keys.push([22.2, 'fistPump', {snap: true}]);
-at('hero', 20, 'gadget', {yaw: 60, pose: 'lift', face: 'beam', opt: {effort: .4}}); at('hero', 21, 'gadget', {yaw: 60, pose: 'gaspHands', face: 'worried'});
+at('hero', 20, 'gadget', {yaw: 60, pose: 'lift', face: 'beam', opt: {effort: .4}}); at('hero', 21, 'gadget', {yaw: 60, pose: 'shrug', face: 'worried'});
 at('hero', 23, 'tapeSpot', {yaw: 20, pose: 'raise', face: 'determined'});
 at('taped', 24, 'tapeSpot', {yaw: -30, pose: 'waddle', face: 'grin'}); at('taped', 25, 'tapeSpot', {yaw: 20, pose: 'idle', face: 'smug'}); at('taped', 26, 'tapeSpot', {yaw: 50, pose: 'idle', face: 'beam'});
 at('taped', 27, 'tapeSpot', {yaw: 30, pose: 'heroPose', face: 'beam', snap: true});
@@ -199,26 +201,24 @@ function partyDarts() {   // 0–3.6 s: foam darts criss-crossing the front zone
 }
 // ---- story props (spec.props) ----------------------------------------------------------------------------------------------------
 const props = [
-  {id: 'plush', prop: 'plush', scale: .85, pos: [[0, [-15.1, 0, 5.0]]], rot: [[0, [0, 20, 0]]], visible: [[0, false], [T0[6], true], [T0[8], false]]},
+  {id: 'plush', prop: 'plush', scale: .55, pos: [[0, PL6]], rot: [[0, [0, 20, 0]]], visible: [[0, false], [T0[6], true], [T0[8], false]]},
   {id: 'key', prop: 'key', scale: 1.2, pos: [[0, add(KEY, [0, 0, -.12])]], rot: [[0, [0, 180, 0]]], visible: [[0, false], [T0[30], true], [T0[32], false], [T0[37], true], [T0[38], false]]},
   // E1 fix: karts (kart2, a kid seated), blaster duel darts, party darts, fountain, grab toys, ball splash
-  {id: 'kart', prop: 'kart2', seed: 3, smoke: true, pos: [[0, [K11.x, 0, K11.z0]], [T0[11], [K11.x, 0, K11.z0]], [T0[12], [K11.x, 0, K11.z1], 'ramp', T0[12] - T0[11]]], rot: [[0, [0, K11yaw, -8]]], visible: [[0, false], [T0[11], true], [T0[12], false]]},
+  {id: 'kart', prop: 'kart2', seed: 5, smoke: true, pos: [[0, [K11.x, 0, K11.z0]], [T0[11], [K11.x, 0, K11.z0]], [T0[12], [K11.x, 0, K11.z1], 'ramp', T0[12] - T0[11]]], rot: [[0, [0, K11yaw, -8]]], visible: [[0, false], [T0[11], true], [T0[12], false]]},
   {id: 'kart02', prop: 'kart2', seed: 1, smoke: true, pos: [[0, K2]], rot: [[0, [0, K2yaw, 6]]], visible: [[0, false], [T0[2], true], [T0[3], false]]},
   {id: 'duelDarts', prop: 'dartVolley', animAt: 0, darts: duelDarts(), pos: [[0, [0, 0, 0]]], visible: [[0, false], [T0[12], true], [T0[13], false]]},
   {id: 'partyDarts', prop: 'dartVolley', animAt: 0, darts: partyDarts(), pos: [[0, [0, 0, 0]]], visible: [[0, false], [T0[2], true], [T0[5], false]]},
   {id: 'fountain', prop: 'fountain', scale: 1.5, pos: [[0, FT]], visible: [[0, false], [T0[13], true], [T0[14], false]]},
-  {id: 'ped14', prop: 'foamBlock', seed: 2, scale: 1.22, pos: [[0, G14]], visible: [[0, false], [T0[14], true], [T0[15], false]]},
-  {id: 'grabPlush', prop: 'plush', seed: 2, scale: .4, pos: [[0, add(G14, [0, 1.95, 0])], [T0[14] + .25, add(G14, [0, 1.95, 0])], [T0[14] + .6, add(G14, [.5, 2.25, -.2]), 'ramp', .35]], rot: [[0, [0, 30, 0]]], visible: [[0, false], [T0[14], true], [T0[15], false]]},
-  {id: 'ped15', prop: 'foamBlock', seed: 5, scale: 1.25, pos: [[0, G15]], visible: [[0, false], [T0[15], true], [T0[16], false]]},
-  {id: 'grabBlaster', prop: 'foamBlaster', seed: 2, pos: [[0, add(G15, [-.9, 2.65, 0])], [T0[15] + .3, add(G15, [-.9, 2.65, 0])], [T0[15] + .7, add(G15, [-.9, 3.35, -.3]), 'ramp', .4]], rot: [[0, [0, 0, 0]], [T0[15] + .3, [0, 0, 0]], [T0[15] + .7, [0, 0, 12], 'ramp', .4]], visible: [[0, false], [T0[15], true], [T0[16], false]]},
-  {id: 'splash', prop: 'ballSplash', animAt: 37.92, pos: [[0, [51.5, .6, -17.5]]], visible: [[0, false], [37.92, true], [T0[29], false]]},
+  {id: 'ped14', prop: 'foamBlock', seed: 2, scale: 1.22, pos: [[0, C14]], visible: [[0, false], [T0[14], true], [T0[15], false]]},
+  {id: 'grabPlush', prop: 'plush', seed: 2, scale: .4, pos: [[0, add(C14, [0, 1.95, 0])], [T0[14] + .25, add(C14, [0, 1.95, 0])], [T0[14] + .6, add(C14, [0, 2.1, 0]), 'ramp', .35]], rot: [[0, [0, 35, 0]]], visible: [[0, false], [T0[14], true], [T0[15], false]]},
+  {id: 'splash', prop: 'ballSplash', scale: 1.5, animAt: 37.92, pos: [[0, [51.5, .6, -17.5]]], visible: [[0, false], [37.92, true], [T0[29], false]]},
   {id: 'hyper', prop: 'hyperbox', scale: .6, pos: [[0, [-61.6, 1.0, -26.55]], [T0[46], [6.8, 3.0, 7.0]], [T0[46] + .5, [6.8, .02, 7.0], 'ramp', .45]], rot: [[0, [0, 150, 0]], [T0[46], [12, 30, 8]], [T0[46] + .5, [0, 38, 0], 'ramp', .45]],
     visible: [[0, false], [T0[20], true], [T0[22], false], [T0[46], true], [T0[49], false]]},
   {id: 'tape', prop: 'tapeRoll', pos: [[0, [-57.9, 2.3, -17.4]]], rot: [[T0[23], [80, 0, 0]], [T0[23] + .9, [80, 720, 0], 'ramp', .9]], visible: [[0, false], [T0[23], true], [T0[24], false]]},
   ...[[-60.5, -15.6], [-55.6, -16.4], [-59.4, -21.6], [-56, -20.8], [-61, -19], [-54.8, -18.6]].map(([x, z], i) => ({id: 'roll' + i, prop: 'tapeRoll', pos: [[0, [x, 0, z]]], rot: [[0, [0, i * 40, 0]]], visible: [[0, false], [T0[27], true], [T0[28], false]]})),
-  {id: 'drone', prop: 'drone', pos: [[0, [8.6, 2.6, 6.0]], [T0[47] + .55, [8.6, .2, 6.0], 'ramp', .5]], rot: [[0, [10, 30, -8]], [T0[47] + .55, [0, 40, 0], 'ramp', .5]], visible: [[0, false], [T0[47], true], [T0[49], false]]},
+  {id: 'drone', prop: 'drone', scale: 1.8, pos: [[0, [8.6, 2.6, 6.0]], [T0[47] + .55, [8.6, .2, 6.0], 'ramp', .5]], rot: [[0, [10, 30, -8]], [T0[47] + .55, [0, 40, 0], 'ramp', .5]], visible: [[0, false], [T0[47], true], [T0[49], false]]},
   {id: 'gummy', prop: 'gummyBear', scale: .9, pos: [[0, [6.2, .02, 5.2]]], rot: [[0, [0, 20, 0]]], visible: [[0, false], [T0[48] + .5, true], [T0[49], false]]},
-  {id: 'box1', prop: 'moveBox', seed: 1, pos: [[0, [-14.0, 1.4, 52.5]]], rot: [[0, [0, 90, 0]]], visible: [[0, false], [T0[41], true], [T0[43], false], [T0[51], true]]},
+  {id: 'box1', prop: 'moveBox', seed: 1, pos: [[0, [-12.4, 1.4, 52.5]], [T0[42], [-12.4, 1.4, 52.5]], [T0[42] + 1.3, [-14.0, 1.4, 52.5], 'ramp', 1.3]], rot: [[0, [0, 90, 0]]], visible: [[0, false], [T0[41], true], [T0[43], false], [T0[51], true]]},
   {id: 'box2', prop: 'moveBox', seed: 2, pos: [[0, [-14.2, 3.0, 51.0]]], rot: [[0, [0, 80, 0]]], visible: [[0, false], [T0[41], true], [T0[43], false]]},
   {id: 'boxDad', prop: 'moveBox', seed: 0, scale: .6, pos: [[0, [-10.6, 2.0, 50.5]], [T0[51] + 2.68, [-9.1, 2.0, 50.5], 'ramp', 2.68]], rot: [[0, [0, 90, 0]]], visible: [[0, false], [T0[51], true], [T0[53], false]]},
 ];
@@ -232,7 +232,7 @@ const shots = S.map((s, i) => {
   if (s.cam) { o.from = s.cam.from; if (s.cam.to) o.to = s.cam.to; }
   for (const k of ['a', 'b']) if (s[k]) o[k] = {from: s[k].from, to: s[k].to};
   if (s.sub) o.subject = s.sub;
-  for (const k of ['prop', 'grade', 'freeze', 'impact', 'reveal', 'clock', 'static', 'degrees', 'height', 'zoomAt', 'snapAt', 'follow', 'ground', 'ease', 'spectacle', 'back', 'subjectLift', 'subjectAimY', 'followOffset']) if (s[k] !== undefined) o[k] = s[k];
+  for (const k of ['prop', 'grade', 'freeze', 'impact', 'reveal', 'clock', 'static', 'degrees', 'height', 'zoomAt', 'snapAt', 'follow', 'ground', 'ease', 'spectacle', 'back', 'subjectLift', 'subjectAimY', 'subjectAimOffset', 'followOffset', 'actorEV', 'rim', 'propGlow']) if (s[k] !== undefined) o[k] = s[k];
   if (['heroLow', 'tiltUp', 'crane', 'aisleTrack', 'lowAuthority'].includes(s.m) && o.to === undefined && s.m !== 'lowAuthority') o.to = o.from;
   return o;
 });

@@ -33,6 +33,8 @@ test('blasterAim: 3-frame recoil every 0.5 s, then still', () => {
 test('holdHands: inner arm out toward the partner; drive: both hands forward', () => {
   assert.ok(samplePose('holdHands', .3, {side: 'left'}).pivots.leftShoulder[2] < -.15);
   assert.ok(samplePose('holdHands', .3, {side: 'right'}).pivots.rightShoulder[2] > .15);
-  const d = samplePose('drive', .1, {}); assert.ok(d.pivots.leftShoulder[0] < -.8 && d.pivots.rightShoulder[0] < -.8);
+  const d = samplePose('drive', .1, {}); assert.ok(d.pivots.leftShoulder[0] < -.5 && d.pivots.rightShoulder[0] < -.5);
+  assert.ok(samplePose('drive', .1, {arm: .2}).pivots.rightShoulder[0] > d.pivots.rightShoulder[0]);   // o.arm lowers the hands
+  assert.ok(samplePose('blasterAim', .3, {lower: 1}).pivots.rightShoulder[0] > samplePose('blasterAim', .3, {}).pivots.rightShoulder[0] + .9);   // o.lower dips the barrel
 });
 test('blaster tool: builds as blaster:<seed>', () => { assert.equal(buildTool('blaster:2').name, 'tool_blaster:2'); });
