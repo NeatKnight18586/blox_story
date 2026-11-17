@@ -127,7 +127,7 @@ for (const [name, c] of Object.entries(spec.cast ?? {})) {
   if (c.style === 'dragon') { const d = buildDragon({scale: c.scale ?? 1, name, colors: c.colors ?? null, face: c.dragonFace ?? null, baby: !!c.baby, wingScale: c.wingScale ?? 1, rim: c.rim ?? null, spikes: c.spikes ?? 1, saddle: !!c.saddle}); scene.add(d.root); cast[name] = {a: d, c, dragon: true}; continue; }
   if (c.style === 'v2' || c.style === 'v5') { if (c.troupe === 'AFK') { c.keys ??= [[0, troupeData.AFK.pose ?? 'walk']]; c.faces ??= [[0, 'neutral']]; }
     const pre0 = c.troupe ? resolveTroupe(c, troupeData) : c.town ? townsperson(c.town) : c.preset ? {...presets[c.preset], ...(c.with ?? {})} : c;
-    const pre1 = c.style === 'v5' || spec.look4 ? {...pre0, body: 'v5', faceStyle: pre0.faceStyle ?? 'v4'} : pre0;   // format v4: Actor v5 + Faces v4 (2b: every actor of a look4 episode)
+    const pre1 = c.style === 'v5' || spec.look4 ? {...pre0, body: 'v5', faceStyle: pre0.faceStyle ?? 'v5'} : pre0;   // Actor v5 + Faces v5 (owner's sheet; 'v4' stays opt-in) (2b: every actor of a look4 episode)
     const pre2 = HERO_COLS && c.troupe !== 'HERO' && pre1.outfit ? {...pre1, outfit: heroSafeOutfit(pre1.outfit, HERO_COLS, {minL: NIGHT_EP ? .32 : 0})} : pre1;   // v4 1b: nobody dresses like the hero
     const pre3 = spec.look4 && !pre2.regions && pre2.outfit ? {...pre2, regions: outfitRegions(pre2.outfit, pre2.skin ?? '#f5cd30'), outfit: null} : pre2;   // 2b: outfits as colour regions (data)
     const pre = FACES_V3 && !pre3.faceStyle ? {...pre3, faceStyle: 'v3'} : pre3;   // Faces v3: default for season 1 (or spec.faces 'v3')
@@ -290,7 +290,7 @@ const effects = createEffects([...(spec.effects ?? []).filter(e => e.type !== 'l
 // from behind the current subject in wides and mediums (one SpotLight, no shadow); "Nobody" and older specs: off.
 const HERO_READ = spec.season === 1 || spec.heroRead === true;
 const subjectMains = HERO_READ ? [...new Set(shots.map(s => s.subject ?? s.fit?.actor).filter(n => cast[n]?.a.preset?.outfit?.main).map(n => cast[n].a.preset.outfit.main))] : [];
-const crowds = createCrowds(scene, spec.crowds ?? [], {...(spec.look4 ? {body: 'v5', material: toMatcap(new T.MeshStandardMaterial({color: '#ffffff', roughness: .45})), colourScale: 1 / look.MC_LIGHT, hairMaterial: toMatcap(hair4Material())} : {}), groundY: world?.groundY ?? (() => 0), resolveCentre: c => Array.isArray(c) ? c : (p => [p[0], p[2]])(resolve(c)), avoidColours: HERO_COLS ? [...subjectMains, ...HERO_COLS] : subjectMains, faces: spec.look4 ? 'v4' : FACES_V3 ? 'v3' : 'v2'});
+const crowds = createCrowds(scene, spec.crowds ?? [], {...(spec.look4 ? {body: 'v5', material: toMatcap(new T.MeshStandardMaterial({color: '#ffffff', roughness: .45})), colourScale: 1 / look.MC_LIGHT, hairMaterial: toMatcap(hair4Material())} : {}), groundY: world?.groundY ?? (() => 0), resolveCentre: c => Array.isArray(c) ? c : (p => [p[0], p[2]])(resolve(c)), avoidColours: HERO_COLS ? [...subjectMains, ...HERO_COLS] : subjectMains, faces: spec.look4 ? 'v5' : FACES_V3 ? 'v3' : 'v2'});
 // format v5 3b-R (opt-in spec.crowdCull): each crowd group is culled by its own bounds (ambient kids stay in their area), so a
 // shot pays only for the groups it sees. Bounds = the group's area + 3 units, computed once from the members after the first pose.
 if (spec.crowdCull) { crowds.update(0, {}); scene.traverse(o => { if (o.isInstancedMesh && /^crowd_/.test(o.parent?.name ?? '')) { o.computeBoundingSphere(); o.boundingSphere.radius += 3; o.frustumCulled = true; } }); }

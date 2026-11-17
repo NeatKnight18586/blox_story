@@ -15,6 +15,7 @@ import {applyPoseSample} from './poses.js';
 import {faceMaterial} from '../avatar-style/faces2.js';
 import {faceMaterial3, setFace3} from '../avatar-style/faces3.js';
 import {faceMaterial4, setFace4} from '../avatar-style/faces4.js';
+import {faceMaterial5, setFace5} from '../avatar-style/faces5.js';
 import {createActor5, HEAD5, satin} from '../avatar-style/body5.js';
 
 export const CROWD_MAX = 60;
@@ -112,14 +113,14 @@ export function createCrowds(scene, list = [], {groundY = () => 0, resolveCentre
     const col = new T.Color();
     members.forEach((m, i) => { for (const [name, im] of Object.entries(meshes)) im.setColorAt(i, col.set(name === 'torso' || name.endsWith('Arm') ? (name === 'torso' ? m.shirt : (m.i % 3 ? m.shirt : m.skin)) : name.endsWith('Leg') ? m.pants : m.skin)); });
     for (const im of Object.values(meshes)) im.instanceColor.needsUpdate = true;
-    const face = new T.InstancedMesh(faces === 'v4' ? new T.PlaneGeometry(1.25, 1.16) : new T.PlaneGeometry(1, .68), faces === 'v4' ? faceMaterial4(c.expression ?? 'smile', 'crowd', '#5a3826') : faces === 'v3' ? faceMaterial3(c.expression ?? 'smile', 'crowd', '#5a3826') : faceMaterial(c.expression ?? 'smile', 'bg'), n); face.name = group.name + '_face'; face.frustumCulled = false; group.add(face); meshes.face = face;
+    const face = new T.InstancedMesh(faces === 'v4' || faces === 'v5' ? new T.PlaneGeometry(1.25, 1.16) : new T.PlaneGeometry(1, .68), faces === 'v5' ? faceMaterial5(c.expression ?? 'smile', 'crowd', '#5a3826') : faces === 'v4' ? faceMaterial4(c.expression ?? 'smile', 'crowd', '#5a3826') : faces === 'v3' ? faceMaterial3(c.expression ?? 'smile', 'crowd', '#5a3826') : faceMaterial(c.expression ?? 'smile', 'bg'), n); face.name = group.name + '_face'; face.frustumCulled = false; group.add(face); meshes.face = face;
     // promotion pool: up to PROMOTE.max mid-tier actors (lathe body, faces, v4 mid hair), recoloured per assignment
     const mk = () => material ? material.clone() : v5 ? satin('#ffffff').clone() : plastic('#ffffff').clone();
     const pool = Array.from({length: Math.min(PROMOTE.max, n)}, (_, k) => { const mats = {torso: mk(), arm: mk(), leg: mk(), skin: mk()};
       const a = (v5 ? createActor5 : createActor)({tier: 'bg', name: group.name + '_mid' + k, materials: {torso: mats.torso, leftArm: mats.arm, rightArm: mats.arm, leftLeg: mats.leg, rightLeg: mats.leg, head: mats.skin}});
       if (v5) { const own = {torso: mats.torso, leftArm: mats.arm, rightArm: mats.arm, leftLeg: mats.leg, rightLeg: mats.leg, head: mats.skin};   // per-assignment colours: own materials, not the shared satin
         for (const [pn, pm] of Object.entries(a.parts)) pm.material = own[pn]; }
-      if (faces === 'v4') setFace4(a, c.expression ?? 'smile'); else if (faces === 'v3') setFace3(a, c.expression ?? 'smile'); else setFace(a, c.expression ?? 'smile'); const hm = new T.Mesh(hair4Geometry(CROWD_HAIR[0], '#ffffff', 'mid'), hairMaterial ?? hair4Material()); hm.position.y = .58; hm.castShadow = true; a.pivots.head.add(hm);
+      if (faces === 'v5') setFace5(a, c.expression ?? 'smile'); else if (faces === 'v4') setFace4(a, c.expression ?? 'smile'); else if (faces === 'v3') setFace3(a, c.expression ?? 'smile'); else setFace(a, c.expression ?? 'smile'); const hm = new T.Mesh(hair4Geometry(CROWD_HAIR[0], '#ffffff', 'mid'), hairMaterial ?? hair4Material()); hm.position.y = .58; hm.castShadow = true; a.pivots.head.add(hm);
       a.root.visible = false; group.add(a.root); return {a, mats, hm}; });
     let lap = null;   // opt-in lapEggs: '#rrggbb' → one glowing egg in every lap (sit mode)
     if (c.lapEggs) { const eg = new T.SphereGeometry(1, 10, 7); lap = new T.InstancedMesh(eg, new T.MeshPhongMaterial({color: c.lapEggs, emissive: c.lapEggs, emissiveIntensity: 1.3, shininess: 60}), n); lap.name = group.name + '_lapEggs'; lap.frustumCulled = false; group.add(lap); }

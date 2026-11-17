@@ -59,7 +59,7 @@ test('merge by material keeps live meshes and merges the rest', () => {
 test('cast: body5 presets, elder_m build, hero colours clear, waddle swings', () => {
   assert.deepEqual(Object.keys(cast), ['HERO', 'HERO_TAPED', 'MO', 'PIP', 'YOUNG_PIP', 'MO_DAD']); assert.equal(cast.HERO.build, 'youth'); assert.equal(cast.HERO.age, 11); assert.equal(cast.HERO.hair, null);
   assert.equal(cast.MO.hair.style, 'curly_top'); assert.equal(cast.MO.accessories[0].name, 'beanie'); assert.equal(cast.PIP.build, 'elder_m'); assert.ok(BUILDS.elder_m.stoop <= .09);
-  for (const c of Object.values(cast)) { assert.equal(c.body, 'v5'); assert.equal(c.faceStyle, 'v4'); }
+  for (const c of Object.values(cast)) { assert.equal(c.body, 'v5'); assert.equal(c.faceStyle, 'v5'); }
   assert.ok(cast.HERO_TAPED.regions.bands.length >= 5 && cast.HERO_TAPED.regions.bands.some(b => b.part === 'head'));
   assert.deepEqual(heroColourCheck(hero, Object.fromEntries(Object.entries(cast).filter(([k]) => !k.startsWith('HERO')).map(([k, c]) => [k, {outfit: c.safeOutfit}]))), []);
   const a = createActor5({skin: '#e0a77a', build: 'elder_m', regions: outfitRegions({recipe: 'tunic', main: '#8c3b4a', legs: '#d8cfc0'}, '#e0a77a')}); assert.ok(Math.abs(headShoulderRatio(a) - .593) < .002);

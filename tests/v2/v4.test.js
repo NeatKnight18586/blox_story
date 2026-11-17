@@ -31,7 +31,7 @@ test('v5 regions: arms half sleeve / half hand, shoes = bottom 20 %, blocks fill
 });
 test('hero slot: no hair, v5 + faces v4, resolves through the troupe', () => {
   const p = resolveTroupe({troupe: 'HERO'}, {troupe: {HERO: hero}});
-  assert.equal(p.hair, null); assert.equal(p.body, 'v5'); assert.equal(p.faceStyle, 'v4'); assert.equal(p.skin, '#FFD542');
+  assert.equal(p.hair, null); assert.equal(p.body, 'v5'); assert.equal(p.faceStyle, 'v5'); assert.equal(p.skin, '#FFD542');
   assert.equal(resolveTroupe({troupe: 'LEAD'}, troupe).faceStyle, 'v3', 'troupe default unchanged');
 });
 test('hero colours: troupe/crowd outfits closer than RGB 90 swap to the nearest passing colour; the check then passes', () => {
