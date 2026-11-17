@@ -130,16 +130,16 @@ jobs:
       - name: Captions + finishing (assemble.py)
         run: |
           mkdir -p out
-          python3 scripts/v2/captions.py --story "$STORY" --spec "stories/$STORY/episode.json" --out out/captions.ass
+          python3 scripts/v2/captions.py --story "$STORY" --spec "stories/$STORY/episode.json" $( [ "$PRESET" = "final" ] && grep -q pop-shorts-v3 "stories/$STORY/episode.json" && echo --style v3 ) --out out/captions.ass
           if [ "$PRESET" = "animatic" ]; then
             python3 scripts/v2/assemble.py --story "$STORY" --video picture.mp4 --captions out/captions.ass --out out/animatic.mp4 --animatic | tee out/report.json
           else   # A2: uncapped 1440 master + 1080 review proxy from the same graded frames
             python3 scripts/v2/assemble.py --story "$STORY" --video picture.mp4 --captions out/captions.ass \
-              --out "out/$STORY-master.mp4" --proxy out/final-review.mp4 | tee out/report.json
+              --out "out/$STORY-master.mp4" --proxy out/final-review.mp4 --spec "stories/$STORY/episode.json" | tee out/report.json   # --spec: voice + auto-placed sfx (+ music.mp3 if present)
           fi
       - name: Quality gate (v2:qc; a failure means no release)
         if: needs.plan.outputs.preset == 'final'
-        run: python3 scripts/v2/qc.py --story "$STORY" --video "out/$STORY-master.mp4" --source-video picture.mp4 --captions out/captions.ass --out out/qc.json
+        run: python3 scripts/v2/qc.py --story "$STORY" --video "out/$STORY-master.mp4" --source-video picture.mp4 --captions out/captions.ass --out out/qc.json $( [ -f "stories/$STORY/qc.waive" ] && echo --waive "$(head -n1 stories/$STORY/qc.waive)" )   # owner waiver, recorded in qc.json
       - uses: actions/upload-artifact@v4
         with:
           name: ${{ needs.plan.outputs.story }}-${{ needs.plan.outputs.preset }}

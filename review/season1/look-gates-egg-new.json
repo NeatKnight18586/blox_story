@@ -1,0 +1,88 @@
+{
+ "spec": "engine/fixtures/looktest/egg-new.json",
+ "limits": {
+  "night": {
+   "frame": [
+    0.24,
+    0.42
+   ],
+   "actor": 0.4,
+   "contrast": 0.12
+  },
+  "framing": {
+   "close": 0.45,
+   "medium": 0.3,
+   "heroLow": 0.3,
+   "groundMax": 0.28
+  }
+ },
+ "night": [
+  {
+   "shot": "square",
+   "frame": 4,
+   "look": "nightBright",
+   "frameLuma": 0.421,
+   "actors": {}
+  },
+  {
+   "shot": "kitMed",
+   "frame": 12,
+   "look": "nightBright",
+   "frameLuma": 0.401,
+   "actors": {
+    "kit": {
+     "luma": 0.437,
+     "ring": 0.357,
+     "contrast": 0.08
+    }
+   },
+   "fitFrac": 0.37
+  },
+  {
+   "shot": "daxMed",
+   "frame": 20,
+   "look": "nightBright",
+   "frameLuma": 0.339,
+   "actors": {
+    "dax": {
+     "luma": 0.247,
+     "ring": 0.344,
+     "contrast": -0.096
+    }
+   },
+   "fitFrac": 0.37
+  }
+ ],
+ "framing": [
+  {
+   "shot": "kitMed",
+   "frame": 12,
+   "size": "medium",
+   "move": "push",
+   "part": "full",
+   "subjectFrac": 0.37,
+   "groundGap": 0.213,
+   "need": 0.3,
+   "ok": true
+  },
+  {
+   "shot": "daxMed",
+   "frame": 20,
+   "size": "medium",
+   "move": "push",
+   "part": "full",
+   "subjectFrac": 0.37,
+   "groundGap": 0.213,
+   "need": 0.3,
+   "ok": true
+  }
+ ],
+ "failures": [
+  "square: frame luma 0.421 outside 0.24,0.42",
+  "kitMed/kit: box − ring 0.080 < 0.12",
+  "daxMed/dax: actor luma 0.247 < 0.4",
+  "daxMed/dax: box − ring -0.096 < 0.12"
+ ],
+ "palette": [],
+ "result": "FAIL"
+}

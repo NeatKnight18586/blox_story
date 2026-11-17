@@ -1,0 +1,36 @@
+{
+ "checks": {
+  "freeze": {
+   "frames": 12,
+   "maxDiffDuring": 0,
+   "meanDiffAfter": 10.0
+  },
+  "impact": {
+   "holdMaxDiff": 0,
+   "shakeMeanDiff": 0.69
+  },
+  "split": {
+   "dividerLuma": 0.078
+  },
+  "lightsCascade": {
+   "upperLuma": [
+    0.149,
+    0.1918,
+    0.1884
+   ],
+   "brightPixelsStartEnd": [
+    259,
+    2677
+   ]
+  },
+  "output": {
+   "width": 540,
+   "height": 960,
+   "r_frame_rate": "24/1",
+   "nb_frames": "384",
+   "MB": 1.44
+  }
+ },
+ "failures": [],
+ "result": "PASS"
+}

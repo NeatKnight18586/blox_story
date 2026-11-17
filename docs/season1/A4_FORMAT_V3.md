@@ -41,7 +41,7 @@ highest-contrast things in frame.
 1. **Camera** (`engine/camera.js`): `drone` (spline fly-over with banking, 3–5 s), `heroLow` preset (camera 0.6–1.2 above
    ground, FOV 60–70, subject from below), `snap` (2-frame punch from wide to close on the same axis), `tiltUp` (reveal
    scale from feet to sky). Unit tests for each; speed cap still enforced except inside `snap` and `whip`.
-2. **Landform rigs** (`parts/landform.js`): a way to make part of the terrain a character (the mountain giant in 01):
+2. **Landform rigs** (`parts/landform.js`): a way to make part of the terrain a character (the mountain giant in 11):
    named pivots for a ridge-shoulder, an eyelid, a leg with a foot, a hand; same materials as the terrain so it reads as
    rock and grass. ≤ 12,000 triangles.
 3. **Crowds:** up to 60 background actors per shot from instanced low-detail bodies with `ambientPose`, panic `run`, and
@@ -76,6 +76,9 @@ shot ids), `moneyShot` (shot id).
 - The final shot's camera matches shot 1's within 10 % (position and FOV).
 - Episode length 122–150 s.
 - `sheet.py --stats`: the `twist` or `moneyShot` cell has the largest frame-to-frame colour change of the episode (warning).
+
+- A5 additions to the plan gates: `framing` (A5 §F sizes per shot size; error) and `uiSize` (A5 §C minimum text
+  heights and safe area; error). Both use the pure functions built in Session 8b.
 
 ## F. Sound
 
@@ -125,25 +128,31 @@ Music is the owner's: `stories/<slug>/music.mp3` is mixed if present (existing d
 
 1. `docs/season1/STATE.md`: one line of state: `episode: <n> <slug>` and `step: voice | animatic | review | final`, plus a
    dated log line per step. `/season` reads it; nothing else decides what happens next.
-2. `.claude/commands/season.md` (`/season [approve | notes: …]`), which wraps `/new-episode`:
+2. `.claude/commands/season.md` (`/season [approve | notes: … | swap]`), which wraps `/new-episode`:
    - `step: voice` → check `stories/<slug>/voice.*` exists (else say so and stop) → run E1 → `step: review` → stop.
    - `step: review` + `approve` (or `notes: …`, one revision round, then treat as approved) → run E2 → then write the
      script and `beats.md` for the next card per SEASON_1.md §5b → print that script in a code block → set
      `episode: <n+1>`, `step: voice` → stop.
    - After every fifth final, also assemble the compilation (concat of the five masters with 1 s title cards and a
      chapter list in `review/season1/compilation-<k>.md`); no re-render.
-   - Initial state after Session 9: `episode: 1 mountain`, `step: voice` (scripts 01 and 02 already exist; when the
-     loop reaches 02 it does not rewrite its script).
+   - `swap` (only while `step: voice`): the owner has seen this premise elsewhere. Take the first unused backlog line in
+     SEASON_1.md §5, write a full card for it in the same nine fields (plus the §2b check), replace the current card in
+     §6 keeping its number and lane, write its script and `beats.md` per §5b, print the script, log the swap. Stop.
+   - Initial state after Session 9: `episode: 1 egg`, `step: voice`. Scripts and scene plans for 01 `egg`, 02 `ragdoll`,
+     11 `mountain` and 12 `mirror` already exist; when the loop reaches one of them it prints the existing script and
+     does not rewrite it.
 3. `scripts/v2/scriptcheck.py --story <slug>` (exit 1 on failure): 410–440 words; no sentence over 12 words; first line
    ≤ 9 words and equal to the card's Rule opening; last line equal to the card's last line; at most six sentences contain
-   first-person words (characters' spoken lines only); reading grade ≤ 6 (Flesch–Kincaid); every card field's key noun appears. Unit-tested on
-   scripts 01 and 02 (both must pass).
+   first-person words (characters' spoken lines only); reading grade ≤ 6 (Flesch–Kincaid); every key noun of the card's Rule, Hero, Expansion and Crisis fields appears (Clues, Frame 0, Money shot and World are pictures, not words). Unit-tested on
+   the four existing scripts (`egg`, `ragdoll`, `mountain`, `mirror`; all must pass).
 
 ## Done when (Session 8: A, B, C, G)
 
 - `npm test`, `npm run v2:test` pass with new tests for: camera moves, terrain `groundY`, biome tables, hair v3 triangle
   budgets and eye clearance.
-- `review/season1/look-ab.png`: the same alpine valley view built with the old kit and the new one, plus a 390 px crop.
+- `review/season1/look-ab.png`: two views, each built with the old kit and the new one, plus a 390 px crop: the `egg`
+  base town at night (suburb biome, cloudtop behind) and the `ragdoll` hill street (alpine terrain). These are the first
+  two episode worlds, so the work carries straight over.
   Self-score 1–5, fix under 4, max 3 passes: (1) reads as a rich, believable place; (2) avatars still pop; (3) nothing
   noisy or photographic next to the plastic characters; (4) depth: foreground, subject, haze, sky; (5) water and
   vegetation move.
@@ -155,8 +164,8 @@ Music is the owner's: `stories/<slug>/music.mp3` is mixed if present (existing d
 
 ## Done when (Session 9: D, E, F, H, I)
 
-- Tests pass for: plan gates E, caption chunking v3, sfx placement, `scriptcheck` (scripts 01 and 02 pass), the `/season`
+- Tests pass for: plan gates E, caption chunking v3, sfx placement, `scriptcheck` (the four existing scripts pass), the `/season`
   state transitions (pure function).
 - `review/season1/caption-v3-phone.png` committed; `tools-demo.mp4` re-assembled with v3 captions and sfx.
 - `.claude/commands/season.md`, `.claude/commands/new-episode.md` (H) and `CLAUDE.md` updated; `STATE.md` initialised.
-- PR updated. **Stop. The owner commits `stories/mountain/voice.flac` and sends `/season`.**
+- PR updated. **Stop. The owner commits `stories/egg/voice.flac` and sends `/season`.**

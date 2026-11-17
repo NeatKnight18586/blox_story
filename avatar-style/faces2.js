@@ -99,5 +99,7 @@ export function setFace(actor, name) {
     const m = new T.Mesh(decalGeometry(), faceMaterial(name, actor.tier)); m.name = 'face_decal'; m.renderOrder = 2;
     m.position.y = .58; actor.pivots.head.add(m); actor.faceLayer = m;
   }
-  actor.faceLayer.material = faceMaterial(name, actor.tier); actor.face = name; return actor;
+  let m = faceMaterial(name, actor.tier);
+  if (actor.ghost !== undefined && actor.ghost < 1) { actor._ghostFaces ??= new Map(); if (!actor._ghostFaces.has(name)) { const c = m.clone(); c.opacity = m.opacity * actor.ghost; actor._ghostFaces.set(name, c); } m = actor._ghostFaces.get(name); }   // A4 AFK
+  actor.faceLayer.material = m; actor.face = name; return actor;
 }

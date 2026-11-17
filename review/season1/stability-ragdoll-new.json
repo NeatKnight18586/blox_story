@@ -1,0 +1,91 @@
+{
+ "spec": "engine/fixtures/looktest/ragdoll-new.json",
+ "size": "540x960",
+ "nudge": 0.004,
+ "threshold": 40,
+ "limit": 0.3,
+ "views": 12,
+ "worst": {
+  "view": "bottom:mid",
+  "frame": 4,
+  "pct": 0.048,
+  "raw": 0.158
+ },
+ "failing": [],
+ "errors": [],
+ "result": "PASS",
+ "rows": [
+  {
+   "view": "@bottom",
+   "frame": null,
+   "pct": 0.042,
+   "raw": 0.123
+  },
+  {
+   "view": "@street",
+   "frame": null,
+   "pct": 0.002,
+   "raw": 0.031
+  },
+  {
+   "view": "@wide",
+   "frame": null,
+   "pct": 0.001,
+   "raw": 0.009
+  },
+  {
+   "view": "bottom:first",
+   "frame": 0,
+   "pct": 0.042,
+   "raw": 0.123
+  },
+  {
+   "view": "bottom:mid",
+   "frame": 4,
+   "pct": 0.048,
+   "raw": 0.158
+  },
+  {
+   "view": "bottom:last",
+   "frame": 7,
+   "pct": 0.039,
+   "raw": 0.15
+  },
+  {
+   "view": "street:first",
+   "frame": 8,
+   "pct": 0.002,
+   "raw": 0.033
+  },
+  {
+   "view": "street:mid",
+   "frame": 12,
+   "pct": 0.003,
+   "raw": 0.029
+  },
+  {
+   "view": "street:last",
+   "frame": 15,
+   "pct": 0.009,
+   "raw": 0.047
+  },
+  {
+   "view": "wide:first",
+   "frame": 16,
+   "pct": 0.001,
+   "raw": 0.009
+  },
+  {
+   "view": "wide:mid",
+   "frame": 20,
+   "pct": 0.001,
+   "raw": 0.009
+  },
+  {
+   "view": "wide:last",
+   "frame": 23,
+   "pct": 0.002,
+   "raw": 0.012
+  }
+ ]
+}

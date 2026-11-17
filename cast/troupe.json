@@ -1,0 +1,154 @@
+{
+ "note": "Amendment A4 G2: the Season 1 troupe. Five recurring actors with FIXED skin, hair and face; every episode re-costumes them (outfit, accessories, role name) by slot. AFK is the season's frozen cameo (grey, see-through 0.4, frozen; no tag: owner rule SEASON_1.md §2c). All designs are our own. Defaults obey the A5 night palette rule (outfit colours HSL lightness ≥ 0.32): Season 1 opens at night.",
+ "troupe": {
+  "LEAD": {
+   "tier": "hero",
+   "scale": 0.82,
+   "skin": "#e0a77a",
+   "face": "smile",
+   "hair": {
+    "style": "messy_fringe",
+    "color": "#4a2e1e",
+    "v": 4
+   },
+   "outfit": {
+    "recipe": "tee",
+    "main": "#2f80d1",
+    "accent": "#f2c230",
+    "legs": "#4a5a80",
+    "trim": "#e4574a"
+   },
+   "expressions": [
+    "smile",
+    "determined",
+    "gasp"
+   ],
+   "age": 12,
+   "build": "youth"
+  },
+  "SECOND": {
+   "tier": "hero",
+   "scale": 0.82,
+   "skin": "#f6c9a0",
+   "face": "smile",
+   "hair": {
+    "style": "long_layered",
+    "color": "#7a4a2a",
+    "v": 4
+   },
+   "outfit": {
+    "recipe": "hoodie",
+    "main": "#ff7aa8",
+    "accent": "#ffffff",
+    "legs": "#3b4a6b",
+    "trim": "#9b59b6"
+   },
+   "expressions": [
+    "smile",
+    "sad",
+    "shout"
+   ],
+   "age": 11,
+   "build": "youth"
+  },
+  "LITTLE": {
+   "tier": "hero",
+   "scale": 0.62,
+   "skin": "#8d5a3b",
+   "face": "smile",
+   "hair": {
+    "style": "space_buns",
+    "color": "#1f1a1a",
+    "v": 4
+   },
+   "outfit": {
+    "recipe": "tee",
+    "main": "#7fc241",
+    "accent": "#ffffff",
+    "legs": "#f2b632",
+    "trim": "#2f80d1"
+   },
+   "expressions": [
+    "smile",
+    "crying",
+    "gasp"
+   ],
+   "age": 7,
+   "build": "youth"
+  },
+  "RIVAL": {
+   "tier": "hero",
+   "scale": 0.95,
+   "skin": "#fbdcc0",
+   "face": "smug",
+   "hair": {
+    "style": "quiff",
+    "color": "#c8692a",
+    "v": 4
+   },
+   "outfit": {
+    "recipe": "hoodie",
+    "main": "#9a2f2f",
+    "accent": "#f2d16b",
+    "legs": "#5a6274",
+    "trim": "#f2b632"
+   },
+   "expressions": [
+    "smug",
+    "shout",
+    "terrified"
+   ],
+   "age": 15,
+   "build": "youth"
+  },
+  "ELDER": {
+   "tier": "hero",
+   "scale": 1.0,
+   "skin": "#c08457",
+   "face": "neutral",
+   "hair": {
+    "style": "side_part",
+    "color": "#b9b9b9",
+    "v": 4
+   },
+   "outfit": {
+    "recipe": "tee",
+    "main": "#6b4a8f",
+    "accent": null,
+    "legs": "#7a6048",
+    "trim": "#c99a5a"
+   },
+   "expressions": [
+    "neutral",
+    "smile",
+    "sad"
+   ],
+   "age": 64,
+   "build": "adult_m"
+  }
+ },
+ "AFK": {
+  "tier": "hero",
+  "scale": 0.82,
+  "skin": "#f5cd30",
+  "face": "neutral",
+  "hair": {
+   "style": "buzz",
+   "color": "#5a5a5a",
+   "v": 4
+  },
+  "outfit": {
+   "recipe": "classic",
+   "main": "#a4a8ae",
+   "legs": "#6e7378"
+  },
+  "opacity": 0.4,
+  "freeze": 0.35,
+  "pose": "walk",
+  "expressions": [
+   "neutral",
+   "sleep",
+   "gasp"
+  ]
+ }
+}

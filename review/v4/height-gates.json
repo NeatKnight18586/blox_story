@@ -1,0 +1,33 @@
+{
+ "reference": 5.23,
+ "adults": {
+  "HERO adult_m": {
+   "h": 5.23,
+   "diffPct": 0
+  },
+  "ELDER (troupe) adult_m": {
+   "h": 5.23,
+   "diffPct": 0
+  },
+  "adult_f": {
+   "h": 5.23,
+   "diffPct": 0
+  },
+  "elder_f (stooped)": {
+   "h": 5.2681,
+   "diffPct": 0.73
+  },
+  "elder_f (upright)": {
+   "h": 5.23,
+   "diffPct": 0
+  }
+ },
+ "kids": {
+  "LEAD youth ×0.82": 4.1246,
+  "SECOND youth ×0.82": 4.1246,
+  "LITTLE youth ×0.62": 3.1186,
+  "RIVAL youth ×0.95": 4.7785
+ },
+ "failures": [],
+ "result": "PASS"
+}

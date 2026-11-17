@@ -1,0 +1,60 @@
+{
+ "slug": "toyhouse-hall",
+ "fps": 24,
+ "format": 5,
+ "world": "parts/sets4/toyhouse.js",
+ "look4": "toy",
+ "look": "toy",
+ "labels": false,
+ "cast": {},
+ "shots": [
+  {
+   "id": "H-top",
+   "frames": 24,
+   "move": "topDown",
+   "size": "wide",
+   "anchor": "hall",
+   "degrees": 0,
+   "static": true,
+   "shadowRadius": 14
+  },
+  {
+   "id": "H-hall",
+   "frames": 24,
+   "move": "push",
+   "size": "wide",
+   "anchor": "hall",
+   "shadowRadius": 14
+  },
+  {
+   "id": "H-counter",
+   "frames": 24,
+   "move": "push",
+   "size": "medium",
+   "anchor": "counter",
+   "shadowRadius": 14
+  },
+  {
+   "id": "H-track",
+   "frames": 24,
+   "move": "push",
+   "size": "wide",
+   "anchor": "track",
+   "shadowRadius": 14
+  }
+ ],
+ "worldState": {
+  "clock": [
+   [
+    0,
+    475
+   ]
+  ],
+  "shutter": [
+   [
+    0,
+    0
+   ]
+  ]
+ }
+}

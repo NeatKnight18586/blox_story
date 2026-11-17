@@ -7,6 +7,7 @@
 // The stone-hammer is the episode's twist prop: the sword's hilt and a short stub of blade, sunk in a
 // giant block of rock. Scale it boldly.
 import * as T from 'three';
+import {eggMesh, EGG_R, EGG_HOLD} from '../parts/eggs.js';
 import {mergeGeometries} from 'three/addons/utils/BufferGeometryUtils.js';
 import {sword as propSword, heroStone as propHeroStone, classSword as propClassSword} from '../parts/props.js';
 
@@ -70,9 +71,27 @@ function classTool(name) {
   // flat face forward (a raised class blade shows its full silhouette to the viewer), 1.2× for phone-size reads
   s.position.y = -.26; s.rotation.y = Math.PI / 2; s.scale.setScalar(1.2); grp.add(s); grp.userData.grip = 'extend'; grp.userData.cls = cls; return grp;
 }
+// Eggs (Season 1 ep. 1, parts/eggs.js): tool name 'egg:<design>' or 'egg:<design>:<warm 0..1>' (the Plain egg's glow), held in the fist.
+function eggTool(name) {
+  // the tool rides the right fist; the egg is placed so that, in the eggHold pose, it sits centred between both fists
+  // (actor x = 0), a little above them: the arm rotation is undone for that offset (pure trigonometry, see EGG_HOLD)
+  const [, design, warm] = name.split(':'), grp = new T.Group(), e = eggMesh(design, {r: EGG_R.held, warm: warm === undefined ? null : +warm, rim: true});
+  const {alpha, theta} = EGG_HOLD.eggHold, R = new T.Matrix4().makeRotationFromEuler(new T.Euler(-alpha, 0, -theta));
+  const fist = new T.Vector3(...HAND).applyMatrix4(R).add(new T.Vector3(1.51, 4.02, 0));   // fist in actor space (right shoulder pivot)
+  const want = new T.Vector3(0, fist.y + EGG_R.held * 1.15, fist.z + .1), d = want.sub(fist).applyMatrix4(R.clone().transpose());
+  e.position.copy(d); grp.add(e); grp.userData.grip = 'hold'; return grp;
+}
+// An armful of eggs (opt-in, owner 2026-11-14): 'eggs:<d1>,<d2>,…' (2–5 designs): a heap at the eggHold spot, 0.8 × held size.
+function eggsTool(name) {
+  const designs = name.slice(5).split(','), grp = eggTool('egg:' + designs[0]), base = grp.children[0], r = EGG_R.held * .8, k = designs.length;
+  base.scale.setScalar(.8); const at = base.position.clone();
+  const spots = [[-.95, -.15, 0], [.95, -.15, 0], [0, -.4, 1.0], [0, .55, -.6], [.5, .3, .8]];   // a low heap: no egg above the chin (owner pass 2)
+  designs.slice(1).forEach((d, i) => { const e = eggMesh(d, {r, rim: true}); const [x, y, z] = spots[i]; e.position.set(at.x + x * r * 1.4, at.y + y * r * 1.2, at.z + z * r); e.rotation.z = (i % 2 ? -.35 : .35); grp.add(e); });
+  base.position.y -= r * .2; grp.userData.eggs = k; return grp;
+}
 export function buildTool(name, opts = {}) {
-  if (!BUILD[name] && !name.startsWith('class:')) throw Error('unknown tool ' + name);
-  const t = name.startsWith('class:') ? classTool(name) : BUILD[name](opts); t.name = 'tool_' + name; t.position.set(...HAND);
+  if (!BUILD[name] && !name.startsWith('class:') && !name.startsWith('egg:') && !name.startsWith('eggs:')) throw Error('unknown tool ' + name);
+  const t = name.startsWith('class:') ? classTool(name) : name.startsWith('eggs:') ? eggsTool(name) : name.startsWith('egg:') ? eggTool(name) : BUILD[name](opts); t.name = 'tool_' + name; t.position.set(...HAND);
   // 'upright' tools are authored vertical; in toolHold the arm is rotated -90° about x, so pre-rotate.
   if (t.userData.grip === 'upright') t.rotation.x = Math.PI / 2;
   return t;

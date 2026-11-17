@@ -1,0 +1,415 @@
+{
+ "note": "Format v4 Phase 2 look presets (data, not code). base = the createLook preset fields; v4 = tone mapping, env, bake, glow, grade. Tuning pass 1 (look-ab sheet): comedy exposure 1.1\u21921.45 + LUT saturation 1.15\u21921.3 (AgX desaturates); mystery exposure 1.0\u21921.7, hemi .35\u2192.9, moon .55\u21921.3, baked sky .38\u2192.7 (actors were unreadable). Phase 2b: comedy tone mapping Khronos PBR Neutral (keeps saturation), exposure 1.0; mystery keeps AgX. Phase 3b: `toy` (bright interior, practicals baked) and `dawn` (rose horizon, low warm sun) for the Toy House sets. Phase 3b-R: toy = muted hazy interior (fog 30-260 + height haze), material classes (v4.materials), cool strips baked; toyTop = toy for straight-down shots (haze pushed past the floor); dawn retuned warm gold (less mauve).",
+ "comedy": {
+  "base": {
+   "skyTop": "#1f7cff",
+   "skyHorizon": "#bfe2ff",
+   "fog": "#cfe7ff",
+   "fogNear": 380,
+   "fogFar": 900,
+   "hemiSky": "#d6ebff",
+   "hemiGround": "#9a8e74",
+   "hemi": 1.0,
+   "sun": "#fff0d2",
+   "sunI": 3.0,
+   "sunEl": 50,
+   "sunAz": 35,
+   "rim": "#ffffff",
+   "rimI": 0.35,
+   "cloud": "#ffffff",
+   "exposure": 1.0,
+   "windows": 0
+  },
+  "v4": {
+   "toneMapping": "Neutral",
+   "envIntensity": 0.7,
+   "clouds": "puffy",
+   "heightFog": null,
+   "shadowCatcher": 0.42,
+   "glass": {
+    "color": "#9fc4e8",
+    "reflect": 0.9
+   },
+   "bake": {
+    "sun": [
+     1.0,
+     0.94,
+     0.82
+    ],
+    "sunI": 1.15,
+    "sky": [
+     0.62,
+     0.74,
+     0.95
+    ],
+    "skyI": 0.62,
+    "ground": [
+     0.45,
+     0.42,
+     0.36
+    ],
+    "groundI": 0.18,
+    "aoDist": 3.5,
+    "lights": false
+   },
+   "staticReflect": 0.12,
+   "lut": "comedy"
+  }
+ },
+ "mystery": {
+  "base": {
+   "skyTop": "#070c1e",
+   "skyHorizon": "#1d2840",
+   "fog": "#161e2e",
+   "fogNear": 30,
+   "fogFar": 150,
+   "hemiSky": "#5a6f9e",
+   "hemiGround": "#151820",
+   "hemi": 0.9,
+   "sun": "#9db4ff",
+   "sunI": 1.3,
+   "sunEl": 38,
+   "sunAz": -40,
+   "rim": "#ffcc88",
+   "rimI": 0.0,
+   "cloud": "#2a3346",
+   "exposure": 1.7,
+   "windows": 1.6
+  },
+  "v4": {
+   "toneMapping": "AgX",
+   "envIntensity": 0.35,
+   "clouds": null,
+   "heightFog": {
+    "base": 0,
+    "falloff": 5,
+    "amount": 0.55,
+    "near": 12
+   },
+   "shadowCatcher": 0.3,
+   "glass": {
+    "color": "#2a3448",
+    "reflect": 0.7
+   },
+   "bake": {
+    "sun": [
+     0.55,
+     0.65,
+     1.0
+    ],
+    "sunI": 0.55,
+    "sky": [
+     0.22,
+     0.3,
+     0.5
+    ],
+    "skyI": 0.7,
+    "ground": [
+     0.08,
+     0.08,
+     0.1
+    ],
+    "groundI": 0.05,
+    "aoDist": 3.5,
+    "lights": true
+   },
+   "staticReflect": 0.08,
+   "lut": "mystery"
+  }
+ },
+ "toy": {
+  "base": {
+   "skyTop": "#dcd6cc",
+   "skyHorizon": "#efe7da",
+   "fog": "#e4dccf",
+   "fogNear": 8,
+   "fogFar": 170,
+   "hemiSky": "#f2ece2",
+   "hemiGround": "#b9ab96",
+   "hemi": 1.0,
+   "sun": "#fff0d2",
+   "sunI": 1.2,
+   "sunEl": 70,
+   "sunAz": 20,
+   "rim": "#ffffff",
+   "rimI": 0.0,
+   "cloud": "#ffffff",
+   "exposure": 1.0,
+   "windows": 0
+  },
+  "v4": {
+   "toneMapping": "Neutral",
+   "envIntensity": 0.5,
+   "clouds": null,
+   "heightFog": {
+    "base": 0,
+    "falloff": 22,
+    "amount": 0.45,
+    "near": 40
+   },
+   "shadowCatcher": 0.35,
+   "glass": {
+    "color": "#9fc4e8",
+    "reflect": 0.6
+   },
+   "bake": {
+    "sun": [
+     1.0,
+     0.94,
+     0.82
+    ],
+    "sunI": 0.0,
+    "sky": [
+     0.93,
+     0.92,
+     0.9
+    ],
+    "skyI": 0.55,
+    "ground": [
+     0.86,
+     0.82,
+     0.76
+    ],
+    "groundI": 0.55,
+    "aoDist": 4.0,
+    "lights": true
+   },
+   "staticReflect": 0.06,
+   "lut": "comedy",
+   "materials": {
+    "plastic": {
+     "roughness": 0.35
+    },
+    "plush": {
+     "roughness": 0.9,
+     "envHighlight": false
+    },
+    "floor": {
+     "pattern": "polishedFloor",
+     "roughness": 0.2
+    },
+    "cardboard": {
+     "roughness": 0.85,
+     "envHighlight": false
+    },
+    "metal": {
+     "roughness": 0.4,
+     "metalness": 0.6
+    },
+    "glass": {
+     "roughness": 0.1
+    },
+    "plaster": {
+     "pattern": "plaster",
+     "roughness": 0.9,
+     "envHighlight": false
+    },
+    "asphalt": {
+     "pattern": "asphaltLane",
+     "roughness": 0.85,
+     "envHighlight": false
+    },
+    "timber": {
+     "pattern": "timber",
+     "roughness": 0.7,
+     "envHighlight": false
+    }
+   }
+  }
+ },
+ "dawn": {
+  "base": {
+   "skyTop": "#6f8fc4",
+   "skyHorizon": "#ffc874",
+   "fog": "#f0cf9a",
+   "fogNear": 70,
+   "fogFar": 320,
+   "hemiSky": "#c7cbd6",
+   "hemiGround": "#7a6a52",
+   "hemi": 0.8,
+   "sun": "#ffb35c",
+   "sunI": 2.2,
+   "sunEl": 9,
+   "sunAz": -70,
+   "rim": "#ffd9a0",
+   "rimI": 0.35,
+   "cloud": "#ffe0b0",
+   "exposure": 1.2,
+   "windows": 1.0
+  },
+  "v4": {
+   "toneMapping": "AgX",
+   "envIntensity": 0.5,
+   "clouds": "puffy",
+   "heightFog": null,
+   "shadowCatcher": 0.4,
+   "glass": {
+    "color": "#7f9ac8",
+    "reflect": 0.9
+   },
+   "bake": {
+    "sun": [
+     1.0,
+     0.72,
+     0.4
+    ],
+    "sunI": 1.3,
+    "sky": [
+     0.72,
+     0.7,
+     0.66
+    ],
+    "skyI": 0.65,
+    "ground": [
+     0.42,
+     0.36,
+     0.28
+    ],
+    "groundI": 0.2,
+    "aoDist": 3.5,
+    "lights": true
+   },
+   "staticReflect": 0.12,
+   "lut": "dawn",
+   "materials": {
+    "plastic": {
+     "roughness": 0.35
+    },
+    "plush": {
+     "roughness": 0.9,
+     "envHighlight": false
+    },
+    "floor": {
+     "pattern": "polishedFloor",
+     "roughness": 0.2
+    },
+    "cardboard": {
+     "roughness": 0.85,
+     "envHighlight": false
+    },
+    "metal": {
+     "roughness": 0.4,
+     "metalness": 0.6
+    },
+    "glass": {
+     "roughness": 0.1
+    },
+    "plaster": {
+     "pattern": "plaster",
+     "roughness": 0.9,
+     "envHighlight": false
+    },
+    "asphalt": {
+     "pattern": "asphaltLane",
+     "roughness": 0.85,
+     "envHighlight": false
+    },
+    "timber": {
+     "pattern": "timber",
+     "roughness": 0.7,
+     "envHighlight": false
+    }
+   }
+  }
+ },
+ "toyTop": {
+  "base": {
+   "skyTop": "#dcd6cc",
+   "skyHorizon": "#efe7da",
+   "fog": "#e4dccf",
+   "fogNear": 280,
+   "fogFar": 900,
+   "hemiSky": "#f2ece2",
+   "hemiGround": "#b9ab96",
+   "hemi": 1.0,
+   "sun": "#fff0d2",
+   "sunI": 1.2,
+   "sunEl": 70,
+   "sunAz": 20,
+   "rim": "#ffffff",
+   "rimI": 0.0,
+   "cloud": "#ffffff",
+   "exposure": 1.0,
+   "windows": 0
+  },
+  "v4": {
+   "toneMapping": "Neutral",
+   "envIntensity": 0.5,
+   "clouds": null,
+   "heightFog": {
+    "base": 0,
+    "falloff": 22,
+    "amount": 0.45,
+    "near": 40
+   },
+   "shadowCatcher": 0.35,
+   "glass": {
+    "color": "#9fc4e8",
+    "reflect": 0.6
+   },
+   "bake": {
+    "sun": [
+     1.0,
+     0.94,
+     0.82
+    ],
+    "sunI": 0.0,
+    "sky": [
+     0.93,
+     0.92,
+     0.9
+    ],
+    "skyI": 0.55,
+    "ground": [
+     0.86,
+     0.82,
+     0.76
+    ],
+    "groundI": 0.55,
+    "aoDist": 4.0,
+    "lights": true
+   },
+   "staticReflect": 0.06,
+   "lut": "comedy",
+   "materials": {
+    "plastic": {
+     "roughness": 0.35
+    },
+    "plush": {
+     "roughness": 0.9,
+     "envHighlight": false
+    },
+    "floor": {
+     "pattern": "polishedFloor",
+     "roughness": 0.2
+    },
+    "cardboard": {
+     "roughness": 0.85,
+     "envHighlight": false
+    },
+    "metal": {
+     "roughness": 0.4,
+     "metalness": 0.6
+    },
+    "glass": {
+     "roughness": 0.1
+    },
+    "plaster": {
+     "pattern": "plaster",
+     "roughness": 0.9,
+     "envHighlight": false
+    },
+    "asphalt": {
+     "pattern": "asphaltLane",
+     "roughness": 0.85,
+     "envHighlight": false
+    },
+    "timber": {
+     "pattern": "timber",
+     "roughness": 0.7,
+     "envHighlight": false
+    }
+   }
+  }
+ }
+}

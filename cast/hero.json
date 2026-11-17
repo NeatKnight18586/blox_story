@@ -1,0 +1,44 @@
+{
+ "note": "Format v4 (owner, 2026-11-15): the hero, slot HERO, in every episode from 2 on. Actor v5 (classic R6), first-person narrator. Bare yellow head, no hair: the signature. Open charcoal jacket (#2B2D33, lapel and collar edges #4A4E57) over a royal-blue strip, no logo or text; charcoal sleeves and yellow hands; sage trousers with flat black shoes. Our own design.",
+ "HERO": {
+  "tier": "hero",
+  "body": "v5",
+  "scale": 1,
+  "skin": "#FFD542",
+  "hair": null,
+  "faceStyle": "v4",
+  "face": "hero_wink",
+  "regions": {
+   "torso": {
+    "main": "#2B2D33",
+    "strip": "#0D7CD4",
+    "stripW": 0.6,
+    "lapel": "#2B2D33",
+    "lapelW": 0.14,
+    "edge": "#4A4E57",
+    "edgeW": 0.05
+   },
+   "arms": {
+    "upper": "#2B2D33",
+    "lower": "#FFD542",
+    "split": 0.5
+   },
+   "legs": {
+    "main": "#73985E",
+    "shoes": "#161616",
+    "shoeFrac": 0.2
+   }
+  },
+  "expressions": [
+   "hero_wink",
+   "hero_grin",
+   "hero_shock",
+   "hero_panic",
+   "hero_scheme",
+   "hero_cry",
+   "hero_rage",
+   "hero_soft"
+  ],
+  "build": "adult_m"
+ }
+}

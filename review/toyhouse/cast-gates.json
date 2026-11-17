@@ -1,0 +1,50 @@
+{
+ "cast": {
+  "HERO": {
+   "build": "youth",
+   "adult": false,
+   "height": 4.225,
+   "headShoulder": 0.593
+  },
+  "HERO_TAPED": {
+   "build": "youth",
+   "adult": false,
+   "height": 4.225,
+   "headShoulder": 0.619
+  },
+  "MO": {
+   "build": "youth",
+   "adult": false,
+   "height": 4.225,
+   "headShoulder": 0.593
+  },
+  "PIP": {
+   "build": "elder_m",
+   "adult": true,
+   "height": 5.266,
+   "headShoulder": 0.593,
+   "diffPct": 0.69
+  },
+  "YOUNG_PIP": {
+   "build": "youth",
+   "adult": false,
+   "height": 4.024,
+   "headShoulder": 0.593
+  },
+  "MO_DAD": {
+   "build": "adult_m",
+   "adult": true,
+   "height": 5.23,
+   "headShoulder": 0.593,
+   "diffPct": 0
+  }
+ },
+ "heroColourClashes": 0,
+ "waddle": {
+  "roll": 0.15,
+  "hop": 0.16,
+  "hip": 0.08
+ },
+ "failures": [],
+ "result": "PASS"
+}

@@ -1,0 +1,539 @@
+{
+ "limits": {
+  "leak": 0,
+  "leakBuzz": 0.02,
+  "leakTight": 0.03,
+  "iou": 0.86,
+  "thin": 0.06,
+  "budget": {
+   "hero": 2400,
+   "mid": 700,
+   "crowd": 140
+  },
+  "eyeLine": 0.26
+ },
+ "styles": {
+  "messy_fringe": {
+   "triangles": {
+    "hero": 1764,
+    "mid": 578,
+    "crowd": 50
+   },
+   "eyeLow": {
+    "hero": 0.301,
+    "mid": 0.301,
+    "crowd": 0.435
+   },
+   "leak": {
+    "az120": 0,
+    "az150": 0,
+    "az180": 0,
+    "az210": 0,
+    "az240": 0,
+    "top": 0
+   },
+   "thin": {
+    "az0": 0.0075,
+    "az90": 0.0043,
+    "az180": 0.0016
+   }
+  },
+  "side_part": {
+   "triangles": {
+    "hero": 1092,
+    "mid": 338,
+    "crowd": 50
+   },
+   "eyeLow": {
+    "hero": 0.32,
+    "mid": 0.33,
+    "crowd": 0.45
+   },
+   "leak": {
+    "az120": 0,
+    "az150": 0,
+    "az180": 0,
+    "az210": 0,
+    "az240": 0,
+    "top": 0
+   },
+   "thin": {
+    "az0": 0.0033,
+    "az90": 0.0053,
+    "az180": 0.0008
+   }
+  },
+  "quiff": {
+   "triangles": {
+    "hero": 1048,
+    "mid": 298,
+    "crowd": 50
+   },
+   "eyeLow": {
+    "hero": 0.408,
+    "mid": 0.532,
+    "crowd": 0.455
+   },
+   "leak": {
+    "az120": 0.0013,
+    "az150": 0,
+    "az180": 0,
+    "az210": 0,
+    "az240": 0.0013,
+    "top": 0
+   },
+   "thin": {
+    "az0": 0.0076,
+    "az90": 0.0129,
+    "az180": 0.002
+   }
+  },
+  "curtains": {
+   "triangles": {
+    "hero": 1204,
+    "mid": 378,
+    "crowd": 50
+   },
+   "eyeLow": {
+    "hero": 0.343,
+    "mid": 0.447,
+    "crowd": 0.455
+   },
+   "leak": {
+    "az120": 0,
+    "az150": 0,
+    "az180": 0,
+    "az210": 0,
+    "az240": 0,
+    "top": 0
+   },
+   "thin": {
+    "az0": 0.0052,
+    "az90": 0.0044,
+    "az180": 0.0024
+   }
+  },
+  "fade_textured": {
+   "triangles": {
+    "hero": 1204,
+    "mid": 378,
+    "crowd": 50
+   },
+   "eyeLow": {
+    "hero": 0.408,
+    "mid": 0.582,
+    "crowd": 0.455
+   },
+   "leak": {
+    "az120": 0.0017,
+    "az150": 0,
+    "az180": 0,
+    "az210": 0,
+    "az240": 0.0017,
+    "top": 0
+   },
+   "thin": {
+    "az0": 0,
+    "az90": 0.0021,
+    "az180": 0.0007
+   }
+  },
+  "spiky_crop": {
+   "triangles": {
+    "hero": 1316,
+    "mid": 418,
+    "crowd": 50
+   },
+   "eyeLow": {
+    "hero": 0.405,
+    "mid": 0.525,
+    "crowd": 0.45
+   },
+   "leak": {
+    "az120": 0.0009,
+    "az150": 0,
+    "az180": 0,
+    "az210": 0,
+    "az240": 0.0009,
+    "top": 0
+   },
+   "thin": {
+    "az0": 0.003,
+    "az90": 0.0025,
+    "az180": 0.002
+   }
+  },
+  "curly_top": {
+   "triangles": {
+    "hero": 2276,
+    "mid": 598,
+    "crowd": 50
+   },
+   "eyeLow": {
+    "hero": 0.408,
+    "mid": 0.465,
+    "crowd": 0.455
+   },
+   "leak": {
+    "az120": 0,
+    "az150": 0,
+    "az180": 0,
+    "az210": 0,
+    "az240": 0,
+    "top": 0
+   },
+   "thin": {
+    "az0": 0.0154,
+    "az90": 0.0069,
+    "az180": 0.0074
+   }
+  },
+  "shaggy_mop": {
+   "triangles": {
+    "hero": 1652,
+    "mid": 538,
+    "crowd": 50
+   },
+   "eyeLow": {
+    "hero": 0.301,
+    "mid": 0.301,
+    "crowd": 0.425
+   },
+   "leak": {
+    "az120": 0,
+    "az150": 0,
+    "az180": 0,
+    "az210": 0,
+    "az240": 0,
+    "top": 0
+   },
+   "thin": {
+    "az0": 0.0028,
+    "az90": 0.0075,
+    "az180": 0.0026
+   }
+  },
+  "long_layered": {
+   "triangles": {
+    "hero": 1368,
+    "mid": 378,
+    "crowd": 50
+   },
+   "eyeLow": {
+    "hero": 0.278,
+    "mid": 0.363,
+    "crowd": 0.45
+   },
+   "leak": {
+    "az120": 0,
+    "az150": 0,
+    "az180": 0,
+    "az210": 0,
+    "az240": 0,
+    "top": 0
+   },
+   "thin": {
+    "az0": 0,
+    "az90": 0.0002,
+    "az180": 0
+   }
+  },
+  "high_ponytail": {
+   "triangles": {
+    "hero": 1192,
+    "mid": 378,
+    "crowd": 50
+   },
+   "eyeLow": {
+    "hero": 0.408,
+    "mid": 0.582,
+    "crowd": 0.455
+   },
+   "leak": {
+    "az120": 0,
+    "az150": 0,
+    "az180": 0,
+    "az210": 0,
+    "az240": 0,
+    "top": 0
+   },
+   "thin": {
+    "az0": 0.0033,
+    "az90": 0.0011,
+    "az180": 0.0031
+   }
+  },
+  "space_buns": {
+   "triangles": {
+    "hero": 1340,
+    "mid": 458,
+    "crowd": 50
+   },
+   "eyeLow": {
+    "hero": 0.304,
+    "mid": 0.304,
+    "crowd": 0.44
+   },
+   "leak": {
+    "az120": 0,
+    "az150": 0,
+    "az180": 0,
+    "az210": 0,
+    "az240": 0,
+    "top": 0
+   },
+   "thin": {
+    "az0": 0.0131,
+    "az90": 0.0074,
+    "az180": 0.0049
+   }
+  },
+  "low_twintails": {
+   "triangles": {
+    "hero": 1404,
+    "mid": 458,
+    "crowd": 50
+   },
+   "eyeLow": {
+    "hero": 0.301,
+    "mid": 0.301,
+    "crowd": 0.435
+   },
+   "leak": {
+    "az120": 0,
+    "az150": 0,
+    "az180": 0,
+    "az210": 0,
+    "az240": 0,
+    "top": 0
+   },
+   "thin": {
+    "az0": 0.0019,
+    "az90": 0.0039,
+    "az180": 0.0004
+   }
+  },
+  "wavy_bob": {
+   "triangles": {
+    "hero": 1428,
+    "mid": 418,
+    "crowd": 50
+   },
+   "eyeLow": {
+    "hero": 0.311,
+    "mid": 0.311,
+    "crowd": 0.445
+   },
+   "leak": {
+    "az120": 0,
+    "az150": 0,
+    "az180": 0,
+    "az210": 0,
+    "az240": 0,
+    "top": 0
+   },
+   "thin": {
+    "az0": 0.0029,
+    "az90": 0.0028,
+    "az180": 0.0028
+   }
+  },
+  "sleek_long": {
+   "triangles": {
+    "hero": 1112,
+    "mid": 298,
+    "crowd": 50
+   },
+   "eyeLow": {
+    "hero": 0.411,
+    "mid": 0.584,
+    "crowd": 0.46
+   },
+   "leak": {
+    "az120": 0,
+    "az150": 0,
+    "az180": 0,
+    "az210": 0,
+    "az240": 0,
+    "top": 0
+   },
+   "thin": {
+    "az0": 0,
+    "az90": 0.0002,
+    "az180": 0
+   }
+  },
+  "messy_bun": {
+   "triangles": {
+    "hero": 1296,
+    "mid": 458,
+    "crowd": 50
+   },
+   "eyeLow": {
+    "hero": 0.302,
+    "mid": 0.302,
+    "crowd": 0.455
+   },
+   "leak": {
+    "az120": 0,
+    "az150": 0,
+    "az180": 0,
+    "az210": 0,
+    "az240": 0,
+    "top": 0
+   },
+   "thin": {
+    "az0": 0.0093,
+    "az90": 0.0064,
+    "az180": 0.0038
+   }
+  },
+  "long_braids": {
+   "triangles": {
+    "hero": 2036,
+    "mid": 538,
+    "crowd": 50
+   },
+   "eyeLow": {
+    "hero": 0.301,
+    "mid": 0.301,
+    "crowd": 0.44
+   },
+   "leak": {
+    "az120": 0,
+    "az150": 0,
+    "az180": 0,
+    "az210": 0,
+    "az240": 0,
+    "top": 0
+   },
+   "thin": {
+    "az0": 0.009,
+    "az90": 0.0072,
+    "az180": 0.0036
+   }
+  },
+  "curly_puffs": {
+   "triangles": {
+    "hero": 2244,
+    "mid": 578,
+    "crowd": 50
+   },
+   "eyeLow": {
+    "hero": 0.301,
+    "mid": 0.301,
+    "crowd": 0.45
+   },
+   "leak": {
+    "az120": 0,
+    "az150": 0,
+    "az180": 0,
+    "az210": 0,
+    "az240": 0,
+    "top": 0
+   },
+   "thin": {
+    "az0": 0.0051,
+    "az90": 0.0041,
+    "az180": 0.0008
+   }
+  },
+  "wolf_cut": {
+   "triangles": {
+    "hero": 1540,
+    "mid": 498,
+    "crowd": 50
+   },
+   "eyeLow": {
+    "hero": 0.301,
+    "mid": 0.301,
+    "crowd": 0.44
+   },
+   "leak": {
+    "az120": 0,
+    "az150": 0,
+    "az180": 0,
+    "az210": 0,
+    "az240": 0,
+    "top": 0
+   },
+   "thin": {
+    "az0": 0.0012,
+    "az90": 0.0047,
+    "az180": 0.0011
+   }
+  },
+  "buzz": {
+   "triangles": {
+    "hero": 420,
+    "mid": 98,
+    "crowd": 50
+   },
+   "eyeLow": {
+    "hero": 0.415,
+    "mid": 0.588,
+    "crowd": 0.465
+   },
+   "leak": {
+    "az120": 0,
+    "az150": 0,
+    "az180": 0,
+    "az210": 0,
+    "az240": 0,
+    "top": 0
+   },
+   "thin": {
+    "az0": 0,
+    "az90": 0.0005,
+    "az180": 0
+   }
+  },
+  "bald": {
+   "triangles": {
+    "hero": 0,
+    "mid": 0,
+    "crowd": 0
+   },
+   "eyeLow": {
+    "hero": null,
+    "mid": null,
+    "crowd": null
+   },
+   "skipped": "bald"
+  }
+ },
+ "failures": [],
+ "closestPairs": [
+  {
+   "a": "messy_fringe",
+   "b": "curtains",
+   "front": 0.763,
+   "side": 0.839
+  },
+  {
+   "a": "messy_fringe",
+   "b": "side_part",
+   "front": 0.751,
+   "side": 0.885
+  },
+  {
+   "a": "messy_fringe",
+   "b": "curly_top",
+   "front": 0.738,
+   "side": 0.857
+  },
+  {
+   "a": "side_part",
+   "b": "curly_top",
+   "front": 0.727,
+   "side": 0.84
+  },
+  {
+   "a": "curtains",
+   "b": "curly_top",
+   "front": 0.724,
+   "side": 0.774
+  }
+ ],
+ "result": "PASS"
+}

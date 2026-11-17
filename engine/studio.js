@@ -5,6 +5,8 @@ import * as T from 'three';
 import {buildActor, townsperson, driveActor} from './actors.js';
 import {loadFont, setTag, fitTags} from './overhead.js';
 import {setFace} from '../avatar-style/faces2.js';
+import {setFace3} from '../avatar-style/faces3.js';
+import {setFace4} from '../avatar-style/faces4.js';
 import {triangles} from '../avatar-style/body.js';
 import {classSword} from '../parts/props.js';
 
@@ -55,6 +57,10 @@ function addProps(list = []) {
   }
 }
 const grey = new T.MeshBasicMaterial({color: '#555555'}), sky = scene.background.clone();
+// format v4 key art (channel icon / thumbnails only): navy-to-charcoal radial backdrop, no ground, a warm rim from the right
+const radial = (() => { if (typeof document === 'undefined') return null; const c = document.createElement('canvas'); c.width = c.height = 512; const g = c.getContext('2d'), gr = g.createRadialGradient(256, 230, 20, 256, 256, 380);
+  gr.addColorStop(0, '#1d3a78'); gr.addColorStop(1, '#1b1d22'); g.fillStyle = gr; g.fillRect(0, 0, 512, 512); const t = new T.CanvasTexture(c); t.colorSpace = T.SRGBColorSpace; return t; })();
+const warmRim = new T.DirectionalLight('#ffb36b', 0); warmRim.position.set(14, 8, -8); scene.add(warmRim);
 
 export function render(cell, w, h) {
   for (const a of built.values()) a.root.visible = false;
@@ -63,12 +69,14 @@ export function render(cell, w, h) {
     const slot = used.get(spec.id) ?? 0; used.set(spec.id, slot + 1);
     const a = actorFor(spec.id, slot, spec.with ?? null); a.root.visible = true;
     driveActor(a, spec.t ?? 0, {keys: [[0, spec.pose ?? 'idle', spec.opts ?? {}]], origin: {position: spec.at ?? [0, 0, 0], yaw: (spec.yaw ?? 0) * Math.PI / 180}, ambient: false});
-    setFace(a, spec.face ?? a.preset.face ?? 'smile');
+    if (a.faceStyle === 'v4') setFace4(a, spec.face ?? a.preset.face ?? 'smile', {talk: spec.talk ?? null});   // format v4
+    else if (a.faceStyle === 'v3') setFace3(a, spec.face ?? a.preset.face ?? 'smile'); else setFace(a, spec.face ?? a.preset.face ?? 'smile');
     if (a.tag) a.tag.userData.show = spec.tag !== false;
   }
   addProps(cell.props);
   // silhouette cells (A3 grey-fill check): every surface flat grey on white, no ground
-  scene.overrideMaterial = cell.silhouette ? grey : null; scene.background = cell.silhouette ? new T.Color('#ffffff') : sky; plate.visible = !cell.silhouette;
+  scene.overrideMaterial = cell.silhouette ? grey : null; scene.background = cell.silhouette ? new T.Color('#ffffff') : cell.keyArt ? radial : sky; plate.visible = !cell.silhouette && !cell.keyArt;
+  warmRim.intensity = cell.keyArt ? 1.6 : 0;
   renderer.setPixelRatio(1); renderer.setSize(w, h, false);
   camera.aspect = w / h; camera.fov = cell.camera.fov ?? 35; camera.position.set(...cell.camera.position); camera.lookAt(...cell.camera.target); camera.updateProjectionMatrix();
   scene.updateMatrixWorld(true); fitTags(scene, camera); renderer.render(scene, camera);

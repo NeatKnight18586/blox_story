@@ -6,7 +6,7 @@
 import * as T from 'three';
 import {PLASTIC, plastic} from './body.js';
 
-export const RECIPES = ['tunic', 'armor', 'robe', 'apron', 'royal', 'peasant'];
+export const RECIPES = ['tunic', 'armor', 'robe', 'apron', 'royal', 'peasant', 'tee', 'hoodie', 'classic'];   // last three: A4 modern (Season 1)
 const SIDES = ['right', 'left', 'top', 'bottom', 'front', 'back'];   // BoxGeometry group order
 const shade = (hex, k) => '#' + new T.Color(hex).multiplyScalar(k).getHexString();
 const tint = (hex, k) => '#' + new T.Color(hex).lerp(new T.Color('#ffffff'), k).getHexString();
@@ -105,6 +105,29 @@ const PAINT = {
   },
 };
 
+// ---- A4 modern recipes (Season 1 worlds): tee + jeans + sneakers, hoodie, and the plain classic outfit (AFK) ----------
+const sneakers = (k, c, y = .84) => { k.rect(0, y, 1, 1, '#f4f4f4'); k.rect(0, y, 1, .04, c); k.rect(0, .97, 1, .03, shade(c, .6)); };
+const jeans = (k, side, o) => { k.fill(o.legs); if (side === 'front') { k.line([[.5, 0], [.5, .1]], shade(o.legs, .7), .015); k.line([[.12, .05], [.3, .22]], tint(o.legs, .25), .012, [.03, .02]); } k.rect(0, .78, 1, .06, shade(o.legs, .8)); };
+Object.assign(PAINT, {
+  tee(k, part, side, o) {
+    if (part === 'torso') { k.fill(o.main); if (side === 'front') { collarShade(k); k.poly([[.38, 0], [.62, 0], [.5, .1]], o.skin); k.line([[.36, 0], [.5, .12], [.64, 0]], shade(o.main, .78), .025); if (o.accent) { if (o.fitted) { k.rect(.34, .125, .32, .13, o.accent); k.rect(.385, .155, .23, .07, shade(o.accent, .78)); } else { k.rect(.3, .32, .4, .26, o.accent); k.rect(.36, .38, .28, .14, shade(o.accent, .78)); } } }   // fitted (adult_f): decal inside the straight top block (top 27 %)
+      if (side === 'top') k.rect(.38, 0, .24, .2, o.skin); if (side !== 'top' && side !== 'bottom') k.rect(0, .92, 1, .08, shade(o.main, .82)); }
+    else if (part === 'arm') { k.fill(o.skin); if (side !== 'bottom') { k.rect(0, 0, 1, .36, o.main); k.rect(0, .32, 1, .05, shade(o.main, .8)); } }
+    else { jeans(k, side, o); if (side !== 'top') sneakers(k, o.trim); if (side === 'bottom') k.fill('#d8d8d8'); }
+  },
+  hoodie(k, part, side, o) {
+    if (part === 'torso') { k.fill(o.main); const d = shade(o.main, .75);
+      if (side === 'front') { k.poly([[.26, 0], [.74, 0], [.62, .2], [.38, .2]], d); k.poly([[.34, 0], [.66, 0], [.56, .14], [.44, .14]], o.skin); k.line([[.44, .18], [.42, .42]], o.accent ?? '#f4f4f4', .02); k.line([[.56, .18], [.58, .42]], o.accent ?? '#f4f4f4', .02); k.rect(.22, .58, .56, .24, d); k.rect(.25, .61, .5, .18, shade(o.main, .9)); }
+      if (side === 'back') k.poly([[.2, 0], [.8, 0], [.7, .3], [.3, .3]], d); if (side === 'top') k.rect(.34, 0, .32, .25, o.skin);
+      if (side !== 'top' && side !== 'bottom') k.rect(0, .88, 1, .12, d); }
+    else if (part === 'arm') { k.fill(o.main); if (side === 'bottom') k.fill(o.skin); else { k.rect(0, .74, 1, .1, shade(o.main, .75)); k.rect(0, .84, 1, 1, o.skin); } }
+    else { jeans(k, side, o); if (side !== 'top') sneakers(k, o.trim); if (side === 'bottom') k.fill('#d8d8d8'); }
+  },
+  classic(k, part, side, o) {   // the plain default outfit: flat shirt, flat trousers, nothing else
+    if (part === 'torso') k.fill(o.main); else if (part === 'arm') { k.fill(o.main); if (side === 'bottom') k.fill(o.skin); } else k.fill(o.legs);
+  },
+});
+
 const DEFAULTS = {main: '#4f7cc4', trim: '#f2d16b', accent: '#f7f3ea', legs: '#3b3f46', boots: '#4a3222', belt: '#6b4428', buckle: '#f2d16b'};
 const matCache = new Map();
 // outfit: {recipe, ...colours}. part: 'torso' | 'arm' | 'leg'. size: [x, y, z] studs of the block.
@@ -129,9 +152,10 @@ export function outfitMaterials(outfit, part, size, skin, tier = 'hero') {
 }
 
 // Materials for all six parts of an actor wearing `outfit` (arms and legs share their painter).
-export function dress(outfit, skin, tier) {
+// `fitted` (opt-in, set by engine/actors.js for profile builds such as adult_f): front decals move into the straight top block.
+export function dress(outfit, skin, tier, {fitted = false} = {}) {
   return {
-    torso: outfitMaterials(outfit, 'torso', [2, 2, 1], skin, tier),
+    torso: outfitMaterials(fitted ? {...outfit, fitted: true} : outfit, 'torso', [2, 2, 1], skin, tier),
     leftArm: outfitMaterials(outfit, 'arm', [.98, 1.99, 1], skin, tier), rightArm: outfitMaterials(outfit, 'arm', [.98, 1.99, 1], skin, tier),
     leftLeg: outfitMaterials(outfit, 'leg', [.98, 2, 1], skin, tier), rightLeg: outfitMaterials(outfit, 'leg', [.98, 2, 1], skin, tier),
   };

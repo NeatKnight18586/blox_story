@@ -1,0 +1,47 @@
+{
+ "zoneDeltaRGB": {
+  "track": 196.7,
+  "arena": 135.9,
+  "pit": 88.3,
+  "tramp": 107.8,
+  "candy": 62.6,
+  "gadget": 129.7,
+  "counter": 62.8,
+  "mezz": 54.3
+ },
+ "floorRGB": [
+  212,
+  183,
+  159
+ ],
+ "min": 40,
+ "instanced": {
+  "ballPit": 800,
+  "animatedKids": 48,
+  "fill": 200,
+  "fillTrisEach": 40,
+  "crowdTrisEach": 272
+ },
+ "propTris": {
+  "blaster": 100,
+  "kart": 196,
+  "gumball": 20,
+  "hyperbox": 60,
+  "key": 156,
+  "hook": 36,
+  "photoFrame": 14,
+  "register": 38,
+  "cone": 16,
+  "foamBlock": 12
+ },
+ "bench": {
+  "budget": "Season 1 (90k, 0.62 s)",
+  "s720": 0.261,
+  "s1080": 0.473,
+  "maxTriangles": 89568,
+  "overBudget": [],
+  "result": "PASS"
+ },
+ "failures": [],
+ "result": "PASS"
+}
