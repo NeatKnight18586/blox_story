@@ -22,11 +22,12 @@ def parse(text):
     ep = re.search(r'^episode:\s*(\d+)\s+(\S+)\s*$', text, re.M); st = re.search(r'^step:\s*(\S+)\s*$', text, re.M)
     if not ep or not st or st.group(1) not in STEPS: raise ValueError('STATE.md needs "episode: <n> <slug>" and "step: voice|animatic|review|final|published-ready"')
     log = [l[2:] for l in text.split('## Log', 1)[1].splitlines() if l.startswith('- ')] if '## Log' in text else []
-    return {'episode': int(ep.group(1)), 'slug': ep.group(2), 'step': st.group(1), 'log': log}
+    paused = bool(re.search(r'^paused:\s*true\s*$', text, re.M))   # owner pause (format v5 build-out): /season does nothing
+    return {'episode': int(ep.group(1)), 'slug': ep.group(2), 'step': st.group(1), 'log': log, **({'paused': True} if paused else {})}
 
 
 def fmt(s):
-    return '\n'.join([HEADER, '', f"episode: {s['episode']} {s['slug']}", f"step: {s['step']}", '', '## Log', *[f'- {l}' for l in s['log']]]) + '\n'
+    return '\n'.join([HEADER, '', f"episode: {s['episode']} {s['slug']}", f"step: {s['step']}", *(['paused: true'] if s.get('paused') else []), '', '## Log', *[f'- {l}' for l in s['log']]]) + '\n'
 
 
 def cards(md):
@@ -39,6 +40,7 @@ def transition(state, cmd=None, *, voice=False, script=False, beats=False, cards
     stories/<slug>/voice.*, script.txt and beats.md exist;
     finals_done: finals delivered before this one. → {'state': new or same, 'actions': [...], 'stop': reason or None}."""
     s, ep, slug, step = dict(state), state['episode'], state['slug'], state['step']
+    if state.get('paused'): return {'state': s, 'actions': [], 'stop': 'paused by the owner (STATE.md paused: true): /season does nothing until it is removed'}
     nxt = next((c for c in cards_list if c[0] == ep + 1), None)
     if cmd == 'swap':
         if step != 'voice': return {'state': s, 'actions': [], 'stop': f'swap only while step is voice (now {step})'}
@@ -82,7 +84,7 @@ def main():
     script = os.path.exists(f"stories/{s['slug']}/script.txt"); beats = os.path.exists(f"stories/{s['slug']}/beats.md")
     finals = sum(1 for l in s['log'] if ' final delivered' in l)
     r = transition(s, cmd, voice=voice, script=script, beats=beats, cards_list=cards(open(o.season).read()), finals_done=finals)
-    r['state'] = {k: r['state'][k] for k in ('episode', 'slug', 'step')}
+    r['state'] = {k: r['state'][k] for k in ('episode', 'slug', 'step', 'paused') if k in r['state']}
     print(json.dumps({'now': {k: s[k] for k in ('episode', 'slug', 'step')}, 'cmd': cmd, 'voice': voice, 'script': script, 'beats': beats, **r}, ensure_ascii=False))
 
 

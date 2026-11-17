@@ -4,6 +4,7 @@
 // Also writes review/<slug>/plan.json (the shot table with timings, sizes and the why of each shot).
 import {readFileSync} from 'node:fs';
 import {mkdir, writeFile} from 'node:fs/promises';
+import {plan5} from '../../engine/plancheck5.js';
 import {startServer} from './server.js';
 import {launch} from './browser.js';
 import {checkPlan} from '../../engine/plancheck.js';
@@ -18,7 +19,7 @@ const spec = JSON.parse(readFileSync(specPath, 'utf8')), cues = JSON.parse(readF
 const shots = layoutShots(spec);
 
 const server = await startServer(), browser = await launch();
-let info, meas = [];
+let info, meas = [], insertH = {};
 try {
   const page = await browser.newPage({viewport: {width: 360, height: 640}});
   const errors = []; page.on('pageerror', e => errors.push(e.message));
@@ -35,11 +36,15 @@ try {
   const probe = await page.evaluate(() => window.__episode.seasonMeasure(0));
   if (spec.season || probe.v3) meas = await page.evaluate(list => list.map(s => [s.start, s.start + Math.floor(s.frames / 2), s.start + s.frames - 1].map(f => window.__episode.seasonMeasure(f, s.objects))),
     shots.map(({start, frames, clueObject}) => ({start, frames, objects: [...(clueObject ? [clueObject] : []), ...(spec.season ? ['clockFace', 'clockFace1', 'clockFace2', 'clockFace3', 'scoreboard'] : [])]})));
+  // format v5: story-prop inserts measured on the real frame (middle frame, the prop's projected box height)
+  if (spec.format === 5) insertH = Object.fromEntries(await page.evaluate(list => list.map(s => { const r = window.__episode.readMeasure(s.mid, {subject: null, prop: s.prop}); const b = r.box;
+    return [s.id, b && b.front ? Math.min(b.y1, 1) - Math.max(b.y0, 0) : 0]; }), shots.filter(s => s.size === 'insert' && s.prop).map(s => ({id: s.id, prop: s.prop, mid: s.start + Math.floor(s.frames / 2)}))));
 } finally { await browser.close(); await server.close(); }
 
 const r = checkPlan({shots, cues, fps, end: spec.end, info});
 const sz = checkSeason({spec, shots, cues, fps, end: spec.end, info, meas});
-r.errors.push(...sz.errors, ...labelIssues(spec));   // owner rule §2c: noLabels (Season 1 / labels: false)
+r.errors.push(...sz.errors, ...labelIssues(spec));
+if (spec.format === 5) { const p5 = plan5(shots, {fps, cues, insertH, end: spec.end}); r.errors.push(...p5.errors); r.stats.format5 = {lengthS: p5.lengthS, averageShotS: p5.averageShotS, insertH}; }   // format v5 rules   // owner rule §2c: noLabels (Season 1 / labels: false)
 r.warnings.push(...sz.warnings); r.stats.season = !!spec.season; r.stats.framing = sz.stats.framing; r.stats.uiItems = sz.stats.ui; r.stats.eggs = sz.stats.eggs; r.stats.overlaps = sz.stats.overlaps; r.stats.crowdCover = sz.stats.cover; r.stats.clockBoard = sz.stats.clockBoard;
 const table = shots.map((s, i) => ({id: s.id, beat: !!s.beat, t: +(s.start / fps).toFixed(2), dur: +(s.frames / fps).toFixed(2), size: s.size, move: s.move, loc: s.loc, speed: +(info[i].speed * 100).toFixed(0),
   subject: s.subject ? `${s.subject}@${(info[i].mid.heads[s.subject]?.x * 100).toFixed(0)},${(info[i].mid.heads[s.subject]?.y * 100).toFixed(0)}` : '', why: s.why}));

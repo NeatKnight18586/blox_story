@@ -95,7 +95,22 @@ const POSES = {
   },
   shiver(t) { const s = .05 * (Math.floor(t * 15) % 2 ? 1 : -1); return make({leftShoulder: [-1.25, 0, .75 + s], rightShoulder: [-1.25, 0, -.75 - s], head: [.12, 0, 0]}, {dx: s * .3}); },
   lookUp(t, o) { const s = legacy('idle', t + (o.phase ?? 0), {}); s.pivots.head = [-.55, 0, 0]; return s; },
+  // ---- format v5 (Phase 3a): snappy key poses. Held shapes with clear silhouettes; key them with {snap: true} so they
+  // land in 2 frames on top of the smooth motion around them. (Right arm: +z = out to the side; left arm: −z.)
+  shrug: () => make({rightShoulder: [-.35, 0, .62], leftShoulder: [-.35, 0, -.62], head: [0, 0, .16]}, {dy: .05}),
+  facepalm: () => make({rightShoulder: [-2.12, 0, -.62], leftShoulder: [-.1, 0, -.12], head: [.32, 0, 0]}, {lean: .06}),   // fix: hand onto the face (was beside the head)
+  armsCrossed: () => make({rightShoulder: [-1.3, 0, -.62], leftShoulder: [-1.18, 0, .62], head: [-.06, 0, 0]}, {lean: -.04}),
+  heroPose: () => make({rightShoulder: [.12, 0, .62], leftShoulder: [.12, 0, -.62], head: [-.12, 0, 0], leftHip: [0, 0, -.12], rightHip: [0, 0, .12]}, {lean: -.07}),
+  fistPump: () => make({rightShoulder: [-2.45, 0, .8], leftShoulder: [.45, 0, -.25], head: [-.18, 0, .1], leftHip: [-.15, 0, 0]}, {lean: -.06}),   // fix pass 1: up and out on a diagonal (was too close to pointUp)
+  pointUp: () => make({rightShoulder: [-3.0, 0, .05], leftShoulder: [0, 0, -.1], head: [-.42, 0, 0]}),
+  thinker: () => make({rightShoulder: [-1.95, 0, -.5], leftShoulder: [-.95, 0, .5], head: [.14, 0, .1]}),
+  gaspHands: () => make({rightShoulder: [-2.45, 0, -.28], leftShoulder: [-2.45, 0, .28], head: [-.12, 0, 0]}, {lean: -.09}),
+  doubleTake(t) { return t < .22 ? make({head: [0, .75, 0]}) : make({head: [-.16, 0, 0], leftShoulder: [-.6, 0, -.35], rightShoulder: [-.6, 0, .35]}, {lean: -.12, dy: .06}); },
+  flail(t) { const a = Math.sin(Math.floor(t * 12) * 1.9); return make({rightShoulder: [-2.2 + .65 * a, 0, .9], leftShoulder: [-2.2 - .65 * a, 0, -.9], head: [-.1, 0, .12 * a]}, {dy: .06 * Math.abs(a)}); },
+  slump: () => make({head: [.48, 0, 0], rightShoulder: [.15, 0, .1], leftShoulder: [.15, 0, -.1]}, {lean: .13, dy: -.06}),
 };
+export const SNAPPY = ['shrug', 'facepalm', 'armsCrossed', 'heroPose', 'fistPump', 'pointUp', 'thinker', 'gaspHands', 'doubleTake', 'flail', 'slump'];
+export const SNAP_FADE_FRAMES = 2;   // a key with {snap: true} lands in 2 frames (at the episode's fps)
 export const POSE_NAMES = Object.keys(POSES);
 
 export function samplePose(name, t, opts = {}) {
@@ -116,6 +131,7 @@ export function blendPoses(a, b, w) {
 export function sampleTimeline(keys, t, {fade = FADE} = {}) {
   let i = 0; while (i + 1 < keys.length && keys[i + 1][0] <= t) i++;
   const [t0, name, o = {}] = keys[i], cur = samplePose(name, Math.max(0, t - t0), o);
+  if (o.snap) fade = SNAP_FADE_FRAMES / (o.fps ?? 24);   // format v5: snappy key (opt-in per key)
   if (i === 0 || t - t0 >= fade) return cur;
   const [p0, pn, po = {}] = keys[i - 1];
   return blendPoses(samplePose(pn, Math.max(0, t - p0), po), cur, smooth((t - t0) / fade));

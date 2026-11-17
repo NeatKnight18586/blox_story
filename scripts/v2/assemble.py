@@ -55,7 +55,7 @@ def to_yuv(fmt='yuv420p'):
     return f"scale=out_color_matrix=bt709:out_range=tv,format={fmt}"
 
 
-def final_graph(src_size, captions=None, hold=0.0, offset_frames=0, fps=30, outputs=('master',), fmt='yuv420p', vignette=True, lut=None):
+def final_graph(src_size, captions=None, hold=0.0, offset_frames=0, fps=30, outputs=('master',), fmt='yuv420p', vignette=True, lut=None, shot_luts=()):
     """filter_complex for finals. src_size (w, h) of the frames; 1080×1920 is upscaled to 1440×2560 BEFORE the grade.
     outputs: 'master' (1440×2560), 'proxy' (1080×1920, downscaled from the same graded frames), 'graded' (master size,
     no captions: QC sharpness). offset_frames shifts timestamps so captions match a single frame pulled for QC.
@@ -69,6 +69,8 @@ def final_graph(src_size, captions=None, hold=0.0, offset_frames=0, fps=30, outp
     src = 'graded0'
     if lut:   # format v4 (opt-in, spec `look4`): the preset's .cube LUT + a light vignette after the A2 grade (scripts/v2/lut4.py)
         g += f";[graded0]lut3d=file='{lut}',{LUT4.VIGNETTE}[graded0l]"; src = 'graded0l'
+    for k, (f, t0, t1) in enumerate(shot_luts):   # format v5: per-shot grade (memory / dawn) over [t0, t1) only
+        g += f";[{src}]lut3d=file='{f}':enable='between(t,{t0:.4f},{t1 - 1e-4:.4f})'[sg{k}]"; src = f'sg{k}'
     g += f";[{src}]split={n}" + ''.join(f"[s{i}]" for i in range(n)) if n > 1 else f";[{src}]null[s0]"
 
     labels = []
@@ -185,7 +187,9 @@ def main():
     a.add_argument('--voice-start', type=float, default=0); a.add_argument('--voice-dur', type=float); a.add_argument('--no-hold', action='store_true')
     a.add_argument('--fps', type=int, default=30); a.add_argument('--animatic', action='store_true')
     a.add_argument('--spec', help='episode.json: mix the auto-placed sfx (A4 §F) unless it says "sfx": false'); o = a.parse_args()
+    if o.spec and '--fps' not in sys.argv and json.load(open(o.spec)).get('fps', 30) != 30: o.fps = int(json.load(open(o.spec))['fps'])   # format v5: 24 fps specs (30 fps specs unchanged)
     if o.animatic and o.fps == 30: o.fps = 15
+    elif o.animatic and o.fps == 24: o.fps = 12   # format v5 animatic: half rate, as at 30
 
     pic_in, (w, h), nframes = picture_inputs(o, o.fps)
     if o.animatic and (w, h) != (270, 480): sys.exit(f'animatic frames must be 270×480, got {w}×{h}')
@@ -208,6 +212,14 @@ def main():
             placed = SFX.place(spec, SFX.layout(o.spec), spec.get('fps', o.fps)); silence = placed['silence']
             track = os.path.join(tempfile.mkdtemp(), 'sfx.wav'); SFX.write_wav(track, SFX.render_track(placed, total))
             inputs += ['-i', track]; sfx_rep = {'hits': len(placed['hits']), 'byName': {n: sum(h[1] == n for h in placed['hits']) for n in SFX.NAMES if any(h[1] == n for h in placed['hits'])}, 'silence': silence}
+    shot_luts = []   # format v5: shots with `grade` get that LUT over their time range (older specs: none)
+    if o.spec:
+        sp = json.load(open(o.spec)); fr = sp.get('fps', o.fps); t = 0.0; SH = sp.get('shots', [])
+        for i, sh in enumerate(SH):
+            st = sh['at'] if 'at' in sh else t
+            d = sh['frames'] / fr if 'frames' in sh else ((SH[i + 1]['at'] if i + 1 < len(SH) else sp.get('end', st)) - st); t = st + d
+            if sh.get('grade') in LUT4.PRESETS and d > 0:
+                f = os.path.join(os.path.dirname(os.path.abspath(o.out)), f"shot-{sh['id']}-{sh['grade']}.cube"); open(f, 'w').write(LUT4.cube(sh['grade'])); shot_luts.append((f, st, st + d))
     lut_file = None   # format v4: a spec with `look4` gets its preset's LUT + light vignette (older specs: unchanged)
     if o.spec and json.load(open(o.spec)).get('look4') in LUT4.PRESETS:
         lut_file = os.path.join(os.path.dirname(os.path.abspath(o.out)), json.load(open(o.spec))['look4'] + '.cube'); open(lut_file, 'w').write(LUT4.cube(json.load(open(o.spec))['look4']))
@@ -236,7 +248,7 @@ def main():
     # ---- finals: one decode + grade feeds the master and (first pass) the proxy ----
     rep['path'] = 'native-1440' if (w, h) == MASTER_SIZE else 'fallback-1080-upscaled'
     outs = ('master', 'proxy') if o.proxy else ('master',)
-    graph, labels = final_graph((w, h), o.captions, hold, fps=o.fps, lut=lut_file, outputs=outs)
+    graph, labels = final_graph((w, h), o.captions, hold, fps=o.fps, lut=lut_file, shot_luts=shot_luts, outputs=outs)
     crf, pcrf = MASTER_CRF, PROXY_CRF_STEPS[0]
     cmd = ['ffmpeg', '-hide_banner', '-y', *inputs, '-filter_complex', graph + ';' + af + (';[a]asplit=2[a1][a2]' if o.proxy else ''),
            '-map', '[master]', '-map', '[a1]' if o.proxy else '[a]', '-r', str(o.fps), *master_encode_args(crf), '-t', f'{total:.3f}', o.out]
@@ -247,12 +259,12 @@ def main():
     def kbps(path): return int(probe_video(path)[1].get('bit_rate') or 0) / 1000
     while (nxt := next_crf(crf, kbps(o.out))) is not None:   # bitrate floor: re-encode the master only
         steps.append({'crf': crf, 'kbps': round(kbps(o.out))}); crf = nxt
-        g1, _ = final_graph((w, h), o.captions, hold, fps=o.fps, lut=lut_file, outputs=('master',))
+        g1, _ = final_graph((w, h), o.captions, hold, fps=o.fps, lut=lut_file, shot_luts=shot_luts, outputs=('master',))
         run(['ffmpeg', '-hide_banner', '-y', *inputs, '-filter_complex', g1 + ';' + af, '-map', '[master]', '-map', '[a]', '-r', str(o.fps), *master_encode_args(crf), '-t', f'{total:.3f}', o.out])
     if o.proxy:
         while (nxt := next_proxy_crf(pcrf, os.path.getsize(o.proxy) / 1e6)) is not None:
             pcrf = nxt
-            g2, _ = final_graph((w, h), o.captions, hold, fps=o.fps, lut=lut_file, outputs=('proxy',))
+            g2, _ = final_graph((w, h), o.captions, hold, fps=o.fps, lut=lut_file, shot_luts=shot_luts, outputs=('proxy',))
             run(['ffmpeg', '-hide_banner', '-y', *inputs, '-filter_complex', g2 + ';' + af, '-map', '[proxy]', '-map', '[a]', '-r', str(o.fps), *proxy_encode_args(pcrf), '-t', f'{total:.3f}', o.proxy])
 
     pr, v, au = probe_video(o.out); lufs, peak = measure(o.out)
