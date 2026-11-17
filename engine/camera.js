@@ -17,7 +17,7 @@ export const MOVES = ['push', 'pull', 'orbit', 'track', 'crane', 'whip', 'gameca
 // Format v5 (Phase 3a) camera grammar, opt-in by name; the moves above are unchanged.
 export const MOVES5 = ['crashZoom', 'topDown', 'splitScreen', 'lowAuthority', 'aisleTrack'];
 MOVES.push(...MOVES5);
-export const CRASH = {frames: 5, overshoot: .06, push: .04};       // crashZoom: fov from→to in 5 frames with a 6 % overshoot, 4 % dolly in
+export const CRASH = {frames: 5, overshoot: .06, push: .04, aimY: 3.0};   // aimY: the subject's aim point above its mark (a kid's face)       // crashZoom: fov from→to in 5 frames with a 6 % overshoot, 4 % dolly in
 export const TOPDOWN = {tiltDeg: 3, degrees: 40};                  // topDown: ~straight down (3° off so 'up' stays defined), slow turn
 export const SPLIT = {maxDur: 3};                                  // splitScreen: two half-frame cameras, ≤ 3 s
 export const LOW_AUTH = {maxH: .8, minFov: 28, maxFov: 40, minUpDeg: 8, push: .03};   // lowAuthority: low, long lens, looking up
@@ -229,7 +229,8 @@ export function sampleMove5(shot, localT, actorPositions = {}) {
   if (shot.move === 'crashZoom') {
     const n = Math.round(localT * fps) - Math.round((shot.zoomAt ?? 0) * fps), x = clamp01(n / CRASH.frames);
     const over = x < 1 ? EASE.outBack(x) : 1, fov = lerp(f.fov ?? 40, e.fov ?? 20, over), pos = lerp3(f.position, f.target, CRASH.push * clamp01(n / CRASH.frames));
-    return {position: pos, target: f.target, fov: Math.max(5, fov), roll: 0};
+    const sp = shot.subject ? actorPositions[shot.subject] : null, aim = sp ? [sp[0], sp[1] + (shot.subjectAimY ?? CRASH.aimY), sp[2]] : null;   // Look 6 (owner): always ends on the shot's subject
+    return {position: pos, target: aim ? lerp3(f.target, aim, EASE.outCubic(x)) : f.target, fov: Math.max(5, fov), roll: 0};
   }
   if (shot.move === 'topDown') {
     const c = f.target, h = shot.height ?? (f.position[1] - c[1]), a = ((shot.startDeg ?? 0) + (shot.degrees ?? TOPDOWN.degrees) * k) * Math.PI / 180, off = h * Math.tan(TOPDOWN.tiltDeg * Math.PI / 180);

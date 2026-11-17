@@ -4,7 +4,7 @@
 import {readFileSync, writeFileSync} from 'node:fs';
 import {outfitRegions, heroColours, heroSafeOutfit} from '../../avatar-style/body5.js';
 const hero = JSON.parse(readFileSync('cast/hero.json', 'utf8')).HERO, HC = heroColours(hero);
-const P = (o) => ({tier: 'hero', body: 'v5', faceStyle: 'v5', ...o});
+const P = (o) => ({tier: 'hero', body: 'v5', faceStyle: 'v5', faceBox: [.9, .03], ...o});   // Look 6 (owner): face box .9 of the head front, eye line +3 %
 const outfit = (recipe, main, legs, skin) => { const o = heroSafeOutfit({recipe, main, legs}, HC); return {regions: outfitRegions(o, skin), safe: o}; };
 const make = (name, d) => { const {regions, safe} = outfit(d.recipe, d.main, d.legs, d.skin); const {recipe, main, legs, ...rest} = d; return [name, P({...rest, regions, safeOutfit: safe})]; };
 const cast = Object.fromEntries([
@@ -16,7 +16,7 @@ const cast = Object.fromEntries([
     regions: {...hero.regions, bands: [
       {part: 'torso', y: .55, h: .32, w: 4.2, d: 1.12, color: '#FFD542'}, {part: 'torso', y: -.35, h: .32, w: 4.2, d: 1.12, color: '#0D7CD4'},
       {part: 'leftLeg', y: .55, h: .3, w: 2.1, x: .5, color: '#0D7CD4'}, {part: 'leftLeg', y: -.45, h: .3, w: 2.1, x: .5, color: '#FFD542'}, {part: 'head', y: -.23, h: .22, color: '#0D7CD4'}]}})],
-  make('MO', {skin: '#c08457', scale: .84, build: 'youth', age: 11, hair: {style: 'curly_top', color: '#2e1a12', v: 4}, face: 'grin', accessories: [{name: 'beanie', color: '#ffc233', cuff: '#ffb000'}, {name: 'hoodieStrings'}], recipe: 'hoodie', main: '#2fd6bf', legs: '#e8d9b5', role: 'Mo, teal hoodie + beanie'}),
+  make('MO', {skin: '#c08457', scale: .84, build: 'youth', age: 11, hair: {style: 'curly_top', color: '#2e1a12', v: 4}, face: 'grin', accessories: [{name: 'beanie', color: '#ffc233', cuff: '#ffb000', tilt: -.45}, {name: 'hoodieStrings'}], recipe: 'hoodie', main: '#2fd6bf', legs: '#e8d9b5', role: 'Mo, teal hoodie + beanie'}),
   make('PIP', {skin: '#e0a77a', build: 'elder_m', age: 71, hair: {style: 'side_part', color: '#c9c9c9', v: 4}, face: 'steady', recipe: 'tunic', main: '#8c3b4a', legs: '#d8cfc0', role: 'Pip, the old man'}),
   make('YOUNG_PIP', {skin: '#c9a982', scale: .8, build: 'youth', age: 12, hair: {style: 'messy_fringe', color: '#6b5238', v: 4}, face: 'polite', recipe: 'tee', main: '#8a6a44', legs: '#b8a07a', role: 'Young Pip, as in the photo (sepia)'}),
   make('MO_DAD', {skin: '#c08457', build: 'adult_m', age: 41, hair: {style: 'quiff', color: '#2e1a12', v: 4}, face: 'smile', recipe: 'hoodie', main: '#e8742a', legs: '#9fb0c4', role: "Mo's dad, orange work jacket"}),

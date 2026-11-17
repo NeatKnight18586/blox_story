@@ -1,0 +1,170 @@
+{
+ "spec": "engine/fixtures/toyhouse/set6.json",
+ "size": [
+  1080,
+  1920
+ ],
+ "bake": [
+  {
+   "meshes": 226,
+   "vertices": 205896,
+   "voxels": [
+    306,
+    79,
+    424
+   ],
+   "ms": 1741
+  },
+  {
+   "meshes": 27,
+   "vertices": 30552,
+   "voxels": [
+    522,
+    79,
+    442
+   ],
+   "ms": 293
+  }
+ ],
+ "sep": {
+  "S2-aisle": {
+   "size": "wide",
+   "subject": "hero",
+   "subjL": 0.385,
+   "bgL": 0.238,
+   "localBg": 0.238,
+   "contrast": 0.621,
+   "rim": 0.885
+  },
+  "S3-counter": {
+   "size": "close",
+   "subject": "pip",
+   "subjL": 0.494,
+   "bgL": 0.204,
+   "localBg": 0.204,
+   "contrast": 1.419,
+   "rim": 1.141
+  },
+  "S4-candy": {
+   "size": "medium",
+   "subject": "mo",
+   "subjL": 0.586,
+   "bgL": 0.24,
+   "localBg": 0.24,
+   "contrast": 1.445,
+   "rim": 0.911
+  },
+  "S6-scale": {
+   "size": "wide",
+   "subject": "hero",
+   "subjL": 0.397,
+   "bgL": 0.224,
+   "localBg": 0.261,
+   "contrast": 0.525,
+   "rim": 1.013
+  },
+  "S8-track": {
+   "size": "wide",
+   "subject": "taped",
+   "subjL": 0.365,
+   "bgL": 0.166,
+   "localBg": 0.161,
+   "contrast": 1.263,
+   "rim": 1.006
+  },
+  "S9-arena": {
+   "size": "wide",
+   "subject": "dad",
+   "subjL": 0.329,
+   "bgL": 0.192,
+   "localBg": 0.198,
+   "contrast": 0.66,
+   "rim": 0.989
+  },
+  "S10-pit": {
+   "size": "wide",
+   "subject": "youngpip",
+   "subjL": 0.435,
+   "bgL": 0.289,
+   "localBg": 0.288,
+   "contrast": 0.51,
+   "rim": 1.042
+  }
+ },
+ "haze": {
+  "S2-aisle": 0.764,
+  "S3-counter": "n/a",
+  "S4-candy": "n/a",
+  "S6-scale": 1.499,
+  "S7-hall": "n/a",
+  "S8-track": "n/a",
+  "S9-arena": "n/a",
+  "S10-pit": "n/a",
+  "S11-hyperbox": "n/a",
+  "S12-overlook": 1.948,
+  "S13-mountain": 2.499,
+  "S14-train": "n/a"
+ },
+ "ceiling": {
+  "S2-aisle": 0.068,
+  "S3-counter": "n/a",
+  "S4-candy": "n/a",
+  "S6-scale": 0.041,
+  "S7-hall": 0.045,
+  "S8-track": 0.068,
+  "S9-arena": 0.064,
+  "S10-pit": 0.204,
+  "S11-hyperbox": "n/a",
+  "S12-overlook": 0.038,
+  "S13-mountain": 0.042,
+  "S14-train": 0.042
+ },
+ "topDown": {
+  "floorRGB": [
+   125,
+   118,
+   87
+  ],
+  "zoneDeltaRGB": {
+   "counter": 49.2,
+   "candy": 79.1,
+   "tramp": 52.4,
+   "gadget": 108.5,
+   "arena": 66.9,
+   "pit": 41.5,
+   "track": 120.1,
+   "aisles": 45.3,
+   "mountain": 155.6,
+   "far": 142.4,
+   "mezz": 151.8
+  }
+ },
+ "bench": {
+  "s720": 0.262,
+  "s1080": 0.49,
+  "maxTriangles": 88808
+ },
+ "failures": [
+  "subject S2-aisle: luma 0.385 outside .45–.75",
+  "rim S2-aisle: edge/interior 0.885 < 1.3",
+  "background S3-counter: luma 0.204 outside .22–.40",
+  "rim S3-counter: edge/interior 1.141 < 1.3",
+  "rim S4-candy: edge/interior 0.911 < 1.3",
+  "subject S6-scale: luma 0.397 outside .45–.75",
+  "rim S6-scale: edge/interior 1.013 < 1.3",
+  "background S8-track: luma 0.166 outside .22–.40",
+  "subject S8-track: luma 0.365 outside .45–.75",
+  "rim S8-track: edge/interior 1.006 < 1.3",
+  "background S9-arena: luma 0.192 outside .22–.40",
+  "subject S9-arena: luma 0.329 outside .45–.75",
+  "rim S9-arena: edge/interior 0.989 < 1.3",
+  "subject S10-pit: luma 0.435 outside .45–.75",
+  "rim S10-pit: edge/interior 1.042 < 1.3",
+  "haze S2-aisle: same-class far/near 0.764 > 0.50",
+  "haze S6-scale: same-class far/near 1.499 > 0.50",
+  "haze S12-overlook: same-class far/near 1.948 > 0.50",
+  "haze S13-mountain: same-class far/near 2.499 > 0.50",
+  "ceiling S10-pit: median luma 0.204 > .12"
+ ],
+ "result": "FAIL"
+}

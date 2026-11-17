@@ -1,5 +1,5 @@
 {
- "note": "Format v4 Phase 2 look presets (data, not code). base = the createLook preset fields; v4 = tone mapping, env, bake, glow, grade. Tuning pass 1 (look-ab sheet): comedy exposure 1.1→1.45 + LUT saturation 1.15→1.3 (AgX desaturates); mystery exposure 1.0→1.7, hemi .35→.9, moon .55→1.3, baked sky .38→.7 (actors were unreadable). Phase 2b: comedy tone mapping Khronos PBR Neutral (keeps saturation), exposure 1.0; mystery keeps AgX. Phase 3b: `toy` (bright interior, practicals baked) and `dawn` (rose horizon, low warm sun) for the Toy House sets. Phase 3b-R: toy = muted hazy interior (fog 30-260 + height haze), material classes (v4.materials), cool strips baked; toyTop = toy for straight-down shots (haze pushed past the floor); dawn retuned warm gold (less mauve). Look 5b (opt-in spec look5b): `v5b` per preset = actor fresnel rim (colour, strength, power), actor lift actorEV vs the world, world grade envEV + envCool, exposureEV (daylight/toy +0.5, night 0), contact blob, camera noise, overshoot, breathing, springs, motion blur.",
+ "note": "Format v4 Phase 2 look presets (data, not code). base = the createLook preset fields; v4 = tone mapping, env, bake, glow, grade. Tuning pass 1 (look-ab sheet): comedy exposure 1.1→1.45 + LUT saturation 1.15→1.3 (AgX desaturates); mystery exposure 1.0→1.7, hemi .35→.9, moon .55→1.3, baked sky .38→.7 (actors were unreadable). Phase 2b: comedy tone mapping Khronos PBR Neutral (keeps saturation), exposure 1.0; mystery keeps AgX. Phase 3b: `toy` (bright interior, practicals baked) and `dawn` (rose horizon, low warm sun) for the Toy House sets. Phase 3b-R: toy = muted hazy interior (fog 30-260 + height haze), material classes (v4.materials), cool strips baked; toyTop = toy for straight-down shots (haze pushed past the floor); dawn retuned warm gold (less mauve). Look 5b (opt-in spec look5b): `v5b` per preset = actor fresnel rim (colour, strength, power), actor lift actorEV vs the world, world grade envEV + envCool, exposureEV (daylight/toy +0.5, night 0), contact blob, camera noise, overshoot, breathing, springs, motion blur. Look 6: toyNight / toyNightTop / toyLate / toyDawn = after-hours hall (baked light layers mixed per state, block v6); rim (owner, 8159612) x0.4, power 4, away from the key in every toy-family v5b block.",
  "comedy": {
   "base": {
    "skyTop": "#1f7cff",
@@ -265,8 +265,9 @@
   "v5b": {
    "rim": {
     "color": "#BFD8FF",
-    "strength": 1.0,
-    "power": 1.8
+    "strength": 0.4,
+    "power": 4.0,
+    "away": 1
    },
    "shade": 0.45,
    "knee": 0.55,
@@ -289,8 +290,8 @@
  },
  "dawn": {
   "base": {
-   "skyTop": "#6f8fc4",
-   "skyHorizon": "#ffc874",
+   "skyTop": "#f2b878",
+   "skyHorizon": "#ffdca8",
    "fog": "#f0cf9a",
    "fogNear": 70,
    "fogFar": 320,
@@ -384,8 +385,9 @@
   "v5b": {
    "rim": {
     "color": "#BFD8FF",
-    "strength": 1.0,
-    "power": 1.8
+    "strength": 0.4,
+    "power": 4.0,
+    "away": 1
    },
    "shade": 0.45,
    "knee": 0.55,
@@ -507,8 +509,9 @@
   "v5b": {
    "rim": {
     "color": "#BFD8FF",
-    "strength": 1.0,
-    "power": 1.8
+    "strength": 0.4,
+    "power": 4.0,
+    "away": 1
    },
    "shade": 0.45,
    "knee": 0.55,
@@ -526,6 +529,654 @@
    "breathe": true,
    "springs": 2,
    "motionBlur": true
+  }
+ },
+ "toyNight": {
+  "base": {
+   "skyTop": "#0b0f1c",
+   "skyHorizon": "#1a2033",
+   "fog": "#11141f",
+   "fogNear": 12,
+   "fogFar": 150,
+   "hemiSky": "#ffdcae",
+   "hemiGround": "#463a4a",
+   "hemi": 2.0,
+   "sun": "#ffd49a",
+   "sunI": 2.2,
+   "sunEl": 60,
+   "sunAz": 20,
+   "rim": "#ffffff",
+   "rimI": 0.0,
+   "cloud": "#ffffff",
+   "exposure": 1.0,
+   "windows": 0
+  },
+  "v4": {
+   "toneMapping": "Neutral",
+   "envIntensity": 0.5,
+   "clouds": null,
+   "heightFog": {
+    "base": 0,
+    "falloff": 14,
+    "amount": 0.8,
+    "near": 20,
+    "ref": 150
+   },
+   "shadowCatcher": 0.35,
+   "glass": {
+    "color": "#9fc4e8",
+    "reflect": 0.6
+   },
+   "bake": {
+    "sun": [
+     1,
+     0.9,
+     0.75
+    ],
+    "sunI": 0.0,
+    "sky": [
+     0.42,
+     0.48,
+     0.68
+    ],
+    "skyI": 0.28,
+    "ground": [
+     0.4,
+     0.35,
+     0.32
+    ],
+    "groundI": 0.16,
+    "aoDist": 4.0,
+    "lights": true,
+    "heightFade": {
+     "y0": 3,
+     "y1": 26,
+     "min": 0.15
+    }
+   },
+   "staticReflect": 0.06,
+   "lut": "comedy",
+   "materials": {
+    "plastic": {
+     "roughness": 0.35
+    },
+    "plush": {
+     "roughness": 0.9,
+     "envHighlight": false
+    },
+    "floor": {
+     "pattern": "polishedFloor",
+     "roughness": 0.2
+    },
+    "cardboard": {
+     "roughness": 0.85,
+     "envHighlight": false
+    },
+    "metal": {
+     "roughness": 0.4,
+     "metalness": 0.6
+    },
+    "glass": {
+     "roughness": 0.1
+    },
+    "plaster": {
+     "pattern": "plaster",
+     "roughness": 0.9,
+     "envHighlight": false
+    },
+    "asphalt": {
+     "pattern": "asphaltLane",
+     "roughness": 0.85,
+     "envHighlight": false
+    },
+    "timber": {
+     "pattern": "timber",
+     "roughness": 0.7,
+     "envHighlight": false
+    }
+   }
+  },
+  "v5b": {
+   "rim": {
+    "color": "#BFD8FF",
+    "strength": 0.4,
+    "power": 4.0,
+    "away": 1
+   },
+   "shade": 0.45,
+   "knee": 0.8,
+   "relief": 0.6,
+   "actorEV": 0.3,
+   "envEV": -0.15,
+   "envCool": 0.05,
+   "exposureEV": 1.1,
+   "blob": {
+    "opacity": 0.45,
+    "radius": 0.6
+   },
+   "camNoiseDeg": 0.15,
+   "overshoot": 0.12,
+   "breathe": true,
+   "springs": 2,
+   "motionBlur": true,
+   "fogFar": 150
+  },
+  "v6": {
+   "note": "Look 6 light state. layers = weights of the baked light layers [pendants A, pendants B, zone colour lights, shutter slats]; base = ambient scale; cascade: pendants + signs ramp with lightsCascade (pre = layer weights before it starts); strips = cool fluorescent strips (0 off); signs / shelfGlow = emissive levels; banners = banner colour scale; shelfTop = gondola colour at the top shelf (fall-off into dark).",
+   "layers": [
+    1,
+    1,
+    1,
+    0
+   ],
+   "base": 1.0,
+   "cascade": true,
+   "pre": [
+    0,
+    0,
+    0,
+    0.55
+   ],
+   "strips": 0,
+   "signs": 1,
+   "shelfGlow": 1,
+   "banners": 0.22,
+   "shelfTop": 0.25,
+   "pendants": [
+    1,
+    1
+   ],
+   "actorPool": {
+    "base": 0.6,
+    "k": 2.0,
+    "max": 3.0
+   }
+  }
+ },
+ "toyNightTop": {
+  "base": {
+   "skyTop": "#0b0f1c",
+   "skyHorizon": "#1a2033",
+   "fog": "#11141f",
+   "fogNear": 280,
+   "fogFar": 900,
+   "hemiSky": "#ffdcae",
+   "hemiGround": "#463a4a",
+   "hemi": 2.0,
+   "sun": "#ffd49a",
+   "sunI": 2.2,
+   "sunEl": 60,
+   "sunAz": 20,
+   "rim": "#ffffff",
+   "rimI": 0.0,
+   "cloud": "#ffffff",
+   "exposure": 1.0,
+   "windows": 0
+  },
+  "v4": {
+   "toneMapping": "Neutral",
+   "envIntensity": 0.5,
+   "clouds": null,
+   "heightFog": {
+    "base": 0,
+    "falloff": 14,
+    "amount": 0.8,
+    "near": 20,
+    "ref": 150
+   },
+   "shadowCatcher": 0.35,
+   "glass": {
+    "color": "#9fc4e8",
+    "reflect": 0.6
+   },
+   "bake": {
+    "sun": [
+     1,
+     0.9,
+     0.75
+    ],
+    "sunI": 0.0,
+    "sky": [
+     0.42,
+     0.48,
+     0.68
+    ],
+    "skyI": 0.28,
+    "ground": [
+     0.4,
+     0.35,
+     0.32
+    ],
+    "groundI": 0.16,
+    "aoDist": 4.0,
+    "lights": true,
+    "heightFade": {
+     "y0": 3,
+     "y1": 26,
+     "min": 0.15
+    }
+   },
+   "staticReflect": 0.06,
+   "lut": "comedy",
+   "materials": {
+    "plastic": {
+     "roughness": 0.35
+    },
+    "plush": {
+     "roughness": 0.9,
+     "envHighlight": false
+    },
+    "floor": {
+     "pattern": "polishedFloor",
+     "roughness": 0.2
+    },
+    "cardboard": {
+     "roughness": 0.85,
+     "envHighlight": false
+    },
+    "metal": {
+     "roughness": 0.4,
+     "metalness": 0.6
+    },
+    "glass": {
+     "roughness": 0.1
+    },
+    "plaster": {
+     "pattern": "plaster",
+     "roughness": 0.9,
+     "envHighlight": false
+    },
+    "asphalt": {
+     "pattern": "asphaltLane",
+     "roughness": 0.85,
+     "envHighlight": false
+    },
+    "timber": {
+     "pattern": "timber",
+     "roughness": 0.7,
+     "envHighlight": false
+    }
+   }
+  },
+  "v5b": {
+   "rim": {
+    "color": "#BFD8FF",
+    "strength": 0.4,
+    "power": 4.0,
+    "away": 1
+   },
+   "shade": 0.45,
+   "knee": 0.8,
+   "relief": 0.6,
+   "actorEV": 0.3,
+   "envEV": -0.15,
+   "envCool": 0.05,
+   "exposureEV": 1.1,
+   "blob": {
+    "opacity": 0.45,
+    "radius": 0.6
+   },
+   "camNoiseDeg": 0.15,
+   "overshoot": 0.12,
+   "breathe": true,
+   "springs": 2,
+   "motionBlur": true,
+   "fogFar": 900
+  },
+  "v6": {
+   "note": "Look 6 light state. layers = weights of the baked light layers [pendants A, pendants B, zone colour lights, shutter slats]; base = ambient scale; cascade: pendants + signs ramp with lightsCascade (pre = layer weights before it starts); strips = cool fluorescent strips (0 off); signs / shelfGlow = emissive levels; banners = banner colour scale; shelfTop = gondola colour at the top shelf (fall-off into dark).",
+   "layers": [
+    1,
+    1,
+    1,
+    0
+   ],
+   "base": 1.0,
+   "cascade": true,
+   "pre": [
+    0,
+    0,
+    0,
+    0.55
+   ],
+   "strips": 0,
+   "signs": 1,
+   "shelfGlow": 1,
+   "banners": 0.22,
+   "shelfTop": 0.25,
+   "pendants": [
+    1,
+    1
+   ],
+   "actorPool": {
+    "base": 0.6,
+    "k": 2.0,
+    "max": 3.0
+   }
+  }
+ },
+ "toyLate": {
+  "base": {
+   "skyTop": "#0b0f1c",
+   "skyHorizon": "#1a2033",
+   "fog": "#0f121c",
+   "fogNear": 12,
+   "fogFar": 150,
+   "hemiSky": "#ffdcae",
+   "hemiGround": "#463a4a",
+   "hemi": 2.0,
+   "sun": "#ffd49a",
+   "sunI": 2.2,
+   "sunEl": 60,
+   "sunAz": 20,
+   "rim": "#ffffff",
+   "rimI": 0.0,
+   "cloud": "#ffffff",
+   "exposure": 1.0,
+   "windows": 0
+  },
+  "v4": {
+   "toneMapping": "Neutral",
+   "envIntensity": 0.5,
+   "clouds": null,
+   "heightFog": {
+    "base": 0,
+    "falloff": 14,
+    "amount": 0.8,
+    "near": 20,
+    "ref": 150
+   },
+   "shadowCatcher": 0.35,
+   "glass": {
+    "color": "#9fc4e8",
+    "reflect": 0.6
+   },
+   "bake": {
+    "sun": [
+     1,
+     0.9,
+     0.75
+    ],
+    "sunI": 0.0,
+    "sky": [
+     0.42,
+     0.48,
+     0.68
+    ],
+    "skyI": 0.28,
+    "ground": [
+     0.4,
+     0.35,
+     0.32
+    ],
+    "groundI": 0.16,
+    "aoDist": 4.0,
+    "lights": true,
+    "heightFade": {
+     "y0": 3,
+     "y1": 26,
+     "min": 0.15
+    }
+   },
+   "staticReflect": 0.06,
+   "lut": "comedy",
+   "materials": {
+    "plastic": {
+     "roughness": 0.35
+    },
+    "plush": {
+     "roughness": 0.9,
+     "envHighlight": false
+    },
+    "floor": {
+     "pattern": "polishedFloor",
+     "roughness": 0.2
+    },
+    "cardboard": {
+     "roughness": 0.85,
+     "envHighlight": false
+    },
+    "metal": {
+     "roughness": 0.4,
+     "metalness": 0.6
+    },
+    "glass": {
+     "roughness": 0.1
+    },
+    "plaster": {
+     "pattern": "plaster",
+     "roughness": 0.9,
+     "envHighlight": false
+    },
+    "asphalt": {
+     "pattern": "asphaltLane",
+     "roughness": 0.85,
+     "envHighlight": false
+    },
+    "timber": {
+     "pattern": "timber",
+     "roughness": 0.7,
+     "envHighlight": false
+    }
+   }
+  },
+  "v5b": {
+   "rim": {
+    "color": "#BFD8FF",
+    "strength": 0.4,
+    "power": 4.0,
+    "away": 1
+   },
+   "shade": 0.45,
+   "knee": 0.8,
+   "relief": 0.6,
+   "actorEV": 0.3,
+   "envEV": -0.15,
+   "envCool": 0.05,
+   "exposureEV": 1.1,
+   "blob": {
+    "opacity": 0.45,
+    "radius": 0.6
+   },
+   "camNoiseDeg": 0.15,
+   "overshoot": 0.12,
+   "breathe": true,
+   "springs": 2,
+   "motionBlur": true,
+   "fogFar": 150
+  },
+  "v6": {
+   "note": "Look 6 light state. layers = weights of the baked light layers [pendants A, pendants B, zone colour lights, shutter slats]; base = ambient scale; cascade: pendants + signs ramp with lightsCascade (pre = layer weights before it starts); strips = cool fluorescent strips (0 off); signs / shelfGlow = emissive levels; banners = banner colour scale; shelfTop = gondola colour at the top shelf (fall-off into dark).",
+   "layers": [
+    1,
+    0,
+    1,
+    0
+   ],
+   "base": 0.85,
+   "cascade": false,
+   "pre": [
+    0,
+    0,
+    0,
+    0.55
+   ],
+   "strips": 0,
+   "signs": 1,
+   "shelfGlow": 0.8,
+   "banners": 0.18,
+   "shelfTop": 0.25,
+   "pendants": [
+    1,
+    0
+   ],
+   "actorPool": {
+    "base": 0.6,
+    "k": 2.0,
+    "max": 3.0
+   }
+  }
+ },
+ "toyDawn": {
+  "base": {
+   "skyTop": "#0b0f1c",
+   "skyHorizon": "#1a2033",
+   "fog": "#2a2530",
+   "fogNear": 12,
+   "fogFar": 150,
+   "hemiSky": "#ffd39a",
+   "hemiGround": "#463a4a",
+   "hemi": 2.0,
+   "sun": "#ffc47a",
+   "sunI": 2.2,
+   "sunEl": 60,
+   "sunAz": 20,
+   "rim": "#ffffff",
+   "rimI": 0.0,
+   "cloud": "#ffffff",
+   "exposure": 1.0,
+   "windows": 0
+  },
+  "v4": {
+   "toneMapping": "Neutral",
+   "envIntensity": 0.5,
+   "clouds": null,
+   "heightFog": {
+    "base": 0,
+    "falloff": 14,
+    "amount": 0.8,
+    "near": 20,
+    "ref": 150
+   },
+   "shadowCatcher": 0.35,
+   "glass": {
+    "color": "#9fc4e8",
+    "reflect": 0.6
+   },
+   "bake": {
+    "sun": [
+     1,
+     0.9,
+     0.75
+    ],
+    "sunI": 0.0,
+    "sky": [
+     0.42,
+     0.48,
+     0.68
+    ],
+    "skyI": 0.28,
+    "ground": [
+     0.4,
+     0.35,
+     0.32
+    ],
+    "groundI": 0.16,
+    "aoDist": 4.0,
+    "lights": true,
+    "heightFade": {
+     "y0": 3,
+     "y1": 26,
+     "min": 0.15
+    }
+   },
+   "staticReflect": 0.06,
+   "lut": "comedy",
+   "materials": {
+    "plastic": {
+     "roughness": 0.35
+    },
+    "plush": {
+     "roughness": 0.9,
+     "envHighlight": false
+    },
+    "floor": {
+     "pattern": "polishedFloor",
+     "roughness": 0.2
+    },
+    "cardboard": {
+     "roughness": 0.85,
+     "envHighlight": false
+    },
+    "metal": {
+     "roughness": 0.4,
+     "metalness": 0.6
+    },
+    "glass": {
+     "roughness": 0.1
+    },
+    "plaster": {
+     "pattern": "plaster",
+     "roughness": 0.9,
+     "envHighlight": false
+    },
+    "asphalt": {
+     "pattern": "asphaltLane",
+     "roughness": 0.85,
+     "envHighlight": false
+    },
+    "timber": {
+     "pattern": "timber",
+     "roughness": 0.7,
+     "envHighlight": false
+    }
+   }
+  },
+  "v5b": {
+   "rim": {
+    "color": "#BFD8FF",
+    "strength": 0.4,
+    "power": 4.0,
+    "away": 1
+   },
+   "shade": 0.45,
+   "knee": 0.8,
+   "relief": 0.6,
+   "actorEV": 0.3,
+   "envEV": -0.15,
+   "envCool": 0.05,
+   "exposureEV": 1.1,
+   "blob": {
+    "opacity": 0.45,
+    "radius": 0.6
+   },
+   "camNoiseDeg": 0.15,
+   "overshoot": 0.12,
+   "breathe": true,
+   "springs": 2,
+   "motionBlur": true,
+   "fogFar": 150
+  },
+  "v6": {
+   "note": "Look 6 light state. layers = weights of the baked light layers [pendants A, pendants B, zone colour lights, shutter slats]; base = ambient scale; cascade: pendants + signs ramp with lightsCascade (pre = layer weights before it starts); strips = cool fluorescent strips (0 off); signs / shelfGlow = emissive levels; banners = banner colour scale; shelfTop = gondola colour at the top shelf (fall-off into dark).",
+   "layers": [
+    1,
+    0,
+    0.55,
+    1
+   ],
+   "base": 1.15,
+   "cascade": false,
+   "pre": [
+    0,
+    0,
+    0,
+    0.55
+   ],
+   "strips": 0,
+   "signs": 0.7,
+   "shelfGlow": 0.5,
+   "banners": 0.3,
+   "shelfTop": 0.25,
+   "pendants": [
+    1,
+    0
+   ],
+   "actorPool": {
+    "base": 0.6,
+    "k": 2.0,
+    "max": 3.0
+   }
   }
  }
 }

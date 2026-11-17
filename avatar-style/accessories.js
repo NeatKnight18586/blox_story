@@ -62,10 +62,12 @@ const BUILD = {
   // Amendment A3 class accessories.
   // format v5 (Toy House): a knit beanie pushed back — a shell over the top 55 % of the head, a folded cuff and a pom-pom
   beanie(o) {
-    const grp = new T.Group(), c = flat(o.color ?? '#ffd542'), cuff = flat(o.cuff ?? o.color ?? '#ffd542'), cy = HEAD.centre + .18;
-    put(grp, g('beanie_shell', () => { const s = new T.SphereGeometry(.94, 16, 10, 0, Math.PI * 2, 0, Math.PI * .5); s.scale(1, 1.0, .98); return s; }), c, [0, cy, -.05], [-.1, 0, 0]);
-    put(grp, g('beanie_cuff', () => { const t = new T.CylinderGeometry(.945, .95, .24, 16, 1, true); t.scale(1, 1, .98); return t; }), cuff, [0, cy - .03, -.05], [-.1, 0, 0]);
-    put(grp, g('beanie_pom', () => new T.IcosahedronGeometry(.2, 0)), cuff, [0, cy + 1.06, -.12], [0, 0, 0], 'beanie_pom');   // named: Look 5b springs find it
+    // Look 6 (opt-in o.tilt, o.lift): pushed further back so the brows show (Mo); the pompom rides the tilted crown
+    const grp = new T.Group(), c = flat(o.color ?? '#ffd542'), cuff = flat(o.cuff ?? o.color ?? '#ffd542'), cy = HEAD.centre + .18 + (o.lift ?? 0), tilt = o.tilt ?? -.1;
+    put(grp, g('beanie_shell', () => { const s = new T.SphereGeometry(.94, 16, 10, 0, Math.PI * 2, 0, Math.PI * .5); s.scale(1, 1.0, .98); return s; }), c, [0, cy, -.05], [tilt, 0, 0]);
+    put(grp, g('beanie_cuff', () => { const t = new T.CylinderGeometry(.945, .95, .24, 16, 1, true); t.scale(1, 1, .98); return t; }), cuff, [0, cy - .03, -.05], [tilt, 0, 0]);
+    const pom = o.tilt === undefined ? [0, cy + 1.06, -.12] : [0, cy + 1.06 * Math.cos(tilt), -.05 + 1.06 * Math.sin(tilt)];
+    put(grp, g('beanie_pom', () => new T.IcosahedronGeometry(.2, 0)), cuff, pom, [0, 0, 0], 'beanie_pom');   // named: Look 5b springs find it
     return grp;
   },
   // Look 5b (opt-in, cast data): two hoodie drawstrings hanging from the collar; each hangs from a pivot group so a spring can swing it

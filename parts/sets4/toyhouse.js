@@ -15,6 +15,7 @@ import {toyProp} from './props4.js';
 import {bevelBoxGeometry, roundCylGeometry, boxDist, classMat, envColor, storyColor, contactDecals, bevelCensus, envCensus, applyHierarchy, BEVEL, CLASSES5} from './look5.js';
 import {buildShelves, MODULE} from './shelves.js';
 import {cellUV, boxArtTexture, loadBoxArt} from './boxart.js';
+import {lightState6, lampOn, cascadeOrder, shelfLight, patchShelf} from '../../engine/look6.js';
 export const preload = base => loadBoxArt(base);   // episode.js awaits a world's preload(base) before build (opt-in)
 
 const {x: X, z0: Z0, z1: Z1, h: H, l2: L2, l3: L3} = HALL;
@@ -80,7 +81,7 @@ const kerbTex = () => { if (kerbT) return kerbT; const a = new T.Color(envColor(
 export const isNear = (min, max, cams = ANCHOR_CAMS, r = NEAR) => cams.some(c => boxDist(c, min, max) <= r);
 
 export function build(scene, {M4, look4, spec, front = true} = {}) {   // front: false = the street module supplies the front wall (composite world)
-  const CL = look4?.preset?.v4?.materials ?? CLASSES5, art = boxArtTexture();
+  const CL = look4?.preset?.v4?.materials ?? CLASSES5, art = boxArtTexture(), L6 = !!spec?.look6;   // Look 6 (opt-in): after-hours light states
   const mat = (cls, color, o = {}) => classMat(M4, CL, cls, color, o), story = (color, o = {}) => classMat(M4, CL, 'plastic', color, {...o, story: true});
   const g = new T.Group(); g.name = 'toyhouse'; const live = new T.Group(); live.name = 'toyhouse_live'; live.userData.live = true; const rand = rnd(7);
   // districts: merged per (name, 50 × 50 cell). A cell with a coarse twin (sharp, untessellated) swaps to it when the camera is
@@ -185,15 +186,16 @@ export function build(scene, {M4, look4, spec, front = true} = {}) {   // front:
   const cz = 27.5; bx('counter', 12, 3.4, 2.4, '#e8dccb', [0, 1.7, cz]); bx('counter', 12.6, .3, 3.0, '#b8796c', [0, 3.5, cz]); bx('counter', 12, 3.4, .3, '#7d93b5', [0, 1.7, cz + 1.3]); contact.push({x: 0, z: cz, w: 12.2, d: 2.6});
   bx('counter', 17, 10, .4, '#efe6d8', [0, 5, 31.6]); bx('counter', 17.4, .5, .5, '#b8796c', [0, 10.2, 31.6]); bx('counter', .5, 10, .5, '#b8796c', [-8.7, 5, 31.6]); bx('counter', .5, 10, .5, '#b8796c', [8.7, 5, 31.6]);
   prop('counter', 'register', 1, [3.8, 3.65, cz], {rot: [0, Math.PI, 0]});
-  prop('counter', 'hook', 1, [-4.4, 5.6, 31.25], {rot: [0, Math.PI, 0]}); prop('counter', 'key', 1, [-4.4, 5.05, 30.95], {rot: [0, Math.PI, 0], scale: 1.15, name: 'key', story: true});
-  prop('counter', 'photoFrame', 1, [4.6, 6.0, 31.25], {rot: [0, Math.PI, 0], scale: 1.25});
+  const KX = L6 ? -2.0 : -4.4, PX = L6 ? 2.5 : 4.6;   // Look 6 framing (owner): key on its hook + photo either side of Pip's face in the counter close
+  prop('counter', 'hook', 1, [KX, 5.6, 31.25], {rot: [0, Math.PI, 0]}); prop('counter', 'key', 1, [KX, 5.05, 30.95], {rot: [0, Math.PI, 0], scale: 1.15, name: 'key', story: true});
+  prop('counter', 'photoFrame', 1, [PX, L6 ? 5.6 : 6.0, 31.25], {rot: [0, Math.PI, 0], scale: 1.25});
   const clock = new T.Group(); clock.name = 'clock'; clock.userData.live = true; clock.userData.story = true; { let map = null; if (typeof document !== 'undefined') { const c = document.createElement('canvas'); c.width = c.height = 512; const x = c.getContext('2d'); x.fillStyle = '#ffcc1f'; x.beginPath(); x.arc(256, 256, 250, 0, 7); x.fill(); x.strokeStyle = '#e8332b'; x.lineWidth = 30; x.stroke();
       x.fillStyle = '#2b1d10'; x.font = 'bold 64px Arial Black, sans-serif'; x.textAlign = 'center'; x.textBaseline = 'middle'; for (let h = 1; h <= 12; h++) { const a = h / 12 * Math.PI * 2; x.fillText(String(h), 256 + Math.sin(a) * 185, 256 - Math.cos(a) * 185); } map = new T.CanvasTexture(c); map.colorSpace = T.SRGBColorSpace; map.anisotropy = 8; }
     const face = new T.Mesh(new T.CircleGeometry(2.3, 32), new T.MeshBasicMaterial({map, color: map ? '#ffffff' : '#ffcc1f'})); face.name = 'clockFace'; clock.add(face);
     const rim = new T.Mesh(new T.TorusGeometry(2.35, .16, 6, 32), new T.MeshBasicMaterial({color: '#e8332b'})); rim.name = 'clockRim'; clock.add(rim);
     const hand = (w, l, c, n) => { const p = new T.Group(); const m = new T.Mesh(new T.BoxGeometry(w, l, .06), new T.MeshBasicMaterial({color: c})); m.position.y = l / 2 - .15; p.add(m); p.position.z = .06; p.name = n; clock.add(p); return p; };
     clock.userData.hour = hand(.2, 1.2, '#2b1d10', 'hourHand'); clock.userData.minute = hand(.13, 1.9, '#2b1d10', 'minuteHand'); }
-  clock.position.set(0, 7.2, 31.3); clock.rotation.y = Math.PI; live.add(clock);
+  clock.position.set(L6 ? 1.4 : 0, L6 ? 8.4 : 7.2, 31.3); clock.rotation.y = Math.PI; if (L6) clock.scale.setScalar(.3); live.add(clock);   // Look 6: smaller, up behind Pip's head
   const setClock = min => { const h = (min / 60) % 12, m = min % 60; clock.userData.hour.rotation.z = -h / 12 * Math.PI * 2; clock.userData.minute.rotation.z = -m / 60 * Math.PI * 2; }; setClock(7 * 60 + 55);
   // ---- aisles: gondolas (instanced; near = bevelled, mid = sharp, far half = low-LOD) --------------------------------------------
   const rows = [...[-30, -18, -6, 6, 18, 30].map(x => ({x, z0: -66, z1: -10, lod: 'near'})), ...[-54, -42, -30, -18, -6, 6, 18, 30, 42, 54].map(x => ({x, z0: -144, z1: -80, lod: 'far', skip: [[-26, -134, 26, -90]]}))];
@@ -245,9 +247,52 @@ export function build(scene, {M4, look4, spec, front = true} = {}) {   // front:
   const cart = new T.Group(); cart.name = 'coasterCart'; for (let i = 0; i < 3; i++) { const c = new T.Mesh(bevelBoxGeometry(1.8, 1.0, 2.6, BEVEL, 10), mat('plastic', ['#c98b86', '#c9b37f', '#7d93b5'][i], {live: true})); c.position.set(0, -.9, -i * 2.9); cart.add(c); } live.add(cart);
   PRACTICALS.forEach(p => { const b = new T.Mesh(new T.IcosahedronGeometry(.3, 0), new T.MeshBasicMaterial({color: '#ffd68a', toneMapped: false})); b.position.set(...p); b.userData.live = true; b.name = 'railBulb'; live.add(b); });
   // warm practicals (visible): pendant lamps over the counter and the candy zone, with halos
-  for (const p of [[-5, 13.5, 27.5], [5, 13.5, 27.5], ...PEND]) { const l = new T.Mesh(roundCylGeometry(1.3, .9, BEVEL, 14, 4, .6), new T.MeshBasicMaterial({color: '#ffcf8a', toneMapped: false})); l.position.set(...p); l.userData.live = true; l.name = 'pendant'; live.add(l);
+  for (const p of L6 ? [] : [[-5, 13.5, 27.5], [5, 13.5, 27.5], ...PEND]) { const l = new T.Mesh(roundCylGeometry(1.3, .9, BEVEL, 14, 4, .6), new T.MeshBasicMaterial({color: '#ffcf8a', toneMapped: false})); l.position.set(...p); l.userData.live = true; l.name = 'pendant'; live.add(l);
     const cord = new T.Mesh(new T.CylinderGeometry(.05, .05, H - p[1], 4), new T.MeshBasicMaterial({color: '#4a4f58'})); cord.position.set(p[0], (H + p[1]) / 2, p[2]); cord.userData.live = true; live.add(cord);
     if (look4?.halo) live.add(look4.halo([p[0], p[1] - .6, p[2]], '#ffcf8a', 4.2, .55)); }
+  // ---- Look 6 (opt-in spec.look6): after-hours light — pendants with floor pools, zone signs + zone colour light, shutter slats, ---------
+  // shelf glow strips; light baked in layers [pendants A, pendants B, zone colour, slats] and mixed per state (world.setLight6)
+  const L6R = L6 ? (() => {
+    const warm = [1, .72, .45], hex = c => { const k = new T.Color(c); return [k.r, k.g, k.b]; };
+    // [x, z, group, lamp y]: group 0 = A (subject / zone pools, stay on in toyLate), 1 = B (fill, off in toyLate)
+    const PEND6 = [[0, 14, 0, 12], [-4, 26, 0, 11], [4, 26, 0, 11], [0, -20, 0], [-4, -6, 0], [63, -46, 0], [-54, -57, 0], [54.5, -10, 0], [-64, -27, 0], [-47, 11, 0], [-46, 24, 1],
+      [0, -44, 1], [-12, -28, 1], [12, -28, 1], [-24, -48, 1], [24, -48, 1], [-12, -60, 1], [12, -60, 1], [-24, 6, 1], [24, 6, 1], [-30, 24, 1], [30, 24, 1], [45, -64, 1], [-48, -71, 1], [47, -25, 1], [-36, -20, 1], [36, -20, 1], [-61, -49, 1], [-45, -50, 1], [60, -71, 1]].map(([x, z, gr, y = 10]) => ({x, z, gr, y}));
+    const POOL = 8, layers = [[], [], [], []];
+    for (const p of PEND6) layers[p.gr].push({p: [p.x, p.y - .4, p.z], color: warm, i: p.gr ? 1.2 : 1.5, pool: POOL});
+    const SIGNS6 = [
+      {text: 'KARTS', at: [46, 9.5, -77.5], face: ANCHORS.track.camera.position, color: '#ff6a3d', zone: [52, -58], w: 10},
+      {text: 'BLASTER ARENA', lines: ['BLASTER', 'ARENA'], at: [-53, 14.5, -80], face: ANCHORS.arena.camera.position, color: '#3dd6ff', zone: [-53, -64], w: 9, h: 3.8},
+      {text: 'CANDY', at: [-61, 10.5, 30.6], face: ANCHORS.candy.camera.position, color: '#ff5fb4', zone: [-52, 18], w: 10},
+      {text: 'GADGETS', at: [-74.3, 11.4, -27], face: [0, 11.4, -27], color: '#9a7bff', zone: [-66, -27], w: 11},
+      {text: 'BALL PIT', at: [51.5, 7.5, -30.6], face: ANCHORS.pit.camera.position, color: '#3d8bff', zone: [51.5, -20.5], w: 9}];
+    const signs = SIGNS6.map(sg => { const h = sg.h ?? 2.8, m = textPlate(sg.text, {w: sg.w, h, bg: '#15121d', fg: sg.color, border: sg.color, lines: sg.lines ?? null, name: 'zoneSign'});
+      m.material.toneMapped = false; m.position.set(...sg.at); m.rotation.y = Math.atan2(sg.face[0] - sg.at[0], sg.face[2] - sg.at[2]); live.add(m);
+      const back = new T.Mesh(new T.BoxGeometry(sg.w + .4, h + .4, .25), new T.MeshBasicMaterial({color: '#0d0c12'})); back.position.copy(m.position); back.rotation.copy(m.rotation); back.translateZ(-.16); back.userData.live = true; live.add(back);
+      const hl = look4?.halo ? look4.halo(sg.at, sg.color, sg.w * .8, .2) : null; if (hl) live.add(hl);
+      layers[2].push({p: [sg.zone[0], 6, sg.zone[1]], color: hex(sg.color), i: 2.8, range: 24});
+      const f = new T.Vector3(0, 0, 1.8).applyEuler(m.rotation); layers[2].push({p: [sg.at[0] + f.x, sg.at[1] - 1, sg.at[2] + f.z], color: hex(sg.color), i: 1.2, range: 11});
+      return {m, hl, at: sg.at}; });
+    for (const [x, z, c, i] of [[56, 22, '#38ffb0', 2.4], [0, 28, '#ff7a3d', 1.6]]) layers[2].push({p: [x, 6, z], color: hex(c), i, range: 14});   // trampoline + counter: their own colour (top-down reads)
+    // shutter slats: gold (dawn) / dusk spill through the slats — baked layer 3 + additive shafts onto the floor
+    for (const x of [-8, -4, 0, 4, 8]) layers[3].push({p: [x, 7, 33.4], color: [1, .7, .36], i: 1.5, range: 30});
+    const shaftM = new T.MeshBasicMaterial({color: '#ffc46a', transparent: true, opacity: 0, blending: T.AdditiveBlending, depthWrite: false, side: T.DoubleSide, fog: false, toneMapped: false}), shafts = [];
+    for (let i = 0; i < 7; i++) { const x = -7.5 + i * 2.5, gg = new T.BufferGeometry(); gg.setAttribute('position', new T.Float32BufferAttribute([x - .35, 9, 34.6, x + .35, 9, 34.6, x + 1.1, .07, 15, x - 1.1, .07, 15], 3)); gg.setIndex([0, 1, 2, 0, 2, 3]);
+      const sh = new T.Mesh(gg, shaftM); sh.name = 'slatShaft'; sh.userData.live = true; sh.visible = false; live.add(sh); shafts.push(sh); }
+    // pendants: instanced shades (on/off by instance colour), cords, halos
+    const shadeG = new T.CylinderGeometry(.45, 1.0, .7, 12, 1), lampM = new T.MeshBasicMaterial({color: '#ffffff', toneMapped: false}), lamps = new T.InstancedMesh(shadeG, lampM, PEND6.length), M = new T.Matrix4();
+    const cords = new T.InstancedMesh(new T.CylinderGeometry(.05, .05, 1, 4), new T.MeshBasicMaterial({color: '#2c3038'}), PEND6.length);
+    PEND6.forEach((p, i) => { lamps.setMatrixAt(i, M.makeTranslation(p.x, p.y, p.z)); lamps.setColorAt(i, new T.Color('#ffcf8a')); cords.setMatrixAt(i, M.compose(new T.Vector3(p.x, (H + p.y) / 2, p.z), new T.Quaternion(), new T.Vector3(1, H - p.y, 1))); });
+    for (const im of [lamps, cords]) { im.name = im === lamps ? 'pendant6' : 'pendantCord6'; im.userData.live = true; im.computeBoundingSphere(); live.add(im); }
+    const halos = PEND6.map(p => { const hl = look4?.halo ? look4.halo([p.x, p.y - .6, p.z], '#ffcf8a', 3.6, .5) : null; if (hl) live.add(hl); return hl; });
+    const lampOrder = cascadeOrder(PEND6.map(p => [p.x, p.y, p.z])), lampRank = []; lampOrder.forEach((idx, r) => { lampRank[idx] = r; });
+    const signOrder = cascadeOrder(SIGNS6.map(sg => sg.at)), signRank = []; signOrder.forEach((idx, r) => { signRank[idx] = r; });
+    // shelf front glow strips (near + mid gondolas)
+    const glowM = new T.MeshBasicMaterial({color: '#8fe6ff', toneMapped: false}), mods = shelves.list.filter(m => m.lod !== 'far'), lv = [.5, ...MODULE.boards];
+    const glow = new T.InstancedMesh(new T.BoxGeometry(.07, .09, MODULE.L - .7), glowM, mods.length * 2 * lv.length); let gi = 0;
+    for (const m of mods) for (const sx of [-1, 1]) for (const y of lv) glow.setMatrixAt(gi++, M.makeTranslation(m.x + sx * (MODULE.D / 2 + .04), y + .16, m.z));
+    glow.name = 'shelfGlow6'; glow.userData.live = true; glow.computeBoundingSphere(); live.add(glow);   // hidden from above the ceiling (top-down budget)
+    return {PEND6, layers, signs, shafts, shaftM, lamps, halos, lampRank, signRank, glowM, mods, cords, glow};
+  })() : null;
   // ---- movers: karts (story), coaster cart, train ------------------------------------------------------------------------------------
   const karts = [0, 1, 2].map(i => { const p0 = setBevel(BEVEL); const k = toyProp('kart', i * 2 + 1); setBevel(p0); k.userData.live = true; k.userData.story = true; k.traverse(o => { o.userData.live = true; }); live.add(k); return k; });
   const rc = railCurve(), RL = rc.getLength(), tmp = new T.Vector3();
@@ -268,7 +313,7 @@ export function build(scene, {M4, look4, spec, front = true} = {}) {   // front:
   const pairs = Object.entries(districts).filter(([k]) => !k.endsWith('#c') && districts[k + '#c']).map(([k, d]) => ({d, c: districts[k + '#c'], s: sph(d)})).filter(p => p.s);
   const swaps = []; g.traverse(o => { if (o.isInstancedMesh && o.userData.lodGeo) { o.computeBoundingSphere(); swaps.push({o, s: o.boundingSphere.clone().applyMatrix4(o.matrixWorld)}); } });
   scene.add(g);
-  const lights = [...STRIPS.map(p => ({p: [p[0], p[1] - 1.2, p[2]], color: [.8, .88, 1], i: 1.25, range: 42})),
+  const lights = L6 ? [{p: [-66, 8, -27], color: [1, .95, .8], i: 1.4, range: 12}] : [...STRIPS.map(p => ({p: [p[0], p[1] - 1.2, p[2]], color: [.8, .88, 1], i: 1.25, range: 42})),
     {p: [0, 9, 26], color: [1, .72, .42], i: 2.6, range: 16}, ...PEND.map(p => ({p: [p[0], p[1] - 1.5, p[2]], color: [1, .7, .45], i: 2.4, range: 18})), {p: [-66, 8, -27], color: [1, .95, .8], i: 2.0, range: 12},
     ...PRACTICALS.filter((_, i) => i % 3 === 0).map(p => ({p, color: [1, .8, .5], i: .6, range: 8}))];
   const world = {anchors: Object.fromEntries(Object.entries(ANCHORS).map(([k, a]) => [k, {position: a.at, camera: a.camera, top: a.top}])), groundY, lights, practicals: PRACTICALS, zones: ZONES, root: g, ballPit: 800,
@@ -280,5 +325,30 @@ export function build(scene, {M4, look4, spec, front = true} = {}) {   // front:
       const under = cam[1] < H; for (const o of rig) o.visible = under && (o.userData.coarse ? o.visible : true); for (const [k, d] of Object.entries(districts)) if (k.startsWith('ceiling@')) d.visible = under && d.visible; },   // the ceiling rig never shows from above
     setState(k, v) { if (k === 'shutter') shutter.position.y = Math.max(0, Math.min(1, v)) * 11.2; else if (k === 'clock') setClock(v); },
     update(t) { placeMovers(t); const wm = g.userData.waterfallMap; if (wm) wm.offset.y = -t * .9; }};
+  if (L6R) { Object.assign(world, look6World(L6R, {live, shelves, g, look4})); const oc = world.onCamera; world.onCamera = cam => { oc(cam); L6R.glow.visible = cam[1] < H; }; }
   return world;
+}
+
+// Look 6: the hall's light-state controls (world.lightLayers for the bake, world.lightU uniforms, world.setLight6(v6, frac)).
+function look6World(R, {live, shelves, g, look4}) {
+  const lightU = {uLayers: {value: new T.Vector4(1, 1, 1, 0)}, uBase: {value: 1}, uShelfTop: {value: 1}};
+  const strips = [], banners = []; live.traverse(o => { if (/^(strips|stripsNear)$/.test(o.name)) strips.push(o); if (o.name === 'banner') banners.push({o, c: o.material.color.clone()}); });
+  const stripC = strips[0]?.material.color.clone();
+  const bk = look4?.preset?.v4?.bake ?? {sky: [.4, .45, .6], skyI: .2, ground: [.4, .35, .3], groundI: .16}, amb = [0, 1, 2].map(k => bk.sky[k] * bk.skyI + bk.ground[k] * bk.groundI * .5);
+  const ims = []; shelves.group.traverse(o => { if (!o.isInstancedMesh || !o.instanceColor) return; for (const m of [].concat(o.material)) patchShelf(m, lightU);
+    const pos = [], tint = [], M = new T.Matrix4(), v = new T.Vector3(), c = new T.Color(); for (let i = 0; i < o.count; i++) { o.getMatrixAt(i, M); v.setFromMatrixPosition(M); pos.push([v.x, 4, v.z]); o.getColorAt(i, c); tint.push(c.r); } ims.push({o, pos, tint}); });
+  const SHELF_GAIN = 1.6, FAR_Z = -78; let last = '', S0 = null;   // far half (z < FAR_Z): ambient only, darker — far zones read as silhouettes
+  return {lightLayers: R.layers, lightU, lightAt6: p => S0 ? shelfLight(p, R.layers, S0.layers, amb.map(a => a * S0.base)) : [1, 1, 1], lights6: {pendants: R.PEND6.length, signs: R.signs.length, shelfModules: ims.reduce((a, x) => a + x.o.count, 0)},
+    setLight6(v6, frac = 1) {
+      const S = lightState6(v6, frac), key = JSON.stringify(S); S0 = S; if (key === last) return S; last = key;
+      lightU.uLayers.value.set(...S.layers); lightU.uBase.value = S.base; lightU.uShelfTop.value = S.shelfTop;
+      const c = new T.Color(); R.PEND6.forEach((p, i) => { const on = lampOn(R.lampRank[i], R.PEND6.length, S.frac) && S.pendants[p.gr] > .5 && S.layers[p.gr] > 0;
+        R.lamps.setColorAt(i, c.set(on ? '#ffcf8a' : '#2a2724')); if (R.halos[i]) R.halos[i].visible = on; }); R.lamps.instanceColor.needsUpdate = true;
+      R.signs.forEach((sg, i) => { const on = lampOn(R.signRank[i], R.signs.length, S.frac) && S.signs > 0; sg.m.material.color.setScalar(on ? Math.max(.15, S.signs) : .12); if (sg.hl) sg.hl.visible = on; });
+      R.glowM.color.set('#8fe6ff').multiplyScalar(Math.max(.06, S.shelfGlow));
+      R.shaftM.opacity = .16 * S.layers[3]; for (const sh of R.shafts) sh.visible = S.layers[3] > .02;
+      for (const o of strips) o.material.color.copy(stripC).multiplyScalar(S.strips > 0 ? S.strips : .12);
+      for (const b of banners) b.o.material.color.copy(b.c).multiplyScalar(S.banners);
+      for (const {o, pos, tint} of ims) { for (let i = 0; i < o.count; i++) { const L = pos[i][2] < FAR_Z ? amb.map(a => a * S.base * .6) : shelfLight(pos[i], R.layers, S.layers, amb.map(a => a * S.base)); o.setColorAt(i, c.setRGB(...L.map(x => Math.min(1.4, x * SHELF_GAIN * tint[i])))); } o.instanceColor.needsUpdate = true; }
+      return S; }};
 }

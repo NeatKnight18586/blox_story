@@ -10,7 +10,8 @@ export const TRUCK = {from: -78, to: -24, z: 52.5, len: 17};
 export const truckX = u => TRUCK.from + (TRUCK.to - TRUCK.from) * (1 - (1 - Math.max(0, Math.min(1, u))) ** 2.2);   // eased arrival (pure)
 export const groundY = () => 0;
 export const ANCHORS = {
-  street: {at: [0, 0, 50], camera: {position: [2, 7, 80], target: [0, 6.5, 35], fov: 52}, top: {position: [0, 96, 52], target: [0, 0, 52], fov: 50}},
+  street: {at: [0, 0, 50], camera: {position: [2, 3.2, 84], target: [0, 26, 35], fov: 60},   // Look 6 framing (owner): low and tilted up, gold sky above the facade
+    top: {position: [0, 96, 52], target: [0, 0, 52], fov: 50}},
   facade: {at: [0, 6, 35], camera: {position: [0, 4.5, 56], target: [0, 6, 35], fov: 48}, top: {position: [0, 44, 40], target: [0, 0, 40], fov: 45}},
   shutter: {at: [0, 5, 35], camera: {position: [0, 3.2, 47], target: [0, 5.2, 35], fov: 44}, top: {position: [0, 30, 40], target: [0, 0, 40], fov: 40}},
   truck: {at: [-24, 3, 52.5], camera: {position: [-6, 3.6, 70], target: [-24, 3.4, 52.5], fov: 50}, top: {position: [-24, 46, 52.5], target: [-24, 0, 52.5], fov: 45}},

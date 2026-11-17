@@ -12,7 +12,7 @@ export {preload} from './toyhouse.js';
 export function build(scene, opts = {}) {
   const hall = Hall.build(scene, {...opts, front: false}), street = Street.build(scene, opts); let shut = 0;
   const anchors = {...hall.anchors, street: street.anchors.street, facade: street.anchors.facade, truck: street.anchors.truck, lamp: street.anchors.lamp, outside: street.anchors.shutter};
-  return {...hall, anchors, groundY, lights: [...hall.lights, ...street.lights], bakeGroups: [{root: hall.root, preset: 'toy', lights: hall.lights}, {root: street.root, preset: 'dawn', lights: street.lights}], stats: {hall: hall.stats, street: street.stats},
+  return {...hall, anchors, groundY, lights: [...hall.lights, ...street.lights], bakeGroups: [{root: hall.root, preset: hall.lightLayers ? opts.spec.look4 : 'toy', lights: hall.lights, layers: hall.lightLayers ?? null}, {root: street.root, preset: 'dawn', lights: street.lights}], stats: {hall: hall.stats, street: street.stats},
     // 3b-R: inside the hall (z < 35, under the ceiling) the street is behind solid walls; outside at street level with the shutter
     // down the hall interior is hidden behind the facade. Top cameras (above the ceiling) see both.
     onCamera([x, y, z]) { hall.onCamera([x, y, z]); const above = y > 36, inside = z < 35.2; street.root.visible = above || !inside; hall.root.visible = above || inside || shut > .02; },
