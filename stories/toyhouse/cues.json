@@ -1,0 +1,1552 @@
+{
+ "story": "toyhouse",
+ "audio": "voice.flac",
+ "duration": 80.898313,
+ "method": "sherpa-onnx zipformer-small-en + script DP + silence snap (scripts/v2/align.py)",
+ "lines": [
+  {
+   "line": 1,
+   "text": "Once a year, every kid in town gets locked in the Toy House.",
+   "start": 0.0,
+   "end": 3.164,
+   "words": [
+    {
+     "w": "Once",
+     "start": 0.0,
+     "end": 0.28
+    },
+    {
+     "w": "a",
+     "start": 0.28,
+     "end": 0.44
+    },
+    {
+     "w": "year",
+     "start": 0.44,
+     "end": 0.729
+    },
+    {
+     "w": "every",
+     "start": 0.924,
+     "end": 1.16
+    },
+    {
+     "w": "kid",
+     "start": 1.16,
+     "end": 1.36
+    },
+    {
+     "w": "in",
+     "start": 1.36,
+     "end": 1.52
+    },
+    {
+     "w": "town",
+     "start": 1.52,
+     "end": 1.8
+    },
+    {
+     "w": "gets",
+     "start": 1.8,
+     "end": 2.04
+    },
+    {
+     "w": "locked",
+     "start": 2.04,
+     "end": 2.32
+    },
+    {
+     "w": "in",
+     "start": 2.32,
+     "end": 2.44
+    },
+    {
+     "w": "the",
+     "start": 2.44,
+     "end": 2.56
+    },
+    {
+     "w": "Toy",
+     "start": 2.56,
+     "end": 2.88
+    },
+    {
+     "w": "House",
+     "start": 2.88,
+     "end": 3.164
+    }
+   ]
+  },
+  {
+   "line": 2,
+   "text": "One rule. Whatever you're holding at eight, you keep forever.",
+   "start": 3.556,
+   "end": 6.857,
+   "words": [
+    {
+     "w": "One",
+     "start": 3.556,
+     "end": 3.8
+    },
+    {
+     "w": "rule",
+     "start": 3.8,
+     "end": 4.093
+    },
+    {
+     "w": "Whatever",
+     "start": 4.556,
+     "end": 4.76
+    },
+    {
+     "w": "you're",
+     "start": 4.76,
+     "end": 4.96
+    },
+    {
+     "w": "holding",
+     "start": 4.96,
+     "end": 5.28
+    },
+    {
+     "w": "at",
+     "start": 5.28,
+     "end": 5.44
+    },
+    {
+     "w": "eight",
+     "start": 5.44,
+     "end": 5.662
+    },
+    {
+     "w": "you",
+     "start": 5.915,
+     "end": 6.08
+    },
+    {
+     "w": "keep",
+     "start": 6.08,
+     "end": 6.6
+    },
+    {
+     "w": "forever",
+     "start": 6.6,
+     "end": 6.857
+    }
+   ]
+  },
+  {
+   "line": 3,
+   "text": "Two hundred kids. Eleven hours. Zero parents.",
+   "start": 7.405,
+   "end": 10.632,
+   "words": [
+    {
+     "w": "Two",
+     "start": 7.405,
+     "end": 7.52
+    },
+    {
+     "w": "hundred",
+     "start": 7.52,
+     "end": 7.92
+    },
+    {
+     "w": "kids",
+     "start": 7.92,
+     "end": 8.276
+    },
+    {
+     "w": "Eleven",
+     "start": 8.544,
+     "end": 8.68
+    },
+    {
+     "w": "hours",
+     "start": 8.68,
+     "end": 8.96
+    },
+    {
+     "w": "Zero",
+     "start": 8.96,
+     "end": 9.441
+    },
+    {
+     "w": "parents",
+     "start": 10.12,
+     "end": 10.632
+    }
+   ]
+  },
+  {
+   "line": 4,
+   "text": "Go-karts in the aisles. Foam blaster wars. A chocolate fountain nobody guards.",
+   "start": 10.952,
+   "end": 15.316,
+   "words": [
+    {
+     "w": "Go-karts",
+     "start": 10.952,
+     "end": 11.44
+    },
+    {
+     "w": "in",
+     "start": 11.44,
+     "end": 11.56
+    },
+    {
+     "w": "the",
+     "start": 11.56,
+     "end": 11.72
+    },
+    {
+     "w": "aisles",
+     "start": 11.72,
+     "end": 12.081
+    },
+    {
+     "w": "Foam",
+     "start": 12.305,
+     "end": 12.52
+    },
+    {
+     "w": "blaster",
+     "start": 12.52,
+     "end": 13.04
+    },
+    {
+     "w": "wars",
+     "start": 13.04,
+     "end": 13.382
+    },
+    {
+     "w": "A",
+     "start": 13.614,
+     "end": 13.634
+    },
+    {
+     "w": "chocolate",
+     "start": 13.634,
+     "end": 14.08
+    },
+    {
+     "w": "fountain",
+     "start": 14.08,
+     "end": 14.4
+    },
+    {
+     "w": "nobody",
+     "start": 14.4,
+     "end": 14.88
+    },
+    {
+     "w": "guards",
+     "start": 14.88,
+     "end": 15.316
+    }
+   ]
+  },
+  {
+   "line": 5,
+   "text": "Everyone grabbed everything.",
+   "start": 15.92,
+   "end": 17.14,
+   "words": [
+    {
+     "w": "Everyone",
+     "start": 15.92,
+     "end": 16.16
+    },
+    {
+     "w": "grabbed",
+     "start": 16.16,
+     "end": 16.64
+    },
+    {
+     "w": "everything",
+     "start": 16.64,
+     "end": 17.14
+    }
+   ]
+  },
+  {
+   "line": 6,
+   "text": "Except my best friend Mo. He just kept staring at the clock.",
+   "start": 17.604,
+   "end": 20.473,
+   "words": [
+    {
+     "w": "Except",
+     "start": 17.604,
+     "end": 17.84
+    },
+    {
+     "w": "my",
+     "start": 17.84,
+     "end": 18.0
+    },
+    {
+     "w": "best",
+     "start": 18.0,
+     "end": 18.24
+    },
+    {
+     "w": "friend",
+     "start": 18.24,
+     "end": 18.56
+    },
+    {
+     "w": "Mo",
+     "start": 18.56,
+     "end": 18.747
+    },
+    {
+     "w": "He",
+     "start": 18.92,
+     "end": 19.16
+    },
+    {
+     "w": "just",
+     "start": 19.16,
+     "end": 19.36
+    },
+    {
+     "w": "kept",
+     "start": 19.36,
+     "end": 19.6
+    },
+    {
+     "w": "staring",
+     "start": 19.6,
+     "end": 19.88
+    },
+    {
+     "w": "at",
+     "start": 19.88,
+     "end": 20.0
+    },
+    {
+     "w": "the",
+     "start": 20.0,
+     "end": 20.16
+    },
+    {
+     "w": "clock",
+     "start": 20.16,
+     "end": 20.473
+    }
+   ]
+  },
+  {
+   "line": 7,
+   "text": "Me? I wanted it all.",
+   "start": 20.914,
+   "end": 22.462,
+   "words": [
+    {
+     "w": "Me",
+     "start": 20.914,
+     "end": 21.213
+    },
+    {
+     "w": "I",
+     "start": 21.599,
+     "end": 21.72
+    },
+    {
+     "w": "wanted",
+     "start": 21.72,
+     "end": 22.04
+    },
+    {
+     "w": "it",
+     "start": 22.04,
+     "end": 22.28
+    },
+    {
+     "w": "all",
+     "start": 22.28,
+     "end": 22.462
+    }
+   ]
+  },
+  {
+   "line": 8,
+   "text": "First, the biggest box in the house. A Hyperbox Nine.",
+   "start": 22.944,
+   "end": 25.85,
+   "words": [
+    {
+     "w": "First",
+     "start": 22.944,
+     "end": 23.2
+    },
+    {
+     "w": "the",
+     "start": 23.2,
+     "end": 23.4
+    },
+    {
+     "w": "biggest",
+     "start": 23.4,
+     "end": 23.8
+    },
+    {
+     "w": "box",
+     "start": 23.8,
+     "end": 24.08
+    },
+    {
+     "w": "in",
+     "start": 24.08,
+     "end": 24.2
+    },
+    {
+     "w": "the",
+     "start": 24.2,
+     "end": 24.36
+    },
+    {
+     "w": "house",
+     "start": 24.36,
+     "end": 24.8
+    },
+    {
+     "w": "A",
+     "start": 24.8,
+     "end": 25.24
+    },
+    {
+     "w": "Hyperbox",
+     "start": 25.24,
+     "end": 25.56
+    },
+    {
+     "w": "Nine",
+     "start": 25.56,
+     "end": 25.85
+    }
+   ]
+  },
+  {
+   "line": 9,
+   "text": "Problem. Now my hands were full, and I hadn't touched the candy.",
+   "start": 26.328,
+   "end": 29.198,
+   "words": [
+    {
+     "w": "Problem",
+     "start": 26.328,
+     "end": 26.708
+    },
+    {
+     "w": "Now",
+     "start": 27.065,
+     "end": 27.12
+    },
+    {
+     "w": "my",
+     "start": 27.12,
+     "end": 27.36
+    },
+    {
+     "w": "hands",
+     "start": 27.36,
+     "end": 27.6
+    },
+    {
+     "w": "were",
+     "start": 27.6,
+     "end": 27.76
+    },
+    {
+     "w": "full",
+     "start": 27.76,
+     "end": 27.96
+    },
+    {
+     "w": "and",
+     "start": 27.96,
+     "end": 28.08
+    },
+    {
+     "w": "I",
+     "start": 28.08,
+     "end": 28.2
+    },
+    {
+     "w": "hadn't",
+     "start": 28.2,
+     "end": 28.48
+    },
+    {
+     "w": "touched",
+     "start": 28.48,
+     "end": 28.76
+    },
+    {
+     "w": "the",
+     "start": 28.76,
+     "end": 28.88
+    },
+    {
+     "w": "candy",
+     "start": 28.88,
+     "end": 29.198
+    }
+   ]
+  },
+  {
+   "line": 10,
+   "text": "So I taped everything to my body.",
+   "start": 29.584,
+   "end": 31.085,
+   "words": [
+    {
+     "w": "So",
+     "start": 29.584,
+     "end": 29.604
+    },
+    {
+     "w": "I",
+     "start": 29.604,
+     "end": 29.76
+    },
+    {
+     "w": "taped",
+     "start": 29.76,
+     "end": 30.12
+    },
+    {
+     "w": "everything",
+     "start": 30.12,
+     "end": 30.52
+    },
+    {
+     "w": "to",
+     "start": 30.52,
+     "end": 30.64
+    },
+    {
+     "w": "my",
+     "start": 30.64,
+     "end": 30.84
+    },
+    {
+     "w": "body",
+     "start": 30.84,
+     "end": 31.085
+    }
+   ]
+  },
+  {
+   "line": 11,
+   "text": "A drone. A headset. A gummy bear the size of my head.",
+   "start": 31.399,
+   "end": 34.414,
+   "words": [
+    {
+     "w": "A",
+     "start": 31.399,
+     "end": 31.44
+    },
+    {
+     "w": "drone",
+     "start": 31.44,
+     "end": 32.04
+    },
+    {
+     "w": "A",
+     "start": 32.04,
+     "end": 32.48
+    },
+    {
+     "w": "headset",
+     "start": 32.48,
+     "end": 32.73
+    },
+    {
+     "w": "A",
+     "start": 32.92,
+     "end": 32.96
+    },
+    {
+     "w": "gummy",
+     "start": 32.96,
+     "end": 33.28
+    },
+    {
+     "w": "bear",
+     "start": 33.28,
+     "end": 33.48
+    },
+    {
+     "w": "the",
+     "start": 33.48,
+     "end": 33.6
+    },
+    {
+     "w": "size",
+     "start": 33.6,
+     "end": 33.84
+    },
+    {
+     "w": "of",
+     "start": 33.84,
+     "end": 33.96
+    },
+    {
+     "w": "my",
+     "start": 33.96,
+     "end": 34.2
+    },
+    {
+     "w": "head",
+     "start": 34.2,
+     "end": 34.414
+    }
+   ]
+  },
+  {
+   "line": 12,
+   "text": "Twelve rolls of tape.",
+   "start": 34.675,
+   "end": 35.718,
+   "words": [
+    {
+     "w": "Twelve",
+     "start": 34.675,
+     "end": 35.0
+    },
+    {
+     "w": "rolls",
+     "start": 35.0,
+     "end": 35.32
+    },
+    {
+     "w": "of",
+     "start": 35.32,
+     "end": 35.44
+    },
+    {
+     "w": "tape",
+     "start": 35.44,
+     "end": 35.718
+    }
+   ]
+  },
+  {
+   "line": 13,
+   "text": "I took one step and fell into the ball pit.",
+   "start": 36.086,
+   "end": 38.118,
+   "words": [
+    {
+     "w": "I",
+     "start": 36.086,
+     "end": 36.106
+    },
+    {
+     "w": "took",
+     "start": 36.106,
+     "end": 36.32
+    },
+    {
+     "w": "one",
+     "start": 36.32,
+     "end": 36.56
+    },
+    {
+     "w": "step",
+     "start": 36.56,
+     "end": 36.88
+    },
+    {
+     "w": "and",
+     "start": 36.88,
+     "end": 37.08
+    },
+    {
+     "w": "fell",
+     "start": 37.08,
+     "end": 37.32
+    },
+    {
+     "w": "into",
+     "start": 37.32,
+     "end": 37.52
+    },
+    {
+     "w": "the",
+     "start": 37.52,
+     "end": 37.64
+    },
+    {
+     "w": "ball",
+     "start": 37.64,
+     "end": 37.92
+    },
+    {
+     "w": "pit",
+     "start": 37.92,
+     "end": 38.118
+    }
+   ]
+  },
+  {
+   "line": 14,
+   "text": "At four AM, I had a better idea.",
+   "start": 38.609,
+   "end": 40.388,
+   "words": [
+    {
+     "w": "At",
+     "start": 38.609,
+     "end": 38.64
+    },
+    {
+     "w": "four",
+     "start": 38.64,
+     "end": 39.0
+    },
+    {
+     "w": "AM",
+     "start": 39.0,
+     "end": 39.36
+    },
+    {
+     "w": "I",
+     "start": 39.36,
+     "end": 39.52
+    },
+    {
+     "w": "had",
+     "start": 39.52,
+     "end": 39.68
+    },
+    {
+     "w": "a",
+     "start": 39.68,
+     "end": 39.8
+    },
+    {
+     "w": "better",
+     "start": 39.8,
+     "end": 40.08
+    },
+    {
+     "w": "idea",
+     "start": 40.08,
+     "end": 40.388
+    }
+   ]
+  },
+  {
+   "line": 15,
+   "text": "The front door key hung behind the counter.",
+   "start": 40.771,
+   "end": 42.437,
+   "words": [
+    {
+     "w": "The",
+     "start": 40.771,
+     "end": 40.791
+    },
+    {
+     "w": "front",
+     "start": 40.791,
+     "end": 41.04
+    },
+    {
+     "w": "door",
+     "start": 41.04,
+     "end": 41.28
+    },
+    {
+     "w": "key",
+     "start": 41.28,
+     "end": 41.48
+    },
+    {
+     "w": "hung",
+     "start": 41.48,
+     "end": 41.72
+    },
+    {
+     "w": "behind",
+     "start": 41.72,
+     "end": 42.0
+    },
+    {
+     "w": "the",
+     "start": 42.0,
+     "end": 42.12
+    },
+    {
+     "w": "counter",
+     "start": 42.12,
+     "end": 42.437
+    }
+   ]
+  },
+  {
+   "line": 16,
+   "text": "Hold the key, keep the whole Toy House.",
+   "start": 42.806,
+   "end": 44.945,
+   "words": [
+    {
+     "w": "Hold",
+     "start": 42.806,
+     "end": 42.96
+    },
+    {
+     "w": "the",
+     "start": 42.96,
+     "end": 43.12
+    },
+    {
+     "w": "key",
+     "start": 43.12,
+     "end": 43.418
+    },
+    {
+     "w": "keep",
+     "start": 43.662,
+     "end": 43.8
+    },
+    {
+     "w": "the",
+     "start": 43.8,
+     "end": 44.0
+    },
+    {
+     "w": "whole",
+     "start": 44.0,
+     "end": 44.32
+    },
+    {
+     "w": "Toy",
+     "start": 44.32,
+     "end": 44.64
+    },
+    {
+     "w": "House",
+     "start": 44.64,
+     "end": 44.945
+    }
+   ]
+  },
+  {
+   "line": 17,
+   "text": "Next to it was a photo.",
+   "start": 45.392,
+   "end": 46.387,
+   "words": [
+    {
+     "w": "Next",
+     "start": 45.392,
+     "end": 45.56
+    },
+    {
+     "w": "to",
+     "start": 45.56,
+     "end": 45.68
+    },
+    {
+     "w": "it",
+     "start": 45.68,
+     "end": 45.84
+    },
+    {
+     "w": "was",
+     "start": 45.84,
+     "end": 45.96
+    },
+    {
+     "w": "a",
+     "start": 45.96,
+     "end": 46.08
+    },
+    {
+     "w": "photo",
+     "start": 46.08,
+     "end": 46.387
+    }
+   ]
+  },
+  {
+   "line": 18,
+   "text": "A kid holding that same key. Sixty years ago.",
+   "start": 46.709,
+   "end": 49.438,
+   "words": [
+    {
+     "w": "A",
+     "start": 46.709,
+     "end": 46.76
+    },
+    {
+     "w": "kid",
+     "start": 46.76,
+     "end": 47.04
+    },
+    {
+     "w": "holding",
+     "start": 47.04,
+     "end": 47.4
+    },
+    {
+     "w": "that",
+     "start": 47.4,
+     "end": 47.6
+    },
+    {
+     "w": "same",
+     "start": 47.6,
+     "end": 47.96
+    },
+    {
+     "w": "key",
+     "start": 47.96,
+     "end": 48.222
+    },
+    {
+     "w": "Sixty",
+     "start": 48.508,
+     "end": 48.92
+    },
+    {
+     "w": "years",
+     "start": 48.92,
+     "end": 49.16
+    },
+    {
+     "w": "ago",
+     "start": 49.16,
+     "end": 49.438
+    }
+   ]
+  },
+  {
+   "line": 19,
+   "text": "It was old Mister Pip.",
+   "start": 49.807,
+   "end": 50.896,
+   "words": [
+    {
+     "w": "It",
+     "start": 49.807,
+     "end": 49.827
+    },
+    {
+     "w": "was",
+     "start": 49.827,
+     "end": 50.0
+    },
+    {
+     "w": "old",
+     "start": 50.0,
+     "end": 50.28
+    },
+    {
+     "w": "Mister",
+     "start": 50.28,
+     "end": 50.64
+    },
+    {
+     "w": "Pip",
+     "start": 50.64,
+     "end": 50.896
+    }
+   ]
+  },
+  {
+   "line": 20,
+   "text": "He kept the Toy House. He's never left. Not once.",
+   "start": 51.265,
+   "end": 53.992,
+   "words": [
+    {
+     "w": "He",
+     "start": 51.265,
+     "end": 51.285
+    },
+    {
+     "w": "kept",
+     "start": 51.285,
+     "end": 51.52
+    },
+    {
+     "w": "the",
+     "start": 51.52,
+     "end": 51.68
+    },
+    {
+     "w": "Toy",
+     "start": 51.68,
+     "end": 51.96
+    },
+    {
+     "w": "House",
+     "start": 51.96,
+     "end": 52.226
+    },
+    {
+     "w": "He's",
+     "start": 52.493,
+     "end": 52.56
+    },
+    {
+     "w": "never",
+     "start": 52.56,
+     "end": 52.88
+    },
+    {
+     "w": "left",
+     "start": 52.88,
+     "end": 53.152
+    },
+    {
+     "w": "Not",
+     "start": 53.368,
+     "end": 53.6
+    },
+    {
+     "w": "once",
+     "start": 53.6,
+     "end": 53.992
+    }
+   ]
+  },
+  {
+   "line": 21,
+   "text": "I put the key back.",
+   "start": 54.2,
+   "end": 55.264,
+   "words": [
+    {
+     "w": "I",
+     "start": 54.2,
+     "end": 54.44
+    },
+    {
+     "w": "put",
+     "start": 54.44,
+     "end": 54.64
+    },
+    {
+     "w": "the",
+     "start": 54.64,
+     "end": 54.8
+    },
+    {
+     "w": "key",
+     "start": 54.8,
+     "end": 55.04
+    },
+    {
+     "w": "back",
+     "start": 55.04,
+     "end": 55.264
+    }
+   ]
+  },
+  {
+   "line": 22,
+   "text": "At seven fifty-eight, I waddled back to Mo with everything.",
+   "start": 55.659,
+   "end": 58.441,
+   "words": [
+    {
+     "w": "At",
+     "start": 55.659,
+     "end": 55.68
+    },
+    {
+     "w": "seven",
+     "start": 55.68,
+     "end": 56.36
+    },
+    {
+     "w": "fifty-eight",
+     "start": 56.36,
+     "end": 56.503
+    },
+    {
+     "w": "I",
+     "start": 56.705,
+     "end": 56.8
+    },
+    {
+     "w": "waddled",
+     "start": 56.8,
+     "end": 57.2
+    },
+    {
+     "w": "back",
+     "start": 57.2,
+     "end": 57.36
+    },
+    {
+     "w": "to",
+     "start": 57.36,
+     "end": 57.52
+    },
+    {
+     "w": "Mo",
+     "start": 57.52,
+     "end": 57.8
+    },
+    {
+     "w": "with",
+     "start": 57.8,
+     "end": 57.96
+    },
+    {
+     "w": "everything",
+     "start": 57.96,
+     "end": 58.441
+    }
+   ]
+  },
+  {
+   "line": 23,
+   "text": "Mo was crying.",
+   "start": 58.897,
+   "end": 59.682,
+   "words": [
+    {
+     "w": "Mo",
+     "start": 58.897,
+     "end": 59.04
+    },
+    {
+     "w": "was",
+     "start": 59.04,
+     "end": 59.24
+    },
+    {
+     "w": "crying",
+     "start": 59.24,
+     "end": 59.682
+    }
+   ]
+  },
+  {
+   "line": 24,
+   "text": "His family was moving away in the morning. The truck was already packed.",
+   "start": 60.033,
+   "end": 63.114,
+   "words": [
+    {
+     "w": "His",
+     "start": 60.033,
+     "end": 60.08
+    },
+    {
+     "w": "family",
+     "start": 60.08,
+     "end": 60.44
+    },
+    {
+     "w": "was",
+     "start": 60.44,
+     "end": 60.6
+    },
+    {
+     "w": "moving",
+     "start": 60.6,
+     "end": 60.88
+    },
+    {
+     "w": "away",
+     "start": 60.88,
+     "end": 61.12
+    },
+    {
+     "w": "in",
+     "start": 61.12,
+     "end": 61.24
+    },
+    {
+     "w": "the",
+     "start": 61.24,
+     "end": 61.32
+    },
+    {
+     "w": "morning",
+     "start": 61.32,
+     "end": 61.648
+    },
+    {
+     "w": "The",
+     "start": 61.94,
+     "end": 61.96
+    },
+    {
+     "w": "truck",
+     "start": 61.96,
+     "end": 62.2
+    },
+    {
+     "w": "was",
+     "start": 62.2,
+     "end": 62.36
+    },
+    {
+     "w": "already",
+     "start": 62.36,
+     "end": 62.8
+    },
+    {
+     "w": "packed",
+     "start": 62.8,
+     "end": 63.114
+    }
+   ]
+  },
+  {
+   "line": 25,
+   "text": "That's why he never grabbed anything.",
+   "start": 63.473,
+   "end": 64.921,
+   "words": [
+    {
+     "w": "That's",
+     "start": 63.473,
+     "end": 63.56
+    },
+    {
+     "w": "why",
+     "start": 63.56,
+     "end": 63.76
+    },
+    {
+     "w": "he",
+     "start": 63.76,
+     "end": 63.88
+    },
+    {
+     "w": "never",
+     "start": 63.88,
+     "end": 64.12
+    },
+    {
+     "w": "grabbed",
+     "start": 64.12,
+     "end": 64.52
+    },
+    {
+     "w": "anything",
+     "start": 64.52,
+     "end": 64.921
+    }
+   ]
+  },
+  {
+   "line": 26,
+   "text": "He was saving his hands.",
+   "start": 65.215,
+   "end": 66.356,
+   "words": [
+    {
+     "w": "He",
+     "start": 65.215,
+     "end": 65.235
+    },
+    {
+     "w": "was",
+     "start": 65.235,
+     "end": 65.36
+    },
+    {
+     "w": "saving",
+     "start": 65.36,
+     "end": 65.72
+    },
+    {
+     "w": "his",
+     "start": 65.72,
+     "end": 65.96
+    },
+    {
+     "w": "hands",
+     "start": 65.96,
+     "end": 66.356
+    }
+   ]
+  },
+  {
+   "line": 27,
+   "text": "Seven fifty-nine.",
+   "start": 66.862,
+   "end": 67.735,
+   "words": [
+    {
+     "w": "Seven",
+     "start": 66.862,
+     "end": 67.52
+    },
+    {
+     "w": "fifty-nine",
+     "start": 67.52,
+     "end": 67.735
+    }
+   ]
+  },
+  {
+   "line": 28,
+   "text": "I dropped the console. I dropped the drone. I dropped all of it.",
+   "start": 68.188,
+   "end": 71.263,
+   "words": [
+    {
+     "w": "I",
+     "start": 68.188,
+     "end": 68.208
+    },
+    {
+     "w": "dropped",
+     "start": 68.208,
+     "end": 68.52
+    },
+    {
+     "w": "the",
+     "start": 68.52,
+     "end": 68.64
+    },
+    {
+     "w": "console",
+     "start": 68.64,
+     "end": 69.116
+    },
+    {
+     "w": "I",
+     "start": 69.335,
+     "end": 69.36
+    },
+    {
+     "w": "dropped",
+     "start": 69.36,
+     "end": 69.64
+    },
+    {
+     "w": "the",
+     "start": 69.64,
+     "end": 69.8
+    },
+    {
+     "w": "drone",
+     "start": 69.8,
+     "end": 70.214
+    },
+    {
+     "w": "I",
+     "start": 70.396,
+     "end": 70.416
+    },
+    {
+     "w": "dropped",
+     "start": 70.416,
+     "end": 70.8
+    },
+    {
+     "w": "all",
+     "start": 70.8,
+     "end": 71.0
+    },
+    {
+     "w": "of",
+     "start": 71.0,
+     "end": 71.16
+    },
+    {
+     "w": "it",
+     "start": 71.16,
+     "end": 71.263
+    }
+   ]
+  },
+  {
+   "line": 29,
+   "text": "And I grabbed Mo's hand.",
+   "start": 71.539,
+   "end": 72.674,
+   "words": [
+    {
+     "w": "And",
+     "start": 71.539,
+     "end": 71.559
+    },
+    {
+     "w": "I",
+     "start": 71.559,
+     "end": 71.68
+    },
+    {
+     "w": "grabbed",
+     "start": 71.68,
+     "end": 72.08
+    },
+    {
+     "w": "Mo's",
+     "start": 72.08,
+     "end": 72.44
+    },
+    {
+     "w": "hand",
+     "start": 72.44,
+     "end": 72.674
+    }
+   ]
+  },
+  {
+   "line": 30,
+   "text": "The doors opened.",
+   "start": 73.081,
+   "end": 73.842,
+   "words": [
+    {
+     "w": "The",
+     "start": 73.081,
+     "end": 73.101
+    },
+    {
+     "w": "doors",
+     "start": 73.101,
+     "end": 73.52
+    },
+    {
+     "w": "opened",
+     "start": 73.52,
+     "end": 73.842
+    }
+   ]
+  },
+  {
+   "line": 31,
+   "text": "Outside, Mo's dad was unpacking the truck.",
+   "start": 74.19,
+   "end": 76.523,
+   "words": [
+    {
+     "w": "Outside",
+     "start": 74.19,
+     "end": 74.8
+    },
+    {
+     "w": "Mo's",
+     "start": 74.8,
+     "end": 75.12
+    },
+    {
+     "w": "dad",
+     "start": 75.12,
+     "end": 75.4
+    },
+    {
+     "w": "was",
+     "start": 75.4,
+     "end": 75.56
+    },
+    {
+     "w": "unpacking",
+     "start": 75.56,
+     "end": 76.08
+    },
+    {
+     "w": "the",
+     "start": 76.08,
+     "end": 76.24
+    },
+    {
+     "w": "truck",
+     "start": 76.24,
+     "end": 76.523
+    }
+   ]
+  },
+  {
+   "line": 32,
+   "text": "He didn't even know why.",
+   "start": 76.866,
+   "end": 77.808,
+   "words": [
+    {
+     "w": "He",
+     "start": 76.866,
+     "end": 76.886
+    },
+    {
+     "w": "didn't",
+     "start": 76.886,
+     "end": 77.08
+    },
+    {
+     "w": "even",
+     "start": 77.08,
+     "end": 77.28
+    },
+    {
+     "w": "know",
+     "start": 77.28,
+     "end": 77.52
+    },
+    {
+     "w": "why",
+     "start": 77.52,
+     "end": 77.808
+    }
+   ]
+  },
+  {
+   "line": 33,
+   "text": "Whoever you're holding at eight, you keep forever.",
+   "start": 78.303,
+   "end": 80.679,
+   "words": [
+    {
+     "w": "Whoever",
+     "start": 78.303,
+     "end": 78.56
+    },
+    {
+     "w": "you're",
+     "start": 78.56,
+     "end": 78.72
+    },
+    {
+     "w": "holding",
+     "start": 78.72,
+     "end": 79.08
+    },
+    {
+     "w": "at",
+     "start": 79.08,
+     "end": 79.24
+    },
+    {
+     "w": "eight",
+     "start": 79.24,
+     "end": 79.494
+    },
+    {
+     "w": "you",
+     "start": 79.742,
+     "end": 79.88
+    },
+    {
+     "w": "keep",
+     "start": 79.88,
+     "end": 80.44
+    },
+    {
+     "w": "forever",
+     "start": 80.44,
+     "end": 80.679
+    }
+   ]
+  }
+ ]
+}
