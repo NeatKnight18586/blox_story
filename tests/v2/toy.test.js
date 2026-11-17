@@ -14,7 +14,8 @@ import * as MT from '../../engine/motion5.js';
 import {BUILDS} from '../../avatar-style/body.js';
 import {outfitRegions, createActor5, headShoulderRatio, heroColours, heroColourCheck} from '../../avatar-style/body5.js';
 const idx = JSON.parse(readFileSync('parts/sets4/anchors.json', 'utf8')), cast = JSON.parse(readFileSync('cast/toyhouse.json', 'utf8')).cast, hero = JSON.parse(readFileSync('cast/hero.json', 'utf8')).HERO;
-test('toy props: every prop ≤ 400 triangles and named', () => { assert.equal(TOY_PROPS.length, 15); for (const n of TOY_PROPS) { const g = toyProp(n, 3); assert.ok(triCount(g) <= TOY_TRI_MAX, `${n} ${triCount(g)}`); assert.equal(g.name, n === 'gumball' ? 'gumball' : n); } assert.throws(() => toyProp('rifle')); });
+test('toy props: every prop ≤ 400 triangles and named', () => { const P5 = ['foamBlaster', 'dartVolley', 'kart2', 'fountain', 'ballSplash'], L = TOY_PROPS.filter(n => !P5.includes(n)); assert.equal(TOY_PROPS.length, L.length + 5); assert.equal(L.length, 15); for (const n of L) {   // E1 props: ≤ 800, tests/v2/props5.test.js
+ const g = toyProp(n, 3); assert.ok(triCount(g) <= TOY_TRI_MAX, `${n} ${triCount(g)}`); assert.equal(g.name, n === 'gumball' ? 'gumball' : n); } assert.throws(() => toyProp('rifle')); });
 test('hyperbox carries the text HYPERBOX 9 on four faces; no realistic gun names exist', () => {
   const g = toyProp('hyperbox'), labels = []; g.traverse(o => { if (o.userData.text) labels.push(o.userData.text); }); assert.equal(labels.length, 4); assert.ok(labels.every(t => t === 'HYPERBOX 9'));
   assert.ok(!TOY_PROPS.some(n => /gun|rifle|pistol/i.test(n)), 'blaster only');

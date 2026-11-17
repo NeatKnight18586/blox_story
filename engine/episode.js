@@ -223,15 +223,16 @@ if (look?.v3 && (spec.actorLift ?? (usesNightBright ? .5 : 0))) {   // A5 §E: o
 // so it stands out from its surround; other actors and later shots keep the originals
 let lifted = null; const liftClones = new Map();
 function liftSubject(shot) {
-  const k = spec.subjectLift, who = k ? (shot?.subject ?? shot?.fit?.actor) : null, want = who && cast[who]?.v2 ? who : null;
+  const k = shot?.subjectLift ?? spec.subjectLift, who = k ? (shot?.subject ?? shot?.fit?.actor) : null, want = who && cast[who]?.v2 ? who + ':' + k : null;   // E1 fix: per-shot subjectLift (opt-in)
   if (lifted === want) return;
-  if (lifted) cast[lifted].a.root.traverse(o => { const e = liftClones.get(o); if (e) o.material = e.orig; });
+  if (lifted) cast[lifted.split(':')[0]].a.root.traverse(o => { const e = liftClones.get(o); if (e) o.material = e.orig; });
   lifted = want; if (!want) return;
-  cast[want].a.root.traverse(o => { if (!o.isMesh || !o.material?.emissive || o.material.isMeshBasicMaterial) return; let e = liftClones.get(o);
+  cast[who].a.root.traverse(o => { if (!o.isMesh || !o.material?.emissive || o.material.isMeshBasicMaterial) return; let e = liftClones.get(o);
+    if (e && e.k !== k) { liftClones.delete(o); e = null; }
     if (!e || e.orig !== o.material && e.lift !== o.material) { const m = o.material.clone(); let base = m.color.clone();
       if (m.map) { m.emissiveMap = m.map; base = new T.Color(1, 1, 1); }
       else if (m.vertexColors && o.geometry.attributes.color) { const cc = o.geometry.attributes.color, avg = [0, 0, 0]; for (let i = 0; i < cc.count; i++) { avg[0] += cc.getX(i); avg[1] += cc.getY(i); avg[2] += cc.getZ(i); } base = new T.Color(avg[0] / cc.count, avg[1] / cc.count, avg[2] / cc.count); }   // hair keeps its own colour (never white)
-      m.emissive = base.multiplyScalar(k); e = {orig: o.material, lift: m}; liftClones.set(o, e); }
+      m.emissive = base.multiplyScalar(k); e = {orig: o.material, lift: m, k}; liftClones.set(o, e); }
     o.material = e.lift; });
 }
 const applyLift = shot => { const f = spec.actorLift !== undefined ? 1 : ['night', 'nightBright'].includes(shot?.look ?? spec.look) ? 1 : 0; for (const [m, e] of liftMats) m.emissive.copy(e).multiplyScalar(f); };
@@ -355,8 +356,10 @@ function shotShadow(shot) {
 const storyProps = [];
 if (spec.props?.length) { const {toyProp} = await import('../parts/sets4/props4.js');
   for (const p of spec.props) { const g = toyProp(p.prop, p.seed ?? 1); g.name = 'prop_' + p.id; g.scale.setScalar(p.scale ?? 1); g.traverse(o => { o.userData.live = true; }); scene.add(g); storyProps.push({p, g}); } }
+// E1 fix (opt-in spec.hide): set objects hidden by name (a story prop replaces them)
+for (const n of spec.hide ?? []) { const o = scene.getObjectByName(n); if (o) o.visible = false; else console.warn('spec.hide: no object ' + n); }
 const vecAt = (keys, t, d) => keys?.length ? d.map((v, i) => valueAt(keys.map(k => [k[0], k[1][i], k[2], k[3]]), t, v)) : d;
-function updateProps(t) { for (const {p, g} of storyProps) { g.position.fromArray(vecAt(p.pos, t, [0, 0, 0])); const r = vecAt(p.rot, t, [0, 0, 0]); g.rotation.set(...r.map(v => v * Math.PI / 180)); g.visible = valueAt(p.visible, t, true); } }
+function updateProps(t) { for (const {p, g} of storyProps) { g.position.fromArray(vecAt(p.pos, t, [0, 0, 0])); const r = vecAt(p.rot, t, [0, 0, 0]); g.rotation.set(...r.map(v => v * Math.PI / 180)); g.visible = valueAt(p.visible, t, true); if (g.visible && g.userData.anim) g.userData.anim(t - (p.animAt ?? 0), p); } }   // E1 fix (opt-in): props5 moving parts, pure in t
 // World story state (Session 5): spec.worldState = {name: [[t, value], [t, value, 'ramp']...]} → world.setState.
 function applyWorldState(shot, t) {
   if (storyProps.length) updateProps(t);

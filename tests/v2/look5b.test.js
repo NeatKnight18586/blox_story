@@ -57,8 +57,8 @@ test('zone floor plates: S ≤ .65 (owner), L .35–.75', () => {
   for (const c of ['#ff0000', '#4fc4b8', '#ee8fb0', '#202020', '#7f9fc8']) { const [, s, l] = hslOf(zoneColor(c)); assert.ok(s <= ZONE_S + 1e-3 && l >= .35 - 1e-3 && l <= .75 + 1e-3, c); }
   assert.equal(zoneColor('#7f9fc8'), '#7f9fc8');
 });
-test('taped hero: yellow #FFD542 and blue #0D7CD4 bands; Mo has hoodie strings', () => {
+test('taped hero: yellow #FFD542 and blue #0D7CD4 bands; Mo has no hoodie strings (E1 fix)', () => {
   const C = JSON.parse(readFileSync('cast/toyhouse.json', 'utf8')).cast, bands = C.HERO_TAPED.regions.bands.map(b => b.color.toUpperCase());
   assert.ok(bands.length >= 4 && bands.every(c => ['#FFD542', '#0D7CD4'].includes(c))); assert.ok(bands.includes('#FFD542') && bands.includes('#0D7CD4'));
-  assert.ok(C.MO.accessories.some(a => a.name === 'hoodieStrings'));
+  assert.ok(!C.MO.accessories.some(a => a.name === 'hoodieStrings'));
 });
