@@ -229,7 +229,7 @@ export function sampleMove5(shot, localT, actorPositions = {}) {
   if (shot.move === 'crashZoom') {
     const n = Math.round(localT * fps) - Math.round((shot.zoomAt ?? 0) * fps), x = clamp01(n / CRASH.frames);
     const over = x < 1 ? EASE.outBack(x) : 1, fov = lerp(f.fov ?? 40, e.fov ?? 20, over), pos = lerp3(f.position, f.target, CRASH.push * clamp01(n / CRASH.frames));
-    const sp = shot.subject ? actorPositions[shot.subject] : null, aim = sp ? [sp[0], sp[1] + (shot.subjectAimY ?? CRASH.aimY), sp[2]] : null;   // Look 6 (owner): always ends on the shot's subject
+    const sp = shot.subject ? actorPositions[shot.subject] : null, ao = shot.subjectAimOffset ?? [0, 0, 0], aim = sp ? [sp[0] + ao[0], sp[1] + (shot.subjectAimY ?? CRASH.aimY) + ao[1], sp[2] + ao[2]] : null;   // E1 fix 2: opt-in subjectAimOffset (world units, e.g. to keep a held toy in frame)   // Look 6 (owner): always ends on the shot's subject
     return {position: pos, target: aim ? lerp3(f.target, aim, EASE.outCubic(x)) : f.target, fov: Math.max(5, fov), roll: 0};
   }
   if (shot.move === 'topDown') {

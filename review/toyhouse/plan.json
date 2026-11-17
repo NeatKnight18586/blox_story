@@ -21,7 +21,7 @@
    "size": "close",
    "move": "crashZoom",
    "speed": 0,
-   "subject": "kidc@45,43",
+   "subject": "kidc@53,28",
    "why": "crashZoom into the chaos: ends on a grinning kid in a kart firing a foam blaster; dart hit 1.80"
   },
   {
@@ -65,7 +65,7 @@
    "size": "medium",
    "move": "push",
    "speed": 0,
-   "subject": "kida@50,35",
+   "subject": "kida@50,52",
    "why": "kid hugging a giant plush, push in"
   },
   {
@@ -76,7 +76,7 @@
    "size": "close",
    "move": "push",
    "speed": 0,
-   "subject": "kida@50,46",
+   "subject": "kida@50,55",
    "why": "same kid, snap to close, face starry"
   },
   {
@@ -119,8 +119,8 @@
    "dur": 1.33,
    "size": "wide",
    "move": "aisleTrack",
-   "speed": 31,
-   "subject": "kidc@50,-0",
+   "speed": 1,
+   "subject": "",
    "why": "aisle track: the kart drifts past right beside the camera, tyre smoke"
   },
   {
@@ -152,7 +152,7 @@
    "dur": 0.71,
    "size": "insert",
    "move": "push",
-   "speed": 5,
+   "speed": 8,
    "subject": "",
    "why": "a hand grabs a plush off the shelf (beat cut)"
   },
@@ -163,7 +163,7 @@
    "dur": 0.96,
    "size": "insert",
    "move": "push",
-   "speed": 4,
+   "speed": 15,
    "subject": "",
    "why": "two hands snatch a foam blaster (beat cut)"
   },
@@ -230,7 +230,7 @@
    "size": "close",
    "move": "snap",
    "speed": 118,
-   "subject": "hero@50,47",
+   "subject": "hero@50,45",
    "why": "snap close HERO worried, freeze 2"
   },
   {
@@ -284,8 +284,8 @@
    "dur": 1.75,
    "size": "medium",
    "move": "pull",
-   "speed": 0,
-   "subject": "taped@50,28",
+   "speed": 1,
+   "subject": "taped@50,31",
    "why": "pull back: a giant gummy bear on his chest"
   },
   {
@@ -306,8 +306,8 @@
    "dur": 2.54,
    "size": "wide",
    "move": "push",
-   "speed": 0,
-   "subject": "taped@39,26",
+   "speed": 2,
+   "subject": "taped@68,39",
    "why": "one waddle step, falls backward into the ball pit; impact 37.92, ball splash"
   },
   {
@@ -515,7 +515,7 @@
    "dur": 1.08,
    "size": "insert",
    "move": "push",
-   "speed": 5,
+   "speed": 1,
    "subject": "",
    "why": "the drone drops"
   },
@@ -571,7 +571,7 @@
    "size": "close",
    "move": "push",
    "speed": 0,
-   "subject": "dad@50,24",
+   "subject": "dad@50,39",
    "why": "DAD close, confused"
   },
   {
@@ -596,16 +596,16 @@
   "insertH": {
    "T05-crashZoom": 0.5564,
    "T09-push": 0.5642,
-   "T14-push": 0.6342000000000001,
-   "T15-push": 0.29789999999999994,
+   "T14-push": 0.5557,
+   "T15-push": 0.5777,
    "T23-push": 0.5995,
    "T30-crashZoom": 0.8583,
    "T33-push": 0.5005999999999999,
    "T37-push": 0.9845,
    "T38-crashZoom": 0.554,
    "T45-crashZoom": 0.5530999999999999,
-   "T46-push": 0.3732,
-   "T47-push": 0.17559999999999998
+   "T46-push": 0.4249,
+   "T47-push": 0.551
   }
  },
  "season": false,
@@ -613,20 +613,13 @@
  "uiItems": 0,
  "eggs": [],
  "overlaps": 0,
- "errors": [
-  "T11-aisleTrack: subject kidc head at x 50 % y -0 % (want x 15–85, y 18–58)",
-  "T15-push: prop 30 % of frame height (≥ 40)",
-  "T46-push: prop 37 % of frame height (≥ 40)",
-  "T47-push: prop 18 % of frame height (≥ 40)"
- ],
+ "errors": [],
  "warnings": [
   "T01-push: wide shot with no tagged character in the foreground",
   "T03-push: \"kida\" (see) not in frame by frame 6",
   "T03-push: \"kidb\" (see) not in frame by frame 6",
   "T03-push: wide shot with no tagged character in the foreground",
   "T08-topDown: wide shot with no tagged character in the foreground",
-  "T11-aisleTrack: \"kidc\" (see) not in frame by frame 6",
-  "T11-aisleTrack: wide shot with no tagged character in the foreground",
   "T12-splitScreen: \"kidc\" (see) not in frame by frame 6",
   "T13-push: \"kida\" (see) not in frame by frame 6",
   "T14-push: \"kidc\" (see) not in frame by frame 6",

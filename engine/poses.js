@@ -111,8 +111,9 @@ const POSES = {
   // o.every s (default .5, from o.fire0) a 3-frame recoil kick (24 fps). drive — seated, both hands on a kart wheel.
   // holdHands — the walk with the inner arm (o.side 'left' | 'right', toward the partner) angled out to meet the partner's hand (kids 3.4 apart); o.still: standing.
   blasterAim(t, o) { const ev = o.every ?? .5, u = ((t - (o.fire0 ?? 0)) % ev + ev) % ev, k = u < 3 / 24 ? 1 - u / (3 / 24) : 0;
-    return make({rightShoulder: [-1.5 - .3 * k, 0, -.05], leftShoulder: [-1.38 - .3 * k, 0, .55], head: [.05 + .06 * k, 0, 0], leftHip: [-.12, 0, 0], rightHip: [.12, 0, 0]}, {lean: -.04 - .08 * k, dz: -.12 * k}); },
-  drive(t, o) { const s = POSES.sit(t, o), b = .03 * Math.sin(2 * PI * t / .4); s.pivots.rightShoulder = [-.95 + b, 0, -.45]; s.pivots.leftShoulder = [-.95 - b, 0, .45]; s.pivots.head = [-.05, 0, 0];
+    const lo = o.lower ?? 0;   // o.lower (rad): the barrel dips (a seated kid keeps the chin clear)
+    return make({rightShoulder: [-1.5 + lo - .3 * k, 0, -.05], leftShoulder: [-1.38 + lo - .3 * k, 0, .55], head: [.05 + .06 * k, 0, 0], leftHip: [-.12, 0, 0], rightHip: [.12, 0, 0]}, {lean: -.04 - .08 * k, dz: -.12 * k}); },
+  drive(t, o) { const s = POSES.sit(t, o), b = .03 * Math.sin(2 * PI * t / .4); const ar = o.arm ?? .6; s.pivots.rightShoulder = [-ar + b, 0, -.4]; s.pivots.leftShoulder = [-ar - b, 0, .4]; s.pivots.head = [-.05, 0, 0];
     if (o.aim) { const a = POSES.blasterAim(t, o); s.pivots.rightShoulder = a.pivots.rightShoulder; s.root.lean = a.root.lean; } return s; },   // aim: one hand on the wheel, the other firing
   holdHands(t, o) { const s = o.still ? legacy('idle', t + (o.phase ?? 0), {}) : POSES.walk(t, o), out = o.reach ?? .2; if ((o.side ?? 'left') === 'left') s.pivots.leftShoulder = [-.04, 0, -out]; else s.pivots.rightShoulder = [-.2, 0, out]; return s; },   // the two fists side by side, one a little ahead (no coplanar overlap)
   // taped up: legs together, arms pinned; a waddle — hops side to side, the body rolling over each foot (period 0.6 s)
