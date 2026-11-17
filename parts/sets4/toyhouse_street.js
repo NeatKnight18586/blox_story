@@ -36,7 +36,7 @@ export function build(scene, {M4, look4, spec} = {}) {
   for (let i = 0; i < 22; i++) { const s = new T.Mesh(bevelBoxGeometry(18, .46, .3, BEVEL, 6), i % 2 ? m1 : m2); s.position.set(0, .25 + i * .5, i % 2 ? .08 : 0); shutter.add(s); }
   shutter.position.set(0, 0, 36.2); live.add(shutter);
   const sign = textPlate('OPENS 8:00 AM', {w: 9, h: 2.6, bg: '#e2c46e', fg: '#2b2d33', lines: ['OPENS', '8:00 AM'], border: '#b77a6c', name: 'signOpens'}); sign.position.set(0, 14.3, 36.7); live.add(sign);
-  const logo = textPlate('TOY HOUSE', {w: 20, h: 3, bg: '#5f7fae', fg: '#fff6e6', name: 'shopName'}); logo.position.set(0, 26, 36.75); logo.scale.setScalar(2); live.add(logo);
+  const logo = textPlate('TOY HOUSE', {w: 20, h: 3, bg: '#5f7fae', fg: '#fff6e6', name: 'shopName'}); logo.position.set(0, 20.5, 36.75); logo.scale.setScalar(1.6); live.add(logo);
   // neighbours and the far side of the street
   for (const [x, w, h, c] of [[-92, 24, 22, '#b8c4d8'], [-116, 22, 16, '#d9c0a8'], [92, 26, 20, '#c9d8b8'], [118, 22, 24, '#d8cfc0']]) { g.add(box(w, h, 24, surf('plaster', c, [3, 3], c), [x, h / 2, 31]), box(w + 1, 1, 25, '#8a6a5a', [x, h + .5, 31], {cell: 6})); for (let i = 0; i < 3; i++) for (let j = 0; j < Math.floor(h / 7); j++) { const wn = new T.Mesh(new T.PlaneGeometry(3.2, 3.6), new T.MeshBasicMaterial({color: '#ffcf8a'})); wn.position.set(x - w / 3 + i * w / 3, 5 + j * 6.5, 43.2); wn.userData.live = true; live.add(wn); } }
   for (const [x, z] of [[-30, 70], [34, 72], [70, 68], [-64, 72], [-98, 70], [100, 72]]) { g.add(box(26, 16 + r() * 6, 14, surf('plaster', ['#b8c4d8', '#e8d7b0', '#c8d0b8'][Math.floor(r() * 3)], [3, 3], '#c8c8c8'), [x, 9, z + 14])); }

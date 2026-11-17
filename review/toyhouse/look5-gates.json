@@ -1,0 +1,223 @@
+{
+ "bevel": {
+  "near": 239,
+  "bevelled": 239,
+  "sharp": [],
+  "far": 328,
+  "thin": 19,
+  "fraction": 1
+ },
+ "colours": {
+  "env": {
+   "n": 74,
+   "ok": 74,
+   "bad": []
+  },
+  "story": {
+   "n": 22,
+   "ok": 22,
+   "bad": []
+  }
+ },
+ "shelves": {
+  "near": 20,
+  "mid": 28,
+  "far": 50
+ },
+ "sat": {
+  "S2-aisle": {
+   "subj": 0.338,
+   "bg": 0.153,
+   "ratio": 2.2,
+   "subjPx": 33226
+  },
+  "S3-counter": {
+   "subj": 0.63,
+   "bg": 0.338,
+   "ratio": 1.86,
+   "subjPx": 177042
+  },
+  "S4-candy": {
+   "subj": 0.561,
+   "bg": 0.269,
+   "ratio": 2.09,
+   "subjPx": 82842
+  },
+  "S6-scale": {
+   "subj": 0.322,
+   "bg": 0.138,
+   "ratio": 2.33,
+   "subjPx": 16212
+  },
+  "S8-track": {
+   "subj": 0.247,
+   "bg": 0.162,
+   "ratio": 1.52,
+   "subjPx": 29428
+  },
+  "S9-arena": {
+   "subj": 0.396,
+   "bg": 0.188,
+   "ratio": 2.11,
+   "subjPx": 11727
+  },
+  "S10-pit": {
+   "subj": 0.422,
+   "bg": 0.229,
+   "ratio": 1.84,
+   "subjPx": 40183
+  },
+  "S11-hyperbox": {
+   "subj": 0.697,
+   "bg": 0.195,
+   "ratio": 3.57,
+   "subjPx": 77938
+  }
+ },
+ "haze": {
+  "S1-top": {
+   "nearRms": null,
+   "farRms": 0.1227,
+   "nearPx": 0,
+   "farPx": 250770,
+   "ratio": null
+  },
+  "S2-aisle": {
+   "nearRms": 0.1672,
+   "farRms": 0.0886,
+   "nearPx": 64814,
+   "farPx": 74771,
+   "ratio": 0.53
+  },
+  "S6-scale": {
+   "nearRms": 0.1129,
+   "farRms": 0.1147,
+   "nearPx": 85194,
+   "farPx": 60843,
+   "ratio": 1.016
+  },
+  "S7-hall": {
+   "nearRms": null,
+   "farRms": 0.1162,
+   "nearPx": 0,
+   "farPx": 118218,
+   "ratio": null
+  },
+  "S8-track": {
+   "nearRms": 0.144,
+   "farRms": 0.0975,
+   "nearPx": 70177,
+   "farPx": 65294,
+   "ratio": 0.677
+  },
+  "S9-arena": {
+   "nearRms": 0.0423,
+   "farRms": 0.092,
+   "nearPx": 29505,
+   "farPx": 79278,
+   "ratio": 2.174
+  },
+  "S10-pit": {
+   "nearRms": 0.1053,
+   "farRms": 0.0997,
+   "nearPx": 109839,
+   "farPx": 52263,
+   "ratio": 0.947
+  },
+  "S12-overlook": {
+   "nearRms": null,
+   "farRms": 0.1121,
+   "nearPx": 0,
+   "farPx": 95312,
+   "ratio": null
+  },
+  "S13-mountain": {
+   "nearRms": 0.0221,
+   "farRms": 0.0811,
+   "nearPx": 13547,
+   "farPx": 29627,
+   "ratio": 3.664
+  },
+  "S14-train": {
+   "nearRms": null,
+   "farRms": 0.0756,
+   "nearPx": 43,
+   "farPx": 76035,
+   "ratio": null
+  }
+ },
+ "clear": {
+  "S1-top": {
+   "kidsInFront": 0,
+   "crowdInView": 48
+  },
+  "S2-aisle": {
+   "kidsInFront": 0,
+   "crowdInView": 23
+  },
+  "S3-counter": {
+   "kidsInFront": 0,
+   "crowdInView": 5
+  },
+  "S4-candy": {
+   "kidsInFront": 0,
+   "crowdInView": 8
+  },
+  "S6-scale": {
+   "kidsInFront": 0,
+   "crowdInView": 31
+  },
+  "S7-hall": {
+   "kidsInFront": 0,
+   "crowdInView": 48
+  },
+  "S8-track": {
+   "kidsInFront": 0,
+   "crowdInView": 31
+  },
+  "S9-arena": {
+   "kidsInFront": 0,
+   "crowdInView": 18
+  },
+  "S10-pit": {
+   "kidsInFront": 0,
+   "crowdInView": 43
+  }
+ },
+ "ao": {
+  "probes": [
+   {
+    "z": -24,
+    "near": 0.3361,
+    "ref": 0.502
+   },
+   {
+    "z": -30,
+    "near": 0.3673,
+    "ref": 0.6003
+   },
+   {
+    "z": -36,
+    "near": 0.357,
+    "ref": 0.3714
+   }
+  ],
+  "drop": 0.28
+ },
+ "bench": {
+  "s720": 0.218,
+  "s1080": 0.425,
+  "maxTriangles": 87664,
+  "overBudget": []
+ },
+ "failures": [
+  "saturation S8-track: subject/background 1.52 < 1.6",
+  "haze S2-aisle: far/near contrast 0.53 > 0.50",
+  "haze S6-scale: far/near contrast 1.016 > 0.50",
+  "haze S8-track: far/near contrast 0.677 > 0.50",
+  "haze S9-arena: far/near contrast 2.174 > 0.50",
+  "haze S10-pit: far/near contrast 0.947 > 0.50",
+  "haze S13-mountain: far/near contrast 3.664 > 0.50"
+ ],
+ "result": "FAIL"
+}

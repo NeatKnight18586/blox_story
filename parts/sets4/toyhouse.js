@@ -36,7 +36,7 @@ export function trainPoint(u) {
   const segs = [['l', sx, [-x + r, zf], [1, 0]], ['a', arc, [x - r, zf - r], 0], ['l', sz, [x, zf - r], [0, -1]], ['a', arc, [x - r, zb + r], 1], ['l', sx, [x - r, zb], [-1, 0]], ['a', arc, [-x + r, zb + r], 2], ['l', sz, [-x, zb + r], [0, 1]], ['a', arc, [-x + r, zf - r], 3]];
   for (const [k, len, p, dir] of segs) { if (d > len) { d -= len; continue; }
     if (k === 'l') return [p[0] + dir[0] * d, p[1] + dir[1] * d, Math.atan2(dir[0], dir[1])];
-    const a0 = [Math.PI / 2, 0, -Math.PI / 2, Math.PI][dir], a = a0 - d / r; return [p[0] + Math.sin(a) * r, p[1] + Math.cos(a) * r, Math.atan2(Math.cos(a), -Math.sin(a))]; }
+    const a = dir * Math.PI / 2 + d / r; return [p[0] + Math.sin(a) * r, p[1] + Math.cos(a) * r, Math.atan2(Math.cos(a), -Math.sin(a))]; }   // corner k: from angle k·π/2, clockwise seen from above
   return [-x + r, zf, Math.PI / 2];
 }
 export const TRAIN_LENGTH = (() => { const {x, zf, zb, r} = TRAIN; return 2 * 2 * (x - r) + 2 * ((zf - zb) - 2 * r) + 2 * Math.PI * r; })();
@@ -67,13 +67,16 @@ export const ANCHORS = {   // camera = eye level, top = a top-down camera over t
   gadget: A([-70, 0, -27], [-52.5, 6.5, -6], [-66, 4, -27], 52, [[-66, 40, -27], [-66, 0, -27]]),
   hyperbox: A([-66, 2, -27], [-56, 4.2, -20], [-66, 2.4, -27], 36, [[-66, 24, -27], [-66, 0, -27], 40]),
   mezz: A([0, L2, -160], [0, 8, -120], [0, 15, -165], 56, [[0, 70, -162], [0, L2, -162]]),
-  overlook: A([-10, L3, -170], [-10, 29, -168], [0, 3, -40], 58, [[0, 90, -150], [0, L2, -150]]),
+  overlook: A([-40, L3, -170], [-42, 29, -168], [-18, 3, -40], 58, [[0, 90, -150], [0, L2, -150]]),
   mountain: A([0, 0, -112], [18, 6, -72], [0, 12, -112], 56, [[0, 80, -112], [0, 0, -112]]),
   train: A([0, TRAIN.y, -2], [-14, 8, 12], [0, 13, -2], 50, [[0, 60, -2], [0, 0, -2]]),
   coaster: A([0, 29, -30], [0, 6, 30], [0, 26, -30], 62, [[0, 160, -30], [0, 0, -30], 50]),
 };
 export const ANCHOR_CAMS = Object.values(ANCHORS).flatMap(a => [a.camera.position, a.top.position]);
-const NEAR = 20, LOD_DIST = 45;   // census range (bevel) · swap to the coarse twin beyond this distance from a cell's bounds
+const NEAR = 20, LOD_DIST = 45;
+let kerbT = null;   // red/white kerb stripes: 2 texels, repeated 40× along the tube
+const kerbTex = () => { if (kerbT) return kerbT; const a = new T.Color(envColor('#c27c74')), b = new T.Color(envColor('#e6e0d6')), d = new Uint8Array([a.r, a.g, a.b, 1, b.r, b.g, b.b, 1].map(v => Math.round(v * 255)));
+  kerbT = new T.DataTexture(d, 2, 1, T.RGBAFormat); kerbT.colorSpace = T.SRGBColorSpace; kerbT.magFilter = kerbT.minFilter = T.NearestFilter; kerbT.wrapS = kerbT.wrapT = T.RepeatWrapping; kerbT.repeat.set(40, 1); kerbT.needsUpdate = true; return kerbT; };   // census range (bevel) · swap to the coarse twin beyond this distance from a cell's bounds
 export const isNear = (min, max, cams = ANCHOR_CAMS, r = NEAR) => cams.some(c => boxDist(c, min, max) <= r);
 
 export function build(scene, {M4, look4, spec, front = true} = {}) {   // front: false = the street module supplies the front wall (composite world)
@@ -98,7 +101,7 @@ export function build(scene, {M4, look4, spec, front = true} = {}) {   // front:
   const prop = (dist, name, seed, at, o = {}) => { const p0 = setBevel(BEVEL); const p = toyProp(name, seed); setBevel(p0); p.position.set(...at); if (o.rot) p.rotation.set(...o.rot); if (o.scale) p.scale.setScalar(o.scale); if (o.name) p.name = o.name;
     if (o.story) p.userData.story = true; (o.parent ?? D(dist, at)).add(p); return p; };
   const contact = [];
-  const floorM = mat('floor', '#efe2cf', {repeat: [18, 26]}), wallM = mat('plaster', '#e9dccb', {repeat: [18, 5]}), band = mat('plastic', '#8fa3b8'), trim = mat('plastic', '#c98f7a');
+  const floorM = mat('floor', '#e2ddd6', {repeat: [18, 26]}), wallM = mat('plaster', '#e4ded6', {repeat: [18, 5]}), band = mat('plastic', '#8fa3b8'), trim = mat('plastic', '#c98f7a');
   // ---- shell: floor, ceiling (faces down), walls, colour bands, trusses, banners ------------------------------------------------
   { const f = new T.PlaneGeometry(2 * X, Z1 - Z0, 30, 42); f.rotateX(-Math.PI / 2); const fl = new T.Mesh(f, floorM); fl.position.set(0, 0, (Z0 + Z1) / 2); fl.name = 'floor'; D('shell').add(fl);
     const c = new T.PlaneGeometry(2 * X, Z1 - Z0, 6, 8); c.rotateX(Math.PI / 2); const ce = new T.Mesh(c, mat('plaster', '#d8d4cc', {repeat: [10, 14]})); ce.position.set(0, H, (Z0 + Z1) / 2); ce.name = 'ceiling'; D('shell').add(ce); }
@@ -112,7 +115,7 @@ export function build(scene, {M4, look4, spec, front = true} = {}) {   // front:
   { const r = rnd(9); for (let i = 0; i < 10; i++) { const x = -45 + (i % 5) * 22.5, z = i < 5 ? -40 : -100, bn = new T.Mesh(new T.PlaneGeometry(5, 10), new T.MeshBasicMaterial({color: envColor(['#c97b6b', '#7b9cc9', '#c9b46b', '#8fc28a', '#b28ac9'][i % 5]), side: T.DoubleSide})); bn.position.set(x, H - 8.5, z + r() * 6); bn.name = 'banner'; live.add(bn); } }
   // ---- fluorescent strips (cool, unlit emissive; their light is baked) ------------------------------------------------------------
   const STRIPS = []; for (const z of [-145, -115, -85, -55, -25, 5]) for (const x of [-52, -26, 0, 26, 52]) STRIPS.push([x, H - 3.4, z]);
-  { const sm = new T.MeshBasicMaterial({color: '#eef5ff', toneMapped: false, fog: false}), M = new T.Matrix4(), nearS = STRIPS.filter(p => isNear([p[0] - 7, p[1] - .15, p[2] - .45], [p[0] + 7, p[1] + .15, p[2] + .45]));
+  { const sm = new T.MeshBasicMaterial({color: '#eef5ff', toneMapped: false}), M = new T.Matrix4(), nearS = STRIPS.filter(p => isNear([p[0] - 7, p[1] - .15, p[2] - .45], [p[0] + 7, p[1] + .15, p[2] + .45]));
     for (const [list, geo, nm] of [[nearS, bevelBoxGeometry(14, .3, .9, BEVEL, 100), 'stripsNear'], [STRIPS.filter(p => !nearS.includes(p)), new T.BoxGeometry(14, .3, .9), 'strips']]) { if (!list.length) continue;
       const im = new T.InstancedMesh(geo, sm, list.length); list.forEach((p, i) => im.setMatrixAt(i, M.makeTranslation(...p))); im.name = nm; im.userData.live = true; im.computeBoundingSphere(); live.add(im); } }
   // ---- zone floor plates (muted; the top-down view still reads by value and hue) -----------------------------------------------
@@ -123,13 +126,12 @@ export function build(scene, {M4, look4, spec, front = true} = {}) {   // front:
     for (let i = 0; i <= n; i++) { const a = i / n * Math.PI * 2, nx = Math.sin(a) / TRACK.a, nz = Math.cos(a) / TRACK.b, l = Math.hypot(nx, nz), o = [nx / l, nz / l];
       for (const s of [-1, 1]) { pos.push(TRACK.c[0] + Math.sin(a) * TRACK.a + o[0] * s * TRACK.width / 2, .1, TRACK.c[1] + Math.cos(a) * TRACK.b + o[1] * s * TRACK.width / 2); uv.push(i * .35, s > 0 ? 1 : 0); } }
     for (let i = 0; i < n; i++) { const a = i * 2; idx.push(a, a + 1, a + 2, a + 1, a + 3, a + 2); }
-    const tg = new T.BufferGeometry(); tg.setAttribute('position', new T.Float32BufferAttribute(pos, 3)); tg.setAttribute('uv', new T.Float32BufferAttribute(uv, 2)); tg.setIndex(idx); tg.computeVertexNormals(); D('track').add(new T.Mesh(tg, mat('asphalt', '#9a9aa2', {repeat: [1, 1]})));
+    const tg = new T.BufferGeometry(); tg.setAttribute('position', new T.Float32BufferAttribute(pos, 3)); tg.setAttribute('uv', new T.Float32BufferAttribute(uv, 2)); tg.setIndex(idx); tg.computeVertexNormals(); D('track').add(new T.Mesh(tg, mat('plastic', '#7f8797')));
     // kerbs: two closed tubes along the track edges, red/white stripes in vertex colours (round: nothing to bevel)
     for (const s of [-1, 1]) { const P = Array.from({length: 48}, (_, i) => { const a = i / 48 * Math.PI * 2, nx = Math.sin(a) / TRACK.a, nz = Math.cos(a) / TRACK.b, l = Math.hypot(nx, nz), r = TRACK.width / 2 + .7;
         return [TRACK.c[0] + Math.sin(a) * TRACK.a + nx / l * s * r, .32, TRACK.c[1] + Math.cos(a) * TRACK.b + nz / l * s * r]; });
-      const k = tube(P, .45, mat('plastic', '#ffffff'), {closed: true, step: .9, radial: 6}); k.mesh.material = k.mesh.material.clone(); k.mesh.material.vertexColors = true; k.mesh.material.userData = {...k.mesh.material.userData, cls: 'plastic'};
-      const pg = k.mesh.geometry.attributes.position, col = new Float32Array(pg.count * 3), segs = k.mesh.geometry.parameters.tubularSegments, A = new T.Color(envColor('#c27c74')), B = new T.Color(envColor('#e6e0d6'));
-      for (let i = 0; i < pg.count; i++) { const c = Math.floor(Math.floor(i / 7) / Math.max(1, segs / 40)) % 2 ? A : B; col.set([c.r, c.g, c.b], i * 3); } k.mesh.geometry.setAttribute('color', new T.BufferAttribute(col, 3)); k.mesh.name = 'kerb'; D('track').add(k.mesh); }
+      const k = tube(P, .45, mat('plastic', '#ffffff'), {closed: true, step: .9, radial: 6}); k.mesh.material = k.mesh.material.clone(); k.mesh.material.map = kerbTex(); k.mesh.material.userData = {...k.mesh.material.userData, cls: 'plastic'};   /* stripes in a 2-texel map: the bake owns the vertex colours */
+      k.mesh.name = 'kerb'; D('track').add(k.mesh); }
     bx('track', 5, .13, .7, '#e6e0d6', [trackPoint(0)[0], .14, trackPoint(0)[1]]); }
   // ---- foam-blaster arena (left): barriers, inflatable posts, blaster rack + blasters (story) -------------------------------------
   { const [x0, z0, x1, z1] = ZONES.arena, cols = ['#c98b7f', '#8fb0c9', '#c9b37f', '#9fc29a', '#b49ac9'];
@@ -206,7 +208,7 @@ export function build(scene, {M4, look4, spec, front = true} = {}) {   // front:
     for (const [c, gs] of geos) { const m = new T.Mesh(mergeGeometries(gs), mat('plush', c)); m.name = 'plushMountain'; D('mountain').add(m); }
     contact.push({x: mx, z: mz, w: 40, d: 40}); }
   // ---- mezzanine terraces (12, 24): decks, fronts, columns, railings (glass panels), stairs ------------------------------------------
-  { const deck = mat('plastic', '#cbbfae'), col = mat('metal', '#8a9099'), rail = mat('plastic', '#9a8f80');
+  { const deck = mat('plastic', '#c9c4bc'), col = mat('metal', '#8a9099'), rail = mat('plastic', '#9a8f80');
     const decks = [[[-X, -166, X, -156], L2], [[-X, -156, -65, -45], L2], [[58, -156, X, -94], L2], [[-X, Z0, X, -166], L3], [[66, -166, X, -128], L3]];
     for (const [[x0, z0, x1, z1], y] of decks) bx('mezz', x1 - x0, .6, z1 - z0, deck, [(x0 + x1) / 2, y - .3, (z0 + z1) / 2], {cell: 8});
     bx('mezz', 2 * X, L3 - L2 - .6, .6, wallM, [0, (L2 + L3) / 2, -166.3], {cell: 8});
@@ -261,6 +263,7 @@ export function build(scene, {M4, look4, spec, front = true} = {}) {   // front:
   const merged = {}; for (const [k, d] of Object.entries(districts)) merged[k] = mergeByMaterial(d);
   // LOD pairs (detailed cell ↔ coarse twin) and instanced swaps, by the camera's distance to their bounds (world.onCamera)
   const sph = o => { const b = new T.Box3().setFromObject(o); return b.isEmpty() ? null : b.getBoundingSphere(new T.Sphere()); };
+  const rig = []; live.traverse(o => { if (/^(strips|stripsNear|banner)$/.test(o.name)) rig.push(o); });
   const pairs = Object.entries(districts).filter(([k]) => !k.endsWith('#c') && districts[k + '#c']).map(([k, d]) => ({d, c: districts[k + '#c'], s: sph(d)})).filter(p => p.s);
   const swaps = []; g.traverse(o => { if (o.isInstancedMesh && o.userData.lodGeo) { o.computeBoundingSphere(); swaps.push({o, s: o.boundingSphere.clone().applyMatrix4(o.matrixWorld)}); } });
   scene.add(g);
@@ -272,7 +275,8 @@ export function build(scene, {M4, look4, spec, front = true} = {}) {   // front:
     lod: {pairs: pairs.length, swaps: swaps.length, dist: LOD_DIST},
     onCamera(cam) { const far = sp => Math.hypot(cam[0] - sp.center.x, cam[1] - sp.center.y, cam[2] - sp.center.z) - sp.radius > LOD_DIST;
       for (const p of pairs) { const f = far(p.s); p.d.visible = !f; p.c.visible = f; }
-      for (const w of swaps) { const geo = w.o.userData.lodGeo[far(w.s) ? 1 : 0]; if (w.o.geometry !== geo) w.o.geometry = geo; } },
+      for (const w of swaps) { const geo = w.o.userData.lodGeo[far(w.s) ? 1 : 0]; if (w.o.geometry !== geo) w.o.geometry = geo; }
+      const under = cam[1] < H; for (const o of rig) o.visible = under && (o.userData.coarse ? o.visible : true); for (const [k, d] of Object.entries(districts)) if (k.startsWith('ceiling@')) d.visible = under && d.visible; },   // the ceiling rig never shows from above
     setState(k, v) { if (k === 'shutter') shutter.position.y = Math.max(0, Math.min(1, v)) * 11.2; else if (k === 'clock') setClock(v); },
     update(t) { placeMovers(t); const wm = g.userData.waterfallMap; if (wm) wm.offset.y = -t * .9; }};
   return world;
