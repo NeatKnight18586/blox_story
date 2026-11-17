@@ -41,7 +41,7 @@ try {
     return [s.id, b && b.front ? Math.min(b.y1, 1) - Math.max(b.y0, 0) : 0]; }), shots.filter(s => s.size === 'insert' && s.prop).map(s => ({id: s.id, prop: s.prop, mid: s.start + Math.floor(s.frames / 2)}))));
 } finally { await browser.close(); await server.close(); }
 
-const r = checkPlan({shots, cues, fps, end: spec.end, info});
+const r = checkPlan({shots, cues, fps, end: spec.end, info, format: spec.format});
 const sz = checkSeason({spec, shots, cues, fps, end: spec.end, info, meas});
 r.errors.push(...sz.errors, ...labelIssues(spec));
 if (spec.format === 5) { const p5 = plan5(shots, {fps, cues, insertH, end: spec.end}); r.errors.push(...p5.errors); r.stats.format5 = {lengthS: p5.lengthS, averageShotS: p5.averageShotS, insertH}; }   // format v5 rules   // owner rule §2c: noLabels (Season 1 / labels: false)

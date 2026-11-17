@@ -1,0 +1,1628 @@
+{
+ "spec": "stories/toyhouse/episode.json",
+ "motionThreshold": 0.021,
+ "shots": [
+  {
+   "id": "T01-push",
+   "size": "wide",
+   "t": 0,
+   "dur": 1.17,
+   "subject": null,
+   "moves": {
+    "motion": 0.096,
+    "need": 0.021,
+    "ok": true,
+    "msg": ""
+   },
+   "hold": {
+    "held": 1.17,
+    "max": 4.5,
+    "ok": true,
+    "msg": "moving framing held 1.17 s (≤ 4.5)"
+   }
+  },
+  {
+   "id": "T02-crashZoom",
+   "size": "wide",
+   "t": 1.17,
+   "dur": 0.88,
+   "subject": null,
+   "moves": {
+    "motion": 0.093,
+    "need": 0.021,
+    "ok": true,
+    "msg": ""
+   },
+   "hold": {
+    "held": 0.88,
+    "max": 4.5,
+    "ok": true,
+    "msg": "moving framing held 0.88 s (≤ 4.5)"
+   }
+  },
+  {
+   "id": "T03-lowAuthority",
+   "size": "wide",
+   "t": 2.04,
+   "dur": 0.5,
+   "subject": null,
+   "moves": {
+    "motion": 0.1823,
+    "need": 0.021,
+    "ok": true,
+    "msg": ""
+   },
+   "hold": {
+    "held": 0.5,
+    "max": 4.5,
+    "ok": true,
+    "msg": "moving framing held 0.50 s (≤ 4.5)"
+   }
+  },
+  {
+   "id": "T04-push",
+   "size": "wide",
+   "t": 2.54,
+   "dur": 1,
+   "subject": null,
+   "moves": {
+    "motion": 0.0968,
+    "need": 0.021,
+    "ok": true,
+    "msg": ""
+   },
+   "hold": {
+    "held": 1,
+    "max": 4.5,
+    "ok": true,
+    "msg": "moving framing held 1.00 s (≤ 4.5)"
+   }
+  },
+  {
+   "id": "T05-crashZoom",
+   "size": "insert",
+   "t": 3.54,
+   "dur": 1,
+   "subject": "clock",
+   "nothingInFront": {
+    "front": 0,
+    "faceCover": 0,
+    "ok": true
+   },
+   "standsOut": {
+    "subj": 0.64,
+    "ring": 0.078,
+    "diff": 0.562,
+    "ok": true,
+    "msg": ""
+   },
+   "objectReads": {
+    "inside": 1,
+    "h": 0.556,
+    "ok": true
+   },
+   "moves": {
+    "motion": 0.0493,
+    "need": 0.021,
+    "ok": true,
+    "msg": ""
+   },
+   "hold": {
+    "held": 1,
+    "max": 4.5,
+    "ok": true,
+    "msg": "moving framing held 1.00 s (≤ 4.5)"
+   }
+  },
+  {
+   "id": "T06-push",
+   "size": "medium",
+   "t": 4.54,
+   "dur": 1.54,
+   "subject": "kida",
+   "faceShown": {
+    "angle": 2.1,
+    "inside": 1,
+    "ok": true
+   },
+   "nothingInFront": {
+    "front": 0,
+    "faceCover": 0,
+    "ok": true
+   },
+   "standsOut": {
+    "subj": 0.387,
+    "ring": 0.225,
+    "diff": 0.161,
+    "ok": true,
+    "msg": ""
+   },
+   "moves": {
+    "motion": 0.0595,
+    "need": 0.021,
+    "ok": true,
+    "msg": ""
+   },
+   "hold": {
+    "held": 1.54,
+    "max": 4.5,
+    "ok": true,
+    "msg": "moving framing held 1.54 s (≤ 4.5)"
+   }
+  },
+  {
+   "id": "T07-push",
+   "size": "close",
+   "t": 6.08,
+   "dur": 1.33,
+   "subject": "kida",
+   "faceShown": {
+    "angle": 4.4,
+    "inside": 0.675,
+    "ok": false,
+    "msg": "68 % of the head in frame (≥ 70)"
+   },
+   "nothingInFront": {
+    "front": 0,
+    "faceCover": 0,
+    "ok": true
+   },
+   "standsOut": {
+    "subj": 0.39,
+    "ring": 0.156,
+    "diff": 0.234,
+    "ok": true,
+    "msg": ""
+   },
+   "moves": {
+    "motion": 0.0507,
+    "need": 0.021,
+    "ok": true,
+    "msg": ""
+   },
+   "hold": {
+    "held": 1.33,
+    "max": 4.5,
+    "ok": true,
+    "msg": "moving framing held 1.33 s (≤ 4.5)"
+   }
+  },
+  {
+   "id": "T08-topDown",
+   "size": "wide",
+   "t": 7.42,
+   "dur": 1.13,
+   "subject": null,
+   "moves": {
+    "motion": 0.1625,
+    "need": 0.021,
+    "ok": true,
+    "msg": ""
+   },
+   "hold": {
+    "held": 1.13,
+    "max": 4.5,
+    "ok": true,
+    "msg": "moving framing held 1.13 s (≤ 4.5)"
+   }
+  },
+  {
+   "id": "T09-push",
+   "size": "insert",
+   "t": 8.54,
+   "dur": 0.42,
+   "subject": "clock",
+   "nothingInFront": {
+    "front": 0,
+    "faceCover": 0,
+    "ok": true
+   },
+   "standsOut": {
+    "subj": 0.636,
+    "ring": 0.106,
+    "diff": 0.53,
+    "ok": true,
+    "msg": ""
+   },
+   "objectReads": {
+    "inside": 0.997,
+    "h": 0.564,
+    "ok": true
+   },
+   "moves": {
+    "motion": 0.0525,
+    "need": 0.021,
+    "ok": true,
+    "msg": ""
+   },
+   "hold": {
+    "held": 0.42,
+    "max": 4.5,
+    "ok": true,
+    "msg": "moving framing held 0.42 s (≤ 4.5)"
+   }
+  },
+  {
+   "id": "T10-heroLow",
+   "size": "wide",
+   "t": 8.96,
+   "dur": 2,
+   "subject": "kidb",
+   "faceShown": {
+    "angle": 47.4,
+    "inside": 1,
+    "ok": true
+   },
+   "nothingInFront": {
+    "front": 0.059,
+    "faceCover": 0,
+    "ok": true
+   },
+   "standsOut": {
+    "subj": 0.599,
+    "ring": 0.074,
+    "diff": 0.526,
+    "ok": true,
+    "msg": ""
+   },
+   "moves": {
+    "motion": 0.056,
+    "need": 0.021,
+    "ok": true,
+    "msg": ""
+   },
+   "hold": {
+    "held": 2,
+    "max": 4.5,
+    "ok": true,
+    "msg": "moving framing held 2.00 s (≤ 4.5)"
+   }
+  },
+  {
+   "id": "T11-aisleTrack",
+   "size": "wide",
+   "t": 10.96,
+   "dur": 1.33,
+   "subject": "kidc",
+   "faceShown": null,
+   "nothingInFront": {
+    "front": 0,
+    "faceCover": 0,
+    "ok": true
+   },
+   "standsOut": {
+    "subj": 0.474,
+    "ring": 0.298,
+    "diff": 0.176,
+    "ok": true,
+    "msg": ""
+   },
+   "moves": {
+    "motion": 0.1587,
+    "need": 0.021,
+    "ok": true,
+    "msg": ""
+   },
+   "hold": {
+    "held": 1.33,
+    "max": 4.5,
+    "ok": true,
+    "msg": "moving framing held 1.33 s (≤ 4.5)"
+   }
+  },
+  {
+   "id": "T12-splitScreen",
+   "size": "wide",
+   "t": 12.29,
+   "dur": 1.33,
+   "subject": null,
+   "moves": {
+    "motion": 0.0343,
+    "need": 0.021,
+    "ok": true,
+    "msg": ""
+   },
+   "hold": {
+    "held": 1.33,
+    "max": 4.5,
+    "ok": true,
+    "msg": "moving framing held 1.33 s (≤ 4.5)"
+   }
+  },
+  {
+   "id": "T13-push",
+   "size": "medium",
+   "t": 13.63,
+   "dur": 2.29,
+   "subject": "kida",
+   "faceShown": {
+    "angle": 25.7,
+    "inside": 1,
+    "ok": true
+   },
+   "nothingInFront": {
+    "front": 0,
+    "faceCover": 0.002,
+    "ok": true
+   },
+   "standsOut": {
+    "subj": 0.544,
+    "ring": 0.204,
+    "diff": 0.34,
+    "ok": true,
+    "msg": ""
+   },
+   "moves": {
+    "motion": 0.0436,
+    "need": 0.021,
+    "ok": true,
+    "msg": ""
+   },
+   "hold": {
+    "held": 2.29,
+    "max": 4.5,
+    "ok": true,
+    "msg": "moving framing held 2.29 s (≤ 4.5)"
+   }
+  },
+  {
+   "id": "T14-push",
+   "size": "insert",
+   "t": 15.92,
+   "dur": 0.71,
+   "subject": null,
+   "moves": {
+    "motion": 0.0422,
+    "need": 0.021,
+    "ok": true,
+    "msg": ""
+   },
+   "hold": {
+    "held": 0.71,
+    "max": 4.5,
+    "ok": true,
+    "msg": "moving framing held 0.71 s (≤ 4.5)"
+   }
+  },
+  {
+   "id": "T15-push",
+   "size": "insert",
+   "t": 16.63,
+   "dur": 0.96,
+   "subject": null,
+   "moves": {
+    "motion": 0.2033,
+    "need": 0.021,
+    "ok": true,
+    "msg": ""
+   },
+   "hold": {
+    "held": 0.96,
+    "max": 4.5,
+    "ok": true,
+    "msg": "moving framing held 0.96 s (≤ 4.5)"
+   }
+  },
+  {
+   "id": "T16-push",
+   "size": "medium",
+   "t": 17.58,
+   "dur": 1.33,
+   "subject": "mo",
+   "faceShown": {
+    "angle": 2.1,
+    "inside": 1,
+    "ok": true
+   },
+   "nothingInFront": {
+    "front": 0,
+    "faceCover": 0,
+    "ok": true
+   },
+   "standsOut": {
+    "subj": 0.513,
+    "ring": 0.202,
+    "diff": 0.311,
+    "ok": true,
+    "msg": ""
+   },
+   "moves": {
+    "motion": 0.0387,
+    "need": 0.021,
+    "ok": true,
+    "msg": ""
+   },
+   "hold": {
+    "held": 1.33,
+    "max": 4.5,
+    "ok": true,
+    "msg": "moving framing held 1.33 s (≤ 4.5)"
+   }
+  },
+  {
+   "id": "T17-push",
+   "size": "medium",
+   "t": 18.92,
+   "dur": 2,
+   "subject": "mo",
+   "faceShown": {
+    "angle": 154,
+    "inside": 0.861,
+    "ok": true
+   },
+   "nothingInFront": {
+    "front": 0,
+    "faceCover": 0,
+    "ok": true
+   },
+   "standsOut": {
+    "subj": 0.73,
+    "ring": 0.132,
+    "diff": 0.598,
+    "ok": true,
+    "msg": ""
+   },
+   "moves": {
+    "motion": 0.0267,
+    "need": 0.021,
+    "ok": true,
+    "msg": ""
+   },
+   "hold": {
+    "held": 2,
+    "max": 4.5,
+    "ok": true,
+    "msg": "moving framing held 2.00 s (≤ 4.5)"
+   }
+  },
+  {
+   "id": "T18-heroLow",
+   "size": "medium",
+   "t": 20.92,
+   "dur": 2.04,
+   "subject": "hero",
+   "faceShown": {
+    "angle": 39.7,
+    "inside": 1,
+    "ok": true
+   },
+   "nothingInFront": {
+    "front": 0,
+    "faceCover": 0,
+    "ok": true
+   },
+   "standsOut": {
+    "subj": 0.431,
+    "ring": 0.204,
+    "diff": 0.227,
+    "ok": true,
+    "msg": ""
+   },
+   "moves": {
+    "motion": 0.0319,
+    "need": 0.021,
+    "ok": true,
+    "msg": ""
+   },
+   "hold": {
+    "held": 2.04,
+    "max": 4.5,
+    "ok": true,
+    "msg": "moving framing held 2.04 s (≤ 4.5)"
+   }
+  },
+  {
+   "id": "T19-tiltUp",
+   "size": "wide",
+   "t": 22.96,
+   "dur": 1.83,
+   "subject": null,
+   "moves": {
+    "motion": 0.1239,
+    "need": 0.021,
+    "ok": true,
+    "msg": ""
+   },
+   "hold": {
+    "held": 1.83,
+    "max": 4.5,
+    "ok": true,
+    "msg": "moving framing held 1.83 s (≤ 4.5)"
+   }
+  },
+  {
+   "id": "T20-push",
+   "size": "medium",
+   "t": 24.79,
+   "dur": 1.54,
+   "subject": "hero",
+   "faceShown": {
+    "angle": 11.9,
+    "inside": 0.914,
+    "ok": true
+   },
+   "nothingInFront": {
+    "front": 0,
+    "faceCover": 0,
+    "ok": true
+   },
+   "standsOut": {
+    "subj": 0.481,
+    "ring": 0.205,
+    "diff": 0.276,
+    "ok": true,
+    "msg": ""
+   },
+   "moves": {
+    "motion": 0.0789,
+    "need": 0.021,
+    "ok": true,
+    "msg": ""
+   },
+   "hold": {
+    "held": 1.54,
+    "max": 4.5,
+    "ok": true,
+    "msg": "moving framing held 1.54 s (≤ 4.5)"
+   }
+  },
+  {
+   "id": "T21-snap",
+   "size": "close",
+   "t": 26.33,
+   "dur": 0.75,
+   "subject": "hero",
+   "faceShown": {
+    "angle": 13.2,
+    "inside": 0.684,
+    "ok": false,
+    "msg": "68 % of the head in frame (≥ 70)"
+   },
+   "nothingInFront": {
+    "front": 0,
+    "faceCover": 0.022,
+    "ok": false,
+    "msg": "the face is 2.2 % covered"
+   },
+   "standsOut": {
+    "subj": 0.524,
+    "ring": 0.165,
+    "diff": 0.358,
+    "ok": true,
+    "msg": ""
+   },
+   "moves": {
+    "motion": 0.2508,
+    "need": 0.021,
+    "ok": true,
+    "msg": ""
+   },
+   "hold": {
+    "held": 0.75,
+    "max": 4.5,
+    "ok": true,
+    "msg": "moving framing held 0.75 s (≤ 4.5)"
+   }
+  },
+  {
+   "id": "T22-push",
+   "size": "wide",
+   "t": 27.08,
+   "dur": 2.5,
+   "subject": null,
+   "moves": {
+    "motion": 0.1146,
+    "need": 0.021,
+    "ok": true,
+    "msg": ""
+   },
+   "hold": {
+    "held": 2.5,
+    "max": 4.5,
+    "ok": true,
+    "msg": "moving framing held 2.50 s (≤ 4.5)"
+   }
+  },
+  {
+   "id": "T23-push",
+   "size": "insert",
+   "t": 29.58,
+   "dur": 1.83,
+   "subject": "prop_tape",
+   "nothingInFront": {
+    "front": 0,
+    "faceCover": 0,
+    "ok": true
+   },
+   "standsOut": {
+    "subj": 0.701,
+    "ring": 0.242,
+    "diff": 0.459,
+    "ok": true,
+    "msg": ""
+   },
+   "objectReads": {
+    "inside": 0.892,
+    "h": 0.689,
+    "ok": false,
+    "msg": "89 % of the object in frame (≥ 90)"
+   },
+   "moves": {
+    "motion": 0.0778,
+    "need": 0.021,
+    "ok": true,
+    "msg": ""
+   },
+   "hold": {
+    "held": 1.83,
+    "max": 4.5,
+    "ok": true,
+    "msg": "moving framing held 1.83 s (≤ 4.5)"
+   }
+  },
+  {
+   "id": "T24-push",
+   "size": "medium",
+   "t": 31.42,
+   "dur": 1.08,
+   "subject": "taped",
+   "faceShown": {
+    "angle": 176.6,
+    "inside": 0.95,
+    "ok": true
+   },
+   "nothingInFront": {
+    "front": 0,
+    "faceCover": 0,
+    "ok": true
+   },
+   "standsOut": {
+    "subj": 0.34,
+    "ring": 0.117,
+    "diff": 0.224,
+    "ok": true,
+    "msg": ""
+   },
+   "moves": {
+    "motion": 0.072,
+    "need": 0.021,
+    "ok": true,
+    "msg": ""
+   },
+   "hold": {
+    "held": 1.08,
+    "max": 4.5,
+    "ok": true,
+    "msg": "moving framing held 1.08 s (≤ 4.5)"
+   }
+  },
+  {
+   "id": "T25-snap",
+   "size": "close",
+   "t": 32.5,
+   "dur": 0.42,
+   "subject": "taped",
+   "faceShown": {
+    "angle": 2.2,
+    "inside": 0.705,
+    "ok": true
+   },
+   "nothingInFront": {
+    "front": 0,
+    "faceCover": 0,
+    "ok": true
+   },
+   "standsOut": {
+    "subj": 0.501,
+    "ring": 0.124,
+    "diff": 0.377,
+    "ok": true,
+    "msg": ""
+   },
+   "moves": {
+    "motion": 0.1894,
+    "need": 0.021,
+    "ok": true,
+    "msg": ""
+   },
+   "hold": {
+    "held": 0.42,
+    "max": 4.5,
+    "ok": true,
+    "msg": "moving framing held 0.42 s (≤ 4.5)"
+   }
+  },
+  {
+   "id": "T26-pull",
+   "size": "medium",
+   "t": 32.92,
+   "dur": 1.75,
+   "subject": "taped",
+   "faceShown": {
+    "angle": 2.5,
+    "inside": 1,
+    "ok": true
+   },
+   "nothingInFront": {
+    "front": 0,
+    "faceCover": 0,
+    "ok": true
+   },
+   "standsOut": {
+    "subj": 0.376,
+    "ring": 0.129,
+    "diff": 0.247,
+    "ok": true,
+    "msg": ""
+   },
+   "moves": {
+    "motion": 0.2047,
+    "need": 0.021,
+    "ok": true,
+    "msg": ""
+   },
+   "hold": {
+    "held": 1.75,
+    "max": 4.5,
+    "ok": true,
+    "msg": "moving framing held 1.75 s (≤ 4.5)"
+   }
+  },
+  {
+   "id": "T27-push",
+   "size": "wide",
+   "t": 34.67,
+   "dur": 1.42,
+   "subject": "taped",
+   "faceShown": null,
+   "nothingInFront": {
+    "front": 0,
+    "faceCover": 0,
+    "ok": true
+   },
+   "standsOut": {
+    "subj": 0.345,
+    "ring": 0.193,
+    "diff": 0.152,
+    "ok": true,
+    "msg": ""
+   },
+   "moves": {
+    "motion": 0.0523,
+    "need": 0.021,
+    "ok": true,
+    "msg": ""
+   },
+   "hold": {
+    "held": 1.42,
+    "max": 4.5,
+    "ok": true,
+    "msg": "moving framing held 1.42 s (≤ 4.5)"
+   }
+  },
+  {
+   "id": "T28-push",
+   "size": "wide",
+   "t": 36.08,
+   "dur": 2.54,
+   "subject": "taped",
+   "faceShown": null,
+   "nothingInFront": {
+    "front": 0,
+    "faceCover": 0,
+    "ok": true
+   },
+   "standsOut": {
+    "subj": 0.414,
+    "ring": 0.246,
+    "diff": 0.168,
+    "ok": true,
+    "msg": ""
+   },
+   "moves": {
+    "motion": 0.0606,
+    "need": 0.021,
+    "ok": true,
+    "msg": ""
+   },
+   "hold": {
+    "held": 2.54,
+    "max": 4.5,
+    "ok": true,
+    "msg": "moving framing held 2.54 s (≤ 4.5)"
+   }
+  },
+  {
+   "id": "T29-splitScreen",
+   "size": "wide",
+   "t": 38.63,
+   "dur": 2.13,
+   "subject": null,
+   "moves": {
+    "motion": 0.0276,
+    "need": 0.021,
+    "ok": true,
+    "msg": ""
+   },
+   "hold": {
+    "held": 2.13,
+    "max": 4.5,
+    "ok": true,
+    "msg": "moving framing held 2.13 s (≤ 4.5)"
+   }
+  },
+  {
+   "id": "T30-crashZoom",
+   "size": "insert",
+   "t": 40.75,
+   "dur": 2.04,
+   "subject": "prop_key",
+   "nothingInFront": {
+    "front": 0,
+    "faceCover": 0,
+    "ok": true
+   },
+   "standsOut": {
+    "subj": 0.608,
+    "ring": 0.128,
+    "diff": 0.48,
+    "ok": true,
+    "msg": ""
+   },
+   "objectReads": {
+    "inside": 0.971,
+    "h": 0.84,
+    "ok": true
+   },
+   "moves": {
+    "motion": 0.1832,
+    "need": 0.021,
+    "ok": true,
+    "msg": ""
+   },
+   "hold": {
+    "held": 2.04,
+    "max": 4.5,
+    "ok": true,
+    "msg": "moving framing held 2.04 s (≤ 4.5)"
+   }
+  },
+  {
+   "id": "T31-push",
+   "size": "medium",
+   "t": 42.79,
+   "dur": 1.54,
+   "subject": "taped",
+   "faceShown": {
+    "angle": 150.3,
+    "inside": 0.788,
+    "ok": true
+   },
+   "nothingInFront": {
+    "front": 0,
+    "faceCover": 0,
+    "ok": true
+   },
+   "standsOut": {
+    "subj": 0.428,
+    "ring": 0.166,
+    "diff": 0.262,
+    "ok": true,
+    "msg": ""
+   },
+   "moves": {
+    "motion": 0.0707,
+    "need": 0.021,
+    "ok": true,
+    "msg": ""
+   },
+   "hold": {
+    "held": 1.54,
+    "max": 4.5,
+    "ok": true,
+    "msg": "moving framing held 1.54 s (≤ 4.5)"
+   }
+  },
+  {
+   "id": "T32-topDown",
+   "size": "wide",
+   "t": 44.33,
+   "dur": 1.04,
+   "subject": null,
+   "moves": {
+    "motion": 0.0048,
+    "need": 0.021,
+    "ok": false,
+    "msg": "motion 0.0048 < 0.0210"
+   },
+   "hold": {
+    "held": 1.04,
+    "max": 3,
+    "ok": true,
+    "msg": "static framing held 1.04 s (≤ 3)"
+   }
+  },
+  {
+   "id": "T33-push",
+   "size": "insert",
+   "t": 45.38,
+   "dur": 1.33,
+   "subject": "photoFrame",
+   "nothingInFront": {
+    "front": 0.098,
+    "faceCover": 0,
+    "ok": true
+   },
+   "standsOut": {
+    "subj": 0.551,
+    "ring": 0.306,
+    "diff": 0.245,
+    "ok": true,
+    "msg": ""
+   },
+   "objectReads": {
+    "inside": 1,
+    "h": 0.501,
+    "ok": true
+   },
+   "moves": {
+    "motion": 0.0446,
+    "need": 0.021,
+    "ok": true,
+    "msg": ""
+   },
+   "hold": {
+    "held": 1.33,
+    "max": 4.5,
+    "ok": true,
+    "msg": "moving framing held 1.33 s (≤ 4.5)"
+   }
+  },
+  {
+   "id": "T34-push",
+   "size": "medium",
+   "t": 46.71,
+   "dur": 3.08,
+   "subject": "youngpip",
+   "faceShown": {
+    "angle": 0.4,
+    "inside": 1,
+    "ok": true
+   },
+   "nothingInFront": {
+    "front": 0,
+    "faceCover": 0,
+    "ok": true
+   },
+   "standsOut": {
+    "subj": 0.404,
+    "ring": 0.216,
+    "diff": 0.188,
+    "ok": true,
+    "msg": ""
+   },
+   "moves": {
+    "motion": 0.0305,
+    "need": 0.021,
+    "ok": true,
+    "msg": ""
+   },
+   "hold": {
+    "held": 3.08,
+    "max": 4.5,
+    "ok": true,
+    "msg": "moving framing held 3.08 s (≤ 4.5)"
+   }
+  },
+  {
+   "id": "T35-push",
+   "size": "medium",
+   "t": 49.79,
+   "dur": 1.46,
+   "subject": "pip",
+   "faceShown": {
+    "angle": 12.6,
+    "inside": 0.922,
+    "ok": true
+   },
+   "nothingInFront": {
+    "front": 0,
+    "faceCover": 0,
+    "ok": true
+   },
+   "standsOut": {
+    "subj": 0.648,
+    "ring": 0.295,
+    "diff": 0.353,
+    "ok": true,
+    "msg": ""
+   },
+   "moves": {
+    "motion": 0.0727,
+    "need": 0.021,
+    "ok": true,
+    "msg": ""
+   },
+   "hold": {
+    "held": 1.46,
+    "max": 4.5,
+    "ok": true,
+    "msg": "moving framing held 1.46 s (≤ 4.5)"
+   }
+  },
+  {
+   "id": "T36-lowAuthority",
+   "size": "wide",
+   "t": 51.25,
+   "dur": 2.96,
+   "subject": "pip",
+   "faceShown": null,
+   "nothingInFront": {
+    "front": 0,
+    "faceCover": 0.01,
+    "ok": true
+   },
+   "standsOut": {
+    "subj": 0.335,
+    "ring": 0.177,
+    "diff": 0.158,
+    "ok": true,
+    "msg": ""
+   },
+   "moves": {
+    "motion": 0.0839,
+    "need": 0.021,
+    "ok": true,
+    "msg": ""
+   },
+   "hold": {
+    "held": 2.96,
+    "max": 4.5,
+    "ok": true,
+    "msg": "moving framing held 2.96 s (≤ 4.5)"
+   }
+  },
+  {
+   "id": "T37-push",
+   "size": "insert",
+   "t": 54.21,
+   "dur": 1.46,
+   "subject": "prop_key",
+   "nothingInFront": {
+    "front": 0,
+    "faceCover": 0,
+    "ok": true
+   },
+   "standsOut": {
+    "subj": 0.585,
+    "ring": 0.137,
+    "diff": 0.448,
+    "ok": true,
+    "msg": ""
+   },
+   "objectReads": {
+    "inside": 1,
+    "h": 0.95,
+    "ok": true
+   },
+   "moves": {
+    "motion": 0.0759,
+    "need": 0.021,
+    "ok": true,
+    "msg": ""
+   },
+   "hold": {
+    "held": 1.46,
+    "max": 4.5,
+    "ok": true,
+    "msg": "moving framing held 1.46 s (≤ 4.5)"
+   }
+  },
+  {
+   "id": "T38-crashZoom",
+   "size": "insert",
+   "t": 55.67,
+   "dur": 1.04,
+   "subject": "clock",
+   "nothingInFront": {
+    "front": 0,
+    "faceCover": 0,
+    "ok": true
+   },
+   "standsOut": {
+    "subj": 0.641,
+    "ring": 0.077,
+    "diff": 0.565,
+    "ok": true,
+    "msg": ""
+   },
+   "objectReads": {
+    "inside": 1,
+    "h": 0.554,
+    "ok": true
+   },
+   "moves": {
+    "motion": 0.1779,
+    "need": 0.021,
+    "ok": true,
+    "msg": ""
+   },
+   "hold": {
+    "held": 1.04,
+    "max": 4.5,
+    "ok": true,
+    "msg": "moving framing held 1.04 s (≤ 4.5)"
+   }
+  },
+  {
+   "id": "T39-aisleTrack",
+   "size": "wide",
+   "t": 56.71,
+   "dur": 2.21,
+   "subject": "taped",
+   "faceShown": null,
+   "nothingInFront": {
+    "front": 0,
+    "faceCover": 0,
+    "ok": true
+   },
+   "standsOut": {
+    "subj": 0.341,
+    "ring": 0.129,
+    "diff": 0.212,
+    "ok": true,
+    "msg": ""
+   },
+   "moves": {
+    "motion": 0.0275,
+    "need": 0.021,
+    "ok": true,
+    "msg": ""
+   },
+   "hold": {
+    "held": 2.21,
+    "max": 4.5,
+    "ok": true,
+    "msg": "moving framing held 2.21 s (≤ 4.5)"
+   }
+  },
+  {
+   "id": "T40-push",
+   "size": "close",
+   "t": 58.92,
+   "dur": 1.13,
+   "subject": "mo",
+   "faceShown": {
+    "angle": 4.3,
+    "inside": 0.765,
+    "ok": true
+   },
+   "nothingInFront": {
+    "front": 0,
+    "faceCover": 0,
+    "ok": true
+   },
+   "standsOut": {
+    "subj": 0.529,
+    "ring": 0.134,
+    "diff": 0.396,
+    "ok": true,
+    "msg": ""
+   },
+   "moves": {
+    "motion": 0.0604,
+    "need": 0.021,
+    "ok": true,
+    "msg": ""
+   },
+   "hold": {
+    "held": 1.13,
+    "max": 4.5,
+    "ok": true,
+    "msg": "moving framing held 1.13 s (≤ 4.5)"
+   }
+  },
+  {
+   "id": "T41-push",
+   "size": "wide",
+   "t": 60.04,
+   "dur": 1.92,
+   "subject": "mo",
+   "faceShown": null,
+   "nothingInFront": {
+    "front": 0,
+    "faceCover": 0,
+    "ok": true
+   },
+   "standsOut": {
+    "subj": 0.612,
+    "ring": 0.489,
+    "diff": 0.123,
+    "ok": true,
+    "msg": ""
+   },
+   "moves": {
+    "motion": 0.0352,
+    "need": 0.021,
+    "ok": true,
+    "msg": ""
+   },
+   "hold": {
+    "held": 1.92,
+    "max": 4.5,
+    "ok": true,
+    "msg": "moving framing held 1.92 s (≤ 4.5)"
+   }
+  },
+  {
+   "id": "T42-push",
+   "size": "medium",
+   "t": 61.96,
+   "dur": 1.5,
+   "subject": "prop_box1",
+   "nothingInFront": {
+    "front": 0,
+    "faceCover": 0,
+    "ok": true
+   },
+   "standsOut": {
+    "subj": 0.489,
+    "ring": 0.44,
+    "diff": 0.049,
+    "ok": false,
+    "msg": "subject vs surround luma 0.049 (≥ 0.12)"
+   },
+   "moves": {
+    "motion": 0.0167,
+    "need": 0.021,
+    "ok": false,
+    "msg": "motion 0.0167 < 0.0210"
+   },
+   "hold": {
+    "held": 1.5,
+    "max": 3,
+    "ok": true,
+    "msg": "static framing held 1.50 s (≤ 3)"
+   }
+  },
+  {
+   "id": "T43-push",
+   "size": "insert",
+   "t": 63.46,
+   "dur": 1.75,
+   "subject": null,
+   "moves": {
+    "motion": 0.0691,
+    "need": 0.021,
+    "ok": true,
+    "msg": ""
+   },
+   "hold": {
+    "held": 1.75,
+    "max": 4.5,
+    "ok": true,
+    "msg": "moving framing held 1.75 s (≤ 4.5)"
+   }
+  },
+  {
+   "id": "T44-push",
+   "size": "medium",
+   "t": 65.21,
+   "dur": 1.67,
+   "subject": "mo",
+   "faceShown": {
+    "angle": 27,
+    "inside": 1,
+    "ok": true
+   },
+   "nothingInFront": {
+    "front": 0,
+    "faceCover": 0,
+    "ok": true
+   },
+   "standsOut": {
+    "subj": 0.508,
+    "ring": 0.146,
+    "diff": 0.363,
+    "ok": true,
+    "msg": ""
+   },
+   "moves": {
+    "motion": 0.0666,
+    "need": 0.021,
+    "ok": true,
+    "msg": ""
+   },
+   "hold": {
+    "held": 1.67,
+    "max": 4.5,
+    "ok": true,
+    "msg": "moving framing held 1.67 s (≤ 4.5)"
+   }
+  },
+  {
+   "id": "T45-crashZoom",
+   "size": "insert",
+   "t": 66.88,
+   "dur": 1.33,
+   "subject": "clock",
+   "nothingInFront": {
+    "front": 0,
+    "faceCover": 0,
+    "ok": true
+   },
+   "standsOut": {
+    "subj": 0.641,
+    "ring": 0.113,
+    "diff": 0.527,
+    "ok": true,
+    "msg": ""
+   },
+   "objectReads": {
+    "inside": 1,
+    "h": 0.553,
+    "ok": true
+   },
+   "moves": {
+    "motion": 0.2422,
+    "need": 0.021,
+    "ok": true,
+    "msg": ""
+   },
+   "hold": {
+    "held": 1.33,
+    "max": 4.5,
+    "ok": true,
+    "msg": "moving framing held 1.33 s (≤ 4.5)"
+   }
+  },
+  {
+   "id": "T46-push",
+   "size": "insert",
+   "t": 68.21,
+   "dur": 1.13,
+   "subject": "prop_hyper",
+   "nothingInFront": {
+    "front": 0,
+    "faceCover": 0,
+    "ok": true
+   },
+   "standsOut": {
+    "subj": 0.328,
+    "ring": 0.258,
+    "diff": 0.07,
+    "ok": false,
+    "msg": "subject vs surround luma 0.070 (≥ 0.12)"
+   },
+   "objectReads": {
+    "inside": 0.807,
+    "h": 0.458,
+    "ok": false,
+    "msg": "81 % of the object in frame (≥ 90)"
+   },
+   "moves": {
+    "motion": 0.1091,
+    "need": 0.021,
+    "ok": true,
+    "msg": ""
+   },
+   "hold": {
+    "held": 1.13,
+    "max": 4.5,
+    "ok": true,
+    "msg": "moving framing held 1.13 s (≤ 4.5)"
+   }
+  },
+  {
+   "id": "T47-push",
+   "size": "insert",
+   "t": 69.33,
+   "dur": 1.08,
+   "subject": "prop_drone",
+   "nothingInFront": {
+    "front": 0,
+    "faceCover": 0,
+    "ok": true
+   },
+   "standsOut": {
+    "subj": 0.413,
+    "ring": 0.252,
+    "diff": 0.161,
+    "ok": true,
+    "msg": ""
+   },
+   "objectReads": {
+    "inside": 0.224,
+    "h": 0.482,
+    "ok": false,
+    "msg": "22 % of the object in frame (≥ 90)"
+   },
+   "moves": {
+    "motion": 0.093,
+    "need": 0.021,
+    "ok": true,
+    "msg": ""
+   },
+   "hold": {
+    "held": 1.08,
+    "max": 4.5,
+    "ok": true,
+    "msg": "moving framing held 1.08 s (≤ 4.5)"
+   }
+  },
+  {
+   "id": "T48-push",
+   "size": "wide",
+   "t": 70.42,
+   "dur": 1.13,
+   "subject": "taped",
+   "faceShown": null,
+   "nothingInFront": {
+    "front": 0,
+    "faceCover": 0,
+    "ok": true
+   },
+   "standsOut": {
+    "subj": 0.344,
+    "ring": 0.289,
+    "diff": 0.056,
+    "ok": false,
+    "msg": "subject vs surround luma 0.056 (≥ 0.12)"
+   },
+   "moves": {
+    "motion": 0.0475,
+    "need": 0.021,
+    "ok": true,
+    "msg": ""
+   },
+   "hold": {
+    "held": 1.13,
+    "max": 4.5,
+    "ok": true,
+    "msg": "moving framing held 1.13 s (≤ 4.5)"
+   }
+  },
+  {
+   "id": "T49-push",
+   "size": "insert",
+   "t": 71.54,
+   "dur": 1.54,
+   "subject": null,
+   "moves": {
+    "motion": 0.0383,
+    "need": 0.021,
+    "ok": true,
+    "msg": ""
+   },
+   "hold": {
+    "held": 1.54,
+    "max": 4.5,
+    "ok": true,
+    "msg": "moving framing held 1.54 s (≤ 4.5)"
+   }
+  },
+  {
+   "id": "T50-lowAuthority",
+   "size": "wide",
+   "t": 73.08,
+   "dur": 1.13,
+   "subject": null,
+   "moves": {
+    "motion": 0.1658,
+    "need": 0.021,
+    "ok": true,
+    "msg": ""
+   },
+   "hold": {
+    "held": 1.13,
+    "max": 4.5,
+    "ok": true,
+    "msg": "moving framing held 1.13 s (≤ 4.5)"
+   }
+  },
+  {
+   "id": "T51-push",
+   "size": "wide",
+   "t": 74.21,
+   "dur": 2.67,
+   "subject": "dad",
+   "faceShown": null,
+   "nothingInFront": {
+    "front": 0,
+    "faceCover": 0.013,
+    "ok": true
+   },
+   "standsOut": {
+    "subj": 0.477,
+    "ring": 0.419,
+    "diff": 0.058,
+    "ok": false,
+    "msg": "subject vs surround luma 0.058 (≥ 0.12)"
+   },
+   "moves": {
+    "motion": 0.0363,
+    "need": 0.021,
+    "ok": true,
+    "msg": ""
+   },
+   "hold": {
+    "held": 2.67,
+    "max": 4.5,
+    "ok": true,
+    "msg": "moving framing held 2.67 s (≤ 4.5)"
+   }
+  },
+  {
+   "id": "T52-push",
+   "size": "close",
+   "t": 76.88,
+   "dur": 1.42,
+   "subject": "dad",
+   "faceShown": {
+    "angle": 2.1,
+    "inside": 0.433,
+    "ok": false,
+    "msg": "43 % of the head in frame (≥ 70)"
+   },
+   "nothingInFront": {
+    "front": 0,
+    "faceCover": 0,
+    "ok": true
+   },
+   "standsOut": {
+    "subj": 0.457,
+    "ring": 0.529,
+    "diff": 0.073,
+    "ok": false,
+    "msg": "subject vs surround luma 0.073 (≥ 0.12)"
+   },
+   "moves": {
+    "motion": 0.0365,
+    "need": 0.021,
+    "ok": true,
+    "msg": ""
+   },
+   "hold": {
+    "held": 1.42,
+    "max": 4.5,
+    "ok": true,
+    "msg": "moving framing held 1.42 s (≤ 4.5)"
+   }
+  },
+  {
+   "id": "T53-crane",
+   "size": "wide",
+   "t": 78.29,
+   "dur": 3.46,
+   "subject": null,
+   "moves": {
+    "motion": 0.1542,
+    "need": 0.021,
+    "ok": true,
+    "msg": ""
+   },
+   "hold": {
+    "held": 2.63,
+    "max": 4.5,
+    "ok": true,
+    "msg": "moving framing held 2.63 s (≤ 4.5)"
+   }
+  }
+ ],
+ "errors": [
+  "T07-push: faceShown FAIL 68 % of the head in frame (≥ 70)",
+  "T21-snap: faceShown FAIL 68 % of the head in frame (≥ 70)",
+  "T21-snap: nothingInFront FAIL the face is 2.2 % covered",
+  "T23-push: objectReads FAIL 89 % of the object in frame (≥ 90)",
+  "T32-topDown: moves FAIL motion 0.0048 < 0.0210",
+  "T42-push: standsOut FAIL subject vs surround luma 0.049 (≥ 0.12)",
+  "T42-push: moves FAIL motion 0.0167 < 0.0210",
+  "T46-push: standsOut FAIL subject vs surround luma 0.070 (≥ 0.12)",
+  "T46-push: objectReads FAIL 81 % of the object in frame (≥ 90)",
+  "T47-push: objectReads FAIL 22 % of the object in frame (≥ 90)",
+  "T48-push: standsOut FAIL subject vs surround luma 0.056 (≥ 0.12)",
+  "T51-push: standsOut FAIL subject vs surround luma 0.058 (≥ 0.12)",
+  "T52-push: faceShown FAIL 43 % of the head in frame (≥ 70)",
+  "T52-push: standsOut FAIL subject vs surround luma 0.073 (≥ 0.12)"
+ ]
+}
