@@ -1432,3 +1432,8 @@ Checks (final): P1 PASS (frame 0 bg .413; head 29.9 % at 1.5 s; kart covers 54 %
 Weakest (fix-390): T02 kart reads as dark blocks under the face, blaster barely shows · T43 shows Mo's torso, no hands · T50 the gold flood/shutter hardly reads (dark frame, thin bright strip).
 Decisions: P1 "kart + blaster in frame" = each covers ≥ 10 % of the frame (a 25 % face and a whole kart cannot share 9:16: kart ≥ 2.7 frame widths); P1 beats P3 for T02 (torso wider than the frame at a 25 % face). P3 head+shoulders = head ∪ top quarter of the torso box. P4 metric: visible static floor reprojected frame to frame, floor within 2.5 of moving actors/props (their shadows) skipped. P5 contacts allowed: riders/karts, plush, fountain, tape wrap (T23), Dad's boxes. Dad's jeans light wash #8ea2c4 (darker blues clash with HERO's legs in the hero colour check). T49 clock dropped (both faces + hands first). photo34.png committed as a story asset.
 Open: T13 camera (clipped/occluded), T50 stability, stand-out .108–.116 on four shots, T44/T51 face cover, T43 hands, T02 kart read; then the farm run.
+
+## Toy House final render (2026-11-18)
+Plan: waiver recorded (also review/toyhouse/gates.json ownerWaiver); one-attempt quick fixes T50/T43/T13; farm render.request final, assemble, qc.
+Owner waiver: 250347c accepted as is for v2:read 7 (stand-out 0.108-0.120 vs 0.12, face cover 3-4 %), P3 T13/T25 clips, stability T50 0.33 % vs 0.30.
+Quick fixes (camera only): T50 push from inside, T43 hands close-up, T13 pulled back. Each made a gate worse (T13: P3 fixed but v2:read +2 errors; T43: read motion .011 < .021 and P6 .74 %; T50: stability mid+last fail vs mid only) -> all three reverted; episode.json = 250347c.
