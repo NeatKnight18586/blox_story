@@ -1,2 +1,3 @@
 final
-# Toy House E2: final 1440x2560 + AA at 24 fps (format v5); plan job now bakes caches
+reuse-run: 44223303243
+# Toy House E2: re-assemble from run 12 segments; qc reference now graded like the master (per-shot LUTs)
