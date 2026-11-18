@@ -2,7 +2,7 @@
 //   length 75–90 s (hard max 90) · average shot 1.2–2.2 s · static ≤ 2.5 s, moving ≤ 3.5 s · the first second has camera
 //   motion and a reveal · story-prop inserts ≥ 40 % of frame height (measured, passed in) · a wall clock in frame whenever
 //   the narration says a time.
-export const V5 = {minLen: 75, maxLen: 90, avgMin: 1.2, avgMax: 2.2, staticMax: 2.5, movingMax: 3.5, insertH: .40, splitMax: 3};
+export const V5 = {minLen: 75, maxLen: 90, avgMin: 1.2, avgMax: 2.2, staticMax: 2.5, movingMax: 3.5, insertH: .40, splitMax: 3, insertMin: .35, insertMax: .60, insertMargin: .06, faceMin: .12, faceMax: .35};
 export const STATIC_MOVES = ['static-drift', 'topDown'];   // topDown turns slowly: counted with the held framings
 const TIME_RE = /^(\d{1,2}([:.]\d{2})?|o'?clock|midnight|noon|am|pm|a\.m\.?|p\.m\.?)$/i;
 const NUM_WORDS = ['one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine', 'ten', 'eleven', 'twelve'];
@@ -28,7 +28,11 @@ export function plan5(shots, {fps = 24, cues = null, insertH = {}, end = null} =
     if (still && d > V5.staticMax + 1e-9) errs.push(`${s.id}: static framing ${d.toFixed(2)} s > ${V5.staticMax}`);
     if (!still && d > V5.movingMax + 1e-9) errs.push(`${s.id}: moving shot ${d.toFixed(2)} s > ${V5.movingMax}`);
     if (s.move === 'splitScreen' && d > V5.splitMax + 1e-9) errs.push(`${s.id}: splitScreen ${d.toFixed(2)} s > ${V5.splitMax}`);
-    if (s.size === 'insert' && s.prop) { const h = insertH[s.id]; if (h === undefined) errs.push(`${s.id}: story-prop insert not measured`); else if (h < V5.insertH) errs.push(`${s.id}: prop ${(h * 100).toFixed(0)} % of frame height (≥ ${V5.insertH * 100})`); }
+    if (s.size === 'insert' && s.prop) { const h = insertH[s.id]; if (h === undefined) errs.push(`${s.id}: story-prop insert not measured`); else if (typeof h === 'object') {   // Toy House final fix (owner P3): the whole prop in frame, ≥ 6 % margin, 35–60 % of frame height
+      if (h.h < V5.insertMin || h.h > V5.insertMax) errs.push(`${s.id}: prop ${(h.h * 100).toFixed(0)} % of frame height (${V5.insertMin * 100}–${V5.insertMax * 100})`);
+      if (h.margin < V5.insertMargin) errs.push(`${s.id}: prop margin ${(h.margin * 100).toFixed(1)} % (≥ ${V5.insertMargin * 100})`); }
+    else if (h < V5.insertH) errs.push(`${s.id}: prop ${(h * 100).toFixed(0)} % of frame height (≥ ${V5.insertH * 100})`); }
+    if (s.faceH !== undefined && (s.faceH < V5.faceMin || s.faceH > V5.faceMax)) errs.push(`${s.id}: face ${(s.faceH * 100).toFixed(0)} % of frame height (${V5.faceMin * 100}–${V5.faceMax * 100})`);
   }
   const first = shots.filter(s => s.start < fps);
   if (!first.some(s => !STATIC_MOVES.includes(s.move))) errs.push('first second: no camera motion');

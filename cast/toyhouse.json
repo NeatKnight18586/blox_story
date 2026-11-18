@@ -259,26 +259,32 @@
     "v": 4
    },
    "face": "smile",
-   "role": "Mo's dad, orange work jacket",
+   "role": "Mo's dad, red polo t-shirt (white collar) + jeans (final fix P9)",
    "regions": {
     "torso": {
-     "main": "#e8742a"
+     "main": "#d93a3a",
+     "strip": "#d93a3a",
+     "stripW": 0.14,
+     "lapel": "#d93a3a",
+     "lapelW": 0.02,
+     "edge": "#f4f4f4",
+     "edgeW": 0.035
     },
     "arms": {
-     "upper": "#e8742a",
+     "upper": "#d93a3a",
      "lower": "#c08457",
-     "split": 0.85
+     "split": 0.32
     },
     "legs": {
-     "main": "#9fb0c4",
-     "shoes": "#2b2b2f",
+     "main": "#8ea2c4",
+     "shoes": "#3a2a1e",
      "shoeFrac": 0.15
     }
    },
    "safeOutfit": {
-    "recipe": "hoodie",
-    "main": "#e8742a",
-    "legs": "#9fb0c4"
+    "recipe": "tee",
+    "main": "#d93a3a",
+    "legs": "#8ea2c4"
    }
   }
  }

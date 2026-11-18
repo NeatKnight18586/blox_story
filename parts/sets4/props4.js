@@ -2,7 +2,8 @@
 //   toyProp(name, seed) → Group. Names: blaster, kart, gumball, hyperbox, key, hook, photoFrame, register, clock, cone, ballRack, foamBlock, plush, tapeRoll, drone, gummyBear, moveBox
 import * as T from 'three';
 import {box, cyl, plastic, textPlate, TOY, flat} from './common.js';
-import {PROPS5} from './props5.js';   // E1 fix: foamBlaster, dartVolley, kart2, fountain, ballSplash (≤ 800 tris each)
+import {PROPS5} from './props5.js';
+import {PROPS6} from './props6.js';   // E1 fix: foamBlaster, dartVolley, kart2, fountain, ballSplash (≤ 800 tris each)
 
 const SP = {
   // chunky foam blaster: rounded-ish body, fat barrel with a bright tip, hopper, handle (toy colours, orange tip)
@@ -59,7 +60,7 @@ const SP = {
   moveBox(seed = 1) { const g = new T.Group(), c = ['#c99a5b', '#b98a4e', '#d4a86c'][seed % 3]; g.add(box(2.0, 1.6, 1.6, c, [0, .8, 0], {cell: 3}), box(2.02, .1, .4, '#e6dcc4', [0, 1.62, 0], {cell: 3})); g.name = 'moveBox'; return g; },
   foamBlock(seed = 1) { const g = new T.Group(); g.add(box(1.6, 1.6, 1.6, TOY[seed % TOY.length], [0, .8, 0], {cell: 3})); g.name = 'foamBlock'; return g; },
 };
-Object.assign(SP, PROPS5);
+Object.assign(SP, PROPS5, PROPS6);
 export const TOY_PROPS = Object.keys(SP);
-export const toyProp = (name, seed = 1) => { if (!SP[name]) throw Error('unknown toy prop ' + name); return SP[name](seed); };
+export const toyProp = (name, seed = 1, p = {}) => { if (!SP[name]) throw Error('unknown toy prop ' + name); return SP[name](seed, p); };   // p: the spec prop (props6 options, e.g. image)
 export const TOY_TRI_MAX = 400;

@@ -51,6 +51,7 @@ test('plan v5: length, average, holds, first second, inserts, wall clock on time
   assert.ok(P5.plan5(ok.map((s, i) => i === 0 ? {...s, reveal: false} : s), {fps: 24}).errors.some(e => e.includes('no reveal')));
   const ins = ok.map((s, i) => i === 5 ? {...s, size: 'insert', prop: 'egg'} : s);
   assert.ok(P5.plan5(ins, {fps: 24, insertH: {S5: .3}}).errors.some(e => e.includes('frame height'))); assert.deepEqual(P5.plan5(ins, {fps: 24, insertH: {S5: .45}}).errors, []);
+  assert.deepEqual(P5.plan5(ins, {fps: 24, insertH: {S5: {h: .45, margin: .1}}}).errors, []); assert.ok(P5.plan5(ins, {fps: 24, insertH: {S5: {h: .7, margin: .1}}}).errors.some(e => e.includes('35–60'))); assert.ok(P5.plan5(ins, {fps: 24, insertH: {S5: {h: .45, margin: .02}}}).errors.some(e => e.includes('margin')));
   const cues = {words: [{word: 'at', start: 10}, {word: 'seven', start: 10.2}, {word: "o'clock", start: 10.5}]};
   assert.ok(P5.plan5(ok, {fps: 24, cues}).errors.some(e => e.includes('wall clock')));
   assert.deepEqual(P5.plan5(ok.map(s => s.start <= 10.2 * 24 && s.start + s.frames > 10.2 * 24 ? {...s, clock: true} : s), {fps: 24, cues}).errors, []);

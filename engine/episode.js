@@ -64,7 +64,22 @@ renderer.outputColorSpace = T.SRGBColorSpace; renderer.shadowMap.enabled = true;
 document.body.appendChild(renderer.domElement);
 const scene = new T.Scene();
 const camera = new T.PerspectiveCamera(45, 9 / 16, .3, 900);   // near 0.3 (A1): more depth precision for the ground layers
-let world = null, look = null, BAKE = null;
+let world = null, look = null, BAKE = null, GROUNDFIX = null;
+// Toy House final fix (owner P4, opt-in spec.groundFix = {sep, aniso, bias, normalBias}): flat ground-level meshes (≤ 1.2 high,
+// thinner than 5 % of their span) whose top faces lie within `sep` of another overlapping one are lifted in `sep` steps and get
+// polygonOffset (the higher, the stronger); every ground texture gets mipmaps + anisotropy `aniso`; the sun shadow bias is tuned.
+function groundFix(root, lk, {sep = .02, aniso = 8, bias = -.0008, normalBias = .06} = {}) {
+  root.updateMatrixWorld(true); const flat = [], bb = new T.Box3(), sz = new T.Vector3();
+  root.traverse(o => { if (!o.isMesh || o.isInstancedMesh || !o.geometry || o.userData.live) return; bb.setFromObject(o); bb.getSize(sz); if (bb.max.y > 1.2 || sz.y > .05 * Math.max(sz.x, sz.z) || Math.max(sz.x, sz.z) < .5) return; flat.push({o, b: bb.clone(), top: bb.max.y}); });
+  flat.sort((a, b) => a.top - b.top); let pairs = 0, lifted = 0;
+  for (let i = 0; i < flat.length; i++) { const A = flat[i]; let k = 0;
+    for (let j = 0; j < i; j++) { const Bf = flat[j]; if (Math.abs(A.top - Bf.top) >= sep - 1e-4) continue; if (A.b.max.x <= Bf.b.min.x || A.b.min.x >= Bf.b.max.x || A.b.max.z <= Bf.b.min.z || A.b.min.z >= Bf.b.max.z) continue; pairs++; k = Math.max(k, 1); }
+    if (k) { const d = Math.max(0, Math.max(...flat.slice(0, i).filter(Bf => Math.abs(A.top - Bf.top) < sep).map(Bf => Bf.top)) + sep - A.top); A.o.position.y += d; A.top += d; A.b.min.y += d; A.b.max.y += d; lifted++;
+      A.o.material = [].concat(A.o.material).map(m => { const c = m.clone(); c.polygonOffset = true; c.polygonOffsetFactor = -1 - i % 3; c.polygonOffsetUnits = -1 - i % 3; return c; }); if (A.o.material.length === 1) A.o.material = A.o.material[0]; } }
+  let tex = 0; for (const {o} of flat) for (const m of [].concat(o.material)) for (const key of ['map', 'normalMap', 'roughnessMap']) { const t = m[key]; if (!t || t.isDataTexture && !t.generateMipmaps) continue; t.generateMipmaps = true; t.minFilter = T.LinearMipmapLinearFilter; t.anisotropy = aniso; t.needsUpdate = true; tex++; }
+  const sun = lk?.sun ?? lk?.L?.sun; if (sun?.shadow) { sun.shadow.bias = bias; sun.shadow.normalBias = normalBias; }
+  return {flat: flat.length, pairs, lifted, textures: tex, bias, normalBias};
+}
 if (spec.world) {
   const mod = await import(new URL('../' + spec.world, import.meta.url).href);
   if (spec.look4) {   // format v4 Phase 2 (opt-in): AgX + PMREM sky env + v4 surfaces + baked static light (engine/look4.js, bake.js)
@@ -73,6 +88,7 @@ if (spec.world) {
     look = createLookV4(scene, renderer, presets, {initial: spec.look4}); look.apply(spec.look4);
     if (mod.preload) await mod.preload(new URL('../', import.meta.url));   // format v5 3b-R (opt-in): async world assets (box-art atlas)
     world = mod.build(scene, {P, B, A, M, M4, PR, TR, BI, V, W, look, spec, look4: {preset: P4, halo, water4}});
+    if (spec.groundFix) GROUNDFIX = groundFix(scene, look, spec.groundFix);   // Toy House final fix (owner P4, opt-in): before the bake
     look.setGround(world.groundY ?? (() => 0));
     const bakeWith = (root, pr, lights, layers = null) => { const PP = presets[pr], bk = PP.v4.bake;   // Look 6 (opt-in): light layers + height fade
       return bakeScene(root, {sunDir: sunDir(PP.base.sunEl, PP.base.sunAz), sun: bk.sun, sunI: bk.sunI, sky: bk.sky, skyI: bk.skyI, ground: bk.ground, groundI: bk.groundI, aoDist: bk.aoDist, lights: bk.lights ? (lights ?? []) : [], ...(bk.heightFade ? {heightFade: bk.heightFade} : {})}, {env: look.envMap(), reflect: PP.v4.staticReflect, ...(layers ? {layers, layerU: world.lightU} : {})}); };
@@ -367,7 +383,7 @@ function shotShadow(shot) {
 //   {id, prop, seed, scale, pos: [[t, [x, y, z]], [t, [x, y, z], 'ramp']…], rot: [[t, [x°, y°, z°]]…], visible: [[t, bool]…]}; named `prop_<id>`.
 const storyProps = [];
 if (spec.props?.length) { const {toyProp} = await import('../parts/sets4/props4.js');
-  for (const p of spec.props) { const g = toyProp(p.prop, p.seed ?? 1); g.name = 'prop_' + p.id; g.scale.setScalar(p.scale ?? 1); g.traverse(o => { o.userData.live = true; }); scene.add(g); storyProps.push({p, g}); } }
+  for (const p of spec.props) { const g = toyProp(p.prop, p.seed ?? 1, p); if (g.userData.ready) await g.userData.ready; g.name = 'prop_' + p.id; g.scale.setScalar(p.scale ?? 1); g.traverse(o => { o.userData.live = true; }); scene.add(g); storyProps.push({p, g}); } }
 // E1 fix (opt-in spec.hide): set objects hidden by name (a story prop replaces them)
 for (const n of spec.hide ?? []) { const o = scene.getObjectByName(n); if (o) o.visible = false; else console.warn('spec.hide: no object ' + n); }
 const vecAt = (keys, t, d) => keys?.length ? d.map((v, i) => valueAt(keys.map(k => [k[0], k[1][i], k[2], k[3]]), t, v)) : d;
@@ -486,7 +502,8 @@ export function measureFrame() {
     const H = 5.3 * a.root.scale.y, m = markPos[name] ?? a.root.position.toArray(), py = h => (1 - v.set(m[0], m[1] + h, m[2]).project(camera).y) / 2;
     const hd = a.parts?.head, face = hd ? projBox(new T.Box3().setFromObject(hd)) : null;   // A4 §E: the face (head block) on screen
     if (face) { const fw = new T.Vector3(0, 0, 1).transformDirection(hd.matrixWorld), hp = hd.getWorldPosition(new T.Vector3()); face.toward = fw.dot(camera.position.clone().sub(hp).normalize()) > .2; }
-    out[name] = {front, box: {x0, x1, y0, y1}, feet: py(0), shoulder: py(.6 * H), top: py(1.02 * H), troupe: c.troupe ?? null, face, opacity: a.preset?.opacity ?? 1};
+    const tp = a.parts?.torso, torso = tp ? projBox(new T.Box3().setFromObject(tp)) : null;   // Toy House final fix (P3): head + shoulders = head ∪ torso top
+    out[name] = {front, box: {x0, x1, y0, y1}, feet: py(0), shoulder: py(.6 * H), top: py(1.02 * H), troupe: c.troupe ?? null, face, torso, opacity: a.preset?.opacity ?? 1};
   }
   return out;
 }
@@ -595,7 +612,37 @@ function rectFrac(m, b, w, h) { const x0 = Math.max(0, Math.floor(b.x0 * w)), x1
 function maskRowRange(L, m, w, h) { const rows = []; for (let y = 0; y < h; y++) { let s = 0, n = 0; for (let x = 0; x < w; x++) if (m[y * w + x]) { s += L[y * w + x]; n++; } if (n >= 3) rows.push(s / n); } return rows.length > 2 ? Math.max(...rows) - Math.min(...rows) : 0; }
 function colRange(L, b, w, h) { const x0 = Math.floor((b.x0 + (b.x1 - b.x0) * .3) * w), x1 = Math.ceil((b.x0 + (b.x1 - b.x0) * .7) * w), y0 = Math.max(0, Math.floor(b.y0 * h)), y1 = Math.min(h, Math.ceil(b.y1 * h)); const rows = [];
   for (let y = y0; y < y1; y++) { let s = 0, n = 0; for (let x = Math.max(0, x0); x < Math.min(w, x1); x++) { s += L[y * w + x]; n++; } if (n) rows.push(s / n); } return rows.length ? Math.max(...rows) - Math.min(...rows) : 0; }
-export function shotSpeed(i) { const s = shots[i]; return maxTargetSpeed({...s, fps: FPS, openHit: false}, tt => poseCast(s.start / FPS + tt), FPS); }
+// Toy House final fix gates (scripts/v2/toyhouse-gates.js), after renderFrame(n): actor + story-prop projected boxes,
+// footprints (actors: mark + radius; props: world xz box), background luma (frame minus actors) and, with floor: true,
+// a mask of flat ground meshes (floor flicker). Read-only: renders masks into the default framebuffer like readMeasure.
+export function gateMeasure(n, {w = 270, h = 480, floor = false, render = true} = {}) {
+  if (render) renderFrame(n, w, h); camera.updateMatrixWorld(true); scene.updateMatrixWorld(true);
+  const luma = frameLuma(w, h), actors = measureFrame(), props = {}, prints = [];
+  for (const {p, g} of storyProps) { if (!visibleChain(g)) continue; const b = new T.Box3(); g.traverse(o => { if (o.isMesh && visibleChain(o) && !o.isSprite && !o.isPoints) b.expandByObject(o); });
+    if (b.isEmpty()) continue; props[p.id] = projBox(b); prints.push({id: p.id, x0: b.min.x, x1: b.max.x, z0: b.min.z, z1: b.max.z, y0: b.min.y, y1: b.max.y}); }
+  const tools = {}; for (const [name, c] of Object.entries(cast)) { const tl = c.a.tool; if (tl && visibleChain(tl)) tools[name] = {name: tl.name, ...projBox(new T.Box3().setFromObject(tl))}; }
+  const roots = Object.values(cast).filter(c => c.v2 && visibleChain(c.a.root)).map(c => c.a.root);
+  const am = roots.length ? maskPass(o => roots.some(r => under(o, r)), w, h) : new Uint8Array(w * h);
+  let s = 0, k = 0; for (let i = 0; i < luma.length; i++) if (!am[i]) { s += luma[i]; k++; }
+  const out = {frame: n, actors, props, tools, prints, places: placesNow(), bgLuma: k ? s / k : 0, luma: Array.from(luma, v => Math.round(v * 255))};
+  if (floor) { const flat = o => { if (!o.geometry) return false; const b = new T.Box3().setFromObject(o), sz = b.getSize(new T.Vector3()); return sz.y < .35 * Math.max(sz.x, sz.z) && b.max.y < 1.2; };
+    // visible floor only: floor meshes white, every other visible mesh black (it occludes), sprites/points/lines hidden
+    const white = new T.MeshBasicMaterial({color: '#ffffff'}), black = new T.MeshBasicMaterial({color: '#000000'}), saved = [];
+    const bs = new T.SpriteMaterial({color: '#000000'}), bp = new T.PointsMaterial({color: '#000000', size: 1});   // smoke, sparks: they cover the floor (not counted)
+    scene.traverse(o => { if (!o.visible) return; if (o.isSprite || o.isPoints) { saved.push([o, o.material]); o.material = o.isSprite ? bs : Object.assign(bp.clone(), {size: o.material.size ?? 1, sizeAttenuation: o.material.sizeAttenuation ?? true}); return; } if (o.isLine) { saved.push([o, null]); o.visible = false; return; } if (!o.isMesh) return; saved.push([o, o.material]); o.material = (!roots.some(r => under(o, r)) && flat(o)) ? white : black; });
+    const bg = scene.background, fog = scene.fog; scene.background = new T.Color('#000000'); scene.fog = null; renderer.render(scene, camera); scene.background = bg; scene.fog = fog;
+    for (const [o, m] of saved) { if (m === null) o.visible = true; else o.material = m; }
+    const gl = renderer.getContext(), px = new Uint8Array(w * h * 4); gl.readPixels(0, 0, w, h, gl.RGBA, gl.UNSIGNED_BYTE, px); const fm = new Uint8Array(w * h);
+    for (let y = 0; y < h; y++) for (let x = 0; x < w; x++) fm[y * w + x] = px[((h - 1 - y) * w + x) * 4] > 127 ? 1 : 0;
+    out.floor = Array.from(fm); white.dispose(); black.dispose(); }
+  return out;
+}
+export function placesAt(n) { const t = n / FPS; poseCast(t); if (storyProps.length) updateProps(t); scene.updateMatrixWorld(true);
+  const prints = []; for (const {p, g} of storyProps) { if (!visibleChain(g)) continue; const b = new T.Box3(); g.traverse(o => { if (o.isMesh && visibleChain(o) && !o.isSprite && !o.isPoints) b.expandByObject(o); }); if (!b.isEmpty()) prints.push({id: p.id, x0: b.min.x, x1: b.max.x, z0: b.min.z, z1: b.max.z, y0: b.min.y, y1: b.max.y}); }
+  return {places: placesNow().filter(m => m.name), prints}; }
+export function shotSpeed(i) {   // Toy House final fix: props first (kart riders); the metric's end sample (t = duration) is the next shot's first frame, so the
+  const s = shots[i], P = tt => { const t = s.start / FPS + tt; if (storyProps.length) updateProps(t); return JSON.parse(JSON.stringify(poseCast(t))); }, last = (s.frames - 1) / FPS;   // actors there are extrapolated from the shot's last two frames
+  return maxTargetSpeed({...s, fps: FPS, openHit: false}, tt => { if (tt <= last + 1e-9) return P(tt); const a = P(last - 1 / FPS), b = P(last), k = (tt - last) * FPS; for (const n of Object.keys(b)) if (a[n]) b[n] = b[n].map((v, q) => v + (v - a[n][q]) * k); return b; }, FPS); }
 
 // format v5 3b-R gates (scripts/v2/toy5-gates.js), all after renderFrame(n):
 //   satMeasure: mean HSL saturation of subject pixels (cast actors + every object tagged userData.story, the silhouette mask path)
@@ -683,4 +730,4 @@ export function classHaze(n, {w = 390, h = 693, near = 15, far = 60, match = /^g
   const rms = a => { if (a.length < 50) return null; const mu = a.reduce((s, v) => s + v, 0) / a.length; return Math.sqrt(a.reduce((s, v) => s + (v - mu) ** 2, 0) / a.length); };
   const rn = rms(acc.near), rf = rms(acc.far); return {frame: n, nearRms: rn, farRms: rf, nearPx: acc.near.length, farPx: acc.far.length, ratio: rn && rf !== null ? rf / rn : null};
 }
-window.__episode = {sepMeasure, ceilingLuma, classHaze, satMeasure, depthLuma, lumaProbe, debug: {scene, renderer, camera, look, pool: U5B?.poolOf ?? null}, bake: BAKE, matcapBytes: MATCAP ? (n => Array.from(look.matcapBytes(n ?? spec.look4))) : null, breakdown, measureFrame, seasonMeasure, actorMask, readMeasure, lumaAt, inspectFrame, shotSpeed, END: FRAMES / FPS, anchors: Object.fromEntries(Object.entries(anchors).filter(([, a]) => a.camera).map(([k]) => [k, true])), renderAnchor, renderAnchorNudged, renderCamera, FPS, FRAMES, shots: shots.map(({id, start, frames, size, move, loc, subject, see, openHit, at, why, captionY, fit, spectacle, look: lk}) => ({id, start, frames, size, move, loc, subject, see, openHit: !!openHit, at, why, captionY, fit, spectacle: !!spectacle, look: lk})), renderFrame};
+window.__episode = {groundFix: () => GROUNDFIX, sepMeasure, ceilingLuma, classHaze, satMeasure, depthLuma, lumaProbe, debug: {scene, renderer, camera, look, pool: U5B?.poolOf ?? null}, bake: BAKE, matcapBytes: MATCAP ? (n => Array.from(look.matcapBytes(n ?? spec.look4))) : null, breakdown, measureFrame, seasonMeasure, actorMask, readMeasure, gateMeasure, placesAt, lumaAt, inspectFrame, shotSpeed, END: FRAMES / FPS, anchors: Object.fromEntries(Object.entries(anchors).filter(([, a]) => a.camera).map(([k]) => [k, true])), renderAnchor, renderAnchorNudged, renderCamera, FPS, FRAMES, shots: shots.map(({id, start, frames, size, move, loc, subject, see, openHit, at, why, captionY, fit, spectacle, look: lk}) => ({id, start, frames, size, move, loc, subject, see, openHit: !!openHit, at, why, captionY, fit, spectacle: !!spectacle, look: lk})), renderFrame};

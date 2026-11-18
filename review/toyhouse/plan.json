@@ -9,9 +9,9 @@
    "dur": 1.17,
    "size": "wide",
    "move": "push",
-   "speed": 17,
+   "speed": 2,
    "subject": "",
-   "why": "god's-eye over the full hall, slow spiral down"
+   "why": "thumbnail: bright wide of the lit hall, kids in karts, darts in the air"
   },
   {
    "id": "T02-crashZoom",
@@ -21,7 +21,7 @@
    "size": "close",
    "move": "crashZoom",
    "speed": 0,
-   "subject": "kidc@53,28",
+   "subject": "kidc@49,30",
    "why": "crashZoom into the chaos: ends on a grinning kid in a kart firing a foam blaster; dart hit 1.80"
   },
   {
@@ -33,7 +33,7 @@
    "move": "push",
    "speed": 1,
    "subject": "",
-   "why": "the shutter slams shut, seen from inside; kids cheering in front"
+   "why": "the shutter slams shut, seen from inside; three kids cheering in front, full body"
   },
   {
    "id": "T04-push",
@@ -65,7 +65,7 @@
    "size": "medium",
    "move": "push",
    "speed": 0,
-   "subject": "kida@50,52",
+   "subject": "kida@50,50",
    "why": "kid hugging a giant plush, push in"
   },
   {
@@ -76,7 +76,7 @@
    "size": "close",
    "move": "push",
    "speed": 0,
-   "subject": "kida@50,55",
+   "subject": "kida@50,50",
    "why": "same kid, snap to close, face starry"
   },
   {
@@ -97,7 +97,7 @@
    "dur": 0.42,
    "size": "insert",
    "move": "push",
-   "speed": 6,
+   "speed": 5,
    "subject": "",
    "why": "clock hands spin (insert)"
   },
@@ -108,9 +108,9 @@
    "dur": 2,
    "size": "wide",
    "move": "heroLow",
-   "speed": 33,
-   "subject": "kidb@50,38",
-   "why": "trampoline kid at the top of a jump, freeze 3 frames"
+   "speed": 13,
+   "subject": "kidb@50,27",
+   "why": "trampoline kid jumps, full body, bright; freeze 3 frames at the top"
   },
   {
    "id": "T11-aisleTrack",
@@ -119,7 +119,7 @@
    "dur": 1.33,
    "size": "wide",
    "move": "aisleTrack",
-   "speed": 1,
+   "speed": 0,
    "subject": "",
    "why": "aisle track: the kart drifts past right beside the camera, tyre smoke"
   },
@@ -141,7 +141,7 @@
    "dur": 2.29,
    "size": "medium",
    "move": "push",
-   "speed": 2,
+   "speed": 3,
    "subject": "",
    "why": "candy zone push: a kid face-first in the flowing chocolate fountain"
   },
@@ -152,7 +152,7 @@
    "dur": 0.71,
    "size": "insert",
    "move": "push",
-   "speed": 8,
+   "speed": 6,
    "subject": "",
    "why": "a hand grabs a plush off the shelf (beat cut)"
   },
@@ -163,7 +163,7 @@
    "dur": 0.96,
    "size": "insert",
    "move": "push",
-   "speed": 15,
+   "speed": 6,
    "subject": "",
    "why": "two hands snatch a foam blaster (beat cut)"
   },
@@ -175,7 +175,7 @@
    "size": "medium",
    "move": "push",
    "speed": 0,
-   "subject": "mo@50,33",
+   "subject": "mo@50,42",
    "why": "MO standing still, empty hands, chaos blurred past"
   },
   {
@@ -186,8 +186,8 @@
    "size": "medium",
    "move": "push",
    "speed": 1,
-   "subject": "mo@26,52",
-   "why": "over MO's shoulder to the clock 9:xx (back view: Mo faces the clock)"
+   "subject": "mo@40,53",
+   "why": "MO's face, the clock 9:xx above him on the back wall (low angle)"
   },
   {
    "id": "T18-heroLow",
@@ -197,7 +197,7 @@
    "size": "medium",
    "move": "heroLow",
    "speed": 0,
-   "subject": "hero@50,46",
+   "subject": "hero@50,47",
    "why": "HERO heroLow, smug → beam on \"all\""
   },
   {
@@ -219,7 +219,7 @@
    "size": "medium",
    "move": "push",
    "speed": 0,
-   "subject": "hero@50,49",
+   "subject": "hero@50,48",
    "why": "HERO hugs it, the box covers his face"
   },
   {
@@ -229,8 +229,8 @@
    "dur": 0.75,
    "size": "close",
    "move": "snap",
-   "speed": 118,
-   "subject": "hero@50,45",
+   "speed": 52,
+   "subject": "hero@50,48",
    "why": "snap close HERO worried, freeze 2"
   },
   {
@@ -240,7 +240,7 @@
    "dur": 2.5,
    "size": "wide",
    "move": "push",
-   "speed": 11,
+   "speed": 10,
    "subject": "",
    "why": "HERO POV to the gumball tower, push"
   },
@@ -262,8 +262,8 @@
    "dur": 1.08,
    "size": "medium",
    "move": "push",
-   "speed": 1,
-   "subject": "taped@41,30",
+   "speed": 0,
+   "subject": "taped@46,40",
    "why": "a drone taped to his back"
   },
   {
@@ -273,8 +273,8 @@
    "dur": 0.42,
    "size": "close",
    "move": "snap",
-   "speed": 239,
-   "subject": "taped@53,46",
+   "speed": 97,
+   "subject": "taped@51,49",
    "why": "a headset slapped on"
   },
   {
@@ -284,8 +284,8 @@
    "dur": 1.75,
    "size": "medium",
    "move": "pull",
-   "speed": 1,
-   "subject": "taped@50,31",
+   "speed": 0,
+   "subject": "taped@50,43",
    "why": "pull back: a giant gummy bear on his chest"
   },
   {
@@ -296,7 +296,7 @@
    "size": "wide",
    "move": "push",
    "speed": 0,
-   "subject": "taped@50,27",
+   "subject": "taped@50,39",
    "why": "HERO_TAPED full body, empty tape rolls around him"
   },
   {
@@ -306,9 +306,9 @@
    "dur": 2.54,
    "size": "wide",
    "move": "push",
-   "speed": 2,
-   "subject": "taped@68,39",
-   "why": "one waddle step, falls backward into the ball pit; impact 37.92, ball splash"
+   "speed": 3,
+   "subject": "taped@71,41",
+   "why": "one waddle step, falls backward INTO the ball pit, full body; impact 37.92, ball splash"
   },
   {
    "id": "T29-splitScreen",
@@ -337,11 +337,11 @@
    "beat": false,
    "t": 42.79,
    "dur": 1.54,
-   "size": "medium",
+   "size": "wide",
    "move": "push",
    "speed": 3,
-   "subject": "taped@18,57",
-   "why": "HERO's taped hand reaching for the key (back view: he faces the key)"
+   "subject": "taped@28,45",
+   "why": "HERO_TAPED reaching up for the key on its hook, side view, full body + key (back view: he faces the key)"
   },
   {
    "id": "T32-topDown",
@@ -361,9 +361,9 @@
    "dur": 1.33,
    "size": "insert",
    "move": "push",
-   "speed": 3,
+   "speed": 2,
    "subject": "",
-   "why": "push to the framed photo next to the hook"
+   "why": "push to the framed photo next to the hook: young Pip with the key (the T34 picture, sepia)"
   },
   {
    "id": "T34-push",
@@ -373,7 +373,7 @@
    "size": "medium",
    "move": "push",
    "speed": 0,
-   "subject": "youngpip@50,37",
+   "subject": "youngpip@50,43",
    "why": "the photo comes alive: YOUNG PIP holding the key (sepia)"
   },
   {
@@ -383,8 +383,8 @@
    "dur": 1.46,
    "size": "medium",
    "move": "push",
-   "speed": 1,
-   "subject": "pip@53,50",
+   "speed": 0,
+   "subject": "pip@51,48",
    "why": "PIP reveal behind the counter in the dark, one lamp"
   },
   {
@@ -394,7 +394,7 @@
    "dur": 2.96,
    "size": "wide",
    "move": "lowAuthority",
-   "speed": 3,
+   "speed": 13,
    "subject": "pip@50,55",
    "why": "slow pull back: PIP tiny and alone in the huge hall"
   },
@@ -405,7 +405,7 @@
    "dur": 1.46,
    "size": "insert",
    "move": "push",
-   "speed": 6,
+   "speed": 4,
    "subject": "",
    "why": "HERO hangs the key back, close insert"
   },
@@ -439,7 +439,7 @@
    "size": "close",
    "move": "push",
    "speed": 0,
-   "subject": "mo@50,45",
+   "subject": "mo@50,48",
    "why": "MO close, crying"
   },
   {
@@ -471,9 +471,9 @@
    "dur": 1.75,
    "size": "insert",
    "move": "push",
-   "speed": 0,
+   "speed": 1,
    "subject": "",
-   "why": "MO's empty hands, insert"
+   "why": "MO's empty hands, open palms up, insert"
   },
   {
    "id": "T44-push",
@@ -483,8 +483,8 @@
    "size": "medium",
    "move": "push",
    "speed": 0,
-   "subject": "mo@50,31",
-   "why": "push on MO looking at HERO, sad"
+   "subject": "mo@50,36",
+   "why": "push on MO looking at HERO, sad, empty hands held out"
   },
   {
    "id": "T45-crashZoom",
@@ -504,7 +504,7 @@
    "dur": 1.13,
    "size": "insert",
    "move": "push",
-   "speed": 6,
+   "speed": 7,
    "subject": "",
    "why": "HYPERBOX 9 falls; freeze 2 + impact"
   },
@@ -515,9 +515,9 @@
    "dur": 1.08,
    "size": "insert",
    "move": "push",
-   "speed": 1,
+   "speed": 4,
    "subject": "",
-   "why": "the drone drops"
+   "why": "the drone drops, rotors spinning (3/4 from above)"
   },
   {
    "id": "T48-push",
@@ -527,7 +527,7 @@
    "size": "wide",
    "move": "push",
    "speed": 0,
-   "subject": "taped@50,36",
+   "subject": "taped@50,40",
    "why": "tape tears, everything falls off, high angle"
   },
   {
@@ -535,11 +535,11 @@
    "beat": false,
    "t": 71.54,
    "dur": 1.54,
-   "size": "insert",
+   "size": "medium",
    "move": "push",
-   "speed": 2,
-   "subject": "",
-   "why": "close insert of the two hands holding; the clock 8:00 behind"
+   "speed": 4,
+   "subject": "mo@30,38",
+   "why": "HERO + MO hands touching, both faces (two-shot from the front)"
   },
   {
    "id": "T50-lowAuthority",
@@ -548,9 +548,9 @@
    "dur": 1.13,
    "size": "wide",
    "move": "lowAuthority",
-   "speed": 6,
+   "speed": 2,
    "subject": "",
-   "why": "the shutter rolls up, gold dawn floods in (low, from outside)"
+   "why": "the shutter rolls up, gold dawn light floods across the floor (from inside)"
   },
   {
    "id": "T51-push",
@@ -559,8 +559,8 @@
    "dur": 2.67,
    "size": "wide",
    "move": "push",
-   "speed": 0,
-   "subject": "dad@22,46",
+   "speed": 4,
+   "subject": "dad@36,40",
    "why": "street dawn: MO'S DAD carrying a box OUT of the truck"
   },
   {
@@ -571,7 +571,7 @@
    "size": "close",
    "move": "push",
    "speed": 0,
-   "subject": "dad@50,39",
+   "subject": "dad@50,46",
    "why": "DAD close, confused"
   },
   {
@@ -581,31 +581,67 @@
    "dur": 3.46,
    "size": "medium",
    "move": "crane",
-   "speed": 26,
-   "subject": "mo@63,56",
+   "speed": 2,
+   "subject": "mo@55,51",
    "why": "HERO + MO walk out hand in hand, faces readable (medium); then crane up to the TOY HOUSE sign; hold to end"
   }
  ],
  "meanShot": 1.53,
  "end": 81.75,
  "gamecam": 0,
- "wides": 19,
+ "wides": 20,
  "format5": {
   "lengthS": 81.75,
   "averageShotS": 1.54,
   "insertH": {
-   "T05-crashZoom": 0.5564,
-   "T09-push": 0.5642,
-   "T14-push": 0.5557,
-   "T15-push": 0.5777,
-   "T23-push": 0.5995,
-   "T30-crashZoom": 0.8583,
-   "T33-push": 0.5005999999999999,
-   "T37-push": 0.9845,
-   "T38-crashZoom": 0.554,
-   "T45-crashZoom": 0.5530999999999999,
-   "T46-push": 0.4249,
-   "T47-push": 0.551
+   "T05-crashZoom": {
+    "h": 0.45030000000000003,
+    "margin": 0.09830000000000005
+   },
+   "T09-push": {
+    "h": 0.45039999999999997,
+    "margin": 0.09819999999999995
+   },
+   "T14-push": {
+    "h": 0.37899999999999995,
+    "margin": 0.15900000000000003
+   },
+   "T15-push": {
+    "h": 0.4206,
+    "margin": 0.0754
+   },
+   "T23-push": {
+    "h": 0.4191,
+    "margin": 0.0989
+   },
+   "T30-crashZoom": {
+    "h": 0.5738,
+    "margin": 0.1512
+   },
+   "T33-push": {
+    "h": 0.5354,
+    "margin": 0.11050000000000004
+   },
+   "T37-push": {
+    "h": 0.5734999999999999,
+    "margin": 0.1668
+   },
+   "T38-crashZoom": {
+    "h": 0.4491,
+    "margin": 0.1015
+   },
+   "T45-crashZoom": {
+    "h": 0.4476,
+    "margin": 0.11619999999999997
+   },
+   "T46-push": {
+    "h": 0.3938,
+    "margin": 0.08509999999999995
+   },
+   "T47-push": {
+    "h": 0.41570000000000007,
+    "margin": 0.0772
+   }
   }
  },
  "season": false,
@@ -615,24 +651,17 @@
  "overlaps": 0,
  "errors": [],
  "warnings": [
-  "T01-push: wide shot with no tagged character in the foreground",
-  "T03-push: \"kida\" (see) not in frame by frame 6",
-  "T03-push: \"kidb\" (see) not in frame by frame 6",
-  "T03-push: wide shot with no tagged character in the foreground",
   "T08-topDown: wide shot with no tagged character in the foreground",
+  "T12-splitScreen: \"kidb\" (see) not in frame by frame 6",
   "T12-splitScreen: \"kidc\" (see) not in frame by frame 6",
-  "T13-push: \"kida\" (see) not in frame by frame 6",
+  "T12-splitScreen: wide shot with no tagged character in the foreground",
   "T14-push: \"kidc\" (see) not in frame by frame 6",
   "T19-tiltUp: wide shot with no tagged character in the foreground",
   "T22-push: wide shot with no tagged character in the foreground",
   "T29-splitScreen: \"taped\" (see) not in frame by frame 6",
   "T29-splitScreen: wide shot with no tagged character in the foreground",
-  "T31-push: subject head at y 57 % near the caption band: consider captionY \"high\"",
   "T32-topDown: wide shot with no tagged character in the foreground",
-  "T36-lowAuthority: wide shot with no tagged character in the foreground",
   "T43-push: \"mo\" (see) not in frame by frame 6",
-  "T49-push: \"hero\" (see) not in frame by frame 6",
-  "T49-push: \"mo\" (see) not in frame by frame 6",
   "T50-lowAuthority: wide shot with no tagged character in the foreground"
  ]
 }

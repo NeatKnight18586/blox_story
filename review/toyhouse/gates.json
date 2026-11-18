@@ -1,0 +1,588 @@
+{
+ "spec": "stories/toyhouse/episode.json",
+ "p1": {
+  "frame0Bg": 0.413,
+  "headAt1_5": 0.299,
+  "kartAt1_5": 0.903,
+  "blasterAt1_5": 0.851,
+  "t03Bg": 0.391,
+  "t03Kids": [
+   "kida",
+   "kidb",
+   "kidc"
+  ],
+  "kartCover": 0.541,
+  "blasterCover": 0.294
+ },
+ "shots": [
+  {
+   "id": "T01-push",
+   "t": 0,
+   "clip": 0,
+   "motion": 0.0852,
+   "bg": 0.42
+  },
+  {
+   "id": "T02-crashZoom",
+   "t": 1.17,
+   "clip": 0,
+   "face": 0.299,
+   "motion": 0.2833,
+   "bg": 0.435
+  },
+  {
+   "id": "T03-push",
+   "t": 2.04,
+   "clip": 0.013,
+   "motion": 0.1018,
+   "bg": 0.391
+  },
+  {
+   "id": "T04-push",
+   "t": 2.54,
+   "clip": 0,
+   "motion": 0.0865,
+   "bg": 0.393
+  },
+  {
+   "id": "T05-crashZoom",
+   "t": 3.54,
+   "clip": 0,
+   "motion": 0.2002,
+   "bg": 0.423
+  },
+  {
+   "id": "T06-push",
+   "t": 4.54,
+   "clip": 0,
+   "face": 0.155,
+   "motion": 0.1118,
+   "bg": 0.441
+  },
+  {
+   "id": "T07-push",
+   "t": 6.08,
+   "clip": 0,
+   "face": 0.131,
+   "motion": 0.0458,
+   "bg": 0.43
+  },
+  {
+   "id": "T08-topDown",
+   "t": 7.42,
+   "clip": 0,
+   "motion": 0.1729,
+   "bg": 0.493
+  },
+  {
+   "id": "T09-push",
+   "t": 8.54,
+   "clip": 0,
+   "motion": 0.044,
+   "bg": 0.376
+  },
+  {
+   "id": "T10-heroLow",
+   "t": 8.96,
+   "clip": 0,
+   "motion": 0.1332,
+   "window": 0.1261,
+   "bg": 0.309
+  },
+  {
+   "id": "T11-aisleTrack",
+   "t": 10.96,
+   "clip": 0,
+   "motion": 0.1153,
+   "bg": 0.506
+  },
+  {
+   "id": "T12-splitScreen",
+   "t": 12.29,
+   "motion": 0.1158,
+   "bg": 0.406,
+   "blasters": {
+    "kidb@0.2": {
+     "h": 0.341,
+     "clip": 0
+    },
+    "kidb@0.5": {
+     "h": 0.338,
+     "clip": 0
+    },
+    "kidb@0.8": {
+     "h": 0.348,
+     "clip": 0
+    },
+    "kidc@0.2": {
+     "h": 0.466,
+     "clip": 0
+    },
+    "kidc@0.5": {
+     "h": 0.464,
+     "clip": 0
+    },
+    "kidc@0.8": {
+     "h": 0.483,
+     "clip": 0
+    }
+   }
+  },
+  {
+   "id": "T13-push",
+   "t": 13.63,
+   "clip": 0.234,
+   "motion": 0.0852,
+   "window": 0.0809,
+   "bg": 0.482
+  },
+  {
+   "id": "T14-push",
+   "t": 15.92,
+   "clip": 0,
+   "insert": {
+    "h": 0.379,
+    "margin": 0.159
+   },
+   "motion": 0.0734,
+   "bg": 0.553
+  },
+  {
+   "id": "T15-push",
+   "t": 16.63,
+   "clip": 0,
+   "motion": 0.0946,
+   "bg": 0.397
+  },
+  {
+   "id": "T16-push",
+   "t": 17.58,
+   "clip": 0,
+   "face": 0.138,
+   "motion": 0.0499,
+   "bg": 0.423
+  },
+  {
+   "id": "T17-push",
+   "t": 18.92,
+   "clip": 0,
+   "face": 0.124,
+   "motion": 0.0756,
+   "window": 0.0721,
+   "bg": 0.395
+  },
+  {
+   "id": "T18-heroLow",
+   "t": 20.92,
+   "clip": 0,
+   "face": 0.126,
+   "motion": 0.0607,
+   "window": 0.0573,
+   "bg": 0.395
+  },
+  {
+   "id": "T19-tiltUp",
+   "t": 22.96,
+   "clip": 0,
+   "motion": 0.1781,
+   "window": 0.174,
+   "bg": 0.364
+  },
+  {
+   "id": "T20-push",
+   "t": 24.79,
+   "clip": 0,
+   "face": 0.163,
+   "motion": 0.1208,
+   "bg": 0.33
+  },
+  {
+   "id": "T21-snap",
+   "t": 26.33,
+   "clip": 0,
+   "face": 0.178,
+   "motion": 0.1564,
+   "bg": 0.307
+  },
+  {
+   "id": "T22-push",
+   "t": 27.08,
+   "clip": 0,
+   "motion": 0.1987,
+   "window": 0.1369,
+   "bg": 0.312
+  },
+  {
+   "id": "T23-push",
+   "t": 29.58,
+   "clip": 0,
+   "insert": {
+    "h": 0.419,
+    "margin": 0.099
+   },
+   "motion": 0.0933,
+   "window": 0.0926,
+   "bg": 0.328
+  },
+  {
+   "id": "T24-push",
+   "t": 31.42,
+   "clip": 0.05,
+   "motion": 0.0886,
+   "bg": 0.347
+  },
+  {
+   "id": "T25-snap",
+   "t": 32.5,
+   "clip": 0.077,
+   "face": 0.157,
+   "motion": 0.2127,
+   "bg": 0.316
+  },
+  {
+   "id": "T26-pull",
+   "t": 32.92,
+   "clip": 0.023,
+   "face": 0.129,
+   "motion": 0.1416,
+   "window": 0.1407,
+   "bg": 0.337
+  },
+  {
+   "id": "T27-push",
+   "t": 34.67,
+   "clip": 0,
+   "motion": 0.0534,
+   "bg": 0.355
+  },
+  {
+   "id": "T28-push",
+   "t": 36.08,
+   "clip": 0,
+   "motion": 0.0907,
+   "window": 0.0744,
+   "bg": 0.311
+  },
+  {
+   "id": "T29-splitScreen",
+   "t": 38.63,
+   "motion": 0.1251,
+   "window": 0.1172,
+   "bg": 0.254
+  },
+  {
+   "id": "T30-crashZoom",
+   "t": 40.75,
+   "clip": 0,
+   "insert": {
+    "h": 0.574,
+    "margin": 0.151
+   },
+   "motion": 0.1486,
+   "window": 0.1486,
+   "bg": 0.16
+  },
+  {
+   "id": "T31-push",
+   "t": 42.79,
+   "clip": 0.047,
+   "motion": 0.0715,
+   "bg": 0.188
+  },
+  {
+   "id": "T32-topDown",
+   "t": 44.33,
+   "clip": 0,
+   "motion": 0.1245,
+   "bg": 0.249
+  },
+  {
+   "id": "T33-push",
+   "t": 45.38,
+   "clip": 0,
+   "insert": {
+    "h": 0.535,
+    "margin": 0.11
+   },
+   "motion": 0.0881,
+   "bg": 0.328
+  },
+  {
+   "id": "T34-push",
+   "t": 46.71,
+   "clip": 0,
+   "face": 0.143,
+   "motion": 0.1006,
+   "window": 0.0561,
+   "bg": 0.201
+  },
+  {
+   "id": "T35-push",
+   "t": 49.79,
+   "clip": 0,
+   "face": 0.161,
+   "motion": 0.1425,
+   "bg": 0.188
+  },
+  {
+   "id": "T36-lowAuthority",
+   "t": 51.25,
+   "clip": 0.034,
+   "motion": 0.1771,
+   "window": 0.1216,
+   "bg": 0.206
+  },
+  {
+   "id": "T37-push",
+   "t": 54.21,
+   "clip": 0,
+   "insert": {
+    "h": 0.573,
+    "margin": 0.167
+   },
+   "motion": 0.0313,
+   "bg": 0.158
+  },
+  {
+   "id": "T38-crashZoom",
+   "t": 55.67,
+   "clip": 0,
+   "motion": 0.211,
+   "bg": 0.239
+  },
+  {
+   "id": "T39-aisleTrack",
+   "t": 56.71,
+   "clip": 0,
+   "motion": 0.0855,
+   "window": 0.0585,
+   "bg": 0.145
+  },
+  {
+   "id": "T40-push",
+   "t": 58.92,
+   "clip": 0,
+   "face": 0.192,
+   "motion": 0.0274,
+   "bg": 0.116
+  },
+  {
+   "id": "T41-push",
+   "t": 60.04,
+   "clip": 0,
+   "motion": 0.0462,
+   "window": 0.0448,
+   "bg": 0.517
+  },
+  {
+   "id": "T42-push",
+   "t": 61.96,
+   "clip": 0.021,
+   "motion": 0.0421,
+   "bg": 0.492
+  },
+  {
+   "id": "T43-push",
+   "t": 63.46,
+   "clip": 0,
+   "motion": 0.0775,
+   "window": 0.0765,
+   "bg": 0.134
+  },
+  {
+   "id": "T44-push",
+   "t": 65.21,
+   "clip": 0,
+   "face": 0.168,
+   "motion": 0.0616,
+   "bg": 0.144
+  },
+  {
+   "id": "T45-crashZoom",
+   "t": 66.88,
+   "clip": 0,
+   "motion": 0.195,
+   "bg": 0.319
+  },
+  {
+   "id": "T46-push",
+   "t": 68.21,
+   "clip": 0,
+   "insert": {
+    "h": 0.394,
+    "margin": 0.085
+   },
+   "motion": 0.0921,
+   "bg": 0.293
+  },
+  {
+   "id": "T47-push",
+   "t": 69.33,
+   "clip": 0.011,
+   "insert": {
+    "h": 0.428,
+    "margin": 0.065
+   },
+   "motion": 0.0369,
+   "bg": 0.236
+  },
+  {
+   "id": "T48-push",
+   "t": 70.42,
+   "clip": 0,
+   "motion": 0.0529,
+   "bg": 0.263
+  },
+  {
+   "id": "T49-push",
+   "t": 71.54,
+   "clip": 0,
+   "face": 0.16,
+   "motion": 0.1011,
+   "bg": 0.338
+  },
+  {
+   "id": "T50-lowAuthority",
+   "t": 73.08,
+   "clip": 0,
+   "motion": 0.1422,
+   "bg": 0.324
+  },
+  {
+   "id": "T51-push",
+   "t": 74.21,
+   "clip": 0.011,
+   "motion": 0.0447,
+   "window": 0.0349,
+   "bg": 0.501
+  },
+  {
+   "id": "T52-push",
+   "t": 76.88,
+   "clip": 0,
+   "face": 0.161,
+   "motion": 0.0641,
+   "bg": 0.562
+  },
+  {
+   "id": "T53-crane",
+   "t": 78.29,
+   "clip": 0,
+   "face": 0.123,
+   "motion": 0.2296,
+   "window": 0.1112,
+   "bg": 0.625
+  }
+ ],
+ "p5": {
+  "minPairBodyWidths": 1.514,
+  "at": {
+   "n": 50,
+   "a": "kida",
+   "b": "kidc"
+  },
+  "overlaps": []
+ },
+ "p4": {
+  "T01": {
+   "from": 8,
+   "frames": 12,
+   "worstPct": 0,
+   "floorCover": 0.289,
+   "perFrame": [
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0
+   ]
+  },
+  "T04": {
+   "from": 67,
+   "frames": 12,
+   "worstPct": 0.051,
+   "floorCover": 0.402,
+   "perFrame": [
+    0.001,
+    0.051,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0
+   ]
+  },
+  "T08": {
+   "from": 185,
+   "frames": 12,
+   "worstPct": 0.003,
+   "floorCover": 0.61,
+   "perFrame": [
+    0.001,
+    0.001,
+    0,
+    0,
+    0,
+    0,
+    0.001,
+    0.003,
+    0.003,
+    0.002,
+    0
+   ]
+  },
+  "T11": {
+   "from": 273,
+   "frames": 12,
+   "worstPct": 0,
+   "floorCover": 0.475,
+   "perFrame": [
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0
+   ]
+  },
+  "T39": {
+   "from": 1381,
+   "frames": 12,
+   "worstPct": 0,
+   "floorCover": 0.261,
+   "perFrame": [
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0
+   ]
+  }
+ },
+ "errors": [
+  "P3: T13-push fountain clipped 23.4 %",
+  "P3: T25-snap taped clipped 7.7 %"
+ ],
+ "result": "FAIL"
+}
