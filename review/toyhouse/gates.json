@@ -584,5 +584,15 @@
   "P3: T13-push fountain clipped 23.4 %",
   "P3: T25-snap taped clipped 7.7 %"
  ],
- "result": "FAIL"
+ "result": "FAIL",
+ "ownerWaiver": {
+  "date": "2026-11-18",
+  "accepted": "250347c as is",
+  "items": [
+   "v2:read 7 errors (stand-out 0.108-0.120 vs 0.12; face cover T44 3.2 %, T51 4.0 %)",
+   "P3 T13 fountain clip 23.4 %, T25 taped clip 7.7 %",
+   "v2:stability T50 0.33 % vs 0.30"
+  ],
+  "quickFixes": "T50 plain push, T43 hands close-up, T13 pull back: one attempt each, all three made a gate worse (T13 +2 read errors, T43 read motion + P6, T50 stability 1 -> 2 views) and were reverted"
+ }
 }
