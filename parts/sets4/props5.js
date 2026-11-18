@@ -27,9 +27,9 @@ export function foamBlaster(seed = 0) {
   g.name = 'foamBlaster'; g.userData.grip = [0, 0, 0]; return g;
 }
 // as a hand tool (avatar-style/tools.js 'blaster:<seed>'): barrel along the arm (−y in the shoulder pivot), top +z
-export function blasterTool(seed = 0) {
+export function blasterTool(seed = 0, k = 1) {   // k: extra scale (Toy House final fix: 1.5)
   const outer = new T.Group(), inner = foamBlaster(seed); inner.rotation.z = -Math.PI / 2; inner.position.set(0, 0, 0);
-  outer.add(inner); outer.rotation.y = -Math.PI / 2; outer.scale.setScalar(.85); outer.userData.grip = 'extend'; return outer;
+  outer.add(inner); outer.rotation.y = -Math.PI / 2; outer.scale.setScalar(.85 * k); outer.userData.grip = 'extend'; return outer;
 }
 
 // foam darts in flight (instanced): p.darts = [{from: [x, y, z], to: [x, y, z], t0, dur = .45, arc = .6}], times in spec seconds

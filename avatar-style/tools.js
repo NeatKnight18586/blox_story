@@ -92,7 +92,7 @@ function eggsTool(name) {
 }
 export function buildTool(name, opts = {}) {
   if (!BUILD[name] && !name.startsWith('class:') && !name.startsWith('egg:') && !name.startsWith('eggs:') && !name.startsWith('blaster:')) throw Error('unknown tool ' + name);
-  const t = name.startsWith('blaster:') ? blasterTool(+name.slice(8)) : name.startsWith('class:') ? classTool(name) : name.startsWith('eggs:') ? eggsTool(name) : name.startsWith('egg:') ? eggTool(name) : BUILD[name](opts); t.name = 'tool_' + name; t.position.set(...HAND);
+  const t = name.startsWith('blaster:') ? blasterTool(+name.split(':')[1], +(name.split(':')[2] ?? 1)) : name.startsWith('class:') ? classTool(name) : name.startsWith('eggs:') ? eggsTool(name) : name.startsWith('egg:') ? eggTool(name) : BUILD[name](opts); t.name = 'tool_' + name; t.position.set(...HAND);
   // 'upright' tools are authored vertical; in toolHold the arm is rotated -90° about x, so pre-rotate.
   if (t.userData.grip === 'upright') t.rotation.x = Math.PI / 2;
   return t;

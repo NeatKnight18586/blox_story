@@ -5,10 +5,11 @@ import * as T from 'three';
 import {plastic, HEAD} from './body.js';
 import {eggMesh, EGG_R} from '../parts/eggs.js';
 
-export const ACCESSORIES = ['crown', 'helmet', 'hood', 'strawHat', 'scarf', 'cape', 'backpack', 'chefHat', 'featherCap', 'goggles', 'topHat', 'skiMask', 'mailBag', 'mailBagEggs', 'topHatTilt', 'beanie', 'headset', 'droneBack', 'gummyChest'];
+export const ACCESSORIES = ['crown', 'helmet', 'hood', 'strawHat', 'scarf', 'cape', 'backpack', 'chefHat', 'featherCap', 'goggles', 'topHat', 'skiMask', 'mailBag', 'mailBagEggs', 'topHatTilt', 'beanie', 'headset', 'droneBack', 'gummyChest', 'gummyChest2', 'droneBack2'];
 const HEAD_ITEMS = new Set(['headset', 'crown', 'helmet', 'hood', 'strawHat', 'chefHat', 'featherCap', 'goggles', 'topHat', 'skiMask', 'topHatTilt', 'beanie']);
 const geo = new Map();
 const g = (k, f) => { if (!geo.has(k)) geo.set(k, f()); return geo.get(k); };
+const gummyMat = () => { if (!geo.has('mat:gummy')) geo.set('mat:gummy', new T.MeshPhongMaterial({color: '#ff5a1f', emissive: '#7a1800', shininess: 80, specular: '#ffffff', transparent: true, opacity: .82})); return geo.get('mat:gummy'); };
 const flat = c => { const k = 'flat:' + c; if (!geo.has(k)) geo.set(k, new T.MeshPhongMaterial({color: c, shininess: 35, specular: '#3a3a3a', flatShading: true})); return geo.get(k); };
 function put(parent, geometry, material, at, rot = [0, 0, 0], name = 'acc') {
   const m = new T.Mesh(geometry, material); m.position.set(...at); m.rotation.set(...rot); m.castShadow = true; m.name = name; parent.add(m); return m;
@@ -130,6 +131,15 @@ const BUILD = {
     put(grp, g('gc_body', () => new T.BoxGeometry(1.1, 1.0, .45)), m, [0, 2.55, .78]); put(grp, g('gc_head', () => new T.BoxGeometry(.95, .8, .45)), m, [0, 3.4, .86]);
     for (const s of [-1, 1]) put(grp, g('gc_ear', () => new T.BoxGeometry(.26, .26, .3)), m, [s * .35, 3.88, .8]);
     put(grp, g('gc_tape', () => new T.BoxGeometry(2.2, .2, 1.4)), flat('#d8dce2'), [0, 2.75, .05]); return grp; },
+  // Toy House final fix (owner P8): a gummy bear that reads as a bear (translucent red-orange), a drone with arms + rotors
+  gummyChest2(o) { const grp = new T.Group(), m = gummyMat(); const B = (r, at, s) => { const x = new T.Mesh(g('gc2_' + r + s.join(), () => { const q = new T.SphereGeometry(r, 12, 8); q.scale(...s); return q; }), m); x.position.set(...at); grp.add(x); };
+    B(.55, [0, 2.6, .85], [1, 1.05, .55]); B(.44, [0, 3.45, .9], [1.05, .95, .6]); for (const s of [-1, 1]) { B(.17, [s * .32, 3.83, .88], [1, 1, .6]); B(.17, [s * .58, 2.8, .95], [.9, 1.5, .8]); } B(.13, [0, 3.36, 1.16], [1.3, .9, .7]);
+    put(grp, g('gc_tape', () => new T.BoxGeometry(2.2, .2, 1.4)), flat('#d8dce2'), [0, 2.75, .05]); return grp; },
+  droneBack2(o) { const grp = new T.Group(), m = flat(o.color ?? '#3a86ff'), dk = flat('#2b2b2f'), r = flat('#ff5a5f');
+    put(grp, g('db2_body', () => new T.BoxGeometry(1.0, .8, .4)), m, [0, 3.1, -.8]);
+    for (const [x, y] of [[-1, 1], [1, 1], [-1, -1], [1, -1]]) { put(grp, g('db2_arm', () => new T.BoxGeometry(1.0, .12, .14)), dk, [x * .5, 3.1 + y * .42, -.85], [0, 0, x * y * Math.PI / 4]);
+      put(grp, g('db2_rotor', () => new T.BoxGeometry(.9, .05, .14)), r, [x * .92, 3.1 + y * .78, -1.05], [Math.PI / 2, 0, x * y * .6]); put(grp, g('db2_rotor', () => new T.BoxGeometry(.9, .05, .14)), r, [x * .92, 3.1 + y * .78, -1.09], [Math.PI / 2, 0, x * y * .6 + Math.PI / 2]); }   // second blade .04 behind (no coplanar faces)
+    put(grp, g('db_tape', () => new T.BoxGeometry(2.2, .2, 1.3)), flat('#d8dce2'), [0, 3.0, -.2]); return grp; },
   backpack(o) {
     const grp = new T.Group(), m = flat(o.color ?? '#8a5a35'), strap = flat('#4a3222');
     put(grp, g('pack', () => new T.BoxGeometry(1.4, 1.5, .6)), m, [0, 3.0, -.8]);
