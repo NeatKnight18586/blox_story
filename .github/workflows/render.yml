@@ -60,6 +60,8 @@ jobs:
       - run: npm ci
       - name: Plan gate (§5.2)
         run: |
+          node scripts/v2/tex4.js; node scripts/v2/matcap4.js   # baked caches (gitignored) the page loads
+          if grep -q '"lipFlap"' "stories/${{ steps.pick.outputs.story }}/episode.json"; then sudo apt-get install -y ffmpeg >/dev/null 2>&1; node scripts/v2/envelope.js --story "${{ steps.pick.outputs.story }}"; fi
           pip install --break-system-packages pillow >/dev/null 2>&1 || pip install pillow
           npx playwright install --with-deps chromium || echo "playwright browser unavailable, browser.js uses the runner's google-chrome"
           node scripts/v2/plan.js --story "${{ steps.pick.outputs.story }}"
