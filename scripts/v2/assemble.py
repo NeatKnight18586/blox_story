@@ -168,6 +168,22 @@ def measure(path):
     return i, tp
 
 
+def spec_luts(spec_path, out, default_fps=30):
+    """(shot_luts, look_lut_file) for a spec: format v5 per-shot grades over their time ranges, format v4 `look4` LUT. Writes the .cube files
+    next to `out`. Shared by assemble and qc so the QC reference frame is graded exactly like the master."""
+    sp = json.load(open(spec_path)); fr = sp.get('fps', default_fps); t = 0.0; SH = sp.get('shots', []); shot_luts = []
+    d0 = os.path.dirname(os.path.abspath(out))
+    for i, sh in enumerate(SH):
+        st = sh['at'] if 'at' in sh else t
+        d = sh['frames'] / fr if 'frames' in sh else ((SH[i + 1]['at'] if i + 1 < len(SH) else sp.get('end', st)) - st); t = st + d
+        if sh.get('grade') in LUT4.PRESETS and d > 0:
+            f = os.path.join(d0, f"shot-{sh['id']}-{sh['grade']}.cube"); open(f, 'w').write(LUT4.cube(sh['grade'])); shot_luts.append((f, st, st + d))
+    lut_file = None
+    if sp.get('look4') in LUT4.PRESETS:
+        lut_file = os.path.join(d0, sp['look4'] + '.cube'); open(lut_file, 'w').write(LUT4.cube(sp['look4']))
+    return shot_luts, lut_file
+
+
 def picture_inputs(o, fps):
     """ffmpeg input args, (w, h) and frame count for --frames <dir> or --video <mp4>."""
     if o.video:
@@ -223,17 +239,7 @@ def main():
             placed = SFX.place(spec, SFX.layout(o.spec), spec.get('fps', o.fps)); silence = placed['silence']
             track = os.path.join(tempfile.mkdtemp(), 'sfx.wav'); SFX.write_wav(track, SFX.render_track(placed, total))
             inputs += ['-i', track]; sfx_rep = {'hits': len(placed['hits']), 'byName': {n: sum(h[1] == n for h in placed['hits']) for n in SFX.NAMES if any(h[1] == n for h in placed['hits'])}, 'silence': silence}
-    shot_luts = []   # format v5: shots with `grade` get that LUT over their time range (older specs: none)
-    if o.spec:
-        sp = json.load(open(o.spec)); fr = sp.get('fps', o.fps); t = 0.0; SH = sp.get('shots', [])
-        for i, sh in enumerate(SH):
-            st = sh['at'] if 'at' in sh else t
-            d = sh['frames'] / fr if 'frames' in sh else ((SH[i + 1]['at'] if i + 1 < len(SH) else sp.get('end', st)) - st); t = st + d
-            if sh.get('grade') in LUT4.PRESETS and d > 0:
-                f = os.path.join(os.path.dirname(os.path.abspath(o.out)), f"shot-{sh['id']}-{sh['grade']}.cube"); open(f, 'w').write(LUT4.cube(sh['grade'])); shot_luts.append((f, st, st + d))
-    lut_file = None   # format v4: a spec with `look4` gets its preset's LUT + light vignette (older specs: unchanged)
-    if o.spec and json.load(open(o.spec)).get('look4') in LUT4.PRESETS:
-        lut_file = os.path.join(os.path.dirname(os.path.abspath(o.out)), json.load(open(o.spec))['look4'] + '.cube'); open(lut_file, 'w').write(LUT4.cube(json.load(open(o.spec))['look4']))
+    shot_luts, lut_file = spec_luts(o.spec, o.out, o.fps) if o.spec else ([], None)
     af = audio_graph(loudnorm_filter(voice, o.voice_start, o.voice_dur, prelimit=bool(o.spec)), has_music, sfx_rep is not None, silence)
     for p in (o.out, o.proxy):
         if p: os.makedirs(os.path.dirname(p) or '.', exist_ok=True)

@@ -155,9 +155,9 @@ def decode_master(video, frames, w, h):
     return {f: raw_planes(out[i * size:(i + 1) * size], w, h, 'yuv420p') for i, f in enumerate(frames)}
 
 
-def reference(frames_dir, f, src_size, captions, fps=30):
+def reference(frames_dir, f, src_size, captions, fps=30, luts=((), None)):
     """The uncompressed graded frame with captions ('master' chain) and without ('graded'), from the same graph."""
-    g, _ = A.final_graph(src_size, captions, 0.0, offset_frames=f, fps=fps, outputs=('master', 'graded'), fmt='yuv444p')
+    g, _ = A.final_graph(src_size, captions, 0.0, offset_frames=f, fps=fps, outputs=('master', 'graded'), fmt='yuv444p', shot_luts=luts[0], lut=luts[1])
     with tempfile.TemporaryDirectory() as t:
         run(['ffmpeg', '-v', 'error', '-y', '-framerate', str(fps), '-start_number', str(f), '-i', os.path.join(frames_dir, 'frame-%05d.png'), '-frames:v', '1',
              '-filter_complex', g, '-map', '[master]', '-frames:v', '1', '-f', 'rawvideo', f'{t}/m.yuv', '-map', '[graded]', '-frames:v', '1', '-f', 'rawvideo', f'{t}/g.yuv'])
@@ -238,6 +238,7 @@ def main():
     slug = o.story; out = o.out or f'review/{slug}/qc.json'; captions = o.captions or f'stories/{slug}/build/captions.ass'
     spec_p = f'stories/{slug}/episode.json'   # format v5 specs run at 24 fps; others stay at 30
     fps = o.fps or (json.load(open(spec_p)).get('fps', 30) if os.path.exists(spec_p) else 30); th = {**TH, 'fps': f'{fps}/1'}
+    luts = A.spec_luts(spec_p, o.out or f'review/{slug}/qc.json', fps) if os.path.exists(spec_p) else ((), None)   # reference graded like the master (look4 + per-shot grades)
     pr, v, au = A.probe_video(o.video); lufs, tp = A.measure(o.video)
     m = {'video': o.video, 'width': v['width'], 'height': v['height'], 'fps': v['r_frame_rate'], 'pix_fmt': v.get('pix_fmt'),
          'color': [v.get('color_space'), v.get('color_primaries'), v.get('color_transfer'), v.get('color_range')],
@@ -262,7 +263,7 @@ def main():
     dec = decode_master(o.video, [f for f, _ in picks], W, H)
     rows, crops = [], []
     for f, why in picks:
-        (ry, _, _), (gy, gu, gv) = reference(o.frames, f, src_size, captions, fps)
+        (ry, _, _), (gy, gu, gv) = reference(o.frames, f, src_size, captions, fps, luts)
         my = dec[f][0]
         raw = raw_rgb(o.frames, f, up=src_size != A.MASTER_SIZE); graded = yuv444_to_rgb(gy, gu, gv)
         sharp = laplacian_mean((gy.astype(float) - 16) * 255 / 219) / laplacian_mean(luma(raw))
