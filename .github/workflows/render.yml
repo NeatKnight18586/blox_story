@@ -68,7 +68,8 @@ jobs:
       - id: shards
         name: Split shots into balanced shards
         run: |
-          n=6; [ "${{ steps.pick.outputs.preset }}" = "animatic" ] && n=1
+          n=6; [ "$(python3 -c "import json,sys; print(1 if json.load(open(sys.argv[1])).get('fps', 30) >= 48 else 0)" "stories/${{ steps.pick.outputs.story }}/episode.json")" = "1" ] && n=18   # Kit 1: 60 fps specs = 18 shards
+          [ "${{ steps.pick.outputs.preset }}" = "animatic" ] && n=1
           echo "matrix=$(node scripts/v2/shards.js --story '${{ steps.pick.outputs.story }}' --n $n)" >> "$GITHUB_OUTPUT"
 
   render:

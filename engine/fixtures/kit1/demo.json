@@ -1,0 +1,113 @@
+{
+ "slug": "kit1-demo",
+ "fps": 60,
+ "note": "Kit 1 demo: HDRI backdrop (venice_sunset), lowWide -> scaleReveal -> povScope, 60 fps, realism street via parts/location.js. No captions, no labels. Hero at z -30 (reveal pulls back to z +41, the street's open end), PIP at z -14.",
+ "world": "engine/fixtures/kit1/world.js",
+ "castFile": "cast/toyhouse.json",
+ "labels": false,
+ "backdrop": {
+  "hdri": "venice_sunset_1k.hdr",
+  "height": 5,
+  "radius": 400,
+  "intensity": 0.4,
+  "rotation": 0
+ },
+ "cast": {
+  "hero": {
+   "style": "v5",
+   "preset": "HERO",
+   "origin": [
+    -2.4,
+    0,
+    -30
+   ],
+   "yaw": 0,
+   "keys": [
+    [
+     0,
+     "idle"
+    ]
+   ],
+   "faces": [
+    [
+     0,
+     "smile"
+    ]
+   ]
+  },
+  "pip": {
+   "style": "v5",
+   "preset": "PIP",
+   "origin": [
+    1.5,
+    0,
+    -14
+   ],
+   "yaw": 180,
+   "keys": [
+    [
+     0,
+     "idle"
+    ]
+   ],
+   "faces": [
+    [
+     0,
+     "grin"
+    ]
+   ]
+  }
+ },
+ "shots": [
+  {
+   "id": "K1-lowWide",
+   "size": "wide",
+   "frames": 150,
+   "duration": 2.5,
+   "move": "lowWide",
+   "actor": "pip",
+   "side": "right",
+   "dir": [
+    0,
+    1
+   ],
+   "subject": "pip",
+   "shadowRadius": 14
+  },
+  {
+   "id": "K2-scaleReveal",
+   "size": "wide",
+   "frames": 150,
+   "duration": 2.5,
+   "move": "scaleReveal",
+   "actor": "hero",
+   "dir": [
+    0,
+    1
+   ],
+   "subject": "hero",
+   "shadowRadius": 14
+  },
+  {
+   "id": "K3-povScope",
+   "size": "close",
+   "frames": 150,
+   "duration": 2.5,
+   "move": "povScope",
+   "actor": "hero",
+   "dir": [
+    3.9,
+    17
+   ],
+   "subject": "pip",
+   "shadowRadius": 14
+  }
+ ],
+ "effects": [
+  {
+   "type": "scope",
+   "at": 5.0,
+   "dur": 2.5
+  }
+ ]
+}

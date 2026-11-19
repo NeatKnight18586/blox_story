@@ -63,6 +63,14 @@ export function materialFiles(set, manifest) {
   return Object.fromEntries(Object.entries(e.maps).map(([k, f]) => [k, dir + f]));
 }
 
+// Kit 1 (browser): the grounded photo-sky mesh of a backdrop {height, radius, intensity, rotation (deg)} from an equirect .hdr url → {sky, hdr}.
+// Same construction as buildLocation's 'groundedSkybox' backdrop (kept in step by hand: that path stays untouched so existing specs render as before).
+export async function groundedSky(T, renderer, url, bd = {}) {
+  const {GroundedSkybox} = await import('three/addons/objects/GroundedSkybox.js'), {HDRLoader} = await import('three/addons/loaders/HDRLoader.js');
+  const hdr = await new HDRLoader().setDataType(T.FloatType).loadAsync(url); hdr.mapping = T.EquirectangularReflectionMapping;
+  const sky = new GroundedSkybox(hdr, bd.height ?? 5, bd.radius ?? 300); sky.rotation.y = (bd.rotation ?? 0) * deg; sky.material.fog = false; sky.material.toneMapped = true; sky.material.color.setScalar(bd.intensity ?? 1);
+  sky.position.y = (bd.height ?? 5) + (bd.y ?? 0) - .02; sky.userData.live = true; sky.name = 'groundedSkybox'; return {sky, hdr};
+}
 // ---- browser ------------------------------------------------------------------------------------------------------------------
 export async function buildLocation(scene, renderer, loc, {base, manifest}) {
   const T = await import('three');

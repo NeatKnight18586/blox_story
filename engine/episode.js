@@ -23,6 +23,7 @@ import {hair4Material} from '../avatar-style/hair.js';
 import {loadFont, fitTags} from './overhead.js';
 import {createLook, createLookV3, sunDir} from './look.js';
 import {createEffects} from './effects.js';
+import {groundedSky} from '../parts/location.js';
 import {createCrowds} from './crowd.js';
 import {createRuleUI, enforceReadable, uiMeasure} from './ruleui.js';
 import {stripLabels} from './nolabels.js';
@@ -97,6 +98,7 @@ if (spec.world) {
   // A4: a world opts into the v3 look by exporting LOOK (an object, or a function of the spec); "Nobody" does not
   const lk = typeof mod.LOOK === 'function' ? mod.LOOK(spec) : mod.LOOK;
   look = lk ? createLookV3(scene, renderer, {...lk, onEnv: tex => M.setEnvMap(tex, lk.envIntensity ?? .45)}) : createLook(scene, renderer);
+  if (mod.preload) await mod.preload(new URL('../', import.meta.url), {scene, renderer, spec});   // Kit 1 (opt-in, v3 worlds that export preload): async world assets / a parts/location.js street
   world = mod.build(scene, {P, B, A, M, PR, TR, BI, V, W, look, spec});
   }
 } else {
@@ -111,6 +113,12 @@ if (spec.world) {
     const a = i / 12 * Math.PI * 2, h = 2 + (i % 3) * 1.5, m = new T.Mesh(new T.BoxGeometry(1.2, h, 1.2), phong(palette[i % palette.length]));
     m.position.set(Math.sin(a) * 11, h / 2, Math.cos(a) * 11); m.castShadow = m.receiveShadow = true; scene.add(m);
   }
+}
+// Kit 1 (opt-in spec.backdrop {hdri, height 5, radius 400, intensity .7, rotation 0}): a grounded photo sky from assets/hdri/<hdri> (parts/location.js
+// groundedSky). It becomes scene.environment only when the look has none. Specs without "backdrop" take none of this.
+if (spec.backdrop) {
+  const bd = {height: 5, radius: 400, intensity: .7, rotation: 0, ...spec.backdrop}, {sky, hdr} = await groundedSky(T, renderer, new URL('../assets/hdri/' + bd.hdri, import.meta.url).href, bd);
+  scene.add(sky); if (!scene.environment) { scene.environment = new T.PMREMGenerator(renderer).fromEquirectangular(hdr).texture; scene.environmentRotation.y = bd.rotation * Math.PI / 180; }
 }
 const anchors = world?.anchors ?? {};
 // Anchor-relative vectors: {anchor: 'square', offset: [x, y, z]} → world position.
@@ -194,6 +202,12 @@ if (LOOK5B) {
   for (const e of litSwap) { e.mc = mine(e.mc, e.name); e.std = mine(e.std, e.name); e.mesh.material = e.name === litNow ? e.std : e.mc; }
   for (const x of Object.values(cast)) if (x.v2) x.a.root.traverse(o => { if (o.name === 'face_decal') for (const m of [].concat(o.material)) L5B.patchDecal(m, U5B); });   // in place: setFace4 swaps the decal's map
   for (const [name, x] of Object.entries(cast)) if (x.v2) { const w = 4.2 * x.a.root.scale.x, b = L5B.contactBlob(P5B(spec.look4).blob.radius * w, P5B(spec.look4).blob.opacity); b.visible = false; scene.add(b); blobs5b[name] = b; }
+}
+// Kit 1: under a backdrop every actor gets the look5b fresnel rim (strength .6) and the +0.3 EV actor lift (look5b DEFAULTS.actorEV), per-actor material clones.
+if (spec.backdrop && !LOOK5B) {
+  const p = L5B.params(null), U = L5B.makeUniforms({...p, rim: {...p.rim, strength: .6}}), own = new Map();
+  const mine = m => Array.isArray(m) ? m.map(mine) : !m || m.isMeshBasicMaterial || m.isSpriteMaterial ? m : (own.has(m) ? own : own.set(m, L5B.patchActor(m.clone(), U))).get(m);
+  for (const x of Object.values(cast)) if (x.v2) x.a.root.traverse(o => { if (!o.isMesh) return; if (o.name === 'face_decal') for (const m of [].concat(o.material)) L5B.patchDecal(m, U); else o.material = mine(o.material); });
 }
 function apply5b(shot) {
   if (!LOOK5B) return; const p = P5B(shot.look ?? spec.look4);   // E1 fix 2 (opt-in per shot): shot.rim {color, strength, power, away}, shot.actorEV

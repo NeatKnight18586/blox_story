@@ -2,7 +2,7 @@
 import {test} from 'node:test';
 import assert from 'node:assert/strict';
 import {readFileSync} from 'node:fs';
-import {sampleCamera, EASE, MOVES, MOVES5, OPEN_HIT, openHitOffset, maxTargetSpeed, speedOk, SPEED_CAP, rng} from '../../engine/camera.js';
+import {sampleCamera, EASE, MOVES, MOVES5, MOVES_K1, OPEN_HIT, openHitOffset, maxTargetSpeed, speedOk, SPEED_CAP, rng} from '../../engine/camera.js';
 
 const clip = JSON.parse(readFileSync(new URL('../../engine/fixtures/eight-moves.json', import.meta.url)));
 const shots = []; { let start = 0; for (const s of clip.shots) { shots.push({...s, start, duration: s.frames / clip.fps}); start += s.frames; } }
@@ -11,7 +11,7 @@ const finite = c => [...c.position, ...c.target, c.fov, c.roll].every(Number.isF
 const dist = (a, b) => Math.hypot(a[0] - b[0], a[1] - b[1], a[2] - b[2]);
 
 test('fixture covers every move once', () => {
-  assert.deepEqual([...new Set(shots.map(s => s.move))].sort(), MOVES.filter(m => !['drone', 'heroLow', 'snap', 'tiltUp', ...MOVES5].includes(m)).sort());   // the A4 moves are tested in s8.test.js, the v5 moves in v5.test.js
+  assert.deepEqual([...new Set(shots.map(s => s.move))].sort(), MOVES.filter(m => !['drone', 'heroLow', 'snap', 'tiltUp', ...MOVES5, ...MOVES_K1].includes(m)).sort());   // the A4 moves are tested in s8.test.js, the v5 moves in v5.test.js
   assert.equal(shots.at(-1).start + shots.at(-1).frames, 90);
 });
 

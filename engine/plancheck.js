@@ -10,6 +10,7 @@ import {SPEED_CAP} from './camera.js';
 import {cardOk} from './classes.js';
 
 export const SIZES = ['wide', 'medium', 'close', 'insert'];
+import {framesFor} from './fpsframes.js';
 export const LIMITS = {beat: [.55, 1.2], beatRun: 3, beatBefore: 20, minShot: 1.2, maxShot: 5.0, cutTol: 2, firstWide: 6, headX: [.15, .85], headY: [.18, .58], meanShot: [2.2, 3.0], band: [.58, .74], minCam: 2, whipFrames: [4, 6]};
 
 // Phrase onsets (s): every line start, plus every word that follows a pause (its start is later than the
@@ -30,10 +31,10 @@ export const lengthRule = format => format === 5 ? {voice: [75, 90], end: [75, 9
 export function checkPlan({shots, cues, fps = 30, end, info = [], format}) {
   const V5 = format === 5;   // format v5: length, cuts and shot sizes follow engine/plancheck5.js (cut on any word; no size/location/openHit rules)
   const errors = [], warnings = [], L = LIMITS, onsetF = phraseOnsets(cues).map(t => Math.round(t * fps)), wordF = wordOnsets(cues).map(t => Math.round(t * fps));
-  const nearWord = f => Math.min(...wordF.map(o => Math.abs(o - f))) <= L.cutTol;
+  const nearWord = f => Math.min(...wordF.map(o => Math.abs(o - f))) <= framesFor(L.cutTol, fps);
   let beatRun = 0;
   const voiceEnd = cues.duration, err = (s, m) => errors.push(`${s.id}: ${m}`), warn = (s, m) => warnings.push(`${s.id}: ${m}`);
-  const nearOnset = f => Math.min(...onsetF.map(o => Math.abs(o - f))) <= L.cutTol;
+  const nearOnset = f => Math.min(...onsetF.map(o => Math.abs(o - f))) <= framesFor(L.cutTol, fps);
   const want = episodeEnd(voiceEnd), last = shots.at(-1), endS = (last.start + last.frames) / fps;
   if (V5) { const R = lengthRule(5);
     if (voiceEnd < R.voice[0] || voiceEnd > R.voice[1]) errors.push(`voice ${voiceEnd.toFixed(2)} s outside ${R.voice[0]}–${R.voice[1]} s (format v5)`);

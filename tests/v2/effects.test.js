@@ -45,5 +45,5 @@ test('particles: every preset is finite, seeded and pure; bursts end', () => {
     else assert.equal(particleState(e, 0, 2.5), null);
   }
   assert.notDeepEqual(particleState({preset: 'sparkle', at: 0, seed: 1}, 3, .3), particleState({preset: 'sparkle', at: 0, seed: 2}, 3, .3));
-  assert.equal(TYPES.length, 18);   // §5.3's nine + A3's class reveal (pillar, ring, halo, morph, card) + A4 (lightning, shockwave, weather, trail)
+  assert.equal(TYPES.length, 19);   // §5.3's nine + A3's class reveal (pillar, ring, halo, morph, card) + A4 (lightning, shockwave, weather, trail) + Kit 1 (scope)
 });
