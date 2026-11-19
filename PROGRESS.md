@@ -1535,3 +1535,23 @@ and #17/#18 near-identical neighbours. Cause: cameras compiled without occlusion
 Decisions: beats = strong preference, VO pauses = forced cuts; the loop helper only joins shots in the same place (no flying camera);
 stress = *marks* + caption keywords; sign cap model .504 × h / lines (textPlate); --targets-from keeps the hand-placed camera distance.
 Open: occlusion check (ray from camera to target) in the compiler; jump-cut metric in QA; signature prop (owner pick, 3 options below).
+
+## Retention Engine Phase 5 (2026-11-19): look upgrade (stylized Roblox realism)
+Plan: 1. reachable CC0 sources (Poly Haven blocked; three.js mirror on raw.githubusercontent: 7 HDRIs + brick/hardwood/grass/water/metal)
+→ assets/look7.json + tools/fetch_look_assets.py 2. 5 moods as data (engine/moods7.json) + engine/moods7.js 3. engine/post7.js chain
+4. test world (Phase R street + basin/hedge/snow) + page 5. storm-lantern (owner pick A) 6. stills per mood at 1440 + timing + gates.
+Built: fetch tool (bump→normal, RLE .hdr reader, HDRI stats: picked moods by measurement: spruit sun share .75 R/B 2.45 = dawn, blouberg
+.035 = overcast, venice = golden, moonless = night; no storm HDRI → storm = blouberg darker/colder + fog + rain) · post7 (MSAA HDR → GTAO
+clipped to 150 u → light shafts → Bokeh DOF on close/emotion → bloom → grade/AgX/vignette/rain) · moods7 (+ per-act temperature shift,
+gate pass lines) · episode.js opt-in spec.mood/acts (tier by width, whip blur, post-safe sub-frame average) · location.js opt-in
+metalness/roughnessScale · accessory stormLantern (teal glass > 1.0 → bloom, optional light) on cast/hero.json HERO (troupe keeps it when an
+episode adds accessories) · engine/fixtures/look7 (world + page) · tools/look_stills.js, tools/look_sheet.py · tests moods7.test.js (5), test_look7.py (3).
+Bug found + fixed: GTAO turned the GroundedSkybox (r 420) black at 1440 (fine at 540) → AO clip box around the camera.
+Gate (mean luma band, R/B warm/cool on wides, clip ≤ 2 %), 10 checks: first run 5/10, pass 2 7/10. Still FAIL after 2 passes:
+overcast close .425 (≤ .42), night wide .222 (≤ .22), storm close .364 (≤ .33). Decision in pass 1: R/B judged on wides only (a close-up
+measures the yellow skin, not the light): a scope change, reported, not a pass.
+Timing (4-core = free runner): final 1440 6.3–9.9 s/frame test world, 14.1 Toy House + mood; previz 0.13–0.24 / 0.77; before 1.6–2.6.
+2-min episode worst case 11.2 runner-h → 20 shards (render.yml for mood specs) ≈ 34 min render + setup each; under the 300-min cap.
+Checks: v2:test 176 node + 96 py, npm test 0, rule_ids PASS, "Nobody" 0–9 byte-identical; spec.mood smoke on the recut6 fixture OK.
+Weakest (390 sheets): storm ≈ overcast + drizzle (no storm sky) · night lantern bloom is a big teal blob, green uplight on the face ·
+dawn backlights the hero to near-black with a white bloom rim. Materials: plaster + snow still procedural locally (no photo source).
