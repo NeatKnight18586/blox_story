@@ -1453,3 +1453,7 @@ Open: farm run of assets.yml (real photo-scan materials + farm s/frame + bake); 
 
 ## R2 baseline (real CC0, lit actors) — farm run 44428216688
 street-cc0 (fallbacks 0): R1_lowwide 9.64 s/frame @1440, contrast 0.008, detail 4.84 · R2_scale 9.036, 0.098, 1.05 · R3_face 13.324, 0.223, 5.48.
+
+## Phase R2 (2026-11-19): steps 1-6 done, farm run blocked
+Code/data pushed (a81351b): matcap actors ('comedy', ×1.15 lift) in engine/fixtures/realism/street.js, backdrop.intensity in parts/location.js, street-cc0.json backdrop 0.7 / shadowOpacity 0.6, R2_scale camera (fov 60, pos [1.2,1,52], look [-1.5,16,-20]).
+Farm run 44430704419 (assets.yml) did not start: GitHub annotation "recent account payments have failed or your spending limit needs to be increased". No R2 numbers, so no KEEP/DROP verdict. Needs the owner to fix Actions billing, then re-push assets/realism.request.
