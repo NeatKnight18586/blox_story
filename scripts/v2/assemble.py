@@ -237,7 +237,7 @@ def main():
         import sfx as SFX, tempfile
         spec = json.load(open(o.spec))
         if (spec.get('sfx') in (True, 'on')) if spec.get('format') == 6 else (spec.get('sfx') is not False):   # format 6: sfx only when on (N-AUD-01)
-            placed = SFX.place(spec, SFX.layout(o.spec), spec.get('fps', o.fps)); silence = placed['silence']
+            placed = (SFX.place6 if spec.get('format') == 6 else SFX.place)(spec, SFX.layout(o.spec), spec.get('fps', o.fps)); silence = placed['silence']   # format 6: Phase 6 beat map
             track = os.path.join(tempfile.mkdtemp(), 'sfx.wav'); SFX.write_wav(track, SFX.render_track(placed, total))
             inputs += ['-i', track]; sfx_rep = {'hits': len(placed['hits']), 'byName': {n: sum(h[1] == n for h in placed['hits']) for n in SFX.NAMES if any(h[1] == n for h in placed['hits'])}, 'silence': silence}
     shot_luts, lut_file = spec_luts(o.spec, o.out, o.fps) if o.spec else ([], None)
