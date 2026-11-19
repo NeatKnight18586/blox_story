@@ -1,0 +1,22 @@
+# TapCap EP01 "Rarity's Just Paint" — episode spec (sponsored side project; rules: ../RULES.md)
+slug: tapcap-ep01-rarity
+campaign: tapcap
+vo: vo/vo.wav            # 75.16 s, owner drop (gitignored, never committed)
+vo_end: 75.16            # hard cut
+fps: 24                  # DECISION (open): repo format v5 rate; tap = 3/2/4 frames at this rate
+format_out: {width: 1080, height: 1920}
+sfx: on                  # mechanical-switch clicks only
+music: none              # owner adds music
+captions: {style: pop-shorts-v6, accent: "#B98CFF"}   # v6 does not exist yet (latest v5): Pass C adds it as v5 + accent
+cast:
+  slimeguy: {asset: ../assets/slimeguy, presets: [frozen, grape, bubblegum, midnight, banana, pumpkin, strawberry, coffee, cosmic]}
+  banana: {preset: banana}
+  sunny: {preset: cosmic, paint: fake_banana, fleck_shot: S12}
+  clix: {asset: ../assets/clix, hands: [reach, tap, doubleTap], reveal_shots: [S36, S37]}   # prompt: full reveal S36–S37
+crowd: {count: [20, 40], idle: [sway, hop, tap]}
+signs: ["1 / 102", "TOP SHELF", "CORE ROW", "TRADES"]
+lighting:
+  - {from: 0.00, to: 38.0, preset: dawn-hope}
+  - {from: 38.0, to: 64.5, preset: rain-night, lightning_max: 1}
+  - {from: 64.5, to: 75.16, preset: golden}
+qa: {proportions: qa/proportions.json, measured: qa/measured.json}

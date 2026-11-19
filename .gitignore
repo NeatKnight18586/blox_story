@@ -27,3 +27,11 @@ evidence/studio-characters/hair/
 # v2 engine (docs/V2_BRIEF.md §2.5): build outputs and caches never committed
 stories/*/build/
 .cache/
+
+# TapCap sponsored campaign: sponsor reference images and VO never go in the public repo
+campaigns/tapcap/refs/
+campaigns/tapcap/ep01-rarity/refs/
+campaigns/tapcap/**/vo/*
+!campaigns/tapcap/**/vo/.gitkeep
+# review sheets may embed the sponsor refs side by side: sent directly, never committed
+campaigns/tapcap/**/review/

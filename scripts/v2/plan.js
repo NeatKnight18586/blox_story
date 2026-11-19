@@ -11,6 +11,8 @@ import {checkPlan} from '../../engine/plancheck.js';
 import {checkSeason} from '../../engine/seasoncheck.js';
 import {labelIssues} from '../../engine/nolabels.js';
 import {layoutShots} from '../../engine/timeline.js';
+import {isCampaign, parseRules, checkCampaign} from '../../engine/tapcap.js';
+import {existsSync} from 'node:fs';
 
 const argv = process.argv.slice(2), arg = (k, d) => { const i = argv.indexOf(`--${k}`); return i >= 0 ? argv[i + 1] : d; };
 const story = arg('story'), specPath = arg('spec') ?? `stories/${story}/episode.json`, cuesPath = arg('cues') ?? `stories/${story}/cues.json`;
@@ -48,6 +50,12 @@ const r = checkPlan({shots, cues, fps, end: spec.end, info, format: spec.format}
 const sz = checkSeason({spec, shots, cues, fps, end: spec.end, info, meas});
 r.errors.push(...sz.errors, ...labelIssues(spec));
 if (spec.format === 5) { const p5 = plan5(shots, {fps, cues, insertH, end: spec.end}); r.errors.push(...p5.errors); r.stats.format5 = {lengthS: p5.lengthS, averageShotS: p5.averageShotS, insertH}; }   // format v5 rules   // owner rule §2c: noLabels (Season 1 / labels: false)
+if (isCampaign(specPath)) {   // TapCap campaign: campaigns/tapcap/RULES.md (TC-01…TC-07), measured inputs from the episode's qa/ folder
+  const rules = parseRules(readFileSync('campaigns/tapcap/RULES.md', 'utf8')), qaDir = specPath.replace(/[^/]+$/, 'qa/');
+  const rd = f => existsSync(qaDir + f) ? JSON.parse(readFileSync(qaDir + f, 'utf8')) : undefined, m = rd('measured.json') ?? {};
+  const c = checkCampaign({rules, shots, cues, fps, end: spec.end, measured: {...m, proportions: rd('proportions.json')}});
+  r.errors.push(...c.errors); r.warnings.push(...c.manual); r.stats.campaign = {rules: Object.keys(rules.qa), errors: c.errors.length};
+}
 r.warnings.push(...sz.warnings); r.stats.season = !!spec.season; r.stats.framing = sz.stats.framing; r.stats.uiItems = sz.stats.ui; r.stats.eggs = sz.stats.eggs; r.stats.overlaps = sz.stats.overlaps; r.stats.crowdCover = sz.stats.cover; r.stats.clockBoard = sz.stats.clockBoard;
 const table = shots.map((s, i) => ({id: s.id, beat: !!s.beat, t: +(s.start / fps).toFixed(2), dur: +(s.frames / fps).toFixed(2), size: s.size, move: s.move, loc: s.loc, speed: +(info[i].speed * 100).toFixed(0),
   subject: s.subject ? `${s.subject}@${(info[i].mid.heads[s.subject]?.x * 100).toFixed(0)},${(info[i].mid.heads[s.subject]?.y * 100).toFixed(0)}` : '', why: s.why}));
