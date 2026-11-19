@@ -1484,3 +1484,16 @@ non-NOVA number as her held prop (strict number also stored); bench = location +
 hdri manifest maps to assets/hdri (`{id: '../../../assets/hdri'}`).
 Open: s/frame 2 fix passes spent (statics merge 2.6→1.55; `bake.material: basic` is a no-op because location.js skips materials whose
 default emissiveIntensity is 1, i.e. every procedural/CC0 one); dustGold sat 2 passes spent (.38→.20); dragon peaks read as pale drums.
+
+## Touch Grass E0b — fix round on E0 (2026-11-19)
+Plan: V4 D5 (farm-time gate) + D6 (sat gate dustGray only); location.js basic swap fix; crowds merged; dustGold warm low sun; dustTown 3 depth
+layers + TOWN groups + 20° wide; zombieCity moonlight + green ground fog + 3 lamps; rock peaks; space glow/stars/planet/ship ×2.5; armor; finger flick.
+Built: `parts/location.js` basic swap now skips only real emissive (non-black colour); props7 rockPeak/rockMesa/starField/ringPlanet/streetLamp/
+groundFog/brokenBuilding/armor/radialTex/flickX, sunSphere = emissive core + additive sprite, placeProps `scale` + ground pieces never cast;
+generators `touchgrass-cast.py` (armor specs; ASTRO backpack + PIRATE top hat removed) and `touchgrass-locations.py` (all 4 worlds, seatYaw40,
+leoOnShip, planet); fixture: armor applied after pose, TOWN/ZOMBIE/FRIENDS crowds merged by material (vertex-coloured hair/headset kept apart),
+masks ground/zombie/trim; sheet script: new gates + 1440 timing + farm projection.
+Commands: `python3 scripts/v2/touchgrass-{cast,locations}.py` · `node scripts/v2/touchgrass-sheets.js --timing 2` · npm test · npm run v2:test.
+Decisions: zombie contrast = |Lzombie − Lring| / max (ring = 10 px dilation at 390 px); farm mean = BEATS shot-weighted (dustGold timed, reported);
+bake.material 'basic' fixed but left off in all 4 worlds (statics are now mostly ground planes; farm gate passes without it).
+Open: zombie local contrast FAILS after 2 passes (moon to the front, then darker street/fog/lamps): .22 vs .35 — stopped, not loosened.

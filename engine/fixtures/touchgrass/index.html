@@ -7,7 +7,8 @@
 <script type="module">
 import * as T from 'three';
 import {buildLocation, mergeLocation} from '../../../parts/location.js';
-import {PROPS7, attachHeadset, headsetGap, placeProps} from '../../../parts/sets4/props7.js';
+import {PROPS7, attachHeadset, headsetGap, placeProps, armor} from '../../../parts/sets4/props7.js';
+import {mergeByMaterial} from '../../../parts/sets4/common.js';
 import {buildActor} from '../../actors.js';
 import {samplePose, applyPoseSample} from '../../poses.js';
 import {buildDragon, driveDragon} from '../../../avatar-style/dragon.js';
@@ -28,6 +29,7 @@ function actor(id, {at = [0, 0, 0], yaw = 0, pose = 'idle', t = .3, face = null,
   const hs = headset ?? pre.vrHeadset; if (hs === 'on' || hs === 'off') attachHeadset(a, {state: hs});
   if (pre.glowSword) a.root.traverse(o => { if (o.isMesh && o.name === 'blade') { o.material = o.material.clone(); o.material.emissive = new T.Color(pre.glowSword); o.material.emissiveIntensity = 1.2; } });
   applyPoseSample(a, samplePose(pose, t, poseOpts), {position: at, yaw});
+  if (pre.armor) { a.root.updateMatrixWorld(true); armor(a, pre.armor); }   // E0b: primitives on the posed parts (follow the pivots)
   a.root.traverse(o => { if (o.isMesh) o.castShadow = true; }); return a;
 }
 function boss(at, yaw = 0, state = 'perch') { const C = CAST.BOSS, d = buildDragon({scale: C.scale, name: 'BOSS', colors: C.colors}); driveDragon(d, 1, {keys: [[0, state]], origin: {position: at, yaw}}); return d; }
@@ -53,18 +55,18 @@ window.__tg = {
     else shoot({position: [0, H * .55, D], target: [0, H * .48, 0], fov: 30}, w, h);
     const hs = a.attachments?.vrHeadset; return {png: png(), tris: tris(a.root), gap: hs ? headsetGap(hs) : null};
   },
-  prop({name, p = {}, set = null, bend = null, t = 1, w = 390, h = 693, fill = .5, view = [1, .55, 1.6], head = null, focus = null}) {
+  prop({name, p = {}, set = null, flick = null, t = 1, w = 390, h = 693, fill = .5, view = [1, .55, 1.6], head = null, focus = null}) {
     studio('#3a3d44'); let g;
     if (head) { const a = actor(head, {headset: 'on'}); const hs = a.attachments.vrHeadset; if (p.screen) { hs.userData.screen?.parent?.remove(hs.userData.screen); const sc = PROPS7.visorScreen({state: p.screen, w: 1.2, h: .38}); sc.position.set(0, .06, hs.userData.backZ + .33); hs.add(sc); }
       if (set) hs.userData.setState(set); g = a.root; }
-    else { g = PROPS7[name](p); if (set) g.userData.setState?.(set); if (bend !== null) g.userData.setBend(bend); }
+    else { g = PROPS7[name](p); if (set) g.userData.setState?.(set); if (flick !== null) g.userData.setFlick(flick); }
     g.userData.anim?.(t); scene.add(g); g.updateMatrixWorld(true);
     const box = new T.Box3().setFromObject(g); if (focus) { box.makeEmpty(); for (const n of focus) g.traverse(o => { if (o.name === n) box.expandByObject(o); }); } if (head) { const hb = new T.Box3().setFromObject(g.getObjectByName('headset')); box.copy(hb); }
     const c = box.getCenter(new T.Vector3()), sz = box.getSize(new T.Vector3()), r = Math.max(sz.x, sz.y, sz.z), fov = 30, dist = r / fill / (2 * Math.tan(fov * Math.PI / 360)) * (w / h < 1 ? 1 : 1);
     const v = new T.Vector3(...view).normalize(); shoot({position: c.clone().addScaledVector(v, dist * (w < h ? h / w * .55 : 1)).toArray(), target: c.toArray(), fov, near: .01}, w, h);
     return {png: png(), tris: tris(g)};
   },
-  async world({name, look = null, cam, w = 390, h = 693, mask = false, timing = 0, cast = true}) {
+  async world({name, look = null, cam, w = 390, h = 693, mask = false, timing = 0, cast = true, merge = true}) {
     const s = fresh(); let loc = await json(`parts/locations/${name}.json`);
     if (loc.extends) loc = mergeLocation(await json(new URL(loc.extends, new URL(`parts/locations/${name}.json`, ROOT)).href.replace(ROOT.href, '')), loc);
     if (look) loc = {...loc, ...loc.looks[look]};
@@ -72,17 +74,29 @@ window.__tg = {
     const P = placeProps(loc.props, {t: 1}); s.add(P);
     const A = await json('parts/locations/anchors-touchgrass.json'), an = A[name], actors = [];
     const add = a => { s.add(a.root); actors.push(a); return a; };
+    // E0b: crowds (TOWN, ZOMBIES, FRIENDS) are posed, then merged by material into one group per crowd (one draw call per material)
+    const crowds = {}, crowd = (kind, a) => { const g = crowds[kind] ??= Object.assign(new T.Group(), {name: 'crowd:' + kind}); g.userData.crowd = kind; g.add(a.root); actors.push(a); return a; };
     if (!cast) {} else if (name === 'dustTown') {
-      an.seats40.forEach((p, i) => add(actor('TOWN_' + (1 + i % 6), {at: [p[0], p[1] - 1.05, p[2] + .05], yaw: Math.PI, pose: 'sit', t: i * .1})));   // seated on crates, facing the camera (+z)
+      an.seats40.forEach((p, i) => crowd('TOWN', actor('TOWN_' + (1 + i % 6), {at: [p[0], p[1] - 1.05, p[2] + .05], yaw: an.seatYaw40?.[i] ?? Math.PI, pose: 'sit', t: i * .1})));   // seated on crates in groups
       add(actor('NOVA', {at: [0, 0, 6], yaw: 0, pose: 'walk', t: .4})); add(actor('LEO', {at: [an.leoChair[0] + .6, .9 - .2, an.leoChair[2]], yaw: Math.PI / 2, pose: 'slump'}));
       const can = PROPS7.wateringCan(); can.position.set(1.3, 0, 6.6); s.add(can);
-    } else if (name === 'zombieCity') { an.zombies8.forEach((p, i) => add(actor('ZOMBIE_' + (i + 1), {at: p, yaw: 0, pose: 'zombie', t: i * .17}))); add(actor('LEO_VR', {at: an.heroLow, pose: 'heroPose', yaw: 0})); add(actor('BRO', {at: an.bro, yaw: -.4}));
+    } else if (name === 'zombieCity') { an.zombies8.forEach((p, i) => crowd('ZOMBIE', actor('ZOMBIE_' + (i + 1), {at: p, yaw: 0, pose: 'zombie', t: i * .17}))); add(actor('LEO_VR', {at: an.heroLow, pose: 'heroPose', yaw: 0})); add(actor('BRO', {at: an.bro, yaw: -.4}));
     } else if (name === 'dragonPeaks') { const F = CAST && Object.keys(CAST.cast).filter(k => k.startsWith('FRIEND_')).concat(['BRO']);
-      an.friends100.slice(0, 30).forEach((p, i) => add(actor(F[i % F.length], {at: p, yaw: Math.atan2(-p[0], -p[2]), pose: 'cheer', t: i * .13}))); add(actor('LEO_VR', {at: [0, 0, 0], pose: 'heroPose'}));
+      an.friends100.slice(0, 30).forEach((p, i) => crowd('FRIENDS', actor(F[i % F.length], {at: p, yaw: Math.atan2(-p[0], -p[2]), pose: 'cheer', t: i * .13}))); add(actor('LEO_VR', {at: [0, 0, 0], pose: 'heroPose'}));
       const d = boss(an.bossPeak, .6, 'roar'); s.add(d.root);
-    } else if (name === 'space') { add(actor('LEO_VR', {at: [0, .55, 3.2], pose: 'pointUp'})); }
+    } else if (name === 'space') { add(actor('LEO_VR', {at: an.leoOnShip ?? [0, .55, 3.2], pose: 'pointUp'})); }
+    for (const g of Object.values(crowds)) { s.add(g); g.traverse(o => { if (o.isMesh && [].concat(o.material)[0]?.vertexColors) o.userData.live = true; });   // vertex-coloured parts (hair, headset) stay separate: the merge drops colour attributes
+      if (merge) mergeByMaterial(g); g.traverse(o => { if (o.isMesh) o.castShadow = true; }); }
     s.updateMatrixWorld(true); L.fit(new T.Vector3(...(cam.fit ?? cam.target)), cam.r ?? 30);
-    if (mask) {   // NOVA mask pass: raincoat = red, rest of NOVA = white, everything else black (no fog, black background)
+    if (mask && mask !== true) {   // E0b masks: 'ground' (ground + street planes), 'zombie' (the ZOMBIE crowd), 'trim' (LEO_VR's #49D9FF emissive trim); white on black
+      const black = new T.MeshBasicMaterial({color: '#000000'}), white = new T.MeshBasicMaterial({color: '#ffffff'}); s.fog = null; s.background = new T.Color('#000000');
+      const inCrowd = (o, k) => { for (let p = o; p; p = p.parent) if (p.userData?.crowd === k) return true; return false; };
+      const leo = actors.find(a => a.root.userData.castId === 'LEO_VR'), leoSet = new Set(); leo?.root.traverse(o => leoSet.add(o));
+      s.traverse(o => { if (o.isPoints || o.isSprite) { o.visible = false; return; } if (!o.isMesh) return; const m = [].concat(o.material)[0];
+        const hit = mask === 'ground' ? /^(ground|street)_/.test(o.name) : mask === 'zombie' ? inCrowd(o, 'ZOMBIE') : leoSet.has(o) && m?.emissive?.getHexString?.() === '49d9ff' && m.emissiveIntensity > 0;
+        o.material = hit ? white : black; });
+      renderer.toneMapping = T.NoToneMapping;
+    } else if (mask) {   // NOVA mask pass: raincoat = red, rest of NOVA = white, everything else black (no fog, black background)
       const black = new T.MeshBasicMaterial({color: '#000000'}), white = new T.MeshBasicMaterial({color: '#ffffff'}), red = new T.MeshBasicMaterial({color: '#ff0000'}); s.fog = null; s.background = new T.Color('#000000');
       const nova = actors.find(a => a.root.userData.castId === 'NOVA'), set = new Set(); nova?.root.traverse(o => set.add(o)); const blue = new T.MeshBasicMaterial({color: '#0000ff'}), canSet = new Set(); s.getObjectByName('wateringCan')?.traverse(o => canSet.add(o));
       s.traverse(o => { if (!o.isMesh && !o.isSprite) return; if (canSet.has(o)) { o.material = blue; return; } if (!set.has(o)) { o.material = black; return; } const c = [].concat(o.material)[0]?.color?.getHexString?.(); o.material = ['ffc21a', 'f0b000', 'e6aa10'].includes(c) ? red : white; });

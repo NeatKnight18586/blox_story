@@ -169,7 +169,9 @@ export async function buildLocation(scene, renderer, loc, {base, manifest}) {
   // statics: 'standard' = lit by env + sun (no shadow map), baked colour = AO × sun visibility (normal + roughness maps live);
   // 'basic' = unlit map × AO map × baked light (today's cost model, engine/bake.js; normal/roughness maps dropped).
   // Glass, metal and emissive parts stay Standard (env reflection).
-  if (cheap) { const swap = new Map(); for (const m of statics) { const o = m.material; if (o.metalness > .3 || o.roughness < .2 || o.emissiveIntensity > 0) continue;
+  // Emissive = a non-black emissive colour with intensity > 0 (procedural std materials carry the default intensity 1 on black: they swap).
+  const glows = o => o.emissiveIntensity > 0 && !!o.emissive && (o.emissive.r + o.emissive.g + o.emissive.b) > 0;
+  if (cheap) { const swap = new Map(); for (const m of statics) { const o = m.material; if (o.metalness > .3 || o.roughness < .2 || glows(o)) continue;
     if (!swap.has(o)) { const n = new T.MeshBasicMaterial({map: o.map, aoMap: o.aoMap, aoMapIntensity: o.aoMapIntensity, color: o.color, vertexColors: true});
       n.name = 'static:' + B.material; swap.set(o, n); } m.material = swap.get(o); } }
   stats.prims = prims.length; stats.ms = Math.round(performance.now() - t0); stats.horizon = horizon?.map(v => +v.toFixed(3));

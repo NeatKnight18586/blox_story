@@ -22,163 +22,243 @@
   "visor: TOUCHED": 2,
   "headset on LEO + screen": 7718,
   "giantFinger poke": 4248,
-  "giantFinger flick": 4248,
-  "giantFinger flick release": 4248,
+  "giantFinger flick (poke pose, side)": 4248,
   "wateringCan": 736,
   "grassBlade": 244,
   "spaceship": 3376,
-  "sunSphere": 2800,
+  "sunSphere": 1840,
   "swordStone": 300,
   "crate": 228,
   "deadTree": 300,
   "birdhouse": 216,
   "powerLine": 808,
   "porch": 360,
-  "shack": 336
+  "shack": 336,
+  "rockPeak": 594,
+  "rockMesa": 308,
+  "ringPlanet": 1216,
+  "streetLamp": 336,
+  "brokenBuilding": 72
  },
  "worlds": {
-  "dustTown": {
-   "triangles": 99548,
-   "calls": 96,
-   "sPerFrame1080": 1.555,
-   "gate": "<= 0.69 s (location + props, wide camera)",
-   "pass": false,
+  "dustTown.dustGray": {
+   "triangles": 331656,
+   "calls": 312,
+   "sPerFrame1440": 4.512,
    "fallbacks": [],
-   "prims": 8,
-   "bakeMs": 62,
-   "withStillCast": {
-    "triangles": 332480,
-    "calls": 1564,
-    "sPerFrame1080": 2.694,
-    "note": "info: the sheet still with its cast placed (E1 crowd instancing not applied)"
-   }
+   "prims": 2,
+   "bakeMs": 32,
+   "note": "location + props + cast placed (crowds merged), wide camera, 1440x2560 AA; reported, not gated"
+  },
+  "dustTown.dustGold": {
+   "triangles": 331656,
+   "calls": 311,
+   "sPerFrame1440": 4.534,
+   "fallbacks": [],
+   "prims": 2,
+   "bakeMs": 30,
+   "note": "location + props + cast placed (crowds merged), wide camera, 1440x2560 AA; reported, not gated"
   },
   "zombieCity": {
-   "triangles": 57182,
-   "calls": 275,
-   "sPerFrame1080": 1.921,
-   "gate": "<= 0.69 s (location + props, wide camera)",
-   "pass": false,
+   "triangles": 111504,
+   "calls": 504,
+   "sPerFrame1440": 7.007,
    "fallbacks": [],
-   "prims": 392,
-   "bakeMs": 282,
-   "withStillCast": {
-    "triangles": 107464,
-    "calls": 626,
-    "sPerFrame1080": 2.494,
-    "note": "info: the sheet still with its cast placed (E1 crowd instancing not applied)"
-   }
+   "prims": 389,
+   "bakeMs": 124,
+   "note": "location + props + cast placed (crowds merged), wide camera, 1440x2560 AA; reported, not gated"
   },
   "dragonPeaks": {
-   "triangles": 69360,
-   "calls": 29,
-   "sPerFrame1080": 1.761,
-   "gate": "<= 0.69 s (location + props, wide camera)",
-   "pass": false,
+   "triangles": 260924,
+   "calls": 242,
+   "sPerFrame1440": 2.924,
    "fallbacks": [],
-   "prims": 39,
-   "bakeMs": 213,
-   "withStillCast": {
-    "triangles": 228606,
-    "calls": 1544,
-    "sPerFrame1080": 2.495,
-    "note": "info: the sheet still with its cast placed (E1 crowd instancing not applied)"
-   }
+   "prims": 1,
+   "bakeMs": 89,
+   "note": "location + props + cast placed (crowds merged), wide camera, 1440x2560 AA; reported, not gated"
   },
   "space": {
-   "triangles": 15690,
-   "calls": 35,
-   "sPerFrame1080": 0.812,
-   "gate": "<= 0.69 s (location + props, wide camera)",
-   "pass": false,
+   "triangles": 25376,
+   "calls": 133,
+   "sPerFrame1440": 1.03,
    "fallbacks": [],
-   "prims": 150,
+   "prims": 0,
    "bakeMs": 0,
-   "withStillCast": {
-    "triangles": 23584,
-    "calls": 109,
-    "sPerFrame1080": 0.773,
-    "note": "info: the sheet still with its cast placed (E1 crowd instancing not applied)"
-   }
+   "note": "location + props + cast placed (crowds merged), wide camera, 1440x2560 AA; reported, not gated"
   }
  },
  "stills": {
   "dustTown.dustGray.wide": {
    "pureBlackPct": 0,
-   "nonNovaMeanSat": 0.1067,
-   "nonNovaMeanSatStrict": 0.1095,
-   "novaCoatSat": 0.8814,
-   "novaPx": 8835,
-   "coatPx": 6403
+   "nonNovaMeanSat": 0.128,
+   "nonNovaMeanSatStrict": 0.1322,
+   "novaCoatSat": 0.8947,
+   "novaPx": 10710,
+   "coatPx": 7651,
+   "groundPx": 128304,
+   "groundRB": 1.158,
+   "groundLuma": 0.3392,
+   "frameLuma": 0.3692
   },
   "dustTown.dustGray.lowWide": {
    "pureBlackPct": 0,
-   "nonNovaMeanSat": 0.1026,
-   "nonNovaMeanSatStrict": 0.108,
-   "novaCoatSat": 0.8777,
+   "nonNovaMeanSat": 0.1045,
+   "nonNovaMeanSatStrict": 0.1099,
+   "novaCoatSat": 0.8776,
    "novaPx": 17909,
-   "coatPx": 13338
+   "coatPx": 13338,
+   "groundPx": 96906,
+   "groundRB": 1.179,
+   "groundLuma": 0.2915,
+   "frameLuma": 0.3828
   },
   "dustTown.dustGold.wide": {
    "pureBlackPct": 0,
-   "nonNovaMeanSat": 0.2008,
-   "nonNovaMeanSatStrict": 0.2032,
-   "novaCoatSat": 0.9562,
-   "novaPx": 8835,
-   "coatPx": 6403
+   "nonNovaMeanSat": 0.4618,
+   "nonNovaMeanSatStrict": 0.4623,
+   "novaCoatSat": 0.6361,
+   "novaPx": 10710,
+   "coatPx": 7651,
+   "groundPx": 128304,
+   "groundRB": 1.963,
+   "groundLuma": 0.446,
+   "frameLuma": 0.4859
   },
   "dustTown.dustGold.lowWide": {
-   "pureBlackPct": 0.002,
-   "nonNovaMeanSat": 0.1692,
-   "nonNovaMeanSatStrict": 0.1741,
-   "novaCoatSat": 0.9507,
+   "pureBlackPct": 0,
+   "nonNovaMeanSat": 0.3106,
+   "nonNovaMeanSatStrict": 0.3119,
+   "novaCoatSat": 0.6062,
    "novaPx": 17909,
-   "coatPx": 13338
+   "coatPx": 13338,
+   "groundPx": 96906,
+   "groundRB": 2.095,
+   "groundLuma": 0.4021,
+   "frameLuma": 0.5392
   },
   "zombieCity.wide": {
-   "pureBlackPct": 0.021
+   "pureBlackPct": 0.029,
+   "zombiePx": 29377,
+   "zombieLuma": 0.2088,
+   "zombieRingLuma": 0.1629,
+   "zombieContrast": 0.22,
+   "trimPx": 1469,
+   "trimHue": 198.7,
+   "trimRGB": [
+    135,
+    215,
+    252
+   ]
   },
   "zombieCity.lowWide": {
-   "pureBlackPct": 0.233
+   "pureBlackPct": 0.208,
+   "zombiePx": 11123,
+   "zombieLuma": 0.1436,
+   "zombieRingLuma": 0.1094,
+   "zombieContrast": 0.2379,
+   "trimPx": 8356,
+   "trimHue": 197.5,
+   "trimRGB": [
+    130,
+    216,
+    252
+   ]
   },
   "dragonPeaks.wide": {
    "pureBlackPct": 0
   },
   "dragonPeaks.lowWide": {
-   "pureBlackPct": 0.001
+   "pureBlackPct": 0
   },
   "space.wide": {
-   "pureBlackPct": 0.076
+   "pureBlackPct": 0.222
   },
   "space.lowWide": {
-   "pureBlackPct": 0.135
-  }
- },
- "dustTownNonNovaSat": {
-  "max": 0.2008,
-  "target": "<= 0.15",
-  "pass": false,
-  "per": {
-   "dustTown.dustGray.wide": 0.1067,
-   "dustTown.dustGray.lowWide": 0.1026,
-   "dustTown.dustGold.wide": 0.2008,
-   "dustTown.dustGold.lowWide": 0.1692
+   "pureBlackPct": 0.053
   }
  },
  "novaCoatSat": {
-  "min": 0.8777,
+  "min": 0.6062,
   "target": ">= 0.5",
   "pass": true,
   "per": {
-   "dustTown.dustGray.wide": 0.8814,
-   "dustTown.dustGray.lowWide": 0.8777,
-   "dustTown.dustGold.wide": 0.9562,
-   "dustTown.dustGold.lowWide": 0.9507
+   "dustTown.dustGray.wide": 0.8947,
+   "dustTown.dustGray.lowWide": 0.8776,
+   "dustTown.dustGold.wide": 0.6361,
+   "dustTown.dustGold.lowWide": 0.6062
   }
  },
  "pureBlack": {
-  "max": 0.233,
+  "max": 0.222,
   "target": "<= 0.5 %",
+  "pass": true
+ },
+ "dustGrayNonNovaSat": {
+  "max": 0.128,
+  "target": "<= 0.15 (dustGray only, V4 D6)",
+  "pass": true,
+  "per": {
+   "dustTown.dustGray.wide": 0.128,
+   "dustTown.dustGray.lowWide": 0.1045
+  }
+ },
+ "dustGold": {
+  "per": {
+   "wide": {
+    "groundRB": 1.963,
+    "lumaRatio": 1.315,
+    "goldLuma": 0.446,
+    "grayLuma": 0.3392
+   },
+   "lowWide": {
+    "groundRB": 2.095,
+    "lumaRatio": 1.379,
+    "goldLuma": 0.4021,
+    "grayLuma": 0.2915
+   }
+  },
+  "minRB": 1.963,
+  "minLumaRatio": 1.315,
+  "target": "ground R/B >= 1.25, ground luma >= 1.2 x dustGray (same camera)",
+  "pass": true
+ },
+ "zombieContrast": {
+  "min": 0.22,
+  "per": {
+   "wide": 0.22,
+   "lowWide": 0.2379
+  },
+  "target": ">= 0.35 (|Lz - Lring| / max, ring = 10 px dilation at 390 px)",
+  "pass": false
+ },
+ "leoTrimHue": {
+  "per": {
+   "wide": 198.7,
+   "lowWide": 197.5
+  },
+  "rgb": {
+   "wide": [
+    135,
+    215,
+    252
+   ],
+   "lowWide": [
+    130,
+    216,
+    252
+   ]
+  },
+  "target": "180-200 deg (zombieCity)",
+  "pass": true
+ },
+ "farm": {
+  "frames": 5406,
+  "shards": 18,
+  "meanSPerFrame1440": 4.236,
+  "weights": "BEATS shot count per world (dustGold timed, weighted with dustGray)",
+  "plainMeanSPerFrame1440": 4.001,
+  "projectedMinutes": 21.2,
+  "target": "<= 150 min (V4 D5)",
   "pass": true
  }
 }

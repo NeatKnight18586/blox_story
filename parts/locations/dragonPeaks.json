@@ -1,6 +1,6 @@
 {
  "name": "dragonPeaks",
- "note": "Touch Grass VR 2: sunset peaks (stepped block tiers, data-only: the loader has no landform), one flat plateau (r 26, top y 0) for 100 friends.",
+ "note": "Touch Grass VR 2: sunset, jagged rock peaks (props7 rockPeak) at 3 distances in sunset fog, one flat rock plateau (rockMesa r 26, top y 0) for 100 friends.",
  "groundY": 0,
  "backdrop": {
   "type": "hdri",
@@ -13,10 +13,9 @@
  "exposure": 1.0,
  "toneMapping": "Neutral",
  "fog": {
-  "color": "auto",
-  "k": 0.8,
-  "near": 80,
-  "far": 520
+  "color": "#D9967A",
+  "near": 40,
+  "far": 560
  },
  "sun": {
   "intensity": 2.6,
@@ -62,82 +61,6 @@
   }
  },
  "modules": {
-  "peak": {
-   "parts": [
-    {
-     "cyl": [
-      30,
-      24
-     ],
-     "at": [
-      0.0,
-      12.0,
-      -0.0
-     ],
-     "mat": "rock"
-    },
-    {
-     "cyl": [
-      24,
-      22
-     ],
-     "at": [
-      1.5,
-      35.0,
-      -1.2
-     ],
-     "mat": "rock"
-    },
-    {
-     "cyl": [
-      18,
-      20
-     ],
-     "at": [
-      0.0,
-      56.0,
-      -2.4
-     ],
-     "mat": "rockLt"
-    },
-    {
-     "cyl": [
-      12.5,
-      18
-     ],
-     "at": [
-      1.5,
-      75.0,
-      -0.0
-     ],
-     "mat": "rockLt"
-    },
-    {
-     "cyl": [
-      8,
-      14
-     ],
-     "at": [
-      0.0,
-      91.0,
-      -1.2
-     ],
-     "mat": "snow"
-    },
-    {
-     "cyl": [
-      4.2,
-      10
-     ],
-     "at": [
-      1.5,
-      103.0,
-      -2.4
-     ],
-     "mat": "snow"
-    }
-   ]
-  },
   "valley": {
    "parts": [
     {
@@ -153,34 +76,6 @@
      "mat": "grass"
     }
    ]
-  },
-  "plateau": {
-   "parts": [
-    {
-     "cyl": [
-      26,
-      40
-     ],
-     "at": [
-      0,
-      -20.2,
-      0
-     ],
-     "mat": "plateau"
-    },
-    {
-     "cyl": [
-      25.6,
-      0.4
-     ],
-     "at": [
-      0,
-      -0.2,
-      0
-     ],
-     "mat": "grass"
-    }
-   ]
   }
  },
  "layout": [
@@ -191,101 +86,23 @@
     -40,
     0
    ]
-  },
+  }
+ ],
+ "props": [
   {
-   "module": "plateau",
+   "prop": "rockMesa",
    "at": [
     0,
     0,
     0
-   ]
-  },
-  {
-   "module": "peak",
-   "at": [
-    -160,
-    -40,
-    -300
    ],
    "rotY": 0,
-   "scale": [
-    1.6,
-    2.204359507292975,
-    1.6
-   ]
+   "p": {
+    "r": 26,
+    "h": 40
+   },
+   "id": "plateau"
   },
-  {
-   "module": "peak",
-   "at": [
-    150,
-    -40,
-    -340
-   ],
-   "rotY": 37,
-   "scale": [
-    2.0,
-    2.183745940407971,
-    2.0
-   ]
-  },
-  {
-   "module": "peak",
-   "at": [
-    -10,
-    -40,
-    -430
-   ],
-   "rotY": 74,
-   "scale": [
-    2.8,
-    3.836119932332076,
-    2.8
-   ]
-  },
-  {
-   "module": "peak",
-   "at": [
-    290,
-    -40,
-    -250
-   ],
-   "rotY": 111,
-   "scale": [
-    1.4,
-    1.8226332178368465,
-    1.4
-   ]
-  },
-  {
-   "module": "peak",
-   "at": [
-    -300,
-    -40,
-    -220
-   ],
-   "rotY": 148,
-   "scale": [
-    1.5,
-    2.0421016971888095,
-    1.5
-   ]
-  },
-  {
-   "module": "peak",
-   "at": [
-    60,
-    -40,
-    -260
-   ],
-   "rotY": 185,
-   "scale": [
-    1.1,
-    1.4024477433305584,
-    1.1
-   ]
-  }
- ],
- "props": [
   {
    "prop": "swordStone",
    "at": [
@@ -295,6 +112,104 @@
    ],
    "rotY": 0,
    "p": {}
+  },
+  {
+   "prop": "rockPeak",
+   "at": [
+    -150,
+    -40,
+    -170
+   ],
+   "rotY": 0,
+   "p": {
+    "h": 130,
+    "r": 54.6,
+    "seed": 1
+   }
+  },
+  {
+   "prop": "rockPeak",
+   "at": [
+    140,
+    -40,
+    -200
+   ],
+   "rotY": 37,
+   "p": {
+    "h": 110,
+    "r": 46.2,
+    "seed": 2
+   }
+  },
+  {
+   "prop": "rockPeak",
+   "at": [
+    -250,
+    -40,
+    -340
+   ],
+   "rotY": 74,
+   "p": {
+    "h": 240,
+    "r": 100.8,
+    "seed": 3
+   }
+  },
+  {
+   "prop": "rockPeak",
+   "at": [
+    230,
+    -40,
+    -380
+   ],
+   "rotY": 111,
+   "p": {
+    "h": 270,
+    "r": 113.4,
+    "seed": 4
+   }
+  },
+  {
+   "prop": "rockPeak",
+   "at": [
+    95,
+    -40,
+    -320
+   ],
+   "rotY": 148,
+   "p": {
+    "h": 190,
+    "r": 79.8,
+    "seed": 5
+   }
+  },
+  {
+   "prop": "rockPeak",
+   "at": [
+    -10,
+    -40,
+    -430
+   ],
+   "rotY": 185,
+   "p": {
+    "h": 414.3,
+    "r": 107.7,
+    "seed": 6
+   }
+  },
+  {
+   "prop": "rockPeak",
+   "at": [
+    -420,
+    -40,
+    -520
+   ],
+   "rotY": 222,
+   "p": {
+    "h": 330,
+    "r": 138.6,
+    "seed": 7
+   }
   }
  ]
 }

@@ -4,8 +4,8 @@
 //   headset(p)      black shell #1A1C22 + emissive visor strip #49D9FF; states 'on' | 'off'; attachHeadset(actor) seats it on the
 //                   head front with a .02 gap to the face (measured: headsetGap(actor)); a visorScreen rides its front (p.screen)
 //   visorScreen(p)  flat canvas screen; states 'off' | 'achievement' ("ACHIEVEMENT UNLOCKED" + gold trophy) | 'touched' ("TOUCHED GRASS" + trophy)
-//   giantFinger(p)  Nova's forearm (raincoat sleeve + yellow cuff) + hand + pointing finger, skin #F2C59B; setBend(k ∈ [−1, 1]) bends the
-//                   knuckle and the middle joint (poke = 0, flick wind-up = −1, flick release = 1); userData.tip = fingertip (local)
+//   giantFinger(p)  Nova's forearm (raincoat sleeve + yellow cuff) + hand + pointing finger, skin #F2C59B; one pose (poke). The flick =
+//                   the same pose translated sideways fast: setFlick(u) / flickX(u, dist) (ease-in, pure); userData.tip = fingertip (local)
 //   wateringCan · grassBlade (3 blades, 1 tall, #3DDC4A, sway) · spaceship · sunSphere (emissive) · swordStone (props.js sword + heroStone)
 //   crate · deadTree · birdhouse (broken, swings) · powerLine · porch · shack
 import * as T from 'three';
@@ -14,6 +14,7 @@ import {sword, heroStone} from '../props.js';
 import {HEAD} from '../../avatar-style/body.js';
 import {HEAD5} from '../../avatar-style/body5.js';
 import {mergeByMaterial} from './common.js';
+import {mergeGeometries} from 'three/addons/utils/BufferGeometryUtils.js';
 
 export const TG = {shell: '#1A1C22', glow: '#49D9FF', skin: '#F2C59B', cuff: '#FFC21A', can: '#4F8F8B', grass: '#3DDC4A', gold: '#F2C230',
   wood: '#8A847C', woodDk: '#6A655F', woodLt: '#A39D94', iron: '#55575B', deadwood: '#6E6862', roof: '#5E5B57'};   // real-world wood/iron: sat ≤ .15
@@ -91,6 +92,8 @@ export function visorScreen(p = {}) {
   g.name = 'visorScreen'; return g;
 }
 
+// Flick offset: ease-in (u³) so the hand leaves fast at the end; pure in u ∈ [0, 1].
+export const flickX = (u, dist = 7) => dist * Math.min(1, Math.max(0, u)) ** 3;
 // ---- giant finger -------------------------------------------------------------------------------------------------------
 // Unit scale: hand 2.0 wide; points down −y (comes down through the sky crack). Origin = the wrist (cuff bottom).
 export function giantFinger(p = {}) {
@@ -106,9 +109,10 @@ export function giantFinger(p = {}) {
   joint.add(mesh(rbox(.76, 1.6, .76, .34, 3), skin, [0, -.78, 0], null, 'finger2'));
   joint.add(mesh(rbox(.46, .4, .06, .02, 1), smat('#F7DCC0', {rough: .4, offset: 2}), [0, -1.22, -.395], null, 'nail'));   // nail on the back, .035 proud
   const tip = new T.Object3D(); tip.position.set(0, -1.58, 0); joint.add(tip);
-  const setBend = k => { knuckle.rotation.x = .55 * k; joint.rotation.x = .75 * Math.max(0, k) - .25 * Math.max(0, -k); g.userData.bend = k; };
-  setBend(p.bend ?? 0); live(g);
-  g.userData = {...g.userData, setBend, tip, tipWorld: v => tip.getWorldPosition(v ?? new T.Vector3())}; g.name = 'giantFinger'; return g;
+  // E0b: one pose only (the poke). The flick is that pose translated sideways fast: setFlick(u ∈ [0, 1]) → x = u · flickDist (no bend, no reverse bend).
+  const kids = [...g.children], x0 = kids.map(o => o.position.x), setFlick = u => { kids.forEach((o, i) => { o.position.x = x0[i] + flickX(u, p.flickDist ?? 7); }); g.userData.flick = u; };
+  setFlick(p.flick ?? 0); live(g);
+  g.userData = {...g.userData, setFlick, tip, tipWorld: v => tip.getWorldPosition(v ?? new T.Vector3())}; g.name = 'giantFinger'; return g;
 }
 
 // ---- watering can (dented teal) ----------------------------------------------------------------------------------------
@@ -154,11 +158,19 @@ export function spaceship(p = {}) {   // nose +z, 6 long
   g.add(mesh(rbox(.2, 1.1, 1.4, .08, 2), acc, [0, .9, -1.9], null, 'fin'));
   g.name = 'spaceship'; return g;
 }
-export function sunSphere(p = {}) {
+export function sunSphere(p = {}) {   // E0b: emissive core + additive radial glow sprite (no shell, no ring)
   const g = new T.Group(), r = p.r ?? 1;
-  g.add(mesh(new T.SphereGeometry(r, 40, 24), smat(p.color ?? '#FFE7A0', {basic: true}), [0, 0, 0], null, 'sunCore'));
-  const halo = new T.Mesh(new T.SphereGeometry(r * 1.35, 32, 16), new T.MeshBasicMaterial({color: '#FFB54A', transparent: true, opacity: .28, side: T.BackSide, blending: T.AdditiveBlending, depthWrite: false, toneMapped: false}));
-  halo.name = 'sunHalo'; g.add(halo); live(g); g.name = 'sunSphere'; return g;
+  g.add(mesh(new T.SphereGeometry(r, 40, 24), new T.MeshStandardMaterial({color: '#000000', emissive: p.color ?? '#FFE7A0', emissiveIntensity: 1.6, toneMapped: false, fog: false}), [0, 0, 0], null, 'sunCore'));
+  const glow = new T.Sprite(new T.SpriteMaterial({map: radialTex(p.glow ?? [255, 190, 110], 128, 1.5), color: '#ffffff', blending: T.AdditiveBlending, transparent: true, depthWrite: false, toneMapped: false, fog: false}));
+  glow.scale.setScalar(r * (p.glowScale ?? 6)); glow.name = 'sunGlow'; g.add(glow); live(g); g.name = 'sunSphere'; return g;
+}
+// Radial falloff texture (pure data, no canvas): alpha = (1 − d)^2.2, rgb = tint; centre bright, edge 0.
+const texCache = new Map();
+export function radialTex(rgb = [255, 255, 255], n = 128, k = 2.2) {
+  const key = rgb.join() + n + k; if (texCache.has(key)) return texCache.get(key); const d = new Uint8Array(n * n * 4);
+  for (let y = 0; y < n; y++) for (let x = 0; x < n; x++) { const dx = (x + .5) / n * 2 - 1, dy = (y + .5) / n * 2 - 1, f = Math.max(0, 1 - Math.hypot(dx, dy)) ** k, i = (y * n + x) * 4;
+    d[i] = rgb[0] * f; d[i + 1] = rgb[1] * f; d[i + 2] = rgb[2] * f; d[i + 3] = 255 * f; }
+  const t = new T.DataTexture(d, n, n); t.needsUpdate = true; t.magFilter = t.minFilter = T.LinearFilter; texCache.set(key, t); return t;
 }
 // ---- sword in the stone (props.js sword + heroStone), glowing blade for the VR world ----------------------------------------
 export function swordStone(p = {}) {
@@ -224,15 +236,171 @@ export function shack(p = {}) {   // 6 × 4 × 5, door + window on the front (+z
   g.add(mesh(rbox(w + .8, .2, d + .9, .04, 1), smat(TG.roof, {rough: .9}), [0, h + .35, 0], [.12, 0, 0], 'roof'));
   g.name = 'shack'; return g;
 }
-// Place a location's props list [{prop, at, rotY (deg), p, id}] → one group; statics merged by material (one draw call per material),
+// ---- E0b world pieces ------------------------------------------------------------------------------------------------------
+// Deterministic value noise (hash lattice, trilinear): vnoise(x, y, z, seed) ∈ [−1, 1].
+export function vnoise(x, y, z, seed = 1) {
+  const h = (i, j, k) => hash(i * 157 + j * 113 + k * 271, seed) * 2 - 1, fx = Math.floor(x), fy = Math.floor(y), fz = Math.floor(z), u = x - fx, v = y - fy, w = z - fz;
+  const s = t => t * t * (3 - 2 * t), a = s(u), b = s(v), c = s(w), L = (p, q, t) => p + (q - p) * t;
+  return L(L(L(h(fx, fy, fz), h(fx + 1, fy, fz), a), L(h(fx, fy + 1, fz), h(fx + 1, fy + 1, fz), a), b), L(L(h(fx, fy, fz + 1), h(fx + 1, fy, fz + 1), a), L(h(fx, fy + 1, fz + 1), h(fx + 1, fy + 1, fz + 1), a), b), c);
+}
+const fbm = (x, y, z, seed) => vnoise(x, y, z, seed) * .62 + vnoise(x * 2.1, y * 2.1, z * 2.1, seed + 7) * .28 + vnoise(x * 4.3, y * 4.3, z * 4.3, seed + 13) * .1;
+const flatMat = new Map(), vcMat = (rough = .95) => { if (!flatMat.has(rough)) { const m = new T.MeshStandardMaterial({vertexColors: true, flatShading: true, roughness: rough, metalness: 0}); m.name = 'p7:flatvc' + rough; flatMat.set(rough, m); } return flatMat.get(rough); };
+// Per-face colours on a non-indexed geometry: pick(centroid, faceNormal) → '#hex'
+function faceColors(g, pick) {
+  const p = g.attributes.position, n = p.count, col = new Float32Array(n * 3), c = new T.Color(), a = new T.Vector3(), b = new T.Vector3(), d = new T.Vector3(), nr = new T.Vector3();
+  for (let i = 0; i < n; i += 3) { a.fromBufferAttribute(p, i); b.fromBufferAttribute(p, i + 1); d.fromBufferAttribute(p, i + 2);
+    nr.subVectors(d, b).cross(new T.Vector3().subVectors(a, b)).normalize(); c.set(pick(a.clone().add(b).add(d).divideScalar(3), nr));   // Color.set converts sRGB hex → linear
+    for (let k = 0; k < 3; k++) col.set([c.r, c.g, c.b], (i + k) * 3); }
+  g.setAttribute('color', new T.BufferAttribute(col, 3)); return g;
+}
+// Jagged low-poly rock peak: 1 main cone + 2 shoulder cones, radial + vertical displacement by seeded fbm (apex fixed: total height = h).
+// Rock below snow · h (with a noisy snow line), snow above. Origin = base centre.
+export function rockPeak(p = {}) {
+  const h = p.h ?? 100, r = p.r ?? h * .42, seed = p.seed ?? 1, rock = p.rock ?? '#5B4B45', snow = p.snowColor ?? '#F3F0EE', line = p.snow ?? .7, geos = [];
+  const cones = [[0, 0, r, h], [r * .55, -r * .2, r * .62, h * .62], [-r * .5, r * .3, r * .55, h * .5]];
+  for (const [k, [cx, cz, cr, ch]] of cones.entries()) {
+    const g = new T.ConeGeometry(cr, ch, p.radial ?? 11, p.rings ?? 9).translate(0, ch / 2, 0), pos = g.attributes.position, f = 3 / cr, apex = [];
+    for (let i = 0; i < pos.count; i++) { const x = pos.getX(i), y = pos.getY(i), z = pos.getZ(i), u = y / ch, rr = Math.hypot(x, z); if (rr < 1e-6) { apex.push(i); continue; }
+      const nn = fbm(x * f, y * f * .6, z * f, seed + k * 31), radial = 1 + .42 * nn, dy = .07 * ch * (1 - u) * fbm(x * f + 9, y * f, z * f - 4, seed + k * 17 + 5);
+      pos.setXYZ(i, x * radial + cx, Math.max(0, y + dy * (u > .02 ? 1 : 0)), z * radial + cz); }
+    for (const i of apex) { pos.setX(i, cx); pos.setZ(i, cz); }
+    geos.push(g.toNonIndexed());
+  }
+  const g = mergeGeometries(geos.map(x => { x.deleteAttribute('uv'); return x; }), false); g.computeVertexNormals();
+  faceColors(g, (c, n) => c.y > h * line + h * .05 * fbm(c.x * .05, 0, c.z * .05, seed + 3) && n.y > .15 ? snow : rock);
+  const g0 = new T.Group(); g0.add(mesh(g, vcMat(), [0, 0, 0], null, 'rockPeak')); g0.userData.apex = [0, h, 0]; g0.name = 'rockPeak'; return g0;
+}
+// Plateau: jagged rock drum (r at the top, flat top at y 0, grass on the top faces); h deep below.
+export function rockMesa(p = {}) {
+  const r = p.r ?? 26, h = p.h ?? 40, seed = p.seed ?? 5, g = new T.CylinderGeometry(r, r * 1.25, h, p.radial ?? 22, 6).translate(0, -h / 2, 0), pos = g.attributes.position, f = 3 / r;
+  for (let i = 0; i < pos.count; i++) { const x = pos.getX(i), y = pos.getY(i), z = pos.getZ(i), rr = Math.hypot(x, z); if (rr < 1e-6) continue;
+    const top = y > -1e-3, k = top ? .035 : .16 * Math.min(1, -y / (h * .15) + .3); pos.setX(i, x * (1 + k * fbm(x * f, y * f, z * f, seed))); pos.setZ(i, z * (1 + k * fbm(x * f, y * f, z * f, seed))); }
+  const ng = g.toNonIndexed(); ng.deleteAttribute('uv'); ng.computeVertexNormals();
+  faceColors(ng, (c, n) => n.y > .9 && c.y > -.5 ? (p.grass ?? '#7BC85A') : (p.rock ?? '#5B4B45'));
+  const g0 = new T.Group(); g0.add(mesh(ng, vcMat(), [0, 0, 0], null, 'rockMesa')); g0.userData.ground = true; g0.name = 'rockMesa'; return g0;
+}
+// Star field: n points on a sphere (radius r) in 3 sizes (world units, size-attenuated), round discs, never fogged.
+export function starField(p = {}) {
+  const g = new T.Group(), n = p.n ?? 2400, R = p.r ?? 380, seed = p.seed ?? 21, sizes = p.sizes ?? [[.72, 1.1], [.22, 2.0], [.06, 3.4]], disc = radialTex([255, 255, 255], 32, .6);
+  let i0 = 0; for (const [k, [frac, size]] of sizes.entries()) {
+    const m = Math.round(n * frac), pos = new Float32Array(m * 3), col = new Float32Array(m * 3);
+    for (let j = 0; j < m; j++) { const i = i0 + j, th = 2 * Math.PI * hash(i, seed), ph = Math.acos(2 * hash(i, seed + 1) - 1), b = .55 + .45 * hash(i, seed + 2), blue = hash(i, seed + 3) < .2;
+      pos.set([R * Math.sin(ph) * Math.cos(th), R * Math.cos(ph), R * Math.sin(ph) * Math.sin(th)], j * 3); col.set(blue ? [b * .75, b * .85, b] : [b, b, b * .95], j * 3); }
+    i0 += m; const geo = new T.BufferGeometry(); geo.setAttribute('position', new T.BufferAttribute(pos, 3)); geo.setAttribute('color', new T.BufferAttribute(col, 3));
+    const pts = new T.Points(geo, new T.PointsMaterial({size, sizeAttenuation: true, map: disc, vertexColors: true, transparent: true, depthWrite: false, blending: T.AdditiveBlending, toneMapped: false, fog: false}));
+    pts.name = 'stars' + k; pts.frustumCulled = false; g.add(pts);
+  }
+  g.userData.count = i0; live(g); g.name = 'starField'; return g;
+}
+// Ringed planet (far): sphere + flat ring (both sides), ring tilted.
+export function ringPlanet(p = {}) {
+  const g = new T.Group(), r = p.r ?? 30;
+  g.add(mesh(new T.SphereGeometry(r, 32, 18), smat(p.color ?? '#C9A27A', {rough: .9}), [0, 0, 0], null, 'planet'));
+  const ring = mesh(new T.RingGeometry(r * 1.35, r * 2.2, 64, 1), new T.MeshStandardMaterial({color: p.ringColor ?? '#D8C4A0', roughness: .9, side: T.DoubleSide, transparent: true, opacity: .85}), [0, 0, 0], [-Math.PI / 2 + (p.tilt ?? .45), 0, .25], 'ring');
+  g.add(ring); live(g); g.name = 'ringPlanet'; return g;
+}
+// Street lamp: pole + arm + emissive head + a point light (colour p.color).
+export function streetLamp(p = {}) {
+  const g = new T.Group(), h = p.h ?? 5.2, c = p.color ?? '#7DFF8A', m = smat('#2A2E34', {rough: .6, metal: .4});
+  g.add(mesh(new T.BoxGeometry(.18, h, .18), m, [0, h / 2, 0], null, 'lampPole'), mesh(new T.BoxGeometry(1.2, .14, .14), m, [.55, h - .1, 0], null, 'lampArm'));
+  g.add(mesh(rbox(.6, .3, .5, .06), m, [1.1, h - .25, 0], null, 'lampHood'), mesh(new T.BoxGeometry(.46, .1, .36), smat(c, {emissive: c, ei: 3}), [1.1, h - .44, 0], null, 'lampGlow'));
+  if (p.light !== false) { const L = new T.PointLight(c, p.intensity ?? 14, p.range ?? 11, 1.6); L.position.set(1.1, h - .7, 0); g.add(L); }
+  g.name = 'streetLamp'; return g;
+}
+// Low height fog: stacked soft noise sheets between y 0 and h (≤ 2), additive-free alpha, never above h.
+export function groundFog(p = {}) {
+  const g = new T.Group(), h = Math.min(2, p.h ?? 2), n = p.layers ?? 4, c = p.color ?? '#5DBF6E', N = 128, seed = p.seed ?? 9, d = new Uint8Array(N * N * 4);
+  for (let y = 0; y < N; y++) for (let x = 0; x < N; x++) { const v = Math.max(0, .5 + .7 * fbm(x / 16, 0, y / 16, seed)), i = (y * N + x) * 4; d[i] = d[i + 1] = d[i + 2] = 255; d[i + 3] = Math.min(255, v * 255); }
+  const tex = new T.DataTexture(d, N, N); tex.wrapS = tex.wrapT = T.RepeatWrapping; tex.repeat.set((p.w ?? 40) / 14, (p.d ?? 80) / 14); tex.magFilter = tex.minFilter = T.LinearFilter; tex.needsUpdate = true;
+  for (let i = 0; i < n; i++) { const m = new T.MeshBasicMaterial({color: c, alphaMap: tex, transparent: true, opacity: (p.opacity ?? .16) * (1 - i / n * .6), depthWrite: false, fog: true});
+    const pl = new T.Mesh(new T.PlaneGeometry(p.w ?? 40, p.d ?? 80).rotateX(-Math.PI / 2), m); pl.position.y = h * (i + .5) / n; pl.name = 'groundFog'; pl.renderOrder = 2; g.add(pl); }
+  live(g); g.name = 'groundFog'; return g;
+}
+// Far broken building silhouette: stacked blocks with a jagged broken top + a leaning slab (fades into fog).
+export function brokenBuilding(p = {}) {
+  const g = new T.Group(), w = p.w ?? 12, h = p.h ?? 20, d = p.d ?? 8, seed = p.seed ?? 1, m = smat(p.color ?? '#6E6B67', {rough: .95}), cols = 4;
+  g.add(mesh(new T.BoxGeometry(w, h * .55, d), m, [0, h * .275, 0], null, 'bbBase'));
+  for (let i = 0; i < cols; i++) { const ch = h * (.15 + .45 * hash(i, seed)), cw = w / cols; g.add(mesh(new T.BoxGeometry(cw * (.8 + .2 * hash(i, seed + 2)), ch, d * (.7 + .3 * hash(i, seed + 3))), m, [-w / 2 + (i + .5) * cw, h * .55 + ch / 2 - .2, 0], [0, 0, (hash(i, seed + 4) - .5) * .12])); }
+  g.add(mesh(new T.BoxGeometry(w * .35, .6, d * .9), m, [w * .45, h * .55 + 1, 0], [0, 0, -.5], 'bbSlab'));
+  g.name = 'brokenBuilding'; return g;
+}
+
+// ---- E0b armor: primitives on the body v5 parts (no new rigs) ----------------------------------------------------------------
+// spec {trim (emissive hex), piece: 'leo'|'horns'|'visor'|'scarf'|'bubble'|'tricorn'|'staff', plate (hex)}. Parts are measured in their
+// parent's local space (part geometry box × part matrix), so pieces follow every pose. Overlays sit ≥ .02 proud (no coplanar faces).
+function partBox(part, deep = false) {
+  const b = new T.Box3(); part.updateMatrix(); part.geometry.computeBoundingBox(); b.copy(part.geometry.boundingBox).applyMatrix4(part.matrix);
+  if (deep) { const inv = new T.Matrix4().copy(part.parent.matrixWorld).invert(); part.parent.updateMatrixWorld(true);
+    part.parent.traverse(o => { if (!o.isMesh || o === part || o.userData.armor) return; const bb = new T.Box3().setFromObject(o).applyMatrix4(inv); if (bb.max.y > b.min.y + (b.max.y - b.min.y) * .5) b.union(bb); }); }
+  return b;
+}
+export function armor(actor, spec = {}) {
+  const P = actor.parts, trim = spec.trim ?? TG.glow, glow = smat(trim, {emissive: trim, ei: 1.8, rough: .4}), plate = smat(spec.plate ?? '#1F3A6B', {rough: .35, metal: .35});
+  const add = (parent, geo, m, at, rot = null, name = 'armor') => { const o = mesh(geo, m, at, rot, name); o.userData.armor = true; parent.add(o); return o; };
+  const tb = partBox(P.torso), ts = tb.getSize(new T.Vector3()), tc = tb.getCenter(new T.Vector3()), tp = P.torso.parent;
+  const hb = partBox(P.head), hs = hb.getSize(new T.Vector3()), hc = hb.getCenter(new T.Vector3()), hp = P.head.parent;
+  const collar = () => add(tp, rbox(ts.x * .62, .14, ts.z * 1.12, .05), glow, [tc.x, tb.max.y - .05, tc.z], null, 'trimCollar');
+  const belt = () => add(tp, rbox(ts.x * 1.06, .12, ts.z * 1.1, .04), glow, [tc.x, tb.min.y + ts.y * .2, tc.z], null, 'trimBelt');
+  if (spec.piece === 'leo') {
+    // chest plate (upper torso shell) with cyan edges top + bottom + centre line
+    const ph = ts.y * .5, py = tb.max.y - ph / 2 - .04;
+    add(tp, rbox(ts.x * 1.08, ph, ts.z * 1.16, .1), plate, [tc.x, py, tc.z], null, 'chestPlate');
+    add(tp, rbox(ts.x * 1.1, .09, ts.z * 1.2, .03), glow, [tc.x, py - ph / 2, tc.z], null, 'trimChest');
+    add(tp, new T.BoxGeometry(.1, ph * .8, .04), glow, [tc.x, py, tb.max.z + ts.z * .08 + .03], null, 'trimChestV');
+    for (const s of ['leftArm', 'rightArm']) { const a = P[s], ab = partBox(a), as = ab.getSize(new T.Vector3()), ac = ab.getCenter(new T.Vector3());
+      add(a.parent, rbox(as.x * 1.3, as.y * .22, as.z * 1.3, .08), plate, [ac.x, ab.max.y - as.y * .09, ac.z], null, 'shoulderPad');
+      add(a.parent, rbox(as.x * 1.34, .08, as.z * 1.34, .03), glow, [ac.x, ab.max.y - as.y * .2, ac.z], null, 'trimShoulder'); }
+    // open-face helmet: crown + side guards + back, cyan brow edge and side edges; face stays open
+    const H = partBox(P.head, true), Hs = H.getSize(new T.Vector3()), Hc = H.getCenter(new T.Vector3()), t = .1;
+    add(hp, rbox(Hs.x + .16, Hs.y * .3, Hs.z + .16, .1), plate, [Hc.x, H.max.y - Hs.y * .12, Hc.z], null, 'helmetCrown');
+    for (const sx of [-1, 1]) { add(hp, rbox(t, Hs.y * .72, Hs.z * .9, .03), plate, [Hc.x + sx * (Hs.x / 2 + t / 2 + .02), H.max.y - Hs.y * .45, Hc.z - Hs.z * .05], null, 'helmetSide');
+      add(hp, new T.BoxGeometry(t + .02, Hs.y * .6, .06), glow, [Hc.x + sx * (Hs.x / 2 + t / 2 + .02), H.max.y - Hs.y * .48, Hc.z + Hs.z * .4 + .01], null, 'trimHelmetSide'); }
+    add(hp, rbox(Hs.x + .1, Hs.y * .6, t, .03), plate, [Hc.x, H.max.y - Hs.y * .4, H.min.z - t / 2 - .02], null, 'helmetBack');
+    add(hp, rbox(Hs.x + .2, .08, .08, .03), glow, [Hc.x, H.max.y - Hs.y * .27, H.max.z + .07], null, 'trimBrow');
+    return actor;
+  }
+  collar(); belt();
+  const front = hb.max.z, top = hb.max.y;
+  if (spec.piece === 'horns') for (const sx of [-1, 1]) {   // dragon.js spike geometry (4-sided cone), curving up and out from the helmet
+    add(hp, new T.ConeGeometry(.16, .8, 4), smat('#E8E0D0', {rough: .5}), [hc.x + sx * (hs.x / 2 + .12), top - hs.y * .05, hc.z], [0, 0, -sx * .55], 'horn');
+    add(hp, rbox(.16, .14, hs.z * .6, .04), glow, [hc.x + sx * (hs.x / 2 + .04), top - hs.y * .22, hc.z], null, 'trimHorn'); }
+  if (spec.piece === 'visor') {
+    add(hp, rbox(hs.x * .82, hs.y * .12, .08, .03), glow, [hc.x, hc.y + hs.y * .08, front + .12], null, 'visorSlit');
+    add(hp, new T.BoxGeometry(.06, .7, .06), smat('#8E959E', {rough: .4, metal: .6}), [hc.x + hs.x * .25, top + .45, hc.z], null, 'antenna');
+    add(hp, new T.IcosahedronGeometry(.11, 0), glow, [hc.x + hs.x * .25, top + .84, hc.z], null, 'antennaTip'); }
+  if (spec.piece === 'scarf') {
+    add(tp, rbox(ts.x * .8, .26, ts.z * 1.22, .08), glow, [tc.x, tb.max.y - .02, tc.z], null, 'scarf');
+    add(tp, rbox(.22, ts.y * .55, .08, .04), glow, [tc.x + ts.x * .25, tb.max.y - ts.y * .3, tb.min.z - .08], [.12, 0, .1], 'scarfTail'); }
+  if (spec.piece === 'bubble') {
+    const H = partBox(P.head, true), Hc = H.getCenter(new T.Vector3()), R = H.getSize(new T.Vector3()).length() * .55;
+    const bub = add(hp, new T.SphereGeometry(R, 28, 16), new T.MeshStandardMaterial({color: '#DDEEFF', roughness: .05, metalness: 0, transparent: true, opacity: .22, depthWrite: false}), [Hc.x, Hc.y, Hc.z], null, 'bubbleHelmet'); bub.castShadow = false;
+    add(hp, new T.TorusGeometry(R * .62, .07, 6, 20), glow, [Hc.x, H.min.y + .02, Hc.z], [Math.PI / 2, 0, 0], 'trimBubble');
+    add(tp, rbox(ts.x * .7, ts.y * .6, .5, .1), smat('#E8ECF0', {rough: .5}), [tc.x, tc.y + ts.y * .1, tb.min.z - .27], null, 'lifePack'); }   // no straps
+  if (spec.piece === 'tricorn') {
+    const H = partBox(P.head, true), Hs = H.getSize(new T.Vector3()), Hc = H.getCenter(new T.Vector3()), y = H.max.y - Hs.y * .08, R = Math.max(Hs.x, Hs.z) * .78;
+    add(hp, new T.CylinderGeometry(R, R, .12, 3), smat('#1E1E22', {rough: .7}), [Hc.x, y, Hc.z], [0, Math.PI / 2, 0], 'tricornBrim');
+    add(hp, new T.CylinderGeometry(R * 1.07, R * 1.07, .06, 3), glow, [Hc.x, y - .05, Hc.z], [0, Math.PI / 2, 0], 'trimTricorn');
+    add(hp, rbox(Hs.x * .7, Hs.y * .28, Hs.z * .7, .12), smat('#1E1E22', {rough: .7}), [Hc.x, y + Hs.y * .14, Hc.z], null, 'tricornCrown'); }
+  if (spec.piece === 'staff') {
+    const a = P.rightArm, ab = partBox(a), ac = ab.getCenter(new T.Vector3());
+    add(a.parent, new T.BoxGeometry(.12, 4.6, .12), smat('#4A3426', {rough: .8}), [ac.x, ab.min.y + 1.2, ac.z + .55], null, 'staff');
+    add(a.parent, new T.OctahedronGeometry(.32, 0), glow, [ac.x, ab.min.y + 3.75, ac.z + .55], [0, .4, 0], 'staffCrystal');
+    const H = partBox(P.head, true), Hs = H.getSize(new T.Vector3()), Hc = H.getCenter(new T.Vector3());   // glowing hood edge framing the face
+    add(hp, rbox(Hs.x * .86, .08, .08, .03), glow, [Hc.x, hb.max.y - .02, H.max.z + .03], null, 'trimHood');
+    for (const sx of [-1, 1]) add(hp, rbox(.08, hs.y * .9, .08, .03), glow, [Hc.x + sx * Hs.x * .43, hc.y - hs.y * .05, H.max.z + .03], null, 'trimHood'); }
+  return actor;
+}
+
+// Place a location's props list [{prop, at, rotY (deg), scale, p, id}] → one group; statics merged by material (one draw call per material),
 // moving props (userData.anim / live) stay separate and are returned in .live for the per-frame anim(tl). byId: placed groups with an id.
 export function placeProps(list, {merge = true, t = 0} = {}) {
   const root = new T.Group(), statics = new T.Group(), movers = [], byId = {}; root.add(statics); root.name = 'props7';
-  for (const pr of list ?? []) { const g = PROPS7[pr.prop](pr.p ?? {}); g.position.set(...pr.at); g.rotation.y = (pr.rotY ?? 0) * Math.PI / 180; g.userData.anim?.(t);
-    g.traverse(o => { if (o.isMesh) { o.castShadow = true; o.receiveShadow = true; } }); if (pr.id) byId[pr.id] = g;
+  for (const pr of list ?? []) { const g = PROPS7[pr.prop](pr.p ?? {}); g.position.set(...pr.at); g.rotation.y = (pr.rotY ?? 0) * Math.PI / 180; if (pr.scale) g.scale.setScalar(pr.scale);   // scale: opt-in (E0b) g.userData.anim?.(t);
+    g.traverse(o => { if (o.isMesh) { o.castShadow = !g.userData.ground; o.receiveShadow = true; } }); if (pr.id) byId[pr.id] = g;   // ground pieces never cast (shadow acne on the catcher)
     if (g.userData.anim || pr.id) { root.add(g); if (g.userData.anim) movers.push(g); } else statics.add(g); }
   let m = null; if (merge) { m = mergeByMaterial(statics); statics.traverse(o => { if (o.isMesh) { o.castShadow = true; o.receiveShadow = true; } }); }
   root.userData = {live: movers, byId, merged: m, anim: tl => movers.forEach(g => g.userData.anim(tl))}; return root;
 }
-export const PROPS7 = {headset, visorScreen, giantFinger, wateringCan, grassBlade, spaceship, sunSphere, swordStone, crate, deadTree, birdhouse, powerLine, porch, shack};
+export const PROPS7 = {headset, visorScreen, giantFinger, wateringCan, grassBlade, spaceship, sunSphere, swordStone, crate, deadTree, birdhouse, powerLine, porch, shack,
+  rockPeak, rockMesa, starField, ringPlanet, streetLamp, groundFog, brokenBuilding};
 export const PROP7_NAMES = Object.keys(PROPS7);

@@ -49,13 +49,18 @@ F = {
  "KNIGHT": ("#E0A77A", "#7A8494", "#9AA3B0", "#4A5260", [{"name": "helmet", "color": "#9AA3B0", "accent": "#C0392B"}], None, "horned knight (steel helmet + red plume)"),
  "ROBOT":  ("#B8BEC6", "#C9CED6", "#DDE2E8", "#8E959E", [{"name": "helmet", "color": "#E6EAF0"}], None, "chrome robot"),
  "NINJA":  ("#C9A982", "#1E2026", "#1E2026", "#1E2026", [{"name": "skiMask", "color": "#1E2026", "accent": "#D93A2B"}], None, "ninja"),
- "ASTRO":  ("#F2C59B", "#F4F4F4", "#F4F4F4", "#D8DCE2", [{"name": "backpack", "color": "#D8DCE2"}], H("buzz", "#2E1A12"), "astronaut"),
- "PIRATE": ("#A86A48", "#8C1F2A", "#8C1F2A", "#2B2B2F", [{"name": "topHatTilt", "color": "#1E1E22", "accent": "#F2C230"}, {"name": "scarf", "color": "#F2C230"}], H("shaggy_mop", "#2E1A12"), "pirate captain"),
+ "ASTRO":  ("#F2C59B", "#F4F4F4", "#F4F4F4", "#D8DCE2", [], H("buzz", "#2E1A12"), "astronaut"),
+ "PIRATE": ("#A86A48", "#8C1F2A", "#8C1F2A", "#2B2B2F", [], H("shaggy_mop", "#2E1A12"), "pirate captain"),
  "MAGE":   ("#E0B48E", "#6A3FB0", "#7E52C8", "#3A2470", [{"name": "hood", "color": "#8A5CE0"}, {"name": "cape", "color": "#4FD6E8"}], None, "crystal mage"),
 }
+# E0b armor (props7.js armor(): primitives on the body v5 parts, no new rigs): one emissive trim colour + one signature piece each
+ARMOR = {"KNIGHT": ("#FF3B30", "horns"), "ROBOT": ("#FF8A1F", "visor"), "NINJA": ("#B04DFF", "scarf"), "ASTRO": ("#FFFFFF", "bubble"),
+         "PIRATE": ("#F2C230", "tricorn"), "MAGE": ("#9D6BFF", "staff")}
 for k, (skin, torso, arm, legs, acc, hair, role) in F.items():
     cast["FRIEND_" + k] = kid(skin, "grin", torso, arm, legs, "#22242A", hair, acc=acc, role="VR friend: " + role, split=0.95,
         strip=arm, stripW=0.2, lapel=torso, lapelW=0.1, edge=legs, edgeW=0.05)
+    cast["FRIEND_" + k]["armor"] = {"trim": ARMOR[k][0], "piece": ARMOR[k][1], "plate": torso}
+cast["LEO_VR"]["armor"] = {"trim": "#49D9FF", "piece": "leo", "plate": "#1F3A6B"}
 ZS = '#7FB069'
 for i in range(8):
     shirt = ["#6E6E6E", "#7A7A78", "#5E5F60", "#888886", "#6A6866", "#727474", "#5A5A58", "#808080"][i]

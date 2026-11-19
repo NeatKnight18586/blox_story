@@ -181,7 +181,12 @@
    "tool": {
     "name": "sword"
    },
-   "glowSword": "#49D9FF"
+   "glowSword": "#49D9FF",
+   "armor": {
+    "trim": "#49D9FF",
+    "piece": "leo",
+    "plate": "#1F3A6B"
+   }
   },
   "NOVA": {
    "tier": "hero",
@@ -345,7 +350,12 @@
      "color": "#9AA3B0",
      "accent": "#C0392B"
     }
-   ]
+   ],
+   "armor": {
+    "trim": "#FF3B30",
+    "piece": "horns",
+    "plate": "#7A8494"
+   }
   },
   "FRIEND_ROBOT": {
    "tier": "hero",
@@ -388,7 +398,12 @@
      "name": "helmet",
      "color": "#E6EAF0"
     }
-   ]
+   ],
+   "armor": {
+    "trim": "#FF8A1F",
+    "piece": "visor",
+    "plate": "#C9CED6"
+   }
   },
   "FRIEND_NINJA": {
    "tier": "hero",
@@ -432,7 +447,12 @@
      "color": "#1E2026",
      "accent": "#D93A2B"
     }
-   ]
+   ],
+   "armor": {
+    "trim": "#B04DFF",
+    "piece": "scarf",
+    "plate": "#1E2026"
+   }
   },
   "FRIEND_ASTRO": {
    "tier": "hero",
@@ -474,12 +494,11 @@
      "shoeFrac": 0.15
     }
    },
-   "accessories": [
-    {
-     "name": "backpack",
-     "color": "#D8DCE2"
-    }
-   ]
+   "armor": {
+    "trim": "#FFFFFF",
+    "piece": "bubble",
+    "plate": "#F4F4F4"
+   }
   },
   "FRIEND_PIRATE": {
    "tier": "hero",
@@ -521,17 +540,11 @@
      "shoeFrac": 0.15
     }
    },
-   "accessories": [
-    {
-     "name": "topHatTilt",
-     "color": "#1E1E22",
-     "accent": "#F2C230"
-    },
-    {
-     "name": "scarf",
-     "color": "#F2C230"
-    }
-   ]
+   "armor": {
+    "trim": "#F2C230",
+    "piece": "tricorn",
+    "plate": "#8C1F2A"
+   }
   },
   "FRIEND_MAGE": {
    "tier": "hero",
@@ -578,7 +591,12 @@
      "name": "cape",
      "color": "#4FD6E8"
     }
-   ]
+   ],
+   "armor": {
+    "trim": "#9D6BFF",
+    "piece": "staff",
+    "plate": "#6A3FB0"
+   }
   },
   "ZOMBIE_1": {
    "tier": "hero",
