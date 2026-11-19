@@ -7,7 +7,8 @@
   "hdri": "street_late",
   "height": 5,
   "radius": 420,
-  "rotation": 0
+  "rotation": 0,
+  "intensity": 0.7
  },
  "env": {
   "intensity": 0.8
@@ -27,7 +28,7 @@
   "shadow": {
    "size": 1024
   },
-  "shadowOpacity": 0.5
+  "shadowOpacity": 0.6
  },
  "bake": {
   "cell": 0.5,

@@ -7,6 +7,7 @@ import {buildLocation, mergeLocation} from '../../../parts/location.js';
 import {buildActor} from '../../actors.js';
 import {samplePose, applyPoseSample} from '../../poses.js';
 import {localContrast} from '../../look6.js';
+import {createLookV4, loadLooks4} from '../../look4.js';
 
 const q = new URLSearchParams(location.search), here = new URL('./', import.meta.url), base = new URL('../../../', import.meta.url);
 const json = async u => (await fetch(u)).json();
@@ -20,10 +21,17 @@ const renderer = new T.WebGLRenderer({antialias: q.get('aa') !== '0', preserveDr
 renderer.setPixelRatio(1); renderer.shadowMap.enabled = true; renderer.shadowMap.type = T.PCFShadowMap; document.body.appendChild(renderer.domElement);
 const scene = new T.Scene(), camera = new T.PerspectiveCamera(50, 9 / 16, .1, 1200);
 const L = await buildLocation(scene, renderer, loc, {base, manifest});
+// R2: baked actor light as in engine/episode.js (2b): every actor mesh gets the 'comedy' matcap, colour x 1 / MC_LIGHT, then x 1.15 lift.
+const look = createLookV4(new T.Scene(), renderer, await loadLooks4(base), {initial: 'comedy'});   // own scene: only its matcap is used here
+await look.preloadMatcap(base, 'comedy'); const MATCAP = look.matcap('comedy'), mcCache = new Map(), LIFT = 1.15;
+const toMatcap = m => { if (Array.isArray(m)) return m.map(toMatcap); if (!m || m.isMeshBasicMaterial || m.isSpriteMaterial || m.isMeshMatcapMaterial) return m;
+  if (!mcCache.has(m)) { const x = new T.MeshMatcapMaterial({matcap: MATCAP, color: (m.color ?? new T.Color('#ffffff')).clone().multiplyScalar(LIFT / look.MC_LIGHT), map: m.map ?? null, transparent: m.transparent, opacity: m.opacity, side: m.side, vertexColors: m.vertexColors});
+    x.name = 'matcap:' + (m.name ?? ''); mcCache.set(m, x); } return mcCache.get(m); };
 const actors = {};
 for (const [k, c] of Object.entries(S.cast)) {
   const a = buildActor({...cast[c.preset], face: c.face ?? cast[c.preset].face}, k);
   applyPoseSample(a, samplePose('idle', 0), {position: c.at, yaw: c.yaw ?? 0}); a.root.traverse(o => { if (o.isMesh) { o.castShadow = true; o.receiveShadow = false; } });
+  a.root.traverse(o => { if (o.isMesh && o.name !== 'face_decal') o.material = toMatcap(o.material); });
   scene.add(a.root); actors[k] = a;
 }
 function setShot(i, w, h, nudge = 0) {

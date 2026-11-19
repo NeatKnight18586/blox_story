@@ -83,7 +83,7 @@ export async function buildLocation(scene, renderer, loc, {base, manifest}) {
     sunAuto = sunFromEquirect(rgb, w, h); horizon = horizonColor(rgb, w, h);   // HDR rows are top-first (flipY texture)
     const rot = (bd.rotation ?? 0) * deg;
     if (rot) { const d = sunAuto.dir; sunAuto.dir = [d[0] * Math.cos(rot) + d[2] * Math.sin(rot), d[1], -d[0] * Math.sin(rot) + d[2] * Math.cos(rot)]; }
-    if (bd.type === 'groundedSkybox') { const sky = new GroundedSkybox(hdr, bd.height ?? 5, bd.radius ?? 300); sky.rotation.y = rot; sky.material.fog = false; sky.material.toneMapped = true; sky.position.y = (bd.height ?? 5) + (bd.y ?? 0) - .02; sky.userData.live = true; sky.name = 'groundedSkybox'; root.add(sky); }
+    if (bd.type === 'groundedSkybox') { const sky = new GroundedSkybox(hdr, bd.height ?? 5, bd.radius ?? 300); sky.rotation.y = rot; sky.material.fog = false; sky.material.toneMapped = true; sky.material.color.setScalar(bd.intensity ?? 1); sky.position.y = (bd.height ?? 5) + (bd.y ?? 0) - .02; sky.userData.live = true; sky.name = 'groundedSkybox'; root.add(sky); }
     else { scene.background = hdr; scene.backgroundRotation.y = rot; }
     scene.environment = pm.fromEquirectangular(hdr).texture; scene.environmentRotation.y = rot;
   } else {

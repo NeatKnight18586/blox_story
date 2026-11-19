@@ -1450,3 +1450,6 @@ Blender: apt blender 4.0.2 installs in 46 s here; the probe bake (street stand-i
 Weakest (realism-ab-390): R2 is not a scale reveal (actors mid-size, facades do not dwarf them) · CC0 actors read flat against the bright backdrop (contrast .08 face shot) · the cobble/brick are still the procedural cartoon tiles in the "CC0" row (no photo-scans locally).
 Decisions: local CC0 row = real HDRI + procedural fallback materials (only reachable CC0 source); sun direction auto from the HDRI's brightest texel, minEl 24°; statics keep Standard + baked AO × sun visibility (normal maps live) by default, `bake.material: basic` = today's cost model.
 Open: farm run of assets.yml (real photo-scan materials + farm s/frame + bake); actor exposure under HDRI env (separate env intensity for actors); R2 camera; skybox resolution.
+
+## R2 baseline (real CC0, lit actors) — farm run 44428216688
+street-cc0 (fallbacks 0): R1_lowwide 9.64 s/frame @1440, contrast 0.008, detail 4.84 · R2_scale 9.036, 0.098, 1.05 · R3_face 13.324, 0.223, 5.48.
