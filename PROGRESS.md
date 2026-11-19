@@ -1555,3 +1555,20 @@ Timing (4-core = free runner): final 1440 6.3–9.9 s/frame test world, 14.1 Toy
 Checks: v2:test 176 node + 96 py, npm test 0, rule_ids PASS, "Nobody" 0–9 byte-identical; spec.mood smoke on the recut6 fixture OK.
 Weakest (390 sheets): storm ≈ overcast + drizzle (no storm sky) · night lantern bloom is a big teal blob, green uplight on the face ·
 dawn backlights the hero to near-black with a white bloom rim. Materials: plaster + snow still procedural locally (no photo source).
+
+## Retention Engine Phase 6 (2026-11-19): captions & sound sync
+Plan: 1. style pop-shorts-v6 (1–2 words, Lilita One, outline + shadow, safe zone, accent on *marks*) 2. 3 accent options on real stills
+(libass) with UI zones + colour/size/safe-box checks 3. sync ± 1 frame through libass on a 10 s VO segment 4. sfx beat map (flag, default off).
+Built: captions.py v6 (opt-in; v2/v3/v5 ASS byte-identical for toyhouse/egg/nobody): group6 (pair only short/function + content word; a word
+on screen < 2 frames rides with the next), timing6 (start = floor(onset × fps), ASS floor to cs, every caption ≥ 2 frames, ≤ +1 frame shift),
+keywordScale, --accent; captions/pop-shorts-v6.json (132 px, y 64 %, width ≤ 68 %, safeBox, 3 accent options, provisional lantern teal);
+tools/caption_samples.py, tools/caption_sync.py; QA R-CAP-01 (SKIP until the owner approves an accent) + R-CAP-02 (computed from cues);
+sfx.py plink + knock + place6 (clue → plink, reveal → crack, impact → knock, whip → whoosh, jolt → thud, ≥ 0.25 s apart), assemble uses it
+for format 6; review/captions/{accent-options-390.png, accent-options.json, sync.json, sync-60s.json, sfx/*.wav}; tests test_captions6.py (8).
+Checks: cap 4.2 % (≥ 2.6) PASS · 8/8 sample boxes inside the safe box PASS · accents: teal 12.1:1 / ΔE 51.5 / hue 122°, coral #FF7B52 7.44:1
+(the first coral #FF6A3D failed 6.69 < 7 → lightened), violet 7.48:1, all PASS; local ΔE vs the background behind the text 56–88 PASS ·
+sync egg 10 s: 21/21 detected, −0.96…0.00 frames PASS; 60 s: 126/126, −0.96…+0.24 PASS (found + fixed: "And" 20 ms before "there's" was
+on screen 0 frames; "Then"/"She" 1 frame; a 0.6 IoU detector missed eggs→wins → 0.95 with the pop off). v2:test 176 node + 104 py, npm test 0.
+Weakest (accent sheet): teal next to the lantern's teal spill at night (outline carries it) · coral over red brick in daylight (the local
+ΔE median sampled the legs, so the check did not see it) · at y 64 % the caption covers the hero's legs and lantern in that framing.
+Open: the owner's accent pick (accentKey + accentApproved); shots that show the lantern at 60–68 % height need captionY high.

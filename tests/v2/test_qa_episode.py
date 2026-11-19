@@ -20,7 +20,8 @@ class QA(unittest.TestCase):
     def test_clean_has_no_fail(self):
         s = self.run_()
         self.assertNotIn('FAIL', s.values(), s)
-        self.assertEqual(sorted(k for k, v in s.items() if v == 'SKIP'), ['R-CAP-01', 'R-CAP-02', 'R-LOOP-01'])
+        self.assertEqual(sorted(k for k, v in s.items() if v == 'SKIP'), ['R-CAP-01', 'R-LOOP-01'])   # R-CAP-01: accent pick pending
+        self.assertEqual(s['R-CAP-02'], 'PASS')
 
     def test_broken_fails_at_least_five(self):
         ep, cues, script, spec = broken()

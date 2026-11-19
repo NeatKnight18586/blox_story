@@ -166,6 +166,23 @@ def sign_legibility(signs, shots, dur):
     return out
 
 
+def caption_check(style_name, cues, fps):
+    """R-CAP-01/02 for the v6 style (scripts/v2/captions.py group6/timing6, the same code the finish uses): per caption the start
+    error vs its first word's onset in frames, captions on screen < 2 frames, max words. → dict or None (unknown style)."""
+    sys.path.insert(0, str(ROOT / 'scripts/v2')); import captions as CAP
+    path = CAP.STYLES.get(style_name)
+    if not path: return None
+    st = json.loads((ROOT / path).read_text()); st['fontFile'] = str(ROOT / st['fontFile'])
+    if st.get('grouping') != 'v6': return {'grouping': st.get('grouping'), 'maxWords': st.get('maxWords', 3), 'accentApproved': False, 'accent': None, 'errMin': 0, 'errMax': 0, 'short': [], 'bad': [], 'captions': 0}
+    t = CAP.timing6(CAP.group6(cues, st, fps), fps, st['blankPause'])
+    err = [(c['start'] - c['onset']) * fps for c in t]
+    short = [' '.join(c['words']) for c in t if (c['end'] - c['start']) * fps < 2 - 1e-3]
+    acc = (st.get('accentOptions') or {}).get(st.get('accentKey'), {}).get('hex')
+    return {'grouping': 'v6', 'maxWords': max(len(c['words']) for c in t), 'accentApproved': bool(st.get('accentApproved')), 'accent': acc,
+            'errMin': round(min(err), 3), 'errMax': round(max(err), 3), 'short': short, 'captions': len(t),
+            'bad': [(c['onset'], e) for c, e in zip(t, err) if abs(e) > 1 + 1e-9]}
+
+
 def check(ep, cues, script, spec=None, tier=(105, 135), story_dir=None):
     """→ [{id, status: PASS|FAIL|SKIP, msg, at: [s…]}] in rule order."""
     R = []
@@ -283,9 +300,20 @@ def check(ep, cues, script, spec=None, tier=(105, 135), story_dir=None):
 
     # --- captions
     style = ep.get('captionStyle')
-    add('R-CAP-01', False if style in LEGACY_CAPTIONS else None,
-        f'caption style {style}: legacy (groups up to 3 words, yellow keywords)' if style in LEGACY_CAPTIONS else f'caption style {style}: checked in Phase 6')
-    add('R-CAP-02', None, 'caption sync ± 1 frame measured in Phase 6')
+    if style in LEGACY_CAPTIONS:
+        add('R-CAP-01', False, f'caption style {style}: legacy (groups up to 3 words, yellow keywords)')
+        add('R-CAP-02', None, f'caption sync is measured for the v6 style only (style {style})')
+    else:
+        cs = caption_check(style, cues, fps)
+        if cs is None:
+            add('R-CAP-01', None, f'caption style {style}: unknown'); add('R-CAP-02', None, f'caption style {style}: unknown')
+        else:
+            ok1 = cs['maxWords'] <= 2 and cs['grouping'] == 'v6'
+            add('R-CAP-01', (None if not cs['accentApproved'] else True) if ok1 else False,
+                f"{style}: max {cs['maxWords']} words, accent {cs['accent']} ({'approved' if cs['accentApproved'] else 'owner pick pending: captions/pop-shorts-v6.json accentApproved'})")
+            add('R-CAP-02', cs['errMin'] >= -1 - 1e-9 and cs['errMax'] <= 1 + 1e-9 and not cs['short'],
+                f"{cs['captions']} captions, start − onset {cs['errMin']:+.2f}…{cs['errMax']:+.2f} frames (± 1); shown < 2 frames: {cs['short'][:3] or 'none'}",
+                [t for t, _ in cs['bad']])
 
     # --- ending and length
     tail = end - last
