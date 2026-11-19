@@ -1,0 +1,21 @@
+{
+ "note": "Phase 5 (Retention Engine) look assets: the CC0 photo sources this cloud session can reach. Poly Haven HDRIs (CC0) and texture sets mirrored in the three.js repo examples (raw.githubusercontent.com). tools/fetch_look_assets.py downloads them into renders/cache/assets/<id>/ (gitignored) and merges renders/cache/assets/manifest.json (the format parts/location.js reads). bump = a height map converted to an OpenGL normal map at fetch time. On the farm, assets/realism.json (Poly Haven direct) adds cobblestone/plaster/planks photo-scans.",
+ "base": "https://raw.githubusercontent.com/mrdoob/three.js/r170/examples/textures/",
+ "maxFileBytes": 8000000,
+ "hdri": {
+  "dawn": {"id": "ph_blouberg_sunrise_2", "file": "equirectangular/blouberg_sunrise_2_1k.hdr", "source": "Poly Haven blouberg_sunrise_2 (CC0)"},
+  "dawn2": {"id": "ph_spruit_sunrise", "file": "equirectangular/spruit_sunrise_1k.hdr", "source": "Poly Haven spruit_sunrise (CC0)"},
+  "sunset": {"id": "ph_venice_sunset", "file": "equirectangular/venice_sunset_1k.hdr", "source": "Poly Haven venice_sunset (CC0)"},
+  "quarry": {"id": "ph_quarry_01", "file": "equirectangular/quarry_01_1k.hdr", "source": "Poly Haven quarry_01 (CC0)"},
+  "overpass": {"id": "ph_pedestrian_overpass", "file": "equirectangular/pedestrian_overpass_1k.hdr", "source": "Poly Haven pedestrian_overpass (CC0)"},
+  "night": {"id": "ph_moonless_golf", "file": "equirectangular/moonless_golf_1k.hdr", "source": "Poly Haven moonless_golf (CC0)"},
+  "plaza": {"id": "ph_royal_esplanade", "file": "equirectangular/royal_esplanade_1k.hdr", "source": "Poly Haven royal_esplanade (CC0)"}
+ },
+ "materials": {
+  "brick": {"id": "tjs_brick", "albedo": "brick_diffuse.jpg", "bump": "brick_bump.jpg", "rough": "brick_roughness.jpg", "bumpStrength": 3.0, "source": "three.js examples brick set"},
+  "planks": {"id": "tjs_hardwood2", "albedo": "hardwood2_diffuse.jpg", "bump": "hardwood2_bump.jpg", "rough": "hardwood2_roughness.jpg", "bumpStrength": 2.0, "source": "three.js examples hardwood2 set"},
+  "grass": {"id": "tjs_grass", "albedo": "terrain/grasslight-big.jpg", "bumpFromAlbedo": true, "bumpStrength": 4.0, "source": "three.js examples terrain grass"},
+  "water": {"id": "tjs_water", "normal": "water/Water_1_M_Normal.jpg", "source": "three.js examples water normals"},
+  "metalRough": {"id": "tjs_metal", "rough": "roughness_map.jpg", "bump": "disturb.jpg", "bumpStrength": 1.0, "source": "three.js examples roughness + disturb (brushed metal)"}
+ }
+}
