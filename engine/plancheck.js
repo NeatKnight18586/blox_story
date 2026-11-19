@@ -26,18 +26,18 @@ const inBox = (h, [x0, x1], [y0, y1]) => h && h.inFront && h.x >= x0 && h.x <= x
 export const wordOnsets = cues => cues.lines.flatMap(l => l.words.map(w => w.start));
 
 // Voice / episode length per format (owner V4 D-format): format v5 runs 75–90 s, older formats keep a 100–168 s voice.
-export const lengthRule = format => format === 5 ? {voice: [75, 90], end: [75, 90]} : {voice: [100, 168], end: null};
+export const lengthRule = format => format === 6 ? {voice: [60, 175], end: [60, 175]} : format === 5 ? {voice: [75, 90], end: [75, 90]} : {voice: [100, 168], end: null};   // format 6: Retention Engine (R-LEN-03)
 export function checkPlan({shots, cues, fps = 30, end, info = [], format}) {
-  const V5 = format === 5;   // format v5: length, cuts and shot sizes follow engine/plancheck5.js (cut on any word; no size/location/openHit rules)
+  const V5 = format === 5 || format === 6;   // format 6 (Retention Engine) runs the format-5 path with its own numbers   // format v5: length, cuts and shot sizes follow engine/plancheck5.js (cut on any word; no size/location/openHit rules)
   const errors = [], warnings = [], L = LIMITS, onsetF = phraseOnsets(cues).map(t => Math.round(t * fps)), wordF = wordOnsets(cues).map(t => Math.round(t * fps));
   const nearWord = f => Math.min(...wordF.map(o => Math.abs(o - f))) <= L.cutTol;
   let beatRun = 0;
   const voiceEnd = cues.duration, err = (s, m) => errors.push(`${s.id}: ${m}`), warn = (s, m) => warnings.push(`${s.id}: ${m}`);
   const nearOnset = f => Math.min(...onsetF.map(o => Math.abs(o - f))) <= L.cutTol;
   const want = episodeEnd(voiceEnd), last = shots.at(-1), endS = (last.start + last.frames) / fps;
-  if (V5) { const R = lengthRule(5);
-    if (voiceEnd < R.voice[0] || voiceEnd > R.voice[1]) errors.push(`voice ${voiceEnd.toFixed(2)} s outside ${R.voice[0]}–${R.voice[1]} s (format v5)`);
-    if (endS < voiceEnd - 1e-6 || endS > R.end[1] + 1e-6) errors.push(`last frame ends at ${endS.toFixed(2)} s, want voice end ${voiceEnd.toFixed(2)}–${R.end[1]} s (format v5)`); }
+  if (V5) { const R = lengthRule(format), lastWord = Math.max(...cues.lines.flatMap(l => l.words.map(w => w.end))), vo = format === 6 ? lastWord : voiceEnd;   // format 6 ends on the last word (R-END-01), not the file
+    if (vo < R.voice[0] || vo > R.voice[1]) errors.push(`voice ${vo.toFixed(2)} s outside ${R.voice[0]}–${R.voice[1]} s (format v${format})`);
+    if (endS < vo - 1e-6 || endS > R.end[1] + 1e-6) errors.push(`last frame ends at ${endS.toFixed(2)} s, want voice end ${vo.toFixed(2)}–${R.end[1]} s (format v${format})`); }
   else {
   if (end !== undefined && Math.abs(end - want) > 1 / fps) errors.push(`episode end ${end} s ≠ max(voice + 2.5, 122.5) = ${want.toFixed(2)} s`);
   if (Math.abs(endS - want) > 1.5 / fps) errors.push(`last frame ends at ${endS.toFixed(2)} s, want ${want.toFixed(2)} s`); }

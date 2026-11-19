@@ -18,7 +18,11 @@ export function timeMentions(words) {
 }
 // shots: [{id, start, frames, move, size, reveal?, openHit?, prop?, clock?, see?}] (layoutShots), fps, cues {words: [{word, start}]},
 // insertH: {shotId: measured prop height fraction}.
-export function plan5(shots, {fps = 24, cues = null, insertH = {}, end = null} = {}) {
+const V5_DEFAULT = V5;
+// Retention Engine format 6 (docs/bible/RULES_CARD.md R-CUT-01, R-LEAK-02, R-LEN-03): the format-5 rules with the new numbers.
+export const V6 = {...V5, minLen: 60, maxLen: 175, avgMin: 1.5, avgMax: 2.2};
+export function plan5(shots, {fps = 24, cues = null, insertH = {}, end = null, limits = null} = {}) {
+  const V5 = limits ?? V5_DEFAULT;
   const errs = [], lenS = end ?? (shots.length ? (shots.at(-1).start + shots.at(-1).frames) / fps : 0);
   if (lenS < V5.minLen || lenS > V5.maxLen) errs.push(`length ${lenS.toFixed(2)} s outside ${V5.minLen}–${V5.maxLen} s (hard max ${V5.maxLen})`);
   const avg = shots.length ? lenS / shots.length : 0;
