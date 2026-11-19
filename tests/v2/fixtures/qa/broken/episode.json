@@ -1,0 +1,87 @@
+{
+ "slug": "broken",
+ "fps": 24,
+ "format": 6,
+ "end": 16.14,
+ "captionStyle": "pop-shorts-v5",
+ "cast": {
+  "hero": {
+   "style": "v2",
+   "faceStyle": "v3",
+   "tags": [
+    [
+     0,
+     "HERO",
+     "baker"
+    ]
+   ]
+  }
+ },
+ "effects": [
+  {
+   "type": "shake",
+   "at": 5.0
+  },
+  {
+   "type": "fadeColor",
+   "at": 15.14
+  }
+ ],
+ "shots": [
+  {
+   "id": "B01",
+   "at": 0.0,
+   "move": "static-drift",
+   "size": "wide",
+   "see": []
+  },
+  {
+   "id": "B02",
+   "at": 4.0,
+   "move": "push",
+   "size": "wide",
+   "see": [],
+   "from": {
+    "position": [
+     0,
+     1,
+     5
+    ],
+    "target": [
+     0,
+     1,
+     0
+    ],
+    "fov": 50
+   },
+   "to": {
+    "position": [
+     0,
+     1,
+     5
+    ],
+    "target": [
+     0,
+     1,
+     0
+    ],
+    "fov": 50
+   }
+  },
+  {
+   "id": "B03",
+   "at": 9.0,
+   "move": "orbit",
+   "size": "wide",
+   "see": []
+  },
+  {
+   "id": "B04",
+   "at": 9.9,
+   "move": "push",
+   "size": "wide",
+   "see": [],
+   "openHit": true
+  }
+ ]
+}
