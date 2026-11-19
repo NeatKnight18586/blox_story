@@ -21,8 +21,8 @@ MOVES.push(...MOVES5);
 // Kit 1 signature cameras (opt-in by name): lowWide · scaleReveal · povScope (sampleMoveK1, below).
 export const MOVES_K1 = ['lowWide', 'scaleReveal', 'povScope'];
 MOVES.push(...MOVES_K1);
-export const K1 = {lowWide: {h: .8, fov: 75, dist: 2, ndcX: .6, look: 30, push: .25, pitchDeg: 20}, scaleReveal: {fov: 50, startFace: .27, endActor: .075, lift: 12, faceSpan: 1.1, faceAt: .93, H: 5.3},
-  povScope: {fov: 20, forward: .9, headAt: .93, H: 5.3, range: 60}};
+export const K1 = {lowWide: {hFrac: .25, fov: 75, body: .6, ndcX: .6, look: 30, push: .05}, scaleReveal: {fov: 50, startFace: .27, endActor: .08, liftFrac: .4, faceSpan: 1.1, faceAt: .93, H: 5.3},
+  povScope: {push: .03, swayDeg: 1.5, swayPeriod: 3, fov: 20, forward: .9, headAt: .93, H: 5.3, range: 60}};
 export const CRASH = {frames: 5, overshoot: .06, push: .04, aimY: 3.0};   // aimY: the subject's aim point above its mark (a kid's face)       // crashZoom: fov from→to in 5 frames with a 6 % overshoot, 4 % dolly in
 export const TOPDOWN = {tiltDeg: 3, degrees: 40};                  // topDown: ~straight down (3° off so 'up' stays defined), slow turn
 export const SPLIT = {maxDur: 3};                                  // splitScreen: two half-frame cameras, ≤ 3 s
@@ -237,20 +237,21 @@ export function sampleMoveK1(shot, localT, actorPositions = {}) {
   const dur = Math.max(1e-6, shot.duration ?? 1), a = actorPositions[shot.actor] ?? shot.at ?? [0, 0, 0];
   const norm = d => { const l = len(d) || 1; return scale(d, 1 / l); };
   const d2 = v => norm(v.length === 2 ? [v[0], 0, v[1]] : v);
-  if (shot.move === 'lowWide') {
-    const C = K1.lowWide, dir = d2(shot.dir ?? [0, -1]), right = norm([-dir[2], 0, dir[0]]), sgn = shot.side === 'left' ? -1 : 1;
-    const lat = C.ndcX * C.dist * Math.tan(C.fov * Math.PI / 360) * ASPECT * sgn;   // camera shifted opposite to the side the actor sits on
-    const cam = add(add([a[0], C.h + (shot.ground ?? 0), a[2]], scale(dir, -C.dist + C.push * localT)), scale(right, -lat));
-    return {position: cam, target: [cam[0] + dir[0] * (C.dist + C.look), (shot.ground ?? 0) + C.h + (C.dist + C.look) * Math.tan((shot.pitchDeg ?? C.pitchDeg) * Math.PI / 180), cam[2] + dir[2] * (C.dist + C.look)], fov: C.fov, roll: 0};
+  if (shot.move === 'lowWide') {   // Kit 1b: framing math from the actor height H
+    const C = K1.lowWide, H = shot.h ?? K1.scaleReveal.H, dir = d2(shot.dir ?? [0, -1]), right = norm([-dir[2], 0, dir[0]]), sgn = shot.side === 'left' ? -1 : 1, g = shot.ground ?? 0;
+    const d0 = fitDistance(H, C.body, C.fov), d = d0 - C.push * H * localT, lat = C.ndcX * d0 * Math.tan(C.fov * Math.PI / 360) * ASPECT * sgn, camY = g + C.hFrac * H;
+    const cam = add([a[0], camY, a[2]], add(scale(dir, -d), scale(right, -lat))), pitch = Math.atan2(a[1] + g + H / 2 - camY, d0), far = d + C.look * H;   // pitch: aim at the body centre, so head and feet stay in frame
+    return {position: cam, target: [cam[0] + dir[0] * far, camY + far * Math.tan(pitch), cam[2] + dir[2] * far], fov: C.fov, roll: 0};
   }
   if (shot.move === 'scaleReveal') {
     const C = K1.scaleReveal, H = shot.h ?? C.H, u = EASE.inOutSine(clamp01(localT / dur)), face = [a[0], a[1] + C.faceAt * H, a[2]], mid = [a[0], a[1] + H / 2, a[2]];
-    const d0 = fitDistance(C.faceSpan, C.startFace, C.fov), d1 = fitDistance(H, C.endActor, C.fov), ax = norm(d2(shot.dir ?? [0, 1]).map((v, i) => i === 1 ? .08 : v));   // view axis: out from the actor towards the camera
-    const p0 = add(face, scale(ax, d0)), p1 = add(add(mid, scale(ax, d1)), [0, C.lift, 0]);
+    const d0 = fitDistance(C.faceSpan, C.startFace, C.fov), d1 = fitDistance(H, C.endActor, C.fov), rise = C.liftFrac * d1, ax = norm(d2(shot.dir ?? [0, 1]).map((v, i) => i === 1 ? .08 : v));
+    const p0 = add(face, scale(ax, d0)), p1 = add(add(mid, scale(ax, Math.sqrt(d1 * d1 - rise * rise))), [0, rise, 0]);   // slant distance = d1: the actor is exactly 8 % of the frame
     return {position: lerp3(p0, p1, u), target: lerp3(face, mid, u), fov: C.fov, roll: 0};
   }
-  const C = K1.povScope, H = shot.h ?? C.H, dir = d2(shot.dir ?? [0, -1]), head = [a[0], a[1] + C.headAt * H, a[2]], cam = add(head, scale(dir, shot.forward ?? C.forward));
-  return {position: cam, target: add(cam, scale(dir, C.range)), fov: C.fov, roll: 0};
+  const C = K1.povScope, H = shot.h ?? C.H, dir = d2(shot.dir ?? [0, -1]), head = [a[0], a[1] + C.headAt * H, a[2]], sw = C.swayDeg * Math.PI / 180 * Math.sin(2 * Math.PI * localT / C.swayPeriod);
+  const cam = add(head, scale(dir, (shot.forward ?? C.forward) + C.push * H * localT)), ad = [dir[0] * Math.cos(sw) - dir[2] * Math.sin(sw), 0, dir[0] * Math.sin(sw) + dir[2] * Math.cos(sw)];
+  return {position: cam, target: add(cam, scale(ad, C.range)), fov: C.fov, roll: 0};
 }
 
 // ---- format v5 moves (pure) ----------------------------------------------------------------------------------------------

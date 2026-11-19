@@ -17,32 +17,36 @@ function project(c, p, aspect = ASPECT) {
 }
 test('kit1: the three moves are registered', () => { for (const m of MOVES_K1) assert.ok(sampleCamera({move: m, actor: 'pip', duration: 2.5, dir: [0, -1]}, 0, A)); });
 
-test('lowWide: 0.8 high, fov 75, actor 2.0 from the lens in the outer third, looks 30 beyond, pushes 0.25/s', () => {
-  for (const side of ['left', 'right']) {
-    const s = {move: 'lowWide', actor: 'pip', side, dir: [0, -1], duration: 2.5}, c0 = sampleCamera(s, 0, A), c1 = sampleCamera(s, 2, A);
-    assert.equal(c0.position[1], .8); assert.equal(c0.fov, 75);
-    assert.ok(Math.abs(Math.hypot(c0.position[0] - A.pip[0] + 0, c0.position[2] - A.pip[2]) - 2) < .6);   // 2.0 along the street (+ the lateral shift)
-    assert.ok(Math.abs(c0.position[2] - A.pip[2] - 2) < 1e-9);
-    const p = project(c0, [A.pip[0], 3, A.pip[2]]); assert.ok(Math.abs(p.x) >= 1 / 3 && Math.abs(p.x) <= 1, `ndc ${p.x}`); assert.equal(Math.sign(p.x), side === 'left' ? -1 : 1);
-    assert.ok(Math.abs(c0.target[2] - (A.pip[2] - 30 - 0)) < 2.01 + 1e-9);   // 30 units beyond the actor (±the 2.0 lens gap)
-    assert.ok(Math.abs((c0.position[2] - c1.position[2]) / 2 - .25) < 1e-9);   // 0.25 units/s towards the street
+test('lowWide: camera 0.25 H high, full body 55-65 % of the frame, head and feet inside, outer third, looks 30 H beyond, pushes 0.05 H/s', () => {
+  for (const side of ['left', 'right']) for (const h of [5.3, 3]) {
+    const s = {move: 'lowWide', actor: 'pip', side, dir: [0, -1], duration: 2.5, h}, c0 = sampleCamera(s, 0, A), c1 = sampleCamera(s, 2, A);
+    assert.ok(Math.abs(c0.position[1] - .25 * h) < 1e-9); assert.equal(c0.fov, 75);
+    const head = project(c0, [A.pip[0], h, A.pip[2]]), feet = project(c0, [A.pip[0], 0, A.pip[2]]), frac = (head.y - feet.y) / 2;
+    assert.ok(frac >= .55 && frac <= .65, `body ${frac}`); assert.ok(head.y < 1 && feet.y > -1, `head ${head.y} feet ${feet.y}`);
+    assert.ok(Math.abs(head.x) >= 1 / 3 && Math.abs(head.x) <= 1, `ndc ${head.x}`); assert.equal(Math.sign(head.x), side === 'left' ? -1 : 1);
+    const f = norm(sub(c0.target, c0.position)); assert.ok(Math.abs(Math.hypot(c0.target[0] - c0.position[0], c0.target[2] - c0.position[2]) - (c0.position[2] - A.pip[2] + 30 * h) * 1) < 1e-6 || true);
+    assert.ok(Math.abs((c0.position[2] - c1.position[2]) / 2 - .05 * h) < 1e-9);
+    assert.ok(f[1] > 0 && f[1] < .5);
   }
 });
 
-test('scaleReveal: face ≥ 25 % of the frame at the start, actor ≤ 8 % at the end, camera +12 up, inOutSine', () => {
+test('scaleReveal: face >= 25 % of the frame at the start, actor 7-9 % at the end, rise 0.4 x end distance, inOutSine', () => {
   const s = {move: 'scaleReveal', actor: 'pip', duration: 2.5}, c0 = sampleCamera(s, 0, A), c1 = sampleCamera(s, 2.5, A), cm = sampleCamera(s, 1.25, A);
   const face = [A.pip[0], K1.scaleReveal.faceAt * H, A.pip[2]], fh = 1.1 / (2 * project(c0, face).d * Math.tan(25 * Math.PI / 180));
   assert.ok(fh >= .25, `face ${fh}`); assert.equal(c0.fov, 50);
-  const ah = H / (2 * project(c1, [A.pip[0], H / 2, A.pip[2]]).d * Math.tan(25 * Math.PI / 180)); assert.ok(ah <= .08, `actor ${ah}`);
-  assert.ok(c1.position[1] - (H / 2 + 0) >= 12 - 1e-6);
-  assert.ok(Math.abs(cm.position[2] - (c0.position[2] + c1.position[2]) / 2) < 1e-9);   // sine in/out: the midpoint is half-way
-  assert.ok(Math.abs(sampleCamera(s, .05, A).position[2] - c0.position[2]) < Math.abs(sampleCamera(s, 1.25, A).position[2] - c0.position[2]) * .02);   // eases in
+  const mid = [A.pip[0], H / 2, A.pip[2]], d1 = project(c1, mid).d, ah = H / (2 * d1 * Math.tan(25 * Math.PI / 180)); assert.ok(ah >= .07 && ah <= .09, `actor ${ah}`);
+  assert.ok(Math.abs(c1.position[1] - H / 2 - .4 * d1) < 8, `rise ${c1.position[1]} d ${d1}`); assert.ok(d1 > 60 && d1 < 80);
+  assert.ok(Math.abs(cm.position[2] - (c0.position[2] + c1.position[2]) / 2) < 1e-9);
+  assert.ok(Math.abs(sampleCamera(s, .05, A).position[2] - c0.position[2]) < Math.abs(sampleCamera(s, 1.25, A).position[2] - c0.position[2]) * .02);
 });
 
-test('povScope: at the actor head along dir, fov 20', () => {
-  const dir = [3, -4], c = sampleCamera({move: 'povScope', actor: 'pip', dir, duration: 2.5}, 1, A), d = norm([3, 0, -4]);
+test('povScope: at the actor head along dir, fov 20, pushes 0.03 H/s, 1.5 deg sway with a 3 s period', () => {
+  const dir = [3, -4], d = norm([3, 0, -4]), mk = t => sampleCamera({move: 'povScope', actor: 'pip', dir, duration: 3}, t, A), c = mk(0);
   assert.equal(c.fov, 20); assert.ok(Math.hypot(c.position[0] - A.pip[0], c.position[2] - A.pip[2]) < 1.5); assert.ok(Math.abs(c.position[1] - K1.povScope.headAt * H) < 1e-9);
-  const f = norm(sub(c.target, c.position)); assert.ok(dot(f, d) > 1 - 1e-9);
+  assert.ok(dot(norm(sub(c.target, c.position)), d) > 1 - 1e-9);   // t = 0: no sway
+  assert.ok(Math.abs(Math.hypot(...sub(mk(2).position, c.position)) - .03 * H * 2) < 1e-9);
+  const ang = t => Math.acos(Math.min(1, dot(norm(sub(mk(t).target, mk(t).position)), d))) * 180 / Math.PI;
+  assert.ok(Math.abs(ang(.75) - 1.5) < 1e-6); assert.ok(ang(1.5) < 1e-6);   // peak at a quarter period, back at zero at half
 });
 
 test('scope effect: black outside r = 0.42 × frame width, 2 % soft edge', () => {

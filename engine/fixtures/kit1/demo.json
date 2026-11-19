@@ -8,8 +8,8 @@
  "backdrop": {
   "hdri": "venice_sunset_1k.hdr",
   "height": 5,
-  "radius": 400,
-  "intensity": 0.4,
+  "radius": 150,
+  "intensity": 0.5,
   "rotation": 0
  },
  "cast": {
@@ -109,5 +109,6 @@
    "at": 5.0,
    "dur": 2.5
   }
- ]
+ ],
+ "look4": "comedy"
 }

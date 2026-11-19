@@ -1464,3 +1464,7 @@ Commands: `npm test` + `npm run v2:test` green (172 + 63); "Nobody" 11 frames @2
 Numbers: localContrast (mid-shot) K1 1.32 · K2 0.04 · K3 0.317 @0.7 → 0.392 @0.6 → 0.667 @0.4; K2 fails 0.35 at every intensity (its background is the street, not the sky). Bench 720: K1 89.7k tris .61 s, K2 130.9k tris .78 s, K3 83.9k .49 s (FAIL ≤ 90k on K2); s/frame 1080 mean 1.24, 1440 mean 2.05.
 Decisions: HDRI royal_esplanade 404 → pedestrian_overpass_1k; default fps stays 30 in code (brief said 24); scaleReveal "+12" = camera lift, pull-back set by the 8 % rule (~71 units); lowWide tilted up 20° (at 2 units a 5.3-tall actor is legs only); demo backdrop intensity 0.4 (step-down protocol).
 Open: K2 localContrast 0.04 < 0.35 (needs a rim/lift or background change, not the backdrop); K2 triangles 131k > 90k (whole street in view).
+
+## Kit 1b (fix Kit 1)
+lowWide/scaleReveal framing from actor height H, povScope push + sway, demo `look4: comedy`, camera.far 160 under backdrop (demo radius 150, intensity 0.5). Tests 172 + 63 green; "Nobody" 11 frames identical. localContrast @0.7/0.6/0.5: K1 .45/.49/.55, K2 (first 15 %) .14/.14/.13, K3 3.6+. Bench 1080: .32/.49/.53 s, triangles 100.7k/140.2k/94.6k (> 90k).
+Open: K2 contrast < 0.35 at every intensity; triangle count over 90k in all shots (frustum count ignores far 160).

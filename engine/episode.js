@@ -87,7 +87,7 @@ if (spec.world) {
     const presets = await loadLooks4(new URL('./', import.meta.url)), P4 = presets[spec.look4]; if (!P4) throw Error('unknown look4 ' + spec.look4);
     await M4.loadTex4(new URL('../', import.meta.url));
     look = createLookV4(scene, renderer, presets, {initial: spec.look4}); look.apply(spec.look4);
-    if (mod.preload) await mod.preload(new URL('../', import.meta.url));   // format v5 3b-R (opt-in): async world assets (box-art atlas)
+    if (mod.preload) await mod.preload(new URL('../', import.meta.url), {scene, renderer, spec});   // format v5 3b-R (opt-in): async world assets (box-art atlas)
     world = mod.build(scene, {P, B, A, M, M4, PR, TR, BI, V, W, look, spec, look4: {preset: P4, halo, water4}});
     if (spec.groundFix) GROUNDFIX = groundFix(scene, look, spec.groundFix);   // Toy House final fix (owner P4, opt-in): before the bake
     look.setGround(world.groundY ?? (() => 0));
@@ -118,6 +118,7 @@ if (spec.world) {
 // groundedSky). It becomes scene.environment only when the look has none. Specs without "backdrop" take none of this.
 if (spec.backdrop) {
   const bd = {height: 5, radius: 400, intensity: .7, rotation: 0, ...spec.backdrop}, {sky, hdr} = await groundedSky(T, renderer, new URL('../assets/hdri/' + bd.hdri, import.meta.url).href, bd);
+  camera.far = 160; camera.updateProjectionMatrix();   // Kit 1b: far street geometry is culled, so the (smaller, radius ≤ 160) photo sky shows
   scene.add(sky); if (!scene.environment) { scene.environment = new T.PMREMGenerator(renderer).fromEquirectangular(hdr).texture; scene.environmentRotation.y = bd.rotation * Math.PI / 180; }
 }
 const anchors = world?.anchors ?? {};
