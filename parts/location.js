@@ -113,7 +113,7 @@ export async function buildLocation(scene, renderer, loc, {base, manifest}) {
     if (files) {
       try {
         const [map, normalMap, roughnessMap, aoMap] = await Promise.all([files.albedo && loadTex(files.albedo, true), files.normal && loadTex(files.normal, false), files.rough && loadTex(files.rough, false), files.ao && loadTex(files.ao, false)]);
-        mat = new T.MeshStandardMaterial({color: m.color ?? '#ffffff', map, normalMap, roughnessMap, roughness: roughnessMap ? 1 : (m.roughness ?? .85), metalness: 0, aoMap: aoMap ?? null, aoMapIntensity: m.ao ?? 1, vertexColors: true});
+        mat = new T.MeshStandardMaterial({color: m.color ?? '#ffffff', map, normalMap, roughnessMap, roughness: roughnessMap ? (m.roughnessScale ?? 1) : (m.roughness ?? .85), metalness: m.metalness ?? 0, aoMap: aoMap ?? null, aoMapIntensity: m.ao ?? 1, vertexColors: true});
         if (normalMap) mat.normalScale = new T.Vector2(m.normalScale ?? 1, m.normalScale ?? 1); mat.userData.source = 'cc0:' + m.set;
       } catch (e) { stats.fallbacks.push(`${key}: ${m.set} (${e.message ?? e})`); }
     } else if (m.set) stats.fallbacks.push(`${key}: ${m.set} not downloaded`);

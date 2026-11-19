@@ -389,6 +389,15 @@ if (spec.props?.length) { const {toyProp} = await import('../parts/sets4/props4.
 if (spec.signs?.length) { const {textPlate} = await import('../parts/sets4/common.js');
   for (const s of spec.signs) { const m = textPlate(s.text, {w: s.w, h: s.h, bg: s.color ?? '#f4efe2', fg: s.ink ?? '#1c1a17', border: s.border ?? null, lines: s.lines ?? null, name: 'sign_' + s.id});
     m.position.fromArray(s.at); if (s.face) m.lookAt(...s.face); else if (s.yaw !== undefined) m.rotation.y = s.yaw * Math.PI / 180; m.material.side = T.DoubleSide; scene.add(m); } }
+// Retention Engine Phase 5 (opt-in spec.mood = an engine/moods7.json key): post chain (engine/post7.js: AO, light shafts, DOF on
+// emotion/close shots, bloom, grade + AgX) and the mood's exposure. Tier by output size: ≥ 1080 wide = final (MSAA 4, AO, DOF), else previz.
+// spec.acts = [act II, act III, act IV start s] drives the per-act colour-temperature shift. A world built by parts/location.js applies
+// the mood's HDRI/fog/sun itself (engine/moods7.js moodLocation); world.sunDir feeds the light shafts.
+let MOOD = null, POST7 = null, postFor7 = null;
+if (spec.mood) { const [{createPost}, M7] = await Promise.all([import('./post7.js'), import('./moods7.js')]);
+  MOOD = (await (await fetch(new URL('./moods7.json', import.meta.url))).json())[spec.mood]; if (!MOOD) throw Error('unknown mood ' + spec.mood);
+  postFor7 = M7.postFor; renderer.toneMappingExposure = MOOD.exposure ?? 1;
+  POST7 = {final: createPost(renderer, scene, camera, {samples: 4}), previz: createPost(renderer, scene, camera, {samples: 0})}; }
 // E1 fix (opt-in spec.hide): set objects hidden by name (a story prop replaces them)
 for (const n of spec.hide ?? []) { const o = scene.getObjectByName(n); if (o) o.visible = false; else console.warn('spec.hide: no object ' + n); }
 const vecAt = (keys, t, d) => keys?.length ? d.map((v, i) => valueAt(keys.map(k => [k[0], k[1][i], k[2], k[3]]), t, v)) : d;
@@ -418,7 +427,7 @@ export function renderFrame(n, width = 720, height = 1280, nudge = 0) {
   if (!Number.isInteger(n) || n < 0 || n >= FRAMES) throw Error(`frame out of range: ${n}`);
   const t0 = performance.now();
   if (lastSize !== `${width}x${height}`) { renderer.setPixelRatio(1); renderer.setSize(width, height, false); lastSize = `${width}x${height}`; }
-  const shot = shots.findLast(s => n >= s.start), mf = motionFrame(n, shot, FPS), offs = LOOK5B ? blurOffsets(shot.move, P5B(shot.look ?? spec.look4).motionBlur) : [0];   // format v5: freeze / impact / step (shots without them: mf.anim = n)
+  const shot = shots.findLast(s => n >= s.start), mf = motionFrame(n, shot, FPS), offs = LOOK5B ? blurOffsets(shot.move, P5B(shot.look ?? spec.look4).motionBlur) : POST7 ? blurOffsets(shot.move, true) : [0];   // spec.mood: light blur on whips   // format v5: freeze / impact / step (shots without them: mf.anim = n)
   if (offs.length > 1) { const rts = offs.map((o, i) => blurTarget(i, width, height)); let c;
     offs.forEach((o, i) => { renderer.setRenderTarget(rts[i]); c = drawFrame(shot, mf, o, width, height, nudge); }); renderer.setRenderTarget(null); blendTargets(rts);
     effects.overlay((mf.anim) / FPS, camera, width / height); return finishFrame(n, shot, t0); }
@@ -429,9 +438,11 @@ export function renderFrame(n, width = 720, height = 1280, nudge = 0) {
 // Look 5b motion blur: two sub-frame targets, averaged by a fullscreen quad (only whip / crashZoom shots of a look5b spec).
 const blurRTs = [], blurQuad = (() => { const m = new T.ShaderMaterial({uniforms: {a: {value: null}, b: {value: null}}, vertexShader: 'varying vec2 vUv; void main(){ vUv = uv; gl_Position = vec4(position.xy, 0., 1.); }',
   fragmentShader: 'uniform sampler2D a; uniform sampler2D b; varying vec2 vUv; void main(){ gl_FragColor = .5 * (texture2D(a, vUv) + texture2D(b, vUv));\n#include <tonemapping_fragment>\n#include <colorspace_fragment>\n}', depthTest: false, depthWrite: false});   // linear HDR targets: tone map + encode once, after the average
-  const q = new T.Mesh(new T.PlaneGeometry(2, 2), m); q.frustumCulled = false; const sc = new T.Scene(); sc.add(q); return {m, sc, cam: new T.OrthographicCamera(-1, 1, 1, -1, 0, 1)}; })();
+  // spec.mood: post7 sub-frames are already tone-mapped + sRGB, so they are averaged as-is
+  const m7 = new T.ShaderMaterial({uniforms: {a: {value: null}, b: {value: null}}, vertexShader: m.vertexShader, fragmentShader: 'uniform sampler2D a; uniform sampler2D b; varying vec2 vUv; void main(){ gl_FragColor = .5 * (texture2D(a, vUv) + texture2D(b, vUv)); }', depthTest: false, depthWrite: false, toneMapped: false});
+  const q = new T.Mesh(new T.PlaneGeometry(2, 2), m); q.frustumCulled = false; const sc = new T.Scene(); sc.add(q); return {m, m7, q, sc, cam: new T.OrthographicCamera(-1, 1, 1, -1, 0, 1)}; })();
 function blurTarget(i, w, h) { if (!blurRTs[i] || blurRTs[i].width !== w || blurRTs[i].height !== h) { blurRTs[i]?.dispose(); blurRTs[i] = new T.WebGLRenderTarget(w, h, {type: T.HalfFloatType}); } return blurRTs[i]; }   // no MSAA: the average hides the stair-steps (cost)
-function blendTargets(rts) { blurQuad.m.uniforms.a.value = rts[0].texture; blurQuad.m.uniforms.b.value = rts[1].texture; renderer.render(blurQuad.sc, blurQuad.cam); }
+function blendTargets(rts) { const m = POST7 ? blurQuad.m7 : blurQuad.m; blurQuad.q.material = m; m.uniforms.a.value = rts[0].texture; m.uniforms.b.value = rts[1].texture; renderer.render(blurQuad.sc, blurQuad.cam); }
 function finishFrame(n, shot, t0) {
   const gl = renderer.getContext(); gl.readPixels(0, 0, 1, 1, gl.RGBA, gl.UNSIGNED_BYTE, new Uint8Array(4));   // forces the GPU work to finish, so ms is real
   if (gl.isContextLost()) throw Error('WebGL context lost');
@@ -457,7 +468,12 @@ function drawFrame(shot, mf, off, width, height, nudge) {
   scene.updateMatrixWorld(true); effects.apply(t, camera); fitTags(scene, camera, {maxFrac: shot.tagMaxFrac ?? .06});
   if (spec.readableUi ?? !!look?.v3) { scene.updateMatrixWorld(true); enforceReadable(scene, camera, {focus: shot.focusUi ?? []}); }   // A5 §C: min text size + safe area (v3 worlds; "Nobody" untouched)
   renderer.info.autoReset = false; renderer.info.reset();   // A4: overlay passes (weather, cards) must not reset the scene counts
-  if (c.split) renderSplit(c.split, width, height); else renderer.render(scene, camera);
+  if (c.split) renderSplit(c.split, width, height);
+  else if (POST7) { const tier = width >= 1080 ? 'final' : 'previz', P = POST7[tier], sp = shot.subject && actors[shot.subject];
+    const focus = sp ? camera.position.distanceTo(new T.Vector3(sp[0], sp[1] + 4, sp[2])) : camera.position.distanceTo(new T.Vector3(...tgt));
+    const set = postFor7(MOOD, {shot, t, acts: spec.acts, focus}); if (tier === 'previz') { set.ao = null; set.dof = null; }
+    P.setSize(width, height); P.render({...set, seed: mf.anim}, {sunDir: world?.sunDir ?? null}); }
+  else renderer.render(scene, camera);
   return c;
 }
 

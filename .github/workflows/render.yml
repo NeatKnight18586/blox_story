@@ -76,6 +76,8 @@ jobs:
         name: Split shots into balanced shards
         run: |
           n=6; [ "${{ steps.pick.outputs.preset }}" = "animatic" ] && n=1
+          # Retention Engine look (spec "mood"): ~8–15 s/frame at 1440 → 20 shards (the free-plan concurrency), each well under the 300-min job cap
+          if grep -q '"mood"' "stories/${{ steps.pick.outputs.story }}/episode.json" && [ "${{ steps.pick.outputs.preset }}" = "final" ]; then n=20; fi
           echo "matrix=$(node scripts/v2/shards.js --story '${{ steps.pick.outputs.story }}' --n $n)" >> "$GITHUB_OUTPUT"
 
   render:
@@ -100,6 +102,7 @@ jobs:
         run: |
           node scripts/v2/tex4.js; node scripts/v2/matcap4.js
           if grep -q '"lipFlap"' "stories/$STORY/episode.json"; then node scripts/v2/envelope.js --story "$STORY"; fi
+          if grep -q '"mood"' "stories/$STORY/episode.json"; then pip install --break-system-packages numpy pillow >/dev/null 2>&1 || pip install numpy pillow; python3 tools/fetch_look_assets.py; fi   # CC0 HDRIs + photo sets (Phase 5)
       - name: Render shard ${{ matrix.index }} (frames ${{ matrix.from }}–${{ matrix.to }})
         run: |
           if [ "$PRESET" = "animatic" ]; then size="--width 270 --height 480 --every 2 --aa 0"; else size="--final"; fi   # A2: finals native 1440×2560
