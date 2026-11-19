@@ -1474,3 +1474,19 @@ impacts use freeze/flash/snap). Lens mm = full-frame equivalent on the vertical 
 ≥ 1.0 s on screen (ruleui plate minimum). R-LEAK-02 keeps format v5's moving-shot cap 3.5 s. cast/hero.json note left unchanged (a
 data file feeds the render cache hash); BRAND.md records the supersession instead.
 Open: hero signature prop (Phase 4 proposes 3), brand accent (Phase 6), LOOK presets (Phase 5), the R-LOOP-01 metric (Phase 4).
+
+## Retention Engine Phase 2 (2026-11-19): episode spec + originality ledger
+Plan: 1. tools/validate_spec.py (schema as data, pure validate(), rule-ID errors, --allow logged to episodes/EPxx/qa/allow.log).
+2. Required: the owner's list + hook_type, twist_category, setting_era, world (variety + N-WORLD-01). 3. tools/variety_matrix.py →
+docs/VARIETY_MATRIX.md, flags repeats vs the previous 3. 4. episodes/_TEMPLATE/spec.yml, series.yml, docs/LENGTH_TIER.md, docs/STORY_BANK.md.
+5. Tests + fixtures (good, each rejection, deliberate duplicate); rule_ids, v2:test, npm test.
+Built: tools/validate_spec.py (23 required fields incl. hook_type/twist_category/setting_era/world; enums; checks R-STORY-01/02/03/06/07,
+R-HOOK-02, R-SIGN-01, R-HERO-01, R-LEN-01/03, N-WORLD-01 world reuse, R-ALGO-04 variety; --allow logged, MISSING/N-* not allowable);
+tools/variety_matrix.py → docs/VARIETY_MATRIX.md (empty: no EP specs yet); episodes/_TEMPLATE/spec.yml; series.yml; docs/LENGTH_TIER.md
+(`tier: 105-135`); docs/STORY_BANK.md (4 empty categories); tests/v2/test_spec.py (13) + fixtures specs/good.yml, variety/EP91–EP94.
+Checks: good spec PASS; deleted `inversion` → FAIL MISSING; 1 source → FAIL R-STORY-06; roblox 3.2 s → FAIL R-HOOK-02 (all exit 1);
+template → 28 FAIL; deliberate duplicate EP94 → FAIL R-ALGO-04 ×2 (hook_type = EP93, ending = EP91); matrix --check exit 1; rule_ids PASS.
+Decisions: "unrelated" = ≥ 2 distinct source titles (the owner judges relatedness); variety window = previous 3 by (season, episode);
+ending type = payoff_type (4 values → with a window of 3 the ending must rotate through all four; --allow R-ALGO-04 if the owner wants a
+repeat); setting_era free text, compared case/underscore-insensitively; Retention Engine episodes start at season 2 in series.yml;
+beats/reversal_at_s optional until the blocking pass.

@@ -1,0 +1,11 @@
+# series.yml: YouTube Shorts Series packaging (R-BRAND-07). One entry per episode, in playback order.
+# Retention Engine episodes start at season 2 (decision 2026-11-19; the owner can renumber). Season 1 = the pre-engine episodes.
+channel_series: "In This Town"
+seasons:
+  - season: 1
+    note: pre-Retention-Engine episodes (history; status as published by the owner)
+    episodes:
+      - {episode: 1, slug: egg, folder: null}
+      - {episode: 2, slug: toyhouse, folder: null}
+  - season: 2
+    episodes: []      # add {episode: n, slug: <slug>, folder: episodes/EPnn, title: ""} when a spec is created
