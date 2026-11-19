@@ -1,0 +1,39 @@
+{
+ "blender": "4.0.2",
+ "samples": 64,
+ "lightmapPx": 1024,
+ "buildSeconds": 0.01,
+ "bakeSeconds": {
+  "facadesL": 0.14,
+  "facadesR": 0.16,
+  "ground": 0.12
+ },
+ "totalBakeSeconds": 0.42,
+ "check": {
+  "facadesL": {
+   "result": [
+    "FINISHED"
+   ],
+   "meanR": 0.0,
+   "litFrac": 0.0
+  },
+  "facadesR": {
+   "result": [
+    "FINISHED"
+   ],
+   "meanR": 0.0,
+   "litFrac": 0.0
+  },
+  "ground": {
+   "result": [
+    "FINISHED"
+   ],
+   "meanR": 0.0,
+   "litFrac": 0.0
+  }
+ },
+ "note": "one-time per location (static light); episodes re-dress, so a bake is reused",
+ "valid": false,
+ "installSeconds": 46,
+ "verdict": "INVALID: Cycles bake returns an all-black lightmap in 0.15 s after 2 fix passes; not a cost number"
+}

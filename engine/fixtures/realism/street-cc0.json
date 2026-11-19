@@ -1,0 +1,106 @@
+{
+ "extends": "street-layout.json",
+ "name": "street-cc0",
+ "note": "CC0 version: Poly Haven photo-scan palette + grounded HDRI backdrop and env light.",
+ "backdrop": {
+  "type": "groundedSkybox",
+  "hdri": "street_late",
+  "height": 5,
+  "radius": 420,
+  "rotation": 0
+ },
+ "env": {
+  "intensity": 0.8
+ },
+ "exposure": 0.8,
+ "toneMapping": "Neutral",
+ "fog": {
+  "color": "auto",
+  "k": 0.75,
+  "near": 30,
+  "far": 230
+ },
+ "sun": {
+  "intensity": 2.6,
+  "color": "#ffd2a0",
+  "minEl": 24,
+  "shadow": {
+   "size": 1024
+  },
+  "shadowOpacity": 0.5
+ },
+ "bake": {
+  "cell": 0.5,
+  "aoDist": 4,
+  "aoMin": 0.4,
+  "shadow": 0.32,
+  "seg": 1.5
+ },
+ "materials": {
+  "ground": {
+   "set": "cobblestone",
+   "tile": 7,
+   "fallback": "cobble",
+   "procColor": "#b9b2a6"
+  },
+  "kerb": {
+   "set": "plaster",
+   "tile": 6,
+   "color": "#c9c4ba",
+   "fallback": "plaster"
+  },
+  "brickWall": {
+   "set": "brick",
+   "tile": 7,
+   "fallback": "brick",
+   "procColor": "#b5654a"
+  },
+  "plasterWall": {
+   "set": "plaster",
+   "tile": 8,
+   "color": "#efe3cf",
+   "fallback": "plaster",
+   "procColor": "#e8dcc4"
+  },
+  "base": {
+   "set": "cobblestone",
+   "tile": 5,
+   "color": "#9a948a",
+   "fallback": "cobble",
+   "procColor": "#9a948a"
+  },
+  "trim": {
+   "color": "#e9e2d2",
+   "roughness": 0.7
+  },
+  "glass": {
+   "color": "#1d2730",
+   "roughness": 0.08,
+   "metalness": 0.0
+  },
+  "door": {
+   "set": "planks",
+   "tile": 5,
+   "color": "#8a6648",
+   "fallback": "woodPlanks",
+   "procColor": "#8a5a3a"
+  },
+  "crate": {
+   "set": "planks",
+   "tile": 3,
+   "color": "#c49a6c",
+   "fallback": "woodPlanks",
+   "procColor": "#b0804e"
+  },
+  "metal": {
+   "color": "#2c2f33",
+   "roughness": 0.45,
+   "metalness": 0.6
+  },
+  "lampGlass": {
+   "color": "#ffe0a8",
+   "emissive": "#ffcf80",
+   "roughness": 0.3
+  }
+ }
+}
