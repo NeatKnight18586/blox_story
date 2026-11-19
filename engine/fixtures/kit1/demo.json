@@ -8,7 +8,7 @@
  "backdrop": {
   "hdri": "venice_sunset_1k.hdr",
   "height": 5,
-  "radius": 150,
+  "radius": 400,
   "intensity": 0.5,
   "rotation": 0
  },

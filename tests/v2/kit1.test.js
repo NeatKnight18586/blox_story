@@ -23,7 +23,8 @@ test('lowWide: camera 0.25 H high, full body 55-65 % of the frame, head and feet
     assert.ok(Math.abs(c0.position[1] - .25 * h) < 1e-9); assert.equal(c0.fov, 75);
     const head = project(c0, [A.pip[0], h, A.pip[2]]), feet = project(c0, [A.pip[0], 0, A.pip[2]]), frac = (head.y - feet.y) / 2;
     assert.ok(frac >= .55 && frac <= .65, `body ${frac}`); assert.ok(head.y < 1 && feet.y > -1, `head ${head.y} feet ${feet.y}`);
-    assert.ok(Math.abs(head.x) >= 1 / 3 && Math.abs(head.x) <= 1, `ndc ${head.x}`); assert.equal(Math.sign(head.x), side === 'left' ? -1 : 1);
+    const ctr = project(c0, [A.pip[0], h / 2, A.pip[2]]); assert.ok(Math.abs(Math.abs(ctr.x) - .34) < .01, `ndc ${ctr.x}`); for (const dx of [-.8, .8]) for (const y of [0, h]) { const q = project(c0, [A.pip[0] + dx, y, A.pip[2]]); assert.ok(Math.abs(q.x) < 1 && Math.abs(q.y) < 1, `bbox corner ${q.x} ${q.y}`); }
+    assert.equal(Math.sign(ctr.x), side === 'left' ? -1 : 1);
     const f = norm(sub(c0.target, c0.position)); assert.ok(Math.abs(Math.hypot(c0.target[0] - c0.position[0], c0.target[2] - c0.position[2]) - (c0.position[2] - A.pip[2] + 30 * h) * 1) < 1e-6 || true);
     assert.ok(Math.abs((c0.position[2] - c1.position[2]) / 2 - .05 * h) < 1e-9);
     assert.ok(f[1] > 0 && f[1] < .5);
@@ -34,8 +35,9 @@ test('scaleReveal: face >= 25 % of the frame at the start, actor 7-9 % at the en
   const s = {move: 'scaleReveal', actor: 'pip', duration: 2.5}, c0 = sampleCamera(s, 0, A), c1 = sampleCamera(s, 2.5, A), cm = sampleCamera(s, 1.25, A);
   const face = [A.pip[0], K1.scaleReveal.faceAt * H, A.pip[2]], fh = 1.1 / (2 * project(c0, face).d * Math.tan(25 * Math.PI / 180));
   assert.ok(fh >= .25, `face ${fh}`); assert.equal(c0.fov, 50);
-  const mid = [A.pip[0], H / 2, A.pip[2]], d1 = project(c1, mid).d, ah = H / (2 * d1 * Math.tan(25 * Math.PI / 180)); assert.ok(ah >= .07 && ah <= .09, `actor ${ah}`);
-  assert.ok(Math.abs(c1.position[1] - H / 2 - .4 * d1) < 8, `rise ${c1.position[1]} d ${d1}`); assert.ok(d1 > 60 && d1 < 80);
+  const mid = [A.pip[0], K1.scaleReveal.chestAt * H, A.pip[2]], d1 = project(c1, mid).d, ah = H / (2 * d1 * Math.tan(25 * Math.PI / 180)); assert.ok(ah >= .07 && ah <= .09, `actor ${ah}`);
+  assert.ok(Math.abs(c1.position[1] - mid[1] - .15 * d1) < 6, `rise ${c1.position[1]} d ${d1}`);
+  const f1 = norm(sub(c1.target, c1.position)), hz = [c1.position[0] + f1[0] * 1e6, c1.position[1], c1.position[2] + f1[2] * 1e6]; assert.ok(project(c1, hz).y > 0, 'horizon in the upper half'); assert.ok(d1 > 60 && d1 < 80);
   assert.ok(Math.abs(cm.position[2] - (c0.position[2] + c1.position[2]) / 2) < 1e-9);
   assert.ok(Math.abs(sampleCamera(s, .05, A).position[2] - c0.position[2]) < Math.abs(sampleCamera(s, 1.25, A).position[2] - c0.position[2]) * .02);
 });

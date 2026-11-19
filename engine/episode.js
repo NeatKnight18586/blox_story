@@ -116,10 +116,11 @@ if (spec.world) {
 }
 // Kit 1 (opt-in spec.backdrop {hdri, height 5, radius 400, intensity .7, rotation 0}): a grounded photo sky from assets/hdri/<hdri> (parts/location.js
 // groundedSky). It becomes scene.environment only when the look has none. Specs without "backdrop" take none of this.
+let BD = null;   // Kit 1c: per-frame backdrop hooks (sky follows the camera, distance cull, per-actor rim)
 if (spec.backdrop) {
   const bd = {height: 5, radius: 400, intensity: .7, rotation: 0, ...spec.backdrop}, {sky, hdr} = await groundedSky(T, renderer, new URL('../assets/hdri/' + bd.hdri, import.meta.url).href, bd);
-  camera.far = 160; camera.updateProjectionMatrix();   // Kit 1b: far street geometry is culled, so the (smaller, radius ≤ 160) photo sky shows
-  scene.add(sky); if (!scene.environment) { scene.environment = new T.PMREMGenerator(renderer).fromEquirectangular(hdr).texture; scene.environmentRotation.y = bd.rotation * Math.PI / 180; }
+  camera.far = 500; camera.updateProjectionMatrix();   // Kit 1c: sky radius 400 follows the camera; world meshes > 160 from it are hidden per frame
+  BD = {sky, cull: [], rims: {}}; scene.add(sky); if (!scene.environment) { scene.environment = new T.PMREMGenerator(renderer).fromEquirectangular(hdr).texture; scene.environmentRotation.y = bd.rotation * Math.PI / 180; }
 }
 const anchors = world?.anchors ?? {};
 // Anchor-relative vectors: {anchor: 'square', offset: [x, y, z]} → world position.
@@ -206,9 +207,22 @@ if (LOOK5B) {
 }
 // Kit 1: under a backdrop every actor gets the look5b fresnel rim (strength .6) and the +0.3 EV actor lift (look5b DEFAULTS.actorEV), per-actor material clones.
 if (spec.backdrop && !LOOK5B) {
-  const p = L5B.params(null), U = L5B.makeUniforms({...p, rim: {...p.rim, strength: .6}}), own = new Map();
-  const mine = m => Array.isArray(m) ? m.map(mine) : !m || m.isMeshBasicMaterial || m.isSpriteMaterial ? m : (own.has(m) ? own : own.set(m, L5B.patchActor(m.clone(), U))).get(m);
-  for (const x of Object.values(cast)) if (x.v2) x.a.root.traverse(o => { if (!o.isMesh) return; if (o.name === 'face_decal') for (const m of [].concat(o.material)) L5B.patchDecal(m, U); else o.material = mine(o.material); });
+  const p = L5B.params(null), own = new Map();   // Kit 1c: per-actor uniforms, so a scaleReveal subject gets rim .9 and the others .6
+  for (const [name, x] of Object.entries(cast)) if (x.v2) {
+    const U = L5B.makeUniforms({...p, rim: {...p.rim, strength: .6}}); BD.rims[name] = U.uRim;
+    const mine = m => Array.isArray(m) ? m.map(mine) : !m || m.isMeshBasicMaterial || m.isSpriteMaterial ? m : (own.has(m) ? own : own.set(m, L5B.patchActor(m.clone(), U))).get(m);
+    x.a.root.traverse(o => { if (!o.isMesh) return; if (o.name === 'face_decal') for (const m of [].concat(o.material)) L5B.patchDecal(m, U); else o.material = mine(o.material); });
+  }
+}
+if (BD) {   // Kit 1c: world meshes (not actors, sky, catcher) with their world bounding-sphere centres, hidden when > 160 units from the camera
+  const roots = Object.values(cast).map(x => x.a?.root).filter(Boolean), inActor = o => roots.some(r => { for (let q = o; q; q = q.parent) if (q === r) return true; return false; });
+  scene.updateMatrixWorld(true);
+  scene.traverse(o => { if (!o.isMesh || o === BD.sky || o.name === 'shadowCatcher' || o.name === 'groundedSkybox' || o.userData.live || inActor(o)) return;
+    if (!o.geometry.boundingSphere) o.geometry.computeBoundingSphere(); BD.cull.push({o, c: o.geometry.boundingSphere.center.clone().applyMatrix4(o.matrixWorld)}); });
+  BD.pre = (cam, shot) => { BD.sky.position.x = cam.position.x; BD.sky.position.z = cam.position.z; const hid = [];
+    for (const e of BD.cull) if (e.o.visible && e.c.distanceTo(cam.position) > 160) { e.o.visible = false; hid.push(e.o); }
+    for (const [n, u] of Object.entries(BD.rims)) u.value = shot?.move === 'scaleReveal' && (shot.subject ?? shot.actor) === n ? .9 : .6;
+    return () => { for (const o of hid) o.visible = true; }; };
 }
 function apply5b(shot) {
   if (!LOOK5B) return; const p = P5B(shot.look ?? spec.look4);   // E1 fix 2 (opt-in per shot): shot.rim {color, strength, power, away}, shot.actorEV
@@ -467,7 +481,9 @@ function drawFrame(shot, mf, off, width, height, nudge) {
   scene.updateMatrixWorld(true); effects.apply(t, camera); fitTags(scene, camera, {maxFrac: shot.tagMaxFrac ?? .06});
   if (spec.readableUi ?? !!look?.v3) { scene.updateMatrixWorld(true); enforceReadable(scene, camera, {focus: shot.focusUi ?? []}); }   // A5 §C: min text size + safe area (v3 worlds; "Nobody" untouched)
   renderer.info.autoReset = false; renderer.info.reset();   // A4: overlay passes (weather, cards) must not reset the scene counts
+  const undoBD = BD?.pre(camera, shot);
   if (c.split) renderSplit(c.split, width, height); else renderer.render(scene, camera);
+  undoBD?.();
   return c;
 }
 

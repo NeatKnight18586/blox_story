@@ -21,7 +21,7 @@ MOVES.push(...MOVES5);
 // Kit 1 signature cameras (opt-in by name): lowWide · scaleReveal · povScope (sampleMoveK1, below).
 export const MOVES_K1 = ['lowWide', 'scaleReveal', 'povScope'];
 MOVES.push(...MOVES_K1);
-export const K1 = {lowWide: {hFrac: .25, fov: 75, body: .6, ndcX: .6, look: 30, push: .05}, scaleReveal: {fov: 50, startFace: .27, endActor: .08, liftFrac: .4, faceSpan: 1.1, faceAt: .93, H: 5.3},
+export const K1 = {lowWide: {hFrac: .25, fov: 75, body: .6, ndcX: .34, look: 30, push: .05}, scaleReveal: {fov: 50, startFace: .27, endActor: .08, liftFrac: .15, chestAt: .7, faceSpan: 1.1, faceAt: .93, H: 5.3},
   povScope: {push: .03, swayDeg: 1.5, swayPeriod: 3, fov: 20, forward: .9, headAt: .93, H: 5.3, range: 60}};
 export const CRASH = {frames: 5, overshoot: .06, push: .04, aimY: 3.0};   // aimY: the subject's aim point above its mark (a kid's face)       // crashZoom: fov from→to in 5 frames with a 6 % overshoot, 4 % dolly in
 export const TOPDOWN = {tiltDeg: 3, degrees: 40};                  // topDown: ~straight down (3° off so 'up' stays defined), slow turn
@@ -228,7 +228,7 @@ export const speedOk = (shot, actorsAt, fps) => shot.move === 'whip' || shot.mov
 
 // ---- Kit 1 signature cameras (pure) ----------------------------------------------------------------------------------------
 // lowWide {actor, side: 'left'|'right', dir: [x, z] down the street (default −z)}: camera 0.8 high, fov 75, the actor 2.0 units from the lens
-//   at the centre of the outer third (NDC x ±0.6), looking 30 units beyond the actor along `dir`, tilted up K1.lowWide.pitchDeg (20°: at 2 units a 5 unit actor is all legs otherwise); creeps 0.25 units/s along `dir`.
+//   on the 1/3 line (NDC x ±0.34 = ±0.17 of the frame width from the centre), looking 30 units beyond the actor along `dir`, tilted up K1.lowWide.pitchDeg (20°: at 2 units a 5 unit actor is all legs otherwise); creeps 0.25 units/s along `dir`.
 // scaleReveal {actor, h}: starts with the face 27 % of the frame height (fov 50) and ends with the actor 7.5 % (≤ 8 %), pulling straight
 //   back along the first view axis and rising K1.scaleReveal.lift (12) units while the target stays on the actor; inOutSine.
 // povScope {actor, dir: [x, z] or [x, y, z]}: the camera sits at the actor's head, forward of it along `dir`, fov 20, looking along `dir`
@@ -239,12 +239,12 @@ export function sampleMoveK1(shot, localT, actorPositions = {}) {
   const d2 = v => norm(v.length === 2 ? [v[0], 0, v[1]] : v);
   if (shot.move === 'lowWide') {   // Kit 1b: framing math from the actor height H
     const C = K1.lowWide, H = shot.h ?? K1.scaleReveal.H, dir = d2(shot.dir ?? [0, -1]), right = norm([-dir[2], 0, dir[0]]), sgn = shot.side === 'left' ? -1 : 1, g = shot.ground ?? 0;
-    const d0 = fitDistance(H, C.body, C.fov), d = d0 - C.push * H * localT, lat = C.ndcX * d0 * Math.tan(C.fov * Math.PI / 360) * ASPECT * sgn, camY = g + C.hFrac * H;
+    const d0 = fitDistance(H, C.body, C.fov), d = d0 - C.push * H * localT, lat = C.ndcX * Math.hypot(d0, H / 2 - C.hFrac * H) * Math.tan(C.fov * Math.PI / 360) * ASPECT * sgn, camY = g + C.hFrac * H;
     const cam = add([a[0], camY, a[2]], add(scale(dir, -d), scale(right, -lat))), pitch = Math.atan2(a[1] + g + H / 2 - camY, d0), far = d + C.look * H;   // pitch: aim at the body centre, so head and feet stay in frame
     return {position: cam, target: [cam[0] + dir[0] * far, camY + far * Math.tan(pitch), cam[2] + dir[2] * far], fov: C.fov, roll: 0};
   }
   if (shot.move === 'scaleReveal') {
-    const C = K1.scaleReveal, H = shot.h ?? C.H, u = EASE.inOutSine(clamp01(localT / dur)), face = [a[0], a[1] + C.faceAt * H, a[2]], mid = [a[0], a[1] + H / 2, a[2]];
+    const C = K1.scaleReveal, H = shot.h ?? C.H, u = EASE.inOutSine(clamp01(localT / dur)), face = [a[0], a[1] + C.faceAt * H, a[2]], mid = [a[0], a[1] + C.chestAt * H, a[2]];   // the look point settles at chest height
     const d0 = fitDistance(C.faceSpan, C.startFace, C.fov), d1 = fitDistance(H, C.endActor, C.fov), rise = C.liftFrac * d1, ax = norm(d2(shot.dir ?? [0, 1]).map((v, i) => i === 1 ? .08 : v));
     const p0 = add(face, scale(ax, d0)), p1 = add(add(mid, scale(ax, Math.sqrt(d1 * d1 - rise * rise))), [0, rise, 0]);   // slant distance = d1: the actor is exactly 8 % of the frame
     return {position: lerp3(p0, p1, u), target: lerp3(face, mid, u), fov: C.fov, roll: 0};

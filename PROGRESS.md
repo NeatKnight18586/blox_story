@@ -1468,3 +1468,6 @@ Open: K2 localContrast 0.04 < 0.35 (needs a rim/lift or background change, not t
 ## Kit 1b (fix Kit 1)
 lowWide/scaleReveal framing from actor height H, povScope push + sway, demo `look4: comedy`, camera.far 160 under backdrop (demo radius 150, intensity 0.5). Tests 172 + 63 green; "Nobody" 11 frames identical. localContrast @0.7/0.6/0.5: K1 .45/.49/.55, K2 (first 15 %) .14/.14/.13, K3 3.6+. Bench 1080: .32/.49/.53 s, triangles 100.7k/140.2k/94.6k (> 90k).
 Open: K2 contrast < 0.35 at every intensity; triangle count over 90k in all shots (frustum count ignores far 160).
+
+## Kit 1c
+Backdrop sky follows the camera (radius 400, far 500), world meshes > 160 from the camera hidden per frame, lowWide on the 1/3 line (NDC ±0.34), scaleReveal rise 0.15 × end distance, look point at chest (0.7 H), rim 0.9 for the scaleReveal subject. Bench gate for backdrop specs = time only (V4.md). Tests 172 + 63 green, "Nobody" identical. Bench 1080: .34/.53/.57 s (mean .48 ≤ .69 PASS), triangles 100.7k/140.3k/94.6k reported. localContrast @0.7/0.6/0.5: K1 .31/.35/.40, K2 (first 15 %) .15/.13/.11, K3 .004/.07/.17. Open: K2 and K3 below 0.35 at intensity 0.5 (demo value); stopped per rule.
