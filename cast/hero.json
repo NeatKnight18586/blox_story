@@ -1,5 +1,5 @@
 {
- "note": "Format v4 (owner, 2026-11-15): the hero, slot HERO, in every episode from 2 on. Actor v5 (classic R6), first-person narrator. Bare yellow head, no hair: the signature. Open charcoal jacket (#2B2D33, lapel and collar edges #4A4E57) over a royal-blue strip, no logo or text; charcoal sleeves and yellow hands; sage trousers with flat black shoes. Our own design.",
+ "note": "Format v4 (owner, 2026-11-15): the hero, slot HERO, in every episode from 2 on. Actor v5 (classic R6), third-person narration (N-VO-03, 2026-11-19; was first person). Bare yellow head, no hair: the signature. Open charcoal jacket (#2B2D33, lapel and collar edges #4A4E57) over a royal-blue strip, no logo or text; charcoal sleeves and yellow hands; sage trousers with flat black shoes. Our own design.",
  "HERO": {
   "tier": "hero",
   "body": "v5",
@@ -39,6 +39,16 @@
    "hero_rage",
    "hero_soft"
   ],
-  "build": "adult_m"
+  "build": "adult_m",
+  "accessories": [
+   {
+    "name": "stormLantern"
+   }
+  ]
+ },
+ "signature": {
+  "prop": "stormLantern",
+  "colour": "#22d3c0",
+  "note": "Owner pick A (2026-11-19): teal storm-lantern clipped to the left hip, on screen in 0-3 s every episode (R-BRAND-03). Episode spec: \"signature\": {\"prop\": \"lantern\"} and the shots that show it list \"lantern\" in see. Night moods: accessory option light (moods7.json lantern)."
  }
 }

@@ -5,7 +5,7 @@ import * as T from 'three';
 import {plastic, HEAD} from './body.js';
 import {eggMesh, EGG_R} from '../parts/eggs.js';
 
-export const ACCESSORIES = ['crown', 'helmet', 'hood', 'strawHat', 'scarf', 'cape', 'backpack', 'chefHat', 'featherCap', 'goggles', 'topHat', 'skiMask', 'mailBag', 'mailBagEggs', 'topHatTilt', 'beanie', 'headset', 'droneBack', 'gummyChest', 'gummyChest2', 'droneBack2'];
+export const ACCESSORIES = ['crown', 'helmet', 'hood', 'strawHat', 'scarf', 'cape', 'backpack', 'chefHat', 'featherCap', 'goggles', 'topHat', 'skiMask', 'mailBag', 'mailBagEggs', 'topHatTilt', 'beanie', 'headset', 'droneBack', 'gummyChest', 'gummyChest2', 'droneBack2', 'stormLantern'];
 const HEAD_ITEMS = new Set(['headset', 'crown', 'helmet', 'hood', 'strawHat', 'chefHat', 'featherCap', 'goggles', 'topHat', 'skiMask', 'topHatTilt', 'beanie']);
 const geo = new Map();
 const g = (k, f) => { if (!geo.has(k)) geo.set(k, f()); return geo.get(k); };
@@ -140,6 +140,22 @@ const BUILD = {
     for (const [x, y] of [[-1, 1], [1, 1], [-1, -1], [1, -1]]) { put(grp, g('db2_arm', () => new T.BoxGeometry(1.0, .12, .14)), dk, [x * .5, 3.1 + y * .42, -.85], [0, 0, x * y * Math.PI / 4]);
       put(grp, g('db2_rotor', () => new T.BoxGeometry(.9, .05, .14)), r, [x * .92, 3.1 + y * .78, -1.05], [Math.PI / 2, 0, x * y * .6]); put(grp, g('db2_rotor', () => new T.BoxGeometry(.9, .05, .14)), r, [x * .92, 3.1 + y * .78, -1.09], [Math.PI / 2, 0, x * y * .6 + Math.PI / 2]); }   // second blade .04 behind (no coplanar faces)
     put(grp, g('db_tape', () => new T.BoxGeometry(2.2, .2, 1.3)), flat('#d8dce2'), [0, 3.0, -.2]); return grp; },
+  // Retention Engine signature prop (owner pick A, 2026-11-19): the hero's teal storm-lantern, clipped to the left hip (R-BRAND-03).
+  // Glass is unlit and > 1.0 in linear light, so post7 bloom catches it; o.light adds a small teal point light (night moods).
+  stormLantern(o) {
+    const grp = new T.Group(), frame = flat(o.frame ?? '#2a2d31'), brass = flat('#9c7a3c'), teal = new T.Color(o.color ?? '#22d3c0');
+    const glow = new T.MeshBasicMaterial({color: teal.clone().multiplyScalar(o.glow ?? 2.2), toneMapped: true});
+    const at = [o.side === 'right' ? -.78 : .78, 1.62, .48];   // R6 body coords: left hip, front of the belt line
+    const L = new T.Group(); L.position.set(...at); L.rotation.z = (o.side === 'right' ? -1 : 1) * .06; grp.add(L);
+    put(L, g('lan_base', () => new T.BoxGeometry(.5, .1, .5)), frame, [0, -.36, 0]);
+    put(L, g('lan_glass', () => new T.BoxGeometry(.38, .56, .38)), glow, [0, -.02, 0], [0, 0, 0], 'lantern_glass');
+    for (const [x, z] of [[-1, -1], [1, -1], [-1, 1], [1, 1]]) put(L, g('lan_bar', () => new T.BoxGeometry(.06, .62, .06)), frame, [x * .21, -.02, z * .21]);
+    put(L, g('lan_cap', () => new T.CylinderGeometry(.12, .3, .16, 8)), frame, [0, .34, 0]);
+    put(L, g('lan_ring', () => new T.TorusGeometry(.14, .03, 6, 14)), brass, [0, .52, 0]);
+    put(L, g('lan_clip', () => new T.BoxGeometry(.12, .3, .08)), brass, [0, .7, -.08]);
+    if (o.light) { const p = new T.PointLight(teal, o.light, 6, 2); p.position.set(0, 0, .1); L.add(p); }
+    grp.userData.signature = 'lantern'; return grp;
+  },
   backpack(o) {
     const grp = new T.Group(), m = flat(o.color ?? '#8a5a35'), strap = flat('#4a3222');
     put(grp, g('pack', () => new T.BoxGeometry(1.4, 1.5, .6)), m, [0, 3.0, -.8]);
