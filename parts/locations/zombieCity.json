@@ -5,7 +5,7 @@
  "backdrop": {
   "type": "sky",
   "top": "#141C32",
-  "horizon": "#3A4660",
+  "horizon": "#1B2A4A",
   "ground": "#141A24",
   "radius": 420
  },
@@ -67,7 +67,7 @@
    "roughness": 0.7
   },
   "glass": {
-   "color": "#0E121A",
+   "color": "#1A2232",
    "roughness": 0.08,
    "metalness": 0
   },

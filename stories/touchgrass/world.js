@@ -7,6 +7,9 @@
 // Actor dressing (opt-in spec.decorate): decorate(a, name, preset, c) once; poseActor(a, name, t, c) per frame (pure in t):
 //   c.hs = [[t, 'head' | 'hand' | 'none']] headset on the head / in the right hand · c.visor = [[t, 'on' | 'off']] visor strip
 //   c.can = [[t, 'hand' | 'none']] NOVA's watering can · c.canTilt = [[t, deg, 'ramp'?]] pour tilt (spout forward and down)
+// E2 (owner fix round): dragonPeaks + zombieCity sky domes ride with the camera (radius 420 < far 900; drawn first, no depth), dragonPeaks
+//   sun disc 600 out along the location sun; LEO gets a neutral rim (#E8ECF2, .6); c.visorLight = [[t0, t1]] cyan point light (#49D9FF,
+//   range 1.5) at LEO's visor.
 import * as T from 'three';
 import {buildLocation, mergeLocation} from '../../parts/location.js';
 import {PROPS7, placeProps, attachHeadset, headset, wateringCan, armor, rimCrowd, visorBand} from '../../parts/sets4/props7.js';
@@ -47,6 +50,9 @@ export async function preload(base, {scene, renderer, spec}) {
     if (!worlds[name]) { worlds[name] = new T.Group(); worlds[name].name = 'world:' + name; worlds[name].position.set(...OFF[name]); scene.add(worlds[name]); worlds[name].userData.loc = loc; }
   }
   if (typeof window !== 'undefined') window.__tgSun = Object.fromEntries(Object.entries(envs).map(([k, e]) => [k, e.sunDir]));
+  for (const e of Object.values(envs)) e.grp.traverse(o => { if (o.name === 'groundedSkybox') { o.material.transparent = true; o.material.opacity = 1; o.renderOrder = -20; } });   // E2: the backdrop is never 'in front' (read check 2); first in the blended pass
+  const domes = {}; for (const k of ['zombieCity', 'dragonPeaks']) { const d = envs[k].grp.getObjectByName('skyDome'); if (d) { d.renderOrder = -10; d.frustumCulled = false; domes[k] = d; } }
+  const sd = envs.dragonPeaks.sunDir, sun = PROPS7.sunSphere({r: 24, color: '#FFE6B0', glow: [255, 176, 112], glowScale: 5.5}); sun.name = 'dragonSun'; sun.traverse(o => { if (o !== sun) o.renderOrder = -9; o.frustumCulled = false; });   // the group keeps order 0 (a group's renderOrder becomes its children's groupOrder) envs.dragonPeaks.grp.add(sun);
   // location props (story props come from spec.props): dustTown loses the grass + birdhouse and Leo's porch moves to the yard;
   // dragonPeaks loses the sword stone; space loses its ships
   const movers = [];
@@ -80,12 +86,12 @@ export async function preload(base, {scene, renderer, spec}) {
   // friends on the plateau ring (cast knight / robot / mage stand in their own spots)
   const F = ['FRIEND_KNIGHT', 'FRIEND_ROBOT', 'FRIEND_NINJA', 'FRIEND_ASTRO', 'FRIEND_PIRATE', 'FRIEND_MAGE', 'BRO'], castSpots = (spec?.tgCastSpots?.dragonPeaks ?? []);
   const friends = crowd(worlds.dragonPeaks, 'FRIENDS', AN.dragonPeaks.friends100.filter(p => Math.hypot(p[0], p[2]) > 4.5 && !castSpots.some(c => Math.hypot(c[0] - p[0], c[2] - p[2]) < 2.6))
-    .map((p, i) => actor(F[i % F.length], {at: p, yaw: Math.atan2(-p[0], -p[2]), pose: 'cheer', t: i * .13})));
+    .map((p, i) => actor(F[i % F.length], {at: p, yaw: Math.atan2(-p[0], -p[2]), pose: 'cheer', t: i * .13})), a => unBlack(a.root));
   // sky cracks (static while shown): zombie sky, space, dragon sky behind the boss
   const crack = (W, at, h, w, seed, rotY = 0) => { const c = PROPS7.skyCrack({h, w, seed}); c.position.set(...at); c.rotation.y = rotY; c.visible = false; W.add(c); return c; };
   const cracks = {crackZ: crack(worlds.zombieCity, [0, 62, -80], 70, 18, 4), crackS: crack(worlds.space, [0, 30, -110], 80, 22, 7), crackD: crack(worlds.dragonPeaks, [-10, 300, -520], 260, 60, 9)};
   for (const c of Object.values(cracks)) c.traverse(o => { o.userData.live = true; });
-  S = {scene, renderer, envs, worlds, movers, seated, circle, zstate, friends, cracks, zbase: zstate.map(g => g.position.z), t: 0, active: null};
+  S = {scene, renderer, envs, worlds, movers, seated, circle, zstate, friends, cracks, zbase: zstate.map(g => g.position.z), t: 0, active: null, domes, sun, sunDir: sd};
 }
 
 export function build(scene, {look}) {
@@ -105,6 +111,8 @@ function onCamera(pos) {
   const name = WORLD_AT(pos[0]), key = name === 'dustTown' ? `dustTown.${S.t >= GOLD_AT - 1e-6 ? 'dustGold' : 'dustGray'}` : name;
   for (const [k, e] of Object.entries(S.envs)) e.grp.visible = k === key;
   for (const [n, W] of Object.entries(S.worlds)) W.visible = n === name;
+  const d = S.domes[name]; if (d) d.position.set(pos[0] - OFF[name][0], pos[1] - OFF[name][1], pos[2] - OFF[name][2]);   // E2: the sky rides with the camera
+  if (name === 'dragonPeaks') { const v = S.sunDir; S.sun.position.set(pos[0] - OFF[name][0] + v[0] * 600, pos[1] + v[1] * 600, pos[2] - OFF[name][2] + v[2] * 600); }
   if (S.active === key) return; S.active = key;
   const e = S.envs[key], scene = S.scene;
   scene.environment = e.env; scene.environmentIntensity = e.envI; scene.environmentRotation.y = e.envRot; scene.background = e.bg; scene.backgroundRotation.y = e.bgRot;
@@ -119,14 +127,25 @@ export function decorate(a, name, pre, c) {
     const hh = headset({state: 'on'}); hh.name = name + '_headsetHand'; hh.position.set(HAND[0], HAND[1] - .12, HAND[2] + .32); hh.rotation.set(-Math.PI / 2, 0, 0); hh.visible = false; a.pivots.rightShoulder.add(hh);
     a.dress = {...a.dress, hs, hh}; }
   if (pre.armor) { a.root.updateMatrixWorld(true); armor(a, pre.armor); }
+  if (c.visorLight && a.dress?.hs) { const hs = a.dress.hs, L = new T.PointLight('#49D9FF', 0, 1.5, 1.2); L.name = name + '_visorLight'; L.visible = false;   // E2 (owner): cyan spill on the face (shot 13)
+    L.position.set(0, -.12, hs.userData.backZ + .5); hs.add(L); a.dress = {...a.dress, vl: L}; }
   if (pre.glowSword && a.tool) a.tool.traverse(o => { if (o.isMesh && (o.name === 'blade' || (o.geometry?.parameters?.height ?? 0) > 1 || o.geometry?.type === 'ConeGeometry')) { o.material = o.material.clone(); o.material.emissive = new T.Color(pre.glowSword); o.material.emissiveIntensity = 1.2; } });   // the blade + tip glow
   if (c.tap) { const f = PROPS7.giantFinger({}); f.scale.setScalar(.14); f.rotation.x = Math.PI / 2; f.name = 'NOVA_tapFinger'; f.visible = false; a.root.parent.add(f); a.dress = {...a.dress, tap: f}; }   // NOVA's finger on Leo's headset (24)
   if (c.can) { const holder = new T.Group(), can = wateringCan(); can.scale.setScalar(.6); can.position.set(.12 * .6, -1.07 * .6, 0); holder.add(can); holder.position.set(...HAND);
     holder.name = name + '_can'; can.name = 'wateringCan'; a.pivots.rightShoulder.add(holder); a.tool = holder; a.dress = {...a.dress, can: holder}; }
+  if (name === 'BRO') unBlack(a.root);   // E2 gate pass 2 (P8): goggles / visor off pure black
+  if (name === 'LEO') { rimCrowd(a.root, {color: '#E8ECF2', strength: .6}, L5B);   // E2 (owner): LEO only appears in dustTown
+    a.root.traverse(o => { if (o.isMesh) for (const m of [].concat(o.material)) if (m?.userData?.look5b) m.clone = keepRimClone; }); }   // a per-shot subjectLift clone keeps the rim
 }
+// E2 (P8 black void): materials darker than #22252B (luma) are lifted to it, on clones (VR friends crowd, BRO's goggles)
+function unBlack(root) { const own = new Map(), floor = new T.Color('#22252B'), L = c => .2126 * c.r + .7152 * c.g + .0722 * c.b;
+  root.traverse(o => { if (!o.isMesh || o.name === 'face_decal') return; const one = m => { if (!m?.color || L(m.color) >= L(floor) || m.vertexColors) return m; if (!own.has(m)) { const c = m.clone(); c.color.copy(floor); own.set(m, c); } return own.get(m); };
+    o.material = Array.isArray(o.material) ? o.material.map(one) : one(o.material); }); }
+function keepRimClone() { const c = new this.constructor().copy(this); c.onBeforeCompile = this.onBeforeCompile; c.customProgramCacheKey = this.customProgramCacheKey; c.clone = keepRimClone; return c; }
 export function poseActor(a, name, t, c) {
   const d = a.dress; if (!d) return;
   if (d.hs && c.hs) { const s = valueAt(c.hs, t, 'head'); d.hs.visible = s === 'head'; d.hh.visible = s === 'hand'; }
+  if (d.vl) { const on = (c.visorLight ?? []).some(([a0, a1]) => t >= a0 && t < a1); d.vl.visible = on; d.vl.intensity = on ? (c.visorLightI ?? 1.2) : 0; }
   if (d.hs && c.visor) { const v = valueAt(c.visor, t, 'on'); if (d.hs.userData.state !== v) d.hs.userData.setState(v); if (d.hh.userData.state !== v) d.hh.userData.setState(v); }
   if (d.tap) { const [t0, t1] = c.tapVis, on = t >= t0 && t < t1; d.tap.visible = on;
     if (on) {   // tip on the headset's +z side at the contact frames (gap 0 for 2 frames), .55 away between taps (pure in t)

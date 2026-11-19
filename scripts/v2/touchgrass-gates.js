@@ -13,6 +13,10 @@
 //     screen ≤ .15 (mid frame); dustTown shots from 77.74 — ground mean R / mean B ≥ 1.25 (shots with ≥ 1 % ground pixels).
 //  P10 finger scale (26 28 33 39): finger box ≥ 60 % of frame height, or its world height ≥ 20 × the nearest actor's height (mid).
 //  P11 continuity: LEO's headset on him in 11 (hand) and on his head 12–23; off his head from 57.28; NOVA's can in hand in 08 09 44 49.
+//  P12 (E2, owner) giant finger (25 26 28 33 34 39 40, mid frame): the finger's visible pixels (depth-tested id pass: finger white, every
+//     other mesh black; particles / sprites / blended layers off) span ≥ 40 % of frame height, start at the top edge (enters through the
+//     crack), end ≤ 70 % down (the owner's 40–70 % box), and ≥ 98 % of the finger's own silhouette is visible (nothing in front).
+//  P9 (E2, owner): the headset / NOVA / grass / screen exclusion mask is dilated 2 px (headset edge pixels excluded too).
 import {readFileSync} from 'node:fs';
 import {mkdir, writeFile} from 'node:fs/promises';
 import {startServer} from './server.js';
@@ -21,7 +25,7 @@ import {layoutShots} from '../../engine/timeline.js';
 
 const argv = process.argv.slice(2), arg = (k, d) => { const i = argv.indexOf(`--${k}`); return i >= 0 ? argv[i + 1] : d; };
 const specPath = arg('spec', 'stories/touchgrass/episode.json'), spec = JSON.parse(readFileSync(specPath, 'utf8')), FPS = spec.fps;
-const only = new Set((arg('only', 'p1,p3,p5,p6,p8,p9,p10,p11') + (argv.includes('--floor') ? ',p4' : '')).split(','));
+const only = new Set((arg('only', 'p1,p3,p5,p6,p8,p9,p10,p11,p12') + (argv.includes('--floor') ? ',p4' : '')).split(','));
 const shots = layoutShots(spec), W = 270, H = 480, GOLD = 77.74;
 const TOUCH = {LEO: ['leoCrate', 'grass', 'leoFinger', 'hsDirt'], LEO_VR: ['sword', 'leoShip'], NOVA: ['grass', 'hsDirt'], TOWN_A: [], TOWN_B: [], TOWN_C: []};
 const NOPRINT = /^(finger[ZSD]|enemy\d|tumbleweed)$/;
@@ -44,7 +48,7 @@ window.__tg = window.__tg ?? (() => { const E = window.__episode, sc = E.debug.s
     const bg = sc.background, fog = sc.fog, mm = new MB({color: '#ffffff'}); sc.background = null; sc.fog = null; sc.overrideMaterial = mm; R.render(sc, cam);
     const px = rgba(w, h); sc.overrideMaterial = null; sc.background = bg; sc.fog = fog; for (const o of hid) o.visible = true; const m = new Uint8Array(w * h); for (let i = 0; i < w * h; i++) m[i] = px[i * 4] > 127 ? 1 : 0; return m; };
   const under = (o, r) => { for (let p = o; p; p = p.parent) if (p === r) return true; return false; };
-  return {E, sc, cam, box, rgba, mask, under, vis}; })();`;
+  return {E, sc, cam, box, rgba, mask, under, vis, MB}; })();`;
 try {
   const page = await browser.newPage(); const perr = []; page.on('pageerror', e => perr.push(e.message));
   await page.goto(`${server.url}/engine/episode.html?spec=${encodeURIComponent(specPath)}&aa=0`);
@@ -65,7 +69,7 @@ try {
     if (p1.glowPx < 30) E('P1', `01 visor glow ${p1.glowPx} cyan px at frame 0 (≥ 30)`);
   }
   const rows = [];
-  if (['p3', 'p6', 'p8', 'p9', 'p10'].some(k => only.has(k))) for (const s of shots) {
+  if (['p3', 'p6', 'p8', 'p9', 'p10', 'p12'].some(k => only.has(k))) for (const s of shots) {
     const ids = [s.start, s.start + Math.floor(s.frames / 2), s.start + s.frames - 1], m = [], nb = [];
     const names = [s.prop && !s.prop.startsWith('prop_') ? s.prop : null].filter(Boolean);
     for (const n of ids) { m.push(await G(n, {keepLuma: true})); nb.push(await NB(names)); }
@@ -89,6 +93,7 @@ try {
       const r = await page.evaluate(([n, w, h, gold]) => { const T = window.__tg; T.E.renderFrame(n, w, h); const px = T.rgba(w, h), sc = T.sc;
         if (!gold) { const keepRoots = ['NOVA', 'prop_grass', 'prop_hsDirt', 'NOVA_tapFinger'].map(x => sc.getObjectByName(x)).filter(Boolean);
           const m = T.mask(o => keepRoots.some(r => T.under(o, r)) || /headset|^hs_|^band_/i.test(o.name ?? '') || /headset/i.test(o.parent?.name ?? '') || /^hs_/.test(o.parent?.name ?? ''), w, h);
+          const m0 = Uint8Array.from(m); for (let y = 0; y < h; y++) for (let x = 0; x < w; x++) if (m0[y * w + x]) for (let dy = -2; dy <= 2; dy++) for (let dx = -2; dx <= 2; dx++) { const yy = y + dy, xx = x + dx; if (yy >= 0 && yy < h && xx >= 0 && xx < w) m[yy * w + xx] = 1; }   // E2: 2 px dilation
           let s = 0, k = 0; for (let y = 0; y < h; y++) for (let x = 0; x < w; x++) { if (m[(h - 1 - y) * w + x]) continue; const i = ((h - 1 - y) * w + x) * 4, mx = Math.max(px[i], px[i + 1], px[i + 2]), mn = Math.min(px[i], px[i + 1], px[i + 2]); s += mx ? (mx - mn) / mx : 0; k++; }
           return {sat: s / Math.max(1, k), excluded: 1 - k / (w * h)}; }
         const g = T.mask(o => /^(ground|street)_/.test(o.name ?? ''), w, h); let R = 0, B = 0, k = 0; for (let i = 0; i < w * h; i++) if (g[i]) { R += px[i * 4]; B += px[i * 4 + 2]; k++; }
@@ -102,6 +107,19 @@ try {
       const near = m[1].places.length ? Math.min(...m[1].places.map(p => 5.3 * p.r / .95)) : 5.3, wh = pr ? pr.y1 - pr.y0 : 0, fh = b ? Math.min(1, b.y1) - Math.max(0, b.y0) : 0;
       row.p10 = {frameFrac: +fh.toFixed(3), worldH: +wh.toFixed(1), actorH: +near.toFixed(2), ratio: +(wh / near).toFixed(1)};
       if (!(fh >= .6 || wh >= 20 * near)) E('P10', `${s.id} finger ${(fh * 100).toFixed(0)} % of frame, ${(wh / near).toFixed(1)} × actor height (≥ 60 % or ≥ 20 ×)`);
+    }
+    if (only.has('p12') && ['25', '26', '28', '33', '34', '39', '40'].includes(sid)) {
+      const fid = (s.see ?? []).find(x => /^finger/.test(x)), r = await page.evaluate(([n, w, h, fid]) => { const T = window.__tg; T.E.renderFrame(n, w, h); const sc = T.sc, root = sc.getObjectByName('prop_' + fid);
+        if (!root || !T.vis(root)) return null; const A = T.mask(o => T.under(o, root), w, h), Wm = new T.MB({color: '#ffffff'}), Km = new T.MB({color: '#000000'}), saved = [];
+        sc.traverse(o => { if (!(o.isMesh || o.isSprite || o.isPoints || o.isLine) || !o.visible) return; const mine = T.under(o, root);
+          if (o.isSprite || o.isPoints || o.isLine || (!mine && [].concat(o.material)[0]?.transparent)) { saved.push([o, null]); o.visible = false; return; } saved.push([o, o.material]); o.material = mine ? Wm : Km; });
+        const bg = sc.background, fog = sc.fog; sc.background = null; sc.fog = null; T.E.debug.renderer.render(sc, T.cam); const px = T.rgba(w, h); sc.background = bg; sc.fog = fog;
+        for (const [o, m] of saved) { if (m) o.material = m; else o.visible = true; }
+        let a = 0, b = 0, y0 = h, y1 = -1; for (let y = 0; y < h; y++) for (let x = 0; x < w; x++) { const i = (h - 1 - y) * w + x; if (A[i]) a++; if (px[i * 4] > 127) { b++; y0 = Math.min(y0, y); y1 = Math.max(y1, y); } }
+        return {a, b, y0: y0 / h, y1: (y1 + 1) / h}; }, [s.start + Math.floor(s.frames / 2), W, H, fid]);
+      if (!r) E('P12', `${s.id} finger not visible`); else { const hgt = r.y1 - r.y0, occ = r.a ? 1 - r.b / r.a : 1; row.p12 = {height: +hgt.toFixed(3), top: +r.y0.toFixed(3), bottom: +r.y1.toFixed(3), occluded: +occ.toFixed(4)};
+        if (hgt < .4) E('P12', `${s.id} finger spans ${(hgt * 100).toFixed(1)} % of frame height (≥ 40)`); if (r.y0 > 1.5 / H) E('P12', `${s.id} finger starts ${(r.y0 * 100).toFixed(1)} % below the top edge (enters from the top)`);
+        if (r.y1 > .7) E('P12', `${s.id} finger box ends ${(r.y1 * 100).toFixed(1)} % down (40–70)`); if (occ > .02) E('P12', `${s.id} finger ${(occ * 100).toFixed(1)} % covered (≤ 2)`); }
     }
     rows.push(row);
   }

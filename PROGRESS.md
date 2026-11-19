@@ -1519,3 +1519,27 @@ format 5); 22 and 57 beat cuts = sub-shots a/b/c (65 spec shots, 61 BEATS shots)
 the dropped headset only shown from 59 (blocked 47/54); 60–61 size close (a 3:1 screen cannot be 35 % tall in 9:16); dustTown dirt/path
 desaturated, VR fill lights raised (P8); TAP fingers = props7 giantFinger ×9 (119 units), NOVA's tap finger = a dress item on LEO.
 Open: dust-town read standsOut (gray-on-gray by design); inserts 05/09/24/49/59 margins; 52/56 clipping; boss shots read small; dragonPeaks HDRI shows city buildings.
+
+## Touch Grass E2 — owner fix round on shots-390 (2026-11-19)
+Owner decisions: END = 89.95 (shot 61 = 88.62–89.95). Read "subject stands out" errors are waived ONLY when the subject is a TOWN extra in a
+dustGray shot; every other read error must be fixed. LEO in dustTown shots gets rim strength 0.6 neutral (#E8ECF2).
+Plan: 1. END 89.95. 2. Giant finger: one camera rule (enters from the top edge through the crack, box 40–70 % of frame height, crack drawn
+around the entry point = per-shot spec prop, nothing between camera and finger) for 25 26 28 33 34 39 40; new gate P12 (≥ 40 %, unoccluded).
+3. dragonPeaks: HDRI out → procedural sunset gradient dome #2B3A6B → #F08A4B + sun disc; boss ≥ 25 % in 36 37 40 41. 4. Blue light: visor
+emissive from 16.23, strip ≥ 1.5 × face luma; 13 cyan point light at the visor (range 1.5); 14 crashZoom into the visor, flash 18.70; TOWN
+visors glow in every dustTown shot. 5. Inserts 09 24 49 54 re-framed from the object side. 6. Shot fixes 03 18 21 30 32 38 52 12 (P9 headset
+exclusion). 7. zombieCity sky bottom #1B2A4A (P8). 8. Plan errors (48 pan speed). Re-run plan/read/stability/gates (≤ 2 passes each).
+9. Animatic + shots-390. 10. Tests, commit.
+Built: generator camera math (proj / aimAt / rayAt, pure) + finger rig (tilt-aware wrist, per-shot skyCrack prop on the arm's top-edge entry);
+cameras 02 03 05 09 13 14 17 18 21 24–41 48 49 52 54 58–61; LEO/NOVA marks for 49/52; props7: bright unlit visor strip + cyan edge, skyCrack
+`jitter`/`sky`/`opaque`, giantFinger `selfLight`, black-emissive intensity 1 (propGlow works); world.js: sky domes ride the camera, dragon
+sun disc, LEO rim #E8ECF2 .6 (kept under subjectLift clones), visor point light (13), groundedSkybox blended (backdrop, not "in front"),
+unBlack (friends, BRO); locations: dragonPeaks sunset dome #2B3A6B→#F08A4B (no HDRI), zombieCity horizon #1B2A4A, glass #1A2232;
+gates: P12 (finger), P9 mask 2 px dilation.
+Numbers: plan PASS (0). Stability PASS (worst 22b .299 %; 14 needed 2 passes: fov 8 .396 → 14 .305 → 20). P12 PASS all 7 (heights .40–.64,
+top 0, occluded ≤ 2 %). Visor strip 233.5 vs face 152.7 luma = 1.53× PASS. P1 P5 (1.24) P6 P10 P11 PASS. Read 50 → 30 → 17 (2 passes;
+01 waived). FAIL after 2 passes: P3 14 (crash zoom into the visor clips LEO 14.5 % by design), 52 LEO 35.8 %, 56 LEO 49.3 %; P8 19 20 33
+(space black, 0.52–1.5 %), 21 .59, 26 1.31, 28 3.00, 31 1.25; P9 08 .174. Animatic 540×960 90.0 s 8.01 MB −14 LUFS.
+Decisions: 14 end fov 20 (stability); LEO_VR/BRO hidden in 25 26 28 (cameras look through their marks); 24 = profile from above (a side-on
+headset is 3.6:1); finger 28 tilted −20° toward the lens; grounded skybox transparent (renderOrder −20) so read check 2 ignores the backdrop.
+Open: read 16 errors (standsOut 09 12 18 24 30 45 49; face cover 03 27 28 31 43 53 57a; 45 front 13 %; 52 motion); P3 52/56; P8 zombie/space.

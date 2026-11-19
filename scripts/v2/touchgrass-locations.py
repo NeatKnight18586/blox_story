@@ -78,14 +78,14 @@ anchors["dustTown"] = {"seats40": seats, "seatYaw40": seatYaw, "novaPorchStep": 
 zc = {
  "extends": "../../engine/fixtures/realism/street-layout.json", "name": "zombieCity",
  "note": "Touch Grass VR 1: moonlit night (blue-gray key #8FA8D8), broken street (realism street modules); green only as height fog <= 2 units + 3 green streetlamps.",
- "backdrop": {"type": "sky", "top": "#141C32", "horizon": "#3A4660", "ground": "#141A24", "radius": 420},
+ "backdrop": {"type": "sky", "top": "#141C32", "horizon": "#1B2A4A", "ground": "#141A24", "radius": 420},   # E2 (owner): sky bottom #1B2A4A
  "env": {"intensity": .8}, "exposure": 1.25, "toneMapping": "Neutral",
  "fog": {"color": "#1C2232", "near": 14, "far": 100},
  "sun": {"intensity": 2.4, "color": "#8FA8D8", "az": 20, "el": 25, "shadow": {"size": 1024}, "shadowOpacity": .55, "hemi": {"sky": "#5A6A8E", "ground": "#2A3040", "i": .8}},
  "bake": {"cell": .5, "aoDist": 4, "aoMin": .45, "shadow": .4, "seg": 1.5},
  "materials": {"ground": {"procedural": "cobble", "color": "#2C3038"}, "kerb": {"procedural": "plaster", "color": "#3A3E46"}, "brickWall": {"procedural": "brick", "color": "#4A3A3A"},
    "plasterWall": {"procedural": "plaster", "color": "#363B45"}, "base": {"procedural": "cobble", "color": "#2A2E35"}, "trim": {"color": "#555B66", "roughness": .7},
-   "glass": {"color": "#0E121A", "roughness": .08, "metalness": 0}, "door": {"procedural": "woodPlanks", "color": "#33292A"}, "crate": {"procedural": "woodPlanks", "color": "#40363A"},
+   "glass": {"color": "#1A2232", "roughness": .08, "metalness": 0}, "door": {"procedural": "woodPlanks", "color": "#33292A"}, "crate": {"procedural": "woodPlanks", "color": "#40363A"},
    "metal": {"color": "#22262A", "roughness": .45, "metalness": .6}, "lampGlass": {"color": "#B8FFB0", "emissive": "#7DFF8A", "roughness": .3}, "rubble": {"procedural": "rock", "color": "#44484E"}},
  "modules": {"lamp": {"parts": []},   # E0b: the base street's lamp is dropped; the 3 green lamps are props
              "rubble": {"parts": [{"box": [1.6, .8, 1.2], "at": [0, .4, 0], "rotY": 20, "mat": "rubble"}, {"box": [1.0, .6, .9], "at": [1.3, .3, .6], "rotY": -35, "mat": "rubble"}, {"box": [.7, .5, .7], "at": [-.9, .25, .9], "rotY": 50, "mat": "rubble"}]},
@@ -110,10 +110,11 @@ peakProps = [{"prop": "rockPeak", "at": [x, -40, z], "rotY": round(i * 37 % 360)
 peaks = [[x, -40 + h, z] for x, z, h, _ in PEAKS]
 dp = {
  "name": "dragonPeaks", "note": "Touch Grass VR 2: sunset, jagged rock peaks (props7 rockPeak) at 3 distances in sunset fog, one flat rock plateau (rockMesa r 26, top y 0) for 100 friends.",
- "groundY": 0, "backdrop": {"type": "hdri", "hdri": "venice_sunset_1k.hdr", "rotation": 0},
+ "groundY": 0, "backdrop": {"type": "sky", "top": "#2B3A6B", "horizon": "#F08A4B", "ground": "#4A3A5A", "radius": 420},   # E2 (owner): no HDRI (it showed city buildings);
+                                                                                         # procedural sunset dome (world.js keeps it on the camera) + sun disc
  "env": {"intensity": 1.0}, "exposure": 1.0, "toneMapping": "Neutral",
- "fog": {"color": "#D9967A", "near": 160, "far": 1600},
- "sun": {"intensity": 2.6, "color": "#FFB070", "minEl": 14, "shadow": {"size": 1024}, "shadowOpacity": .5, "hemi": {"sky": "#FFC8A0", "ground": "#6A5A7A", "i": .7}},
+ "fog": {"color": "#E0906A", "near": 160, "far": 1600},
+ "sun": {"intensity": 2.6, "color": "#FFB070", "az": 215, "el": 16, "minEl": 14, "shadow": {"size": 1024}, "shadowOpacity": .5, "hemi": {"sky": "#FFC8A0", "ground": "#6A5A7A", "i": .7}},
  "bake": {"cell": 2.0, "aoDist": 6, "aoMin": .5, "shadow": .45, "seg": 8},
  "materials": {"rock": {"procedural": "rock", "color": "#9A7A6A"}, "rockLt": {"procedural": "rock", "color": "#B8968A"}, "snow": {"procedural": "snow", "color": "#FFF4EC"},
    "grass": {"procedural": "grass", "color": "#7BC85A"}, "plateau": {"procedural": "rock", "color": "#A88A78"}},

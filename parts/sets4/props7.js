@@ -16,12 +16,12 @@ import {HEAD5} from '../../avatar-style/body5.js';
 import {mergeByMaterial} from './common.js';
 import {mergeGeometries} from 'three/addons/utils/BufferGeometryUtils.js';
 
-export const TG = {shell: '#2B2E36', glow: '#49D9FF', skin: '#F2C59B', cuff: '#FFC21A', can: '#4F8F8B', grass: '#3DDC4A', gold: '#F2C230',
+export const TG = {shell: '#2B2E36', glow: '#49D9FF', glowCore: '#B5F7FF', skin: '#F2C59B', cuff: '#FFC21A', can: '#4F8F8B', grass: '#3DDC4A', gold: '#F2C230',
   wood: '#8A847C', woodDk: '#6A655F', woodLt: '#A39D94', iron: '#55575B', deadwood: '#6E6862', roof: '#5E5B57'};   // real-world wood/iron: sat ≤ .15
 const cache = new Map();
 export const smat = (color, {rough = .7, metal = 0, emissive = null, ei = 1.4, basic = false, offset = 0} = {}) => {
   const k = [color, rough, metal, emissive, ei, basic, offset].join('|'); if (cache.has(k)) return cache.get(k);
-  const m = basic ? new T.MeshBasicMaterial({color, toneMapped: false}) : new T.MeshStandardMaterial({color, roughness: rough, metalness: metal, emissive: emissive ?? '#000000', emissiveIntensity: emissive ? ei : 0});
+  const m = basic ? new T.MeshBasicMaterial({color, toneMapped: false}) : new T.MeshStandardMaterial({color, roughness: rough, metalness: metal, emissive: emissive ?? '#000000', emissiveIntensity: emissive ? ei : 1});   // E2: 1 with a black emissive (no change) so a shot's propGlow can light it
   if (offset) Object.assign(m, {polygonOffset: true, polygonOffsetFactor: -offset, polygonOffsetUnits: -offset});
   m.name = 'p7:' + k; cache.set(k, m); return m;
 };
@@ -37,14 +37,16 @@ export const HS = {w: 1.34, h: .46, d: .3, eyeY: .06};
 export function headset(p = {}) {
   const g = new T.Group(), front = p.front ?? HEAD_FRONT, z0 = front + (p.gap ?? GAP), zc = z0 + HS.d / 2;
   const shell = mesh(rbox(HS.w, HS.h, HS.d, .09), smat(TG.shell, {rough: .35, metal: .2}), [0, HS.eyeY, zc], null, 'hs_shell'); g.add(shell);
-  const stripOn = smat('#1E8FB0', {emissive: TG.glow, ei: .9, rough: .3, offset: 2}), stripOff = smat('#20303a', {rough: .4, offset: 2});   // E1: stays cyan after tone mapping (2.4 blew out to white)
-  const strip = mesh(rbox(HS.w * .86, .1, .02, .009), stripOn, [0, HS.eyeY + .02, z0 + HS.d + .012], null, 'hs_strip'); g.add(strip);   // .002 proud of the shell front
+  // E2 (owner): the strip is unlit and bright (MeshBasic, not tone mapped): ≥ 1.5 × the face luma, cyan core + saturated cyan edge (P1)
+  const stripOn = smat(TG.glowCore, {basic: true, offset: 2}), stripOff = smat('#20303a', {rough: .4, offset: 2}), edgeOn = smat(TG.glow, {basic: true, offset: 1});
+  const strip = mesh(rbox(HS.w * .86, .12, .02, .009), stripOn, [0, HS.eyeY + .02, z0 + HS.d + .012], null, 'hs_strip'); g.add(strip);   // .002 proud of the shell front
+  const edge = mesh(rbox(HS.w * .9, .19, .012, .006), edgeOn, [0, HS.eyeY + .02, z0 + HS.d + .004], null, 'hs_stripEdge'); g.add(edge);   // .004 proud of the shell, .008 behind the core
   // strap: sides + back, each ≥ .03 outside the head box (no contact with the head surface)
   const sx = HEAD_W / 2 + .05, back = -(HEAD_W / 2) - .05, sm = smat('#24262c', {rough: .6});
   for (const s of [-1, 1]) g.add(mesh(rbox(.07, .2, front - back + .12, .03), sm, [s * sx, HS.eyeY + .02, (front + back) / 2 + .02], null, 'hs_strap'));
   g.add(mesh(rbox(HEAD_W + .17, .2, .07, .03), sm, [0, HS.eyeY + .02, back], null, 'hs_strapBack'));
   let screen = null; if (p.screen) { screen = visorScreen({state: p.screen, w: HS.w * .9, h: HS.h * .82}); screen.position.set(0, HS.eyeY, z0 + HS.d + .03); g.add(screen); }
-  const setState = s => { strip.material = s === 'off' ? stripOff : stripOn; g.userData.state = s; };
+  const setState = s => { strip.material = s === 'off' ? stripOff : stripOn; edge.visible = s !== 'off'; g.userData.state = s; };
   setState(p.state ?? 'on');
   g.userData = {...g.userData, setState, screen, backZ: z0, kind: 'headset'}; g.name = 'headset'; return g;
 }
@@ -112,6 +114,7 @@ export function giantFinger(p = {}) {   // E1 opt-in p.skin / p.sleeve / p.cuffC
   // E0b: one pose only (the poke). The flick is that pose translated sideways fast: setFlick(u ∈ [0, 1]) → x = u · flickDist (no bend, no reverse bend).
   const kids = [...g.children], x0 = kids.map(o => o.position.x), setFlick = u => { kids.forEach((o, i) => { o.position.x = x0[i] + flickX(u, p.flickDist ?? 7); }); g.userData.flick = u; };
   setFlick(p.flick ?? 0); live(g);
+  if (p.selfLight) g.traverse(o => { if (o.isMesh) { o.material = o.material.clone(); o.material.emissive.copy(o.material.color).multiplyScalar(p.selfLight); o.material.emissiveIntensity = 1; o.material.fog = false; } });   // E2 opt-in: reads as skin in a dark world
   g.userData = {...g.userData, setFlick, tip, tipWorld: v => tip.getWorldPosition(v ?? new T.Vector3())}; g.name = 'giantFinger'; return g;
 }
 
@@ -448,14 +451,16 @@ export function dryStick(p = {}) {
   for (const [x, z, a, l] of [[-.2, .25, .4, .9], [.3, -.2, -.7, .7]]) g.add(mesh(new T.BoxGeometry(l, .006, .025), smat('#4A4642', {rough: 1, offset: 2}), [x, .004, z], [0, a, 0], 'crackLine'));
   g.name = 'dryStick'; return g;
 }
-// sky crack: jagged bright rift (white-cyan, unlit, never fogged) in the xy plane, `h` tall; static while visible
+// sky crack: jagged bright rift (white-cyan, unlit, never fogged) in the xy plane, `h` tall; static while visible (E2 opt-in p.jitter: centre-line wander × w)
 export function skyCrack(p = {}) {
   const g = new T.Group(), h = p.h ?? 60, w = p.w ?? 14, n = 9, seed = p.seed ?? 4, pts = [];
-  for (let i = 0; i <= n; i++) { const u = i / n, x = (hash(i, seed) - .5) * w * .5, half = w * .5 * Math.sin(Math.PI * Math.min(1, u * 1.15)) * (.55 + .45 * hash(i, seed + 2)); pts.push([x, h * (u - .5), half]); }
+  for (let i = 0; i <= n; i++) { const u = i / n, x = (hash(i, seed) - .5) * w * (p.jitter ?? .5), half = w * .5 * Math.sin(Math.PI * Math.min(1, u * 1.15)) * (.55 + .45 * hash(i, seed + 2)); pts.push([x, h * (u - .5), half]); }
   const shape = new T.Shape(); shape.moveTo(pts[0][0], pts[0][1]); for (const q of pts) shape.lineTo(q[0] - q[2] * .5, q[1]); for (const q of [...pts].reverse()) shape.lineTo(q[0] + q[2] * .5, q[1]);
   const glow = new T.MeshBasicMaterial({color: '#E8FBFF', toneMapped: false, fog: false, side: T.DoubleSide}), edge = new T.MeshBasicMaterial({color: TG.glow, toneMapped: false, fog: false, side: T.DoubleSide, transparent: true, opacity: .55, depthWrite: false});
   const core = new T.Mesh(new T.ShapeGeometry(shape), glow); core.name = 'crackCore'; g.add(core);
   const halo = new T.Mesh(new T.ShapeGeometry(shape), edge); halo.scale.set(1.6, 1.04, 1); halo.position.z = -.05; halo.name = 'crackHalo'; g.add(halo);
+  if (p.sky || p.opaque) halo.material = new T.MeshBasicMaterial({color: p.haloColor ?? '#3BB8E0', toneMapped: false, fog: false, side: T.DoubleSide});   // E2 opt-in: opaque halo (a blended one draws over the finger)
+  if (p.sky) { for (const m of [core, halo]) { m.material.depthTest = false; m.material.depthWrite = false; m.renderOrder = -8; } core.renderOrder = -7; }   // E2 opt-in: part of the sky (after the dome, before everything solid)
   live(g); g.name = 'skyCrack'; return g;
 }
 export const PROPS7 = {headset, visorScreen, headsetScreen, tumbleweed, dryStick, skyCrack, giantFinger, wateringCan, grassBlade, spaceship, sunSphere, swordStone, crate, deadTree, birdhouse, powerLine, porch, shack,
