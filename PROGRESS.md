@@ -1457,3 +1457,20 @@ street-cc0 (fallbacks 0): R1_lowwide 9.64 s/frame @1440, contrast 0.008, detail 
 ## Phase R2 (2026-11-19): steps 1-6 done, farm run blocked
 Code/data pushed (a81351b): matcap actors ('comedy', ×1.15 lift) in engine/fixtures/realism/street.js, backdrop.intensity in parts/location.js, street-cc0.json backdrop 0.7 / shadowOpacity 0.6, R2_scale camera (fov 60, pos [1.2,1,52], look [-1.5,16,-20]).
 Farm run 44430704419 (assets.yml) did not start: GitHub annotation "recent account payments have failed or your spending limit needs to be increased". No R2 numbers, so no KEEP/DROP verdict. Needs the owner to fix Actions billing, then re-push assets/realism.request.
+
+## Retention Engine Phase 1 (2026-11-19): ingrain the knowledge
+Plan: 1. docs/bible/{STORY_ENGINE, BRAND, RETENTION_RULES, CINEMA, LOOK}.md from the owner's retention prompt §1 (+ owner answers to AUDIT §4).
+2. docs/bible/RULES_CARD.md: the only place rule IDs are defined, ≤ 120 lines. 3. tools/rule_ids.py: IDs unique, every used ID defined, every card ID explained in a long doc.
+4. CLAUDE.md session section rewritten (card first, never write narration, QA before done, approve gate, pass workflow, token rules); ground rules/commands kept.
+5. Superseded marks (no deletions): V4 D1/D4/frame budget, SEASON_1 §5b + slate. 6. AUDIT.md resolutions. 7. Run checker, commit, push.
+Built: docs/bible/RULES_CARD.md (116 lines, 76 IDs: 12 N-*, 64 R-*), STORY_ENGINE.md, BRAND.md (+ captions), RETENTION_RULES.md
+(how each rule is measured), CINEMA.md (lens mm → vertical fov: 18 mm 90°, 24 mm 74°, 35 mm 54°, 85 mm 24°), LOOK.md (Phase 5 table
+empty); tools/rule_ids.py + tests/v2/test_rule_ids.py (4 tests, in v2:test); CLAUDE.md session section replaced (card first, N-* list,
+pass workflow, approve gate, QA before done, token rules, no-labels rule kept); SUPERSEDED marks in docs/season1/V4.md (D1, D4, frame
+budget, "not used" list) and SEASON_1.md (§5b, §6 slate); AUDIT.md §6 owner resolutions.
+Commands: python3 tools/rule_ids.py (PASS: 76 IDs, 0 errors; a planted R-CAM-09 is caught) · npm run v2:test · npm test.
+Decisions: R-LEN-01 default tier 105–135 s (owner "≈ 2 min"); below 105 s only with --allow. R-JOLT-01 strict (no shake except 0:00;
+impacts use freeze/flash/snap). Lens mm = full-frame equivalent on the vertical 36 mm side. Sign legibility = cap ≥ 3 % frame height,
+≥ 1.0 s on screen (ruleui plate minimum). R-LEAK-02 keeps format v5's moving-shot cap 3.5 s. cast/hero.json note left unchanged (a
+data file feeds the render cache hash); BRAND.md records the supersession instead.
+Open: hero signature prop (Phase 4 proposes 3), brand accent (Phase 6), LOOK presets (Phase 5), the R-LOOP-01 metric (Phase 4).

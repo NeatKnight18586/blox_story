@@ -1,29 +1,58 @@
-# CLAUDE.md — blox_story v2 engine
+# CLAUDE.md: blox_story production system (Retention Engine)
 
-Source of truth: `docs/V2_BRIEF.md` (owner's brief). Progress and decisions: `PROGRESS.md`.
+**Read first, every session: `docs/bible/RULES_CARD.md`** (all rule IDs, one line each). Then only `episodes/EPxx/spec.yml` and
+`episodes/EPxx/HANDOFF.md` for the episode in hand (R-FLOW-02). Long docs in `docs/bible/` are read only when a rule needs detail.
+Do not explore the repo. `docs/V2_BRIEF.md`, `docs/season1/*` and `PROGRESS.md` are engine history: read a line range only when a task names it.
 
-## Session rules (brief §0)
-- One session block from §12 per session, then stop. Read only §0–§3, your block, the sections it names, and `PROGRESS.md`.
-- Plan (≤ 15 lines) in `PROGRESS.md` before coding; afterwards append what was built, commands, numbers, decisions, open problems (≤ 40 lines).
-- A block is done only when every Done-when check has been run and passes. Uncovered choice → cheaper option, logged under Decisions.
-- Review material goes to `review/<slug>/` on the branch + the PR (owner works from an iPad).
-- Acceptance (A5 §S): a self-score is never a gate. Every visual gate = (1) a measured check in code with a number and a pass
-  line, (2) a before/after sheet at 390 px phone width, (3) a written list of the three weakest things visible in that sheet,
-  before any score (empty list → look again). The owner decides the look; report what is weak, never round up. A measured
-  check that still fails after two fix passes: stop and report the number; never loosen it.
-- **Season 1: no labels** (owner rule, permanent; `docs/season1/SEASON_1.md` §2c): no name/role/AFK tags, chat bubbles, class cards
-  or overhead tag/stat/card/icon UI on people or objects. Text only on real in-world objects (scoreboard, clock, note, sign,
-  switch) and in captions. Default for `season: 1` (`engine/nolabels.js`); `v2:plan` fails it with `noLabels`.
+## Non-negotiables (owner; details in the card)
+- **N-VO-01** You never write, rewrite or "fix" narration, scripts or beats. The owner writes them in chat. **N-VO-02** The VO the owner
+  sends (ElevenLabs mp3 at 1.20×) is final: never trimmed, stretched or re-timed; visuals adapt to it, pauses included.
+  **N-VO-03** Third person; opener family "In this town…" / "In this world…".
+- **N-AUD-01** No BGM from us; SFX only with `sfx: on` (default off). **N-FACE-01** Faces v5 (the owner's 48-face sheet) only.
+  **N-CHAR-01** R6 proportions, satin bodies, modern hair, modest adult builds, age-appropriate elders/kids. **N-WORLD-01** A new
+  world every episode (code is reusable, maps are not). **N-JOLT-01** One subtle shake at 0:00 only.
+- **N-REPO-01** No licence file; nothing that can cost money on GitHub. **N-TOK-01** Small reads, presets, scripts; no micro-motion.
+  **N-RES-01** Final master native 1440×2560. **N-REAL-01** Realism beats render speed; stay inside free Actions limits (shard more).
+- Superseded by these (kept as history): `docs/season1/V4.md` D1 (first person), D4 (reused set library), the 0.69 s/frame budget
+  and its "not used" list; `docs/season1/SEASON_1.md` §5b (Claude Code writing scripts) and the 30-card slate.
+
+## How an episode is built (R-FLOW-01 … R-FLOW-07)
+Thinking happens in chat; Claude Code executes. Each episode prompt is a directed spec with exact values and acceptance checks: follow
+it literally; if a value is impossible, say so instead of improvising (R-FLOW-07). Episode folder: `episodes/EPxx/` (`spec.yml`,
+`HANDOFF.md`, `qa/`) with `slug:` pointing at `stories/<slug>/` (engine data: `episode.json`, `world.js`, voice, `cues.json`).
+1. **Set pass** (1 session): build the world + lighting preset → 4–6 location stills as ONE contact sheet. Stop for approval.
+2. **Blocking pass** (1 session): whole-episode previz at low res: positions, camera presets, cuts from VO timestamps, signage,
+   captions. Run QA. One contact sheet, 1 frame per shot, numbered. Stop for the owner's notes per shot number.
+3. **Sequence passes** (1 session each, 4–8 per episode): fix and polish one sequence (one location/beat group, ~4–12 cuts) from the
+   shot-numbered notes; that sequence's sheet only. The 3 hero shots (R-HERO-01) get their bespoke work here.
+4. **Final render** (1 farm job) only after every sequence is approved, and only with QA at zero FAIL (R-FLOW-06).
+- **Approve gate:** at the end of each pass (and each build phase): stop, run the acceptance checks, write a harsh self-review (asked vs
+  delivered, every shortfall), wait for "approve" or notes. Never start the next pass without approval; fix shortfalls before asking.
+- **QA before "done":** an episode is never called done until `tools/qa_episode.py` (Phase 3; until then `v2:plan`/`v2:read`/
+  `v2:stability`/`v2:qc`) passes. Override only `--allow RULE_ID`, written to `episodes/EPxx/qa/allow.log`.
+- **Token rules:** contact sheets only (`scripts/v2/sheet.py`, later `tools/contact_sheet.py`; ≤ 1600 px, shot numbers burned in;
+  R-FLOW-03), never single frames or video. Touch only the pass's files; re-render only changed shots (R-FLOW-04). End every session
+  by updating `episodes/EPxx/HANDOFF.md`, ≤ 30 lines: done, approved, open notes by shot number, exact next step (R-FLOW-05).
+- **Acceptance discipline (A5 §S, still in force):** a self-score is never a gate. A visual gate = a measured check with a number and a
+  pass line + a before/after sheet at 390 px phone width + the three weakest things visible in it. A measured check still failing after
+  two fix passes: stop and report the number; never loosen it. The owner decides the look; report what is weak, never round up.
+- Engine/tooling work (not an episode) still logs a ≤ 15-line plan and a ≤ 40-line result in `PROGRESS.md`.
+- `tools/rule_ids.py` must pass after any edit to the bible, this file or a QA rule (IDs defined only in the card).
+- **No labels (R-LABEL-01, owner, permanent):** no name/role/AFK tags, chat bubbles, class cards or overhead tag/stat/card/icon UI on
+  people or objects. Text only on real in-world objects (sign, scoreboard, clock, note, switch) and in captions. New specs set
+  `labels: false` (`engine/nolabels.js`); `v2:plan` fails it with `noLabels`.
+- Legacy commands `/new-episode` and `/season` are the old Season 1 flow; use them only if the owner asks.
 
 ## Ground rules (brief §2)
 - `stories/names100/**`, `production/render.js` and existing module behaviour are frozen; extend through new opt-in options only.
 - `npm test` (node-only) stays green. Do not run the legacy `test:*` browser suites.
 - Never read `evidence/`. Never open single frame PNGs: look at contact sheets ≤ 1600 px (`scripts/v2/sheet.py`).
 - Determinism = unit tests on pure functions + a 10-frame re-render spot check. No SHA receipts or manifests. No new frameworks; tests only for new pure logic.
-- Branch `claude/engine-v2`. Commit source, `cues.json`, the voice file and `review/<slug>/` only; never `stories/*/build/` or `renders/`.
+- Branch: the one the session names (default `claude/engine-v2`). Commit source, `cues.json`, the voice file and `review/<slug>/` only; never `stories/*/build/` or `renders/`.
 - Brand: never draw/show the Roblox logo or wordmark; never imply official. All hair, faces, outfits, accessories are our own.
 
 ## Commands
+- `python3 tools/rule_ids.py`: rule-ID check (unique, defined in the card, explained in a long doc; card ≤ 120 lines) → JSON, exit 1 on error.
 - `npm run v2:preflight`: environment check, one JSON object (~3 s) · `npm run v2:test`: pure-logic tests (`tests/v2/`).
 - `npm run v2:bench -- --spec <episode.json>` or `--story <slug>`: triangles, calls, s/frame per shot (PASS ≤ 50k tris, ≤ 0.45 s/frame; Season 1 / v3 worlds ≤ 90k, ≤ 0.62 — owner Decision 4; the real gate is final render + assemble ≤ 3 h on the farm).
 - `npm run v2:read -- --story <slug>`: owner readability checks on the rendered frames (face shown, nothing in front, subject stands out, insert object reads, something moves, Kit/building scale, plain-egg shading; static framing ≤ 3 s, moving ≤ 4.5 s) → `review/<slug>/read.json`, ERRORS (`engine/readcheck.js`, `episode.js readMeasure`).

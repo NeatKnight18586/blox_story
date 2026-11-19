@@ -106,6 +106,7 @@ that only gives bad directions · the piggy-bank parade · the red string betwee
 wish and you are forgotten · you may own one thing · kids are the bosses.
 
 ## 5b. How the remaining scripts are written (by Claude Code, from the card; the owner approves before voicing)
+> SUPERSEDED 2026-11-19 (N-VO-01): Claude Code never writes narration or invents stories. §5b and the cards in §6 are history only; stories come from the owner via docs/STORY_BANK.md.
 
 Models: `stories/egg/script.txt`, `stories/ragdoll/script.txt`, `stories/mountain/script.txt`, `stories/mirror/script.txt`.
 Match their rhythm and plainness. A script that already exists is never rewritten by the loop.
@@ -124,6 +125,7 @@ Match their rhythm and plainness. A script that already exists is never rewritte
   pass). Print the final script in the session report inside one code block so the owner can copy it.
 
 ## 6. The 30 cards
+> SUPERSEDED 2026-11-19: history only (see §5b note). Card 30's "reuse a shot from five earlier episodes" also conflicts with N-WORLD-01.
 
 Card fields: **Rule** (spoken in B1) · **Frame 0** · **Hero / defect** · **Expansion** (three examples) · **Crisis → reversal**
 · **Second surprise / last line** · **Clues** (three) · **Money shot** (the frame people screenshot) · **World**.

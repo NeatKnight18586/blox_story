@@ -151,3 +151,12 @@ Effort: S ≤ ½ session · M ≈ 1 session · L = several sessions or blocked o
 
 ## 5. Toy House against the new rules (preview of Phase 3)
 Avg shot 1.54 s ✓ · max moving shot 3.45 s (T53) · VO start 0.00 s ✓ · first 18 words end 5.28 s (hook ≤ 5 s ✗) · opener "Once a year" ✗ · first-person sentences 13 ✗ · end − last word 1.07 s ✗ (≤ 0.3) · 15 VO gaps > 0.4 s ✗ (C1) · wide/insert same-type adjacent pairs 11 ✗ (≤ 2) · opening jolt absent ✗ · labels off ✓.
+
+## 6. Resolutions (owner, 2026-11-19, on approving Phase 0)
+- C1: the VO sent is final; visuals adapt → R-LEAK-01 = every VO gap > 0.4 s holds a cut or camera event (N-VO-02).
+- C2: final master 1440×2560 (N-RES-01). C3: keep realism even if slower (N-REAL-01); only free Actions limits apply.
+- C4: episodes ≈ 2 min → R-LEN-01 default tier 105–135 s, R-LEN-02 136–165 s unlock, R-LEN-03 cap 175 s.
+- C6 (owner: "you decide"): `episodes/EPxx/{spec.yml, HANDOFF.md, qa/}` + `slug:` → `stories/<slug>/`; new tools in `tools/`.
+- Everything else (owner: "you decide"): C5 captions 1 word, max 2 (R-CAP-01); C7 CLAUDE.md rewritten (Phase 1); C8 PyYAML;
+  C9 stress = owner `*word*` marks + beats prompt; C10 openHit on shot 1 + camera move; R-JOLT-01 strict: no shake except 0:00.
+- Final rule IDs are defined in `docs/bible/RULES_CARD.md`. The non-negotiables gained IDs N-* there.
