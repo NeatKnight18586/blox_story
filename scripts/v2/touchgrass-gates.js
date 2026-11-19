@@ -17,6 +17,8 @@
 //     other mesh black; particles / sprites / blended layers off) span ≥ 40 % of frame height, start at the top edge (enters through the
 //     crack), end ≤ 70 % down (the owner's 40–70 % box), and ≥ 98 % of the finger's own silhouette is visible (nothing in front).
 //  P9 (E2, owner): the headset / NOVA / grass / screen exclusion mask is dilated 2 px (headset edge pixels excluded too).
+//  E3 owner waivers: P8 skips the space shots 19 20 32 33 34 35 (black sky by design); P3 skips 14 (zoom into the visor) and 56 (LEO
+//     cropped foreground); P9 keeps every NOVA part (any object under a NOVA* root, boots included).
 import {readFileSync} from 'node:fs';
 import {mkdir, writeFile} from 'node:fs/promises';
 import {startServer} from './server.js';
@@ -28,6 +30,7 @@ const specPath = arg('spec', 'stories/touchgrass/episode.json'), spec = JSON.par
 const only = new Set((arg('only', 'p1,p3,p5,p6,p8,p9,p10,p11,p12') + (argv.includes('--floor') ? ',p4' : '')).split(','));
 const shots = layoutShots(spec), W = 270, H = 480, GOLD = 77.74;
 const TOUCH = {LEO: ['leoCrate', 'grass', 'leoFinger', 'hsDirt'], LEO_VR: ['sword', 'leoShip'], NOVA: ['grass', 'hsDirt'], TOWN_A: [], TOWN_B: [], TOWN_C: []};
+const P8_SKIP = new Set(['19', '20', '32', '33', '34', '35']), P3_SKIP = new Set(['14', '56']);   // E3 owner waivers
 const NOPRINT = /^(finger[ZSD]|enemy\d|tumbleweed)$/;
 const worldOf = s => ['#9C9994', '#C9A27A'].includes(s.look?.fog) ? 'dust' : 'vr';   // dustTown shots carry the dustGray / dustGold look preset
 const server = await startServer(), browser = await launch(), res = {spec: specPath, generated: new Date().toISOString().slice(0, 10)}, errors = [];
@@ -79,7 +82,7 @@ try {
       const hs = ['medium', 'close'].includes(s.size), abox = a => { if (!a?.box) return null; if (!hs) return {...a.box, front: a.front}; const f = a.face, t = a.torso; if (!f || !t) return {...a.box, front: a.front};
         return {x0: Math.min(f.x0, t.x0), x1: Math.max(f.x1, t.x1), y0: f.y0, y1: Math.max(f.y1, Math.min(t.y1, t.y0 + .25 * (t.y1 - t.y0))), front: a.front}; };
       let worst = 0, worstWhat = ''; for (const r of m) for (const id of items) { const b = abox(r.actors[id]); if (!b) continue; const c = clip(b); if (c > worst) { worst = c; worstWhat = id; } }
-      row.clip = +worst.toFixed(3); if (worst > .05) E('P3', `${s.id} ${worstWhat} clipped ${(worst * 100).toFixed(1)} %`);
+      row.clip = +worst.toFixed(3); if (worst > .05 && !P3_SKIP.has(sid)) E('P3', `${s.id} ${worstWhat} clipped ${(worst * 100).toFixed(1)} %`);
       if (s.size === 'insert' && s.prop) { const b = s.prop.startsWith('prop_') ? m[1].props[s.prop.slice(5)] : nb[1][s.prop];
         if (!b) E('P3', `${s.id} insert prop ${s.prop} not visible`); else { const h = b.y1 - b.y0, mg = Math.min(b.x0, b.y0, 1 - b.x1, 1 - b.y1); row.insert = {h: +h.toFixed(3), margin: +mg.toFixed(3)};
           if (h < .35 || h > .60) E('P3', `${s.id} insert height ${(h * 100).toFixed(1)} % (35–60)`); if (mg < .06) E('P3', `${s.id} insert margin ${(mg * 100).toFixed(1)} % (≥ 6)`); } }
@@ -88,11 +91,11 @@ try {
     if (only.has('p6')) { const d = meanDiff(m[0].luma, m[2].luma), lim = s.frames / FPS <= 1.5 ? .015 : .03; row.motion = +d.toFixed(4); if (d < lim) E('P6', `${s.id} first-vs-last ${(d * 100).toFixed(2)} % (≥ ${lim * 100})`);
       const win = Math.round(1.5 * FPS); let wmin = Infinity; if (s.frames > win + 4) for (let a = s.start; a + win < s.start + s.frames; a += Math.round(.75 * FPS)) { const la = (await G(a, {keepLuma: true})).luma, lb = (await G(a + win, {keepLuma: true})).luma; wmin = Math.min(wmin, meanDiff(la, lb)); }
       if (wmin < Infinity) { row.window = +wmin.toFixed(4); if (wmin < .03) E('P6', `${s.id} a 1.5 s window changes ${(wmin * 100).toFixed(2)} % (≥ 3)`); } }
-    if (only.has('p8')) { const blk = Math.max(...m.map(r => r.luma.filter(v => v < 4).length / r.luma.length)); row.black = +(blk * 100).toFixed(3); if (blk > .005) E('P8', `${s.id} ${(blk * 100).toFixed(2)} % pixels with luma < 4 (≤ 0.5)`); }
+    if (only.has('p8')) { const blk = Math.max(...m.map(r => r.luma.filter(v => v < 4).length / r.luma.length)); row.black = +(blk * 100).toFixed(3); if (blk > .005 && !P8_SKIP.has(sid)) E('P8', `${s.id} ${(blk * 100).toFixed(2)} % pixels with luma < 4 (≤ 0.5)`); }
     if (only.has('p9') && worldOf(s) === 'dust') {
       const r = await page.evaluate(([n, w, h, gold]) => { const T = window.__tg; T.E.renderFrame(n, w, h); const px = T.rgba(w, h), sc = T.sc;
         if (!gold) { const keepRoots = ['NOVA', 'prop_grass', 'prop_hsDirt', 'NOVA_tapFinger'].map(x => sc.getObjectByName(x)).filter(Boolean);
-          const m = T.mask(o => keepRoots.some(r => T.under(o, r)) || /headset|^hs_|^band_/i.test(o.name ?? '') || /headset/i.test(o.parent?.name ?? '') || /^hs_/.test(o.parent?.name ?? ''), w, h);
+          const m = T.mask(o => keepRoots.some(r => T.under(o, r)) || (() => { for (let q = o; q; q = q.parent) if (/^NOVA/.test(q.name ?? '')) return true; return false; })() || /headset|^hs_|^band_/i.test(o.name ?? '') || /headset/i.test(o.parent?.name ?? '') || /^hs_/.test(o.parent?.name ?? ''), w, h);
           const m0 = Uint8Array.from(m); for (let y = 0; y < h; y++) for (let x = 0; x < w; x++) if (m0[y * w + x]) for (let dy = -2; dy <= 2; dy++) for (let dx = -2; dx <= 2; dx++) { const yy = y + dy, xx = x + dx; if (yy >= 0 && yy < h && xx >= 0 && xx < w) m[yy * w + xx] = 1; }   // E2: 2 px dilation
           let s = 0, k = 0; for (let y = 0; y < h; y++) for (let x = 0; x < w; x++) { if (m[(h - 1 - y) * w + x]) continue; const i = ((h - 1 - y) * w + x) * 4, mx = Math.max(px[i], px[i + 1], px[i + 2]), mn = Math.min(px[i], px[i + 1], px[i + 2]); s += mx ? (mx - mn) / mx : 0; k++; }
           return {sat: s / Math.max(1, k), excluded: 1 - k / (w * h)}; }

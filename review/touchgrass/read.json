@@ -65,20 +65,19 @@
    "subject": "NOVA",
    "faceShown": null,
    "nothingInFront": {
-    "front": 0.007,
-    "faceCover": 0.033,
-    "ok": false,
-    "msg": "the face is 3.3 % covered"
+    "front": 0.021,
+    "faceCover": 0,
+    "ok": true
    },
    "standsOut": {
-    "subj": 0.536,
-    "ring": 0.396,
-    "diff": 0.14,
+    "subj": 0.679,
+    "ring": 0.32,
+    "diff": 0.359,
     "ok": true,
     "msg": ""
    },
    "moves": {
-    "motion": 0.0253,
+    "motion": 0.054,
     "need": 0.021,
     "ok": true,
     "msg": ""
@@ -248,19 +247,19 @@
     "ok": true
    },
    "standsOut": {
-    "subj": 0.593,
-    "ring": 0.516,
-    "diff": 0.077,
+    "subj": 0.606,
+    "ring": 0.503,
+    "diff": 0.103,
     "ok": false,
-    "msg": "subject vs surround luma 0.077 (≥ 0.12)"
+    "msg": "subject vs surround luma 0.103 (≥ 0.12)"
    },
    "objectReads": {
     "inside": 1,
-    "h": 0.408,
+    "h": 0.365,
     "ok": true
    },
    "moves": {
-    "motion": 0.0217,
+    "motion": 0.0311,
     "need": 0.021,
     "ok": true,
     "msg": ""
@@ -436,7 +435,7 @@
     "msg": ""
    },
    "moves": {
-    "motion": 0.1898,
+    "motion": 0.1426,
     "need": 0.021,
     "ok": true,
     "msg": ""
@@ -504,7 +503,7 @@
    }
   },
   {
-   "id": "17-track",
+   "id": "17-push",
    "size": "wide",
    "t": 21.17,
    "dur": 1,
@@ -516,14 +515,14 @@
     "ok": true
    },
    "standsOut": {
-    "subj": 0.25,
-    "ring": 0.494,
-    "diff": 0.244,
+    "subj": 0.136,
+    "ring": 0.27,
+    "diff": 0.134,
     "ok": true,
     "msg": ""
    },
    "moves": {
-    "motion": 0.0282,
+    "motion": 0.0247,
     "need": 0.021,
     "ok": true,
     "msg": ""
@@ -544,27 +543,27 @@
    "faceShown": null,
    "nothingInFront": {
     "front": 0,
-    "faceCover": 0,
+    "faceCover": 0.002,
     "ok": true
    },
    "standsOut": {
-    "subj": 0.347,
-    "ring": 0.247,
-    "diff": 0.1,
+    "subj": 0.328,
+    "ring": 0.261,
+    "diff": 0.067,
     "ok": false,
-    "msg": "subject vs surround luma 0.100 (≥ 0.12)"
+    "msg": "subject vs surround luma 0.067 (≥ 0.12)"
    },
    "moves": {
-    "motion": 0.0339,
+    "motion": 0.012,
     "need": 0.021,
-    "ok": true,
-    "msg": ""
+    "ok": false,
+    "msg": "motion 0.0120 < 0.0210"
    },
    "hold": {
     "held": 0.88,
-    "max": 4.5,
+    "max": 3,
     "ok": true,
-    "msg": "moving framing held 0.88 s (≤ 4.5)"
+    "msg": "static framing held 0.88 s (≤ 3)"
    }
   },
   {
@@ -806,19 +805,20 @@
     "ok": true
    },
    "standsOut": {
-    "subj": 0.28,
-    "ring": 0.278,
-    "diff": 0.002,
-    "ok": false,
-    "msg": "subject vs surround luma 0.002 (≥ 0.12)"
+    "subj": 0.12,
+    "ring": 0.324,
+    "diff": 0.204,
+    "ok": true,
+    "msg": ""
    },
    "objectReads": {
     "inside": 1,
-    "h": 0.379,
-    "ok": true
+    "h": 0.135,
+    "ok": false,
+    "msg": "object 13 % of frame height (≥ 25)"
    },
    "moves": {
-    "motion": 0.0281,
+    "motion": 0.0437,
     "need": 0.021,
     "ok": true,
     "msg": ""
@@ -1009,7 +1009,7 @@
    "dur": 0.42,
    "subject": "NOVA",
    "faceShown": {
-    "angle": 31.3,
+    "angle": 19.8,
     "inside": 1,
     "ok": true
    },
@@ -1019,14 +1019,14 @@
     "ok": true
    },
    "standsOut": {
-    "subj": 0.393,
-    "ring": 0.273,
-    "diff": 0.119,
-    "ok": false,
-    "msg": "subject vs surround luma 0.119 (≥ 0.12)"
+    "subj": 0.724,
+    "ring": 0.42,
+    "diff": 0.304,
+    "ok": true,
+    "msg": ""
    },
    "moves": {
-    "motion": 0.1292,
+    "motion": 0.0546,
     "need": 0.021,
     "ok": true,
     "msg": ""
@@ -1087,14 +1087,14 @@
     "ok": true
    },
    "standsOut": {
-    "subj": 0.217,
-    "ring": 0.08,
-    "diff": 0.137,
+    "subj": 0.454,
+    "ring": 0.087,
+    "diff": 0.367,
     "ok": true,
     "msg": ""
    },
    "moves": {
-    "motion": 0.0606,
+    "motion": 0.178,
     "need": 0.021,
     "ok": true,
     "msg": ""
@@ -1119,13 +1119,13 @@
    },
    "standsOut": {
     "subj": 0.375,
-    "ring": 0.532,
-    "diff": 0.157,
+    "ring": 0.533,
+    "diff": 0.158,
     "ok": true,
     "msg": ""
    },
    "moves": {
-    "motion": 0.0273,
+    "motion": 0.0274,
     "need": 0.021,
     "ok": true,
     "msg": ""
@@ -1150,13 +1150,13 @@
    },
    "standsOut": {
     "subj": 0.235,
-    "ring": 0.505,
-    "diff": 0.27,
+    "ring": 0.503,
+    "diff": 0.269,
     "ok": true,
     "msg": ""
    },
    "moves": {
-    "motion": 0.0252,
+    "motion": 0.0261,
     "need": 0.021,
     "ok": true,
     "msg": ""
@@ -1262,24 +1262,24 @@
    "dur": 1.96,
    "subject": "prop_sword",
    "nothingInFront": {
-    "front": 0,
+    "front": 0.029,
     "faceCover": 0,
     "ok": true
    },
    "standsOut": {
-    "subj": 0.916,
-    "ring": 0.436,
-    "diff": 0.48,
-    "ok": true,
-    "msg": ""
+    "subj": 0.357,
+    "ring": 0.447,
+    "diff": 0.09,
+    "ok": false,
+    "msg": "subject vs surround luma 0.090 (≥ 0.12)"
    },
    "objectReads": {
     "inside": 1,
-    "h": 0.552,
+    "h": 0.65,
     "ok": true
    },
    "moves": {
-    "motion": 0.0662,
+    "motion": 0.0698,
     "need": 0.021,
     "ok": true,
     "msg": ""
@@ -1507,25 +1507,24 @@
    "dur": 1.33,
    "subject": "NOVA",
    "faceShown": {
-    "angle": 7.4,
+    "angle": 44.3,
     "inside": 1,
     "ok": true
    },
    "nothingInFront": {
-    "front": 0.131,
-    "faceCover": 0.996,
-    "ok": false,
-    "msg": "objects in front cover 13.1 % (≤ 10)"
+    "front": 0,
+    "faceCover": 0,
+    "ok": true
    },
    "standsOut": {
-    "subj": 0.228,
-    "ring": 0.221,
-    "diff": 0.007,
+    "subj": 0.513,
+    "ring": 0.482,
+    "diff": 0.031,
     "ok": false,
-    "msg": "subject vs surround luma 0.007 (≥ 0.12)"
+    "msg": "subject vs surround luma 0.031 (≥ 0.12)"
    },
    "moves": {
-    "motion": 0.085,
+    "motion": 0.1715,
     "need": 0.021,
     "ok": true,
     "msg": ""
@@ -1829,19 +1828,19 @@
     "ok": true
    },
    "standsOut": {
-    "subj": 0.55,
-    "ring": 0.368,
-    "diff": 0.182,
+    "subj": 0.594,
+    "ring": 0.265,
+    "diff": 0.329,
     "ok": true,
     "msg": ""
    },
    "objectReads": {
     "inside": 1,
-    "h": 0.524,
+    "h": 0.514,
     "ok": true
    },
    "moves": {
-    "motion": 0.0556,
+    "motion": 0.0474,
     "need": 0.021,
     "ok": true,
     "msg": ""
@@ -2150,18 +2149,17 @@
  ],
  "errors": [
   "01-push: standsOut FAIL subject vs surround luma 0.058 (≥ 0.12)",
-  "03-push: nothingInFront FAIL the face is 3.3 % covered",
-  "09-push: standsOut FAIL subject vs surround luma 0.077 (≥ 0.12)",
+  "09-push: standsOut FAIL subject vs surround luma 0.103 (≥ 0.12)",
   "12-push: standsOut FAIL subject vs surround luma 0.111 (≥ 0.12)",
-  "18-track: standsOut FAIL subject vs surround luma 0.100 (≥ 0.12)",
-  "24-push: standsOut FAIL subject vs surround luma 0.002 (≥ 0.12)",
+  "18-track: standsOut FAIL subject vs surround luma 0.067 (≥ 0.12)",
+  "18-track: moves FAIL motion 0.0120 < 0.0210",
+  "24-push: objectReads FAIL object 13 % of frame height (≥ 25)",
   "27-push: nothingInFront FAIL the face is 5.1 % covered",
   "28-push: nothingInFront FAIL the face is 8.3 % covered",
-  "30-push: standsOut FAIL subject vs surround luma 0.119 (≥ 0.12)",
   "31-push: nothingInFront FAIL the face is 19.0 % covered",
+  "38-push: standsOut FAIL subject vs surround luma 0.090 (≥ 0.12)",
   "43-push: nothingInFront FAIL the face is 4.7 % covered",
-  "45-tiltUp: nothingInFront FAIL objects in front cover 13.1 % (≤ 10)",
-  "45-tiltUp: standsOut FAIL subject vs surround luma 0.007 (≥ 0.12)",
+  "45-tiltUp: standsOut FAIL subject vs surround luma 0.031 (≥ 0.12)",
   "49-push: standsOut FAIL subject vs surround luma 0.111 (≥ 0.12)",
   "52-push: moves FAIL motion 0.0177 < 0.0210",
   "53-push: nothingInFront FAIL the face is 4.0 % covered",

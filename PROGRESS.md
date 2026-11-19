@@ -1543,3 +1543,17 @@ top 0, occluded ≤ 2 %). Visor strip 233.5 vs face 152.7 luma = 1.53× PASS. P1
 Decisions: 14 end fov 20 (stability); LEO_VR/BRO hidden in 25 26 28 (cameras look through their marks); 24 = profile from above (a side-on
 headset is 3.6:1); finger 28 tilted −20° toward the lens; grounded skybox transparent (renderOrder −20) so read check 2 ignores the backdrop.
 Open: read 16 errors (standsOut 09 12 18 24 30 45 49; face cover 03 27 28 31 43 53 57a; 45 front 13 %; 52 motion); P3 52/56; P8 zombie/space.
+
+## Touch Grass E3 — final fix round, 10 shots (2026-11-19)
+Owner waivers: P8 excludes the space shots 19 20 32 33 34 35 (black sky by design). P3 waived for 14 (zoom into the visor) and 56 (LEO
+cropped foreground). Read "face partly covered" waived when the cover is the actor's own headset / visor / goggles or hands lifting a
+headset (27 28 31 57a). P9 mask includes all NOVA parts (boots). Everything else must pass.
+Plan: camera / marks only for 03 09 17 18 24 30 32 38 45 54 (+ 38: remove the white mesh over the sword); gates script applies the P8 / P3
+waivers and the NOVA-wide P9 mask; plan / read / stability / gates ≤ 2 passes; animatic + shots-390; tests; commit.
+Built: cameras/marks for 03 09 17 18 24 30 32 38 45 54 (03 NOVA walks the clear −8.6 → −7.3 aisle stretch; dragon path DR0 P[62,150,−190],
+rider on the neck base; 30 NOVA yaw −155; 32 enemy keys + lasers behind the ship; 38 the white block was the stone under propGlow 1.0 →
+glow removed, camera searched through a gap in the friends ring; 24 opt-in c.tapSide 'left' in world.js). Gates: P8/P3 waivers, NOVA-wide P9.
+Numbers: plan 1 error (24 headset 13 %: the owner's head + headset 40–50 % framing leaves the .38-tall headset at 13 %, conflict). Stability
+PASS (22b .299 %). Gates: P1 P5 P6 P10 P11 P12 PASS; P3 FAIL 24 13.5 %, 52 LEO 35.8 %; P8 FAIL 28 3.00 %, 26 1.31, 31 1.25, 21 .59; P9 08 .174.
+Read 18 → 16 (2 passes); waived 01 27 28 31 57a; in scope left: 09 .103, 18 .067 + motion .012, 24 objectReads 13 %, 38 .090, 45 .031
+(standsOut); out of scope (shot not in this round): 12 49 standsOut, 43 53 face cover, 52 motion. Animatic 90.0 s 8.14 MB −14 LUFS.

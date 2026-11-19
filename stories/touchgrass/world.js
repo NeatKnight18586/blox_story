@@ -130,7 +130,7 @@ export function decorate(a, name, pre, c) {
   if (c.visorLight && a.dress?.hs) { const hs = a.dress.hs, L = new T.PointLight('#49D9FF', 0, 1.5, 1.2); L.name = name + '_visorLight'; L.visible = false;   // E2 (owner): cyan spill on the face (shot 13)
     L.position.set(0, -.12, hs.userData.backZ + .5); hs.add(L); a.dress = {...a.dress, vl: L}; }
   if (pre.glowSword && a.tool) a.tool.traverse(o => { if (o.isMesh && (o.name === 'blade' || (o.geometry?.parameters?.height ?? 0) > 1 || o.geometry?.type === 'ConeGeometry')) { o.material = o.material.clone(); o.material.emissive = new T.Color(pre.glowSword); o.material.emissiveIntensity = 1.2; } });   // the blade + tip glow
-  if (c.tap) { const f = PROPS7.giantFinger({}); f.scale.setScalar(.14); f.rotation.x = Math.PI / 2; f.name = 'NOVA_tapFinger'; f.visible = false; a.root.parent.add(f); a.dress = {...a.dress, tap: f}; }   // NOVA's finger on Leo's headset (24)
+  if (c.tap) { const f = PROPS7.giantFinger({}); f.scale.setScalar(.14); f.rotation.x = Math.PI / 2; if (c.tapSide === 'left') f.quaternion.setFromUnitVectors(new T.Vector3(0, -1, 0), TAP_LEFT); f.name = 'NOVA_tapFinger'; f.visible = false; a.root.parent.add(f); a.dress = {...a.dress, tap: f}; }   // NOVA's finger on Leo's headset (24)
   if (c.can) { const holder = new T.Group(), can = wateringCan(); can.scale.setScalar(.6); can.position.set(.12 * .6, -1.07 * .6, 0); holder.add(can); holder.position.set(...HAND);
     holder.name = name + '_can'; can.name = 'wateringCan'; a.pivots.rightShoulder.add(holder); a.tool = holder; a.dress = {...a.dress, can: holder}; }
   if (name === 'BRO') unBlack(a.root);   // E2 gate pass 2 (P8): goggles / visor off pure black
@@ -141,6 +141,7 @@ export function decorate(a, name, pre, c) {
 function unBlack(root) { const own = new Map(), floor = new T.Color('#22252B'), L = c => .2126 * c.r + .7152 * c.g + .0722 * c.b;
   root.traverse(o => { if (!o.isMesh || o.name === 'face_decal') return; const one = m => { if (!m?.color || L(m.color) >= L(floor) || m.vertexColors) return m; if (!own.has(m)) { const c = m.clone(); c.color.copy(floor); own.set(m, c); } return own.get(m); };
     o.material = Array.isArray(o.material) ? o.material.map(one) : one(o.material); }); }
+const TAP_LEFT = new T.Vector3(.8, -.12, .58).normalize();   // E3: the tap finger's pointing direction for c.tapSide 'left' (from behind the head, toward its left side)
 function keepRimClone() { const c = new this.constructor().copy(this); c.onBeforeCompile = this.onBeforeCompile; c.customProgramCacheKey = this.customProgramCacheKey; c.clone = keepRimClone; return c; }
 export function poseActor(a, name, t, c) {
   const d = a.dress; if (!d) return;
@@ -150,7 +151,7 @@ export function poseActor(a, name, t, c) {
   if (d.tap) { const [t0, t1] = c.tapVis, on = t >= t0 && t < t1; d.tap.visible = on;
     if (on) {   // tip on the headset's +z side at the contact frames (gap 0 for 2 frames), .55 away between taps (pure in t)
       const F = 1 / 24, dt = c.tap.map(tp => t - tp).reduce((b, x) => Math.abs(x) < Math.abs(b) ? x : b, 99), gap = dt >= -1e-6 && dt <= 2 * F ? 0 : .55 * Math.min(1, (dt > 0 ? dt - 2 * F : -dt) / (4 * F));
-      a.root.updateMatrixWorld(true); const hp = d.hs.getWorldPosition(new T.Vector3()).add(new T.Vector3(0, .06 * a.root.scale.y, 0)), want = hp.add(new T.Vector3(0, 0, .64 * a.root.scale.x + gap));
+      a.root.updateMatrixWorld(true); const hp = d.hs.getWorldPosition(new T.Vector3()).add(new T.Vector3(0, .06 * a.root.scale.y, 0)), want = c.tapSide === 'left' ? hp.add(new T.Vector3(0, 0, -.64 * a.root.scale.x)).addScaledVector(TAP_LEFT, -gap) : hp.add(new T.Vector3(0, 0, .64 * a.root.scale.x + gap));   // E3 opt-in c.tapSide 'left': onto the left (−z) side, in from behind the head
       d.tap.position.set(0, 0, 0); d.tap.updateMatrixWorld(true); const tip = d.tap.userData.tipWorld(); d.tap.position.copy(want.sub(tip)); } }
   if (d.can) { d.can.visible = valueAt(c.can, t, 'none') === 'hand';
     if (d.can.visible) {   // world orientation = actor yaw · spout forward · tilt down (pure in t): counter-rotate the shoulder pivot

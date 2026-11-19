@@ -31,8 +31,8 @@
    "dur": 1.96,
    "size": "wide",
    "move": "push",
-   "speed": 1,
-   "subject": "NOVA@50,32",
+   "speed": 3,
+   "subject": "NOVA@50,33",
    "why": "NOVA in yellow walks between the rows toward camera, the only colour (E2: explicit camera, no foreground block)"
   },
   {
@@ -97,7 +97,7 @@
    "dur": 1.33,
    "size": "insert",
    "move": "push",
-   "speed": 2,
+   "speed": 1,
    "subject": "",
    "why": "insert: the watering can pouring onto dry dirt; can + stream 35–60 % of frame"
   },
@@ -179,15 +179,15 @@
    "why": "heroLow LEO_VR, glowing sword, heroPose, zombies behind, grin"
   },
   {
-   "id": "17-track",
+   "id": "17-push",
    "beat": false,
    "t": 21.17,
    "dur": 1,
    "size": "wide",
-   "move": "track",
+   "move": "push",
    "speed": 0,
-   "subject": "DRAGON@20,33",
-   "why": "dragonPeaks wide: a dragon flies across the sunset peaks"
+   "subject": "DRAGON@77,18",
+   "why": "dragonPeaks wide from the plateau edge: three snow peaks fill the lower 60 %, the dragon flies across the upper third"
   },
   {
    "id": "18-track",
@@ -196,9 +196,9 @@
    "dur": 0.88,
    "size": "wide",
    "move": "track",
-   "speed": 23,
-   "subject": "LEO_VR@50,41",
-   "why": "drone track: LEO_VR on the dragon's back (≥ 15 % of frame), wind trails"
+   "speed": 5,
+   "subject": "LEO_VR@50,50",
+   "why": "side track: LEO_VR seated on the dragon's neck (≥ 15 % of frame), body across the frame, peaks below"
   },
   {
    "id": "19-push",
@@ -284,7 +284,7 @@
    "dur": 1.92,
    "size": "insert",
    "move": "push",
-   "speed": 1,
+   "speed": 0,
    "subject": "",
    "why": "insert: NOVA's finger taps LEO's headset at 31.08 / 31.66 / 32.23 (contact frames); headset 35–60 % of frame"
   },
@@ -350,8 +350,8 @@
    "dur": 0.42,
    "size": "close",
    "move": "push",
-   "speed": 2,
-   "subject": "NOVA@50,52",
+   "speed": 4,
+   "subject": "NOVA@50,53",
    "why": "flash → real: NOVA close, tapping, flat meh (E2: from above, the dirt behind her)"
   },
   {
@@ -372,7 +372,7 @@
    "dur": 1.08,
    "size": "medium",
    "move": "push",
-   "speed": 2,
+   "speed": 4,
    "subject": "",
    "why": "space: LEO's ship (≥ 30 % of frame) flying toward camera, battle trails behind"
   },
@@ -515,8 +515,8 @@
    "dur": 1.33,
    "size": "medium",
    "move": "tiltUp",
-   "speed": 24,
-   "subject": "NOVA@50,42",
+   "speed": 34,
+   "subject": "NOVA@50,41",
    "why": "NOVA points down; the camera tilts down along her arm to the ground"
   },
   {
@@ -735,20 +735,20 @@
     "margin": 0.1908
    },
    "09-push": {
-    "h": 0.4083,
-    "margin": 0.09230000000000005
+    "h": 0.36540000000000006,
+    "margin": 0.07899999999999996
    },
    "12-push": {
     "h": 0.4549,
     "margin": 0.0837
    },
    "24-push": {
-    "h": 0.37910000000000005,
-    "margin": 0.07769999999999999
+    "h": 0.1345,
+    "margin": 0.076
    },
    "38-push": {
-    "h": 0.5521,
-    "margin": 0.14480000000000004
+    "h": 0.5391,
+    "margin": 0.1955
    },
    "46-push": {
     "h": 0.4072,
@@ -763,8 +763,8 @@
     "margin": 0.0842
    },
    "54-push": {
-    "h": 0.524,
-    "margin": 0.13670000000000004
+    "h": 0.5136000000000001,
+    "margin": 0.14339999999999997
    },
    "59-push": {
     "h": 0.4591,
@@ -777,14 +777,17 @@
  "uiItems": 0,
  "eggs": [],
  "overlaps": 0,
- "errors": [],
+ "errors": [
+  "24-push: prop 13 % of frame height (35–60)"
+ ],
  "warnings": [
   "04-push: wide shot with no tagged character in the foreground",
   "07-push: wide shot with no tagged character in the foreground",
   "09-push: \"NOVA\" (see) not in frame by frame 6",
   "15-push: wide shot with no tagged character in the foreground",
-  "17-track: wide shot with no tagged character in the foreground",
+  "17-push: wide shot with no tagged character in the foreground",
   "18-track: \"DRAGON\" (see) not in frame by frame 6",
+  "18-track: wide shot with no tagged character in the foreground",
   "19-push: wide shot with no tagged character in the foreground",
   "25-push: wide shot with no tagged character in the foreground",
   "26-push: wide shot with no tagged character in the foreground",

@@ -85,7 +85,7 @@ shot('01', 0, {m: 'push', sz: 'close', sub: 'TOWN_A', see: ['TOWN_A'], look: LK.
 shot('02', 1.06, {m: 'crane', sz: 'wide', sub: null, see: ['town'], look: LK.gray, why: 'crane up and back: rows of 40 seated, every visor glowing, dust town to the horizon (scale reveal)',
   cam: (() => { const T2 = add(TA, [-.3, 3.6, -4]), d = nrm([.24, .42, 1]); return C({position: r3v(add(T2, mul(d, 10))), target: r3v(T2), fov: 38}, {position: r3v(add(T2, mul(d, 25))), target: r3v(T2), fov: 46}); })()});   // E2: pull back along one ray (pan 0)
 shot('03', 3.21, {m: 'push', sz: 'wide', sub: 'NOVA', see: ['NOVA'], look: LK.gray, why: 'NOVA in yellow walks between the rows toward camera, the only colour (E2: explicit camera, no foreground block)',
-  cam: C(aimAt([.5, 2.6, 0], [.5, 2.3, -13.9], .5, .52, 30), aimAt([.5, 2.6, -.4], [.5, 2.3, -13.2], .5, .52, 30))});   // E2: long lens down the aisle from the yard; the rows fall outside the narrow frame
+  cam: C(aimAt([.5, .9, -1.2], [.5, 2.2, -7.9], .5, .5, 62), aimAt([.5, .9, -1.4], [.5, 2.2, -7.3], .5, .5, 62))});   // E3: low in the aisle; NOVA walks the clear stretch in front of the -9 / -11 seat groups (mark), rows only at the edges
 shot('04', 5.18, {m: 'push', sz: 'wide', see: ['tumbleweed', 'deadTree'], look: LK.gray, why: 'wide establishing: cracked ground, dead tree, tumbleweed rolling across, shacks, haze',
   cam: C({position: [3, 3.2, 34], target: [-3, 2.4, 6], fov: 50}, {position: [2.6, 3.1, 32.6], target: [-3, 2.4, 6], fov: 50})});
 shot('05', 7.21, {glow: 1.2, m: 'push', sz: 'insert', see: ['dryStick'], prop: 'prop_stick', look: LK.gray, why: 'insert: cracked dry dirt, one dry stick, slow slide',
@@ -96,8 +96,8 @@ shot('07', 8.93, {m: 'push', sz: 'wide', see: ['town'], look: LK.gray, why: 'wid
   cam: C({position: [-6, 7.5, 30], target: [1, 2, -10], fov: 48}, {position: [-5.2, 7.2, 28.4], target: [1, 2, -10], fov: 48})});
 shot('08', 10.14, {m: 'push', sz: 'medium', sub: 'NOVA', see: ['NOVA'], look: LK.gray, why: 'NOVA sits outside every day: porch step, medium; timelapse shadows sweep (days passing)',
   cam: C(camAt(NOVA_STEP, -70, 9.2, 3.0, 2.9, 40), camAt(NOVA_STEP, -70, 8.6, 3.0, 2.9, 40))});
-shot('09', 12.52, {glow: .8, m: 'push', sz: 'insert', see: ['NOVA'], prop: 'NOVA_can', look: LK.gray, why: 'insert: the watering can pouring onto dry dirt; can + stream 35–60 % of frame',
-  cam: C(aimAt([.25, 6.15, 18.4], [.5, 3.0, 15.2], .5, .34, 40), aimAt([.25, 6.05, 18.25], [.5, 3.0, 15.2], .5, .34, 40))});   // E2: side of the can (+z), stream to the dirt in frame
+shot('09', 12.52, {glow: 1.6, m: 'push', sz: 'insert', see: ['NOVA'], prop: 'NOVA_can', look: LK.gray, why: 'insert: the watering can pouring onto dry dirt; can + stream 35–60 % of frame',
+  cam: C(aimAt([.45, 3.0, 18.85], [.5, 2.95, 15.2], .5, .42, 44), aimAt([.45, 2.98, 18.75], [.5, 2.95, 15.2], .5, .42, 44))});   // E3: side view at can height (+z); spout and stream below it
 shot('10', 13.82, {lift: .5, m: 'push', sz: 'wide', sub: 'NOVA', see: ['NOVA'], look: LK.gray, why: 'over the shoulder of a seated headset person (soft, foreground); NOVA small, watering in the background',
   cam: C({position: r3v(add(TB, [.9, 6.4, -5.2])), target: [2.0, 2.6, 14.4], fov: 32}, {position: r3v(add(TB, [.95, 6.35, -4.8])), target: [2.0, 2.6, 14.4], fov: 32})});
 shot('11', 15.08, {lift: .5, m: 'push', sz: 'medium', sub: 'LEO', see: ['LEO'], look: LK.gray, why: 'LEO slumped on his porch chair, headset in his hand, unimpressed',
@@ -114,10 +114,11 @@ shot('15', 18.84, {m: 'push', sz: 'wide', see: ['zombies'], look: LK.Z, why: 'zo
   cam: C({position: at('Z', [1.5, 3.6, 7]), target: at('Z', [0, 2.6, -14]), fov: 46}, {position: at('Z', [1.4, 3.5, 5.8]), target: at('Z', [0, 2.6, -14]), fov: 46})});
 shot('16', 20.21, {lift: 1.2, m: 'heroLow', sz: 'medium', sub: 'LEO_VR', see: ['LEO_VR', 'zombies'], look: LK.Z, why: 'heroLow LEO_VR, glowing sword, heroPose, zombies behind, grin',
   cam: C({position: r3v(add(LVZ, [1.4, .8, 6.4])), target: r3v(add(LVZ, [0, 3.0, 0])), fov: 64}, {position: r3v(add(LVZ, [1.2, .8, 5.8])), target: r3v(add(LVZ, [0, 3.1, 0])), fov: 64})});
-shot('17', 21.17, {m: 'track', sz: 'wide', sub: 'DRAGON', see: ['DRAGON'], look: LK.P, why: 'dragonPeaks wide: a dragon flies across the sunset peaks', follow: 'DRAGON',   // track: from/to are offsets from the dragon root (E2: aimed at its head, +36 x)
-  cam: C({position: [30, 22, -110], target: [44, 20, 0], fov: 50}, {position: [34.2, 21.4, -77], target: [44, 20, 0], fov: 50})});   // E2: from the sun side (front-lit)
-shot('18', 22.17, {lift: 1.6, m: 'track', sz: 'wide', sub: 'LEO_VR', see: ['LEO_VR', 'DRAGON'], look: LK.P, why: 'drone track: LEO_VR on the dragon\'s back (≥ 15 % of frame), wind trails', follow: 'DRAGON',   // E2: aimed at the rider on the saddle (+8.5 x, +33.2 y from the root)
-  cam: C({position: [-9, 44.2, -12], target: [8.5, 33.2, 0], fov: 38}, {position: [-4.6, 41.4, -9.6], target: [8.5, 33.2, 0], fov: 38})});   // E2: from the sun side, swinging
+const CAM17 = aimAt(at('P', [24, 4, -34]), add(at('P', [62, 150, -190]), [17 + 20, 25, 0]), .5, .17, 50);   // = DR0 (declared with the cast)   // E3: from the plateau edge; the dragon (mid-shot, +17 travel) in the upper third, peaks below
+shot('17', 21.17, {m: 'push', sz: 'wide', sub: 'DRAGON', see: ['DRAGON'], look: LK.P, why: 'dragonPeaks wide from the plateau edge: three snow peaks fill the lower 60 %, the dragon flies across the upper third',
+  cam: C(CAM17, {...CAM17, position: r3v(lerp3(CAM17.position, CAM17.target, .03))})});
+shot('18', 22.17, {lift: 1.6, m: 'track', sz: 'wide', sub: 'LEO_VR', see: ['LEO_VR', 'DRAGON'], look: LK.P, why: 'side track: LEO_VR seated on the dragon\'s neck (≥ 15 % of frame), body across the frame, peaks below', follow: 'DRAGON',   // E3: side track level with the rider on the neck base (+19 x, +32.5 y from the root), peaks below
+  cam: C({position: [19, 52, 50], target: [19, 31, 0], fov: 24}, {position: [19, 51, 48.5], target: [19, 31, 0], fov: 24})});   // E3 read pass 2: outside the wing span, above the wing beat
 shot('19', 23.04, {m: 'push', sz: 'wide', see: ['ships'], look: LK.S, why: 'space wide: ships crossing, laser trails, big sun',
   cam: C({position: at('S', [-30, 10, 44]), target: at('S', [30, 6, -60]), fov: 50}, {position: at('S', [-25, 9, 37]), target: at('S', [30, 6, -60]), fov: 50})});
 shot('20', 23.98, {lift: .9, m: 'push', sz: 'medium', sub: 'LEO_VR', see: ['LEO_VR', 'leoShip'], look: LK.S, why: 'LEO_VR standing on his ship\'s nose, pointUp, stars streaking',
@@ -129,8 +130,8 @@ for (const [k, t, who, P] of [['a', 27.27, 'FRIEND_KNIGHT', KNIGHT], ['b', 27.88
 // ---- real: the taps ----
 shot('23', 29.27, {m: 'push', sz: 'wide', sub: 'LEO', see: ['LEO', 'NOVA'], look: LK.gray, why: 'flash → DUST TOWN wide two-shot: LEO frozen on his chair (headset on), NOVA beside him watering; cold',
   cam: C(camAt(add(LEO_SIT, [1.4, 0, .8]), 80, 17, 4.2, 2.4, 42), camAt(add(LEO_SIT, [1.4, 0, .8]), 80, 16, 4.1, 2.4, 42))});
-shot('24', 31.08, {glow: 1.5, m: 'push', sz: 'insert', see: ['LEO'], prop: 'LEO_headset', look: LK.gray, why: 'insert: NOVA\'s finger taps LEO\'s headset at 31.08 / 31.66 / 32.23 (contact frames); headset 35–60 % of frame',
-  cam: C(aimAt([-3.5, 7.95, 13.3], [-3.1, 4.1, 10.6], .5, .5, 40.5), aimAt([-3.5, 7.8, 13.2], [-3.1, 4.1, 10.6], .5, .5, 40.5))});   // E2: LEO's profile from above the side (a side-on headset is 3.6 : 1, it cannot sit 35 % tall in 9:16 with margins); the finger from +z
+shot('24', 31.08, {m: 'push', sz: 'insert', see: ['LEO'], prop: 'LEO_headset', look: LK.gray, why: 'insert: NOVA\'s finger taps LEO\'s headset at 31.08 / 31.66 / 32.23 (contact frames); headset 35–60 % of frame',
+  cam: C(aimAt([-3.1, 4.25, 6.6], [-3.1, 4.25, 10.5], .5, .5, 48), aimAt([-3.1, 4.25, 6.8], [-3.1, 4.25, 10.5], .5, .5, 48))});   // E3: profile from LEO's left at head height (head + headset 40–50 %); NOVA's finger from the right edge (tapSide)
 // ---- VR 2: the finger ----
 // E2 finger cameras (owner rule): zombies / BRO / ship / boss low in frame, the finger tip 45–66 % down, the arm out of the top edge
 const Z = p => at('Z', p), CAM25 = aimAt(Z([.5, .8, 7.5]), Z([0, 4.8, -10.8]), .5, .76, 56), ZT25 = Z([-.2, 0, -15.5]);
@@ -148,11 +149,11 @@ shot('27', 36.37, {lift: .9, m: 'push', sz: 'medium', sub: 'BRO', see: ['LEO_VR'
 shot('28', 37.98, {m: 'push', sz: 'close', sub: 'BRO', see: ['BRO', 'fingerZ'], prop: 'prop_fingerZ', look: LK.Z, why: 'MEME SHOT: BRO close in the lower half, wince; the finger in the cracked sky above him, pointing down at camera',
   cam: C(CAM28, {...CAM28, position: r3v(add(CAM28.position, [0, 0, -1.4])), target: r3v(add(CAM28.target, [0, 0, -1.4]))})});
 shot('29', 39.80, {m: 'push', sz: 'close', sub: 'LEO_VR', see: ['LEO_VR'], look: LK.Z, why: 'LEO_VR close, looks up, side eye', cam: C(camAt(LVZ, -10, 8.0, 3.2, 3.5, 38), camAt(LVZ, -10, 7.4, 3.2, 3.5, 38))});
-shot('30', 41.08, {lift: 1.2, m: 'push', sz: 'close', sub: 'NOVA', see: ['NOVA'], look: LK.gray, why: 'flash → real: NOVA close, tapping, flat meh (E2: from above, the dirt behind her)', cam: C(camAt(NOVA_23, -150, 8.8, 7.0, 3.85, 38), camAt(NOVA_23, -150, 8.3, 6.8, 3.85, 38))});
+shot('30', 41.08, {lift: 1.2, m: 'push', sz: 'close', sub: 'NOVA', see: ['NOVA'], look: LK.gray, why: 'flash → real: NOVA close, tapping, flat meh (E2: from above, the dirt behind her)', cam: C(camAt(NOVA_23, 180, 7.4, 4.3, 3.85, 38), camAt(NOVA_23, 180, 6.9, 4.3, 3.85, 38))});   // E3: from the front (−z, clear of Leo's porch); her tapping hand (mark yaw −155) toward camera-left
 shot('31', 41.50, {m: 'push', sz: 'medium', sub: 'LEO_VR', see: ['LEO_VR', 'fingerZ'], look: LK.Z, why: 'flash → LEO_VR turns his back on the finger, arms crossed, unimpressed; the finger high behind him',
   cam: C(CAM31, {...CAM31, position: r3v(add(CAM31.position, [0, 0, -.5])), target: r3v(add(CAM31.target, [0, 0, -.5]))})});
-const SMID = add(SHIP, [-1, 1, -17]), CAM32 = aimAt(at('S', [1.5, 12, 14]), SMID, .5, .5, 40);
-shot('32', 42.89, {m: 'push', sz: 'medium', see: ['leoShip'], prop: 'prop_leoShip', look: LK.S, why: 'space: LEO\'s ship (≥ 30 % of frame) flying toward camera, battle trails behind',
+const SMID = add(SHIP, [-1, 1, -17]), CAM32 = aimAt(at('S', [1.5, 6, 6]), SMID, .5, .56, 40);   // E3: lower and closer (ship ≥ 30 % by mid)
+shot('32', 42.89, {glow: .6, m: 'push', sz: 'medium', see: ['leoShip'], prop: 'prop_leoShip', look: LK.S, why: 'space: LEO\'s ship (≥ 30 % of frame) flying toward camera, battle trails behind',
   cam: C(CAM32, {...CAM32, position: r3v(add(CAM32.position, [0, -.4, -1]))})});
 const SC = add(SHIP, [0, 1.4, 0]), CAM33 = aimAt(at('S', [20, 10, 56]), SC, .5, .66, 48), FLICK_S = 1.5;
 const SHIP34 = add(SHIP, [24, 4, -26]), SMID34 = lerp3(SHIP, SHIP34, .29), CAM34 = aimAt(add(lerp3(SC, add(SC, [FLICK_S * FS, 0, 0]), .5), [-4, 14, 62]), lerp3(add(SMID34, [0, 1.4, 0]), add(SC, [FLICK_S * FS, 0, 0]), .5), .5, .64, 50);
@@ -170,8 +171,13 @@ shot('36', 48.48, {m: 'push', sz: 'wide', sub: 'BOSS', see: ['BOSS'], look: LK.P
   cam: C(CAM36, {...CAM36, position: r3v(lerp3(CAM36.position, CAM36.target, .22))})});
 shot('37', 49.44, {m: 'lowAuthority', sz: 'medium', sub: 'BOSS', see: ['BOSS'], look: LK.P, why: 'final boss: low authority, roars, shake', ground: BOSS0[1],
   cam: C(CAM37, {...CAM37, position: r3v(add(lerp3(CAM37.position, CAM37.target, .08), [-10, 0, 0]))})});
-const CAM38 = aimAt(add(SWORD, [3.6, 3.4, -11.5]), add(SWORD, [0, 2.1, 0]), .5, .52, 40);
-shot('38', 50.44, {glow: 1.0, m: 'push', sz: 'insert', see: ['LEO_VR', 'swordStone'], prop: 'prop_sword', look: LK.P, why: 'the sword in the stone (35–60 % of frame, halo) from the far side; LEO_VR\'s hand reaching in',
+const CAM38 = (() => {   // E3: front view at stone height through the clearest gap in the friends ring; LEO_VR (+z of the stone) enters from the right
+  const fr = AN.dragonPeaks.friends100.filter(p => Math.hypot(p[0], p[2]) > 4.5).map(p => at('P', p)), S0 = SWORD, seg = (P, A, B) => { const ab = sub(B, A), u = Math.max(0, Math.min(1, ((P[0] - A[0]) * ab[0] + (P[2] - A[2]) * ab[2]) / (ab[0] ** 2 + ab[2] ** 2))); return Math.hypot(P[0] - A[0] - u * ab[0], P[2] - A[2] - u * ab[2]); };
+  let best = null; for (let a = 0; a < 360; a += 2) for (const D of [6.5, 7.5, 8.5]) { const fov = 2 * Math.atan(4.23 / .44 / 2 / D) / R, C0 = add(S0, [Math.sin(a * R) * D, 1.6, Math.cos(a * R) * D]), c = aimAt(C0, add(S0, [0, 2.1, 0]), .5, .5, fov), lx = proj(c, add(LVreach, [0, 3, 0]))[0];
+    if (lx < .6 || lx > 1.15 || Math.abs(a - 0) < 30) continue;   // read pass 2: no friend inside the frame nearer than .7 × the stone
+    if (fr.some(p => { const q = proj(c, add(p, [0, 2, 0])); return q[2] > 0 && q[2] < .75 * D && q[0] > -.15 && q[0] < 1.15; })) continue; const clr = Math.min(...fr.map(p => seg(p, C0, S0))); if (!best || clr > best.clr) best = {clr, c, a, D}; }
+  return best.c; })();
+shot('38', 50.44, {m: 'push', sz: 'insert', see: ['LEO_VR', 'swordStone'], prop: 'prop_sword', look: LK.P, why: 'the sword in the stone (35–60 % of frame, halo) from the far side; LEO_VR\'s hand reaching in',
   cam: C(CAM38, {...CAM38, position: r3v(lerp3(CAM38.position, CAM38.target, .05))})});
 shot('39', 52.40, {m: 'push', sz: 'wide', sub: 'BOSS', see: ['BOSS', 'fingerD'], prop: 'prop_fingerD', look: LK.P, why: 'the finger through the crack taps the BOSS head 52.40 / 52.92 / 53.40 (big shake on 53.40)',
   cam: C(CAM39, {...CAM39, position: r3v(add(lerp3(CAM39.position, CAM39.target, .08), [-8, 0, 0]))})});
@@ -186,7 +192,7 @@ shot('43', 58.25, {m: 'push', sz: 'close', sub: 'LEO', see: ['LEO'], look: LK.gr
   cam: C(camAt(LEO_STAND, 25, 8.2, 4.1, 3.95, 38), camAt(LEO_STAND, 25, 7.6, 4.1, 3.95, 38))});   // E2: NOVA off the line of sight
 shot('44', 60.48, {m: 'push', sz: 'medium', sub: 'NOVA', see: ['NOVA'], look: LK.gray, why: 'NOVA medium, quiet, calm, watering can in hand', cam: C(camAt(NOVA_STAND, -55, 9.6, 3.7, 3.6, 40), camAt(NOVA_STAND, -55, 9.0, 3.7, 3.6, 40))});
 shot('45', 61.65, {m: 'tiltUp', sz: 'medium', sub: 'NOVA', see: ['NOVA'], look: LK.gray, why: 'NOVA points down; the camera tilts down along her arm to the ground',
-  cam: C(camAt(NOVA_STAND, -90, 9.6, 4.6, 3.6, 42), {...camAt(NOVA_STAND, -90, 9.6, 4.4, 2.6, 42)})});   // E2: square on, her pointing arm below the face
+  cam: C(camAt(NOVA_STAND, -140, 8.4, 4.2, 3.7, 42), {position: camAt(NOVA_STAND, -140, 8.4, 4.1, 3.7, 42).position, target: [2.5, 2.6, 12.6], fov: 42})});   // E3 read pass 2: from her other side (the pointing arm off her face); ends on her hand
 shot('46', 63.01, {m: 'push', sz: 'insert', see: ['grass'], prop: 'prop_grass', look: LK.gray, why: 'low macro push across the dirt toward a small green speck',
   cam: C({position: r3v(add(G, [-.4, .55, 6.5])), target: r3v(add(G, [0, .25, 0])), fov: 34}, {position: r3v(add(G, [-.2, .45, 2.05])), target: r3v(add(G, [0, .35, 0])), fov: 34})});
 shot('47', 65.02, {m: 'push', sz: 'insert', see: ['grass'], prop: 'prop_grass', look: LK.gray, why: 'HERO INSERT: the blade macro, backlit, dust motes; 35–60 % of frame; the only vivid green',
@@ -203,7 +209,7 @@ shot('52', 73.67, {m: 'push', sz: 'wide', sub: 'NOVA', see: ['grass', 'LEO', 'NO
   cam: C(CAM52, {...CAM52, position: r3v(lerp3(CAM52.position, CAM52.target, .02))})});
 shot('53', 75.59, {m: 'push', sz: 'medium', sub: 'LEO', see: ['LEO'], look: LK.gray, why: 'LEO kneels down, medium side angle', cam: C(camAt(LEO_KNEEL, 55, 9.6, 4.8, 2.3, 40), camAt(LEO_KNEEL, 55, 9.0, 4.7, 2.3, 40))});   // E2: face toward the lens
 shot('54', 76.86, {m: 'push', sz: 'insert', see: ['grass', 'leoFinger'], prop: 'prop_grass', look: LK.gray, why: 'macro: LEO\'s fingertip touches the blade (contact 77.32 "it"); mirrors the giant finger',
-  cam: (() => { const c = aimAt(add(G, [1.7, 2.1, .9]), add(G, [0, .62, 0]), .5, .55, 46); return C(c, {...c, position: r3v(lerp3(c.position, c.target, .06))}); })()});   // E2: macro from the side, above: the dirt behind the blade (not LEO's dark pants)
+  cam: (() => { const c = aimAt(add(G, [.1, .45, 3.0]), add(G, [0, .7, 0]), .5, .5, 40); return C(c, {...c, position: r3v(lerp3(c.position, c.target, .06))}); })()});   // E3: ground-level side macro (+z); LEO kneels beside, not between
 shot('55', 77.74, {m: 'push', sz: 'close', sub: 'LEO', see: ['LEO'], look: LK.gold, why: '"It\'s... kind of soft": LEO close, blush smile; the sun breaks through (dustGold from 77.74)',
   cam: C(camAt(LEO_KNEEL, 30, 8.0, 4.0, 2.65, 38), camAt(LEO_KNEEL, 30, 7.4, 3.95, 2.65, 38))});
 shot('56', 79.69, {m: 'push', sz: 'wide', sub: 'LEO', see: ['LEO', 'TOWN_A', 'TOWN_B', 'TOWN_C'], look: LK.gold, why: 'LEO kneeling foreground, 3 townspeople behind lift their headsets off one after another',
@@ -232,8 +238,9 @@ const cast = {
   TOWN_C: {style: 'v2', preset: 'TOWN_4', origin: TC, yaw: 10, keys: [[0, 'sit'], [startOf('56') + .55, 'raise'], [startOf('56') + 1.15, 'sit']], faces: [[0, 'calm'], [startOf('56') + 1.05, 'o_small']],
     hs: [[0, 'head'], [startOf('56') + .9, 'hand']], visible: vis([[0, startOf('58')]])},
   NOVA: {style: 'v2', preset: 'NOVA', origin: [.5, 0, -16], yaw: 0,
-    marks: [[startOf('03'), {origin: [.5, 0, -14.5], yaw: 0, travel: {dir: [0, 1], speed: .67}}], [startOf('08'), {origin: NOVA_STEP, yaw: -90}], [startOf('09'), {origin: NOVA_W9, yaw: -110}],
-      [startOf('23'), {origin: NOVA_23, yaw: -120}], [startOf('42'), {origin: NOVA_STAND, yaw: -90}], [startOf('52'), {origin: N52, yaw: -15}], [startOf('53'), {origin: NOVA_STAND, yaw: -90}]],
+    marks: [[startOf('03'), {origin: [.5, 0, -8.6], yaw: 0, travel: {dir: [0, 1], speed: .67}}],   // E3: the clear aisle stretch (z −8.6 → −7.3)
+      [startOf('08'), {origin: NOVA_STEP, yaw: -90}], [startOf('09'), {origin: NOVA_W9, yaw: -110}],
+      [startOf('23'), {origin: NOVA_23, yaw: -120}], [startOf('30'), {origin: NOVA_23, yaw: -155}], [startOf('31'), {origin: NOVA_23, yaw: -120}], [startOf('42'), {origin: NOVA_STAND, yaw: -90}], [startOf('52'), {origin: N52, yaw: -15}], [startOf('53'), {origin: NOVA_STAND, yaw: -90}]],
     keys: [[0, 'walk'], [startOf('08'), 'sit'], [startOf('09'), 'point'], [startOf('11'), 'idle'], [startOf('23'), 'point'], [startOf('42'), 'idle'], [startOf('45') + .2, 'point'], [startOf('46'), 'idle'], [startOf('51') + .25, 'shrug'], [startOf('52'), 'idle']],
     faces: [[0, 'calm'], [startOf('30'), 'flat_meh'], [startOf('42'), 'calm'], [startOf('51'), 'content'], [startOf('52'), 'smile']],
     can: [[0, 'none'], ...[['08', 'hand'], ['11', 'none'], ['23', 'hand'], ['24', 'none'], ['42', 'hand'], ['45', 'none'], ['49', 'hand'], ['50', 'none']].map(([n, v]) => [fr(startOf(n)) - .001, v])],   // frame-aligned (cuts sit on round(t × fps))
@@ -245,7 +252,7 @@ const cast = {
     keys: [[0, 'sit'], [startOf('42'), 'raise', {snap: true}], [startOf('43'), 'idle'], [startOf('43') + .1, 'flail'], [startOf('43') + 1.0, 'idle'], [startOf('53'), 'kneel']],
     faces: [[0, 'unimpressed'], [startOf('13'), 'grin'], [startOf('23'), 'grin'], [startOf('42'), 'angry'], [startOf('43'), 'xd_shout'], [59.24, 'angry'], [startOf('49'), 'o_small'], [startOf('53'), 'calm'], [startOf('55'), 'blush_smile']],
     hs: [[0, 'hand'], [16.23, 'head'], [57.28, 'hand'], [startOf('43'), 'none']], visor: [[0, 'off'], [16.23, 'on']],
-    tap: TAPS.a.map(fr), tapVis: [startOf('24'), endOf('24')], visorLight: [[startOf('13'), startOf('14')]], visorLightI: 1.2,
+    tap: TAPS.a.map(fr), tapVis: [startOf('24'), endOf('24')], tapSide: 'left', visorLight: [[startOf('13'), startOf('14')]], visorLightI: 1.2,
     visible: vis([[startOf('11'), startOf('15')], [startOf('23'), startOf('25')], [startOf('42'), END]])},
   LEO_VR: {style: 'v2', preset: 'LEO_VR', origin: LVZ, yaw: 0,
     marks: [[startOf('18'), {origin: [0, 0, 0], yaw: 0}], [startOf('20'), {origin: at('S', [0, 1.3, 4.6]), yaw: 20}], [startOf('21'), {origin: LVP, yaw: 0}], [startOf('25'), {origin: LVZ, yaw: 0}],
@@ -260,9 +267,9 @@ const cast = {
   FRIEND_MAGE: {style: 'v2', preset: 'FRIEND_MAGE', origin: MAGE, yaw: 4, keys: [[0, 'cheer']], visible: vis([[startOf('21'), startOf('23')]])},
 };
 // flying dragon (17–18): across the peaks, LEO_VR rides it in 18 (his mark follows the dragon's travel)
-const DR0 = at('P', [-32, 40, 20]), DRdir = [1, 0], DRspeed = 34;
+const DR0 = at('P', [62, 150, -190]), DRdir = [1, 0], DRspeed = 34;   // E3: high over the three right-hand peaks (17 / 18)
 cast.DRAGON = {style: 'dragon', scale: 2.5, saddle: true, origin: DR0, yaw: 90, keys: [[0, 'fly']], marks: [[0, {origin: DR0, yaw: 90, travel: {dir: DRdir, speed: DRspeed, delay: startOf('17')}}]], visible: vis([[startOf('17'), startOf('19')]])};
-const riderAt = t => add(DR0, [8.5 + DRspeed * Math.max(0, t - startOf('17')), 30.9, 0]);   // E2: on the saddle (body y 9 + 3.7 local × 2.5, seat − .88; saddle z 3.4 × 2.5 forward)
+const riderAt = t => add(DR0, [19 + DRspeed * Math.max(0, t - startOf('17')), 27.4, 0]);   // E3: on the neck base   // E2: on the saddle (body y 9 + 3.7 local × 2.5, seat − .88; saddle z 3.4 × 2.5 forward)
 cast.LEO_VR.marks[0] = [startOf('18'), {origin: r3v(riderAt(startOf('18'))), yaw: 90, travel: {dir: DRdir, speed: DRspeed}}];
 // the boss: perch, roar, flinch on the taps, tumble (keyed per frame), cry at the bottom
 const BC = CASTF.BOSS, tum = [];
@@ -312,9 +319,9 @@ shipJolt.push([fr(45.96), SHIP]); shipJolt.push([startOf('35'), SHIP34, startOf(
 props.push({id: 'leoShip', set: 'props7', prop: 'spaceship', scale: 2.5, pos: keys(shipJolt.map(([t, v, r]) => [t, v, r])),
   rot: keys([[0, [0, 0, 0]], [fr(45.96), [0, 0, 0]], [48.30, [380, 940, 260], 48.30 - fr(45.96)]]), visible: vis([[startOf('19'), startOf('21')], [startOf('32'), 48.34]])});
 props.push({id: 'enemy1', set: 'props7', prop: 'spaceship', scale: 2.5, p: {color: '#8A2A2A', accent: '#2A2A2A'}, pos: keys([[0, at('S', [-60, 8, -40])], [startOf('19'), at('S', [-60, 8, -40])], [startOf('21'), at('S', [40, 14, -70]), startOf('21') - startOf('19')],
-  [startOf('32'), at('S', [-40, 6, -50])], [startOf('35'), at('S', [30, 10, -80]), startOf('35') - startOf('32')]]), rot: [[0, [0, 60, 0]]], visible: vis([[startOf('19'), startOf('21')], [startOf('32'), startOf('35')]])});
+  [startOf('32'), at('S', [-14, 5, -60])], [startOf('35'), at('S', [10, 8, -80]), startOf('35') - startOf('32')]]), rot: [[0, [0, 60, 0]]], visible: vis([[startOf('19'), startOf('21')], [startOf('32'), startOf('35')]])});
 props.push({id: 'enemy2', set: 'props7', prop: 'spaceship', scale: 2.5, p: {color: '#8A2A2A', accent: '#2A2A2A'}, pos: keys([[0, at('S', [50, -4, -60])], [startOf('19'), at('S', [50, -4, -60])], [startOf('21'), at('S', [-30, 2, -90]), startOf('21') - startOf('19')],
-  [startOf('32'), at('S', [44, -2, -40])], [startOf('35'), at('S', [-30, 4, -70]), startOf('35') - startOf('32')]]), rot: [[0, [0, -110, 0]]], visible: vis([[startOf('19'), startOf('21')], [startOf('32'), startOf('35')]])});
+  [startOf('32'), at('S', [16, -1, -55])], [startOf('35'), at('S', [-8, 3, -75]), startOf('35') - startOf('32')]]), rot: [[0, [0, -110, 0]]], visible: vis([[startOf('19'), startOf('21')], [startOf('32'), startOf('35')]])});
 // ---- effects ----
 const FLASH = '#49D9FF', CUTS = ['15', '23', '25', '30', '31', '42'].map(startOf);   // every real ↔ VR cut
 const fx = [];
@@ -338,7 +345,7 @@ fx.push({type: 'shockwave', at: zTipDown, origin: r3v([ZCON[0], 0, ZCON[2]]), ra
 fx.push({type: 'particles', preset: 'dust', at: zTipDown, origin: r3v([ZCON[0], 0, ZCON[2]]), scale: 3, dur: 1.2, count: 90, seed: 14, spread: 5, life: [1, 1.8]});
 fx.push({type: 'shake', at: zTipDown, dur: 2 * F, amp: .35, seed: 2});
 fx.push({type: 'lightning', at: startOf('33') + .05, ...bolt('33', .012), color: '#e8fbff', seed: 8, flashPeak: .3});
-for (const [k, a, b] of [[.1, [-16, 3, -40], [8, 2, -62]], [.45, [14, -2, -48], [-6, 4, -70]]]) fx.push({type: 'lightning', at: startOf('32') + k, from: at('S', a), to: at('S', b), color: '#ff4a4a', width: .3, flash: false, seed: 60 + k * 10});   // E2: battle lasers behind the ship
+for (const [k, a, b] of [[.1, [-12, 5, -58], [8, 2, -40]], [.45, [14, -1, -54], [-6, 4, -38]]]) fx.push({type: 'lightning', at: startOf('32') + k, from: at('S', a), to: at('S', b), color: '#ff4a4a', width: .3, flash: false, seed: 60 + k * 10});   // E2: battle lasers behind the ship
 fx.push({type: 'lightning', at: startOf('36') + .3, from: r3v(add(BOSS0, [-60, 140, -60])), to: r3v(add(BOSS0, [-20, 10, -40])), color: '#dbe8ff', width: 2, seed: 9, flashPeak: .35});
 fx.push({type: 'lightning', at: startOf('39') + .02, ...bolt('39', .012), color: '#e8fbff', seed: 10, flashPeak: .3});
 fx.push({type: 'shake', at: startOf('37') + .25, dur: .5, amp: .3, seed: 3});
