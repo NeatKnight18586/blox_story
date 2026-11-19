@@ -12,7 +12,7 @@ review/<slug>/qa-allow.log without an episode folder). --final also honours ever
 allows that were committed. N-* rules can't be allowed.
 Pure: check(...) → [{id, status, msg, at}]. Tests: tests/v2/test_qa_episode.py.
 """
-import argparse, datetime, json, re, sys
+import argparse, datetime, json, math, re, sys
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -34,6 +34,8 @@ REVERSAL = (.55, .75)                                 # R-MID-03
 ACT1_END_S = 25.0                                     # R-STORY-02: Act I ≈ 0:04–0:25 (spec act2_at_s overrides)
 COUNTER_MIN = 3                                       # R-MID-02
 HARD = (60, 175)                                      # R-LEN-03
+LOOP_OK = {'pos': .15, 'target': .15, 'fov': 5}       # R-LOOP-01 (= engine/presets6.js LOOP_OK)
+SIGN_CAP, SIGN_SECS = .03, 1.0                        # R-SIGN-01: cap ≥ 3 % of frame height, ≥ 1.0 s on screen
 BANNED = ['thanks for watching', 'thank you for watching', 'subscribe', 'follow for more', 'like and follow', 'part 2', 'part two',
           'see you next time', 'smash that like', 'hit the bell']
 GREETINGS = {'hi', 'hey', 'hello', 'welcome', 'guys', 'today'}
@@ -106,6 +108,7 @@ def locked(s):
     'locked': format 5 uses it to mark a held framing (length limit), e.g. a slowly turning topDown."""
     if s.get('move') in STATIC_MOVES: return True
     if s.get('move') == 'topDown': return not s.get('degrees', 40)
+    if s.get('move') == 'orbit': return not s.get('degrees', 30)   # an orbit sweeps `degrees` around the target (from == to by design)
     f, t = s.get('from'), s.get('to')
     return bool(f and t and f == t)
 
@@ -131,6 +134,36 @@ def hero_keys(ep):
 
 
 def fmt_t(t): return f'{t:.2f}s'
+
+
+def _pose(s, end=False):
+    f = s.get('from') or (s.get('a') or {}).get('from')
+    if not f: return None
+    e = (s.get('to') or {}) if end else {}
+    return {'position': e.get('position', f['position']), 'target': e.get('target', f['target']), 'fov': e.get('fov', f.get('fov', 40))}
+
+
+def loop_score(first, last):
+    """R-LOOP-01: distance of the last frame's camera from frame 1's, relative to frame 1's camera–target distance; fov delta (deg)."""
+    a, b = _pose(first), _pose(last, end=True)
+    if not a or not b: return None
+    d = lambda u, v: math.dist(u, v)
+    ref = d(a['position'], a['target']) or 1
+    return {'pos': round(d(a['position'], b['position']) / ref, 3), 'target': round(d(a['target'], b['target']) / ref, 3), 'fov': round(abs(a['fov'] - b['fov']), 2)}
+
+
+def sign_legibility(signs, shots, dur):
+    """{sign id: legible seconds}: shots whose `see` lists the sign, cap height / frame height ≥ 3 % from the shot's opening camera."""
+    out = {}
+    for g in signs:
+        t = 0.0
+        for s, dd in zip(shots, dur):
+            p = _pose(s)
+            if not p or g['id'] not in (s.get('see') or []): continue
+            dist = math.dist(p['position'], g['at']); fh = 2 * dist * math.tan(math.radians(p['fov']) / 2)
+            if fh > 0 and g.get('capH', 0) / fh >= SIGN_CAP - 1e-9: t += dd
+        out[g['id']] = round(t, 2)
+    return out
 
 
 def check(ep, cues, script, spec=None, tier=(105, 135), story_dir=None):
@@ -228,19 +261,25 @@ def check(ep, cues, script, spec=None, tier=(105, 135), story_dir=None):
         add('R-MID-02', None, 'needs spec counter.object and reversal_at_s')
 
     # --- signage, hero shots, loop
-    sg = spec.get('signage')
-    if sg:
+    sg, es = spec.get('signage'), ep.get('signs') or []
+    if es:   # placed signs (engine/signs6.js): count, words, and legibility measured from the cameras
+        leg = sign_legibility(es, shots, dur); short = {k: v for k, v in leg.items() if v < SIGN_SECS}
+        long_signs = [g['text'] for g in es if len(str(g['text']).split()) > 3]
+        add('R-SIGN-01', 3 <= len(es) <= 6 and not long_signs and not short, f'{len(es)} placed signs (3–6), over 3 words: {long_signs}; legible < {SIGN_SECS} s: {short or "none"}')
+    elif sg:
         t = [x.get('text') if isinstance(x, dict) else x for x in sg]
         long_signs = [x for x in t if len(str(x).split()) > 3]
-        add('R-SIGN-01', 3 <= len(t) <= 6 and not long_signs, f'{len(t)} signs (3–6), over 3 words: {long_signs}; legibility (cap ≥ 3 %, ≥ 1 s) measured by the sign helper (Phase 4)')
+        add('R-SIGN-01', None if 3 <= len(t) <= 6 and not long_signs else False, f'{len(t)} signs in the spec (3–6), over 3 words: {long_signs}; none placed yet (episode.json signs, engine/signs6.js) so legibility is unmeasured')
     else:
-        add('R-SIGN-01', None, 'needs spec signage')
+        add('R-SIGN-01', None, 'needs spec signage / episode.json signs')
     hs = [i for i, s in enumerate(shots) if s.get('hero')]
     ok = len(hs) == 3 and shots and hs[0] == 0 and hs[-1] == len(shots) - 1
     if ok and rev is not None:
         mid = shots[hs[1]]; ok = mid['at'] <= rev + 1e-9 < mid['at'] + dur[hs[1]] + 1.0
     add('R-HERO-01', ok, f'{len(hs)} shot(s) marked hero (need 3: first, the reversal, last): {[shots[i]["id"] for i in hs]}')
-    add('R-LOOP-01', None, 'loop metric arrives with the loop helper (Phase 4)')
+    ls = loop_score(shots[0], shots[-1]) if len(shots) > 1 else None
+    add('R-LOOP-01', None if ls is None else all(ls[k] <= LOOP_OK[k] for k in LOOP_OK),
+        f'last frame vs frame 1: camera {ls["pos"]}, target {ls["target"]} (× cam–target distance, ≤ {LOOP_OK["pos"]}), fov Δ {ls["fov"]}° (≤ {LOOP_OK["fov"]}); loop helper: presets6.loopify' if ls else 'needs camera poses on the first and last shots')
 
     # --- captions
     style = ep.get('captionStyle')

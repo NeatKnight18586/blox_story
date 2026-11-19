@@ -2,7 +2,7 @@ import copy, sys, tempfile, unittest
 from pathlib import Path
 HERE = Path(__file__).resolve().parent
 sys.path.insert(0, str(HERE.parents[1] / 'tools')); sys.path.insert(0, str(HERE))
-from qa_episode import check, apply_allow, logged_allows, runtime_of, locked, gaps, cue_words  # noqa: E402
+from qa_episode import check, apply_allow, logged_allows, runtime_of, locked, gaps, cue_words, loop_score, sign_legibility  # noqa: E402
 from qa_fixtures import clean, broken  # noqa: E402
 
 
@@ -74,11 +74,25 @@ class QA(unittest.TestCase):
         sp = dict(self.spec, roblox_context_starts_at_s=2)
         self.assertEqual(self.run_(spec=sp)['R-HOOK-02'], 'FAIL')
         s = self.run_(spec=None)
-        for rid in ('R-HOOK-02', 'R-MID-02', 'R-MID-03', 'R-SIGN-01'): self.assertEqual(s[rid], 'SKIP', rid)
+        for rid in ('R-HOOK-02', 'R-MID-02', 'R-MID-03'): self.assertEqual(s[rid], 'SKIP', rid)
+        self.assertEqual(s['R-SIGN-01'], 'PASS')   # placed signs are measured without a spec
 
     def test_runtime_model(self):
         self.assertEqual(runtime_of({'format': 6, 'end': 100}, {'duration': 99}), 100)
         self.assertAlmostEqual(runtime_of({'format': 5, 'end': 80}, {'duration': 80}), 80.85)
+
+    def test_loop_and_signs(self):
+        a = {'from': {'position': [0, 2, 10], 'target': [0, 2, 0], 'fov': 50}}
+        self.assertEqual(loop_score(a, {'from': {'position': [9, 9, 9], 'target': [0, 0, 0], 'fov': 30}, 'to': {'position': [0, 2.5, 10], 'target': [0, 2, 0], 'fov': 52}}),
+                         {'pos': .05, 'target': 0.0, 'fov': 2.0})
+        ep = copy.deepcopy(self.ep)
+        ep['shots'][0]['from'] = a['from']; ep['shots'][-1]['from'] = {'position': [40, 2, 0], 'target': [30, 2, 0], 'fov': 20}
+        self.assertEqual(self.run_(ep)['R-LOOP-01'], 'FAIL')
+        ep['shots'][-1]['to'] = dict(a['from']); self.assertEqual(self.run_(ep)['R-LOOP-01'], 'PASS')
+        cam = {'from': {'position': [0, 2, 10], 'target': [0, 2, 0], 'fov': 54}, 'see': ['day19']}
+        g = [{'id': 'day19', 'text': 'DAY 19', 'at': [0, 2, 0], 'capH': .3}]   # frame height at 10 = 10.19 → 2.9 % < 3 %
+        self.assertEqual(sign_legibility(g, [cam], [2.0]), {'day19': 0.0})
+        g[0]['capH'] = .35; self.assertEqual(sign_legibility(g, [cam], [2.0]), {'day19': 2.0})
 
     def test_allow(self):
         res = check(*broken())

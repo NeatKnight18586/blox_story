@@ -43,8 +43,12 @@ def clean():
     for j in (0, ri, len(shots) - 1): shots[j]['hero'] = True
     for s in shots:
         if 30 < s['at'] < rev and len([x for x in shots if 'tower' in x['see']]) < 4: s['see'] = s['see'] + ['tower']
+    signs = [{'id': f'sign{k}', 'text': t, 'at': [k * 20.0, 3, 0], 'capH': .35} for k, t in enumerate(['DAY 19', 'NEVER BLOW', '12 LEFT'])]
+    for k, g in enumerate(signs):   # three medium shots look at a sign from 10 units at 54° (cap 3.4 % of frame height)
+        sh = shots[4 + 9 * k]; sh['see'] = sh['see'] + [g['id']]
+        sh['from'] = {'position': [g['at'][0], 3, 10], 'target': g['at'], 'fov': 54}; sh['to'] = {'position': [g['at'][0], 3, 9.4], 'target': g['at'], 'fov': 54}
     ep = {'slug': 'fixture', 'fps': 24, 'format': 6, 'end': end, 'labels': False, 'sfx': False, 'captionStyle': 'pop-shorts-v6',
-          'signature': {'prop': 'lantern_hook'}, 'cast': {'hero': {'style': 'v5', 'preset': 'HERO'}}, 'effects': [], 'shots': shots}
+          'signature': {'prop': 'lantern_hook'}, 'signs': signs, 'cast': {'hero': {'style': 'v5', 'preset': 'HERO'}}, 'effects': [], 'shots': shots}
     spec = {'hook_rule': HOOK[0], 'hook_break': HOOK[1], 'roblox_context_starts_at_s': 8, 'reversal_at_s': rev,
             'counter': {'type': 'lanterns', 'start': 12, 'end': 0, 'object': 'tower'},
             'signage': ['DAY 19', 'NEVER BLOW', '12 LEFT'],
