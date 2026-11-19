@@ -200,8 +200,9 @@ V5_HOLD = 0.85   # format v5 (owner, E1 fix): no padding to 122.5 s; the video e
 
 
 def end_total(pic, vlen, fmt=None, no_hold=False):
-    """Pure: the finished length (s). --no-hold: the picture; format 5: max(picture, voice + 0.85); older: max(picture, voice + 2.5, 122.5)."""
+    """Pure: the finished length (s). --no-hold or format 6: the picture; format 5: max(picture, voice + 0.85); older: max(picture, voice + 2.5, 122.5)."""
     if no_hold: return pic
+    if fmt == 6: return pic   # Retention Engine (R-END-01): the picture ends ≤ 0.3 s after the last word (QA-checked); no hold
     if fmt == 5: return max(pic, vlen + V5_HOLD)
     return max(pic, max(vlen + 2.5, 122.5))
 
@@ -229,14 +230,14 @@ def main():
     total = end_total(pic, vlen, fmt, o.no_hold)
     hold = max(0.0, total - pic)
     inputs = pic_in + ['-i', voice]
-    music = f'stories/{o.story}/music.mp3'; has_music = os.path.exists(music)
+    music = f'stories/{o.story}/music.mp3'; has_music = os.path.exists(music) and fmt != 6   # format 6: the owner adds music (N-AUD-01)
     if has_music: inputs += ['-i', music]
     sfx_rep, silence = None, []
     if o.spec:   # A4 §F: auto-placed sfx under the voice (off with "sfx": false in the episode file)
         import sfx as SFX, tempfile
         spec = json.load(open(o.spec))
-        if spec.get('sfx') is not False:
-            placed = SFX.place(spec, SFX.layout(o.spec), spec.get('fps', o.fps)); silence = placed['silence']
+        if (spec.get('sfx') in (True, 'on')) if spec.get('format') == 6 else (spec.get('sfx') is not False):   # format 6: sfx only when on (N-AUD-01)
+            placed = (SFX.place6 if spec.get('format') == 6 else SFX.place)(spec, SFX.layout(o.spec), spec.get('fps', o.fps)); silence = placed['silence']   # format 6: Phase 6 beat map
             track = os.path.join(tempfile.mkdtemp(), 'sfx.wav'); SFX.write_wav(track, SFX.render_track(placed, total))
             inputs += ['-i', track]; sfx_rep = {'hits': len(placed['hits']), 'byName': {n: sum(h[1] == n for h in placed['hits']) for n in SFX.NAMES if any(h[1] == n for h in placed['hits'])}, 'silence': silence}
     shot_luts, lut_file = spec_luts(o.spec, o.out, o.fps) if o.spec else ([], None)

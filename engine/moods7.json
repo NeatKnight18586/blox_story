@@ -1,0 +1,320 @@
+{
+ "note": "Retention Engine Phase 5 mood presets (data; docs/bible/LOOK.md R-LOOK-02). hdri = slot in renders/cache/assets/manifest.json (tools/fetch_look_assets.py). Units: exposure = tone-mapping exposure; fog linear near/far (world units); bloom/rays/ao/dof feed engine/post7.js; grade.temp > 0 warms (white-balance gains), lift adds to the shadows (linear), acts = per-act colour-temperature shift (Act I\u2026IV) added to grade.temp. dof is used on emotion-lens / close shots only (R-LENS-01). gate = the Phase 5 measured pass lines per mood on the final still: mean luma band, R/B ratio (warm \u2265 rbMin / cool \u2264 rbMax), clipMax = share of pixels at luma \u2265 0.97. rbMin/rbMax are judged on wide shots only (rbWideOnly): a close-up is dominated by the subject's skin/clothes colour, not the light (Phase 5 decision, fix pass 1).",
+ "dawnHope": {
+  "hdri": "dawn2",
+  "rotation": 160,
+  "backdrop": 1.0,
+  "exposure": 0.93,
+  "env": 0.85,
+  "sun": {
+   "color": "#ffc184",
+   "intensity": 2.6,
+   "minEl": 10
+  },
+  "fog": {
+   "color": "#f0c8a0",
+   "near": 25,
+   "far": 260
+  },
+  "bloom": {
+   "strength": 0.18,
+   "radius": 0.55,
+   "threshold": 1.5
+  },
+  "rays": {
+   "strength": 0.3,
+   "decay": 0.965,
+   "threshold": 0.85
+  },
+  "ao": {
+   "radius": 1.2,
+   "intensity": 0.9
+  },
+  "dof": {
+   "aperture": 0.0035,
+   "maxblur": 0.012
+  },
+  "grade": {
+   "temp": 0.08,
+   "tint": 0.0,
+   "saturation": 1.06,
+   "contrast": 1.03,
+   "vignette": 0.22,
+   "lift": [
+    0.004,
+    0.003,
+    0.0
+   ]
+  },
+  "acts": [
+   0.0,
+   -0.02,
+   -0.05,
+   0.06
+  ],
+  "gate": {
+   "luma": [
+    0.36,
+    0.5
+   ],
+   "rbMin": 1.15,
+   "clipMax": 0.02,
+   "rbWideOnly": true
+  }
+ },
+ "overcastDread": {
+  "hdri": "dawn",
+  "rotation": 0,
+  "backdrop": 0.85,
+  "exposure": 0.8,
+  "env": 1.0,
+  "sun": {
+   "color": "#d9e1ea",
+   "intensity": 0.9,
+   "minEl": 35
+  },
+  "fog": {
+   "color": "#a8b0b4",
+   "near": 12,
+   "far": 170
+  },
+  "bloom": {
+   "strength": 0.12,
+   "radius": 0.4,
+   "threshold": 1.2
+  },
+  "rays": {
+   "strength": 0.0,
+   "decay": 0.95,
+   "threshold": 1.0
+  },
+  "ao": {
+   "radius": 1.5,
+   "intensity": 1.1
+  },
+  "dof": {
+   "aperture": 0.003,
+   "maxblur": 0.01
+  },
+  "grade": {
+   "temp": -0.08,
+   "tint": 0.02,
+   "saturation": 0.78,
+   "contrast": 0.96,
+   "vignette": 0.3,
+   "lift": [
+    0.0,
+    0.002,
+    0.004
+   ]
+  },
+  "acts": [
+   0.02,
+   0.0,
+   -0.04,
+   0.0
+  ],
+  "gate": {
+   "luma": [
+    0.3,
+    0.42
+   ],
+   "rbMax": 1.05,
+   "clipMax": 0.02,
+   "rbWideOnly": true
+  }
+ },
+ "goldenBittersweet": {
+  "hdri": "sunset",
+  "rotation": 0,
+  "backdrop": 0.75,
+  "exposure": 0.95,
+  "env": 0.8,
+  "sun": {
+   "color": "#ffb066",
+   "intensity": 3.0,
+   "minEl": 9
+  },
+  "fog": {
+   "color": "auto",
+   "k": 0.85,
+   "near": 30,
+   "far": 230
+  },
+  "bloom": {
+   "strength": 0.45,
+   "radius": 0.7,
+   "threshold": 0.95
+  },
+  "rays": {
+   "strength": 0.45,
+   "decay": 0.97,
+   "threshold": 0.8
+  },
+  "ao": {
+   "radius": 1.2,
+   "intensity": 0.9
+  },
+  "dof": {
+   "aperture": 0.004,
+   "maxblur": 0.014
+  },
+  "grade": {
+   "temp": 0.14,
+   "tint": -0.01,
+   "saturation": 1.02,
+   "contrast": 1.05,
+   "vignette": 0.28,
+   "lift": [
+    0.006,
+    0.003,
+    0.0
+   ]
+  },
+  "acts": [
+   0.0,
+   0.03,
+   -0.06,
+   0.08
+  ],
+  "gate": {
+   "luma": [
+    0.34,
+    0.48
+   ],
+   "rbMin": 1.2,
+   "clipMax": 0.02,
+   "rbWideOnly": true
+  }
+ },
+ "nightMystery": {
+  "hdri": "night",
+  "rotation": 90,
+  "backdrop": 0.9,
+  "exposure": 0.85,
+  "env": 0.45,
+  "sun": {
+   "color": "#8fb0ff",
+   "intensity": 0.55,
+   "minEl": 30
+  },
+  "fog": {
+   "color": "#1a2433",
+   "near": 15,
+   "far": 150
+  },
+  "bloom": {
+   "strength": 0.8,
+   "radius": 0.6,
+   "threshold": 0.9
+  },
+  "rays": {
+   "strength": 0.0,
+   "decay": 0.95,
+   "threshold": 1.0
+  },
+  "ao": {
+   "radius": 1.2,
+   "intensity": 1.0
+  },
+  "dof": {
+   "aperture": 0.004,
+   "maxblur": 0.012
+  },
+  "practicals": 4.0,
+  "grade": {
+   "temp": -0.12,
+   "tint": 0.0,
+   "saturation": 0.9,
+   "contrast": 1.08,
+   "vignette": 0.35,
+   "lift": [
+    0.0,
+    0.003,
+    0.008
+   ]
+  },
+  "acts": [
+   0.0,
+   -0.03,
+   -0.05,
+   0.05
+  ],
+  "gate": {
+   "luma": [
+    0.1,
+    0.22
+   ],
+   "rbMax": 1.0,
+   "clipMax": 0.02,
+   "rbWideOnly": true
+  },
+  "lantern": 7.0
+ },
+ "stormAction": {
+  "hdri": "dawn",
+  "rotation": 180,
+  "backdrop": 0.45,
+  "exposure": 0.66,
+  "env": 0.75,
+  "sun": {
+   "color": "#c7d3e0",
+   "intensity": 1.4,
+   "minEl": 40
+  },
+  "fog": {
+   "color": "#56606a",
+   "near": 6,
+   "far": 110
+  },
+  "bloom": {
+   "strength": 0.25,
+   "radius": 0.5,
+   "threshold": 1.1
+  },
+  "rays": {
+   "strength": 0.0,
+   "decay": 0.95,
+   "threshold": 1.0
+  },
+  "ao": {
+   "radius": 1.4,
+   "intensity": 1.1
+  },
+  "dof": {
+   "aperture": 0.003,
+   "maxblur": 0.01
+  },
+  "rain": {
+   "amount": 0.55,
+   "angle": 0.18
+  },
+  "grade": {
+   "temp": -0.09,
+   "tint": 0.03,
+   "saturation": 0.72,
+   "contrast": 1.12,
+   "vignette": 0.32,
+   "lift": [
+    0.0,
+    0.003,
+    0.006
+   ]
+  },
+  "acts": [
+   0.0,
+   0.0,
+   -0.03,
+   0.02
+  ],
+  "gate": {
+   "luma": [
+    0.2,
+    0.33
+   ],
+   "rbMax": 1.02,
+   "clipMax": 0.02,
+   "rbWideOnly": true
+  }
+ }
+}

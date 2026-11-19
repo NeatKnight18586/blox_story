@@ -1,0 +1,187 @@
+{
+ "story": "recut6",
+ "final": false,
+ "counts": {
+  "PASS": 16,
+  "FAIL": 6,
+  "SKIP": 5,
+  "ALLOWED": 0
+ },
+ "blocked": true,
+ "results": [
+  {
+   "id": "R-BRAND-01",
+   "status": "FAIL",
+   "msg": "opens \"Once a year\" (want \"In this \u2026\")",
+   "at": [
+    0.0
+   ]
+  },
+  {
+   "id": "N-VO-03",
+   "status": "FAIL",
+   "msg": "14 first-person sentence(s) outside quotes: \"Except my best friend Mo.\"",
+   "at": []
+  },
+  {
+   "id": "R-BRAND-03",
+   "status": "FAIL",
+   "msg": "hero in 0\u20133 s: no; signature prop: none defined (episode.json signature.prop; Phase 4)",
+   "at": []
+  },
+  {
+   "id": "N-FACE-01",
+   "status": "PASS",
+   "msg": "all cast on faces v5",
+   "at": []
+  },
+  {
+   "id": "N-AUD-01",
+   "status": "PASS",
+   "msg": "sfx off",
+   "at": []
+  },
+  {
+   "id": "R-LABEL-01",
+   "status": "PASS",
+   "msg": "labels: false",
+   "at": []
+  },
+  {
+   "id": "R-HOOK-03",
+   "status": "PASS",
+   "msg": "shot 1 crane, reveal True; first words \"Once a year every\"",
+   "at": [
+    0
+   ]
+  },
+  {
+   "id": "R-HOOK-04",
+   "status": "PASS",
+   "msg": "VO starts 0.00s (\u2264 0.3); hook = 15 words (first 2 sentences (no spec), \u2264 18) ends 4.09s (\u2264 5.0)",
+   "at": [
+    0.0,
+    4.09
+   ]
+  },
+  {
+   "id": "R-HOOK-02",
+   "status": "SKIP",
+   "msg": "needs spec roblox_context_starts_at_s",
+   "at": []
+  },
+  {
+   "id": "R-JOLT-01",
+   "status": "PASS",
+   "msg": "openHit on shot 1: True; other openHit: []; shake effects at []",
+   "at": [
+    0
+   ]
+  },
+  {
+   "id": "R-CUT-01",
+   "status": "PASS",
+   "msg": "53 shots, average 1.53 s (1.5\u20132.2); 0 cut(s) not on a word start or in a VO gap",
+   "at": []
+  },
+  {
+   "id": "R-LEAK-02",
+   "status": "PASS",
+   "msg": "0 shot(s) too long (static > 2.5, moving > 3.5): ",
+   "at": []
+  },
+  {
+   "id": "R-CAM-01",
+   "status": "PASS",
+   "msg": "0 locked-off shot(s)",
+   "at": []
+  },
+  {
+   "id": "R-LEAK-01",
+   "status": "PASS",
+   "msg": "15 VO gap(s) > 0.4 s (VO is final, N-VO-02); 0 with no cut/camera event: ",
+   "at": []
+  },
+  {
+   "id": "R-CAM-02",
+   "status": "PASS",
+   "msg": "0 same-class neighbour pair(s) (wide-wide / macro-macro; \u2264 2)",
+   "at": []
+  },
+  {
+   "id": "R-MID-01",
+   "status": "PASS",
+   "msg": "33 beats (proxy: script line starts (no spec beats)); 0 gap(s) > 6.0 s: ",
+   "at": []
+  },
+  {
+   "id": "R-MID-03",
+   "status": "SKIP",
+   "msg": "needs spec reversal_at_s or a reversal beat",
+   "at": []
+  },
+  {
+   "id": "R-MID-02",
+   "status": "SKIP",
+   "msg": "needs spec counter.object and reversal_at_s",
+   "at": []
+  },
+  {
+   "id": "R-SIGN-01",
+   "status": "SKIP",
+   "msg": "needs spec signage / episode.json signs",
+   "at": []
+  },
+  {
+   "id": "R-HERO-01",
+   "status": "PASS",
+   "msg": "3 shot(s) marked hero (need 3: first, the reversal, last): ['S01-aerialReveal', 'S32-snapZoom', 'S53-tiltDown']",
+   "at": []
+  },
+  {
+   "id": "R-LOOP-01",
+   "status": "FAIL",
+   "msg": "last frame vs frame 1: camera 1.319, target 1.783 (\u00d7 cam\u2013target distance, \u2264 0.15), fov \u0394 20\u00b0 (\u2264 5); loop helper: presets6.loopify",
+   "at": []
+  },
+  {
+   "id": "R-CAP-01",
+   "status": "FAIL",
+   "msg": "caption style pop-shorts-v5: legacy (groups up to 3 words, yellow keywords)",
+   "at": []
+  },
+  {
+   "id": "R-CAP-02",
+   "status": "SKIP",
+   "msg": "caption sync \u00b1 1 frame measured in Phase 6",
+   "at": []
+  },
+  {
+   "id": "R-END-01",
+   "status": "PASS",
+   "msg": "video ends 80.88s, last word ends 80.68s: tail 0.20 s (0\u20130.3)",
+   "at": [
+    80.68,
+    80.88
+   ]
+  },
+  {
+   "id": "R-END-02",
+   "status": "PASS",
+   "msg": "banned phrases []; fade in the last 2 s: 0",
+   "at": []
+  },
+  {
+   "id": "R-LEN-03",
+   "status": "PASS",
+   "msg": "runtime 80.88s (60\u2013175)",
+   "at": []
+  },
+  {
+   "id": "R-LEN-01",
+   "status": "FAIL",
+   "msg": "runtime 80.88s vs current tier 105\u2013135 s (docs/LENGTH_TIER.md)",
+   "at": []
+  }
+ ]
+}

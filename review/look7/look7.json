@@ -1,0 +1,238 @@
+{
+ "tiers": {
+  "previz": [
+   270,
+   480
+  ],
+  "final": [
+   1440,
+   2560
+  ]
+ },
+ "moods": {
+  "dawnHope": {
+   "loadSeconds": 0.733,
+   "fallbacks": [],
+   "textureMB": 151,
+   "bakeMs": 191,
+   "shots": [
+    {
+     "shot": "R1_lowwide",
+     "previzS": 0.209,
+     "finalS": 7.933,
+     "meanLuma": 0.36,
+     "sdLuma": 0.227,
+     "rOverB": 1.328,
+     "clip": 0,
+     "pass": {
+      "luma": true,
+      "rb": true,
+      "clip": true
+     },
+     "ok": true
+    },
+    {
+     "shot": "R3_face",
+     "previzS": 0.199,
+     "finalS": 9.907,
+     "meanLuma": 0.41,
+     "sdLuma": 0.253,
+     "rOverB": 1.314,
+     "clip": 0.0002,
+     "pass": {
+      "luma": true,
+      "rb": true,
+      "clip": true
+     },
+     "ok": true
+    }
+   ],
+   "errors": [
+    "Failed to load resource: the server responded with a status of 404 (Not Found)"
+   ]
+  },
+  "overcastDread": {
+   "loadSeconds": 0.743,
+   "fallbacks": [],
+   "textureMB": 151,
+   "bakeMs": 214,
+   "shots": [
+    {
+     "shot": "R1_lowwide",
+     "previzS": 0.14,
+     "finalS": 6.572,
+     "meanLuma": 0.395,
+     "sdLuma": 0.149,
+     "rOverB": 1.022,
+     "clip": 0,
+     "pass": {
+      "luma": true,
+      "rb": true,
+      "clip": true
+     },
+     "ok": true
+    },
+    {
+     "shot": "R3_face",
+     "previzS": 0.145,
+     "finalS": 8.212,
+     "meanLuma": 0.425,
+     "sdLuma": 0.155,
+     "rOverB": 1.029,
+     "clip": 0,
+     "pass": {
+      "luma": false,
+      "rb": true,
+      "clip": true
+     },
+     "ok": false
+    }
+   ],
+   "errors": []
+  },
+  "goldenBittersweet": {
+   "loadSeconds": 0.723,
+   "fallbacks": [],
+   "textureMB": 151,
+   "bakeMs": 185,
+   "shots": [
+    {
+     "shot": "R1_lowwide",
+     "previzS": 0.18,
+     "finalS": 8.016,
+     "meanLuma": 0.458,
+     "sdLuma": 0.15,
+     "rOverB": 1.224,
+     "clip": 0,
+     "pass": {
+      "luma": true,
+      "rb": true,
+      "clip": true
+     },
+     "ok": true
+    },
+    {
+     "shot": "R3_face",
+     "previzS": 0.203,
+     "finalS": 9.927,
+     "meanLuma": 0.457,
+     "sdLuma": 0.196,
+     "rOverB": 1.395,
+     "clip": 0,
+     "pass": {
+      "luma": true,
+      "rb": true,
+      "clip": true
+     },
+     "ok": true
+    }
+   ],
+   "errors": []
+  },
+  "nightMystery": {
+   "loadSeconds": 0.733,
+   "fallbacks": [],
+   "textureMB": 151,
+   "bakeMs": 165,
+   "shots": [
+    {
+     "shot": "R1_lowwide",
+     "previzS": 0.141,
+     "finalS": 6.707,
+     "meanLuma": 0.222,
+     "sdLuma": 0.194,
+     "rOverB": 0.683,
+     "clip": 0,
+     "pass": {
+      "luma": false,
+      "rb": true,
+      "clip": true
+     },
+     "ok": false
+    },
+    {
+     "shot": "R3_face",
+     "previzS": 0.167,
+     "finalS": 9.271,
+     "meanLuma": 0.101,
+     "sdLuma": 0.125,
+     "rOverB": 1.309,
+     "clip": 0,
+     "pass": {
+      "luma": true,
+      "rb": true,
+      "clip": true
+     },
+     "ok": true
+    }
+   ],
+   "errors": []
+  },
+  "stormAction": {
+   "loadSeconds": 0.672,
+   "fallbacks": [],
+   "textureMB": 151,
+   "bakeMs": 142,
+   "shots": [
+    {
+     "shot": "R1_lowwide",
+     "previzS": 0.134,
+     "finalS": 6.889,
+     "meanLuma": 0.329,
+     "sdLuma": 0.159,
+     "rOverB": 0.978,
+     "clip": 0,
+     "pass": {
+      "luma": true,
+      "rb": true,
+      "clip": true
+     },
+     "ok": true
+    },
+    {
+     "shot": "R3_face",
+     "previzS": 0.152,
+     "finalS": 8.401,
+     "meanLuma": 0.364,
+     "sdLuma": 0.2,
+     "rOverB": 0.998,
+     "clip": 0,
+     "pass": {
+      "luma": false,
+      "rb": true,
+      "clip": true
+     },
+     "ok": false
+    }
+   ],
+   "errors": []
+  },
+  "before": {
+   "loadSeconds": 0.746,
+   "fallbacks": [],
+   "textureMB": 151,
+   "bakeMs": 170,
+   "shots": [
+    {
+     "shot": "R1_lowwide",
+     "previzS": 0.132,
+     "finalS": 1.659,
+     "meanLuma": 0.458,
+     "sdLuma": 0.148,
+     "rOverB": 1.113,
+     "clip": 0
+    },
+    {
+     "shot": "R3_face",
+     "previzS": 0.149,
+     "finalS": 2.565,
+     "meanLuma": 0.451,
+     "sdLuma": 0.193,
+     "rOverB": 1.203,
+     "clip": 0
+    }
+   ],
+   "errors": []
+  }
+ }
+}

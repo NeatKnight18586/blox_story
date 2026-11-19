@@ -4,7 +4,7 @@
 // Also writes review/<slug>/plan.json (the shot table with timings, sizes and the why of each shot).
 import {readFileSync} from 'node:fs';
 import {mkdir, writeFile} from 'node:fs/promises';
-import {plan5} from '../../engine/plancheck5.js';
+import {plan5, V6} from '../../engine/plancheck5.js';
 import {startServer} from './server.js';
 import {launch} from './browser.js';
 import {checkPlan} from '../../engine/plancheck.js';
@@ -39,7 +39,7 @@ try {
   if (spec.season || probe.v3) meas = await page.evaluate(list => list.map(s => [s.start, s.start + Math.floor(s.frames / 2), s.start + s.frames - 1].map(f => window.__episode.seasonMeasure(f, s.objects))),
     shots.map(({start, frames, clueObject}) => ({start, frames, objects: [...(clueObject ? [clueObject] : []), ...(spec.season ? ['clockFace', 'clockFace1', 'clockFace2', 'clockFace3', 'scoreboard'] : [])]})));
   // format v5: story-prop inserts measured on the real frame (middle frame, the prop's projected box height)
-  if (spec.format === 5) insertH = Object.fromEntries(await page.evaluate(list => list.map(s => { const r = window.__episode.readMeasure(s.mid, {subject: null, prop: s.prop}); const b = r.box;
+  if (spec.format === 5 || spec.format === 6) insertH = Object.fromEntries(await page.evaluate(list => list.map(s => { const r = window.__episode.readMeasure(s.mid, {subject: null, prop: s.prop}); const b = r.box;
     return [s.id, !(b && b.front) ? {h: 0, margin: 0} : s.p3 ? {h: b.y1 - b.y0, margin: Math.min(b.x0, b.y0, 1 - b.x1, 1 - b.y1)} : Math.min(b.y1, 1) - Math.max(b.y0, 0)]; }), shots.filter(s => s.size === 'insert' && s.prop).map(s => ({id: s.id, prop: s.prop, p3: spec.framing === 'p3', mid: s.start + Math.floor(s.frames / 2)}))));
   if (spec.format === 5 && spec.framing === 'p3') { const fh = await page.evaluate(list => list.map(s => { const r = window.__episode.readMeasure(s.mid, {subject: s.subject}); return [s.id, r.head?.box?.allFront ? r.head.box.h : 0]; }),
     shots.filter(s => s.subject && ['medium', 'close'].includes(s.size) && !s.back && s.move !== 'splitScreen').map(s => ({id: s.id, subject: s.subject, mid: s.start + Math.floor(s.frames / 2)})));
@@ -49,7 +49,7 @@ try {
 const r = checkPlan({shots, cues, fps, end: spec.end, info, format: spec.format});
 const sz = checkSeason({spec, shots, cues, fps, end: spec.end, info, meas});
 r.errors.push(...sz.errors, ...labelIssues(spec));
-if (spec.format === 5) { const p5 = plan5(shots, {fps, cues, insertH, end: spec.end}); r.errors.push(...p5.errors); r.stats.format5 = {lengthS: p5.lengthS, averageShotS: p5.averageShotS, insertH}; }   // format v5 rules   // owner rule §2c: noLabels (Season 1 / labels: false)
+if (spec.format === 5 || spec.format === 6) { const p5 = plan5(shots, {fps, cues, insertH, end: spec.end, limits: spec.format === 6 ? V6 : null}); r.errors.push(...p5.errors); r.stats.format5 = {lengthS: p5.lengthS, averageShotS: p5.averageShotS, insertH}; }   // format v5 rules   // owner rule §2c: noLabels (Season 1 / labels: false)
 if (isCampaign(specPath)) {   // TapCap campaign: campaigns/tapcap/RULES.md (TC-01…TC-07), measured inputs from the episode's qa/ folder
   const rules = parseRules(readFileSync('campaigns/tapcap/RULES.md', 'utf8')), qaDir = specPath.replace(/[^/]+$/, 'qa/');
   const rd = f => existsSync(qaDir + f) ? JSON.parse(readFileSync(qaDir + f, 'utf8')) : undefined, m = rd('measured.json') ?? {};

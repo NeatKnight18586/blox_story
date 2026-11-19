@@ -65,10 +65,19 @@ jobs:
           pip install --break-system-packages pillow >/dev/null 2>&1 || pip install pillow
           npx playwright install --with-deps chromium || echo "playwright browser unavailable, browser.js uses the runner's google-chrome"
           node scripts/v2/plan.js --story "${{ steps.pick.outputs.story }}"
+      - name: Retention QA gate (format 6 finals; FAIL or SKIP blocks, only committed allows count)
+        if: ${{ steps.pick.outputs.preset == 'final' }}
+        run: |
+          if grep -q '"format": *6' "stories/${{ steps.pick.outputs.story }}/episode.json"; then
+            python3 -c 'import yaml' 2>/dev/null || pip install --break-system-packages pyyaml >/dev/null 2>&1 || pip install pyyaml
+            python3 tools/qa_episode.py --story "${{ steps.pick.outputs.story }}" --final
+          else echo "not format 6: retention QA not enforced (legacy episode)"; fi
       - id: shards
         name: Split shots into balanced shards
         run: |
           n=6; [ "${{ steps.pick.outputs.preset }}" = "animatic" ] && n=1
+          # Retention Engine look (spec "mood"): ~8–15 s/frame at 1440 → 20 shards (the free-plan concurrency), each well under the 300-min job cap
+          if grep -q '"mood"' "stories/${{ steps.pick.outputs.story }}/episode.json" && [ "${{ steps.pick.outputs.preset }}" = "final" ]; then n=20; fi
           echo "matrix=$(node scripts/v2/shards.js --story '${{ steps.pick.outputs.story }}' --n $n)" >> "$GITHUB_OUTPUT"
 
   render:
@@ -93,6 +102,7 @@ jobs:
         run: |
           node scripts/v2/tex4.js; node scripts/v2/matcap4.js
           if grep -q '"lipFlap"' "stories/$STORY/episode.json"; then node scripts/v2/envelope.js --story "$STORY"; fi
+          if grep -q '"mood"' "stories/$STORY/episode.json"; then pip install --break-system-packages numpy pillow >/dev/null 2>&1 || pip install numpy pillow; python3 tools/fetch_look_assets.py; fi   # CC0 HDRIs + photo sets (Phase 5)
       - name: Render shard ${{ matrix.index }} (frames ${{ matrix.from }}–${{ matrix.to }})
         run: |
           if [ "$PRESET" = "animatic" ]; then size="--width 270 --height 480 --every 2 --aa 0"; else size="--final"; fi   # A2: finals native 1440×2560

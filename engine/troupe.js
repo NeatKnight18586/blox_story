@@ -12,7 +12,7 @@ export function resolveTroupe(entry, data) {
   const base = data.troupe?.[slot]; if (!base) throw Error('unknown troupe slot ' + slot);
   const {expressions, ...p} = base, out = {...p, hair: p.hair ? {...p.hair} : null};   // HERO (cast/hero.json): no hair
   if (entry.outfit) out.outfit = {...entry.outfit};
-  if (entry.accessories) out.accessories = entry.accessories;
+  if (entry.accessories) out.accessories = [...(p.accessories ?? []).filter(x => (x.name ?? x) === 'stormLantern'), ...entry.accessories];   // the hero's signature lantern stays (R-BRAND-03)
   if (entry.tool) out.tool = entry.tool;
   if (entry.face) out.face = entry.face;
   out.tag = entry.role ? {name: entry.role, role: entry.roleLine ?? null} : null;

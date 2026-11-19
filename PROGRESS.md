@@ -1457,3 +1457,118 @@ street-cc0 (fallbacks 0): R1_lowwide 9.64 s/frame @1440, contrast 0.008, detail 
 ## Phase R2 (2026-11-19): steps 1-6 done, farm run blocked
 Code/data pushed (a81351b): matcap actors ('comedy', ×1.15 lift) in engine/fixtures/realism/street.js, backdrop.intensity in parts/location.js, street-cc0.json backdrop 0.7 / shadowOpacity 0.6, R2_scale camera (fov 60, pos [1.2,1,52], look [-1.5,16,-20]).
 Farm run 44430704419 (assets.yml) did not start: GitHub annotation "recent account payments have failed or your spending limit needs to be increased". No R2 numbers, so no KEEP/DROP verdict. Needs the owner to fix Actions billing, then re-push assets/realism.request.
+
+## Retention Engine Phase 1 (2026-11-19): ingrain the knowledge
+Plan: 1. docs/bible/{STORY_ENGINE, BRAND, RETENTION_RULES, CINEMA, LOOK}.md from the owner's retention prompt §1 (+ owner answers to AUDIT §4).
+2. docs/bible/RULES_CARD.md: the only place rule IDs are defined, ≤ 120 lines. 3. tools/rule_ids.py: IDs unique, every used ID defined, every card ID explained in a long doc.
+4. CLAUDE.md session section rewritten (card first, never write narration, QA before done, approve gate, pass workflow, token rules); ground rules/commands kept.
+5. Superseded marks (no deletions): V4 D1/D4/frame budget, SEASON_1 §5b + slate. 6. AUDIT.md resolutions. 7. Run checker, commit, push.
+Built: docs/bible/RULES_CARD.md (116 lines, 76 IDs: 12 N-*, 64 R-*), STORY_ENGINE.md, BRAND.md (+ captions), RETENTION_RULES.md
+(how each rule is measured), CINEMA.md (lens mm → vertical fov: 18 mm 90°, 24 mm 74°, 35 mm 54°, 85 mm 24°), LOOK.md (Phase 5 table
+empty); tools/rule_ids.py + tests/v2/test_rule_ids.py (4 tests, in v2:test); CLAUDE.md session section replaced (card first, N-* list,
+pass workflow, approve gate, QA before done, token rules, no-labels rule kept); SUPERSEDED marks in docs/season1/V4.md (D1, D4, frame
+budget, "not used" list) and SEASON_1.md (§5b, §6 slate); AUDIT.md §6 owner resolutions.
+Commands: python3 tools/rule_ids.py (PASS: 76 IDs, 0 errors; a planted R-CAM-09 is caught) · npm run v2:test · npm test.
+Decisions: R-LEN-01 default tier 105–135 s (owner "≈ 2 min"); below 105 s only with --allow. R-JOLT-01 strict (no shake except 0:00;
+impacts use freeze/flash/snap). Lens mm = full-frame equivalent on the vertical 36 mm side. Sign legibility = cap ≥ 3 % frame height,
+≥ 1.0 s on screen (ruleui plate minimum). R-LEAK-02 keeps format v5's moving-shot cap 3.5 s. cast/hero.json note left unchanged (a
+data file feeds the render cache hash); BRAND.md records the supersession instead.
+Open: hero signature prop (Phase 4 proposes 3), brand accent (Phase 6), LOOK presets (Phase 5), the R-LOOP-01 metric (Phase 4).
+
+## Retention Engine Phase 2 (2026-11-19): episode spec + originality ledger
+Plan: 1. tools/validate_spec.py (schema as data, pure validate(), rule-ID errors, --allow logged to episodes/EPxx/qa/allow.log).
+2. Required: the owner's list + hook_type, twist_category, setting_era, world (variety + N-WORLD-01). 3. tools/variety_matrix.py →
+docs/VARIETY_MATRIX.md, flags repeats vs the previous 3. 4. episodes/_TEMPLATE/spec.yml, series.yml, docs/LENGTH_TIER.md, docs/STORY_BANK.md.
+5. Tests + fixtures (good, each rejection, deliberate duplicate); rule_ids, v2:test, npm test.
+Built: tools/validate_spec.py (23 required fields incl. hook_type/twist_category/setting_era/world; enums; checks R-STORY-01/02/03/06/07,
+R-HOOK-02, R-SIGN-01, R-HERO-01, R-LEN-01/03, N-WORLD-01 world reuse, R-ALGO-04 variety; --allow logged, MISSING/N-* not allowable);
+tools/variety_matrix.py → docs/VARIETY_MATRIX.md (empty: no EP specs yet); episodes/_TEMPLATE/spec.yml; series.yml; docs/LENGTH_TIER.md
+(`tier: 105-135`); docs/STORY_BANK.md (4 empty categories); tests/v2/test_spec.py (13) + fixtures specs/good.yml, variety/EP91–EP94.
+Checks: good spec PASS; deleted `inversion` → FAIL MISSING; 1 source → FAIL R-STORY-06; roblox 3.2 s → FAIL R-HOOK-02 (all exit 1);
+template → 28 FAIL; deliberate duplicate EP94 → FAIL R-ALGO-04 ×2 (hook_type = EP93, ending = EP91); matrix --check exit 1; rule_ids PASS.
+Decisions: "unrelated" = ≥ 2 distinct source titles (the owner judges relatedness); variety window = previous 3 by (season, episode);
+ending type = payoff_type (4 values → with a window of 3 the ending must rotate through all four; --allow R-ALGO-04 if the owner wants a
+repeat); setting_era free text, compared case/underscore-insensitively; Retention Engine episodes start at season 2 in series.yml;
+beats/reversal_at_s optional until the blocking pass.
+
+## Retention Engine Phase 3 (2026-11-19): retention QA linter
+Plan: 1. tools/qa_episode.py: pure check(episode, cues, script, spec, …) → PASS/FAIL/SKIP per rule ID with timestamps; JSON report.
+2. SKIP = needs a spec field or a later phase; --final treats SKIP like FAIL. --allow ID --reason → allow.log; the farm honours only logged allows.
+3. Wiring (format 6 specs only, legacy unchanged): render.js --final + render.yml plan job run QA --final; assemble.py format 6 = no hold,
+sfx only if on, no music mix. 4. Toy House report; broken fixture (≥ 5 FAIL) + clean synthetic timeline; tests; all suites.
+Built: tools/qa_episode.py (27 rule lines: R-BRAND-01/03, N-VO-03, N-FACE-01, N-AUD-01, R-LABEL-01, R-HOOK-02/03/04, R-JOLT-01, R-CUT-01,
+R-LEAK-01/02, R-CAM-01/02, R-MID-01/02/03, R-SIGN-01, R-HERO-01, R-LOOP-01, R-CAP-01/02, R-END-01/02, R-LEN-01/03); tests/v2/qa_fixtures.py
+(clean 120.5 s / 70 shots → 0 FAIL, 3 SKIP pending phases; broken → 19 FAIL) + fixtures/qa/broken; tests/v2/test_qa_episode.py (9).
+Wiring (format 6 only): render.js --final runs QA --final first (broken fixture: exit 1 before any browser); render.yml plan job step
+"Retention QA gate" (installs pyyaml if missing); assemble.py format 6: end_total = picture, sfx only if on, music.mp3 not mixed.
+Toy House (no spec, legacy format 5): 10 PASS, 11 FAIL, 6 SKIP → review/toyhouse/qa-retention.json. FAILs: opener "Once a year";
+14 first-person sentences; no signature prop; sfx implied on; no openHit; locked-off 0 after fix (topDown turns 25°/20° were false
+positives on the first run); 6 of 15 VO gaps > 0.4 s with no cut/event (4.09 6.86 25.85 38.12 58.44 67.73); 11 same-class pairs;
+0 hero shots marked; caption style v5; tail 1.07 s; 81.75 s vs tier 105–135. PASS: avg 1.54 s, cuts on words, hook 15 words by 4.09 s.
+Checks: v2:test 163 node + 89 py, npm test 0, rule_ids PASS; "Nobody" frames 0–9 (270×480) byte-identical old vs new render.js.
+Decisions: SKIP blocks finals (nothing unchecked ships); allows on the farm = only IDs in the committed allow log; N-* never allowable;
+`static: true` ≠ locked (format 5 held-framing marker); hook fallback without a spec = first 2 sentences; R-MID-01 proxy without beats =
+script line starts; R-CUT-01 also accepts a cut inside a VO gap; format 6 trims only trailing silence after the last word (the
+last frame is ≤ 0.3 s after it), never spoken audio; sign size, loop metric, caption sync = SKIP until Phases 4/6.
+Open: v2:plan has no format-6 rule set yet (Phase 4 planner); R-BRAND-03 needs the signature prop; "counter advances" is an owner check.
+
+## Retention Engine Phase 4 (2026-11-19): camera & cut engine
+Plan: 1. engine/presets6.js (10 presets + lenses, target/duration/intensity) 2. engine/cutplan.js + tools/plan_cuts.js (VO words + beats →
+shots) 3. engine/signs6.js + opt-in spec.signs 4. loop helper + QA metric 5. tools/contact_sheet.py (+ render.js --frames) 6. partial
+re-render check 7. format-6 rules in v2:plan 8. acceptance: re-cut Toy House VO, previz sheet, QA cadence rules.
+Built: engine/presets6.js (push, pull, orbit, tiltDown, craneUp, track, whipZoom, snapZoom, macroInsert, aerialReveal; lenses wide 21 /
+action 35 / emotion 85 / macro 100 mm; low-angle default; `base` = start from a known-clear camera; travel capped to the pan-speed
+budget; loopify/loopScore) · camera.js opt-in shot `dutch` · engine/cutplan.js (word-start candidates scored, beats pulled, VO pauses
+> 0.4 s forced, DP 0.9–2.4 s around 1.85, relaxes until the average is 1.5–2.2; intents → presets; no wide-wide/macro-macro; hero
+frame1/reversal/final; openHit shot 1) · tools/plan_cuts.js · engine/signs6.js + opt-in spec.signs (episode.js) · tools/contact_sheet.py
++ render.js opt-in --frames / --load-timeout · plancheck format 6 (V6, lengthRule(6), ends on the last word) · QA: R-LOOP-01 metric,
+R-SIGN-01 legibility from placed signs, orbit = not locked. Tests: retention6.test.js (8), test_contact_sheet.py (3), QA +1.
+Acceptance (Toy House VO re-cut, engine/fixtures/recut6, --targets-from the old cut, --reversal 49.81): 53 shots, avg 1.53 s, min 1.0,
+max 2.29, 46/53 beats on a cut (≤ 0.1 s), 15/15 VO pauses cut, 0 same-class pairs; QA cadence rules all PASS (R-CUT-01, R-LEAK-01/02,
+R-CAM-01/02, R-JOLT-01, R-HERO-01, R-HOOK-03, R-END-01 tail 0.20 s); v2:plan format 6: 0 errors, 2 warnings (pass 1: 5 pan-speed
+errors → 1 → 0). Remaining QA FAILs are story/VO-level: opener, first person, signature prop, caption style, length 80.9 s, loop 1.32.
+Sheet review/toyhouse/recut6-blocking.png (53 shots, 16.9 s at 270×480); partial re-render: 8 rendered / 45 cached after a shot-only change.
+Local render needs (as on the farm): node scripts/v2/tex4.js, matcap4.js, envelope.js --story toyhouse (a missing envelope.json made the
+page throw and render.js wait forever). "Nobody" frames 0–9 byte-identical vs 05b018a. v2:test 171 node + 93 py, npm test 0, rule_ids PASS.
+Weakest (sheet, after 2 look passes): #7/#28 empty dark frames (top-down references), #13/#27/#41 flat block in front of the lens, #4/#5
+and #17/#18 near-identical neighbours. Cause: cameras compiled without occlusion knowledge; places/anchors from a real set pass fix it.
+Decisions: beats = strong preference, VO pauses = forced cuts; the loop helper only joins shots in the same place (no flying camera);
+stress = *marks* + caption keywords; sign cap model .504 × h / lines (textPlate); --targets-from keeps the hand-placed camera distance.
+Open: occlusion check (ray from camera to target) in the compiler; jump-cut metric in QA; signature prop (owner pick, 3 options below).
+
+## Retention Engine Phase 5 (2026-11-19): look upgrade (stylized Roblox realism)
+Plan: 1. reachable CC0 sources (Poly Haven blocked; three.js mirror on raw.githubusercontent: 7 HDRIs + brick/hardwood/grass/water/metal)
+→ assets/look7.json + tools/fetch_look_assets.py 2. 5 moods as data (engine/moods7.json) + engine/moods7.js 3. engine/post7.js chain
+4. test world (Phase R street + basin/hedge/snow) + page 5. storm-lantern (owner pick A) 6. stills per mood at 1440 + timing + gates.
+Built: fetch tool (bump→normal, RLE .hdr reader, HDRI stats: picked moods by measurement: spruit sun share .75 R/B 2.45 = dawn, blouberg
+.035 = overcast, venice = golden, moonless = night; no storm HDRI → storm = blouberg darker/colder + fog + rain) · post7 (MSAA HDR → GTAO
+clipped to 150 u → light shafts → Bokeh DOF on close/emotion → bloom → grade/AgX/vignette/rain) · moods7 (+ per-act temperature shift,
+gate pass lines) · episode.js opt-in spec.mood/acts (tier by width, whip blur, post-safe sub-frame average) · location.js opt-in
+metalness/roughnessScale · accessory stormLantern (teal glass > 1.0 → bloom, optional light) on cast/hero.json HERO (troupe keeps it when an
+episode adds accessories) · engine/fixtures/look7 (world + page) · tools/look_stills.js, tools/look_sheet.py · tests moods7.test.js (5), test_look7.py (3).
+Bug found + fixed: GTAO turned the GroundedSkybox (r 420) black at 1440 (fine at 540) → AO clip box around the camera.
+Gate (mean luma band, R/B warm/cool on wides, clip ≤ 2 %), 10 checks: first run 5/10, pass 2 7/10. Still FAIL after 2 passes:
+overcast close .425 (≤ .42), night wide .222 (≤ .22), storm close .364 (≤ .33). Decision in pass 1: R/B judged on wides only (a close-up
+measures the yellow skin, not the light): a scope change, reported, not a pass.
+Timing (4-core = free runner): final 1440 6.3–9.9 s/frame test world, 14.1 Toy House + mood; previz 0.13–0.24 / 0.77; before 1.6–2.6.
+2-min episode worst case 11.2 runner-h → 20 shards (render.yml for mood specs) ≈ 34 min render + setup each; under the 300-min cap.
+Checks: v2:test 176 node + 96 py, npm test 0, rule_ids PASS, "Nobody" 0–9 byte-identical; spec.mood smoke on the recut6 fixture OK.
+Weakest (390 sheets): storm ≈ overcast + drizzle (no storm sky) · night lantern bloom is a big teal blob, green uplight on the face ·
+dawn backlights the hero to near-black with a white bloom rim. Materials: plaster + snow still procedural locally (no photo source).
+
+## Retention Engine Phase 6 (2026-11-19): captions & sound sync
+Plan: 1. style pop-shorts-v6 (1–2 words, Lilita One, outline + shadow, safe zone, accent on *marks*) 2. 3 accent options on real stills
+(libass) with UI zones + colour/size/safe-box checks 3. sync ± 1 frame through libass on a 10 s VO segment 4. sfx beat map (flag, default off).
+Built: captions.py v6 (opt-in; v2/v3/v5 ASS byte-identical for toyhouse/egg/nobody): group6 (pair only short/function + content word; a word
+on screen < 2 frames rides with the next), timing6 (start = floor(onset × fps), ASS floor to cs, every caption ≥ 2 frames, ≤ +1 frame shift),
+keywordScale, --accent; captions/pop-shorts-v6.json (132 px, y 64 %, width ≤ 68 %, safeBox, 3 accent options, provisional lantern teal);
+tools/caption_samples.py, tools/caption_sync.py; QA R-CAP-01 (SKIP until the owner approves an accent) + R-CAP-02 (computed from cues);
+sfx.py plink + knock + place6 (clue → plink, reveal → crack, impact → knock, whip → whoosh, jolt → thud, ≥ 0.25 s apart), assemble uses it
+for format 6; review/captions/{accent-options-390.png, accent-options.json, sync.json, sync-60s.json, sfx/*.wav}; tests test_captions6.py (8).
+Checks: cap 4.2 % (≥ 2.6) PASS · 8/8 sample boxes inside the safe box PASS · accents: teal 12.1:1 / ΔE 51.5 / hue 122°, coral #FF7B52 7.44:1
+(the first coral #FF6A3D failed 6.69 < 7 → lightened), violet 7.48:1, all PASS; local ΔE vs the background behind the text 56–88 PASS ·
+sync egg 10 s: 21/21 detected, −0.96…0.00 frames PASS; 60 s: 126/126, −0.96…+0.24 PASS (found + fixed: "And" 20 ms before "there's" was
+on screen 0 frames; "Then"/"She" 1 frame; a 0.6 IoU detector missed eggs→wins → 0.95 with the pop off). v2:test 176 node + 104 py, npm test 0.
+Weakest (accent sheet): teal next to the lantern's teal spill at night (outline carries it) · coral over red brick in daylight (the local
+ΔE median sampled the legs, so the check did not see it) · at y 64 % the caption covers the hero's legs and lantern in that framing.
+Open: the owner's accent pick (accentKey + accentApproved); shots that show the lantern at 60–68 % height need captionY high.

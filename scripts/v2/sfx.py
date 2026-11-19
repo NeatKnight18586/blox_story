@@ -16,7 +16,7 @@ import argparse, json, os, subprocess, sys, wave
 import numpy as np
 
 SR = 48000
-NAMES = ['whoosh', 'pop', 'thud', 'rumble', 'riser', 'sparkle', 'crack', 'bell', 'splash', 'zap']
+NAMES = ['whoosh', 'pop', 'thud', 'rumble', 'riser', 'sparkle', 'crack', 'bell', 'splash', 'zap', 'plink', 'knock']   # plink, knock: Retention Engine Phase 6
 UNDER_VOICE_DB, VOICE_LUFS, PEAK_CAP_DB = 16, -14, -6
 POP_DELAY_CARD, RISER_LEAD, SILENCE_FRAMES = .55, 1.0, 8
 
@@ -68,6 +68,12 @@ def synth(name, seed=7, dur=None):
     if name == 'zap':
         t = _t(.32); f = 1800 * np.exp(-t * 7) + 160; ph = 2 * np.pi * np.cumsum(f) / SR; saw = 2 * ((ph / (2 * np.pi)) % 1) - 1
         return _norm(_lp(saw, 5000) * (1 + .5 * np.sign(np.sin(2 * np.pi * 42 * t))) * np.exp(-t * 7))
+    if name == 'plink':   # glass: inharmonic high partials, fast decay, a tick of noise on the strike (clues)
+        t = _t(.55); x = sum(a * np.sin(2 * np.pi * f * t) * np.exp(-t * d) for f, a, d in [(2637, 1, 9), (4183, .55, 13), (6105, .3, 18), (7790, .15, 24)])
+        return _norm(x + .25 * _hp(r.standard_normal(len(t)), 3000) * np.exp(-t * 300))
+    if name == 'knock':   # wood: a short low-mid body + a damped click (impacts on doors, crates, tables)
+        t = _t(.2); ph = 2 * np.pi * np.cumsum(240 * np.exp(-t * 20) + 170) / SR
+        return _norm(np.sin(ph) * np.exp(-t * 38) + .7 * _lp(r.standard_normal(len(t)), 1400) * np.exp(-t * 90))
     raise ValueError(f'unknown sfx {name}')
 
 
@@ -140,6 +146,39 @@ def place(spec, shots, fps=30):
     return {'hits': hits, 'silence': silence}
 
 
+# ---- Retention Engine format 6 (Phase 6, N-AUD-01: only with spec "sfx": "on"): hits mapped to beat types from the shot data ----
+MIN_GAP6 = .25   # s between hits; the later, lower-priority hit is dropped
+PRIO6 = {'crack': 0, 'plink': 1, 'knock': 2, 'whoosh': 3, 'thud': 4}
+
+
+def place6(spec, shots, fps=24):
+    """Pure → {'hits': [[t, name, why]], 'silence': []}. shots: laid out (id, start); the spec's own shots carry the planner data
+    (move, preset, intent, zoomAt, snapAt, impact, openHit). Map: whip/crashZoom/snap cut → whoosh (crash zoom: at zoomAt, snap: at snapAt) ·
+    clue (intent clue, or the whipZoom preset) → plink on the zoom · reveal (intent reveal / snapZoom) → crack on the snap · impact → knock ·
+    the 0:00 jolt (openHit) → thud · spec sfxCues added as written. Hits closer than MIN_GAP6 keep the higher-priority one."""
+    full = {s['id']: s for s in spec.get('shots') or []}; hits = []
+    for s in shots:
+        d = full.get(s['id'], {}); t0 = s['start'] / fps; mv = d.get('move', s.get('move')); intent = d.get('intent'); pr = d.get('preset')
+        if d.get('openHit'): hits.append([t0, 'thud', f"{s['id']} jolt"])
+        if mv == 'crashZoom':
+            tz = t0 + float(d.get('zoomAt', 0)); hits.append([tz, 'plink' if intent == 'clue' or pr == 'whipZoom' else 'whoosh', f"{s['id']} crash zoom"])
+        elif mv == 'snap':
+            ts = t0 + float(d.get('snapAt', 0)); hits.append([ts, 'crack' if intent == 'reveal' or pr == 'snapZoom' else 'whoosh', f"{s['id']} snap"])
+        elif mv == 'whip': hits.append([t0, 'whoosh', f"{s['id']} whip"])
+        if isinstance(d.get('impact'), (int, float)): hits.append([t0 + d['impact'], 'knock', f"{s['id']} impact"])
+    for k in spec.get('sfxCues') or []: hits.append([float(k[0]), k[1], 'sfxCues'])
+    hits.sort(key=lambda h: (h[0], PRIO6.get(h[1], 9)))
+    kept = []
+    for h in hits:
+        if kept and h[0] - kept[-1][0] < MIN_GAP6:
+            if PRIO6.get(h[1], 9) < PRIO6.get(kept[-1][1], 9): kept[-1] = h
+            continue
+        kept.append(h)
+    for h in kept:
+        if h[1] not in NAMES: raise ValueError(f'unknown sfx {h[1]} at {h[0]}')
+    return {'hits': [[round(h[0], 4), *h[1:]] for h in kept], 'silence': []}
+
+
 def level(x, db=VOICE_LUFS - UNDER_VOICE_DB, cap=PEAK_CAP_DB):
     """Scale a hit so its RMS (over samples above 1 % of peak) is `db` dBFS, peak ≤ cap dBFS."""
     act = x[np.abs(x) > .01 * (np.max(np.abs(x)) or 1)]; rms = np.sqrt(np.mean(act ** 2)) if len(act) else 1
@@ -170,9 +209,9 @@ def main():
         for n in NAMES: write_wav(os.path.join(o.write, f'{n}.wav'), level(load(n, o.assets)) / 10 ** (PEAK_CAP_DB / 20) * .9)
         print(json.dumps({'written': o.write, 'sfx': NAMES})); return
     spec = json.load(open(o.spec))
-    if spec.get('sfx') is False: print(json.dumps({'sfx': False})); return
+    if spec.get('sfx') is False or (spec.get('format') == 6 and spec.get('sfx') not in (True, 'on')): print(json.dumps({'sfx': False})); return   # format 6: off unless on
     shots = layout(o.spec); fps = spec.get('fps', 30); end = (shots[-1]['start'] + shots[-1]['frames']) / fps
-    placed = place(spec, shots, fps); track = render_track(placed, o.duration or end, fps, o.assets)
+    placed = (place6 if spec.get('format') == 6 else place)(spec, shots, fps); track = render_track(placed, o.duration or end, fps, o.assets)
     if o.out: write_wav(o.out, track)
     if o.json: json.dump(placed, open(o.json, 'w'), indent=1)
     print(json.dumps({'out': o.out, 'hits': len(placed['hits']), 'silence': placed['silence'], 'byName': {n: sum(h[1] == n for h in placed['hits']) for n in NAMES if any(h[1] == n for h in placed['hits'])}}))

@@ -1,0 +1,51 @@
+# test fixture (Phase 2 variety check)
+id: EP91
+slug: lantern-test
+season: 9
+episode: 91
+title: Test Lanterns
+world: Frost Pier (test)
+setting_era: harbour town
+hook_rule: In this town, every lantern holds one memory.
+hook_break: Tonight, one lantern is empty.
+hook_type: countdown
+roblox_context_starts_at_s: 7.5
+micro_examples:
+- Weddings are lit by two lanterns
+- Liars' lanterns flicker
+- The baker keeps forty
+anchor:
+  who: little sister
+  relationship: the hero protects her
+counter:
+  type: clock
+  start: '11:58'
+  end: '12:00'
+  object: clock
+false_solution: The hero refills the empty lantern with a stolen memory.
+inversion: The empty lantern was keeping the town from forgetting the hero.
+twist_category: time_loop
+payoff_type: lateral
+loop_line_echo: Last line returns to "every lantern holds one memory".
+signage:
+- text: DAY 19
+  where: gate
+- text: NEVER BLOW
+  where: square
+- text: 12 LEFT
+  where: tower
+hero_shots:
+- role: frame1
+- role: reversal
+- role: final
+target_length_s: 120
+sources:
+- kind: retold
+  title: The Little Match Girl
+  what_we_took: light as the last warmth
+- kind: roblox
+  title: respawn checkpoints
+  what_we_took: a saved state you can return to
+what_was_transformed:
+  rule: match light becomes stored memories
+  setting: a lantern town
