@@ -2,32 +2,32 @@
  "asset": "campaigns/tapcap/assets/slimeguy",
  "method": "front orthographic flat-ID render, 1000 px per H, row-majority bands",
  "measured": {
-  "heightH": 0.996,
+  "heightH": 0.995,
   "bands": {
-   "head": 0.3253,
-   "torso": 0.2932,
-   "switch": 0.0382,
-   "base": 0.3434
+   "head": 0.3568,
+   "torso": 0.2633,
+   "switch": 0.0231,
+   "base": 0.3568
   },
   "boundaries": {
-   "headBottom": 0.6747
+   "headBottom": 0.6432
   },
   "widths": {
-   "headTop": 0.387,
-   "headBottom": 0.459,
-   "torsoBottom": 0.464,
-   "baseTop": 0.47,
-   "baseBottom": 0.406
+   "headTop": 0.355,
+   "headBottom": 0.444,
+   "torsoBottom": 0.444,
+   "baseTop": 0.416,
+   "baseBottom": 0.36
   },
   "eye": {
-   "hOfHead": 0.2099,
-   "wOverH": 0.3382,
-   "sepOfHeadW": 0.5036,
-   "aboveMid": 0.037
+   "hOfHead": 0.2085,
+   "wOverH": 0.3378,
+   "sepOfHeadW": 0.5,
+   "aboveMid": 0.0408
   },
   "notch": {
-   "wOfBase": 0.2956,
-   "hOfBase": 0.1199
+   "wOfBase": 0.3,
+   "hOfBase": 0.1183
   }
  },
  "pass": true,
@@ -35,65 +35,71 @@
  "checks": {
   "bands": {
    "head": {
-    "got": 0.3253,
-    "want": 0.33,
+    "got": 0.3568,
+    "want": 0.357,
     "tol": 0.02,
     "pass": true
    },
    "torso": {
-    "got": 0.2932,
-    "want": 0.29,
+    "got": 0.2633,
+    "want": 0.268,
     "tol": 0.02,
     "pass": true
    },
    "switch": {
-    "got": 0.0382,
-    "want": 0.04,
+    "got": 0.0231,
+    "want": 0.026,
     "tol": 0.02,
     "pass": true
    },
    "base": {
-    "got": 0.3434,
-    "want": 0.34,
+    "got": 0.3568,
+    "want": 0.35,
     "tol": 0.02,
     "pass": true
    }
   },
   "widths": {
    "headTop": {
-    "got": 0.387,
-    "want": 0.38,
+    "got": 0.355,
+    "want": 0.351,
     "tol": 0.02,
     "pass": true
    },
    "headBottom": {
-    "got": 0.459,
-    "want": 0.45,
+    "got": 0.444,
+    "want": 0.446,
     "tol": 0.02,
     "pass": true
    },
    "torsoBottom": {
-    "got": 0.464,
-    "want": 0.48,
+    "got": 0.444,
+    "want": 0.442,
+    "tol": 0.02,
+    "pass": true
+   },
+   "baseTop": {
+    "got": 0.416,
+    "want": 0.411,
     "tol": 0.02,
     "pass": true
    }
   },
   "eye": {
    "hOfHead": {
-    "got": 0.2099,
+    "got": 0.2085,
     "want": 0.22,
     "tol": 0.02,
     "pass": true
    },
    "wOverH": {
-    "got": 0.3382,
+    "got": 0.3378,
     "want": 0.3333333333333333,
     "tol": 0.05,
     "pass": true
    },
    "sepOfHeadW": {
-    "got": 0.5036,
+    "got": 0.5,
     "want": 0.5,
     "tol": 0.03,
     "pass": true
@@ -101,27 +107,182 @@
   },
   "notch": {
    "wOfBase": {
-    "got": 0.2956,
+    "got": 0.3,
     "want": 0.3,
     "tol": 0.03,
     "pass": true
    },
    "hOfBase": {
-    "got": 0.1199,
+    "got": 0.1183,
     "want": 0.12,
     "tol": 0.03,
     "pass": true
    }
   }
  },
+ "reference": {
+  "file": "campaigns/tapcap/refs/tapcap_turnaround.png (front view)",
+  "measured": {
+   "ref": "campaigns/tapcap/refs/tapcap_turnaround.png",
+   "view": "front",
+   "pxHeight": 1773,
+   "bands": {
+    "head": 0.3565,
+    "torso": 0.2679,
+    "switch": 0.0259,
+    "base": 0.3497
+   },
+   "starts": {
+    "head": 2,
+    "torso": 634,
+    "switch": 0,
+    "base": 1153
+   },
+   "widths": {
+    "headTop": 0.3514,
+    "headBottom": 0.4461,
+    "torsoBottom": 0.4416,
+    "baseTop": 0.4106
+   }
+  }
+ },
+ "specV1": {
+  "bands": {
+   "head": 0.33,
+   "torso": 0.29,
+   "switch": 0.04,
+   "base": 0.34
+  },
+  "widths": {
+   "headTop": 0.38,
+   "headBottom": 0.45,
+   "torsoBottom": 0.48
+  }
+ },
+ "targets": {
+  "bands": {
+   "head": 0.357,
+   "torso": 0.268,
+   "switch": 0.026,
+   "base": 0.35,
+   "tol": 0.02
+  },
+  "widths": {
+   "headTop": 0.351,
+   "headBottom": 0.446,
+   "torsoBottom": 0.442,
+   "baseTop": 0.411
+  }
+ },
  "tap": {
-  "depth": 0.04,
+  "depth": 0.03,
   "switchBandPressed": 0,
-  "heightPressed": 0.956
+  "heightPressed": 0.965
+ },
+ "acceptance": {
+  "A2": {
+   "pass": true,
+   "ref": {
+    "head": 0.3565,
+    "torso": 0.2679,
+    "switch": 0.0259,
+    "base": 0.3497
+   },
+   "model": {
+    "head": 0.3568,
+    "torso": 0.2633,
+    "switch": 0.0231,
+    "base": 0.3568
+   },
+   "failures": []
+  },
+  "A3": {
+   "pass": true,
+   "cosmic": {
+    "sparkles": 37,
+    "hues": 3,
+    "hueCentres": [
+     15,
+     215,
+     245
+    ],
+    "figurePx": 7077
+   },
+   "grape": {
+    "sparkles": 22,
+    "hues": 1,
+    "hueCentres": [
+     265
+    ],
+    "figurePx": 7082
+   },
+   "mask": {
+    "yellow": 0.1123,
+    "tipsRim": 0.0613,
+    "armEdges": 0.0484,
+    "gaps": 0.0026,
+    "concentrated": 0.9769,
+    "visiblePx": 388199
+   }
+  },
+  "A4": {
+   "pass": true,
+   "yellow": 0.1123,
+   "tipsRim": 0.0613,
+   "armEdges": 0.0484,
+   "gaps": 0.0026,
+   "concentrated": 0.9769,
+   "visiblePx": 388199
+  },
+  "A5": {
+   "pass": true,
+   "deg": 43
+  },
+  "A6": {
+   "pass": true,
+   "frontMax": 0.1717,
+   "sideMax": 0.3995,
+   "ratio": 0.43,
+   "frontU": [
+    -0.42,
+    -0.2,
+    0.42
+   ]
+  }
  },
  "notMeasured": [
-  "torso top width 0.30 H sits under the head (set by construction)",
-  "side/back proportions (no reference yet)"
+  "torso top width sits under the head (set by construction)",
+  "side/back proportions vs the ref"
  ],
- "reference": "campaigns/tapcap/refs/tapcap_turnaround.png: spec numbers only; the side-by-side needs the file"
+ "clix": {
+  "hair": {
+   "topRise": 0.2536,
+   "fringeCover": 0.2984,
+   "side": 0.08,
+   "curls": 8
+  },
+  "tap": {
+   "armBottom": 0.9655,
+   "slimeHeadTop": 0.9655,
+   "armEndWidthH": 8.107
+  },
+  "audit": {
+   "texturedMeshes": [
+    "clix_chain:MeshBasicMaterial",
+    "face_decal:face5_grin"
+   ],
+   "colours": [
+    "#111111",
+    "#1a1a1a",
+    "#2c2c2c",
+    "#3d7bff",
+    "#c9ccd1",
+    "#d3d4d0",
+    "#e8b796",
+    "#f4f4f2",
+    "#f7f7f5",
+    "#ffffff"
+   ]
+  }
+ }
 }

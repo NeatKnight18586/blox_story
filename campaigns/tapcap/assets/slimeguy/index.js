@@ -9,12 +9,15 @@ import {LAYOUT as L, COLORS, PAINT, FACES, FLAT} from './presets.js';
 
 // ---------- geometry helpers ----------
 const lerp = (a, b, t) => a + (b - a) * t;
-function tag(g, drip = 0, part = 0) {
+// per-vertex tags: aDrip (drip colour / paint runs longer), aTip (drip tips + head rim: fake paint peeks there), aPart (2 = arm)
+function tag(g, drip = 0, ud = g.userData) {
   const n = g.attributes.position.count;
   g.setAttribute('aDrip', new T.BufferAttribute(new Float32Array(n).fill(drip), 1));
-  g.setAttribute('aPart', new T.BufferAttribute(new Float32Array(n).fill(part), 1));
+  g.setAttribute('aTip', new T.BufferAttribute(new Float32Array(n).fill(ud.tip ?? 0), 1));
+  g.setAttribute('aPart', new T.BufferAttribute(new Float32Array(n).fill(ud.part ?? 0), 1));
   return g;
 }
+const mark = (g, k, v) => { g.userData[k] = v; return g; };
 // Rounded box whose width/depth taper linearly with height; vertices clustered at the edges so the rounding is sampled.
 function taperBox({y0, y1, wBot, wTop, dBot = wBot, dTop = wTop, r = .03, seg = 18}) {
   let g = new T.BoxGeometry(1, 1, 1, seg, seg, seg); g.deleteAttribute('uv'); g.deleteAttribute('normal');
@@ -38,7 +41,7 @@ function capsule(r, len, a, b) {   // capsule between points a and b (vectors)
   g.applyMatrix4(new T.Matrix4().compose(mid, q, new T.Vector3(1, 1, 1))); return g;
 }
 const capsuleAB = (r, a, b) => capsule(r, a.distanceTo(b), a, b);
-const bulb = (r, c) => { const g = new T.SphereGeometry(r, 16, 12); g.deleteAttribute('uv'); g.scale(1, 1.1, .85); g.translate(c.x, c.y, c.z); return g; };   // rounded drip tip
+const bulb = (r, c) => { const g = new T.SphereGeometry(r, 16, 12); g.deleteAttribute('uv'); g.scale(1, 1.1, .85); g.translate(c.x, c.y, c.z); g.userData.tip = 1; return g; };   // rounded drip tip
 function heart(s) {
   const sh = new T.Shape(); sh.moveTo(0, -.5);
   sh.bezierCurveTo(-.15, -.3, -.55, -.1, -.5, .2); sh.bezierCurveTo(-.45, .5, -.08, .55, 0, .25);
@@ -56,8 +59,8 @@ function onFace(b, side, u, y, out = 0) {   // u ∈ [-.5, .5] across the face, 
 
 // ---------- materials ----------
 const GLSL = `
-varying vec3 vP; varying float vDrip;
-uniform float uMode, uPaint, uRun, uGlitter, uFleckR; uniform vec3 uBody, uDripCol, uC0, uC1, uC2, uP0, uP1, uP2, uPY, uFleck;
+varying vec3 vP; varying float vDrip, vTip, vPart;
+uniform float uMode, uPaint, uRun, uGlitter, uFleckR, uFlatMask, uFlakeDens, uFlakeGain; uniform vec3 uBody, uDripCol, uC0, uC1, uC2, uP0, uP1, uP2, uPY, uFleck;
 float h31(vec3 p){ p = fract(p * .3183099 + .1); p *= 17.0; return fract(p.x * p.y * p.z * (p.x + p.y + p.z)); }
 vec3 h33(vec3 p){ return vec3(h31(p), h31(p + 19.19), h31(p + 47.7)); }
 float vn(vec3 x){ vec3 i = floor(x), f = fract(x); f = f * f * (3.0 - 2.0 * f);
@@ -69,9 +72,14 @@ vec3 cosmicCol(vec3 p){ vec3 q = p * 5.0; q += 1.6 * vec3(fbm(q + 3.1), fbm(q + 
   c *= .82 + .3 * fbm(q * 2.7);
   return c; }
 // paint coverage: 1 = paint. Runs top→bottom with uRun; drips keep paint a little longer (rivulets follow the drips).
-float paintMask(vec3 p){ if (uPaint < .5) return 0.0;
-  float edge = smoothstep(.13, .19, min(abs(p.x), abs(p.z)));   // vertical edges / corners of the blocks
-  float cov = uPaint < 1.5 ? 1.0 - step(.80 - .13 * edge, fbm(vec3(p.x * 16.0, p.y * 5.0, p.z * 16.0) + 4.0)) : 1.0;   // fake cosmic: uneven coverage, yellow peeks at a few edges
+// fake cosmic peeks (reason): 1 = drip tips + head rim, 2 = arm edges (grazing), 3 = thin brush gaps elsewhere
+float peekWhy = 0.0;
+float paintMask(vec3 p, vec3 nv, vec3 vv){ peekWhy = 0.0; if (uPaint < .5) return 0.0;
+  float cov = 1.0;
+  if (uPaint < 1.5) {
+    if (vTip > .5 && vn(p * 70.0) > .12) { cov = 0.0; peekWhy = 1.0; }
+    else if (vPart > 1.5 && abs(dot(normalize(nv), normalize(vv))) < .60) { cov = 0.0; peekWhy = 2.0; }
+    else if (fbm(vec3(p.x * 16.0, p.y * 5.0, p.z * 16.0) + 4.0) > .74) { cov = 0.0; peekWhy = 3.0; } }
   if (uPaint > 1.5 && uFleckR > 0.0 && distance(p, uFleck) < uFleckR) cov = 0.0;   // the one Cosmic fleck (S12 clue)
   float line = 1.12 - uRun * 1.3 - vDrip * .07 + .10 * (vn(vec3(p.x * 46.0, 0.0, p.z * 46.0)) - .5);
   return cov * step(p.y, line); }
@@ -80,7 +88,7 @@ vec3 paintCol(vec3 p){ if (uPaint > 1.5) return uPY * (.9 + .18 * vn(vec3(p.x * 
   float streak = vn(vec3(p.x * 160.0, p.y * 6.0, p.z * 160.0)), dry = vn(vec3(p.x * 60.0, p.y * 3.0, p.z * 60.0));
   return c * (.78 + .32 * streak) * (.92 + .1 * dry); }   // brush streaks run vertically
 `;
-export function slimeMaterial(preset, {paint = null, run = 0, fleck = null} = {}) {
+export function slimeMaterial(preset, {paint = null, run = 0, fleck = null, flatMask = false} = {}) {
   const P = COLORS[preset] ?? COLORS.banana, cosmic = !!P.cosmic, grad = P.gradient;
   const m = new T.MeshPhysicalMaterial({color: '#ffffff', roughness: .26, metalness: 0, clearcoat: 1, clearcoatRoughness: .06,
     iridescence: cosmic ? .75 : 0, iridescenceIOR: 1.35, iridescenceThicknessMinimum: 180, iridescenceThicknessMaximum: 520, sheen: 0, envMapIntensity: 1.1});
@@ -89,19 +97,23 @@ export function slimeMaterial(preset, {paint = null, run = 0, fleck = null} = {}
     uGlitter: {value: P.glitter ?? 1}, uBody: {value: C(P.body)}, uDripCol: {value: C(P.drip ?? P.body)},
     uC0: {value: C((P.cosmic ?? grad)?.[0] ?? '#000')}, uC1: {value: C((P.cosmic ?? grad)?.[1] ?? '#000')}, uC2: {value: C((P.cosmic ?? grad)?.[2] ?? '#000')},
     uP0: {value: C(PAINT.cosmic[0])}, uP1: {value: C(PAINT.cosmic[1])}, uP2: {value: C(PAINT.cosmic[2])}, uPY: {value: C(PAINT.banana)},
-    uFleck: {value: fleck ?? new T.Vector3(9, 9, 9)}, uFleckR: {value: fleck ? .011 : 0}};
+    uFleck: {value: fleck ?? new T.Vector3(9, 9, 9)}, uFleckR: {value: fleck ? .011 : 0}, uFlatMask: {value: flatMask ? 1 : 0},
+    uFlakeDens: {value: cosmic ? .03 : .006}, uFlakeGain: {value: cosmic ? 6 : .9}};   // Cosmic: flakes on 3 % of the surface; solids: subtle
   m.userData.u = u;
   m.onBeforeCompile = s => {
     Object.assign(s.uniforms, u);
-    s.vertexShader = 'attribute float aDrip;\nvarying vec3 vP; varying float vDrip;\n' + s.vertexShader.replace('#include <begin_vertex>', '#include <begin_vertex>\nvP = position; vDrip = aDrip;');
+    s.vertexShader = 'attribute float aDrip, aTip, aPart;\nvarying vec3 vP; varying float vDrip, vTip, vPart;\n' + s.vertexShader.replace('#include <begin_vertex>', '#include <begin_vertex>\nvP = position; vDrip = aDrip; vTip = aTip; vPart = aPart;');
     s.fragmentShader = GLSL + s.fragmentShader
       .replace('#include <color_fragment>', `#include <color_fragment>
         vec3 baseC = uMode > 1.5 ? (vP.y < .5 ? mix(uC0, uC1, vP.y * 2.0) : mix(uC1, uC2, vP.y * 2.0 - 1.0)) : uMode > .5 ? cosmicCol(vP) : mix(uBody, uDripCol, vDrip);
-        float pm = paintMask(vP); diffuseColor.rgb = mix(baseC, paintCol(vP), pm);`)
+        float pm = paintMask(vP, vNormal, vViewPosition); diffuseColor.rgb = mix(baseC, paintCol(vP), pm);`)
       .replace('#include <roughnessmap_fragment>', '#include <roughnessmap_fragment>\nroughnessFactor = mix(roughnessFactor, .82, pm);')
       .replace('#include <normal_fragment_maps>', `#include <normal_fragment_maps>
-        { vec3 cell = floor(vP * 260.0); float g = h31(cell); float dens = .045 * uGlitter * (1.0 - pm);
-          if (g > 1.0 - dens) normal = normalize(normal + (h33(cell) * 2.0 - 1.0) * .75); }`)
+        if (uMode > .5 && uMode < 1.5) {   // Cosmic: fresnel hue ramp facing C0 → mid C1 → grazing C2, swirled a little so it shifts across the surface
+          float fv = 1.0 - clamp(abs(dot(normalize(normal), normalize(vViewPosition))), 0.0, 1.0);
+          fv = clamp(fv * 1.35 + .55 * (fbm(vP * 7.0 + 2.0) - .5), 0.0, 1.0);
+          vec3 rc = fv < .5 ? mix(uC0, uC1, smoothstep(0.0, .5, fv)) : mix(uC1, uC2, smoothstep(.5, 1.0, fv));
+          diffuseColor.rgb = mix(rc, diffuseColor.rgb, pm); }`)
       .replace('#include <lights_physical_fragment>', `#include <lights_physical_fragment>
         #ifdef USE_CLEARCOAT
         material.clearcoat *= (1.0 - pm);
@@ -111,7 +123,12 @@ export function slimeMaterial(preset, {paint = null, run = 0, fleck = null} = {}
         #endif
         `)
       .replace('#include <emissivemap_fragment>', `#include <emissivemap_fragment>
-        { vec3 cell = floor(vP * 260.0); if (h31(cell + 5.3) > 1.0 - .012 * uGlitter * (1.0 - pm)) totalEmissiveRadiance += vec3(.55); }`);
+        { vec3 cell = floor(vP * 150.0); if (h31(cell + 5.3) > 1.0 - uFlakeDens * (1.0 - pm)) {   // glitter flakes: view-dependent glints
+            vec3 nf = normalize(normal + (h33(cell) - .5) * 1.4), v = normalize(vViewPosition), l = normalize(vec3(.35, .8, .5));
+            float g = pow(max(dot(reflect(-v, nf), l), 0.0), 24.0) + .6 * pow(max(dot(reflect(-v, nf), normalize(vec3(-.6, .3, -.4))), 0.0), 24.0);
+            totalEmissiveRadiance += vec3(1.0, .97, .92) * g * uFlakeGain; } }`)
+      .replace('#include <dithering_fragment>', `#include <dithering_fragment>
+        if (uFlatMask > .5) gl_FragColor = vec4(pm > .5 ? vec3(1.0, 0.0, 1.0) : peekWhy == 1.0 ? vec3(1.0, 1.0, 0.0) : peekWhy == 2.0 ? vec3(1.0, .8, 0.0) : peekWhy == 3.0 ? vec3(1.0, 1.0, .5) : vec3(0.0, 1.0, 1.0), 1.0);`);
   };
   m.customProgramCacheKey = () => 'slime';
   return m;
@@ -132,8 +149,15 @@ function printTexture() {
 }
 let PRINT = null;
 
+// arm centre line (x for the right arm): shoulder → elbow down the side, forearm bends forward around the belly (side view ≥ 25°)
+export const ARM_PTS = [[.150, .600, .00], [.205, .545, .025], [.212, .480, .085], [.150, .440, .200], [.058, .428, .240]];
+export function armBendDeg(pts = ARM_PTS) {   // side view (z, y): angle between the upper arm (first 40 % of the curve) and the forearm (last 40 %)
+  const c = new T.CatmullRomCurve3(pts.map(p => new T.Vector3(...p))), d = (a, b) => { const p = c.getPoint(a), q = c.getPoint(b); return Math.atan2(q.y - p.y, q.z - p.z); };
+  return Math.abs(d(.6, 1) - d(0, .4)) * 180 / Math.PI;
+}
+
 // ---------- the model ----------
-export function createSlimeGuy({preset = 'banana', paint = null, run = 0, face = 'default', flat = false} = {}) {
+export function createSlimeGuy({preset = 'banana', paint = null, run = 0, face = 'default', flat = false, flatMask = false} = {}) {
   const root = new T.Group(), keycap = new T.Group(); root.add(keycap); root.name = `slimeguy_${preset}`;
   const H = L.head, TO = L.torso, B = L.base, S = L.switch;
   const torsoSlope = (TO.wBot - TO.wAt67) / (.67 - TO.y0), tw = y => TO.wBot - torsoSlope * (y - TO.y0);
@@ -149,12 +173,13 @@ export function createSlimeGuy({preset = 'banana', paint = null, run = 0, face =
       const edge = Math.max(0, (s - .82) / .18), y = head.y1 + .010 - .014 * edge * edge + .0022 * Math.sin(d * 34) * (1 - edge) * Math.exp(-d * .9);
       p.setXYZ(i, x * hw, y, z * hw); }
     g.computeVertexNormals(); geo.head.push(g); }
-  for (let side = 0; side < 4; side++) { const a = onFace(head, side, -.5, head.y1 - .004, -.004), b = onFace(head, side, .5, head.y1 - .004, -.004); geo.headDrip.push(capsuleAB(.017, a, b)); }
-  const TONGUES = [[0, -.40, .94, .040], [0, .02, .25, .028], [0, .40, .86, .050], [1, -.18, 1, .034], [1, .27, .78, .020],
+  for (let side = 0; side < 4; side++) { const a = onFace(head, side, -.5, head.y1 - .004, -.004), b = onFace(head, side, .5, head.y1 - .004, -.004); geo.headDrip.push(mark(capsuleAB(.017, a, b), 'tip', 1)); }   // rim roll (fake paint peeks here)
+  const TONGUES = [[0, -.42, .38, .030], [0, -.20, .22, .020], [0, .42, .33, .026], [1, -.18, 1, .034], [1, .27, .78, .020],
     [2, -.33, .9, .046], [2, .04, 1, .032], [2, .36, .7, .024], [3, -.22, .85, .028], [3, .21, 1, .044]];   // [side, u, start (0 bottom..1 top), hang]
-  let fleck = null;
+  let fleck = null; const drips = [];
   for (const [side, u, start, hang] of TONGUES) {
-    const r = .019 + hang * .08, top = onFace(head, side, u, lerp(head.y0, head.y1, start) - .01, -.006), bot = onFace(head, side, u, head.y0 - hang + r, -.006);
+    const r = .019 + hang * .08; drips.push({side, u, len: +(lerp(head.y0, head.y1, start) - .01 - (head.y0 - hang + r) + 2 * r).toFixed(4)});
+    const top = onFace(head, side, u, lerp(head.y0, head.y1, start) - .01, -.006), bot = onFace(head, side, u, head.y0 - hang + r, -.006);
     geo.headDrip.push(capsuleAB(r, top, bot), bulb(r * 1.22, bot.clone().add(new T.Vector3(0, r * .05, 0))));
     if (side === 2 && Math.abs(u - .36) < 1e-6) fleck = onFace(head, side, u, head.y0 - hang + .004, r - .004);   // tip of a back drip
   }
@@ -166,9 +191,9 @@ export function createSlimeGuy({preset = 'banana', paint = null, run = 0, face =
   // TORSO: trapezoid, arms hugging the belly (hands low-centre, not touching), side/back drip blobs
   geo.torso.push(taperBox({y0: torso.y0, y1: torso.y1, wBot: torso.wBot, wTop: torso.wTop, r: .03}));
   for (const s of [-1, 1]) {
-    const pts = [[.150, .625, .02], [.215, .575, .095], [.205, .505, .195], [.125, .455, .262], [.060, .445, .272]].map(([x, y, z]) => new T.Vector3(s * x, y, z));
-    const tube = new T.TubeGeometry(new T.CatmullRomCurve3(pts), 40, .041, 16, false); tube.deleteAttribute('uv'); geo.torso.push(tube);
-    for (const [i, rr] of [[0, .041], [pts.length - 1, .043]]) { const sp = new T.SphereGeometry(rr, 18, 12); sp.deleteAttribute('uv'); sp.translate(pts[i].x, pts[i].y, pts[i].z); geo.torso.push(sp); }
+    const pts = ARM_PTS.map(([x, y, z]) => new T.Vector3(s * x, y, z));
+    const tube = new T.TubeGeometry(new T.CatmullRomCurve3(pts), 40, .041, 16, false); tube.deleteAttribute('uv'); geo.torso.push(mark(tube, 'part', 2));
+    for (const [i, rr] of [[0, .041], [pts.length - 1, .043]]) { const sp = new T.SphereGeometry(rr, 18, 12); sp.deleteAttribute('uv'); sp.translate(pts[i].x, pts[i].y, pts[i].z); geo.torso.push(mark(sp, 'part', 2)); }
   }
   for (const [side, u, y, sx] of [[1, .25, .5, 1], [3, -.2, .55, 1.2], [2, -.25, .48, 1], [2, .2, .6, .8]]) {
     const b = new T.SphereGeometry(.018 * sx, 14, 10); b.deleteAttribute('uv'); b.scale(1, 1.7, .7); const c = onFace(torso, side, u, y, 0);
@@ -184,10 +209,10 @@ export function createSlimeGuy({preset = 'banana', paint = null, run = 0, face =
       geo.baseDrip.push(capsuleAB(r, t, btm), bulb(r * 1.2, btm)); } }
 
   // build meshes (merged per part)
-  const mat = flat ? null : slimeMaterial(preset, {paint, run, fleck});
+  const mat = flat ? null : slimeMaterial(preset, {paint, run, fleck, flatMask});
   const flatMat = c => new T.MeshBasicMaterial({color: c});
-  const merge = (list, drip) => { const g = new T.BufferGeometry(), all = list.map(x => { const y = x.index ? x.toNonIndexed() : x; if (!y.attributes.normal) y.computeVertexNormals(); return tag(y, drip); });
-    for (const k of ['position', 'normal', 'aDrip', 'aPart']) { const n = all.reduce((s, y) => s + y.attributes[k].array.length, 0), arr = new Float32Array(n); let o = 0;
+  const merge = (list, drip) => { const g = new T.BufferGeometry(), all = list.map(x => { const y = x.index ? x.toNonIndexed() : x; if (!y.attributes.normal) y.computeVertexNormals(); return tag(y, drip, x.userData); });
+    for (const k of ['position', 'normal', 'aDrip', 'aTip', 'aPart']) { const n = all.reduce((s, y) => s + y.attributes[k].array.length, 0), arr = new Float32Array(n); let o = 0;
       for (const y of all) { arr.set(y.attributes[k].array, o); o += y.attributes[k].array.length; } g.setAttribute(k, new T.BufferAttribute(arr, all[0].attributes[k].itemSize)); }
     return g; };
   const add = (parent, part, list, drip) => { const m = new T.Mesh(merge(list, drip), flat ? flatMat(FLAT[part]) : mat); m.name = part + (drip ? '_drip' : ''); m.castShadow = m.receiveShadow = true; parent.add(m); return m; };
@@ -204,8 +229,8 @@ export function createSlimeGuy({preset = 'banana', paint = null, run = 0, face =
 
   // CHEST PRINT decal on the slanted torso front
   let print = null;
-  { const y = .555, z = tw(y) / 2 + .0015, tilt = Math.atan(torsoSlope / 2);
-    const g = new T.PlaneGeometry(.30, .30); print = new T.Mesh(g, flat ? flatMat(FLAT.print) : new T.MeshBasicMaterial({map: PRINT ??= printTexture(), transparent: true, polygonOffset: true, polygonOffsetFactor: -2, polygonOffsetUnits: -2}));
+  { const y = .512, z = tw(y) / 2 + .0015, tilt = Math.atan(torsoSlope / 2);
+    const g = new T.PlaneGeometry(.27, .27); print = new T.Mesh(g, flat ? flatMat(FLAT.print) : new T.MeshBasicMaterial({map: PRINT ??= printTexture(), transparent: true, polygonOffset: true, polygonOffsetFactor: -2, polygonOffsetUnits: -2}));
     print.position.set(0, y, z); print.rotation.x = -tilt; print.name = 'print'; keycap.add(print); if (flat) print.visible = false; }
 
   // FACE decals (front of head)
@@ -234,7 +259,7 @@ export function createSlimeGuy({preset = 'banana', paint = null, run = 0, face =
   const setRun = p => { if (mat) mat.userData.u.uRun.value = p; if (print && !flat) print.visible = !paint || p > .62; };
   setRun(run);
   root.userData = {preset, paint, fleck};
-  return {root, keycap, setTap, setRun, setFace, fleck, material: mat, dims: {head, torso, base, switch: S}};
+  return {root, keycap, setTap, setRun, setFace, fleck, drips, material: mat, dims: {head, torso, base, switch: S}};
 }
 // Puddle of run-off paint at the feet (paint_run), radius grows with p.
 export function paintPool(paint, p) {

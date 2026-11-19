@@ -16,7 +16,7 @@ import argparse, json, os, subprocess, sys, wave
 import numpy as np
 
 SR = 48000
-NAMES = ['whoosh', 'pop', 'thud', 'rumble', 'riser', 'sparkle', 'crack', 'bell', 'splash', 'zap', 'plink', 'knock']   # plink, knock: Retention Engine Phase 6
+NAMES = ['whoosh', 'pop', 'thud', 'rumble', 'riser', 'sparkle', 'crack', 'bell', 'splash', 'zap', 'plink', 'knock', 'click']   # plink, knock: Retention Engine Phase 6 · click: TapCap keycap
 UNDER_VOICE_DB, VOICE_LUFS, PEAK_CAP_DB = 16, -14, -6
 POP_DELAY_CARD, RISER_LEAD, SILENCE_FRAMES = .55, 1.0, 8
 
@@ -74,7 +74,15 @@ def synth(name, seed=7, dur=None):
     if name == 'knock':   # wood: a short low-mid body + a damped click (impacts on doors, crates, tables)
         t = _t(.2); ph = 2 * np.pi * np.cumsum(240 * np.exp(-t * 20) + 170) / SR
         return _norm(np.sin(ph) * np.exp(-t * 38) + .7 * _lp(r.standard_normal(len(t)), 1400) * np.exp(-t * 90))
+    if name == 'click':   # mechanical keyboard switch (TapCap): 40 ms = 1.5 ms sharp transient + short plastic body (two damped modes)
+        t = _t(.040); tick = _hp(r.standard_normal(len(t)), 3500) * np.exp(-t * 2200)
+        body = .55 * np.sin(2 * np.pi * 1850 * t) * np.exp(-t * 160) + .3 * np.sin(2 * np.pi * 3400 * t) * np.exp(-t * 240) + .25 * _lp(r.standard_normal(len(t)), 2500) * np.exp(-t * 120)
+        x = (tick + body) * np.minimum(1, (len(t) - np.arange(len(t))) / (.004 * SR))   # 4 ms fade to zero at 40 ms
+        return _norm(x)
     raise ValueError(f'unknown sfx {name}')
+CLICK_PEAK_DBFS = -6.0
+def click_wav(path):   # TapCap: the click at its own peak −6 dBFS (prompt: 40 ms, sharp transient + short plastic body)
+    x = synth('click') * 10 ** (CLICK_PEAK_DBFS / 20); write_wav(path, x); return x
 
 
 def load(name, assets='assets/sfx', dur=None):

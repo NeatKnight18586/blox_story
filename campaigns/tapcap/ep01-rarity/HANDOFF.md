@@ -1,21 +1,23 @@
 # HANDOFF — TapCap EP01 "Rarity's Just Paint"  (≤ 30 lines; read with ../RULES.md, spec.yml, shots.yml)
-## Done (2026-11-19, Setup + Pass A) — NOT approved yet
-- Setup: folders, `.gitignore` (refs/, vo/*, review/ never committed), `../RULES.md` (7 hard rules + TC-01…TC-07), linter hook:
-  `scripts/v2/plan.js` loads RULES.md for any spec under campaigns/tapcap/ (`engine/tapcap.js`, tests `tests/v2/tapcap.test.js`).
-- Master asset `../assets/slimeguy` (one parametric model, 9 colours + demo, 3 paints, 5 faces, tap); Clix `../assets/clix` (bust, 3 hand poses).
-- Gate: `node campaigns/tapcap/scripts/pass-a.js` → `qa/proportions.json` (TC-02 PASS: head 32.5 · torso 29.3 · switch 3.8 · base 34.3 %)
-  + `review/pass-a/pass-a-sheet.png` (gitignored; sent directly).
+## Done (2026-11-19, Setup + Pass A + Pass A revision) — NOT approved yet
+- Refs + VO placed (gitignored). Phase 0–6 merged (359c8f5; plan.js + LIBRARY.md conflicts resolved, both sides kept).
+- REF wins (§4), measured on tapcap_turnaround.png front (scripts/ref_measure.py), old spec → new:
+  head 33 → 35.7 % · torso 29 → 26.8 % · switch 4 → 2.6 % · base 34 → 35.0 % · head top .38 → .351 H · head bottom .45 → .446 H ·
+  torso bottom .48 → .442 H. Model now: 35.7 / 26.3 / 2.3 / 35.7 % (all within 0.7 of the ref).
+- Model: Cosmic fresnel ramp + 3 % view-dependent flakes; bloom .85/.25 (display-referred post step, scripts/bloom.py);
+  fake-paint peeks at drip tips, head rim, arm edges; arms bend 43°; front drips ≤ 43 % of the longest side drip, none under the mouth.
+- Clix rebuilt on the R6 rig (body5 satin): hair (+25 % top, 30 % fringe, .08 W sides, 8 curls), coat/tee/chain, blue 30 % arm ends,
+  cuff line, left wrist band, black legs + pockets, white sneakers, 40 × H. Old human bust + hand sheet deleted.
+- Spec: tap 3 % H, 24 fps, synthesized click (40 ms, −6 dBFS, sfx.py `click`), Clix shots S18–21 arm / S36 reveal / S37 macros / S38 close-up,
+  TC-06 = S40 replays S1's move (diff 0). Gate: `node campaigns/tapcap/scripts/pass-a.js` → qa/proportions.json + review sheet.
 ## Approved
 - nothing yet
 ## Open notes
-- REFS + VO MISSING: no side-by-side, no ref-based measurement, aligner not run. Re-run pass-a.js after the drop (sheet picks refs up).
-- Head 33 % is measured as the visible band incl. the drip skirt (row majority, front ortho). Confirm against the ref.
-- Tap: at the full 4 % press the keycap covers the switch completely (measured 0 %). Physically right; say if the sponsor wants a sliver (3 %).
-- Clix bust from primitives is toy-like, not Pixar quality. Needs a sculpted GLB or a decision (see review).
-- §3 says full Clix reveal S36–S37 only, but the table puts a Clix close-up in S38 and S37 is two click macros. Which is right?
-- TC-06 vs "no locked-off shots": S1 pushes in. Proposal: S40 replays S1's move; final frame of S40 = final frame of S1.
-- `pop-shorts-v6` does not exist (latest v5): Pass C adds v6 = v5 + accent #B98CFF.
-- No mechanical click in the sfx set and *.wav is gitignored: Pass C synthesizes `click` in scripts/v2/sfx.py.
-- fps 24 assumed (repo format v5). Tap 3/2/4 frames at 24 fps.
+- Clix face: pick one of #2 grin (default) · #5 content · #32 calm.
+- Scale: at 40 × H the blue arm end is 8.1 H wide (≈ 20 × a Slime Guy head); one tap covers the whole Slime Guy and its neighbours.
+- 3 % press > the ref's visible switch (2.6 %): at full press the keycap skirt overlaps the base rim by 0.4 % H (hidden inside the skirt).
+- Base drips: the ref shows short raised drip blobs; the model still has long vertical drips (not in this revision's scope).
+- Bloom is a post step on lookdev panels; the episode renderer's post7 bloom must be set to the same .85/.25 in Pass C.
+- Black legs/tee read mid-grey under the lookdev light; check under the Pass B moods.
 ## Next step
-- Owner: drop refs + VO, answer the open notes, then "approve" or notes on Pass A. Then Pass B (world + lighting, 6-still sheet).
+- Owner: pick the Clix face, then "approve" or notes on Pass A. Then Pass B (world + lighting, 6-still sheet).

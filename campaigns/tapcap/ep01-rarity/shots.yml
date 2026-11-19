@@ -1,5 +1,7 @@
 # Shot plan = prompt §5 table, unchanged. Times are the silence-detection map; the word aligner's timestamps replace them in
 # Pass C (report any phrase start that moves > 0.3 s before blocking; rows 45.2–55.9 s least certain).
+# Owner changes (Pass A revision §2): clix: arm = blue arm only (S18–S21), reveal = full Clix (S36), closeup (S38); S37 = two click
+# macros; S40 replays S1's camera move exactly (last frames identical). Tap depth 3 % H.
 - {id: S1, t: [0.00, 2.22], vo: "In Slime Town, you're born your *rarity*.", hero: 1, plan: "Low macro wide through a glossy mixed-colour crowd, hill + empty plinth behind. Push-in + single opening jolt at 0:00. A TapCap fills ≥ 30 % of frame 1."}
 - {id: S2, t: [2.56, 5.47], vo: "And only one in every *102* is born *Cosmic*.", plan: "Whip to the '1 / 102' sign, snap-zoom on '102'."}
 - {id: S3, t: [2.56, 5.47], plan: "Crane up the hill to the empty plinth in its spotlight."}
@@ -8,7 +10,7 @@
 - {id: S6, t: [9.89, 12.19], vo: "Nobody has seen the real Cosmic in years.", plan: "Empty plinth, dust motes in the spotlight, slow orbit."}
 - {id: S7, t: [12.76, 14.00], vo: "Banana was born *Core*.", plan: "Macro push-in on Banana (default face) in Core Row. 85 mm, shallow DOF."}
 - {id: S8, t: [14.26, 15.51], vo: "The plainest yellow in town.", plan: "Wide: Banana is one yellow among many colours, crowd passing."}
-- {id: S9, t: [15.98, 17.29], vo: "Core slimes don't get tapped.", plan: "Low angle: a gloved fingertip glints far off on the hill horizon (no tap). Banana looks up, sad."}
+- {id: S9, t: [15.98, 17.29], vo: "Core slimes don't get tapped.", plan: "Low angle: a blue arm end glints far off on the hill horizon (no tap). Banana looks up, sad."}
 - {id: S10, t: [17.58, 18.66], vo: "Core slimes get *traded*.", plan: "Trade Corner: two Core slimes slid across the crate counter, 'TRADES' sign. Quick track."}
 - {id: S11, t: [19.13, 21.31], vo: "His only friend, Sunny, another yellow Core,", plan: "Two-shot: Banana left, Sunny right, on the Box edge. Sunny hopeful face."}
 - {id: S12, t: [21.57, 22.86], vo: "always told him the same thing:", plan: "Clue insert. OTS behind Sunny; Cosmic fleck on one back head-drip for ~0.6 s. Do not linger."}
@@ -17,10 +19,10 @@
 - {id: S15, t: [26.98, 31.11], vo: "He painted himself *Cosmic*. Purple, orange, blue, drip by drip.", plan: "Macro of streaky paint going on (paint_fake_cosmic)."}
 - {id: S16, t: [26.98, 31.11], plan: "Three fast inserts, one per colour word: purple, orange, blue (cut on each word)."}
 - {id: S17, t: [31.53, 32.10], vo: "And it *worked*.", plan: "Snap-zoom: Banana fully painted, joy face, in a mirror-like puddle."}
-- {id: S18, t: [32.43, 35.74], vo: "The next morning, the giant hand reached down from the sky and tapped *him*.", plan: "Sky wide: clouds part, blue-gloved giant hand descends (crane down with it)."}
-- {id: S19, t: [32.43, 35.74], plan: "Crowd gasps up at it."}
-- {id: S20, t: [32.43, 35.74], plan: "Index fingertip approaches Banana's head (85 mm, motion blur)."}
-- {id: S21, t: [36.15, 36.45], vo: "*Click.*", taps: [click1], plan: "Extreme macro: keycap presses into the clear switch; press bottom exactly on the 'Click' onset. Click SFX."}
+- {id: S18, clix: arm, t: [32.43, 35.74], vo: "The next morning, the giant hand reached down from the sky and tapped *him*.", plan: "Sky wide: clouds part, Clix's blue arm end descends (crane down with it). Arm only."}
+- {id: S19, clix: arm, t: [32.43, 35.74], plan: "Crowd gasps up at it."}
+- {id: S20, clix: arm, t: [32.43, 35.74], plan: "The flat blue arm end approaches Banana's head (85 mm, motion blur). Arm only."}
+- {id: S21, clix: arm, t: [36.15, 36.45], vo: "*Click.*", taps: [click1], plan: "Extreme macro: keycap presses into the clear switch; press bottom exactly on the 'Click' onset. Click SFX."}
 - {id: S22, t: [36.88, 37.65], vo: "Top Shelf Hill.", plan: "Banana on the plinth in the spotlight, crowd below. Aerial pull-out."}
 - {id: S23, t: [38.21, 39.61], vo: "But that night, it *rained*.", plan: "Lighting flips to rain night. Hard cut to dark sky, then first drops hit the plinth (macro splash)."}
 - {id: S24, t: [39.98, 41.36], vo: "Banana's paint started to run.", plan: "paint_run on Banana, top→bottom, macro, slow push."}
@@ -35,8 +37,8 @@
 - {id: S33, t: [59.79, 61.27], vo: "because the top of the hill was *lonely*.", plan: "Wide: tiny lone Sunny on the huge empty hill under the spotlight. Slow pull-out."}
 - {id: S34, t: [61.74, 63.32], vo: "'Rarity's just paint,' he said.", plan: "Present: Sunny facing Banana, smile arc, rain easing."}
 - {id: S35, t: [63.65, 64.49], vo: "'I wanted a *friend*.'", plan: "Banana joy face, tear-like raindrop slides off his drip. Push-in."}
-- {id: S36, t: [65.04, 68.11], vo: "The giant hand reached down one more time and tapped them *both*.", plan: "Lighting → golden. Clouds part. Crane up to reveal Clix (stylized) above the clouds, smiling, both gloved hands descending."}
-- {id: S37, t: [68.47, 69.17], vo: "*Click.* *Click.*", taps: [click2, click3], plan: "Two macros, one per click: Banana pressed, then Sunny pressed, each synced to its onset."}
-- {id: S38, t: [69.93, 71.66], vo: "One in 102 is *rare*.", plan: "Clix close-up (3/4, shallow DOF), proud smile looking down."}
+- {id: S36, clix: reveal, t: [65.04, 68.11], vo: "The giant hand reached down one more time and tapped them *both*.", plan: "Lighting → golden. Clouds part. Crane up to reveal Clix (stylized) above the clouds, smiling, both gloved hands descending."}
+- {id: S37, t: [68.47, 69.17], vo: "*Click.* *Click.*", taps: [click2, click3], plan: "Two click macros, one per click: Banana pressed, then Sunny pressed, each press bottom on its onset (3 % H). No Clix body."}
+- {id: S38, clix: closeup, t: [69.93, 71.66], vo: "One in 102 is *rare*.", plan: "Clix close-up (3/4, shallow DOF), proud smile looking down."}
 - {id: S39, t: [72.00, 73.73], vo: "A friend who paints himself plain for you?", plan: "Two-shot on the plinth: Banana (streaky yellow) and Sunny (Cosmic), both joy faces."}
-- {id: S40, t: [74.08, 75.16], vo: "That's *one of one*.", hero: 3, plan: "Loop: SAME camera position, lens and framing as S1; the plinth behind the crowd now holds both. Cut at 75.16."}
+- {id: S40, t: [74.08, 75.16], vo: "That's *one of one*.", hero: 3, plan: "Loop: replays S1's camera move exactly (last frame identical to S1's, diff 0); the plinth behind the crowd now holds both. Cut at 75.16."}

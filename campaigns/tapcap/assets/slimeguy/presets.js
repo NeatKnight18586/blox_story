@@ -1,11 +1,15 @@
 // TapCap Slime Guy presets (data). Colours from the rarity chart (prompt §2); bands are fractions of total height H.
-export const BANDS = {head: .33, torso: .29, switch: .04, base: .34, tol: .02};
+// Targets = the sponsor REF (tapcap_turnaround.png front view, scripts/ref_measure.py), which wins over the prompt spec where they
+// differ by > 2 % (owner rule, Pass A revision §4). Old spec values kept in SPEC_V1 for the log.
+export const SPEC_V1 = {bands: {head: .33, torso: .29, switch: .04, base: .34}, widths: {headTop: .38, headBottom: .45, torsoBottom: .48}};
+export const BANDS = {head: .357, torso: .268, switch: .026, base: .350, tol: .02};
+export const WIDTHS = {headTop: .351, headBottom: .446, torsoBottom: .442, baseTop: .411};
 // rest-pose layout in H units (y = 0 at the feet); tuned so the visible front-view bands measure to BANDS (qa/proportions.json)
 export const LAYOUT = {
-  base: {y0: 0, y1: .34, wTop: .44, wBot: .40, notchW: .30, notchH: .12},
-  switch: {y0: .34, y1: .38, w: .24},
-  torso: {y0: .38, y1: .69, wAt67: .30, wBot: .48},
-  head: {yb: .672, yt: .983, wTop: .352, wBot: .420},
+  base: {y0: 0, y1: .352, wTop: .385, wBot: .355, notchW: .30, notchH: .12},
+  switch: {y0: .352, y1: .378, w: .22},
+  torso: {y0: .378, y1: .66, wAt67: .30, wBot: .458},
+  head: {yb: .640, yt: .983, wTop: .318, wBot: .405},
   eye: {hOfHead: .22, wOfH: 1 / 3, sepOfBlockW: .545, yOfHead: .56},   // eye centres .5 of the VISIBLE head width (block + side drips) = .545 of the block width
 };
 export const COLORS = {

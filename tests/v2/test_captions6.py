@@ -71,3 +71,15 @@ class Sfx6(unittest.TestCase):
 
 if __name__ == '__main__':
     unittest.main()
+
+
+class TestTapCapClick(unittest.TestCase):
+    def test_click_is_40ms_with_transient_and_minus6_peak(self):
+        import numpy as np, tempfile, os, wave
+        x = S.synth('click')
+        self.assertEqual(len(x), int(.040 * S.SR))
+        self.assertGreater(np.argmax(np.abs(x)), -1); self.assertLess(np.argmax(np.abs(x)), int(.003 * S.SR))   # the transient leads
+        with tempfile.TemporaryDirectory() as d:
+            y = S.click_wav(os.path.join(d, 'click.wav'))
+            self.assertAlmostEqual(20 * np.log10(np.max(np.abs(y))), -6.0, places=2)
+            with wave.open(os.path.join(d, 'click.wav')) as w: self.assertAlmostEqual(w.getnframes() / w.getframerate(), .040, places=3)

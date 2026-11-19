@@ -1,7 +1,7 @@
 // Measured proportion check (pure): front orthographic flat-ID render of the master asset → bands, widths, eyes, notch vs spec.
 // Classes by exact flat colour (presets FLAT): head red (+ eyes black, mouth magenta), torso green, switch blue, base yellow, bg white.
 // Rows are classified by majority; a band = rows whose majority class is that part, as a fraction of the silhouette height.
-import {BANDS, LAYOUT} from './presets.js';
+import {BANDS, WIDTHS, LAYOUT} from './presets.js';
 const CLS = {'255,0,0': 'head', '0,0,0': 'eye', '255,0,255': 'mouth', '0,255,0': 'torso', '0,0,255': 'switch', '255,255,0': 'base'};
 // TOL: bands ± 2 % of H (prompt); the other shape numbers use the tolerances written next to them (not given by the prompt).
 export const CHECKS = {bandTol: BANDS.tol, widthTol: .02, eyeHTol: .02, eyeRatioTol: .05, eyeSepTol: .03, notchTol: .03};
@@ -37,8 +37,9 @@ export function judge(m) {
   const F = [], C = CHECKS, chk = (name, got, want, tol) => { const ok = got !== null && got !== undefined && Math.abs(got - want) <= tol + 1e-9; if (!ok) F.push(`${name} ${got} vs ${want} ± ${tol}`); return {got, want, tol, pass: ok}; };
   const r = {
     bands: Object.fromEntries(['head', 'torso', 'switch', 'base'].map(k => [k, chk(`${k} band`, m.bands[k], BANDS[k], C.bandTol)])),
-    widths: {headTop: chk('head top width', m.widths.headTop, .38, C.widthTol), headBottom: chk('head bottom width', m.widths.headBottom, .45, C.widthTol),
-      torsoBottom: chk('torso bottom width', m.widths.torsoBottom, .48, C.widthTol)},
+    widths: {headTop: chk('head top width', m.widths.headTop, WIDTHS.headTop, C.widthTol), headBottom: chk('head bottom width', m.widths.headBottom, WIDTHS.headBottom, C.widthTol),
+      torsoBottom: chk('torso bottom width', m.widths.torsoBottom, WIDTHS.torsoBottom, C.widthTol),
+      baseTop: chk('base top width', m.widths.baseTop, WIDTHS.baseTop, C.widthTol)},
     eye: {hOfHead: chk('eye height / head', m.eye?.hOfHead, LAYOUT.eye.hOfHead, C.eyeHTol), wOverH: chk('eye w/h', m.eye?.wOverH, 1 / 3, C.eyeRatioTol),
       sepOfHeadW: chk('eye separation / head width', m.eye?.sepOfHeadW, .5, C.eyeSepTol)},
     notch: {wOfBase: chk('notch width / base', m.notch.wOfBase, .30, C.notchTol), hOfBase: chk('notch height / base', m.notch.hOfBase, .12, C.notchTol)},

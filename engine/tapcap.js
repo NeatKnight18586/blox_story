@@ -15,9 +15,9 @@ export function parseRules(md) {
   return {hard, qa};
 }
 
-// Keycap tap (model spec §2): down 4 % H over 3 frames, hold 2, back over 4 with a small overshoot. f = frames since the tap
+// Keycap tap (model spec §2, depth 3 % H since the Pass A revision): down 3 % H over 3 frames, hold 2, back over 4 with a small overshoot. f = frames since the tap
 // started; returns the keycap offset as a fraction of H (negative = down). The click lands on frame 3 (bottom of the press).
-export const TAP = {depth: .04, down: 3, hold: 2, up: 4, overshoot: .12, clickFrame: 3};
+export const TAP = {depth: .03, down: 3, hold: 2, up: 4, overshoot: .12, clickFrame: 3};
 export function tapOffset(f, T = TAP) {
   if (f <= 0) return 0;
   if (f <= T.down) { const u = f / T.down; return -T.depth * (1 - (1 - u) * (1 - u)); }   // ease-out into the switch
@@ -29,7 +29,7 @@ export function tapOffset(f, T = TAP) {
 }
 export const tapStartFor = (onsetS, fps, T = TAP) => Math.round(onsetS * fps) - T.clickFrame;   // first frame of a tap whose bottom hits onsetS
 
-const sameCam = (a, b, eps = 1e-6) => {
+const sameCam = (a, b, eps = 0) => {   // TC-06: diff must be exactly 0
   const k = ['pos', 'look', 'fov'];
   return k.every(n => { const x = [a?.[n]].flat(), y = [b?.[n]].flat(); return x.length === y.length && x.every((v, i) => Math.abs(v - y[i]) <= eps); });
 };
@@ -56,7 +56,7 @@ export function checkCampaign({rules, shots, cues, fps, end, measured = {}}) {
       if (hit === undefined || Math.abs(hit - want) > tol) errors.push(`TC-05: "Click" at ${c.start.toFixed(2)} s (frame ${want}) has no press bottom within ± ${tol} frame (nearest ${hit ?? 'none'})`); } }
   if (q['TC-06']) { const {first, last} = P('TC-06'), a = shots.find(s => s.id === first), b = shots.find(s => s.id === last);
     if (!a?.cam || !b?.cam) errors.push(`TC-06: camera transforms for ${first}/${last} missing`);
-    else if (!sameCam(a.cam.first, b.cam.last)) errors.push(`TC-06: ${last} final camera differs from ${first}`); }
+    else if (!sameCam(a.cam.last, b.cam.last) || !sameCam(a.cam.first, b.cam.first)) errors.push(`TC-06: ${last} does not replay ${first}'s camera move (first/last transforms differ)`); }
   if (q['TC-07']) { const {avg: [lo, hi], tail} = P('TC-07'), len = end ?? (shots.length ? (shots.at(-1).start + shots.at(-1).frames) / fps : 0), av = shots.length ? len / shots.length : 0;
     if (av < lo || av > hi) errors.push(`TC-07: average shot ${av.toFixed(2)} s outside ${lo}–${hi} s`);
     for (const s of shots) if (s.static || s.move === 'static') errors.push(`TC-07: ${s.id} is locked off`);
