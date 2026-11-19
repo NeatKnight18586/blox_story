@@ -1,0 +1,22 @@
+# Owner-run cleanup: deletes every branch except main and claude/engine-v2.
+# Run it from the Actions tab ("cleanup-branches" -> Run workflow) and type DELETE to confirm.
+name: cleanup-branches
+on:
+  workflow_dispatch:
+    inputs:
+      confirm:
+        description: 'Type DELETE to remove every branch except main and claude/engine-v2'
+        required: true
+permissions:
+  contents: write
+jobs:
+  cleanup:
+    if: inputs.confirm == 'DELETE'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Delete other branches
+        env: {GH_TOKEN: '${{ github.token }}', REPO: '${{ github.repository }}'}
+        run: |
+          gh api --paginate "repos/$REPO/branches?per_page=100" --jq '.[].name' | grep -vxE 'main|claude/engine-v2' | while read -r b; do
+            echo "deleting $b"; gh api -X DELETE "repos/$REPO/git/refs/heads/$b" || echo "could not delete $b"
+          done
