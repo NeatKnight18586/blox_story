@@ -2,7 +2,7 @@
  "budget": 0.69,
  "locations": {
   "street-procedural": {
-   "loadSeconds": 50.859,
+   "loadSeconds": 207.283,
    "build": {
     "fallbacks": [],
     "textures": 0,
@@ -17,10 +17,10 @@
     "bake": {
      "meshes": 379,
      "vertices": 45017,
-     "ms": 156
+     "ms": 539
     },
     "prims": 379,
-    "ms": 397,
+    "ms": 1710,
     "horizon": [
      0.815,
      0.716,
@@ -30,13 +30,13 @@
    "triangles": 65334,
    "textureMemoryMB": 20,
    "textures": 9,
-   "mean1080": 1.272,
-   "mean1440": 2.119,
+   "mean1080": 4.661,
+   "mean1440": 7.195,
    "shots": [
     {
      "shot": "R1_lowwide",
-     "s1080": 1.164,
-     "s1440": 2.01,
+     "s1080": 5.053,
+     "s1440": 6.799,
      "lap": 3.48,
      "lapBg": 0.00479,
      "lapActor": 0.00138,
@@ -52,8 +52,8 @@
     },
     {
      "shot": "R2_scale",
-     "s1080": 1.122,
-     "s1440": 1.803,
+     "s1080": 3.674,
+     "s1440": 6.012,
      "lap": 1.05,
      "lapBg": 0.00923,
      "lapActor": 0.0088,
@@ -69,9 +69,9 @@
     },
     {
      "shot": "R3_face",
-     "s1080": 1.53,
-     "s1440": 2.543,
-     "lap": 7.68,
+     "s1080": 5.255,
+     "s1440": 8.775,
+     "lap": 7.67,
      "lapBg": 0.0079,
      "lapActor": 0.00103,
      "contrast": 0.404,
@@ -90,21 +90,13 @@
    ]
   },
   "street-cc0": {
-   "loadSeconds": 50.994,
+   "loadSeconds": 296.789,
    "build": {
-    "fallbacks": [
-     "ground: cobblestone not downloaded",
-     "kerb: plaster not downloaded",
-     "brickWall: brick not downloaded",
-     "plasterWall: plaster not downloaded",
-     "base: cobblestone not downloaded",
-     "door: planks not downloaded",
-     "crate: planks not downloaded"
-    ],
-    "textures": 0,
-    "textureBytes": 0,
+    "fallbacks": [],
+    "textures": 28,
+    "textureBytes": 156587340,
     "hdriBytes": 8388608,
-    "fog": "#f4e2da",
+    "fog": "#f4e1d9",
     "sunDir": [
      0.739,
      0.407,
@@ -113,49 +105,49 @@
     "bake": {
      "meshes": 379,
      "vertices": 45017,
-     "ms": 168
+     "ms": 493
     },
     "prims": 379,
-    "ms": 463,
+    "ms": 976,
     "horizon": [
-     1.21,
-     1.009,
-     0.935
+     1.204,
+     1.002,
+     0.928
     ]
    },
    "triangles": 129398,
-   "textureMemoryMB": 22.7,
-   "textures": 10,
-   "mean1080": 1.288,
-   "mean1440": 2.097,
+   "textureMemoryMB": 162.7,
+   "textures": 31,
+   "mean1080": 6.453,
+   "mean1440": 10.667,
    "shots": [
     {
      "shot": "R1_lowwide",
-     "s1080": 1.24,
-     "s1440": 1.952,
-     "lap": 2.2,
-     "lapBg": 0.00382,
-     "lapActor": 0.00174,
-     "contrast": 0.149,
-     "subjL": 0.355,
-     "localBg": 0.417,
+     "s1080": 5.961,
+     "s1440": 9.64,
+     "lap": 4.84,
+     "lapBg": 0.00826,
+     "lapActor": 0.00171,
+     "contrast": 0.008,
+     "subjL": 0.353,
+     "localBg": 0.35,
      "subjectFrac": 0.3497,
      "pass": {
       "time1440": false,
-      "lap": false,
+      "lap": true,
       "contrast": false
      }
     },
     {
      "shot": "R2_scale",
-     "s1080": 1.142,
-     "s1440": 1.797,
-     "lap": 0.77,
-     "lapBg": 0.01249,
-     "lapActor": 0.01614,
-     "contrast": 0.217,
-     "subjL": 0.342,
-     "localBg": 0.437,
+     "s1080": 5.575,
+     "s1440": 9.036,
+     "lap": 1.05,
+     "lapBg": 0.01693,
+     "lapActor": 0.01617,
+     "contrast": 0.098,
+     "subjL": 0.34,
+     "localBg": 0.377,
      "subjectFrac": 0.0104,
      "pass": {
       "time1440": false,
@@ -165,14 +157,14 @@
     },
     {
      "shot": "R3_face",
-     "s1080": 1.481,
-     "s1440": 2.543,
-     "lap": 5.56,
-     "lapBg": 0.00799,
-     "lapActor": 0.00144,
-     "contrast": 0.077,
-     "subjL": 0.348,
-     "localBg": 0.323,
+     "s1080": 7.822,
+     "s1440": 13.324,
+     "lap": 5.48,
+     "lapBg": 0.00822,
+     "lapActor": 0.0015,
+     "contrast": 0.223,
+     "subjL": 0.347,
+     "localBg": 0.284,
      "subjectFrac": 0.5861,
      "pass": {
       "time1440": false,
