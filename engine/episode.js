@@ -384,6 +384,11 @@ function shotShadow(shot) {
 const storyProps = [];
 if (spec.props?.length) { const {toyProp} = await import('../parts/sets4/props4.js');
   for (const p of spec.props) { const g = toyProp(p.prop, p.seed ?? 1, p); if (g.userData.ready) await g.userData.ready; g.name = 'prop_' + p.id; g.scale.setScalar(p.scale ?? 1); g.traverse(o => { o.userData.live = true; }); scene.add(g); storyProps.push({p, g}); } }
+// Retention Engine signs (opt-in spec.signs; sizes from engine/signs6.js sign()): readable in-world plates, R-SIGN-01.
+//   {id, text, lines, at: [x, y, z], face: [x, y, z] | yaw: deg, w, h, color, ink, border}; named `sign_<id>`.
+if (spec.signs?.length) { const {textPlate} = await import('../parts/sets4/common.js');
+  for (const s of spec.signs) { const m = textPlate(s.text, {w: s.w, h: s.h, bg: s.color ?? '#f4efe2', fg: s.ink ?? '#1c1a17', border: s.border ?? null, lines: s.lines ?? null, name: 'sign_' + s.id});
+    m.position.fromArray(s.at); if (s.face) m.lookAt(...s.face); else if (s.yaw !== undefined) m.rotation.y = s.yaw * Math.PI / 180; m.material.side = T.DoubleSide; scene.add(m); } }
 // E1 fix (opt-in spec.hide): set objects hidden by name (a story prop replaces them)
 for (const n of spec.hide ?? []) { const o = scene.getObjectByName(n); if (o) o.visible = false; else console.warn('spec.hide: no object ' + n); }
 const vecAt = (keys, t, d) => keys?.length ? d.map((v, i) => valueAt(keys.map(k => [k[0], k[1][i], k[2], k[3]]), t, v)) : d;
