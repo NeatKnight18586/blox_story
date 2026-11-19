@@ -12,10 +12,10 @@ v3 (Amendment A4 §D, `--style v3` or spec "captionStyle": "pop-shorts-v3"; v2 s
 opener 150, emphasis 120 %, outline 9, y 1250 / high 560; a chunk holds at most 2 words when either has 7+ letters, else 3
 (`chunk_cap`); a chunk wider than `fitWidth` px is set at a smaller \\fs (never below the 2.6 % phone cap height).
 """
-import argparse, json, re, sys
+import argparse, json, math, re, sys
 
 STYLE_FILE = 'captions/pop-shorts-v2.json'
-STYLES = {'v2': 'captions/pop-shorts-v2.json', 'pop-shorts-v2': 'captions/pop-shorts-v2.json', 'v3': 'captions/pop-shorts-v3.json', 'pop-shorts-v3': 'captions/pop-shorts-v3.json', 'v5': 'captions/pop-shorts-v5.json', 'pop-shorts-v5': 'captions/pop-shorts-v5.json'}
+STYLES = {'v2': 'captions/pop-shorts-v2.json', 'pop-shorts-v2': 'captions/pop-shorts-v2.json', 'v3': 'captions/pop-shorts-v3.json', 'pop-shorts-v3': 'captions/pop-shorts-v3.json', 'v5': 'captions/pop-shorts-v5.json', 'pop-shorts-v5': 'captions/pop-shorts-v5.json', 'v6': 'captions/pop-shorts-v6.json', 'pop-shorts-v6': 'captions/pop-shorts-v6.json'}
 
 
 def load_style(name=None):
@@ -207,7 +207,54 @@ def grouping_issues(chunks, style, emph=()):
     return out
 
 
+# ---- Retention Engine v6 (R-CAP-01/02/03): one word on screen, two only when the first is a short/function word; frame-synced ----
+PAIR_FIRST_MAX = 3   # a first word of ≤ 3 letters (or a function word) pairs with the next word
+
+
+def group6(cues, style, fps=None):
+    """Pure: v6 chunks [{words, start, end, onset, line, sentenceEnd, ...}] — one word, or two when the first is short (≤ 3 letters)
+    or a function word AND the second is a content word, the pair fits maxWidthFrac, and no sentence end, comma or pause > blankPause
+    sits between them."""
+    bp, out = style['blankPause'], []
+    for line in cues['lines']:
+        words, toks = line['words'], display_words(line)
+        i = 0
+        while i < len(words):
+            w, brk = toks[i]
+            take = 1
+            F = fps or style.get('fps', 24); fl = lambda t: math.floor(t * F + 1e-6)
+            flash = i + 1 < len(words) and fl(words[i + 1]['start']) - fl(words[i]['start']) < style.get('minShowFrames', 2)   # < 2 frames on screen
+            if flash and fits([w, toks[i + 1][0]], style['size'], style): take = 2   # a word too short to see rides with the next one
+            elif i + 1 < len(words) and not brk and words[i + 1]['start'] - words[i]['end'] <= bp \
+                    and (letters(w) <= PAIR_FIRST_MAX or norm(w) in FUNCTION) and norm(toks[i + 1][0]) not in FUNCTION \
+                    and fits([w, toks[i + 1][0]], style['size'], style):   # never end a pair on a function word ("one at" → "one" | "at midnight")
+                take = 2
+            ws = [toks[i + k][0] for k in range(take)]
+            last = i + take - 1
+            out.append({'words': ws, 'start': words[i]['start'], 'end': words[last]['end'], 'onset': words[i]['start'], 'line': line['line'],
+                        'sentenceEnd': bool(SENT_END.search(line['text'].split()[last])) if len(line['text'].split()) == len(words) else last == len(words) - 1,
+                        'sentenceLen': len(words), 'size': style['size']})
+            i += take
+    return out
+
+
+def timing6(chunks, fps=24, blank_pause=.35):
+    """Pure: each caption starts on the frame that holds its first word's onset (floor(start × fps) / fps) and stays until the next
+    caption starts; after a pause > blank_pause it clears 0.08 s after its last word. Never overlaps (R-CAP-02, ± 1 frame)."""
+    out = []
+    S = [math.floor(c['start'] * fps + 1e-6) for c in chunks]   # start frames
+    for i in range(1, len(S)):   # every caption ≥ 2 frames on screen: a start 1 frame after the previous one moves 1 frame later (still ≤ +1 frame)
+        if S[i] - S[i - 1] < 2 and S[i] + 1 - chunks[i]['start'] * fps <= 1 + 1e-6: S[i] = S[i - 1] + 2
+    for i, c in enumerate(chunks):
+        start = S[i] / fps
+        nxt = S[i + 1] / fps if i + 1 < len(chunks) else None
+        end = c['end'] + .08 if nxt is None or chunks[i + 1]['start'] - c['end'] > blank_pause else nxt
+        out.append({**c, 'start': start, 'end': round(min(end, nxt) if nxt is not None else end, 4)})
+    return out
+
+
 def make_chunks(cues, style, emph=()):
+    if style.get('grouping') == 'v6': return group6(cues, style, style.get('fps'))
     """The style's grouping: "v3" (owner rules) or the original chunker (v2, "Nobody")."""
     if style.get('grouping') == 'v3': return group(cues, style, emph)
     return chunk(cues, style['maxWords'], style['blankPause'], style.get('maxWordsLong'), style.get('longLetters', 7))
@@ -253,14 +300,18 @@ def emphasis(words, emph):
     return None
 
 
+def hex_to_ass(h):
+    h = h.lstrip('#'); return f'&H00{h[4:6]}{h[2:4]}{h[0:2]}'.upper()
+
+
 def ass_escape(text):
     """Make plain text safe inside an ASS Dialogue line: braces start override blocks, backslashes start
     tags, and real newlines must become \\N."""
     return text.replace('\\', '/').replace('{', '(').replace('}', ')').replace('\r', '').replace('\n', '\\N')
 
 
-def ass_time(t):
-    cs = max(0, round(t * 100)); h, cs = divmod(cs, 360000); m, cs = divmod(cs, 6000); s, cs = divmod(cs, 100)
+def ass_time(t, floor=False):
+    cs = max(0, math.floor(t * 100 + 1e-6) if floor else round(t * 100)); h, cs = divmod(cs, 360000); m, cs = divmod(cs, 6000); s, cs = divmod(cs, 100)
     return f'{h}:{m:02d}:{s:02d}.{cs:02d}'
 
 
@@ -346,21 +397,29 @@ Format: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text
             if e and e[0] <= i < e[1]:
                 if i == e[0]: txt = f"{{\\c{st['emphasisColour']}\\fscx{st['emphasisScale']}\\fscy{st['emphasisScale']}}}" + txt
                 if i == e[1] - 1: txt += '{\\c' + st['primary'] + '\\fscx100\\fscy100}'
-            if st.get('keywordColour') and (ci, i) in keywords: txt = f"{{\\c{st['keywordColour']}}}" + txt + f"{{\\c{st['primary']}}}"   # v5 keyword
+            if st.get('keywordColour') and (ci, i) in keywords:
+                ks = st.get('keywordScale'); sc = f"\\fscx{ks}\\fscy{ks}" if ks else ''; back = '\\fscx100\\fscy100' if ks else ''
+                txt = f"{{\\c{st['keywordColour']}{sc}}}" + txt + f"{{\\c{st['primary']}{back}}}"   # v5 keyword (v6: brand accent, scaled)
             parts.append(txt)
         tag = f"{{\\an5\\pos({st['x']},{y})\\fs{size}{st['pop']}}}"
-        rows.append(f"Dialogue: 0,{ass_time(c['start'])},{ass_time(end)},Pop,,0,0,0,,{tag}{' '.join(parts)}")
+        fl = bool(st.get('frameSync'))   # v6: floor to centiseconds so libass shows the caption on its onset frame
+        rows.append(f"Dialogue: 0,{ass_time(c['start'], fl)},{ass_time(end, fl)},Pop,,0,0,0,,{tag}{' '.join(parts)}")
     return head + '\n'.join(rows) + '\n'
 
 
 def main():
     a = argparse.ArgumentParser()
     a.add_argument('--story', required=True); a.add_argument('--spec'); a.add_argument('--until', type=float)
-    a.add_argument('--out'); a.add_argument('--style', help='v2 (default) | v3; or spec "captionStyle"'); a.add_argument('--cues'); o = a.parse_args()
+    a.add_argument('--out'); a.add_argument('--style', help='v2 (default) | v3; or spec "captionStyle"'); a.add_argument('--cues')
+    a.add_argument('--accent', help='v6: override the accent colour (#RRGGBB), for the Phase 6 option samples'); o = a.parse_args()
     cues = json.load(open(o.cues or f'stories/{o.story}/cues.json'))
     spec = json.load(open(o.spec)) if o.spec else {}
     style = load_style(o.style or spec.get('captionStyle'))
-    timed = timing(make_chunks(cues, style, spec.get('emphasis', [])), style['leadSeconds'], style['blankPause'])
+    if o.accent: style['keywordColour'] = hex_to_ass(o.accent)
+    if style.get('accentKey') and not o.accent: style['keywordColour'] = hex_to_ass(style['accentOptions'][style['accentKey']]['hex'])
+    style['fps'] = spec.get('fps', style.get('fps', 24))
+    chunks = make_chunks(cues, style, spec.get('emphasis', []))
+    timed = timing6(chunks, spec.get('fps', 24), style['blankPause']) if style.get('grouping') == 'v6' else timing(chunks, style['leadSeconds'], style['blankPause'])
     kw = set()
     if style.get('keywordColour'):   # format v5: *word* marks in the owner's script (read only)
         import os; sp = f'stories/{o.story}/script.txt'
