@@ -43,7 +43,7 @@ jobs:
           npm ci
           npx playwright install --with-deps chromium || echo "browser.js falls back to the runner's google-chrome"
           pip install --break-system-packages pillow >/dev/null 2>&1 || pip install pillow
-          node scripts/v2/tex4.js
+          node scripts/v2/tex4.js; node scripts/v2/matcap4.js   # baked matcap cache, as render.yml does (R2 actors use the comedy matcap)
           node scripts/v2/realism.js --out review/realism
           node scripts/v2/realism.js --out review/realism/basic --q '&static=basic' --stills renders/realism-basic
           python3 scripts/v2/realism-ab.py
