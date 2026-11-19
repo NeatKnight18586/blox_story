@@ -132,7 +132,12 @@ export function framingCheck({size, move, subjectFrac, groundGap = 0, spectacle 
   return {ok: !issues.length, need, issues};
 }
 
+// Retention Engine (opt-in shot `dutch`, degrees): a fixed Dutch roll on top of the move (R-LOOK-05). Without it nothing changes.
 export function sampleCamera(shot, localT, actorPositions = {}) {
+  const c = sampleCamera0(shot, localT, actorPositions);
+  return shot.dutch ? {...c, roll: (c.roll ?? 0) + shot.dutch * Math.PI / 180} : c;
+}
+function sampleCamera0(shot, localT, actorPositions = {}) {
   if (!MOVES.includes(shot.move)) throw Error(`unknown camera move: ${shot.move}`);
   if (MOVES5.includes(shot.move)) return sampleMove5(shot, localT, actorPositions);
   const dur = Math.max(1e-6, shot.duration ?? 1), ease = EASE[shot.ease ?? 'inOutCubic'];
