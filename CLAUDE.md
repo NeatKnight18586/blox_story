@@ -30,7 +30,7 @@ it literally; if a value is impossible, say so instead of improvising (R-FLOW-07
   delivered, every shortfall), wait for "approve" or notes. Never start the next pass without approval; fix shortfalls before asking.
 - **QA before "done":** an episode is never called done until `tools/qa_episode.py` (Phase 3; until then `v2:plan`/`v2:read`/
   `v2:stability`/`v2:qc`) passes. Override only `--allow RULE_ID`, written to `episodes/EPxx/qa/allow.log`.
-- **Token rules:** contact sheets only (`scripts/v2/sheet.py`, later `tools/contact_sheet.py`; ≤ 1600 px, shot numbers burned in;
+- **Token rules:** contact sheets only (`tools/contact_sheet.py`; ≤ 1600 px, shot numbers burned in;
   R-FLOW-03), never single frames or video. Touch only the pass's files; re-render only changed shots (R-FLOW-04). End every session
   by updating `episodes/EPxx/HANDOFF.md`, ≤ 30 lines: done, approved, open notes by shot number, exact next step (R-FLOW-05).
 - **Acceptance discipline (A5 §S, still in force):** a self-score is never a gate. A visual gate = a measured check with a number and a
@@ -55,6 +55,8 @@ it literally; if a value is impossible, say so instead of improvising (R-FLOW-07
 - `python3 tools/validate_spec.py episodes/EPnn/spec.yml [--allow ID --reason …]` / `--all`: spec gate (fields, origin ledger, hook, signs, hero shots, length tier, world reuse, variety) → PASS/FAIL per rule ID, exit 1; allows logged to `episodes/EPnn/qa/allow.log`. Template `episodes/_TEMPLATE/spec.yml`.
 - `python3 tools/variety_matrix.py [--check]` → `docs/VARIETY_MATRIX.md` (R-ALGO-04, previous 3 episodes). Story ideas: `docs/STORY_BANK.md` (owner fills). Series numbers: `series.yml`. Length tier: `docs/LENGTH_TIER.md` (`tier:` line).
 - `python3 tools/qa_episode.py --story <slug> [--spec f] [--final] [--allow ID --reason …]`: retention QA (PASS/FAIL/SKIP per rule ID with timestamps) → `episodes/EPnn/qa/qa.json` or `review/<slug>/qa-retention.json`; exit 1 on FAIL (`--final`: also on SKIP). Format 6 finals are gated by it in `render.js --final` and the farm plan job; only allows already in the committed allow log count there. `assemble.py` format 6: no hold, sfx only if `"sfx": "on"`, no music mix.
+- `node tools/plan_cuts.js --story <slug> --beats <BEATS.md|beats.json> --base <episode.json> --out <episode.json> [--places <world.js with ANCHORS> | --targets-from <episode.json>] [--reversal s] [--subjectH n] [--loop] [--plan-out f]`: cut planner → format-6 shots (presets, hero shots, jolt, alternation, every VO pause cut).
+- `python3 tools/contact_sheet.py --spec <episode.json> --out <png> [--shots 12-19] [--frame mid|first|last|loop] [--load-timeout s]`: 1 frame per shot, ≤ 1600 px, numbered; only changed shots re-render (per-shot cache; `render.js --frames`).
 - `python3 tools/rule_ids.py`: rule-ID check (unique, defined in the card, explained in a long doc; card ≤ 120 lines) → JSON, exit 1 on error.
 - `npm run v2:preflight`: environment check, one JSON object (~3 s) · `npm run v2:test`: pure-logic tests (`tests/v2/`).
 - `npm run v2:bench -- --spec <episode.json>` or `--story <slug>`: triangles, calls, s/frame per shot (PASS ≤ 50k tris, ≤ 0.45 s/frame; Season 1 / v3 worlds ≤ 90k, ≤ 0.62 — owner Decision 4; the real gate is final render + assemble ≤ 3 h on the farm).

@@ -3,8 +3,8 @@
  "final": false,
  "counts": {
   "PASS": 10,
-  "FAIL": 11,
-  "SKIP": 6,
+  "FAIL": 12,
+  "SKIP": 5,
   "ALLOWED": 0
  },
  "blocked": true,
@@ -148,7 +148,7 @@
   {
    "id": "R-SIGN-01",
    "status": "SKIP",
-   "msg": "needs spec signage",
+   "msg": "needs spec signage / episode.json signs",
    "at": []
   },
   {
@@ -159,8 +159,8 @@
   },
   {
    "id": "R-LOOP-01",
-   "status": "SKIP",
-   "msg": "loop metric arrives with the loop helper (Phase 4)",
+   "status": "FAIL",
+   "msg": "last frame vs frame 1: camera 0.988, target 1.086 (\u00d7 cam\u2013target distance, \u2264 0.15), fov \u0394 10\u00b0 (\u2264 5); loop helper: presets6.loopify",
    "at": []
   },
   {

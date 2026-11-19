@@ -1,14 +1,21 @@
 # Cinema grammar: the production-team feel (prompt §1f)
 
 Every shot uses preset grammar except the 3 hero shots (R-HERO-01). That keeps quality high and tokens low.
-Engine today: `engine/camera.js` moves (push, pull, orbit, track, crane, whip, snap, tiltUp, heroLow, crashZoom, topDown, lowAuthority,
-aisleTrack, drone), `openHit`, `fit` framing; Phase 4 wraps them as presets that take only target + duration + intensity.
+Tooling (Phase 4): `engine/presets6.js` presets push, pull, orbit, tiltDown, craneUp, track, whipZoom, snapZoom, macroInsert, aerialReveal
+take only target + duration + intensity (+ size, lens, azimuth) and compile to the `engine/camera.js` moves; shot `dutch` (deg) adds a
+roll. `engine/cutplan.js` + `tools/plan_cuts.js` plan the cuts from VO word timestamps + the beats prompt; `engine/signs6.js` sizes signs;
+`presets6.loopify` is the loop helper; `tools/contact_sheet.py` is the only way to look at shots.
 
 ## Cadence and cuts
 - **R-CUT-01:** on average one cut or major camera event every 1.5–2.2 s (QA: runtime / (cuts + events)). Cuts are derived from VO
   word timestamps, never from fixed intervals: a cut frame is within 2 frames of a word start.
-- **R-CUT-02:** nearly every VO clause gets its own visual beat. The Phase 4 cut planner splits at clause boundaries (punctuation +
-  pauses in `cues.json`) and at stressed words (the owner's `*word*` marks + the beats prompt; no prosody model).
+- **R-CUT-02:** nearly every VO clause gets its own visual beat. The cut planner scores every word start (line start +3, after
+  clause punctuation +2, after a ≥ 0.18 s pause +2, stressed +2: the owner's `*word*` marks + caption keywords; no prosody model),
+  pulls a cut onto every beat start (bonus), forces a cut into every VO pause > 0.4 s (R-LEAK-01), and solves for shot lengths
+  0.9–2.4 s around 1.85 s; if the average leaves 1.5–2.2 s it relaxes (longer minimum, weaker beat pull) until it fits.
+- Beat intent → first shot of the beat: clue → whipZoom, reveal → snapZoom, emotion → push on the emotion lens (close), scale →
+  aerialReveal, action → track, insert → macroInsert, info → push. Later shots in a beat cycle sizes, never wide-wide or macro-macro.
+  Intent = an `[intent]` tag in the beat's shot text, else keywords.
 
 ## Camera
 - **R-CAM-01:** zero locked-off shots. Every shot has a push, pull, orbit, tilt, crane, track or whip. QA fails `static-drift`, `static: true`
@@ -36,7 +43,8 @@ Camera fov in the engine is vertical. "mm" = full-frame equivalent on the frame'
 ## Signage (R-SIGN-01)
 Diegetic signs and props carry the lore on mute ("DAY 19", "NEVER MEET", a countdown on a tower). 3–6 per episode, ≤ 3 words each.
 Readable in ≤ 1 s on a phone: cap height ≥ 3 % of frame height (the rule-UI plate minimum already used by `engine/ruleui.js`), on screen
-≥ 1.0 s, facing the camera within 35°. Phase 4 builds a one-call helper that auto-scales to this.
+≥ 1.0 s. Helper: `sign(text, {at, face, readFrom, fov})` (`engine/signs6.js`) sizes the plate for its reading distance (+ 15 %
+margin) → episode.json `signs` (episode.js draws them, opt-in); QA measures cap height from each shot's camera that `see`s the sign.
 
 ## Animation (R-ANIM-01)
 Crisp R6 key poses (`engine/poses.js`, `snap: true` = 2 frames), snappy head tilts, hard freezes (`freeze: [t, frames]`), instant face
@@ -46,8 +54,11 @@ micro-motion (breathing, idle sway) unless a beat needs it (N-TOK-01).
 ## Hero shots and the loop
 - **R-HERO-01:** exactly 3 hero shots: frame 1, the reversal, the final loop frame. Spec `hero_shots[3]`. They get bespoke work in the
   sequence passes; everything else is preset grammar.
-- **R-LOOP-01:** the final frame's composition matches or leads into frame 1 so the restart feels seamless (same subject screen
-  position and size class, or a camera move that continues into shot 1). Phase 4 sets the metric and the loop helper.
+- **R-LOOP-01:** the final frame's composition matches or leads into frame 1 so the restart feels seamless. Metric (QA): the last
+  frame's camera position and target each within 0.15 × frame 1's camera–target distance of frame 1's, fov within 5°. Helper:
+  `loopify(shots)` ends the last shot on shot 1's opening pose; it only looks right when the last beat is in the same place as the
+  first (a beats-prompt decision), so the planner never flies the camera across the world to fake it. Visual check:
+  `tools/contact_sheet.py --frame loop`.
 
 ## Labels (R-LABEL-01)
 No name, role or AFK tags, chat bubbles, class cards or overhead tag/stat/icon UI on people or objects (`engine/nolabels.js`,

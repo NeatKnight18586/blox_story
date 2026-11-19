@@ -1511,3 +1511,27 @@ Decisions: SKIP blocks finals (nothing unchecked ships); allows on the farm = on
 script line starts; R-CUT-01 also accepts a cut inside a VO gap; format 6 trims only trailing silence after the last word (the
 last frame is ≤ 0.3 s after it), never spoken audio; sign size, loop metric, caption sync = SKIP until Phases 4/6.
 Open: v2:plan has no format-6 rule set yet (Phase 4 planner); R-BRAND-03 needs the signature prop; "counter advances" is an owner check.
+
+## Retention Engine Phase 4 (2026-11-19): camera & cut engine
+Plan: 1. engine/presets6.js (10 presets + lenses, target/duration/intensity) 2. engine/cutplan.js + tools/plan_cuts.js (VO words + beats →
+shots) 3. engine/signs6.js + opt-in spec.signs 4. loop helper + QA metric 5. tools/contact_sheet.py (+ render.js --frames) 6. partial
+re-render check 7. format-6 rules in v2:plan 8. acceptance: re-cut Toy House VO, previz sheet, QA cadence rules.
+Built: engine/presets6.js (push, pull, orbit, tiltDown, craneUp, track, whipZoom, snapZoom, macroInsert, aerialReveal; lenses wide 21 /
+action 35 / emotion 85 / macro 100 mm; low-angle default; `base` = start from a known-clear camera; travel capped to the pan-speed
+budget; loopify/loopScore) · camera.js opt-in shot `dutch` · engine/cutplan.js (word-start candidates scored, beats pulled, VO pauses
+> 0.4 s forced, DP 0.9–2.4 s around 1.85, relaxes until the average is 1.5–2.2; intents → presets; no wide-wide/macro-macro; hero
+frame1/reversal/final; openHit shot 1) · tools/plan_cuts.js · engine/signs6.js + opt-in spec.signs (episode.js) · tools/contact_sheet.py
++ render.js opt-in --frames / --load-timeout · plancheck format 6 (V6, lengthRule(6), ends on the last word) · QA: R-LOOP-01 metric,
+R-SIGN-01 legibility from placed signs, orbit = not locked. Tests: retention6.test.js (8), test_contact_sheet.py (3), QA +1.
+Acceptance (Toy House VO re-cut, engine/fixtures/recut6, --targets-from the old cut, --reversal 49.81): 53 shots, avg 1.53 s, min 1.0,
+max 2.29, 46/53 beats on a cut (≤ 0.1 s), 15/15 VO pauses cut, 0 same-class pairs; QA cadence rules all PASS (R-CUT-01, R-LEAK-01/02,
+R-CAM-01/02, R-JOLT-01, R-HERO-01, R-HOOK-03, R-END-01 tail 0.20 s); v2:plan format 6: 0 errors, 2 warnings (pass 1: 5 pan-speed
+errors → 1 → 0). Remaining QA FAILs are story/VO-level: opener, first person, signature prop, caption style, length 80.9 s, loop 1.32.
+Sheet review/toyhouse/recut6-blocking.png (53 shots, 16.9 s at 270×480); partial re-render: 8 rendered / 45 cached after a shot-only change.
+Local render needs (as on the farm): node scripts/v2/tex4.js, matcap4.js, envelope.js --story toyhouse (a missing envelope.json made the
+page throw and render.js wait forever). "Nobody" frames 0–9 byte-identical vs 05b018a. v2:test 171 node + 93 py, npm test 0, rule_ids PASS.
+Weakest (sheet, after 2 look passes): #7/#28 empty dark frames (top-down references), #13/#27/#41 flat block in front of the lens, #4/#5
+and #17/#18 near-identical neighbours. Cause: cameras compiled without occlusion knowledge; places/anchors from a real set pass fix it.
+Decisions: beats = strong preference, VO pauses = forced cuts; the loop helper only joins shots in the same place (no flying camera);
+stress = *marks* + caption keywords; sign cap model .504 × h / lines (textPlate); --targets-from keeps the hand-placed camera distance.
+Open: occlusion check (ray from camera to target) in the compiler; jump-cut metric in QA; signature prop (owner pick, 3 options below).
