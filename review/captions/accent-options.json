@@ -1,0 +1,139 @@
+{
+ "style": "pop-shorts-v6",
+ "capFrac": 0.042,
+ "minCap": 0.026,
+ "options": {
+  "lanternTeal": {
+   "hex": "#2EE6D0",
+   "contrastOutline": 12.09,
+   "deltaEWhite": 51.5,
+   "hueFromGold": 122.2,
+   "hueFromHeroSkin": 126.2,
+   "pass": true
+  },
+  "emberCoral": {
+   "hex": "#FF7B52",
+   "contrastOutline": 7.44,
+   "deltaEWhite": 73.8,
+   "hueFromGold": 36.4,
+   "hueFromHeroSkin": 32.4,
+   "pass": true
+  },
+  "ultraViolet": {
+   "hex": "#B98CFF",
+   "contrastOutline": 7.48,
+   "deltaEWhite": 72.9,
+   "hueFromGold": 147.1,
+   "hueFromHeroSkin": 143.2,
+   "pass": true
+  }
+ },
+ "boxes": {
+  "bright/base (white)": [
+   0.28,
+   0.613,
+   0.721,
+   0.669
+  ],
+  "bright/lanternTeal": [
+   0.204,
+   0.61,
+   0.8,
+   0.684
+  ],
+  "bright/emberCoral": [
+   0.204,
+   0.61,
+   0.8,
+   0.684
+  ],
+  "bright/ultraViolet": [
+   0.204,
+   0.61,
+   0.8,
+   0.684
+  ],
+  "dark/base (white)": [
+   0.28,
+   0.613,
+   0.72,
+   0.669
+  ],
+  "dark/lanternTeal": [
+   0.204,
+   0.61,
+   0.799,
+   0.684
+  ],
+  "dark/emberCoral": [
+   0.204,
+   0.61,
+   0.799,
+   0.684
+  ],
+  "dark/ultraViolet": [
+   0.204,
+   0.61,
+   0.799,
+   0.684
+  ]
+ },
+ "localDeltaE": {
+  "bright/lanternTeal": {
+   "bgMedian": [
+    134,
+    130,
+    103
+   ],
+   "deltaE": 56.3,
+   "pass": true
+  },
+  "bright/emberCoral": {
+   "bgMedian": [
+    134,
+    130,
+    103
+   ],
+   "deltaE": 60.4,
+   "pass": true
+  },
+  "bright/ultraViolet": {
+   "bgMedian": [
+    134,
+    130,
+    103
+   ],
+   "deltaE": 80.2,
+   "pass": true
+  },
+  "dark/lanternTeal": {
+   "bgMedian": [
+    32,
+    80,
+    70
+   ],
+   "deltaE": 60.0,
+   "pass": true
+  },
+  "dark/emberCoral": {
+   "bgMedian": [
+    32,
+    80,
+    70
+   ],
+   "deltaE": 87.8,
+   "pass": true
+  },
+  "dark/ultraViolet": {
+   "bgMedian": [
+    32,
+    80,
+    70
+   ],
+   "deltaE": 86.7,
+   "pass": true
+  }
+ },
+ "inSafeBox": true,
+ "capPass": true
+}

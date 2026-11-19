@@ -1,0 +1,146 @@
+{
+ "story": "egg",
+ "seconds": 10,
+ "fps": 24,
+ "captions": 21,
+ "framesRendered": 240,
+ "detected": 21,
+ "dataErrorFrames": {
+  "min": -0.96,
+  "max": 0.0
+ },
+ "renderedErrorFrames": {
+  "min": -0.96,
+  "max": 0.0,
+  "meanAbs": 0.476
+ },
+ "rows": [
+  {
+   "words": "In",
+   "onset": 0.0,
+   "expectedFrame": 0.0,
+   "errorFrames": 0.0
+  },
+  {
+   "words": "this town",
+   "onset": 0.16,
+   "expectedFrame": 3.84,
+   "errorFrames": -0.84
+  },
+  {
+   "words": "everybody",
+   "onset": 0.993,
+   "expectedFrame": 23.83,
+   "errorFrames": -0.83
+  },
+  {
+   "words": "steals",
+   "onset": 1.48,
+   "expectedFrame": 35.52,
+   "errorFrames": -0.52
+  },
+  {
+   "words": "eggs",
+   "onset": 1.88,
+   "expectedFrame": 45.12,
+   "errorFrames": -0.12
+  },
+  {
+   "words": "And there's",
+   "onset": 2.521,
+   "expectedFrame": 60.5,
+   "errorFrames": -0.5
+  },
+  {
+   "words": "only",
+   "onset": 2.72,
+   "expectedFrame": 65.28,
+   "errorFrames": -0.28
+  },
+  {
+   "words": "one rule",
+   "onset": 3.04,
+   "expectedFrame": 72.96,
+   "errorFrames": -0.96
+  },
+  {
+   "words": "Never",
+   "onset": 4.0,
+   "expectedFrame": 96.0,
+   "errorFrames": 0.0
+  },
+  {
+   "words": "hold",
+   "onset": 4.32,
+   "expectedFrame": 103.68,
+   "errorFrames": -0.68
+  },
+  {
+   "words": "one",
+   "onset": 4.64,
+   "expectedFrame": 111.36,
+   "errorFrames": -0.36
+  },
+  {
+   "words": "at midnight",
+   "onset": 4.92,
+   "expectedFrame": 118.08,
+   "errorFrames": -0.08
+  },
+  {
+   "words": "Every kid",
+   "onset": 6.242,
+   "expectedFrame": 149.81,
+   "errorFrames": -0.81
+  },
+  {
+   "words": "has",
+   "onset": 6.68,
+   "expectedFrame": 160.32,
+   "errorFrames": -0.32
+  },
+  {
+   "words": "a base",
+   "onset": 6.84,
+   "expectedFrame": 164.16,
+   "errorFrames": -0.16
+  },
+  {
+   "words": "Every base",
+   "onset": 7.589,
+   "expectedFrame": 182.14,
+   "errorFrames": -0.14
+  },
+  {
+   "words": "has",
+   "onset": 8.12,
+   "expectedFrame": 194.88,
+   "errorFrames": -0.88
+  },
+  {
+   "words": "a nest",
+   "onset": 8.28,
+   "expectedFrame": 198.72,
+   "errorFrames": -0.72
+  },
+  {
+   "words": "Grab",
+   "onset": 9.12,
+   "expectedFrame": 218.88,
+   "errorFrames": -0.88
+  },
+  {
+   "words": "an egg",
+   "onset": 9.28,
+   "expectedFrame": 222.72,
+   "errorFrames": -0.72
+  },
+  {
+   "words": "Run",
+   "onset": 9.8,
+   "expectedFrame": 235.2,
+   "errorFrames": -0.2
+  }
+ ],
+ "pass": true
+}
