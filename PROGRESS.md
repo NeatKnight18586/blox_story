@@ -1490,3 +1490,24 @@ Decisions: "unrelated" = ≥ 2 distinct source titles (the owner judges relatedn
 ending type = payoff_type (4 values → with a window of 3 the ending must rotate through all four; --allow R-ALGO-04 if the owner wants a
 repeat); setting_era free text, compared case/underscore-insensitively; Retention Engine episodes start at season 2 in series.yml;
 beats/reversal_at_s optional until the blocking pass.
+
+## Retention Engine Phase 3 (2026-11-19): retention QA linter
+Plan: 1. tools/qa_episode.py: pure check(episode, cues, script, spec, …) → PASS/FAIL/SKIP per rule ID with timestamps; JSON report.
+2. SKIP = needs a spec field or a later phase; --final treats SKIP like FAIL. --allow ID --reason → allow.log; the farm honours only logged allows.
+3. Wiring (format 6 specs only, legacy unchanged): render.js --final + render.yml plan job run QA --final; assemble.py format 6 = no hold,
+sfx only if on, no music mix. 4. Toy House report; broken fixture (≥ 5 FAIL) + clean synthetic timeline; tests; all suites.
+Built: tools/qa_episode.py (27 rule lines: R-BRAND-01/03, N-VO-03, N-FACE-01, N-AUD-01, R-LABEL-01, R-HOOK-02/03/04, R-JOLT-01, R-CUT-01,
+R-LEAK-01/02, R-CAM-01/02, R-MID-01/02/03, R-SIGN-01, R-HERO-01, R-LOOP-01, R-CAP-01/02, R-END-01/02, R-LEN-01/03); tests/v2/qa_fixtures.py
+(clean 120.5 s / 70 shots → 0 FAIL, 3 SKIP pending phases; broken → 19 FAIL) + fixtures/qa/broken; tests/v2/test_qa_episode.py (9).
+Wiring (format 6 only): render.js --final runs QA --final first (broken fixture: exit 1 before any browser); render.yml plan job step
+"Retention QA gate" (installs pyyaml if missing); assemble.py format 6: end_total = picture, sfx only if on, music.mp3 not mixed.
+Toy House (no spec, legacy format 5): 10 PASS, 11 FAIL, 6 SKIP → review/toyhouse/qa-retention.json. FAILs: opener "Once a year";
+14 first-person sentences; no signature prop; sfx implied on; no openHit; locked-off 0 after fix (topDown turns 25°/20° were false
+positives on the first run); 6 of 15 VO gaps > 0.4 s with no cut/event (4.09 6.86 25.85 38.12 58.44 67.73); 11 same-class pairs;
+0 hero shots marked; caption style v5; tail 1.07 s; 81.75 s vs tier 105–135. PASS: avg 1.54 s, cuts on words, hook 15 words by 4.09 s.
+Checks: v2:test 163 node + 89 py, npm test 0, rule_ids PASS; "Nobody" frames 0–9 (270×480) byte-identical old vs new render.js.
+Decisions: SKIP blocks finals (nothing unchecked ships); allows on the farm = only IDs in the committed allow log; N-* never allowable;
+`static: true` ≠ locked (format 5 held-framing marker); hook fallback without a spec = first 2 sentences; R-MID-01 proxy without beats =
+script line starts; R-CUT-01 also accepts a cut inside a VO gap; format 6 trims only trailing silence after the last word (the
+last frame is ≤ 0.3 s after it), never spoken audio; sign size, loop metric, caption sync = SKIP until Phases 4/6.
+Open: v2:plan has no format-6 rule set yet (Phase 4 planner); R-BRAND-03 needs the signature prop; "counter advances" is an owner check.
