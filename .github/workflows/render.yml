@@ -65,6 +65,13 @@ jobs:
           pip install --break-system-packages pillow >/dev/null 2>&1 || pip install pillow
           npx playwright install --with-deps chromium || echo "playwright browser unavailable, browser.js uses the runner's google-chrome"
           node scripts/v2/plan.js --story "${{ steps.pick.outputs.story }}"
+      - name: Retention QA gate (format 6 finals; FAIL or SKIP blocks, only committed allows count)
+        if: ${{ steps.pick.outputs.preset == 'final' }}
+        run: |
+          if grep -q '"format": *6' "stories/${{ steps.pick.outputs.story }}/episode.json"; then
+            python3 -c 'import yaml' 2>/dev/null || pip install --break-system-packages pyyaml >/dev/null 2>&1 || pip install pyyaml
+            python3 tools/qa_episode.py --story "${{ steps.pick.outputs.story }}" --final
+          else echo "not format 6: retention QA not enforced (legacy episode)"; fi
       - id: shards
         name: Split shots into balanced shards
         run: |

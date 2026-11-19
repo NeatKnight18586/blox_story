@@ -7,6 +7,7 @@
 // <out>/frames/frame-%05d.png are hard links into the cache (ready for ffmpeg); <out>/progress.json
 // is rewritten as frames land, so a background job can be watched without polling the renderer.
 import {createHash} from 'node:crypto';
+import {spawnSync} from 'node:child_process';
 import {existsSync, readdirSync, readFileSync, statSync} from 'node:fs';
 import {mkdir, writeFile, link, unlink} from 'node:fs/promises';
 import path from 'node:path';
@@ -26,6 +27,12 @@ const width = Number(arg('width', final ? 1440 : 1080)), height = Number(arg('he
 const every = Number(arg('every', 1));
 
 const spec = JSON.parse(readFileSync(specPath, 'utf8')), fps = spec.fps ?? 30;
+// Retention Engine (R-FLOW-06): a format-6 final renders only when tools/qa_episode.py --final passes (FAIL or SKIP blocks;
+// overrides only via allows already logged with --allow). Older formats are unchanged.
+if (final && spec.format === 6) {
+  const q = spawnSync('python3', ['tools/qa_episode.py', '--dir', path.dirname(specPath), '--final', '--quiet'], {stdio: 'inherit'});
+  if (q.status !== 0) { console.error('render.js --final: retention QA blocked this final (python3 tools/qa_episode.py); fix it or log an --allow RULE_ID'); process.exit(1); }
+}
 const shots = layoutShots(spec);            // `at` cut times or `frames` (engine/timeline.js)
 const total = totalFrames(shots);
 const from = Number(arg('from', 0)), to = Math.min(Number(arg('to', total)), total);

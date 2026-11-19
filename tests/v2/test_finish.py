@@ -119,4 +119,5 @@ class TestEndTotalV5(unittest.TestCase):
         self.assertAlmostEqual(A.end_total(80.0, 80.9, 5), 81.75)
     def test_older_and_no_hold(self):
         self.assertAlmostEqual(A.end_total(100, 80.9, None), 122.5)
+        self.assertAlmostEqual(A.end_total(118.4, 120.6, 6), 118.4)   # format 6: no hold, no padding (R-END-01)
         self.assertAlmostEqual(A.end_total(81.75, 80.9, 5, True), 81.75)
