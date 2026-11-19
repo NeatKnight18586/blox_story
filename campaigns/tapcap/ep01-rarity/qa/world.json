@@ -1,0 +1,208 @@
+{
+ "stills": [
+  {
+   "cam": "boxStreet",
+   "mood": "dawnHope",
+   "label": "Box street"
+  },
+  {
+   "cam": "coreRow",
+   "mood": "dawnHope",
+   "label": "Core Row"
+  },
+  {
+   "cam": "trade",
+   "mood": "dawnHope",
+   "label": "Trade Corner"
+  },
+  {
+   "cam": "hillWide",
+   "mood": "dawnHope",
+   "label": "Top Shelf Hill wide"
+  },
+  {
+   "cam": "plinthClose",
+   "mood": "dawnHope",
+   "label": "plinth close (empty)"
+  },
+  {
+   "cam": "rainHill",
+   "mood": "rainNight",
+   "label": "rain-night hill"
+  }
+ ],
+ "checks": {
+  "crowdSize": {
+   "pass": true,
+   "n": 34
+  },
+  "crowdMix": {
+   "pass": true,
+   "rares": 6
+  },
+  "loops": {
+   "pass": true,
+   "counts": {
+    "sway": 15,
+    "hop": 9,
+    "tap": 10
+   }
+  },
+  "signs": [
+   {
+    "still": "boxStreet",
+    "text": "CORE ROW",
+    "capFrac": 0.0319,
+    "inFrame": true,
+    "featured": true,
+    "pass": true
+   },
+   {
+    "still": "boxStreet",
+    "text": "1 / 102",
+    "capFrac": 0.0019,
+    "inFrame": true,
+    "featured": false,
+    "pass": true
+   },
+   {
+    "still": "boxStreet",
+    "text": "TOP SHELF",
+    "capFrac": 0.009,
+    "inFrame": true,
+    "featured": false,
+    "pass": true
+   },
+   {
+    "still": "trade",
+    "text": "TRADES",
+    "capFrac": 0.0627,
+    "inFrame": true,
+    "featured": true,
+    "pass": true
+   },
+   {
+    "still": "hillWide",
+    "text": "CORE ROW",
+    "capFrac": 0.0135,
+    "inFrame": true,
+    "featured": false,
+    "pass": true
+   },
+   {
+    "still": "hillWide",
+    "text": "1 / 102",
+    "capFrac": 0.0017,
+    "inFrame": true,
+    "featured": false,
+    "pass": true
+   },
+   {
+    "still": "hillWide",
+    "text": "TOP SHELF",
+    "capFrac": 0.0064,
+    "inFrame": true,
+    "featured": false,
+    "pass": true
+   },
+   {
+    "still": "plinthClose",
+    "text": "1 / 102",
+    "capFrac": 0.0305,
+    "inFrame": true,
+    "featured": true,
+    "pass": true
+   },
+   {
+    "still": "rainHill",
+    "text": "1 / 102",
+    "capFrac": 0.0039,
+    "inFrame": true,
+    "featured": false,
+    "pass": true
+   }
+  ],
+  "featured": [
+   {
+    "still": "boxStreet",
+    "text": "CORE ROW",
+    "capFrac": 0.0319,
+    "pass": true
+   },
+   {
+    "still": "trade",
+    "text": "TRADES",
+    "capFrac": 0.0627,
+    "pass": true
+   },
+   {
+    "still": "plinthClose",
+    "text": "1 / 102",
+    "capFrac": 0.0305,
+    "pass": true
+   }
+  ],
+  "luma": [
+   {
+    "still": "boxStreet",
+    "mood": "dawnHope",
+    "luma": 0.4839,
+    "gate": [
+     0.36,
+     0.5
+    ],
+    "pass": true
+   },
+   {
+    "still": "coreRow",
+    "mood": "dawnHope",
+    "luma": 0.4561,
+    "gate": [
+     0.36,
+     0.5
+    ],
+    "pass": true
+   },
+   {
+    "still": "trade",
+    "mood": "dawnHope",
+    "luma": 0.4998,
+    "gate": [
+     0.36,
+     0.5
+    ],
+    "pass": true
+   },
+   {
+    "still": "hillWide",
+    "mood": "dawnHope",
+    "luma": 0.5663,
+    "gate": [
+     0.36,
+     0.5
+    ],
+    "pass": false
+   },
+   {
+    "still": "plinthClose",
+    "mood": "dawnHope",
+    "luma": 0.6032,
+    "gate": [
+     0.36,
+     0.5
+    ],
+    "pass": false
+   },
+   {
+    "still": "rainHill",
+    "mood": "rainNight",
+    "luma": 0.2048,
+    "gate": [
+     0.1,
+     0.22
+    ],
+    "pass": true
+   }
+  ]
+ }
+}

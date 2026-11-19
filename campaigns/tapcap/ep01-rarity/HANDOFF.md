@@ -1,5 +1,5 @@
 # HANDOFF — TapCap EP01 "Rarity's Just Paint"  (≤ 30 lines; read with ../RULES.md, spec.yml, shots.yml)
-## Done (2026-11-19, Setup + Pass A + Pass A revision) — NOT approved yet
+## Done (2026-11-19) — Setup, Pass A (+ revision) APPROVED; Pass B built, NOT approved yet
 - Refs + VO placed (gitignored). Phase 0–6 merged (359c8f5; plan.js + LIBRARY.md conflicts resolved, both sides kept).
 - REF wins (§4), measured on tapcap_turnaround.png front (scripts/ref_measure.py), old spec → new:
   head 33 → 35.7 % · torso 29 → 26.8 % · switch 4 → 2.6 % · base 34 → 35.0 % · head top .38 → .351 H · head bottom .45 → .446 H ·
@@ -10,14 +10,16 @@
   cuff line, left wrist band, black legs + pockets, white sneakers, 40 × H. Old human bust + hand sheet deleted.
 - Spec: tap 3 % H, 24 fps, synthesized click (40 ms, −6 dBFS, sfx.py `click`), Clix shots S18–21 arm / S36 reveal / S37 macros / S38 close-up,
   TC-06 = S40 replays S1's move (diff 0). Gate: `node campaigns/tapcap/scripts/pass-a.js` → qa/proportions.json + review sheet.
+- Pass B: `campaigns/tapcap/world/` (slimetown.js world, crowd.js idle loops, moods.js 3 presets on engine moods7 + post7),
+  `node campaigns/tapcap/scripts/pass-b.js` → qa/world.json + review/pass-b/pass-b-sheet.png. Crowd 34 (6 Rares, sway 15/hop 9/tap 10).
 ## Approved
-- nothing yet
+- Pass A (owner 2026-11-19), Clix face #2 grin.
 ## Open notes
-- Clix face: pick one of #2 grin (default) · #5 content · #32 calm.
-- Scale: at 40 × H the blue arm end is 8.1 H wide (≈ 20 × a Slime Guy head); one tap covers the whole Slime Guy and its neighbours.
-- 3 % press > the ref's visible switch (2.6 %): at full press the keycap skirt overlaps the base rim by 0.4 % H (hidden inside the skirt).
-- Base drips: the ref shows short raised drip blobs; the model still has long vertical drips (not in this revision's scope).
-- Bloom is a post step on lookdev panels; the episode renderer's post7 bloom must be set to the same .85/.25 in Pass C.
-- Black legs/tee read mid-grey under the lookdev light; check under the Pass B moods.
+- Pass B luma gate (engine/moods7 dawnHope .36–.50) still FAILS after 2 fix passes: hill wide .57, plinth close .60 (bright sky);
+  not loosened. Owner: darker dawn sky, or accept a brighter toy-world gate?
+- Rain-night still: plinth reads as a bloom blob + its wet reflection; lightning not used (optional ×1).
+- Tilt-shift and lookdev bloom are post steps (scripts/tiltshift.py, bloom.py); golden preset built, not on the gate sheet.
+- Sign fonts: no Lilita One file in the repo, signs use the bold sans fallback.
+- Scale: arm end 8.1 H wide · 3 % press overlaps the base rim 0.4 % H (hidden) · base drips still long capsules, ref = short blobs.
 ## Next step
-- Owner: pick the Clix face, then "approve" or notes on Pass A. Then Pass B (world + lighting, 6-still sheet).
+- Owner: "approve" or notes on Pass B. Then Pass C (blocking previz S1–S40, captions v6, QA, aligner on vo.wav).
