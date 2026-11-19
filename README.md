@@ -18,7 +18,7 @@ Requirements: Node 22, Python 3, FFmpeg, Chrome.
 
 ## Copyright
 
-Copyright © 2026 NeatKnight18586. All rights reserved.
+Copyright © 2026 NeatKnight18586 (blox_story). All rights reserved.
 
 This repository is public for viewing only. No licence is granted: you may not copy, modify, redistribute
 or reuse any part of it (code, characters, faces, stories, scripts, voice recordings, images or video)
