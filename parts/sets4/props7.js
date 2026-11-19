@@ -16,7 +16,7 @@ import {HEAD5} from '../../avatar-style/body5.js';
 import {mergeByMaterial} from './common.js';
 import {mergeGeometries} from 'three/addons/utils/BufferGeometryUtils.js';
 
-export const TG = {shell: '#1A1C22', glow: '#49D9FF', skin: '#F2C59B', cuff: '#FFC21A', can: '#4F8F8B', grass: '#3DDC4A', gold: '#F2C230',
+export const TG = {shell: '#2B2E36', glow: '#49D9FF', skin: '#F2C59B', cuff: '#FFC21A', can: '#4F8F8B', grass: '#3DDC4A', gold: '#F2C230',
   wood: '#8A847C', woodDk: '#6A655F', woodLt: '#A39D94', iron: '#55575B', deadwood: '#6E6862', roof: '#5E5B57'};   // real-world wood/iron: sat ≤ .15
 const cache = new Map();
 export const smat = (color, {rough = .7, metal = 0, emissive = null, ei = 1.4, basic = false, offset = 0} = {}) => {
@@ -37,7 +37,7 @@ export const HS = {w: 1.34, h: .46, d: .3, eyeY: .06};
 export function headset(p = {}) {
   const g = new T.Group(), front = p.front ?? HEAD_FRONT, z0 = front + (p.gap ?? GAP), zc = z0 + HS.d / 2;
   const shell = mesh(rbox(HS.w, HS.h, HS.d, .09), smat(TG.shell, {rough: .35, metal: .2}), [0, HS.eyeY, zc], null, 'hs_shell'); g.add(shell);
-  const stripOn = smat(TG.glow, {emissive: TG.glow, ei: 2.4, rough: .3, offset: 2}), stripOff = smat('#20303a', {rough: .4, offset: 2});
+  const stripOn = smat('#1E8FB0', {emissive: TG.glow, ei: .9, rough: .3, offset: 2}), stripOff = smat('#20303a', {rough: .4, offset: 2});   // E1: stays cyan after tone mapping (2.4 blew out to white)
   const strip = mesh(rbox(HS.w * .86, .1, .02, .009), stripOn, [0, HS.eyeY + .02, z0 + HS.d + .012], null, 'hs_strip'); g.add(strip);   // .002 proud of the shell front
   // strap: sides + back, each ≥ .03 outside the head box (no contact with the head surface)
   const sx = HEAD_W / 2 + .05, back = -(HEAD_W / 2) - .05, sm = smat('#24262c', {rough: .6});
@@ -96,8 +96,8 @@ export function visorScreen(p = {}) {
 export const flickX = (u, dist = 7) => dist * Math.min(1, Math.max(0, u)) ** 3;
 // ---- giant finger -------------------------------------------------------------------------------------------------------
 // Unit scale: hand 2.0 wide; points down −y (comes down through the sky crack). Origin = the wrist (cuff bottom).
-export function giantFinger(p = {}) {
-  const g = new T.Group(), skin = smat(TG.skin, {rough: .62}), coat = smat(TG.cuff, {rough: .55}), coatDk = smat('#E6A800', {rough: .55});
+export function giantFinger(p = {}) {   // E1 opt-in p.skin / p.sleeve / p.cuffColor (Leo's own small finger in shot 54 mirrors it)
+  const g = new T.Group(), skin = smat(p.skin ?? TG.skin, {rough: .62}), coat = smat(p.sleeve ?? TG.cuff, {rough: .55}), coatDk = smat(p.cuffColor ?? '#E6A800', {rough: .55});
   g.add(mesh(rbox(2.3, 7, 2.0, .45, 3), coat, [0, 4.4 + .1, 0], null, 'sleeve'));
   g.add(mesh(rbox(2.62, .78, 2.3, .3, 3), coatDk, [0, .39, 0], null, 'cuff'));
   g.add(mesh(rbox(1.9, 2.1, 1.5, .42, 3), skin, [0, -1.05, 0], null, 'hand'));
@@ -151,7 +151,7 @@ export function spaceship(p = {}) {   // nose +z, 6 long
   const g = new T.Group(), hull = smat(p.color ?? '#E8ECF2', {rough: .35, metal: .3}), acc = smat(p.accent ?? '#1F3A6B', {rough: .4, metal: .3}), glow = smat(TG.glow, {emissive: TG.glow, ei: 2.5});
   g.add(mesh(rbox(1.5, 1.0, 5.2, .3, 3), hull, [0, 0, 0], null, 'hull'));
   g.add(mesh(rbox(1.0, .7, 1.4, .3, 3), acc, [0, .1, 3.0], null, 'nose'));
-  g.add(mesh(rbox(.9, .55, 1.5, .25, 3), smat('#14202e', {rough: .1, metal: .5}), [0, .7, .9], null, 'cockpit'));
+  g.add(mesh(rbox(.9, .55, 1.5, .25, 3), smat('#2A3C52', {rough: .25, metal: .3}), [0, .7, .9], null, 'cockpit'));
   for (const s of [-1, 1]) { g.add(mesh(rbox(3.2, .22, 2.0, .1, 2), hull, [s * 2.2, -.1, -.8], [0, s * .18, 0], 'wing'));
     g.add(mesh(rbox(.5, .5, 2.4, .2, 2), acc, [s * 3.7, -.1, -.6], null, 'gun'));
     g.add(mesh(new T.CylinderGeometry(.42, .42, .3, 14).rotateX(Math.PI / 2), glow, [s * .45, 0, -2.75], null, 'engine')); }
@@ -209,7 +209,7 @@ export function birdhouse(p = {}) {   // hangs from its string top (origin), bro
   live(g); g.name = 'birdhouse'; return g;
 }
 export function powerLine(p = {}) {   // two poles span apart along x, 3 sagging wires; userData.hook = a point on the middle wire
-  const g = new T.Group(), span = p.span ?? 14, h = p.h ?? 8, m = smat(TG.deadwood, {rough: .9}), wire = smat('#2a2a2a', {rough: .6});
+  const g = new T.Group(), span = p.span ?? 14, h = p.h ?? 8, m = smat(TG.deadwood, {rough: .9}), wire = smat('#4A4A48', {rough: .6});
   for (const s of [-1, 1]) { g.add(mesh(new T.CylinderGeometry(.16, .22, h, 8), m, [s * span / 2, h / 2, 0], null, 'pole')); g.add(mesh(new T.BoxGeometry(.2, .2, 2.2), m, [s * span / 2, h - .5, 0], null, 'crossbar'));
     for (const z of [-.9, 0, .9]) g.add(mesh(new T.CylinderGeometry(.06, .06, .18, 6), smat('#7a7a72'), [s * span / 2, h - .31, z])); }
   for (const z of [-.9, 0, .9]) { const pts = []; for (let i = 0; i <= 16; i++) { const u = i / 16, x = (u - .5) * span; pts.push(new T.Vector3(x, h - .22 - (p.sag ?? .9) * (1 - (2 * u - 1) ** 2), z)); }
@@ -256,7 +256,7 @@ function faceColors(g, pick) {
 // Jagged low-poly rock peak: 1 main cone + 2 shoulder cones, radial + vertical displacement by seeded fbm (apex fixed: total height = h).
 // Rock below snow · h (with a noisy snow line), snow above. Origin = base centre.
 export function rockPeak(p = {}) {
-  const h = p.h ?? 100, r = p.r ?? h * .42, seed = p.seed ?? 1, rock = p.rock ?? '#5B4B45', snow = p.snowColor ?? '#F3F0EE', line = p.snow ?? .7, geos = [];
+  const h = p.h ?? 100, r = p.r ?? h * .42, seed = p.seed ?? 1, rock = p.rock ?? '#5B4B45', snow = p.snowColor ?? '#F3F0EE', line = p.snow ?? .65, geos = [];
   const cones = [[0, 0, r, h], [r * .55, -r * .2, r * .62, h * .62], [-r * .5, r * .3, r * .55, h * .5]];
   for (const [k, [cx, cz, cr, ch]] of cones.entries()) {
     const g = new T.ConeGeometry(cr, ch, p.radial ?? 11, p.rings ?? 9).translate(0, ch / 2, 0), pos = g.attributes.position, f = 3 / cr, apex = [];
@@ -267,8 +267,10 @@ export function rockPeak(p = {}) {
     geos.push(g.toNonIndexed());
   }
   const g = mergeGeometries(geos.map(x => { x.deleteAttribute('uv'); return x; }), false); g.computeVertexNormals();
-  faceColors(g, (c, n) => c.y > h * line + h * .05 * fbm(c.x * .05, 0, c.z * .05, seed + 3) && n.y > .15 ? snow : rock);
-  const g0 = new T.Group(); g0.add(mesh(g, vcMat(), [0, 0, 0], null, 'rockPeak')); g0.userData.apex = [0, h, 0]; g0.name = 'rockPeak'; return g0;
+  // E1: rock per-face colour jitter ±8 % around the rock colour (flat shaded); snow above `line` (default .65) of the height
+  const jit = new T.Color(), jitter = (c, k) => { jit.set(rock).multiplyScalar(1 + .08 * (2 * hash(Math.round(c.x * 7.1) * 13 + Math.round(c.y * 5.3) * 7 + Math.round(c.z * 3.7), seed + k) - 1)); return '#' + jit.getHexString(); };
+  faceColors(g, (c, n) => c.y > h * line + h * .05 * fbm(c.x * .05, 0, c.z * .05, seed + 3) && n.y > .15 ? snow : jitter(c, 11));
+  const g0 = new T.Group(); g0.add(mesh(g, vcMat(), [0, 0, 0], null, 'rockPeak')); g0.userData.apex = [0, h, 0]; g0.name = 'rockPeak'; live(g0); return g0;   // E1: live = never merged (the merge drops vertex colours: rock jitter + snow)
 }
 // Plateau: jagged rock drum (r at the top, flat top at y 0, grass on the top faces); h deep below.
 export function rockMesa(p = {}) {
@@ -325,6 +327,33 @@ export function brokenBuilding(p = {}) {
   g.name = 'brokenBuilding'; return g;
 }
 
+// ---- E1 visor band (LEO_VR): the headset's shape (front shell + side straps + back strap) as one cyan emissive band at the brow,
+// hugging the head: every inner face sits GAP (.02) off the head surface measured at the band's height (pivot space, hair excluded).
+export function headExtent(actor, y0, y1) {
+  actor.root.updateMatrixWorld(true); const inv = new T.Matrix4().copy(actor.pivots.head.matrixWorld).invert(), v = new T.Vector3(); let x = 0, zf = -9, zb = 9;
+  actor.pivots.head.traverse(o => { if (!o.isMesh || o.name?.startsWith('acc_') || o.parent?.name?.startsWith('acc_') || /hair/i.test(o.name ?? '') || o.userData.armor || o.userData.band) return;
+    const p = o.geometry.attributes.position, m = new T.Matrix4().multiplyMatrices(inv, o.matrixWorld);
+    for (let i = 0; i < p.count; i++) { v.fromBufferAttribute(p, i).applyMatrix4(m); const y = (v.y - HEAD.centre) * HEAD5[1]; if (y < y0 || y > y1 || Math.abs(v.x) > .9 || Math.abs(v.z) > .9) continue;
+      x = Math.max(x, Math.abs(v.x) * HEAD5[0]); zf = Math.max(zf, v.z * HEAD5[2]); zb = Math.min(zb, v.z * HEAD5[2]); } });
+  return {x, front: zf, back: zb};
+}
+export const BAND = {y: .36, h: .15, t: .08};   // head-centre-relative brow height (above the eye line), band height, thickness
+export function visorBand(actor, {color = TG.glow, gap = GAP} = {}) {
+  const e = headExtent(actor, BAND.y - BAND.h / 2, BAND.y + BAND.h / 2), g = new T.Group(), m = smat(color, {emissive: color, ei: 2.2, rough: .35}), t = BAND.t, y = BAND.y;
+  const zF = e.front + gap + t / 2, zB = e.back - gap - t / 2, xS = e.x + gap + t / 2;
+  g.add(mesh(rbox(2 * (xS + t / 2), BAND.h, t, .03), m, [0, y, zF], null, 'band_front'));
+  for (const s of [-1, 1]) g.add(mesh(rbox(t, BAND.h * .9, zF - zB, .03), m, [s * xS, y, (zF + zB) / 2], null, 'band_side'));
+  g.add(mesh(rbox(2 * xS, BAND.h * .9, t, .03), m, [0, y, zB], null, 'band_back'));
+  const s = HEAD5; g.scale.set(1 / s[0], 1 / s[1], 1 / s[2]); g.position.set(0, HEAD.centre, 0); g.traverse(o => { o.userData.armor = true; o.userData.band = true; }); g.name = 'visorBand';
+  actor.pivots.head.add(g); g.userData.gap = {front: +(zF - t / 2 - e.front).toFixed(4), side: +(xS - t / 2 - e.x).toFixed(4), back: +(e.back - (zB + t / 2)).toFixed(4)}; return g;
+}
+// E1: a fresnel rim on a crowd's (merged) materials only (look5b shader patch, no actor lift): zombies #B6FF8A .9
+export function rimCrowd(root, {color = '#B6FF8A', strength = .9, power = 2.2} = {}, L5B) {
+  const U = L5B.makeUniforms({...L5B.params(null), rim: {color, strength, power, away: 0}, actorEV: 0}), own = new Map();
+  root.traverse(o => { if (!o.isMesh || o.name === 'face_decal') return; const one = m => !m || m.isMeshBasicMaterial || m.isSpriteMaterial ? m : (own.get(m) ?? (own.set(m, L5B.patchActor(m.clone(), U)), own.get(m)));
+    o.material = Array.isArray(o.material) ? o.material.map(one) : one(o.material); });
+  return U;
+}
 // ---- E0b armor: primitives on the body v5 parts (no new rigs) ----------------------------------------------------------------
 // spec {trim (emissive hex), piece: 'leo'|'horns'|'visor'|'scarf'|'bubble'|'tricorn'|'staff', plate (hex)}. Parts are measured in their
 // parent's local space (part geometry box × part matrix), so pieces follow every pose. Overlays sit ≥ .02 proud (no coplanar faces).
@@ -350,13 +379,7 @@ export function armor(actor, spec = {}) {
     for (const s of ['leftArm', 'rightArm']) { const a = P[s], ab = partBox(a), as = ab.getSize(new T.Vector3()), ac = ab.getCenter(new T.Vector3());
       add(a.parent, rbox(as.x * 1.3, as.y * .22, as.z * 1.3, .08), plate, [ac.x, ab.max.y - as.y * .09, ac.z], null, 'shoulderPad');
       add(a.parent, rbox(as.x * 1.34, .08, as.z * 1.34, .03), glow, [ac.x, ab.max.y - as.y * .2, ac.z], null, 'trimShoulder'); }
-    // open-face helmet: crown + side guards + back, cyan brow edge and side edges; face stays open
-    const H = partBox(P.head, true), Hs = H.getSize(new T.Vector3()), Hc = H.getCenter(new T.Vector3()), t = .1;
-    add(hp, rbox(Hs.x + .16, Hs.y * .3, Hs.z + .16, .1), plate, [Hc.x, H.max.y - Hs.y * .12, Hc.z], null, 'helmetCrown');
-    for (const sx of [-1, 1]) { add(hp, rbox(t, Hs.y * .72, Hs.z * .9, .03), plate, [Hc.x + sx * (Hs.x / 2 + t / 2 + .02), H.max.y - Hs.y * .45, Hc.z - Hs.z * .05], null, 'helmetSide');
-      add(hp, new T.BoxGeometry(t + .02, Hs.y * .6, .06), glow, [Hc.x + sx * (Hs.x / 2 + t / 2 + .02), H.max.y - Hs.y * .48, Hc.z + Hs.z * .4 + .01], null, 'trimHelmetSide'); }
-    add(hp, rbox(Hs.x + .1, Hs.y * .6, t, .03), plate, [Hc.x, H.max.y - Hs.y * .4, H.min.z - t / 2 - .02], null, 'helmetBack');
-    add(hp, rbox(Hs.x + .2, .08, .08, .03), glow, [Hc.x, H.max.y - Hs.y * .27, H.max.z + .07], null, 'trimBrow');
+    visorBand(actor, {color: trim});   // E1: the box-cage helmet is gone; a cyan visor band in the headset's shape hugs the head (.02 gap)
     return actor;
   }
   collar(); belt();
@@ -401,6 +424,40 @@ export function placeProps(list, {merge = true, t = 0} = {}) {
   let m = null; if (merge) { m = mergeByMaterial(statics); statics.traverse(o => { if (o.isMesh) { o.castShadow = true; o.receiveShadow = true; } }); }
   root.userData = {live: movers, byId, merged: m, anim: tl => movers.forEach(g => g.userData.anim(tl))}; return root;
 }
-export const PROPS7 = {headset, visorScreen, giantFinger, wateringCan, grassBlade, spaceship, sunSphere, swordStone, crate, deadTree, birdhouse, powerLine, porch, shack,
+// ---- E1 additions ------------------------------------------------------------------------------------------------------------
+// headsetScreen: the headset with its visor screen (shots 59–61); setState('off' | 'achievement' | 'touched') drives the screen,
+// the strip stays lit; anim(tl) runs the screen's flicker (p.flicker = [t0, t1], shot-local to animAt).
+export function headsetScreen(p = {}) {
+  const g = headset({screen: 'off', front: p.front ?? HEAD_FRONT}), sc = g.userData.screen, scr = visorScreen({state: 'off', w: HS.w * .9, h: HS.h * .82, flicker: p.flicker});
+  sc.parent.remove(sc); scr.position.copy(sc.position); g.add(scr); g.userData.screen = scr;
+  g.userData.setState = s => { scr.userData.setState(s); g.userData.state = s; }; g.userData.state = 'off'; g.userData.anim = tl => scr.userData.anim(tl);
+  g.name = 'headsetScreen'; return g;
+}
+// tumbleweed: a loose ball of dry twigs (desaturated), rolls (anim: spin about x, pure in t; the spec moves it)
+export function tumbleweed(p = {}) {
+  const g = new T.Group(), ball = new T.Group(), m = smat(p.color ?? '#8C857A', {rough: .95}), r = p.r ?? .8; g.add(ball); ball.position.y = r;
+  for (let i = 0; i < 26; i++) { const a = hash(i, 3) * Math.PI * 2, b = Math.acos(2 * hash(i, 5) - 1), len = r * (1.2 + .6 * hash(i, 7));
+    const tw = mesh(new T.CylinderGeometry(.025, .04, len, 4), m, [0, 0, 0], [b, a, hash(i, 9) * 3], 'twig'); ball.add(tw); }
+  g.userData.anim = tl => { ball.rotation.x = tl * (p.spin ?? 4); }; live(g); g.name = 'tumbleweed'; return g;
+}
+// dry stick lying on cracked dirt (insert 05): a bent twig + two crack lines (thin dark strips .004 proud)
+export function dryStick(p = {}) {
+  const g = new T.Group(), m = smat('#7A746C', {rough: .95});
+  g.add(mesh(new T.CylinderGeometry(.035, .05, 1.1, 6).rotateZ(Math.PI / 2), m, [0, .05, 0], [0, .3, 0], 'stick'));
+  g.add(mesh(new T.CylinderGeometry(.02, .03, .45, 5).rotateZ(Math.PI / 2), m, [.25, .05, .12], [0, -.6, 0], 'stickBranch'));
+  for (const [x, z, a, l] of [[-.2, .25, .4, .9], [.3, -.2, -.7, .7]]) g.add(mesh(new T.BoxGeometry(l, .006, .025), smat('#4A4642', {rough: 1, offset: 2}), [x, .004, z], [0, a, 0], 'crackLine'));
+  g.name = 'dryStick'; return g;
+}
+// sky crack: jagged bright rift (white-cyan, unlit, never fogged) in the xy plane, `h` tall; static while visible
+export function skyCrack(p = {}) {
+  const g = new T.Group(), h = p.h ?? 60, w = p.w ?? 14, n = 9, seed = p.seed ?? 4, pts = [];
+  for (let i = 0; i <= n; i++) { const u = i / n, x = (hash(i, seed) - .5) * w * .5, half = w * .5 * Math.sin(Math.PI * Math.min(1, u * 1.15)) * (.55 + .45 * hash(i, seed + 2)); pts.push([x, h * (u - .5), half]); }
+  const shape = new T.Shape(); shape.moveTo(pts[0][0], pts[0][1]); for (const q of pts) shape.lineTo(q[0] - q[2] * .5, q[1]); for (const q of [...pts].reverse()) shape.lineTo(q[0] + q[2] * .5, q[1]);
+  const glow = new T.MeshBasicMaterial({color: '#E8FBFF', toneMapped: false, fog: false, side: T.DoubleSide}), edge = new T.MeshBasicMaterial({color: TG.glow, toneMapped: false, fog: false, side: T.DoubleSide, transparent: true, opacity: .55, depthWrite: false});
+  const core = new T.Mesh(new T.ShapeGeometry(shape), glow); core.name = 'crackCore'; g.add(core);
+  const halo = new T.Mesh(new T.ShapeGeometry(shape), edge); halo.scale.set(1.6, 1.04, 1); halo.position.z = -.05; halo.name = 'crackHalo'; g.add(halo);
+  live(g); g.name = 'skyCrack'; return g;
+}
+export const PROPS7 = {headset, visorScreen, headsetScreen, tumbleweed, dryStick, skyCrack, giantFinger, wateringCan, grassBlade, spaceship, sunSphere, swordStone, crate, deadTree, birdhouse, powerLine, porch, shack,
   rockPeak, rockMesa, starField, ringPlanet, streetLamp, groundFog, brokenBuilding};
 export const PROP7_NAMES = Object.keys(PROPS7);

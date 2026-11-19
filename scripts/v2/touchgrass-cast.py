@@ -25,12 +25,10 @@ cast["LEO"] = kid(LEO_SKIN, "unimpressed", "#8A8D92", "#8A8D92", "#4A4C50", "#2B
 cast["LEO_NOHEADSET"] = dict(cast["LEO"], vrHeadset="none", face="o_small", role="Leo after he rips the headset off (42+)")
 TRIM = '#49D9FF'
 cast["LEO_VR"] = kid(LEO_SKIN, "grin", "#1F3A6B", "#1F3A6B", "#1A2F57", "#15203A", H("messy_fringe", "#57504A"),
-    role="Leo in VR: navy armor plates, light-blue glowing trim, open-face helmet (head bands), glowing sword (tool)", split=0.95,
+    role="Leo in VR: navy armor plates, light-blue glowing trim, cyan visor band (props7 armor piece leo: headset shape, .02 gap, E1), glowing sword (tool)", split=0.95,
     strip=TRIM, stripW=0.12, lapel="#2A4A82", lapelW=0.16, edge=TRIM, edgeW=0.05,
-    bands=[{"part": "torso", "y": 0.62, "h": 0.14, "w": 2.12, "d": 1.12, "color": TRIM, "emissive": TRIM},
+    bands=[   # E1 stability: the y .62 torso band sat 1 % inside the armor chest plate (near-coplanar flicker); the plate carries the trim
            {"part": "torso", "y": -0.78, "h": 0.12, "w": 2.12, "d": 1.12, "color": TRIM, "emissive": TRIM},
-           {"part": "head", "y": 0.42, "h": 0.22, "w": 1.32, "d": 1.2, "color": "#1F3A6B"},
-           {"part": "head", "y": 0.27, "h": 0.07, "w": 1.34, "d": 1.22, "color": TRIM, "emissive": TRIM},
            {"part": "leftArm", "y": 0.7, "h": 0.4, "w": 1.12, "d": 1.12, "color": "#2A4A82"},
            {"part": "rightArm", "y": 0.7, "h": 0.4, "w": 1.12, "d": 1.12, "color": "#2A4A82"}],
     extra={"tool": {"name": "sword"}, "glowSword": TRIM})

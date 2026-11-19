@@ -4,13 +4,13 @@
  "groundY": 0,
  "backdrop": {
   "type": "sky",
-  "top": "#070A1C",
-  "horizon": "#141A3A",
+  "top": "#10163A",
+  "horizon": "#1C2450",
   "ground": "#05060F",
   "radius": 420
  },
  "env": {
-  "intensity": 0.6
+  "intensity": 1.2
  },
  "exposure": 1.0,
  "toneMapping": "Neutral",
@@ -24,9 +24,9 @@
   },
   "shadowOpacity": 0,
   "hemi": {
-   "sky": "#5A6AB0",
-   "ground": "#1A1030",
-   "i": 0.5
+   "sky": "#6A7AC0",
+   "ground": "#3A3060",
+   "i": 1.1
   }
  },
  "bake": {

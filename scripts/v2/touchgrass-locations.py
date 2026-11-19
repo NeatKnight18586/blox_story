@@ -57,7 +57,7 @@ dust = {
  "fog": {"color": "#9C9994", "near": 25, "far": 210},
  "sun": {"intensity": .7, "color": "#E4E2DE", "az": 200, "el": 55, "shadow": {"size": 1024}, "shadowOpacity": .25, "hemi": {"sky": "#C9C7C3", "ground": "#6E6A64", "i": .5}},
  "bake": {"cell": 1.0, "aoDist": 4, "aoMin": .5, "shadow": .55, "seg": 6},
- "materials": {"dirt": {"procedural": "dirt", "color": "#8E877E"}, "path": {"procedural": "mud", "color": "#7F7972"}},
+ "materials": {"dirt": {"procedural": "dirt", "color": "#8A8884"}, "path": {"procedural": "mud", "color": "#7C7A77"}},
  "modules": {"ground": {"parts": [{"plane": [520, 520], "at": [0, 0, 0], "mat": "dirt"}]}, "street": {"parts": [{"box": [12, .04, 140], "at": [0, .02, -36], "mat": "path"}]}},
  "layout": [{"module": "ground", "at": [0, 0, 0]}, {"module": "street", "at": [0, 0, 0]}],
  "props": props,
@@ -78,10 +78,10 @@ anchors["dustTown"] = {"seats40": seats, "seatYaw40": seatYaw, "novaPorchStep": 
 zc = {
  "extends": "../../engine/fixtures/realism/street-layout.json", "name": "zombieCity",
  "note": "Touch Grass VR 1: moonlit night (blue-gray key #8FA8D8), broken street (realism street modules); green only as height fog <= 2 units + 3 green streetlamps.",
- "backdrop": {"type": "sky", "top": "#0C1220", "horizon": "#3A4660", "ground": "#141A24", "radius": 420},
+ "backdrop": {"type": "sky", "top": "#141C32", "horizon": "#3A4660", "ground": "#141A24", "radius": 420},
  "env": {"intensity": .8}, "exposure": 1.25, "toneMapping": "Neutral",
  "fog": {"color": "#1C2232", "near": 14, "far": 100},
- "sun": {"intensity": 2.4, "color": "#8FA8D8", "az": 20, "el": 25, "shadow": {"size": 1024}, "shadowOpacity": .55, "hemi": {"sky": "#5A6A8E", "ground": "#1A1E28", "i": .45}},
+ "sun": {"intensity": 2.4, "color": "#8FA8D8", "az": 20, "el": 25, "shadow": {"size": 1024}, "shadowOpacity": .55, "hemi": {"sky": "#5A6A8E", "ground": "#2A3040", "i": .8}},
  "bake": {"cell": .5, "aoDist": 4, "aoMin": .45, "shadow": .4, "seg": 1.5},
  "materials": {"ground": {"procedural": "cobble", "color": "#2C3038"}, "kerb": {"procedural": "plaster", "color": "#3A3E46"}, "brickWall": {"procedural": "brick", "color": "#4A3A3A"},
    "plasterWall": {"procedural": "plaster", "color": "#363B45"}, "base": {"procedural": "cobble", "color": "#2A2E35"}, "trim": {"color": "#555B66", "roughness": .7},
@@ -106,29 +106,29 @@ PEAKS = [(-150, -170, 130, 1), (140, -200, 110, 2),                          # n
          (-250, -340, 240, 3), (230, -380, 270, 4), (95, -320, 190, 5),     # mid
          (-10, -430, 414.3, 6), (-420, -520, 330, 7)]                       # far (index 5 = boss perch)
 peaks, lay = [], [{"module": "valley", "at": [0, -40, 0]}]
-peakProps = [{"prop": "rockPeak", "at": [x, -40, z], "rotY": round(i * 37 % 360), "p": {"h": h, "r": round(h * (.26 if i == 5 else .42), 1), "seed": sd}} for i, (x, z, h, sd) in enumerate(PEAKS)]
+peakProps = [{"prop": "rockPeak", "at": [x, -40, z], "rotY": round(i * 37 % 360), "p": {"h": h, "r": round(h * (.26 if i == 5 else .42), 1), "seed": sd, "snow": .65}} for i, (x, z, h, sd) in enumerate(PEAKS)]
 peaks = [[x, -40 + h, z] for x, z, h, _ in PEAKS]
 dp = {
  "name": "dragonPeaks", "note": "Touch Grass VR 2: sunset, jagged rock peaks (props7 rockPeak) at 3 distances in sunset fog, one flat rock plateau (rockMesa r 26, top y 0) for 100 friends.",
  "groundY": 0, "backdrop": {"type": "hdri", "hdri": "venice_sunset_1k.hdr", "rotation": 0},
  "env": {"intensity": 1.0}, "exposure": 1.0, "toneMapping": "Neutral",
- "fog": {"color": "#D9967A", "near": 40, "far": 560},
- "sun": {"intensity": 2.6, "color": "#FFB070", "minEl": 14, "shadow": {"size": 1024}, "shadowOpacity": .5, "hemi": {"sky": "#FFC8A0", "ground": "#5A4A6A", "i": .4}},
+ "fog": {"color": "#D9967A", "near": 160, "far": 1600},
+ "sun": {"intensity": 2.6, "color": "#FFB070", "minEl": 14, "shadow": {"size": 1024}, "shadowOpacity": .5, "hemi": {"sky": "#FFC8A0", "ground": "#6A5A7A", "i": .7}},
  "bake": {"cell": 2.0, "aoDist": 6, "aoMin": .5, "shadow": .45, "seg": 8},
  "materials": {"rock": {"procedural": "rock", "color": "#9A7A6A"}, "rockLt": {"procedural": "rock", "color": "#B8968A"}, "snow": {"procedural": "snow", "color": "#FFF4EC"},
    "grass": {"procedural": "grass", "color": "#7BC85A"}, "plateau": {"procedural": "rock", "color": "#A88A78"}},
  "modules": {"valley": {"parts": [{"plane": [1400, 1400], "at": [0, 0, 0], "mat": "grass"}]}},
- "layout": lay, "props": [{"prop": "rockMesa", "at": [0, 0, 0], "rotY": 0, "p": {"r": 26, "h": 40}, "id": "plateau"}, {"prop": "swordStone", "at": [0, 0, -14], "rotY": 0, "p": {}}] + peakProps}
+ "layout": lay, "props": [{"prop": "rockMesa", "at": [0, 0, 0], "rotY": 0, "p": {"r": 40, "h": 40}, "id": "plateau"}, {"prop": "swordStone", "at": [0, 0, -14], "rotY": 0, "p": {}}] + peakProps}
 dump("dragonPeaks.json", dp)
-anchors["dragonPeaks"] = {"plateauCentre": [0, 0, 0], "plateauR": 25, "friends100": [[round(math.cos(a) * rr, 2), 0, round(math.sin(a) * rr, 2)] for i in range(100) for rr in [5 + (i % 5) * 3.6] for a in [i * 2.399963]],
+anchors["dragonPeaks"] = {"plateauCentre": [0, 0, 0], "plateauR": 39, "friends100": [[round(math.cos(a) * rr, 2), 0, round(math.sin(a) * rr, 2)] for i in range(100) for rr in [5 + (i % 5) * 3.6] for a in [i * 2.399963]],
   "leoVR": [0, 0, 0], "swordStone": [0, 0, -14], "bossPeak": peaks[5], "dragonFlyPath": [[-140, 40, -100], [140, 55, -110]], "bossBottom": [-20, -40, -150]}
 
 # ---------------- Space (VR) ----------------
 sp = {
  "name": "space", "note": "Touch Grass VR 3: near-black navy dome, 2400 point stars in 3 sizes, glowing sunSphere (core + additive glow), far ringed planet, ships x2.5 (props7).",
- "groundY": 0, "backdrop": {"type": "sky", "top": "#070A1C", "horizon": "#141A3A", "ground": "#05060F", "radius": 420},
- "env": {"intensity": .6}, "exposure": 1.0, "toneMapping": "Neutral",
- "sun": {"intensity": 2.4, "color": "#FFE2B0", "az": 70, "el": 10, "shadow": {"size": 1024}, "shadowOpacity": 0, "hemi": {"sky": "#5A6AB0", "ground": "#1A1030", "i": .5}},
+ "groundY": 0, "backdrop": {"type": "sky", "top": "#10163A", "horizon": "#1C2450", "ground": "#05060F", "radius": 420},
+ "env": {"intensity": 1.2}, "exposure": 1.0, "toneMapping": "Neutral",
+ "sun": {"intensity": 2.4, "color": "#FFE2B0", "az": 70, "el": 10, "shadow": {"size": 1024}, "shadowOpacity": 0, "hemi": {"sky": "#6A7AC0", "ground": "#3A3060", "i": 1.1}},
  "bake": {"cell": 2.0, "aoDist": 4, "aoMin": .5, "shadow": .5, "seg": 8},
  "materials": {}, "modules": {}, "layout": [],
  "props": [{"prop": "starField", "at": [0, 0, 0], "rotY": 0, "p": {"n": 2400, "r": 380}},

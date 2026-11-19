@@ -1,0 +1,230 @@
+{
+ "generated": "2026-11-19",
+ "spec": "stories/touchgrass/episode.json",
+ "leftovers": {
+  "visorBand": {
+   "min": 0.02,
+   "max": 0.02,
+   "target": ".02 gap (front, sides, back), no helmet",
+   "pass": true,
+   "per": {
+    "LEO_VR": {
+     "front": 0.02,
+     "side": 0.02,
+     "back": 0.02
+    }
+   }
+  },
+  "zombieContrast": {
+   "min": 0.4484,
+   "per": {
+    "wide": 0.6328,
+    "lowWide": 0.4484
+   },
+   "target": ">= 0.35 (|Lz - Lring| / max, ring = 10 px dilation at 390 px minus other cast masks; zombie rim #B6FF8A .9)",
+   "pass": true
+  },
+  "dragonPeaks": "rock #5B4B45 \u00b18 % per-face jitter (flat), snow \u2265 65 % visible in the wide, no ground band (mesa r 40)"
+ },
+ "gates": {
+  "P1": {
+   "result": "PASS",
+   "faceAt0": 0.276,
+   "glowPx": 1432
+  },
+  "P3": {
+   "result": "FAIL",
+   "errors": [
+    "P3: 03-lowWide NOVA clipped 20.2 %",
+    "P3: 05-push insert margin -14.3 % (\u2265 6)",
+    "P3: 09-push insert height 61.8 % (35\u201360)",
+    "P3: 09-push insert margin -15.2 % (\u2265 6)",
+    "P3: 21-crane LEO_VR clipped 8.9 %",
+    "P3: 24-push insert margin 2.6 % (\u2265 6)",
+    "P3: 49-push insert margin 1.6 % (\u2265 6)",
+    "P3: 52-push LEO clipped 83.3 %",
+    "P3: 56-push TOWN_A clipped 63.8 %",
+    "P3: 59-push insert margin -0.6 % (\u2265 6)"
+   ]
+  },
+  "P4": {
+   "result": "PASS",
+   "worstPct": {
+    "02": 0.003,
+    "04": 0.158,
+    "23": 0.006,
+    "48": 0.009,
+    "58": 0.029
+   },
+   "note": "12 frames at 1440\u00d72560, \u2264 2 % (run before the read pass subjectLift; floor unchanged by it)"
+  },
+  "P5": {
+   "result": "PASS",
+   "minPairBodyWidths": 1.468,
+   "at": {
+    "n": 702,
+    "a": "NOVA",
+    "b": "LEO"
+   },
+   "overlaps": []
+  },
+  "P6": {
+   "result": "FAIL",
+   "errors": [
+    "P6: 24-push a 1.5 s window changes 2.92 % (\u2265 3)",
+    "P6: 32-push first-vs-last 0.66 % (\u2265 1.5)"
+   ]
+  },
+  "P8": {
+   "result": "FAIL",
+   "errors": [
+    "P8: 19-push 1.50 % pixels with luma < 4 (\u2264 0.5)",
+    "P8: 20-push 0.55 % pixels with luma < 4 (\u2264 0.5)",
+    "P8: 28-push 2.74 % pixels with luma < 4 (\u2264 0.5)",
+    "P8: 34-push 0.52 % pixels with luma < 4 (\u2264 0.5)",
+    "P8: 36-push 0.60 % pixels with luma < 4 (\u2264 0.5)",
+    "P8: 37-lowAuthority 0.76 % pixels with luma < 4 (\u2264 0.5)"
+   ]
+  },
+  "P9": {
+   "result": "FAIL",
+   "errors": [
+    "P9: 03-lowWide non-NOVA/headset/grass saturation 0.162 (\u2264 .15)",
+    "P9: 08-push non-NOVA/headset/grass saturation 0.177 (\u2264 .15)",
+    "P9: 12-push non-NOVA/headset/grass saturation 0.182 (\u2264 .15)"
+   ]
+  },
+  "P10": {
+   "result": "PASS",
+   "shots": {
+    "26-push": {
+     "frameFrac": 1,
+     "worldH": 119.1,
+     "actorH": 4.45,
+     "ratio": 26.7
+    },
+    "28-push": {
+     "frameFrac": 0.216,
+     "worldH": 119.1,
+     "actorH": 4.45,
+     "ratio": 26.7
+    },
+    "33-push": {
+     "frameFrac": 0.945,
+     "worldH": 119.1,
+     "actorH": 5.3,
+     "ratio": 22.5
+    },
+    "39-push": {
+     "frameFrac": 0.701,
+     "worldH": 119.1,
+     "actorH": 5.3,
+     "ratio": 22.5
+    }
+   }
+  },
+  "P11": {
+   "result": "PASS",
+   "shot11": {
+    "frames": 7,
+    "bad": 0
+   },
+   "shots12to23": {
+    "frames": 89,
+    "bad": 0
+   },
+   "offFrom57_28": {
+    "frames": 99,
+    "bad": 0
+   },
+   "novaCan": {
+    "frames": 41,
+    "bad": 0
+   }
+  }
+ },
+ "plan": {
+  "result": "FAIL",
+  "errors": [
+   "last frame ends at 90.08 s, want voice end 89.63\u201390 s (format v5)",
+   "02-crane: pan speed 40 %/s > 35 %",
+   "17-track: subject DRAGON head at x 125 % y 29 % (want x 15\u201385, y 18\u201358)",
+   "21-crane: pan speed 39 %/s > 35 %",
+   "36-push: subject BOSS head at x 42 % y 14 % (want x 15\u201385, y 18\u201358)",
+   "37-lowAuthority: subject BOSS head at x 62 % y 15 % (want x 15\u201385, y 18\u201358)",
+   "48-crane: pan speed 101 %/s > 35 %",
+   "58-crane: pan speed 67 %/s > 35 %",
+   "length 90.10 s outside 75\u201390 s (hard max 90)",
+   "05-push: prop margin -14.3 % (\u2265 6)",
+   "09-push: prop 62 % of frame height (35\u201360)",
+   "09-push: prop margin -15.2 % (\u2265 6)",
+   "24-push: prop margin 2.7 % (\u2265 6)",
+   "37-lowAuthority: face 45 % of frame height (12\u201335)",
+   "49-push: prop margin 1.6 % (\u2265 6)",
+   "59-push: prop margin -0.6 % (\u2265 6)"
+  ]
+ },
+ "read": {
+  "result": "FAIL",
+  "errorCount": 47,
+  "errors": [
+   "01-push: standsOut FAIL subject vs surround luma 0.038 (\u2265 0.12)",
+   "03-lowWide: nothingInFront FAIL objects in front cover 31.9 % (\u2264 10)",
+   "05-push: standsOut FAIL subject vs surround luma 0.017 (\u2265 0.12)",
+   "05-push: objectReads FAIL 79 % of the object in frame (\u2265 90)",
+   "06-push: standsOut FAIL subject vs surround luma 0.032 (\u2265 0.12)",
+   "09-push: standsOut FAIL subject vs surround luma 0.088 (\u2265 0.12)",
+   "09-push: objectReads FAIL 87 % of the object in frame (\u2265 90)",
+   "11-push: standsOut FAIL subject vs surround luma 0.050 (\u2265 0.12)",
+   "13-snap: standsOut FAIL subject vs surround luma 0.065 (\u2265 0.12)",
+   "13-snap: moves FAIL motion 0.0000 < 0.0210",
+   "14-crashZoom: standsOut FAIL subject vs surround luma 0.112 (\u2265 0.12)",
+   "16-heroLow: standsOut FAIL subject vs surround luma 0.029 (\u2265 0.12)",
+   "18-track: nothingInFront FAIL the face is 62.5 % covered",
+   "18-track: standsOut FAIL subject vs surround luma 0.051 (\u2265 0.12)",
+   "20-push: standsOut FAIL subject vs surround luma 0.078 (\u2265 0.12)",
+   "21-crane: nothingInFront FAIL objects in front cover 24.4 % (\u2264 10)",
+   "22a-push: standsOut FAIL subject vs surround luma 0.052 (\u2265 0.12)",
+   "22c-push: standsOut FAIL subject vs surround luma 0.020 (\u2265 0.12)",
+   "26-push: standsOut FAIL subject vs surround luma 0.081 (\u2265 0.12)",
+   "27-push: nothingInFront FAIL the face is 5.2 % covered",
+   "27-push: standsOut FAIL subject vs surround luma 0.072 (\u2265 0.12)",
+   "28-push: nothingInFront FAIL the face is 7.2 % covered",
+   "30-push: standsOut FAIL subject vs surround luma 0.019 (\u2265 0.12)",
+   "31-push: nothingInFront FAIL the face is 38.0 % covered",
+   "32-push: moves FAIL motion 0.0064 < 0.0210",
+   "37-lowAuthority: faceShown FAIL head top cut off in a medium",
+   "38-push: standsOut FAIL subject vs surround luma 0.059 (\u2265 0.12)",
+   "40-push: nothingInFront FAIL the face is 4.3 % covered",
+   "40-push: moves FAIL motion 0.0123 < 0.0210",
+   "43-push: nothingInFront FAIL objects in front cover 13.5 % (\u2264 10)",
+   "45-tiltUp: nothingInFront FAIL the face is 29.6 % covered",
+   "46-push: nothingInFront FAIL objects in front cover 22.9 % (\u2264 10)",
+   "50-push: nothingInFront FAIL objects in front cover 26.6 % (\u2264 10)",
+   "52-push: nothingInFront FAIL objects in front cover 15.3 % (\u2264 10)",
+   "53-push: faceShown FAIL face turned 90\u00b0 from the camera (\u2264 70)",
+   "53-push: nothingInFront FAIL the face is 8.7 % covered",
+   "53-push: standsOut FAIL subject vs surround luma 0.083 (\u2265 0.12)",
+   "55-push: nothingInFront FAIL the face is 4.5 % covered",
+   "55-push: standsOut FAIL subject vs surround luma 0.085 (\u2265 0.12)",
+   "56-push: nothingInFront FAIL the face is 5.8 % covered",
+   "56-push: standsOut FAIL subject vs surround luma 0.114 (\u2265 0.12)",
+   "57a-push: nothingInFront FAIL the face is 9.2 % covered",
+   "57a-push: standsOut FAIL subject vs surround luma 0.032 (\u2265 0.12)",
+   "57b-push: standsOut FAIL subject vs surround luma 0.109 (\u2265 0.12)",
+   "57c-push: standsOut FAIL subject vs surround luma 0.025 (\u2265 0.12)",
+   "60-push: nothingInFront FAIL objects in front cover 27.6 % (\u2264 10)",
+   "61-push: nothingInFront FAIL objects in front cover 25.8 % (\u2264 10)"
+  ]
+ },
+ "stability": {
+  "result": "PASS",
+  "worst": {
+   "view": "21-crane:first",
+   "frame": 604,
+   "pct": 0.282,
+   "raw": 0.691
+  }
+ },
+ "passes": "\u2264 2 fix passes per gate; no threshold loosened"
+}

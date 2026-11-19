@@ -1497,3 +1497,25 @@ Commands: `python3 scripts/v2/touchgrass-{cast,locations}.py` · `node scripts/v
 Decisions: zombie contrast = |Lzombie − Lring| / max (ring = 10 px dilation at 390 px); farm mean = BEATS shot-weighted (dustGold timed, reported);
 bake.material 'basic' fixed but left off in all 4 worlds (statics are now mostly ground planes; farm gate passes without it).
 Open: zombie local contrast FAILS after 2 passes (moon to the front, then darker street/fog/lamps): .22 vs .35 — stopped, not loosened.
+
+## Touch Grass E1 — leftovers, episode spec, gates, animatic (2026-11-19)
+Plan: 1. E0b leftovers: LEO_VR visor band (headset shape, cyan, .02 gap) replaces the helmet; dragonPeaks rock jitter ±8 % + snow ≥ 65 %,
+no ground band; zombie-only rim #B6FF8A .9, contrast ring minus other cast → worlds-390 + LEO_VR cells. 2. `stories/touchgrass/world.js`:
+the 4 location JSONs side by side on x, per-camera env/fog/tone switch, crowds merged; opt-in engine hooks (spec.decorate → world
+decorate/poseActor; spec.props `set: 'props7'` + states/flick keys). 3. `scripts/v2/touchgrass-episode.js` → episode.json (61 BEATS shots,
+22/57 beat cuts as sub-shots). 4. `scripts/v2/touchgrass-gates.js` P1 P3 P4 P5 P6 P8 P9 P10 P11. 5. plan/read/stability/gates, ≤ 2 fix
+passes each. 6. animatic + shots-390. 7. tests, "Nobody" identity (episode.js changed), commit.
+Built: props7 visorBand/headExtent/rimCrowd/headsetScreen/tumbleweed/dryStick/skyCrack (+ giantFinger colour opt-ins), rockPeak jitter + live (the
+prop merge dropped vertex colours = why E0b peaks had no snow); `stories/touchgrass/world.js`; episode.js opt-ins `spec.decorate` (world
+decorate/poseActor) + `props[].set: 'props7'` with `states`/`flick` keys; `scripts/v2/touchgrass-{episode,gates,shots}.js`; animatic + shots-390.
+Leftovers: visor band gap .02 front/side/back (helmet gone); zombie contrast .45/.63 (≥ .35 PASS, ring minus other cast); peaks dark, snow visible.
+Gates (review/touchgrass/gates-e1.json): P1 PASS (face .276, 1432 glow px) · P4 PASS (worst .158 % 04) · P5 PASS (1.47) · P10 PASS (≥ 22.5 ×) ·
+P11 PASS · P3 FAIL (52 LEO 83 % clipped, inserts 05/09/24/49/59 margins) · P6 FAIL (32 .66 %) · P8 FAIL (28 2.74 %) · P9 FAIL (12 .182) ·
+plan FAIL 16 (length 90.10 > 90 hard max — END is owner-set; pan speed 48 101 %/s) · read FAIL 47 (22 standsOut, 18 nothingInFront) ·
+stability PASS (worst .282 % 21, after dropping LEO_VR's torso band inside the chest plate). 2 fix passes each; nothing loosened.
+Animatic 270×480 every 2 → 540×960 12 fps, 8.06 MB, 90.08 s, −14 LUFS, no hold. npm test + v2:test green; "Nobody" 11 frames byte-identical.
+Decisions: `labels: false` instead of `season: 1` (season 1 switches on the Season-1 template gate: 122–150 s, B1–B9, clues — impossible for
+format 5); 22 and 57 beat cuts = sub-shots a/b/c (65 spec shots, 61 BEATS shots); LEO's porch moved to the yard next to the blade (G 0.3,0,12.4);
+the dropped headset only shown from 59 (blocked 47/54); 60–61 size close (a 3:1 screen cannot be 35 % tall in 9:16); dustTown dirt/path
+desaturated, VR fill lights raised (P8); TAP fingers = props7 giantFinger ×9 (119 units), NOVA's tap finger = a dress item on LEO.
+Open: dust-town read standsOut (gray-on-gray by design); inserts 05/09/24/49/59 margins; 52/56 clipping; boss shots read small; dragonPeaks HDRI shows city buildings.

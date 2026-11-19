@@ -30,19 +30,20 @@ try {
   const page = await browser.newPage({viewport: {width: 1080, height: 1920}}); const errors = []; page.on('pageerror', e => errors.push(e.message)); page.on('console', m => { if (m.type() === 'error') errors.push(m.text()); });
   await page.goto(`${server.url}/engine/fixtures/touchgrass/index.html`); await page.waitForFunction(() => window.__tgReady, null, {timeout: 180000});
   if (only.includes('cast')) {
-    const ids = await page.evaluate(() => window.__tg.ids), cells = [], gaps = {};
-    for (const id of [...ids, 'BOSS']) for (const [yaw, v] of [[0, 'front'], [-.75, '3/4']]) {
+    const IDS = arg('--ids', null)?.split(','), ids = IDS ?? await page.evaluate(() => window.__tg.ids), cells = [], gaps = {}, bands = {};   // E1: --ids LEO_VR → only those cells (+ 3 views, close) → cast-<ids>-390.png
+    for (const id of [...ids, ...(IDS ? [] : ['BOSS'])]) for (const [yaw, v] of [[0, 'front'], [-.75, '3/4'], ...(IDS ? [[-1.6, 'side'], [3.14, 'back']] : [])]) {
       if (id === 'LEO_NOHEADSET' && v === '3/4') continue;
       const r = await page.evaluate(c => window.__tg.cast(c), {id, yaw, pose: id.startsWith('ZOMBIE') ? 'zombie' : 'idle'});
-      if (r.gap !== null && r.gap !== undefined) gaps[id] = r.gap;
+      if (r.gap !== null && r.gap !== undefined) gaps[id] = r.gap; if (r.band) bands[id] = r.band;
       cells.push({f: await save(`${raw}/cast-${id}-${v === 'front' ? 'f' : 'q'}.png`, r.png), label: `${id.replace('FRIEND_', 'F_')} ${v}${id === 'LEO' ? ' HS on' : id === 'LEO_NOHEADSET' ? ' no HS' : ''}`});
     }
-    for (const [id, hs, face] of [['LEO', 'on', 'grin'], ['LEO', 'off', 'unimpressed'], ['LEO_NOHEADSET', 'none', 'angry'], ['TOWN_1', 'on', null], ['NOVA', null, 'calm']]) {
+    for (const [id, hs, face] of IDS ? IDS.map(i => [i, null, null]) : [['LEO', 'on', 'grin'], ['LEO', 'off', 'unimpressed'], ['LEO_NOHEADSET', 'none', 'angry'], ['TOWN_1', 'on', null], ['NOVA', null, 'calm']]) {
       const r = await page.evaluate(c => window.__tg.cast(c), {id, headset: hs, face, close: true, yaw: -.35});
       cells.push({f: await save(`${raw}/cast-close-${id}-${hs}.png`, r.png), label: `${id.replace('_NOHEADSET', '')} close ${hs ? 'HS ' + hs : ''}`});
     }
-    console.log(py(SHEET, JSON.stringify(cells), '8', `${out}/cast-390.png`).trim());
-    const g = Object.values(gaps); E.headsetGap = {min: Math.min(...g), target: '>= 0.02', pass: Math.min(...g) >= .02 - 1e-4, per: gaps};
+    console.log(py(SHEET, JSON.stringify(cells), IDS ? String(cells.length) : '8', `${out}/cast-${IDS ? IDS.join('_') + '-' : ''}390.png`).trim());
+    if (Object.keys(bands).length) { const b = Object.values(bands).flatMap(x => Object.values(x)); E.visorBand = {min: Math.min(...b), max: Math.max(...b), target: '.02 gap (front, sides, back), no helmet', pass: b.every(v => Math.abs(v - .02) < 2e-3), per: bands}; }
+    const g = Object.values(gaps); if (g.length) E.headsetGap = {min: Math.min(...g), target: '>= 0.02', pass: Math.min(...g) >= .02 - 1e-4, per: gaps};
   }
   if (only.includes('props')) {
     const P = [['headset', {name: 'headset', set: 'on'}], ['headset off', {name: 'headset', set: 'off'}], ['visor: off', {name: 'visorScreen', p: {state: 'off'}, view: [0, 0, 1], fill: .55}],
@@ -62,7 +63,7 @@ try {
     const CAM = {   // E0b: dustTown wide 20° down so full bodies read
       dustTown: {wide: {position: [0, 17, 30], target: [0, 1, -14], fov: 42, fit: [0, 0, -8], r: 30}, lowWide: {position: [3, 1.0, 25], target: [0, 3.4, -4], fov: 46, fit: [0, 0, 4], r: 26}},
       zombieCity: {wide: {position: [0, 5.5, 12], target: [0, 2.8, -14], fov: 44, fit: [0, 0, -10], r: 20}, lowWide: {position: [1.2, .9, 3.5], target: [0, 4, -10], fov: 48, fit: [0, 0, -8], r: 16}},
-      dragonPeaks: {wide: {position: [0, 30, 70], target: [0, 20, -200], fov: 46, fit: [0, 0, 0], r: 30}, lowWide: {position: [6, 1.4, 31], target: [0, 9, -40], fov: 48, fit: [0, 0, 0], r: 30}},
+      dragonPeaks: {wide: {position: [0, 40, 180], target: [0, 80, -200], fov: 46, fit: [0, 0, 0], r: 30}, lowWide: {position: [6, 1.4, 31], target: [0, 9, -40], fov: 48, fit: [0, 0, 0], r: 30}},
       space: {wide: {position: [-24, 9, 34], target: [40, 6, -70], fov: 50, fit: [0, 0, 0], r: 16}, lowWide: {position: [11, .2, 30], target: [0, 4.5, -3], fov: 46, fit: [0, 0, 0], r: 16}},
     };
     const runs = [['dustTown', 'dustGray'], ['dustTown', 'dustGold'], ['zombieCity'], ['dragonPeaks'], ['space']], cells = [], stills = [];
@@ -71,7 +72,7 @@ try {
       const key = look ? `${name}.${look}` : name, cam = CAM[name][v], W = (o = {}) => page.evaluate(c => window.__tg.world(c), {name, look, cam, w: 390, h: 693, ...o});
       const r = await W(); const f = await save(`${raw}/world-${key}-${v}.png`, r.png); cells.push({f, label: `${key} · ${v}`}); const st = {f, key, v};
       if (name === 'dustTown') { st.mask = await save(`${raw}/mask-${key}-${v}.png`, (await W({mask: true})).png); st.ground = await save(`${raw}/mask-ground-${key}-${v}.png`, (await W({mask: 'ground'})).png); }
-      if (name === 'zombieCity') { st.zombie = await save(`${raw}/mask-zombie-${v}.png`, (await W({mask: 'zombie'})).png); st.trim = await save(`${raw}/mask-trim-${v}.png`, (await W({mask: 'trim'})).png); }
+      if (name === 'zombieCity') { st.zombie = await save(`${raw}/mask-zombie-${v}.png`, (await W({mask: 'zombie'})).png); st.other = await save(`${raw}/mask-other-${v}.png`, (await W({mask: 'other'})).png); st.trim = await save(`${raw}/mask-trim-${v}.png`, (await W({mask: 'trim'})).png); }
       stills.push(st);
       if (v === 'wide' && TIMING) { const b = await page.evaluate(c => window.__tg.world(c), {name, look, cam, w: 1440, h: 2560, timing: TIMING});
         E.worlds[key] = {triangles: b.tris, calls: b.calls, sPerFrame1440: +(b.ms / 1000).toFixed(3), fallbacks: b.stats.fallbacks, prims: b.stats.prims, bakeMs: b.stats.bakeMs, note: 'location + props + cast placed (crowds merged), wide camera, 1440x2560 AA; reported, not gated'}; }
@@ -99,7 +100,7 @@ for s in S:
     if s.get('ground'):
         g = rgb(s['ground'])[..., 0] > .5; r['groundPx'] = int(g.sum()); r['groundRB'] = round(float(a[g][:, 0].mean() / max(1e-6, a[g][:, 2].mean())), 3); r['groundLuma'] = round(float(luma(a)[g].mean()), 4); r['frameLuma'] = round(float(luma(a).mean()), 4)
     if s.get('zombie'):
-        z = rgb(s['zombie'])[..., 0] > .5; ring = dil(z, 10) & ~z; L = luma(a); lz, lb = float(L[z].mean()), float(L[ring].mean())
+        z = rgb(s['zombie'])[..., 0] > .5; oth = rgb(s['other'])[..., 0] > .5 if s.get('other') else np.zeros_like(z); ring = dil(z, 10) & ~z & ~oth; L = luma(a); lz, lb = float(L[z].mean()), float(L[ring].mean())   # E1: ring excludes other cast
         r['zombiePx'] = int(z.sum()); r['zombieLuma'] = round(lz, 4); r['zombieRingLuma'] = round(lb, 4); r['zombieContrast'] = round(abs(lz - lb) / max(lz, lb, 1e-6), 4)
     if s.get('trim'):
         t = ero(rgb(s['trim'])[..., 0] > .5, 1); r['trimPx'] = int(t.sum())
@@ -119,7 +120,7 @@ print(json.dumps(out))`, JSON.stringify(stills)));
     E.dustGold = {per: gold, minRB: Math.min(...Object.values(gold).map(g => g.groundRB)), minLumaRatio: Math.min(...Object.values(gold).map(g => g.lumaRatio)), target: 'ground R/B >= 1.25, ground luma >= 1.2 x dustGray (same camera)'};
     E.dustGold.pass = E.dustGold.minRB >= 1.25 && E.dustGold.minLumaRatio >= 1.2;
     const zs = ['wide', 'lowWide'].map(v => M[`zombieCity.${v}`]);
-    E.zombieContrast = {min: Math.min(...zs.map(z => z.zombieContrast)), per: {wide: zs[0].zombieContrast, lowWide: zs[1].zombieContrast}, target: '>= 0.35 (|Lz - Lring| / max, ring = 10 px dilation at 390 px)'}; E.zombieContrast.pass = E.zombieContrast.min >= .35;
+    E.zombieContrast = {min: Math.min(...zs.map(z => z.zombieContrast)), per: {wide: zs[0].zombieContrast, lowWide: zs[1].zombieContrast}, target: '>= 0.35 (|Lz - Lring| / max, ring = 10 px dilation at 390 px minus other cast masks; zombie rim #B6FF8A .9)'}; E.zombieContrast.pass = E.zombieContrast.min >= .35;
     E.leoTrimHue = {per: {wide: zs[0].trimHue, lowWide: zs[1].trimHue}, rgb: {wide: zs[0].trimRGB, lowWide: zs[1].trimRGB}, target: '180-200 deg (zombieCity)'}; E.leoTrimHue.pass = zs.every(z => z.trimHue >= 180 && z.trimHue <= 200);
     E.pureBlack = {max: Math.max(...Object.values(M).map(r => r.pureBlackPct)), target: '<= 0.5 %', pass: Object.values(M).every(r => r.pureBlackPct <= .5)};
     if (TIMING) { const A = JSON.parse(await readFile('parts/locations/anchors-touchgrass.json', 'utf8')).shots, wts = {'dustTown.dustGray': A.dustTown.length, zombieCity: A.zombieCity.length, dragonPeaks: A.dragonPeaks.length, space: A.space.length};

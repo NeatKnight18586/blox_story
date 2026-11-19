@@ -44,43 +44,43 @@
   "dustTown.dustGray": {
    "triangles": 331656,
    "calls": 312,
-   "sPerFrame1440": 4.512,
+   "sPerFrame1440": 4.289,
    "fallbacks": [],
    "prims": 2,
-   "bakeMs": 32,
+   "bakeMs": 28,
    "note": "location + props + cast placed (crowds merged), wide camera, 1440x2560 AA; reported, not gated"
   },
   "dustTown.dustGold": {
    "triangles": 331656,
    "calls": 311,
-   "sPerFrame1440": 4.534,
+   "sPerFrame1440": 4.247,
    "fallbacks": [],
    "prims": 2,
-   "bakeMs": 30,
+   "bakeMs": 29,
    "note": "location + props + cast placed (crowds merged), wide camera, 1440x2560 AA; reported, not gated"
   },
   "zombieCity": {
-   "triangles": 111504,
-   "calls": 504,
-   "sPerFrame1440": 7.007,
+   "triangles": 110568,
+   "calls": 492,
+   "sPerFrame1440": 5.231,
    "fallbacks": [],
    "prims": 389,
-   "bakeMs": 124,
+   "bakeMs": 129,
    "note": "location + props + cast placed (crowds merged), wide camera, 1440x2560 AA; reported, not gated"
   },
   "dragonPeaks": {
-   "triangles": 260924,
-   "calls": 242,
-   "sPerFrame1440": 2.924,
+   "triangles": 259988,
+   "calls": 260,
+   "sPerFrame1440": 1.988,
    "fallbacks": [],
    "prims": 1,
-   "bakeMs": 89,
+   "bakeMs": 34,
    "note": "location + props + cast placed (crowds merged), wide camera, 1440x2560 AA; reported, not gated"
   },
   "space": {
-   "triangles": 25376,
-   "calls": 133,
-   "sPerFrame1440": 1.03,
+   "triangles": 24440,
+   "calls": 121,
+   "sPerFrame1440": 1.111,
    "fallbacks": [],
    "prims": 0,
    "bakeMs": 0,
@@ -90,77 +90,77 @@
  "stills": {
   "dustTown.dustGray.wide": {
    "pureBlackPct": 0,
-   "nonNovaMeanSat": 0.128,
-   "nonNovaMeanSatStrict": 0.1322,
-   "novaCoatSat": 0.8947,
+   "nonNovaMeanSat": 0.0876,
+   "nonNovaMeanSatStrict": 0.0921,
+   "novaCoatSat": 0.8946,
    "novaPx": 10710,
    "coatPx": 7651,
    "groundPx": 128304,
-   "groundRB": 1.158,
-   "groundLuma": 0.3392,
-   "frameLuma": 0.3692
+   "groundRB": 1.076,
+   "groundLuma": 0.3404,
+   "frameLuma": 0.37
   },
   "dustTown.dustGray.lowWide": {
    "pureBlackPct": 0,
-   "nonNovaMeanSat": 0.1045,
-   "nonNovaMeanSatStrict": 0.1099,
+   "nonNovaMeanSat": 0.0723,
+   "nonNovaMeanSatStrict": 0.078,
    "novaCoatSat": 0.8776,
    "novaPx": 17909,
    "coatPx": 13338,
    "groundPx": 96906,
-   "groundRB": 1.179,
-   "groundLuma": 0.2915,
-   "frameLuma": 0.3828
+   "groundRB": 1.075,
+   "groundLuma": 0.293,
+   "frameLuma": 0.3834
   },
   "dustTown.dustGold.wide": {
    "pureBlackPct": 0,
-   "nonNovaMeanSat": 0.4618,
-   "nonNovaMeanSatStrict": 0.4623,
+   "nonNovaMeanSat": 0.4401,
+   "nonNovaMeanSatStrict": 0.4407,
    "novaCoatSat": 0.6361,
    "novaPx": 10710,
    "coatPx": 7651,
    "groundPx": 128304,
-   "groundRB": 1.963,
-   "groundLuma": 0.446,
-   "frameLuma": 0.4859
+   "groundRB": 1.833,
+   "groundLuma": 0.447,
+   "frameLuma": 0.4865
   },
   "dustTown.dustGold.lowWide": {
    "pureBlackPct": 0,
-   "nonNovaMeanSat": 0.3106,
-   "nonNovaMeanSatStrict": 0.3119,
+   "nonNovaMeanSat": 0.2929,
+   "nonNovaMeanSatStrict": 0.2944,
    "novaCoatSat": 0.6062,
    "novaPx": 17909,
    "coatPx": 13338,
    "groundPx": 96906,
-   "groundRB": 2.095,
-   "groundLuma": 0.4021,
-   "frameLuma": 0.5392
+   "groundRB": 1.914,
+   "groundLuma": 0.4034,
+   "frameLuma": 0.5397
   },
   "zombieCity.wide": {
-   "pureBlackPct": 0.029,
-   "zombiePx": 29377,
-   "zombieLuma": 0.2088,
-   "zombieRingLuma": 0.1629,
-   "zombieContrast": 0.22,
-   "trimPx": 1469,
+   "pureBlackPct": 0.03,
+   "zombiePx": 32810,
+   "zombieLuma": 0.3772,
+   "zombieRingLuma": 0.1385,
+   "zombieContrast": 0.6328,
+   "trimPx": 1167,
    "trimHue": 198.7,
    "trimRGB": [
-    135,
-    215,
+    138,
+    216,
     252
    ]
   },
   "zombieCity.lowWide": {
-   "pureBlackPct": 0.208,
-   "zombiePx": 11123,
-   "zombieLuma": 0.1436,
-   "zombieRingLuma": 0.1094,
-   "zombieContrast": 0.2379,
-   "trimPx": 8356,
-   "trimHue": 197.5,
+   "pureBlackPct": 0.186,
+   "zombiePx": 11301,
+   "zombieLuma": 0.2624,
+   "zombieRingLuma": 0.1448,
+   "zombieContrast": 0.4484,
+   "trimPx": 6128,
+   "trimHue": 197.8,
    "trimRGB": [
-    130,
-    216,
+    134,
+    217,
     252
    ]
   },
@@ -171,10 +171,10 @@
    "pureBlackPct": 0
   },
   "space.wide": {
-   "pureBlackPct": 0.222
+   "pureBlackPct": 0
   },
   "space.lowWide": {
-   "pureBlackPct": 0.053
+   "pureBlackPct": 0.002
   }
  },
  "novaCoatSat": {
@@ -182,69 +182,69 @@
   "target": ">= 0.5",
   "pass": true,
   "per": {
-   "dustTown.dustGray.wide": 0.8947,
+   "dustTown.dustGray.wide": 0.8946,
    "dustTown.dustGray.lowWide": 0.8776,
    "dustTown.dustGold.wide": 0.6361,
    "dustTown.dustGold.lowWide": 0.6062
   }
  },
  "pureBlack": {
-  "max": 0.222,
+  "max": 0.186,
   "target": "<= 0.5 %",
   "pass": true
  },
  "dustGrayNonNovaSat": {
-  "max": 0.128,
+  "max": 0.0876,
   "target": "<= 0.15 (dustGray only, V4 D6)",
   "pass": true,
   "per": {
-   "dustTown.dustGray.wide": 0.128,
-   "dustTown.dustGray.lowWide": 0.1045
+   "dustTown.dustGray.wide": 0.0876,
+   "dustTown.dustGray.lowWide": 0.0723
   }
  },
  "dustGold": {
   "per": {
    "wide": {
-    "groundRB": 1.963,
-    "lumaRatio": 1.315,
-    "goldLuma": 0.446,
-    "grayLuma": 0.3392
+    "groundRB": 1.833,
+    "lumaRatio": 1.313,
+    "goldLuma": 0.447,
+    "grayLuma": 0.3404
    },
    "lowWide": {
-    "groundRB": 2.095,
-    "lumaRatio": 1.379,
-    "goldLuma": 0.4021,
-    "grayLuma": 0.2915
+    "groundRB": 1.914,
+    "lumaRatio": 1.377,
+    "goldLuma": 0.4034,
+    "grayLuma": 0.293
    }
   },
-  "minRB": 1.963,
-  "minLumaRatio": 1.315,
+  "minRB": 1.833,
+  "minLumaRatio": 1.313,
   "target": "ground R/B >= 1.25, ground luma >= 1.2 x dustGray (same camera)",
   "pass": true
  },
  "zombieContrast": {
-  "min": 0.22,
+  "min": 0.4484,
   "per": {
-   "wide": 0.22,
-   "lowWide": 0.2379
+   "wide": 0.6328,
+   "lowWide": 0.4484
   },
-  "target": ">= 0.35 (|Lz - Lring| / max, ring = 10 px dilation at 390 px)",
-  "pass": false
+  "target": ">= 0.35 (|Lz - Lring| / max, ring = 10 px dilation at 390 px minus other cast masks; zombie rim #B6FF8A .9)",
+  "pass": true
  },
  "leoTrimHue": {
   "per": {
    "wide": 198.7,
-   "lowWide": 197.5
+   "lowWide": 197.8
   },
   "rgb": {
    "wide": [
-    135,
-    215,
+    138,
+    216,
     252
    ],
    "lowWide": [
-    130,
-    216,
+    134,
+    217,
     252
    ]
   },
@@ -254,11 +254,24 @@
  "farm": {
   "frames": 5406,
   "shards": 18,
-  "meanSPerFrame1440": 4.236,
+  "meanSPerFrame1440": 3.723,
   "weights": "BEATS shot count per world (dustGold timed, weighted with dustGray)",
-  "plainMeanSPerFrame1440": 4.001,
-  "projectedMinutes": 21.2,
+  "plainMeanSPerFrame1440": 3.373,
+  "projectedMinutes": 18.6,
   "target": "<= 150 min (V4 D5)",
   "pass": true
+ },
+ "visorBand": {
+  "min": 0.02,
+  "max": 0.02,
+  "target": ".02 gap (front, sides, back), no helmet",
+  "pass": true,
+  "per": {
+   "LEO_VR": {
+    "front": 0.02,
+    "side": 0.02,
+    "back": 0.02
+   }
+  }
  }
 }

@@ -4,7 +4,7 @@
  "note": "Touch Grass VR 1: moonlit night (blue-gray key #8FA8D8), broken street (realism street modules); green only as height fog <= 2 units + 3 green streetlamps.",
  "backdrop": {
   "type": "sky",
-  "top": "#0C1220",
+  "top": "#141C32",
   "horizon": "#3A4660",
   "ground": "#141A24",
   "radius": 420
@@ -30,8 +30,8 @@
   "shadowOpacity": 0.55,
   "hemi": {
    "sky": "#5A6A8E",
-   "ground": "#1A1E28",
-   "i": 0.45
+   "ground": "#2A3040",
+   "i": 0.8
   }
  },
  "bake": {

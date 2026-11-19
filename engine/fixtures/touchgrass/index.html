@@ -7,7 +7,8 @@
 <script type="module">
 import * as T from 'three';
 import {buildLocation, mergeLocation} from '../../../parts/location.js';
-import {PROPS7, attachHeadset, headsetGap, placeProps, armor} from '../../../parts/sets4/props7.js';
+import {PROPS7, attachHeadset, headsetGap, placeProps, armor, rimCrowd} from '../../../parts/sets4/props7.js';
+import * as L5B from '../../look5b.js';
 import {mergeByMaterial} from '../../../parts/sets4/common.js';
 import {buildActor} from '../../actors.js';
 import {samplePose, applyPoseSample} from '../../poses.js';
@@ -53,7 +54,7 @@ window.__tg = {
     const W = Math.max(box.max.x - box.min.x, box.max.z - box.min.z), hf = Math.atan(Math.tan(15 * Math.PI / 180) * w / h), D = Math.max(H * 2.2, W * .55 / Math.tan(hf));
     if (close) shoot({position: [hc.x, hc.y - .15, hc.z + 7.5], target: [hc.x, hc.y - .15, hc.z], fov: 30}, w, h);
     else shoot({position: [0, H * .55, D], target: [0, H * .48, 0], fov: 30}, w, h);
-    const hs = a.attachments?.vrHeadset; return {png: png(), tris: tris(a.root), gap: hs ? headsetGap(hs) : null};
+    const hs = a.attachments?.vrHeadset; return {png: png(), tris: tris(a.root), gap: hs ? headsetGap(hs) : null, band: a.root.getObjectByName('visorBand')?.userData.gap ?? null};
   },
   prop({name, p = {}, set = null, flick = null, t = 1, w = 390, h = 693, fill = .5, view = [1, .55, 1.6], head = null, focus = null}) {
     studio('#3a3d44'); let g;
@@ -86,14 +87,15 @@ window.__tg = {
       const d = boss(an.bossPeak, .6, 'roar'); s.add(d.root);
     } else if (name === 'space') { add(actor('LEO_VR', {at: an.leoOnShip ?? [0, .55, 3.2], pose: 'pointUp'})); }
     for (const g of Object.values(crowds)) { s.add(g); g.traverse(o => { if (o.isMesh && [].concat(o.material)[0]?.vertexColors) o.userData.live = true; });   // vertex-coloured parts (hair, headset) stay separate: the merge drops colour attributes
-      if (merge) mergeByMaterial(g); g.traverse(o => { if (o.isMesh) o.castShadow = true; }); }
+      if (merge) mergeByMaterial(g); g.traverse(o => { if (o.isMesh) o.castShadow = true; }); if (g.userData.crowd === 'ZOMBIE') rimCrowd(g, {color: '#B6FF8A', strength: .9}, L5B); }   // E1: zombie-only rim
     s.updateMatrixWorld(true); L.fit(new T.Vector3(...(cam.fit ?? cam.target)), cam.r ?? 30);
     if (mask && mask !== true) {   // E0b masks: 'ground' (ground + street planes), 'zombie' (the ZOMBIE crowd), 'trim' (LEO_VR's #49D9FF emissive trim); white on black
       const black = new T.MeshBasicMaterial({color: '#000000'}), white = new T.MeshBasicMaterial({color: '#ffffff'}); s.fog = null; s.background = new T.Color('#000000');
       const inCrowd = (o, k) => { for (let p = o; p; p = p.parent) if (p.userData?.crowd === k) return true; return false; };
       const leo = actors.find(a => a.root.userData.castId === 'LEO_VR'), leoSet = new Set(); leo?.root.traverse(o => leoSet.add(o));
+      const castSet = new Set(); if (mask === 'other') for (const a of actors) a.root.traverse(x => castSet.add(x));
       s.traverse(o => { if (o.isPoints || o.isSprite) { o.visible = false; return; } if (!o.isMesh) return; const m = [].concat(o.material)[0];
-        const hit = mask === 'ground' ? /^(ground|street)_/.test(o.name) : mask === 'zombie' ? inCrowd(o, 'ZOMBIE') : leoSet.has(o) && m?.emissive?.getHexString?.() === '49d9ff' && m.emissiveIntensity > 0;
+        const hit = mask === 'ground' ? /^(ground|street)_/.test(o.name) : mask === 'zombie' ? inCrowd(o, 'ZOMBIE') : mask === 'other' ? !inCrowd(o, 'ZOMBIE') && (castSet.has(o) || /^crowd:/.test(o.parent?.name ?? '')) : leoSet.has(o) && m?.emissive?.getHexString?.() === '49d9ff' && m.emissiveIntensity > 0;   // E1 'other': every non-zombie cast mesh
         o.material = hit ? white : black; });
       renderer.toneMapping = T.NoToneMapping;
     } else if (mask) {   // NOVA mask pass: raincoat = red, rest of NOVA = white, everything else black (no fog, black background)

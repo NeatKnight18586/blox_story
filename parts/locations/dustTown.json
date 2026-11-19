@@ -46,11 +46,11 @@
  "materials": {
   "dirt": {
    "procedural": "dirt",
-   "color": "#8E877E"
+   "color": "#8A8884"
   },
   "path": {
    "procedural": "mud",
-   "color": "#7F7972"
+   "color": "#7C7A77"
   }
  },
  "modules": {

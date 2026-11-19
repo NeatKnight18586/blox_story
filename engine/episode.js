@@ -65,7 +65,7 @@ renderer.outputColorSpace = T.SRGBColorSpace; renderer.shadowMap.enabled = true;
 document.body.appendChild(renderer.domElement);
 const scene = new T.Scene();
 const camera = new T.PerspectiveCamera(45, 9 / 16, .3, 900);   // near 0.3 (A1): more depth precision for the ground layers
-let world = null, look = null, BAKE = null, GROUNDFIX = null;
+let world = null, look = null, BAKE = null, GROUNDFIX = null, WMOD = null;   // WMOD: the world module (Touch Grass E1 opt-in spec.decorate hooks)
 // Toy House final fix (owner P4, opt-in spec.groundFix = {sep, aniso, bias, normalBias}): flat ground-level meshes (≤ 1.2 high,
 // thinner than 5 % of their span) whose top faces lie within `sep` of another overlapping one are lifted in `sep` steps and get
 // polygonOffset (the higher, the stronger); every ground texture gets mipmaps + anisotropy `aniso`; the sun shadow bias is tuned.
@@ -82,7 +82,7 @@ function groundFix(root, lk, {sep = .02, aniso = 8, bias = -.0008, normalBias = 
   return {flat: flat.length, pairs, lifted, textures: tex, bias, normalBias};
 }
 if (spec.world) {
-  const mod = await import(new URL('../' + spec.world, import.meta.url).href);
+  const mod = await import(new URL('../' + spec.world, import.meta.url).href); WMOD = mod;
   if (spec.look4) {   // format v4 Phase 2 (opt-in): AgX + PMREM sky env + v4 surfaces + baked static light (engine/look4.js, bake.js)
     const presets = await loadLooks4(new URL('./', import.meta.url)), P4 = presets[spec.look4]; if (!P4) throw Error('unknown look4 ' + spec.look4);
     await M4.loadTex4(new URL('../', import.meta.url));
@@ -159,7 +159,8 @@ for (const [name, c] of Object.entries(spec.cast ?? {})) {
     const pre3 = spec.look4 && !pre2.regions && pre2.outfit ? {...pre2, regions: outfitRegions(pre2.outfit, pre2.skin ?? '#f5cd30'), outfit: null} : pre2;   // 2b: outfits as colour regions (data)
     const pre = FACES_V3 && !pre3.faceStyle ? {...pre3, faceStyle: 'v3'} : pre3;   // Faces v3: default for season 1 (or spec.faces 'v3')
     if (spec.format === 5 && pre.build !== 'youth' && !(pre.age < 18)) pre.scale = 1;   // format v5: every adult stands at the same height (builds differ in shape, not size)
-    const a = buildActor(c.noTag ? {...pre, tag: null} : pre, name); scene.add(a.root); cast[name] = {a, c, v2: true}; }
+    const a = buildActor(c.noTag ? {...pre, tag: null} : pre, name); scene.add(a.root); cast[name] = {a, c, v2: true};
+    if (spec.decorate && WMOD?.decorate) WMOD.decorate(a, name, pre, c); }   // Touch Grass E1 (opt-in spec.decorate): the world module dresses an actor once (headset, armor, held props)
   else { const a = createBaseAvatar({color: c.color ?? 0xf2c94c}); scene.add(a.root); cast[name] = {a, c}; }
 }
 // format v5 lightsCascade (world effect): spec.effects [{type: 'lightsCascade', at, step, on, color, size, points: [[x, y, z]...] | {anchor, offset}[]}]
@@ -318,6 +319,7 @@ function poseCast(t) {
       if (dragon) driveDragon(a, t, {keys: c.keys ?? [[0, 'perch']], origin: {position: at, yaw}});
       else driveActor(a, t, {keys: c.keys ?? [[0, c.action ?? 'idle']], faces: c.faces, ambient: !!c.ambient,
         origin: {position: at, yaw}, tags: c.tags, fps: FPS, tools: c.tools, toolsLeft: c.toolsLeft, stat: c.stat, bubble: c.bubble, visible: c.visible, kit: c.kit, blinkSuppress: blinkOff(t), talk: talkOf(name, t), ...(M5B ? {m5b: M5B} : {})});
+      if (v2 && spec.decorate) WMOD?.poseActor?.(a, name, t, c);   // Touch Grass E1 (opt-in): per-frame dress state, pure in t
       if (dragon && c.visible) a.root.visible = valueAt(c.visible, t, true);
     } else {
       const s = sampleAction(c.action ?? 'idle', t, c.action === 'walk' ? {gait: c.gait ?? 'readable'} : {});
@@ -411,12 +413,14 @@ function shotShadow(shot) {
 // format v5 story props (opt-in spec.props): toy props (parts/sets4/props4.js) placed and moved by timelines —
 //   {id, prop, seed, scale, pos: [[t, [x, y, z]], [t, [x, y, z], 'ramp']…], rot: [[t, [x°, y°, z°]]…], visible: [[t, bool]…]}; named `prop_<id>`.
 const storyProps = [];
-if (spec.props?.length) { const {toyProp} = await import('../parts/sets4/props4.js');
-  for (const p of spec.props) { const g = toyProp(p.prop, p.seed ?? 1, p); if (g.userData.ready) await g.userData.ready; g.name = 'prop_' + p.id; g.scale.setScalar(p.scale ?? 1); g.traverse(o => { o.userData.live = true; }); scene.add(g); storyProps.push({p, g}); } }
+if (spec.props?.length) { const {toyProp} = await import('../parts/sets4/props4.js'), P7 = spec.props.some(p => p.set === 'props7') ? (await import('../parts/sets4/props7.js')).PROPS7 : null;
+  for (const p of spec.props) { const g = p.set === 'props7' ? P7[p.prop](p.p ?? {}) : toyProp(p.prop, p.seed ?? 1, p); if (g.userData.ready) await g.userData.ready; g.name = 'prop_' + p.id; g.scale.setScalar(p.scale ?? 1); g.traverse(o => { o.userData.live = true; }); scene.add(g); storyProps.push({p, g}); } }   // Touch Grass E1 (opt-in p.set 'props7'): props7 builders, p.p = builder options
 // E1 fix (opt-in spec.hide): set objects hidden by name (a story prop replaces them)
 for (const n of spec.hide ?? []) { const o = scene.getObjectByName(n); if (o) o.visible = false; else console.warn('spec.hide: no object ' + n); }
 const vecAt = (keys, t, d) => keys?.length ? d.map((v, i) => valueAt(keys.map(k => [k[0], k[1][i], k[2], k[3]]), t, v)) : d;
-function updateProps(t) { for (const {p, g} of storyProps) { g.position.fromArray(vecAt(p.pos, t, [0, 0, 0])); const r = vecAt(p.rot, t, [0, 0, 0]); g.rotation.set(...r.map(v => v * Math.PI / 180)); g.visible = valueAt(p.visible, t, true); if (g.visible && g.userData.anim) g.userData.anim(t - (p.animAt ?? 0), p); } }   // E1 fix (opt-in): props5 moving parts, pure in t
+function updateProps(t) { for (const {p, g} of storyProps) { g.position.fromArray(vecAt(p.pos, t, [0, 0, 0])); const r = vecAt(p.rot, t, [0, 0, 0]); g.rotation.set(...r.map(v => v * Math.PI / 180)); g.visible = valueAt(p.visible, t, true); if (g.visible && g.userData.anim) g.userData.anim(t - (p.animAt ?? 0), p);
+  if (p.states && g.userData.setState) { const st = valueAt(p.states, t, null); if (st !== null && st !== g.userData.state) g.userData.setState(st); }   // Touch Grass E1 (opt-in): step states (headset on/off, visor screen)
+  if (p.flick && g.userData.setFlick) g.userData.setFlick(valueAt(p.flick, t, 0)); } }   // Touch Grass E1 (opt-in): giant finger flick u (ramp keys); E1 fix (opt-in): props5 moving parts, pure in t
 // World story state (Session 5): spec.worldState = {name: [[t, value], [t, value, 'ramp']...]} → world.setState.
 function applyWorldState(shot, t) {
   if (storyProps.length) updateProps(t);

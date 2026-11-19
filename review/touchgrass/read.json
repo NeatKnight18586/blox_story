@@ -1,0 +1,2190 @@
+{
+ "spec": "stories/touchgrass/episode.json",
+ "motionThreshold": 0.021,
+ "shots": [
+  {
+   "id": "01-push",
+   "size": "close",
+   "t": 0,
+   "dur": 1.04,
+   "subject": "TOWN_A",
+   "faceShown": {
+    "angle": 0.1,
+    "inside": 1,
+    "ok": true
+   },
+   "nothingInFront": {
+    "front": 0,
+    "faceCover": 0,
+    "ok": true
+   },
+   "standsOut": {
+    "subj": 0.515,
+    "ring": 0.477,
+    "diff": 0.038,
+    "ok": false,
+    "msg": "subject vs surround luma 0.038 (≥ 0.12)"
+   },
+   "moves": {
+    "motion": 0.0425,
+    "need": 0.021,
+    "ok": true,
+    "msg": ""
+   },
+   "hold": {
+    "held": 1.04,
+    "max": 4.5,
+    "ok": true,
+    "msg": "moving framing held 1.04 s (≤ 4.5)"
+   }
+  },
+  {
+   "id": "02-crane",
+   "size": "wide",
+   "t": 1.04,
+   "dur": 2.17,
+   "subject": null,
+   "moves": {
+    "motion": 0.1609,
+    "need": 0.021,
+    "ok": true,
+    "msg": ""
+   },
+   "hold": {
+    "held": 2.17,
+    "max": 4.5,
+    "ok": true,
+    "msg": "moving framing held 2.17 s (≤ 4.5)"
+   }
+  },
+  {
+   "id": "03-lowWide",
+   "size": "wide",
+   "t": 3.21,
+   "dur": 1.96,
+   "subject": "NOVA",
+   "faceShown": null,
+   "nothingInFront": {
+    "front": 0.319,
+    "faceCover": 0.026,
+    "ok": false,
+    "msg": "objects in front cover 31.9 % (≤ 10)"
+   },
+   "standsOut": {
+    "subj": 0.593,
+    "ring": 0.347,
+    "diff": 0.246,
+    "ok": true,
+    "msg": ""
+   },
+   "moves": {
+    "motion": 0.0401,
+    "need": 0.021,
+    "ok": true,
+    "msg": ""
+   },
+   "hold": {
+    "held": 1.96,
+    "max": 4.5,
+    "ok": true,
+    "msg": "moving framing held 1.96 s (≤ 4.5)"
+   }
+  },
+  {
+   "id": "04-push",
+   "size": "wide",
+   "t": 5.17,
+   "dur": 2.04,
+   "subject": null,
+   "moves": {
+    "motion": 0.0286,
+    "need": 0.021,
+    "ok": true,
+    "msg": ""
+   },
+   "hold": {
+    "held": 2.04,
+    "max": 4.5,
+    "ok": true,
+    "msg": "moving framing held 2.04 s (≤ 4.5)"
+   }
+  },
+  {
+   "id": "05-push",
+   "size": "insert",
+   "t": 7.21,
+   "dur": 0.71,
+   "subject": "prop_stick",
+   "nothingInFront": {
+    "front": 0,
+    "faceCover": 0,
+    "ok": true
+   },
+   "standsOut": {
+    "subj": 0.272,
+    "ring": 0.29,
+    "diff": 0.017,
+    "ok": false,
+    "msg": "subject vs surround luma 0.017 (≥ 0.12)"
+   },
+   "objectReads": {
+    "inside": 0.788,
+    "h": 0.501,
+    "ok": false,
+    "msg": "79 % of the object in frame (≥ 90)"
+   },
+   "moves": {
+    "motion": 0.023,
+    "need": 0.021,
+    "ok": true,
+    "msg": ""
+   },
+   "hold": {
+    "held": 0.71,
+    "max": 4.5,
+    "ok": true,
+    "msg": "moving framing held 0.71 s (≤ 4.5)"
+   }
+  },
+  {
+   "id": "06-push",
+   "size": "insert",
+   "t": 7.92,
+   "dur": 1,
+   "subject": "prop_birdhouse",
+   "nothingInFront": {
+    "front": 0,
+    "faceCover": 0,
+    "ok": true
+   },
+   "standsOut": {
+    "subj": 0.475,
+    "ring": 0.443,
+    "diff": 0.032,
+    "ok": false,
+    "msg": "subject vs surround luma 0.032 (≥ 0.12)"
+   },
+   "objectReads": {
+    "inside": 1,
+    "h": 0.505,
+    "ok": true
+   },
+   "moves": {
+    "motion": 0.0706,
+    "need": 0.021,
+    "ok": true,
+    "msg": ""
+   },
+   "hold": {
+    "held": 1,
+    "max": 4.5,
+    "ok": true,
+    "msg": "moving framing held 1.00 s (≤ 4.5)"
+   }
+  },
+  {
+   "id": "07-push",
+   "size": "wide",
+   "t": 8.92,
+   "dur": 1.21,
+   "subject": null,
+   "moves": {
+    "motion": 0.127,
+    "need": 0.021,
+    "ok": true,
+    "msg": ""
+   },
+   "hold": {
+    "held": 1.21,
+    "max": 4.5,
+    "ok": true,
+    "msg": "moving framing held 1.21 s (≤ 4.5)"
+   }
+  },
+  {
+   "id": "08-push",
+   "size": "medium",
+   "t": 10.13,
+   "dur": 2.38,
+   "subject": "NOVA",
+   "faceShown": {
+    "angle": 20.5,
+    "inside": 1,
+    "ok": true
+   },
+   "nothingInFront": {
+    "front": 0,
+    "faceCover": 0,
+    "ok": true
+   },
+   "standsOut": {
+    "subj": 0.488,
+    "ring": 0.176,
+    "diff": 0.312,
+    "ok": true,
+    "msg": ""
+   },
+   "moves": {
+    "motion": 0.0487,
+    "need": 0.021,
+    "ok": true,
+    "msg": ""
+   },
+   "hold": {
+    "held": 2.38,
+    "max": 4.5,
+    "ok": true,
+    "msg": "moving framing held 2.38 s (≤ 4.5)"
+   }
+  },
+  {
+   "id": "09-push",
+   "size": "insert",
+   "t": 12.5,
+   "dur": 1.33,
+   "subject": "NOVA_can",
+   "nothingInFront": {
+    "front": 0,
+    "faceCover": 0,
+    "ok": true
+   },
+   "standsOut": {
+    "subj": 0.388,
+    "ring": 0.476,
+    "diff": 0.088,
+    "ok": false,
+    "msg": "subject vs surround luma 0.088 (≥ 0.12)"
+   },
+   "objectReads": {
+    "inside": 0.868,
+    "h": 0.618,
+    "ok": false,
+    "msg": "87 % of the object in frame (≥ 90)"
+   },
+   "moves": {
+    "motion": 0.0401,
+    "need": 0.021,
+    "ok": true,
+    "msg": ""
+   },
+   "hold": {
+    "held": 1.33,
+    "max": 4.5,
+    "ok": true,
+    "msg": "moving framing held 1.33 s (≤ 4.5)"
+   }
+  },
+  {
+   "id": "10-push",
+   "size": "wide",
+   "t": 13.83,
+   "dur": 1.25,
+   "subject": "NOVA",
+   "faceShown": null,
+   "nothingInFront": {
+    "front": 0.044,
+    "faceCover": 0,
+    "ok": true
+   },
+   "standsOut": {
+    "subj": 0.475,
+    "ring": 0.339,
+    "diff": 0.136,
+    "ok": true,
+    "msg": ""
+   },
+   "moves": {
+    "motion": 0.0468,
+    "need": 0.021,
+    "ok": true,
+    "msg": ""
+   },
+   "hold": {
+    "held": 1.25,
+    "max": 4.5,
+    "ok": true,
+    "msg": "moving framing held 1.25 s (≤ 4.5)"
+   }
+  },
+  {
+   "id": "11-push",
+   "size": "medium",
+   "t": 15.08,
+   "dur": 1.17,
+   "subject": "LEO",
+   "faceShown": {
+    "angle": 20,
+    "inside": 1,
+    "ok": true
+   },
+   "nothingInFront": {
+    "front": 0,
+    "faceCover": 0,
+    "ok": true
+   },
+   "standsOut": {
+    "subj": 0.482,
+    "ring": 0.431,
+    "diff": 0.05,
+    "ok": false,
+    "msg": "subject vs surround luma 0.050 (≥ 0.12)"
+   },
+   "moves": {
+    "motion": 0.0369,
+    "need": 0.021,
+    "ok": true,
+    "msg": ""
+   },
+   "hold": {
+    "held": 1.17,
+    "max": 4.5,
+    "ok": true,
+    "msg": "moving framing held 1.17 s (≤ 4.5)"
+   }
+  },
+  {
+   "id": "12-push",
+   "size": "insert",
+   "t": 16.25,
+   "dur": 0.58,
+   "subject": "LEO_headset",
+   "nothingInFront": {
+    "front": 0,
+    "faceCover": 0,
+    "ok": true
+   },
+   "standsOut": {
+    "subj": 0.498,
+    "ring": 0.33,
+    "diff": 0.167,
+    "ok": true,
+    "msg": ""
+   },
+   "objectReads": {
+    "inside": 1,
+    "h": 0.455,
+    "ok": true
+   },
+   "moves": {
+    "motion": 0.0294,
+    "need": 0.021,
+    "ok": true,
+    "msg": ""
+   },
+   "hold": {
+    "held": 0.58,
+    "max": 4.5,
+    "ok": true,
+    "msg": "moving framing held 0.58 s (≤ 4.5)"
+   }
+  },
+  {
+   "id": "13-snap",
+   "size": "close",
+   "t": 16.83,
+   "dur": 0.92,
+   "subject": "LEO",
+   "faceShown": {
+    "angle": 1.2,
+    "inside": 1,
+    "ok": true
+   },
+   "nothingInFront": {
+    "front": 0,
+    "faceCover": 0,
+    "ok": true
+   },
+   "standsOut": {
+    "subj": 0.49,
+    "ring": 0.425,
+    "diff": 0.065,
+    "ok": false,
+    "msg": "subject vs surround luma 0.065 (≥ 0.12)"
+   },
+   "moves": {
+    "motion": 0,
+    "need": 0.021,
+    "ok": false,
+    "msg": "motion 0.0000 < 0.0210"
+   },
+   "hold": {
+    "held": 0.92,
+    "max": 3,
+    "ok": true,
+    "msg": "static framing held 0.92 s (≤ 3)"
+   }
+  },
+  {
+   "id": "14-crashZoom",
+   "size": "close",
+   "t": 17.75,
+   "dur": 1.08,
+   "subject": "LEO",
+   "faceShown": {
+    "angle": 10,
+    "inside": 1,
+    "ok": true
+   },
+   "nothingInFront": {
+    "front": 0,
+    "faceCover": 0,
+    "ok": true
+   },
+   "standsOut": {
+    "subj": 0.528,
+    "ring": 0.417,
+    "diff": 0.112,
+    "ok": false,
+    "msg": "subject vs surround luma 0.112 (≥ 0.12)"
+   },
+   "moves": {
+    "motion": 0.1585,
+    "need": 0.021,
+    "ok": true,
+    "msg": ""
+   },
+   "hold": {
+    "held": 1.08,
+    "max": 4.5,
+    "ok": true,
+    "msg": "moving framing held 1.08 s (≤ 4.5)"
+   }
+  },
+  {
+   "id": "15-push",
+   "size": "wide",
+   "t": 18.83,
+   "dur": 1.38,
+   "subject": null,
+   "moves": {
+    "motion": 0.0644,
+    "need": 0.021,
+    "ok": true,
+    "msg": ""
+   },
+   "hold": {
+    "held": 1.38,
+    "max": 4.5,
+    "ok": true,
+    "msg": "moving framing held 1.38 s (≤ 4.5)"
+   }
+  },
+  {
+   "id": "16-heroLow",
+   "size": "medium",
+   "t": 20.21,
+   "dur": 0.96,
+   "subject": "LEO_VR",
+   "faceShown": {
+    "angle": 36.4,
+    "inside": 1,
+    "ok": true
+   },
+   "nothingInFront": {
+    "front": 0,
+    "faceCover": 0,
+    "ok": true
+   },
+   "standsOut": {
+    "subj": 0.209,
+    "ring": 0.179,
+    "diff": 0.029,
+    "ok": false,
+    "msg": "subject vs surround luma 0.029 (≥ 0.12)"
+   },
+   "moves": {
+    "motion": 0.0538,
+    "need": 0.021,
+    "ok": true,
+    "msg": ""
+   },
+   "hold": {
+    "held": 0.96,
+    "max": 4.5,
+    "ok": true,
+    "msg": "moving framing held 0.96 s (≤ 4.5)"
+   }
+  },
+  {
+   "id": "17-track",
+   "size": "wide",
+   "t": 21.17,
+   "dur": 1,
+   "subject": "DRAGON",
+   "faceShown": null,
+   "nothingInFront": {
+    "front": 0,
+    "faceCover": 0,
+    "ok": true
+   },
+   "standsOut": {
+    "subj": 0.28,
+    "ring": 0.462,
+    "diff": 0.182,
+    "ok": true,
+    "msg": ""
+   },
+   "moves": {
+    "motion": 0.0984,
+    "need": 0.021,
+    "ok": true,
+    "msg": ""
+   },
+   "hold": {
+    "held": 1,
+    "max": 4.5,
+    "ok": true,
+    "msg": "moving framing held 1.00 s (≤ 4.5)"
+   }
+  },
+  {
+   "id": "18-track",
+   "size": "wide",
+   "t": 22.17,
+   "dur": 0.88,
+   "subject": "LEO_VR",
+   "faceShown": null,
+   "nothingInFront": {
+    "front": 0,
+    "faceCover": 0.625,
+    "ok": false,
+    "msg": "the face is 62.5 % covered"
+   },
+   "standsOut": {
+    "subj": 0.313,
+    "ring": 0.364,
+    "diff": 0.051,
+    "ok": false,
+    "msg": "subject vs surround luma 0.051 (≥ 0.12)"
+   },
+   "moves": {
+    "motion": 0.0791,
+    "need": 0.021,
+    "ok": true,
+    "msg": ""
+   },
+   "hold": {
+    "held": 0.88,
+    "max": 4.5,
+    "ok": true,
+    "msg": "moving framing held 0.88 s (≤ 4.5)"
+   }
+  },
+  {
+   "id": "19-push",
+   "size": "wide",
+   "t": 23.04,
+   "dur": 0.96,
+   "subject": null,
+   "moves": {
+    "motion": 0.0283,
+    "need": 0.021,
+    "ok": true,
+    "msg": ""
+   },
+   "hold": {
+    "held": 0.96,
+    "max": 4.5,
+    "ok": true,
+    "msg": "moving framing held 0.96 s (≤ 4.5)"
+   }
+  },
+  {
+   "id": "20-push",
+   "size": "medium",
+   "t": 24,
+   "dur": 1.17,
+   "subject": "LEO_VR",
+   "faceShown": {
+    "angle": 34.2,
+    "inside": 1,
+    "ok": true
+   },
+   "nothingInFront": {
+    "front": 0,
+    "faceCover": 0.004,
+    "ok": true
+   },
+   "standsOut": {
+    "subj": 0.199,
+    "ring": 0.121,
+    "diff": 0.078,
+    "ok": false,
+    "msg": "subject vs surround luma 0.078 (≥ 0.12)"
+   },
+   "moves": {
+    "motion": 0.0588,
+    "need": 0.021,
+    "ok": true,
+    "msg": ""
+   },
+   "hold": {
+    "held": 1.17,
+    "max": 4.5,
+    "ok": true,
+    "msg": "moving framing held 1.17 s (≤ 4.5)"
+   }
+  },
+  {
+   "id": "21-crane",
+   "size": "wide",
+   "t": 25.17,
+   "dur": 2.08,
+   "subject": "LEO_VR",
+   "faceShown": null,
+   "nothingInFront": {
+    "front": 0.244,
+    "faceCover": 0.044,
+    "ok": false,
+    "msg": "objects in front cover 24.4 % (≤ 10)"
+   },
+   "standsOut": {
+    "subj": 0.158,
+    "ring": 0.308,
+    "diff": 0.15,
+    "ok": true,
+    "msg": ""
+   },
+   "moves": {
+    "motion": 0.2238,
+    "need": 0.021,
+    "ok": true,
+    "msg": ""
+   },
+   "hold": {
+    "held": 2.08,
+    "max": 4.5,
+    "ok": true,
+    "msg": "moving framing held 2.08 s (≤ 4.5)"
+   }
+  },
+  {
+   "id": "22a-push",
+   "size": "close",
+   "t": 27.25,
+   "dur": 0.63,
+   "subject": "FRIEND_KNIGHT",
+   "faceShown": {
+    "angle": 12.1,
+    "inside": 1,
+    "ok": true
+   },
+   "nothingInFront": {
+    "front": 0,
+    "faceCover": 0,
+    "ok": true
+   },
+   "standsOut": {
+    "subj": 0.394,
+    "ring": 0.446,
+    "diff": 0.052,
+    "ok": false,
+    "msg": "subject vs surround luma 0.052 (≥ 0.12)"
+   },
+   "moves": {
+    "motion": 0.0475,
+    "need": 0.021,
+    "ok": true,
+    "msg": ""
+   },
+   "hold": {
+    "held": 0.63,
+    "max": 4.5,
+    "ok": true,
+    "msg": "moving framing held 0.63 s (≤ 4.5)"
+   }
+  },
+  {
+   "id": "22b-push",
+   "size": "close",
+   "t": 27.88,
+   "dur": 0.71,
+   "subject": "FRIEND_ROBOT",
+   "faceShown": {
+    "angle": 12.3,
+    "inside": 1,
+    "ok": true
+   },
+   "nothingInFront": {
+    "front": 0,
+    "faceCover": 0,
+    "ok": true
+   },
+   "standsOut": {
+    "subj": 0.814,
+    "ring": 0.429,
+    "diff": 0.385,
+    "ok": true,
+    "msg": ""
+   },
+   "moves": {
+    "motion": 0.0554,
+    "need": 0.021,
+    "ok": true,
+    "msg": ""
+   },
+   "hold": {
+    "held": 0.71,
+    "max": 4.5,
+    "ok": true,
+    "msg": "moving framing held 0.71 s (≤ 4.5)"
+   }
+  },
+  {
+   "id": "22c-push",
+   "size": "close",
+   "t": 28.58,
+   "dur": 0.67,
+   "subject": "FRIEND_MAGE",
+   "faceShown": {
+    "angle": 12.9,
+    "inside": 1,
+    "ok": true
+   },
+   "nothingInFront": {
+    "front": 0,
+    "faceCover": 0,
+    "ok": true
+   },
+   "standsOut": {
+    "subj": 0.366,
+    "ring": 0.346,
+    "diff": 0.02,
+    "ok": false,
+    "msg": "subject vs surround luma 0.020 (≥ 0.12)"
+   },
+   "moves": {
+    "motion": 0.1666,
+    "need": 0.021,
+    "ok": true,
+    "msg": ""
+   },
+   "hold": {
+    "held": 0.67,
+    "max": 4.5,
+    "ok": true,
+    "msg": "moving framing held 0.67 s (≤ 4.5)"
+   }
+  },
+  {
+   "id": "23-push",
+   "size": "wide",
+   "t": 29.25,
+   "dur": 1.83,
+   "subject": "LEO",
+   "faceShown": null,
+   "nothingInFront": {
+    "front": 0.029,
+    "faceCover": 0,
+    "ok": true
+   },
+   "standsOut": {
+    "subj": 0.556,
+    "ring": 0.433,
+    "diff": 0.123,
+    "ok": true,
+    "msg": ""
+   },
+   "moves": {
+    "motion": 0.0236,
+    "need": 0.021,
+    "ok": true,
+    "msg": ""
+   },
+   "hold": {
+    "held": 1.83,
+    "max": 4.5,
+    "ok": true,
+    "msg": "moving framing held 1.83 s (≤ 4.5)"
+   }
+  },
+  {
+   "id": "24-push",
+   "size": "insert",
+   "t": 31.08,
+   "dur": 1.92,
+   "subject": "LEO_headset",
+   "nothingInFront": {
+    "front": 0,
+    "faceCover": 0,
+    "ok": true
+   },
+   "standsOut": {
+    "subj": 0.157,
+    "ring": 0.359,
+    "diff": 0.203,
+    "ok": true,
+    "msg": ""
+   },
+   "objectReads": {
+    "inside": 1,
+    "h": 0.408,
+    "ok": true
+   },
+   "moves": {
+    "motion": 0.0219,
+    "need": 0.021,
+    "ok": true,
+    "msg": ""
+   },
+   "hold": {
+    "held": 1.92,
+    "max": 4.5,
+    "ok": true,
+    "msg": "moving framing held 1.92 s (≤ 4.5)"
+   }
+  },
+  {
+   "id": "25-lowAuthority",
+   "size": "wide",
+   "t": 33,
+   "dur": 1.33,
+   "subject": null,
+   "moves": {
+    "motion": 0.1319,
+    "need": 0.021,
+    "ok": true,
+    "msg": ""
+   },
+   "hold": {
+    "held": 1.33,
+    "max": 4.5,
+    "ok": true,
+    "msg": "moving framing held 1.33 s (≤ 4.5)"
+   }
+  },
+  {
+   "id": "26-push",
+   "size": "wide",
+   "t": 34.33,
+   "dur": 2.04,
+   "subject": "prop_fingerZ",
+   "nothingInFront": {
+    "front": 0.081,
+    "faceCover": 0,
+    "ok": true
+   },
+   "standsOut": {
+    "subj": 0.155,
+    "ring": 0.073,
+    "diff": 0.081,
+    "ok": false,
+    "msg": "subject vs surround luma 0.081 (≥ 0.12)"
+   },
+   "moves": {
+    "motion": 0.0605,
+    "need": 0.021,
+    "ok": true,
+    "msg": ""
+   },
+   "hold": {
+    "held": 2.04,
+    "max": 4.5,
+    "ok": true,
+    "msg": "moving framing held 2.04 s (≤ 4.5)"
+   }
+  },
+  {
+   "id": "27-push",
+   "size": "medium",
+   "t": 36.38,
+   "dur": 1.63,
+   "subject": "BRO",
+   "faceShown": {
+    "angle": 42.5,
+    "inside": 1,
+    "ok": true
+   },
+   "nothingInFront": {
+    "front": 0,
+    "faceCover": 0.052,
+    "ok": false,
+    "msg": "the face is 5.2 % covered"
+   },
+   "standsOut": {
+    "subj": 0.25,
+    "ring": 0.179,
+    "diff": 0.072,
+    "ok": false,
+    "msg": "subject vs surround luma 0.072 (≥ 0.12)"
+   },
+   "moves": {
+    "motion": 0.0827,
+    "need": 0.021,
+    "ok": true,
+    "msg": ""
+   },
+   "hold": {
+    "held": 1.63,
+    "max": 4.5,
+    "ok": true,
+    "msg": "moving framing held 1.63 s (≤ 4.5)"
+   }
+  },
+  {
+   "id": "28-push",
+   "size": "close",
+   "t": 38,
+   "dur": 1.79,
+   "subject": "BRO",
+   "faceShown": {
+    "angle": 49.5,
+    "inside": 1,
+    "ok": true
+   },
+   "nothingInFront": {
+    "front": 0,
+    "faceCover": 0.072,
+    "ok": false,
+    "msg": "the face is 7.2 % covered"
+   },
+   "standsOut": {
+    "subj": 0.275,
+    "ring": 0.129,
+    "diff": 0.146,
+    "ok": true,
+    "msg": ""
+   },
+   "moves": {
+    "motion": 0.0381,
+    "need": 0.021,
+    "ok": true,
+    "msg": ""
+   },
+   "hold": {
+    "held": 1.79,
+    "max": 4.5,
+    "ok": true,
+    "msg": "moving framing held 1.79 s (≤ 4.5)"
+   }
+  },
+  {
+   "id": "29-push",
+   "size": "close",
+   "t": 39.79,
+   "dur": 1.29,
+   "subject": "LEO_VR",
+   "faceShown": {
+    "angle": 35.9,
+    "inside": 1,
+    "ok": true
+   },
+   "nothingInFront": {
+    "front": 0,
+    "faceCover": 0,
+    "ok": true
+   },
+   "standsOut": {
+    "subj": 0.251,
+    "ring": 0.127,
+    "diff": 0.125,
+    "ok": true,
+    "msg": ""
+   },
+   "moves": {
+    "motion": 0.0516,
+    "need": 0.021,
+    "ok": true,
+    "msg": ""
+   },
+   "hold": {
+    "held": 1.29,
+    "max": 4.5,
+    "ok": true,
+    "msg": "moving framing held 1.29 s (≤ 4.5)"
+   }
+  },
+  {
+   "id": "30-push",
+   "size": "close",
+   "t": 41.08,
+   "dur": 0.42,
+   "subject": "NOVA",
+   "faceShown": {
+    "angle": 34.4,
+    "inside": 1,
+    "ok": true
+   },
+   "nothingInFront": {
+    "front": 0,
+    "faceCover": 0,
+    "ok": true
+   },
+   "standsOut": {
+    "subj": 0.531,
+    "ring": 0.512,
+    "diff": 0.019,
+    "ok": false,
+    "msg": "subject vs surround luma 0.019 (≥ 0.12)"
+   },
+   "moves": {
+    "motion": 0.1401,
+    "need": 0.021,
+    "ok": true,
+    "msg": ""
+   },
+   "hold": {
+    "held": 0.42,
+    "max": 4.5,
+    "ok": true,
+    "msg": "moving framing held 0.42 s (≤ 4.5)"
+   }
+  },
+  {
+   "id": "31-push",
+   "size": "medium",
+   "t": 41.5,
+   "dur": 1.38,
+   "subject": "LEO_VR",
+   "faceShown": {
+    "angle": 18.3,
+    "inside": 1,
+    "ok": true
+   },
+   "nothingInFront": {
+    "front": 0,
+    "faceCover": 0.38,
+    "ok": false,
+    "msg": "the face is 38.0 % covered"
+   },
+   "standsOut": {
+    "subj": 0.308,
+    "ring": 0.17,
+    "diff": 0.137,
+    "ok": true,
+    "msg": ""
+   },
+   "moves": {
+    "motion": 0.0551,
+    "need": 0.021,
+    "ok": true,
+    "msg": ""
+   },
+   "hold": {
+    "held": 1.38,
+    "max": 4.5,
+    "ok": true,
+    "msg": "moving framing held 1.38 s (≤ 4.5)"
+   }
+  },
+  {
+   "id": "32-push",
+   "size": "medium",
+   "t": 42.88,
+   "dur": 1.08,
+   "subject": "prop_leoShip",
+   "nothingInFront": {
+    "front": 0,
+    "faceCover": 0,
+    "ok": true
+   },
+   "standsOut": {
+    "subj": 0.22,
+    "ring": 0.08,
+    "diff": 0.14,
+    "ok": true,
+    "msg": ""
+   },
+   "moves": {
+    "motion": 0.0064,
+    "need": 0.021,
+    "ok": false,
+    "msg": "motion 0.0064 < 0.0210"
+   },
+   "hold": {
+    "held": 1.08,
+    "max": 3,
+    "ok": true,
+    "msg": "static framing held 1.08 s (≤ 3)"
+   }
+  },
+  {
+   "id": "33-push",
+   "size": "wide",
+   "t": 43.96,
+   "dur": 1.67,
+   "subject": "prop_fingerS",
+   "nothingInFront": {
+    "front": 0,
+    "faceCover": 0,
+    "ok": true
+   },
+   "standsOut": {
+    "subj": 0.382,
+    "ring": 0.077,
+    "diff": 0.305,
+    "ok": true,
+    "msg": ""
+   },
+   "moves": {
+    "motion": 0.0227,
+    "need": 0.021,
+    "ok": true,
+    "msg": ""
+   },
+   "hold": {
+    "held": 1.67,
+    "max": 4.5,
+    "ok": true,
+    "msg": "moving framing held 1.67 s (≤ 4.5)"
+   }
+  },
+  {
+   "id": "34-push",
+   "size": "wide",
+   "t": 45.63,
+   "dur": 1.5,
+   "subject": null,
+   "moves": {
+    "motion": 0.0418,
+    "need": 0.021,
+    "ok": true,
+    "msg": ""
+   },
+   "hold": {
+    "held": 1.5,
+    "max": 4.5,
+    "ok": true,
+    "msg": "moving framing held 1.50 s (≤ 4.5)"
+   }
+  },
+  {
+   "id": "35-push",
+   "size": "wide",
+   "t": 47.13,
+   "dur": 1.38,
+   "subject": null,
+   "moves": {
+    "motion": 0.0617,
+    "need": 0.021,
+    "ok": true,
+    "msg": ""
+   },
+   "hold": {
+    "held": 1.38,
+    "max": 4.5,
+    "ok": true,
+    "msg": "moving framing held 1.38 s (≤ 4.5)"
+   }
+  },
+  {
+   "id": "36-push",
+   "size": "wide",
+   "t": 48.5,
+   "dur": 0.96,
+   "subject": "BOSS",
+   "faceShown": null,
+   "nothingInFront": {
+    "front": 0,
+    "faceCover": 0,
+    "ok": true
+   },
+   "standsOut": {
+    "subj": 0.151,
+    "ring": 0.682,
+    "diff": 0.532,
+    "ok": true,
+    "msg": ""
+   },
+   "moves": {
+    "motion": 0.0486,
+    "need": 0.021,
+    "ok": true,
+    "msg": ""
+   },
+   "hold": {
+    "held": 0.96,
+    "max": 4.5,
+    "ok": true,
+    "msg": "moving framing held 0.96 s (≤ 4.5)"
+   }
+  },
+  {
+   "id": "37-lowAuthority",
+   "size": "medium",
+   "t": 49.46,
+   "dur": 1,
+   "subject": "BOSS",
+   "faceShown": {
+    "angle": 59.1,
+    "inside": 0.985,
+    "ok": false,
+    "msg": "head top cut off in a medium"
+   },
+   "nothingInFront": {
+    "front": 0,
+    "faceCover": 0,
+    "ok": true
+   },
+   "standsOut": {
+    "subj": 0.185,
+    "ring": 0.649,
+    "diff": 0.464,
+    "ok": true,
+    "msg": ""
+   },
+   "moves": {
+    "motion": 0.0584,
+    "need": 0.021,
+    "ok": true,
+    "msg": ""
+   },
+   "hold": {
+    "held": 1,
+    "max": 4.5,
+    "ok": true,
+    "msg": "moving framing held 1.00 s (≤ 4.5)"
+   }
+  },
+  {
+   "id": "38-push",
+   "size": "insert",
+   "t": 50.46,
+   "dur": 1.96,
+   "subject": "prop_sword",
+   "nothingInFront": {
+    "front": 0,
+    "faceCover": 0,
+    "ok": true
+   },
+   "standsOut": {
+    "subj": 0.424,
+    "ring": 0.483,
+    "diff": 0.059,
+    "ok": false,
+    "msg": "subject vs surround luma 0.059 (≥ 0.12)"
+   },
+   "objectReads": {
+    "inside": 1,
+    "h": 0.454,
+    "ok": true
+   },
+   "moves": {
+    "motion": 0.0803,
+    "need": 0.021,
+    "ok": true,
+    "msg": ""
+   },
+   "hold": {
+    "held": 1.96,
+    "max": 4.5,
+    "ok": true,
+    "msg": "moving framing held 1.96 s (≤ 4.5)"
+   }
+  },
+  {
+   "id": "39-push",
+   "size": "wide",
+   "t": 52.42,
+   "dur": 1.54,
+   "subject": "BOSS",
+   "faceShown": null,
+   "nothingInFront": {
+    "front": 0,
+    "faceCover": 0,
+    "ok": true
+   },
+   "standsOut": {
+    "subj": 0.191,
+    "ring": 0.586,
+    "diff": 0.395,
+    "ok": true,
+    "msg": ""
+   },
+   "moves": {
+    "motion": 0.0384,
+    "need": 0.021,
+    "ok": true,
+    "msg": ""
+   },
+   "hold": {
+    "held": 1.54,
+    "max": 4.5,
+    "ok": true,
+    "msg": "moving framing held 1.54 s (≤ 4.5)"
+   }
+  },
+  {
+   "id": "40-push",
+   "size": "wide",
+   "t": 53.96,
+   "dur": 1.46,
+   "subject": "BOSS",
+   "faceShown": null,
+   "nothingInFront": {
+    "front": 0,
+    "faceCover": 0.043,
+    "ok": false,
+    "msg": "the face is 4.3 % covered"
+   },
+   "standsOut": {
+    "subj": 0.215,
+    "ring": 0.444,
+    "diff": 0.229,
+    "ok": true,
+    "msg": ""
+   },
+   "moves": {
+    "motion": 0.0123,
+    "need": 0.021,
+    "ok": false,
+    "msg": "motion 0.0123 < 0.0210"
+   },
+   "hold": {
+    "held": 1.46,
+    "max": 3,
+    "ok": true,
+    "msg": "static framing held 1.46 s (≤ 3)"
+   }
+  },
+  {
+   "id": "41-push",
+   "size": "close",
+   "t": 55.42,
+   "dur": 1.33,
+   "subject": "BOSS",
+   "faceShown": {
+    "angle": 16,
+    "inside": 1,
+    "ok": true
+   },
+   "nothingInFront": {
+    "front": 0,
+    "faceCover": 0,
+    "ok": true
+   },
+   "standsOut": {
+    "subj": 0.195,
+    "ring": 0.407,
+    "diff": 0.212,
+    "ok": true,
+    "msg": ""
+   },
+   "moves": {
+    "motion": 0.0274,
+    "need": 0.021,
+    "ok": true,
+    "msg": ""
+   },
+   "hold": {
+    "held": 1.33,
+    "max": 4.5,
+    "ok": true,
+    "msg": "moving framing held 1.33 s (≤ 4.5)"
+   }
+  },
+  {
+   "id": "42-push",
+   "size": "medium",
+   "t": 56.75,
+   "dur": 1.5,
+   "subject": "LEO",
+   "faceShown": {
+    "angle": 30.5,
+    "inside": 1,
+    "ok": true
+   },
+   "nothingInFront": {
+    "front": 0,
+    "faceCover": 0.013,
+    "ok": true
+   },
+   "standsOut": {
+    "subj": 0.569,
+    "ring": 0.438,
+    "diff": 0.131,
+    "ok": true,
+    "msg": ""
+   },
+   "moves": {
+    "motion": 0.0454,
+    "need": 0.021,
+    "ok": true,
+    "msg": ""
+   },
+   "hold": {
+    "held": 1.5,
+    "max": 4.5,
+    "ok": true,
+    "msg": "moving framing held 1.50 s (≤ 4.5)"
+   }
+  },
+  {
+   "id": "43-push",
+   "size": "close",
+   "t": 58.25,
+   "dur": 2.25,
+   "subject": "LEO",
+   "faceShown": {
+    "angle": 20.5,
+    "inside": 1,
+    "ok": true
+   },
+   "nothingInFront": {
+    "front": 0.135,
+    "faceCover": 0,
+    "ok": false,
+    "msg": "objects in front cover 13.5 % (≤ 10)"
+   },
+   "standsOut": {
+    "subj": 0.609,
+    "ring": 0.484,
+    "diff": 0.124,
+    "ok": true,
+    "msg": ""
+   },
+   "moves": {
+    "motion": 0.0617,
+    "need": 0.021,
+    "ok": true,
+    "msg": ""
+   },
+   "hold": {
+    "held": 2.25,
+    "max": 4.5,
+    "ok": true,
+    "msg": "moving framing held 2.25 s (≤ 4.5)"
+   }
+  },
+  {
+   "id": "44-push",
+   "size": "medium",
+   "t": 60.5,
+   "dur": 1.17,
+   "subject": "NOVA",
+   "faceShown": {
+    "angle": 34.3,
+    "inside": 1,
+    "ok": true
+   },
+   "nothingInFront": {
+    "front": 0,
+    "faceCover": 0,
+    "ok": true
+   },
+   "standsOut": {
+    "subj": 0.55,
+    "ring": 0.366,
+    "diff": 0.184,
+    "ok": true,
+    "msg": ""
+   },
+   "moves": {
+    "motion": 0.0311,
+    "need": 0.021,
+    "ok": true,
+    "msg": ""
+   },
+   "hold": {
+    "held": 1.17,
+    "max": 4.5,
+    "ok": true,
+    "msg": "moving framing held 1.17 s (≤ 4.5)"
+   }
+  },
+  {
+   "id": "45-tiltUp",
+   "size": "medium",
+   "t": 61.67,
+   "dur": 1.33,
+   "subject": "NOVA",
+   "faceShown": {
+    "angle": 45.7,
+    "inside": 1,
+    "ok": true
+   },
+   "nothingInFront": {
+    "front": 0,
+    "faceCover": 0.296,
+    "ok": false,
+    "msg": "the face is 29.6 % covered"
+   },
+   "standsOut": {
+    "subj": 0.563,
+    "ring": 0.345,
+    "diff": 0.218,
+    "ok": true,
+    "msg": ""
+   },
+   "moves": {
+    "motion": 0.1232,
+    "need": 0.021,
+    "ok": true,
+    "msg": ""
+   },
+   "hold": {
+    "held": 1.33,
+    "max": 4.5,
+    "ok": true,
+    "msg": "moving framing held 1.33 s (≤ 4.5)"
+   }
+  },
+  {
+   "id": "46-push",
+   "size": "insert",
+   "t": 63,
+   "dur": 2,
+   "subject": "prop_grass",
+   "nothingInFront": {
+    "front": 0.229,
+    "faceCover": 0,
+    "ok": false,
+    "msg": "objects in front cover 22.9 % (≤ 10)"
+   },
+   "standsOut": {
+    "subj": 0.591,
+    "ring": 0.326,
+    "diff": 0.265,
+    "ok": true,
+    "msg": ""
+   },
+   "objectReads": {
+    "inside": 1,
+    "h": 0.407,
+    "ok": true
+   },
+   "moves": {
+    "motion": 0.0961,
+    "need": 0.021,
+    "ok": true,
+    "msg": ""
+   },
+   "hold": {
+    "held": 2,
+    "max": 4.5,
+    "ok": true,
+    "msg": "moving framing held 2.00 s (≤ 4.5)"
+   }
+  },
+  {
+   "id": "47-push",
+   "size": "insert",
+   "t": 65,
+   "dur": 2,
+   "subject": "prop_grass",
+   "nothingInFront": {
+    "front": 0.023,
+    "faceCover": 0,
+    "ok": true
+   },
+   "standsOut": {
+    "subj": 0.602,
+    "ring": 0.308,
+    "diff": 0.294,
+    "ok": true,
+    "msg": ""
+   },
+   "objectReads": {
+    "inside": 1,
+    "h": 0.514,
+    "ok": true
+   },
+   "moves": {
+    "motion": 0.0435,
+    "need": 0.021,
+    "ok": true,
+    "msg": ""
+   },
+   "hold": {
+    "held": 2,
+    "max": 4.5,
+    "ok": true,
+    "msg": "moving framing held 2.00 s (≤ 4.5)"
+   }
+  },
+  {
+   "id": "48-crane",
+   "size": "wide",
+   "t": 67,
+   "dur": 1.67,
+   "subject": "prop_grass",
+   "nothingInFront": {
+    "front": 0,
+    "faceCover": 0,
+    "ok": true
+   },
+   "standsOut": {
+    "subj": 0.57,
+    "ring": 0.279,
+    "diff": 0.291,
+    "ok": true,
+    "msg": ""
+   },
+   "moves": {
+    "motion": 0.0933,
+    "need": 0.021,
+    "ok": true,
+    "msg": ""
+   },
+   "hold": {
+    "held": 1.67,
+    "max": 4.5,
+    "ok": true,
+    "msg": "moving framing held 1.67 s (≤ 4.5)"
+   }
+  },
+  {
+   "id": "49-push",
+   "size": "insert",
+   "t": 68.67,
+   "dur": 1.71,
+   "subject": "NOVA_can",
+   "nothingInFront": {
+    "front": 0,
+    "faceCover": 0,
+    "ok": true
+   },
+   "standsOut": {
+    "subj": 0.433,
+    "ring": 0.555,
+    "diff": 0.122,
+    "ok": true,
+    "msg": ""
+   },
+   "objectReads": {
+    "inside": 1,
+    "h": 0.417,
+    "ok": true
+   },
+   "moves": {
+    "motion": 0.0244,
+    "need": 0.021,
+    "ok": true,
+    "msg": ""
+   },
+   "hold": {
+    "held": 1.71,
+    "max": 4.5,
+    "ok": true,
+    "msg": "moving framing held 1.71 s (≤ 4.5)"
+   }
+  },
+  {
+   "id": "50-push",
+   "size": "close",
+   "t": 70.38,
+   "dur": 1,
+   "subject": "LEO",
+   "faceShown": {
+    "angle": 18.7,
+    "inside": 1,
+    "ok": true
+   },
+   "nothingInFront": {
+    "front": 0.266,
+    "faceCover": 0.007,
+    "ok": false,
+    "msg": "objects in front cover 26.6 % (≤ 10)"
+   },
+   "standsOut": {
+    "subj": 0.586,
+    "ring": 0.435,
+    "diff": 0.15,
+    "ok": true,
+    "msg": ""
+   },
+   "moves": {
+    "motion": 0.0466,
+    "need": 0.021,
+    "ok": true,
+    "msg": ""
+   },
+   "hold": {
+    "held": 1,
+    "max": 4.5,
+    "ok": true,
+    "msg": "moving framing held 1.00 s (≤ 4.5)"
+   }
+  },
+  {
+   "id": "51-push",
+   "size": "medium",
+   "t": 71.38,
+   "dur": 2.29,
+   "subject": "NOVA",
+   "faceShown": {
+    "angle": 45.4,
+    "inside": 1,
+    "ok": true
+   },
+   "nothingInFront": {
+    "front": 0,
+    "faceCover": 0.015,
+    "ok": true
+   },
+   "standsOut": {
+    "subj": 0.578,
+    "ring": 0.356,
+    "diff": 0.222,
+    "ok": true,
+    "msg": ""
+   },
+   "moves": {
+    "motion": 0.0349,
+    "need": 0.021,
+    "ok": true,
+    "msg": ""
+   },
+   "hold": {
+    "held": 2.29,
+    "max": 4.5,
+    "ok": true,
+    "msg": "moving framing held 2.29 s (≤ 4.5)"
+   }
+  },
+  {
+   "id": "52-push",
+   "size": "wide",
+   "t": 73.67,
+   "dur": 1.92,
+   "subject": "NOVA",
+   "faceShown": null,
+   "nothingInFront": {
+    "front": 0.153,
+    "faceCover": 0.444,
+    "ok": false,
+    "msg": "objects in front cover 15.3 % (≤ 10)"
+   },
+   "standsOut": {
+    "subj": 0.599,
+    "ring": 0.342,
+    "diff": 0.257,
+    "ok": true,
+    "msg": ""
+   },
+   "moves": {
+    "motion": 0.0256,
+    "need": 0.021,
+    "ok": true,
+    "msg": ""
+   },
+   "hold": {
+    "held": 1.92,
+    "max": 4.5,
+    "ok": true,
+    "msg": "moving framing held 1.92 s (≤ 4.5)"
+   }
+  },
+  {
+   "id": "53-push",
+   "size": "medium",
+   "t": 75.58,
+   "dur": 1.29,
+   "subject": "LEO",
+   "faceShown": {
+    "angle": 90.2,
+    "inside": 1,
+    "ok": false,
+    "msg": "face turned 90° from the camera (≤ 70)"
+   },
+   "nothingInFront": {
+    "front": 0,
+    "faceCover": 0.087,
+    "ok": false,
+    "msg": "the face is 8.7 % covered"
+   },
+   "standsOut": {
+    "subj": 0.424,
+    "ring": 0.342,
+    "diff": 0.083,
+    "ok": false,
+    "msg": "subject vs surround luma 0.083 (≥ 0.12)"
+   },
+   "moves": {
+    "motion": 0.0363,
+    "need": 0.021,
+    "ok": true,
+    "msg": ""
+   },
+   "hold": {
+    "held": 1.29,
+    "max": 4.5,
+    "ok": true,
+    "msg": "moving framing held 1.29 s (≤ 4.5)"
+   }
+  },
+  {
+   "id": "54-push",
+   "size": "insert",
+   "t": 76.88,
+   "dur": 0.88,
+   "subject": "prop_grass",
+   "nothingInFront": {
+    "front": 0,
+    "faceCover": 0,
+    "ok": true
+   },
+   "standsOut": {
+    "subj": 0.597,
+    "ring": 0.24,
+    "diff": 0.357,
+    "ok": true,
+    "msg": ""
+   },
+   "objectReads": {
+    "inside": 1,
+    "h": 0.508,
+    "ok": true
+   },
+   "moves": {
+    "motion": 0.0443,
+    "need": 0.021,
+    "ok": true,
+    "msg": ""
+   },
+   "hold": {
+    "held": 0.88,
+    "max": 4.5,
+    "ok": true,
+    "msg": "moving framing held 0.88 s (≤ 4.5)"
+   }
+  },
+  {
+   "id": "55-push",
+   "size": "close",
+   "t": 77.75,
+   "dur": 1.96,
+   "subject": "LEO",
+   "faceShown": {
+    "angle": 61.1,
+    "inside": 1,
+    "ok": true
+   },
+   "nothingInFront": {
+    "front": 0,
+    "faceCover": 0.045,
+    "ok": false,
+    "msg": "the face is 4.5 % covered"
+   },
+   "standsOut": {
+    "subj": 0.627,
+    "ring": 0.542,
+    "diff": 0.085,
+    "ok": false,
+    "msg": "subject vs surround luma 0.085 (≥ 0.12)"
+   },
+   "moves": {
+    "motion": 0.0643,
+    "need": 0.021,
+    "ok": true,
+    "msg": ""
+   },
+   "hold": {
+    "held": 1.96,
+    "max": 4.5,
+    "ok": true,
+    "msg": "moving framing held 1.96 s (≤ 4.5)"
+   }
+  },
+  {
+   "id": "56-push",
+   "size": "wide",
+   "t": 79.71,
+   "dur": 1.83,
+   "subject": "LEO",
+   "faceShown": null,
+   "nothingInFront": {
+    "front": 0,
+    "faceCover": 0.058,
+    "ok": false,
+    "msg": "the face is 5.8 % covered"
+   },
+   "standsOut": {
+    "subj": 0.611,
+    "ring": 0.497,
+    "diff": 0.114,
+    "ok": false,
+    "msg": "subject vs surround luma 0.114 (≥ 0.12)"
+   },
+   "moves": {
+    "motion": 0.0298,
+    "need": 0.021,
+    "ok": true,
+    "msg": ""
+   },
+   "hold": {
+    "held": 1.83,
+    "max": 4.5,
+    "ok": true,
+    "msg": "moving framing held 1.83 s (≤ 4.5)"
+   }
+  },
+  {
+   "id": "57a-push",
+   "size": "close",
+   "t": 81.54,
+   "dur": 0.29,
+   "subject": "TOWN_B",
+   "faceShown": {
+    "angle": 5.1,
+    "inside": 1,
+    "ok": true
+   },
+   "nothingInFront": {
+    "front": 0,
+    "faceCover": 0.092,
+    "ok": false,
+    "msg": "the face is 9.2 % covered"
+   },
+   "standsOut": {
+    "subj": 0.519,
+    "ring": 0.551,
+    "diff": 0.032,
+    "ok": false,
+    "msg": "subject vs surround luma 0.032 (≥ 0.12)"
+   },
+   "moves": {
+    "motion": 0.0336,
+    "need": 0.021,
+    "ok": true,
+    "msg": ""
+   },
+   "hold": {
+    "held": 0.29,
+    "max": 4.5,
+    "ok": true,
+    "msg": "moving framing held 0.29 s (≤ 4.5)"
+   }
+  },
+  {
+   "id": "57b-push",
+   "size": "close",
+   "t": 81.83,
+   "dur": 0.25,
+   "subject": "TOWN_C",
+   "faceShown": {
+    "angle": 5.1,
+    "inside": 1,
+    "ok": true
+   },
+   "nothingInFront": {
+    "front": 0,
+    "faceCover": 0,
+    "ok": true
+   },
+   "standsOut": {
+    "subj": 0.697,
+    "ring": 0.588,
+    "diff": 0.109,
+    "ok": false,
+    "msg": "subject vs surround luma 0.109 (≥ 0.12)"
+   },
+   "moves": {
+    "motion": 0.0472,
+    "need": 0.021,
+    "ok": true,
+    "msg": ""
+   },
+   "hold": {
+    "held": 0.25,
+    "max": 4.5,
+    "ok": true,
+    "msg": "moving framing held 0.25 s (≤ 4.5)"
+   }
+  },
+  {
+   "id": "57c-push",
+   "size": "close",
+   "t": 82.08,
+   "dur": 0.58,
+   "subject": "TOWN_A",
+   "faceShown": {
+    "angle": 1.1,
+    "inside": 1,
+    "ok": true
+   },
+   "nothingInFront": {
+    "front": 0,
+    "faceCover": 0,
+    "ok": true
+   },
+   "standsOut": {
+    "subj": 0.639,
+    "ring": 0.614,
+    "diff": 0.025,
+    "ok": false,
+    "msg": "subject vs surround luma 0.025 (≥ 0.12)"
+   },
+   "moves": {
+    "motion": 0.0431,
+    "need": 0.021,
+    "ok": true,
+    "msg": ""
+   },
+   "hold": {
+    "held": 0.58,
+    "max": 4.5,
+    "ok": true,
+    "msg": "moving framing held 0.58 s (≤ 4.5)"
+   }
+  },
+  {
+   "id": "58-crane",
+   "size": "wide",
+   "t": 82.67,
+   "dur": 3,
+   "subject": null,
+   "moves": {
+    "motion": 0.1675,
+    "need": 0.021,
+    "ok": true,
+    "msg": ""
+   },
+   "hold": {
+    "held": 3,
+    "max": 4.5,
+    "ok": true,
+    "msg": "moving framing held 3.00 s (≤ 4.5)"
+   }
+  },
+  {
+   "id": "59-push",
+   "size": "insert",
+   "t": 85.67,
+   "dur": 0.71,
+   "subject": "prop_hsDirt",
+   "nothingInFront": {
+    "front": 0,
+    "faceCover": 0,
+    "ok": true
+   },
+   "standsOut": {
+    "subj": 0.134,
+    "ring": 0.367,
+    "diff": 0.233,
+    "ok": true,
+    "msg": ""
+   },
+   "objectReads": {
+    "inside": 0.994,
+    "h": 0.522,
+    "ok": true
+   },
+   "moves": {
+    "motion": 0.0353,
+    "need": 0.021,
+    "ok": true,
+    "msg": ""
+   },
+   "hold": {
+    "held": 0.71,
+    "max": 4.5,
+    "ok": true,
+    "msg": "moving framing held 0.71 s (≤ 4.5)"
+   }
+  },
+  {
+   "id": "60-push",
+   "size": "close",
+   "t": 86.38,
+   "dur": 2.25,
+   "subject": "prop_hsDirt",
+   "nothingInFront": {
+    "front": 0.276,
+    "faceCover": 0,
+    "ok": false,
+    "msg": "objects in front cover 27.6 % (≤ 10)"
+   },
+   "standsOut": {
+    "subj": 0.196,
+    "ring": 0.441,
+    "diff": 0.245,
+    "ok": true,
+    "msg": ""
+   },
+   "moves": {
+    "motion": 0.0525,
+    "need": 0.021,
+    "ok": true,
+    "msg": ""
+   },
+   "hold": {
+    "held": 2.25,
+    "max": 4.5,
+    "ok": true,
+    "msg": "moving framing held 2.25 s (≤ 4.5)"
+   }
+  },
+  {
+   "id": "61-push",
+   "size": "close",
+   "t": 88.63,
+   "dur": 1.46,
+   "subject": "prop_hsDirt",
+   "nothingInFront": {
+    "front": 0.258,
+    "faceCover": 0,
+    "ok": false,
+    "msg": "objects in front cover 25.8 % (≤ 10)"
+   },
+   "standsOut": {
+    "subj": 0.187,
+    "ring": 0.41,
+    "diff": 0.223,
+    "ok": true,
+    "msg": ""
+   },
+   "moves": {
+    "motion": 0.0344,
+    "need": 0.021,
+    "ok": true,
+    "msg": ""
+   },
+   "hold": {
+    "held": 1.04,
+    "max": 4.5,
+    "ok": true,
+    "msg": "moving framing held 1.04 s (≤ 4.5)"
+   }
+  }
+ ],
+ "errors": [
+  "01-push: standsOut FAIL subject vs surround luma 0.038 (≥ 0.12)",
+  "03-lowWide: nothingInFront FAIL objects in front cover 31.9 % (≤ 10)",
+  "05-push: standsOut FAIL subject vs surround luma 0.017 (≥ 0.12)",
+  "05-push: objectReads FAIL 79 % of the object in frame (≥ 90)",
+  "06-push: standsOut FAIL subject vs surround luma 0.032 (≥ 0.12)",
+  "09-push: standsOut FAIL subject vs surround luma 0.088 (≥ 0.12)",
+  "09-push: objectReads FAIL 87 % of the object in frame (≥ 90)",
+  "11-push: standsOut FAIL subject vs surround luma 0.050 (≥ 0.12)",
+  "13-snap: standsOut FAIL subject vs surround luma 0.065 (≥ 0.12)",
+  "13-snap: moves FAIL motion 0.0000 < 0.0210",
+  "14-crashZoom: standsOut FAIL subject vs surround luma 0.112 (≥ 0.12)",
+  "16-heroLow: standsOut FAIL subject vs surround luma 0.029 (≥ 0.12)",
+  "18-track: nothingInFront FAIL the face is 62.5 % covered",
+  "18-track: standsOut FAIL subject vs surround luma 0.051 (≥ 0.12)",
+  "20-push: standsOut FAIL subject vs surround luma 0.078 (≥ 0.12)",
+  "21-crane: nothingInFront FAIL objects in front cover 24.4 % (≤ 10)",
+  "22a-push: standsOut FAIL subject vs surround luma 0.052 (≥ 0.12)",
+  "22c-push: standsOut FAIL subject vs surround luma 0.020 (≥ 0.12)",
+  "26-push: standsOut FAIL subject vs surround luma 0.081 (≥ 0.12)",
+  "27-push: nothingInFront FAIL the face is 5.2 % covered",
+  "27-push: standsOut FAIL subject vs surround luma 0.072 (≥ 0.12)",
+  "28-push: nothingInFront FAIL the face is 7.2 % covered",
+  "30-push: standsOut FAIL subject vs surround luma 0.019 (≥ 0.12)",
+  "31-push: nothingInFront FAIL the face is 38.0 % covered",
+  "32-push: moves FAIL motion 0.0064 < 0.0210",
+  "37-lowAuthority: faceShown FAIL head top cut off in a medium",
+  "38-push: standsOut FAIL subject vs surround luma 0.059 (≥ 0.12)",
+  "40-push: nothingInFront FAIL the face is 4.3 % covered",
+  "40-push: moves FAIL motion 0.0123 < 0.0210",
+  "43-push: nothingInFront FAIL objects in front cover 13.5 % (≤ 10)",
+  "45-tiltUp: nothingInFront FAIL the face is 29.6 % covered",
+  "46-push: nothingInFront FAIL objects in front cover 22.9 % (≤ 10)",
+  "50-push: nothingInFront FAIL objects in front cover 26.6 % (≤ 10)",
+  "52-push: nothingInFront FAIL objects in front cover 15.3 % (≤ 10)",
+  "53-push: faceShown FAIL face turned 90° from the camera (≤ 70)",
+  "53-push: nothingInFront FAIL the face is 8.7 % covered",
+  "53-push: standsOut FAIL subject vs surround luma 0.083 (≥ 0.12)",
+  "55-push: nothingInFront FAIL the face is 4.5 % covered",
+  "55-push: standsOut FAIL subject vs surround luma 0.085 (≥ 0.12)",
+  "56-push: nothingInFront FAIL the face is 5.8 % covered",
+  "56-push: standsOut FAIL subject vs surround luma 0.114 (≥ 0.12)",
+  "57a-push: nothingInFront FAIL the face is 9.2 % covered",
+  "57a-push: standsOut FAIL subject vs surround luma 0.032 (≥ 0.12)",
+  "57b-push: standsOut FAIL subject vs surround luma 0.109 (≥ 0.12)",
+  "57c-push: standsOut FAIL subject vs surround luma 0.025 (≥ 0.12)",
+  "60-push: nothingInFront FAIL objects in front cover 27.6 % (≤ 10)",
+  "61-push: nothingInFront FAIL objects in front cover 25.8 % (≤ 10)"
+ ]
+}
