@@ -119,6 +119,10 @@ const POSES = {
   // taped up: legs together, arms pinned; a waddle — hops side to side, the body rolling over each foot (period 0.6 s)
   waddle(t) { const w = 2 * PI * t / .6, r = Math.sin(w), hop = Math.abs(Math.sin(w)); return make({leftHip: [.08 * r, 0, -.04], rightHip: [-.08 * r, 0, .04], leftShoulder: [0, 0, -.03], rightShoulder: [0, 0, .03], head: [.04, 0, -.1 * r]}, {roll: .15 * r, dy: .16 * hop, dx: .12 * r, lean: -.03}); },
   slump: () => make({head: [.48, 0, 0], rightShoulder: [.15, 0, .1], leftShoulder: [.15, 0, -.1]}, {lean: .13, dy: -.06}),
+  // Touch Grass (opt-in): zombie — both arms straight forward (85°), a slight forward lean, a slow shuffle sway on twos.
+  // kneel — the left knee down (left thigh angled back to the ground), the right thigh forward, torso upright, the right arm reaching forward-down.
+  zombie(t) { const w = .05 * Math.sin(2 * PI * twos(t) / 1.4); return make({rightShoulder: [-85 * PI / 180 + w, 0, .04], leftShoulder: [-85 * PI / 180 - w, 0, -.04], head: [.12, 0, .1 * w / .05 * .6], leftHip: [-.18 * w / .05, 0, 0], rightHip: [.18 * w / .05, 0, 0]}, {lean: .14, roll: .6 * w}); },
+  kneel: () => make({leftHip: [1.0, 0, -.04], rightHip: [-1.3, 0, .06], rightShoulder: [-.85, 0, .06], leftShoulder: [-.12, 0, -.1], head: [.22, 0, 0]}, {dy: -.9}),
 };
 export const SNAPPY = ['shrug', 'facepalm', 'armsCrossed', 'heroPose', 'fistPump', 'pointUp', 'thinker', 'gaspHands', 'doubleTake', 'flail', 'slump'];
 export const SNAP_FADE_FRAMES = 2;   // a key with {snap: true} lands in 2 frames (at the episode's fps)

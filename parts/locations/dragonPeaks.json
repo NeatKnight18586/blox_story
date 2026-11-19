@@ -1,0 +1,300 @@
+{
+ "name": "dragonPeaks",
+ "note": "Touch Grass VR 2: sunset peaks (stepped block tiers, data-only: the loader has no landform), one flat plateau (r 26, top y 0) for 100 friends.",
+ "groundY": 0,
+ "backdrop": {
+  "type": "hdri",
+  "hdri": "venice_sunset_1k.hdr",
+  "rotation": 0
+ },
+ "env": {
+  "intensity": 1.0
+ },
+ "exposure": 1.0,
+ "toneMapping": "Neutral",
+ "fog": {
+  "color": "auto",
+  "k": 0.8,
+  "near": 80,
+  "far": 520
+ },
+ "sun": {
+  "intensity": 2.6,
+  "color": "#FFB070",
+  "minEl": 14,
+  "shadow": {
+   "size": 1024
+  },
+  "shadowOpacity": 0.5,
+  "hemi": {
+   "sky": "#FFC8A0",
+   "ground": "#5A4A6A",
+   "i": 0.4
+  }
+ },
+ "bake": {
+  "cell": 2.0,
+  "aoDist": 6,
+  "aoMin": 0.5,
+  "shadow": 0.45,
+  "seg": 8
+ },
+ "materials": {
+  "rock": {
+   "procedural": "rock",
+   "color": "#9A7A6A"
+  },
+  "rockLt": {
+   "procedural": "rock",
+   "color": "#B8968A"
+  },
+  "snow": {
+   "procedural": "snow",
+   "color": "#FFF4EC"
+  },
+  "grass": {
+   "procedural": "grass",
+   "color": "#7BC85A"
+  },
+  "plateau": {
+   "procedural": "rock",
+   "color": "#A88A78"
+  }
+ },
+ "modules": {
+  "peak": {
+   "parts": [
+    {
+     "cyl": [
+      30,
+      24
+     ],
+     "at": [
+      0.0,
+      12.0,
+      -0.0
+     ],
+     "mat": "rock"
+    },
+    {
+     "cyl": [
+      24,
+      22
+     ],
+     "at": [
+      1.5,
+      35.0,
+      -1.2
+     ],
+     "mat": "rock"
+    },
+    {
+     "cyl": [
+      18,
+      20
+     ],
+     "at": [
+      0.0,
+      56.0,
+      -2.4
+     ],
+     "mat": "rockLt"
+    },
+    {
+     "cyl": [
+      12.5,
+      18
+     ],
+     "at": [
+      1.5,
+      75.0,
+      -0.0
+     ],
+     "mat": "rockLt"
+    },
+    {
+     "cyl": [
+      8,
+      14
+     ],
+     "at": [
+      0.0,
+      91.0,
+      -1.2
+     ],
+     "mat": "snow"
+    },
+    {
+     "cyl": [
+      4.2,
+      10
+     ],
+     "at": [
+      1.5,
+      103.0,
+      -2.4
+     ],
+     "mat": "snow"
+    }
+   ]
+  },
+  "valley": {
+   "parts": [
+    {
+     "plane": [
+      1400,
+      1400
+     ],
+     "at": [
+      0,
+      0,
+      0
+     ],
+     "mat": "grass"
+    }
+   ]
+  },
+  "plateau": {
+   "parts": [
+    {
+     "cyl": [
+      26,
+      40
+     ],
+     "at": [
+      0,
+      -20.2,
+      0
+     ],
+     "mat": "plateau"
+    },
+    {
+     "cyl": [
+      25.6,
+      0.4
+     ],
+     "at": [
+      0,
+      -0.2,
+      0
+     ],
+     "mat": "grass"
+    }
+   ]
+  }
+ },
+ "layout": [
+  {
+   "module": "valley",
+   "at": [
+    0,
+    -40,
+    0
+   ]
+  },
+  {
+   "module": "plateau",
+   "at": [
+    0,
+    0,
+    0
+   ]
+  },
+  {
+   "module": "peak",
+   "at": [
+    -160,
+    -40,
+    -300
+   ],
+   "rotY": 0,
+   "scale": [
+    1.6,
+    2.204359507292975,
+    1.6
+   ]
+  },
+  {
+   "module": "peak",
+   "at": [
+    150,
+    -40,
+    -340
+   ],
+   "rotY": 37,
+   "scale": [
+    2.0,
+    2.183745940407971,
+    2.0
+   ]
+  },
+  {
+   "module": "peak",
+   "at": [
+    -10,
+    -40,
+    -430
+   ],
+   "rotY": 74,
+   "scale": [
+    2.8,
+    3.836119932332076,
+    2.8
+   ]
+  },
+  {
+   "module": "peak",
+   "at": [
+    290,
+    -40,
+    -250
+   ],
+   "rotY": 111,
+   "scale": [
+    1.4,
+    1.8226332178368465,
+    1.4
+   ]
+  },
+  {
+   "module": "peak",
+   "at": [
+    -300,
+    -40,
+    -220
+   ],
+   "rotY": 148,
+   "scale": [
+    1.5,
+    2.0421016971888095,
+    1.5
+   ]
+  },
+  {
+   "module": "peak",
+   "at": [
+    60,
+    -40,
+    -260
+   ],
+   "rotY": 185,
+   "scale": [
+    1.1,
+    1.4024477433305584,
+    1.1
+   ]
+  }
+ ],
+ "props": [
+  {
+   "prop": "swordStone",
+   "at": [
+    0,
+    0,
+    -14
+   ],
+   "rotY": 0,
+   "p": {}
+  }
+ ]
+}

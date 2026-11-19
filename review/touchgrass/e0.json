@@ -1,0 +1,184 @@
+{
+ "generated": "2026-11-19",
+ "headsetGap": {
+  "min": 0.02,
+  "target": ">= 0.02",
+  "pass": true,
+  "per": {
+   "LEO": 0.02,
+   "TOWN_1": 0.02,
+   "TOWN_2": 0.02,
+   "TOWN_3": 0.02,
+   "TOWN_4": 0.02,
+   "TOWN_5": 0.02,
+   "TOWN_6": 0.02
+  }
+ },
+ "propTriangles": {
+  "headset": 1500,
+  "headset off": 1500,
+  "visor: off": 2,
+  "visor: ACHIEVEMENT": 2,
+  "visor: TOUCHED": 2,
+  "headset on LEO + screen": 7718,
+  "giantFinger poke": 4248,
+  "giantFinger flick": 4248,
+  "giantFinger flick release": 4248,
+  "wateringCan": 736,
+  "grassBlade": 244,
+  "spaceship": 3376,
+  "sunSphere": 2800,
+  "swordStone": 300,
+  "crate": 228,
+  "deadTree": 300,
+  "birdhouse": 216,
+  "powerLine": 808,
+  "porch": 360,
+  "shack": 336
+ },
+ "worlds": {
+  "dustTown": {
+   "triangles": 99548,
+   "calls": 96,
+   "sPerFrame1080": 1.555,
+   "gate": "<= 0.69 s (location + props, wide camera)",
+   "pass": false,
+   "fallbacks": [],
+   "prims": 8,
+   "bakeMs": 62,
+   "withStillCast": {
+    "triangles": 332480,
+    "calls": 1564,
+    "sPerFrame1080": 2.694,
+    "note": "info: the sheet still with its cast placed (E1 crowd instancing not applied)"
+   }
+  },
+  "zombieCity": {
+   "triangles": 57182,
+   "calls": 275,
+   "sPerFrame1080": 1.921,
+   "gate": "<= 0.69 s (location + props, wide camera)",
+   "pass": false,
+   "fallbacks": [],
+   "prims": 392,
+   "bakeMs": 282,
+   "withStillCast": {
+    "triangles": 107464,
+    "calls": 626,
+    "sPerFrame1080": 2.494,
+    "note": "info: the sheet still with its cast placed (E1 crowd instancing not applied)"
+   }
+  },
+  "dragonPeaks": {
+   "triangles": 69360,
+   "calls": 29,
+   "sPerFrame1080": 1.761,
+   "gate": "<= 0.69 s (location + props, wide camera)",
+   "pass": false,
+   "fallbacks": [],
+   "prims": 39,
+   "bakeMs": 213,
+   "withStillCast": {
+    "triangles": 228606,
+    "calls": 1544,
+    "sPerFrame1080": 2.495,
+    "note": "info: the sheet still with its cast placed (E1 crowd instancing not applied)"
+   }
+  },
+  "space": {
+   "triangles": 15690,
+   "calls": 35,
+   "sPerFrame1080": 0.812,
+   "gate": "<= 0.69 s (location + props, wide camera)",
+   "pass": false,
+   "fallbacks": [],
+   "prims": 150,
+   "bakeMs": 0,
+   "withStillCast": {
+    "triangles": 23584,
+    "calls": 109,
+    "sPerFrame1080": 0.773,
+    "note": "info: the sheet still with its cast placed (E1 crowd instancing not applied)"
+   }
+  }
+ },
+ "stills": {
+  "dustTown.dustGray.wide": {
+   "pureBlackPct": 0,
+   "nonNovaMeanSat": 0.1067,
+   "nonNovaMeanSatStrict": 0.1095,
+   "novaCoatSat": 0.8814,
+   "novaPx": 8835,
+   "coatPx": 6403
+  },
+  "dustTown.dustGray.lowWide": {
+   "pureBlackPct": 0,
+   "nonNovaMeanSat": 0.1026,
+   "nonNovaMeanSatStrict": 0.108,
+   "novaCoatSat": 0.8777,
+   "novaPx": 17909,
+   "coatPx": 13338
+  },
+  "dustTown.dustGold.wide": {
+   "pureBlackPct": 0,
+   "nonNovaMeanSat": 0.2008,
+   "nonNovaMeanSatStrict": 0.2032,
+   "novaCoatSat": 0.9562,
+   "novaPx": 8835,
+   "coatPx": 6403
+  },
+  "dustTown.dustGold.lowWide": {
+   "pureBlackPct": 0.002,
+   "nonNovaMeanSat": 0.1692,
+   "nonNovaMeanSatStrict": 0.1741,
+   "novaCoatSat": 0.9507,
+   "novaPx": 17909,
+   "coatPx": 13338
+  },
+  "zombieCity.wide": {
+   "pureBlackPct": 0.021
+  },
+  "zombieCity.lowWide": {
+   "pureBlackPct": 0.233
+  },
+  "dragonPeaks.wide": {
+   "pureBlackPct": 0
+  },
+  "dragonPeaks.lowWide": {
+   "pureBlackPct": 0.001
+  },
+  "space.wide": {
+   "pureBlackPct": 0.076
+  },
+  "space.lowWide": {
+   "pureBlackPct": 0.135
+  }
+ },
+ "dustTownNonNovaSat": {
+  "max": 0.2008,
+  "target": "<= 0.15",
+  "pass": false,
+  "per": {
+   "dustTown.dustGray.wide": 0.1067,
+   "dustTown.dustGray.lowWide": 0.1026,
+   "dustTown.dustGold.wide": 0.2008,
+   "dustTown.dustGold.lowWide": 0.1692
+  }
+ },
+ "novaCoatSat": {
+  "min": 0.8777,
+  "target": ">= 0.5",
+  "pass": true,
+  "per": {
+   "dustTown.dustGray.wide": 0.8814,
+   "dustTown.dustGray.lowWide": 0.8777,
+   "dustTown.dustGold.wide": 0.9562,
+   "dustTown.dustGold.lowWide": 0.9507
+  }
+ },
+ "pureBlack": {
+  "max": 0.233,
+  "target": "<= 0.5 %",
+  "pass": true
+ }
+}

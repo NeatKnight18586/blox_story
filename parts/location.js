@@ -87,6 +87,8 @@ export async function buildLocation(scene, renderer, loc, {base, manifest}) {
     const f = manifest?.hdri?.[bd.hdri]; if (!f) throw Error('hdri not in manifest: ' + bd.hdri);
     hdr = await new HDRLoader().setDataType(T.FloatType).loadAsync(new URL(`renders/cache/assets/${f.id}/${f.file}`, base).href);
     hdr.mapping = T.EquirectangularReflectionMapping; stats.hdriBytes = hdr.image.width * hdr.image.height * 16;
+    if (bd.saturation !== undefined) { const d = hdr.image.data, k = bd.saturation, tint = bd.tint ?? [1, 1, 1];   // opt-in (Touch Grass dust haze): desaturate the HDRI (sky + env) toward its luma
+      for (let i = 0; i < d.length; i += 4) { const l = .2126 * d[i] + .7152 * d[i + 1] + .0722 * d[i + 2]; for (let c = 0; c < 3; c++) d[i + c] = (l + (d[i + c] - l) * k) * tint[c]; } hdr.needsUpdate = true; }
     const {width: w, height: h, data} = hdr.image, rgb = new Float32Array(w * h * 3); for (let i = 0; i < w * h; i++) { rgb[i * 3] = data[i * 4]; rgb[i * 3 + 1] = data[i * 4 + 1]; rgb[i * 3 + 2] = data[i * 4 + 2]; }
     sunAuto = sunFromEquirect(rgb, w, h); horizon = horizonColor(rgb, w, h);   // HDR rows are top-first (flipY texture)
     const rot = (bd.rotation ?? 0) * deg;

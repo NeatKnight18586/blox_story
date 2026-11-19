@@ -1471,3 +1471,16 @@ Open: K2 contrast < 0.35 at every intensity; triangle count over 90k in all shot
 
 ## Kit 1c
 Backdrop sky follows the camera (radius 400, far 500), world meshes > 160 from the camera hidden per frame, lowWide on the 1/3 line (NDC ±0.34), scaleReveal rise 0.15 × end distance, look point at chest (0.7 H), rim 0.9 for the scaleReveal subject. Bench gate for backdrop specs = time only (V4.md). Tests 172 + 63 green, "Nobody" identical. Bench 1080: .34/.53/.57 s (mean .48 ≤ .69 PASS), triangles 100.7k/140.3k/94.6k reported. localContrast @0.7/0.6/0.5: K1 .31/.35/.40, K2 (first 15 %) .15/.13/.11, K3 .004/.07/.17. Open: K2 and K3 below 0.35 at intensity 0.5 (demo value); stopped per rule.
+
+## Touch Grass E0 — world, cast, props (2026-11-19)
+Plan: cast JSON (recolor + existing accessories), poses zombie/kneel, props7, 4 location JSONs + anchors, 390 px sheets + e0.json, tests.
+Built: `cast/touchgrass.json` (25 + BOSS dragon colours), `engine/poses.js` zombie/kneel (added only), `parts/sets4/props7.js` (14 props + placeProps),
+`parts/locations/*.json` (generator `scripts/v2/touchgrass-locations.py`), lookdev page `engine/fixtures/touchgrass/index.html`, `scripts/v2/touchgrass-sheets.js`.
+Opt-ins: body5 `bands[].emissive`; location.js `backdrop.saturation`/`tint` (HDRI desaturated before env + sky). episode.js untouched.
+Numbers (review/touchgrass/e0.json): dustGray non-NOVA sat .107/.103 PASS (≤ .15); dustGold .201/.169 FAIL; NOVA coat sat ≥ .878 PASS;
+pure black max .233 % PASS; headset gap .02 PASS; s/frame 1080 (location + props) dustTown 1.555, zombieCity 1.921, dragonPeaks 1.761, space .812 — all FAIL ≤ .69.
+Decisions: dragonPeaks peaks = stepped cylinder tiers (loader has no landform); TOWN/LEO skins desaturated (sat ≤ .15); NOVA's can exempt from the
+non-NOVA number as her held prop (strict number also stored); bench = location + props (cast reported separately, crowd instancing is E1);
+hdri manifest maps to assets/hdri (`{id: '../../../assets/hdri'}`).
+Open: s/frame 2 fix passes spent (statics merge 2.6→1.55; `bake.material: basic` is a no-op because location.js skips materials whose
+default emissiveIntensity is 1, i.e. every procedural/CC0 one); dustGold sat 2 passes spent (.38→.20); dragon peaks read as pale drums.
