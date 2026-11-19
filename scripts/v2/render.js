@@ -49,11 +49,14 @@ const dirOf = s => path.join(out, 'cache', `${s.id}-${sha(world + JSON.stringify
 const shotOf = f => shots.findLast(s => f >= s.start);
 const file = f => { const s = shotOf(f); return path.join(dirOf(s), `${String(f - s.start).padStart(4, '0')}.png`); };
 
-const todo = []; for (let f = from; f < to; f += every) if (!existsSync(file(f))) todo.push(f);
+// --frames a,b,c (opt-in): render/link only these frames (contact sheets: one frame per shot); frames/frame-<n>.png keep their numbers
+const frameList = arg('frames') ? arg('frames').split(',').map(Number).filter(f => f >= 0 && f < total) : null;
+const wanted = frameList ?? (() => { const w = []; for (let f = from; f < to; f += every) w.push(f); return w; })();
+const todo = wanted.filter(f => !existsSync(file(f)));
 for (const s of shots) await mkdir(dirOf(s), {recursive: true});
 await mkdir(path.join(out, 'frames'), {recursive: true});
 const progress = {spec: specPath, width, height, frames: total, range: [from, to], every, todo: todo.length, done: 0, cached: 0, status: 'running', started: new Date().toISOString(), msPerFrame: null, perShot: {}};
-progress.cached = Math.ceil((to - from) / every) - todo.length;
+progress.cached = wanted.length - todo.length;
 const saveProgress = () => writeFile(path.join(out, 'progress.json'), JSON.stringify(progress, null, 1));
 await saveProgress();
 console.log(`${specPath}: ${total} frames; ${progress.cached} cached, ${todo.length} to render at ${width}×${height}, ${workers} worker(s)`);
@@ -66,7 +69,7 @@ async function worker() {
   try {
     const p = await browser.newPage({viewport: {width: 360, height: 640}});
     const errors = []; p.on('pageerror', e => errors.push(e.message));
-    await p.goto(page); await p.waitForFunction(() => window.__episode, null, {timeout: 120000});
+    await p.goto(page); await p.waitForFunction(() => window.__episode, null, {timeout: Number(arg('load-timeout', 120)) * 1000});   // --load-timeout s (opt-in): big baked sets load slowly on 4-core machines
     while (next < todo.length) {
       const f = todo[next++];
       const r = await p.evaluate(([f, w, h]) => window.__episode.renderFrame(f, w, h), [f, width, height]);
@@ -85,7 +88,8 @@ try {
   // Rebuild the frame links for the whole requested range.
   for (const f of readdirSync(path.join(out, 'frames'))) await unlink(path.join(out, 'frames', f));
   let linked = 0;
-  for (let f = from, k = 0; f < to; f += every, k++) if (existsSync(file(f))) { await link(file(f), path.join(out, 'frames', `frame-${String(every === 1 ? f : k).padStart(5, '0')}.png`)); linked++; }
+  if (frameList) { for (const f of frameList) if (existsSync(file(f))) { await link(file(f), path.join(out, 'frames', `frame-${String(f).padStart(5, '0')}.png`)); linked++; } }
+  else for (let f = from, k = 0; f < to; f += every, k++) if (existsSync(file(f))) { await link(file(f), path.join(out, 'frames', `frame-${String(every === 1 ? f : k).padStart(5, '0')}.png`)); linked++; }
   Object.assign(progress, {status: 'done', linked, wallSeconds: +((Date.now() - t0) / 1000).toFixed(1), msPerFrame: times.length ? Math.round(times.reduce((a, b) => a + b, 0) / times.length) : null,
     secondsPerFrameWall: todo.length ? +((Date.now() - t0) / 1000 / todo.length).toFixed(3) : 0});
 } catch (e) { progress.status = 'failed'; progress.error = String(e.message).slice(0, 300); process.exitCode = 1; }
