@@ -1,0 +1,73 @@
+name: assets
+
+# Phase R: CC0 asset cache (Poly Haven is blocked in cloud sessions). Downloads the set listed in assets/realism.json into
+# an actions/cache entry (never committed; no file > 5 MB), then optionally runs the realism spike on the farm and commits
+# only review/realism/* and assets/LICENSES.md back to the branch. Optional Blender headless bake probe (timed).
+on:
+  workflow_dispatch:
+    inputs:
+      measure: {description: run scripts/v2/realism.js + the A/B sheet, type: boolean, default: true}
+      blender: {description: time a Blender install + one Cycles lightmap bake, type: boolean, default: true}
+  push:
+    paths: ['assets/realism.request']
+
+permissions:
+  contents: write
+
+concurrency:
+  group: assets-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  assets:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: {node-version: 22, cache: npm}
+      - name: Restore CC0 asset cache
+        id: cache
+        uses: actions/cache@v4
+        with:
+          path: renders/cache/assets
+          key: cc0-${{ hashFiles('assets/realism.json') }}
+      - name: Download from Poly Haven
+        run: |
+          python3 scripts/v2/fetch-assets.py
+          find renders/cache/assets -type f -size +5M -print -exec false {} +
+          du -sh renders/cache/assets; cat renders/cache/assets/manifest.json
+      - name: Realism spike (farm numbers + sheet)
+        if: github.event_name == 'push' || inputs.measure
+        run: |
+          npm ci
+          npx playwright install --with-deps chromium || echo "browser.js falls back to the runner's google-chrome"
+          pip install --break-system-packages pillow >/dev/null 2>&1 || pip install pillow
+          node scripts/v2/tex4.js
+          node scripts/v2/realism.js --out review/realism
+          node scripts/v2/realism.js --out review/realism/basic --q '&static=basic' --stills renders/realism-basic
+          python3 scripts/v2/realism-ab.py
+          cat review/realism/realism.json | head -c 4000
+      - name: Blender headless bake probe
+        if: github.event_name == 'push' || inputs.blender
+        run: |
+          t0=$(date +%s); sudo apt-get update -qq && sudo apt-get install -y -qq blender >/dev/null; t1=$(date +%s)
+          blender --version | head -1
+          /usr/bin/time -v blender -b --python scripts/v2/blender-bake-probe.py -- review/realism/blender-bake.json 2> bake-time.txt || true
+          grep -E "Elapsed|Maximum resident" bake-time.txt || true
+          python3 - "$((t1 - t0))" <<'EOF'
+          import json, sys
+          p = 'review/realism/blender-bake.json'
+          try: d = json.load(open(p))
+          except Exception: d = {'error': 'bake did not run'}
+          d['installSeconds'] = int(sys.argv[1]); json.dump(d, open(p, 'w'), indent=1); print(d)
+          EOF
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with: {name: realism, path: 'review/realism/', retention-days: 14}
+      - name: Commit review material (never the assets)
+        if: github.event_name == 'push' || inputs.measure || inputs.blender
+        run: |
+          git config user.name "blox-farm"; git config user.email "actions@users.noreply.github.com"
+          git add review/realism assets/LICENSES.md
+          git diff --cached --quiet || { git commit -m "Phase R: farm realism numbers + sheet (run ${{ github.run_id }})"; git push origin HEAD:${{ github.ref_name }}; }

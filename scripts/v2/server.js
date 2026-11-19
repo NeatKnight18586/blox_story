@@ -6,7 +6,7 @@ import {realpath, stat} from 'node:fs/promises';
 import {createReadStream} from 'node:fs';
 
 const TYPES = {'.html': 'text/html', '.js': 'text/javascript', '.json': 'application/json', '.png': 'image/png', '.jpg': 'image/jpeg',
-  '.ttf': 'font/ttf', '.woff2': 'font/woff2', '.glb': 'model/gltf-binary', '.flac': 'audio/flac', '.wav': 'audio/wav', '.mp4': 'video/mp4', '.md': 'text/plain', '.bin': 'application/octet-stream'};   // .bin: format v4 texture disk cache
+  '.ttf': 'font/ttf', '.woff2': 'font/woff2', '.glb': 'model/gltf-binary', '.flac': 'audio/flac', '.wav': 'audio/wav', '.mp4': 'video/mp4', '.md': 'text/plain', '.bin': 'application/octet-stream', '.hdr': 'application/octet-stream', '.ktx2': 'image/ktx2', '.webp': 'image/webp'};   // .hdr/.ktx2: Phase R CC0 asset cache   // .bin: format v4 texture disk cache
 
 export async function startServer(root = process.cwd()) {
   root = await realpath(root);

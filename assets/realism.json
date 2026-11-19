@@ -1,0 +1,17 @@
+{
+  "note": "Phase R asset request (data). scripts/v2/fetch-assets.py resolves each slot on Poly Haven (first candidate that exists, else the most-downloaded match for `search`), downloads 1k maps into renders/cache/assets/<id>/ (gitignored, farm cache) and writes renders/cache/assets/manifest.json. All Poly Haven assets are CC0.",
+  "source": "https://polyhaven.com",
+  "resolution": "1k",
+  "format": "jpg",
+  "maps": {"albedo": "Diffuse", "normal": "nor_gl", "rough": "Rough", "ao": "AO"},
+  "materials": {
+    "cobblestone": {"candidates": ["cobblestone_floor_08", "cobblestone_floor_04", "cobblestone_floor_01", "cobblestone_square"], "search": "cobblestone"},
+    "brick": {"candidates": ["red_brick_03", "brick_wall_10", "red_brick", "brick_wall_02"], "search": "brick"},
+    "planks": {"candidates": ["wood_planks", "wood_planks_grey", "old_planks_02", "weathered_planks"], "search": "planks"},
+    "plaster": {"candidates": ["painted_plaster_wall", "white_plaster_02", "beige_wall_001", "plastered_wall"], "search": "plaster"}
+  },
+  "hdri": {
+    "street_late": {"candidates": ["venice_sunset", "cobblestone_street_night_unused", "pedestrian_overpass"], "search": "street", "format": "hdr"}
+  },
+  "maxFileBytes": 5000000
+}

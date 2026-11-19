@@ -1,0 +1,101 @@
+{
+ "budget": 0.69,
+ "locations": {
+  "street-cc0": {
+   "loadSeconds": 36.83,
+   "build": {
+    "fallbacks": [
+     "ground: cobblestone not downloaded",
+     "kerb: plaster not downloaded",
+     "brickWall: brick not downloaded",
+     "plasterWall: plaster not downloaded",
+     "base: cobblestone not downloaded",
+     "door: planks not downloaded",
+     "crate: planks not downloaded"
+    ],
+    "textures": 0,
+    "textureBytes": 0,
+    "hdriBytes": 8388608,
+    "fog": "#f4e2da",
+    "sunDir": [
+     0.739,
+     0.407,
+     0.537
+    ],
+    "bake": {
+     "meshes": 379,
+     "vertices": 45017,
+     "ms": 175
+    },
+    "prims": 379,
+    "ms": 484,
+    "horizon": [
+     1.21,
+     1.009,
+     0.935
+    ]
+   },
+   "triangles": 129398,
+   "textureMemoryMB": 22.7,
+   "textures": 10,
+   "mean1080": 1.144,
+   "mean1440": 1.871,
+   "shots": [
+    {
+     "shot": "R1_lowwide",
+     "s1080": 1.11,
+     "s1440": 1.719,
+     "lap": 3.4,
+     "lapBg": 0.00556,
+     "lapActor": 0.00164,
+     "contrast": 0.099,
+     "subjL": 0.355,
+     "localBg": 0.394,
+     "subjectFrac": 0.3497,
+     "pass": {
+      "time1440": false,
+      "lap": true,
+      "contrast": false
+     }
+    },
+    {
+     "shot": "R2_scale",
+     "s1080": 0.952,
+     "s1440": 1.582,
+     "lap": 0.68,
+     "lapBg": 0.0109,
+     "lapActor": 0.01611,
+     "contrast": 0.188,
+     "subjL": 0.343,
+     "localBg": 0.422,
+     "subjectFrac": 0.0104,
+     "pass": {
+      "time1440": false,
+      "lap": false,
+      "contrast": false
+     }
+    },
+    {
+     "shot": "R3_face",
+     "s1080": 1.369,
+     "s1440": 2.313,
+     "lap": 5.91,
+     "lapBg": 0.00824,
+     "lapActor": 0.00139,
+     "contrast": 0.056,
+     "subjL": 0.349,
+     "localBg": 0.37,
+     "subjectFrac": 0.5861,
+     "pass": {
+      "time1440": false,
+      "lap": true,
+      "contrast": false
+     }
+    }
+   ],
+   "errors": [
+    "Failed to load resource: the server responded with a status of 404 (Not Found)"
+   ]
+  }
+ }
+}
