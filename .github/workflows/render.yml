@@ -107,7 +107,7 @@ jobs:
         with:
           name: seg-${{ matrix.index }}
           path: seg-*.mp4
-          retention-days: 7
+          retention-days: 1   # public repo: render segments live 1 day only
 
   assemble:
     needs: [plan, render]
@@ -152,10 +152,11 @@ jobs:
         with:
           name: ${{ needs.plan.outputs.story }}-${{ needs.plan.outputs.preset }}
           path: out/
-      - name: Prerelease (downloadable on the iPad)
+          retention-days: 1   # public repo: the draft release is the delivery copy
+      - name: Draft release (private to the owner; download from Releases while signed in)
         run: |
           tag="$STORY-${GITHUB_SHA::7}"
           if [ "$PRESET" = "animatic" ]; then files="out/animatic.mp4 out/report.json"; else files="out/$STORY-master.mp4 out/final-review.mp4 out/report.json out/qc.json"; fi
-          gh release create "$tag" $files --prerelease --target "$GITHUB_SHA" \
+          gh release create "$tag" $files --draft --target "$GITHUB_SHA" \
             --title "$STORY ($PRESET) ${GITHUB_SHA::7}" --notes "Render farm output for stories/$STORY ($PRESET): 1440×2560 master (upload this), 1080 review proxy, assemble report and v2:qc report." \
           || gh release upload "$tag" $files --clobber
