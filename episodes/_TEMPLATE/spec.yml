@@ -1,0 +1,42 @@
+# episodes/EPxx/spec.yml: one episode's story decisions (owner, from chat; N-VO-01). Copy to episodes/EPnn/spec.yml.
+# Check: python3 tools/validate_spec.py episodes/EPnn/spec.yml   · Rule IDs: docs/bible/RULES_CARD.md
+id: EPnn                       # folder name
+slug: ""                       # stories/<slug>/ holds episode.json, world.js, voice, cues.json
+season: 2                      # series.yml (R-BRAND-07)
+episode: 0
+title: ""
+world: ""                      # a NEW world name; may not repeat any other episode (N-WORLD-01)
+setting_era: ""                # free text, e.g. "medieval village", "2016 classic baseplate" (R-ALGO-04)
+
+# Hook (R-STORY-01, R-HOOK-02/04): rule + break together ≤ 18 words, spoken by 5.0 s
+hook_rule: ""                  # the universal rule of this world
+hook_break: ""                 # it breaks today / one person is the exception
+hook_type: ""                  # rule_exception | forbidden_action | countdown | mystery_object | impossible_fact | ranking | decision | nostalgia
+roblox_context_starts_at_s: 5  # ≥ 5 (R-HOOK-02)
+
+micro_examples: ["", "", ""]   # Act I: exactly 3 concrete consequences (R-STORY-02)
+anchor: {who: "", relationship: ""}          # Act II (R-STORY-03)
+counter: {type: "", start: "", end: "", object: ""}   # type: number | countdown | clock | lanterns | rings | days | lives | objects | other; object = scene object id QA looks for
+false_solution: ""             # Act III: the logical fix that fails (R-STORY-04)
+inversion: ""                  # …and how it reveals the premise was inverted
+twist_category: ""             # protector_monster | curse_gift | hero_is_cause | time_loop | identity | game_logic | sacrifice_reframe | other
+payoff_type: ""                # sacrifice | lateral | reunion | reveal (R-STORY-05; = ending type in the variety matrix)
+loop_line_echo: ""             # how the last line echoes the first
+
+signage:                       # 3–6 in-world signs, ≤ 3 words each (R-SIGN-01)
+  - {text: "", where: ""}
+hero_shots:                    # exactly these three (R-HERO-01)
+  - {role: frame1, note: ""}
+  - {role: reversal, note: ""}
+  - {role: final, note: ""}
+target_length_s: 120           # current tier in docs/LENGTH_TIER.md (R-LEN-01); cap 175
+
+# Origin ledger (R-STORY-06/07/08/09): ≥ 2 unrelated sources; kind: emotional | roblox | fantasy | retold | volze
+sources:
+  - {kind: "", title: "", what_we_took: ""}
+  - {kind: "", title: "", what_we_took: ""}
+what_was_transformed: {rule: "", twist: "", setting: ""}   # name at least one; with a volze source, rule/twist/setting
+
+# Optional until the blocking pass (Phase 3 QA): beats from the owner's beats prompt
+# beats: [{at_s: 0.0, type: info, text: ""}]   # type: info | escalation | reveal | reversal | payoff
+# reversal_at_s: 0.0
