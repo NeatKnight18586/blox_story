@@ -7,7 +7,7 @@
 //   node scripts/v2/touchgrass-episode.js
 import {readFileSync, writeFileSync} from 'node:fs';
 
-const FPS = 24, END = 89.95, F = 1 / FPS;   // E2 owner decision: END 89.95 (shot 61 = 88.62–89.95)
+const FPS = 24, OUT_FPS = 60, END = 89.95, F = 1 / FPS;   // E2 owner decision: END 89.95 (shot 61 = 88.62–89.95)
 const cues = JSON.parse(readFileSync('stories/touchgrass/cues.json', 'utf8')), WORDS = cues.lines.flatMap(l => l.words.map(w => w.start));
 const AN = JSON.parse(readFileSync('parts/locations/anchors-touchgrass.json', 'utf8')), CASTF = JSON.parse(readFileSync('cast/touchgrass.json', 'utf8'));
 const LOC = Object.fromEntries(['dustTown', 'zombieCity', 'dragonPeaks', 'space'].map(n => [n, JSON.parse(readFileSync(`parts/locations/${n}.json`, 'utf8'))]));
@@ -130,8 +130,8 @@ for (const [k, t, who, P] of [['a', 27.27, 'FRIEND_KNIGHT', KNIGHT], ['b', 27.88
 // ---- real: the taps ----
 shot('23', 29.27, {m: 'push', sz: 'wide', sub: 'LEO', see: ['LEO', 'NOVA'], look: LK.gray, why: 'flash → DUST TOWN wide two-shot: LEO frozen on his chair (headset on), NOVA beside him watering; cold',
   cam: C(camAt(add(LEO_SIT, [1.4, 0, .8]), 80, 17, 4.2, 2.4, 42), camAt(add(LEO_SIT, [1.4, 0, .8]), 80, 16, 4.1, 2.4, 42))});
-shot('24', 31.08, {m: 'push', sz: 'insert', see: ['LEO'], prop: 'LEO_headset', look: LK.gray, why: 'insert: NOVA\'s finger taps LEO\'s headset at 31.08 / 31.66 / 32.23 (contact frames); headset 35–60 % of frame',
-  cam: C(aimAt([-3.1, 4.25, 6.6], [-3.1, 4.25, 10.5], .5, .5, 48), aimAt([-3.1, 4.25, 6.8], [-3.1, 4.25, 10.5], .5, .5, 48))});   // E3: profile from LEO's left at head height (head + headset 40–50 %); NOVA's finger from the right edge (tapSide)
+shot('24', 31.08, {m: 'push', sz: 'close', sub: 'LEO', see: ['LEO'], prop: 'LEO_headset', look: LK.gray, why: 'insert: NOVA\'s finger taps LEO\'s headset at 31.08 / 31.66 / 32.23 (contact frames); headset 35–60 % of frame',
+  cam: C(aimAt([-3.1, 4.25, 6.3], [-3.1, 4.25, 10.5], .5, .5, 48), aimAt([-3.1, 4.25, 6.5], [-3.1, 4.25, 10.5], .5, .5, 48))});   // E3: profile from LEO's left at head height (head + headset 40–50 %); NOVA's finger from the right edge (tapSide)
 // ---- VR 2: the finger ----
 // E2 finger cameras (owner rule): zombies / BRO / ship / boss low in frame, the finger tip 45–66 % down, the arm out of the top edge
 const Z = p => at('Z', p), CAM25 = aimAt(Z([.5, .8, 7.5]), Z([0, 4.8, -10.8]), .5, .76, 56), ZT25 = Z([-.2, 0, -15.5]);
@@ -379,7 +379,7 @@ const shots = S.map(s => {
   return o;
 });
 const spec = {
-  slug: 'touchgrass', fps: FPS, format: 5, labels: false,   /* no labels (owner rule) via labels: false; season: 1 would switch on the Season-1 template gate (122–150 s, B1–B9), which format 5 cannot meet */ end: END, framing: 'p3',
+  slug: 'touchgrass', fps: OUT_FPS, format: 5, labels: false,   /* no labels (owner rule) via labels: false; season: 1 would switch on the Season-1 template gate (122–150 s, B1–B9), which format 5 cannot meet */ end: END, framing: 'p3',
   note: 'Touch Grass E2 — written by scripts/v2/touchgrass-episode.js from stories/touchgrass/BEATS.md (61 shots; 22 and 57 = 3 beat cuts each). Edit the generator, not this file.',
   world: 'stories/touchgrass/world.js', decorate: true, look: LK.gray, castFile: 'cast/touchgrass.json', captionStyle: 'pop-shorts-v5', keywords: ['Nova', 'Leo', 'Tap', 'TAP', 'grass', 'Touched'],
   tgCastSpots: {dragonPeaks: [KNIGHT, ROBOT, MAGE].map(p => sub(p, OFF.P))}, worldState, effects: fx, cast, props, shots,

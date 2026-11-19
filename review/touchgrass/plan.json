@@ -6,7 +6,7 @@
    "id": "01-push",
    "beat": false,
    "t": 0,
-   "dur": 1.04,
+   "dur": 1.07,
    "size": "close",
    "move": "push",
    "speed": 0,
@@ -16,8 +16,8 @@
   {
    "id": "02-crane",
    "beat": false,
-   "t": 1.04,
-   "dur": 2.17,
+   "t": 1.07,
+   "dur": 2.15,
    "size": "wide",
    "move": "crane",
    "speed": 0,
@@ -27,8 +27,8 @@
   {
    "id": "03-push",
    "beat": false,
-   "t": 3.21,
-   "dur": 1.96,
+   "t": 3.22,
+   "dur": 1.97,
    "size": "wide",
    "move": "push",
    "speed": 3,
@@ -38,8 +38,8 @@
   {
    "id": "04-push",
    "beat": false,
-   "t": 5.17,
-   "dur": 2.04,
+   "t": 5.18,
+   "dur": 2.03,
    "size": "wide",
    "move": "push",
    "speed": 1,
@@ -49,8 +49,8 @@
   {
    "id": "05-push",
    "beat": false,
-   "t": 7.21,
-   "dur": 0.71,
+   "t": 7.22,
+   "dur": 0.7,
    "size": "insert",
    "move": "push",
    "speed": 15,
@@ -61,7 +61,7 @@
    "id": "06-push",
    "beat": false,
    "t": 7.92,
-   "dur": 1,
+   "dur": 1.02,
    "size": "insert",
    "move": "push",
    "speed": 6,
@@ -71,8 +71,8 @@
   {
    "id": "07-push",
    "beat": false,
-   "t": 8.92,
-   "dur": 1.21,
+   "t": 8.93,
+   "dur": 1.2,
    "size": "wide",
    "move": "push",
    "speed": 6,
@@ -93,19 +93,19 @@
   {
    "id": "09-push",
    "beat": false,
-   "t": 12.5,
-   "dur": 1.33,
+   "t": 12.52,
+   "dur": 1.3,
    "size": "insert",
    "move": "push",
-   "speed": 1,
+   "speed": 2,
    "subject": "",
    "why": "insert: the watering can pouring onto dry dirt; can + stream 35–60 % of frame"
   },
   {
    "id": "10-push",
    "beat": false,
-   "t": 13.83,
-   "dur": 1.25,
+   "t": 13.82,
+   "dur": 1.27,
    "size": "wide",
    "move": "push",
    "speed": 1,
@@ -116,7 +116,7 @@
    "id": "11-push",
    "beat": false,
    "t": 15.08,
-   "dur": 1.17,
+   "dur": 1.15,
    "size": "medium",
    "move": "push",
    "speed": 0,
@@ -126,8 +126,8 @@
   {
    "id": "12-push",
    "beat": false,
-   "t": 16.25,
-   "dur": 0.58,
+   "t": 16.23,
+   "dur": 0.62,
    "size": "insert",
    "move": "push",
    "speed": 2,
@@ -137,8 +137,8 @@
   {
    "id": "13-push",
    "beat": false,
-   "t": 16.83,
-   "dur": 0.92,
+   "t": 16.85,
+   "dur": 0.88,
    "size": "close",
    "move": "push",
    "speed": 1,
@@ -148,8 +148,8 @@
   {
    "id": "14-crashZoom",
    "beat": false,
-   "t": 17.75,
-   "dur": 1.08,
+   "t": 17.73,
+   "dur": 1.1,
    "size": "close",
    "move": "crashZoom",
    "speed": 0,
@@ -170,11 +170,11 @@
   {
    "id": "16-heroLow",
    "beat": false,
-   "t": 20.21,
-   "dur": 0.96,
+   "t": 20.22,
+   "dur": 0.95,
    "size": "medium",
    "move": "heroLow",
-   "speed": 12,
+   "speed": 13,
    "subject": "LEO_VR@51,44",
    "why": "heroLow LEO_VR, glowing sword, heroPose, zombies behind, grin"
   },
@@ -193,7 +193,7 @@
    "id": "18-track",
    "beat": false,
    "t": 22.17,
-   "dur": 0.88,
+   "dur": 0.87,
    "size": "wide",
    "move": "track",
    "speed": 5,
@@ -203,19 +203,19 @@
   {
    "id": "19-push",
    "beat": false,
-   "t": 23.04,
-   "dur": 0.96,
+   "t": 23.03,
+   "dur": 0.95,
    "size": "wide",
    "move": "push",
-   "speed": 4,
+   "speed": 5,
    "subject": "",
    "why": "space wide: ships crossing, laser trails, big sun"
   },
   {
    "id": "20-push",
    "beat": false,
-   "t": 24,
-   "dur": 1.17,
+   "t": 23.98,
+   "dur": 1.18,
    "size": "medium",
    "move": "push",
    "speed": 8,
@@ -226,7 +226,7 @@
    "id": "21-crane",
    "beat": false,
    "t": 25.17,
-   "dur": 2.08,
+   "dur": 2.1,
    "size": "wide",
    "move": "crane",
    "speed": 0,
@@ -236,8 +236,8 @@
   {
    "id": "22a-push",
    "beat": false,
-   "t": 27.25,
-   "dur": 0.63,
+   "t": 27.27,
+   "dur": 0.62,
    "size": "close",
    "move": "push",
    "speed": 1,
@@ -248,7 +248,7 @@
    "id": "22b-push",
    "beat": false,
    "t": 27.88,
-   "dur": 0.71,
+   "dur": 0.72,
    "size": "close",
    "move": "push",
    "speed": 1,
@@ -258,19 +258,19 @@
   {
    "id": "22c-push",
    "beat": false,
-   "t": 28.58,
+   "t": 28.6,
    "dur": 0.67,
    "size": "close",
    "move": "push",
    "speed": 1,
-   "subject": "FRIEND_MAGE@50,43",
+   "subject": "FRIEND_MAGE@50,44",
    "why": "beat cut c: close of mage, cheering"
   },
   {
    "id": "23-push",
    "beat": false,
-   "t": 29.25,
-   "dur": 1.83,
+   "t": 29.27,
+   "dur": 1.82,
    "size": "wide",
    "move": "push",
    "speed": 0,
@@ -281,18 +281,18 @@
    "id": "24-push",
    "beat": false,
    "t": 31.08,
-   "dur": 1.92,
-   "size": "insert",
+   "dur": 1.9,
+   "size": "close",
    "move": "push",
    "speed": 0,
-   "subject": "",
+   "subject": "LEO@55,56",
    "why": "insert: NOVA's finger taps LEO's headset at 31.08 / 31.66 / 32.23 (contact frames); headset 35–60 % of frame"
   },
   {
    "id": "25-push",
    "beat": false,
-   "t": 33,
-   "dur": 1.33,
+   "t": 32.98,
+   "dur": 1.35,
    "size": "wide",
    "move": "push",
    "speed": 0,
@@ -303,7 +303,7 @@
    "id": "26-push",
    "beat": false,
    "t": 34.33,
-   "dur": 2.04,
+   "dur": 2.03,
    "size": "wide",
    "move": "push",
    "speed": 0,
@@ -313,8 +313,8 @@
   {
    "id": "27-push",
    "beat": false,
-   "t": 36.38,
-   "dur": 1.63,
+   "t": 36.37,
+   "dur": 1.62,
    "size": "medium",
    "move": "push",
    "speed": 1,
@@ -324,8 +324,8 @@
   {
    "id": "28-push",
    "beat": false,
-   "t": 38,
-   "dur": 1.79,
+   "t": 37.98,
+   "dur": 1.82,
    "size": "close",
    "move": "push",
    "speed": 0,
@@ -335,8 +335,8 @@
   {
    "id": "29-push",
    "beat": false,
-   "t": 39.79,
-   "dur": 1.29,
+   "t": 39.8,
+   "dur": 1.28,
    "size": "close",
    "move": "push",
    "speed": 1,
@@ -350,7 +350,7 @@
    "dur": 0.42,
    "size": "close",
    "move": "push",
-   "speed": 4,
+   "speed": 5,
    "subject": "NOVA@50,53",
    "why": "flash → real: NOVA close, tapping, flat meh (E2: from above, the dirt behind her)"
   },
@@ -379,8 +379,8 @@
   {
    "id": "33-push",
    "beat": false,
-   "t": 43.96,
-   "dur": 1.67,
+   "t": 43.97,
+   "dur": 1.65,
    "size": "wide",
    "move": "push",
    "speed": 0,
@@ -390,7 +390,7 @@
   {
    "id": "34-push",
    "beat": false,
-   "t": 45.63,
+   "t": 45.62,
    "dur": 1.5,
    "size": "wide",
    "move": "push",
@@ -401,8 +401,8 @@
   {
    "id": "35-push",
    "beat": false,
-   "t": 47.13,
-   "dur": 1.38,
+   "t": 47.12,
+   "dur": 1.37,
    "size": "wide",
    "move": "push",
    "speed": 2,
@@ -412,8 +412,8 @@
   {
    "id": "36-push",
    "beat": false,
-   "t": 48.5,
-   "dur": 0.96,
+   "t": 48.48,
+   "dur": 0.95,
    "size": "wide",
    "move": "push",
    "speed": 0,
@@ -423,7 +423,7 @@
   {
    "id": "37-lowAuthority",
    "beat": false,
-   "t": 49.46,
+   "t": 49.43,
    "dur": 1,
    "size": "medium",
    "move": "lowAuthority",
@@ -434,8 +434,8 @@
   {
    "id": "38-push",
    "beat": false,
-   "t": 50.46,
-   "dur": 1.96,
+   "t": 50.43,
+   "dur": 1.97,
    "size": "insert",
    "move": "push",
    "speed": 0,
@@ -445,19 +445,19 @@
   {
    "id": "39-push",
    "beat": false,
-   "t": 52.42,
-   "dur": 1.54,
+   "t": 52.4,
+   "dur": 1.57,
    "size": "wide",
    "move": "push",
-   "speed": 23,
-   "subject": "BOSS@50,51",
+   "speed": 22,
+   "subject": "BOSS@51,51",
    "why": "the finger through the crack taps the BOSS head 52.40 / 52.92 / 53.40 (big shake on 53.40)"
   },
   {
    "id": "40-push",
    "beat": false,
-   "t": 53.96,
-   "dur": 1.46,
+   "t": 53.97,
+   "dur": 1.45,
    "size": "wide",
    "move": "push",
    "speed": 0,
@@ -468,18 +468,18 @@
    "id": "41-push",
    "beat": false,
    "t": 55.42,
-   "dur": 1.33,
+   "dur": 1.32,
    "size": "close",
    "move": "push",
    "speed": 0,
-   "subject": "BOSS@45,31",
+   "subject": "BOSS@46,32",
    "why": "the dragon cries: BOSS sitting at the bottom, close, a big tear"
   },
   {
    "id": "42-push",
    "beat": false,
-   "t": 56.75,
-   "dur": 1.5,
+   "t": 56.73,
+   "dur": 1.52,
    "size": "medium",
    "move": "push",
    "speed": 0,
@@ -490,7 +490,7 @@
    "id": "43-push",
    "beat": false,
    "t": 58.25,
-   "dur": 2.25,
+   "dur": 2.23,
    "size": "close",
    "move": "push",
    "speed": 0,
@@ -500,7 +500,7 @@
   {
    "id": "44-push",
    "beat": false,
-   "t": 60.5,
+   "t": 60.48,
    "dur": 1.17,
    "size": "medium",
    "move": "push",
@@ -511,8 +511,8 @@
   {
    "id": "45-tiltUp",
    "beat": false,
-   "t": 61.67,
-   "dur": 1.33,
+   "t": 61.65,
+   "dur": 1.37,
    "size": "medium",
    "move": "tiltUp",
    "speed": 34,
@@ -522,7 +522,7 @@
   {
    "id": "46-push",
    "beat": false,
-   "t": 63,
+   "t": 63.02,
    "dur": 2,
    "size": "insert",
    "move": "push",
@@ -533,7 +533,7 @@
   {
    "id": "47-push",
    "beat": false,
-   "t": 65,
+   "t": 65.02,
    "dur": 2,
    "size": "insert",
    "move": "push",
@@ -544,8 +544,8 @@
   {
    "id": "48-crane",
    "beat": false,
-   "t": 67,
-   "dur": 1.67,
+   "t": 67.02,
+   "dur": 1.65,
    "size": "wide",
    "move": "crane",
    "speed": 0,
@@ -556,7 +556,7 @@
    "id": "49-push",
    "beat": false,
    "t": 68.67,
-   "dur": 1.71,
+   "dur": 1.7,
    "size": "insert",
    "move": "push",
    "speed": 0,
@@ -566,8 +566,8 @@
   {
    "id": "50-push",
    "beat": false,
-   "t": 70.38,
-   "dur": 1,
+   "t": 70.37,
+   "dur": 1.02,
    "size": "close",
    "move": "push",
    "speed": 1,
@@ -578,7 +578,7 @@
    "id": "51-push",
    "beat": false,
    "t": 71.38,
-   "dur": 2.29,
+   "dur": 2.28,
    "size": "medium",
    "move": "push",
    "speed": 0,
@@ -600,7 +600,7 @@
    "id": "53-push",
    "beat": false,
    "t": 75.58,
-   "dur": 1.29,
+   "dur": 1.28,
    "size": "medium",
    "move": "push",
    "speed": 2,
@@ -610,8 +610,8 @@
   {
    "id": "54-push",
    "beat": false,
-   "t": 76.88,
-   "dur": 0.88,
+   "t": 76.87,
+   "dur": 0.87,
    "size": "insert",
    "move": "push",
    "speed": 0,
@@ -621,8 +621,8 @@
   {
    "id": "55-push",
    "beat": false,
-   "t": 77.75,
-   "dur": 1.96,
+   "t": 77.73,
+   "dur": 1.95,
    "size": "close",
    "move": "push",
    "speed": 2,
@@ -632,8 +632,8 @@
   {
    "id": "56-push",
    "beat": false,
-   "t": 79.71,
-   "dur": 1.83,
+   "t": 79.68,
+   "dur": 1.88,
    "size": "wide",
    "move": "push",
    "speed": 2,
@@ -643,8 +643,8 @@
   {
    "id": "57a-push",
    "beat": false,
-   "t": 81.54,
-   "dur": 0.29,
+   "t": 81.57,
+   "dur": 0.27,
    "size": "close",
    "move": "push",
    "speed": 2,
@@ -658,7 +658,7 @@
    "dur": 0.25,
    "size": "close",
    "move": "push",
-   "speed": 6,
+   "speed": 8,
    "subject": "TOWN_C@50,51",
    "why": "beat cut b: TOWN_C lifts the headset off, small o, blinking"
   },
@@ -666,18 +666,18 @@
    "id": "57c-push",
    "beat": false,
    "t": 82.08,
-   "dur": 0.58,
+   "dur": 0.57,
    "size": "close",
    "move": "push",
-   "speed": 3,
+   "speed": 4,
    "subject": "TOWN_A@50,51",
    "why": "beat cut c: TOWN_A lifts the headset off, small o, blinking"
   },
   {
    "id": "58-crane",
    "beat": false,
-   "t": 82.67,
-   "dur": 3,
+   "t": 82.65,
+   "dur": 3.02,
    "size": "wide",
    "move": "crane",
    "speed": 0,
@@ -688,7 +688,7 @@
    "id": "59-push",
    "beat": false,
    "t": 85.67,
-   "dur": 0.71,
+   "dur": 0.7,
    "size": "insert",
    "move": "push",
    "speed": 2,
@@ -698,7 +698,7 @@
   {
    "id": "60-push",
    "beat": false,
-   "t": 86.38,
+   "t": 86.37,
    "dur": 2.25,
    "size": "close",
    "move": "push",
@@ -709,7 +709,7 @@
   {
    "id": "61-push",
    "beat": false,
-   "t": 88.63,
+   "t": 88.62,
    "dur": 1.33,
    "size": "close",
    "move": "push",
@@ -719,7 +719,7 @@
   }
  ],
  "meanShot": 1.38,
- "end": 89.96,
+ "end": 89.95,
  "gamecam": 0,
  "wides": 23,
  "format5": {
@@ -727,48 +727,44 @@
   "averageShotS": 1.38,
   "insertH": {
    "05-push": {
-    "h": 0.35279999999999995,
-    "margin": 0.06689999999999996
+    "h": 0.35439999999999994,
+    "margin": 0.07340000000000002
    },
    "06-push": {
-    "h": 0.5048,
-    "margin": 0.1908
+    "h": 0.5042000000000001,
+    "margin": 0.1909
    },
    "09-push": {
     "h": 0.36540000000000006,
     "margin": 0.07899999999999996
    },
    "12-push": {
-    "h": 0.4549,
-    "margin": 0.0837
-   },
-   "24-push": {
-    "h": 0.1345,
-    "margin": 0.076
+    "h": 0.4547,
+    "margin": 0.08389999999999997
    },
    "38-push": {
-    "h": 0.5391,
-    "margin": 0.1955
+    "h": 0.5401,
+    "margin": 0.1949
    },
    "46-push": {
-    "h": 0.4072,
-    "margin": 0.2215
+    "h": 0.4071,
+    "margin": 0.2216
    },
    "47-push": {
     "h": 0.5144,
     "margin": 0.23750000000000004
    },
    "49-push": {
-    "h": 0.4338,
-    "margin": 0.0842
+    "h": 0.4353000000000001,
+    "margin": 0.0831
    },
    "54-push": {
-    "h": 0.5136000000000001,
-    "margin": 0.14339999999999997
+    "h": 0.516,
+    "margin": 0.14170000000000005
    },
    "59-push": {
-    "h": 0.4591,
-    "margin": 0.0688
+    "h": 0.4577,
+    "margin": 0.0693
    }
   }
  },
@@ -777,9 +773,7 @@
  "uiItems": 0,
  "eggs": [],
  "overlaps": 0,
- "errors": [
-  "24-push: prop 13 % of frame height (35–60)"
- ],
+ "errors": [],
  "warnings": [
   "04-push: wide shot with no tagged character in the foreground",
   "07-push: wide shot with no tagged character in the foreground",

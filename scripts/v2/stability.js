@@ -40,7 +40,8 @@ try {
     const r = await page.evaluate(([a, w, h, d]) => window.__nudgeDiff(k => window.__episode.renderAnchorNudged(a, 0, w, h, k * d)), [a, W, H, NUDGE]);
     rows.push({view: '@' + a, frame: null, pct: +r.gate.toFixed(3), raw: +r.raw.toFixed(3)});
   }
-  for (const s of E.shots) for (const [label, f] of [['first', s.start], ['mid', s.start + Math.floor(s.frames / 2)], ['last', s.start + s.frames - 1]]) {
+  const only = arg('shots') ? arg('shots').split(',') : null;   // opt-in: --shots 13,26,47 (id prefix)
+  for (const s of E.shots.filter(s => !only || only.some(o => s.id.startsWith(o)))) for (const [label, f] of [['first', s.start], ['mid', s.start + Math.floor(s.frames / 2)], ['last', s.start + s.frames - 1]]) {
     const r = await page.evaluate(([f, w, h, d]) => window.__nudgeDiff(k => window.__episode.renderFrame(f, w, h, k * d)), [f, W, H, NUDGE]);
     rows.push({view: `${s.id}:${label}`, frame: f, pct: +r.gate.toFixed(3), raw: +r.raw.toFixed(3)});
   }

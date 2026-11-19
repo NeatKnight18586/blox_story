@@ -1,6 +1,6 @@
 {
  "slug": "touchgrass",
- "fps": 24,
+ "fps": 60,
  "format": 5,
  "labels": false,
  "end": 89.95,
@@ -5252,7 +5252,7 @@
    "id": "24-push",
    "at": 31.08,
    "move": "push",
-   "size": "insert",
+   "size": "close",
    "why": "insert: NOVA's finger taps LEO's headset at 31.08 / 31.66 / 32.23 (contact frames); headset 35–60 % of frame",
    "see": [
     "LEO"
@@ -5277,12 +5277,13 @@
     "windows": 0
    },
    "shadowRadius": 30,
+   "subject": "LEO",
    "prop": "LEO_headset",
    "from": {
     "position": [
      -3.1,
      4.25,
-     6.6
+     6.3
     ],
     "target": [
      -3.1,
@@ -5295,7 +5296,7 @@
     "position": [
      -3.1,
      4.25,
-     6.8
+     6.5
     ],
     "target": [
      -3.1,
@@ -5303,7 +5304,8 @@
      10.5
     ],
     "fov": 48
-   }
+   },
+   "subjectLift": 0.3
   },
   {
    "id": "25-push",
