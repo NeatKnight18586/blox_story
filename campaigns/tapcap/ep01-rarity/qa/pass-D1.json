@@ -1,0 +1,420 @@
+{
+ "shots": [
+  {
+   "id": "S1",
+   "mood": "dawnHope",
+   "start": 0,
+   "frames": 62,
+   "move": "push",
+   "size": "wide",
+   "ms": 8303,
+   "travel": {
+    "move": 1.393,
+    "turnDeg": 1.14,
+    "zoom": 1
+   },
+   "dur": 2.583,
+   "luma": 0.5328,
+   "gate": [
+    0.36,
+    0.5
+   ],
+   "lumaPass": false,
+   "void": 0,
+   "lockedOff": false,
+   "layers": {
+    "fg": 0.0,
+    "mid": 100.0,
+    "bg": 0.0,
+    "far": 0.0
+   },
+   "depthPass": false,
+   "buildings": 0,
+   "densityPass": false,
+   "hillPlinthPct": 0.0,
+   "hillPass": false,
+   "slimeCover0": 0.0,
+   "slimeCover1s": 0.0
+  },
+  {
+   "id": "S2",
+   "mood": "dawnHope",
+   "start": 2.565,
+   "frames": 46,
+   "move": "whip",
+   "size": "insert",
+   "ms": 2733,
+   "travel": {
+    "move": 0.568,
+    "turnDeg": 38.16,
+    "zoom": 1.6
+   },
+   "dur": 1.917,
+   "luma": 0.4634,
+   "gate": [
+    0.36,
+    0.5
+   ],
+   "lumaPass": true,
+   "void": 0,
+   "lockedOff": false
+  },
+  {
+   "id": "S3",
+   "mood": "dawnHope",
+   "start": 4.48,
+   "frames": 36,
+   "move": "crane",
+   "size": "wide",
+   "ms": 1826,
+   "travel": {
+    "move": 3.089,
+    "turnDeg": 2.13,
+    "zoom": 1
+   },
+   "dur": 1.5,
+   "luma": 0.4517,
+   "gate": [
+    0.36,
+    0.5
+   ],
+   "lumaPass": true,
+   "void": 0,
+   "lockedOff": false,
+   "layers": {
+    "fg": 9.51,
+    "mid": 10.7,
+    "bg": 30.34,
+    "far": 14.56
+   },
+   "depthPass": true
+  },
+  {
+   "id": "S4",
+   "mood": "dawnHope",
+   "start": 6.01,
+   "frames": 49,
+   "move": "push",
+   "size": "medium",
+   "ms": 1758,
+   "travel": {
+    "move": 1.304,
+    "turnDeg": 0.72,
+    "zoom": 1
+   },
+   "dur": 2.042,
+   "luma": 0.4983,
+   "gate": [
+    0.36,
+    0.5
+   ],
+   "lumaPass": true,
+   "void": 0,
+   "lockedOff": false
+  },
+  {
+   "id": "S5",
+   "mood": "dawnHope",
+   "start": 8.052,
+   "frames": 44,
+   "move": "tilt",
+   "size": "wide",
+   "ms": 11912,
+   "travel": {
+    "move": 2.449,
+    "turnDeg": 13.99,
+    "zoom": 1
+   },
+   "dur": 1.833,
+   "luma": 0.4862,
+   "gate": [
+    0.36,
+    0.5
+   ],
+   "lumaPass": true,
+   "void": 0,
+   "lockedOff": false,
+   "layers": {
+    "fg": 4.22,
+    "mid": 27.51,
+    "bg": 45.24,
+    "far": 8.42
+   },
+   "depthPass": true
+  },
+  {
+   "id": "S6",
+   "mood": "dawnHope",
+   "start": 9.886,
+   "frames": 69,
+   "move": "orbit",
+   "size": "medium",
+   "ms": 1790,
+   "travel": {
+    "move": 1.43,
+    "turnDeg": 22.23,
+    "zoom": 1
+   },
+   "dur": 2.875,
+   "luma": 0.4996,
+   "gate": [
+    0.36,
+    0.5
+   ],
+   "lumaPass": true,
+   "void": 0,
+   "lockedOff": false
+  },
+  {
+   "id": "S7",
+   "mood": "dawnHope",
+   "start": 12.763,
+   "frames": 36,
+   "move": "push",
+   "size": "close",
+   "ms": 4135,
+   "travel": {
+    "move": 0.905,
+    "turnDeg": 0.71,
+    "zoom": 1
+   },
+   "dur": 1.5,
+   "luma": 0.4326,
+   "gate": [
+    0.36,
+    0.5
+   ],
+   "lumaPass": true,
+   "void": 0,
+   "lockedOff": false
+  },
+  {
+   "id": "S8",
+   "mood": "dawnHope",
+   "start": 14.265,
+   "frames": 42,
+   "move": "track",
+   "size": "wide",
+   "ms": 2796,
+   "travel": {
+    "move": 1.265,
+    "turnDeg": 1.76,
+    "zoom": 1
+   },
+   "dur": 1.75,
+   "luma": 0.474,
+   "gate": [
+    0.36,
+    0.5
+   ],
+   "lumaPass": true,
+   "void": 0,
+   "lockedOff": false,
+   "layers": {
+    "fg": 10.51,
+    "mid": 7.12,
+    "bg": 45.11,
+    "far": 11.37
+   },
+   "depthPass": true,
+   "buildings": 15,
+   "densityPass": true
+  },
+  {
+   "id": "S9",
+   "mood": "dawnHope",
+   "start": 15.983,
+   "frames": 38,
+   "move": "push",
+   "size": "medium",
+   "ms": 3300,
+   "travel": {
+    "move": 0.447,
+    "turnDeg": 0.37,
+    "zoom": 1
+   },
+   "dur": 1.583,
+   "luma": 0.5719,
+   "gate": [
+    0.36,
+    0.5
+   ],
+   "lumaPass": false,
+   "void": 0,
+   "lockedOff": false
+  },
+  {
+   "id": "S10",
+   "mood": "dawnHope",
+   "start": 17.58,
+   "frames": 37,
+   "move": "track",
+   "size": "medium",
+   "ms": 2658,
+   "travel": {
+    "move": 1.414,
+    "turnDeg": 6.81,
+    "zoom": 1
+   },
+   "dur": 1.542,
+   "luma": 0.4009,
+   "gate": [
+    0.36,
+    0.5
+   ],
+   "lumaPass": true,
+   "void": 0,
+   "lockedOff": false
+  },
+  {
+   "id": "S11",
+   "mood": "dawnHope",
+   "start": 19.131,
+   "frames": 59,
+   "move": "push",
+   "size": "medium",
+   "ms": 5313,
+   "travel": {
+    "move": 0.602,
+    "turnDeg": 0.44,
+    "zoom": 1
+   },
+   "dur": 2.458,
+   "luma": 0.4768,
+   "gate": [
+    0.36,
+    0.5
+   ],
+   "lumaPass": true,
+   "void": 0,
+   "lockedOff": false
+  },
+  {
+   "id": "S12",
+   "mood": "dawnHope",
+   "start": 21.575,
+   "frames": 41,
+   "move": "push",
+   "size": "medium",
+   "ms": 3377,
+   "travel": {
+    "move": 0.154,
+    "turnDeg": 0.36,
+    "zoom": 1
+   },
+   "dur": 1.708,
+   "luma": 0.4274,
+   "gate": [
+    0.36,
+    0.5
+   ],
+   "lumaPass": true,
+   "void": 0,
+   "lockedOff": false
+  },
+  {
+   "id": "S13",
+   "mood": "dawnHope",
+   "start": 23.281,
+   "frames": 43,
+   "move": "push",
+   "size": "close",
+   "ms": 3347,
+   "travel": {
+    "move": 0.55,
+    "turnDeg": 0.1,
+    "zoom": 1
+   },
+   "dur": 1.792,
+   "luma": 0.5015,
+   "gate": [
+    0.36,
+    0.5
+   ],
+   "lumaPass": false,
+   "void": 0,
+   "lockedOff": false
+  }
+ ],
+ "summary": {
+  "void": {
+   "pass": true,
+   "failing": []
+  },
+  "luma": {
+   "pass": false,
+   "failing": {
+    "S1": [
+     0.5328,
+     [
+      0.36,
+      0.5
+     ]
+    ],
+    "S9": [
+     0.5719,
+     [
+      0.36,
+      0.5
+     ]
+    ],
+    "S13": [
+     0.5015,
+     [
+      0.36,
+      0.5
+     ]
+    ]
+   }
+  },
+  "depth": {
+   "S1": [
+    {
+     "fg": 0.0,
+     "mid": 100.0,
+     "bg": 0.0,
+     "far": 0.0
+    },
+    false
+   ],
+   "S3": [
+    {
+     "fg": 9.51,
+     "mid": 10.7,
+     "bg": 30.34,
+     "far": 14.56
+    },
+    true
+   ],
+   "S5": [
+    {
+     "fg": 4.22,
+     "mid": 27.51,
+     "bg": 45.24,
+     "far": 8.42
+    },
+    true
+   ],
+   "S8": [
+    {
+     "fg": 10.51,
+     "mid": 7.12,
+     "bg": 45.11,
+     "far": 11.37
+    },
+    true
+   ]
+  },
+  "density": {
+   "S1": 0,
+   "S8": 15
+  },
+  "lockedOff": [],
+  "S1": {
+   "hillPlinthPct": 0.0,
+   "hillPass": false,
+   "TC-01 frame1": 0.0,
+   "at1s": 0.0
+  }
+ }
+}
