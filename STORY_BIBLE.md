@@ -1,7 +1,7 @@
 # STORY BIBLE — "In this town / world / kingdom…" (docs/V2_BRIEF.md §10)
 
 Principles, not a template: the shape must change every episode. Apply inline, in one pass, whenever a new
-script arrives (no subagents). Narration is always third person; characters may speak short quoted lines.
+script arrives (no subagents). Narration is first person for the hero (D1, `docs/season1/FORMAT_V6.md` rule 6); characters may speak short quoted lines.
 
 ## The rule
 - One sentence that makes an ordinary thing impossible, dangerous or counted. Frame 0 shows it.
@@ -18,10 +18,11 @@ script arrives (no subagents). Narration is always third person; characters may 
 
 ## The ending
 - Lands warm even when it costs something.
-- The last line reframes the first; the final image rhymes with frame 0 (loop-friendly).
+- Length, end, last line, final shot, hero-first and narration: **[FORMAT v6](docs/season1/FORMAT_V6.md)** (the single source of truth).
+- The last line never repeats the first: it twists the rule or lands the final laugh or feeling; the final shot is a close-up or two-shot on the payoff.
 
-## Pacing for 2:02–2:50
-- 400–520 words (the owner's voice reads ~200 words/min: 405 words ran 1:59.7). Sentences ≤ 12 words, ~5th-grade vocabulary, American English.
+## Pacing (length and word count: [FORMAT v6](docs/season1/FORMAT_V6.md))
+- The voice sets the length (the owner's voice reads ~200 words/min). Sentences ≤ 12 words, ~5th-grade vocabulary, American English.
 - A new question or mini-payoff every 20–25 s.
 - Four movements of ~30 s, each ending on a turn.
 - One laugh in the first 30 s, one in the last 30 s.
@@ -55,7 +56,7 @@ All ≥ 4 to proceed; otherwise list exact line edits and stop. One revision rou
 2. No two adjacent cells look alike.
 3. Hero or key object findable in under a second in every cell.
 4. The twist cell is the biggest visual change in the episode.
-5. The final cell rhymes with frame 0.
+5. The hero is in a cell by 0:05; the final cell is a close-up or two-shot on the payoff (FORMAT_V6.md).
 
 ## Craft notes that carry between episodes
 - The hero carries the episode's single accent colour (scarf, badge, hat) so they are found in any crowd.

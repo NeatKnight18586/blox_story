@@ -22,11 +22,11 @@ You are the technical director of a faceless YouTube channel making narrated "In
 The repo holds a working deterministic pipeline (vanilla Three.js 0.187, frames captured through Playwright, captions via FFmpeg/libass) and one pilot, `stories/names100`. You are turning it into a reusable episode engine and producing Episode 2, **"Nobody"** (§11).
 
 Decisions already made by the owner. Implement, do not debate:
-1. Finished videos run **2:02–2:50**. The voice is never stretched: if narration is shorter than that, the picture carries the difference with a held final shot (§9).
+1. Length, end, last line and final shot: **[FORMAT v6](season1/FORMAT_V6.md)** (owner, 2026-11-20; supersedes the length and held-final-shot rule here). The voice is never stretched.
 2. **No templates.** Every episode gets a new hand-composed world and a different story shape. Only the engine and low-level parts toolkit are reused.
 3. **Game-authentic look**, classic block-avatar format (§6).
 4. Token-efficient process: 3 review gates for this first episode, 1 gate per episode afterwards (§14), small reports.
-5. **Narration is always third person** (a storyteller voice, never "I"/"me"). Characters may still speak short quoted lines.
+5. **Narration:** first person for the hero (decision D1, `docs/season1/V4.md`; [FORMAT v6](season1/FORMAT_V6.md) rule 6). Characters may still speak short quoted lines.
 6. **Every episode opens with an "open hit"** (§5.3) on its first frames only. It is subtle and very fast, and it is never repeated at later scene starts.
 
 ## 2. Ground rules
@@ -188,7 +188,7 @@ The owner commits `stories/<slug>/voice.flac` (ElevenLabs export, lossless so sa
 4. **Map to the script** with Needleman–Wunsch on normalised words; recogniser mistakes are expected and harmless (tested: 127/127 script words mapped despite 11 recognition errors; 50 s of audio in 2.4 s). Interpolate any unmatched word between neighbours.
 5. Raw word times are only good to about ±0.1 s, so: snap the first word of each phrase to its silence onset, keep words monotonic, set each word's end to the next word's start or the phrase's silence start.
 6. If `ELEVENLABS_API_KEY` is set **and** preflight shows `api.elevenlabs.io` reachable, use `POST /v1/forced-alignment` (form fields `file`, `text`) instead of steps 3–5.
-7. Write `cues.json`: `{story, audio, duration, method, lines:[{line, text, start, end, words:[{w,start,end}]}]}`, one entry per script line. Print the duration; if it is < 100 s or > 168 s, stop and tell the owner.
+7. Write `cues.json`: `{story, audio, duration, method, lines:[{line, text, start, end, words:[{w,start,end}]}]}`, one entry per script line. Print the duration; if it is outside the format's voice range (`align.py voice_range`; format 6: [FORMAT v6](season1/FORMAT_V6.md)), stop and tell the owner.
 8. **Reference test:** `stories/nobody/cues.json` is supplied by the owner and was produced by exactly this method on the real voice. Running `align.py` on `nobody` must reproduce every line start within 0.15 s of it. Do not overwrite the supplied file; write to `build/` and compare.
 
 ## 9. Captions and finishing
@@ -201,7 +201,7 @@ The owner commits `stories/<slug>/voice.flac` (ElevenLabs export, lossless so sa
 - Position constant within a shot; move to y ≈ 580 only when `plan.js` reports a face or key object under the band. Opening phrase on screen from frame 0 at size 112.
 - No emoji, per-letter effects or rainbow karaoke.
 
-**Finishing** (`assemble.py`): frames → scale 1080×1920 Lanczos → subtle bloom + grade → captions → mux voice, loudness-normalised to −14 LUFS with true peak ≤ −1 dB (+ optional `music.mp3` at −20 dB under voice, + optional `sfx.json`). The voice starts at frame 0. After the last word, hold the final shot (still moving, captions off) so the video ends at `max(voice + 2.5 s, 122.5 s)`. Starting grade, tested: `split[a][b];[b]gblur=sigma=24,eq=brightness=-0.25:contrast=1.6[bl];[a][bl]blend=all_mode=screen:all_opacity=0.2,eq=saturation=1.15:contrast=1.04,vignette=PI/8`. H.264 High, yuv420p, CRF 18, AAC 192k, `+faststart`; keep the final ≤ 60 MB.
+**Finishing** (`assemble.py`): frames → scale 1080×1920 Lanczos → subtle bloom + grade → captions → mux voice, loudness-normalised to −14 LUFS with true peak ≤ −1 dB (+ optional `music.mp3` at −20 dB under voice, + optional `sfx.json`). The voice starts at frame 0. The video ends per [FORMAT v6](season1/FORMAT_V6.md): 0.85 s after the last word, no held shot (legacy specs keep their old end in code). Starting grade, tested: `split[a][b];[b]gblur=sigma=24,eq=brightness=-0.25:contrast=1.6[bl];[a][bl]blend=all_mode=screen:all_opacity=0.2,eq=saturation=1.15:contrast=1.04,vignette=PI/8`. H.264 High, yuv420p, CRF 18, AAC 192k, `+faststart`; keep the final ≤ 60 MB.
 
 **`sheet.py`**: contact sheets at 1 frame per second (≤ 60 cells per sheet), and `--stats` printing mean luma and saturation per cell.
 
@@ -209,15 +209,15 @@ The owner commits `stories/<slug>/voice.flac` (ElevenLabs export, lossless so sa
 
 Write `STORY_BIBLE.md` (≤ 120 lines) and `SERIES_LOG.md`. Apply inline in one pass, no subagents, whenever a new script arrives.
 
-**Principles (not a template; shape must vary between episodes):** the rule is one sentence that makes an ordinary thing impossible, dangerous or counted, and frame 0 shows it; the rule is visible like a game mechanic; a young protagonist is the worst-placed person for it because of one flaw, and that flaw saves everyone; the twist is fair (a loophole in the exact wording, or a truth adults missed) and re-watching shows the clue; the ending lands warm even when it costs something, and the last line reframes the first.
+**Principles (not a template; shape must vary between episodes):** the rule is one sentence that makes an ordinary thing impossible, dangerous or counted, and frame 0 shows it; the rule is visible like a game mechanic; a young protagonist is the worst-placed person for it because of one flaw, and that flaw saves everyone; the twist is fair (a loophole in the exact wording, or a truth adults missed) and re-watching shows the clue; the ending lands warm even when it costs something, and the last line twists the rule or lands the final laugh or feeling, never repeating the opening line ([FORMAT v6](season1/FORMAT_V6.md)).
 
-**Pacing for 2:02–2:50:** 400–520 words (the owner's chosen voice reads about 200 words/min: 405 words ran 1:59.7); sentences ≤ 12 words; ~5th-grade vocabulary; American English. A new question or mini-payoff every 20–25 s; four movements of ~30 s each ending on a turn; one laugh in the first 30 s and one in the last 30 s; a second smaller surprise after the main twist; understandable with sound off. Family-safe: no gore, no on-screen death, no weapons used on people, no romance, no real brands.
+**Pacing** (length and word count: [FORMAT v6](season1/FORMAT_V6.md); the owner's chosen voice reads about 200 words/min): sentences ≤ 12 words; ~5th-grade vocabulary; American English. A new question or mini-payoff every 20–25 s; four movements of ~30 s each ending on a turn; one laugh in the first 30 s and one in the last 30 s; a second smaller surprise after the main twist; understandable with sound off. Family-safe: no gore, no on-screen death, no weapons used on people, no romance, no real brands.
 
 **Originality:** reject rules already used in the niche (battery percentage, no frowning, never step on the ground, giant mouth, never go outside, luck number, Simon says, five-second floor, hide from the Seeker, crying turns you into your pet, photo day). Borrow the engine of a famous story, never its characters, names, imagery or beats. `SERIES_LOG.md` has one row per episode: setting, rule type, hook form, twist type, ending type, palette, landmark, ground plan. A new episode must differ from the previous three in ≥ 5 of 8 columns and never repeat a landmark or ground plan.
 
-**Council scorecard** (1–5, one line each; all ≥ 4 to proceed, else list exact line edits and stop; one revision round): Screenwriter (one-sentence rule, fair twist, flaw saves the day) · Director (every sentence showable with our kit; new image every 3 s) · 12-year-old US viewer (clear without context; shareable; nothing boring or babyish) · Originality & safety · **Retention mentor, chair** (frame 0 works muted; open question at 3, 20, 45, 70, 95 s; no dead stretch > 4 s; ending loops).
+**Council scorecard** (1–5, one line each; all ≥ 4 to proceed, else list exact line edits and stop; one revision round): Screenwriter (one-sentence rule, fair twist, flaw saves the day) · Director (every sentence showable with our kit; new image every 3 s) · 12-year-old US viewer (clear without context; shareable; nothing boring or babyish) · Originality & safety · **Retention mentor, chair** (frame 0 works muted; open question at 3, 20, 45, 70, 95 s; no dead stretch > 4 s; ending lands the last laugh or feeling).
 
-**Animatic checklist** (on the 1-fps sheets): frame 0 shows the rule as text and image; no two adjacent cells alike; hero or key object findable in under a second in every cell; the twist cell is the biggest visual change; the final cell rhymes with frame 0.
+**Animatic checklist** (on the 1-fps sheets): frame 0 shows the rule as text and image; no two adjacent cells alike; hero or key object findable in under a second in every cell; the twist cell is the biggest visual change; the hero is in a cell by 0:05; the final cell is a close-up or two-shot on the payoff.
 
 ## 11. Episode 2: "Nobody" (slug `nobody`)
 
@@ -283,7 +283,7 @@ Emphasis: nobody/Nobody, sword, stone, four, bread, two thousand, thirteen, one 
 - **Sister gag:** tiny kid, one hand, loaf in the other, tag pops "Pip", `smug`.
 - **Twist** (lines 22–28, 73.0–87.0 s; stone rips free at 77.85 s, "hammer" lands at 86.3 s): biggest visual change of the episode: night with orange firelight, low angle, `shake`, dust, the stone rips free, `flash`, then a slow orbit of him holding the hammer (sword hilt and blade sunk in a boulder block; scale it boldly).
 - **Bonk:** cartoon, not violent: `squash` on the nose, star particles, dragon `crying` as it flies off.
-- **Final shot** rhymes with frame 0: same low wide by day; kids' tags flip to "Nobody" and they try to lift their whole stones.
+- **Final shot** (Episode 2 as delivered, legacy format; not a rule for new episodes) matched frame 0: same low wide by day; kids' tags flip to "Nobody" and they try to lift their whole stones.
 - `gamecam` for his walk to the stone and the run through the square.
 
 ### 11.3 Cast
@@ -637,8 +637,7 @@ shot ids), `moneyShot` (shot id).
 - B2 holds at least three shots, each ≤ 2.5 s.
 - All three `clues` shots start before the `twist` shot. Each clue object's projected size ≥ 3 % of frame height.
 - Both `afk` shots exist; the actor's opacity is 0.35–0.5; he is not the subject; one is before the twist.
-- The final shot's camera matches shot 1's within 10 % (position and FOV).
-- Episode length 122–150 s.
+- Legacy season specs only (no `format`): the final shot's camera matches shot 1's within 10 % and the episode runs the legacy length. Format 6 drops both ([FORMAT v6](season1/FORMAT_V6.md): the final shot is a close-up or two-shot; length in `plancheck.js`).
 - `sheet.py --stats`: the `twist` or `moneyShot` cell has the largest frame-to-frame colour change of the episode (warning).
 
 ## F. Sound
@@ -702,10 +701,9 @@ Music is the owner's: `stories/<slug>/music.mp3` is mixed if present (existing d
    - Initial state after Session 9: `episode: 1 egg`, `step: voice`. Scripts and scene plans for 01 `egg`, 02 `ragdoll`,
      11 `mountain` and 12 `mirror` already exist; when the loop reaches one of them it prints the existing script and
      does not rewrite it.
-3. `scripts/v2/scriptcheck.py --story <slug>` (exit 1 on failure): 410–440 words; no sentence over 12 words; first line
-   ≤ 9 words and equal to the card's Rule opening; last line equal to the card's last line; at most six sentences contain
-   first-person words (characters' spoken lines only); reading grade ≤ 6 (Flesch–Kincaid); every key noun of the card's Rule, Hero, Expansion and Crisis fields appears (Clues, Frame 0, Money shot and World are pictures, not words). Unit-tested on
-   the four existing scripts (`egg`, `ragdoll`, `mountain`, `mirror`; all must pass).
+3. `scripts/v2/scriptcheck.py --story <slug>` (exit 1 on failure; rules per [FORMAT v6](season1/FORMAT_V6.md)): 300–400 words; no sentence over 12 words; first line
+   ≤ 9 words; the last line does not repeat the first (normalized or ≥ 60 % word overlap); no first-person cap; reading grade ≤ 6 (Flesch–Kincaid); every key noun of the card's Rule, Hero, Expansion and Crisis fields appears (Clues, Frame 0, Money shot and World are pictures, not words). Unit-tested on
+   the four existing scripts (`egg`, `ragdoll`, `mountain`, `mirror`; written for v3, they now fail only on the word count).
 
 ## Done when (Session 8: A, B, C, G)
 

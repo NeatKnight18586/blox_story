@@ -1,6 +1,7 @@
 # CLAUDE.md — blox_story v2 engine
 
-Source of truth: `docs/V2_BRIEF.md` (owner's brief). Progress and decisions: `PROGRESS.md`.
+Source of truth: `docs/V2_BRIEF.md` (owner's brief). Progress and decisions: `PROGRESS.md`. **Episode format (length,
+end, last line, final shot, hero-first): `docs/season1/FORMAT_V6.md`**; new specs are `"format": 6`.
 
 ## Session rules (brief §0)
 - One session block from §12 per session, then stop. Read only §0–§3, your block, the sections it names, and `PROGRESS.md`.
@@ -44,7 +45,7 @@ Source of truth: `docs/V2_BRIEF.md` (owner's brief). Progress and decisions: `PR
 - Worlds (A1): export `groundY(x, z)` + `LAYER` (≥ 0.05 apart) and build paths/streets with `B.ribbon`; everything standing takes `groundY`. A4 worlds also export `LOOK` (v3 sky/fog/env) and get `TR` terrain, `BI` biomes, `V` vegetation, `W` water, `look` in `build()`; examples `engine/fixtures/looktest/{egg,ragdoll}.js`, `engine/fixtures/tools/world.js`.
 - A4 (Season 1): `parts/terrain.js`, `biomes.js`, `vegetation.js`, `water.js`, `landform.js`; `engine/crowd.js`, `ruleui.js`, `troupe.js`, `lumagate.js`; `avatar-style/hair4.js` (v4; `hair3.js` unused); `cast/troupe.json`.
 - `engine/effects.js` (§5.3 effects, pure in t). `captions/pop-shorts-v2.json` + `CAPTION_STYLE_V2.md`. Docs: `PUBLISHING.md`, `STORY_BIBLE.md`, `SERIES_LOG.md`.
-- `scripts/v2/`: `browser.js`, `preflight.js`, `align.py`, `plan.js`, `render.js`, `bench.js`, `stability.js` + `flicker.js`, `sheet.py`, `captions.py`, `assemble.py`; A4 §F/§I: `sfx.py` (set + placement), `audiocues.py` (→ `review/<slug>/audio-cues.md`), `scriptcheck.py --story <slug>` (410–440 words, ≤ 12-word sentences, card first/last line, ≤ 6 first-person sentences, FK ≤ 6, card key nouns), `season_state.py`, `layout.js`.
+- `scripts/v2/`: `browser.js`, `preflight.js`, `align.py`, `plan.js`, `render.js`, `bench.js`, `stability.js` + `flicker.js`, `sheet.py`, `captions.py`, `assemble.py`; A4 §F/§I: `sfx.py` (set + placement), `audiocues.py` (→ `review/<slug>/audio-cues.md`), `scriptcheck.py --story <slug>` (FORMAT_V6 words, ≤ 12-word sentences, last line ≠ first, FK ≤ 6, card key nouns), `season_state.py`, `layout.js`.
 - `stories/<slug>/`: `script.txt`, `voice.flac`, `cues.json`, `episode.json`, `world.js` (`build/` ignored); `review/<slug>/`: gate material for the owner.
 - Legacy (frozen or reference only): `avatar/`, `production/`, `stories/names100/`, `studio/` (Dice Town / Shortwick toolkit).
 
