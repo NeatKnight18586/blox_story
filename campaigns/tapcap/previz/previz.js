@@ -32,8 +32,8 @@ const camOf = (c, w, h) => { const k = new T.PerspectiveCamera(fovFor(c.mm) * 18
 const guyCache = new Map();
 function guy(c) {   // banana / sunny with preset, paint, run, face
   const preset = c.preset ?? (c.who === 'banana' ? 'banana' : 'cosmic'), paint = c.preset === 'cosmic' && !c.paint ? null : (c.paint ?? (c.who === 'sunny' ? 'fake_banana' : null));
-  const key = [c.who, preset, paint, c.run ?? 0, c.face ?? 'default'].join('|');
-  if (!guyCache.has(key)) { const g = createSlimeGuy({preset, paint, run: c.run ?? 0, face: c.face ?? 'default'}); g.root.traverse(n => { if (n.isMesh) { n.castShadow = n.receiveShadow = true; } n.userData.slime = true; n.userData.layer = 'fg'; }); guyCache.set(key, g); }
+  const key = [c.who, preset, paint, c.run ?? 0, c.face ?? 'default', c.hue ?? -1].join('|');
+  if (!guyCache.has(key)) { const g = createSlimeGuy({preset, paint, run: c.run ?? 0, face: c.face ?? 'default', hue: c.hue ?? -1}); g.root.traverse(n => { if (n.isMesh) { n.castShadow = n.receiveShadow = true; } n.userData.slime = true; n.userData.layer = 'fg'; }); guyCache.set(key, g); }
   return guyCache.get(key);
 }
 function placeCast(shot, frame, camPos) {
@@ -46,9 +46,11 @@ function placeCast(shot, frame, camPos) {
     g.root.position.set(at[0], at[1] + dy, at[2]); g.root.rotation.set(0, c.yaw ?? Math.atan2(camPos[0] - at[0], camPos[2] - at[2]), 0);
     g.setTap(c.tapStart !== undefined ? tapOffset(shot.f0 + frame - c.tapStart) : 0); S.cast.add(g.root); placed.push({c, g, at});
     if (c.pool) { const p = paintPool(g.root.userData.paint, c.pool); p.position.set(at[0], at[1] + .01, at[2]); S.cast.add(p); }
-    if (S.mood === 'rainNight' && ['banana', 'sunny'].includes(c.who)) { const k = new T.SpotLight('#E8EEFF', 3, 6, .45, .6, 1.2), v = new T.Vector3(camPos[0] - at[0], 0, camPos[2] - at[2]).normalize().applyAxisAngle(new T.Vector3(0, 1, 0), .5);   /* D3: soft front key so the cast separates in the rain */
-      k.position.set(at[0] + v.x * 2.2, at[1] + 1.4, at[2] + v.z * 2.2); k.target.position.set(at[0], at[1] + .55, at[2]); S.cast.add(k, k.target); c = {...c, rim: true}; }
-    if (c.rim) { const l = new T.SpotLight('#9EC2FF', 14, 6, .5, .5, 1.2), d = new T.Vector3(at[0] - camPos[0], 0, at[2] - camPos[2]).normalize(); l.position.set(at[0] + d.x * 1.6, at[1] + 1.5, at[2] + d.z * 1.6); l.target.position.set(at[0], at[1] + .5, at[2]); S.cast.add(l, l.target); }
+    if (S.mood === 'rainNight' && ['banana', 'sunny'].includes(c.who)) { const k = new T.SpotLight('#E8EEFF', 3 * (shot.rig?.k ?? 1), 6, .45, .6, 1.2), v = new T.Vector3(camPos[0] - at[0], 0, camPos[2] - at[2]).normalize().applyAxisAngle(new T.Vector3(0, 1, 0), .5);   /* D3: soft front key so the cast separates in the rain */
+      k.position.set(at[0] + v.x * 2.2, at[1] + 1.4, at[2] + v.z * 2.2); k.target.position.set(at[0], at[1] + .55, at[2]); S.cast.add(k, k.target); c = {...c, rim: true};
+      const fk = new T.SpotLight(shot.macro ? '#FFFFFF' : '#DDE7FF', .8 * (shot.rig?.face ?? 1), 7, .7, .8, 1.2), fy = c.yaw ?? Math.atan2(camPos[0] - at[0], camPos[2] - at[2]);   /* face-side soft key: the Slime Guy reads before the background */
+      fk.position.set(at[0] + Math.sin(fy) * 1.7, at[1] + 1.0, at[2] + Math.cos(fy) * 1.7); fk.target.position.set(at[0], at[1] + .55, at[2]); S.cast.add(fk, fk.target); }
+    if (c.rim) { const l = new T.SpotLight('#9EC2FF', 14 * (S.mood === 'rainNight' ? (shot.rig?.k ?? 1) : 1), 6, .5, .5, 1.2), d = new T.Vector3(at[0] - camPos[0], 0, at[2] - camPos[2]).normalize(); l.position.set(at[0] + d.x * 1.6, at[1] + 1.5, at[2] + d.z * 1.6); l.target.position.set(at[0], at[1] + .5, at[2]); S.cast.add(l, l.target); }
   }
   for (const p of shot.props ?? []) {
     if (p.lamp) { const g = new T.Group(), post = new T.Mesh(new T.CylinderGeometry(.06, .08, 2.4, 10), new T.MeshStandardMaterial({color: '#3E4552', roughness: .4, metalness: .5})); post.position.y = 1.2; g.add(post);

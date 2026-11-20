@@ -23,6 +23,13 @@ for s in R['shots']:
         a = rgba(s['ids']['buildings']); ok = a[..., 2] == 255; idv = (a[..., 0] + a[..., 1] * 256 - 1)[ok]; u, n = np.unique(idv, return_counts=True)
         e['buildings'] = int(sum(1 for i, k in zip(u, n) if k >= 40 and i >= 0)); e['densityPass'] = 15 <= e['buildings'] <= 30
     if 'hill' in s['ids']: e['hillPlinthPct'] = round(float((rgba(s['ids']['hill']).sum(2) == 765).mean()) * 100, 2); e['hillPass'] = e['hillPlinthPct'] >= 8
+    if 'slimeMask' in s['ids']:   # S30 macros: subject >= 40 % of the frame, target hue >= 25 % of subject pixels (purple / orange / blue)
+        import colorsys
+        m = (rgba(s['ids']['slimeMask']).sum(2) == 765); H = c.reshape(-1, 3); mk = m.reshape(-1)
+        mx, mn = H.max(1), H.min(1); sat = np.where(mx > 0, (mx - mn) / np.maximum(mx, 1e-6), 0); d = np.maximum(mx - mn, 1e-6)
+        hue = np.where(mx == H[:, 0], ((H[:, 1] - H[:, 2]) / d) % 6, np.where(mx == H[:, 1], (H[:, 2] - H[:, 0]) / d + 2, (H[:, 0] - H[:, 1]) / d + 4)) * 60
+        band = {'S30a': (250, 295), 'S30b': (12, 48), 'S30c': (185, 232)}[s['id']]; ok = (sat > .22) & (mx > .12) & (hue >= band[0]) & (hue <= band[1])
+        e['subjectPct'] = round(float(m.mean()) * 100, 1); e['huePct'] = round(float((ok & mk).sum() / max(1, mk.sum())) * 100, 1); e['macroPass'] = e['subjectPct'] >= 40 and e['huePct'] >= 25
     if 'slime0' in s['ids']: e['slimeCover0'] = round(float((rgba(s['ids']['slime0']).sum(2) == 765).mean()) * 100, 2); e['slimeCover1s'] = round(float((rgba(s['ids']['slime1s']).sum(2) == 765).mean()) * 100, 2)
     if s['mood'] == 'quietNight':
         h, w = lum.shape; b = lum[int(h * .8):]; bh, bw = max(1, int(h * .05)), max(1, int(w * .05)); m = lum.mean()
@@ -32,6 +39,7 @@ for s in R['shots']:
 S = out['shots']; byid = {s['id']: s for s in S}
 out['summary'] = {'void': {'pass': all(s['void'] == 0 for s in S), 'failing': [s['id'] for s in S if s['void']]},
   'luma': {'pass': all(s['lumaPass'] for s in S), 'failing': {s['id']: [s['luma'], s['gate']] for s in S if not s['lumaPass']}},
+  'macro': {s['id']: [s['subjectPct'], s['huePct'], s['macroPass']] for s in S if 'macroPass' in s},
   'depth': {i: [byid[i]['layers'], byid[i]['depthPass']] for i in R['WIDES']}, 'density': {i: byid[i]['buildings'] for i in R['STREET']},
   'lockedOff': [s['id'] for s in S if s['lockedOff']],
   **({'S1': {'hillPlinthPct': byid['S1']['hillPlinthPct'], 'hillPass': byid['S1']['hillPass'], 'TC-01 frame1': byid['S1']['slimeCover0'], 'at1s': byid['S1']['slimeCover1s']}} if 'S1' in byid else {})}

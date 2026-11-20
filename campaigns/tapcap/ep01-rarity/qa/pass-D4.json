@@ -30,19 +30,19 @@
    "frames": 47,
    "move": "pull",
    "size": "wide",
-   "ms": 7844,
+   "ms": 7806,
    "travel": {
     "move": 3.477,
     "turnDeg": 3.02,
     "zoom": 1
    },
    "dur": 1.958,
-   "luma": 0.2678,
+   "luma": 0.1898,
    "gate": [
     0.1,
     0.22
    ],
-   "lumaPass": false,
+   "lumaPass": true,
    "void": 0,
    "lockedOff": false,
    "layers": {
@@ -83,14 +83,14 @@
    "frames": 26,
    "move": "push",
    "size": "close",
-   "ms": 7418,
+   "ms": 11488,
    "travel": {
     "move": 0.301,
     "turnDeg": 0.33,
     "zoom": 1
    },
    "dur": 1.083,
-   "luma": 0.2189,
+   "luma": 0.1483,
    "gate": [
     0.1,
     0.22
@@ -182,19 +182,19 @@
    "frames": 19,
    "move": "push",
    "size": "insert",
-   "ms": 6551,
+   "ms": 5908,
    "travel": {
     "move": 0.059,
     "turnDeg": 0.03,
     "zoom": 1
    },
    "dur": 0.792,
-   "luma": 0.5139,
+   "luma": 0.4477,
    "gate": [
     0.34,
     0.48
    ],
-   "lumaPass": false,
+   "lumaPass": true,
    "void": 0,
    "lockedOff": false
   },
@@ -285,24 +285,10 @@
    "failing": []
   },
   "luma": {
-   "pass": false,
-   "failing": {
-    "S33": [
-     0.2678,
-     [
-      0.1,
-      0.22
-     ]
-    ],
-    "S37b": [
-     0.5139,
-     [
-      0.34,
-      0.48
-     ]
-    ]
-   }
+   "pass": true,
+   "failing": {}
   },
+  "macro": {},
   "depth": {
    "S33": [
     {

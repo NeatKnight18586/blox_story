@@ -1,0 +1,85 @@
+# TapCap EP01 "Rarity's Just Paint" — Pass E final render (free ubuntu-24.04 runners only, public repo).
+# Trigger: Actions → tapcap-ep01 → Run workflow, or push a change to campaigns/tapcap/ep01-rarity/render.request.
+# The sponsor VO is never in the repo, so this farm produces the silent 1080×1920 master (captions burned) + clicks.wav + seam report;
+# the VO mux happens outside the repo (campaigns/tapcap/scripts/mux-final.sh).
+name: tapcap-ep01
+on:
+  workflow_dispatch:
+  push:
+    paths: ['campaigns/tapcap/ep01-rarity/render.request']
+permissions:
+  contents: read
+concurrency:
+  group: tapcap-ep01
+  cancel-in-progress: false
+jobs:
+  plan:
+    runs-on: ubuntu-24.04
+    outputs:
+      matrix: ${{ steps.m.outputs.matrix }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: {node-version: 22, cache: npm}
+      - run: npm ci
+      - id: m
+        run: echo "matrix=$(node campaigns/tapcap/scripts/final-render.js --plan 12)" >> "$GITHUB_OUTPUT"
+  render:
+    needs: plan
+    runs-on: ubuntu-24.04
+    timeout-minutes: 270
+    strategy:
+      fail-fast: false
+      matrix: ${{ fromJSON(needs.plan.outputs.matrix) }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: {node-version: 22, cache: npm}
+      - run: npm ci
+      - run: npx playwright install --with-deps chromium || echo "playwright browser unavailable, browser.js uses the runner's google-chrome"
+      - run: sudo apt-get update && sudo apt-get install -y ffmpeg
+      - name: Render frames ${{ matrix.from }}–${{ matrix.to }}
+        run: node campaigns/tapcap/scripts/final-render.js --from ${{ matrix.from }} --to ${{ matrix.to }} --out shard
+      - name: Encode near-lossless chunk
+        run: |
+          mkdir -p chunks
+          ffmpeg -v error -y -framerate 24 -start_number ${{ matrix.from }} -i shard/frames/frame-%05d.png \
+            -c:v libx264 -preset slow -crf 8 -pix_fmt yuv420p -g 24 -bf 0 chunks/chunk-$(printf %02d ${{ matrix.index }}).mp4
+          n=$(ffprobe -v error -count_frames -select_streams v:0 -show_entries stream=nb_read_frames -of csv=p=0 chunks/chunk-$(printf %02d ${{ matrix.index }}).mp4)
+          test "$n" = "$(( ${{ matrix.to }} - ${{ matrix.from }} + 1 ))" || { echo "chunk frame count $n"; exit 1; }
+      - uses: actions/upload-artifact@v4
+        with:
+          name: chunk-${{ matrix.index }}
+          path: chunks/*.mp4
+          retention-days: 1
+  assemble:
+    needs: render
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: {node-version: 22, cache: npm}
+      - run: npm ci
+      - run: sudo apt-get update && sudo apt-get install -y ffmpeg && pip install --break-system-packages numpy pillow pyyaml
+      - uses: actions/download-artifact@v4
+        with: {pattern: 'chunk-*', merge-multiple: true, path: chunks}
+      - name: Stitch, burn v6 captions, hard cut at 75.16 s
+        run: |
+          S=tapcap-ep01-rarity
+          python3 scripts/v2/captions.py --story $S --cues stories/$S/cues.json --spec stories/$S/episode.json --style pop-shorts-v6 --accent '#B98CFF' --out captions.ass
+          ls chunks/chunk-*.mp4 | sort | sed "s/^/file '/; s/$/'/" > list.txt; cat list.txt
+          ffmpeg -v error -y -f concat -safe 0 -i list.txt -c copy stitched.mp4
+          ffmpeg -v error -y -i stitched.mp4 -vf "subtitles=captions.ass:fontsdir=node_modules/@expo-google-fonts/lilita-one/400Regular" -t 75.16 \
+            -r 24 -c:v libx264 -preset slow -crf 14 -pix_fmt yuv420p -profile:v high -movflags +faststart final-video-silent.mp4
+          python3 -c "import sys; sys.path.insert(0,'scripts/v2'); import sfx as S, numpy as np; c=S.synth('click')*10**(S.CLICK_PEAK_DBFS/20); S.write_wav('click.wav', np.clip(c,-1,1))"
+          ffprobe -v error -show_entries stream=codec_name,width,height,r_frame_rate,nb_frames,duration -of default=nw=1 final-video-silent.mp4 | tee seam-report.txt
+          for i in $(seq 1 11); do f=$((i*151)); ffprobe -v error -select_streams v:0 -show_entries frame=pts_time -read_intervals "%+#1" -of csv=p=0 final-video-silent.mp4 >/dev/null; echo "seam $i at frame $f = $(python3 -c "print(round($f/24,4))") s" >> seam-report.txt; done
+      - uses: actions/upload-artifact@v4
+        with:
+          name: tapcap-ep01-final-video
+          path: |
+            final-video-silent.mp4
+            captions.ass
+            click.wav
+            seam-report.txt
+          retention-days: 7

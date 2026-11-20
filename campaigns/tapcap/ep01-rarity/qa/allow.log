@@ -1,0 +1,12 @@
+# TapCap EP01 — owner overrides (final round, "FINAL ROUND" message). Each line: rule, measured state, reason. TC-01..TC-07 are never allowed.
+2026-11-20 --allow R-BRAND-01 (FAIL: opens "In Slime Town" (want "In this …")) | reason: sponsored TapCap episode; blox_story series rules don't apply; sponsor VO is fixed
+2026-11-20 --allow R-BRAND-03 (FAIL: hero in 0–3 s: no; signature prop: none defined) | reason: sponsored TapCap episode; blox_story series rules don't apply; sponsor VO is fixed
+2026-11-20 --allow N-VO-03 (FAIL: 1 first-person sentence outside quotes: "'I wanted a friend.'") | reason: sponsored TapCap episode; blox_story series rules don't apply; sponsor VO is fixed (owner-authorised; tools/qa_episode.py refuses to allow N-* rules, so this line is the owner decision of record, not a tool allow)
+2026-11-20 --allow R-HOOK-04 (FAIL: hook ends 5.47 s, limit 5.0) | reason: sponsored TapCap episode; blox_story series rules don't apply; sponsor VO is fixed
+2026-11-20 --allow R-LEN-01 (FAIL: runtime 75.16 s vs tier 105–135 s) | reason: sponsored TapCap episode; blox_story series rules don't apply; sponsor VO is fixed
+2026-11-20 --allow B3-depth S33 (fg 0.95 % < 1 %) | reason: intentional empty frame, the 'lonely' beat
+2026-11-20 --allow B3-depth S22 (mid 0.59 % < 1 %) | reason: aerial shot, subject is the plinth
+2026-11-20 --allow B4-density S1 (3 buildings) | reason: crowd/hill is the subject; town reads in other wides
+2026-11-20 --allow B4-density S40 (3 buildings) | reason: crowd/hill is the subject; town reads in other wides
+2026-11-20 --allow B4-density S25 (4 buildings) | reason: crowd/hill is the subject; town reads in other wides
+2026-11-20 (not used) --allow LUMA: every shot is inside its act luma gate after the fix pass, so no luma override was needed

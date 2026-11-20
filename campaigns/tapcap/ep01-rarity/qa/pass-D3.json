@@ -7,19 +7,19 @@
    "frames": 42,
    "move": "push",
    "size": "close",
-   "ms": 7509,
+   "ms": 7613,
    "travel": {
     "move": 0.284,
     "turnDeg": 0.4,
     "zoom": 1
    },
    "dur": 1.75,
-   "luma": 0.2764,
+   "luma": 0.1731,
    "gate": [
     0.1,
     0.22
    ],
-   "lumaPass": false,
+   "lumaPass": true,
    "void": 0,
    "lockedOff": false
   },
@@ -30,19 +30,19 @@
    "frames": 40,
    "move": "push",
    "size": "close",
-   "ms": 3264,
+   "ms": 7192,
    "travel": {
     "move": 0.256,
     "turnDeg": 0.38,
     "zoom": 1
    },
    "dur": 1.667,
-   "luma": 0.3491,
+   "luma": 0.2047,
    "gate": [
     0.1,
     0.22
    ],
-   "lumaPass": false,
+   "lumaPass": true,
    "void": 0,
    "lockedOff": false
   },
@@ -53,19 +53,19 @@
    "frames": 35,
    "move": "whip",
    "size": "wide",
-   "ms": 6002,
+   "ms": 5966,
    "travel": {
     "move": 0,
     "turnDeg": 11.49,
     "zoom": 1
    },
    "dur": 1.458,
-   "luma": 0.0643,
+   "luma": 0.1201,
    "gate": [
     0.1,
     0.22
    ],
-   "lumaPass": false,
+   "lumaPass": true,
    "void": 0,
    "lockedOff": false,
    "layers": {
@@ -131,19 +131,19 @@
    "frames": 37,
    "move": "push",
    "size": "medium",
-   "ms": 3397,
+   "ms": 7726,
    "travel": {
     "move": 0.505,
     "turnDeg": 0.66,
     "zoom": 1
    },
    "dur": 1.542,
-   "luma": 0.2568,
+   "luma": 0.2071,
    "gate": [
     0.1,
     0.22
    ],
-   "lumaPass": false,
+   "lumaPass": true,
    "void": 0,
    "lockedOff": false
   },
@@ -154,19 +154,19 @@
    "frames": 61,
    "move": "push",
    "size": "close",
-   "ms": 8817,
+   "ms": 9018,
    "travel": {
     "move": 0.27,
     "turnDeg": 0.34,
     "zoom": 1.12
    },
    "dur": 2.542,
-   "luma": 0.2776,
+   "luma": 0.1738,
    "gate": [
     0.1,
     0.22
    ],
-   "lumaPass": false,
+   "lumaPass": true,
    "void": 0,
    "lockedOff": false
   },
@@ -177,21 +177,24 @@
    "frames": 16,
    "move": "push",
    "size": "insert",
-   "ms": 6226,
+   "ms": 5864,
    "travel": {
-    "move": 0.104,
-    "turnDeg": 0.47,
+    "move": 0.06,
+    "turnDeg": 0.02,
     "zoom": 1
    },
    "dur": 0.667,
-   "luma": 0.368,
+   "luma": 0.2075,
    "gate": [
     0.1,
     0.22
    ],
-   "lumaPass": false,
+   "lumaPass": true,
    "void": 0,
-   "lockedOff": false
+   "lockedOff": false,
+   "subjectPct": 100.0,
+   "huePct": 57.3,
+   "macroPass": true
   },
   {
    "id": "S30b",
@@ -199,22 +202,25 @@
    "start": 51.95,
    "frames": 13,
    "move": "push",
-   "size": "medium",
-   "ms": 9416,
+   "size": "close",
+   "ms": 7491,
    "travel": {
-    "move": 0.159,
-    "turnDeg": 0.31,
+    "move": 0.06,
+    "turnDeg": 0.02,
     "zoom": 1
    },
    "dur": 0.542,
-   "luma": 0.3185,
+   "luma": 0.1536,
    "gate": [
     0.1,
     0.22
    ],
-   "lumaPass": false,
+   "lumaPass": true,
    "void": 0,
-   "lockedOff": false
+   "lockedOff": false,
+   "subjectPct": 100.0,
+   "huePct": 57.8,
+   "macroPass": true
   },
   {
    "id": "S30c",
@@ -223,21 +229,24 @@
    "frames": 21,
    "move": "push",
    "size": "insert",
-   "ms": 6596,
+   "ms": 3157,
    "travel": {
-    "move": 0.104,
-    "turnDeg": 0.49,
+    "move": 0.06,
+    "turnDeg": 0.02,
     "zoom": 1
    },
    "dur": 0.875,
-   "luma": 0.2514,
+   "luma": 0.2088,
    "gate": [
     0.1,
     0.22
    ],
-   "lumaPass": false,
+   "lumaPass": true,
    "void": 0,
-   "lockedOff": false
+   "lockedOff": false,
+   "subjectPct": 100.0,
+   "huePct": 99.3,
+   "macroPass": true
   },
   {
    "id": "S31",
@@ -246,19 +255,19 @@
    "frames": 71,
    "move": "orbit",
    "size": "medium",
-   "ms": 3248,
+   "ms": 2854,
    "travel": {
     "move": 4.4,
     "turnDeg": 172.2,
     "zoom": 1
    },
    "dur": 2.958,
-   "luma": 0.2717,
+   "luma": 0.2082,
    "gate": [
     0.1,
     0.22
    ],
-   "lumaPass": false,
+   "lumaPass": true,
    "void": 0,
    "lockedOff": false
   }
@@ -269,72 +278,25 @@
    "failing": []
   },
   "luma": {
-   "pass": false,
-   "failing": {
-    "S23": [
-     0.2764,
-     [
-      0.1,
-      0.22
-     ]
-    ],
-    "S24": [
-     0.3491,
-     [
-      0.1,
-      0.22
-     ]
-    ],
-    "S25": [
-     0.0643,
-     [
-      0.1,
-      0.22
-     ]
-    ],
-    "S28": [
-     0.2568,
-     [
-      0.1,
-      0.22
-     ]
-    ],
-    "S29": [
-     0.2776,
-     [
-      0.1,
-      0.22
-     ]
-    ],
-    "S30a": [
-     0.368,
-     [
-      0.1,
-      0.22
-     ]
-    ],
-    "S30b": [
-     0.3185,
-     [
-      0.1,
-      0.22
-     ]
-    ],
-    "S30c": [
-     0.2514,
-     [
-      0.1,
-      0.22
-     ]
-    ],
-    "S31": [
-     0.2717,
-     [
-      0.1,
-      0.22
-     ]
-    ]
-   }
+   "pass": true,
+   "failing": {}
+  },
+  "macro": {
+   "S30a": [
+    100.0,
+    57.3,
+    true
+   ],
+   "S30b": [
+    100.0,
+    57.8,
+    true
+   ],
+   "S30c": [
+    100.0,
+    99.3,
+    true
+   ]
   },
   "depth": {
    "S25": [

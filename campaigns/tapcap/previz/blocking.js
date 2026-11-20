@@ -54,8 +54,9 @@ const T = [
   {id: 'S27', cut: [22, 0], size: 'medium', move: 'track', cam: {from: {pos: [-16.2, 2.4, -6.4], look: [-19.8, 4.6, -11.2], mm: 35}, to: {pos: [-17.6, 3.9, -8.2], look: [-21.2, 6.4, -12.8], mm: 35}}, cast: [{who: 'sunny', path: [.38, .62], hop: true, paint: 'fake_banana'}, {who: 'banana', at: onPlinth(0), paint: 'fake_cosmic', run: 1, yaw: yawTown}]},
   {id: 'S28', cut: [22, 10], size: 'medium', move: 'push', cam: {from: {pos: toward(3.0, 1.0, .4), look: P(0, .55, 0), mm: 50}, to: {pos: toward(2.5, .95, .35), look: P(0, .55, 0), mm: 50}}, cast: [{who: 'sunny', at: toward(.32), yaw: yawTown + Math.PI, paint: 'fake_banana'}, {who: 'banana', at: toward(-.3), paint: 'fake_cosmic', run: 1, yaw: yawTown}]},
   {id: 'S29', cut: [23, 0], size: 'close', move: 'push', zoomAt: 1.4, cam: {from: {pos: toward(-1.6, .6, -.7), look: toward(.32, .5), mm: 85}, to: {pos: toward(-1.35, .58, -.6), look: toward(.32, .5), mm: 85}, punch: {at: 1.4, k: 1.12}}, cast: [{who: 'sunny', at: toward(.32), yaw: yawTown + Math.PI, paint: 'fake_banana', run: .45}, {who: 'banana', at: toward(-.3), paint: 'fake_cosmic', run: 1, yaw: yawTown}]},
-  ...['a', 'b', 'c'].map((k, i) => ({id: 'S30' + k, cut: [24, i + 1], size: i === 1 ? 'medium' : 'insert', move: 'push', cam: i === 1 ? {from: {pos: toward(-1.9, .7, -.9), look: toward(.32, .5), mm: 50}, to: {pos: toward(-1.75, .68, -.85), look: toward(.32, .5), mm: 50}} : {from: {pos: toward(-.95, [.85, .55, .25][i], -.25), look: toward(.32, [.82, .5, .2][i]), mm: 85}, to: {pos: toward(-.85, [.85, .55, .25][i], -.22), look: toward(.32, [.82, .5, .2][i]), mm: 85}},
-    cast: [{who: 'sunny', at: toward(.32), yaw: yawTown + Math.PI, paint: 'fake_banana', run: [.7, .85, 1][i]}, {who: 'banana', at: toward(-.3), paint: 'fake_cosmic', run: 1, yaw: yawTown}], bloom: true})),
+  ...['a', 'b', 'c'].map((k, i) => ({id: 'S30' + k, cut: [24, i + 1], size: i === 1 ? 'close' : 'insert', move: 'push', macro: true,   /* final round: 85 mm side-on macro of Sunny's revealed Cosmic body, one hue per colour word (purple / orange / blue) */
+    cam: {from: {pos: toward(.32, [.78, .52, .26][i], i === 1 ? -.9 : -.66), look: toward(.32, [.78, .52, .26][i]), mm: 85}, to: {pos: toward(.32, [.78, .52, .26][i], i === 1 ? -.84 : -.6), look: toward(.32, [.78, .52, .26][i]), mm: 85}},
+    cast: [{who: 'sunny', at: toward(.32), yaw: yawTown + Math.PI, paint: 'fake_banana', run: 1, hue: [0, 2, 1][i]}, {who: 'banana', at: toward(-.3), paint: 'fake_cosmic', run: 1, yaw: yawTown}], bloom: true})),
   {id: 'S31', cut: [25, 0], hero: 2, size: 'medium', move: 'orbit', cam: {orbit: {center: toward(.32, .5), r: 2.2, h: .15, a0: yawTown + Math.PI + .2, a1: yawTown + .2}, mm: 50, rack: {from: 2.2, to: 2.75}},   /* ends on the '1 / 102' sign (plinth base front, ≈ 2.75 H from the end camera) */
     cast: [{who: 'sunny', at: toward(.32), yaw: yawTown, preset: 'cosmic'}, {who: 'banana', at: toward(-.3), paint: 'fake_cosmic', run: 1, yaw: yawTown}]},
   {id: 'S32', cut: [26, 0], size: 'medium', move: 'push', grade: 'memory', cam: {from: {pos: toward(2.6, .9, .6), look: P(0, .5, 0), mm: 50}, to: {pos: toward(2.2, .85, .5), look: P(0, .5, 0), mm: 50}}, cast: [{who: 'sunny', at: onPlinth(0), paint: 'fake_banana', run: 0, yaw: yawTown}]},
@@ -82,7 +83,8 @@ export function shots(cues) {
   const out = T.map(s => ({...s, start: +startOf(s).toFixed(4)}));
   out[0].start = 0;
   out.forEach((s, i) => { s.end = i < out.length - 1 ? out[i + 1].start : END; const f0 = Math.round(s.start * FPS), f1 = Math.round(s.end * FPS); s.f0 = f0; s.frames = f1 - f0;
-    s.mood = moodForShot(s.id.replace(/[abc]$/, '')); s.num = +s.id.replace(/\D/g, ''); s.wide = s.size === 'wide'; });
+    s.mood = moodForShot(s.id.replace(/[abc]$/, '')); if (s.mood === 'rainNight' && !s.rig) s.rig = {k: ['close', 'insert'].includes(s.size) ? .3 : 1, face: s.size === 'wide' ? 1.2 : 1};   /* final round: per-framing rain rig (macro .3×, wides 1×) + face-side soft key */
+    s.num = +s.id.replace(/\D/g, ''); s.wide = s.size === 'wide'; });
   // S40 replays S1's move exactly; S1's move is shortened/stretched to S40's length by shot-relative u, so the last frames match
   const s1 = out.find(s => s.id === 'S1'); out.find(s => s.id === 'S40').cam = s1.cam;
   // taps: press bottom on each click onset (TC-05)

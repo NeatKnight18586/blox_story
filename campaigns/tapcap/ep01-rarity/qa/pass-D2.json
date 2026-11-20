@@ -107,22 +107,22 @@
    "frames": 45,
    "move": "push",
    "size": "insert",
-   "ms": 3656,
+   "ms": 7981,
    "travel": {
     "move": 0.108,
     "turnDeg": 0.24,
     "zoom": 1
    },
    "dur": 1.875,
-   "luma": 0.7267,
+   "luma": 0.1595,
    "gate": [
     0.1,
     0.22
    ],
-   "lumaPass": false,
+   "lumaPass": true,
    "void": 0,
    "lockedOff": false,
-   "bottomPatchMax": 0.957,
+   "bottomPatchMax": 0.459,
    "brightPatch": false
   },
   {
@@ -279,17 +279,10 @@
    "failing": []
   },
   "luma": {
-   "pass": false,
-   "failing": {
-    "S16c": [
-     0.7267,
-     [
-      0.1,
-      0.22
-     ]
-    ]
-   }
+   "pass": true,
+   "failing": {}
   },
+  "macro": {},
   "depth": {
    "S22": [
     {

@@ -60,7 +60,7 @@ function onFace(b, side, u, y, out = 0) {   // u ∈ [-.5, .5] across the face, 
 // ---------- materials ----------
 const GLSL = `
 varying vec3 vP; varying float vDrip, vTip, vPart;
-uniform float uMode, uPaint, uRun, uGlitter, uFleckR, uFlatMask, uFlakeDens, uFlakeGain; uniform vec3 uBody, uDripCol, uC0, uC1, uC2, uP0, uP1, uP2, uPY, uFleck;
+uniform float uMode, uPaint, uRun, uHue, uGlitter, uFleckR, uFlatMask, uFlakeDens, uFlakeGain; uniform vec3 uHueC, uBody, uDripCol, uC0, uC1, uC2, uP0, uP1, uP2, uPY, uFleck;
 float h31(vec3 p){ p = fract(p * .3183099 + .1); p *= 17.0; return fract(p.x * p.y * p.z * (p.x + p.y + p.z)); }
 vec3 h33(vec3 p){ return vec3(h31(p), h31(p + 19.19), h31(p + 47.7)); }
 float vn(vec3 x){ vec3 i = floor(x), f = fract(x); f = f * f * (3.0 - 2.0 * f);
@@ -70,6 +70,7 @@ float fbm(vec3 p){ float a = .5, s = 0.0; for (int i = 0; i < 4; i++) { s += a *
 vec3 cosmicCol(vec3 p){ vec3 q = p * 5.0; q += 1.6 * vec3(fbm(q + 3.1), fbm(q + 7.7), fbm(q + 1.3));
   float t = fract(fbm(q) * 2.6 + p.y * 1.3); vec3 c = t < .333 ? mix(uC0, uC1, smoothstep(.18, .333, t)) : t < .666 ? mix(uC1, uC2, smoothstep(.5, .666, t)) : mix(uC2, uC0, smoothstep(.85, 1.0, t));
   c *= .82 + .3 * fbm(q * 2.7);
+  if (uHue > -.5) { vec3 hc = uHueC; c = mix(c, hc * (.82 + .3 * fbm(q * 2.7)), .9); }   /* S30 macros: one colour word per shot */
   return c; }
 // paint coverage: 1 = paint. Runs top→bottom with uRun; drips keep paint a little longer (rivulets follow the drips).
 // fake cosmic peeks (reason): 1 = drip tips + head rim, 2 = arm edges (grazing), 3 = thin brush gaps elsewhere
@@ -88,12 +89,13 @@ vec3 paintCol(vec3 p){ if (uPaint > 1.5) return uPY * (.9 + .18 * vn(vec3(p.x * 
   float streak = vn(vec3(p.x * 160.0, p.y * 6.0, p.z * 160.0)), dry = vn(vec3(p.x * 60.0, p.y * 3.0, p.z * 60.0));
   return c * (.78 + .32 * streak) * (.92 + .1 * dry); }   // brush streaks run vertically
 `;
-export function slimeMaterial(preset, {paint = null, run = 0, fleck = null, flatMask = false} = {}) {
+export function slimeMaterial(preset, {paint = null, run = 0, fleck = null, flatMask = false, hue = -1} = {}) {
   const P = COLORS[preset] ?? COLORS.banana, cosmic = !!P.cosmic, grad = P.gradient;
   const m = new T.MeshPhysicalMaterial({color: '#ffffff', roughness: .26, metalness: 0, clearcoat: 1, clearcoatRoughness: .06,
     iridescence: cosmic ? .75 : 0, iridescenceIOR: 1.35, iridescenceThicknessMinimum: 180, iridescenceThicknessMaximum: 520, sheen: 0, envMapIntensity: 1.1});
   const C = c => new T.Color(c);
-  const u = {uMode: {value: grad ? 2 : cosmic ? 1 : 0}, uPaint: {value: paint === 'fake_cosmic' ? 1 : paint === 'fake_banana' ? 2 : 0}, uRun: {value: run},
+  if (hue >= 0) { m.clearcoat = .25; m.envMapIntensity = .25; m.iridescence = .15; }   /* hue macros: less blue sky in the reflection so the colour word reads */
+  const u = {uMode: {value: grad ? 2 : cosmic ? 1 : 0}, uPaint: {value: paint === 'fake_cosmic' ? 1 : paint === 'fake_banana' ? 2 : 0}, uRun: {value: run}, uHue: {value: hue}, uHueC: {value: C(['#CC55F0', '#3FAEFF', '#FFA02E'][Math.max(0, hue)])},
     uGlitter: {value: P.glitter ?? 1}, uBody: {value: C(P.body)}, uDripCol: {value: C(P.drip ?? P.body)},
     uC0: {value: C((P.cosmic ?? grad)?.[0] ?? '#000')}, uC1: {value: C((P.cosmic ?? grad)?.[1] ?? '#000')}, uC2: {value: C((P.cosmic ?? grad)?.[2] ?? '#000')},
     uP0: {value: C(PAINT.cosmic[0])}, uP1: {value: C(PAINT.cosmic[1])}, uP2: {value: C(PAINT.cosmic[2])}, uPY: {value: C(PAINT.banana)},
@@ -113,6 +115,7 @@ export function slimeMaterial(preset, {paint = null, run = 0, fleck = null, flat
           float fv = 1.0 - clamp(abs(dot(normalize(normal), normalize(vViewPosition))), 0.0, 1.0);
           fv = clamp(fv * 1.35 + .55 * (fbm(vP * 7.0 + 2.0) - .5), 0.0, 1.0);
           vec3 rc = fv < .5 ? mix(uC0, uC1, smoothstep(0.0, .5, fv)) : mix(uC1, uC2, smoothstep(.5, 1.0, fv));
+          if (uHue > -.5) { vec3 hc = uHueC; rc = mix(rc, hc * (.9 + .2 * fbm(vP * 9.0)), .92); }
           diffuseColor.rgb = mix(rc, diffuseColor.rgb, pm); }`)
       .replace('#include <lights_physical_fragment>', `#include <lights_physical_fragment>
         #ifdef USE_CLEARCOAT
@@ -157,7 +160,7 @@ export function armBendDeg(pts = ARM_PTS) {   // side view (z, y): angle between
 }
 
 // ---------- the model ----------
-export function createSlimeGuy({preset = 'banana', paint = null, run = 0, face = 'default', flat = false, flatMask = false} = {}) {
+export function createSlimeGuy({preset = 'banana', paint = null, run = 0, face = 'default', flat = false, flatMask = false, hue = -1} = {}) {
   const root = new T.Group(), keycap = new T.Group(); root.add(keycap); root.name = `slimeguy_${preset}`;
   const H = L.head, TO = L.torso, B = L.base, S = L.switch;
   const torsoSlope = (TO.wBot - TO.wAt67) / (.67 - TO.y0), tw = y => TO.wBot - torsoSlope * (y - TO.y0);
@@ -209,7 +212,7 @@ export function createSlimeGuy({preset = 'banana', paint = null, run = 0, face =
       geo.baseDrip.push(capsuleAB(r, t, btm), bulb(r * 1.2, btm)); } }
 
   // build meshes (merged per part)
-  const mat = flat ? null : slimeMaterial(preset, {paint, run, fleck, flatMask});
+  const mat = flat ? null : slimeMaterial(preset, {paint, run, fleck, flatMask, hue});
   const flatMat = c => new T.MeshBasicMaterial({color: c});
   const merge = (list, drip) => { const g = new T.BufferGeometry(), all = list.map(x => { const y = x.index ? x.toNonIndexed() : x; if (!y.attributes.normal) y.computeVertexNormals(); return tag(y, drip, x.userData); });
     for (const k of ['position', 'normal', 'aDrip', 'aTip', 'aPart']) { const n = all.reduce((s, y) => s + y.attributes[k].array.length, 0), arr = new Float32Array(n); let o = 0;

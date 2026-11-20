@@ -29,6 +29,7 @@ try {
       for (const u of [0, .5, 1]) e.ids['void' + u] = dump(`${s.id}_void${u}`, await call('ids', {id: s.id, u, w: 160, h: 284, kind: 'void'}));
       if (WIDES.includes(s.id)) e.ids.layers = dump(`${s.id}_layers`, await call('ids', {id: s.id, u: .5, w: 270, h: 480, kind: 'layers'}));
       if (STREET.includes(s.id)) e.ids.buildings = dump(`${s.id}_bld`, await call('ids', {id: s.id, u: .5, w: 540, h: 960, kind: 'buildings'}));
+      if (s.macro) e.ids.slimeMask = dump(`${s.id}_slime`, await call('ids', {id: s.id, u: .5, w: 288, h: 512, kind: 'slime'}));
       if (['S1', 'S40'].includes(s.id)) e.ids.hill = dump(`${s.id}_hill`, await call('ids', {id: s.id, u: 1, w: 270, h: 480, kind: 'hill'}));
       if (s.id === 'S1') { e.ids.slime0 = dump('S1_slime0', await call('ids', {id: s.id, u: 0, w: 270, h: 480, kind: 'slime'}));
         e.ids.slime1s = dump('S1_slime1s', await call('ids', {id: s.id, u: Math.min(1, FPS / (s.frames - 1)), w: 270, h: 480, kind: 'slime'})); }
