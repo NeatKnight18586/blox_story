@@ -1,6 +1,6 @@
 # HANDOFF — TapCap EP01 "Rarity's Just Paint"  (≤ 30 lines; read with ../RULES.md, spec.yml, shots.yml)
 ## Approved
-- Pass A (Clix face #2 grin) · Pass B · Pass C · Pass D1 · Pass D2 (all 2026-11-20). Pass D3 + D4: NOT approved yet.
+- Pass A (Clix face #2 grin) · Pass B · Pass C · Pass D1 · Pass D2 · Pass D3 · Pass D4 (all 2026-11-20). Pass E: blocked (R-FLOW-06, QA FAILs).
 ## Standing state (from Pass C, unchanged)
 - 46 cuts on aligner words (avg 1.63 s), void 0, nothing locked off, clicks 0-frame error. Retention linter 19 PASS / 5 FAIL
   (VO/brand-exempt: R-BRAND-01, N-VO-03, R-HOOK-04, R-BRAND-03, R-LEN-01). Render plan 8.96 h in 4 jobs ≤ 3.4 h (RENDER_PLAN.md).
@@ -25,5 +25,5 @@
 - S36a Clix reveal still reads as a block-figure on a deck, not a person; S36b frame mostly sky + a dark wedge.
 - S33 sign "TOP SHELF" small and soft; rain streaks too dense, lamp halo is the subject.
 ## Next step
-- Owner: D3/D4 notes by shot number or "approve". Proposal for notes: per-framing rain key (close = .3×) instead of EV grades;
-  paint-colour inserts for S30a–c. Then Pass E (final render) only after all sequences approved and QA zero FAIL.
+- Owner: decide each open FAIL: fix (per-framing rain key, close = .3×; paint inserts S30a–c) or a logged --allow.
+  Then Pass E (1 farm job, 4 shards ≤ 3.4 h) once QA is at zero FAIL.
