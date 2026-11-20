@@ -107,9 +107,9 @@ window.__p = {
     for (const r of S.rain) r.material.opacity = .32 * (shot.rainK ?? 1);
     return {shot, c, frame};
   },
-  frame({id, u = .5, w = 360, h = 640, post = true}) {
+  frame({id, u = .5, w = 360, h = 640, post = true, ev = 0}) {
     const {shot, c} = this.pose(id, u), k = camOf(c, w, h), t0 = performance.now(), M = S.M, m7 = S.m7;
-    R.toneMappingExposure = (m7.exposure ?? 1) * M.exposure; R.setSize(w, h, false);
+    R.toneMappingExposure = (m7.exposure ?? 1) * M.exposure * Math.pow(2, ev); R.setSize(w, h, false);   /* per-shot grade (previz/grade.json) */
     if (post) { const P = createPost(R, S.scene, k, {samples: 4}); P.setSize(w, h); const close = ['close', 'insert'].includes(shot.size);
       const focus = c.focus ?? (close ? Math.hypot(...c.pos.map((v, i) => v - c.look[i])) : null), st = postFor(m7, {shot: {size: close ? 'close' : 'wide'}, focus});
       if (S.mood === 'rainNight') st.rain = {...MOODS7[M.rainFrom].rain, amount: MOODS7[M.rainFrom].rain.amount * (shot.rainK ?? 1)};

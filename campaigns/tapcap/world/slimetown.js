@@ -178,19 +178,21 @@ export function build({mood = 'dawnHope', t = .4, cams = [], seed = 1102, cloudG
   const proto = {};
   const ex = EXCLUDE.map(id => cams.find(c => c.id === id)).filter(Boolean).map(c => resolveCam(c));
   for (const c of members) { if (ex.some(k => sees(k, [c.x, .6, c.z], .6, .05))) continue; const P = (proto[c.preset] ??= createSlimeGuy({preset: c.preset})), g = P.root.clone(true), pose = idlePose(c.loop, t, c.phase);
-    g.position.set(c.x, (c.y ?? 0) + pose.dy, c.z); g.rotation.set(0, c.yaw, pose.roll); g.children[0].position.y = pose.tap; g.traverse(n => { if (n.isMesh) { n.castShadow = n.receiveShadow = true; } }); root.add(tag(g, 'fg')); c.object = g; }
+    g.position.set(c.x, (c.y ?? 0) + pose.dy, c.z); g.rotation.set(0, c.yaw, pose.roll); g.children[0].position.y = pose.tap; g.traverse(n => { n.userData.slime = true; if (n.isMesh) { n.castShadow = n.receiveShadow = true; } }); root.add(tag(g, 'fg')); c.object = g; }
   // cloud deck (puffs at 38–50 H); golden (§1c): 6 masses in the top 45 % of the S36 frame around a centred gap
   if (mood === 'golden' && skyCam) { const c = resolveCam(skyCam), B = camBasis(c), cm = new T.MeshStandardMaterial({color: M.clouds, roughness: 1, emissive: M.clouds, emissiveIntensity: .18}), cr = (i => () => (i = (i * 16807) % 2147483647) / 2147483647)(91);
     for (const [nx, ny] of [[-.72, .3], [.72, .3], [-.9, .74], [.9, .74], [-.42, .98], [.42, .98]]) { const d = 70, dir = B.f.map((f, i) => f + nx * B.th * B.r[i] + ny * B.tv * B.u[i]), L2 = Math.hypot(...dir);
       const p = c.pos.map((v, i) => v + dir[i] / L2 * d), s = d * B.tv * .16, cg = new T.Group(); cg.position.set(...p); cg.lookAt(...c.pos);
       for (let k = 0; k < 7; k++) { const b = new T.Mesh(new T.SphereGeometry(s * (.5 + .14 * (k % 3)), 18, 14), cm); b.position.set((k - 3) * s * .32 * (cr() + .6), (cr() - .5) * s * .45, (cr() - .5) * s * .3); cg.add(b); }
       cg.traverse(n => { n.userData.cloud = true; }); root.add(tag(cg, 'far')); } }
-  else { const cr = (i => () => (i = (i * 16807) % 2147483647) / 2147483647)(77), part = mood === 'golden' ? 15 : 0, gc = cloudGap ?? [-10, -4], cm = new T.MeshStandardMaterial({color: M.clouds, roughness: 1, emissive: M.clouds, emissiveIntensity: mood === 'golden' ? .25 : .05});
+  { const ex36 = skyCam ? resolveCam(skyCam) : null, cr = (i => () => (i = (i * 16807) % 2147483647) / 2147483647)(77), part = 0, gc = cloudGap ?? [-10, -4], cm = new T.MeshStandardMaterial({color: M.clouds, roughness: 1, emissive: M.clouds, emissiveIntensity: mood === 'golden' ? .25 : .05});
     for (let i = 0; i < (part ? 70 : 46); i++) { const a = cr() * Math.PI * 2, rr = (part ? part + 2 : 20) + cr() * (part ? 60 : 90), x = (part ? gc[0] : -8) + Math.cos(a) * rr, z = (part ? gc[1] : -6) + Math.sin(a) * rr;
-      const cg = new T.Group(); cg.position.set(x, 38 + cr() * 12, z); const s = 5 + cr() * 7;
+      const cy = 38 + cr() * 12, s = 5 + cr() * 7; if (ex36 && sees(ex36, [x, cy, z], s * 1.4, .1)) continue;   /* golden: the S36 frame keeps only its 6 masses */
+      const cg = new T.Group(); cg.position.set(x, cy, z);
       for (let k = 0; k < 6; k++) { const b = new T.Mesh(new T.SphereGeometry(s * (.45 + .12 * (k % 3)), 16, 12), cm); b.position.set((k - 2.5) * s * .42, Math.sin(k * 1.7) * s * .14, Math.cos(k * 2.3) * s * .25); cg.add(b); }
       root.add(tag(cg, 'far')); } }
   // rain-night extras: puddles (ripples), 3D rain streaks, warm practicals at the box door (quiet night: practicals only)
+  if (mood === 'quietNight') { const glow = new T.PointLight('#FFD9A0', 3.5, 12, 1.4); glow.position.set(0, 4.3, -.5); root.add(glow); }   /* string-light glow inside the box (S14–S17) */
   if (rain) for (const s of [-1, 1]) { const l = new T.PointLight(M.practicals, 6, 9, 1.6); l.position.set(s * 2.4, 3.1, BW.d / 2 + .6); root.add(l); }
   if (rain) {
     const pm = new T.MeshPhysicalMaterial({color: '#25303C', roughness: WR, metalness: .05, clearcoat: .9, clearcoatRoughness: .3});

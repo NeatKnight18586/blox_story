@@ -26,3 +26,4 @@ lighting:   # superseded by lighting_by_shot (kept for the preset names)
   - {preset: quiet-night, shots: S14-S17, rain: false, wet: false, key: '#9DB8FF', windows: warm}
 qa: {proportions: qa/proportions.json, measured: qa/measured.json}
 loop: {first: S1, last: S40, rule: "S40 replays S1's camera move exactly; last frames identical (diff 0)"}
+reversal_at_s: 53.36   # S31 'Sunny was the Cosmic' (hero shot 2)
