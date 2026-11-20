@@ -17,8 +17,7 @@
 ## Weakest shots
 - S21/S37a/S37b click macros don't show the keycap entering the switch · S12 OTS camera sits in Sunny's head · S28–S34 rain plinth
   shots are dark and soft; Sunny/Banana barely read · S36a Clix reveal reads as a block, not a person.
-## Render plan
-- RENDER_PLAN.md: 1080×1920 at 12.3 / 11.3 / 6.5 s per frame → 8.96 h (×1.6 safety) in 4 jobs ≤ 3.4 h on free ubuntu-24.04.
+- Render plan, RENDER_PLAN.md: 1080×1920 at 12.3 / 11.3 / 6.5 s per frame → 8.96 h (×1.6 safety) in 4 jobs ≤ 3.4 h on free ubuntu-24.04.
 ## Pass D1 (S1–S13), `scripts/pass-d.js --seq D1 --shots … --merge` → review/pass-d/D1/pass-c-D1.png, qa/pass-D1.json
 - S1 hero: camera on the hill-road axis (outside the box) → hill+plinth 18.8 % ✓, TC-01 23.6 % ✓, 4 layers ✓; buildings 3 (B4 ✗, owner pick).
 - S9 off the box wall onto the hill road; S11 whole CORE ROW sign; S12 OTS behind Sunny; S13 face framed. All 13: void 0, luma in gate, moving.
