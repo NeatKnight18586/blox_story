@@ -7,34 +7,34 @@
    "frames": 62,
    "move": "push",
    "size": "wide",
-   "ms": 8050,
+   "ms": 8122,
    "travel": {
     "move": 1.901,
-    "turnDeg": 1.3,
+    "turnDeg": 0.96,
     "zoom": 1
    },
    "dur": 2.583,
-   "luma": 0.5096,
+   "luma": 0.4608,
    "gate": [
     0.36,
     0.5
    ],
-   "lumaPass": false,
+   "lumaPass": true,
    "void": 0,
    "lockedOff": false,
    "layers": {
-    "fg": 14.37,
-    "mid": 37.57,
-    "bg": 2.31,
-    "far": 18.1
+    "fg": 18.51,
+    "mid": 34.64,
+    "bg": 4.8,
+    "far": 15.97
    },
    "depthPass": true,
-   "buildings": 8,
+   "buildings": 6,
    "densityPass": false,
-   "hillPlinthPct": 1.4,
+   "hillPlinthPct": 3.94,
    "hillPass": false,
-   "slimeCover0": 0.0,
-   "slimeCover1s": 0.0
+   "slimeCover0": 12.74,
+   "slimeCover1s": 13.66
   },
   {
    "id": "S2",
@@ -43,7 +43,7 @@
    "frames": 46,
    "move": "whip",
    "size": "insert",
-   "ms": 2482,
+   "ms": 2647,
    "travel": {
     "move": 0.568,
     "turnDeg": 38.16,
@@ -66,14 +66,14 @@
    "frames": 36,
    "move": "crane",
    "size": "wide",
-   "ms": 1863,
+   "ms": 1798,
    "travel": {
-    "move": 3.821,
-    "turnDeg": 3.24,
+    "move": 3.089,
+    "turnDeg": 2.13,
     "zoom": 1
    },
    "dur": 1.5,
-   "luma": 0.4994,
+   "luma": 0.4509,
    "gate": [
     0.36,
     0.5
@@ -82,12 +82,12 @@
    "void": 0,
    "lockedOff": false,
    "layers": {
-    "fg": 1.74,
-    "mid": 0.0,
-    "bg": 51.16,
-    "far": 13.51
+    "fg": 9.08,
+    "mid": 10.71,
+    "bg": 32.54,
+    "far": 14.56
    },
-   "depthPass": false
+   "depthPass": true
   },
   {
    "id": "S4",
@@ -96,7 +96,7 @@
    "frames": 49,
    "move": "push",
    "size": "medium",
-   "ms": 1623,
+   "ms": 1731,
    "travel": {
     "move": 1.304,
     "turnDeg": 0.72,
@@ -119,14 +119,14 @@
    "frames": 44,
    "move": "tilt",
    "size": "wide",
-   "ms": 9654,
+   "ms": 10215,
    "travel": {
     "move": 2.449,
     "turnDeg": 13.99,
     "zoom": 1
    },
    "dur": 1.833,
-   "luma": 0.4841,
+   "luma": 0.4839,
    "gate": [
     0.36,
     0.5
@@ -135,9 +135,9 @@
    "void": 0,
    "lockedOff": false,
    "layers": {
-    "fg": 4.26,
-    "mid": 27.29,
-    "bg": 45.43,
+    "fg": 4.37,
+    "mid": 27.36,
+    "bg": 45.25,
     "far": 8.42
    },
    "depthPass": true
@@ -149,19 +149,19 @@
    "frames": 69,
    "move": "orbit",
    "size": "medium",
-   "ms": 1687,
+   "ms": 1731,
    "travel": {
     "move": 1.43,
     "turnDeg": 22.23,
     "zoom": 1
    },
    "dur": 2.875,
-   "luma": 0.5579,
+   "luma": 0.4996,
    "gate": [
     0.36,
     0.5
    ],
-   "lumaPass": false,
+   "lumaPass": true,
    "void": 0,
    "lockedOff": false
   },
@@ -172,7 +172,7 @@
    "frames": 36,
    "move": "push",
    "size": "close",
-   "ms": 3874,
+   "ms": 3880,
    "travel": {
     "move": 0.905,
     "turnDeg": 0.71,
@@ -195,14 +195,14 @@
    "frames": 42,
    "move": "track",
    "size": "wide",
-   "ms": 2758,
+   "ms": 2810,
    "travel": {
     "move": 1.265,
     "turnDeg": 1.76,
     "zoom": 1
    },
    "dur": 1.75,
-   "luma": 0.4803,
+   "luma": 0.4809,
    "gate": [
     0.36,
     0.5
@@ -227,7 +227,7 @@
    "frames": 38,
    "move": "push",
    "size": "medium",
-   "ms": 2734,
+   "ms": 2632,
    "travel": {
     "move": 0.522,
     "turnDeg": 0.38,
@@ -250,7 +250,7 @@
    "frames": 37,
    "move": "track",
    "size": "medium",
-   "ms": 2522,
+   "ms": 2482,
    "travel": {
     "move": 1.414,
     "turnDeg": 6.81,
@@ -273,14 +273,14 @@
    "frames": 59,
    "move": "push",
    "size": "medium",
-   "ms": 4727,
+   "ms": 5080,
    "travel": {
-    "move": 1.001,
-    "turnDeg": 0.54,
+    "move": 0.702,
+    "turnDeg": 0.43,
     "zoom": 1
    },
    "dur": 2.458,
-   "luma": 0.4894,
+   "luma": 0.4589,
    "gate": [
     0.36,
     0.5
@@ -296,7 +296,7 @@
    "frames": 41,
    "move": "push",
    "size": "medium",
-   "ms": 3059,
+   "ms": 3108,
    "travel": {
     "move": 0.207,
     "turnDeg": 1.56,
@@ -319,7 +319,7 @@
    "frames": 43,
    "move": "push",
    "size": "close",
-   "ms": 3488,
+   "ms": 3432,
    "travel": {
     "move": 0.6,
     "turnDeg": 1.08,
@@ -342,14 +342,14 @@
    "frames": 46,
    "move": "crane",
    "size": "wide",
-   "ms": 8027,
+   "ms": 7839,
    "travel": {
     "move": 1.847,
     "turnDeg": 11.03,
     "zoom": 1
    },
    "dur": 1.917,
-   "luma": 0.1562,
+   "luma": 0.186,
    "gate": [
     0.1,
     0.22
@@ -357,7 +357,7 @@
    "lumaPass": true,
    "void": 0,
    "lockedOff": false,
-   "bottomPatchMax": 0.267,
+   "bottomPatchMax": 0.305,
    "brightPatch": false
   },
   {
@@ -367,14 +367,14 @@
    "frames": 39,
    "move": "push",
    "size": "close",
-   "ms": 3559,
+   "ms": 3539,
    "travel": {
     "move": 0.337,
     "turnDeg": 1.83,
     "zoom": 1
    },
    "dur": 1.625,
-   "luma": 0.1234,
+   "luma": 0.1665,
    "gate": [
     0.1,
     0.22
@@ -382,7 +382,7 @@
    "lumaPass": true,
    "void": 0,
    "lockedOff": false,
-   "bottomPatchMax": 0.12,
+   "bottomPatchMax": 0.173,
    "brightPatch": false
   },
   {
@@ -392,14 +392,14 @@
    "frames": 12,
    "move": "push",
    "size": "insert",
-   "ms": 3161,
+   "ms": 3402,
    "travel": {
     "move": 0.114,
     "turnDeg": 1.87,
     "zoom": 1
    },
    "dur": 0.5,
-   "luma": 0.0077,
+   "luma": 0.284,
    "gate": [
     0.1,
     0.22
@@ -407,7 +407,7 @@
    "lumaPass": false,
    "void": 0,
    "lockedOff": false,
-   "bottomPatchMax": 0.006,
+   "bottomPatchMax": 0.284,
    "brightPatch": false
   },
   {
@@ -416,15 +416,15 @@
    "start": 29.12,
    "frames": 13,
    "move": "push",
-   "size": "insert",
-   "ms": 3578,
+   "size": "medium",
+   "ms": 3364,
    "travel": {
-    "move": 0.112,
-    "turnDeg": 3.11,
+    "move": 0.143,
+    "turnDeg": 0.4,
     "zoom": 1
    },
    "dur": 0.542,
-   "luma": 0.1548,
+   "luma": 0.1571,
    "gate": [
     0.1,
     0.22
@@ -432,7 +432,7 @@
    "lumaPass": true,
    "void": 0,
    "lockedOff": false,
-   "bottomPatchMax": 0.109,
+   "bottomPatchMax": 0.408,
    "brightPatch": false
   },
   {
@@ -442,14 +442,14 @@
    "frames": 45,
    "move": "push",
    "size": "insert",
-   "ms": 3036,
+   "ms": 2862,
    "travel": {
     "move": 0.13,
     "turnDeg": 2.3,
     "zoom": 1
    },
    "dur": 1.875,
-   "luma": 0.0036,
+   "luma": 0.0575,
    "gate": [
     0.1,
     0.22
@@ -457,7 +457,7 @@
    "lumaPass": false,
    "void": 0,
    "lockedOff": false,
-   "bottomPatchMax": 0.006,
+   "bottomPatchMax": 0.066,
    "brightPatch": false
   },
   {
@@ -467,22 +467,22 @@
    "frames": 21,
    "move": "snap",
    "size": "medium",
-   "ms": 3297,
+   "ms": 3469,
    "travel": {
     "move": 0.141,
     "turnDeg": 0.45,
     "zoom": 2
    },
    "dur": 0.875,
-   "luma": 0.0648,
+   "luma": 0.1916,
    "gate": [
     0.1,
     0.22
    ],
-   "lumaPass": false,
+   "lumaPass": true,
    "void": 0,
    "lockedOff": false,
-   "bottomPatchMax": 0.149,
+   "bottomPatchMax": 0.37,
    "brightPatch": false
   },
   {
@@ -492,7 +492,7 @@
    "frames": 37,
    "move": "crane",
    "size": "wide",
-   "ms": 1583,
+   "ms": 1613,
    "travel": {
     "move": 0.6,
     "turnDeg": 2.01,
@@ -515,7 +515,7 @@
    "frames": 27,
    "move": "pull",
    "size": "medium",
-   "ms": 4790,
+   "ms": 5070,
    "travel": {
     "move": 1.044,
     "turnDeg": 1.15,
@@ -538,7 +538,7 @@
    "frames": 24,
    "move": "push",
    "size": "close",
-   "ms": 3427,
+   "ms": 3461,
    "travel": {
     "move": 0.427,
     "turnDeg": 1.83,
@@ -561,19 +561,19 @@
    "frames": 19,
    "move": "push",
    "size": "insert",
-   "ms": 2967,
+   "ms": 3262,
    "travel": {
     "move": 0.112,
     "turnDeg": 0.32,
     "zoom": 1
    },
    "dur": 0.792,
-   "luma": 0.3156,
+   "luma": 0.3828,
    "gate": [
     0.36,
     0.5
    ],
-   "lumaPass": false,
+   "lumaPass": true,
    "void": 0,
    "lockedOff": false
   },
@@ -584,26 +584,26 @@
    "frames": 32,
    "move": "pull",
    "size": "wide",
-   "ms": 2259,
+   "ms": 2249,
    "travel": {
-    "move": 5.638,
-    "turnDeg": 1.82,
+    "move": 9.76,
+    "turnDeg": 10.07,
     "zoom": 1
    },
    "dur": 1.333,
-   "luma": 0.5074,
+   "luma": 0.4892,
    "gate": [
     0.36,
     0.5
    ],
-   "lumaPass": false,
+   "lumaPass": true,
    "void": 0,
    "lockedOff": false,
    "layers": {
-    "fg": 0.57,
-    "mid": 0.43,
-    "bg": 80.73,
-    "far": 16.56
+    "fg": 0.42,
+    "mid": 0.12,
+    "bg": 70.79,
+    "far": 17.36
    },
    "depthPass": false
   },
@@ -614,14 +614,14 @@
    "frames": 42,
    "move": "push",
    "size": "close",
-   "ms": 6173,
+   "ms": 6404,
    "travel": {
     "move": 0.284,
     "turnDeg": 0.4,
     "zoom": 1
    },
    "dur": 1.75,
-   "luma": 0.4999,
+   "luma": 0.337,
    "gate": [
     0.1,
     0.22
@@ -637,19 +637,19 @@
    "frames": 40,
    "move": "push",
    "size": "close",
-   "ms": 3301,
+   "ms": 3045,
    "travel": {
     "move": 0.256,
     "turnDeg": 0.38,
     "zoom": 1
    },
    "dur": 1.667,
-   "luma": 0.2894,
+   "luma": 0.1807,
    "gate": [
     0.1,
     0.22
    ],
-   "lumaPass": false,
+   "lumaPass": true,
    "void": 0,
    "lockedOff": false
   },
@@ -660,26 +660,26 @@
    "frames": 35,
    "move": "whip",
    "size": "wide",
-   "ms": 6122,
+   "ms": 5848,
    "travel": {
     "move": 0,
     "turnDeg": 11.49,
     "zoom": 1
    },
    "dur": 1.458,
-   "luma": 0.2807,
+   "luma": 0.1902,
    "gate": [
     0.1,
     0.22
    ],
-   "lumaPass": false,
+   "lumaPass": true,
    "void": 0,
    "lockedOff": false,
    "layers": {
-    "fg": 19.41,
-    "mid": 36.22,
-    "bg": 13.59,
-    "far": 12.99
+    "fg": 22.8,
+    "mid": 34.96,
+    "bg": 11.61,
+    "far": 12.94
    },
    "depthPass": true,
    "buildings": 6,
@@ -692,14 +692,14 @@
    "frames": 51,
    "move": "push",
    "size": "close",
-   "ms": 3162,
+   "ms": 3138,
    "travel": {
     "move": 0.251,
     "turnDeg": 0.25,
     "zoom": 1
    },
    "dur": 2.125,
-   "luma": 0.4716,
+   "luma": 0.3065,
    "gate": [
     0.1,
     0.22
@@ -715,19 +715,19 @@
    "frames": 48,
    "move": "track",
    "size": "medium",
-   "ms": 2936,
+   "ms": 2982,
    "travel": {
     "move": 2.729,
     "turnDeg": 3.23,
     "zoom": 1
    },
    "dur": 2.0,
-   "luma": 0.0471,
+   "luma": 0.1722,
    "gate": [
     0.1,
     0.22
    ],
-   "lumaPass": false,
+   "lumaPass": true,
    "void": 0,
    "lockedOff": false
   },
@@ -738,14 +738,14 @@
    "frames": 37,
    "move": "push",
    "size": "medium",
-   "ms": 2838,
+   "ms": 2767,
    "travel": {
     "move": 0.505,
     "turnDeg": 0.66,
     "zoom": 1
    },
    "dur": 1.542,
-   "luma": 0.4832,
+   "luma": 0.3273,
    "gate": [
     0.1,
     0.22
@@ -761,14 +761,14 @@
    "frames": 61,
    "move": "push",
    "size": "close",
-   "ms": 6456,
+   "ms": 6350,
    "travel": {
     "move": 0.27,
     "turnDeg": 0.34,
-    "zoom": 1
+    "zoom": 1.12
    },
    "dur": 2.542,
-   "luma": 0.5085,
+   "luma": 0.3434,
    "gate": [
     0.1,
     0.22
@@ -784,19 +784,19 @@
    "frames": 16,
    "move": "push",
    "size": "insert",
-   "ms": 5010,
+   "ms": 5170,
    "travel": {
     "move": 0.104,
     "turnDeg": 0.47,
     "zoom": 1
    },
    "dur": 0.667,
-   "luma": 0.268,
+   "luma": 0.1737,
    "gate": [
     0.1,
     0.22
    ],
-   "lumaPass": false,
+   "lumaPass": true,
    "void": 0,
    "lockedOff": false
   },
@@ -806,15 +806,15 @@
    "start": 51.95,
    "frames": 13,
    "move": "push",
-   "size": "insert",
-   "ms": 4859,
+   "size": "medium",
+   "ms": 7810,
    "travel": {
-    "move": 0.104,
-    "turnDeg": 0.49,
+    "move": 0.159,
+    "turnDeg": 0.31,
     "zoom": 1
    },
    "dur": 0.542,
-   "luma": 0.3986,
+   "luma": 0.415,
    "gate": [
     0.1,
     0.22
@@ -830,19 +830,19 @@
    "frames": 21,
    "move": "push",
    "size": "insert",
-   "ms": 4990,
+   "ms": 5108,
    "travel": {
     "move": 0.104,
     "turnDeg": 0.49,
     "zoom": 1
    },
    "dur": 0.875,
-   "luma": 0.305,
+   "luma": 0.1857,
    "gate": [
     0.1,
     0.22
    ],
-   "lumaPass": false,
+   "lumaPass": true,
    "void": 0,
    "lockedOff": false
   },
@@ -853,14 +853,14 @@
    "frames": 71,
    "move": "orbit",
    "size": "medium",
-   "ms": 2576,
+   "ms": 2663,
    "travel": {
     "move": 4.4,
     "turnDeg": 172.2,
     "zoom": 1
    },
    "dur": 2.958,
-   "luma": 0.461,
+   "luma": 0.3062,
    "gate": [
     0.1,
     0.22
@@ -876,14 +876,14 @@
    "frames": 83,
    "move": "push",
    "size": "medium",
-   "ms": 2360,
+   "ms": 2427,
    "travel": {
     "move": 0.416,
     "turnDeg": 0.34,
     "zoom": 1
    },
    "dur": 3.458,
-   "luma": 0.5387,
+   "luma": 0.3848,
    "gate": [
     0.1,
     0.22
@@ -899,25 +899,25 @@
    "frames": 47,
    "move": "pull",
    "size": "wide",
-   "ms": 2172,
+   "ms": 2161,
    "travel": {
     "move": 3.477,
     "turnDeg": 3.02,
     "zoom": 1
    },
    "dur": 1.958,
-   "luma": 0.267,
+   "luma": 0.2131,
    "gate": [
     0.1,
     0.22
    ],
-   "lumaPass": false,
+   "lumaPass": true,
    "void": 0,
    "lockedOff": false,
    "layers": {
-    "fg": 4.58,
+    "fg": 5.47,
     "mid": 6.55,
-    "bg": 34.99,
+    "bg": 34.1,
     "far": 15.09
    },
    "depthPass": true
@@ -929,14 +929,14 @@
    "frames": 46,
    "move": "push",
    "size": "medium",
-   "ms": 2772,
+   "ms": 2844,
    "travel": {
     "move": 0.401,
     "turnDeg": 0.41,
     "zoom": 1
    },
    "dur": 1.917,
-   "luma": 0.4585,
+   "luma": 0.3033,
    "gate": [
     0.1,
     0.22
@@ -952,19 +952,19 @@
    "frames": 26,
    "move": "push",
    "size": "close",
-   "ms": 3909,
+   "ms": 4214,
    "travel": {
     "move": 0.301,
     "turnDeg": 0.33,
     "zoom": 1
    },
    "dur": 1.083,
-   "luma": 0.244,
+   "luma": 0.1694,
    "gate": [
     0.1,
     0.22
    ],
-   "lumaPass": false,
+   "lumaPass": true,
    "void": 0,
    "lockedOff": false
   },
@@ -975,14 +975,14 @@
    "frames": 61,
    "move": "crane",
    "size": "wide",
-   "ms": 4408,
+   "ms": 4319,
    "travel": {
     "move": 0.3,
     "turnDeg": 11.57,
     "zoom": 1
    },
    "dur": 2.542,
-   "luma": 0.6093,
+   "luma": 0.5253,
    "gate": [
     0.34,
     0.48
@@ -1005,14 +1005,14 @@
    "frames": 27,
    "move": "crane",
    "size": "medium",
-   "ms": 1768,
+   "ms": 1792,
    "travel": {
     "move": 0.301,
     "turnDeg": 6.37,
     "zoom": 1
    },
    "dur": 1.125,
-   "luma": 0.2348,
+   "luma": 0.3097,
    "gate": [
     0.34,
     0.48
@@ -1028,19 +1028,19 @@
    "frames": 17,
    "move": "push",
    "size": "insert",
-   "ms": 4204,
+   "ms": 4097,
    "travel": {
     "move": 0.102,
     "turnDeg": 0.32,
     "zoom": 1
    },
    "dur": 0.708,
-   "luma": 0.5053,
+   "luma": 0.4587,
    "gate": [
     0.34,
     0.48
    ],
-   "lumaPass": false,
+   "lumaPass": true,
    "void": 0,
    "lockedOff": false
   },
@@ -1051,14 +1051,14 @@
    "frames": 19,
    "move": "push",
    "size": "insert",
-   "ms": 3607,
+   "ms": 3622,
    "travel": {
     "move": 0.103,
     "turnDeg": 0.29,
     "zoom": 1
    },
    "dur": 0.792,
-   "luma": 0.1621,
+   "luma": 0.333,
    "gate": [
     0.34,
     0.48
@@ -1074,19 +1074,19 @@
    "frames": 50,
    "move": "push",
    "size": "close",
-   "ms": 1850,
+   "ms": 1756,
    "travel": {
     "move": 3,
     "turnDeg": 0,
     "zoom": 1
    },
    "dur": 2.083,
-   "luma": 0.3005,
+   "luma": 0.3547,
    "gate": [
     0.34,
     0.48
    ],
-   "lumaPass": false,
+   "lumaPass": true,
    "void": 0,
    "lockedOff": false
   },
@@ -1097,14 +1097,14 @@
    "frames": 50,
    "move": "push",
    "size": "medium",
-   "ms": 2861,
+   "ms": 3014,
    "travel": {
     "move": 0.4,
     "turnDeg": 0.4,
     "zoom": 1
    },
    "dur": 2.083,
-   "luma": 0.4228,
+   "luma": 0.4227,
    "gate": [
     0.34,
     0.48
@@ -1120,31 +1120,31 @@
    "frames": 26,
    "move": "push",
    "size": "wide",
-   "ms": 4398,
+   "ms": 4281,
    "travel": {
     "move": 1.901,
-    "turnDeg": 1.3,
+    "turnDeg": 0.96,
     "zoom": 1
    },
    "dur": 1.083,
-   "luma": 0.374,
+   "luma": 0.3336,
    "gate": [
     0.34,
     0.48
    ],
-   "lumaPass": true,
+   "lumaPass": false,
    "void": 0,
    "lockedOff": false,
    "layers": {
-    "fg": 14.4,
-    "mid": 37.57,
-    "bg": 2.31,
-    "far": 0.45
+    "fg": 18.61,
+    "mid": 34.64,
+    "bg": 4.8,
+    "far": 15.97
    },
-   "depthPass": false,
-   "buildings": 8,
+   "depthPass": true,
+   "buildings": 6,
    "densityPass": false,
-   "hillPlinthPct": 1.4,
+   "hillPlinthPct": 3.94,
    "hillPass": false
   }
  ],
@@ -1157,21 +1157,21 @@
    "pass": false,
    "perShot": {
     "S1": {
-     "fg": 14.37,
-     "mid": 37.57,
-     "bg": 2.31,
-     "far": 18.1
+     "fg": 18.51,
+     "mid": 34.64,
+     "bg": 4.8,
+     "far": 15.97
     },
     "S3": {
-     "fg": 1.74,
-     "mid": 0.0,
-     "bg": 51.16,
-     "far": 13.51
+     "fg": 9.08,
+     "mid": 10.71,
+     "bg": 32.54,
+     "far": 14.56
     },
     "S5": {
-     "fg": 4.26,
-     "mid": 27.29,
-     "bg": 45.43,
+     "fg": 4.37,
+     "mid": 27.36,
+     "bg": 45.25,
      "far": 8.42
     },
     "S8": {
@@ -1181,15 +1181,15 @@
      "far": 11.35
     },
     "S25": {
-     "fg": 19.41,
-     "mid": 36.22,
-     "bg": 13.59,
-     "far": 12.99
+     "fg": 22.8,
+     "mid": 34.96,
+     "bg": 11.61,
+     "far": 12.94
     },
     "S33": {
-     "fg": 4.58,
+     "fg": 5.47,
      "mid": 6.55,
-     "bg": 34.99,
+     "bg": 34.1,
      "far": 15.09
     },
     "S36a": {
@@ -1199,215 +1199,124 @@
      "far": 33.29
     },
     "S40": {
-     "fg": 14.4,
-     "mid": 37.57,
-     "bg": 2.31,
-     "far": 0.45
+     "fg": 18.61,
+     "mid": 34.64,
+     "bg": 4.8,
+     "far": 15.97
     },
     "S22": {
-     "fg": 0.57,
-     "mid": 0.43,
-     "bg": 80.73,
-     "far": 16.56
+     "fg": 0.42,
+     "mid": 0.12,
+     "bg": 70.79,
+     "far": 17.36
     }
    }
   },
   "B4_density": {
    "pass": false,
    "perShot": {
-    "S1": 8,
+    "S1": 6,
     "S8": 15,
     "S25": 6,
-    "S40": 8
+    "S40": 6
    }
   },
   "luma": {
    "pass": false,
    "failing": {
-    "S1": [
-     0.5096,
-     [
-      0.36,
-      0.5
-     ]
-    ],
-    "S6": [
-     0.5579,
-     [
-      0.36,
-      0.5
-     ]
-    ],
     "S16a": [
-     0.0077,
+     0.284,
      [
       0.1,
       0.22
      ]
     ],
     "S16c": [
-     0.0036,
+     0.0575,
      [
       0.1,
       0.22
-     ]
-    ],
-    "S17": [
-     0.0648,
-     [
-      0.1,
-      0.22
-     ]
-    ],
-    "S21": [
-     0.3156,
-     [
-      0.36,
-      0.5
-     ]
-    ],
-    "S22": [
-     0.5074,
-     [
-      0.36,
-      0.5
      ]
     ],
     "S23": [
-     0.4999,
-     [
-      0.1,
-      0.22
-     ]
-    ],
-    "S24": [
-     0.2894,
-     [
-      0.1,
-      0.22
-     ]
-    ],
-    "S25": [
-     0.2807,
+     0.337,
      [
       0.1,
       0.22
      ]
     ],
     "S26": [
-     0.4716,
-     [
-      0.1,
-      0.22
-     ]
-    ],
-    "S27": [
-     0.0471,
+     0.3065,
      [
       0.1,
       0.22
      ]
     ],
     "S28": [
-     0.4832,
+     0.3273,
      [
       0.1,
       0.22
      ]
     ],
     "S29": [
-     0.5085,
-     [
-      0.1,
-      0.22
-     ]
-    ],
-    "S30a": [
-     0.268,
+     0.3434,
      [
       0.1,
       0.22
      ]
     ],
     "S30b": [
-     0.3986,
-     [
-      0.1,
-      0.22
-     ]
-    ],
-    "S30c": [
-     0.305,
+     0.415,
      [
       0.1,
       0.22
      ]
     ],
     "S31": [
-     0.461,
+     0.3062,
      [
       0.1,
       0.22
      ]
     ],
     "S32": [
-     0.5387,
-     [
-      0.1,
-      0.22
-     ]
-    ],
-    "S33": [
-     0.267,
+     0.3848,
      [
       0.1,
       0.22
      ]
     ],
     "S34": [
-     0.4585,
-     [
-      0.1,
-      0.22
-     ]
-    ],
-    "S35": [
-     0.244,
+     0.3033,
      [
       0.1,
       0.22
      ]
     ],
     "S36a": [
-     0.6093,
+     0.5253,
      [
       0.34,
       0.48
      ]
     ],
     "S36b": [
-     0.2348,
-     [
-      0.34,
-      0.48
-     ]
-    ],
-    "S37a": [
-     0.5053,
+     0.3097,
      [
       0.34,
       0.48
      ]
     ],
     "S37b": [
-     0.1621,
+     0.333,
      [
       0.34,
       0.48
      ]
     ],
-    "S38": [
-     0.3005,
+    "S40": [
+     0.3336,
      [
       0.34,
       0.48
@@ -1416,47 +1325,47 @@
    }
   },
   "hero": {
-   "S1hill": 1.4,
-   "S40hill": 1.4,
+   "S1hill": 3.94,
+   "S40hill": 3.94,
    "pass": false
   },
   "quietNight": {
    "S14": {
-    "luma": 0.1562,
+    "luma": 0.186,
     "brightPatch": false,
-    "bottomPatchMax": 0.267
+    "bottomPatchMax": 0.305
    },
    "S15": {
-    "luma": 0.1234,
+    "luma": 0.1665,
     "brightPatch": false,
-    "bottomPatchMax": 0.12
+    "bottomPatchMax": 0.173
    },
    "S16a": {
-    "luma": 0.0077,
+    "luma": 0.284,
     "brightPatch": false,
-    "bottomPatchMax": 0.006
+    "bottomPatchMax": 0.284
    },
    "S16b": {
-    "luma": 0.1548,
+    "luma": 0.1571,
     "brightPatch": false,
-    "bottomPatchMax": 0.109
+    "bottomPatchMax": 0.408
    },
    "S16c": {
-    "luma": 0.0036,
+    "luma": 0.0575,
     "brightPatch": false,
-    "bottomPatchMax": 0.006
+    "bottomPatchMax": 0.066
    },
    "S17": {
-    "luma": 0.0648,
+    "luma": 0.1916,
     "brightPatch": false,
-    "bottomPatchMax": 0.149
+    "bottomPatchMax": 0.37
    }
   },
   "TC": {
    "TC-01": {
     "pass": false,
-    "frame1CoverPct": 0.0,
-    "at1sPct": 0.0,
+    "frame1CoverPct": 12.74,
+    "at1sPct": 13.66,
     "at": "0.00\u20131.00 s"
    },
    "TC-02": {
@@ -1523,17 +1432,205 @@
    }
   },
   "timing": {
-   "build_dawnHope": 658,
-   "final1080_S1": 10403,
-   "build_quietNight": 664,
-   "build_rainNight": 592,
-   "final1080_S26": 11010,
-   "build_golden": 547,
-   "final1080_S36a": 6717
+   "build_dawnHope": 668,
+   "final1080_S1": 10901,
+   "build_quietNight": 512,
+   "build_rainNight": 582,
+   "final1080_S26": 10990,
+   "build_golden": 570,
+   "final1080_S36a": 6654
   },
-  "previzMsPerFrame288": 3716
+  "previzMsPerFrame288": 3818
  },
  "retention": {
-  "error": "Traceback (most recent call last):\n  File \"/home/user/blox_story/tools/qa_episode.py\", line 388, in <module>\n    main()\n    ~~~~^^\n  File \"/home/user/blox_story/tools/qa_episode.py\", line 358, in main\n    ep = json.loads((d / 'episode.json').read_text()); cues = json.loads((d / 'cues.json').read_text())\n                                                                         ~~~~~~~~~~~~~~~~~~~~~~~~~~~^^\n  File \"/usr/local/lib/python3.13/pathlib/_local.py\", line 546, in read_text\n    return PathBase.read_text(self, encoding, errors, newline)\n           ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/usr/local/lib/python3.13/pathlib/_abc.py\", line 632, in read_text\n    with self.open(mode='r', encoding=encoding, errors=errors, newline=newline) as f:\n         ~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/usr/local/lib/python3.13/pathlib/_local.py\", line 537, in open\n    return io.open(self, mode, buffering, encoding, errors, newline)\n           ~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nFileNotFoundError: [Errno 2] No such file or directory: '/home/user/blox_story/stories/tapcap-ep01-rarity/cues.json'\n"
+  "story": "tapcap-ep01-rarity",
+  "final": false,
+  "counts": {
+   "PASS": 18,
+   "FAIL": 6,
+   "SKIP": 3,
+   "ALLOWED": 0
+  },
+  "blocked": true,
+  "results": [
+   {
+    "id": "R-BRAND-01",
+    "status": "FAIL",
+    "msg": "opens \"In Slime Town\" (want \"In this \u2026\")",
+    "at": [
+     0.0
+    ]
+   },
+   {
+    "id": "N-VO-03",
+    "status": "FAIL",
+    "msg": "1 first-person sentence(s) outside quotes: \"'I wanted a friend.'\"",
+    "at": []
+   },
+   {
+    "id": "R-BRAND-03",
+    "status": "FAIL",
+    "msg": "hero in 0\u20133 s: no; signature prop: none defined (episode.json signature.prop; Phase 4)",
+    "at": []
+   },
+   {
+    "id": "N-FACE-01",
+    "status": "PASS",
+    "msg": "all cast on faces v5",
+    "at": []
+   },
+   {
+    "id": "N-AUD-01",
+    "status": "PASS",
+    "msg": "sfx on (explicit)",
+    "at": []
+   },
+   {
+    "id": "R-LABEL-01",
+    "status": "PASS",
+    "msg": "labels: false",
+    "at": []
+   },
+   {
+    "id": "R-HOOK-03",
+    "status": "PASS",
+    "msg": "shot 1 push, reveal False; first words \"In Slime Town you're\"",
+    "at": [
+     0
+    ]
+   },
+   {
+    "id": "R-HOOK-04",
+    "status": "FAIL",
+    "msg": "VO starts 0.00s (\u2264 0.3); hook = 16 words (first 2 sentences (no spec), \u2264 18) ends 5.47s (\u2264 5.0)",
+    "at": [
+     0.0,
+     5.47
+    ]
+   },
+   {
+    "id": "R-HOOK-02",
+    "status": "SKIP",
+    "msg": "needs spec roblox_context_starts_at_s",
+    "at": []
+   },
+   {
+    "id": "R-JOLT-01",
+    "status": "PASS",
+    "msg": "openHit on shot 1: True; other openHit: []; shake effects at []",
+    "at": [
+     0
+    ]
+   },
+   {
+    "id": "R-CUT-01",
+    "status": "PASS",
+    "msg": "46 shots, average 1.63 s (1.5\u20132.2); 0 cut(s) not on a word start or in a VO gap",
+    "at": []
+   },
+   {
+    "id": "R-LEAK-02",
+    "status": "PASS",
+    "msg": "0 shot(s) too long (static > 2.5, moving > 3.5): ",
+    "at": []
+   },
+   {
+    "id": "R-CAM-01",
+    "status": "PASS",
+    "msg": "0 locked-off shot(s)",
+    "at": []
+   },
+   {
+    "id": "R-LEAK-01",
+    "status": "PASS",
+    "msg": "20 VO gap(s) > 0.4 s (VO is final, N-VO-02); 0 with no cut/camera event: ",
+    "at": []
+   },
+   {
+    "id": "R-CAM-02",
+    "status": "PASS",
+    "msg": "1 same-class neighbour pair(s) (wide-wide / macro-macro; \u2264 2)",
+    "at": [
+     69.12
+    ]
+   },
+   {
+    "id": "R-MID-01",
+    "status": "PASS",
+    "msg": "35 beats (proxy: script line starts (no spec beats)); 0 gap(s) > 6.0 s: ",
+    "at": []
+   },
+   {
+    "id": "R-MID-03",
+    "status": "PASS",
+    "msg": "reversal at 53.36 s = 71 % of 75.16 s (55\u201375 %)",
+    "at": [
+     53.36
+    ]
+   },
+   {
+    "id": "R-MID-02",
+    "status": "SKIP",
+    "msg": "needs spec counter.object and reversal_at_s",
+    "at": []
+   },
+   {
+    "id": "R-SIGN-01",
+    "status": "PASS",
+    "msg": "4 placed signs (3\u20136), over 3 words: []; legible < 1.0 s: none",
+    "at": []
+   },
+   {
+    "id": "R-HERO-01",
+    "status": "FAIL",
+    "msg": "3 shot(s) marked hero (need 3: first, the reversal, last): ['S1', 'S31', 'S40']",
+    "at": []
+   },
+   {
+    "id": "R-LOOP-01",
+    "status": "PASS",
+    "msg": "last frame vs frame 1: camera 0.049, target 0.01 (\u00d7 cam\u2013target distance, \u2264 0.15), fov \u0394 0.0\u00b0 (\u2264 5); loop helper: presets6.loopify",
+    "at": []
+   },
+   {
+    "id": "R-CAP-01",
+    "status": "SKIP",
+    "msg": "pop-shorts-v6: max 2 words, accent #2EE6D0 (owner pick pending: captions/pop-shorts-v6.json accentApproved)",
+    "at": []
+   },
+   {
+    "id": "R-CAP-02",
+    "status": "PASS",
+    "msg": "164 captions, start \u2212 onset -0.99\u2026+0.00 frames (\u00b1 1); shown < 2 frames: none",
+    "at": []
+   },
+   {
+    "id": "R-END-01",
+    "status": "PASS",
+    "msg": "video ends 75.16s, last word ends 74.92s: tail 0.24 s (0\u20130.3)",
+    "at": [
+     74.92,
+     75.16
+    ]
+   },
+   {
+    "id": "R-END-02",
+    "status": "PASS",
+    "msg": "banned phrases []; fade in the last 2 s: 0",
+    "at": []
+   },
+   {
+    "id": "R-LEN-03",
+    "status": "PASS",
+    "msg": "runtime 75.16s (60\u2013175)",
+    "at": []
+   },
+   {
+    "id": "R-LEN-01",
+    "status": "FAIL",
+    "msg": "runtime 75.16s vs current tier 105\u2013135 s (docs/LENGTH_TIER.md)",
+    "at": []
+   }
+  ]
  }
 }
