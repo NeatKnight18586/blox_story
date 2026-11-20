@@ -1,30 +1,23 @@
 # HANDOFF — TapCap EP01 "Rarity's Just Paint"  (≤ 30 lines; read with ../RULES.md, spec.yml, shots.yml)
-## Done (2026-11-19) — Setup, Pass A (+ revision) APPROVED; Pass B built, NOT approved yet
-- Refs + VO placed (gitignored). Phase 0–6 merged (359c8f5; plan.js + LIBRARY.md conflicts resolved, both sides kept).
-- REF wins (§4), measured on tapcap_turnaround.png front (scripts/ref_measure.py), old spec → new:
-  head 33 → 35.7 % · torso 29 → 26.8 % · switch 4 → 2.6 % · base 34 → 35.0 % · head top .38 → .351 H · head bottom .45 → .446 H ·
-  torso bottom .48 → .442 H. Model now: 35.7 / 26.3 / 2.3 / 35.7 % (all within 0.7 of the ref).
-- Model: Cosmic fresnel ramp + 3 % view-dependent flakes; bloom .85/.25 (display-referred post step, scripts/bloom.py);
-  fake-paint peeks at drip tips, head rim, arm edges; arms bend 43°; front drips ≤ 43 % of the longest side drip, none under the mouth.
-- Clix rebuilt on the R6 rig (body5 satin): hair (+25 % top, 30 % fringe, .08 W sides, 8 curls), coat/tee/chain, blue 30 % arm ends,
-  cuff line, left wrist band, black legs + pockets, white sneakers, 40 × H. Old human bust + hand sheet deleted.
-- Spec: tap 3 % H, 24 fps, synthesized click (40 ms, −6 dBFS, sfx.py `click`), Clix shots S18–21 arm / S36 reveal / S37 macros / S38 close-up,
-  TC-06 = S40 replays S1's move (diff 0). Gate: `node campaigns/tapcap/scripts/pass-a.js` → qa/proportions.json + review sheet.
-- Pass B revision: seeded town (`world/town.js` plan, seed 1102 in spec.yml; `townmesh.js` instanced 4 archetypes; `slimetown.js`),
-  provisional S1–S40 cams in shots.yml (town built for their frustums), 2-tier plinth, hill 1:2.2 + S-path 24.5°, Lilita One signs.
-  `node campaigns/tapcap/scripts/pass-b.js` → qa/world.json + review/pass-b/pass-b-sheet.png (8 stills, 4 columns).
 ## Approved
-- Pass A (Clix face #2 grin) · Pass B (owner 2026-11-20, with §1 world fixes; B3/B4 move to Pass C real cameras).
-## §1 world fixes (2 passes each; nothing loosened)
-- 1a FAIL: clearance (bbox in central 50 % AND nearer than subject) applied literally removes the lane houses for the S5 aerial
-  (subject 50 H away) → Box street 0 buildings, S25 0. Fix proposal: also require the bbox to cross the camera→subject line.
-- 1b PASS: rain plinth ΔL* 34.8 (≥ 20), reflection .326 (≤ .40); teal band .03 H on the tier side; front-left fill; no lit lamp ≤ 6 H.
-- 1c PASS: 6 cloud masses, 0 % below the top 45 %, rooftops 96.8 % of the bottom 25 %, fill 8 % of key, luma .443 (.44–.48).
-- 1d FAIL by spec: plinth close .524; it has 0 % sky, so a sky-only −0.1 EV cannot move it (alternative: −0.1 EV shot exposure).
-- 1e built: 3-row cubby wall, string lights, left-wall window + open flap (the hill does not read through it yet).
-- 1f built: quietNight (no rain/wet, key #9DB8FF, warm windows) but S14 still luma .368 > .22 (night gate). Hill wide drifted .514 (> .50).
-## Pass C status: STOPPED at 2a (aligner wins; S26 phrase off > 0.6 s)
-- stories/tapcap-ep01-rarity/ (script.txt = shots.yml VO lines, voice → vo.wav, gitignored); build/cues.json from scripts/v2/align.py.
-- S26 "Yellow," starts 43.07 (table 43.75, −0.68 s: silence table skipped the word). S36 −0.28. Others ≤ 0.01 s. Clicks 36.148/68.471/69.172; last word ends 74.92.
+- Pass A (Clix face #2 grin) · Pass B (2026-11-20; B3/B4 moved to Pass C real cameras). Pass C: NOT approved (gate below).
+## Done this session (2 fix passes per item; no gate loosened)
+- Decisions: S26 = 43.07 s; all shots.yml t = aligner; clearance (a)+(b)+(c) LOS capsule .6 H; plinth close −0.1 EV + dawn bounce 15 %.
+- World: quiet night (door lights off, windows ×.5, moon −0.7 EV, Banana rim, box glow); golden S36 prop exclusion; window aimed at summit.
+- Pass C: previz/blocking.js (46 cuts on aligner words, avg 1.63 s, all moving), previz/previz.js, scripts/pass-c.js → qa/passc.json,
+  review/pass-c/pass-c-S1-S20.png + pass-c-S21-S40.png (captions v6 #B98CFF burned in), previz-mix.wav (VO + 3 clicks, gitignored).
+- stories/tapcap-ep01-rarity/ (script.txt = shots.yml VO lines, cues.json = aligner, episode.json for tools/qa_episode.py).
+## Gate results (final)
+- PASS: B2 void 0/46 · TC-01 23 % · TC-02 · TC-03 · TC-05 clicks 0 frame error · TC-06 diff 0 · TC-07 1.63 s, 0 locked, tail .24 s.
+- Retention linter 19 PASS / 5 FAIL / 3 SKIP. FAILs are VO/brand rules the sponsor VO can't meet (R-BRAND-01, N-VO-03, R-HOOK-04)
+  or blox_story series rules (R-BRAND-03, R-LEN-01). TC-04 manual.
+- FAIL B3: S22 mid .25 % (aerial; fg allowed off). FAIL B4: S1 4 · S25 5 · S40 4 buildings (S8 15 ✓).
+- FAIL luma: S30b .235 · S32 .229 (≤ .22) · S40 .329 (≥ .34). FAIL S1/S40 hill+plinth 4.9 % (≥ 8 %).
+- World (final): Box street 4 bld · hill wide .535 · plinth close .520 + dark band (L* 7) · Core Row window hill .6 % — all FAIL.
+## Weakest shots
+- S21/S37a/S37b click macros don't show the keycap entering the switch · S12 OTS camera sits in Sunny's head · S28–S34 rain plinth
+  shots are dark and soft; Sunny/Banana barely read · S36a Clix reveal reads as a block, not a person.
+## Render plan
+- RENDER_PLAN.md: 1080×1920 at 12.3 / 11.3 / 6.5 s per frame → 8.96 h (×1.6 safety) in 4 jobs ≤ 3.4 h on free ubuntu-24.04.
 ## Next step
-- Owner: confirm S26 = 43.07 s (aligner) or say otherwise; then Pass C 2b–2i (blocking, QA, sheets, render plan).
+- Owner: notes per shot number on the two Pass C sheets, or "approve". Then Pass D1 (S1–S13). Don't start Pass D before approval.
