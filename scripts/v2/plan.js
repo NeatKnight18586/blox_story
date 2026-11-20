@@ -49,7 +49,7 @@ const hero = spec.hero ?? Object.entries(spec.cast ?? {}).find(([, c]) => c.trou
 const r = checkPlan({shots, cues, fps, end: spec.end, info, format: spec.format, hero});
 const sz = checkSeason({spec, shots, cues, fps, end: spec.end, info, meas});
 r.errors.push(...sz.errors, ...labelIssues(spec));
-if (actingPlans.length) { const {partnerIssues} = await import('../../engine/acting6.js'); r.errors.push(...partnerIssues(actingPlans)); }   // P3b owner Decision 3: partners start ≤ 0.5 studs from the mark, or walk in
+if (actingPlans.length) { const {partnerIssues} = await import('../../engine/acting6.js'); r.errors.push(...partnerIssues(actingPlans), ...(await import('../../engine/acting6.js')).hugAngleIssues(actingPlans)); }   // P3b owner Decision 3: partners start ≤ 0.5 studs from the mark, or walk in
 r.stats.partners = actingPlans.map(p => ({partner: p.partner, verb: p.verb, dist: p.dist, walkIn: p.walk ? p.walk.dur : null, ok: p.ok}));
 if (spec.format === 5 || spec.format === 6) { const p5 = plan5(shots, {fps, cues, insertH, end: spec.end, ...(spec.format === 6 ? {len: [0, 125]} : {})}); r.errors.push(...p5.errors); r.stats.format5 = {lengthS: p5.lengthS, averageShotS: p5.averageShotS, insertH}; }   // format v5 rules   // owner rule §2c: noLabels (Season 1 / labels: false)
 r.warnings.push(...sz.warnings); r.stats.season = !!spec.season; r.stats.framing = sz.stats.framing; r.stats.uiItems = sz.stats.ui; r.stats.eggs = sz.stats.eggs; r.stats.overlaps = sz.stats.overlaps; r.stats.crowdCover = sz.stats.cover; r.stats.clockBoard = sz.stats.clockBoard;

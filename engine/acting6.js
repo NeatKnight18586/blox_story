@@ -121,7 +121,7 @@ export function mix(a, b, w, {footW = clamp01(w)} = {}) {
 //     exit: {dx, dz} (the verb travels: later verbs start from there), two: {partner verb, offset [x, z, yaw]}, prop: 'attach'|'release'}
 const FALLROOT = ['root.lean', 'root.dy', 'root.dz', 'root.roll', 'ik'];
 export const VERBS = {
-  idle_alive: {act: .34, tail: .5, main: ['root.dx', 1], cam: 25,   // P3b: one subtle weight shift + head turn (no big key pose); exempt from the silhouette gate, measured by the LIFE gate
+  idle_alive: {act: .34, tail: .5, main: ['root.dx', 1], cam: 25, breath: true,   // P3b: one subtle weight shift + head turn (no big key pose); exempt from the silhouette gate, measured by the LIFE gate
     key: P({root: {dx: .06, roll: -1.6}, waist: [0, -3, 1], head: [0, 9, 0]}),
     settle: P({root: {dx: .06, roll: -1.6}, waist: [0, -3, 1], head: [0, 9, 0]})},
   look_around: {act: .22, tail: .9, main: ['head.y', -1], cam: -25,   // P3b: the brow-shade hand sits above-and-beside the eyes (never over the face); the head turns left (−35°) then right (+35°), the chest follows 30 %
@@ -223,6 +223,7 @@ export const VERBS = {
 const C = (d, base = REST) => ({...base, ...d});
 const NO_OS_LIMBS = CHANNELS.filter(c => /^(left|right)(Shoulder|Elbow|Wrist|Hip|Knee|Ankle)\./.test(c)), NO_OS_ALL = CHANNELS.filter(c => !isFoot(c) && c !== 'ik' && c !== 'torso.sq');   // arms and legs stop on the contact; a partner's whole pose stops
 const CONTACT_DRIFT = ['head.y', 'head.x'];   // moving hold of an embrace / carry: the head only (arms and chest stay on the contact)
+const HUG_D_L = 57;   // hug_l's camera angle off the torso line (45 hid the partner in the silhouette)
 const SQUEEZE = {at: .12, frames: 6, sq: .03, rock: 4, axis: 'root.roll'};   // rock = the whole body sways about its hips (both partners together)   // after the contact: both chests compress 3 % and rock 4° once, over 6 frames
 const FREE_ARM = {'leftShoulder.x': 105.204, 'leftShoulder.y': -88.601, 'leftShoulder.z': 106.536, 'leftElbow.x': -5.137};   // the lead's free arm hangs out to the side
 // Side embrace of a kid (0 penetration for her scale: .62 / .82 / 1.0): the lead's near arm round her back, her near arm round his neck, her free hand on his chest.
@@ -236,6 +237,7 @@ const HUGS = {
 };
 for (const [sfx, h] of Object.entries(HUGS)) {
   VERBS['hug' + sfx] = {act: .16, tail: .5, main: ['head.y', 1], cam: 8, slerp: true, noLag: true, drift: CONTACT_DRIFT, noOs: NO_OS_ALL.filter(c => !c.startsWith('head.')), squeeze: SQUEEZE, kp: h.kp, two: {partner: 'hug_b' + sfx, place: h.place}, key: h.lead, settle: h.lead};
+  VERBS['hug' + sfx].cam = Math.round(Math.atan2(h.place[0], h.place[1]) * 180 / Math.PI + (sfx === '_l' ? -HUG_D_L + 180 : 45) - 180);   // P3c staging: the camera sits 45° off the line between the torsos, on the far side from the partner (three-quarter of the lead's side), so both arms show and the face stays clear
   VERBS['hug_b' + sfx] = {act: .18, tail: .5, main: ['root.lean', 1], cam: 8, slerp: true, noLag: true, drift: CONTACT_DRIFT, noOs: NO_OS_ALL, squeeze: SQUEEZE, key: h.partner, settle: h.partner};
 }
 // Carry. PIGGYBACK (kid partners, scale .82): the lead stoops, the partner's hips ride a fixed point of his chest frame (behind the waist), arms forward over his
@@ -361,6 +363,7 @@ export function verbChannels(name, t, poses, seed = 1) {
     let y = 0; if (t > lo && t < hi) y = h * I * (1 - (x / (x < 0 ? a - lo : hi - a)) ** 2); if (t0 < -5 && t <= a) y = h * I;
     out['root.dy'] += Math.max(0, y); const e = 1.5 / FPS6, A = smooth((t - lo + e) / e) * (1 - smooth((t - hi + e) / e));
     if (!v.sub?.some(q => q.ch.includes('ik'))) out.ik = Math.min(out.ik, 1 - A); }   // a verb with its own ik keys times its take-off itself
+  if (v.breath) out['torso.sq'] += breath(t, seed);
   if (v.squeeze) { const {at, frames, sq, rock} = v.squeeze, u = (t - T.key - at) / (frames / FPS6); if (u > 0 && u < 1) { out['torso.sq'] += sq * Math.sin(Math.PI * u); for (const [c, a] of v.squeeze.axes ?? [[v.squeeze.axis ?? 'waist.z', rock]]) out[c] += a * Math.sin(2 * Math.PI * u); } }   // hug squeeze beat: the chest compresses 3 % and rocks 4° once over 6 frames
   if (v.dizzy) { const d = t - T.key, a = smooth(d / .4) * I; if (d > 0) { const w = 2 * Math.PI * 1.1 * d; out['head.y'] += 12 * a * Math.sin(w); out['head.z'] += 8 * a * Math.cos(w); out['waist.z'] += 3 * a * Math.sin(w + 1); out['waist.y'] += 4 * a * Math.cos(w + 1); } }
   if (!v.gesture) { const dr = drift(t, seed, smooth((t - T.key) / .5)); for (const [c, x] of Object.entries(dr)) if (!v.drift || v.drift.includes(c)) out[c] += x; }   // v.drift: only these channels drift (contact verbs keep arms and legs still)
@@ -607,12 +610,15 @@ export function trackChannels(tr, t, {seed = 1, build = 'adult_m'} = {}) {
 // ---- idle life (P3b owner Decision 1): subtle, feet locked ------------------------------------------------------------------
 // A weight shift every 3–5 s (the hips travel 2 × LIFE.shift studs side to side, the chest counter-tilts) and a head turn of 7.5–10.5° every
 // 3–5 s (held ~1.2 s, then back; the moving-hold drift adds ≤ 1.5° on top). Pure in (seed, t): event times are cumulative seeded gaps.
+export const BREATH = {amp: .015, period: 3.5};
+export const breath = (t, seed = 1) => -BREATH.amp * (.5 + .5 * Math.sin(2 * Math.PI * (t / BREATH.period + seedR(seed, 11))));   // torso.sq < 0 = the chest rises (squash: y grows, x shrinks by half)
 export const LIFE = {shift: .05, gap: [3.1, 4.8], turn: [7.5, 10.5], moveT: .7, holdT: 1.2};
 const lifeTimes = (seed, kind, until) => { const out = []; let t = .6 + 2 * seedR(seed, kind * 31 + 5); for (let k = 0; t < until + 6; k++) { out.push(t); t += LIFE.gap[0] + (LIFE.gap[1] - LIFE.gap[0]) * seedR(seed, kind * 31 + 7 + k * 3); } return out; };
 export function idleLife(t, seed = 1) {
   const o = {}, ts = lifeTimes(seed, 1, t), par = seedR(seed, 3) < .5 ? 0 : 1, sd = k => (((k + par) % 2) + 2) % 2 === 0 ? 1 : -1, S = LIFE.shift;
   let k = -1; while (k + 1 < ts.length && ts[k + 1] <= t) k++;
   const dx = k < 0 ? sd(-1) * S : sd(k - 1) * S + (sd(k) * S - sd(k - 1) * S) * overshootEase((t - ts[k]) / LIFE.moveT);
+  o['torso.sq'] = breath(t, seed);   // P3c: 1.5 % chest rise and fall, 3.5 s cycle
   o['root.dx'] = dx; o['root.roll'] = -dx / S * 1.6; o['waist.z'] = dx / S * 1.0;   // the pelvis shifts over the planted feet, the chest tilts back toward vertical
   const hs = lifeTimes(seed, 2, t); let j = -1; while (j + 1 < hs.length && hs[j + 1] <= t) j++;
   if (j >= 0) { const m = (LIFE.turn[0] + (LIFE.turn[1] - LIFE.turn[0]) * seedR(seed, 100 + j)) * (j % 2 ? 1 : -1), d = t - hs[j], e = smooth(d / .5) * (1 - smooth((d - .5 - LIFE.holdT) / .6)); o['head.y'] = m * e; o['waist.y'] = .3 * m * e; }
@@ -633,6 +639,14 @@ export function partnerPlan({verb, leadPos, leadYaw = 0, leadScale = 1, partnerP
   if (walkIn && avail >= dur) return {mark, yaw, dist: +dist.toFixed(3), ok: true, walk: {dur: +dur.toFixed(3), t0: +(start - dur).toFixed(3), from: partnerPos, to: mark}, issue: null};
   return {mark, yaw, dist: +dist.toFixed(3), ok: false, walk: null, issue: `partner starts ${dist.toFixed(2)} studs from its mark (> ${PARTNER_TOL})` + (walkIn ? `; a walk-in needs ${dur.toFixed(2)} s, ${Number.isFinite(avail) ? avail.toFixed(2) : '∞'} s available` : ' and walk-ins are off')};
 }
+// P3c hug staging: the camera must be 25–60° off the line between the two torsos (so both arms show). Angle between the camera's horizontal view direction and that line (0–90°).
+export const HUG_ANGLE = [25, 60];
+export function hugAngle({camPos, leadPos, partnerPos}) {
+  const m = [(leadPos[0] + partnerPos[0]) / 2, (leadPos[1] + partnerPos[1]) / 2], v = [m[0] - camPos[0], m[1] - camPos[1]], l = [partnerPos[0] - leadPos[0], partnerPos[1] - leadPos[1]];
+  return Math.acos(Math.min(1, Math.abs(v[0] * l[0] + v[1] * l[1]) / (Math.hypot(...v) * Math.hypot(...l) || 1))) * 180 / Math.PI;
+}
+export const hugAngleIssues = plans => plans.filter(p => p.cam).map(p => ({p, a: hugAngle(p.cam)})).filter(x => x.a < HUG_ANGLE[0] || x.a > HUG_ANGLE[1])
+  .map(x => `hugAngle: ${x.p.lead} hugs ${x.p.partner} at ${x.p.key.toFixed(2)} s: camera is ${x.a.toFixed(0)}° off the torso line (want ${HUG_ANGLE[0]}–${HUG_ANGLE[1]}°; shoot a three-quarter view of the lead's side or back)`);
 // plan.js: the FAIL lines for a list of partner plans (episode.js `actingPlan()`): [{partner, lead, verb, key, ...partnerPlan result}]
 export const partnerIssues = plans => plans.filter(p => !p.ok).map(p => `partnerDistance: ${p.partner} (${p.verb} with ${p.lead} at ${(p.key ?? 0).toFixed(2)} s): ${p.issue}`);
 function itemChannels(tr, i, t, seed, build) {

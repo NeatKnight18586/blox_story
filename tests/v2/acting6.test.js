@@ -166,3 +166,15 @@ test('gasp_step_back (full stride, lean back, open hands), arms_cross (stack off
     if (t >= T.key) { const ff = A.fk(r.sample); assert.ok(ff.rightHand.p[1] - .125 >= ff.head.p[1] + 1.2 - .02 && Math.abs(ff.rightHand.p[0]) >= .8, 'above and beside the eyes'); } }
   assert.ok(A.faceVisibility(A.sampleVerb('facepalm', .6).sample, [Math.sin(.4), 0, Math.cos(.4)]).hidden > .3, 'the metric sees a facepalm');
 });
+
+// ---- P3c ----
+test('hugAngle plan check: the camera must be 25–60° off the line between the torsos; breath: 1.5 % chest rise, 3.5 s cycle; hero B cuffs', async () => {
+  const mk = (c, p) => ({lead: 'H', partner: 'F', key: 2, cam: {camPos: c, leadPos: [0, 0], partnerPos: p}});
+  assert.ok(Math.abs(A.hugAngle(mk([0, 20], [0, 2]).cam) - 0) < 1e-6 && Math.abs(A.hugAngle(mk([20, 0], [0, 2]).cam) - 90) < 4);
+  const issues = A.hugAngleIssues([mk([0, 20], [0, 2]), mk([20, 0], [0, 2]), mk([14, 14], [0, 2]), {lead: 'H', partner: 'F', key: 1}]);
+  assert.equal(issues.length, 2); assert.match(issues[0], /^hugAngle: H hugs F at 2.00 s: camera is 0° off/);
+  for (const n of ['hug', 'hug_s', 'hug_l']) { const o = A.partnerOffset(n), c = A.VERBS[n].cam * D, a = A.hugAngle({camPos: [Math.sin(c) * 20, Math.cos(c) * 20], leadPos: [0, 0], partnerPos: [o.x, o.z]}); assert.ok(a >= 25 && a <= 60, `${n} ${a}`); }
+  const b = []; for (let i = 0; i <= 8 * 24; i++) b.push(-A.idleLife(i / 24, 3)['torso.sq']); assert.ok(Math.abs(Math.max(...b) - .015) < .0008 && Math.min(...b) >= -1e-9);
+  assert.ok(A.VERBS.idle_alive.breath && Math.abs(A.breath(0, 1) - A.breath(3.5, 1)) < 1e-9, '3.5 s period');
+  const {readFile} = await import('node:fs/promises'), hero = JSON.parse(await readFile('cast/hero6.json', 'utf8')); assert.equal(hero.HERO.regions.arms.cuff, '#E8E8EE'); assert.ok(!hero.HERO_A_REF?.regions?.arms?.cuff);
+});

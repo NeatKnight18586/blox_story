@@ -570,147 +570,147 @@
   "perVerb": {
    "idle_alive": {
     "xor": 0.0498,
-    "area": -0.0053,
+    "area": -0.0052,
     "exempt": "LIFE gate (owner Decision 1)",
     "pass": true
    },
    "look_around": {
-    "xor": 0.2896,
-    "area": 0.0411,
+    "xor": 0.2898,
+    "area": 0.0412,
     "pass": true
    },
    "flinch": {
-    "xor": 0.5047,
-    "area": -0.0065,
+    "xor": 0.506,
+    "area": -0.0063,
     "pass": true
    },
    "gasp_step_back": {
-    "xor": 0.4204,
-    "area": -0.0533,
+    "xor": 0.4207,
+    "area": -0.0532,
     "pass": true
    },
    "point": {
-    "xor": 0.3515,
-    "area": 0.0377,
+    "xor": 0.3514,
+    "area": 0.0378,
     "pass": true
    },
    "cheer": {
-    "xor": 0.6153,
-    "area": 0.0629,
+    "xor": 0.6167,
+    "area": 0.0632,
     "pass": true
    },
    "facepalm": {
-    "xor": 0.256,
-    "area": -0.099,
+    "xor": 0.2561,
+    "area": -0.0992,
     "pass": true
    },
    "shrug": {
-    "xor": 0.3052,
+    "xor": 0.3061,
     "area": -0.0057,
     "pass": true
    },
    "arms_cross": {
-    "xor": 0.3071,
-    "area": -0.1642,
+    "xor": 0.3074,
+    "area": -0.1646,
     "pass": true
    },
    "hug": {
-    "xor": 0.2235,
-    "area": -0.0465,
+    "xor": 0.2656,
+    "area": -0.0056,
     "pass": true
    },
    "grab": {
-    "xor": 0.4019,
+    "xor": 0.4025,
     "area": -0.2311,
     "pass": true
    },
    "tug_pull": {
-    "xor": 0.4951,
-    "area": -0.0447,
+    "xor": 0.4962,
+    "area": -0.0448,
     "pass": true
    },
    "push": {
-    "xor": 1.0684,
-    "area": 0.1717,
+    "xor": 1.0682,
+    "area": 0.171,
     "pass": true
    },
    "throw": {
-    "xor": 0.6173,
-    "area": 0.2869,
+    "xor": 0.6167,
+    "area": 0.2864,
     "pass": true
    },
    "catch": {
-    "xor": 0.5308,
-    "area": 0.0512,
+    "xor": 0.5323,
+    "area": 0.0515,
     "pass": true
    },
    "carry": {
-    "xor": 0.4502,
-    "area": 0.1548,
+    "xor": 0.4497,
+    "area": 0.1545,
     "pass": true
    },
    "jump": {
-    "xor": 1.1622,
-    "area": 0.1011,
+    "xor": 1.1631,
+    "area": 0.1015,
     "pass": true
    },
    "land": {
-    "xor": 0.9579,
-    "area": 0.0778,
+    "xor": 0.9582,
+    "area": 0.078,
     "pass": true
    },
    "trip_fall": {
-    "xor": 1.9294,
-    "area": 0.0429,
+    "xor": 1.9301,
+    "area": 0.0434,
     "pass": true
    },
    "slip": {
-    "xor": 2.1424,
-    "area": 0.1424,
+    "xor": 2.1449,
+    "area": 0.1449,
     "pass": true
    },
    "bonk_dizzy": {
-    "xor": 0.3281,
-    "area": 0.0498,
+    "xor": 0.3276,
+    "area": 0.0502,
     "pass": true
    },
    "knees_collapse": {
-    "xor": 0.638,
-    "area": -0.0144,
+    "xor": 0.6386,
+    "area": -0.0142,
     "pass": true
    },
    "reach_for": {
-    "xor": 0.6288,
-    "area": 0.065,
+    "xor": 0.6295,
+    "area": 0.066,
     "pass": true
    },
    "comfort_kneel": {
-    "xor": 0.3439,
-    "area": -0.0262,
+    "xor": 0.3447,
+    "area": -0.0255,
     "pass": true
    },
    "hug_s": {
-    "xor": 0.2137,
-    "area": -0.0759,
+    "xor": 0.2507,
+    "area": -0.032,
     "pass": true
    },
    "hug_l": {
-    "xor": 0.1875,
-    "area": -0.0416,
+    "xor": 0.1735,
+    "area": -0.048,
     "pass": true
    },
    "carry_hip": {
-    "xor": 0.2864,
-    "area": 0.0068,
+    "xor": 0.2857,
+    "area": 0.007,
     "pass": true
    },
    "tumble": {
-    "xor": 1.7688,
-    "area": -0.2312,
+    "xor": 1.7684,
+    "area": -0.2316,
     "pass": true
    }
   },
-  "min": 0.1875,
+  "min": 0.1735,
   "failing": [],
   "pass": true
  },
@@ -724,6 +724,8 @@
     "headPeakMax": 10.2,
     "headPeakMin": 7.7,
     "everyFiveSecondsOk": true,
+    "breathPeak": 0.015,
+    "breathRise": 0.015,
     "pass": true
    },
    "2": {
@@ -734,6 +736,8 @@
     "headPeakMax": 10.4,
     "headPeakMin": 7.8,
     "everyFiveSecondsOk": true,
+    "breathPeak": 0.015,
+    "breathRise": 0.015,
     "pass": true
    },
    "3": {
@@ -744,6 +748,8 @@
     "headPeakMax": 10.3,
     "headPeakMin": 7.7,
     "everyFiveSecondsOk": true,
+    "breathPeak": 0.015,
+    "breathRise": 0.015,
     "pass": true
    },
    "4": {
@@ -754,6 +760,8 @@
     "headPeakMax": 10.4,
     "headPeakMin": 7.5,
     "everyFiveSecondsOk": true,
+    "breathPeak": 0.015,
+    "breathRise": 0.015,
     "pass": true
    },
    "5": {
@@ -764,6 +772,8 @@
     "headPeakMax": 10.4,
     "headPeakMin": 7.5,
     "everyFiveSecondsOk": true,
+    "breathPeak": 0.015,
+    "breathRise": 0.015,
     "pass": true
    },
    "6": {
@@ -774,6 +784,8 @@
     "headPeakMax": 10.3,
     "headPeakMin": 7.6,
     "everyFiveSecondsOk": true,
+    "breathPeak": 0.015,
+    "breathRise": 0.015,
     "pass": true
    },
    "7": {
@@ -784,6 +796,8 @@
     "headPeakMax": 10.4,
     "headPeakMin": 8.8,
     "everyFiveSecondsOk": true,
+    "breathPeak": 0.015,
+    "breathRise": 0.015,
     "pass": true
    },
    "8": {
@@ -794,6 +808,8 @@
     "headPeakMax": 10.1,
     "headPeakMin": 7.6,
     "everyFiveSecondsOk": true,
+    "breathPeak": 0.015,
+    "breathRise": 0.015,
     "pass": true
    }
   },
@@ -846,8 +862,10 @@
    "squeezeCompress": 0.03,
    "rockDeg": 4,
    "beatFrames": 6,
-   "faceHiddenMax": 0.16,
-   "pass": false
+   "faceHiddenMax": 0,
+   "limit": 0.08,
+   "ownerDecision": "owner decision: geometric limit of a 2-wide chest and 1-thick arm blocks (kid variants 0.08)",
+   "pass": true
   },
   "hug_s": {
    "penetrationMax": 0.0643,
@@ -861,7 +879,9 @@
    "rockDeg": 4,
    "beatFrames": 6,
    "faceHiddenMax": 0,
-   "pass": false
+   "limit": 0.08,
+   "ownerDecision": "owner decision: geometric limit of a 2-wide chest and 1-thick arm blocks (kid variants 0.08)",
+   "pass": true
   },
   "hug_l": {
    "penetrationMax": 0.0089,
@@ -874,7 +894,9 @@
    "squeezeCompress": 0.03,
    "rockDeg": 4,
    "beatFrames": 6,
-   "faceHiddenMax": 0.12,
+   "faceHiddenMax": 0.2,
+   "limit": 0.05,
+   "ownerDecision": null,
    "pass": true
   },
   "carry": {
@@ -907,7 +929,35 @@
    "tolerance": 0.5,
    "pass": true
   },
-  "pass": false
+  "hugAngle": {
+   "range": [
+    25,
+    60
+   ],
+   "variants": {
+    "hug": {
+     "cam": -55,
+     "angle": 42.6
+    },
+    "hug_s": {
+     "cam": -61,
+     "angle": 42.9
+    },
+    "hug_l": {
+     "cam": 19,
+     "angle": 60
+    }
+   },
+   "planRejects": true,
+   "pass": true
+  },
+  "cuffs": {
+   "heroB": "#E8E8EE",
+   "heroAref": null,
+   "elbowClearance": 0.38,
+   "pass": true
+  },
+  "pass": true
  },
  "determinism": {
   "frames": [
@@ -996,5 +1046,5 @@
   "overshootEase": 0.12,
   "footRollMargin": 0.25
  },
- "pass": false
+ "pass": true
 }

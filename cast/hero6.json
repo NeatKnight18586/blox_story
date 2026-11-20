@@ -23,6 +23,8 @@
    "arms": {
     "upper": "#2B2D33",
     "lower": "#FFD542",
+    "cuff": "#E8E8EE",
+    "cuffH": 0.12,
     "sleeve": "wrist"
    },
    "legs": {

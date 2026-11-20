@@ -210,6 +210,7 @@ export function createActor6({tier = 'hero', skin, scale = 1, materials = {}, na
       el.add(noCast(mesh(jointFill(1, .98, ov, tier), mLA, side + 'ElbowFill', [0, 0, 0], tier)));
       parts[side + 'LowerArm'] = mesh(fuse(`la:${ov}:${tier}`, limbBox([1, hl + ov, 1], {flatTop: true, flatBottom: true, openTop: true, tier}), [0, -(hl - ov) / 2, 0], [[plainBox([.92, PLUG, PLUG_D]), [0, -hl - PLUG / 2 + .005, 0]]]),
         mLA, side + 'LowerArm', [0, 0, 0], tier); el.add(parts[side + 'LowerArm']);   // + the wrist plug
+      if (r.arms?.cuff) el.add(noCast(mesh(plainBox([1.03, r.arms.cuffH ?? .12, 1.03]), satin(r.arms.cuff), side + 'Cuff', [0, -hl + (r.arms.cuffH ?? .12) / 2, 0], tier)));   // P3c opt-in: a light band at the wrist (hero B)
       const wr = group(side + 'Wrist', [0, -hl, 0]); el.add(wr); pivots[side + 'Wrist'] = wr;
       // the Hand slab: flat top inset 0.01 (the wrist line is a step, not a groove), a 0.06 plug on it turns with the hand
       parts[side + 'Hand'] = mesh(fuse(`hand:${tier}`, limbBox([1 - 2 * STEP, hh, 1 - 2 * STEP], {flatTop: true, tier}), [0, -hh / 2, 0], [[plainBox([.96, SLAB_PLUG, .96]), [0, SLAB_PLUG / 2 - .005, 0]]]),

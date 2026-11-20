@@ -17,6 +17,7 @@ import * as A from '../../engine/acting6.js';
 import {jointViolations} from '../../avatar-style/body6.js';
 
 const SLIDE = .02, XOR = .12, OS = [.08, .16], ANT = [.15, .25], FPS = 24;
+const HUG_LIMIT = {hug: .08, hug_s: .08, hug_l: .05};   // studs; owner-authorized 0.08 for the kid variants (P3c)
 const DIPQ = .25, smooth01 = x => { x = Math.min(1, Math.max(0, x)); return x * x * (3 - 2 * x); };
 const clip = (f, dur, travel = 0) => { const frames = []; let viol = 0;
   for (let i = 0; i <= Math.round(dur * FPS); i++) { const t = i / FPS, r = f(t); frames.push({t, corners: A.cornersOf(r.sample), skid: !!r.ch.skid}); viol += jointViolations(r.raw).length; }
@@ -54,7 +55,8 @@ for (let seed = 1; seed <= 8; seed++) {
   let windowsOk = true; for (let t0 = 0; t0 + 5 <= 60; t0 += .5) if (!peaks.some(p => p.t >= t0 && p.t <= t0 + 5 && p.a >= 6)) windowsOk = false;
   const turnMax = Math.max(...peaks.map(p => p.a)), turnMin = Math.min(...peaks.filter(p => p.a >= 6).map(p => p.a));
   const r = {shifts: cross.length, gapMin: +Math.min(...gaps).toFixed(2), gapMax: +Math.max(...gaps).toFixed(2), hipTravel: +travel.toFixed(3), headPeakMax: +turnMax.toFixed(1), headPeakMin: +turnMin.toFixed(1), everyFiveSecondsOk: windowsOk};
-  r.pass = r.gapMin >= 3 && r.gapMax <= 5 && travel >= .06 && turnMax <= 12 && turnMin >= 6 && windowsOk; life.seeds[seed] = r; life.pass &&= r.pass; }
+  const br = []; for (let i = 0; i <= 8 * FPS; i++) br.push(-A.idleLife(i / FPS, seed)['torso.sq']); r.breathPeak = +Math.max(...br).toFixed(4); r.breathRise = +(Math.max(...br) - Math.min(...br)).toFixed(4);   // P3c: 1.5 % chest rise, 3.5 s cycle
+  r.pass = Math.abs(r.breathPeak - .015) <= .0008 && r.breathRise >= .014 && r.gapMin >= 3 && r.gapMax <= 5 && travel >= .06 && turnMax <= 12 && turnMin >= 6 && windowsOk; life.seeds[seed] = r; life.pass &&= r.pass; }
 // ---- P3b fixes ----
 const fixes = {};
 const ang = r => r / Math.PI * 180, camDir = deg => [Math.sin(deg * Math.PI / 180), 0, Math.cos(deg * Math.PI / 180)];
@@ -85,7 +87,7 @@ for (const n of ['hug', 'hug_s', 'hug_l']) {   // owner P3b fix 1: no interpenet
   for (let i = 0; i <= N; i++) base.push(fine(t0 + i / 240)); v.squeeze = saved; for (let i = 0; i <= N; i++) withSq.push(fine(t0 + i / 240));   // rock measured on a fine grid (a 6-frame beat at 24 fps cannot show its own peak)
   const rock = Math.max(...withSq.map((x, i) => Math.abs(x - base[i]))), on = Math.round(saved.frames), peak = Math.max(...sq);
   fixes[n] = {penetrationMax: pen.depth, pair: pen.pair, at: pen.t, transitMax: transit.depth, transitPair: transit.pair, transitAt: transit.t, partnerScale: v.kp, squeezeCompress: +peak.toFixed(4), rockDeg: +rock.toFixed(2), beatFrames: on, faceHiddenMax: vis.hidden,
-    pass: pen.depth <= .05 && Math.abs(peak - .03) <= .0015 && Math.abs(rock - 4) <= .1 && on === 6 && vis.hidden <= .25}; }
+    limit: HUG_LIMIT[n], ownerDecision: n === 'hug_l' ? null : 'owner decision: geometric limit of a 2-wide chest and 1-thick arm blocks (kid variants 0.08)', pass: pen.depth <= HUG_LIMIT[n] && Math.abs(peak - .03) <= .0015 && Math.abs(rock - 4) <= .1 && on === 6 && vis.hidden <= .25}; }
 for (const n of ['carry', 'carry_hip']) {   // owner P3b fix 2: piggyback (kid) / hip-carry (LITTLE); the lead dips 0.25, rises over 8 frames, the partner 1 frame behind
   const v = A.VERBS[n], T = A.timing(v), frames = Math.round((T.D + .5) * FPS), dy = []; let pen = {depth: 0}, vis = {hidden: 0};
   for (let i = 0; i <= frames; i++) { const t = i / FPS; dy.push(A.sampleVerb(n, t).ch['root.dy']); if (t >= T.key) { const pp = placedPair(n, t), pn = A.penetration(pp.la, pp.pb, {skip: (x, y) => /Hand/.test(x) && /Thigh|Shin/.test(y) || /Hand/.test(y) && /Thigh|Shin/.test(x)}); if (pn.depth > pen.depth) pen = {...pn, t: +t.toFixed(2)};
@@ -98,6 +100,15 @@ for (const n of ['carry', 'carry_hip']) {   // owner P3b fix 2: piggyback (kid) 
   const mk = A.partnerOffset('hug'), at = (dx, dz) => [mk.x + dx, mk.z + dz];
   const near = A.partnerPlan({...base, partnerPos: at(.3, 0), avail: 5}), far = A.partnerPlan({...base, partnerPos: at(4, 0), avail: 5}), tight = A.partnerPlan({...base, partnerPos: at(4, 0), avail: .5}), off = A.partnerPlan({...base, partnerPos: at(4, 0), avail: 5, walkIn: false});
   fixes.partnerPlan = {near: near.ok && !near.walk, walkIn: far.ok && !!far.walk && far.walk.t0 < 5, noRoom: !tight.ok, walkInOff: !off.ok, tolerance: A.PARTNER_TOL, pass: near.ok && !near.walk && far.ok && !!far.walk && !tight.ok && !off.ok}; }
+{ // P3c hug staging: the verb's review camera is 25–60° off the torso line; the pure plan check rejects other shots
+  const out = {}; for (const n of ['hug', 'hug_s', 'hug_l']) { const v = A.VERBS[n], off = A.partnerOffset(n), c = v.cam * Math.PI / 180, a = A.hugAngle({camPos: [Math.sin(c) * 20, Math.cos(c) * 20], leadPos: [0, 0], partnerPos: [off.x, off.z]}); out[n] = {cam: v.cam, angle: +a.toFixed(1)}; }
+  const bad = A.hugAngleIssues([{lead: 'H', partner: 'F', key: 1, cam: {camPos: [0, 20], leadPos: [0, 0], partnerPos: [0, 2]}}, {lead: 'H', partner: 'F', key: 1, cam: {camPos: [20, 0], leadPos: [0, 0], partnerPos: [0, 2]}}, {lead: 'H', partner: 'F', key: 1, cam: {camPos: [14, 14], leadPos: [0, 0], partnerPos: [0, 2]}}]);
+  fixes.hugAngle = {range: A.HUG_ANGLE, variants: out, planRejects: bad.length === 2, pass: Object.values(out).every(x => x.angle >= 25 && x.angle <= 60) && bad.length === 2}; }
+{ // P3c wrist cuffs: hero B only (cast/hero6.json); crossed forearms keep ≥ 0.1 studs between each elbow and the other forearm
+  const T = A.timing(A.VERBS.arms_cross), smp = A.sampleVerb('arms_cross', T.end).sample, f = A.fk(smp), bx = A.bodyBoxes(smp);
+  const dist = (p, b) => { const l = [0, 1, 2].map(i => b.R[0][i] * (p[0] - b.c[0]) + b.R[1][i] * (p[1] - b.c[1]) + b.R[2][i] * (p[2] - b.c[2])); return Math.hypot(...l.map((x, i) => Math.max(0, Math.abs(x) - b.h[i]))); };
+  const gl = dist(f.leftElbow.p, bx.find(b => b.n === 'rightForearm')), gr = dist(f.rightElbow.p, bx.find(b => b.n === 'leftForearm'));
+  const hero = JSON.parse(await readFile('cast/hero6.json', 'utf8')); fixes.cuffs = {heroB: hero.HERO.regions.arms.cuff, heroAref: hero.HERO_A_REF?.regions?.arms?.cuff ?? null, elbowClearance: +Math.min(gl, gr).toFixed(2), pass: hero.HERO.regions.arms.cuff === '#E8E8EE' && !hero.HERO_A_REF?.regions?.arms?.cuff && Math.min(gl, gr) >= .1}; }
 const g = {
   footSlide: {limit: SLIDE, perClip: foot, max: Math.max(...Object.entries(foot).filter(([k]) => !/^carried/.test(k)).map(([, x]) => x.slide)), excluded: {skid_stop: 'skid (flagged frames)', slip: 'banana-peel kick-out (flagged frames)', carried: 'lifted off the ground by the lead', carried_hip: 'lifted off the ground by the lead'},
     pass: Object.entries(foot).filter(([k]) => !/^carried/.test(k)).every(([, x]) => x.slide <= SLIDE)},
