@@ -7,19 +7,19 @@
    "frames": 83,
    "move": "push",
    "size": "medium",
-   "ms": 7366,
+   "ms": 6805,
    "travel": {
     "move": 0.416,
     "turnDeg": 0.34,
     "zoom": 1
    },
    "dur": 3.458,
-   "luma": 0.2805,
+   "luma": 0.1905,
    "gate": [
     0.1,
     0.22
    ],
-   "lumaPass": false,
+   "lumaPass": true,
    "void": 0,
    "lockedOff": false
   },
@@ -30,19 +30,19 @@
    "frames": 47,
    "move": "pull",
    "size": "wide",
-   "ms": 4196,
+   "ms": 3797,
    "travel": {
     "move": 3.477,
     "turnDeg": 3.02,
     "zoom": 1
    },
    "dur": 1.958,
-   "luma": 0.0507,
+   "luma": 0.1599,
    "gate": [
     0.1,
     0.22
    ],
-   "lumaPass": false,
+   "lumaPass": true,
    "void": 0,
    "lockedOff": false,
    "layers": {
@@ -60,19 +60,19 @@
    "frames": 46,
    "move": "push",
    "size": "medium",
-   "ms": 6701,
+   "ms": 6487,
    "travel": {
     "move": 0.401,
     "turnDeg": 0.41,
     "zoom": 1
    },
    "dur": 1.917,
-   "luma": 0.3462,
+   "luma": 0.209,
    "gate": [
     0.1,
     0.22
    ],
-   "lumaPass": false,
+   "lumaPass": true,
    "void": 0,
    "lockedOff": false
   },
@@ -83,19 +83,19 @@
    "frames": 26,
    "move": "push",
    "size": "close",
-   "ms": 7065,
+   "ms": 7418,
    "travel": {
     "move": 0.301,
     "turnDeg": 0.33,
     "zoom": 1
    },
    "dur": 1.083,
-   "luma": 0.4176,
+   "luma": 0.2189,
    "gate": [
     0.1,
     0.22
    ],
-   "lumaPass": false,
+   "lumaPass": true,
    "void": 0,
    "lockedOff": false
   },
@@ -106,19 +106,19 @@
    "frames": 61,
    "move": "crane",
    "size": "wide",
-   "ms": 5144,
+   "ms": 4616,
    "travel": {
     "move": 0.3,
     "turnDeg": 11.57,
     "zoom": 1
    },
    "dur": 2.542,
-   "luma": 0.2278,
+   "luma": 0.3413,
    "gate": [
     0.34,
     0.48
    ],
-   "lumaPass": false,
+   "lumaPass": true,
    "void": 0,
    "lockedOff": false,
    "layers": {
@@ -159,19 +159,19 @@
    "frames": 17,
    "move": "push",
    "size": "insert",
-   "ms": 4064,
+   "ms": 4011,
    "travel": {
     "move": 0.06,
     "turnDeg": 0.02,
     "zoom": 1
    },
    "dur": 0.708,
-   "luma": 0.3122,
+   "luma": 0.3661,
    "gate": [
     0.34,
     0.48
    ],
-   "lumaPass": false,
+   "lumaPass": true,
    "void": 0,
    "lockedOff": false
   },
@@ -182,14 +182,14 @@
    "frames": 19,
    "move": "push",
    "size": "insert",
-   "ms": 3560,
+   "ms": 3557,
    "travel": {
     "move": 0.059,
     "turnDeg": 0.03,
     "zoom": 1
    },
    "dur": 0.792,
-   "luma": 0.6979,
+   "luma": 0.5922,
    "gate": [
     0.34,
     0.48
@@ -287,50 +287,8 @@
   "luma": {
    "pass": false,
    "failing": {
-    "S32": [
-     0.2805,
-     [
-      0.1,
-      0.22
-     ]
-    ],
-    "S33": [
-     0.0507,
-     [
-      0.1,
-      0.22
-     ]
-    ],
-    "S34": [
-     0.3462,
-     [
-      0.1,
-      0.22
-     ]
-    ],
-    "S35": [
-     0.4176,
-     [
-      0.1,
-      0.22
-     ]
-    ],
-    "S36a": [
-     0.2278,
-     [
-      0.34,
-      0.48
-     ]
-    ],
-    "S37a": [
-     0.3122,
-     [
-      0.34,
-      0.48
-     ]
-    ],
     "S37b": [
-     0.6979,
+     0.5922,
      [
       0.34,
       0.48
