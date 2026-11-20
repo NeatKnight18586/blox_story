@@ -14,6 +14,14 @@ on:
         description: 'repair run: id of an earlier run whose chunk-* artifacts are merged in (empty = none)'
         required: false
         default: ''
+      reuse_run2:
+        description: 'repair run: id of a second earlier run to merge chunks from (empty = none)'
+        required: false
+        default: ''
+      assemble_only:
+        description: 'true = skip rendering, only assemble from reuse_run / reuse_run2'
+        required: false
+        default: ''
   push:
     paths: ['campaigns/tapcap/ep01-rarity/render.request']
 permissions:
@@ -39,6 +47,7 @@ jobs:
           if [ -n "$MATRIX_IN" ]; then echo "matrix=$MATRIX_IN" >> "$GITHUB_OUTPUT"; else echo "matrix=$(node campaigns/tapcap/scripts/final-render.js --plan 12)" >> "$GITHUB_OUTPUT"; fi
   render:
     needs: plan
+    if: ${{ inputs.assemble_only != 'true' }}
     runs-on: ubuntu-24.04
     timeout-minutes: 270
     strategy:
@@ -67,6 +76,7 @@ jobs:
           retention-days: 1
   assemble:
     needs: render
+    if: ${{ !cancelled() && (needs.render.result == 'success' || needs.render.result == 'skipped') }}
     runs-on: ubuntu-24.04
     steps:
       - uses: actions/checkout@v4
@@ -80,10 +90,14 @@ jobs:
         if: ${{ inputs.reuse_run != '' }}
         uses: actions/download-artifact@v4
         with: {pattern: 'chunk-*', merge-multiple: true, path: chunks, run-id: '${{ inputs.reuse_run }}', github-token: '${{ github.token }}'}
+      - name: Merge chunks from a second earlier run (repair runs only)
+        if: ${{ inputs.reuse_run2 != '' }}
+        uses: actions/download-artifact@v4
+        with: {pattern: 'chunk-*', merge-multiple: true, path: chunks, run-id: '${{ inputs.reuse_run2 }}', github-token: '${{ github.token }}'}
       - name: Stitch, burn v6 captions, hard cut at 75.16 s
         run: |
           S=tapcap-ep01-rarity
-          python3 scripts/v2/captions.py --story $S --cues stories/$S/cues.json --spec stories/$S/episode.json --style pop-shorts-v6 --accent '#B98CFF' --out captions.ass
+          python3 scripts/v2/captions.py --story $S --cues stories/$S/cues.json --spec stories/$S/episode.json --style pop-shorts-v6 --accent '#B98CFF' --out ./captions.ass
           ls chunks/chunk-*.mp4 | sort | sed "s/^/file '/; s/$/'/" > list.txt; cat list.txt
           ffmpeg -v error -y -f concat -safe 0 -i list.txt -c copy stitched.mp4
           ffmpeg -v error -y -i stitched.mp4 -vf "subtitles=captions.ass:fontsdir=node_modules/@expo-google-fonts/lilita-one/400Regular" -t 75.16 \
