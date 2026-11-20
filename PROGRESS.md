@@ -1611,3 +1611,39 @@ Numbers: distinct fill colours ≤ 3 for 24/24 faces × (face, blink, 4 talk sha
 Regression: faces5 untouched; Nobody 62/62, Touch Grass 20/20 byte-identical; npm test 0; v2:test 192 node + 64 py.
 Decisions: awe sits in the happy family (the brief listed no family for it); every v6 face now talks (the old "held" reaction faces flap their family's shapes); over-3 shapes drop detail colours in order tongue line → teeth band → tongue (so rage's wide shout has no tongue: the red anger mark is the 3rd colour); sparkles are white + ink outline INSIDE the head front (the decal cannot draw outside it; "beside the head" = near the brow corners); the P2 "roles" metric is replaced by distinct colours.
 Open: rage mark reads as a red ring; cry's eye lines and brows are four parallel dashes; sparkles clip at the close-up edge.
+
+## P3 — R15 acting library, acting v6 (2026-11-20)
+Plan: 1. engine/acting6.js (pure): verbs = data (rest · anticipation · key · settle poses) sampled through phases antic (20 %, auto-opposite on the
+main channel) → action (fast) → overshoot (motion5b overshootEase, 12 % of the stroke) → settle → moving hold (seeded drift); head leads 2 f, hands
+settle 2.5 f late; elbow arc bump mid-stroke; intensity 0.5–1.5; facing = mirror + 25 % cheat toward the camera side.
+2. Legs by analytic 2-bone IK onto foot targets (feet flat, world-locked) → foot slide 0 by construction; cycles walk/sad_walk/sneak/run/sprint/skid_stop
+with planted-foot IK at CYCLE_SPEED; airborne verbs (jump, trip_fall, tumble) FK. 3. Word timing: at {word, nth} from cues.json; KEY lands on the
+word start; faces in the same list land on their word (faceLife pop + blink); talk gestures on stressed words (Brief marks, else loudest per line).
+4. Props: hold/release/ballistic track; two-actor verbs (hug, carry, comfort_kneel) return both actors. 5. Opt-in `acting: 6` in episode.js / actors.js.
+6. Sheets + demo (engine/acting6.html stage) → review/acting6/. 7. Gates: slide ≤ 0.02, raw joints in limits, anticipation ≥ 3° opposite + overshoot
+8–16 % per verb, silhouette XOR vs rest ≥ 12 % (threshold set now), 10 frames byte-identical. 8. Tests, Nobody 62 + Touch Grass 20 byte-identity.
+Built: engine/acting6.js (channels, VERBS 24 + partner halves hug_b/comfort_b/carried, GESTURES 4, CYCLES 5 + skid_stop, tumble; phases via motion5b
+overshootEase; leg IK + foot roll; arm IK `lHand/rHand` targets; FK/lowestBody; wordTime/stressedWords; compileActing/sampleActing; props
+attach/release/carry; partnerOffset/rigReach/carryOrigin; gate measures footContacts/verbPhases), engine/acting6-reel.js + acting6.html/-stage.js
+(review stage), scripts/v2/acting6-sheet.js + acting6-gates.js, tests/v2/acting6.test.js (9), fixture engine/fixtures/acting6/ (episode + cues).
+Wiring (opt-in only): episode.js `spec.acting === 6` → shot `actions` (numeric at = shot-local s, {word, nth} = cues word start) + spec.talk →
+tracks; v6 actors take sampleActing (driveActor `acting` hook), faces from the track (faceLife pop/blink on them), props by scene name, partners
+placed from the lead's mark (moved in over the anticipation + action). Fixture: flinch lands on "bang" (1.40 s), wink → shock on the word.
+Commands: `node scripts/v2/acting6-sheet.js` (~30 s; verbs.png, cycles.png, silhouettes.png, demo.mp4) → `node scripts/v2/acting6-gates.js` → gates.json.
+Numbers: foot slide max 0.0102 studs (skid_stop after the flagged skid; every other clip ≤ 0.0098; 34 clips); joints 0 raw violations (×0.5/1/1.5,
+both facings, cycles, tumble, gestures); phases 24/24 (anticipation 0.200 of the verb, opposite motion ≥ 15 % of the stroke, overshoot 0.120–0.122);
+silhouette XOR vs rest ≥ 0.12 (set before measuring): 24/25 — FAIL idle_alive 0.107 after two fix passes (pass 1 arm-IK akimbo, 0.088; pass 2
+akimbo moved to the camera side, 0.107), next lowest facepalm/arms_cross 0.256; determinism 10/10 demo frames byte-identical (fresh page);
+wrist arcs: min bow 0.136 of the chord; comfort_kneel hand on shoulder gap −0.018, 0.017 off-centre.
+Regression: Nobody 62/62, Touch Grass 20/20 byte-identical (270×480, aa 0); npm test 0; v2:test 201 node + 64 py (1 skipped).
+Decisions: overshoot 12 % measured on the main channel inside the overshoot window; intended slides (skid_stop skid, slip kick-out) flagged and
+excluded from the slide gate; FK joints pass through LIMITS6 in the rig (overshoot stops at a joint's stop) and the gate checks the solved raw
+pose (IK knees/ankles); planted feet roll on the toe/heel edge when the ankle would pass ±35° (contact edge fixed); swing heel kick stops at a
+148° knee fold; cycles are in place (mark travels at CYCLES[n].v) — chest sway, not pelvis roll (a rolled pelvis folded the planted knee);
+hero variant B (P1b); faces v6 on the review stage; demo = 24 verbs + tumble, 0.8 s each around the KEY, hard cuts; partner verbs place the
+partner from the lead (Brief should block partners near the meeting point).
+Five weakest verbs (dailies read): idle_alive (silhouette 0.107: the akimbo is small at 3/4, reads as standing), carry with a partner (partner
+sits on the forearms arms-up and covers the lead's face; no weight in the lift), hug (forearms pass into the partner, no squeeze beat),
+gasp_step_back (forearms point at the camera: blocks, step reads small), arms_cross (forearms merge into one block at the chest).
+Open: idle_alive silhouette; cycle ↔ verb hand-over uses the cycle's pose at the verb start (no blend into a cycle); partner move-in slides feet
+if the Brief does not block partners close; tools/accessories still ride the UpperArm.

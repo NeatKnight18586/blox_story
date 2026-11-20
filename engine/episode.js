@@ -296,6 +296,25 @@ function glowProp(shot) {
 }
 const applyLift = shot => { const f = spec.actorLift !== undefined ? 1 : ['night', 'nightBright'].includes(shot?.look ?? spec.look) ? 1 : 0; for (const [m, e] of liftMats) m.emissive.copy(e).multiplyScalar(f); };
 
+// P3 acting v6 (opt-in spec.acting === 6, v6 actors only): shot `actions` [{actor, verb | cycle | face, at: s (shot-local) |
+// {word, nth}, intensity, target, facing, hold}] + spec.talk [{actor, line, gesture?, stress?}] compile into per-actor tracks
+// (engine/acting6.js); the KEY of each verb lands on its time / word start. Specs without `acting: 6` never load it.
+const ACT6 = spec.acting === 6 ? await import('./acting6.js') : null;
+const actTracks = ACT6 ? await (async () => {
+  const get = async u => { try { const r = await fetch(new URL('../' + u, import.meta.url)); return r.ok ? await r.json() : null; } catch { return null; } };
+  const cues = await get(spec.cues ?? `stories/${spec.slug}/cues.json`) ?? await get(`stories/${spec.slug}/build/cues.json`), env = await get(`stories/${spec.slug}/build/envelope.json`);
+  const actions = shots.flatMap(sh => (sh.actions ?? []).map(a => typeof a.at === 'number' ? {...a, at: sh.start / FPS + a.at} : a));
+  return ACT6.compileActing(actions, {cues, env, talk: spec.talk ?? []});
+})() : null;
+// A partner verb (hug, comfort_kneel) places the partner from its lead's mark; carry with an actor follows the lead's hands.
+function actingOrigin(name, t, at, yaw) {
+  const tr = actTracks?.[name], it = tr?.items.findLast(x => x.start <= t); if (!it?.partnerOf) return [at, yaw];
+  const lead = cast[it.partnerOf], lat = markAt(lead.c, t), lyaw = (markOf(lead.c, t).yaw ?? 0) * Math.PI / 180, k = lead.a.root.scale.x, rot = ([x, y, z]) => [x * Math.cos(lyaw) + z * Math.sin(lyaw), y, -x * Math.sin(lyaw) + z * Math.cos(lyaw)];
+  if (it.two.follow) { const o = ACT6.carryOrigin(ACT6.sampleActing(actTracks[it.partnerOf], t, {build: lead.a.build}).sample, lead.a.build), p = rot(o.p); return [[lat[0] + p[0] * k, lat[1] + p[1] * k, lat[2] + p[2] * k], lyaw + o.yaw * Math.PI / 180]; }
+  const off = ACT6.partnerOffset(it.partnerOf && actTracks[it.partnerOf].items.find(x => x.key === it.key)?.verb, {facing: -it.facing}), p = rot([off.x, 0, off.z]);
+  const T = ACT6.timing(ACT6.VERBS[it.verb]), w = Math.min(1, Math.max(0, (t - it.start) / (T.ant + ACT6.VERBS[it.verb].act))), e = w * w * (3 - 2 * w);   // the partner moves in over the anticipation + action (block partners at hug distance to keep their feet still)
+  return [[at[0] + (lat[0] + p[0] * k - at[0]) * e, at[1], at[2] + (lat[2] + p[2] * k - at[2]) * e], yaw + (lyaw + off.yaw * Math.PI / 180 - yaw) * e];
+}
 const markPos = {};
 // Where an actor's mark is at time t (pure: no posing). poseCast and A4 trails share it.
 function markAt(c, t) {
@@ -318,6 +337,12 @@ function poseCast(t) {
       const at = markAt(c, t);
       markPos[name] = [...at];
       if (dragon) driveDragon(a, t, {keys: c.keys ?? [[0, 'perch']], origin: {position: at, yaw}});
+      else if (actTracks?.[name] && a.body === 'v6') {   // P3 acting v6: the track's sample, faces on their words, props in the hands
+        const tr = actTracks[name], [pos, y2] = actingOrigin(name, t, at, yaw), act = ACT6.sampleActing(tr, t, {seed: a.blinkSeed ?? 1, build: a.build});
+        driveActor(a, t, {keys: [[0, 'idle']], acting: () => act.sample, faces: tr.faces.length ? [[0, c.faces?.[0]?.[1] ?? a.preset.face ?? 'smile'], ...tr.faces] : c.faces, origin: {position: pos, yaw: y2}, tags: c.tags, fps: FPS, visible: c.visible, blinkSuppress: blinkOff(t), talk: talkOf(name, t), ...(spec.faceLife ? {faceLife: true} : {})});
+        for (const [id, pr] of Object.entries(act.props)) { const o = scene.getObjectByName(id); if (!o || !pr) continue; const k = a.root.scale.x, cy = Math.cos(y2), sy = Math.sin(y2);
+          o.position.set(pos[0] + (pr.p[0] * cy + pr.p[2] * sy) * k, pos[1] + pr.p[1] * k, pos[2] + (-pr.p[0] * sy + pr.p[2] * cy) * k); }
+      }
       else driveActor(a, t, {keys: c.keys ?? [[0, c.action ?? 'idle']], faces: c.faces, ambient: !!c.ambient,
         origin: {position: at, yaw}, tags: c.tags, fps: FPS, tools: c.tools, toolsLeft: c.toolsLeft, stat: c.stat, bubble: c.bubble, visible: c.visible, kit: c.kit, blinkSuppress: blinkOff(t), talk: talkOf(name, t), ...(M5B ? {m5b: M5B} : {}), ...(spec.faceLife ? {faceLife: true} : {})});   // P2: faces v6 life (opt-in)
       if (v2 && spec.decorate) WMOD?.poseActor?.(a, name, t, c);   // Touch Grass E1 (opt-in): per-frame dress state, pure in t

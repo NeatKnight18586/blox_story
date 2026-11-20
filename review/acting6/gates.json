@@ -1,0 +1,732 @@
+{
+ "footSlide": {
+  "limit": 0.02,
+  "perClip": {
+   "idle_alive": {
+    "slide": 0.0004,
+    "contacts": 8,
+    "viol": 0,
+    "skidFrames": 0
+   },
+   "look_around": {
+    "slide": 0,
+    "contacts": 8,
+    "viol": 0,
+    "skidFrames": 0
+   },
+   "flinch": {
+    "slide": 0,
+    "contacts": 8,
+    "viol": 0,
+    "skidFrames": 0
+   },
+   "gasp_step_back": {
+    "slide": 0.0016,
+    "contacts": 8,
+    "viol": 0,
+    "skidFrames": 0
+   },
+   "point": {
+    "slide": 0.0003,
+    "contacts": 8,
+    "viol": 0,
+    "skidFrames": 0
+   },
+   "cheer": {
+    "slide": 0.0001,
+    "contacts": 20,
+    "viol": 0,
+    "skidFrames": 0
+   },
+   "facepalm": {
+    "slide": 0,
+    "contacts": 8,
+    "viol": 0,
+    "skidFrames": 0
+   },
+   "shrug": {
+    "slide": 0,
+    "contacts": 8,
+    "viol": 0,
+    "skidFrames": 0
+   },
+   "arms_cross": {
+    "slide": 0.0004,
+    "contacts": 8,
+    "viol": 0,
+    "skidFrames": 0
+   },
+   "hug": {
+    "slide": 0.0087,
+    "contacts": 12,
+    "viol": 0,
+    "skidFrames": 0
+   },
+   "grab": {
+    "slide": 0.0098,
+    "contacts": 20,
+    "viol": 0,
+    "skidFrames": 0
+   },
+   "tug_pull": {
+    "slide": 0,
+    "contacts": 14,
+    "viol": 0,
+    "skidFrames": 0
+   },
+   "push": {
+    "slide": 0.0002,
+    "contacts": 12,
+    "viol": 0,
+    "skidFrames": 0
+   },
+   "throw": {
+    "slide": 0.0006,
+    "contacts": 12,
+    "viol": 0,
+    "skidFrames": 0
+   },
+   "catch": {
+    "slide": 0,
+    "contacts": 8,
+    "viol": 0,
+    "skidFrames": 0
+   },
+   "carry": {
+    "slide": 0,
+    "contacts": 8,
+    "viol": 0,
+    "skidFrames": 0
+   },
+   "jump": {
+    "slide": 0.0092,
+    "contacts": 16,
+    "viol": 0,
+    "skidFrames": 0
+   },
+   "land": {
+    "slide": 0,
+    "contacts": 8,
+    "viol": 0,
+    "skidFrames": 0
+   },
+   "trip_fall": {
+    "slide": 0.0001,
+    "contacts": 24,
+    "viol": 0,
+    "skidFrames": 0
+   },
+   "slip": {
+    "slide": 0.0091,
+    "contacts": 8,
+    "viol": 0,
+    "skidFrames": 9
+   },
+   "bonk_dizzy": {
+    "slide": 0,
+    "contacts": 10,
+    "viol": 0,
+    "skidFrames": 0
+   },
+   "knees_collapse": {
+    "slide": 0.0082,
+    "contacts": 16,
+    "viol": 0,
+    "skidFrames": 0
+   },
+   "reach_for": {
+    "slide": 0.0002,
+    "contacts": 16,
+    "viol": 0,
+    "skidFrames": 0
+   },
+   "comfort_kneel": {
+    "slide": 0.008,
+    "contacts": 16,
+    "viol": 0,
+    "skidFrames": 0
+   },
+   "hug_b": {
+    "slide": 0.0029,
+    "contacts": 12,
+    "viol": 0,
+    "skidFrames": 0
+   },
+   "comfort_b": {
+    "slide": 0.0046,
+    "contacts": 16,
+    "viol": 0,
+    "skidFrames": 0
+   },
+   "walk": {
+    "slide": 0,
+    "contacts": 32,
+    "viol": 0,
+    "skidFrames": 0
+   },
+   "sad_walk": {
+    "slide": 0.0001,
+    "contacts": 24,
+    "viol": 0,
+    "skidFrames": 0
+   },
+   "sneak": {
+    "slide": 0.0001,
+    "contacts": 22,
+    "viol": 0,
+    "skidFrames": 0
+   },
+   "run": {
+    "slide": 0,
+    "contacts": 52,
+    "viol": 0,
+    "skidFrames": 0
+   },
+   "sprint": {
+    "slide": 0,
+    "contacts": 52,
+    "viol": 0,
+    "skidFrames": 0
+   },
+   "skid_stop": {
+    "slide": 0.0102,
+    "contacts": 10,
+    "viol": 0,
+    "skidFrames": 14
+   },
+   "tumble": {
+    "slide": 0,
+    "contacts": 0,
+    "viol": 0,
+    "skidFrames": 0
+   }
+  },
+  "max": 0.0102,
+  "excluded": {
+   "skid_stop": "skid (flagged frames)",
+   "slip": "banana-peel kick-out (flagged frames)",
+   "carried": "held off the ground"
+  },
+  "pass": true
+ },
+ "jointLimits": {
+  "violations": {
+   "idle_alive": 0,
+   "look_around": 0,
+   "flinch": 0,
+   "gasp_step_back": 0,
+   "point": 0,
+   "cheer": 0,
+   "facepalm": 0,
+   "shrug": 0,
+   "arms_cross": 0,
+   "hug": 0,
+   "grab": 0,
+   "tug_pull": 0,
+   "push": 0,
+   "throw": 0,
+   "catch": 0,
+   "carry": 0,
+   "jump": 0,
+   "land": 0,
+   "trip_fall": 0,
+   "slip": 0,
+   "bonk_dizzy": 0,
+   "knees_collapse": 0,
+   "reach_for": 0,
+   "comfort_kneel": 0,
+   "hug_b": 0,
+   "comfort_b": 0,
+   "walk": 0,
+   "sad_walk": 0,
+   "sneak": 0,
+   "run": 0,
+   "sprint": 0,
+   "skid_stop": 0,
+   "tumble": 0,
+   "beat": 0,
+   "open_palms": 0,
+   "head_nod": 0,
+   "head_shake": 0,
+   "carried": 0
+  },
+  "total": 0,
+  "pass": true
+ },
+ "phases": {
+  "rule": "anticipation 15–25 % of the verb; opposite motion ≥ max(2°, 15 % stroke); overshoot 8–16 % of the stroke",
+  "perVerb": {
+   "idle_alive": {
+    "channel": "root.dx",
+    "anticFrac": 0.2,
+    "antic": 0.042,
+    "stroke": 0.182,
+    "overshoot": 0.12,
+    "key": 0.761,
+    "pass": true
+   },
+   "look_around": {
+    "channel": "head.y",
+    "anticFrac": 0.2,
+    "antic": 15.6,
+    "stroke": 67.6,
+    "overshoot": 0.12,
+    "key": 0.512,
+    "pass": true
+   },
+   "flinch": {
+    "channel": "waist.x",
+    "anticFrac": 0.2,
+    "antic": 6,
+    "stroke": 18,
+    "overshoot": 0.12,
+    "key": 0.231,
+    "pass": true
+   },
+   "gasp_step_back": {
+    "channel": "root.lean",
+    "anticFrac": 0.2,
+    "antic": 3,
+    "stroke": 13,
+    "overshoot": 0.12,
+    "key": 0.387,
+    "pass": true
+   },
+   "point": {
+    "channel": "rightShoulder.x",
+    "anticFrac": 0.2,
+    "antic": 27,
+    "stroke": 117,
+    "overshoot": 0.121,
+    "key": 0.337,
+    "pass": true
+   },
+   "cheer": {
+    "channel": "waist.x",
+    "anticFrac": 0.2,
+    "antic": 14,
+    "stroke": 23,
+    "overshoot": 0.121,
+    "key": 0.387,
+    "pass": true
+   },
+   "facepalm": {
+    "channel": "rightShoulder.x",
+    "anticFrac": 0.2,
+    "antic": 32.213,
+    "stroke": 139.588,
+    "overshoot": 0.121,
+    "key": 0.399,
+    "pass": true
+   },
+   "shrug": {
+    "channel": "rightShoulder.z",
+    "anticFrac": 0.2,
+    "antic": 9.9,
+    "stroke": 42.9,
+    "overshoot": 0.12,
+    "key": 0.337,
+    "pass": true
+   },
+   "arms_cross": {
+    "channel": "rightShoulder.x",
+    "anticFrac": 0.2,
+    "antic": 13.8,
+    "stroke": 59.8,
+    "overshoot": 0.121,
+    "key": 0.412,
+    "pass": true
+   },
+   "hug": {
+    "channel": "rightShoulder.x",
+    "anticFrac": 0.2,
+    "antic": 29.085,
+    "stroke": 126.036,
+    "overshoot": 0.121,
+    "key": 0.424,
+    "pass": true
+   },
+   "grab": {
+    "channel": "rightShoulder.x",
+    "anticFrac": 0.2,
+    "antic": 17.4,
+    "stroke": 75.4,
+    "overshoot": 0.121,
+    "key": 0.337,
+    "pass": true
+   },
+   "tug_pull": {
+    "channel": "root.lean",
+    "anticFrac": 0.2,
+    "antic": 4.8,
+    "stroke": 20.8,
+    "overshoot": 0.12,
+    "key": 0.474,
+    "pass": true
+   },
+   "push": {
+    "channel": "root.lean",
+    "anticFrac": 0.2,
+    "antic": 5,
+    "stroke": 19,
+    "overshoot": 0.12,
+    "key": 0.35,
+    "pass": true
+   },
+   "throw": {
+    "channel": "rightShoulder.x",
+    "anticFrac": 0.2,
+    "antic": 58,
+    "stroke": 170,
+    "overshoot": 0.121,
+    "key": 0.312,
+    "pass": true
+   },
+   "catch": {
+    "channel": "rightShoulder.x",
+    "anticFrac": 0.2,
+    "antic": 33.6,
+    "stroke": 145.6,
+    "overshoot": 0.121,
+    "key": 0.312,
+    "pass": true
+   },
+   "carry": {
+    "channel": "waist.x",
+    "anticFrac": 0.2,
+    "antic": 26,
+    "stroke": 32,
+    "overshoot": 0.122,
+    "key": 0.499,
+    "pass": true
+   },
+   "jump": {
+    "channel": "rightShoulder.x",
+    "anticFrac": 0.2,
+    "antic": 40,
+    "stroke": 200,
+    "overshoot": 0.12,
+    "key": 0.923,
+    "pass": true
+   },
+   "land": {
+    "channel": "waist.x",
+    "anticFrac": 0.2,
+    "antic": 8,
+    "stroke": 30,
+    "overshoot": 0.12,
+    "key": 0.325,
+    "pass": true
+   },
+   "trip_fall": {
+    "channel": "rightShoulder.x",
+    "anticFrac": 0.2,
+    "antic": 30,
+    "stroke": 194,
+    "overshoot": 0.121,
+    "key": 0.811,
+    "pass": true
+   },
+   "slip": {
+    "channel": "rightShoulder.x",
+    "anticFrac": 0.2,
+    "antic": 60,
+    "stroke": 100,
+    "overshoot": 0.12,
+    "key": 0.699,
+    "pass": true
+   },
+   "bonk_dizzy": {
+    "channel": "head.x",
+    "anticFrac": 0.2,
+    "antic": 15.999,
+    "stroke": 41.999,
+    "overshoot": 0.12,
+    "key": 0.243,
+    "pass": true
+   },
+   "knees_collapse": {
+    "channel": "head.x",
+    "anticFrac": 0.2,
+    "antic": 14,
+    "stroke": 30,
+    "overshoot": 0.12,
+    "key": 0.661,
+    "pass": true
+   },
+   "reach_for": {
+    "channel": "rightShoulder.x",
+    "anticFrac": 0.2,
+    "antic": 42,
+    "stroke": 182,
+    "overshoot": 0.121,
+    "key": 0.437,
+    "pass": true
+   },
+   "comfort_kneel": {
+    "channel": "head.y",
+    "anticFrac": 0.2,
+    "antic": 8,
+    "stroke": 26,
+    "overshoot": 0.122,
+    "key": 0.711,
+    "pass": true
+   },
+   "tumble": {
+    "channel": "root.lean",
+    "antic": 10,
+    "note": "comedy roll: rear-back anticipation, two bounces, limp settle (no overshoot ease by design)",
+    "pass": true
+   }
+  },
+  "pass": true
+ },
+ "silhouette": {
+  "threshold": 0.12,
+  "measure": "XOR(KEY, rest) / rest area, 300×375 magenta, no AA, same camera",
+  "perVerb": {
+   "idle_alive": {
+    "xor": 0.1073,
+    "area": -0.0222,
+    "pass": false
+   },
+   "look_around": {
+    "xor": 0.3175,
+    "area": 0.0359,
+    "pass": true
+   },
+   "flinch": {
+    "xor": 0.5047,
+    "area": -0.0065,
+    "pass": true
+   },
+   "gasp_step_back": {
+    "xor": 0.5359,
+    "area": -0.0351,
+    "pass": true
+   },
+   "point": {
+    "xor": 0.3515,
+    "area": 0.0377,
+    "pass": true
+   },
+   "cheer": {
+    "xor": 0.6153,
+    "area": 0.0629,
+    "pass": true
+   },
+   "facepalm": {
+    "xor": 0.256,
+    "area": -0.099,
+    "pass": true
+   },
+   "shrug": {
+    "xor": 0.3052,
+    "area": -0.0057,
+    "pass": true
+   },
+   "arms_cross": {
+    "xor": 0.2565,
+    "area": -0.0701,
+    "pass": true
+   },
+   "hug": {
+    "xor": 0.3213,
+    "area": -0.1771,
+    "pass": true
+   },
+   "grab": {
+    "xor": 0.4019,
+    "area": -0.2311,
+    "pass": true
+   },
+   "tug_pull": {
+    "xor": 0.4956,
+    "area": -0.0442,
+    "pass": true
+   },
+   "push": {
+    "xor": 1.0684,
+    "area": 0.1717,
+    "pass": true
+   },
+   "throw": {
+    "xor": 0.6173,
+    "area": 0.2869,
+    "pass": true
+   },
+   "catch": {
+    "xor": 0.5308,
+    "area": 0.0512,
+    "pass": true
+   },
+   "carry": {
+    "xor": 0.3275,
+    "area": 0.0177,
+    "pass": true
+   },
+   "jump": {
+    "xor": 1.1622,
+    "area": 0.1011,
+    "pass": true
+   },
+   "land": {
+    "xor": 0.9579,
+    "area": 0.0778,
+    "pass": true
+   },
+   "trip_fall": {
+    "xor": 1.9294,
+    "area": 0.0429,
+    "pass": true
+   },
+   "slip": {
+    "xor": 2.1424,
+    "area": 0.1424,
+    "pass": true
+   },
+   "bonk_dizzy": {
+    "xor": 0.3281,
+    "area": 0.0498,
+    "pass": true
+   },
+   "knees_collapse": {
+    "xor": 0.638,
+    "area": -0.0144,
+    "pass": true
+   },
+   "reach_for": {
+    "xor": 0.6288,
+    "area": 0.065,
+    "pass": true
+   },
+   "comfort_kneel": {
+    "xor": 0.3439,
+    "area": -0.0262,
+    "pass": true
+   },
+   "tumble": {
+    "xor": 1.7688,
+    "area": -0.2312,
+    "pass": true
+   }
+  },
+  "min": 0.1073,
+  "failing": [
+   "idle_alive 0.1073"
+  ],
+  "pass": false
+ },
+ "determinism": {
+  "frames": [
+   0,
+   53,
+   106,
+   160,
+   213,
+   266,
+   319,
+   373,
+   426,
+   479
+  ],
+  "identical": 10,
+  "of": 10,
+  "pass": true
+ },
+ "info": {
+  "wristArcs": {
+   "idle_alive.right": {
+    "chord": 0.366,
+    "bow": 0.736
+   },
+   "look_around.right": {
+    "chord": 2.813,
+    "bow": 0.599
+   },
+   "gasp_step_back.left": {
+    "chord": 2.159,
+    "bow": 0.608
+   },
+   "gasp_step_back.right": {
+    "chord": 2.159,
+    "bow": 0.608
+   },
+   "point.right": {
+    "chord": 2.7,
+    "bow": 0.421
+   },
+   "cheer.left": {
+    "chord": 3.219,
+    "bow": 0.48
+   },
+   "cheer.right": {
+    "chord": 3.216,
+    "bow": 0.485
+   },
+   "facepalm.right": {
+    "chord": 3.419,
+    "bow": 0.262
+   },
+   "shrug.left": {
+    "chord": 1.887,
+    "bow": 0.248
+   },
+   "shrug.right": {
+    "chord": 2.011,
+    "bow": 0.257
+   },
+   "arms_cross.left": {
+    "chord": 2.048,
+    "bow": 0.377
+   },
+   "arms_cross.right": {
+    "chord": 2.299,
+    "bow": 0.344
+   },
+   "hug.left": {
+    "chord": 2.892,
+    "bow": 0.144
+   },
+   "hug.right": {
+    "chord": 2.894,
+    "bow": 0.153
+   },
+   "grab.right": {
+    "chord": 2.094,
+    "bow": 0.182
+   },
+   "throw.right": {
+    "chord": 1.24,
+    "bow": 0.136
+   },
+   "catch.left": {
+    "chord": 3.293,
+    "bow": 0.421
+   },
+   "catch.right": {
+    "chord": 3.293,
+    "bow": 0.421
+   },
+   "reach_for.right": {
+    "chord": 3.658,
+    "bow": 0.37
+   },
+   "comfort_kneel.right": {
+    "chord": 2.766,
+    "bow": 0.31
+   }
+  },
+  "overlap": {
+   "headLeadFrames": 2,
+   "handLagFrames": 2.5
+  },
+  "comfortReach": {
+   "gap": -0.018,
+   "dist": 0.019
+  },
+  "overshootEase": 0.12,
+  "footRollMargin": 0.25
+ },
+ "pass": false
+}

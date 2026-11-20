@@ -1,0 +1,125 @@
+{
+ "fps": 24,
+ "world": "engine/fixtures/v4look/world.js",
+ "labels": false,
+ "look4": "comedy",
+ "look": "comedy",
+ "format": 6,
+ "slug": "acting6-fixture",
+ "acting": 6,
+ "faceLife": true,
+ "cues": "engine/fixtures/acting6/cues.json",
+ "note": "P3 acting v6 smoke fixture: verbs keyed to seconds and to words (cues.json), a partner hug, a talk gesture on a stressed word.",
+ "cast": {
+  "hero": {
+   "style": "v5",
+   "troupe": "HERO",
+   "at": "street",
+   "offset": [
+    0,
+    0,
+    4
+   ],
+   "yaw": 20,
+   "keys": [
+    [
+     0,
+     "idle"
+    ]
+   ]
+  },
+  "second": {
+   "style": "v5",
+   "troupe": "SECOND",
+   "at": "street",
+   "offset": [
+    3.2,
+    0,
+    4.6
+   ],
+   "yaw": -20,
+   "keys": [
+    [
+     0,
+     "idle"
+    ]
+   ]
+  }
+ },
+ "talk": [
+  {
+   "actor": "hero",
+   "line": 1,
+   "stress": [
+    "bang"
+   ]
+  }
+ ],
+ "shots": [
+  {
+   "id": "A",
+   "size": "medium",
+   "frames": 72,
+   "move": "static-drift",
+   "from": {
+    "position": [
+     1,
+     4.2,
+     18
+    ],
+    "target": [
+     1,
+     3,
+     4
+    ],
+    "fov": 40
+   },
+   "subject": "hero",
+   "actions": [
+    {
+     "actor": "hero",
+     "verb": "flinch",
+     "at": {
+      "word": "bang"
+     },
+     "face": "hero_shock"
+    },
+    {
+     "actor": "second",
+     "verb": "point",
+     "at": 1.2,
+     "facing": -30
+    }
+   ]
+  },
+  {
+   "id": "B",
+   "size": "medium",
+   "frames": 48,
+   "move": "static-drift",
+   "from": {
+    "position": [
+     1,
+     4.2,
+     18
+    ],
+    "target": [
+     1,
+     3,
+     4
+    ],
+    "fov": 40
+   },
+   "subject": "hero",
+   "actions": [
+    {
+     "actor": "hero",
+     "verb": "hug",
+     "at": 0.8,
+     "target": "second",
+     "face": "hero_soft"
+    }
+   ]
+  }
+ ]
+}

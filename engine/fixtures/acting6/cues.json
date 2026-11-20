@@ -1,0 +1,54 @@
+{
+ "story": "acting6-fixture",
+ "duration": 5.0,
+ "lines": [
+  {
+   "line": 1,
+   "text": "Then the door went bang and I froze.",
+   "start": 0.2,
+   "end": 2.4,
+   "words": [
+    {
+     "w": "Then",
+     "start": 0.2,
+     "end": 0.48
+    },
+    {
+     "w": "the",
+     "start": 0.5,
+     "end": 0.78
+    },
+    {
+     "w": "door",
+     "start": 0.8,
+     "end": 1.08
+    },
+    {
+     "w": "went",
+     "start": 1.1,
+     "end": 1.38
+    },
+    {
+     "w": "bang",
+     "start": 1.4,
+     "end": 1.68
+    },
+    {
+     "w": "and",
+     "start": 1.7,
+     "end": 1.98
+    },
+    {
+     "w": "I",
+     "start": 2.0,
+     "end": 2.28
+    },
+    {
+     "w": "froze",
+     "start": 2.3,
+     "end": 2.58
+    }
+   ]
+  }
+ ]
+}
