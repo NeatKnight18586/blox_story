@@ -11,6 +11,8 @@ import {setFace3, faceError, blinkClosed} from '../avatar-style/faces3.js';
 import {setFace4, faceError4, isHeld} from '../avatar-style/faces4.js';
 import {setFace5, faceError5, isHeld as isHeld5} from '../avatar-style/faces5.js';
 import {createActor5} from '../avatar-style/body5.js';
+import {createActor6} from '../avatar-style/body6.js';
+import {sampleTimeline6, applyPose6, liftR6} from './poses6.js';
 import {attachTool, buildTool} from '../avatar-style/tools.js';
 import {setTag, statSprite, bubbleSprite} from './overhead.js';
 import {CLASSES} from '../parts/props.js';
@@ -19,7 +21,7 @@ import {sampleTimeline, ambientPose, applyPoseSample} from './poses.js';
 export function buildActor(preset, name = 'actor') {
   const tier = preset.tier ?? 'hero', skin = preset.skin ?? SKINS[0];
   const err = buildError({...preset, name}); if (err) throw Error('build: ' + err);   // A5 Decision 5: never an adult build under 18
-  const mk = preset.body === 'v5' ? createActor5 : createActor;   // format v4: Actor v5 (classic R6, satin), opt-in
+  const mk = preset.body === 'v6' ? createActor6 : preset.body === 'v5' ? createActor5 : createActor;   // P1: Actor v6 (R15), opt-in   // format v4: Actor v5 (classic R6, satin), opt-in
   const a = mk({tier, skin, scale: preset.scale ?? 1, name, build: preset.build ?? null, regions: preset.regions ?? null, materials: preset.outfit ? dress(preset.outfit, skin, tier, {fitted: !!BUILDS[preset.build]?.profile}) : {}});
   if (preset.hair) (preset.hair.v === 4 ? attachHair4(a, preset.hair.style, preset.hair.color, preset.hairTier ?? null)   // A5: v4 sculpted (Season 1)
     : preset.hair.v === 3 || preset.hairStyle === 'v3' ? attachHair3(a, preset.hair.style, preset.hair.color, {streak: preset.hair.streak}) : attachHair(a, preset.hair.style, preset.hair.color));
@@ -66,9 +68,11 @@ export function townsperson(seed) {
 export function driveActor(a, t, {keys, faces, tags, origin = {position: [0, 0, 0], yaw: 0}, ambient = false, fps = 30,
   tools, toolsLeft, stat, bubble, visible, kit, blinkSuppress = false, talk = null, m5b = null} = {}) {
   if (visible) { let v = true; for (const [t0, x] of visible) if (t >= t0) v = x; a.root.visible = v; }
-  const tl = m5b?.overshoot ? {overshoot: m5b.overshoot} : undefined, sampleAt = tt => ambient ? ambientPose(a.preset.seed ?? 1, tt) : sampleTimeline(keys ?? [[0, 'idle']], a.preset.freeze ?? tt, tl);   // Look 5b: overshoot + settle on pose changes
+  const v6 = a.body === 'v6', tl = m5b?.overshoot ? {overshoot: m5b.overshoot} : undefined, sampleAt = v6   // P1: R15 actors take the v6 sampler (R6 poses lifted, R15 key poses)
+    ? tt => ambient ? liftR6(ambientPose(a.preset.seed ?? 1, tt), tt, 'idle') : sampleTimeline6(keys ?? [[0, 'idle']], a.preset.freeze ?? tt, {...tl, build: a.build, sole: !!a.preset?.regions?.legs?.sole})
+    : tt => ambient ? ambientPose(a.preset.seed ?? 1, tt) : sampleTimeline(keys ?? [[0, 'idle']], a.preset.freeze ?? tt, tl);   // Look 5b: overshoot + settle on pose changes
   const s = sampleAt(t);   // A4: preset.freeze holds one instant (AFK mid-step)
-  applyPoseSample(a, s, origin);
+  (v6 ? applyPose6 : applyPoseSample)(a, s, origin);
   const stoop = BUILDS[a.build]?.stoop; if (stoop) { a.root.rotation.x += stoop; a.pivots.head.rotation.x -= stoop * .6; }   // elder_f: slight forward stoop, eyes kept forward
   if (m5b) motion5b(a, t, sampleAt, m5b);
   if (a.faceStyle === 'v5') {   // v5: the timeline face, a seeded blink (closed arcs), and the lip-flap shape (never on a held reaction face)

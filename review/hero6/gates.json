@@ -1,0 +1,161 @@
+{
+ "joints": {
+  "samples": 1212,
+  "outOfRange": 0,
+  "authoredOutside": [],
+  "autoLevelledAnklesClamped": {
+   "walkPassing": [
+    "rightAnkle -43° → clamped"
+   ],
+   "crouch6": [
+    "leftAnkle -58° → clamped",
+    "rightAnkle -80° → clamped"
+   ],
+   "sit6": [
+    "leftAnkle 76° → clamped"
+   ]
+  },
+  "limitsDeg": {
+   "elbow": [
+    [
+     -150,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ]
+   ],
+   "knee": [
+    [
+     0,
+     150
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ]
+   ],
+   "wrist": [
+    [
+     -30,
+     30
+    ],
+    [
+     -30,
+     30
+    ],
+    [
+     -30,
+     30
+    ]
+   ],
+   "ankle": [
+    [
+     -35,
+     35
+    ],
+    [
+     -35,
+     35
+    ],
+    [
+     -35,
+     35
+    ]
+   ],
+   "waist": [
+    [
+     -35,
+     35
+    ],
+    [
+     -35,
+     35
+    ],
+    [
+     -35,
+     35
+    ]
+   ]
+  }
+ },
+ "seam": {
+  "total": 0,
+  "pass": true,
+  "failing": {},
+  "wholeBodyPinchesInfo": {
+   "idle6": 0,
+   "walkContact": 207,
+   "walkPassing": 260,
+   "run6": 45,
+   "point6": 1,
+   "cheer6": 11,
+   "crouch6": 222,
+   "sit6": 2,
+   "kneel6": 0,
+   "reachHug": 1,
+   "flinch6": 140,
+   "jumpApex": 24
+  }
+ },
+ "groundingY": {
+  "A.idle6": 0.0002,
+  "A.walkContact": 0.0002,
+  "A.walkPassing": 0.0006,
+  "A.point6": 0.0002,
+  "A.cheer6": 0,
+  "A.reachHug": 0.0002,
+  "A.flinch6": 0.0003,
+  "A.run6": 0,
+  "A.crouch6": 0.0006,
+  "B.idle6": 0,
+  "B.walkContact": 0,
+  "B.walkPassing": 0.0006,
+  "B.point6": 0,
+  "B.cheer6": 0,
+  "B.reachHug": 0,
+  "B.flinch6": 0.0003,
+  "B.run6": 0,
+  "B.crouch6": 0,
+  "C.idle6": 0,
+  "C.walkContact": 0,
+  "C.walkPassing": 0.0006,
+  "C.point6": 0,
+  "C.cheer6": 0,
+  "C.reachHug": 0,
+  "C.flinch6": 0.0003,
+  "C.run6": 0,
+  "C.crouch6": 0
+ },
+ "triangles": {
+  "A": 5660,
+  "B": 5708,
+  "C": 5710,
+  "R6v5": 4668,
+  "limit": 6000
+ },
+ "walk": {
+  "r6": {
+   "maxPerFrame": 0.0228,
+   "meanPerFrame": 0.0084,
+   "contactFrames": 68
+  },
+  "v6": {
+   "maxPerFrame": 0.0228,
+   "meanPerFrame": 0.0084,
+   "contactFrames": 68
+  },
+  "travelPerFrame": 0.0279
+ },
+ "failures": [],
+ "result": "PASS"
+}

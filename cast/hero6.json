@@ -1,0 +1,139 @@
+{
+ "note": "P1 (2026-11-20): hero redesign candidates on Actor v6 (R15, body6.js). A = today's colours on R15; B = A + white-soled sneakers (black upper, 0.06 sole), jacket cuff edge #4A4E57 at the UpperArm bottom, collar raised 0.12 -> 0.2; C = B + painted fabric (fine weave, zip line down the strip edge, two pocket outlines on the LowerTorso). Bare yellow head, hero_* faces (faces5). No logos, no text. cast/hero.json is unchanged until the owner picks.",
+ "HERO_A": {
+  "tier": "hero",
+  "body": "v6",
+  "scale": 1,
+  "skin": "#FFD542",
+  "hair": null,
+  "faceStyle": "v5",
+  "face": "hero_wink",
+  "regions": {
+   "torso": {
+    "main": "#2B2D33",
+    "strip": "#0D7CD4",
+    "stripW": 0.6,
+    "lapel": "#2B2D33",
+    "lapelW": 0.14,
+    "edge": "#4A4E57",
+    "edgeW": 0.05
+   },
+   "arms": {
+    "upper": "#2B2D33",
+    "lower": "#FFD542",
+    "split": 0.5
+   },
+   "legs": {
+    "main": "#73985E",
+    "shoes": "#161616",
+    "shoeFrac": 0.2
+   }
+  },
+  "expressions": [
+   "hero_wink",
+   "hero_grin",
+   "hero_shock",
+   "hero_panic",
+   "hero_scheme",
+   "hero_cry",
+   "hero_rage",
+   "hero_soft"
+  ],
+  "build": "adult_m"
+ },
+ "HERO_B": {
+  "tier": "hero",
+  "body": "v6",
+  "scale": 1,
+  "skin": "#FFD542",
+  "hair": null,
+  "faceStyle": "v5",
+  "face": "hero_wink",
+  "regions": {
+   "torso": {
+    "main": "#2B2D33",
+    "strip": "#0D7CD4",
+    "stripW": 0.6,
+    "lapel": "#2B2D33",
+    "lapelW": 0.14,
+    "edge": "#4A4E57",
+    "edgeW": 0.05,
+    "collarH": 0.2
+   },
+   "arms": {
+    "upper": "#2B2D33",
+    "lower": "#FFD542",
+    "split": 0.5,
+    "cuff": "#4A4E57"
+   },
+   "legs": {
+    "main": "#73985E",
+    "shoes": "#161616",
+    "shoeFrac": 0.2,
+    "sole": "#F2F2F2",
+    "soleH": 0.06
+   }
+  },
+  "expressions": [
+   "hero_wink",
+   "hero_grin",
+   "hero_shock",
+   "hero_panic",
+   "hero_scheme",
+   "hero_cry",
+   "hero_rage",
+   "hero_soft"
+  ],
+  "build": "adult_m"
+ },
+ "HERO_C": {
+  "tier": "hero",
+  "body": "v6",
+  "scale": 1,
+  "skin": "#FFD542",
+  "hair": null,
+  "faceStyle": "v5",
+  "face": "hero_wink",
+  "regions": {
+   "torso": {
+    "main": "#2B2D33",
+    "strip": "#0D7CD4",
+    "stripW": 0.6,
+    "lapel": "#2B2D33",
+    "lapelW": 0.14,
+    "edge": "#4A4E57",
+    "edgeW": 0.05,
+    "collarH": 0.2
+   },
+   "arms": {
+    "upper": "#2B2D33",
+    "lower": "#FFD542",
+    "split": 0.5,
+    "cuff": "#4A4E57"
+   },
+   "legs": {
+    "main": "#73985E",
+    "shoes": "#161616",
+    "shoeFrac": 0.2,
+    "sole": "#F2F2F2",
+    "soleH": 0.06
+   },
+   "fabric": {
+    "weave": true,
+    "zip": true,
+    "pockets": true
+   }
+  },
+  "expressions": [
+   "hero_wink",
+   "hero_grin",
+   "hero_shock",
+   "hero_panic",
+   "hero_scheme",
+   "hero_cry",
+   "hero_rage",
+   "hero_soft"
+  ],
+  "build": "adult_m"
+ }
+}

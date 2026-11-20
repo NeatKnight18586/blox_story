@@ -45,3 +45,4 @@ Read only the lines a task needs; add one line per new reusable piece here. Move
 - `docs/season1/BRAND.md`: promise, recurring hero, voice, look, title and pinned-comment templates.
 - `docs/season1/SWIPE_FILE.md`: engines-only table of methods (source · method · feeling · why it worked).
 - `docs/season1/EPISODE_BRIEF.md`: the per-episode brief template (META, PREMISE, CAST, WORLD, BEATS, PAYOFF, CHECKS).
+- `avatar-style/body6.js` + `engine/poses6.js` (P1, opt-in `body: 'v6'`): R15 blocky body (15 segments, R6 overall lengths, 0.02 joint overlap, hinge caps, ankle/wrist plugs), `clampJoints/LIMITS6`, pure FK `lowestY`; `liftR6(pose, t, gait)` plays every R6 pose on R15; `SHEET6` key poses; `sampleTimeline6/applyPose6` (driveActor uses them for v6). Hero variants `cast/hero6.json` (A/B/C: sole, cuff, collarH, fabric weave/zip/pockets). Sheets `scripts/v2/hero6-sheet.js` (page `engine/hero6.html`), gates `scripts/v2/hero6-gates.js` → `review/hero6/`.

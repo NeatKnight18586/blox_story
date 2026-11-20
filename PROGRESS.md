@@ -1567,3 +1567,13 @@ Checks: v2:test 168 node + 64 py pass (1 skipped, as before); npm test 0; "Nobod
 Merged claude/hopeful-gauss-evyxge (9555733) into engine-v2 (da65ff2, 16 Touch Grass commits). Conflicts PROGRESS.md / LIBRARY.md: both sides kept; episode.js: engine-v2 kept (decorate hook) + format-6 adult-scale condition re-applied. No new format-5-only branches on engine-v2 needed a format-6 twin.
 Decision 1: scriptcheck > 400 words FAIL, < 300 WARNING (`warnings` list, printed WARN, exit 0); FORMAT_V6.md rule 1 updated; test updated.
 Checks: v2:test 177 node + 64 py pass (1 skipped); npm test 0; Touch Grass (format 5) v2:plan exit 0 before and after, plan.json byte-identical; Touch Grass 20 frames (every 270th, 270×480) 20/20 identical; "Nobody" 62/62 byte-identical vs da65ff2.
+
+## P1 — body v6 (R15) + hero variants (2026-11-20)
+Plan: body6.js (15 segments, R6 lengths, 0.02 overlap, clamps) · poses6.js (liftR6, 12 key poses, timeline/apply; actors.js opt-in `body: 'v6'`) · cast/hero6.json A/B/C · hero6 page + sheet + gates · tests · regression. Stop at the approval gate.
+Built: `avatar-style/body6.js`, `engine/poses6.js`, `engine/hero6.{html,js}`, `cast/hero6.json`, `scripts/v2/hero6-{sheet,gates}.js`, `tests/v2/body6.test.js`; actors.js branches on `body: 'v6'` only.
+Commands: `node scripts/v2/hero6-sheet.js` → review/hero6/{turnaround,poses,silhouettes,phone-390}.png + seam.json; `node scripts/v2/hero6-gates.js` → gates.json.
+Numbers: joints 0 out of range (12 key poses + every R6 pose lifted, 0–2 s); seam 0 enclosed px (5 chains × 4 views × 12 poses, 600 px, no AA; was 45 → 2 → 0);
+grounding max |y| 0.0006 (A/B/C × 9 standing poses); triangles A 5660 / B 5708 / C 5710 (≤ 6000; R6 v5 4668); walk planted-foot drift max 0.0228/frame = R6 v5's.
+Regression: Nobody 62/62, Touch Grass 20/20 byte-identical (270×480, aa 0); npm test 0; v2:test 183 node + 64 py.
+Decisions: arm seam chain = arm segments only (the R6-style shoulder has no overlap by spec; arm–torso pinches kept as info in seam.json); hinge caps r 0.47 at hip/knee/elbow/waist, wrist and ankle use 0.15 plugs (a 0.47 cap pokes out of a 0.2 foot); shoe rises 0.04 over the ankle and B/C uppers sink 0.03 into the sole (fix passes 1–2); waist limit ±35° (not in brief); walk knee = sin(swing progress) because the legacy walk's hip speed stalls mid-swing.
+Open: tools/accessories still ride the UpperArm (no elbow follow); idle↔walk gait switch pops at cross-fade (no per-joint blend of the lift); troupe on v6 not built (dressed materials fall back to flat satin).

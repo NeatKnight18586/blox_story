@@ -1,0 +1,96 @@
+{
+ "method": "each limb chain (spine, arms, legs, with the parent torso piece) rendered alone on flat magenta, no AA, 600 px, 4 views; enclosed = magenta not reachable from the frame border",
+ "views": [
+  "sheet",
+  "front",
+  "side",
+  "back"
+ ],
+ "chains": [
+  "spine",
+  "leftArm",
+  "rightArm",
+  "leftLeg",
+  "rightLeg"
+ ],
+ "total": 0,
+ "failing": {},
+ "pass": true,
+ "wholeBodyPinchesInfo": {
+  "note": "whole body: background enclosed between separate limbs (leg-to-leg bevel groove, arm against head); not joint seams",
+  "px": {
+   "idle6": {
+    "sheet": 0,
+    "front": 0,
+    "side": 0,
+    "back": 0
+   },
+   "walkContact": {
+    "sheet": 0,
+    "front": 207,
+    "side": 0,
+    "back": 0
+   },
+   "walkPassing": {
+    "sheet": 0,
+    "front": 260,
+    "side": 0,
+    "back": 0
+   },
+   "run6": {
+    "sheet": 3,
+    "front": 42,
+    "side": 0,
+    "back": 0
+   },
+   "point6": {
+    "sheet": 0,
+    "front": 0,
+    "side": 0,
+    "back": 1
+   },
+   "cheer6": {
+    "sheet": 0,
+    "front": 0,
+    "side": 0,
+    "back": 11
+   },
+   "crouch6": {
+    "sheet": 0,
+    "front": 221,
+    "side": 0,
+    "back": 1
+   },
+   "sit6": {
+    "sheet": 1,
+    "front": 0,
+    "side": 1,
+    "back": 0
+   },
+   "kneel6": {
+    "sheet": 0,
+    "front": 0,
+    "side": 0,
+    "back": 0
+   },
+   "reachHug": {
+    "sheet": 1,
+    "front": 0,
+    "side": 0,
+    "back": 0
+   },
+   "flinch6": {
+    "sheet": 7,
+    "front": 130,
+    "side": 0,
+    "back": 3
+   },
+   "jumpApex": {
+    "sheet": 24,
+    "front": 0,
+    "side": 0,
+    "back": 0
+   }
+  }
+ }
+}
