@@ -47,7 +47,7 @@ function placeCast(shot, frame, camPos) {
     g.root.position.set(at[0], at[1] + dy, at[2]); g.root.rotation.set(0, c.yaw ?? Math.atan2(camPos[0] - at[0], camPos[2] - at[2]), 0);
     g.setTap(c.tapStart !== undefined ? tapOffset(shot.f0 + frame - c.tapStart) : 0); S.cast.add(g.root); placed.push({c, g, at});
     if (c.pool) { const p = paintPool(g.root.userData.paint, c.pool); p.position.set(at[0], at[1] + .01, at[2]); S.cast.add(p); }
-    if (S.mood === 'rainNight' && ['banana', 'sunny'].includes(c.who)) { const k = new T.SpotLight('#E8EEFF', 3 * (shot.rig?.k ?? 1), 6, .45, .6, 1.2), v = new T.Vector3(camPos[0] - at[0], 0, camPos[2] - at[2]).normalize().applyAxisAngle(new T.Vector3(0, 1, 0), .5);   /* D3: soft front key so the cast separates in the rain */
+    if ((S.mood === 'rainNight' || shot.softKey) && ['banana', 'sunny'].includes(c.who)) { const k = new T.SpotLight('#E8EEFF', 3 * (shot.rig?.k ?? 1), 6, .45, .6, 1.2), v = new T.Vector3(camPos[0] - at[0], 0, camPos[2] - at[2]).normalize().applyAxisAngle(new T.Vector3(0, 1, 0), .5);   /* D3: soft front key so the cast separates in the rain */
       k.position.set(at[0] + v.x * 2.2, at[1] + 1.4, at[2] + v.z * 2.2); k.target.position.set(at[0], at[1] + .55, at[2]); S.cast.add(k, k.target); c = {...c, rim: true};
       const fk = new T.SpotLight(shot.macro ? '#FFFFFF' : '#DDE7FF', .8 * (shot.rig?.face ?? 1), 7, .7, .8, 1.2), fy = c.yaw ?? Math.atan2(camPos[0] - at[0], camPos[2] - at[2]);   /* face-side soft key: the Slime Guy reads before the background */
       fk.position.set(at[0] + Math.sin(fy) * 1.7, at[1] + 1.0, at[2] + Math.cos(fy) * 1.7); fk.target.position.set(at[0], at[1] + .55, at[2]); S.cast.add(fk, fk.target); }
