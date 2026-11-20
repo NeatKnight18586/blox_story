@@ -29,8 +29,8 @@ const minJerk = u => { u = clamp01(u); return u * u * u * (10 - 15 * u + 6 * u *
 export const JOINTS = ['head', 'waist', 'leftShoulder', 'rightShoulder', 'leftElbow', 'rightElbow', 'leftWrist', 'rightWrist', 'leftHip', 'rightHip', 'leftKnee', 'rightKnee', 'leftAnkle', 'rightAnkle'];
 const AX = ['x', 'y', 'z'], LEGJ = ['leftHip', 'rightHip', 'leftKnee', 'rightKnee', 'leftAnkle', 'rightAnkle'];
 const FOOTK = ['x', 'y', 'z', 'yaw', 'pitch'], ROOTK = ['dx', 'dy', 'dz', 'lean', 'roll', 'yaw', 'cy', 'cz'];
-export const CHANNELS = [...JOINTS.flatMap(j => AX.map(a => `${j}.${a}`)), ...ROOTK.map(k => `root.${k}`), ...FOOTK.map(k => `lf.${k}`), ...FOOTK.map(k => `rf.${k}`), 'ik'];
-const isFoot = c => c[1] === 'f' && c[2] === '.', isAngle = c => !isFoot(c) && c !== 'ik' && !['root.dx', 'root.dy', 'root.dz', 'root.cy', 'root.cz'].includes(c);
+export const CHANNELS = [...JOINTS.flatMap(j => AX.map(a => `${j}.${a}`)), ...ROOTK.map(k => `root.${k}`), ...FOOTK.map(k => `lf.${k}`), ...FOOTK.map(k => `rf.${k}`), 'ik', 'torso.sq'];   // torso.sq: chest compression fraction (hug squeeze)
+const isFoot = c => c[1] === 'f' && c[2] === '.', isAngle = c => !isFoot(c) && c !== 'ik' && c !== 'torso.sq' && !['root.dx', 'root.dy', 'root.dz', 'root.cy', 'root.cz'].includes(c);
 const HEADC = new Set(['head.x', 'head.y', 'head.z']), HANDC = new Set(['leftElbow', 'rightElbow', 'leftWrist', 'rightWrist'].flatMap(j => AX.map(a => `${j}.${a}`)));
 const L6 = layout6('adult_m'), HIPX = L6.hipX;
 export const REST = Object.freeze(Object.fromEntries(CHANNELS.map(c => [c, 0]).concat([['leftShoulder.z', -3], ['rightShoulder.z', 3], ['lf.x', -HIPX], ['rf.x', HIPX], ['root.cy', 2], ['ik', 1]])));
@@ -46,6 +46,21 @@ const add = (a, b) => a.map((x, i) => x + b[i]), sub3 = (a, b) => a.map((x, i) =
 const E = ([x, y, z]) => mm(mm(Rx(x), Ry(y)), Rz(z));   // three.js Euler 'XYZ'
 const toEuler = m => { const y = Math.asin(Math.max(-1, Math.min(1, m[0][2]))); return Math.abs(m[0][2]) < .9999999 ? [Math.atan2(-m[1][2], m[2][2]), y, Math.atan2(-m[0][1], m[0][0])] : [Math.atan2(m[2][1], m[1][1]), y, 0]; };
 const rootR = r => mm(mm(Ry(r.yaw), Rx(r.lean)), Rz(r.roll));   // Euler 'YXZ' (applyPoseSample)
+// Quaternions [w, x, y, z] — a big joint swing (a hug's arm, a piggyback's thigh) interpolates by slerp, never by Euler channels (which sweep the limb through the wrong arc)
+const qFromM = m => { const t = m[0][0] + m[1][1] + m[2][2]; let w, x, y, z, s;
+  if (t > 0) { s = Math.sqrt(t + 1) * 2; w = s / 4; x = (m[2][1] - m[1][2]) / s; y = (m[0][2] - m[2][0]) / s; z = (m[1][0] - m[0][1]) / s; }
+  else if (m[0][0] > m[1][1] && m[0][0] > m[2][2]) { s = Math.sqrt(1 + m[0][0] - m[1][1] - m[2][2]) * 2; w = (m[2][1] - m[1][2]) / s; x = s / 4; y = (m[0][1] + m[1][0]) / s; z = (m[0][2] + m[2][0]) / s; }
+  else if (m[1][1] > m[2][2]) { s = Math.sqrt(1 + m[1][1] - m[0][0] - m[2][2]) * 2; w = (m[0][2] - m[2][0]) / s; x = (m[0][1] + m[1][0]) / s; y = s / 4; z = (m[1][2] + m[2][1]) / s; }
+  else { s = Math.sqrt(1 + m[2][2] - m[0][0] - m[1][1]) * 2; w = (m[1][0] - m[0][1]) / s; x = (m[0][2] + m[2][0]) / s; y = (m[1][2] + m[2][1]) / s; z = s / 4; }
+  return [w, x, y, z]; };
+const mFromQ = ([w, x, y, z]) => [[1 - 2 * (y * y + z * z), 2 * (x * y - z * w), 2 * (x * z + y * w)], [2 * (x * y + z * w), 1 - 2 * (x * x + z * z), 2 * (y * z - x * w)], [2 * (x * z - y * w), 2 * (y * z + x * w), 1 - 2 * (x * x + y * y)]];
+const qMul = (a, b) => [a[0] * b[0] - a[1] * b[1] - a[2] * b[2] - a[3] * b[3], a[0] * b[1] + a[1] * b[0] + a[2] * b[3] - a[3] * b[2], a[0] * b[2] - a[1] * b[3] + a[2] * b[0] + a[3] * b[1], a[0] * b[3] + a[1] * b[2] - a[2] * b[1] + a[3] * b[0]];
+export function qSlerp(a, b, t) {   // t outside [0, 1] extends the arc (overshoot)
+  if (a[0] * b[0] + a[1] * b[1] + a[2] * b[2] + a[3] * b[3] < 0) b = b.map(x => -x);
+  const r = qMul([a[0], -a[1], -a[2], -a[3]], b), sn = Math.hypot(r[1], r[2], r[3]); if (sn < 1e-9) return a.slice();
+  const h = Math.atan2(sn, r[0]) * t, k = Math.sin(h) / sn; return qMul(a, [Math.cos(h), r[1] * k, r[2] * k, r[3] * k]);
+}
+const eulerToQ = d => qFromM(E(d.map(x => x * Math.PI / 180))), qToEuler = q => toEuler(mFromQ(q)).map(x => x * 180 / Math.PI);
 export const SEGL = {thigh: 1, shin: .73, foot: .27, footX: .48, footZ: .49, arm: 1, fore: .75, hand: .25};
 // Arm IK in the chest (waist pivot) frame: the hand centre on `p`, the elbow bending so the forearm opens toward `pole`
 // (the elbow sticks out the other way). → {shoulder [x, y, z]°, elbow x°}. Upper arm 1.0, wrist→hand centre 0.875.
@@ -66,6 +81,7 @@ export function P(spec = {}, base = REST) {
     if (ALIAS[k]) { const j = ALIAS[k], arr = typeof v === 'number' ? [v, 0, 0] : v; arr.forEach((x, i) => { o[`${j}.${AX[i]}`] = x; }); }
     else if (k === 'root' || k === 'lf' || k === 'rf') for (const [kk, x] of Object.entries(v)) o[`${k}.${kk}`] = x;
     else if (k === 'ik') o.ik = v;
+    else if (k === 'sq') o['torso.sq'] = v;
     else if (k === 'lHand' || k === 'rHand') { const side = k === 'lHand' ? 'left' : 'right', r = armIK(side, v.p, v.pole); r.shoulder.forEach((x, i) => { o[`${side}Shoulder.${AX[i]}`] = x; }); o[`${side}Elbow.x`] = r.elbow; }
     else throw Error('acting6: unknown pose key ' + k);
   }
@@ -105,20 +121,20 @@ export function mix(a, b, w, {footW = clamp01(w)} = {}) {
 //     exit: {dx, dz} (the verb travels: later verbs start from there), two: {partner verb, offset [x, z, yaw]}, prop: 'attach'|'release'}
 const FALLROOT = ['root.lean', 'root.dy', 'root.dz', 'root.roll', 'ik'];
 export const VERBS = {
-  idle_alive: {act: .34, tail: .5, main: ['root.dx', -1], cam: 25,
-    key: P({root: {dx: -.14, roll: -3, yaw: 6}, waist: [2, -8, 4], head: [-3, -14, -6], rHand: {p: [1.25, -.1, .05], pole: [-1, .2, .3]}, rW: [0, 0, -18], lS: [6, 0, -10], lE: -10}),
-    settle: P({root: {dx: -.12, roll: -2.5, yaw: 5}, waist: [2, -6, 3], head: [-2, -10, -5], rHand: {p: [1.25, -.08, .05], pole: [-1, .2, .3]}, rW: [0, 0, -16], lS: [5, 0, -9], lE: -10}), arc: {side: 'right', deg: 20}},
-  look_around: {act: .2, tail: .55, main: ['head.y', 1], cam: 25,
-    key: P({head: [-8, 52, 0], waist: [-2, 16, 0], root: {yaw: 6}, rHand: {p: [.55, 2.6, 1.0], pole: [-1, .4, 0]}, rW: [-20, 0, 0], lS: [6, 0, -6]}),
-    settle: P({head: [-6, 44, 2], waist: [-2, 14, 0], root: {yaw: 5}, rHand: {p: [.6, 2.55, .95], pole: [-1, .4, 0]}, rW: [-18, 0, 0], lS: [6, 0, -6]}), arc: {side: 'right', deg: 30}},
+  idle_alive: {act: .34, tail: .5, main: ['root.dx', 1], cam: 25,   // P3b: one subtle weight shift + head turn (no big key pose); exempt from the silhouette gate, measured by the LIFE gate
+    key: P({root: {dx: .06, roll: -1.6}, waist: [0, -3, 1], head: [0, 9, 0]}),
+    settle: P({root: {dx: .06, roll: -1.6}, waist: [0, -3, 1], head: [0, 9, 0]})},
+  look_around: {act: .22, tail: .9, main: ['head.y', -1], cam: -25,   // P3b: the brow-shade hand sits above-and-beside the eyes (never over the face); the head turns left (−35°) then right (+35°), the chest follows 30 %
+    key: P({head: [-6, -35, 0], waist: [-1, -10.5, 0], rHand: {p: [1.5, 3.25, .15], pole: [1, -.8, 0]}, rW: [-22, 0, 0], lS: [6, 0, -6]}),
+    settle: P({head: [-6, 35, 0], waist: [-1, 10.5, 0], rHand: {p: [1.5, 3.25, .15], pole: [1, -.8, 0]}, rW: [-22, 0, 0], lS: [6, 0, -6]})},
   flinch: {act: .07, tail: .4, main: ['waist.x', -1], cam: 30,
     antic: P({waist: [6, 0, 0], head: [-6, 0, 0], root: {lean: 3}}),
     key: P({head: [14, -28, -8], waist: [-12, 20, -6], rS: [-118, 0, -20], rE: -116, lS: [-68, 0, -38], lE: -96, lW: [0, 0, -20], root: {lean: -6, roll: 4, dy: -.16, dz: -.12}}),
     settle: P({head: [10, -22, -6], waist: [-8, 16, -4], rS: [-108, 0, -18], rE: -110, lS: [-60, 0, -34], lE: -90, lW: [0, 0, -16], root: {lean: -4, roll: 3, dy: -.12, dz: -.1}}),
     impact: {'head.x': 6, 'root.dy': -.05}},
-  gasp_step_back: {act: .14, tail: .5, main: ['root.lean', -1], cam: 35, exit: {dz: -.38},
-    key: P({root: {dz: -.4, lean: -10}, waist: [-8, 0, 0], head: [-12, 0, 0], lS: [-72, 0, -16], rS: [-72, 0, 16], lE: -118, rE: -118, rf: {z: -.8}}),
-    settle: P({root: {dz: -.38, lean: -6}, waist: [-5, 0, 0], head: [-8, 0, 0], lS: [-66, 0, -14], rS: [-66, 0, 14], lE: -116, rE: -116, rf: {z: -.8}}), arc: {side: 'both', deg: 22}},
+  gasp_step_back: {act: .14, tail: .5, main: ['root.lean', -1], cam: 25, exit: {dz: -.55},   // P3b: hands up OPEN beside the body (elbows out, palms out), a full stride back (the right foot travels 1.0), the chest leans back 10°
+    key: P({root: {dz: -.46, dy: -.09, lean: -10}, waist: [-4, 0, 0], head: [-10, 0, 0], lHand: {p: [-2.1, .95, .75], pole: [-.6, -.6, -.4]}, rHand: {p: [2.1, .95, .75], pole: [.6, -.6, -.4]}, lW: [-10, 0, -10], rW: [-10, 0, 10], rf: {z: -1.0}}),
+    settle: P({root: {dz: -.55, lean: -8}, waist: [-3, 0, 0], head: [-8, 0, 0], lHand: {p: [-2.1, .95, .75], pole: [-.6, -.6, -.4]}, rHand: {p: [2.1, .95, .75], pole: [.6, -.6, -.4]}, lW: [-10, 0, -10], rW: [-10, 0, 10], lf: {z: -.5}, rf: {z: -1.0}}), arc: {side: 'both', deg: 14}},
   point: {act: .12, tail: .45, main: ['rightShoulder.x', -1], cam: 15,
     key: P({rS: [-90, 0, 52], rE: -4, head: [-4, 34, 0], waist: [3, 18, 0], lS: [12, 0, -8], lE: -22, root: {lean: 4, dz: .1}, rf: {z: .35}}),
     settle: P({rS: [-86, 0, 50], rE: -6, head: [-3, 30, 0], waist: [2, 16, 0], lS: [10, 0, -8], lE: -20, root: {lean: 3, dz: .1}, rf: {z: .35}}), arc: {side: 'right', deg: 35}},
@@ -133,15 +149,9 @@ export const VERBS = {
   shrug: {act: .12, tail: .45, main: ['rightShoulder.z', 1], cam: 20,
     key: P({lS: [-24, 0, -36], rS: [-24, 0, 36], lE: -92, rE: -92, lW: [0, 0, -24], rW: [0, 0, 24], head: [-4, 0, 16], waist: [-4, 0, 3], root: {dy: .0}}),
     settle: P({lS: [-22, 0, -32], rS: [-22, 0, 32], lE: -88, rE: -88, lW: [0, 0, -20], rW: [0, 0, 20], head: [-3, 0, 13], waist: [-3, 0, 2]}), arc: {side: 'both', deg: 20}},
-  arms_cross: {act: .16, tail: .45, main: ['rightShoulder.x', -1], cam: 25,
-    key: P({lS: [-42, 0, 16], rS: [-46, 0, -14], lE: -116, rE: -112, lW: [0, 0, 10], rW: [0, 0, -10], head: [-8, -14, 4], waist: [-5, 0, 0], root: {roll: 2, dx: -.08}}),
-    settle: P({lS: [-40, 0, 16], rS: [-44, 0, -14], lE: -114, rE: -110, lW: [0, 0, 10], rW: [0, 0, -10], head: [-7, -12, 4], waist: [-4, 0, 0], root: {roll: 2, dx: -.08}}), arc: {side: 'both', deg: 15}},
-  hug: {act: .16, tail: .5, main: ['rightShoulder.x', -1], cam: 70, two: {partner: 'hug_b', offset: [0, 1.75, 180]},
-    key: P({lHand: {p: [-.55, .55, 1.25], pole: [1, 0, .4]}, rHand: {p: [.55, .7, 1.25], pole: [-1, 0, .4]}, waist: [8, 0, 0], head: [6, 22, 6], root: {lean: 6, dz: .12}, rf: {z: .3}}),
-    settle: P({lHand: {p: [-.5, .5, 1.25], pole: [1, 0, .4]}, rHand: {p: [.5, .65, 1.25], pole: [-1, 0, .4]}, waist: [8, 0, 0], head: [8, 24, 8], root: {lean: 5, dz: .12}, rf: {z: .3}}), arc: {side: 'both', deg: 20}},
-  hug_b: {act: .18, tail: .5, main: ['leftShoulder.x', -1], cam: 70,
-    key: P({lHand: {p: [-.6, .2, 1.2], pole: [1, 0, .4]}, rHand: {p: [.6, .05, 1.2], pole: [-1, 0, .4]}, waist: [6, 0, 0], head: [6, -22, -6], root: {lean: 4, dz: .1}, lf: {z: .25}}),
-    settle: P({lHand: {p: [-.55, .15, 1.2], pole: [1, 0, .4]}, rHand: {p: [.55, 0, 1.2], pole: [-1, 0, .4]}, waist: [6, 0, 0], head: [8, -24, -8], root: {lean: 4, dz: .1}, lf: {z: .25}})},
+  arms_cross: {act: .16, tail: .45, main: ['head.y', -1], cam: 25,   // P3b: forearms stacked — the left one 0.25 higher and 0.2 behind the right; hands tucked in toward the opposite upper arm as far as the reach allows
+    key: P({lHand: {p: [.2, 1.241, .5], pole: [-1, -.4, 0]}, rHand: {p: [-.2, .95, .747], pole: [1, -.4, 0]}, head: [-6, -10, 3], waist: [-3, 0, 0], root: {roll: 1.5}}),
+    settle: P({lHand: {p: [.2, 1.241, .5], pole: [-1, -.4, 0]}, rHand: {p: [-.2, .95, .747], pole: [1, -.4, 0]}, head: [-5, -9, 3], waist: [-3, 0, 0], root: {roll: 1.5}})},
   grab: {act: .12, tail: .45, main: ['rightShoulder.x', -1], cam: 60, prop: 'attach',
     key: P({rS: [-58, 0, 4], rE: -14, rW: [-24, 0, 0], waist: [26, 0, 0], head: [14, 0, 0], root: {lean: 12, dy: -.42, dz: -.3}, lS: [20, 0, -12], lE: -24, rf: {z: .5}}),
     settle: P({rS: [-56, 0, 6], rE: -64, rW: [-8, 0, 0], waist: [8, 0, 0], head: [6, 0, 0], root: {lean: 3, dy: -.06, dz: -.04}, lS: [8, 0, -8], lE: -18, rf: {z: .4}}), arc: {side: 'right', deg: 30}},
@@ -161,10 +171,6 @@ export const VERBS = {
     key: P({lS: [-112, 0, -14], rS: [-112, 0, 14], lE: -22, rE: -22, lW: [-14, 0, 0], rW: [-14, 0, 0], head: [-16, 0, 0], waist: [-4, 0, 0]}),
     settle: P({lS: [-56, 0, -14], rS: [-56, 0, 14], lE: -112, rE: -112, lW: [0, 0, 0], rW: [0, 0, 0], head: [4, 0, 0], waist: [6, 0, 0], root: {dy: -.18, dz: -.12, lean: 4}}),
     impact: {'root.dy': -.1, 'waist.x': 5}, arc: {side: 'both', deg: 20}},
-  carry: {act: .2, tail: .5, main: ['waist.x', -1], cam: 50, prop: 'carry', two: {partner: 'carried', follow: 'hands'},
-    antic: P({root: {dy: -.52, dz: -.42, lean: 14}, waist: [26, 0, 0], head: [16, 0, 0], lS: [-40, 0, -12], rS: [-40, 0, 12], lE: -20, rE: -20}),
-    key: P({lS: [-48, 0, -12], rS: [-48, 0, 12], lE: -84, rE: -84, lW: [0, 0, -8], rW: [0, 0, 8], root: {lean: -7, dy: -.1}, waist: [-6, 0, 0], head: [-6, 0, 0]}),
-    settle: P({lS: [-46, 0, -12], rS: [-46, 0, 12], lE: -86, rE: -86, lW: [0, 0, -8], rW: [0, 0, 8], root: {lean: -5, dy: -.08}, waist: [-4, 0, 0], head: [-4, 0, 0]})},
   jump: {act: .42, tail: .55, main: ['rightShoulder.x', -1], cam: 30, air: {t0: -.3, apex: 0, t1: .3, h: 1.7},
     antic: P({root: {dy: -.5, dz: -.42, lean: 16}, waist: [20, 0, 0], head: [10, 0, 0], lS: [40, 0, -10], rS: [40, 0, 10], lE: -24, rE: -24}),
     key: P({rS: [-160, 0, 16], rE: -22, lS: [-40, 0, -40], lE: -70, head: [-14, 0, 4], waist: [-4, 6, 0], ik: 0, lH: [-70, 0, -6], lK: 116, lA: [24, 0, 0], rH: [-16, 0, 6], rK: 60, rA: [26, 0, 0]}),
@@ -206,15 +212,67 @@ export const VERBS = {
   comfort_b: {act: .3, tail: .6, main: ['head.x', 1], cam: 50,
     key: P({root: {dy: -.505, dz: .74}, lf: {z: -.75, pitch: 90}, rf: {z: -.75, pitch: 90}, waist: [22, 0, 0], head: [28, 0, 0], lS: [12, 0, -4], rS: [12, 0, 4], lE: -6, rE: -6}),
     settle: P({root: {dy: -.505, dz: .74}, lf: {z: -.75, pitch: 90}, rf: {z: -.75, pitch: 90}, waist: [18, -8, 0], head: [18, -26, 0], lS: [10, 0, -4], rS: [10, 0, 4], lE: -8, rE: -8})},
-  carried: {act: .2, tail: .5, main: ['leftShoulder.x', -1], cam: 50,
-    key: P({ik: 0, root: {lean: -24}, lH: [-84, 0, -4], rH: [-80, 0, 4], lK: 84, rK: 92, lS: [-120, 0, -20], rS: [-150, 0, 34], lE: -60, rE: -70, head: [-6, -20, 0], waist: [-4, 0, 0]}),
-    settle: P({ik: 0, root: {lean: -22}, lH: [-82, 0, -4], rH: [-78, 0, 4], lK: 86, rK: 94, lS: [-118, 0, -20], rS: [-148, 0, 34], lE: -62, rE: -72, head: [-4, -18, 0], waist: [-4, 0, 0]})},
   // ---- talk gestures: additive (delta) layers on whatever the actor is doing; key on the stressed word ----
   beat: {act: .08, tail: .22, gesture: true, main: ['rightShoulder.x', -1], key: P({rE: -32, rW: [-22, 0, 0], rS: [-14, 0, 3]}), settle: REST},
   open_palms: {act: .12, tail: .35, gesture: true, main: ['rightShoulder.z', 1], key: P({lS: [-26, 0, -26], rS: [-26, 0, 26], lE: -48, rE: -48, lW: [0, 0, -18], rW: [0, 0, 18]}), settle: REST},
   head_nod: {act: .09, tail: .25, gesture: true, main: ['head.x', 1], key: P({head: [14, 0, 0]}), settle: REST},
   head_shake: {act: .09, tail: .4, gesture: true, main: ['head.y', -1], key: P({head: [2, -15, 0]}), settle: REST, impact: {'head.y': 26, shape: 'osc', peak: .11}},
 };
+// ---- hug and carry (P3b): solved poses, frozen as data (scripts/v2/acting6-solve.js: seeded search over pure arm IK + FK + sampled box penetration) ----
+// C(d): a full channel pose = REST + the listed channels. Both actors of a hug / carry come from ONE call (partner half + placement).
+const C = (d, base = REST) => ({...base, ...d});
+const NO_OS_LIMBS = CHANNELS.filter(c => /^(left|right)(Shoulder|Elbow|Wrist|Hip|Knee|Ankle)\./.test(c)), NO_OS_ALL = CHANNELS.filter(c => !isFoot(c) && c !== 'ik' && c !== 'torso.sq');   // arms and legs stop on the contact; a partner's whole pose stops
+const CONTACT_DRIFT = ['head.y', 'head.x'];   // moving hold of an embrace / carry: the head only (arms and chest stay on the contact)
+const SQUEEZE = {at: .12, frames: 6, sq: .03, rock: 4, axis: 'root.roll'};   // rock = the whole body sways about its hips (both partners together)   // after the contact: both chests compress 3 % and rock 4° once, over 6 frames
+const FREE_ARM = {'leftShoulder.x': 105.204, 'leftShoulder.y': -88.601, 'leftShoulder.z': 106.536, 'leftElbow.x': -5.137};   // the lead's free arm hangs out to the side
+// Side embrace of a kid (0 penetration for her scale: .62 / .82 / 1.0): the lead's near arm round her back, her near arm round his neck, her free hand on his chest.
+const HUGS = {
+  '': {kp: 0.82, place: [2.76, 0.5, 38.17], lead: C({...FREE_ARM, 'head.y': 12, 'rightShoulder.x': 5.64, 'rightShoulder.y': 53.667, 'rightShoulder.z': 0.506, 'rightElbow.x': -85.444, 'root.lean': 8, 'root.roll': -13.99}),
+    partner: C({'head.x': -12.47, 'leftShoulder.x': -84.422, 'leftShoulder.y': -44.997, 'leftShoulder.z': -163.596, 'rightShoulder.x': -167.002, 'rightShoulder.y': 22.767, 'rightShoulder.z': -100.283, 'leftElbow.x': -5.137, 'rightElbow.x': -5.137, 'root.lean': 24.55, 'root.roll': -10.53})},
+  '_s': {kp: 0.62, place: [2.06, 0.59, -9.8], lead: C({...FREE_ARM, 'head.y': 12, 'rightShoulder.x': 11.859, 'rightShoulder.y': 33.201, 'rightShoulder.z': -6.85, 'rightElbow.x': -76.687, 'root.lean': 7.82, 'root.roll': -14}),
+    partner: C({'head.x': 9.43, 'leftShoulder.x': 166.579, 'leftShoulder.y': -41.118, 'leftShoulder.z': 6.122, 'rightShoulder.x': -158.005, 'rightShoulder.y': 8.305, 'rightShoulder.z': -81.074, 'leftElbow.x': -75.561, 'rightElbow.x': -5.137, 'root.lean': 24.7, 'root.roll': -14.96})},
+  '_l': {kp: 1, place: [2.39, 0.6, 5.51], lead: C({...FREE_ARM, 'head.y': 12, 'rightShoulder.x': 37.747, 'rightShoulder.y': 11.819, 'rightShoulder.z': 8.933, 'rightElbow.x': -116.095, 'root.lean': 0.7, 'root.roll': -1.98}),
+    partner: C({'head.x': -21.91, 'leftShoulder.x': -171.547, 'leftShoulder.y': 4.721, 'leftShoulder.z': 70.434, 'rightShoulder.x': 133.643, 'rightShoulder.y': -0.045, 'rightShoulder.z': -81.649, 'leftElbow.x': -131.328, 'rightElbow.x': -5.137, 'root.lean': 13.03, 'root.roll': 3.85})},
+};
+for (const [sfx, h] of Object.entries(HUGS)) {
+  VERBS['hug' + sfx] = {act: .16, tail: .5, main: ['head.y', 1], cam: 8, slerp: true, noLag: true, drift: CONTACT_DRIFT, noOs: NO_OS_ALL.filter(c => !c.startsWith('head.')), squeeze: SQUEEZE, kp: h.kp, two: {partner: 'hug_b' + sfx, place: h.place}, key: h.lead, settle: h.lead};
+  VERBS['hug_b' + sfx] = {act: .18, tail: .5, main: ['root.lean', 1], cam: 8, slerp: true, noLag: true, drift: CONTACT_DRIFT, noOs: NO_OS_ALL, squeeze: SQUEEZE, key: h.partner, settle: h.partner};
+}
+// Carry. PIGGYBACK (kid partners, scale .82): the lead stoops, the partner's hips ride a fixed point of his chest frame (behind the waist), arms forward over his
+// shoulders, legs round his hips, his hands under her thighs. HIP-CARRY (small kids, .62): she sits on his +x hip, one arm round his neck, his near arm round her back.
+// The pickup: the lead dips 0.25 studs (anticipation), rises over 8 frames; the partner follows 1 frame behind (episode.js / reel).
+export const CARRY = {
+  carry: {kp: .82, chest: [0, .53, -1.1]},                                                  // partner hip pivot in the lead's chest (waist) frame
+  carry_hip: {kp: .62, origin: [1.67, 2.43, 0.7], yaw: -84.91},                                    // hip pivot (lead units, origin frame) + her yaw°
+};
+const RISE = 8 / 24, DIP = .25;
+Object.assign(VERBS, {
+  carry: {act: RISE, noLag: true, drift: CONTACT_DRIFT, tail: .6, main: ['root.dy', 1], cam: -50, slerp: true, noOs: NO_OS_LIMBS, kp: .82, two: {partner: 'carried', follow: true},
+    antic: C({'root.dy': -DIP, 'root.lean': 14, 'waist.x': 16, 'head.x': 6, 'leftShoulder.x': 22, 'rightShoulder.x': 22, 'leftElbow.x': -18, 'rightElbow.x': -18}),
+    key: C({'head.x': -14, 'waist.x': 19.91, 'leftShoulder.x': 170.791, 'leftShoulder.y': 22.457, 'leftShoulder.z': 175.883, 'rightShoulder.x': 170.791, 'rightShoulder.y': -22.457, 'rightShoulder.z': -175.883,
+      'leftElbow.x': -58.703, 'rightElbow.x': -58.703, 'root.dy': -.1, 'root.lean': 25.55}),
+    settle: C({'head.x': -13, 'waist.x': 19, 'leftShoulder.x': 170.791, 'leftShoulder.y': 22.457, 'leftShoulder.z': 175.883, 'rightShoulder.x': 170.791, 'rightShoulder.y': -22.457, 'rightShoulder.z': -175.883,
+      'leftElbow.x': -58.703, 'rightElbow.x': -58.703, 'root.dy': -.1, 'root.lean': 25})},
+  carried: {act: RISE, noLag: true, drift: CONTACT_DRIFT, tail: .6, main: ['root.lean', 1], cam: -50, slerp: true, noOs: NO_OS_ALL,
+    antic: C({'leftKnee.x': 30, 'rightKnee.x': 30, 'leftHip.x': -14, 'rightHip.x': -14, 'waist.x': 6}),
+    key: C({'head.x': -26.83, 'waist.x': -10, 'leftShoulder.x': -80.45, 'leftShoulder.z': -27.83, 'rightShoulder.x': -80.45, 'rightShoulder.z': 27.83, 'leftElbow.x': -7.07, 'rightElbow.x': -7.07,
+      'leftHip.x': -77.5, 'leftHip.z': -66.39, 'rightHip.x': -77.5, 'rightHip.z': 66.39, 'leftKnee.x': 125.5, 'rightKnee.x': 125.5, 'root.lean': 45.46, ik: 0}),
+    settle: C({'head.x': -25, 'waist.x': -10, 'leftShoulder.x': -80.45, 'leftShoulder.z': -27.83, 'rightShoulder.x': -80.45, 'rightShoulder.z': 27.83, 'leftElbow.x': -7.07, 'rightElbow.x': -7.07,
+      'leftHip.x': -77.5, 'leftHip.z': -66.39, 'rightHip.x': -77.5, 'rightHip.z': 66.39, 'leftKnee.x': 125.5, 'rightKnee.x': 125.5, 'root.lean': 45.46, ik: 0})},
+  carry_hip: {act: RISE, noLag: true, drift: CONTACT_DRIFT, tail: .6, main: ['root.dy', 1], cam: 20, slerp: true, noOs: NO_OS_LIMBS, kp: .62, two: {partner: 'carried_hip', follow: true},
+    antic: C({'root.dy': -DIP, 'waist.x': 18, 'root.roll': 4, 'head.x': 8, 'leftShoulder.x': 8, 'rightShoulder.x': 25, 'rightShoulder.z': 14, 'rightElbow.x': -20}),
+    key: C({...FREE_ARM, 'rightShoulder.x': 40.951, 'rightShoulder.y': -15.993, 'rightShoulder.z': 71.974, 'rightElbow.x': -120.334, 'root.dy': -0.07, 'root.lean': 0.01, 'root.roll': -8.31}),
+    settle: C({...FREE_ARM, 'rightShoulder.x': 40.951, 'rightShoulder.y': -15.993, 'rightShoulder.z': 71.974, 'rightElbow.x': -120.334, 'root.dy': -0.07, 'root.lean': 0.01, 'root.roll': -8.31})},
+  carried_hip: {act: RISE, noLag: true, drift: CONTACT_DRIFT, tail: .6, main: ['root.roll', -1], cam: 20, slerp: true, noOs: NO_OS_ALL,
+    antic: C({'leftKnee.x': 30, 'rightKnee.x': 30, 'leftHip.x': -14, 'rightHip.x': -14}),
+    key: C({'head.x': -24.72, 'leftShoulder.x': 21.783, 'leftShoulder.y': 31.998, 'leftShoulder.z': 126.722, 'rightShoulder.x': 93.729, 'rightShoulder.y': -11.983, 'rightShoulder.z': -121.683, 'leftElbow.x': -150.325, 'rightElbow.x': -5.137, 'leftHip.x': -31.26, 'leftHip.z': -25.57, 'rightHip.x': -31.26, 'rightHip.z': 25.57, 'leftKnee.x': 41.62, 'rightKnee.x': 41.62, 'root.lean': 7.83, 'root.roll': -23.24, 'ik': 0}),
+    settle: C({'head.x': -24.72, 'leftShoulder.x': 21.783, 'leftShoulder.y': 31.998, 'leftShoulder.z': 126.722, 'rightShoulder.x': 93.729, 'rightShoulder.y': -11.983, 'rightShoulder.z': -121.683, 'leftElbow.x': -150.325, 'rightElbow.x': -5.137, 'leftHip.x': -31.26, 'leftHip.z': -25.57, 'rightHip.x': -31.26, 'rightHip.z': 25.57, 'leftKnee.x': 41.62, 'rightKnee.x': 41.62, 'root.lean': 7.83, 'root.roll': -23.24, 'ik': 0})},
+  carry_box: {act: .2, tail: .5, main: ['waist.x', -1], cam: 50, prop: 'carry',   // a prop (crate) in both arms, no partner
+    antic: P({root: {dy: -.52, dz: -.42, lean: 14}, waist: [26, 0, 0], head: [16, 0, 0], lS: [-40, 0, -12], rS: [-40, 0, 12], lE: -20, rE: -20}),
+    key: P({lS: [-48, 0, -12], rS: [-48, 0, 12], lE: -84, rE: -84, lW: [0, 0, -8], rW: [0, 0, 8], root: {lean: -7, dy: -.1}, waist: [-6, 0, 0], head: [-6, 0, 0]}),
+    settle: P({lS: [-46, 0, -12], rS: [-46, 0, 12], lE: -86, rE: -86, lW: [0, 0, -8], rW: [0, 0, 8], root: {lean: -5, dy: -.08}, waist: [-4, 0, 0], head: [-4, 0, 0]})},
+});
+export const EXTRA_VERBS = ['hug_s', 'hug_l', 'carry_hip', 'carry_box'];
 export const VERB_NAMES = ['idle_alive', 'look_around', 'flinch', 'gasp_step_back', 'point', 'cheer', 'facepalm', 'shrug', 'arms_cross', 'hug', 'grab', 'tug_pull', 'push', 'throw', 'catch', 'carry',
   'jump', 'land', 'trip_fall', 'slip', 'bonk_dizzy', 'knees_collapse', 'reach_for', 'comfort_kneel'];
 export const GESTURES = ['beat', 'open_palms', 'head_nod', 'head_shake'];
@@ -237,7 +295,7 @@ export function drift(t, seed = 1, amp = 1) {
   return {'head.y': s(1, .21, DRIFT_DEG), 'head.x': s(2, .29, .8), 'head.z': s(3, .17, .6), 'waist.x': s(4, .27, .7), 'waist.y': s(5, .13, .8),
     'leftShoulder.x': s(6, .23, 1.1), 'rightShoulder.x': s(7, .19, 1.1), 'leftWrist.z': s(8, .31, 1.2), 'rightWrist.z': s(9, .37, 1.2)};
 }
-const scaleP = (p, base, I) => { const o = {}; for (const c of CHANNELS) { const b = base[c] ?? REST[c], x = p[c] ?? b; o[c] = c === 'ik' || c === 'root.cy' || c === 'root.cz' || c.endsWith('.pitch') ? x : b + I * (x - b); } return o; };
+const scaleP = (p, base, I) => { const o = {}; for (const c of CHANNELS) { const b = base[c] ?? REST[c], x = p[c] ?? b; o[c] = c === 'ik' || c === 'root.cy' || c === 'root.cz' || c.endsWith('.pitch') || c === 'torso.sq' ? x : b + I * (x - b); } return o; };
 // The three authored poses of a verb for an incoming pose `from` (absolute), intensity, facing (mirror + cheat), offset.
 export function versePoses(name, {from = REST, intensity = 1, facing = 0, offset = null} = {}) {
   const v = VERBS[name]; if (!v) throw Error('acting6: unknown verb ' + name);
@@ -271,7 +329,7 @@ export function verbChannels(name, t, poses, seed = 1) {
   const v = VERBS[name], T = timing(v), {rest, antic, key, settle, I} = poses, out = {};
   const tl = c => {   // per-channel time: head leads, hands lag after the key
     if (HEADC.has(c)) return t + LEAD * smooth(t / T.ant);
-    if (HANDC.has(c) && t > T.key) { const post = T.end - T.key, d = t - T.key; return d <= post + LAG ? T.key + d * post / (post + LAG) : t - LAG; }
+    if (HANDC.has(c) && !v.noLag && t > T.key) { const post = T.end - T.key, d = t - T.key; return d <= post + LAG ? T.key + d * post / (post + LAG) : t - LAG; }
     return t;
   };
   const value = (c, tt) => {
@@ -281,6 +339,10 @@ export function verbChannels(name, t, poses, seed = 1) {
     return antic[c] + w * (key[c] - antic[c]) + ws * (settle[c] - key[c]);
   };
   for (const c of CHANNELS) if (!isFoot(c)) out[c] = clampCh(c, value(c, tl(c)));   // FK joints stop at their limits (an elbow locks out, never hyper-extends)
+  if (v.slerp) for (const j of ['leftShoulder', 'rightShoulder', 'leftHip', 'rightHip']) {   // opt-in (hug, carry): big swings on the shortest arc
+    const tt = tl(j + '.x'), e = P => eulerToQ(AX.map(a => P[`${j}.${a}`])), qR = e(rest), qA = e(antic), qK = e(key), qS = e(settle); let q;
+    if (tt <= 0) q = qR; else if (tt < T.ant) q = qSlerp(qR, qA, smooth(tt / T.ant)); else q = qSlerp(qSlerp(qA, qK, strokeW(v, j + '.x', tt, T)), qS, smooth((tt - T.win) / v.tail));
+    qToEuler(q).forEach((x, i) => { out[`${j}.${AX[i]}`] = x; }); }
   // feet: a monotone weight through every phase (lifted when they travel)
   const fw = tt => tt <= 0 ? 0 : tt < T.ant ? smooth(tt / T.ant) : 1, sw = tt => tt < T.ant ? 0 : Math.min(1, (tt - T.ant) / T.W >= keyCrossing() ? 1 : overshootEase((tt - T.ant) / T.W));
   const feet = (a, b, w) => { const m = mix(a, b, w, {footW: w}); for (const c of CHANNELS) if (isFoot(c)) out[c] = m[c]; };
@@ -299,8 +361,9 @@ export function verbChannels(name, t, poses, seed = 1) {
     let y = 0; if (t > lo && t < hi) y = h * I * (1 - (x / (x < 0 ? a - lo : hi - a)) ** 2); if (t0 < -5 && t <= a) y = h * I;
     out['root.dy'] += Math.max(0, y); const e = 1.5 / FPS6, A = smooth((t - lo + e) / e) * (1 - smooth((t - hi + e) / e));
     if (!v.sub?.some(q => q.ch.includes('ik'))) out.ik = Math.min(out.ik, 1 - A); }   // a verb with its own ik keys times its take-off itself
+  if (v.squeeze) { const {at, frames, sq, rock} = v.squeeze, u = (t - T.key - at) / (frames / FPS6); if (u > 0 && u < 1) { out['torso.sq'] += sq * Math.sin(Math.PI * u); for (const [c, a] of v.squeeze.axes ?? [[v.squeeze.axis ?? 'waist.z', rock]]) out[c] += a * Math.sin(2 * Math.PI * u); } }   // hug squeeze beat: the chest compresses 3 % and rocks 4° once over 6 frames
   if (v.dizzy) { const d = t - T.key, a = smooth(d / .4) * I; if (d > 0) { const w = 2 * Math.PI * 1.1 * d; out['head.y'] += 12 * a * Math.sin(w); out['head.z'] += 8 * a * Math.cos(w); out['waist.z'] += 3 * a * Math.sin(w + 1); out['waist.y'] += 4 * a * Math.cos(w + 1); } }
-  if (!v.gesture) { const dr = drift(t, seed, smooth((t - T.key) / .5)); for (const [c, x] of Object.entries(dr)) out[c] += x; }
+  if (!v.gesture) { const dr = drift(t, seed, smooth((t - T.key) / .5)); for (const [c, x] of Object.entries(dr)) if (!v.drift || v.drift.includes(c)) out[c] += x; }   // v.drift: only these channels drift (contact verbs keep arms and legs still)
   if (v.skid) out.skid = t >= T.key + v.skid[0] && t <= T.key + v.skid[1] + 2 / FPS6 ? 1 : 0;   // an intended slide (the gag), flagged for the slide gate
   return out;
 }
@@ -367,9 +430,17 @@ export function solve(ch, build = 'adult_m', {groundClamp = false} = {}) {
   if (groundClamp && ik < 1) { const lo = lowestBody(s, build); if (lo < 0) s.root.dy -= lo * (1 - ik); }
   const raw = {pivots: Object.fromEntries(Object.entries(piv).map(([k, v]) => [k, [...v]])), root: {...s.root}};
   for (const j of JOINTS6) { const Lm = LIMITS6[jointKind(j)]; piv[j] = piv[j].map((x, i) => Math.min(Lm[i][1], Math.max(Lm[i][0], x))); }
-  return {sample: s, raw, reach, rolled};
+  s.squash = ch['torso.sq'] ?? 0; return {sample: s, raw, reach, rolled};
 }
 
+// Arm IK on a channel pose: the `side` hand centre on `target` (origin frame, unscaled), the elbow opening toward `pole` (chest frame).
+// Uses the pose's own root / waist, so call it after those channels are set. → a copy of ch with that arm's shoulder and elbow set.
+export function reachPose(ch, side, target, pole, build = 'adult_m') {
+  const w = fk(solve(ch, build).sample, build).waist, r = armIK(side, mv(tr(w.R), sub3(target, w.p)), pole, build), o = {...ch};
+  r.shoulder.forEach((q, i) => { o[`${side}Shoulder.${AX[i]}`] = q; }); o[`${side}Elbow.x`] = r.elbow; return o;
+}
+// The hand centre of a channel pose (origin frame, unscaled).
+export const handCentre = (ch, side, build = 'adult_m') => fk(solve(ch, build).sample, build)[side + 'Hand'].p;
 // ---- standalone verb sampling (sheets, gates, tests) ------------------------------------------------------------------
 // The verb alone from rest: t = verb-local seconds (0 = start; timing(v).key = the KEY).
 export function sampleVerb(name, t, {intensity = 1, facing = 0, seed = 1, build = 'adult_m', from = REST} = {}) {
@@ -377,7 +448,7 @@ export function sampleVerb(name, t, {intensity = 1, facing = 0, seed = 1, build 
   const ch = v.gesture ? addDelta(from, verbChannels(name, t, poses, seed)) : verbChannels(name, t, poses, seed);
   return {...solve(ch, build, {groundClamp: !!v.fall || !!v.air}), ch};
 }
-const addDelta = (base, g) => { const o = {...base}; for (const c of CHANNELS) if (!isFoot(c) && c !== 'ik' && !c.startsWith('root.c')) o[c] = (base[c] ?? REST[c]) + (g[c] - REST[c]); return o; };
+const addDelta = (base, g) => { const o = {...base}; for (const c of CHANNELS) if (!isFoot(c) && c !== 'ik' && c !== 'torso.sq' && !c.startsWith('root.c')) o[c] = (base[c] ?? REST[c]) + (g[c] - REST[c]); return o; };
 
 // ---- cycles: walk, sad_walk, sneak, run, sprint (planted-foot IK at CYCLE speed) + skid_stop ---------------------------
 // speed v (studs/s, the mark's travel speed), period T, stance fraction b, lift h, pitch swing, arm swing, elbows, lean, bob.
@@ -493,6 +564,11 @@ export const resolveAt = (at, cues) => typeof at === 'number' ? at : wordTime(cu
 // ---- tracks ------------------------------------------------------------------------------------------------------------
 // actions: [{actor, verb | cycle | face | gesture, at, intensity, target, facing, hold}], ctx {cues, env, talk: [{actor, line, gesture, stress}], shotStart}
 // → {actorName: track}. A track: {items (verbs, KEY times), gestures, faces [[t, face]], props, partners}.
+// verb variants by partner scale (action.partnerScale = her scale / his): hug .62 / .82 / 1.0 poses; carry → piggyback (kid) or hip-carry (small kid); carry with a prop and no partner → carry_box
+export const pickVerb = a => { const kp = a.partnerScale; let n = a.verb;
+  if (n === 'hug' && kp !== undefined) n = kp < .72 ? 'hug_s' : kp > .9 ? 'hug_l' : 'hug';
+  if (n === 'carry') n = !a.target ? 'carry_box' : kp !== undefined && kp < .72 ? 'carry_hip' : 'carry';
+  return n; };
 export function compileActing(actions, {cues = null, env = null, talk = [], offset = 0} = {}) {
   const tracks = {}, T = n => (tracks[n] ??= {items: [], gestures: [], faces: [], props: [], cycles: []});
   for (const a of actions) {
@@ -502,11 +578,11 @@ export function compileActing(actions, {cues = null, env = null, talk = [], offs
     if (a.verb === 'tumble') T(a.actor).items.push({verb: 'tumble', key: t, start: t - .3, intensity: a.intensity ?? 1});
     else if (a.verb && GESTURES.includes(a.verb)) T(a.actor).gestures.push({verb: a.verb, key: t, intensity: a.intensity ?? 1, facing: a.facing ?? 0});
     else if (a.verb) {
-      const v = VERBS[a.verb]; if (!v) throw Error('acting6: unknown verb ' + a.verb);
-      const tm = timing(v), it = {verb: a.verb, key: t, start: t - tm.key, intensity: a.intensity ?? 1, facing: a.facing ?? 0, hold: a.hold ?? null, target: a.target ?? null};
+      const vn = pickVerb(a), v = VERBS[vn]; if (!v) throw Error('acting6: unknown verb ' + a.verb);
+      const tm = timing(v), it = {verb: vn, key: t, start: t - tm.key, intensity: a.intensity ?? 1, facing: a.facing ?? 0, hold: a.hold ?? null, target: a.target ?? null};
       T(a.actor).items.push(it);
-      if (a.hold) T(a.actor).props.push({id: a.hold, verb: a.verb, mode: v.prop ?? 'attach', key: t, item: it});
-      if (v.two && a.target) T(a.target).items.push({verb: v.two.partner ?? a.verb, key: t, start: t - timing(VERBS[v.two.partner]).key, intensity: a.intensity ?? 1, facing: -(a.facing ?? 0), partnerOf: a.actor, two: v.two});
+      if (a.hold) T(a.actor).props.push({id: a.hold, verb: vn, mode: v.prop ?? 'attach', key: t, item: it});
+      if (v.two && a.target) T(a.target).items.push({verb: v.two.partner ?? a.verb, key: t, start: t - timing(VERBS[v.two.partner]).key, intensity: a.intensity ?? 1, facing: -(a.facing ?? 0), partnerOf: a.actor, two: v.two, walkIn: a.walkIn !== false});
     }
   }
   for (const k of talk) {   // talk gestures on the stressed words of the actor's lines
@@ -523,12 +599,42 @@ export function trackChannels(tr, t, {seed = 1, build = 'adult_m'} = {}) {
   let i = -1; for (let k = 0; k < tr.items.length; k++) if (tr.items[k].start <= t) i = k;
   let ch = i < 0 ? idleChannels(t, seed) : itemChannels(tr, i, t, seed, build);
   const cy = tr.cycles.find(c => t >= c.start && t < c.until && (i < 0 || tr.items[i].start < c.start));
-  if (cy) ch = cycleChannels(cy.name, t - cy.start, {build});
+  if (cy) { const w = smooth((t - cy.start) / .15), c2 = cycleChannels(cy.name, t - cy.start, {build}); ch = w >= 1 ? c2 : mix(ch, c2, w); }   // blends in over 0.15 s
   for (const g of tr.gestures) { const v = VERBS[g.verb], tm = timing(v), lt = t - (g.key - tm.key); if (lt <= 0 || lt > tm.end + .05) continue;
     const gc = verbChannels(g.verb, lt, versePoses(g.verb, {intensity: g.intensity, facing: g.facing}), seed); ch = addDelta(ch, gc); }
   return ch;
 }
-const idleChannels = (t, seed) => { const o = {...REST}; for (const [c, x] of Object.entries(drift(t, seed))) o[c] += x; return o; };
+// ---- idle life (P3b owner Decision 1): subtle, feet locked ------------------------------------------------------------------
+// A weight shift every 3–5 s (the hips travel 2 × LIFE.shift studs side to side, the chest counter-tilts) and a head turn of 7.5–10.5° every
+// 3–5 s (held ~1.2 s, then back; the moving-hold drift adds ≤ 1.5° on top). Pure in (seed, t): event times are cumulative seeded gaps.
+export const LIFE = {shift: .05, gap: [3.1, 4.8], turn: [7.5, 10.5], moveT: .7, holdT: 1.2};
+const lifeTimes = (seed, kind, until) => { const out = []; let t = .6 + 2 * seedR(seed, kind * 31 + 5); for (let k = 0; t < until + 6; k++) { out.push(t); t += LIFE.gap[0] + (LIFE.gap[1] - LIFE.gap[0]) * seedR(seed, kind * 31 + 7 + k * 3); } return out; };
+export function idleLife(t, seed = 1) {
+  const o = {}, ts = lifeTimes(seed, 1, t), par = seedR(seed, 3) < .5 ? 0 : 1, sd = k => (((k + par) % 2) + 2) % 2 === 0 ? 1 : -1, S = LIFE.shift;
+  let k = -1; while (k + 1 < ts.length && ts[k + 1] <= t) k++;
+  const dx = k < 0 ? sd(-1) * S : sd(k - 1) * S + (sd(k) * S - sd(k - 1) * S) * overshootEase((t - ts[k]) / LIFE.moveT);
+  o['root.dx'] = dx; o['root.roll'] = -dx / S * 1.6; o['waist.z'] = dx / S * 1.0;   // the pelvis shifts over the planted feet, the chest tilts back toward vertical
+  const hs = lifeTimes(seed, 2, t); let j = -1; while (j + 1 < hs.length && hs[j + 1] <= t) j++;
+  if (j >= 0) { const m = (LIFE.turn[0] + (LIFE.turn[1] - LIFE.turn[0]) * seedR(seed, 100 + j)) * (j % 2 ? 1 : -1), d = t - hs[j], e = smooth(d / .5) * (1 - smooth((d - .5 - LIFE.holdT) / .6)); o['head.y'] = m * e; o['waist.y'] = .3 * m * e; }
+  return o;
+}
+const idleChannels = (t, seed) => { const o = {...REST}; for (const [c, x] of Object.entries(drift(t, seed))) o[c] += x; for (const [c, x] of Object.entries(idleLife(t, seed))) o[c] += x; return o; };
+// ---- partners (P3b owner Decision 3) -----------------------------------------------------------------------------------------
+// A partner of hug / carry / comfort_kneel must START (at the verb's anticipation) within PARTNER_TOL studs of its meeting mark. A Brief that
+// places it further away gets a walk-in (walk cycle at CYCLES.walk.v) ending exactly at the verb start; the plan FAILS only when no walk-in fits
+// (not enough time before the verb) or walk-ins are off (`walkIn: false`).
+export const PARTNER_TOL = .5;
+// → {mark [x, z], yaw (rad, partner facing), dist, ok, walk: null | {dur, t0, from, to}, issue}. leadPos/partnerPos: world [x, z] of the origins; avail: s before `start` the partner is free.
+export function partnerPlan({verb, leadPos, leadYaw = 0, leadScale = 1, partnerPos, start, avail = Infinity, walkIn = true, facing = 0}) {
+  const off = partnerOffset(verb, {facing}); if (!off) return null;
+  const c = Math.cos(leadYaw), sn = Math.sin(leadYaw), mark = [leadPos[0] + leadScale * (off.x * c + off.z * sn), leadPos[1] + leadScale * (-off.x * sn + off.z * c)], yaw = leadYaw + off.yaw * D;
+  const dist = Math.hypot(mark[0] - partnerPos[0], mark[1] - partnerPos[1]), dur = dist / CYCLES.walk.v;
+  if (dist <= PARTNER_TOL) return {mark, yaw, dist: +dist.toFixed(3), ok: true, walk: null, issue: null};
+  if (walkIn && avail >= dur) return {mark, yaw, dist: +dist.toFixed(3), ok: true, walk: {dur: +dur.toFixed(3), t0: +(start - dur).toFixed(3), from: partnerPos, to: mark}, issue: null};
+  return {mark, yaw, dist: +dist.toFixed(3), ok: false, walk: null, issue: `partner starts ${dist.toFixed(2)} studs from its mark (> ${PARTNER_TOL})` + (walkIn ? `; a walk-in needs ${dur.toFixed(2)} s, ${Number.isFinite(avail) ? avail.toFixed(2) : '∞'} s available` : ' and walk-ins are off')};
+}
+// plan.js: the FAIL lines for a list of partner plans (episode.js `actingPlan()`): [{partner, lead, verb, key, ...partnerPlan result}]
+export const partnerIssues = plans => plans.filter(p => !p.ok).map(p => `partnerDistance: ${p.partner} (${p.verb} with ${p.lead} at ${(p.key ?? 0).toFixed(2)} s): ${p.issue}`);
 function itemChannels(tr, i, t, seed, build) {
   const it = tr.items[i], lt = t - it.start;
   if (it.verb === 'tumble') { const off = offsetBefore(tr, i, seed, build); return shift(tumbleChannels(lt, {intensity: it.intensity}), off); }
@@ -577,8 +683,11 @@ function propAt(tr, pr, t, sample, {seed, build}) {
 // Two-actor verbs: the partner's origin relative to the lead's origin frame ([x, z, yaw°]) — hug: facing at a set distance;
 // comfort_kneel: placed so the lead's reaching hand rests on the partner's near shoulder at the key.
 export function partnerOffset(verb, {facing = 0} = {}) {
-  const v = VERBS[verb]; if (!v?.two || v.two.follow) return null;
-  const [x, z, yaw] = v.two.offset ?? v.two.place; return facing < 0 ? {x: -x, z, yaw: -yaw} : {x, z, yaw};
+  const v = VERBS[verb]; if (!v?.two) return null;
+  let x, z, yaw;
+  if (v.two.follow) { const o = carryOrigin(sampleVerb(verb, timing(v).key).sample, 'adult_m', verb); [x, z, yaw] = [o.p[0], o.p[2], o.yaw]; }   // the ground mark under the carried pose
+  else [x, z, yaw] = v.two.offset ?? v.two.place;
+  return facing < 0 ? {x: -x, z, yaw: -yaw} : {x, z, yaw};
 }
 // comfort_kneel (one call aligns both): the lead's reaching hand is solved (armIK) onto the partner's near shoulder top at the
 // KEY, with the partner placed at two.place; `gap` = hand bottom above the shoulder top (gate: |gap| ≤ 0.05).
@@ -593,9 +702,58 @@ export function rigReach(verb) {
   const hand = fk(solve(v.key).sample)[side + 'Hand'].p; return {gap: +(hand[1] - SEGL.hand / 2 - top[1]).toFixed(3), dist: +Math.hypot(hand[0] - top[0], hand[2] - top[2]).toFixed(3)};
 }
 export const REACH6 = {comfort_kneel: rigReach('comfort_kneel')};
-// Carry with a partner actor: the carried actor's origin follows the lead's hands each frame (pure: from the lead's sample).
-export function carryOrigin(leadSample, build = 'adult_m') { const h = handAt(leadSample, 'both', build), f = fk(leadSample, build); return {p: [h.p[0], h.p[1] - 1.6, h.p[2] + .55], yaw: 90 + f.root.R[0][2] * 0}; }
-
+// Carry with a partner (one call, both actors): where the carried actor's ORIGIN sits (lead's origin frame, lead units) for the lead's sample; kp = her scale / his.
+// piggyback: her hip pivot is a fixed point of his chest frame; hip-carry: a fixed point on his +x side. → {p: [x, y, z], yaw (degrees)}
+export const LEAD_OF = {carried: 'carry', carried_hip: 'carry_hip'};
+export function carryOrigin(leadSample, build = 'adult_m', verb = 'carry', kp = null) {
+  verb = LEAD_OF[verb] ?? verb; const c = CARRY[verb]; kp ??= c.kp;
+  if (verb === 'carry_hip') return {p: [c.origin[0], c.origin[1] - 2 * kp, c.origin[2]], yaw: c.yaw};
+  const W = fk(leadSample, build).waist, H = add(W.p, mv(W.R, c.chest)); return {p: [H[0], H[1] - 2 * kp, H[2]], yaw: 0};
+}
+// The partner's rise weight for a carry (0 on the ground → 1 on the lead): the lead's 8-frame rise, the partner starts 1 frame behind it (stagger).
+export const carryW = (verb, t, start) => smooth((t - 1 / FPS6 - (start + timing(VERBS[LEAD_OF[verb] ?? verb]).ant)) / (RISE - 1 / FPS6));   // starts 1 frame after the lead and lands with him (a 7-frame rise): the arms never close on a partner still in the air
+// ---- geometry: segment boxes and penetration (pure) --------------------------------------------------------------------------
+// Every body segment as an oriented box in the actor's origin frame (unscaled): {n: name, c: centre, R: 3×3, h: half extents}.
+const BOXES = [['lowerTorso', 'root', [0, 2.21, 0], [1, .19, .5]], ['torso', 'waist', [0, .81, 0], [1, .81, .5]], ['head', 'head', [0, .6, 0], [.6, .6, .6]]];
+export function bodyBoxes(sample, build = 'adult_m') {
+  const f = fk(sample, build), out = [], sq = 1 - (sample.squash ?? 0);
+  const put = (n, fr, c, h) => out.push({n, c: add(f[fr].p, mv(f[fr].R, c)), R: f[fr].R, h});
+  for (const [n, fr, c, h] of BOXES) put(n, fr, c, n === 'torso' || n === 'lowerTorso' ? [h[0], h[1] * sq, h[2] * sq] : h);
+  for (const side of ['left', 'right']) {
+    put(side + 'UpperArm', side + 'Shoulder', [0, -.5, 0], [.5, .5, .5]); put(side + 'Forearm', side + 'Elbow', [0, -.375, 0], [.5, .375, .5]); put(side + 'Hand', side + 'Wrist', [0, -.125, 0], [.5, .125, .5]);
+    put(side + 'Thigh', side + 'Hip', [0, -.5, 0], [.49, .5, .5]); put(side + 'Shin', side + 'Knee', [0, -.365, 0], [.49, .365, .5]); put(side + 'Foot', side + 'Ankle', [0, -.135, 0], [.49, .135, .5]);
+  }
+  return out;
+}
+// A boxes list placed in the world: origin position, yaw (rad) and the actor's scale k.
+export function placeBoxes(boxes, {at = [0, 0, 0], yaw = 0, k = 1} = {}) {
+  const Y = Ry(yaw); return boxes.map(b => ({n: b.n, c: add(at, mv(Y, b.c).map(x => x * k)), R: mm(Y, b.R), h: b.h.map(x => x * k)}));
+}
+const GRID = [-1, 0, 1], PTS = GRID.flatMap(x => GRID.flatMap(y => GRID.map(z => [x, y, z])));
+// Deepest interpenetration (studs) of the sample points of A's boxes (corners, edge and face midpoints, centre) inside B's boxes, and B's inside A's.
+// `skip(nameA, nameB)` ignores pairs; a bounding-sphere test skips boxes that cannot touch.
+export function penetration(A, B, {skip = () => false, margin = 0} = {}) {
+  let worst = 0, who = null, sum = 0; const Rt = new Map(B.concat(A).map(q => [q, tr(q.R)])), rad = new Map(B.concat(A).map(q => [q, Math.hypot(...q.h)]));
+  const test = (P, Q) => { for (const a of P) for (const q of Q) {
+    if (skip(a.n, q.n) || Math.hypot(a.c[0] - q.c[0], a.c[1] - q.c[1], a.c[2] - q.c[2]) > rad.get(a) + rad.get(q)) continue; const T = Rt.get(q);
+    for (const [x, y, z] of PTS) { const w = add(a.c, mv(a.R, [x * a.h[0], y * a.h[1], z * a.h[2]])), l = mv(T, sub3(w, q.c));
+      const d = Math.min(q.h[0] - Math.abs(l[0]), q.h[1] - Math.abs(l[1]), q.h[2] - Math.abs(l[2])) - margin; if (d > 0) sum += d; if (d > worst) { worst = d; who = `${a.n}→${q.n}`; } } } };
+  test(A, B); test(B, A); return {depth: +worst.toFixed(4), pair: who, sum: +sum.toFixed(3)};
+}
+// Face visibility (P3b): the fraction of the hero's front face (a 5 × 5 grid on the head's front quad) hidden from a camera looking along `camDir`
+// (origin frame of the hero, unit vector toward the camera) by any body box except the head itself — the hero's own arms and a partner's body count —
+// and the facing cosine (face normal · camDir). `others`: boxes already placed in the hero's origin frame (a partner: placeBoxes(..., {at, yaw, k})).
+export function faceVisibility(sample, camDir, others = [], build = 'adult_m', {only = null} = {}) {   // only: a RegExp on box names (e.g. just the hand and forearm of the shading arm)
+  const f = fk(sample, build), hd = f.head, boxes = bodyBoxes(sample, build).filter(b => b.n !== 'head').concat(others.filter(b => b.n !== 'head')).filter(b => !only || only.test(b.n));
+  const normal = mv(hd.R, [0, 0, 1]), cosf = normal[0] * camDir[0] + normal[1] * camDir[1] + normal[2] * camDir[2]; let hidden = 0, n = 0;
+  for (const gx of [-.5, -.25, 0, .25, .5]) for (const gy of [.2, .4, .6, .8, 1.0]) { n++;
+    const o = add(hd.p, mv(hd.R, [gx, gy, .62])); let hit = false;
+    for (const b of boxes) { const Rt = tr(b.R), lo = mv(Rt, sub3(o, b.c)), ld = mv(Rt, camDir); let t0 = 0, t1 = 1e9, ok = true;
+      for (let k = 0; k < 3 && ok; k++) { if (Math.abs(ld[k]) < 1e-9) { if (Math.abs(lo[k]) > b.h[k]) ok = false; } else { let a1 = (-b.h[k] - lo[k]) / ld[k], a2 = (b.h[k] - lo[k]) / ld[k]; if (a1 > a2) [a1, a2] = [a2, a1]; t0 = Math.max(t0, a1); t1 = Math.min(t1, a2); if (t0 > t1) ok = false; } }
+      if (ok && t1 > 1e-4) { hit = true; break; } }
+    if (hit) hidden++; }
+  return {hidden: +(hidden / n).toFixed(3), facing: +cosf.toFixed(3)};
+}
 // ---- gate measures (pure) ----------------------------------------------------------------------------------------------
 // Foot-corner contacts over a sampled clip: [{side, corner, from, to, slide}] (slide = max horizontal drift while y < eps).
 export function footContacts(frames, {eps = .015, travel = 0} = {}) {

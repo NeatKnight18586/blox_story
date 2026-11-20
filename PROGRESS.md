@@ -1647,3 +1647,25 @@ sits on the forearms arms-up and covers the lead's face; no weight in the lift),
 gasp_step_back (forearms point at the camera: blocks, step reads small), arms_cross (forearms merge into one block at the chest).
 Open: idle_alive silhouette; cycle ↔ verb hand-over uses the cycle's pose at the verb start (no blend into a cycle); partner move-in slides feet
 if the Brief does not block partners close; tools/accessories still ride the UpperArm.
+
+## P3b — acting fix pass on ccde553 (+ rage face) (2026-11-20)
+Plan: 1. Gates: idle_alive exempt from the silhouette gate → LIFE gate (weight shift ≥ 0.06 studs every 3–5 s, head turn 6–12° ≥ once per 5 s); idle
+between verbs becomes `idleLife(t, seed)` (subtle, feet locked). 2. Geometry gate: OBB boxes of every segment (`bodyBoxes`) + sampled penetration depth;
+authoring-time search (scripts/v2/acting6-solve.js, results baked as data) for hug, arms_cross poses. 3. Fixes: hug (IK onto the partner's back, ≤ 0.05
+penetration, squeeze beat 3 % / 4° / 6 f), carry → piggyback (kid) + hip-carry (LITTLE), 0.25 dip, 8-frame rise, 1-frame stagger (box carry kept as
+`carry_box`), gasp_step_back (open hands, stride ≥ 0.9, lean back 10°), arms_cross (stack offset .25 / .2, hands on opposite upper arms), look_around
+(hand above-and-beside the eyes, ±35°, torso 30 %). 4. Partners start ≤ 0.5 studs from the meeting mark: pure `partnerPlan`, plan.js check
+`partnerDistance`, walk-in (walk cycle) in episode.js when further; test. 5. Rage: four separate outward-bowing arcs, #E2364A + ink outline, top forehead
+corner (faces6) + phone-390 sheet; face gates re-run. 6. Sheets/gates/demo regenerated; regression Nobody 62 + Touch Grass 20; npm test, v2:test.
+Built: engine/acting6.js — idleLife (LIFE gate), partnerPlan/partnerIssues (plan.js `partnerDistance`, episode.js walk-in), pickVerb by `partnerScale`, HUGS (.62/.82/1.0, side embrace) + CARRY (piggyback, hip, box) as solved
+data, carryOrigin/carryW, qSlerp (opt-in `slerp`), bodyBoxes/penetration/faceVisibility, reachPose; verbs gasp_step_back, arms_cross, look_around, idle_alive redone; torso `squash` channel (actors.js,
+opt-in); faces6 rage = four separate outward arcs (#E2364A + ink, top corner). scripts/v2/acting6-solve.js (authoring search: hug|cross|pig2|hip2), acting6-ba.py → review/acting6/before-after-390.png.
+Numbers: foot slide max 0.0102; joints 0; phases all (anticipation 0.200, overshoot 0.120); silhouette XOR min 0.1875 (idle_alive exempt, LIFE: shifts every 3.29–4.67 s, hips 0.124 studs, head peaks 7.7–10.2°, 8 seeds × 60 s);
+gasp stride 1.0 / lean 10°; arms_cross 0.25 / 0.20; look_around ±35°, torso 0.30, hand never over the face; carry dip 0.249 / 8 frames / 1 f lag, penetration 0.035; carry_hip 0.044; squeeze 3 % / 4° / 6 f.
+HUG GATE FAILS (limit 0.05, after the solver passes): hug (.82) 0.075, hug_s (.62) 0.064, hug_l (adult) 0.009 PASS. Static key pose 0.046 / 0.060; the 4° rock adds ~0.03. Transit (arms arriving) 0.27–0.50 reported, not gated.
+Cause: a 2-wide chest + 1-thick arm blocks cannot wrap a partner's back without sinking ≥ ~0.05 (forearm centre must clear her back plane; reach 1.875); the three solved side embraces are the best found.
+Regression: Nobody 62/62, Touch Grass 20/20 byte-identical; npm test 0; v2:test 207 node + 64 py; faces6 gates PASS (rage redrawn).
+Decisions: hug = side embrace (lead's near arm round her back, hers round his neck), three poses by partner scale; piggyback hips ride a point of his chest frame; carried partner starts 1 frame after the lead and lands with him
+(7-frame rise: no arms closing on a partner in the air); contact verbs: no limb overshoot, no wrist lag, head-only drift; rock = whole-body root.roll; partner walk-in = walk cycle, straight line at 1.7 studs/s; carry with a prop and no partner = `carry_box`.
+Three weakest in before-after-390.png: (1) idle_alive: the subtle shift reads as plain standing at phone size; (2) hug: the embrace reads as two people side by side, the lead's arm is hidden behind her; (3) arms_cross / gasp: dark forearm blocks merge at 390 px, slab hands cannot show an open palm.
+Open: hug penetration (see above); partner of a hug starting within 0.5 studs still moves in over the anticipation (its feet slide ≤ 0.5); idle between verbs only before a track's first verb; tools/accessories still ride the UpperArm.

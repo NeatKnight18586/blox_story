@@ -9,7 +9,7 @@
  "acting": 6,
  "faceLife": true,
  "cues": "engine/fixtures/acting6/cues.json",
- "note": "P3 acting v6 smoke fixture: verbs keyed to seconds and to words (cues.json), a partner hug, a talk gesture on a stressed word.",
+ "note": "P3/P3b acting v6 smoke fixture: verbs on seconds and on words (cues.json), a talk gesture on a stressed word, and a hug whose partner starts 5+ studs from the meeting mark (walk-in).",
  "cast": {
   "hero": {
    "style": "v5",
@@ -33,9 +33,9 @@
    "troupe": "SECOND",
    "at": "street",
    "offset": [
-    3.2,
+    8.5,
     0,
-    4.6
+    5.2
    ],
    "yaw": -20,
    "keys": [
@@ -95,7 +95,7 @@
   {
    "id": "B",
    "size": "medium",
-   "frames": 48,
+   "frames": 132,
    "move": "static-drift",
    "from": {
     "position": [
@@ -115,7 +115,7 @@
     {
      "actor": "hero",
      "verb": "hug",
-     "at": 0.8,
+     "at": 4.4,
      "target": "second",
      "face": "hero_soft"
     }

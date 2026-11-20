@@ -303,17 +303,38 @@ const ACT6 = spec.acting === 6 ? await import('./acting6.js') : null;
 const actTracks = ACT6 ? await (async () => {
   const get = async u => { try { const r = await fetch(new URL('../' + u, import.meta.url)); return r.ok ? await r.json() : null; } catch { return null; } };
   const cues = await get(spec.cues ?? `stories/${spec.slug}/cues.json`) ?? await get(`stories/${spec.slug}/build/cues.json`), env = await get(`stories/${spec.slug}/build/envelope.json`);
-  const actions = shots.flatMap(sh => (sh.actions ?? []).map(a => typeof a.at === 'number' ? {...a, at: sh.start / FPS + a.at} : a));
+  const actions = shots.flatMap(sh => (sh.actions ?? []).map(a => { const b = typeof a.at === 'number' ? {...a, at: sh.start / FPS + a.at} : {...a}; if (b.target && cast[b.target] && cast[b.actor]) b.partnerScale = cast[b.target].a.root.scale.x / cast[b.actor].a.root.scale.x; return b; }));   // partnerScale picks the hug / carry variant
   return ACT6.compileActing(actions, {cues, env, talk: spec.talk ?? []});
 })() : null;
-// A partner verb (hug, comfort_kneel) places the partner from its lead's mark; carry with an actor follows the lead's hands.
+// Partners (hug, carry, comfort_kneel): the partner's meeting mark comes from the lead's mark; it must START within PARTNER_TOL of it —
+// a Brief that places it further away gets a walk-in (walk cycle, straight line at CYCLES.walk.v) ending at the verb's start (never a slide).
+const markOfActor = (name, t) => { const c = cast[name].c, m = markAt(c, t); return [m[0], m[2]]; };
+const actPlans = [];
+if (ACT6) for (const [pn, tr] of Object.entries(actTracks)) for (const [i, it] of tr.items.entries()) {
+  if (!it.partnerOf) continue;
+  const lead = cast[it.partnerOf], lt = actTracks[it.partnerOf].items.find(x => x.key === it.key && x.target === pn), ts = it.start, prev = tr.items[i - 1], avail = ts - (prev ? prev.start + ACT6.timing(ACT6.VERBS[prev.verb] ?? ACT6.VERBS.idle_alive).D : 0);
+  const plan = ACT6.partnerPlan({verb: lt?.verb ?? it.verb, leadPos: markOfActor(it.partnerOf, ts), leadYaw: (markOf(lead.c, ts).yaw ?? 0) * Math.PI / 180, leadScale: lead.a.root.scale.x, partnerPos: markOfActor(pn, ts), start: ts, avail, walkIn: it.walkIn !== false, facing: -(it.facing ?? 0)});
+  if (!plan) continue; it.plan = plan; actPlans.push({partner: pn, lead: it.partnerOf, verb: lt?.verb ?? it.verb, key: it.key, start: ts, ...plan});
+  if (plan.walk) tr.cycles.push({name: 'walk', start: plan.walk.t0, until: ts});
+}
 function actingOrigin(name, t, at, yaw) {
-  const tr = actTracks?.[name], it = tr?.items.findLast(x => x.start <= t); if (!it?.partnerOf) return [at, yaw];
+  const tr = actTracks?.[name]; if (!tr) return [at, yaw];
+  const wk = tr.items.find(x => x.plan?.walk && t >= x.plan.walk.t0 && t < x.start);   // walk-in: straight line, constant speed, turning to face the mark on arrival
+  if (wk) { const w = wk.plan.walk, u = (t - w.t0) / w.dur, to = w.to, from = w.from, h = Math.atan2(to[0] - from[0], to[1] - from[1]), e = x => x * x * (3 - 2 * x), turn = e(Math.min(1, (t - w.t0) / .2)), end = e(Math.max(0, (t - (wk.start - .3)) / .3));
+    const y1 = yaw + Math.atan2(Math.sin(h - yaw), Math.cos(h - yaw)) * turn, y2 = y1 + Math.atan2(Math.sin(wk.plan.yaw - y1), Math.cos(wk.plan.yaw - y1)) * end;
+    return [[from[0] + (to[0] - from[0]) * u, at[1], from[1] + (to[1] - from[1]) * u], y2]; }
+  const it = tr.items.findLast(x => x.start <= t); if (!it?.partnerOf) return [at, yaw];
   const lead = cast[it.partnerOf], lat = markAt(lead.c, t), lyaw = (markOf(lead.c, t).yaw ?? 0) * Math.PI / 180, k = lead.a.root.scale.x, rot = ([x, y, z]) => [x * Math.cos(lyaw) + z * Math.sin(lyaw), y, -x * Math.sin(lyaw) + z * Math.cos(lyaw)];
-  if (it.two.follow) { const o = ACT6.carryOrigin(ACT6.sampleActing(actTracks[it.partnerOf], t, {build: lead.a.build}).sample, lead.a.build), p = rot(o.p); return [[lat[0] + p[0] * k, lat[1] + p[1] * k, lat[2] + p[2] * k], lyaw + o.yaw * Math.PI / 180]; }
-  const off = ACT6.partnerOffset(it.partnerOf && actTracks[it.partnerOf].items.find(x => x.key === it.key)?.verb, {facing: -it.facing}), p = rot([off.x, 0, off.z]);
-  const T = ACT6.timing(ACT6.VERBS[it.verb]), w = Math.min(1, Math.max(0, (t - it.start) / (T.ant + ACT6.VERBS[it.verb].act))), e = w * w * (3 - 2 * w);   // the partner moves in over the anticipation + action (block partners at hug distance to keep their feet still)
-  return [[at[0] + (lat[0] + p[0] * k - at[0]) * e, at[1], at[2] + (lat[2] + p[2] * k - at[2]) * e], yaw + (lyaw + off.yaw * Math.PI / 180 - yaw) * e];
+  const T = ACT6.timing(ACT6.VERBS[it.verb]), sm = x => { x = Math.min(1, Math.max(0, x)); return x * x * (3 - 2 * x); };
+  const mark = it.plan?.mark ?? [at[0], at[2]], myaw = it.plan?.yaw ?? yaw;
+  if (it.two.follow) {   // carry: the partner stands on its mark through the pickup, then rides the lead's body (1-frame stagger behind the lead's rise)
+    const o = ACT6.carryOrigin(ACT6.sampleActing(actTracks[it.partnerOf], t, {build: lead.a.build}).sample, lead.a.build, it.verb, cast[name].a.root.scale.x / k), p = rot(o.p).map(x => x), w = ACT6.carryW(it.verb, t, it.start);
+    const rid = [lat[0] + p[0] * k, lat[1] + p[1] * k, lat[2] + p[2] * k], gnd = [mark[0], at[1], mark[1]];
+    return [rid.map((x, i) => gnd[i] + (x - gnd[i]) * w), myaw + (lyaw + o.yaw * Math.PI / 180 - myaw) * w];
+  }
+  if (it.plan?.walk) return [[mark[0], at[1], mark[1]], myaw];   // walked in: already on the mark
+  const e = sm((t - it.start) / (T.ant + ACT6.VERBS[it.verb].act));   // within PARTNER_TOL: moved in over the anticipation + action
+  return [[at[0] + (mark[0] - at[0]) * e, at[1], at[2] + (mark[1] - at[2]) * e], yaw + Math.atan2(Math.sin(myaw - yaw), Math.cos(myaw - yaw)) * e];
 }
 const markPos = {};
 // Where an actor's mark is at time t (pure: no posing). poseCast and A4 trails share it.
@@ -791,4 +812,4 @@ export function classHaze(n, {w = 390, h = 693, near = 15, far = 60, match = /^g
   const rms = a => { if (a.length < 50) return null; const mu = a.reduce((s, v) => s + v, 0) / a.length; return Math.sqrt(a.reduce((s, v) => s + (v - mu) ** 2, 0) / a.length); };
   const rn = rms(acc.near), rf = rms(acc.far); return {frame: n, nearRms: rn, farRms: rf, nearPx: acc.near.length, farPx: acc.far.length, ratio: rn && rf !== null ? rf / rn : null};
 }
-window.__episode = {groundFix: () => GROUNDFIX, sepMeasure, ceilingLuma, classHaze, satMeasure, depthLuma, lumaProbe, debug: {scene, renderer, camera, look, pool: U5B?.poolOf ?? null}, bake: BAKE, matcapBytes: MATCAP ? (n => Array.from(look.matcapBytes(n ?? spec.look4))) : null, breakdown, measureFrame, seasonMeasure, actorMask, readMeasure, gateMeasure, placesAt, lumaAt, inspectFrame, shotSpeed, END: FRAMES / FPS, anchors: Object.fromEntries(Object.entries(anchors).filter(([, a]) => a.camera).map(([k]) => [k, true])), renderAnchor, renderAnchorNudged, renderCamera, FPS, FRAMES, shots: shots.map(({id, start, frames, size, move, loc, subject, see, openHit, at, why, captionY, fit, spectacle, look: lk}) => ({id, start, frames, size, move, loc, subject, see, openHit: !!openHit, at, why, captionY, fit, spectacle: !!spectacle, look: lk})), renderFrame};
+window.__episode = {actingPlan: () => actPlans, groundFix: () => GROUNDFIX, sepMeasure, ceilingLuma, classHaze, satMeasure, depthLuma, lumaProbe, debug: {scene, renderer, camera, look, pool: U5B?.poolOf ?? null}, bake: BAKE, matcapBytes: MATCAP ? (n => Array.from(look.matcapBytes(n ?? spec.look4))) : null, breakdown, measureFrame, seasonMeasure, actorMask, readMeasure, gateMeasure, placesAt, lumaAt, inspectFrame, shotSpeed, END: FRAMES / FPS, anchors: Object.fromEntries(Object.entries(anchors).filter(([, a]) => a.camera).map(([k]) => [k, true])), renderAnchor, renderAnchorNudged, renderCamera, FPS, FRAMES, shots: shots.map(({id, start, frames, size, move, loc, subject, see, openHit, at, why, captionY, fit, spectacle, look: lk}) => ({id, start, frames, size, move, loc, subject, see, openHit: !!openHit, at, why, captionY, fit, spectacle: !!spectacle, look: lk})), renderFrame};

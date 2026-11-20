@@ -4,7 +4,7 @@
   "perClip": {
    "idle_alive": {
     "slide": 0.0004,
-    "contacts": 8,
+    "contacts": 12,
     "viol": 0,
     "skidFrames": 0
    },
@@ -21,8 +21,8 @@
     "skidFrames": 0
    },
    "gasp_step_back": {
-    "slide": 0.0016,
-    "contacts": 8,
+    "slide": 0.0042,
+    "contacts": 20,
     "viol": 0,
     "skidFrames": 0
    },
@@ -52,12 +52,12 @@
    },
    "arms_cross": {
     "slide": 0.0004,
-    "contacts": 8,
+    "contacts": 12,
     "viol": 0,
     "skidFrames": 0
    },
    "hug": {
-    "slide": 0.0087,
+    "slide": 0.0002,
     "contacts": 12,
     "viol": 0,
     "skidFrames": 0
@@ -94,7 +94,7 @@
    },
    "carry": {
     "slide": 0,
-    "contacts": 8,
+    "contacts": 12,
     "viol": 0,
     "skidFrames": 0
    },
@@ -146,8 +146,44 @@
     "viol": 0,
     "skidFrames": 0
    },
+   "hug_s": {
+    "slide": 0.0002,
+    "contacts": 12,
+    "viol": 0,
+    "skidFrames": 0
+   },
+   "hug_l": {
+    "slide": 0.0004,
+    "contacts": 12,
+    "viol": 0,
+    "skidFrames": 0
+   },
+   "carry_hip": {
+    "slide": 0.0018,
+    "contacts": 14,
+    "viol": 0,
+    "skidFrames": 0
+   },
+   "carry_box": {
+    "slide": 0,
+    "contacts": 8,
+    "viol": 0,
+    "skidFrames": 0
+   },
    "hug_b": {
-    "slide": 0.0029,
+    "slide": 0.0003,
+    "contacts": 12,
+    "viol": 0,
+    "skidFrames": 0
+   },
+   "hug_b_s": {
+    "slide": 0.0001,
+    "contacts": 12,
+    "viol": 0,
+    "skidFrames": 0
+   },
+   "hug_b_l": {
+    "slide": 0.0003,
     "contacts": 12,
     "viol": 0,
     "skidFrames": 0
@@ -155,6 +191,18 @@
    "comfort_b": {
     "slide": 0.0046,
     "contacts": 16,
+    "viol": 0,
+    "skidFrames": 0
+   },
+   "carried": {
+    "slide": 0.8251,
+    "contacts": 8,
+    "viol": 0,
+    "skidFrames": 0
+   },
+   "carried_hip": {
+    "slide": 0.5336,
+    "contacts": 9,
     "viol": 0,
     "skidFrames": 0
    },
@@ -205,7 +253,8 @@
   "excluded": {
    "skid_stop": "skid (flagged frames)",
    "slip": "banana-peel kick-out (flagged frames)",
-   "carried": "held off the ground"
+   "carried": "lifted off the ground by the lead",
+   "carried_hip": "lifted off the ground by the lead"
   },
   "pass": true
  },
@@ -235,8 +284,16 @@
    "knees_collapse": 0,
    "reach_for": 0,
    "comfort_kneel": 0,
+   "hug_s": 0,
+   "hug_l": 0,
+   "carry_hip": 0,
+   "carry_box": 0,
    "hug_b": 0,
+   "hug_b_s": 0,
+   "hug_b_l": 0,
    "comfort_b": 0,
+   "carried": 0,
+   "carried_hip": 0,
    "walk": 0,
    "sad_walk": 0,
    "sneak": 0,
@@ -247,8 +304,7 @@
    "beat": 0,
    "open_palms": 0,
    "head_nod": 0,
-   "head_shake": 0,
-   "carried": 0
+   "head_shake": 0
   },
   "total": 0,
   "pass": true
@@ -259,8 +315,8 @@
    "idle_alive": {
     "channel": "root.dx",
     "anticFrac": 0.2,
-    "antic": 0.042,
-    "stroke": 0.182,
+    "antic": 0.018,
+    "stroke": 0.078,
     "overshoot": 0.12,
     "key": 0.761,
     "pass": true
@@ -268,10 +324,10 @@
    "look_around": {
     "channel": "head.y",
     "anticFrac": 0.2,
-    "antic": 15.6,
-    "stroke": 67.6,
+    "antic": 10.499,
+    "stroke": 45.499,
     "overshoot": 0.12,
-    "key": 0.512,
+    "key": 0.637,
     "pass": true
    },
    "flinch": {
@@ -329,20 +385,20 @@
     "pass": true
    },
    "arms_cross": {
-    "channel": "rightShoulder.x",
+    "channel": "head.y",
     "anticFrac": 0.2,
-    "antic": 13.8,
-    "stroke": 59.8,
-    "overshoot": 0.121,
+    "antic": 3,
+    "stroke": 13,
+    "overshoot": 0.12,
     "key": 0.412,
     "pass": true
    },
    "hug": {
-    "channel": "rightShoulder.x",
+    "channel": "head.y",
     "anticFrac": 0.2,
-    "antic": 29.085,
-    "stroke": 126.036,
-    "overshoot": 0.121,
+    "antic": 3.6,
+    "stroke": 15.6,
+    "overshoot": 0.12,
     "key": 0.424,
     "pass": true
    },
@@ -392,12 +448,12 @@
     "pass": true
    },
    "carry": {
-    "channel": "waist.x",
+    "channel": "root.dy",
     "anticFrac": 0.2,
-    "antic": 26,
-    "stroke": 32,
-    "overshoot": 0.122,
-    "key": 0.499,
+    "antic": 0.25,
+    "stroke": 0.15,
+    "overshoot": 0.12,
+    "key": 0.774,
     "pass": true
    },
    "jump": {
@@ -472,6 +528,33 @@
     "key": 0.711,
     "pass": true
    },
+   "hug_s": {
+    "channel": "head.y",
+    "anticFrac": 0.2,
+    "antic": 3.6,
+    "stroke": 15.6,
+    "overshoot": 0.12,
+    "key": 0.424,
+    "pass": true
+   },
+   "hug_l": {
+    "channel": "head.y",
+    "anticFrac": 0.2,
+    "antic": 3.6,
+    "stroke": 15.6,
+    "overshoot": 0.12,
+    "key": 0.424,
+    "pass": true
+   },
+   "carry_hip": {
+    "channel": "root.dy",
+    "anticFrac": 0.2,
+    "antic": 0.25,
+    "stroke": 0.18,
+    "overshoot": 0.12,
+    "key": 0.774,
+    "pass": true
+   },
    "tumble": {
     "channel": "root.lean",
     "antic": 10,
@@ -483,16 +566,17 @@
  },
  "silhouette": {
   "threshold": 0.12,
-  "measure": "XOR(KEY, rest) / rest area, 300×375 magenta, no AA, same camera",
+  "measure": "XOR(KEY, rest) / rest area, 300×375 magenta, no AA, same camera; idle_alive exempt",
   "perVerb": {
    "idle_alive": {
-    "xor": 0.1073,
-    "area": -0.0222,
-    "pass": false
+    "xor": 0.0498,
+    "area": -0.0053,
+    "exempt": "LIFE gate (owner Decision 1)",
+    "pass": true
    },
    "look_around": {
-    "xor": 0.3175,
-    "area": 0.0359,
+    "xor": 0.2896,
+    "area": 0.0411,
     "pass": true
    },
    "flinch": {
@@ -501,8 +585,8 @@
     "pass": true
    },
    "gasp_step_back": {
-    "xor": 0.5359,
-    "area": -0.0351,
+    "xor": 0.4204,
+    "area": -0.0533,
     "pass": true
    },
    "point": {
@@ -526,13 +610,13 @@
     "pass": true
    },
    "arms_cross": {
-    "xor": 0.2565,
-    "area": -0.0701,
+    "xor": 0.3071,
+    "area": -0.1642,
     "pass": true
    },
    "hug": {
-    "xor": 0.3213,
-    "area": -0.1771,
+    "xor": 0.2235,
+    "area": -0.0465,
     "pass": true
    },
    "grab": {
@@ -541,8 +625,8 @@
     "pass": true
    },
    "tug_pull": {
-    "xor": 0.4956,
-    "area": -0.0442,
+    "xor": 0.4951,
+    "area": -0.0447,
     "pass": true
    },
    "push": {
@@ -561,8 +645,8 @@
     "pass": true
    },
    "carry": {
-    "xor": 0.3275,
-    "area": 0.0177,
+    "xor": 0.4502,
+    "area": 0.1548,
     "pass": true
    },
    "jump": {
@@ -605,16 +689,224 @@
     "area": -0.0262,
     "pass": true
    },
+   "hug_s": {
+    "xor": 0.2137,
+    "area": -0.0759,
+    "pass": true
+   },
+   "hug_l": {
+    "xor": 0.1875,
+    "area": -0.0416,
+    "pass": true
+   },
+   "carry_hip": {
+    "xor": 0.2864,
+    "area": 0.0068,
+    "pass": true
+   },
    "tumble": {
     "xor": 1.7688,
     "area": -0.2312,
     "pass": true
    }
   },
-  "min": 0.1073,
-  "failing": [
-   "idle_alive 0.1073"
-  ],
+  "min": 0.1875,
+  "failing": [],
+  "pass": true
+ },
+ "life": {
+  "seeds": {
+   "1": {
+    "shifts": 15,
+    "gapMin": 3.29,
+    "gapMax": 4.67,
+    "hipTravel": 0.124,
+    "headPeakMax": 10.2,
+    "headPeakMin": 7.7,
+    "everyFiveSecondsOk": true,
+    "pass": true
+   },
+   "2": {
+    "shifts": 15,
+    "gapMin": 3.13,
+    "gapMax": 4.67,
+    "hipTravel": 0.124,
+    "headPeakMax": 10.4,
+    "headPeakMin": 7.8,
+    "everyFiveSecondsOk": true,
+    "pass": true
+   },
+   "3": {
+    "shifts": 15,
+    "gapMin": 3.17,
+    "gapMax": 4.79,
+    "hipTravel": 0.124,
+    "headPeakMax": 10.3,
+    "headPeakMin": 7.7,
+    "everyFiveSecondsOk": true,
+    "pass": true
+   },
+   "4": {
+    "shifts": 16,
+    "gapMin": 3.21,
+    "gapMax": 4.75,
+    "hipTravel": 0.124,
+    "headPeakMax": 10.4,
+    "headPeakMin": 7.5,
+    "everyFiveSecondsOk": true,
+    "pass": true
+   },
+   "5": {
+    "shifts": 15,
+    "gapMin": 3.13,
+    "gapMax": 4.75,
+    "hipTravel": 0.124,
+    "headPeakMax": 10.4,
+    "headPeakMin": 7.5,
+    "everyFiveSecondsOk": true,
+    "pass": true
+   },
+   "6": {
+    "shifts": 15,
+    "gapMin": 3.38,
+    "gapMax": 4.71,
+    "hipTravel": 0.124,
+    "headPeakMax": 10.3,
+    "headPeakMin": 7.6,
+    "everyFiveSecondsOk": true,
+    "pass": true
+   },
+   "7": {
+    "shifts": 16,
+    "gapMin": 3.21,
+    "gapMax": 4.63,
+    "hipTravel": 0.124,
+    "headPeakMax": 10.4,
+    "headPeakMin": 8.8,
+    "everyFiveSecondsOk": true,
+    "pass": true
+   },
+   "8": {
+    "shifts": 15,
+    "gapMin": 3.17,
+    "gapMax": 4.75,
+    "hipTravel": 0.124,
+    "headPeakMax": 10.1,
+    "headPeakMin": 7.6,
+    "everyFiveSecondsOk": true,
+    "pass": true
+   }
+  },
+  "pass": true
+ },
+ "fixes": {
+  "gasp_step_back": {
+   "strideStuds": 1,
+   "leanBackDeg": 10,
+   "hands": [
+    {
+     "side": "left",
+     "x": -2.08,
+     "y": 3.4,
+     "z": 0.48
+    },
+    {
+     "side": "right",
+     "x": 2.08,
+     "y": 3.4,
+     "z": 0.48
+    }
+   ],
+   "pass": true
+  },
+  "arms_cross": {
+   "higherBy": 0.25,
+   "inFrontBy": 0.2,
+   "tol": 0.03,
+   "pass": true
+  },
+  "look_around": {
+   "headLeftDeg": -35,
+   "headRightDeg": 35,
+   "torsoFollow": 0.3,
+   "faceHiddenByHandMax": 0,
+   "faceHiddenByForearmMax": 0.08,
+   "handBottomAboveHeadTop": 0.06,
+   "handBesideHeadX": 1.97,
+   "pass": true
+  },
+  "hug": {
+   "penetrationMax": 0.075,
+   "pair": "rightHand→leftThigh",
+   "at": 0.71,
+   "transitMax": 0.2658,
+   "transitPair": "leftForearm→rightForearm",
+   "transitAt": 0.25,
+   "partnerScale": 0.82,
+   "squeezeCompress": 0.03,
+   "rockDeg": 4,
+   "beatFrames": 6,
+   "faceHiddenMax": 0.16,
+   "pass": false
+  },
+  "hug_s": {
+   "penetrationMax": 0.0643,
+   "pair": "rightHand→rightHand",
+   "at": 0.63,
+   "transitMax": 0.3635,
+   "transitPair": "head→rightForearm",
+   "transitAt": 0.21,
+   "partnerScale": 0.62,
+   "squeezeCompress": 0.03,
+   "rockDeg": 4,
+   "beatFrames": 6,
+   "faceHiddenMax": 0,
+   "pass": false
+  },
+  "hug_l": {
+   "penetrationMax": 0.0089,
+   "pair": "rightHand→torso",
+   "at": 0.75,
+   "transitMax": 0.4992,
+   "transitPair": "leftUpperArm→torso",
+   "transitAt": 0.21,
+   "partnerScale": 1,
+   "squeezeCompress": 0.03,
+   "rockDeg": 4,
+   "beatFrames": 6,
+   "faceHiddenMax": 0.12,
+   "pass": true
+  },
+  "carry": {
+   "dipStuds": 0.249,
+   "riseFrames": 8,
+   "partnerLagFrames": 1,
+   "penetrationAfterLift": 0.0347,
+   "pair": "leftShin→leftForearm",
+   "at": 0.92,
+   "partnerScale": 0.82,
+   "faceHiddenMax": 0,
+   "pass": true
+  },
+  "carry_hip": {
+   "dipStuds": 0.248,
+   "riseFrames": 8,
+   "partnerLagFrames": 1,
+   "penetrationAfterLift": 0.0445,
+   "pair": "torso→rightHand",
+   "at": 1.38,
+   "partnerScale": 0.62,
+   "faceHiddenMax": 0.04,
+   "pass": true
+  },
+  "partnerPlan": {
+   "near": true,
+   "walkIn": true,
+   "noRoom": true,
+   "walkInOff": true,
+   "tolerance": 0.5,
+   "pass": true
+  },
   "pass": false
  },
  "determinism": {
@@ -636,21 +928,13 @@
  },
  "info": {
   "wristArcs": {
-   "idle_alive.right": {
-    "chord": 0.366,
-    "bow": 0.736
-   },
-   "look_around.right": {
-    "chord": 2.813,
-    "bow": 0.599
-   },
    "gasp_step_back.left": {
-    "chord": 2.159,
-    "bow": 0.608
+    "chord": 1.97,
+    "bow": 0.491
    },
    "gasp_step_back.right": {
-    "chord": 2.159,
-    "bow": 0.608
+    "chord": 1.97,
+    "bow": 0.491
    },
    "point.right": {
     "chord": 2.7,
@@ -675,22 +959,6 @@
    "shrug.right": {
     "chord": 2.011,
     "bow": 0.257
-   },
-   "arms_cross.left": {
-    "chord": 2.048,
-    "bow": 0.377
-   },
-   "arms_cross.right": {
-    "chord": 2.299,
-    "bow": 0.344
-   },
-   "hug.left": {
-    "chord": 2.892,
-    "bow": 0.144
-   },
-   "hug.right": {
-    "chord": 2.894,
-    "bow": 0.153
    },
    "grab.right": {
     "chord": 2.094,

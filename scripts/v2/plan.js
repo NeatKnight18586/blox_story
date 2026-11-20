@@ -19,7 +19,7 @@ const spec = JSON.parse(readFileSync(specPath, 'utf8')), cues = JSON.parse(readF
 const shots = layoutShots(spec);
 
 const server = await startServer(), browser = await launch();
-let info, meas = [], insertH = {};
+let info, meas = [], insertH = {}, actingPlans = [];
 try {
   const page = await browser.newPage({viewport: {width: 360, height: 640}});
   const errors = []; page.on('pageerror', e => errors.push(e.message));
@@ -42,12 +42,15 @@ try {
   if ((spec.format === 5 || spec.format === 6) && spec.framing === 'p3') { const fh = await page.evaluate(list => list.map(s => { const r = window.__episode.readMeasure(s.mid, {subject: s.subject}); return [s.id, r.head?.box?.allFront ? r.head.box.h : 0]; }),
     shots.filter(s => s.subject && ['medium', 'close'].includes(s.size) && !s.back && s.move !== 'splitScreen').map(s => ({id: s.id, subject: s.subject, mid: s.start + Math.floor(s.frames / 2)})));
     for (const [id, h] of fh) shots.find(s => s.id === id).faceH = +h.toFixed(3); }   // Toy House final fix (owner P3): people medium/close, face 12–35 %
+  if (spec.acting === 6) actingPlans = await page.evaluate(() => window.__episode.actingPlan());   // P3b: partner meeting marks (engine/acting6.js partnerPlan)
 } finally { await browser.close(); await server.close(); }
 
 const hero = spec.hero ?? Object.entries(spec.cast ?? {}).find(([, c]) => c.troupe === 'HERO')?.[0];   // FORMAT_V6 rule 5
 const r = checkPlan({shots, cues, fps, end: spec.end, info, format: spec.format, hero});
 const sz = checkSeason({spec, shots, cues, fps, end: spec.end, info, meas});
 r.errors.push(...sz.errors, ...labelIssues(spec));
+if (actingPlans.length) { const {partnerIssues} = await import('../../engine/acting6.js'); r.errors.push(...partnerIssues(actingPlans)); }   // P3b owner Decision 3: partners start ≤ 0.5 studs from the mark, or walk in
+r.stats.partners = actingPlans.map(p => ({partner: p.partner, verb: p.verb, dist: p.dist, walkIn: p.walk ? p.walk.dur : null, ok: p.ok}));
 if (spec.format === 5 || spec.format === 6) { const p5 = plan5(shots, {fps, cues, insertH, end: spec.end, ...(spec.format === 6 ? {len: [0, 125]} : {})}); r.errors.push(...p5.errors); r.stats.format5 = {lengthS: p5.lengthS, averageShotS: p5.averageShotS, insertH}; }   // format v5 rules   // owner rule §2c: noLabels (Season 1 / labels: false)
 r.warnings.push(...sz.warnings); r.stats.season = !!spec.season; r.stats.framing = sz.stats.framing; r.stats.uiItems = sz.stats.ui; r.stats.eggs = sz.stats.eggs; r.stats.overlaps = sz.stats.overlaps; r.stats.crowdCover = sz.stats.cover; r.stats.clockBoard = sz.stats.clockBoard;
 const table = shots.map((s, i) => ({id: s.id, beat: !!s.beat, t: +(s.start / fps).toFixed(2), dur: +(s.frames / fps).toFixed(2), size: s.size, move: s.move, loc: s.loc, speed: +(info[i].speed * 100).toFixed(0),

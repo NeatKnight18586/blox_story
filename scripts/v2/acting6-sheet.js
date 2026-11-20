@@ -15,9 +15,9 @@ import {keyTimes, DEMO} from '../../engine/acting6-reel.js';
 const out = 'review/acting6', raw = 'renders/acting6', noDemo = process.argv.includes('--no-demo');
 await mkdir(out, {recursive: true}); await mkdir(`${raw}/demo`, {recursive: true});
 const h6 = JSON.parse(await readFile('cast/hero6.json', 'utf8')), t6 = JSON.parse(await readFile('cast/troupe6.json', 'utf8'));
-const cast = {B: {...h6.HERO, faceStyle: 'v6'}, P: {...slotPreset6('SECOND', t6), faceStyle: 'v6', face: 'smile'}};
+const cast = {B: {...h6.HERO, faceStyle: 'v6'}, P: {...slotPreset6('SECOND', t6), faceStyle: 'v6', face: 'smile'}, P62: {...slotPreset6('LITTLE', t6), faceStyle: 'v6', face: 'smile'}, P100: {...slotPreset6('ELDER', t6), faceStyle: 'v6', face: 'smile'}};
 await writeFile(`${raw}/cast.json`, JSON.stringify({cast}));
-const ROWS = [...VERB_NAMES, 'tumble'], CW = 240, CH = 300;
+const ROWS = [...VERB_NAMES, 'hug_s', 'hug_l', 'carry_hip', 'tumble'], CW = 240, CH = 300;
 const server = await startServer(), browser = await launch(), result = {silhouette: {}, determinism: null};
 try {
   const open = async () => { const page = await browser.newPage({viewport: {width: 400, height: 400}}), errors = []; page.on('pageerror', e => errors.push(e.message));

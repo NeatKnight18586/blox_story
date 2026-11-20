@@ -8,7 +8,9 @@ const D = Math.PI / 180;
 export const FACE = {idle_alive: 'hero_wink', look_around: 'hero_scheme', flinch: 'hero_shock', gasp_step_back: 'hero_shock', point: 'hero_grin', cheer: 'hero_grin', facepalm: 'hero_cry',
   shrug: 'hero_soft', arms_cross: 'hero_scheme', hug: 'hero_soft', grab: 'hero_scheme', tug_pull: 'hero_rage', push: 'hero_rage', throw: 'hero_grin', catch: 'hero_shock', carry: 'hero_soft',
   jump: 'hero_grin', land: 'hero_grin', trip_fall: 'hero_panic', slip: 'hero_panic', bonk_dizzy: 'hero_shock', knees_collapse: 'hero_cry', reach_for: 'hero_panic', comfort_kneel: 'hero_soft', tumble: 'hero_panic'};
-const PROPS = {grab: 'ball', throw: 'ball', catch: 'ball', carry: 'box', tug_pull: 'rope'};
+const PROPS = {grab: 'ball', throw: 'ball', catch: 'ball', carry_box: 'box', tug_pull: 'rope'};
+// The review stage's partner actors by scale: SECOND .82 (P), LITTLE .62 (P62), an adult .1.0 (P100)
+export const PARTNER_ID = {hug: 'P', hug_s: 'P62', hug_l: 'P100', carry: 'P', carry_hip: 'P62', comfort_kneel: 'P'}, PARTNER_K = {P: .82, P62: .62, P100: 1};
 const rot = (yaw, [x, y, z]) => { const c = Math.cos(yaw * D), s = Math.sin(yaw * D); return [x * c + z * s, y, -x * s + z * c]; };
 const addv = (a, b) => a.map((x, i) => x + b[i]);
 
@@ -18,11 +20,13 @@ export function verbShot(name, t, {yaw = null} = {}) {
   const isCycle = A.CYCLE_NAMES.includes(name), v = A.VERBS[name], y0 = yaw ?? -(v?.cam ?? (isCycle ? 70 : name === 'tumble' ? 80 : 30));
   const lead = isCycle ? A.sampleCycle(name, t) : name === 'tumble' ? A.sampleTumble(t) : A.sampleVerb(name, t);
   const actors = [{id: 'B', origin: [0, 0, 0], yaw: y0, sample: lead.sample, face: FACE[name] ?? 'hero_wink'}], props = [];
-  if (v?.two && !v.two.follow) {
-    const off = A.partnerOffset(name), pv = v.two.partner, pt = t - A.timing(v).key + A.timing(A.VERBS[pv]).key, ps = A.sampleVerb(pv, Math.max(0, pt));
-    actors.push({id: 'P', origin: rot(y0, [off.x, 0, off.z]), yaw: y0 + off.yaw, sample: ps.sample, face: name === 'comfort_kneel' ? 'cry' : 'warm'});
+  if (v?.two) {
+    const off = A.partnerOffset(name), pv = v.two.partner, id = PARTNER_ID[name] ?? 'P', k = PARTNER_K[id], T = A.timing(v), pt = Math.max(0, t - T.key + A.timing(A.VERBS[pv]).key), ps = A.sampleVerb(pv, pt);
+    let o = [off.x, 0, off.z], py = off.yaw;
+    if (v.two.follow) { const c = A.carryOrigin(lead.sample, 'adult_m', name, k), w = A.carryW(name, t, 0); o = [0, 1, 2].map(i => ([off.x, 0, off.z][i]) + (c.p[i] - [off.x, 0, off.z][i]) * w); py = off.yaw + (c.yaw - off.yaw) * w; }
+    actors.push({id, origin: rot(y0, o), yaw: y0 + py, sample: ps.sample, face: name === 'comfort_kneel' ? 'cry' : 'warm'});
   }
-  if (name === 'carry') {   // the prop version on the sheet; the partner version is carryShot
+  if (name === 'carry_box') {
     const h = A.handAt(lead.sample, 'both'); props.push({id: 'box', kind: 'box', p: rot(y0, h.p), yaw: y0 + (lead.sample.root.yaw / D)});
   } else if (PROPS[name]) {
     const tm = A.timing(v), mode = v.prop, side = 'right', key = tm.key;
@@ -37,11 +41,6 @@ export function verbShot(name, t, {yaw = null} = {}) {
     }
   }
   return {actors, props};
-}
-// carry with a partner actor: the carried actor follows the lead's hands every frame.
-export function carryShot(t, {yaw = -50} = {}) {
-  const lead = A.sampleVerb('carry', t), o = A.carryOrigin(lead.sample), ps = A.sampleVerb('carried', 3 + t, {build: 'adult_m'});   // the partner is held from the start (the carried pose + its moving hold)
-  return {actors: [{id: 'B', origin: [0, 0, 0], yaw, sample: lead.sample, face: 'hero_soft'}, {id: 'P', origin: rot(yaw, o.p), yaw: yaw + o.yaw, sample: ps.sample, face: 'grin'}], props: []};
 }
 // World points of a shot (FK of every actor, origin + yaw applied): camera fitting.
 export function shotPoints(shot) {
@@ -63,7 +62,7 @@ export function fitCamera(shots, aspect = 1, {fov = 30, margin = 1.18, minH = 5.
 // The three key times of a verb for verbs.png: anticipation · KEY (action / apex / contact) · settle.
 export const keyTimes = name => { if (name === 'tumble') return [.3, 1.0, 2.4]; const T = A.timing(A.VERBS[name]); return [T.ant, T.key, T.end]; };
 // demo.mp4: every verb once (24 + tumble), hard cuts, ~0.8 s each around its KEY (anticipation in, settle out).
-export const DEMO = {seconds: 20, fps: 24, clips: [...A.VERB_NAMES, 'tumble']};
+export const DEMO = {seconds: 20, fps: 24, clips: [...A.VERB_NAMES, 'carry_hip', 'tumble']};
 export function demoClips() {
   const n = DEMO.clips.length, F = DEMO.seconds * DEMO.fps;
   return DEMO.clips.map((name, i) => { const f0 = Math.round(i * F / n), f1 = Math.round((i + 1) * F / n), len = (f1 - f0) / DEMO.fps, key = name === 'tumble' ? .55 : A.timing(A.VERBS[name]).key;
@@ -72,11 +71,11 @@ export function demoClips() {
 }
 export function demoFrame(f) {
   const c = demoClips().find(k => f >= k.f0 && f < k.f1), t = c.t0 + (f - c.f0) / DEMO.fps;
-  const shot = c.name === 'carry' ? carryShot(t) : verbShot(c.name, t);
+  const shot = verbShot(c.name, t);
   return {clip: c.name, t, shot};
 }
 export function demoCamera(name, aspect) {
   const c = demoClips().find(k => k.name === name), shots = [];
-  for (let i = 0; i <= 8; i++) { const t = c.t0 + c.len * i / 8; shots.push(name === 'carry' ? carryShot(t) : verbShot(name, t)); }
+  for (let i = 0; i <= 8; i++) { const t = c.t0 + c.len * i / 8; shots.push(verbShot(name, t)); }
   return fitCamera(shots, aspect, {margin: 1.12});
 }

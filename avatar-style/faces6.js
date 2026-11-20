@@ -160,10 +160,11 @@ function fillItems(spec, mouthPrim, eyePrims, opts = {}) {
       add(ell(cx(1) - s * .014, cyy(1) - .012, .01, .016, 12), P.waterHi); }
     if (o.sweat) { const [x, y] = o.sweat, drop = [x, y + .075, x, y - .025, .05];   // the faces5 drop: tip up, round end below
       add(primItem(['d', 0, ...drop]).pts, P.water); add(ell(x - .017, y - .03, .012, .018, 12), P.waterHi); out.push({...primItem(['d', SW * .7, ...drop]), color: P.ink, role, ink: true}); }
-  } else if (role === 'anger') {   // the classic mark: four quarter-circle arcs, convex outward, a broken cross; red on an ink outline
-    const cx = .375, cy = .375, r = .078, g = .066;
-    for (let k = 0; k < 4; k++) { const th = Math.PI / 4 + k * Math.PI / 2, px = cx + Math.cos(th) * g, py = cy + Math.sin(th) * g;
-      out.push({line: Array.from({length: 9}, (_, i) => { const a = th - Math.PI * .25 + i / 8 * Math.PI * .5; return [px + Math.cos(a) * r, py + Math.sin(a) * r]; }), w: SW * .9, outline: SW * .28, color: P.anger, role}); } }
+  } else if (role === 'anger') {   // P3b owner: the classic mark — four SEPARATE arcs around a shared centre, each bowing OUTWARD (a ")" turned to face away from the centre), clear gaps between them; red on an ink outline; top corner of the forehead
+    const cx = .31, cy = .31, d = .09, w = .036, bow = .046;
+    for (let k = 0; k < 4; k++) { const th = k * Math.PI / 2, ux = Math.cos(th), uy = Math.sin(th), vx = -uy, vy = ux;
+      const pt = (a, l) => [cx + ux * (d + a) + vx * l, cy + uy * (d + a) + vy * l];   // a: along the outward axis, l: along the arc's chord
+      out.push({line: Array.from({length: 9}, (_, i) => { const l = -w + 2 * w * i / 8, a = bow * (1 - (l / w) ** 2); return pt(a, l); }), w: SW * .72, outline: SW * .24, color: P.anger, role}); } }
   else if (role === 'sparkle') for (const [x, y, r] of o.at) { add(star(x, y, r), P.sparkle); out.push({line: star(x, y, r), w: SW * .5, color: P.ink, role, closed: true, ink: true}); }
   return out;
 }

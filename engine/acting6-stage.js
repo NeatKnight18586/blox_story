@@ -27,7 +27,7 @@ for (const m of Object.values(propMesh)) { m.castShadow = true; m.visible = fals
 
 export function render(desc, w, h, mode = 'studio') {
   const aspect = w / h, fr = desc.kind === 'demo' ? R.demoFrame(desc.f) : null;
-  const shot = fr ? fr.shot : desc.name === 'carry2' ? R.carryShot(desc.t) : R.verbShot(desc.name, desc.t, {yaw: desc.yaw ?? null});
+  const shot = fr ? fr.shot : R.verbShot(desc.name, desc.t, {yaw: desc.yaw ?? null});
   for (const a of Object.values(actors)) a.root.visible = false;
   for (const s of shot.actors) { const a = actors[s.id]; a.root.visible = true; applyPose6(a, s.sample, {position: s.origin, yaw: s.yaw * Math.PI / 180}); if (a.faceStyle === 'v6') setFace6(a, s.face ?? 'smile'); }
   for (const m of Object.values(propMesh)) m.visible = false;
@@ -39,4 +39,4 @@ export function render(desc, w, h, mode = 'studio') {
   camera.aspect = aspect; camera.fov = cam.fov ?? 30; camera.position.set(...cam.position); camera.lookAt(...cam.target); camera.updateProjectionMatrix();
   scene.updateMatrixWorld(true); r.render(scene, camera); return r.domElement.toDataURL('image/png');
 }
-window.__act6 = {render, camera: (name, ts, aspect, yaw) => R.fitCamera((Array.isArray(ts) ? ts : [0, ...R.keyTimes(name)]).map(tt => name === 'carry2' ? R.carryShot(tt) : R.verbShot(name, tt, {yaw})), aspect)};   // one camera for every pose of a verb (sheets, silhouettes)
+window.__act6 = {render, camera: (name, ts, aspect, yaw) => R.fitCamera((Array.isArray(ts) ? ts : [0, ...R.keyTimes(name)]).map(tt => R.verbShot(name, tt, {yaw})), aspect)};   // one camera for every pose of a verb (sheets, silhouettes)
