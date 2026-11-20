@@ -28,17 +28,19 @@ for s in R['stills']:
          'skyPass': None if s['skyMax'] is None else sky <= s['skyMax'] * 100, 'horizonCover': hz, 'layers': cov, 'ms': s['ms'],
          'feature': s['feature'], 'featureCap': feat[0]['capFrac'] if feat else None, 'featurePass': None if not s['feature'] else bool(feat and feat[0]['capFrac'] >= .03)}
     if 'buildings' in R['ids'][s['id']]: e['buildings'], e['archetypes'] = buildings(R['ids'][s['id']]['buildings'])
+    if 'hill' in R['ids'][s['id']]: e['hillPlinthPct'] = round(float((rgba(R['ids'][s['id']]['hill']).sum(2) == 765).mean()) * 100, 2)
     if s.get('golden'):   # §1c: clouds only in the top 45 %, rooftops fill the bottom 25 %, luma .44–.48
         a = rgba(R['ids'][s['id']]['layers']); H = a.shape[0]; cl = np.abs(a - [255, 0, 255]).sum(2) == 0; town = (a.sum(2) > 0) & ~cl
         e['golden'] = {'cloudBelowTop45': round(float(cl[int(H * .45):].sum()) / max(1, cl.sum()) * 100, 2), 'cloudPct': round(float(cl.mean()) * 100, 1),
                        'rooftopsBottom25': round(float(town[int(H * .75):].mean()) * 100, 1), 'lumaTarget': [.44, .48], 'lumaTargetPass': .44 <= luma <= .48}
     if 'plinth' in R['ids'][s['id']]:
-        m = rgba(R['ids'][s['id']]['plinth']).sum(2) == 765; ys, xs = np.nonzero(m); L = lstar(c); Y = c @ np.array([.2126, .7152, .0722])
+        pa = rgba(R['ids'][s['id']]['plinth']); m = (pa.sum(2) == 765) | ((pa[..., 0] == 0) & (pa[..., 1] == 255) & (pa[..., 2] == 255)); t2 = (pa[..., 0] == 0) & (pa[..., 1] == 255) & (pa[..., 2] == 255); ys, xs = np.nonzero(m); L = lstar(c); Y = c @ np.array([.2126, .7152, .0722])
         y0, y1, x0, x1 = ys.min(), ys.max(), xs.min(), xs.max(); h, w = y1 - y0, x1 - x0
         ring = np.zeros_like(m); ring[max(0, y0 - h):min(m.shape[0], y1 + h), max(0, x0 - w):min(m.shape[1], x1 + w)] = True; ring &= ~m
         refl = np.zeros_like(m); refl[y1 + 2:min(m.shape[0], y1 + 2 + h), x0:x1] = True; refl &= ~m
         e['plinth'] = {'Lplinth': round(float(L[m].mean()), 1), 'Lbg': round(float(L[ring].mean()), 1), 'contrast': round(float(abs(L[m].mean() - L[ring].mean())), 1),
-                       'reflection': round(float(Y[refl].mean() / Y[m].mean()), 3) if refl.any() else None, 'px': int(m.sum())}
+                       'reflection': round(float(Y[refl].mean() / Y[m].mean()), 3) if refl.any() else None, 'px': int(m.sum()),
+                       'tier2SideMinRowL': round(float(min(L[r][t2[r]].mean() for r in range(L.shape[0]) if t2[r].sum() > 20)), 1) if t2.any() else None}
     out['stills'].append(e)
 for v in R['void']: out['void'].append({'id': v['id'], 'mood': v['mood'], 'voidPx': v['voidPx'], 'ms': v['ms']})
 for sid in R['WIDES']:
@@ -60,7 +62,7 @@ out['summary'] = {
              'pass': st['hillWide']['skyPct'] <= 40 and st['st5']['skyPct'] <= 15 and (min(hzs) if hzs else 0) >= 70},
   'B9_font': setup['font'], 'B10_text': sorted(set(setup['text'])),
   'B11_ms': {'still540': round(np.mean([s['ms'] for s in out['stills']])), 'previz160': round(np.mean([v['ms'] for v in out['void']])), 'build': {k: v for k, v in R['timing'].items()}},
-  'golden': st['st8'].get('golden'), 'boxStreet': st['st1'].get('buildings'),
+  'golden': st['st8'].get('golden'), 'boxStreet': st['st1'].get('buildings'), 'coreRowHill': st['st2'].get('hillPlinthPct'), 'plinthClose': st['st5'].get('plinth'),
   'counts': setup['counts'], 'crowd': setup['crowd']['n'],
 }
 print(json.dumps(out))

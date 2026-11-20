@@ -68,11 +68,15 @@ export function sees(c, p, rad = 0, margin = ZONE.margin) {   // bounding sphere
   return x <= zz * B.th * (1 + margin) && y <= zz * B.tv * (1 + margin);
 }
 // §1a: a bounding sphere overlaps the central 50 % of the frame (half width × half height) and sits nearer than the shot's subject
+const segBoxDist = (a, b, box) => { let m = Infinity; for (let i = 0; i <= 48; i++) { const t = i / 48, q = [0, 1, 2].map(k => a[k] + (b[k] - a[k]) * t);
+  const d = [0, 1, 2].map(k => Math.max(box[2 * k] - q[k], 0, q[k] - box[2 * k + 1])); m = Math.min(m, Math.hypot(...d)); } return m; };
+export const LOS_R = .6;   // owner rule (c): the camera→subject line-of-sight capsule radius
 export function blocksSubject(c, p, rad, box = null) {   // box: [x0, x1, y0, y1, z0, z1] → its projected corners must overlap the central rectangle
   const B = c._b ??= camBasis(c), subj = Math.hypot(...sub(c.look, c.pos)); if (Math.hypot(...sub(p, c.pos)) - rad >= subj) return false;
   const pts = box ? [0, 1].flatMap(i => [2, 3].flatMap(j => [4, 5].map(k => [box[i], box[j], box[k]]))) : [p];
   const xs = [], ys = []; for (const q of pts) { const v = sub(q, c.pos), z = dot(v, B.f); if (z <= .05) continue; xs.push(dot(v, B.r) / (z * B.th)); ys.push(dot(v, B.u) / (z * B.tv)); }
-  if (!xs.length) return false; return Math.min(...xs) <= .5 && Math.max(...xs) >= -.5 && Math.min(...ys) <= .5 && Math.max(...ys) >= -.5; }
+  if (!xs.length) return false; const central = Math.min(...xs) <= .5 && Math.max(...xs) >= -.5 && Math.min(...ys) <= .5 && Math.max(...ys) >= -.5;
+  return central && (!box || segBoxDist(c.pos, c.look, [box[0], box[1], box[2], box[3], box[4], box[5]]) <= LOS_R); }   // (a) central 50 % · (b) nearer than the subject · (c) in the LOS capsule
 const dist = (a, b) => Math.hypot(a[0] - b[0], a[1] - b[1], a[2] - b[2]);
 // does a box footprint (centre, radius, top height) block the line from the camera to a target? (sightline corridors)
 function blocks(c, target, at, rad, top) {
@@ -81,7 +85,7 @@ function blocks(c, target, at, rad, top) {
 }
 
 // ---------- the town ----------
-export function planTown(seed = 1102, cams = [], {sightlines = []} = {}) {
+export function planTown(seed = 1102, cams = [], {sightlines = [], exclude = []} = {}) {   // exclude: camera ids whose frame takes no props (S36: rooftops, clouds, Clix only)
   const r = rng(seed), L = layout(), B = [], props = [];
   const box = L.box, inBox = (x, z, m = 0) => Math.abs(x - box.at[0]) < box.w / 2 + m && Math.abs(z - box.at[1]) < box.d / 2 + m;
   const onStreet = (x, z, m = 0) => (x > L.lane.x[0] - m && x < L.lane.x[1] + m && z > L.lane.z[0] - 1 && z < L.lane.z[1]) || (z > L.market.z[0] - m && z < L.market.z[1] + m)
@@ -125,6 +129,7 @@ export function planTown(seed = 1102, cams = [], {sightlines = []} = {}) {
   // street dressing (instanced): lamps every ~4 H, bunting across Market Street, fences, planters, crates
   const keep = (p, rad = .6) => !camList.length || camList.some(c => sees(c, p, rad));
   const add = (kind, x, z, yaw = 0, extra = {}) => { const y = hillY(x, z); const p = [x, y + .5, z]; if (inBox(x, z, .3) || !keep(p, 1.2) || (!extra.hero && camList.some(c => Math.hypot(c.pos[0] - x, c.pos[2] - z) < 2.2))) return;
+    if (exclude.some(id => { const k = camList.find(c => c.id === id); return k && sees(k, p, 1.2, .05); })) return;
     const dark = kind === 'lamp' && Math.hypot(x - HILL.at[0], z - HILL.at[1]) < 6;   // §1b: no lit lamp within 6 H of the plinth
     props.push({kind, dark, x: +x.toFixed(3), y: +y.toFixed(3), z: +z.toFixed(3), yaw: +yaw.toFixed(4), zone: camList.some(c => dist(c.pos, p) <= ZONE.hero) ? 'hero' : 'mid', ...extra}); };
   for (let z = 7.5; z < 23; z += 4) for (const s of [-1, 1]) add('lamp', s * 2.45, z);
@@ -139,7 +144,7 @@ export function planTown(seed = 1102, cams = [], {sightlines = []} = {}) {
   // build for the camera: every wide gets one hero prop (a lamp) in its foreground, 3.2 H ahead and 1.3 H to the side
   // (first ground point along the view that the frame sees: 3.2 H ahead for street cameras, further out for aerials)
   for (const c of camList.filter(k => k.wide)) { const B0 = camBasis(c), fx = B0.f[0], fz = B0.f[2], l = Math.hypot(fx, fz) || 1;
-    const cands = [3.2, 4.5, 6].map(d => [c.pos[0] + fx / l * d - fz / l * 1.3, c.pos[2] + fz / l * d + fx / l * 1.3]).concat([.3, .4, .5, .6].map(t => [c.pos[0] + (c.look[0] - c.pos[0]) * t + 1.2, c.pos[2] + (c.look[2] - c.pos[2]) * t]));
+    const cands = [3.2, 4.5, 6].map(d => [c.pos[0] + fx / l * d - fz / l * 2.4, c.pos[2] + fz / l * d + fx / l * 2.4]).concat([.3, .4, .5, .6].map(t => [c.pos[0] + (c.look[0] - c.pos[0]) * t + 1.2, c.pos[2] + (c.look[2] - c.pos[2]) * t]));
     const summit = (x, z) => Math.hypot(x - HILL.at[0], z - HILL.at[1]) < HILL.flat + 3 || nearPath(x, z, .6);   // the summit stays clear (plinth + signpost only)
     const hit = cands.find(([x, z]) => sees(c, [x, hillY(x, z) + 1, z], .3, 0) && !summit(x, z) && !B.some(b => Math.hypot(b.x - x, b.z - z) < b.rad + .4) && !inBox(x, z, .3));
     if (hit) { const [x, z] = hit; add('lamp', x, z, 0, {hero: true}); add('crate', x + .9, z + .3, .4, {hero: true}); add('crate', x + .7, z - .6, 1.1, {hero: true}); add('planter', x - .8, z + .4, 0, {hero: true}); } }

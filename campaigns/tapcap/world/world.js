@@ -46,13 +46,13 @@ window.__w = {
     return {counts: W.plan.counts, crowd: {n: W.crowd.length, presets: W.crowd.map(c => c.preset), loops: W.crowd.map(c => c.loop)}, font: {loaded: document.fonts.check(`100px "Lilita One"`), file: FONT_URL},
       text: (() => { const t = []; scene.traverse(n => { const m = n.material; for (const x of [m].flat()) if (x?.map?.image?.tagName === 'CANVAS') t.push(n.userData.sign ? 'sign:' + n.userData.sign.text : x.map.userData?.stripes ? 'awning stripes (no text)' : n.name === 'print' ? 'TapCap chest print (product art)' : (n.name || 'canvas')); }); return t; })()};
   },
-  still({cam, w = 540, h = 960, dof = false, skyEV = 0}) {
+  still({cam, w = 540, h = 960, dof = false, skyEV = 0, ev = 0}) {
     const k0 = Math.pow(2, skyEV), base = MOODS_TC[mood].sky.map(c => new T.Color(c).multiplyScalar(Math.pow(2, SKY_EV)));
     ['a', 'b', 'h'].forEach((u, i) => sky.material.uniforms[u].value.copy(base[i]).multiplyScalar(k0));   // per-still sky-only EV on top of SKY_EV
     const M = MOODS_TC[mood], m7 = MOODS7[M.base], k = camOf(cam, w, h), t0 = performance.now();
-    R.toneMappingExposure = (m7.exposure ?? 1) * M.exposure; R.setSize(w, h, false);
+    R.toneMappingExposure = (m7.exposure ?? 1) * M.exposure * Math.pow(2, ev); R.setSize(w, h, false);
     const P = createPost(R, scene, k, {samples: 4}); P.setSize(w, h); const r = resolveCam(cam);
-    const S = postFor(m7, {shot: {size: dof ? 'close' : 'wide'}, focus: dof ? Math.hypot(...r.pos.map((v, i) => v - r.look[i])) : null}); if (mood === 'rainNight') S.rain = MOODS7[M.rainFrom].rain; S.seed = 3;
+    const S = postFor(m7, {shot: {size: dof ? 'close' : 'wide'}, focus: dof ? Math.hypot(...r.pos.map((v, i) => v - r.look[i])) : null}); if (mood === 'rainNight') S.rain = MOODS7[M.rainFrom].rain; S.seed = 3; if (S.ao) S.ao = {...S.ao, radius: .35};   // AO radius at toy scale (H = 1): the engine's 1.2 darkens the plinth step into a band
     P.render(S, {sunDir: M.sun.dir}); const png = R.domElement.toDataURL('image/png');
     const signs = W.signs.map(s => { s.updateMatrixWorld(true); const sc = new T.Vector3().setFromMatrixScale(s.matrixWorld).y, c = s.getWorldPosition(new T.Vector3());
       const a = c.clone().add(new T.Vector3(0, s.userData.sign.capH * sc / 2, 0)).project(k), b = c.clone().add(new T.Vector3(0, -s.userData.sign.capH * sc / 2, 0)).project(k);
@@ -73,7 +73,8 @@ window.__w = {
       if (n.userData.fx || n.isPoints || n.isLine || n.name === 'sky' || (n.material?.transparent && L === 'far' && !n.isInstancedMesh && n.geometry.type === 'CylinderGeometry')) { n.visible = false; return; }
       if (kind === 'layers' && n.userData.cloud) { n.material = basic('#ff00ff'); return; }
       if (kind === 'layers') { n.material = L === 'mid' ? farSplit(LC.mid, LC.bg, split) : basic(LC[L] ?? '#00ff00'); if (n.isInstancedMesh) n.instanceColor = null; }
-      else if (kind === 'plinth') { n.material = basic(n.userData.plinth ? '#ffffff' : '#000000'); if (n.isInstancedMesh) n.instanceColor = null; }
+      else if (kind === 'hill') { n.material = basic(n.userData.hillPlinth ? '#ffffff' : '#000000'); if (n.isInstancedMesh) n.instanceColor = null; }
+      else if (kind === 'plinth') { n.material = basic(n.userData.tier2 ? '#00ffff' : n.userData.plinth ? '#ffffff' : '#000000'); if (n.isInstancedMesh) n.instanceColor = null; }
       else { if (n.isInstancedMesh && n.userData.buildingIds) { const ids = n.userData.buildingIds; n.instanceColor = new T.InstancedBufferAttribute(new Float32Array(ids.length * 3), 3); ids.forEach((id, i) => n.setColorAt(i, enc(id))); n.material = basic('#ffffff'); }
         else { n.material = basic('#000000'); if (n.isInstancedMesh) n.instanceColor = null; } } });
     const fog = scene.fog, bg = scene.background; scene.fog = null; R.setSize(w, h, false); R.setClearColor('#000000', 1); const tm = R.toneMapping, cs = R.outputColorSpace; R.toneMapping = T.NoToneMapping; R.outputColorSpace = T.LinearSRGBColorSpace;

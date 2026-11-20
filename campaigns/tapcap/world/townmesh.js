@@ -42,13 +42,13 @@ function windowSlots(b) {   // 1–3 windows on the front face (local), towers: 
   return [[-.78, 1.3, f], [.78, 1.3, f], [0, 1.95, f]].slice(0, b.windows);
 }
 
-export function buildTown(plan, {mood = 'dawnHope', night = false} = {}) {
+export function buildTown(plan, {mood = 'dawnHope', night = false, windowK = 1} = {}) {
   const root = new T.Group(); root.name = 'town';
   const mat = {
     body: new T.MeshPhysicalMaterial({color: '#ffffff', roughness: .42, clearcoat: .45, clearcoatRoughness: .25}),
     roof: new T.MeshPhysicalMaterial({color: '#ffffff', roughness: .16, clearcoat: 1, clearcoatRoughness: .05}),
     door: new T.MeshStandardMaterial({color: '#6A4636', roughness: .5}),
-    window: new T.MeshPhysicalMaterial({color: night ? '#FFD9A0' : '#CFE6F5', roughness: .08, clearcoat: 1, emissive: night ? '#FFD9A0' : '#000000', emissiveIntensity: night ? 1.6 : 0}),
+    window: new T.MeshPhysicalMaterial({color: night ? '#FFD9A0' : '#CFE6F5', roughness: .08, clearcoat: 1, emissive: night ? '#FFD9A0' : '#000000', emissiveIntensity: night ? 1.6 * windowK : 0}),
     stone: new T.MeshStandardMaterial({color: '#CFC6B8', roughness: .8}),
   };
   const B = plan.buildings, mats = new T.Matrix4(), ids = [];
