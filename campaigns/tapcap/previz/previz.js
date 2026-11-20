@@ -17,7 +17,8 @@ const R = new T.WebGLRenderer({antialias: false, preserveDrawingBuffer: true}); 
 R.toneMapping = T.AgXToneMapping; R.shadowMap.enabled = true; R.shadowMap.type = T.PCFShadowMap; document.body.appendChild(R.domElement);
 const MOODS7 = await (await fetch('../../../engine/moods7.json')).json();
 const f = new FontFace('Lilita One', `url(${FONT})`); await f.load(); document.fonts.add(f);
-let S = null;   // {scene, W, mood, M, m7, sky, shots, cast: Group, clix}
+let S = null, POST = null;
+function freePost() { if (!POST) return; for (const p of POST.P.composer.passes) p.dispose?.(); POST.P.composer.dispose(); POST = null; }   // {scene, W, mood, M, m7, sky, shots, cast: Group, clix}
 
 function skyDome(c) { const k = Math.pow(2, SKY_EV), m = new T.ShaderMaterial({side: T.BackSide, depthWrite: false, fog: false,
     uniforms: {a: {value: new T.Color(c[0]).multiplyScalar(k)}, b: {value: new T.Color(c[1]).multiplyScalar(k)}, h: {value: new T.Color(c[2]).multiplyScalar(k)}},
@@ -118,13 +119,18 @@ window.__p = {
   frame({id, u = .5, w = 360, h = 640, post = true, ev = 0}) {
     const {shot, c} = this.pose(id, u), k = camOf(c, w, h), t0 = performance.now(), M = S.M, m7 = S.m7;
     R.toneMappingExposure = (m7.exposure ?? 1) * M.exposure * Math.pow(2, ev); R.setSize(w, h, false);   /* per-shot grade (previz/grade.json) */
-    if (post) { const P = createPost(R, S.scene, k, {samples: 4}); P.setSize(w, h); const close = ['close', 'insert'].includes(shot.size);
+    if (post) {
+      /* ONE post chain per world + size, reused for every frame (only the camera changes): a chain per frame leaked GPU targets and long farm shards went black after ~36 frames */
+      if (!POST || POST.key !== w + 'x' + h || POST.scene !== S.scene) { freePost(); const kc = camOf(c, w, h); POST = {key: w + 'x' + h, scene: S.scene, kc, P: createPost(R, S.scene, kc, {samples: 4})}; POST.P.setSize(w, h); }
+      const kc = POST.kc, P = POST.P; kc.position.copy(k.position); kc.quaternion.copy(k.quaternion); kc.fov = k.fov; kc.aspect = k.aspect; kc.near = k.near; kc.far = k.far; kc.updateProjectionMatrix(); kc.updateMatrixWorld(true);
+      const close = ['close', 'insert'].includes(shot.size);
       const focus = c.focus ?? (close ? Math.hypot(...c.pos.map((v, i) => v - c.look[i])) : null), st = postFor(m7, {shot: {size: close ? 'close' : 'wide'}, focus});
       if (S.mood === 'rainNight') st.rain = {...MOODS7[M.rainFrom].rain, amount: MOODS7[M.rainFrom].rain.amount * (shot.rainK ?? 1)};
       if (st.ao) st.ao = {...st.ao, radius: .35}; if (shot.grade === 'memory') st.grade = {...st.grade, saturation: .35, vignette: .5};
       if (shot.bloom && st.bloom) st.bloom = {...st.bloom, strength: st.bloom.strength * 1.6}; st.seed = 3;
-      P.render(st, {sunDir: M.sun.dir}); } else R.render(S.scene, k);
-    return {png: R.domElement.toDataURL('image/png'), ms: Math.round(performance.now() - t0), cam: c};
+      P.render(st, {sunDir: M.sun.dir}); var png = R.domElement.toDataURL('image/png'); }
+    else { R.render(S.scene, k); var png = R.domElement.toDataURL('image/png'); }
+    return {png, ms: Math.round(performance.now() - t0), cam: c, mem: {tex: R.info.memory.textures, geo: R.info.memory.geometries}};
   },
   ids({id, u = .5, w = 270, h = 480, kind = 'layers'}) {
     const {c} = this.pose(id, u), k = camOf(c, w, h), LC = {fg: '#ff0000', mid: '#00ff00', bg: '#0000ff', far: '#ffff00'}, saved = [], basic = col => new T.MeshBasicMaterial({color: col});
