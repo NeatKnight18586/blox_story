@@ -1,4 +1,47 @@
 {
+ "talkFamilies": {
+  "happy": {
+   "turns": [
+    0.078,
+    0.037,
+    0.055,
+    0.077
+   ],
+   "ok": true
+  },
+  "neutral": {
+   "turns": [
+    0,
+    0,
+    0,
+    0
+   ],
+   "ok": true
+  },
+  "sad": {
+   "turns": [
+    -0.061,
+    -0.022,
+    -0.044,
+    -0.051
+   ],
+   "ok": true
+  },
+  "angry": {
+   "turns": [
+    0,
+    0,
+    0,
+    -0.07
+   ],
+   "ok": true
+  }
+ },
+ "rageTeeth": {
+  "facesAngryMouthHeightCu": 0.068,
+  "rageTeethBandCu": 0.102,
+  "pass": true
+ },
  "pxPerHeadUnit390Medium": 188.4,
  "faces5Minimum": {
   "eye": 25.9,
@@ -23,14 +66,14 @@
     0.695
    ],
    [
-    "determined",
-    "rage",
-    0.593
+    "nervous_laugh",
+    "relief",
+    0.572
    ],
    [
-    "rage",
-    "yell",
-    0.58
+    "shock",
+    "terrified",
+    0.566
    ]
   ],
   "failing": 0
@@ -40,7 +83,18 @@
    "roles": [
     "glint"
    ],
-   "roleCount": 1,
+   "fillColours": [
+    "#FFFFFF"
+   ],
+   "colourCountByShape": {
+    "{}": 1,
+    "{\"blink\":true}": 0,
+    "{\"talk\":0}": 1,
+    "{\"talk\":1}": 2,
+    "{\"talk\":2}": 3,
+    "{\"talk\":3}": 3
+   },
+   "family": "neutral",
    "colours": "PASS",
    "offPalette": [],
    "px": {
@@ -55,7 +109,18 @@
    "roles": [
     "glint"
    ],
-   "roleCount": 1,
+   "fillColours": [
+    "#FFFFFF"
+   ],
+   "colourCountByShape": {
+    "{}": 1,
+    "{\"blink\":true}": 0,
+    "{\"talk\":0}": 1,
+    "{\"talk\":1}": 3,
+    "{\"talk\":2}": 3,
+    "{\"talk\":3}": 3
+   },
+   "family": "happy",
    "colours": "PASS",
    "offPalette": [],
    "px": {
@@ -72,7 +137,20 @@
     "teeth",
     "glint"
    ],
-   "roleCount": 3,
+   "fillColours": [
+    "#4A1520",
+    "#FFFFFF",
+    "#E6E6EA"
+   ],
+   "colourCountByShape": {
+    "{}": 3,
+    "{\"blink\":true}": 3,
+    "{\"talk\":0}": 1,
+    "{\"talk\":1}": 3,
+    "{\"talk\":2}": 3,
+    "{\"talk\":3}": 3
+   },
+   "family": "happy",
    "colours": "PASS",
    "offPalette": [],
    "px": {
@@ -88,7 +166,20 @@
     "mouth",
     "tongue"
    ],
-   "roleCount": 2,
+   "fillColours": [
+    "#4A1520",
+    "#F2708A",
+    "#C9506A"
+   ],
+   "colourCountByShape": {
+    "{}": 3,
+    "{\"blink\":true}": 3,
+    "{\"talk\":0}": 0,
+    "{\"talk\":1}": 3,
+    "{\"talk\":2}": 3,
+    "{\"talk\":3}": 3
+   },
+   "family": "happy",
    "colours": "PASS",
    "offPalette": [],
    "px": {
@@ -103,7 +194,18 @@
    "roles": [
     "glint"
    ],
-   "roleCount": 1,
+   "fillColours": [
+    "#FFFFFF"
+   ],
+   "colourCountByShape": {
+    "{}": 1,
+    "{\"blink\":true}": 0,
+    "{\"talk\":0}": 1,
+    "{\"talk\":1}": 2,
+    "{\"talk\":2}": 3,
+    "{\"talk\":3}": 3
+   },
+   "family": "neutral",
    "colours": "PASS",
    "offPalette": [],
    "px": {
@@ -119,7 +221,19 @@
     "blush",
     "glint"
    ],
-   "roleCount": 2,
+   "fillColours": [
+    "#FF8FA3",
+    "#FFFFFF"
+   ],
+   "colourCountByShape": {
+    "{}": 2,
+    "{\"blink\":true}": 1,
+    "{\"talk\":0}": 2,
+    "{\"talk\":1}": 3,
+    "{\"talk\":2}": 3,
+    "{\"talk\":3}": 3
+   },
+   "family": "happy",
    "colours": "PASS",
    "offPalette": [],
    "px": {
@@ -134,7 +248,18 @@
    "roles": [
     "glint"
    ],
-   "roleCount": 1,
+   "fillColours": [
+    "#FFFFFF"
+   ],
+   "colourCountByShape": {
+    "{}": 1,
+    "{\"blink\":true}": 0,
+    "{\"talk\":0}": 1,
+    "{\"talk\":1}": 2,
+    "{\"talk\":2}": 3,
+    "{\"talk\":3}": 3
+   },
+   "family": "neutral",
    "colours": "PASS",
    "offPalette": [],
    "px": {
@@ -151,7 +276,19 @@
     "mouth",
     "glint"
    ],
-   "roleCount": 3,
+   "fillColours": [
+    "#FFFFFF",
+    "#4A1520"
+   ],
+   "colourCountByShape": {
+    "{}": 2,
+    "{\"blink\":true}": 1,
+    "{\"talk\":0}": 1,
+    "{\"talk\":1}": 2,
+    "{\"talk\":2}": 3,
+    "{\"talk\":3}": 3
+   },
+   "family": "sad",
    "colours": "PASS",
    "offPalette": [],
    "px": {
@@ -167,7 +304,19 @@
     "mouth",
     "glint"
    ],
-   "roleCount": 2,
+   "fillColours": [
+    "#4A1520",
+    "#FFFFFF"
+   ],
+   "colourCountByShape": {
+    "{}": 2,
+    "{\"blink\":true}": 1,
+    "{\"talk\":0}": 1,
+    "{\"talk\":1}": 2,
+    "{\"talk\":2}": 3,
+    "{\"talk\":3}": 3
+   },
+   "family": "sad",
    "colours": "PASS",
    "offPalette": [],
    "px": {
@@ -184,7 +333,20 @@
     "water",
     "glint"
    ],
-   "roleCount": 3,
+   "fillColours": [
+    "#FFFFFF",
+    "#E6E6EA",
+    "#6CCBFF"
+   ],
+   "colourCountByShape": {
+    "{}": 3,
+    "{\"blink\":true}": 3,
+    "{\"talk\":0}": 2,
+    "{\"talk\":1}": 3,
+    "{\"talk\":2}": 3,
+    "{\"talk\":3}": 3
+   },
+   "family": "sad",
    "colours": "PASS",
    "offPalette": [],
    "px": {
@@ -200,7 +362,19 @@
     "eyeWhite",
     "water"
    ],
-   "roleCount": 2,
+   "fillColours": [
+    "#FFFFFF",
+    "#6CCBFF"
+   ],
+   "colourCountByShape": {
+    "{}": 2,
+    "{\"blink\":true}": 2,
+    "{\"talk\":0}": 2,
+    "{\"talk\":1}": 3,
+    "{\"talk\":2}": 3,
+    "{\"talk\":3}": 3
+   },
+   "family": "sad",
    "colours": "PASS",
    "offPalette": [],
    "px": {
@@ -214,15 +388,29 @@
   "cry": {
    "roles": [
     "mouth",
+    "teeth",
     "water"
    ],
-   "roleCount": 2,
+   "fillColours": [
+    "#4A1520",
+    "#FFFFFF",
+    "#6CCBFF"
+   ],
+   "colourCountByShape": {
+    "{}": 3,
+    "{\"blink\":true}": 3,
+    "{\"talk\":0}": 2,
+    "{\"talk\":1}": 3,
+    "{\"talk\":2}": 3,
+    "{\"talk\":3}": 3
+   },
+   "family": "sad",
    "colours": "PASS",
    "offPalette": [],
    "px": {
-    "eyeL": 30.7,
-    "eyeR": 30.1,
-    "mouth": 47.5
+    "eyeL": 43.7,
+    "eyeR": 43.7,
+    "mouth": 56.5
    },
    "readability": "PASS",
    "bounds": "PASS"
@@ -231,7 +419,18 @@
    "roles": [
     "glint"
    ],
-   "roleCount": 1,
+   "fillColours": [
+    "#FFFFFF"
+   ],
+   "colourCountByShape": {
+    "{}": 1,
+    "{\"blink\":true}": 0,
+    "{\"talk\":0}": 1,
+    "{\"talk\":1}": 2,
+    "{\"talk\":2}": 3,
+    "{\"talk\":3}": 3
+   },
+   "family": "sad",
    "colours": "PASS",
    "offPalette": [],
    "px": {
@@ -247,7 +446,19 @@
     "teeth",
     "glint"
    ],
-   "roleCount": 2,
+   "fillColours": [
+    "#FFFFFF",
+    "#E6E6EA"
+   ],
+   "colourCountByShape": {
+    "{}": 2,
+    "{\"blink\":true}": 2,
+    "{\"talk\":0}": 2,
+    "{\"talk\":1}": 3,
+    "{\"talk\":2}": 3,
+    "{\"talk\":3}": 3
+   },
+   "family": "angry",
    "colours": "PASS",
    "offPalette": [],
    "px": {
@@ -264,13 +475,26 @@
     "teeth",
     "anger"
    ],
-   "roleCount": 3,
+   "fillColours": [
+    "#4A1520",
+    "#FFFFFF",
+    "#E2364A"
+   ],
+   "colourCountByShape": {
+    "{}": 3,
+    "{\"blink\":true}": 3,
+    "{\"talk\":0}": 3,
+    "{\"talk\":1}": 3,
+    "{\"talk\":2}": 3,
+    "{\"talk\":3}": 3
+   },
+   "family": "angry",
    "colours": "PASS",
    "offPalette": [],
    "px": {
     "eyeL": 39.3,
     "eyeR": 39.9,
-    "mouth": 56.5
+    "mouth": 59.5
    },
    "readability": "PASS",
    "bounds": "PASS"
@@ -278,14 +502,27 @@
   "awe": {
    "roles": [
     "mouth",
-    "sparkle"
+    "sparkle",
+    "glint"
    ],
-   "roleCount": 2,
+   "fillColours": [
+    "#4A1520",
+    "#FFFFFF"
+   ],
+   "colourCountByShape": {
+    "{}": 2,
+    "{\"blink\":true}": 2,
+    "{\"talk\":0}": 1,
+    "{\"talk\":1}": 3,
+    "{\"talk\":2}": 3,
+    "{\"talk\":3}": 3
+   },
+   "family": "happy",
    "colours": "PASS",
    "offPalette": [],
    "px": {
-    "eyeL": 54.3,
-    "eyeR": 54.6,
+    "eyeL": 40.7,
+    "eyeR": 40.7,
     "mouth": 29.4
    },
    "readability": "PASS",
@@ -295,7 +532,18 @@
    "roles": [
     "blush"
    ],
-   "roleCount": 1,
+   "fillColours": [
+    "#FF8FA3"
+   ],
+   "colourCountByShape": {
+    "{}": 1,
+    "{\"blink\":true}": 1,
+    "{\"talk\":0}": 1,
+    "{\"talk\":1}": 3,
+    "{\"talk\":2}": 3,
+    "{\"talk\":3}": 3
+   },
+   "family": "happy",
    "colours": "PASS",
    "offPalette": [],
    "px": {
@@ -310,7 +558,18 @@
    "roles": [
     "blush"
    ],
-   "roleCount": 1,
+   "fillColours": [
+    "#FF8FA3"
+   ],
+   "colourCountByShape": {
+    "{}": 1,
+    "{\"blink\":true}": 1,
+    "{\"talk\":0}": 1,
+    "{\"talk\":1}": 3,
+    "{\"talk\":2}": 3,
+    "{\"talk\":3}": 3
+   },
+   "family": "happy",
    "colours": "PASS",
    "offPalette": [],
    "px": {
@@ -325,7 +584,18 @@
    "roles": [
     "mouth"
    ],
-   "roleCount": 1,
+   "fillColours": [
+    "#4A1520"
+   ],
+   "colourCountByShape": {
+    "{}": 1,
+    "{\"blink\":true}": 1,
+    "{\"talk\":0}": 0,
+    "{\"talk\":1}": 1,
+    "{\"talk\":2}": 3,
+    "{\"talk\":3}": 3
+   },
+   "family": "neutral",
    "colours": "PASS",
    "offPalette": [],
    "px": {
@@ -340,7 +610,18 @@
    "roles": [
     "glint"
    ],
-   "roleCount": 1,
+   "fillColours": [
+    "#FFFFFF"
+   ],
+   "colourCountByShape": {
+    "{}": 1,
+    "{\"blink\":true}": 0,
+    "{\"talk\":0}": 1,
+    "{\"talk\":1}": 2,
+    "{\"talk\":2}": 3,
+    "{\"talk\":3}": 3
+   },
+   "family": "neutral",
    "colours": "PASS",
    "offPalette": [],
    "px": {
@@ -356,7 +637,20 @@
     "tongue",
     "glint"
    ],
-   "roleCount": 2,
+   "fillColours": [
+    "#F2708A",
+    "#C9506A",
+    "#FFFFFF"
+   ],
+   "colourCountByShape": {
+    "{}": 3,
+    "{\"blink\":true}": 2,
+    "{\"talk\":0}": 2,
+    "{\"talk\":1}": 3,
+    "{\"talk\":2}": 3,
+    "{\"talk\":3}": 3
+   },
+   "family": "angry",
    "colours": "PASS",
    "offPalette": [],
    "px": {
@@ -373,7 +667,20 @@
     "teeth",
     "water"
    ],
-   "roleCount": 3,
+   "fillColours": [
+    "#4A1520",
+    "#FFFFFF",
+    "#6CCBFF"
+   ],
+   "colourCountByShape": {
+    "{}": 3,
+    "{\"blink\":true}": 3,
+    "{\"talk\":0}": 2,
+    "{\"talk\":1}": 3,
+    "{\"talk\":2}": 3,
+    "{\"talk\":3}": 3
+   },
+   "family": "happy",
    "colours": "PASS",
    "offPalette": [],
    "px": {
@@ -389,7 +696,20 @@
     "mouth",
     "water"
    ],
-   "roleCount": 2,
+   "fillColours": [
+    "#4A1520",
+    "#6CCBFF",
+    "#FFFFFF"
+   ],
+   "colourCountByShape": {
+    "{}": 3,
+    "{\"blink\":true}": 3,
+    "{\"talk\":0}": 2,
+    "{\"talk\":1}": 3,
+    "{\"talk\":2}": 3,
+    "{\"talk\":3}": 3
+   },
+   "family": "happy",
    "colours": "PASS",
    "offPalette": [],
    "px": {
@@ -406,7 +726,20 @@
     "teeth",
     "tongue"
    ],
-   "roleCount": 3,
+   "fillColours": [
+    "#4A1520",
+    "#FFFFFF",
+    "#F2708A"
+   ],
+   "colourCountByShape": {
+    "{}": 3,
+    "{\"blink\":true}": 3,
+    "{\"talk\":0}": 2,
+    "{\"talk\":1}": 3,
+    "{\"talk\":2}": 3,
+    "{\"talk\":3}": 3
+   },
+   "family": "angry",
    "colours": "PASS",
    "offPalette": [],
    "px": {

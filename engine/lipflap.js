@@ -31,6 +31,14 @@ export function flapActive(shot, actor, {narrator = 'HERO'} = {}) {
   return shot.speaker ? ['close', 'medium'].includes(shot.size) : shot.size === 'close';
 }
 export const shapeAt = (shapes, t, fps = FLAP.fps) => shapes?.length ? shapes[Math.min(shapes.length - 1, Math.max(0, Math.round(t * fps)))] : null;
-// P2 Faces v6 (pure): which talk-shape set a face's expression family uses — happy lines flap the wide grin set, everything else the
-// standard set (avatar-style/faces6.js TALK6).
-export const talkSet6 = family => family === 'happy' ? 'grin' : 'standard';
+// P2b Faces v6 (pure): the talk-shape family of an expression. Every v6 expression is in exactly one family; avatar-style/faces6.js
+// TALK6 has four shape sets (closed · small · open · wide) per family: happy = the wide grin set (upturned D mouths), neutral = level
+// mouths, sad = downturned domes (the corners lower than the centre), angry = clenched / bared teeth (both rows, then a shout).
+export const FAMILY6 = {
+  happy: ['smile', 'grin', 'laugh', 'wink', 'warm', 'relief', 'nervous_laugh', 'embarrassed', 'awe'],
+  neutral: ['neutral', 'thinking', 'smirk', 'scheme', 'sleepy'],
+  sad: ['sad_soft', 'cry', 'gasp', 'panic', 'terrified', 'shock'],
+  angry: ['determined', 'rage', 'yell', 'disgust'],
+};
+export const talkFamily6 = name => Object.keys(FAMILY6).find(k => FAMILY6[k].includes(name)) ?? null;
+export const talkSet6 = family => FAMILY6[family] ? family : 'neutral';   // a family name → its TALK6 set (unknown → level mouths)
