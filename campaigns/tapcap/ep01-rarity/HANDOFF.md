@@ -25,7 +25,6 @@
 - 1f built: quietNight (no rain/wet, key #9DB8FF, warm windows) but S14 still luma .368 > .22 (night gate). Hill wide drifted .514 (> .50).
 ## Pass C status: STOPPED at 2a (aligner wins; S26 phrase off > 0.6 s)
 - stories/tapcap-ep01-rarity/ (script.txt = shots.yml VO lines, voice → vo.wav, gitignored); build/cues.json from scripts/v2/align.py.
-- S26 "Yellow," starts 43.07 (table 43.75, −0.68 s: silence table skipped the word). S36 −0.28. All others ≤ 0.01 s.
-- Clicks 36.148 / 68.471 / 69.172; last word ends 74.92 (cut 75.16 = 0.24 s tail).
+- S26 "Yellow," starts 43.07 (table 43.75, −0.68 s: silence table skipped the word). S36 −0.28. Others ≤ 0.01 s. Clicks 36.148/68.471/69.172; last word ends 74.92.
 ## Next step
 - Owner: confirm S26 = 43.07 s (aligner) or say otherwise; then Pass C 2b–2i (blocking, QA, sheets, render plan).
