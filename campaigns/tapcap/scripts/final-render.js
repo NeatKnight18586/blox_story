@@ -7,7 +7,7 @@ import {launch} from '../../../scripts/v2/browser.js';
 import {shots as mkShots, sampleCam, FPS, END} from '../previz/blocking.js';
 const argv = process.argv.slice(2), arg = (k, d) => argv.includes(k) ? argv[argv.indexOf(k) + 1] : d;
 const slug = 'tapcap-ep01-rarity', cues = JSON.parse(readFileSync(`stories/${slug}/cues.json`, 'utf8')), {shots} = mkShots(cues), TOTAL = Math.round(END * FPS);
-if (argv.includes('--plan')) { const n = +arg('--plan'), per = Math.ceil(TOTAL / n); console.log(JSON.stringify({include: Array.from({length: n}, (_, i) => ({index: i, from: i * per, to: Math.min(TOTAL - 1, (i + 1) * per - 1)})).filter(m => m.from < TOTAL)})); process.exit(0); }
+if (argv.includes('--plan')) { const n = +arg('--plan'), per = Math.ceil(TOTAL / n); console.log(JSON.stringify({include: Array.from({length: n}, (_, i) => ({index: i, name: String(i).padStart(2, '0'), from: i * per, to: Math.min(TOTAL - 1, (i + 1) * per - 1)})).filter(m => m.from < TOTAL)})); process.exit(0); }
 const from = +arg('--from', 0), to = +arg('--to', TOTAL - 1), out = arg('--out', 'shard') + '/frames', W = 1080, H = 1920; mkdirSync(out, {recursive: true});
 const GRADE = JSON.parse(readFileSync('campaigns/tapcap/previz/grade.json', 'utf8'));
 const camsFor = s => [0, .5, 1].map(u => ({id: s.id, ...sampleCam(s, u), wide: s.wide})).filter(c => c.pos), allCams = shots.flatMap(camsFor);

@@ -5,10 +5,20 @@
 name: tapcap-ep01
 on:
   workflow_dispatch:
+    inputs:
+      matrix:
+        description: 'repair run: a JSON shard matrix, e.g. {"include":[{"index":8,"name":"08a","from":1208,"to":1245}]} (empty = all 12 shards)'
+        required: false
+        default: ''
+      reuse_run:
+        description: 'repair run: id of an earlier run whose chunk-* artifacts are merged in (empty = none)'
+        required: false
+        default: ''
   push:
     paths: ['campaigns/tapcap/ep01-rarity/render.request']
 permissions:
   contents: read
+  actions: read
 concurrency:
   group: tapcap-ep01
   cancel-in-progress: false
@@ -23,7 +33,10 @@ jobs:
         with: {node-version: 22, cache: npm}
       - run: npm ci
       - id: m
-        run: echo "matrix=$(node campaigns/tapcap/scripts/final-render.js --plan 12)" >> "$GITHUB_OUTPUT"
+        env:
+          MATRIX_IN: ${{ inputs.matrix }}
+        run: |
+          if [ -n "$MATRIX_IN" ]; then echo "matrix=$MATRIX_IN" >> "$GITHUB_OUTPUT"; else echo "matrix=$(node campaigns/tapcap/scripts/final-render.js --plan 12)" >> "$GITHUB_OUTPUT"; fi
   render:
     needs: plan
     runs-on: ubuntu-24.04
@@ -44,12 +57,12 @@ jobs:
         run: |
           mkdir -p chunks
           ffmpeg -v error -y -framerate 24 -start_number ${{ matrix.from }} -i shard/frames/frame-%05d.png \
-            -c:v libx264 -preset slow -crf 8 -pix_fmt yuv420p -g 24 -bf 0 chunks/chunk-$(printf %02d ${{ matrix.index }}).mp4
-          n=$(ffprobe -v error -count_frames -select_streams v:0 -show_entries stream=nb_read_frames -of csv=p=0 chunks/chunk-$(printf %02d ${{ matrix.index }}).mp4)
+            -c:v libx264 -preset slow -crf 8 -pix_fmt yuv420p -g 24 -bf 0 chunks/chunk-${{ matrix.name }}.mp4
+          n=$(ffprobe -v error -count_frames -select_streams v:0 -show_entries stream=nb_read_frames -of csv=p=0 chunks/chunk-${{ matrix.name }}.mp4)
           test "$n" = "$(( ${{ matrix.to }} - ${{ matrix.from }} + 1 ))" || { echo "chunk frame count $n"; exit 1; }
       - uses: actions/upload-artifact@v4
         with:
-          name: chunk-${{ matrix.index }}
+          name: chunk-${{ matrix.name }}
           path: chunks/*.mp4
           retention-days: 1
   assemble:
@@ -63,6 +76,10 @@ jobs:
       - run: sudo apt-get update && sudo apt-get install -y ffmpeg && pip install --break-system-packages numpy pillow pyyaml
       - uses: actions/download-artifact@v4
         with: {pattern: 'chunk-*', merge-multiple: true, path: chunks}
+      - name: Merge chunks from the earlier run (repair runs only)
+        if: ${{ inputs.reuse_run != '' }}
+        uses: actions/download-artifact@v4
+        with: {pattern: 'chunk-*', merge-multiple: true, path: chunks, run-id: '${{ inputs.reuse_run }}', github-token: '${{ github.token }}'}
       - name: Stitch, burn v6 captions, hard cut at 75.16 s
         run: |
           S=tapcap-ep01-rarity
