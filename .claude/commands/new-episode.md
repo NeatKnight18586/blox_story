@@ -4,7 +4,8 @@ argument-hint: <slug> [E1|E2]
 ---
 # /new-episode $ARGUMENTS
 
-Source of truth: `docs/V2_BRIEF.md` (§0–§3, §5–§11, §14, Amendment A1) and `PROGRESS.md`. Branch `claude/engine-v2`.
+Source of truth: `docs/V2_BRIEF.md` (§0–§3, §5–§11, §14, Amendment A1) and `PROGRESS.md`; length, end, last line, final shot
+and hero-first: **`docs/season1/FORMAT_V6.md`** (new episodes are `"format": 6`). Branch `claude/engine-v2`.
 The owner has committed `stories/<slug>/script.txt` and `stories/<slug>/voice.flac`. Session E1 runs when the
 second argument is missing or `E1`; E2 runs after the owner's notes on the animatic. Write a ≤ 15-line plan in
 `PROGRESS.md` first, a ≤ 40-line report after (built, commands, numbers, decisions, open problems, build/render/total
@@ -25,10 +26,11 @@ different attempts → stop and ask. Never read `evidence/`; look only at contac
   - `"season": 1`, `"hero"`, `"captionStyle": "pop-shorts-v3"`;
   - `beats` {B1…B9: [firstShot, lastShot]}, `clues` (3 shot ids, each shot naming its `clueObject`), `twist`, `afk`
     (2 shot ids), `moneyShot`, `ruleLines` (default 2);
-  - shot 1 tagged `spectacle` or `ruleImage`; the last shot re-uses shot 1's camera;
+  - `"format": 6`; shot 1 tagged `spectacle` or `ruleImage`; the hero on screen by 5.0 s; the last shot a close-up or
+    two-shot on the payoff, never a wide (FORMAT_V6.md);
   - `sfx` (default on); `moods` (optional, for `audio-cues.md`).
 - **Gates before the owner sees anything:** `npm run v2:test` · `npm run v2:plan -- --story <slug>`, which now also runs the
-  season gates (B1, B2, clues, AFK, rhyme, 122–150 s, faces out of the 58–74 % caption band) plus A5 framing and uiSize ·
+  season gates (B1, B2, clues, AFK, faces out of the 58–74 % caption band; format 6: length, hero-by-5 s, final shot) plus A5 framing and uiSize ·
   `npm run v2:bench` (Season 1 limits) · `npm run v2:stability`. Then `sheet.py <animatic> --stats --labels <shots> --spec
   <episode.json>`: a WARN if the twist / money shot is not the largest colour change.
 - **Captions** `python3 scripts/v2/captions.py --story <slug> --spec stories/<slug>/episode.json` (v3 via `captionStyle`).
@@ -54,7 +56,7 @@ different attempts → stop and ask. Never read `evidence/`; look only at contac
    **Cast:** `stories/<slug>/cast.json` from the avatar library. Self-score the §12 Session 2 and Session 3 rubrics
    on `node scripts/v2/avatar-sheet.js` / `python3 scripts/v2/world-sheet.py` sheets; max 3 passes; no owner gate.
 4. **Episode:** `stories/<slug>/episode.json`: shots cut on phrase onsets (`at`), each with `size`, `see`, `why`,
-   `loc`, `subject`; `openHit` on frame 0 only; `end` = max(voice + 2.5, 122.5).
+   `loc`, `subject`; `openHit` on frame 0 only; `"format": 6` and `end` = voice + 0.85 (`endFor` in `engine/timeline.js`; FORMAT_V6.md).
 5. **Gates:** `npm run v2:plan -- --story <slug>` exit 0 · `npm run v2:bench -- --story <slug>` PASS ·
    **`npm run v2:stability -- --spec stories/<slug>/episode.json` exit 0 (A1: before anything is shown)** ·
    `sheet.py --stats` luma/saturation thresholds (§12 Session 3 rubric 6).

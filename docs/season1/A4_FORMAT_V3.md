@@ -1,5 +1,8 @@
 # Amendment A4 (2026-11-13): Format v3, Season 1 system — Sessions 8 and 9
 
+> History. Length, end, last line, final shot, hero-first, narration and the scriptcheck rules are superseded by
+> **`docs/season1/FORMAT_V6.md`** (owner, 2026-11-20).
+
 Owner-ordered. All `docs/V2_BRIEF.md` §0 and §2 rules apply: plan first in `PROGRESS.md`, run every Done-when check, stop
 at the gate. First, append this file to `docs/V2_BRIEF.md` under `## Amendment A4`. Creative source for all episodes is
 `docs/season1/SEASON_1.md`; do not rewrite its stories. "Nobody" stays as published; nothing in `stories/nobody/` changes.

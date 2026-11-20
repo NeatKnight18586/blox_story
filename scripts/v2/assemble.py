@@ -7,8 +7,8 @@
 Finals (A2): 1440×2560 frames (native) or 1080×1920 (recorded fallback: Lanczos-upscaled to 1440×2560 BEFORE the
 grade) → highlight-only RGB bloom + light grade + contrast-adaptive sharpen → captions burned at the delivery size
 (text is never bloomed, scaled or sharpened) → voice from frame 0, never stretched, two-pass loudnorm to −14 LUFS,
-TP −1.5 dB (≤ −1 dB after AAC). After the last word the final shot holds so the video ends at
-max(voice + 2.5 s, 122.5 s); format 5 specs (--spec): no padding, voice + 0.85 s; --no-hold for demos.
+TP −1.5 dB (≤ −1 dB after AAC). Legacy specs only (no `format`): the final shot holds to max(voice + 2.5, 122.5); format 5 and format 6 specs (--spec; docs/season1/FORMAT_V6.md): no padding,
+voice + 0.85 s, format 6 hard max 125 s; --no-hold for demos.
   master  x264 High, preset slow, tune animation, CRF 14, BT.709, closed 15-frame GOP, AAC-LC 48 kHz 320k,
           +faststart, no size cap; bitrate floor 16 Mb/s (CRF 14 → 12 → 10). Never committed to git.
   --proxy the review copy: same graded frames, downscaled to 1080×1920, captions burned at 1080, CRF 18, ≤ 45 MB.
@@ -196,12 +196,18 @@ def picture_inputs(o, fps):
     return ['-framerate', str(fps), '-start_number', start, '-i', os.path.join(o.frames, 'frame-%05d.png')], Image.open(frames[0]).size, len(frames)
 
 
-V5_HOLD = 0.85   # format v5 (owner, E1 fix): no padding to 122.5 s; the video ends 0.85 s after the voice
+V5_HOLD = 0.85   # format v5/v6 (owner): no padding; the video ends 0.85 s after the voice
+V6_MAX = 125.0   # format v6 (docs/season1/FORMAT_V6.md): hard max 2:05
 
 
 def end_total(pic, vlen, fmt=None, no_hold=False):
-    """Pure: the finished length (s). --no-hold: the picture; format 5: max(picture, voice + 0.85); older: max(picture, voice + 2.5, 122.5)."""
+    """Pure: the finished length (s). --no-hold: the picture; format 5: max(picture, voice + 0.85); format 6: voice + 0.85
+    (the picture is cut there, never held; > 125 s raises); legacy: max(picture, voice + 2.5, 122.5)."""
     if no_hold: return pic
+    if fmt == 6:
+        t = round(vlen + V5_HOLD, 3)
+        if t > V6_MAX + 1e-6: raise ValueError(f'format 6: voice {vlen:.2f} s + {V5_HOLD} = {t:.2f} s > {V6_MAX} s hard max')
+        return t
     if fmt == 5: return max(pic, vlen + V5_HOLD)
     return max(pic, max(vlen + 2.5, 122.5))
 

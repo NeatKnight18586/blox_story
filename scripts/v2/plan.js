@@ -37,17 +37,18 @@ try {
   if (spec.season || probe.v3) meas = await page.evaluate(list => list.map(s => [s.start, s.start + Math.floor(s.frames / 2), s.start + s.frames - 1].map(f => window.__episode.seasonMeasure(f, s.objects))),
     shots.map(({start, frames, clueObject}) => ({start, frames, objects: [...(clueObject ? [clueObject] : []), ...(spec.season ? ['clockFace', 'clockFace1', 'clockFace2', 'clockFace3', 'scoreboard'] : [])]})));
   // format v5: story-prop inserts measured on the real frame (middle frame, the prop's projected box height)
-  if (spec.format === 5) insertH = Object.fromEntries(await page.evaluate(list => list.map(s => { const r = window.__episode.readMeasure(s.mid, {subject: null, prop: s.prop}); const b = r.box;
+  if (spec.format === 5 || spec.format === 6) insertH = Object.fromEntries(await page.evaluate(list => list.map(s => { const r = window.__episode.readMeasure(s.mid, {subject: null, prop: s.prop}); const b = r.box;
     return [s.id, !(b && b.front) ? {h: 0, margin: 0} : s.p3 ? {h: b.y1 - b.y0, margin: Math.min(b.x0, b.y0, 1 - b.x1, 1 - b.y1)} : Math.min(b.y1, 1) - Math.max(b.y0, 0)]; }), shots.filter(s => s.size === 'insert' && s.prop).map(s => ({id: s.id, prop: s.prop, p3: spec.framing === 'p3', mid: s.start + Math.floor(s.frames / 2)}))));
-  if (spec.format === 5 && spec.framing === 'p3') { const fh = await page.evaluate(list => list.map(s => { const r = window.__episode.readMeasure(s.mid, {subject: s.subject}); return [s.id, r.head?.box?.allFront ? r.head.box.h : 0]; }),
+  if ((spec.format === 5 || spec.format === 6) && spec.framing === 'p3') { const fh = await page.evaluate(list => list.map(s => { const r = window.__episode.readMeasure(s.mid, {subject: s.subject}); return [s.id, r.head?.box?.allFront ? r.head.box.h : 0]; }),
     shots.filter(s => s.subject && ['medium', 'close'].includes(s.size) && !s.back && s.move !== 'splitScreen').map(s => ({id: s.id, subject: s.subject, mid: s.start + Math.floor(s.frames / 2)})));
     for (const [id, h] of fh) shots.find(s => s.id === id).faceH = +h.toFixed(3); }   // Toy House final fix (owner P3): people medium/close, face 12–35 %
 } finally { await browser.close(); await server.close(); }
 
-const r = checkPlan({shots, cues, fps, end: spec.end, info, format: spec.format});
+const hero = spec.hero ?? Object.entries(spec.cast ?? {}).find(([, c]) => c.troupe === 'HERO')?.[0];   // FORMAT_V6 rule 5
+const r = checkPlan({shots, cues, fps, end: spec.end, info, format: spec.format, hero});
 const sz = checkSeason({spec, shots, cues, fps, end: spec.end, info, meas});
 r.errors.push(...sz.errors, ...labelIssues(spec));
-if (spec.format === 5) { const p5 = plan5(shots, {fps, cues, insertH, end: spec.end}); r.errors.push(...p5.errors); r.stats.format5 = {lengthS: p5.lengthS, averageShotS: p5.averageShotS, insertH}; }   // format v5 rules   // owner rule §2c: noLabels (Season 1 / labels: false)
+if (spec.format === 5 || spec.format === 6) { const p5 = plan5(shots, {fps, cues, insertH, end: spec.end, ...(spec.format === 6 ? {len: [0, 125]} : {})}); r.errors.push(...p5.errors); r.stats.format5 = {lengthS: p5.lengthS, averageShotS: p5.averageShotS, insertH}; }   // format v5 rules   // owner rule §2c: noLabels (Season 1 / labels: false)
 r.warnings.push(...sz.warnings); r.stats.season = !!spec.season; r.stats.framing = sz.stats.framing; r.stats.uiItems = sz.stats.ui; r.stats.eggs = sz.stats.eggs; r.stats.overlaps = sz.stats.overlaps; r.stats.crowdCover = sz.stats.cover; r.stats.clockBoard = sz.stats.clockBoard;
 const table = shots.map((s, i) => ({id: s.id, beat: !!s.beat, t: +(s.start / fps).toFixed(2), dur: +(s.frames / fps).toFixed(2), size: s.size, move: s.move, loc: s.loc, speed: +(info[i].speed * 100).toFixed(0),
   subject: s.subject ? `${s.subject}@${(info[i].mid.heads[s.subject]?.x * 100).toFixed(0)},${(info[i].mid.heads[s.subject]?.y * 100).toFixed(0)}` : '', why: s.why}));

@@ -1,4 +1,4 @@
-// engine/plancheck5.js — format v5 plan rules (pure), run by v2:plan for `format: 5` specs. Errors are strings.
+// engine/plancheck5.js — format v5 plan rules (pure), run by v2:plan for `format: 5` and `format: 6` specs. Errors are strings.
 //   length 75–90 s (hard max 90) · average shot 1.2–2.2 s · static ≤ 2.5 s, moving ≤ 3.5 s · the first second has camera
 //   motion and a reveal · story-prop inserts ≥ 40 % of frame height (measured, passed in) · a wall clock in frame whenever
 //   the narration says a time.
@@ -18,9 +18,10 @@ export function timeMentions(words) {
 }
 // shots: [{id, start, frames, move, size, reveal?, openHit?, prop?, clock?, see?}] (layoutShots), fps, cues {words: [{word, start}]},
 // insertH: {shotId: measured prop height fraction}.
-export function plan5(shots, {fps = 24, cues = null, insertH = {}, end = null} = {}) {
+// `len` [min, max] s: format 5 uses 75–90; format 6 passes [0, 125] (FORMAT_V6.md: the voice sets the length, hard max 2:05).
+export function plan5(shots, {fps = 24, cues = null, insertH = {}, end = null, len = [V5.minLen, V5.maxLen]} = {}) {
   const errs = [], lenS = end ?? (shots.length ? (shots.at(-1).start + shots.at(-1).frames) / fps : 0);
-  if (lenS < V5.minLen || lenS > V5.maxLen) errs.push(`length ${lenS.toFixed(2)} s outside ${V5.minLen}–${V5.maxLen} s (hard max ${V5.maxLen})`);
+  if (lenS < len[0] || lenS > len[1]) errs.push(`length ${lenS.toFixed(2)} s outside ${len[0]}–${len[1]} s (hard max ${len[1]})`);
   const avg = shots.length ? lenS / shots.length : 0;
   if (avg < V5.avgMin || avg > V5.avgMax) errs.push(`average shot ${avg.toFixed(2)} s outside ${V5.avgMin}–${V5.avgMax} s`);
   for (const s of shots) {

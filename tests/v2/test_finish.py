@@ -117,6 +117,13 @@ class TestEndTotalV5(unittest.TestCase):
     def test_v5(self):
         self.assertAlmostEqual(A.end_total(81.75, 80.9, 5), 81.75)
         self.assertAlmostEqual(A.end_total(80.0, 80.9, 5), 81.75)
+    def test_v6_ends_085_after_voice_hard_max_125(self):
+        self.assertAlmostEqual(A.end_total(130.0, 100.0, 6), 100.85)   # a longer picture is cut, never held
+        self.assertAlmostEqual(A.end_total(90.0, 100.0, 6), 100.85)
+        self.assertAlmostEqual(A.end_total(125.0, 124.15, 6), 125.0)
+        with self.assertRaises(ValueError): A.end_total(126, 124.2, 6)
+        self.assertAlmostEqual(A.end_total(10, 100.0, 6, True), 10)
+
     def test_older_and_no_hold(self):
         self.assertAlmostEqual(A.end_total(100, 80.9, None), 122.5)
         self.assertAlmostEqual(A.end_total(81.75, 80.9, 5, True), 81.75)
