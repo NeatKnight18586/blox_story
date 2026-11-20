@@ -1,6 +1,6 @@
 # HANDOFF — TapCap EP01 "Rarity's Just Paint"  (≤ 30 lines; read with ../RULES.md, spec.yml, shots.yml)
 ## Approved
-- Pass A (Clix face #2 grin) · Pass B (2026-11-20) · Pass C (2026-11-20, owner "approve"). Pass D1: NOT approved yet.
+- Pass A (Clix face #2 grin) · Pass B (2026-11-20) · Pass C · Pass D1 (2026-11-20). Pass D2: NOT approved yet.
 ## Done this session (2 fix passes per item; no gate loosened)
 - Decisions: S26 = 43.07 s; all shots.yml t = aligner; clearance (a)+(b)+(c) LOS capsule .6 H; plinth close −0.1 EV + dawn bounce 15 %.
 - World: quiet night (door lights off, windows ×.5, moon −0.7 EV, Banana rim, box glow); golden S36 prop exclusion; window aimed at summit.
@@ -23,5 +23,9 @@
 - S1 hero: camera on the hill-road axis (outside the box) → hill+plinth 18.8 % ✓, TC-01 23.6 % ✓, 4 layers ✓; buildings 3 (B4 ✗, owner pick).
 - S9 off the box wall onto the hill road; S11 whole CORE ROW sign; S12 OTS behind Sunny; S13 face framed. All 13: void 0, luma in gate, moving.
 - Weak: S9 arm end looms (8 H wide at 40×) instead of a far glint · S12 fleck too small to read at sheet size · S1 3 buildings.
+## Pass D2 (S14–S22) → review/pass-d/D2/pass-c-D2.png, qa/pass-D2.json (2 fix passes)
+- Void 0, nothing locked off. FAIL S16c luma .727 (blown: grade +1.9 from the old too-close framing) · FAIL S22 mid .59 % (B3).
+- Weak: S21 side-on macro still doesn't show the keycap entering the switch · S16a "painting on" shows an unpainted head
+  (paint_run is used backwards for painting on; needs a paint-on mask) · S22 Banana tiny on the plinth.
 ## Next step
-- Owner: D1 notes by shot number or "approve". Then D2 (S14–S22). S40 re-render (replays the new S1) belongs to D4.
+- Owner: D2 notes by shot number or "approve". Then D3 (S23–S31). S40 re-render belongs to D4.

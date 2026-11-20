@@ -57,22 +57,22 @@
    "frames": 12,
    "move": "push",
    "size": "insert",
-   "ms": 3588,
+   "ms": 7419,
    "travel": {
     "move": 0.108,
     "turnDeg": 0.35,
     "zoom": 1
    },
    "dur": 0.5,
-   "luma": 0.2754,
+   "luma": 0.1792,
    "gate": [
     0.1,
     0.22
    ],
-   "lumaPass": false,
+   "lumaPass": true,
    "void": 0,
    "lockedOff": false,
-   "bottomPatchMax": 0.3,
+   "bottomPatchMax": 0.196,
    "brightPatch": false
   },
   {
@@ -107,14 +107,14 @@
    "frames": 45,
    "move": "push",
    "size": "insert",
-   "ms": 4173,
+   "ms": 3656,
    "travel": {
     "move": 0.108,
     "turnDeg": 0.24,
     "zoom": 1
    },
    "dur": 1.875,
-   "luma": 0.8811,
+   "luma": 0.7267,
    "gate": [
     0.1,
     0.22
@@ -122,7 +122,7 @@
    "lumaPass": false,
    "void": 0,
    "lockedOff": false,
-   "bottomPatchMax": 0.973,
+   "bottomPatchMax": 0.957,
    "brightPatch": false
   },
   {
@@ -226,19 +226,19 @@
    "frames": 19,
    "move": "push",
    "size": "insert",
-   "ms": 4107,
+   "ms": 8436,
    "travel": {
     "move": 0.081,
     "turnDeg": 0.44,
     "zoom": 1
    },
    "dur": 0.792,
-   "luma": 0.2522,
+   "luma": 0.3651,
    "gate": [
     0.36,
     0.5
    ],
-   "lumaPass": false,
+   "lumaPass": true,
    "void": 0,
    "lockedOff": false
   },
@@ -249,10 +249,10 @@
    "frames": 32,
    "move": "pull",
    "size": "wide",
-   "ms": 2686,
+   "ms": 3255,
    "travel": {
-    "move": 8.617,
-    "turnDeg": 14.17,
+    "move": 11.158,
+    "turnDeg": 14.32,
     "zoom": 1
    },
    "dur": 1.333,
@@ -265,9 +265,9 @@
    "void": 0,
    "lockedOff": false,
    "layers": {
-    "fg": 0.44,
-    "mid": 0.95,
-    "bg": 96.37,
+    "fg": 0.37,
+    "mid": 0.59,
+    "bg": 96.82,
     "far": 2.23
    },
    "depthPass": false
@@ -281,25 +281,11 @@
   "luma": {
    "pass": false,
    "failing": {
-    "S16a": [
-     0.2754,
-     [
-      0.1,
-      0.22
-     ]
-    ],
     "S16c": [
-     0.8811,
+     0.7267,
      [
       0.1,
       0.22
-     ]
-    ],
-    "S21": [
-     0.2522,
-     [
-      0.36,
-      0.5
      ]
     ]
    }
@@ -307,9 +293,9 @@
   "depth": {
    "S22": [
     {
-     "fg": 0.44,
-     "mid": 0.95,
-     "bg": 96.37,
+     "fg": 0.37,
+     "mid": 0.59,
+     "bg": 96.82,
      "far": 2.23
     },
     false
