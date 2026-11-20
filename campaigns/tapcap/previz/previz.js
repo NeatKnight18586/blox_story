@@ -51,13 +51,16 @@ function placeCast(shot, frame, camPos) {
     if (c.rim) { const l = new T.SpotLight('#9EC2FF', 14, 6, .5, .5, 1.2), d = new T.Vector3(at[0] - camPos[0], 0, at[2] - camPos[2]).normalize(); l.position.set(at[0] + d.x * 1.6, at[1] + 1.5, at[2] + d.z * 1.6); l.target.position.set(at[0], at[1] + .5, at[2]); S.cast.add(l, l.target); }
   }
   for (const p of shot.props ?? []) {
+    if (p.lamp) { const g = new T.Group(), post = new T.Mesh(new T.CylinderGeometry(.06, .08, 2.4, 10), new T.MeshStandardMaterial({color: '#3E4552', roughness: .4, metalness: .5})); post.position.y = 1.2; g.add(post);
+      const bulb = new T.Mesh(new T.SphereGeometry(.2, 14, 10), new T.MeshStandardMaterial({color: '#FFF1D6', emissive: '#FFD9A0', emissiveIntensity: 2.5})); bulb.position.y = 2.5; g.add(bulb);
+      g.position.set(p.lamp[0], hillY(p.lamp[0], p.lamp[1]), p.lamp[1]); g.traverse(n => { n.userData.layer = 'fg'; }); S.cast.add(g); continue; }   /* a single foreground lamp (S33) */
     if (p === 'pots') ['#7B3FD0', '#FF8A2A', '#2F7BEA'].forEach((col, i) => { const pot = new T.Mesh(new T.CylinderGeometry(.13, .11, .2, 20), new T.MeshPhysicalMaterial({color: '#EDE6DA', roughness: .4}));
       const paint = new T.Mesh(new T.CircleGeometry(.115, 20), new T.MeshStandardMaterial({color: col, roughness: .6})); paint.rotation.x = -Math.PI / 2; paint.position.y = .095; pot.add(paint);
       pot.position.set(-.55 + i * .3, .1, -1.05 + (i % 2) * .12); pot.traverse(n => { n.userData.layer = 'fg'; }); S.cast.add(pot); });
     if (p === 'puddle') { const pd = new T.Mesh(new T.CircleGeometry(.7, 40), new T.MeshPhysicalMaterial({color: '#1E2430', roughness: .02, metalness: .2, clearcoat: 1})); pd.rotation.x = -Math.PI / 2; pd.position.set(0, .02, -1.6); pd.userData.layer = 'fg'; S.cast.add(pd); }
   }
   // the crowd: hide members standing where the cast stands; S25 brings 12 of them to the hill base
-  S.W.crowd.forEach((m, i) => { if (!m.object) return; m.object.visible = !placed.some(p => Math.hypot(p.at[0] - m.x, p.at[2] - m.z) < .8) && Math.hypot(camPos[0] - m.x, camPos[2] - m.z) > 1.2;   /* lens clearance for the crowd */
+  S.W.crowd.forEach((m, i) => { if (!m.object) return; m.object.visible = !placed.some(p => Math.hypot(p.at[0] - m.x, p.at[2] - m.z) < .8) && (!camPos || Math.hypot(camPos[0] - m.x, camPos[2] - m.z) > 1.2);   /* lens clearance for the crowd */
     const hb = shot.crowd === 'hillbase' && i >= 12 && i < 24; m.object.position.x = hb ? -15.6 - (i % 4) * 1.1 : m.x; m.object.position.z = hb ? -5.2 - Math.floor((i - 12) / 4) * 1.2 - (i % 2) * .4 : m.z;
     if (hb) m.object.rotation.y = Math.atan2(-24 - m.object.position.x, -16 - m.object.position.z); });
   return placed;

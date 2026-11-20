@@ -1,0 +1,375 @@
+{
+ "shots": [
+  {
+   "id": "S32",
+   "mood": "rainNight",
+   "start": 56.321,
+   "frames": 83,
+   "move": "push",
+   "size": "medium",
+   "ms": 7366,
+   "travel": {
+    "move": 0.416,
+    "turnDeg": 0.34,
+    "zoom": 1
+   },
+   "dur": 3.458,
+   "luma": 0.2805,
+   "gate": [
+    0.1,
+    0.22
+   ],
+   "lumaPass": false,
+   "void": 0,
+   "lockedOff": false
+  },
+  {
+   "id": "S33",
+   "mood": "rainNight",
+   "start": 59.787,
+   "frames": 47,
+   "move": "pull",
+   "size": "wide",
+   "ms": 4196,
+   "travel": {
+    "move": 3.477,
+    "turnDeg": 3.02,
+    "zoom": 1
+   },
+   "dur": 1.958,
+   "luma": 0.0507,
+   "gate": [
+    0.1,
+    0.22
+   ],
+   "lumaPass": false,
+   "void": 0,
+   "lockedOff": false,
+   "layers": {
+    "fg": 0.11,
+    "mid": 7.35,
+    "bg": 37.77,
+    "far": 15.09
+   },
+   "depthPass": false
+  },
+  {
+   "id": "S34",
+   "mood": "rainNight",
+   "start": 61.741,
+   "frames": 46,
+   "move": "push",
+   "size": "medium",
+   "ms": 6701,
+   "travel": {
+    "move": 0.401,
+    "turnDeg": 0.41,
+    "zoom": 1
+   },
+   "dur": 1.917,
+   "luma": 0.3462,
+   "gate": [
+    0.1,
+    0.22
+   ],
+   "lumaPass": false,
+   "void": 0,
+   "lockedOff": false
+  },
+  {
+   "id": "S35",
+   "mood": "rainNight",
+   "start": 63.653,
+   "frames": 26,
+   "move": "push",
+   "size": "close",
+   "ms": 7065,
+   "travel": {
+    "move": 0.301,
+    "turnDeg": 0.33,
+    "zoom": 1
+   },
+   "dur": 1.083,
+   "luma": 0.4176,
+   "gate": [
+    0.1,
+    0.22
+   ],
+   "lumaPass": false,
+   "void": 0,
+   "lockedOff": false
+  },
+  {
+   "id": "S36a",
+   "mood": "golden",
+   "start": 64.76,
+   "frames": 61,
+   "move": "crane",
+   "size": "wide",
+   "ms": 5144,
+   "travel": {
+    "move": 0.3,
+    "turnDeg": 11.57,
+    "zoom": 1
+   },
+   "dur": 2.542,
+   "luma": 0.2278,
+   "gate": [
+    0.34,
+    0.48
+   ],
+   "lumaPass": false,
+   "void": 0,
+   "lockedOff": false,
+   "layers": {
+    "fg": 5.88,
+    "mid": 22.45,
+    "bg": 19.85,
+    "far": 43.45
+   },
+   "depthPass": true
+  },
+  {
+   "id": "S36b",
+   "mood": "golden",
+   "start": 67.28,
+   "frames": 27,
+   "move": "crane",
+   "size": "medium",
+   "ms": 2121,
+   "travel": {
+    "move": 0.301,
+    "turnDeg": 6.37,
+    "zoom": 1
+   },
+   "dur": 1.125,
+   "luma": 0.3465,
+   "gate": [
+    0.34,
+    0.48
+   ],
+   "lumaPass": true,
+   "void": 0,
+   "lockedOff": false
+  },
+  {
+   "id": "S37a",
+   "mood": "golden",
+   "start": 68.4167,
+   "frames": 17,
+   "move": "push",
+   "size": "insert",
+   "ms": 4064,
+   "travel": {
+    "move": 0.06,
+    "turnDeg": 0.02,
+    "zoom": 1
+   },
+   "dur": 0.708,
+   "luma": 0.3122,
+   "gate": [
+    0.34,
+    0.48
+   ],
+   "lumaPass": false,
+   "void": 0,
+   "lockedOff": false
+  },
+  {
+   "id": "S37b",
+   "mood": "golden",
+   "start": 69.125,
+   "frames": 19,
+   "move": "push",
+   "size": "insert",
+   "ms": 3560,
+   "travel": {
+    "move": 0.059,
+    "turnDeg": 0.03,
+    "zoom": 1
+   },
+   "dur": 0.792,
+   "luma": 0.6979,
+   "gate": [
+    0.34,
+    0.48
+   ],
+   "lumaPass": false,
+   "void": 0,
+   "lockedOff": false
+  },
+  {
+   "id": "S38",
+   "mood": "golden",
+   "start": 69.932,
+   "frames": 50,
+   "move": "push",
+   "size": "close",
+   "ms": 2312,
+   "travel": {
+    "move": 3,
+    "turnDeg": 0,
+    "zoom": 1
+   },
+   "dur": 2.083,
+   "luma": 0.3545,
+   "gate": [
+    0.34,
+    0.48
+   ],
+   "lumaPass": true,
+   "void": 0,
+   "lockedOff": false
+  },
+  {
+   "id": "S39",
+   "mood": "golden",
+   "start": 72.001,
+   "frames": 50,
+   "move": "push",
+   "size": "medium",
+   "ms": 3431,
+   "travel": {
+    "move": 0.4,
+    "turnDeg": 0.4,
+    "zoom": 1
+   },
+   "dur": 2.083,
+   "luma": 0.4228,
+   "gate": [
+    0.34,
+    0.48
+   ],
+   "lumaPass": true,
+   "void": 0,
+   "lockedOff": false
+  },
+  {
+   "id": "S40",
+   "mood": "golden",
+   "start": 74.09,
+   "frames": 26,
+   "move": "push",
+   "size": "wide",
+   "ms": 4685,
+   "travel": {
+    "move": 1.005,
+    "turnDeg": 1.21,
+    "zoom": 1
+   },
+   "dur": 1.083,
+   "luma": 0.3696,
+   "gate": [
+    0.34,
+    0.48
+   ],
+   "lumaPass": true,
+   "void": 0,
+   "lockedOff": false,
+   "layers": {
+    "fg": 23.04,
+    "mid": 9.94,
+    "bg": 37.66,
+    "far": 4.28
+   },
+   "depthPass": true,
+   "buildings": 3,
+   "densityPass": false,
+   "hillPlinthPct": 28.71,
+   "hillPass": true
+  }
+ ],
+ "summary": {
+  "void": {
+   "pass": true,
+   "failing": []
+  },
+  "luma": {
+   "pass": false,
+   "failing": {
+    "S32": [
+     0.2805,
+     [
+      0.1,
+      0.22
+     ]
+    ],
+    "S33": [
+     0.0507,
+     [
+      0.1,
+      0.22
+     ]
+    ],
+    "S34": [
+     0.3462,
+     [
+      0.1,
+      0.22
+     ]
+    ],
+    "S35": [
+     0.4176,
+     [
+      0.1,
+      0.22
+     ]
+    ],
+    "S36a": [
+     0.2278,
+     [
+      0.34,
+      0.48
+     ]
+    ],
+    "S37a": [
+     0.3122,
+     [
+      0.34,
+      0.48
+     ]
+    ],
+    "S37b": [
+     0.6979,
+     [
+      0.34,
+      0.48
+     ]
+    ]
+   }
+  },
+  "depth": {
+   "S33": [
+    {
+     "fg": 0.11,
+     "mid": 7.35,
+     "bg": 37.77,
+     "far": 15.09
+    },
+    false
+   ],
+   "S36a": [
+    {
+     "fg": 5.88,
+     "mid": 22.45,
+     "bg": 19.85,
+     "far": 43.45
+    },
+    true
+   ],
+   "S40": [
+    {
+     "fg": 23.04,
+     "mid": 9.94,
+     "bg": 37.66,
+     "far": 4.28
+    },
+    true
+   ]
+  },
+  "density": {
+   "S40": 3
+  },
+  "lockedOff": []
+ }
+}
