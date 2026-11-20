@@ -3,7 +3,7 @@
 measured luma (qa/passc.json). Accumulates into previz/grade.json: ev += clamp(1.3 × log2(target / luma), −1.5, +2.5) for shots outside
 their gate only. Usage: grade-c.py"""
 import json, math, os
-Q = json.load(open('campaigns/tapcap/ep01-rarity/qa/passc.json')); G = 'campaigns/tapcap/previz/grade.json'
+import sys; Q = json.load(open(sys.argv[1] if len(sys.argv) > 1 else 'campaigns/tapcap/ep01-rarity/qa/passc.json')); G = 'campaigns/tapcap/previz/grade.json'
 cur = json.load(open(G)) if os.path.exists(G) else {}
 for s in Q['shots']:
     if s['lumaPass']: continue
