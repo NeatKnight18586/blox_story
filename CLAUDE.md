@@ -51,3 +51,6 @@ end, last line, final shot, hero-first): `docs/season1/FORMAT_V6.md`**; new spec
 
 ## Library index
 Library index: docs/LIBRARY.md (read only the lines a task needs; add one line per new reusable piece there).
+
+## Story & brand (Season 1)
+Recurring HERO (cast/hero.json) + re-costumed troupe (docs/season1/BRAND.md). Story rules: docs/season1/STORY_ENGINE.md · brand: BRAND.md · build input: EPISODE_BRIEF.md.

@@ -27,7 +27,8 @@ and the next three seconds explain the rule with no sound and no caption.
 | Horror-lore channels | strict survival rules; slow push-ins; a loved one in doubt | their monsters and tests |
 
 **Our own five signatures (every episode):**
-1. **The Troupe.** The same five original actors play a new role in every world (A4 §G). Viewers learn their faces.
+1. **Recurring HERO (`cast/hero.json`) + re-costumed troupe** (A4 §G, [BRAND.md](BRAND.md)). The same five original actors play a new role in every world. Viewers learn their faces.
+   Story rules: [STORY_ENGINE.md](STORY_ENGINE.md) · brand: [BRAND.md](BRAND.md) · build input: [EPISODE_BRIEF.md](EPISODE_BRIEF.md).
 2. **Three clues.** Three visible clues to the twist are on screen before it happens. Rewatching pays off.
 3. **AFK.** A hidden, faintly transparent, frozen player tagged `AFK` appears in exactly two shots of every episode. The finale is his story.
 4. **A second surprise** after the reversal (why the rule existed, or what it cost). Length: [FORMAT v6](FORMAT_V6.md).

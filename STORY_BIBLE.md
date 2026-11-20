@@ -1,3 +1,5 @@
+> Superseded for new episodes by docs/season1/STORY_ENGINE.md; banned-rules list still applies.
+
 # STORY BIBLE — "In this town / world / kingdom…" (docs/V2_BRIEF.md §10)
 
 Principles, not a template: the shape must change every episode. Apply inline, in one pass, whenever a new

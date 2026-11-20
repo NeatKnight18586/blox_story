@@ -18,6 +18,8 @@ Older specs (no `format`, or `format: 5`) keep their old behaviour in the code; 
 7. **Unchanged.** The middle structure (escalation, midpoint turn, fair twist), no labels (`SEASON_1.md` §2c), faces v5,
    the voice file untouched (D3), the owner writes every script.
 
+Story rules: STORY_ENGINE.md. Brand: BRAND.md. Build input: EPISODE_BRIEF.md.
+
 ## Where the code enforces it (format 6 only)
 - `engine/timeline.js`: `DEFAULT_FORMAT = 6`, `endFor(voice, 6)` = voice + 0.85, `MAX_END6` = 125.
 - `engine/plancheck.js` (`v2:plan`): end = voice + 0.85 (±1.5 frames), length ≤ 125 s; FAIL if the hero's first shot

@@ -41,3 +41,7 @@ Read only the lines a task needs; add one line per new reusable piece here. Move
 - `cast/touchgrass.json` (generator `scripts/v2/touchgrass-cast.py`) — LEO/LEO_VR/NOVA/BRO/6 friends/8 zombies/6 town; `vrHeadset` on|off|none; body5 `regions.bands[].emissive` (opt-in glow trim). Poses `zombie`, `kneel`.
 - `stories/touchgrass/world.js` — several location JSONs in one episode (x offsets, per-camera env/fog/tone), crowds merged, actor dressing hooks (spec.decorate).
 - format v6 (`format: 6`, default for new episodes; `docs/season1/FORMAT_V6.md`): `timeline.js endFor/DEFAULT_FORMAT`, `plancheck.js lengthRule(6)/heroFirst/heroIssues/finalShotIssues`, `assemble.py end_total(…, 6)`, `scriptcheck.py repeats_first/overlap`.
+- `docs/season1/STORY_ENGINE.md`: nine numbered story rules (feeling-first rule, loophole, named loved one, comment question).
+- `docs/season1/BRAND.md`: promise, recurring hero, voice, look, title and pinned-comment templates.
+- `docs/season1/SWIPE_FILE.md`: engines-only table of methods (source · method · feeling · why it worked).
+- `docs/season1/EPISODE_BRIEF.md`: the per-episode brief template (META, PREMISE, CAST, WORLD, BEATS, PAYOFF, CHECKS).

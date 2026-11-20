@@ -1,5 +1,5 @@
 {
- "note": "Format v4 (owner, 2026-11-15): the hero, slot HERO, in every episode from 2 on. Actor v5 (classic R6), first-person narrator. Bare yellow head, no hair: the signature. Open charcoal jacket (#2B2D33, lapel and collar edges #4A4E57) over a royal-blue strip, no logo or text; charcoal sleeves and yellow hands; sage trousers with flat black shoes. Our own design.",
+ "note": "Format v4 (owner, 2026-11-15): the hero, slot HERO, in every episode from 2 on. Actor v5 (classic R6), first-person narrator. Bare yellow head, no hair: the signature. Open charcoal jacket (#2B2D33, lapel and collar edges #4A4E57) over a royal-blue strip, no logo or text; charcoal sleeves and yellow hands; sage trousers with flat black shoes. Our own design. Recurring in every episode (owner, 2026-11-20).",
  "HERO": {
   "tier": "hero",
   "body": "v5",
