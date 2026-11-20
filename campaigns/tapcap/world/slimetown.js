@@ -171,6 +171,7 @@ export function build({mood = 'dawnHope', t = .4, cams = [], seed = 1102, cloudG
   const plan = planTown(seed, cams, {sightlines: SIGHTLINES, exclude: EXCLUDE}), town = buildTown(plan, {mood, night, windowK: mood === 'quietNight' ? .5 : 1}); town.root.userData.envK = M.envK; root.add(town.root);
   // CROWD: square + lane + market + Core Row inside the box + 2 on the Trade Corner counter (20–40, shared geometry per colour)
   const spots = [...[-1, 1].flatMap(s => [-3.6, -1.6, .3, 2.3].flatMap(z => [[s * 1.15, z, -s * .25], [s * 2.1, z + .5, -s * .25]])).slice(0, 12),
+    [-8.3, 2.4, .7], [-9.6, 1.2, .8], [-7.4, 1.0, .6], [-10.4, -.6, .9], [-8.8, -1.2, .7], [-11.6, -2.0, .8],   /* D1: S1/S40 crowd down the hill road */
     [-8.2, 13.6, .5], [-6.8, 12.4, .2], [-9.6, 11.2, .7], [-5.6, 14.8, .1], [-10.8, 13.8, .9], [-7.6, 15.6, .3], [-11.4, 10.4, 1.0], [-8.8, 16.6, .4],
     [-.9, 10.2, .2], [1.0, 12.3, -.2], [-.5, 15.1, 0], [.9, 17.9, -.3], [-1.1, 20.4, .1],
     [4.5, 25.2, -.4], [7.8, 27.2, -.2], [15.5, 25.4, .3], [18.2, 27.4, -.5], [-3.5, 26.6, .4], [9.8, 25.0, -.1]];

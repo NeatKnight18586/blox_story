@@ -3,7 +3,7 @@
 its mid-shot time (libass via ffmpeg, from captions.ass)."""
 import sys, json, subprocess, os
 from PIL import Image, ImageDraw, ImageFont
-D, EP = sys.argv[1:3]; Q = json.load(open(f'{EP}/qa/passc.json')); FONTS = 'node_modules/@expo-google-fonts/lilita-one/400Regular'
+D, EP = sys.argv[1:3]; Q = json.load(open(sys.argv[3] if len(sys.argv) > 3 else f'{EP}/qa/passc.json')); FONTS = 'node_modules/@expo-google-fonts/lilita-one/400Regular'
 LIL = f'{FONTS}/LilitaOne_400Regular.ttf'; FB = lambda s: ImageFont.truetype(LIL, s); F = lambda s: ImageFont.truetype('/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf', s)
 os.makedirs(f'{D}/capd', exist_ok=True)
 def burn(s):
@@ -11,10 +11,12 @@ def burn(s):
     subprocess.run(['ffmpeg', '-y', '-v', 'error', '-loop', '1', '-i', f"{D}/panels/{s['id']}.png", '-vf', f"scale=1080:1920,setpts=PTS+{t:.3f}/TB,subtitles={D}/captions.ass:fontsdir={FONTS},scale=320:569", '-frames:v', '1', o], check=True)
     return Image.open(o).convert('RGB')
 cw, ch, lab = 320, 569, 40; ok = lambda b: '✓' if b else '✗'
-for name, lo, hi in [('S1-S20', 1, 20), ('S21-S40', 21, 40)]:
-    S = [s for s in Q['shots'] if lo <= int(''.join(c for c in s['id'] if c.isdigit())) <= hi]; rows = (len(S) + 4) // 5
+GROUPS = [(g.split(':')[0], g.split(':')[1].split(',')) for g in sys.argv[4:]] or [('S1-S20', None), ('S21-S40', None)]
+for name, ids in GROUPS:
+    lo, hi = (1, 20) if name == 'S1-S20' else (21, 40)
+    S = [s for s in Q['shots'] if (s['id'] in ids if ids else lo <= int(''.join(c for c in s['id'] if c.isdigit())) <= hi)]; rows = (len(S) + 4) // 5
     sheet = Image.new('RGB', (1600, 40 + rows * (ch + lab)), 'white'); g = ImageDraw.Draw(sheet)
-    g.text((10, 6), f"TapCap EP01 · Pass C blocking · {name} · 24 fps · captions pop-shorts-v6 #B98CFF · mid-shot frames", font=FB(24), fill='black')
+    g.text((10, 6), f"TapCap EP01 · {'Pass C blocking' if name.startswith('S') else 'Pass ' + name} · {name} · 24 fps · captions pop-shorts-v6 #B98CFF · mid-shot frames", font=FB(24), fill='black')
     for i, s in enumerate(S):
         x, y = (i % 5) * cw, 40 + (i // 5) * (ch + lab); sheet.paste(burn(s), (x, y))
         g.rectangle([x, y, x + 74, y + 34], fill=(20, 22, 28)); g.text((x + 6, y + 2), s['id'], font=FB(26), fill='white')

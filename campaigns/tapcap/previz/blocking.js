@@ -20,7 +20,7 @@ export const CLICKS = [[16, 0], [31, 0], [31, 1]];   // "Click." at S21, both S3
 
 // The shot table (ids follow shots.yml; S16/S30/S37 are split into inserts a/b/c). cut: [line, word] or a time.
 const T = [
-  {id: 'S1', cut: [0, 0], hero: 1, size: 'wide', move: 'push', cam: {from: {pos: [-7.0, .5, 18.2], look: [-24, 5.6, -16], mm: 50}, to: {pos: [-7.6, .62, 16.4], look: [-24, 5.9, -16], mm: 50}}, jolt: true, cast: [{who: 'hero1', preset: 'frozen', at: [-8.55, 0, 15.0], yaw: 2.6}]},
+  {id: 'S1', cut: [0, 0], hero: 1, size: 'wide', move: 'push', cam: {from: {pos: [-5.9, .5, 6.8], look: [-24, 5.4, -16], mm: 50}, to: {pos: [-6.6, .6, 5.6], look: [-24, 5.8, -16], mm: 50}}, jolt: true,   /* D1: down the hill-road axis (a clear street to the summit) */ cast: [{who: 'hero1', preset: 'frozen', at: [-8.05, 0, 4.6], yaw: .9}]},
   {id: 'S2', cut: [1, 0], size: 'insert', move: 'whip', cam: {from: {pos: toward(3.3, -.45, .6), look: toward(.9, -.68), mm: 50}, to: {pos: toward(2.9, -.5, .2), look: toward(.9, -.68), mm: 50}, whip: 30, snapAt: [1, 5]}},
   {id: 'S3', cut: [1, 6], size: 'wide', move: 'crane', cam: {from: {pos: [-11.2, 1.5, -1.6], look: [-21, 6.0, -13.5], mm: 24}, to: {pos: [-11.9, 4.4, -2.4], look: PT, mm: 24}}},
   {id: 'S4', cut: [2, 0], size: 'medium', move: 'push', cam: {from: {pos: 'signpost+town:5.2,up:1.0', look: 'signpost', mm: 35}, to: {pos: 'signpost+town:3.9,up:1.1', look: 'signpost', mm: 35}}},
@@ -28,13 +28,13 @@ const T = [
   {id: 'S6', cut: [4, 0], size: 'medium', move: 'orbit', cam: {orbit: {center: PT, r: 3.6, h: .9, a0: yawTown + .55, a1: yawTown + .15}, mm: 50}},
   {id: 'S7', cut: [5, 0], size: 'close', move: 'push', cam: {from: {pos: [1.05, .82, 3.1], look: [1.15, .62, .3], mm: 85}, to: {pos: [1.1, .74, 2.2], look: [1.15, .62, .3], mm: 85}}, cast: [{who: 'banana', at: [1.15, 0, .3]}]},
   {id: 'S8', cut: [6, 0], size: 'wide', move: 'track', cam: {from: {pos: [8.4, 1.4, 27.8], look: [-3, .9, 25.4], mm: 24}, to: {pos: [7.2, 1.4, 27.4], look: [-4, .9, 25.4], mm: 24}}, cast: [{who: 'banana', at: [2.4, 0, 25.6], yaw: 1.2}]},
-  {id: 'S9', cut: [7, 0], size: 'medium', move: 'push', cam: {from: {pos: [1.6, .3, 13.6], look: [-20, 11, -14], mm: 35}, to: {pos: [1.45, .3, 13.1], look: [-20, 11, -14], mm: 35}}, cast: [{who: 'banana', at: [.8, 0, 11.6], yaw: -2.4, face: 'sad'}], clix: {mode: 'arm', end: [-24, 22, -18]}},
+  {id: 'S9', cut: [7, 0], size: 'medium', move: 'push', cam: {from: {pos: [-6.6, .3, 6.4], look: [-24, 14, -17], mm: 35}, to: {pos: [-6.8, .3, 6.0], look: [-24, 14, -17], mm: 35}}, cast: [{who: 'banana', at: [-8.0, 0, 3.6], yaw: -2.45, face: 'sad'}], clix: {mode: 'arm', end: [-24, 17, -17]}},
   {id: 'S10', cut: [8, 0], size: 'medium', move: 'track', cam: {from: {pos: [8.2, 1.4, 25.4], look: [11.6, 1.05, 21.6], mm: 35}, to: {pos: [9.6, 1.4, 25.6], look: [12.4, 1.05, 21.6], mm: 35}}},
-  {id: 'S11', cut: [9, 0], size: 'medium', move: 'push', see: ['CORE ROW'], cam: {from: {pos: [0, 5.2, 12.6], look: [0, 4.5, 7.0], mm: 35}, to: {pos: [0, 5.15, 11.9], look: [0, 4.5, 7.0], mm: 35}},
+  {id: 'S11', cut: [9, 0], size: 'medium', move: 'push', see: ['CORE ROW'], cam: {from: {pos: [0, 5.3, 12.9], look: [0, 4.4, 7.0], mm: 28}, to: {pos: [0, 5.25, 12.3], look: [0, 4.4, 7.0], mm: 28}},
     cast: [{who: 'banana', at: [FLAP[0] - .35, FLAP[1], FLAP[2]]}, {who: 'sunny', at: [FLAP[0] + .35, FLAP[1], FLAP[2]], face: 'hopeful'}]},
-  {id: 'S12', cut: [10, 0], size: 'medium', move: 'push', cam: {from: {pos: [.62, 6.0, 6.55], look: [.1, 5.5, 9.2], mm: 50}, to: {pos: [.6, 5.95, 6.75], look: [.05, 5.5, 9.2], mm: 50}}, clue: 'fleck',
+  {id: 'S12', cut: [10, 0], size: 'medium', move: 'push', cam: {from: {pos: [.98, 6.4, 5.75], look: [.05, 5.45, 9.2], mm: 50}, to: {pos: [.95, 6.38, 5.9], look: [.05, 5.45, 9.2], mm: 50}}, clue: 'fleck',
     cast: [{who: 'banana', at: [FLAP[0] - .35, FLAP[1], FLAP[2]]}, {who: 'sunny', at: [FLAP[0] + .35, FLAP[1], FLAP[2]]}]},
-  {id: 'S13', cut: [11, 0], size: 'close', move: 'push', cam: {from: {pos: [.38, 5.72, 9.4], look: [.35, 5.55, 7.3], mm: 85}, to: {pos: [.37, 5.7, 8.8], look: [.35, 5.55, 7.3], mm: 85}},
+  {id: 'S13', cut: [11, 0], size: 'close', move: 'push', cam: {from: {pos: [.38, 5.95, 9.4], look: [.35, 5.88, 7.3], mm: 85}, to: {pos: [.37, 5.93, 8.85], look: [.35, 5.88, 7.3], mm: 85}},
     cast: [{who: 'banana', at: [FLAP[0] - .35, FLAP[1], FLAP[2]]}, {who: 'sunny', at: [FLAP[0] + .35, FLAP[1], FLAP[2]], face: 'hopeful'}]},
   {id: 'S14', cut: [12, 0], size: 'wide', move: 'crane', cam: {from: {pos: [2.9, 3.6, 2.6], look: [-1.2, 1.6, -3.4], mm: 20}, to: {pos: [2.5, 1.9, 2.0], look: [-1.0, 1.4, -3.4], mm: 20}}, cast: [{who: 'banana', at: BOX_IN, rim: true}], props: ['pots']},
   {id: 'S15', cut: [13, 0], size: 'close', move: 'push', cam: {from: {pos: [.6, .75, -.6], look: [0, .62, -1.6], mm: 85}, to: {pos: [.45, .72, -.9], look: [0, .62, -1.6], mm: 85}}, cast: [{who: 'banana', at: BOX_IN, paint: 'fake_cosmic', run: .55, rim: true}], props: ['pots']},
@@ -72,7 +72,7 @@ const T = [
   {id: 'S38', cut: [32, 0], size: 'close', move: 'push', cam: {clixHead: true, from: {d: 22, up: -4, side: 7}, to: {d: 19, up: -3.6, side: 6}, mm: 50}, clix: {mode: 'reveal', face: 'grin'}},
   {id: 'S39', cut: [33, 0], size: 'medium', move: 'push', cam: {from: {pos: toward(2.6, .78, 0), look: P(0, .55, 0), mm: 50}, to: {pos: toward(2.2, .76, 0), look: P(0, .55, 0), mm: 50}},
     cast: [{who: 'banana', at: onPlinth(-.3), paint: 'fake_cosmic', run: 1, face: 'joy', yaw: yawTown}, {who: 'sunny', at: onPlinth(.3), preset: 'cosmic', face: 'joy', yaw: yawTown}]},
-  {id: 'S40', cut: [34, 0], hero: 3, size: 'wide', move: 'push', replay: 'S1', cast: [{who: 'hero1', preset: 'frozen', at: [-8.55, 0, 15.0], yaw: 2.6}, {who: 'banana', at: onPlinth(-.3), paint: 'fake_cosmic', run: 1, face: 'joy', yaw: yawTown}, {who: 'sunny', at: onPlinth(.3), preset: 'cosmic', face: 'joy', yaw: yawTown}]},
+  {id: 'S40', cut: [34, 0], hero: 3, size: 'wide', move: 'push', replay: 'S1', cast: [{who: 'hero1', preset: 'frozen', at: [-8.05, 0, 4.6], yaw: .9}, {who: 'banana', at: onPlinth(-.3), paint: 'fake_cosmic', run: 1, face: 'joy', yaw: yawTown}, {who: 'sunny', at: onPlinth(.3), preset: 'cosmic', face: 'joy', yaw: yawTown}]},
 ];
 
 export function shots(cues) {
