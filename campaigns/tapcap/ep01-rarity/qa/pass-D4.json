@@ -30,25 +30,25 @@
    "frames": 47,
    "move": "pull",
    "size": "wide",
-   "ms": 3797,
+   "ms": 7844,
    "travel": {
     "move": 3.477,
     "turnDeg": 3.02,
     "zoom": 1
    },
    "dur": 1.958,
-   "luma": 0.1599,
+   "luma": 0.2678,
    "gate": [
     0.1,
     0.22
    ],
-   "lumaPass": true,
+   "lumaPass": false,
    "void": 0,
    "lockedOff": false,
    "layers": {
-    "fg": 0.11,
+    "fg": 0.95,
     "mid": 7.35,
-    "bg": 37.77,
+    "bg": 36.93,
     "far": 15.09
    },
    "depthPass": false
@@ -182,14 +182,14 @@
    "frames": 19,
    "move": "push",
    "size": "insert",
-   "ms": 3557,
+   "ms": 6551,
    "travel": {
     "move": 0.059,
     "turnDeg": 0.03,
     "zoom": 1
    },
    "dur": 0.792,
-   "luma": 0.5922,
+   "luma": 0.5139,
    "gate": [
     0.34,
     0.48
@@ -287,8 +287,15 @@
   "luma": {
    "pass": false,
    "failing": {
+    "S33": [
+     0.2678,
+     [
+      0.1,
+      0.22
+     ]
+    ],
     "S37b": [
-     0.5922,
+     0.5139,
      [
       0.34,
       0.48
@@ -299,9 +306,9 @@
   "depth": {
    "S33": [
     {
-     "fg": 0.11,
+     "fg": 0.95,
      "mid": 7.35,
-     "bg": 37.77,
+     "bg": 36.93,
      "far": 15.09
     },
     false
