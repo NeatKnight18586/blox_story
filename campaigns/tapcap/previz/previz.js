@@ -57,7 +57,7 @@ function placeCast(shot, frame, camPos) {
     if (p === 'puddle') { const pd = new T.Mesh(new T.CircleGeometry(.7, 40), new T.MeshPhysicalMaterial({color: '#1E2430', roughness: .02, metalness: .2, clearcoat: 1})); pd.rotation.x = -Math.PI / 2; pd.position.set(0, .02, -1.6); pd.userData.layer = 'fg'; S.cast.add(pd); }
   }
   // the crowd: hide members standing where the cast stands; S25 brings 12 of them to the hill base
-  S.W.crowd.forEach((m, i) => { if (!m.object) return; m.object.visible = !placed.some(p => Math.hypot(p.at[0] - m.x, p.at[2] - m.z) < .8);
+  S.W.crowd.forEach((m, i) => { if (!m.object) return; m.object.visible = !placed.some(p => Math.hypot(p.at[0] - m.x, p.at[2] - m.z) < .8) && Math.hypot(camPos[0] - m.x, camPos[2] - m.z) > 1.2;   /* lens clearance for the crowd */
     const hb = shot.crowd === 'hillbase' && i >= 12 && i < 24; m.object.position.x = hb ? -15.6 - (i % 4) * 1.1 : m.x; m.object.position.z = hb ? -5.2 - Math.floor((i - 12) / 4) * 1.2 - (i % 2) * .4 : m.z;
     if (hb) m.object.rotation.y = Math.atan2(-24 - m.object.position.x, -16 - m.object.position.z); });
   return placed;
