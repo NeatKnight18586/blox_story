@@ -10,16 +10,16 @@
   cuff line, left wrist band, black legs + pockets, white sneakers, 40 × H. Old human bust + hand sheet deleted.
 - Spec: tap 3 % H, 24 fps, synthesized click (40 ms, −6 dBFS, sfx.py `click`), Clix shots S18–21 arm / S36 reveal / S37 macros / S38 close-up,
   TC-06 = S40 replays S1's move (diff 0). Gate: `node campaigns/tapcap/scripts/pass-a.js` → qa/proportions.json + review sheet.
-- Pass B: `campaigns/tapcap/world/` (slimetown.js world, crowd.js idle loops, moods.js 3 presets on engine moods7 + post7),
-  `node campaigns/tapcap/scripts/pass-b.js` → qa/world.json + review/pass-b/pass-b-sheet.png. Crowd 34 (6 Rares, sway 15/hop 9/tap 10).
+- Pass B revision: seeded town (`world/town.js` plan, seed 1102 in spec.yml; `townmesh.js` instanced 4 archetypes; `slimetown.js`),
+  provisional S1–S40 cams in shots.yml (town built for their frustums), 2-tier plinth, hill 1:2.2 + S-path 24.5°, Lilita One signs.
+  `node campaigns/tapcap/scripts/pass-b.js` → qa/world.json + review/pass-b/pass-b-sheet.png (8 stills, 4 columns).
 ## Approved
 - Pass A (owner 2026-11-19), Clix face #2 grin.
-## Open notes
-- Pass B luma gate (engine/moods7 dawnHope .36–.50) still FAILS after 2 fix passes: hill wide .57, plinth close .60 (bright sky);
-  not loosened. Owner: darker dawn sky, or accept a brighter toy-world gate?
-- Rain-night still: plinth reads as a bloom blob + its wet reflection; lightning not used (optional ×1).
-- Tilt-shift and lookdev bloom are post steps (scripts/tiltshift.py, bloom.py); golden preset built, not on the gate sheet.
-- Sign fonts: no Lilita One file in the repo, signs use the bold sans fallback.
-- Scale: arm end 8.1 H wide · 3 % press overlaps the base rim 0.4 % H (hidden) · base drips still long capsules, ref = short blobs.
+## Open notes (Pass B revision, after 2 fix passes; nothing loosened)
+- B1 FAIL: plinth close luma .510 (gate ≤ .50), golden S36 .511 (≤ .48). B3 FAIL: S1/S40 bg .79 %, S22 fg 0 / mid .23 %, S36 bg .29 %.
+- B4 FAIL: S5 77 ✓, street wides S1 11 · S25 5 · S40 11 · Box street 1 (clearance rule removes lane houses beside the lens) · Market 13 · S8 19 ✓.
+- B6 FAIL: rain plinth ΔL* 15.2 (≥ 20), reflection .75 (≤ .40). Earlier PASS (33.8) was invalid: tier 2 was missing (comment bug).
+- Plinth: teal rim line not visible (inside the bevel); tier-2 side reads as a dark band. Golden still: clouds parted but no rooftops read.
+- S14–S17 say "night" but sit in the 0:00–0:38 dawn act; Pass C needs a call. Cams in shots.yml are provisional (Pass C replaces).
 ## Next step
-- Owner: "approve" or notes on Pass B. Then Pass C (blocking previz S1–S40, captions v6, QA, aligner on vo.wav).
+- Owner: notes or "approve" on the Pass B revision (fails above). Do NOT start Pass C before approval.

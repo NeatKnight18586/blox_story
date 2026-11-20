@@ -1,208 +1,816 @@
 {
  "stills": [
   {
-   "cam": "boxStreet",
+   "id": "st1",
+   "label": "Box street",
    "mood": "dawnHope",
-   "label": "Box street"
+   "luma": 0.4546,
+   "gate": [
+    0.36,
+    0.5
+   ],
+   "lumaPass": true,
+   "skyPct": 10.51,
+   "skyMax": null,
+   "skyPass": null,
+   "horizonCover": 100,
+   "layers": {
+    "fg": 17.62,
+    "mid": 61.67,
+    "bg": 0,
+    "far": 10.2
+   },
+   "ms": 9718,
+   "feature": "CORE ROW",
+   "featureCap": 0.0312,
+   "featurePass": true,
+   "buildings": 1,
+   "archetypes": [
+    "tower"
+   ]
   },
   {
-   "cam": "coreRow",
+   "id": "st2",
+   "label": "Core Row",
    "mood": "dawnHope",
-   "label": "Core Row"
+   "luma": 0.4296,
+   "gate": [
+    0.36,
+    0.5
+   ],
+   "lumaPass": true,
+   "skyPct": 11.45,
+   "skyMax": null,
+   "skyPass": null,
+   "horizonCover": 100,
+   "layers": {
+    "fg": 7.73,
+    "mid": 71.44,
+    "bg": 0,
+    "far": 9.38
+   },
+   "ms": 4537,
+   "feature": null,
+   "featureCap": null,
+   "featurePass": null
   },
   {
-   "cam": "trade",
+   "id": "st3",
+   "label": "Trade Corner · Market Street",
    "mood": "dawnHope",
-   "label": "Trade Corner"
+   "luma": 0.4356,
+   "gate": [
+    0.36,
+    0.5
+   ],
+   "lumaPass": true,
+   "skyPct": 15.85,
+   "skyMax": null,
+   "skyPass": null,
+   "horizonCover": 100,
+   "layers": {
+    "fg": 21.1,
+    "mid": 8.27,
+    "bg": 34.86,
+    "far": 19.91
+   },
+   "ms": 3876,
+   "feature": "TRADES",
+   "featureCap": 0.0348,
+   "featurePass": true,
+   "buildings": 13,
+   "archetypes": [
+    "drip",
+    "keycap",
+    "stacked",
+    "tower"
+   ]
   },
   {
-   "cam": "hillWide",
+   "id": "hillWide",
+   "label": "hill wide",
    "mood": "dawnHope",
-   "label": "Top Shelf Hill wide"
+   "luma": 0.4773,
+   "gate": [
+    0.36,
+    0.5
+   ],
+   "lumaPass": true,
+   "skyPct": 28.21,
+   "skyMax": 0.4,
+   "skyPass": true,
+   "horizonCover": 96.3,
+   "layers": {
+    "fg": 3.22,
+    "mid": 31.28,
+    "bg": 23.72,
+    "far": 13.57
+   },
+   "ms": 2393,
+   "feature": null,
+   "featureCap": null,
+   "featurePass": null
   },
   {
-   "cam": "plinthClose",
+   "id": "st5",
+   "label": "plinth close",
    "mood": "dawnHope",
-   "label": "plinth close (empty)"
+   "luma": 0.5096,
+   "gate": [
+    0.36,
+    0.5
+   ],
+   "lumaPass": false,
+   "skyPct": 0,
+   "skyMax": 0.15,
+   "skyPass": true,
+   "horizonCover": null,
+   "layers": {
+    "fg": 0,
+    "mid": 11.98,
+    "bg": 87.86,
+    "far": 0.16
+   },
+   "ms": 3238,
+   "feature": "1 / 102",
+   "featureCap": 0.0338,
+   "featurePass": true
   },
   {
-   "cam": "rainHill",
+   "id": "rainHill",
+   "label": "rain-night hill",
    "mood": "rainNight",
-   "label": "rain-night hill"
+   "luma": 0.1093,
+   "gate": [
+    0.1,
+    0.22
+   ],
+   "lumaPass": true,
+   "skyPct": 21.09,
+   "skyMax": null,
+   "skyPass": null,
+   "horizonCover": 55.2,
+   "layers": {
+    "fg": 0.24,
+    "mid": 1.87,
+    "bg": 69.08,
+    "far": 7.72
+   },
+   "ms": 11987,
+   "feature": null,
+   "featureCap": null,
+   "featurePass": null,
+   "plinth": {
+    "Lplinth": 27.6,
+    "Lbg": 12.4,
+    "contrast": 15.2,
+    "reflection": 0.747,
+    "px": 49972
+   }
+  },
+  {
+   "id": "st7",
+   "label": "S5 aerial town reveal",
+   "mood": "dawnHope",
+   "luma": 0.4646,
+   "gate": [
+    0.36,
+    0.5
+   ],
+   "lumaPass": true,
+   "skyPct": 4.93,
+   "skyMax": null,
+   "skyPass": null,
+   "horizonCover": null,
+   "layers": {
+    "fg": 4.17,
+    "mid": 25.18,
+    "bg": 56.63,
+    "far": 9.09
+   },
+   "ms": 9021,
+   "feature": null,
+   "featureCap": null,
+   "featurePass": null,
+   "buildings": 77,
+   "archetypes": [
+    "drip",
+    "keycap",
+    "stacked",
+    "tower"
+   ]
+  },
+  {
+   "id": "st8",
+   "label": "golden S36 sky",
+   "mood": "golden",
+   "luma": 0.5107,
+   "gate": [
+    0.34,
+    0.48
+   ],
+   "lumaPass": false,
+   "skyPct": 22.42,
+   "skyMax": null,
+   "skyPass": null,
+   "horizonCover": null,
+   "layers": {
+    "fg": 1.32,
+    "mid": 7.01,
+    "bg": 0.29,
+    "far": 68.97
+   },
+   "ms": 3516,
+   "feature": null,
+   "featureCap": null,
+   "featurePass": null
   }
  ],
- "checks": {
-  "crowdSize": {
-   "pass": true,
-   "n": 34
+ "void": [
+  {
+   "id": "S1",
+   "mood": "dawnHope",
+   "voidPx": 0,
+   "ms": 3840
   },
-  "crowdMix": {
-   "pass": true,
-   "rares": 6
+  {
+   "id": "S2",
+   "mood": "dawnHope",
+   "voidPx": 0,
+   "ms": 724
   },
-  "loops": {
-   "pass": true,
-   "counts": {
-    "sway": 15,
-    "hop": 9,
-    "tap": 10
+  {
+   "id": "S3",
+   "mood": "dawnHope",
+   "voidPx": 0,
+   "ms": 727
+  },
+  {
+   "id": "S4",
+   "mood": "dawnHope",
+   "voidPx": 0,
+   "ms": 551
+  },
+  {
+   "id": "S5",
+   "mood": "dawnHope",
+   "voidPx": 0,
+   "ms": 5189
+  },
+  {
+   "id": "S6",
+   "mood": "dawnHope",
+   "voidPx": 0,
+   "ms": 548
+  },
+  {
+   "id": "S7",
+   "mood": "dawnHope",
+   "voidPx": 0,
+   "ms": 1167
+  },
+  {
+   "id": "S8",
+   "mood": "dawnHope",
+   "voidPx": 0,
+   "ms": 941
+  },
+  {
+   "id": "S9",
+   "mood": "dawnHope",
+   "voidPx": 0,
+   "ms": 1045
+  },
+  {
+   "id": "S10",
+   "mood": "dawnHope",
+   "voidPx": 0,
+   "ms": 1060
+  },
+  {
+   "id": "S11",
+   "mood": "dawnHope",
+   "voidPx": 0,
+   "ms": 1584
+  },
+  {
+   "id": "S12",
+   "mood": "dawnHope",
+   "voidPx": 0,
+   "ms": 1012
+  },
+  {
+   "id": "S13",
+   "mood": "dawnHope",
+   "voidPx": 0,
+   "ms": 541
+  },
+  {
+   "id": "S14",
+   "mood": "dawnHope",
+   "voidPx": 0,
+   "ms": 1467
+  },
+  {
+   "id": "S15",
+   "mood": "dawnHope",
+   "voidPx": 0,
+   "ms": 864
+  },
+  {
+   "id": "S16",
+   "mood": "dawnHope",
+   "voidPx": 0,
+   "ms": 882
+  },
+  {
+   "id": "S17",
+   "mood": "dawnHope",
+   "voidPx": 0,
+   "ms": 930
+  },
+  {
+   "id": "S18",
+   "mood": "dawnHope",
+   "voidPx": 0,
+   "ms": 580
+  },
+  {
+   "id": "S19",
+   "mood": "dawnHope",
+   "voidPx": 0,
+   "ms": 2232
+  },
+  {
+   "id": "S20",
+   "mood": "dawnHope",
+   "voidPx": 0,
+   "ms": 992
+  },
+  {
+   "id": "S21",
+   "mood": "dawnHope",
+   "voidPx": 0,
+   "ms": 901
+  },
+  {
+   "id": "S22",
+   "mood": "dawnHope",
+   "voidPx": 0,
+   "ms": 592
+  },
+  {
+   "id": "S23",
+   "mood": "rainNight",
+   "voidPx": 0,
+   "ms": 1705
+  },
+  {
+   "id": "S24",
+   "mood": "rainNight",
+   "voidPx": 0,
+   "ms": 552
+  },
+  {
+   "id": "S25",
+   "mood": "rainNight",
+   "voidPx": 0,
+   "ms": 1631
+  },
+  {
+   "id": "S26",
+   "mood": "rainNight",
+   "voidPx": 0,
+   "ms": 567
+  },
+  {
+   "id": "S27",
+   "mood": "rainNight",
+   "voidPx": 0,
+   "ms": 563
+  },
+  {
+   "id": "S28",
+   "mood": "rainNight",
+   "voidPx": 0,
+   "ms": 565
+  },
+  {
+   "id": "S29",
+   "mood": "rainNight",
+   "voidPx": 0,
+   "ms": 582
+  },
+  {
+   "id": "S30",
+   "mood": "rainNight",
+   "voidPx": 0,
+   "ms": 540
+  },
+  {
+   "id": "S31",
+   "mood": "rainNight",
+   "voidPx": 0,
+   "ms": 527
+  },
+  {
+   "id": "S32",
+   "mood": "rainNight",
+   "voidPx": 0,
+   "ms": 565
+  },
+  {
+   "id": "S33",
+   "mood": "rainNight",
+   "voidPx": 0,
+   "ms": 721
+  },
+  {
+   "id": "S34",
+   "mood": "rainNight",
+   "voidPx": 0,
+   "ms": 533
+  },
+  {
+   "id": "S35",
+   "mood": "rainNight",
+   "voidPx": 0,
+   "ms": 522
+  },
+  {
+   "id": "S36",
+   "mood": "golden",
+   "voidPx": 0,
+   "ms": 759
+  },
+  {
+   "id": "S37",
+   "mood": "golden",
+   "voidPx": 0,
+   "ms": 532
+  },
+  {
+   "id": "S38",
+   "mood": "golden",
+   "voidPx": 0,
+   "ms": 541
+  },
+  {
+   "id": "S39",
+   "mood": "golden",
+   "voidPx": 0,
+   "ms": 526
+  },
+  {
+   "id": "S40",
+   "mood": "golden",
+   "voidPx": 0,
+   "ms": 1460
+  }
+ ],
+ "wides": [
+  {
+   "id": "S1",
+   "layers": {
+    "fg": 18.42,
+    "mid": 38.42,
+    "bg": 0.79,
+    "far": 16.3
+   },
+   "all4": false,
+   "skyPct": 26.08,
+   "horizonCover": 100,
+   "buildings": 11,
+   "archetypes": [
+    "drip",
+    "keycap",
+    "stacked",
+    "tower"
+   ]
+  },
+  {
+   "id": "S3",
+   "layers": {
+    "fg": 22.86,
+    "mid": 4.5,
+    "bg": 30.96,
+    "far": 9.81
+   },
+   "all4": true,
+   "skyPct": 31.87,
+   "horizonCover": 100
+  },
+  {
+   "id": "S5",
+   "layers": {
+    "fg": 4.17,
+    "mid": 25.18,
+    "bg": 56.63,
+    "far": 9.09
+   },
+   "all4": true,
+   "skyPct": 4.93,
+   "horizonCover": null,
+   "buildings": 77,
+   "archetypes": [
+    "drip",
+    "keycap",
+    "stacked",
+    "tower"
+   ]
+  },
+  {
+   "id": "S8",
+   "layers": {
+    "fg": 15.2,
+    "mid": 6.62,
+    "bg": 40.08,
+    "far": 10.79
+   },
+   "all4": true,
+   "skyPct": 27.31,
+   "horizonCover": 94.4,
+   "buildings": 19,
+   "archetypes": [
+    "drip",
+    "keycap",
+    "stacked",
+    "tower"
+   ]
+  },
+  {
+   "id": "S22",
+   "layers": {
+    "fg": 0,
+    "mid": 0.23,
+    "bg": 81.22,
+    "far": 16.73
+   },
+   "all4": false,
+   "skyPct": 1.82,
+   "horizonCover": null
+  },
+  {
+   "id": "S25",
+   "layers": {
+    "fg": 11.73,
+    "mid": 46.51,
+    "bg": 17.5,
+    "far": 9.8
+   },
+   "all4": true,
+   "skyPct": 14.46,
+   "horizonCover": 100,
+   "buildings": 5,
+   "archetypes": [
+    "drip",
+    "keycap",
+    "stacked"
+   ]
+  },
+  {
+   "id": "S33",
+   "layers": {
+    "fg": 3.82,
+    "mid": 14.96,
+    "bg": 30.15,
+    "far": 15.09
+   },
+   "all4": true,
+   "skyPct": 35.97,
+   "horizonCover": 100
+  },
+  {
+   "id": "S36",
+   "layers": {
+    "fg": 1.32,
+    "mid": 7.01,
+    "bg": 0.29,
+    "far": 68.97
+   },
+   "all4": false,
+   "skyPct": 22.42,
+   "horizonCover": null
+  },
+  {
+   "id": "S40",
+   "layers": {
+    "fg": 18.42,
+    "mid": 38.42,
+    "bg": 0.79,
+    "far": 32.72
+   },
+   "all4": false,
+   "skyPct": 9.66,
+   "horizonCover": 100,
+   "buildings": 11,
+   "archetypes": [
+    "drip",
+    "keycap",
+    "stacked",
+    "tower"
+   ]
+  }
+ ],
+ "density": [],
+ "summary": {
+  "B1_luma": {
+   "pass": false,
+   "values": {
+    "st1": [
+     0.4546,
+     [
+      0.36,
+      0.5
+     ]
+    ],
+    "st2": [
+     0.4296,
+     [
+      0.36,
+      0.5
+     ]
+    ],
+    "st3": [
+     0.4356,
+     [
+      0.36,
+      0.5
+     ]
+    ],
+    "hillWide": [
+     0.4773,
+     [
+      0.36,
+      0.5
+     ]
+    ],
+    "st5": [
+     0.5096,
+     [
+      0.36,
+      0.5
+     ]
+    ],
+    "rainHill": [
+     0.1093,
+     [
+      0.1,
+      0.22
+     ]
+    ],
+    "st7": [
+     0.4646,
+     [
+      0.36,
+      0.5
+     ]
+    ],
+    "st8": [
+     0.5107,
+     [
+      0.34,
+      0.48
+     ]
+    ]
    }
   },
-  "signs": [
-   {
-    "still": "boxStreet",
-    "text": "CORE ROW",
-    "capFrac": 0.0319,
-    "inFrame": true,
-    "featured": true,
-    "pass": true
-   },
-   {
-    "still": "boxStreet",
-    "text": "1 / 102",
-    "capFrac": 0.0019,
-    "inFrame": true,
-    "featured": false,
-    "pass": true
-   },
-   {
-    "still": "boxStreet",
-    "text": "TOP SHELF",
-    "capFrac": 0.009,
-    "inFrame": true,
-    "featured": false,
-    "pass": true
-   },
-   {
-    "still": "trade",
-    "text": "TRADES",
-    "capFrac": 0.0627,
-    "inFrame": true,
-    "featured": true,
-    "pass": true
-   },
-   {
-    "still": "hillWide",
-    "text": "CORE ROW",
-    "capFrac": 0.0135,
-    "inFrame": true,
-    "featured": false,
-    "pass": true
-   },
-   {
-    "still": "hillWide",
-    "text": "1 / 102",
-    "capFrac": 0.0017,
-    "inFrame": true,
-    "featured": false,
-    "pass": true
-   },
-   {
-    "still": "hillWide",
-    "text": "TOP SHELF",
-    "capFrac": 0.0064,
-    "inFrame": true,
-    "featured": false,
-    "pass": true
-   },
-   {
-    "still": "plinthClose",
-    "text": "1 / 102",
-    "capFrac": 0.0305,
-    "inFrame": true,
-    "featured": true,
-    "pass": true
-   },
-   {
-    "still": "rainHill",
-    "text": "1 / 102",
-    "capFrac": 0.0039,
-    "inFrame": true,
-    "featured": false,
-    "pass": true
+  "B2_void": {
+   "pass": true,
+   "failing": [],
+   "n": 40
+  },
+  "B3_depth": {
+   "pass": false,
+   "perShot": {
+    "S1": {
+     "fg": 18.42,
+     "mid": 38.42,
+     "bg": 0.79,
+     "far": 16.3
+    },
+    "S3": {
+     "fg": 22.86,
+     "mid": 4.5,
+     "bg": 30.96,
+     "far": 9.81
+    },
+    "S5": {
+     "fg": 4.17,
+     "mid": 25.18,
+     "bg": 56.63,
+     "far": 9.09
+    },
+    "S8": {
+     "fg": 15.2,
+     "mid": 6.62,
+     "bg": 40.08,
+     "far": 10.79
+    },
+    "S22": {
+     "fg": 0,
+     "mid": 0.23,
+     "bg": 81.22,
+     "far": 16.73
+    },
+    "S25": {
+     "fg": 11.73,
+     "mid": 46.51,
+     "bg": 17.5,
+     "far": 9.8
+    },
+    "S33": {
+     "fg": 3.82,
+     "mid": 14.96,
+     "bg": 30.15,
+     "far": 15.09
+    },
+    "S36": {
+     "fg": 1.32,
+     "mid": 7.01,
+     "bg": 0.29,
+     "far": 68.97
+    },
+    "S40": {
+     "fg": 18.42,
+     "mid": 38.42,
+     "bg": 0.79,
+     "far": 32.72
+    }
    }
+  },
+  "B4_density": {
+   "pass": false,
+   "S5": 77,
+   "streetWides": {
+    "S1": 11,
+    "S8": 19,
+    "S25": 5,
+    "S40": 11,
+    "st1": 1,
+    "st3": 13
+   }
+  },
+  "B5_variety": {
+   "archetypesS5": [
+    "drip",
+    "keycap",
+    "stacked",
+    "tower"
+   ],
+   "pass": true
+  },
+  "B6_plinth": {
+   "pass": false,
+   "Lplinth": 27.6,
+   "Lbg": 12.4,
+   "contrast": 15.2,
+   "reflection": 0.747,
+   "px": 49972
+  },
+  "B7_sky": {
+   "hillWideSky": 28.21,
+   "plinthCloseSky": 0,
+   "skylineCoverMin": 94.4,
+   "skylineCover": [
+    100,
+    100,
+    94.4,
+    100,
+    100,
+    100,
+    96.3,
+    100,
+    100
+   ],
+   "pass": true
+  },
+  "B9_font": {
+   "loaded": true,
+   "file": "../../../node_modules/@expo-google-fonts/lilita-one/400Regular/LilitaOne_400Regular.ttf"
+  },
+  "B10_text": [
+   "TapCap chest print (product art)",
+   "awning stripes (no text)",
+   "sign:1 / 102",
+   "sign:CORE ROW",
+   "sign:TOP SHELF",
+   "sign:TRADES"
   ],
-  "featured": [
-   {
-    "still": "boxStreet",
-    "text": "CORE ROW",
-    "capFrac": 0.0319,
-    "pass": true
-   },
-   {
-    "still": "trade",
-    "text": "TRADES",
-    "capFrac": 0.0627,
-    "pass": true
-   },
-   {
-    "still": "plinthClose",
-    "text": "1 / 102",
-    "capFrac": 0.0305,
-    "pass": true
+  "B11_ms": {
+   "still540": 6036,
+   "previz160": 1044,
+   "build": {
+    "build_dawnHope": 564,
+    "build_rainNight": 496,
+    "build_golden": 520
    }
-  ],
-  "luma": [
-   {
-    "still": "boxStreet",
-    "mood": "dawnHope",
-    "luma": 0.4839,
-    "gate": [
-     0.36,
-     0.5
-    ],
-    "pass": true
-   },
-   {
-    "still": "coreRow",
-    "mood": "dawnHope",
-    "luma": 0.4561,
-    "gate": [
-     0.36,
-     0.5
-    ],
-    "pass": true
-   },
-   {
-    "still": "trade",
-    "mood": "dawnHope",
-    "luma": 0.4998,
-    "gate": [
-     0.36,
-     0.5
-    ],
-    "pass": true
-   },
-   {
-    "still": "hillWide",
-    "mood": "dawnHope",
-    "luma": 0.5663,
-    "gate": [
-     0.36,
-     0.5
-    ],
-    "pass": false
-   },
-   {
-    "still": "plinthClose",
-    "mood": "dawnHope",
-    "luma": 0.6032,
-    "gate": [
-     0.36,
-     0.5
-    ],
-    "pass": false
-   },
-   {
-    "still": "rainHill",
-    "mood": "rainNight",
-    "luma": 0.2048,
-    "gate": [
-     0.1,
-     0.22
-    ],
-    "pass": true
-   }
-  ]
+  },
+  "counts": {
+   "buildings": 192,
+   "hero": 29,
+   "props": 129
+  },
+  "crowd": 33
  }
 }

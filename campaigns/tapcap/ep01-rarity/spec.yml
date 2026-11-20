@@ -16,6 +16,7 @@ cast:
   sunny: {preset: cosmic, paint: fake_banana, fleck_shot: S12}
   clix: {asset: ../assets/clix, rig: R6-satin, height_h: 40, face: grin, arm_only: [S18, S19, S20, S21], reveal: S36, closeup: S38}   # face pick pending (#2 grin · #5 content · #32 calm)
 crowd: {count: [20, 40], idle: [sway, hop, tap]}
+town: {seed: 1102, generator: ../world/town.js}   # one seeded generator; same seed = same town
 signs: ["1 / 102", "TOP SHELF", "CORE ROW", "TRADES"]
 lighting:
   - {from: 0.00, to: 38.0, preset: dawn-hope}

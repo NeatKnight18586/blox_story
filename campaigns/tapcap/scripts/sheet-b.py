@@ -1,17 +1,20 @@
 #!/usr/bin/env python3
-"""Pass B contact sheet: 6 location stills (3 × 2), labelled, with the measured line under each. 1600 px wide."""
+"""Pass B (revision) contact sheet: 8 stills, 4 columns, 1600 px wide, numbered, measured line under each."""
 import json
 from PIL import Image, ImageDraw, ImageFont
-ep = 'campaigns/tapcap/ep01-rarity'; out = f'{ep}/review/pass-b'; d = json.load(open(f'{out}/stills.json'))
-F = lambda s: ImageFont.truetype('/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf', s); FB = lambda s: ImageFont.truetype('/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf', s)
-W, cw = 1600, 1600 // 3; ch = int(cw * 16 / 9); lab = 46
-sheet = Image.new('RGB', (W, 40 + 2 * (ch + lab)), 'white'); g = ImageDraw.Draw(sheet)
-C = d['checks']; ok = lambda b: '✓' if b else '✗'
-g.text((10, 9), f"TapCap EP01 · Pass B · Slime Town · crowd {C['crowdSize']['n']} {ok(C['crowdSize']['pass'])} (rares {C['crowdMix']['rares']}, loops {C['loops']['counts']}) {ok(C['loops']['pass'])}", font=FB(17), fill='black')
-for i, r in enumerate(d['res']):
-    x, y = (i % 3) * cw, 40 + (i // 3) * (ch + lab)
-    sheet.paste(Image.open(f"{out}/panels/{r['cam']}.png").convert('RGB').resize((cw, ch), Image.LANCZOS), (x, y))
-    lu = next(l for l in C['luma'] if l['still'] == r['cam']); sg = [s for s in C['signs'] if s['still'] == r['cam']]
-    g.rectangle([x, y + ch, x + cw, y + ch + lab], fill=(20, 22, 28)); g.text((x + 6, y + ch + 3), f"{i + 1} · {r['label']} · {r['mood']}", font=FB(14), fill='white')
-    g.text((x + 6, y + ch + 23), f"luma {lu['luma']:.2f} gate {lu['gate']} {ok(lu['pass'])} · " + (' '.join(f"{s['text']} {s['capFrac']*100:.1f}% {ok(s['pass'])}" for s in sg if s['featured']) or 'no featured sign'), font=F(12), fill='white')
+ep = 'campaigns/tapcap/ep01-rarity'; out = f'{ep}/review/pass-b'; Q = json.load(open(f'{ep}/qa/world.json'))
+LIL = 'node_modules/@expo-google-fonts/lilita-one/400Regular/LilitaOne_400Regular.ttf'
+F = lambda s: ImageFont.truetype('/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf', s); FB = lambda s: ImageFont.truetype(LIL, s)
+W, cw = 1600, 400; ch = int(cw * 16 / 9); lab = 62; ok = lambda b: '✓' if b else ('–' if b is None else '✗')
+S = Q['summary']; sheet = Image.new('RGB', (W, 44 + 2 * (ch + lab)), 'white'); g = ImageDraw.Draw(sheet)
+g.text((10, 8), f"TapCap EP01 · Pass B revision · town: {S['counts']['buildings']} buildings · B2 void {ok(S['B2_void']['pass'])} · B3 depth {ok(S['B3_depth']['pass'])} · B4 {ok(S['B4_density']['pass'])} · B6 plinth {ok(S['B6_plinth']['pass'])}", font=FB(24), fill='black')
+for i, s in enumerate(Q['stills']):
+    x, y = (i % 4) * cw, 44 + (i // 4) * (ch + lab)
+    sheet.paste(Image.open(f"{out}/panels/{s['id']}.png").convert('RGB').resize((cw, ch), Image.LANCZOS), (x, y))
+    g.rectangle([x, y + ch, x + cw, y + ch + lab], fill=(20, 22, 28)); g.text((x + 6, y + ch + 2), f"{i + 1} · {s['label']}", font=FB(19), fill='white')
+    l2 = f"luma {s['luma']:.2f} {s['gate']} {ok(s['lumaPass'])}"
+    if s['skyMax'] is not None: l2 += f" · sky {s['skyPct']:.0f}% ≤{s['skyMax']*100:.0f} {ok(s['skyPass'])}"
+    if s['feature']: l2 += f" · {s['feature']} {s['featureCap']*100:.1f}% {ok(s['featurePass'])}"
+    l3 = (f"buildings {s['buildings']} " if 'buildings' in s else '') + (f"horizon {s['horizonCover']}% " if s['horizonCover'] is not None else '') + (f"plinth ΔL* {s['plinth']['contrast']} refl {s['plinth']['reflection']}" if 'plinth' in s else '')
+    g.text((x + 6, y + ch + 25), l2, font=F(12), fill='white'); g.text((x + 6, y + ch + 42), l3, font=F(12), fill='white')
 sheet.save(f'{out}/pass-b-sheet.png'); print(f'{out}/pass-b-sheet.png', sheet.size)

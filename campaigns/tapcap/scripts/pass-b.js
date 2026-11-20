@@ -1,37 +1,48 @@
-// campaigns/tapcap/scripts/pass-b.js — Pass B gate: 6 Slime Town stills (Box street, Core Row, Trade Corner, hill wide, plinth close,
-// rain-night hill) + measured checks (crowd size/mix/loops, sign cap height ≥ 3 % where a sign is in frame, mood luma gates from
-// engine/moods7.json) → <ep>/qa/world.json (committed) + <ep>/review/pass-b/pass-b-sheet.png (gitignored).
-import {writeFileSync, mkdirSync, readFileSync} from 'node:fs';
+// campaigns/tapcap/scripts/pass-b.js — Pass B (revision) gate. Town built for the S1–S40 provisional cameras (shots.yml) + 8 stills.
+// Writes <ep>/qa/world.json (committed) and <ep>/review/pass-b/{panels/, ids/, pass-b-sheet.png} (gitignored). Checks B1–B11.
+import {writeFileSync, mkdirSync} from 'node:fs';
 import {execFileSync} from 'node:child_process';
 import {startServer} from '../../../scripts/v2/server.js';
 import {launch} from '../../../scripts/v2/browser.js';
+import {moodAt} from '../world/moods.js';
 
-const ep = 'campaigns/tapcap/ep01-rarity', out = `${ep}/review/pass-b`, P = `${out}/panels`; mkdirSync(P, {recursive: true});
-const STILLS = [['boxStreet', 'dawnHope', 'Box street'], ['coreRow', 'dawnHope', 'Core Row'], ['trade', 'dawnHope', 'Trade Corner'],
-  ['hillWide', 'dawnHope', 'Top Shelf Hill wide'], ['plinthClose', 'dawnHope', 'plinth close (empty)'], ['rainHill', 'rainNight', 'rain-night hill']];
-const server = await startServer(), browser = await launch(), res = [];
+const ep = 'campaigns/tapcap/ep01-rarity', out = `${ep}/review/pass-b`, P = `${out}/panels`, I = `${out}/ids`; for (const d of [P, I]) mkdirSync(d, {recursive: true});
+const shots = JSON.parse(execFileSync('python3', ['-c', `import yaml,json;print(json.dumps(yaml.safe_load(open('${ep}/shots.yml'))))`], {encoding: 'utf8'}));
+const seed = JSON.parse(execFileSync('python3', ['-c', `import yaml,json;print(json.dumps(yaml.safe_load(open('${ep}/spec.yml'))['town']['seed']))`], {encoding: 'utf8'}));
+const SH = shots.map(s => ({id: s.id, ...s.cam, mood: moodAt(s.t[0])}));
+const PT = [-24, 9.85, -16], TD = [.83205, .5547];
+const STILLS = [
+  {id: 'st1', label: 'Box street', mood: 'dawnHope', pos: [2.4, 2.7, 14.9], look: [-.3, 2.3, 6.1], mm: 24, feature: 'CORE ROW', wide: true, street: true},
+  {id: 'st2', label: 'Core Row', mood: 'dawnHope', pos: [0, .9, 4.6], look: [0, .6, -4], mm: 24},
+  {id: 'st3', label: 'Trade Corner · Market Street', mood: 'dawnHope', pos: [5.6, 1.6, 26.8], look: [14, 1.6, 22.4], mm: 24, feature: 'TRADES', wide: true, street: true},
+  {id: 'hillWide', label: 'hill wide', mood: 'dawnHope', pos: [-9.5, 7.5, 13.5], look: [-24, 4.5, -16], mm: 28, wide: true, skyMax: .40, tilt: true},
+  {id: 'st5', label: 'plinth close', mood: 'dawnHope', pos: [PT[0] + TD[0] * 3.4, PT[1] + 2, PT[2] + TD[1] * 3.4], look: [PT[0], PT[1] - .25, PT[2]], mm: 50, feature: '1 / 102', skyMax: .15, dof: true},
+  {id: 'rainHill', label: 'rain-night hill', mood: 'rainNight', pos: [PT[0] - TD[0] * 5.2 + TD[1] * 1.6, PT[1] + .9, PT[2] - TD[1] * 5.2 - TD[0] * 1.6], look: [PT[0] + TD[0] * 7, PT[1] - 2.6, PT[2] + TD[1] * 7], mm: 35, wide: true, plinth: true},
+  {id: 'st7', label: 'S5 aerial town reveal', mood: 'dawnHope', ...SH.find(s => s.id === 'S5'), id: 'st7', tilt: true},
+  {id: 'st8', label: 'golden S36 sky', mood: 'golden', ...SH.find(s => s.id === 'S36'), id: 'st8'},
+];
+const WIDES = ['S1', 'S3', 'S5', 'S8', 'S22', 'S25', 'S33', 'S36', 'S40'], STREET = ['S1', 'S8', 'S25', 'S40'];
+const allCams = [...SH, ...STILLS];
+const server = await startServer(), browser = await launch(), R = {stills: [], void: [], ids: {}, setup: {}, timing: {}};
+const save = (f, d) => writeFileSync(f, Buffer.from(d.split(',')[1], 'base64'));
 try {
   const page = await browser.newPage(), errs = []; page.on('pageerror', e => errs.push(e.message)); page.on('console', m => { if (m.type() === 'error' && !m.text().includes('Failed to load resource')) errs.push(m.text().slice(0, 300)); });
   await page.goto(`${server.url}/campaigns/tapcap/world/world.html`); await page.waitForFunction(() => window.__ready, null, {timeout: 120000});
-  for (const [cam, mood, label] of STILLS) {
-    const r = await page.evaluate(o => window.__w.still(o), {cam, mood, w: 540, h: 960}); if (errs.length) throw Error(errs.join('; '));
-    const f = `${P}/${cam}.png`; writeFileSync(f, Buffer.from(r.png.split(',')[1], 'base64'));
-    if (r.tilt) execFileSync('python3', ['campaigns/tapcap/scripts/tiltshift.py', f]);
-    res.push({cam, mood, label, feature: r.feature, signs: r.signs.filter(s => s.inFrame), crowd: r.crowd});
+  const call = async (fn, o) => { const r = await page.evaluate(([f, a]) => window.__w[f](a), [fn, o]); if (errs.length) throw Error(errs.join('; ')); return r; };
+  const idPass = async (cam, kind, w, h, name) => { const r = await call('ids', {cam, kind, w, h}); writeFileSync(`${I}/${name}.rgba`, Buffer.from(r.b64, 'base64')); return {w, h, horizonY: r.horizonY, ids: r.ids, file: `${name}.rgba`}; };
+  for (const mood of ['dawnHope', 'rainNight', 'golden']) {
+    const t0 = Date.now(); const s36 = SH.find(s => s.id === 'S36'), tg = (44 - s36.pos[1]) / (s36.look[1] - s36.pos[1]);   // golden deck parts where S36 looks
+    R.setup[mood] = await call('setup', {mood, cams: allCams, seed, cloudGap: [s36.pos[0] + (s36.look[0] - s36.pos[0]) * tg, s36.pos[2] + (s36.look[2] - s36.pos[2]) * tg]}); R.timing['build_' + mood] = Date.now() - t0;
+    for (const s of STILLS.filter(x => x.mood === mood)) { const r = await call('still', {cam: s, w: 540, h: 960, dof: !!s.dof}); save(`${P}/${s.id}.png`, r.png);
+      if (s.tilt) execFileSync('python3', ['campaigns/tapcap/scripts/tiltshift.py', `${P}/${s.id}.png`]);
+      R.stills.push({id: s.id, label: s.label, mood, ms: r.ms, feature: s.feature ?? null, signs: r.signs.filter(x => x.inFrame), skyMax: s.skyMax ?? null, wide: !!s.wide, street: !!s.street});
+      R.ids[s.id] = {layers: await idPass(s, 'layers', 270, 480, `${s.id}_layers`), ...(s.street || s.id === 'st7' ? {buildings: await idPass(s, 'buildings', 540, 960, `${s.id}_bld`)} : {}), ...(s.plinth ? {plinth: await idPass(s, 'plinth', 540, 960, `${s.id}_plinth`)} : {})}; }
+    for (const s of SH.filter(x => x.mood === mood)) { const r = await call('raw', {cam: s, w: 160, h: 284}); save(`${I}/void_${s.id}.png`, r.png); R.void.push({id: s.id, mood, voidPx: r.voidPx, ms: r.ms});
+      if (WIDES.includes(s.id)) R.ids[s.id] = {layers: await idPass(s, 'layers', 270, 480, `${s.id}_layers`), ...(STREET.includes(s.id) || s.id === 'S5' ? {buildings: await idPass(s, 'buildings', 540, 960, `${s.id}_bld`)} : {})}; }
   }
 } finally { await browser.close(); await server.close(); }
-const lum = JSON.parse(execFileSync('python3', ['campaigns/tapcap/scripts/measure-b.py', P, ...res.map(r => r.cam)], {encoding: 'utf8'}));
-const M7 = JSON.parse(readFileSync('engine/moods7.json', 'utf8')), base = {dawnHope: 'dawnHope', rainNight: 'nightMystery'};
-const crowd = res[0].crowd, checks = {
-  crowdSize: {pass: crowd.n >= 20 && crowd.n <= 40, n: crowd.n},
-  crowdMix: {pass: crowd.presets.some(p => ['pumpkin', 'strawberry', 'coffee'].includes(p)) && !crowd.presets.includes('cosmic'), rares: crowd.presets.filter(p => ['pumpkin', 'strawberry', 'coffee'].includes(p)).length},
-  loops: {pass: ['sway', 'hop', 'tap'].every(l => crowd.loops.includes(l)), counts: Object.fromEntries(['sway', 'hop', 'tap'].map(l => [l, crowd.loops.filter(x => x === l).length]))},
-  // the sign a still is about must read on a phone (cap ≥ 3 % of frame height, R-SIGN-01); background signs are reported, not gated
-  signs: res.flatMap(r => r.signs.map(s => ({still: r.cam, ...s, featured: s.text === r.feature, pass: s.text !== r.feature || s.capFrac >= .03}))),
-  featured: res.filter(r => r.feature).map(r => { const s = r.signs.find(x => x.text === r.feature); return {still: r.cam, text: r.feature, capFrac: s?.capFrac ?? 0, pass: (s?.capFrac ?? 0) >= .03}; }),
-  luma: res.map(r => { const g = M7[base[r.mood]].gate.luma, v = lum[r.cam].luma; return {still: r.cam, mood: r.mood, luma: v, gate: g, pass: v >= g[0] && v <= g[1]}; }),
-};
-writeFileSync(`${ep}/qa/world.json`, JSON.stringify({stills: res.map(({cam, mood, label}) => ({cam, mood, label})), checks}, null, 1) + '\n');
-writeFileSync(`${out}/stills.json`, JSON.stringify({res, checks}));
-console.log(JSON.stringify(checks));
+R.stills.sort((a, b) => STILLS.findIndex(s => s.id === a.id) - STILLS.findIndex(s => s.id === b.id));
+writeFileSync(`${out}/raw.json`, JSON.stringify({...R, WIDES, STREET}));
+const M = JSON.parse(execFileSync('python3', ['campaigns/tapcap/scripts/measure-b.py', out], {encoding: 'utf8'}));
+writeFileSync(`${ep}/qa/world.json`, JSON.stringify(M, null, 1) + '\n'); console.log(JSON.stringify(M.summary));
 execFileSync('python3', ['campaigns/tapcap/scripts/sheet-b.py'], {stdio: 'inherit'});

@@ -24,3 +24,19 @@ test('the 4 signs are ≤ 3 words and read at ≥ 3 % from their sizing distance
   for (const t of ['1 / 102', 'TOP SHELF', 'CORE ROW', 'TRADES']) { const s = sign(t, {readFrom: 12, fov: 54}); assert.ok(capFraction(s.capH, 12, 54) >= .03); }
   assert.throws(() => sign('ONE TWO THREE FOUR'));
 });
+import {planTown, layout, pathSlope, twinPairs, HILL, PALETTE, desat, ARCH, sees, resolveCam} from '../../campaigns/tapcap/world/town.js';
+test('town: seeded + deterministic, no adjacent archetype/colour twins, summit clear, hill 1:2.2, path ≥ 20°', () => {
+  const cams = [{id: 'A', pos: [14, 34, 40], look: [0, 0, 6], mm: 24, wide: true}, {id: 'B', pos: [-7, .55, 17], look: [-24, 6.5, -16], mm: 20, wide: true}];
+  const a = planTown(1102, cams), b = planTown(1102, cams);
+  assert.deepEqual(a.buildings, b.buildings); assert.equal(twinPairs(a.buildings).length, 0);
+  assert.ok(new Set(a.buildings.map(x => x.arch)).size === ARCH.length);
+  assert.ok(a.buildings.every(x => Math.hypot(x.x - HILL.at[0], x.z - HILL.at[1]) > HILL.flat + 2));
+  assert.ok(a.props.every(p => Math.hypot(p.x - HILL.at[0], p.z - HILL.at[1]) > HILL.flat + 2), 'props on the summit');
+  assert.ok(Math.abs(2 * HILL.R / HILL.h - 2.2) < .05); assert.ok(pathSlope().mean >= 20);
+  assert.ok(a.buildings.every(x => x.scale >= .85 && x.scale <= 1.25 && x.windows >= 1 && x.windows <= 3));
+  assert.notDeepEqual(planTown(7, cams).buildings, a.buildings);
+});
+test('palette = the 9 TapCap colours at 60 % saturation; frustum test', () => {
+  assert.equal(PALETTE.length, 9); assert.equal(desat('#808080', .6), '#808080');
+  const c = resolveCam({pos: [0, 1, 10], look: [0, 1, 0], mm: 24}); assert.ok(sees(c, [0, 1, 0])); assert.ok(!sees(c, [0, 1, 20]));
+});

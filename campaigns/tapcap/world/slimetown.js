@@ -1,30 +1,25 @@
-// campaigns/tapcap/world/slimetown.js — Slime Town (prompt §4), a Pixar-style miniature-toy world in Slime Guy units (H = 1).
-//   build({mood}) → {root, anchors, cameras, crowd, signs, setRain(on), sunDir}
-// The Box (open white blind box, holographic teal drip art, no text, Core rows inside), Top Shelf Hill (glossy white plinth under a
-// spotlight, EMPTY), Trade Corner (crate stall), 20–40 crowd Slime Guys (shared geometry/material per colour), 4 diegetic signs sized
-// with engine/signs6.js. Everything standing is to Slime Guy scale: box walls 5 H, door 2.6 H, plinth 0.7 H, hill 9 H.
+// campaigns/tapcap/world/slimetown.js — Slime Town (prompt §4 + Pass B revision), a toy town in Slime Guy units (H = 1).
+//   build({mood, t, cams, seed}) → {root, anchors, plan, crowd, signs, plinth, sunDir}
+// Districts: CORE ROW (the opened blind box between houses, a lane of small homes into it), MARKET STREET (Trade Corner, stalls,
+// awnings, bunting, a toy bridge over a teal slime stream), HILLSIDE (houses on terraces up the lower slope; summit = plinth only,
+// TOP SHELF signpost on the S-path). The town itself comes from town.js (seeded, built for the camera frustums).
 import * as T from 'three';
 import {createSlimeGuy} from '../assets/slimeguy/index.js';
 import {sign} from '../../../engine/signs6.js';
 import {crowdFrom, idlePose} from './crowd.js';
 import {MOODS_TC} from './moods.js';
+import {layout, planTown, hillY, HILL, PLINTH, TOWN_DIR, PALETTE} from './town.js';
+import {buildTown, cobbleMaterial} from './townmesh.js';
 
-export const BOX = {w: 16, d: 12, h: 5, wall: .18, door: {w: 3.6, h: 2.6}};
-export const HILL = {at: [-21, -32], r: 19, h: 9}, PLINTH = {r: .85, h: 1.1};
-export const TRADE = {at: [11.2, 7.2]};
-export const SIGNPOST = {at: [-11.5, -14.5]};
-export const hillY = (x, z) => { const d = Math.hypot(x - HILL.at[0], z - HILL.at[1]) / HILL.r; return d >= 1 ? 0 : HILL.h * Math.pow(Math.cos(d * Math.PI / 2), 2.2); };
-const PLINTH_AT = [HILL.at[0], HILL.h, HILL.at[1]];
-
-// crowd spots: Core Row inside the box (two crowded rows each side of the aisle) + the Box street outside the door
-export const ROW_SPOTS = [...[-1, 1].flatMap(s => [[1.15, 1], [2.1, 1]].flatMap(([x]) => [-3.6, -2.3, -1.0, .3, 1.6, 2.9].map(z => [s * x, z, -s * .25])))].slice(0, 18);
-export const STREET_SPOTS = [[-3.2, 8.2, .3], [-1.6, 9.3, .1], [.4, 8.6, -.2], [2.4, 9.6, -.4], [4.1, 8.4, -.6], [-4.9, 10.4, .5], [1.3, 11.2, 0], [-2.6, 12.1, .2],
-  [3.4, 12.4, -.3], [5.8, 10.8, -.7], [-6.4, 8.6, .7], [7.6, 8.9, -.8], [6.6, 12.9, -.5], [-0.8, 13.6, 0]];
+export const SIGN_FONT = 'Lilita One';   // the captions' font file (node_modules/@expo-google-fonts/lilita-one), loaded by world.js
+export const SIGHTLINES = ['S1', 'S4', 'S33', 'S40', 'hillWide', 'rainHill'];
+const tag = (o, layer) => { o.traverse(n => { n.userData.layer ??= layer; }); return o; };
+const std = (color, o = {}) => new T.MeshPhysicalMaterial({color, roughness: .45, ...o});
 
 function holoWallMaterial() {   // white cardboard + holographic teal slime drips hanging from the top edge (no text)
   const m = new T.MeshPhysicalMaterial({color: '#F5F3EE', roughness: .78, metalness: 0, clearcoat: .0, iridescence: 1, iridescenceIOR: 1.6, iridescenceThicknessMinimum: 250, iridescenceThicknessMaximum: 650});
   m.onBeforeCompile = s => {
-    s.uniforms.uTop = {value: BOX.h};
+    s.uniforms.uTop = {value: 5};
     s.vertexShader = 'varying vec3 vW; varying vec3 vON;\n' + s.vertexShader.replace('#include <begin_vertex>', '#include <begin_vertex>\nvW = (modelMatrix * vec4(position, 1.0)).xyz; vON = normal;');
     s.fragmentShader = `varying vec3 vW; varying vec3 vON; uniform float uTop;
       float hh(float n){ return fract(sin(n * 91.3) * 43758.5); }
@@ -46,119 +41,137 @@ function holoWallMaterial() {   // white cardboard + holographic teal slime drip
   };
   m.customProgramCacheKey = () => 'holoWall'; return m;
 }
-function signPlate(text, opt) {   // engine/signs6.js sizing (≥ 3 % cap height from readFrom) + a canvas plate (no font file in the repo: bold sans fallback)
+
+function signPlate(text, opt) {   // engine/signs6.js sizing (≥ 3 % cap height from readFrom) + a canvas plate in the captions' font
   const S = sign(text, opt), c = document.createElement('canvas'); c.width = 1024; c.height = Math.round(1024 * S.h / S.w); const g = c.getContext('2d');
   g.fillStyle = opt.color ?? '#FFF8EC'; g.beginPath(); g.roundRect(0, 0, c.width, c.height, c.height * .18); g.fill();
   g.strokeStyle = opt.border ?? '#2B2A33'; g.lineWidth = c.height * .06; g.beginPath(); g.roundRect(c.height * .05, c.height * .05, c.width - c.height * .1, c.height - c.height * .1, c.height * .14); g.stroke();
-  g.fillStyle = opt.ink ?? '#2B2A33'; g.textAlign = 'center'; g.textBaseline = 'middle'; let fs = c.height * .72 / S.lines.length;
-  const font = f => `900 ${f}px "Arial Black", "DejaVu Sans", sans-serif`; g.font = font(fs); while (S.lines.some(l => g.measureText(l).width > c.width * .86)) g.font = font(fs -= 4);
-  S.lines.forEach((l, i) => g.fillText(l, c.width / 2, c.height * (i + .5) / S.lines.length + fs * .04));
+  g.fillStyle = opt.ink ?? '#2B2A33'; g.textAlign = 'center'; g.textBaseline = 'middle'; let fs = c.height * .74 / S.lines.length;
+  const font = f => `${f}px "${SIGN_FONT}"`; g.font = font(fs); while (S.lines.some(l => g.measureText(l).width > c.width * .86)) g.font = font(fs -= 4);
+  S.lines.forEach((l, i) => g.fillText(l, c.width / 2, c.height * (i + .5) / S.lines.length + fs * .06));
   const tex = new T.CanvasTexture(c); tex.colorSpace = T.SRGBColorSpace; tex.anisotropy = 8;
-  const mesh = new T.Mesh(new T.PlaneGeometry(S.w, S.h), new T.MeshStandardMaterial({map: tex, roughness: .5})); mesh.name = 'sign_' + S.id; mesh.userData.sign = S;
+  const mesh = new T.Mesh(new T.PlaneGeometry(S.w, S.h), new T.MeshStandardMaterial({map: tex, roughness: .5})); mesh.name = 'sign_' + S.id; mesh.userData.sign = S; mesh.userData.text = true;
   const back = new T.Mesh(new T.BoxGeometry(S.w * 1.02, S.h * 1.04, .08), new T.MeshStandardMaterial({color: '#E9DCC8', roughness: .6})); back.position.z = -.045; mesh.add(back);
   return mesh;
 }
-const std = (color, o = {}) => new T.MeshPhysicalMaterial({color, roughness: .45, ...o});
+function ribbon(pts, w, mat, lift = .02, yAt = (x, z) => 0) {   // flat strip along a polyline [[x, z]…], following the ground
+  const pos = [], idx = [];
+  pts.forEach(([x, z], i) => { const n = pts[Math.min(i + 1, pts.length - 1)], p = pts[Math.max(i - 1, 0)], dx = n[0] - p[0], dz = n[1] - p[1], l = Math.hypot(dx, dz) || 1;
+    for (const s of [-1, 1]) { const px = x - dz / l * w / 2 * s, pz = z + dx / l * w / 2 * s; pos.push(px, yAt(px, pz) + lift, pz); } if (i) idx.push(2 * i - 2, 2 * i - 1, 2 * i, 2 * i - 1, 2 * i + 1, 2 * i); });
+  const g = new T.BufferGeometry(); g.setAttribute('position', new T.Float32BufferAttribute(pos, 3)); g.setIndex(idx); g.computeVertexNormals();
+  const m = new T.Mesh(g, mat); m.receiveShadow = true; return m;
+}
 
-export function build({mood = 'dawnHope', t = .4} = {}) {
-  const M = MOODS_TC[mood], root = new T.Group(); root.name = 'slimetown';
-  const wet = M.wet, anchors = {}, signs = [];
-  // ground: soft play-mat plastic; wet = glossy + darker
-  const ground = new T.Mesh(new T.CircleGeometry(160, 96), std(mood === 'rainNight' ? '#4C5B66' : '#DCE9CF', {roughness: wet ? .12 : .7, clearcoat: wet ? 1 : 0, clearcoatRoughness: .08}));
-  ground.rotation.x = -Math.PI / 2; ground.receiveShadow = true; root.add(ground);
-  const street = new T.Mesh(new T.PlaneGeometry(9, 22), std(mood === 'rainNight' ? '#5B6670' : '#F1E6D2', {roughness: wet ? .1 : .7, clearcoat: wet ? 1 : 0}));
-  street.rotation.x = -Math.PI / 2; street.position.set(0, .01, 15); street.receiveShadow = true; root.add(street);
-  // THE BOX: thin walls (outer face holographic art, inner face kraft), open top, flaps folded out, door on +z
-  const kraft = std('#CDB894', {roughness: .85}), holo = holoWallMaterial(), BW = BOX;
-  const wall = (w, h, d, x, y, z, outer) => { const mats = Array(6).fill(kraft); mats[outer] = holo; const m = new T.Mesh(new T.BoxGeometry(w, h, d), mats); m.position.set(x, y, z); m.castShadow = m.receiveShadow = true; root.add(m); return m; };
-  wall(BW.w, BW.h, BW.wall, 0, BW.h / 2, -BW.d / 2, 5); wall(BW.wall, BW.h, BW.d, -BW.w / 2, BW.h / 2, 0, 1); wall(BW.wall, BW.h, BW.d, BW.w / 2, BW.h / 2, 0, 0);
-  const sideW = (BW.w - BW.door.w) / 2;   // front wall with a door opening
-  for (const s of [-1, 1]) wall(sideW, BW.h, BW.wall, s * (BW.door.w / 2 + sideW / 2), BW.h / 2, BW.d / 2, 4);
-  wall(BW.door.w, BW.h - BW.door.h, BW.wall, 0, BW.door.h + (BW.h - BW.door.h) / 2, BW.d / 2, 4);
-  const floor = new T.Mesh(new T.PlaneGeometry(BW.w, BW.d), kraft); floor.rotation.x = -Math.PI / 2; floor.position.y = .015; floor.receiveShadow = true; root.add(floor);
-  for (const [len, wid, x, z, ry] of [[BW.w, BW.d / 4, 0, -BW.d / 2, 0], [BW.w, BW.d / 4, 0, BW.d / 2, Math.PI], [BW.d, BW.d / 4, -BW.w / 2, 0, -Math.PI / 2], [BW.d, BW.d / 4, BW.w / 2, 0, Math.PI / 2]]) {
-    const hinge = new T.Group(); hinge.position.set(x, BW.h, z); hinge.rotation.y = ry; root.add(hinge);   // flap folded out and down 125°
-    const f = new T.Mesh(new T.BoxGeometry(len, BW.wall, wid), [kraft, kraft, kraft, holo, kraft, kraft]); f.position.set(0, 0, -wid / 2); const p = new T.Group(); p.rotation.x = 0; p.add(f); hinge.add(p); f.castShadow = true; }   // flap opened flat outward (an opened blind box; keeps sightlines to the hill clear)
-  const core = signPlate('CORE ROW', {readFrom: 12, fov: 54}); core.position.set(0, BW.door.h + core.userData.sign.h / 2 + .25, BW.d / 2 + BW.wall / 2 + .06); root.add(core); signs.push(core);
-  anchors.boxDoor = [0, 0, BW.d / 2]; anchors.coreRow = [0, 0, 0];
-  // TOP SHELF HILL: smooth glossy-toy green mound, path, plinth (EMPTY) under a soft spotlight beam, dust motes
-  { const prof = []; for (let i = 0; i <= 48; i++) { const d = i / 48; prof.push(new T.Vector2(d * HILL.r, hillY(HILL.at[0] + d * HILL.r, HILL.at[1]))); }
-    const g = new T.LatheGeometry(prof.reverse(), 96); const hill = new T.Mesh(g, std(mood === 'rainNight' ? '#2F6A47' : '#74C77A', {roughness: wet ? .15 : .42, clearcoat: wet ? 1 : .35, clearcoatRoughness: .2}));
-    hill.position.set(HILL.at[0], 0, HILL.at[1]); hill.receiveShadow = hill.castShadow = true; root.add(hill);
-    const pts = []; for (let i = 0; i <= 60; i++) { const a = i / 60, ang = -1.2 + a * 2.9, rr = HILL.r * (1 - a) * .98; pts.push([HILL.at[0] + Math.sin(ang) * rr, HILL.at[1] + Math.cos(ang) * rr]); }
-    const pos = [], idx = []; pts.forEach(([x, z], i) => { const n = pts[Math.min(i + 1, pts.length - 1)], p0 = pts[Math.max(i - 1, 0)], dx = n[0] - p0[0], dz = n[1] - p0[1], l = Math.hypot(dx, dz) || 1, w = .7;
-      for (const s of [-1, 1]) { const px = x - dz / l * w * s, pz = z + dx / l * w * s; pos.push(px, hillY(px, pz) + .03, pz); } if (i) idx.push(2 * i - 2, 2 * i - 1, 2 * i, 2 * i - 1, 2 * i + 1, 2 * i); });
-    const pg = new T.BufferGeometry(); pg.setAttribute('position', new T.Float32BufferAttribute(pos, 3)); pg.setIndex(idx); pg.computeVertexNormals();
-    const path = new T.Mesh(pg, std(mood === 'rainNight' ? '#7B7A70' : '#F3E7CF', {roughness: wet ? .1 : .6, side: T.DoubleSide})); path.receiveShadow = true; root.add(path); }
-  const plinth = new T.Group(); plinth.position.set(...PLINTH_AT); root.add(plinth);
-  { const body = new T.Mesh(new T.CylinderGeometry(PLINTH.r, PLINTH.r * 1.04, PLINTH.h, 64), std('#FBFBFD', {roughness: .08, clearcoat: 1, clearcoatRoughness: .03})); body.position.y = PLINTH.h / 2; body.castShadow = body.receiveShadow = true; plinth.add(body);
-    const cap = new T.Mesh(new T.CylinderGeometry(PLINTH.r * 1.12, PLINTH.r * 1.12, .12, 64), std('#FFFFFF', {roughness: .05, clearcoat: 1})); cap.position.y = PLINTH.h + .06; cap.castShadow = true; plinth.add(cap);
-    const lip = new T.Mesh(new T.TorusGeometry(PLINTH.r * 1.12, .06, 12, 64), std('#FFFFFF', {roughness: .05, clearcoat: 1})); lip.rotation.x = Math.PI / 2; lip.position.y = PLINTH.h + .06; plinth.add(lip);
-    const base = new T.Mesh(new T.CylinderGeometry(PLINTH.r * 1.25, PLINTH.r * 1.3, .2, 64), std('#F2F2F5', {roughness: .1, clearcoat: 1})); base.position.y = -.05; plinth.add(base);
-    const s = signPlate('1 / 102', {readFrom: 7, fov: 40}); s.scale.setScalar(.85); s.position.set(0, PLINTH.h * .42, PLINTH.r + .05); plinth.add(s); signs.push(s); }
-  anchors.plinthTop = [PLINTH_AT[0], PLINTH_AT[1] + PLINTH.h + .12, PLINTH_AT[2]];
-  // spotlight + visible soft beam + dust motes
-  const spot = new T.SpotLight('#FFF4E2', 60 * M.spot, 30, .28, .6, 1.4); spot.position.set(PLINTH_AT[0] + 1.5, PLINTH_AT[1] + 16, PLINTH_AT[2] + 2); spot.target.position.set(...PLINTH_AT); spot.castShadow = true; spot.shadow.mapSize.set(1024, 1024); root.add(spot, spot.target);
-  { const len = 16, g = new T.CylinderGeometry(.75, PLINTH.r * 1.5, len, 48, 1, true); g.translate(0, -len / 2, 0);
-    const beam = new T.Mesh(g, new T.ShaderMaterial({transparent: true, depthWrite: false, blending: T.AdditiveBlending, side: T.DoubleSide, uniforms: {k: {value: .07 * M.spot}},
+export function build({mood = 'dawnHope', t = .4, cams = [], seed = 1102, cloudGap = null} = {}) {   // cloudGap: [x, z] the golden deck parts around
+  const M = MOODS_TC[mood], L = layout(), root = new T.Group(); root.name = 'slimetown';
+  const night = mood === 'rainNight', wet = M.wet, anchors = {}, signs = [];
+  // ground + streets (cobble-like rounded tiles); wet = roughness .35
+  const ground = new T.Mesh(new T.CircleGeometry(170, 96), std(night ? '#3E4B52' : mood === 'golden' ? '#CBD8B4' : '#D5E5C8', {roughness: wet ? .35 : .75, clearcoat: wet ? .6 : 0}));
+  ground.rotation.x = -Math.PI / 2; ground.receiveShadow = true; root.add(tag(ground, 'mid'));
+  const cob = cobbleMaterial(night ? '#6F7780' : '#EADFCB', wet);
+  root.add(tag(ribbon([[0, 5.8], [0, 23]], 4, cob, .02), 'mid'));
+  root.add(tag(ribbon([[L.market.x[0], 26], [L.market.x[1], 26]], 6, cob, .021), 'mid'));
+  root.add(tag(ribbon(L.hillRoad, 4, cob, .022), 'mid'));
+  { const sq = new T.Mesh(new T.CircleGeometry(L.square.r, 48), cob); sq.rotation.x = -Math.PI / 2; sq.position.set(L.square.at[0], .023, L.square.at[1]); sq.receiveShadow = true; root.add(tag(sq, 'mid')); }
+  // slime stream (glossy teal, flowing ripples) + rounded banks + toy bridge on Market Street
+  { const sm = new T.MeshPhysicalMaterial({color: '#25C9B8', roughness: .08, clearcoat: 1, transmission: 0, sheen: .3, sheenColor: new T.Color('#BFFFF6')});
+    sm.onBeforeCompile = s => { s.uniforms.uT = {value: t}; s.vertexShader = 'varying vec2 vXZ;\n' + s.vertexShader.replace('#include <begin_vertex>', '#include <begin_vertex>\nvXZ = (modelMatrix * vec4(position, 1.)).xz;');
+      s.fragmentShader = 'varying vec2 vXZ; uniform float uT;\n' + s.fragmentShader.replace('#include <normal_fragment_maps>', `#include <normal_fragment_maps>
+        normal = normalize(normal + vec3(sin(vXZ.y * 3.1 - uT * 2.) * .18 + sin(vXZ.x * 5.3 + vXZ.y) * .08, 0., cos(vXZ.y * 2.3 + vXZ.x * 1.7 - uT) * .15));`); };
+    const st = ribbon(L.stream, 2.6, sm, .03); root.add(tag(st, 'mid'));
+    for (const s of [-1, 1]) { const bank = L.stream.map(([x, z]) => [x + s * 1.45, z]); const pts = bank.map(([x, z]) => new T.Vector3(x, .08, z));
+      const tube = new T.Mesh(new T.TubeGeometry(new T.CatmullRomCurve3(pts), 120, .16, 8), std('#F4ECDD', {roughness: .5})); tube.receiveShadow = true; root.add(tag(tube, 'mid')); }
+    const br = new T.Group(); br.position.set(L.bridge.at[0], 0, L.bridge.at[1]); root.add(tag(br, 'fg'));
+    const deck = new T.Mesh(new T.CylinderGeometry(9, 9, L.bridge.w, 48, 1, false, -Math.PI / 2 - .42, .84), std('#FFB3C8', {roughness: .3, clearcoat: .8}));   // shallow arch along x
+    deck.rotation.x = Math.PI / 2; deck.rotation.z = Math.PI / 2; deck.position.y = -8.45; deck.castShadow = deck.receiveShadow = true; br.add(deck);
+    for (const s of [-1, 1]) { const rail = new T.Mesh(new T.TorusGeometry(9.25, .09, 8, 48, .84), std('#FFF3F7', {roughness: .35})); rail.rotation.z = Math.PI / 2 - .42; rail.position.set(0, -8.45, s * L.bridge.w / 2); rail.castShadow = true; br.add(rail);
+      for (let i = -3; i <= 3; i++) { const x = i * 1.0, y = Math.sqrt(81 - x * x) - 8.45; const post = new T.Mesh(new T.CylinderGeometry(.06, .06, .55, 8), std('#FFF3F7')); post.position.set(x, y + .3, s * L.bridge.w / 2); br.add(post); } } }
+  // THE BOX (Core Row centrepiece): walls with holographic drips outside, kraft inside, door on +z, flaps opened flat
+  const kraft = std('#CDB894', {roughness: .85}), holo = holoWallMaterial(), BW = L.box, wallT = .18;
+  const boxG = new T.Group(); root.add(boxG);
+  const wall = (w, h, d, x, y, z, outer) => { const mats = Array(6).fill(kraft); mats[outer] = holo; const m = new T.Mesh(new T.BoxGeometry(w, h, d), mats); m.position.set(x, y, z); m.castShadow = m.receiveShadow = true; boxG.add(m); return m; };
+  wall(BW.w, BW.h, wallT, 0, BW.h / 2, -BW.d / 2, 5); wall(wallT, BW.h, BW.d, -BW.w / 2, BW.h / 2, 0, 1); wall(wallT, BW.h, BW.d, BW.w / 2, BW.h / 2, 0, 0);
+  const sideW = (BW.w - BW.door.w) / 2; for (const s of [-1, 1]) wall(sideW, BW.h, wallT, s * (BW.door.w / 2 + sideW / 2), BW.h / 2, BW.d / 2, 4);
+  wall(BW.door.w, BW.h - BW.door.h, wallT, 0, BW.door.h + (BW.h - BW.door.h) / 2, BW.d / 2, 4);
+  { const fl = new T.Mesh(new T.PlaneGeometry(BW.w, BW.d), kraft); fl.rotation.x = -Math.PI / 2; fl.position.y = .015; fl.receiveShadow = true; boxG.add(fl); }
+  for (const [len, wid, x, z, ry] of [[BW.w, 3, 0, -BW.d / 2, 0], [BW.w, 3, 0, BW.d / 2, Math.PI], [BW.d, 3, -BW.w / 2, 0, -Math.PI / 2], [BW.d, 3, BW.w / 2, 0, Math.PI / 2]]) {
+    const hinge = new T.Group(); hinge.position.set(x, BW.h, z); hinge.rotation.y = ry; boxG.add(hinge);
+    const f = new T.Mesh(new T.BoxGeometry(len, wallT, wid), [kraft, kraft, kraft, holo, kraft, kraft]); f.position.set(0, 0, -wid / 2); f.castShadow = true; hinge.add(f); }
+  const core = signPlate('CORE ROW', {readFrom: 12, fov: 54}); core.position.set(0, BW.door.h + core.userData.sign.h / 2 + .25, BW.d / 2 + wallT / 2 + .06); boxG.add(core); signs.push(core);
+  tag(boxG, 'mid'); anchors.boxDoor = [0, 0, BW.d / 2]; anchors.coreRow = [0, 0, 0];
+  // TOP SHELF HILL (1 : 2.2), S-path, terraces come with the town; summit = plinth only
+  { const prof = []; for (let i = 0; i <= 64; i++) { const r = HILL.R * i / 64; prof.push(new T.Vector2(r, hillY(HILL.at[0] + r, HILL.at[1]))); }
+    prof.push(new T.Vector2(HILL.R + .01, 0)); const hill = new T.Mesh(new T.LatheGeometry(prof.reverse(), 128), std(night ? '#2F6A47' : '#74C77A', {roughness: wet ? .35 : .45, clearcoat: wet ? .8 : .35, clearcoatRoughness: .25}));
+    hill.position.set(HILL.at[0], 0, HILL.at[1]); hill.receiveShadow = hill.castShadow = true; root.add(tag(hill, 'bg'));
+    root.add(tag(ribbon(L.path.map(p => [p[0], p[2]]), 1.15, std(night ? '#8A8A80' : '#F3E7CF', {roughness: wet ? .35 : .6, side: T.DoubleSide}), .04, hillY), 'bg')); }
+  // PLINTH: tier 1 Ø1.8 × .35 with "1 / 102", tier 2 Ø1.4 × .5 (bevel .08) with a .02 teal emissive rim on its top edge
+  const plinth = new T.Group(); plinth.position.set(...L.plinth.at); plinth.rotation.y = Math.atan2(TOWN_DIR[0], TOWN_DIR[1]); root.add(plinth);
+  { const white = std('#FBFBFD', {roughness: .08, clearcoat: 1, clearcoatRoughness: .03});
+    const b1 = new T.Mesh(new T.CylinderGeometry(PLINTH.base.d / 2, PLINTH.base.d / 2, PLINTH.base.h, 72), white); b1.position.y = PLINTH.base.h / 2; plinth.add(b1);
+    const r2 = PLINTH.top.d / 2, h2 = PLINTH.top.h, bv = PLINTH.top.bevel, prof = [new T.Vector2(0, 0), new T.Vector2(r2, 0), new T.Vector2(r2, h2 - bv)];
+    for (let i = 1; i <= 8; i++) { const a = i / 8 * Math.PI / 2; prof.push(new T.Vector2(r2 - bv + bv * Math.cos(a), h2 - bv + bv * Math.sin(a))); } prof.push(new T.Vector2(0, h2));
+    const b2 = new T.Mesh(new T.LatheGeometry(prof, 72), white); b2.position.y = PLINTH.base.h; plinth.add(b2);   // tier 2 (profile bottom → top, outward faces)
+    const rim = new T.Mesh(new T.TorusGeometry(r2 - bv * .55, PLINTH.rim.w / 2, 8, 96), new T.MeshStandardMaterial({color: PLINTH.rim.color, emissive: PLINTH.rim.color, emissiveIntensity: 2.2}));
+    rim.rotation.x = Math.PI / 2; rim.position.y = PLINTH.base.h + h2 - bv * .3; plinth.add(rim);
+    for (const m of [b1, b2]) { m.castShadow = m.receiveShadow = true; }
+    const s = signPlate('1 / 102', {readFrom: 7, fov: 40}); s.scale.setScalar(.7); s.position.set(0, PLINTH.base.h / 2, PLINTH.base.d / 2 + .02); plinth.add(s); signs.push(s); }
+  tag(plinth, 'bg'); plinth.userData.plinth = true; plinth.traverse(n => { n.userData.plinth = true; });
+  anchors.plinthTop = L.plinth.top;
+  // spotlight: spill circle = top disc (Ø1.4), visible soft cone (top radius .3), back rim light for the silhouette
+  { const top = new T.Vector3(...L.plinth.top), hgt = 12, src = top.clone().add(new T.Vector3(0, hgt, 0));
+    const spot = new T.SpotLight('#FFF4E2', (night ? 70 : 28) * M.spot, 40, Math.atan(PLINTH.top.d / 2 / hgt) * 1.05, .35, 1.2); spot.position.copy(src); spot.target.position.copy(top); spot.castShadow = true; spot.shadow.mapSize.set(1024, 1024); root.add(spot, spot.target);
+    const g = new T.CylinderGeometry(.3, PLINTH.top.d / 2, hgt, 48, 1, true); g.translate(0, -hgt / 2, 0);
+    const beam = new T.Mesh(g, new T.ShaderMaterial({transparent: true, depthWrite: false, blending: T.AdditiveBlending, side: T.DoubleSide, uniforms: {k: {value: (night ? .1 : .06) * M.spot}},
       vertexShader: 'varying float vy; varying vec3 vn, vv; void main(){ vy = position.y; vn = normalize(normalMatrix * normal); vec4 mv = modelViewMatrix * vec4(position, 1.); vv = normalize(-mv.xyz); gl_Position = projectionMatrix * mv; }',
-      fragmentShader: 'uniform float k; varying float vy; varying vec3 vn, vv; void main(){ float e = pow(abs(dot(vn, vv)), 1.5); float f = smoothstep(-16., -9., vy) * (1. - smoothstep(-1.5, 0., vy) * .3); gl_FragColor = vec4(vec3(1., .96, .88) * k * e * f, 1.); }'}));
-    beam.position.set(PLINTH_AT[0] + 1.5 * .02, PLINTH_AT[1] + 16, PLINTH_AT[2] + 2 * .02); const dir = new T.Vector3(1.5, 16, 2).normalize(); beam.quaternion.setFromUnitVectors(new T.Vector3(0, 1, 0), dir);
-    beam.position.set(PLINTH_AT[0] + 1.5, PLINTH_AT[1] + 16, PLINTH_AT[2] + 2); root.add(beam);
-    const mp = []; const r = (i => () => (i = (i * 48271) % 2147483647) / 2147483647)(5); for (let i = 0; i < 160; i++) { const a = r(), h = r() * 9; mp.push(PLINTH_AT[0] + (r() - .5) * (1 + h * .12) * 2 + h * .09, PLINTH_AT[1] + .9 + h, PLINTH_AT[2] + (r() - .5) * (1 + h * .12) * 2 + h * .12); }
-    const pg = new T.BufferGeometry(); pg.setAttribute('position', new T.Float32BufferAttribute(mp, 3));
-    root.add(new T.Points(pg, new T.PointsMaterial({color: '#FFF3DA', size: .045, transparent: true, opacity: mood === 'rainNight' ? .0 : .85, blending: T.AdditiveBlending, depthWrite: false}))); }
-  // TOP SHELF signpost at the foot of the path
-  { const post = new T.Mesh(new T.CylinderGeometry(.09, .11, 2.6, 16), std('#D9A86C', {roughness: .5})); post.position.set(SIGNPOST.at[0], 1.3, SIGNPOST.at[1]); post.castShadow = true; root.add(post);
-    const s = signPlate('TOP SHELF', {readFrom: 12, fov: 54}); s.position.set(SIGNPOST.at[0], 2.2, SIGNPOST.at[1] + .14); s.rotation.y = .5; root.add(s); signs.push(s);
-    const arrow = new T.Mesh(new T.ConeGeometry(.16, .34, 3), std('#2B2A33')); arrow.rotation.z = Math.PI / 2; arrow.position.set(SIGNPOST.at[0] - s.userData.sign.w / 2 - .12, 2.2, SIGNPOST.at[1] + .1); root.add(arrow); }
-  anchors.signpost = [SIGNPOST.at[0], 0, SIGNPOST.at[1]];
-  // TRADE CORNER: toy crates (stall + counter) with the TRADES sign
-  { const crate = (x, y, z, s = 1, col = '#E6B57A') => { const g = new T.Group(); g.position.set(x, y, z);
-      const b = new T.Mesh(new T.BoxGeometry(1.1 * s, .8 * s, .9 * s), std(col, {roughness: .55})); b.castShadow = b.receiveShadow = true; g.add(b);
-      for (const yy of [-.25, .05, .3]) { const slat = new T.Mesh(new T.BoxGeometry(1.14 * s, .1 * s, .94 * s), std('#C98F52', {roughness: .5})); slat.position.y = yy * s; g.add(slat); } root.add(g); return g; };
-    const [tx, tz] = TRADE.at;
-    for (const [dx, dz, y] of [[-1.15, 0, .4], [0, 0, .4], [1.15, 0, .4], [-2.4, -.9, .4], [2.4, -.8, .4], [-2.4, -.9, 1.2], [2.6, -1.6, .4]]) crate(tx + dx, y, tz + dz);
-    const top = new T.Mesh(new T.BoxGeometry(3.6, .12, 1.1), std('#B97B45', {roughness: .45})); top.position.set(tx, .86, tz); top.castShadow = top.receiveShadow = true; root.add(top);
-    for (const s of [-1, 1]) { const p = new T.Mesh(new T.CylinderGeometry(.07, .07, 2.6, 12), std('#B97B45')); p.position.set(tx + s * 1.7, 1.3 + .86, tz - .45); root.add(p); }
-    const aw = new T.Mesh(new T.BoxGeometry(4, .1, 1.5), std('#FF9DB7', {roughness: .4})); aw.position.set(tx, 3.5, tz - .1); aw.rotation.x = .18; aw.castShadow = true; root.add(aw);
-    const s = signPlate('TRADES', {readFrom: 12, fov: 54}); s.position.set(tx, 3.0, tz + .02); root.add(s); signs.push(s);
-    anchors.trade = [tx, .92, tz]; }
-  // CROWD: Core Row (inside the box) + Box street; shared geometry/material per colour (clones), idle loops
-  const proto = {}, members = crowdFrom([...ROW_SPOTS, ...STREET_SPOTS], {rareShare: .06});
-  members.push({x: TRADE.at[0] - .55, z: TRADE.at[1] + .05, yaw: 0, preset: 'grape', loop: 'sway', phase: .2, y: .92}, {x: TRADE.at[0] + .65, z: TRADE.at[1] + .05, yaw: 0, preset: 'frozen', loop: 'tap', phase: .7, y: .92});   // two Core slimes on the counter
-  for (const c of members) { const P = (proto[c.preset] ??= createSlimeGuy({preset: c.preset}));
-    const g = P.root.clone(true); const keycap = g.children.find(ch => ch === g.children[0]); const pose = idlePose(c.loop, t, c.phase);
-    g.position.set(c.x, (c.y ?? 0) + pose.dy, c.z); g.rotation.set(0, c.yaw, pose.roll); if (keycap) keycap.position.y = pose.tap;
-    g.traverse(n => { if (n.isMesh) { n.castShadow = true; n.receiveShadow = true; } }); root.add(g); c.object = g; }
-  // clouds
-  for (const [x, y, z, s] of [[-60, 34, -110, 9], [30, 40, -130, 11], [85, 30, -90, 7], [-25, 46, -150, 12]]) { const cg = new T.Group(); cg.position.set(x, y, z);
-    for (let i = 0; i < 7; i++) { const b = new T.Mesh(new T.SphereGeometry(s * (.45 + .1 * (i % 3)), 24, 16), new T.MeshStandardMaterial({color: M.clouds, roughness: 1})); b.position.set((i - 3) * s * .38, Math.sin(i * 1.7) * s * .12, Math.cos(i * 2.3) * s * .15); cg.add(b); } root.add(cg); }
-  // rain-night extras: puddles with ripples, 3D rain streaks, warm practicals at the door
-  if (mood === 'rainNight') {
-    const pm = new T.MeshPhysicalMaterial({color: '#25303C', roughness: .03, metalness: .1, clearcoat: 1});
+      fragmentShader: 'uniform float k; varying float vy; varying vec3 vn, vv; void main(){ float e = pow(abs(dot(vn, vv)), 1.5); float f = smoothstep(-12., -6., vy) * (1. - smoothstep(-1., 0., vy) * .4); gl_FragColor = vec4(vec3(1., .96, .88) * k * e * f, 1.); }'}));
+    beam.position.copy(src); beam.userData.layer = 'bg'; beam.userData.fx = true; root.add(beam);
+    const back = new T.SpotLight(night ? '#BFD6FF' : '#FFE6C8', (night ? 70 : 25), 30, .1, .4, 1.5); back.position.copy(top).add(new T.Vector3(-TOWN_DIR[0] * 6, 1.4, -TOWN_DIR[1] * 6)); back.target.position.copy(top).add(new T.Vector3(0, -.35, 0));   // back rim: narrow, grazes the plinth, not the ground in front root.add(back, back.target);
+    if (!night) { const mp = [], r = (i => () => (i = (i * 48271) % 2147483647) / 2147483647)(5); for (let i = 0; i < 140; i++) { const h = r() * 9; mp.push(top.x + (r() - .5) * (.6 + h * .05), top.y + .4 + h, top.z + (r() - .5) * (.6 + h * .05)); }
+      const pg = new T.BufferGeometry(); pg.setAttribute('position', new T.Float32BufferAttribute(mp, 3)); const pts = new T.Points(pg, new T.PointsMaterial({color: '#FFF3DA', size: .04, transparent: true, opacity: .8, blending: T.AdditiveBlending, depthWrite: false})); pts.userData.layer = 'bg'; pts.userData.fx = true; root.add(pts); } }
+  // TOP SHELF signpost on the S-path (faces the town)
+  { const [sx, sy, sz] = L.signpost, g = new T.Group(); g.position.set(sx, sy, sz); g.rotation.y = Math.atan2(TOWN_DIR[0], TOWN_DIR[1]); root.add(g);
+    const post = new T.Mesh(new T.CylinderGeometry(.09, .11, 2.4, 16), std('#D9A86C', {roughness: .5})); post.position.y = 1.2; post.castShadow = true; g.add(post);
+    const s = signPlate('TOP SHELF', {readFrom: 9, fov: 54}); s.position.set(0, 2.0, .14); g.add(s); signs.push(s); tag(g, 'bg'); anchors.signpost = L.signpost; }
+  // MARKET STREET stalls (striped awnings, no text) + Trade Corner (TRADES)
+  const stall = (x, z, yaw, colA, colB, withSign) => { const g = new T.Group(); g.position.set(x, 0, z); g.rotation.y = yaw; root.add(g);
+    for (const [dx, dz] of [[-1.15, 0], [0, 0], [1.15, 0]]) { const c = new T.Mesh(new T.BoxGeometry(1.1, .8, .9), std('#E6B57A', {roughness: .55})); c.position.set(dx, .4, dz); c.castShadow = c.receiveShadow = true; g.add(c); }
+    const top = new T.Mesh(new T.BoxGeometry(3.6, .12, 1.1), std('#B97B45')); top.position.y = .86; top.castShadow = true; g.add(top);
+    for (const s of [-1, 1]) { const p = new T.Mesh(new T.CylinderGeometry(.07, .07, 2.6, 12), std('#B97B45')); p.position.set(s * 1.7, 2.16, -.45); g.add(p); }
+    const cv = document.createElement('canvas'); cv.width = 256; cv.height = 32; const x2 = cv.getContext('2d'); for (let i = 0; i < 8; i++) { x2.fillStyle = i % 2 ? colA : colB; x2.fillRect(i * 32, 0, 32, 32); }
+    const tx = new T.CanvasTexture(cv); tx.colorSpace = T.SRGBColorSpace; tx.userData = {stripes: true}; const aw = new T.Mesh(new T.BoxGeometry(4, .1, 1.5), new T.MeshStandardMaterial({map: tx, roughness: .5})); aw.position.set(0, 3.5, -.1); aw.rotation.x = .18; aw.castShadow = true; aw.name = 'awning_stripes'; g.add(aw);
+    if (withSign) { const s = signPlate('TRADES', {readFrom: 12, fov: 54}); s.position.set(0, 3.0, .02); g.add(s); signs.push(s); }
+    tag(g, 'fg'); return g; };
+  stall(L.trade[0], L.trade[1], 0, '#FF9DB7', '#FFF4F7', true); anchors.trade = [L.trade[0], .92, L.trade[1]];
+  L.stalls.forEach(([x, z, yaw], i) => stall(x, z, yaw, PALETTE[(i * 3) % 9], '#FFFFFF', false));
+  // the town (seeded, built for the camera frustums)
+  const plan = planTown(seed, cams, {sightlines: SIGHTLINES}), town = buildTown(plan, {mood, night}); root.add(town.root);
+  // CROWD: square + lane + market + Core Row inside the box + 2 on the Trade Corner counter (20–40, shared geometry per colour)
+  const spots = [...[-1, 1].flatMap(s => [-3.6, -1.6, .3, 2.3].flatMap(z => [[s * 1.15, z, -s * .25], [s * 2.1, z + .5, -s * .25]])).slice(0, 12),
+    [-8.2, 13.6, .5], [-6.8, 12.4, .2], [-9.6, 11.2, .7], [-5.6, 14.8, .1], [-10.8, 13.8, .9], [-7.6, 15.6, .3], [-11.4, 10.4, 1.0], [-8.8, 16.6, .4],
+    [-.9, 10.2, .2], [1.0, 12.3, -.2], [-.5, 15.1, 0], [.9, 17.9, -.3], [-1.1, 20.4, .1],
+    [4.5, 25.2, -.4], [7.8, 27.2, -.2], [15.5, 25.4, .3], [18.2, 27.4, -.5], [-3.5, 26.6, .4], [9.8, 25.0, -.1]];
+  const members = crowdFrom(spots, {rareShare: .06}); members.push({x: L.trade[0] - .55, z: L.trade[1] + .05, yaw: 0, preset: 'grape', loop: 'sway', phase: .2, y: .92}, {x: L.trade[0] + .65, z: L.trade[1] + .05, yaw: 0, preset: 'frozen', loop: 'tap', phase: .7, y: .92});
+  const proto = {};
+  for (const c of members) { const P = (proto[c.preset] ??= createSlimeGuy({preset: c.preset})), g = P.root.clone(true), pose = idlePose(c.loop, t, c.phase);
+    g.position.set(c.x, (c.y ?? 0) + pose.dy, c.z); g.rotation.set(0, c.yaw, pose.roll); g.children[0].position.y = pose.tap; g.traverse(n => { if (n.isMesh) { n.castShadow = n.receiveShadow = true; } }); root.add(tag(g, 'fg')); c.object = g; }
+  // cloud deck (puffs at 38–50 H); golden: parted over the town
+  { const cr = (i => () => (i = (i * 16807) % 2147483647) / 2147483647)(77), part = mood === 'golden' ? 15 : 0, gc = cloudGap ?? [-10, -4], cm = new T.MeshStandardMaterial({color: M.clouds, roughness: 1, emissive: M.clouds, emissiveIntensity: mood === 'golden' ? .25 : .05});
+    for (let i = 0; i < (part ? 70 : 46); i++) { const a = cr() * Math.PI * 2, rr = (part ? part + 2 : 20) + cr() * (part ? 60 : 90), x = (part ? gc[0] : -8) + Math.cos(a) * rr, z = (part ? gc[1] : -6) + Math.sin(a) * rr;
+      const cg = new T.Group(); cg.position.set(x, 38 + cr() * 12, z); const s = 5 + cr() * 7;
+      for (let k = 0; k < 6; k++) { const b = new T.Mesh(new T.SphereGeometry(s * (.45 + .12 * (k % 3)), 16, 12), cm); b.position.set((k - 2.5) * s * .42, Math.sin(k * 1.7) * s * .14, Math.cos(k * 2.3) * s * .25); cg.add(b); }
+      root.add(tag(cg, 'far')); } }
+  // rain-night extras: puddles (ripples), 3D rain streaks, warm practicals at the box door
+  if (night) {
+    const pm = new T.MeshPhysicalMaterial({color: '#25303C', roughness: .35, metalness: .05, clearcoat: .9, clearcoatRoughness: .3});
     pm.onBeforeCompile = s => { s.vertexShader = 'varying vec2 vXZ;\n' + s.vertexShader.replace('#include <begin_vertex>', '#include <begin_vertex>\nvXZ = (modelMatrix * vec4(position, 1.)).xz;');
       s.fragmentShader = 'varying vec2 vXZ;\n' + s.fragmentShader.replace('#include <normal_fragment_maps>', `#include <normal_fragment_maps>
         { vec2 r = vec2(0.); for (int i = 0; i < 5; i++) { vec2 c = vec2(sin(float(i) * 12.9) * .7, cos(float(i) * 7.3) * .7); vec2 d = vXZ - floor(vXZ) - .5 - c * .3; float l = length(d);
           r += d / max(l, 1e-3) * sin(l * 70. - float(i)) * exp(-l * 9.); } normal = normalize(normal + vec3(r.x, 0., r.y) * .35); }`); };
-    for (const [x, z, sx, sz] of [[-1.5, 10, 2.2, 1.3], [3, 13.5, 1.6, 1], [-4.5, 13, 1.4, .9], [HILL.at[0] + 2.5, HILL.at[1] + 12, 2, 1.2], [9.5, 11, 1.4, 1]]) {
-      const p = new T.Mesh(new T.CircleGeometry(1, 40), pm); p.rotation.x = -Math.PI / 2; p.scale.set(sx, sz, 1); p.position.set(x, hillY(x, z) + .025, z); root.add(p); }
-    for (const [x, z, sx, sz] of [[-8.5, -13.5, 1.8, 1.1], [-12, -17.5, 1.3, .8]]) { const p = new T.Mesh(new T.CircleGeometry(1, 40), pm); p.rotation.x = -Math.PI / 2; p.scale.set(sx, sz, 1); p.position.set(x, hillY(x, z) + .025, z); root.add(p); }
+    for (const [x, z, sx, sz] of [[-1.2, 11, 1.6, 1], [1.4, 16.5, 1.2, .8], [-8.5, 12.5, 1.8, 1.1], [6, 26.5, 1.6, 1], [-14, -4.5, 1.6, 1]]) { const p = new T.Mesh(new T.CircleGeometry(1, 40), pm); p.rotation.x = -Math.PI / 2; p.scale.set(sx, sz, 1); p.position.set(x, hillY(x, z) + .03, z); root.add(tag(p, 'mid')); }
     const rr = (i => () => (i = (i * 48271) % 2147483647) / 2147483647)(9), lp = [];
-    for (let i = 0; i < 7000; i++) { const x = (rr() - .5) * 70 - 12, y = rr() * 26, z = (rr() - .5) * 70 - 18, l = .35 + rr() * .3; lp.push(x, y, z, x + l * .18, y - l, z + l * .05); }
-    const lg = new T.BufferGeometry(); lg.setAttribute('position', new T.Float32BufferAttribute(lp, 3));
-    root.add(new T.LineSegments(lg, new T.LineBasicMaterial({color: '#B8CCE8', transparent: true, opacity: .38, depthWrite: false})));
-    for (const s of [-1, 1]) { const l = new T.PointLight(M.practicals, 6, 9, 1.6); l.position.set(s * 2.4, 3.1, BOX.d / 2 + .6); root.add(l);
-      const bulb = new T.Mesh(new T.SphereGeometry(.16, 16, 12), new T.MeshBasicMaterial({color: '#FFE2B8'})); bulb.position.copy(l.position); root.add(bulb); }
+    for (let i = 0; i < 9000; i++) { const x = (rr() - .5) * 80 - 10, y = rr() * 28, z = (rr() - .5) * 80 - 4, l = .35 + rr() * .3; lp.push(x, y, z, x + l * .18, y - l, z + l * .05); }
+    const lg = new T.BufferGeometry(); lg.setAttribute('position', new T.Float32BufferAttribute(lp, 3)); const rain = new T.LineSegments(lg, new T.LineBasicMaterial({color: '#B8CCE8', transparent: true, opacity: .32, depthWrite: false})); rain.userData.fx = true; rain.userData.layer = 'fg'; root.add(rain);
+    for (const s of [-1, 1]) { const l = new T.PointLight(M.practicals, 6, 9, 1.6); l.position.set(s * 2.4, 3.1, BW.d / 2 + .6); root.add(l); }
   }
-  // cameras for the Pass B stills (Slime Guy eye level ≈ 0.6–1.2 H)
-  const cameras = {
-    boxStreet: {pos: [2.6, 1.1, 14.2], look: [-.6, 2.2, 4], mm: 24, feature: 'CORE ROW'},
-    coreRow: {pos: [0, .9, 4.6], look: [0, .6, -4], mm: 24},
-    trade: {pos: [7.4, 1.6, 12.6], look: [11.2, 1.5, 7.2], mm: 35, feature: 'TRADES'},
-    hillWide: {pos: [7, 14, 22], look: [-17, 4, -26], mm: 24, tilt: true},
-    plinthClose: {pos: [PLINTH_AT[0] + 2.2, PLINTH_AT[1] + 1.6, PLINTH_AT[2] + 7.2], look: [PLINTH_AT[0], PLINTH_AT[1] + .9, PLINTH_AT[2]], mm: 50, dof: true, feature: '1 / 102'},
-    rainHill: {pos: [-1, 1.5, -12], look: [-19.5, 7.6, -31], mm: 28},
-  };
-  return {root, anchors, cameras, crowd: members, signs, sunDir: M.sun.dir, spot};
+  return {root, anchors, plan, crowd: members, signs, plinth, sunDir: M.sun.dir, layout: L};
 }
