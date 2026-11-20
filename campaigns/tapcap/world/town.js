@@ -128,7 +128,7 @@ export function planTown(seed = 1102, cams = [], {sightlines = [], exclude = []}
   }
   // street dressing (instanced): lamps every ~4 H, bunting across Market Street, fences, planters, crates
   const keep = (p, rad = .6) => !camList.length || camList.some(c => sees(c, p, rad));
-  const add = (kind, x, z, yaw = 0, extra = {}) => { const y = hillY(x, z); const p = [x, y + .5, z]; if (inBox(x, z, .3) || !keep(p, 1.2) || (!extra.hero && camList.some(c => Math.hypot(c.pos[0] - x, c.pos[2] - z) < 2.2))) return;
+  const add = (kind, x, z, yaw = 0, extra = {}) => { const y = hillY(x, z); const p = [x, y + .5, z]; if (inBox(x, z, .3) || !keep(p, 1.2) || camList.some(c => Math.hypot(c.pos[0] - x, c.pos[2] - z) < 2.2)) return;   /* no prop within 2.2 H of any camera, hero clusters included */
     if (exclude.some(id => { const k = camList.find(c => c.id === id); return k && sees(k, p, 1.2, .05); })) return;
     const dark = kind === 'lamp' && Math.hypot(x - HILL.at[0], z - HILL.at[1]) < 6;   // §1b: no lit lamp within 6 H of the plinth
     props.push({kind, dark, x: +x.toFixed(3), y: +y.toFixed(3), z: +z.toFixed(3), yaw: +yaw.toFixed(4), zone: camList.some(c => dist(c.pos, p) <= ZONE.hero) ? 'hero' : 'mid', ...extra}); };
