@@ -7,7 +7,7 @@ export const MOODS_TC = {
     fill: {color: '#BFD6FF', i: .5}, rim: {color: '#FFE9D2', i: 1.2}, exposure: .64, fog: {color: '#F2DCC8', near: 70, far: 330}, wet: 0, spot: 1.4, clouds: '#FFF5EE'},
   rainNight: {base: 'nightMystery', rainFrom: 'stormAction', sky: ['#0B1426', '#17263F', '#22344F'], sun: {dir: [.4, .7, .35], color: '#8FB0FF', i: .65}, hemi: ['#3A5682', '#141B28', .55],
     fill: {color: '#6F8FC8', i: .35}, rim: {color: '#9CC4FF', i: 1.1}, exposure: .44, fog: {color: '#16223A', near: 30, far: 170}, wet: 1, spot: 1.3, clouds: '#2B3A55', practicals: '#FFC98A'},
-  quietNight: {base: 'nightMystery', sky: ['#0B1426', '#17263F', '#22344F'], sun: {dir: [.4, .7, .35], color: '#9DB8FF', i: .75 * Math.pow(2, -.7)},   // moon key −0.7 EV (§2-4) hemi: ['#3A5682', '#141B28', .55],   // §1f: rain-night base, no rain, dry
+  quietNight: {base: 'nightMystery', sky: ['#0B1426', '#17263F', '#22344F'], sun: {dir: [.4, .7, .35], color: '#9DB8FF', i: .75 * Math.pow(2, -.7)} /* moon key −0.7 EV (§2-4) */, hemi: ['#3A5682', '#141B28', .55],
     fill: {color: '#6F8FC8', i: .35}, rim: {color: '#9DB8FF', i: 1.1}, exposure: .3, fog: {color: '#16223A', near: 30, far: 170}, wet: 0, spot: 1.3, clouds: '#2B3A55', practicals: '#FFC98A'},
   golden: {base: 'goldenBittersweet', sky: ['#7FA7D6', '#F5B57A', '#FFD49A'], sun: {dir: [-.57, .22, .79], color: '#FFC77A', i: 3.0} /* behind the S36 rooftops (backlight) */, hemi: ['#FFD9B0', '#B88A6A', .15],   // §1c: backlit rooftops: (hemi + fill) / key = .25 / 3.0 = 8 % (≤ 10 %), env .25
     fill: {color: '#C9B6FF', i: .1}, rim: {color: '#FFC77A', i: 2.4}, envK: .25, exposure: .74 * Math.pow(2, -.15), fog: {color: '#F2B98A', near: 60, far: 300}, wet: .35, spot: 1.2, clouds: '#FFE0C2'},
