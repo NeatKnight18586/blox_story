@@ -6,7 +6,7 @@ ep = 'campaigns/tapcap/ep01-rarity'; out = f'{ep}/review/pass-b'; Q = json.load(
 LIL = 'node_modules/@expo-google-fonts/lilita-one/400Regular/LilitaOne_400Regular.ttf'
 F = lambda s: ImageFont.truetype('/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf', s); FB = lambda s: ImageFont.truetype(LIL, s)
 W, cw = 1600, 400; ch = int(cw * 16 / 9); lab = 62; ok = lambda b: '✓' if b else ('–' if b is None else '✗')
-S = Q['summary']; sheet = Image.new('RGB', (W, 44 + 2 * (ch + lab)), 'white'); g = ImageDraw.Draw(sheet)
+S = Q['summary']; rows = (len(Q['stills']) + 3) // 4; sheet = Image.new('RGB', (W, 44 + rows * (ch + lab)), 'white'); g = ImageDraw.Draw(sheet)
 g.text((10, 8), f"TapCap EP01 · Pass B revision · town: {S['counts']['buildings']} buildings · B2 void {ok(S['B2_void']['pass'])} · B3 depth {ok(S['B3_depth']['pass'])} · B4 {ok(S['B4_density']['pass'])} · B6 plinth {ok(S['B6_plinth']['pass'])}", font=FB(24), fill='black')
 for i, s in enumerate(Q['stills']):
     x, y = (i % 4) * cw, 44 + (i // 4) * (ch + lab)
@@ -15,6 +15,6 @@ for i, s in enumerate(Q['stills']):
     l2 = f"luma {s['luma']:.2f} {s['gate']} {ok(s['lumaPass'])}"
     if s['skyMax'] is not None: l2 += f" · sky {s['skyPct']:.0f}% ≤{s['skyMax']*100:.0f} {ok(s['skyPass'])}"
     if s['feature']: l2 += f" · {s['feature']} {s['featureCap']*100:.1f}% {ok(s['featurePass'])}"
-    l3 = (f"buildings {s['buildings']} " if 'buildings' in s else '') + (f"horizon {s['horizonCover']}% " if s['horizonCover'] is not None else '') + (f"plinth ΔL* {s['plinth']['contrast']} refl {s['plinth']['reflection']}" if 'plinth' in s else '')
+    l3 = (f"buildings {s['buildings']} " if 'buildings' in s else '') + (f"horizon {s['horizonCover']}% " if s['horizonCover'] is not None else '') + (f"plinth ΔL* {s['plinth']['contrast']} refl {s['plinth']['reflection']}" if 'plinth' in s else '') + (f"clouds<45%: {s['golden']['cloudBelowTop45']}% roofs bottom25 {s['golden']['rooftopsBottom25']}%" if 'golden' in s else '')
     g.text((x + 6, y + ch + 25), l2, font=F(12), fill='white'); g.text((x + 6, y + ch + 42), l3, font=F(12), fill='white')
 sheet.save(f'{out}/pass-b-sheet.png'); print(f'{out}/pass-b-sheet.png', sheet.size)

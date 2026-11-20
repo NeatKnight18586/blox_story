@@ -5,7 +5,7 @@ import sys, json
 import numpy as np
 from PIL import Image
 D = sys.argv[1]; R = json.load(open(f'{D}/raw.json')); M7 = json.load(open('engine/moods7.json'))
-BASE = {'dawnHope': 'dawnHope', 'rainNight': 'nightMystery', 'golden': 'goldenBittersweet'}
+BASE = {'dawnHope': 'dawnHope', 'rainNight': 'nightMystery', 'quietNight': 'nightMystery', 'golden': 'goldenBittersweet'}
 def rgba(x): return np.frombuffer(open(f"{D}/ids/{x['file']}", 'rb').read(), 'uint8').reshape(x['h'], x['w'], 4)[::-1, :, :3].astype(int)
 def img(n): return np.asarray(Image.open(f'{D}/panels/{n}.png').convert('RGB')).astype(float) / 255
 def lstar(c): y = c @ np.array([.2126, .7152, .0722]); y = np.where(c <= .04045, c / 12.92, ((c + .055) / 1.055) ** 2.4) @ np.array([.2126, .7152, .0722]); return np.where(y > .008856, 116 * np.cbrt(y) - 16, 903.3 * y)
@@ -28,6 +28,10 @@ for s in R['stills']:
          'skyPass': None if s['skyMax'] is None else sky <= s['skyMax'] * 100, 'horizonCover': hz, 'layers': cov, 'ms': s['ms'],
          'feature': s['feature'], 'featureCap': feat[0]['capFrac'] if feat else None, 'featurePass': None if not s['feature'] else bool(feat and feat[0]['capFrac'] >= .03)}
     if 'buildings' in R['ids'][s['id']]: e['buildings'], e['archetypes'] = buildings(R['ids'][s['id']]['buildings'])
+    if s.get('golden'):   # §1c: clouds only in the top 45 %, rooftops fill the bottom 25 %, luma .44–.48
+        a = rgba(R['ids'][s['id']]['layers']); H = a.shape[0]; cl = np.abs(a - [255, 0, 255]).sum(2) == 0; town = (a.sum(2) > 0) & ~cl
+        e['golden'] = {'cloudBelowTop45': round(float(cl[int(H * .45):].sum()) / max(1, cl.sum()) * 100, 2), 'cloudPct': round(float(cl.mean()) * 100, 1),
+                       'rooftopsBottom25': round(float(town[int(H * .75):].mean()) * 100, 1), 'lumaTarget': [.44, .48], 'lumaTargetPass': .44 <= luma <= .48}
     if 'plinth' in R['ids'][s['id']]:
         m = rgba(R['ids'][s['id']]['plinth']).sum(2) == 765; ys, xs = np.nonzero(m); L = lstar(c); Y = c @ np.array([.2126, .7152, .0722])
         y0, y1, x0, x1 = ys.min(), ys.max(), xs.min(), xs.max(); h, w = y1 - y0, x1 - x0
@@ -56,6 +60,7 @@ out['summary'] = {
              'pass': st['hillWide']['skyPct'] <= 40 and st['st5']['skyPct'] <= 15 and (min(hzs) if hzs else 0) >= 70},
   'B9_font': setup['font'], 'B10_text': sorted(set(setup['text'])),
   'B11_ms': {'still540': round(np.mean([s['ms'] for s in out['stills']])), 'previz160': round(np.mean([v['ms'] for v in out['void']])), 'build': {k: v for k, v in R['timing'].items()}},
+  'golden': st['st8'].get('golden'), 'boxStreet': st['st1'].get('buildings'),
   'counts': setup['counts'], 'crowd': setup['crowd']['n'],
 }
 print(json.dumps(out))

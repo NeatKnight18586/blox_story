@@ -67,6 +67,12 @@ export function sees(c, p, rad = 0, margin = ZONE.margin) {   // bounding sphere
   const zz = Math.max(z, .05), x = Math.abs(dot(v, B.r)) - rad, y = Math.abs(dot(v, B.u)) - rad;
   return x <= zz * B.th * (1 + margin) && y <= zz * B.tv * (1 + margin);
 }
+// §1a: a bounding sphere overlaps the central 50 % of the frame (half width × half height) and sits nearer than the shot's subject
+export function blocksSubject(c, p, rad, box = null) {   // box: [x0, x1, y0, y1, z0, z1] → its projected corners must overlap the central rectangle
+  const B = c._b ??= camBasis(c), subj = Math.hypot(...sub(c.look, c.pos)); if (Math.hypot(...sub(p, c.pos)) - rad >= subj) return false;
+  const pts = box ? [0, 1].flatMap(i => [2, 3].flatMap(j => [4, 5].map(k => [box[i], box[j], box[k]]))) : [p];
+  const xs = [], ys = []; for (const q of pts) { const v = sub(q, c.pos), z = dot(v, B.f); if (z <= .05) continue; xs.push(dot(v, B.r) / (z * B.th)); ys.push(dot(v, B.u) / (z * B.tv)); }
+  if (!xs.length) return false; return Math.min(...xs) <= .5 && Math.max(...xs) >= -.5 && Math.min(...ys) <= .5 && Math.max(...ys) >= -.5; }
 const dist = (a, b) => Math.hypot(a[0] - b[0], a[1] - b[1], a[2] - b[2]);
 // does a box footprint (centre, radius, top height) block the line from the camera to a target? (sightline corridors)
 function blocks(c, target, at, rad, top) {
@@ -112,14 +118,15 @@ export function planTown(seed = 1102, cams = [], {sightlines = []} = {}) {
     // build for the camera: kept only if some frustum sees it; hero within 5 H of a camera
     const ctr = [x, yb + height / 2, z], R = Math.hypot(rad, height / 2), seen = !camList.length || camList.some(c => sees(c, ctr, R));
     if (!seen) continue;
-    if (camList.some(c => Math.hypot(c.pos[0] - x, c.pos[2] - z) < rad + 3.5 && c.pos[1] < yb + height + 2 && sees(c, ctr, R, 0))) continue;   // clearance: nothing fills a lens (in front of it only)
+    if (camList.some(c => blocksSubject(c, ctr, R, [x - rad * .8, x + rad * .8, yb, yb + height, z - rad * .8, z + rad * .8]))) continue;   // §1a clearance: in the central 50 % of the frame AND nearer than the subject
     if (sightlines.some(id => { const c = camList.find(k => k.id === id); return c && blocks(c, c.look, [x, 0, z], rad, yb + height); })) continue;   // keep hero sightlines to the hill clear
     b.zone = camList.some(c => dist(c.pos, ctr) - R <= ZONE.hero) ? 'hero' : 'mid'; B.push(b);
   }
   // street dressing (instanced): lamps every ~4 H, bunting across Market Street, fences, planters, crates
   const keep = (p, rad = .6) => !camList.length || camList.some(c => sees(c, p, rad));
   const add = (kind, x, z, yaw = 0, extra = {}) => { const y = hillY(x, z); const p = [x, y + .5, z]; if (inBox(x, z, .3) || !keep(p, 1.2) || (!extra.hero && camList.some(c => Math.hypot(c.pos[0] - x, c.pos[2] - z) < 2.2))) return;
-    props.push({kind, x: +x.toFixed(3), y: +y.toFixed(3), z: +z.toFixed(3), yaw: +yaw.toFixed(4), zone: camList.some(c => dist(c.pos, p) <= ZONE.hero) ? 'hero' : 'mid', ...extra}); };
+    const dark = kind === 'lamp' && Math.hypot(x - HILL.at[0], z - HILL.at[1]) < 6;   // §1b: no lit lamp within 6 H of the plinth
+    props.push({kind, dark, x: +x.toFixed(3), y: +y.toFixed(3), z: +z.toFixed(3), yaw: +yaw.toFixed(4), zone: camList.some(c => dist(c.pos, p) <= ZONE.hero) ? 'hero' : 'mid', ...extra}); };
   for (let z = 7.5; z < 23; z += 4) for (const s of [-1, 1]) add('lamp', s * 2.45, z);
   for (let x = -28; x <= 40; x += 4) for (const zz of [L.market.z[0] - .3, L.market.z[1] + .3]) if (Math.abs(x - L.bridge.at[0]) > 4 && Math.abs(x) > 2.8) add('lamp', x + (zz > 26 ? 2 : 0), zz);
   { const [a, b] = L.hillRoad; for (let t = 0; t <= 1.001; t += .25) for (const s of [-1, 1]) add('lamp', a[0] + (b[0] - a[0]) * t + s * 1.9 * .82, a[1] + (b[1] - a[1]) * t + s * 1.9 * .57); }

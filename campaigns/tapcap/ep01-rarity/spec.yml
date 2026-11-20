@@ -18,9 +18,11 @@ cast:
 crowd: {count: [20, 40], idle: [sway, hop, tap]}
 town: {seed: 1102, generator: ../world/town.js}   # one seeded generator; same seed = same town
 signs: ["1 / 102", "TOP SHELF", "CORE ROW", "TRADES"]
-lighting:
+lighting_by_shot: {S1-S13: dawnHope, S14-S17: quietNight, S18-S22: dawnHope, S23-S35: rainNight, S36-S40: golden}   # owner act map (Pass C brief)
+lighting:   # superseded by lighting_by_shot (kept for the preset names)
   - {from: 0.00, to: 38.0, preset: dawn-hope}
   - {from: 38.0, to: 64.5, preset: rain-night, lightning_max: 1}
   - {from: 64.5, to: 75.16, preset: golden}
+  - {preset: quiet-night, shots: S14-S17, rain: false, wet: false, key: '#9DB8FF', windows: warm}
 qa: {proportions: qa/proportions.json, measured: qa/measured.json}
 loop: {first: S1, last: S40, rule: "S40 replays S1's camera move exactly; last frames identical (diff 0)"}

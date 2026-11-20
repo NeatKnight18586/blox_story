@@ -14,12 +14,18 @@
   provisional S1–S40 cams in shots.yml (town built for their frustums), 2-tier plinth, hill 1:2.2 + S-path 24.5°, Lilita One signs.
   `node campaigns/tapcap/scripts/pass-b.js` → qa/world.json + review/pass-b/pass-b-sheet.png (8 stills, 4 columns).
 ## Approved
-- Pass A (owner 2026-11-19), Clix face #2 grin.
-## Open notes (Pass B revision, after 2 fix passes; nothing loosened)
-- B1 FAIL: plinth close luma .510 (gate ≤ .50), golden S36 .511 (≤ .48). B3 FAIL: S1/S40 bg .79 %, S22 fg 0 / mid .23 %, S36 bg .29 %.
-- B4 FAIL: S5 77 ✓, street wides S1 11 · S25 5 · S40 11 · Box street 1 (clearance rule removes lane houses beside the lens) · Market 13 · S8 19 ✓.
-- B6 FAIL: rain plinth ΔL* 15.2 (≥ 20), reflection .75 (≤ .40). Earlier PASS (33.8) was invalid: tier 2 was missing (comment bug).
-- Plinth: teal rim line not visible (inside the bevel); tier-2 side reads as a dark band. Golden still: clouds parted but no rooftops read.
-- S14–S17 say "night" but sit in the 0:00–0:38 dawn act; Pass C needs a call. Cams in shots.yml are provisional (Pass C replaces).
+- Pass A (Clix face #2 grin) · Pass B (owner 2026-11-20, with §1 world fixes; B3/B4 move to Pass C real cameras).
+## §1 world fixes (2 passes each; nothing loosened)
+- 1a FAIL: clearance (bbox in central 50 % AND nearer than subject) applied literally removes the lane houses for the S5 aerial
+  (subject 50 H away) → Box street 0 buildings, S25 0. Fix proposal: also require the bbox to cross the camera→subject line.
+- 1b PASS: rain plinth ΔL* 34.8 (≥ 20), reflection .326 (≤ .40); teal band .03 H on the tier side; front-left fill; no lit lamp ≤ 6 H.
+- 1c PASS: 6 cloud masses, 0 % below the top 45 %, rooftops 96.8 % of the bottom 25 %, fill 8 % of key, luma .443 (.44–.48).
+- 1d FAIL by spec: plinth close .524; it has 0 % sky, so a sky-only −0.1 EV cannot move it (alternative: −0.1 EV shot exposure).
+- 1e built: 3-row cubby wall, string lights, left-wall window + open flap (the hill does not read through it yet).
+- 1f built: quietNight (no rain/wet, key #9DB8FF, warm windows) but S14 still luma .368 > .22 (night gate). Hill wide drifted .514 (> .50).
+## Pass C status: STOPPED at 2a (aligner wins; S26 phrase off > 0.6 s)
+- stories/tapcap-ep01-rarity/ (script.txt = shots.yml VO lines, voice → vo.wav, gitignored); build/cues.json from scripts/v2/align.py.
+- S26 "Yellow," starts 43.07 (table 43.75, −0.68 s: silence table skipped the word). S36 −0.28. All others ≤ 0.01 s.
+- Clicks 36.148 / 68.471 / 69.172; last word ends 74.92 (cut 75.16 = 0.24 s tail).
 ## Next step
-- Owner: notes or "approve" on the Pass B revision (fails above). Do NOT start Pass C before approval.
+- Owner: confirm S26 = 43.07 s (aligner) or say otherwise; then Pass C 2b–2i (blocking, QA, sheets, render plan).

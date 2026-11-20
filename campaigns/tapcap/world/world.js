@@ -15,7 +15,7 @@ const R = new T.WebGLRenderer({antialias: false, preserveDrawingBuffer: true}); 
 R.toneMapping = T.AgXToneMapping; R.shadowMap.enabled = true; R.shadowMap.type = T.PCFShadowMap; document.body.appendChild(R.domElement);
 const MOODS7 = await (await fetch('../../../engine/moods7.json')).json();
 const font = new FontFace('Lilita One', `url(${FONT_URL})`); await font.load(); document.fonts.add(font);
-let W = null, scene = null, mood = null;
+let W = null, scene = null, mood = null, sky = null;
 
 function skyDome(c) {   // zenith → horizon gradient, sky-only exposure SKY_EV
   const k = Math.pow(2, SKY_EV), g = new T.SphereGeometry(420, 48, 24), m = new T.ShaderMaterial({side: T.BackSide, depthWrite: false, fog: false,
@@ -35,9 +35,9 @@ function farSplit(near, far, d = 25) {   // flat colour, switched to the backgro
 const pixels = (w, h) => { const gl = R.getContext(), b = new Uint8Array(w * h * 4); gl.readPixels(0, 0, w, h, gl.RGBA, gl.UNSIGNED_BYTE, b); let s = ''; for (let i = 0; i < b.length; i += 8192) s += String.fromCharCode.apply(null, b.subarray(i, i + 8192)); return btoa(s); };
 
 window.__w = {
-  async setup({mood: md, cams, seed = 1102, cloudGap = null}) {
-    mood = md; const M = MOODS_TC[md], m7 = MOODS7[M.base]; scene = new T.Scene(); W = build({mood: md, cams, seed, cloudGap}); scene.add(W.root); scene.add(skyDome(M.sky));
-    scene.environment = envFrom(M); scene.environmentIntensity = m7.env; scene.fog = new T.Fog(M.fog.color, M.fog.near, M.fog.far);
+  async setup({mood: md, cams, seed = 1102, cloudGap = null, skyCam = null, fillCam = null}) {
+    mood = md; const M = MOODS_TC[md], m7 = MOODS7[M.base]; scene = new T.Scene(); W = build({mood: md, cams, seed, cloudGap, skyCam, fillCam}); scene.add(W.root); sky = skyDome(M.sky); scene.add(sky);
+    scene.environment = envFrom(M); scene.environmentIntensity = M.envK ?? m7.env; scene.fog = new T.Fog(M.fog.color, M.fog.near, M.fog.far);
     scene.add(new T.HemisphereLight(M.hemi[0], M.hemi[1], M.hemi[2]));
     const sun = new T.DirectionalLight(M.sun.color, M.sun.i), sd = new T.Vector3(...M.sun.dir).normalize(); sun.position.copy(sd.clone().multiplyScalar(90)).add(new T.Vector3(-4, 0, 4)); sun.target.position.set(-4, 0, 4);
     sun.castShadow = true; sun.shadow.mapSize.set(2048, 2048); Object.assign(sun.shadow.camera, {left: -60, right: 60, top: 60, bottom: -60, near: 1, far: 240}); sun.shadow.bias = -.0004; sun.shadow.normalBias = .04; scene.add(sun, sun.target);
@@ -46,7 +46,9 @@ window.__w = {
     return {counts: W.plan.counts, crowd: {n: W.crowd.length, presets: W.crowd.map(c => c.preset), loops: W.crowd.map(c => c.loop)}, font: {loaded: document.fonts.check(`100px "Lilita One"`), file: FONT_URL},
       text: (() => { const t = []; scene.traverse(n => { const m = n.material; for (const x of [m].flat()) if (x?.map?.image?.tagName === 'CANVAS') t.push(n.userData.sign ? 'sign:' + n.userData.sign.text : x.map.userData?.stripes ? 'awning stripes (no text)' : n.name === 'print' ? 'TapCap chest print (product art)' : (n.name || 'canvas')); }); return t; })()};
   },
-  still({cam, w = 540, h = 960, dof = false}) {
+  still({cam, w = 540, h = 960, dof = false, skyEV = 0}) {
+    const k0 = Math.pow(2, skyEV), base = MOODS_TC[mood].sky.map(c => new T.Color(c).multiplyScalar(Math.pow(2, SKY_EV)));
+    ['a', 'b', 'h'].forEach((u, i) => sky.material.uniforms[u].value.copy(base[i]).multiplyScalar(k0));   // per-still sky-only EV on top of SKY_EV
     const M = MOODS_TC[mood], m7 = MOODS7[M.base], k = camOf(cam, w, h), t0 = performance.now();
     R.toneMappingExposure = (m7.exposure ?? 1) * M.exposure; R.setSize(w, h, false);
     const P = createPost(R, scene, k, {samples: 4}); P.setSize(w, h); const r = resolveCam(cam);
@@ -69,6 +71,7 @@ window.__w = {
     scene.traverse(n => { if (!(n.isMesh || n.isPoints || n.isLine)) return; const L = n.userData.layer;
       saved.push([n, n.material, n.visible, n.instanceColor ?? null]);
       if (n.userData.fx || n.isPoints || n.isLine || n.name === 'sky' || (n.material?.transparent && L === 'far' && !n.isInstancedMesh && n.geometry.type === 'CylinderGeometry')) { n.visible = false; return; }
+      if (kind === 'layers' && n.userData.cloud) { n.material = basic('#ff00ff'); return; }
       if (kind === 'layers') { n.material = L === 'mid' ? farSplit(LC.mid, LC.bg, split) : basic(LC[L] ?? '#00ff00'); if (n.isInstancedMesh) n.instanceColor = null; }
       else if (kind === 'plinth') { n.material = basic(n.userData.plinth ? '#ffffff' : '#000000'); if (n.isInstancedMesh) n.instanceColor = null; }
       else { if (n.isInstancedMesh && n.userData.buildingIds) { const ids = n.userData.buildingIds; n.instanceColor = new T.InstancedBufferAttribute(new Float32Array(ids.length * 3), 3); ids.forEach((id, i) => n.setColorAt(i, enc(id))); n.material = basic('#ffffff'); }

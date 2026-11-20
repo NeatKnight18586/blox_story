@@ -76,7 +76,8 @@ export function buildTown(plan, {mood = 'dawnHope', night = false} = {}) {
   const lamps = by('lamp');
   inst(lamps, at(new T.CylinderGeometry(.06, .08, 2.4, 10), 0, 1.2, 0), new T.MeshStandardMaterial({color: '#3E4552', roughness: .4, metalness: .5}), 'fg');
   const bulbM = new T.MeshStandardMaterial({color: '#FFF1D6', emissive: '#FFD9A0', emissiveIntensity: night ? 3 : .15, roughness: .2});
-  inst(lamps, at(new T.SphereGeometry(.2, 14, 10), 0, 2.5, 0), bulbM, 'fg');
+  inst(lamps.filter(p => !p.dark), at(new T.SphereGeometry(.2, 14, 10), 0, 2.5, 0), bulbM, 'fg');
+  inst(lamps.filter(p => p.dark), at(new T.SphereGeometry(.2, 14, 10), 0, 2.5, 0), new T.MeshStandardMaterial({color: '#D9D2C4', roughness: .3}), 'fg');
   const fence = mergeGeometries([0, 1, 2, 3].map(i => at(rbox(.12, .6, .08, .03), (i - 1.5) * .38, .3, 0).toNonIndexed()).concat([at(rbox(1.5, .08, .06, .02), 0, .42, 0).toNonIndexed()]).map(g => { g.deleteAttribute('uv'); return g; }));
   inst(by('fence'), fence, new T.MeshStandardMaterial({color: '#FFF6E8', roughness: .5}), 'fg');
   const planter = mergeGeometries([at(rbox(.7, .45, .7, .08), 0, .225, 0).toNonIndexed(), at(new T.SphereGeometry(.38, 14, 10), 0, .62, 0).toNonIndexed()].map(g => { g.deleteAttribute('uv'); return g; }));

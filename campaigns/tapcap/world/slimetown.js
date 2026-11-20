@@ -7,8 +7,8 @@ import * as T from 'three';
 import {createSlimeGuy} from '../assets/slimeguy/index.js';
 import {sign} from '../../../engine/signs6.js';
 import {crowdFrom, idlePose} from './crowd.js';
-import {MOODS_TC} from './moods.js';
-import {layout, planTown, hillY, HILL, PLINTH, TOWN_DIR, PALETTE} from './town.js';
+import {MOODS_TC, NIGHTS} from './moods.js';
+import {layout, planTown, hillY, HILL, PLINTH, TOWN_DIR, PALETTE, resolveCam, camBasis, fovFor} from './town.js';
 import {buildTown, cobbleMaterial} from './townmesh.js';
 
 export const SIGN_FONT = 'Lilita One';   // the captions' font file (node_modules/@expo-google-fonts/lilita-one), loaded by world.js
@@ -62,11 +62,11 @@ function ribbon(pts, w, mat, lift = .02, yAt = (x, z) => 0) {   // flat strip al
   const m = new T.Mesh(g, mat); m.receiveShadow = true; return m;
 }
 
-export function build({mood = 'dawnHope', t = .4, cams = [], seed = 1102, cloudGap = null} = {}) {   // cloudGap: [x, z] the golden deck parts around
+export function build({mood = 'dawnHope', t = .4, cams = [], seed = 1102, cloudGap = null, skyCam = null, fillCam = null} = {}) {   // skyCam: the golden S36 camera (cloud masses placed in its frame); fillCam: the camera the plinth fill keys from
   const M = MOODS_TC[mood], L = layout(), root = new T.Group(); root.name = 'slimetown';
-  const night = mood === 'rainNight', wet = M.wet, anchors = {}, signs = [];
+  const night = NIGHTS.includes(mood), rain = mood === 'rainNight', wet = M.wet, WR = .5, anchors = {}, signs = [];
   // ground + streets (cobble-like rounded tiles); wet = roughness .35
-  const ground = new T.Mesh(new T.CircleGeometry(170, 96), std(night ? '#3E4B52' : mood === 'golden' ? '#CBD8B4' : '#D5E5C8', {roughness: wet ? .35 : .75, clearcoat: wet ? .6 : 0}));
+  const ground = new T.Mesh(new T.CircleGeometry(170, 96), std(night ? '#3E4B52' : mood === 'golden' ? '#CBD8B4' : '#D5E5C8', {roughness: wet ? WR : .75, clearcoat: wet ? .6 : 0}));
   ground.rotation.x = -Math.PI / 2; ground.receiveShadow = true; root.add(tag(ground, 'mid'));
   const cob = cobbleMaterial(night ? '#6F7780' : '#EADFCB', wet);
   root.add(tag(ribbon([[0, 5.8], [0, 23]], 4, cob, .02), 'mid'));
@@ -90,7 +90,23 @@ export function build({mood = 'dawnHope', t = .4, cams = [], seed = 1102, cloudG
   const kraft = std('#CDB894', {roughness: .85}), holo = holoWallMaterial(), BW = L.box, wallT = .18;
   const boxG = new T.Group(); root.add(boxG);
   const wall = (w, h, d, x, y, z, outer) => { const mats = Array(6).fill(kraft); mats[outer] = holo; const m = new T.Mesh(new T.BoxGeometry(w, h, d), mats); m.position.set(x, y, z); m.castShadow = m.receiveShadow = true; boxG.add(m); return m; };
-  wall(BW.w, BW.h, wallT, 0, BW.h / 2, -BW.d / 2, 5); wall(wallT, BW.h, BW.d, -BW.w / 2, BW.h / 2, 0, 1); wall(wallT, BW.h, BW.d, BW.w / 2, BW.h / 2, 0, 0);
+  wall(BW.w, BW.h, wallT, 0, BW.h / 2, -BW.d / 2, 5);
+  { const W0 = BW.w / 2, oz = -4.1, ow = 2.6, oy0 = 3.35, oy1 = 4.75;   // §1e: left wall with a window (open flap) framing the hill
+    wall(wallT, BW.h, (BW.d / 2 + oz - ow / 2), -W0, BW.h / 2, (-BW.d / 2 + oz - ow / 2) / 2, 1); wall(wallT, BW.h, BW.d / 2 - oz - ow / 2, -W0, BW.h / 2, (oz + ow / 2 + BW.d / 2) / 2, 1);
+    wall(wallT, oy0, ow, -W0, oy0 / 2, oz, 1); wall(wallT, BW.h - oy1, ow, -W0, (oy1 + BW.h) / 2, oz, 1);
+    const hinge = new T.Group(); hinge.position.set(-W0, oy1, oz); hinge.rotation.z = -1.1; boxG.add(hinge); const fl = new T.Mesh(new T.BoxGeometry(wallT, oy1 - oy0, ow), [holo, kraft, kraft, kraft, kraft, kraft]); fl.position.y = -(oy1 - oy0) / 2; fl.castShadow = true; hinge.add(fl); }
+  { const rows = [{y: 0, dz: 1.6}, {y: 1.25, dz: 1.05}, {y: 2.5, dz: .5}], cw = .95, n = Math.floor((BW.w - .6) / cw), cub = [];   // §1e: tiered cubby wall (Slime Guy homes, 1.2 H)
+    rows.forEach((r, ri) => { for (let i = 0; i < n; i++) cub.push({x: -BW.w / 2 + .3 + cw * (i + .5), y: r.y, z: -BW.d / 2 + wallT / 2 + r.dz / 2, d: r.dz, ri, i}); });
+    const frame = new T.InstancedMesh(new T.BoxGeometry(cw - .06, 1.2, 1), std('#ffffff', {roughness: .5}), cub.length), door = new T.InstancedMesh(new T.PlaneGeometry(.52, .82), new T.MeshStandardMaterial({color: night ? '#FFCF8A' : '#3B2A2A', emissive: night ? '#FFB860' : '#000000', emissiveIntensity: night ? .35 : 0}), cub.length);
+    const ledge = new T.InstancedMesh(new T.BoxGeometry(BW.w - .4, .1, 1), std('#E8D3B0', {roughness: .6}), rows.length);
+    cub.forEach((c, k) => { frame.setMatrixAt(k, new T.Matrix4().compose(new T.Vector3(c.x, c.y + .6, c.z), new T.Quaternion(), new T.Vector3(1, 1, c.d))); frame.setColorAt(k, new T.Color(PALETTE[(c.i * 2 + c.ri * 5) % 9]).lerp(new T.Color('#ffffff'), .25));
+      door.setMatrixAt(k, new T.Matrix4().makeTranslation(c.x, c.y + .47, c.z + c.d / 2 + .005)); });
+    rows.forEach((r, ri) => ledge.setMatrixAt(ri, new T.Matrix4().compose(new T.Vector3(0, r.y + 1.25, -BW.d / 2 + wallT / 2 + r.dz / 2 + .05), new T.Quaternion(), new T.Vector3(1, 1, r.dz + .1))));
+    for (const m of [frame, door, ledge]) { m.castShadow = m.receiveShadow = true; boxG.add(m); }
+    const bulbs = [], bm = new T.MeshStandardMaterial({color: '#FFF1D6', emissive: '#FFD9A0', emissiveIntensity: night ? 1.6 : 1.2});   // string lights across the box (warm bulbs, no text)
+    for (const [z, sag] of [[-3.2, .5], [-.4, .6], [2.4, .55]]) { const pts = []; for (let i = 0; i <= 16; i++) { const t = i / 16; pts.push(new T.Vector3(-BW.w / 2 + .2 + (BW.w - .4) * t, BW.h - .15 - sag * 4 * t * (1 - t), z)); }
+      const wire = new T.Mesh(new T.TubeGeometry(new T.CatmullRomCurve3(pts), 40, .012, 4), new T.MeshStandardMaterial({color: '#3A3A3A'})); boxG.add(wire); pts.slice(1, -1).forEach(p => bulbs.push(p)); }
+    const bi = new T.InstancedMesh(new T.SphereGeometry(.07, 10, 8), bm, bulbs.length); bulbs.forEach((p, k) => bi.setMatrixAt(k, new T.Matrix4().makeTranslation(p.x, p.y - .06, p.z))); boxG.add(bi); } wall(wallT, BW.h, BW.d, BW.w / 2, BW.h / 2, 0, 0);
   const sideW = (BW.w - BW.door.w) / 2; for (const s of [-1, 1]) wall(sideW, BW.h, wallT, s * (BW.door.w / 2 + sideW / 2), BW.h / 2, BW.d / 2, 4);
   wall(BW.door.w, BW.h - BW.door.h, wallT, 0, BW.door.h + (BW.h - BW.door.h) / 2, BW.d / 2, 4);
   { const fl = new T.Mesh(new T.PlaneGeometry(BW.w, BW.d), kraft); fl.rotation.x = -Math.PI / 2; fl.position.y = .015; fl.receiveShadow = true; boxG.add(fl); }
@@ -101,9 +117,9 @@ export function build({mood = 'dawnHope', t = .4, cams = [], seed = 1102, cloudG
   tag(boxG, 'mid'); anchors.boxDoor = [0, 0, BW.d / 2]; anchors.coreRow = [0, 0, 0];
   // TOP SHELF HILL (1 : 2.2), S-path, terraces come with the town; summit = plinth only
   { const prof = []; for (let i = 0; i <= 64; i++) { const r = HILL.R * i / 64; prof.push(new T.Vector2(r, hillY(HILL.at[0] + r, HILL.at[1]))); }
-    prof.push(new T.Vector2(HILL.R + .01, 0)); const hill = new T.Mesh(new T.LatheGeometry(prof.reverse(), 128), std(night ? '#2F6A47' : '#74C77A', {roughness: wet ? .35 : .45, clearcoat: wet ? .8 : .35, clearcoatRoughness: .25}));
+    prof.push(new T.Vector2(HILL.R + .01, 0)); const hill = new T.Mesh(new T.LatheGeometry(prof.reverse(), 128), std(night ? '#2F6A47' : '#74C77A', {roughness: wet ? WR : .45, clearcoat: wet ? .4 : .35, clearcoatRoughness: wet ? .5 : .25}));
     hill.position.set(HILL.at[0], 0, HILL.at[1]); hill.receiveShadow = hill.castShadow = true; root.add(tag(hill, 'bg'));
-    root.add(tag(ribbon(L.path.map(p => [p[0], p[2]]), 1.15, std(night ? '#8A8A80' : '#F3E7CF', {roughness: wet ? .35 : .6, side: T.DoubleSide}), .04, hillY), 'bg')); }
+    root.add(tag(ribbon(L.path.map(p => [p[0], p[2]]), 1.15, std(night ? '#8A8A80' : '#F3E7CF', {roughness: wet ? WR : .6, side: T.DoubleSide}), .04, hillY), 'bg')); }
   // PLINTH: tier 1 Ø1.8 × .35 with "1 / 102", tier 2 Ø1.4 × .5 (bevel .08) with a .02 teal emissive rim on its top edge
   const plinth = new T.Group(); plinth.position.set(...L.plinth.at); plinth.rotation.y = Math.atan2(TOWN_DIR[0], TOWN_DIR[1]); root.add(plinth);
   { const white = std('#FBFBFD', {roughness: .08, clearcoat: 1, clearcoatRoughness: .03});
@@ -111,8 +127,8 @@ export function build({mood = 'dawnHope', t = .4, cams = [], seed = 1102, cloudG
     const r2 = PLINTH.top.d / 2, h2 = PLINTH.top.h, bv = PLINTH.top.bevel, prof = [new T.Vector2(0, 0), new T.Vector2(r2, 0), new T.Vector2(r2, h2 - bv)];
     for (let i = 1; i <= 8; i++) { const a = i / 8 * Math.PI / 2; prof.push(new T.Vector2(r2 - bv + bv * Math.cos(a), h2 - bv + bv * Math.sin(a))); } prof.push(new T.Vector2(0, h2));
     const b2 = new T.Mesh(new T.LatheGeometry(prof, 72), white); b2.position.y = PLINTH.base.h; plinth.add(b2);   // tier 2 (profile bottom → top, outward faces)
-    const rim = new T.Mesh(new T.TorusGeometry(r2 - bv * .55, PLINTH.rim.w / 2, 8, 96), new T.MeshStandardMaterial({color: PLINTH.rim.color, emissive: PLINTH.rim.color, emissiveIntensity: 2.2}));
-    rim.rotation.x = Math.PI / 2; rim.position.y = PLINTH.base.h + h2 - bv * .3; plinth.add(rim);
+    const band = .03, rim = new T.Mesh(new T.CylinderGeometry(r2 + .004, r2 + .004, band, 96, 1, true), new T.MeshStandardMaterial({color: PLINTH.rim.color, emissive: PLINTH.rim.color, emissiveIntensity: 3}));
+    rim.position.y = PLINTH.base.h + h2 - bv - band / 2; rim.name = 'plinth_rim'; plinth.add(rim);   // §1b: .03 H emissive band on the tier side, at its top edge (below the bevel)
     for (const m of [b1, b2]) { m.castShadow = m.receiveShadow = true; }
     const s = signPlate('1 / 102', {readFrom: 7, fov: 40}); s.scale.setScalar(.7); s.position.set(0, PLINTH.base.h / 2, PLINTH.base.d / 2 + .02); plinth.add(s); signs.push(s); }
   tag(plinth, 'bg'); plinth.userData.plinth = true; plinth.traverse(n => { n.userData.plinth = true; });
@@ -126,6 +142,8 @@ export function build({mood = 'dawnHope', t = .4, cams = [], seed = 1102, cloudG
       fragmentShader: 'uniform float k; varying float vy; varying vec3 vn, vv; void main(){ float e = pow(abs(dot(vn, vv)), 1.5); float f = smoothstep(-12., -6., vy) * (1. - smoothstep(-1., 0., vy) * .4); gl_FragColor = vec4(vec3(1., .96, .88) * k * e * f, 1.); }'}));
     beam.position.copy(src); beam.userData.layer = 'bg'; beam.userData.fx = true; root.add(beam);
     const back = new T.SpotLight(night ? '#BFD6FF' : '#FFE6C8', (night ? 70 : 25), 30, .1, .4, 1.5); back.position.copy(top).add(new T.Vector3(-TOWN_DIR[0] * 6, 1.4, -TOWN_DIR[1] * 6)); back.target.position.copy(top).add(new T.Vector3(0, -.35, 0));   // back rim: narrow, grazes the plinth, not the ground in front root.add(back, back.target);
+    if (night && fillCam) { const fc = resolveCam(fillCam), d = new T.Vector3(fc.pos[0] - top.x, 0, fc.pos[2] - top.z).normalize().applyAxisAngle(new T.Vector3(0, 1, 0), .6);   // §1b: front-left fill → tier side mid-grey
+      const fill = new T.SpotLight('#C9D8F2', 18, 14, .22, .6, 1.2); fill.position.copy(top).addScaledVector(d, 4.5).add(new T.Vector3(0, .6, 0)); fill.target.position.copy(top).add(new T.Vector3(0, -.35, 0)); root.add(fill, fill.target); }
     if (!night) { const mp = [], r = (i => () => (i = (i * 48271) % 2147483647) / 2147483647)(5); for (let i = 0; i < 140; i++) { const h = r() * 9; mp.push(top.x + (r() - .5) * (.6 + h * .05), top.y + .4 + h, top.z + (r() - .5) * (.6 + h * .05)); }
       const pg = new T.BufferGeometry(); pg.setAttribute('position', new T.Float32BufferAttribute(mp, 3)); const pts = new T.Points(pg, new T.PointsMaterial({color: '#FFF3DA', size: .04, transparent: true, opacity: .8, blending: T.AdditiveBlending, depthWrite: false})); pts.userData.layer = 'bg'; pts.userData.fx = true; root.add(pts); } }
   // TOP SHELF signpost on the S-path (faces the town)
@@ -144,7 +162,7 @@ export function build({mood = 'dawnHope', t = .4, cams = [], seed = 1102, cloudG
   stall(L.trade[0], L.trade[1], 0, '#FF9DB7', '#FFF4F7', true); anchors.trade = [L.trade[0], .92, L.trade[1]];
   L.stalls.forEach(([x, z, yaw], i) => stall(x, z, yaw, PALETTE[(i * 3) % 9], '#FFFFFF', false));
   // the town (seeded, built for the camera frustums)
-  const plan = planTown(seed, cams, {sightlines: SIGHTLINES}), town = buildTown(plan, {mood, night}); root.add(town.root);
+  const plan = planTown(seed, cams, {sightlines: SIGHTLINES}), town = buildTown(plan, {mood, night}); town.root.userData.envK = M.envK; root.add(town.root);
   // CROWD: square + lane + market + Core Row inside the box + 2 on the Trade Corner counter (20–40, shared geometry per colour)
   const spots = [...[-1, 1].flatMap(s => [-3.6, -1.6, .3, 2.3].flatMap(z => [[s * 1.15, z, -s * .25], [s * 2.1, z + .5, -s * .25]])).slice(0, 12),
     [-8.2, 13.6, .5], [-6.8, 12.4, .2], [-9.6, 11.2, .7], [-5.6, 14.8, .1], [-10.8, 13.8, .9], [-7.6, 15.6, .3], [-11.4, 10.4, 1.0], [-8.8, 16.6, .4],
@@ -154,15 +172,21 @@ export function build({mood = 'dawnHope', t = .4, cams = [], seed = 1102, cloudG
   const proto = {};
   for (const c of members) { const P = (proto[c.preset] ??= createSlimeGuy({preset: c.preset})), g = P.root.clone(true), pose = idlePose(c.loop, t, c.phase);
     g.position.set(c.x, (c.y ?? 0) + pose.dy, c.z); g.rotation.set(0, c.yaw, pose.roll); g.children[0].position.y = pose.tap; g.traverse(n => { if (n.isMesh) { n.castShadow = n.receiveShadow = true; } }); root.add(tag(g, 'fg')); c.object = g; }
-  // cloud deck (puffs at 38–50 H); golden: parted over the town
-  { const cr = (i => () => (i = (i * 16807) % 2147483647) / 2147483647)(77), part = mood === 'golden' ? 15 : 0, gc = cloudGap ?? [-10, -4], cm = new T.MeshStandardMaterial({color: M.clouds, roughness: 1, emissive: M.clouds, emissiveIntensity: mood === 'golden' ? .25 : .05});
+  // cloud deck (puffs at 38–50 H); golden (§1c): 6 masses in the top 45 % of the S36 frame around a centred gap
+  if (mood === 'golden' && skyCam) { const c = resolveCam(skyCam), B = camBasis(c), cm = new T.MeshStandardMaterial({color: M.clouds, roughness: 1, emissive: M.clouds, emissiveIntensity: .18}), cr = (i => () => (i = (i * 16807) % 2147483647) / 2147483647)(91);
+    for (const [nx, ny] of [[-.72, .3], [.72, .3], [-.9, .74], [.9, .74], [-.42, .98], [.42, .98]]) { const d = 70, dir = B.f.map((f, i) => f + nx * B.th * B.r[i] + ny * B.tv * B.u[i]), L2 = Math.hypot(...dir);
+      const p = c.pos.map((v, i) => v + dir[i] / L2 * d), s = d * B.tv * .16, cg = new T.Group(); cg.position.set(...p); cg.lookAt(...c.pos);
+      for (let k = 0; k < 7; k++) { const b = new T.Mesh(new T.SphereGeometry(s * (.5 + .14 * (k % 3)), 18, 14), cm); b.position.set((k - 3) * s * .32 * (cr() + .6), (cr() - .5) * s * .45, (cr() - .5) * s * .3); cg.add(b); }
+      cg.traverse(n => { n.userData.cloud = true; }); root.add(tag(cg, 'far')); } }
+  else { const cr = (i => () => (i = (i * 16807) % 2147483647) / 2147483647)(77), part = mood === 'golden' ? 15 : 0, gc = cloudGap ?? [-10, -4], cm = new T.MeshStandardMaterial({color: M.clouds, roughness: 1, emissive: M.clouds, emissiveIntensity: mood === 'golden' ? .25 : .05});
     for (let i = 0; i < (part ? 70 : 46); i++) { const a = cr() * Math.PI * 2, rr = (part ? part + 2 : 20) + cr() * (part ? 60 : 90), x = (part ? gc[0] : -8) + Math.cos(a) * rr, z = (part ? gc[1] : -6) + Math.sin(a) * rr;
       const cg = new T.Group(); cg.position.set(x, 38 + cr() * 12, z); const s = 5 + cr() * 7;
       for (let k = 0; k < 6; k++) { const b = new T.Mesh(new T.SphereGeometry(s * (.45 + .12 * (k % 3)), 16, 12), cm); b.position.set((k - 2.5) * s * .42, Math.sin(k * 1.7) * s * .14, Math.cos(k * 2.3) * s * .25); cg.add(b); }
       root.add(tag(cg, 'far')); } }
-  // rain-night extras: puddles (ripples), 3D rain streaks, warm practicals at the box door
-  if (night) {
-    const pm = new T.MeshPhysicalMaterial({color: '#25303C', roughness: .35, metalness: .05, clearcoat: .9, clearcoatRoughness: .3});
+  // rain-night extras: puddles (ripples), 3D rain streaks, warm practicals at the box door (quiet night: practicals only)
+  if (night) for (const s of [-1, 1]) { const l = new T.PointLight(M.practicals, 6, 9, 1.6); l.position.set(s * 2.4, 3.1, BW.d / 2 + .6); root.add(l); }
+  if (rain) {
+    const pm = new T.MeshPhysicalMaterial({color: '#25303C', roughness: WR, metalness: .05, clearcoat: .9, clearcoatRoughness: .3});
     pm.onBeforeCompile = s => { s.vertexShader = 'varying vec2 vXZ;\n' + s.vertexShader.replace('#include <begin_vertex>', '#include <begin_vertex>\nvXZ = (modelMatrix * vec4(position, 1.)).xz;');
       s.fragmentShader = 'varying vec2 vXZ;\n' + s.fragmentShader.replace('#include <normal_fragment_maps>', `#include <normal_fragment_maps>
         { vec2 r = vec2(0.); for (int i = 0; i < 5; i++) { vec2 c = vec2(sin(float(i) * 12.9) * .7, cos(float(i) * 7.3) * .7); vec2 d = vXZ - floor(vXZ) - .5 - c * .3; float l = length(d);
@@ -171,7 +195,6 @@ export function build({mood = 'dawnHope', t = .4, cams = [], seed = 1102, cloudG
     const rr = (i => () => (i = (i * 48271) % 2147483647) / 2147483647)(9), lp = [];
     for (let i = 0; i < 9000; i++) { const x = (rr() - .5) * 80 - 10, y = rr() * 28, z = (rr() - .5) * 80 - 4, l = .35 + rr() * .3; lp.push(x, y, z, x + l * .18, y - l, z + l * .05); }
     const lg = new T.BufferGeometry(); lg.setAttribute('position', new T.Float32BufferAttribute(lp, 3)); const rain = new T.LineSegments(lg, new T.LineBasicMaterial({color: '#B8CCE8', transparent: true, opacity: .32, depthWrite: false})); rain.userData.fx = true; rain.userData.layer = 'fg'; root.add(rain);
-    for (const s of [-1, 1]) { const l = new T.PointLight(M.practicals, 6, 9, 1.6); l.position.set(s * 2.4, 3.1, BW.d / 2 + .6); root.add(l); }
   }
   return {root, anchors, plan, crowd: members, signs, plinth, sunDir: M.sun.dir, layout: L};
 }
