@@ -1,0 +1,321 @@
+{
+ "shots": [
+  {
+   "id": "S14",
+   "mood": "quietNight",
+   "start": 25.082,
+   "frames": 46,
+   "move": "crane",
+   "size": "wide",
+   "ms": 8420,
+   "travel": {
+    "move": 1.847,
+    "turnDeg": 11.03,
+    "zoom": 1
+   },
+   "dur": 1.917,
+   "luma": 0.1852,
+   "gate": [
+    0.1,
+    0.22
+   ],
+   "lumaPass": true,
+   "void": 0,
+   "lockedOff": false,
+   "bottomPatchMax": 0.305,
+   "brightPatch": false
+  },
+  {
+   "id": "S15",
+   "mood": "quietNight",
+   "start": 26.992,
+   "frames": 39,
+   "move": "push",
+   "size": "close",
+   "ms": 4613,
+   "travel": {
+    "move": 0.337,
+    "turnDeg": 1.83,
+    "zoom": 1
+   },
+   "dur": 1.625,
+   "luma": 0.1665,
+   "gate": [
+    0.1,
+    0.22
+   ],
+   "lumaPass": true,
+   "void": 0,
+   "lockedOff": false,
+   "bottomPatchMax": 0.173,
+   "brightPatch": false
+  },
+  {
+   "id": "S16a",
+   "mood": "quietNight",
+   "start": 28.645,
+   "frames": 12,
+   "move": "push",
+   "size": "insert",
+   "ms": 3588,
+   "travel": {
+    "move": 0.108,
+    "turnDeg": 0.35,
+    "zoom": 1
+   },
+   "dur": 0.5,
+   "luma": 0.2754,
+   "gate": [
+    0.1,
+    0.22
+   ],
+   "lumaPass": false,
+   "void": 0,
+   "lockedOff": false,
+   "bottomPatchMax": 0.3,
+   "brightPatch": false
+  },
+  {
+   "id": "S16b",
+   "mood": "quietNight",
+   "start": 29.12,
+   "frames": 13,
+   "move": "push",
+   "size": "medium",
+   "ms": 3399,
+   "travel": {
+    "move": 0.143,
+    "turnDeg": 0.4,
+    "zoom": 1
+   },
+   "dur": 0.542,
+   "luma": 0.1571,
+   "gate": [
+    0.1,
+    0.22
+   ],
+   "lumaPass": true,
+   "void": 0,
+   "lockedOff": false,
+   "bottomPatchMax": 0.408,
+   "brightPatch": false
+  },
+  {
+   "id": "S16c",
+   "mood": "quietNight",
+   "start": 29.68,
+   "frames": 45,
+   "move": "push",
+   "size": "insert",
+   "ms": 4173,
+   "travel": {
+    "move": 0.108,
+    "turnDeg": 0.24,
+    "zoom": 1
+   },
+   "dur": 1.875,
+   "luma": 0.8811,
+   "gate": [
+    0.1,
+    0.22
+   ],
+   "lumaPass": false,
+   "void": 0,
+   "lockedOff": false,
+   "bottomPatchMax": 0.973,
+   "brightPatch": false
+  },
+  {
+   "id": "S17",
+   "mood": "quietNight",
+   "start": 31.532,
+   "frames": 21,
+   "move": "snap",
+   "size": "medium",
+   "ms": 3427,
+   "travel": {
+    "move": 0.141,
+    "turnDeg": 0.45,
+    "zoom": 2
+   },
+   "dur": 0.875,
+   "luma": 0.1915,
+   "gate": [
+    0.1,
+    0.22
+   ],
+   "lumaPass": true,
+   "void": 0,
+   "lockedOff": false,
+   "bottomPatchMax": 0.37,
+   "brightPatch": false
+  },
+  {
+   "id": "S18",
+   "mood": "dawnHope",
+   "start": 32.43,
+   "frames": 37,
+   "move": "crane",
+   "size": "wide",
+   "ms": 5366,
+   "travel": {
+    "move": 0.6,
+    "turnDeg": 2.01,
+    "zoom": 1
+   },
+   "dur": 1.542,
+   "luma": 0.4095,
+   "gate": [
+    0.36,
+    0.5
+   ],
+   "lumaPass": true,
+   "void": 0,
+   "lockedOff": false
+  },
+  {
+   "id": "S19",
+   "mood": "dawnHope",
+   "start": 33.96,
+   "frames": 27,
+   "move": "pull",
+   "size": "medium",
+   "ms": 6145,
+   "travel": {
+    "move": 1.044,
+    "turnDeg": 1.15,
+    "zoom": 1
+   },
+   "dur": 1.125,
+   "luma": 0.415,
+   "gate": [
+    0.36,
+    0.5
+   ],
+   "lumaPass": true,
+   "void": 0,
+   "lockedOff": false
+  },
+  {
+   "id": "S20",
+   "mood": "dawnHope",
+   "start": 35.08,
+   "frames": 24,
+   "move": "push",
+   "size": "close",
+   "ms": 4116,
+   "travel": {
+    "move": 0.427,
+    "turnDeg": 1.83,
+    "zoom": 1
+   },
+   "dur": 1.0,
+   "luma": 0.3672,
+   "gate": [
+    0.36,
+    0.5
+   ],
+   "lumaPass": true,
+   "void": 0,
+   "lockedOff": false
+  },
+  {
+   "id": "S21",
+   "mood": "dawnHope",
+   "start": 36.0833,
+   "frames": 19,
+   "move": "push",
+   "size": "insert",
+   "ms": 4107,
+   "travel": {
+    "move": 0.081,
+    "turnDeg": 0.44,
+    "zoom": 1
+   },
+   "dur": 0.792,
+   "luma": 0.2522,
+   "gate": [
+    0.36,
+    0.5
+   ],
+   "lumaPass": false,
+   "void": 0,
+   "lockedOff": false
+  },
+  {
+   "id": "S22",
+   "mood": "dawnHope",
+   "start": 36.883,
+   "frames": 32,
+   "move": "pull",
+   "size": "wide",
+   "ms": 2686,
+   "travel": {
+    "move": 8.617,
+    "turnDeg": 14.17,
+    "zoom": 1
+   },
+   "dur": 1.333,
+   "luma": 0.4577,
+   "gate": [
+    0.36,
+    0.5
+   ],
+   "lumaPass": true,
+   "void": 0,
+   "lockedOff": false,
+   "layers": {
+    "fg": 0.44,
+    "mid": 0.95,
+    "bg": 96.37,
+    "far": 2.23
+   },
+   "depthPass": false
+  }
+ ],
+ "summary": {
+  "void": {
+   "pass": true,
+   "failing": []
+  },
+  "luma": {
+   "pass": false,
+   "failing": {
+    "S16a": [
+     0.2754,
+     [
+      0.1,
+      0.22
+     ]
+    ],
+    "S16c": [
+     0.8811,
+     [
+      0.1,
+      0.22
+     ]
+    ],
+    "S21": [
+     0.2522,
+     [
+      0.36,
+      0.5
+     ]
+    ]
+   }
+  },
+  "depth": {
+   "S22": [
+    {
+     "fg": 0.44,
+     "mid": 0.95,
+     "bg": 96.37,
+     "far": 2.23
+    },
+    false
+   ]
+  },
+  "density": {},
+  "lockedOff": []
+ }
+}
