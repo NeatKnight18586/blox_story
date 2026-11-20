@@ -32,6 +32,7 @@ export function render(cell, w, h, mode = 'studio') {
     // seam chains (P1 gate): one limb chain with its parent piece, everything else hidden, so only joint seams can enclose background
     const hide = {spine: ['leftShoulder', 'rightShoulder', 'leftHip', 'rightHip'], leftArm: ['head', 'rightShoulder', 'leftHip', 'rightHip'], rightArm: ['head', 'leftShoulder', 'leftHip', 'rightHip'],
       leftLeg: ['waist', 'rightHip'], rightLeg: ['waist', 'leftHip']}[cell.chain];
+    for (const ch of a.pivots.head.children) if (ch !== a.parts.head && ch.name !== 'face_decal' && ch.name !== 'neck') ch.visible = !cell.chain;   // seam chains measure the body: hair and hats are their own shapes
     if (hide) { for (const n of hide) a.pivots[n].visible = false; if (cell.chain.endsWith('Arm')) a.parts.lowerTorso.visible = a.parts.waistCap.visible = a.parts.torso.visible = false; } }   // arms: R6-style floating shoulder (no overlap, not a seam): the arm segments alone
   const mag = mode === 'magenta', r = R[mag ? 'magenta' : 'studio'];
   scene.background = mag ? MAG : BG; floor.visible = back.visible = !mag;

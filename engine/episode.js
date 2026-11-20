@@ -140,9 +140,10 @@ for (const s of shots) {
 const presets = spec.castFile ? (await (await fetch(new URL('../' + spec.castFile, import.meta.url))).json()).cast : {};
 const cast = {};
 const FACES_V3 = spec.faces === 'v3' || (spec.season === 1 && spec.faces !== 'v2');
-const troupeData = Object.values(spec.cast ?? {}).some(c => c.troupe) ? await (await fetch(new URL('../' + (spec.troupeFile ?? 'cast/troupe.json'), import.meta.url))).json() : null;   // A4 troupe slots
-if (Object.values(spec.cast ?? {}).some(c => c.troupe === 'HERO')) troupeData.troupe.HERO = (await (await fetch(new URL('../' + (spec.heroFile ?? 'cast/hero.json'), import.meta.url))).json()).HERO;   // format v4 hero slot
+const troupeData = Object.values(spec.cast ?? {}).some(c => c.troupe) ? await (await fetch(new URL('../' + (spec.troupeFile ?? (spec.format === 6 ? 'cast/troupe6.json' : 'cast/troupe.json')), import.meta.url))).json() : null;   // A4 troupe slots
+if (Object.values(spec.cast ?? {}).some(c => c.troupe === 'HERO')) troupeData.troupe.HERO = (await (await fetch(new URL('../' + (spec.heroFile ?? (spec.format === 6 ? 'cast/hero6.json' : 'cast/hero.json')), import.meta.url))).json()).HERO;   // format v4 hero slot
 // format v4 lip flaps: per-frame mouth shapes from the voice envelope (scripts/v2/envelope.js; the voice file is only read)
+const BODY6 = spec.format === 6 && spec.body !== 'v5';   // P1b: new format-6 specs put the hero, troupe and crowds on Actor v6 (spec.body 'v5' opts out)
 const HERO_COLS = troupeData?.troupe?.HERO ? heroColours(troupeData.troupe.HERO) : null;   // format v4 1b: hero colours to keep clear
 const NIGHT_EP = ['night', 'nightBright'].includes(spec.look) || (spec.shots ?? []).some(sh => ['night', 'nightBright'].includes(sh.look));
 const flapShapes = spec.lipFlap ? (await (await fetch(new URL('../' + (spec.lipFlap.envelope ?? `stories/${spec.slug}/build/envelope.json`), import.meta.url))).json()).shapes : null;
@@ -154,9 +155,9 @@ for (const [name, c] of Object.entries(spec.cast ?? {})) {
   if (c.style === 'dragon') { const d = buildDragon({scale: c.scale ?? 1, name, colors: c.colors ?? null, face: c.dragonFace ?? null, baby: !!c.baby, wingScale: c.wingScale ?? 1, rim: c.rim ?? null, spikes: c.spikes ?? 1, saddle: !!c.saddle}); scene.add(d.root); cast[name] = {a: d, c, dragon: true}; continue; }
   if (c.style === 'v2' || c.style === 'v5') { if (c.troupe === 'AFK') { c.keys ??= [[0, troupeData.AFK.pose ?? 'walk']]; c.faces ??= [[0, 'neutral']]; }
     const pre0 = c.troupe ? resolveTroupe(c, troupeData) : c.town ? townsperson(c.town) : c.preset ? {...presets[c.preset], ...(c.with ?? {})} : c;
-    const pre1 = c.style === 'v5' || spec.look4 ? {...pre0, body: 'v5', faceStyle: pre0.faceStyle ?? 'v5'} : pre0;   // Actor v5 + Faces v5 (owner's sheet; 'v4' stays opt-in) (2b: every actor of a look4 episode)
+    const pre1 = BODY6 ? {...pre0, body: 'v6', faceStyle: pre0.faceStyle ?? 'v5'} : c.style === 'v5' || spec.look4 ? {...pre0, body: 'v5', faceStyle: pre0.faceStyle ?? 'v5'} : pre0;   // P1b: format 6 = Actor v6 (R15) for everyone   // Actor v5 + Faces v5 (owner's sheet; 'v4' stays opt-in) (2b: every actor of a look4 episode)
     const pre2 = HERO_COLS && c.troupe !== 'HERO' && pre1.outfit ? {...pre1, outfit: heroSafeOutfit(pre1.outfit, HERO_COLS, {minL: NIGHT_EP ? .32 : 0})} : pre1;   // v4 1b: nobody dresses like the hero
-    const pre3 = spec.look4 && !pre2.regions && pre2.outfit ? {...pre2, regions: outfitRegions(pre2.outfit, pre2.skin ?? '#f5cd30'), outfit: null} : pre2;   // 2b: outfits as colour regions (data)
+    const pre3 = (spec.look4 || BODY6) && !pre2.regions && pre2.outfit ? {...pre2, regions: outfitRegions(pre2.outfit, pre2.skin ?? '#f5cd30'), outfit: null} : pre2;   // 2b: outfits as colour regions (data)
     const pre = FACES_V3 && !pre3.faceStyle ? {...pre3, faceStyle: 'v3'} : pre3;   // Faces v3: default for season 1 (or spec.faces 'v3')
     if ((spec.format === 5 || spec.format === 6) && pre.build !== 'youth' && !(pre.age < 18)) pre.scale = 1;   // format v5: every adult stands at the same height (builds differ in shape, not size)
     const a = buildActor(c.noTag ? {...pre, tag: null} : pre, name); scene.add(a.root); cast[name] = {a, c, v2: true};
@@ -356,7 +357,7 @@ const effects = createEffects([...(spec.effects ?? []).filter(e => e.type !== 'l
 // from behind the current subject in wides and mediums (one SpotLight, no shadow); "Nobody" and older specs: off.
 const HERO_READ = spec.season === 1 || spec.heroRead === true;
 const subjectMains = HERO_READ ? [...new Set(shots.map(s => s.subject ?? s.fit?.actor).filter(n => cast[n]?.a.preset?.outfit?.main).map(n => cast[n].a.preset.outfit.main))] : [];
-const crowds = createCrowds(scene, spec.crowds ?? [], {...(spec.look4 ? {body: 'v5', material: toMatcap(new T.MeshStandardMaterial({color: '#ffffff', roughness: .45})), colourScale: 1 / look.MC_LIGHT, hairMaterial: toMatcap(hair4Material())} : {}), groundY: world?.groundY ?? (() => 0), resolveCentre: c => Array.isArray(c) ? c : (p => [p[0], p[2]])(resolve(c)), avoidColours: HERO_COLS ? [...subjectMains, ...HERO_COLS] : subjectMains, faces: spec.look4 ? 'v5' : FACES_V3 ? 'v3' : 'v2'});
+const crowds = createCrowds(scene, spec.crowds ?? [], {...(spec.look4 ? {body: BODY6 ? 'v6' : 'v5', material: toMatcap(new T.MeshStandardMaterial({color: '#ffffff', roughness: .45})), colourScale: 1 / look.MC_LIGHT, hairMaterial: toMatcap(hair4Material())} : BODY6 ? {body: 'v6'} : {}), groundY: world?.groundY ?? (() => 0), resolveCentre: c => Array.isArray(c) ? c : (p => [p[0], p[2]])(resolve(c)), avoidColours: HERO_COLS ? [...subjectMains, ...HERO_COLS] : subjectMains, faces: spec.look4 ? 'v5' : FACES_V3 ? 'v3' : 'v2'});
 // format v5 3b-R (opt-in spec.crowdCull): each crowd group is culled by its own bounds (ambient kids stay in their area), so a
 // shot pays only for the groups it sees. Bounds = the group's area + 3 units, computed once from the members after the first pose.
 if (spec.crowdCull) { crowds.update(0, {}); scene.traverse(o => { if (o.isInstancedMesh && /^crowd_/.test(o.parent?.name ?? '')) { o.computeBoundingSphere(); o.boundingSphere.radius += 3; o.frustumCulled = true; } }); }

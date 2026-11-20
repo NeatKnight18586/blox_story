@@ -1,23 +1,35 @@
 {
- "method": "each limb chain (spine, arms, legs, with the parent torso piece) rendered alone on flat magenta, no AA, 600 px, 4 views; enclosed = magenta not reachable from the frame border",
- "views": [
-  "sheet",
-  "front",
-  "side",
-  "back"
- ],
- "chains": [
-  "spine",
-  "leftArm",
-  "rightArm",
-  "leftLeg",
-  "rightLeg"
- ],
- "total": 0,
- "failing": {},
- "pass": true,
+ "method": "each limb chain (spine incl. head; arms alone: the R6-style shoulder has no overlap; legs with the LowerTorso) rendered alone on flat magenta, no AA, 600 px, 4 views; enclosed = magenta not reachable from the frame border",
+ "renders": 640,
+ "total": 11,
+ "failing": {
+  "B.crouch6": {
+   "side/rightLeg": 2
+  },
+  "B.reachHug": {
+   "side/spine": 1
+  },
+  "LEAD.crouch6": {
+   "side/spine": 1,
+   "side/rightLeg": 1
+  },
+  "SECOND.crouch6": {
+   "side/spine": 1,
+   "side/rightLeg": 1
+  },
+  "RIVAL.crouch6": {
+   "side/rightLeg": 1
+  },
+  "ELDER.crouch6": {
+   "side/rightLeg": 1
+  },
+  "ELDER.kneel6": {
+   "sheet/spine": 2
+  }
+ },
+ "pass": false,
  "wholeBodyPinchesInfo": {
-  "note": "whole body: background enclosed between separate limbs (leg-to-leg bevel groove, arm against head); not joint seams",
+  "note": "hero B whole body: background enclosed between separate limbs (leg split groove, arm against head/torso); not joint seams",
   "px": {
    "idle6": {
     "sheet": 0,
@@ -27,19 +39,19 @@
    },
    "walkContact": {
     "sheet": 0,
-    "front": 207,
+    "front": 0,
     "side": 0,
-    "back": 0
+    "back": 2
    },
    "walkPassing": {
     "sheet": 0,
-    "front": 260,
+    "front": 0,
     "side": 0,
     "back": 0
    },
    "run6": {
     "sheet": 3,
-    "front": 42,
+    "front": 8,
     "side": 0,
     "back": 0
    },
@@ -47,46 +59,46 @@
     "sheet": 0,
     "front": 0,
     "side": 0,
-    "back": 1
+    "back": 2
    },
    "cheer6": {
     "sheet": 0,
     "front": 0,
     "side": 0,
-    "back": 11
+    "back": 0
    },
    "crouch6": {
     "sheet": 0,
-    "front": 221,
-    "side": 0,
-    "back": 1
+    "front": 442,
+    "side": 1,
+    "back": 0
    },
    "sit6": {
-    "sheet": 1,
+    "sheet": 0,
     "front": 0,
-    "side": 1,
+    "side": 0,
     "back": 0
    },
    "kneel6": {
     "sheet": 0,
     "front": 0,
-    "side": 0,
+    "side": 1,
     "back": 0
    },
    "reachHug": {
-    "sheet": 1,
+    "sheet": 2,
     "front": 0,
-    "side": 0,
+    "side": 1,
     "back": 0
    },
    "flinch6": {
-    "sheet": 7,
-    "front": 130,
+    "sheet": 0,
+    "front": 117,
     "side": 0,
-    "back": 3
+    "back": 0
    },
    "jumpApex": {
-    "sheet": 24,
+    "sheet": 25,
     "front": 0,
     "side": 0,
     "back": 0

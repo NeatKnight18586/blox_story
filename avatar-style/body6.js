@@ -1,20 +1,31 @@
-// avatar-style/body6.js — Actor v6 (P1, opt-in preset `body: 'v6'`): a blocky R15 body with body v5's satin plastic and the
-// classic 1.2 head. Fifteen rigid segments; overall lengths match R6 (torso 2.02–4.02, arms and legs 2.0, the hip at y 2.0,
-// the same shoulder, hip and head pivots), so sets, cameras and fits keep working. Segments overlap 0.02 at every joint
-// (0.01 each side) and hinge caps (cylinders, radius 0.47 < half the limb width, hidden when straight) fill the outside
-// of a bend, so no background shows through a seam; the bevelled edges read as the R15 seam line.
+// avatar-style/body6.js — Actor v6 (opt-in preset `body: 'v6'`; default for format-6 specs): the iconic blocky R15 body with
+// body v5's satin plastic and the classic 1.2 head. P1b (owner reference, front view, studs): UpperTorso 2 × 1.62 × 1 over a
+// LowerTorso waist band 2 × 0.38 × 1; each arm ONE continuous 1 × 1.75 × 1 block (UpperArm 1.0 + LowerArm 0.75, flush, the
+// same width and depth) over a Hand slab 1 × 0.25 × 1; each leg ONE continuous 1 × 1.73 × 1 block (UpperLeg 1.0 + LowerLeg
+// 0.73) over a flush Foot slab 1 × 0.27 × 1 (no toe). Overall lengths match R6 (torso 2.02–4.02, arm and leg 2.0, hip at 2.0,
+// the hand's bottom level with the LowerTorso's), so sets, cameras and fits keep working.
+// Joint faces: the elbow and knee ends of the limb blocks are flat (no bevel), so a straight limb reads as one block; a
+// rounded joint cap (cylinder, radius 0.5 = half the limb, hidden when straight) fills the outside of any bend. Bevel lines
+// show ONLY at the wrist and ankle (the slabs are 0.01 inset with flat tops: a step line), the waist (LowerTorso) and the
+// split between the legs. Wrist and
+// ankle: the forearm / shin runs on a 0.06 plug (0.92 × 0.76) inside the slab, so a turned hand or foot never opens a gap.
 // Pivot tree (names; the five R6 pivots keep their names so applyPoseSample, stoop and faces drive them unchanged):
 //   root ─ lowerTorso, waist ─ upperTorso, head (neck), leftShoulder ─ leftElbow ─ leftWrist (same right)
 //        └ leftHip ─ leftKnee ─ leftAnkle (same right)
 // Joint limits (radians, pure clampJoints): elbows hinge x ∈ [−150°, 0] (forward only), knees x ∈ [0, 150°] (backward only),
 // wrists ±30°, ankles ±35°, waist ±35°; shoulders, hips and the neck are free ball joints, as in R6.
-// Colour regions (cast `regions`, same schema as v5): torso → UpperTorso + LowerTorso (open jacket to the hem), arms.upper →
-// UpperArm, arms.lower → LowerArm + Hand (v5's split is ignored), legs.main → UpperLeg + LowerLeg, legs.shoes → Foot.
-// v6 extras (all optional): torso.collarH (collar rim height, v5 0.12), arms.cuff (band at the UpperArm bottom),
-// legs.sole + legs.soleH (sneaker sole band), regions.fabric {weave, zip, pockets} (painted DataTextures, no canvas).
+// Colour regions (cast `regions`, v5 schema): torso → UpperTorso + LowerTorso (open jacket to the hem); legs.main → the leg
+// block, legs.shoes → the Foot slab (legs.sole + soleH: a sole band inside the slab); arms.upper = the sleeve, arms.lower =
+// what shows below it; arms.sleeve 'wrist' (sleeve over UpperArm + LowerArm, only the Hand bare) | 'mid' (short sleeve:
+// ends half way down the UpperArm) | 'elbow'; default from v5's split: < 0.5 → 'mid', else 'wrist'. torso.collarH raises
+// the collar rim (v5 0.12).
+// Background tier ('bg': crowd mid-tier actors): each limb, and the torso, is ONE rigid mesh (no elbow/knee/wrist/ankle
+// pivots, no caps), octagonal prisms with the slab line kept: no more triangles or draw calls than a v5 bg actor.
 import * as T from 'three';
-import {createActor5, rbox, satin, BEVEL} from './body5.js';
-import {BUILDS, buildLayout, torsoWidthAt, PARTS} from './body.js';
+import {createActor5, rbox, satin, BEVEL, SEGMENTS, outfitRegions} from './body5.js';
+import {BUILDS, buildLayout, torsoWidthAt} from './body.js';
+import {RoundedBoxGeometry} from 'three/addons/geometries/RoundedBoxGeometry.js';
+import {mergeGeometries} from 'three/addons/utils/BufferGeometryUtils.js';
 
 const D = Math.PI / 180;
 export const JOINTS6 = ['waist', 'leftElbow', 'rightElbow', 'leftWrist', 'rightWrist', 'leftKnee', 'rightKnee', 'leftAnkle', 'rightAnkle'];
@@ -39,61 +50,84 @@ export function jointViolations(pose, eps = 1e-9) {
   return out;
 }
 
-// Segment sizes in studs [w, h, d] (h is the joint-to-joint length; meshes add the 0.01 overlap each side).
-export const SEG6 = {upperTorso: [2, 1.55, 1], lowerTorso: [2, .45, 1], upperArm: [1, 1, 1], lowerArm: [.96, .75, .96], hand: [.96, .25, .96],
-  upperLeg: [1, 1, 1], lowerLeg: [.96, .8, .96], foot: [1, .2, 1.15]};
-export const OVERLAP = .01, CAP_R = .47, TOE = .15, PLUG = .15;
+// Segment sizes in studs [w, h, d] (h = joint to joint; the owner's reference numbers).
+export const SEG6 = {upperTorso: [2, 1.62, 1], lowerTorso: [2, .38, 1], upperArm: [1, 1, 1], lowerArm: [1, .75, 1], hand: [1, .25, 1],
+  upperLeg: [1, 1, 1], lowerLeg: [1, .73, 1], foot: [1, .27, 1]};
+export const REF6 = {upperTorso: 1.62, lowerTorso: .38, arm: 1.75, hand: .25, leg: 1.73, foot: .27};   // owner reference heights (studs)
+export const OVERLAP = .01, CAP_R = .5, PLUG = .06, PLUG_D = .76, STEP = .01, SLAB_PLUG = .18, TOE = 0;   // slab plug: 0.18 tall turns with the slab; at ±35° its corner stays inside the limb (0.48 cos35 + 0.18 sin35 < 0.5)   // plug: 0.06 × 0.76 deep, so at the joint limit its corner stays inside the slab
 
-// Pure layout for a build: pivot positions (parent space) and segment boxes. Torso pieces split the build's torso height
-// in the adult 1.55 : 0.45 ratio; leg and arm lengths never change.
+// Pure layout for a build: pivot positions (parent space). Torso pieces split the build's torso height 1.62 : 0.38.
 export function layout6(build = 'adult_m') {
   const L = buildLayout(build), b = BUILDS[build] ?? BUILDS.adult_m, th = L.torso.size[1], bottom = 2.02, top = bottom + th;
   const lowH = th * SEG6.lowerTorso[1] / 2, waistY = bottom + lowH;
   return {build, th, bottom, top, lowH, upH: top - waistY, waistY, headPivot: L.headPivot, shoulder: [L.shoulderX, L.shoulderY], hipX: L.hipX,
     leg: L.leg, profile: !!b.profile, waistWidth: torsoWidthAt(build, (top - waistY) / th)};
 }
+// A troupe slot (cast/troupe6.json) as a format-6 episode builds it (pure): body v6, faces v5, its outfit → v6 colour regions.
+export function slotPreset6(k, data) { const {expressions, pose, freeze, ...p} = k === 'AFK' ? data.AFK : data.troupe[k];
+  return {...p, body: 'v6', faceStyle: 'v5', regions: outfitRegions(p.outfit, p.skin), outfit: null}; }
+// Sleeve mode (pure): 'wrist' | 'mid' | 'elbow' from regions.arms (explicit `sleeve`, else v5's split).
+export const sleeveOf = arms => arms?.sleeve ?? ((arms?.split ?? .5) < .5 ? 'mid' : 'wrist');
 
-// Torso piece geometry: adult_m (2 wide everywhere) = the rounded box; other builds = a rowed box whose width follows the
-// body.js torso shape over the piece's height range (u from the torso top), flat faces like the v5 build torsos.
-const geo6 = new Map();
+const geo6 = new Map(), cached = (k, f) => { if (!geo6.has(k)) geo6.set(k, f()); return geo6.get(k); };
+// A limb block: a rounded box whose bevel is flattened at the joint end(s) — vertical edges stay rounded, the flat end meets
+// the next block flush. Built from RoundedBoxGeometry: every vertex in a flattened end's bevel zone moves onto the end plane
+// with its side normal kept horizontal (pure geometry, cached).
+export function limbBox([w, h, d], {flatTop = false, flatBottom = false, tier = 'hero', bevel = BEVEL} = {}) {
+  const B = Math.min(bevel, h / 2);
+  return cached(`limb:${w},${h},${d}:${+flatTop}${+flatBottom}:${tier}:${B}`, () => {
+    const g = new RoundedBoxGeometry(w, h, d, tier === 'bg' ? 1 : SEGMENTS, B), p = g.attributes.position, hx = w / 2 - B, hy = h / 2 - B, hz = d / 2 - B;
+    for (let i = 0; i < p.count; i++) {
+      const x = p.getX(i), y = p.getY(i), z = p.getZ(i), end = y > hy + 1e-6 ? (flatTop ? 1 : 0) : y < -hy - 1e-6 ? (flatBottom ? -1 : 0) : 0; if (!end) continue;
+      const cx = Math.max(-hx, Math.min(hx, x)), cz = Math.max(-hz, Math.min(hz, z)), nx = x - cx, nz = z - cz, l = Math.hypot(nx, nz);
+      p.setXYZ(i, l > 1e-6 ? cx + nx / l * B : x, end * h / 2, l > 1e-6 ? cz + nz / l * B : z);
+    }
+    g.computeVertexNormals(); return dropDegenerate(g);
+  });
+}
+// Remove zero-area triangles (a flattened bevel collapses whole rows onto the end plane): fewer triangles, same surface.
+function dropDegenerate(g) {
+  const n = g.index ? g.toNonIndexed() : g, P = n.attributes.position, keep = [], a = new T.Vector3(), b = new T.Vector3(), c = new T.Vector3();
+  for (let t = 0; t < P.count; t += 3) { a.fromBufferAttribute(P, t); b.fromBufferAttribute(P, t + 1); c.fromBufferAttribute(P, t + 2); if (b.sub(a).cross(c.sub(a)).lengthSq() > 1e-14) keep.push(t); }
+  const out = new T.BufferGeometry();
+  for (const [name, attr] of Object.entries(n.attributes)) { const k = attr.itemSize, arr = new attr.array.constructor(keep.length * 3 * k); keep.forEach((t, i) => arr.set(attr.array.subarray(t * k, (t + 3) * k), i * 3 * k)); out.setAttribute(name, new T.BufferAttribute(arr, k)); }
+  return out;
+}
+// One mesh per segment (P1b draw calls): the segment plus its joint fillers (caps, plugs), same material, baked at their
+// offsets in the pivot's frame. userData.mainBox keeps the segment's own box (the measured block, without fillers).
+function fuse(key, main, at, extras) {
+  return cached('fuse:' + key, () => {
+    const prep = (g, o) => { const c = (g.index ? g.toNonIndexed() : g.clone()); c.translate(...o); for (const k of Object.keys(c.attributes)) if (!['position', 'normal', 'uv'].includes(k)) c.deleteAttribute(k); return c; };
+    const m = prep(main, at); m.computeBoundingBox(); const box = m.boundingBox.clone(), g = mergeGeometries([m, ...extras.map(([e, o]) => prep(e, o))]); g.userData.mainBox = box; return g;
+  });
+}
+// Low tier: an octagonal prism (four chamfered vertical edges, 28 tris), as the v5 crowd parts, centred at `dy`.
+function octPrism([w, h, d], b = BEVEL, dy = 0) {
+  const x = w / 2, z = d / 2, ring = [[x - b, z], [x, z - b], [x, -z + b], [x - b, -z], [-x + b, -z], [-x, -z + b], [-x, z - b], [-x + b, z]], P = [], y0 = dy - h / 2, y1 = dy + h / 2;
+  const tri = (a, c, e) => P.push(...a, ...c, ...e);
+  for (let i = 0; i < 8; i++) { const [ax, az] = ring[i], [bx, bz] = ring[(i + 1) % 8]; tri([ax, y0, az], [bx, y0, bz], [bx, y1, bz]); tri([ax, y0, az], [bx, y1, bz], [ax, y1, az]); }
+  for (let i = 1; i < 7; i++) { tri([ring[0][0], y1, ring[0][1]], [ring[i][0], y1, ring[i][1]], [ring[i + 1][0], y1, ring[i + 1][1]]); tri([ring[0][0], y0, ring[0][1]], [ring[i + 1][0], y0, ring[i + 1][1]], [ring[i][0], y0, ring[i][1]]); }
+  const g = new T.BufferGeometry(); g.setAttribute('position', new T.Float32BufferAttribute(P, 3)); g.computeVertexNormals(); return g;
+}
+// bg limb: block (1.75) + slab (0.25), the slab's chamfer wider (0.07) so the wrist / ankle line still reads; one mesh.
+const bgLimb = (len, slab, w = 1) => cached(`bglimb:${len}:${slab}:${w}`, () => mergeGeometries([octPrism([w, len, 1], BEVEL, -len / 2), octPrism([w, slab, 1], .07, -len - slab / 2)]));
+const bgTorso = (L, w) => cached(`bgtorso:${L.upH}:${L.lowH}:${w}`, () => mergeGeometries([octPrism([w, L.upH, 1], BEVEL, L.upH / 2), octPrism([w, L.lowH + .02, 1], .07, -(L.lowH + .02) / 2)]));
+
+// Torso piece geometry: adult_m = the rounded box; other builds = a rowed box following the body.js torso shape.
 function torsoPiece(build, u0, u1, h, tier) {
   if (!build || build === 'adult_m') return rbox([2, h + 2 * OVERLAP, 1], tier);
-  const k = `${build}:${u0.toFixed(3)}:${u1.toFixed(3)}:${tier}`;
-  if (!geo6.has(k)) {
+  return cached(`${build}:${u0.toFixed(3)}:${u1.toFixed(3)}:${tier}`, () => {
     const rows = BUILDS[build].profile ? 8 : 4, g = new T.BoxGeometry(2, h + 2 * OVERLAP, 1, 1, rows, 1), p = g.attributes.position, H = h + 2 * OVERLAP;
     for (let i = 0; i < p.count; i++) { const f = (H / 2 - p.getY(i)) / H, u = u0 + (u1 - u0) * f; p.setX(i, p.getX(i) * torsoWidthAt(build, u) / 2); }
-    const ng = g.toNonIndexed(); ng.computeVertexNormals(); g.dispose(); geo6.set(k, ng);
-  }
-  return geo6.get(k);
+    const ng = g.toNonIndexed(); ng.computeVertexNormals(); g.dispose(); return ng;
+  });
 }
-function cap(len, tier) { const k = `cap:${len}:${tier}`; if (!geo6.has(k)) { const g = new T.CylinderGeometry(CAP_R, CAP_R, len, tier === 'bg' ? 8 : 14, 1, false); g.rotateZ(Math.PI / 2); geo6.set(k, g); } return geo6.get(k); }
-
-// ---- fabric paint (variant C): procedural DataTextures, no canvas, so node gates and the browser build the same thing ----
-const tex6 = new Map();
-function dataTex(key, w, h, px, {repeat = [1, 1], alpha = false} = {}) {
-  if (tex6.has(key)) return tex6.get(key);
-  const d = new Uint8Array(w * h * 4); for (let y = 0; y < h; y++) for (let x = 0; x < w; x++) d.set(px(x, y), 4 * (y * w + x));
-  const t = new T.DataTexture(d, w, h, T.RGBAFormat); t.colorSpace = T.SRGBColorSpace; t.magFilter = T.LinearFilter; t.minFilter = T.LinearMipmapLinearFilter; t.generateMipmaps = true;
-  t.wrapS = t.wrapT = T.RepeatWrapping; t.repeat.set(...repeat); t.needsUpdate = true; t.userData.alpha = alpha; tex6.set(key, t); return t;
-}
-// fine twill: ±4 % luminance on a 2-texel diagonal (multiplies the satin colour; reads as cloth only up close)
-export const weaveTex = (rep = 10) => dataTex('weave:' + rep, 32, 32, (x, y) => { const v = ((x + y) >> 1) % 2 ? 255 : 235, n = (x * 7 + y * 13) % 5 === 0 ? -8 : 0; return [v + n, v + n, v + n, 255]; }, {repeat: [rep, rep]});
-// zip: a 2 px pale-grey tape with dark teeth every 4 px, down the left edge of the strip (u 0.04–0.14 of its width)
-const zipTex = () => dataTex('zip', 32, 128, (x, y) => { const tape = x >= 1 && x <= 4, tooth = tape && (y % 4 < 2); return tooth ? [74, 78, 87, 255] : tape ? [178, 182, 190, 255] : [255, 255, 255, 255]; });
-// pockets: two rounded-corner outlines (1.5 px dark stitch) on a transparent decal, laid on the LowerTorso front
-const pocketTex = () => dataTex('pockets', 128, 32, (x, y) => {
-  const box = (x0, x1) => { const inX = x >= x0 && x <= x1, inY = y >= 6 && y <= 27, edge = inX && inY && (x - x0 < 2 || x1 - x < 2 || y - 6 < 2 || 27 - y < 2); return edge; };
-  return box(8, 40) || box(87, 119) ? [24, 25, 30, 200] : [0, 0, 0, 0]; }, {alpha: true});
-const mats6 = new Map();
-function fabricSatin(color, fabric) {
-  if (!fabric?.weave) return satin(color);
-  const k = color + ':w'; if (!mats6.has(k)) { const m = satin(color).clone(); m.map = weaveTex(fabric.weaveRepeat ?? 10); m.name = 'satin6_weave_' + color; mats6.set(k, m); }
-  return mats6.get(k);
-}
+const cap = (len, r, tier) => cached(`cap:${len}:${r}:${tier}`, () => { const g = new T.CylinderGeometry(r, r, len, tier === 'bg' ? 8 : 12, 1, false); g.rotateZ(Math.PI / 2); return g; });
+const plainBox = size => cached(`box:${size}`, () => new T.BoxGeometry(...size));
 
 // Region sub-blocks of the torso pieces (pure): {size, at (relative to the piece centre), color, edge?, collar?, kind?}.
-// The strip, lapels and lapel edges run continuously across the waist seam: on the UpperTorso from its bottom to the top
-// bevel, on the LowerTorso from the seam to the bottom bevel (the hem).
+// The strip, lapels and lapel edges run continuously across the waist seam (UpperTorso: bottom to top bevel; LowerTorso:
+// seam to the hem bevel).
 export function torsoBlocks6(piece, r, L) {
   const t = r?.torso; if (!t?.strip) return [];
   const sw = t.stripW ?? .6, lw = t.lapelW ?? .14, H = piece === 'upper' ? L.upH : L.lowH, h = H - BEVEL + OVERLAP, cy = piece === 'upper' ? -H / 2 + h / 2 - OVERLAP : H / 2 - h / 2 + OVERLAP;
@@ -102,7 +136,7 @@ export function torsoBlocks6(piece, r, L) {
   if (t.edge) {
     const ew = t.edgeW ?? .05;
     for (const s of [-1, 1]) out.push({size: [ew, h, .09], at: [s * (sw / 2 - .02 + ew / 2), cy, .5 + .02], color: t.edge, edge: true});
-    if (piece === 'upper') {   // the v5 collar rim (back, sides, front tips); collarH raises it (B, C)
+    if (piece === 'upper') {   // the v5 collar rim (back, sides, front tips); collarH raises it (hero B)
       const top = H / 2, rh = t.collarH ?? .12, rw = .09, cx = .62, cz = .36, y = top + rh / 2 - .02;
       out.push({size: [2 * cx + rw, rh, rw], at: [0, y, -cz], color: t.edge, edge: true, collar: true});
       for (const s of [-1, 1]) {
@@ -118,63 +152,69 @@ const mesh = (g, m, name, at, tier) => { const x = new T.Mesh(g, m); x.name = na
 const group = (name, at) => { const g = new T.Group(); g.name = name; g.position.set(...at); return g; };
 
 export function createActor6({tier = 'hero', skin, scale = 1, materials = {}, name = 'actor', build = null, regions = null} = {}) {
-  const b = build ?? 'adult_m', L = layout6(b), r = regions ?? {}, fabric = r.fabric ?? null;
-  // the classic head (and its satin, its 1.2 pivot scale) comes from Actor v5 unchanged
-  const a5 = createActor5({tier, skin, scale: 1, materials: {}, name, build, regions: null});
+  const b = build ?? 'adult_m', L = layout6(b), r = regions ?? {}, bg = tier === 'bg';
+  const a5 = createActor5({tier, skin, scale: 1, materials: {}, name, build, regions: null});   // the classic head, unchanged (plus a neck plug)
   const root = new T.Group(); root.name = name; root.scale.setScalar(scale);
-  const skinM = satin(skin), pick = (c, fb) => c ? fabricSatin(c, fabric) : fb;
-  const torsoC = r.torso?.main, armU = r.arms?.upper, armL = r.arms?.lower, legC = r.legs?.main, shoeC = r.legs?.shoes;
-  const fromOutfit = part => materials[part] ? [].concat(materials[part]).map(m => m?.isMeshStandardMaterial ? m : satin(m?.color ?? skin))[0] : null;   // dressed (painted) parts: their main colour, flat satin
-  const mTorso = pick(torsoC, fromOutfit('torso') ?? skinM), mArmU = pick(armU, fromOutfit('rightArm') ?? skinM), mArmL = armL ? satin(armL) : (fromOutfit('rightArm') ?? skinM);
-  const mLeg = pick(legC, fromOutfit('rightLeg') ?? skinM), mShoe = shoeC ? satin(shoeC) : mLeg;
-  const parts = {}, pivots = {};
-  // torso: LowerTorso on the root (bridges the legacy 0.02 hip gap), UpperTorso on the waist pivot
-  const lowC = L.bottom + L.lowH / 2 - OVERLAP / 2;   // spans [bottom − 0.02, waistY + 0.01]
-  const lowG = torsoPiece(b, (L.top - L.waistY) / L.th, 1, L.lowH + OVERLAP, tier);
-  parts.lowerTorso = mesh(lowG, mTorso, 'lowerTorso', [0, lowC, 0], tier); root.add(parts.lowerTorso);
+  const skinM = satin(skin), fromOutfit = part => materials[part] ? [].concat(materials[part]).map(m => m?.isMeshStandardMaterial ? m : satin(m?.color ?? skin))[0] : null;
+  const mTorso = r.torso?.main ? satin(r.torso.main) : fromOutfit('torso') ?? skinM;
+  const mSleeve = r.arms?.upper ? satin(r.arms.upper) : fromOutfit('rightArm') ?? skinM, mBare = r.arms?.lower ? satin(r.arms.lower) : r.arms ? skinM : mSleeve;
+  const mLeg = r.legs?.main ? satin(r.legs.main) : fromOutfit('rightLeg') ?? skinM, mShoe = r.legs?.shoes ? satin(r.legs.shoes) : mLeg;
+  const sleeve = sleeveOf(r.arms), parts = {}, pivots = {};
   pivots.waist = group('waist', [0, L.waistY, 0]); root.add(pivots.waist);
-  parts.torso = mesh(torsoPiece(b, 0, (L.top - L.waistY) / L.th, L.upH, tier), mTorso, 'torso', [0, L.upH / 2, 0], tier); pivots.waist.add(parts.torso);   // `torso` = UpperTorso (fits, accessories)
-  parts.waistCap = mesh(cap(Math.max(.5, L.waistWidth - .06), tier), mTorso, 'waistCap', [0, 0, 0], tier); pivots.waist.add(parts.waistCap);
-  for (const [piece, m] of [['upper', parts.torso], ['lower', parts.lowerTorso]]) for (const k of torsoBlocks6(piece, r, L)) {
-    const s = mesh(rbox(k.size, 'bg'), k.kind === 'strip' && fabric?.zip ? zipSatin(k.color) : satin(k.color), `${piece}Torso_${k.color}`, k.at, tier); m.add(s); }
-  if (fabric?.pockets && r.torso?.strip) {   // two pocket outlines on the LowerTorso front, outside the lapels
-    const pm = new T.MeshStandardMaterial({map: pocketTex(), transparent: true, roughness: .6, metalness: 0, depthWrite: false, polygonOffset: true, polygonOffsetFactor: -2}); pm.name = 'pockets6';
-    const pl = mesh(new T.PlaneGeometry(1.9, L.lowH * .9), pm, 'pockets', [0, -.01, .5 + .004], tier); pl.castShadow = false; parts.lowerTorso.add(pl);
-  }
-  // head: the v5 head pivot (scale HEAD5, satin skin) re-parented to the neck at the top of the UpperTorso
   pivots.head = a5.pivots.head; pivots.head.position.set(0, L.headPivot[1] - L.waistY, 0); pivots.waist.add(pivots.head); parts.head = a5.parts.head;
-  // arms
-  for (const side of ['left', 'right']) {
-    const sx = side === 'left' ? -1 : 1, sh = group(side + 'Shoulder', [sx * L.shoulder[0], L.shoulder[1] - L.waistY, 0]); pivots.waist.add(sh); pivots[side + 'Shoulder'] = sh;
-    const [, hu] = SEG6.upperArm, [, hl] = SEG6.lowerArm, [, hh] = SEG6.hand;
-    const ua = mesh(rbox([1, hu + OVERLAP, 1], tier), mArmU, side + 'Arm', [0, -(hu + OVERLAP) / 2, 0], tier); sh.add(ua); parts[side + 'Arm'] = ua;   // `leftArm` = UpperArm
-    if (r.arms?.cuff) { const c = mesh(rbox([1.04, .08, 1.04], 'bg'), satin(r.arms.cuff), side + 'Cuff', [0, -hu + .04, 0], tier); sh.add(c); parts[side + 'Cuff'] = c; }
-    const el = group(side + 'Elbow', [0, -hu, 0]); sh.add(el); pivots[side + 'Elbow'] = el;
-    const ec = mesh(cap(.94, tier), mArmU, side + 'ElbowCap', [0, -hu, 0], tier); sh.add(ec);
-    // the forearm runs on 0.15 inside the hand (a wrist plug): at ±30° the hand turns over it with no gap
-    parts[side + 'LowerArm'] = mesh(rbox([.96, hl + OVERLAP + PLUG, .96], tier), mArmL, side + 'LowerArm', [0, (OVERLAP - hl - PLUG) / 2, 0], tier); el.add(parts[side + 'LowerArm']);
-    const wr = group(side + 'Wrist', [0, -hl, 0]); el.add(wr); pivots[side + 'Wrist'] = wr;
-    parts[side + 'Hand'] = mesh(rbox([.96, hh + OVERLAP, .96], tier), mArmL, side + 'Hand', [0, -(hh + OVERLAP) / 2 + OVERLAP, 0], tier); wr.add(parts[side + 'Hand']);
-  }
-  // legs
-  for (const side of ['left', 'right']) {
-    const sx = side === 'left' ? -1 : 1, hp = group(side + 'Hip', [sx * L.hipX, 2, 0]); root.add(hp); pivots[side + 'Hip'] = hp;
-    const [, hu] = SEG6.upperLeg, [, hl] = SEG6.lowerLeg, [, hf] = SEG6.foot, w = L.leg;
-    hp.add(mesh(cap(w - .06, tier), mLeg, side + 'HipCap', [0, 0, 0], tier));
-    const ul = mesh(rbox([w, hu + OVERLAP, 1], tier), mLeg, side + 'Leg', [0, -(hu + OVERLAP) / 2 + OVERLAP / 2 - OVERLAP / 2, 0], tier); hp.add(ul); parts[side + 'Leg'] = ul;   // `leftLeg` = UpperLeg
-    const kn = group(side + 'Knee', [0, -hu, 0]); hp.add(kn); pivots[side + 'Knee'] = kn;
-    kn.add(mesh(cap(w - .08, tier), mLeg, side + 'KneeCap', [0, 0, 0], tier));
-    // the shin runs on 0.15 inside the shoe (an ankle plug, as a boot tongue): at ±35° the foot turns over it with no gap
-    parts[side + 'LowerLeg'] = mesh(rbox([w - .04, hl + OVERLAP + PLUG, .96], tier), mLeg, side + 'LowerLeg', [0, (OVERLAP - hl - PLUG) / 2, 0], tier); kn.add(parts[side + 'LowerLeg']);
-    const an = group(side + 'Ankle', [0, -hl, 0]); kn.add(an); pivots[side + 'Ankle'] = an;
-    const sole = r.legs?.sole, soleH = sole ? (r.legs.soleH ?? .06) : 0, fz = TOE / 2;
-    const sink = sole ? .03 : 0, rise = OVERLAP + .03, ft = mesh(rbox([w, hf - soleH + rise + sink, SEG6.foot[2]], tier), mShoe, side + 'Foot', [0, -hf + soleH - sink + (hf - soleH + rise + sink) / 2, fz], tier); an.add(ft); parts[side + 'Foot'] = ft;   // the shoe rises 0.04 over the ankle (the shin's bottom bevel sits inside it); B/C: the upper sinks 0.03 into the (wider) sole
-    if (sole) { const so = mesh(rbox([w + .02, soleH, SEG6.foot[2] + .02], 'bg'), satin(sole), side + 'Sole', [0, -hf + soleH / 2, fz], tier); an.add(so); parts[side + 'Sole'] = so; }
+  if (!bg) { const nk = mesh(cached(`neck:${tier}`, () => new T.CylinderGeometry(.34, .34, .16, tier === 'bg' ? 8 : 12)), skinM, 'neck', [0, .04, 0], tier); nk.castShadow = false; pivots.head.add(nk); }   // P1b: a neck plug (turns with the head) so a nod never opens the neck seam
+  const [, hu] = SEG6.upperArm, [, hl] = SEG6.lowerArm, [, hh] = SEG6.hand, [, lu] = SEG6.upperLeg, [, ll] = SEG6.lowerLeg, [, hf] = SEG6.foot;
+  if (bg) {   // background tier: rigid merged limbs (bends are not shown at this tier), one mesh per part, no caps
+    parts.torso = mesh(bgTorso(L, 2), mTorso, 'torso', [0, 0, 0], tier); pivots.waist.add(parts.torso);
+    for (const side of ['left', 'right']) {
+      const sx = side === 'left' ? -1 : 1, sh = group(side + 'Shoulder', [sx * L.shoulder[0], L.shoulder[1] - L.waistY, 0]); pivots.waist.add(sh); pivots[side + 'Shoulder'] = sh;
+      parts[side + 'Arm'] = mesh(bgLimb(hu + hl, hh), mSleeve, side + 'Arm', [0, 0, 0], tier); sh.add(parts[side + 'Arm']);
+      const hp = group(side + 'Hip', [sx * L.hipX, 2, 0]); root.add(hp); pivots[side + 'Hip'] = hp;
+      parts[side + 'Leg'] = mesh(bgLimb(lu + ll, hf, L.leg), mLeg, side + 'Leg', [0, 0, 0], tier); hp.add(parts[side + 'Leg']);
+    }
+  } else {
+    // torso: the LowerTorso band on the root (spans 2.00 → waist + 0.01), the UpperTorso on the waist pivot
+    parts.lowerTorso = mesh(torsoPiece(b, (L.top - L.waistY) / L.th, 1, L.lowH + OVERLAP, tier), mTorso, 'lowerTorso', [0, L.bottom + L.lowH / 2 - OVERLAP / 2, 0], tier); root.add(parts.lowerTorso);
+    parts.torso = mesh(torsoPiece(b, 0, (L.top - L.waistY) / L.th, L.upH, tier), mTorso, 'torso', [0, L.upH / 2, 0], tier); pivots.waist.add(parts.torso);   // `torso` = UpperTorso
+    parts.waistCap = mesh(cap(Math.max(.5, L.waistWidth - .1), Math.min(.47, L.lowH - .02), tier), mTorso, 'waistCap', [0, 0, 0], tier); pivots.waist.add(parts.waistCap);   // kept apart: accessories ride the torso's centre
+    for (const [piece, m] of [['upper', parts.torso], ['lower', parts.lowerTorso]]) for (const k of torsoBlocks6(piece, r, L)) m.add(mesh(rbox(k.size, 'bg'), satin(k.color), `${piece}Torso_${k.color}`, k.at, tier));
+    for (const side of ['left', 'right']) {
+      const sx = side === 'left' ? -1 : 1, sh = group(side + 'Shoulder', [sx * L.shoulder[0], L.shoulder[1] - L.waistY, 0]); pivots.waist.add(sh); pivots[side + 'Shoulder'] = sh;
+      // UpperArm: rounded shoulder end, flat elbow end (short sleeve: two flush colour bands)
+      const mUA = sleeve === 'mid' ? mBare : mSleeve, mLA = sleeve === 'wrist' ? mSleeve : mBare;
+      if (sleeve === 'mid') { const sh1 = hu / 2; sh.add(mesh(limbBox([1, sh1, 1], {flatBottom: true, tier}), mSleeve, side + 'Sleeve', [0, -sh1 / 2, 0], tier));
+        parts[side + 'Arm'] = mesh(limbBox([1, hu - sh1, 1], {flatTop: true, flatBottom: true, tier}), mUA, side + 'Arm', [0, -sh1 - (hu - sh1) / 2, 0], tier); }
+      else parts[side + 'Arm'] = mesh(limbBox([1, hu, 1], {flatBottom: true, tier}), mUA, side + 'Arm', [0, -hu / 2, 0], tier);
+      sh.add(parts[side + 'Arm']);   // `leftArm` = UpperArm
+      const el = group(side + 'Elbow', [0, -hu, 0]); sh.add(el); pivots[side + 'Elbow'] = el;
+      parts[side + 'LowerArm'] = mesh(fuse(`la:${tier}`, limbBox([1, hl, 1], {flatTop: true, flatBottom: true, tier}), [0, -hl / 2, 0], [[cap(.98, CAP_R, tier), [0, 0, 0]], [plainBox([.92, PLUG, PLUG_D]), [0, -hl - PLUG / 2 + .005, 0]]]),
+        mLA, side + 'LowerArm', [0, 0, 0], tier); el.add(parts[side + 'LowerArm']);   // + the elbow cap and the wrist plug
+      const wr = group(side + 'Wrist', [0, -hl, 0]); el.add(wr); pivots[side + 'Wrist'] = wr;
+      // the Hand slab: flat top inset 0.01 (the wrist line is a step, not a groove), a 0.06 plug on it turns with the hand
+      parts[side + 'Hand'] = mesh(fuse(`hand:${tier}`, limbBox([1 - 2 * STEP, hh, 1 - 2 * STEP], {flatTop: true, tier}), [0, -hh / 2, 0], [[plainBox([.96, SLAB_PLUG, .96]), [0, SLAB_PLUG / 2 - .005, 0]]]),
+        mBare, side + 'Hand', [0, 0, 0], tier); wr.add(parts[side + 'Hand']);
+    }
+    for (const side of ['left', 'right']) {
+      const sx = side === 'left' ? -1 : 1, hp = group(side + 'Hip', [sx * L.hipX, 2, 0]), w = L.leg; root.add(hp); pivots[side + 'Hip'] = hp;
+      parts[side + 'Leg'] = mesh(fuse(`ul:${w}:${tier}`, limbBox([w, lu, 1], {flatBottom: true, tier}), [0, -lu / 2, 0], [[cap(w - .04, .49, tier), [0, 0, 0]]]), mLeg, side + 'Leg', [0, 0, 0], tier); hp.add(parts[side + 'Leg']);   // `leftLeg` = UpperLeg (+ the hip cap)
+      const kn = group(side + 'Knee', [0, -lu, 0]); hp.add(kn); pivots[side + 'Knee'] = kn;
+      parts[side + 'LowerLeg'] = mesh(fuse(`ll:${w}:${tier}`, limbBox([w, ll, 1], {flatTop: true, flatBottom: true, tier}), [0, -ll / 2, 0], [[cap(w - .02, CAP_R, tier), [0, 0, 0]], [plainBox([w - .08, PLUG, PLUG_D]), [0, -ll - PLUG / 2 + .005, 0]]]),
+        mLeg, side + 'LowerLeg', [0, 0, 0], tier); kn.add(parts[side + 'LowerLeg']);   // + the knee cap and the ankle plug
+      const an = group(side + 'Ankle', [0, -ll, 0]); kn.add(an); pivots[side + 'Ankle'] = an;
+      const sole = r.legs?.sole, sH = sole ? (r.legs.soleH ?? .06) : 0;
+      // the Foot slab: flat top inset 0.01 (the ankle line is a step), a 0.06 plug on it turns with the foot; B: the sole band
+      // (flat top, rounded bottom) inside the 0.27 slab under the shoe upper
+      const fw = w - 2 * STEP, fd = 1 - 2 * STEP;
+      if (sole) {
+        parts[side + 'Foot'] = mesh(fuse(`foot:${fw}:${sH}:${tier}`, limbBox([fw, hf - sH, fd], {flatTop: true, flatBottom: true, tier}), [0, -(hf - sH) / 2, 0], [[plainBox([w - .04, SLAB_PLUG, .96]), [0, SLAB_PLUG / 2 - .005, 0]]]), mShoe, side + 'Foot', [0, 0, 0], tier);
+        parts[side + 'Sole'] = mesh(limbBox([fw, sH, fd], {flatTop: true, tier: 'bg', bevel: sH / 2}), satin(sole), side + 'Sole', [0, -hf + sH / 2, 0], tier); an.add(parts[side + 'Sole']);
+      } else parts[side + 'Foot'] = mesh(fuse(`foot:${fw}:0:${tier}`, limbBox([fw, hf, fd], {flatTop: true, tier}), [0, -hf / 2, 0], [[plainBox([w - .04, SLAB_PLUG, .96]), [0, SLAB_PLUG / 2 - .005, 0]]]), mShoe, side + 'Foot', [0, 0, 0], tier);   // + the slab plug
+      an.add(parts[side + 'Foot']);
+    }
   }
   return {root, parts, pivots, tier, skin, body: 'v6', build: b, layout: L, restPositions: Object.fromEntries(Object.entries(pivots).map(([n, p]) => [n, p.position.toArray()])),
     faceCache: new Map(), cosmeticCache: new Map(), faceLayer: null, cosmetic: null, attachments: {}};
 }
-function zipSatin(color) { const k = color + ':zip'; if (!mats6.has(k)) { const m = satin(color).clone(); m.map = zipTex(); m.name = 'satin6_zip_' + color; mats6.set(k, m); } return mats6.get(k); }
 
 // ---- pure forward kinematics (no three): lowest point of the legs and the LowerTorso for auto-grounding --------------
 const rx = a => [[1, 0, 0], [0, Math.cos(a), -Math.sin(a)], [0, Math.sin(a), Math.cos(a)]];
@@ -185,22 +225,23 @@ const mv = (A, v) => A.map(r => r[0] * v[0] + r[1] * v[1] + r[2] * v[2]);
 const add = (a, b) => a.map((x, i) => x + b[i]);
 const eul = ([x, y, z]) => mm(mm(rx(x), ry(y)), rz(z));   // three.js Euler 'XYZ'
 // Lowest y (root space before dy, unscaled) of the soles, knees, shins and LowerTorso for a pose sample. Rounded boxes are
-// exact: corners inset by the bevel, minus the bevel (a box ⊕ sphere); `sole` (B, C) = the plain 1.02 × 1.17 sole box.
-export function lowestY(pose, build = 'adult_m', {sole = false} = {}) {
+// exact: corners inset by the bevel, minus the bevel (a box ⊕ sphere).
+export function lowestY(pose, build = 'adult_m', {sole = 0} = {}) {   // sole: the sole band height (0 = none)
   const L = layout6(build), R0 = mm(rx(pose.root.lean ?? 0), rz(pose.root.roll ?? 0)), P = pose.pivots, z3 = [0, 0, 0];
   let lo = Infinity; const put = (R, o, pts) => { for (const p of pts) lo = Math.min(lo, add(o, mv(R, p))[1]); };
   for (const side of ['left', 'right']) {
     const sx = side === 'left' ? -1 : 1, off = pose.offsets?.[side + 'Hip'] ?? z3, w = L.leg / 2;
     const Rh = mm(R0, eul(P[side + 'Hip'] ?? z3)), oh = mv(R0, add([sx * L.hipX, 2, 0], off));
-    const Rk = mm(Rh, eul(P[side + 'Knee'] ?? z3)), ok = add(oh, mv(Rh, [0, -1, 0]));
-    const Ra = mm(Rk, eul(P[side + 'Ankle'] ?? z3)), oa = add(ok, mv(Rk, [0, -.8, 0]));
-    const ring = []; for (let i = 0; i < 16; i++) { const a = i / 16 * 2 * Math.PI; ring.push([-w, CAP_R * Math.cos(a), CAP_R * Math.sin(a)], [w, CAP_R * Math.cos(a), CAP_R * Math.sin(a)]); }
+    const Rk = mm(Rh, eul(P[side + 'Knee'] ?? z3)), ok = add(oh, mv(Rh, [0, -SEG6.upperLeg[1], 0]));
+    const Ra = mm(Rk, eul(P[side + 'Ankle'] ?? z3)), oa = add(ok, mv(Rk, [0, -SEG6.lowerLeg[1], 0])), hf = SEG6.foot[1];
+    const ring = []; for (let i = 0; i < 16; i++) { const a = i / 16 * 2 * Math.PI; ring.push([-w + .01, CAP_R * Math.cos(a), CAP_R * Math.sin(a)], [w - .01, CAP_R * Math.cos(a), CAP_R * Math.sin(a)]); }
     put(Rk, ok, ring);
     const box = (x, y0, y1, z0, z1, r = BEVEL) => { const o = []; for (const X of x) for (const Y of [y0 + r, y1 - r]) for (const Z of [z0 + r, z1 - r]) o.push([X - Math.sign(X) * r, Y, Z]); return o; };
-    const putR = (R, o2, pts) => { for (const p of pts) lo = Math.min(lo, add(o2, mv(R, p))[1] - BEVEL); };   // rounded: inset corners − bevel
-    putR(Rk, ok, box([-w + .02, w - .02], -.8 - PLUG, 0, -.48, .48));
-    if (sole) put(Ra, oa, box([-w - .01, w + .01], -.2, -.14, -.51, .51 + TOE, 0));   // the plain sole box: sharp corners
-    else putR(Ra, oa, box([-w, w], -.2, 0, -.5, .5 + TOE));
+    const putR = (R, o2, pts, r = BEVEL) => { for (const p of pts) lo = Math.min(lo, add(o2, mv(R, p))[1] - r); };   // rounded: inset corners − bevel
+    put(Rk, ok, box([-w, w], -SEG6.lowerLeg[1], 0, -.5, .5, 0));   // the shin block (flat ends: sharp at the ankle line)
+    const fw = w - STEP, fz = .5 - STEP;   // the slab is inset 0.01
+    if (sole) { const r = sole / 2; putR(Ra, oa, box([-fw, fw], -hf, -hf + sole, -fz, fz, r), r); put(Ra, oa, box([-fw + .012, fw - .012], -hf + sole, 0, -fz + .012, fz - .012, 0)); }
+    else putR(Ra, oa, box([-fw, fw], -hf, 0, -fz, fz));
   }
   for (const p of [[-1, -.5], [1, -.5], [-1, .5], [1, .5]]) lo = Math.min(lo, mv(R0, [p[0] - Math.sign(p[0]) * BEVEL, L.bottom - 2 * OVERLAP + BEVEL, p[1] - Math.sign(p[1]) * BEVEL])[1] - BEVEL);
   return lo;

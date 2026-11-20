@@ -69,7 +69,7 @@ export function driveActor(a, t, {keys, faces, tags, origin = {position: [0, 0, 
   tools, toolsLeft, stat, bubble, visible, kit, blinkSuppress = false, talk = null, m5b = null} = {}) {
   if (visible) { let v = true; for (const [t0, x] of visible) if (t >= t0) v = x; a.root.visible = v; }
   const v6 = a.body === 'v6', tl = m5b?.overshoot ? {overshoot: m5b.overshoot} : undefined, sampleAt = v6   // P1: R15 actors take the v6 sampler (R6 poses lifted, R15 key poses)
-    ? tt => ambient ? liftR6(ambientPose(a.preset.seed ?? 1, tt), tt, 'idle') : sampleTimeline6(keys ?? [[0, 'idle']], a.preset.freeze ?? tt, {...tl, build: a.build, sole: !!a.preset?.regions?.legs?.sole})
+    ? tt => ambient ? liftR6(ambientPose(a.preset.seed ?? 1, tt), tt, 'idle') : sampleTimeline6(keys ?? [[0, 'idle']], a.preset.freeze ?? tt, {...tl, build: a.build, sole: a.preset?.regions?.legs?.sole ? (a.preset.regions.legs.soleH ?? .06) : 0})
     : tt => ambient ? ambientPose(a.preset.seed ?? 1, tt) : sampleTimeline(keys ?? [[0, 'idle']], a.preset.freeze ?? tt, tl);   // Look 5b: overshoot + settle on pose changes
   const s = sampleAt(t);   // A4: preset.freeze holds one instant (AFK mid-step)
   (v6 ? applyPose6 : applyPoseSample)(a, s, origin);

@@ -1,8 +1,8 @@
 // P1: Actor v6 (R15) — joint clamps, liftR6 secondary bends, key poses, grounding FK (pure logic).
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import {clampJoints, jointViolations, JOINTS6, LIMITS6, jointKind, lowestY, layout6} from '../../avatar-style/body6.js';
-import {liftR6, samplePose6, sampleTimeline6, rawKey6, SHEET6, STANDING6, inSwing} from '../../engine/poses6.js';
+import {clampJoints, jointViolations, JOINTS6, LIMITS6, jointKind, lowestY, layout6, sleeveOf, SEG6, REF6} from '../../avatar-style/body6.js';
+import {liftR6, samplePose6, sampleTimeline6, rawKey6, SHEET6, STANDING6, inSwing, POP_MAX} from '../../engine/poses6.js';
 import {samplePose, POSE_NAMES} from '../../engine/poses.js';
 const D = Math.PI / 180, deg = r => r / D;
 const within = s => JOINTS6.every(j => s.pivots[j].every((x, i) => x >= LIMITS6[jointKind(j)][i][0] - 1e-9 && x <= LIMITS6[jointKind(j)][i][1] + 1e-9));
@@ -56,7 +56,26 @@ test('sheet poses: authored joints inside the limits; grounded poses rest on y 0
 });
 
 test('layout6: R6 overall lengths (torso 2.02–4.02, hips at 2, head pivot on the torso top)', () => {
-  const L = layout6('adult_m'); assert.equal(L.top, 4.02); assert.ok(Math.abs(L.lowH - .45) < 1e-9 && Math.abs(L.upH - 1.55) < 1e-9);
-  const y = layout6('youth'); assert.ok(y.top < 4.02 && Math.abs(y.lowH / y.th - .225) < 1e-9);
+  const L = layout6('adult_m'); assert.equal(L.top, 4.02); assert.ok(Math.abs(L.lowH - .38) < 1e-9 && Math.abs(L.upH - 1.62) < 1e-9);
+  const y = layout6('youth'); assert.ok(y.top < 4.02 && Math.abs(y.lowH / y.th - .19) < 1e-9);
   const rest = samplePose('idle', 0); for (const j of JOINTS6) rest.pivots[j] = [0, 0, 0]; assert.ok(Math.abs(lowestY(rest)) < 1e-9);   // soles on the ground at rest
+});
+
+test('P1b reference: segment heights, arm 1.75 + hand 0.25, leg 1.73 + foot 0.27, sleeve modes', () => {
+  assert.ok(Math.abs(SEG6.upperArm[1] + SEG6.lowerArm[1] - REF6.arm) < 1e-9 && Math.abs(SEG6.upperLeg[1] + SEG6.lowerLeg[1] - REF6.leg) < 1e-9);
+  assert.equal(SEG6.lowerArm[0], SEG6.upperArm[0]); assert.equal(SEG6.lowerLeg[2], SEG6.upperLeg[2]);   // flush: same width and depth
+  assert.equal(SEG6.foot[2], 1);                                                                         // no toe
+  assert.equal(sleeveOf({split: .35}), 'mid'); assert.equal(sleeveOf({split: .85}), 'wrist'); assert.equal(sleeveOf({split: .5}), 'wrist'); assert.equal(sleeveOf({sleeve: 'elbow'}), 'elbow');
+});
+
+test('P1b cross-fade: idle ↔ walk ↔ run never adds more than 3° a frame to any joint on top of the poses\' own motion', () => {
+  const fps = 24, keys = [[0, 'idle'], [1, 'walk'], [2.7, 'idle'], [4, 'run'], [5.3, 'idle']];
+  const KS = keys.map((_, k) => keys.slice(0, k + 1)), at = t => sampleTimeline6(keys, t), one = (n, t0, t) => samplePose6(n, Math.max(0, t - t0));
+  let worst = 0;
+  for (let f = 1; f < 6.5 * fps; f++) { const t = f / fps, a = at(t - 1 / fps), b = at(t);
+    let i = 0; while (i + 1 < keys.length && keys[i + 1][0] <= t) i++;
+    const own = k => { const [t0, n] = keys[k], f = k < i ? (tt => sampleTimeline6(KS[k], tt)) : (tt => one(n, t0, tt)), x = f(t - 1 / fps), y = f(t); return j => x.pivots[j].map((v, q) => Math.abs(y.pivots[j][q] - v)); };
+    const o1 = own(i), o0 = i ? own(i - 1) : o1;
+    for (const j of Object.keys(b.pivots)) b.pivots[j].forEach((v, q) => { const d = Math.abs(v - a.pivots[j][q]) - Math.max(o1(j)[q], o0(j)[q]); worst = Math.max(worst, d); }); }
+  assert.ok(worst <= POP_MAX + 1e-9, `pop ${(worst / D).toFixed(2)}°`);
 });
