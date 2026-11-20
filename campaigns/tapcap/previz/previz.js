@@ -38,7 +38,7 @@ function guy(c) {   // banana / sunny with preset, paint, run, face
 }
 function placeCast(shot, frame, camPos) {
   S.cast.clear(); const placed = [];
-  for (const c of shot.cast ?? []) {
+  for (let c of shot.cast ?? []) {
     const g = guy(c); let at = c.at ? [...c.at] : null, dy = 0;
     if (c.path) { const pts = pathPoints(), u = frame / Math.max(1, shot.frames - 1), t = c.path[0] + (c.path[1] - c.path[0]) * u, p = pts[Math.round(t * (pts.length - 1))]; at = [p[0], p[1], p[2]];
       if (c.hop) dy = .35 * Math.abs(Math.sin(u * Math.PI * 5)); }
@@ -46,6 +46,8 @@ function placeCast(shot, frame, camPos) {
     g.root.position.set(at[0], at[1] + dy, at[2]); g.root.rotation.set(0, c.yaw ?? Math.atan2(camPos[0] - at[0], camPos[2] - at[2]), 0);
     g.setTap(c.tapStart !== undefined ? tapOffset(shot.f0 + frame - c.tapStart) : 0); S.cast.add(g.root); placed.push({c, g, at});
     if (c.pool) { const p = paintPool(g.root.userData.paint, c.pool); p.position.set(at[0], at[1] + .01, at[2]); S.cast.add(p); }
+    if (S.mood === 'rainNight' && ['banana', 'sunny'].includes(c.who)) { const k = new T.SpotLight('#E8EEFF', 9, 6, .45, .6, 1.2), v = new T.Vector3(camPos[0] - at[0], 0, camPos[2] - at[2]).normalize().applyAxisAngle(new T.Vector3(0, 1, 0), .5);   /* D3: soft front key so the cast separates in the rain */
+      k.position.set(at[0] + v.x * 2.2, at[1] + 1.4, at[2] + v.z * 2.2); k.target.position.set(at[0], at[1] + .55, at[2]); S.cast.add(k, k.target); c = {...c, rim: true}; }
     if (c.rim) { const l = new T.SpotLight('#9EC2FF', 14, 6, .5, .5, 1.2), d = new T.Vector3(at[0] - camPos[0], 0, at[2] - camPos[2]).normalize(); l.position.set(at[0] + d.x * 1.6, at[1] + 1.5, at[2] + d.z * 1.6); l.target.position.set(at[0], at[1] + .5, at[2]); S.cast.add(l, l.target); }
   }
   for (const p of shot.props ?? []) {
@@ -78,10 +80,11 @@ function placeClix(shot, frame, placed, cam) {
   }
   // reveal: upright giant beyond the parted clouds, centred in the S36 frame, facing the camera
   const s36 = S.shots.find(s => s.id === 'S36a'), c0 = sampleCam(s36, 1), d = c0.look.map((v, i) => v - c0.pos[i]), l = Math.hypot(d[0], d[2]);
-  const at = [c0.pos[0] + d[0] / l * 62, 0, c0.pos[2] + d[2] / l * 62], headH = 4.63 * C.clix.scale;
-  C.root.position.set(at[0], 30, at[2]); C.root.rotation.y = Math.atan2(c0.pos[0] - at[0], c0.pos[2] - at[2]);
+  const headH = 4.63 * C.clix.scale, f = new T.Vector3(...d).normalize(), r = new T.Vector3().crossVectors(f, new T.Vector3(0, 1, 0)).normalize(), up = new T.Vector3().crossVectors(r, f);
+  const tv = Math.tan(fovFor(c0.mm) / 2), hp = new T.Vector3(...c0.pos).addScaledVector(f.clone().addScaledVector(up, .3 * tv).normalize(), 55);   /* D4: head on the ray 30 % above frame centre */
+  const at = [hp.x, 0, hp.z]; C.root.position.set(at[0], hp.y - headH, at[2]); C.root.rotation.y = Math.atan2(c0.pos[0] - at[0], c0.pos[2] - at[2]);
   C.pivots.rightShoulder.rotation.x = C.pivots.leftShoulder.rotation.x = -1.0; C.root.updateMatrixWorld(true);
-  const head = [at[0], 30 + headH, at[2]], fwd = [-d[0] / l, 0, -d[2] / l], right = [fwd[2], 0, -fwd[0]];
+  const head = [hp.x, hp.y, hp.z], fwd = [-d[0] / l, 0, -d[2] / l], right = [fwd[2], 0, -fwd[0]];
   return {head, fwd, right};
 }
 
