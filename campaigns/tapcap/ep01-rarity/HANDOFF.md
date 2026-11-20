@@ -1,6 +1,6 @@
 # HANDOFF — TapCap EP01 "Rarity's Just Paint"  (≤ 30 lines; read with ../RULES.md, spec.yml, shots.yml)
 ## Approved
-- Pass A (Clix face #2 grin) · Pass B (2026-11-20; B3/B4 moved to Pass C real cameras). Pass C: NOT approved (gate below).
+- Pass A (Clix face #2 grin) · Pass B (2026-11-20) · Pass C (2026-11-20, owner "approve"). Pass D1: NOT approved yet.
 ## Done this session (2 fix passes per item; no gate loosened)
 - Decisions: S26 = 43.07 s; all shots.yml t = aligner; clearance (a)+(b)+(c) LOS capsule .6 H; plinth close −0.1 EV + dawn bounce 15 %.
 - World: quiet night (door lights off, windows ×.5, moon −0.7 EV, Banana rim, box glow); golden S36 prop exclusion; window aimed at summit.
@@ -19,5 +19,9 @@
   shots are dark and soft; Sunny/Banana barely read · S36a Clix reveal reads as a block, not a person.
 ## Render plan
 - RENDER_PLAN.md: 1080×1920 at 12.3 / 11.3 / 6.5 s per frame → 8.96 h (×1.6 safety) in 4 jobs ≤ 3.4 h on free ubuntu-24.04.
+## Pass D1 (S1–S13), `scripts/pass-d.js --seq D1 --shots … --merge` → review/pass-d/D1/pass-c-D1.png, qa/pass-D1.json
+- S1 hero: camera on the hill-road axis (outside the box) → hill+plinth 18.8 % ✓, TC-01 23.6 % ✓, 4 layers ✓; buildings 3 (B4 ✗, owner pick).
+- S9 off the box wall onto the hill road; S11 whole CORE ROW sign; S12 OTS behind Sunny; S13 face framed. All 13: void 0, luma in gate, moving.
+- Weak: S9 arm end looms (8 H wide at 40×) instead of a far glint · S12 fleck too small to read at sheet size · S1 3 buildings.
 ## Next step
-- Owner: notes per shot number on the two Pass C sheets, or "approve". Then Pass D1 (S1–S13). Don't start Pass D before approval.
+- Owner: D1 notes by shot number or "approve". Then D2 (S14–S22). S40 re-render (replays the new S1) belongs to D4.

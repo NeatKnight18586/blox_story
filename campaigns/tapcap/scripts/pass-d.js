@@ -36,7 +36,9 @@ try {
     }
   }
 } finally { await browser.close(); await server.close(); }
+const prev = (() => { try { return JSON.parse(readFileSync(`${out}/raw.json`, 'utf8')); } catch { return null; } })();   /* re-render only changed shots: keep the others */
+if (prev && argv.includes('--merge')) { for (const p of prev.shots) if (!R.shots.some(s => s.id === p.id)) R.shots.push(p); R.WIDES = [...new Set([...prev.WIDES, ...R.WIDES])]; R.STREET = [...new Set([...prev.STREET, ...R.STREET])]; }
 R.shots.sort((a, b) => a.start - b.start);
 writeFileSync(`${out}/raw.json`, JSON.stringify(R));
 execFileSync('python3', ['campaigns/tapcap/scripts/measure-d.py', out, ep, SEQ], {stdio: 'inherit'});
-execFileSync('python3', ['campaigns/tapcap/scripts/sheet-c.py', out, ep, `${ep}/qa/pass-${SEQ}.json`, `${SEQ}:${ONLY.join(',')}`], {stdio: 'inherit'});
+execFileSync('python3', ['campaigns/tapcap/scripts/sheet-c.py', out, ep, `${ep}/qa/pass-${SEQ}.json`, `${SEQ}:${R.shots.map(s => s.id).join(',')}`], {stdio: 'inherit'});

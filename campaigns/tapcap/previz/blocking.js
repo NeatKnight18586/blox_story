@@ -28,7 +28,7 @@ const T = [
   {id: 'S6', cut: [4, 0], size: 'medium', move: 'orbit', cam: {orbit: {center: PT, r: 3.6, h: .9, a0: yawTown + .55, a1: yawTown + .15}, mm: 50}},
   {id: 'S7', cut: [5, 0], size: 'close', move: 'push', cam: {from: {pos: [1.05, .82, 3.1], look: [1.15, .62, .3], mm: 85}, to: {pos: [1.1, .74, 2.2], look: [1.15, .62, .3], mm: 85}}, cast: [{who: 'banana', at: [1.15, 0, .3]}]},
   {id: 'S8', cut: [6, 0], size: 'wide', move: 'track', cam: {from: {pos: [8.4, 1.4, 27.8], look: [-3, .9, 25.4], mm: 24}, to: {pos: [7.2, 1.4, 27.4], look: [-4, .9, 25.4], mm: 24}}, cast: [{who: 'banana', at: [2.4, 0, 25.6], yaw: 1.2}]},
-  {id: 'S9', cut: [7, 0], size: 'medium', move: 'push', cam: {from: {pos: [-6.6, .3, 6.4], look: [-24, 14, -17], mm: 35}, to: {pos: [-6.8, .3, 6.0], look: [-24, 14, -17], mm: 35}}, cast: [{who: 'banana', at: [-8.0, 0, 3.6], yaw: -2.45, face: 'sad'}], clix: {mode: 'arm', end: [-24, 17, -17]}},
+  {id: 'S9', cut: [7, 0], size: 'medium', move: 'push', cam: {from: {pos: [-9.0, .3, 3.0], look: [-24, 13, -17], mm: 35}, to: {pos: [-9.25, .3, 2.6], look: [-24, 13, -17], mm: 35}}, cast: [{who: 'banana', at: [-10.3, 0, 1.4], yaw: -2.45, face: 'sad'}], clix: {mode: 'arm', end: [-24, 17, -17]}},
   {id: 'S10', cut: [8, 0], size: 'medium', move: 'track', cam: {from: {pos: [8.2, 1.4, 25.4], look: [11.6, 1.05, 21.6], mm: 35}, to: {pos: [9.6, 1.4, 25.6], look: [12.4, 1.05, 21.6], mm: 35}}},
   {id: 'S11', cut: [9, 0], size: 'medium', move: 'push', see: ['CORE ROW'], cam: {from: {pos: [0, 5.3, 12.9], look: [0, 4.4, 7.0], mm: 28}, to: {pos: [0, 5.25, 12.3], look: [0, 4.4, 7.0], mm: 28}},
     cast: [{who: 'banana', at: [FLAP[0] - .35, FLAP[1], FLAP[2]]}, {who: 'sunny', at: [FLAP[0] + .35, FLAP[1], FLAP[2]], face: 'hopeful'}]},

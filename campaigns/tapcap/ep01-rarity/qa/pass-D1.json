@@ -7,34 +7,34 @@
    "frames": 62,
    "move": "push",
    "size": "wide",
-   "ms": 8303,
+   "ms": 8177,
    "travel": {
-    "move": 1.393,
-    "turnDeg": 1.14,
+    "move": 1.005,
+    "turnDeg": 1.21,
     "zoom": 1
    },
    "dur": 2.583,
-   "luma": 0.5328,
+   "luma": 0.3891,
    "gate": [
     0.36,
     0.5
    ],
-   "lumaPass": false,
+   "lumaPass": true,
    "void": 0,
    "lockedOff": false,
    "layers": {
-    "fg": 0.0,
-    "mid": 100.0,
-    "bg": 0.0,
-    "far": 0.0
+    "fg": 35.53,
+    "mid": 8.24,
+    "bg": 27.05,
+    "far": 4.28
    },
-   "depthPass": false,
-   "buildings": 0,
+   "depthPass": true,
+   "buildings": 3,
    "densityPass": false,
-   "hillPlinthPct": 0.0,
-   "hillPass": false,
-   "slimeCover0": 0.0,
-   "slimeCover1s": 0.0
+   "hillPlinthPct": 18.8,
+   "hillPass": true,
+   "slimeCover0": 23.62,
+   "slimeCover1s": 22.41
   },
   {
    "id": "S2",
@@ -227,19 +227,19 @@
    "frames": 38,
    "move": "push",
    "size": "medium",
-   "ms": 3300,
+   "ms": 7915,
    "travel": {
-    "move": 0.447,
-    "turnDeg": 0.37,
+    "move": 0.472,
+    "turnDeg": 0.45,
     "zoom": 1
    },
    "dur": 1.583,
-   "luma": 0.5719,
+   "luma": 0.3949,
    "gate": [
     0.36,
     0.5
    ],
-   "lumaPass": false,
+   "lumaPass": true,
    "void": 0,
    "lockedOff": false
   },
@@ -319,19 +319,19 @@
    "frames": 43,
    "move": "push",
    "size": "close",
-   "ms": 3347,
+   "ms": 4058,
    "travel": {
     "move": 0.55,
     "turnDeg": 0.1,
     "zoom": 1
    },
    "dur": 1.792,
-   "luma": 0.5015,
+   "luma": 0.4663,
    "gate": [
     0.36,
     0.5
    ],
-   "lumaPass": false,
+   "lumaPass": true,
    "void": 0,
    "lockedOff": false
   }
@@ -342,40 +342,18 @@
    "failing": []
   },
   "luma": {
-   "pass": false,
-   "failing": {
-    "S1": [
-     0.5328,
-     [
-      0.36,
-      0.5
-     ]
-    ],
-    "S9": [
-     0.5719,
-     [
-      0.36,
-      0.5
-     ]
-    ],
-    "S13": [
-     0.5015,
-     [
-      0.36,
-      0.5
-     ]
-    ]
-   }
+   "pass": true,
+   "failing": {}
   },
   "depth": {
    "S1": [
     {
-     "fg": 0.0,
-     "mid": 100.0,
-     "bg": 0.0,
-     "far": 0.0
+     "fg": 35.53,
+     "mid": 8.24,
+     "bg": 27.05,
+     "far": 4.28
     },
-    false
+    true
    ],
    "S3": [
     {
@@ -406,15 +384,15 @@
    ]
   },
   "density": {
-   "S1": 0,
+   "S1": 3,
    "S8": 15
   },
   "lockedOff": [],
   "S1": {
-   "hillPlinthPct": 0.0,
-   "hillPass": false,
-   "TC-01 frame1": 0.0,
-   "at1s": 0.0
+   "hillPlinthPct": 18.8,
+   "hillPass": true,
+   "TC-01 frame1": 23.62,
+   "at1s": 22.41
   }
  }
 }
