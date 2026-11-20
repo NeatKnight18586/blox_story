@@ -319,7 +319,7 @@ function poseCast(t) {
       markPos[name] = [...at];
       if (dragon) driveDragon(a, t, {keys: c.keys ?? [[0, 'perch']], origin: {position: at, yaw}});
       else driveActor(a, t, {keys: c.keys ?? [[0, c.action ?? 'idle']], faces: c.faces, ambient: !!c.ambient,
-        origin: {position: at, yaw}, tags: c.tags, fps: FPS, tools: c.tools, toolsLeft: c.toolsLeft, stat: c.stat, bubble: c.bubble, visible: c.visible, kit: c.kit, blinkSuppress: blinkOff(t), talk: talkOf(name, t), ...(M5B ? {m5b: M5B} : {})});
+        origin: {position: at, yaw}, tags: c.tags, fps: FPS, tools: c.tools, toolsLeft: c.toolsLeft, stat: c.stat, bubble: c.bubble, visible: c.visible, kit: c.kit, blinkSuppress: blinkOff(t), talk: talkOf(name, t), ...(M5B ? {m5b: M5B} : {}), ...(spec.faceLife ? {faceLife: true} : {})});   // P2: faces v6 life (opt-in)
       if (v2 && spec.decorate) WMOD?.poseActor?.(a, name, t, c);   // Touch Grass E1 (opt-in): per-frame dress state, pure in t
       if (dragon && c.visible) a.root.visible = valueAt(c.visible, t, true);
     } else {

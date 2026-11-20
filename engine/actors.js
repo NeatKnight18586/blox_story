@@ -10,6 +10,8 @@ import {setFace} from '../avatar-style/faces2.js';
 import {setFace3, faceError, blinkClosed} from '../avatar-style/faces3.js';
 import {setFace4, faceError4, isHeld} from '../avatar-style/faces4.js';
 import {setFace5, faceError5, isHeld as isHeld5} from '../avatar-style/faces5.js';
+import {setFace6, faceError6, isHeld6, blinkAt6, popAt6} from '../avatar-style/faces6.js';
+import {HEAD5} from '../avatar-style/body5.js';
 import {createActor5} from '../avatar-style/body5.js';
 import {createActor6} from '../avatar-style/body6.js';
 import {sampleTimeline6, applyPose6, liftR6} from './poses6.js';
@@ -28,7 +30,10 @@ export function buildActor(preset, name = 'actor') {
   for (const acc of preset.accessories ?? []) typeof acc === 'string' ? attachAccessory(a, acc) : attachAccessory(a, acc.name, acc);
   if (preset.tool) typeof preset.tool === 'string' ? attachTool(a, preset.tool) : attachTool(a, preset.tool.name, preset.tool);
   if (preset.opacity !== undefined && preset.opacity < 1) a.ghost = preset.opacity;
-  if (preset.faceStyle === 'v5') {   // Faces v5 (owner's face sheet): the default on Actor v5
+  if (preset.faceStyle === 'v6') {   // P2 Faces v6 (opt-in): faces5 linework + restrained colour fills
+    const fe = faceError6(preset.face ?? 'smile'); if (fe) throw Error('face: ' + fe);
+    a.faceStyle = 'v6'; a.blinkSeed = [...name].reduce((h, ch) => (h * 31 + ch.charCodeAt(0)) % 9973, 7); setFace6(a, preset.face ?? 'smile');
+  } else if (preset.faceStyle === 'v5') {   // Faces v5 (owner's face sheet): the default on Actor v5
     const fe = faceError5(preset.face ?? 'smile'); if (fe) throw Error('face: ' + fe);
     a.faceStyle = 'v5'; a.blinkSeed = [...name].reduce((h, ch) => (h * 31 + ch.charCodeAt(0)) % 9973, 7); setFace5(a, preset.face ?? 'smile');
   } else if (preset.faceStyle === 'v4') {   // format v4: Faces v4 (wide-set, sketch pass, talking mouths)
@@ -66,7 +71,7 @@ export function townsperson(seed) {
 //   bubble = [[t0, text | null]]                        chat bubble (≤ 4 words) beside the head
 //   visible = [[t0, bool]]
 export function driveActor(a, t, {keys, faces, tags, origin = {position: [0, 0, 0], yaw: 0}, ambient = false, fps = 30,
-  tools, toolsLeft, stat, bubble, visible, kit, blinkSuppress = false, talk = null, m5b = null} = {}) {
+  tools, toolsLeft, stat, bubble, visible, kit, blinkSuppress = false, talk = null, m5b = null, faceLife = false} = {}) {
   if (visible) { let v = true; for (const [t0, x] of visible) if (t >= t0) v = x; a.root.visible = v; }
   const v6 = a.body === 'v6', tl = m5b?.overshoot ? {overshoot: m5b.overshoot} : undefined, sampleAt = v6   // P1: R15 actors take the v6 sampler (R6 poses lifted, R15 key poses)
     ? tt => ambient ? liftR6(ambientPose(a.preset.seed ?? 1, tt), tt, 'idle') : sampleTimeline6(keys ?? [[0, 'idle']], a.preset.freeze ?? tt, {...tl, build: a.build, sole: a.preset?.regions?.legs?.sole ? (a.preset.regions.legs.soleH ?? .06) : 0})
@@ -75,7 +80,13 @@ export function driveActor(a, t, {keys, faces, tags, origin = {position: [0, 0, 
   (v6 ? applyPose6 : applyPoseSample)(a, s, origin);
   const stoop = BUILDS[a.build]?.stoop; if (stoop) { a.root.rotation.x += stoop; a.pivots.head.rotation.x -= stoop * .6; }   // elder_f: slight forward stoop, eyes kept forward
   if (m5b) motion5b(a, t, sampleAt, m5b);
-  if (a.faceStyle === 'v5') {   // v5: the timeline face, a seeded blink (closed arcs), and the lip-flap shape (never on a held reaction face)
+  if (a.faceStyle === 'v6') {   // P2 Faces v6: the timeline face, blink, lip flap; faceLife (opt-in): 3–5 s blinks, a blink + 8 % head pop on every change
+    let f = a.preset.face ?? 'smile'; if (faces) { f = faces[0][1]; for (const [t0, n] of faces) if (t >= t0) f = n; }
+    const ch = (faces ?? []).map(k => k[0]).filter(x => x > 0);
+    const bl = !blinkSuppress && (faceLife ? blinkAt6(a.blinkSeed, t, {fps, changes: ch}) : blinkClosed(a.blinkSeed, t, {fps, changes: ch, suppress: false})), tk = talk !== null && !isHeld6(f) ? talk : null;
+    if (f !== a.face || bl !== !!a.faceBlink || tk !== (a.faceTalk ?? null)) setFace6(a, f, {blink: bl, talk: tk});
+    if (faceLife && (a.body === 'v5' || a.body === 'v6')) { const p = popAt6(t, ch, {fps}); a.pivots.head.scale.set(HEAD5[0] * p[0], HEAD5[1] * p[1], HEAD5[2] * p[2]); }
+  } else if (a.faceStyle === 'v5') {   // v5: the timeline face, a seeded blink (closed arcs), and the lip-flap shape (never on a held reaction face)
     let f = a.preset.face ?? 'smile'; if (faces) { f = faces[0][1]; for (const [t0, n] of faces) if (t >= t0) f = n; }
     const bl = blinkClosed(a.blinkSeed, t, {fps, changes: (faces ?? []).map(k => k[0]), suppress: !!blinkSuppress}), tk = talk !== null && !isHeld5(f) ? talk : null;
     if (f !== a.face || bl !== !!a.faceBlink || tk !== (a.faceTalk ?? null)) setFace5(a, f, {blink: bl, talk: tk});

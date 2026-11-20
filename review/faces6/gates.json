@@ -1,0 +1,423 @@
+{
+ "pxPerHeadUnit390Medium": 188.4,
+ "faces5Minimum": {
+  "eye": 25.9,
+  "mouth": 22.2
+ },
+ "distinct": {
+  "threshold": 0.8,
+  "mostSimilar": [
+   [
+    "neutral",
+    "smile",
+    0.782
+   ],
+   [
+    "smile",
+    "smirk",
+    0.701
+   ],
+   [
+    "neutral",
+    "smirk",
+    0.695
+   ],
+   [
+    "determined",
+    "rage",
+    0.593
+   ],
+   [
+    "rage",
+    "yell",
+    0.58
+   ]
+  ],
+  "failing": 0
+ },
+ "faces": {
+  "neutral": {
+   "roles": [
+    "glint"
+   ],
+   "roleCount": 1,
+   "colours": "PASS",
+   "offPalette": [],
+   "px": {
+    "eyeL": 30.7,
+    "eyeR": 30.6,
+    "mouth": 35.4
+   },
+   "readability": "PASS",
+   "bounds": "PASS"
+  },
+  "smile": {
+   "roles": [
+    "glint"
+   ],
+   "roleCount": 1,
+   "colours": "PASS",
+   "offPalette": [],
+   "px": {
+    "eyeL": 30.7,
+    "eyeR": 30.6,
+    "mouth": 59.7
+   },
+   "readability": "PASS",
+   "bounds": "PASS"
+  },
+  "grin": {
+   "roles": [
+    "mouth",
+    "teeth",
+    "glint"
+   ],
+   "roleCount": 3,
+   "colours": "PASS",
+   "offPalette": [],
+   "px": {
+    "eyeL": 32,
+    "eyeR": 32.1,
+    "mouth": 60.3
+   },
+   "readability": "PASS",
+   "bounds": "PASS"
+  },
+  "laugh": {
+   "roles": [
+    "mouth",
+    "tongue"
+   ],
+   "roleCount": 2,
+   "colours": "PASS",
+   "offPalette": [],
+   "px": {
+    "eyeL": 43.1,
+    "eyeR": 42.8,
+    "mouth": 68.6
+   },
+   "readability": "PASS",
+   "bounds": "PASS"
+  },
+  "smirk": {
+   "roles": [
+    "glint"
+   ],
+   "roleCount": 1,
+   "colours": "PASS",
+   "offPalette": [],
+   "px": {
+    "eyeL": 30.7,
+    "eyeR": 30.6,
+    "mouth": 46
+   },
+   "readability": "PASS",
+   "bounds": "PASS"
+  },
+  "wink": {
+   "roles": [
+    "blush",
+    "glint"
+   ],
+   "roleCount": 2,
+   "colours": "PASS",
+   "offPalette": [],
+   "px": {
+    "eyeL": 41,
+    "eyeR": 31.8,
+    "mouth": 54.9
+   },
+   "readability": "PASS",
+   "bounds": "PASS"
+  },
+  "scheme": {
+   "roles": [
+    "glint"
+   ],
+   "roleCount": 1,
+   "colours": "PASS",
+   "offPalette": [],
+   "px": {
+    "eyeL": 26.4,
+    "eyeR": 29.4,
+    "mouth": 52
+   },
+   "readability": "PASS",
+   "bounds": "PASS"
+  },
+  "shock": {
+   "roles": [
+    "eyeWhite",
+    "mouth",
+    "glint"
+   ],
+   "roleCount": 3,
+   "colours": "PASS",
+   "offPalette": [],
+   "px": {
+    "eyeL": 44.5,
+    "eyeR": 44.5,
+    "mouth": 47.5
+   },
+   "readability": "PASS",
+   "bounds": "PASS"
+  },
+  "gasp": {
+   "roles": [
+    "mouth",
+    "glint"
+   ],
+   "roleCount": 2,
+   "colours": "PASS",
+   "offPalette": [],
+   "px": {
+    "eyeL": 27.7,
+    "eyeR": 28,
+    "mouth": 44.5
+   },
+   "readability": "PASS",
+   "bounds": "PASS"
+  },
+  "panic": {
+   "roles": [
+    "teeth",
+    "water",
+    "glint"
+   ],
+   "roleCount": 3,
+   "colours": "PASS",
+   "offPalette": [],
+   "px": {
+    "eyeL": 28.8,
+    "eyeR": 29.1,
+    "mouth": 59.5
+   },
+   "readability": "PASS",
+   "bounds": "PASS"
+  },
+  "terrified": {
+   "roles": [
+    "eyeWhite",
+    "water"
+   ],
+   "roleCount": 2,
+   "colours": "PASS",
+   "offPalette": [],
+   "px": {
+    "eyeL": 47.5,
+    "eyeR": 47.5,
+    "mouth": 53.5
+   },
+   "readability": "PASS",
+   "bounds": "PASS"
+  },
+  "cry": {
+   "roles": [
+    "mouth",
+    "water"
+   ],
+   "roleCount": 2,
+   "colours": "PASS",
+   "offPalette": [],
+   "px": {
+    "eyeL": 30.7,
+    "eyeR": 30.1,
+    "mouth": 47.5
+   },
+   "readability": "PASS",
+   "bounds": "PASS"
+  },
+  "sad_soft": {
+   "roles": [
+    "glint"
+   ],
+   "roleCount": 1,
+   "colours": "PASS",
+   "offPalette": [],
+   "px": {
+    "eyeL": 28.8,
+    "eyeR": 29.1,
+    "mouth": 36
+   },
+   "readability": "PASS",
+   "bounds": "PASS"
+  },
+  "determined": {
+   "roles": [
+    "teeth",
+    "glint"
+   ],
+   "roleCount": 2,
+   "colours": "PASS",
+   "offPalette": [],
+   "px": {
+    "eyeL": 28.3,
+    "eyeR": 28.3,
+    "mouth": 53.5
+   },
+   "readability": "PASS",
+   "bounds": "PASS"
+  },
+  "rage": {
+   "roles": [
+    "mouth",
+    "teeth",
+    "anger"
+   ],
+   "roleCount": 3,
+   "colours": "PASS",
+   "offPalette": [],
+   "px": {
+    "eyeL": 39.3,
+    "eyeR": 39.9,
+    "mouth": 56.5
+   },
+   "readability": "PASS",
+   "bounds": "PASS"
+  },
+  "awe": {
+   "roles": [
+    "mouth",
+    "sparkle"
+   ],
+   "roleCount": 2,
+   "colours": "PASS",
+   "offPalette": [],
+   "px": {
+    "eyeL": 54.3,
+    "eyeR": 54.6,
+    "mouth": 29.4
+   },
+   "readability": "PASS",
+   "bounds": "PASS"
+  },
+  "warm": {
+   "roles": [
+    "blush"
+   ],
+   "roleCount": 1,
+   "colours": "PASS",
+   "offPalette": [],
+   "px": {
+    "eyeL": 43.3,
+    "eyeR": 43.9,
+    "mouth": 47.8
+   },
+   "readability": "PASS",
+   "bounds": "PASS"
+  },
+  "embarrassed": {
+   "roles": [
+    "blush"
+   ],
+   "roleCount": 1,
+   "colours": "PASS",
+   "offPalette": [],
+   "px": {
+    "eyeL": 37.7,
+    "eyeR": 37.7,
+    "mouth": 47.5
+   },
+   "readability": "PASS",
+   "bounds": "PASS"
+  },
+  "sleepy": {
+   "roles": [
+    "mouth"
+   ],
+   "roleCount": 1,
+   "colours": "PASS",
+   "offPalette": [],
+   "px": {
+    "eyeL": 39,
+    "eyeR": 38.9,
+    "mouth": 23.4
+   },
+   "readability": "PASS",
+   "bounds": "PASS"
+  },
+  "thinking": {
+   "roles": [
+    "glint"
+   ],
+   "roleCount": 1,
+   "colours": "PASS",
+   "offPalette": [],
+   "px": {
+    "eyeL": 26.4,
+    "eyeR": 26.4,
+    "mouth": 32.4
+   },
+   "readability": "PASS",
+   "bounds": "PASS"
+  },
+  "disgust": {
+   "roles": [
+    "tongue",
+    "glint"
+   ],
+   "roleCount": 2,
+   "colours": "PASS",
+   "offPalette": [],
+   "px": {
+    "eyeL": 27.9,
+    "eyeR": 27.9,
+    "mouth": 59.5
+   },
+   "readability": "PASS",
+   "bounds": "PASS"
+  },
+  "nervous_laugh": {
+   "roles": [
+    "mouth",
+    "teeth",
+    "water"
+   ],
+   "roleCount": 3,
+   "colours": "PASS",
+   "offPalette": [],
+   "px": {
+    "eyeL": 35.6,
+    "eyeR": 35.7,
+    "mouth": 59.5
+   },
+   "readability": "PASS",
+   "bounds": "PASS"
+  },
+  "relief": {
+   "roles": [
+    "mouth",
+    "water"
+   ],
+   "roleCount": 2,
+   "colours": "PASS",
+   "offPalette": [],
+   "px": {
+    "eyeL": 43.3,
+    "eyeR": 43.9,
+    "mouth": 53.5
+   },
+   "readability": "PASS",
+   "bounds": "PASS"
+  },
+  "yell": {
+   "roles": [
+    "mouth",
+    "teeth",
+    "tongue"
+   ],
+   "roleCount": 3,
+   "colours": "PASS",
+   "offPalette": [],
+   "px": {
+    "eyeL": 36.3,
+    "eyeR": 36.5,
+    "mouth": 59.5
+   },
+   "readability": "PASS",
+   "bounds": "PASS"
+  }
+ },
+ "failures": [],
+ "result": "PASS"
+}

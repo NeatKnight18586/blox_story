@@ -5,6 +5,7 @@
 import * as T from 'three';
 import {buildActor, driveActor} from './actors.js';
 import {setFace5} from '../avatar-style/faces5.js';
+import {setFace6} from '../avatar-style/faces6.js';
 import {triangles} from '../avatar-style/body.js';
 
 const cast = await (await fetch(new URL('../' + new URLSearchParams(location.search).get('cast'), import.meta.url))).json();
@@ -26,7 +27,7 @@ export function render(cell, w, h, mode = 'studio') {
   const used = new Map();
   for (const s of cell.actors) { const slot = used.get(s.id) ?? 0; used.set(s.id, slot + 1); const a = actorFor(s.id, slot); a.root.visible = true;
     driveActor(a, s.t ?? 0, {keys: [[0, s.pose ?? 'idle']], origin: {position: s.at ?? [0, 0, 0], yaw: (s.yaw ?? 0) * Math.PI / 180}});
-    setFace5(a, s.face ?? a.preset.face ?? 'smile');
+    if (a.faceStyle === 'v6') setFace6(a, s.face ?? a.preset.face ?? 'smile', {talk: s.talk ?? null, blink: !!s.blink}); else setFace5(a, s.face ?? a.preset.face ?? 'smile', {talk: s.talk ?? null});
     if (a.body !== 'v6') continue;
     for (const n of ['head', 'waist', 'leftShoulder', 'rightShoulder', 'leftHip', 'rightHip']) a.pivots[n].visible = true; a.parts.lowerTorso.visible = a.parts.waistCap.visible = a.parts.torso.visible = true;
     // seam chains (P1 gate): one limb chain with its parent piece, everything else hidden, so only joint seams can enclose background

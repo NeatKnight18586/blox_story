@@ -31,3 +31,6 @@ export function flapActive(shot, actor, {narrator = 'HERO'} = {}) {
   return shot.speaker ? ['close', 'medium'].includes(shot.size) : shot.size === 'close';
 }
 export const shapeAt = (shapes, t, fps = FLAP.fps) => shapes?.length ? shapes[Math.min(shapes.length - 1, Math.max(0, Math.round(t * fps)))] : null;
+// P2 Faces v6 (pure): which talk-shape set a face's expression family uses — happy lines flap the wide grin set, everything else the
+// standard set (avatar-style/faces6.js TALK6).
+export const talkSet6 = family => family === 'happy' ? 'grin' : 'standard';

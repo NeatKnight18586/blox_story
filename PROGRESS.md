@@ -1595,3 +1595,11 @@ Numbers: joint luma |Δ| max 0.45 (ref grey 0.00 ×4, ref B 0.00 ×4, B front �
 heights 1.62/.40/1.75/.25/1.73/.27; pop 2.59°; walk drift .023 vs R6 .0228. Gates PASS. Nobody 62/62, Touch Grass 20/20 byte-identical; npm test 0; v2:test 185 + 64.
 Decisions: idle knees 0 as well as elbows (a 3° knee shows the same tone step); `sleeveOf` split < .5 → 'elbow' ('mid' stays opt-in); back detail = `regions.torso.back` (yoke 1.9 × 0.05, hem 0.06 back + sides, edge colour); run sheet view 50° (face toward camera).
 Open: run's forward hand overlaps the torso at the sheet angle; crouch/sit still compact silhouettes; tools/accessories don't follow elbows.
+
+## P2 — Faces v6 (2026-11-20)
+Plan: faces6.js = faces5 primitives/ink + restrained fills under the ink (fixed PALETTE6, ≤ 3 fill roles), 24 expressions, ALIAS6, TALK6 standard + grin (lipflap talkSet6), life (blinkAt6, popAt6; spec faceLife), wiring (actors faceStyle 'v6', episode faceLife), sheets + gates + tests.
+Built: avatar-style/faces6.js; engine/lipflap.js talkSet6; engine/actors.js faceStyle 'v6' build/drive (+ faceLife head pop); engine/episode.js passes spec.faceLife; engine/hero6.js setFace6; scripts/v2/faces6-sheet.js, faces6-gates.js; tests/v2/faces6.test.js.
+Numbers: roles per face max 3 (24/24 PASS, also while talking/blinking); readability at 390 medium (188 px / head unit) ≥ faces5 minimum eye 25.9 px / mouth 22.2 px (24/24); distinct: most similar neutral–smile IoU 0.782 < 0.80 (0 pairs fail); bounds 24/24 inside the head front.
+Regression: faces5 untouched; Nobody 62/62, Touch Grass 20/20 byte-identical; npm test 0; v2:test 189 node + 64 py.
+Decisions: role = a palette group (teeth incl. its band, tongue incl. its line, water incl. its highlight); talk keeps ≤ 3 roles by dropping the glint for the whole talk set (no glint flicker between shapes); closed talk = the expression's own mouth (grin set: the smile curve); unknown faces5 names draw their faces5 linework (no fills); readability = max(bbox w, h) per eye / mouth incl. stroke; distinctness = IoU of drawn marks < face5-gates' 0.80 match threshold.
+Open: rage's anger mark reads as an X; cry streams are stiff bars; awe's yellow sparkles vanish on yellow skin (outline only).
