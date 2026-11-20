@@ -29,7 +29,7 @@ test('liftR6 walk: knee 0–45° only in the swing (0 at toe-off and heel strike
   assert.ok(maxK > 44, 'the swing knee reaches ~45° at passing');
 });
 
-test('liftR6 run: elbow 80–95°, knee up to 90°, forward chest; idle: elbow 8°, knee 3°', () => {
+test('liftR6 run: elbow 80–95°, knee up to 90°, forward chest; idle: straight elbows and knees (P1c)', () => {
   let maxK = 0;
   for (let f = 0; f <= 30; f++) { const t = f / 24, s = liftR6(samplePose('run', t), t, 'run');
     for (const side of ['left', 'right']) { const k = deg(s.pivots[side + 'Knee'][0]), e = -deg(s.pivots[side + 'Elbow'][0]); maxK = Math.max(maxK, k);
@@ -37,7 +37,7 @@ test('liftR6 run: elbow 80–95°, knee up to 90°, forward chest; idle: elbow 8
     assert.ok(s.pivots.waist[0] > 0); }
   assert.ok(maxK > 85);
   const i = liftR6(samplePose('idle', .4), .4, 'idle');
-  assert.ok(Math.abs(deg(i.pivots.leftElbow[0]) + 8) < 1e-9 && Math.abs(deg(i.pivots.rightKnee[0]) - 3) < 1e-9);
+  assert.equal(i.pivots.leftElbow[0], 0); assert.equal(i.pivots.rightKnee[0], 0); assert.equal(i.pivots.rightElbow[0], 0);
 });
 
 test('liftR6 keeps the R6 pose and is pure; every R6 pose lifts inside the limits', () => {
@@ -65,7 +65,7 @@ test('P1b reference: segment heights, arm 1.75 + hand 0.25, leg 1.73 + foot 0.27
   assert.ok(Math.abs(SEG6.upperArm[1] + SEG6.lowerArm[1] - REF6.arm) < 1e-9 && Math.abs(SEG6.upperLeg[1] + SEG6.lowerLeg[1] - REF6.leg) < 1e-9);
   assert.equal(SEG6.lowerArm[0], SEG6.upperArm[0]); assert.equal(SEG6.lowerLeg[2], SEG6.upperLeg[2]);   // flush: same width and depth
   assert.equal(SEG6.foot[2], 1);                                                                         // no toe
-  assert.equal(sleeveOf({split: .35}), 'mid'); assert.equal(sleeveOf({split: .85}), 'wrist'); assert.equal(sleeveOf({split: .5}), 'wrist'); assert.equal(sleeveOf({sleeve: 'elbow'}), 'elbow');
+  assert.equal(sleeveOf({split: .35}), 'elbow'); assert.equal(sleeveOf({split: .85}), 'wrist'); assert.equal(sleeveOf({split: .5}), 'wrist'); assert.equal(sleeveOf({sleeve: 'elbow'}), 'elbow');
 });
 
 test('P1b cross-fade: idle ↔ walk ↔ run never adds more than 3° a frame to any joint on top of the poses\' own motion', () => {

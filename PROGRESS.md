@@ -1587,3 +1587,11 @@ Crowd: far tier identical (272 tris/member, 12 draws/crowd); mid tier v6 360 tri
 Regression: Nobody 62/62, Touch Grass 20/20 byte-identical; npm test 0; v2:test 185 node + 64 py.
 Decisions: cuff dropped from B (mid-sleeve it reads as an elbow line); short sleeve = ends half way down the UpperArm (owner wording) from v5 split < .5; segment fillers fused into one mesh per segment (draws 490 → 313 on the fixture) and zero-area bevel triangles dropped (B 5964 → 4836); far-tier crowd keeps the v5 prisms (same outline at that tier); cross-fade length adaptive (fadeFor), outgoing side = timeline before the key.
 Open: seam 11 px; idle's 8° elbow (P1 spec) shows as a forearm tone step; faint cap/face acne line at a straight elbow/knee (cap r 0.5 tangent); tools/accessories don't follow elbows.
+
+## P1c — seamless straight limbs, pose fixes, back detail (2026-11-20)
+Plan: find the joint line (measure), fix it at the source; idle elbows/knees 0; redo run/crouch/sit/kneel; hero B back yoke + hem; short sleeves to the elbow; seam baseline 11 (owner).
+Cause (measured): with shadows off the straight arm/leg column is flat (154.4); the flat interior end faces at the elbow/knee fed the shadow map → a soft 3–5 px dark line ~0.03 below every joint. Fix: joint ends are rounded-rect faces in a non-casting "joint fill" mesh (with the cap, r 0.495 = 0.005 inside the faces); the walls still cast; same-material lower blocks overlap 0.01 (no sub-pixel crack).
+Numbers: joint luma |Δ| max 0.45 (ref grey 0.00 ×4, ref B 0.00 ×4, B front −0.03/−0.45/0.00/0.00; limit 1.5); seam 3 px (baseline 11); joints 0; grounding ≤ .0012; tris B 4756 (slots 4420–5236);
+heights 1.62/.40/1.75/.25/1.73/.27; pop 2.59°; walk drift .023 vs R6 .0228. Gates PASS. Nobody 62/62, Touch Grass 20/20 byte-identical; npm test 0; v2:test 185 + 64.
+Decisions: idle knees 0 as well as elbows (a 3° knee shows the same tone step); `sleeveOf` split < .5 → 'elbow' ('mid' stays opt-in); back detail = `regions.torso.back` (yoke 1.9 × 0.05, hem 0.06 back + sides, edge colour); run sheet view 50° (face toward camera).
+Open: run's forward hand overlaps the torso at the sheet angle; crouch/sit still compact silhouettes; tools/accessories don't follow elbows.

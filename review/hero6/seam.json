@@ -1,30 +1,16 @@
 {
  "method": "each limb chain (spine incl. head; arms alone: the R6-style shoulder has no overlap; legs with the LowerTorso) rendered alone on flat magenta, no AA, 600 px, 4 views; enclosed = magenta not reachable from the frame border",
  "renders": 640,
- "total": 11,
+ "total": 3,
  "failing": {
-  "B.crouch6": {
-   "side/rightLeg": 2
+  "B.kneel6": {
+   "side/spine": 1
   },
   "B.reachHug": {
    "side/spine": 1
   },
-  "LEAD.crouch6": {
-   "side/spine": 1,
-   "side/rightLeg": 1
-  },
-  "SECOND.crouch6": {
-   "side/spine": 1,
-   "side/rightLeg": 1
-  },
-  "RIVAL.crouch6": {
-   "side/rightLeg": 1
-  },
-  "ELDER.crouch6": {
-   "side/rightLeg": 1
-  },
   "ELDER.kneel6": {
-   "sheet/spine": 2
+   "side/spine": 1
   }
  },
  "pass": false,
@@ -35,7 +21,7 @@
     "sheet": 0,
     "front": 0,
     "side": 0,
-    "back": 0
+    "back": 1
    },
    "walkContact": {
     "sheet": 0,
@@ -50,8 +36,8 @@
     "back": 0
    },
    "run6": {
-    "sheet": 3,
-    "front": 8,
+    "sheet": 0,
+    "front": 0,
     "side": 0,
     "back": 0
    },
@@ -69,9 +55,9 @@
    },
    "crouch6": {
     "sheet": 0,
-    "front": 442,
+    "front": 0,
     "side": 1,
-    "back": 0
+    "back": 3
    },
    "sit6": {
     "sheet": 0,
@@ -82,8 +68,8 @@
    "kneel6": {
     "sheet": 0,
     "front": 0,
-    "side": 1,
-    "back": 0
+    "side": 0,
+    "back": 6
    },
    "reachHug": {
     "sheet": 2,

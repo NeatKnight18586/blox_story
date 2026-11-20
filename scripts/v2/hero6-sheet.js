@@ -25,7 +25,7 @@ const cast = {R6: hero, B: h6.HERO, A: h6.HERO_A_REF, REF: {tier: 'hero', body: 
 await writeFile(`${raw}/cast.json`, JSON.stringify({cast}));
 const LABEL = {idle6: 'idle', walkContact: 'walk contact', walkPassing: 'walk passing', run6: 'run', point6: 'point', cheer6: 'cheer (arms up)', crouch6: 'crouch', sit6: 'sit',
   kneel6: 'kneel', reachHug: 'reach to hug', flinch6: 'flinch', jumpApex: 'jump apex'};
-const VIEW = {walkContact: 62, walkPassing: 58, run6: -76, sit6: 52, kneel6: 50, crouch6: 34, jumpApex: 34};   // sheet yaw: the angle that shows each line of action
+const VIEW = {walkContact: 62, walkPassing: 58, run6: 50, sit6: 52, kneel6: 50, crouch6: 34, jumpApex: 34};   // sheet yaw: the angle that shows each line of action
 const sheetYaw = n => VIEW[n] ?? 26, CHAINS = ['spine', 'leftArm', 'rightArm', 'leftLeg', 'rightLeg'], SLOT_POSES = ['run6', 'crouch6', 'sit6', 'kneel6'];
 const full = (id, yaw, pose = 'idle', d = 12.8) => ({actors: [{id, at: [0, 0, 0], yaw, pose, t: .3, face: 'hero_wink'}], camera: {position: [0, 3.3, d], target: [0, 2.75, 0], fov: 30}});
 const poseCell = (id, n, yaw) => { const ty = n === 'jumpApex' ? 4.3 : n === 'cheer6' ? 3.4 : ['sit6', 'kneel6', 'crouch6'].includes(n) ? 2.2 : 3.0;
@@ -37,7 +37,7 @@ const ids = ['B', ...SLOTS6], X = i => (i - (ids.length - 1) / 2) * 3.3;
 const lineup = {actors: ids.map((id, i) => ({id, at: [X(i), 0, 0], yaw: 0, pose: 'idle', t: .3 + i * .2, face: id === 'B' ? 'hero_wink' : cast[id].face})), camera: {position: [0, 3.0, 34], target: [0, 2.6, 0], fov: 30}};
 
 const server = await startServer(), browser = await launch();
-let budget;
+let budget; const jm = {};   // P1c joint marks per measured render
 try {
   const page = await browser.newPage({viewport: {width: 400, height: 400}}); const errors = []; page.on('pageerror', e => errors.push(e.message));
   await page.goto(`${server.url}/engine/hero6.html?cast=${encodeURIComponent(raw + '/cast.json')}`);
@@ -45,8 +45,9 @@ try {
   const grab = async (cell, w, h, f, mode = 'studio') => { const url = await page.evaluate(([c, w, h, m]) => window.__hero6.render(c, w, h, m), [cell, w, h, mode]);
     await writeFile(f, Buffer.from(url.split(',')[1], 'base64')); };
   for (const [v, yaw] of [['front', 0], ['34', -38], ['side', -90], ['back', 180]]) await grab(full('B', yaw), 760, 1000, `${raw}/turn-B-${v}.png`);
-  await grab({actors: [{id: 'B', at: [0, 0, 0], yaw: 0, pose: 'ref6', face: 'hero_wink'}], camera: REFCAM}, 900, 1100, `${raw}/ref-B.png`);
-  await grab({actors: [{id: 'REF', at: [0, 0, 0], yaw: 0, pose: 'ref6', face: 'smile'}], camera: REFCAM}, 900, 1100, `${raw}/ref-grey.png`);
+  await grab({actors: [{id: 'B', at: [0, 0, 0], yaw: 0, pose: 'ref6', face: 'hero_wink'}], camera: REFCAM}, 900, 1100, `${raw}/ref-B.png`); jm['ref-B'] = await page.evaluate(() => window.__hero6.jointMarks('B'));
+  await grab({actors: [{id: 'REF', at: [0, 0, 0], yaw: 0, pose: 'ref6', face: 'smile'}], camera: REFCAM}, 900, 1100, `${raw}/ref-grey.png`); jm['ref-grey'] = await page.evaluate(() => window.__hero6.jointMarks('REF'));
+  await grab(full('B', 0), 760, 1000, `${raw}/turn-B-front.png`); jm['turn-B-front'] = await page.evaluate(() => window.__hero6.jointMarks('B'));
   for (const n of SHEET6) { await grab(poseCell('B', n, sheetYaw(n)), 780, 780, `${raw}/pose-${n}.png`);
     for (const [v, yaw] of [['sheet', sheetYaw(n)], ['front', 0], ['side', 90], ['back', 200]]) { await grab(poseCell('B', n, yaw), 600, 600, `${raw}/mag-B-${n}-${v}.png`, 'magenta');
       for (const ch of CHAINS) await grab({...poseCell('B', n, yaw), chain: ch}, 600, 600, `${raw}/seam-B-${n}-${v}-${ch}.png`, 'magenta'); } }
@@ -65,7 +66,7 @@ execFileSync('python3', ['-c', `
 import sys, json, math
 import numpy as np
 from PIL import Image, ImageDraw, ImageFont
-raw, out = sys.argv[1], sys.argv[2]; names, labels, chains, slots, slotPoses, marks, cam = [json.loads(a) for a in sys.argv[3:]]
+raw, out = sys.argv[1], sys.argv[2]; names, labels, chains, slots, slotPoses, marks, cam, jm = [json.loads(a) for a in sys.argv[3:]]
 f = ImageFont.load_default(size=16); BG = '#1b1d21'; Y = '#ffd84a'
 def fit(p, w, h): g = Image.open(p).convert('RGB'); return g.resize((w, h), Image.LANCZOS)
 cw, ch = 380, 500; s = Image.new('RGB', (4 * cw, ch + 24), BG); d = ImageDraw.Draw(s)
@@ -108,11 +109,21 @@ Ph.save(out + '/phone-390.png')
 im = Image.open(f'{raw}/cast.png').convert('RGB'); s = Image.new('RGB', (im.width, im.height + 24), BG); s.paste(im, (0, 24)); d = ImageDraw.Draw(s)
 for i, lab in enumerate(['HERO (B)'] + slots + ['AFK']): d.text((int((i + .5) * im.width / 7) - 30, 4), lab, fill=Y, font=f)
 s.save(out + '/cast.png'); fit(f'{raw}/cast-phone.png', 390, 693).save(out + '/cast-390.png')
+# P1c joint-line luma: mean luma of a 6 px band just above vs just below each elbow / knee line (front face, ±60 % of the
+# half width), on ref-compare (grey + hero B) and hero B front; |Δ| ≤ 1.5
+JL = {}
+for img, marks6 in jm.items():
+    a = np.asarray(Image.open(f'{raw}/{img}.png').convert('RGB')).astype(float); lum = .299 * a[..., 0] + .587 * a[..., 1] + .114 * a[..., 2]
+    for j, ((cx, cy), (sx, sy)) in marks6.items():
+        hw = max(2, int(abs(sx - cx) * .6 / .3 * .5)); x0, x1, y = int(round(cx - hw)), int(round(cx + hw)), int(round(cy))
+        up, dn = lum[y - 8:y - 2, x0:x1].mean(), lum[y + 2:y + 8, x0:x1].mean(); JL[f'{img}.{j}'] = {'above': round(float(up), 2), 'below': round(float(dn), 2), 'delta': round(float(dn - up), 2), 'pass': bool(abs(dn - up) <= 1.5)}
+json.dump({'method': 'mean luma (Rec.601) of a 6 px band 2-8 px above vs 2-8 px below the joint line, front face, ±30 % of the limb width; pass |delta| ≤ 1.5', 'joints': JL, 'pass': bool(all(v['pass'] for v in JL.values()))}, open(out + '/jointluma.json', 'w'), indent=1)
+print('joint luma', {k: v['delta'] for k, v in JL.items()})
 tot = sum(sum(v.values()) for v in seam.values()); bad = {n: {k: x for k, x in v.items() if x} for n, v in seam.items() if sum(v.values())}
 json.dump({'method': 'each limb chain (spine incl. head; arms alone: the R6-style shoulder has no overlap; legs with the LowerTorso) rendered alone on flat magenta, no AA, 600 px, 4 views; enclosed = magenta not reachable from the frame border',
   'renders': sum(len(v) for v in seam.values()), 'total': tot, 'failing': bad, 'pass': tot == 0, 'wholeBodyPinchesInfo': {'note': 'hero B whole body: background enclosed between separate limbs (leg split groove, arm against head/torso); not joint seams', 'px': pinch}}, open(out + '/seam.json', 'w'), indent=1)
 print('seam total', tot, bad)
 for p in ['turnaround', 'ref-compare', 'poses', 'silhouettes', 'phone-390', 'cast', 'cast-390']: print(p, Image.open(f'{out}/{p}.png').size)
 `, raw, out, JSON.stringify(SHEET6), JSON.stringify(LABEL), JSON.stringify(CHAINS), JSON.stringify(SLOTS6.filter(k => k !== 'AFK')), JSON.stringify(SLOT_POSES), JSON.stringify(marks),
-  JSON.stringify({d: REFCAM.position[2], ty: REFCAM.target[1], fov: REFCAM.fov})], {stdio: 'inherit'});
+  JSON.stringify({d: REFCAM.position[2], ty: REFCAM.target[1], fov: REFCAM.fov}), JSON.stringify(jm)], {stdio: 'inherit'});
 await writeFile(`${raw}/budget.json`, JSON.stringify(budget)); console.log(JSON.stringify({triangles: budget}));

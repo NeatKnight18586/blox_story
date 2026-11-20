@@ -1,5 +1,5 @@
 {
- "note": "P1b (owner, 2026-11-20): the hero on Actor v6 (iconic blocky R15, body6.js). HERO = variant B, the default: charcoal sleeve over UpperArm + LowerArm to the wrist line, only the Hand slab yellow; raised collar (0.2); white-soled shoes (0.06 sole band inside the 0.27 foot slab). B's P1 cuff band is dropped (mid-sleeve it would read as an elbow line). HERO_A_REF = today's colours on R15 with the P1 sleeve (sleeve to the elbow, yellow forearm), reference only. Variant C (painted fabric) deleted. Bare yellow head, hero_* faces (faces5). No logos, no text. Format-6 specs load this file (spec.heroFile overrides); cast/hero.json is unchanged.",
+ "note": "P1b (owner, 2026-11-20): the hero on Actor v6 (iconic blocky R15, body6.js). HERO = variant B, the default: charcoal sleeve over UpperArm + LowerArm to the wrist line, only the Hand slab yellow; raised collar (0.2); white-soled shoes (0.06 sole band inside the 0.27 foot slab). B's P1 cuff band is dropped (mid-sleeve it would read as an elbow line). HERO_A_REF = today's colours on R15 with the P1 sleeve (sleeve to the elbow, yellow forearm), reference only. Variant C (painted fabric) deleted. Bare yellow head, hero_* faces (faces5). No logos, no text. Format-6 specs load this file (spec.heroFile overrides); cast/hero.json is unchanged. P1c: torso.back = a yoke seam across the shoulders and a hem band on the LowerTorso (back + sides), edge colour #4A4E57.",
  "HERO": {
   "tier": "hero",
   "body": "v6",
@@ -17,7 +17,8 @@
     "lapelW": 0.14,
     "edge": "#4A4E57",
     "edgeW": 0.05,
-    "collarH": 0.2
+    "collarH": 0.2,
+    "back": true
    },
    "arms": {
     "upper": "#2B2D33",

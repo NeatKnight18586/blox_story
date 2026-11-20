@@ -5,7 +5,8 @@
 // 0.73) over a flush Foot slab 1 × 0.27 × 1 (no toe). Overall lengths match R6 (torso 2.02–4.02, arm and leg 2.0, hip at 2.0,
 // the hand's bottom level with the LowerTorso's), so sets, cameras and fits keep working.
 // Joint faces: the elbow and knee ends of the limb blocks are flat (no bevel), so a straight limb reads as one block; a
-// rounded joint cap (cylinder, radius 0.5 = half the limb, hidden when straight) fills the outside of any bend. Bevel lines
+// rounded joint cap (cylinder, radius 0.495: 0.005 inside every outer face, so it never z-fights or shadows the straight
+// limb) fills the outside of any bend; the upper and lower blocks share one material and identical side normals. Bevel lines
 // show ONLY at the wrist and ankle (the slabs are 0.01 inset with flat tops: a step line), the waist (LowerTorso) and the
 // split between the legs. Wrist and
 // ankle: the forearm / shin runs on a 0.06 plug (0.92 × 0.76) inside the slab, so a turned hand or foot never opens a gap.
@@ -16,8 +17,9 @@
 // wrists ±30°, ankles ±35°, waist ±35°; shoulders, hips and the neck are free ball joints, as in R6.
 // Colour regions (cast `regions`, v5 schema): torso → UpperTorso + LowerTorso (open jacket to the hem); legs.main → the leg
 // block, legs.shoes → the Foot slab (legs.sole + soleH: a sole band inside the slab); arms.upper = the sleeve, arms.lower =
-// what shows below it; arms.sleeve 'wrist' (sleeve over UpperArm + LowerArm, only the Hand bare) | 'mid' (short sleeve:
-// ends half way down the UpperArm) | 'elbow'; default from v5's split: < 0.5 → 'mid', else 'wrist'. torso.collarH raises
+// what shows below it; arms.sleeve 'wrist' (sleeve over UpperArm + LowerArm, only the Hand bare) | 'elbow' (short sleeve:
+// the whole UpperArm; LowerArm + Hand bare) | 'mid' (opt-in: half way down the UpperArm); default from v5's split: < 0.5 →
+// 'elbow' (owner P1c), else 'wrist'. torso.back: a yoke seam across the shoulders and a hem band (edge colour), back only. torso.collarH raises
 // the collar rim (v5 0.12).
 // Background tier ('bg': crowd mid-tier actors): each limb, and the torso, is ONE rigid mesh (no elbow/knee/wrist/ankle
 // pivots, no caps), octagonal prisms with the slab line kept: no more triangles or draw calls than a v5 bg actor.
@@ -54,7 +56,7 @@ export function jointViolations(pose, eps = 1e-9) {
 export const SEG6 = {upperTorso: [2, 1.62, 1], lowerTorso: [2, .38, 1], upperArm: [1, 1, 1], lowerArm: [1, .75, 1], hand: [1, .25, 1],
   upperLeg: [1, 1, 1], lowerLeg: [1, .73, 1], foot: [1, .27, 1]};
 export const REF6 = {upperTorso: 1.62, lowerTorso: .38, arm: 1.75, hand: .25, leg: 1.73, foot: .27};   // owner reference heights (studs)
-export const OVERLAP = .01, CAP_R = .5, PLUG = .06, PLUG_D = .76, STEP = .01, SLAB_PLUG = .18, TOE = 0;   // slab plug: 0.18 tall turns with the slab; at ±35° its corner stays inside the limb (0.48 cos35 + 0.18 sin35 < 0.5)   // plug: 0.06 × 0.76 deep, so at the joint limit its corner stays inside the slab
+export const OVERLAP = .01, CAP_R = .495, PLUG = .06, PLUG_D = .76, STEP = .01, SLAB_PLUG = .18, TOE = 0;   // slab plug: 0.18 tall turns with the slab; at ±35° its corner stays inside the limb (0.48 cos35 + 0.18 sin35 < 0.5)   // plug: 0.06 × 0.76 deep, so at the joint limit its corner stays inside the slab
 
 // Pure layout for a build: pivot positions (parent space). Torso pieces split the build's torso height 1.62 : 0.38.
 export function layout6(build = 'adult_m') {
@@ -67,28 +69,33 @@ export function layout6(build = 'adult_m') {
 export function slotPreset6(k, data) { const {expressions, pose, freeze, ...p} = k === 'AFK' ? data.AFK : data.troupe[k];
   return {...p, body: 'v6', faceStyle: 'v5', regions: outfitRegions(p.outfit, p.skin), outfit: null}; }
 // Sleeve mode (pure): 'wrist' | 'mid' | 'elbow' from regions.arms (explicit `sleeve`, else v5's split).
-export const sleeveOf = arms => arms?.sleeve ?? ((arms?.split ?? .5) < .5 ? 'mid' : 'wrist');
+export const sleeveOf = arms => arms?.sleeve ?? ((arms?.split ?? .5) < .5 ? 'elbow' : 'wrist');   // P1c owner: short sleeves end at the elbow
 
 const geo6 = new Map(), cached = (k, f) => { if (!geo6.has(k)) geo6.set(k, f()); return geo6.get(k); };
 // A limb block: a rounded box whose bevel is flattened at the joint end(s) — vertical edges stay rounded, the flat end meets
 // the next block flush. Built from RoundedBoxGeometry: every vertex in a flattened end's bevel zone moves onto the end plane
 // with its side normal kept horizontal (pure geometry, cached).
-export function limbBox([w, h, d], {flatTop = false, flatBottom = false, tier = 'hero', bevel = BEVEL} = {}) {
+export function limbBox([w, h, d], {flatTop = false, flatBottom = false, tier = 'hero', bevel = BEVEL, openTop = false, openBottom = false} = {}) {   // open*: drop that flat end (elbow / knee only)
   const B = Math.min(bevel, h / 2);
-  return cached(`limb:${w},${h},${d}:${+flatTop}${+flatBottom}:${tier}:${B}`, () => {
+  return cached(`limb:${w},${h},${d}:${+flatTop}${+flatBottom}${+openTop}${+openBottom}:${tier}:${B}`, () => {
     const g = new RoundedBoxGeometry(w, h, d, tier === 'bg' ? 1 : SEGMENTS, B), p = g.attributes.position, hx = w / 2 - B, hy = h / 2 - B, hz = d / 2 - B;
     for (let i = 0; i < p.count; i++) {
       const x = p.getX(i), y = p.getY(i), z = p.getZ(i), end = y > hy + 1e-6 ? (flatTop ? 1 : 0) : y < -hy - 1e-6 ? (flatBottom ? -1 : 0) : 0; if (!end) continue;
       const cx = Math.max(-hx, Math.min(hx, x)), cz = Math.max(-hz, Math.min(hz, z)), nx = x - cx, nz = z - cz, l = Math.hypot(nx, nz);
       p.setXYZ(i, l > 1e-6 ? cx + nx / l * B : x, end * h / 2, l > 1e-6 ? cz + nz / l * B : z);
     }
-    g.computeVertexNormals(); return dropDegenerate(g);
+    g.computeVertexNormals(); return dropDegenerate(g, {open: (flatTop && openTop ? [h / 2] : []).concat(flatBottom && openBottom ? [-h / 2] : [])});
   });
 }
 // Remove zero-area triangles (a flattened bevel collapses whole rows onto the end plane): fewer triangles, same surface.
-function dropDegenerate(g) {
+// P1c: `open` = joint-end planes whose flat faces are dropped too: inside a straight limb they only fed the shadow map (a soft
+// dark line just below every elbow and knee); a bend is closed by the joint cap.
+function dropDegenerate(g, {open = []} = {}) {
   const n = g.index ? g.toNonIndexed() : g, P = n.attributes.position, keep = [], a = new T.Vector3(), b = new T.Vector3(), c = new T.Vector3();
-  for (let t = 0; t < P.count; t += 3) { a.fromBufferAttribute(P, t); b.fromBufferAttribute(P, t + 1); c.fromBufferAttribute(P, t + 2); if (b.sub(a).cross(c.sub(a)).lengthSq() > 1e-14) keep.push(t); }
+  const onPlane = y => open.some(o => Math.abs(y - o) < 1e-6);
+  for (let t = 0; t < P.count; t += 3) { a.fromBufferAttribute(P, t); b.fromBufferAttribute(P, t + 1); c.fromBufferAttribute(P, t + 2);
+    if (onPlane(a.y) && onPlane(b.y) && onPlane(c.y) && Math.abs(a.y - b.y) < 1e-6 && Math.abs(a.y - c.y) < 1e-6) continue;
+    if (b.sub(a).cross(c.sub(a)).lengthSq() > 1e-14) keep.push(t); }
   const out = new T.BufferGeometry();
   for (const [name, attr] of Object.entries(n.attributes)) { const k = attr.itemSize, arr = new attr.array.constructor(keep.length * 3 * k); keep.forEach((t, i) => arr.set(attr.array.subarray(t * k, (t + 3) * k), i * 3 * k)); out.setAttribute(name, new T.BufferAttribute(arr, k)); }
   return out;
@@ -101,6 +108,14 @@ function fuse(key, main, at, extras) {
     const m = prep(main, at); m.computeBoundingBox(); const box = m.boundingBox.clone(), g = mergeGeometries([m, ...extras.map(([e, o]) => prep(e, o))]); g.userData.mainBox = box; return g;
   });
 }
+// P1c joint ends: a rounded-rect end face (radius = the bevel) at a flat elbow / knee end, facing up (+1) or down (−1).
+const endFace = (w, d, dir) => cached(`end:${w}:${d}:${dir}`, () => { const x = w / 2, z = d / 2, r = BEVEL, sh = new T.Shape();
+  sh.moveTo(-x + r, -z); sh.lineTo(x - r, -z); sh.quadraticCurveTo(x, -z, x, -z + r); sh.lineTo(x, z - r); sh.quadraticCurveTo(x, z, x - r, z); sh.lineTo(-x + r, z); sh.quadraticCurveTo(-x, z, -x, z - r); sh.lineTo(-x, -z + r); sh.quadraticCurveTo(-x, -z, -x + r, -z);
+  const g = new T.ShapeGeometry(sh, 3); g.rotateX(dir > 0 ? -Math.PI / 2 : Math.PI / 2); return g; });
+// The joint fill: the cap plus the lower block's top face, one mesh that RECEIVES but never CASTS shadows (a flat end face
+// in the shadow map drew a soft dark line just below every straight elbow and knee: P1c).
+const jointFill = (w, capLen, ov, tier) => fuse(`fill:${w}:${capLen}:${ov}:${tier}`, cap(capLen, CAP_R, tier), [0, 0, 0], [[endFace(w, 1, 1), [0, ov, 0]]]);
+const noCast = m => { m.castShadow = false; return m; };
 // Low tier: an octagonal prism (four chamfered vertical edges, 28 tris), as the v5 crowd parts, centred at `dy`.
 function octPrism([w, h, d], b = BEVEL, dy = 0) {
   const x = w / 2, z = d / 2, ring = [[x - b, z], [x, z - b], [x, -z + b], [x - b, -z], [-x + b, -z], [-x, -z + b], [-x, z - b], [-x + b, z]], P = [], y0 = dy - h / 2, y1 = dy + h / 2;
@@ -136,6 +151,9 @@ export function torsoBlocks6(piece, r, L) {
   if (t.edge) {
     const ew = t.edgeW ?? .05;
     for (const s of [-1, 1]) out.push({size: [ew, h, .09], at: [s * (sw / 2 - .02 + ew / 2), cy, .5 + .02], color: t.edge, edge: true});
+    if (t.back && piece === 'upper') out.push({size: [1.9, .05, .02], at: [0, H / 2 - .42, -.5 - .006], color: t.edge, edge: true, kind: 'yoke'});   // P1c back: yoke seam
+    if (t.back && piece === 'lower') { const y = -H / 2 + .07; out.push({size: [1.96, .06, .02], at: [0, y, -.5 - .006], color: t.edge, edge: true, kind: 'hem'});
+      for (const s of [-1, 1]) out.push({size: [.02, .06, .96], at: [s * 1.006, y, 0], color: t.edge, edge: true, kind: 'hem'}); }   // P1c back: hem band (back + sides)
     if (piece === 'upper') {   // the v5 collar rim (back, sides, front tips); collarH raises it (hero B)
       const top = H / 2, rh = t.collarH ?? .12, rw = .09, cx = .62, cz = .36, y = top + rh / 2 - .02;
       out.push({size: [2 * cx + rw, rh, rw], at: [0, y, -cz], color: t.edge, edge: true, collar: true});
@@ -183,12 +201,15 @@ export function createActor6({tier = 'hero', skin, scale = 1, materials = {}, na
       // UpperArm: rounded shoulder end, flat elbow end (short sleeve: two flush colour bands)
       const mUA = sleeve === 'mid' ? mBare : mSleeve, mLA = sleeve === 'wrist' ? mSleeve : mBare;
       if (sleeve === 'mid') { const sh1 = hu / 2; sh.add(mesh(limbBox([1, sh1, 1], {flatBottom: true, tier}), mSleeve, side + 'Sleeve', [0, -sh1 / 2, 0], tier));
-        parts[side + 'Arm'] = mesh(limbBox([1, hu - sh1, 1], {flatTop: true, flatBottom: true, tier}), mUA, side + 'Arm', [0, -sh1 - (hu - sh1) / 2, 0], tier); }
-      else parts[side + 'Arm'] = mesh(limbBox([1, hu, 1], {flatBottom: true, tier}), mUA, side + 'Arm', [0, -hu / 2, 0], tier);
+        parts[side + 'Arm'] = mesh(limbBox([1, hu - sh1, 1], {flatTop: true, flatBottom: true, openBottom: true, tier}), mUA, side + 'Arm', [0, -sh1 - (hu - sh1) / 2, 0], tier); }
+      else parts[side + 'Arm'] = mesh(limbBox([1, hu, 1], {flatBottom: true, openBottom: true, tier}), mUA, side + 'Arm', [0, -hu / 2, 0], tier);
       sh.add(parts[side + 'Arm']);   // `leftArm` = UpperArm
+      sh.add(noCast(mesh(endFace(1, 1, -1), mUA, side + 'ArmEnd', [0, -hu, 0], tier)));   // the UpperArm's elbow end: no shadow casting
       const el = group(side + 'Elbow', [0, -hu, 0]); sh.add(el); pivots[side + 'Elbow'] = el;
-      parts[side + 'LowerArm'] = mesh(fuse(`la:${tier}`, limbBox([1, hl, 1], {flatTop: true, flatBottom: true, tier}), [0, -hl / 2, 0], [[cap(.98, CAP_R, tier), [0, 0, 0]], [plainBox([.92, PLUG, PLUG_D]), [0, -hl - PLUG / 2 + .005, 0]]]),
-        mLA, side + 'LowerArm', [0, 0, 0], tier); el.add(parts[side + 'LowerArm']);   // + the elbow cap and the wrist plug
+      const ov = mLA === mUA ? OVERLAP : 0;   // P1c: same material → the forearm runs 0.01 up into the UpperArm (no sub-pixel crack line)
+      el.add(noCast(mesh(jointFill(1, .98, ov, tier), mLA, side + 'ElbowFill', [0, 0, 0], tier)));
+      parts[side + 'LowerArm'] = mesh(fuse(`la:${ov}:${tier}`, limbBox([1, hl + ov, 1], {flatTop: true, flatBottom: true, openTop: true, tier}), [0, -(hl - ov) / 2, 0], [[plainBox([.92, PLUG, PLUG_D]), [0, -hl - PLUG / 2 + .005, 0]]]),
+        mLA, side + 'LowerArm', [0, 0, 0], tier); el.add(parts[side + 'LowerArm']);   // + the wrist plug
       const wr = group(side + 'Wrist', [0, -hl, 0]); el.add(wr); pivots[side + 'Wrist'] = wr;
       // the Hand slab: flat top inset 0.01 (the wrist line is a step, not a groove), a 0.06 plug on it turns with the hand
       parts[side + 'Hand'] = mesh(fuse(`hand:${tier}`, limbBox([1 - 2 * STEP, hh, 1 - 2 * STEP], {flatTop: true, tier}), [0, -hh / 2, 0], [[plainBox([.96, SLAB_PLUG, .96]), [0, SLAB_PLUG / 2 - .005, 0]]]),
@@ -196,10 +217,12 @@ export function createActor6({tier = 'hero', skin, scale = 1, materials = {}, na
     }
     for (const side of ['left', 'right']) {
       const sx = side === 'left' ? -1 : 1, hp = group(side + 'Hip', [sx * L.hipX, 2, 0]), w = L.leg; root.add(hp); pivots[side + 'Hip'] = hp;
-      parts[side + 'Leg'] = mesh(fuse(`ul:${w}:${tier}`, limbBox([w, lu, 1], {flatBottom: true, tier}), [0, -lu / 2, 0], [[cap(w - .04, .49, tier), [0, 0, 0]]]), mLeg, side + 'Leg', [0, 0, 0], tier); hp.add(parts[side + 'Leg']);   // `leftLeg` = UpperLeg (+ the hip cap)
+      parts[side + 'Leg'] = mesh(fuse(`ul:${w}:${tier}`, limbBox([w, lu, 1], {flatBottom: true, openBottom: true, tier}), [0, -lu / 2, 0], [[cap(w - .04, .49, tier), [0, 0, 0]]]), mLeg, side + 'Leg', [0, 0, 0], tier); hp.add(parts[side + 'Leg']);   // `leftLeg` = UpperLeg (+ the hip cap)
+      hp.add(noCast(mesh(endFace(w, 1, -1), mLeg, side + 'LegEnd', [0, -lu, 0], tier)));   // the UpperLeg's knee end: no shadow casting
       const kn = group(side + 'Knee', [0, -lu, 0]); hp.add(kn); pivots[side + 'Knee'] = kn;
-      parts[side + 'LowerLeg'] = mesh(fuse(`ll:${w}:${tier}`, limbBox([w, ll, 1], {flatTop: true, flatBottom: true, tier}), [0, -ll / 2, 0], [[cap(w - .02, CAP_R, tier), [0, 0, 0]], [plainBox([w - .08, PLUG, PLUG_D]), [0, -ll - PLUG / 2 + .005, 0]]]),
-        mLeg, side + 'LowerLeg', [0, 0, 0], tier); kn.add(parts[side + 'LowerLeg']);   // + the knee cap and the ankle plug
+      kn.add(noCast(mesh(jointFill(w, w - .02, OVERLAP, tier), mLeg, side + 'KneeFill', [0, 0, 0], tier)));
+      parts[side + 'LowerLeg'] = mesh(fuse(`ll:${w}:${tier}`, limbBox([w, ll + OVERLAP, 1], {flatTop: true, flatBottom: true, openTop: true, tier}), [0, -(ll - OVERLAP) / 2, 0], [[plainBox([w - .08, PLUG, PLUG_D]), [0, -ll - PLUG / 2 + .005, 0]]]),
+        mLeg, side + 'LowerLeg', [0, 0, 0], tier); kn.add(parts[side + 'LowerLeg']);   // + the ankle plug (the knee cap lives in the non-casting fill); P1c: the shin runs 0.01 up into the UpperLeg (same material)
       const an = group(side + 'Ankle', [0, -ll, 0]); kn.add(an); pivots[side + 'Ankle'] = an;
       const sole = r.legs?.sole, sH = sole ? (r.legs.soleH ?? .06) : 0;
       // the Foot slab: flat top inset 0.01 (the ankle line is a step), a 0.06 plug on it turns with the foot; B: the sole band

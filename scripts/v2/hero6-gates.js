@@ -3,7 +3,8 @@
 //   joints     every SHEET6 pose and every R6 pose lifted by liftR6 (t 0–2 s at 24 fps): the rotations the actor's R15 pivots
 //              actually get stay inside LIMITS6 (elbows forward only, knees back only); authored key values inside the
 //              limits too (auto-levelled ankles listed separately: they are clamped by design)
-//   seam       0 magenta pixels enclosed inside any limb chain (seam.json)
+//   seam       magenta pixels enclosed inside any limb chain (seam.json) ≤ 11 (P1c owner: accepted baseline; fail only if it rises)
+//   jointLuma  P1c: straight elbow/knee lines invisible: |luma above − below| ≤ 1.5 (jointluma.json, from the sheet run)
 //   grounding  standing poses: lowest mesh point y = 0 ± 0.01 on hero B, ref A and every troupe slot (cast/troupe6.json)
 //   triangles  ≤ 6000 per hero body (face decal included)
 //   heights    P1b: the built body's part heights (world bounding boxes in the ref6 stance, joint overlaps excluded) within
@@ -37,7 +38,10 @@ const authoredBad = Object.entries(authored).filter(([, c]) => c).map(([n, c]) =
 if (jointBad.length) fails.push(`joints: ${jointBad.length} out of range (${jointBad.slice(0, 3).join('; ')})`); fails.push(...authoredBad);
 // 2. seam (from the sheet run)
 const seam = existsSync('review/hero6/seam.json') ? JSON.parse(readFileSync('review/hero6/seam.json', 'utf8')) : null;
-if (!seam) fails.push('seam: review/hero6/seam.json missing (run scripts/v2/hero6-sheet.js)'); else if (!seam.pass) fails.push(`seam: ${seam.total} enclosed magenta px`);
+const SEAM_BASELINE = 11;   // P1c owner: 11 px accepted as the baseline; the gate fails only if it rises
+if (!seam) fails.push('seam: review/hero6/seam.json missing (run scripts/v2/hero6-sheet.js)'); else if (seam.total > SEAM_BASELINE) fails.push(`seam: ${seam.total} enclosed magenta px > baseline ${SEAM_BASELINE}`);
+const jl = existsSync('review/hero6/jointluma.json') ? JSON.parse(readFileSync('review/hero6/jointluma.json', 'utf8')) : null;
+if (!jl) fails.push('joint luma: review/hero6/jointluma.json missing'); else for (const [k, v] of Object.entries(jl.joints)) if (!v.pass) fails.push(`joint luma ${k}: Δ ${v.delta} > 1.5`);
 // 3. grounding
 const ground = {};
 for (const [k, a] of Object.entries(V)) for (const n of STANDING6) { driveActor(a, 0, {keys: [[0, n]]}); const y = +minY(a).toFixed(4); ground[`${k}.${n}`] = y; if (Math.abs(y) > .01) fails.push(`grounding ${k}.${n}: ${y}`); }
@@ -78,7 +82,7 @@ const shoe = (a, s) => a.parts[s + "Leg"].children.find(c => c.isMesh) ?? a.part
 const walk = {r6: drift(r6, [shoe(r6, "left"), shoe(r6, "right")]), v6: drift(V.B, [V.B.parts.leftFoot, V.B.parts.rightFoot]), travelPerFrame: +(WALK_SPEED / 24).toFixed(4)};
 if (walk.v6.maxPerFrame > walk.r6.maxPerFrame + .005) fails.push(`walk: v6 planted-foot drift max ${walk.v6.maxPerFrame}/frame > R6 ${walk.r6.maxPerFrame}`);
 const rep = {joints: {samples: checked, outOfRange: jointBad.length, authoredOutside: authoredBad, autoLevelledAnklesClamped: Object.fromEntries(Object.entries(levelled).filter(([, v]) => v.length)), limitsDeg: Object.fromEntries(Object.entries(LIMITS6).map(([k, v]) => [k, v.map(r => r.map(x => +(x * D).toFixed(0)))]))},
-  seam: seam && {total: seam.total, pass: seam.pass, failing: seam.failing, wholeBodyPinchesInfo: Object.fromEntries(Object.entries(seam.wholeBodyPinchesInfo.px).map(([n, v]) => [n, Object.values(v).reduce((x, y) => x + y, 0)]))},
+  jointLuma: jl?.joints, seam: seam && {total: seam.total, baseline: SEAM_BASELINE, pass: seam.total <= SEAM_BASELINE, failing: seam.failing, wholeBodyPinchesInfo: Object.fromEntries(Object.entries(seam.wholeBodyPinchesInfo.px).map(([n, v]) => [n, Object.values(v).reduce((x, y) => x + y, 0)]))},
   groundingY: ground, triangles: {...tris, R6v5: triangles(r6.root), limit: 6000, limitAppliesTo: 'hero B (and ref A)'}, heights, popDeg: +(pop * D).toFixed(2), crowd, walk, failures: fails, result: fails.length ? 'FAIL' : 'PASS'};
 mkdirSync('review/hero6', {recursive: true}); writeFileSync('review/hero6/gates.json', JSON.stringify(rep, null, 1));
 console.log(JSON.stringify({result: rep.result, joints: rep.joints.outOfRange, seam: seam?.total, grounding: Math.max(...Object.values(ground).map(Math.abs)), tris, heights, popDeg: rep.popDeg, crowd, walk, fails}));

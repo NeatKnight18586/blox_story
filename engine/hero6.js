@@ -36,9 +36,15 @@ export function render(cell, w, h, mode = 'studio') {
     if (hide) { for (const n of hide) a.pivots[n].visible = false; if (cell.chain.endsWith('Arm')) a.parts.lowerTorso.visible = a.parts.waistCap.visible = a.parts.torso.visible = false; } }   // arms: R6-style floating shoulder (no overlap, not a seam): the arm segments alone
   const mag = mode === 'magenta', r = R[mag ? 'magenta' : 'studio'];
   scene.background = mag ? MAG : BG; floor.visible = back.visible = !mag;
-  r.setPixelRatio(1); r.setSize(w, h, false);
+  r.setPixelRatio(1); r.setSize(w, h, false); lastSize = [w, h];
   camera.aspect = w / h; camera.fov = cell.camera.fov ?? 35; camera.position.set(...cell.camera.position); camera.lookAt(...cell.camera.target); camera.updateProjectionMatrix();
   scene.updateMatrixWorld(true); r.render(scene, camera); return r.domElement.toDataURL('image/png');
 }
+// world points → pixel [x, y] in the last render (top-left origin): joint-line measurements (P1c)
+let lastSize = [1, 1];
+export const project = pts => pts.map(p => { const v = new T.Vector3(...p).project(camera); return [(v.x + 1) / 2 * lastSize[0], (1 - v.y) / 2 * lastSize[1]]; });
+// P1c: the elbow and knee joint lines of an actor in the last render, on the front face: centre + a point 0.3 to the side (px)
+export const jointMarks = id => { const a = built.get(id + '#0'); a.root.updateMatrixWorld(true);
+  return Object.fromEntries(['leftElbow', 'rightElbow', 'leftKnee', 'rightKnee'].map(j => [j, project([a.pivots[j].localToWorld(new T.Vector3(0, 0, .5)).toArray(), a.pivots[j].localToWorld(new T.Vector3(.3, 0, .5)).toArray()])])); };
 export const budget = () => Object.fromEntries(Object.keys(cast.cast).map(id => [id, triangles(actorFor(id, 99).root)]));
-window.__hero6 = {render, budget};
+window.__hero6 = {render, budget, project, jointMarks, shadows: on => { for (const r of Object.values(R)) r.shadowMap.enabled = on; key.castShadow = on; scene.traverse(o => { if (o.material) [].concat(o.material).forEach(m => m.needsUpdate = true); }); }};   // shadows: a debug probe

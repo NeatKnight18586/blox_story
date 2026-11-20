@@ -7,12 +7,8 @@
    "walkPassing": [
     "rightAnkle -44° → clamped"
    ],
-   "crouch6": [
-    "leftAnkle -58° → clamped",
-    "rightAnkle -80° → clamped"
-   ],
-   "sit6": [
-    "leftAnkle 76° → clamped"
+   "kneel6": [
+    "rightAnkle -45° → clamped"
    ]
   },
   "limitsDeg": {
@@ -88,44 +84,105 @@
    ]
   }
  },
+ "jointLuma": {
+  "ref-B.leftElbow": {
+   "above": 47.04,
+   "below": 47.04,
+   "delta": 0,
+   "pass": true
+  },
+  "ref-B.rightElbow": {
+   "above": 47.34,
+   "below": 47.34,
+   "delta": 0,
+   "pass": true
+  },
+  "ref-B.leftKnee": {
+   "above": 122.99,
+   "below": 122.99,
+   "delta": 0,
+   "pass": true
+  },
+  "ref-B.rightKnee": {
+   "above": 122.99,
+   "below": 122.99,
+   "delta": 0,
+   "pass": true
+  },
+  "ref-grey.leftElbow": {
+   "above": 154.44,
+   "below": 154.44,
+   "delta": 0,
+   "pass": true
+  },
+  "ref-grey.rightElbow": {
+   "above": 154.56,
+   "below": 154.56,
+   "delta": 0,
+   "pass": true
+  },
+  "ref-grey.leftKnee": {
+   "above": 153.85,
+   "below": 153.85,
+   "delta": 0,
+   "pass": true
+  },
+  "ref-grey.rightKnee": {
+   "above": 153.85,
+   "below": 153.85,
+   "delta": 0,
+   "pass": true
+  },
+  "turn-B-front.leftElbow": {
+   "above": 45.49,
+   "below": 45.46,
+   "delta": -0.03,
+   "pass": true
+  },
+  "turn-B-front.rightElbow": {
+   "above": 47.82,
+   "below": 47.37,
+   "delta": -0.45,
+   "pass": true
+  },
+  "turn-B-front.leftKnee": {
+   "above": 122.58,
+   "below": 122.58,
+   "delta": 0,
+   "pass": true
+  },
+  "turn-B-front.rightKnee": {
+   "above": 122.58,
+   "below": 122.58,
+   "delta": 0,
+   "pass": true
+  }
+ },
  "seam": {
-  "total": 11,
-  "pass": false,
+  "total": 3,
+  "baseline": 11,
+  "pass": true,
   "failing": {
-   "B.crouch6": {
-    "side/rightLeg": 2
+   "B.kneel6": {
+    "side/spine": 1
    },
    "B.reachHug": {
     "side/spine": 1
    },
-   "LEAD.crouch6": {
-    "side/spine": 1,
-    "side/rightLeg": 1
-   },
-   "SECOND.crouch6": {
-    "side/spine": 1,
-    "side/rightLeg": 1
-   },
-   "RIVAL.crouch6": {
-    "side/rightLeg": 1
-   },
-   "ELDER.crouch6": {
-    "side/rightLeg": 1
-   },
    "ELDER.kneel6": {
-    "sheet/spine": 2
+    "side/spine": 1
    }
   },
   "wholeBodyPinchesInfo": {
-   "idle6": 0,
+   "idle6": 1,
    "walkContact": 2,
    "walkPassing": 0,
-   "run6": 11,
+   "run6": 0,
    "point6": 2,
    "cheer6": 0,
-   "crouch6": 443,
+   "crouch6": 4,
    "sit6": 0,
-   "kneel6": 1,
+   "kneel6": 6,
    "reachHug": 3,
    "flinch6": 117,
    "jumpApex": 25
@@ -139,8 +196,8 @@
   "B.cheer6": 0,
   "B.reachHug": 0.0008,
   "B.flinch6": 0.0004,
-  "B.run6": 0,
-  "B.crouch6": 0.0004,
+  "B.run6": 0.0012,
+  "B.crouch6": 0,
   "A.idle6": 0.0002,
   "A.walkContact": 0.0001,
   "A.walkPassing": 0,
@@ -148,8 +205,8 @@
   "A.cheer6": 0,
   "A.reachHug": 0.0002,
   "A.flinch6": 0.0006,
-  "A.run6": 0,
-  "A.crouch6": 0.0006,
+  "A.run6": 0.0007,
+  "A.crouch6": 0,
   "LEAD.idle6": 0.0001,
   "LEAD.walkContact": 0.0001,
   "LEAD.walkPassing": 0,
@@ -157,8 +214,8 @@
   "LEAD.cheer6": 0,
   "LEAD.reachHug": 0.0002,
   "LEAD.flinch6": 0.0005,
-  "LEAD.run6": 0,
-  "LEAD.crouch6": 0.0005,
+  "LEAD.run6": 0.0006,
+  "LEAD.crouch6": 0,
   "SECOND.idle6": 0.0001,
   "SECOND.walkContact": 0.0001,
   "SECOND.walkPassing": 0,
@@ -166,8 +223,8 @@
   "SECOND.cheer6": 0,
   "SECOND.reachHug": 0.0002,
   "SECOND.flinch6": 0.0005,
-  "SECOND.run6": 0,
-  "SECOND.crouch6": 0.0005,
+  "SECOND.run6": 0.0006,
+  "SECOND.crouch6": 0,
   "LITTLE.idle6": 0.0001,
   "LITTLE.walkContact": 0.0001,
   "LITTLE.walkPassing": 0,
@@ -175,8 +232,8 @@
   "LITTLE.cheer6": 0,
   "LITTLE.reachHug": 0.0001,
   "LITTLE.flinch6": 0.0004,
-  "LITTLE.run6": 0,
-  "LITTLE.crouch6": 0.0004,
+  "LITTLE.run6": 0.0004,
+  "LITTLE.crouch6": 0,
   "RIVAL.idle6": 0.0001,
   "RIVAL.walkContact": 0.0001,
   "RIVAL.walkPassing": 0,
@@ -184,8 +241,8 @@
   "RIVAL.cheer6": 0,
   "RIVAL.reachHug": 0.0002,
   "RIVAL.flinch6": 0.0005,
-  "RIVAL.run6": 0,
-  "RIVAL.crouch6": 0.0005,
+  "RIVAL.run6": 0.0006,
+  "RIVAL.crouch6": 0,
   "ELDER.idle6": 0.0002,
   "ELDER.walkContact": 0.0001,
   "ELDER.walkPassing": 0,
@@ -193,8 +250,8 @@
   "ELDER.cheer6": 0,
   "ELDER.reachHug": 0.0002,
   "ELDER.flinch6": 0.0006,
-  "ELDER.run6": 0,
-  "ELDER.crouch6": 0.0006,
+  "ELDER.run6": 0.0007,
+  "ELDER.crouch6": 0,
   "AFK.idle6": 0.0001,
   "AFK.walkContact": 0.0001,
   "AFK.walkPassing": 0,
@@ -202,18 +259,18 @@
   "AFK.cheer6": 0,
   "AFK.reachHug": 0.0002,
   "AFK.flinch6": 0.0005,
-  "AFK.run6": 0,
-  "AFK.crouch6": 0.0005
+  "AFK.run6": 0.0006,
+  "AFK.crouch6": 0
  },
  "triangles": {
-  "B": 4836,
-  "A": 4788,
-  "LEAD": 5724,
-  "SECOND": 4968,
-  "LITTLE": 5300,
-  "RIVAL": 4648,
-  "ELDER": 5580,
-  "AFK": 4548,
+  "B": 4756,
+  "A": 4660,
+  "LEAD": 5236,
+  "SECOND": 4840,
+  "LITTLE": 4812,
+  "RIVAL": 4520,
+  "ELDER": 5092,
+  "AFK": 4420,
   "R6v5": 4668,
   "limit": 6000,
   "limitAppliesTo": "hero B (and ref A)"
@@ -256,7 +313,7 @@
    "pass": true
   }
  },
- "popDeg": 2.67,
+ "popDeg": 2.59,
  "crowd": {
   "farTier": {
    "v5": {
@@ -293,8 +350,6 @@
   },
   "travelPerFrame": 0.0279
  },
- "failures": [
-  "seam: 11 enclosed magenta px"
- ],
- "result": "FAIL"
+ "failures": [],
+ "result": "PASS"
 }
