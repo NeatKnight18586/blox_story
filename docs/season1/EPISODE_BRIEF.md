@@ -48,3 +48,12 @@ One row per shot.
 - [ ] clue shown twice (second wider)
 - [ ] final shot not wide
 - [ ] last line ≠ first line
+
+## Markers `brief2spec.js` reads (exact text; `node scripts/v2/brief2spec.js --story <slug>`)
+- **VO words:** `*word*` marks an emphasised word → a check-c entry at the word's time in `cues.json`; the row's verb key (or, with no verb, the first word) lands on it.
+- **mood:** `fun | comedy | tension | emotion | awe | payoff` (`engine/mood6.json`). **size:** `wide | medium | close | insert | ecu` (`ecu` = a close with `ecu: true`).
+- **subject:** a CAST role (`hero`, `friend`), `a+b` for a two-shot (first = subject), or `prop:<name>` for an insert on a library prop.
+- **action verb:** a verb of `engine/acting6.js` (`flinch`, `point`, …), or `role:verb`; `-` for none. **expression + word:** `face @ word`, several with `;` (`warm @ whole; cry @ honesty`); `face` alone lands on the cut.
+- **effect:** `impact` (hit on the emphasised word) · `freeze` (4-frame hold there) · `crash` (needs `move` crashZoom) · `none`.
+- **notes** (comma or `;` separated): `twist` (the fair twist shot) · `payoff` (mood must be payoff) · `gag 1` / `gag 2` / `gag 3` · `loopOpen: name` / `loopClose: name` · `cross` (the camera may cross the 180° line) · `blur` · `loc: <library location>`. Anything else stays a free note.
+- Cue times snap to the nearest word onset in `cues.json` (≤ 0.5 s, else an error naming the row). Unknown mood / size / move / subject / verb / face / effect, a word not spoken in the row's cue range, or a location / prop not in the set library (`parts/sets4/anchors.json`, `parts/locations/*.json`, `parts/library6.json`) are errors; missing library items are listed, never invented.

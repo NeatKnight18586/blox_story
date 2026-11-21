@@ -1,0 +1,5 @@
+{
+  "_note": "Extra registered worlds / props for brief2spec (scripts/v2/lib6.js). A location here names the world module a spec loads and the anchor its cast stands on.",
+  "locations": {"street": {"world": "engine/fixtures/v4look/world.js", "anchors": ["street"]}},
+  "props": []
+}

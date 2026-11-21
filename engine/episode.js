@@ -47,7 +47,16 @@ const spec = stripLabels(await (await fetch(specUrl)).json());   // owner rule �
 const FPS = spec.fps ?? 30;
 
 // Shots on the frame timeline: each shot owns [start, start + frames) (timeline.js: `at` cut times or `frames`).
-const shots = layoutShots(spec);
+// P4 moods (opt-in spec.moods, format 6): a shot's `mood` fills move / fov defaults here; its light is applied per frame as shared uniforms
+// (renderer exposure, a saturation / temperature / haze term injected before the colour-space step of every material that has one: no re-bake, no extra pass).
+const M6 = spec.moods && spec.format === 6 ? await import('./mood6.js') : null;
+const MOODU = {uMoodSat: {value: 1}, uMoodTint: {value: new T.Vector3(1, 1, 1)}, uMoodHaze: {value: 0}};
+if (M6) {
+  const inject = sh => { if (!sh.fragmentShader.includes('#include <tonemapping_fragment>')) return; Object.assign(sh.uniforms, MOODU);
+    sh.fragmentShader = 'uniform float uMoodSat; uniform vec3 uMoodTint; uniform float uMoodHaze;\n' + sh.fragmentShader.replace('#include <tonemapping_fragment>', '#include <tonemapping_fragment>\n{ vec3 mc = gl_FragColor.rgb; float ml = dot(mc, vec3(.2126, .7152, .0722)); mc = mix(vec3(ml), mc, uMoodSat) * uMoodTint; gl_FragColor.rgb = mc + uMoodHaze * .06 * (1. - mc); }'); };
+  Object.defineProperty(T.Material.prototype, 'onBeforeCompile', {configurable: true, get() { return this._mood6 ?? ((sh) => inject(sh)); }, set(fn) { this._mood6 = (sh, r) => { fn?.call(this, sh, r); inject(sh); }; }});
+}
+const shots = M6 ? layoutShots(spec).map(M6.resolveMood) : layoutShots(spec);
 const FRAMES = totalFrames(shots);
 
 // Amendment A3 class reveals: shot.classReveal ({actor, cls, at} with `at` relative to the shot, or a list) and
@@ -174,6 +183,10 @@ function updateCascades(t) { for (const {e, bulbs} of cascades) { const on = cas
 // Look 6 (opt-in spec.look6): the shot's light state (looks4 <preset>.v6) mixed into the baked layers; the first lightsCascade drives the
 // pendants and zone signs on (its fraction of bulbs lit; no cascade = fully on). Presets without v6 (the dawn street) keep the last state.
 const LOOK6 = !!(spec.look6 && world?.setLight6), CASC6 = cascades[0]?.e ?? null;
+function applyMood(shot) {   // P4: exposure × 2^ev, saturation, temperature tint, haze, rim; after the look has set the frame's exposure
+  if (!M6) return; const u = M6.moodUniforms(shot); renderer.toneMappingExposure *= u.exposure;
+  MOODU.uMoodSat.value = u.sat; MOODU.uMoodTint.value.set(...u.tint); MOODU.uMoodHaze.value = u.haze; if (LOOK5B && u.rim !== 1) U5B.uRim.value *= u.rim;
+}
 function apply6(shot, t) { if (!LOOK6) return; const v6 = look.presets[shot.look ?? spec.look4]?.v6; if (!v6) return; world.setLight6(v6, CASC6 ? cascadeFrac(t, CASC6, cascades[0].bulbs.length) : 1);
   if (U5B) for (const [name, u] of Object.entries(U5B.poolOf)) { const m = markPos[name]; u.value = m ? actorPool(world.lightAt6([m[0], (world.groundY?.(m[0], m[2]) ?? 0) + 2.5, m[2]]), v6.actorPool) : 1; } }   // actors in a pool read brighter
 if (Object.values(cast).some(x => x.v2)) await loadFont();
@@ -524,11 +537,11 @@ function drawFrame(shot, mf, off, width, height, nudge) {
   const pos = c.position.map((v, i) => v + fx.camOffset[i]), tgt = c.target.map((v, i) => v + fx.camOffset[i] * .6);
   camera.fov = c.fov; camera.aspect = width / height; camera.position.fromArray(pos);
   camera.up.set(0, 1, 0); camera.lookAt(...tgt); camera.rotateZ(c.roll); camera.updateProjectionMatrix();
-  const cn = camNoise5b(shot, t); if (cn) { camera.rotateX(cn[0]); camera.rotateY(cn[1]); }   // Look 5b: static-shot micro-noise
+  const cn = camNoise5b(shot, t) ?? (M6 && M6.moodUniforms(shot).camNoise ? camNoise(t, shots.indexOf(shot) + 1, M6.moodUniforms(shot).camNoise) : null); if (cn) { camera.rotateX(cn[0]); camera.rotateY(cn[1]); }   // Look 5b: static-shot micro-noise
   if (nudge) { const k = nudge / Math.sqrt(3); camera.translateX(k); camera.translateY(k); camera.translateZ(k); }
   world?.onCamera?.(camera.position.toArray());   // format v5 3b-R (opt-in): a world may hide what this camera cannot see (hall ↔ street)
   if (look) { fx.look ? look.apply(...fx.look) : look.apply(shot.look ?? spec.look ?? 'day'); const sf = shotShadow(shot); poseCast(t); look.frameFixed(sf.centre, sf.radius, camera.position); look.update(t); }
-  apply5b(shot); apply6(shot, t);
+  apply5b(shot); apply6(shot, t); applyMood(shot);
   scene.updateMatrixWorld(true); effects.apply(t, camera); fitTags(scene, camera, {maxFrac: shot.tagMaxFrac ?? .06});
   if (spec.readableUi ?? !!look?.v3) { scene.updateMatrixWorld(true); enforceReadable(scene, camera, {focus: shot.focusUi ?? []}); }   // A5 §C: min text size + safe area (v3 worlds; "Nobody" untouched)
   renderer.info.autoReset = false; renderer.info.reset();   // A4: overlay passes (weather, cards) must not reset the scene counts

@@ -38,7 +38,7 @@
     "proof:studio": "node scripts/studio-lookdev-capture.js --cast && node scripts/studio-characters-capture.js && python3 scripts/studio-lookdev-sheet.py && python3 scripts/studio-characters-sheet.py",
     "proof:town": "node scripts/studio-town-capture.js && python3 scripts/studio-town-sheet.py",
     "v2:preflight": "node scripts/v2/preflight.js",
-    "v2:test": "node --test tests/v2/*.test.js && python3 -m unittest tests/v2/test_captions.py tests/v2/test_align.py tests/v2/test_finish.py tests/v2/test_s9.py",
+    "v2:test": "node --test tests/v2/*.test.js && python3 -m unittest tests/v2/test_captions.py tests/v2/test_align.py tests/v2/test_finish.py tests/v2/test_s9.py tests/v2/test_blur.py",
     "v2:align": "python3 scripts/v2/align.py",
     "v2:plan": "node scripts/v2/plan.js",
     "v2:read": "node scripts/v2/read.js",

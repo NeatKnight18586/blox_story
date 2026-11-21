@@ -11,6 +11,8 @@ import {checkPlan} from '../../engine/plancheck.js';
 import {checkSeason} from '../../engine/seasoncheck.js';
 import {labelIssues} from '../../engine/nolabels.js';
 import {layoutShots} from '../../engine/timeline.js';
+import {checkMoods} from '../../engine/plancheck6.js';
+import {spawnSync} from 'node:child_process';
 
 const argv = process.argv.slice(2), arg = (k, d) => { const i = argv.indexOf(`--${k}`); return i >= 0 ? argv[i + 1] : d; };
 const story = arg('story'), specPath = arg('spec') ?? `stories/${story}/episode.json`, cuesPath = arg('cues') ?? `stories/${story}/cues.json`;
@@ -52,6 +54,8 @@ r.errors.push(...sz.errors, ...labelIssues(spec));
 if (actingPlans.length) { const {partnerIssues} = await import('../../engine/acting6.js'); r.errors.push(...partnerIssues(actingPlans), ...(await import('../../engine/acting6.js')).hugAngleIssues(actingPlans)); }   // P3b owner Decision 3: partners start ≤ 0.5 studs from the mark, or walk in
 r.stats.partners = actingPlans.map(p => ({partner: p.partner, verb: p.verb, dist: p.dist, walkIn: p.walk ? p.walk.dur : null, ok: p.ok}));
 if (spec.format === 5 || spec.format === 6) { const p5 = plan5(shots, {fps, cues, insertH, end: spec.end, ...(spec.format === 6 ? {len: [0, 125]} : {})}); r.errors.push(...p5.errors); r.stats.format5 = {lengthS: p5.lengthS, averageShotS: p5.averageShotS, insertH}; }   // format v5 rules   // owner rule §2c: noLabels (Season 1 / labels: false)
+let moods = null;   // P4 (opt-in `moods: true`, format 6): mood lengths, dead stretches, emphasis, breath, escalation, 180°, loops, pacing curve
+if (spec.moods && spec.format === 6) { moods = checkMoods({shots, cues, spec, fps, heads: info.map(i => i.mid.heads)}); r.errors.push(...moods.errors); r.warnings.push(...moods.warnings); }
 r.warnings.push(...sz.warnings); r.stats.season = !!spec.season; r.stats.framing = sz.stats.framing; r.stats.uiItems = sz.stats.ui; r.stats.eggs = sz.stats.eggs; r.stats.overlaps = sz.stats.overlaps; r.stats.crowdCover = sz.stats.cover; r.stats.clockBoard = sz.stats.clockBoard;
 const table = shots.map((s, i) => ({id: s.id, beat: !!s.beat, t: +(s.start / fps).toFixed(2), dur: +(s.frames / fps).toFixed(2), size: s.size, move: s.move, loc: s.loc, speed: +(info[i].speed * 100).toFixed(0),
   subject: s.subject ? `${s.subject}@${(info[i].mid.heads[s.subject]?.x * 100).toFixed(0)},${(info[i].mid.heads[s.subject]?.y * 100).toFixed(0)}` : '', why: s.why}));
@@ -60,6 +64,13 @@ for (const w of r.warnings) console.log('WARN ', w);
 for (const e of r.errors) console.log('ERROR', e);
 const slug = story ?? spec.slug;
 await mkdir(`review/${slug}`, {recursive: true});
+if (moods) {
+  for (const [k, c] of Object.entries(moods.checks)) console.log(`${c.level.padEnd(4)} ${k}. ${c.name}${c.items.map(x => '\n       ' + x).join('')}`);
+  console.log('\ncuts per 10 s (pacing curve)\n' + moods.pacing.ascii);
+  await writeFile(`review/${slug}/pacing.json`, JSON.stringify({title: `${slug}: cuts per 10 s`, bins: moods.pacing.bins}, null, 1));
+  spawnSync('python3', ['scripts/v2/pacing.py', `review/${slug}/pacing.json`, `review/${slug}/pacing.png`], {stdio: 'inherit'});
+  r.stats.moods = Object.fromEntries(Object.entries(moods.checks).map(([k, c]) => [k, c.level]));
+}
 await writeFile(`review/${slug}/plan.json`, JSON.stringify({spec: specPath, cues: cuesPath, ...r.stats, errors: r.errors, warnings: r.warnings, shots: table}, null, 1));
 console.log(JSON.stringify({...r.stats, errors: r.errors.length, warnings: r.warnings.length, result: r.errors.length ? 'FAIL' : 'PASS'}));
 process.exitCode = r.errors.length ? 1 : 0;

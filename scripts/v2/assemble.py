@@ -55,7 +55,28 @@ def to_yuv(fmt='yuv420p'):
     return f"scale=out_color_matrix=bt709:out_range=tv,format={fmt}"
 
 
-def final_graph(src_size, captions=None, hold=0.0, offset_frames=0, fps=30, outputs=('master',), fmt='yuv420p', vignette=True, lut=None, shot_luts=()):
+BLUR_MOVES = ('whip', 'snap', 'crashZoom')   # P4: shots whose frames blend with their neighbour by default (`blur: false` opts out; `blur: true` opts any shot in)
+
+
+def blur_ranges(spec, default_fps=30):
+    """Pure: [(t0, t1)] seconds of the shots that get motion blur (P4): shot `blur: true`, or a whip / snap / crashZoom shot unless `blur: false`.
+    Specs with `moods: true` only (other specs are never blurred here: byte-identical output)."""
+    if not spec.get('moods'): return []
+    fr = spec.get('fps', default_fps); SH = spec.get('shots', []); out = []; t = 0.0
+    for i, sh in enumerate(SH):
+        st = sh['at'] if 'at' in sh else t
+        d = sh['frames'] / fr if 'frames' in sh else ((SH[i + 1]['at'] if i + 1 < len(SH) else spec.get('end', st)) - st); t = st + d
+        if d > 0 and sh.get('blur', sh.get('move') in BLUR_MOVES): out.append((round(st, 4), round(st + d, 4)))
+    return out
+
+
+def blur_chain(ranges):
+    """filter text that replaces each frame by the mean of itself and the previous one (ffmpeg tmix, 2 frames) inside `ranges` only."""
+    en = '+'.join(f'between(t,{a:.4f},{b - 1e-4:.4f})' for a, b in ranges)
+    return f"split=2[bp][bq];[bq]tmix=frames=2[bm];[bp][bm]overlay=format=gbrp:enable='{en}'"
+
+
+def final_graph(src_size, captions=None, hold=0.0, offset_frames=0, fps=30, outputs=('master',), fmt='yuv420p', vignette=True, lut=None, shot_luts=(), blur=()):
     """filter_complex for finals. src_size (w, h) of the frames; 1080×1920 is upscaled to 1440×2560 BEFORE the grade.
     outputs: 'master' (1440×2560), 'proxy' (1080×1920, downscaled from the same graded frames), 'graded' (master size,
     no captions: QC sharpness). offset_frames shifts timestamps so captions match a single frame pulled for QC.
@@ -65,7 +86,8 @@ def final_graph(src_size, captions=None, hold=0.0, offset_frames=0, fps=30, outp
     pre = f"setpts=PTS+{offset_frames}/({fps}*TB)," if offset_frames else ""
     up = f"scale={MASTER_SIZE[0]}:{MASTER_SIZE[1]}:flags=lanczos," if (w, h) == FALLBACK_SIZE else ""
     n = len(outputs)
-    g = f"[0:v]{pre}{up}{grade_graph(MASTER_SIZE[1], label='graded0', vignette=vignette)}"
+    if blur: g = f"[0:v]{pre}{up}format=gbrp,{blur_chain(blur)}[blr];[blr]{grade_graph(MASTER_SIZE[1], label='graded0', vignette=vignette)}"   # P4: motion blur before the grade
+    else: g = f"[0:v]{pre}{up}{grade_graph(MASTER_SIZE[1], label='graded0', vignette=vignette)}"
     src = 'graded0'
     if lut:   # format v4 (opt-in, spec `look4`): the preset's .cube LUT + a light vignette after the A2 grade (scripts/v2/lut4.py)
         g += f";[graded0]lut3d=file='{lut}',{LUT4.VIGNETTE}[graded0l]"; src = 'graded0l'
@@ -246,10 +268,11 @@ def main():
             track = os.path.join(tempfile.mkdtemp(), 'sfx.wav'); SFX.write_wav(track, SFX.render_track(placed, total))
             inputs += ['-i', track]; sfx_rep = {'hits': len(placed['hits']), 'byName': {n: sum(h[1] == n for h in placed['hits']) for n in SFX.NAMES if any(h[1] == n for h in placed['hits'])}, 'silence': silence}
     shot_luts, lut_file = spec_luts(o.spec, o.out, o.fps) if o.spec else ([], None)
+    blur = blur_ranges(json.load(open(o.spec)), o.fps) if o.spec else []
     af = audio_graph(loudnorm_filter(voice, o.voice_start, o.voice_dur, prelimit=bool(o.spec)), has_music, sfx_rep is not None, silence)
     for p in (o.out, o.proxy):
         if p: os.makedirs(os.path.dirname(p) or '.', exist_ok=True)
-    rep = {'music': has_music, 'sfx': sfx_rep, 'hold': round(hold, 3)}
+    rep = {'music': has_music, 'sfx': sfx_rep, 'hold': round(hold, 3), 'blurShots': len(blur)}
 
     if o.animatic:
         vf = ("[0:v]scale=540:960:flags=lanczos,eq=saturation=1.12:contrast=1.04,"
@@ -271,7 +294,7 @@ def main():
     # ---- finals: one decode + grade feeds the master and (first pass) the proxy ----
     rep['path'] = 'native-1440' if (w, h) == MASTER_SIZE else 'fallback-1080-upscaled'
     outs = ('master', 'proxy') if o.proxy else ('master',)
-    graph, labels = final_graph((w, h), o.captions, hold, fps=o.fps, lut=lut_file, shot_luts=shot_luts, outputs=outs)
+    graph, labels = final_graph((w, h), o.captions, hold, fps=o.fps, lut=lut_file, shot_luts=shot_luts, blur=blur, outputs=outs)
     crf, pcrf = MASTER_CRF, PROXY_CRF_STEPS[0]
     cmd = ['ffmpeg', '-hide_banner', '-y', *inputs, '-filter_complex', graph + ';' + af + (';[a]asplit=2[a1][a2]' if o.proxy else ''),
            '-map', '[master]', '-map', '[a1]' if o.proxy else '[a]', '-r', str(o.fps), *master_encode_args(crf), '-t', f'{total:.3f}', o.out]
@@ -282,12 +305,12 @@ def main():
     def kbps(path): return int(probe_video(path)[1].get('bit_rate') or 0) / 1000
     while (nxt := next_crf(crf, kbps(o.out))) is not None:   # bitrate floor: re-encode the master only
         steps.append({'crf': crf, 'kbps': round(kbps(o.out))}); crf = nxt
-        g1, _ = final_graph((w, h), o.captions, hold, fps=o.fps, lut=lut_file, shot_luts=shot_luts, outputs=('master',))
+        g1, _ = final_graph((w, h), o.captions, hold, fps=o.fps, lut=lut_file, shot_luts=shot_luts, blur=blur, outputs=('master',))
         run(['ffmpeg', '-hide_banner', '-y', *inputs, '-filter_complex', g1 + ';' + af, '-map', '[master]', '-map', '[a]', '-r', str(o.fps), *master_encode_args(crf), '-t', f'{total:.3f}', o.out])
     if o.proxy:
         while (nxt := next_proxy_crf(pcrf, os.path.getsize(o.proxy) / 1e6)) is not None:
             pcrf = nxt
-            g2, _ = final_graph((w, h), o.captions, hold, fps=o.fps, lut=lut_file, shot_luts=shot_luts, outputs=('proxy',))
+            g2, _ = final_graph((w, h), o.captions, hold, fps=o.fps, lut=lut_file, shot_luts=shot_luts, blur=blur, outputs=('proxy',))
             run(['ffmpeg', '-hide_banner', '-y', *inputs, '-filter_complex', g2 + ';' + af, '-map', '[proxy]', '-map', '[a]', '-r', str(o.fps), *proxy_encode_args(pcrf), '-t', f'{total:.3f}', o.proxy])
 
     pr, v, au = probe_video(o.out); lufs, peak = measure(o.out)
