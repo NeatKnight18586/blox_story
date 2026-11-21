@@ -1,0 +1,7003 @@
+{
+ "slug": "lastcolor",
+ "fps": 30,
+ "format": 6,
+ "moods": true,
+ "body": "v6",
+ "faceStyle": "v6",
+ "acting": 6,
+ "labels": false,
+ "hero": "hero",
+ "world": "parts/sets6/testpark.js",
+ "look": "day",
+ "cues": "stories/lastcolor/cues.json",
+ "end": 115.301,
+ "note": "Written by scripts/v2/brief2spec.js from stories/lastcolor/BRIEF.md (62 shots). Edit the Brief, not this file.",
+ "brief": {
+  "title": "Every Fall Takes Their COLOR 💔 #shorts #roblox",
+  "ruleLine": "\"In this world, every fall drains a dummy's color.\" (6 words after the comma)",
+  "palette": "pale concrete, sage hills, sky blue; the hero and Bitsy are the only saturated colours until shot 54",
+  "colourScript": "act 1 (0–51 s) · bright hazy day · act 2 (51–81 s) · storm-grey, low sun gone, colours muted · act 3 (81 s–end) · snaps bright on the twist, warm gold sky as colour blooms back; the payoff is the brightest frame",
+  "setting": "a ragdoll test park (owner's reference screenshots): wide pale concrete plaza in a tile grid, giant green industrial fan on a frame, tall steel launch tower with stairs and a slide, roller-coaster track with a loop, raised boxing ring with red corner posts, two blue pools, crate stacks, a stone watch-tower, park benches, red barrels, a big round spawn pad, low green hills with pine trees, a hazy pale-blue sky. Painted wall sign \"DUMMIES HELP EACH OTHER\". No game name, no Roblox logo, no guns, tanks or weapons anywhere. Sub-anchors: plaza, fan, pool, coaster, ring, crates, spawnPad, towerBase, towerTop.",
+  "props": [
+   "giantFan",
+   "launchTower",
+   "coasterTrack",
+   "coasterCart",
+   "boxingRing",
+   "pool",
+   "spawnPad",
+   "giantHand",
+   "healButton",
+   "wallSign",
+   "nameTag"
+  ],
+  "payoff": {
+   "shows": "close push on the hero's face as every colour blooms back (legs, shoes, stripe, jacket, hands), Bitsy hugging his neck, a soft heap of now-coloured dummies under them",
+   "hold length": "from \"back\" to voice end + 0.85 s (≈2.5 s)",
+   "light": "brightest key of the episode (head-region luma gate G2a), warm sky and rim only, the hero's jacket within ΔE 12 of #2B2D33"
+  }
+ },
+ "cast": {
+  "hero": {
+   "style": "v5",
+   "faceStyle": "v6",
+   "troupe": "HERO",
+   "at": "plaza",
+   "offset": [
+    -14,
+    0,
+    4
+   ],
+   "yaw": 0,
+   "keys": [
+    [
+     0,
+     "idle"
+    ]
+   ],
+   "marks": [
+    [
+     43.67,
+     {
+      "at": "plaza",
+      "offset": [
+       -14,
+       0,
+       4
+      ],
+      "yaw": 90,
+      "travel": {
+       "dir": [
+        1,
+        0
+       ],
+       "speed": 0.95
+      }
+     }
+    ],
+    [
+     45.64,
+     {
+      "at": "plaza",
+      "offset": [
+       -12.1285,
+       0,
+       4
+      ],
+      "yaw": 90
+     }
+    ],
+    [
+     60.348,
+     {
+      "at": "plaza",
+      "offset": [
+       -12.1285,
+       0,
+       4
+      ],
+      "yaw": -163.30075576600638,
+      "travel": {
+       "dir": [
+        -0.2873478855663454,
+        -0.9578262852211513
+       ],
+       "speed": 8
+      }
+     }
+    ],
+    [
+     62,
+     {
+      "at": "plaza",
+      "offset": [
+       -15.926089655644823,
+       0,
+       -8.658632185482743
+      ],
+      "yaw": -163.30075576600638
+     }
+    ]
+   ]
+  },
+  "bitsy": {
+   "style": "v5",
+   "faceStyle": "v6",
+   "troupe": "LITTLE",
+   "at": "plaza",
+   "offset": [
+    -10,
+    0,
+    0
+   ],
+   "yaw": 0,
+   "keys": [
+    [
+     0,
+     "idle"
+    ]
+   ],
+   "costume": "BITSY",
+   "marks": [
+    [
+     85.378,
+     {
+      "at": "plaza",
+      "offset": [
+       -17.726803071860587,
+       0,
+       -8.849239616241752
+      ],
+      "yaw": -248.21075576600637
+     }
+    ]
+   ]
+  },
+  "kid": {
+   "style": "v5",
+   "faceStyle": "v6",
+   "troupe": "SECOND",
+   "at": "plaza",
+   "offset": [
+    -6,
+    0,
+    0
+   ],
+   "yaw": 0,
+   "keys": [
+    [
+     0,
+     "idle"
+    ]
+   ],
+   "costume": "KID",
+   "marks": [
+    [
+     106.612,
+     {
+      "at": "plaza",
+      "offset": [
+       -6,
+       0,
+       0
+      ],
+      "yaw": 180,
+      "travel": {
+       "dir": [
+        0,
+        -1
+       ],
+       "speed": 5
+      }
+     }
+    ],
+    [
+     106.812,
+     {
+      "at": "plaza",
+      "offset": [
+       -6,
+       0,
+       -1.0000000000000142
+      ],
+      "yaw": 180
+     }
+    ]
+   ]
+  },
+  "dummya": {
+   "style": "v5",
+   "faceStyle": "v6",
+   "troupe": "DUMMY",
+   "at": "plaza",
+   "offset": [
+    -2,
+    0,
+    0
+   ],
+   "yaw": 0,
+   "keys": [
+    [
+     0,
+     "idle"
+    ]
+   ]
+  },
+  "dummyb": {
+   "style": "v5",
+   "faceStyle": "v6",
+   "troupe": "DUMMY",
+   "at": "plaza",
+   "offset": [
+    2,
+    0,
+    0
+   ],
+   "yaw": 0,
+   "keys": [
+    [
+     0,
+     "idle"
+    ]
+   ]
+  },
+  "dummyc": {
+   "style": "v5",
+   "faceStyle": "v6",
+   "troupe": "DUMMY",
+   "at": "plaza",
+   "offset": [
+    6,
+    0,
+    0
+   ],
+   "yaw": 0,
+   "keys": [
+    [
+     0,
+     "idle"
+    ]
+   ]
+  },
+  "dummyd": {
+   "style": "v5",
+   "faceStyle": "v6",
+   "troupe": "DUMMY",
+   "at": "plaza",
+   "offset": [
+    10,
+    0,
+    0
+   ],
+   "yaw": 0,
+   "keys": [
+    [
+     0,
+     "idle"
+    ]
+   ]
+  },
+  "dummye": {
+   "style": "v5",
+   "faceStyle": "v6",
+   "troupe": "DUMMY",
+   "at": "plaza",
+   "offset": [
+    14,
+    0,
+    0
+   ],
+   "yaw": 0,
+   "keys": [
+    [
+     0,
+     "idle"
+    ]
+   ]
+  },
+  "crowd001": {
+   "style": "v5",
+   "faceStyle": "v6",
+   "troupe": "DUMMY",
+   "costume": "CROWD",
+   "lod": true,
+   "at": "plaza",
+   "offset": [
+    0,
+    0,
+    0
+   ],
+   "yaw": 0,
+   "keys": [
+    [
+     0,
+     "idle"
+    ]
+   ]
+  },
+  "crowd002": {
+   "style": "v5",
+   "faceStyle": "v6",
+   "troupe": "DUMMY",
+   "costume": "CROWD",
+   "lod": true,
+   "at": "plaza",
+   "offset": [
+    0,
+    0,
+    0
+   ],
+   "yaw": 0,
+   "keys": [
+    [
+     0,
+     "idle"
+    ]
+   ]
+  },
+  "crowd003": {
+   "style": "v5",
+   "faceStyle": "v6",
+   "troupe": "DUMMY",
+   "costume": "CROWD",
+   "lod": true,
+   "at": "plaza",
+   "offset": [
+    0,
+    0,
+    0
+   ],
+   "yaw": 0,
+   "keys": [
+    [
+     0,
+     "idle"
+    ]
+   ]
+  },
+  "crowd004": {
+   "style": "v5",
+   "faceStyle": "v6",
+   "troupe": "DUMMY",
+   "costume": "CROWD",
+   "lod": true,
+   "at": "plaza",
+   "offset": [
+    0,
+    0,
+    0
+   ],
+   "yaw": 0,
+   "keys": [
+    [
+     0,
+     "idle"
+    ]
+   ]
+  },
+  "crowd005": {
+   "style": "v5",
+   "faceStyle": "v6",
+   "troupe": "DUMMY",
+   "costume": "CROWD",
+   "lod": true,
+   "at": "plaza",
+   "offset": [
+    0,
+    0,
+    0
+   ],
+   "yaw": 0,
+   "keys": [
+    [
+     0,
+     "idle"
+    ]
+   ]
+  },
+  "crowd006": {
+   "style": "v5",
+   "faceStyle": "v6",
+   "troupe": "DUMMY",
+   "costume": "CROWD",
+   "lod": true,
+   "at": "plaza",
+   "offset": [
+    0,
+    0,
+    0
+   ],
+   "yaw": 0,
+   "keys": [
+    [
+     0,
+     "idle"
+    ]
+   ]
+  },
+  "crowd007": {
+   "style": "v5",
+   "faceStyle": "v6",
+   "troupe": "DUMMY",
+   "costume": "CROWD",
+   "lod": true,
+   "at": "plaza",
+   "offset": [
+    0,
+    0,
+    0
+   ],
+   "yaw": 0,
+   "keys": [
+    [
+     0,
+     "idle"
+    ]
+   ]
+  },
+  "crowd008": {
+   "style": "v5",
+   "faceStyle": "v6",
+   "troupe": "DUMMY",
+   "costume": "CROWD",
+   "lod": true,
+   "at": "plaza",
+   "offset": [
+    0,
+    0,
+    0
+   ],
+   "yaw": 0,
+   "keys": [
+    [
+     0,
+     "idle"
+    ]
+   ]
+  },
+  "crowd009": {
+   "style": "v5",
+   "faceStyle": "v6",
+   "troupe": "DUMMY",
+   "costume": "CROWD",
+   "lod": true,
+   "at": "plaza",
+   "offset": [
+    0,
+    0,
+    0
+   ],
+   "yaw": 0,
+   "keys": [
+    [
+     0,
+     "idle"
+    ]
+   ]
+  },
+  "crowd010": {
+   "style": "v5",
+   "faceStyle": "v6",
+   "troupe": "DUMMY",
+   "costume": "CROWD",
+   "lod": true,
+   "at": "plaza",
+   "offset": [
+    0,
+    0,
+    0
+   ],
+   "yaw": 0,
+   "keys": [
+    [
+     0,
+     "idle"
+    ]
+   ]
+  },
+  "crowd011": {
+   "style": "v5",
+   "faceStyle": "v6",
+   "troupe": "DUMMY",
+   "costume": "CROWD",
+   "lod": true,
+   "at": "plaza",
+   "offset": [
+    0,
+    0,
+    0
+   ],
+   "yaw": 0,
+   "keys": [
+    [
+     0,
+     "idle"
+    ]
+   ]
+  },
+  "crowd012": {
+   "style": "v5",
+   "faceStyle": "v6",
+   "troupe": "DUMMY",
+   "costume": "CROWD",
+   "lod": true,
+   "at": "plaza",
+   "offset": [
+    0,
+    0,
+    0
+   ],
+   "yaw": 0,
+   "keys": [
+    [
+     0,
+     "idle"
+    ]
+   ]
+  },
+  "crowd013": {
+   "style": "v5",
+   "faceStyle": "v6",
+   "troupe": "DUMMY",
+   "costume": "CROWD",
+   "lod": true,
+   "at": "plaza",
+   "offset": [
+    0,
+    0,
+    0
+   ],
+   "yaw": 0,
+   "keys": [
+    [
+     0,
+     "idle"
+    ]
+   ]
+  },
+  "crowd014": {
+   "style": "v5",
+   "faceStyle": "v6",
+   "troupe": "DUMMY",
+   "costume": "CROWD",
+   "lod": true,
+   "at": "plaza",
+   "offset": [
+    0,
+    0,
+    0
+   ],
+   "yaw": 0,
+   "keys": [
+    [
+     0,
+     "idle"
+    ]
+   ]
+  },
+  "crowd015": {
+   "style": "v5",
+   "faceStyle": "v6",
+   "troupe": "DUMMY",
+   "costume": "CROWD",
+   "lod": true,
+   "at": "plaza",
+   "offset": [
+    0,
+    0,
+    0
+   ],
+   "yaw": 0,
+   "keys": [
+    [
+     0,
+     "idle"
+    ]
+   ]
+  },
+  "crowd016": {
+   "style": "v5",
+   "faceStyle": "v6",
+   "troupe": "DUMMY",
+   "costume": "CROWD",
+   "lod": true,
+   "at": "plaza",
+   "offset": [
+    0,
+    0,
+    0
+   ],
+   "yaw": 0,
+   "keys": [
+    [
+     0,
+     "idle"
+    ]
+   ]
+  },
+  "crowd017": {
+   "style": "v5",
+   "faceStyle": "v6",
+   "troupe": "DUMMY",
+   "costume": "CROWD",
+   "lod": true,
+   "at": "plaza",
+   "offset": [
+    0,
+    0,
+    0
+   ],
+   "yaw": 0,
+   "keys": [
+    [
+     0,
+     "idle"
+    ]
+   ]
+  },
+  "crowd018": {
+   "style": "v5",
+   "faceStyle": "v6",
+   "troupe": "DUMMY",
+   "costume": "CROWD",
+   "lod": true,
+   "at": "plaza",
+   "offset": [
+    0,
+    0,
+    0
+   ],
+   "yaw": 0,
+   "keys": [
+    [
+     0,
+     "idle"
+    ]
+   ]
+  },
+  "crowd019": {
+   "style": "v5",
+   "faceStyle": "v6",
+   "troupe": "DUMMY",
+   "costume": "CROWD",
+   "lod": true,
+   "at": "plaza",
+   "offset": [
+    0,
+    0,
+    0
+   ],
+   "yaw": 0,
+   "keys": [
+    [
+     0,
+     "idle"
+    ]
+   ]
+  },
+  "crowd020": {
+   "style": "v5",
+   "faceStyle": "v6",
+   "troupe": "DUMMY",
+   "costume": "CROWD",
+   "lod": true,
+   "at": "plaza",
+   "offset": [
+    0,
+    0,
+    0
+   ],
+   "yaw": 0,
+   "keys": [
+    [
+     0,
+     "idle"
+    ]
+   ]
+  },
+  "crowd021": {
+   "style": "v5",
+   "faceStyle": "v6",
+   "troupe": "DUMMY",
+   "costume": "CROWD",
+   "lod": true,
+   "at": "plaza",
+   "offset": [
+    0,
+    0,
+    0
+   ],
+   "yaw": 0,
+   "keys": [
+    [
+     0,
+     "idle"
+    ]
+   ]
+  },
+  "crowd022": {
+   "style": "v5",
+   "faceStyle": "v6",
+   "troupe": "DUMMY",
+   "costume": "CROWD",
+   "lod": true,
+   "at": "plaza",
+   "offset": [
+    0,
+    0,
+    0
+   ],
+   "yaw": 0,
+   "keys": [
+    [
+     0,
+     "idle"
+    ]
+   ]
+  },
+  "crowd023": {
+   "style": "v5",
+   "faceStyle": "v6",
+   "troupe": "DUMMY",
+   "costume": "CROWD",
+   "lod": true,
+   "at": "plaza",
+   "offset": [
+    0,
+    0,
+    0
+   ],
+   "yaw": 0,
+   "keys": [
+    [
+     0,
+     "idle"
+    ]
+   ]
+  },
+  "crowd024": {
+   "style": "v5",
+   "faceStyle": "v6",
+   "troupe": "DUMMY",
+   "costume": "CROWD",
+   "lod": true,
+   "at": "plaza",
+   "offset": [
+    0,
+    0,
+    0
+   ],
+   "yaw": 0,
+   "keys": [
+    [
+     0,
+     "idle"
+    ]
+   ]
+  },
+  "crowd025": {
+   "style": "v5",
+   "faceStyle": "v6",
+   "troupe": "DUMMY",
+   "costume": "CROWD",
+   "lod": true,
+   "at": "plaza",
+   "offset": [
+    0,
+    0,
+    0
+   ],
+   "yaw": 0,
+   "keys": [
+    [
+     0,
+     "idle"
+    ]
+   ]
+  },
+  "crowd026": {
+   "style": "v5",
+   "faceStyle": "v6",
+   "troupe": "DUMMY",
+   "costume": "CROWD",
+   "lod": true,
+   "at": "plaza",
+   "offset": [
+    0,
+    0,
+    0
+   ],
+   "yaw": 0,
+   "keys": [
+    [
+     0,
+     "idle"
+    ]
+   ]
+  },
+  "crowd027": {
+   "style": "v5",
+   "faceStyle": "v6",
+   "troupe": "DUMMY",
+   "costume": "CROWD",
+   "lod": true,
+   "at": "plaza",
+   "offset": [
+    0,
+    0,
+    0
+   ],
+   "yaw": 0,
+   "keys": [
+    [
+     0,
+     "idle"
+    ]
+   ]
+  },
+  "crowd028": {
+   "style": "v5",
+   "faceStyle": "v6",
+   "troupe": "DUMMY",
+   "costume": "CROWD",
+   "lod": true,
+   "at": "plaza",
+   "offset": [
+    0,
+    0,
+    0
+   ],
+   "yaw": 0,
+   "keys": [
+    [
+     0,
+     "idle"
+    ]
+   ]
+  },
+  "crowd029": {
+   "style": "v5",
+   "faceStyle": "v6",
+   "troupe": "DUMMY",
+   "costume": "CROWD",
+   "lod": true,
+   "at": "plaza",
+   "offset": [
+    0,
+    0,
+    0
+   ],
+   "yaw": 0,
+   "keys": [
+    [
+     0,
+     "idle"
+    ]
+   ]
+  },
+  "crowd030": {
+   "style": "v5",
+   "faceStyle": "v6",
+   "troupe": "DUMMY",
+   "costume": "CROWD",
+   "lod": true,
+   "at": "plaza",
+   "offset": [
+    0,
+    0,
+    0
+   ],
+   "yaw": 0,
+   "keys": [
+    [
+     0,
+     "idle"
+    ]
+   ]
+  },
+  "crowd031": {
+   "style": "v5",
+   "faceStyle": "v6",
+   "troupe": "DUMMY",
+   "costume": "CROWD",
+   "lod": true,
+   "at": "plaza",
+   "offset": [
+    0,
+    0,
+    0
+   ],
+   "yaw": 0,
+   "keys": [
+    [
+     0,
+     "idle"
+    ]
+   ]
+  },
+  "crowd032": {
+   "style": "v5",
+   "faceStyle": "v6",
+   "troupe": "DUMMY",
+   "costume": "CROWD",
+   "lod": true,
+   "at": "plaza",
+   "offset": [
+    0,
+    0,
+    0
+   ],
+   "yaw": 0,
+   "keys": [
+    [
+     0,
+     "idle"
+    ]
+   ]
+  },
+  "crowd033": {
+   "style": "v5",
+   "faceStyle": "v6",
+   "troupe": "DUMMY",
+   "costume": "CROWD",
+   "lod": true,
+   "at": "plaza",
+   "offset": [
+    0,
+    0,
+    0
+   ],
+   "yaw": 0,
+   "keys": [
+    [
+     0,
+     "idle"
+    ]
+   ]
+  },
+  "crowd034": {
+   "style": "v5",
+   "faceStyle": "v6",
+   "troupe": "DUMMY",
+   "costume": "CROWD",
+   "lod": true,
+   "at": "plaza",
+   "offset": [
+    0,
+    0,
+    0
+   ],
+   "yaw": 0,
+   "keys": [
+    [
+     0,
+     "idle"
+    ]
+   ]
+  },
+  "crowd035": {
+   "style": "v5",
+   "faceStyle": "v6",
+   "troupe": "DUMMY",
+   "costume": "CROWD",
+   "lod": true,
+   "at": "plaza",
+   "offset": [
+    0,
+    0,
+    0
+   ],
+   "yaw": 0,
+   "keys": [
+    [
+     0,
+     "idle"
+    ]
+   ]
+  },
+  "crowd036": {
+   "style": "v5",
+   "faceStyle": "v6",
+   "troupe": "DUMMY",
+   "costume": "CROWD",
+   "lod": true,
+   "at": "plaza",
+   "offset": [
+    0,
+    0,
+    0
+   ],
+   "yaw": 0,
+   "keys": [
+    [
+     0,
+     "idle"
+    ]
+   ]
+  },
+  "crowd037": {
+   "style": "v5",
+   "faceStyle": "v6",
+   "troupe": "DUMMY",
+   "costume": "CROWD",
+   "lod": true,
+   "at": "plaza",
+   "offset": [
+    0,
+    0,
+    0
+   ],
+   "yaw": 0,
+   "keys": [
+    [
+     0,
+     "idle"
+    ]
+   ]
+  },
+  "crowd038": {
+   "style": "v5",
+   "faceStyle": "v6",
+   "troupe": "DUMMY",
+   "costume": "CROWD",
+   "lod": true,
+   "at": "plaza",
+   "offset": [
+    0,
+    0,
+    0
+   ],
+   "yaw": 0,
+   "keys": [
+    [
+     0,
+     "idle"
+    ]
+   ]
+  },
+  "crowd039": {
+   "style": "v5",
+   "faceStyle": "v6",
+   "troupe": "DUMMY",
+   "costume": "CROWD",
+   "lod": true,
+   "at": "plaza",
+   "offset": [
+    0,
+    0,
+    0
+   ],
+   "yaw": 0,
+   "keys": [
+    [
+     0,
+     "idle"
+    ]
+   ]
+  },
+  "crowd040": {
+   "style": "v5",
+   "faceStyle": "v6",
+   "troupe": "DUMMY",
+   "costume": "CROWD",
+   "lod": true,
+   "at": "plaza",
+   "offset": [
+    0,
+    0,
+    0
+   ],
+   "yaw": 0,
+   "keys": [
+    [
+     0,
+     "idle"
+    ]
+   ]
+  },
+  "crowd041": {
+   "style": "v5",
+   "faceStyle": "v6",
+   "troupe": "DUMMY",
+   "costume": "CROWD",
+   "lod": true,
+   "at": "plaza",
+   "offset": [
+    0,
+    0,
+    0
+   ],
+   "yaw": 0,
+   "keys": [
+    [
+     0,
+     "idle"
+    ]
+   ]
+  },
+  "crowd042": {
+   "style": "v5",
+   "faceStyle": "v6",
+   "troupe": "DUMMY",
+   "costume": "CROWD",
+   "lod": true,
+   "at": "plaza",
+   "offset": [
+    0,
+    0,
+    0
+   ],
+   "yaw": 0,
+   "keys": [
+    [
+     0,
+     "idle"
+    ]
+   ]
+  },
+  "crowd043": {
+   "style": "v5",
+   "faceStyle": "v6",
+   "troupe": "DUMMY",
+   "costume": "CROWD",
+   "lod": true,
+   "at": "plaza",
+   "offset": [
+    0,
+    0,
+    0
+   ],
+   "yaw": 0,
+   "keys": [
+    [
+     0,
+     "idle"
+    ]
+   ]
+  },
+  "crowd044": {
+   "style": "v5",
+   "faceStyle": "v6",
+   "troupe": "DUMMY",
+   "costume": "CROWD",
+   "lod": true,
+   "at": "plaza",
+   "offset": [
+    0,
+    0,
+    0
+   ],
+   "yaw": 0,
+   "keys": [
+    [
+     0,
+     "idle"
+    ]
+   ]
+  },
+  "crowd045": {
+   "style": "v5",
+   "faceStyle": "v6",
+   "troupe": "DUMMY",
+   "costume": "CROWD",
+   "lod": true,
+   "at": "plaza",
+   "offset": [
+    0,
+    0,
+    0
+   ],
+   "yaw": 0,
+   "keys": [
+    [
+     0,
+     "idle"
+    ]
+   ]
+  },
+  "crowd046": {
+   "style": "v5",
+   "faceStyle": "v6",
+   "troupe": "DUMMY",
+   "costume": "CROWD",
+   "lod": true,
+   "at": "plaza",
+   "offset": [
+    0,
+    0,
+    0
+   ],
+   "yaw": 0,
+   "keys": [
+    [
+     0,
+     "idle"
+    ]
+   ]
+  },
+  "crowd047": {
+   "style": "v5",
+   "faceStyle": "v6",
+   "troupe": "DUMMY",
+   "costume": "CROWD",
+   "lod": true,
+   "at": "plaza",
+   "offset": [
+    0,
+    0,
+    0
+   ],
+   "yaw": 0,
+   "keys": [
+    [
+     0,
+     "idle"
+    ]
+   ]
+  },
+  "crowd048": {
+   "style": "v5",
+   "faceStyle": "v6",
+   "troupe": "DUMMY",
+   "costume": "CROWD",
+   "lod": true,
+   "at": "plaza",
+   "offset": [
+    0,
+    0,
+    0
+   ],
+   "yaw": 0,
+   "keys": [
+    [
+     0,
+     "idle"
+    ]
+   ]
+  },
+  "crowd049": {
+   "style": "v5",
+   "faceStyle": "v6",
+   "troupe": "DUMMY",
+   "costume": "CROWD",
+   "lod": true,
+   "at": "plaza",
+   "offset": [
+    0,
+    0,
+    0
+   ],
+   "yaw": 0,
+   "keys": [
+    [
+     0,
+     "idle"
+    ]
+   ]
+  },
+  "crowd050": {
+   "style": "v5",
+   "faceStyle": "v6",
+   "troupe": "DUMMY",
+   "costume": "CROWD",
+   "lod": true,
+   "at": "plaza",
+   "offset": [
+    0,
+    0,
+    0
+   ],
+   "yaw": 0,
+   "keys": [
+    [
+     0,
+     "idle"
+    ]
+   ]
+  },
+  "crowd051": {
+   "style": "v5",
+   "faceStyle": "v6",
+   "troupe": "DUMMY",
+   "costume": "CROWD",
+   "lod": true,
+   "at": "plaza",
+   "offset": [
+    0,
+    0,
+    0
+   ],
+   "yaw": 0,
+   "keys": [
+    [
+     0,
+     "idle"
+    ]
+   ]
+  },
+  "crowd052": {
+   "style": "v5",
+   "faceStyle": "v6",
+   "troupe": "DUMMY",
+   "costume": "CROWD",
+   "lod": true,
+   "at": "plaza",
+   "offset": [
+    0,
+    0,
+    0
+   ],
+   "yaw": 0,
+   "keys": [
+    [
+     0,
+     "idle"
+    ]
+   ]
+  },
+  "crowd053": {
+   "style": "v5",
+   "faceStyle": "v6",
+   "troupe": "DUMMY",
+   "costume": "CROWD",
+   "lod": true,
+   "at": "plaza",
+   "offset": [
+    0,
+    0,
+    0
+   ],
+   "yaw": 0,
+   "keys": [
+    [
+     0,
+     "idle"
+    ]
+   ]
+  },
+  "crowd054": {
+   "style": "v5",
+   "faceStyle": "v6",
+   "troupe": "DUMMY",
+   "costume": "CROWD",
+   "lod": true,
+   "at": "plaza",
+   "offset": [
+    0,
+    0,
+    0
+   ],
+   "yaw": 0,
+   "keys": [
+    [
+     0,
+     "idle"
+    ]
+   ]
+  },
+  "crowd055": {
+   "style": "v5",
+   "faceStyle": "v6",
+   "troupe": "DUMMY",
+   "costume": "CROWD",
+   "lod": true,
+   "at": "plaza",
+   "offset": [
+    0,
+    0,
+    0
+   ],
+   "yaw": 0,
+   "keys": [
+    [
+     0,
+     "idle"
+    ]
+   ]
+  },
+  "crowd056": {
+   "style": "v5",
+   "faceStyle": "v6",
+   "troupe": "DUMMY",
+   "costume": "CROWD",
+   "lod": true,
+   "at": "plaza",
+   "offset": [
+    0,
+    0,
+    0
+   ],
+   "yaw": 0,
+   "keys": [
+    [
+     0,
+     "idle"
+    ]
+   ]
+  },
+  "crowd057": {
+   "style": "v5",
+   "faceStyle": "v6",
+   "troupe": "DUMMY",
+   "costume": "CROWD",
+   "lod": true,
+   "at": "plaza",
+   "offset": [
+    0,
+    0,
+    0
+   ],
+   "yaw": 0,
+   "keys": [
+    [
+     0,
+     "idle"
+    ]
+   ]
+  },
+  "crowd058": {
+   "style": "v5",
+   "faceStyle": "v6",
+   "troupe": "DUMMY",
+   "costume": "CROWD",
+   "lod": true,
+   "at": "plaza",
+   "offset": [
+    0,
+    0,
+    0
+   ],
+   "yaw": 0,
+   "keys": [
+    [
+     0,
+     "idle"
+    ]
+   ]
+  },
+  "crowd059": {
+   "style": "v5",
+   "faceStyle": "v6",
+   "troupe": "DUMMY",
+   "costume": "CROWD",
+   "lod": true,
+   "at": "plaza",
+   "offset": [
+    0,
+    0,
+    0
+   ],
+   "yaw": 0,
+   "keys": [
+    [
+     0,
+     "idle"
+    ]
+   ]
+  },
+  "crowd060": {
+   "style": "v5",
+   "faceStyle": "v6",
+   "troupe": "DUMMY",
+   "costume": "CROWD",
+   "lod": true,
+   "at": "plaza",
+   "offset": [
+    0,
+    0,
+    0
+   ],
+   "yaw": 0,
+   "keys": [
+    [
+     0,
+     "idle"
+    ]
+   ]
+  },
+  "crowd061": {
+   "style": "v5",
+   "faceStyle": "v6",
+   "troupe": "DUMMY",
+   "costume": "CROWD",
+   "lod": true,
+   "at": "plaza",
+   "offset": [
+    0,
+    0,
+    0
+   ],
+   "yaw": 0,
+   "keys": [
+    [
+     0,
+     "idle"
+    ]
+   ]
+  },
+  "crowd062": {
+   "style": "v5",
+   "faceStyle": "v6",
+   "troupe": "DUMMY",
+   "costume": "CROWD",
+   "lod": true,
+   "at": "plaza",
+   "offset": [
+    0,
+    0,
+    0
+   ],
+   "yaw": 0,
+   "keys": [
+    [
+     0,
+     "idle"
+    ]
+   ]
+  },
+  "crowd063": {
+   "style": "v5",
+   "faceStyle": "v6",
+   "troupe": "DUMMY",
+   "costume": "CROWD",
+   "lod": true,
+   "at": "plaza",
+   "offset": [
+    0,
+    0,
+    0
+   ],
+   "yaw": 0,
+   "keys": [
+    [
+     0,
+     "idle"
+    ]
+   ]
+  },
+  "crowd064": {
+   "style": "v5",
+   "faceStyle": "v6",
+   "troupe": "DUMMY",
+   "costume": "CROWD",
+   "lod": true,
+   "at": "plaza",
+   "offset": [
+    0,
+    0,
+    0
+   ],
+   "yaw": 0,
+   "keys": [
+    [
+     0,
+     "idle"
+    ]
+   ]
+  },
+  "crowd065": {
+   "style": "v5",
+   "faceStyle": "v6",
+   "troupe": "DUMMY",
+   "costume": "CROWD",
+   "lod": true,
+   "at": "plaza",
+   "offset": [
+    0,
+    0,
+    0
+   ],
+   "yaw": 0,
+   "keys": [
+    [
+     0,
+     "idle"
+    ]
+   ]
+  },
+  "crowd066": {
+   "style": "v5",
+   "faceStyle": "v6",
+   "troupe": "DUMMY",
+   "costume": "CROWD",
+   "lod": true,
+   "at": "plaza",
+   "offset": [
+    0,
+    0,
+    0
+   ],
+   "yaw": 0,
+   "keys": [
+    [
+     0,
+     "idle"
+    ]
+   ]
+  },
+  "crowd067": {
+   "style": "v5",
+   "faceStyle": "v6",
+   "troupe": "DUMMY",
+   "costume": "CROWD",
+   "lod": true,
+   "at": "plaza",
+   "offset": [
+    0,
+    0,
+    0
+   ],
+   "yaw": 0,
+   "keys": [
+    [
+     0,
+     "idle"
+    ]
+   ]
+  },
+  "crowd068": {
+   "style": "v5",
+   "faceStyle": "v6",
+   "troupe": "DUMMY",
+   "costume": "CROWD",
+   "lod": true,
+   "at": "plaza",
+   "offset": [
+    0,
+    0,
+    0
+   ],
+   "yaw": 0,
+   "keys": [
+    [
+     0,
+     "idle"
+    ]
+   ]
+  },
+  "crowd069": {
+   "style": "v5",
+   "faceStyle": "v6",
+   "troupe": "DUMMY",
+   "costume": "CROWD",
+   "lod": true,
+   "at": "plaza",
+   "offset": [
+    0,
+    0,
+    0
+   ],
+   "yaw": 0,
+   "keys": [
+    [
+     0,
+     "idle"
+    ]
+   ]
+  },
+  "crowd070": {
+   "style": "v5",
+   "faceStyle": "v6",
+   "troupe": "DUMMY",
+   "costume": "CROWD",
+   "lod": true,
+   "at": "plaza",
+   "offset": [
+    0,
+    0,
+    0
+   ],
+   "yaw": 0,
+   "keys": [
+    [
+     0,
+     "idle"
+    ]
+   ]
+  },
+  "crowd071": {
+   "style": "v5",
+   "faceStyle": "v6",
+   "troupe": "DUMMY",
+   "costume": "CROWD",
+   "lod": true,
+   "at": "plaza",
+   "offset": [
+    0,
+    0,
+    0
+   ],
+   "yaw": 0,
+   "keys": [
+    [
+     0,
+     "idle"
+    ]
+   ]
+  },
+  "crowd072": {
+   "style": "v5",
+   "faceStyle": "v6",
+   "troupe": "DUMMY",
+   "costume": "CROWD",
+   "lod": true,
+   "at": "plaza",
+   "offset": [
+    0,
+    0,
+    0
+   ],
+   "yaw": 0,
+   "keys": [
+    [
+     0,
+     "idle"
+    ]
+   ]
+  },
+  "crowd073": {
+   "style": "v5",
+   "faceStyle": "v6",
+   "troupe": "DUMMY",
+   "costume": "CROWD",
+   "lod": true,
+   "at": "plaza",
+   "offset": [
+    0,
+    0,
+    0
+   ],
+   "yaw": 0,
+   "keys": [
+    [
+     0,
+     "idle"
+    ]
+   ]
+  },
+  "crowd074": {
+   "style": "v5",
+   "faceStyle": "v6",
+   "troupe": "DUMMY",
+   "costume": "CROWD",
+   "lod": true,
+   "at": "plaza",
+   "offset": [
+    0,
+    0,
+    0
+   ],
+   "yaw": 0,
+   "keys": [
+    [
+     0,
+     "idle"
+    ]
+   ]
+  },
+  "crowd075": {
+   "style": "v5",
+   "faceStyle": "v6",
+   "troupe": "DUMMY",
+   "costume": "CROWD",
+   "lod": true,
+   "at": "plaza",
+   "offset": [
+    0,
+    0,
+    0
+   ],
+   "yaw": 0,
+   "keys": [
+    [
+     0,
+     "idle"
+    ]
+   ]
+  },
+  "crowd076": {
+   "style": "v5",
+   "faceStyle": "v6",
+   "troupe": "DUMMY",
+   "costume": "CROWD",
+   "lod": true,
+   "at": "plaza",
+   "offset": [
+    0,
+    0,
+    0
+   ],
+   "yaw": 0,
+   "keys": [
+    [
+     0,
+     "idle"
+    ]
+   ]
+  },
+  "crowd077": {
+   "style": "v5",
+   "faceStyle": "v6",
+   "troupe": "DUMMY",
+   "costume": "CROWD",
+   "lod": true,
+   "at": "plaza",
+   "offset": [
+    0,
+    0,
+    0
+   ],
+   "yaw": 0,
+   "keys": [
+    [
+     0,
+     "idle"
+    ]
+   ]
+  },
+  "crowd078": {
+   "style": "v5",
+   "faceStyle": "v6",
+   "troupe": "DUMMY",
+   "costume": "CROWD",
+   "lod": true,
+   "at": "plaza",
+   "offset": [
+    0,
+    0,
+    0
+   ],
+   "yaw": 0,
+   "keys": [
+    [
+     0,
+     "idle"
+    ]
+   ]
+  },
+  "crowd079": {
+   "style": "v5",
+   "faceStyle": "v6",
+   "troupe": "DUMMY",
+   "costume": "CROWD",
+   "lod": true,
+   "at": "plaza",
+   "offset": [
+    0,
+    0,
+    0
+   ],
+   "yaw": 0,
+   "keys": [
+    [
+     0,
+     "idle"
+    ]
+   ]
+  },
+  "crowd080": {
+   "style": "v5",
+   "faceStyle": "v6",
+   "troupe": "DUMMY",
+   "costume": "CROWD",
+   "lod": true,
+   "at": "plaza",
+   "offset": [
+    0,
+    0,
+    0
+   ],
+   "yaw": 0,
+   "keys": [
+    [
+     0,
+     "idle"
+    ]
+   ]
+  },
+  "crowd081": {
+   "style": "v5",
+   "faceStyle": "v6",
+   "troupe": "DUMMY",
+   "costume": "CROWD",
+   "lod": true,
+   "at": "plaza",
+   "offset": [
+    0,
+    0,
+    0
+   ],
+   "yaw": 0,
+   "keys": [
+    [
+     0,
+     "idle"
+    ]
+   ]
+  },
+  "crowd082": {
+   "style": "v5",
+   "faceStyle": "v6",
+   "troupe": "DUMMY",
+   "costume": "CROWD",
+   "lod": true,
+   "at": "plaza",
+   "offset": [
+    0,
+    0,
+    0
+   ],
+   "yaw": 0,
+   "keys": [
+    [
+     0,
+     "idle"
+    ]
+   ]
+  },
+  "crowd083": {
+   "style": "v5",
+   "faceStyle": "v6",
+   "troupe": "DUMMY",
+   "costume": "CROWD",
+   "lod": true,
+   "at": "plaza",
+   "offset": [
+    0,
+    0,
+    0
+   ],
+   "yaw": 0,
+   "keys": [
+    [
+     0,
+     "idle"
+    ]
+   ]
+  },
+  "crowd084": {
+   "style": "v5",
+   "faceStyle": "v6",
+   "troupe": "DUMMY",
+   "costume": "CROWD",
+   "lod": true,
+   "at": "plaza",
+   "offset": [
+    0,
+    0,
+    0
+   ],
+   "yaw": 0,
+   "keys": [
+    [
+     0,
+     "idle"
+    ]
+   ]
+  },
+  "crowd085": {
+   "style": "v5",
+   "faceStyle": "v6",
+   "troupe": "DUMMY",
+   "costume": "CROWD",
+   "lod": true,
+   "at": "plaza",
+   "offset": [
+    0,
+    0,
+    0
+   ],
+   "yaw": 0,
+   "keys": [
+    [
+     0,
+     "idle"
+    ]
+   ]
+  },
+  "crowd086": {
+   "style": "v5",
+   "faceStyle": "v6",
+   "troupe": "DUMMY",
+   "costume": "CROWD",
+   "lod": true,
+   "at": "plaza",
+   "offset": [
+    0,
+    0,
+    0
+   ],
+   "yaw": 0,
+   "keys": [
+    [
+     0,
+     "idle"
+    ]
+   ]
+  },
+  "crowd087": {
+   "style": "v5",
+   "faceStyle": "v6",
+   "troupe": "DUMMY",
+   "costume": "CROWD",
+   "lod": true,
+   "at": "plaza",
+   "offset": [
+    0,
+    0,
+    0
+   ],
+   "yaw": 0,
+   "keys": [
+    [
+     0,
+     "idle"
+    ]
+   ]
+  },
+  "crowd088": {
+   "style": "v5",
+   "faceStyle": "v6",
+   "troupe": "DUMMY",
+   "costume": "CROWD",
+   "lod": true,
+   "at": "plaza",
+   "offset": [
+    0,
+    0,
+    0
+   ],
+   "yaw": 0,
+   "keys": [
+    [
+     0,
+     "idle"
+    ]
+   ]
+  },
+  "crowd089": {
+   "style": "v5",
+   "faceStyle": "v6",
+   "troupe": "DUMMY",
+   "costume": "CROWD",
+   "lod": true,
+   "at": "plaza",
+   "offset": [
+    0,
+    0,
+    0
+   ],
+   "yaw": 0,
+   "keys": [
+    [
+     0,
+     "idle"
+    ]
+   ]
+  },
+  "crowd090": {
+   "style": "v5",
+   "faceStyle": "v6",
+   "troupe": "DUMMY",
+   "costume": "CROWD",
+   "lod": true,
+   "at": "plaza",
+   "offset": [
+    0,
+    0,
+    0
+   ],
+   "yaw": 0,
+   "keys": [
+    [
+     0,
+     "idle"
+    ]
+   ]
+  },
+  "crowd091": {
+   "style": "v5",
+   "faceStyle": "v6",
+   "troupe": "DUMMY",
+   "costume": "CROWD",
+   "lod": true,
+   "at": "plaza",
+   "offset": [
+    0,
+    0,
+    0
+   ],
+   "yaw": 0,
+   "keys": [
+    [
+     0,
+     "idle"
+    ]
+   ]
+  },
+  "crowd092": {
+   "style": "v5",
+   "faceStyle": "v6",
+   "troupe": "DUMMY",
+   "costume": "CROWD",
+   "lod": true,
+   "at": "plaza",
+   "offset": [
+    0,
+    0,
+    0
+   ],
+   "yaw": 0,
+   "keys": [
+    [
+     0,
+     "idle"
+    ]
+   ]
+  },
+  "crowd093": {
+   "style": "v5",
+   "faceStyle": "v6",
+   "troupe": "DUMMY",
+   "costume": "CROWD",
+   "lod": true,
+   "at": "plaza",
+   "offset": [
+    0,
+    0,
+    0
+   ],
+   "yaw": 0,
+   "keys": [
+    [
+     0,
+     "idle"
+    ]
+   ]
+  },
+  "crowd094": {
+   "style": "v5",
+   "faceStyle": "v6",
+   "troupe": "DUMMY",
+   "costume": "CROWD",
+   "lod": true,
+   "at": "plaza",
+   "offset": [
+    0,
+    0,
+    0
+   ],
+   "yaw": 0,
+   "keys": [
+    [
+     0,
+     "idle"
+    ]
+   ]
+  },
+  "crowd095": {
+   "style": "v5",
+   "faceStyle": "v6",
+   "troupe": "DUMMY",
+   "costume": "CROWD",
+   "lod": true,
+   "at": "plaza",
+   "offset": [
+    0,
+    0,
+    0
+   ],
+   "yaw": 0,
+   "keys": [
+    [
+     0,
+     "idle"
+    ]
+   ]
+  },
+  "crowd096": {
+   "style": "v5",
+   "faceStyle": "v6",
+   "troupe": "DUMMY",
+   "costume": "CROWD",
+   "lod": true,
+   "at": "plaza",
+   "offset": [
+    0,
+    0,
+    0
+   ],
+   "yaw": 0,
+   "keys": [
+    [
+     0,
+     "idle"
+    ]
+   ]
+  },
+  "crowd097": {
+   "style": "v5",
+   "faceStyle": "v6",
+   "troupe": "DUMMY",
+   "costume": "CROWD",
+   "lod": true,
+   "at": "plaza",
+   "offset": [
+    0,
+    0,
+    0
+   ],
+   "yaw": 0,
+   "keys": [
+    [
+     0,
+     "idle"
+    ]
+   ]
+  },
+  "crowd098": {
+   "style": "v5",
+   "faceStyle": "v6",
+   "troupe": "DUMMY",
+   "costume": "CROWD",
+   "lod": true,
+   "at": "plaza",
+   "offset": [
+    0,
+    0,
+    0
+   ],
+   "yaw": 0,
+   "keys": [
+    [
+     0,
+     "idle"
+    ]
+   ]
+  },
+  "crowd099": {
+   "style": "v5",
+   "faceStyle": "v6",
+   "troupe": "DUMMY",
+   "costume": "CROWD",
+   "lod": true,
+   "at": "plaza",
+   "offset": [
+    0,
+    0,
+    0
+   ],
+   "yaw": 0,
+   "keys": [
+    [
+     0,
+     "idle"
+    ]
+   ]
+  },
+  "crowd100": {
+   "style": "v5",
+   "faceStyle": "v6",
+   "troupe": "DUMMY",
+   "costume": "CROWD",
+   "lod": true,
+   "at": "plaza",
+   "offset": [
+    0,
+    0,
+    0
+   ],
+   "yaw": 0,
+   "keys": [
+    [
+     0,
+     "idle"
+    ]
+   ]
+  },
+  "crowd101": {
+   "style": "v5",
+   "faceStyle": "v6",
+   "troupe": "DUMMY",
+   "costume": "CROWD",
+   "lod": true,
+   "at": "plaza",
+   "offset": [
+    0,
+    0,
+    0
+   ],
+   "yaw": 0,
+   "keys": [
+    [
+     0,
+     "idle"
+    ]
+   ]
+  },
+  "crowd102": {
+   "style": "v5",
+   "faceStyle": "v6",
+   "troupe": "DUMMY",
+   "costume": "CROWD",
+   "lod": true,
+   "at": "plaza",
+   "offset": [
+    0,
+    0,
+    0
+   ],
+   "yaw": 0,
+   "keys": [
+    [
+     0,
+     "idle"
+    ]
+   ]
+  },
+  "crowd103": {
+   "style": "v5",
+   "faceStyle": "v6",
+   "troupe": "DUMMY",
+   "costume": "CROWD",
+   "lod": true,
+   "at": "plaza",
+   "offset": [
+    0,
+    0,
+    0
+   ],
+   "yaw": 0,
+   "keys": [
+    [
+     0,
+     "idle"
+    ]
+   ]
+  },
+  "crowd104": {
+   "style": "v5",
+   "faceStyle": "v6",
+   "troupe": "DUMMY",
+   "costume": "CROWD",
+   "lod": true,
+   "at": "plaza",
+   "offset": [
+    0,
+    0,
+    0
+   ],
+   "yaw": 0,
+   "keys": [
+    [
+     0,
+     "idle"
+    ]
+   ]
+  },
+  "crowd105": {
+   "style": "v5",
+   "faceStyle": "v6",
+   "troupe": "DUMMY",
+   "costume": "CROWD",
+   "lod": true,
+   "at": "plaza",
+   "offset": [
+    0,
+    0,
+    0
+   ],
+   "yaw": 0,
+   "keys": [
+    [
+     0,
+     "idle"
+    ]
+   ]
+  },
+  "crowd106": {
+   "style": "v5",
+   "faceStyle": "v6",
+   "troupe": "DUMMY",
+   "costume": "CROWD",
+   "lod": true,
+   "at": "plaza",
+   "offset": [
+    0,
+    0,
+    0
+   ],
+   "yaw": 0,
+   "keys": [
+    [
+     0,
+     "idle"
+    ]
+   ]
+  },
+  "crowd107": {
+   "style": "v5",
+   "faceStyle": "v6",
+   "troupe": "DUMMY",
+   "costume": "CROWD",
+   "lod": true,
+   "at": "plaza",
+   "offset": [
+    0,
+    0,
+    0
+   ],
+   "yaw": 0,
+   "keys": [
+    [
+     0,
+     "idle"
+    ]
+   ]
+  },
+  "crowd108": {
+   "style": "v5",
+   "faceStyle": "v6",
+   "troupe": "DUMMY",
+   "costume": "CROWD",
+   "lod": true,
+   "at": "plaza",
+   "offset": [
+    0,
+    0,
+    0
+   ],
+   "yaw": 0,
+   "keys": [
+    [
+     0,
+     "idle"
+    ]
+   ]
+  },
+  "crowd109": {
+   "style": "v5",
+   "faceStyle": "v6",
+   "troupe": "DUMMY",
+   "costume": "CROWD",
+   "lod": true,
+   "at": "plaza",
+   "offset": [
+    0,
+    0,
+    0
+   ],
+   "yaw": 0,
+   "keys": [
+    [
+     0,
+     "idle"
+    ]
+   ]
+  },
+  "crowd110": {
+   "style": "v5",
+   "faceStyle": "v6",
+   "troupe": "DUMMY",
+   "costume": "CROWD",
+   "lod": true,
+   "at": "plaza",
+   "offset": [
+    0,
+    0,
+    0
+   ],
+   "yaw": 0,
+   "keys": [
+    [
+     0,
+     "idle"
+    ]
+   ]
+  },
+  "crowd111": {
+   "style": "v5",
+   "faceStyle": "v6",
+   "troupe": "DUMMY",
+   "costume": "CROWD",
+   "lod": true,
+   "at": "plaza",
+   "offset": [
+    0,
+    0,
+    0
+   ],
+   "yaw": 0,
+   "keys": [
+    [
+     0,
+     "idle"
+    ]
+   ]
+  },
+  "crowd112": {
+   "style": "v5",
+   "faceStyle": "v6",
+   "troupe": "DUMMY",
+   "costume": "CROWD",
+   "lod": true,
+   "at": "plaza",
+   "offset": [
+    0,
+    0,
+    0
+   ],
+   "yaw": 0,
+   "keys": [
+    [
+     0,
+     "idle"
+    ]
+   ]
+  },
+  "crowd113": {
+   "style": "v5",
+   "faceStyle": "v6",
+   "troupe": "DUMMY",
+   "costume": "CROWD",
+   "lod": true,
+   "at": "plaza",
+   "offset": [
+    0,
+    0,
+    0
+   ],
+   "yaw": 0,
+   "keys": [
+    [
+     0,
+     "idle"
+    ]
+   ]
+  },
+  "crowd114": {
+   "style": "v5",
+   "faceStyle": "v6",
+   "troupe": "DUMMY",
+   "costume": "CROWD",
+   "lod": true,
+   "at": "plaza",
+   "offset": [
+    0,
+    0,
+    0
+   ],
+   "yaw": 0,
+   "keys": [
+    [
+     0,
+     "idle"
+    ]
+   ]
+  },
+  "crowd115": {
+   "style": "v5",
+   "faceStyle": "v6",
+   "troupe": "DUMMY",
+   "costume": "CROWD",
+   "lod": true,
+   "at": "plaza",
+   "offset": [
+    0,
+    0,
+    0
+   ],
+   "yaw": 0,
+   "keys": [
+    [
+     0,
+     "idle"
+    ]
+   ]
+  },
+  "crowd116": {
+   "style": "v5",
+   "faceStyle": "v6",
+   "troupe": "DUMMY",
+   "costume": "CROWD",
+   "lod": true,
+   "at": "plaza",
+   "offset": [
+    0,
+    0,
+    0
+   ],
+   "yaw": 0,
+   "keys": [
+    [
+     0,
+     "idle"
+    ]
+   ]
+  },
+  "crowd117": {
+   "style": "v5",
+   "faceStyle": "v6",
+   "troupe": "DUMMY",
+   "costume": "CROWD",
+   "lod": true,
+   "at": "plaza",
+   "offset": [
+    0,
+    0,
+    0
+   ],
+   "yaw": 0,
+   "keys": [
+    [
+     0,
+     "idle"
+    ]
+   ]
+  },
+  "crowd118": {
+   "style": "v5",
+   "faceStyle": "v6",
+   "troupe": "DUMMY",
+   "costume": "CROWD",
+   "lod": true,
+   "at": "plaza",
+   "offset": [
+    0,
+    0,
+    0
+   ],
+   "yaw": 0,
+   "keys": [
+    [
+     0,
+     "idle"
+    ]
+   ]
+  },
+  "crowd119": {
+   "style": "v5",
+   "faceStyle": "v6",
+   "troupe": "DUMMY",
+   "costume": "CROWD",
+   "lod": true,
+   "at": "plaza",
+   "offset": [
+    0,
+    0,
+    0
+   ],
+   "yaw": 0,
+   "keys": [
+    [
+     0,
+     "idle"
+    ]
+   ]
+  },
+  "crowd120": {
+   "style": "v5",
+   "faceStyle": "v6",
+   "troupe": "DUMMY",
+   "costume": "CROWD",
+   "lod": true,
+   "at": "plaza",
+   "offset": [
+    0,
+    0,
+    0
+   ],
+   "yaw": 0,
+   "keys": [
+    [
+     0,
+     "idle"
+    ]
+   ]
+  }
+ },
+ "props": [
+  {
+   "id": "wallSign",
+   "prop": "wallSign",
+   "scale": 1,
+   "pos": [
+    [
+     0,
+     [
+      0,
+      0,
+      8
+     ]
+    ]
+   ],
+   "visible": [
+    [
+     0,
+     false
+    ],
+    [
+     3.005,
+     true
+    ],
+    [
+     4.29,
+     false
+    ],
+    [
+     98.124,
+     true
+    ],
+    [
+     100.08,
+     false
+    ]
+   ]
+  },
+  {
+   "id": "pool",
+   "prop": "pool",
+   "scale": 1,
+   "pos": [
+    [
+     0,
+     [
+      0,
+      0,
+      8
+     ]
+    ]
+   ],
+   "visible": [
+    [
+     0,
+     false
+    ],
+    [
+     14.8,
+     true
+    ],
+    [
+     16.11,
+     false
+    ]
+   ]
+  },
+  {
+   "id": "spawnPad",
+   "prop": "spawnPad",
+   "scale": 1,
+   "pos": [
+    [
+     0,
+     [
+      0,
+      0,
+      8
+     ]
+    ]
+   ],
+   "visible": [
+    [
+     0,
+     false
+    ],
+    [
+     21.92,
+     true
+    ],
+    [
+     23.54,
+     false
+    ]
+   ]
+  },
+  {
+   "id": "giantHand",
+   "prop": "giantHand",
+   "scale": 1,
+   "pos": [
+    [
+     0,
+     [
+      0,
+      0,
+      8
+     ]
+    ]
+   ],
+   "visible": [
+    [
+     0,
+     false
+    ],
+    [
+     57.199,
+     true
+    ],
+    [
+     59.19,
+     false
+    ],
+    [
+     77.938,
+     true
+    ],
+    [
+     79.13,
+     false
+    ]
+   ]
+  },
+  {
+   "id": "launchTower",
+   "prop": "launchTower",
+   "scale": 1,
+   "pos": [
+    [
+     0,
+     [
+      0,
+      0,
+      8
+     ]
+    ]
+   ],
+   "visible": [
+    [
+     0,
+     false
+    ],
+    [
+     75.604,
+     true
+    ],
+    [
+     77.94,
+     false
+    ],
+    [
+     90.518,
+     true
+    ],
+    [
+     92.49,
+     false
+    ],
+    [
+     93.371,
+     true
+    ],
+    [
+     95.73,
+     false
+    ]
+   ]
+  },
+  {
+   "id": "healButton",
+   "prop": "healButton",
+   "scale": 1,
+   "pos": [
+    [
+     0,
+     [
+      0,
+      0,
+      8
+     ]
+    ]
+   ],
+   "visible": [
+    [
+     0,
+     false
+    ],
+    [
+     104.837,
+     true
+    ],
+    [
+     106.61,
+     false
+    ]
+   ]
+  }
+ ],
+ "emphasis6": [
+  {
+   "word": "color",
+   "t": 2.32,
+   "shot": "S01"
+  },
+  {
+   "word": "white",
+   "t": 3.6,
+   "shot": "S02"
+  },
+  {
+   "word": "anyone",
+   "t": 7.4,
+   "shot": "S04"
+  },
+  {
+   "word": "perfect",
+   "t": 13.84,
+   "shot": "S07"
+  },
+  {
+   "word": "white",
+   "t": 17.2,
+   "shot": "S09"
+  },
+  {
+   "word": "had",
+   "t": 20.72,
+   "shot": "S11"
+  },
+  {
+   "word": "Bitsy",
+   "t": 26.88,
+   "shot": "S14"
+  },
+  {
+   "word": "pinker",
+   "t": 35.72,
+   "shot": "S19"
+  },
+  {
+   "word": "Weird",
+   "t": 36.431,
+   "shot": "S20"
+  },
+  {
+   "word": "blushed",
+   "t": 50.84,
+   "shot": "S27"
+  },
+  {
+   "word": "player",
+   "t": 52.64,
+   "shot": "S28"
+  },
+  {
+   "word": "Bitsy",
+   "t": 59.68,
+   "shot": "S31"
+  },
+  {
+   "word": "me",
+   "t": 63.48,
+   "shot": "S34"
+  },
+  {
+   "word": "name",
+   "t": 73.04,
+   "shot": "S39"
+  },
+  {
+   "word": "ground",
+   "t": 83.88,
+   "shot": "S44"
+  },
+  {
+   "word": "Dummies",
+   "t": 88.86,
+   "shot": "S48"
+  },
+  {
+   "word": "fell",
+   "t": 97.4,
+   "shot": "S53"
+  },
+  {
+   "word": "colors",
+   "t": 99.44,
+   "shot": "S54"
+  },
+  {
+   "word": "Heal",
+   "t": 105.32,
+   "shot": "S58"
+  },
+  {
+   "word": "back",
+   "t": 114.08,
+   "shot": "S62"
+  }
+ ],
+ "effects": [],
+ "shots": [
+  {
+   "id": "S01",
+   "at": 0,
+   "freeze": [
+    2.32,
+    4
+   ],
+   "loc": "testPark",
+   "mood": "tension",
+   "size": "close",
+   "move": "snap",
+   "why": "tension: flinch",
+   "see": [
+    "hero"
+   ],
+   "vo": "In this world, every fall drains a dummy's color.",
+   "cue": [
+    0,
+    3
+   ],
+   "ecu": true,
+   "subject": "hero",
+   "actions": [
+    {
+     "actor": "hero",
+     "verb": "flinch",
+     "at": {
+      "word": "color",
+      "nth": 1,
+      "line": 1
+     }
+    },
+    {
+     "actor": "hero",
+     "face": "shock",
+     "at": {
+      "word": "color",
+      "nth": 1,
+      "line": 1
+     }
+    }
+   ],
+   "note": "HOOK. Hero at 0.0 s – face fills 45 % of frame. Behind him a white dummy lands flat on the concrete – and its last red tint washes white on *color*",
+   "openHit": true,
+   "from": {
+    "position": [
+     -24.507902573829192,
+     8.000428702985626,
+     44.33999876171558
+    ],
+    "target": [
+     -14,
+     4.6,
+     12
+    ],
+    "fov": 34
+   },
+   "to": {
+    "position": [
+     -16.249927374631664,
+     5.328091792874569,
+     18.924564440743808
+    ],
+    "target": [
+     -14,
+     4.6,
+     12
+    ],
+    "fov": 34
+   },
+   "snapAt": 0.6
+  },
+  {
+   "id": "S02",
+   "at": 3.005,
+   "loc": "testPark",
+   "mood": "awe",
+   "size": "wide",
+   "move": "drone",
+   "why": "awe: That's why they're all white.",
+   "see": [
+    "wallSign"
+   ],
+   "vo": "That's why they're all white.",
+   "cue": [
+    3,
+    4.29
+   ],
+   "prop": "prop_wallSign",
+   "note": "Drone over the whole park: about 120 white dummies limping – wandering – crawling. Giant fan – launch tower – coaster track – boxing ring – pools. Sign \"DUMMIES HELP EACH OTHER\" readable on the plaza wall (plant A)",
+   "from": {
+    "position": [
+     0.7014835964564994,
+     0.6,
+     16.76854495570624
+    ],
+    "target": [
+     0,
+     1.5,
+     8
+    ],
+    "fov": 40
+   },
+   "to": {
+    "position": [
+     0.6523797447045444,
+     0.6,
+     16.154746808806806
+    ],
+    "target": [
+     0,
+     1.5,
+     8
+    ],
+    "fov": 40
+   }
+  },
+  {
+   "id": "S03",
+   "at": 4.295,
+   "loc": "testPark",
+   "mood": "fun",
+   "size": "medium",
+   "move": "push",
+   "why": "fun: idle_alive",
+   "see": [
+    "hero"
+   ],
+   "vo": "I'm the last dummy with color left.",
+   "cue": [
+    4.29,
+    6.22
+   ],
+   "subject": "hero",
+   "actions": [
+    {
+     "actor": "hero",
+     "verb": "idle_alive",
+     "at": {
+      "word": "i'm",
+      "nth": 1,
+      "line": 3
+     }
+    },
+    {
+     "actor": "hero",
+     "face": "neutral",
+     "at": 0
+    },
+    {
+     "actor": "hero",
+     "face": "smile",
+     "at": {
+      "word": "left",
+      "nth": 1,
+      "line": 3
+     }
+    }
+   ],
+   "note": "The only coloured figure in a crowd of white dummies. A white dummy walks into a lamppost behind him",
+   "from": {
+    "position": [
+     -16.674240634676426,
+     3.56540244820051,
+     20.230466375788744
+    ],
+    "target": [
+     -14,
+     2.7,
+     12
+    ],
+    "fov": 55
+   },
+   "to": {
+    "position": [
+     -16.527157399769223,
+     3.5178053135494824,
+     19.77779072512036
+    ],
+    "target": [
+     -14,
+     2.7,
+     12
+    ],
+    "fov": 55
+   }
+  },
+  {
+   "id": "S04",
+   "at": 6.222,
+   "impact": 1.178,
+   "zoomAt": 1.008,
+   "freeze": [
+    1.178,
+    8
+   ],
+   "loc": "testPark",
+   "mood": "comedy",
+   "size": "medium",
+   "move": "crashZoom",
+   "why": "comedy: trip_fall",
+   "see": [
+    "hero"
+   ],
+   "vo": "And I fall more than anyone.",
+   "cue": [
+    6.22,
+    7.96
+   ],
+   "subject": "hero",
+   "actions": [
+    {
+     "actor": "hero",
+     "verb": "trip_fall",
+     "at": {
+      "word": "anyone",
+      "nth": 1,
+      "line": 4
+     },
+     "hold": 0.6
+    },
+    {
+     "actor": "hero",
+     "face": "shock",
+     "at": {
+      "word": "anyone",
+      "nth": 1,
+      "line": 4
+     }
+    }
+   ],
+   "note": "He trips over nothing mid-sentence",
+   "from": {
+    "position": [
+     -11.325759365323572,
+     3.86540244820051,
+     20.230466375788744
+    ],
+    "target": [
+     -14,
+     3,
+     12
+    ],
+    "fov": 55
+   },
+   "to": {
+    "position": [
+     -11.325759365323572,
+     3.86540244820051,
+     20.230466375788744
+    ],
+    "target": [
+     -14,
+     3,
+     12
+    ],
+    "fov": 46.75
+   }
+  },
+  {
+   "id": "S05",
+   "at": 7.961,
+   "still": true,
+   "light": {
+    "camNoise": 0
+   },
+   "loc": "testPark",
+   "mood": "comedy",
+   "size": "close",
+   "move": "static-drift",
+   "why": "comedy: Nine thousand falls, and counting.",
+   "see": [
+    "hero"
+   ],
+   "vo": "Nine thousand falls, and counting.",
+   "cue": [
+    7.96,
+    10.61
+   ],
+   "subject": "hero",
+   "actions": [
+    {
+     "actor": "hero",
+     "face": "neutral",
+     "at": 0
+    }
+   ],
+   "note": "Deadpan: face-down on the concrete – one eye to camera",
+   "from": {
+    "position": [
+     -15.321389490075411,
+     5.027610621463781,
+     16.066818679801496
+    ],
+    "target": [
+     -14,
+     4.6,
+     12
+    ],
+    "fov": 55
+   }
+  },
+  {
+   "id": "S06",
+   "at": 10.606,
+   "gag": 1,
+   "blur": true,
+   "loc": "testPark",
+   "mood": "fun",
+   "size": "wide",
+   "move": "track",
+   "why": "fun: On Monday, the giant fan blew me into the pool.",
+   "see": [
+    "hero"
+   ],
+   "vo": "On Monday, the giant fan blew me into the pool.",
+   "cue": [
+    10.61,
+    13.22
+   ],
+   "subject": "hero",
+   "actions": [
+    {
+     "actor": "hero",
+     "face": "shock",
+     "at": {
+      "word": "fan",
+      "nth": 1,
+      "line": 6
+     }
+    }
+   ],
+   "note": "The giant fan spins up; hero tumbles through the air across the plaza toward the pool",
+   "from": {
+    "position": [
+     6.171324541560988,
+     4.697082572770409,
+     18.99338394412787
+    ],
+    "target": [
+     0,
+     2.7,
+     0
+    ],
+    "fov": 55
+   },
+   "follow": "hero",
+   "to": {
+    "position": [
+     6.8713245415609885,
+     4.697082572770409,
+     18.99338394412787
+    ],
+    "target": [
+     0,
+     2.7,
+     0
+    ],
+    "fov": 55
+   }
+  },
+  {
+   "id": "S07",
+   "at": 13.216,
+   "impact": 0.624,
+   "loc": "testPark",
+   "mood": "fun",
+   "size": "medium",
+   "move": "whip",
+   "why": "fun: jump",
+   "see": [
+    "hero"
+   ],
+   "vo": "I landed in a perfect dive.",
+   "cue": [
+    13.22,
+    14.8
+   ],
+   "subject": "hero",
+   "actions": [
+    {
+     "actor": "hero",
+     "verb": "jump",
+     "at": {
+      "word": "perfect",
+      "nth": 1,
+      "line": 7
+     }
+    },
+    {
+     "actor": "hero",
+     "face": "grin",
+     "at": {
+      "word": "perfect",
+      "nth": 1,
+      "line": 7
+     }
+    }
+   ],
+   "note": "Perfect pencil dive into the pool",
+   "from": {
+    "position": [
+     -16.674240634676426,
+     3.56540244820051,
+     20.230466375788744
+    ],
+    "target": [
+     -14,
+     2.7,
+     12
+    ],
+    "fov": 55
+   },
+   "to": {
+    "position": [
+     -16.674240634676426,
+     3.56540244820051,
+     20.230466375788744
+    ],
+    "target": [
+     -13.4,
+     2.7,
+     12
+    ],
+    "fov": 55
+   }
+  },
+  {
+   "id": "S08",
+   "at": 14.8,
+   "still": true,
+   "light": {
+    "camNoise": 0
+   },
+   "loc": "testPark",
+   "mood": "comedy",
+   "size": "wide",
+   "move": "static-drift",
+   "why": "comedy: Nobody clapped.",
+   "see": [
+    "pool"
+   ],
+   "vo": "Nobody clapped.",
+   "cue": [
+    14.8,
+    16.11
+   ],
+   "prop": "prop_pool",
+   "note": "Beat: white dummies wander past the pool. Nobody looks. Ripples settle",
+   "from": {
+    "position": [
+     0.7014835964564994,
+     0.6,
+     16.76854495570624
+    ],
+    "target": [
+     0,
+     1.5,
+     8
+    ],
+    "fov": 40
+   },
+   "to": {
+    "position": [
+     0.6523797447045444,
+     0.6,
+     16.154746808806806
+    ],
+    "target": [
+     0,
+     1.5,
+     8
+    ],
+    "fov": 40
+   }
+  },
+  {
+   "id": "S09",
+   "at": 16.111,
+   "loc": "testPark",
+   "mood": "comedy",
+   "size": "close",
+   "move": "push",
+   "why": "comedy: My green pants turned white.",
+   "see": [
+    "hero"
+   ],
+   "vo": "My green pants turned white.",
+   "cue": [
+    16.11,
+    17.76
+   ],
+   "subject": "hero",
+   "actions": [
+    {
+     "actor": "hero",
+     "face": "neutral",
+     "at": 0
+    },
+    {
+     "actor": "hero",
+     "face": "sad",
+     "at": {
+      "word": "white",
+      "nth": 1,
+      "line": 9
+     }
+    }
+   ],
+   "note": "He climbs out – dripping. (6-frame wash – grey dust puff)",
+   "from": {
+    "position": [
+     -15.321389490075411,
+     5.027610621463781,
+     16.066818679801496
+    ],
+    "target": [
+     -14,
+     4.6,
+     12
+    ],
+    "fov": 55
+   },
+   "to": {
+    "position": [
+     -15.248713068121264,
+     5.004092037283273,
+     15.843143652412413
+    ],
+    "target": [
+     -14,
+     4.6,
+     12
+    ],
+    "fov": 55
+   }
+  },
+  {
+   "id": "S10",
+   "at": 17.76,
+   "loc": "testPark",
+   "mood": "emotion",
+   "size": "medium",
+   "move": "track",
+   "why": "emotion: The white dummies don't remember their names.",
+   "see": [
+    "dummya"
+   ],
+   "vo": "The white dummies don't remember their names.",
+   "cue": [
+    17.76,
+    19.89
+   ],
+   "subject": "dummya",
+   "note": "Track along a row of white dummies with blank faces – staring at nothing",
+   "from": {
+    "position": [
+     3.8248225502994324,
+     3.937738577464308,
+     11.771593395673232
+    ],
+    "target": [
+     0,
+     2.7,
+     0
+    ],
+    "fov": 40
+   },
+   "follow": "dummya",
+   "to": {
+    "position": [
+     4.524822550299432,
+     3.937738577464308,
+     11.771593395673232
+    ],
+    "target": [
+     0,
+     2.7,
+     0
+    ],
+    "fov": 40
+   }
+  },
+  {
+   "id": "S11",
+   "at": 19.89,
+   "loc": "testPark",
+   "mood": "emotion",
+   "size": "close",
+   "move": "push",
+   "why": "emotion: They don't remember they ever had names.",
+   "see": [
+    "hero",
+    "dummya"
+   ],
+   "vo": "They don't remember they ever had names.",
+   "cue": [
+    19.89,
+    21.92
+   ],
+   "subject": "hero",
+   "pair": [
+    "hero",
+    "dummya"
+   ],
+   "actions": [
+    {
+     "actor": "hero",
+     "face": "sad_soft",
+     "at": {
+      "word": "had",
+      "nth": 1,
+      "line": 11
+     }
+    }
+   ],
+   "note": "Hero beside a white dummy who stares through him. Hero looks at it; it does not look back",
+   "from": {
+    "position": [
+     -18.867420342693173,
+     8.116771096901918,
+     43.44648068027023
+    ],
+    "target": [
+     -8,
+     4.6,
+     10
+    ],
+    "fov": 40
+   },
+   "to": {
+    "position": [
+     -18.432723528985445,
+     7.97610025302584,
+     42.10862145305941
+    ],
+    "target": [
+     -8,
+     4.6,
+     10
+    ],
+    "fov": 40
+   }
+  },
+  {
+   "id": "S12",
+   "at": 21.92,
+   "impact": 0.4,
+   "loc": "testPark",
+   "mood": "fun",
+   "size": "insert",
+   "move": "snap",
+   "why": "fun: Then a new dummy spawned.",
+   "see": [
+    "spawnPad"
+   ],
+   "vo": "Then a new dummy spawned.",
+   "cue": [
+    21.92,
+    23.54
+   ],
+   "prop": "prop_spawnPad",
+   "note": "Spawn pad flashes – POP: Bitsy appears",
+   "from": {
+    "position": [
+     0.7014835964564994,
+     0.6,
+     16.76854495570624
+    ],
+    "target": [
+     0,
+     1.5,
+     8
+    ],
+    "fov": 40
+   },
+   "to": {
+    "position": [
+     0.6523797447045444,
+     0.6,
+     16.154746808806806
+    ],
+    "target": [
+     0,
+     1.5,
+     8
+    ],
+    "fov": 40
+   }
+  },
+  {
+   "id": "S13",
+   "at": 23.537,
+   "loc": "testPark",
+   "mood": "fun",
+   "size": "medium",
+   "move": "orbit",
+   "why": "fun: cheer",
+   "see": [
+    "bitsy"
+   ],
+   "vo": "Tiny, pink, and giggling at everything.",
+   "cue": [
+    23.54,
+    26.08
+   ],
+   "subject": "bitsy",
+   "actions": [
+    {
+     "actor": "bitsy",
+     "verb": "cheer",
+     "at": {
+      "word": "tiny",
+      "nth": 1,
+      "line": 13
+     }
+    },
+    {
+     "actor": "bitsy",
+     "face": "laugh",
+     "at": {
+      "word": "giggling",
+      "nth": 1,
+      "line": 13
+     }
+    }
+   ],
+   "note": "Bitsy: tiny – bright pink – giggling at a white dummy flopping nearby",
+   "from": {
+    "position": [
+     -12.674240634676428,
+     3.56540244820051,
+     16.230466375788744
+    ],
+    "target": [
+     -10,
+     2.7,
+     8
+    ],
+    "fov": 55
+   },
+   "degrees": 6,
+   "to": {
+    "position": [
+     -12.594013415636134,
+     3.539440374754495,
+     15.983552384515082
+    ],
+    "target": [
+     -10,
+     2.7,
+     8
+    ],
+    "fov": 55
+   }
+  },
+  {
+   "id": "S14",
+   "at": 26.084,
+   "loc": "testPark",
+   "mood": "fun",
+   "size": "insert",
+   "move": "push",
+   "why": "fun: Her name tag said Bitsy.",
+   "see": [
+    "bitsy"
+   ],
+   "vo": "Her name tag said Bitsy.",
+   "cue": [
+    26.08,
+    27.61
+   ],
+   "subject": "bitsy",
+   "actions": [
+    {
+     "actor": "bitsy",
+     "face": "grin",
+     "at": {
+      "word": "bitsy",
+      "nth": 1,
+      "line": 14
+     }
+    }
+   ],
+   "note": "Floating name tag reads \"Bitsy\"",
+   "from": {
+    "position": [
+     -5.415587483411838,
+     4.1835470540580175,
+     22.109370929923557
+    ],
+    "target": [
+     -10,
+     2.7,
+     8
+    ],
+    "fov": 55
+   },
+   "to": {
+    "position": [
+     -5.6677301718241875,
+     4.101951966084827,
+     21.333355528777762
+    ],
+    "target": [
+     -10,
+     2.7,
+     8
+    ],
+    "fov": 55
+   }
+  },
+  {
+   "id": "S15",
+   "at": 27.612,
+   "loc": "coaster",
+   "mood": "fun",
+   "size": "medium",
+   "move": "track",
+   "why": "fun: She even followed me onto the roller coaster.",
+   "see": [
+    "hero",
+    "bitsy"
+   ],
+   "vo": "She even followed me onto the roller coaster.",
+   "cue": [
+    27.61,
+    29.49
+   ],
+   "subject": "hero",
+   "pair": [
+    "hero",
+    "bitsy"
+   ],
+   "actions": [
+    {
+     "actor": "hero",
+     "face": "nervous_laugh",
+     "at": 0
+    },
+    {
+     "actor": "hero",
+     "face": "laugh",
+     "at": 0
+    }
+   ],
+   "note": "Both in a coaster cart – climbing the lift hill. Hero grips the bar; Bitsy has arms up",
+   "from": {
+    "position": [
+     -1.3770161671089678,
+     3.7928253877880413,
+     8.393387062285946
+    ],
+    "target": [
+     0,
+     2.7,
+     0
+    ],
+    "fov": 55
+   },
+   "follow": "hero",
+   "to": {
+    "position": [
+     -0.6770161671089678,
+     3.7928253877880413,
+     8.393387062285946
+    ],
+    "target": [
+     0,
+     2.7,
+     0
+    ],
+    "fov": 55
+   }
+  },
+  {
+   "id": "S16",
+   "at": 29.493,
+   "gag": 2,
+   "blur": true,
+   "loc": "testPark",
+   "mood": "fun",
+   "size": "wide",
+   "move": "whip",
+   "why": "fun: The cart flipped, and we both went flying.",
+   "see": [
+    "hero",
+    "bitsy"
+   ],
+   "vo": "The cart flipped, and we both went flying.",
+   "cue": [
+    29.49,
+    31.65
+   ],
+   "subject": "hero",
+   "pair": [
+    "hero",
+    "bitsy"
+   ],
+   "actions": [
+    {
+     "actor": "hero",
+     "face": "shock",
+     "at": {
+      "word": "flying",
+      "nth": 1,
+      "line": 16
+     }
+    }
+   ],
+   "note": "Cart flips at the loop; both fly out against the sky",
+   "from": {
+    "position": [
+     -5.828675458439012,
+     4.697082572770409,
+     28.99338394412787
+    ],
+    "target": [
+     -12,
+     2.7,
+     10
+    ],
+    "fov": 55
+   },
+   "to": {
+    "position": [
+     -5.828675458439012,
+     4.697082572770409,
+     28.99338394412787
+    ],
+    "target": [
+     -11.4,
+     2.7,
+     10
+    ],
+    "fov": 55
+   }
+  },
+  {
+   "id": "S17",
+   "at": 31.646,
+   "impact": 0.404,
+   "loc": "testPark",
+   "mood": "comedy",
+   "size": "medium",
+   "move": "topDown",
+   "why": "comedy: land",
+   "see": [
+    "hero",
+    "bitsy"
+   ],
+   "vo": "Bitsy landed right on top of me.",
+   "cue": [
+    31.65,
+    33.41
+   ],
+   "subject": "hero",
+   "pair": [
+    "hero",
+    "bitsy"
+   ],
+   "actions": [
+    {
+     "actor": "hero",
+     "verb": "land",
+     "at": {
+      "word": "bitsy",
+      "nth": 1,
+      "line": 17
+     }
+    },
+    {
+     "actor": "hero",
+     "face": "embarrassed",
+     "at": 0
+    }
+   ],
+   "note": "Hero lands face-down; Bitsy lands sitting on his back – perfectly fine. clue 1",
+   "from": {
+    "position": [
+     -15.377016167108968,
+     3.7928253877880413,
+     20.393387062285946
+    ],
+    "target": [
+     -12,
+     2.7,
+     10
+    ],
+    "fov": 55
+   },
+   "follow": "hero",
+   "heading": 20,
+   "distance": 10.928253877880412,
+   "height": 3
+  },
+  {
+   "id": "S18",
+   "at": 33.408,
+   "loc": "testPark",
+   "mood": "comedy",
+   "size": "medium",
+   "move": "splitScreen",
+   "why": "comedy: I lost a color. She didn't.",
+   "see": [
+    "hero",
+    "bitsy"
+   ],
+   "vo": "I lost a color. She didn't.",
+   "cue": [
+    33.41,
+    35.21
+   ],
+   "subject": "hero",
+   "pair": [
+    "hero",
+    "bitsy"
+   ],
+   "actions": [
+    {
+     "actor": "hero",
+     "face": "sad",
+     "at": {
+      "word": "lost",
+      "nth": 1,
+      "line": 18
+     }
+    },
+    {
+     "actor": "hero",
+     "face": "grin",
+     "at": {
+      "word": "didn't",
+      "nth": 1,
+      "line": 19
+     }
+    }
+   ],
+   "note": "Top half: hero's black shoes wash white. Bottom half: Bitsy still fully pink. clue 1",
+   "from": {
+    "position": [
+     0,
+     2,
+     10
+    ],
+    "target": [
+     0,
+     1,
+     8
+    ],
+    "fov": 55
+   },
+   "to": {
+    "position": [
+     0,
+     2,
+     10
+    ],
+    "target": [
+     0,
+     1,
+     8
+    ],
+    "fov": 55
+   },
+   "a": {
+    "from": {
+     "position": [
+      0,
+      2,
+      10
+     ],
+     "target": [
+      0,
+      1,
+      8
+     ],
+     "fov": 55
+    },
+    "to": {
+     "position": [
+      0,
+      1.95,
+      9.9
+     ],
+     "target": [
+      0,
+      1,
+      8
+     ],
+     "fov": 55
+    }
+   },
+   "b": {
+    "from": {
+     "position": [
+      0,
+      2,
+      10
+     ],
+     "target": [
+      0,
+      1,
+      8
+     ],
+     "fov": 55
+    },
+    "to": {
+     "position": [
+      0,
+      1.95,
+      9.9
+     ],
+     "target": [
+      0,
+      1,
+      8
+     ],
+     "fov": 55
+    }
+   }
+  },
+  {
+   "id": "S19",
+   "at": 35.211,
+   "loopOpen": "blush",
+   "loc": "testPark",
+   "mood": "fun",
+   "size": "close",
+   "move": "push",
+   "why": "fun: Her cheeks got pinker.",
+   "see": [
+    "bitsy"
+   ],
+   "vo": "Her cheeks got pinker.",
+   "cue": [
+    35.21,
+    36.43
+   ],
+   "ecu": true,
+   "subject": "bitsy",
+   "actions": [
+    {
+     "actor": "bitsy",
+     "face": "grin",
+     "at": 0
+    },
+    {
+     "actor": "bitsy",
+     "face": "sparkle",
+     "at": {
+      "word": "pinker",
+      "nth": 1,
+      "line": 20
+     }
+    }
+   ],
+   "note": "Bitsy's cheeks bloom pinker. clue 1",
+   "from": {
+    "position": [
+     -10.825868431297133,
+     4.8672566384148634,
+     10.541761674875936
+    ],
+    "target": [
+     -10,
+     4.6,
+     8
+    ],
+    "fov": 55
+   },
+   "to": {
+    "position": [
+     -10.78044566757579,
+     4.852557523302045,
+     10.401964782757759
+    ],
+    "target": [
+     -10,
+     4.6,
+     8
+    ],
+    "fov": 55
+   }
+  },
+  {
+   "id": "S20",
+   "at": 36.431,
+   "loc": "testPark",
+   "mood": "comedy",
+   "size": "close",
+   "move": "snap",
+   "why": "comedy: Weird, right?",
+   "see": [
+    "hero"
+   ],
+   "vo": "Weird, right?",
+   "cue": [
+    36.43,
+    37.7
+   ],
+   "subject": "hero",
+   "actions": [
+    {
+     "actor": "hero",
+     "face": "thinking",
+     "at": {
+      "word": "weird",
+      "nth": 1,
+      "line": 21
+     }
+    }
+   ],
+   "note": "Hero to camera – one eyebrow up",
+   "from": {
+    "position": [
+     -7.828675458439012,
+     6.597082572770408,
+     30.99338394412787
+    ],
+    "target": [
+     -14,
+     4.6,
+     12
+    ],
+    "fov": 55
+   },
+   "to": {
+    "position": [
+     -12.678610509924589,
+     5.027610621463781,
+     16.066818679801496
+    ],
+    "target": [
+     -14,
+     4.6,
+     12
+    ],
+    "fov": 55
+   },
+   "snapAt": 0.6
+  },
+  {
+   "id": "S21",
+   "at": 37.701,
+   "impact": 0.399,
+   "zoomAt": 0.229,
+   "gag": 3,
+   "loc": "testPark",
+   "mood": "comedy",
+   "size": "wide",
+   "move": "crashZoom",
+   "why": "comedy: bonk_dizzy",
+   "see": [
+    "hero"
+   ],
+   "vo": "On Wednesday, I got knocked out in the boxing ring.",
+   "cue": [
+    37.7,
+    40.2
+   ],
+   "subject": "hero",
+   "actions": [
+    {
+     "actor": "hero",
+     "verb": "bonk_dizzy",
+     "at": {
+      "word": "on",
+      "nth": 1,
+      "line": 22
+     }
+    },
+    {
+     "actor": "hero",
+     "face": "shock",
+     "at": {
+      "word": "knocked",
+      "nth": 1,
+      "line": 22
+     }
+    }
+   ],
+   "note": "Boxing ring. A white dummy's glove bonks him; he spins down. The wall sign is in the background (plant B)",
+   "from": {
+    "position": [
+     -20.17132454156099,
+     4.997082572770409,
+     30.99338394412787
+    ],
+    "target": [
+     -14,
+     3,
+     12
+    ],
+    "fov": 55
+   },
+   "to": {
+    "position": [
+     -20.17132454156099,
+     4.997082572770409,
+     30.99338394412787
+    ],
+    "target": [
+     -14,
+     3,
+     12
+    ],
+    "fov": 46.75
+   }
+  },
+  {
+   "id": "S22",
+   "at": 40.2,
+   "loc": "testPark",
+   "mood": "comedy",
+   "size": "medium",
+   "move": "static-drift",
+   "why": "comedy: gasp_step_back",
+   "see": [
+    "dummyb"
+   ],
+   "vo": "By a dummy who kept saying sorry.",
+   "cue": [
+    40.2,
+    42.09
+   ],
+   "subject": "dummyb",
+   "actions": [
+    {
+     "actor": "dummyb",
+     "verb": "gasp_step_back",
+     "at": {
+      "word": "by",
+      "nth": 1,
+      "line": 23
+     }
+    },
+    {
+     "actor": "dummyb",
+     "face": "embarrassed",
+     "at": {
+      "word": "sorry",
+      "nth": 1,
+      "line": 23
+     }
+    }
+   ],
+   "note": "The white dummy bows again and again – hands at its mouth",
+   "from": {
+    "position": [
+     4.674240634676428,
+     3.56540244820051,
+     16.230466375788744
+    ],
+    "target": [
+     2,
+     2.7,
+     8
+    ],
+    "fov": 55
+   }
+  },
+  {
+   "id": "S23",
+   "at": 42.095,
+   "loc": "testPark",
+   "mood": "emotion",
+   "size": "close",
+   "move": "push",
+   "why": "emotion: My blue stripe went white.",
+   "see": [
+    "hero"
+   ],
+   "vo": "My blue stripe went white.",
+   "cue": [
+    42.09,
+    43.67
+   ],
+   "subject": "hero",
+   "actions": [
+    {
+     "actor": "hero",
+     "face": "sad",
+     "at": {
+      "word": "white",
+      "nth": 1,
+      "line": 24
+     }
+    }
+   ],
+   "note": "Hero flat on the mat",
+   "from": {
+    "position": [
+     -15.889912318971485,
+     5.211588473570599,
+     17.816552030803244
+    ],
+    "target": [
+     -14,
+     4.6,
+     12
+    ],
+    "fov": 40
+   },
+   "to": {
+    "position": [
+     -15.814315826212624,
+     5.187124934627775,
+     17.583889949571116
+    ],
+    "target": [
+     -14,
+     4.6,
+     12
+    ],
+    "fov": 40
+   }
+  },
+  {
+   "id": "S24",
+   "at": 43.67,
+   "look": "goldenHour",
+   "loc": "testPark",
+   "mood": "emotion",
+   "size": "wide",
+   "move": "track",
+   "why": "emotion: Bitsy held my hand the whole way back.",
+   "see": [
+    "hero",
+    "bitsy"
+   ],
+   "vo": "Bitsy held my hand the whole way back.",
+   "cue": [
+    43.67,
+    45.64
+   ],
+   "subject": "hero",
+   "pair": [
+    "hero",
+    "bitsy"
+   ],
+   "actions": [
+    {
+     "actor": "hero",
+     "face": "sad_soft",
+     "at": 0
+    },
+    {
+     "actor": "hero",
+     "face": "warm",
+     "at": {
+      "word": "hand",
+      "nth": 1,
+      "line": 25
+     }
+    },
+    {
+     "actor": "hero",
+     "cycle": "sad_walk",
+     "at": 0,
+     "until": 45.64
+    }
+   ],
+   "note": "Walking home across the plaza – hand in hand – low sun behind them. (protect hero colours)",
+   "from": {
+    "position": [
+     9.890763577614074,
+     5.5563197941484015,
+     25.165215528476686
+    ],
+    "target": [
+     0,
+     2.7,
+     0
+    ],
+    "fov": 40
+   },
+   "follow": "hero",
+   "to": {
+    "position": [
+     10.590763577614073,
+     5.5563197941484015,
+     25.165215528476686
+    ],
+    "target": [
+     0,
+     2.7,
+     0
+    ],
+    "fov": 40
+   }
+  },
+  {
+   "id": "S25",
+   "at": 45.64,
+   "loopOpen": "blush",
+   "loc": "testPark",
+   "mood": "tension",
+   "size": "close",
+   "move": "push",
+   "why": "tension: look_around",
+   "see": [
+    "hero"
+   ],
+   "vo": "Then I saw something nobody else noticed.",
+   "cue": [
+    45.64,
+    47.73
+   ],
+   "subject": "hero",
+   "actions": [
+    {
+     "actor": "hero",
+     "verb": "look_around",
+     "at": {
+      "word": "then",
+      "nth": 1,
+      "line": 26
+     }
+    },
+    {
+     "actor": "hero",
+     "face": "thinking",
+     "at": {
+      "word": "noticed",
+      "nth": 1,
+      "line": 26
+     }
+    }
+   ],
+   "note": "He stops. Something caught his eye",
+   "from": {
+    "position": [
+     -14.378427374631663,
+     5.328091792874569,
+     18.924564440743808
+    ],
+    "target": [
+     -12.1285,
+     4.6,
+     12
+    ],
+    "fov": 34
+   },
+   "to": {
+    "position": [
+     -14.310929553392713,
+     5.306249039088332,
+     18.716827507521494
+    ],
+    "target": [
+     -12.1285,
+     4.6,
+     12
+    ],
+    "fov": 34
+   }
+  },
+  {
+   "id": "S26",
+   "at": 47.726,
+   "loc": "testPark",
+   "mood": "comedy",
+   "size": "wide",
+   "move": "static-drift",
+   "why": "comedy: trip_fall",
+   "see": [
+    "dummyc"
+   ],
+   "vo": "A white dummy tripped onto a pile of dummies.",
+   "cue": [
+    47.73,
+    50.07
+   ],
+   "subject": "dummyc",
+   "actions": [
+    {
+     "actor": "dummyc",
+     "verb": "trip_fall",
+     "at": {
+      "word": "a",
+      "nth": 1,
+      "line": 27
+     }
+    },
+    {
+     "actor": "dummyc",
+     "face": "neutral",
+     "at": 0
+    }
+   ],
+   "note": "Far off – by the crates – a white dummy trips onto a heap of fallen dummies. clue 2 (wider)",
+   "from": {
+    "position": [
+     12.171324541560988,
+     4.697082572770409,
+     26.99338394412787
+    ],
+    "target": [
+     6,
+     2.7,
+     8
+    ],
+    "fov": 55
+   }
+  },
+  {
+   "id": "S27",
+   "at": 50.074,
+   "loc": "testPark",
+   "mood": "emotion",
+   "size": "close",
+   "move": "push",
+   "why": "emotion: When he got up, he blushed. Just a little.",
+   "see": [
+    "dummyc"
+   ],
+   "vo": "When he got up, he blushed. Just a little.",
+   "cue": [
+    50.07,
+    52.51
+   ],
+   "subject": "dummyc",
+   "actions": [
+    {
+     "actor": "dummyc",
+     "face": "neutral",
+     "at": 0
+    },
+    {
+     "actor": "dummyc",
+     "face": "warm",
+     "at": {
+      "word": "blushed",
+      "nth": 1,
+      "line": 28
+     }
+    }
+   ],
+   "note": "He gets up. A faint pink blush blooms on his blank face – then fades a little. clue 2",
+   "from": {
+    "position": [
+     4.110087681028515,
+     5.211588473570599,
+     13.816552030803244
+    ],
+    "target": [
+     6,
+     4.6,
+     8
+    ],
+    "fov": 40
+   },
+   "to": {
+    "position": [
+     4.185684173787375,
+     5.187124934627775,
+     13.583889949571114
+    ],
+    "target": [
+     6,
+     4.6,
+     8
+    ],
+    "fov": 40
+   }
+  },
+  {
+   "id": "S28",
+   "at": 52.514,
+   "impact": 0.126,
+   "look": "storm",
+   "loc": "testPark",
+   "mood": "tension",
+   "size": "wide",
+   "move": "lowAuthority",
+   "why": "tension: Then a player joined.",
+   "see": [
+    "kid"
+   ],
+   "vo": "Then a player joined.",
+   "cue": [
+    52.51,
+    53.59
+   ],
+   "subject": "kid",
+   "actions": [
+    {
+     "actor": "kid",
+     "face": "smirk",
+     "at": {
+      "word": "player",
+      "nth": 1,
+      "line": 30
+     }
+    }
+   ],
+   "note": "Sky dims; a beam hits the big spawn pad; the player kid appears. impact on player",
+   "from": {
+    "position": [
+     4.507902573829192,
+     0.7,
+     40.33999876171558
+    ],
+    "target": [
+     -6,
+     2.7,
+     8
+    ],
+    "fov": 34
+   },
+   "to": {
+    "position": [
+     4.192665496614316,
+     0.7,
+     39.36979879886411
+    ],
+    "target": [
+     -6,
+     2.7,
+     8
+    ],
+    "fov": 34
+   }
+  },
+  {
+   "id": "S29",
+   "at": 53.59,
+   "loc": "testPark",
+   "mood": "tension",
+   "size": "medium",
+   "move": "tiltUp",
+   "why": "tension: arms_cross",
+   "see": [
+    "kid"
+   ],
+   "vo": "His name floated above his head: BlastKid_7.",
+   "cue": [
+    53.59,
+    57.2
+   ],
+   "subject": "kid",
+   "actions": [
+    {
+     "actor": "kid",
+     "verb": "arms_cross",
+     "at": {
+      "word": "his",
+      "nth": 1,
+      "line": 31
+     }
+    },
+    {
+     "actor": "kid",
+     "face": "smirk",
+     "at": 0
+    }
+   ],
+   "note": "Tilt from sneakers to the floating tag \"BlastKid_7\"",
+   "from": {
+    "position": [
+     -10.553424448659317,
+     4.173519104627106,
+     22.013999463410087
+    ],
+    "target": [
+     -6,
+     0.6,
+     8
+    ],
+    "fov": 34
+   },
+   "to": {
+    "position": [
+     -10.553424448659317,
+     4.173519104627106,
+     22.013999463410087
+    ],
+    "target": [
+     -6,
+     6.5,
+     8
+    ],
+    "fov": 34
+   }
+  },
+  {
+   "id": "S30",
+   "at": 57.199,
+   "loc": "testPark",
+   "mood": "tension",
+   "size": "wide",
+   "move": "scaleReveal",
+   "why": "tension: A giant hand came down from the clouds.",
+   "see": [
+    "giantHand"
+   ],
+   "vo": "A giant hand came down from the clouds.",
+   "cue": [
+    57.2,
+    59.19
+   ],
+   "prop": "prop_giantHand",
+   "note": "A giant cartoon hand pushes down through the clouds – shadow sweeping the plaza",
+   "from": {
+    "position": [
+     0.8351113068470146,
+     0.6,
+     18.438891335587684
+    ],
+    "target": [
+     0,
+     1.5,
+     8
+    ],
+    "fov": 34
+   },
+   "to": {
+    "position": [
+     0.7766535153677236,
+     0.6,
+     17.708168942096545
+    ],
+    "target": [
+     0,
+     1.5,
+     8
+    ],
+    "fov": 34
+   }
+  },
+  {
+   "id": "S31",
+   "at": 59.185,
+   "impact": 0.495,
+   "zoomAt": 0.325,
+   "loopOpen": "bitsy",
+   "loc": "testPark",
+   "mood": "tension",
+   "size": "medium",
+   "move": "crashZoom",
+   "why": "tension: And it picked up Bitsy.",
+   "see": [
+    "bitsy"
+   ],
+   "vo": "And it picked up Bitsy.",
+   "cue": [
+    59.19,
+    60.35
+   ],
+   "subject": "bitsy",
+   "actions": [
+    {
+     "actor": "bitsy",
+     "face": "panic",
+     "at": {
+      "word": "bitsy",
+      "nth": 1,
+      "line": 33
+     }
+    }
+   ],
+   "note": "MIDPOINT. The hand plucks Bitsy off the ground – legs kicking",
+   "from": {
+    "position": [
+     -14.553424448659317,
+     4.473519104627106,
+     22.013999463410087
+    ],
+    "target": [
+     -10,
+     3,
+     8
+    ],
+    "fov": 34
+   },
+   "to": {
+    "position": [
+     -14.553424448659317,
+     4.473519104627106,
+     22.013999463410087
+    ],
+    "target": [
+     -10,
+     3,
+     8
+    ],
+    "fov": 28.9
+   }
+  },
+  {
+   "id": "S32",
+   "at": 60.348,
+   "blur": true,
+   "loc": "testPark",
+   "mood": "tension",
+   "size": "wide",
+   "move": "track",
+   "why": "tension: It carried her toward the launch tower.",
+   "see": [
+    "hero"
+   ],
+   "vo": "It carried her toward the launch tower.",
+   "cue": [
+    60.35,
+    62
+   ],
+   "subject": "hero",
+   "actions": [
+    {
+     "actor": "hero",
+     "face": "terrified",
+     "at": 0
+    },
+    {
+     "actor": "hero",
+     "cycle": "sprint",
+     "at": 0,
+     "until": 62
+    }
+   ],
+   "note": "The hand carries her toward the launch tower; hero sprints below",
+   "from": {
+    "position": [
+     10.507902573829192,
+     6.100428702985628,
+     32.33999876171558
+    ],
+    "target": [
+     0,
+     2.7,
+     0
+    ],
+    "fov": 34
+   },
+   "follow": "hero",
+   "to": {
+    "position": [
+     11.207902573829191,
+     6.100428702985628,
+     32.33999876171558
+    ],
+    "target": [
+     0,
+     2.7,
+     0
+    ],
+    "fov": 34
+   }
+  },
+  {
+   "id": "S33",
+   "at": 61.999,
+   "loc": "testPark",
+   "mood": "tension",
+   "size": "medium",
+   "move": "whip",
+   "why": "tension: jump",
+   "see": [
+    "hero"
+   ],
+   "vo": "I jumped in front of her.",
+   "cue": [
+    62,
+    63.05
+   ],
+   "subject": "hero",
+   "actions": [
+    {
+     "actor": "hero",
+     "verb": "jump",
+     "at": {
+      "word": "i",
+      "nth": 1,
+      "line": 35
+     }
+    },
+    {
+     "actor": "hero",
+     "face": "determined",
+     "at": {
+      "word": "front",
+      "nth": 1,
+      "line": 35
+     }
+    }
+   ],
+   "note": "He leaps into the hand's path – arms wide",
+   "from": {
+    "position": [
+     -20.47951410430414,
+     4.173519104627106,
+     13.355367277927343
+    ],
+    "target": [
+     -15.926089655644823,
+     2.7,
+     -0.6586321854827428
+    ],
+    "fov": 34
+   },
+   "to": {
+    "position": [
+     -20.47951410430414,
+     4.173519104627106,
+     13.355367277927343
+    ],
+    "target": [
+     -15.326089655644823,
+     2.7,
+     -0.6586321854827428
+    ],
+    "fov": 34
+   }
+  },
+  {
+   "id": "S34",
+   "at": 63.047,
+   "impact": 0.433,
+   "zoomAt": 0.263,
+   "blur": true,
+   "loc": "testPark",
+   "mood": "tension",
+   "size": "medium",
+   "move": "crashZoom",
+   "why": "tension: So it threw me instead.",
+   "see": [
+    "hero"
+   ],
+   "vo": "So it threw me instead.",
+   "cue": [
+    63.05,
+    64.42
+   ],
+   "subject": "hero",
+   "actions": [
+    {
+     "actor": "hero",
+     "face": "shock",
+     "at": {
+      "word": "me",
+      "nth": 1,
+      "line": 36
+     }
+    }
+   ],
+   "from": {
+    "position": [
+     -11.372665206985506,
+     4.473519104627106,
+     13.355367277927343
+    ],
+    "target": [
+     -15.926089655644823,
+     3,
+     -0.6586321854827428
+    ],
+    "fov": 34
+   },
+   "to": {
+    "position": [
+     -11.372665206985506,
+     4.473519104627106,
+     13.355367277927343
+    ],
+    "target": [
+     -15.926089655644823,
+     3,
+     -0.6586321854827428
+    ],
+    "fov": 28.9
+   }
+  },
+  {
+   "id": "S35",
+   "at": 64.417,
+   "impact": 0.403,
+   "loc": "testPark",
+   "mood": "tension",
+   "size": "close",
+   "move": "static-drift",
+   "why": "tension: land",
+   "see": [
+    "hero"
+   ],
+   "vo": "My jacket turned white.",
+   "cue": [
+    64.42,
+    65.66
+   ],
+   "subject": "hero",
+   "actions": [
+    {
+     "actor": "hero",
+     "verb": "land",
+     "at": {
+      "word": "my",
+      "nth": 1,
+      "line": 37
+     }
+    },
+    {
+     "actor": "hero",
+     "face": "sad",
+     "at": {
+      "word": "white",
+      "nth": 1,
+      "line": 37
+     }
+    }
+   ],
+   "note": "Landing in a dust puff",
+   "from": {
+    "position": [
+     -18.176017030276487,
+     5.328091792874569,
+     6.265932255261064
+    ],
+    "target": [
+     -15.926089655644823,
+     4.6,
+     -0.6586321854827428
+    ],
+    "fov": 34
+   }
+  },
+  {
+   "id": "S36",
+   "at": 65.662,
+   "blur": true,
+   "loc": "testPark",
+   "mood": "tension",
+   "size": "wide",
+   "move": "track",
+   "why": "tension: It threw me again.",
+   "see": [
+    "hero"
+   ],
+   "vo": "It threw me again.",
+   "cue": [
+    65.66,
+    66.74
+   ],
+   "subject": "hero",
+   "note": "Thrown again: a small figure arcing over the park",
+   "from": {
+    "position": [
+     10.507902573829192,
+     6.100428702985628,
+     32.33999876171558
+    ],
+    "target": [
+     0,
+     2.7,
+     0
+    ],
+    "fov": 34
+   },
+   "follow": "hero",
+   "to": {
+    "position": [
+     11.207902573829191,
+     6.100428702985628,
+     32.33999876171558
+    ],
+    "target": [
+     0,
+     2.7,
+     0
+    ],
+    "fov": 34
+   }
+  },
+  {
+   "id": "S37",
+   "at": 66.739,
+   "loc": "testPark",
+   "mood": "tension",
+   "size": "insert",
+   "move": "push",
+   "why": "tension: My hands turned white.",
+   "see": [
+    "hero"
+   ],
+   "vo": "My hands turned white.",
+   "cue": [
+    66.74,
+    67.99
+   ],
+   "subject": "hero",
+   "note": "His hands on the concrete wash white",
+   "from": {
+    "position": [
+     -23.731960139060796,
+     5.226032750789324,
+     23.365366894648837
+    ],
+    "target": [
+     -15.926089655644823,
+     2.7,
+     -0.6586321854827428
+    ],
+    "fov": 34
+   },
+   "to": {
+    "position": [
+     -23.497784024558317,
+     5.150251768265644,
+     22.64464692224489
+    ],
+    "target": [
+     -15.926089655644823,
+     2.7,
+     -0.6586321854827428
+    ],
+    "fov": 34
+   }
+  },
+  {
+   "id": "S38",
+   "at": 67.993,
+   "still": true,
+   "light": {
+    "camNoise": 0
+   },
+   "loc": "testPark",
+   "mood": "emotion",
+   "size": "medium",
+   "move": "push",
+   "why": "emotion: Again. Now only my face was yellow.",
+   "see": [
+    "hero"
+   ],
+   "vo": "Again. Now only my face was yellow.",
+   "cue": [
+    67.99,
+    70.48
+   ],
+   "subject": "hero",
+   "actions": [
+    {
+     "actor": "hero",
+     "face": "sleepy",
+     "at": 0
+    },
+    {
+     "actor": "hero",
+     "face": "sad_soft",
+     "at": {
+      "word": "yellow",
+      "nth": 1,
+      "line": 41
+     }
+    }
+   ],
+   "note": "Lying still. Everything white except his yellow face. Dust settles",
+   "from": {
+    "position": [
+     -12.101267105345391,
+     3.937738577464308,
+     11.11296121019049
+    ],
+    "target": [
+     -15.926089655644823,
+     2.7,
+     -0.6586321854827428
+    ],
+    "fov": 40
+   },
+   "to": {
+    "position": [
+     -12.254260007357368,
+     3.888229034365735,
+     10.64209747436356
+    ],
+    "target": [
+     -15.926089655644823,
+     2.7,
+     -0.6586321854827428
+    ],
+    "fov": 40
+   }
+  },
+  {
+   "id": "S39",
+   "at": 70.484,
+   "loc": "testPark",
+   "mood": "emotion",
+   "size": "close",
+   "move": "push",
+   "why": "emotion: One more fall, and I'd forget her. I'd forget my own name.",
+   "see": [
+    "hero"
+   ],
+   "vo": "One more fall, and I'd forget her. I'd forget my own name.",
+   "cue": [
+    70.48,
+    73.85
+   ],
+   "subject": "hero",
+   "actions": [
+    {
+     "actor": "hero",
+     "face": "sad_soft",
+     "at": 0
+    },
+    {
+     "actor": "hero",
+     "face": "cry",
+     "at": {
+      "word": "name",
+      "nth": 1,
+      "line": 43
+     }
+    }
+   ],
+   "note": "Bitsy small and far behind him – in the hand. He reaches toward her. verb: reach_for",
+   "from": {
+    "position": [
+     -17.816001974616306,
+     5.211588473570599,
+     5.157919845320501
+    ],
+    "target": [
+     -15.926089655644823,
+     4.6,
+     -0.6586321854827428
+    ],
+    "fov": 40
+   },
+   "to": {
+    "position": [
+     -17.740405481857447,
+     5.187124934627775,
+     4.9252577640883715
+    ],
+    "target": [
+     -15.926089655644823,
+     4.6,
+     -0.6586321854827428
+    ],
+    "fov": 40
+   }
+  },
+  {
+   "id": "S40",
+   "at": 73.847,
+   "impact": 0.403,
+   "zoomAt": 0.233,
+   "loc": "testPark",
+   "mood": "tension",
+   "size": "medium",
+   "move": "crashZoom",
+   "why": "tension: Then the hand grabbed Bitsy again.",
+   "see": [
+    "bitsy"
+   ],
+   "vo": "Then the hand grabbed Bitsy again.",
+   "cue": [
+    73.85,
+    75.6
+   ],
+   "subject": "bitsy",
+   "actions": [
+    {
+     "actor": "bitsy",
+     "face": "panic",
+     "at": 0
+    }
+   ],
+   "from": {
+    "position": [
+     -5.446575551340683,
+     4.473519104627106,
+     22.013999463410087
+    ],
+    "target": [
+     -10,
+     3,
+     8
+    ],
+    "fov": 34
+   },
+   "to": {
+    "position": [
+     -5.446575551340683,
+     4.473519104627106,
+     22.013999463410087
+    ],
+    "target": [
+     -10,
+     3,
+     8
+    ],
+    "fov": 28.9
+   }
+  },
+  {
+   "id": "S41",
+   "at": 75.604,
+   "loc": "testPark",
+   "mood": "awe",
+   "size": "wide",
+   "move": "tiltUp",
+   "why": "awe: Up, up, to the very top of the tower.",
+   "see": [
+    "launchTower"
+   ],
+   "vo": "Up, up, to the very top of the tower.",
+   "cue": [
+    75.6,
+    77.94
+   ],
+   "prop": "prop_launchTower",
+   "note": "Tilt up the whole tower to Bitsy dangling at the very top against grey cloud",
+   "from": {
+    "position": [
+     0.7014835964564994,
+     0.6,
+     16.76854495570624
+    ],
+    "target": [
+     0,
+     1.5,
+     8
+    ],
+    "fov": 40
+   },
+   "to": {
+    "position": [
+     0.6523797447045444,
+     0.6,
+     16.154746808806806
+    ],
+    "target": [
+     0,
+     1.5,
+     8
+    ],
+    "fov": 40
+   }
+  },
+  {
+   "id": "S42",
+   "at": 77.938,
+   "freeze": [
+    0.402,
+    4
+   ],
+   "loc": "testPark",
+   "mood": "tension",
+   "size": "close",
+   "move": "static-drift",
+   "why": "tension: And it let go.",
+   "see": [
+    "giantHand"
+   ],
+   "vo": "And it let go.",
+   "cue": [
+    77.94,
+    79.13
+   ],
+   "ecu": true,
+   "prop": "prop_giantHand",
+   "note": "The fingers open. Bitsy drops",
+   "from": {
+    "position": [
+     0.8351113068470146,
+     0.6,
+     18.438891335587684
+    ],
+    "target": [
+     0,
+     1.5,
+     8
+    ],
+    "fov": 34
+   },
+   "to": {
+    "position": [
+     0.7766535153677236,
+     0.6,
+     17.708168942096545
+    ],
+    "target": [
+     0,
+     1.5,
+     8
+    ],
+    "fov": 34
+   }
+  },
+  {
+   "id": "S43",
+   "at": 79.128,
+   "still": true,
+   "light": {
+    "camNoise": 0
+   },
+   "loc": "testPark",
+   "mood": "emotion",
+   "size": "close",
+   "move": "static-drift",
+   "why": "emotion: I've fallen nine thousand times... so I know one thing.",
+   "see": [
+    "hero"
+   ],
+   "vo": "I've fallen nine thousand times... so I know one thing.",
+   "cue": [
+    79.13,
+    82.32
+   ],
+   "subject": "hero",
+   "actions": [
+    {
+     "actor": "hero",
+     "face": "neutral",
+     "at": 0
+    },
+    {
+     "actor": "hero",
+     "face": "determined",
+     "at": {
+      "word": "thing",
+      "nth": 1,
+      "line": 47
+     }
+    }
+   ],
+   "note": "THE BREATH. Ambient off – grade 5 % darker – vignette +0.15 – music-less hush. Hold 2.0 s+",
+   "from": {
+    "position": [
+     -17.816001974616306,
+     5.211588473570599,
+     5.157919845320501
+    ],
+    "target": [
+     -15.926089655644823,
+     4.6,
+     -0.6586321854827428
+    ],
+    "fov": 40
+   }
+  },
+  {
+   "id": "S44",
+   "at": 82.321,
+   "impact": 1.559,
+   "zoomAt": 1.389,
+   "twist": true,
+   "loopClose": "blush",
+   "look": "day",
+   "loc": "testPark",
+   "mood": "comedy",
+   "size": "medium",
+   "move": "crashZoom",
+   "why": "comedy: A fall only counts when you hit the ground.",
+   "see": [
+    "hero"
+   ],
+   "vo": "A fall only counts when you hit the ground.",
+   "cue": [
+    82.32,
+    84.63
+   ],
+   "subject": "hero",
+   "actions": [
+    {
+     "actor": "hero",
+     "face": "scheme",
+     "at": {
+      "word": "ground",
+      "nth": 1,
+      "line": 48
+     }
+    }
+   ],
+   "note": "TWIST. Biggest visual change: light snaps from grey to bright on *ground*",
+   "from": {
+    "position": [
+     -13.251849020968395,
+     3.86540244820051,
+     7.571834190306001
+    ],
+    "target": [
+     -15.926089655644823,
+     3,
+     -0.6586321854827428
+    ],
+    "fov": 55
+   },
+   "to": {
+    "position": [
+     -13.251849020968395,
+     3.86540244820051,
+     7.571834190306001
+    ],
+    "target": [
+     -15.926089655644823,
+     3,
+     -0.6586321854827428
+    ],
+    "fov": 46.75
+   }
+  },
+  {
+   "id": "S45",
+   "at": 84.634,
+   "blur": true,
+   "loc": "testPark",
+   "mood": "tension",
+   "size": "wide",
+   "move": "whip",
+   "why": "tension: jump",
+   "see": [
+    "hero"
+   ],
+   "vo": "I jumped.",
+   "cue": [
+    84.63,
+    85.38
+   ],
+   "subject": "hero",
+   "actions": [
+    {
+     "actor": "hero",
+     "verb": "jump",
+     "at": {
+      "word": "i",
+      "nth": 1,
+      "line": 49
+     }
+    },
+    {
+     "actor": "hero",
+     "face": "determined",
+     "at": 0
+    }
+   ],
+   "note": "He launches upward off the tower stairs toward her",
+   "from": {
+    "position": [
+     -26.433992229474015,
+     6.100428702985628,
+     31.681366576232833
+    ],
+    "target": [
+     -15.926089655644823,
+     2.7,
+     -0.6586321854827428
+    ],
+    "fov": 34
+   },
+   "to": {
+    "position": [
+     -26.433992229474015,
+     6.100428702985628,
+     31.681366576232833
+    ],
+    "target": [
+     -15.326089655644823,
+     2.7,
+     -0.6586321854827428
+    ],
+    "fov": 34
+   }
+  },
+  {
+   "id": "S46",
+   "at": 85.378,
+   "loc": "testPark",
+   "mood": "awe",
+   "size": "medium",
+   "move": "orbit",
+   "why": "awe: catch",
+   "see": [
+    "hero",
+    "bitsy"
+   ],
+   "vo": "I caught her in the air.",
+   "cue": [
+    85.38,
+    86.51
+   ],
+   "subject": "hero",
+   "pair": [
+    "hero",
+    "bitsy"
+   ],
+   "actions": [
+    {
+     "actor": "hero",
+     "verb": "catch",
+     "at": {
+      "word": "i",
+      "nth": 1,
+      "line": 50
+     }
+    },
+    {
+     "actor": "hero",
+     "face": "warm",
+     "at": {
+      "word": "caught",
+      "nth": 1,
+      "line": 50
+     }
+    },
+    {
+     "actor": "hero",
+     "verb": "carry",
+     "target": "bitsy",
+     "at": 0.15
+    }
+   ],
+   "note": "Mid-air catch – slow orbit – sky behind",
+   "from": {
+    "position": [
+     -15.028496455274851,
+     3.281828812397386,
+     4.779584933125796
+    ],
+    "target": [
+     -16.826446363752705,
+     2.7,
+     -0.7539359008622473
+    ],
+    "fov": 75.5
+   },
+   "degrees": 6,
+   "to": {
+    "position": [
+     -15.082434952529187,
+     3.2643739480254643,
+     4.6135793081061545
+    ],
+    "target": [
+     -16.826446363752705,
+     2.7,
+     -0.7539359008622473
+    ],
+    "fov": 75.5
+   }
+  },
+  {
+   "id": "S47",
+   "at": 86.514,
+   "loc": "testPark",
+   "mood": "tension",
+   "size": "close",
+   "move": "push",
+   "why": "tension: I yelled the one thing dummies never forget.",
+   "see": [
+    "hero",
+    "bitsy"
+   ],
+   "vo": "I yelled the one thing dummies never forget.",
+   "cue": [
+    86.51,
+    88.86
+   ],
+   "subject": "hero",
+   "pair": [
+    "hero",
+    "bitsy"
+   ],
+   "actions": [
+    {
+     "actor": "hero",
+     "face": "determined",
+     "at": 0
+    }
+   ],
+   "note": "Falling together – he takes a huge breath",
+   "from": {
+    "position": [
+     -20.600550430090465,
+     5.821325731282737,
+     10.861562051691662
+    ],
+    "target": [
+     -16.826446363752705,
+     4.6,
+     -0.7539359008622473
+    ],
+    "fov": 34
+   },
+   "to": {
+    "position": [
+     -20.487327308100333,
+     5.784685959344255,
+     10.513097113115045
+    ],
+    "target": [
+     -16.826446363752705,
+     4.6,
+     -0.7539359008622473
+    ],
+    "fov": 34
+   }
+  },
+  {
+   "id": "S48",
+   "at": 88.86,
+   "impact": 0,
+   "zoomAt": 0,
+   "loc": "testPark",
+   "mood": "tension",
+   "size": "close",
+   "move": "crashZoom",
+   "why": "tension: Dummies help each other",
+   "see": [
+    "hero"
+   ],
+   "vo": "Dummies help each other",
+   "cue": [
+    88.86,
+    90.52
+   ],
+   "ecu": true,
+   "subject": "hero",
+   "actions": [
+    {
+     "actor": "hero",
+     "face": "shout",
+     "at": {
+      "word": "dummies",
+      "nth": 1,
+      "line": 52
+     }
+    }
+   ],
+   "note": "The shout. Cut on the last word to the sign (insert – 6 frames – plant C) if pacing allows",
+   "from": {
+    "position": [
+     -14.519885046500034,
+     5.0550573705466055,
+     3.669220589982137
+    ],
+    "target": [
+     -15.926089655644823,
+     4.6,
+     -0.6586321854827428
+    ],
+    "fov": 34
+   },
+   "to": {
+    "position": [
+     -14.519885046500034,
+     5.0550573705466055,
+     3.669220589982137
+    ],
+    "target": [
+     -15.926089655644823,
+     4.6,
+     -0.6586321854827428
+    ],
+    "fov": 28.9
+   }
+  },
+  {
+   "id": "S49",
+   "at": 90.518,
+   "blur": true,
+   "loc": "testPark",
+   "mood": "awe",
+   "size": "wide",
+   "move": "drone",
+   "why": "awe: Every white dummy in the park started running.",
+   "see": [
+    "launchTower"
+   ],
+   "vo": "Every white dummy in the park started running.",
+   "cue": [
+    90.52,
+    92.49
+   ],
+   "prop": "prop_launchTower",
+   "note": "SPECTACLE. Every white dummy turns and sprints toward the tower – from every corner of the park",
+   "from": {
+    "position": [
+     0.7014835964564994,
+     0.6,
+     16.76854495570624
+    ],
+    "target": [
+     0,
+     1.5,
+     8
+    ],
+    "fov": 40
+   },
+   "to": {
+    "position": [
+     0.6523797447045444,
+     0.6,
+     16.154746808806806
+    ],
+    "target": [
+     0,
+     1.5,
+     8
+    ],
+    "fov": 40
+   }
+  },
+  {
+   "id": "S50",
+   "at": 92.488,
+   "loc": "testPark",
+   "mood": "awe",
+   "size": "wide",
+   "move": "lowWide",
+   "why": "awe: Hundreds of them.",
+   "see": [
+    "dummya"
+   ],
+   "vo": "Hundreds of them.",
+   "cue": [
+    92.49,
+    93.37
+   ],
+   "subject": "dummya",
+   "note": "Low on the concrete: a stampede of white feet thunders past camera",
+   "from": {
+    "position": [
+     2.14911517341043,
+     4.042681874763199,
+     20.769663463049326
+    ],
+    "target": [
+     -2,
+     2.7,
+     8
+    ],
+    "fov": 75.5
+   },
+   "follow": "dummya",
+   "heading": 20,
+   "distance": 13.42681874763198,
+   "height": 3
+  },
+  {
+   "id": "S51",
+   "at": 93.371,
+   "loc": "testPark",
+   "mood": "awe",
+   "size": "wide",
+   "move": "topDown",
+   "why": "awe: They piled up under the tower like a giant pillow.",
+   "see": [
+    "launchTower"
+   ],
+   "vo": "They piled up under the tower like a giant pillow.",
+   "cue": [
+    93.37,
+    95.73
+   ],
+   "prop": "prop_launchTower",
+   "note": "From above: they pile into a soft white mound under the tower",
+   "from": {
+    "position": [
+     0.7014835964564994,
+     0.6,
+     16.76854495570624
+    ],
+    "target": [
+     0,
+     1.5,
+     8
+    ],
+    "fov": 40
+   },
+   "to": {
+    "position": [
+     0.6523797447045444,
+     0.6,
+     16.154746808806806
+    ],
+    "target": [
+     0,
+     1.5,
+     8
+    ],
+    "fov": 40
+   }
+  },
+  {
+   "id": "S52",
+   "at": 95.727,
+   "loopClose": "bitsy",
+   "loc": "testPark",
+   "mood": "emotion",
+   "size": "medium",
+   "move": "static-drift",
+   "why": "emotion: land",
+   "see": [
+    "hero",
+    "bitsy"
+   ],
+   "vo": "Nobody touched the ground.",
+   "cue": [
+    95.73,
+    96.98
+   ],
+   "subject": "hero",
+   "pair": [
+    "hero",
+    "bitsy"
+   ],
+   "actions": [
+    {
+     "actor": "hero",
+     "verb": "land",
+     "at": {
+      "word": "nobody",
+      "nth": 1,
+      "line": 56
+     }
+    },
+    {
+     "actor": "hero",
+     "face": "relief",
+     "at": {
+      "word": "ground",
+      "nth": 1,
+      "line": 56
+     }
+    }
+   ],
+   "note": "They land on the pile and bounce – softly. Nobody touches the concrete",
+   "from": {
+    "position": [
+     -13.001623813453273,
+     3.937738577464308,
+     11.017657494810985
+    ],
+    "target": [
+     -16.826446363752705,
+     2.7,
+     -0.7539359008622473
+    ],
+    "fov": 40
+   }
+  },
+  {
+   "id": "S53",
+   "at": 96.981,
+   "loc": "testPark",
+   "mood": "emotion",
+   "size": "close",
+   "move": "push",
+   "why": "emotion: Nobody fell.",
+   "see": [
+    "hero"
+   ],
+   "vo": "Nobody fell.",
+   "cue": [
+    96.98,
+    98.12
+   ],
+   "subject": "hero",
+   "actions": [
+    {
+     "actor": "hero",
+     "face": "relief",
+     "at": {
+      "word": "fell",
+      "nth": 1,
+      "line": 57
+     }
+    }
+   ],
+   "note": "Hero opens his eyes – Bitsy in his arms",
+   "from": {
+    "position": [
+     -17.816001974616306,
+     5.211588473570599,
+     5.157919845320501
+    ],
+    "target": [
+     -15.926089655644823,
+     4.6,
+     -0.6586321854827428
+    ],
+    "fov": 40
+   },
+   "to": {
+    "position": [
+     -17.740405481857447,
+     5.187124934627775,
+     4.9252577640883715
+    ],
+    "target": [
+     -15.926089655644823,
+     4.6,
+     -0.6586321854827428
+    ],
+    "fov": 40
+   }
+  },
+  {
+   "id": "S54",
+   "at": 98.124,
+   "look": "goldenHour",
+   "loc": "testPark",
+   "mood": "awe",
+   "size": "wide",
+   "move": "crane",
+   "why": "awe: Then the white dummies started turning colors.",
+   "see": [
+    "wallSign"
+   ],
+   "vo": "Then the white dummies started turning colors.",
+   "cue": [
+    98.12,
+    100.08
+   ],
+   "prop": "prop_wallSign",
+   "note": "Crane up over the pile: colour blooms across the white dummies who caught them. (sky only)",
+   "from": {
+    "position": [
+     0.7014835964564994,
+     0.6,
+     16.76854495570624
+    ],
+    "target": [
+     0,
+     1.5,
+     8
+    ],
+    "fov": 40
+   },
+   "to": {
+    "position": [
+     0.6523797447045444,
+     0.6,
+     16.154746808806806
+    ],
+    "target": [
+     0,
+     1.5,
+     8
+    ],
+    "fov": 40
+   }
+  },
+  {
+   "id": "S55",
+   "at": 100.076,
+   "loc": "testPark",
+   "mood": "fun",
+   "size": "insert",
+   "move": "push",
+   "why": "fun: A blue arm here.",
+   "see": [
+    "dummyd"
+   ],
+   "vo": "A blue arm here.",
+   "cue": [
+    100.08,
+    100.92
+   ],
+   "subject": "dummyd",
+   "note": "A white arm blooms blue",
+   "from": {
+    "position": [
+     5.415587483411838,
+     4.1835470540580175,
+     22.109370929923557
+    ],
+    "target": [
+     10,
+     2.7,
+     8
+    ],
+    "fov": 55
+   },
+   "to": {
+    "position": [
+     5.6677301718241875,
+     4.101951966084827,
+     21.333355528777762
+    ],
+    "target": [
+     10,
+     2.7,
+     8
+    ],
+    "fov": 55
+   }
+  },
+  {
+   "id": "S56",
+   "at": 100.92,
+   "loc": "testPark",
+   "mood": "fun",
+   "size": "insert",
+   "move": "push",
+   "why": "fun: A red nose there.",
+   "see": [
+    "dummye"
+   ],
+   "vo": "A red nose there.",
+   "cue": [
+    100.92,
+    102.36
+   ],
+   "subject": "dummye",
+   "actions": [
+    {
+     "actor": "dummye",
+     "face": "laugh",
+     "at": {
+      "word": "nose",
+      "nth": 1,
+      "line": 60
+     }
+    }
+   ],
+   "note": "A red nose blooms on a dummy; it giggles",
+   "from": {
+    "position": [
+     18.584412516588163,
+     4.1835470540580175,
+     22.109370929923557
+    ],
+    "target": [
+     14,
+     2.7,
+     8
+    ],
+    "fov": 55
+   },
+   "to": {
+    "position": [
+     18.33226982817581,
+     4.101951966084827,
+     21.333355528777762
+    ],
+    "target": [
+     14,
+     2.7,
+     8
+    ],
+    "fov": 55
+   }
+  },
+  {
+   "id": "S57",
+   "at": 102.361,
+   "loc": "testPark",
+   "mood": "emotion",
+   "size": "medium",
+   "move": "push",
+   "why": "emotion: BlastKid_7 dropped the giant hand.",
+   "see": [
+    "kid"
+   ],
+   "vo": "BlastKid_7 dropped the giant hand.",
+   "cue": [
+    102.36,
+    104.84
+   ],
+   "subject": "kid",
+   "actions": [
+    {
+     "actor": "kid",
+     "face": "shock",
+     "at": 0
+    },
+    {
+     "actor": "kid",
+     "face": "sad_soft",
+     "at": {
+      "word": "hand",
+      "nth": 1,
+      "line": 61
+     }
+    }
+   ],
+   "note": "BlastKid_7 watching. The giant hand drifts away behind him",
+   "from": {
+    "position": [
+     -9.824822550299432,
+     3.937738577464308,
+     19.771593395673232
+    ],
+    "target": [
+     -6,
+     2.7,
+     8
+    ],
+    "fov": 40
+   },
+   "to": {
+    "position": [
+     -9.671829648287455,
+     3.888229034365735,
+     19.300729659846304
+    ],
+    "target": [
+     -6,
+     2.7,
+     8
+    ],
+    "fov": 40
+   }
+  },
+  {
+   "id": "S58",
+   "at": 104.837,
+   "impact": 0.483,
+   "loc": "testPark",
+   "mood": "fun",
+   "size": "insert",
+   "move": "snap",
+   "why": "fun: He pressed the Heal button instead.",
+   "see": [
+    "healButton"
+   ],
+   "vo": "He pressed the Heal button instead.",
+   "cue": [
+    104.84,
+    106.61
+   ],
+   "prop": "prop_healButton",
+   "note": "A big round green HEAL button (our design – not the game's UI) pressed by the kid's finger; sparkle wave rolls over the pile. impact on Heal",
+   "from": {
+    "position": [
+     0.7014835964564994,
+     0.6,
+     16.76854495570624
+    ],
+    "target": [
+     0,
+     1.5,
+     8
+    ],
+    "fov": 40
+   },
+   "to": {
+    "position": [
+     0.6523797447045444,
+     0.6,
+     16.154746808806806
+    ],
+    "target": [
+     0,
+     1.5,
+     8
+    ],
+    "fov": 40
+   }
+  },
+  {
+   "id": "S59",
+   "at": 106.612,
+   "loc": "testPark",
+   "mood": "fun",
+   "size": "medium",
+   "move": "track",
+   "why": "fun: hug",
+   "see": [
+    "kid"
+   ],
+   "vo": "Then he tried to hug us.",
+   "cue": [
+    106.61,
+    108.05
+   ],
+   "subject": "kid",
+   "actions": [
+    {
+     "actor": "kid",
+     "verb": "hug",
+     "at": {
+      "word": "then",
+      "nth": 1,
+      "line": 63
+     }
+    },
+    {
+     "actor": "kid",
+     "face": "warm",
+     "at": {
+      "word": "hug",
+      "nth": 1,
+      "line": 63
+     }
+    },
+    {
+     "actor": "kid",
+     "cycle": "run",
+     "at": 0,
+     "until": 106.812
+    }
+   ],
+   "note": "He runs in with arms wide",
+   "from": {
+    "position": [
+     -2.674240634676428,
+     3.56540244820051,
+     8.230466375788744
+    ],
+    "target": [
+     0,
+     2.7,
+     0
+    ],
+    "fov": 55
+   },
+   "follow": "kid",
+   "to": {
+    "position": [
+     -1.974240634676428,
+     3.56540244820051,
+     8.230466375788744
+    ],
+    "target": [
+     0,
+     2.7,
+     0
+    ],
+    "fov": 55
+   }
+  },
+  {
+   "id": "S60",
+   "at": 108.048,
+   "loc": "testPark",
+   "mood": "comedy",
+   "size": "wide",
+   "move": "static-drift",
+   "why": "comedy: hero:knees_collapse; bitsy:knees_collapse",
+   "see": [
+    "hero",
+    "bitsy"
+   ],
+   "vo": "We all flopped over. Onto each other, of course.",
+   "cue": [
+    108.05,
+    110.63
+   ],
+   "subject": "hero",
+   "pair": [
+    "hero",
+    "bitsy"
+   ],
+   "actions": [
+    {
+     "actor": "hero",
+     "verb": "knees_collapse",
+     "at": {
+      "word": "we",
+      "nth": 1,
+      "line": 64
+     }
+    },
+    {
+     "actor": "bitsy",
+     "verb": "knees_collapse",
+     "at": {
+      "word": "we",
+      "nth": 1,
+      "line": 64
+     }
+    },
+    {
+     "actor": "hero",
+     "face": "laugh",
+     "at": {
+      "word": "course",
+      "nth": 1,
+      "line": 65
+     }
+    }
+   ],
+   "note": "Everyone flops over in a domino heap – onto each other",
+   "from": {
+    "position": [
+     -10.655121822191717,
+     4.697082572770409,
+     18.239448043265625
+    ],
+    "target": [
+     -16.826446363752705,
+     2.7,
+     -0.7539359008622473
+    ],
+    "fov": 55
+   }
+  },
+  {
+   "id": "S61",
+   "at": 110.627,
+   "loc": "testPark",
+   "mood": "emotion",
+   "size": "medium",
+   "move": "push",
+   "why": "emotion: Turns out the rule was only half written.",
+   "see": [
+    "hero",
+    "bitsy"
+   ],
+   "vo": "Turns out the rule was only half written.",
+   "cue": [
+    110.63,
+    112.66
+   ],
+   "subject": "hero",
+   "pair": [
+    "hero",
+    "bitsy"
+   ],
+   "actions": [
+    {
+     "actor": "hero",
+     "face": "warm",
+     "at": {
+      "word": "half",
+      "nth": 1,
+      "line": 66
+     }
+    }
+   ],
+   "note": "In the heap. Hero's blue stripe blooms back on *half*  – then jacket",
+   "from": {
+    "position": [
+     -20.65126891405214,
+     3.937738577464308,
+     11.017657494810985
+    ],
+    "target": [
+     -16.826446363752705,
+     2.7,
+     -0.7539359008622473
+    ],
+    "fov": 40
+   },
+   "to": {
+    "position": [
+     -20.49827601204016,
+     3.888229034365735,
+     10.546793758984055
+    ],
+    "target": [
+     -16.826446363752705,
+     2.7,
+     -0.7539359008622473
+    ],
+    "fov": 40
+   }
+  },
+  {
+   "id": "S62",
+   "at": 112.664,
+   "loc": "testPark",
+   "mood": "payoff",
+   "size": "close",
+   "move": "push",
+   "why": "payoff: hug",
+   "see": [
+    "hero",
+    "bitsy"
+   ],
+   "vo": "Every catch gives the color back.",
+   "cue": [
+    112.66,
+    115.3
+   ],
+   "subject": "hero",
+   "pair": [
+    "hero",
+    "bitsy"
+   ],
+   "actions": [
+    {
+     "actor": "hero",
+     "verb": "hug",
+     "target": "bitsy",
+     "at": {
+      "word": "back",
+      "nth": 1,
+      "line": 67
+     }
+    },
+    {
+     "actor": "hero",
+     "face": "grin",
+     "at": {
+      "word": "back",
+      "nth": 1,
+      "line": 67
+     }
+    }
+   ],
+   "note": "PAYOFF. Push on his face – full colour back  – Bitsy hugging his neck. Brightest frame of the episode. Hold to end (voice + 0.85 s)",
+   "from": {
+    "position": [
+     -13.804441793879679,
+     1.5,
+     8.546837813104348
+    ],
+    "target": [
+     -16.826446363752705,
+     4.6,
+     -0.7539359008622473
+    ],
+    "fov": 40
+   },
+   "to": {
+    "position": [
+     -13.970652045222696,
+     1.5,
+     8.035295258836186
+    ],
+    "target": [
+     -16.826446363752705,
+     4.6,
+     -0.7539359008622473
+    ],
+    "fov": 40
+   }
+  }
+ ],
+ "story6": {
+  "drains": [
+   {
+    "actor": "dummya",
+    "region": "torso",
+    "t": 2.32
+   },
+   {
+    "actor": "hero",
+    "region": "legs",
+    "t": 17.2
+   },
+   {
+    "actor": "hero",
+    "region": "shoes",
+    "t": 33.44
+   },
+   {
+    "actor": "hero",
+    "region": "stripe",
+    "t": 43.04
+   },
+   {
+    "actor": "hero",
+    "region": "jacket",
+    "t": 65.16
+   },
+   {
+    "actor": "hero",
+    "region": "hands",
+    "t": 67.52
+   }
+  ],
+  "blooms": [
+   {
+    "actor": "bitsy",
+    "region": "cheeks",
+    "colour": null,
+    "t": 35.72
+   },
+   {
+    "actor": "dummyc",
+    "region": "cheeks",
+    "colour": null,
+    "t": 50.84
+   },
+   {
+    "crowd": true,
+    "t": 99.44
+   },
+   {
+    "actor": "dummyd",
+    "region": "arms",
+    "colour": "#2F6FE8",
+    "t": 100.096
+   },
+   {
+    "actor": "dummye",
+    "region": "nose",
+    "colour": "#E8322E",
+    "t": 101.04
+   },
+   {
+    "actor": "hero",
+    "region": "stripe",
+    "colour": null,
+    "t": 111.76
+   },
+   {
+    "actor": "hero",
+    "region": "all",
+    "colour": null,
+    "t": 114.08
+   }
+  ],
+  "crowd": {
+   "names": [
+    "crowd001",
+    "crowd002",
+    "crowd003",
+    "crowd004",
+    "crowd005",
+    "crowd006",
+    "crowd007",
+    "crowd008",
+    "crowd009",
+    "crowd010",
+    "crowd011",
+    "crowd012",
+    "crowd013",
+    "crowd014",
+    "crowd015",
+    "crowd016",
+    "crowd017",
+    "crowd018",
+    "crowd019",
+    "crowd020",
+    "crowd021",
+    "crowd022",
+    "crowd023",
+    "crowd024",
+    "crowd025",
+    "crowd026",
+    "crowd027",
+    "crowd028",
+    "crowd029",
+    "crowd030",
+    "crowd031",
+    "crowd032",
+    "crowd033",
+    "crowd034",
+    "crowd035",
+    "crowd036",
+    "crowd037",
+    "crowd038",
+    "crowd039",
+    "crowd040",
+    "crowd041",
+    "crowd042",
+    "crowd043",
+    "crowd044",
+    "crowd045",
+    "crowd046",
+    "crowd047",
+    "crowd048",
+    "crowd049",
+    "crowd050",
+    "crowd051",
+    "crowd052",
+    "crowd053",
+    "crowd054",
+    "crowd055",
+    "crowd056",
+    "crowd057",
+    "crowd058",
+    "crowd059",
+    "crowd060",
+    "crowd061",
+    "crowd062",
+    "crowd063",
+    "crowd064",
+    "crowd065",
+    "crowd066",
+    "crowd067",
+    "crowd068",
+    "crowd069",
+    "crowd070",
+    "crowd071",
+    "crowd072",
+    "crowd073",
+    "crowd074",
+    "crowd075",
+    "crowd076",
+    "crowd077",
+    "crowd078",
+    "crowd079",
+    "crowd080",
+    "crowd081",
+    "crowd082",
+    "crowd083",
+    "crowd084",
+    "crowd085",
+    "crowd086",
+    "crowd087",
+    "crowd088",
+    "crowd089",
+    "crowd090",
+    "crowd091",
+    "crowd092",
+    "crowd093",
+    "crowd094",
+    "crowd095",
+    "crowd096",
+    "crowd097",
+    "crowd098",
+    "crowd099",
+    "crowd100",
+    "crowd101",
+    "crowd102",
+    "crowd103",
+    "crowd104",
+    "crowd105",
+    "crowd106",
+    "crowd107",
+    "crowd108",
+    "crowd109",
+    "crowd110",
+    "crowd111",
+    "crowd112",
+    "crowd113",
+    "crowd114",
+    "crowd115",
+    "crowd116",
+    "crowd117",
+    "crowd118",
+    "crowd119",
+    "crowd120"
+   ],
+   "seed": 7,
+   "startAt": null,
+   "start": [
+    0,
+    8
+   ],
+   "area": {
+    "x0": -36,
+    "x1": 36,
+    "z0": -50,
+    "z1": 56
+   },
+   "steps": [
+    {
+     "t": 0.15,
+     "behaviour": "wander"
+    },
+    {
+     "t": 3.155,
+     "behaviour": "wander"
+    },
+    {
+     "t": 17.91,
+     "behaviour": "idle"
+    },
+    {
+     "t": 47.876,
+     "behaviour": "pile",
+     "anchor": "crates"
+    },
+    {
+     "t": 90.668,
+     "behaviour": "run",
+     "anchor": "cushion"
+    },
+    {
+     "t": 92.638,
+     "behaviour": "run",
+     "anchor": "cushion"
+    },
+    {
+     "t": 93.521,
+     "behaviour": "pile",
+     "anchor": "cushion"
+    },
+    {
+     "t": 108.198,
+     "behaviour": "flop"
+    }
+   ]
+  },
+  "hand": [
+   {
+    "t": 57.349,
+    "act": "enter"
+   },
+   {
+    "t": 59.335,
+    "act": "grab",
+    "actor": "bitsy"
+   },
+   {
+    "t": 60.498,
+    "act": "carry",
+    "actor": "bitsy",
+    "anchor": "towerBase"
+   },
+   {
+    "t": 63.197,
+    "act": "release",
+    "actor": "bitsy"
+   },
+   {
+    "t": 63.747,
+    "act": "grab",
+    "actor": "hero"
+   },
+   {
+    "t": 64.297,
+    "act": "throw",
+    "actor": "hero"
+   },
+   {
+    "t": 65.812,
+    "act": "grab",
+    "actor": "hero"
+   },
+   {
+    "t": 66.362,
+    "act": "throw",
+    "actor": "hero"
+   },
+   {
+    "t": 73.997,
+    "act": "grab",
+    "actor": "bitsy"
+   },
+   {
+    "t": 75.754,
+    "act": "carry",
+    "actor": "bitsy",
+    "anchor": "towerTop"
+   },
+   {
+    "t": 78.088,
+    "act": "release",
+    "actor": "bitsy"
+   },
+   {
+    "t": 102.511,
+    "act": "exit"
+   }
+  ],
+  "tumbles": [
+   {
+    "actor": "hero",
+    "t": 10.756
+   },
+   {
+    "actor": "hero",
+    "t": 29.643
+   },
+   {
+    "actor": "bitsy",
+    "t": 30.193
+   },
+   {
+    "actor": "hero",
+    "t": 66.912
+   }
+  ],
+  "airCatch": [
+   {
+    "t": 85.528,
+    "hero": "hero",
+    "partner": "bitsy"
+   }
+  ],
+  "splashes": [
+   {
+    "t": 13.84,
+    "anchor": "pool"
+   }
+  ],
+  "tags": [
+   {
+    "actor": "bitsy",
+    "text": "Bitsy",
+    "t": 26.234
+   },
+   {
+    "actor": "kid",
+    "text": "BlastKid_7",
+    "t": 53.74
+   }
+  ],
+  "spawns": [
+   {
+    "actor": "bitsy",
+    "t": 22.88
+   }
+  ]
+ },
+ "lod": {
+  "near": 18,
+  "max": 24
+ }
+}
