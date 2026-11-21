@@ -36,14 +36,15 @@ export function parseBrief(md) {
   }
   return {meta: kv('META'), premise: kv('PREMISE'), world: kv('WORLD'), payoff: kv('PAYOFF SHOT'), cast, rows};
 }
-function camera(shot, {size, move, mood, fov, pos, subjects, stand, ecu, aim, aimx = 0, fitF, pushTo}) {   // stand = camera yaw off the subject's front (deg), aim = target height override
+function camera(shot, {size, move, mood, fov, pos, subjects, stand, ecu, aim, aimx = 0, fitF, pushTo, camY = null}) {   // stand = camera yaw off the subject's front (deg), aim = target height override
   const H = 5.3, xs = subjects.map(s => pos[s][0]), zs = subjects.map(s => pos[s][2]), cx = xs.reduce((a, b) => a + b, 0) / xs.length, cz = zs.reduce((a, b) => a + b, 0) / zs.length;
   const part = size === 'close' || ecu ? 'head' : 'full', frac = fitF ?? (ecu ? .8 : { wide: .26, medium: .6, close: .5, insert: .35 }[size]);
   let d = fitDistance(fitSpan(part, H).hi - fitSpan(part, H).lo, frac, fov);
   if (subjects.length > 1) { const w = Math.abs(Math.max(...xs) - Math.min(...xs)) + 2.4, hf = 2 * Math.atan(Math.tan(fov * Math.PI / 360) * 9 / 16); d = Math.max(d, w / (2 * Math.tan(hf / 2))); }
   const ty = aim ?? (move === 'crashZoom' && part === 'full' ? 3 : part === 'head' ? 4.6 : 2.7), tgt = [cx + aimx, ty, cz], yaw = stand * Math.PI / 180, dir = [Math.sin(yaw), .1, Math.cos(yaw)], at = k => [tgt[0] + dir[0] * d * k, tgt[1] + dir[1] * d * k + (k === 1 ? 0 : 0), tgt[2] + dir[2] * d * k];
-  const from = {position: at(1), target: tgt, fov}, out = {from};
-  const to = (k, o = {}) => ({position: at(k), target: tgt, fov, ...o});
+  const atH = camY === null ? at : k => { const h = Math.sqrt(Math.max(d * d - (ty - camY) ** 2, .25)); return [tgt[0] + Math.sin(yaw) * h * k, camY, tgt[2] + Math.cos(yaw) * h * k]; };   // `camy`: camera at that height, line-of-sight distance d kept
+  const from = {position: atH(1), target: tgt, fov}, out = {from};
+  const to = (k, o = {}) => ({position: atH(k), target: tgt, fov, ...o});
   switch (move) {
     case 'push': case 'lowAuthority': out.to = to(pushTo ?? 1 - (MOODS[mood]?.push ? (MOODS[mood].push[0] + MOODS[mood].push[1]) / 2 : .055)); if (move === 'lowAuthority') { from.position[1] = .7; out.to.position[1] = .7; from.fov = out.to.fov = Math.min(Math.max(fov, 28), 40); } break;
     case 'pull': out.to = to(1.06); break;
@@ -127,7 +128,7 @@ export function briefToSpec(brief, cues, lib, {slug} = {}) {
     const ef = r.effect || 'none', tLocal = Math.max(0, +((emHits[0]?.t ?? c0 + .4) - at).toFixed(3)); const sh = {id: `S${String(r['#']).padStart(2, '0')}`, at};
     for (const e of ef.split('+').map(x => x.trim())) if (e === 'impact') sh.impact = tLocal; else if (e === 'freeze') sh.freeze = [tLocal, 4]; else if (e === 'crash') { sh.impact = tLocal; sh.zoomAt = Math.max(0, +(tLocal - .17).toFixed(3)); /* the 5-frame zoom lands on the impact word */ if (r.move !== 'crashZoom') E(`${R} (effect)`, 'crash needs move crashZoom'); }
     // notes markers
-    const notes = [], places = []; let cyc = null, propScale = 1, propAt = [0, 0, 0], standDeg = null, aimY = null, aimX = 0, fitF = null, pushK = .93, pushNote = null;
+    const notes = [], places = []; let cyc = null, propScale = 1, propAt = [0, 0, 0], standDeg = null, aimY = null, aimX = 0, fitF = null, pushK = .93, pushNote = null, camY = null, fovNote = null;
     for (const tok of (r.notes || '').split(/[;,]/).map(x => x.trim()).filter(Boolean)) {
       let g;
       if (tok === 'twist') sh.twist = true; else if (tok === 'payoff') sh.payoffMark = true; else if (tok === 'cross') sh.cross = true; else if (tok === 'blur') sh.blur = true;
@@ -139,6 +140,8 @@ export function briefToSpec(brief, cues, lib, {slug} = {}) {
       else if ((g = /^scale\s*:\s*([\d.]+)$/.exec(tok))) propScale = +g[1];
       else if ((g = /^stand\s*:\s*(-?[\d.]+)$/.exec(tok))) standDeg = +g[1];   // camera yaw off the subject's front, degrees (default ±18, alternating)
       else if ((g = /^look\s*:\s*(\w+)$/.exec(tok))) { if (!LOOKS.includes(g[1])) bad('notes', tok, 'look: ' + LOOKS.join(' | ')); else sh.look = g[1]; }   // per-shot light preset (engine/look.js); default the episode look 'day'
+      else if ((g = /^camy\s*:\s*(-?[\d.]+)$/.exec(tok))) camY = +g[1];   // camera height (push / static shots)
+      else if ((g = /^fov\s*:\s*([\d.]+)$/.exec(tok))) fovNote = +g[1];   // lens (deg) instead of the mood's mid fov
       else if ((g = /^push\s*:\s*([\d.]+)$/.exec(tok))) pushK = pushNote = +g[1];   // insert on a prop: the camera ends at this fraction of its start distance (default .93)
       else if ((g = /^fit\s*:\s*([\d.]+)$/.exec(tok))) fitF = +g[1];   // frame fraction the subject fills (default by size)
       else if ((g = /^aimx\s*:\s*(-?[\d.]+)$/.exec(tok))) aimX = +g[1];   // camera target shifted along x (a fall that travels)
@@ -164,11 +167,11 @@ export function briefToSpec(brief, cues, lib, {slug} = {}) {
     if (propSub) { const set7 = ['streetLamp', 'crate', 'porch', 'shack', 'deadTree', 'birdhouse', 'powerLine', 'grassBlade', 'rockPeak', 'rockMesa'].includes(propSub);
       let pr = props7.find(p => p.id === propSub); if (!pr) props7.push(pr = {id: propSub, prop: propSub, ...(set7 ? {set: 'props7'} : {}), ...(propSub === 'streetLamp' ? {p: {color: '#ffd9a0', light: false}} : {}), scale: propScale, pos: [[0, propAt]], visible: [[0, false]]});
       pr.visible.push([at, true], [+c1.toFixed(3), false]); }   // the prop exists only during its insert
-    const fov = MOODS[r.mood] ? +((MOODS[r.mood].fov[0] + MOODS[r.mood].fov[1]) / 2).toFixed(1) : 45, ecu = r.size === 'ecu', size = ecu ? 'close' : r.size;
+    const fov = fovNote ?? (MOODS[r.mood] ? +((MOODS[r.mood].fov[0] + MOODS[r.mood].fov[1]) / 2).toFixed(1) : 45), ecu = r.size === 'ecu', size = ecu ? 'close' : r.size;
     Object.assign(sh, {mood: r.mood, size, move: r.move, why: `${r.mood}: ${r.verb && r.verb !== '-' ? r.verb : r.vo.replace(/\*/g, '')}`.slice(0, 140), see: propSub ? [propSub] : subs, vo: r.vo.replace(/\*/g, ''), cue: [c0, c1]});
     if (ecu) sh.ecu = true; if (propSub) sh.prop = 'prop_' + propSub; else sh.subject = subs[0]; if (subs.length > 1) sh.pair = subs.slice(0, 2); if (actions.length) sh.actions = actions; if (notes.length) sh.note = notes.join('; ');
     if (i === 0) sh.openHit = true; if (r.move === 'crashZoom' && aimX) sh.subjectAimOffset = [aimX, 0, 0]; if (r.move === 'crashZoom' && aimY !== null) sh.subjectAimY = aimY;   // the zoom re-aims at the subject: keep the same x shift
-    if (!errors.some(e => e.startsWith(R)) && !propSub) Object.assign(sh, camera(sh, {size, move: r.move, mood: r.mood, fov, pos: cur, subjects: subs.filter(s => cur[s]), stand: standDeg ?? (i % 2 ? 18 : -18), ecu, aim: aimY, aimx: aimX, fitF, pushTo: pushNote ?? undefined}));
+    if (!errors.some(e => e.startsWith(R)) && !propSub) Object.assign(sh, camera(sh, {size, move: r.move, mood: r.mood, fov, pos: cur, subjects: subs.filter(s => cur[s]), stand: standDeg ?? (i % 2 ? 18 : -18), ecu, aim: aimY, aimx: aimX, fitF, pushTo: pushNote ?? undefined, camY}));
     else if (propSub && !errors.some(e => e.startsWith(R))) { const [px, , pz] = propAt, k = propScale, fv = Math.min(Math.max(fov, 28), 40), H = (PROP_H[propSub] ?? 3) * k, d = H / (.47 * 2 * Math.tan(fv * Math.PI / 360));   // insert on a library prop: low lens, the whole prop 47 % of the frame height, a slow push
       const f = {position: [px + .08 * d, .6, pz + d], target: [px, H / 2, pz], fov: fv}; Object.assign(sh, {from: f, to: {...f, position: [px + .08 * d * pushK, .6, pz + d * pushK]}}); }
     for (const e of emphasis6) if (e.row === r['#']) e.shot = sh.id;

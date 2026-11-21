@@ -45,7 +45,7 @@ Placeholder words (0.3 s apart, no voice). Blocking in notes: `place:` = hard ma
 | 9 | 13.8–15.4 | But something was *off* | tension | medium | push | hero | - | nervous @ off | none | place: hero 0 3 yaw 0, look: storm, push: .9 |
 | 10 | 15.4–16.4 | Wait. I *see* it | comedy | medium | crashZoom | hero | gasp_step_back | gasp; scheme @ see | crash | twist, loopClose: shadow |
 | 11 | 16.4–17.9 | Now run *jump* *land* | fun | medium | track | hero | jump; land | - | none | place: hero 0 -12 yaw 0, cycle: sprint 0 1, aim: 3.4, blur, look: goldenHour |
-| 12 | 17.9–20.0 | Yes we *did* it | payoff | medium | heroLow | hero | cheer | grin @ did | none | payoff, place: hero 0 2 yaw 0, look: goldenHour |
+| 12 | 17.9–20.0 | Yes we *did* it | payoff | close | push | hero | cheer | grin @ did | none | payoff, place: hero 0 2 yaw 0, camy: 1.5, aim: 4.3, fov: 40, push: .88 |
 
 ## PAYOFF SHOT
 - shows: the hero, arms up, low angle, the brightest light of the reel

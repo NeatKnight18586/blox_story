@@ -139,11 +139,11 @@
    "beat": false,
    "t": 17.9,
    "dur": 2.1,
-   "size": "medium",
-   "move": "heroLow",
+   "size": "close",
+   "move": "push",
    "loc": "street",
-   "speed": 6,
-   "subject": "hero@55,34",
+   "speed": 11,
+   "subject": "hero@60,53",
    "why": "payoff: cheer"
   }
  ],
@@ -219,16 +219,16 @@
   },
   {
    "shot": "S12",
-   "part": "full",
-   "frac": 0.592,
-   "need": 0.3
+   "part": "head",
+   "frac": 0.464,
+   "need": 0.45
   }
  ],
  "uiItems": 0,
  "eggs": [],
  "overlaps": 0,
  "moods": {
-  "a": "WARN",
+  "a": "PASS",
   "b": "PASS",
   "c": "PASS",
   "d": "PASS",
@@ -240,8 +240,6 @@
  "errors": [],
  "warnings": [
   "S08: wide shot with no tagged character in the foreground",
-  "a. mood + length: S12: fov 60 outside 40–50 (payoff)",
-  "a. mood + length: S12: size medium is not close / ecu / twoShot (payoff)",
   "h. pacing curve: 10–20 s: 5 cuts/10 s (climax wants 6–8)"
  ]
 }

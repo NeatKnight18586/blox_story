@@ -5,5 +5,5 @@
   "tension": {"len": [1.5, 2.5], "moves": ["lowAuthority", "push", "tiltUp", "static-drift"], "push": [0.02, 0.04], "fov": [28, 40], "light": {"ev": -0.15, "sat": 0.90, "tint": [0.94, 0.99, 1.07], "camNoise": 0.3}},
   "emotion": {"len": [2.0, 3.5], "moves": ["push", "static-drift"], "push": [0.03, 0.05], "fov": [35, 45], "light": {"ev": 0, "sat": 1, "tint": [1.06, 1, 0.93], "rim": 1.4}, "dof": true},
   "awe":     {"len": [2.5, 4.0], "moves": ["drone", "scaleReveal", "crane", "pull"], "noFinal": ["pull"], "fov": [60, 75], "light": {"ev": 0.05, "sat": 1, "tint": [1, 1, 1], "haze": 0.5}},
-  "payoff":  {"len": [1.5, 2.5], "moves": ["heroLow", "push"], "sizes": ["close", "ecu", "twoShot"], "fov": [40, 50], "light": {"ev": 0.30, "sat": 1.04, "tint": [1.02, 1, 0.98]}}
+  "payoff":  {"len": [1.5, 2.5], "moves": ["heroLow", "push"], "sizes": ["close", "ecu", "twoShot"], "fov": [40, 50], "light": {"ev": 0.45, "sat": 1.04, "tint": [1, 1, 1], "rimK": 600, "fillK": 300}}
 }

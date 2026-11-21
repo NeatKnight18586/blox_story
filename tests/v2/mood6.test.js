@@ -61,7 +61,7 @@ test('d: the breath before the twist, payoff hold and brightest key', () => {
   let e = episode(); e.shots[4].mood = 'fun'; assert.equal(res(e, 'd').level, 'FAIL'); assert.match(res(e, 'd').items[0], /before the twist/);
   e = episode(); e.shots[4].frames = Math.round(1.4 * fps); assert.ok(res(e, 'd').items.some(x => /breath/.test(x)));
   e = episode(); e.shots[7].frames = Math.round(1.4 * fps); assert.ok(res(e, 'd').items.some(x => /payoff held/.test(x)));
-  e = episode(); e.shots[0].light = {ev: .4}; assert.ok(res(e, 'd').items.some(x => /brightest/.test(x)));
+  e = episode(); e.shots[0].light = {ev: .6}; assert.ok(res(e, 'd').items.some(x => /brightest/.test(x)));
   e = episode(); e.shots[5].twist = false; assert.ok(res(e, 'd').items.some(x => /twist/.test(x)));
 });
 test('e: gags 1, 2, 3 must grow (WARN)', () => {
@@ -106,9 +106,9 @@ test('plan5 with moods: the limit is the mood\'s FAIL line (len max × 1.5); sta
 });
 test('payoffEV: ramps in over 6 frames, eases out over 10, never pops', () => {
   const sh = [{start: 0, frames: 30, mood: 'fun'}, {start: 30, frames: 40, mood: 'payoff'}, {start: 70, frames: 20, mood: 'fun'}];
-  assert.equal(payoffEV(sh, 10), null); const ev = n => payoffEV(sh, n), key = .3;
+  assert.equal(payoffEV(sh, 10), null); const ev = n => payoffEV(sh, n), key = .45;
   assert.ok(Math.abs(ev(30) - .1) < .05); assert.ok(Math.abs(ev(30 + RAMP_IN - 1) - key) < 1e-9); assert.equal(ev(50), key);
-  let maxStep = 0; for (let n = 31; n < 70; n++) maxStep = Math.max(maxStep, Math.abs(ev(n) - ev(n - 1))); assert.ok(maxStep < .06, 'max step ' + maxStep);   // a pop would be .2
+  let maxStep = 0; for (let n = 31; n < 70; n++) maxStep = Math.max(maxStep, Math.abs(ev(n) - ev(n - 1))); assert.ok(maxStep < .1, 'max step ' + maxStep);   // a pop would be .35 (key .45 − .1 fun)
   assert.ok(Math.abs(ev(69) - .1) < 1e-9); assert.ok(ev(70 - EASE_OUT - 1) === key && ev(70 - EASE_OUT) < key);
   assert.equal(payoffEV(sh.slice(0, 2), 69), 0);
 });
