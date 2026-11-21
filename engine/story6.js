@@ -71,7 +71,15 @@ export function parseSplash(s) {
 }
 export function parseTag(s) { const m = /^(\w+)\s+"([^"]{1,24})"$/.exec(s.trim()); if (!m) fail('tag', s, 'expected <actor> "<text>" (1–24 characters)'); return {actor: m[1], text: m[2]}; }
 export function parseSpawn(s) { const [body, word] = splitAt(s); if (!ID.test(body) || !word) fail('spawn', s, 'expected "<actor> @ <word>"'); return {actor: body, word}; }
-export const MARKERS = {drain: parseDrain, bloom: parseBloom, crowd: parseCrowd, hand: parseHand, tumble: parseTumble, airCatch: parseAirCatch, splash: parseSplash, tag: parseTag, spawn: parseSpawn};
+// E3b `sitOn: <partner> <lead> [left|right]` (@ word in brief2spec): the lead lies face-down, head turned to that side; the partner sits on
+// his back facing that side, until the row ends.
+export function parseSitOn(s) { const p = s.trim().split(/\s+/); if (!ID.test(p[0] ?? '') || !ID.test(p[1] ?? '') || p.length > 3 || (p[2] && !['left', 'right'].includes(p[2]))) fail('sitOn', s, 'expected "<partner> <lead> [left|right]"'); return {partner: p[0], lead: p[1], side: p[2] === 'left' ? -1 : 1}; }
+export const SIT = {back: 1.05, centre: .55, hip: [-1.45, 0, .25], knee: 1.5, headTurn: 1.25};   // lead: back top / body centre above the ground (× scale); partner: hip / knee pivots (rad); lead head turn (rad)
+// E3b `rise: <actor>` (@ word in brief2spec): a held fall ends — the actor stands at its mark (idle pose) until its next mark.
+export function parseRise(s) { const p = s.trim().split(/\s+/); if (p.length !== 1 || !ID.test(p[0])) fail('rise', s, 'expected "<actor>"'); return {actor: p[0]}; }
+// E3b `lie: <actor> [left|right]` (@ word in brief2spec): the actor lies face-down, head turned to that side, until the row ends.
+export function parseLie(s) { const p = s.trim().split(/\s+/); if (!ID.test(p[0] ?? '') || p.length > 2 || (p[1] && !['left', 'right'].includes(p[1]))) fail('lie', s, 'expected "<actor> [left|right]"'); return {actor: p[0], side: p[1] === 'left' ? -1 : 1}; }
+export const MARKERS = {lie: parseLie, rise: parseRise, drain: parseDrain, bloom: parseBloom, crowd: parseCrowd, hand: parseHand, tumble: parseTumble, airCatch: parseAirCatch, splash: parseSplash, tag: parseTag, spawn: parseSpawn, sitOn: parseSitOn};
 // A notes token "key: value" → {key, value} for a story marker, else null.
 export function markerOf(tok) { const m = /^(\w+)\s*:\s*(.+)$/.exec(tok.trim()); return m && MARKERS[m[1]] ? {key: m[1], value: m[2].trim()} : null; }
 
@@ -144,25 +152,31 @@ export function airCatchAt(t, {tc, partnerFrom, heroFrom, dir = [0, -1], groundY
 // ---- crowd: seeded behaviours, pure in t -----------------------------------------------------------------------------------------
 // crowd = {n, seed, area: {x0, x1, z0, z1}, start: [x, z] centre, steps: [{t, behaviour, anchorPos}]}; returns {p, yaw, pose, lean, lie}.
 export const CROWD_SPEED = {wander: 1.2, limp: .95, run: 9}, FLOP_STAGGER = .4;
-function wanderPath(i, seed, p0, yaw0, t0, t, speed, area) {
+export const inBox = (x, z, b) => x >= b.x0 && x <= b.x1 && z >= b.z0 && z <= b.z1;
+function wanderPath(i, seed, p0, yaw0, t0, t, speed, area, avoid = null) {
   const R = rng(hashS(`${seed}:${i}:${t0.toFixed(3)}`)); let p = [...p0], yaw = yaw0, tt = t0;
   while (tt < t) { const seg = 1.8 + R() * 2.2, dt = Math.min(seg, t - tt); yaw += (R() - .5) * 2.1;
     let nx = p[0] + Math.sin(yaw) * speed * dt, nz = p[1] + Math.cos(yaw) * speed * dt;
     if (nx < area.x0 || nx > area.x1 || nz < area.z0 || nz > area.z1) { yaw += Math.PI; nx = Math.max(area.x0, Math.min(area.x1, nx)); nz = Math.max(area.z0, Math.min(area.z1, nz)); }
+    if (avoid && avoid.some(b => inBox(nx, nz, b))) { yaw += Math.PI; nx = p[0]; nz = p[1]; }   // E3b (opt-in crowd.avoid): turn back at a kept-clear box
     p = [nx, nz]; tt += dt; }
   return {p, yaw};
 }
 export function crowdStart(i, crowd) {
   const R = rng(hashS(`${crowd.seed}:start:${i}`)), a = R() * Math.PI * 2, r = Math.sqrt(R()) * Math.max(4, Math.sqrt(crowd.n) * 1.9);
+  if (crowd.spread) { const A = crowd.area, u = a / (Math.PI * 2), v = r / Math.max(4, Math.sqrt(crowd.n) * 1.9); let q = [A.x0 + .5 + u * (A.x1 - A.x0 - 1), A.z0 + .5 + v * v * (A.z1 - A.z0 - 1)];
+    for (const b of crowd.avoid ?? []) if (inBox(q[0], q[1], b)) { const d = [[q[0] - b.x0, [b.x0 - .6, q[1]]], [b.x1 - q[0], [b.x1 + .6, q[1]]], [q[1] - b.z0, [q[0], b.z0 - .6]], [b.z1 - q[1], [q[0], b.z1 + .6]]].sort((a2, b2) => a2[0] - b2[0]); q = d[0][1]; }   // pushed out of a kept-clear box
+    return {p: q, yaw: R() * Math.PI * 2 - Math.PI}; }   // E3b (opt-in crowd.spread, brief `crowdArea:`): start spread over the wander box (same draws)
   return {p: [crowd.start[0] + Math.sin(a) * r, crowd.start[1] + Math.cos(a) * r], yaw: R() * Math.PI * 2 - Math.PI};
 }
 export function crowdAt(i, t, crowd, {pile = null} = {}) {
   let {p, yaw} = crowdStart(i, crowd), st = {pose: 'idle', lean: 0, lie: null, flopT: null, moving: false};
   const steps = crowd.steps.filter(s => s.t <= t);
   for (let k = 0; k < steps.length; k++) {
-    const s = steps[k], tEnd = Math.min(t, crowd.steps[crowd.steps.indexOf(s) + 1]?.t ?? Infinity), R = rng(hashS(`${crowd.seed}:${i}:${k}`));
+    const s = steps[k]; if (crowd.partial && s.n !== undefined && i >= s.n) continue;   // E3b (opt-in crowd.partial): a step moves only the first n dummies; the rest keep what they were doing
+    const nxt = crowd.partial ? crowd.steps.slice(crowd.steps.indexOf(s) + 1).find(q => q.n === undefined || i < q.n) : crowd.steps[crowd.steps.indexOf(s) + 1], tEnd = Math.min(t, nxt?.t ?? Infinity), R = rng(hashS(`${crowd.seed}:${i}:${k}`));
     const prevLie = st.lie; st = {pose: 'idle', lean: 0, lie: null, flopT: null, moving: false};
-    if (s.behaviour === 'wander' || s.behaviour === 'limp') { const w = wanderPath(i, crowd.seed, p, yaw, s.t, tEnd, CROWD_SPEED[s.behaviour], crowd.area); p = w.p; yaw = w.yaw; st.pose = 'walk'; st.moving = true; if (s.behaviour === 'limp') st.lean = 10; }
+    if (s.behaviour === 'wander' || s.behaviour === 'limp') { const w = wanderPath(i, crowd.seed, p, yaw, s.t, tEnd, CROWD_SPEED[s.behaviour], crowd.area, crowd.avoid); p = w.p; yaw = w.yaw; st.pose = 'walk'; st.moving = true; if (s.behaviour === 'limp') st.lean = 10; }
     else if (s.behaviour === 'run') { const a = R() * Math.PI * 2, r = Math.sqrt(R()) * Math.max(2.5, Math.sqrt(crowd.n) * .9), tgt = [s.anchorPos[0] + Math.sin(a) * r, s.anchorPos[2] + Math.cos(a) * r];
       const delay = R() * .3, d = Math.hypot(tgt[0] - p[0], tgt[1] - p[1]), dur = d / CROWD_SPEED.run, u = cl((tEnd - s.t - delay) / Math.max(dur, 1e-3));
       if (d > .01) yaw = Math.atan2(tgt[0] - p[0], tgt[1] - p[1]); p = [p[0] + (tgt[0] - p[0]) * u, p[1] + (tgt[1] - p[1]) * u]; st.pose = u > 0 && u < 1 ? 'run' : 'idle'; st.moving = u > 0 && u < 1; }

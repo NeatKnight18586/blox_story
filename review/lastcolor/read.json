@@ -9,8 +9,8 @@
    "dur": 3,
    "subject": "hero",
    "faceShown": {
-    "angle": 45,
-    "inside": 1,
+    "angle": 26,
+    "inside": 0.817,
     "ok": true
    },
    "nothingInFront": {
@@ -19,14 +19,14 @@
     "ok": true
    },
    "standsOut": {
-    "subj": 0.191,
-    "ring": 0.69,
-    "diff": 0.499,
+    "subj": 0.358,
+    "ring": 0.734,
+    "diff": 0.375,
     "ok": true,
     "msg": ""
    },
    "moves": {
-    "motion": 0.0311,
+    "motion": 0.0306,
     "need": 0.021,
     "ok": true,
     "msg": ""
@@ -45,19 +45,19 @@
    "dur": 1.3,
    "subject": "wallSign",
    "nothingInFront": {
-    "front": 0.043,
+    "front": 0.019,
     "faceCover": 0,
     "ok": true
    },
    "standsOut": {
-    "subj": 0.838,
-    "ring": 0.766,
-    "diff": 0.071,
+    "subj": 0.853,
+    "ring": 0.772,
+    "diff": 0.081,
     "ok": false,
-    "msg": "subject vs surround luma 0.071 (≥ 0.12)"
+    "msg": "subject vs surround luma 0.081 (≥ 0.12)"
    },
    "moves": {
-    "motion": 0.106,
+    "motion": 0.0829,
     "need": 0.021,
     "ok": true,
     "msg": ""
@@ -76,25 +76,24 @@
    "dur": 1.93,
    "subject": "hero",
    "faceShown": {
-    "angle": 28.4,
+    "angle": 6.7,
     "inside": 1,
     "ok": true
    },
    "nothingInFront": {
     "front": 0,
-    "faceCover": 0.025,
-    "ok": false,
-    "msg": "the face is 2.5 % covered"
+    "faceCover": 0,
+    "ok": true
    },
    "standsOut": {
-    "subj": 0.225,
-    "ring": 0.756,
-    "diff": 0.531,
+    "subj": 0.207,
+    "ring": 0.82,
+    "diff": 0.612,
     "ok": true,
     "msg": ""
    },
    "moves": {
-    "motion": 0.0378,
+    "motion": 0.0247,
     "need": 0.021,
     "ok": true,
     "msg": ""
@@ -113,26 +112,24 @@
    "dur": 1.73,
    "subject": "hero",
    "faceShown": {
-    "angle": 72.9,
+    "angle": 42.9,
     "inside": 1,
-    "ok": false,
-    "msg": "face turned 73° from the camera (≤ 70)"
+    "ok": true
    },
    "nothingInFront": {
     "front": 0,
-    "faceCover": 0.205,
-    "ok": false,
-    "msg": "the face is 20.5 % covered"
+    "faceCover": 0.004,
+    "ok": true
    },
    "standsOut": {
-    "subj": 0.305,
-    "ring": 0.743,
-    "diff": 0.438,
+    "subj": 0.214,
+    "ring": 0.708,
+    "diff": 0.495,
     "ok": true,
     "msg": ""
    },
    "moves": {
-    "motion": 0.207,
+    "motion": 0.1413,
     "need": 0.021,
     "ok": true,
     "msg": ""
@@ -157,11 +154,11 @@
     "ok": true
    },
    "standsOut": {
-    "subj": 0.474,
-    "ring": 0.523,
-    "diff": 0.049,
-    "ok": false,
-    "msg": "subject vs surround luma 0.049 (≥ 0.12)"
+    "subj": 0.376,
+    "ring": 0.689,
+    "diff": 0.313,
+    "ok": true,
+    "msg": ""
    },
    "moves": {
     "motion": 0,
@@ -190,14 +187,14 @@
     "msg": "the face is 50.9 % covered"
    },
    "standsOut": {
-    "subj": 0.474,
-    "ring": 0.787,
-    "diff": 0.313,
+    "subj": 0.494,
+    "ring": 0.811,
+    "diff": 0.318,
     "ok": true,
     "msg": ""
    },
    "moves": {
-    "motion": 0.1065,
+    "motion": 0.1008,
     "need": 0.021,
     "ok": true,
     "msg": ""
@@ -216,25 +213,25 @@
    "dur": 1.6,
    "subject": "hero",
    "faceShown": {
-    "angle": 38.1,
+    "angle": 53.6,
     "inside": 1,
     "ok": true
    },
    "nothingInFront": {
     "front": 0,
-    "faceCover": 0.113,
+    "faceCover": 0.211,
     "ok": false,
-    "msg": "the face is 11.3 % covered"
+    "msg": "the face is 21.1 % covered"
    },
    "standsOut": {
-    "subj": 0.289,
-    "ring": 0.79,
-    "diff": 0.501,
+    "subj": 0.246,
+    "ring": 0.743,
+    "diff": 0.497,
     "ok": true,
     "msg": ""
    },
    "moves": {
-    "motion": 0.2612,
+    "motion": 0.2325,
     "need": 0.021,
     "ok": true,
     "msg": ""
@@ -259,16 +256,16 @@
    },
    "standsOut": {
     "subj": 0.691,
-    "ring": 0.803,
-    "diff": 0.112,
-    "ok": false,
-    "msg": "subject vs surround luma 0.112 (≥ 0.12)"
+    "ring": 0.815,
+    "diff": 0.123,
+    "ok": true,
+    "msg": ""
    },
    "moves": {
-    "motion": 0.0192,
+    "motion": 0.019,
     "need": 0.021,
     "ok": false,
-    "msg": "motion 0.0192 < 0.0210"
+    "msg": "motion 0.0190 < 0.0210"
    },
    "hold": {
     "held": 1.3,
@@ -279,29 +276,29 @@
   },
   {
    "id": "S09",
-   "size": "close",
+   "size": "medium",
    "t": 16.1,
    "dur": 1.67,
    "subject": "hero",
    "faceShown": {
-    "angle": 39,
+    "angle": 33.9,
     "inside": 1,
     "ok": true
    },
    "nothingInFront": {
     "front": 0,
-    "faceCover": 0,
+    "faceCover": 0.001,
     "ok": true
    },
    "standsOut": {
-    "subj": 0.253,
-    "ring": 0.732,
-    "diff": 0.479,
+    "subj": 0.271,
+    "ring": 0.775,
+    "diff": 0.504,
     "ok": true,
     "msg": ""
    },
    "moves": {
-    "motion": 0.0487,
+    "motion": 0.0286,
     "need": 0.021,
     "ok": true,
     "msg": ""
@@ -320,35 +317,33 @@
    "dur": 2.13,
    "subject": "dummya",
    "faceShown": {
-    "angle": 107.5,
+    "angle": 12,
     "inside": 1,
-    "ok": false,
-    "msg": "face turned 108° from the camera (≤ 70)"
+    "ok": true
    },
    "nothingInFront": {
-    "front": 0.224,
-    "faceCover": 1,
-    "ok": false,
-    "msg": "objects in front cover 22.4 % (≤ 10)"
+    "front": 0,
+    "faceCover": 0,
+    "ok": true
    },
    "standsOut": {
-    "subj": 0.887,
-    "ring": 0.817,
-    "diff": 0.07,
+    "subj": 0.619,
+    "ring": 0.725,
+    "diff": 0.105,
     "ok": false,
-    "msg": "subject vs surround luma 0.070 (≥ 0.12)"
+    "msg": "subject vs surround luma 0.105 (≥ 0.12)"
    },
    "moves": {
-    "motion": 0.0539,
+    "motion": 0.0014,
     "need": 0.021,
-    "ok": true,
-    "msg": ""
+    "ok": false,
+    "msg": "motion 0.0014 < 0.0210"
    },
    "hold": {
     "held": 2.13,
-    "max": 4.5,
+    "max": 3,
     "ok": true,
-    "msg": "moving framing held 2.13 s (≤ 4.5)"
+    "msg": "static framing held 2.13 s (≤ 3)"
    }
   },
   {
@@ -358,34 +353,34 @@
    "dur": 2.03,
    "subject": "hero",
    "faceShown": {
-    "angle": 102.9,
-    "inside": 0.931,
-    "ok": false,
-    "msg": "face turned 103° from the camera (≤ 70)"
+    "angle": 45.8,
+    "inside": 0.89,
+    "ok": true
    },
    "nothingInFront": {
     "front": 0,
-    "faceCover": 0,
-    "ok": true
+    "faceCover": 0.118,
+    "ok": false,
+    "msg": "the face is 11.8 % covered"
    },
    "standsOut": {
-    "subj": 0.241,
-    "ring": 0.677,
-    "diff": 0.436,
+    "subj": 0.56,
+    "ring": 0.614,
+    "diff": 0.054,
+    "ok": false,
+    "msg": "subject vs surround luma 0.054 (≥ 0.12)"
+   },
+   "moves": {
+    "motion": 0.0222,
+    "need": 0.021,
     "ok": true,
     "msg": ""
    },
-   "moves": {
-    "motion": 0.0177,
-    "need": 0.021,
-    "ok": false,
-    "msg": "motion 0.0177 < 0.0210"
-   },
    "hold": {
     "held": 2.03,
-    "max": 3,
+    "max": 4.5,
     "ok": true,
-    "msg": "static framing held 2.03 s (≤ 3)"
+    "msg": "moving framing held 2.03 s (≤ 4.5)"
    }
   },
   {
@@ -400,29 +395,28 @@
     "ok": true
    },
    "standsOut": {
-    "subj": 0.873,
-    "ring": 0.914,
-    "diff": 0.041,
+    "subj": 0.909,
+    "ring": 0.921,
+    "diff": 0.012,
     "ok": false,
-    "msg": "subject vs surround luma 0.041 (≥ 0.12)"
+    "msg": "subject vs surround luma 0.012 (≥ 0.12)"
    },
    "objectReads": {
-    "inside": 0.126,
-    "h": 0.551,
-    "ok": false,
-    "msg": "13 % of the object in frame (≥ 90)"
+    "inside": 0.998,
+    "h": 0.437,
+    "ok": true
    },
    "moves": {
-    "motion": 0.0886,
+    "motion": 0.0094,
     "need": 0.021,
-    "ok": true,
-    "msg": ""
+    "ok": false,
+    "msg": "motion 0.0094 < 0.0210"
    },
    "hold": {
     "held": 1.6,
-    "max": 4.5,
+    "max": 3,
     "ok": true,
-    "msg": "moving framing held 1.60 s (≤ 4.5)"
+    "msg": "static framing held 1.60 s (≤ 3)"
    }
   },
   {
@@ -442,14 +436,14 @@
     "ok": true
    },
    "standsOut": {
-    "subj": 0.433,
-    "ring": 0.819,
-    "diff": 0.386,
+    "subj": 0.458,
+    "ring": 0.834,
+    "diff": 0.376,
     "ok": true,
     "msg": ""
    },
    "moves": {
-    "motion": 0.0296,
+    "motion": 0.0293,
     "need": 0.021,
     "ok": true,
     "msg": ""
@@ -474,14 +468,14 @@
     "ok": true
    },
    "standsOut": {
-    "subj": 0.448,
-    "ring": 0.798,
-    "diff": 0.351,
+    "subj": 0.469,
+    "ring": 0.818,
+    "diff": 0.349,
     "ok": true,
     "msg": ""
    },
    "moves": {
-    "motion": 0.0375,
+    "motion": 0.0379,
     "need": 0.021,
     "ok": true,
     "msg": ""
@@ -510,14 +504,14 @@
     "ok": true
    },
    "standsOut": {
-    "subj": 0.358,
-    "ring": 0.613,
-    "diff": 0.255,
+    "subj": 0.371,
+    "ring": 0.64,
+    "diff": 0.269,
     "ok": true,
     "msg": ""
    },
    "moves": {
-    "motion": 0.0594,
+    "motion": 0.0585,
     "need": 0.021,
     "ok": true,
     "msg": ""
@@ -542,14 +536,14 @@
     "ok": true
    },
    "standsOut": {
-    "subj": 0.294,
-    "ring": 0.812,
-    "diff": 0.518,
+    "subj": 0.411,
+    "ring": 0.838,
+    "diff": 0.426,
     "ok": true,
     "msg": ""
    },
    "moves": {
-    "motion": 0.0872,
+    "motion": 0.0855,
     "need": 0.021,
     "ok": true,
     "msg": ""
@@ -568,8 +562,8 @@
    "dur": 1.77,
    "subject": "hero",
    "faceShown": {
-    "angle": 44.8,
-    "inside": 1,
+    "angle": 36.7,
+    "inside": 0.876,
     "ok": true
    },
    "nothingInFront": {
@@ -578,14 +572,14 @@
     "ok": true
    },
    "standsOut": {
-    "subj": 0.334,
-    "ring": 0.632,
-    "diff": 0.297,
+    "subj": 0.246,
+    "ring": 0.603,
+    "diff": 0.357,
     "ok": true,
     "msg": ""
    },
    "moves": {
-    "motion": 0.0454,
+    "motion": 0.0362,
     "need": 0.021,
     "ok": true,
     "msg": ""
@@ -604,10 +598,9 @@
    "dur": 1.8,
    "subject": "hero",
    "faceShown": {
-    "angle": 27.9,
-    "inside": 0.556,
-    "ok": false,
-    "msg": "56 % of the head in frame (≥ 70)"
+    "angle": 18,
+    "inside": 1,
+    "ok": true
    },
    "nothingInFront": {
     "front": 0,
@@ -615,14 +608,14 @@
     "ok": true
    },
    "standsOut": {
-    "subj": 0.482,
-    "ring": 0.513,
-    "diff": 0.031,
+    "subj": 0.584,
+    "ring": 0.503,
+    "diff": 0.081,
     "ok": false,
-    "msg": "subject vs surround luma 0.031 (≥ 0.12)"
+    "msg": "subject vs surround luma 0.081 (≥ 0.12)"
    },
    "moves": {
-    "motion": 0.0229,
+    "motion": 0.0223,
     "need": 0.021,
     "ok": true,
     "msg": ""
@@ -641,25 +634,24 @@
    "dur": 1.23,
    "subject": "bitsy",
    "faceShown": {
-    "angle": 47.4,
-    "inside": 0.939,
+    "angle": 26.4,
+    "inside": 0.811,
     "ok": true
    },
    "nothingInFront": {
     "front": 0,
-    "faceCover": 1,
-    "ok": false,
-    "msg": "the face is 100.0 % covered"
+    "faceCover": 0,
+    "ok": true
    },
    "standsOut": {
-    "subj": 0.342,
-    "ring": 0.316,
-    "diff": 0.026,
+    "subj": 0.564,
+    "ring": 0.647,
+    "diff": 0.082,
     "ok": false,
-    "msg": "subject vs surround luma 0.026 (≥ 0.12)"
+    "msg": "subject vs surround luma 0.082 (≥ 0.12)"
    },
    "moves": {
-    "motion": 0.0386,
+    "motion": 0.0615,
     "need": 0.021,
     "ok": true,
     "msg": ""
@@ -688,17 +680,17 @@
     "ok": true
    },
    "standsOut": {
-    "subj": 0.273,
-    "ring": 0.597,
-    "diff": 0.324,
+    "subj": 0.271,
+    "ring": 0.65,
+    "diff": 0.379,
     "ok": true,
     "msg": ""
    },
    "moves": {
-    "motion": 0.006,
+    "motion": 0.0061,
     "need": 0.021,
     "ok": false,
-    "msg": "motion 0.0060 < 0.0210"
+    "msg": "motion 0.0061 < 0.0210"
    },
    "hold": {
     "held": 1.27,
@@ -716,22 +708,22 @@
    "faceShown": null,
    "nothingInFront": {
     "front": 0,
-    "faceCover": 0.361,
+    "faceCover": 0.042,
     "ok": false,
-    "msg": "the face is 36.1 % covered"
+    "msg": "the face is 4.2 % covered"
    },
    "standsOut": {
-    "subj": 0.796,
-    "ring": 0.825,
-    "diff": 0.028,
-    "ok": false,
-    "msg": "subject vs surround luma 0.028 (≥ 0.12)"
+    "subj": 0.4,
+    "ring": 0.852,
+    "diff": 0.452,
+    "ok": true,
+    "msg": ""
    },
    "moves": {
-    "motion": 0.0034,
+    "motion": 0.0172,
     "need": 0.021,
     "ok": false,
-    "msg": "motion 0.0034 < 0.0210"
+    "msg": "motion 0.0172 < 0.0210"
    },
    "hold": {
     "held": 2.5,
@@ -747,25 +739,25 @@
    "dur": 1.9,
    "subject": "dummyb",
    "faceShown": {
-    "angle": 44.1,
+    "angle": 43.4,
     "inside": 1,
     "ok": true
    },
    "nothingInFront": {
-    "front": 0.177,
-    "faceCover": 0.338,
+    "front": 0,
+    "faceCover": 0.301,
     "ok": false,
-    "msg": "objects in front cover 17.7 % (≤ 10)"
+    "msg": "the face is 30.1 % covered"
    },
    "standsOut": {
-    "subj": 0.508,
-    "ring": 0.662,
-    "diff": 0.154,
-    "ok": true,
-    "msg": ""
+    "subj": 0.825,
+    "ring": 0.754,
+    "diff": 0.071,
+    "ok": false,
+    "msg": "subject vs surround luma 0.071 (≥ 0.12)"
    },
    "moves": {
-    "motion": 0.0432,
+    "motion": 0.0252,
     "need": 0.021,
     "ok": true,
     "msg": ""
@@ -784,25 +776,24 @@
    "dur": 1.57,
    "subject": "hero",
    "faceShown": {
-    "angle": 47.8,
-    "inside": 0.974,
+    "angle": 29.4,
+    "inside": 0.743,
     "ok": true
    },
    "nothingInFront": {
     "front": 0,
-    "faceCover": 0.349,
-    "ok": false,
-    "msg": "the face is 34.9 % covered"
+    "faceCover": 0,
+    "ok": true
    },
    "standsOut": {
-    "subj": 0.821,
-    "ring": 0.874,
-    "diff": 0.053,
-    "ok": false,
-    "msg": "subject vs surround luma 0.053 (≥ 0.12)"
+    "subj": 0.258,
+    "ring": 0.603,
+    "diff": 0.345,
+    "ok": true,
+    "msg": ""
    },
    "moves": {
-    "motion": 0.0494,
+    "motion": 0.1111,
     "need": 0.021,
     "ok": true,
     "msg": ""
@@ -823,19 +814,18 @@
    "faceShown": null,
    "nothingInFront": {
     "front": 0,
-    "faceCover": 0.064,
-    "ok": false,
-    "msg": "the face is 6.4 % covered"
+    "faceCover": 0,
+    "ok": true
    },
    "standsOut": {
-    "subj": 0.398,
-    "ring": 0.625,
-    "diff": 0.227,
+    "subj": 0.355,
+    "ring": 0.61,
+    "diff": 0.255,
     "ok": true,
     "msg": ""
    },
    "moves": {
-    "motion": 0.0523,
+    "motion": 0.074,
     "need": 0.021,
     "ok": true,
     "msg": ""
@@ -866,7 +856,7 @@
    "standsOut": {
     "subj": 0.393,
     "ring": 0.606,
-    "diff": 0.212,
+    "diff": 0.213,
     "ok": true,
     "msg": ""
    },
@@ -891,20 +881,20 @@
    "subject": "dummyc",
    "faceShown": null,
    "nothingInFront": {
-    "front": 0.049,
-    "faceCover": 1,
+    "front": 0.061,
+    "faceCover": 0.187,
     "ok": false,
-    "msg": "the face is 100.0 % covered"
+    "msg": "the face is 18.7 % covered"
    },
    "standsOut": {
-    "subj": 0.786,
-    "ring": 0.785,
-    "diff": 0.001,
+    "subj": 0.874,
+    "ring": 0.846,
+    "diff": 0.028,
     "ok": false,
-    "msg": "subject vs surround luma 0.001 (≥ 0.12)"
+    "msg": "subject vs surround luma 0.028 (≥ 0.12)"
    },
    "moves": {
-    "motion": 0.1303,
+    "motion": 0.0737,
     "need": 0.021,
     "ok": true,
     "msg": ""
@@ -923,26 +913,24 @@
    "dur": 2.43,
    "subject": "dummyc",
    "faceShown": {
-    "angle": 121.1,
-    "inside": 0.502,
-    "ok": false,
-    "msg": "face turned 121° from the camera (≤ 70)"
+    "angle": 10.3,
+    "inside": 1,
+    "ok": true
    },
    "nothingInFront": {
-    "front": 1,
-    "faceCover": 1,
-    "ok": false,
-    "msg": "objects in front cover 100.0 % (≤ 10)"
+    "front": 0,
+    "faceCover": 0,
+    "ok": true
    },
    "standsOut": {
-    "subj": 0.627,
-    "ring": 0.639,
-    "diff": 0.012,
-    "ok": false,
-    "msg": "subject vs surround luma 0.012 (≥ 0.12)"
+    "subj": 0.824,
+    "ring": 0.533,
+    "diff": 0.29,
+    "ok": true,
+    "msg": ""
    },
    "moves": {
-    "motion": 0.0504,
+    "motion": 0.0406,
     "need": 0.021,
     "ok": true,
     "msg": ""
@@ -1011,7 +999,7 @@
     "msg": ""
    },
    "moves": {
-    "motion": 0.206,
+    "motion": 0.2059,
     "need": 0.021,
     "ok": true,
     "msg": ""
@@ -1035,14 +1023,14 @@
     "ok": true
    },
    "standsOut": {
-    "subj": 0.767,
-    "ring": 0.431,
-    "diff": 0.336,
+    "subj": 0.816,
+    "ring": 0.508,
+    "diff": 0.308,
     "ok": true,
     "msg": ""
    },
    "moves": {
-    "motion": 0.0382,
+    "motion": 0.1403,
     "need": 0.021,
     "ok": true,
     "msg": ""
@@ -1061,26 +1049,25 @@
    "dur": 1.13,
    "subject": "bitsy",
    "faceShown": {
-    "angle": 108.5,
+    "angle": 28.1,
     "inside": 1,
-    "ok": false,
-    "msg": "face turned 109° from the camera (≤ 70)"
+    "ok": true
    },
    "nothingInFront": {
     "front": 0,
-    "faceCover": 0.521,
+    "faceCover": 0.529,
     "ok": false,
-    "msg": "the face is 52.1 % covered"
+    "msg": "the face is 52.9 % covered"
    },
    "standsOut": {
-    "subj": 0.465,
-    "ring": 0.663,
-    "diff": 0.198,
-    "ok": true,
-    "msg": ""
+    "subj": 0.683,
+    "ring": 0.627,
+    "diff": 0.056,
+    "ok": false,
+    "msg": "subject vs surround luma 0.056 (≥ 0.12)"
    },
    "moves": {
-    "motion": 0.1584,
+    "motion": 0.274,
     "need": 0.021,
     "ok": true,
     "msg": ""
@@ -1101,18 +1088,18 @@
    "faceShown": null,
    "nothingInFront": {
     "front": 0,
-    "faceCover": 0,
+    "faceCover": 0.001,
     "ok": true
    },
    "standsOut": {
-    "subj": 0.406,
-    "ring": 0.729,
-    "diff": 0.323,
+    "subj": 0.351,
+    "ring": 0.582,
+    "diff": 0.23,
     "ok": true,
     "msg": ""
    },
    "moves": {
-    "motion": 0.08,
+    "motion": 0.1046,
     "need": 0.021,
     "ok": true,
     "msg": ""
@@ -1131,25 +1118,24 @@
    "dur": 1.03,
    "subject": "hero",
    "faceShown": {
-    "angle": 147.5,
+    "angle": 10.8,
     "inside": 1,
-    "ok": false,
-    "msg": "face turned 147° from the camera (≤ 70)"
+    "ok": true
    },
    "nothingInFront": {
     "front": 0,
-    "faceCover": 0.007,
+    "faceCover": 0,
     "ok": true
    },
    "standsOut": {
-    "subj": 0.336,
-    "ring": 0.724,
-    "diff": 0.387,
+    "subj": 0.325,
+    "ring": 0.751,
+    "diff": 0.426,
     "ok": true,
     "msg": ""
    },
    "moves": {
-    "motion": 0.1479,
+    "motion": 0.2357,
     "need": 0.021,
     "ok": true,
     "msg": ""
@@ -1168,25 +1154,25 @@
    "dur": 1.4,
    "subject": "hero",
    "faceShown": {
-    "angle": 174,
+    "angle": 67.2,
     "inside": 1,
-    "ok": false,
-    "msg": "face turned 174° from the camera (≤ 70)"
+    "ok": true
    },
    "nothingInFront": {
     "front": 0,
-    "faceCover": 0,
-    "ok": true
+    "faceCover": 0.627,
+    "ok": false,
+    "msg": "the face is 62.7 % covered"
    },
    "standsOut": {
-    "subj": 0.194,
-    "ring": 0.737,
-    "diff": 0.543,
+    "subj": 0.419,
+    "ring": 0.667,
+    "diff": 0.248,
     "ok": true,
     "msg": ""
    },
    "moves": {
-    "motion": 0.0552,
+    "motion": 0.2255,
     "need": 0.021,
     "ok": true,
     "msg": ""
@@ -1207,18 +1193,19 @@
    "faceShown": null,
    "nothingInFront": {
     "front": 0,
-    "faceCover": 0,
-    "ok": true
+    "faceCover": 0.051,
+    "ok": false,
+    "msg": "the face is 5.1 % covered"
    },
    "standsOut": {
-    "subj": 0.366,
-    "ring": 0.738,
-    "diff": 0.373,
-    "ok": true,
-    "msg": ""
+    "subj": 0.604,
+    "ring": 0.683,
+    "diff": 0.079,
+    "ok": false,
+    "msg": "subject vs surround luma 0.079 (≥ 0.12)"
    },
    "moves": {
-    "motion": 0.2018,
+    "motion": 0.2437,
     "need": 0.021,
     "ok": true,
     "msg": ""
@@ -1239,18 +1226,19 @@
    "faceShown": null,
    "nothingInFront": {
     "front": 0,
-    "faceCover": 0,
-    "ok": true
+    "faceCover": 0.171,
+    "ok": false,
+    "msg": "the face is 17.1 % covered"
    },
    "standsOut": {
-    "subj": 0.767,
-    "ring": 0.749,
-    "diff": 0.018,
+    "subj": 0.794,
+    "ring": 0.697,
+    "diff": 0.097,
     "ok": false,
-    "msg": "subject vs surround luma 0.018 (≥ 0.12)"
+    "msg": "subject vs surround luma 0.097 (≥ 0.12)"
    },
    "moves": {
-    "motion": 0.1079,
+    "motion": 0.1172,
     "need": 0.021,
     "ok": true,
     "msg": ""
@@ -1271,19 +1259,19 @@
    "faceShown": null,
    "nothingInFront": {
     "front": 0,
-    "faceCover": 0.312,
+    "faceCover": 0.027,
     "ok": false,
-    "msg": "the face is 31.2 % covered"
+    "msg": "the face is 2.7 % covered"
    },
    "standsOut": {
-    "subj": 0.666,
-    "ring": 0.617,
-    "diff": 0.049,
+    "subj": 0.848,
+    "ring": 0.806,
+    "diff": 0.041,
     "ok": false,
-    "msg": "subject vs surround luma 0.049 (≥ 0.12)"
+    "msg": "subject vs surround luma 0.041 (≥ 0.12)"
    },
    "moves": {
-    "motion": 0.2024,
+    "motion": 0.1522,
     "need": 0.021,
     "ok": true,
     "msg": ""
@@ -1302,27 +1290,28 @@
    "dur": 2.5,
    "subject": "hero",
    "faceShown": {
-    "angle": 20.8,
-    "inside": 1,
+    "angle": 27.7,
+    "inside": 0.76,
     "ok": true
    },
    "nothingInFront": {
     "front": 0,
-    "faceCover": 0,
-    "ok": true
+    "faceCover": 0.168,
+    "ok": false,
+    "msg": "the face is 16.8 % covered"
    },
    "standsOut": {
-    "subj": 0.819,
-    "ring": 0.747,
-    "diff": 0.072,
+    "subj": 0.625,
+    "ring": 0.597,
+    "diff": 0.028,
     "ok": false,
-    "msg": "subject vs surround luma 0.072 (≥ 0.12)"
+    "msg": "subject vs surround luma 0.028 (≥ 0.12)"
    },
    "moves": {
-    "motion": 0.0089,
+    "motion": 0.0024,
     "need": 0.021,
     "ok": false,
-    "msg": "motion 0.0089 < 0.0210"
+    "msg": "motion 0.0024 < 0.0210"
    },
    "hold": {
     "held": 2.5,
@@ -1338,8 +1327,8 @@
    "dur": 3.33,
    "subject": "hero",
    "faceShown": {
-    "angle": 20.5,
-    "inside": 0.878,
+    "angle": 33.3,
+    "inside": 0.7,
     "ok": true
    },
    "nothingInFront": {
@@ -1348,17 +1337,17 @@
     "ok": true
    },
    "standsOut": {
-    "subj": 0.726,
-    "ring": 0.746,
-    "diff": 0.02,
+    "subj": 0.809,
+    "ring": 0.715,
+    "diff": 0.094,
     "ok": false,
-    "msg": "subject vs surround luma 0.020 (≥ 0.12)"
+    "msg": "subject vs surround luma 0.094 (≥ 0.12)"
    },
    "moves": {
-    "motion": 0.0169,
+    "motion": 0.0162,
     "need": 0.021,
     "ok": false,
-    "msg": "motion 0.0169 < 0.0210"
+    "msg": "motion 0.0162 < 0.0210"
    },
    "hold": {
     "held": 3.33,
@@ -1374,26 +1363,25 @@
    "dur": 1.77,
    "subject": "bitsy",
    "faceShown": {
-    "angle": 75.7,
+    "angle": 16.3,
     "inside": 1,
-    "ok": false,
-    "msg": "face turned 76° from the camera (≤ 70)"
+    "ok": true
    },
    "nothingInFront": {
-    "front": 0.031,
-    "faceCover": 0.757,
+    "front": 0,
+    "faceCover": 0.56,
     "ok": false,
-    "msg": "the face is 75.7 % covered"
+    "msg": "the face is 56.0 % covered"
    },
    "standsOut": {
-    "subj": 0.424,
-    "ring": 0.557,
-    "diff": 0.133,
-    "ok": true,
-    "msg": ""
+    "subj": 0.562,
+    "ring": 0.621,
+    "diff": 0.059,
+    "ok": false,
+    "msg": "subject vs surround luma 0.059 (≥ 0.12)"
    },
    "moves": {
-    "motion": 0.2345,
+    "motion": 0.1739,
     "need": 0.021,
     "ok": true,
     "msg": ""
@@ -1424,7 +1412,7 @@
     "msg": ""
    },
    "moves": {
-    "motion": 0.1035,
+    "motion": 0.1042,
     "need": 0.021,
     "ok": true,
     "msg": ""
@@ -1448,11 +1436,14 @@
     "ok": true
    },
    "standsOut": {
-    "ok": false,
-    "msg": "subject not visible on the id mask"
+    "subj": 0.793,
+    "ring": 0.444,
+    "diff": 0.349,
+    "ok": true,
+    "msg": ""
    },
    "moves": {
-    "motion": 0.0317,
+    "motion": 0.0613,
     "need": 0.021,
     "ok": true,
     "msg": ""
@@ -1545,19 +1536,18 @@
    "faceShown": null,
    "nothingInFront": {
     "front": 0,
-    "faceCover": 0.443,
-    "ok": false,
-    "msg": "the face is 44.3 % covered"
+    "faceCover": 0.014,
+    "ok": true
    },
    "standsOut": {
-    "subj": 0.648,
-    "ring": 0.581,
-    "diff": 0.067,
+    "subj": 0.607,
+    "ring": 0.539,
+    "diff": 0.068,
     "ok": false,
-    "msg": "subject vs surround luma 0.067 (≥ 0.12)"
+    "msg": "subject vs surround luma 0.068 (≥ 0.12)"
    },
    "moves": {
-    "motion": 0.0732,
+    "motion": 0.1814,
     "need": 0.021,
     "ok": true,
     "msg": ""
@@ -1612,10 +1602,9 @@
    "dur": 1.67,
    "subject": "hero",
    "faceShown": {
-    "angle": 16.5,
-    "inside": 0.644,
-    "ok": false,
-    "msg": "64 % of the head in frame (≥ 70)"
+    "angle": 16.3,
+    "inside": 0.856,
+    "ok": true
    },
    "nothingInFront": {
     "front": 0,
@@ -1623,14 +1612,14 @@
     "ok": true
    },
    "standsOut": {
-    "subj": 0.47,
-    "ring": 0.677,
-    "diff": 0.207,
-    "ok": true,
-    "msg": ""
+    "subj": 0.498,
+    "ring": 0.554,
+    "diff": 0.056,
+    "ok": false,
+    "msg": "subject vs surround luma 0.056 (≥ 0.12)"
    },
    "moves": {
-    "motion": 0.0228,
+    "motion": 0.0262,
     "need": 0.021,
     "ok": true,
     "msg": ""
@@ -1656,12 +1645,12 @@
    "standsOut": {
     "subj": 0.473,
     "ring": 0.743,
-    "diff": 0.27,
+    "diff": 0.269,
     "ok": true,
     "msg": ""
    },
    "moves": {
-    "motion": 0.036,
+    "motion": 0.0409,
     "need": 0.021,
     "ok": true,
     "msg": ""
@@ -1681,20 +1670,20 @@
    "subject": "dummya",
    "faceShown": null,
    "nothingInFront": {
-    "front": 0.803,
-    "faceCover": 1,
+    "front": 0,
+    "faceCover": 0.254,
     "ok": false,
-    "msg": "objects in front cover 80.3 % (≤ 10)"
+    "msg": "the face is 25.4 % covered"
    },
    "standsOut": {
-    "subj": 0.602,
-    "ring": 0.661,
-    "diff": 0.059,
+    "subj": 0.586,
+    "ring": 0.635,
+    "diff": 0.049,
     "ok": false,
-    "msg": "subject vs surround luma 0.059 (≥ 0.12)"
+    "msg": "subject vs surround luma 0.049 (≥ 0.12)"
    },
    "moves": {
-    "motion": 0.1822,
+    "motion": 0.0741,
     "need": 0.021,
     "ok": true,
     "msg": ""
@@ -1718,14 +1707,14 @@
     "ok": true
    },
    "standsOut": {
-    "subj": 0.403,
-    "ring": 0.86,
-    "diff": 0.458,
+    "subj": 0.391,
+    "ring": 0.891,
+    "diff": 0.5,
     "ok": true,
     "msg": ""
    },
    "moves": {
-    "motion": 0.1079,
+    "motion": 0.0937,
     "need": 0.021,
     "ok": true,
     "msg": ""
@@ -1755,13 +1744,13 @@
    },
    "standsOut": {
     "subj": 0.669,
-    "ring": 0.615,
-    "diff": 0.053,
+    "ring": 0.575,
+    "diff": 0.094,
     "ok": false,
-    "msg": "subject vs surround luma 0.053 (≥ 0.12)"
+    "msg": "subject vs surround luma 0.094 (≥ 0.12)"
    },
    "moves": {
-    "motion": 0.0911,
+    "motion": 0.0896,
     "need": 0.021,
     "ok": true,
     "msg": ""
@@ -1790,14 +1779,14 @@
     "ok": true
    },
    "standsOut": {
-    "subj": 0.713,
-    "ring": 0.758,
-    "diff": 0.045,
+    "subj": 0.712,
+    "ring": 0.692,
+    "diff": 0.019,
     "ok": false,
-    "msg": "subject vs surround luma 0.045 (≥ 0.12)"
+    "msg": "subject vs surround luma 0.019 (≥ 0.12)"
    },
    "moves": {
-    "motion": 0.0318,
+    "motion": 0.0289,
     "need": 0.021,
     "ok": true,
     "msg": ""
@@ -1816,20 +1805,19 @@
    "dur": 1.93,
    "subject": "wallSign",
    "nothingInFront": {
-    "front": 0.456,
+    "front": 0.019,
     "faceCover": 0,
-    "ok": false,
-    "msg": "objects in front cover 45.6 % (≤ 10)"
+    "ok": true
    },
    "standsOut": {
-    "subj": 0.852,
-    "ring": 0.791,
-    "diff": 0.061,
+    "subj": 0.706,
+    "ring": 0.669,
+    "diff": 0.037,
     "ok": false,
-    "msg": "subject vs surround luma 0.061 (≥ 0.12)"
+    "msg": "subject vs surround luma 0.037 (≥ 0.12)"
    },
    "moves": {
-    "motion": 0.1105,
+    "motion": 0.0709,
     "need": 0.021,
     "ok": true,
     "msg": ""
@@ -1850,19 +1838,18 @@
    "faceShown": null,
    "nothingInFront": {
     "front": 0,
-    "faceCover": 0.021,
-    "ok": false,
-    "msg": "the face is 2.1 % covered"
+    "faceCover": 0,
+    "ok": true
    },
    "standsOut": {
-    "subj": 0.628,
-    "ring": 0.591,
-    "diff": 0.037,
-    "ok": false,
-    "msg": "subject vs surround luma 0.037 (≥ 0.12)"
+    "subj": 0.623,
+    "ring": 0.839,
+    "diff": 0.216,
+    "ok": true,
+    "msg": ""
    },
    "moves": {
-    "motion": 0.1171,
+    "motion": 0.0628,
     "need": 0.021,
     "ok": true,
     "msg": ""
@@ -1887,14 +1874,14 @@
     "ok": true
    },
    "standsOut": {
-    "subj": 0.864,
-    "ring": 0.613,
-    "diff": 0.251,
-    "ok": true,
-    "msg": ""
+    "subj": 0.7,
+    "ring": 0.727,
+    "diff": 0.027,
+    "ok": false,
+    "msg": "subject vs surround luma 0.027 (≥ 0.12)"
    },
    "moves": {
-    "motion": 0.0306,
+    "motion": 0.0572,
     "need": 0.021,
     "ok": true,
     "msg": ""
@@ -1913,34 +1900,34 @@
    "dur": 2.47,
    "subject": "kid",
    "faceShown": {
-    "angle": 153.3,
+    "angle": 27.4,
     "inside": 1,
-    "ok": false,
-    "msg": "face turned 153° from the camera (≤ 70)"
+    "ok": true
    },
    "nothingInFront": {
     "front": 0,
-    "faceCover": 0,
-    "ok": true
+    "faceCover": 0.217,
+    "ok": false,
+    "msg": "the face is 21.7 % covered"
    },
    "standsOut": {
-    "subj": 0.258,
-    "ring": 0.726,
-    "diff": 0.468,
+    "subj": 0.285,
+    "ring": 0.736,
+    "diff": 0.451,
     "ok": true,
     "msg": ""
    },
    "moves": {
-    "motion": 0.02,
+    "motion": 0.0212,
     "need": 0.021,
-    "ok": false,
-    "msg": "motion 0.0200 < 0.0210"
+    "ok": true,
+    "msg": ""
    },
    "hold": {
     "held": 2.47,
-    "max": 3,
+    "max": 4.5,
     "ok": true,
-    "msg": "static framing held 2.47 s (≤ 3)"
+    "msg": "moving framing held 2.47 s (≤ 4.5)"
    }
   },
   {
@@ -1955,23 +1942,22 @@
     "ok": true
    },
    "standsOut": {
-    "subj": 0.477,
-    "ring": 0.915,
-    "diff": 0.439,
+    "subj": 0.48,
+    "ring": 0.921,
+    "diff": 0.441,
     "ok": true,
     "msg": ""
    },
    "objectReads": {
-    "inside": 0.341,
-    "h": 0.682,
-    "ok": false,
-    "msg": "34 % of the object in frame (≥ 90)"
+    "inside": 0.981,
+    "h": 0.428,
+    "ok": true
    },
    "moves": {
-    "motion": 0.0117,
+    "motion": 0.0022,
     "need": 0.021,
     "ok": false,
-    "msg": "motion 0.0117 < 0.0210"
+    "msg": "motion 0.0022 < 0.0210"
    },
    "hold": {
     "held": 1.77,
@@ -1987,34 +1973,33 @@
    "dur": 1.43,
    "subject": "kid",
    "faceShown": {
-    "angle": 132.2,
+    "angle": 19.5,
     "inside": 1,
-    "ok": false,
-    "msg": "face turned 132° from the camera (≤ 70)"
+    "ok": true
    },
    "nothingInFront": {
     "front": 0,
-    "faceCover": 0.001,
+    "faceCover": 0,
     "ok": true
    },
    "standsOut": {
-    "subj": 0.389,
-    "ring": 0.652,
-    "diff": 0.263,
+    "subj": 0.228,
+    "ring": 0.595,
+    "diff": 0.366,
     "ok": true,
     "msg": ""
    },
    "moves": {
-    "motion": 0.0827,
+    "motion": 0.0018,
     "need": 0.021,
-    "ok": true,
-    "msg": ""
+    "ok": false,
+    "msg": "motion 0.0018 < 0.0210"
    },
    "hold": {
     "held": 1.43,
-    "max": 4.5,
+    "max": 3,
     "ok": true,
-    "msg": "moving framing held 1.43 s (≤ 4.5)"
+    "msg": "static framing held 1.43 s (≤ 3)"
    }
   },
   {
@@ -2025,20 +2010,19 @@
    "subject": "hero",
    "faceShown": null,
    "nothingInFront": {
-    "front": 0.117,
+    "front": 0,
     "faceCover": 0,
-    "ok": false,
-    "msg": "objects in front cover 11.7 % (≤ 10)"
+    "ok": true
    },
    "standsOut": {
-    "subj": 0.735,
-    "ring": 0.739,
-    "diff": 0.004,
+    "subj": 0.677,
+    "ring": 0.641,
+    "diff": 0.036,
     "ok": false,
-    "msg": "subject vs surround luma 0.004 (≥ 0.12)"
+    "msg": "subject vs surround luma 0.036 (≥ 0.12)"
    },
    "moves": {
-    "motion": 0.0781,
+    "motion": 0.0628,
     "need": 0.021,
     "ok": true,
     "msg": ""
@@ -2068,13 +2052,13 @@
    },
    "standsOut": {
     "subj": 0.652,
-    "ring": 0.642,
-    "diff": 0.01,
+    "ring": 0.564,
+    "diff": 0.088,
     "ok": false,
-    "msg": "subject vs surround luma 0.010 (≥ 0.12)"
+    "msg": "subject vs surround luma 0.088 (≥ 0.12)"
    },
    "moves": {
-    "motion": 0.0222,
+    "motion": 0.0285,
     "need": 0.021,
     "ok": true,
     "msg": ""
@@ -2093,26 +2077,24 @@
    "dur": 2.63,
    "subject": "hero",
    "faceShown": {
-    "angle": 74.8,
-    "inside": 0.616,
-    "ok": false,
-    "msg": "face turned 75° from the camera (≤ 70)"
+    "angle": 32.7,
+    "inside": 0.718,
+    "ok": true
    },
    "nothingInFront": {
     "front": 0,
-    "faceCover": 0.257,
-    "ok": false,
-    "msg": "the face is 25.7 % covered"
+    "faceCover": 0,
+    "ok": true
    },
    "standsOut": {
-    "subj": 0.803,
-    "ring": 0.706,
-    "diff": 0.096,
+    "subj": 0.858,
+    "ring": 0.939,
+    "diff": 0.08,
     "ok": false,
-    "msg": "subject vs surround luma 0.096 (≥ 0.12)"
+    "msg": "subject vs surround luma 0.080 (≥ 0.12)"
    },
    "moves": {
-    "motion": 0.1118,
+    "motion": 0.1517,
     "need": 0.021,
     "ok": true,
     "msg": ""
@@ -2126,83 +2108,63 @@
   }
  ],
  "errors": [
-  "S02: standsOut FAIL subject vs surround luma 0.071 (≥ 0.12)",
-  "S03: nothingInFront FAIL the face is 2.5 % covered",
-  "S04: faceShown FAIL face turned 73° from the camera (≤ 70)",
-  "S04: nothingInFront FAIL the face is 20.5 % covered",
-  "S05: standsOut FAIL subject vs surround luma 0.049 (≥ 0.12)",
+  "S02: standsOut FAIL subject vs surround luma 0.081 (≥ 0.12)",
   "S05: moves FAIL motion 0.0000 < 0.0210",
   "S06: nothingInFront FAIL the face is 50.9 % covered",
-  "S07: nothingInFront FAIL the face is 11.3 % covered",
-  "S08: standsOut FAIL subject vs surround luma 0.112 (≥ 0.12)",
-  "S08: moves FAIL motion 0.0192 < 0.0210",
-  "S10: faceShown FAIL face turned 108° from the camera (≤ 70)",
-  "S10: nothingInFront FAIL objects in front cover 22.4 % (≤ 10)",
-  "S10: standsOut FAIL subject vs surround luma 0.070 (≥ 0.12)",
-  "S11: faceShown FAIL face turned 103° from the camera (≤ 70)",
-  "S11: moves FAIL motion 0.0177 < 0.0210",
-  "S12: standsOut FAIL subject vs surround luma 0.041 (≥ 0.12)",
-  "S12: objectReads FAIL 13 % of the object in frame (≥ 90)",
-  "S18: faceShown FAIL 56 % of the head in frame (≥ 70)",
-  "S18: standsOut FAIL subject vs surround luma 0.031 (≥ 0.12)",
-  "S19: nothingInFront FAIL the face is 100.0 % covered",
-  "S19: standsOut FAIL subject vs surround luma 0.026 (≥ 0.12)",
-  "S20: moves FAIL motion 0.0060 < 0.0210",
-  "S21: nothingInFront FAIL the face is 36.1 % covered",
-  "S21: standsOut FAIL subject vs surround luma 0.028 (≥ 0.12)",
-  "S21: moves FAIL motion 0.0034 < 0.0210",
-  "S22: nothingInFront FAIL objects in front cover 17.7 % (≤ 10)",
-  "S23: nothingInFront FAIL the face is 34.9 % covered",
-  "S23: standsOut FAIL subject vs surround luma 0.053 (≥ 0.12)",
-  "S24: nothingInFront FAIL the face is 6.4 % covered",
-  "S26: nothingInFront FAIL the face is 100.0 % covered",
-  "S26: standsOut FAIL subject vs surround luma 0.001 (≥ 0.12)",
-  "S27: faceShown FAIL face turned 121° from the camera (≤ 70)",
-  "S27: nothingInFront FAIL objects in front cover 100.0 % (≤ 10)",
-  "S27: standsOut FAIL subject vs surround luma 0.012 (≥ 0.12)",
+  "S07: nothingInFront FAIL the face is 21.1 % covered",
+  "S08: moves FAIL motion 0.0190 < 0.0210",
+  "S10: standsOut FAIL subject vs surround luma 0.105 (≥ 0.12)",
+  "S10: moves FAIL motion 0.0014 < 0.0210",
+  "S11: nothingInFront FAIL the face is 11.8 % covered",
+  "S11: standsOut FAIL subject vs surround luma 0.054 (≥ 0.12)",
+  "S12: standsOut FAIL subject vs surround luma 0.012 (≥ 0.12)",
+  "S12: moves FAIL motion 0.0094 < 0.0210",
+  "S18: standsOut FAIL subject vs surround luma 0.081 (≥ 0.12)",
+  "S19: standsOut FAIL subject vs surround luma 0.082 (≥ 0.12)",
+  "S20: moves FAIL motion 0.0061 < 0.0210",
+  "S21: nothingInFront FAIL the face is 4.2 % covered",
+  "S21: moves FAIL motion 0.0172 < 0.0210",
+  "S22: nothingInFront FAIL the face is 30.1 % covered",
+  "S22: standsOut FAIL subject vs surround luma 0.071 (≥ 0.12)",
+  "S26: nothingInFront FAIL the face is 18.7 % covered",
+  "S26: standsOut FAIL subject vs surround luma 0.028 (≥ 0.12)",
   "S29: nothingInFront FAIL the face is 30.0 % covered",
-  "S31: faceShown FAIL face turned 109° from the camera (≤ 70)",
-  "S31: nothingInFront FAIL the face is 52.1 % covered",
-  "S33: faceShown FAIL face turned 147° from the camera (≤ 70)",
-  "S34: faceShown FAIL face turned 174° from the camera (≤ 70)",
-  "S36: standsOut FAIL subject vs surround luma 0.018 (≥ 0.12)",
-  "S37: nothingInFront FAIL the face is 31.2 % covered",
-  "S37: standsOut FAIL subject vs surround luma 0.049 (≥ 0.12)",
-  "S38: standsOut FAIL subject vs surround luma 0.072 (≥ 0.12)",
-  "S38: moves FAIL motion 0.0089 < 0.0210",
-  "S39: standsOut FAIL subject vs surround luma 0.020 (≥ 0.12)",
-  "S39: moves FAIL motion 0.0169 < 0.0210",
+  "S31: nothingInFront FAIL the face is 52.9 % covered",
+  "S31: standsOut FAIL subject vs surround luma 0.056 (≥ 0.12)",
+  "S34: nothingInFront FAIL the face is 62.7 % covered",
+  "S35: nothingInFront FAIL the face is 5.1 % covered",
+  "S35: standsOut FAIL subject vs surround luma 0.079 (≥ 0.12)",
+  "S36: nothingInFront FAIL the face is 17.1 % covered",
+  "S36: standsOut FAIL subject vs surround luma 0.097 (≥ 0.12)",
+  "S37: nothingInFront FAIL the face is 2.7 % covered",
+  "S37: standsOut FAIL subject vs surround luma 0.041 (≥ 0.12)",
+  "S38: nothingInFront FAIL the face is 16.8 % covered",
+  "S38: standsOut FAIL subject vs surround luma 0.028 (≥ 0.12)",
+  "S38: moves FAIL motion 0.0024 < 0.0210",
+  "S39: standsOut FAIL subject vs surround luma 0.094 (≥ 0.12)",
+  "S39: moves FAIL motion 0.0162 < 0.0210",
   "S39: hold FAIL static framing held 3.33 s (≤ 3)",
-  "S40: faceShown FAIL face turned 76° from the camera (≤ 70)",
-  "S40: nothingInFront FAIL the face is 75.7 % covered",
-  "S42: standsOut FAIL subject not visible on the id mask",
+  "S40: nothingInFront FAIL the face is 56.0 % covered",
+  "S40: standsOut FAIL subject vs surround luma 0.059 (≥ 0.12)",
   "S43: standsOut FAIL subject vs surround luma 0.075 (≥ 0.12)",
   "S43: moves FAIL motion 0.0000 < 0.0210",
   "S43: hold FAIL static framing held 3.20 s (≤ 3)",
   "S44: standsOut FAIL subject vs surround luma 0.010 (≥ 0.12)",
   "S44: moves FAIL motion 0.0016 < 0.0210",
-  "S45: nothingInFront FAIL the face is 44.3 % covered",
-  "S45: standsOut FAIL subject vs surround luma 0.067 (≥ 0.12)",
+  "S45: standsOut FAIL subject vs surround luma 0.068 (≥ 0.12)",
   "S47: standsOut FAIL subject vs surround luma 0.082 (≥ 0.12)",
-  "S48: faceShown FAIL 64 % of the head in frame (≥ 70)",
-  "S50: nothingInFront FAIL objects in front cover 80.3 % (≤ 10)",
-  "S50: standsOut FAIL subject vs surround luma 0.059 (≥ 0.12)",
-  "S52: standsOut FAIL subject vs surround luma 0.053 (≥ 0.12)",
-  "S53: standsOut FAIL subject vs surround luma 0.045 (≥ 0.12)",
-  "S54: nothingInFront FAIL objects in front cover 45.6 % (≤ 10)",
-  "S54: standsOut FAIL subject vs surround luma 0.061 (≥ 0.12)",
-  "S55: nothingInFront FAIL the face is 2.1 % covered",
-  "S55: standsOut FAIL subject vs surround luma 0.037 (≥ 0.12)",
-  "S57: faceShown FAIL face turned 153° from the camera (≤ 70)",
-  "S57: moves FAIL motion 0.0200 < 0.0210",
-  "S58: objectReads FAIL 34 % of the object in frame (≥ 90)",
-  "S58: moves FAIL motion 0.0117 < 0.0210",
-  "S59: faceShown FAIL face turned 132° from the camera (≤ 70)",
-  "S60: nothingInFront FAIL objects in front cover 11.7 % (≤ 10)",
-  "S60: standsOut FAIL subject vs surround luma 0.004 (≥ 0.12)",
-  "S61: standsOut FAIL subject vs surround luma 0.010 (≥ 0.12)",
-  "S62: faceShown FAIL face turned 75° from the camera (≤ 70)",
-  "S62: nothingInFront FAIL the face is 25.7 % covered",
-  "S62: standsOut FAIL subject vs surround luma 0.096 (≥ 0.12)"
+  "S48: standsOut FAIL subject vs surround luma 0.056 (≥ 0.12)",
+  "S50: nothingInFront FAIL the face is 25.4 % covered",
+  "S50: standsOut FAIL subject vs surround luma 0.049 (≥ 0.12)",
+  "S52: standsOut FAIL subject vs surround luma 0.094 (≥ 0.12)",
+  "S53: standsOut FAIL subject vs surround luma 0.019 (≥ 0.12)",
+  "S54: standsOut FAIL subject vs surround luma 0.037 (≥ 0.12)",
+  "S56: standsOut FAIL subject vs surround luma 0.027 (≥ 0.12)",
+  "S57: nothingInFront FAIL the face is 21.7 % covered",
+  "S58: moves FAIL motion 0.0022 < 0.0210",
+  "S59: moves FAIL motion 0.0018 < 0.0210",
+  "S60: standsOut FAIL subject vs surround luma 0.036 (≥ 0.12)",
+  "S61: standsOut FAIL subject vs surround luma 0.088 (≥ 0.12)",
+  "S62: standsOut FAIL subject vs surround luma 0.080 (≥ 0.12)"
  ]
 }

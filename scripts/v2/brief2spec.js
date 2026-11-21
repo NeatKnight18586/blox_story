@@ -93,7 +93,9 @@ export function briefToSpec(brief, cues, lib, {slug, root = '.'} = {}) {
   if (!cast.hero) E('CAST', 'no HERO line');
   const cur = Object.fromEntries(Object.entries(pos).map(([k, v]) => [k, [...v]])), yawNow = {...yawOf};   // where every actor stands after the rows so far (cameras frame the actor where it is)
   const shots = [], emphasis6 = [], effects = []; let lastAt = -1;
-  const st6 = {drains: [], blooms: [], crowd: null, hand: [], tumbles: [], airCatch: [], splashes: [], tags: [], spawns: []}, anchorsOf = new Set(lib.locations[loc0]?.anchors ?? []);   // E2 story markers
+  const clearSizes = (meta.clear ?? '').replace(/\(.*?\)/g, '').split(/[\s,;]+/).filter(Boolean); for (const z of clearSizes) if (!SIZES6.includes(z)) E('META', `clear: unknown size "${z}" (${SIZES6.join(' | ')})`);   // E3b D1
+  let crowdArea = null; const crowdAvoid = [];
+  const st6 = {drains: [], blooms: [], crowd: null, hand: [], tumbles: [], airCatch: [], splashes: [], tags: [], spawns: [], sits: [], rises: [], lies: []}, anchorsOf = new Set(lib.locations[loc0]?.anchors ?? []);   // E2 story markers
   rows.forEach((r, i) => {
     const R = `row ${r['#']}`, bad = (col, v, ok) => E(`${R} (${col})`, `unknown ${col} "${v}"${ok ? ` (${ok})` : ''}`);
     const m = /^(\d+(?:[.,]\d+)?)\s*[–—-]\s*(\d+(?:[.,]\d+)?)$/.exec(r.cue);
@@ -141,6 +143,8 @@ export function briefToSpec(brief, cues, lib, {slug, root = '.'} = {}) {
     for (const tok of (r.notes || '').split(/[;,]/).map(x => x.trim()).filter(Boolean)) {
       let g; const mk = S6.markerOf(tok); if (mk) { s6m.push(mk); continue; }   // E2 story markers (engine/story6.js)
       if ((g = /^cam(b?)\s*:\s*(-?[\d.]+)\s+(-?[\d.]+)\s+(-?[\d.]+)\s+at\s+(-?[\d.]+)\s+(-?[\d.]+)\s+(-?[\d.]+)$/.exec(tok))) { const c = {position: [+g[2], +g[3], +g[4]], target: [+g[5], +g[6], +g[7]]}; if (g[1]) camB = c; else camNote = c; continue; }   // E2: explicit world camera (camb: the split screen's second half)
+      if ((g = /^keep\s*:\s*([\w ]+)$/.exec(tok))) { sh.keep = g[1].trim().split(/\s+/).map(x => x.toLowerCase()); continue; }   // E3b D1: dummies `clear` never hides in this shot (a staged non-subject)
+      if (tok === 'clear') { sh.clear = true; continue; } if (/^clear\s*:\s*off$/.test(tok)) { sh.clear = false; continue; }   // E3b D1: clean the foreground (engine/clear6.js); META `clear:` sets the default per size
       if (tok === 'twist') sh.twist = true; else if (tok === 'payoff') sh.payoffMark = true; else if (tok === 'cross') sh.cross = true; else if (tok === 'blur') sh.blur = true;
       else if ((g = /^gag\s+(\d+)$/.exec(tok))) sh.gag = +g[1]; else if (/^gag\b/.test(tok)) E(`${R} (notes)`, `"${tok}" must be "gag 1", "gag 2" or "gag 3"`);
       else if ((g = /^loopOpen\s*:\s*(\S.*)$/.exec(tok))) sh.loopOpen = g[1]; else if ((g = /^loopClose\s*:\s*(\S.*)$/.exec(tok))) sh.loopClose = g[1];
@@ -163,6 +167,9 @@ export function briefToSpec(brief, cues, lib, {slug, root = '.'} = {}) {
       else if ((g = /^fit\s*:\s*([\d.]+)$/.exec(tok))) fitF = +g[1];   // frame fraction the subject fills (default by size)
       else if ((g = /^aimx\s*:\s*(-?[\d.]+)$/.exec(tok))) aimX = +g[1];   // camera target shifted along x (a fall that travels)
       else if ((g = /^aim\s*:\s*(-?[\d.]+)$/.exec(tok))) aimY = +g[1];   // camera target height
+      else if ((g = /^key\s*:\s*(-?[\d.]+)\s+(-?[\d.]+)$/.exec(tok))) sh.key = {el: +g[1], offset: +g[2]};   // E3b D4: key light from the camera side (engine/lod.js keyPreset: sun elevation, azimuth offset)
+      else if ((g = /^crowdAvoid\s*:\s*(-?[\d.]+)\s+(-?[\d.]+)\s+(-?[\d.]+)\s+(-?[\d.]+)$/.exec(tok))) crowdAvoid.push({x0: +g[1], x1: +g[2], z0: +g[3], z1: +g[4]});   // E3b: a box the wandering crowd keeps clear of (world)
+      else if ((g = /^crowdArea\s*:\s*(-?[\d.]+)\s+(-?[\d.]+)\s+(-?[\d.]+)\s+(-?[\d.]+)$/.exec(tok))) crowdArea = {x0: +g[1], x1: +g[2], z0: +g[3], z1: +g[4]};   // E3b: the crowd's wander box (world x0 x1 z0 z1; default the whole plaza)
       else if ((g = /^loc\s*:\s*(\S+)$/.exec(tok))) { if (!lib.locations[g[1]]) { if (!missing.locations.includes(g[1])) missing.locations.push(g[1]); } else sh.loc = g[1]; }
       else notes.push(tok);
     }
@@ -196,7 +203,7 @@ export function briefToSpec(brief, cues, lib, {slug, root = '.'} = {}) {
           for (const n of names) cast[n] = {style: 'v5', faceStyle: 'v6', troupe: 'DUMMY', costume: 'CROWD', lod: true, at: cast.hero?.at, offset: [0, 0, 0], yaw: 0, keys: [[0, 'idle']]};
           st6.crowd = {names, seed: 7, startAt: P.behaviour !== 'run' && P.behaviour !== 'pile' ? (P.anchor ?? null) : null, start: [org[0], org[2]], area: {x0: -36, x1: 36, z0: -50, z1: 56}, steps: []}; }
         else if (P.n > st6.crowd.names.length) E(`${R} (notes)`, `crowd: ${P.n} dummies, but the crowd was created with ${st6.crowd.names.length}`);
-        st6.crowd.steps.push({t, behaviour: P.behaviour, ...(P.behaviour === 'run' || P.behaviour === 'pile' ? {anchor: P.anchor} : {})}); }
+        st6.crowd.steps.push({t, behaviour: P.behaviour, n: P.n, ...(P.behaviour === 'run' || P.behaviour === 'pile' ? {anchor: P.anchor} : {})}); }
       else if (key === 'hand' && (!P.actor || who(P.actor)) && anc(P.anchor)) st6.hand.push({t, act: P.act, ...(P.actor ? {actor: P.actor} : {}), ...(P.anchor ? {anchor: P.anchor} : {})});
       else if (key === 'tumble' && who(P.actor) && anc(P.anchor)) st6.tumbles.push({actor: P.actor, t, ...(P.anchor ? {anchor: P.anchor} : {})});
       else if (key === 'airCatch' && who(P.hero) && who(P.partner)) { st6.airCatch.push({t, hero: P.hero, partner: P.partner}); actions.push({actor: P.hero, verb: 'carry', target: P.partner, at: +(t - at).toFixed(3)});
@@ -206,6 +213,9 @@ export function briefToSpec(brief, cues, lib, {slug, root = '.'} = {}) {
       else if (key === 'tag') { const ok = (slug === 'lastcolor' && ['14', '29'].includes(String(r['#']))) || String(slug ?? '').startsWith('_');   // owner decision E2b: diegetic in-world game tags in lastcolor shots 14 and 29 only (+ engine test fixtures); no labels anywhere else
         if (!ok) E(`${R} (notes)`, 'tag: name tags are labels (Season 1 no-labels rule); the only exception is episode lastcolor, shots 14 and 29'); else if (who(P.actor)) st6.tags.push({actor: P.actor, text: P.text, t, until: +c1.toFixed(3)}); }
       else if (key === 'spawn' && who(P.actor)) st6.spawns.push({actor: P.actor, t});
+      else if (key === 'lie' && who(P.actor)) st6.lies.push({actor: P.actor, side: P.side, t, until: +c1.toFixed(3)});   // E3b
+      else if (key === 'rise' && who(P.actor)) st6.rises.push({actor: P.actor, t});   // E3b
+      else if (key === 'sitOn' && who(P.partner) && who(P.lead)) st6.sits.push({partner: P.partner, lead: P.lead, side: P.side, t, until: +c1.toFixed(3)});   // E3b
     }
     if (wobj) { worldObjs.add(propSub); if (!camNote) E(`${R} (notes)`, `prop:${propSub} is an object the world builds (no insert copy): it needs a cam: note (world camera)`); }
     if (propSub && !wobj) { const set7 = ['streetLamp', 'crate', 'porch', 'shack', 'deadTree', 'birdhouse', 'powerLine', 'grassBlade', 'rockPeak', 'rockMesa'].includes(propSub);
@@ -214,6 +224,7 @@ export function briefToSpec(brief, cues, lib, {slug, root = '.'} = {}) {
       pr.visible.push([at, true], [+c1.toFixed(3), false]); }   // the prop exists only during its insert
     const fov = fovNote ?? (MOODS[r.mood] ? +((MOODS[r.mood].fov[0] + MOODS[r.mood].fov[1]) / 2).toFixed(1) : 45), ecu = r.size === 'ecu', size = ecu ? 'close' : r.size;
     Object.assign(sh, {mood: r.mood, size, move: r.move, why: `${r.mood}: ${r.verb && r.verb !== '-' ? r.verb : r.vo.replace(/\*/g, '')}`.slice(0, 140), see: propSub ? [propSub] : subs, vo: r.vo.replace(/\*/g, ''), cue: [c0, c1]});
+    if (sh.clear === undefined && clearSizes.includes(r.size)) sh.clear = true; if (sh.clear === false) delete sh.clear;   // E3b D1 (opt-in): META `clear: close insert ecu medium`
     if (ecu) sh.ecu = true; if (propSub) sh.prop = wobj ? propSub : 'prop_' + propSub; else sh.subject = subs[0]; if (subs.length > 1) sh.pair = subs.slice(0, 2); if (actions.length) sh.actions = actions; if (notes.length) sh.note = notes.join('; ');
     if (i === 0) sh.openHit = true; if (r.move === 'crashZoom' && aimX) sh.subjectAimOffset = [aimX, 0, 0]; if (r.move === 'crashZoom' && aimY !== null) sh.subjectAimY = aimY;   // the zoom re-aims at the subject: keep the same x shift
     if (!errors.some(e => e.startsWith(R)) && !propSub) Object.assign(sh, camera(sh, {size, move: r.move, mood: r.mood, fov, pos: Object.fromEntries(Object.entries(cur).map(([k, v]) => [k, [v[0] + org[0], v[1] + org[1], v[2] + org[2]]])), subjects: subs.filter(s => cur[s]), stand: standDeg ?? (i % 2 ? 18 : -18), ecu, aim: aimY, aimx: aimX, fitF, pushTo: pushNote ?? undefined, camY}));
@@ -237,6 +248,8 @@ export function briefToSpec(brief, cues, lib, {slug, root = '.'} = {}) {
     note: `Written by scripts/v2/brief2spec.js from stories/${slug}/BRIEF.md (${shots.length} shots). Edit the Brief, not this file.`,
     brief: {title: meta.title, ruleLine: brief.premise['rule line'], palette: world.palette, colourScript: world['colour script'], setting: world.setting, props, payoff: brief.payoff},
     cast, ...(props7.length ? {props: props7} : {}), ...(worldObjs.size ? {worldObjects: [...worldObjs]} : {}), emphasis6: emphasis6.map(({row, ...e}) => e), effects, shots};
+  if (crowdArea && st6.crowd) { st6.crowd.area = crowdArea; st6.crowd.spread = true; st6.crowd.partial = true; if (crowdAvoid.length) st6.crowd.avoid = crowdAvoid; }   // E3b: spread start, kept-clear boxes, a marker's n moves only that many
+  else if (st6.crowd) for (const q of st6.crowd.steps) delete q.n;   // legacy specs: steps unchanged   // E3b: the crowd starts spread over its wander box
   if (Object.values(st6).some(v => Array.isArray(v) ? v.length : v)) { spec.story6 = Object.fromEntries(Object.entries(st6).filter(([, v]) => Array.isArray(v) ? v.length : v)); if (st6.crowd) spec.lod = {near: 18, max: 24}; }   // E2 (opt-in): only specs that use a marker get story6
   return {spec, errors, missing};
 }

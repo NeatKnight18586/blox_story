@@ -74,6 +74,10 @@ export async function createStory6(ctx) {
       win(p, {type: 'rideAir', t0: e.t, t1: Infinity, lead: h, feet: () => null});
       puffs.push({kind: 'puff', t: A.tLand, p: A.landAt, n: 14, size: 1.8}); keep(h, A.tLand, A.landAt); }
   }
+  for (const e of D.rises ?? []) win(e.actor, {type: 'rise', t0: e.t, t1: nextMark(e.actor, e.t), feet: null});   // E3b rise: stand up from a held fall
+  for (const e of D.lies ?? []) win(e.actor, {type: 'lie', t0: e.t, t1: e.until, yaw: yawBase(e.actor, e.t), side: e.side, feet: null});   // E3b lie: face-down, head turned
+  for (const e of D.sits ?? []) { const yl = yawBase(e.lead, e.t);   // E3b sitOn: the lead lies face-down along his yaw, the partner rides his back
+    win(e.lead, {type: 'lie', t0: e.t, t1: e.until, yaw: yl, side: e.side, feet: null}); win(e.partner, {type: 'sitOn', t0: e.t, t1: e.until, lead: e.lead, side: e.side, feet: null}); }
   for (const n of Object.keys(W)) W[n].sort((a, b) => a.t0 - b.t0);
   const winAt = (n, t) => (W[n] ?? []).filter(w => t >= w.t0 && t < w.t1).at(-1) ?? null;
   // the lead's displacement off its own mark (the carried partner rides it)
@@ -164,6 +168,7 @@ export async function createStory6(ctx) {
         const ru = Math.min(1, u * 1.25), qA = new T.Quaternion().setFromEuler(new T.Euler(0, st.yaw, 0, 'YXZ')), qB = new T.Quaternion().setFromEuler(new T.Euler(L.euler[0], L.euler[1], L.euler[2], 'YXZ'));
         a.root.quaternion.copy(qA).slerp(qB, ru); a.root.position.set(f0[0] + (L.to[0] - f0[0]) * u, f0[1] + (L.to[1] - f0[1]) * u + 4 * L.hop * u * (1 - u), f0[2] + (L.to[2] - f0[2]) * u);
         if (u < .55) limbsLoose(a, -.8 * Math.sin(Math.PI * u), t, .7); }
+      x.s6lie = !!(st.lie && st.lie.u > 0);   // E3b: a body in the pile is ground for the `clear` rule
       markPos[n] = pos; out[n] = pos; api.post(n, x, t, out, true);
     },
     post(n, x, t, out, crowd = false) {
@@ -171,6 +176,14 @@ export async function createStory6(ctx) {
       if (!crowd) { const w = winAt(n, t);
         if (w?.type === 'tumble') { const tb = S.tumbleAt(t, w.o); if (tb) { placeByCentre(a, tb.centre, w.yaw, tb.spin, k); if (tb.phase === 'air') limbsLoose(a, tb.lag, t); else if (tb.phase === 'lie') limbsLoose(a, 0, t, .25); markPos[n] = [tb.centre[0], w.o.to[1], tb.centre[2]]; } }
         else if (w?.type === 'held' || w?.type === 'drop' || w?.type === 'fall') { const f = w.feet(t); a.root.position.set(...f); a.root.rotation.set(0, w.yaw, w.type === 'held' ? .12 * Math.sin(t * 5) : 0); kick(a, t); if (w.type === 'fall') a.root.rotateX(-.25); markPos[n] = f; }
+        else if (w?.type === 'rise') { const b = posBase(n, t); driveActor(a, t, {keys: [[0, 'idle']], faces: x.c.faces, origin: {position: b, yaw: yawBase(n, t)}, fps: FPS}); markPos[n] = b; }
+        else if (w?.type === 'lie') { const pp = (persist[n] ?? []).filter(x2 => t >= x2.t && t < x2.until).at(-1), b = pp ? pp.pos : posBase(n, t), gy = groundY(b[0], b[2]), f = [Math.sin(w.yaw), Math.cos(w.yaw)], c = [b[0] + f[0] * S.SIT.back * 0, gy + S.SIT.centre * k, b[2]];
+          placeByCentre(a, c, w.yaw, Math.PI / 2, k); limbsLoose(a, 0, 0, .15); const h = piv(a, 'head'); if (h) h.rotation.set(0, w.side * S.SIT.headTurn, 0); w.c = c; markPos[n] = [c[0], gy, c[2]]; }
+        else if (w?.type === 'sitOn') { const L = winAt(w.lead, t), lc = L?.c ?? markPos[w.lead], yl = L?.yaw ?? 0, kl = kOf(w.lead), gy = groundY(lc[0], lc[2]), yaw = yl + w.side * Math.PI / 2;
+          for (const [pn, sg] of [['leftHip', -1], ['rightHip', 1]]) { const p = piv(a, pn); if (p) p.rotation.set(S.SIT.hip[0], 0, sg * S.SIT.hip[2]); }
+          for (const pn of ['leftKnee', 'rightKnee']) { const p = piv(a, pn); if (p) p.rotation.set(S.SIT.knee, 0, 0); }
+          a.root.rotation.set(0, yaw, 0); a.root.position.set(lc[0], 0, lc[2]); a.root.updateMatrixWorld(true); const hp = new T.Vector3(); (piv(a, 'leftHip') ?? a.root).getWorldPosition(hp);
+          a.root.position.y += gy + S.SIT.back * kl - hp.y; markPos[n] = [lc[0], gy, lc[2]]; }
         else if (w?.type === 'air') { const f = w.feet(t), b = posBase(n, t); a.root.position.x += f[0] - b[0]; a.root.position.y += f[1] - b[1]; a.root.position.z += f[2] - b[2]; markPos[n] = f; }
         else if (w?.type === 'rideAir') { const d = leadDelta(w.lead, t); a.root.position.x += d[0]; a.root.position.y += d[1]; a.root.position.z += d[2]; markPos[n] = a.root.position.toArray(); }
         else { const p = (persist[n] ?? []).filter(x2 => t >= x2.t && t < x2.until).at(-1); if (p) { const b = posBase(n, t); a.root.position.x += p.pos[0] - b[0]; a.root.position.y += p.pos[1] - b[1]; a.root.position.z += p.pos[2] - b[2]; markPos[n] = [...p.pos]; } }
@@ -187,7 +200,7 @@ export async function createStory6(ctx) {
         const P = prev, N = cur ? (cur.to === 'base' ? w.base : cur.to) : prev; U.uCp.value.copy(colOf(P.colour)); U.uCn.value.copy(colOf(N.colour)); U.uRp.value = P.rough; U.uRn.value = N.rough; U.uLp.value = P.lift; U.uLn.value = N.lift;
         if (!cur) { U.uFront.value = 1e4; U.uDir.value = 1; continue; }
         const a = w.a, k = a.root.scale.x || 1, y0 = a.root.position.y, u = (t - cur.t) * FPS / cur.frames, top = y0 + 5.4 * k, bot = y0 - .1;
-        U.uDir.value = cur.dir === 'down' ? 1 : -1; U.uFront.value = S.washFront(u, top, bot, cur.dir); }
+        U.uDir.value = cur.dir === 'down' ? 1 : -1; U.uFront.value = u >= 1 ? (cur.dir === 'down' ? -1e4 : 1e4) : S.washFront(u, top, bot, cur.dir); }   // E3b: a finished wash covers the whole mesh (a lying body sits below the standing wipe line)
       for (const e of extras) e.mat.opacity = .85 * Math.min(1, Math.max(0, (t - e.t) * FPS / e.frames));
       // particles
       let np = 0; const M = new T.Matrix4(), col = new T.Color();

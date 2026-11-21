@@ -1763,3 +1763,27 @@ hugAngle PASS. Stability PASS (worst 0.283 %). v2:read 78 FAIL items (standsOut 
 G2a FAIL: payoff head 188.89 vs S41 195.13 (+10 → 205.13; hero-only max S06 192.41). Sign letters 16.4–17.4 px (S02), 25.3 px (S21). Bitsy most
 saturated in 14/21 shots. Breath S43 motion 0.01 vs 5.47/3.13. Drains on their word ±0 frames, order legs→shoes→stripe→jacket→hands.
 Open: moodSeparation and G2a need light/look changes (not in the authorised tool list); drains in S35/S37 land off frame.
+
+## E3b — staging & camera pass, lastcolor (2026-11-21)
+Plan (owner D1–D6): 1. D1 `clear` (pure engine/clear6.js + opt-in shot.clear hook in episode.js; brief META `clear:` sizes, row `clear` / `clear: off`).
+2. Re-stage by act zone (act 1 plaza west / crowd east + ring; act 2 tower base, crowd ≥ 15 back; act 3 cushion + east), hand-written `cam:` on
+every MUST SEE shot first; S35/S37 drains on screen on the hero's body (D6). 3. Loop: 390 px mid-frame sheet (scripts/v2/midshots.js, one page
+load, v2:read numbers per shot) → fix → repeat. 4. Gates: v2:plan 0 errors, stability ≤ 0.30 %, v2:read (D2 list), G2a (D4, head-in-frame shots
+only), moodSeparation (D3 light notes). 5. Animatic 270×480 + voice, review/lastcolor refresh. Regression Nobody + Touch Grass byte-identical.
+Built (opt-in; legacy specs never set these fields): D1 `engine/clear6.js` + episode.js `shot.clear` / `shot.keep` (screen-rect test: a non-subject DUMMY
+nearer than the subject's centre and overlapping it, inside it, or within 2.5 studs of the lens is hidden for that frame; pile bodies only by the lens rule);
+brief META `clear:` + notes `clear`, `clear: off`, `keep:`, `key:`, `crowdArea:` (spread start + partial `n` steps), `crowdAvoid:`; story6 markers `sitOn`
+(S17 Bitsy on his back), `lie` (S38), `rise` (S27); a finished wash now covers the whole mesh (lying bodies kept a dark band). Tools: scripts/v2/midshots.js,
+where.js, e3b-gates.js. Tests tests/v2/e3b.test.js (6).
+Staging: crowd east (x 14–36, z ≤ 4), ring kept clear; ring / pool / pile beats re-blocked; throws re-timed by word so the jacket and hands drain while he
+lies on screen (D6); S30–S43 at the tower and the plaza in front of it; dummyD/E beside the cushion heap. Hand-written `cam:` on every MUST SEE row.
+D3: fun `light: ev 0.40 sat 1.15 fillK 2000 rimK 2000`, comedy `light: ev 0 sat 0.9 shadow 0.7 fillK 0`. D4: S62 `key: 18 0`, `light: ev 0.75 rim 1.6 rimK 900`.
+BRIEF edits beyond notes: S09 size close → medium (owner's "waist-up" MUST SEE). No VO / cue / verb / beat / voice change.
+Numbers: v2:plan 0 errors (a, h WARN); moodSeparation fun/comedy 7.7, fun/awe 6.9, comedy/awe 11.5 PASS; stability worst 0.187 % PASS; G2a payoff
+209.98 vs S06 193.93 PASS, jacket ΔE 3.84 PASS; v2:read 58 items (was 78): D2 on 33 MUST SEE shots FAIL — nothingInFront 10 (pinch / grab / dust / own
+hands by design: S21 S22 S26 S31 S34 S35 S36 S37 S38 S50), standsOut 16 (white dummy / drained hero on pale concrete, 0.01–0.11 vs 0.12); not loosened.
+Elsewhere nothingInFront S06 S07 S11 S29 S40 S57. npm test 0; v2:test 269 + 67 py; determinism 10/10.
+Commands: node scripts/v2/brief2spec.js --story lastcolor · midshots.js --read · v2:plan / v2:read / v2:stability · e3b-gates.js · render 270×480 every 2 ·
+assemble.py --animatic --no-hold.
+Open: standsOut needs a darker ground/mat or a look decision (owner); no boxing glove prop (S21 "glove bonk" is a plain punch); drains on S09/S23 and the
+S62 bloom land after the mid-frame (cue-fixed); S51 mound reads as a field from above.

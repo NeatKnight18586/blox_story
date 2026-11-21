@@ -41,6 +41,7 @@ import * as BI from '../parts/biomes.js';
 import * as V from '../parts/vegetation.js';
 import * as W from '../parts/water.js';
 import {lodPick, keyPreset} from './lod.js';
+import {clearScreen} from './clear6.js';
 
 const q = new URLSearchParams(location.search);
 const specUrl = q.get('spec') ? new URL('../' + q.get('spec'), import.meta.url) : new URL(`../stories/${q.get('story')}/episode.json`, import.meta.url);
@@ -189,6 +190,26 @@ function applyLod(camPos, t) {
   LODS.forEach(([name, x], i) => { const want = pick.has(i) ? x.lod.near : x.lod.far, other = want === x.lod.near ? x.lod.far : x.lod.near;
     if (x.a !== want) { x.a = want; poseOne(name, x, t, {}); }
     other.root.visible = false; want.root.visible = x.c.visible ? valueAt(x.c.visible, t, true) : true; });
+}
+// E3b D1 (opt-in shot.clear): hide non-subject dummies (crowd or named DUMMY) standing between the lens and the subject or within
+// 2.5 studs of the lens (engine/clear6.js); lying pile bodies count as ground (lens rule only). Restored at the next drawFrame.
+const CLEARED = [];
+function unclear() { for (const r of CLEARED) r.visible = true; CLEARED.length = 0; }
+function applyClear(shot, cam, tgt, fov, aspect) {
+  const subj = [shot.subject, ...(shot.pair ?? []), ...(shot.see ?? [])].filter(n => cast[n] && cast[n].a.root.visible), keep = shot.keep ?? [], kOf = n => cast[n].a.root.scale.x || 1;
+  camera.fov = fov; camera.aspect = aspect; camera.position.fromArray(cam); camera.up.set(0, 1, 0); camera.lookAt(...tgt); camera.updateProjectionMatrix(); camera.updateMatrixWorld(true);
+  const C = camera.position, rectOf = pts => { let x0 = 1e9, x1 = -1e9, y0 = 1e9, y1 = -1e9; for (const p of pts) { const q = p.clone().project(camera); if (q.z > 1) continue; x0 = Math.min(x0, (q.x + 1) / 2); x1 = Math.max(x1, (q.x + 1) / 2); y0 = Math.min(y0, (1 - q.y) / 2); y1 = Math.max(y1, (1 - q.y) / 2); } return x1 > x0 ? {x0, x1, y0, y1} : null; };
+  const corners = b => [0, 1, 2, 3, 4, 5, 6, 7].map(i => new T.Vector3(i & 1 ? b.max.x : b.min.x, i & 2 ? b.max.y : b.min.y, i & 4 ? b.max.z : b.min.z));
+  let sub = null; if (subj.length) { const b = new T.Box3(); for (const n of subj) { cast[n].a.root.updateMatrixWorld(true); cast[n].a.root.traverse(o => { if (o.isMesh && o.visible && !o.isSprite && !o.material?.transparent) b.expandByObject(o); }); } const r = rectOf(corners(b)); if (r) sub = {rect: r, dist: b.getCenter(new T.Vector3()).distanceTo(C)}; }   // between = nearer than the subject's centre
+  else { const p = new T.Vector3(...tgt); sub = {rect: {x0: .35, x1: .65, y0: .35, y1: .65}, dist: p.distanceTo(C)}; }   // a world-object subject: the middle of the frame up to the target
+  const others = [];
+  for (const [n, x] of Object.entries(cast)) { if (subj.includes(n) || keep.includes(n) || x.c.troupe !== 'DUMMY' || !x.a.root.visible || !markPos[n]) continue; const k = kOf(n), p = x.a.root.position, c = new T.Vector3(p.x, p.y + 2.65 * k, p.z);
+    const lensD = Math.max(0, Math.hypot(C.x - p.x, C.z - p.z) - 1.3 * k) + Math.max(0, C.y - (p.y + 5.3 * k), p.y - C.y);
+    if (x.s6lie) { others.push({name: n, rect: null, dist: Infinity, lensD}); continue; }   // a body in the pile is ground: the lens rule only
+    const b = new T.Box3(new T.Vector3(p.x - 1.3 * k, p.y, p.z - 1.3 * k), new T.Vector3(p.x + 1.3 * k, p.y + 5.3 * k, p.z + 1.3 * k));
+    const inside = subj.some(m => markPos[m] && Math.hypot(markPos[m][0] - p.x, markPos[m][2] - p.z) < 1.6 * k);   // standing inside a subject's body: hidden too
+    others.push({name: n, rect: rectOf(corners(b)), dist: inside ? -1 : c.distanceTo(C), lensD}); }
+  for (const n of clearScreen(sub, others)) { const r = cast[n].a.root; r.visible = false; CLEARED.push(r); }
 }
 // format v5 lightsCascade (world effect): spec.effects [{type: 'lightsCascade', at, step, on, color, size, points: [[x, y, z]...] | {anchor, offset}[]}]
 const cascades = (spec.effects ?? []).filter(e => e.type === 'lightsCascade').map(e => { const g = new T.Group(); g.name = 'lightsCascade';
@@ -563,10 +584,12 @@ function finishFrame(n, shot, t0) {
 // One scene state + render at frame mf (+ off frames, Look 5b sub-frames), into the current render target.
 function drawFrame(shot, mf, off, width, height, nudge) {
   const t = (mf.anim + off) / FPS;
+  if (CLEARED.length) unclear();
   setHeroLit(shot); const actors = poseCast(t);
   const c = sampleCamera({...shot, fps: FPS}, M6 && shot.still ? 0 : Math.max(0, (mf.cam + off - shot.start) / FPS), actors);   // P5b `still` (moods only): the camera is locked at its first frame
   if (mf.shake.some(v => v)) c.position = c.position.map((v, i) => v + mf.shake[i]);
   if (LODS.length) applyLod(c.position, t);
+  if (shot.clear && c.position && c.target) applyClear(shot, c.position, c.target, c.fov, width / height);
   updateCascades(t);
   const tw = M6 && shot.still ? shot.start / FPS : t;   // P5b `still` shot (moods only): the world's own movers, crowds and clouds hold their first-frame state
   world?.update(tw); applyWorldState(shot, t); S6?.frame(t); updateExtras(tw, {camPos: c.position, size: shot.size, fill: shot.fill}); aimHeroSpots(shot, c.position); aimRim(shot, c.position); applyLift(shot); liftSubject(shot); glowProp(shot);
@@ -864,4 +887,4 @@ export function classHaze(n, {w = 390, h = 693, near = 15, far = 60, match = /^g
   const rn = rms(acc.near), rf = rms(acc.far); return {frame: n, nearRms: rn, farRms: rf, nearPx: acc.near.length, farPx: acc.far.length, ratio: rn && rf !== null ? rf / rn : null};
 }
 const hugCam = p => { const f = Math.round(p.key * FPS), sh = shots.findLast(s => f >= s.start), t = f / FPS, actors = poseCast(t), c = sampleCamera({...sh, fps: FPS}, (f - sh.start) / FPS, actors); const lp = markAt(cast[p.lead].c, t); return {camPos: [c.position[0], c.position[2]], leadPos: [lp[0], lp[2]], partnerPos: p.mark}; };
-window.__episode = {story6: S6, actingPlan: () => actPlans.map(p => /^hug/.test(p.verb) ? {...p, cam: hugCam(p)} : p), groundFix: () => GROUNDFIX, sepMeasure, ceilingLuma, classHaze, satMeasure, depthLuma, lumaProbe, debug: {scene, renderer, camera, look, pool: U5B?.poolOf ?? null}, bake: BAKE, matcapBytes: MATCAP ? (n => Array.from(look.matcapBytes(n ?? spec.look4))) : null, breakdown, measureFrame, seasonMeasure, actorMask, readMeasure, gateMeasure, placesAt, lumaAt, inspectFrame, shotSpeed, END: FRAMES / FPS, anchors: Object.fromEntries(Object.entries(anchors).filter(([, a]) => a.camera).map(([k]) => [k, true])), renderAnchor, renderAnchorNudged, renderCamera, FPS, FRAMES, shots: shots.map(({id, start, frames, size, move, loc, subject, see, openHit, at, why, captionY, fit, spectacle, look: lk}) => ({id, start, frames, size, move, loc, subject, see, openHit: !!openHit, at, why, captionY, fit, spectacle: !!spectacle, look: lk})), renderFrame};
+window.__episode = {story6: S6, clearedNow: () => CLEARED.map(r => r.name), actingPlan: () => actPlans.map(p => /^hug/.test(p.verb) ? {...p, cam: hugCam(p)} : p), groundFix: () => GROUNDFIX, sepMeasure, ceilingLuma, classHaze, satMeasure, depthLuma, lumaProbe, debug: {scene, renderer, camera, look, pool: U5B?.poolOf ?? null}, bake: BAKE, matcapBytes: MATCAP ? (n => Array.from(look.matcapBytes(n ?? spec.look4))) : null, breakdown, measureFrame, seasonMeasure, actorMask, readMeasure, gateMeasure, placesAt, lumaAt, inspectFrame, shotSpeed, END: FRAMES / FPS, anchors: Object.fromEntries(Object.entries(anchors).filter(([, a]) => a.camera).map(([k]) => [k, true])), renderAnchor, renderAnchorNudged, renderCamera, FPS, FRAMES, shots: shots.map(({id, start, frames, size, move, loc, subject, see, openHit, at, why, captionY, fit, spectacle, look: lk}) => ({id, start, frames, size, move, loc, subject, see, openHit: !!openHit, at, why, captionY, fit, spectacle: !!spectacle, look: lk})), renderFrame};
