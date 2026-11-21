@@ -49,3 +49,10 @@ test('missing locations and props are listed, not invented', () => {
   assert.ok(run(s => s.replace('- locations: street', '- locations: moonbase')).errors.some(e => /^WORLD: no world module/.test(e)));
   assert.deepEqual(run(s => s.replace('loopOpen: lie', 'loc: nowhere')).missing.locations, ['nowhere']);
 });
+
+test('_fixture6_pass: checks a–g PASS, zero FAIL (h may WARN under 30 s)', () => {
+  const md2 = readFileSync('stories/_fixture6_pass/BRIEF.md', 'utf8'), c2 = JSON.parse(readFileSync('stories/_fixture6_pass/cues.json', 'utf8'));
+  const {spec, errors} = briefToSpec(parseBrief(md2), c2, lib, {slug: '_fixture6_pass'}); assert.deepEqual(errors, []);
+  const r = checkMoods({shots: layoutShots(spec), cues: c2, spec, fps: spec.fps}), lv = Object.fromEntries(Object.entries(r.checks).map(([k, c]) => [k, c.level]));
+  for (const k of 'abcdefg') assert.equal(lv[k], 'PASS', k); assert.ok(['PASS', 'WARN'].includes(lv.h)); assert.equal(r.errors.length, 0);
+});

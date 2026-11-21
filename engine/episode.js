@@ -183,8 +183,8 @@ function updateCascades(t) { for (const {e, bulbs} of cascades) { const on = cas
 // Look 6 (opt-in spec.look6): the shot's light state (looks4 <preset>.v6) mixed into the baked layers; the first lightsCascade drives the
 // pendants and zone signs on (its fraction of bulbs lit; no cascade = fully on). Presets without v6 (the dawn street) keep the last state.
 const LOOK6 = !!(spec.look6 && world?.setLight6), CASC6 = cascades[0]?.e ?? null;
-function applyMood(shot) {   // P4: exposure × 2^ev, saturation, temperature tint, haze, rim; after the look has set the frame's exposure
-  if (!M6) return; const u = M6.moodUniforms(shot); renderer.toneMappingExposure *= u.exposure;
+function applyMood(shot, n) {   // P4: exposure × 2^ev, saturation, temperature tint, haze, rim; after the look has set the frame's exposure
+  if (!M6) return; const u = M6.moodUniforms(shot), pe = M6.payoffEV(shots, n); renderer.toneMappingExposure *= pe === null ? u.exposure : 2 ** pe;
   MOODU.uMoodSat.value = u.sat; MOODU.uMoodTint.value.set(...u.tint); MOODU.uMoodHaze.value = u.haze; if (LOOK5B && u.rim !== 1) U5B.uRim.value *= u.rim;
 }
 function apply6(shot, t) { if (!LOOK6) return; const v6 = look.presets[shot.look ?? spec.look4]?.v6; if (!v6) return; world.setLight6(v6, CASC6 ? cascadeFrac(t, CASC6, cascades[0].bulbs.length) : 1);
@@ -541,7 +541,7 @@ function drawFrame(shot, mf, off, width, height, nudge) {
   if (nudge) { const k = nudge / Math.sqrt(3); camera.translateX(k); camera.translateY(k); camera.translateZ(k); }
   world?.onCamera?.(camera.position.toArray());   // format v5 3b-R (opt-in): a world may hide what this camera cannot see (hall ↔ street)
   if (look) { fx.look ? look.apply(...fx.look) : look.apply(shot.look ?? spec.look ?? 'day'); const sf = shotShadow(shot); poseCast(t); look.frameFixed(sf.centre, sf.radius, camera.position); look.update(t); }
-  apply5b(shot); apply6(shot, t); applyMood(shot);
+  apply5b(shot); apply6(shot, t); applyMood(shot, mf.anim);
   scene.updateMatrixWorld(true); effects.apply(t, camera); fitTags(scene, camera, {maxFrac: shot.tagMaxFrac ?? .06});
   if (spec.readableUi ?? !!look?.v3) { scene.updateMatrixWorld(true); enforceReadable(scene, camera, {focus: shot.focusUi ?? []}); }   // A5 §C: min text size + safe area (v3 worlds; "Nobody" untouched)
   renderer.info.autoReset = false; renderer.info.reset();   // A4: overlay passes (weather, cards) must not reset the scene counts

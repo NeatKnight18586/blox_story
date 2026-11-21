@@ -33,3 +33,15 @@ export function lenVerdict(dur, mood) {
   return {level: dev > LEN_FAIL ? 'fail' : dev > LEN_WARN ? 'warn' : 'ok', dev: +dev.toFixed(3)};
 }
 export const sizeOk = (shot, mood) => { const m = MOODS[mood]?.sizes; if (!m) return true; return m.includes(shot.size) || (m.includes('twoShot') && shot.size === 'medium' && (shot.see ?? []).length >= 2); };
+
+// P4b: the payoff key never pops. Its EV ramps in over RAMP_IN frames from the shot before (smoothstep) and eases out over EASE_OUT frames at its end
+// (toward the next shot's EV, or 0 EV after the last shot). → EV for frame n, or null for a shot that is not a payoff (other shots keep their own EV).
+export const RAMP_IN = 6, EASE_OUT = 10;
+const smooth = x => { x = Math.min(1, Math.max(0, x)); return x * x * (3 - 2 * x); };
+export function payoffEV(shots, n) {
+  const i = shots.findLastIndex(s => n >= s.start), s = shots[i]; if (!s || s.mood !== 'payoff') return null;
+  const key = keyEV(s), from = i > 0 ? keyEV(shots[i - 1]) : key, to = shots[i + 1] ? keyEV(shots[i + 1]) : 0, k = n - s.start, left = s.start + s.frames - 1 - n;
+  let ev = key + (from - key) * (1 - smooth((k + 1) / RAMP_IN));
+  if (left < EASE_OUT) ev = ev + (to - ev) * smooth(1 - (left + 1) / (EASE_OUT + 1) + 1 / (EASE_OUT + 1));
+  return ev;
+}

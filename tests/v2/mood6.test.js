@@ -2,6 +2,8 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import {MOODS, MOOD_NAMES, resolveMood, shotLight, keyEV, moodUniforms, lenVerdict, sizeOk} from '../../engine/mood6.js';
+import {plan5, STATIC_PUSH} from '../../engine/plancheck5.js';
+import {payoffEV, RAMP_IN, EASE_OUT} from '../../engine/mood6.js';
 import {checkMoods, noveltyEvents, pacingCurve, actionTime, cueWords} from '../../engine/plancheck6.js';
 
 const fps = 30;
@@ -85,4 +87,28 @@ test('noveltyEvents: word refs resolve like acting6 (nth is 1-based, inside the 
   const cues = {lines: [{line: 1, words: [{w: 'Go', start: 1, end: 1.2}, {w: 'go', start: 1.5, end: 1.7}]}]}, s = {id: 'A', start: 0, frames: 90};
   assert.equal(actionTime({at: {word: 'go', nth: 2, line: 1}}, s, cueWords(cues), 30), 1.5); assert.equal(actionTime({at: 0.4}, {start: 30}, [], 30), 1.4);
   const ev = noveltyEvents({shots: [s], cues, spec: {cast: {a: {faces: [[0, 'smile'], [2, 'cry']], keys: [[0, 'idle'], [1, 'walk']]}}}, fps: 30}); assert.deepEqual(ev.map(e => e.type + e.t), ['verb1', 'expr2']);
+});
+
+// P4b: plan5 limits come from mood6.json for moods specs, the flat 3.5 / 2.5 s limits stay for the rest
+const P5 = (shots, o = {}) => plan5(shots.map((s, i) => ({start: 0, ...s, id: s.id ?? `S${i}`, frames: Math.round(s.d * 24)})), {fps: 24, len: [0, 125], ...o}).errors.filter(e => /shot|static/.test(e) && !/average|first second/.test(e));
+test('plan5 without moods: flat limits (moving 3.5 s, static 2.5 s)', () => {
+  assert.equal(P5([{d: 3.2, move: 'push', mood: 'awe'}]).length, 0); assert.equal(P5([{d: 3.8, move: 'push', mood: 'awe'}]).length, 1); assert.equal(P5([{d: 2.8, move: 'static-drift', mood: 'emotion'}]).length, 1);
+});
+test('plan5 with moods: the limit is the mood\'s FAIL line (len max × 1.5); static > 2.5 s needs a ≥ 2 % push or the breath cycle', () => {
+  const m = {moods: true};
+  assert.equal(P5([{d: 4.0, move: 'drone', mood: 'awe'}], m).length, 0); assert.equal(P5([{d: 3.8, move: 'push', mood: 'awe'}], m).length, 0);   // flat rule would FAIL 3.8 s
+  assert.equal(P5([{d: 6.1, move: 'push', mood: 'awe'}], m).length, 1); assert.equal(P5([{d: 3.4, move: 'push', mood: 'fun'}], m).length, 1);   // fun: 2.2 × 1.5 = 3.3
+  const st = {d: 3.0, move: 'static-drift', mood: 'emotion'};
+  assert.equal(P5([st], m).length, 1); assert.match(P5([st], m)[0], /slow push/);
+  assert.equal(P5([st], {...m, pushOf: {S0: .019}}).length, 1); assert.equal(P5([st], {...m, pushOf: {S0: STATIC_PUSH}}).length, 0); assert.equal(P5([{...st, breath: true}], m).length, 0);
+  assert.equal(P5([{...st, d: 2.4, mood: 'tension'}], m).length, 0);   // ≤ 2.5 s static: nothing needed
+  assert.equal(P5([{d: 2, move: 'push'}], m).length, 0);   // no mood: the 3.5 s moving limit
+});
+test('payoffEV: ramps in over 6 frames, eases out over 10, never pops', () => {
+  const sh = [{start: 0, frames: 30, mood: 'fun'}, {start: 30, frames: 40, mood: 'payoff'}, {start: 70, frames: 20, mood: 'fun'}];
+  assert.equal(payoffEV(sh, 10), null); const ev = n => payoffEV(sh, n), key = .3;
+  assert.ok(Math.abs(ev(30) - .1) < .05); assert.ok(Math.abs(ev(30 + RAMP_IN - 1) - key) < 1e-9); assert.equal(ev(50), key);
+  let maxStep = 0; for (let n = 31; n < 70; n++) maxStep = Math.max(maxStep, Math.abs(ev(n) - ev(n - 1))); assert.ok(maxStep < .06, 'max step ' + maxStep);   // a pop would be .2
+  assert.ok(Math.abs(ev(69) - .1) < 1e-9); assert.ok(ev(70 - EASE_OUT - 1) === key && ev(70 - EASE_OUT) < key);
+  assert.equal(payoffEV(sh.slice(0, 2), 69), 0);
 });

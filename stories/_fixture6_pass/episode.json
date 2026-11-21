@@ -1,0 +1,900 @@
+{
+ "slug": "_fixture6_pass",
+ "fps": 30,
+ "format": 6,
+ "moods": true,
+ "body": "v6",
+ "faceStyle": "v6",
+ "acting": 6,
+ "labels": false,
+ "hero": "hero",
+ "world": "engine/fixtures/v4look/world.js",
+ "look": "day",
+ "cues": "stories/_fixture6_pass/cues.json",
+ "end": 24.28,
+ "note": "Written by scripts/v2/brief2spec.js from stories/_fixture6_pass/BRIEF.md (12 shots). Edit the Brief, not this file.",
+ "brief": {
+  "title": "In this world, nobody lies 😅 #shorts #roblox",
+  "ruleLine": "\"In this world, …\"",
+  "palette": "warm street, gold at the end",
+  "colourScript": "act 1 · bright · act 2 · cool · act 3 · gold",
+  "setting": "a street",
+  "props": [
+   "crate"
+  ],
+  "payoff": {
+   "shows": "the hug",
+   "hold length": "2.4",
+   "light": "brightest gold"
+  }
+ },
+ "cast": {
+  "hero": {
+   "style": "v5",
+   "faceStyle": "v6",
+   "troupe": "HERO",
+   "at": "street",
+   "offset": [
+    -2,
+    0,
+    4
+   ],
+   "yaw": 0,
+   "keys": [
+    [
+     0,
+     "idle"
+    ]
+   ]
+  },
+  "friend": {
+   "style": "v5",
+   "faceStyle": "v6",
+   "troupe": "SECOND",
+   "at": "street",
+   "offset": [
+    2,
+    0,
+    0
+   ],
+   "yaw": 0,
+   "keys": [
+    [
+     0,
+     "idle"
+    ]
+   ]
+  }
+ },
+ "emphasis6": [
+  {
+   "word": "dropped",
+   "t": 4.36,
+   "shot": "S03"
+  },
+  {
+   "word": "smashed",
+   "t": 5.96,
+   "shot": "S04"
+  },
+  {
+   "word": "everything",
+   "t": 7.23,
+   "shot": "S05"
+  },
+  {
+   "word": "thanked",
+   "t": 12.66,
+   "shot": "S08"
+  },
+  {
+   "word": "gathered",
+   "t": 17.59,
+   "shot": "S10"
+  },
+  {
+   "word": "hugged",
+   "t": 22.13,
+   "shot": "S12"
+  }
+ ],
+ "effects": [],
+ "shots": [
+  {
+   "id": "S01",
+   "at": 0,
+   "loopOpen": "lie",
+   "loc": "street",
+   "mood": "fun",
+   "size": "medium",
+   "move": "track",
+   "why": "fun: look_around",
+   "see": [
+    "hero"
+   ],
+   "vo": "In this town nobody ever lies",
+   "cue": [
+    0,
+    1.8
+   ],
+   "subject": "hero",
+   "actions": [
+    {
+     "actor": "hero",
+     "verb": "look_around",
+     "at": {
+      "word": "in",
+      "nth": 1,
+      "line": 1
+     }
+    },
+    {
+     "actor": "hero",
+     "face": "smile",
+     "at": {
+      "word": "ever",
+      "nth": 1,
+      "line": 1
+     }
+    }
+   ],
+   "openHit": true,
+   "from": {
+    "position": [
+     -2.674240634676428,
+     3.56540244820051,
+     8.230466375788744
+    ],
+    "target": [
+     0,
+     2.7,
+     0
+    ],
+    "fov": 55
+   },
+   "follow": "hero",
+   "to": {
+    "position": [
+     -1.974240634676428,
+     3.56540244820051,
+     8.230466375788744
+    ],
+    "target": [
+     0,
+     2.7,
+     0
+    ],
+    "fov": 55
+   }
+  },
+  {
+   "id": "S02",
+   "at": 1.8,
+   "loc": "street",
+   "mood": "fun",
+   "size": "wide",
+   "move": "orbit",
+   "why": "fun: friend:cheer",
+   "see": [
+    "hero",
+    "friend"
+   ],
+   "vo": "My friend Mia trusted me with everything",
+   "cue": [
+    1.8,
+    3.7
+   ],
+   "subject": "hero",
+   "pair": [
+    "hero",
+    "friend"
+   ],
+   "actions": [
+    {
+     "actor": "friend",
+     "verb": "cheer",
+     "at": {
+      "word": "my",
+      "nth": 1,
+      "line": 2
+     }
+    },
+    {
+     "actor": "hero",
+     "face": "grin",
+     "at": {
+      "word": "trusted",
+      "nth": 1,
+      "line": 2
+     }
+    }
+   ],
+   "from": {
+    "position": [
+     6.171324541560988,
+     4.697082572770409,
+     20.99338394412787
+    ],
+    "target": [
+     0,
+     2.7,
+     2
+    ],
+    "fov": 55
+   },
+   "degrees": 6,
+   "to": {
+    "position": [
+     5.986184805314158,
+     4.6371700955872965,
+     20.423582425804035
+    ],
+    "target": [
+     0,
+     2.7,
+     2
+    ],
+    "fov": 55
+   }
+  },
+  {
+   "id": "S03",
+   "at": 3.7,
+   "impact": 0.66,
+   "gag": 1,
+   "loc": "street",
+   "mood": "comedy",
+   "size": "medium",
+   "move": "crashZoom",
+   "why": "comedy: flinch",
+   "see": [
+    "hero"
+   ],
+   "vo": "Then I dropped her cake",
+   "cue": [
+    3.7,
+    5.3
+   ],
+   "subject": "hero",
+   "actions": [
+    {
+     "actor": "hero",
+     "verb": "flinch",
+     "at": {
+      "word": "dropped",
+      "nth": 1,
+      "line": 3
+     }
+    },
+    {
+     "actor": "hero",
+     "face": "shock",
+     "at": {
+      "word": "cake",
+      "nth": 1,
+      "line": 3
+     }
+    }
+   ],
+   "from": {
+    "position": [
+     -4.674240634676428,
+     3.86540244820051,
+     12.230466375788744
+    ],
+    "target": [
+     -2,
+     3,
+     4
+    ],
+    "fov": 55
+   },
+   "to": {
+    "position": [
+     -4.674240634676428,
+     3.86540244820051,
+     12.230466375788744
+    ],
+    "target": [
+     -2,
+     3,
+     4
+    ],
+    "fov": 46.75
+   }
+  },
+  {
+   "id": "S04",
+   "at": 5.3,
+   "gag": 2,
+   "loc": "street",
+   "mood": "comedy",
+   "size": "close",
+   "move": "snap",
+   "why": "comedy: facepalm",
+   "see": [
+    "hero"
+   ],
+   "vo": "Next I smashed her tower",
+   "cue": [
+    5.3,
+    6.9
+   ],
+   "subject": "hero",
+   "actions": [
+    {
+     "actor": "hero",
+     "verb": "facepalm",
+     "at": {
+      "word": "smashed",
+      "nth": 1,
+      "line": 4
+     }
+    },
+    {
+     "actor": "hero",
+     "face": "panic",
+     "at": {
+      "word": "tower",
+      "nth": 1,
+      "line": 4
+     }
+    }
+   ],
+   "from": {
+    "position": [
+     4.171324541560988,
+     6.597082572770408,
+     22.99338394412787
+    ],
+    "target": [
+     -2,
+     4.6,
+     4
+    ],
+    "fov": 55
+   },
+   "to": {
+    "position": [
+     -0.6786105099245885,
+     5.027610621463781,
+     8.066818679801496
+    ],
+    "target": [
+     -2,
+     4.6,
+     4
+    ],
+    "fov": 55
+   },
+   "snapAt": 0.6
+  },
+  {
+   "id": "S05",
+   "at": 6.9,
+   "impact": 0.33,
+   "gag": 3,
+   "loc": "street",
+   "mood": "comedy",
+   "size": "close",
+   "move": "whip",
+   "why": "comedy: gasp_step_back",
+   "see": [
+    "hero"
+   ],
+   "vo": "Then everything exploded",
+   "cue": [
+    6.9,
+    8.4
+   ],
+   "ecu": true,
+   "subject": "hero",
+   "actions": [
+    {
+     "actor": "hero",
+     "verb": "gasp_step_back",
+     "at": {
+      "word": "everything",
+      "nth": 1,
+      "line": 5
+     }
+    },
+    {
+     "actor": "hero",
+     "face": "shock",
+     "at": {
+      "word": "exploded",
+      "nth": 1,
+      "line": 5
+     }
+    }
+   ],
+   "from": {
+    "position": [
+     -2.825868431297132,
+     4.8672566384148634,
+     6.541761674875936
+    ],
+    "target": [
+     -2,
+     4.6,
+     4
+    ],
+    "fov": 55
+   },
+   "to": {
+    "position": [
+     -2.825868431297132,
+     4.8672566384148634,
+     6.541761674875936
+    ],
+    "target": [
+     -1.4,
+     4.6,
+     4
+    ],
+    "fov": 55
+   }
+  },
+  {
+   "id": "S06",
+   "at": 8.4,
+   "loc": "street",
+   "mood": "fun",
+   "size": "medium",
+   "move": "track",
+   "why": "fun: friend:shrug",
+   "see": [
+    "friend"
+   ],
+   "vo": "Mia just stared at me quietly",
+   "cue": [
+    8.4,
+    10.4
+   ],
+   "subject": "friend",
+   "actions": [
+    {
+     "actor": "friend",
+     "verb": "shrug",
+     "at": {
+      "word": "mia",
+      "nth": 1,
+      "line": 6
+     }
+    },
+    {
+     "actor": "friend",
+     "face": "warm",
+     "at": {
+      "word": "stared",
+      "nth": 1,
+      "line": 6
+     }
+    }
+   ],
+   "from": {
+    "position": [
+     2.674240634676428,
+     3.56540244820051,
+     8.230466375788744
+    ],
+    "target": [
+     0,
+     2.7,
+     0
+    ],
+    "fov": 55
+   },
+   "follow": "friend",
+   "to": {
+    "position": [
+     3.374240634676428,
+     3.56540244820051,
+     8.230466375788744
+    ],
+    "target": [
+     0,
+     2.7,
+     0
+    ],
+    "fov": 55
+   }
+  },
+  {
+   "id": "S07",
+   "at": 10.4,
+   "loc": "street",
+   "mood": "tension",
+   "size": "medium",
+   "move": "push",
+   "why": "tension: shrug",
+   "see": [
+    "hero"
+   ],
+   "vo": "I swore I would fix it",
+   "cue": [
+    10.4,
+    12
+   ],
+   "subject": "hero",
+   "actions": [
+    {
+     "actor": "hero",
+     "verb": "shrug",
+     "at": {
+      "word": "i",
+      "nth": 1,
+      "line": 7
+     }
+    },
+    {
+     "actor": "hero",
+     "face": "warm",
+     "at": {
+      "word": "fix",
+      "nth": 1,
+      "line": 7
+     }
+    }
+   ],
+   "from": {
+    "position": [
+     -6.553424448659317,
+     4.173519104627106,
+     18.013999463410087
+    ],
+    "target": [
+     -2,
+     2.7,
+     4
+    ],
+    "fov": 34
+   },
+   "to": {
+    "position": [
+     -6.4168217151995375,
+     4.129313531488292,
+     17.59357947950778
+    ],
+    "target": [
+     -2,
+     2.7,
+     4
+    ],
+    "fov": 34
+   }
+  },
+  {
+   "id": "S08",
+   "at": 12,
+   "twist": true,
+   "loc": "street",
+   "mood": "comedy",
+   "size": "medium",
+   "move": "crashZoom",
+   "why": "comedy: flinch",
+   "see": [
+    "hero"
+   ],
+   "vo": "But Mia thanked me",
+   "cue": [
+    12,
+    13.4
+   ],
+   "subject": "hero",
+   "actions": [
+    {
+     "actor": "hero",
+     "verb": "flinch",
+     "at": {
+      "word": "thanked",
+      "nth": 1,
+      "line": 8
+     }
+    },
+    {
+     "actor": "hero",
+     "face": "shock",
+     "at": {
+      "word": "mia",
+      "nth": 1,
+      "line": 8
+     }
+    }
+   ],
+   "from": {
+    "position": [
+     0.6742406346764276,
+     3.86540244820051,
+     12.230466375788744
+    ],
+    "target": [
+     -2,
+     3,
+     4
+    ],
+    "fov": 55
+   },
+   "to": {
+    "position": [
+     0.6742406346764276,
+     3.86540244820051,
+     12.230466375788744
+    ],
+    "target": [
+     -2,
+     3,
+     4
+    ],
+    "fov": 46.75
+   }
+  },
+  {
+   "id": "S09",
+   "at": 13.4,
+   "loc": "street",
+   "mood": "emotion",
+   "size": "close",
+   "move": "push",
+   "why": "emotion: look_around",
+   "see": [
+    "hero"
+   ],
+   "vo": "She had planned the whole thing to teach me honesty",
+   "cue": [
+    13.4,
+    16.6
+   ],
+   "subject": "hero",
+   "actions": [
+    {
+     "actor": "hero",
+     "verb": "look_around",
+     "at": {
+      "word": "she",
+      "nth": 1,
+      "line": 9
+     }
+    },
+    {
+     "actor": "hero",
+     "face": "warm",
+     "at": {
+      "word": "whole",
+      "nth": 1,
+      "line": 9
+     }
+    },
+    {
+     "actor": "hero",
+     "face": "cry",
+     "at": {
+      "word": "honesty",
+      "nth": 1,
+      "line": 9
+     }
+    }
+   ],
+   "from": {
+    "position": [
+     -3.8899123189714846,
+     5.211588473570599,
+     9.816552030803244
+    ],
+    "target": [
+     -2,
+     4.6,
+     4
+    ],
+    "fov": 40
+   },
+   "to": {
+    "position": [
+     -3.814315826212625,
+     5.187124934627775,
+     9.583889949571114
+    ],
+    "target": [
+     -2,
+     4.6,
+     4
+    ],
+    "fov": 40
+   }
+  },
+  {
+   "id": "S10",
+   "at": 16.6,
+   "loc": "street",
+   "mood": "awe",
+   "size": "wide",
+   "move": "crane",
+   "why": "awe: look_around",
+   "see": [
+    "hero"
+   ],
+   "vo": "The whole town gathered in golden light",
+   "cue": [
+    16.6,
+    19.8
+   ],
+   "subject": "hero",
+   "actions": [
+    {
+     "actor": "hero",
+     "verb": "look_around",
+     "at": {
+      "word": "gathered",
+      "nth": 1,
+      "line": 10
+     }
+    },
+    {
+     "actor": "hero",
+     "face": "smile",
+     "at": {
+      "word": "light",
+      "nth": 1,
+      "line": 10
+     }
+    }
+   ],
+   "from": {
+    "position": [
+     2.8079780350386168,
+     4.255894375571083,
+     18.797434845538575
+    ],
+    "target": [
+     -2,
+     2.7,
+     4
+    ],
+    "fov": 67.5
+   },
+   "to": {
+    "position": [
+     2.8079780350386168,
+     6.755894375571083,
+     18.797434845538575
+    ],
+    "target": [
+     -2,
+     2.7,
+     4
+    ],
+    "fov": 67.5
+   }
+  },
+  {
+   "id": "S11",
+   "at": 19.8,
+   "loopClose": "lie",
+   "loc": "street",
+   "mood": "tension",
+   "size": "medium",
+   "move": "lowAuthority",
+   "why": "tension: flinch",
+   "see": [
+    "hero"
+   ],
+   "vo": "I finally told her the truth",
+   "cue": [
+    19.8,
+    21.8
+   ],
+   "subject": "hero",
+   "actions": [
+    {
+     "actor": "hero",
+     "verb": "flinch",
+     "at": {
+      "word": "i",
+      "nth": 1,
+      "line": 11
+     }
+    },
+    {
+     "actor": "hero",
+     "face": "panic",
+     "at": {
+      "word": "told",
+      "nth": 1,
+      "line": 11
+     }
+    }
+   ],
+   "from": {
+    "position": [
+     -6.553424448659317,
+     0.7,
+     18.013999463410087
+    ],
+    "target": [
+     -2,
+     2.7,
+     4
+    ],
+    "fov": 34
+   },
+   "to": {
+    "position": [
+     -6.4168217151995375,
+     0.7,
+     17.59357947950778
+    ],
+    "target": [
+     -2,
+     2.7,
+     4
+    ],
+    "fov": 34
+   }
+  },
+  {
+   "id": "S12",
+   "at": 21.8,
+   "loc": "street",
+   "mood": "payoff",
+   "size": "close",
+   "move": "push",
+   "why": "payoff: cheer",
+   "see": [
+    "hero"
+   ],
+   "vo": "We hugged and she laughed",
+   "cue": [
+    21.8,
+    23.35
+   ],
+   "subject": "hero",
+   "actions": [
+    {
+     "actor": "hero",
+     "verb": "cheer",
+     "at": {
+      "word": "hugged",
+      "nth": 1,
+      "line": 12
+     }
+    },
+    {
+     "actor": "hero",
+     "face": "grin",
+     "at": {
+      "word": "laughed",
+      "nth": 1,
+      "line": 12
+     }
+    }
+   ],
+   "from": {
+    "position": [
+     -0.33933050009829135,
+     5.13740393898425,
+     9.111015180536551
+    ],
+    "target": [
+     -2,
+     4.6,
+     4
+    ],
+    "fov": 45
+   },
+   "to": {
+    "position": [
+     -0.4306673225928854,
+     5.107846722340117,
+     8.829909345607039
+    ],
+    "target": [
+     -2,
+     4.6,
+     4
+    ],
+    "fov": 45
+   }
+  }
+ ]
+}

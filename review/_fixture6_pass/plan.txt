@@ -1,0 +1,16 @@
+WARN  h. pacing curve: 0–10 s: 5 cuts/10 s (climax wants 6–8)
+WARN  h. pacing curve: 10–20 s: 5 cuts/10 s (climax wants 6–8)
+PASS a. mood + length
+PASS b. no dead stretch
+PASS c. emphasis
+PASS d. breath + payoff
+PASS e. escalation
+PASS f. 180° rule
+PASS g. open loops
+WARN h. pacing curve
+       0–10 s: 5 cuts/10 s (climax wants 6–8)
+       10–20 s: 5 cuts/10 s (climax wants 6–8)
+
+cuts per 10 s (pacing curve)
+    0–10    s |█████     |    5  climax  6–8  WARN
+   10–20    s |█████     |    5  climax  6–8  WARN
