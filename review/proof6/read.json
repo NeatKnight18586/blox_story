@@ -267,14 +267,14 @@
     "ok": true
    },
    "standsOut": {
-    "subj": 0.169,
-    "ring": 0.249,
-    "diff": 0.08,
-    "ok": false,
-    "msg": "subject vs surround luma 0.080 (≥ 0.12)"
+    "subj": 0.273,
+    "ring": 0.401,
+    "diff": 0.129,
+    "ok": true,
+    "msg": ""
    },
    "moves": {
-    "motion": 0.0846,
+    "motion": 0.1357,
     "need": 0.021,
     "ok": true,
     "msg": ""
@@ -465,7 +465,6 @@
  ],
  "errors": [
   "S04: standsOut FAIL subject vs surround luma 0.060 (≥ 0.12)",
-  "S08: standsOut FAIL subject vs surround luma 0.080 (≥ 0.12)",
   "S10: moves FAIL motion 0.0006 < 0.0210"
  ]
 }

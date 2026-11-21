@@ -851,7 +851,10 @@
   {
    "id": "S08",
    "at": 10.05,
-   "look": "goldenHour",
+   "look": "day",
+   "light": {
+    "ev": 0.3
+   },
    "loc": "cobbleStreet",
    "mood": "emotion",
    "size": "medium",
