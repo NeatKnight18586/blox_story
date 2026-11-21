@@ -9,8 +9,8 @@ import MOODS from './mood6.json' with {type: 'json'};
 export {MOODS};
 export const MOOD_NAMES = Object.keys(MOODS).filter(k => !k.startsWith('_'));
 export const LEN_WARN = .2, LEN_FAIL = .5;
-// P5b fields, wired in engine/episode.js applyMood: rimK / fillK (rim light / hemisphere fill temperature shift, K; the key stays neutral), skyEV (sky dome exposure), shadow (hardness ×), bloom (highlight lift), vignette (strength)
-export const DEFAULT_LIGHT = {ev: 0, sat: 1, tint: [1, 1, 1], haze: 0, rim: 1, camNoise: 0, rimK: 0, fillK: 0, skyEV: 0, shadow: 1, bloom: 0, vignette: 0};
+// P5b fields, wired in engine/episode.js applyMood: rimK / fillK (rim light / hemisphere sky-fill temperature shift, K; the key stays neutral), groundNeutral (0–1: ground bounce toward grey), groundGain (× the ground bounce), skyEV (sky dome exposure), shadow (hardness ×), bloom (highlight lift), vignette (strength)
+export const DEFAULT_LIGHT = {ev: 0, sat: 1, tint: [1, 1, 1], haze: 0, rim: 1, camNoise: 0, rimK: 0, fillK: 0, groundNeutral: 0, groundGain: 1, skyEV: 0, shadow: 1, bloom: 0, vignette: 0};
 export const moodOf = shot => MOODS[shot?.mood] && MOOD_NAMES.includes(shot.mood) ? MOODS[shot.mood] : null;
 
 export function shotLight(shot) {
@@ -18,7 +18,7 @@ export function shotLight(shot) {
   return {...DEFAULT_LIGHT, ...(m?.light ?? {}), ...(shot?.light ?? {})};
 }
 export const keyEV = shot => shotLight(shot).ev;   // the key light the payoff check ranks (EV stops)
-export const moodUniforms = shot => { const l = shotLight(shot); return {exposure: 2 ** l.ev, sat: l.sat, tint: l.tint, haze: l.haze, rim: l.rim, camNoise: l.camNoise, rimK: l.rimK, fillK: l.fillK, skyEV: l.skyEV, shadow: l.shadow, bloom: l.bloom, vignette: l.vignette}; };
+export const moodUniforms = shot => { const l = shotLight(shot); return {exposure: 2 ** l.ev, sat: l.sat, tint: l.tint, haze: l.haze, rim: l.rim, camNoise: l.camNoise, rimK: l.rimK, fillK: l.fillK, groundNeutral: l.groundNeutral, groundGain: l.groundGain, skyEV: l.skyEV, shadow: l.shadow, bloom: l.bloom, vignette: l.vignette}; };
 
 export function resolveMood(shot) {
   const m = moodOf(shot); if (!m) return shot;

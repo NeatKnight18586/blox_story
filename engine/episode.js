@@ -190,7 +190,8 @@ function applyMood(shot, n) {   // P4: exposure × 2^ev, saturation, temperature
   MOODU.uMoodBloom.value = u.bloom; MOODU.uMoodVig.value = u.vignette; renderer.getDrawingBufferSize(MOODU.uMoodRes.value);
   const kel = (c, K) => { if (c && K) { c.r *= 1 + K * 1.2e-4; c.b *= 1 - K * 1.2e-4; } };
   if (look?.sky && u.skyEV) { const su = look.sky.material.uniforms, k = 2 ** u.skyEV; su.top.value.multiplyScalar(k); su.horizon.value.multiplyScalar(k); }
-  if (look?.hemi && u.fillK) { kel(look.hemi.color, u.fillK); kel(look.hemi.groundColor, u.fillK); }
+  if (look?.hemi && u.fillK) kel(look.hemi.color, u.fillK);   // fill temperature: the sky half of the hemisphere light
+  if (look?.hemi && (u.groundNeutral || u.groundGain !== 1)) { const g = look.hemi.groundColor, l = .2126 * g.r + .7152 * g.g + .0722 * g.b; g.r += (l - g.r) * u.groundNeutral; g.g += (l - g.g) * u.groundNeutral; g.b += (l - g.b) * u.groundNeutral; g.multiplyScalar(u.groundGain); }   // ground bounce toward grey (stops the grass tint on a jacket seen from below)
   if (look?.rim && u.rimK) kel(look.rim.color, u.rimK);
   if (look?.sun?.shadow && u.shadow !== 1) look.sun.shadow.radius = 1 / u.shadow;
 }
