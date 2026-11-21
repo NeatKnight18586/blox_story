@@ -226,20 +226,19 @@
     "ok": true
    },
    "standsOut": {
-    "subj": 0.08,
-    "ring": 0.289,
-    "diff": 0.209,
+    "subj": 0.078,
+    "ring": 0.269,
+    "diff": 0.191,
     "ok": true,
     "msg": ""
    },
    "objectReads": {
-    "inside": 0.644,
-    "h": 0.32,
-    "ok": false,
-    "msg": "64 % of the object in frame (≥ 90)"
+    "inside": 1,
+    "h": 0.662,
+    "ok": true
    },
    "moves": {
-    "motion": 0.0896,
+    "motion": 0.0795,
     "need": 0.021,
     "ok": true,
     "msg": ""
@@ -466,7 +465,6 @@
  ],
  "errors": [
   "S04: standsOut FAIL subject vs surround luma 0.060 (≥ 0.12)",
-  "S07: objectReads FAIL 64 % of the object in frame (≥ 90)",
   "S08: standsOut FAIL subject vs surround luma 0.080 (≥ 0.12)",
   "S10: moves FAIL motion 0.0006 < 0.0210"
  ]

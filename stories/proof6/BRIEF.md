@@ -40,7 +40,7 @@ Placeholder words (0.3 s apart, no voice). Blocking in notes (coordinates relati
 | 4 | 4.9–5.9 | And then nothing | comedy | wide | static-drift | hero | - | - | none | aim: 0.3, aimx: 1.6, stand: 10, fit: .4 |
 | 5 | 5.9–7.0 | Nobody saw that | comedy | close | static-drift | hero | idle_alive | embarrassed | none | place: hero 0 -9 yaw 0 |
 | 6 | 7.0–8.6 | Then it went *dark* | tension | medium | lowAuthority | hero | flinch | terrified @ dark | none | loopOpen: shadow, place: kid 40 -40, look: storm |
-| 7 | 8.6–10.05 | Something huge stood there | tension | insert | push | prop:streetLamp | - | - | none | place: streetLamp 0 -25, place: hero -1.2 -28.2 yaw 0, scale: 2.08, fit: .6, camy: .4, tilt: 20, drift: 1.2 0, push: .8, look: storm |
+| 7 | 8.6–10.05 | Something huge stood there | tension | insert | push | prop:streetLamp | - | - | none | place: streetLamp 0 -25, place: hero -1.2 -28.2 yaw 0, scale: 2.08, fit: .6, camy: .4, tilt: 14, drift: 1.2 0, push: .8, look: storm |
 | 8 | 10.05–12.3 | It's okay my little *one* | emotion | medium | push | hero+little | comfort_kneel | sad_soft; warm @ one | none | place: hero -1.2 -9 yaw 0; place: little 1.2 -7.6 yaw -30, stand: 40, look: goldenHour |
 | 9 | 12.3–14.8 | Then I saw how big | awe | wide | scaleReveal | hero | hero:idle_alive; little:idle_alive | awe @ big | none | place: hero -4 52 yaw 0; place: little 40 -36 |
 | 10 | 14.8–16.8 | But something was *off* | tension | medium | static-drift | hero | - | neutral; awe_small @ off | none | place: hero 0 -9 yaw 0, still, light: ev -0.224 vignette 0.15, look: storm |

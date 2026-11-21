@@ -82,7 +82,7 @@
    "size": "insert",
    "move": "push",
    "loc": "cobbleStreet",
-   "speed": 26,
+   "speed": 19,
    "subject": "",
    "why": "tension: Something huge stood there"
   },
@@ -176,7 +176,7 @@
   "lengthS": 21.4,
   "averageShotS": 1.65,
   "insertH": {
-   "S07": 0.4989
+   "S07": 0.6616
   }
  },
  "season": false,
