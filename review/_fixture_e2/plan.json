@@ -1,0 +1,303 @@
+{
+ "spec": "stories/_fixture_e2/episode.json",
+ "cues": "stories/_fixture_e2/cues.json",
+ "shots": [
+  {
+   "id": "S01",
+   "beat": false,
+   "t": 0,
+   "dur": 1.4,
+   "size": "wide",
+   "move": "orbit",
+   "loc": "testPark",
+   "speed": 24,
+   "subject": "hero@64,38",
+   "why": "fun: Every fall here drains colour"
+  },
+  {
+   "id": "S02",
+   "beat": false,
+   "t": 1.4,
+   "dur": 1.4,
+   "size": "medium",
+   "move": "orbit",
+   "loc": "testPark",
+   "speed": 25,
+   "subject": "bitsy@49,34",
+   "why": "fun: Then Bitsy spawned in pink"
+  },
+  {
+   "id": "S03",
+   "beat": false,
+   "t": 2.8,
+   "dur": 0.9,
+   "size": "medium",
+   "move": "static-drift",
+   "loc": "testPark",
+   "speed": 4,
+   "subject": "bitsy@52,40",
+   "why": "comedy: Everyone knows her name"
+  },
+  {
+   "id": "S04",
+   "beat": false,
+   "t": 3.7,
+   "dur": 1.5,
+   "size": "wide",
+   "move": "whip",
+   "loc": "testPark",
+   "speed": 8,
+   "subject": "hero@17,41",
+   "why": "comedy: The wind threw me far away"
+  },
+  {
+   "id": "S05",
+   "beat": false,
+   "t": 5.2,
+   "dur": 0.9,
+   "size": "medium",
+   "move": "static-drift",
+   "loc": "testPark",
+   "speed": 3,
+   "subject": "hero@20,49",
+   "why": "comedy: Right into the pool"
+  },
+  {
+   "id": "S06",
+   "beat": false,
+   "t": 6.1,
+   "dur": 1.8,
+   "size": "medium",
+   "move": "push",
+   "loc": "testPark",
+   "speed": 0,
+   "subject": "hero@52,19",
+   "why": "tension: My legs went white then my stripe"
+  },
+  {
+   "id": "S07",
+   "beat": false,
+   "t": 7.9,
+   "dur": 0.9,
+   "size": "wide",
+   "move": "static-drift",
+   "loc": "testPark",
+   "speed": 1,
+   "subject": "bitsy@50,75",
+   "why": "comedy: Then a hand came down"
+  },
+  {
+   "id": "S08",
+   "beat": false,
+   "t": 8.8,
+   "dur": 1,
+   "size": "medium",
+   "move": "whip",
+   "loc": "testPark",
+   "speed": 12,
+   "subject": "bitsy@48,67",
+   "why": "comedy: It pinched my Bitsy"
+  },
+  {
+   "id": "S09",
+   "beat": false,
+   "t": 9.8,
+   "dur": 1.4,
+   "size": "wide",
+   "move": "orbit",
+   "loc": "testPark",
+   "speed": 23,
+   "subject": "bitsy@-11,71",
+   "why": "fun: and carried her up the tower"
+  },
+  {
+   "id": "S10",
+   "beat": false,
+   "t": 11.2,
+   "dur": 1.6,
+   "size": "wide",
+   "move": "static-drift",
+   "loc": "testPark",
+   "speed": 1,
+   "subject": "bitsy@50,42",
+   "why": "tension: It let go right at the top"
+  },
+  {
+   "id": "S11",
+   "beat": false,
+   "t": 12.8,
+   "dur": 2.6,
+   "size": "wide",
+   "move": "crane",
+   "loc": "testPark",
+   "speed": 13,
+   "subject": "hero@46,65",
+   "why": "awe: She fell and I jumped up to catch her in the air"
+  },
+  {
+   "id": "S12",
+   "beat": false,
+   "t": 15.4,
+   "dur": 1.4,
+   "size": "wide",
+   "move": "orbit",
+   "loc": "testPark",
+   "speed": 24,
+   "subject": "hero@41,36",
+   "why": "fun: Every dummy ran to help"
+  },
+  {
+   "id": "S13",
+   "beat": false,
+   "t": 16.8,
+   "dur": 1,
+   "size": "wide",
+   "move": "static-drift",
+   "loc": "testPark",
+   "speed": 1,
+   "subject": "hero@16,23",
+   "why": "comedy: They piled up soft"
+  },
+  {
+   "id": "S14",
+   "beat": false,
+   "t": 17.8,
+   "dur": 1.4,
+   "size": "wide",
+   "move": "orbit",
+   "loc": "testPark",
+   "speed": 20,
+   "subject": "hero@18,27",
+   "why": "fun: and colour bloomed on all of them"
+  },
+  {
+   "id": "S15",
+   "beat": false,
+   "t": 19.2,
+   "dur": 1.6,
+   "size": "close",
+   "move": "push",
+   "loc": "testPark",
+   "speed": 0,
+   "subject": "hero@61,41",
+   "why": "payoff: Even my own colour came back"
+  },
+  {
+   "id": "S16",
+   "beat": false,
+   "t": 20.8,
+   "dur": 1,
+   "size": "wide",
+   "move": "static-drift",
+   "loc": "testPark",
+   "speed": 1,
+   "subject": "hero@16,29",
+   "why": "comedy: The dummies flopped down"
+  },
+  {
+   "id": "S17",
+   "beat": false,
+   "t": 21.8,
+   "dur": 2.2,
+   "size": "close",
+   "move": "splitScreen",
+   "loc": "testPark",
+   "speed": 0,
+   "subject": "hero@61,41",
+   "why": "emotion: Colour came back to everyone at last"
+  }
+ ],
+ "meanShot": 1.54,
+ "end": 24,
+ "gamecam": 0,
+ "wides": 10,
+ "partners": [
+  {
+   "partner": "bitsy",
+   "verb": "carry_hip",
+   "dist": 0,
+   "walkIn": null,
+   "ok": true
+  }
+ ],
+ "format5": {
+  "lengthS": 24,
+  "averageShotS": 1.41,
+  "insertH": {}
+ },
+ "season": false,
+ "framing": [
+  {
+   "shot": "S02",
+   "part": "full",
+   "frac": 0.415,
+   "need": 0.3
+  },
+  {
+   "shot": "S03",
+   "part": "full",
+   "frac": 0.426,
+   "need": 0.3
+  },
+  {
+   "shot": "S05",
+   "part": "full",
+   "frac": 0.628,
+   "need": 0.3
+  },
+  {
+   "shot": "S06",
+   "part": "full",
+   "frac": 0.75,
+   "need": 0.3
+  },
+  {
+   "shot": "S08",
+   "part": "full",
+   "frac": 0.153,
+   "need": 0.3
+  },
+  {
+   "shot": "S15",
+   "part": "head",
+   "frac": 0.543,
+   "need": 0.45
+  },
+  {
+   "shot": "S17",
+   "part": "head",
+   "frac": 0.547,
+   "need": 0.45
+  }
+ ],
+ "uiItems": 0,
+ "eggs": [],
+ "overlaps": 0,
+ "moods": {
+  "a": "PASS",
+  "b": "PASS",
+  "c": "PASS",
+  "d": "PASS",
+  "e": "PASS",
+  "f": "PASS",
+  "g": "PASS",
+  "h": "PASS",
+  "m": "WARN",
+  "t": "PASS"
+ },
+ "errors": [
+  "S07: subject bitsy head at x 50 % y 75 % (want x 15–85, y 18–58)",
+  "S08: subject bitsy head at x 48 % y 67 % (want x 15–85, y 18–58)",
+  "S09: subject bitsy head at x -11 % y 71 % (want x 15–85, y 18–58)",
+  "S11: subject hero head at x 46 % y 65 % (want x 15–85, y 18–58)",
+  "S02: framing empty ground 32.9 % > 28.000000000000004 %",
+  "S05: framing empty ground 41.1 % > 28.000000000000004 %",
+  "S08: framing subject 15.3 % < 30 %"
+ ],
+ "warnings": [
+  "S04: \"hero\" (see) not in frame by frame 6",
+  "S09: \"bitsy\" (see) not in frame by frame 6",
+  "S10: wide shot with no tagged character in the foreground",
+  "m. moodSeparation: no moodmeans.json: render, run stories/<slug>/measure.py, then plan again"
+ ]
+}
