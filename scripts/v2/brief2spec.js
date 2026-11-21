@@ -200,7 +200,8 @@ export function briefToSpec(brief, cues, lib, {slug, root = '.'} = {}) {
         const kp = SLOT_SCALE[cast[P.partner].troupe] ?? 1, vn = pickVerb({verb: 'carry', target: P.partner, partnerScale: kp}), off = partnerOffset(vn, {}), ly = (yawNow[P.hero] ?? 0) * Math.PI / 180, hp = cur[P.hero];   // her ground mark = the carry's meeting mark (plan partnerDistance)
         if (off) { const mk2 = [hp[0] + off.x * Math.cos(ly) + off.z * Math.sin(ly), 0, hp[2] - off.x * Math.sin(ly) + off.z * Math.cos(ly)]; cur[P.partner] = mk2; yawNow[P.partner] = (yawNow[P.hero] ?? 0) + off.yaw; putMark(P.partner, Math.max(at, t - 1.0), {offset: mk2, yaw: yawNow[P.partner]}); } }   // the partner snaps into the P3b carry on the catch frame
       else if (key === 'splash' && anc(P.anchor)) st6.splashes.push({t, anchor: P.anchor});
-      else if (key === 'tag' && who(P.actor)) st6.tags.push({actor: P.actor, text: P.text, t});
+      else if (key === 'tag') { const ok = (slug === 'lastcolor' && ['14', '29'].includes(String(r['#']))) || String(slug ?? '').startsWith('_');   // owner decision E2b: diegetic in-world game tags in lastcolor shots 14 and 29 only (+ engine test fixtures); no labels anywhere else
+        if (!ok) E(`${R} (notes)`, 'tag: name tags are labels (Season 1 no-labels rule); the only exception is episode lastcolor, shots 14 and 29'); else if (who(P.actor)) st6.tags.push({actor: P.actor, text: P.text, t}); }
       else if (key === 'spawn' && who(P.actor)) st6.spawns.push({actor: P.actor, t});
     }
     if (propSub) { const set7 = ['streetLamp', 'crate', 'porch', 'shack', 'deadTree', 'birdhouse', 'powerLine', 'grassBlade', 'rockPeak', 'rockMesa'].includes(propSub);

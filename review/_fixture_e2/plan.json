@@ -47,7 +47,7 @@
    "move": "whip",
    "loc": "testPark",
    "speed": 8,
-   "subject": "hero@17,41",
+   "subject": "hero@30,43",
    "why": "comedy: The wind threw me far away"
   },
   {
@@ -107,7 +107,7 @@
    "move": "orbit",
    "loc": "testPark",
    "speed": 23,
-   "subject": "bitsy@-11,71",
+   "subject": "bitsy@1,60",
    "why": "fun: and carried her up the tower"
   },
   {
@@ -131,7 +131,7 @@
    "move": "crane",
    "loc": "testPark",
    "speed": 13,
-   "subject": "hero@46,65",
+   "subject": "hero@52,26",
    "why": "awe: She fell and I jumped up to catch her in the air"
   },
   {
@@ -230,7 +230,7 @@
   {
    "shot": "S02",
    "part": "full",
-   "frac": 0.415,
+   "frac": 0.407,
    "need": 0.3
   },
   {
@@ -288,8 +288,7 @@
  "errors": [
   "S07: subject bitsy head at x 50 % y 75 % (want x 15–85, y 18–58)",
   "S08: subject bitsy head at x 48 % y 67 % (want x 15–85, y 18–58)",
-  "S09: subject bitsy head at x -11 % y 71 % (want x 15–85, y 18–58)",
-  "S11: subject hero head at x 46 % y 65 % (want x 15–85, y 18–58)",
+  "S09: subject bitsy head at x 1 % y 60 % (want x 15–85, y 18–58)",
   "S02: framing empty ground 32.9 % > 28.000000000000004 %",
   "S05: framing empty ground 41.1 % > 28.000000000000004 %",
   "S08: framing subject 15.3 % < 30 %"

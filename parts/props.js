@@ -614,7 +614,7 @@ export function giantHand({pose = 'open', grip = 1, ink = .13} = {}) {
   const palm = mesh(new RoundedBoxGeometry(P.w, P.h, P.d, 3, P.r), glove, [0, 0, P.d / 2 - .1], 'palm'); g.add(withInk(palm, ink));
   for (const x of [-1.3, 0, 1.3]) g.add(pbx(.16, .06, 3.2, stitch, [x, P.h / 2 + .02, 3.1], 'stitch', false));   // three stitch lines on the back
   const segs = {}; const rig0 = handRig(pose, grip);
-  for (const [d, list] of Object.entries(rig0)) segs[d] = list.map((sgm, i) => { const L = v3.len(v3.sub(sgm.to, sgm.from)), m = mesh(new T.CapsuleGeometry(sgm.r, L, 4, 10), glove, [0, 0, 0], d + (i ? 'B' : 'A')); g.add(withInk(m, ink)); return m; });
+  for (const [d, list] of Object.entries(rig0)) segs[d] = list.map((sgm, i) => { const L = v3.len(v3.sub(sgm.to, sgm.from)), m = mesh(new T.CapsuleGeometry(sgm.r, L, 4, 10), glove, [0, 0, 0], d + (i ? 'B' : 'A'), false); g.add(withInk(m, ink)); return m; });   // fingers cast no shadow (the palm + cuff shadow carries the hand; 10 fewer shadow draws)
   const Y = new T.Vector3(0, 1, 0), q = new T.Vector3();
   const set = ({pose: p = 'open', grip: k = 1} = {}) => { const R = handRig(p, k);
     for (const [d, list] of Object.entries(R)) list.forEach((sgm, i) => { const m = segs[d][i]; m.position.set(...v3.mul(v3.add(sgm.from, sgm.to), .5)); m.quaternion.setFromUnitVectors(Y, q.set(...v3.norm(v3.sub(sgm.to, sgm.from)))); });

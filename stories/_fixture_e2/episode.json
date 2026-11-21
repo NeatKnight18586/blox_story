@@ -86,7 +86,7 @@
    "costume": "BITSY",
    "marks": [
     [
-     13.9,
+     13.29,
      {
       "at": "plaza",
       "offset": [
@@ -1407,7 +1407,7 @@
      "actor": "hero",
      "verb": "carry",
      "target": "bitsy",
-     "at": 2.1
+     "at": 1.49
     }
    ],
    "from": {
@@ -1777,24 +1777,24 @@
    {
     "actor": "hero",
     "region": "legs",
-    "t": 6.4
+    "t": 6.35
    },
    {
     "actor": "hero",
     "region": "stripe",
-    "t": 7.9
+    "t": 7.61
    }
   ],
   "blooms": [
    {
     "crowd": true,
-    "t": 18.4
+    "t": 18.19
    },
    {
     "actor": "hero",
     "region": "all",
     "colour": null,
-    "t": 20.1
+    "t": 19.98
    }
   ],
   "crowd": {
@@ -1858,17 +1858,17 @@
      "behaviour": "wander"
     },
     {
-     "t": 16,
+     "t": 15.94,
      "behaviour": "run",
      "anchor": "towerBase"
     },
     {
-     "t": 17.1,
+     "t": 17.04,
      "behaviour": "pile",
      "anchor": "cushion"
     },
     {
-     "t": 21.4,
+     "t": 21.28,
      "behaviour": "flop"
     }
    ]
@@ -1879,43 +1879,43 @@
     "act": "enter"
    },
    {
-    "t": 9.1,
+    "t": 9.04,
     "act": "grab",
     "actor": "bitsy"
    },
    {
-    "t": 10.1,
+    "t": 10.03,
     "act": "carry",
     "actor": "bitsy",
     "anchor": "towerTop"
    },
    {
-    "t": 11.8,
+    "t": 11.65,
     "act": "release",
     "actor": "bitsy"
    },
    {
-    "t": 13,
+    "t": 12.54,
     "act": "exit"
    }
   ],
   "tumbles": [
    {
     "actor": "hero",
-    "t": 4.3,
+    "t": 4.19,
     "anchor": "pool"
    }
   ],
   "airCatch": [
    {
-    "t": 14.9,
+    "t": 14.29,
     "hero": "hero",
     "partner": "bitsy"
    }
   ],
   "splashes": [
    {
-    "t": 5.5,
+    "t": 5.42,
     "anchor": "pool"
    }
   ],
@@ -1929,7 +1929,7 @@
   "spawns": [
    {
     "actor": "bitsy",
-    "t": 2
+    "t": 1.94
    }
   ]
  },

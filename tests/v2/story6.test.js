@@ -2,6 +2,7 @@
 import {test} from 'node:test';
 import assert from 'node:assert/strict';
 import * as S from '../../engine/story6.js';
+import * as A6 from '../../engine/acting6.js';
 import {parseBrief, briefToSpec} from '../../scripts/v2/brief2spec.js';
 import {loadLibrary} from '../../scripts/v2/lib6.js';
 import {readFileSync} from 'node:fs';
@@ -72,6 +73,10 @@ test('brief2spec: every key lands in spec.story6, head drain is a row error', ()
   assert.ok(briefToSpec(bad, cues, lib, {slug: '_fixture_e2'}).errors.some(e => /row 6 .*head never drains/.test(e)));
   const bad2 = {...brief, rows: brief.rows.map(r => r['#'] === '9' ? {...r, notes: 'hand: carry bitsy to moon @ carried'} : r)};
   assert.ok(briefToSpec(bad2, cues, lib, {slug: '_fixture_e2'}).errors.some(e => /anchor "moon"/.test(e)));
+  const lc = {...brief, meta: {...brief.meta, slug: 'lastcolor'}}, tagErr = briefToSpec(lc, cues, lib, {slug: 'lastcolor'}).errors;
+  assert.ok(tagErr.some(e => /row 3 .*only exception is episode lastcolor, shots 14 and 29/.test(e)), 'tags outside lastcolor 14 / 29 are rejected');
+  const lc14 = {...lc, rows: lc.rows.map(r => r['#'] === '3' ? {...r, notes: r.notes.replace(/tag:[^;]*;?/, '')} : r['#'] === '14' ? {...r, notes: r.notes + '; tag: bitsy "Bitsy"'} : r)};
+  assert.ok(!briefToSpec(lc14, cues, lib, {slug: 'lastcolor'}).errors.some(e => /tag:/.test(e)), 'lastcolor row 14 may tag');
   const plain = briefToSpec(parseBrief(readFileSync('stories/proof6/BRIEF.md', 'utf8')), JSON.parse(readFileSync('stories/proof6/cues.json', 'utf8')), lib, {slug: 'proof6'}).spec;
   assert.equal(plain.story6, undefined, 'specs without markers get no story6'); assert.equal(plain.lod, undefined);
 });
@@ -88,7 +93,7 @@ test('wash front, pop, particles, flash', () => {
   assert.equal(S.washedAt(2, S.washFront(1, 5, 0, 'up'), 'up'), 1);
   assert.equal(S.popScale(0, 1), 0); assert.ok(Math.abs(S.popScale(1 + 4 / 30, 1) - 1.1) < 1e-9); assert.equal(S.popScale(1 + 6 / 30, 1), 1);
   assert.equal(S.particlesAt({kind: 'puff', t: 0, p: [0, 0, 0]}, .2).length, S.PUFF_N); assert.ok(S.particlesAt({kind: 'splash', t: 0, p: [0, 0, 0]}, .05).length >= 25);
-  assert.equal(S.flashAt(0, 1), 0); assert.ok(Math.abs(S.flashAt(1.1, 1) - 1) < 1e-9);
+  assert.equal(S.spawnFlashAt(1 + 8.01 / 30, 1), 0); assert.equal(S.spawnFlashAt(1, 1), 1); assert.ok(S.burstAt(1 + 7 / 30, 1).r > 4); assert.equal(S.flashAt(0, 1), 0); assert.ok(Math.abs(S.flashAt(1.1, 1) - 1) < 1e-9);
 });
 test('hand track: enter from above, grab, carry, release over 4 frames, exit', () => {
   const ev = [{t: 0, act: 'enter'}, {t: 1.2, act: 'grab', actor: 'b', headAt: [0, 3, 40]}, {t: 2, act: 'carry', actor: 'b', anchorPos: [-30, 43, -22]}, {t: 4, act: 'release', actor: 'b'}, {t: 4.5, act: 'exit'}];
@@ -105,7 +110,9 @@ test('air catch: meet at tc, fall together, land', () => {
 test('crowd: deterministic, pile ≤ 0.1 interpenetration and 3 high, flop stagger ≤ 0.4 s', () => {
   const crowd = {n: 40, seed: 7, start: [0, 8], area: {x0: -36, x1: 36, z0: -50, z1: 56}, steps: [{t: 0, behaviour: 'wander'}, {t: 4, behaviour: 'run', anchorPos: [-25, 0, -26]}, {t: 8, behaviour: 'pile', anchorPos: [-12, 0, -20]}, {t: 14, behaviour: 'flop'}]};
   assert.deepEqual(S.crowdAt(3, 2.5, crowd), S.crowdAt(3, 2.5, crowd));
-  const pile = S.pileSlots(40); assert.ok(S.pileWorst(pile) <= .1, 'pile interpenetration ' + S.pileWorst(pile)); assert.ok(pile.height >= 3 && pile.height <= 4); assert.ok(pile.length >= 20);
+  const pile = S.moundSlots(), bx = S.PILE.slots.map(S.pileBodyBoxes); let w = 0; for (let i = 0; i < bx.length; i++) for (let j = i + 1; j < bx.length; j++) w = Math.max(w, A6.penetration(bx[i], bx[j]).depth);
+  assert.ok(w <= .1, 'mound interpenetration ' + w); assert.ok(Math.abs(w - S.PILE.worst) < 1e-3, 'frozen data matches the geometry'); assert.ok(pile.length >= 6 && S.PILE.height <= 4.2);
+  assert.ok(S.PILE.slots.some(b => b.pose.startsWith('lie')) && S.PILE.slots.some(b => b.pose === 'sit'), 'rim lying + middle sitting');
   const lying = [...Array(40)].map((_, i) => S.crowdAt(i, 14, crowd, {pile})).filter(s => s.lie && s.lie.u >= 1).length; assert.equal(lying, pile.length);
   const flops = [...Array(40)].map((_, i) => S.crowdAt(i, 15, crowd, {pile})).filter(s => s.flopT !== null); assert.equal(flops.length, 40 - pile.length); assert.ok(flops.every(s => s.flopT >= 14 && s.flopT <= 14.4));
   assert.deepEqual(S.story6Times({}), []);

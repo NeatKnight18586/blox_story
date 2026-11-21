@@ -80,7 +80,7 @@ export async function createStory6(ctx) {
   const leadDelta = (n, t) => { const p = posAt(n, t), b = posBase(n, t); return [p[0] - b[0], p[1] - b[1], p[2] - b[2]]; };
   // ---- crowd ----------------------------------------------------------------------------------------------------------------------
   const CR = D.crowd ?? null, crowdNames = CR?.names ?? [], crowdIdx = new Map(crowdNames.map((n, i) => [n, i]));
-  if (CR) { CR.n = crowdNames.length; CR.start = CR.startAt ? (p => [p[0], p[2]])(anchorPos(CR.startAt)) : CR.start ?? [0, 8]; CR.steps = CR.steps.map(s => ({...s, anchorPos: s.anchor ? anchorPos(s.anchor) : [CR.start[0], 0, CR.start[1]]})); CR.pile = S.pileSlots(crowdNames.length); }
+  if (CR) { CR.n = crowdNames.length; CR.start = CR.startAt ? (p => [p[0], p[2]])(anchorPos(CR.startAt)) : CR.start ?? [0, 8]; CR.steps = CR.steps.map(s => ({...s, anchorPos: s.anchor ? anchorPos(s.anchor) : [CR.start[0], 0, CR.start[1]]})); CR.pile = S.moundSlots(); }
   // ---- wash materials (drains, blooms) ------------------------------------------------------------------------------------------
   const twins = n => cast[n].lod ? [cast[n].lod.near, cast[n].lod.far] : [cast[n].a], washes = [], meshWash = new Map();
   const timeline = new Map();   // mesh → [{t, frames, dir, to: state | 'base', region, actor}]
@@ -93,7 +93,7 @@ export async function createStory6(ctx) {
       if (region === 'cheeks') for (const s of [-1, 1]) { const c = new T.Mesh(new T.CircleGeometry(.13, 16), mat); c.position.set(s * .3, -.13, .62); g.add(c); }
       else { const b = new T.Mesh(new T.BoxGeometry(.16, .12, .1), mat); b.position.set(0, -.04, .64); g.add(b); }
       g.position.y = f === a.faceLayer ? 0 : .58; g.name = 'bloom_' + region; f.add(g); extras.push({g, mat, t, frames: S.BLOOM_FRAMES}); } };
-  const WHITE = S.WHITE_STATE;
+  const WHITE = S.WHITE_STATE, colCache = new Map(), colOf = h => { let c = colCache.get(h); if (!c) colCache.set(h, c = new T.Color(h)); return c; };
   for (const d of D.drains ?? []) { const e = S.drainError(d.actor, d.region, {hero: HERO}); if (e) throw Error('drain: ' + e); if (!cast[d.actor]) throw Error('drain: unknown actor ' + d.actor);
     addEv(d.actor, d.region, {t: d.t, frames: S.DRAIN_FRAMES, dir: 'down', to: WHITE, actor: d.actor}); }
   const bloomOf = (b, glow = true) => { if (!cast[b.actor]) throw Error('bloom: unknown actor ' + b.actor);
@@ -125,7 +125,8 @@ export async function createStory6(ctx) {
   const RCAP = 200, rg = new T.RingGeometry(.86, 1, 48); rg.rotateX(-Math.PI / 2);
   const rMesh = new T.InstancedMesh(rg, new T.MeshBasicMaterial({color: '#ffffff', transparent: true, blending: T.AdditiveBlending, depthWrite: false, side: T.DoubleSide, toneMapped: false}), RCAP); rMesh.instanceColor = new T.InstancedBufferAttribute(new Float32Array(RCAP * 3), 3); rMesh.frustumCulled = false; rMesh.name = 'story6Rings'; rMesh.userData.live = true; scene.add(rMesh);
   let hand = scene.getObjectByName('giantHand'); if (handEv.length && !hand) { hand = PROPS6.giantHand(); hand.name = 'giantHand'; scene.add(hand); }
-  const pad = scene.getObjectByName('spawnPad');
+  const spawnFx = (D.spawns ?? []).map(sp => { const a = cast[sp.actor].a, k = a.preset?.scale ?? 1, h = 2 * 5.3 * k, p = posAt(sp.actor, sp.t), colM = new T.MeshBasicMaterial({color: '#7FF3FF', transparent: true, opacity: 0, blending: T.AdditiveBlending, depthWrite: false, side: T.DoubleSide, toneMapped: false});
+    const col = new T.Mesh(new T.CylinderGeometry(1.6 * k + .4, 1.6 * k + .4, h, 32, 1, true), colM); col.position.set(p[0], p[1] + h / 2, p[2]); col.visible = false; col.name = 'spawnColumn_' + sp.actor; col.userData.live = true; col.frustumCulled = false; scene.add(col); return {...sp, p, col, colM, h}; });
   // ---- actor positions (pure) -----------------------------------------------------------------------------------------------------
   function actorPos(n, t) { if (crowdIdx.has(n)) { const s = S.crowdAt(crowdIdx.get(n), t, CR, {pile: CR.pile}); return [s.p[0], groundY(s.p[0], s.p[1]), s.p[1]]; } return posAt(n, t); }
   const regionMid = (n, region) => { const a = cast[n].a, b = new T.Box3(); a.root.updateMatrixWorld(true); a.root.traverse(o => { if (o.isMesh && regionsOf(o, a, inHeadOf(o, a)).has(region)) b.expandByObject(o); }); return b.isEmpty() ? a.root.position.toArray() : b.getCenter(new T.Vector3()).toArray(); };
@@ -150,14 +151,19 @@ export async function createStory6(ctx) {
   const api = {
     owns: n => crowdIdx.has(n),
     drive(n, x, t, out) {   // crowd: behaviour → position, cycle / pose, lying in the pile, flop
+      if (x.s6t === t && x.s6a === x.a) { out[n] = markPos[n]; return; }   // posed already this frame (poseCast runs twice per frame); a LOD swap changes x.a and re-poses
+      x.s6t = t; x.s6a = x.a;
       const i = crowdIdx.get(n), st = S.crowdAt(i, t, CR, {pile: CR.pile}), a = x.a, gy = groundY(st.p[0], st.p[1]), pos = [st.p[0], gy, st.p[1]], near = a.tier !== 'bg', build = a.build;
       const cyc = st.moving ? (st.pose === 'run' ? 'sprint' : st.lean ? 'sad_walk' : 'walk') : null;
       if (st.flopT !== null && t >= st.flopT) driveActor(a, t, {keys: [[0, 'idle']], acting: () => sampleVerb('knees_collapse', t - st.flopT, {build, seed: i + 1}).sample, faces: x.c.faces, origin: {position: pos, yaw: st.yaw}, fps: FPS});
       else if (cyc && near) driveActor(a, t, {keys: [[0, 'idle']], acting: () => sampleCycle(cyc, t + i * .37, {build}).sample, faces: x.c.faces, origin: {position: pos, yaw: st.yaw}, fps: FPS});
       else driveActor(a, t, {keys: [[0, st.moving ? (st.pose === 'run' ? 'run' : 'walk') : st.pose === 'cheer' ? 'cheer' : 'idle']], faces: x.c.faces, origin: {position: pos, yaw: st.yaw}, fps: FPS});
       if (st.lean) a.root.rotateX(st.lean * Math.PI / 180);
-      if (st.lie) { const L = st.lie, u = L.u, k = a.root.scale.x || 1, c0 = [L.from[0], groundY(L.from[0], L.from[1]) + CENTRE * k, L.from[1]], c = [c0[0] + (L.to[0] - c0[0]) * u, c0[1] + (L.to[1] - c0[1]) * u + 4 * L.hop * u * (1 - u), c0[2] + (L.to[2] - c0[2]) * u];
-        if (u > 0) { placeByCentre(a, c, st.yaw + (L.yaw - st.yaw) * Math.min(1, u * 1.4), L.face * Math.PI / 2 * Math.min(1, u * 1.2), k); if (u < 1) limbsLoose(a, -.8 * Math.sin(Math.PI * u), t, .7); } }
+      if (st.lie && st.lie.u > 0) { const L = st.lie, u = L.u, f0 = [L.from[0], groundY(L.from[0], L.from[1]), L.from[1]];   // E2b mound: hop to the slot, settle into the frozen pose
+        if (u >= .55) driveActor(a, t, {keys: [[0, 'idle']], acting: () => S.PILE_POSES[L.pose], faces: x.c.faces, origin: {position: [0, 0, 0], yaw: 0}, fps: FPS});
+        const ru = Math.min(1, u * 1.25), qA = new T.Quaternion().setFromEuler(new T.Euler(0, st.yaw, 0, 'YXZ')), qB = new T.Quaternion().setFromEuler(new T.Euler(L.euler[0], L.euler[1], L.euler[2], 'YXZ'));
+        a.root.quaternion.copy(qA).slerp(qB, ru); a.root.position.set(f0[0] + (L.to[0] - f0[0]) * u, f0[1] + (L.to[1] - f0[1]) * u + 4 * L.hop * u * (1 - u), f0[2] + (L.to[2] - f0[2]) * u);
+        if (u < .55) limbsLoose(a, -.8 * Math.sin(Math.PI * u), t, .7); }
       markPos[n] = pos; out[n] = pos; api.post(n, x, t, out, true);
     },
     post(n, x, t, out, crowd = false) {
@@ -176,9 +182,9 @@ export async function createStory6(ctx) {
     frame(t) {
       for (const b of crowdBlooms) if (t >= b.t - .05) planCrowdBloom(b);
       // wash uniforms
-      for (const o of washes) { const w = meshWash.get(o), tl = timeline.get(o), U = w.U; let prev = w.base, cur = null;
+      for (const o of washes) { const w = meshWash.get(o); if (!w.a.root.visible) continue; const tl = timeline.get(o), U = w.U; let prev = w.base, cur = null;   // hidden LOD twins: skip (uniforms are set from scratch every frame, so nothing goes stale)
         for (const ev of tl) { if (ev.placeholder || ev.t > t) break; if (cur) prev = cur.to === 'base' ? w.base : cur.to; cur = ev; }
-        const P = prev, N = cur ? (cur.to === 'base' ? w.base : cur.to) : prev; U.uCp.value.set(P.colour); U.uCn.value.set(N.colour); U.uRp.value = P.rough; U.uRn.value = N.rough; U.uLp.value = P.lift; U.uLn.value = N.lift;
+        const P = prev, N = cur ? (cur.to === 'base' ? w.base : cur.to) : prev; U.uCp.value.copy(colOf(P.colour)); U.uCn.value.copy(colOf(N.colour)); U.uRp.value = P.rough; U.uRn.value = N.rough; U.uLp.value = P.lift; U.uLn.value = N.lift;
         if (!cur) { U.uFront.value = 1e4; U.uDir.value = 1; continue; }
         const a = w.a, k = a.root.scale.x || 1, y0 = a.root.position.y, u = (t - cur.t) * FPS / cur.frames, top = y0 + 5.4 * k, bot = y0 - .1;
         U.uDir.value = cur.dir === 'down' ? 1 : -1; U.uFront.value = S.washFront(u, top, bot, cur.dir); }
@@ -196,7 +202,8 @@ export async function createStory6(ctx) {
       if (hand && handEv.length) { hmemo.clear(); const h = track(t); hand.visible = h.visible;
         if (h.visible && h.Q) { hand.userData.set({pose: h.pose, grip: h.grip}); const R = handRig(h.pose, h.grip), L = R.thumb[1].to.map((v, i) => (v + R.index[1].to[i]) / 2);
           hand.rotation.set(S.HAND_PITCH, S.HAND_YAW, 0, 'YXZ'); const off = v3(L).applyEuler(hand.rotation); hand.position.set(h.Q[0] - off.x, h.Q[1] - off.y, h.Q[2] - off.z); } }
-      if (pad && D.spawns?.length) { let f = 0; for (const s of D.spawns) f = Math.max(f, S.flashAt(t, s.t)); pad.userData.set({flash: f}); }
+      for (const sp of spawnFx) { const f = S.spawnFlashAt(t, sp.t, FPS), b = S.burstAt(t, sp.t, FPS); sp.col.visible = f > 0; sp.colM.opacity = .55 * f;
+        if (b && nr < RCAP) { M.makeScale(b.r, 1, b.r).setPosition(sp.p[0], sp.p[1] + .05, sp.p[2]); rMesh.setMatrixAt(nr, M); rMesh.setColorAt(nr, col.set('#4FE3F0').multiplyScalar(b.opacity)); nr++; rMesh.count = nr; rMesh.instanceMatrix.needsUpdate = true; rMesh.instanceColor.needsUpdate = true; rMesh.visible = true; } }   // E2b: local flash — a ring burst on the pad + a column ≤ 2 × the actor's height, 8 frames; no pad-wide column, no exposure change
     },
     actorPos, windows: W, persist, handEv, puffs, rings,
     airCatches: (D.airCatch ?? []).map(e => ({...e, catchAt: e.A?.catchAt, landAt: e.A?.landAt, tLand: e.A?.tLand})),

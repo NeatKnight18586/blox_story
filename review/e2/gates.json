@@ -8,18 +8,67 @@
   "note": "hands under the thighs skipped (P3b rule); the fall adds one vector to both roots"
  },
  "pile": {
-  "bodies": 23,
-  "height": 3.52,
-  "radius": 13.1,
-  "interpenetrationMax": 0.085,
+  "bodies": 8,
+  "poses": [
+   "lieT",
+   "lieT",
+   "lieT",
+   "lieT",
+   "lieT",
+   "sit",
+   "sit",
+   "sit"
+  ],
+  "height": 3.67,
+  "radius": 6.6,
+  "groundHidden5": 0.807,
+  "interpenetrationMax": 0.0816,
+  "pair": "1-6 leftHand→rightThigh",
   "limit": 0.1,
-  "pass": true
+  "pass": true,
+  "note": "R15 segment boxes (acting6 bodyBoxes) of the frozen mound"
  },
  "tumble": {
   "turns": 1.75,
   "lagSeconds": 0.25,
   "lagError": 0,
   "pass": true
+ },
+ "pile390": {
+  "components": 1,
+  "componentPx": [
+   47454
+  ],
+  "bboxPx": [
+   18,
+   283,
+   371,
+   498
+  ],
+  "ratio": 0.61,
+  "rule": "one connected component (4-connected), height / width 0.35–0.6, 390 × 693 still from 20 studs at 25° up",
+  "pass": false
+ },
+ "spawn": {
+  "frame": 58,
+  "before": 180.77,
+  "during": [
+   181.24,
+   182.07,
+   182.57,
+   183.05,
+   184.62,
+   185.56,
+   186.7,
+   187.71
+  ],
+  "outsideFrac": 0.227,
+  "maxChange": 0.02,
+  "rawChangeWithCameraMove": 3.84,
+  "columnHeight": 6.57,
+  "limit": 3,
+  "pass": true,
+  "rule": "mean luma outside the pad, column, ring and actor: each of the 8 flash frames with the flash vs the same frame without it, % (rawChangeWithCameraMove = vs the frame before, includes the orbit)"
  },
  "drain": {
   "regions": [
@@ -115,6 +164,17 @@
    }
   ],
   "washMeshes": 46,
+  "stripeLeak": {
+   "afterHandsFrame": 95,
+   "bodyPx": 53214,
+   "bluePx": 0,
+   "refRendered": [
+    49.6,
+    3.8,
+    -51.1
+   ],
+   "pass": true
+  },
   "pass": true,
   "limit": 3,
   "endState": {

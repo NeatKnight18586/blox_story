@@ -166,10 +166,10 @@ export function crowdAt(i, t, crowd, {pile = null} = {}) {
     else if (s.behaviour === 'run') { const a = R() * Math.PI * 2, r = Math.sqrt(R()) * Math.max(2.5, Math.sqrt(crowd.n) * .9), tgt = [s.anchorPos[0] + Math.sin(a) * r, s.anchorPos[2] + Math.cos(a) * r];
       const delay = R() * .3, d = Math.hypot(tgt[0] - p[0], tgt[1] - p[1]), dur = d / CROWD_SPEED.run, u = cl((tEnd - s.t - delay) / Math.max(dur, 1e-3));
       if (d > .01) yaw = Math.atan2(tgt[0] - p[0], tgt[1] - p[1]); p = [p[0] + (tgt[0] - p[0]) * u, p[1] + (tgt[1] - p[1]) * u]; st.pose = u > 0 && u < 1 ? 'run' : 'idle'; st.moving = u > 0 && u < 1; }
-    else if (s.behaviour === 'pile') { const slots = pile ?? pileSlots(crowd.n), sl = slots[i];
+    else if (s.behaviour === 'pile') { const slots = pile ?? moundSlots(), sl = slots[i];
       if (sl) { const order = slots.order[i], delay = order * .05, d = Math.hypot(sl.c[0] - p[0], sl.c[2] - p[1]), dur = Math.max(.6, d / 10), u = cl((tEnd - s.t - delay) / dur);
-        const c = [s.anchorPos[0] + sl.c[0], s.anchorPos[1] + sl.c[1], s.anchorPos[2] + sl.c[2]];
-        st.lie = {u, from: [p[0], p[1]], to: c, yaw: sl.yaw, face: sl.face, hop: 1.6 + sl.c[1]}; if (u >= 1) p = [c[0], c[2]]; }
+        const c = [s.anchorPos[0] + sl.root[0], s.anchorPos[1] + sl.root[1], s.anchorPos[2] + sl.root[2]];
+        st.lie = {u, from: [p[0], p[1]], to: c, euler: sl.euler, pose: sl.pose, hop: 1.6 + Math.max(0, sl.root[1])}; if (u >= 1) p = [c[0], c[2]]; }
       else { const a = (i * 2.39996) % (2 * Math.PI), r = (slots.radius ?? 10) + 2.5, tgt = [s.anchorPos[0] + Math.sin(a) * r, s.anchorPos[2] + Math.cos(a) * r], d = Math.hypot(tgt[0] - p[0], tgt[1] - p[1]), u = cl((tEnd - s.t) / Math.max(d / CROWD_SPEED.run, 1e-3));
         if (d > .01 && u < 1) yaw = Math.atan2(tgt[0] - p[0], tgt[1] - p[1]); else yaw = Math.atan2(s.anchorPos[0] - p[0], s.anchorPos[2] - p[1]); p = [p[0] + (tgt[0] - p[0]) * u, p[1] + (tgt[1] - p[1]) * u]; st.pose = u < 1 ? 'run' : 'cheer'; st.moving = u < 1; } }
     else if (s.behaviour === 'flop') { if (prevLie && prevLie.u >= 1) st.lie = prevLie; else { st.flopT = s.t + R() * FLOP_STAGGER; st.pose = 'idle'; } }   // bodies already in the pile stay down
@@ -224,6 +224,9 @@ export function particlesAt(ev, t) {
 }
 export const rippleAt = (ev, t) => { const lt = t - ev.t; if (lt < 0 || lt > 1.4) return null; return {r: .8 + 7 * eo(lt / 1.4), opacity: .7 * (1 - lt / 1.4)}; };
 export const glowAt = (ev, t) => { const lt = t - ev.t; if (lt < 0 || lt > .8) return null; return {r: .8 + 2.6 * eo(lt / .8), opacity: .65 * (1 - lt / .8)}; };
+export const SPAWN_FRAMES = 8;   // E2b: the spawn flash is local and short
+export const spawnFlashAt = (t, t0, fps = 30) => { const f = (t - t0) * fps; return f < 0 || f >= SPAWN_FRAMES ? 0 : 1 - f / SPAWN_FRAMES; };
+export const burstAt = (t, t0, fps = 30) => { const f = (t - t0) * fps; if (f < 0 || f >= SPAWN_FRAMES) return null; const u = f / SPAWN_FRAMES; return {r: 1 + 4.5 * (1 - (1 - u) ** 3), opacity: .9 * (1 - u)}; };
 export const flashAt = (t, t0) => { const lt = t - t0; return lt < 0 ? 0 : lt < .1 ? lt / .1 : Math.max(0, 1 - (lt - .1) / .5); };
 // Crowd bloom: one seeded region + tint per dummy, staggered over 1.2 s outward from the hero (rank by distance).
 export function crowdBloomPlan(members, heroPos, t0, seed = 5) {
@@ -235,4 +238,48 @@ export function crowdBloomPlan(members, heroPos, t0, seed = 5) {
 export function story6Times(spec) {
   const D = spec?.story6; if (!D) return [];
   return [...(D.drains ?? []), ...(D.blooms ?? []), ...(D.hand ?? []), ...(D.tumbles ?? []), ...(D.airCatch ?? []), ...(D.splashes ?? []), ...(D.tags ?? []), ...(D.spawns ?? []), ...(D.crowd?.steps ?? [])].map(e => e.t).filter(t => Number.isFinite(t)).sort((a, b) => a - b);
+}
+
+// ---- E2b pile: ONE soft mound of posed R15 bodies (frozen by scripts/v2/pile-solve.js → engine/pile6.json) ----------------------
+// A body = pose (acting6 channels, limp) + ring angle a, radial distance r of its centre, yaw offset, tilt (about its side axis), roll,
+// and for the top layer the height y of its lowest point. Rotation R = Ry(yaw) · Rx(tilt) · Rz(roll) (three.js Euler 'YXZ').
+import * as A6 from './acting6.js';
+import PILE6 from './pile6.json' with {type: 'json'};   // frozen by scripts/v2/pile-solve.js
+const PP = {   // E2b mound poses (acting6 channels, degrees; ik 0 = the legs follow the hip / knee channels)
+  lie: {lS: [8, 0, -5], rS: [8, 0, 5], lE: -20, rE: -20, lH: [-70, 0, -8], rH: [-62, 0, 10], lK: 85, rK: 70, head: [-10, 20, 0], ik: 0},   // on the back, knees up: legs drape inward
+  lieT: {lS: [4, 0, -4], rS: [4, 0, 4], lE: -15, rE: -10, lH: [-22, 0, -4], rH: [-10, 0, 6], lK: 30, rK: 16, head: [-5, 0, 0], ik: 0},   // on the back along the rim, arms at the sides, knees soft
+  sit: {lH: [-40, 0, -14], rH: [-36, 0, 14], lK: 6, rK: 2, waist: [6, 0, 0], head: [18, -15, 0], lS: [14, 0, -26], rS: [10, 0, 24], lE: -22, rE: -15, ik: 0},   // half-reclined (placed at tilt ≈ −50): thighs level, slumped
+  slump: {lH: [-70, 0, -16], rH: [-64, 0, 16], lK: 18, rK: 10, waist: [32, 0, 0], head: [24, 10, 0], lS: [-30, 0, -20], rS: [-24, 0, 18], lE: -30, rE: -20, ik: 0},   // sitting, folded forward over the legs (placed facing the centre)
+  top: {lS: [0, 0, -45], rS: [0, 0, 40], lE: -8, rE: 0, lH: [-12, 0, -10], rH: [-4, 0, 6], lK: 15, rK: 6, head: [0, -25, 0], ik: 0}};
+export const PILE_POSES = Object.fromEntries(Object.entries(PP).map(([k, v]) => [k, A6.solve(A6.P(v), 'dummy').sample]));
+const mm3 = (A, B) => A.map(r => [0, 1, 2].map(j => r[0] * B[0][j] + r[1] * B[1][j] + r[2] * B[2][j])), mv3 = (A, v) => A.map(r => r[0] * v[0] + r[1] * v[1] + r[2] * v[2]);
+const rX = a => [[1, 0, 0], [0, Math.cos(a), -Math.sin(a)], [0, Math.sin(a), Math.cos(a)]], rY = a => [[Math.cos(a), 0, Math.sin(a)], [0, 1, 0], [-Math.sin(a), 0, Math.cos(a)]], rZ = a => [[Math.cos(a), -Math.sin(a), 0], [Math.sin(a), Math.cos(a), 0], [0, 0, 1]];
+const D2 = Math.PI / 180, BODY_C = 2.6;
+// → {root: [x, y, z] (the actor's root, anchor-relative), euler: [tilt, yaw, roll] rad ('YXZ'), boxes (world, anchor-relative)}
+export function pilePlacement(b) {
+  const yaw = ((b.pose === 'sit' ? b.a : b.pose === 'lieT' ? b.a + 90 : b.a + 180) + (b.yo ?? 0)) * D2,   // slump / lie / top: the front faces the centre (lie: head out)
+    Rb = mm3(mm3(rY(yaw), rX((b.tilt ?? 0) * D2)), rZ((b.roll ?? 0) * D2));
+  const C = [b.r * Math.sin(b.a * D2), 0, b.r * Math.cos(b.a * D2)], local = A6.bodyBoxes(PILE_POSES[b.pose], 'dummy');
+  let boxes = local.map(q => ({n: q.n, c: add(C, mv3(Rb, sub(q.c, [0, BODY_C, 0]))), R: mm3(Rb, q.R), h: q.h}));
+  const lo = Math.min(...boxes.flatMap(q => [-1, 1].flatMap(x => [-1, 1].flatMap(y => [-1, 1].map(z => q.c[1] + mv3(q.R, [x * q.h[0], y * q.h[1], z * q.h[2]])[1]))))), dy = (b.y ?? 0) - lo;
+  boxes = boxes.map(q => ({...q, c: [q.c[0], q.c[1] + dy, q.c[2]]}));
+  const root = add([C[0], C[1] + dy, C[2]], mv3(Rb, [0, -BODY_C, 0]));
+  return {root, euler: [(b.tilt ?? 0) * D2, yaw, (b.roll ?? 0) * D2], boxes, pose: b.pose};
+}
+export const pileBodyBoxes = b => pilePlacement(b).boxes;
+const corners = q => [-1, 1].flatMap(x => [-1, 1].flatMap(y => [-1, 1].map(z => add(q.c, mv3(q.R, [x * q.h[0], y * q.h[1], z * q.h[2]])))));
+export function pileShape(boxesList) { let rad = 0, h = 0; for (const bs of boxesList) for (const q of bs) for (const p of corners(q)) { rad = Math.max(rad, Math.hypot(p[0], p[2])); h = Math.max(h, p[1]); } return {radius: rad, height: h}; }
+// Fraction of the disc (radius R) whose vertical line hits a body (seen from above: no ground showing through).
+export function pileCoverage(boxesList, Rr = 5, step = .25) {
+  const all = boxesList.flat().map(q => ({...q, Rt: [0, 1, 2].map(i => [q.R[0][i], q.R[1][i], q.R[2][i]])})); let n = 0, hit = 0;
+  for (let x = -Rr; x <= Rr; x += step) for (let z = -Rr; z <= Rr; z += step) { if (Math.hypot(x, z) > Rr) continue; n++;
+    if (all.some(q => { for (let y = 0; y <= 4.4; y += .2) { const l = mv3(q.Rt, sub([x, y, z], q.c)); if (Math.abs(l[0]) <= q.h[0] && Math.abs(l[1]) <= q.h[1] && Math.abs(l[2]) <= q.h[2]) return true; } return false; })) hit++; }
+  return hit / Math.max(1, n);
+}
+
+// The frozen mound: anchor-relative actor roots + Euler ('YXZ') + pose per body, filled in solver order (the rim first).
+export const PILE = PILE6;
+export function moundSlots() {
+  const slots = PILE6.slots.map(b => { const p = pilePlacement(b); return {pose: b.pose, root: p.root, euler: p.euler, c: p.root, layer: b.pose.startsWith('lie') ? 0 : 1}; });
+  slots.order = Object.fromEntries(slots.map((_, i) => [i, i])); slots.radius = PILE6.radius; slots.height = PILE6.height; return slots;
 }

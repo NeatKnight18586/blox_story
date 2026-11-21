@@ -18,7 +18,9 @@ const W = Number(arg('width', 720)), H = Number(arg('height', 1280)), N = Number
 import {readFileSync} from 'node:fs';
 const specJson = JSON.parse(readFileSync(spec, 'utf8')), worldSrc = specJson.world ? readFileSync(specJson.world, 'utf8') : '';
 const V3 = specJson.budget === 'v3' || /export const LOOK\b/.test(worldSrc);
-const MAX_TRI = V3 ? 90000 : 50000, MAX_S = V3 ? .62 : .45;   // owner Decision 4 (A5): Season 1 worlds ≤ 90k, ≤ 0.62 s at 720
+const CROWD_N = Object.values(specJson.cast ?? {}).filter(c => c.costume === 'CROWD').length + (specJson.crowds ?? []).reduce((z, c) => z + (c.count ?? 0), 0);   // crowd dummies + instanced crowds
+const BIG_CROWD = CROWD_N >= 60;   // owner decision (E2b, Mark): specs with a crowd ≥ 60 get a 120k triangle budget; the s/frame gate is unchanged
+const MAX_TRI = V3 ? (BIG_CROWD ? 120000 : 90000) : 50000, MAX_S = V3 ? .62 : .45;   // owner Decision 4 (A5): Season 1 worlds ≤ 90k, ≤ 0.62 s at 720
 
 const server = await startServer(process.cwd()), browser = await launch();
 try {
@@ -53,6 +55,6 @@ try {
   const over = rows.filter(r => r.triangles > MAX_TRI).map(r => r.shot);
   const BACKDROP = !!specJson.backdrop, pass = BACKDROP ? (mean1080 ?? mean) <= .69 && !errors.length : !over.length && mean <= MAX_S && !errors.length;   // owner Kit 1c: backdrop specs gate on time (≤ 0.69 s/frame at 1080), triangles are only reported
   console.table(rows);
-  console.log(JSON.stringify({spec, budget: V3 ? 'Season 1 (90k, 0.62 s)' : 'v2 (50k, 0.45 s)', size: `${W}x${H}`, browser: browser.resolved.executablePath ?? 'playwright', maxTriangles: Math.max(...rows.map(r => r.triangles)), meanSecondsPerFrame: mean, meanSecondsPerFrame1080: mean1080, target1080: 1.0, overBudget: BACKDROP ? [] : over, trianglesOver90k: BACKDROP ? over : undefined, errors, result: pass ? 'PASS' : 'FAIL'}));
+  console.log(JSON.stringify({spec, budget: V3 ? `Season 1 (${MAX_TRI / 1000}k${BIG_CROWD ? `, crowd ${CROWD_N} ≥ 60` : ''}, 0.62 s)` : 'v2 (50k, 0.45 s)', size: `${W}x${H}`, browser: browser.resolved.executablePath ?? 'playwright', maxTriangles: Math.max(...rows.map(r => r.triangles)), meanSecondsPerFrame: mean, meanSecondsPerFrame1080: mean1080, target1080: 1.0, overBudget: BACKDROP ? [] : over, trianglesOver90k: BACKDROP ? over : undefined, errors, result: pass ? 'PASS' : 'FAIL'}));
   process.exitCode = pass ? 0 : 1;
 } finally { await browser.close(); await server.close(); }
