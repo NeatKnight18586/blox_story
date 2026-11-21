@@ -1717,3 +1717,7 @@ Built: engine/actors.js preset `material` (matteOf); engine/episode.js opt-ins s
 Numbers: white lit 227.0 / 226.2, shadow 157.1 / 157.2, |a*| ≤ 0.58, |b*| ≤ 3.70 · bench mean 0.186 s/frame (B2 24 near + 96 far) · glove silhouette PASS ×4, pinch gap 15.6 px at 390 · Bitsy C* 58.3 > kid 54.1 · sign 17.3 / 17.0 px in the drone still · stability 0.102 % · Nobody 62/62, Touch Grass 20/20 identical · npm test 0, v2:test 243 + 67 py.
 Decisions: white gate fix pass 1 = the park's look (concrete-grey ground bounce, near-white sun), not the material; LOD distance to the chest (mark + 2.6); the hidden twin is never posed; key light 20° off the lens axis; drone still moved closer (fov 46) so the 24 × 5 sign reads; glove = 4 fingers + thumb, cuff band 2.1 (0.15 × 14), pinch shown at grip 0.75.
 Open: glove reads darker than the sky; Bitsy wins chroma by 4.2 only; fan foreground in S1/S2.
+
+## E1c — kid hoodie (2026-11-21)
+Owner asked for #7B4FD6: lineup gates FAILED by colour (rendered kid C* 58.85 > Bitsy 58.33; hue gap 55.4°; on paper C* 79.6 vs 66.5, gap 49.5°). Owner chose #5F6AC0 (edge #4A54A0).
+Numbers: Bitsy C* 58.32 (highest), kid 35.5, hero 16.2, DUMMY 0.42; kid–Bitsy Lab hue gap 72.7° PASS (`review/testpark/lineup-chroma.json`); Nobody 62/62, Touch Grass 20/20 identical; npm test 0; v2:test 243 + 67 py. Only lineup.png re-rendered (stills/S7, contact, phone-390 still show the orange hoodie).

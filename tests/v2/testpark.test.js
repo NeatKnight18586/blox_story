@@ -76,7 +76,7 @@ test('troupe: DUMMY slot (torso +5 %) and costumes', () => {
   const b = resolveTroupe({troupe: 'LITTLE', costume: 'BITSY'}, data);
   assert.equal(b.skin, '#FFD0E2'); assert.equal(b.regions.torso.main, '#FF5FA2'); assert.equal(b.hair.color, '#FF3F8E'); assert.equal(b.scale, .62); assert.equal(b.hair.style, 'high_ponytail');
   const k = resolveTroupe({troupe: 'SECOND', costume: 'KID'}, data);
-  assert.equal(k.regions.torso.main, '#F28C28'); assert.equal(k.regions.legs.shoes, '#F4F4F4'); assert.equal(k.hair.color, '#4FB548');
+  assert.equal(k.regions.torso.main, '#5F6AC0'); assert.equal(k.regions.legs.shoes, '#F4F4F4'); assert.equal(k.hair.color, '#4FB548');
   assert.equal(resolveTroupe({troupe: 'DUMMY', costume: 'CROWD'}, data).tier, 'bg');
   assert.throws(() => resolveTroupe({troupe: 'LEAD', costume: 'BITSY'}, data));
   assert.equal(resolveTroupe({troupe: 'LITTLE'}, data).skin, data.troupe.LITTLE.skin, 'the slot itself is unchanged');
