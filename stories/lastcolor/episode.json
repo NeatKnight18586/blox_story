@@ -12,7 +12,7 @@
  "look": "day",
  "cues": "stories/lastcolor/cues.json",
  "end": 115.301,
- "note": "Written by scripts/v2/brief2spec.js from stories/lastcolor/BRIEF.md (62 shots). Edit the Brief, not this file.",
+ "note": "Written by scripts/v2/brief2spec.js from stories/lastcolor/BRIEF.md (61 shots). Edit the Brief, not this file.",
  "brief": {
   "title": "Every Fall Takes Their COLOR 💔 #shorts #roblox",
   "ruleLine": "\"In this world, every fall drains a dummy's color.\" (6 words after the comma)",
@@ -47,9 +47,9 @@
    "offset": [
     -14,
     0,
-    4
+    -6
    ],
-   "yaw": 0,
+   "yaw": -54,
    "keys": [
     [
      0,
@@ -66,7 +66,7 @@
        0,
        10
       ],
-      "yaw": 0
+      "yaw": -54
      }
     ],
     [
@@ -88,7 +88,7 @@
       "offset": [
        -4.2,
        0,
-       0
+       -12
       ],
       "yaw": 90
      }
@@ -98,9 +98,9 @@
      {
       "at": "plaza",
       "offset": [
-       10,
+       -35,
        0,
-       -48
+       -58
       ],
       "yaw": 0
      }
@@ -110,9 +110,9 @@
      {
       "at": "plaza",
       "offset": [
-       10,
+       -35,
        0,
-       -39
+       -49
       ],
       "yaw": 0
      }
@@ -134,9 +134,9 @@
      {
       "at": "plaza",
       "offset": [
-       4,
+       -6,
        0,
-       -10
+       6
       ],
       "yaw": 90
      }
@@ -146,9 +146,9 @@
      {
       "at": "plaza",
       "offset": [
-       4,
+       -6,
        0,
-       -10
+       6
       ],
       "yaw": 90,
       "travel": {
@@ -165,9 +165,9 @@
      {
       "at": "plaza",
       "offset": [
-       5.871499999999999,
+       -4.128500000000001,
        0,
-       -10
+       6
       ],
       "yaw": 90
      }
@@ -177,9 +177,9 @@
      {
       "at": "plaza",
       "offset": [
-       5.871499999999999,
+       -4.128500000000001,
        0,
-       -10
+       6
       ],
       "yaw": -163.30075576600638,
       "travel": {
@@ -196,9 +196,9 @@
      {
       "at": "plaza",
       "offset": [
-       2.0739103443551765,
+       -7.926089655644823,
        0,
-       -22.658632185482745
+       -6.658632185482743
       ],
       "yaw": -163.30075576600638
      }
@@ -208,9 +208,9 @@
      {
       "at": "plaza",
       "offset": [
-       -20,
+       -7.1,
        0,
-       -32
+       -7.6
       ],
       "yaw": 0
      }
@@ -222,7 +222,7 @@
       "offset": [
        -30,
        0,
-       -38
+       -44
       ],
       "yaw": 180
      }
@@ -232,11 +232,23 @@
      {
       "at": "plaza",
       "offset": [
-       -5,
+       -1.5,
        0,
        -28
       ],
-      "yaw": 180
+      "yaw": 90
+     }
+    ],
+    [
+     110.627,
+     {
+      "at": "plaza",
+      "offset": [
+       -1.5,
+       0,
+       -28
+      ],
+      "yaw": 90
      }
     ]
    ]
@@ -277,9 +289,9 @@
      {
       "at": "plaza",
       "offset": [
-       11.4,
+       -33.6,
        0,
-       -48
+       -58
       ],
       "yaw": 0
      }
@@ -289,9 +301,9 @@
      {
       "at": "plaza",
       "offset": [
-       10.6,
+       -33.6,
        0,
-       -39
+       -49
       ],
       "yaw": 0
      }
@@ -301,23 +313,59 @@
      {
       "at": "plaza",
       "offset": [
-       4,
+       -6,
        0,
-       -11.2
+       4.8
       ],
       "yaw": 90
      }
     ],
     [
-     85.378,
+     73.847,
+     {
+      "at": "plaza",
+      "offset": [
+       -25.6,
+       0,
+       -34.6
+      ],
+      "yaw": 90
+     }
+    ],
+    [
+     84.634,
      {
       "at": "plaza",
       "offset": [
        -31.67,
        0,
-       -38.7
+       -44.7
       ],
       "yaw": 95.09
+     }
+    ],
+    [
+     108.048,
+     {
+      "at": "plaza",
+      "offset": [
+       -0.91,
+       0,
+       -30.06
+      ],
+      "yaw": 80.2
+     }
+    ],
+    [
+     110.627,
+     {
+      "at": "plaza",
+      "offset": [
+       -0.91,
+       0,
+       -30.06
+      ],
+      "yaw": 80.2
      }
     ]
    ]
@@ -328,9 +376,9 @@
    "troupe": "SECOND",
    "at": "plaza",
    "offset": [
-    -6,
+    40,
     0,
-    0
+    48
    ],
    "yaw": 0,
    "keys": [
@@ -358,15 +406,27 @@
      {
       "at": "plaza",
       "offset": [
+       8,
        0,
-       0,
-       34
+       -22
       ],
-      "yaw": 180,
+      "yaw": -122
+     }
+    ],
+    [
+     106.612,
+     {
+      "at": "plaza",
+      "offset": [
+       8,
+       0,
+       -22
+      ],
+      "yaw": -121.94475277620342,
       "travel": {
        "dir": [
-        0,
-        -1
+        -0.8485586743408396,
+        -0.5291012910595825
        ],
        "speed": 5
       }
@@ -377,11 +437,11 @@
      {
       "at": "plaza",
       "offset": [
+       7.151441325659149,
        0,
-       0,
-       32.999999999999986
+       -22.52910129105959
       ],
-      "yaw": 180
+      "yaw": -121.94475277620342
      }
     ]
    ]
@@ -392,15 +452,53 @@
    "troupe": "DUMMY",
    "at": "plaza",
    "offset": [
-    -2,
+    -8.3,
     0,
-    0
+    -10.1
    ],
-   "yaw": 0,
+   "yaw": -54,
    "keys": [
     [
      0,
      "idle"
+    ]
+   ],
+   "marks": [
+    [
+     17.76,
+     {
+      "at": "plaza",
+      "offset": [
+       -2,
+       0,
+       -12
+      ],
+      "yaw": -90
+     }
+    ],
+    [
+     21.92,
+     {
+      "at": "plaza",
+      "offset": [
+       40,
+       0,
+       50
+      ],
+      "yaw": -90
+     }
+    ],
+    [
+     92.488,
+     {
+      "at": "plaza",
+      "offset": [
+       -14,
+       0,
+       -32
+      ],
+      "yaw": -90
+     }
     ]
    ]
   },
@@ -410,9 +508,9 @@
    "troupe": "DUMMY",
    "at": "plaza",
    "offset": [
-    2,
+    44,
     0,
-    0
+    48
    ],
    "yaw": 0,
    "keys": [
@@ -442,9 +540,9 @@
    "troupe": "DUMMY",
    "at": "plaza",
    "offset": [
-    6,
+    43,
     0,
-    0
+    48
    ],
    "yaw": 0,
    "keys": [
@@ -459,11 +557,11 @@
      {
       "at": "plaza",
       "offset": [
-       22,
+       6,
        0,
-       36
+       -21
       ],
-      "yaw": 45
+      "yaw": 125
      }
     ]
    ]
@@ -474,15 +572,29 @@
    "troupe": "DUMMY",
    "at": "plaza",
    "offset": [
-    10,
+    42,
     0,
-    0
+    48
    ],
    "yaw": 0,
    "keys": [
     [
      0,
      "idle"
+    ]
+   ],
+   "marks": [
+    [
+     100.076,
+     {
+      "at": "plaza",
+      "offset": [
+       -24,
+       0,
+       -25
+      ],
+      "yaw": 60
+     }
     ]
    ]
   },
@@ -492,15 +604,29 @@
    "troupe": "DUMMY",
    "at": "plaza",
    "offset": [
-    14,
+    41,
     0,
-    0
+    48
    ],
    "yaw": 0,
    "keys": [
     [
      0,
      "idle"
+    ]
+   ],
+   "marks": [
+    [
+     100.92,
+     {
+      "at": "plaza",
+      "offset": [
+       -23,
+       0,
+       -22
+      ],
+      "yaw": 60
+     }
     ]
    ]
   },
@@ -3025,6 +3151,7 @@
     4
    ],
    "loc": "testPark",
+   "loopOpen": "color",
    "mood": "tension",
    "size": "close",
    "move": "snap",
@@ -3051,6 +3178,20 @@
     },
     {
      "actor": "hero",
+     "face": "neutral",
+     "at": 0
+    },
+    {
+     "actor": "hero",
+     "face": "worried",
+     "at": {
+      "word": "fall",
+      "nth": 1,
+      "line": 1
+     }
+    },
+    {
+     "actor": "hero",
      "face": "shock",
      "at": {
       "word": "color",
@@ -3065,12 +3206,12 @@
     "position": [
      -24.507902573829192,
      8.000428702985626,
-     44.33999876171558
+     34.33999876171558
     ],
     "target": [
      -14,
      4.6,
-     12
+     2
     ],
     "fov": 34
    },
@@ -3078,12 +3219,12 @@
     "position": [
      -16.249927374631664,
      5.328091792874569,
-     18.924564440743808
+     8.924564440743808
     ],
     "target": [
      -14,
      4.6,
-     12
+     2
     ],
     "fov": 34
    },
@@ -3092,6 +3233,10 @@
   {
    "id": "S02",
    "at": 3.005,
+   "impact": 0.595,
+   "punch": [
+    0.595
+   ],
    "loc": "testPark",
    "mood": "awe",
    "size": "wide",
@@ -3218,27 +3363,27 @@
    "note": "The only coloured figure in a crowd of white dummies. A white dummy walks into a lamppost behind him",
    "from": {
     "position": [
-     -16.674240634676426,
-     3.56540244820051,
-     20.230466375788744
+     -16.67,
+     3.57,
+     10.23
     ],
     "target": [
      -14,
      2.7,
-     12
+     2
     ],
     "fov": 55
    },
    "to": {
     "position": [
-     -16.527157399769223,
-     3.5178053135494824,
-     19.77779072512036
+     -16.509800000000002,
+     3.5178,
+     9.7362
     ],
     "target": [
      -14,
      2.7,
-     12
+     2
     ],
     "fov": 55
    }
@@ -3290,29 +3435,29 @@
    "note": "He trips over nothing mid-sentence",
    "from": {
     "position": [
-     -11.325759365323572,
-     3.86540244820051,
-     20.230466375788744
+     -11.33,
+     3.87,
+     10.23
     ],
     "target": [
      -14,
      3,
-     12
+     2
     ],
     "fov": 55
    },
    "to": {
     "position": [
-     -11.325759365323572,
-     3.86540244820051,
-     20.230466375788744
+     -11.33,
+     3.87,
+     10.23
     ],
     "target": [
      -14,
      3,
-     12
+     2
     ],
-    "fov": 46.75
+    "fov": 55
    }
   },
   {
@@ -3324,8 +3469,8 @@
    },
    "loc": "testPark",
    "mood": "comedy",
-   "size": "close",
-   "move": "static-drift",
+   "size": "insert",
+   "move": "push",
    "why": "comedy: Nine thousand falls, and counting.",
    "see": [
     "hero"
@@ -3341,19 +3486,50 @@
      "actor": "hero",
      "face": "neutral",
      "at": 0
+    },
+    {
+     "actor": "hero",
+     "face": "side_eye",
+     "at": {
+      "word": "thousand",
+      "nth": 1,
+      "line": 5
+     }
+    },
+    {
+     "actor": "hero",
+     "face": "sleepy",
+     "at": {
+      "word": "counting",
+      "nth": 1,
+      "line": 5
+     }
     }
    ],
    "note": "Deadpan: face-down on the concrete – one eye to camera",
    "from": {
     "position": [
-     -15.321389490075411,
-     5.027610621463781,
-     16.066818679801496
+     -19.13,
+     1.26,
+     5.74
     ],
     "target": [
-     -14,
-     4.6,
-     12
+     -17.96,
+     1,
+     4.88
+    ],
+    "fov": 55
+   },
+   "to": {
+    "position": [
+     -19.0598,
+     1.2444,
+     5.688400000000001
+    ],
+    "target": [
+     -17.96,
+     1,
+     4.88
     ],
     "fov": 55
    }
@@ -3383,6 +3559,15 @@
      "face": "shock",
      "at": {
       "word": "fan",
+      "nth": 1,
+      "line": 6
+     }
+    },
+    {
+     "actor": "hero",
+     "face": "panic",
+     "at": {
+      "word": "pool",
       "nth": 1,
       "line": 6
      }
@@ -3458,26 +3643,26 @@
    "note": "Perfect pencil dive into the pool",
    "from": {
     "position": [
-     21.325759365323574,
-     3.56540244820051,
-     26.230466375788744
+     21.33,
+     5.37,
+     26.23
     ],
     "target": [
      24,
-     2.7,
+     4.5,
      18
     ],
     "fov": 55
    },
    "to": {
     "position": [
-     21.325759365323574,
-     3.56540244820051,
-     26.230466375788744
+     21.33,
+     5.37,
+     26.23
     ],
     "target": [
      24.6,
-     2.7,
+     4.5,
      18
     ],
     "fov": 55
@@ -3568,9 +3753,9 @@
    "note": "He climbs out – dripping. (6-frame wash – grey dust puff)",
    "from": {
     "position": [
-     22.67861050992459,
-     5.027610621463781,
-     14.066818679801496
+     21.37,
+     5.03,
+     13.37
     ],
     "target": [
      24,
@@ -3581,9 +3766,9 @@
    },
    "to": {
     "position": [
-     22.751286931878738,
-     5.004092037283273,
-     13.843143652412413
+     21.5278,
+     5.0042,
+     13.1678
     ],
     "target": [
      24,
@@ -3675,27 +3860,27 @@
    "note": "Hero beside a white dummy who stares through him. Hero looks at it; it does not look back",
    "from": {
     "position": [
-     -6.571537053915875,
-     5.7234129892881125,
-     18.684292439530765
+     -5.38,
+     5.27,
+     2.41
     ],
     "target": [
-     -3.1,
+     -3.3,
      4.6,
-     8
+     -4
     ],
     "fov": 40
    },
    "to": {
     "position": [
-     -6.43267557175924,
-     5.678476469716587,
-     18.256920741949536
+     -5.2552,
+     5.2298,
+     2.0254000000000003
     ],
     "target": [
-     -3.1,
+     -3.3,
      4.6,
-     8
+     -4
     ],
     "fov": 40
    }
@@ -3781,14 +3966,23 @@
       "nth": 1,
       "line": 13
      }
+    },
+    {
+     "actor": "bitsy",
+     "face": "grin",
+     "at": {
+      "word": "everything",
+      "nth": 1,
+      "line": 13
+     }
     }
    ],
    "note": "Bitsy: tiny – bright pink – giggling at a white dummy flopping nearby",
    "from": {
     "position": [
-     -2.6742406346764276,
-     3.56540244820051,
-     50.230466375788744
+     -2.67,
+     3.57,
+     50.23
     ],
     "target": [
      0,
@@ -3797,12 +3991,12 @@
     ],
     "fov": 55
    },
-   "degrees": 6,
+   "degrees": 4,
    "to": {
     "position": [
-     -2.5940134156361347,
-     3.539440374754495,
-     49.98355238451508
+     -2.5899,
+     3.5439,
+     49.9831
     ],
     "target": [
      0,
@@ -3843,9 +4037,9 @@
    "note": "Floating name tag reads \"Bitsy\"",
    "from": {
     "position": [
-     4.584412516588162,
-     4.1835470540580175,
-     56.10937092992356
+     4.58,
+     4.18,
+     56.11
     ],
     "target": [
      0,
@@ -3856,9 +4050,9 @@
    },
    "to": {
     "position": [
-     4.3322698281758125,
-     4.101951966084827,
-     55.33335552877776
+     4.3052,
+     4.0912,
+     55.2634
     ],
     "target": [
      0,
@@ -3894,18 +4088,26 @@
     {
      "actor": "hero",
      "face": "nervous_laugh",
-     "at": 0
+     "at": {
+      "word": "followed",
+      "nth": 1,
+      "line": 15
+     }
     },
     {
      "actor": "hero",
-     "face": "laugh",
-     "at": 0
+     "face": "gasp",
+     "at": {
+      "word": "coaster",
+      "nth": 1,
+      "line": 15
+     }
     }
    ],
    "note": "Both in a coaster cart – climbing the lift hill. Hero grips the bar; Bitsy has arms up",
    "from": {
     "position": [
-     -1.9742406346764287,
+     -1.974240634676427,
      3.56540244820051,
      8.230466375788744
     ],
@@ -3919,7 +4121,7 @@
    "follow": "hero",
    "to": {
     "position": [
-     -1.2742406346764288,
+     -1.274240634676427,
      3.56540244820051,
      8.230466375788744
     ],
@@ -3969,27 +4171,27 @@
    "note": "Cart flips at the loop; both fly out against the sky",
    "from": {
     "position": [
-     16.871324541560988,
-     4.697082572770409,
-     -21.00661605587213
+     -27,
+     7,
+     -28
     ],
     "target": [
-     10.7,
-     2.7,
-     -40
+     -34.7,
+     2.5,
+     -45
     ],
     "fov": 55
    },
    "to": {
     "position": [
-     16.871324541560988,
-     4.697082572770409,
-     -21.00661605587213
+     -27,
+     7,
+     -28
     ],
     "target": [
-     11.299999999999999,
-     2.7,
-     -40
+     -34.1,
+     2.5,
+     -45
     ],
     "fov": 55
    }
@@ -4001,7 +4203,7 @@
    "loc": "testPark",
    "mood": "comedy",
    "size": "medium",
-   "move": "topDown",
+   "move": "push",
    "why": "comedy: land",
    "see": [
     "hero",
@@ -4036,21 +4238,30 @@
    "note": "Hero lands face-down; Bitsy lands sitting on his back – perfectly fine. clue 1",
    "from": {
     "position": [
-     7.625759365323573,
-     3.56540244820051,
-     -22.769533624211256
+     -31,
+     7.5,
+     -35
     ],
     "target": [
-     10.3,
-     2.7,
-     -31
+     -34.3,
+     3.6,
+     -40.8
     ],
     "fov": 55
    },
-   "follow": "hero",
-   "heading": 20,
-   "distance": 8.654024482005102,
-   "height": 3
+   "to": {
+    "position": [
+     -31.198,
+     7.266,
+     -35.348
+    ],
+    "target": [
+     -34.3,
+     3.6,
+     -40.8
+    ],
+    "fov": 55
+   }
   },
   {
    "id": "S18",
@@ -4097,54 +4308,54 @@
    "note": "Top half: hero's black shoes wash white. Bottom half: Bitsy still fully pink. clue 1",
    "from": {
     "position": [
-     10.2,
-     1.3,
-     -27.6
+     -35,
+     0.5,
+     -38.4
     ],
     "target": [
-     10,
-     0.5,
-     -31
+     -35,
+     3.1,
+     -40.7
     ],
     "fov": 55
    },
    "to": {
     "position": [
-     10.2,
-     1.3,
-     -27.6
+     -35,
+     0.5,
+     -38.4
     ],
     "target": [
-     10,
-     0.5,
-     -31
+     -35,
+     3.1,
+     -40.7
     ],
     "fov": 55
    },
    "a": {
     "from": {
      "position": [
-      10.2,
-      1.3,
-      -27.6
+      -35,
+      0.5,
+      -38.4
      ],
      "target": [
-      10,
-      0.5,
-      -31
+      -35,
+      3.1,
+      -40.7
      ],
      "fov": 55
     },
     "to": {
      "position": [
-      10.19,
-      1.26,
-      -27.770000000000003
+      -35,
+      0.63,
+      -38.515
      ],
      "target": [
-      10,
-      0.5,
-      -31
+      -35,
+      3.1,
+      -40.7
      ],
      "fov": 55
     }
@@ -4152,27 +4363,27 @@
    "b": {
     "from": {
      "position": [
-      12.2,
-      2.2,
-      -25.6
+      -32.8,
+      2.4,
+      -35.6
      ],
      "target": [
-      10.6,
-      1.5,
-      -31
+      -33.6,
+      2.3,
+      -41
      ],
      "fov": 55
     },
     "to": {
      "position": [
-      12.12,
-      2.165,
-      -25.87
+      -32.839999999999996,
+      2.395,
+      -35.870000000000005
      ],
      "target": [
-      10.6,
-      1.5,
-      -31
+      -33.6,
+      2.3,
+      -41
      ],
      "fov": 55
     }
@@ -4216,27 +4427,27 @@
    "note": "Bitsy's cheeks bloom pinker. clue 1",
    "from": {
     "position": [
-     9.774131568702867,
-     4.8672566384148634,
-     -28.458238325124064
+     -31.4,
+     2.95,
+     -39.4
     ],
     "target": [
-     10.6,
-     4.6,
-     -31
+     -33.6,
+     2.9,
+     -41
     ],
     "fov": 55
    },
    "to": {
     "position": [
-     9.81955433242421,
-     4.852557523302045,
-     -28.59803521724224
+     -31.532,
+     2.947,
+     -39.495999999999995
     ],
     "target": [
-     10.6,
-     4.6,
-     -31
+     -33.6,
+     2.9,
+     -41
     ],
     "fov": 55
    }
@@ -4272,27 +4483,27 @@
    "note": "Hero to camera – one eyebrow up",
    "from": {
     "position": [
-     16.17132454156099,
-     6.597082572770408,
-     -12.00661605587213
+     -33.68,
+     5.03,
+     -36.93
     ],
     "target": [
-     10,
+     -35,
      4.6,
-     -31
+     -41
     ],
     "fov": 55
    },
    "to": {
     "position": [
-     11.321389490075411,
-     5.027610621463781,
-     -26.933181320198504
+     -33.68,
+     5.03,
+     -36.93
     ],
     "target": [
-     10,
+     -35,
      4.6,
-     -31
+     -41
     ],
     "fov": 55
    },
@@ -4302,12 +4513,15 @@
    "id": "S21",
    "at": 37.701,
    "impact": 0.399,
-   "zoomAt": 0.229,
+   "freeze": [
+    0.399,
+    4
+   ],
    "gag": 3,
    "loc": "testPark",
    "mood": "comedy",
    "size": "wide",
-   "move": "crashZoom",
+   "move": "snap",
    "why": "comedy: bonk_dizzy",
    "see": [
     "hero"
@@ -4336,35 +4550,45 @@
       "nth": 1,
       "line": 22
      }
+    },
+    {
+     "actor": "hero",
+     "face": "sleepy",
+     "at": {
+      "word": "ring",
+      "nth": 1,
+      "line": 22
+     }
     }
    ],
    "note": "Boxing ring. A white dummy's glove bonks him; he spins down. The wall sign is in the background (plant B)",
    "from": {
     "position": [
-     8.828675458439012,
-     4.997082572770409,
-     -1.0066160558721293
+     26.8,
+     7,
+     -11
     ],
     "target": [
-     15,
-     3,
+     16,
+     3.5,
      -20
     ],
     "fov": 55
    },
    "to": {
     "position": [
-     8.828675458439012,
-     4.997082572770409,
-     -1.0066160558721293
+     26.8,
+     7,
+     -11
     ],
     "target": [
-     15,
-     3,
+     16,
+     3.5,
      -20
     ],
-    "fov": 46.75
-   }
+    "fov": 55
+   },
+   "snapAt": 0.6
   },
   {
    "id": "S22",
@@ -4406,13 +4630,26 @@
    "note": "The white dummy bows again and again – hands at its mouth",
    "from": {
     "position": [
-     20.074240634676425,
-     3.56540244820051,
-     -11.769533624211256
+     11,
+     5.85,
+     -14
     ],
     "target": [
      17.4,
-     2.7,
+     5.45,
+     -20
+    ],
+    "fov": 55
+   },
+   "to": {
+    "position": [
+     11,
+     5.85,
+     -14
+    ],
+    "target": [
+     17.4,
+     5.45,
      -20
     ],
     "fov": 55
@@ -4449,26 +4686,26 @@
    "note": "Hero flat on the mat",
    "from": {
     "position": [
-     13.110087681028515,
-     5.211588473570599,
-     -14.183447969196756
+     19.32,
+     7.05,
+     -15.68
     ],
     "target": [
      15,
-     4.6,
+     5.85,
      -20
     ],
     "fov": 40
    },
    "to": {
     "position": [
-     13.185684173787376,
-     5.187124934627775,
-     -14.416110050428886
+     19.0608,
+     6.978,
+     -15.9392
     ],
     "target": [
      15,
-     4.6,
+     5.85,
      -20
     ],
     "fov": 40
@@ -4522,7 +4759,7 @@
    "note": "Walking home across the plaza – hand in hand – low sun behind them. (protect hero colours)",
    "from": {
     "position": [
-     7.890763577614075,
+     7.8907635776140745,
      5.5563197941484015,
      26.565215528476685
     ],
@@ -4589,27 +4826,27 @@
    "note": "He stops. Something caught his eye",
    "from": {
     "position": [
-     3.6215726253683367,
-     5.328091792874569,
-     4.924564440743807
+     -0.03,
+     4.6,
+     16
     ],
     "target": [
-     5.871499999999999,
-     4.6,
-     -2
+     -4.13,
+     4.4,
+     14
     ],
     "fov": 34
    },
    "to": {
     "position": [
-     3.689070446607287,
-     5.306249039088332,
-     4.716827507521493
+     -0.27599999999999997,
+     4.588,
+     15.88
     ],
     "target": [
-     5.871499999999999,
-     4.6,
-     -2
+     -4.13,
+     4.4,
+     14
     ],
     "fov": 34
    }
@@ -4617,6 +4854,10 @@
   {
    "id": "S26",
    "at": 47.726,
+   "freeze": [
+    0.404,
+    8
+   ],
    "loc": "testPark",
    "mood": "comedy",
    "size": "wide",
@@ -4639,25 +4880,57 @@
       "word": "a",
       "nth": 1,
       "line": 27
-     }
+     },
+     "hold": 0.6
     },
     {
      "actor": "dummyc",
      "face": "neutral",
      "at": 0
+    },
+    {
+     "actor": "dummyc",
+     "face": "shock",
+     "at": {
+      "word": "tripped",
+      "nth": 1,
+      "line": 27
+     }
+    },
+    {
+     "actor": "dummyc",
+     "face": "embarrassed",
+     "at": {
+      "word": "dummies",
+      "nth": 1,
+      "line": 27
+     }
     }
    ],
    "note": "Far off – by the crates – a white dummy trips onto a heap of fallen dummies. clue 2 (wider)",
    "from": {
     "position": [
-     28.17132454156099,
-     4.697082572770409,
-     62.99338394412787
+     -8,
+     9,
+     -2
     ],
     "target": [
-     22,
-     2.7,
-     44
+     12,
+     2,
+     -18
+    ],
+    "fov": 55
+   },
+   "to": {
+    "position": [
+     -8,
+     9,
+     -2
+    ],
+    "target": [
+     12,
+     2,
+     -18
     ],
     "fov": 55
    }
@@ -4698,27 +4971,27 @@
    "note": "He gets up. A faint pink blush blooms on his blank face – then fades a little. clue 2",
    "from": {
     "position": [
-     20.110087681028517,
-     5.211588473570599,
-     49.816552030803244
+     12.35,
+     2.95,
+     -12.9
     ],
     "target": [
-     22,
-     4.6,
-     44
+     10.09,
+     1.2,
+     -15.9
     ],
     "fov": 40
    },
    "to": {
     "position": [
-     20.185684173787376,
-     5.187124934627775,
-     49.583889949571116
+     12.2144,
+     2.845,
+     -13.08
     ],
     "target": [
-     22,
-     4.6,
-     44
+     10.09,
+     1.2,
+     -15.9
     ],
     "fov": 40
    }
@@ -4784,6 +5057,9 @@
   {
    "id": "S29",
    "at": 53.59,
+   "punch": [
+    2.7
+   ],
    "loc": "testPark",
    "mood": "tension",
    "size": "medium",
@@ -4812,31 +5088,49 @@
      "actor": "kid",
      "face": "smirk",
      "at": 0
+    },
+    {
+     "actor": "kid",
+     "face": "scheme",
+     "at": {
+      "word": "floated",
+      "nth": 1,
+      "line": 31
+     }
+    },
+    {
+     "actor": "kid",
+     "face": "grin",
+     "at": {
+      "word": "blastkid_7",
+      "nth": 1,
+      "line": 31
+     }
     }
    ],
    "note": "Tilt from sneakers to the floating tag \"BlastKid_7\"",
    "from": {
     "position": [
-     -4.553424448659317,
-     4.173519104627106,
-     56.01399946341009
+     0,
+     4.4,
+     30
     ],
     "target": [
      0,
-     0.6,
+     1.4000000000000004,
      42
     ],
     "fov": 34
    },
    "to": {
     "position": [
-     -4.553424448659317,
-     4.173519104627106,
-     56.01399946341009
+     0,
+     4.4,
+     30
     ],
     "target": [
      0,
-     6.5,
+     4.4,
      42
     ],
     "fov": 34
@@ -4845,10 +5139,13 @@
   {
    "id": "S30",
    "at": 57.199,
+   "punch": [
+    1.361
+   ],
    "loc": "testPark",
    "mood": "tension",
    "size": "wide",
-   "move": "scaleReveal",
+   "move": "push",
    "why": "tension: A giant hand came down from the clouds.",
    "see": [
     "giantHand"
@@ -4862,27 +5159,27 @@
    "note": "A giant cartoon hand pushes down through the clouds – shadow sweeping the plaza",
    "from": {
     "position": [
-     -6,
      2,
-     16
+     2,
+     24
     ],
     "target": [
-     -10,
-     20,
-     -4
+     -6,
+     22,
+     6
     ],
     "fov": 34
    },
    "to": {
     "position": [
-     -6,
-     2,
-     16
+     1.52,
+     3.2,
+     22.92
     ],
     "target": [
-     -10,
-     20,
-     -4
+     -6,
+     22,
+     6
     ],
     "fov": 34
    }
@@ -4919,31 +5216,32 @@
     }
    ],
    "note": "MIDPOINT. The hand plucks Bitsy off the ground – legs kicking",
+   "subjectAimY": 2.4,
    "from": {
     "position": [
-     -0.5534244486593174,
-     4.473519104627106,
-     10.813999463410086
+     -10.55,
+     3.87,
+     26.81
     ],
     "target": [
-     4,
-     3,
-     -3.1999999999999993
+     -6,
+     2.4,
+     12.8
     ],
     "fov": 34
    },
    "to": {
     "position": [
-     -0.5534244486593174,
-     4.473519104627106,
-     10.813999463410086
+     -10.55,
+     3.87,
+     26.81
     ],
     "target": [
-     4,
-     3,
-     -3.1999999999999993
+     -6,
+     2.4,
+     12.8
     ],
-    "fov": 28.9
+    "fov": 34
    }
   },
   {
@@ -4969,6 +5267,15 @@
      "actor": "hero",
      "face": "terrified",
      "at": 0
+    },
+    {
+     "actor": "hero",
+     "face": "panic",
+     "at": {
+      "word": "tower",
+      "nth": 1,
+      "line": 34
+     }
     },
     {
      "actor": "hero",
@@ -5046,27 +5353,27 @@
    "note": "He leaps into the hand's path – arms wide",
    "from": {
     "position": [
-     -2.479514104304141,
-     4.173519104627106,
-     -0.6446327220726591
+     -9.98,
+     4.17,
+     15.93
     ],
     "target": [
-     2.0739103443551765,
+     -7.93,
      2.7,
-     -14.658632185482745
+     1.34
     ],
     "fov": 34
    },
    "to": {
     "position": [
-     -2.479514104304141,
-     4.173519104627106,
-     -0.6446327220726591
+     -9.98,
+     4.17,
+     15.93
     ],
     "target": [
-     2.6739103443551766,
+     -7.33,
      2.7,
-     -14.658632185482745
+     1.34
     ],
     "fov": 34
    }
@@ -5075,12 +5382,11 @@
    "id": "S34",
    "at": 63.047,
    "impact": 0.433,
-   "zoomAt": 0.263,
    "blur": true,
    "loc": "testPark",
    "mood": "tension",
    "size": "medium",
-   "move": "crashZoom",
+   "move": "snap",
    "why": "tension: So it threw me instead.",
    "see": [
     "hero"
@@ -5104,30 +5410,31 @@
    ],
    "from": {
     "position": [
-     6.627334793014494,
-     4.473519104627106,
-     -0.6446327220726591
+     -5.68,
+     4.6,
+     8.26
     ],
     "target": [
-     2.0739103443551765,
-     3,
-     -14.658632185482745
+     -7.93,
+     4.4,
+     1.34
     ],
     "fov": 34
    },
    "to": {
     "position": [
-     6.627334793014494,
-     4.473519104627106,
-     -0.6446327220726591
+     -5.68,
+     4.6,
+     8.26
     ],
     "target": [
-     2.0739103443551765,
-     3,
-     -14.658632185482745
+     -7.93,
+     4.4,
+     1.34
     ],
-    "fov": 28.9
-   }
+    "fov": 34
+   },
+   "snapAt": 0.6
   },
   {
    "id": "S35",
@@ -5135,7 +5442,7 @@
    "impact": 0.403,
    "loc": "testPark",
    "mood": "tension",
-   "size": "close",
+   "size": "wide",
    "move": "static-drift",
    "why": "tension: land",
    "see": [
@@ -5170,14 +5477,27 @@
    "note": "Landing in a dust puff",
    "from": {
     "position": [
-     -0.17601703027648608,
-     5.328091792874569,
-     -7.734067744738938
+     -14,
+     3.5,
+     -28
     ],
     "target": [
-     2.0739103443551765,
-     4.6,
-     -14.658632185482745
+     -10.4,
+     3.8,
+     -11.5
+    ],
+    "fov": 34
+   },
+   "to": {
+    "position": [
+     -14,
+     3.5,
+     -28
+    ],
+    "target": [
+     -10.4,
+     3.8,
+     -11.5
     ],
     "fov": 34
    }
@@ -5204,12 +5524,12 @@
    "from": {
     "position": [
      10.507902573829192,
-     6.100428702985628,
+     5.600428702985628,
      32.33999876171558
     ],
     "target": [
      0,
-     2.7,
+     2.2,
      0
     ],
     "fov": 34
@@ -5218,12 +5538,12 @@
    "to": {
     "position": [
      11.207902573829191,
-     6.100428702985628,
+     5.600428702985628,
      32.33999876171558
     ],
     "target": [
      0,
-     2.7,
+     2.2,
      0
     ],
     "fov": 34
@@ -5234,7 +5554,7 @@
    "at": 66.739,
    "loc": "testPark",
    "mood": "tension",
-   "size": "insert",
+   "size": "wide",
    "move": "push",
    "why": "tension: My hands turned white.",
    "see": [
@@ -5249,27 +5569,27 @@
    "note": "His hands on the concrete wash white",
    "from": {
     "position": [
-     -27.805870483415973,
-     5.226032750789324,
-     0.0239990801315777
+     2.5,
+     5,
+     -3
     ],
     "target": [
-     -20,
-     2.7,
-     -24
+     -7.13,
+     5,
+     -5.4
     ],
     "fov": 34
    },
    "to": {
     "position": [
-     -27.571694368913494,
-     5.150251768265644,
-     -0.6967208922723707
+     1.9222000000000001,
+     5,
+     -3.144
     ],
     "target": [
-     -20,
-     2.7,
-     -24
+     -7.13,
+     5,
+     -5.4
     ],
     "fov": 34
    }
@@ -5314,27 +5634,27 @@
    "note": "Lying still. Everything white except his yellow face. Dust settles",
    "from": {
     "position": [
-     -16.175177449700566,
-     3.937738577464308,
-     -12.228406604326768
+     -3.3,
+     3.9,
+     12.1
     ],
     "target": [
-     -20,
+     -7.13,
      2.7,
-     -24
+     0.36
     ],
     "fov": 40
    },
    "to": {
     "position": [
-     -16.328170351712544,
-     3.888229034365735,
-     -12.699270340153697
+     -3.5298,
+     3.828,
+     11.3956
     ],
     "target": [
-     -20,
+     -7.13,
      2.7,
-     -24
+     0.36
     ],
     "fov": 40
    }
@@ -5384,27 +5704,27 @@
    "note": "Bitsy small and far behind him – in the hand. He reaches toward her",
    "from": {
     "position": [
-     -21.889912318971483,
-     5.211588473570599,
-     -18.183447969196756
+     -8.5,
+     4.6,
+     4.6
     ],
     "target": [
-     -20,
-     4.6,
-     -24
+     -7.13,
+     4.2,
+     0.36
     ],
     "fov": 40
    },
    "to": {
     "position": [
-     -21.814315826212624,
-     5.187124934627775,
-     -18.416110050428884
+     -8.4178,
+     4.576,
+     4.345599999999999
     ],
     "target": [
-     -20,
-     4.6,
-     -24
+     -7.13,
+     4.2,
+     0.36
     ],
     "fov": 40
    }
@@ -5413,11 +5733,10 @@
    "id": "S40",
    "at": 73.847,
    "impact": 0.403,
-   "zoomAt": 0.233,
    "loc": "testPark",
    "mood": "tension",
    "size": "medium",
-   "move": "crashZoom",
+   "move": "snap",
    "why": "tension: Then the hand grabbed Bitsy again.",
    "see": [
     "bitsy"
@@ -5437,30 +5756,31 @@
    ],
    "from": {
     "position": [
-     8.553424448659317,
-     4.473519104627106,
-     10.813999463410086
+     -23.35,
+     3.13,
+     -19.68
     ],
     "target": [
-     4,
-     3,
-     -3.1999999999999993
+     -25.6,
+     2.4,
+     -26.6
     ],
     "fov": 34
    },
    "to": {
     "position": [
-     8.553424448659317,
-     4.473519104627106,
-     10.813999463410086
+     -23.35,
+     3.13,
+     -19.68
     ],
     "target": [
-     4,
-     3,
-     -3.1999999999999993
+     -25.6,
+     2.4,
+     -26.6
     ],
-    "fov": 28.9
-   }
+    "fov": 34
+   },
+   "snapAt": 0.6
   },
   {
    "id": "S41",
@@ -5482,22 +5802,22 @@
    "note": "Tilt up the whole tower to Bitsy dangling at the very top against grey cloud",
    "from": {
     "position": [
-     -8,
-     6,
-     4
+     25,
+     24,
+     -10
     ],
     "target": [
      -30,
-     3,
+     21,
      -22
     ],
     "fov": 75.5
    },
    "to": {
     "position": [
-     -8,
-     6,
-     4
+     25,
+     24,
+     -10
     ],
     "target": [
      -30,
@@ -5532,27 +5852,27 @@
    "note": "The fingers open. Bitsy drops",
    "from": {
     "position": [
-     -24,
-     42,
-     -14
+     -26,
+     44,
+     -12
     ],
     "target": [
-     -30,
-     41,
-     -22
+     -32.5,
+     47,
+     -21
     ],
     "fov": 34
    },
    "to": {
     "position": [
-     -24,
-     42,
-     -14
+     -26,
+     44,
+     -12
     ],
     "target": [
-     -30,
-     41,
-     -22
+     -32.5,
+     47,
+     -21
     ],
     "fov": 34
    }
@@ -5597,14 +5917,27 @@
    "note": "THE BREATH. Ambient off – grade 5 % darker – vignette +0.15 – music-less hush. Hold 2.0 s+",
    "from": {
     "position": [
-     -31.889912318971483,
-     5.211588473570599,
-     -24.183447969196756
+     -30,
+     4.6,
+     -42.5
     ],
     "target": [
      -30,
+     4.4,
+     -36
+    ],
+    "fov": 40
+   },
+   "to": {
+    "position": [
+     -30,
      4.6,
-     -30
+     -42.5
+    ],
+    "target": [
+     -30,
+     4.4,
+     -36
     ],
     "fov": 40
    }
@@ -5634,6 +5967,15 @@
    "actions": [
     {
      "actor": "hero",
+     "face": "thinking",
+     "at": {
+      "word": "counts",
+      "nth": 1,
+      "line": 48
+     }
+    },
+    {
+     "actor": "hero",
      "face": "scheme",
      "at": {
       "word": "ground",
@@ -5645,29 +5987,29 @@
    "note": "TWIST. Biggest visual change: light snaps from grey to bright on *ground*",
    "from": {
     "position": [
-     -27.325759365323574,
-     3.86540244820051,
-     -21.769533624211256
+     -29,
+     3.6,
+     -45
     ],
     "target": [
      -30,
      3,
-     -30
+     -36
     ],
     "fov": 55
    },
    "to": {
     "position": [
-     -27.325759365323574,
-     3.86540244820051,
-     -21.769533624211256
+     -29,
+     3.6,
+     -45
     ],
     "target": [
      -30,
      3,
-     -30
+     -36
     ],
-    "fov": 46.75
+    "fov": 55
    }
   },
   {
@@ -5675,78 +6017,17 @@
    "at": 84.634,
    "blur": true,
    "loc": "testPark",
-   "mood": "tension",
-   "size": "wide",
-   "move": "whip",
-   "why": "tension: jump",
-   "see": [
-    "hero"
-   ],
-   "vo": "I jumped.",
-   "cue": [
-    84.63,
-    85.38
-   ],
-   "subject": "hero",
-   "actions": [
-    {
-     "actor": "hero",
-     "verb": "jump",
-     "at": {
-      "word": "i",
-      "nth": 1,
-      "line": 49
-     }
-    },
-    {
-     "actor": "hero",
-     "face": "determined",
-     "at": 0
-    }
-   ],
-   "note": "He launches upward off the tower stairs toward her",
-   "from": {
-    "position": [
-     -40.50790257382919,
-     6.100428702985628,
-     2.3399987617155773
-    ],
-    "target": [
-     -30,
-     2.7,
-     -30
-    ],
-    "fov": 34
-   },
-   "to": {
-    "position": [
-     -40.50790257382919,
-     6.100428702985628,
-     2.3399987617155773
-    ],
-    "target": [
-     -29.4,
-     2.7,
-     -30
-    ],
-    "fov": 34
-   }
-  },
-  {
-   "id": "S46",
-   "at": 85.378,
-   "loc": "testPark",
    "mood": "awe",
-   "size": "medium",
+   "size": "wide",
    "move": "orbit",
-   "why": "awe: catch",
+   "why": "awe: jump @ jumped; catch @ caught",
    "see": [
     "hero",
     "bitsy"
    ],
-   "vo": "I caught her in the air.",
+   "vo": "I jumped. I caught her in the air.",
    "cue": [
-    85.38,
+    84.63,
     86.51
    ],
    "subject": "hero",
@@ -5757,12 +6038,26 @@
    "actions": [
     {
      "actor": "hero",
+     "verb": "jump",
+     "at": {
+      "word": "jumped",
+      "nth": 1,
+      "line": 49
+     }
+    },
+    {
+     "actor": "hero",
      "verb": "catch",
      "at": {
-      "word": "i",
+      "word": "caught",
       "nth": 1,
       "line": 50
      }
+    },
+    {
+     "actor": "hero",
+     "face": "determined",
+     "at": 0
     },
     {
      "actor": "hero",
@@ -5777,34 +6072,34 @@
      "actor": "hero",
      "verb": "carry",
      "target": "bitsy",
-     "at": 0.15
+     "at": 0.766
     }
    ],
-   "note": "Mid-air catch – slow orbit – sky behind",
+   "note": "Merged rows 45 + 46 (owner E3-3): he launches upward off the tower stairs toward her – mid-air catch – slow orbit – sky behind",
    "from": {
     "position": [
-     -29.037050091522147,
-     3.281828812397386,
-     -24.81647916601196
+     -14,
+     9,
+     -48
     ],
     "target": [
-     -30.835,
-     2.7,
-     -30.35
+     -30.5,
+     11,
+     -36
     ],
     "fov": 75.5
    },
-   "degrees": 6,
+   "degrees": 4,
    "to": {
     "position": [
-     -29.090988588776483,
-     3.2643739480254643,
-     -24.9824847910316
+     -14.495,
+     9.06,
+     -47.64
     ],
     "target": [
-     -30.835,
-     2.7,
-     -30.35
+     -30.5,
+     11,
+     -36
     ],
     "fov": 75.5
    }
@@ -5836,32 +6131,50 @@
      "actor": "hero",
      "face": "determined",
      "at": 0
+    },
+    {
+     "actor": "hero",
+     "face": "gasp",
+     "at": {
+      "word": "thing",
+      "nth": 1,
+      "line": 51
+     }
+    },
+    {
+     "actor": "hero",
+     "face": "determined",
+     "at": {
+      "word": "forget",
+      "nth": 1,
+      "line": 51
+     }
     }
    ],
    "note": "Falling together – he takes a huge breath",
    "from": {
     "position": [
-     -34.49166543466143,
-     5.783321791753818,
-     -19.095940990784744
+     -28.8,
+     4.8,
+     -37.6
     ],
     "target": [
-     -30.835,
-     4.6,
-     -30.35
+     -30.2,
+     3.8,
+     -31.1
     ],
     "fov": 34
    },
    "to": {
     "position": [
-     -34.381965471621584,
-     5.747822138001204,
-     -19.433562761061204
+     -28.884,
+     4.74,
+     -37.21
     ],
     "target": [
-     -30.835,
-     4.6,
-     -30.35
+     -30.2,
+     3.8,
+     -31.1
     ],
     "fov": 34
    }
@@ -5870,11 +6183,10 @@
    "id": "S48",
    "at": 88.86,
    "impact": 0,
-   "zoomAt": 0,
    "loc": "testPark",
    "mood": "tension",
    "size": "close",
-   "move": "crashZoom",
+   "move": "snap",
    "why": "tension: Dummies help each other",
    "see": [
     "hero"
@@ -5895,35 +6207,45 @@
       "nth": 1,
       "line": 52
      }
+    },
+    {
+     "actor": "hero",
+     "face": "yell",
+     "at": {
+      "word": "other",
+      "nth": 1,
+      "line": 52
+     }
     }
    ],
    "note": "The shout. Cut on the last word to the sign (insert – 6 frames – plant C) if pacing allows",
    "from": {
     "position": [
-     -28.59379539085521,
-     5.0550573705466055,
-     -25.67214722453512
+     -30,
+     4.6,
+     -34.6
     ],
     "target": [
      -30,
-     4.6,
-     -30
+     4.5,
+     -31.1
     ],
     "fov": 34
    },
    "to": {
     "position": [
-     -28.59379539085521,
-     5.0550573705466055,
-     -25.67214722453512
+     -30,
+     4.6,
+     -34.6
     ],
     "target": [
      -30,
-     4.6,
-     -30
+     4.5,
+     -31.1
     ],
-    "fov": 28.9
-   }
+    "fov": 34
+   },
+   "snapAt": 0.6
   },
   {
    "id": "S49",
@@ -6013,11 +6335,12 @@
   {
    "id": "S50",
    "at": 92.488,
+   "blur": true,
    "loc": "testPark",
-   "mood": "awe",
+   "mood": "tension",
    "size": "wide",
-   "move": "lowWide",
-   "why": "awe: Hundreds of them.",
+   "move": "push",
+   "why": "tension: Hundreds of them.",
    "see": [
     "dummya"
    ],
@@ -6030,21 +6353,30 @@
    "note": "Low on the concrete: a stampede of white feet thunders past camera",
    "from": {
     "position": [
-     2.14911517341043,
-     4.042681874763199,
-     20.769663463049326
+     -6,
+     1.2,
+     -8
     ],
     "target": [
-     -2,
-     2.7,
-     8
+     -12,
+     2.5,
+     -20
     ],
-    "fov": 75.5
+    "fov": 34
    },
-   "follow": "dummya",
-   "heading": 20,
-   "distance": 13.42681874763198,
-   "height": 3
+   "to": {
+    "position": [
+     -6.36,
+     1.278,
+     -8.72
+    ],
+    "target": [
+     -12,
+     2.5,
+     -20
+    ],
+    "fov": 34
+   }
   },
   {
    "id": "S51",
@@ -6137,14 +6469,27 @@
    "note": "They land on the pile and bounce – softly. Nobody touches the concrete",
    "from": {
     "position": [
-     3.603604816811842,
-     9.799481651870746,
-     42.170082873295534
+     6,
+     4,
+     -16
     ],
     "target": [
-     -18.335,
-     2.7,
-     -25.35
+     -1.5,
+     3.6,
+     -20.5
+    ],
+    "fov": 40
+   },
+   "to": {
+    "position": [
+     6,
+     4,
+     -16
+    ],
+    "target": [
+     -1.5,
+     3.6,
+     -20.5
     ],
     "fov": 40
    }
@@ -6180,26 +6525,26 @@
    "note": "Hero opens his eyes – Bitsy in his arms",
    "from": {
     "position": [
-     -6.889912318971485,
-     5.211588473570599,
-     -14.183447969196756
+     3,
+     4.8,
+     -18.5
     ],
     "target": [
-     -5,
-     4.6,
+     -1.5,
+     4.4,
      -20
     ],
     "fov": 40
    },
    "to": {
     "position": [
-     -6.814315826212625,
-     5.187124934627775,
-     -14.416110050428886
+     2.73,
+     4.776,
+     -18.59
     ],
     "target": [
-     -5,
-     4.6,
+     -1.5,
+     4.4,
      -20
     ],
     "fov": 40
@@ -6208,7 +6553,11 @@
   {
    "id": "S54",
    "at": 98.124,
+   "impact": 1.316,
    "look": "goldenHour",
+   "punch": [
+    1.316
+   ],
    "loc": "testPark",
    "mood": "awe",
    "size": "wide",
@@ -6271,27 +6620,27 @@
    "note": "A white arm blooms blue",
    "from": {
     "position": [
-     5.415587483411838,
-     4.1835470540580175,
-     22.109370929923557
+     -21.8,
+     4.1,
+     -10.4
     ],
     "target": [
-     10,
-     2.7,
-     8
+     -24,
+     3.4,
+     -17
     ],
     "fov": 55
    },
    "to": {
     "position": [
-     5.6677301718241875,
-     4.101951966084827,
-     21.333355528777762
+     -21.932000000000002,
+     4.058,
+     -10.796000000000001
     ],
     "target": [
-     10,
-     2.7,
-     8
+     -24,
+     3.4,
+     -17
     ],
     "fov": 55
    }
@@ -6327,27 +6676,27 @@
    "note": "A red nose blooms on a dummy; it giggles",
    "from": {
     "position": [
-     18.584412516588163,
-     4.1835470540580175,
-     22.109370929923557
+     -24.56,
+     5.1,
+     -9.2
     ],
     "target": [
-     14,
-     2.7,
-     8
+     -23,
+     4.6,
+     -14
     ],
     "fov": 55
    },
    "to": {
     "position": [
-     18.33226982817581,
-     4.101951966084827,
-     21.333355528777762
+     -24.4664,
+     5.069999999999999,
+     -9.488
     ],
     "target": [
-     14,
-     2.7,
-     8
+     -23,
+     4.6,
+     -14
     ],
     "fov": 55
    }
@@ -6388,9 +6737,9 @@
    "note": "BlastKid_7 watching. The giant hand drifts away behind him",
    "from": {
     "position": [
-     -3.8248225502994324,
-     3.937738577464308,
-     53.771593395673236
+     3.82,
+     3.94,
+     53.77
     ],
     "target": [
      0,
@@ -6401,9 +6750,9 @@
    },
    "to": {
     "position": [
-     -3.671829648287455,
-     3.888229034365735,
-     53.300729659846304
+     3.5907999999999998,
+     3.8656,
+     53.0638
     ],
     "target": [
      0,
@@ -6417,6 +6766,9 @@
    "id": "S58",
    "at": 104.837,
    "impact": 0.483,
+   "punch": [
+    0.483
+   ],
    "loc": "testPark",
    "mood": "fun",
    "size": "insert",
@@ -6505,7 +6857,7 @@
    "note": "He runs in with arms wide",
    "from": {
     "position": [
-     -2.6742406346764276,
+     2.674240634676427,
      3.56540244820051,
      8.230466375788744
     ],
@@ -6519,7 +6871,7 @@
    "follow": "kid",
    "to": {
     "position": [
-     -1.9742406346764276,
+     3.3742406346764273,
      3.56540244820051,
      8.230466375788744
     ],
@@ -6534,10 +6886,14 @@
   {
    "id": "S60",
    "at": 108.048,
+   "freeze": [
+    0.402,
+    8
+   ],
    "loc": "testPark",
    "mood": "comedy",
    "size": "wide",
-   "move": "static-drift",
+   "move": "push",
    "why": "comedy: hero:knees_collapse; bitsy:knees_collapse",
    "see": [
     "hero",
@@ -6561,7 +6917,8 @@
       "word": "we",
       "nth": 1,
       "line": 64
-     }
+     },
+     "hold": 0.6
     },
     {
      "actor": "bitsy",
@@ -6570,6 +6927,25 @@
       "word": "we",
       "nth": 1,
       "line": 64
+     },
+     "hold": 0.6
+    },
+    {
+     "actor": "hero",
+     "face": "shock",
+     "at": {
+      "word": "flopped",
+      "nth": 1,
+      "line": 64
+     }
+    },
+    {
+     "actor": "hero",
+     "face": "grin",
+     "at": {
+      "word": "onto",
+      "nth": 1,
+      "line": 65
      }
     },
     {
@@ -6585,14 +6961,27 @@
    "note": "Everyone flops over in a domino heap – onto each other",
    "from": {
     "position": [
-     -2.9959593784597356,
-     7.663817816093493,
-     21.85871279697694
+     12,
+     9,
+     -12
     ],
     "target": [
-     -18.335,
-     2.7,
-     -25.35
+     -3,
+     1.5,
+     -21
+    ],
+    "fov": 55
+   },
+   "to": {
+    "position": [
+     10.5,
+     8.25,
+     -12.9
+    ],
+    "target": [
+     -3,
+     1.5,
+     -21
     ],
     "fov": 55
    }
@@ -6633,27 +7022,27 @@
    "note": "In the heap. Hero's blue stripe blooms back on *half*  – then jacket",
    "from": {
     "position": [
-     -40.27360481681184,
-     9.799481651870746,
-     42.170082873295534
+     4.5,
+     3.6,
+     -16.5
     ],
     "target": [
-     -18.335,
-     2.7,
-     -25.35
+     -1.2,
+     3.4,
+     -21
     ],
     "fov": 40
    },
    "to": {
     "position": [
-     -39.396060624139366,
-     9.515502385795916,
-     39.469279558363716
+     4.158,
+     3.588,
+     -16.77
     ],
     "target": [
-     -18.335,
-     2.7,
-     -25.35
+     -1.2,
+     3.4,
+     -21
     ],
     "fov": 40
    }
@@ -6661,6 +7050,7 @@
   {
    "id": "S62",
    "at": 112.664,
+   "loopClose": "color",
    "loc": "testPark",
    "mood": "payoff",
    "size": "close",
@@ -6704,27 +7094,27 @@
    "note": "PAYOFF. Push on his face – full colour back  – Bitsy hugging his neck. Brightest frame of the episode. Hold to end (voice + 0.85 s)",
    "from": {
     "position": [
-     3.5826802596947154,
+     1.04,
      1.5,
-     42.105683708333466
+     -16
     ],
     "target": [
-     -18.335,
-     4.6,
-     -25.35
+     0.6,
+     3.3,
+     -20.2
     ],
     "fov": 40
    },
    "to": {
     "position": [
-     2.3772078454115046,
-     1.5,
-     38.395621104375124
+     0.9872000000000001,
+     1.716,
+     -16.504
     ],
     "target": [
-     -18.335,
-     4.6,
-     -25.35
+     0.6,
+     3.3,
+     -20.2
     ],
     "fov": 40
    }
@@ -6778,7 +7168,7 @@
    },
    {
     "crowd": true,
-    "t": 99.44
+    "t": 98.36
    },
    {
     "actor": "dummyd",
@@ -6929,7 +7319,7 @@
     "crowd120"
    ],
    "seed": 7,
-   "startAt": null,
+   "startAt": "ring",
    "start": [
     0,
     8
@@ -6956,7 +7346,7 @@
     {
      "t": 47.876,
      "behaviour": "pile",
-     "anchor": "crates"
+     "anchor": "ring"
     },
     {
      "t": 90.668,
@@ -7008,7 +7398,8 @@
    {
     "t": 64.297,
     "act": "throw",
-    "actor": "hero"
+    "actor": "hero",
+    "anchor": "cushion"
    },
    {
     "t": 65.812,
@@ -7018,7 +7409,8 @@
    {
     "t": 66.362,
     "act": "throw",
-    "actor": "hero"
+    "actor": "hero",
+    "anchor": "plaza"
    },
    {
     "t": 73.997,
@@ -7062,7 +7454,7 @@
   ],
   "airCatch": [
    {
-    "t": 85.528,
+    "t": 85.4,
     "hero": "hero",
     "partner": "bitsy"
    }
@@ -7077,12 +7469,14 @@
    {
     "actor": "bitsy",
     "text": "Bitsy",
-    "t": 26.234
+    "t": 26.234,
+    "until": 27.61
    },
    {
     "actor": "kid",
     "text": "BlastKid_7",
-    "t": 53.74
+    "t": 53.74,
+    "until": 57.2
    }
   ],
   "spawns": [

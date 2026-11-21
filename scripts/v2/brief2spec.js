@@ -121,7 +121,8 @@ export function briefToSpec(brief, cues, lib, {slug, root = '.'} = {}) {
     const act = c => anchorWord ? {...c, at: {word: anchorWord.word, nth: anchorWord.nth, line: anchorWord.line}} : {...c, at: 0};
     const actor = propSub ? null : subs[0];
     let verbT = null;   // `a; b`: the i-th verb lands on the i-th emphasised word (partner verbs hug / carry / comfort_kneel take the other subject as target)
-    if (r.verb && r.verb !== '-') for (const [vi, one] of r.verb.split(';').map(x => x.trim()).filter(Boolean).entries()) { const [who, v] = one.includes(':') ? one.split(':').map(x => x.trim()) : [actor, one], hit = emHits[vi] ?? anchorWord;
+    if (r.verb && r.verb !== '-') for (const [vi, one0] of r.verb.split(';').map(x => x.trim()).filter(Boolean).entries()) { const [one, vw] = one0.split('@').map(x => x.trim());   // E3: `verb @ word` lands that key on the word
+      const [who, v] = one.includes(':') ? one.split(':').map(x => x.trim()) : [actor, one], hit = vw ? find(vw, 'action verb') : emHits[vi] ?? anchorWord; if (vw && !hit) continue;
       if (!VERB_NAMES.includes(v)) bad('action verb', v, VERB_NAMES.join(' | ')); else if (!who || !castKeys[who.toLowerCase()]) bad('action verb actor', who, 'a CAST role');
       else { const tg = ['hug', 'carry', 'comfort_kneel'].includes(v) ? subs.find(x => x !== who.toLowerCase()) : null; actions.push({actor: who.toLowerCase(), verb: v, ...(tg ? {target: tg} : {}), at: hit ? {word: hit.word, nth: hit.nth, line: hit.line} : 0}); if (vi === 0) verbT = hit?.t ?? c0; } }
     for (const part of (r.expression || '').split(';').map(x => x.trim()).filter(x => x && x !== '-')) {
@@ -151,6 +152,7 @@ export function briefToSpec(brief, cues, lib, {slug, root = '.'} = {}) {
       else if ((g = /^look\s*:\s*(\w+)$/.exec(tok))) { if (!LOOKS.includes(g[1])) bad('notes', tok, 'look: ' + LOOKS.join(' | ')); else sh.look = g[1]; }   // per-shot light preset (engine/look.js); default the episode look 'day'
       else if ((g = /^light\s*:\s*((?:\w+\s+-?[\d.]+\s*)+)$/.exec(tok))) { sh.light = {...(sh.light ?? {}), ...Object.fromEntries([...g[1].matchAll(/(\w+)\s+(-?[\d.]+)/g)].map(m => [m[1], +m[2]]))}; }   // per-shot mood light override: light: skyEV .5 fillK 600 (names of engine/mood6.js DEFAULT_LIGHT)
       else if (tok === 'still') { sh.still = true; sh.light = {...(sh.light ?? {}), camNoise: 0}; }   // ambient motion off (moods only): no idle life, blink, camera noise
+      else if ((g = /^punch\s*(?::\s*([\d.]+)|@\s*(\S+))$/.exec(tok))) { const w = g[2] ? find(g[2], 'notes') : null; if (!g[2] || w) (sh.punch ??= []).push(+(g[2] ? w.t - at : +g[1]).toFixed(3)); }   // E3: camera punch-in (engine/camera.js PUNCH) on a word or s after the cut
       else if ((g = /^hold\s*:\s*([\d.]+)$/.exec(tok))) holdS = +g[1];   // the first verb holds its fall / key pose this long (s)
       else if ((g = /^freeze\s*:\s*(\d+)$/.exec(tok))) freezeF = +g[1];   // freeze length in frames (default 4)
       else if ((g = /^drift\s*:\s*(-?[\d.]+)\s+(-?[\d.]+)$/.exec(tok))) drift = [+g[1], +g[2]];
@@ -164,7 +166,7 @@ export function briefToSpec(brief, cues, lib, {slug, root = '.'} = {}) {
       else if ((g = /^loc\s*:\s*(\S+)$/.exec(tok))) { if (!lib.locations[g[1]]) { if (!missing.locations.includes(g[1])) missing.locations.push(g[1]); } else sh.loc = g[1]; }
       else notes.push(tok);
     }
-    if (freezeF && sh.freeze) sh.freeze[1] = freezeF; if (holdS) { const v0 = actions.find(a => a.verb); if (v0) v0.hold = holdS; }
+    if (freezeF && sh.freeze) sh.freeze[1] = freezeF; if (holdS) { const v0 = actions.find(a => a.verb); if (v0) v0.hold = holdS; for (const a of actions) if (a !== v0 && ['trip_fall', 'knees_collapse', 'slip'].includes(a.verb)) a.hold = holdS; }   // E3: every fall verb in the row holds (a shared flop)
     if (sh.payoffMark && r.mood !== 'payoff') E(`${R} (notes)`, 'payoff marker on a shot whose mood is not payoff');
     delete sh.payoffMark; if (sh.gag !== undefined && ![1, 2, 3].includes(sh.gag)) E(`${R} (notes)`, `gag ${sh.gag}: only 1, 2, 3`);
     sh.loc ??= loc0;
@@ -202,7 +204,7 @@ export function briefToSpec(brief, cues, lib, {slug, root = '.'} = {}) {
         if (off) { const mk2 = [hp[0] + off.x * Math.cos(ly) + off.z * Math.sin(ly), 0, hp[2] - off.x * Math.sin(ly) + off.z * Math.cos(ly)]; cur[P.partner] = mk2; yawNow[P.partner] = (yawNow[P.hero] ?? 0) + off.yaw; putMark(P.partner, Math.max(at, t - 1.0), {offset: mk2, yaw: yawNow[P.partner]}); } }   // the partner snaps into the P3b carry on the catch frame
       else if (key === 'splash' && anc(P.anchor)) st6.splashes.push({t, anchor: P.anchor});
       else if (key === 'tag') { const ok = (slug === 'lastcolor' && ['14', '29'].includes(String(r['#']))) || String(slug ?? '').startsWith('_');   // owner decision E2b: diegetic in-world game tags in lastcolor shots 14 and 29 only (+ engine test fixtures); no labels anywhere else
-        if (!ok) E(`${R} (notes)`, 'tag: name tags are labels (Season 1 no-labels rule); the only exception is episode lastcolor, shots 14 and 29'); else if (who(P.actor)) st6.tags.push({actor: P.actor, text: P.text, t}); }
+        if (!ok) E(`${R} (notes)`, 'tag: name tags are labels (Season 1 no-labels rule); the only exception is episode lastcolor, shots 14 and 29'); else if (who(P.actor)) st6.tags.push({actor: P.actor, text: P.text, t, until: +c1.toFixed(3)}); }
       else if (key === 'spawn' && who(P.actor)) st6.spawns.push({actor: P.actor, t});
     }
     if (wobj) { worldObjs.add(propSub); if (!camNote) E(`${R} (notes)`, `prop:${propSub} is an object the world builds (no insert copy): it needs a cam: note (world camera)`); }
@@ -220,7 +222,7 @@ export function briefToSpec(brief, cues, lib, {slug, root = '.'} = {}) {
     if (camNote && !errors.some(e => e.startsWith(R))) {   // E2 `cam:`: the camera at world coordinates (fov from the mood / `fov:`); moves keep their kind
       const fv = sh.from?.fov ?? fov, f = {...camNote, fov: fv}; for (const k of ['follow', 'heading', 'distance', 'height', 'actor', 'dir', 'path', 'targets', 'ground']) delete sh[k];
       const toward = (k2) => ({...f, position: f.position.map((v, j) => v + (f.target[j] - v) * k2)});
-      sh.from = f; sh.to = r.move === 'push' || r.move === 'lowAuthority' ? toward(.06) : r.move === 'pull' ? toward(-.06) : r.move === 'crane' ? {...f, position: [f.position[0], f.position[1] + 2.5, f.position[2]]} : r.move === 'orbit' ? toward(.03) : r.move === 'whip' ? {...f, target: [f.target[0] + .6, f.target[1], f.target[2]]} : f;
+      sh.from = f; sh.to = r.move === 'push' || r.move === 'lowAuthority' ? toward(pushNote !== null ? +(1 - pushNote).toFixed(3) : .06) : r.move === 'pull' ? toward(-.06) : r.move === 'crane' ? {...f, position: [f.position[0], f.position[1] + 2.5, f.position[2]]} : r.move === 'orbit' ? toward(.03) : r.move === 'whip' ? {...f, target: [f.target[0] + .6, f.target[1], f.target[2]]} : f;
       if (r.move === 'orbit') sh.degrees = 4;
       if (r.move === 'drone') { const P0 = f.position, d = [f.target[0] - P0[0], f.target[2] - P0[2]], l = Math.hypot(...d) || 1, s = [-d[1] / l, d[0] / l];   // E3: drone from cam: a 4-point path that rises 3 and slides 4 sideways, eyes on the cam: target
         sh.path = [0, 1, 2, 3].map(i => [+(P0[0] + s[0] * 4 * i / 3).toFixed(3), +(P0[1] + i).toFixed(3), +(P0[2] + s[1] * 4 * i / 3).toFixed(3)]); sh.targets = [f.target, f.target, f.target]; }

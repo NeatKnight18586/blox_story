@@ -119,7 +119,7 @@ export async function createStory6(ctx) {
   for (const s of D.splashes ?? []) { const p = anchorPos(s.anchor ?? 'pool'); puffs.push({kind: 'splash', t: s.t, p: [p[0], p[1] + .42, p[2] + (s.anchor === 'pool' || !s.anchor ? 0 : 0)]}); rings.push({kind: 'ripple', t: s.t, p: [p[0], p[1] + .41, p[2]], colour: '#CFEFFF'}); }
   // ---- spawn, tags --------------------------------------------------------------------------------------------------------------
   const spawnOf = Object.fromEntries((D.spawns ?? []).map(s => [s.actor, s.t]));
-  for (const tg of D.tags ?? []) { if (!cast[tg.actor]) throw Error('tag: unknown actor ' + tg.actor); for (const a of twins(tg.actor)) { const k = a.root.scale.x || 1, g = PROPS6.nameTag({text: tg.text, height: .75 / k, lift: 5.9}); g.name = 'tag6_' + tg.actor; g.visible = false; g.userData.t = tg.t; a.root.add(g); } }
+  for (const tg of D.tags ?? []) { if (!cast[tg.actor]) throw Error('tag: unknown actor ' + tg.actor); for (const a of twins(tg.actor)) { const k = a.root.scale.x || 1, g = PROPS6.nameTag({text: tg.text, height: .75 / k, lift: 5.9}); g.name = 'tag6_' + tg.actor; g.visible = false; g.userData.t = tg.t; if (tg.until !== undefined) g.userData.until = tg.until; a.root.add(g); } }   // E3: `until` (the tag's shot end) hides it again (no labels outside that shot)
   // ---- shared render objects: particles (instanced), rings (instanced, additive: colour → black fades) --------------------------
   const PCAP = 700, pMesh = new T.InstancedMesh(new T.IcosahedronGeometry(1, 1), new T.MeshBasicMaterial({color: '#ffffff'}), PCAP); pMesh.instanceColor = new T.InstancedBufferAttribute(new Float32Array(PCAP * 3), 3); pMesh.frustumCulled = false; pMesh.name = 'story6Particles'; pMesh.userData.live = true; scene.add(pMesh);
   const RCAP = 200, rg = new T.RingGeometry(.86, 1, 48); rg.rotateX(-Math.PI / 2);
@@ -176,7 +176,7 @@ export async function createStory6(ctx) {
         else { const p = (persist[n] ?? []).filter(x2 => t >= x2.t && t < x2.until).at(-1); if (p) { const b = posBase(n, t); a.root.position.x += p.pos[0] - b[0]; a.root.position.y += p.pos[1] - b[1]; a.root.position.z += p.pos[2] - b[2]; markPos[n] = [...p.pos]; } }
         if (out) out[n] = markPos[n]; }
       if (n in spawnOf) { const s = S.popScale(t, spawnOf[n], FPS), vis = (x.c.visible ?? []).filter(([t0]) => t >= t0).at(-1)?.[1] ?? true; a.root.visible = vis && s > 0; if (s > 0) a.root.scale.setScalar((a.preset?.scale ?? 1) * s); }
-      for (const c of a.root.children) if (c.name?.startsWith('tag6_')) c.visible = t >= c.userData.t;
+      for (const c of a.root.children) if (c.name?.startsWith('tag6_')) c.visible = t >= c.userData.t && !(t >= c.userData.until);
     },
     lodNear(t) { for (const b of crowdBlooms) { const sh = shots.findLast(s => b.t * FPS >= s.start); if (sh && t * FPS >= sh.start && t * FPS < sh.start + sh.frames) return S.BLOOM_LOD_NEAR; } return null; },   // the bloom shot: the nearest 24 within 36 studs (2 × the 18 of the LOD) show full detail
     frame(t) {

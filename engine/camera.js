@@ -139,7 +139,15 @@ export function framingCheck({size, move, subjectFrac, groundGap = 0, spectacle 
   return {ok: !issues.length, need, issues};
 }
 
+// E3 (opt-in shot.punch = [local s…]): a punch-in on each time — the lens narrows PUNCH.k (8 %) over PUNCH.frames (6) and holds.
+export const PUNCH = {k: .08, frames: 6};
+export const punchScale = (punch, localT, fps = FPS) => punch.reduce((s, t0) => s * (1 - PUNCH.k * EASE.outCubic(clamp01((localT - t0) * fps / PUNCH.frames))), 1);
 export function sampleCamera(shot, localT, actorPositions = {}) {
+  const c = sampleCamera0(shot, localT, actorPositions); if (!shot.punch?.length) return c;
+  const k = punchScale(shot.punch, localT, shot.fps ?? FPS);
+  return {...c, fov: c.fov * k, ...(c.split ? {split: c.split.map(h => ({...h, fov: h.fov * k}))} : {})};
+}
+function sampleCamera0(shot, localT, actorPositions = {}) {
   if (!MOVES.includes(shot.move)) throw Error(`unknown camera move: ${shot.move}`);
   if (MOVES5.includes(shot.move)) return sampleMove5(shot, localT, actorPositions);
   if (MOVES_K1.includes(shot.move)) return sampleMoveK1(shot, localT, actorPositions);

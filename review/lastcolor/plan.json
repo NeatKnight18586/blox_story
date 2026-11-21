@@ -22,7 +22,7 @@
    "size": "wide",
    "move": "drone",
    "loc": "testPark",
-   "speed": 15,
+   "speed": 16,
    "subject": "",
    "why": "awe: That's why they're all white."
   },
@@ -46,8 +46,8 @@
    "size": "medium",
    "move": "crashZoom",
    "loc": "testPark",
-   "speed": 30,
-   "subject": "hero@53,32",
+   "speed": 26,
+   "subject": "hero@60,31",
    "why": "comedy: trip_fall"
   },
   {
@@ -55,11 +55,11 @@
    "beat": false,
    "t": 7.97,
    "dur": 2.63,
-   "size": "close",
-   "move": "static-drift",
+   "size": "insert",
+   "move": "push",
    "loc": "testPark",
-   "speed": 9,
-   "subject": "hero@806,1143",
+   "speed": 0,
+   "subject": "hero@50,18",
    "why": "comedy: Nine thousand falls, and counting."
   },
   {
@@ -71,7 +71,7 @@
    "move": "track",
    "loc": "testPark",
    "speed": 6,
-   "subject": "hero@40,57",
+   "subject": "hero@41,57",
    "why": "fun: On Monday, the giant fan blew me into the pool."
   },
   {
@@ -83,7 +83,7 @@
    "move": "whip",
    "loc": "testPark",
    "speed": 20,
-   "subject": "hero@43,13",
+   "subject": "hero@47,34",
    "why": "fun: jump"
   },
   {
@@ -107,7 +107,7 @@
    "move": "push",
    "loc": "testPark",
    "speed": 0,
-   "subject": "hero@52,46",
+   "subject": "hero@53,46",
    "why": "comedy: My green pants turned white."
   },
   {
@@ -131,7 +131,7 @@
    "move": "push",
    "loc": "testPark",
    "speed": 0,
-   "subject": "hero@29,48",
+   "subject": "hero@22,47",
    "why": "emotion: They don't remember they ever had names."
   },
   {
@@ -154,7 +154,7 @@
    "size": "medium",
    "move": "orbit",
    "loc": "testPark",
-   "speed": 21,
+   "speed": 14,
    "subject": "bitsy@49,45",
    "why": "fun: cheer"
   },
@@ -191,7 +191,7 @@
    "move": "whip",
    "loc": "testPark",
    "speed": 7,
-   "subject": "hero@9,61",
+   "subject": "hero@35,56",
    "why": "fun: The cart flipped, and we both went flying."
   },
   {
@@ -200,10 +200,10 @@
    "t": 31.63,
    "dur": 1.77,
    "size": "medium",
-   "move": "topDown",
+   "move": "push",
    "loc": "testPark",
-   "speed": 4,
-   "subject": "hero@-14,47",
+   "speed": 0,
+   "subject": "hero@36,34",
    "why": "comedy: land"
   },
   {
@@ -215,7 +215,7 @@
    "move": "splitScreen",
    "loc": "testPark",
    "speed": 0,
-   "subject": "hero@49,-124",
+   "subject": "hero@50,29",
    "why": "comedy: I lost a color. She didn't."
   },
   {
@@ -227,7 +227,7 @@
    "move": "push",
    "loc": "testPark",
    "speed": 0,
-   "subject": "bitsy@88,100",
+   "subject": "bitsy@58,50",
    "why": "fun: Her cheeks got pinker."
   },
   {
@@ -239,7 +239,7 @@
    "move": "snap",
    "loc": "testPark",
    "speed": 0,
-   "subject": "hero@49,49",
+   "subject": "hero@48,46",
    "why": "comedy: Weird, right?"
   },
   {
@@ -248,10 +248,10 @@
    "t": 37.7,
    "dur": 2.5,
    "size": "wide",
-   "move": "crashZoom",
+   "move": "snap",
    "loc": "testPark",
-   "speed": 124,
-   "subject": "hero@51,41",
+   "speed": 0,
+   "subject": "hero@41,34",
    "why": "comedy: bonk_dizzy"
   },
   {
@@ -263,7 +263,7 @@
    "move": "static-drift",
    "loc": "testPark",
    "speed": 4,
-   "subject": "dummyb@70,8",
+   "subject": "dummyb@62,43",
    "why": "comedy: gasp_step_back"
   },
   {
@@ -275,7 +275,7 @@
    "move": "push",
    "loc": "testPark",
    "speed": 0,
-   "subject": "hero@54,19",
+   "subject": "hero@49,49",
    "why": "emotion: My blue stripe went white."
   },
   {
@@ -299,7 +299,7 @@
    "move": "push",
    "loc": "testPark",
    "speed": 0,
-   "subject": "hero@49,46",
+   "subject": "hero@49,36",
    "why": "tension: look_around"
   },
   {
@@ -310,8 +310,8 @@
    "size": "wide",
    "move": "static-drift",
    "loc": "testPark",
-   "speed": 2,
-   "subject": "dummyc@73,59",
+   "speed": 1,
+   "subject": "dummyc@53,55",
    "why": "comedy: trip_fall"
   },
   {
@@ -323,7 +323,7 @@
    "move": "push",
    "loc": "testPark",
    "speed": 0,
-   "subject": "dummyc@286,149",
+   "subject": "dummyc@23,32",
    "why": "emotion: When he got up, he blushed. Just a little."
   },
   {
@@ -346,8 +346,8 @@
    "size": "medium",
    "move": "tiltUp",
    "loc": "testPark",
-   "speed": 55,
-   "subject": "kid@51,44",
+   "speed": 34,
+   "subject": "kid@49,34",
    "why": "tension: arms_cross"
   },
   {
@@ -356,9 +356,9 @@
    "t": 57.2,
    "dur": 2,
    "size": "wide",
-   "move": "scaleReveal",
+   "move": "push",
    "loc": "testPark",
-   "speed": null,
+   "speed": 0,
    "subject": "",
    "why": "tension: A giant hand came down from the clouds."
   },
@@ -370,8 +370,8 @@
    "size": "medium",
    "move": "crashZoom",
    "loc": "testPark",
-   "speed": 28,
-   "subject": "bitsy@-7,53",
+   "speed": 25,
+   "subject": "bitsy@47,46",
    "why": "tension: And it picked up Bitsy."
   },
   {
@@ -394,8 +394,8 @@
    "size": "medium",
    "move": "whip",
    "loc": "testPark",
-   "speed": 31,
-   "subject": "hero@42,31",
+   "speed": 33,
+   "subject": "hero@43,31",
    "why": "tension: jump"
   },
   {
@@ -404,10 +404,10 @@
    "t": 63.03,
    "dur": 1.4,
    "size": "medium",
-   "move": "crashZoom",
+   "move": "snap",
    "loc": "testPark",
-   "speed": 274,
-   "subject": "hero@50,28",
+   "speed": 0,
+   "subject": "hero@50,42",
    "why": "tension: So it threw me instead."
   },
   {
@@ -415,11 +415,11 @@
    "beat": false,
    "t": 64.43,
    "dur": 1.23,
-   "size": "close",
+   "size": "wide",
    "move": "static-drift",
    "loc": "testPark",
-   "speed": 9,
-   "subject": "hero@-418,188",
+   "speed": 3,
+   "subject": "hero@49,25",
    "why": "tension: land"
   },
   {
@@ -431,7 +431,7 @@
    "move": "track",
    "loc": "testPark",
    "speed": 15,
-   "subject": "hero@55,56",
+   "subject": "hero@48,56",
    "why": "tension: It threw me again."
   },
   {
@@ -439,11 +439,11 @@
    "beat": false,
    "t": 66.73,
    "dur": 1.27,
-   "size": "insert",
+   "size": "wide",
    "move": "push",
    "loc": "testPark",
    "speed": 0,
-   "subject": "hero@-26055,817",
+   "subject": "hero@72,21",
    "why": "tension: My hands turned white."
   },
   {
@@ -455,7 +455,7 @@
    "move": "push",
    "loc": "testPark",
    "speed": 0,
-   "subject": "hero@-3,40",
+   "subject": "hero@49,26",
    "why": "emotion: Again. Now only my face was yellow."
   },
   {
@@ -467,7 +467,7 @@
    "move": "push",
    "loc": "testPark",
    "speed": 0,
-   "subject": "hero@-253,34",
+   "subject": "hero@54,32",
    "why": "emotion: reach_for"
   },
   {
@@ -476,10 +476,10 @@
    "t": 73.83,
    "dur": 1.77,
    "size": "medium",
-   "move": "crashZoom",
+   "move": "snap",
    "loc": "testPark",
-   "speed": 3247,
-   "subject": "bitsy@50,51",
+   "speed": 0,
+   "subject": "bitsy@45,39",
    "why": "tension: Then the hand grabbed Bitsy again."
   },
   {
@@ -490,7 +490,7 @@
    "size": "wide",
    "move": "tiltUp",
    "loc": "testPark",
-   "speed": 87,
+   "speed": 32,
    "subject": "",
    "why": "awe: Up, up, to the very top of the tower."
   },
@@ -502,7 +502,7 @@
    "size": "close",
    "move": "static-drift",
    "loc": "testPark",
-   "speed": 5,
+   "speed": 4,
    "subject": "",
    "why": "tension: And it let go."
   },
@@ -514,8 +514,8 @@
    "size": "close",
    "move": "static-drift",
    "loc": "testPark",
-   "speed": 9,
-   "subject": "hero@37,51",
+   "speed": 8,
+   "subject": "hero@52,50",
    "why": "emotion: I've fallen nine thousand times... so I know one thing."
   },
   {
@@ -526,33 +526,21 @@
    "size": "medium",
    "move": "crashZoom",
    "loc": "testPark",
-   "speed": 30,
-   "subject": "hero@56,35",
+   "speed": 25,
+   "subject": "hero@53,33",
    "why": "comedy: A fall only counts when you hit the ground."
   },
   {
    "id": "S45",
    "beat": false,
    "t": 84.63,
-   "dur": 0.73,
+   "dur": 1.87,
    "size": "wide",
-   "move": "whip",
-   "loc": "testPark",
-   "speed": 18,
-   "subject": "hero@47,27",
-   "why": "tension: jump"
-  },
-  {
-   "id": "S46",
-   "beat": false,
-   "t": 85.37,
-   "dur": 1.13,
-   "size": "medium",
    "move": "orbit",
    "loc": "testPark",
-   "speed": 32,
-   "subject": "hero@72,-36",
-   "why": "awe: catch"
+   "speed": 13,
+   "subject": "hero@30,37",
+   "why": "awe: jump @ jumped; catch @ caught"
   },
   {
    "id": "S47",
@@ -563,7 +551,7 @@
    "move": "push",
    "loc": "testPark",
    "speed": 0,
-   "subject": "hero@62,49",
+   "subject": "hero@43,31",
    "why": "tension: I yelled the one thing dummies never forget."
   },
   {
@@ -572,10 +560,10 @@
    "t": 88.87,
    "dur": 1.67,
    "size": "close",
-   "move": "crashZoom",
+   "move": "snap",
    "loc": "testPark",
-   "speed": 718,
-   "subject": "hero@53,0",
+   "speed": 0,
+   "subject": "hero@50,47",
    "why": "tension: Dummies help each other"
   },
   {
@@ -596,11 +584,11 @@
    "t": 92.5,
    "dur": 0.87,
    "size": "wide",
-   "move": "lowWide",
+   "move": "push",
    "loc": "testPark",
-   "speed": null,
-   "subject": "dummya@NaN,NaN",
-   "why": "awe: Hundreds of them."
+   "speed": 0,
+   "subject": "dummya@50,32",
+   "why": "tension: Hundreds of them."
   },
   {
    "id": "S51",
@@ -622,8 +610,8 @@
    "size": "medium",
    "move": "static-drift",
    "loc": "testPark",
-   "speed": 1,
-   "subject": "hero@95,48",
+   "speed": 3,
+   "subject": "hero@44,32",
    "why": "emotion: land"
   },
   {
@@ -635,7 +623,7 @@
    "move": "push",
    "loc": "testPark",
    "speed": 0,
-   "subject": "hero@48,46",
+   "subject": "hero@53,39",
    "why": "emotion: Nobody fell."
   },
   {
@@ -659,7 +647,7 @@
    "move": "push",
    "loc": "testPark",
    "speed": 0,
-   "subject": "dummyd@50,35",
+   "subject": "dummyd@50,29",
    "why": "fun: A blue arm here."
   },
   {
@@ -671,7 +659,7 @@
    "move": "push",
    "loc": "testPark",
    "speed": 0,
-   "subject": "dummye@51,35",
+   "subject": "dummye@51,44",
    "why": "fun: A red nose there."
   },
   {
@@ -683,7 +671,7 @@
    "move": "push",
    "loc": "testPark",
    "speed": 0,
-   "subject": "kid@51,34",
+   "subject": "kid@50,34",
    "why": "emotion: BlastKid_7 dropped the giant hand."
   },
   {
@@ -706,7 +694,7 @@
    "size": "medium",
    "move": "track",
    "loc": "testPark",
-   "speed": 28,
+   "speed": 27,
    "subject": "kid@42,40",
    "why": "fun: hug"
   },
@@ -716,10 +704,10 @@
    "t": 108.03,
    "dur": 2.6,
    "size": "wide",
-   "move": "static-drift",
+   "move": "push",
    "loc": "testPark",
-   "speed": 1,
-   "subject": "hero@98,49",
+   "speed": 0,
+   "subject": "hero@58,42",
    "why": "comedy: hero:knees_collapse; bitsy:knees_collapse"
   },
   {
@@ -731,7 +719,7 @@
    "move": "push",
    "loc": "testPark",
    "speed": 0,
-   "subject": "hero@98,47",
+   "subject": "hero@50,34",
    "why": "emotion: Turns out the rule was only half written."
   },
   {
@@ -743,36 +731,36 @@
    "move": "push",
    "loc": "testPark",
    "speed": 0,
-   "subject": "hero@96,50",
+   "subject": "hero@19,26",
    "why": "payoff: hug"
   }
  ],
  "meanShot": 1.97,
  "end": 115.3,
  "gamecam": 0,
- "wides": 18,
+ "wides": 20,
  "partners": [
   {
    "partner": "bitsy",
    "verb": "carry_hip",
-   "dist": 45.04,
-   "walkIn": 26.494,
+   "dist": 11.784,
+   "walkIn": 6.932,
    "ok": true
   },
   {
    "partner": "bitsy",
    "verb": "hug_s",
-   "dist": 26.606,
+   "dist": 0,
    "walkIn": null,
-   "ok": false
+   "ok": true
   }
  ],
  "format5": {
   "lengthS": 115.3,
-  "averageShotS": 1.86,
+  "averageShotS": 1.89,
   "insertH": {
    "S12": 0.5508,
-   "S58": 0.6192
+   "S58": 0.6819
   }
  },
  "season": false,
@@ -786,7 +774,7 @@
   {
    "shot": "S03",
    "part": "full",
-   "frac": 0.614,
+   "frac": 0.615,
    "need": 0.3
   },
   {
@@ -796,21 +784,15 @@
    "need": 0.3
   },
   {
-   "shot": "S05",
-   "part": "head",
-   "frac": 0.506,
-   "need": 0.45
-  },
-  {
    "shot": "S07",
    "part": "full",
-   "frac": 0.598,
+   "frac": 0.575,
    "need": 0.3
   },
   {
    "shot": "S09",
    "part": "head",
-   "frac": 0.506,
+   "frac": 0.507,
    "need": 0.45
   },
   {
@@ -822,7 +804,7 @@
   {
    "shot": "S11",
    "part": "head",
-   "frac": 0.283,
+   "frac": 0.48,
    "need": 0.45
   },
   {
@@ -840,61 +822,61 @@
   {
    "shot": "S17",
    "part": "full",
-   "frac": 1.533,
+   "frac": 0.538,
    "need": 0.3
   },
   {
    "shot": "S18",
    "part": "full",
-   "frac": 0.963,
+   "frac": 0.943,
    "need": 0.3
   },
   {
    "shot": "S19",
    "part": "head",
-   "frac": 0.409,
+   "frac": 0.5,
    "need": 0.45
   },
   {
    "shot": "S20",
    "part": "head",
-   "frac": 0.174,
+   "frac": 0.491,
    "need": 0.45
   },
   {
    "shot": "S22",
    "part": "full",
-   "frac": 0.636,
+   "frac": 0.578,
    "need": 0.3
   },
   {
    "shot": "S23",
    "part": "head",
-   "frac": 0.524,
+   "frac": 0.493,
    "need": 0.45
   },
   {
    "shot": "S25",
    "part": "head",
-   "frac": 0.5,
+   "frac": 0.821,
    "need": 0.45
   },
   {
    "shot": "S27",
    "part": "head",
-   "frac": 0.502,
+   "frac": 1.538,
    "need": 0.45
   },
   {
    "shot": "S29",
    "part": "full",
-   "frac": 0.489,
+   "frac": 0.592,
    "need": 0.3
   },
   {
    "shot": "S31",
    "part": "full",
-   "frac": 0.448,
+   "frac": 0.381,
    "need": 0.3
   },
   {
@@ -906,97 +888,85 @@
   {
    "shot": "S34",
    "part": "full",
-   "frac": 0.733,
+   "frac": 1.2,
    "need": 0.3
-  },
-  {
-   "shot": "S35",
-   "part": "head",
-   "frac": -2.299,
-   "need": 0.45
   },
   {
    "shot": "S38",
    "part": "full",
-   "frac": -0.241,
+   "frac": 0.597,
    "need": 0.3
   },
   {
    "shot": "S39",
    "part": "head",
-   "frac": -0.123,
+   "frac": 0.709,
    "need": 0.45
   },
   {
    "shot": "S40",
    "part": "full",
-   "frac": 0.13,
+   "frac": 0.735,
    "need": 0.3
   },
   {
    "shot": "S43",
    "part": "head",
-   "frac": 0.503,
+   "frac": 0.46,
    "need": 0.45
   },
   {
    "shot": "S44",
    "part": "full",
-   "frac": 0.593,
-   "need": 0.3
-  },
-  {
-   "shot": "S46",
-   "part": "full",
-   "frac": 0.672,
+   "frac": 0.57,
    "need": 0.3
   },
   {
    "shot": "S47",
    "part": "head",
-   "frac": 0.285,
+   "frac": 0.572,
    "need": 0.45
   },
   {
    "shot": "S48",
    "part": "head",
-   "frac": 0.832,
+   "frac": 1.038,
    "need": 0.45
   },
   {
    "shot": "S52",
    "part": "full",
-   "frac": 0.122,
+   "frac": 0.882,
    "need": 0.3
   },
   {
    "shot": "S53",
    "part": "head",
-   "frac": 0.502,
+   "frac": 0.66,
    "need": 0.45
   },
   {
    "shot": "S57",
    "part": "full",
-   "frac": 0.497,
+   "frac": 0.502,
    "need": 0.3
   },
   {
    "shot": "S59",
    "part": "full",
-   "frac": 0.487,
+   "frac": 0.476,
    "need": 0.3
   },
   {
    "shot": "S61",
    "part": "full",
-   "frac": 0.107,
+   "frac": 1.107,
    "need": 0.3
   },
   {
    "shot": "S62",
    "part": "head",
-   "frac": 0.051,
+   "frac": 0.537,
    "need": 0.45
   }
  ],
@@ -1004,134 +974,48 @@
  "eggs": [],
  "overlaps": 0,
  "moods": {
-  "a": "FAIL",
-  "b": "FAIL",
-  "c": "FAIL",
+  "a": "WARN",
+  "b": "PASS",
+  "c": "PASS",
   "d": "PASS",
-  "e": "WARN",
+  "e": "PASS",
   "f": "PASS",
-  "g": "WARN",
+  "g": "PASS",
   "h": "WARN",
-  "m": "WARN",
-  "t": "FAIL"
+  "m": "FAIL",
+  "t": "PASS"
  },
  "errors": [
-  "S05: subject hero head at x 806 % y 1143 % (want x 15–85, y 18–58)",
-  "S07: subject hero head at x 43 % y 13 % (want x 15–85, y 18–58)",
-  "S16: subject hero head at x 9 % y 61 % (want x 15–85, y 18–58)",
-  "S17: subject hero head at x -14 % y 47 % (want x 15–85, y 18–58)",
-  "S18: subject hero head at x 49 % y -124 % (want x 15–85, y 18–58)",
-  "S19: subject bitsy head at x 88 % y 100 % (want x 15–85, y 18–58)",
-  "S21: pan speed 124 %/s > 35 %",
-  "S22: subject dummyb head at x 70 % y 8 % (want x 15–85, y 18–58)",
-  "S26: subject dummyc head at x 73 % y 59 % (want x 15–85, y 18–58)",
-  "S27: subject dummyc head at x 286 % y 149 % (want x 15–85, y 18–58)",
-  "S29: pan speed 55 %/s > 35 %",
-  "S31: subject bitsy head at x -7 % y 53 % (want x 15–85, y 18–58)",
-  "S34: pan speed 274 %/s > 35 %",
-  "S35: subject hero head at x -418 % y 188 % (want x 15–85, y 18–58)",
-  "S37: subject hero head at x -26055 % y 817 % (want x 15–85, y 18–58)",
-  "S38: subject hero head at x -3 % y 40 % (want x 15–85, y 18–58)",
-  "S39: subject hero head at x -253 % y 34 % (want x 15–85, y 18–58)",
-  "S40: pan speed 3247 %/s > 35 %",
-  "S41: pan speed 87 %/s > 35 %",
-  "S46: subject hero head at x 72 % y -36 % (want x 15–85, y 18–58)",
-  "S48: pan speed 718 %/s > 35 %",
-  "S48: subject hero head at x 53 % y 0 % (want x 15–85, y 18–58)",
-  "S50: subject dummya head at x NaN % y NaN % (want x 15–85, y 18–58)",
-  "S52: subject hero head at x 95 % y 48 % (want x 15–85, y 18–58)",
-  "S60: subject hero head at x 98 % y 49 % (want x 15–85, y 18–58)",
-  "S61: subject hero head at x 98 % y 47 % (want x 15–85, y 18–58)",
-  "S62: subject hero head at x 96 % y 50 % (want x 15–85, y 18–58)",
-  "S11: framing subject 28.3 % < 45 %",
-  "S17: framing empty ground 49.4 % > 28.000000000000004 %",
-  "S18: framing empty ground 28.4 % > 28.000000000000004 %",
-  "S19: framing subject 40.9 % < 45 %",
-  "S20: framing subject 17.4 % < 45 %",
-  "S22: framing empty ground 35.7 % > 28.000000000000004 %",
-  "S35: framing subject -229.9 % < 45 %",
-  "S38: framing subject -24.1 % < 30 %",
-  "S38: framing empty ground 80.7 % > 28.000000000000004 %",
-  "S39: framing subject -12.3 % < 45 %",
-  "S40: framing subject 13.0 % < 30 %",
-  "S40: framing empty ground 37.5 % > 28.000000000000004 %",
-  "S46: framing empty ground 82.6 % > 28.000000000000004 %",
-  "S47: framing subject 28.5 % < 45 %",
-  "S52: framing subject 12.2 % < 30 %",
-  "S52: framing empty ground 42.1 % > 28.000000000000004 %",
-  "S61: framing subject 10.7 % < 30 %",
-  "S61: framing empty ground 44.8 % > 28.000000000000004 %",
-  "S62: framing subject 5.1 % < 45 %",
-  "partnerDistance: bitsy (hug_s with hero at 114.08 s): partner starts 26.61 studs from its mark (> 0.5); a walk-in needs 15.65 s, 4.22 s available",
-  "hugAngle: hero hugs bitsy at 114.08 s: camera is 66° off the torso line (want 25–60°; shoot a three-quarter view of the lead's side or back)",
-  "a. mood + length: S45: length 0.73 s vs 1.5–2.5 s (tension, 51 % out)",
-  "a. mood + length: S46: length 1.13 s vs 2.5–4 s (awe, 55 % out)",
-  "a. mood + length: S50: length 0.87 s vs 2.5–4 s (awe, 65 % out)",
-  "b. no dead stretch: S01: dead stretch 0.60–2.32 s (1.72 s > 1.5 s, nothing happens)",
-  "b. no dead stretch: S05: dead stretch 7.97–10.60 s (2.63 s > 1.5 s, nothing happens)",
-  "b. no dead stretch: S06: dead stretch 11.64–13.20 s (1.56 s > 1.5 s, nothing happens)",
-  "b. no dead stretch: S13: dead stretch 24.52–26.10 s (1.58 s > 1.5 s, nothing happens)",
-  "b. no dead stretch: S15: dead stretch 27.60–29.50 s (1.90 s > 1.5 s, nothing happens)",
-  "b. no dead stretch: S21: dead stretch 38.68–40.20 s (1.52 s > 1.5 s, nothing happens)",
-  "b. no dead stretch: S26: dead stretch 47.88–50.07 s (2.19 s > 1.5 s, nothing happens)",
-  "b. no dead stretch: S29: dead stretch 53.74–57.20 s (3.46 s > 1.5 s, nothing happens)",
-  "b. no dead stretch: S30: dead stretch 57.35–59.20 s (1.85 s > 1.5 s, nothing happens)",
-  "b. no dead stretch: S32: dead stretch 60.50–62.00 s (1.50 s > 1.5 s, nothing happens)",
-  "b. no dead stretch: S44: dead stretch 82.33–83.88 s (1.55 s > 1.5 s, nothing happens)",
-  "b. no dead stretch: S47: dead stretch 86.50–88.86 s (2.36 s > 1.5 s, nothing happens)",
-  "b. no dead stretch: S48: dead stretch 88.87–90.53 s (1.67 s > 1.5 s, nothing happens)",
-  "b. no dead stretch: S60: dead stretch 108.20–109.92 s (1.72 s > 1.5 s, nothing happens)",
-  "c. emphasis: S02: emphasis \"white\" at 3.60 s has no punch-in / crashZoom / expression / verb within ±3 frames",
-  "c. emphasis: S54: emphasis \"colors\" at 99.44 s has no punch-in / crashZoom / expression / verb within ±3 frames",
-  "c. emphasis: S58: emphasis \"Heal\" at 105.32 s has no punch-in / crashZoom / expression / verb within ±3 frames",
-  "t. trip freeze + ground hold: S26: trip_fall freeze 0 f (≥ 8), ground hold 0.00 s (≥ 0.6)",
-  "t. trip freeze + ground hold: S60: knees_collapse freeze 0 f (≥ 8), ground hold 0.00 s (≥ 0.6)",
-  "t. trip freeze + ground hold: S60: knees_collapse freeze 0 f (≥ 8), ground hold 0.00 s (≥ 0.6)"
+  "m. moodSeparation: fun / comedy: ΔE 4.5 (≥ 6)"
  ],
  "warnings": [
-  "S02: wide shot with no tagged character in the foreground",
-  "S05: \"hero\" (see) not in frame by frame 6",
-  "S05: camera 1.3 units from crowd116 (A1: keep ≥ 2)",
+  "S05: camera 1.8 units from hero (A1: keep ≥ 2)",
   "S06: subject head at y 57 % near the caption band: consider captionY \"high\"",
-  "S18: \"hero\" (see) not in frame by frame 6",
+  "S11: \"dummya\" (see) not in frame by frame 6",
   "S18: \"bitsy\" (see) not in frame by frame 6",
-  "S19: \"bitsy\" (see) not in frame by frame 6",
-  "S27: \"dummyc\" (see) not in frame by frame 6",
   "S28: subject head at y 56 % near the caption band: consider captionY \"high\"",
   "S28: wide shot with no tagged character in the foreground",
   "S30: wide shot with no tagged character in the foreground",
-  "S35: \"hero\" (see) not in frame by frame 6",
-  "S36: subject head at y 56 % near the caption band: consider captionY \"high\"",
+  "S32: wide shot with no tagged character in the foreground",
   "S36: wide shot with no tagged character in the foreground",
   "S37: \"hero\" (see) not in frame by frame 6",
-  "S38: \"hero\" (see) not in frame by frame 6",
-  "S39: \"hero\" (see) not in frame by frame 6",
-  "S40: \"bitsy\" (see) not in frame by frame 6",
   "S41: wide shot with no tagged character in the foreground",
-  "S45: wide shot with no tagged character in the foreground",
-  "S46: \"hero\" (see) not in frame by frame 6",
-  "S46: \"bitsy\" (see) not in frame by frame 6",
-  "S48: \"hero\" (see) not in frame by frame 6",
+  "S45: \"bitsy\" (see) not in frame by frame 6",
+  "S47: \"bitsy\" (see) not in frame by frame 6",
   "S49: wide shot with no tagged character in the foreground",
-  "S50: \"dummya\" (see) not in frame by frame 6",
-  "S50: wide shot with no tagged character in the foreground",
-  "S51: wide shot with no tagged character in the foreground",
-  "S52: \"hero\" (see) not in frame by frame 6",
-  "S60: \"hero\" (see) not in frame by frame 6",
-  "S60: wide shot with no tagged character in the foreground",
-  "S61: \"hero\" (see) not in frame by frame 6",
+  "S52: \"bitsy\" (see) not in frame by frame 6",
   "S61: \"bitsy\" (see) not in frame by frame 6",
-  "S62: \"hero\" (see) not in frame by frame 6",
   "a. mood + length: S01: move snap is not a tension move (lowAuthority, push, tiltUp, static-drift)",
   "a. mood + length: S02: length 1.30 s vs 2.5–4 s (awe, 48 % out)",
   "a. mood + length: S03: move push is not a fun move (track, orbit, snap, gamecam)",
   "a. mood + length: S05: length 2.63 s vs 0.8–2 s (comedy, 32 % out)",
+  "a. mood + length: S05: move push is not a comedy move (crashZoom, snap, whip, static-drift)",
   "a. mood + length: S07: move whip is not a fun move (track, orbit, snap, gamecam)",
   "a. mood + length: S09: move push is not a comedy move (crashZoom, snap, whip, static-drift)",
   "a. mood + length: S10: move track is not a emotion move (push, static-drift, splitScreen)",
   "a. mood + length: S14: move push is not a fun move (track, orbit, snap, gamecam)",
   "a. mood + length: S16: move whip is not a fun move (track, orbit, snap, gamecam)",
-  "a. mood + length: S17: move topDown is not a comedy move (crashZoom, snap, whip, static-drift)",
+  "a. mood + length: S17: move push is not a comedy move (crashZoom, snap, whip, static-drift)",
   "a. mood + length: S18: move splitScreen is not a comedy move (crashZoom, snap, whip, static-drift)",
   "a. mood + length: S19: move push is not a fun move (track, orbit, snap, gamecam)",
   "a. mood + length: S21: length 2.50 s vs 0.8–2 s (comedy, 25 % out)",
@@ -1139,23 +1023,22 @@
   "a. mood + length: S24: move track is not a emotion move (push, static-drift, splitScreen)",
   "a. mood + length: S28: length 1.10 s vs 1.5–2.5 s (tension, 27 % out)",
   "a. mood + length: S29: length 3.60 s vs 1.5–2.5 s (tension, 44 % out)",
-  "a. mood + length: S30: move scaleReveal is not a tension move (lowAuthority, push, tiltUp, static-drift)",
   "a. mood + length: S31: length 1.13 s vs 1.5–2.5 s (tension, 24 % out)",
   "a. mood + length: S31: move crashZoom is not a tension move (lowAuthority, push, tiltUp, static-drift)",
   "a. mood + length: S32: move track is not a tension move (lowAuthority, push, tiltUp, static-drift)",
   "a. mood + length: S33: length 1.03 s vs 1.5–2.5 s (tension, 31 % out)",
   "a. mood + length: S33: move whip is not a tension move (lowAuthority, push, tiltUp, static-drift)",
-  "a. mood + length: S34: move crashZoom is not a tension move (lowAuthority, push, tiltUp, static-drift)",
+  "a. mood + length: S34: move snap is not a tension move (lowAuthority, push, tiltUp, static-drift)",
   "a. mood + length: S36: length 1.07 s vs 1.5–2.5 s (tension, 29 % out)",
   "a. mood + length: S36: move track is not a tension move (lowAuthority, push, tiltUp, static-drift)",
-  "a. mood + length: S40: move crashZoom is not a tension move (lowAuthority, push, tiltUp, static-drift)",
+  "a. mood + length: S40: move snap is not a tension move (lowAuthority, push, tiltUp, static-drift)",
   "a. mood + length: S41: move tiltUp is not a awe move (drone, scaleReveal, crane, pull)",
   "a. mood + length: S42: length 1.20 s vs 1.5–2.5 s (tension, 20 % out)",
-  "a. mood + length: S45: move whip is not a tension move (lowAuthority, push, tiltUp, static-drift)",
-  "a. mood + length: S46: move orbit is not a awe move (drone, scaleReveal, crane, pull)",
-  "a. mood + length: S48: move crashZoom is not a tension move (lowAuthority, push, tiltUp, static-drift)",
+  "a. mood + length: S45: length 1.87 s vs 2.5–4 s (awe, 25 % out)",
+  "a. mood + length: S45: move orbit is not a awe move (drone, scaleReveal, crane, pull)",
+  "a. mood + length: S48: move snap is not a tension move (lowAuthority, push, tiltUp, static-drift)",
   "a. mood + length: S49: length 1.97 s vs 2.5–4 s (awe, 21 % out)",
-  "a. mood + length: S50: move lowWide is not a awe move (drone, scaleReveal, crane, pull)",
+  "a. mood + length: S50: length 0.87 s vs 1.5–2.5 s (tension, 42 % out)",
   "a. mood + length: S51: move topDown is not a awe move (drone, scaleReveal, crane, pull)",
   "a. mood + length: S52: length 1.23 s vs 2–3.5 s (emotion, 38 % out)",
   "a. mood + length: S53: length 1.17 s vs 2–3.5 s (emotion, 42 % out)",
@@ -1164,13 +1047,11 @@
   "a. mood + length: S55: move push is not a fun move (track, orbit, snap, gamecam)",
   "a. mood + length: S56: move push is not a fun move (track, orbit, snap, gamecam)",
   "a. mood + length: S60: length 2.60 s vs 0.8–2 s (comedy, 30 % out)",
-  "e. escalation: S21: gag 3 (5) does not grow over gag 2 in S16 (5): size, move or effects must step up",
-  "g. open loops: no loop open from 0.0 to 35.2 s (35.2 s > 20 s)",
+  "a. mood + length: S60: move push is not a comedy move (crashZoom, snap, whip, static-drift)",
   "h. pacing curve: 0–10 s: 4 cuts/10 s (opening wants 5–7)",
   "h. pacing curve: 60–70 s: 7 cuts/10 s (middle wants 4–6)",
   "h. pacing curve: 70–80 s: 5 cuts/10 s (climax wants 6–8)",
-  "h. pacing curve: 80–90 s: 5 cuts/10 s (climax wants 6–8)",
-  "h. pacing curve: 110–115.3 s: 3.8 cuts/10 s (climax wants 6–8)",
-  "m. moodSeparation: no moodmeans.json: render, run stories/<slug>/measure.py, then plan again"
+  "h. pacing curve: 80–90 s: 4 cuts/10 s (climax wants 6–8)",
+  "h. pacing curve: 110–115.3 s: 3.8 cuts/10 s (climax wants 6–8)"
  ]
 }

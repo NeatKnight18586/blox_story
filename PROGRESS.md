@@ -1751,3 +1751,15 @@ v2:plan: 71 errors. a FAIL (S45 0.73 s tension, S46 1.13 s awe, S50 0.87 s awe: 
 b FAIL 14 dead stretches, c FAIL 3 (S02 white, S54 colors, S58 Heal), t FAIL (S26, S60: needs the freeze effect); d PASS, f PASS; partnerDistance
 FAIL (bitsy 26.6 studs at the payoff hug), hugAngle FAIL (66°); ~30 framing / pan errors (subjects off where tumbles and throws land) not yet tuned.
 Decisions: commit message without "animatic" (none rendered). Open: owner to rule on moods S45/S46/S50 and on expression/effect columns for b/c/t.
+
+## E3 conform pass — lastcolor animatic (2026-11-21)
+Owner authorisation E3-3: expression / verb (add) / effect / move / size + cam/place/aim/fit/push/fov/hold/still; merge S45+S46; S50 mood tension.
+Engine (opt-in, Nobody 62/62 + Touch Grass 20/20 byte-identical): camera punch (`shot.punch`), brief `punch`, `verb @ word`, `push:` on cam rows,
+`hold:` on every fall verb, tag `until` (no labels outside shots 14/29; _fixture_e2 spec gains `until`), tests e3conform (4). npm test 0; v2:test 263 + 67 py.
+Staging: crowd starts at the ring (`wander at ring`, S26 pile at ring → 28-stud run to the cushion), named dummies + kid parked off-plaza until their
+shots, coaster beat at (−35, −50), throws anchored (cushion, plaza), heap finale at r ≈ 11 east of the cushion, cams solved against crowd/actors/structures.
+Numbers: v2:plan 1 error — m moodSeparation fun/comedy ΔE 4.5 (≥ 6) FAIL; a WARN (VO-fixed lengths, moves), b c d e f g t PASS, h WARN, partnerDistance +
+hugAngle PASS. Stability PASS (worst 0.283 %). v2:read 78 FAIL items (standsOut 28, nothingInFront 22, faceShown 13, moves 11, objectReads 2, hold 2).
+G2a FAIL: payoff head 188.89 vs S41 195.13 (+10 → 205.13; hero-only max S06 192.41). Sign letters 16.4–17.4 px (S02), 25.3 px (S21). Bitsy most
+saturated in 14/21 shots. Breath S43 motion 0.01 vs 5.47/3.13. Drains on their word ±0 frames, order legs→shoes→stripe→jacket→hands.
+Open: moodSeparation and G2a need light/look changes (not in the authorised tool list); drains in S35/S37 land off frame.
