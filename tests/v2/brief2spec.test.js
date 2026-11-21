@@ -57,17 +57,18 @@ test('_fixture6_pass: checks a–g PASS, zero FAIL (h may WARN under 30 s)', () 
   for (const k of 'abcdefg') assert.equal(lv[k], 'PASS', k); assert.ok(['PASS', 'WARN'].includes(lv.h)); assert.equal(r.errors.length, 0);
 });
 
-// P5: the proof reel's blocking + effect combos (stories/proof6)
-test('proof6: place / cycle marks, verb list, effect combo, prop insert, per-shot look', () => {
+// P5 / P5b: the proof reel's blocking, effect combos, hold / freeze, still shot, origin (stories/proof6, 13 shots on the cobbled street)
+test('proof6: place / cycle marks, verb list, effect combo, hold + freeze, prop insert, per-shot look, still', () => {
   const md6 = readFileSync('stories/proof6/BRIEF.md', 'utf8'), cues6 = JSON.parse(readFileSync('stories/proof6/cues.json', 'utf8'));
   const {spec, errors, missing} = briefToSpec(parseBrief(md6), cues6, lib, {slug: 'proof6'}); assert.deepEqual(errors, []); assert.deepEqual(missing, {locations: [], props: []});
-  const s = spec.shots, h = spec.cast.hero;
-  assert.deepEqual(h.marks[0], [0, {at: 'street', offset: [0, 0, -8], yaw: 0}]);   // place: hero 0 -8 yaw 0
+  const s = spec.shots, h = spec.cast.hero; assert.equal(s.length, 13); assert.equal(spec.world, 'stories/nobody/world.js');
+  assert.deepEqual(h.marks[0], [0, {at: 'street', offset: [0, 0, -8], yaw: 0}]);
   const walk = h.marks.find(m => m[1].travel); assert.deepEqual(walk[1].travel.dir, [0, 1]); assert.equal(walk[1].travel.speed, 1.7);
-  const cyc = s[0].actions.find(a => a.cycle); assert.equal(cyc.cycle, 'walk'); assert.ok(cyc.until < s[0].at + 1.7 && cyc.until > 0.3);   // walks until just before the first verb
-  assert.equal(s[2].impact, 0.9); assert.deepEqual(s[2].freeze, [0.9, 4]); assert.equal(s[2].zoomAt, 0.73);   // crash+freeze: zoom lands on the impact word
-  assert.deepEqual(s[10].actions.filter(a => a.verb).map(a => a.verb), ['jump', 'land']);   // `a; b`: the i-th verb on the i-th marked word
-  assert.equal(s[6].actions.find(a => a.verb).target, 'little');   // partner verb takes the other subject as target
-  assert.equal(s[5].prop, 'prop_streetLamp'); assert.deepEqual(spec.props[0].visible, [[0, false], [7.6, true], [9.05, false]]);
-  assert.deepEqual(s.map(x => x.look ?? 'day').slice(4, 7), ['storm', 'storm', 'goldenHour']);
+  assert.equal(s[2].impact, 0.9); assert.deepEqual(s[2].freeze, [0.9, 8]); assert.equal(s[2].zoomAt, 0.73); assert.equal(s[2].actions.find(a => a.verb).hold, 0.6);
+  assert.deepEqual(s[11].actions.filter(a => a.verb).map(a => a.verb), ['jump', 'land']);
+  assert.equal(s[7].actions.find(a => a.verb).target, 'little');
+  assert.equal(s[6].prop, 'prop_streetLamp'); assert.deepEqual(spec.props[0].visible, [[0, false], [8.6, true], [10.05, false]]); assert.equal(spec.props[0].pos.at(-1)[2], 'ramp');
+  assert.deepEqual(s.slice(5, 8).map(x => x.look ?? 'day'), ['storm', 'storm', 'goldenHour']);
+  assert.ok(s[9].still); assert.equal(s[9].light.camNoise, 0); assert.equal(s[9].light.vignette, .15); assert.equal(s[9].actions.at(-1).face, 'o_small');   // awe_small → o_small
+  assert.ok(s[12].from.position[1] === 1.5 && s[12].from.fov === 40);   // payoff: camera height 1.5, lens 40
 });
