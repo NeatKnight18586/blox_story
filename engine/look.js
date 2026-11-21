@@ -143,7 +143,7 @@ function cloudTexture(seed, soft) {
   const t = new T.CanvasTexture(c); t.wrapS = t.wrapT = T.RepeatWrapping; t.colorSpace = T.SRGBColorSpace; return t;
 }
 
-export function createLookV3(scene, renderer, {radius = 820, fog = {}, clouds = true, cloudCover = .7, envPreset = 'day', onEnv = null, moon = null, starDensity = 1} = {}) {
+export function createLookV3(scene, renderer, {radius = 820, fog = {}, clouds = true, cloudCover = .7, envPreset = 'day', onEnv = null, moon = null, starDensity = 1, hemiGround = null, sunColor = null} = {}) {   // E1b opt-in: a world may fix the ground bounce and sun colour
   patchHeightFog(fog.height ?? {amount: 0});
   const L = createLook(scene, renderer, {radius});
   L.clouds.visible = false;   // the block clouds of v2 are replaced by soft layers
@@ -204,6 +204,7 @@ export function createLookV3(scene, renderer, {radius = 820, fog = {}, clouds = 
       su.sunDir.value.set(...sunDir(p.sunEl, p.sunAz)); su.disc.value = mix('disc'); su.glow.value = mix('glow'); su.stars.value = mix('stars'); su.moon.value = mix('moon');
       for (const l of layers) { l.m.uniforms.col.value.set(x.cloudLit ?? p.cloud); if (!x.cloudLit) l.m.uniforms.col.value.lerp(new T.Color('#ffffff'), .35); l.m.uniforms.shade.value.set(x.cloudShade ?? p.cloud); if (!x.cloudShade) l.m.uniforms.shade.value.lerp(new T.Color(p.skyTop), .45); l.m.uniforms.op.value = l.op0 * (x.cloudOp ?? 1); }
       if (fog.color) scene.fog.color.set(fog.color);
+      if (hemiGround) L.hemi.groundColor.set(hemiGround); if (sunColor) L.sun.color.set(sunColor);
       if (fog.near) scene.fog.near = fog.near; if (fog.far) scene.fog.far = fog.far;
       return p;
     },

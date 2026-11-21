@@ -40,6 +40,7 @@ import * as TR from '../parts/terrain.js';
 import * as BI from '../parts/biomes.js';
 import * as V from '../parts/vegetation.js';
 import * as W from '../parts/water.js';
+import {lodPick, keyPreset} from './lod.js';
 
 const q = new URLSearchParams(location.search);
 const specUrl = q.get('spec') ? new URL('../' + q.get('spec'), import.meta.url) : new URL(`../stories/${q.get('story')}/episode.json`, import.meta.url);
@@ -159,19 +160,33 @@ const flapShapes = spec.lipFlap ? (await (await fetch(new URL('../' + (spec.lipF
 // Marks (Session 5): `marks: [[t0, {at, offset, yaw, travel}], ...]` re-block an actor over the episode; the
 // entry's own at/offset/yaw/travel is the mark before the first key.
 const markOf = (c, t) => { const k = keyAt(c.marks, t); return k ? {...k[1], t0: k[0]} : {at: c.at, offset: c.offset, yaw: c.yaw, travel: c.travel, origin: c.origin, t0: 0}; };
+const presetOf = c => {
+  const pre0 = c.troupe ? resolveTroupe(c, troupeData) : c.town ? townsperson(c.town) : c.preset ? {...presets[c.preset], ...(c.with ?? {})} : c;
+  const pre1 = BODY6 ? {...pre0, body: 'v6', faceStyle: pre0.faceStyle ?? 'v5'} : c.style === 'v5' || spec.look4 ? {...pre0, body: 'v5', faceStyle: pre0.faceStyle ?? 'v5'} : pre0;   // P1b: format 6 = Actor v6 (R15) for everyone   // Actor v5 + Faces v5 (owner's sheet; 'v4' stays opt-in) (2b: every actor of a look4 episode)
+  const pre2 = HERO_COLS && c.troupe !== 'HERO' && pre1.outfit ? {...pre1, outfit: heroSafeOutfit(pre1.outfit, HERO_COLS, {minL: NIGHT_EP ? .32 : 0})} : pre1;   // v4 1b: nobody dresses like the hero
+  const pre3 = (spec.look4 || BODY6) && !pre2.regions && pre2.outfit ? {...pre2, regions: outfitRegions(pre2.outfit, pre2.skin ?? '#f5cd30'), outfit: null} : pre2;   // 2b: outfits as colour regions (data)
+  const pre = FACES_V3 && !pre3.faceStyle ? {...pre3, faceStyle: 'v3'} : pre3;   // Faces v3: default for season 1 (or spec.faces 'v3')
+  if ((spec.format === 5 || spec.format === 6) && pre.build !== 'youth' && !(pre.age < 18)) pre.scale = 1;   // format v5: every adult stands at the same height (builds differ in shape, not size)
+  return pre; };
 for (const [name, c] of Object.entries(spec.cast ?? {})) {
   if (c.at) c.origin = resolve({anchor: c.at, offset: c.offset ?? [0, 0, 0]});
   if (c.style === 'dragon') { const d = buildDragon({scale: c.scale ?? 1, name, colors: c.colors ?? null, face: c.dragonFace ?? null, baby: !!c.baby, wingScale: c.wingScale ?? 1, rim: c.rim ?? null, spikes: c.spikes ?? 1, saddle: !!c.saddle}); scene.add(d.root); cast[name] = {a: d, c, dragon: true}; continue; }
   if (c.style === 'v2' || c.style === 'v5') { if (c.troupe === 'AFK') { c.keys ??= [[0, troupeData.AFK.pose ?? 'walk']]; c.faces ??= [[0, 'neutral']]; }
-    const pre0 = c.troupe ? resolveTroupe(c, troupeData) : c.town ? townsperson(c.town) : c.preset ? {...presets[c.preset], ...(c.with ?? {})} : c;
-    const pre1 = BODY6 ? {...pre0, body: 'v6', faceStyle: pre0.faceStyle ?? 'v5'} : c.style === 'v5' || spec.look4 ? {...pre0, body: 'v5', faceStyle: pre0.faceStyle ?? 'v5'} : pre0;   // P1b: format 6 = Actor v6 (R15) for everyone   // Actor v5 + Faces v5 (owner's sheet; 'v4' stays opt-in) (2b: every actor of a look4 episode)
-    const pre2 = HERO_COLS && c.troupe !== 'HERO' && pre1.outfit ? {...pre1, outfit: heroSafeOutfit(pre1.outfit, HERO_COLS, {minL: NIGHT_EP ? .32 : 0})} : pre1;   // v4 1b: nobody dresses like the hero
-    const pre3 = (spec.look4 || BODY6) && !pre2.regions && pre2.outfit ? {...pre2, regions: outfitRegions(pre2.outfit, pre2.skin ?? '#f5cd30'), outfit: null} : pre2;   // 2b: outfits as colour regions (data)
-    const pre = FACES_V3 && !pre3.faceStyle ? {...pre3, faceStyle: 'v3'} : pre3;   // Faces v3: default for season 1 (or spec.faces 'v3')
-    if ((spec.format === 5 || spec.format === 6) && pre.build !== 'youth' && !(pre.age < 18)) pre.scale = 1;   // format v5: every adult stands at the same height (builds differ in shape, not size)
+    const pre = presetOf(c);
     const a = buildActor(c.noTag ? {...pre, tag: null} : pre, name); scene.add(a.root); cast[name] = {a, c, v2: true};
+    if (spec.lod && c.lod) { const {costume, ...cn} = c, an = buildActor(presetOf(cn), name); an.root.visible = false; scene.add(an.root); cast[name].lod = {far: a, near: an}; }   // E1b (opt-in spec.lod): full-detail twin, swapped in by camera distance
     if (spec.decorate && WMOD?.decorate) WMOD.decorate(a, name, pre, c); }   // Touch Grass E1 (opt-in spec.decorate): the world module dresses an actor once (headset, armor, held props)
   else { const a = createBaseAvatar({color: c.color ?? 0xf2c94c}); scene.add(a.root); cast[name] = {a, c}; }
+}
+// E1b crowd LOD (opt-in spec.lod {near: 18, max: 24}): cast entries with `lod: true` carry a full-detail twin; per frame the
+// nearest ≤ max of them within `near` studs of the camera (to the chest, 2.6 up) show it, the rest their far (CROWD) build.
+const LODS = spec.lod ? Object.entries(cast).filter(([, x]) => x.lod) : [];
+function applyLod(camPos, t) {
+  const dists = LODS.map(([name]) => { const m = markPos[name]; return m ? Math.hypot(m[0] - camPos[0], m[1] + 2.6 - camPos[1], m[2] - camPos[2]) : Infinity; });
+  const pick = lodPick(dists, spec.lod.near ?? 18, spec.lod.max ?? 24);
+  LODS.forEach(([name, x], i) => { const want = pick.has(i) ? x.lod.near : x.lod.far, other = want === x.lod.near ? x.lod.far : x.lod.near;
+    if (x.a !== want) { x.a = want; poseOne(name, x, t, {}); }
+    other.root.visible = false; want.root.visible = x.c.visible ? valueAt(x.c.visible, t, true) : true; });
 }
 // format v5 lightsCascade (world effect): spec.effects [{type: 'lightsCascade', at, step, on, color, size, points: [[x, y, z]...] | {anchor, offset}[]}]
 const cascades = (spec.effects ?? []).filter(e => e.type === 'lightsCascade').map(e => { const g = new T.Group(); g.name = 'lightsCascade';
@@ -373,7 +388,11 @@ const talkOf = (name, t) => { if (!flapShapes) return null; const f = Math.round
   return flapActive(sh, name, {narrator: spec.lipFlap.narrator ?? 'HERO'}) ? shapeAt(flapShapes, t, FPS) : null; };
 function poseCast(t) {
   const out = {};
-  for (const [name, {a, c, v2, dragon}] of Object.entries(cast)) {
+  for (const [name, x] of Object.entries(cast)) poseOne(name, x, t, out);
+  return out;
+}
+function poseOne(name, {a, c, v2, dragon}, t, out) {
+  {
     const m = markOf(c, t), yaw = (m.yaw ?? 0) * Math.PI / 180;
     if (v2 || dragon) {
       const at = markAt(c, t);
@@ -396,7 +415,6 @@ function poseCast(t) {
     // follow cameras ride the actor's mark (path), not the posed root: strain shakes and walk bobs never jolt the camera
     out[name] = (v2 || dragon) ? markPos[name] : a.root.position.toArray();
   }
-  return out;
 }
 
 // ---- Effects (§5.3): targets are cast names ("knight1", "knight1.tool") or world object names; points
@@ -539,6 +557,7 @@ function drawFrame(shot, mf, off, width, height, nudge) {
   setHeroLit(shot); const actors = poseCast(t);
   const c = sampleCamera({...shot, fps: FPS}, M6 && shot.still ? 0 : Math.max(0, (mf.cam + off - shot.start) / FPS), actors);   // P5b `still` (moods only): the camera is locked at its first frame
   if (mf.shake.some(v => v)) c.position = c.position.map((v, i) => v + mf.shake[i]);
+  if (LODS.length) applyLod(c.position, t);
   updateCascades(t);
   const tw = M6 && shot.still ? shot.start / FPS : t;   // P5b `still` shot (moods only): the world's own movers, crowds and clouds hold their first-frame state
   world?.update(tw); applyWorldState(shot, t); updateExtras(tw, {camPos: c.position, size: shot.size, fill: shot.fill}); aimHeroSpots(shot, c.position); aimRim(shot, c.position); applyLift(shot); liftSubject(shot); glowProp(shot);
@@ -549,7 +568,8 @@ function drawFrame(shot, mf, off, width, height, nudge) {
   const cn = camNoise5b(shot, t) ?? (M6 && M6.moodUniforms(shot).camNoise ? camNoise(t, shots.indexOf(shot) + 1, M6.moodUniforms(shot).camNoise) : null); if (cn) { camera.rotateX(cn[0]); camera.rotateY(cn[1]); }   // Look 5b: static-shot micro-noise
   if (nudge) { const k = nudge / Math.sqrt(3); camera.translateX(k); camera.translateY(k); camera.translateZ(k); }
   world?.onCamera?.(camera.position.toArray());   // format v5 3b-R (opt-in): a world may hide what this camera cannot see (hall ↔ street)
-  if (look) { fx.look ? look.apply(...fx.look) : look.apply(shot.look ?? spec.look ?? 'day'); const sf = shotShadow(shot); poseCast(t); look.frameFixed(sf.centre, sf.radius, camera.position); look.update(tw); }
+  if (look) { fx.look ? look.apply(...fx.look) : look.apply(shot.look ?? spec.look ?? 'day'); if (shot.key) look.apply(keyPreset(look.preset, camera.position.toArray(), tgt, shot.key));   // E1b (opt-in shot.key {el, offset}): key light from the camera side
+    const sf = shotShadow(shot); poseCast(t); look.frameFixed(sf.centre, sf.radius, camera.position); look.update(tw); }
   apply5b(shot); apply6(shot, t); applyMood(shot, mf.anim);
   scene.updateMatrixWorld(true); effects.apply(t, camera); fitTags(scene, camera, {maxFrac: shot.tagMaxFrac ?? .06});
   if (spec.readableUi ?? !!look?.v3) { scene.updateMatrixWorld(true); enforceReadable(scene, camera, {focus: shot.focusUi ?? []}); }   // A5 §C: min text size + safe area (v3 worlds; "Nobody" untouched)

@@ -8,8 +8,8 @@
  "worst": {
   "view": "P3_ring:mid",
   "frame": 150,
-  "pct": 0.086,
-  "raw": 0.233
+  "pct": 0.102,
+  "raw": 0.272
  },
  "failing": [],
  "errors": [],
@@ -19,55 +19,55 @@
    "view": "P1_drone:first",
    "frame": 0,
    "pct": 0.008,
-   "raw": 0.089
+   "raw": 0.087
   },
   {
    "view": "P1_drone:mid",
    "frame": 30,
-   "pct": 0.01,
-   "raw": 0.069
+   "pct": 0.009,
+   "raw": 0.064
   },
   {
    "view": "P1_drone:last",
    "frame": 59,
-   "pct": 0.015,
-   "raw": 0.1
+   "pct": 0.014,
+   "raw": 0.076
   },
   {
    "view": "P2_tower:first",
    "frame": 60,
-   "pct": 0.013,
-   "raw": 0.178
+   "pct": 0.011,
+   "raw": 0.133
   },
   {
    "view": "P2_tower:mid",
    "frame": 90,
-   "pct": 0.015,
-   "raw": 0.215
+   "pct": 0.013,
+   "raw": 0.169
   },
   {
    "view": "P2_tower:last",
    "frame": 119,
-   "pct": 0.013,
-   "raw": 0.141
+   "pct": 0.011,
+   "raw": 0.115
   },
   {
    "view": "P3_ring:first",
    "frame": 120,
-   "pct": 0.076,
-   "raw": 0.301
+   "pct": 0.071,
+   "raw": 0.329
   },
   {
    "view": "P3_ring:mid",
    "frame": 150,
-   "pct": 0.086,
-   "raw": 0.233
+   "pct": 0.102,
+   "raw": 0.272
   },
   {
    "view": "P3_ring:last",
    "frame": 179,
-   "pct": 0.081,
-   "raw": 0.309
+   "pct": 0.079,
+   "raw": 0.345
   }
  ]
 }

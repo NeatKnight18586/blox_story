@@ -3,7 +3,7 @@
 import {test} from 'node:test';
 import assert from 'node:assert/strict';
 import {readFileSync} from 'node:fs';
-import {coasterPoint, coasterFrame, COASTER_LEN, COASTER_LOOP, handCurl, HAND_POSES, signLayout, SIGN_TEXT, fanAngle, PROP6_NAMES} from '../../parts/props.js';
+import {handGap, handRig, HAND, coasterPoint, coasterFrame, COASTER_LEN, COASTER_LOOP, handCurl, HAND_POSES, signLayout, SIGN_TEXT, fanAngle, PROP6_NAMES} from '../../parts/props.js';
 import {parkAnchors, groundY, LAYER, PLAZA, hillHeight} from '../../parts/sets6/testpark.js';
 import {resolveTroupe} from '../../engine/troupe.js';
 import {buildLayout} from '../../avatar-style/body.js';
@@ -25,8 +25,21 @@ test('giant hand: grip 0 is open, poses curl the right digits', () => {
   const f = handCurl('fist', 1), pt = handCurl('point', 1), pi = handCurl('pinch', .5);
   assert.ok(['index', 'middle', 'ring'].every(d => f[d][0] > 1.3));
   assert.deepEqual(pt.index, [0, 0]); assert.ok(pt.middle[0] > 1.3 && pt.ring[0] > 1.3);
-  assert.ok(Math.abs(pi.index[0] - .375) < 1e-9, 'grip blends linearly');
+  assert.ok(Math.abs(pi.index[0] - .5) < 1e-9, 'grip blends linearly');
   assert.deepEqual(handCurl('nope', 1).index, [0, 0]);
+});
+test('glove: short cuff, 14 long, pinch gap closes with grip', () => {
+  assert.ok(Math.abs(HAND.cuff - .15 * 14) < 1e-9);
+  const R = handRig('open', 1); assert.ok(Math.abs(R.middle[1].to[2] + R.middle[1].r + HAND.cuff - .2 - 14) < .1);
+  const gaps = [0, .25, .5, .75, 1].map(g => handGap('pinch', g)); for (let i = 1; i < gaps.length; i++) assert.ok(gaps[i] < gaps[i - 1]);
+  assert.ok(gaps[3] > .5 && gaps[4] < .15, gaps.join());
+  assert.ok(Object.keys(R).length === 5, 'four fingers and a thumb');
+});
+test('lod pick and key preset', async () => {
+  const {lodPick, keyPreset} = await import('../../engine/lod.js');
+  assert.deepEqual([...lodPick([5, 30, 2, 18, 18.1], 18, 2)], [2, 0]);
+  assert.equal(lodPick(Array(40).fill(1), 18, 24).size, 24);
+  const k = keyPreset({sunEl: 52, sunAz: 35, sun: '#fff'}, [0, 3, 10], [0, 2, 0], {el: 35, offset: 0}); assert.equal(k.sunEl, 35); assert.ok(Math.abs(k.sunAz) < 1e-9); assert.equal(k.sun, '#fff');
 });
 test('wall sign: two lines that fit the panel', () => {
   const L = signLayout(SIGN_TEXT, {W: 2048, H: 403});
@@ -58,10 +71,10 @@ test('testPark ground: layers ≥ 0.05 apart, flat plaza, hills outside', () => 
 test('troupe: DUMMY slot (torso +5 %) and costumes', () => {
   const data = JSON.parse(readFileSync('cast/troupe6.json', 'utf8'));
   const d = resolveTroupe({troupe: 'DUMMY'}, data);
-  assert.equal(d.skin, '#E9E9EC'); assert.equal(d.face, 'neutral'); assert.equal(d.faceStyle, 'v6'); assert.equal(d.hair, null);
+  assert.equal(d.skin, '#F2F2F4'); assert.deepEqual(d.material, {roughness: .85, lift: .08}); assert.equal(d.face, 'neutral'); assert.equal(d.faceStyle, 'v6'); assert.equal(d.hair, null);
   assert.ok(Math.abs(buildLayout(d.build).torso.size[1] / buildLayout('adult_m').torso.size[1] - 1.05) < 1e-9);
   const b = resolveTroupe({troupe: 'LITTLE', costume: 'BITSY'}, data);
-  assert.equal(b.skin, '#FFC2D9'); assert.equal(b.regions.torso.main, '#FF7FB0'); assert.equal(b.scale, .62); assert.equal(b.hair.style, 'high_ponytail');
+  assert.equal(b.skin, '#FFD0E2'); assert.equal(b.regions.torso.main, '#FF5FA2'); assert.equal(b.hair.color, '#FF3F8E'); assert.equal(b.scale, .62); assert.equal(b.hair.style, 'high_ponytail');
   const k = resolveTroupe({troupe: 'SECOND', costume: 'KID'}, data);
   assert.equal(k.regions.torso.main, '#F28C28'); assert.equal(k.regions.legs.shoes, '#F4F4F4'); assert.equal(k.hair.color, '#4FB548');
   assert.equal(resolveTroupe({troupe: 'DUMMY', costume: 'CROWD'}, data).tier, 'bg');

@@ -46,7 +46,17 @@ export function buildActor(preset, name = 'actor') {
   if (preset.tag) setTag(a, preset.tag.name, preset.tag.role ?? null);
   if (preset.opacity !== undefined && preset.opacity < 1) a.root.traverse(o => {   // A4 AFK: see-through, own material copies
     if (!o.isMesh || o.name === 'face_decal') return; o.material = [].concat(o.material).map(m => { const c = m.clone(); c.transparent = true; c.opacity = preset.opacity; c.depthWrite = true; return c; }); if (o.material.length === 1) o.material = o.material[0]; });
+  if (preset.material) a.root.traverse(o => { if (!o.isMesh || o.name === 'face_decal') return; o.material = Array.isArray(o.material) ? o.material.map(m => matteOf(m, preset.material)) : matteOf(o.material, preset.material); });   // E1b (opt-in): matte + emissive lift
   a.preset = preset; return a;
+}
+// E1b: a plain satin part as a matte copy (roughness) with an emissive lift (the part's own colour × lift), so shadow sides
+// never drop to grey. Painted / transparent materials are left alone. Cached per source material + options.
+const matteCache = new Map();
+export function matteOf(m, {roughness = null, lift = 0} = {}) {
+  if (!m?.isMeshStandardMaterial || m.map || m.transparent) return m;
+  const k = m.uuid + '|' + roughness + '|' + lift; if (matteCache.has(k)) return matteCache.get(k);
+  const c = m.clone(); if (roughness !== null) c.roughness = roughness; if (lift) { c.emissive = c.color.clone(); c.emissiveIntensity = lift; }
+  c.name = m.name + '_matte'; matteCache.set(k, c); return c;
 }
 
 // Seeded background townsperson (background tier), varied from a small palette.

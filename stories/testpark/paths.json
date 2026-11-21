@@ -7,6 +7,10 @@
  "labels": false,
  "world": "parts/sets6/testpark.js",
  "look": "day",
+ "lod": {
+  "near": 18,
+  "max": 24
+ },
  "note": "E1 stability: three camera paths through testPark.",
  "cast": {
   "d001": {
@@ -25,7 +29,8 @@
      "idle"
     ]
    ],
-   "costume": "CROWD"
+   "costume": "CROWD",
+   "lod": true
   },
   "d002": {
    "style": "v5",
@@ -43,7 +48,8 @@
      "cheer"
     ]
    ],
-   "costume": "CROWD"
+   "costume": "CROWD",
+   "lod": true
   },
   "d003": {
    "style": "v5",
@@ -61,7 +67,8 @@
      "trip"
     ]
    ],
-   "costume": "CROWD"
+   "costume": "CROWD",
+   "lod": true
   },
   "d004": {
    "style": "v5",
@@ -79,7 +86,8 @@
      "idle"
     ]
    ],
-   "costume": "CROWD"
+   "costume": "CROWD",
+   "lod": true
   },
   "d005": {
    "style": "v5",
@@ -97,7 +105,8 @@
      "wave"
     ]
    ],
-   "costume": "CROWD"
+   "costume": "CROWD",
+   "lod": true
   },
   "d006": {
    "style": "v5",
@@ -115,7 +124,8 @@
      "trip"
     ]
    ],
-   "costume": "CROWD"
+   "costume": "CROWD",
+   "lod": true
   },
   "d007": {
    "style": "v5",
@@ -133,7 +143,8 @@
      "look_react"
     ]
    ],
-   "costume": "CROWD"
+   "costume": "CROWD",
+   "lod": true
   },
   "d008": {
    "style": "v5",
@@ -151,7 +162,8 @@
      "idle"
     ]
    ],
-   "costume": "CROWD"
+   "costume": "CROWD",
+   "lod": true
   },
   "d009": {
    "style": "v5",
@@ -169,7 +181,8 @@
      "lookUp"
     ]
    ],
-   "costume": "CROWD"
+   "costume": "CROWD",
+   "lod": true
   },
   "d010": {
    "style": "v5",
@@ -187,7 +200,8 @@
      "cheer"
     ]
    ],
-   "costume": "CROWD"
+   "costume": "CROWD",
+   "lod": true
   },
   "d011": {
    "style": "v5",
@@ -205,7 +219,8 @@
      "idle"
     ]
    ],
-   "costume": "CROWD"
+   "costume": "CROWD",
+   "lod": true
   },
   "d012": {
    "style": "v5",
@@ -223,7 +238,8 @@
      "idle"
     ]
    ],
-   "costume": "CROWD"
+   "costume": "CROWD",
+   "lod": true
   },
   "d013": {
    "style": "v5",
@@ -241,7 +257,8 @@
      "fall"
     ]
    ],
-   "costume": "CROWD"
+   "costume": "CROWD",
+   "lod": true
   },
   "d014": {
    "style": "v5",
@@ -259,7 +276,8 @@
      "idle"
     ]
    ],
-   "costume": "CROWD"
+   "costume": "CROWD",
+   "lod": true
   },
   "d015": {
    "style": "v5",
@@ -277,7 +295,8 @@
      "idle"
     ]
    ],
-   "costume": "CROWD"
+   "costume": "CROWD",
+   "lod": true
   },
   "d016": {
    "style": "v5",
@@ -295,7 +314,8 @@
      "idle"
     ]
    ],
-   "costume": "CROWD"
+   "costume": "CROWD",
+   "lod": true
   },
   "d017": {
    "style": "v5",
@@ -313,7 +333,8 @@
      "idle"
     ]
    ],
-   "costume": "CROWD"
+   "costume": "CROWD",
+   "lod": true
   },
   "d018": {
    "style": "v5",
@@ -331,7 +352,8 @@
      "idle"
     ]
    ],
-   "costume": "CROWD"
+   "costume": "CROWD",
+   "lod": true
   },
   "d019": {
    "style": "v5",
@@ -349,7 +371,8 @@
      "recoil"
     ]
    ],
-   "costume": "CROWD"
+   "costume": "CROWD",
+   "lod": true
   },
   "d020": {
    "style": "v5",
@@ -367,7 +390,8 @@
      "idle"
     ]
    ],
-   "costume": "CROWD"
+   "costume": "CROWD",
+   "lod": true
   },
   "d021": {
    "style": "v5",
@@ -385,7 +409,8 @@
      "trip"
     ]
    ],
-   "costume": "CROWD"
+   "costume": "CROWD",
+   "lod": true
   },
   "d022": {
    "style": "v5",
@@ -403,7 +428,8 @@
      "trip"
     ]
    ],
-   "costume": "CROWD"
+   "costume": "CROWD",
+   "lod": true
   },
   "d023": {
    "style": "v5",
@@ -421,7 +447,8 @@
      "recoil"
     ]
    ],
-   "costume": "CROWD"
+   "costume": "CROWD",
+   "lod": true
   },
   "d024": {
    "style": "v5",
@@ -439,7 +466,8 @@
      "fall"
     ]
    ],
-   "costume": "CROWD"
+   "costume": "CROWD",
+   "lod": true
   },
   "d025": {
    "style": "v5",
@@ -457,7 +485,8 @@
      "idle"
     ]
    ],
-   "costume": "CROWD"
+   "costume": "CROWD",
+   "lod": true
   },
   "d026": {
    "style": "v5",
@@ -475,7 +504,8 @@
      "fall"
     ]
    ],
-   "costume": "CROWD"
+   "costume": "CROWD",
+   "lod": true
   },
   "d027": {
    "style": "v5",
@@ -493,7 +523,8 @@
      "idle"
     ]
    ],
-   "costume": "CROWD"
+   "costume": "CROWD",
+   "lod": true
   },
   "d028": {
    "style": "v5",
@@ -511,7 +542,8 @@
      "idle"
     ]
    ],
-   "costume": "CROWD"
+   "costume": "CROWD",
+   "lod": true
   },
   "d029": {
    "style": "v5",
@@ -529,7 +561,8 @@
      "recoil"
     ]
    ],
-   "costume": "CROWD"
+   "costume": "CROWD",
+   "lod": true
   },
   "d030": {
    "style": "v5",
@@ -547,7 +580,8 @@
      "wave"
     ]
    ],
-   "costume": "CROWD"
+   "costume": "CROWD",
+   "lod": true
   },
   "d031": {
    "style": "v5",
@@ -565,7 +599,8 @@
      "fall"
     ]
    ],
-   "costume": "CROWD"
+   "costume": "CROWD",
+   "lod": true
   },
   "d032": {
    "style": "v5",
@@ -583,7 +618,8 @@
      "fall"
     ]
    ],
-   "costume": "CROWD"
+   "costume": "CROWD",
+   "lod": true
   },
   "d033": {
    "style": "v5",
@@ -601,7 +637,8 @@
      "idle"
     ]
    ],
-   "costume": "CROWD"
+   "costume": "CROWD",
+   "lod": true
   },
   "d034": {
    "style": "v5",
@@ -619,7 +656,8 @@
      "recoil"
     ]
    ],
-   "costume": "CROWD"
+   "costume": "CROWD",
+   "lod": true
   },
   "d035": {
    "style": "v5",
@@ -637,7 +675,8 @@
      "wave"
     ]
    ],
-   "costume": "CROWD"
+   "costume": "CROWD",
+   "lod": true
   },
   "d036": {
    "style": "v5",
@@ -655,7 +694,8 @@
      "sit"
     ]
    ],
-   "costume": "CROWD"
+   "costume": "CROWD",
+   "lod": true
   },
   "d037": {
    "style": "v5",
@@ -673,7 +713,8 @@
      "sit"
     ]
    ],
-   "costume": "CROWD"
+   "costume": "CROWD",
+   "lod": true
   },
   "d038": {
    "style": "v5",
@@ -691,7 +732,8 @@
      "cheer"
     ]
    ],
-   "costume": "CROWD"
+   "costume": "CROWD",
+   "lod": true
   },
   "d039": {
    "style": "v5",
@@ -709,7 +751,8 @@
      "idle"
     ]
    ],
-   "costume": "CROWD"
+   "costume": "CROWD",
+   "lod": true
   },
   "d040": {
    "style": "v5",
@@ -727,7 +770,8 @@
      "idle"
     ]
    ],
-   "costume": "CROWD"
+   "costume": "CROWD",
+   "lod": true
   }
  },
  "worldState": {

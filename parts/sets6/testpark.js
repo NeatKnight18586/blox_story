@@ -3,10 +3,10 @@
 // pine clusters (vegetation.js conifers), a hazy pale-blue sky (#C9D8E4, own dome) and fog from 120 studs.
 // Ground plan (north = −z, the usual camera looks north from the south end): spawn pad south (0, 42); dummy crowd area
 // in the middle; giant fan west (−14, 18) blowing +x; two pools east (24, 18); launch tower north-west (−30, −22) with its
-// slide down the west edge; boxing ring north-east (16, −20) with the sign wall behind it (16, −31); coaster along the
+// slide down the west edge; boxing ring north-east (16, −20); the 24 × 5 sign wall at the north edge (−8, −40), turned to face the plaza centre; coaster along the
 // north edge (track origin (−30, −46), loop at x 12); crates / barrels / benches south-east; stone watch tower south-west.
 // Story state (world.setState): fanSpin (rpm, default 40), cart (pathT 0..1; default moves with t), padFlash (0..1),
-// handOn (0|1), hand (pose name), handGrip (0..1), handY (studs), handX / handZ, handYaw (degrees), press (heal button 0..1).
+// handOn (0|1), hand (pose name), handGrip (0..1), handY (studs), handX / handZ, handYaw / handPitch (degrees; pitch 0 = fingers level, 70 = pointing down at the plaza), press (heal button 0..1).
 // No labels (Season 1): the only text is the painted sign wall.
 import * as T from 'three';
 import {PROPS6, PARK, pm, fanAngle, TOWER_H} from '../props.js';
@@ -17,7 +17,7 @@ export const PLAZA = {x0: -40, x1: 40, z0: -60, z1: 60, tile: 8};
 // Every placed piece (world position, yaw degrees). Anchors are derived from these (pure, node-testable).
 export const PLACES = {
   spawnPad: {at: [0, 0, 42], yaw: 0}, fan: {at: [-14, 0, 18], yaw: 90}, pool: {at: [24, 0, 18], yaw: 0},
-  coaster: {at: [-30, 0, -46], yaw: 0}, ring: {at: [16, 0, -20], yaw: 0}, sign: {at: [16, 0, -31], yaw: 0},
+  coaster: {at: [-30, 0, -46], yaw: 0}, ring: {at: [16, 0, -20], yaw: 0}, sign: {at: [-8, 0, -40], yaw: 11},
   tower: {at: [-30, 0, -22], yaw: 0}, crates: {at: [28, 0, 46], yaw: -20}, barrels: {at: [34, 0, 38], yaw: 0},
   benches: {at: [36, 0, 8], yaw: -90}, watchTower: {at: [-32, 0, 47], yaw: 15}, healButton: {at: [3, 0, -12], yaw: 0},
 };
@@ -50,7 +50,9 @@ export function parkAnchors() {
   A.ring.position[1] = LAYER.ring; A.towerTop.position[1] = TOWER_H + LAYER.plaza;
   return A;
 }
-export const LOOK = () => ({fog: {color: PARK.sky, near: 120, far: 460, height: {amount: 0}}, envPreset: 'day', envIntensity: .45, cloudCover: .3});
+// E1b: the park is a concrete plaza, so the ground bounce is concrete grey (not the preset's grass green) and the sun near white:
+// white dummies stay white (no beige, no green shadow side).
+export const LOOK = () => ({fog: {color: PARK.sky, near: 120, far: 460, height: {amount: 0}}, envPreset: 'day', envIntensity: .45, cloudCover: .3, hemiGround: '#C9C9C6', sunColor: '#FFF9F0'});
 
 function plazaTexture() {
   const N = 512, c = document.createElement('canvas'); c.width = c.height = N; const x = c.getContext('2d'); x.fillStyle = PARK.concrete; x.fillRect(0, 0, N, N);
@@ -90,7 +92,7 @@ export function build(scene, {B, TR, look, spec}) {
   const put = (k, obj, local = [0, 0, 0]) => { const p = place(k, local); obj.position.set(p[0], (p[1] || 0) + (k === 'coaster' ? 0 : LAYER.plaza), p[2]); obj.rotation.y = PLACES[k].yaw * Math.PI / 180; return obj; };
   const live = {};
   statics.add(put('tower', PROPS6.launchTower()));
-  statics.add(put('ring', PROPS6.boxingRing())); statics.add(put('sign', PROPS6.wallSign({base: 5})));
+  statics.add(put('ring', PROPS6.boxingRing())); statics.add(put('sign', PROPS6.wallSign({w: 24, h: 5, base: 2})));
   statics.add(put('pool', PROPS6.pool())); statics.add(put('crates', PROPS6.crates())); statics.add(put('barrels', PROPS6.redBarrels()));
   statics.add(put('benches', PROPS6.benches({n: 4}))); statics.add(put('watchTower', PROPS6.watchTower()));
   const track = PROPS6.coasterTrack(); put('coaster', track); track.position.y = LAYER.plaza; statics.add(track);
@@ -102,14 +104,14 @@ export function build(scene, {B, TR, look, spec}) {
   live.cart = PROPS6.coasterCart(); cartHolder.add(live.cart);
   live.hand = PROPS6.giantHand(); live.hand.name = 'giantHand'; live.hand.visible = false; scene.add(live.hand);
   const anchors = parkAnchors();
-  const S = {fanSpin: 40, cart: null, padFlash: 0, handOn: 0, hand: 'open', handGrip: 0, handY: 24, handX: 0, handZ: 10, handYaw: 0, press: 0};
+  const S = {fanSpin: 40, cart: null, padFlash: 0, handOn: 0, hand: 'open', handGrip: 0, handY: 24, handX: 0, handZ: 10, handYaw: 0, handPitch: 70, press: 0};
   let T0 = 0;   // the renderer calls update(t) before setState (applyWorldState), so a state change re-applies at once
   const apply = t => {
     live.fan.userData.set({spin: fanAngle(t, S.fanSpin)});
     live.cart.userData.set({pathT: S.cart ?? ((t * .045) % 1)});
     live.pad.userData.set({flash: S.padFlash});
     live.heal.userData.set({press: S.press});
-    const h = live.hand; h.visible = !!S.handOn; if (h.visible) { h.userData.set({pose: S.hand, grip: S.handGrip}); h.position.set(S.handX, S.handY, S.handZ); h.rotation.set(0, 0, 0); h.rotateY(S.handYaw * Math.PI / 180); h.rotateX(Math.PI / 2 - .35); }   // fingers down toward the plaza, tilted toward the south camera
+    const h = live.hand; h.visible = !!S.handOn; if (h.visible) { h.userData.set({pose: S.hand, grip: S.handGrip}); h.position.set(S.handX, S.handY, S.handZ); h.rotation.set(0, 0, 0); h.rotateY(S.handYaw * Math.PI / 180); h.rotateX(S.handPitch * Math.PI / 180); }   // fingers down toward the plaza, tilted toward the south camera
   };
   return {anchors, groundY, places: PLACES,
     setState(k, v) { if (k in S && S[k] !== v) { S[k] = v; apply(T0); } },

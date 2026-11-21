@@ -312,6 +312,7 @@ export function classSword(cls, {tier = 'hero'} = {}) {
 // the pose maths is pure and exported (coasterPoint / coasterFrame, handCurl, fanAngle) for node tests. No game names,
 // logos, UI or weapons. nameTag is a floating label: Season 1 specs never show it (no labels, SEASON_1.md §2c).
 import {ENV} from './materials.js';
+import {RoundedBoxGeometry} from 'three/addons/geometries/RoundedBoxGeometry.js';
 export const PARK = {concrete: '#D9D9D4', grid: '#BDBDB8', sage: '#8FB38A', sky: '#C9D8E4', fan: '#4F6B4A', steel: '#8A9099', steelDk: '#5E646C',
   mat: '#E8E2D6', apron: '#3A3E46', post: '#D2383A', rope: '#F6F6F4', water: '#4FA3D9', rim: '#F7F7F5', crate: '#B98A55', crateDk: '#8C6439',
   barrel: '#C8372D', barrelRing: '#7E2420', bench: '#9C6B43', benchLeg: '#3A3E46', stone: '#D8C7A3', stoneDk: '#C2AE88', stoneLt: '#E6D8B8',
@@ -548,47 +549,76 @@ export function wallSign({text = SIGN_TEXT, w = 14, h = 3, base = .4, ink = PARK
     const tex = new T.CanvasTexture(c); tex.colorSpace = T.SRGBColorSpace; tex.anisotropy = 8; tex.generateMipmaps = true; tex.minFilter = T.LinearMipmapLinearFilter;
     face = new T.MeshStandardMaterial({map: tex, roughness: .9, envMap: ENV.map, envMapIntensity: ENV.intensity * .5}); }
   else face = pm(paper, {rough: .9});
-  g.add(mesh(new T.PlaneGeometry(w - .3, h - .3), face, [0, base + h / 2, .31], 'signFace', false));
+  const sf = mesh(new T.PlaneGeometry(w - .3, h - .3), face, [0, base + h / 2, .31], 'signFace', false); sf.userData.keep = true; g.add(sf);   // kept out of district merges: gates find it by name
   g.userData.text = text; g.userData.anchors = {front: [0, 0, 3]}; return g;
 }
 
-// giantHand: a cartoon 4-finger white glove (3 fingers + thumb), 14 studs from the cuff to the fingertip, fingers along
-// +z, palm facing −y. handCurl(pose, grip) is pure: per digit [knuckle, middle] curl angles (radians), grip 0..1 blends
-// open → pose. Poses: open, pinch (index + thumb meet, others half curled), fist, point (index straight, others curled).
+// giantHand (E1b): a puffy cartoon white glove (#FFFFFF), 14 studs from the cuff band to the middle fingertip. Hand space:
+// wrist at the origin, fingers along +z, palm facing −y (back +y), thumb on the −x side. A rounded palm, four thick rounded
+// fingers (two capsules each) and a clear thumb, three dark stitch lines on the back, a SHORT cuff band (0.15 of the length)
+// and a soft ink outline (#2B2D33 back-face shell pushed out along the normals). The rig is pure: handRig(pose, grip) →
+// per digit [{from, to, r}] segments; pinch = the thumb tip IK-solved to `pinchGap(grip)` studs from the index tip.
 export const HAND_POSES = ['open', 'pinch', 'fist', 'point'];
-const CURL = {open: {thumb: [0, 0, 0], index: [0, 0], middle: [0, 0], ring: [0, 0]},
-  pinch: {thumb: [.55, .5, .35], index: [.75, .9], middle: [.9, 1.3], ring: [1, 1.4]},
-  fist: {thumb: [.7, .9, .6], index: [1.45, 1.6], middle: [1.45, 1.6], ring: [1.45, 1.6]},
-  point: {thumb: [.6, .8, .5], index: [0, 0], middle: [1.45, 1.6], ring: [1.45, 1.6]}};
+export const HAND_LEN = 14, HAND = {cuff: .15 * 14, palm: {w: 6.6, h: 3, d: 6.6, r: 1.45}, knuckleZ: 5.6, fingerR: .85, thumbR: .95,
+  fingers: {index: [-2.4, 2.85, 2.4], middle: [-.8, 3.2, 2.55], ring: [.8, 3.0, 2.4], pinky: [2.4, 2.5, 2.0]},   // x, proximal, distal
+  thumb: {base: [-2.9, -.7, 2.0], a: 3.0, b: 2.6}};
+const CURL6 = {open: {index: [0, 0], middle: [0, 0], ring: [0, 0], pinky: [0, 0]}, pinch: {index: [1.0, 1.1], middle: [1.35, 1.5], ring: [1.45, 1.55], pinky: [1.5, 1.6]},
+  fist: {index: [1.55, 1.75], middle: [1.55, 1.75], ring: [1.55, 1.75], pinky: [1.55, 1.75]}, point: {index: [0, 0], middle: [1.55, 1.75], ring: [1.55, 1.75], pinky: [1.55, 1.75]}};
+const SPREAD = {index: -.2, middle: -.07, ring: .07, pinky: .2};
+export const pinchGap = grip => 2.4 * (1 - Math.max(0, Math.min(1, grip)));   // studs between the thumb and index surfaces
+// handCurl (kept for callers): per finger [knuckle, middle] curl, grip 0..1 blends open → pose.
 export function handCurl(pose = 'open', grip = 1) {
-  const P = CURL[pose] ?? CURL.open, k = Math.max(0, Math.min(1, grip)), out = {};
-  for (const d of Object.keys(P)) out[d] = P[d].map((a, i) => a * k + CURL.open[d][i] * (1 - k));
+  const P = CURL6[pose] ?? CURL6.open, k = Math.max(0, Math.min(1, grip)), out = {};
+  for (const d of Object.keys(P)) out[d] = P[d].map(a => a * k);
   return out;
 }
-export const HAND_LEN = 14;
-export function giantHand({pose = 'open', grip = 1} = {}) {
-  const g = new T.Group(); g.name = 'giantHand'; const glove = pm(PARK.glove, {rough: .7}), seam = pm(PARK.seam, {rough: .8}), cuffM = pm('#ECECEE', {rough: .75});
-  // cuff (z −1..1.6, flared) → palm (z 1.6..7.4) → fingers (to z 14); widths: palm 5.4, thickness 2.2
-  const cuff = mesh(new T.CylinderGeometry(2.7, 3.2, 2.6, 24), cuffM, [0, 0, .3], 'cuff'); cuff.rotation.x = Math.PI / 2; g.add(cuff);
-  const cuffRoll = mesh(new T.TorusGeometry(3.15, .45, 10, 28), cuffM, [0, 0, -1], 'cuffRoll'); g.add(cuffRoll);
-  const palm = mesh(new T.CapsuleGeometry(1.1, 4.2, 6, 16), glove, [0, 0, 4.5], 'palm'); palm.rotation.set(Math.PI / 2, 0, Math.PI / 2); palm.scale.set(1, 1.35, 1); g.add(palm);
-  const palmCore = mesh(new T.BoxGeometry(5.2, 2.1, 5.2), glove, [0, 0, 4.5], 'palmCore'); g.add(palmCore);
-  for (const x of [-1.3, 0, 1.3]) g.add(pbx(.14, .05, 3.4, seam, [x, 1.07, 4.6], 'seam', false));   // three stitch lines on the back
-  const digits = {}, fingerR = .78;
-  const finger = (name, x, len, rootZ = 7.1) => {
-    const k = new T.Group(); k.name = name + 'Knuckle'; k.position.set(x, 0, rootZ); g.add(k);
-    const a = mesh(new T.CapsuleGeometry(fingerR, len * .5, 6, 12), glove, [0, 0, len * .5 / 2 + .2], name + 'A'); a.rotation.x = Math.PI / 2; k.add(a);
-    const m = new T.Group(); m.name = name + 'Mid'; m.position.set(0, 0, len * .5 + .2); k.add(m);
-    const b = mesh(new T.CapsuleGeometry(fingerR * .96, len * .42, 6, 12), glove, [0, 0, len * .42 / 2 + .4], name + 'B'); b.rotation.x = Math.PI / 2; m.add(b);
-    digits[name] = [k, m];
-  };
-  finger('index', -1.75, 6.2); finger('middle', 0, 6.6); finger('ring', 1.75, 5.8);
-  const th = new T.Group(); th.name = 'thumbBase'; th.position.set(-2.7, -.2, 3.6); th.rotation.y = -.7; g.add(th);
-  const t1 = mesh(new T.CapsuleGeometry(.95, 2.4, 6, 12), glove, [0, 0, 1.6], 'thumbA'); t1.rotation.x = Math.PI / 2; th.add(t1);
-  const tm = new T.Group(); tm.position.set(0, 0, 3); th.add(tm); const t2 = mesh(new T.CapsuleGeometry(.9, 1.8, 6, 12), glove, [0, 0, 1.3], 'thumbB'); t2.rotation.x = Math.PI / 2; tm.add(t2);
-  const set = ({pose: p = 'open', grip: k = 1} = {}) => { const c = handCurl(p, k);
-    for (const d of ['index', 'middle', 'ring']) { digits[d][0].rotation.x = c[d][0]; digits[d][1].rotation.x = c[d][1]; }
-    th.rotation.set(c.thumb[0] * .6, -.7 + c.thumb[0] * 1.15, 0); tm.rotation.set(0, c.thumb[1] * .9, 0); g.userData.pose = p; g.userData.grip = k; };
+const v3 = {add: (a, b) => a.map((x, i) => x + b[i]), sub: (a, b) => a.map((x, i) => x - b[i]), mul: (a, k) => a.map(x => x * k), len: a => Math.hypot(...a),
+  norm: a => { const l = Math.hypot(...a) || 1; return a.map(x => x / l); }, cross: (a, b) => [a[1] * b[2] - a[2] * b[1], a[2] * b[0] - a[0] * b[2], a[0] * b[1] - a[1] * b[0]], dot: (a, b) => a[0] * b[0] + a[1] * b[1] + a[2] * b[2]};
+const rotAxis = (v, ax, a) => { const c = Math.cos(a), s = Math.sin(a), k = v3.norm(ax); return v3.add(v3.add(v3.mul(v, c), v3.mul(v3.cross(k, v), s)), v3.mul(k, v3.dot(k, v) * (1 - c))); };
+// finger chain: yaw (spread, about y) then curl about the finger's x (tip toward −y, the palm)
+function fingerSegs(x, L0, L1, [c0, c1], yaw) {
+  const K = [x, 0, HAND.knuckleZ], dir0 = [Math.sin(yaw) * Math.cos(c0), -Math.sin(c0), Math.cos(yaw) * Math.cos(c0)], dir1 = [Math.sin(yaw) * Math.cos(c0 + c1), -Math.sin(c0 + c1), Math.cos(yaw) * Math.cos(c0 + c1)];
+  const M = v3.add(K, v3.mul(dir0, L0)), tip = v3.add(M, v3.mul(dir1, L1));
+  return [{from: K, to: M, r: HAND.fingerR}, {from: M, to: tip, r: HAND.fingerR * .97}];
+}
+// two-bone IK (pure): base B → target P with lengths a, b, bending toward `hint`
+function ik2(B, P, a, b, hint) {
+  const d0 = v3.sub(P, B), d = Math.min(v3.len(d0), a + b - 1e-6), dir = v3.norm(d0), n = v3.norm(v3.cross(dir, hint));
+  const al = Math.acos(Math.max(-1, Math.min(1, (a * a + d * d - b * b) / (2 * a * d)))), u = rotAxis(dir, n, al), M = v3.add(B, v3.mul(u, a));
+  return [M, v3.add(M, v3.mul(v3.norm(v3.sub(v3.add(B, v3.mul(dir, d)), M)), b))];
+}
+export function handRig(pose = 'open', grip = 1) {
+  const c = handCurl(pose, grip), F = HAND.fingers, open = pose === 'open', k = Math.max(0, Math.min(1, grip)), out = {};
+  for (const [d, [x, L0, L1]] of Object.entries(F)) out[d] = fingerSegs(x, L0, L1, c[d], open ? SPREAD[d] * k : SPREAD[d] * .25);
+  const B = HAND.thumb.base, {a, b} = HAND.thumb, rr = HAND.fingerR + HAND.thumbR;
+  let target;
+  if (pose === 'pinch') { const it = out.index[1].to, away = v3.norm(v3.sub(B, it)); target = v3.add(it, v3.mul(away, rr + pinchGap(grip))); }
+  else if (pose === 'fist' || pose === 'point') target = v3.add([-1.2, -2.6, 5.4], v3.mul([-1.8, 1.2, -2.6], 1 - k));   // across the curled fingers
+  else target = v3.add(B, v3.mul(v3.norm([-.75 - .25 * k, -.15, .65]), a + b - .2));   // open: out to the side
+  const [M, tip] = ik2(B, target, a, b, [0, -1, -.3]);
+  out.thumb = [{from: B, to: M, r: HAND.thumbR}, {from: M, to: tip, r: HAND.thumbR * .95}];
+  return out;
+}
+// pinch gap (pure, studs): thumb-tip surface to index-tip surface.
+export const handGap = (pose, grip) => { const R = handRig(pose, grip); return v3.len(v3.sub(R.thumb[1].to, R.index[1].to)) - R.thumb[1].r - R.index[1].r; };
+const INK = '#2B2D33', inkMats = new Map();
+function inkShell(w) {   // back faces pushed out along the normals: a soft outline that follows the puffy shapes
+  if (inkMats.has(w)) return inkMats.get(w);
+  const m = new T.MeshBasicMaterial({color: INK, side: T.BackSide}); m.onBeforeCompile = sh => { sh.vertexShader = sh.vertexShader.replace('#include <begin_vertex>', `vec3 transformed = vec3(position) + normal * ${w.toFixed(3)};`); };
+  m.customProgramCacheKey = () => 'ink' + w; inkMats.set(w, m); return m;
+}
+function withInk(m, w = .13) { const sh = new T.Mesh(m.geometry, inkShell(w)); sh.name = m.name + 'Ink'; sh.castShadow = false; m.add(sh); return m; }
+export function giantHand({pose = 'open', grip = 1, ink = .13} = {}) {
+  const g = new T.Group(); g.name = 'giantHand'; const glove = pm('#FFFFFF', {rough: .7}), stitch = pm(INK, {rough: .8}), P = HAND.palm;
+  const cuff = mesh(new T.CylinderGeometry(3.05, 3.05, HAND.cuff, 28), pm('#F4F4F6', {rough: .75}), [0, 0, -HAND.cuff / 2 + .2], 'cuffBand'); cuff.rotation.x = Math.PI / 2; cuff.scale.set(1, 1, .62); g.add(withInk(cuff, ink));
+  const palm = mesh(new RoundedBoxGeometry(P.w, P.h, P.d, 4, P.r), glove, [0, 0, P.d / 2 - .1], 'palm'); g.add(withInk(palm, ink));
+  for (const x of [-1.3, 0, 1.3]) g.add(pbx(.16, .06, 3.2, stitch, [x, P.h / 2 + .02, 3.1], 'stitch', false));   // three stitch lines on the back
+  const segs = {}; const rig0 = handRig(pose, grip);
+  for (const [d, list] of Object.entries(rig0)) segs[d] = list.map((sgm, i) => { const L = v3.len(v3.sub(sgm.to, sgm.from)), m = mesh(new T.CapsuleGeometry(sgm.r, L, 6, 14), glove, [0, 0, 0], d + (i ? 'B' : 'A')); g.add(withInk(m, ink)); return m; });
+  const Y = new T.Vector3(0, 1, 0), q = new T.Vector3();
+  const set = ({pose: p = 'open', grip: k = 1} = {}) => { const R = handRig(p, k);
+    for (const [d, list] of Object.entries(R)) list.forEach((sgm, i) => { const m = segs[d][i]; m.position.set(...v3.mul(v3.add(sgm.from, sgm.to), .5)); m.quaternion.setFromUnitVectors(Y, q.set(...v3.norm(v3.sub(sgm.to, sgm.from)))); });
+    g.userData.pose = p; g.userData.grip = k; };
   set({pose, grip}); g.userData.set = set; g.userData.keep = true; g.userData.length = HAND_LEN; return g;
 }
 
