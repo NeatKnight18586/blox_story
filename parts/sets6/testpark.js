@@ -92,11 +92,13 @@ export function build(scene, {B, TR, look, spec}) {
   slab.position.set(0, LAYER.plaza - .325, 0); slab.receiveShadow = true; slab.name = 'plaza'; scene.add(slab);
   const put = (k, obj, local = [0, 0, 0]) => { const p = place(k, local); obj.position.set(p[0], (p[1] || 0) + (k === 'coaster' ? 0 : LAYER.plaza), p[2]); obj.rotation.y = PLACES[k].yaw * Math.PI / 180; return obj; };
   const live = {};
-  statics.add(put('tower', PROPS6.launchTower()));
-  statics.add(put('ring', PROPS6.boxingRing())); statics.add(put('sign', PROPS6.wallSign({w: 24, h: 5, base: 2})));
-  statics.add(put('pool', PROPS6.pool())); statics.add(put('crates', PROPS6.crates())); statics.add(put('barrels', PROPS6.redBarrels()));
+  // E3 (opt-in spec.worldObjects): pieces a `prop:<name>` subject names stay their own scene object (named as the prop) instead of being merged
+  const keep = new Set(spec?.worldObjects ?? []), stat = o => (keep.has(o.name) ? scene : statics).add(o);
+  stat(put('tower', PROPS6.launchTower()));
+  stat(put('ring', PROPS6.boxingRing())); stat(put('sign', PROPS6.wallSign({w: 24, h: 5, base: 2})));
+  stat(put('pool', PROPS6.pool())); statics.add(put('crates', PROPS6.crates())); statics.add(put('barrels', PROPS6.redBarrels()));
   statics.add(put('benches', PROPS6.benches({n: 4}))); statics.add(put('watchTower', PROPS6.watchTower()));
-  const track = PROPS6.coasterTrack(); put('coaster', track); track.position.y = LAYER.plaza; statics.add(track);
+  const track = PROPS6.coasterTrack(); put('coaster', track); track.position.y = LAYER.plaza; stat(track);
   scene.add(B.mergeByDistrict(statics, 40));
   live.fan = put('fan', PROPS6.giantFan()); scene.add(live.fan);
   live.pad = put('spawnPad', PROPS6.spawnPad()); scene.add(live.pad);

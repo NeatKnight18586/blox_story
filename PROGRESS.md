@@ -1736,3 +1736,18 @@ Numbers: pile390 1 component, h/w 0.61 (band 0.35–0.6) FAIL after two fix pass
 Decision / open: a dome of exactly r 5 × h 3.5 projects at ≈ 0.64 from 20 studs at 25° up (computed), so the brief's shape and the 0.6 band conflict; any top body over the sitters raises the ratio to ≈ 0.68 — no top layer in the frozen mound. Not loosened; owner to choose (wider / lower mound, or the band).
 Bench (E2 gate ≤ 0.30 s/frame, 270×480): this host slowed after a container restart (the unchanged E1b reference bench 0.198 → 0.219–0.224); the committed E2 code now reads 0.316. Two fix passes: crowd drive memoised per frame (poseCast runs twice), wash uniforms from cached colours + hidden LOD twins skipped, glove fingers cast no shadow → runs 0.294 · 0.301 · 0.301, then 0.339 · 0.318 · 0.300 (noisy host). Saved run 0.301 in review/e2/bench.json; v2:bench PASS under the owner's 120k budget (109k, crowd 120). Not loosened: owner to judge with the calibration.
 Also: spawn flash 0.02 % (raw 3.84 % with the orbit) · stripe-blue body pixels 0 · drain ΔE 0.09–1.27 · airCatch 0.045 · mound 0.082 · plan a–h PASS · captions 40, 0 overlapping · determinism 10/10 (same render order) · Nobody 62/62, Touch Grass 20/20 identical · npm test 0 · v2:test 254 + 67 py.
+
+## E3 — lastcolor animatic (2026-11-21) — STOPPED at Step 5 (v2:plan FAIL, not fixable within the allowed notes)
+Built (owner-approved, opt-in): world-object subjects. `parts/library6.json` testPark `worldObjects`; `scripts/v2/lib6.js` passes it on;
+`brief2spec.js`: a `prop:<name>` in that list → `shot.prop = name`, `spec.worldObjects`, no `spec.props` insert copy, `cam:` required (error names
+the row); `cam:` + drone → 4-point path (rise 3, slide 4), `cam:` + tiltUp → tilts from below the lens to the cam target. `parts/sets6/testpark.js`:
+pieces named in `spec.worldObjects` are added unmerged (own scene object). `engine/episode.js` + `engine/worldobjects.js`: guard, exactly one scene
+object per name and never also a spec prop. Tests `tests/v2/worldobjects.test.js` (5).
+Regression: Nobody 62/62 + Touch Grass 20/20 byte-identical (270×480 aa 0, HEAD worktree vs tree); brief2spec output old = new for _fixture6,
+_fixture6_pass, _fixture_e2, proof6; npm test 0; v2:test 259 node + 67 py.
+lastcolor BRIEF: cams on the 10 prop-subject rows, row 18 cam/camb from probed positions, row 39 verb reach_for, staging `place:` resyncs
+(rows 7, 9, 11, 12, 15, 17, 21, 24, 26, 28, 37, 43, 52) and `tumble: hero to pool` (row 6).
+v2:plan: 71 errors. a FAIL (S45 0.73 s tension, S46 1.13 s awe, S50 0.87 s awe: lengths fixed by the VO; needs a mood change or merged rows),
+b FAIL 14 dead stretches, c FAIL 3 (S02 white, S54 colors, S58 Heal), t FAIL (S26, S60: needs the freeze effect); d PASS, f PASS; partnerDistance
+FAIL (bitsy 26.6 studs at the payoff hug), hugAngle FAIL (66°); ~30 framing / pan errors (subjects off where tumbles and throws land) not yet tuned.
+Decisions: commit message without "animatic" (none rendered). Open: owner to rule on moods S45/S46/S50 and on expression/effect columns for b/c/t.

@@ -82,7 +82,7 @@ export function briefToSpec(brief, cues, lib, {slug, root = '.'} = {}) {
   const loc0 = locs.find(l => lib.locations[l]), worldMod = world['world module'] ?? lib.locations[loc0]?.world ?? (existsSync(`stories/${slug}/world.js`) ? `stories/${slug}/world.js` : null);
   if (!worldMod) E('WORLD', `no world module for ${locs.join(', ') || 'any location'} (add one to parts/library6.json or write stories/${slug}/world.js)`);
   // CAST
-  const castKeys = {}, cast = {}, pos = {}, yawOf = {}, props7 = [];
+  const castKeys = {}, cast = {}, pos = {}, yawOf = {}, props7 = [], worldObjs = new Set();
   const org = (() => { try { return JSON.parse(readFileSync(`${root}/parts/library6.json`, 'utf8')).locations?.[loc0]?.origin ?? [0, 0, 0]; } catch { return [0, 0, 0]; } })();   // the location anchor's world position (library6.json `origin`): cameras and props are world coordinates, marks stay anchor-relative
   brief.cast.forEach((c, i) => {
     const key = c.role.toLowerCase(); castKeys[key] = key;
@@ -105,6 +105,7 @@ export function briefToSpec(brief, cues, lib, {slug, root = '.'} = {}) {
     if (!MOVES.includes(r.move)) bad('move', r.move, 'a name in engine/camera.js MOVES');
     for (const e of (r.effect || 'none').split('+')) if (!EFFECTS6.includes(e.trim())) bad('effect', r.effect, EFFECTS6.join(' | ') + '; combine with +, e.g. crash+freeze');
     const subs = r.subject.split('+').map(x => x.trim()).filter(Boolean).map(x => x.startsWith('prop:') ? x : x.toLowerCase()), propSub = subs[0]?.startsWith('prop:') ? subs[0].slice(5) : null;   // prop names keep their case
+    const wobj = !!propSub && (lib.locations[loc0]?.worldObjects ?? []).includes(propSub);   // E3 (opt-in by data): an object the world builds itself (library6 `worldObjects`) — the subject resolves to it, no insert copy, camera from `cam:`
     if (propSub) { if (!lib.props.has(propSub)) { if (!missing.props.includes(propSub)) missing.props.push(propSub); } }
     else { if (!subs.length) E(`${R} (subject)`, 'empty'); for (const s of subs) if (!castKeys[s]) bad('subject', s, `CAST: ${Object.keys(castKeys).join(', ')}`); }
     // word-anchored cut time: the nearest word onset (±0.5 s); row 1 starts at 0
@@ -204,22 +205,26 @@ export function briefToSpec(brief, cues, lib, {slug, root = '.'} = {}) {
         if (!ok) E(`${R} (notes)`, 'tag: name tags are labels (Season 1 no-labels rule); the only exception is episode lastcolor, shots 14 and 29'); else if (who(P.actor)) st6.tags.push({actor: P.actor, text: P.text, t}); }
       else if (key === 'spawn' && who(P.actor)) st6.spawns.push({actor: P.actor, t});
     }
-    if (propSub) { const set7 = ['streetLamp', 'crate', 'porch', 'shack', 'deadTree', 'birdhouse', 'powerLine', 'grassBlade', 'rockPeak', 'rockMesa'].includes(propSub);
+    if (wobj) { worldObjs.add(propSub); if (!camNote) E(`${R} (notes)`, `prop:${propSub} is an object the world builds (no insert copy): it needs a cam: note (world camera)`); }
+    if (propSub && !wobj) { const set7 = ['streetLamp', 'crate', 'porch', 'shack', 'deadTree', 'birdhouse', 'powerLine', 'grassBlade', 'rockPeak', 'rockMesa'].includes(propSub);
       let pr = props7.find(p => p.id === propSub); if (!pr) props7.push(pr = {id: propSub, prop: propSub, ...(set7 ? {set: 'props7'} : {}), ...(propSub === 'streetLamp' ? {p: {color: '#ffd9a0', light: false}} : {}), scale: propScale, pos: [[0, [propAt[0] + org[0], 0, propAt[2] + org[2]]]], visible: [[0, false]]});
       if (drift) pr.pos = [[0, pr.pos[0][1]], [+at.toFixed(3), pr.pos[0][1]], [+c1.toFixed(3), [pr.pos[0][1][0] + drift[0], 0, pr.pos[0][1][2] + drift[1]], 'ramp']];   // `drift: dx dz` slides the prop (and its shadow) over its insert
       pr.visible.push([at, true], [+c1.toFixed(3), false]); }   // the prop exists only during its insert
     const fov = fovNote ?? (MOODS[r.mood] ? +((MOODS[r.mood].fov[0] + MOODS[r.mood].fov[1]) / 2).toFixed(1) : 45), ecu = r.size === 'ecu', size = ecu ? 'close' : r.size;
     Object.assign(sh, {mood: r.mood, size, move: r.move, why: `${r.mood}: ${r.verb && r.verb !== '-' ? r.verb : r.vo.replace(/\*/g, '')}`.slice(0, 140), see: propSub ? [propSub] : subs, vo: r.vo.replace(/\*/g, ''), cue: [c0, c1]});
-    if (ecu) sh.ecu = true; if (propSub) sh.prop = 'prop_' + propSub; else sh.subject = subs[0]; if (subs.length > 1) sh.pair = subs.slice(0, 2); if (actions.length) sh.actions = actions; if (notes.length) sh.note = notes.join('; ');
+    if (ecu) sh.ecu = true; if (propSub) sh.prop = wobj ? propSub : 'prop_' + propSub; else sh.subject = subs[0]; if (subs.length > 1) sh.pair = subs.slice(0, 2); if (actions.length) sh.actions = actions; if (notes.length) sh.note = notes.join('; ');
     if (i === 0) sh.openHit = true; if (r.move === 'crashZoom' && aimX) sh.subjectAimOffset = [aimX, 0, 0]; if (r.move === 'crashZoom' && aimY !== null) sh.subjectAimY = aimY;   // the zoom re-aims at the subject: keep the same x shift
     if (!errors.some(e => e.startsWith(R)) && !propSub) Object.assign(sh, camera(sh, {size, move: r.move, mood: r.mood, fov, pos: Object.fromEntries(Object.entries(cur).map(([k, v]) => [k, [v[0] + org[0], v[1] + org[1], v[2] + org[2]]])), subjects: subs.filter(s => cur[s]), stand: standDeg ?? (i % 2 ? 18 : -18), ecu, aim: aimY, aimx: aimX, fitF, pushTo: pushNote ?? undefined, camY}));
-    else if (propSub && !errors.some(e => e.startsWith(R))) { const [px, , pz] = [propAt[0] + org[0], 0, propAt[2] + org[2]], k = propScale, fv = Math.min(Math.max(fov, 28), 40), H = (PROP_H[propSub] ?? 3) * k, d = H / ((fitF ?? .47) * 2 * Math.tan(fv * Math.PI / 360));   // insert on a library prop: low lens, the whole prop 47 % of the frame height, a slow push
+    else if (propSub && !wobj && !errors.some(e => e.startsWith(R))) { const [px, , pz] = [propAt[0] + org[0], 0, propAt[2] + org[2]], k = propScale, fv = Math.min(Math.max(fov, 28), 40), H = (PROP_H[propSub] ?? 3) * k, d = H / ((fitF ?? .47) * 2 * Math.tan(fv * Math.PI / 360));   // insert on a library prop: low lens, the whole prop 47 % of the frame height, a slow push
       const cy = camY ?? .6, f = {position: [px + .08 * d, cy, pz + d], target: tiltDeg === null ? [px, H / 2, pz] : [px + .08 * d * .9, cy + Math.tan(tiltDeg * Math.PI / 180) * d, pz], fov: fv}; Object.assign(sh, {from: f, to: {...f, position: [px + .08 * d * pushK, cy, pz + d * pushK]}}); }
     if (camNote && !errors.some(e => e.startsWith(R))) {   // E2 `cam:`: the camera at world coordinates (fov from the mood / `fov:`); moves keep their kind
       const fv = sh.from?.fov ?? fov, f = {...camNote, fov: fv}; for (const k of ['follow', 'heading', 'distance', 'height', 'actor', 'dir', 'path', 'targets', 'ground']) delete sh[k];
       const toward = (k2) => ({...f, position: f.position.map((v, j) => v + (f.target[j] - v) * k2)});
       sh.from = f; sh.to = r.move === 'push' || r.move === 'lowAuthority' ? toward(.06) : r.move === 'pull' ? toward(-.06) : r.move === 'crane' ? {...f, position: [f.position[0], f.position[1] + 2.5, f.position[2]]} : r.move === 'orbit' ? toward(.03) : r.move === 'whip' ? {...f, target: [f.target[0] + .6, f.target[1], f.target[2]]} : f;
       if (r.move === 'orbit') sh.degrees = 4;
+      if (r.move === 'drone') { const P0 = f.position, d = [f.target[0] - P0[0], f.target[2] - P0[2]], l = Math.hypot(...d) || 1, s = [-d[1] / l, d[0] / l];   // E3: drone from cam: a 4-point path that rises 3 and slides 4 sideways, eyes on the cam: target
+        sh.path = [0, 1, 2, 3].map(i => [+(P0[0] + s[0] * 4 * i / 3).toFixed(3), +(P0[1] + i).toFixed(3), +(P0[2] + s[1] * 4 * i / 3).toFixed(3)]); sh.targets = [f.target, f.target, f.target]; }
+      if (r.move === 'tiltUp') sh.from = {...f, target: [f.target[0], Math.min(f.target[1], f.position[1] - 3), f.target[2]]};   // E3: tilt from below the lens up to the cam: target
       if (r.move === 'splitScreen') { if (!camB) E(`${R} (notes)`, 'splitScreen needs cam: and camb:'); else { const b = {...camB, fov: fv}; sh.a = {from: f, to: toward(.05)}; sh.b = {from: b, to: {...b, position: b.position.map((v, j) => v + (b.target[j] - v) * .05)}}; } }
     } else if (r.move === 'splitScreen') E(`${R} (notes)`, 'splitScreen needs cam: and camb: (world cameras for the two halves)');
     for (const e of emphasis6) if (e.row === r['#']) e.shot = sh.id;
@@ -229,7 +234,7 @@ export function briefToSpec(brief, cues, lib, {slug, root = '.'} = {}) {
   const spec = {slug, fps: 30, format: 6, moods: true, body: 'v6', faceStyle: 'v6', acting: 6, labels: false, hero: 'hero', world: worldMod, look: 'day', cues: `stories/${slug}/cues.json`, end,
     note: `Written by scripts/v2/brief2spec.js from stories/${slug}/BRIEF.md (${shots.length} shots). Edit the Brief, not this file.`,
     brief: {title: meta.title, ruleLine: brief.premise['rule line'], palette: world.palette, colourScript: world['colour script'], setting: world.setting, props, payoff: brief.payoff},
-    cast, ...(props7.length ? {props: props7} : {}), emphasis6: emphasis6.map(({row, ...e}) => e), effects, shots};
+    cast, ...(props7.length ? {props: props7} : {}), ...(worldObjs.size ? {worldObjects: [...worldObjs]} : {}), emphasis6: emphasis6.map(({row, ...e}) => e), effects, shots};
   if (Object.values(st6).some(v => Array.isArray(v) ? v.length : v)) { spec.story6 = Object.fromEntries(Object.entries(st6).filter(([, v]) => Array.isArray(v) ? v.length : v)); if (st6.crowd) spec.lod = {near: 18, max: 24}; }   // E2 (opt-in): only specs that use a marker get story6
   return {spec, errors, missing};
 }

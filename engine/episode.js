@@ -111,6 +111,8 @@ if (spec.world) {
   if (mod.preload) await mod.preload(new URL('../', import.meta.url), {scene, renderer, spec});   // Kit 1 (opt-in, v3 worlds that export preload): async world assets / a parts/location.js street
   world = mod.build(scene, {P, B, A, M, PR, TR, BI, V, W, look, spec});
   }
+  // E3 (opt-in spec.worldObjects): a `prop:<name>` subject is the world's own object of that name (giantHand = the story6 hand): exactly one, never an insert copy
+  if (spec.worldObjects) { const {worldObjectErrors} = await import('./worldobjects.js'), bad = worldObjectErrors(spec.worldObjects, n => { let k = 0; scene.traverse(o => { if (o.name === n) k++; }); return k; }, spec.props ?? []); if (bad.length) throw Error(bad.join('; ')); }
 } else {
   scene.background = new T.Color('#8fc8ff'); scene.fog = new T.Fog('#8fc8ff', 60, 140);
   scene.add(new T.HemisphereLight('#dfefff', '#6b8f4e', 1.1));

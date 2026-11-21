@@ -13,6 +13,6 @@ export function loadLibrary(root = '.') {
   const D = `${root}/parts/locations`;
   if (existsSync(D)) for (const f of readdirSync(D).filter(f => f.endsWith('.json') && !f.startsWith('anchors'))) { const j = J(`${D}/${f}`), n = f.replace(/\.json$/, ''); locations[n] = {world: null, file: `parts/locations/${f}`, anchors: [n]}; for (const p of j.props ?? []) if (p.prop) props.add(p.prop); }
   const X = `${root}/parts/library6.json`;
-  if (existsSync(X)) { const x = J(X); for (const [k, v] of Object.entries(x.locations ?? {})) locations[k] = {world: v.world, anchors: v.anchors ?? [k], ...(v.anchorPositions ? {anchorPositions: v.anchorPositions} : {})}; for (const p of x.props ?? []) props.add(p); }
+  if (existsSync(X)) { const x = J(X); for (const [k, v] of Object.entries(x.locations ?? {})) locations[k] = {world: v.world, anchors: v.anchors ?? [k], ...(v.anchorPositions ? {anchorPositions: v.anchorPositions} : {}), ...(v.worldObjects ? {worldObjects: v.worldObjects} : {})}; for (const p of x.props ?? []) props.add(p); }
   return {locations, props};
 }

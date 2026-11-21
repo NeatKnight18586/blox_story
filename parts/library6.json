@@ -1,5 +1,5 @@
 {
- "_note": "Extra registered worlds / props for brief2spec (scripts/v2/lib6.js). A location here names the world module a spec loads and the anchor its cast stands on. P5b: `cobbleStreet` = the Nobody world's cobbled street anchor (world (4, 0, 18), the street runs along z from the gate at z 36 to the square at z -14, castle at z -74); `origin` = the anchor's world position, added to brief2spec camera / prop coordinates. E1: `testPark` = our own open test park (parts/sets6/testpark.js); `anchorPositions` = its sub-anchors in world studs (y = walkable surface). E2: testPark `cushion` anchor; `origin` [0, 0, 8] = the plaza anchor (brief2spec marks are plaza-relative).",
+ "_note": "Extra registered worlds / props for brief2spec (scripts/v2/lib6.js). A location here names the world module a spec loads and the anchor its cast stands on. P5b: `cobbleStreet` = the Nobody world's cobbled street anchor (world (4, 0, 18), the street runs along z from the gate at z 36 to the square at z -14, castle at z -74); `origin` = the anchor's world position, added to brief2spec camera / prop coordinates. E1: `testPark` = our own open test park (parts/sets6/testpark.js); `anchorPositions` = its sub-anchors in world studs (y = walkable surface). E2: testPark `cushion` anchor; E3: `worldObjects` = objects the world builds itself, named as the prop (a `prop:<name>` subject resolves to it, no duplicate insert; camera from `cam:`); giantHand = the story6 hand; `origin` [0, 0, 8] = the plaza anchor (brief2spec marks are plaza-relative).",
  "locations": {
   "street": {
    "world": "engine/fixtures/v4look/world.js",
@@ -20,6 +20,7 @@
   },
   "testPark": {
    "world": "parts/sets6/testpark.js",
+   "worldObjects": ["wallSign", "pool", "launchTower", "giantFan", "boxingRing", "spawnPad", "healButton", "coasterTrack", "coasterCart", "giantHand"],
    "anchors": [
     "plaza",
     "spawnPad",
