@@ -1,9 +1,9 @@
 {
   "_note": "Format 6 moods (P4). len [min, max] s · moves (first = default) · fov [min, max] deg · light: ev (stops, exposure × 2^ev), sat (saturation ×), tint [r, g, b] (temperature), haze (0–1 glow lift), rim (× the rim light), camNoise (deg). The payoff key is the brightest of the episode on purpose (ev .30 vs ≤ .10 elsewhere).",
-  "fun":     {"len": [1.2, 2.2], "moves": ["track", "orbit", "snap", "gamecam"], "fov": [45, 65], "light": {"ev": 0.10, "sat": 1.08, "tint": [1, 1, 1]}},
-  "comedy":  {"len": [0.8, 2.0], "moves": ["crashZoom", "snap", "whip", "static-drift"], "effects": ["freeze", "impact"], "fov": [40, 70], "light": {"ev": 0.10, "sat": 1.08, "tint": [1, 1, 1]}},
+  "fun":     {"len": [1.2, 2.2], "moves": ["track", "orbit", "snap", "gamecam"], "fov": [45, 65], "light": {"ev": 0.25, "sat": 1.15, "tint": [1.036, 1, 0.964], "haze": 0}},
+  "comedy":  {"len": [0.8, 2.0], "moves": ["crashZoom", "snap", "whip", "static-drift"], "effects": ["freeze", "impact"], "fov": [40, 70], "light": {"ev": 0, "sat": 0.9, "tint": [1, 1, 1], "shadow": 1.3, "haze": 0}},
   "tension": {"len": [1.5, 2.5], "moves": ["lowAuthority", "push", "tiltUp", "static-drift"], "push": [0.02, 0.04], "fov": [28, 40], "light": {"ev": -0.15, "sat": 0.90, "tint": [0.94, 0.99, 1.07], "camNoise": 0.3}},
   "emotion": {"len": [2.0, 3.5], "moves": ["push", "static-drift"], "push": [0.03, 0.05], "fov": [35, 45], "light": {"ev": 0, "sat": 1, "tint": [1.06, 1, 0.93], "rim": 1.4}, "dof": true},
-  "awe":     {"len": [2.5, 4.0], "moves": ["drone", "scaleReveal", "crane", "pull"], "noFinal": ["pull"], "fov": [60, 75], "light": {"ev": 0.05, "sat": 1, "tint": [1, 1, 1], "haze": 0.5}},
-  "payoff":  {"len": [1.5, 2.5], "moves": ["heroLow", "push"], "sizes": ["close", "ecu", "twoShot"], "fov": [40, 50], "light": {"ev": 0.45, "sat": 1.04, "tint": [1, 1, 1], "rimK": 600, "fillK": 300}}
+  "awe":     {"len": [2.5, 4.0], "moves": ["drone", "scaleReveal", "crane", "pull"], "noFinal": ["pull"], "fov": [68, 83], "light": {"ev": 0.15, "sat": 0.95, "tint": [0.952, 1, 1.048], "haze": 0.25, "bloom": 0.3}},
+  "payoff":  {"len": [1.5, 2.5], "moves": ["heroLow", "push"], "sizes": ["close", "ecu", "twoShot"], "fov": [40, 50], "light": {"ev": 0.45, "sat": 1.04, "tint": [1, 1, 1], "rimK": 600, "fillK": 600, "skyEV": 0.5}}
 }

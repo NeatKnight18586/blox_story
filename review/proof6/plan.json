@@ -9,7 +9,7 @@
    "dur": 1.7,
    "size": "medium",
    "move": "track",
-   "loc": "street",
+   "loc": "cobbleStreet",
    "speed": 24,
    "subject": "hero@51,28",
    "why": "fun: cheer"
@@ -19,11 +19,11 @@
    "beat": false,
    "t": 1.7,
    "dur": 1.6,
-   "size": "wide",
+   "size": "medium",
    "move": "orbit",
-   "loc": "street",
+   "loc": "cobbleStreet",
    "speed": 33,
-   "subject": "hero@38,41",
+   "subject": "hero@30,29",
    "why": "fun: point"
   },
   {
@@ -33,7 +33,7 @@
    "dur": 1.6,
    "size": "medium",
    "move": "crashZoom",
-   "loc": "street",
+   "loc": "cobbleStreet",
    "speed": 0,
    "subject": "hero@35,42",
    "why": "comedy: trip_fall"
@@ -42,113 +42,125 @@
    "id": "S04",
    "beat": false,
    "t": 4.9,
-   "dur": 1.1,
-   "size": "close",
+   "dur": 1,
+   "size": "wide",
    "move": "static-drift",
-   "loc": "street",
-   "speed": 7,
-   "subject": "hero@55,50",
-   "why": "comedy: idle_alive"
+   "loc": "cobbleStreet",
+   "speed": 2,
+   "subject": "hero@43,57",
+   "why": "comedy: And then nothing"
   },
   {
    "id": "S05",
    "beat": false,
-   "t": 6,
-   "dur": 1.6,
-   "size": "medium",
-   "move": "lowAuthority",
-   "loc": "street",
-   "speed": 0,
-   "subject": "hero@52,29",
-   "why": "tension: flinch"
+   "t": 5.9,
+   "dur": 1.1,
+   "size": "close",
+   "move": "static-drift",
+   "loc": "cobbleStreet",
+   "speed": 9,
+   "subject": "hero@56,50",
+   "why": "comedy: idle_alive"
   },
   {
    "id": "S06",
    "beat": false,
-   "t": 7.6,
-   "dur": 1.47,
-   "size": "insert",
-   "move": "push",
-   "loc": "street",
-   "speed": 10,
-   "subject": "",
-   "why": "tension: Something huge stood there"
+   "t": 7,
+   "dur": 1.6,
+   "size": "medium",
+   "move": "lowAuthority",
+   "loc": "cobbleStreet",
+   "speed": 0,
+   "subject": "hero@49,29",
+   "why": "tension: flinch"
   },
   {
    "id": "S07",
    "beat": false,
-   "t": 9.07,
+   "t": 8.6,
+   "dur": 1.47,
+   "size": "insert",
+   "move": "push",
+   "loc": "cobbleStreet",
+   "speed": 26,
+   "subject": "",
+   "why": "tension: Something huge stood there"
+  },
+  {
+   "id": "S08",
+   "beat": false,
+   "t": 10.07,
    "dur": 2.23,
    "size": "medium",
    "move": "push",
-   "loc": "street",
+   "loc": "cobbleStreet",
    "speed": 0,
    "subject": "hero@34,31",
    "why": "emotion: comfort_kneel"
   },
   {
-   "id": "S08",
+   "id": "S09",
    "beat": false,
-   "t": 11.3,
+   "t": 12.3,
    "dur": 2.5,
    "size": "wide",
    "move": "scaleReveal",
-   "loc": "street",
+   "loc": "cobbleStreet",
    "speed": 29,
    "subject": "hero@50,49",
    "why": "awe: hero:idle_alive; little:idle_alive"
   },
   {
-   "id": "S09",
+   "id": "S10",
    "beat": false,
-   "t": 13.8,
-   "dur": 1.6,
+   "t": 14.8,
+   "dur": 2,
    "size": "medium",
-   "move": "push",
-   "loc": "street",
-   "speed": 0,
-   "subject": "hero@52,27",
+   "move": "static-drift",
+   "loc": "cobbleStreet",
+   "speed": 3,
+   "subject": "hero@52,28",
    "why": "tension: But something was off"
   },
   {
-   "id": "S10",
+   "id": "S11",
    "beat": false,
-   "t": 15.4,
+   "t": 16.8,
    "dur": 1,
    "size": "medium",
    "move": "crashZoom",
-   "loc": "street",
+   "loc": "cobbleStreet",
    "speed": 0,
    "subject": "hero@52,27",
    "why": "comedy: gasp_step_back"
   },
   {
-   "id": "S11",
+   "id": "S12",
    "beat": false,
-   "t": 16.4,
+   "t": 17.8,
    "dur": 1.5,
    "size": "medium",
    "move": "track",
-   "loc": "street",
-   "speed": 27,
-   "subject": "hero@47,23",
+   "loc": "cobbleStreet",
+   "speed": 26,
+   "subject": "hero@54,24",
    "why": "fun: jump; land"
   },
   {
-   "id": "S12",
+   "id": "S13",
    "beat": false,
-   "t": 17.9,
+   "t": 19.3,
    "dur": 2.1,
    "size": "close",
    "move": "push",
-   "loc": "street",
+   "loc": "cobbleStreet",
    "speed": 11,
-   "subject": "hero@60,53",
+   "subject": "hero@40,53",
    "why": "payoff: cheer"
   }
  ],
- "meanShot": 1.6,
- "end": 20,
+ "meanShot": 1.58,
+ "end": 21.4,
  "gamecam": 0,
  "wides": 2,
  "partners": [
@@ -161,69 +173,14 @@
   }
  ],
  "format5": {
-  "lengthS": 20,
-  "averageShotS": 1.67,
+  "lengthS": 21.4,
+  "averageShotS": 1.65,
   "insertH": {
-   "S06": 0.5225
+   "S07": 0.4989
   }
  },
  "season": false,
- "framing": [
-  {
-   "shot": "S01",
-   "part": "full",
-   "frac": 0.601,
-   "need": 0.3
-  },
-  {
-   "shot": "S03",
-   "part": "full",
-   "frac": 0.429,
-   "need": 0.3
-  },
-  {
-   "shot": "S04",
-   "part": "head",
-   "frac": 0.515,
-   "need": 0.45
-  },
-  {
-   "shot": "S05",
-   "part": "full",
-   "frac": 0.598,
-   "need": 0.3
-  },
-  {
-   "shot": "S07",
-   "part": "full",
-   "frac": 0.548,
-   "need": 0.3
-  },
-  {
-   "shot": "S09",
-   "part": "full",
-   "frac": 0.626,
-   "need": 0.3
-  },
-  {
-   "shot": "S10",
-   "part": "full",
-   "frac": 0.727,
-   "need": 0.3
-  },
-  {
-   "shot": "S11",
-   "part": "full",
-   "frac": 0.591,
-   "need": 0.3
-  },
-  {
-   "shot": "S12",
-   "part": "head",
-   "frac": 0.464,
-   "need": 0.45
-  }
- ],
+ "framing": [],
  "uiItems": 0,
  "eggs": [],
  "overlaps": 0,
@@ -235,11 +192,13 @@
   "e": "PASS",
   "f": "PASS",
   "g": "PASS",
-  "h": "WARN"
+  "h": "PASS",
+  "m": "PASS",
+  "t": "PASS"
  },
  "errors": [],
  "warnings": [
-  "S08: wide shot with no tagged character in the foreground",
-  "h. pacing curve: 10–20 s: 5 cuts/10 s (climax wants 6–8)"
+  "S04: subject head at y 57 % near the caption band: consider captionY \"high\"",
+  "S09: wide shot with no tagged character in the foreground"
  ]
 }

@@ -50,10 +50,10 @@ const FPS = spec.fps ?? 30;
 // P4 moods (opt-in spec.moods, format 6): a shot's `mood` fills move / fov defaults here; its light is applied per frame as shared uniforms
 // (renderer exposure, a saturation / temperature / haze term injected before the colour-space step of every material that has one: no re-bake, no extra pass).
 const M6 = spec.moods && spec.format === 6 ? await import('./mood6.js') : null;
-const MOODU = {uMoodSat: {value: 1}, uMoodTint: {value: new T.Vector3(1, 1, 1)}, uMoodHaze: {value: 0}};
+const MOODU = {uMoodSat: {value: 1}, uMoodTint: {value: new T.Vector3(1, 1, 1)}, uMoodHaze: {value: 0}, uMoodBloom: {value: 0}, uMoodVig: {value: 0}, uMoodRes: {value: new T.Vector2(1, 1)}};
 if (M6) {
   const inject = sh => { if (!sh.fragmentShader.includes('#include <tonemapping_fragment>')) return; Object.assign(sh.uniforms, MOODU);
-    sh.fragmentShader = 'uniform float uMoodSat; uniform vec3 uMoodTint; uniform float uMoodHaze;\n' + sh.fragmentShader.replace('#include <tonemapping_fragment>', '#include <tonemapping_fragment>\n{ vec3 mc = gl_FragColor.rgb; float ml = dot(mc, vec3(.2126, .7152, .0722)); mc = mix(vec3(ml), mc, uMoodSat) * uMoodTint; gl_FragColor.rgb = mc + uMoodHaze * .06 * (1. - mc); }'); };
+    sh.fragmentShader = 'uniform float uMoodSat; uniform vec3 uMoodTint; uniform float uMoodHaze; uniform float uMoodBloom; uniform float uMoodVig; uniform vec2 uMoodRes;\n' + sh.fragmentShader.replace('#include <tonemapping_fragment>', '#include <tonemapping_fragment>\n{ vec3 mc = gl_FragColor.rgb; float ml = dot(mc, vec3(.2126, .7152, .0722)); mc = mix(vec3(ml), mc, uMoodSat) * uMoodTint; mc = mc + uMoodHaze * .06 * (1. - mc); mc += uMoodBloom * smoothstep(.55, 1., ml) * mc * .5; vec2 mv = gl_FragCoord.xy / uMoodRes - .5; mc *= 1. - uMoodVig * clamp(dot(mv, mv) * 2.4, 0., 1.); gl_FragColor.rgb = mc; }'); };   // P5b: key bloom (highlight lift) and vignette, both 0 unless the shot's mood light sets them
   Object.defineProperty(T.Material.prototype, 'onBeforeCompile', {configurable: true, get() { return this._mood6 ?? ((sh) => inject(sh)); }, set(fn) { this._mood6 = (sh, r) => { fn?.call(this, sh, r); inject(sh); }; }});
 }
 const shots = M6 ? layoutShots(spec).map(M6.resolveMood) : layoutShots(spec);
@@ -186,6 +186,13 @@ const LOOK6 = !!(spec.look6 && world?.setLight6), CASC6 = cascades[0]?.e ?? null
 function applyMood(shot, n) {   // P4: exposure × 2^ev, saturation, temperature tint, haze, rim; after the look has set the frame's exposure
   if (!M6) return; const u = M6.moodUniforms(shot), pe = M6.payoffEV(shots, n); renderer.toneMappingExposure *= pe === null ? u.exposure : 2 ** pe;
   MOODU.uMoodSat.value = u.sat; MOODU.uMoodTint.value.set(...u.tint); MOODU.uMoodHaze.value = u.haze; if (LOOK5B && u.rim !== 1) U5B.uRim.value *= u.rim;
+  // P5b (all 0 / 1 by default = no change): bloom, vignette, sky exposure, fill (hemisphere) and rim temperature, shadow hardness. The look has just set the frame's colours, so these never accumulate.
+  MOODU.uMoodBloom.value = u.bloom; MOODU.uMoodVig.value = u.vignette; renderer.getDrawingBufferSize(MOODU.uMoodRes.value);
+  const kel = (c, K) => { if (c && K) { c.r *= 1 + K * 1.2e-4; c.b *= 1 - K * 1.2e-4; } };
+  if (look?.sky && u.skyEV) { const su = look.sky.material.uniforms, k = 2 ** u.skyEV; su.top.value.multiplyScalar(k); su.horizon.value.multiplyScalar(k); }
+  if (look?.hemi && u.fillK) { kel(look.hemi.color, u.fillK); kel(look.hemi.groundColor, u.fillK); }
+  if (look?.rim && u.rimK) kel(look.rim.color, u.rimK);
+  if (look?.sun?.shadow && u.shadow !== 1) look.sun.shadow.radius = 1 / u.shadow;
 }
 function apply6(shot, t) { if (!LOOK6) return; const v6 = look.presets[shot.look ?? spec.look4]?.v6; if (!v6) return; world.setLight6(v6, CASC6 ? cascadeFrac(t, CASC6, cascades[0].bulbs.length) : 1);
   if (U5B) for (const [name, u] of Object.entries(U5B.poolOf)) { const m = markPos[name]; u.value = m ? actorPool(world.lightAt6([m[0], (world.groundY?.(m[0], m[2]) ?? 0) + 2.5, m[2]]), v6.actorPool) : 1; } }   // actors in a pool read brighter
@@ -372,8 +379,8 @@ function poseCast(t) {
       markPos[name] = [...at];
       if (dragon) driveDragon(a, t, {keys: c.keys ?? [[0, 'perch']], origin: {position: at, yaw}});
       else if (actTracks?.[name] && a.body === 'v6') {   // P3 acting v6: the track's sample, faces on their words, props in the hands
-        const tr = actTracks[name], [pos, y2] = actingOrigin(name, t, at, yaw), act = ACT6.sampleActing(tr, t, {seed: a.blinkSeed ?? 1, build: a.build});
-        driveActor(a, t, {keys: [[0, 'idle']], acting: () => act.sample, faces: tr.faces.length ? [[0, c.faces?.[0]?.[1] ?? a.preset.face ?? 'smile'], ...tr.faces] : c.faces, origin: {position: pos, yaw: y2}, tags: c.tags, fps: FPS, visible: c.visible, blinkSuppress: blinkOff(t), talk: talkOf(name, t), ...(spec.faceLife ? {faceLife: true} : {})});
+        const tr = actTracks[name], [pos, y2] = actingOrigin(name, t, at, yaw), still = M6 && shots.findLast(s => Math.round(t * FPS) >= s.start)?.still, tS = still ? shots.findLast(s => Math.round(t * FPS) >= s.start).start / FPS + .001 : t, act = ACT6.sampleActing(tr, tS, {seed: a.blinkSeed ?? 1, build: a.build});   // P5b `still` shot (moods only): ambient motion off = the track sampled at the shot's first frame
+        driveActor(a, t, {keys: [[0, 'idle']], acting: () => act.sample, faces: tr.faces.length ? [[0, c.faces?.[0]?.[1] ?? a.preset.face ?? 'smile'], ...tr.faces] : c.faces, origin: {position: pos, yaw: y2}, tags: c.tags, fps: FPS, visible: c.visible, blinkSuppress: blinkOff(t) || !!still, talk: talkOf(name, t), ...(spec.faceLife && !still ? {faceLife: true} : {})});
         for (const [id, pr] of Object.entries(act.props)) { const o = scene.getObjectByName(id); if (!o || !pr) continue; const k = a.root.scale.x, cy = Math.cos(y2), sy = Math.sin(y2);
           o.position.set(pos[0] + (pr.p[0] * cy + pr.p[2] * sy) * k, pos[1] + pr.p[1] * k, pos[2] + (-pr.p[0] * sy + pr.p[2] * cy) * k); }
       }
@@ -529,10 +536,11 @@ function finishFrame(n, shot, t0) {
 function drawFrame(shot, mf, off, width, height, nudge) {
   const t = (mf.anim + off) / FPS;
   setHeroLit(shot); const actors = poseCast(t);
-  const c = sampleCamera({...shot, fps: FPS}, Math.max(0, (mf.cam + off - shot.start) / FPS), actors);
+  const c = sampleCamera({...shot, fps: FPS}, M6 && shot.still ? 0 : Math.max(0, (mf.cam + off - shot.start) / FPS), actors);   // P5b `still` (moods only): the camera is locked at its first frame
   if (mf.shake.some(v => v)) c.position = c.position.map((v, i) => v + mf.shake[i]);
   updateCascades(t);
-  world?.update(t); applyWorldState(shot, t); updateExtras(t, {camPos: c.position, size: shot.size, fill: shot.fill}); aimHeroSpots(shot, c.position); aimRim(shot, c.position); applyLift(shot); liftSubject(shot); glowProp(shot);
+  const tw = M6 && shot.still ? shot.start / FPS : t;   // P5b `still` shot (moods only): the world's own movers, crowds and clouds hold their first-frame state
+  world?.update(tw); applyWorldState(shot, t); updateExtras(tw, {camPos: c.position, size: shot.size, fill: shot.fill}); aimHeroSpots(shot, c.position); aimRim(shot, c.position); applyLift(shot); liftSubject(shot); glowProp(shot);
   const fx = effects.apply(t, camera);   // poses effect targets; returns the shake offset and any timeOfDay blend
   const pos = c.position.map((v, i) => v + fx.camOffset[i]), tgt = c.target.map((v, i) => v + fx.camOffset[i] * .6);
   camera.fov = c.fov; camera.aspect = width / height; camera.position.fromArray(pos);
@@ -540,7 +548,7 @@ function drawFrame(shot, mf, off, width, height, nudge) {
   const cn = camNoise5b(shot, t) ?? (M6 && M6.moodUniforms(shot).camNoise ? camNoise(t, shots.indexOf(shot) + 1, M6.moodUniforms(shot).camNoise) : null); if (cn) { camera.rotateX(cn[0]); camera.rotateY(cn[1]); }   // Look 5b: static-shot micro-noise
   if (nudge) { const k = nudge / Math.sqrt(3); camera.translateX(k); camera.translateY(k); camera.translateZ(k); }
   world?.onCamera?.(camera.position.toArray());   // format v5 3b-R (opt-in): a world may hide what this camera cannot see (hall ↔ street)
-  if (look) { fx.look ? look.apply(...fx.look) : look.apply(shot.look ?? spec.look ?? 'day'); const sf = shotShadow(shot); poseCast(t); look.frameFixed(sf.centre, sf.radius, camera.position); look.update(t); }
+  if (look) { fx.look ? look.apply(...fx.look) : look.apply(shot.look ?? spec.look ?? 'day'); const sf = shotShadow(shot); poseCast(t); look.frameFixed(sf.centre, sf.radius, camera.position); look.update(tw); }
   apply5b(shot); apply6(shot, t); applyMood(shot, mf.anim);
   scene.updateMatrixWorld(true); effects.apply(t, camera); fitTags(scene, camera, {maxFrac: shot.tagMaxFrac ?? .06});
   if (spec.readableUi ?? !!look?.v3) { scene.updateMatrixWorld(true); enforceReadable(scene, camera, {focus: shot.focusUi ?? []}); }   // A5 §C: min text size + safe area (v3 worlds; "Nobody" untouched)

@@ -26,7 +26,7 @@ test('spec: format 6, moods, body v6, faceStyle v6, acting 6; every column lands
 });
 test('the fixture fires exactly checks b, c and d once (a, e, f, g pass; h warns)', () => {
   const {spec} = run(), shots = layoutShots(spec), r = checkMoods({shots, cues, spec, fps: spec.fps});
-  assert.deepEqual(Object.fromEntries(Object.entries(r.checks).map(([k, c]) => [k, c.level])), {a: 'PASS', b: 'FAIL', c: 'FAIL', d: 'FAIL', e: 'PASS', f: 'PASS', g: 'PASS', h: 'WARN'});
+  assert.deepEqual(Object.fromEntries(Object.entries(r.checks).map(([k, c]) => [k, c.level])), {a: 'PASS', b: 'FAIL', c: 'FAIL', d: 'FAIL', e: 'PASS', f: 'PASS', g: 'PASS', h: 'WARN', m: 'WARN', t: 'PASS'});
   assert.deepEqual(['b', 'c', 'd'].map(k => r.checks[k].items.length), [1, 1, 1]);
 });
 test('errors name the row and the value', () => {

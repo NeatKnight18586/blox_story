@@ -42,7 +42,29 @@ const SIZE_RANK = {wide: 0, medium: 1, close: 2, insert: 2, ecu: 3};
 const MOVE_RANK = {'static-drift': 0, static: 0, push: 1, pull: 1, track: 2, orbit: 2, gamecam: 2, crane: 2, drone: 2, tiltUp: 2, lowAuthority: 1, heroLow: 2, scaleReveal: 2, whip: 3, snap: 3, crashZoom: 3};
 export const intensity = (s, fps = 30, ev = []) => (s.ecu ? 3 : SIZE_RANK[s.size] ?? 1) * 2 + (MOVE_RANK[s.move] ?? 1) + ev.filter(e => e.shot === s.id && ['effect', 'punch'].includes(e.type)).length;
 
-export function checkMoods({shots, cues, spec = {}, fps = 30, heads = []}) {
+// P5b: moodSeparation. means {shotId: [r, g, b]} = mean colour (0–255) of each rendered shot (stories/<slug>/moodmeans.json). The mean colour of a mood = the mean of its shots;
+// CIE76 ΔE between every two of fun / comedy / awe must be ≥ SEP_MIN (a mood missing from the episode is skipped).
+export const SEP_MIN = 6, SEP_MOODS = ['fun', 'comedy', 'awe'];
+const lab = ([r, g, b]) => { const lin = v => { v /= 255; return v > .04045 ? ((v + .055) / 1.055) ** 2.4 : v / 12.92; }, R = lin(r), G = lin(g), B = lin(b),
+  X = (.4124 * R + .3576 * G + .1805 * B) / .95047, Y = .2126 * R + .7152 * G + .0722 * B, Z = (.0193 * R + .1192 * G + .9505 * B) / 1.08883, f = t => t > .008856 ? Math.cbrt(t) : 7.787 * t + 16 / 116;
+  return [116 * f(Y) - 16, 500 * (f(X) - f(Y)), 200 * (f(Y) - f(Z))]; };
+export const deltaE76 = (a, b) => Math.hypot(...lab(a).map((v, i) => v - lab(b)[i]));
+export function moodSeparation({shots, means}) {
+  if (!means) return {name: 'moodSeparation', level: 'WARN', items: ['no moodmeans.json: render, run stories/<slug>/measure.py, then plan again']};
+  const mm = {}; for (const m of SEP_MOODS) { const v = shots.filter(s => s.mood === m && means[s.id]).map(s => means[s.id]); if (v.length) mm[m] = [0, 1, 2].map(i => v.reduce((a, x) => a + x[i], 0) / v.length); }
+  const names = Object.keys(mm), items = [], bad = []; 
+  for (let i = 0; i < names.length; i++) for (let j = i + 1; j < names.length; j++) { const d = deltaE76(mm[names[i]], mm[names[j]]); items.push(`${names[i]} / ${names[j]}: ΔE ${d.toFixed(1)} (≥ ${SEP_MIN})`); if (d < SEP_MIN) bad.push(items.at(-1)); }
+  return {name: 'moodSeparation', level: bad.length ? 'FAIL' : 'PASS', items: bad.length ? bad.map(x => 'FAIL ' + x) : items};
+}
+export const FALL_VERBS = ['trip_fall', 'slip', 'knees_collapse'], FREEZE_MIN = 8, GROUND_HOLD_MIN = .6;
+// P5b trip: every fall verb freezes ≥ 8 frames and holds ≥ 0.6 s on the ground (action `hold`, s); the numbers are printed.
+export function tripCheck({shots}) {
+  const items = [], bad = [];
+  for (const s of shots) for (const a of s.actions ?? []) if (FALL_VERBS.includes(a.verb)) { const fr = s.freeze?.[1] ?? 0, hold = a.hold ?? 0, t = `${s.id}: ${a.verb} freeze ${fr} f (≥ ${FREEZE_MIN}), ground hold ${hold.toFixed(2)} s (≥ ${GROUND_HOLD_MIN})`; items.push(t); if (fr < FREEZE_MIN || hold < GROUND_HOLD_MIN) bad.push('FAIL ' + t); }
+  return {name: 'trip freeze + ground hold', level: bad.length ? 'FAIL' : 'PASS', items: bad.length ? bad : items};
+}
+
+export function checkMoods({shots, cues, spec = {}, fps = 30, heads = [], means = null}) {
   const dur = s => s.frames / fps, ev = noveltyEvents({shots, cues, spec, fps}), end = (shots.at(-1).start + shots.at(-1).frames) / fps, words = cueWords(cues);
   const c = {};
   // a. mood present + length range (+ move / size / fov ranges as warnings)
@@ -105,8 +127,9 @@ export function checkMoods({shots, cues, spec = {}, fps = 30, heads = []}) {
     c.g = res('open loops', items, false); }
   // h. pacing curve: cuts per 10 s vs the target of its phase
   const pacing = pacingCurve({shots, fps, end}); c.h = res('pacing curve', pacing.bins.filter(b => !b.ok).map(b => `${b.from}–${b.to} s: ${b.cuts} cuts/10 s (${b.phase} wants ${PACING_TARGET[b.phase][0]}–${PACING_TARGET[b.phase][1]})`), false);
+  c.m = moodSeparation({shots, means}); c.t = tripCheck({shots});
   const errors = [], warnings = [];
-  for (const [k, x] of Object.entries(c)) for (const it of x.items) (it.startsWith('WARN ') || x.level === 'WARN' ? warnings : errors).push(`${k}. ${x.name}: ${it.replace(/^(FAIL|WARN) /, '')}`);
+  for (const [k, x] of Object.entries(c)) if (x.level !== 'PASS') for (const it of x.items) (it.startsWith('WARN ') || x.level === 'WARN' ? warnings : errors).push(`${k}. ${x.name}: ${it.replace(/^(FAIL|WARN) /, '')}`);
   return {checks: c, errors, warnings, pacing};
 }
 // Cuts per 10 s in 10 s bins (the last bin ≥ 5 s is scaled to 10 s, a shorter one joins nothing). Phases: payoff (from the payoff shot), climax (10 s before the

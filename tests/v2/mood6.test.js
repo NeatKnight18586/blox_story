@@ -4,20 +4,20 @@ import assert from 'node:assert/strict';
 import {MOODS, MOOD_NAMES, resolveMood, shotLight, keyEV, moodUniforms, lenVerdict, sizeOk} from '../../engine/mood6.js';
 import {plan5, STATIC_PUSH} from '../../engine/plancheck5.js';
 import {payoffEV, RAMP_IN, EASE_OUT} from '../../engine/mood6.js';
-import {checkMoods, noveltyEvents, pacingCurve, actionTime, cueWords} from '../../engine/plancheck6.js';
+import {checkMoods, noveltyEvents, pacingCurve, actionTime, cueWords, moodSeparation, tripCheck, deltaE76} from '../../engine/plancheck6.js';
 
 const fps = 30;
 test('mood data: six moods with the owner numbers', () => {
   assert.deepEqual(MOOD_NAMES, ['fun', 'comedy', 'tension', 'emotion', 'awe', 'payoff']);
   assert.deepEqual(MOODS.fun.len, [1.2, 2.2]); assert.deepEqual(MOODS.comedy.len, [.8, 2]); assert.deepEqual(MOODS.tension.fov, [28, 40]); assert.deepEqual(MOODS.awe.moves, ['drone', 'scaleReveal', 'crane', 'pull']);
-  assert.equal(MOODS.tension.light.ev, -.15); assert.equal(MOODS.tension.light.sat, .9); assert.equal(MOODS.tension.light.camNoise, .3); assert.equal(MOODS.fun.light.sat, 1.08);
+  assert.equal(MOODS.tension.light.ev, -.15); assert.equal(MOODS.tension.light.sat, .9); assert.equal(MOODS.tension.light.camNoise, .3); assert.equal(MOODS.fun.light.sat, 1.15); assert.equal(MOODS.comedy.light.sat, .9); assert.equal(MOODS.awe.light.haze, .25); assert.deepEqual(MOODS.awe.fov, [68, 83]);   // P5b
   assert.equal(MOODS.emotion.light.rim, 1.4); assert.equal(MOODS.emotion.dof, true);
 });
 test('resolveMood: defaults fill, shot values win; light override; unknown mood untouched', () => {
   const r = resolveMood({mood: 'tension', from: {position: [0, 0, 1], target: [0, 0, 0]}}); assert.equal(r.move, 'lowAuthority'); assert.equal(r.from.fov, 34);
   assert.equal(resolveMood({mood: 'fun', move: 'snap', from: {fov: 50}}).move, 'snap'); assert.equal(resolveMood({mood: 'fun', move: 'snap', from: {fov: 50}}).from.fov, 50);
   const o = {mood: 'nope'}; assert.equal(resolveMood(o), o);
-  assert.equal(shotLight({mood: 'fun', light: {ev: .5}}).ev, .5); assert.equal(shotLight({mood: 'fun', light: {ev: .5}}).sat, 1.08);
+  assert.equal(shotLight({mood: 'fun', light: {ev: .5}}).ev, .5); assert.equal(shotLight({mood: 'fun', light: {ev: .5}}).sat, 1.15);
   assert.ok(Math.abs(moodUniforms({mood: 'tension'}).exposure - 2 ** -.15) < 1e-12); assert.deepEqual(moodUniforms({}).tint, [1, 1, 1]);
 });
 test('lenVerdict: > 20 % warn, > 50 % fail; sizeOk for payoff (close, ecu, or a medium two-shot)', () => {
@@ -107,8 +107,23 @@ test('plan5 with moods: the limit is the mood\'s FAIL line (len max × 1.5); sta
 test('payoffEV: ramps in over 6 frames, eases out over 10, never pops', () => {
   const sh = [{start: 0, frames: 30, mood: 'fun'}, {start: 30, frames: 40, mood: 'payoff'}, {start: 70, frames: 20, mood: 'fun'}];
   assert.equal(payoffEV(sh, 10), null); const ev = n => payoffEV(sh, n), key = .45;
-  assert.ok(Math.abs(ev(30) - .1) < .05); assert.ok(Math.abs(ev(30 + RAMP_IN - 1) - key) < 1e-9); assert.equal(ev(50), key);
-  let maxStep = 0; for (let n = 31; n < 70; n++) maxStep = Math.max(maxStep, Math.abs(ev(n) - ev(n - 1))); assert.ok(maxStep < .1, 'max step ' + maxStep);   // a pop would be .35 (key .45 − .1 fun)
-  assert.ok(Math.abs(ev(69) - .1) < 1e-9); assert.ok(ev(70 - EASE_OUT - 1) === key && ev(70 - EASE_OUT) < key);
+  assert.ok(Math.abs(ev(30) - .25) < .05); assert.ok(Math.abs(ev(30 + RAMP_IN - 1) - key) < 1e-9); assert.equal(ev(50), key);
+  let maxStep = 0; for (let n = 31; n < 70; n++) maxStep = Math.max(maxStep, Math.abs(ev(n) - ev(n - 1))); assert.ok(maxStep < .1, 'max step ' + maxStep);   // a pop would be .2 (key .45 − .25 fun)
+  assert.ok(Math.abs(ev(69) - .25) < 1e-9); assert.ok(ev(70 - EASE_OUT - 1) === key && ev(70 - EASE_OUT) < key);
   assert.equal(payoffEV(sh.slice(0, 2), 69), 0);
+});
+
+// P5b: moodSeparation (CIE76 ΔE ≥ 6 between fun / comedy / awe) and the trip freeze + ground hold printout
+test('moodSeparation: PASS when the three mean colours are ≥ 6 ΔE apart (numbers listed)', () => {
+  const shots = [{id: 'A', mood: 'fun'}, {id: 'B', mood: 'comedy'}, {id: 'C', mood: 'awe'}], r = moodSeparation({shots, means: {A: [190, 170, 120], B: [120, 125, 135], C: [150, 175, 200]}});
+  assert.equal(r.level, 'PASS'); assert.equal(r.items.length, 3); assert.ok(deltaE76([190, 170, 120], [120, 125, 135]) > 6);
+  assert.equal(moodSeparation({shots, means: null}).level, 'WARN');
+});
+test('moodSeparation: FAIL when two moods are < 6 ΔE apart, naming the pair', () => {
+  const shots = [{id: 'A', mood: 'fun'}, {id: 'B', mood: 'comedy'}, {id: 'C', mood: 'awe'}], r = moodSeparation({shots, means: {A: [150, 150, 150], B: [152, 150, 149], C: [100, 120, 200]}});
+  assert.equal(r.level, 'FAIL'); assert.match(r.items[0], /fun \/ comedy: ΔE [0-4]\./);
+});
+test('tripCheck: freeze ≥ 8 frames and ground hold ≥ 0.6 s, else FAIL', () => {
+  const ok = {id: 'S3', freeze: [.9, 8], actions: [{verb: 'trip_fall', hold: .6}]}; assert.equal(tripCheck({shots: [ok]}).level, 'PASS'); assert.match(tripCheck({shots: [ok]}).items[0], /freeze 8 f .* hold 0\.60 s/);
+  assert.equal(tripCheck({shots: [{...ok, freeze: [.9, 4]}]}).level, 'FAIL'); assert.equal(tripCheck({shots: [{...ok, actions: [{verb: 'trip_fall'}]}]}).level, 'FAIL');
 });

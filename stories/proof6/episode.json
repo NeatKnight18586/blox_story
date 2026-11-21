@@ -8,24 +8,24 @@
  "acting": 6,
  "labels": false,
  "hero": "hero",
- "world": "engine/fixtures/v4look/world.js",
+ "world": "stories/nobody/world.js",
  "look": "day",
  "cues": "stories/proof6/cues.json",
- "end": 20,
- "note": "Written by scripts/v2/brief2spec.js from stories/proof6/BRIEF.md (12 shots). Edit the Brief, not this file.",
+ "end": 21.4,
+ "note": "Written by scripts/v2/brief2spec.js from stories/proof6/BRIEF.md (13 shots). Edit the Brief, not this file.",
  "brief": {
   "title": "In this world, nobody trips twice 😅 #shorts #roblox",
   "ruleLine": "\"In this world, …\" (none: reel only)",
   "palette": "warm day street, cool dark for the shadow, gold at the end",
   "colourScript": "act 1 · bright · act 2 · cool and dark · act 3 · gold",
-  "setting": "a street with a plaza and a glass tower (the library `street`)",
+  "setting": "the cobbled street of the village (the Nobody world: gate, market square, castle at the far end)",
   "props": [
    "streetLamp"
   ],
   "payoff": {
-   "shows": "the hero, arms up, low angle, the brightest light of the reel",
+   "shows": "the hero, arms up, seen from below against the brightest sky of the reel",
    "hold length": "2.1",
-   "light": "brightest gold"
+   "light": "brightest key, sky +0.5 EV, warm fill and rim"
   }
  },
  "cast": {
@@ -95,7 +95,7 @@
      {
       "at": "street",
       "offset": [
-       -1.6,
+       -1.2,
        0,
        0
       ],
@@ -109,73 +109,73 @@
       "offset": [
        -1,
        0,
-       3
+       -9
       ],
       "yaw": 25
      }
     ],
     [
-     4.9,
+     5.9,
      {
       "at": "street",
       "offset": [
        0,
        0,
-       3
+       -9
       ],
       "yaw": 0
      }
     ],
     [
-     7.6,
-     {
-      "at": "street",
-      "offset": [
-       40,
-       0,
-       30
-      ],
-      "yaw": 0
-     }
-    ],
-    [
-     9.05,
+     8.6,
      {
       "at": "street",
       "offset": [
        -1.2,
        0,
-       3
+       -28.2
       ],
       "yaw": 0
      }
     ],
     [
-     11.3,
+     10.05,
      {
       "at": "street",
       "offset": [
-       -21,
+       -1.2,
        0,
-       -13
+       -9
       ],
       "yaw": 0
      }
     ],
     [
-     13.8,
+     12.3,
+     {
+      "at": "street",
+      "offset": [
+       -4,
+       0,
+       -32
+      ],
+      "yaw": 0
+     }
+    ],
+    [
+     14.8,
      {
       "at": "street",
       "offset": [
        0,
        0,
-       3
+       -9
       ],
       "yaw": 0
      }
     ],
     [
-     16.4,
+     17.8,
      {
       "at": "street",
       "offset": [
@@ -187,7 +187,7 @@
      }
     ],
     [
-     16.4,
+     17.8,
      {
       "at": "street",
       "offset": [
@@ -206,25 +206,25 @@
      }
     ],
     [
-     16.75,
+     18.15,
      {
       "at": "street",
       "offset": [
        0,
        0,
-       -9.199999999999989
+       -9.200000000000017
       ],
       "yaw": 0
      }
     ],
     [
-     17.9,
+     19.3,
      {
       "at": "street",
       "offset": [
        0,
        0,
-       2
+       -10
       ],
       "yaw": 0
      }
@@ -254,7 +254,7 @@
      {
       "at": "street",
       "offset": [
-       1.6,
+       1.2,
        0,
        0
       ],
@@ -262,7 +262,19 @@
      }
     ],
     [
-     6,
+     3.3,
+     {
+      "at": "street",
+      "offset": [
+       1.6,
+       0,
+       -12.5
+      ],
+      "yaw": 0
+     }
+    ],
+    [
+     7,
      {
       "at": "street",
       "offset": [
@@ -270,7 +282,7 @@
        0,
        -40
       ],
-      "yaw": -45
+      "yaw": 0
      }
     ]
    ]
@@ -294,19 +306,19 @@
    ],
    "marks": [
     [
-     9.05,
+     10.05,
      {
       "at": "street",
       "offset": [
        1.2,
        0,
-       4.4
+       -7.6
       ],
       "yaw": -30
      }
     ],
     [
-     11.3,
+     12.3,
      {
       "at": "street",
       "offset": [
@@ -329,15 +341,32 @@
     "color": "#ffd9a0",
     "light": false
    },
-   "scale": 1.6,
+   "scale": 2.08,
    "pos": [
     [
      0,
      [
-      -3,
+      4,
       0,
-      -16
+      -7
      ]
+    ],
+    [
+     8.6,
+     [
+      4,
+      0,
+      -7
+     ]
+    ],
+    [
+     10.05,
+     [
+      5.2,
+      0,
+      -7
+     ],
+     "ramp"
     ]
    ],
    "visible": [
@@ -346,11 +375,11 @@
      false
     ],
     [
-     7.6,
+     8.6,
      true
     ],
     [
-     9.05,
+     10.05,
      false
     ]
    ]
@@ -374,38 +403,38 @@
   },
   {
    "word": "dark",
-   "t": 6.9,
-   "shot": "S05"
+   "t": 7.9,
+   "shot": "S06"
   },
   {
    "word": "one",
-   "t": 10.25,
-   "shot": "S07"
+   "t": 11.25,
+   "shot": "S08"
   },
   {
    "word": "off",
-   "t": 14.7,
-   "shot": "S09"
-  },
-  {
-   "word": "see",
-   "t": 16,
+   "t": 15.7,
    "shot": "S10"
   },
   {
-   "word": "jump",
-   "t": 17,
+   "word": "see",
+   "t": 17.4,
    "shot": "S11"
+  },
+  {
+   "word": "jump",
+   "t": 18.4,
+   "shot": "S12"
   },
   {
    "word": "land",
-   "t": 17.3,
-   "shot": "S11"
+   "t": 18.7,
+   "shot": "S12"
   },
   {
    "word": "did",
-   "t": 18.5,
-   "shot": "S12"
+   "t": 19.9,
+   "shot": "S13"
   }
  ],
  "effects": [],
@@ -413,7 +442,7 @@
   {
    "id": "S01",
    "at": 0,
-   "loc": "street",
+   "loc": "cobbleStreet",
    "mood": "fun",
    "size": "medium",
    "move": "track",
@@ -458,7 +487,7 @@
     "position": [
      -2.6742406346764276,
      3.56540244820051,
-     8.230466375788744
+     8.230466375788746
     ],
     "target": [
      0,
@@ -472,7 +501,7 @@
     "position": [
      -1.9742406346764276,
      3.56540244820051,
-     8.230466375788744
+     8.230466375788746
     ],
     "target": [
      0,
@@ -485,9 +514,9 @@
   {
    "id": "S02",
    "at": 1.7,
-   "loc": "street",
+   "loc": "cobbleStreet",
    "mood": "fun",
-   "size": "wide",
+   "size": "medium",
    "move": "orbit",
    "why": "fun: point",
    "see": [
@@ -526,28 +555,28 @@
    ],
    "from": {
     "position": [
-     6.171324541560988,
-     4.697082572770409,
-     18.99338394412787
+     6.674240634676428,
+     3.56540244820051,
+     26.230466375788744
     ],
     "target": [
-     0,
+     4,
      2.7,
-     0
+     18
     ],
     "fov": 55
    },
    "degrees": 6,
    "to": {
     "position": [
-     5.986184805314158,
-     4.6371700955872965,
-     18.423582425804035
+     6.460301383902314,
+     3.4961702523444695,
+     25.572029065725644
     ],
     "target": [
-     0,
+     4,
      2.7,
-     0
+     18
     ],
     "fov": 55
    }
@@ -559,10 +588,10 @@
    "zoomAt": 0.73,
    "freeze": [
     0.9,
-    4
+    8
    ],
    "gag": 1,
-   "loc": "street",
+   "loc": "cobbleStreet",
    "mood": "comedy",
    "size": "medium",
    "move": "crashZoom",
@@ -584,7 +613,8 @@
       "word": "tripped",
       "nth": 1,
       "line": 3
-     }
+     },
+     "hold": 0.6
     },
     {
      "actor": "hero",
@@ -604,27 +634,27 @@
    "subjectAimY": 3,
    "from": {
     "position": [
-     3.1045926346419783,
+     7.104592634641978,
      4.442337413667517,
-     17.20425067439347
+     23.20425067439347
     ],
     "target": [
-     0.6000000000000001,
+     4.6,
      3,
-     3
+     9
     ],
     "fov": 55
    },
    "to": {
     "position": [
-     3.1045926346419783,
+     7.104592634641978,
      4.442337413667517,
-     17.20425067439347
+     23.20425067439347
     ],
     "target": [
-     0.6000000000000001,
+     4.6,
      3,
-     3
+     9
     ],
     "fov": 46.75
    }
@@ -632,7 +662,38 @@
   {
    "id": "S04",
    "at": 4.9,
-   "loc": "street",
+   "loc": "cobbleStreet",
+   "mood": "comedy",
+   "size": "wide",
+   "move": "static-drift",
+   "why": "comedy: And then nothing",
+   "see": [
+    "hero"
+   ],
+   "vo": "And then nothing",
+   "cue": [
+    4.9,
+    5.9
+   ],
+   "subject": "hero",
+   "from": {
+    "position": [
+     6.854133371177779,
+     1.5981036723007656,
+     21.783825606954125
+    ],
+    "target": [
+     4.6,
+     0.3,
+     9
+    ],
+    "fov": 55
+   }
+  },
+  {
+   "id": "S05",
+   "at": 5.9,
+   "loc": "cobbleStreet",
    "mood": "comedy",
    "size": "close",
    "move": "static-drift",
@@ -642,8 +703,8 @@
    ],
    "vo": "Nobody saw that",
    "cue": [
-    4.9,
-    6
+    5.9,
+    7
    ],
    "subject": "hero",
    "actions": [
@@ -653,7 +714,7 @@
      "at": {
       "word": "nobody",
       "nth": 1,
-      "line": 4
+      "line": 5
      }
     },
     {
@@ -664,24 +725,24 @@
    ],
    "from": {
     "position": [
-     1.3213894900754115,
+     2.6786105099245887,
      5.027610621463781,
-     7.0668186798014965
+     13.066818679801496
     ],
     "target": [
-     0,
+     4,
      4.6,
-     3
+     9
     ],
     "fov": 55
    }
   },
   {
-   "id": "S05",
-   "at": 6,
+   "id": "S06",
+   "at": 7,
    "loopOpen": "shadow",
    "look": "storm",
-   "loc": "street",
+   "loc": "cobbleStreet",
    "mood": "tension",
    "size": "medium",
    "move": "lowAuthority",
@@ -691,8 +752,8 @@
    ],
    "vo": "Then it went dark",
    "cue": [
-    6,
-    7.6
+    7,
+    8.6
    ],
    "subject": "hero",
    "actions": [
@@ -702,7 +763,7 @@
      "at": {
       "word": "dark",
       "nth": 1,
-      "line": 5
+      "line": 6
      }
     },
     {
@@ -711,42 +772,42 @@
      "at": {
       "word": "dark",
       "nth": 1,
-      "line": 5
+      "line": 6
      }
     }
    ],
    "from": {
     "position": [
-     -4.553424448659317,
+     8.553424448659317,
      0.7,
-     17.013999463410087
+     23.013999463410087
     ],
     "target": [
-     0,
+     4,
      2.7,
-     3
+     9
     ],
     "fov": 34
    },
    "to": {
     "position": [
-     -4.4168217151995375,
+     8.416821715199537,
      0.7,
-     16.59357947950778
+     22.59357947950778
     ],
     "target": [
-     0,
+     4,
      2.7,
-     3
+     9
     ],
     "fov": 34
    }
   },
   {
-   "id": "S06",
-   "at": 7.6,
+   "id": "S07",
+   "at": 8.6,
    "look": "storm",
-   "loc": "street",
+   "loc": "cobbleStreet",
    "mood": "tension",
    "size": "insert",
    "move": "push",
@@ -756,42 +817,42 @@
    ],
    "vo": "Something huge stood there",
    "cue": [
-    7.6,
-    9.05
+    8.6,
+    10.05
    ],
    "prop": "prop_streetLamp",
    "from": {
     "position": [
-     -0.6839579756776129,
-     0.6,
-     12.950525304029838
+     6.358502794768298,
+     0.4,
+     22.481284934603725
     ],
     "target": [
-     -3,
-     4.16,
-     -16
+     6.122652515291469,
+     11.13031018411638,
+     -7
     ],
     "fov": 34
    },
    "to": {
     "position": [
-     -1.1471663805420902,
-     0.6,
-     7.1604202432238715
+     5.886802235814638,
+     0.4,
+     16.58502794768298
     ],
     "target": [
-     -3,
-     4.16,
-     -16
+     6.122652515291469,
+     11.13031018411638,
+     -7
     ],
     "fov": 34
    }
   },
   {
-   "id": "S07",
-   "at": 9.05,
+   "id": "S08",
+   "at": 10.05,
    "look": "goldenHour",
-   "loc": "street",
+   "loc": "cobbleStreet",
    "mood": "emotion",
    "size": "medium",
    "move": "push",
@@ -802,8 +863,8 @@
    ],
    "vo": "It's okay my little one",
    "cue": [
-    9.05,
-    11.3
+    10.05,
+    12.3
    ],
    "subject": "hero",
    "pair": [
@@ -818,7 +879,7 @@
      "at": {
       "word": "one",
       "nth": 1,
-      "line": 7
+      "line": 8
      }
     },
     {
@@ -832,41 +893,41 @@
      "at": {
       "word": "one",
       "nth": 1,
-      "line": 7
+      "line": 8
      }
     }
    ],
    "from": {
     "position": [
-     7.956030216250995,
+     11.956030216250994,
      3.937738577464308,
-     13.181627593005214
+     19.181627593005214
     ],
     "target": [
-     0,
+     4,
      2.7,
-     3.7
+     9.7
     ],
     "fov": 40
    },
    "to": {
     "position": [
-     7.637789007600955,
+     11.637789007600954,
      3.888229034365735,
-     12.802362489285006
+     18.802362489285002
     ],
     "target": [
-     0,
+     4,
      2.7,
-     3.7
+     9.7
     ],
     "fov": 40
    }
   },
   {
-   "id": "S08",
-   "at": 11.3,
-   "loc": "street",
+   "id": "S09",
+   "at": 12.3,
+   "loc": "cobbleStreet",
    "mood": "awe",
    "size": "wide",
    "move": "scaleReveal",
@@ -876,8 +937,8 @@
    ],
    "vo": "Then I saw how big",
    "cue": [
-    11.3,
-    13.8
+    12.3,
+    14.8
    ],
    "subject": "hero",
    "actions": [
@@ -887,7 +948,7 @@
      "at": {
       "word": "then",
       "nth": 1,
-      "line": 8
+      "line": 9
      }
     },
     {
@@ -896,7 +957,7 @@
      "at": {
       "word": "then",
       "nth": 1,
-      "line": 8
+      "line": 9
      }
     },
     {
@@ -905,22 +966,22 @@
      "at": {
       "word": "big",
       "nth": 1,
-      "line": 8
+      "line": 9
      }
     }
    ],
    "from": {
     "position": [
-     -16.192021964961384,
-     4.255894375571083,
-     1.797434845538577
+     -4.14911517341043,
+     4.042681874763199,
+     -1.2303365369506718
     ],
     "target": [
-     -21,
+     0,
      2.7,
-     -13
+     -14
     ],
-    "fov": 67.5
+    "fov": 75.5
    },
    "actor": "hero",
    "dir": [
@@ -929,69 +990,67 @@
    ]
   },
   {
-   "id": "S09",
-   "at": 13.8,
+   "id": "S10",
+   "at": 14.8,
+   "still": true,
+   "light": {
+    "camNoise": 0,
+    "ev": -0.224,
+    "vignette": 0.15
+   },
    "look": "storm",
-   "loc": "street",
+   "loc": "cobbleStreet",
    "mood": "tension",
    "size": "medium",
-   "move": "push",
+   "move": "static-drift",
    "why": "tension: But something was off",
    "see": [
     "hero"
    ],
    "vo": "But something was off",
    "cue": [
-    13.8,
-    15.4
+    14.8,
+    16.8
    ],
    "subject": "hero",
    "actions": [
     {
      "actor": "hero",
-     "face": "nervous",
+     "face": "neutral",
+     "at": 0
+    },
+    {
+     "actor": "hero",
+     "face": "o_small",
      "at": {
       "word": "off",
       "nth": 1,
-      "line": 9
+      "line": 10
      }
     }
    ],
    "from": {
     "position": [
-     -4.553424448659317,
+     8.553424448659317,
      4.173519104627106,
-     17.013999463410087
+     23.013999463410087
     ],
     "target": [
-     0,
+     4,
      2.7,
-     3
-    ],
-    "fov": 34
-   },
-   "to": {
-    "position": [
-     -4.098082003793386,
-     4.026167194164395,
-     15.612599517069077
-    ],
-    "target": [
-     0,
-     2.7,
-     3
+     9
     ],
     "fov": 34
    }
   },
   {
-   "id": "S10",
-   "at": 15.4,
+   "id": "S11",
+   "at": 16.8,
    "impact": 0.6,
    "zoomAt": 0.43,
    "twist": true,
    "loopClose": "shadow",
-   "loc": "street",
+   "loc": "cobbleStreet",
    "mood": "comedy",
    "size": "medium",
    "move": "crashZoom",
@@ -1001,8 +1060,8 @@
    ],
    "vo": "Wait. I see it",
    "cue": [
-    15.4,
-    16.4
+    16.8,
+    17.8
    ],
    "subject": "hero",
    "actions": [
@@ -1012,7 +1071,7 @@
      "at": {
       "word": "see",
       "nth": 1,
-      "line": 10
+      "line": 11
      }
     },
     {
@@ -1026,43 +1085,43 @@
      "at": {
       "word": "see",
       "nth": 1,
-      "line": 10
+      "line": 11
      }
     }
    ],
    "from": {
     "position": [
-     2.6742406346764276,
+     1.3257593653235724,
      3.86540244820051,
-     11.230466375788744
+     17.230466375788744
     ],
     "target": [
-     0,
+     4,
      3,
-     3
+     9
     ],
     "fov": 55
    },
    "to": {
     "position": [
-     2.6742406346764276,
+     1.3257593653235724,
      3.86540244820051,
-     11.230466375788744
+     17.230466375788744
     ],
     "target": [
-     0,
+     4,
      3,
-     3
+     9
     ],
     "fov": 46.75
    }
   },
   {
-   "id": "S11",
-   "at": 16.4,
+   "id": "S12",
+   "at": 17.8,
    "blur": true,
    "look": "goldenHour",
-   "loc": "street",
+   "loc": "cobbleStreet",
    "mood": "fun",
    "size": "medium",
    "move": "track",
@@ -1072,8 +1131,8 @@
    ],
    "vo": "Now run jump land",
    "cue": [
-    16.4,
-    17.9
+    17.8,
+    19.3
    ],
    "subject": "hero",
    "actions": [
@@ -1083,7 +1142,7 @@
      "at": {
       "word": "jump",
       "nth": 1,
-      "line": 11
+      "line": 12
      }
     },
     {
@@ -1092,19 +1151,19 @@
      "at": {
       "word": "land",
       "nth": 1,
-      "line": 11
+      "line": 12
      }
     },
     {
      "actor": "hero",
      "cycle": "sprint",
      "at": 0,
-     "until": 16.75
+     "until": 18.15
     }
    ],
    "from": {
     "position": [
-     -2.6742406346764276,
+     2.674240634676428,
      4.26540244820051,
      8.230466375788744
     ],
@@ -1118,7 +1177,7 @@
    "follow": "hero",
    "to": {
     "position": [
-     -1.9742406346764276,
+     3.374240634676428,
      4.26540244820051,
      8.230466375788744
     ],
@@ -1131,9 +1190,9 @@
    }
   },
   {
-   "id": "S12",
-   "at": 17.9,
-   "loc": "street",
+   "id": "S13",
+   "at": 19.3,
+   "loc": "cobbleStreet",
    "mood": "payoff",
    "size": "close",
    "move": "push",
@@ -1143,8 +1202,8 @@
    ],
    "vo": "Yes we did it",
    "cue": [
-    17.9,
-    20
+    19.3,
+    21.4
    ],
    "subject": "hero",
    "actions": [
@@ -1154,7 +1213,7 @@
      "at": {
       "word": "did",
       "nth": 1,
-      "line": 12
+      "line": 13
      }
     },
     {
@@ -1163,33 +1222,33 @@
      "at": {
       "word": "did",
       "nth": 1,
-      "line": 12
+      "line": 13
      }
     }
    ],
    "from": {
     "position": [
-     1.680212841085905,
+     2.319787158914095,
      1.5,
-     7.17116339996055
+     13.17116339996055
     ],
     "target": [
-     0,
+     4,
      4.3,
-     2
+     8
     ],
     "fov": 40
    },
    "to": {
     "position": [
-     1.4785873001555965,
+     2.5214126998444035,
      1.5,
-     6.550623791965284
+     12.550623791965284
     ],
     "target": [
-     0,
+     4,
      4.3,
-     2
+     8
     ],
     "fov": 40
    }

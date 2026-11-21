@@ -13,6 +13,7 @@ import {loadLibrary} from './lib6.js';
 import {LOOKS} from '../../engine/look.js';
 
 export const SIZES6 = ['wide', 'medium', 'close', 'insert', 'ecu'], EFFECTS6 = ['impact', 'freeze', 'crash', 'none'], SLOTS = ['LEAD', 'SECOND', 'LITTLE', 'RIVAL', 'ELDER'];
+const FACE_ALIAS = {awe_small: 'o_small'};   // Brief vocabulary → faces6 name (the small round-mouth wonder face)
 const PROP_H = {streetLamp: 5.2, crate: 1.2, porch: 3.5, shack: 5, deadTree: 6, birdhouse: 1.5, powerLine: 9};   // library prop heights (insert camera fit)
 export const COLS = ['#', 'cue', 'vo', 'mood', 'size', 'move', 'subject', 'verb', 'expression', 'effect', 'notes'];
 const norm = w => String(w).toLowerCase().replace(/[^a-z0-9']/g, '');
@@ -50,7 +51,7 @@ function camera(shot, {size, move, mood, fov, pos, subjects, stand, ecu, aim, ai
     case 'pull': out.to = to(1.06); break;
     case 'scaleReveal': out.actor = subjects[0]; out.dir = [0, 1]; break;   // Kit 1 signature camera: the move builds its own path from the actor's mark
     case 'static-drift': break;
-    case 'orbit': out.degrees = 6; out.to = to(.97); break;
+    case 'orbit': out.degrees = 6; out.to = to(pushTo ?? .97); break;
     case 'crane': out.to = {...to(1), position: [...at(1).slice(0, 1), at(1)[1] + 2.5, at(1)[2]]}; break;
     case 'whip': out.to = {position: from.position, target: [tgt[0] + .6, tgt[1], tgt[2]], fov}; break;
     case 'snap': { const wide = fitDistance(fitSpan('full', H).hi, .26, fov), close = fitDistance(fitSpan('head', H).hi - fitSpan('head', H).lo, .5, fov), p = k => [tgt[0] + dir[0] * k, tgt[1] + dir[1] * k, tgt[2] + dir[2] * k]; out.from = {position: p(wide), target: tgt, fov}; out.to = {position: p(close), target: tgt, fov}; out.snapAt = shot.snapAt ?? .6; break; }
@@ -65,7 +66,7 @@ function camera(shot, {size, move, mood, fov, pos, subjects, stand, ecu, aim, ai
   return out;
 }
 
-export function briefToSpec(brief, cues, lib, {slug} = {}) {
+export function briefToSpec(brief, cues, lib, {slug, root = '.'} = {}) {
   const errors = [], missing = {locations: [], props: []}, E = (where, msg) => errors.push(`${where}: ${msg}`);
   const words = cueWords(cues), {meta, world, rows} = brief;
   if (meta.slug && slug && meta.slug !== slug) E('META', `slug "${meta.slug}" ≠ story folder "${slug}"`);
@@ -79,6 +80,7 @@ export function briefToSpec(brief, cues, lib, {slug} = {}) {
   if (!worldMod) E('WORLD', `no world module for ${locs.join(', ') || 'any location'} (add one to parts/library6.json or write stories/${slug}/world.js)`);
   // CAST
   const castKeys = {}, cast = {}, pos = {}, yawOf = {}, props7 = [];
+  const org = (() => { try { return JSON.parse(readFileSync(`${root}/parts/library6.json`, 'utf8')).locations?.[loc0]?.origin ?? [0, 0, 0]; } catch { return [0, 0, 0]; } })();   // the location anchor's world position (library6.json `origin`): cameras and props are world coordinates, marks stay anchor-relative
   brief.cast.forEach((c, i) => {
     const key = c.role.toLowerCase(); castKeys[key] = key;
     if (!c.slot || (c.slot !== 'HERO' && !SLOTS.includes(c.slot))) E(`CAST ${c.role}`, `unknown troupe slot "${c.slot ?? ''}" (${SLOTS.join(' | ')})`);
@@ -118,7 +120,7 @@ export function briefToSpec(brief, cues, lib, {slug} = {}) {
       if (!VERB_NAMES.includes(v)) bad('action verb', v, VERB_NAMES.join(' | ')); else if (!who || !castKeys[who.toLowerCase()]) bad('action verb actor', who, 'a CAST role');
       else { const tg = ['hug', 'carry', 'comfort_kneel'].includes(v) ? subs.find(x => x !== who.toLowerCase()) : null; actions.push({actor: who.toLowerCase(), verb: v, ...(tg ? {target: tg} : {}), at: hit ? {word: hit.word, nth: hit.nth, line: hit.line} : 0}); if (vi === 0) verbT = hit?.t ?? c0; } }
     for (const part of (r.expression || '').split(';').map(x => x.trim()).filter(x => x && x !== '-')) {
-      const [face, wd] = part.split('@').map(x => x.trim()), err = faceError6(face);
+      const [face0, wd] = part.split('@').map(x => x.trim()), face = FACE_ALIAS[face0] ?? face0, err = faceError6(face);
       if (err) { bad('expression', face, 'a faces v6 / v5 name'); continue; }
       const f = wd ? find(wd, 'expression') : null; if (wd && !f) continue;
       if (!actor) { E(`${R} (expression)`, 'a prop insert has no face'); continue; }
@@ -128,7 +130,7 @@ export function briefToSpec(brief, cues, lib, {slug} = {}) {
     const ef = r.effect || 'none', tLocal = Math.max(0, +((emHits[0]?.t ?? c0 + .4) - at).toFixed(3)); const sh = {id: `S${String(r['#']).padStart(2, '0')}`, at};
     for (const e of ef.split('+').map(x => x.trim())) if (e === 'impact') sh.impact = tLocal; else if (e === 'freeze') sh.freeze = [tLocal, 4]; else if (e === 'crash') { sh.impact = tLocal; sh.zoomAt = Math.max(0, +(tLocal - .17).toFixed(3)); /* the 5-frame zoom lands on the impact word */ if (r.move !== 'crashZoom') E(`${R} (effect)`, 'crash needs move crashZoom'); }
     // notes markers
-    const notes = [], places = []; let cyc = null, propScale = 1, propAt = [0, 0, 0], standDeg = null, aimY = null, aimX = 0, fitF = null, pushK = .93, pushNote = null, camY = null, fovNote = null;
+    const notes = [], places = []; let cyc = null, propScale = 1, propAt = [0, 0, 0], standDeg = null, aimY = null, aimX = 0, fitF = null, pushK = .93, pushNote = null, camY = null, fovNote = null, holdS = null, freezeF = null, drift = null, tiltDeg = null;
     for (const tok of (r.notes || '').split(/[;,]/).map(x => x.trim()).filter(Boolean)) {
       let g;
       if (tok === 'twist') sh.twist = true; else if (tok === 'payoff') sh.payoffMark = true; else if (tok === 'cross') sh.cross = true; else if (tok === 'blur') sh.blur = true;
@@ -140,6 +142,12 @@ export function briefToSpec(brief, cues, lib, {slug} = {}) {
       else if ((g = /^scale\s*:\s*([\d.]+)$/.exec(tok))) propScale = +g[1];
       else if ((g = /^stand\s*:\s*(-?[\d.]+)$/.exec(tok))) standDeg = +g[1];   // camera yaw off the subject's front, degrees (default ±18, alternating)
       else if ((g = /^look\s*:\s*(\w+)$/.exec(tok))) { if (!LOOKS.includes(g[1])) bad('notes', tok, 'look: ' + LOOKS.join(' | ')); else sh.look = g[1]; }   // per-shot light preset (engine/look.js); default the episode look 'day'
+      else if ((g = /^light\s*:\s*((?:\w+\s+-?[\d.]+\s*)+)$/.exec(tok))) { sh.light = {...(sh.light ?? {}), ...Object.fromEntries([...g[1].matchAll(/(\w+)\s+(-?[\d.]+)/g)].map(m => [m[1], +m[2]]))}; }   // per-shot mood light override: light: skyEV .5 fillK 600 (names of engine/mood6.js DEFAULT_LIGHT)
+      else if (tok === 'still') { sh.still = true; sh.light = {...(sh.light ?? {}), camNoise: 0}; }   // ambient motion off (moods only): no idle life, blink, camera noise
+      else if ((g = /^hold\s*:\s*([\d.]+)$/.exec(tok))) holdS = +g[1];   // the first verb holds its fall / key pose this long (s)
+      else if ((g = /^freeze\s*:\s*(\d+)$/.exec(tok))) freezeF = +g[1];   // freeze length in frames (default 4)
+      else if ((g = /^drift\s*:\s*(-?[\d.]+)\s+(-?[\d.]+)$/.exec(tok))) drift = [+g[1], +g[2]];
+      else if ((g = /^tilt\s*:\s*([\d.]+)$/.exec(tok))) tiltDeg = +g[1];   // prop insert: the camera looks up this many degrees
       else if ((g = /^camy\s*:\s*(-?[\d.]+)$/.exec(tok))) camY = +g[1];   // camera height (push / static shots)
       else if ((g = /^fov\s*:\s*([\d.]+)$/.exec(tok))) fovNote = +g[1];   // lens (deg) instead of the mood's mid fov
       else if ((g = /^push\s*:\s*([\d.]+)$/.exec(tok))) pushK = pushNote = +g[1];   // insert on a prop: the camera ends at this fraction of its start distance (default .93)
@@ -149,6 +157,7 @@ export function briefToSpec(brief, cues, lib, {slug} = {}) {
       else if ((g = /^loc\s*:\s*(\S+)$/.exec(tok))) { if (!lib.locations[g[1]]) { if (!missing.locations.includes(g[1])) missing.locations.push(g[1]); } else sh.loc = g[1]; }
       else notes.push(tok);
     }
+    if (freezeF && sh.freeze) sh.freeze[1] = freezeF; if (holdS) { const v0 = actions.find(a => a.verb); if (v0) v0.hold = holdS; }
     if (sh.payoffMark && r.mood !== 'payoff') E(`${R} (notes)`, 'payoff marker on a shot whose mood is not payoff');
     delete sh.payoffMark; if (sh.gag !== undefined && ![1, 2, 3].includes(sh.gag)) E(`${R} (notes)`, `gag ${sh.gag}: only 1, 2, 3`);
     sh.loc ??= loc0;
@@ -165,15 +174,16 @@ export function briefToSpec(brief, cues, lib, {slug} = {}) {
       actions.push({actor, cycle: cyc.name, at: 0, until: +u1.toFixed(3)});
     }
     if (propSub) { const set7 = ['streetLamp', 'crate', 'porch', 'shack', 'deadTree', 'birdhouse', 'powerLine', 'grassBlade', 'rockPeak', 'rockMesa'].includes(propSub);
-      let pr = props7.find(p => p.id === propSub); if (!pr) props7.push(pr = {id: propSub, prop: propSub, ...(set7 ? {set: 'props7'} : {}), ...(propSub === 'streetLamp' ? {p: {color: '#ffd9a0', light: false}} : {}), scale: propScale, pos: [[0, propAt]], visible: [[0, false]]});
+      let pr = props7.find(p => p.id === propSub); if (!pr) props7.push(pr = {id: propSub, prop: propSub, ...(set7 ? {set: 'props7'} : {}), ...(propSub === 'streetLamp' ? {p: {color: '#ffd9a0', light: false}} : {}), scale: propScale, pos: [[0, [propAt[0] + org[0], 0, propAt[2] + org[2]]]], visible: [[0, false]]});
+      if (drift) pr.pos = [[0, pr.pos[0][1]], [+at.toFixed(3), pr.pos[0][1]], [+c1.toFixed(3), [pr.pos[0][1][0] + drift[0], 0, pr.pos[0][1][2] + drift[1]], 'ramp']];   // `drift: dx dz` slides the prop (and its shadow) over its insert
       pr.visible.push([at, true], [+c1.toFixed(3), false]); }   // the prop exists only during its insert
     const fov = fovNote ?? (MOODS[r.mood] ? +((MOODS[r.mood].fov[0] + MOODS[r.mood].fov[1]) / 2).toFixed(1) : 45), ecu = r.size === 'ecu', size = ecu ? 'close' : r.size;
     Object.assign(sh, {mood: r.mood, size, move: r.move, why: `${r.mood}: ${r.verb && r.verb !== '-' ? r.verb : r.vo.replace(/\*/g, '')}`.slice(0, 140), see: propSub ? [propSub] : subs, vo: r.vo.replace(/\*/g, ''), cue: [c0, c1]});
     if (ecu) sh.ecu = true; if (propSub) sh.prop = 'prop_' + propSub; else sh.subject = subs[0]; if (subs.length > 1) sh.pair = subs.slice(0, 2); if (actions.length) sh.actions = actions; if (notes.length) sh.note = notes.join('; ');
     if (i === 0) sh.openHit = true; if (r.move === 'crashZoom' && aimX) sh.subjectAimOffset = [aimX, 0, 0]; if (r.move === 'crashZoom' && aimY !== null) sh.subjectAimY = aimY;   // the zoom re-aims at the subject: keep the same x shift
-    if (!errors.some(e => e.startsWith(R)) && !propSub) Object.assign(sh, camera(sh, {size, move: r.move, mood: r.mood, fov, pos: cur, subjects: subs.filter(s => cur[s]), stand: standDeg ?? (i % 2 ? 18 : -18), ecu, aim: aimY, aimx: aimX, fitF, pushTo: pushNote ?? undefined, camY}));
-    else if (propSub && !errors.some(e => e.startsWith(R))) { const [px, , pz] = propAt, k = propScale, fv = Math.min(Math.max(fov, 28), 40), H = (PROP_H[propSub] ?? 3) * k, d = H / (.47 * 2 * Math.tan(fv * Math.PI / 360));   // insert on a library prop: low lens, the whole prop 47 % of the frame height, a slow push
-      const f = {position: [px + .08 * d, .6, pz + d], target: [px, H / 2, pz], fov: fv}; Object.assign(sh, {from: f, to: {...f, position: [px + .08 * d * pushK, .6, pz + d * pushK]}}); }
+    if (!errors.some(e => e.startsWith(R)) && !propSub) Object.assign(sh, camera(sh, {size, move: r.move, mood: r.mood, fov, pos: Object.fromEntries(Object.entries(cur).map(([k, v]) => [k, [v[0] + org[0], v[1] + org[1], v[2] + org[2]]])), subjects: subs.filter(s => cur[s]), stand: standDeg ?? (i % 2 ? 18 : -18), ecu, aim: aimY, aimx: aimX, fitF, pushTo: pushNote ?? undefined, camY}));
+    else if (propSub && !errors.some(e => e.startsWith(R))) { const [px, , pz] = [propAt[0] + org[0], 0, propAt[2] + org[2]], k = propScale, fv = Math.min(Math.max(fov, 28), 40), H = (PROP_H[propSub] ?? 3) * k, d = H / ((fitF ?? .47) * 2 * Math.tan(fv * Math.PI / 360));   // insert on a library prop: low lens, the whole prop 47 % of the frame height, a slow push
+      const cy = camY ?? .6, f = {position: [px + .08 * d, cy, pz + d], target: tiltDeg === null ? [px, H / 2, pz] : [px + .08 * d * .9, cy + Math.tan(tiltDeg * Math.PI / 180) * d, pz], fov: fv}; Object.assign(sh, {from: f, to: {...f, position: [px + .08 * d * pushK, cy, pz + d * pushK]}}); }
     for (const e of emphasis6) if (e.row === r['#']) e.shot = sh.id;
     shots.push(sh);
   });
