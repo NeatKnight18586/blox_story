@@ -11,6 +11,7 @@ export function resolveTroupe(entry, data) {
   // build + age are fixed per slot (A5 Decision 5): the kids are youth, the elder an adult
   const base = data.troupe?.[slot]; if (!base) throw Error('unknown troupe slot ' + slot);
   const {expressions, ...p} = base, out = {...p, hair: p.hair ? {...p.hair} : null};   // HERO (cast/hero.json): no hair
+  if (entry.costume) { const k = data.costumes?.[entry.costume]; if (!k || k.slot !== slot) throw Error(`costume ${entry.costume} is not for slot ${slot}`); const {slot: _s, ...o} = k; Object.assign(out, o, {hair: o.hair ? {...o.hair} : out.hair}); }   // E1 (opt-in): a named re-costume that may change the slot's look (cast/troupe6.json costumes)
   if (entry.outfit) out.outfit = {...entry.outfit};
   if (entry.accessories) out.accessories = entry.accessories;
   if (entry.tool) out.tool = entry.tool;

@@ -305,3 +305,314 @@ export function classSword(cls, {tier = 'hero'} = {}) {
   const g = new T.Group(); g.name = 'classSword_' + cls; CLASS_BUILD[cls](g, tier === 'hero');
   g.userData = {cls, tier}; return mergeParts(g);
 }
+
+// ---- E1 test park props (PROPS6) ---------------------------------------------------------------------------------
+// Our own open "ragdoll test park" kit: every builder is deterministic in its options, origin at the ground contact,
+// +z = front. Animated props carry `userData.set(p)` (the same params as the builder) so a world's setState drives them;
+// the pose maths is pure and exported (coasterPoint / coasterFrame, handCurl, fanAngle) for node tests. No game names,
+// logos, UI or weapons. nameTag is a floating label: Season 1 specs never show it (no labels, SEASON_1.md §2c).
+import {ENV} from './materials.js';
+export const PARK = {concrete: '#D9D9D4', grid: '#BDBDB8', sage: '#8FB38A', sky: '#C9D8E4', fan: '#4F6B4A', steel: '#8A9099', steelDk: '#5E646C',
+  mat: '#E8E2D6', apron: '#3A3E46', post: '#D2383A', rope: '#F6F6F4', water: '#4FA3D9', rim: '#F7F7F5', crate: '#B98A55', crateDk: '#8C6439',
+  barrel: '#C8372D', barrelRing: '#7E2420', bench: '#9C6B43', benchLeg: '#3A3E46', stone: '#D8C7A3', stoneDk: '#C2AE88', stoneLt: '#E6D8B8',
+  pad: '#F4F4F2', glow: '#4FE3F0', signInk: '#2B2D33', signPaper: '#F2F2EE', glove: '#F7F7F5', seam: '#C9C9CE', heal: '#3CC46A', healPad: '#2A2D33',
+  track: '#E2563E', cart: '#2F80D1', seat: '#26292F'};
+const pmCache = new Map();
+// Park material: satin MeshStandard with the world's env map (A4 look), cached per colour + options.
+export function pm(color, {rough = .55, metal = 0, emissive = null, ei = 1, side = T.FrontSide, opacity = 1} = {}) {
+  const k = [color, rough, metal, emissive, ei, side, opacity].join('|'); if (pmCache.has(k)) return pmCache.get(k);
+  const m = new T.MeshStandardMaterial({color, roughness: rough, metalness: metal, envMap: ENV.map, envMapIntensity: ENV.intensity, side, transparent: opacity < 1, opacity});
+  if (emissive) { m.emissive = new T.Color(emissive); m.emissiveIntensity = ei; }
+  m.name = 'park:' + k; pmCache.set(k, m); return m;
+}
+const pbx = (w, h, d, m, at, name = 'part', cast = true) => mesh(new T.BoxGeometry(w, h, d), m, at, name, cast);
+const pcy = (r0, r1, h, m, at, name = 'part', seg = 16, cast = true) => mesh(new T.CylinderGeometry(r0, r1, h, seg), m, at, name, cast);
+// A beam between two points (box w × w, or a cylinder when round).
+function beam(a, b, w, m, {round = false, name = 'beam', cast = true} = {}) {
+  const A = new T.Vector3(...a), B = new T.Vector3(...b), L = A.distanceTo(B), g = round ? new T.CylinderGeometry(w / 2, w / 2, L, 8) : new T.BoxGeometry(w, L, w);
+  const x = mesh(g, m, A.clone().add(B).multiplyScalar(.5).toArray(), name, cast); x.quaternion.setFromUnitVectors(new T.Vector3(0, 1, 0), B.clone().sub(A).normalize()); return x;
+}
+const rot = (o, k, v) => { o.rotation[k] = v; return o; };
+const canvasOk = () => typeof document !== 'undefined';
+function rrect(x, X, Y, W, H, r) { x.beginPath(); x.moveTo(X + r, Y); x.arcTo(X + W, Y, X + W, Y + H, r); x.arcTo(X + W, Y + H, X, Y + H, r); x.arcTo(X, Y + H, X, Y, r); x.arcTo(X, Y, X + W, Y, r); x.closePath(); }
+
+// giantFan: green steel frame, an 18-stud ring (outer diameter) on two A-frame legs, 6 blades on a hub. Rotor spins about
+// the ring axis (+z = the wind direction). spin = rotor angle in radians. fanAngle(t, rpm) = pure angle for a world clock.
+export const fanAngle = (t, rpm = 40) => t * rpm / 60 * Math.PI * 2;
+export function giantFan({spin = 0, ring = 18, color = PARK.fan} = {}) {
+  const g = new T.Group(); g.name = 'giantFan'; const steel = pm(color, {rough: .45, metal: .35}), dark = pm('#2E3A2C', {rough: .5, metal: .3}), R = ring / 2, cyH = R + 2.2;
+  const rim = mesh(new T.TorusGeometry(R - .45, .45, 10, 48), steel, [0, cyH, 0], 'fanRing'); g.add(rim);
+  const back = mesh(new T.TorusGeometry(R - .45, .3, 8, 48), steel, [0, cyH, -1.2], 'fanRingBack'); g.add(back);
+  for (let i = 0; i < 8; i++) { const a = i / 8 * Math.PI * 2, p = [Math.cos(a) * (R - .45), cyH + Math.sin(a) * (R - .45)]; g.add(beam([p[0], p[1], 0], [p[0], p[1], -1.2], .3, steel, {round: true})); }
+  for (let i = 0; i < 6; i++) { const a = i / 6 * Math.PI * 2; g.add(beam([0, cyH, -1.2], [Math.cos(a) * (R - .5), cyH + Math.sin(a) * (R - .5), -1.2], .22, dark, {round: true})); }   // rear guard spokes
+  g.add(rot(pcy(.9, 1.1, 1.6, dark, [0, cyH, -1.6], 'motor'), 'x', Math.PI / 2));
+  for (const s of [-1, 1]) { g.add(beam([s * (R - 1), cyH - R * .7, -.6], [s * (R + 1.6), 0, -.6], .7, steel)); g.add(beam([s * (R - 1), cyH - R * .7, -.6], [s * (R + .4), 0, -3.4], .5, steel)); }
+  g.add(pbx(ring + 5, .4, 4.4, dark, [0, .2, -1.6], 'fanBase'));
+  const rotor = new T.Group(); rotor.name = 'fanRotor'; rotor.position.set(0, cyH, -.4); g.add(rotor);
+  rotor.add(rot(pcy(1, 1, .9, dark, [0, 0, 0], 'hub'), 'x', Math.PI / 2));
+  const bladeG = new T.BoxGeometry(1.9, R - 1.6, .14); bladeG.translate(0, (R - 1.6) / 2 + .8, 0);
+  for (let i = 0; i < 6; i++) { const b = mesh(bladeG, steel, [0, 0, 0], 'blade'); b.rotation.z = i / 6 * Math.PI * 2; b.rotateY(.35); rotor.add(b); }
+  const set = ({spin: s = 0} = {}) => { rotor.rotation.z = s; };
+  set({spin}); g.userData.set = set; g.userData.keep = true; g.userData.anchors = {hub: [0, cyH, 0], front: [0, 0, 3]}; return g;
+}
+
+// launchTower: grey steel lattice 6 × 6 × 40 (four posts, X-braces every 5), switchback stairs up the +x face, a 6 × 6 top
+// platform with rails (anchor towerTop = [0, 40, 0]) and a side slide from the platform's −x edge curving down to +z.
+export const TOWER_H = 40;
+export function slideCurve(h = TOWER_H) {
+  return new T.CatmullRomCurve3([[-3.4, h + .2, 0], [-6, h - 6, 2], [-8.5, h * .55, 9], [-7.5, h * .3, 19], [-4.5, h * .1, 28], [-3.5, 1.1, 34], [-3.5, .7, 37]].map(p => new T.Vector3(...p)));
+}
+function uTrough(curve, {width = 2.2, wall = .9, n = 120, m}) {   // swept U profile (floor + two walls), one mesh
+  const pos = [], idx = [], prof = [[-width / 2, wall], [-width / 2, 0], [width / 2, 0], [width / 2, wall]];
+  for (let i = 0; i <= n; i++) { const u = i / n, p = curve.getPointAt(u), t = curve.getTangentAt(u), side = new T.Vector3(t.z, 0, -t.x).normalize(), up = new T.Vector3().crossVectors(side, t).normalize().multiplyScalar(-1);
+    if (up.y < 0) up.negate(); for (const [s, h] of prof) pos.push(p.x + side.x * s + up.x * h, p.y + side.y * s + up.y * h, p.z + side.z * s + up.z * h); }
+  for (let i = 0; i < n; i++) for (let k = 0; k < 3; k++) { const a = i * 4 + k, b = a + 1, c = a + 4, d = a + 5; idx.push(a, c, b, b, c, d); }
+  const g = new T.BufferGeometry(); g.setAttribute('position', new T.Float32BufferAttribute(pos, 3)); g.setIndex(idx); g.computeVertexNormals();
+  return mesh(g, m, [0, 0, 0], 'slide');
+}
+export function launchTower({h = TOWER_H, w = 6} = {}) {
+  const g = new T.Group(); g.name = 'launchTower'; const steel = pm(PARK.steel, {rough: .45, metal: .45}), dk = pm(PARK.steelDk, {rough: .5, metal: .4}), hw = w / 2;
+  for (const sx of [-1, 1]) for (const sz of [-1, 1]) g.add(pbx(.5, h, .5, steel, [sx * hw, h / 2, sz * hw], 'post'));
+  for (let y = 0; y < h; y += 5) {
+    const y1 = Math.min(h, y + 5);
+    for (const [a, b] of [[[-hw, -hw], [hw, -hw]], [[hw, -hw], [hw, hw]], [[hw, hw], [-hw, hw]], [[-hw, hw], [-hw, -hw]]]) {
+      g.add(beam([a[0], y1, a[1]], [b[0], y1, b[1]], .3, dk)); g.add(beam([a[0], y, a[1]], [b[0], y1, b[1]], .22, steel, {round: true})); g.add(beam([b[0], y, b[1]], [a[0], y1, a[1]], .22, steel, {round: true}));
+    }
+  }
+  // switchback stairs on the +x face: flights of 5 up, 8 long, alternating direction along z, landings at the ends
+  const stairM = pm('#6B7079', {rough: .6, metal: .3}), flights = Math.round(h / 5);
+  for (let f = 0; f < flights; f++) {
+    const dir = f % 2 ? -1 : 1, z0 = -dir * 4, y0 = f * 5;
+    for (let s = 0; s < 10; s++) g.add(pbx(2, .18, .8, stairM, [hw + 1.4, y0 + (s + 1) * .5 - .09, z0 + dir * (s + .5) * .8], 'step'));
+    g.add(beam([hw + 2.45, y0 + 1.2, z0], [hw + 2.45, y0 + 6.2, z0 + dir * 8], .14, dk, {round: true, cast: false}));
+    g.add(pbx(2, .2, 2, stairM, [hw + 1.4, y0 + 5 - .1, z0 + dir * 9], 'landing'));
+  }
+  // top platform + rails (open on the −x side for the slide)
+  g.add(pbx(w + 1, .4, w + 1, dk, [0, h - .2, 0], 'platform'));
+  for (const [a, b] of [[[hw + .5, -hw - .5], [hw + .5, hw + .5]], [[-hw - .5, hw + .5], [hw + .5, hw + .5]], [[-hw - .5, -hw - .5], [hw + .5, -hw - .5]]]) { g.add(beam([a[0], h + 1.1, a[1]], [b[0], h + 1.1, b[1]], .16, steel, {round: true})); g.add(beam([a[0], h, a[1]], [a[0], h + 1.1, a[1]], .14, steel, {round: true})); }
+  // the slide: swept U trough + supports to the ground
+  const c = slideCurve(h); g.add(uTrough(c, {m: pm('#F2B632', {rough: .35})}));
+  for (const u of [.25, .45, .62, .78, .9]) { const p = c.getPointAt(u); if (p.y > 1.5) g.add(beam([p.x, 0, p.z], [p.x, p.y - .1, p.z], .3, dk, {round: true})); }
+  g.userData.anchors = {towerBase: [hw + 1.4, 0, -4.6], towerTop: [0, h, 0], slideEnd: [-3.5, 0, 37]}; return g;
+}
+
+// coaster: a closed circuit (track-local, ground y 0, rails at y ≥ 1.2): station straight, a hill, the 14-stud vertical
+// loop (diameter 14, it shifts 3 sideways so the rails clear), a U-turn, the return straight, a U-turn home.
+// coasterPoint(u) is pure (u 0..1 by arc length; returns position, tangent, up, inLoop); the cart flips through the loop.
+const CR = 1.2, LOOP_R = 7, LOOP_X = 42, LOOP_DZ = 3, hillY = x => 8 * Math.sin(Math.PI * x / 24) ** 2;
+const HILL_LEN = (() => { let L = 0; for (let i = 0; i < 2400; i++) L += Math.hypot(.01, hillY((i + 1) * .01) - hillY(i * .01)); return L; })();   // arc length of the hill (studs)
+const SEGS = [
+  {len: 12, f: s => [s, CR, 0]},
+  {len: HILL_LEN, f: s => { const x = s / HILL_LEN * 24; return [12 + x, CR + hillY(x), 0]; }},
+  {len: 6, f: s => [36 + s, CR, 0]},
+  {len: 2 * Math.PI * LOOP_R, loop: true, f: s => { const th = s / LOOP_R; return [LOOP_X + LOOP_R * Math.sin(th), CR + LOOP_R - LOOP_R * Math.cos(th), LOOP_DZ * th / (2 * Math.PI)]; }},
+  {len: 14, f: s => [LOOP_X + s, CR, LOOP_DZ]},
+  {len: Math.PI * 7.5, f: s => { const p = s / 7.5; return [56 + 7.5 * Math.sin(p), CR, -4.5 + 7.5 * Math.cos(p)]; }},
+  {len: 56, f: s => [56 - s, CR, -12]},
+  {len: Math.PI * 6, f: s => { const p = s / 6; return [-6 * Math.sin(p), CR, -6 - 6 * Math.cos(p)]; }},
+];
+export const COASTER_LEN = SEGS.reduce((a, s) => a + s.len, 0);
+export const COASTER_LOOP = {x: LOOP_X, r: LOOP_R, diameter: 2 * LOOP_R, u0: SEGS.slice(0, 3).reduce((a, s) => a + s.len, 0) / COASTER_LEN, u1: SEGS.slice(0, 4).reduce((a, s) => a + s.len, 0) / COASTER_LEN};
+const segAt = u => { let s = ((u % 1) + 1) % 1 * COASTER_LEN; for (const g of SEGS) { if (s <= g.len) return [g, s]; s -= g.len; } return [SEGS.at(-1), SEGS.at(-1).len]; };
+export function coasterPoint(u) {
+  const [g, s] = segAt(u), p = g.f(s), e = 1e-3, q = g.f(Math.min(g.len, s + e)), o = g.f(Math.max(0, s - e));
+  let t = q.map((v, i) => v - o[i]); const n = Math.hypot(...t); t = t.map(v => v / n);
+  let up = [0, 1, 0];
+  if (g.loop) { const th = s / LOOP_R; up = [-Math.sin(th), Math.cos(th), 0]; }   // towards the loop centre: the cart rides the inside
+  return {p, t, up, inLoop: !!g.loop};
+}
+// Cart frame (pure): position on the rails and a basis (forward t, up, side) as a 4×4 column-major array.
+export function coasterFrame(u, lift = .45) {
+  const {p, t, up: u0} = coasterPoint(u), side = [t[1] * u0[2] - t[2] * u0[1], t[2] * u0[0] - t[0] * u0[2], t[0] * u0[1] - t[1] * u0[0]], sn = Math.hypot(...side) || 1, S = side.map(v => v / sn);
+  const up = [S[1] * t[2] - S[2] * t[1], S[2] * t[0] - S[0] * t[2], S[0] * t[1] - S[1] * t[0]];
+  const at = p.map((v, i) => v + up[i] * lift);
+  return {at, forward: t, up, side: S, matrix: [S[0], S[1], S[2], 0, up[0], up[1], up[2], 0, t[0], t[1], t[2], 0, at[0], at[1], at[2], 1]};
+}
+class CoasterCurve extends T.Curve { constructor(off = 0, upOff = 0) { super(); this.off = off; this.upOff = upOff; }
+  getPoint(u, v = new T.Vector3()) { const f = coasterFrame(u, this.upOff); return v.set(...f.at.map((x, i) => x + f.side[i] * this.off)); } }
+export function coasterTrack({color = PARK.track} = {}) {
+  const g = new T.Group(); g.name = 'coasterTrack'; const rail = pm(color, {rough: .35, metal: .3}), tie = pm('#5E646C', {rough: .6}), sup = pm('#9AA0A8', {rough: .45, metal: .4});
+  const n = Math.round(COASTER_LEN * .8);
+  for (const s of [-.6, .6]) g.add(mesh(new T.TubeGeometry(new CoasterCurve(s, 0), n, .16, 5, true), rail, [0, 0, 0], 'rail'));
+  g.add(mesh(new T.TubeGeometry(new CoasterCurve(0, -.35), n, .2, 5, true), rail, [0, 0, 0], 'spine'));
+  const tieG = new T.BoxGeometry(1.5, .12, .25), ties = [];
+  for (let i = 0; i < Math.round(COASTER_LEN / 1.2); i++) { const f = coasterFrame(i * 1.2 / COASTER_LEN, -.18), m = new T.Matrix4().fromArray(f.matrix); ties.push(tieG.clone().applyMatrix4(m)); }
+  g.add(mesh(mergeGeometries(ties), tie, [0, 0, 0], 'ties'));
+  for (let i = 0; i < 40; i++) { const u = i / 40, {p, inLoop} = coasterPoint(u); if (p[1] > CR + .6 && !inLoop) g.add(beam([p[0], 0, p[2]], [p[0], p[1] - .5, p[2]], .3, sup, {round: true})); }
+  for (const s of [-1, 1]) g.add(beam([LOOP_X + s * LOOP_R, 0, LOOP_DZ / 2 + (s < 0 ? .75 : -.75) * LOOP_DZ / 2], [LOOP_X + s * LOOP_R, CR + LOOP_R, LOOP_DZ / 2 + (s < 0 ? .75 : -.75) * LOOP_DZ / 2], .35, sup, {round: true}));   // loop side legs
+  g.add(pbx(14, .35, 4, pm('#B9BDC2', {rough: .7}), [6, .17, 0], 'station'));
+  g.userData.anchors = {station: [4, 0, 2.6], loop: [LOOP_X, 0, LOOP_DZ / 2], loopTop: [LOOP_X, CR + 2 * LOOP_R, LOOP_DZ / 2]}; return g;
+}
+export function coasterCart({pathT = 0, color = PARK.cart} = {}) {
+  const g = new T.Group(); g.name = 'coasterCart'; const body = pm(color, {rough: .35}), seat = pm(PARK.seat, {rough: .7}), steel = pm('#C9CDD3', {rough: .3, metal: .6});
+  const inner = new T.Group(); inner.name = 'cartBody'; g.add(inner);
+  inner.add(pbx(2.3, .5, 3.4, body, [0, .35, 0], 'cartFloor'));
+  for (const s of [-1, 1]) inner.add(pbx(.2, .9, 3.4, body, [s * 1.05, .9, 0], 'cartSide'));
+  inner.add(pbx(2.3, 1.2, .3, body, [0, 1.05, 1.6], 'cartNose')); inner.add(pbx(2.3, .9, .2, body, [0, .9, -1.6], 'cartBack'));
+  for (const s of [-.5, .5]) { inner.add(pbx(.9, .25, 1.1, seat, [s, .72, -.2], 'seat')); inner.add(pbx(.9, 1.1, .2, seat, [s, 1.25, -.8], 'seatBack')); }   // seats 2, side by side
+  inner.add(beam([-1, 1.4, .6], [1, 1.4, .6], .14, steel, {round: true}));   // lap bar
+  for (const sx of [-.6, .6]) for (const sz of [-1.1, 1.1]) inner.add(rot(pcy(.22, .22, .2, steel, [sx, .02, sz], 'wheel', 10), 'z', Math.PI / 2));
+  const set = ({pathT: u = 0} = {}) => { const f = coasterFrame(u); g.matrixAutoUpdate = false; g.matrix.fromArray(f.matrix); g.matrixWorldNeedsUpdate = true; g.userData.pathT = u; };
+  set({pathT}); g.userData.set = set; g.userData.keep = true; g.userData.seats = [[-.5, .85, -.2], [.5, .85, -.2]]; return g;
+}
+
+// boxingRing: raised 16 × 16 mat (#E8E2D6) on a dark apron 1.2 high, red corner posts, 3 white ropes per side, corner steps.
+export function boxingRing({size = 16, h = 1.2} = {}) {
+  const g = new T.Group(); g.name = 'boxingRing'; const hs = size / 2, post = pm(PARK.post, {rough: .4}), rope = pm(PARK.rope, {rough: .5}), pad = pm('#B8282B', {rough: .6});
+  g.add(pbx(size + .4, h - .1, size + .4, pm(PARK.apron, {rough: .8}), [0, (h - .1) / 2, 0], 'apron'));
+  g.add(pbx(size + .8, .2, size + .8, pm(PARK.mat, {rough: .9}), [0, h, 0], 'ringMat'));
+  for (const sx of [-1, 1]) for (const sz of [-1, 1]) { g.add(pcy(.28, .28, 3.6, post, [sx * hs, h + 1.8, sz * hs], 'cornerPost', 12)); g.add(pbx(.7, 2.6, .7, pad, [sx * (hs - .35), h + 1.6, sz * (hs - .35)], 'cornerPad')); }
+  for (const y of [1.0, 1.9, 2.8]) for (const [a, b] of [[[-hs, -hs], [hs, -hs]], [[hs, -hs], [hs, hs]], [[hs, hs], [-hs, hs]], [[-hs, hs], [-hs, -hs]]]) g.add(beam([a[0], h + y, a[1]], [b[0], h + y, b[1]], .14, rope, {round: true}));
+  for (let s = 0; s < 3; s++) g.add(pbx(2.2, .4 * (s + 1), .8, pm(PARK.apron, {rough: .8}), [hs - 2, .2 * (s + 1), hs + 1.6 - s * .8], 'ringStep'));
+  g.userData.anchors = {centre: [0, h + .1, 0], corner: [hs - 1.4, h + .1, hs - 1.4]}; g.userData.top = h + .1; return g;
+}
+
+// pool: two pools, white rim 0.5 high (rim top y 0.5), blue water 0.1 under the rim top, floor 0.4 under the water.
+export function pool({pools = [[14, 9, 0, 0], [9, 9, 0, 13]], rimW = .8} = {}) {
+  const g = new T.Group(); g.name = 'pool'; const rim = pm(PARK.rim, {rough: .7}), floor = pm('#8FD0F0', {rough: .8}), water = pm(PARK.water, {rough: .08, opacity: .82});
+  for (const [w, d, x, z] of pools) {
+    for (const [sx, sz, ww, dd] of [[0, -1, w + 2 * rimW, rimW], [0, 1, w + 2 * rimW, rimW], [-1, 0, rimW, d], [1, 0, rimW, d]]) g.add(pbx(ww, .5, dd, rim, [x + sx * (w + rimW) / 2, .25, z + sz * (d + rimW) / 2], 'poolRim'));
+    g.add(pbx(w, .02, d, floor, [x, .01, z], 'poolFloor', false));
+    const wm = mesh(new T.PlaneGeometry(w, d), water, [x, .4, z], 'poolWater', false); wm.rotation.x = -Math.PI / 2; wm.userData.live = true; g.add(wm);
+  }
+  g.userData.waterY = .4; g.userData.depth = .4; return g;
+}
+
+// crates (stacked pyramid, plank frames), redBarrels (cluster, rings), benches (row of park benches).
+function crate(m, mk, s = 2) { const c = new T.Group(); c.add(pbx(s, s, s, m, [0, s / 2, 0], 'crate')); for (const y of [.08, s - .08]) for (const [w, d, x, z] of [[s + .04, .16, 0, s / 2], [s + .04, .16, 0, -s / 2], [.16, s + .04, s / 2, 0], [.16, s + .04, -s / 2, 0]]) c.add(pbx(w, .16, d, mk, [x, y, z], 'crateTrim'));
+  for (const sx of [-1, 1]) for (const sz of [-1, 1]) c.add(pbx(.16, s, .16, mk, [sx * s / 2, s / 2, sz * s / 2], 'crateEdge')); return c; }
+export function crates({rows = [4, 3, 1], s = 2, seed = 3} = {}) {
+  const g = new T.Group(); g.name = 'crates'; const r = rnd(seed), m = pm(PARK.crate, {rough: .85}), mk = pm(PARK.crateDk, {rough: .85});
+  rows.forEach((n, k) => { for (let i = 0; i < n; i++) { const c = crate(m, mk, s); c.position.set((i - (n - 1) / 2) * (s + .05) + (r() - .5) * .2, k * s, (r() - .5) * .3); c.rotation.y = (r() - .5) * .25; g.add(c); } });
+  return mergeParts(g);
+}
+export function redBarrels({n = 7, seed = 5} = {}) {
+  const g = new T.Group(); g.name = 'redBarrels'; const r = rnd(seed), m = pm(PARK.barrel, {rough: .45}), ring = pm(PARK.barrelRing, {rough: .4, metal: .3});
+  for (let i = 0; i < n; i++) { const a = i * 2.4 + r(), d = i ? 1.2 + Math.floor((i - 1) / 6) * 1.2 + r() * .3 : 0, x = Math.cos(a) * d, z = Math.sin(a) * d;
+    g.add(pcy(.6, .6, 1.8, m, [x, .9, z], 'barrel', 14)); for (const y of [.35, 1.45]) g.add(pcy(.63, .63, .12, ring, [x, y, z], 'barrelRing', 14)); g.add(pcy(.5, .5, .02, ring, [x, 1.81, z], 'barrelLid', 14)); }
+  return mergeParts(g);
+}
+export function benches({n = 3, step = 5} = {}) {
+  const g = new T.Group(); g.name = 'benches'; const wood = pm(PARK.bench, {rough: .8}), leg = pm(PARK.benchLeg, {rough: .5, metal: .3});
+  for (let i = 0; i < n; i++) { const x = (i - (n - 1) / 2) * step;
+    for (let k = 0; k < 3; k++) g.add(pbx(3.6, .12, .36, wood, [x, .95, -.45 + k * .42], 'benchSlat'));
+    for (let k = 0; k < 2; k++) g.add(rot(pbx(3.6, .34, .1, wood, [x, 1.35 + k * .42, -.68], 'benchBack'), 'x', -.12));
+    for (const s of [-1.5, 1.5]) { g.add(pbx(.14, .95, 1.2, leg, [x + s, .47, -.05], 'benchLeg')); g.add(pbx(.14, 1.1, .14, leg, [x + s, 1.4, -.7], 'benchLeg')); } }
+  return mergeParts(g);
+}
+
+// watchTower: beige stone blocks (three tones, staggered courses), 6 × 6 × 15, a door, a window band and crenellations.
+export function watchTower({w = 6, h = 15, seed = 7} = {}) {
+  const g = new T.Group(); g.name = 'watchTower'; const r = rnd(seed), ms = [pm(PARK.stone, {rough: .9}), pm(PARK.stoneDk, {rough: .9}), pm(PARK.stoneLt, {rough: .9})], dark = pm('#4A4038', {rough: .9});
+  const bh = 1, hw = w / 2;
+  for (let c = 0; c < h / bh; c++) { const y = c * bh + bh / 2, off = c % 2 ? .75 : 0;
+    for (const side of [0, 1, 2, 3]) for (let x = -hw + off; x < hw - .01; x += 1.5) { const len = Math.min(1.5, hw - x), m = ms[Math.floor(r() * 3)];
+      const at = side === 0 ? [x + len / 2, y, hw - .3] : side === 1 ? [x + len / 2, y, -hw + .3] : side === 2 ? [hw - .3, y, x + len / 2] : [-hw + .3, y, x + len / 2];
+      const b = side < 2 ? pbx(len - .06, bh - .06, .6, m, at, 'stone') : pbx(.6, bh - .06, len - .06, m, at, 'stone'); g.add(b); } }
+  g.add(pbx(w - 1.2, h, w - 1.2, ms[1], [0, h / 2, 0], 'core', false));
+  g.add(pbx(2, 3.2, .1, dark, [0, 1.6, hw + .01], 'door', false));
+  for (const x of [-1.5, 1.5]) g.add(pbx(.8, 1.4, .1, dark, [x, h - 4, hw + .01], 'window', false));
+  g.add(pbx(w + 1, .6, w + 1, ms[2], [0, h + .3, 0], 'cap'));
+  for (let i = 0; i < 4; i++) for (const s of [-1, 1]) { const k = -hw + .5 + i * (w - 1) / 3; g.add(pbx(.9, 1, .9, ms[i % 3], [k, h + 1.1, s * hw], 'merlon')); g.add(pbx(.9, 1, .9, ms[(i + 1) % 3], [s * hw, h + 1.1, k], 'merlon')); }
+  return mergeParts(g);
+}
+
+// spawnPad: a big round white disc (r 6, 0.3 high), an inset cyan ring that glows; flash 0..1 brightens the ring and
+// raises a soft light column (additive, no shadow).
+export function spawnPad({r = 6, flash = 0} = {}) {
+  const g = new T.Group(); g.name = 'spawnPad'; g.add(pcy(r, r + .15, .3, pm(PARK.pad, {rough: .55}), [0, .15, 0], 'padDisc', 48));
+  const glowM = new T.MeshBasicMaterial({color: PARK.glow, toneMapped: false}), colM = new T.MeshBasicMaterial({color: PARK.glow, transparent: true, opacity: 0, blending: T.AdditiveBlending, depthWrite: false, side: T.DoubleSide, toneMapped: false});
+  const ring = mesh(new T.RingGeometry(r - 1, r - .45, 64), glowM, [0, .31, 0], 'padRing', false); ring.rotation.x = -Math.PI / 2; ring.userData.live = true; g.add(ring);
+  g.add(pcy(r - 1.6, r - 1.6, .02, pm('#E4E8EA', {rough: .6}), [0, .31, 0], 'padCentre', 48, false));
+  const col = mesh(new T.CylinderGeometry(r - .7, r - .7, 9, 48, 1, true), colM, [0, 4.8, 0], 'padColumn', false); col.userData.live = true; col.visible = false; g.add(col);
+  const base = new T.Color(PARK.glow), hot = new T.Color('#E8FFFF');
+  const set = ({flash: f = 0} = {}) => { glowM.color.copy(base).lerp(hot, f); col.visible = f > .01; colM.opacity = .35 * f; };
+  set({flash}); g.userData.set = set; g.userData.keep = true; g.userData.anchors = {centre: [0, .3, 0]}; g.userData.top = .3; return g;
+}
+
+// wallSign: a 14 × 3 plaza wall (0.6 thick on a 0.4 plinth) painted with text, bold sans #2B2D33 on #F2F2EE (canvas
+// texture, two lines when they read bigger). signLayout is pure: the font size (px) that fits the lines in the panel.
+export const SIGN_TEXT = 'DUMMIES HELP EACH OTHER';
+export function signLayout(text = SIGN_TEXT, {W = 2048, H = 440, pad = .06, charW = .64, lineH = 1.08} = {}) {
+  const words = text.split(' '), one = [text], two = [words.slice(0, Math.ceil(words.length / 2)).join(' '), words.slice(Math.ceil(words.length / 2)).join(' ')];
+  const fit = lines => Math.min(W * (1 - 2 * pad) / (Math.max(...lines.map(l => l.length)) * charW), H * (1 - 2 * pad) / (lines.length * lineH));
+  const a = fit(one), b = fit(two); return b > a * 1.1 ? {lines: two, px: Math.floor(b)} : {lines: one, px: Math.floor(a)};
+}
+export function wallSign({text = SIGN_TEXT, w = 14, h = 3, base = .4, ink = PARK.signInk, paper = PARK.signPaper} = {}) {   // base: height of the panel's bottom edge (a tall wall reads over a ring's ropes)
+  const g = new T.Group(); g.name = 'wallSign'; const wall = pm('#E4E4DF', {rough: .85}), plinth = pm('#B9B9B4', {rough: .9});
+  g.add(pbx(w + .6, .4, 1, plinth, [0, .2, 0], 'signPlinth')); g.add(pbx(w, base + h - .4, .6, wall, [0, .4 + (base + h - .4) / 2, 0], 'signWall')); g.add(pbx(w + .3, .2, .8, plinth, [0, base + h + .1, 0], 'signCap'));
+  let face;
+  if (canvasOk()) { const W = 2048, H = Math.round(W * (h - .3) / (w - .3)), c = document.createElement('canvas'); c.width = W; c.height = H; const x = c.getContext('2d'), L = signLayout(text, {W, H});
+    x.fillStyle = paper; x.fillRect(0, 0, W, H); x.fillStyle = ink; x.textAlign = 'center'; x.textBaseline = 'middle'; x.font = `900 ${L.px}px "Arial Black", "Helvetica Neue", Arial, sans-serif`;
+    L.lines.forEach((l, i) => { x.fillText(l, W / 2, H / 2 + (i - (L.lines.length - 1) / 2) * L.px * 1.08, W * .92); });
+    const tex = new T.CanvasTexture(c); tex.colorSpace = T.SRGBColorSpace; tex.anisotropy = 8; tex.generateMipmaps = true; tex.minFilter = T.LinearMipmapLinearFilter;
+    face = new T.MeshStandardMaterial({map: tex, roughness: .9, envMap: ENV.map, envMapIntensity: ENV.intensity * .5}); }
+  else face = pm(paper, {rough: .9});
+  g.add(mesh(new T.PlaneGeometry(w - .3, h - .3), face, [0, base + h / 2, .31], 'signFace', false));
+  g.userData.text = text; g.userData.anchors = {front: [0, 0, 3]}; return g;
+}
+
+// giantHand: a cartoon 4-finger white glove (3 fingers + thumb), 14 studs from the cuff to the fingertip, fingers along
+// +z, palm facing −y. handCurl(pose, grip) is pure: per digit [knuckle, middle] curl angles (radians), grip 0..1 blends
+// open → pose. Poses: open, pinch (index + thumb meet, others half curled), fist, point (index straight, others curled).
+export const HAND_POSES = ['open', 'pinch', 'fist', 'point'];
+const CURL = {open: {thumb: [0, 0, 0], index: [0, 0], middle: [0, 0], ring: [0, 0]},
+  pinch: {thumb: [.55, .5, .35], index: [.75, .9], middle: [.9, 1.3], ring: [1, 1.4]},
+  fist: {thumb: [.7, .9, .6], index: [1.45, 1.6], middle: [1.45, 1.6], ring: [1.45, 1.6]},
+  point: {thumb: [.6, .8, .5], index: [0, 0], middle: [1.45, 1.6], ring: [1.45, 1.6]}};
+export function handCurl(pose = 'open', grip = 1) {
+  const P = CURL[pose] ?? CURL.open, k = Math.max(0, Math.min(1, grip)), out = {};
+  for (const d of Object.keys(P)) out[d] = P[d].map((a, i) => a * k + CURL.open[d][i] * (1 - k));
+  return out;
+}
+export const HAND_LEN = 14;
+export function giantHand({pose = 'open', grip = 1} = {}) {
+  const g = new T.Group(); g.name = 'giantHand'; const glove = pm(PARK.glove, {rough: .7}), seam = pm(PARK.seam, {rough: .8}), cuffM = pm('#ECECEE', {rough: .75});
+  // cuff (z −1..1.6, flared) → palm (z 1.6..7.4) → fingers (to z 14); widths: palm 5.4, thickness 2.2
+  const cuff = mesh(new T.CylinderGeometry(2.7, 3.2, 2.6, 24), cuffM, [0, 0, .3], 'cuff'); cuff.rotation.x = Math.PI / 2; g.add(cuff);
+  const cuffRoll = mesh(new T.TorusGeometry(3.15, .45, 10, 28), cuffM, [0, 0, -1], 'cuffRoll'); g.add(cuffRoll);
+  const palm = mesh(new T.CapsuleGeometry(1.1, 4.2, 6, 16), glove, [0, 0, 4.5], 'palm'); palm.rotation.set(Math.PI / 2, 0, Math.PI / 2); palm.scale.set(1, 1.35, 1); g.add(palm);
+  const palmCore = mesh(new T.BoxGeometry(5.2, 2.1, 5.2), glove, [0, 0, 4.5], 'palmCore'); g.add(palmCore);
+  for (const x of [-1.3, 0, 1.3]) g.add(pbx(.14, .05, 3.4, seam, [x, 1.07, 4.6], 'seam', false));   // three stitch lines on the back
+  const digits = {}, fingerR = .78;
+  const finger = (name, x, len, rootZ = 7.1) => {
+    const k = new T.Group(); k.name = name + 'Knuckle'; k.position.set(x, 0, rootZ); g.add(k);
+    const a = mesh(new T.CapsuleGeometry(fingerR, len * .5, 6, 12), glove, [0, 0, len * .5 / 2 + .2], name + 'A'); a.rotation.x = Math.PI / 2; k.add(a);
+    const m = new T.Group(); m.name = name + 'Mid'; m.position.set(0, 0, len * .5 + .2); k.add(m);
+    const b = mesh(new T.CapsuleGeometry(fingerR * .96, len * .42, 6, 12), glove, [0, 0, len * .42 / 2 + .4], name + 'B'); b.rotation.x = Math.PI / 2; m.add(b);
+    digits[name] = [k, m];
+  };
+  finger('index', -1.75, 6.2); finger('middle', 0, 6.6); finger('ring', 1.75, 5.8);
+  const th = new T.Group(); th.name = 'thumbBase'; th.position.set(-2.7, -.2, 3.6); th.rotation.y = -.7; g.add(th);
+  const t1 = mesh(new T.CapsuleGeometry(.95, 2.4, 6, 12), glove, [0, 0, 1.6], 'thumbA'); t1.rotation.x = Math.PI / 2; th.add(t1);
+  const tm = new T.Group(); tm.position.set(0, 0, 3); th.add(tm); const t2 = mesh(new T.CapsuleGeometry(.9, 1.8, 6, 12), glove, [0, 0, 1.3], 'thumbB'); t2.rotation.x = Math.PI / 2; tm.add(t2);
+  const set = ({pose: p = 'open', grip: k = 1} = {}) => { const c = handCurl(p, k);
+    for (const d of ['index', 'middle', 'ring']) { digits[d][0].rotation.x = c[d][0]; digits[d][1].rotation.x = c[d][1]; }
+    th.rotation.set(c.thumb[0] * .6, -.7 + c.thumb[0] * 1.15, 0); tm.rotation.set(0, c.thumb[1] * .9, 0); g.userData.pose = p; g.userData.grip = k; };
+  set({pose, grip}); g.userData.set = set; g.userData.keep = true; g.userData.length = HAND_LEN; return g;
+}
+
+// healButton: a big round green button (#3CC46A) on a dark rounded pad, a white cross on top. press 0..1 sinks it.
+export function healButton({press = 0} = {}) {
+  const g = new T.Group(); g.name = 'healButton'; g.add(pcy(2.3, 2.5, .5, pm(PARK.healPad, {rough: .6}), [0, .25, 0], 'healPad', 32));
+  const cap = new T.Group(); cap.name = 'healCap'; g.add(cap); const white = pm('#FFFFFF', {rough: .5});
+  cap.add(pcy(1.6, 1.7, .7, pm(PARK.heal, {rough: .35}), [0, .85, 0], 'healTop', 32));
+  cap.add(pbx(1.9, .08, .6, white, [0, 1.24, 0], 'healCross', false)); cap.add(pbx(.6, .08, 1.9, white, [0, 1.24, 0], 'healCross', false));
+  const set = ({press: p = 0} = {}) => { cap.position.y = -.4 * Math.max(0, Math.min(1, p)); };
+  set({press}); g.userData.set = set; g.userData.keep = true; return g;
+}
+
+// nameTag: floating billboard text (white bold on a dark rounded backing at 60 %), a Sprite so it always faces the
+// camera; height in studs, sits `lift` above its parent's origin. Not for Season 1 (no labels).
+export function nameTag({text = 'Name', height = .7, lift = 6.2} = {}) {
+  const g = new T.Group(); g.name = 'nameTag'; if (!canvasOk()) return g;
+  const H = 128, c = document.createElement('canvas'), x = c.getContext('2d'); x.font = `800 ${H * .58}px "Helvetica Neue", Arial, sans-serif`;
+  const W = Math.ceil(x.measureText(text).width + H * .7); c.width = W; c.height = H; x.font = `800 ${H * .58}px "Helvetica Neue", Arial, sans-serif`;
+  x.fillStyle = 'rgba(20,22,28,.6)'; rrect(x, 0, 0, W, H, H * .32); x.fill(); x.fillStyle = '#ffffff'; x.textAlign = 'center'; x.textBaseline = 'middle'; x.fillText(text, W / 2, H * .54);
+  const tex = new T.CanvasTexture(c); tex.colorSpace = T.SRGBColorSpace;
+  const s = new T.Sprite(new T.SpriteMaterial({map: tex, transparent: true, depthWrite: false, toneMapped: false})); s.scale.set(height * W / H, height, 1); s.position.y = lift; s.renderOrder = 5; s.name = 'nameTagSprite'; g.add(s);
+  g.userData.text = text; return g;
+}
+
+export const PROPS6 = {giantFan, launchTower, coasterTrack, coasterCart, boxingRing, pool, crates, redBarrels, benches, watchTower, spawnPad, wallSign, giantHand, healButton, nameTag};
+export const PROP6_NAMES = Object.keys(PROPS6);

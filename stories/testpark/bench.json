@@ -1,0 +1,2195 @@
+{
+ "slug": "testpark",
+ "fps": 30,
+ "format": 6,
+ "body": "v6",
+ "faceStyle": "v6",
+ "labels": false,
+ "world": "parts/sets6/testpark.js",
+ "look": "day",
+ "note": "E1 gate: 120 DUMMY actors render at ≤ 0.25 s/frame at 270×480.",
+ "cast": {
+  "d001": {
+   "style": "v5",
+   "troupe": "DUMMY",
+   "at": "plaza",
+   "offset": [
+    -25.39,
+    0,
+    -11.27
+   ],
+   "yaw": -89,
+   "keys": [
+    [
+     0,
+     "fall"
+    ]
+   ],
+   "costume": "CROWD"
+  },
+  "d002": {
+   "style": "v5",
+   "troupe": "DUMMY",
+   "at": "plaza",
+   "offset": [
+    24.8,
+    0,
+    16.76
+   ],
+   "yaw": -180,
+   "keys": [
+    [
+     0,
+     "fall"
+    ]
+   ],
+   "costume": "CROWD"
+  },
+  "d003": {
+   "style": "v5",
+   "troupe": "DUMMY",
+   "at": "plaza",
+   "offset": [
+    1.12,
+    0,
+    3.84
+   ],
+   "yaw": -178,
+   "keys": [
+    [
+     0,
+     "look_react"
+    ]
+   ],
+   "costume": "CROWD"
+  },
+  "d004": {
+   "style": "v5",
+   "troupe": "DUMMY",
+   "at": "plaza",
+   "offset": [
+    -1.76,
+    0,
+    -3.44
+   ],
+   "yaw": 3,
+   "keys": [
+    [
+     0,
+     "look_react"
+    ]
+   ],
+   "costume": "CROWD"
+  },
+  "d005": {
+   "style": "v5",
+   "troupe": "DUMMY",
+   "at": "plaza",
+   "offset": [
+    2.77,
+    0,
+    18.11
+   ],
+   "yaw": 39,
+   "keys": [
+    [
+     0,
+     "lookUp"
+    ]
+   ],
+   "costume": "CROWD"
+  },
+  "d006": {
+   "style": "v5",
+   "troupe": "DUMMY",
+   "at": "plaza",
+   "offset": [
+    -12.59,
+    0,
+    -7.14
+   ],
+   "yaw": 97,
+   "keys": [
+    [
+     0,
+     "idle"
+    ]
+   ],
+   "costume": "CROWD"
+  },
+  "d007": {
+   "style": "v5",
+   "troupe": "DUMMY",
+   "at": "plaza",
+   "offset": [
+    13.73,
+    0,
+    8.81
+   ],
+   "yaw": -48,
+   "keys": [
+    [
+     0,
+     "recoil"
+    ]
+   ],
+   "costume": "CROWD"
+  },
+  "d008": {
+   "style": "v5",
+   "troupe": "DUMMY",
+   "at": "plaza",
+   "offset": [
+    -15.75,
+    0,
+    2.19
+   ],
+   "yaw": 95,
+   "keys": [
+    [
+     0,
+     "wave"
+    ]
+   ],
+   "costume": "CROWD"
+  },
+  "d009": {
+   "style": "v5",
+   "troupe": "DUMMY",
+   "at": "plaza",
+   "offset": [
+    -10.75,
+    0,
+    9.53
+   ],
+   "yaw": 86,
+   "keys": [
+    [
+     0,
+     "idle"
+    ]
+   ],
+   "costume": "CROWD"
+  },
+  "d010": {
+   "style": "v5",
+   "troupe": "DUMMY",
+   "at": "plaza",
+   "offset": [
+    -10.59,
+    0,
+    29.03
+   ],
+   "yaw": 41,
+   "keys": [
+    [
+     0,
+     "idle"
+    ]
+   ],
+   "costume": "CROWD"
+  },
+  "d011": {
+   "style": "v5",
+   "troupe": "DUMMY",
+   "at": "plaza",
+   "offset": [
+    -13.13,
+    0,
+    24.62
+   ],
+   "yaw": -157,
+   "keys": [
+    [
+     0,
+     "lookUp"
+    ]
+   ],
+   "costume": "CROWD"
+  },
+  "d012": {
+   "style": "v5",
+   "troupe": "DUMMY",
+   "at": "plaza",
+   "offset": [
+    -16.08,
+    0,
+    -7.68
+   ],
+   "yaw": -99,
+   "keys": [
+    [
+     0,
+     "fall"
+    ]
+   ],
+   "costume": "CROWD"
+  },
+  "d013": {
+   "style": "v5",
+   "troupe": "DUMMY",
+   "at": "plaza",
+   "offset": [
+    -17.96,
+    0,
+    -1.2
+   ],
+   "yaw": -121,
+   "keys": [
+    [
+     0,
+     "idle"
+    ]
+   ],
+   "costume": "CROWD"
+  },
+  "d014": {
+   "style": "v5",
+   "troupe": "DUMMY",
+   "at": "plaza",
+   "offset": [
+    -22.13,
+    0,
+    26.17
+   ],
+   "yaw": -145,
+   "keys": [
+    [
+     0,
+     "idle"
+    ]
+   ],
+   "costume": "CROWD"
+  },
+  "d015": {
+   "style": "v5",
+   "troupe": "DUMMY",
+   "at": "plaza",
+   "offset": [
+    2.79,
+    0,
+    13.35
+   ],
+   "yaw": 156,
+   "keys": [
+    [
+     0,
+     "sit"
+    ]
+   ],
+   "costume": "CROWD"
+  },
+  "d016": {
+   "style": "v5",
+   "troupe": "DUMMY",
+   "at": "plaza",
+   "offset": [
+    9.36,
+    0,
+    28.5
+   ],
+   "yaw": 30,
+   "keys": [
+    [
+     0,
+     "fall"
+    ]
+   ],
+   "costume": "CROWD"
+  },
+  "d017": {
+   "style": "v5",
+   "troupe": "DUMMY",
+   "at": "plaza",
+   "offset": [
+    6.47,
+    0,
+    26.53
+   ],
+   "yaw": 131,
+   "keys": [
+    [
+     0,
+     "idle"
+    ]
+   ],
+   "costume": "CROWD"
+  },
+  "d018": {
+   "style": "v5",
+   "troupe": "DUMMY",
+   "at": "plaza",
+   "offset": [
+    17.04,
+    0,
+    -12.24
+   ],
+   "yaw": -109,
+   "keys": [
+    [
+     0,
+     "idle"
+    ]
+   ],
+   "costume": "CROWD"
+  },
+  "d019": {
+   "style": "v5",
+   "troupe": "DUMMY",
+   "at": "plaza",
+   "offset": [
+    -3.88,
+    0,
+    -13.11
+   ],
+   "yaw": -31,
+   "keys": [
+    [
+     0,
+     "lookUp"
+    ]
+   ],
+   "costume": "CROWD"
+  },
+  "d020": {
+   "style": "v5",
+   "troupe": "DUMMY",
+   "at": "plaza",
+   "offset": [
+    -21.42,
+    0,
+    19.79
+   ],
+   "yaw": -125,
+   "keys": [
+    [
+     0,
+     "lookUp"
+    ]
+   ],
+   "costume": "CROWD"
+  },
+  "d021": {
+   "style": "v5",
+   "troupe": "DUMMY",
+   "at": "plaza",
+   "offset": [
+    -6.81,
+    0,
+    4.78
+   ],
+   "yaw": -47,
+   "keys": [
+    [
+     0,
+     "idle"
+    ]
+   ],
+   "costume": "CROWD"
+  },
+  "d022": {
+   "style": "v5",
+   "troupe": "DUMMY",
+   "at": "plaza",
+   "offset": [
+    -1.63,
+    0,
+    27.63
+   ],
+   "yaw": -178,
+   "keys": [
+    [
+     0,
+     "recoil"
+    ]
+   ],
+   "costume": "CROWD"
+  },
+  "d023": {
+   "style": "v5",
+   "troupe": "DUMMY",
+   "at": "plaza",
+   "offset": [
+    10.57,
+    0,
+    16.29
+   ],
+   "yaw": -27,
+   "keys": [
+    [
+     0,
+     "idle"
+    ]
+   ],
+   "costume": "CROWD"
+  },
+  "d024": {
+   "style": "v5",
+   "troupe": "DUMMY",
+   "at": "plaza",
+   "offset": [
+    -8.81,
+    0,
+    1.68
+   ],
+   "yaw": -165,
+   "keys": [
+    [
+     0,
+     "lookUp"
+    ]
+   ],
+   "costume": "CROWD"
+  },
+  "d025": {
+   "style": "v5",
+   "troupe": "DUMMY",
+   "at": "plaza",
+   "offset": [
+    -18.78,
+    0,
+    -8.14
+   ],
+   "yaw": 98,
+   "keys": [
+    [
+     0,
+     "sit"
+    ]
+   ],
+   "costume": "CROWD"
+  },
+  "d026": {
+   "style": "v5",
+   "troupe": "DUMMY",
+   "at": "plaza",
+   "offset": [
+    21.48,
+    0,
+    0.19
+   ],
+   "yaw": 15,
+   "keys": [
+    [
+     0,
+     "fall"
+    ]
+   ],
+   "costume": "CROWD"
+  },
+  "d027": {
+   "style": "v5",
+   "troupe": "DUMMY",
+   "at": "plaza",
+   "offset": [
+    -16.1,
+    0,
+    13.82
+   ],
+   "yaw": 175,
+   "keys": [
+    [
+     0,
+     "look_react"
+    ]
+   ],
+   "costume": "CROWD"
+  },
+  "d028": {
+   "style": "v5",
+   "troupe": "DUMMY",
+   "at": "plaza",
+   "offset": [
+    -8.49,
+    0,
+    -12.08
+   ],
+   "yaw": -60,
+   "keys": [
+    [
+     0,
+     "sit"
+    ]
+   ],
+   "costume": "CROWD"
+  },
+  "d029": {
+   "style": "v5",
+   "troupe": "DUMMY",
+   "at": "plaza",
+   "offset": [
+    2.49,
+    0,
+    22.37
+   ],
+   "yaw": 114,
+   "keys": [
+    [
+     0,
+     "trip"
+    ]
+   ],
+   "costume": "CROWD"
+  },
+  "d030": {
+   "style": "v5",
+   "troupe": "DUMMY",
+   "at": "plaza",
+   "offset": [
+    -19.91,
+    0,
+    9.32
+   ],
+   "yaw": 157,
+   "keys": [
+    [
+     0,
+     "fall"
+    ]
+   ],
+   "costume": "CROWD"
+  },
+  "d031": {
+   "style": "v5",
+   "troupe": "DUMMY",
+   "at": "plaza",
+   "offset": [
+    23.95,
+    0,
+    22.87
+   ],
+   "yaw": 74,
+   "keys": [
+    [
+     0,
+     "idle"
+    ]
+   ],
+   "costume": "CROWD"
+  },
+  "d032": {
+   "style": "v5",
+   "troupe": "DUMMY",
+   "at": "plaza",
+   "offset": [
+    4.9,
+    0,
+    28.41
+   ],
+   "yaw": -71,
+   "keys": [
+    [
+     0,
+     "trip"
+    ]
+   ],
+   "costume": "CROWD"
+  },
+  "d033": {
+   "style": "v5",
+   "troupe": "DUMMY",
+   "at": "plaza",
+   "offset": [
+    24.31,
+    0,
+    10.14
+   ],
+   "yaw": -57,
+   "keys": [
+    [
+     0,
+     "fall"
+    ]
+   ],
+   "costume": "CROWD"
+  },
+  "d034": {
+   "style": "v5",
+   "troupe": "DUMMY",
+   "at": "plaza",
+   "offset": [
+    0.84,
+    0,
+    0.43
+   ],
+   "yaw": -158,
+   "keys": [
+    [
+     0,
+     "wave"
+    ]
+   ],
+   "costume": "CROWD"
+  },
+  "d035": {
+   "style": "v5",
+   "troupe": "DUMMY",
+   "at": "plaza",
+   "offset": [
+    11.66,
+    0,
+    10.18
+   ],
+   "yaw": 28,
+   "keys": [
+    [
+     0,
+     "idle"
+    ]
+   ],
+   "costume": "CROWD"
+  },
+  "d036": {
+   "style": "v5",
+   "troupe": "DUMMY",
+   "at": "plaza",
+   "offset": [
+    13.28,
+    0,
+    28.99
+   ],
+   "yaw": -15,
+   "keys": [
+    [
+     0,
+     "recoil"
+    ]
+   ],
+   "costume": "CROWD"
+  },
+  "d037": {
+   "style": "v5",
+   "troupe": "DUMMY",
+   "at": "plaza",
+   "offset": [
+    -3.64,
+    0,
+    14.26
+   ],
+   "yaw": 146,
+   "keys": [
+    [
+     0,
+     "idle"
+    ]
+   ],
+   "costume": "CROWD"
+  },
+  "d038": {
+   "style": "v5",
+   "troupe": "DUMMY",
+   "at": "plaza",
+   "offset": [
+    -9.76,
+    0,
+    -3.58
+   ],
+   "yaw": -175,
+   "keys": [
+    [
+     0,
+     "wave"
+    ]
+   ],
+   "costume": "CROWD"
+  },
+  "d039": {
+   "style": "v5",
+   "troupe": "DUMMY",
+   "at": "plaza",
+   "offset": [
+    6.79,
+    0,
+    -13.37
+   ],
+   "yaw": -7,
+   "keys": [
+    [
+     0,
+     "idle"
+    ]
+   ],
+   "costume": "CROWD"
+  },
+  "d040": {
+   "style": "v5",
+   "troupe": "DUMMY",
+   "at": "plaza",
+   "offset": [
+    6.18,
+    0,
+    12.18
+   ],
+   "yaw": -162,
+   "keys": [
+    [
+     0,
+     "lookUp"
+    ]
+   ],
+   "costume": "CROWD"
+  },
+  "d041": {
+   "style": "v5",
+   "troupe": "DUMMY",
+   "at": "plaza",
+   "offset": [
+    7.8,
+    0,
+    21.42
+   ],
+   "yaw": -114,
+   "keys": [
+    [
+     0,
+     "recoil"
+    ]
+   ],
+   "costume": "CROWD"
+  },
+  "d042": {
+   "style": "v5",
+   "troupe": "DUMMY",
+   "at": "plaza",
+   "offset": [
+    -18.77,
+    0,
+    29.74
+   ],
+   "yaw": 84,
+   "keys": [
+    [
+     0,
+     "trip"
+    ]
+   ],
+   "costume": "CROWD"
+  },
+  "d043": {
+   "style": "v5",
+   "troupe": "DUMMY",
+   "at": "plaza",
+   "offset": [
+    0.36,
+    0,
+    10.94
+   ],
+   "yaw": 98,
+   "keys": [
+    [
+     0,
+     "trip"
+    ]
+   ],
+   "costume": "CROWD"
+  },
+  "d044": {
+   "style": "v5",
+   "troupe": "DUMMY",
+   "at": "plaza",
+   "offset": [
+    -15.05,
+    0,
+    21.8
+   ],
+   "yaw": 1,
+   "keys": [
+    [
+     0,
+     "look_react"
+    ]
+   ],
+   "costume": "CROWD"
+  },
+  "d045": {
+   "style": "v5",
+   "troupe": "DUMMY",
+   "at": "plaza",
+   "offset": [
+    18.8,
+    0,
+    18.38
+   ],
+   "yaw": 148,
+   "keys": [
+    [
+     0,
+     "cheer"
+    ]
+   ],
+   "costume": "CROWD"
+  },
+  "d046": {
+   "style": "v5",
+   "troupe": "DUMMY",
+   "at": "plaza",
+   "offset": [
+    5.68,
+    0,
+    18.4
+   ],
+   "yaw": 160,
+   "keys": [
+    [
+     0,
+     "look_react"
+    ]
+   ],
+   "costume": "CROWD"
+  },
+  "d047": {
+   "style": "v5",
+   "troupe": "DUMMY",
+   "at": "plaza",
+   "offset": [
+    23.68,
+    0,
+    7.53
+   ],
+   "yaw": -58,
+   "keys": [
+    [
+     0,
+     "sit"
+    ]
+   ],
+   "costume": "CROWD"
+  },
+  "d048": {
+   "style": "v5",
+   "troupe": "DUMMY",
+   "at": "plaza",
+   "offset": [
+    -14.05,
+    0,
+    11.7
+   ],
+   "yaw": 106,
+   "keys": [
+    [
+     0,
+     "cheer"
+    ]
+   ],
+   "costume": "CROWD"
+  },
+  "d049": {
+   "style": "v5",
+   "troupe": "DUMMY",
+   "at": "plaza",
+   "offset": [
+    15.38,
+    0,
+    23.57
+   ],
+   "yaw": -36,
+   "keys": [
+    [
+     0,
+     "idle"
+    ]
+   ],
+   "costume": "CROWD"
+  },
+  "d050": {
+   "style": "v5",
+   "troupe": "DUMMY",
+   "at": "plaza",
+   "offset": [
+    -16.12,
+    0,
+    10.42
+   ],
+   "yaw": -1,
+   "keys": [
+    [
+     0,
+     "look_react"
+    ]
+   ],
+   "costume": "CROWD"
+  },
+  "d051": {
+   "style": "v5",
+   "troupe": "DUMMY",
+   "at": "plaza",
+   "offset": [
+    -1.16,
+    0,
+    9.13
+   ],
+   "yaw": 84,
+   "keys": [
+    [
+     0,
+     "idle"
+    ]
+   ],
+   "costume": "CROWD"
+  },
+  "d052": {
+   "style": "v5",
+   "troupe": "DUMMY",
+   "at": "plaza",
+   "offset": [
+    -3.17,
+    0,
+    7.01
+   ],
+   "yaw": 94,
+   "keys": [
+    [
+     0,
+     "fall"
+    ]
+   ],
+   "costume": "CROWD"
+  },
+  "d053": {
+   "style": "v5",
+   "troupe": "DUMMY",
+   "at": "plaza",
+   "offset": [
+    -17.12,
+    0,
+    -13.86
+   ],
+   "yaw": 48,
+   "keys": [
+    [
+     0,
+     "fall"
+    ]
+   ],
+   "costume": "CROWD"
+  },
+  "d054": {
+   "style": "v5",
+   "troupe": "DUMMY",
+   "at": "plaza",
+   "offset": [
+    -20.42,
+    0,
+    24.56
+   ],
+   "yaw": 43,
+   "keys": [
+    [
+     0,
+     "trip"
+    ]
+   ],
+   "costume": "CROWD"
+  },
+  "d055": {
+   "style": "v5",
+   "troupe": "DUMMY",
+   "at": "plaza",
+   "offset": [
+    25.11,
+    0,
+    -11.35
+   ],
+   "yaw": -150,
+   "keys": [
+    [
+     0,
+     "trip"
+    ]
+   ],
+   "costume": "CROWD"
+  },
+  "d056": {
+   "style": "v5",
+   "troupe": "DUMMY",
+   "at": "plaza",
+   "offset": [
+    -0.05,
+    0,
+    18.22
+   ],
+   "yaw": 150,
+   "keys": [
+    [
+     0,
+     "idle"
+    ]
+   ],
+   "costume": "CROWD"
+  },
+  "d057": {
+   "style": "v5",
+   "troupe": "DUMMY",
+   "at": "plaza",
+   "offset": [
+    15.16,
+    0,
+    17.27
+   ],
+   "yaw": -34,
+   "keys": [
+    [
+     0,
+     "fall"
+    ]
+   ],
+   "costume": "CROWD"
+  },
+  "d058": {
+   "style": "v5",
+   "troupe": "DUMMY",
+   "at": "plaza",
+   "offset": [
+    15.51,
+    0,
+    4.14
+   ],
+   "yaw": 100,
+   "keys": [
+    [
+     0,
+     "cheer"
+    ]
+   ],
+   "costume": "CROWD"
+  },
+  "d059": {
+   "style": "v5",
+   "troupe": "DUMMY",
+   "at": "plaza",
+   "offset": [
+    3.26,
+    0,
+    -1.12
+   ],
+   "yaw": -27,
+   "keys": [
+    [
+     0,
+     "look_react"
+    ]
+   ],
+   "costume": "CROWD"
+  },
+  "d060": {
+   "style": "v5",
+   "troupe": "DUMMY",
+   "at": "plaza",
+   "offset": [
+    1.42,
+    0,
+    20.17
+   ],
+   "yaw": 177,
+   "keys": [
+    [
+     0,
+     "idle"
+    ]
+   ],
+   "costume": "CROWD"
+  },
+  "d061": {
+   "style": "v5",
+   "troupe": "DUMMY",
+   "at": "plaza",
+   "offset": [
+    -21.84,
+    0,
+    -2.9
+   ],
+   "yaw": 57,
+   "keys": [
+    [
+     0,
+     "idle"
+    ]
+   ],
+   "costume": "CROWD"
+  },
+  "d062": {
+   "style": "v5",
+   "troupe": "DUMMY",
+   "at": "plaza",
+   "offset": [
+    -7.44,
+    0,
+    26.49
+   ],
+   "yaw": 25,
+   "keys": [
+    [
+     0,
+     "cheer"
+    ]
+   ],
+   "costume": "CROWD"
+  },
+  "d063": {
+   "style": "v5",
+   "troupe": "DUMMY",
+   "at": "plaza",
+   "offset": [
+    -12.93,
+    0,
+    1.9
+   ],
+   "yaw": 16,
+   "keys": [
+    [
+     0,
+     "lookUp"
+    ]
+   ],
+   "costume": "CROWD"
+  },
+  "d064": {
+   "style": "v5",
+   "troupe": "DUMMY",
+   "at": "plaza",
+   "offset": [
+    -1.2,
+    0,
+    22.53
+   ],
+   "yaw": 64,
+   "keys": [
+    [
+     0,
+     "wave"
+    ]
+   ],
+   "costume": "CROWD"
+  },
+  "d065": {
+   "style": "v5",
+   "troupe": "DUMMY",
+   "at": "plaza",
+   "offset": [
+    -4.99,
+    0,
+    28.88
+   ],
+   "yaw": 122,
+   "keys": [
+    [
+     0,
+     "idle"
+    ]
+   ],
+   "costume": "CROWD"
+  },
+  "d066": {
+   "style": "v5",
+   "troupe": "DUMMY",
+   "at": "plaza",
+   "offset": [
+    -8.39,
+    0,
+    9.63
+   ],
+   "yaw": -110,
+   "keys": [
+    [
+     0,
+     "sit"
+    ]
+   ],
+   "costume": "CROWD"
+  },
+  "d067": {
+   "style": "v5",
+   "troupe": "DUMMY",
+   "at": "plaza",
+   "offset": [
+    -10.75,
+    0,
+    24.9
+   ],
+   "yaw": -154,
+   "keys": [
+    [
+     0,
+     "trip"
+    ]
+   ],
+   "costume": "CROWD"
+  },
+  "d068": {
+   "style": "v5",
+   "troupe": "DUMMY",
+   "at": "plaza",
+   "offset": [
+    17.73,
+    0,
+    7.81
+   ],
+   "yaw": -66,
+   "keys": [
+    [
+     0,
+     "recoil"
+    ]
+   ],
+   "costume": "CROWD"
+  },
+  "d069": {
+   "style": "v5",
+   "troupe": "DUMMY",
+   "at": "plaza",
+   "offset": [
+    -3.29,
+    0,
+    16.7
+   ],
+   "yaw": -55,
+   "keys": [
+    [
+     0,
+     "trip"
+    ]
+   ],
+   "costume": "CROWD"
+  },
+  "d070": {
+   "style": "v5",
+   "troupe": "DUMMY",
+   "at": "plaza",
+   "offset": [
+    8.18,
+    0,
+    -6.86
+   ],
+   "yaw": -100,
+   "keys": [
+    [
+     0,
+     "idle"
+    ]
+   ],
+   "costume": "CROWD"
+  },
+  "d071": {
+   "style": "v5",
+   "troupe": "DUMMY",
+   "at": "plaza",
+   "offset": [
+    10.05,
+    0,
+    3.2
+   ],
+   "yaw": -12,
+   "keys": [
+    [
+     0,
+     "wave"
+    ]
+   ],
+   "costume": "CROWD"
+  },
+  "d072": {
+   "style": "v5",
+   "troupe": "DUMMY",
+   "at": "plaza",
+   "offset": [
+    5.71,
+    0,
+    23.67
+   ],
+   "yaw": -143,
+   "keys": [
+    [
+     0,
+     "look_react"
+    ]
+   ],
+   "costume": "CROWD"
+  },
+  "d073": {
+   "style": "v5",
+   "troupe": "DUMMY",
+   "at": "plaza",
+   "offset": [
+    -6.04,
+    0,
+    -1
+   ],
+   "yaw": -157,
+   "keys": [
+    [
+     0,
+     "recoil"
+    ]
+   ],
+   "costume": "CROWD"
+  },
+  "d074": {
+   "style": "v5",
+   "troupe": "DUMMY",
+   "at": "plaza",
+   "offset": [
+    -21.29,
+    0,
+    16.07
+   ],
+   "yaw": 5,
+   "keys": [
+    [
+     0,
+     "idle"
+    ]
+   ],
+   "costume": "CROWD"
+  },
+  "d075": {
+   "style": "v5",
+   "troupe": "DUMMY",
+   "at": "plaza",
+   "offset": [
+    22.16,
+    0,
+    20.5
+   ],
+   "yaw": 109,
+   "keys": [
+    [
+     0,
+     "look_react"
+    ]
+   ],
+   "costume": "CROWD"
+  },
+  "d076": {
+   "style": "v5",
+   "troupe": "DUMMY",
+   "at": "plaza",
+   "offset": [
+    17.1,
+    0,
+    28.36
+   ],
+   "yaw": 62,
+   "keys": [
+    [
+     0,
+     "idle"
+    ]
+   ],
+   "costume": "CROWD"
+  },
+  "d077": {
+   "style": "v5",
+   "troupe": "DUMMY",
+   "at": "plaza",
+   "offset": [
+    -14.22,
+    0,
+    29.07
+   ],
+   "yaw": -113,
+   "keys": [
+    [
+     0,
+     "wave"
+    ]
+   ],
+   "costume": "CROWD"
+  },
+  "d078": {
+   "style": "v5",
+   "troupe": "DUMMY",
+   "at": "plaza",
+   "offset": [
+    -5.66,
+    0,
+    17.4
+   ],
+   "yaw": -99,
+   "keys": [
+    [
+     0,
+     "idle"
+    ]
+   ],
+   "costume": "CROWD"
+  },
+  "d079": {
+   "style": "v5",
+   "troupe": "DUMMY",
+   "at": "plaza",
+   "offset": [
+    13.53,
+    0,
+    13.44
+   ],
+   "yaw": -23,
+   "keys": [
+    [
+     0,
+     "idle"
+    ]
+   ],
+   "costume": "CROWD"
+  },
+  "d080": {
+   "style": "v5",
+   "troupe": "DUMMY",
+   "at": "plaza",
+   "offset": [
+    -18.73,
+    0,
+    17.79
+   ],
+   "yaw": -142,
+   "keys": [
+    [
+     0,
+     "cheer"
+    ]
+   ],
+   "costume": "CROWD"
+  },
+  "d081": {
+   "style": "v5",
+   "troupe": "DUMMY",
+   "at": "plaza",
+   "offset": [
+    2.67,
+    0,
+    25.07
+   ],
+   "yaw": 68,
+   "keys": [
+    [
+     0,
+     "look_react"
+    ]
+   ],
+   "costume": "CROWD"
+  },
+  "d082": {
+   "style": "v5",
+   "troupe": "DUMMY",
+   "at": "plaza",
+   "offset": [
+    23.56,
+    0,
+    -7.26
+   ],
+   "yaw": 55,
+   "keys": [
+    [
+     0,
+     "recoil"
+    ]
+   ],
+   "costume": "CROWD"
+  },
+  "d083": {
+   "style": "v5",
+   "troupe": "DUMMY",
+   "at": "plaza",
+   "offset": [
+    21.32,
+    0,
+    23.72
+   ],
+   "yaw": -11,
+   "keys": [
+    [
+     0,
+     "idle"
+    ]
+   ],
+   "costume": "CROWD"
+  },
+  "d084": {
+   "style": "v5",
+   "troupe": "DUMMY",
+   "at": "plaza",
+   "offset": [
+    22.15,
+    0,
+    15.74
+   ],
+   "yaw": -149,
+   "keys": [
+    [
+     0,
+     "idle"
+    ]
+   ],
+   "costume": "CROWD"
+  },
+  "d085": {
+   "style": "v5",
+   "troupe": "DUMMY",
+   "at": "plaza",
+   "offset": [
+    15.38,
+    0,
+    0.68
+   ],
+   "yaw": 26,
+   "keys": [
+    [
+     0,
+     "recoil"
+    ]
+   ],
+   "costume": "CROWD"
+  },
+  "d086": {
+   "style": "v5",
+   "troupe": "DUMMY",
+   "at": "plaza",
+   "offset": [
+    21.3,
+    0,
+    28.66
+   ],
+   "yaw": 142,
+   "keys": [
+    [
+     0,
+     "idle"
+    ]
+   ],
+   "costume": "CROWD"
+  },
+  "d087": {
+   "style": "v5",
+   "troupe": "DUMMY",
+   "at": "plaza",
+   "offset": [
+    -20.56,
+    0,
+    -10.37
+   ],
+   "yaw": -88,
+   "keys": [
+    [
+     0,
+     "idle"
+    ]
+   ],
+   "costume": "CROWD"
+  },
+  "d088": {
+   "style": "v5",
+   "troupe": "DUMMY",
+   "at": "plaza",
+   "offset": [
+    -23.01,
+    0,
+    5.65
+   ],
+   "yaw": -4,
+   "keys": [
+    [
+     0,
+     "fall"
+    ]
+   ],
+   "costume": "CROWD"
+  },
+  "d089": {
+   "style": "v5",
+   "troupe": "DUMMY",
+   "at": "plaza",
+   "offset": [
+    -21.56,
+    0,
+    2.77
+   ],
+   "yaw": 156,
+   "keys": [
+    [
+     0,
+     "idle"
+    ]
+   ],
+   "costume": "CROWD"
+  },
+  "d090": {
+   "style": "v5",
+   "troupe": "DUMMY",
+   "at": "plaza",
+   "offset": [
+    -17.26,
+    0,
+    19.98
+   ],
+   "yaw": 97,
+   "keys": [
+    [
+     0,
+     "look_react"
+    ]
+   ],
+   "costume": "CROWD"
+  },
+  "d091": {
+   "style": "v5",
+   "troupe": "DUMMY",
+   "at": "plaza",
+   "offset": [
+    -10.23,
+    0,
+    16.44
+   ],
+   "yaw": -18,
+   "keys": [
+    [
+     0,
+     "sit"
+    ]
+   ],
+   "costume": "CROWD"
+  },
+  "d092": {
+   "style": "v5",
+   "troupe": "DUMMY",
+   "at": "plaza",
+   "offset": [
+    17.67,
+    0,
+    14.35
+   ],
+   "yaw": 121,
+   "keys": [
+    [
+     0,
+     "cheer"
+    ]
+   ],
+   "costume": "CROWD"
+  },
+  "d093": {
+   "style": "v5",
+   "troupe": "DUMMY",
+   "at": "plaza",
+   "offset": [
+    -9.23,
+    0,
+    -9.83
+   ],
+   "yaw": -161,
+   "keys": [
+    [
+     0,
+     "idle"
+    ]
+   ],
+   "costume": "CROWD"
+  },
+  "d094": {
+   "style": "v5",
+   "troupe": "DUMMY",
+   "at": "plaza",
+   "offset": [
+    10.06,
+    0,
+    -2.66
+   ],
+   "yaw": 111,
+   "keys": [
+    [
+     0,
+     "idle"
+    ]
+   ],
+   "costume": "CROWD"
+  },
+  "d095": {
+   "style": "v5",
+   "troupe": "DUMMY",
+   "at": "plaza",
+   "offset": [
+    0.93,
+    0,
+    -10.88
+   ],
+   "yaw": -48,
+   "keys": [
+    [
+     0,
+     "trip"
+    ]
+   ],
+   "costume": "CROWD"
+  },
+  "d096": {
+   "style": "v5",
+   "troupe": "DUMMY",
+   "at": "plaza",
+   "offset": [
+    14.52,
+    0,
+    -6.86
+   ],
+   "yaw": 64,
+   "keys": [
+    [
+     0,
+     "lookUp"
+    ]
+   ],
+   "costume": "CROWD"
+  },
+  "d097": {
+   "style": "v5",
+   "troupe": "DUMMY",
+   "at": "plaza",
+   "offset": [
+    -13.58,
+    0,
+    -5
+   ],
+   "yaw": 3,
+   "keys": [
+    [
+     0,
+     "trip"
+    ]
+   ],
+   "costume": "CROWD"
+  },
+  "d098": {
+   "style": "v5",
+   "troupe": "DUMMY",
+   "at": "plaza",
+   "offset": [
+    19.78,
+    0,
+    -12.64
+   ],
+   "yaw": 71,
+   "keys": [
+    [
+     0,
+     "recoil"
+    ]
+   ],
+   "costume": "CROWD"
+  },
+  "d099": {
+   "style": "v5",
+   "troupe": "DUMMY",
+   "at": "plaza",
+   "offset": [
+    -24.26,
+    0,
+    27.37
+   ],
+   "yaw": -76,
+   "keys": [
+    [
+     0,
+     "idle"
+    ]
+   ],
+   "costume": "CROWD"
+  },
+  "d100": {
+   "style": "v5",
+   "troupe": "DUMMY",
+   "at": "plaza",
+   "offset": [
+    -22.13,
+    0,
+    12.19
+   ],
+   "yaw": 161,
+   "keys": [
+    [
+     0,
+     "trip"
+    ]
+   ],
+   "costume": "CROWD"
+  },
+  "d101": {
+   "style": "v5",
+   "troupe": "DUMMY",
+   "at": "plaza",
+   "offset": [
+    11.52,
+    0,
+    23.19
+   ],
+   "yaw": -47,
+   "keys": [
+    [
+     0,
+     "cheer"
+    ]
+   ],
+   "costume": "CROWD"
+  },
+  "d102": {
+   "style": "v5",
+   "troupe": "DUMMY",
+   "at": "plaza",
+   "offset": [
+    -7.93,
+    0,
+    20.91
+   ],
+   "yaw": 43,
+   "keys": [
+    [
+     0,
+     "trip"
+    ]
+   ],
+   "costume": "CROWD"
+  },
+  "d103": {
+   "style": "v5",
+   "troupe": "DUMMY",
+   "at": "plaza",
+   "offset": [
+    -9.95,
+    0,
+    3.75
+   ],
+   "yaw": -145,
+   "keys": [
+    [
+     0,
+     "idle"
+    ]
+   ],
+   "costume": "CROWD"
+  },
+  "d104": {
+   "style": "v5",
+   "troupe": "DUMMY",
+   "at": "plaza",
+   "offset": [
+    8.31,
+    0,
+    0.4
+   ],
+   "yaw": -86,
+   "keys": [
+    [
+     0,
+     "sit"
+    ]
+   ],
+   "costume": "CROWD"
+  },
+  "d105": {
+   "style": "v5",
+   "troupe": "DUMMY",
+   "at": "plaza",
+   "offset": [
+    -13.43,
+    0,
+    7.85
+   ],
+   "yaw": 118,
+   "keys": [
+    [
+     0,
+     "look_react"
+    ]
+   ],
+   "costume": "CROWD"
+  },
+  "d106": {
+   "style": "v5",
+   "troupe": "DUMMY",
+   "at": "plaza",
+   "offset": [
+    5.11,
+    0,
+    15.71
+   ],
+   "yaw": 104,
+   "keys": [
+    [
+     0,
+     "lookUp"
+    ]
+   ],
+   "costume": "CROWD"
+  },
+  "d107": {
+   "style": "v5",
+   "troupe": "DUMMY",
+   "at": "plaza",
+   "offset": [
+    -13.44,
+    0,
+    18.47
+   ],
+   "yaw": -62,
+   "keys": [
+    [
+     0,
+     "idle"
+    ]
+   ],
+   "costume": "CROWD"
+  },
+  "d108": {
+   "style": "v5",
+   "troupe": "DUMMY",
+   "at": "plaza",
+   "offset": [
+    -5.63,
+    0,
+    21.88
+   ],
+   "yaw": -147,
+   "keys": [
+    [
+     0,
+     "cheer"
+    ]
+   ],
+   "costume": "CROWD"
+  },
+  "d109": {
+   "style": "v5",
+   "troupe": "DUMMY",
+   "at": "plaza",
+   "offset": [
+    6.6,
+    0,
+    -10.58
+   ],
+   "yaw": -110,
+   "keys": [
+    [
+     0,
+     "idle"
+    ]
+   ],
+   "costume": "CROWD"
+  },
+  "d110": {
+   "style": "v5",
+   "troupe": "DUMMY",
+   "at": "plaza",
+   "offset": [
+    13.66,
+    0,
+    5.65
+   ],
+   "yaw": -60,
+   "keys": [
+    [
+     0,
+     "cheer"
+    ]
+   ],
+   "costume": "CROWD"
+  },
+  "d111": {
+   "style": "v5",
+   "troupe": "DUMMY",
+   "at": "plaza",
+   "offset": [
+    -0.95,
+    0,
+    -6.35
+   ],
+   "yaw": -86,
+   "keys": [
+    [
+     0,
+     "recoil"
+    ]
+   ],
+   "costume": "CROWD"
+  },
+  "d112": {
+   "style": "v5",
+   "troupe": "DUMMY",
+   "at": "plaza",
+   "offset": [
+    -23.78,
+    0,
+    16.86
+   ],
+   "yaw": 160,
+   "keys": [
+    [
+     0,
+     "look_react"
+    ]
+   ],
+   "costume": "CROWD"
+  },
+  "d113": {
+   "style": "v5",
+   "troupe": "DUMMY",
+   "at": "plaza",
+   "offset": [
+    13.65,
+    0,
+    -4.5
+   ],
+   "yaw": -153,
+   "keys": [
+    [
+     0,
+     "look_react"
+    ]
+   ],
+   "costume": "CROWD"
+  },
+  "d114": {
+   "style": "v5",
+   "troupe": "DUMMY",
+   "at": "plaza",
+   "offset": [
+    -25.66,
+    0,
+    7.21
+   ],
+   "yaw": 121,
+   "keys": [
+    [
+     0,
+     "fall"
+    ]
+   ],
+   "costume": "CROWD"
+  },
+  "d115": {
+   "style": "v5",
+   "troupe": "DUMMY",
+   "at": "plaza",
+   "offset": [
+    1.87,
+    0,
+    27.37
+   ],
+   "yaw": 135,
+   "keys": [
+    [
+     0,
+     "lookUp"
+    ]
+   ],
+   "costume": "CROWD"
+  },
+  "d116": {
+   "style": "v5",
+   "troupe": "DUMMY",
+   "at": "plaza",
+   "offset": [
+    3.9,
+    0,
+    20.19
+   ],
+   "yaw": 103,
+   "keys": [
+    [
+     0,
+     "sit"
+    ]
+   ],
+   "costume": "CROWD"
+  },
+  "d117": {
+   "style": "v5",
+   "troupe": "DUMMY",
+   "at": "plaza",
+   "offset": [
+    9.08,
+    0,
+    13.58
+   ],
+   "yaw": 119,
+   "keys": [
+    [
+     0,
+     "idle"
+    ]
+   ],
+   "costume": "CROWD"
+  },
+  "d118": {
+   "style": "v5",
+   "troupe": "DUMMY",
+   "at": "plaza",
+   "offset": [
+    25.7,
+    0,
+    -5.05
+   ],
+   "yaw": -131,
+   "keys": [
+    [
+     0,
+     "lookUp"
+    ]
+   ],
+   "costume": "CROWD"
+  },
+  "d119": {
+   "style": "v5",
+   "troupe": "DUMMY",
+   "at": "plaza",
+   "offset": [
+    16.89,
+    0,
+    -2.06
+   ],
+   "yaw": -159,
+   "keys": [
+    [
+     0,
+     "idle"
+    ]
+   ],
+   "costume": "CROWD"
+  },
+  "d120": {
+   "style": "v5",
+   "troupe": "DUMMY",
+   "at": "plaza",
+   "offset": [
+    -21.08,
+    0,
+    -7.35
+   ],
+   "yaw": 101,
+   "keys": [
+    [
+     0,
+     "idle"
+    ]
+   ],
+   "costume": "CROWD"
+  }
+ },
+ "shots": [
+  {
+   "id": "B1_crowd",
+   "size": "wide",
+   "frames": 24,
+   "move": "static-drift",
+   "from": {
+    "position": [
+     0,
+     30,
+     70
+    ],
+    "target": [
+     0,
+     0,
+     8
+    ],
+    "fov": 50
+   },
+   "shadowRadius": 60
+  }
+ ]
+}

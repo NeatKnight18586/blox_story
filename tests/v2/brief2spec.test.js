@@ -68,7 +68,7 @@ test('proof6: place / cycle marks, verb list, effect combo, hold + freeze, prop 
   assert.deepEqual(s[11].actions.filter(a => a.verb).map(a => a.verb), ['jump', 'land']);
   assert.equal(s[7].actions.find(a => a.verb).target, 'little');
   assert.equal(s[6].prop, 'prop_streetLamp'); assert.deepEqual(spec.props[0].visible, [[0, false], [8.6, true], [10.05, false]]); assert.equal(spec.props[0].pos.at(-1)[2], 'ramp');
-  assert.deepEqual(s.slice(5, 8).map(x => x.look ?? 'day'), ['storm', 'storm', 'goldenHour']);
+  assert.deepEqual(s.slice(5, 8).map(x => x.look ?? 'day'), ['storm', 'storm', 'day']);   // P5b owner: shot 8 in day light (+0.2 EV)
   assert.ok(s[9].still); assert.equal(s[9].light.camNoise, 0); assert.equal(s[9].light.vignette, .15); assert.equal(s[9].actions.at(-1).face, 'o_small');   // awe_small → o_small
   assert.ok(s[12].from.position[1] === 1.5 && s[12].from.fov === 40);   // payoff: camera height 1.5, lens 40
 });

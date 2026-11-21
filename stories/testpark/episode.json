@@ -1,0 +1,1072 @@
+{
+ "slug": "testpark",
+ "fps": 30,
+ "format": 6,
+ "body": "v6",
+ "faceStyle": "v6",
+ "labels": false,
+ "world": "parts/sets6/testpark.js",
+ "look": "day",
+ "note": "E1 review stills (written by make_spec.js). S1–S6 owner stills, S7 cast lineup (HERO, Bitsy, kid, DUMMY).",
+ "cast": {
+  "d001": {
+   "style": "v5",
+   "troupe": "DUMMY",
+   "at": "plaza",
+   "offset": [
+    3.03,
+    0,
+    17.7
+   ],
+   "yaw": 151,
+   "keys": [
+    [
+     0,
+     "look_react"
+    ]
+   ],
+   "costume": "CROWD"
+  },
+  "d002": {
+   "style": "v5",
+   "troupe": "DUMMY",
+   "at": "plaza",
+   "offset": [
+    9.82,
+    0,
+    16.14
+   ],
+   "yaw": -162,
+   "keys": [
+    [
+     0,
+     "idle"
+    ]
+   ],
+   "costume": "CROWD"
+  },
+  "d003": {
+   "style": "v5",
+   "troupe": "DUMMY",
+   "at": "plaza",
+   "offset": [
+    3.02,
+    0,
+    13.51
+   ],
+   "yaw": 35,
+   "keys": [
+    [
+     0,
+     "lookUp"
+    ]
+   ],
+   "costume": "CROWD"
+  },
+  "d004": {
+   "style": "v5",
+   "troupe": "DUMMY",
+   "at": "plaza",
+   "offset": [
+    -0.56,
+    0,
+    25.31
+   ],
+   "yaw": -30,
+   "keys": [
+    [
+     0,
+     "cheer"
+    ]
+   ],
+   "costume": "CROWD"
+  },
+  "d005": {
+   "style": "v5",
+   "troupe": "DUMMY",
+   "at": "plaza",
+   "offset": [
+    -2.24,
+    0,
+    20.11
+   ],
+   "yaw": -162,
+   "keys": [
+    [
+     0,
+     "idle"
+    ]
+   ],
+   "costume": "CROWD"
+  },
+  "d006": {
+   "style": "v5",
+   "troupe": "DUMMY",
+   "at": "plaza",
+   "offset": [
+    5.08,
+    0,
+    4.82
+   ],
+   "yaw": -13,
+   "keys": [
+    [
+     0,
+     "idle"
+    ]
+   ],
+   "costume": "CROWD"
+  },
+  "d007": {
+   "style": "v5",
+   "troupe": "DUMMY",
+   "at": "plaza",
+   "offset": [
+    2.31,
+    0,
+    3.82
+   ],
+   "yaw": -30,
+   "keys": [
+    [
+     0,
+     "fall"
+    ]
+   ],
+   "costume": "CROWD"
+  },
+  "d008": {
+   "style": "v5",
+   "troupe": "DUMMY",
+   "at": "plaza",
+   "offset": [
+    8.55,
+    0,
+    23.06
+   ],
+   "yaw": -31,
+   "keys": [
+    [
+     0,
+     "idle"
+    ]
+   ],
+   "costume": "CROWD"
+  },
+  "d009": {
+   "style": "v5",
+   "troupe": "DUMMY",
+   "at": "plaza",
+   "offset": [
+    -5.11,
+    0,
+    18.69
+   ],
+   "yaw": 32,
+   "keys": [
+    [
+     0,
+     "idle"
+    ]
+   ],
+   "costume": "CROWD"
+  },
+  "d010": {
+   "style": "v5",
+   "troupe": "DUMMY",
+   "at": "plaza",
+   "offset": [
+    6.75,
+    0,
+    29.33
+   ],
+   "yaw": 171,
+   "keys": [
+    [
+     0,
+     "idle"
+    ]
+   ],
+   "costume": "CROWD"
+  },
+  "d011": {
+   "style": "v5",
+   "troupe": "DUMMY",
+   "at": "plaza",
+   "offset": [
+    6.82,
+    0,
+    10.42
+   ],
+   "yaw": -20,
+   "keys": [
+    [
+     0,
+     "idle"
+    ]
+   ],
+   "costume": "CROWD"
+  },
+  "d012": {
+   "style": "v5",
+   "troupe": "DUMMY",
+   "at": "plaza",
+   "offset": [
+    9.67,
+    0,
+    4.3
+   ],
+   "yaw": 66,
+   "keys": [
+    [
+     0,
+     "idle"
+    ]
+   ],
+   "costume": "CROWD"
+  },
+  "d013": {
+   "style": "v5",
+   "troupe": "DUMMY",
+   "at": "plaza",
+   "offset": [
+    -11.85,
+    0,
+    25.24
+   ],
+   "yaw": 22,
+   "keys": [
+    [
+     0,
+     "recoil"
+    ]
+   ],
+   "costume": "CROWD"
+  },
+  "d014": {
+   "style": "v5",
+   "troupe": "DUMMY",
+   "at": "plaza",
+   "offset": [
+    6.56,
+    0,
+    2.67
+   ],
+   "yaw": -179,
+   "keys": [
+    [
+     0,
+     "idle"
+    ]
+   ],
+   "costume": "CROWD"
+  },
+  "d015": {
+   "style": "v5",
+   "troupe": "DUMMY",
+   "at": "plaza",
+   "offset": [
+    4.03,
+    0,
+    1.35
+   ],
+   "yaw": -121,
+   "keys": [
+    [
+     0,
+     "trip"
+    ]
+   ],
+   "costume": "CROWD"
+  },
+  "d016": {
+   "style": "v5",
+   "troupe": "DUMMY",
+   "at": "plaza",
+   "offset": [
+    13.56,
+    0,
+    12.85
+   ],
+   "yaw": -131,
+   "keys": [
+    [
+     0,
+     "trip"
+    ]
+   ],
+   "costume": "CROWD"
+  },
+  "d017": {
+   "style": "v5",
+   "troupe": "DUMMY",
+   "at": "plaza",
+   "offset": [
+    -12.65,
+    0,
+    22
+   ],
+   "yaw": -110,
+   "keys": [
+    [
+     0,
+     "recoil"
+    ]
+   ],
+   "costume": "CROWD"
+  },
+  "d018": {
+   "style": "v5",
+   "troupe": "DUMMY",
+   "at": "plaza",
+   "offset": [
+    -2.26,
+    0,
+    22.78
+   ],
+   "yaw": 117,
+   "keys": [
+    [
+     0,
+     "fall"
+    ]
+   ],
+   "costume": "CROWD"
+  },
+  "d019": {
+   "style": "v5",
+   "troupe": "DUMMY",
+   "at": "plaza",
+   "offset": [
+    -4.26,
+    0,
+    25.27
+   ],
+   "yaw": 112,
+   "keys": [
+    [
+     0,
+     "idle"
+    ]
+   ],
+   "costume": "CROWD"
+  },
+  "d020": {
+   "style": "v5",
+   "troupe": "DUMMY",
+   "at": "plaza",
+   "offset": [
+    -3.43,
+    0,
+    28.12
+   ],
+   "yaw": -148,
+   "keys": [
+    [
+     0,
+     "fall"
+    ]
+   ],
+   "costume": "CROWD"
+  },
+  "d021": {
+   "style": "v5",
+   "troupe": "DUMMY",
+   "at": "plaza",
+   "offset": [
+    9.88,
+    0,
+    18.9
+   ],
+   "yaw": -102,
+   "keys": [
+    [
+     0,
+     "idle"
+    ]
+   ],
+   "costume": "CROWD"
+  },
+  "d022": {
+   "style": "v5",
+   "troupe": "DUMMY",
+   "at": "plaza",
+   "offset": [
+    6.86,
+    0,
+    16.34
+   ],
+   "yaw": -57,
+   "keys": [
+    [
+     0,
+     "idle"
+    ]
+   ],
+   "costume": "CROWD"
+  },
+  "d023": {
+   "style": "v5",
+   "troupe": "DUMMY",
+   "at": "plaza",
+   "offset": [
+    10.76,
+    0,
+    28.84
+   ],
+   "yaw": 138,
+   "keys": [
+    [
+     0,
+     "recoil"
+    ]
+   ],
+   "costume": "CROWD"
+  },
+  "d024": {
+   "style": "v5",
+   "troupe": "DUMMY",
+   "at": "plaza",
+   "offset": [
+    -11.36,
+    0,
+    19.55
+   ],
+   "yaw": 79,
+   "keys": [
+    [
+     0,
+     "wave"
+    ]
+   ],
+   "costume": "CROWD"
+  },
+  "d025": {
+   "style": "v5",
+   "troupe": "DUMMY",
+   "at": "plaza",
+   "offset": [
+    4.22,
+    0,
+    29.86
+   ],
+   "yaw": 92,
+   "keys": [
+    [
+     0,
+     "fall"
+    ]
+   ],
+   "costume": "CROWD"
+  },
+  "d026": {
+   "style": "v5",
+   "troupe": "DUMMY",
+   "at": "plaza",
+   "offset": [
+    13.22,
+    0,
+    10.3
+   ],
+   "yaw": -42,
+   "keys": [
+    [
+     0,
+     "fall"
+    ]
+   ],
+   "costume": "CROWD"
+  },
+  "d027": {
+   "style": "v5",
+   "troupe": "DUMMY",
+   "at": "plaza",
+   "offset": [
+    7.3,
+    0,
+    19.61
+   ],
+   "yaw": -98,
+   "keys": [
+    [
+     0,
+     "idle"
+    ]
+   ],
+   "costume": "CROWD"
+  },
+  "d028": {
+   "style": "v5",
+   "troupe": "DUMMY",
+   "at": "plaza",
+   "offset": [
+    3.58,
+    0,
+    6.76
+   ],
+   "yaw": -130,
+   "keys": [
+    [
+     0,
+     "recoil"
+    ]
+   ],
+   "costume": "CROWD"
+  },
+  "d029": {
+   "style": "v5",
+   "troupe": "DUMMY",
+   "at": "plaza",
+   "offset": [
+    -11.42,
+    0,
+    16.62
+   ],
+   "yaw": -177,
+   "keys": [
+    [
+     0,
+     "wave"
+    ]
+   ],
+   "costume": "CROWD"
+  },
+  "d030": {
+   "style": "v5",
+   "troupe": "DUMMY",
+   "at": "plaza",
+   "offset": [
+    7.02,
+    0,
+    0.15
+   ],
+   "yaw": 168,
+   "keys": [
+    [
+     0,
+     "sit"
+    ]
+   ],
+   "costume": "CROWD"
+  },
+  "d031": {
+   "style": "v5",
+   "troupe": "DUMMY",
+   "at": "plaza",
+   "offset": [
+    1.94,
+    0,
+    21.01
+   ],
+   "yaw": 7,
+   "keys": [
+    [
+     0,
+     "sit"
+    ]
+   ],
+   "costume": "CROWD"
+  },
+  "d032": {
+   "style": "v5",
+   "troupe": "DUMMY",
+   "at": "plaza",
+   "offset": [
+    -9.43,
+    0,
+    24.22
+   ],
+   "yaw": -160,
+   "keys": [
+    [
+     0,
+     "cheer"
+    ]
+   ],
+   "costume": "CROWD"
+  },
+  "d033": {
+   "style": "v5",
+   "troupe": "DUMMY",
+   "at": "plaza",
+   "offset": [
+    13.93,
+    0,
+    18.38
+   ],
+   "yaw": 97,
+   "keys": [
+    [
+     0,
+     "idle"
+    ]
+   ],
+   "costume": "CROWD"
+  },
+  "d034": {
+   "style": "v5",
+   "troupe": "DUMMY",
+   "at": "plaza",
+   "offset": [
+    5.71,
+    0,
+    25.04
+   ],
+   "yaw": 174,
+   "keys": [
+    [
+     0,
+     "idle"
+    ]
+   ],
+   "costume": "CROWD"
+  },
+  "fan0": {
+   "style": "v5",
+   "troupe": "DUMMY",
+   "at": "plaza",
+   "offset": [
+    -7,
+    0,
+    7
+   ],
+   "yaw": 90,
+   "keys": [
+    [
+     0,
+     "recoil"
+    ]
+   ]
+  },
+  "fan1": {
+   "style": "v5",
+   "troupe": "DUMMY",
+   "at": "plaza",
+   "offset": [
+    -5.5,
+    0,
+    10.5
+   ],
+   "yaw": 115,
+   "keys": [
+    [
+     0,
+     "fall"
+    ]
+   ]
+  },
+  "fan2": {
+   "style": "v5",
+   "troupe": "DUMMY",
+   "at": "plaza",
+   "offset": [
+    -3.5,
+    0,
+    8.5
+   ],
+   "yaw": 140,
+   "keys": [
+    [
+     0,
+     "recoil"
+    ]
+   ]
+  },
+  "fan3": {
+   "style": "v5",
+   "troupe": "DUMMY",
+   "at": "plaza",
+   "offset": [
+    -2,
+    0,
+    12
+   ],
+   "yaw": 165,
+   "keys": [
+    [
+     0,
+     "fall"
+    ]
+   ]
+  },
+  "fan4": {
+   "style": "v5",
+   "troupe": "DUMMY",
+   "at": "plaza",
+   "offset": [
+    -6,
+    0,
+    13
+   ],
+   "yaw": 190,
+   "keys": [
+    [
+     0,
+     "recoil"
+    ]
+   ]
+  },
+  "ring0": {
+   "style": "v5",
+   "troupe": "DUMMY",
+   "at": "ring",
+   "offset": [
+    -4.6,
+    0,
+    1
+   ],
+   "yaw": 90,
+   "keys": [
+    [
+     0,
+     "cheer"
+    ]
+   ]
+  },
+  "ring1": {
+   "style": "v5",
+   "troupe": "DUMMY",
+   "at": "ring",
+   "offset": [
+    4.6,
+    0,
+    1.6
+   ],
+   "yaw": -90,
+   "keys": [
+    [
+     0,
+     "recoil"
+    ]
+   ]
+  },
+  "top0": {
+   "style": "v5",
+   "troupe": "DUMMY",
+   "at": "towerTop",
+   "offset": [
+    -1,
+    40,
+    1
+   ],
+   "yaw": 200,
+   "keys": [
+    [
+     0,
+     "lookUp"
+    ]
+   ]
+  },
+  "hero": {
+   "style": "v5",
+   "troupe": "HERO",
+   "at": "plaza",
+   "offset": [
+    24,
+    0,
+    -14.1
+   ],
+   "yaw": -90,
+   "keys": [
+    [
+     0,
+     "idle"
+    ]
+   ],
+   "faces": [
+    [
+     0,
+     "hero_wink"
+    ]
+   ]
+  },
+  "bitsy": {
+   "style": "v5",
+   "troupe": "LITTLE",
+   "at": "plaza",
+   "offset": [
+    24,
+    0,
+    -11.8
+   ],
+   "yaw": -90,
+   "keys": [
+    [
+     0,
+     "idle"
+    ]
+   ],
+   "costume": "BITSY",
+   "faceStyle": "v6"
+  },
+  "kid": {
+   "style": "v5",
+   "troupe": "SECOND",
+   "at": "plaza",
+   "offset": [
+    24,
+    0,
+    -9.5
+   ],
+   "yaw": -90,
+   "keys": [
+    [
+     0,
+     "idle"
+    ]
+   ],
+   "costume": "KID",
+   "faceStyle": "v6"
+  },
+  "dummy": {
+   "style": "v5",
+   "troupe": "DUMMY",
+   "at": "plaza",
+   "offset": [
+    24,
+    0,
+    -7.2
+   ],
+   "yaw": -90,
+   "keys": [
+    [
+     0,
+     "idle"
+    ]
+   ]
+  }
+ },
+ "worldState": {
+  "cart": [
+   [
+    0,
+    0.08
+   ],
+   [
+    0.6,
+    0.3412
+   ],
+   [
+    0.8,
+    0.12
+   ]
+  ],
+  "padFlash": [
+   [
+    0,
+    0.6
+   ],
+   [
+    0.2,
+    0
+   ]
+  ],
+  "handOn": [
+   [
+    0,
+    0
+   ],
+   [
+    1,
+    1
+   ],
+   [
+    1.2,
+    0
+   ]
+  ],
+  "hand": [
+   [
+    0,
+    "open"
+   ],
+   [
+    1,
+    "pinch"
+   ]
+  ],
+  "handGrip": [
+   [
+    0,
+    0
+   ],
+   [
+    1,
+    0.85
+   ]
+  ],
+  "handY": [
+   [
+    0,
+    21
+   ]
+  ],
+  "handZ": [
+   [
+    0,
+    22
+   ]
+  ],
+  "handYaw": [
+   [
+    0,
+    55
+   ]
+  ]
+ },
+ "shots": [
+  {
+   "id": "S1_drone",
+   "size": "wide",
+   "frames": 6,
+   "move": "static-drift",
+   "drift": 0,
+   "from": {
+    "position": [
+     0,
+     52,
+     84
+    ],
+    "target": [
+     0,
+     0,
+     6
+    ],
+    "fov": 50
+   },
+   "shadowRadius": 60,
+   "subject": "d001"
+  },
+  {
+   "id": "S2_fan",
+   "size": "wide",
+   "frames": 6,
+   "move": "static-drift",
+   "drift": 0,
+   "from": {
+    "position": [
+     3,
+     7,
+     -1
+    ],
+    "target": [
+     -13,
+     9.5,
+     18
+    ],
+    "fov": 56
+   },
+   "shadowRadius": 60,
+   "subject": "fan1"
+  },
+  {
+   "id": "S3_tower",
+   "size": "wide",
+   "frames": 6,
+   "move": "static-drift",
+   "drift": 0,
+   "from": {
+    "position": [
+     1,
+     2,
+     1
+    ],
+    "target": [
+     -30,
+     21,
+     -22
+    ],
+    "fov": 66
+   },
+   "shadowRadius": 60,
+   "subject": "top0"
+  },
+  {
+   "id": "S4_loop",
+   "size": "wide",
+   "frames": 6,
+   "move": "static-drift",
+   "drift": 0,
+   "from": {
+    "position": [
+     34,
+     6,
+     -28
+    ],
+    "target": [
+     12,
+     8.5,
+     -44
+    ],
+    "fov": 50
+   },
+   "shadowRadius": 60
+  },
+  {
+   "id": "S5_ring_sign",
+   "size": "wide",
+   "frames": 6,
+   "move": "static-drift",
+   "drift": 0,
+   "from": {
+    "position": [
+     16,
+     5.4,
+     6
+    ],
+    "target": [
+     16,
+     5.2,
+     -26
+    ],
+    "fov": 44
+   },
+   "shadowRadius": 60,
+   "subject": "ring0"
+  },
+  {
+   "id": "S6_hand",
+   "size": "wide",
+   "frames": 6,
+   "move": "static-drift",
+   "drift": 0,
+   "from": {
+    "position": [
+     0,
+     9,
+     56
+    ],
+    "target": [
+     0,
+     13,
+     8
+    ],
+    "fov": 56
+   },
+   "shadowRadius": 60,
+   "subject": "d001"
+  },
+  {
+   "id": "S7_lineup",
+   "size": "wide",
+   "frames": 6,
+   "move": "static-drift",
+   "drift": 0,
+   "from": {
+    "position": [
+     -2,
+     3,
+     -2.6
+    ],
+    "target": [
+     24,
+     2.5,
+     -2.6
+    ],
+    "fov": 36
+   },
+   "shadowRadius": 16,
+   "subject": "hero"
+  }
+ ]
+}

@@ -1,0 +1,1 @@
+{"spec":"stories/testpark/bench.json","budget":"Season 1 (90k, 0.62 s)","size":"270x480","browser":"/usr/bin/google-chrome","maxTriangles":72436,"meanSecondsPerFrame":0.202,"meanSecondsPerFrame1080":null,"target1080":1,"overBudget":[],"errors":[],"result":"PASS"}

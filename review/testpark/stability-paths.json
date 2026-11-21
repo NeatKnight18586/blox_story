@@ -1,0 +1,73 @@
+{
+ "spec": "stories/testpark/paths.json",
+ "size": "540x960",
+ "nudge": 0.004,
+ "threshold": 40,
+ "limit": 0.3,
+ "views": 9,
+ "worst": {
+  "view": "P3_ring:mid",
+  "frame": 150,
+  "pct": 0.086,
+  "raw": 0.233
+ },
+ "failing": [],
+ "errors": [],
+ "result": "PASS",
+ "rows": [
+  {
+   "view": "P1_drone:first",
+   "frame": 0,
+   "pct": 0.008,
+   "raw": 0.089
+  },
+  {
+   "view": "P1_drone:mid",
+   "frame": 30,
+   "pct": 0.01,
+   "raw": 0.069
+  },
+  {
+   "view": "P1_drone:last",
+   "frame": 59,
+   "pct": 0.015,
+   "raw": 0.1
+  },
+  {
+   "view": "P2_tower:first",
+   "frame": 60,
+   "pct": 0.013,
+   "raw": 0.178
+  },
+  {
+   "view": "P2_tower:mid",
+   "frame": 90,
+   "pct": 0.015,
+   "raw": 0.215
+  },
+  {
+   "view": "P2_tower:last",
+   "frame": 119,
+   "pct": 0.013,
+   "raw": 0.141
+  },
+  {
+   "view": "P3_ring:first",
+   "frame": 120,
+   "pct": 0.076,
+   "raw": 0.301
+  },
+  {
+   "view": "P3_ring:mid",
+   "frame": 150,
+   "pct": 0.086,
+   "raw": 0.233
+  },
+  {
+   "view": "P3_ring:last",
+   "frame": 179,
+   "pct": 0.081,
+   "raw": 0.309
+  }
+ ]
+}
