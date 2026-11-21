@@ -1,0 +1,1940 @@
+{
+ "slug": "_fixture_e2",
+ "fps": 30,
+ "format": 6,
+ "moods": true,
+ "body": "v6",
+ "faceStyle": "v6",
+ "acting": 6,
+ "labels": false,
+ "hero": "hero",
+ "world": "parts/sets6/testpark.js",
+ "look": "day",
+ "cues": "stories/_fixture_e2/cues.json",
+ "end": 24,
+ "note": "Written by scripts/v2/brief2spec.js from stories/_fixture_e2/BRIEF.md (17 shots). Edit the Brief, not this file.",
+ "brief": {
+  "title": "In this world, every fall drains your colour 😢 #shorts #roblox",
+  "ruleLine": "\"In this world, every fall drains a dummy's colour\"",
+  "palette": "white dummies, the hero's colours draining, pastel blooms",
+  "colourScript": "act 1 · bright · act 2 · white · act 3 · pastel bloom",
+  "setting": "an open test park",
+  "props": [
+   "giantFan",
+   "launchTower",
+   "spawnPad",
+   "pool",
+   "giantHand",
+   "nameTag"
+  ],
+  "payoff": {
+   "shows": "the hero's colour blooms back while he holds Bitsy",
+   "hold length": "1.6",
+   "light": "payoff key"
+  }
+ },
+ "cast": {
+  "hero": {
+   "style": "v5",
+   "faceStyle": "v6",
+   "troupe": "HERO",
+   "at": "plaza",
+   "offset": [
+    2,
+    0,
+    0
+   ],
+   "yaw": 0,
+   "keys": [
+    [
+     0,
+     "idle"
+    ]
+   ],
+   "marks": [
+    [
+     12.8,
+     {
+      "at": "plaza",
+      "offset": [
+       -30,
+       0,
+       -38
+      ],
+      "yaw": 180
+     }
+    ]
+   ]
+  },
+  "bitsy": {
+   "style": "v5",
+   "faceStyle": "v6",
+   "troupe": "LITTLE",
+   "at": "plaza",
+   "offset": [
+    0,
+    0,
+    34
+   ],
+   "yaw": 0,
+   "keys": [
+    [
+     0,
+     "idle"
+    ]
+   ],
+   "costume": "BITSY",
+   "marks": [
+    [
+     13.9,
+     {
+      "at": "plaza",
+      "offset": [
+       -31.67,
+       0,
+       -38.7
+      ],
+      "yaw": 95.09
+     }
+    ]
+   ]
+  },
+  "dummya": {
+   "style": "v5",
+   "faceStyle": "v6",
+   "troupe": "DUMMY",
+   "at": "plaza",
+   "offset": [
+    7,
+    0,
+    2
+   ],
+   "yaw": -30,
+   "keys": [
+    [
+     0,
+     "idle"
+    ]
+   ]
+  },
+  "dummyb": {
+   "style": "v5",
+   "faceStyle": "v6",
+   "troupe": "DUMMY",
+   "at": "plaza",
+   "offset": [
+    -6,
+    0,
+    -4
+   ],
+   "yaw": 20,
+   "keys": [
+    [
+     0,
+     "idle"
+    ]
+   ]
+  },
+  "crowd001": {
+   "style": "v5",
+   "faceStyle": "v6",
+   "troupe": "DUMMY",
+   "costume": "CROWD",
+   "lod": true,
+   "at": "plaza",
+   "offset": [
+    0,
+    0,
+    0
+   ],
+   "yaw": 0,
+   "keys": [
+    [
+     0,
+     "idle"
+    ]
+   ]
+  },
+  "crowd002": {
+   "style": "v5",
+   "faceStyle": "v6",
+   "troupe": "DUMMY",
+   "costume": "CROWD",
+   "lod": true,
+   "at": "plaza",
+   "offset": [
+    0,
+    0,
+    0
+   ],
+   "yaw": 0,
+   "keys": [
+    [
+     0,
+     "idle"
+    ]
+   ]
+  },
+  "crowd003": {
+   "style": "v5",
+   "faceStyle": "v6",
+   "troupe": "DUMMY",
+   "costume": "CROWD",
+   "lod": true,
+   "at": "plaza",
+   "offset": [
+    0,
+    0,
+    0
+   ],
+   "yaw": 0,
+   "keys": [
+    [
+     0,
+     "idle"
+    ]
+   ]
+  },
+  "crowd004": {
+   "style": "v5",
+   "faceStyle": "v6",
+   "troupe": "DUMMY",
+   "costume": "CROWD",
+   "lod": true,
+   "at": "plaza",
+   "offset": [
+    0,
+    0,
+    0
+   ],
+   "yaw": 0,
+   "keys": [
+    [
+     0,
+     "idle"
+    ]
+   ]
+  },
+  "crowd005": {
+   "style": "v5",
+   "faceStyle": "v6",
+   "troupe": "DUMMY",
+   "costume": "CROWD",
+   "lod": true,
+   "at": "plaza",
+   "offset": [
+    0,
+    0,
+    0
+   ],
+   "yaw": 0,
+   "keys": [
+    [
+     0,
+     "idle"
+    ]
+   ]
+  },
+  "crowd006": {
+   "style": "v5",
+   "faceStyle": "v6",
+   "troupe": "DUMMY",
+   "costume": "CROWD",
+   "lod": true,
+   "at": "plaza",
+   "offset": [
+    0,
+    0,
+    0
+   ],
+   "yaw": 0,
+   "keys": [
+    [
+     0,
+     "idle"
+    ]
+   ]
+  },
+  "crowd007": {
+   "style": "v5",
+   "faceStyle": "v6",
+   "troupe": "DUMMY",
+   "costume": "CROWD",
+   "lod": true,
+   "at": "plaza",
+   "offset": [
+    0,
+    0,
+    0
+   ],
+   "yaw": 0,
+   "keys": [
+    [
+     0,
+     "idle"
+    ]
+   ]
+  },
+  "crowd008": {
+   "style": "v5",
+   "faceStyle": "v6",
+   "troupe": "DUMMY",
+   "costume": "CROWD",
+   "lod": true,
+   "at": "plaza",
+   "offset": [
+    0,
+    0,
+    0
+   ],
+   "yaw": 0,
+   "keys": [
+    [
+     0,
+     "idle"
+    ]
+   ]
+  },
+  "crowd009": {
+   "style": "v5",
+   "faceStyle": "v6",
+   "troupe": "DUMMY",
+   "costume": "CROWD",
+   "lod": true,
+   "at": "plaza",
+   "offset": [
+    0,
+    0,
+    0
+   ],
+   "yaw": 0,
+   "keys": [
+    [
+     0,
+     "idle"
+    ]
+   ]
+  },
+  "crowd010": {
+   "style": "v5",
+   "faceStyle": "v6",
+   "troupe": "DUMMY",
+   "costume": "CROWD",
+   "lod": true,
+   "at": "plaza",
+   "offset": [
+    0,
+    0,
+    0
+   ],
+   "yaw": 0,
+   "keys": [
+    [
+     0,
+     "idle"
+    ]
+   ]
+  },
+  "crowd011": {
+   "style": "v5",
+   "faceStyle": "v6",
+   "troupe": "DUMMY",
+   "costume": "CROWD",
+   "lod": true,
+   "at": "plaza",
+   "offset": [
+    0,
+    0,
+    0
+   ],
+   "yaw": 0,
+   "keys": [
+    [
+     0,
+     "idle"
+    ]
+   ]
+  },
+  "crowd012": {
+   "style": "v5",
+   "faceStyle": "v6",
+   "troupe": "DUMMY",
+   "costume": "CROWD",
+   "lod": true,
+   "at": "plaza",
+   "offset": [
+    0,
+    0,
+    0
+   ],
+   "yaw": 0,
+   "keys": [
+    [
+     0,
+     "idle"
+    ]
+   ]
+  },
+  "crowd013": {
+   "style": "v5",
+   "faceStyle": "v6",
+   "troupe": "DUMMY",
+   "costume": "CROWD",
+   "lod": true,
+   "at": "plaza",
+   "offset": [
+    0,
+    0,
+    0
+   ],
+   "yaw": 0,
+   "keys": [
+    [
+     0,
+     "idle"
+    ]
+   ]
+  },
+  "crowd014": {
+   "style": "v5",
+   "faceStyle": "v6",
+   "troupe": "DUMMY",
+   "costume": "CROWD",
+   "lod": true,
+   "at": "plaza",
+   "offset": [
+    0,
+    0,
+    0
+   ],
+   "yaw": 0,
+   "keys": [
+    [
+     0,
+     "idle"
+    ]
+   ]
+  },
+  "crowd015": {
+   "style": "v5",
+   "faceStyle": "v6",
+   "troupe": "DUMMY",
+   "costume": "CROWD",
+   "lod": true,
+   "at": "plaza",
+   "offset": [
+    0,
+    0,
+    0
+   ],
+   "yaw": 0,
+   "keys": [
+    [
+     0,
+     "idle"
+    ]
+   ]
+  },
+  "crowd016": {
+   "style": "v5",
+   "faceStyle": "v6",
+   "troupe": "DUMMY",
+   "costume": "CROWD",
+   "lod": true,
+   "at": "plaza",
+   "offset": [
+    0,
+    0,
+    0
+   ],
+   "yaw": 0,
+   "keys": [
+    [
+     0,
+     "idle"
+    ]
+   ]
+  },
+  "crowd017": {
+   "style": "v5",
+   "faceStyle": "v6",
+   "troupe": "DUMMY",
+   "costume": "CROWD",
+   "lod": true,
+   "at": "plaza",
+   "offset": [
+    0,
+    0,
+    0
+   ],
+   "yaw": 0,
+   "keys": [
+    [
+     0,
+     "idle"
+    ]
+   ]
+  },
+  "crowd018": {
+   "style": "v5",
+   "faceStyle": "v6",
+   "troupe": "DUMMY",
+   "costume": "CROWD",
+   "lod": true,
+   "at": "plaza",
+   "offset": [
+    0,
+    0,
+    0
+   ],
+   "yaw": 0,
+   "keys": [
+    [
+     0,
+     "idle"
+    ]
+   ]
+  },
+  "crowd019": {
+   "style": "v5",
+   "faceStyle": "v6",
+   "troupe": "DUMMY",
+   "costume": "CROWD",
+   "lod": true,
+   "at": "plaza",
+   "offset": [
+    0,
+    0,
+    0
+   ],
+   "yaw": 0,
+   "keys": [
+    [
+     0,
+     "idle"
+    ]
+   ]
+  },
+  "crowd020": {
+   "style": "v5",
+   "faceStyle": "v6",
+   "troupe": "DUMMY",
+   "costume": "CROWD",
+   "lod": true,
+   "at": "plaza",
+   "offset": [
+    0,
+    0,
+    0
+   ],
+   "yaw": 0,
+   "keys": [
+    [
+     0,
+     "idle"
+    ]
+   ]
+  },
+  "crowd021": {
+   "style": "v5",
+   "faceStyle": "v6",
+   "troupe": "DUMMY",
+   "costume": "CROWD",
+   "lod": true,
+   "at": "plaza",
+   "offset": [
+    0,
+    0,
+    0
+   ],
+   "yaw": 0,
+   "keys": [
+    [
+     0,
+     "idle"
+    ]
+   ]
+  },
+  "crowd022": {
+   "style": "v5",
+   "faceStyle": "v6",
+   "troupe": "DUMMY",
+   "costume": "CROWD",
+   "lod": true,
+   "at": "plaza",
+   "offset": [
+    0,
+    0,
+    0
+   ],
+   "yaw": 0,
+   "keys": [
+    [
+     0,
+     "idle"
+    ]
+   ]
+  },
+  "crowd023": {
+   "style": "v5",
+   "faceStyle": "v6",
+   "troupe": "DUMMY",
+   "costume": "CROWD",
+   "lod": true,
+   "at": "plaza",
+   "offset": [
+    0,
+    0,
+    0
+   ],
+   "yaw": 0,
+   "keys": [
+    [
+     0,
+     "idle"
+    ]
+   ]
+  },
+  "crowd024": {
+   "style": "v5",
+   "faceStyle": "v6",
+   "troupe": "DUMMY",
+   "costume": "CROWD",
+   "lod": true,
+   "at": "plaza",
+   "offset": [
+    0,
+    0,
+    0
+   ],
+   "yaw": 0,
+   "keys": [
+    [
+     0,
+     "idle"
+    ]
+   ]
+  },
+  "crowd025": {
+   "style": "v5",
+   "faceStyle": "v6",
+   "troupe": "DUMMY",
+   "costume": "CROWD",
+   "lod": true,
+   "at": "plaza",
+   "offset": [
+    0,
+    0,
+    0
+   ],
+   "yaw": 0,
+   "keys": [
+    [
+     0,
+     "idle"
+    ]
+   ]
+  },
+  "crowd026": {
+   "style": "v5",
+   "faceStyle": "v6",
+   "troupe": "DUMMY",
+   "costume": "CROWD",
+   "lod": true,
+   "at": "plaza",
+   "offset": [
+    0,
+    0,
+    0
+   ],
+   "yaw": 0,
+   "keys": [
+    [
+     0,
+     "idle"
+    ]
+   ]
+  },
+  "crowd027": {
+   "style": "v5",
+   "faceStyle": "v6",
+   "troupe": "DUMMY",
+   "costume": "CROWD",
+   "lod": true,
+   "at": "plaza",
+   "offset": [
+    0,
+    0,
+    0
+   ],
+   "yaw": 0,
+   "keys": [
+    [
+     0,
+     "idle"
+    ]
+   ]
+  },
+  "crowd028": {
+   "style": "v5",
+   "faceStyle": "v6",
+   "troupe": "DUMMY",
+   "costume": "CROWD",
+   "lod": true,
+   "at": "plaza",
+   "offset": [
+    0,
+    0,
+    0
+   ],
+   "yaw": 0,
+   "keys": [
+    [
+     0,
+     "idle"
+    ]
+   ]
+  },
+  "crowd029": {
+   "style": "v5",
+   "faceStyle": "v6",
+   "troupe": "DUMMY",
+   "costume": "CROWD",
+   "lod": true,
+   "at": "plaza",
+   "offset": [
+    0,
+    0,
+    0
+   ],
+   "yaw": 0,
+   "keys": [
+    [
+     0,
+     "idle"
+    ]
+   ]
+  },
+  "crowd030": {
+   "style": "v5",
+   "faceStyle": "v6",
+   "troupe": "DUMMY",
+   "costume": "CROWD",
+   "lod": true,
+   "at": "plaza",
+   "offset": [
+    0,
+    0,
+    0
+   ],
+   "yaw": 0,
+   "keys": [
+    [
+     0,
+     "idle"
+    ]
+   ]
+  },
+  "crowd031": {
+   "style": "v5",
+   "faceStyle": "v6",
+   "troupe": "DUMMY",
+   "costume": "CROWD",
+   "lod": true,
+   "at": "plaza",
+   "offset": [
+    0,
+    0,
+    0
+   ],
+   "yaw": 0,
+   "keys": [
+    [
+     0,
+     "idle"
+    ]
+   ]
+  },
+  "crowd032": {
+   "style": "v5",
+   "faceStyle": "v6",
+   "troupe": "DUMMY",
+   "costume": "CROWD",
+   "lod": true,
+   "at": "plaza",
+   "offset": [
+    0,
+    0,
+    0
+   ],
+   "yaw": 0,
+   "keys": [
+    [
+     0,
+     "idle"
+    ]
+   ]
+  },
+  "crowd033": {
+   "style": "v5",
+   "faceStyle": "v6",
+   "troupe": "DUMMY",
+   "costume": "CROWD",
+   "lod": true,
+   "at": "plaza",
+   "offset": [
+    0,
+    0,
+    0
+   ],
+   "yaw": 0,
+   "keys": [
+    [
+     0,
+     "idle"
+    ]
+   ]
+  },
+  "crowd034": {
+   "style": "v5",
+   "faceStyle": "v6",
+   "troupe": "DUMMY",
+   "costume": "CROWD",
+   "lod": true,
+   "at": "plaza",
+   "offset": [
+    0,
+    0,
+    0
+   ],
+   "yaw": 0,
+   "keys": [
+    [
+     0,
+     "idle"
+    ]
+   ]
+  },
+  "crowd035": {
+   "style": "v5",
+   "faceStyle": "v6",
+   "troupe": "DUMMY",
+   "costume": "CROWD",
+   "lod": true,
+   "at": "plaza",
+   "offset": [
+    0,
+    0,
+    0
+   ],
+   "yaw": 0,
+   "keys": [
+    [
+     0,
+     "idle"
+    ]
+   ]
+  },
+  "crowd036": {
+   "style": "v5",
+   "faceStyle": "v6",
+   "troupe": "DUMMY",
+   "costume": "CROWD",
+   "lod": true,
+   "at": "plaza",
+   "offset": [
+    0,
+    0,
+    0
+   ],
+   "yaw": 0,
+   "keys": [
+    [
+     0,
+     "idle"
+    ]
+   ]
+  },
+  "crowd037": {
+   "style": "v5",
+   "faceStyle": "v6",
+   "troupe": "DUMMY",
+   "costume": "CROWD",
+   "lod": true,
+   "at": "plaza",
+   "offset": [
+    0,
+    0,
+    0
+   ],
+   "yaw": 0,
+   "keys": [
+    [
+     0,
+     "idle"
+    ]
+   ]
+  },
+  "crowd038": {
+   "style": "v5",
+   "faceStyle": "v6",
+   "troupe": "DUMMY",
+   "costume": "CROWD",
+   "lod": true,
+   "at": "plaza",
+   "offset": [
+    0,
+    0,
+    0
+   ],
+   "yaw": 0,
+   "keys": [
+    [
+     0,
+     "idle"
+    ]
+   ]
+  },
+  "crowd039": {
+   "style": "v5",
+   "faceStyle": "v6",
+   "troupe": "DUMMY",
+   "costume": "CROWD",
+   "lod": true,
+   "at": "plaza",
+   "offset": [
+    0,
+    0,
+    0
+   ],
+   "yaw": 0,
+   "keys": [
+    [
+     0,
+     "idle"
+    ]
+   ]
+  },
+  "crowd040": {
+   "style": "v5",
+   "faceStyle": "v6",
+   "troupe": "DUMMY",
+   "costume": "CROWD",
+   "lod": true,
+   "at": "plaza",
+   "offset": [
+    0,
+    0,
+    0
+   ],
+   "yaw": 0,
+   "keys": [
+    [
+     0,
+     "idle"
+    ]
+   ]
+  }
+ },
+ "emphasis6": [],
+ "effects": [],
+ "shots": [
+  {
+   "id": "S01",
+   "at": 0,
+   "loopOpen": "colour",
+   "loc": "testPark",
+   "mood": "fun",
+   "size": "wide",
+   "move": "orbit",
+   "why": "fun: Every fall here drains colour",
+   "see": [
+    "hero"
+   ],
+   "vo": "Every fall here drains colour",
+   "cue": [
+    0,
+    1.4
+   ],
+   "subject": "hero",
+   "openHit": true,
+   "from": {
+    "position": [
+     14,
+     10,
+     40
+    ],
+    "target": [
+     2,
+     2,
+     14
+    ],
+    "fov": 55
+   },
+   "degrees": 4,
+   "to": {
+    "position": [
+     13.64,
+     9.76,
+     39.22
+    ],
+    "target": [
+     2,
+     2,
+     14
+    ],
+    "fov": 55
+   }
+  },
+  {
+   "id": "S02",
+   "at": 1.4,
+   "loc": "testPark",
+   "mood": "fun",
+   "size": "medium",
+   "move": "orbit",
+   "why": "fun: Then Bitsy spawned in pink",
+   "see": [
+    "bitsy"
+   ],
+   "vo": "Then Bitsy spawned in pink",
+   "cue": [
+    1.4,
+    2.8
+   ],
+   "subject": "bitsy",
+   "from": {
+    "position": [
+     3.6,
+     3.2,
+     49.5
+    ],
+    "target": [
+     0,
+     2,
+     42
+    ],
+    "fov": 55
+   },
+   "degrees": 4,
+   "to": {
+    "position": [
+     3.492,
+     3.164,
+     49.275
+    ],
+    "target": [
+     0,
+     2,
+     42
+    ],
+    "fov": 55
+   }
+  },
+  {
+   "id": "S03",
+   "at": 2.8,
+   "loc": "testPark",
+   "mood": "comedy",
+   "size": "medium",
+   "move": "static-drift",
+   "why": "comedy: Everyone knows her name",
+   "see": [
+    "bitsy"
+   ],
+   "vo": "Everyone knows her name",
+   "cue": [
+    2.8,
+    3.7
+   ],
+   "subject": "bitsy",
+   "from": {
+    "position": [
+     3,
+     3,
+     49
+    ],
+    "target": [
+     0,
+     2.4,
+     42
+    ],
+    "fov": 55
+   },
+   "to": {
+    "position": [
+     3,
+     3,
+     49
+    ],
+    "target": [
+     0,
+     2.4,
+     42
+    ],
+    "fov": 55
+   }
+  },
+  {
+   "id": "S04",
+   "at": 3.7,
+   "loc": "testPark",
+   "mood": "comedy",
+   "size": "wide",
+   "move": "whip",
+   "why": "comedy: The wind threw me far away",
+   "see": [
+    "hero"
+   ],
+   "vo": "The wind threw me far away",
+   "cue": [
+    3.7,
+    5.2
+   ],
+   "subject": "hero",
+   "from": {
+    "position": [
+     2,
+     8,
+     36
+    ],
+    "target": [
+     10,
+     3,
+     13
+    ],
+    "fov": 55
+   },
+   "to": {
+    "position": [
+     2,
+     8,
+     36
+    ],
+    "target": [
+     10.6,
+     3,
+     13
+    ],
+    "fov": 55
+   }
+  },
+  {
+   "id": "S05",
+   "at": 5.2,
+   "loc": "testPark",
+   "mood": "comedy",
+   "size": "medium",
+   "move": "static-drift",
+   "why": "comedy: Right into the pool",
+   "see": [
+    "hero"
+   ],
+   "vo": "Right into the pool",
+   "cue": [
+    5.2,
+    6.1
+   ],
+   "subject": "hero",
+   "from": {
+    "position": [
+     20,
+     4.2,
+     25.5
+    ],
+    "target": [
+     24,
+     1.2,
+     18.4
+    ],
+    "fov": 55
+   },
+   "to": {
+    "position": [
+     20,
+     4.2,
+     25.5
+    ],
+    "target": [
+     24,
+     1.2,
+     18.4
+    ],
+    "fov": 55
+   }
+  },
+  {
+   "id": "S06",
+   "at": 6.1,
+   "loc": "testPark",
+   "mood": "tension",
+   "size": "medium",
+   "move": "push",
+   "why": "tension: My legs went white then my stripe",
+   "see": [
+    "hero"
+   ],
+   "vo": "My legs went white then my stripe",
+   "cue": [
+    6.1,
+    7.9
+   ],
+   "subject": "hero",
+   "from": {
+    "position": [
+     24.5,
+     4.2,
+     30
+    ],
+    "target": [
+     24,
+     2.6,
+     18
+    ],
+    "fov": 34
+   },
+   "to": {
+    "position": [
+     24.47,
+     4.104,
+     29.28
+    ],
+    "target": [
+     24,
+     2.6,
+     18
+    ],
+    "fov": 34
+   }
+  },
+  {
+   "id": "S07",
+   "at": 7.9,
+   "loc": "testPark",
+   "mood": "comedy",
+   "size": "wide",
+   "move": "static-drift",
+   "why": "comedy: Then a hand came down",
+   "see": [
+    "bitsy"
+   ],
+   "vo": "Then a hand came down",
+   "cue": [
+    7.9,
+    8.8
+   ],
+   "subject": "bitsy",
+   "from": {
+    "position": [
+     9,
+     3,
+     60
+    ],
+    "target": [
+     0,
+     9,
+     42
+    ],
+    "fov": 60
+   },
+   "to": {
+    "position": [
+     9,
+     3,
+     60
+    ],
+    "target": [
+     0,
+     9,
+     42
+    ],
+    "fov": 60
+   }
+  },
+  {
+   "id": "S08",
+   "at": 8.8,
+   "loc": "testPark",
+   "mood": "comedy",
+   "size": "medium",
+   "move": "whip",
+   "why": "comedy: It pinched my Bitsy",
+   "see": [
+    "bitsy"
+   ],
+   "vo": "It pinched my Bitsy",
+   "cue": [
+    8.8,
+    9.8
+   ],
+   "subject": "bitsy",
+   "from": {
+    "position": [
+     11,
+     7,
+     60
+    ],
+    "target": [
+     0,
+     7,
+     42
+    ],
+    "fov": 55
+   },
+   "to": {
+    "position": [
+     11,
+     7,
+     60
+    ],
+    "target": [
+     0.6,
+     7,
+     42
+    ],
+    "fov": 55
+   }
+  },
+  {
+   "id": "S09",
+   "at": 9.8,
+   "loc": "testPark",
+   "mood": "fun",
+   "size": "wide",
+   "move": "orbit",
+   "why": "fun: and carried her up the tower",
+   "see": [
+    "bitsy"
+   ],
+   "vo": "and carried her up the tower",
+   "cue": [
+    9.8,
+    11.2
+   ],
+   "subject": "bitsy",
+   "from": {
+    "position": [
+     22,
+     16,
+     52
+    ],
+    "target": [
+     -8,
+     14,
+     12
+    ],
+    "fov": 60
+   },
+   "degrees": 4,
+   "to": {
+    "position": [
+     21.1,
+     15.94,
+     50.8
+    ],
+    "target": [
+     -8,
+     14,
+     12
+    ],
+    "fov": 60
+   }
+  },
+  {
+   "id": "S10",
+   "at": 11.2,
+   "loc": "testPark",
+   "mood": "tension",
+   "size": "wide",
+   "move": "static-drift",
+   "why": "tension: It let go right at the top",
+   "see": [
+    "bitsy"
+   ],
+   "vo": "It let go right at the top",
+   "cue": [
+    11.2,
+    12.8
+   ],
+   "subject": "bitsy",
+   "from": {
+    "position": [
+     -4,
+     45,
+     8
+    ],
+    "target": [
+     -30,
+     41,
+     -22
+    ],
+    "fov": 34
+   },
+   "to": {
+    "position": [
+     -4,
+     45,
+     8
+    ],
+    "target": [
+     -30,
+     41,
+     -22
+    ],
+    "fov": 34
+   }
+  },
+  {
+   "id": "S11",
+   "at": 12.8,
+   "twist": true,
+   "loc": "testPark",
+   "mood": "awe",
+   "size": "wide",
+   "move": "crane",
+   "why": "awe: She fell and I jumped up to catch her in the air",
+   "see": [
+    "hero"
+   ],
+   "vo": "She fell and I jumped up to catch her in the air",
+   "cue": [
+    12.8,
+    15.4
+   ],
+   "subject": "hero",
+   "actions": [
+    {
+     "actor": "hero",
+     "verb": "carry",
+     "target": "bitsy",
+     "at": 2.1
+    }
+   ],
+   "from": {
+    "position": [
+     -12,
+     8,
+     -36
+    ],
+    "target": [
+     -29,
+     9,
+     -31
+    ],
+    "fov": 72
+   },
+   "to": {
+    "position": [
+     -12,
+     10.5,
+     -36
+    ],
+    "target": [
+     -29,
+     9,
+     -31
+    ],
+    "fov": 72
+   }
+  },
+  {
+   "id": "S12",
+   "at": 15.4,
+   "loc": "testPark",
+   "mood": "fun",
+   "size": "wide",
+   "move": "orbit",
+   "why": "fun: Every dummy ran to help",
+   "see": [
+    "hero"
+   ],
+   "vo": "Every dummy ran to help",
+   "cue": [
+    15.4,
+    16.8
+   ],
+   "subject": "hero",
+   "from": {
+    "position": [
+     8,
+     15,
+     22
+    ],
+    "target": [
+     -16,
+     1,
+     -16
+    ],
+    "fov": 55
+   },
+   "degrees": 4,
+   "to": {
+    "position": [
+     7.28,
+     14.58,
+     20.86
+    ],
+    "target": [
+     -16,
+     1,
+     -16
+    ],
+    "fov": 55
+   }
+  },
+  {
+   "id": "S13",
+   "at": 16.8,
+   "loc": "testPark",
+   "mood": "comedy",
+   "size": "wide",
+   "move": "static-drift",
+   "why": "comedy: They piled up soft",
+   "see": [
+    "hero"
+   ],
+   "vo": "They piled up soft",
+   "cue": [
+    16.8,
+    17.8
+   ],
+   "subject": "hero",
+   "from": {
+    "position": [
+     4,
+     22,
+     8
+    ],
+    "target": [
+     -12,
+     0,
+     -20
+    ],
+    "fov": 55
+   },
+   "to": {
+    "position": [
+     4,
+     22,
+     8
+    ],
+    "target": [
+     -12,
+     0,
+     -20
+    ],
+    "fov": 55
+   }
+  },
+  {
+   "id": "S14",
+   "at": 17.8,
+   "loc": "testPark",
+   "mood": "fun",
+   "size": "wide",
+   "move": "orbit",
+   "why": "fun: and colour bloomed on all of them",
+   "see": [
+    "hero"
+   ],
+   "vo": "and colour bloomed on all of them",
+   "cue": [
+    17.8,
+    19.2
+   ],
+   "subject": "hero",
+   "from": {
+    "position": [
+     2,
+     16,
+     4
+    ],
+    "target": [
+     -12,
+     1,
+     -20
+    ],
+    "fov": 60
+   },
+   "degrees": 4,
+   "to": {
+    "position": [
+     1.58,
+     15.55,
+     3.2800000000000002
+    ],
+    "target": [
+     -12,
+     1,
+     -20
+    ],
+    "fov": 60
+   }
+  },
+  {
+   "id": "S15",
+   "at": 19.2,
+   "loc": "testPark",
+   "mood": "payoff",
+   "size": "close",
+   "move": "push",
+   "why": "payoff: Even my own colour came back",
+   "see": [
+    "hero"
+   ],
+   "vo": "Even my own colour came back",
+   "cue": [
+    19.2,
+    20.8
+   ],
+   "subject": "hero",
+   "actions": [
+    {
+     "actor": "hero",
+     "face": "smile",
+     "at": {
+      "word": "back",
+      "nth": 1,
+      "line": 15
+     }
+    }
+   ],
+   "from": {
+    "position": [
+     -27.6,
+     4.6,
+     -35.6
+    ],
+    "target": [
+     -30,
+     4.3,
+     -31.1
+    ],
+    "fov": 45
+   },
+   "to": {
+    "position": [
+     -27.744,
+     4.582,
+     -35.33
+    ],
+    "target": [
+     -30,
+     4.3,
+     -31.1
+    ],
+    "fov": 45
+   }
+  },
+  {
+   "id": "S16",
+   "at": 20.8,
+   "loc": "testPark",
+   "mood": "comedy",
+   "size": "wide",
+   "move": "static-drift",
+   "why": "comedy: The dummies flopped down",
+   "see": [
+    "hero"
+   ],
+   "vo": "The dummies flopped down",
+   "cue": [
+    20.8,
+    21.8
+   ],
+   "subject": "hero",
+   "from": {
+    "position": [
+     4,
+     14,
+     6
+    ],
+    "target": [
+     -12,
+     1,
+     -20
+    ],
+    "fov": 55
+   },
+   "to": {
+    "position": [
+     4,
+     14,
+     6
+    ],
+    "target": [
+     -12,
+     1,
+     -20
+    ],
+    "fov": 55
+   }
+  },
+  {
+   "id": "S17",
+   "at": 21.8,
+   "loopClose": "colour",
+   "loc": "testPark",
+   "mood": "emotion",
+   "size": "close",
+   "move": "splitScreen",
+   "why": "emotion: Colour came back to everyone at last",
+   "see": [
+    "hero"
+   ],
+   "vo": "Colour came back to everyone at last",
+   "cue": [
+    21.8,
+    24
+   ],
+   "subject": "hero",
+   "from": {
+    "position": [
+     -28.4,
+     4.6,
+     -37
+    ],
+    "target": [
+     -30,
+     4.3,
+     -31.1
+    ],
+    "fov": 40
+   },
+   "to": {
+    "position": [
+     -28.4,
+     4.6,
+     -37
+    ],
+    "target": [
+     -30,
+     4.3,
+     -31.1
+    ],
+    "fov": 40
+   },
+   "a": {
+    "from": {
+     "position": [
+      -28.4,
+      4.6,
+      -37
+     ],
+     "target": [
+      -30,
+      4.3,
+      -31.1
+     ],
+     "fov": 40
+    },
+    "to": {
+     "position": [
+      -28.479999999999997,
+      4.585,
+      -36.705
+     ],
+     "target": [
+      -30,
+      4.3,
+      -31.1
+     ],
+     "fov": 40
+    }
+   },
+   "b": {
+    "from": {
+     "position": [
+      -33.6,
+      4,
+      -36
+     ],
+     "target": [
+      -31.6,
+      3.4,
+      -31.1
+     ],
+     "fov": 40
+    },
+    "to": {
+     "position": [
+      -33.5,
+      3.97,
+      -35.755
+     ],
+     "target": [
+      -31.6,
+      3.4,
+      -31.1
+     ],
+     "fov": 40
+    }
+   }
+  }
+ ],
+ "story6": {
+  "drains": [
+   {
+    "actor": "hero",
+    "region": "legs",
+    "t": 6.4
+   },
+   {
+    "actor": "hero",
+    "region": "stripe",
+    "t": 7.9
+   }
+  ],
+  "blooms": [
+   {
+    "crowd": true,
+    "t": 18.4
+   },
+   {
+    "actor": "hero",
+    "region": "all",
+    "colour": null,
+    "t": 20.1
+   }
+  ],
+  "crowd": {
+   "names": [
+    "crowd001",
+    "crowd002",
+    "crowd003",
+    "crowd004",
+    "crowd005",
+    "crowd006",
+    "crowd007",
+    "crowd008",
+    "crowd009",
+    "crowd010",
+    "crowd011",
+    "crowd012",
+    "crowd013",
+    "crowd014",
+    "crowd015",
+    "crowd016",
+    "crowd017",
+    "crowd018",
+    "crowd019",
+    "crowd020",
+    "crowd021",
+    "crowd022",
+    "crowd023",
+    "crowd024",
+    "crowd025",
+    "crowd026",
+    "crowd027",
+    "crowd028",
+    "crowd029",
+    "crowd030",
+    "crowd031",
+    "crowd032",
+    "crowd033",
+    "crowd034",
+    "crowd035",
+    "crowd036",
+    "crowd037",
+    "crowd038",
+    "crowd039",
+    "crowd040"
+   ],
+   "seed": 7,
+   "startAt": null,
+   "start": [
+    0,
+    8
+   ],
+   "area": {
+    "x0": -36,
+    "x1": 36,
+    "z0": -50,
+    "z1": 56
+   },
+   "steps": [
+    {
+     "t": 0.15,
+     "behaviour": "wander"
+    },
+    {
+     "t": 16,
+     "behaviour": "run",
+     "anchor": "towerBase"
+    },
+    {
+     "t": 17.1,
+     "behaviour": "pile",
+     "anchor": "cushion"
+    },
+    {
+     "t": 21.4,
+     "behaviour": "flop"
+    }
+   ]
+  },
+  "hand": [
+   {
+    "t": 7.9,
+    "act": "enter"
+   },
+   {
+    "t": 9.1,
+    "act": "grab",
+    "actor": "bitsy"
+   },
+   {
+    "t": 10.1,
+    "act": "carry",
+    "actor": "bitsy",
+    "anchor": "towerTop"
+   },
+   {
+    "t": 11.8,
+    "act": "release",
+    "actor": "bitsy"
+   },
+   {
+    "t": 13,
+    "act": "exit"
+   }
+  ],
+  "tumbles": [
+   {
+    "actor": "hero",
+    "t": 4.3,
+    "anchor": "pool"
+   }
+  ],
+  "airCatch": [
+   {
+    "t": 14.9,
+    "hero": "hero",
+    "partner": "bitsy"
+   }
+  ],
+  "splashes": [
+   {
+    "t": 5.5,
+    "anchor": "pool"
+   }
+  ],
+  "tags": [
+   {
+    "actor": "bitsy",
+    "text": "Bitsy",
+    "t": 2.95
+   }
+  ],
+  "spawns": [
+   {
+    "actor": "bitsy",
+    "t": 2
+   }
+  ]
+ },
+ "lod": {
+  "near": 18,
+  "max": 24
+ }
+}

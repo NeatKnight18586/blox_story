@@ -6,14 +6,16 @@
 import {readFileSync, writeFileSync, existsSync} from 'node:fs';
 import {MOVES, fitDistance, fitSpan} from '../../engine/camera.js';
 import {MOOD_NAMES, MOODS} from '../../engine/mood6.js';
-import {VERB_NAMES, CYCLES} from '../../engine/acting6.js';
+import {VERB_NAMES, CYCLES, pickVerb, partnerOffset} from '../../engine/acting6.js';
 import {faceError6} from '../../avatar-style/faces6.js';
 import {cueWords} from '../../engine/plancheck6.js';
 import {loadLibrary} from './lib6.js';
 import {LOOKS} from '../../engine/look.js';
+import * as S6 from '../../engine/story6.js';
 
-export const SIZES6 = ['wide', 'medium', 'close', 'insert', 'ecu'], EFFECTS6 = ['impact', 'freeze', 'crash', 'none'], SLOTS = ['LEAD', 'SECOND', 'LITTLE', 'RIVAL', 'ELDER'];
-const FACE_ALIAS = {awe_small: 'o_small'};   // Brief vocabulary → faces6 name (the small round-mouth wonder face)
+export const SIZES6 = ['wide', 'medium', 'close', 'insert', 'ecu'], EFFECTS6 = ['impact', 'freeze', 'crash', 'none'], SLOTS = ['LEAD', 'SECOND', 'LITTLE', 'RIVAL', 'ELDER', 'DUMMY'];
+const FACE_ALIAS = {awe_small: 'o_small'};
+const SLOT_SCALE = {LITTLE: .62, LEAD: .82, SECOND: .82, RIVAL: .95};   // E2: partner scale picks the carry (cast/troupe6.json)   // Brief vocabulary → faces6 name (the small round-mouth wonder face)
 const PROP_H = {streetLamp: 5.2, crate: 1.2, porch: 3.5, shack: 5, deadTree: 6, birdhouse: 1.5, powerLine: 9};   // library prop heights (insert camera fit)
 export const COLS = ['#', 'cue', 'vo', 'mood', 'size', 'move', 'subject', 'verb', 'expression', 'effect', 'notes'];
 const norm = w => String(w).toLowerCase().replace(/[^a-z0-9']/g, '');
@@ -26,7 +28,8 @@ export function parseBrief(md) {
   const cast = (sec.CAST ?? []).filter(l => /^-\s*[A-Za-z]/.test(l)).map(l => {
     const m = /^-\s*([A-Za-z0-9_]+)(.*)$/.exec(l), slot = /(?:→|->)\s*([A-Z]+)/.exec(m[2])?.[1];
     const xz = /\bat\s+(-?\d+(?:\.\d+)?)[ ,]+(-?\d+(?:\.\d+)?)/.exec(m[2]), yw = /\byaw\s+(-?\d+(?:\.\d+)?)/.exec(m[2]);   // optional start mark: `at x z`, `yaw deg`
-    return {role: m[1], slot: m[1].toUpperCase() === 'HERO' ? 'HERO' : slot ?? null, line: l.trim(), at: xz ? [+xz[1], +xz[2]] : null, yaw: yw ? +yw[1] : 0};
+    const cos = /\bcostume\s+([A-Z_]+)/.exec(m[2])?.[1] ?? null;   // E2: `costume BITSY` (cast/troupe6.json costumes)
+    return {role: m[1], slot: m[1].toUpperCase() === 'HERO' ? 'HERO' : slot ?? null, line: l.trim(), at: xz ? [+xz[1], +xz[2]] : null, yaw: yw ? +yw[1] : 0, costume: cos};
   });
   const rows = [];
   for (const l of sec.BEATS ?? []) {
@@ -85,11 +88,12 @@ export function briefToSpec(brief, cues, lib, {slug, root = '.'} = {}) {
     const key = c.role.toLowerCase(); castKeys[key] = key;
     if (!c.slot || (c.slot !== 'HERO' && !SLOTS.includes(c.slot))) E(`CAST ${c.role}`, `unknown troupe slot "${c.slot ?? ''}" (${SLOTS.join(' | ')})`);
     const x = c.at ? c.at[0] : (i - (brief.cast.length - 1) / 2) * 4, z = c.at ? c.at[1] : c.slot === 'HERO' ? 4 : 0; pos[key] = [x, 0, z]; yawOf[key] = c.yaw;
-    cast[key] = {style: 'v5', faceStyle: 'v6', troupe: c.slot, at: loc0 ? (lib.locations[loc0].anchors[0] ?? loc0) : undefined, offset: [x, 0, z], yaw: c.yaw, keys: [[0, 'idle']]};
+    cast[key] = {style: 'v5', faceStyle: 'v6', troupe: c.slot, at: loc0 ? (lib.locations[loc0].anchors[0] ?? loc0) : undefined, offset: [x, 0, z], yaw: c.yaw, keys: [[0, 'idle']], ...(c.costume ? {costume: c.costume} : {})};
   });
   if (!cast.hero) E('CAST', 'no HERO line');
   const cur = Object.fromEntries(Object.entries(pos).map(([k, v]) => [k, [...v]])), yawNow = {...yawOf};   // where every actor stands after the rows so far (cameras frame the actor where it is)
   const shots = [], emphasis6 = [], effects = []; let lastAt = -1;
+  const st6 = {drains: [], blooms: [], crowd: null, hand: [], tumbles: [], airCatch: [], splashes: [], tags: [], spawns: []}, anchorsOf = new Set(lib.locations[loc0]?.anchors ?? []);   // E2 story markers
   rows.forEach((r, i) => {
     const R = `row ${r['#']}`, bad = (col, v, ok) => E(`${R} (${col})`, `unknown ${col} "${v}"${ok ? ` (${ok})` : ''}`);
     const m = /^(\d+(?:[.,]\d+)?)\s*[–—-]\s*(\d+(?:[.,]\d+)?)$/.exec(r.cue);
@@ -131,8 +135,10 @@ export function briefToSpec(brief, cues, lib, {slug, root = '.'} = {}) {
     for (const e of ef.split('+').map(x => x.trim())) if (e === 'impact') sh.impact = tLocal; else if (e === 'freeze') sh.freeze = [tLocal, 4]; else if (e === 'crash') { sh.impact = tLocal; sh.zoomAt = Math.max(0, +(tLocal - .17).toFixed(3)); /* the 5-frame zoom lands on the impact word */ if (r.move !== 'crashZoom') E(`${R} (effect)`, 'crash needs move crashZoom'); }
     // notes markers
     const notes = [], places = []; let cyc = null, propScale = 1, propAt = [0, 0, 0], standDeg = null, aimY = null, aimX = 0, fitF = null, pushK = .93, pushNote = null, camY = null, fovNote = null, holdS = null, freezeF = null, drift = null, tiltDeg = null;
+    const s6m = []; let camNote = null, camB = null;
     for (const tok of (r.notes || '').split(/[;,]/).map(x => x.trim()).filter(Boolean)) {
-      let g;
+      let g; const mk = S6.markerOf(tok); if (mk) { s6m.push(mk); continue; }   // E2 story markers (engine/story6.js)
+      if ((g = /^cam(b?)\s*:\s*(-?[\d.]+)\s+(-?[\d.]+)\s+(-?[\d.]+)\s+at\s+(-?[\d.]+)\s+(-?[\d.]+)\s+(-?[\d.]+)$/.exec(tok))) { const c = {position: [+g[2], +g[3], +g[4]], target: [+g[5], +g[6], +g[7]]}; if (g[1]) camB = c; else camNote = c; continue; }   // E2: explicit world camera (camb: the split screen's second half)
       if (tok === 'twist') sh.twist = true; else if (tok === 'payoff') sh.payoffMark = true; else if (tok === 'cross') sh.cross = true; else if (tok === 'blur') sh.blur = true;
       else if ((g = /^gag\s+(\d+)$/.exec(tok))) sh.gag = +g[1]; else if (/^gag\b/.test(tok)) E(`${R} (notes)`, `"${tok}" must be "gag 1", "gag 2" or "gag 3"`);
       else if ((g = /^loopOpen\s*:\s*(\S.*)$/.exec(tok))) sh.loopOpen = g[1]; else if ((g = /^loopClose\s*:\s*(\S.*)$/.exec(tok))) sh.loopClose = g[1];
@@ -173,6 +179,30 @@ export function briefToSpec(brief, cues, lib, {slug, root = '.'} = {}) {
       cur[actor] = [cur[actor][0] + d[0] * cy.v * (u1 - at), 0, cur[actor][2] + d[1] * cy.v * (u1 - at)]; yawNow[actor] = yaw; putMark(actor, u1, {offset: [...cur[actor]], yaw});
       actions.push({actor, cycle: cyc.name, at: 0, until: +u1.toFixed(3)});
     }
+    // E2 story markers → spec.story6 (absolute seconds). `@ word` = that word's onset in the row; no word = the row start + 0.15 s + 0.55 s per earlier unworded marker.
+    let unworded = 0;
+    for (const {key, value} of s6m) {
+      const WORDED = ['drain', 'bloom', 'splash', 'spawn'], [body, wd] = WORDED.includes(key) ? [value, null] : (i2 => i2 < 0 ? [value, null] : [value.slice(0, i2).trim(), value.slice(i2 + 1).trim()])(value.lastIndexOf('@'));
+      let P; try { P = S6.MARKERS[key](body, {hero: 'hero'}); } catch (e) { E(`${R} (notes)`, e.message); continue; }
+      const word = P.word ?? wd, f = word ? find(word, 'notes') : null; if (word && !f) continue;
+      const t = +(f ? f.t : at + .15 + .55 * unworded++).toFixed(3), who = n => { if (!castKeys[n]) { E(`${R} (notes)`, `${key}: "${n}" is not a CAST role`); return false; } return true; }, anc = n => { if (n && !anchorsOf.has(n)) { E(`${R} (notes)`, `${key}: anchor "${n}" is not in ${loc0} (${[...anchorsOf].join(', ')})`); return false; } return true; };
+      if (key === 'drain' && who(P.actor)) st6.drains.push({actor: P.actor, region: P.region, t});
+      else if (key === 'bloom') { if (P.crowd) st6.blooms.push({crowd: true, t}); else if (who(P.actor)) st6.blooms.push({actor: P.actor, region: P.region, colour: P.colour, t}); }
+      else if (key === 'crowd' && anc(P.anchor)) {
+        if (!st6.crowd) { const names = Array.from({length: P.n}, (_, k) => 'crowd' + String(k + 1).padStart(3, '0'));
+          for (const n of names) cast[n] = {style: 'v5', faceStyle: 'v6', troupe: 'DUMMY', costume: 'CROWD', lod: true, at: cast.hero?.at, offset: [0, 0, 0], yaw: 0, keys: [[0, 'idle']]};
+          st6.crowd = {names, seed: 7, startAt: P.behaviour !== 'run' && P.behaviour !== 'pile' ? (P.anchor ?? null) : null, start: [org[0], org[2]], area: {x0: -36, x1: 36, z0: -50, z1: 56}, steps: []}; }
+        else if (P.n > st6.crowd.names.length) E(`${R} (notes)`, `crowd: ${P.n} dummies, but the crowd was created with ${st6.crowd.names.length}`);
+        st6.crowd.steps.push({t, behaviour: P.behaviour, ...(P.behaviour === 'run' || P.behaviour === 'pile' ? {anchor: P.anchor} : {})}); }
+      else if (key === 'hand' && (!P.actor || who(P.actor)) && anc(P.anchor)) st6.hand.push({t, act: P.act, ...(P.actor ? {actor: P.actor} : {}), ...(P.anchor ? {anchor: P.anchor} : {})});
+      else if (key === 'tumble' && who(P.actor) && anc(P.anchor)) st6.tumbles.push({actor: P.actor, t, ...(P.anchor ? {anchor: P.anchor} : {})});
+      else if (key === 'airCatch' && who(P.hero) && who(P.partner)) { st6.airCatch.push({t, hero: P.hero, partner: P.partner}); actions.push({actor: P.hero, verb: 'carry', target: P.partner, at: +(t - at).toFixed(3)});
+        const kp = SLOT_SCALE[cast[P.partner].troupe] ?? 1, vn = pickVerb({verb: 'carry', target: P.partner, partnerScale: kp}), off = partnerOffset(vn, {}), ly = (yawNow[P.hero] ?? 0) * Math.PI / 180, hp = cur[P.hero];   // her ground mark = the carry's meeting mark (plan partnerDistance)
+        if (off) { const mk2 = [hp[0] + off.x * Math.cos(ly) + off.z * Math.sin(ly), 0, hp[2] - off.x * Math.sin(ly) + off.z * Math.cos(ly)]; cur[P.partner] = mk2; yawNow[P.partner] = (yawNow[P.hero] ?? 0) + off.yaw; putMark(P.partner, Math.max(at, t - 1.0), {offset: mk2, yaw: yawNow[P.partner]}); } }   // the partner snaps into the P3b carry on the catch frame
+      else if (key === 'splash' && anc(P.anchor)) st6.splashes.push({t, anchor: P.anchor});
+      else if (key === 'tag' && who(P.actor)) st6.tags.push({actor: P.actor, text: P.text, t});
+      else if (key === 'spawn' && who(P.actor)) st6.spawns.push({actor: P.actor, t});
+    }
     if (propSub) { const set7 = ['streetLamp', 'crate', 'porch', 'shack', 'deadTree', 'birdhouse', 'powerLine', 'grassBlade', 'rockPeak', 'rockMesa'].includes(propSub);
       let pr = props7.find(p => p.id === propSub); if (!pr) props7.push(pr = {id: propSub, prop: propSub, ...(set7 ? {set: 'props7'} : {}), ...(propSub === 'streetLamp' ? {p: {color: '#ffd9a0', light: false}} : {}), scale: propScale, pos: [[0, [propAt[0] + org[0], 0, propAt[2] + org[2]]]], visible: [[0, false]]});
       if (drift) pr.pos = [[0, pr.pos[0][1]], [+at.toFixed(3), pr.pos[0][1]], [+c1.toFixed(3), [pr.pos[0][1][0] + drift[0], 0, pr.pos[0][1][2] + drift[1]], 'ramp']];   // `drift: dx dz` slides the prop (and its shadow) over its insert
@@ -184,6 +214,13 @@ export function briefToSpec(brief, cues, lib, {slug, root = '.'} = {}) {
     if (!errors.some(e => e.startsWith(R)) && !propSub) Object.assign(sh, camera(sh, {size, move: r.move, mood: r.mood, fov, pos: Object.fromEntries(Object.entries(cur).map(([k, v]) => [k, [v[0] + org[0], v[1] + org[1], v[2] + org[2]]])), subjects: subs.filter(s => cur[s]), stand: standDeg ?? (i % 2 ? 18 : -18), ecu, aim: aimY, aimx: aimX, fitF, pushTo: pushNote ?? undefined, camY}));
     else if (propSub && !errors.some(e => e.startsWith(R))) { const [px, , pz] = [propAt[0] + org[0], 0, propAt[2] + org[2]], k = propScale, fv = Math.min(Math.max(fov, 28), 40), H = (PROP_H[propSub] ?? 3) * k, d = H / ((fitF ?? .47) * 2 * Math.tan(fv * Math.PI / 360));   // insert on a library prop: low lens, the whole prop 47 % of the frame height, a slow push
       const cy = camY ?? .6, f = {position: [px + .08 * d, cy, pz + d], target: tiltDeg === null ? [px, H / 2, pz] : [px + .08 * d * .9, cy + Math.tan(tiltDeg * Math.PI / 180) * d, pz], fov: fv}; Object.assign(sh, {from: f, to: {...f, position: [px + .08 * d * pushK, cy, pz + d * pushK]}}); }
+    if (camNote && !errors.some(e => e.startsWith(R))) {   // E2 `cam:`: the camera at world coordinates (fov from the mood / `fov:`); moves keep their kind
+      const fv = sh.from?.fov ?? fov, f = {...camNote, fov: fv}; for (const k of ['follow', 'heading', 'distance', 'height', 'actor', 'dir', 'path', 'targets', 'ground']) delete sh[k];
+      const toward = (k2) => ({...f, position: f.position.map((v, j) => v + (f.target[j] - v) * k2)});
+      sh.from = f; sh.to = r.move === 'push' || r.move === 'lowAuthority' ? toward(.06) : r.move === 'pull' ? toward(-.06) : r.move === 'crane' ? {...f, position: [f.position[0], f.position[1] + 2.5, f.position[2]]} : r.move === 'orbit' ? toward(.03) : r.move === 'whip' ? {...f, target: [f.target[0] + .6, f.target[1], f.target[2]]} : f;
+      if (r.move === 'orbit') sh.degrees = 4;
+      if (r.move === 'splitScreen') { if (!camB) E(`${R} (notes)`, 'splitScreen needs cam: and camb:'); else { const b = {...camB, fov: fv}; sh.a = {from: f, to: toward(.05)}; sh.b = {from: b, to: {...b, position: b.position.map((v, j) => v + (b.target[j] - v) * .05)}}; } }
+    } else if (r.move === 'splitScreen') E(`${R} (notes)`, 'splitScreen needs cam: and camb: (world cameras for the two halves)');
     for (const e of emphasis6) if (e.row === r['#']) e.shot = sh.id;
     shots.push(sh);
   });
@@ -192,6 +229,7 @@ export function briefToSpec(brief, cues, lib, {slug, root = '.'} = {}) {
     note: `Written by scripts/v2/brief2spec.js from stories/${slug}/BRIEF.md (${shots.length} shots). Edit the Brief, not this file.`,
     brief: {title: meta.title, ruleLine: brief.premise['rule line'], palette: world.palette, colourScript: world['colour script'], setting: world.setting, props, payoff: brief.payoff},
     cast, ...(props7.length ? {props: props7} : {}), emphasis6: emphasis6.map(({row, ...e}) => e), effects, shots};
+  if (Object.values(st6).some(v => Array.isArray(v) ? v.length : v)) { spec.story6 = Object.fromEntries(Object.entries(st6).filter(([, v]) => Array.isArray(v) ? v.length : v)); if (st6.crowd) spec.lod = {near: 18, max: 24}; }   // E2 (opt-in): only specs that use a marker get story6
   return {spec, errors, missing};
 }
 

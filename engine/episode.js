@@ -183,7 +183,7 @@ for (const [name, c] of Object.entries(spec.cast ?? {})) {
 const LODS = spec.lod ? Object.entries(cast).filter(([, x]) => x.lod) : [];
 function applyLod(camPos, t) {
   const dists = LODS.map(([name]) => { const m = markPos[name]; return m ? Math.hypot(m[0] - camPos[0], m[1] + 2.6 - camPos[1], m[2] - camPos[2]) : Infinity; });
-  const pick = lodPick(dists, spec.lod.near ?? 18, spec.lod.max ?? 24);
+  const pick = lodPick(dists, S6?.lodNear(t) ?? spec.lod.near ?? 18, spec.lod.max ?? 24);   // E2: a crowd-bloom shot swaps the nearest dummies to full detail
   LODS.forEach(([name, x], i) => { const want = pick.has(i) ? x.lod.near : x.lod.far, other = want === x.lod.near ? x.lod.far : x.lod.near;
     if (x.a !== want) { x.a = want; poseOne(name, x, t, {}); }
     other.root.visible = false; want.root.visible = x.c.visible ? valueAt(x.c.visible, t, true) : true; });
@@ -373,6 +373,10 @@ function actingOrigin(name, t, at, yaw) {
   return [[at[0] + (mark[0] - at[0]) * e, at[1], at[2] + (mark[1] - at[2]) * e], yaw + Math.atan2(Math.sin(myaw - yaw), Math.cos(myaw - yaw)) * e];
 }
 const markPos = {};
+// E2 story mechanics (opt-in spec.story6): drains, blooms, crowd, giant hand, tumble, air catch, splash, tags, spawn (engine/story6rt.js)
+const S6 = spec.story6 ? await (await import('./story6rt.js')).createStory6({spec, scene, cast, FPS, markAt, markOf, markPos, driveActor, shots, groundY: (x, z) => world?.groundY?.(x, z) ?? 0,
+  anchorPos: n => { const an = anchors[n]; if (!an) throw Error('story6: unknown anchor ' + n); return [...an.position]; },
+  cameraAt: tt => { const sh = shots.findLast(s => Math.round(tt * FPS) >= s.start) ?? shots[0]; return sampleCamera({...sh, fps: FPS}, Math.max(0, tt - sh.start / FPS), markPos); }}) : null;
 // Where an actor's mark is at time t (pure: no posing). poseCast and A4 trails share it.
 function markAt(c, t) {
   const m = markOf(c, t), o = m.at ? resolve({anchor: m.at, offset: m.offset ?? [0, 0, 0]}) : (m.origin ?? [0, 0, 0]), tr = m.travel, d = tr ? tr.speed * Math.max(0, t - m.t0 - (tr.delay ?? 0)) : 0;
@@ -391,7 +395,9 @@ function poseCast(t) {
   for (const [name, x] of Object.entries(cast)) poseOne(name, x, t, out);
   return out;
 }
-function poseOne(name, {a, c, v2, dragon}, t, out) {
+function poseOne(name, x, t, out) {
+  if (S6?.owns(name)) { S6.drive(name, x, t, out); return; }   // E2: the story crowd is driven by engine/story6rt.js
+  const {a, c, v2, dragon} = x;
   {
     const m = markOf(c, t), yaw = (m.yaw ?? 0) * Math.PI / 180;
     if (v2 || dragon) {
@@ -415,6 +421,7 @@ function poseOne(name, {a, c, v2, dragon}, t, out) {
     // follow cameras ride the actor's mark (path), not the posed root: strain shakes and walk bobs never jolt the camera
     out[name] = (v2 || dragon) ? markPos[name] : a.root.position.toArray();
   }
+  if (S6 && v2) S6.post(name, x, t, out);   // E2: tumble / held / air / spawn / tag overrides on top of the drive
 }
 
 // ---- Effects (§5.3): targets are cast names ("knight1", "knight1.tool") or world object names; points
@@ -560,7 +567,7 @@ function drawFrame(shot, mf, off, width, height, nudge) {
   if (LODS.length) applyLod(c.position, t);
   updateCascades(t);
   const tw = M6 && shot.still ? shot.start / FPS : t;   // P5b `still` shot (moods only): the world's own movers, crowds and clouds hold their first-frame state
-  world?.update(tw); applyWorldState(shot, t); updateExtras(tw, {camPos: c.position, size: shot.size, fill: shot.fill}); aimHeroSpots(shot, c.position); aimRim(shot, c.position); applyLift(shot); liftSubject(shot); glowProp(shot);
+  world?.update(tw); applyWorldState(shot, t); S6?.frame(t); updateExtras(tw, {camPos: c.position, size: shot.size, fill: shot.fill}); aimHeroSpots(shot, c.position); aimRim(shot, c.position); applyLift(shot); liftSubject(shot); glowProp(shot);
   const fx = effects.apply(t, camera);   // poses effect targets; returns the shake offset and any timeOfDay blend
   const pos = c.position.map((v, i) => v + fx.camOffset[i]), tgt = c.target.map((v, i) => v + fx.camOffset[i] * .6);
   camera.fov = c.fov; camera.aspect = width / height; camera.position.fromArray(pos);
@@ -855,4 +862,4 @@ export function classHaze(n, {w = 390, h = 693, near = 15, far = 60, match = /^g
   const rn = rms(acc.near), rf = rms(acc.far); return {frame: n, nearRms: rn, farRms: rf, nearPx: acc.near.length, farPx: acc.far.length, ratio: rn && rf !== null ? rf / rn : null};
 }
 const hugCam = p => { const f = Math.round(p.key * FPS), sh = shots.findLast(s => f >= s.start), t = f / FPS, actors = poseCast(t), c = sampleCamera({...sh, fps: FPS}, (f - sh.start) / FPS, actors); const lp = markAt(cast[p.lead].c, t); return {camPos: [c.position[0], c.position[2]], leadPos: [lp[0], lp[2]], partnerPos: p.mark}; };
-window.__episode = {actingPlan: () => actPlans.map(p => /^hug/.test(p.verb) ? {...p, cam: hugCam(p)} : p), groundFix: () => GROUNDFIX, sepMeasure, ceilingLuma, classHaze, satMeasure, depthLuma, lumaProbe, debug: {scene, renderer, camera, look, pool: U5B?.poolOf ?? null}, bake: BAKE, matcapBytes: MATCAP ? (n => Array.from(look.matcapBytes(n ?? spec.look4))) : null, breakdown, measureFrame, seasonMeasure, actorMask, readMeasure, gateMeasure, placesAt, lumaAt, inspectFrame, shotSpeed, END: FRAMES / FPS, anchors: Object.fromEntries(Object.entries(anchors).filter(([, a]) => a.camera).map(([k]) => [k, true])), renderAnchor, renderAnchorNudged, renderCamera, FPS, FRAMES, shots: shots.map(({id, start, frames, size, move, loc, subject, see, openHit, at, why, captionY, fit, spectacle, look: lk}) => ({id, start, frames, size, move, loc, subject, see, openHit: !!openHit, at, why, captionY, fit, spectacle: !!spectacle, look: lk})), renderFrame};
+window.__episode = {story6: S6, actingPlan: () => actPlans.map(p => /^hug/.test(p.verb) ? {...p, cam: hugCam(p)} : p), groundFix: () => GROUNDFIX, sepMeasure, ceilingLuma, classHaze, satMeasure, depthLuma, lumaProbe, debug: {scene, renderer, camera, look, pool: U5B?.poolOf ?? null}, bake: BAKE, matcapBytes: MATCAP ? (n => Array.from(look.matcapBytes(n ?? spec.look4))) : null, breakdown, measureFrame, seasonMeasure, actorMask, readMeasure, gateMeasure, placesAt, lumaAt, inspectFrame, shotSpeed, END: FRAMES / FPS, anchors: Object.fromEntries(Object.entries(anchors).filter(([, a]) => a.camera).map(([k]) => [k, true])), renderAnchor, renderAnchorNudged, renderCamera, FPS, FRAMES, shots: shots.map(({id, start, frames, size, move, loc, subject, see, openHit, at, why, captionY, fit, spectacle, look: lk}) => ({id, start, frames, size, move, loc, subject, see, openHit: !!openHit, at, why, captionY, fit, spectacle: !!spectacle, look: lk})), renderFrame};

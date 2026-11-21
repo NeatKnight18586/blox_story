@@ -53,8 +53,8 @@ test('fan angle and the prop registry', () => {
   const lib = JSON.parse(readFileSync('parts/library6.json', 'utf8'));
   for (const n of PROP6_NAMES) assert.ok(lib.props.includes(n), n);
 });
-test('testPark: nine sub-anchors on walkable ground, registered in library6', () => {
-  const A = parkAnchors(), names = ['plaza', 'fan', 'pool', 'coaster', 'ring', 'crates', 'spawnPad', 'towerBase', 'towerTop'];
+test('testPark: ten sub-anchors on walkable ground, registered in library6', () => {
+  const A = parkAnchors(), names = ['plaza', 'fan', 'pool', 'coaster', 'ring', 'crates', 'spawnPad', 'towerBase', 'towerTop', 'cushion'];
   assert.deepEqual(Object.keys(A).sort(), [...names].sort());
   for (const [n, a] of Object.entries(A)) { const [x, y, z] = a.position; assert.ok(x >= PLAZA.x0 && x <= PLAZA.x1 && z >= PLAZA.z0 && z <= PLAZA.z1, n);
     if (n !== 'towerTop') assert.ok(Math.abs(y - groundY(x, z)) < 1e-9, n); }

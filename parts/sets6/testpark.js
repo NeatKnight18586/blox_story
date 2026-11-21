@@ -47,6 +47,7 @@ export function parkAnchors() {
   put('plaza', [0, 0, 8]); put('spawnPad', place('spawnPad')); put('fan', place('fan', [0, 0, 6]), 90); put('pool', place('pool'));
   put('coaster', place('coaster', [42, 0, 1.5])); put('ring', place('ring')); put('crates', place('crates', [0, 0, 3]));
   put('towerBase', place('tower', [4.4, 0, -4.6])); put('towerTop', place('tower', [0, TOWER_H, 0]));
+  put('cushion', [-12, 0, -20]);   // E2: the pile / landing spot east of the tower (a 13-stud mound clears the tower, stairs and ring)
   A.ring.position[1] = LAYER.ring; A.towerTop.position[1] = TOWER_H + LAYER.plaza;
   return A;
 }

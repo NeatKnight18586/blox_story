@@ -1,0 +1,131 @@
+{
+ "slug": "_fixture_e2",
+ "fps": 30,
+ "format": 6,
+ "body": "v6",
+ "faceStyle": "v6",
+ "labels": false,
+ "world": "parts/sets6/testpark.js",
+ "look": "day",
+ "hero": "hero",
+ "note": "E2 drainbloom sheet: frames at the end of each drain (+0.45 s), then the full bloom.",
+ "cast": {
+  "hero": {
+   "style": "v5",
+   "troupe": "HERO",
+   "at": "plaza",
+   "offset": [
+    0,
+    0,
+    20
+   ],
+   "yaw": 0,
+   "keys": [
+    [
+     0,
+     "idle"
+    ]
+   ],
+   "faces": [
+    [
+     0,
+     "neutral"
+    ]
+   ]
+  },
+  "dummyA": {
+   "style": "v5",
+   "troupe": "DUMMY",
+   "at": "plaza",
+   "offset": [
+    4.6,
+    0,
+    20
+   ],
+   "yaw": 0,
+   "keys": [
+    [
+     0,
+     "idle"
+    ]
+   ],
+   "faces": [
+    [
+     0,
+     "neutral"
+    ]
+   ]
+  }
+ },
+ "story6": {
+  "drains": [
+   {
+    "actor": "hero",
+    "region": "legs",
+    "t": 0.3
+   },
+   {
+    "actor": "hero",
+    "region": "shoes",
+    "t": 0.9
+   },
+   {
+    "actor": "hero",
+    "region": "stripe",
+    "t": 1.5
+   },
+   {
+    "actor": "hero",
+    "region": "jacket",
+    "t": 2.1
+   },
+   {
+    "actor": "hero",
+    "region": "hands",
+    "t": 2.7
+   }
+  ],
+  "blooms": [
+   {
+    "actor": "hero",
+    "region": "all",
+    "t": 3.3
+   }
+  ]
+ },
+ "shots": [
+  {
+   "id": "DB",
+   "size": "medium",
+   "frames": 129,
+   "move": "static-drift",
+   "drift": 0,
+   "from": {
+    "position": [
+     2.3,
+     3.2,
+     46
+    ],
+    "target": [
+     2.3,
+     2.6,
+     28
+    ],
+    "fov": 46
+   },
+   "shadowRadius": 12,
+   "key": {
+    "el": 35,
+    "offset": 20
+   }
+  }
+ ],
+ "sheetTimes": [
+  0.75,
+  1.35,
+  1.95,
+  2.55,
+  3.15,
+  3.9
+ ]
+}

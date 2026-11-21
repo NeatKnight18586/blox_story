@@ -3,6 +3,7 @@
 // shots: layoutShots output (id, start, frames, mood, size, move, see, subject, actions, gag, twist, cross, loopOpen, loopClose, pair…).
 // heads[i]: {name: {x, inFront}} at the shot's middle frame (inspectFrame), only for the 180° check; absent = skipped.
 import {MOODS, MOOD_NAMES, lenVerdict, keyEV, sizeOk} from './mood6.js';
+import {story6Times} from './story6.js';
 
 export const WINDOW = 1.5, WINDOW_LONG = 3.0, LONG_MOODS = ['emotion', 'awe'], EMPH_TOL = 3, BREATH = 1.5, LOOP_GAP = 20, BIN = 10;
 export const PACING_TARGET = {opening: [5, 7], middle: [4, 6], emotion: [2, 4], climax: [6, 8], payoff: [2, 3]};
@@ -35,6 +36,7 @@ export function noveltyEvents({shots, cues, spec = {}, fps}) {
     for (const [t] of (c.keys ?? []).slice(1)) ev.push({t, type: 'verb', shot: shots.findLast(s => t * fps >= s.start)?.id});
   }
   for (const e of spec.effects ?? []) ev.push({t: e.at, type: 'effect', shot: shots.findLast(s => e.at * fps >= s.start)?.id});
+  for (const t of story6Times(spec)) ev.push({t, type: 'effect', shot: shots.findLast(s => t * fps >= s.start)?.id});   // E2 (opt-in spec.story6): drains, blooms, hand, tumbles, … are on-screen events
   return ev.sort((a, b) => a.t - b.t);
 }
 const res = (name, items, fail = true) => ({name, level: !items.length ? 'PASS' : fail ? 'FAIL' : 'WARN', items});

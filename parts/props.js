@@ -610,11 +610,11 @@ function inkShell(w) {   // back faces pushed out along the normals: a soft outl
 function withInk(m, w = .13) { const sh = new T.Mesh(m.geometry, inkShell(w)); sh.name = m.name + 'Ink'; sh.castShadow = false; m.add(sh); return m; }
 export function giantHand({pose = 'open', grip = 1, ink = .13} = {}) {
   const g = new T.Group(); g.name = 'giantHand'; const glove = pm('#FFFFFF', {rough: .7}), stitch = pm(INK, {rough: .8}), P = HAND.palm;
-  const cuff = mesh(new T.CylinderGeometry(3.05, 3.05, HAND.cuff, 28), pm('#F4F4F6', {rough: .75}), [0, 0, -HAND.cuff / 2 + .2], 'cuffBand'); cuff.rotation.x = Math.PI / 2; cuff.scale.set(1, 1, .62); g.add(withInk(cuff, ink));
-  const palm = mesh(new RoundedBoxGeometry(P.w, P.h, P.d, 4, P.r), glove, [0, 0, P.d / 2 - .1], 'palm'); g.add(withInk(palm, ink));
+  const cuff = mesh(new T.CylinderGeometry(3.05, 3.05, HAND.cuff, 20), pm('#F4F4F6', {rough: .75}), [0, 0, -HAND.cuff / 2 + .2], 'cuffBand'); cuff.rotation.x = Math.PI / 2; cuff.scale.set(1, 1, .62); g.add(withInk(cuff, ink));
+  const palm = mesh(new RoundedBoxGeometry(P.w, P.h, P.d, 3, P.r), glove, [0, 0, P.d / 2 - .1], 'palm'); g.add(withInk(palm, ink));
   for (const x of [-1.3, 0, 1.3]) g.add(pbx(.16, .06, 3.2, stitch, [x, P.h / 2 + .02, 3.1], 'stitch', false));   // three stitch lines on the back
   const segs = {}; const rig0 = handRig(pose, grip);
-  for (const [d, list] of Object.entries(rig0)) segs[d] = list.map((sgm, i) => { const L = v3.len(v3.sub(sgm.to, sgm.from)), m = mesh(new T.CapsuleGeometry(sgm.r, L, 6, 14), glove, [0, 0, 0], d + (i ? 'B' : 'A')); g.add(withInk(m, ink)); return m; });
+  for (const [d, list] of Object.entries(rig0)) segs[d] = list.map((sgm, i) => { const L = v3.len(v3.sub(sgm.to, sgm.from)), m = mesh(new T.CapsuleGeometry(sgm.r, L, 4, 10), glove, [0, 0, 0], d + (i ? 'B' : 'A')); g.add(withInk(m, ink)); return m; });
   const Y = new T.Vector3(0, 1, 0), q = new T.Vector3();
   const set = ({pose: p = 'open', grip: k = 1} = {}) => { const R = handRig(p, k);
     for (const [d, list] of Object.entries(R)) list.forEach((sgm, i) => { const m = segs[d][i]; m.position.set(...v3.mul(v3.add(sgm.from, sgm.to), .5)); m.quaternion.setFromUnitVectors(Y, q.set(...v3.norm(v3.sub(sgm.to, sgm.from)))); });
