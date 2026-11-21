@@ -168,20 +168,20 @@
   {
    "view": "S07:first",
    "frame": 258,
-   "pct": 0.002,
-   "raw": 0.013
+   "pct": 0.006,
+   "raw": 0.019
   },
   {
    "view": "S07:mid",
    "frame": 280,
-   "pct": 0.003,
-   "raw": 0.007
+   "pct": 0.022,
+   "raw": 0.033
   },
   {
    "view": "S07:last",
    "frame": 301,
-   "pct": 0.003,
-   "raw": 0.012
+   "pct": 0.014,
+   "raw": 0.024
   },
   {
    "view": "S08:first",
