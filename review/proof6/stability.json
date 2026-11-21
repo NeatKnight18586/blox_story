@@ -186,20 +186,20 @@
   {
    "view": "S08:first",
    "frame": 302,
-   "pct": 0.009,
-   "raw": 0.163
+   "pct": 0.035,
+   "raw": 0.407
   },
   {
    "view": "S08:mid",
    "frame": 335,
-   "pct": 0.01,
-   "raw": 0.169
+   "pct": 0.044,
+   "raw": 0.4
   },
   {
    "view": "S08:last",
    "frame": 368,
-   "pct": 0.008,
-   "raw": 0.147
+   "pct": 0.034,
+   "raw": 0.328
   },
   {
    "view": "S09:first",
