@@ -56,3 +56,18 @@ test('_fixture6_pass: checks a–g PASS, zero FAIL (h may WARN under 30 s)', () 
   const r = checkMoods({shots: layoutShots(spec), cues: c2, spec, fps: spec.fps}), lv = Object.fromEntries(Object.entries(r.checks).map(([k, c]) => [k, c.level]));
   for (const k of 'abcdefg') assert.equal(lv[k], 'PASS', k); assert.ok(['PASS', 'WARN'].includes(lv.h)); assert.equal(r.errors.length, 0);
 });
+
+// P5: the proof reel's blocking + effect combos (stories/proof6)
+test('proof6: place / cycle marks, verb list, effect combo, prop insert, per-shot look', () => {
+  const md6 = readFileSync('stories/proof6/BRIEF.md', 'utf8'), cues6 = JSON.parse(readFileSync('stories/proof6/cues.json', 'utf8'));
+  const {spec, errors, missing} = briefToSpec(parseBrief(md6), cues6, lib, {slug: 'proof6'}); assert.deepEqual(errors, []); assert.deepEqual(missing, {locations: [], props: []});
+  const s = spec.shots, h = spec.cast.hero;
+  assert.deepEqual(h.marks[0], [0, {at: 'street', offset: [0, 0, -8], yaw: 0}]);   // place: hero 0 -8 yaw 0
+  const walk = h.marks.find(m => m[1].travel); assert.deepEqual(walk[1].travel.dir, [0, 1]); assert.equal(walk[1].travel.speed, 1.7);
+  const cyc = s[0].actions.find(a => a.cycle); assert.equal(cyc.cycle, 'walk'); assert.ok(cyc.until < s[0].at + 1.7 && cyc.until > 0.3);   // walks until just before the first verb
+  assert.equal(s[2].impact, 0.9); assert.deepEqual(s[2].freeze, [0.9, 4]); assert.equal(s[2].zoomAt, 0.73);   // crash+freeze: zoom lands on the impact word
+  assert.deepEqual(s[10].actions.filter(a => a.verb).map(a => a.verb), ['jump', 'land']);   // `a; b`: the i-th verb on the i-th marked word
+  assert.equal(s[6].actions.find(a => a.verb).target, 'little');   // partner verb takes the other subject as target
+  assert.equal(s[5].prop, 'prop_streetLamp'); assert.deepEqual(spec.props[0].visible, [[0, false], [7.6, true], [9.05, false]]);
+  assert.deepEqual(s.map(x => x.look ?? 'day').slice(4, 7), ['storm', 'storm', 'goldenHour']);
+});

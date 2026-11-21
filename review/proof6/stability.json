@@ -1,0 +1,241 @@
+{
+ "spec": "stories/proof6/episode.json",
+ "size": "540x960",
+ "nudge": 0.004,
+ "threshold": 40,
+ "limit": 0.3,
+ "views": 37,
+ "worst": {
+  "view": "S10:mid",
+  "frame": 477,
+  "pct": 0.2,
+  "raw": 0.661
+ },
+ "failing": [],
+ "errors": [],
+ "result": "PASS",
+ "rows": [
+  {
+   "view": "@street",
+   "frame": null,
+   "pct": 0.015,
+   "raw": 0.069
+  },
+  {
+   "view": "S01:first",
+   "frame": 0,
+   "pct": 0.124,
+   "raw": 0.404
+  },
+  {
+   "view": "S01:mid",
+   "frame": 25,
+   "pct": 0.106,
+   "raw": 0.415
+  },
+  {
+   "view": "S01:last",
+   "frame": 50,
+   "pct": 0.057,
+   "raw": 0.424
+  },
+  {
+   "view": "S02:first",
+   "frame": 51,
+   "pct": 0.016,
+   "raw": 0.118
+  },
+  {
+   "view": "S02:mid",
+   "frame": 75,
+   "pct": 0.028,
+   "raw": 0.094
+  },
+  {
+   "view": "S02:last",
+   "frame": 98,
+   "pct": 0.017,
+   "raw": 0.084
+  },
+  {
+   "view": "S03:first",
+   "frame": 99,
+   "pct": 0.046,
+   "raw": 0.16
+  },
+  {
+   "view": "S03:mid",
+   "frame": 123,
+   "pct": 0.055,
+   "raw": 0.264
+  },
+  {
+   "view": "S03:last",
+   "frame": 146,
+   "pct": 0.045,
+   "raw": 0.248
+  },
+  {
+   "view": "S04:first",
+   "frame": 147,
+   "pct": 0.079,
+   "raw": 0.475
+  },
+  {
+   "view": "S04:mid",
+   "frame": 163,
+   "pct": 0.094,
+   "raw": 0.531
+  },
+  {
+   "view": "S04:last",
+   "frame": 179,
+   "pct": 0.101,
+   "raw": 0.538
+  },
+  {
+   "view": "S05:first",
+   "frame": 180,
+   "pct": 0,
+   "raw": 0.037
+  },
+  {
+   "view": "S05:mid",
+   "frame": 204,
+   "pct": 0.002,
+   "raw": 0.041
+  },
+  {
+   "view": "S05:last",
+   "frame": 227,
+   "pct": 0.002,
+   "raw": 0.09
+  },
+  {
+   "view": "S06:first",
+   "frame": 228,
+   "pct": 0.005,
+   "raw": 0.009
+  },
+  {
+   "view": "S06:mid",
+   "frame": 250,
+   "pct": 0.003,
+   "raw": 0.009
+  },
+  {
+   "view": "S06:last",
+   "frame": 271,
+   "pct": 0.005,
+   "raw": 0.011
+  },
+  {
+   "view": "S07:first",
+   "frame": 272,
+   "pct": 0.041,
+   "raw": 0.314
+  },
+  {
+   "view": "S07:mid",
+   "frame": 305,
+   "pct": 0.041,
+   "raw": 0.311
+  },
+  {
+   "view": "S07:last",
+   "frame": 338,
+   "pct": 0.033,
+   "raw": 0.275
+  },
+  {
+   "view": "S08:first",
+   "frame": 339,
+   "pct": 0.023,
+   "raw": 0.337
+  },
+  {
+   "view": "S08:mid",
+   "frame": 376,
+   "pct": 0,
+   "raw": 0.007
+  },
+  {
+   "view": "S08:last",
+   "frame": 413,
+   "pct": 0,
+   "raw": 0.006
+  },
+  {
+   "view": "S09:first",
+   "frame": 414,
+   "pct": 0.001,
+   "raw": 0.064
+  },
+  {
+   "view": "S09:mid",
+   "frame": 438,
+   "pct": 0.003,
+   "raw": 0.078
+  },
+  {
+   "view": "S09:last",
+   "frame": 461,
+   "pct": 0.017,
+   "raw": 0.113
+  },
+  {
+   "view": "S10:first",
+   "frame": 462,
+   "pct": 0.109,
+   "raw": 0.346
+  },
+  {
+   "view": "S10:mid",
+   "frame": 477,
+   "pct": 0.2,
+   "raw": 0.661
+  },
+  {
+   "view": "S10:last",
+   "frame": 491,
+   "pct": 0.059,
+   "raw": 0.397
+  },
+  {
+   "view": "S11:first",
+   "frame": 492,
+   "pct": 0.014,
+   "raw": 0.188
+  },
+  {
+   "view": "S11:mid",
+   "frame": 514,
+   "pct": 0.058,
+   "raw": 0.396
+  },
+  {
+   "view": "S11:last",
+   "frame": 536,
+   "pct": 0.018,
+   "raw": 0.288
+  },
+  {
+   "view": "S12:first",
+   "frame": 537,
+   "pct": 0.063,
+   "raw": 0.386
+  },
+  {
+   "view": "S12:mid",
+   "frame": 568,
+   "pct": 0.072,
+   "raw": 0.282
+  },
+  {
+   "view": "S12:last",
+   "frame": 599,
+   "pct": 0.059,
+   "raw": 0.302
+  }
+ ]
+}
