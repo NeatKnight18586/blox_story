@@ -1787,3 +1787,20 @@ Commands: node scripts/v2/brief2spec.js --story lastcolor · midshots.js --read 
 assemble.py --animatic --no-hold.
 Open: standsOut needs a darker ground/mat or a look decision (owner); no boxing glove prop (S21 "glove bonk" is a plain punch); drains on S09/S23 and the
 S62 bloom land after the mid-frame (cue-fixed); S51 mound reads as a field from above.
+
+## E4 unranked — Phase 1: cast only (2026-11-22)
+Plan: costumes LILA / DAX / DAD / MOM / STUDENT_A-C / seeded STUDENT in cast/troupe6.json; slot ADULT_F (mom); actor DOG; opt-in birth symbol + `symbolDark`
+(HERO = hard error); gates G1–G4; review/unranked/p1/. No worlds, props, markers, specs or renders beyond those listed (owner cap: ≤ 12 kids, all FULL detail).
+Built: `avatar-style/symbol.js` (pure: ranks D<C<B<A<S, size .22/.27/.32/.38/.44 stud = S 2× D, glow .22→1, five shape paths, `symbolSpec`, hero error) +
+`symbol3d.js` (emissive decal on the back of the RIGHT hand: outer face + a front echo, ink rim, additive halo, `setSymbolDark`) · `deltae.js` (ΔE2000) ·
+`outfit6x.js` (`regions.skirt`, `regions.apron`) · `engine/student.js` (`studentLook(seed)`: skin, hair style / colour, trim, symbol; 8 consecutive seeds all differ) ·
+`avatar-style/dog.js` (blocky golden dog, poses idle sit bow wag, `buildDog` / `driveDog`; episode.js `style: 'dog'`; brief2spec `- dog → DOG`, `ADULT_F`) ·
+troupe.js: costume `seeded`, entry `symbol` / `symbolDark`, HERO + symbol throws · actors.js hooks · hero6.js stage (dog, G1 mask mode) · buildgate / build-gates: adult_f on Actor v6.
+Commands: `node scripts/v2/unranked-p1.js` (sheets + G1–G4 → gates.json) · `npm run v2:test` (278 pass: tests/v2/unranked.test.js, 9 new).
+Numbers: G1 15 symbols at a 390 px medium shot: extent 29–54 px (≥ 6), rim contrast ≥ 0.39 (≥ 0.25) PASS; contrast vs bare skin only 0.05–0.39 (not the gate).
+G2 min ΔE2000 20.7 (C–A) PASS. G3 adult_f v1 waist 0.674, v6 waist 0.697 (0.66–0.70), arm gap 0.15, hips 0, hero mask 0 px PASS. G4 cast (12 kids + hero, flat floor) 74546 tris, 0.261 s/frame (≤ 90k, ≤ 0.62) PASS;
+same shot with testPark in view 105606 tris (FAIL: the world, not the kids).
+Decisions: C rank colour #2EC4C4 → #18C4C0 (ΔE 19.2 → 20.7 vs A; ΔE 1.7 from the brief's; STUDENT_C trim stays #2EC4C4). Symbol on a dark ink rim (a pale symbol on pale skin cannot reach luma 0.25 any other way);
+decal on the outer AND front face of the hand slab (front echo reads when the arm hangs), 0.035 off the surface. STUDENT = youth build 0.80–0.89, cream shirt, trim tie + collar + cuffs, navy trousers (skirt on 4 seeds).
+DAD age 45. BRIEF CAST lines (`dog → NEW actor DOG`, `crowd` without an arrow) left as written: Phase 2 rewrites them.
+Open: kids cost ~5.7k tris each (hair ≈ 2k), so the world in the shot has ≤ 15454 tris; skirt / apron are static blocks (thighs poke through in a wide stride); symbols are small in front view.

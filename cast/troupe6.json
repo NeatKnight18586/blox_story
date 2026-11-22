@@ -1,5 +1,5 @@
 {
- "note": "P1b (owner, 2026-11-20): the Season 1 troupe on Actor v6 (iconic blocky R15). Same slots, skin, hair, face, scale, age and build as cast/troupe.json (left unchanged so old episodes don't move); body 'v6' per slot. Outfits become v6 colour regions at build time (body5 outfitRegions): sleeves to the wrist line, short-sleeved recipes (tee) end half way down the UpperArm with LowerArm + Hand in skin; trousers on the leg block, shoes on the foot slab. Format-6 specs load this file (spec.troupeFile overrides). Amendment A4 G2: the Season 1 troupe. Five recurring actors with FIXED skin, hair and face; every episode re-costumes them (outfit, accessories, role name) by slot. AFK is the season's frozen cameo (grey, see-through 0.4, frozen; no tag: owner rule SEASON_1.md \u00a72c). All designs are our own. Defaults obey the A5 night palette rule (outfit colours HSL lightness \u2265 0.32): Season 1 opens at night. E1 (2026-11-21): slot DUMMY (test-park dummy: all #F2F2F4, matte 0.85 + emissive lift 0.08 (E1b), build `dummy` = torso +5 %, faces v6 `neutral`, no hair, no meme face) and `costumes` (cast entry `costume: NAME` on its slot, opt-in in engine/troupe.js): CROWD on DUMMY (the background tier: rigid limbs, for crowds of 40\u2013120), BITSY on LITTLE (body #FF5FA2, head #FFD0E2, ponytail #FF3F8E, lift 0.05 (E1b), short ponytail, 0.62) and KID on SECOND (violet hoodie #5F6AC0 (E1c owner: #7B4FD6 out-chromed Bitsy and sat 49.5\u00b0 from her hue; was orange #F28C28), black joggers, white sneakers, messy green hair).",
+ "note": "P1b (owner, 2026-11-20): the Season 1 troupe on Actor v6 (iconic blocky R15). Same slots, skin, hair, face, scale, age and build as cast/troupe.json (left unchanged so old episodes don't move); body 'v6' per slot. Outfits become v6 colour regions at build time (body5 outfitRegions): sleeves to the wrist line, short-sleeved recipes (tee) end half way down the UpperArm with LowerArm + Hand in skin; trousers on the leg block, shoes on the foot slab. Format-6 specs load this file (spec.troupeFile overrides). Amendment A4 G2: the Season 1 troupe. Five recurring actors with FIXED skin, hair and face; every episode re-costumes them (outfit, accessories, role name) by slot. AFK is the season's frozen cameo (grey, see-through 0.4, frozen; no tag: owner rule SEASON_1.md \u00a72c). All designs are our own. Defaults obey the A5 night palette rule (outfit colours HSL lightness \u2265 0.32): Season 1 opens at night. E1 (2026-11-21): slot DUMMY (test-park dummy: all #F2F2F4, matte 0.85 + emissive lift 0.08 (E1b), build `dummy` = torso +5 %, faces v6 `neutral`, no hair, no meme face) and `costumes` (cast entry `costume: NAME` on its slot, opt-in in engine/troupe.js): CROWD on DUMMY (the background tier: rigid limbs, for crowds of 40\u2013120), BITSY on LITTLE (body #FF5FA2, head #FFD0E2, ponytail #FF3F8E, lift 0.05 (E1b), short ponytail, 0.62) and KID on SECOND (violet hoodie #5F6AC0 (E1c owner: #7B4FD6 out-chromed Bitsy and sat 49.5\u00b0 from her hue; was orange #F28C28), black joggers, white sneakers, messy green hair). E4 unranked (owner, 2026-11-22): slot ADULT_F (mom: adult_f hourglass, age 40, own shoulder-length hair; recurring) and costumes LILA (SECOND), DAX (RIVAL), DAD (ELDER), MOM (ADULT_F), STUDENT_A / STUDENT_B / STUDENT_C (DUMMY: academy uniform, real skin and hair, FULL detail), STUDENT (DUMMY, `seeded`: cast entry `seed: n` \u2192 engine/student.js studentLook: skin, hair, trim, symbol vary) \u2014 costumes may carry `symbol {shape,color,rank}` (birth symbol on the back of the right hand, avatar-style/symbol.js; the HERO never: hard error), `regions.skirt {color,h}` and `regions.apron {color,edge}` (avatar-style/outfit6x.js). No labels.",
  "troupe": {
   "LEAD": {
    "tier": "hero",
@@ -107,7 +107,7 @@
   },
   "ELDER": {
    "tier": "hero",
-   "scale": 1.0,
+   "scale": 1,
    "skin": "#c08457",
    "face": "neutral",
    "hair": {
@@ -133,7 +133,7 @@
   },
   "DUMMY": {
    "tier": "hero",
-   "scale": 1.0,
+   "scale": 1,
    "skin": "#F2F2F4",
    "face": "neutral",
    "faceStyle": "v6",
@@ -148,6 +148,33 @@
     "roughness": 0.85,
     "lift": 0.08
    }
+  },
+  "ADULT_F": {
+   "tier": "hero",
+   "scale": 1,
+   "skin": "#E8B48A",
+   "face": "smile",
+   "faceStyle": "v6",
+   "hair": {
+    "style": "wavy_bob",
+    "color": "#8A5530",
+    "v": 4
+   },
+   "outfit": {
+    "recipe": "hoodie",
+    "main": "#4FA3A0",
+    "accent": null,
+    "legs": "#2B3350",
+    "trim": "#F1E8D6"
+   },
+   "expressions": [
+    "smile",
+    "neutral",
+    "sad"
+   ],
+   "age": 40,
+   "build": "adult_f",
+   "body": "v6"
   }
  },
  "AFK": {
@@ -239,6 +266,297 @@
     "roughness": 0.85,
     "lift": 0.08
    }
+  },
+  "LILA": {
+   "slot": "SECOND",
+   "outfit": null,
+   "material": null,
+   "faceStyle": "v6",
+   "face": "smile",
+   "symbol": {
+    "shape": "leaf",
+    "color": "#9BD48A",
+    "rank": "D"
+   },
+   "regions": {
+    "torso": {
+     "main": "#EFE6D2",
+     "strip": "#F8F3E6",
+     "stripW": 0.3,
+     "lapel": "#EFE6D2",
+     "lapelW": 0.12,
+     "edge": "#C9BBA0",
+     "edgeW": 0.05,
+     "collarH": 0.14,
+     "back": true
+    },
+    "arms": {
+     "upper": "#EFE6D2",
+     "lower": "#f6c9a0",
+     "sleeve": "wrist"
+    },
+    "legs": {
+     "main": "#3E4A3C",
+     "shoes": "#F4F4F4",
+     "sole": "#CFCFCF",
+     "soleH": 0.06
+    },
+    "skirt": {
+     "color": "#8FAE8B",
+     "h": 0.75
+    }
+   }
+  },
+  "DAX": {
+   "slot": "RIVAL",
+   "outfit": null,
+   "material": null,
+   "faceStyle": "v6",
+   "face": "smug",
+   "symbol": {
+    "shape": "lightning",
+    "color": "#FFC531",
+    "rank": "S"
+   },
+   "regions": {
+    "torso": {
+     "main": "#1F2A55",
+     "strip": "#F4F4F6",
+     "stripW": 0.5,
+     "lapel": "#1F2A55",
+     "lapelW": 0.22,
+     "edge": "#E8B530",
+     "edgeW": 0.06,
+     "collarH": 0.16,
+     "back": true
+    },
+    "arms": {
+     "upper": "#1F2A55",
+     "lower": "#fbdcc0",
+     "cuff": "#E8B530",
+     "cuffH": 0.12,
+     "sleeve": "wrist"
+    },
+    "legs": {
+     "main": "#3A3D44",
+     "shoes": "#1A1A1E",
+     "sole": "#F2F2F2",
+     "soleH": 0.06
+    }
+   }
+  },
+  "DAD": {
+   "slot": "ELDER",
+   "outfit": null,
+   "material": null,
+   "faceStyle": "v6",
+   "face": "neutral",
+   "age": 45,
+   "hair": {
+    "style": "side_part",
+    "color": "#3B2A1E",
+    "v": 4
+   },
+   "symbol": {
+    "shape": "flame",
+    "color": "#FF9A3A",
+    "rank": "B"
+   },
+   "regions": {
+    "torso": {
+     "main": "#D9A23A"
+    },
+    "arms": {
+     "upper": "#D9A23A",
+     "lower": "#c08457",
+     "sleeve": "wrist"
+    },
+    "legs": {
+     "main": "#6E7178",
+     "shoes": "#2B2B2F"
+    }
+   }
+  },
+  "MOM": {
+   "slot": "ADULT_F",
+   "outfit": null,
+   "material": null,
+   "faceStyle": "v6",
+   "face": "smile",
+   "symbol": {
+    "shape": "wave",
+    "color": "#6FB7FF",
+    "rank": "C"
+   },
+   "regions": {
+    "torso": {
+     "main": "#4FA3A0",
+     "strip": "#F1E8D6",
+     "stripW": 0.62,
+     "lapel": "#4FA3A0",
+     "lapelW": 0.12,
+     "edge": "#3C8A87",
+     "edgeW": 0.05,
+     "collarH": 0.12,
+     "back": true
+    },
+    "arms": {
+     "upper": "#4FA3A0",
+     "lower": "#E8B48A",
+     "sleeve": "wrist"
+    },
+    "legs": {
+     "main": "#2B3350",
+     "shoes": "#3B2F2A"
+    },
+    "apron": {
+     "color": "#F4EFE6",
+     "edge": "#CFC6B2"
+    }
+   }
+  },
+  "STUDENT_A": {
+   "slot": "DUMMY",
+   "outfit": null,
+   "material": null,
+   "faceStyle": "v6",
+   "face": "smile",
+   "scale": 0.86,
+   "build": "youth",
+   "age": 12,
+   "skin": "#FBDCC0",
+   "hair": {
+    "style": "side_part",
+    "color": "#C9DCEB",
+    "v": 4
+   },
+   "symbol": {
+    "shape": "crystal",
+    "color": "#8FD3FF",
+    "rank": "A"
+   },
+   "regions": {
+    "torso": {
+     "main": "#F1EAD6",
+     "strip": "#8FD3FF",
+     "stripW": 0.24,
+     "lapel": "#F1EAD6",
+     "lapelW": 0.16,
+     "edge": "#8FD3FF",
+     "edgeW": 0.05,
+     "collarH": 0.16,
+     "back": true
+    },
+    "arms": {
+     "upper": "#F1EAD6",
+     "lower": "#FBDCC0",
+     "cuff": "#8FD3FF",
+     "cuffH": 0.12,
+     "sleeve": "wrist"
+    },
+    "legs": {
+     "main": "#232B52",
+     "shoes": "#2B2B2F"
+    }
+   }
+  },
+  "STUDENT_B": {
+   "slot": "DUMMY",
+   "outfit": null,
+   "material": null,
+   "faceStyle": "v6",
+   "face": "smile",
+   "scale": 0.86,
+   "build": "youth",
+   "age": 12,
+   "skin": "#F7CDA6",
+   "hair": {
+    "style": "spiky_crop",
+    "color": "#C4452A",
+    "v": 4
+   },
+   "symbol": {
+    "shape": "flame",
+    "color": "#FF8A2A",
+    "rank": "B"
+   },
+   "regions": {
+    "torso": {
+     "main": "#F1EAD6",
+     "strip": "#FF8A2A",
+     "stripW": 0.24,
+     "lapel": "#F1EAD6",
+     "lapelW": 0.16,
+     "edge": "#FF8A2A",
+     "edgeW": 0.05,
+     "collarH": 0.16,
+     "back": true
+    },
+    "arms": {
+     "upper": "#F1EAD6",
+     "lower": "#F7CDA6",
+     "cuff": "#FF8A2A",
+     "cuffH": 0.12,
+     "sleeve": "wrist"
+    },
+    "legs": {
+     "main": "#232B52",
+     "shoes": "#2B2B2F"
+    }
+   }
+  },
+  "STUDENT_C": {
+   "slot": "DUMMY",
+   "outfit": null,
+   "material": null,
+   "faceStyle": "v6",
+   "face": "smile",
+   "scale": 0.86,
+   "build": "youth",
+   "age": 12,
+   "skin": "#D49A6A",
+   "hair": {
+    "style": "low_twintails",
+    "color": "#1F2A44",
+    "v": 4
+   },
+   "symbol": {
+    "shape": "wave",
+    "color": "#18C4C0",
+    "rank": "C"
+   },
+   "regions": {
+    "torso": {
+     "main": "#F1EAD6",
+     "strip": "#2EC4C4",
+     "stripW": 0.24,
+     "lapel": "#F1EAD6",
+     "lapelW": 0.16,
+     "edge": "#2EC4C4",
+     "edgeW": 0.05,
+     "collarH": 0.16,
+     "back": true
+    },
+    "arms": {
+     "upper": "#F1EAD6",
+     "lower": "#D49A6A",
+     "cuff": "#2EC4C4",
+     "cuffH": 0.12,
+     "sleeve": "wrist"
+    },
+    "legs": {
+     "main": "#232B52",
+     "shoes": "#2B2B2F"
+    }
+   }
+  },
+  "STUDENT": {
+   "slot": "DUMMY",
+   "outfit": null,
+   "material": null,
+   "faceStyle": "v6",
+   "seeded": true,
+   "face": "smile"
   }
  }
 }

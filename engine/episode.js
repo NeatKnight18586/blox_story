@@ -8,6 +8,7 @@ import {sampleAction, applyActionSample} from '../avatar/actions.js';
 import {sampleCamera, maxTargetSpeed} from './camera.js';
 import {layoutShots, totalFrames, valueAt, keyAt} from './timeline.js';
 import {buildDragon, driveDragon} from '../avatar-style/dragon.js';
+import {buildDog, driveDog} from '../avatar-style/dog.js';
 import {maskStats} from './lumagate.js';
 import {expandClassReveal, applyPatch} from './classes.js';
 import {buildActor, driveActor, townsperson, toolGroup} from './actors.js';
@@ -173,6 +174,7 @@ const presetOf = c => {
   return pre; };
 for (const [name, c] of Object.entries(spec.cast ?? {})) {
   if (c.at) c.origin = resolve({anchor: c.at, offset: c.offset ?? [0, 0, 0]});
+  if (c.style === 'dog') { const d = buildDog({scale: c.scale ?? 1, name, colors: c.colors ?? null}); scene.add(d.root); cast[name] = {a: d, c, dragon: true, dog: true}; continue; }   // E4: the DOG (creature entry like the dragon; driveDog)
   if (c.style === 'dragon') { const d = buildDragon({scale: c.scale ?? 1, name, colors: c.colors ?? null, face: c.dragonFace ?? null, baby: !!c.baby, wingScale: c.wingScale ?? 1, rim: c.rim ?? null, spikes: c.spikes ?? 1, saddle: !!c.saddle}); scene.add(d.root); cast[name] = {a: d, c, dragon: true}; continue; }
   if (c.style === 'v2' || c.style === 'v5') { if (c.troupe === 'AFK') { c.keys ??= [[0, troupeData.AFK.pose ?? 'walk']]; c.faces ??= [[0, 'neutral']]; }
     const pre = presetOf(c);
@@ -426,7 +428,8 @@ function poseOne(name, x, t, out) {
     if (v2 || dragon) {
       const at = markAt(c, t);
       markPos[name] = [...at];
-      if (dragon) driveDragon(a, t, {keys: c.keys ?? [[0, 'perch']], origin: {position: at, yaw}});
+      if (x.dog) driveDog(a, t, {keys: c.keys ?? [[0, 'idle']], origin: {position: at, yaw}});
+      else if (dragon) driveDragon(a, t, {keys: c.keys ?? [[0, 'perch']], origin: {position: at, yaw}});
       else if (actTracks?.[name] && a.body === 'v6') {   // P3 acting v6: the track's sample, faces on their words, props in the hands
         const tr = actTracks[name], [pos, y2] = actingOrigin(name, t, at, yaw), still = M6 && shots.findLast(s => Math.round(t * FPS) >= s.start)?.still, tS = still ? shots.findLast(s => Math.round(t * FPS) >= s.start).start / FPS + .001 : t, act = ACT6.sampleActing(tr, tS, {seed: a.blinkSeed ?? 1, build: a.build});   // P5b `still` shot (moods only): ambient motion off = the track sampled at the shot's first frame
         driveActor(a, t, {keys: [[0, 'idle']], acting: () => act.sample, faces: tr.faces.length ? [[0, c.faces?.[0]?.[1] ?? a.preset.face ?? 'smile'], ...tr.faces] : c.faces, origin: {position: pos, yaw: y2}, tags: c.tags, fps: FPS, visible: c.visible, blinkSuppress: blinkOff(t) || !!still, talk: talkOf(name, t), ...(spec.faceLife && !still ? {faceLife: true} : {})});

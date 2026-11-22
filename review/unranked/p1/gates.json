@@ -1,0 +1,315 @@
+{
+ "G1": {
+  "method": "medium shot (hand in frame, yaw −30°), 390 × 693 px; mask render = symbol fill flat green; extent = longest side of the largest blob; contrast = |mean luma(symbol fill) − mean luma(ink rim ring, 2 px outside the fill)| on the lit render; vs bare skin = |mean luma(fill) − luma(skin hex)| (reported, not the gate)",
+  "line": "every symbol: extent ≥ 6 px and rim contrast ≥ 0.25",
+  "symbols": {
+   "LILA": {
+    "rank": "D",
+    "shape": "leaf",
+    "blobs": 1,
+    "extentPx": 29,
+    "areaPx": 286,
+    "fillLuma": 0.676,
+    "rimLuma": 0.234,
+    "contrastRim": 0.443,
+    "contrastVsSkin": 0.138,
+    "pass": true
+   },
+   "DAX": {
+    "rank": "S",
+    "shape": "lightning",
+    "blobs": 1,
+    "extentPx": 54,
+    "areaPx": 577,
+    "fillLuma": 0.728,
+    "rimLuma": 0.14,
+    "contrastRim": 0.588,
+    "contrastVsSkin": 0.153,
+    "pass": true
+   },
+   "DAD": {
+    "rank": "B",
+    "shape": "flame",
+    "blobs": 1,
+    "extentPx": 41,
+    "areaPx": 609,
+    "fillLuma": 0.659,
+    "rimLuma": 0.143,
+    "contrastRim": 0.517,
+    "contrastVsSkin": 0.104,
+    "pass": true
+   },
+   "MOM": {
+    "rank": "C",
+    "shape": "wave",
+    "blobs": 1,
+    "extentPx": 32,
+    "areaPx": 427,
+    "fillLuma": 0.642,
+    "rimLuma": 0.211,
+    "contrastRim": 0.431,
+    "contrastVsSkin": 0.095,
+    "pass": true
+   },
+   "STU_A": {
+    "rank": "A",
+    "shape": "crystal",
+    "blobs": 1,
+    "extentPx": 51,
+    "areaPx": 886,
+    "fillLuma": 0.721,
+    "rimLuma": 0.149,
+    "contrastRim": 0.572,
+    "contrastVsSkin": 0.16,
+    "pass": true
+   },
+   "STU_B": {
+    "rank": "B",
+    "shape": "flame",
+    "blobs": 1,
+    "extentPx": 41,
+    "areaPx": 610,
+    "fillLuma": 0.608,
+    "rimLuma": 0.133,
+    "contrastRim": 0.475,
+    "contrastVsSkin": 0.22,
+    "pass": true
+   },
+   "STU_C": {
+    "rank": "C",
+    "shape": "wave",
+    "blobs": 1,
+    "extentPx": 32,
+    "areaPx": 429,
+    "fillLuma": 0.589,
+    "rimLuma": 0.2,
+    "contrastRim": 0.39,
+    "contrastVsSkin": 0.05,
+    "pass": true
+   },
+   "S1": {
+    "rank": "D",
+    "shape": "leaf",
+    "blobs": 1,
+    "extentPx": 29,
+    "areaPx": 286,
+    "fillLuma": 0.676,
+    "rimLuma": 0.197,
+    "contrastRim": 0.48,
+    "contrastVsSkin": 0.182,
+    "pass": true
+   },
+   "S2": {
+    "rank": "C",
+    "shape": "wave",
+    "blobs": 1,
+    "extentPx": 32,
+    "areaPx": 429,
+    "fillLuma": 0.589,
+    "rimLuma": 0.162,
+    "contrastRim": 0.427,
+    "contrastVsSkin": 0.387,
+    "pass": true
+   },
+   "S3": {
+    "rank": "B",
+    "shape": "flame",
+    "blobs": 1,
+    "extentPx": 41,
+    "areaPx": 610,
+    "fillLuma": 0.608,
+    "rimLuma": 0.133,
+    "contrastRim": 0.475,
+    "contrastVsSkin": 0.164,
+    "pass": true
+   },
+   "S4": {
+    "rank": "D",
+    "shape": "leaf",
+    "blobs": 1,
+    "extentPx": 29,
+    "areaPx": 286,
+    "fillLuma": 0.676,
+    "rimLuma": 0.185,
+    "contrastRim": 0.492,
+    "contrastVsSkin": 0.29,
+    "pass": true
+   },
+   "S5": {
+    "rank": "A",
+    "shape": "crystal",
+    "blobs": 1,
+    "extentPx": 51,
+    "areaPx": 886,
+    "fillLuma": 0.721,
+    "rimLuma": 0.149,
+    "contrastRim": 0.572,
+    "contrastVsSkin": 0.107,
+    "pass": true
+   },
+   "S6": {
+    "rank": "C",
+    "shape": "wave",
+    "blobs": 1,
+    "extentPx": 32,
+    "areaPx": 429,
+    "fillLuma": 0.589,
+    "rimLuma": 0.2,
+    "contrastRim": 0.39,
+    "contrastVsSkin": 0.05,
+    "pass": true
+   },
+   "S7": {
+    "rank": "B",
+    "shape": "flame",
+    "blobs": 1,
+    "extentPx": 41,
+    "areaPx": 610,
+    "fillLuma": 0.608,
+    "rimLuma": 0.132,
+    "contrastRim": 0.476,
+    "contrastVsSkin": 0.325,
+    "pass": true
+   },
+   "S8": {
+    "rank": "S",
+    "shape": "lightning",
+    "blobs": 1,
+    "extentPx": 54,
+    "areaPx": 577,
+    "fillLuma": 0.728,
+    "rimLuma": 0.14,
+    "contrastRim": 0.588,
+    "contrastVsSkin": 0.153,
+    "pass": true
+   }
+  },
+  "pass": true,
+  "minExtentPx": 29,
+  "minContrastRim": 0.39,
+  "minContrastVsSkin": 0.05
+ },
+ "G2": {
+  "pairs": {
+   "DC": 23.8,
+   "DB": 45.7,
+   "DA": 40.3,
+   "DS": 29.7,
+   "CB": 50.7,
+   "CA": 20.7,
+   "CS": 43.2,
+   "BA": 48.5,
+   "BS": 21.4,
+   "AS": 51.2
+  },
+  "min": 20.7,
+  "pass": true,
+  "line": "pairwise ΔE2000 ≥ 20",
+  "colors": {
+   "D": "#9BD48A",
+   "C": "#18C4C0",
+   "B": "#FF8A2A",
+   "A": "#8FD3FF",
+   "S": "#FFC531"
+  }
+ },
+ "budgetTriangles": {
+  "HERO": 4780,
+  "LILA": 5616,
+  "DAX": 5308,
+  "DAD": 5100,
+  "MOM": 5740,
+  "STU_A": 5304,
+  "STU_B": 5528,
+  "STU_C": 5616,
+  "S1": 5304,
+  "S2": 5864,
+  "S3": 6488,
+  "S4": 5628,
+  "S5": 6248,
+  "S6": 5528,
+  "S7": 6456,
+  "S8": 5652,
+  "DOG": 4836,
+  "ECU_D": 5304,
+  "ECU_C": 5304,
+  "ECU_B": 5304,
+  "ECU_A": 5304,
+  "ECU_S": 5304,
+  "ECU_dark": 5304
+ },
+ "G3": {
+  "line": "node scripts/v2/build-gates.js passes for adult_f (v1 body) and adult_f_v6 (the ADULT_F slot body); hero renders with no symbol; a symbol on the hero is a hard error",
+  "pass": true,
+  "failures": [],
+  "adult_f": {
+   "waistRatio": 0.6742,
+   "armGap": [
+    0.1685,
+    0.1685
+   ]
+  },
+  "adult_f_v6": {
+   "waistRatio": 0.6966,
+   "waistAtDown": 0.6034,
+   "armGap": [
+    0.1573,
+    0.1517
+   ],
+   "shoulderGapPx": 1,
+   "hips": {
+    "torsoPx": [
+     107,
+     282
+    ],
+    "legsPx": [
+     107,
+     282
+    ],
+    "rowsBetween": 0
+   }
+  },
+  "heroSymbolMaskPx": 0,
+  "heroSymbolError": "hero: the HERO never gets a birth symbol (bare hands, always)"
+ },
+ "G4": {
+  "line": "12 full-detail kids + hero in one frame: ≤ 90,000 triangles in the frustum and ≤ 0.62 s/frame (720×1280; owner Decision 4)",
+  "kids": 12,
+  "hero": 1,
+  "cast": {
+   "world": "flat-world.js",
+   "triangles": 74546,
+   "sPerFrame720": 0.261,
+   "sPerFrame1080": 0.42,
+   "pass": true
+  },
+  "pass": true,
+  "perActorTriangles": {
+   "LILA": 5616,
+   "DAX": 5308,
+   "DAD": 5100,
+   "MOM": 5740,
+   "STU_A": 5304,
+   "STU_B": 5528,
+   "STU_C": 5616,
+   "S1": 5304,
+   "S2": 5864,
+   "S3": 6488,
+   "S4": 5628,
+   "S5": 6248,
+   "S6": 5528,
+   "S7": 6456,
+   "S8": 5652,
+   "HERO": 4780
+  },
+  "withTestParkWorld": {
+   "world": "testpark.js",
+   "triangles": 105606,
+   "sPerFrame720": 0.434,
+   "sPerFrame1080": 0.807,
+   "pass": false
+  },
+  "remainingForWorld": 15454,
+  "note": "the cast alone is 74546 triangles; the world in view has ≤ 15454 left (testPark in the same shot: 105606)"
+ }
+}

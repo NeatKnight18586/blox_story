@@ -13,7 +13,7 @@ import {loadLibrary} from './lib6.js';
 import {LOOKS} from '../../engine/look.js';
 import * as S6 from '../../engine/story6.js';
 
-export const SIZES6 = ['wide', 'medium', 'close', 'insert', 'ecu'], EFFECTS6 = ['impact', 'freeze', 'crash', 'none'], SLOTS = ['LEAD', 'SECOND', 'LITTLE', 'RIVAL', 'ELDER', 'DUMMY'];
+export const SIZES6 = ['wide', 'medium', 'close', 'insert', 'ecu'], EFFECTS6 = ['impact', 'freeze', 'crash', 'none'], SLOTS = ['LEAD', 'SECOND', 'LITTLE', 'RIVAL', 'ELDER', 'DUMMY', 'ADULT_F', 'DOG'];   // E4: ADULT_F (mom) and DOG (a creature entry)
 const FACE_ALIAS = {awe_small: 'o_small'};
 const SLOT_SCALE = {LITTLE: .62, LEAD: .82, SECOND: .82, RIVAL: .95};   // E2: partner scale picks the carry (cast/troupe6.json)   // Brief vocabulary → faces6 name (the small round-mouth wonder face)
 const PROP_H = {streetLamp: 5.2, crate: 1.2, porch: 3.5, shack: 5, deadTree: 6, birdhouse: 1.5, powerLine: 9};   // library prop heights (insert camera fit)
@@ -26,7 +26,7 @@ export function parseBrief(md) {
   for (const line of md.split(/\r?\n/)) { const m = /^##\s+(.+?)\s*$/.exec(line); if (m) { cur = m[1].toUpperCase(); sec[cur] = []; } else if (cur) sec[cur].push(line); }
   const kv = name => Object.fromEntries((sec[name] ?? []).map(l => /^-\s*([^:]+?):\s*(.*)$/.exec(l)).filter(Boolean).map(m => [m[1].toLowerCase(), m[2].trim()]));
   const cast = (sec.CAST ?? []).filter(l => /^-\s*[A-Za-z]/.test(l)).map(l => {
-    const m = /^-\s*([A-Za-z0-9_]+)(.*)$/.exec(l), slot = /(?:→|->)\s*([A-Z]+)/.exec(m[2])?.[1];
+    const m = /^-\s*([A-Za-z0-9_]+)(.*)$/.exec(l), slot = /(?:→|->)\s*([A-Z_]+)/.exec(m[2])?.[1];
     const xz = /\bat\s+(-?\d+(?:\.\d+)?)[ ,]+(-?\d+(?:\.\d+)?)/.exec(m[2]), yw = /\byaw\s+(-?\d+(?:\.\d+)?)/.exec(m[2]);   // optional start mark: `at x z`, `yaw deg`
     const cos = /\bcostume\s+([A-Z_]+)/.exec(m[2])?.[1] ?? null;   // E2: `costume BITSY` (cast/troupe6.json costumes)
     return {role: m[1], slot: m[1].toUpperCase() === 'HERO' ? 'HERO' : slot ?? null, line: l.trim(), at: xz ? [+xz[1], +xz[2]] : null, yaw: yw ? +yw[1] : 0, costume: cos};
@@ -88,6 +88,7 @@ export function briefToSpec(brief, cues, lib, {slug, root = '.'} = {}) {
     const key = c.role.toLowerCase(); castKeys[key] = key;
     if (!c.slot || (c.slot !== 'HERO' && !SLOTS.includes(c.slot))) E(`CAST ${c.role}`, `unknown troupe slot "${c.slot ?? ''}" (${SLOTS.join(' | ')})`);
     const x = c.at ? c.at[0] : (i - (brief.cast.length - 1) / 2) * 4, z = c.at ? c.at[1] : c.slot === 'HERO' ? 4 : 0; pos[key] = [x, 0, z]; yawOf[key] = c.yaw;
+    if (c.slot === 'DOG') { cast[key] = {style: 'dog', at: loc0 ? (lib.locations[loc0].anchors[0] ?? loc0) : undefined, offset: [x, 0, z], yaw: c.yaw, keys: [[0, 'idle']]}; return; }   // E4: `- dog → DOG`
     cast[key] = {style: 'v5', faceStyle: 'v6', troupe: c.slot, at: loc0 ? (lib.locations[loc0].anchors[0] ?? loc0) : undefined, offset: [x, 0, z], yaw: c.yaw, keys: [[0, 'idle']], ...(c.costume ? {costume: c.costume} : {})};
   });
   if (!cast.hero) E('CAST', 'no HERO line');
