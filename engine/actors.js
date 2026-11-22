@@ -15,6 +15,9 @@ import {HEAD5} from '../avatar-style/body5.js';
 import {createActor5} from '../avatar-style/body5.js';
 import {createActor6} from '../avatar-style/body6.js';
 import {sampleTimeline6, applyPose6, liftR6} from './poses6.js';
+import {addExtras} from '../avatar-style/outfit6x.js';
+import {attachSymbol} from '../avatar-style/symbol3d.js';
+import {assertNoHeroSymbol} from '../avatar-style/symbol.js';
 import {attachTool, buildTool} from '../avatar-style/tools.js';
 import {setTag, statSprite, bubbleSprite} from './overhead.js';
 import {CLASSES} from '../parts/props.js';
@@ -25,6 +28,7 @@ export function buildActor(preset, name = 'actor') {
   const err = buildError({...preset, name}); if (err) throw Error('build: ' + err);   // A5 Decision 5: never an adult build under 18
   const mk = preset.body === 'v6' ? createActor6 : preset.body === 'v5' ? createActor5 : createActor;   // P1: Actor v6 (R15), opt-in   // format v4: Actor v5 (classic R6, satin), opt-in
   const a = mk({tier, skin, scale: preset.scale ?? 1, name, build: preset.build ?? null, regions: preset.regions ?? null, materials: preset.outfit ? dress(preset.outfit, skin, tier, {fitted: !!BUILDS[preset.build]?.profile}) : {}});
+  if (preset.body === 'v6' && (preset.regions?.skirt || preset.regions?.apron)) addExtras(a, preset.regions);   // E4 (opt-in): skirt / apron on Actor v6
   if (preset.hair) (preset.hair.v === 4 ? attachHair4(a, preset.hair.style, preset.hair.color, preset.hairTier ?? null)   // A5: v4 sculpted (Season 1)
     : preset.hair.v === 3 || preset.hairStyle === 'v3' ? attachHair3(a, preset.hair.style, preset.hair.color, {streak: preset.hair.streak}) : attachHair(a, preset.hair.style, preset.hair.color));
   for (const acc of preset.accessories ?? []) typeof acc === 'string' ? attachAccessory(a, acc) : attachAccessory(a, acc.name, acc);
@@ -43,6 +47,7 @@ export function buildActor(preset, name = 'actor') {
     const fe = faceError(preset.face ?? 'smile', a.build); if (fe) throw Error('face: ' + fe);
     a.faceStyle = 'v3'; a.blinkSeed = [...name].reduce((h, ch) => (h * 31 + ch.charCodeAt(0)) % 9973, 7); setFace3(a, preset.face ?? 'smile');
   } else setFace(a, preset.face ?? 'smile');
+  if (preset.symbol) { assertNoHeroSymbol(preset.hero ? 'hero' : name, true); attachSymbol(a, preset.symbol, {dark: !!preset.symbolDark}); }   // E4 (opt-in): birth symbol on the back of the right hand; the HERO is a hard error
   if (preset.tag) setTag(a, preset.tag.name, preset.tag.role ?? null);
   if (preset.opacity !== undefined && preset.opacity < 1) a.root.traverse(o => {   // A4 AFK: see-through, own material copies
     if (!o.isMesh || o.name === 'face_decal') return; o.material = [].concat(o.material).map(m => { const c = m.clone(); c.transparent = true; c.opacity = preset.opacity; c.depthWrite = true; return c; }); if (o.material.length === 1) o.material = o.material[0]; });

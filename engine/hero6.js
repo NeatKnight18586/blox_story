@@ -7,6 +7,8 @@ import {buildActor, driveActor} from './actors.js';
 import {setFace5} from '../avatar-style/faces5.js';
 import {setFace6} from '../avatar-style/faces6.js';
 import {triangles} from '../avatar-style/body.js';
+import {buildDog, driveDog} from '../avatar-style/dog.js';
+import {symbolMaskMaterial} from '../avatar-style/symbol3d.js';
 
 const cast = await (await fetch(new URL('../' + new URLSearchParams(location.search).get('cast'), import.meta.url))).json();
 const mk = aa => { const r = new T.WebGLRenderer({antialias: aa, preserveDrawingBuffer: true}); r.outputColorSpace = T.SRGBColorSpace; r.shadowMap.enabled = true; r.shadowMap.type = T.PCFSoftShadowMap; document.body.appendChild(r.domElement); return r; };
@@ -21,11 +23,12 @@ const floor = new T.Mesh(new T.CircleGeometry(30, 64), new T.MeshStandardMateria
 const back = new T.Mesh(new T.PlaneGeometry(120, 60), new T.MeshStandardMaterial({color: '#bdbab4', roughness: 1})); back.position.set(0, 20, -25); scene.add(back);
 const camera = new T.PerspectiveCamera(35, 1, .3, 300);
 const built = new Map();
-function actorFor(id, slot) { const k = id + '#' + slot; if (!built.has(k)) { const p = cast.cast[id]; if (!p) throw Error('unknown cast id ' + id); const a = buildActor(p, id); scene.add(a.root); built.set(k, a); } return built.get(k); }
+function actorFor(id, slot) { const k = id + '#' + slot; if (!built.has(k)) { const p = cast.cast[id]; if (!p) throw Error('unknown cast id ' + id); const a = p.style === 'dog' ? buildDog({scale: p.scale ?? 1, name: id}) : buildActor(p, id); scene.add(a.root); built.set(k, a); } return built.get(k); }
 export function render(cell, w, h, mode = 'studio') {
   for (const a of built.values()) a.root.visible = false;
   const used = new Map();
   for (const s of cell.actors) { const slot = used.get(s.id) ?? 0; used.set(s.id, slot + 1); const a = actorFor(s.id, slot); a.root.visible = true;
+    if (a.kind === 'dog') { driveDog(a, s.t ?? 0, {keys: [[0, s.pose ?? 'idle']], origin: {position: s.at ?? [0, 0, 0], yaw: (s.yaw ?? 0) * Math.PI / 180}}); continue; }
     driveActor(a, s.t ?? 0, {keys: [[0, s.pose ?? 'idle']], origin: {position: s.at ?? [0, 0, 0], yaw: (s.yaw ?? 0) * Math.PI / 180}});
     if (a.faceStyle === 'v6') setFace6(a, s.face ?? a.preset.face ?? 'smile', {talk: s.talk ?? null, blink: !!s.blink}); else setFace5(a, s.face ?? a.preset.face ?? 'smile', {talk: s.talk ?? null});
     if (a.body !== 'v6') continue;
@@ -35,7 +38,8 @@ export function render(cell, w, h, mode = 'studio') {
       leftLeg: ['waist', 'rightHip'], rightLeg: ['waist', 'leftHip']}[cell.chain];
     for (const ch of a.pivots.head.children) if (ch !== a.parts.head && ch.name !== 'face_decal' && ch.name !== 'neck') ch.visible = !cell.chain;   // seam chains measure the body: hair and hats are their own shapes
     if (hide) { for (const n of hide) a.pivots[n].visible = false; if (cell.chain.endsWith('Arm')) a.parts.lowerTorso.visible = a.parts.waistCap.visible = a.parts.torso.visible = false; } }   // arms: R6-style floating shoulder (no overlap, not a seam): the arm segments alone
-  const mag = mode === 'magenta', r = R[mag ? 'magenta' : 'studio'];
+  const msk = mode === 'mask'; for (const a of built.values()) if (a.symbol) { const spec = a.symbol.userData.spec; a.symbol.children.forEach(o => { if (o.name === 'symbolDecal') { o.userData.mat ??= o.material; o.material = msk ? symbolMaskMaterial(spec.shape) : o.userData.mat; } else o.visible = !msk && spec.glow > 0; }); }   // E4 G1: mask render = symbol fill flat green
+  const mag = mode === 'magenta' || msk, r = R[mag ? 'magenta' : 'studio'];
   scene.background = mag ? MAG : BG; floor.visible = back.visible = !mag;
   r.setPixelRatio(1); r.setSize(w, h, false); lastSize = [w, h];
   camera.aspect = w / h; camera.fov = cell.camera.fov ?? 35; camera.position.set(...cell.camera.position); camera.lookAt(...cell.camera.target); camera.updateProjectionMatrix();
