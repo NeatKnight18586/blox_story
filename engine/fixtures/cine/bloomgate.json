@@ -7,7 +7,6 @@
  "rig": "r6",
  "world": "engine/fixtures/v4look/world.js",
  "look4": "mystery",
- "look": "cine",
  "glowCubes": [
   {
    "at": [
@@ -62,5 +61,7 @@
    },
    "duration": 1
   }
- ]
+ ],
+ "look": "mystery",
+ "post": "cine"
 }

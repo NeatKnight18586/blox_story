@@ -37,7 +37,7 @@ const {shots: _omit, ...rest} = spec;
 const castFile = spec.castFile && existsSync(spec.castFile) ? readFileSync(spec.castFile, 'utf8') : '';
 const troupeFile = Object.values(spec.cast ?? {}).some(c => c.troupe) ? readFileSync(spec.troupeFile ?? (spec.format === 6 ? 'cast/troupe6.json' : 'cast/troupe.json'), 'utf8') : '';   // A5: troupe slots feed the cache hash
 const world = sha([...['engine', 'avatar', 'avatar-style', 'parts'].flatMap(walk).sort().map(f => f + '\n' + readFileSync(f, 'utf8')),
-  JSON.stringify(rest), castFile, troupeFile, existsSync(worldFile) ? readFileSync(worldFile, 'utf8') : '', `${width}x${height} aa=${aa}${final && spec.look === 'cine' ? ' ss=2' : ''}`].join('\n'));
+  JSON.stringify(rest), castFile, troupeFile, existsSync(worldFile) ? readFileSync(worldFile, 'utf8') : '', `${width}x${height} aa=${aa}`].join('\n'));
 const dirOf = s => path.join(out, 'cache', `${s.id}-${sha(world + JSON.stringify(s)).slice(0, 12)}`);
 const shotOf = f => shots.findLast(s => f >= s.start);
 const file = f => { const s = shotOf(f); return path.join(dirOf(s), `${String(f - s.start).padStart(4, '0')}.png`); };
@@ -52,7 +52,7 @@ await saveProgress();
 console.log(`${specPath}: ${total} frames; ${progress.cached} cached, ${todo.length} to render at ${width}×${height}, ${workers} worker(s)`);
 
 const server = await startServer(process.cwd());
-const page = `${server.url}/engine/episode.html?spec=${encodeURIComponent(specPath)}&aa=${aa}${final && spec.look === 'cine' ? '&ss=2' : ''}`;   // tuft 1B: look 'cine' supersamples 2× in --final only
+const page = `${server.url}/engine/episode.html?spec=${encodeURIComponent(specPath)}&aa=${aa}`;   // tuft 1B fix: post 'cine' = MSAA 4× on its HDR target when aa (no supersample)
 const t0 = Date.now(), times = []; let next = 0;
 async function worker() {
   const browser = await launch();

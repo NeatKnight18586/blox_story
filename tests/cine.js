@@ -94,13 +94,38 @@ const shotFor = move => ({...base, move, id: 'T-' + move,
     const d = Math.hypot(...q.p.map((x, i) => x - h.p[i])), d15 = Math.hypot(...A.sampleActing(tr, pr.key, {build}).props[pr.id].p.map((x, i) => x - h.p[i])); worst = Math.max(worst, d); old = Math.max(old, d15); rows.push(`${pr.verb}/${build} ${d.toFixed(3)}`); }
   gate('R6 props: prop to R6 hand ≤ 0.1 at grab/catch keys and throw release', worst <= .1, `max ${worst.toFixed(3)} (${rows.join(', ')}); R15 hand before: up to ${old.toFixed(3)}`); }
 
-// 11. v2:stability on the fixture with camera: 'cine' + look: 'cine'
+// 12. (1B fix) the lens never overrides an authored fov; it applies when the shot sets `lens` or has no from.fov
+{ const ctx = {fps: FPS, aspect: ASPECT, actorsAt: () => ({}), cacheKey: null}, s = {id: 'L', move: 'static-drift', size: 'cu', duration: 1, from: {position: [0, 4, 10], target: [0, 4, 0], fov: 40}};
+  const a = C.idealAt(s, 0, ctx).fov, b = C.idealAt({...s, lens: 85}, 0, ctx).fov, c = C.idealAt({...s, from: {position: [0, 4, 10], target: [0, 4, 0]}}, 0, ctx).fov;
+  gate('lens: authored fov kept; lens only when set or no fov', Math.abs(a - 40) < 1e-9 && Math.abs(b - C.lensFov(85)) < 1e-6 && Math.abs(c - C.lensFov(85)) < 1e-6, `authored 40° → ${a.toFixed(1)}°; lens 85 set → ${b.toFixed(1)}°; no fov (cu) → ${c.toFixed(1)}°`); }
+// 13. (1B fix) size band + all subjects' heads: a framed shot lands its subject's v in the band centre; a two-subject shot keeps both heads
+//     inside the frame and clear of the caption band (the solver's own head box), the ots actor excluded from the list
+{ const heads = {hero: {eyes: [0, 4.85, 0], headH: 1.2, H: 5.3}, kid: {eyes: [2.4, 3.0, 1], headH: .74, H: 3.3}};
+  const ctx = k => ({fps: FPS, aspect: ASPECT, actorsAt: () => ({hero: [0, 0, 0], kid: [2.4, 0, 1]}), headsAt: () => heads, faceAt: () => [1, 0], headH: 1.2, cacheKey: null, k});
+  const rows = []; let ok = true;
+  for (const size of ['ms', 'mcu', 'cu']) { const s = {id: 'S' + size, move: 'static-drift', size, subject: 'hero', duration: 1, from: {position: [3, 4, 14], target: [0, 4, 0], fov: 40}}, c = C.idealAt(s, .5, ctx()), v = C.sizeV(c, heads.hero.eyes, 5.3), b = C.SIZE_BAND[size];
+    ok = ok && v >= b[0] && v <= b[1]; rows.push(`${size} v ${v.toFixed(2)} (${b.join('–')})`); }
+  const two = {id: 'two', move: 'static-drift', size: 'mcu', subject: 'hero', subjects: ['hero', 'kid'], duration: 1, from: {position: [1, 4, 7], target: [0, 4, 0], fov: 40}}, c2 = C.idealAt(two, .5, ctx()), sh = C.fitShift(['hero', 'kid'].map(n => C.headBox(c2, heads[n].eyes, heads[n].headH, ASPECT)));
+  const ots = C.subjectsOf({subject: 'hero', ots: 'kid', rack: {from: 'kid', to: 'hero'}});
+  ok = ok && sh.ok && Math.abs(sh.x) < 1e-3 && Math.abs(sh.y) < 1e-3 && ots.join() === 'hero';
+  gate('size bands + every subject\'s head in frame (solver)', ok, `${rows.join(', ')}; hero + kid MCU residual shift ${sh.x.toFixed(4)}, ${sh.y.toFixed(4)} (fits ${sh.ok}); ots subjects [${ots}]`); }
+// 14. (1B fix) dolly zoom 28° → 70°: the background (20 studs behind the subject) frame width ≥ 2× at the end, subject ± 3 %
+{ const k = .72 * 5.3 / 2, d0 = k / Math.tan(14 * Math.PI / 180), d1 = k / Math.tan(35 * Math.PI / 180), s = {id: 'dz2', move: 'dollyZoom', size: 'cu', duration: 2, from: {position: [0, 4.4, d0], target: [0, 4.4, 0], fov: 28}, to: {position: [0, 4.4, d1]}};
+  const a = C.sampleCine(s, 0, ctxOf(null)), b = C.sampleCine(s, 2.4, ctxOf(null)), w = c => 2 * (Math.hypot(...c.position.map((x, i) => x - [0, 4.4, 0][i])) + 20) * Math.tan(Math.atan(Math.tan(c.fov * Math.PI / 360) * ASPECT));
+  const sz = C.sizeFrac(b, [0, 4.4, 0], 1.2) / C.sizeFrac(a, [0, 4.4, 0], 1.2) - 1;
+  gate('dollyZoom 28° → 70°: background stretch ≥ 2×, size ± 3 %', w(b) / w(a) >= 2 && Math.abs(sz) <= .03 && b.fov >= 69.5, `fov ${a.fov.toFixed(1)}° → ${b.fov.toFixed(1)}°, background width ×${(w(b) / w(a)).toFixed(2)}, size ${(sz * 100).toFixed(2)} %`); }
+// 15. (1B fix) grade S-curve: black point ~2 %, monotone, contrast > 1 at the pivot
+{ const {sCurve, CURVE} = await import('../engine/cinelook.js'); const ys = Array.from({length: 101}, (_, i) => sCurve(i / 100)), mono = ys.every((y, i) => !i || y >= ys[i - 1]);
+  const slope = (sCurve(CURVE.pivot + CURVE.inBlack * (1 - CURVE.pivot) + .01) - sCurve(CURVE.pivot + CURVE.inBlack * (1 - CURVE.pivot) - .01)) / .02;
+  gate('grade S-curve: black point 2 %, monotone, pivot slope > 1', Math.abs(ys[0] - .02) < 1e-9 && mono && slope > 1 && ys[100] === 1, `out(0) ${ys[0].toFixed(3)}, out(.1) ${ys[10].toFixed(3)}, out(.5) ${ys[50].toFixed(3)}, out(1) ${ys[100].toFixed(3)}, pivot slope ${slope.toFixed(2)}`); }
+
+// 11. v2:stability on the fixture with camera: 'cine' + post: 'cine'
 if (!process.argv.includes('--no-render')) {
   let line = 'not run', pass = false;
   try { const out = execFileSync('node', ['scripts/v2/stability.js', '--spec', 'engine/fixtures/cine/episode.json'], {encoding: 'utf8', stdio: 'pipe', timeout: 1200000});
     const j = JSON.parse(readFileSync('review/cine/stability-episode.json', 'utf8')); pass = j.result === 'PASS'; line = `worst ${j.worst?.view ?? ''} ${(j.worst?.pct ?? j.worst?.flicker ?? JSON.stringify(j.worst))} % over ${j.views} views (limit ${j.limit} %)`; void out; }
   catch (e) { try { const j = JSON.parse(readFileSync('review/cine/stability-episode.json', 'utf8')); line = `FAIL worst ${JSON.stringify(j.worst)}`; } catch { line = 'stability run failed: ' + String(e.message).slice(0, 120); } }
-  gate('v2:stability on engine/fixtures/cine (camera + look cine)', pass, line);
+  gate('v2:stability on engine/fixtures/cine (camera + post cine)', pass, line);
 }
 mkdirSync('review/cine', {recursive: true}); writeFileSync('review/cine/cine-tests.json', JSON.stringify(gates, null, 1));
 console.log(`\n${gates.filter(g => !g.pass).length ? 'FAIL' : 'PASS'}: ${gates.filter(g => g.pass).length}/${gates.length} gates`);

@@ -1852,3 +1852,35 @@ reported, not gated. Pre-roll velocity = sim state at frame 0 (the first-frame s
 camera.test.js excludes MOVES_CINE like MOVES5/K1. Plan tools (inspectFrame, v2:read) still use the non-cine camera.
 Open: D rack hides the hero (solver aim crops him); B walk crops the head; wide haze milky; fg lantern reads as a sharp panel (CoC cap);
 anticipation is 14 mm after the spring (near invisible); final SS 2× cost unmeasured on farm GPU.
+
+## tuft (E5) Phase 1B FIX — owner review of the Look Pack + cine camera (Opus 5.5)
+Plan: 1. rename: spec `post: 'cine'` = the post pipeline (spec.look stays the preset); fixture, render.js, docs, LIBRARY.
+2. look: grade fog starts 25 studs from the camera (scene fog near ≥ 25 too), haze ≤ .08; actors-only shader light (per-actor material
+clones, like look5b): cool moon rim from behind-above on the far side of the camera + soft warm key from the nearest lantern/window glow;
+grade = AgX → S-curve (black point ~2 %), split tone (teal shadows / orange highs), +10 % mid saturation, vignette ≤ .25.
+New gates (cine-gates.js, before vs after, same 12 frames): luma std ×1.15, subject/ring separation ×1.3, rim ≥ 3 % edge px, no milk.
+3. camera: lens only when `lens` set or no authored fov; size solver (distance) to a measured band per size class (v = frame height at
+the subject / subject height: MS .80–1.10, MCU .60–.80, CU .40–.60 — the 9:16 reading, whole head must fit the width); all subjects'
+heads inside the frame and outside the caption band (aim shift, then dolly back); eye-third for the main subject only; B leads the walker;
+D = over-the-shoulder (`ots: 'kid'`, rack from the kid to the hero). Gates: heads in frame 100 %, size in band ≥ 95 % (browser).
+4. cost: no supersample; --final = 1440×2560 + MSAA 4× on the HDR target; edge AA in the grade only if steps show. Gate est. ≤ 3.0 s/frame + max step px.
+5. fg = pre-blurred gaussian warm sprite (fg max luma ≤ subject max); dollyZoom 28° → 70°, size ± 3 %, background stretch ≥ 2×.
+Sheet: ab.png / ab-390.png = before | after-1B | after-FIX (12 frames), demo.mp4.
+Built: spec `post: 'cine'` (rename; spec.look stays the preset; render.js passes no ss) · cinelook.js: fog/height fog start 25 studs (look.js
+`patchHeightFog start`, look4 `fogStart`, opt-in), haze .08, `BG` falloff behind the subject (×.62), AgX × −0.35 EV then `CURVE` (input black
+.05 → 2 % black point, S-curve k 1.4, teal shadows / warm highs, +10 % mid sat), vignette ≤ .25, actors-only shader light `ACTOR_LIGHT`
+(+0.6 EV lift, moon rim behind-above far side, warm key from the nearest world light), MSAA 4× HDR target + FXAA-lite when aa, fg lantern =
+gaussian sprite · cine.js: lens only when set / no fov, `SIZE_BAND`, `subjectsOf` / `headBox` / `fitShift` (aim, then back off; dollyZoom aim
+only), `ots` (fov sets size), `rack.from` · episode.js: ctx `headsAt` (rest-pose head centres on marks), facing from mark yaw (render-order
+determinism), `cine.measure` · fixture: lens dropped where fov authored, B side-on lead, D over-the-shoulder kid → hero, E 28° → 70°.
+Commands: node tests/cine.js (15/15) · node scripts/v2/cine-gates.js (15/16) · cine-sheet.py --before --after1b --after.
+Numbers: contrast std .132 → .179 (×1.35) · separation .039 → .081 (×2.06) · rim min 10.4 % (before 7.2) · darkest-10 % .027 → .029
+(1B .069 on PNGs) · heads in frame 150/150 · size in band 100 % all framed shots · dolly size dev 2.09 %, bg ×2.30 · fg max .69 ≤ subject
+.94 · stability worst .039 % · 270×480 65 → 89 ms · final 1440×2560 MSAA 2.88 s/frame (1B 5.15) · edge max step .47 px (no AA .52) FAIL.
+Determinism: 12 frames out of order = byte-identical to the sequential render. npm test, v2:test, tests/r6.js 8/8 green.
+Fix passes: separation ×1.14 → actor lift + darker set (×1.42) → staging changes ×1.19 → BG falloff (×2.06). Milk +.036 → input black .05.
+Heads: AABB measure → vertex measure (exact); C/D clip → rest-pose head offsets + head box 1.5 W. Edges: pass 1 MSAA (0.52 → 0.47),
+pass 2 FXAA-lite (no change) → stopped, reported; residual = head mesh facet kinks (no-AA reads the same), not loosened (≤ .25).
+Decisions: SIZE_BAND is a 9:16 reading (whole head must fit the width; literal "MCU = to mid-chest" cannot hold the head in width).
+Edge metric = coverage edge vs neighbour chord (mask has an invisible head extra ~15 px above the visible top at 1440).
+Open: edge gate; OTS kid reads as a dark blob; background falloff hides the dolly stretch; dark jackets near-black; final cost 2.88 is near 3.0.

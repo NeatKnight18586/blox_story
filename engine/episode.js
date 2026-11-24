@@ -48,8 +48,8 @@ import {clearScreen} from './clear6.js';
 const q = new URLSearchParams(location.search);
 const specUrl = q.get('spec') ? new URL('../' + q.get('spec'), import.meta.url) : new URL(`../stories/${q.get('story')}/episode.json`, import.meta.url);
 const spec = stripLabels(await (await fetch(specUrl)).json());   // owner rule §2c: Season 1 (or labels: false) draws no labels
-// tuft 1B (opt-in): spec `look: 'cine'` = the Look Pack (engine/cinelook.js) on the look4 preset; spec `camera: 'cine'` = engine/cine.js
-const CINE_LOOK = spec.look === 'cine', CINE_CAM = spec.camera === 'cine'; if (CINE_LOOK) spec.look = spec.look4 ?? spec.cineBase ?? 'night';
+// tuft 1B (opt-in): spec `post: 'cine'` = the Look Pack post pipeline (engine/cinelook.js; spec.look stays the look preset); spec `camera: 'cine'` = engine/cine.js
+const CINE_LOOK = spec.post === 'cine', CINE_CAM = spec.camera === 'cine';
 const CINE = CINE_CAM || CINE_LOOK ? await import('./cine.js') : null;
 const FPS = spec.fps ?? 30;
 
@@ -78,7 +78,7 @@ for (const r of [...(spec.classReveals ?? []), ...shots.flatMap(s => [].concat(s
 // ---- Scene: the episode's world.js (Session 3+) or the Session 1 placeholder plate ----
 const renderer = new T.WebGLRenderer({antialias: q.get('aa') !== '0', preserveDrawingBuffer: true});
 renderer.outputColorSpace = T.SRGBColorSpace; renderer.shadowMap.enabled = true; renderer.shadowMap.type = T.PCFSoftShadowMap;
-if (CINE_LOOK) renderer.shadowMap.enabled = false;   // tuft 1B: no live shadow maps on look 'cine' (baked light + contact blobs)
+if (CINE_LOOK) renderer.shadowMap.enabled = false;   // tuft 1B: no live shadow maps on post 'cine' (baked light + contact blobs)
 document.body.appendChild(renderer.domElement);
 const scene = new T.Scene();
 const camera = new T.PerspectiveCamera(45, 9 / 16, .3, 900);   // near 0.3 (A1): more depth precision for the ground layers
@@ -103,7 +103,7 @@ if (spec.world) {
   if (spec.look4) {   // format v4 Phase 2 (opt-in): AgX + PMREM sky env + v4 surfaces + baked static light (engine/look4.js, bake.js)
     const presets = await loadLooks4(new URL('./', import.meta.url)), P4 = presets[spec.look4]; if (!P4) throw Error('unknown look4 ' + spec.look4);
     await M4.loadTex4(new URL('../', import.meta.url));
-    look = createLookV4(scene, renderer, presets, {initial: spec.look4}); look.apply(spec.look4);
+    look = createLookV4(scene, renderer, presets, {initial: spec.look4, ...(CINE_LOOK ? {fogStart: (await import('./cinelook.js')).FOG.start} : {})});   // tuft 1B fix: post 'cine' = no height fog near the camera look.apply(spec.look4);
     if (mod.preload) await mod.preload(new URL('../', import.meta.url), {scene, renderer, spec});   // format v5 3b-R (opt-in): async world assets (box-art atlas)
     world = mod.build(scene, {P, B, A, M, M4, PR, TR, BI, V, W, look, spec, look4: {preset: P4, halo, water4}});
     if (spec.groundFix) GROUNDFIX = groundFix(scene, look, spec.groundFix);   // Toy House final fix (owner P4, opt-in): before the bake
@@ -541,11 +541,13 @@ function shotShadow(shot) {
 const storyProps = [];
 if (spec.props?.length) { const {toyProp} = await import('../parts/sets4/props4.js'), P7 = spec.props.some(p => p.set === 'props7') ? (await import('../parts/sets4/props7.js')).PROPS7 : null;
   for (const p of spec.props) { const g = p.set === 'props7' ? P7[p.prop](p.p ?? {}) : toyProp(p.prop, p.seed ?? 1, p); if (g.userData.ready) await g.userData.ready; g.name = 'prop_' + p.id; g.scale.setScalar(p.scale ?? 1); g.traverse(o => { o.userData.live = true; }); scene.add(g); storyProps.push({p, g}); } }   // Touch Grass E1 (opt-in p.set 'props7'): props7 builders, p.p = builder options
-// tuft 1B (opt-in spec.glowCubes [{at, size, color, hdr}]): emissive stand-ins (a glowing beast); HDR (> 1) only under look 'cine'
+// tuft 1B (opt-in spec.glowCubes [{at, size, color, hdr}]): emissive stand-ins (a glowing beast); HDR (> 1) only under post 'cine'
 const glowCubes = (spec.glowCubes ?? []).map((g, i) => { const m = new T.Mesh(new T.BoxGeometry(g.size ?? 1.2, g.size ?? 1.2, g.size ?? 1.2), new T.MeshBasicMaterial({color: g.color ?? '#7fe8ff'}));
   m.material.userData.glow = 1; if (g.hdr) m.material.userData.glowHDR = g.hdr; m.position.set(...g.at); m.userData.live = true; m.name = 'glowCube_' + i; scene.add(m); return m; });
-const CL = CINE_LOOK ? (await import('./cinelook.js')).createCineLook({renderer, scene, spec, ss: Number(q.get('ss') ?? 1), aa: q.get('aa') !== '0'}) : null, CINE_OPTS = {bloom: true, grain: true};
-if (CL) { const roots = new Set(Object.values(cast).map(x => x.a.root)); CL.markGlow(scene, o => { for (let p = o; p; p = p.parent) if (roots.has(p)) return true; return false; }); }
+const CL = CINE_LOOK ? (await import('./cinelook.js')).createCineLook({renderer, scene, spec, aa: q.get('aa') !== '0'}) : null, CINE_OPTS = {bloom: true, grain: true, actorLight: true};
+// 1B fix: each actor's head centre above its root at load (rest pose, root yaw ignored: the head sits over the root axis)
+const CINE_HEAD = {}; if (CINE_CAM) for (const [n, x] of Object.entries(cast)) if (x.v2) { x.a.root.updateMatrixWorld(true); const b = new T.Box3().setFromObject(x.a.pivots.head, true), c = b.getCenter(new T.Vector3()); CINE_HEAD[n] = [0, c.y - x.a.root.position.y, 0]; }
+if (CL) { const roots = new Set(Object.values(cast).map(x => x.a.root)); CL.markGlow(scene, o => { for (let p = o; p; p = p.parent) if (roots.has(p)) return true; return false; }); CL.lightActors([...roots]); }
 // E1 fix (opt-in spec.hide): set objects hidden by name (a story prop replaces them)
 for (const n of spec.hide ?? []) { const o = scene.getObjectByName(n); if (o) o.visible = false; else console.warn('spec.hide: no object ' + n); }
 const vecAt = (keys, t, d) => keys?.length ? d.map((v, i) => valueAt(keys.map(k => [k[0], k[1][i], k[2], k[3]]), t, v)) : d;
@@ -631,9 +633,12 @@ function drawFrame(shot, mf, off, width, height, nudge) {
 function cineCtx(shot, aspect) {
   const t0 = shot.start / FPS, subj = shot.subject && cast[shot.subject]?.v2 ? cast[shot.subject] : null;
   let eyes = null, face = null, headH = 1.2;
-  if (subj) { const h = headOf(subj).toArray(), r = subj.a.root.position, off = [h[0] - r.x, h[1] - r.y, h[2] - r.z], y = subj.a.root.rotation.y;   // eye point = the posed head, carried along the mark
-    eyes = tt => { const mk = markAt(subj.c, t0 + tt); return [mk[0] + off[0], mk[1] + off[1], mk[2] + off[2]]; }; face = () => [Math.sin(y), Math.cos(y)]; headH = 1.2 * subj.a.root.scale.x; }
-  return {fps: FPS, aspect, cacheKey: `${shot.id}|${shot.start}|${aspect.toFixed(4)}`, headH, eyesAt: eyes, faceAt: face, actorsAt: tt => Object.fromEntries(Object.entries(cast).map(([n, x]) => [n, markAt(x.c, t0 + tt)]))};
+  if (subj) { const h = headOf(subj).toArray(), r = subj.a.root.position, off = [h[0] - r.x, h[1] - r.y, h[2] - r.z];   // eye point = the posed head, carried along the mark
+    eyes = tt => { const mk = markAt(subj.c, t0 + tt); return [mk[0] + off[0], mk[1] + off[1], mk[2] + off[2]]; }; face = tt => { const yw = (markOf(subj.c, t0 + tt).yaw ?? 0) * Math.PI / 180; return [Math.sin(yw), Math.cos(yw)]; }; headH = 1.2 * subj.a.root.scale.x; }   // 1B fix: facing = the mark's yaw (pure in t: same frame = same camera in any render order)
+  // 1B fix: every v2 actor's eye point (posed head offset carried along its mark), head and body height → size band + all-subjects head fit
+  const hoff = Object.fromEntries(Object.entries(cast).filter(([, x]) => x.v2).map(([n, x]) => [n, {off: CINE_HEAD[n] ?? [0, 4.6 * x.a.root.scale.y, 0], s: x.a.root.scale.x, c: x.c}]));   // rest-pose head centre (measured once at load: same frame = same camera in any render order)
+  const headsAt = tt => Object.fromEntries(Object.entries(hoff).map(([n, o]) => { const mk = markAt(o.c, t0 + tt); return [n, {eyes: [mk[0] + o.off[0], mk[1] + o.off[1], mk[2] + o.off[2]], headH: 1.2 * o.s, H: 5.3 * o.s}]; }));
+  return {fps: FPS, aspect, cacheKey: `${shot.id}|${shot.start}|${aspect.toFixed(4)}`, headH, eyesAt: eyes, faceAt: face, headsAt, actorsAt: tt => Object.fromEntries(Object.entries(cast).map(([n, x]) => [n, markAt(x.c, t0 + tt)]))};
 }
 const sampleCineShot = (shot, lt, aspect) => CINE.sampleCine({...shot, fps: FPS}, lt, cineCtx(shot, aspect));
 const cineCam0 = {};
@@ -644,11 +649,17 @@ function cineRender(shot, mf, off, lt, width, height) {
   CL.blobsFor(items, gy);
   const k = `${shot.id}|${shot.start}`; if (shot.fg && !cineCam0[k]) { const c0 = CINE_CAM ? sampleCineShot(shot, 0, width / height) : sampleCamera({...shot, fps: FPS}, 0, poseCast(shot.start / FPS));
     const s = shot.subject && cast[shot.subject] ? CINE.project(c0, headOf(cast[shot.subject]).toArray(), width / height).x : 0; cineCam0[k] = {c0, s}; poseCast(mf.anim / FPS); }
-  CL.fg(shot, cineCam0[k]?.c0, cineCam0[k]?.s ?? 0);
+  CL.fg(CINE_OPTS.fg === false ? {...shot, fg: null} : shot, cineCam0[k]?.c0, cineCam0[k]?.s ?? 0);
+  if (scene.fog?.isFog) { const fs = CL.FOG.start; if (scene.fog.near < fs) { scene.fog.far += fs - scene.fog.near; scene.fog.near = fs; } }   // 1B fix: no distance fog within FOG.start (look.apply resets it each frame)
   const hd = n => cast[n] ? camera.position.distanceTo(headOf(cast[n])) : null, focus = shot.subject && cast[shot.subject] ? CINE.focusAt(shot, lt, hd) : null;
+  if (CINE_OPTS.actorLight) {   // 1B fix: actors-only rim (behind-above, far side from the camera) + warm key from the nearest world practical
+    const sx = shot.subject && cast[shot.subject] ? cast[shot.subject].a.root : Object.values(cast).find(x => x.a.root.visible)?.a.root, y = sx?.rotation.y ?? 0;
+    CL.state.actorLight = CL.aimActorLight(sx ? sx.position.toArray() : camera.position.toArray(), camera.position.toArray(), [Math.sin(y), Math.cos(y)], world?.lights ?? []);
+  } else CL.setActorLight(false);
   const ex = renderer.toneMappingExposure; if (!M6) renderer.toneMappingExposure *= 2 ** CL.moodEV(shot);   // exposure per mood (mood6.json ev; spec.moods applies it itself)
-  scene.updateMatrixWorld(true); CL.render(camera, {w: width, h: height, shot, frame: Math.round(mf.cam + off), focus, fogColor: spec.cineFog ? new T.Color(spec.cineFog) : null, bloomOn: CINE_OPTS.bloom, grainOn: CINE_OPTS.grain});
-  CL.state.subjectDist = shot.subject ? hd(shot.subject) : null; CL.state.rackDist = shot.rack ? hd(shot.rack.to) : null; CL.state.lt = lt; renderer.toneMappingExposure = ex;
+  scene.updateMatrixWorld(true); const sz = shot.subject && cast[shot.subject]?.a.root.visible ? headOf(cast[shot.subject]).sub(camera.position).dot(camera.getWorldDirection(new T.Vector3())) : null;   // the subject's view depth (background falloff)
+  CL.render(camera, {w: width, h: height, shot, frame: Math.round(mf.cam + off), focus, subjectZ: sz, bgOn: CINE_OPTS.bgFalloff !== false, fogColor: spec.cineFog ? new T.Color(spec.cineFog) : null, bloomOn: CINE_OPTS.bloom, grainOn: CINE_OPTS.grain});
+  CL.state.subjectDist = shot.subject ? hd(shot.subject) : null; CL.state.rackDist = shot.rack ? hd(shot.rack.to) : null; CL.state.rackFromDist = shot.rack ? hd(shot.rack.from ?? shot.subject) : null; CL.state.lt = lt; renderer.toneMappingExposure = ex;
 }
 
 // Bench / stills: render a world anchor's establishing camera at time t (no shot needed).
@@ -926,4 +937,14 @@ export function classHaze(n, {w = 390, h = 693, near = 15, far = 60, match = /^g
   const rn = rms(acc.near), rf = rms(acc.far); return {frame: n, nearRms: rn, farRms: rf, nearPx: acc.near.length, farPx: acc.far.length, ratio: rn && rf !== null ? rf / rn : null};
 }
 const hugCam = p => { const f = Math.round(p.key * FPS), sh = shots.findLast(s => f >= s.start), t = f / FPS, actors = poseCast(t), c = sampleCamera({...sh, fps: FPS}, (f - sh.start) / FPS, actors); const lp = markAt(cast[p.lead].c, t); return {camPos: [c.position[0], c.position[2]], leadPos: [lp[0], lp[2]], partnerPos: p.mark}; };
-window.__episode = {cine: CL ? {state: CL.state, opts: CINE_OPTS, glowCount: CL.glowCount, setGlow: CL.setGlow} : null, story6: S6, clearedNow: () => CLEARED.map(r => r.name), actingPlan: () => actPlans.map(p => /^hug/.test(p.verb) ? {...p, cam: hugCam(p)} : p), groundFix: () => GROUNDFIX, sepMeasure, ceilingLuma, classHaze, satMeasure, depthLuma, lumaProbe, debug: {scene, renderer, camera, look, pool: U5B?.poolOf ?? null}, bake: BAKE, matcapBytes: MATCAP ? (n => Array.from(look.matcapBytes(n ?? spec.look4))) : null, breakdown, measureFrame, seasonMeasure, actorMask, readMeasure, gateMeasure, placesAt, lumaAt, inspectFrame, shotSpeed, END: FRAMES / FPS, anchors: Object.fromEntries(Object.entries(anchors).filter(([, a]) => a.camera).map(([k]) => [k, true])), renderAnchor, renderAnchorNudged, renderCamera, FPS, FRAMES, shots: shots.map(({id, start, frames, size, move, loc, subject, see, openHit, at, why, captionY, fit, spectacle, look: lk}) => ({id, start, frames, size, move, loc, subject, see, openHit: !!openHit, at, why, captionY, fit, spectacle: !!spectacle, look: lk})), renderFrame};
+// tuft 1B fix gates: per actor, the head's NDC box (every visible vertex of the head pivot subtree: head, face, hair, projected) and the size measure
+// v = frame height at the head's depth / body height (5.3 × scale), for the camera of the last rendered frame
+function cineMeasure(names = Object.keys(cast)) {
+  const out = {}, b = new T.Box3(), v = new T.Vector3(), f = new T.Vector3(); camera.updateMatrixWorld(); camera.getWorldDirection(f);
+  for (const n of names) { const x = cast[n]; if (!x?.v2 || !x.a.root.visible) continue; b.setFromObject(x.a.pivots.head, true); let x0 = 9, x1 = -9, y0 = 9, y1 = -9, behind = false;
+    x.a.pivots.head.traverse(o => { if (!o.isMesh || !visibleChain(o)) return; const pos = o.geometry.attributes.position; for (let i = 0; i < pos.count; i++) { v.fromBufferAttribute(pos, i).applyMatrix4(o.matrixWorld);   // every head vertex (head, face, hair) projected: the exact extent
+      if (v.clone().sub(camera.position).dot(f) <= 0) behind = true; v.project(camera); x0 = Math.min(x0, v.x); x1 = Math.max(x1, v.x); y0 = Math.min(y0, v.y); y1 = Math.max(y1, v.y); } });
+    const c = b.getCenter(new T.Vector3()), z = c.clone().sub(camera.position).dot(f);
+    out[n] = {x0, x1, y0, y1, behind, v: 2 * z * Math.tan(camera.fov * Math.PI / 360) / (5.3 * x.a.root.scale.y), z}; }
+  return out; }
+window.__episode = {cine: CL ? {state: CL.state, opts: CINE_OPTS, glowCount: CL.glowCount, setGlow: CL.setGlow, measure: cineMeasure} : null, story6: S6, clearedNow: () => CLEARED.map(r => r.name), actingPlan: () => actPlans.map(p => /^hug/.test(p.verb) ? {...p, cam: hugCam(p)} : p), groundFix: () => GROUNDFIX, sepMeasure, ceilingLuma, classHaze, satMeasure, depthLuma, lumaProbe, debug: {scene, renderer, camera, look, pool: U5B?.poolOf ?? null}, bake: BAKE, matcapBytes: MATCAP ? (n => Array.from(look.matcapBytes(n ?? spec.look4))) : null, breakdown, measureFrame, seasonMeasure, actorMask, readMeasure, gateMeasure, placesAt, lumaAt, inspectFrame, shotSpeed, END: FRAMES / FPS, anchors: Object.fromEntries(Object.entries(anchors).filter(([, a]) => a.camera).map(([k]) => [k, true])), renderAnchor, renderAnchorNudged, renderCamera, FPS, FRAMES, shots: shots.map(({id, start, frames, size, move, loc, subject, see, openHit, at, why, captionY, fit, spectacle, look: lk}) => ({id, start, frames, size, move, loc, subject, see, openHit: !!openHit, at, why, captionY, fit, spectacle: !!spectacle, look: lk})), renderFrame};

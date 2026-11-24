@@ -2,10 +2,16 @@
 // sampleCine(shot, localT, ctx) → {position, target, fov, roll, noise: [rx, ry, rz] (rad), lens, focus}. It wraps camera.js
 // sampleCamera (the authored move) and adds, in order:
 //   lens      shot `lens: 24|35|50|85` (mm on a 24 mm-wide 9:16 frame) → fov; default by size (ews/ws 24, ms 35, mcu 50, cu/ecu 85).
+//             1B fix: the lens never overrides an authored fov — it applies only when the shot sets `lens` or has no `from.fov`.
 //             The camera slides along its view axis so the authored subject size holds (longer lens = further back, flatter).
+//   size      1B fix: ms / mcu / cu with a subject: the camera slides (one constant factor per shot, measured at mid-move) so the
+//             frame height at the subject, in subject heights, sits in the size band (SIZE_BAND: the 9:16 reading of MS = head to
+//             knees, MCU = head to chest, CU = head + shoulders; the whole head must fit the width).
 //   ramp      shot `ramp: [{at, speed}]` remaps the move's clock (smoothstep between keys); actors keep their own time.
 //   framing   ms/mcu/cu/ecu with a subject: eyes on the upper-third line, lead room toward the subject's facing, chin above
-//             the caption band (58–74 % of the height). Aim only; the position stays the move's.
+//             the caption band (58–74 % of the height). 1B fix: every listed subject (shot.subjects, else subject + string action
+//             targets + rack ends, minus the `ots` foreground actor) keeps its whole head inside the frame and outside the caption
+//             band, on every shot size: the aim shifts first, then the camera backs off; the eye third gives way to this.
 //   antic     a moving shot starts with a counter-move over its first ANTIC.frames frames.
 //   body      a critically damped follower (natural frequency per mood) with jerk / acceleration / speed caps on the position,
 //             an angular-speed cap on the aim; simulated from the shot's first frame (state = the frame-0 pose at rest), so
@@ -13,7 +19,8 @@
 //   handheld  rotation-only seeded layered sines per mood (0.3–1.5 Hz), returned as `noise`, never moves the position.
 // ctx: {actorsAt(tt) → {name: [x, y, z]} marks (follow moves), eyesAt(tt) → subject eye point | null, faceAt(tt) → subject
 //       facing [x, z] | null, headH (world), aspect (w/h), fps, cacheKey (optional: lets a renderer resume the simulation;
-//       the output is identical with or without it)}.
+//       the output is identical with or without it), headsAt(tt) → {name: {eyes, headH, H}} (1B fix: every actor's eye point,
+//       head height and body height; enables the size band and the all-subjects head fit)}.
 import {sampleCamera, dollyZoomPose, EASE} from './camera.js';
 
 export const SENSOR_W = 24, SENSOR_V = 24 * 16 / 9;                       // mm; 9:16 frame, short side = 24 mm
@@ -106,27 +113,85 @@ export function fgPlace(kind, cam, subjectNdcX = 0, aspect = 9 / 16) {
   return {kind, cameraSpace: [x, y, -g.z], position: add(cam.position, add(add(scl(r, x), scl(u, y)), scl(f, g.z))), scale: g.s, side: sx};
 }
 
-// ---- focus (DOF): the subject's head distance; `rack: {to, at, dur}` eases (in dioptres) to another actor's head ---------
+// ---- focus (DOF): the subject's head distance; `rack: {from?, to, at, dur}` eases (in dioptres) to another actor's head ---------
 export function focusAt(shot, localT, headDist) {
-  const d0 = headDist(shot.subject); if (!shot.rack) return d0;
+  const d0 = headDist(shot.rack?.from ?? shot.subject); if (!shot.rack) return d0;   // 1B fix: `rack.from` (an over-the-shoulder starts on the foreground actor)
   const k = EASE.inOutCubic(clamp01((localT - shot.rack.at) / Math.max(1e-6, shot.rack.dur ?? .6))); if (k <= 0) return d0;
   const d1 = headDist(shot.rack.to); return 1 / (1 / d0 + (1 / d1 - 1 / d0) * k);
 }
 
-// ---- the authored move under lens + ramp + framing + anticipation (no body dynamics) ------------------------------------
+// ---- size bands + head fit (1B fix) ---------------------------------------------------------------------------------------
+// v = frame height at the subject's depth / the subject's height. 9:16: MS = head to knees; MCU = head to the chest with the shoulders
+// across the width; CU = head + shoulders (a turned head with hair still fits the width). The solver aims at the band centre.
+export const SIZE_BAND = {ms: [.90, 1.20], medium: [.90, 1.20], mcu: [.75, .95], cu: [.55, .75], close: [.55, .75]};
+export const FIT = {margin: .05, iters: 4, back: 1.07, maxBack: 12, headW: 1.5, headUp: .6, headDown: .58, headD: .42};   // around the head centre (ctx eyes = the rest-pose head centre); W + up include ~0.1 stud of acting drift off the mark   // head box around the eye point, in head heights
+export const sizeV = (cam, eyes, H) => { const {f} = basis(cam.position, cam.target), z = dot(sub(eyes, cam.position), f); return 2 * z * Math.tan(cam.fov * D / 2) / H; };
+export function subjectsOf(shot, names = null) {
+  const s = new Set(shot.subjects ?? (shot.subject ? [shot.subject] : []));
+  if (!shot.subjects) { for (const a of shot.actions ?? []) if (typeof a.target === 'string') s.add(a.target); if (shot.rack?.to) s.add(shot.rack.to); if (shot.rack?.from) s.add(shot.rack.from); }
+  if (shot.ots) s.delete(shot.ots); return [...s].filter(n => !names || names.includes(n));
+}
+// NDC box of a head (a camera-aligned box around the eye point, its 8 corners projected: the near face grows on a close, wide
+// camera): {x0, x1, y0, y1} or null behind the camera
+export function headBox(cam, eyes, headH, aspect) {
+  const {f, r, u} = basis(cam.position, cam.target), pts = [];
+  for (const sx of [-1, 1]) for (const sy of [-1, 1]) for (const sz of [-1, 1]) pts.push(project(cam, add(eyes, add(add(scl(r, sx * FIT.headW * .5 * headH), scl(u, sy > 0 ? FIT.headUp * headH : -FIT.headDown * headH)), scl(f, sz * FIT.headD * headH))), aspect));
+  if (pts.some(p => p.z <= .05)) return null;
+  return {x0: Math.min(...pts.map(p => p.x)), x1: Math.max(...pts.map(p => p.x)), y0: Math.min(...pts.map(p => p.y)), y1: Math.max(...pts.map(p => p.y))};
+}
+const CAP_Y = [1 - 2 * FRAME.capBottom, 1 - 2 * FRAME.capTop];   // caption band in NDC y (bottom, top)
+// the aim shift (NDC) that brings every head box inside the frame and above (or below) the caption band; ok false = an axis cannot
+// fit (that axis then centres the boxes: best effort, the caller backs off)
+export function fitShift(boxes) {
+  const m = FIT.margin; if (!boxes.length) return {x: 0, y: 0, ok: true};
+  let lx = -Infinity, hx = Infinity, ly = -Infinity, hy = Infinity;
+  for (const b of boxes) { lx = Math.max(lx, -1 + m - b.x0); hx = Math.min(hx, 1 - m - b.x1); hy = Math.min(hy, 1 - m - b.y1);
+    ly = Math.max(ly, b.y0 >= CAP_Y[1] + m || b.y1 > CAP_Y[0] - m ? CAP_Y[1] + m - b.y0 : -1 + m - b.y0); }   // a head below the band may stay below it
+  const ax = (lo, hi) => lo > hi ? (lo + hi) / 2 : Math.min(hi, Math.max(lo, 0));
+  return {x: ax(lx, hx), y: ax(ly, hy), ok: lx <= hx && ly <= hy};
+}
+const FOLLOW = ['track', 'gamecam'];
+// ---- the authored move under lens + ramp + size + framing + anticipation (no body dynamics) ----------------------------
 const NOFRAME = ['splitScreen', 'topDown', 'povScope', 'drone'];
 export function idealAt(shot, tt, ctx) {
   const fps = ctx.fps ?? 30, tau = rampTime(shot.ramp, tt), base = sampleCamera({...shot, fps}, tau, ctx.actorsAt?.(tt) ?? {});
   if (base.split) return base;
-  let {position, target, fov} = base;
-  if (shot.move !== 'dollyZoom') {   // lens: the new fov, the camera slid along its axis so the subject at the target keeps its size
+  let {position, target, fov} = base; const aspect = ctx.aspect ?? 9 / 16, rails = shot.move === 'dollyZoom';
+  if (!rails && (shot.lens != null || shot.from?.fov == null)) {   // lens: the new fov, the camera slid along its axis so the subject at the target keeps its size
     const lf = lensFov(shotLens(shot)), f0 = (shot.from?.fov ?? fov), k = lf / f0, nf = fov * k;
     position = add(target, scl(sub(position, target), Math.tan(fov * D / 2) / Math.tan(nf * D / 2))); fov = nf;
   }
-  const eyes = ctx.eyesAt?.(tt);
-  if (eyes && shot.subject && FRAMED.includes(shot.size) && shot.frame !== false && !NOFRAME.includes(shot.move)) {
-    const ft = framingTarget({position, target, fov}, eyes, ctx.faceAt?.(tt), ctx.headH ?? 1.2, ctx.aspect ?? 9 / 16, shot.side ?? null);
-    target = aimAt(position, eyes, ft.xn, ft.yn, fov, ctx.aspect ?? 9 / 16);
+  const heads = ctx.headsAt?.(tt) ?? null, main = heads?.[shot.subject] ?? null, eyes = main?.eyes ?? ctx.eyesAt?.(tt);
+  const framed = !rails && shot.frame !== false && !NOFRAME.includes(shot.move);
+  // size band: one factor per shot (from the move's mid-point), about the subject's eyes (a follow move: the live eyes; else the mid eyes)
+  const band = SIZE_BAND[shot.size];
+  if (framed && band && main && shot.sizeFit !== false) {
+    const tm = (shot.duration ?? 2) / 2, hm = ctx.headsAt(tm)[shot.subject], bm = sampleCamera({...shot, fps}, rampTime(shot.ramp, tm), ctx.actorsAt?.(tm) ?? {});
+    let pm = bm.position, fm = bm.fov; if (shot.lens != null || shot.from?.fov == null) { const nf = fm * lensFov(shotLens(shot)) / (shot.from?.fov ?? fm); pm = add(bm.target, scl(sub(pm, bm.target), Math.tan(fm * D / 2) / Math.tan(nf * D / 2))); fm = nf; }
+    const vc = (band[0] + band[1]) / 2, vm = 2 * len(sub(hm.eyes, pm)) * Math.tan(fm * D / 2) / hm.H, k = vc / vm, pivot = FOLLOW.includes(shot.move) ? eyes : hm.eyes;
+    if (shot.ots) fov = 2 / D * Math.atan(Math.tan(fov * D / 2) * k);   // over-the-shoulder: the camera stays behind the foreground actor, the fov sets the size
+    else { position = add(pivot, scl(sub(position, pivot), k)); if (!FRAMED.includes(shot.size)) target = add(pivot, scl(sub(target, pivot), k)); }
+  }
+  if (eyes && shot.subject && FRAMED.includes(shot.size) && framed) {
+    const ft = framingTarget({position, target, fov}, eyes, ctx.faceAt?.(tt), main?.headH ?? ctx.headH ?? 1.2, aspect, shot.side ?? null);
+    target = aimAt(position, eyes, ft.xn, ft.yn, fov, aspect);
+  }
+  // every listed subject's whole head: in frame, clear of the caption band (aim shift; if they cannot fit, back off and retry)
+  const subs = heads && (framed || rails) && shot.frame !== false ? subjectsOf(shot, Object.keys(heads)) : [];   // dollyZoom: aim only (its size lock stays)
+  if (subs.length) {
+    const anchor = eyes ?? heads[subs[0]].eyes, pivot = anchor;
+    for (let n = 0; n <= FIT.maxBack; n++) {
+      let ok = false;
+      for (let i = 0; i < FIT.iters; i++) {
+        const cam = {position, target, fov}, boxes = subs.map(s => headBox(cam, heads[s].eyes, heads[s].headH, aspect));
+        if (boxes.some(b => !b)) break;
+        const sh = fitShift(boxes);
+        if (Math.abs(sh.x) < 1e-4 && Math.abs(sh.y) < 1e-4) { ok = sh.ok; break; }
+        const a = project(cam, anchor, aspect); target = aimAt(position, anchor, a.x + sh.x, a.y + sh.y, fov, aspect);
+      }
+      if (ok || rails) break;
+      position = add(pivot, scl(sub(position, pivot), FIT.back)); target = add(pivot, scl(sub(target, pivot), FIT.back));
+    }
   }
   return {position, target, fov, roll: base.roll ?? 0};
 }
