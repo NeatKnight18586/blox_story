@@ -27,3 +27,4 @@ evidence/studio-characters/hair/
 # v2 engine (docs/V2_BRIEF.md §2.5): build outputs and caches never committed
 stories/*/build/
 .cache/
+stories/*/logs/

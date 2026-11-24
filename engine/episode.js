@@ -6,6 +6,7 @@ import * as T from 'three';
 import {createBaseAvatar} from '../avatar/baseAvatar.js';
 import {sampleAction, applyActionSample} from '../avatar/actions.js';
 import {sampleCamera, maxTargetSpeed} from './camera.js';
+import {twosTime} from './r6.js';   // R6 rig / twos (opt-in)
 import {layoutShots, totalFrames, valueAt, keyAt} from './timeline.js';
 import {buildDragon, driveDragon} from '../avatar-style/dragon.js';
 import {buildDog, driveDog} from '../avatar-style/dog.js';
@@ -154,10 +155,11 @@ for (const s of shots) {
 const presets = spec.castFile ? (await (await fetch(new URL('../' + spec.castFile, import.meta.url))).json()).cast : {};
 const cast = {};
 const FACES_V3 = spec.faces === 'v3' || (spec.season === 1 && spec.faces !== 'v2');
-const troupeData = Object.values(spec.cast ?? {}).some(c => c.troupe) ? await (await fetch(new URL('../' + (spec.troupeFile ?? (spec.format === 6 ? 'cast/troupe6.json' : 'cast/troupe.json')), import.meta.url))).json() : null;   // A4 troupe slots
-if (Object.values(spec.cast ?? {}).some(c => c.troupe === 'HERO')) troupeData.troupe.HERO = (await (await fetch(new URL('../' + (spec.heroFile ?? (spec.format === 6 ? 'cast/hero6.json' : 'cast/hero.json')), import.meta.url))).json()).HERO;   // format v4 hero slot
+const troupeData = Object.values(spec.cast ?? {}).some(c => c.troupe) ? await (await fetch(new URL('../' + (spec.troupeFile ?? (spec.rig === 'r6' ? 'cast/troupe-r6.json' : spec.format === 6 ? 'cast/troupe6.json' : 'cast/troupe.json')), import.meta.url))).json() : null;   // A4 troupe slots
+if (Object.values(spec.cast ?? {}).some(c => c.troupe === 'HERO')) troupeData.troupe.HERO = (await (await fetch(new URL('../' + (spec.heroFile ?? (spec.format === 6 && spec.rig !== 'r6' ? 'cast/hero6.json' : 'cast/hero.json')), import.meta.url))).json()).HERO;   // format v4 hero slot
 // format v4 lip flaps: per-frame mouth shapes from the voice envelope (scripts/v2/envelope.js; the voice file is only read)
-const BODY6 = spec.format === 6 && spec.body !== 'v5';   // P1b: new format-6 specs put the hero, troupe and crowds on Actor v6 (spec.body 'v5' opts out)
+const RIG6 = spec.rig === 'r6', TWOS = spec.twos === true;   // R6 rig (owner 2026-11-24, engine/r6.js): classic rigid R6 on Actor v5 + faces v6; twos: actor poses + faces hold 2 frames at 24 fps
+const BODY6 = spec.format === 6 && spec.body !== 'v5' && !RIG6;   // P1b: new format-6 specs put the hero, troupe and crowds on Actor v6 (spec.body 'v5' opts out)
 const HERO_COLS = troupeData?.troupe?.HERO ? heroColours(troupeData.troupe.HERO) : null;   // format v4 1b: hero colours to keep clear
 const NIGHT_EP = ['night', 'nightBright'].includes(spec.look) || (spec.shots ?? []).some(sh => ['night', 'nightBright'].includes(sh.look));
 const flapShapes = spec.lipFlap ? (await (await fetch(new URL('../' + (spec.lipFlap.envelope ?? `stories/${spec.slug}/build/envelope.json`), import.meta.url))).json()).shapes : null;
@@ -166,9 +168,9 @@ const flapShapes = spec.lipFlap ? (await (await fetch(new URL('../' + (spec.lipF
 const markOf = (c, t) => { const k = keyAt(c.marks, t); return k ? {...k[1], t0: k[0]} : {at: c.at, offset: c.offset, yaw: c.yaw, travel: c.travel, origin: c.origin, t0: 0}; };
 const presetOf = c => {
   const pre0 = c.troupe ? resolveTroupe(c, troupeData) : c.town ? townsperson(c.town) : c.preset ? {...presets[c.preset], ...(c.with ?? {})} : c;
-  const pre1 = BODY6 ? {...pre0, body: 'v6', faceStyle: pre0.faceStyle ?? 'v5'} : c.style === 'v5' || spec.look4 ? {...pre0, body: 'v5', faceStyle: pre0.faceStyle ?? 'v5'} : pre0;   // P1b: format 6 = Actor v6 (R15) for everyone   // Actor v5 + Faces v5 (owner's sheet; 'v4' stays opt-in) (2b: every actor of a look4 episode)
+  const pre1 = RIG6 ? {...pre0, body: 'v5', faceStyle: 'v6', rig: 'r6'} : BODY6 ? {...pre0, body: 'v6', faceStyle: pre0.faceStyle ?? 'v5'} : c.style === 'v5' || spec.look4 ? {...pre0, body: 'v5', faceStyle: pre0.faceStyle ?? 'v5'} : pre0;   // P1b: format 6 = Actor v6 (R15) for everyone   // Actor v5 + Faces v5 (owner's sheet; 'v4' stays opt-in) (2b: every actor of a look4 episode)
   const pre2 = HERO_COLS && c.troupe !== 'HERO' && pre1.outfit ? {...pre1, outfit: heroSafeOutfit(pre1.outfit, HERO_COLS, {minL: NIGHT_EP ? .32 : 0})} : pre1;   // v4 1b: nobody dresses like the hero
-  const pre3 = (spec.look4 || BODY6) && !pre2.regions && pre2.outfit ? {...pre2, regions: outfitRegions(pre2.outfit, pre2.skin ?? '#f5cd30'), outfit: null} : pre2;   // 2b: outfits as colour regions (data)
+  const pre3 = (spec.look4 || BODY6 || RIG6) && !pre2.regions && pre2.outfit ? {...pre2, regions: outfitRegions(pre2.outfit, pre2.skin ?? '#f5cd30'), outfit: null} : pre2;   // 2b: outfits as colour regions (data)
   const pre = FACES_V3 && !pre3.faceStyle ? {...pre3, faceStyle: 'v3'} : pre3;   // Faces v3: default for season 1 (or spec.faces 'v3')
   if ((spec.format === 5 || spec.format === 6) && pre.build !== 'youth' && !(pre.age < 18)) pre.scale = 1;   // format v5: every adult stands at the same height (builds differ in shape, not size)
   return pre; };
@@ -360,7 +362,7 @@ const applyLift = shot => { const f = spec.actorLift !== undefined ? 1 : ['night
 // P3 acting v6 (opt-in spec.acting === 6, v6 actors only): shot `actions` [{actor, verb | cycle | face, at: s (shot-local) |
 // {word, nth}, intensity, target, facing, hold}] + spec.talk [{actor, line, gesture?, stress?}] compile into per-actor tracks
 // (engine/acting6.js); the KEY of each verb lands on its time / word start. Specs without `acting: 6` never load it.
-const ACT6 = spec.acting === 6 ? await import('./acting6.js') : null;
+const ACT6 = spec.acting === 6 ? await import('./acting6.js') : null, R6 = RIG6 && ACT6 ? await import('./r6.js') : null;
 const actTracks = ACT6 ? await (async () => {
   const get = async u => { try { const r = await fetch(new URL('../' + u, import.meta.url)); return r.ok ? await r.json() : null; } catch { return null; } };
   const cues = await get(spec.cues ?? `stories/${spec.slug}/cues.json`) ?? await get(`stories/${spec.slug}/build/cues.json`), env = await get(`stories/${spec.slug}/build/envelope.json`);
@@ -428,16 +430,17 @@ function poseOne(name, x, t, out) {
     if (v2 || dragon) {
       const at = markAt(c, t);
       markPos[name] = [...at];
+      const tq = TWOS && !x.dog && !dragon ? twosTime(t, FPS) : t, atq = tq === t ? at : markAt(c, tq);   // twos: the body and its faces sample the even frame; markPos (camera paths) stays on ones
       if (x.dog) driveDog(a, t, {keys: c.keys ?? [[0, 'idle']], origin: {position: at, yaw}});
       else if (dragon) driveDragon(a, t, {keys: c.keys ?? [[0, 'perch']], origin: {position: at, yaw}});
-      else if (actTracks?.[name] && a.body === 'v6') {   // P3 acting v6: the track's sample, faces on their words, props in the hands
-        const tr = actTracks[name], [pos, y2] = actingOrigin(name, t, at, yaw), still = M6 && shots.findLast(s => Math.round(t * FPS) >= s.start)?.still, tS = still ? shots.findLast(s => Math.round(t * FPS) >= s.start).start / FPS + .001 : t, act = ACT6.sampleActing(tr, tS, {seed: a.blinkSeed ?? 1, build: a.build});   // P5b `still` shot (moods only): ambient motion off = the track sampled at the shot's first frame
-        driveActor(a, t, {keys: [[0, 'idle']], acting: () => act.sample, faces: tr.faces.length ? [[0, c.faces?.[0]?.[1] ?? a.preset.face ?? 'smile'], ...tr.faces] : c.faces, origin: {position: pos, yaw: y2}, tags: c.tags, fps: FPS, visible: c.visible, blinkSuppress: blinkOff(t) || !!still, talk: talkOf(name, t), ...(spec.faceLife && !still ? {faceLife: true} : {})});
+      else if (actTracks?.[name] && (a.body === 'v6' || R6)) {   // P3 acting v6: the track's sample, faces on their words, props in the hands
+        const tr = actTracks[name], [pos, y2] = actingOrigin(name, tq, atq, yaw), still = M6 && shots.findLast(s => Math.round(t * FPS) >= s.start)?.still, tS = still ? shots.findLast(s => Math.round(t * FPS) >= s.start).start / FPS + .001 : tq, act = (R6 ?? ACT6)[R6 ? 'sampleActingR6' : 'sampleActing'](tr, tS, {seed: a.blinkSeed ?? 1, build: a.build});   // P5b `still` shot (moods only): ambient motion off = the track sampled at the shot's first frame
+        driveActor(a, tq, {keys: [[0, 'idle']], acting: () => act.sample, faces: tr.faces.length ? [[0, c.faces?.[0]?.[1] ?? a.preset.face ?? 'smile'], ...tr.faces] : c.faces, origin: {position: pos, yaw: y2}, tags: c.tags, fps: FPS, visible: c.visible, blinkSuppress: blinkOff(t) || !!still, talk: talkOf(name, tq), ...(spec.faceLife && !still ? {faceLife: true} : {})});
         for (const [id, pr] of Object.entries(act.props)) { const o = scene.getObjectByName(id); if (!o || !pr) continue; const k = a.root.scale.x, cy = Math.cos(y2), sy = Math.sin(y2);
           o.position.set(pos[0] + (pr.p[0] * cy + pr.p[2] * sy) * k, pos[1] + pr.p[1] * k, pos[2] + (-pr.p[0] * sy + pr.p[2] * cy) * k); }
       }
-      else driveActor(a, t, {keys: c.keys ?? [[0, c.action ?? 'idle']], faces: c.faces, ambient: !!c.ambient,
-        origin: {position: at, yaw}, tags: c.tags, fps: FPS, tools: c.tools, toolsLeft: c.toolsLeft, stat: c.stat, bubble: c.bubble, visible: c.visible, kit: c.kit, blinkSuppress: blinkOff(t), talk: talkOf(name, t), ...(M5B ? {m5b: M5B} : {}), ...(spec.faceLife ? {faceLife: true} : {})});   // P2: faces v6 life (opt-in)
+      else driveActor(a, tq, {keys: c.keys ?? [[0, c.action ?? 'idle']], faces: c.faces, ambient: !!c.ambient,
+        origin: {position: atq, yaw}, tags: c.tags, fps: FPS, tools: c.tools, toolsLeft: c.toolsLeft, stat: c.stat, bubble: c.bubble, visible: c.visible, kit: c.kit, blinkSuppress: blinkOff(t), talk: talkOf(name, tq), ...(M5B ? {m5b: M5B} : {}), ...(spec.faceLife ? {faceLife: true} : {})});   // P2: faces v6 life (opt-in)
       if (v2 && spec.decorate) WMOD?.poseActor?.(a, name, t, c);   // Touch Grass E1 (opt-in): per-frame dress state, pure in t
       if (dragon && c.visible) a.root.visible = valueAt(c.visible, t, true);
     } else {

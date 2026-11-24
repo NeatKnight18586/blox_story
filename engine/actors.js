@@ -27,7 +27,7 @@ export function buildActor(preset, name = 'actor') {
   const tier = preset.tier ?? 'hero', skin = preset.skin ?? SKINS[0];
   const err = buildError({...preset, name}); if (err) throw Error('build: ' + err);   // A5 Decision 5: never an adult build under 18
   const mk = preset.body === 'v6' ? createActor6 : preset.body === 'v5' ? createActor5 : createActor;   // P1: Actor v6 (R15), opt-in   // format v4: Actor v5 (classic R6, satin), opt-in
-  const a = mk({tier, skin, scale: preset.scale ?? 1, name, build: preset.build ?? null, regions: preset.regions ?? null, materials: preset.outfit ? dress(preset.outfit, skin, tier, {fitted: !!BUILDS[preset.build]?.profile}) : {}});
+  const a = mk({tier, skin, scale: preset.scale ?? 1, name, build: preset.build ?? null, regions: preset.regions ?? null, ...(preset.torsoShape ? {torsoShape: preset.torsoShape} : {}), materials: preset.outfit ? dress(preset.outfit, skin, tier, {fitted: !!BUILDS[preset.build]?.profile}) : {}});
   if (preset.body === 'v6' && (preset.regions?.skirt || preset.regions?.apron)) addExtras(a, preset.regions);   // E4 (opt-in): skirt / apron on Actor v6
   if (preset.hair) (preset.hair.v === 4 ? attachHair4(a, preset.hair.style, preset.hair.color, preset.hairTier ?? null)   // A5: v4 sculpted (Season 1)
     : preset.hair.v === 3 || preset.hairStyle === 'v3' ? attachHair3(a, preset.hair.style, preset.hair.color, {streak: preset.hair.streak}) : attachHair(a, preset.hair.style, preset.hair.color));
@@ -52,6 +52,7 @@ export function buildActor(preset, name = 'actor') {
   if (preset.opacity !== undefined && preset.opacity < 1) a.root.traverse(o => {   // A4 AFK: see-through, own material copies
     if (!o.isMesh || o.name === 'face_decal') return; o.material = [].concat(o.material).map(m => { const c = m.clone(); c.transparent = true; c.opacity = preset.opacity; c.depthWrite = true; return c; }); if (o.material.length === 1) o.material = o.material[0]; });
   if (preset.material) a.root.traverse(o => { if (!o.isMesh || o.name === 'face_decal') return; o.material = Array.isArray(o.material) ? o.material.map(m => matteOf(m, preset.material)) : matteOf(o.material, preset.material); });   // E1b (opt-in): matte + emissive lift
+  if (preset.rig === 'r6') a.rig = 'r6';   // R6 rig (opt-in spec.rig): acting samples are retargeted by engine/r6.js
   a.preset = preset; return a;
 }
 // E1b: a plain satin part as a matte copy (roughness) with an emissive lift (the part's own colour × lift), so shadow sides
@@ -91,9 +92,9 @@ export function driveActor(a, t, {keys, faces, tags, origin = {position: [0, 0, 
   const v6 = a.body === 'v6', tl = m5b?.overshoot ? {overshoot: m5b.overshoot} : undefined, sampleAt = v6   // P1: R15 actors take the v6 sampler (R6 poses lifted, R15 key poses)
     ? tt => ambient ? liftR6(ambientPose(a.preset.seed ?? 1, tt), tt, 'idle') : sampleTimeline6(keys ?? [[0, 'idle']], a.preset.freeze ?? tt, {...tl, build: a.build, sole: a.preset?.regions?.legs?.sole ? (a.preset.regions.legs.soleH ?? .06) : 0})
     : tt => ambient ? ambientPose(a.preset.seed ?? 1, tt) : sampleTimeline(keys ?? [[0, 'idle']], a.preset.freeze ?? tt, tl);   // Look 5b: overshoot + settle on pose changes
-  const s = acting && v6 ? acting(t) : sampleAt(t);   // A4: preset.freeze holds one instant (AFK mid-step); P3: acting v6 hands in its own sample (opt-in)
+  const act6 = acting && (v6 || a.rig === 'r6'), s = act6 ? acting(t) : sampleAt(t);   // A4: preset.freeze holds one instant (AFK mid-step); P3: acting v6 hands in its own sample (opt-in)
   (v6 ? applyPose6 : applyPoseSample)(a, s, origin);
-  if (acting && v6 && a.parts.torso) { const q = s.squash ?? 0, sq = [1 + q / 2, 1 - q, 1 - q]; for (const k of ['torso', 'lowerTorso']) { const m = a.parts[k]; if (m) { m.userData.rest ??= m.scale.clone(); m.scale.set(m.userData.rest.x * sq[0], m.userData.rest.y * sq[1], m.userData.rest.z * sq[2]); } } }   // P3b: hug squeeze (opt-in acting)
+  if (act6 && a.parts.torso) { const q = s.squash ?? 0, sq = [1 + q / 2, 1 - q, 1 - q]; for (const k of ['torso', 'lowerTorso']) { const m = a.parts[k]; if (m) { m.userData.rest ??= m.scale.clone(); m.scale.set(m.userData.rest.x * sq[0], m.userData.rest.y * sq[1], m.userData.rest.z * sq[2]); } } }   // P3b: hug squeeze (opt-in acting)
   const stoop = BUILDS[a.build]?.stoop; if (stoop) { a.root.rotation.x += stoop; a.pivots.head.rotation.x -= stoop * .6; }   // elder_f: slight forward stoop, eyes kept forward
   if (m5b) motion5b(a, t, sampleAt, m5b);
   if (a.faceStyle === 'v6') {   // P2 Faces v6: the timeline face, blink, lip flap; faceLife (opt-in): 3–5 s blinks, a blink + 8 % head pop on every change

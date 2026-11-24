@@ -47,7 +47,10 @@
     "v2:captions": "python3 scripts/v2/captions.py",
     "v2:assemble": "python3 scripts/v2/assemble.py",
     "v2:stability": "node scripts/v2/stability.js",
-    "v2:qc": "python3 scripts/v2/qc.py"
+    "v2:qc": "python3 scripts/v2/qc.py",
+    "codemap": "node scripts/codemap.js",
+    "ep": "node scripts/ep.js",
+    "ep:check": "node scripts/freeze-check.js"
   },
   "dependencies": {
     "three": "0.187.0"

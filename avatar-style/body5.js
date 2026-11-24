@@ -7,6 +7,7 @@
 import * as T from 'three';
 import {RoundedBoxGeometry} from 'three/addons/geometries/RoundedBoxGeometry.js';
 import {createActor, HEAD} from './body.js';
+import {hourglassTorso, HOURGLASS_BUILDS} from './hourglass.js';
 
 export const SATIN = {roughness: .45, metalness: 0};
 export const BEVEL = .04, SEGMENTS = 2;
@@ -73,12 +74,14 @@ export function regionBlocks(part, r, {torsoH = 2} = {}) {
 // Main colour of a region part (pure): what the part reads as from a distance (torso main, upper sleeve, trouser).
 export const regionMain = (r, part) => part === 'torso' ? r?.torso?.main : part === 'arms' ? r?.arms?.upper : r?.legs?.main;
 
-export function createActor5({tier = 'hero', skin, scale = 1, materials = {}, name = 'actor', build = null, regions = null} = {}) {
+export function createActor5({tier = 'hero', skin, scale = 1, materials = {}, name = 'actor', build = null, regions = null, torsoShape = null} = {}) {
+  if (torsoShape === 'hourglass' && !HOURGLASS_BUILDS.includes(build)) throw Error(`hourglass torso: adult_f only (build ${build ?? 'adult_m'})`);   // R6 rig (owner): never kids or grandmas
   const a = createActor({tier, skin, scale, materials, name, build});
   a.body = 'v5';
   for (const [part, m] of Object.entries(a.parts)) {
     if (part === 'head') { m.material = toSatin(m.material); continue; }
-    if (part === 'torso' && (!build || build === 'adult_m')) m.geometry = rbox(TORSO, tier);
+    if (part === 'torso' && torsoShape === 'hourglass') m.geometry = hourglassTorso(2);
+    else if (part === 'torso' && (!build || build === 'adult_m')) m.geometry = rbox(TORSO, tier);
     else if (part !== 'torso') m.geometry = rbox(LIMB, tier);
     m.material = toSatin(m.material);
     if (part === 'torso' && regions?.torso?.main) m.material = satin(regions.torso.main);

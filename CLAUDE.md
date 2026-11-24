@@ -1,5 +1,8 @@
 # CLAUDE.md — blox_story v2 engine
 
+Build habits: read docs/season1/PIPELINE.md first.
+Find code via CODEMAP.md + grep -n; never explore the repo.
+
 Source of truth: `docs/V2_BRIEF.md` (owner's brief). Progress and decisions: `PROGRESS.md`. **Episode format (length,
 end, last line, final shot, hero-first): `docs/season1/FORMAT_V6.md`**; new specs are `"format": 6`.
 
