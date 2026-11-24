@@ -178,7 +178,12 @@ const presetOf = c => {
   const pre = FACES_V3 && !pre3.faceStyle ? {...pre3, faceStyle: 'v3'} : pre3;   // Faces v3: default for season 1 (or spec.faces 'v3')
   if ((spec.format === 5 || spec.format === 6) && pre.build !== 'youth' && !(pre.age < 18)) pre.scale = 1;   // format v5: every adult stands at the same height (builds differ in shape, not size)
   return pre; };
+// tuft 2A (opt-in): BEAST KIT actors (`style: 'beast'`, engine/beastrt.js) and low-tier crowds (spec.beastCrowds); null for every other spec
+const BEAST_ON = Object.values(spec.cast ?? {}).some(c => c.style === 'beast') || !!spec.beastCrowds?.length;
+const BEASTS = BEAST_ON ? await (async () => { const R = await import('./beastrt.js'), base = new URL('../', import.meta.url), names = [...Object.values(spec.cast ?? {}).filter(c => c.style === 'beast').map(c => c.preset), ...(spec.beastCrowds ?? []).flatMap(c => c.presets)];
+  return R.createBeasts({scene, spec, presets: await R.loadPresets(names, base), hdr: spec.post === 'cine', groundY: (x, z) => world?.groundY?.(x, z) ?? 0, resolveXZ: v => (p => [p[0], p[2]])(resolve(typeof v === 'string' ? {anchor: v} : v)), shots, FPS, markAt: (c, t) => markAt(c, t), base}); })() : null;
 for (const [name, c] of Object.entries(spec.cast ?? {})) {
+  if (c.style === 'beast') { cast[name] = {a: BEASTS.actors[name], c, beast: true}; continue; }   // tuft 2A
   if (c.at) c.origin = resolve({anchor: c.at, offset: c.offset ?? [0, 0, 0]});
   if (c.style === 'dog') { const d = buildDog({scale: c.scale ?? 1, name, colors: c.colors ?? null}); scene.add(d.root); cast[name] = {a: d, c, dragon: true, dog: true}; continue; }   // E4: the DOG (creature entry like the dragon; driveDog)
   if (c.style === 'dragon') { const d = buildDragon({scale: c.scale ?? 1, name, colors: c.colors ?? null, face: c.dragonFace ?? null, baby: !!c.baby, wingScale: c.wingScale ?? 1, rim: c.rim ?? null, spikes: c.spikes ?? 1, saddle: !!c.saddle}); scene.add(d.root); cast[name] = {a: d, c, dragon: true}; continue; }
@@ -424,10 +429,12 @@ const talkOf = (name, t) => { if (!flapShapes) return null; const f = Math.round
 function poseCast(t) {
   const out = {};
   for (const [name, x] of Object.entries(cast)) poseOne(name, x, t, out);
+  BEASTS?.post(t, TWOS ? twosTime(t, FPS) : t, n => cast[n] && !cast[n].beast ? headOf(cast[n]).toArray() : cast[n]?.a.head.position.toArray() ?? null);   // tuft 2A: BLINK orbits a posed head; low-tier crowds
   return out;
 }
 function poseOne(name, x, t, out) {
   if (S6?.owns(name)) { S6.drive(name, x, t, out); return; }   // E2: the story crowd is driven by engine/story6rt.js
+  if (x.beast) { const p = BEASTS.drive(name, t, TWOS ? twosTime(t, FPS) : t); if (p) markPos[name] = p; out[name] = p ?? x.a.root.position.toArray(); return; }   // tuft 2A: body on twos, glow on ones
   const {a, c, v2, dragon} = x;
   {
     const m = markOf(c, t), yaw = (m.yaw ?? 0) * Math.PI / 180;
@@ -644,7 +651,8 @@ const sampleCineShot = (shot, lt, aspect) => CINE.sampleCine({...shot, fps: FPS}
 const cineCam0 = {};
 function cineRender(shot, mf, off, lt, width, height) {
   const gy = (x, z) => world?.groundY?.(x, z) ?? 0, items = [];
-  for (const [n, x] of Object.entries(cast)) { const r = x.a.root; items.push({key: n, x: r.position.x, y: r.position.y, z: r.position.z, r: 1.35 * r.scale.x, visible: r.visible && !!visibleChain(r)}); }
+  if (BEASTS) items.push(...BEASTS.blobItems());   // tuft 2A: one contact blob per beast (low-tier crowds carry their own instanced blobs)
+  for (const [n, x] of Object.entries(cast)) { if (x.beast) continue; const r = x.a.root; items.push({key: n, x: r.position.x, y: r.position.y, z: r.position.z, r: 1.35 * r.scale.x, visible: r.visible && !!visibleChain(r)}); }
   glowCubes.forEach((m, i) => items.push({key: 'glow' + i, x: m.position.x, y: m.position.y - m.geometry.parameters.height / 2, z: m.position.z, r: .8 * m.geometry.parameters.width, visible: m.visible}));
   CL.blobsFor(items, gy);
   const k = `${shot.id}|${shot.start}`; if (shot.fg && !cineCam0[k]) { const c0 = CINE_CAM ? sampleCineShot(shot, 0, width / height) : sampleCamera({...shot, fps: FPS}, 0, poseCast(shot.start / FPS));
@@ -680,7 +688,7 @@ export function renderCamera(cam, t = 0, width = 720, height = 1280, lookName = 
 }
 
 // Plan inspection (scripts/v2/plan.js): camera and projected heads at frame n, without rendering.
-const headOf = ({a, v2, dragon}) => { const v = new T.Vector3(); if (dragon) { const w = new T.Vector3(); a.eyes[0].getWorldPosition(v); a.eyes[1].getWorldPosition(w); v.add(w).multiplyScalar(.5); } else if (v2) { a.pivots.head.getWorldPosition(v); v.y += .6 * a.root.scale.y; } else v.copy(a.root.position).add(new T.Vector3(0, 4.6, 0)); return v; };
+const headOf = ({a, v2, dragon, beast}) => { const v = new T.Vector3(); if (beast) v.copy(a.head.position); else if (dragon) { const w = new T.Vector3(); a.eyes[0].getWorldPosition(v); a.eyes[1].getWorldPosition(w); v.add(w).multiplyScalar(.5); } else if (v2) { a.pivots.head.getWorldPosition(v); v.y += .6 * a.root.scale.y; } else v.copy(a.root.position).add(new T.Vector3(0, 4.6, 0)); return v; };
 export function inspectFrame(n, width = 540, height = 960) {
   const shot = shots.findLast(s => n >= s.start), t = n / FPS, actors = poseCast(t);
   const c = sampleCamera({...shot, fps: FPS}, (n - shot.start) / FPS, actors);
@@ -947,4 +955,4 @@ function cineMeasure(names = Object.keys(cast)) {
     const c = b.getCenter(new T.Vector3()), z = c.clone().sub(camera.position).dot(f);
     out[n] = {x0, x1, y0, y1, behind, v: 2 * z * Math.tan(camera.fov * Math.PI / 360) / (5.3 * x.a.root.scale.y), z}; }
   return out; }
-window.__episode = {cine: CL ? {state: CL.state, opts: CINE_OPTS, glowCount: CL.glowCount, setGlow: CL.setGlow, measure: cineMeasure} : null, story6: S6, clearedNow: () => CLEARED.map(r => r.name), actingPlan: () => actPlans.map(p => /^hug/.test(p.verb) ? {...p, cam: hugCam(p)} : p), groundFix: () => GROUNDFIX, sepMeasure, ceilingLuma, classHaze, satMeasure, depthLuma, lumaProbe, debug: {scene, renderer, camera, look, pool: U5B?.poolOf ?? null}, bake: BAKE, matcapBytes: MATCAP ? (n => Array.from(look.matcapBytes(n ?? spec.look4))) : null, breakdown, measureFrame, seasonMeasure, actorMask, readMeasure, gateMeasure, placesAt, lumaAt, inspectFrame, shotSpeed, END: FRAMES / FPS, anchors: Object.fromEntries(Object.entries(anchors).filter(([, a]) => a.camera).map(([k]) => [k, true])), renderAnchor, renderAnchorNudged, renderCamera, FPS, FRAMES, shots: shots.map(({id, start, frames, size, move, loc, subject, see, openHit, at, why, captionY, fit, spectacle, look: lk}) => ({id, start, frames, size, move, loc, subject, see, openHit: !!openHit, at, why, captionY, fit, spectacle: !!spectacle, look: lk})), renderFrame};
+window.__episode = {beasts: BEASTS, cine: CL ? {state: CL.state, opts: CINE_OPTS, glowCount: CL.glowCount, setGlow: CL.setGlow, measure: cineMeasure} : null, story6: S6, clearedNow: () => CLEARED.map(r => r.name), actingPlan: () => actPlans.map(p => /^hug/.test(p.verb) ? {...p, cam: hugCam(p)} : p), groundFix: () => GROUNDFIX, sepMeasure, ceilingLuma, classHaze, satMeasure, depthLuma, lumaProbe, debug: {scene, renderer, camera, look, pool: U5B?.poolOf ?? null}, bake: BAKE, matcapBytes: MATCAP ? (n => Array.from(look.matcapBytes(n ?? spec.look4))) : null, breakdown, measureFrame, seasonMeasure, actorMask, readMeasure, gateMeasure, placesAt, lumaAt, inspectFrame, shotSpeed, END: FRAMES / FPS, anchors: Object.fromEntries(Object.entries(anchors).filter(([, a]) => a.camera).map(([k]) => [k, true])), renderAnchor, renderAnchorNudged, renderCamera, FPS, FRAMES, shots: shots.map(({id, start, frames, size, move, loc, subject, see, openHit, at, why, captionY, fit, spectacle, look: lk}) => ({id, start, frames, size, move, loc, subject, see, openHit: !!openHit, at, why, captionY, fit, spectacle: !!spectacle, look: lk})), renderFrame};

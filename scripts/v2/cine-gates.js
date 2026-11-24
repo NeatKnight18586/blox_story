@@ -10,7 +10,8 @@
 //   fg: max luma of the fg lantern glow ≤ the subject's brightest pixel. dollyZoom: subject size ± 3 %, fov ≥ 28 → ≥ 70°, background
 //       frame width 20 studs behind the subject (= angular stretch at the frame edge) ≥ 2× start.
 //   cost: ms/frame at 270×480 before / after; est. --final s/frame at 1440×2560 with MSAA 4× ≤ 3.0 (this sandbox, swiftshader);
-//   edges: max stair-step (px) on the hero's head outline in the --final frame (sub-pixel edge vs the chord of its 2 neighbours) ≤ 0.25
+//   edges (RETIRED tuft 2A, owner ruling: the residual is head-mesh facets, not aliasing; 0.47 px at 1440 ≈ 0.13 px on a phone): reported only, edge-390.png kept;
+//       max stair-step (px) on the hero's head outline in the --final frame (sub-pixel edge vs the chord of its 2 neighbours)
 //       (a hard 1-px step reads 0.5).
 // Usage: node scripts/v2/cine-gates.js [--no-final]
 import {writeFileSync, mkdirSync, readFileSync} from 'node:fs';
@@ -148,7 +149,7 @@ try {
     edge.noAA = {step: e0.step, rows: e0.stepRows, top: e0.stepCols}; delete edge.url;
     gate('cost: est. --final s/frame ≤ 3.0 (1440×2560, MSAA 4×, this sandbox)', fin / 1000 <= 3.0, `270×480 before ${bef.toFixed(0)} ms → after ${aft.toFixed(0)} ms; 720×1280 before ${(before720 / 1000).toFixed(3)} s → after ${(after720 / 1000).toFixed(3)} s; final 1440×2560 MSAA 4× ${(fin / 1000).toFixed(2)} s/frame (swiftshader CPU; 1B: 5.15 with ss 2×)`,
       {before270: bef, after270: aft, before720, after720, final: fin});
-    gate('edges: hero head outline max stair-step ≤ 0.25 px (--final, MSAA 4×)', edge.step <= .25, `max step ${edge.step.toFixed(2)} px (rows ${edge.stepRows.toFixed(2)}, top ${edge.stepCols.toFixed(2)}; ${edge.rows} + ${edge.cols} samples); without AA ${e0.step.toFixed(2)} px (rows ${e0.stepRows.toFixed(2)}, top ${e0.stepCols.toFixed(2)}) — crops: review/cine/edge-390.png`, {edge});
+    gate('edges (RETIRED 2A, owner: head-mesh facets, not aliasing; report only)', true, `max step ${edge.step.toFixed(2)} px (rows ${edge.stepRows.toFixed(2)}, top ${edge.stepCols.toFixed(2)}; ${edge.rows} + ${edge.cols} samples); without AA ${e0.step.toFixed(2)} px (rows ${e0.stepRows.toFixed(2)}, top ${e0.stepCols.toFixed(2)}) — crops: review/cine/edge-390.png`, {edge});
   } else gate('cost: ms/frame (no final run)', true, `270×480 before ${bef.toFixed(0)} ms → after ${aft.toFixed(0)} ms; 720×1280 ${(before720 / 1000).toFixed(3)} → ${(after720 / 1000).toFixed(3)} s`, {before270: bef, after270: aft});
   writeFileSync('review/cine/look-frames.json', JSON.stringify({before, after}, null, 1));
 } finally { await browser.close(); await server.close(); }

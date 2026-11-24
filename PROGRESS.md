@@ -1884,3 +1884,36 @@ pass 2 FXAA-lite (no change) → stopped, reported; residual = head mesh facet k
 Decisions: SIZE_BAND is a 9:16 reading (whole head must fit the width; literal "MCU = to mid-chest" cannot hold the head in width).
 Edge metric = coverage edge vs neighbour chord (mask has an invisible head extra ~15 px above the visible top at 1440).
 Open: edge gate; OTS kid reads as a dark blob; background falloff hides the dolly stretch; dark jackets near-black; final cost 2.88 is near 3.0.
+
+## tuft (E5) Phase 2A — BEAST KIT (Opus 5.5)
+Plan: 0. rulings: retire the 1B edge gate (Decision; edge-390 kept) · BG falloff by shot size (0 ews/ws, ramps ms, full mcu/cu/ecu) ·
+actors-only soft fill (.25 of key, opposite side) in cinelook ACTOR_LIGHT. Then a baseline render of the 1B fixture (byte-identity ref).
+1. engine/beast.js (pure rig + states, no three) + engine/beastrt.js (three: faceted flat-shaded meshes, per-vertex `aGlow`, emissive =
+glow × HDR under post 'cine' (1 otherwise), LOW tier = InstancedMesh per preset part-group, ≤ 3 draws/preset) + beasts/*.json presets
+(NIGHTFANG dragon, VOLT quad, CINDER bird, BOULDER quad, BLINK sprite+cards, FOX/DEER/BOAR low). Rigs QUAD/BIRD/DRAGON = rigid segments.
+States pure in t, seeded: idle walk run roar breathe flinch flee lower lift fly perch sleep curl (anticipation + settle; twos).
+2. spec actor `style: 'beast', preset, tier` · shot `beasts: [{actor, state, at, to?, exit?}]` · story6 `parseBeast` (`beast: <actor>
+<state> [to <anchor>] @ <word>`) → brief2spec shot.beasts · cinelook contact blob per beast · spec `parade` (low-tier crowd).
+3. Gates: tests/beast.js (tris, determinism, feet, flee exit, `beast:` parse) + scripts/v2/beast-gates.js (draw calls, seam-only bloom,
+silhouette IoU at 390, byte-identity 1B fixture, ms/frame). Sheet scripts/v2/beast-sheet.js → review/beasts/kit.png, kit-390.png, demo.mp4.
+Built: rulings: cine-gates edge gate retired (report only, edge-390 kept) · cinelook `BG_SIZE`/`bgDimOf` · `ACTOR_LIGHT.fill` .25 opposite the key.
+engine/beast.js (pure kit) · engine/beastrt.js (1 draw/hero beast, 2 draws/low preset) · beasts/{NIGHTFANG,VOLT,CINDER,BOULDER,FOX,DEER,BOAR,BLINK}.json ·
+episode.js opt-in hooks (cast `style: 'beast'`, `beastCrowds`, blobs, headOf, `__episode.beasts`) · story6 `MARKERS.beast` + brief2spec CAST
+`beast <PRESET> [low]` → shot.beasts · fixtures engine/fixtures/beasts/* (scripts/v2/beast-fixtures.js) · tests/beast.js · scripts/v2/beast-gates.js ·
+scripts/v2/beast-sheet.js → review/beasts/{kit.png, kit-390.png, demo.mp4 3.30 MB, gates.json, tests.json}.
+Commands: node tests/beast.js (10/10) · node scripts/v2/beast-gates.js --baseline <pre-2A 1B frames> (5/7) · node scripts/v2/beast-sheet.js ·
+node tests/cine.js 15/15 · node scripts/v2/cine-gates.js 15/16 · npm test green · v2:test 278/278.
+Numbers: tris hero 590–1,032 (≤ 6k), low 276–764 (≤ 800) · parade 40 low = 2.00 draws/preset · determinism 240/240 pure + 10/10 PNGs reverse order ·
+plant max 0.0000 above ground (5,063 samples), min 0.0000 over all states × transitions · flee out of frame 0.75–1.88 s (≤ 2.6), cos 1 ·
+silhouette IoU max 0.488 (≤ .6) · scale NIGHTFANG reared 2.16× kid, VOLT 1.05× kid shoulder, CINDER 2.53 kids, BOULDER 1.13× adult ·
+byte-identical 1B fixture without beasts 10/10 · 270×480 4 hero + 40 low 92 ms (1B fixture 81–91) · est. final 2.92 s/frame (runs 2.92–3.18;
+the 1B fixture alone 2.88–3.25 here; cine-gates final read 3.90 under load during a worker restart) ·
+FAIL glow-only-on-seams: body ≥ 4 px from a seam Δluma 9.0–15.5 % (seams' bloom halo; own bloom with seams dark 0.000 %) ·
+FAIL seam ring ≥ +100 %: VOLT +68 % (NIGHTFANG +455, CINDER +104, BOULDER +305).
+Fix passes: final cost 3.23 → low tier Lambert (3.18) → unlit baked face light (crowd cost .20 → .08 s; 2.92). Ring: VOLT body darker silver +
+CINDER HDR 3.0 (+48 → +61 %), VOLT HDR 3.6 (+68 %) → stopped. Body-halo gate: both passes left it 9–15 % → stopped, not loosened.
+Decisions: "non-seam body" measured strictly (halo from the seams counts); the 1B precedent (own bloom only) is reported beside it, owner decides.
+World glow (windows, lamps) set to LDR while measuring beast bloom (as cine-gates). BG falloff on ms = .5 (between ws 0 and mcu full).
+"Dusk" parade uses look4 'dawn' (no dusk preset). Kid = troupe LEAD (.82, 4.35 studs). Low tier unlit with baked per-face light (night × .38).
+Cine camera follow uses marks: a beast's root motion is not followed by `camera: 'cine'` (static / authored cameras only for now).
+Open: VOLT ring; seam halo spill; NIGHTFANG reads horse-like at rest; BOULDER reads as stacked boxes; BLINK wings invisible at phone size.

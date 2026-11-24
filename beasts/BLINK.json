@@ -1,0 +1,19 @@
+{
+ "note": "tuft 2A BEAST KIT: BLINK, the firefly: a LIME glow sprite + a tiny dark body + 2 wing cards; orbits a target's head (shot or cast `orbit`). Light \u2192 on ones.",
+ "rig": "blink",
+ "tiers": [
+  "hero"
+ ],
+ "glow": "#C6FF4A",
+ "glowHDR": 3.5,
+ "size": 0.55,
+ "colors": {
+  "body": "#1A1F14",
+  "wing": "#DDE8F0"
+ },
+ "dims": {},
+ "name": "BLINK",
+ "parts": [
+
+ ]
+}

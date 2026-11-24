@@ -6,6 +6,7 @@
 //   hand: enter | grab <actor> | carry <actor> to <anchor> | throw <actor> [to <anchor>] | release <actor> | exit
 //   tumble: <actor> [to <anchor>]   ·   airCatch: <hero> <partner>   ·   splash: big @ <word> [at <anchor>]
 //   tag: <actor> "<text>"           ·   spawn: <actor> @ <word>
+//   beast: <actor> <idle|walk|run|roar|breathe|flinch|flee|lower|lift|fly|perch|sleep|curl> [to <anchor>] @ <word>   (tuft 2A → shot.beasts)
 // Motion is pure in t: tumble arcs, the hand's track, carried / dropped / thrown actors, the air catch, crowd behaviours, the pile
 // mound (oriented boxes, exact SAT overlap), wash fronts (drain / bloom), particles (puffs, splash).
 
@@ -79,7 +80,10 @@ export const SIT = {back: 1.05, centre: .55, hip: [-1.45, 0, .25], knee: 1.5, he
 export function parseRise(s) { const p = s.trim().split(/\s+/); if (p.length !== 1 || !ID.test(p[0])) fail('rise', s, 'expected "<actor>"'); return {actor: p[0]}; }
 // E3b `lie: <actor> [left|right]` (@ word in brief2spec): the actor lies face-down, head turned to that side, until the row ends.
 export function parseLie(s) { const p = s.trim().split(/\s+/); if (!ID.test(p[0] ?? '') || p.length > 2 || (p[1] && !['left', 'right'].includes(p[1]))) fail('lie', s, 'expected "<actor> [left|right]"'); return {actor: p[0], side: p[1] === 'left' ? -1 : 1}; }
-export const MARKERS = {lie: parseLie, rise: parseRise, drain: parseDrain, bloom: parseBloom, crowd: parseCrowd, hand: parseHand, tumble: parseTumble, airCatch: parseAirCatch, splash: parseSplash, tag: parseTag, spawn: parseSpawn, sitOn: parseSitOn};
+// tuft 2A BEAST KIT: `beast: <actor> <state> [to <anchor>] @ <word>` (engine/beast.js parseBeast; brief2spec → shot.beasts)
+export { parseBeast } from './beast.js';
+import { parseBeast as parseBeast2A } from './beast.js';
+export const MARKERS = {beast: parseBeast2A, lie: parseLie, rise: parseRise, drain: parseDrain, bloom: parseBloom, crowd: parseCrowd, hand: parseHand, tumble: parseTumble, airCatch: parseAirCatch, splash: parseSplash, tag: parseTag, spawn: parseSpawn, sitOn: parseSitOn};
 // A notes token "key: value" → {key, value} for a story marker, else null.
 export function markerOf(tok) { const m = /^(\w+)\s*:\s*(.+)$/.exec(tok.trim()); return m && MARKERS[m[1]] ? {key: m[1], value: m[2].trim()} : null; }
 

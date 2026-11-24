@@ -24,8 +24,10 @@ export const DOF = {fNumber: {24: 0, 35: 5.6, 50: 4, 85: 2.4}, unitMM: 300, sens
 export const GRAIN = {amp: .058};   // 1B fix: .052 → .058 (the darker grade lowered the measured std)   // triangular noise in display space; luma std ≈ 2 % (measured: scripts/v2/cine-gates.js)
 export const FOG = {density: .007, falloff: .09, haze: .08, hazeK: 9, start: 25};
 export const BG = {dim: .62, near: 1.5, far: 12};   // 1B fix: the set behind the subject falls off (× dim from subject + near to subject + far studs): the lit subject reads in front   // start: studs from the camera with no fog at all
+export const BG_SIZE = {ews: 0, ws: 0, wide: 0, establishing: 0, ms: .5, medium: .5, mcu: 1, cu: 1, ecu: 1, close: 1};   // tuft 2A (owner ruling): background falloff strength per shot size (0 on wides, full on close sizes)
+export const bgDimOf = shot => 1 - (1 - BG.dim) * (BG_SIZE[shot?.size] ?? 1);
 export const CURVE = {pivot: .42, k: 1.4, black: .02, inBlack: .05, exposure: -.35, sat: .10, shadow: [-.014, .004, .024], high: [.030, .008, -.026], vigMax: .25};   // display-space grade after AgX
-export const ACTOR_LIGHT = {lift: .6, rim: {color: '#a9c8ff', i: .9, pow: 2.4, side: .5, up: .7}, key: {color: '#ffb36e', i: .45, far: .25, range: 16}};
+export const ACTOR_LIGHT = {lift: .6, rim: {color: '#a9c8ff', i: .9, pow: 2.4, side: .5, up: .7}, key: {color: '#ffb36e', i: .45, far: .25, range: 16}, fill: .25};   // tuft 2A (owner ruling): fill = .25 of the key, opposite side, so dark jackets keep torso shape
 export const FGGLOW = {color: [1, .62, .3], i: .5, size: 1.7, sigma: .2};   // lantern sprite: HDR colour × i (below the subject's highlights), gaussian sigma (of the half-size)
 export const GRADE = {
   default: {lift: [0, 0, 0], gamma: [1, 1, 1], gain: [1, 1, 1], vig: .28},
@@ -144,17 +146,18 @@ export function createCineLook({renderer, scene, spec, aa = false}) {
     bloom.setSize(sw, sh); bloom.highPassUniforms.uTexel.value.set(1 / sw, 1 / sh); }
   // actors-only light (1B fix): every cast material (not decals / basic) patched in place; one shared set of world-space directions
   const AL = {uCRimDir: {value: new T.Vector3(0, 1, 0)}, uCRimCol: {value: new T.Color(ACTOR_LIGHT.rim.color)}, uCRimI: {value: 0}, uCRimPow: {value: ACTOR_LIGHT.rim.pow},
-    uCKeyDir: {value: new T.Vector3(0, 1, 0)}, uCKeyCol: {value: new T.Color(ACTOR_LIGHT.key.color)}, uCKeyI: {value: 0}, uCLift: {value: 1}}, litMats = new Set();
+    uCKeyDir: {value: new T.Vector3(0, 1, 0)}, uCKeyCol: {value: new T.Color(ACTOR_LIGHT.key.color)}, uCKeyI: {value: 0}, uCLift: {value: 1}, uCFillDir: {value: new T.Vector3(0, 1, 0)}}, litMats = new Set();
   function lightActors(roots) {
     for (const r of roots) r.traverse(o => { if (!o.isMesh || o.name === 'face_decal') return; for (const m of [].concat(o.material)) {
       if (!m || litMats.has(m) || m.isMeshBasicMaterial || m.isSpriteMaterial || m.isShaderMaterial) continue; litMats.add(m);
       const prev = m.onBeforeCompile, key0 = m.customProgramCacheKey?.bind(m);
       m.onBeforeCompile = (sh, rr) => { prev?.call(m, sh, rr); Object.assign(sh.uniforms, AL);
-        sh.fragmentShader = 'uniform vec3 uCRimDir; uniform vec3 uCRimCol; uniform float uCRimI; uniform float uCRimPow; uniform vec3 uCKeyDir; uniform vec3 uCKeyCol; uniform float uCKeyI; uniform float uCLift;\n' + sh.fragmentShader.replace('#include <opaque_fragment>',
+        sh.fragmentShader = 'uniform vec3 uCRimDir; uniform vec3 uCRimCol; uniform float uCRimI; uniform float uCRimPow; uniform vec3 uCKeyDir; uniform vec3 uCKeyCol; uniform float uCKeyI; uniform float uCLift; uniform vec3 uCFillDir;\n' + sh.fragmentShader.replace('#include <opaque_fragment>',
           `{ vec3 nC = normalize(normal), vC = normalize(vViewPosition), rdC = normalize((viewMatrix * vec4(uCRimDir, 0.)).xyz), kdC = normalize((viewMatrix * vec4(uCKeyDir, 0.)).xyz);
   float frC = pow(1. - clamp(dot(nC, vC), 0., 1.), uCRimPow), rlC = smoothstep(-.15, .55, dot(nC, rdC)), kwC = clamp(dot(nC, kdC) * .5 + .5, 0., 1.); kwC *= kwC;
   outgoingLight *= uCLift * ((1. - .35 * uCKeyI) + 1.3 * uCKeyI * kwC * uCKeyCol);   // actor lift over the darker set + soft warm key (wrap), the far side a touch darker
-  outgoingLight += uCRimCol * uCRimI * frC * rlC; }   // cool moon rim from behind-above
+  outgoingLight += uCRimCol * uCRimI * frC * rlC;
+  { vec3 fdC = normalize((viewMatrix * vec4(uCFillDir, 0.)).xyz); float fwC = clamp(dot(nC, fdC) * .5 + .5, 0., 1.); outgoingLight += uCLift * diffuseColor.rgb * (1.3 * ${ACTOR_LIGHT.fill.toFixed(3)} * uCKeyI) * fwC * fwC * uCKeyCol; } }   // tuft 2A: soft fill opposite the key   // cool moon rim from behind-above
 #include <opaque_fragment>`); };
       m.customProgramCacheKey = () => (key0 ? key0() : '') + '|cineActor'; m.needsUpdate = true; } });
     return litMats.size; }
@@ -166,6 +169,7 @@ export function createCineLook({renderer, scene, spec, aa = false}) {
     let best = null, bd = Infinity; for (const l of lights) { const d = Math.hypot(l.p[0] - S[0], l.p[2] - S[2]); if (d < bd) { bd = d; best = l; } }
     if (best && bd <= ACTOR_LIGHT.key.range) { AL.uCKeyDir.value.set(best.p[0] - S[0], Math.max(.5, best.p[1] - S[1] - 3), best.p[2] - S[2]).normalize(); AL.uCKeyI.value = ACTOR_LIGHT.key.i; }
     else { AL.uCKeyDir.value.copy(cd).addScaledVector(cp, .8).add(new T.Vector3(0, .7, 0)).normalize(); AL.uCKeyI.value = ACTOR_LIGHT.key.i * ACTOR_LIGHT.key.far; }
+    { const k = AL.uCKeyDir.value; AL.uCFillDir.value.set(-k.x, .3, -k.z).normalize(); }
     return {rim: AL.uCRimDir.value.toArray(), key: AL.uCKeyDir.value.toArray(), keyI: AL.uCKeyI.value, lantern: best && bd <= ACTOR_LIGHT.key.range ? best.p : null}; }
   const setActorLight = on => { AL.uCRimI.value = on ? ACTOR_LIGHT.rim.i : 0; AL.uCLift.value = on ? 2 ** ACTOR_LIGHT.lift : 1; if (!on) AL.uCKeyI.value = 0; };
   const state = {};
@@ -179,7 +183,7 @@ export function createCineLook({renderer, scene, spec, aa = false}) {
       dofM.uniforms.uAspect.value = w / h; dofM.uniforms.uNear.value = camera.near; dofM.uniforms.uFar.value = camera.far; renderer.setRenderTarget(dofRT); renderer.render(dofScene, oc); }
     U.tColor.value = rt.texture; U.tDepth.value = rt.depthTexture; U.tDof.value = dofRT.texture; U.uOut.value.set(w, h); U.uNear.value = camera.near; U.uFar.value = camera.far;
     camera.updateMatrixWorld(); U.uInvProj.value.copy(camera.projectionMatrixInverse); U.uCamWorld.value.copy(camera.matrixWorld); U.uCamPos.value.copy(camera.position);
-    U.uFogColor.value.copy(fogColor ?? scene.fog?.color ?? new T.Color('#141b2a')); U.uFogY0.value = fogY0; U.uSubZ.value = bgOn && subjectZ ? subjectZ : 0; U.uExposure.value = ex * 2 ** CURVE.exposure;
+    U.uFogColor.value.copy(fogColor ?? scene.fog?.color ?? new T.Color('#141b2a')); U.uFogY0.value = fogY0; U.uSubZ.value = bgOn && subjectZ && bgDimOf(shot) < 1 ? subjectZ : 0; U.uBgDim.value = bgDimOf(shot); U.uExposure.value = ex * 2 ** CURVE.exposure;
     U.uLift.value.set(...gr.lift); U.uGamma.value.set(...gr.gamma); U.uGain.value.set(...gr.gain); U.uVig.value = gr.vig; U.uGrain.value = grainOn ? GRAIN.amp : 0; U.uFringe.value = w / 1440; U.uSeed.value = (frame * 2654435761 + 12345) >>> 0;
     renderer.setRenderTarget(null); renderer.render(finalScene, oc);
     Object.assign(state, {frame, focus, lens, dof: dOn, coc: dOn ? cocScale(lens, focus) : 0, exposure: ex, mood: mood ?? null, aa, fg: fgShot && shot?.fg ? fgShot : null});

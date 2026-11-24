@@ -4,6 +4,8 @@ engine/acting6-stage.js — P3 plain set for the acting v6 review (verbs.png, cy
 engine/acting6.js — P3 acting library for Actor v6 (R15, avatar-style/body6.js). Pure: every sampler is a function of t only.
 engine/actors.js — builds v2 actors from data (docs/V2_BRIEF.md §6, §11.3) and drives them per frame.
 engine/bake.js — format v4 Phase 2: baked light for everything static. Once per episode, at world build, every static
+engine/beast.js — tuft 2A BEAST KIT (pure: no three, no DOM, no clock, no Math.random). Presets are DATA (beasts/*.json).
+engine/beastrt.js — tuft 2A BEAST KIT, the renderer side (three). The maths is engine/beast.js (pure); presets are beasts/*.json.
 engine/buildgate.js — page for scripts/v2/build-gates.js (owner 2026-11-14, adult_f). One actor, front, orthographic,
 engine/camera.js — pure camera sampler for v2 episodes (docs/V2_BRIEF.md §5.2, §5.3 openHit).
 engine/cine.js — tuft 1B cinematic camera (opt-in spec `camera: 'cine'`). Pure: no three, no DOM, no clock, no Math.random.
@@ -17,6 +19,11 @@ engine/facepage.js — page for scripts/v2/face-gates.js and the face sheets (Fa
 engine/fill.js — format v5 (Phase 3b) instanced FILL crowd: ~200 tiny kids that read as people from above, one draw call.
 engine/fixtures/acting6/cues.json — (no header)
 engine/fixtures/acting6/episode.json — P3/P3b acting v6 smoke fixture: verbs on seconds and on words (cues.json), a talk gesture on a stressed word, and a hug whose partner starts
+engine/fixtures/beasts/demo.json — tuft 2A BEAST KIT demo (scripts/v2/beast-fixtures.js): night street, each hero beast doing 2 states (2 s each); review/beasts/demo.mp4 appen
+engine/fixtures/beasts/flee.json — tuft 2A BEAST KIT flee gate fixture: per hero a static camera, flee at 0.5 s exiting screen-right (FLEE_DUR s to leave the frame).
+engine/fixtures/beasts/kit-picks.json — (no header)
+engine/fixtures/beasts/kit.json — tuft 2A BEAST KIT look-dev fixture (scripts/v2/beast-fixtures.js): night street, post cine, the 4 hero beasts beside R6 kids; per beast a 3-
+engine/fixtures/beasts/parade.json — tuft 2A BEAST KIT parade fixture (scripts/v2/beast-fixtures.js): dawn street, 40 low-tier beasts (FOX / DEER / BOAR, instanced) walking the 
 engine/fixtures/cine/before.json — tuft 1B fixture, BEFORE (current engine): the same spec without look/camera 'cine'.
 engine/fixtures/cine/bloomgate.json — tuft 1B bloom gate (scripts/v2/cine-gates.js): a white DUMMY (non-emissive) under the street lamp, the brightest lit spot of the night set, 
 engine/fixtures/cine/episode.json — tuft 1B (+ 1B fix) Look Pack + cinematic camera fixture: 6 shots ~12 s on the v4look street at night (look4 mystery: lit windows, lamp), HER
@@ -226,6 +233,9 @@ scripts/v2/acting6-sheet.js — P3 acting v6 review material → review/acting6/
 scripts/v2/acting6-solve.js — authoring-time pose search for acting v6 (P3b). Not part of the render path: it prints pose numbers that are
 scripts/v2/avatar-sheet.js — Session 2 review sheet (docs/V2_BRIEF.md §12 Session 2).
 scripts/v2/beanie-check.js — Toy House: curly_top hair must not poke through the beanie shell, and (Look 6) the brows must show
+scripts/v2/beast-fixtures.js — tuft 2A BEAST KIT fixtures → engine/fixtures/beasts/{kit,parade,demo,flee}.json (+ kit-picks.json).
+scripts/v2/beast-gates.js — tuft 2A BEAST KIT browser gates → review/beasts/gates.json (pure gates: node tests/beast.js).
+scripts/v2/beast-sheet.js — tuft 2A BEAST KIT look-dev sheet → review/beasts/kit.png (≤ 1600 px), kit-390.png, demo.mp4.
 scripts/v2/bench.js — npm run v2:bench -- --story <slug> | --spec <episode.json>   (docs/V2_BRIEF.md §5.4)
 scripts/v2/brief2spec.js — node scripts/v2/brief2spec.js --story <slug> [--brief f] [--cues f] [--out f]
 scripts/v2/browser.js — one place that finds and launches the browser (docs/V2_BRIEF.md §3).
@@ -292,6 +302,14 @@ scripts/v2/toyset-gates.js — Toy House set gates (format v5, Phase 3b) → rev
 scripts/v2/troupe-sheet.js — Amendment A4 G2 review sheet: the five troupe actors + AFK, front and three-quarter, three
 scripts/v2/unranked-p1.js — E4 "unranked" Phase 1 (cast only) review + gates → review/unranked/p1/
 scripts/v2/where.js — node scripts/v2/where.js --spec <episode.json> [--shots S01,S05] [--at .5] [--who hero,bitsy]
+beasts/BLINK.json — tuft 2A BEAST KIT: BLINK, the firefly: a LIME glow sprite + a tiny dark body + 2 wing cards; orbits a target's head (shot or cast `orbit`). 
+beasts/BOAR.json — tuft 2A BEAST KIT: BOAR (low tier). Stocky dark facets, dim RED bristle seam, bone tusks.
+beasts/BOULDER.json — tuft 2A BEAST KIT: BOULDER, the stone ox (quad, heavy). Granite facets, AMBER crack seams, mossy back, bone horns. Taller than an adult.
+beasts/CINDER.json — tuft 2A BEAST KIT: CINDER, the sky hawk (bird). Charcoal facets, ORANGE flame edges on the wing feathers and tail, flame crest, bone beak + 
+beasts/DEER.json — tuft 2A BEAST KIT: DEER (low tier). Dark brown facets, dim MINT seams, bone antlers, long legs.
+beasts/FOX.json — tuft 2A BEAST KIT: FOX (low tier, parade / flee crowds). Dark rust facets, dim PINK seams; big ears, bushy tail.
+beasts/NIGHTFANG.json — tuft 2A BEAST KIT: NIGHTFANG, the dragon. Obsidian-navy faceted body, CYAN glow seams (wing edges, spine, leg stripes, eyes), bone horns + c
+beasts/VOLT.json — tuft 2A BEAST KIT: VOLT, the storm wolf (quad). Silver-white faceted body, ELECTRIC-YELLOW glow seams (spine, flank zigzags, leg stripes, ma
 cast/hero.json — Format v4 (owner, 2026-11-15): the hero, slot HERO, in every episode from 2 on. Actor v5 (classic R6), first-person narrator. Bare yellow he
 cast/hero6.json — P1b (owner, 2026-11-20): the hero on Actor v6 (iconic blocky R15, body6.js). HERO = variant B, the default: charcoal sleeve over UpperArm + 
 cast/touchgrass.json — Touch Grass cast (E0): body v5, faces v5, hair v4; generated by scripts/v2/touchgrass-cast.py. Real-world LEO/TOWN colours have saturation <

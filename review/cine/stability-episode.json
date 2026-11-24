@@ -8,8 +8,8 @@
  "worst": {
   "view": "B-ms-walk:last",
   "frame": 100,
-  "pct": 0.039,
-  "raw": 0.523
+  "pct": 0.058,
+  "raw": 0.583
  },
  "failing": [],
  "errors": [],
@@ -24,110 +24,110 @@
   {
    "view": "A-ews:first",
    "frame": 0,
-   "pct": 0.005,
-   "raw": 0.051
+   "pct": 0.006,
+   "raw": 0.052
   },
   {
    "view": "A-ews:mid",
    "frame": 24,
-   "pct": 0.007,
-   "raw": 0.054
+   "pct": 0.006,
+   "raw": 0.052
   },
   {
    "view": "A-ews:last",
    "frame": 47,
-   "pct": 0.014,
-   "raw": 0.052
+   "pct": 0.012,
+   "raw": 0.053
   },
   {
    "view": "B-ms-walk:first",
    "frame": 48,
-   "pct": 0.011,
-   "raw": 0.18
+   "pct": 0.019,
+   "raw": 0.237
   },
   {
    "view": "B-ms-walk:mid",
    "frame": 74,
-   "pct": 0.018,
-   "raw": 0.423
+   "pct": 0.02,
+   "raw": 0.456
   },
   {
    "view": "B-ms-walk:last",
    "frame": 100,
-   "pct": 0.039,
-   "raw": 0.523
+   "pct": 0.058,
+   "raw": 0.583
   },
   {
    "view": "C-mcu-talk:first",
    "frame": 101,
-   "pct": 0.012,
-   "raw": 0.481
+   "pct": 0.043,
+   "raw": 0.61
   },
   {
    "view": "C-mcu-talk:mid",
    "frame": 125,
-   "pct": 0.033,
-   "raw": 0.603
+   "pct": 0.032,
+   "raw": 0.698
   },
   {
    "view": "C-mcu-talk:last",
    "frame": 148,
-   "pct": 0.037,
-   "raw": 0.589
+   "pct": 0.038,
+   "raw": 0.702
   },
   {
    "view": "D-cu-rack:first",
    "frame": 149,
    "pct": 0.001,
-   "raw": 0.276
+   "raw": 0.307
   },
   {
    "view": "D-cu-rack:mid",
    "frame": 173,
    "pct": 0.01,
-   "raw": 0.142
+   "raw": 0.178
   },
   {
    "view": "D-cu-rack:last",
    "frame": 196,
    "pct": 0.02,
-   "raw": 0.52
+   "raw": 0.712
   },
   {
    "view": "E-dolly:first",
    "frame": 197,
    "pct": 0.029,
-   "raw": 0.687
+   "raw": 0.827
   },
   {
    "view": "E-dolly:mid",
    "frame": 223,
-   "pct": 0.027,
-   "raw": 0.688
+   "pct": 0.028,
+   "raw": 0.819
   },
   {
    "view": "E-dolly:last",
    "frame": 249,
-   "pct": 0.026,
-   "raw": 0.856
+   "pct": 0.03,
+   "raw": 1.007
   },
   {
    "view": "F-payoff:first",
    "frame": 250,
-   "pct": 0.004,
-   "raw": 0.432
+   "pct": 0.008,
+   "raw": 0.596
   },
   {
    "view": "F-payoff:mid",
    "frame": 274,
-   "pct": 0.004,
-   "raw": 0.337
+   "pct": 0.008,
+   "raw": 0.478
   },
   {
    "view": "F-payoff:last",
    "frame": 297,
-   "pct": 0.004,
-   "raw": 0.438
+   "pct": 0.009,
+   "raw": 0.6
   }
  ]
 }

@@ -1,0 +1,944 @@
+{
+ "note": "tuft 2A BEAST KIT look-dev fixture (scripts/v2/beast-fixtures.js): night street, post cine, the 4 hero beasts beside R6 kids; per beast a 3-view turnaround then a state strip.",
+ "slug": "beasts",
+ "fps": 24,
+ "format": 6,
+ "acting": 6,
+ "rig": "r6",
+ "twos": true,
+ "faceLife": true,
+ "labels": false,
+ "world": "engine/fixtures/v4look/world.js",
+ "cues": "engine/fixtures/acting6/cues.json",
+ "post": "cine",
+ "look4": "mystery",
+ "look": "mystery",
+ "cast": {
+  "nightfang": {
+   "style": "beast",
+   "preset": "NIGHTFANG",
+   "tier": "hero",
+   "at": "street",
+   "offset": [
+    0,
+    0,
+    -36
+   ],
+   "yaw": 0
+  },
+  "kid_nightfang": {
+   "style": "v5",
+   "troupe": "LEAD",
+   "at": "street",
+   "offset": [
+    5.423928308486938,
+    0,
+    -27.156050148010255
+   ],
+   "yaw": 200,
+   "keys": [
+    [
+     0,
+     "idle"
+    ]
+   ]
+  },
+  "volt": {
+   "style": "beast",
+   "preset": "VOLT",
+   "tier": "hero",
+   "at": "street",
+   "offset": [
+    0,
+    0,
+    -10
+   ],
+   "yaw": 0
+  },
+  "kid_volt": {
+   "style": "v5",
+   "troupe": "LEAD",
+   "at": "street",
+   "offset": [
+    2.073255467414856,
+    0,
+    -5.933375310897827
+   ],
+   "yaw": 200,
+   "keys": [
+    [
+     0,
+     "idle"
+    ]
+   ]
+  },
+  "cinder": {
+   "style": "beast",
+   "preset": "CINDER",
+   "tier": "hero",
+   "at": "street",
+   "offset": [
+    0,
+    0,
+    8
+   ],
+   "yaw": 0
+  },
+  "kid_cinder": {
+   "style": "v5",
+   "troupe": "LEAD",
+   "at": "street",
+   "offset": [
+    3.3785276889801024,
+    0,
+    11.737300763130188
+   ],
+   "yaw": 200,
+   "keys": [
+    [
+     0,
+     "idle"
+    ]
+   ]
+  },
+  "boulder": {
+   "style": "beast",
+   "preset": "BOULDER",
+   "tier": "hero",
+   "at": "street",
+   "offset": [
+    0,
+    0,
+    26
+   ],
+   "yaw": 0
+  },
+  "kid_boulder": {
+   "style": "v5",
+   "troupe": "LEAD",
+   "at": "street",
+   "offset": [
+    3.168415594100952,
+    0,
+    30.39593319416046
+   ],
+   "yaw": 200,
+   "keys": [
+    [
+     0,
+     "idle"
+    ]
+   ]
+  }
+ },
+ "shots": [
+  {
+   "id": "nightfang-front 3/4",
+   "frames": 12,
+   "size": "ws",
+   "mood": "awe",
+   "move": "static-drift",
+   "from": {
+    "position": [
+     -16.329,
+     6.625,
+     -15.1
+    ],
+    "target": [
+     0,
+     4.084,
+     -36
+    ],
+    "fov": 38
+   },
+   "subject": "nightfang"
+  },
+  {
+   "id": "nightfang-side",
+   "frames": 12,
+   "size": "ws",
+   "mood": "awe",
+   "move": "static-drift",
+   "from": {
+    "position": [
+     -26.522,
+     6.625,
+     -36
+    ],
+    "target": [
+     0,
+     4.084,
+     -36
+    ],
+    "fov": 38
+   },
+   "subject": "nightfang"
+  },
+  {
+   "id": "nightfang-back 3/4",
+   "frames": 12,
+   "size": "ws",
+   "mood": "awe",
+   "move": "static-drift",
+   "from": {
+    "position": [
+     -15.213,
+     6.625,
+     -57.726
+    ],
+    "target": [
+     0,
+     4.084,
+     -36
+    ],
+    "fov": 38
+   },
+   "subject": "nightfang"
+  },
+  {
+   "id": "nightfang-idle",
+   "frames": 14,
+   "size": "ms",
+   "mood": "awe",
+   "move": "static-drift",
+   "from": {
+    "position": [
+     -16.936,
+     6.383,
+     -25.179
+    ],
+    "target": [
+     0.019,
+     4.568,
+     -37.051
+    ],
+    "fov": 40
+   },
+   "subject": "nightfang"
+  },
+  {
+   "id": "nightfang-fly",
+   "frames": 29,
+   "size": "ms",
+   "mood": "awe",
+   "move": "static-drift",
+   "from": {
+    "position": [
+     -16.956,
+     14.201,
+     -20.425
+    ],
+    "target": [
+     0,
+     12.386,
+     -32.297
+    ],
+    "fov": 40
+   },
+   "subject": "nightfang",
+   "beasts": [
+    {
+     "actor": "nightfang",
+     "state": "fly",
+     "at": 0,
+     "to": [
+      0,
+      0,
+      -26
+     ]
+    }
+   ]
+  },
+  {
+   "id": "nightfang-roar",
+   "frames": 31,
+   "size": "ms",
+   "mood": "awe",
+   "move": "static-drift",
+   "from": {
+    "position": [
+     -16.957,
+     9.305,
+     -17.941
+    ],
+    "target": [
+     -0.001,
+     7.49,
+     -29.814
+    ],
+    "fov": 40
+   },
+   "subject": "nightfang",
+   "beasts": [
+    {
+     "actor": "nightfang",
+     "state": "roar",
+     "at": 0
+    }
+   ]
+  },
+  {
+   "id": "nightfang-flinch",
+   "frames": 22,
+   "size": "ms",
+   "mood": "awe",
+   "move": "static-drift",
+   "from": {
+    "position": [
+     -16.951,
+     6.002,
+     -16.52
+    ],
+    "target": [
+     0.005,
+     4.187,
+     -28.392
+    ],
+    "fov": 40
+   },
+   "subject": "nightfang",
+   "beasts": [
+    {
+     "actor": "nightfang",
+     "state": "flinch",
+     "at": 0
+    }
+   ]
+  },
+  {
+   "id": "nightfang-flee",
+   "frames": 34,
+   "size": "ms",
+   "mood": "awe",
+   "move": "static-drift",
+   "from": {
+    "position": [
+     -21.19,
+     6.002,
+     -13.552
+    ],
+    "target": [
+     0.005,
+     4.187,
+     -28.392
+    ],
+    "fov": 40
+   },
+   "subject": "nightfang",
+   "exit": "right",
+   "beasts": [
+    {
+     "actor": "nightfang",
+     "state": "flee",
+     "at": 0
+    }
+   ]
+  },
+  {
+   "id": "volt-front 3/4",
+   "frames": 12,
+   "size": "ws",
+   "mood": "awe",
+   "move": "static-drift",
+   "from": {
+    "position": [
+     -7.663,
+     3.265,
+     -0.192
+    ],
+    "target": [
+     0,
+     2.013,
+     -10
+    ],
+    "fov": 38
+   },
+   "subject": "volt"
+  },
+  {
+   "id": "volt-side",
+   "frames": 12,
+   "size": "ws",
+   "mood": "awe",
+   "move": "static-drift",
+   "from": {
+    "position": [
+     -12.446,
+     3.265,
+     -10
+    ],
+    "target": [
+     0,
+     2.013,
+     -10
+    ],
+    "fov": 38
+   },
+   "subject": "volt"
+  },
+  {
+   "id": "volt-back 3/4",
+   "frames": 12,
+   "size": "ws",
+   "mood": "awe",
+   "move": "static-drift",
+   "from": {
+    "position": [
+     -7.139,
+     3.265,
+     -20.195
+    ],
+    "target": [
+     0,
+     2.013,
+     -10
+    ],
+    "fov": 38
+   },
+   "subject": "volt"
+  },
+  {
+   "id": "volt-idle",
+   "frames": 14,
+   "size": "ms",
+   "mood": "awe",
+   "move": "static-drift",
+   "from": {
+    "position": [
+     -8.145,
+     3.15,
+     -4.167
+    ],
+    "target": [
+     0.005,
+     2.255,
+     -9.874
+    ],
+    "fov": 40
+   },
+   "subject": "volt"
+  },
+  {
+   "id": "volt-run",
+   "frames": 29,
+   "size": "ms",
+   "mood": "awe",
+   "move": "static-drift",
+   "from": {
+    "position": [
+     -8.144,
+     2.984,
+     -0.505
+    ],
+    "target": [
+     0.007,
+     2.09,
+     -6.212
+    ],
+    "fov": 40
+   },
+   "subject": "volt",
+   "beasts": [
+    {
+     "actor": "volt",
+     "state": "run",
+     "at": 0,
+     "to": [
+      0,
+      0,
+      -2
+     ]
+    }
+   ]
+  },
+  {
+   "id": "volt-roar",
+   "frames": 31,
+   "size": "ms",
+   "mood": "awe",
+   "move": "static-drift",
+   "from": {
+    "position": [
+     -8.144,
+     3.627,
+     2.574
+    ],
+    "target": [
+     0.007,
+     2.732,
+     -3.133
+    ],
+    "fov": 40
+   },
+   "subject": "volt",
+   "beasts": [
+    {
+     "actor": "volt",
+     "state": "roar",
+     "at": 0
+    }
+   ]
+  },
+  {
+   "id": "volt-flinch",
+   "frames": 22,
+   "size": "ms",
+   "mood": "awe",
+   "move": "static-drift",
+   "from": {
+    "position": [
+     -8.144,
+     2.847,
+     2.917
+    ],
+    "target": [
+     0.007,
+     1.953,
+     -2.79
+    ],
+    "fov": 40
+   },
+   "subject": "volt",
+   "beasts": [
+    {
+     "actor": "volt",
+     "state": "flinch",
+     "at": 0
+    }
+   ]
+  },
+  {
+   "id": "volt-flee",
+   "frames": 34,
+   "size": "ms",
+   "mood": "awe",
+   "move": "static-drift",
+   "from": {
+    "position": [
+     -10.181,
+     2.847,
+     4.344
+    ],
+    "target": [
+     0.007,
+     1.953,
+     -2.79
+    ],
+    "fov": 40
+   },
+   "subject": "volt",
+   "exit": "right",
+   "beasts": [
+    {
+     "actor": "volt",
+     "state": "flee",
+     "at": 0
+    }
+   ]
+  },
+  {
+   "id": "cinder-front 3/4",
+   "frames": 12,
+   "size": "ws",
+   "mood": "awe",
+   "move": "static-drift",
+   "from": {
+    "position": [
+     -7.065,
+     2.214,
+     17.043
+    ],
+    "target": [
+     0,
+     1.365,
+     8
+    ],
+    "fov": 38
+   },
+   "subject": "cinder"
+  },
+  {
+   "id": "cinder-side",
+   "frames": 12,
+   "size": "ws",
+   "mood": "awe",
+   "move": "static-drift",
+   "from": {
+    "position": [
+     -11.476,
+     2.214,
+     8
+    ],
+    "target": [
+     0,
+     1.365,
+     8
+    ],
+    "fov": 38
+   },
+   "subject": "cinder"
+  },
+  {
+   "id": "cinder-back 3/4",
+   "frames": 12,
+   "size": "ws",
+   "mood": "awe",
+   "move": "static-drift",
+   "from": {
+    "position": [
+     -6.582,
+     2.214,
+     -1.401
+    ],
+    "target": [
+     0,
+     1.365,
+     8
+    ],
+    "fov": 38
+   },
+   "subject": "cinder"
+  },
+  {
+   "id": "cinder-idle",
+   "frames": 14,
+   "size": "ms",
+   "mood": "awe",
+   "move": "static-drift",
+   "from": {
+    "position": [
+     -7.557,
+     2.186,
+     12.832
+    ],
+    "target": [
+     -0.013,
+     1.58,
+     7.549
+    ],
+    "fov": 40
+   },
+   "subject": "cinder"
+  },
+  {
+   "id": "cinder-fly",
+   "frames": 29,
+   "size": "ms",
+   "mood": "awe",
+   "move": "static-drift",
+   "from": {
+    "position": [
+     -7.544,
+     9.088,
+     17.279
+    ],
+    "target": [
+     0,
+     8.481,
+     11.997
+    ],
+    "fov": 40
+   },
+   "subject": "cinder",
+   "beasts": [
+    {
+     "actor": "cinder",
+     "state": "fly",
+     "at": 0,
+     "to": [
+      0,
+      0,
+      18
+     ]
+    }
+   ]
+  },
+  {
+   "id": "cinder-roar",
+   "frames": 31,
+   "size": "ms",
+   "mood": "awe",
+   "move": "static-drift",
+   "from": {
+    "position": [
+     -7.544,
+     3.829,
+     20.42
+    ],
+    "target": [
+     0,
+     3.223,
+     15.138
+    ],
+    "fov": 40
+   },
+   "subject": "cinder",
+   "beasts": [
+    {
+     "actor": "cinder",
+     "state": "roar",
+     "at": 0
+    }
+   ]
+  },
+  {
+   "id": "cinder-flinch",
+   "frames": 22,
+   "size": "ms",
+   "mood": "awe",
+   "move": "static-drift",
+   "from": {
+    "position": [
+     -7.544,
+     1.886,
+     20.301
+    ],
+    "target": [
+     0,
+     1.28,
+     15.019
+    ],
+    "fov": 40
+   },
+   "subject": "cinder",
+   "beasts": [
+    {
+     "actor": "cinder",
+     "state": "flinch",
+     "at": 0
+    }
+   ]
+  },
+  {
+   "id": "cinder-flee",
+   "frames": 34,
+   "size": "ms",
+   "mood": "awe",
+   "move": "static-drift",
+   "from": {
+    "position": [
+     -9.429,
+     2.04,
+     21.621
+    ],
+    "target": [
+     0,
+     1.434,
+     15.019
+    ],
+    "fov": 40
+   },
+   "subject": "cinder",
+   "exit": "right",
+   "beasts": [
+    {
+     "actor": "cinder",
+     "state": "flee",
+     "at": 0
+    }
+   ]
+  },
+  {
+   "id": "boulder-front 3/4",
+   "frames": 12,
+   "size": "ws",
+   "mood": "awe",
+   "move": "static-drift",
+   "from": {
+    "position": [
+     -8.507,
+     4.344,
+     36.888
+    ],
+    "target": [
+     0,
+     2.678,
+     26
+    ],
+    "fov": 38
+   },
+   "subject": "boulder"
+  },
+  {
+   "id": "boulder-side",
+   "frames": 12,
+   "size": "ws",
+   "mood": "awe",
+   "move": "static-drift",
+   "from": {
+    "position": [
+     -13.818,
+     4.344,
+     26
+    ],
+    "target": [
+     0,
+     2.678,
+     26
+    ],
+    "fov": 38
+   },
+   "subject": "boulder"
+  },
+  {
+   "id": "boulder-back 3/4",
+   "frames": 12,
+   "size": "ws",
+   "mood": "awe",
+   "move": "static-drift",
+   "from": {
+    "position": [
+     -7.925,
+     4.344,
+     14.681
+    ],
+    "target": [
+     0,
+     2.678,
+     26
+    ],
+    "fov": 38
+   },
+   "subject": "boulder"
+  },
+  {
+   "id": "boulder-idle",
+   "frames": 14,
+   "size": "ms",
+   "mood": "awe",
+   "move": "static-drift",
+   "from": {
+    "position": [
+     -9.466,
+     4.172,
+     33.536
+    ],
+    "target": [
+     -0.019,
+     2.982,
+     26.921
+    ],
+    "fov": 40
+   },
+   "subject": "boulder"
+  },
+  {
+   "id": "boulder-run",
+   "frames": 29,
+   "size": "ms",
+   "mood": "awe",
+   "move": "static-drift",
+   "from": {
+    "position": [
+     -9.447,
+     4.253,
+     35.597
+    ],
+    "target": [
+     0,
+     3.063,
+     28.982
+    ],
+    "fov": 40
+   },
+   "subject": "boulder",
+   "beasts": [
+    {
+     "actor": "boulder",
+     "state": "run",
+     "at": 0,
+     "to": [
+      0,
+      0,
+      34
+     ]
+    }
+   ]
+  },
+  {
+   "id": "boulder-roar",
+   "frames": 31,
+   "size": "ms",
+   "mood": "awe",
+   "move": "static-drift",
+   "from": {
+    "position": [
+     -9.447,
+     4.506,
+     37.606
+    ],
+    "target": [
+     0,
+     3.316,
+     30.991
+    ],
+    "fov": 40
+   },
+   "subject": "boulder",
+   "beasts": [
+    {
+     "actor": "boulder",
+     "state": "roar",
+     "at": 0
+    }
+   ]
+  },
+  {
+   "id": "boulder-flinch",
+   "frames": 22,
+   "size": "ms",
+   "mood": "awe",
+   "move": "static-drift",
+   "from": {
+    "position": [
+     -9.281,
+     4.22,
+     37.775
+    ],
+    "target": [
+     0.166,
+     3.03,
+     31.16
+    ],
+    "fov": 40
+   },
+   "subject": "boulder",
+   "beasts": [
+    {
+     "actor": "boulder",
+     "state": "flinch",
+     "at": 0
+    }
+   ]
+  },
+  {
+   "id": "boulder-flee",
+   "frames": 34,
+   "size": "ms",
+   "mood": "awe",
+   "move": "static-drift",
+   "from": {
+    "position": [
+     -11.643,
+     4.22,
+     39.429
+    ],
+    "target": [
+     0.166,
+     3.03,
+     31.16
+    ],
+    "fov": 40
+   },
+   "subject": "boulder",
+   "exit": "right",
+   "beasts": [
+    {
+     "actor": "boulder",
+     "state": "flee",
+     "at": 0
+    }
+   ]
+  }
+ ]
+}

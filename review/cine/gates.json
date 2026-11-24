@@ -2,26 +2,26 @@
  {
   "name": "bloom: non-emissive actor luma delta ≤ 0.5 %",
   "pass": true,
-  "line": "white DUMMY under the lamp, its own bloom (glow surfaces at LDR, actor rim on): 0.000 % (128858 px, luma 0.468 → 0.468); halo spill from the lamp + cube beside it (not the gate): +15.1 %",
+  "line": "white DUMMY under the lamp, its own bloom (glow surfaces at LDR, actor rim on): 0.000 % (128858 px, luma 0.688 → 0.688); halo spill from the lamp + cube beside it (not the gate): +4.0 %",
   "value": 0,
-  "spill": 15.138762816060906
+  "spill": 4.045040698333736
  },
  {
   "name": "bloom: present around the HDR glow cube (≥ 3 %)",
   "pass": true,
-  "line": "ring around the cube +369.4 % (0.147 → 0.691), 3 glow materials",
-  "value": 369.41144757143815
+  "line": "ring around the cube +325.8 % (0.173 → 0.738), 3 glow materials",
+  "value": 325.7947987204148
  },
  {
   "name": "grain deterministic (same frame = same bytes)",
   "pass": true,
-  "line": "frame 120 rendered twice (frame 200 between): identical bytes; frame 121 differs in 1358893 bytes"
+  "line": "frame 120 rendered twice (frame 200 between): identical bytes; frame 121 differs in 1401336 bytes"
  },
  {
   "name": "grain 1.5–2.5 % luma",
   "pass": true,
-  "line": "luma std 1.57 % (mean shift 0.08 %)",
-  "value": 1.5681235514440819
+  "line": "luma std 1.70 % (mean shift 0.06 %)",
+  "value": 1.7030411750654322
  },
  {
   "name": "DOF focus = focused head distance ± 2 % (rack kid → hero)",
@@ -278,7 +278,7 @@
  {
   "name": "fg: soft lantern glow never the brightest thing (fg max ≤ subject max)",
   "pass": true,
-  "line": "250 fg 0.690 (22073 px) ≤ subject 0.944; 264 fg 0.687 (21995 px) ≤ subject 0.944; 278 fg 0.686 (21931 px) ≤ subject 0.944; 289 fg 0.687 (24058 px) ≤ subject 0.944; 295 fg 0.682 (25663 px) ≤ subject 0.944",
+  "line": "250 fg 0.690 (22073 px) ≤ subject 0.944; 264 fg 0.687 (21993 px) ≤ subject 0.944; 278 fg 0.686 (21929 px) ≤ subject 0.944; 289 fg 0.687 (24055 px) ≤ subject 0.944; 295 fg 0.682 (25659 px) ≤ subject 0.944",
   "rows": [
    {
     "f": 250,
@@ -289,25 +289,25 @@
    {
     "f": 264,
     "fgMax": 0.6868070363998413,
-    "fgPx": 21995,
+    "fgPx": 21993,
     "sMax": 0.9441654682159424
    },
    {
     "f": 278,
     "fgMax": 0.6856902241706848,
-    "fgPx": 21931,
+    "fgPx": 21929,
     "sMax": 0.9441654682159424
    },
    {
     "f": 289,
     "fgMax": 0.6868070363998413,
-    "fgPx": 24058,
+    "fgPx": 24055,
     "sMax": 0.9441654682159424
    },
    {
     "f": 295,
     "fgMax": 0.6817686557769775,
-    "fgPx": 25663,
+    "fgPx": 25659,
     "sMax": 0.9441654682159424
    }
   ]
@@ -315,44 +315,44 @@
  {
   "name": "look: frame contrast (luma std) after ≥ before × 1.15",
   "pass": true,
-  "line": "mean luma std 0.1323 → 0.1793 (×1.35); per frame 14 0.142→0.231, 39 0.141→0.230, 64 0.139→0.187, 91 0.143→0.182, 115 0.114→0.143, 140 0.113→0.142, 163 0.125→0.160, 188 0.124→0.163, 213 0.117→0.153, 240 0.128→0.169, 264 0.139→0.195, 289 0.163→0.196",
+  "line": "mean luma std 0.1323 → 0.2189 (×1.65); per frame 14 0.142→0.235, 39 0.141→0.235, 64 0.139→0.243, 91 0.143→0.238, 115 0.114→0.197, 140 0.113→0.185, 163 0.125→0.216, 188 0.124→0.218, 213 0.117→0.197, 240 0.128→0.209, 264 0.139→0.226, 289 0.163→0.227",
   "before": 0.13234214504171435,
-  "after": 0.17929076670129704
+  "after": 0.21888274840102348
  },
  {
   "name": "look: subject separation (hero vs 12 px ring) after ≥ before × 1.3",
   "pass": true,
-  "line": "mean |mask − ring| 0.0392 → 0.0809 (×2.06) over 12 frames",
+  "line": "mean |mask − ring| 0.0392 → 0.1545 (×3.94) over 12 frames",
   "before": 0.039223087334677574,
-  "after": 0.08094505255096031
+  "after": 0.1545102577664846
  },
  {
   "name": "look: rim present on CU/MCU (≥ 3 % of the hero's edge px > 1.4 × interior mean)",
   "pass": true,
-  "line": "min 10.4 % over 8 frames (115 45.5 %, 140 31.4 %, 163 20.3 %, 188 10.4 %, 213 34.0 %, 240 28.1 %, 264 42.7 %, 289 43.9 %); before min 7.2 %",
-  "value": 0.10354015987818804
+  "line": "min 5.3 % over 8 frames (115 42.3 %, 140 22.3 %, 163 13.5 %, 188 5.3 %, 213 33.7 %, 240 25.4 %, 264 35.9 %, 289 36.9 %); before min 7.2 %",
+  "value": 0.053292729349067376
  },
  {
   "name": "look: no milk (darkest 10 % mean) after ≤ before + 0.02",
   "pass": true,
-  "line": "0.0268 → 0.0288 (Δ +0.0020)",
+  "line": "0.0268 → 0.0447 (Δ +0.0179)",
   "before": 0.02682048525157557,
-  "after": 0.028847888183297702
+  "after": 0.04470201203343687
  },
  {
   "name": "cost: est. --final s/frame ≤ 3.0 (1440×2560, MSAA 4×, this sandbox)",
-  "pass": true,
-  "line": "270×480 before 65 ms → after 89 ms; 720×1280 before 0.161 s → after 0.511 s; final 1440×2560 MSAA 4× 2.88 s/frame (swiftshader CPU; 1B: 5.15 with ss 2×)",
-  "before270": 65.17333333332402,
-  "after270": 88.89666666664804,
-  "before720": 160.82999999998137,
-  "after720": 510.5299999999814,
-  "final": 2882.566666666729
+  "pass": false,
+  "line": "270×480 before 58 ms → after 93 ms; 720×1280 before 0.175 s → after 0.508 s; final 1440×2560 MSAA 4× 3.90 s/frame (swiftshader CPU; 1B: 5.15 with ss 2×)",
+  "before270": 58.19333333334264,
+  "after270": 92.8700000000031,
+  "before720": 174.82999999998137,
+  "after720": 507.6500000000466,
+  "final": 3902.6666666666665
  },
  {
-  "name": "edges: hero head outline max stair-step ≤ 0.25 px (--final, MSAA 4×)",
-  "pass": false,
-  "line": "max step 0.47 px (rows 0.33, top 0.47; 417 + 479 samples); without AA 0.52 px (rows 0.40, top 0.52) — crops: review/cine/edge-390.png",
+  "name": "edges (RETIRED 2A, owner: head-mesh facets, not aliasing; report only)",
+  "pass": true,
+  "line": "max step 0.48 px (rows 0.33, top 0.48; 417 + 479 samples); without AA 0.62 px (rows 0.41, top 0.62) — crops: review/cine/edge-390.png",
   "edge": {
    "box": [
     365,
@@ -362,13 +362,13 @@
    ],
    "rows": 417,
    "cols": 479,
-   "step": 0.47243088574302305,
-   "stepRows": 0.32982637931607073,
-   "stepCols": 0.47243088574302305,
+   "step": 0.47868766843672717,
+   "stepRows": 0.33480989174399767,
+   "stepCols": 0.47868766843672717,
    "noAA": {
-    "step": 0.5202299048589865,
-    "rows": 0.3977916082917119,
-    "top": 0.5202299048589865
+    "step": 0.6223749807605543,
+    "rows": 0.40715706383043937,
+    "top": 0.6223749807605543
    }
   }
  }

@@ -1,0 +1,106 @@
+// engine/beastrt.js — tuft 2A BEAST KIT, the renderer side (three). The maths is engine/beast.js (pure); presets are beasts/*.json.
+// One draw per hero beast and one per low-tier preset (+ one for that crowd's contact blobs): every beast is ONE merged, flat-shaded
+// faceted mesh whose vertices carry their rigid segment index (`aSeg`) + glow (`aGlow` rgb, a = group seam / mouth / eye); the
+// vertex shader reads the segment's 3×4 matrix from a float texture (row = instance), so a 40-beast parade is one InstancedMesh.
+// Emissive = aGlow × group intensity × HDR (preset glowHDR under post 'cine' → only seams pass the bloom threshold; LDR 1 without).
+import * as T from 'three';
+import * as B from './beast.js';
+import {contactBlob} from './look5b.js';
+
+export async function loadPresets(names, base) {
+  const out = {}; for (const n of new Set(names)) out[n] = await (await fetch(new URL(`beasts/${n}.json`, base))).json(); return out; }
+const lin = (() => { const c = new T.Color(); return rgb => { c.setRGB(rgb[0], rgb[1], rgb[2], T.SRGBColorSpace); return [c.r, c.g, c.b]; }; })();
+export const LOW_LIGHT = {dir: [.38, .82, .43], ambient: .42, diffuse: .58};   // low tier: per-face light baked in the segment frame (flat shading is per face anyway)
+function geometryOf(geo, bake = 0) {
+  const g = new T.BufferGeometry(), col = new Float32Array(geo.col.length), glow = new Float32Array(geo.glow.length), Ld = LOW_LIGHT.dir, ln = Math.hypot(...Ld);
+  for (let i = 0; i < geo.col.length; i += 3) col.set(lin([geo.col[i], geo.col[i + 1], geo.col[i + 2]]), i);
+  if (bake) for (let f = 0; f < geo.pos.length; f += 9) { const p = geo.pos, a = [p[f + 3] - p[f], p[f + 4] - p[f + 1], p[f + 5] - p[f + 2]], b = [p[f + 6] - p[f], p[f + 7] - p[f + 1], p[f + 8] - p[f + 2]];
+    const n = [a[1] * b[2] - a[2] * b[1], a[2] * b[0] - a[0] * b[2], a[0] * b[1] - a[1] * b[0]], nl = Math.hypot(...n) || 1, d = Math.max(0, (n[0] * Ld[0] + n[1] * Ld[1] + n[2] * Ld[2]) / nl / ln), k = bake * (LOW_LIGHT.ambient + LOW_LIGHT.diffuse * d);
+    for (let v = 0; v < 3; v++) for (let c = 0; c < 3; c++) col[f + v * 3 + c] *= k; }
+  for (let i = 0; i < geo.glow.length; i += 4) { const l = lin([geo.glow[i], geo.glow[i + 1], geo.glow[i + 2]]); glow.set([l[0], l[1], l[2], geo.glow[i + 3]], i); }
+  g.setAttribute('position', new T.BufferAttribute(geo.pos, 3)); g.setAttribute('color', new T.BufferAttribute(col, 3));
+  g.setAttribute('aSeg', new T.BufferAttribute(geo.seg, 1)); g.setAttribute('aGlow', new T.BufferAttribute(glow, 4)); return g; }
+// satin faceted material, segment matrices from a float texture (nSeg × 3 texels per row, one row per instance)
+function beastMaterial(nSeg, rows, low = false) {   // low tier: unlit (baked per-face light, LOW_LIGHT): the cheapest pixel, one draw per preset
+  const data = new Float32Array(nSeg * 3 * rows * 4), tex = new T.DataTexture(data, nSeg * 3, rows, T.RGBAFormat, T.FloatType);
+  tex.magFilter = tex.minFilter = T.NearestFilter; tex.needsUpdate = true;
+  const m = low ? new T.MeshBasicMaterial({vertexColors: true}) : new T.MeshStandardMaterial({vertexColors: true, flatShading: true, roughness: .36, metalness: .18, envMapIntensity: .9});
+  const U = {uSegTex: {value: tex}, uGlowI: {value: new T.Vector3(1, 1, 1)}, uBeastMask: {value: 0}};
+  m.onBeforeCompile = sh => { Object.assign(sh.uniforms, U);
+    sh.vertexShader = 'attribute float aSeg; attribute vec4 aGlow; uniform highp sampler2D uSegTex; varying vec4 vGlow;\n' + sh.vertexShader.replace('#include <begin_vertex>',
+      `vec3 transformed; { int s = int(aSeg + .5) * 3, r = gl_InstanceID; vec4 p = vec4(position, 1.);
+  transformed = vec3(dot(texelFetch(uSegTex, ivec2(s, r), 0), p), dot(texelFetch(uSegTex, ivec2(s + 1, r), 0), p), dot(texelFetch(uSegTex, ivec2(s + 2, r), 0), p)); } vGlow = aGlow;`);
+    sh.fragmentShader = 'uniform vec3 uGlowI; uniform float uBeastMask; varying vec4 vGlow;\n' + sh.fragmentShader
+      .replace(low ? '#include <color_fragment>' : '#include <emissivemap_fragment>', (low ? '#include <color_fragment>' : '#include <emissivemap_fragment>') + `\n  { int gB = int(vGlow.a + .5); float gi = gB == 0 ? uGlowI.x : gB == 1 ? uGlowI.y : uGlowI.z; ${low ? 'diffuseColor.rgb' : 'totalEmissiveRadiance'} += vGlow.rgb * gi; }`)
+      .replace('#include <dithering_fragment>', '#include <dithering_fragment>\n  if (uBeastMask > .5) gl_FragColor = vec4(dot(vGlow.rgb, vec3(1.)) > 1e-4 ? 1. : 0., 1., 0., 1.);'); };
+  m.customProgramCacheKey = () => 'beast2a' + (low ? 'L' : ''); m.userData.beast = true;
+  return {m, U, tex, data}; }
+
+// spec actors {style: 'beast', preset, tier, at/offset/yaw | marks, state?, orbit?}; shots[].beasts [{actor, state, at, to?, exit?}];
+// spec.beastCrowds [{presets, n, at: [x, z] | anchor, dir, length, width, state, speed, seed, from}]
+export function createBeasts({scene, spec, presets, hdr, groundY = () => 0, resolveXZ, shots, FPS, markAt, base}) {
+  const D = Math.PI / 180, actors = {}, crowds = [], geoCache = {};
+  const geoOf = (name, tier, bake = 0) => geoCache[name + '|' + tier + '|' + bake] ??= (g => ({geo: g, sup: B.supportPoints(g), three: geometryOf(g, bake)}))(B.buildGeometry(presets[name], tier));
+  const LOWK = spec.look4 === 'mystery' || /night/i.test(spec.look ?? '') ? .38 : 1;   // low tier baked light level (night sets are darker)
+  let GK = 1; const hdrOf = P => (hdr ? P.glowHDR ?? 3 : 1) * GK;   // GK: gates only (0 = seams dark)
+  let gTex = null; const glowTex = () => { if (gTex) return gTex; const n = 64, b = new Uint8Array(n * n * 4);
+    for (let y = 0; y < n; y++) for (let x = 0; x < n; x++) { const r = Math.hypot(x + .5 - n / 2, y + .5 - n / 2) / (n / 2), a = r < 1 ? Math.exp(-r * r / (2 * .16)) * (1 - r) : 0, i = (y * n + x) * 4; b[i] = b[i + 1] = b[i + 2] = 255; b[i + 3] = Math.round(a * 255); }
+    gTex = new T.DataTexture(b, n, n, T.RGBAFormat); gTex.magFilter = gTex.minFilter = T.LinearFilter; gTex.needsUpdate = true; return gTex; };
+  function create(name, c) {
+    const P = presets[c.preset]; if (!P) throw Error(`beast ${name}: unknown preset ${c.preset}`);
+    const root = new T.Group(); root.name = 'beast_' + name; root.userData.live = true; scene.add(root);
+    const head = new T.Object3D(); scene.add(head);
+    if (P.rig === 'blink') {
+      const col = new T.Color(P.glow), sp = new T.Sprite(new T.SpriteMaterial({map: glowTex(), color: col.clone().multiplyScalar(hdrOf(P)), transparent: true, depthWrite: false, blending: T.AdditiveBlending, fog: false, toneMapped: !hdr}));
+      sp.scale.setScalar(P.size * 2.2); root.add(sp);
+      const bm = new T.MeshStandardMaterial({color: P.colors.body, roughness: .5, flatShading: true}), body = new T.Mesh(new T.IcosahedronGeometry(P.size * .18, 0), bm); body.scale.set(.8, .8, 1.4); root.add(body);
+      const wm = new T.MeshBasicMaterial({color: P.colors.wing, transparent: true, opacity: .55, side: T.DoubleSide, depthWrite: false}), wings = [1, -1].map(k => { const w = new T.Mesh(new T.PlaneGeometry(P.size * .5, P.size * .22), wm); w.geometry.translate(P.size * .25, 0, 0); w.position.set(0, P.size * .08, 0); w.userData.k = k; if (k < 0) w.rotation.y = Math.PI; root.add(w); return w; });
+      root.traverse(o => { o.castShadow = false; o.receiveShadow = false; });
+      return actors[name] = {name, c, P, root, head, blink: {sp, wings, col}, blobR: 0, pivots: {head}}; }
+    const tier = c.tier ?? 'hero', G = geoOf(c.preset, tier), {m, U, tex, data} = beastMaterial(G.geo.segNames.length, 1);
+    const mesh = new T.InstancedMesh(G.three, m, 1); mesh.setMatrixAt(0, new T.Matrix4()); mesh.frustumCulled = false; mesh.castShadow = mesh.receiveShadow = false; mesh.name = 'beastMesh_' + name; mesh.userData.live = true; root.add(mesh);
+    return actors[name] = {name, c, P, root, head, mesh, U, tex, data, G, tier, blobR: (P.blobR ?? 1.5), pivots: {head}, track: null, start: null, seed: B.hashSeed(name)}; }
+  for (const [n, c] of Object.entries(spec.cast ?? {})) if (c.style === 'beast') create(n, c);
+  // low-tier crowds: one InstancedMesh per preset (+ one instanced blob mesh)
+  for (const [ci, cfg0] of (spec.beastCrowds ?? []).entries()) {
+    const at = Array.isArray(cfg0.at) ? cfg0.at : resolveXZ(cfg0.at), cfg = {...cfg0, at}, members = B.crowdMembers(cfg);
+    for (const pn of new Set(members.map(m => m.preset))) {
+      const ms = members.filter(m => m.preset === pn), G = geoOf(pn, 'low', cfg.light ?? LOWK), {m, U, tex, data} = beastMaterial(G.geo.segNames.length, ms.length, true);
+      const mesh = new T.InstancedMesh(G.three, m, ms.length); mesh.frustumCulled = false; mesh.castShadow = mesh.receiveShadow = false; mesh.name = `beastCrowd_${ci}_${pn}`; mesh.userData.live = true; scene.add(mesh);
+      const b0 = contactBlob(1, .5), blobs = new T.InstancedMesh(b0.geometry, b0.material, ms.length); b0.material.depthTest = true; blobs.frustumCulled = false; blobs.renderOrder = 1; blobs.name = `beastCrowdBlobs_${ci}_${pn}`; blobs.userData.live = true; scene.add(blobs);
+      crowds.push({cfg, P: presets[pn], members: ms, G, mesh, blobs, U, tex, data}); } }
+  // tracks from shots[].beasts (absolute seconds), start = the actor's mark at 0
+  function trackOf(a) {
+    if (a.track) return a.track; const c = a.c, k = [{t: 0, state: c.state ?? (a.P.rig === 'bird' ? 'perch' : 'idle')}];
+    for (const sh of shots) for (const e of sh.beasts ?? []) if (e.actor === a.name) {
+      const cam = sh.from ? {position: sh.from.position, target: sh.from.target} : null, to = e.to == null ? null : Array.isArray(e.to) ? (e.to.length === 3 ? [e.to[0], e.to[2]] : e.to) : resolveXZ(e.to);
+      k.push({t: sh.start / FPS + (e.at ?? 0), state: e.state, ...(to ? {to} : {}), ...(e.state === 'flee' ? {exit: B.exitDir(e.exit ?? sh.exit ?? 'right', cam ?? {position: [0, 0, 10], target: [0, 0, 0]})} : {})}); }
+    const p0 = markAt(c, 0); a.start = {p: [p0[0], p0[2]], yaw: (c.yaw ?? 0) * D}; return a.track = B.normTrack(k); }
+  const M4 = new T.Matrix4(), Q = new T.Quaternion(), V = new T.Vector3(), S1 = new T.Vector3(1, 1, 1), Y = new T.Vector3(0, 1, 0);
+  // per frame: tq = the body time (twos), t = glow / light time (ones)
+  function drive(name, t, tq) {
+    const a = actors[name]; if (!a || a.P.rig === 'blink') return null;
+    const s = B.sampleBeast(a.P, trackOf(a), tq, {seed: a.seed, groundY, geo: a.G.geo, support: a.G.sup, start: a.start, glowT: t});
+    a.root.position.fromArray(s.root.p); a.root.rotation.set(0, s.root.yaw, 0); B.segRows(s, a.data, 0); a.tex.needsUpdate = true; a.sample = s;
+    const h = hdrOf(a.P); a.U.uGlowI.value.set(s.glow.seam * h * (a.c.glow ?? 1), s.glow.mouth * h * (a.c.glow ?? 1), s.glow.eye * h * (a.c.glow ?? 1));
+    a.head.position.fromArray(B.worldOf(s, 'head', [0, a.P.dims.headH * .3 * (a.P.scale ?? 1), a.P.dims.headL * .45 * (a.P.scale ?? 1)]));
+    if (a.c.visible) a.root.visible = valueAtSafe(a.c.visible, t);
+    return a.root.position.toArray(); }
+  // BLINK orbit (after every actor is posed) + crowds
+  function post(t, tq, headOf) {
+    for (const a of Object.values(actors)) if (a.P.rig === 'blink') {
+      const tgt = a.c.orbit, hp = tgt ? headOf(tgt) : null, base = hp ?? markAt(a.c, t).map((v, i) => i === 1 ? v + 3 : v), b = B.blinkAt(t, base, B.hashSeed(a.name));
+      a.root.position.fromArray(b.p); a.root.rotation.set(0, b.yaw, 0); a.head.position.fromArray(b.p);
+      a.blink.sp.material.color.copy(a.blink.col).multiplyScalar(hdrOf(a.P) * b.glow);
+      for (const w of a.blink.wings) w.rotation.z = (w.userData.k > 0 ? 1 : -1) * (.35 + .55 * b.wing); }
+    for (const cr of crowds) cr.members.forEach((mb, i) => {
+      const s = B.sampleCrowdMember(cr.P, cr.G.geo, cr.G.sup, cr.cfg, mb, tq, groundY); B.segRows(s, cr.data, i * cr.G.geo.segNames.length * 12);
+      Q.setFromAxisAngle(Y, s.root.yaw); M4.compose(V.fromArray(s.root.p), Q, S1); cr.mesh.setMatrixAt(i, M4);
+      const r = (cr.P.blobR ?? 1) * 1, gy = groundY(s.root.p[0], s.root.p[2]); Q.setFromAxisAngle(new T.Vector3(1, 0, 0), -Math.PI / 2); M4.compose(V.set(s.root.p[0], gy + .03, s.root.p[2]), Q, new T.Vector3(r, r, r)); cr.blobs.setMatrixAt(i, M4); });
+    for (const cr of crowds) { cr.mesh.instanceMatrix.needsUpdate = true; cr.blobs.instanceMatrix.needsUpdate = true; cr.tex.needsUpdate = true; const h = hdrOf(cr.P); cr.U.uGlowI.value.set(h, h, h); } }
+  const valueAtSafe = (keys, t) => { let v = true; for (const [k0, val] of keys) if (t >= k0) v = val; return v; };
+  // gates: glow scale (0 = seams dark), mask mode (beast pixels: g = 1, seams: r = 1; everything else hidden by the caller)
+  const allU = () => [...Object.values(actors).filter(a => a.U).map(a => a.U), ...crowds.map(c => c.U)];
+  const setMask = on => { for (const U of allU()) U.uBeastMask.value = on ? 1 : 0; for (const a of Object.values(actors)) if (a.blink) a.blink.sp.visible = !on; };
+  const meshes = () => [...Object.values(actors).flatMap(a => [a.root]), ...crowds.flatMap(c => [c.mesh])];
+  return {actors, crowds, create, drive, post, trackOf, setMask, meshes, setGlowScale: k => { GK = k; }, is: n => !!actors[n], blobItems: () => Object.values(actors).filter(a => a.blobR > 0).map(a => ({key: 'beast_' + a.name, x: a.root.position.x, y: a.root.position.y, z: a.root.position.z, r: a.blobR, visible: a.root.visible}))}; }

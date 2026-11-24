@@ -29,7 +29,8 @@ export function parseBrief(md) {
     const m = /^-\s*([A-Za-z0-9_]+)(.*)$/.exec(l), slot = /(?:→|->)\s*([A-Z_]+)/.exec(m[2])?.[1];
     const xz = /\bat\s+(-?\d+(?:\.\d+)?)[ ,]+(-?\d+(?:\.\d+)?)/.exec(m[2]), yw = /\byaw\s+(-?\d+(?:\.\d+)?)/.exec(m[2]);   // optional start mark: `at x z`, `yaw deg`
     const cos = /\bcostume\s+([A-Z_]+)/.exec(m[2])?.[1] ?? null;   // E2: `costume BITSY` (cast/troupe6.json costumes)
-    return {role: m[1], slot: m[1].toUpperCase() === 'HERO' ? 'HERO' : slot ?? null, line: l.trim(), at: xz ? [+xz[1], +xz[2]] : null, yaw: yw ? +yw[1] : 0, costume: cos};
+    const bst = /\bbeast\s+([A-Z][A-Z0-9_]*)(?:\s+(hero|low))?/.exec(m[2]);   // tuft 2A: `- nightfang: beast NIGHTFANG [low]` (beasts/*.json)
+    return {role: m[1], slot: m[1].toUpperCase() === 'HERO' ? 'HERO' : slot ?? null, line: l.trim(), at: xz ? [+xz[1], +xz[2]] : null, yaw: yw ? +yw[1] : 0, costume: cos, ...(bst ? {beast: bst[1], tier: bst[2] ?? 'hero'} : {})};
   });
   const rows = [];
   for (const l of sec.BEATS ?? []) {
@@ -86,6 +87,8 @@ export function briefToSpec(brief, cues, lib, {slug, root = '.'} = {}) {
   const org = (() => { try { return JSON.parse(readFileSync(`${root}/parts/library6.json`, 'utf8')).locations?.[loc0]?.origin ?? [0, 0, 0]; } catch { return [0, 0, 0]; } })();   // the location anchor's world position (library6.json `origin`): cameras and props are world coordinates, marks stay anchor-relative
   brief.cast.forEach((c, i) => {
     const key = c.role.toLowerCase(); castKeys[key] = key;
+    if (c.beast) { if (!existsSync(`${root}/beasts/${c.beast}.json`)) E(`CAST ${c.role}`, `unknown beast preset "${c.beast}" (beasts/*.json)`); const x = c.at ? c.at[0] : (i - (brief.cast.length - 1) / 2) * 4, z = c.at ? c.at[1] : 0; pos[key] = [x, 0, z]; yawOf[key] = c.yaw;
+      cast[key] = {style: 'beast', preset: c.beast, tier: c.tier, at: loc0 ? (lib.locations[loc0].anchors[0] ?? loc0) : undefined, offset: [x, 0, z], yaw: c.yaw}; return; }   // tuft 2A
     if (!c.slot || (c.slot !== 'HERO' && !SLOTS.includes(c.slot))) E(`CAST ${c.role}`, `unknown troupe slot "${c.slot ?? ''}" (${SLOTS.join(' | ')})`);
     const x = c.at ? c.at[0] : (i - (brief.cast.length - 1) / 2) * 4, z = c.at ? c.at[1] : c.slot === 'HERO' ? 4 : 0; pos[key] = [x, 0, z]; yawOf[key] = c.yaw;
     if (c.slot === 'DOG') { cast[key] = {style: 'dog', at: loc0 ? (lib.locations[loc0].anchors[0] ?? loc0) : undefined, offset: [x, 0, z], yaw: c.yaw, keys: [[0, 'idle']]}; return; }   // E4: `- dog → DOG`
@@ -197,6 +200,7 @@ export function briefToSpec(brief, cues, lib, {slug, root = '.'} = {}) {
       let P; try { P = S6.MARKERS[key](body, {hero: 'hero'}); } catch (e) { E(`${R} (notes)`, e.message); continue; }
       const word = P.word ?? wd, f = word ? find(word, 'notes') : null; if (word && !f) continue;
       const t = +(f ? f.t : at + .15 + .55 * unworded++).toFixed(3), who = n => { if (!castKeys[n]) { E(`${R} (notes)`, `${key}: "${n}" is not a CAST role`); return false; } return true; }, anc = n => { if (n && !anchorsOf.has(n)) { E(`${R} (notes)`, `${key}: anchor "${n}" is not in ${loc0} (${[...anchorsOf].join(', ')})`); return false; } return true; };
+      if (key === 'beast') { if (who(P.actor) && anc(P.to)) { if (cast[P.actor]?.style !== 'beast') E(`${R} (notes)`, `beast: "${P.actor}" is not a beast (CAST: - ${P.actor}: beast <PRESET>)`); else (sh.beasts ??= []).push({actor: P.actor, state: P.state, at: +(t - at).toFixed(3), ...(P.to ? {to: P.to} : {})}); } continue; }   // tuft 2A → shot.beasts (shot-local s)
       if (key === 'drain' && who(P.actor)) st6.drains.push({actor: P.actor, region: P.region, t});
       else if (key === 'bloom') { if (P.crowd) st6.blooms.push({crowd: true, t}); else if (who(P.actor)) st6.blooms.push({actor: P.actor, region: P.region, colour: P.colour, t}); }
       else if (key === 'crowd' && anc(P.anchor)) {

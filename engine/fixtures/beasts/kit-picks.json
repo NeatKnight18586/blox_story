@@ -1,0 +1,194 @@
+[
+ {
+  "row": 1,
+  "beast": "NIGHTFANG",
+  "label": "front 3/4",
+  "frame": 6
+ },
+ {
+  "row": 1,
+  "beast": "NIGHTFANG",
+  "label": "side",
+  "frame": 18
+ },
+ {
+  "row": 1,
+  "beast": "NIGHTFANG",
+  "label": "back 3/4",
+  "frame": 30
+ },
+ {
+  "row": 2,
+  "beast": "NIGHTFANG",
+  "label": "idle",
+  "frame": 48
+ },
+ {
+  "row": 2,
+  "beast": "NIGHTFANG",
+  "label": "fly",
+  "frame": 69
+ },
+ {
+  "row": 2,
+  "beast": "NIGHTFANG",
+  "label": "roar",
+  "frame": 103
+ },
+ {
+  "row": 2,
+  "beast": "NIGHTFANG",
+  "label": "flinch",
+  "frame": 121
+ },
+ {
+  "row": 2,
+  "beast": "NIGHTFANG",
+  "label": "flee",
+  "frame": 150
+ },
+ {
+  "row": 1,
+  "beast": "VOLT",
+  "label": "front 3/4",
+  "frame": 172
+ },
+ {
+  "row": 1,
+  "beast": "VOLT",
+  "label": "side",
+  "frame": 184
+ },
+ {
+  "row": 1,
+  "beast": "VOLT",
+  "label": "back 3/4",
+  "frame": 196
+ },
+ {
+  "row": 2,
+  "beast": "VOLT",
+  "label": "idle",
+  "frame": 214
+ },
+ {
+  "row": 2,
+  "beast": "VOLT",
+  "label": "run",
+  "frame": 235
+ },
+ {
+  "row": 2,
+  "beast": "VOLT",
+  "label": "roar",
+  "frame": 269
+ },
+ {
+  "row": 2,
+  "beast": "VOLT",
+  "label": "flinch",
+  "frame": 287
+ },
+ {
+  "row": 2,
+  "beast": "VOLT",
+  "label": "flee",
+  "frame": 316
+ },
+ {
+  "row": 1,
+  "beast": "CINDER",
+  "label": "front 3/4",
+  "frame": 338
+ },
+ {
+  "row": 1,
+  "beast": "CINDER",
+  "label": "side",
+  "frame": 350
+ },
+ {
+  "row": 1,
+  "beast": "CINDER",
+  "label": "back 3/4",
+  "frame": 362
+ },
+ {
+  "row": 2,
+  "beast": "CINDER",
+  "label": "idle",
+  "frame": 380
+ },
+ {
+  "row": 2,
+  "beast": "CINDER",
+  "label": "fly",
+  "frame": 401
+ },
+ {
+  "row": 2,
+  "beast": "CINDER",
+  "label": "roar",
+  "frame": 435
+ },
+ {
+  "row": 2,
+  "beast": "CINDER",
+  "label": "flinch",
+  "frame": 453
+ },
+ {
+  "row": 2,
+  "beast": "CINDER",
+  "label": "flee",
+  "frame": 482
+ },
+ {
+  "row": 1,
+  "beast": "BOULDER",
+  "label": "front 3/4",
+  "frame": 504
+ },
+ {
+  "row": 1,
+  "beast": "BOULDER",
+  "label": "side",
+  "frame": 516
+ },
+ {
+  "row": 1,
+  "beast": "BOULDER",
+  "label": "back 3/4",
+  "frame": 528
+ },
+ {
+  "row": 2,
+  "beast": "BOULDER",
+  "label": "idle",
+  "frame": 546
+ },
+ {
+  "row": 2,
+  "beast": "BOULDER",
+  "label": "run",
+  "frame": 567
+ },
+ {
+  "row": 2,
+  "beast": "BOULDER",
+  "label": "roar",
+  "frame": 601
+ },
+ {
+  "row": 2,
+  "beast": "BOULDER",
+  "label": "flinch",
+  "frame": 619
+ },
+ {
+  "row": 2,
+  "beast": "BOULDER",
+  "label": "flee",
+  "frame": 648
+ }
+]

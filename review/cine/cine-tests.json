@@ -72,6 +72,6 @@
  {
   "name": "v2:stability on engine/fixtures/cine (camera + post cine)",
   "pass": true,
-  "line": "worst B-ms-walk:last 0.039 % over 19 views (limit 0.3 %)"
+  "line": "worst B-ms-walk:last 0.058 % over 19 views (limit 0.3 %)"
  }
 ]
