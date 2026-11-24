@@ -172,6 +172,8 @@ export function idealAt(shot, tt, ctx) {
     if (shot.ots) fov = 2 / D * Math.atan(Math.tan(fov * D / 2) * k);   // over-the-shoulder: the camera stays behind the foreground actor, the fov sets the size
     else { position = add(pivot, scl(sub(position, pivot), k)); if (!FRAMED.includes(shot.size)) target = add(pivot, scl(sub(target, pivot), k)); }
   }
+  { const ang = shot.angle ?? (ctx.beastSubject ? 'low' : null), hMax = ANGLE[ang];   // tuft 2B: low / eye-level heroic angle (camera at kid-eye height or lower, looking up)
+    if (hMax != null) { const g = ctx.groundAt?.(position[0], position[2]) ?? 0; if (position[1] > g + hMax) position = [position[0], g + hMax, position[2]]; } }
   if (eyes && shot.subject && FRAMED.includes(shot.size) && framed) {
     const ft = framingTarget({position, target, fov}, eyes, ctx.faceAt?.(tt), main?.headH ?? ctx.headH ?? 1.2, aspect, shot.side ?? null);
     target = aimAt(position, eyes, ft.xn, ft.yn, fov, aspect);
@@ -234,6 +236,16 @@ export function bodyAt(shot, localT, ctx) {
   return S;
 }
 export const clearCache = () => CACHE.clear();
+// tuft 2B: shot `angle` (default 'low' when the subject is a beast; 'high' = authored, no clamp): max camera height above the ground
+export const ANGLE = {low: 1.6, eye: 3.6};   // studs: low = below a kid's chest, eye = R6 kid eye height (LEAD .82: 4.35 × .83)
+// gate: no shot holds a static camera pitched down more than `pitch` degrees for longer than `hold` s unless it authors angle: 'high'.
+// frames [{position, dir (unit view), high (authored)}] at fps; static = moved < still studs and turned < rot degrees since the last frame
+export function highHeld(frames, fps, {pitch = -20, hold = 1.0, still = .02, rot = .15} = {}) {
+  let run = 0, max = 0, at = null;
+  for (let i = 0; i < frames.length; i++) { const f = frames[i], p = f.prev ?? frames[i - 1], pd = Math.asin(Math.max(-1, Math.min(1, f.dir[1]))) / D;
+    const st = !!p && len(sub(f.position, p.position)) < still && Math.acos(Math.max(-1, Math.min(1, dot(f.dir, p.dir)))) / D < rot;
+    if (pd < pitch && st && !f.high) { run++; if (run > max) { max = run; at = i; } } else run = 0; }
+  return {maxHeld: max / fps, at, ok: max / fps <= hold}; }
 
 export function sampleCine(shot, localT, ctx = {}) {
   const g0 = idealAt(shot, 0, ctx); if (g0.split) return sampleCamera({...shot, fps: ctx.fps ?? 30}, localT, ctx.actorsAt?.(localT) ?? {});   // two cameras: authored as is

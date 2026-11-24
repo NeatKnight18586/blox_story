@@ -1,0 +1,140 @@
+[
+ {
+  "sec": "look",
+  "name": "grain luma std ≤ 0.8 %",
+  "pass": true,
+  "line": "after 0.72 / 0.74 / 0.74 / 0.74 % (before 1.80 / 2.05 / 1.93 / 2.04 %)",
+  "rows": [
+   {
+    "frame": 48,
+    "before": {
+     "file": "renders/kit2/look-before-48.png",
+     "sat": 0.7412,
+     "dark10": 0.0356,
+     "meanL": 0.1934,
+     "grainStd": 1.805
+    },
+    "after": {
+     "file": "renders/kit2/look-after-48.png",
+     "sat": 0.7402,
+     "dark10": 0.0095,
+     "meanL": 0.1494,
+     "grainStd": 0.719
+    },
+    "satX": 0.999
+   },
+   {
+    "frame": 234,
+    "before": {
+     "file": "renders/kit2/look-before-234.png",
+     "sat": 0.2709,
+     "dark10": 0.0953,
+     "meanL": 0.3924,
+     "grainStd": 2.052
+    },
+    "after": {
+     "file": "renders/kit2/look-after-234.png",
+     "sat": 0.3361,
+     "dark10": 0.0402,
+     "meanL": 0.348,
+     "grainStd": 0.739
+    },
+    "satX": 1.241
+   },
+   {
+    "frame": 400,
+    "before": {
+     "file": "renders/kit2/look-before-400.png",
+     "sat": 0.3899,
+     "dark10": 0.0586,
+     "meanL": 0.3076,
+     "grainStd": 1.934
+    },
+    "after": {
+     "file": "renders/kit2/look-after-400.png",
+     "sat": 0.4535,
+     "dark10": 0.0127,
+     "meanL": 0.2683,
+     "grainStd": 0.739
+    },
+    "satX": 1.163
+   },
+   {
+    "frame": 600,
+    "before": {
+     "file": "renders/kit2/look-before-600.png",
+     "sat": 0.3588,
+     "dark10": 0.0809,
+     "meanL": 0.3188,
+     "grainStd": 2.045
+    },
+    "after": {
+     "file": "renders/kit2/look-after-600.png",
+     "sat": 0.4189,
+     "dark10": 0.0287,
+     "meanL": 0.2668,
+     "grainStd": 0.741
+    },
+    "satX": 1.168
+   }
+  ]
+ },
+ {
+  "sec": "look",
+  "name": "mean saturation after ≥ before × 1.2 (per frame)",
+  "pass": false,
+  "line": "× 1.00 / 1.24 / 1.16 / 1.17 (HSV S 0.741→0.740, 0.271→0.336, 0.390→0.454, 0.359→0.419); 4-frame mean × 1.11"
+ },
+ {
+  "sec": "look",
+  "name": "darkest-10 % luma ≤ 0.03 (per frame)",
+  "pass": false,
+  "line": "after 0.009 / 0.040 / 0.013 / 0.029 (before 0.036 / 0.095 / 0.059 / 0.081)"
+ },
+ {
+  "sec": "camera",
+  "name": "no static high angle (pitch < −20°) held > 1.0 s",
+  "pass": true,
+  "line": "2B fixtures: worst 0.00 s (heroes-day.json 0.00, heroes-night.json 0.00); 2A kit before: 0.00 s (nightfang-front 3/4)",
+  "rows": [
+   {
+    "spec": "engine/fixtures/beasts2/heroes-day.json",
+    "before": false,
+    "worst": {
+     "id": "nightfang-day",
+     "maxHeld": 0,
+     "at": null,
+     "ok": true
+    }
+   },
+   {
+    "spec": "engine/fixtures/beasts2/heroes-night.json",
+    "before": false,
+    "worst": {
+     "id": "nightfang-night",
+     "maxHeld": 0,
+     "at": null,
+     "ok": true
+    }
+   },
+   {
+    "spec": "engine/fixtures/beasts/kit.json",
+    "before": true,
+    "worst": {
+     "id": "nightfang-front 3/4",
+     "maxHeld": 0,
+     "at": null,
+     "ok": true
+    }
+   }
+  ]
+ },
+ {
+  "sec": "ones",
+  "name": "beast pose changes every frame while moving (on ones)",
+  "pass": true,
+  "line": "467/467 consecutive moving pairs differ (heroes-night); 2A kit VOLT run before: 13/27 (twos)",
+  "pairs": 467,
+  "same": 0
+ }
+]

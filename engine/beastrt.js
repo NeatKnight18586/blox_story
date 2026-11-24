@@ -86,6 +86,14 @@ export function createBeasts({scene, spec, presets, hdr, groundY = () => 0, reso
     a.head.position.fromArray(B.worldOf(s, 'head', [0, a.P.dims.headH * .3 * (a.P.scale ?? 1), a.P.dims.headL * .45 * (a.P.scale ?? 1)]));
     if (a.c.visible) a.root.visible = valueAtSafe(a.c.visible, t);
     return a.root.position.toArray(); }
+  // tuft 2B: the beast's LIVE pose at absolute time t, pure (camera 'cine' follows / frames this, not the mark): root, head centre, yaw, height
+  const liveCache = new Map();
+  function liveAt(name, t) {
+    const a = actors[name]; if (!a || a.P.rig === 'blink') return null; const k = name + '|' + t.toFixed(5); if (liveCache.has(k)) return liveCache.get(k);
+    const s = B.sampleBeast(a.P, trackOf(a), t, {seed: a.seed, groundY, geo: a.G.geo, support: a.G.sup, start: a.start}), K = a.P.scale ?? 1, d = a.P.dims;
+    a.H ??= (() => { const v = B.worldVerts(B.sampleBeast(a.P, [{t: 0, state: 'idle'}], 0, {geo: a.G.geo, support: a.G.sup}), a.G.geo); let y = 0; for (let i = 1; i < v.length; i += 3) y = Math.max(y, v[i]); return y; })();
+    const r = {root: s.root.p, yaw: s.root.yaw, head: B.worldOf(s, 'head', [0, (d.headH ?? 1) * .3 * K, (d.headL ?? 1) * .45 * K]), H: a.H * (a.c.puffK ?? 1), headH: Math.max(d.headH ?? 1, d.headW ?? 1) * K};
+    if (liveCache.size > 4000) liveCache.clear(); liveCache.set(k, r); return r; }
   // BLINK orbit (after every actor is posed) + crowds
   function post(t, tq, headOf) {
     for (const a of Object.values(actors)) if (a.P.rig === 'blink') {
@@ -103,4 +111,4 @@ export function createBeasts({scene, spec, presets, hdr, groundY = () => 0, reso
   const allU = () => [...Object.values(actors).filter(a => a.U).map(a => a.U), ...crowds.map(c => c.U)];
   const setMask = on => { for (const U of allU()) U.uBeastMask.value = on ? 1 : 0; for (const a of Object.values(actors)) if (a.blink) a.blink.sp.visible = !on; };
   const meshes = () => [...Object.values(actors).flatMap(a => [a.root]), ...crowds.flatMap(c => [c.mesh])];
-  return {actors, crowds, create, drive, post, trackOf, setMask, meshes, setGlowScale: k => { GK = k; }, is: n => !!actors[n], blobItems: () => Object.values(actors).filter(a => a.blobR > 0).map(a => ({key: 'beast_' + a.name, x: a.root.position.x, y: a.root.position.y, z: a.root.position.z, r: a.blobR, visible: a.root.visible}))}; }
+  return {actors, crowds, create, drive, post, trackOf, liveAt, setMask, meshes, setGlowScale: k => { GK = k; }, is: n => !!actors[n], blobItems: () => Object.values(actors).filter(a => a.blobR > 0).map(a => ({key: 'beast_' + a.name, x: a.root.position.x, y: a.root.position.y, z: a.root.position.z, r: a.blobR, visible: a.root.visible}))}; }

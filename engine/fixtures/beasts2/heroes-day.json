@@ -1,0 +1,280 @@
+{
+ "note": "tuft 2B fixed hero beasts (scripts/v2/kit2-fixtures.js), day: low heroic moving cine cameras, grade 'clear', beasts on ones.",
+ "slug": "beasts",
+ "fps": 24,
+ "format": 6,
+ "acting": 6,
+ "rig": "r6",
+ "twos": true,
+ "faceLife": true,
+ "labels": false,
+ "world": "engine/fixtures/v4look/world.js",
+ "cues": "engine/fixtures/acting6/cues.json",
+ "post": "cine",
+ "camera": "cine",
+ "grade": "clear",
+ "look4": "comedy",
+ "look": "comedy",
+ "cast": {
+  "nightfang": {
+   "style": "beast",
+   "preset": "NIGHTFANG",
+   "tier": "hero",
+   "at": "street",
+   "offset": [
+    0,
+    0,
+    -34
+   ],
+   "yaw": 0
+  },
+  "kid_nf": {
+   "style": "v5",
+   "troupe": "LEAD",
+   "at": "street",
+   "offset": [
+    5.723928308486938,
+    0,
+    -25.320047760009768
+   ],
+   "yaw": 200,
+   "keys": [
+    [
+     0,
+     "idle"
+    ]
+   ]
+  },
+  "volt": {
+   "style": "beast",
+   "preset": "VOLT",
+   "tier": "hero",
+   "at": "street",
+   "offset": [
+    0,
+    0,
+    -12
+   ],
+   "yaw": 0
+  },
+  "boulder": {
+   "style": "beast",
+   "preset": "BOULDER",
+   "tier": "hero",
+   "at": "street",
+   "offset": [
+    0,
+    0,
+    10
+   ],
+   "yaw": 0
+  },
+  "little": {
+   "style": "v5",
+   "troupe": "LITTLE",
+   "at": "street",
+   "offset": [
+    6.2,
+    0,
+    26
+   ],
+   "yaw": 250,
+   "keys": [
+    [
+     0,
+     "idle"
+    ]
+   ]
+  },
+  "blink": {
+   "style": "beast",
+   "preset": "BLINK",
+   "at": "street",
+   "offset": [
+    6.2,
+    0,
+    26
+   ],
+   "orbit": "little"
+  }
+ },
+ "shots": [
+  {
+   "id": "nightfang-day",
+   "frames": 60,
+   "duration": 2.5,
+   "size": "ws",
+   "mood": "awe",
+   "move": "orbit",
+   "degrees": 24,
+   "subject": "nightfang",
+   "from": {
+    "position": [
+     -16.552,
+     1.2,
+     -14.274
+    ],
+    "target": [
+     0,
+     4.992,
+     -34
+    ]
+   },
+   "to": {
+    "position": [
+     0,
+     1.2,
+     0
+    ],
+    "target": [
+     0,
+     4.991645908355713,
+     0
+    ]
+   },
+   "beasts": [
+    {
+     "actor": "nightfang",
+     "state": "roar",
+     "at": 1
+    }
+   ]
+  },
+  {
+   "id": "volt-day",
+   "frames": 60,
+   "duration": 2.5,
+   "size": "ws",
+   "mood": "tension",
+   "move": "track",
+   "follow": "volt",
+   "followOffset": [
+    0,
+    2.236377477645874,
+    0
+   ],
+   "subject": "volt",
+   "from": {
+    "position": [
+     -10.873,
+     -1.136,
+     3.413
+    ],
+    "target": [
+     0,
+     0,
+     0
+    ]
+   },
+   "to": {
+    "position": [
+     -9.849,
+     -1.136,
+     1.365
+    ],
+    "target": [
+     0,
+     0,
+     0
+    ]
+   },
+   "beasts": [
+    {
+     "actor": "volt",
+     "state": "run",
+     "at": 0.2,
+     "to": [
+      0,
+      0,
+      4
+     ]
+    }
+   ]
+  },
+  {
+   "id": "boulder-day",
+   "frames": 60,
+   "duration": 2.5,
+   "size": "ws",
+   "mood": "awe",
+   "move": "track",
+   "follow": "boulder",
+   "followOffset": [
+    0,
+    3.272557067871094,
+    0
+   ],
+   "subject": "boulder",
+   "from": {
+    "position": [
+     -7.979,
+     -2.373,
+     10.37
+    ],
+    "target": [
+     0,
+     0,
+     0
+    ]
+   },
+   "to": {
+    "position": [
+     -6.858,
+     -2.373,
+     8.848
+    ],
+    "target": [
+     0,
+     0,
+     0
+    ]
+   },
+   "beasts": [
+    {
+     "actor": "boulder",
+     "state": "walk",
+     "at": 0.2,
+     "to": [
+      0,
+      0,
+      15
+     ]
+    }
+   ]
+  },
+  {
+   "id": "blink-day",
+   "frames": 48,
+   "duration": 2,
+   "size": "mcu",
+   "mood": "fun",
+   "move": "push",
+   "subject": "little",
+   "angle": "eye",
+   "from": {
+    "position": [
+     3,
+     3.3,
+     31.5
+    ],
+    "target": [
+     6.2,
+     3.3,
+     26
+    ]
+   },
+   "to": {
+    "position": [
+     3.6,
+     3.3,
+     30.2
+    ],
+    "target": [
+     6.2,
+     3.3,
+     26
+    ]
+   }
+  }
+ ]
+}

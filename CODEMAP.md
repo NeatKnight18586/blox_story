@@ -24,6 +24,9 @@ engine/fixtures/beasts/flee.json — tuft 2A BEAST KIT flee gate fixture: per he
 engine/fixtures/beasts/kit-picks.json — (no header)
 engine/fixtures/beasts/kit.json — tuft 2A BEAST KIT look-dev fixture (scripts/v2/beast-fixtures.js): night street, post cine, the 4 hero beasts beside R6 kids; per beast a 3-
 engine/fixtures/beasts/parade.json — tuft 2A BEAST KIT parade fixture (scripts/v2/beast-fixtures.js): dawn street, 40 low-tier beasts (FOX / DEER / BOAR, instanced) walking the 
+engine/fixtures/beasts2/heroes-day.json — tuft 2B fixed hero beasts (scripts/v2/kit2-fixtures.js), day: low heroic moving cine cameras, grade 'clear', beasts on ones.
+engine/fixtures/beasts2/heroes-night.json — tuft 2B fixed hero beasts (scripts/v2/kit2-fixtures.js), night: low heroic moving cine cameras, grade 'clear', beasts on ones.
+engine/fixtures/beasts2/picks.json — (no header)
 engine/fixtures/cine/before.json — tuft 1B fixture, BEFORE (current engine): the same spec without look/camera 'cine'.
 engine/fixtures/cine/bloomgate.json — tuft 1B bloom gate (scripts/v2/cine-gates.js): a white DUMMY (non-emissive) under the street lamp, the brightest lit spot of the night set, 
 engine/fixtures/cine/episode.json — tuft 1B (+ 1B fix) Look Pack + cinematic camera fixture: 6 shots ~12 s on the v4look street at night (look4 mystery: lit windows, lamp), HER
@@ -255,6 +258,7 @@ scripts/v2/faces5-sheet.js — Faces v5 at phone size: the hero, Mo and Pip (Toy
 scripts/v2/faces6-gates.js — P2 / P2b Faces v6 gates → review/faces6/gates.json (node + PIL raster, no browser):
 scripts/v2/faces6-sheet.js — P2 Faces v6 review sheets on the R15 hero (cast/hero6.json HERO, faceStyle v6) → review/faces6/:
 scripts/v2/flicker.js — pure pixel comparison for the stability gate (Amendment A1).
+scripts/v2/grab.js — render chosen frames of a spec to PNGs (one browser load): look-dev / before-after captures for sheets and gates.
 scripts/v2/hair-gates.js — measured gates for hair v4 (Amendment A5 §A5). Exit 1 on any failure.
 scripts/v2/hair-sheet.js — Amendment A5 §A review sheet (A4 G1 originally): all 20 hair v4 styles on a grey head (front, three-quarter,
 scripts/v2/height-gates.js — format v5 (Phase 3a) equal adult heights → review/v4/height-gates.json. No browser.
@@ -262,6 +266,8 @@ scripts/v2/hero-gates.js — format v4 Phase 1b hero checks → review/v4/hero-g
 scripts/v2/hero-sheet.js — format v4 review sheets (390 px phone width; Phase 1b redo):
 scripts/v2/hero6-gates.js — P1/P1b gates for Actor v6 (iconic R15) → review/hero6/gates.json (node + three, no browser; the seam
 scripts/v2/hero6-sheet.js — P1b review sheets for Actor v6 (iconic blocky R15), the hero (cast/hero6.json HERO = variant B)
+scripts/v2/kit2-fixtures.js — tuft 2B kit fixtures → engine/fixtures/beasts2/*.json (+ picks.json): every shot on camera 'cine'
+scripts/v2/kit2-gates.js — tuft 2B gates (browser + numbers) → review/beasts/kit2-gates.json (sections merged by --only).
 scripts/v2/layout.js — node scripts/v2/layout.js <episode.json> → the laid-out shots (engine/timeline.js) as JSON on stdout, for the Python tools.
 scripts/v2/lib6.js — the set library as brief2spec sees it (P4): which locations, anchors and props already exist.
 scripts/v2/look-ab4.js — format v4 Phase 2 sheet: review/v4/look-ab-390.png. The v4look fixture, today vs v4, comedy and

@@ -1917,3 +1917,17 @@ World glow (windows, lamps) set to LDR while measuring beast bloom (as cine-gate
 "Dusk" parade uses look4 'dawn' (no dusk preset). Kid = troupe LEAD (.82, 4.35 studs). Low tier unlit with baked per-face light (night × .38).
 Cine camera follow uses marks: a beast's root motion is not followed by `camera: 'cine'` (static / authored cameras only for now).
 Open: VOLT ring; seam halo spill; NIGHTFANG reads horse-like at rest; BOULDER reads as stacked boxes; BLINK wings invisible at phone size.
+
+## tuft (E5) Phase 2B — look fix + beast fixes + TUFT/PUFF + TITAN + POWERS + PROPS (Opus 5.5)
+Plan: 0. look: new opt-in spec `grade: 'clear'` under post 'cine' (the 1B fixture stays byte-identical): grain luma-only 1 px std ≤ .8 %,
+no fringe, vignette ≤ .12 multiply, sat +20 % mids, black point 1 % no lift, split-tone × .5, no haze/fog within 60 studs (day; dusk/dawn
+fog on the far skyline only, sepia banned). Beasts + crowds on ONES always. cine camera: beast subjects follow the beast's LIVE root
+(pure sampleBeast, not the mark); shot `angle: low|eye|high` (beasts default low: camera ≤ kid-eye height, looking up); pure
+`highHeld` gate (pitch < −20° static > 1 s unless `angle: 'high'`). Gates scripts/v2/kit2-gates.js before (2A kit/parade) vs after.
+1. presets (data): NIGHTFANG dragon redo (S-neck parts, wedge head, swept horns, heavy chest, short thick legs, spiked tail, folded
+faceted membrane wings + finger bones + cyan seams), VOLT storm grey ≤ .45 + spine lightning spikes, BOULDER head/tail read + moss,
+BLINK wings + dot (glow behind). Gate: NIGHTFANG vs a horse-proportion ref silhouette IoU ≤ .5; pairwise ≤ .6; body own bloom ≤ .5 %.
+2. TUFT preset (rig 'puff': body + quill segment scaled by puff) + states idle tremble sneeze hide run puff; `puff:` / `glow:` vocab
+(story6 + brief2spec); hero R6 ball proxy (engine/puff.js pure sizes + deflate wobble; episode opt-in). 3. TITAN preset ×12 kid,
+states caged/roar/break/stomp(shake)/flinch/flee + eyes-ignite. 4. engine/powers.js (pure) + powersrt.js: cyanFire, lightning, fly,
+fizzle, cage, chains, props (spider, toaster, spaghettiPlates, giantCage, chains, lanternSea 1 draw). Sheet kit2.png + demo2.mp4.

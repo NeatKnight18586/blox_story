@@ -103,7 +103,7 @@ if (spec.world) {
   if (spec.look4) {   // format v4 Phase 2 (opt-in): AgX + PMREM sky env + v4 surfaces + baked static light (engine/look4.js, bake.js)
     const presets = await loadLooks4(new URL('./', import.meta.url)), P4 = presets[spec.look4]; if (!P4) throw Error('unknown look4 ' + spec.look4);
     await M4.loadTex4(new URL('../', import.meta.url));
-    look = createLookV4(scene, renderer, presets, {initial: spec.look4, ...(CINE_LOOK ? {fogStart: (await import('./cinelook.js')).FOG.start} : {})});   // tuft 1B fix: post 'cine' = no height fog near the camera look.apply(spec.look4);
+    look = createLookV4(scene, renderer, presets, {initial: spec.look4, ...(CINE_LOOK ? {fogStart: (m => m.isClear(spec) ? m.CLEAR.fogStart : m.FOG.start)(await import('./cinelook.js'))} : {})});   // tuft 1B fix: post 'cine' = no height fog near the camera look.apply(spec.look4);
     if (mod.preload) await mod.preload(new URL('../', import.meta.url), {scene, renderer, spec});   // format v5 3b-R (opt-in): async world assets (box-art atlas)
     world = mod.build(scene, {P, B, A, M, M4, PR, TR, BI, V, W, look, spec, look4: {preset: P4, halo, water4}});
     if (spec.groundFix) GROUNDFIX = groundFix(scene, look, spec.groundFix);   // Toy House final fix (owner P4, opt-in): before the bake
@@ -429,12 +429,12 @@ const talkOf = (name, t) => { if (!flapShapes) return null; const f = Math.round
 function poseCast(t) {
   const out = {};
   for (const [name, x] of Object.entries(cast)) poseOne(name, x, t, out);
-  BEASTS?.post(t, TWOS ? twosTime(t, FPS) : t, n => cast[n] && !cast[n].beast ? headOf(cast[n]).toArray() : cast[n]?.a.head.position.toArray() ?? null);   // tuft 2A: BLINK orbits a posed head; low-tier crowds
+  BEASTS?.post(t, t, n => cast[n] && !cast[n].beast ? headOf(cast[n]).toArray() : cast[n]?.a.head.position.toArray() ?? null);   // tuft 2A: BLINK orbits a posed head; low-tier crowds (2B: beasts on ONES always)
   return out;
 }
 function poseOne(name, x, t, out) {
   if (S6?.owns(name)) { S6.drive(name, x, t, out); return; }   // E2: the story crowd is driven by engine/story6rt.js
-  if (x.beast) { const p = BEASTS.drive(name, t, TWOS ? twosTime(t, FPS) : t); if (p) markPos[name] = p; out[name] = p ?? x.a.root.position.toArray(); return; }   // tuft 2A: body on twos, glow on ones
+  if (x.beast) { const p = BEASTS.drive(name, t, t); if (p) markPos[name] = p; out[name] = p ?? x.a.root.position.toArray(); return; }   // tuft 2B: beasts and FX on ones always (twos = R6 humanoids only)
   const {a, c, v2, dragon} = x;
   {
     const m = markOf(c, t), yaw = (m.yaw ?? 0) * Math.PI / 180;
@@ -640,12 +640,17 @@ function drawFrame(shot, mf, off, width, height, nudge) {
 function cineCtx(shot, aspect) {
   const t0 = shot.start / FPS, subj = shot.subject && cast[shot.subject]?.v2 ? cast[shot.subject] : null;
   let eyes = null, face = null, headH = 1.2;
+  const bSub = shot.subject && cast[shot.subject]?.beast && BEASTS.liveAt(shot.subject, t0) ? shot.subject : null;   // tuft 2B: a beast subject is followed and framed on its LIVE pose (pure sampleBeast), not its mark
+  if (bSub) { eyes = tt => BEASTS.liveAt(bSub, t0 + tt).head; face = tt => { const y = BEASTS.liveAt(bSub, t0 + tt).yaw; return [Math.sin(y), Math.cos(y)]; }; headH = BEASTS.liveAt(bSub, t0).headH; }
   if (subj) { const h = headOf(subj).toArray(), r = subj.a.root.position, off = [h[0] - r.x, h[1] - r.y, h[2] - r.z];   // eye point = the posed head, carried along the mark
     eyes = tt => { const mk = markAt(subj.c, t0 + tt); return [mk[0] + off[0], mk[1] + off[1], mk[2] + off[2]]; }; face = tt => { const yw = (markOf(subj.c, t0 + tt).yaw ?? 0) * Math.PI / 180; return [Math.sin(yw), Math.cos(yw)]; }; headH = 1.2 * subj.a.root.scale.x; }   // 1B fix: facing = the mark's yaw (pure in t: same frame = same camera in any render order)
   // 1B fix: every v2 actor's eye point (posed head offset carried along its mark), head and body height → size band + all-subjects head fit
   const hoff = Object.fromEntries(Object.entries(cast).filter(([, x]) => x.v2).map(([n, x]) => [n, {off: CINE_HEAD[n] ?? [0, 4.6 * x.a.root.scale.y, 0], s: x.a.root.scale.x, c: x.c}]));   // rest-pose head centre (measured once at load: same frame = same camera in any render order)
-  const headsAt = tt => Object.fromEntries(Object.entries(hoff).map(([n, o]) => { const mk = markAt(o.c, t0 + tt); return [n, {eyes: [mk[0] + o.off[0], mk[1] + o.off[1], mk[2] + o.off[2]], headH: 1.2 * o.s, H: 5.3 * o.s}]; }));
-  return {fps: FPS, aspect, cacheKey: `${shot.id}|${shot.start}|${aspect.toFixed(4)}`, headH, eyesAt: eyes, faceAt: face, headsAt, actorsAt: tt => Object.fromEntries(Object.entries(cast).map(([n, x]) => [n, markAt(x.c, t0 + tt)]))};
+  const bNames = BEASTS ? Object.keys(cast).filter(n => cast[n].beast && BEASTS.liveAt(n, t0)) : [];   // tuft 2B: beasts carry their live head + height
+  const headsAt = tt => Object.fromEntries([...Object.entries(hoff).map(([n, o]) => { const mk = markAt(o.c, t0 + tt); return [n, {eyes: [mk[0] + o.off[0], mk[1] + o.off[1], mk[2] + o.off[2]], headH: 1.2 * o.s, H: 5.3 * o.s}]; }),
+    ...bNames.map(n => { const l = BEASTS.liveAt(n, t0 + tt); return [n, {eyes: l.head, headH: l.headH, H: l.H}]; })]);
+  return {fps: FPS, aspect, cacheKey: `${shot.id}|${shot.start}|${aspect.toFixed(4)}`, headH, eyesAt: eyes, faceAt: face, headsAt, beastSubject: !!bSub, groundAt: (x, z) => world?.groundY?.(x, z) ?? 0,
+    actorsAt: tt => Object.fromEntries(Object.entries(cast).map(([n, x]) => [n, x.beast && bNames.includes(n) ? BEASTS.liveAt(n, t0 + tt).root : markAt(x.c, t0 + tt)]))};
 }
 const sampleCineShot = (shot, lt, aspect) => CINE.sampleCine({...shot, fps: FPS}, lt, cineCtx(shot, aspect));
 const cineCam0 = {};
@@ -658,7 +663,7 @@ function cineRender(shot, mf, off, lt, width, height) {
   const k = `${shot.id}|${shot.start}`; if (shot.fg && !cineCam0[k]) { const c0 = CINE_CAM ? sampleCineShot(shot, 0, width / height) : sampleCamera({...shot, fps: FPS}, 0, poseCast(shot.start / FPS));
     const s = shot.subject && cast[shot.subject] ? CINE.project(c0, headOf(cast[shot.subject]).toArray(), width / height).x : 0; cineCam0[k] = {c0, s}; poseCast(mf.anim / FPS); }
   CL.fg(CINE_OPTS.fg === false ? {...shot, fg: null} : shot, cineCam0[k]?.c0, cineCam0[k]?.s ?? 0);
-  if (scene.fog?.isFog) { const fs = CL.FOG.start; if (scene.fog.near < fs) { scene.fog.far += fs - scene.fog.near; scene.fog.near = fs; } }   // 1B fix: no distance fog within FOG.start (look.apply resets it each frame)
+  if (scene.fog?.isFog) { const fs = CL.FOG.start; if (scene.fog.near < fs) { scene.fog.far += fs - scene.fog.near; scene.fog.near = fs; } } CL.clearFog(scene.fog?.color);   // 2B grade 'clear': the far fog toward clean sky (no sepia)   // 1B fix: no distance fog within FOG.start (look.apply resets it each frame)
   const hd = n => cast[n] ? camera.position.distanceTo(headOf(cast[n])) : null, focus = shot.subject && cast[shot.subject] ? CINE.focusAt(shot, lt, hd) : null;
   if (CINE_OPTS.actorLight) {   // 1B fix: actors-only rim (behind-above, far side from the camera) + warm key from the nearest world practical
     const sx = shot.subject && cast[shot.subject] ? cast[shot.subject].a.root : Object.values(cast).find(x => x.a.root.visible)?.a.root, y = sx?.rotation.y ?? 0;

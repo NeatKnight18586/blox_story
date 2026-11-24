@@ -1,0 +1,50 @@
+[
+ {
+  "set": "heroes",
+  "look": "day",
+  "frame": 17,
+  "beast": "NIGHTFANG"
+ },
+ {
+  "set": "heroes",
+  "look": "day",
+  "frame": 94,
+  "beast": "VOLT"
+ },
+ {
+  "set": "heroes",
+  "look": "day",
+  "frame": 158,
+  "beast": "BOULDER"
+ },
+ {
+  "set": "heroes",
+  "look": "day",
+  "frame": 209,
+  "beast": "BLINK"
+ },
+ {
+  "set": "heroes",
+  "look": "night",
+  "frame": 17,
+  "beast": "NIGHTFANG"
+ },
+ {
+  "set": "heroes",
+  "look": "night",
+  "frame": 94,
+  "beast": "VOLT"
+ },
+ {
+  "set": "heroes",
+  "look": "night",
+  "frame": 158,
+  "beast": "BOULDER"
+ },
+ {
+  "set": "heroes",
+  "look": "night",
+  "frame": 209,
+  "beast": "BLINK"
+ }
+]
