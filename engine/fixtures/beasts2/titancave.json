@@ -1,0 +1,70 @@
+{
+ "note": "tuft 2B titanCave insert: two molten eyes fade up in darkness (TITAN state ignite).",
+ "slug": "beasts",
+ "fps": 24,
+ "format": 6,
+ "acting": 6,
+ "rig": "r6",
+ "twos": true,
+ "faceLife": true,
+ "labels": false,
+ "world": "engine/fixtures/v4look/world.js",
+ "cues": "engine/fixtures/acting6/cues.json",
+ "post": "cine",
+ "camera": "cine",
+ "grade": "clear",
+ "look4": "mystery",
+ "look": "mystery",
+ "cast": {
+  "titan": {
+   "style": "beast",
+   "preset": "TITAN",
+   "tier": "hero",
+   "at": "street",
+   "offset": [
+    -40,
+    0,
+    -50
+   ],
+   "yaw": 60,
+   "state": "ignite"
+  }
+ },
+ "shots": [
+  {
+   "id": "titanCave",
+   "frames": 48,
+   "duration": 2,
+   "size": "ws",
+   "mood": "tension",
+   "move": "push",
+   "angle": "high",
+   "from": {
+    "position": [
+     10.5,
+     27.6,
+     -20.8
+    ],
+    "target": [
+     -15.6,
+     28.6,
+     -35.85
+    ],
+    "fov": 26
+   },
+   "to": {
+    "position": [
+     6.3,
+     27.8,
+     -23.2
+    ],
+    "target": [
+     -15.6,
+     28.6,
+     -35.85
+    ],
+    "fov": 38
+   }
+  }
+ ]
+}

@@ -111,5 +111,40 @@
   "set": "tuft",
   "label": "hero deflate",
   "frame": 412
+ },
+ {
+  "set": "titan",
+  "label": "caged",
+  "frame": 24
+ },
+ {
+  "set": "titan",
+  "label": "roar",
+  "frame": 60
+ },
+ {
+  "set": "titan",
+  "label": "chains snap",
+  "frame": 89
+ },
+ {
+  "set": "titan",
+  "label": "stomp",
+  "frame": 144
+ },
+ {
+  "set": "titan",
+  "label": "flinch",
+  "frame": 182
+ },
+ {
+  "set": "titan",
+  "label": "flee",
+  "frame": 244
+ },
+ {
+  "set": "titancave",
+  "label": "eyes ignite",
+  "frame": 40
  }
 ]

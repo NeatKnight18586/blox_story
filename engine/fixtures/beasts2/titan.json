@@ -1,0 +1,337 @@
+{
+ "note": "tuft 2B TITAN fixture (scripts/v2/kit2-fixtures.js): night street, caged / roar / chains snap / stomp (shake) / flinch / flee from colossal Tuft.",
+ "slug": "beasts",
+ "fps": 24,
+ "format": 6,
+ "acting": 6,
+ "rig": "r6",
+ "twos": true,
+ "faceLife": true,
+ "labels": false,
+ "world": "engine/fixtures/v4look/world.js",
+ "cues": "engine/fixtures/acting6/cues.json",
+ "post": "cine",
+ "camera": "cine",
+ "grade": "clear",
+ "look4": "mystery",
+ "look": "mystery",
+ "cast": {
+  "titan": {
+   "style": "beast",
+   "preset": "TITAN",
+   "tier": "hero",
+   "at": "street",
+   "offset": [
+    0,
+    0,
+    -24
+   ],
+   "yaw": 0,
+   "state": "caged"
+  },
+  "kid": {
+   "style": "v5",
+   "troupe": "HERO",
+   "at": "street",
+   "offset": [
+    4,
+    0,
+    30
+   ],
+   "yaw": 180,
+   "keys": [
+    [
+     0,
+     "idle"
+    ]
+   ]
+  },
+  "tuftc": {
+   "style": "beast",
+   "preset": "TUFT",
+   "tier": "hero",
+   "at": "street",
+   "offset": [
+    0,
+    0,
+    40
+   ],
+   "yaw": 180,
+   "glowLevel": 0.6
+  }
+ },
+ "shots": [
+  {
+   "id": "titan-0-caged",
+   "mood": "awe",
+   "size": "ws",
+   "subject": "titan",
+   "frames": 36,
+   "duration": 1.5,
+   "move": "orbit",
+   "degrees": 10,
+   "from": {
+    "position": [
+     15.011504615946203,
+     1.6,
+     32.02369792476596
+    ],
+    "target": [
+     0,
+     22,
+     -24
+    ],
+    "fov": 62
+   },
+   "to": {
+    "position": [
+     0,
+     1.6,
+     0
+    ],
+    "target": [
+     0,
+     22,
+     -24
+    ]
+   }
+  },
+  {
+   "id": "titan-1-roar",
+   "mood": "awe",
+   "size": "ws",
+   "subject": "titan",
+   "frames": 36,
+   "duration": 1.5,
+   "move": "push",
+   "from": {
+    "position": [
+     -23.66662265747917,
+     1.4,
+     26.753236074052396
+    ],
+    "target": [
+     0,
+     26,
+     -24
+    ],
+    "fov": 62
+   },
+   "to": {
+    "position": [
+     -21.130913087034973,
+     1.4,
+     21.315389351832494
+    ],
+    "target": [
+     0,
+     26,
+     -24
+    ],
+    "fov": 62
+   },
+   "beasts": [
+    {
+     "actor": "titan",
+     "state": "roar",
+     "at": 0.1
+    }
+   ]
+  },
+  {
+   "id": "titan-2-chains snap",
+   "mood": "awe",
+   "size": "ws",
+   "subject": "titan",
+   "frames": 36,
+   "duration": 1.5,
+   "move": "push",
+   "from": {
+    "position": [
+     25.999999999999996,
+     1.2,
+     21.033320996790813
+    ],
+    "target": [
+     0,
+     14,
+     -24
+    ],
+    "fov": 62
+   },
+   "to": {
+    "position": [
+     23.499999999999996,
+     1.2,
+     16.703193977868622
+    ],
+    "target": [
+     0,
+     14,
+     -24
+    ],
+    "fov": 62
+   },
+   "beasts": [
+    {
+     "actor": "titan",
+     "state": "break",
+     "at": 0.1
+    }
+   ]
+  },
+  {
+   "id": "titan-3-stomp",
+   "mood": "awe",
+   "size": "ws",
+   "subject": "titan",
+   "frames": 60,
+   "duration": 2.5,
+   "move": "track",
+   "follow": "titan",
+   "followOffset": [
+    0,
+    0,
+    0
+   ],
+   "shake": "titan",
+   "from": {
+    "position": [
+     -30,
+     1.4,
+     46
+    ],
+    "target": [
+     0,
+     24,
+     0
+    ],
+    "fov": 64
+   },
+   "to": {
+    "position": [
+     -28,
+     1.4,
+     40
+    ],
+    "target": [
+     0,
+     24,
+     0
+    ],
+    "fov": 64
+   },
+   "beasts": [
+    {
+     "actor": "titan",
+     "state": "stomp",
+     "at": 0.1,
+     "to": [
+      0,
+      0,
+      -10
+     ]
+    }
+   ]
+  },
+  {
+   "id": "titan-4-flinch",
+   "mood": "awe",
+   "size": "ws",
+   "subject": "titan",
+   "frames": 30,
+   "duration": 1.25,
+   "move": "push",
+   "from": {
+    "position": [
+     -10.071594304681959,
+     1.4,
+     33.118849674708066
+    ],
+    "target": [
+     0,
+     22,
+     -24
+    ],
+    "fov": 62
+   },
+   "to": {
+    "position": [
+     -9.377001594014239,
+     1.4,
+     29.17961866265923
+    ],
+    "target": [
+     0,
+     22,
+     -24
+    ],
+    "fov": 62
+   },
+   "beasts": [
+    {
+     "actor": "titan",
+     "state": "flinch",
+     "at": 0.05
+    }
+   ]
+  },
+  {
+   "id": "titan-5-flee",
+   "mood": "awe",
+   "size": "ws",
+   "subject": "tuftc",
+   "frames": 60,
+   "duration": 2.5,
+   "move": "push",
+   "angle": "eye",
+   "from": {
+    "position": [
+     -26,
+     3,
+     62
+    ],
+    "target": [
+     0,
+     28,
+     0
+    ],
+    "fov": 72
+   },
+   "to": {
+    "position": [
+     -24,
+     3,
+     58
+    ],
+    "target": [
+     0,
+     28,
+     -4
+    ],
+    "fov": 72
+   },
+   "puffs": [
+    {
+     "actor": "tuftc",
+     "size": "colossal",
+     "at": 0
+    }
+   ],
+   "glows": [
+    {
+     "actor": "tuftc",
+     "level": 1,
+     "at": 0
+    }
+   ],
+   "beasts": [
+    {
+     "actor": "titan",
+     "state": "flee",
+     "at": 0.9
+    }
+   ]
+  }
+ ]
+}

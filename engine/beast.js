@@ -6,7 +6,7 @@
 // States (pure in t, seeded): idle walk run roar breathe flinch flee lower lift fly perch sleep curl — anticipation (a short counter-
 // move) + settle (back-out overshoot) on every change, like acting6. Root motion: walk / run / fly [to], flee along an exit direction.
 // Plant: ground states touch the ground with the lowest vertex (exact, every vertex of the mesh); nothing ever goes below it.
-export const STATES = ['idle', 'walk', 'run', 'roar', 'breathe', 'flinch', 'flee', 'lower', 'lift', 'fly', 'perch', 'sleep', 'curl', 'tremble', 'sneeze', 'hide', 'puff'];   // 2B: tremble sneeze hide puff (rig 'puff'; other rigs play them as idle)
+export const STATES = ['idle', 'walk', 'run', 'roar', 'breathe', 'flinch', 'flee', 'lower', 'lift', 'fly', 'perch', 'sleep', 'curl', 'tremble', 'sneeze', 'hide', 'puff', 'caged', 'break', 'stomp', 'ignite'];   // 2B TITAN: caged break stomp ignite   // 2B: tremble sneeze hide puff (rig 'puff'; other rigs play them as idle)
 export const TIER_MAX = {hero: 6000, low: 800};
 export const KID_H = 5.3 * .82, ADULT_H = 5.3;   // R6 kid (troupe LEAD .82) / adult height in studs (cast/troupe-r6.json, engine/cine.js 5.3 × scale)
 export const RESERVED_GLOW = ['#7FB8FF', '#FFD36B'];   // Tuft's blue-gold (2B): no beast may use it (RGB distance ≥ 60 from both ends)
@@ -54,6 +54,7 @@ export function skeleton(P) {
       put('leg' + s + '1', 'body', [x * bw * (d.legX ?? .36), ly, z * bl * (d.legZ ?? .36)]); put('leg' + s + '2', 'leg' + s + '1', [0, -up, 0]); }
     if (P.rig === 'dragon') for (const [s, k] of [['L', 1], ['R', -1]]) { put('wing' + s + '1', 'body', [k * bw * .42, bh * .38, bl * .16]); put('wing' + s + '2', 'wing' + s + '1', [k * d.wing1L, 0, 0]); }
   }
+  for (const e of P.extraSegs ?? []) put(e.name, e.parent, e.pivot);   // 2B: extra rigid segments (TITAN chains)
   // topological order (parents first)
   const order = [], seen = new Set(), visit = n => { if (seen.has(n)) return; if (S[n].parent) visit(S[n].parent); seen.add(n); order.push(n); };
   Object.keys(S).forEach(visit); return {seg: S, order};
@@ -194,9 +195,22 @@ export function channelsAt(P, state, tau, t, seed = 1) {
       if (bird) { c.neckX = .9; c.neckY = curl ? .9 : 1.9; c.headY = curl ? .5 : 1.2; c.lBL1 = c.lBR1 = 1.4; c.fan = 0; }
       else { c.lFL1 = c.lFR1 = -1.4; c.lFL2 = c.lFR2 = 2.3; c.lBL1 = c.lBR1 = -1.1; c.lBL2 = c.lBR2 = 1.9; c.neckX = 1.05 + .03 * b2; c.neckY = curl ? 1.0 : .35; c.headX = -.55; c.headY = curl ? .6 : .2;
         c.tailX = -.2; c.tailY = curl ? -1.2 : .9; c.tail2Y = curl ? -.9 : .7; } break; }
+    case 'caged': idle(); c.seam = .75 + .45 * Math.max(0, Math.sin(2 * PI * t / (g.breath ?? 4))) ** 2; c.bodyY = 0; c.neckX = .18 + .05 * br; c.headX = -.1; c.mouth = .35 + .25 * Math.max(0, br); break;   // breathing, molten pulse
+    case 'break': { const u = sm(tau / .6), snap = tau >= BREAK_AT; c.bodyPitch = -.45 * u * (snap ? Math.exp(-(tau - BREAK_AT) / .5) : 1); c.neckX = -.5 * u; c.headX = .3 * u; c.jaw = .9 * u; c.mouth = 1.2; c.seam = 1.5 + (snap ? .6 * Math.exp(-(tau - BREAK_AT) / .3) : 0);
+      const th = Math.sin(2 * PI * 3.2 * tau) * (snap ? 0 : .12 * u); c.lFL1 = -.55 * u + th; c.lFR1 = -.55 * u - th; c.lFL2 = c.lFR2 = .5 * u; c.lBL1 = c.lBR1 = .3 * u; c.chains = snap ? 0 : 1; break; }
+    case 'stomp': { const ph = t * (g.walkHz ?? .42) + sd; legsQuad(c, .38, .7, ph, false); const a2 = 2 * PI * ph; c.bodyRoll = .035 * Math.sin(a2); c.bodyPitch = .03 * Math.sin(2 * a2); c.neckX = .08 * Math.sin(2 * a2); c.headX = -.05; c.seam = 1.1 + .25 * Math.abs(Math.sin(2 * a2)); break; }
+    case 'ignite': { idle(); const u = sm((tau - .2) / 1.2); c.seam = .0 + .25 * u * u; c.mouth = 0; c.eyes = 1.6 * u; break; }   // eyes fade up in darkness (titanCave)
     default: idle();
   }
   return c; }
+export const BREAK_AT = .6;   // TITAN break: the chains snap at τ = 0.6 s
+// 2B: footfall times (s) of a quad walking / stomping on [t0, t1] (each leg: lift returns to 0 at phase .25 of its cycle)
+export function footfalls(P, state, t0, t1, seed = 1) {
+  const g = P.gait ?? {}, f = state === 'stomp' || state === 'walk' ? g.walkHz ?? 1.1 : g.runHz ?? 2, sd = (seed % 997) / 997, offs = state === 'run' || state === 'flee' ? [0, .12, .5, .62] : [0, 0, .5, .5], out = [];
+  for (const o of [...new Set(offs)]) { for (let n = Math.floor((t0 * f + sd + o) - .25) - 1; ; n++) { const t = (n + .25 - sd - o) / f; if (t > t1) break; if (t >= t0) out.push(+t.toFixed(5)); } }
+  return out.sort((a, b) => a - b); }
+// camera shake from footfalls (studs, y-dominant): a short decaying 13 Hz shudder after each fall
+export function stompShake(times, t, amp = .35) { let y = 0, x = 0; for (const f of times) { const d = t - f; if (d < 0 || d > .6) continue; const e = amp * Math.exp(-d / .14); y += e * Math.sin(2 * PI * 13 * d); x += .4 * e * Math.sin(2 * PI * 9 * d + 1); } return [x, y, 0]; }
 // 2B TUFT (rig 'puff'): idle breath, tremble (fast shiver), sneeze (wind-up, snap, one sparkle), hide (squash, eyes shut), run (feet scurry, bob), puff (idle + quills bristle)
 export function puffChannels(P, state, tau, t, seed = 1) {
   const sd = (seed % 997) / 997, br = Math.sin(2 * PI * (t / 2.2 + sd)), c = {bodyPitch: 0, bodyYaw: 0, bodyRoll: 0, bodyY: 0, recoil: 0, squash: 1 + .025 * br, eyes: 1, seam: 1, mouth: 0, sparkle: 0, fL: 0, fR: 0, bristle: 0};
@@ -278,6 +292,7 @@ export function sampleBeast(P, track, t, opts = {}) {
   const {seed = 1, groundY = () => 0, start = {p: [0, 0], yaw: 0}, glowT = t} = opts, geo = opts.geo ?? buildGeometry(P, opts.tier ?? 'hero'), sk = geo.sk;
   const sup = opts.support ?? supportPoints(geo), tr = normTrack(track), r = rootAt(P, tr, start, t), ki = Math.max(0, r.key), k = tr[ki] ?? {state: 'idle'};
   const ch = blendedAt(P, tr, t, seed, 3, start), cg = glowT === t ? ch : blendedAt(P, tr, glowT, seed, 3, start), W = fk(sk, segRots(P, ch, sk));
+  if ((ch.chains ?? 1) < 1 || (P.extraSegs && tr.slice(0, ki + 1).some(q => q.state === 'break' && t - q.t >= BREAK_AT))) for (const e of P.extraSegs ?? []) if (/^chain/.test(e.name) && W[e.name]) W[e.name] = {...W[e.name], R: W[e.name].R.map(() => 0)};   // TITAN: chains gone after the snap
   const K = opts.scale ?? 1;   // 2B: uniform root scale (TUFT puff); rig 'puff' also squashes the body and extends the quill clusters
   if (P.rig === 'puff' && K > 10) { for (let i = 0; i < 6; i++) ch['q' + i] += windAt(K, t, i); Object.assign(W, fk(sk, segRots(P, ch, sk))); }   // colossal: wind ripples through the fluff
   if (P.rig === 'puff') { const sq = ch.squash ?? 1, qs = quillScale(K) * (1 + .25 * (ch.bristle ?? 0)), b = W.body.R; W.body = {...W.body, R: [b[0] / Math.sqrt(sq), b[1] * sq, b[2] / Math.sqrt(sq), b[3] / Math.sqrt(sq), b[4] * sq, b[5] / Math.sqrt(sq), b[6] / Math.sqrt(sq), b[7] * sq, b[8] / Math.sqrt(sq)]};

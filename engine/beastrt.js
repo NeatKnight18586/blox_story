@@ -126,4 +126,7 @@ export function createBeasts({scene, spec, presets, hdr, groundY = () => 0, reso
   const allU = () => [...Object.values(actors).filter(a => a.U).map(a => a.U), ...crowds.map(c => c.U)];
   const setMask = on => { for (const U of allU()) U.uBeastMask.value = on ? 1 : 0; for (const a of Object.values(actors)) if (a.blink) a.blink.sp.visible = !on; };
   const meshes = () => [...Object.values(actors).flatMap(a => [a.root]), ...crowds.flatMap(c => [c.mesh])];
-  return {actors, crowds, create, drive, post, trackOf, liveAt, setMask, meshes, setGlowScale: k => { GK = k; }, is: n => !!actors[n], blobItems: () => Object.values(actors).filter(a => a.blobR > 0).map(a => ({key: 'beast_' + a.name, x: a.root.position.x, y: a.root.position.y, z: a.root.position.z, r: a.blobR * a.root.scale.x, visible: a.root.visible && !a.riding}))}; }
+  // 2B TITAN: footfall times of a beast's stomp / walk keys (absolute s) for the shot `shake` hook
+  const ffCache = {}; function footfallsOf(name) { if (ffCache[name]) return ffCache[name]; const a = actors[name]; if (!a?.mesh) return []; const tr = trackOf(a), out = [];
+    tr.forEach((k, i) => { if (k.state === 'stomp' || (k.state === 'walk' && a.P.name === 'TITAN')) out.push(...B.footfalls(a.P, k.state, k.t + .05, tr[i + 1]?.t ?? k.t + 60, a.seed)); }); return ffCache[name] = out; }
+  return {actors, crowds, create, drive, post, trackOf, liveAt, footfallsOf, setMask, meshes, setGlowScale: k => { GK = k; }, is: n => !!actors[n], blobItems: () => Object.values(actors).filter(a => a.blobR > 0).map(a => ({key: 'beast_' + a.name, x: a.root.position.x, y: a.root.position.y, z: a.root.position.z, r: a.blobR * a.root.scale.x, visible: a.root.visible && !a.riding}))}; }

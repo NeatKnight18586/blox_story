@@ -1,0 +1,1251 @@
+{
+ "note": "tuft 2B TITAN (scripts/v2/titan-preset.js): quad heavy rig ×12 kid height, stone + moss facets, MOLTEN-ORANGE crack seams, two great curled horns, molten eyes, chains on the legs (break-out drops them). States caged roar break stomp flinch flee ignite.",
+ "name": "TITAN",
+ "rig": "quad",
+ "tiers": [
+  "hero"
+ ],
+ "glow": "#FF4A0E",
+ "mouthGlow": "#FF7A1F",
+ "eyeGlow": "#FFB02E",
+ "glowHDR": 3,
+ "blobR": 2.6,
+ "colors": {
+  "body": "#585C61",
+  "dark": "#3A3D42",
+  "moss": "#4C6A2E",
+  "bone": "#E6DCC4",
+  "iron": "#2A2C30"
+ },
+ "dims": {
+  "legH": 2.6,
+  "bodyH": 3.3,
+  "bodyL": 5.2,
+  "bodyW": 3.3,
+  "neckL": 1.5,
+  "neckUp": -6,
+  "headLevel": 0.9,
+  "headL": 2,
+  "headH": 1.7,
+  "headW": 1.9,
+  "tailL": 2,
+  "tailUp": -35,
+  "tail2Up": -20,
+  "jawMax": 0.55,
+  "ears": false,
+  "legX": 0.34,
+  "legZ": 0.33,
+  "hipDrop": 0.28
+ },
+ "gait": {
+  "walkHz": 0.42,
+  "runHz": 0.8,
+  "walkSpeed": 4.5,
+  "runSpeed": 11,
+  "breath": 4.2
+ },
+ "extraSegs": [
+  {
+   "name": "chainFL",
+   "parent": "legFL2",
+   "pivot": [
+    0,
+    -0.7,
+    0
+   ]
+  },
+  {
+   "name": "chainFR",
+   "parent": "legFR2",
+   "pivot": [
+    0,
+    -0.7,
+    0
+   ]
+  },
+  {
+   "name": "chainBL",
+   "parent": "legBL2",
+   "pivot": [
+    0,
+    -0.7,
+    0
+   ]
+  },
+  {
+   "name": "chainBR",
+   "parent": "legBR2",
+   "pivot": [
+    0,
+    -0.7,
+    0
+   ]
+  }
+ ],
+ "parts": [
+  {
+   "seg": "body",
+   "shape": "gem",
+   "size": [
+    3.3,
+    3.3,
+    5.2
+   ],
+   "facets": 7,
+   "rings": 3,
+   "color": "body"
+  },
+  {
+   "seg": "body",
+   "shape": "gem",
+   "size": [
+    3.6,
+    4.6,
+    3
+   ],
+   "offset": [
+    0,
+    2.6,
+    1.6
+   ],
+   "facets": 6,
+   "rings": 2,
+   "color": "body"
+  },
+  {
+   "seg": "body",
+   "shape": "gem",
+   "size": [
+    2.6,
+    1.8,
+    2.4
+   ],
+   "offset": [
+    0,
+    0.9,
+    -1.4
+   ],
+   "facets": 6,
+   "rings": 2,
+   "color": "dark"
+  },
+  {
+   "seg": "body",
+   "shape": "gem",
+   "size": [
+    2.6,
+    0.9,
+    2.4
+   ],
+   "offset": [
+    0,
+    4.75,
+    1.5
+   ],
+   "facets": 6,
+   "rings": 1,
+   "color": "moss"
+  },
+  {
+   "seg": "body",
+   "shape": "gem",
+   "size": [
+    2,
+    0.7,
+    2.2
+   ],
+   "offset": [
+    0,
+    1.6,
+    -1.5
+   ],
+   "facets": 6,
+   "rings": 1,
+   "color": "moss"
+  },
+  {
+   "seg": "body",
+   "shape": "gem",
+   "size": [
+    1.2,
+    1.4,
+    1.6
+   ],
+   "offset": [
+    1.45,
+    0.1,
+    0.6
+   ],
+   "facets": 5,
+   "rings": 1,
+   "color": "dark",
+   "mirror": true
+  },
+  {
+   "seg": "body",
+   "shape": "strip",
+   "from": [
+    1.62,
+    0.9,
+    2
+   ],
+   "to": [
+    1.7,
+    0.2,
+    1.4
+   ],
+   "r": 0.07,
+   "glow": "all",
+   "mirror": true
+  },
+  {
+   "seg": "body",
+   "shape": "strip",
+   "from": [
+    1.7,
+    0.2,
+    1.4
+   ],
+   "to": [
+    1.66,
+    0.6,
+    0.6
+   ],
+   "r": 0.07,
+   "glow": "all",
+   "mirror": true
+  },
+  {
+   "seg": "body",
+   "shape": "strip",
+   "from": [
+    1.66,
+    0.6,
+    0.6
+   ],
+   "to": [
+    1.7,
+    -0.3,
+    -0.2
+   ],
+   "r": 0.07,
+   "glow": "all",
+   "mirror": true
+  },
+  {
+   "seg": "body",
+   "shape": "strip",
+   "from": [
+    1.7,
+    -0.3,
+    -0.2
+   ],
+   "to": [
+    1.62,
+    0.2,
+    -1.2
+   ],
+   "r": 0.07,
+   "glow": "all",
+   "mirror": true
+  },
+  {
+   "seg": "body",
+   "shape": "strip",
+   "from": [
+    1.62,
+    0.2,
+    -1.2
+   ],
+   "to": [
+    1.55,
+    -0.5,
+    -2
+   ],
+   "r": 0.07,
+   "glow": "all",
+   "mirror": true
+  },
+  {
+   "seg": "body",
+   "shape": "strip",
+   "from": [
+    1.1,
+    2.3,
+    2.1
+   ],
+   "to": [
+    1.3,
+    1.7,
+    1.4
+   ],
+   "r": 0.06,
+   "glow": "all",
+   "mirror": true
+  },
+  {
+   "seg": "body",
+   "shape": "strip",
+   "from": [
+    1.3,
+    1.7,
+    1.4
+   ],
+   "to": [
+    1.15,
+    2,
+    0.6
+   ],
+   "r": 0.06,
+   "glow": "all",
+   "mirror": true
+  },
+  {
+   "seg": "body",
+   "shape": "strip",
+   "from": [
+    0,
+    2.6,
+    -0.4
+   ],
+   "to": [
+    0.3,
+    2.4,
+    -1.1
+   ],
+   "r": 0.06,
+   "glow": "all",
+   "mirror": false
+  },
+  {
+   "seg": "body",
+   "shape": "strip",
+   "from": [
+    0.3,
+    2.4,
+    -1.1
+   ],
+   "to": [
+    0,
+    2.2,
+    -1.9
+   ],
+   "r": 0.06,
+   "glow": "all",
+   "mirror": false
+  },
+  {
+   "seg": "neck",
+   "shape": "prism",
+   "axis": "z",
+   "len": 1.4,
+   "r": [
+    1.2,
+    1.15
+   ],
+   "taper": 0.9,
+   "facets": 6,
+   "offset": [
+    0,
+    0,
+    -0.2
+   ],
+   "color": "body"
+  },
+  {
+   "seg": "head",
+   "shape": "gem",
+   "size": [
+    1.9,
+    1.7,
+    2
+   ],
+   "offset": [
+    0,
+    0,
+    0.5
+   ],
+   "facets": 6,
+   "rings": 2,
+   "color": "body"
+  },
+  {
+   "seg": "head",
+   "shape": "box",
+   "size": [
+    1.5,
+    0.9,
+    0.9
+   ],
+   "offset": [
+    0,
+    -0.45,
+    1.45
+   ],
+   "color": "dark"
+  },
+  {
+   "seg": "head",
+   "shape": "box",
+   "size": [
+    2,
+    0.38,
+    0.7
+   ],
+   "offset": [
+    0,
+    0.55,
+    1.15
+   ],
+   "rot": [
+    20,
+    0,
+    0
+   ],
+   "color": "dark"
+  },
+  {
+   "seg": "head",
+   "shape": "gem",
+   "size": [
+    0.42,
+    0.26,
+    0.3
+   ],
+   "offset": [
+    0.58,
+    0.22,
+    1.42
+   ],
+   "facets": 5,
+   "rings": 1,
+   "glow": "all",
+   "glowGroup": "eye",
+   "glowBase": false,
+   "color": "iron",
+   "mirror": true
+  },
+  {
+   "seg": "head",
+   "shape": "box",
+   "size": [
+    1,
+    0.06,
+    0.7
+   ],
+   "offset": [
+    0,
+    -0.92,
+    1.45
+   ],
+   "glow": "all",
+   "glowGroup": "mouth"
+  },
+  {
+   "seg": "head",
+   "shape": "strip",
+   "from": [
+    0.25,
+    0.9,
+    0.9
+   ],
+   "to": [
+    0.45,
+    0.4,
+    1.3
+   ],
+   "r": 0.05,
+   "glow": "all",
+   "mirror": true
+  },
+  {
+   "seg": "head",
+   "shape": "prism",
+   "axis": "x",
+   "len": 1.6,
+   "r": [
+    0.55,
+    0.55
+   ],
+   "taper": 0.75,
+   "offset": [
+    0.85,
+    0.6,
+    0.4
+   ],
+   "rot": [
+    0,
+    -10,
+    30
+   ],
+   "color": "bone",
+   "facets": 6,
+   "mirror": true
+  },
+  {
+   "seg": "head",
+   "shape": "prism",
+   "axis": "x",
+   "len": 1.5,
+   "r": [
+    0.46,
+    0.46
+   ],
+   "taper": 0.75,
+   "offset": [
+    2.2,
+    1.45,
+    0.2
+   ],
+   "rot": [
+    0,
+    40,
+    -40
+   ],
+   "color": "bone",
+   "facets": 6,
+   "mirror": true
+  },
+  {
+   "seg": "head",
+   "shape": "prism",
+   "axis": "x",
+   "len": 1.3,
+   "r": [
+    0.38,
+    0.38
+   ],
+   "taper": 0.75,
+   "offset": [
+    2.6,
+    0.9,
+    -0.9
+   ],
+   "rot": [
+    0,
+    130,
+    -100
+   ],
+   "color": "bone",
+   "facets": 6,
+   "mirror": true
+  },
+  {
+   "seg": "head",
+   "shape": "prism",
+   "axis": "x",
+   "len": 1.1,
+   "r": [
+    0.3,
+    0.3
+   ],
+   "taper": 0.75,
+   "offset": [
+    2.05,
+    -0.15,
+    -0.6
+   ],
+   "rot": [
+    0,
+    200,
+    -150
+   ],
+   "color": "bone",
+   "facets": 6,
+   "mirror": true
+  },
+  {
+   "seg": "jaw",
+   "shape": "box",
+   "size": [
+    1.4,
+    0.3,
+    0.9
+   ],
+   "offset": [
+    0,
+    -0.1,
+    0.45
+   ],
+   "color": "dark"
+  },
+  {
+   "seg": "jaw",
+   "shape": "box",
+   "size": [
+    1,
+    0.04,
+    0.7
+   ],
+   "offset": [
+    0,
+    0.08,
+    0.45
+   ],
+   "glow": "all",
+   "glowGroup": "mouth"
+  },
+  {
+   "seg": "tail1",
+   "shape": "prism",
+   "axis": "-z",
+   "len": 1.1,
+   "r": [
+    0.45,
+    0.45
+   ],
+   "taper": 0.7,
+   "facets": 5,
+   "color": "body"
+  },
+  {
+   "seg": "tail2",
+   "shape": "prism",
+   "axis": "-z",
+   "len": 1,
+   "r": [
+    0.32,
+    0.32
+   ],
+   "taper": 0.6,
+   "facets": 5,
+   "color": "dark"
+  },
+  {
+   "seg": "tail2",
+   "shape": "gem",
+   "size": [
+    0.7,
+    0.6,
+    0.8
+   ],
+   "offset": [
+    0,
+    0,
+    -1.1
+   ],
+   "facets": 5,
+   "rings": 1,
+   "color": "moss"
+  },
+  {
+   "seg": "legFL1",
+   "shape": "prism",
+   "axis": "-y",
+   "len": 1.663,
+   "r": [
+    0.9,
+    0.95
+   ],
+   "taper": 0.9,
+   "facets": 6,
+   "mirror": true,
+   "color": "body"
+  },
+  {
+   "seg": "legFL2",
+   "shape": "prism",
+   "axis": "-y",
+   "len": 1.663,
+   "r": [
+    0.78,
+    0.82
+   ],
+   "taper": 0.95,
+   "facets": 6,
+   "mirror": true,
+   "color": "body"
+  },
+  {
+   "seg": "legFL2",
+   "shape": "box",
+   "size": [
+    1.85,
+    0.5,
+    2
+   ],
+   "offset": [
+    0,
+    -1.663,
+    0.15
+   ],
+   "mirror": true,
+   "color": "dark"
+  },
+  {
+   "seg": "legFL1",
+   "shape": "strip",
+   "from": [
+    0.85,
+    -0.15,
+    0.3
+   ],
+   "to": [
+    0.9,
+    -0.6,
+    0
+   ],
+   "r": 0.05,
+   "glow": "all",
+   "mirror": true
+  },
+  {
+   "seg": "legFL1",
+   "shape": "strip",
+   "from": [
+    0.9,
+    -0.6,
+    0
+   ],
+   "to": [
+    0.85,
+    -1,
+    0.3
+   ],
+   "r": 0.05,
+   "glow": "all",
+   "mirror": true
+  },
+  {
+   "seg": "chainFL",
+   "shape": "box",
+   "size": [
+    0.16,
+    0.3,
+    0.42
+   ],
+   "offset": [
+    0,
+    0,
+    0.92
+   ],
+   "rot": [
+    0,
+    0,
+    0
+   ],
+   "color": "iron",
+   "mirror": true
+  },
+  {
+   "seg": "chainFL",
+   "shape": "box",
+   "size": [
+    0.16,
+    0.42,
+    0.3
+   ],
+   "offset": [
+    0.6505382386916236,
+    0,
+    0.6505382386916237
+   ],
+   "rot": [
+    0,
+    45,
+    0
+   ],
+   "color": "iron",
+   "mirror": true
+  },
+  {
+   "seg": "chainFL",
+   "shape": "box",
+   "size": [
+    0.16,
+    0.3,
+    0.42
+   ],
+   "offset": [
+    0.92,
+    0,
+    5.633375276077825e-17
+   ],
+   "rot": [
+    0,
+    90,
+    0
+   ],
+   "color": "iron",
+   "mirror": true
+  },
+  {
+   "seg": "chainFL",
+   "shape": "box",
+   "size": [
+    0.16,
+    0.42,
+    0.3
+   ],
+   "offset": [
+    0.6505382386916237,
+    0,
+    -0.6505382386916236
+   ],
+   "rot": [
+    0,
+    135,
+    0
+   ],
+   "color": "iron",
+   "mirror": true
+  },
+  {
+   "seg": "chainFL",
+   "shape": "box",
+   "size": [
+    0.16,
+    0.3,
+    0.42
+   ],
+   "offset": [
+    1.126675055215565e-16,
+    0,
+    -0.92
+   ],
+   "rot": [
+    0,
+    180,
+    0
+   ],
+   "color": "iron",
+   "mirror": true
+  },
+  {
+   "seg": "chainFL",
+   "shape": "box",
+   "size": [
+    0.16,
+    0.42,
+    0.3
+   ],
+   "offset": [
+    -0.6505382386916236,
+    0,
+    -0.6505382386916239
+   ],
+   "rot": [
+    0,
+    225,
+    0
+   ],
+   "color": "iron",
+   "mirror": true
+  },
+  {
+   "seg": "chainFL",
+   "shape": "box",
+   "size": [
+    0.16,
+    0.3,
+    0.42
+   ],
+   "offset": [
+    -0.92,
+    0,
+    -1.6900125828233474e-16
+   ],
+   "rot": [
+    0,
+    270,
+    0
+   ],
+   "color": "iron",
+   "mirror": true
+  },
+  {
+   "seg": "chainFL",
+   "shape": "box",
+   "size": [
+    0.16,
+    0.42,
+    0.3
+   ],
+   "offset": [
+    -0.6505382386916239,
+    0,
+    0.6505382386916236
+   ],
+   "rot": [
+    0,
+    315,
+    0
+   ],
+   "color": "iron",
+   "mirror": true
+  },
+  {
+   "seg": "chainFL",
+   "shape": "box",
+   "size": [
+    0.26,
+    0.36,
+    0.16
+   ],
+   "offset": [
+    -0.98,
+    -0.3,
+    0.25
+   ],
+   "rot": [
+    0,
+    0,
+    18
+   ],
+   "color": "iron",
+   "mirror": true
+  },
+  {
+   "seg": "chainFL",
+   "shape": "box",
+   "size": [
+    0.16,
+    0.36,
+    0.26
+   ],
+   "offset": [
+    -1.1,
+    -0.5800000000000001,
+    0.25
+   ],
+   "rot": [
+    0,
+    0,
+    18
+   ],
+   "color": "iron",
+   "mirror": true
+  },
+  {
+   "seg": "chainFL",
+   "shape": "box",
+   "size": [
+    0.26,
+    0.36,
+    0.16
+   ],
+   "offset": [
+    -1.22,
+    -0.8600000000000001,
+    0.25
+   ],
+   "rot": [
+    0,
+    0,
+    18
+   ],
+   "color": "iron",
+   "mirror": true
+  },
+  {
+   "seg": "legBL1",
+   "shape": "prism",
+   "axis": "-y",
+   "len": 1.663,
+   "r": [
+    0.9900000000000001,
+    1.045
+   ],
+   "taper": 0.9,
+   "facets": 6,
+   "mirror": true,
+   "color": "body"
+  },
+  {
+   "seg": "legBL2",
+   "shape": "prism",
+   "axis": "-y",
+   "len": 1.663,
+   "r": [
+    0.8580000000000001,
+    0.902
+   ],
+   "taper": 0.95,
+   "facets": 6,
+   "mirror": true,
+   "color": "body"
+  },
+  {
+   "seg": "legBL2",
+   "shape": "box",
+   "size": [
+    2.035,
+    0.5,
+    2
+   ],
+   "offset": [
+    0,
+    -1.663,
+    0.15
+   ],
+   "mirror": true,
+   "color": "dark"
+  },
+  {
+   "seg": "legBL1",
+   "shape": "strip",
+   "from": [
+    0.935,
+    -0.15,
+    0.3
+   ],
+   "to": [
+    0.9900000000000001,
+    -0.6,
+    0
+   ],
+   "r": 0.05,
+   "glow": "all",
+   "mirror": true
+  },
+  {
+   "seg": "legBL1",
+   "shape": "strip",
+   "from": [
+    0.9900000000000001,
+    -0.6,
+    0
+   ],
+   "to": [
+    0.935,
+    -1,
+    0.3
+   ],
+   "r": 0.05,
+   "glow": "all",
+   "mirror": true
+  },
+  {
+   "seg": "chainBL",
+   "shape": "box",
+   "size": [
+    0.16,
+    0.3,
+    0.42
+   ],
+   "offset": [
+    0,
+    0,
+    1.0120000000000002
+   ],
+   "rot": [
+    0,
+    0,
+    0
+   ],
+   "color": "iron",
+   "mirror": true
+  },
+  {
+   "seg": "chainBL",
+   "shape": "box",
+   "size": [
+    0.16,
+    0.42,
+    0.3
+   ],
+   "offset": [
+    0.7155920625607862,
+    0,
+    0.7155920625607863
+   ],
+   "rot": [
+    0,
+    45,
+    0
+   ],
+   "color": "iron",
+   "mirror": true
+  },
+  {
+   "seg": "chainBL",
+   "shape": "box",
+   "size": [
+    0.16,
+    0.3,
+    0.42
+   ],
+   "offset": [
+    1.0120000000000002,
+    0,
+    6.196712803685608e-17
+   ],
+   "rot": [
+    0,
+    90,
+    0
+   ],
+   "color": "iron",
+   "mirror": true
+  },
+  {
+   "seg": "chainBL",
+   "shape": "box",
+   "size": [
+    0.16,
+    0.42,
+    0.3
+   ],
+   "offset": [
+    0.7155920625607863,
+    0,
+    -0.7155920625607862
+   ],
+   "rot": [
+    0,
+    135,
+    0
+   ],
+   "color": "iron",
+   "mirror": true
+  },
+  {
+   "seg": "chainBL",
+   "shape": "box",
+   "size": [
+    0.16,
+    0.3,
+    0.42
+   ],
+   "offset": [
+    1.2393425607371217e-16,
+    0,
+    -1.0120000000000002
+   ],
+   "rot": [
+    0,
+    180,
+    0
+   ],
+   "color": "iron",
+   "mirror": true
+  },
+  {
+   "seg": "chainBL",
+   "shape": "box",
+   "size": [
+    0.16,
+    0.42,
+    0.3
+   ],
+   "offset": [
+    -0.7155920625607862,
+    0,
+    -0.7155920625607864
+   ],
+   "rot": [
+    0,
+    225,
+    0
+   ],
+   "color": "iron",
+   "mirror": true
+  },
+  {
+   "seg": "chainBL",
+   "shape": "box",
+   "size": [
+    0.16,
+    0.3,
+    0.42
+   ],
+   "offset": [
+    -1.0120000000000002,
+    0,
+    -1.8590138411056825e-16
+   ],
+   "rot": [
+    0,
+    270,
+    0
+   ],
+   "color": "iron",
+   "mirror": true
+  },
+  {
+   "seg": "chainBL",
+   "shape": "box",
+   "size": [
+    0.16,
+    0.42,
+    0.3
+   ],
+   "offset": [
+    -0.7155920625607864,
+    0,
+    0.7155920625607861
+   ],
+   "rot": [
+    0,
+    315,
+    0
+   ],
+   "color": "iron",
+   "mirror": true
+  },
+  {
+   "seg": "chainBL",
+   "shape": "box",
+   "size": [
+    0.26,
+    0.36,
+    0.16
+   ],
+   "offset": [
+    -1.078,
+    -0.3,
+    0.25
+   ],
+   "rot": [
+    0,
+    0,
+    18
+   ],
+   "color": "iron",
+   "mirror": true
+  },
+  {
+   "seg": "chainBL",
+   "shape": "box",
+   "size": [
+    0.16,
+    0.36,
+    0.26
+   ],
+   "offset": [
+    -1.198,
+    -0.5800000000000001,
+    0.25
+   ],
+   "rot": [
+    0,
+    0,
+    18
+   ],
+   "color": "iron",
+   "mirror": true
+  },
+  {
+   "seg": "chainBL",
+   "shape": "box",
+   "size": [
+    0.26,
+    0.36,
+    0.16
+   ],
+   "offset": [
+    -1.318,
+    -0.8600000000000001,
+    0.25
+   ],
+   "rot": [
+    0,
+    0,
+    18
+   ],
+   "color": "iron",
+   "mirror": true
+  }
+ ],
+ "scale": 5.3764
+}

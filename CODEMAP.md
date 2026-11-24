@@ -28,6 +28,8 @@ engine/fixtures/beasts2/HORSE_REF.json — tuft 2B gate reference only (tests/be
 engine/fixtures/beasts2/heroes-day.json — tuft 2B fixed hero beasts (scripts/v2/kit2-fixtures.js), day: low heroic moving cine cameras, grade 'clear', beasts on ones.
 engine/fixtures/beasts2/heroes-night.json — tuft 2B fixed hero beasts (scripts/v2/kit2-fixtures.js), night: low heroic moving cine cameras, grade 'clear', beasts on ones.
 engine/fixtures/beasts2/picks.json — (no header)
+engine/fixtures/beasts2/titan.json — tuft 2B TITAN fixture (scripts/v2/kit2-fixtures.js): night street, caged / roar / chains snap / stomp (shake) / flinch / flee from colossal 
+engine/fixtures/beasts2/titancave.json — tuft 2B titanCave insert: two molten eyes fade up in darkness (TITAN state ignite).
 engine/fixtures/beasts2/tuft.json — tuft 2B TUFT + PUFF fixture (scripts/v2/kit2-fixtures.js): day street, hook ECU on the glowing eye, states, hood ride, tuft ball/room/coloss
 engine/fixtures/cine/before.json — tuft 1B fixture, BEFORE (current engine): the same spec without look/camera 'cine'.
 engine/fixtures/cine/bloomgate.json — tuft 1B bloom gate (scripts/v2/cine-gates.js): a white DUMMY (non-emissive) under the street lamp, the brightest lit spot of the night set, 
@@ -295,6 +297,7 @@ scripts/v2/shards.js — node scripts/v2/shards.js --story <slug> [--n 6]  → J
 scripts/v2/stability.js — npm run v2:stability -- --story <slug> | --spec <episode.json>     (docs/V2_BRIEF.md Amendment A1, Part A)
 scripts/v2/testpark-gates.js — E1b measured gates on testPark specs (in-page, on the frame the renderer just drew).
 scripts/v2/tex4.js — writes the format v4 surfaces to the disk cache (renders/cache/tex4/<name>-512.bin) so renders load
+scripts/v2/titan-preset.js — tuft 2B: writes beasts/TITAN.json (data on the QUAD rig, engine/beast.js). The heavy rig at ×12 kid height:
 scripts/v2/touchgrass-episode.js — writes stories/touchgrass/episode.json from stories/touchgrass/BEATS.md (owner shot list, 61 shots;
 scripts/v2/touchgrass-gates.js — node scripts/v2/touchgrass-gates.js [--spec stories/touchgrass/episode.json] [--only p1,p3,...] [--floor] [--out review/touchgrass/gates-e1.
 scripts/v2/touchgrass-sheets.js — Touch Grass E0 gate material: cast, props and world sheets at true 390 px phone pixels,
@@ -319,6 +322,7 @@ beasts/CINDER.json — tuft 2A BEAST KIT: CINDER, the sky hawk (bird). Charcoal 
 beasts/DEER.json — tuft 2A BEAST KIT: DEER (low tier). Dark brown facets, dim MINT seams, bone antlers, long legs.
 beasts/FOX.json — tuft 2A BEAST KIT: FOX (low tier, parade / flee crowds). Dark rust facets, dim PINK seams; big ears, bushy tail.
 beasts/NIGHTFANG.json — tuft 2A BEAST KIT (2B redo): NIGHTFANG, the dragon. Near-black faceted body, CYAN glow seams, long S-curved neck, wedge head with swept-back
+beasts/TITAN.json — tuft 2B TITAN (scripts/v2/titan-preset.js): quad heavy rig ×12 kid height, stone + moss facets, MOLTEN-ORANGE crack seams, two great curled 
 beasts/TUFT.json — tuft 2B TUFT (scripts/v2/tuft-preset.js): palm-sized moon-white puffball, big glossy eyes, small feet, layered faceted quill clusters tipped
 beasts/VOLT.json — tuft 2A BEAST KIT (2B fix): VOLT, the storm wolf (quad). Dark storm-grey faceted body (value \u2264 .45) so the ELECTRIC-YELLOW seams pop (s
 cast/hero.json — Format v4 (owner, 2026-11-15): the hero, slot HERO, in every episode from 2 on. Actor v5 (classic R6), first-person narrator. Bare yellow he

@@ -47,7 +47,7 @@
  {
   "name": "feet planted",
   "pass": true,
-  "line": "ground states: lowest vertex max 0.0000 ≤ 0.02 above ground (6771 samples); all states + transitions min 0.0000 ≥ 0",
+  "line": "ground states: lowest vertex max 0.0000 ≤ 0.02 above ground (8479 samples); all states + transitions min 0.0000 ≥ 0",
   "perPreset": {
    "NIGHTFANG": 0,
    "VOLT": 0,

@@ -195,6 +195,7 @@ function puffHeroes(t) {
     A.puffD = D; } }
 // tuft 2A (opt-in): BEAST KIT actors (`style: 'beast'`, engine/beastrt.js) and low-tier crowds (spec.beastCrowds); null for every other spec
 const BEAST_ON = Object.values(spec.cast ?? {}).some(c => c.style === 'beast') || !!spec.beastCrowds?.length;
+const BEASTSHAKE = BEAST_ON ? (await import('./beast.js')).stompShake : null;   // tuft 2B footfall shake
 const BEASTS = BEAST_ON ? await (async () => { const R = await import('./beastrt.js'), base = new URL('../', import.meta.url), names = [...Object.values(spec.cast ?? {}).filter(c => c.style === 'beast').map(c => c.preset), ...(spec.beastCrowds ?? []).flatMap(c => c.presets)];
   return R.createBeasts({scene, spec, presets: await R.loadPresets(names, base), hdr: spec.post === 'cine', groundY: (x, z) => world?.groundY?.(x, z) ?? 0, resolveXZ: v => (p => [p[0], p[2]])(resolve(typeof v === 'string' ? {anchor: v} : v)), shots, FPS, markAt: (c, t) => markAt(c, t), base}); })() : null;
 for (const [name, c] of Object.entries(spec.cast ?? {})) {
@@ -632,6 +633,7 @@ function drawFrame(shot, mf, off, width, height, nudge) {
   setHeroLit(shot); const actors = poseCast(t);
   const lt = M6 && shot.still ? 0 : Math.max(0, (mf.cam + off - shot.start) / FPS), c = CINE_CAM ? sampleCineShot(shot, lt, width / height) : sampleCamera({...shot, fps: FPS}, lt, actors);   // P5b `still` (moods only): the camera is locked at its first frame
   if (mf.shake.some(v => v)) c.position = c.position.map((v, i) => v + mf.shake[i]);
+  if (shot.shake && BEASTS) { const who = typeof shot.shake === 'string' && cast[shot.shake]?.beast ? shot.shake : shot.subject, sh = (await0 => BEASTSHAKE(BEASTS.footfallsOf(who), t))(); c.position = c.position.map((v, i) => v + sh[i]); }   // tuft 2B: shot `shake` (true | beast name) shudders the camera on each footfall
   if (LODS.length) applyLod(c.position, t);
   if (shot.clear && c.position && c.target) applyClear(shot, c.position, c.target, c.fov, width / height);
   updateCascades(t);

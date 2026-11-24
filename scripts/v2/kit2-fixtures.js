@@ -71,5 +71,27 @@ EXTRA.push(({save, picks, kid}) => {
   add({frames: 30, duration: 1.25, size: 'ws', move: 'push', subject: 'hero2', angle: 'eye', from: hf(16, 3.4, 4.5), to: hf(15, 3.4, 4.5), puffs: [{actor: 'hero2', size: 'deflate', at: .05}]}, 'hero deflate', .9);
   save('tuft.json', {note: 'tuft 2B TUFT + PUFF fixture (scripts/v2/kit2-fixtures.js): day street, hook ECU on the glowing eye, states, hood ride, tuft ball/room/colossal/deflate, hero ball/room/deflate.', slug: 'beasts', ...HEAD, look4: 'comedy', look: 'comedy', cast, shots, sfxCues: [[+(t - 1.25 + .05).toFixed(3), 'squeak']]});
 });
+// ---- TITAN (Task 3): caged, roar, break (chains snap), stomp (footfall shake), flinch, flee from colossal Tuft; titanCave eyes ignite ----
+EXTRA.push(({save, picks, kid}) => {
+  const cast = {}, shots = []; let t = 0, n = 0, Z = -24;
+  const add = (sh, label, pick) => { const s0 = Math.round(t * FPS); shots.push({id: `titan-${n++}-${label}`, mood: 'awe', size: 'ws', subject: 'titan', ...sh}); t += sh.frames / FPS; if (pick != null) picks.push({set: 'titan', label, frame: s0 + Math.round(pick * FPS)}); return s0 / FPS; };
+  cast.titan = {style: 'beast', preset: 'TITAN', tier: 'hero', at: 'street', offset: [0, 0, Z], yaw: 0, state: 'caged'};
+  cast.kid = kid(4, 30, 180, 'HERO'); cast.tuftc = {style: 'beast', preset: 'TUFT', tier: 'hero', at: 'street', offset: [0, 0, 40], yaw: 180, glowLevel: .6};
+  const cam = (a, d, h, ty, fov = 62) => ({position: [Math.sin(a * D) * d, h, Z + Math.cos(a * D) * d], target: [0, ty, Z], fov});
+  add({frames: 36, duration: 1.5, move: 'orbit', degrees: 10, from: cam(15, 58, 1.6, 22), to: {position: [0, 1.6, 0], target: [0, 22, Z]}}, 'caged', 1.0);
+  add({frames: 36, duration: 1.5, move: 'push', from: cam(-25, 56, 1.4, 26), to: cam(-25, 50, 1.4, 26), beasts: [{actor: 'titan', state: 'roar', at: .1}]}, 'roar', 1.0);
+  add({frames: 36, duration: 1.5, move: 'push', from: cam(30, 52, 1.2, 14), to: cam(30, 47, 1.2, 14), beasts: [{actor: 'titan', state: 'break', at: .1}]}, 'chains snap', .1 + .62);
+  add({frames: 60, duration: 2.5, move: 'track', follow: 'titan', followOffset: [0, 0, 0], shake: 'titan', from: {position: [-30, 1.4, 46], target: [0, 24, 0], fov: 64}, to: {position: [-28, 1.4, 40], target: [0, 24, 0], fov: 64},
+    beasts: [{actor: 'titan', state: 'stomp', at: .1, to: [0, 0, Z + 14]}]}, 'stomp', 1.5);
+  add({frames: 30, duration: 1.25, move: 'push', from: cam(-10, 58, 1.4, 22), to: cam(-10, 54, 1.4, 22), beasts: [{actor: 'titan', state: 'flinch', at: .05}]}, 'flinch', .6);
+  add({frames: 60, duration: 2.5, move: 'push', subject: 'tuftc', angle: 'eye', from: {position: [-26, 3, 62], target: [0, 28, 0], fov: 72}, to: {position: [-24, 3, 58], target: [0, 28, -4], fov: 72},
+    puffs: [{actor: 'tuftc', size: 'colossal', at: 0}], glows: [{actor: 'tuftc', level: 1, at: 0}], beasts: [{actor: 'titan', state: 'flee', at: .9}]}, 'flee', 1.9);
+  save('titan.json', {note: 'tuft 2B TITAN fixture (scripts/v2/kit2-fixtures.js): night street, caged / roar / chains snap / stomp (shake) / flinch / flee from colossal Tuft.', slug: 'beasts', ...HEAD, look4: 'mystery', look: 'mystery', cast, shots});
+  // titanCave insert: darkness, two molten eyes fade up (state ignite)
+  const cc = {titan: {style: 'beast', preset: 'TITAN', tier: 'hero', at: 'street', offset: [-40, 0, -50], yaw: 60, state: 'ignite'}};
+  save('titancave.json', {note: 'tuft 2B titanCave insert: two molten eyes fade up in darkness (TITAN state ignite).', slug: 'beasts', ...HEAD, look4: 'mystery', look: 'mystery', cast: cc,
+    shots: [{id: 'titanCave', frames: 48, duration: 2, size: 'ws', mood: 'tension', move: 'push', angle: 'high', from: {position: [10.5, 27.6, -20.8], target: [-15.6, 28.6, -35.85], fov: 26}, to: {position: [6.3, 27.8, -23.2], target: [-15.6, 28.6, -35.85], fov: 38}}]});
+  picks.push({set: 'titancave', label: 'eyes ignite', frame: 40});
+});
 if (process.argv[1]?.endsWith("kit2-fixtures.js")) for (const f of EXTRA) f({save, picks, sizeOf, kid, lowCam, HEAD, FPS});
 if (process.argv[1]?.endsWith("kit2-fixtures.js")) save("picks.json", picks);

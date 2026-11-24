@@ -6,8 +6,8 @@
  },
  {
   "name": "hero silhouettes pairwise IoU ≤ 0.6",
-  "pass": true,
-  "line": "max 0.572 (NIVO 0.334, NICI 0.349, NIBO 0.27, NITU 0.327, VOCI 0.401, VOBO 0.33, VOTU 0.409, CIBO 0.274, CITU 0.296, BOTU 0.572)",
+  "pass": false,
+  "line": "max 0.609 (NIVO 0.334, NICI 0.349, NIBO 0.27, NITU 0.327, NITI 0.274, VOCI 0.401, VOBO 0.33, VOTU 0.409, VOTI 0.353, CIBO 0.274, CITU 0.296, CITI 0.218, BOTU 0.572, BOTI 0.609, TUTI 0.559)",
   "pairs": [
    [
     "NIGHTFANG",
@@ -30,6 +30,11 @@
     0.327
    ],
    [
+    "NIGHTFANG",
+    "TITAN",
+    0.274
+   ],
+   [
     "VOLT",
     "CINDER",
     0.401
@@ -45,6 +50,11 @@
     0.409
    ],
    [
+    "VOLT",
+    "TITAN",
+    0.353
+   ],
+   [
     "CINDER",
     "BOULDER",
     0.274
@@ -55,9 +65,24 @@
     0.296
    ],
    [
+    "CINDER",
+    "TITAN",
+    0.218
+   ],
+   [
     "BOULDER",
     "TUFT",
     0.572
+   ],
+   [
+    "BOULDER",
+    "TITAN",
+    0.609
+   ],
+   [
+    "TUFT",
+    "TITAN",
+    0.559
    ]
   ]
  },
@@ -85,5 +110,25 @@
   "name": "`puff:` / `glow:` vocab → shot.puffs / shot.glows / sfx squeak",
   "pass": true,
   "line": "0 parse errors; puffs [{\"actor\":\"tuft\",\"size\":\"room\",\"at\":1.09},{\"actor\":\"tuft\",\"size\":\"deflate\",\"at\":0.54}]; glows [{\"actor\":\"tuft\",\"level\":1,\"at\":1.09}]; sfxCues [[15.94,\"squeak\"]]"
+ },
+ {
+  "name": "TITAN tris ≤ 6k, ×12 kid height",
+  "pass": true,
+  "line": "1404 tris; height 12.00 × kid (12 ± .6)"
+ },
+ {
+  "name": "TITAN chains snap (gone after τ = 0.6 s of break)",
+  "pass": true,
+  "line": "chain links 26.8 studs out before the snap; all 4 chain segments collapsed after"
+ },
+ {
+  "name": "TITAN stomp footfalls → camera shake hook",
+  "pass": true,
+  "line": "5 footfalls in 6 s (0.59, 1.78, 2.97, 4.16 …); shake 0.180 studs 30 ms after a fall, 0 before"
+ },
+ {
+  "name": "titanCave: eyes ignite (fade up in darkness)",
+  "pass": true,
+  "line": "eye glow 0.00 → 0.00 → 0.80 → 1.60 at 0 / .2 / .8 / 1.4 s"
  }
 ]

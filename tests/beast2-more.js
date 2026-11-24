@@ -32,3 +32,15 @@ GATES.push(async (ok) => {
   const pu = spec ? spec.shots.flatMap(s => s.puffs ?? []) : [], gl = spec ? spec.shots.flatMap(s => s.glows ?? []) : [], sq = (spec?.sfxCues ?? []).filter(c => c[1] === 'squeak');
   const good = pu.length === 2 && pu[0].size === 'room' && pu[1].size === 'deflate' && gl.length === 1 && gl[0].level === 1 && sq.length === 1;
   ok('`puff:` / `glow:` vocab → shot.puffs / shot.glows / sfx squeak', !e && good, spec ? `${e} parse errors; puffs ${JSON.stringify(pu)}; glows ${JSON.stringify(gl)}; sfxCues ${JSON.stringify(sq)}` : 'brief2spec failed: ' + err); });
+// TITAN (Task 3): tris, ×12 kid height, chains drop after the snap, stomp footfalls → shake, ignite eyes fade up from 0
+GATES.push(async (ok, {P, B}) => {
+  const T = P('TITAN'), g = B.buildGeometry(T), sup = B.supportPoints(g), top = s => { const v = B.worldVerts(s, g); let y = 0; for (let i = 1; i < v.length; i += 3) y = Math.max(y, v[i]); return y; };
+  const h = top(B.sampleBeast(T, [{t: 0, state: 'idle'}], 0, {geo: g, support: sup})) / B.KID_H; ok('TITAN tris ≤ 6k, ×12 kid height', g.tris <= 6000 && Math.abs(h - 12) <= .6, `${g.tris} tris; height ${h.toFixed(2)} × kid (12 ± .6)`);
+  const ci = g.segNames.map((n, i) => /^chain/.test(n) ? i : -1).filter(i => i >= 0), spread = s => { const v = B.worldVerts(s, g); let m = 0; for (let i = 0; i < v.length / 3; i++) if (ci.includes(g.seg[i])) m = Math.max(m, Math.hypot(v[3 * i] - s.root.p[0], v[3 * i + 2] - s.root.p[2])); return m; };
+  const tr = [{t: 0, state: 'caged'}, {t: 1, state: 'break'}], before = spread(B.sampleBeast(T, tr, 1 + B.BREAK_AT - .05, {geo: g, support: sup})), after = B.worldVerts(B.sampleBeast(T, tr, 1 + B.BREAK_AT + .05, {geo: g, support: sup}), g);
+  let collapsed = true; { const s = B.sampleBeast(T, tr, 1 + B.BREAK_AT + .05, {geo: g, support: sup}); for (const n of g.segNames.filter(n => /^chain/.test(n))) if (s.segs[n].R.some(v => v !== 0)) collapsed = false; } void after;
+  ok('TITAN chains snap (gone after τ = 0.6 s of break)', before > 0 && collapsed, `chain links ${before.toFixed(1)} studs out before the snap; all 4 chain segments collapsed after`);
+  const ff = B.footfalls(T, 'stomp', 0, 6), sh = B.stompShake(ff, ff[0] + .03), quiet = B.stompShake(ff, ff[0] - .2);
+  ok('TITAN stomp footfalls → camera shake hook', ff.length >= 4 && Math.abs(sh[1]) > .05 && Math.hypot(...quiet) < 1e-9, `${ff.length} footfalls in 6 s (${ff.slice(0, 4).map(x => x.toFixed(2)).join(', ')} …); shake ${sh[1].toFixed(3)} studs 30 ms after a fall, 0 before`);
+  const e = [0, .2, .8, 1.4].map(t => B.sampleBeast(T, [{t: 0, state: 'ignite'}], t, {geo: g, support: sup}).glow.eye);
+  ok('titanCave: eyes ignite (fade up in darkness)', e[0] === 0 && e[1] === 0 && e[3] > 1.5 && e[2] > 0 && e[2] < e[3], `eye glow ${e.map(x => x.toFixed(2)).join(' → ')} at 0 / .2 / .8 / 1.4 s`); });
