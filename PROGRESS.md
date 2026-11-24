@@ -1931,3 +1931,27 @@ BLINK wings + dot (glow behind). Gate: NIGHTFANG vs a horse-proportion ref silho
 (story6 + brief2spec); hero R6 ball proxy (engine/puff.js pure sizes + deflate wobble; episode opt-in). 3. TITAN preset ×12 kid,
 states caged/roar/break/stomp(shake)/flinch/flee + eyes-ignite. 4. engine/powers.js (pure) + powersrt.js: cyanFire, lightning, fly,
 fizzle, cage, chains, props (spider, toaster, spaghettiPlates, giantCage, chains, lanternSea 1 draw). Sheet kit2.png + demo2.mp4.
+Built: 0. cinelook `grade: 'clear'` (CLEAR, curveOf; opt-in, 1B fixture byte-identical 10/10) · beasts/crowds/BLINK on ONES · cine: beast subjects
+followed + framed on the LIVE pose (beastrt `liveAt`), shot `angle` low|eye|high (beasts default low), `highHeld` gate, camera never under ground.
+1. NIGHTFANG redo (S-neck, wedge head, swept horns, chest, short legs, spiked tail, folded faceted wings; preset `fold`), VOLT storm grey + tip-glow
+spine spikes, BOULDER boulder/horns/brow/eyes, BLINK `wingCards`. 2. TUFT (rig 'puff', tuft-preset.js, blue→gold tips, `puffK`, ride hood/hands),
+engine/puff.js (sizes, grow, deflate, vocab), hero R6 ball proxy (`puffHeroes`). 3. TITAN (titan-preset.js, `extraSegs` chains, caged/break/stomp/
+ignite, `footfalls` + `stompShake`, shot `shake`). 4. engine/powers.js + powersrt.js (cyanFire, lightning, fly, fizzle, breath, cage reveal, chains
+snap, props, lanternSea). Vocab puff / glow / power / fizzle / cage / chains (story6 → brief2spec; deflate → spec.sfxCues 'squeak').
+Commands: node tests/beast.js 10/10 · node tests/beast2.js 13/14 · node scripts/v2/kit2-gates.js (9/12) · scripts/v2/byte1b.sh 10/10 ·
+node scripts/v2/beast-gates.js --baseline … --no-final 6/6 · npm test green · node scripts/v2/kit2-sheet.js → review/beasts/kit2.png, kit2-390.png, demo2.mp4.
+Numbers: grain std .72–.74 % (before 1.80–2.05) · sat × 1.00/1.24/1.16/1.17 FAIL · darkest-10 % .009/.040/.013/.029 FAIL (before .036–.095) ·
+high angle held ≤ .38 s · ones 467/467 (2A twos 13/27) · NIGHTFANG vs horse ref IoU .236 (old NIGHTFANG .25: the gate barely separates them) ·
+pairwise max .609 FAIL (BOULDER–TITAN; NI–VO .33) · VOLT ring +111 % (min +104 %), own bloom .000 % · TUFT 2,232 tris, TITAN 1,404 (×12.00 kid) ·
+puff sizes 0.0 % err · deflate settle .583 s, 3 undershoots · hook eye .063 from centre, tips 4.7 % · blue-gold elsewhere .709 % FAIL · face decal
+.63 R / .62 R forward · lanternSea +1 call · FX determinism 6/6 · FX ones 4/4 families · 270×480 38–434 ms · est. final 1.47–2.88 s/frame.
+Fix passes (2 each, then stopped): saturation (mid plateau, AgX chroma restore 1.15) · darkest-10 % (input black .09 → .11, k 1.6) · pairwise
+TITAN (curled horns + hump, then taller hump) · blue-gold (pair metric; then TUFT HDR 3 → 1.4 so the tips keep their colour).
+Decisions: `grade: 'clear'` is opt-in (ground rule: 1B fixture byte-identical) — new tuft specs should set it. Saturation = mean HSV S per frame;
+the per-frame gate fails on the NIGHTFANG night frame because the halved teal split removes chroma from the dark navy (spec vs gate conflict).
+Task 0 look gates measured on even kit frames (twos = ones there). Blue-gold = BLUE NEXT TO GOLD (≤ 8 px) as displayed (hue bands), not either
+colour alone; the remaining hits are the hero's yellow head next to the blue shirt strip (owner's hero design) — reported, not changed.
+Clear-grade sky tint moved off Tuft blue (hue 198°). Hero puff sizes: ball Ø = 3× torso width (4.9 studs), room 10, colossal = TITAN × .6;
+Tuft ball = kid height. TITAN chains = extra rigid segments collapsed after the snap; the falling links are the `chains: snap` FX.
+The cine sim can dip under the ground with giant subjects (head-fit back-off): clamped in sampleCineShot (cause in the body sim not found).
+Open: saturation + dark10 + pairwise + blue-gold FAILs above; BLINK still tiny at phone size; Titan crops its head; NIGHTFANG breath weak.

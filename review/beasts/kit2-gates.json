@@ -92,52 +92,6 @@
   "line": "after 0.009 / 0.040 / 0.013 / 0.029 (before 0.036 / 0.095 / 0.059 / 0.081)"
  },
  {
-  "sec": "camera",
-  "name": "no static high angle (pitch < −20°) held > 1.0 s",
-  "pass": true,
-  "line": "2B fixtures: worst 0.00 s (heroes-day.json 0.00, heroes-night.json 0.00); 2A kit before: 0.00 s (nightfang-front 3/4)",
-  "rows": [
-   {
-    "spec": "engine/fixtures/beasts2/heroes-day.json",
-    "before": false,
-    "worst": {
-     "id": "nightfang-day",
-     "maxHeld": 0,
-     "at": null,
-     "ok": true
-    }
-   },
-   {
-    "spec": "engine/fixtures/beasts2/heroes-night.json",
-    "before": false,
-    "worst": {
-     "id": "nightfang-night",
-     "maxHeld": 0,
-     "at": null,
-     "ok": true
-    }
-   },
-   {
-    "spec": "engine/fixtures/beasts/kit.json",
-    "before": true,
-    "worst": {
-     "id": "nightfang-front 3/4",
-     "maxHeld": 0,
-     "at": null,
-     "ok": true
-    }
-   }
-  ]
- },
- {
-  "sec": "ones",
-  "name": "beast pose changes every frame while moving (on ones)",
-  "pass": true,
-  "line": "467/467 consecutive moving pairs differ (heroes-night); 2A kit VOLT run before: 13/27 (twos)",
-  "pairs": 467,
-  "same": 0
- },
- {
   "sec": "tuft",
   "name": "hook frame 0 reads at 390 px (eye centred, quills blooming)",
   "pass": true,
@@ -224,5 +178,135 @@
     "same": 0
    }
   }
+ },
+ {
+  "sec": "cost",
+  "name": "est. final s/frame ≤ 3.0",
+  "pass": true,
+  "line": "1440×2560 MSAA 4× (this sandbox): 1.47–2.88 s/frame (powers 2.00/2.88/2.70, tuft 1.95/1.93, titan 1.63/2.12, heroes-night 1.47/1.77); 270×480 38–434 ms/frame",
+  "rows": [
+   {
+    "spec": "powers",
+    "s": [
+     2.003100000000093,
+     2.882,
+     2.700399999999907
+    ],
+    "ms": [
+     51.6999999997206,
+     434.10000000009313,
+     262.29999999981374
+    ]
+   },
+   {
+    "spec": "tuft",
+    "s": [
+     1.9481000000000932,
+     1.9276999999997206
+    ],
+    "ms": [
+     57.799999999813735,
+     137.5
+    ]
+   },
+   {
+    "spec": "titan",
+    "s": [
+     1.6272999999998137,
+     2.116899999999907
+    ],
+    "ms": [
+     42.39999999990687,
+     239.5
+    ]
+   },
+   {
+    "spec": "heroes-night",
+    "s": [
+     1.469,
+     1.7712999999998138
+    ],
+    "ms": [
+     38.39999999990687,
+     323.60000000009313
+    ]
+   }
+  ]
+ },
+ {
+  "sec": "camera",
+  "name": "no static high angle (pitch < −20°) held > 1.0 s",
+  "pass": true,
+  "line": "2B fixtures: worst 0.38 s (heroes-day.json 0.38, heroes-night.json 0.38, tuft.json 0.00, titan.json 0.00, powers.json 0.00); 2A kit before: 0.00 s (nightfang-front 3/4)",
+  "rows": [
+   {
+    "spec": "engine/fixtures/beasts2/heroes-day.json",
+    "before": false,
+    "worst": {
+     "id": "blink-day",
+     "maxHeld": 0.375,
+     "at": 47,
+     "ok": true
+    }
+   },
+   {
+    "spec": "engine/fixtures/beasts2/heroes-night.json",
+    "before": false,
+    "worst": {
+     "id": "blink-night",
+     "maxHeld": 0.375,
+     "at": 47,
+     "ok": true
+    }
+   },
+   {
+    "spec": "engine/fixtures/beasts2/tuft.json",
+    "before": false,
+    "worst": {
+     "id": "tuft-0-hook",
+     "maxHeld": 0,
+     "at": null,
+     "ok": true
+    }
+   },
+   {
+    "spec": "engine/fixtures/beasts2/titan.json",
+    "before": false,
+    "worst": {
+     "id": "titan-0-caged",
+     "maxHeld": 0,
+     "at": null,
+     "ok": true
+    }
+   },
+   {
+    "spec": "engine/fixtures/beasts2/powers.json",
+    "before": false,
+    "worst": {
+     "id": "pw-0-cyanFire",
+     "maxHeld": 0,
+     "at": null,
+     "ok": true
+    }
+   },
+   {
+    "spec": "engine/fixtures/beasts/kit.json",
+    "before": true,
+    "worst": {
+     "id": "nightfang-front 3/4",
+     "maxHeld": 0,
+     "at": null,
+     "ok": true
+    }
+   }
+  ]
+ },
+ {
+  "sec": "ones",
+  "name": "beast pose changes every frame while moving (on ones)",
+  "pass": true,
+  "line": "467/467 consecutive moving pairs differ (heroes-night); 2A kit VOLT run before: 13/27 (twos)",
+  "pairs": 467,
+  "same": 0
  }
 ]
