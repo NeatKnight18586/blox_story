@@ -84,7 +84,8 @@ export function parseLie(s) { const p = s.trim().split(/\s+/); if (!ID.test(p[0]
 export { parseBeast } from './beast.js';
 import { parseBeast as parseBeast2A } from './beast.js';
 import { parsePuff, parseGlow } from './puff.js';   // tuft 2B: `puff: <tuft|hero> <ball|room|colossal|deflate> @ word` · `glow: <actor> <0–1> @ word`
-export const MARKERS = {beast: parseBeast2A, puff: parsePuff, glow: parseGlow, lie: parseLie, rise: parseRise, drain: parseDrain, bloom: parseBloom, crowd: parseCrowd, hand: parseHand, tumble: parseTumble, airCatch: parseAirCatch, splash: parseSplash, tag: parseTag, spawn: parseSpawn, sitOn: parseSitOn};
+import { parsePower, parseFizzle, parseCage, parseChains } from './powers.js';   // tuft 2B: power / fizzle / cage / chains
+export const MARKERS = {beast: parseBeast2A, puff: parsePuff, glow: parseGlow, power: parsePower, fizzle: parseFizzle, cage: parseCage, chains: parseChains, lie: parseLie, rise: parseRise, drain: parseDrain, bloom: parseBloom, crowd: parseCrowd, hand: parseHand, tumble: parseTumble, airCatch: parseAirCatch, splash: parseSplash, tag: parseTag, spawn: parseSpawn, sitOn: parseSitOn};
 // A notes token "key: value" → {key, value} for a story marker, else null.
 export function markerOf(tok) { const m = /^(\w+)\s*:\s*(.+)$/.exec(tok.trim()); return m && MARKERS[m[1]] ? {key: m[1], value: m[2].trim()} : null; }
 

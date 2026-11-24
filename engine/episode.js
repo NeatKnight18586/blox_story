@@ -447,6 +447,7 @@ function poseCast(t) {
   for (const [name, x] of Object.entries(cast)) poseOne(name, x, t, out);
   BEASTS?.post(t, t, n => cast[n] && !cast[n].beast ? headOf(cast[n]).toArray() : cast[n]?.a.head.position.toArray() ?? null, n => { const x = cast[n]; if (!x || x.beast) return null; return {head: headOf(x).toArray(), yaw: x.a.root.rotation.y, s: x.a.root.scale.x}; });   // tuft 2A: BLINK orbits a posed head; low-tier crowds (2B: beasts on ONES always)
   if (PUFFERS.length) puffHeroes(t);   // tuft 2B: hero R6 puff (ball proxy)
+  POWERS?.frame(t);   // tuft 2B: powers FX + props (on ones)
   return out;
 }
 function poseOne(name, x, t, out) {
@@ -575,6 +576,9 @@ if (PF) for (const [n, x] of Object.entries(cast)) { if (x.beast || !x.a?.pivots
   if (!ev.length) continue; PUFFERS.push(n); PUFFEV[n] = ev.map(e => ({...e, size: e.size}));
   const tm = x.a.parts.torso?.material, col = tm?.color ? tm.color.clone() : new T.Color('#2b2f38'), ball = new T.Mesh(new T.IcosahedronGeometry(1, 2), new T.MeshStandardMaterial({color: col, roughness: .55, flatShading: true}));
   ball.name = 'puffBall'; ball.visible = false; x.a.root.add(ball); x.a.ball = ball; x.a.torsoExtras = x.a.parts.torso ? x.a.parts.torso.children.slice() : []; }   // tuft 2B hero puff ball proxy
+// tuft 2B (opt-in): POWERS + PROPS (engine/powersrt.js) when a shot carries powers / fizzles / cage / chains, or spec.props2b, or a NIGHTFANG may breathe fire
+const POWERS = shots.some(sh => sh.powers?.length || sh.fizzles?.length || sh.cage || sh.chains) || spec.props2b?.length || (BEASTS && shots.some(sh => (sh.beasts ?? []).some(b => b.state === 'breathe' && cast[b.actor]?.a?.P?.name === 'NIGHTFANG')))
+  ? (await import('./powersrt.js')).createPowers({scene, spec, shots, FPS, hdr: CINE_LOOK, cast, beasts: BEASTS, groundY: (x, z) => world?.groundY?.(x, z) ?? 0}) : null;
 if (CL) { const roots = new Set(Object.values(cast).map(x => x.a.root)); CL.markGlow(scene, o => { for (let p = o; p; p = p.parent) if (roots.has(p)) return true; return false; }); CL.lightActors([...roots]); }
 // E1 fix (opt-in spec.hide): set objects hidden by name (a story prop replaces them)
 for (const n of spec.hide ?? []) { const o = scene.getObjectByName(n); if (o) o.visible = false; else console.warn('spec.hide: no object ' + n); }

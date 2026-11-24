@@ -185,5 +185,44 @@
   "name": "hero face decal stays on the puffed head",
   "pass": true,
   "line": "f349: Ø 4.92, decal 0.63 R from the centre, 0.62 R forward · f385: Ø 10.00, decal 0.64 R from the centre, 0.62 R forward · f400: Ø 2.21, decal 0.63 R from the centre, 0.62 R forward"
+ },
+ {
+  "sec": "powers",
+  "name": "lanternSea = one draw call",
+  "pass": true,
+  "line": "1500 lanterns: calls 168 → 169 (+1)",
+  "on": 169,
+  "off": 168,
+  "n": 1500
+ },
+ {
+  "sec": "powers",
+  "name": "FX deterministic (6 powers frames, reverse order)",
+  "pass": true,
+  "line": "6/6 identical PNGs (cyanFire, lightning, fly, fizzle, breathe, chains snap)"
+ },
+ {
+  "sec": "powers",
+  "name": "FX on ones (instances change every frame)",
+  "pass": true,
+  "line": "fxFire 19/19 · fxBolts 15/15 · fxFly 15/15 · fxChainPieces 17/17",
+  "ones": {
+   "fxFire": {
+    "pairs": 19,
+    "same": 0
+   },
+   "fxBolts": {
+    "pairs": 15,
+    "same": 0
+   },
+   "fxFly": {
+    "pairs": 15,
+    "same": 0
+   },
+   "fxChainPieces": {
+    "pairs": 17,
+    "same": 0
+   }
+  }
  }
 ]

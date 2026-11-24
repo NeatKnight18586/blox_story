@@ -130,5 +130,20 @@
   "name": "titanCave: eyes ignite (fade up in darkness)",
   "pass": true,
   "line": "eye glow 0.00 → 0.00 → 0.80 → 1.60 at 0 / .2 / .8 / 1.4 s"
+ },
+ {
+  "name": "powers FX maths deterministic",
+  "pass": true,
+  "line": "4/4 samples identical in any order"
+ },
+ {
+  "name": "chain pieces fall and bounce to rest on the ground",
+  "pass": true,
+  "line": "after 3 s: max y 0.000, bounces 4–4"
+ },
+ {
+  "name": "`power:` / `fizzle:` / `cage:` / `chains:` vocab",
+  "pass": true,
+  "line": "0 parse errors; powers [{\"actor\":\"hero\",\"kind\":\"cyanFire\",\"at\":1.09},{\"actor\":\"hero\",\"kind\":\"fly\",\"at\":0.54}]; fizzles 1; cage 1; chains 1"
  }
 ]

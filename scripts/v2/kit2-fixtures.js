@@ -93,5 +93,27 @@ EXTRA.push(({save, picks, kid}) => {
     shots: [{id: 'titanCave', frames: 48, duration: 2, size: 'ws', mood: 'tension', move: 'push', angle: 'high', from: {position: [10.5, 27.6, -20.8], target: [-15.6, 28.6, -35.85], fov: 26}, to: {position: [6.3, 27.8, -23.2], target: [-15.6, 28.6, -35.85], fov: 38}}]});
   picks.push({set: 'titancave', label: 'eyes ignite', frame: 40});
 });
+// ---- POWERS + PROPS (Task 4): cyanFire, lightning, fly, fizzle, NIGHTFANG breathe, cage reveal, chains snap, props, lantern sea --------
+EXTRA.push(({save, picks, kid}) => {
+  const cast = {}, shots = []; let t = 0, n = 0;
+  const add = (sh, label, pick) => { const s0 = Math.round(t * FPS); shots.push({id: `pw-${n++}-${label}`, mood: 'awe', size: 'ws', ...sh}); t += sh.frames / FPS; if (pick != null) picks.push({set: 'powers', label, frame: s0 + Math.round(pick * FPS)}); return s0 / FPS; };
+  cast.hero = kid(0, 22, 200, 'HERO'); cast.lead = kid(-2.5, 34, 180, 'LEAD'); cast.little = kid(3, 8, 160, 'LITTLE'); cast.hero2 = kid(-3, -2, 150, 'HERO');
+  cast.nightfang = {style: 'beast', preset: 'NIGHTFANG', tier: 'hero', at: 'street', offset: [22, 0, 18], yaw: 250};
+  cast.titan = {style: 'beast', preset: 'TITAN', tier: 'hero', at: 'street', offset: [0, 0, -32], yaw: 0, state: 'caged'};
+  const ey = (p, d, a, h = 1.4, ty = 2.6, fov = 50) => ({position: [p[0] + Math.sin(a * D) * d, h, p[2] + Math.cos(a * D) * d], target: [p[0], ty, p[2]], fov});
+  add({frames: 48, duration: 2, subject: 'hero', angle: 'low', move: 'orbit', degrees: 12, from: ey([-2.5, 0, 19], 10, 285, 1.3, 2.8, 54), to: {position: [0, 1.3, 0], target: [-2.5, 2.8, 19]}, powers: [{actor: 'hero', kind: 'cyanFire', at: .2}]}, 'cyanFire', 1.0);
+  add({frames: 36, duration: 1.5, subject: 'lead', angle: 'low', move: 'push', from: {position: [-12, 1.2, 22], target: [-2.5, 2.6, 26], fov: 58}, to: {position: [-11, 1.2, 21], target: [-2.5, 2.6, 24], fov: 58}, powers: [{actor: 'lead', kind: 'lightning', at: .15}]}, 'lightning', .75);
+  add({frames: 42, duration: 1.75, subject: 'little', angle: 'low', move: 'push', from: ey([3, 0, 8], 11, 140, 1.0, 5.5, 56), to: ey([3, 0, 8], 10, 140, 1.0, 7.5, 56), powers: [{actor: 'little', kind: 'fly', at: .2}]}, 'fly', 1.3);
+  add({frames: 30, duration: 1.25, subject: 'hero2', angle: 'eye', move: 'push', from: ey([-3, 0, -2], 6, 150, 3.4, 3.2, 40), to: ey([-3, 0, -2], 5.4, 150, 3.4, 3.2, 40), fizzles: [{actor: 'hero2', at: .3}]}, 'fizzle', .75);
+  add({frames: 48, duration: 2, subject: 'nightfang', move: 'orbit', degrees: -14, from: ey([22, 0, 18], 30, 250, 1.3, 7, 56), to: {position: [0, 1.3, 0], target: [22, 7, 18]}, beasts: [{actor: 'nightfang', state: 'breathe', at: .1}, {actor: 'nightfang', state: 'idle', at: 1.9}]}, 'breathe', 1.2);
+  add({frames: 36, duration: 1.5, subject: 'titan', move: 'push', from: ey([0, 0, -32], 70, 10, 1.6, 26, 66), to: ey([0, 0, -32], 66, 10, 1.6, 26, 66), cage: {kind: 'reveal', at: .15}}, 'cage reveal', .75);
+  add({frames: 48, duration: 2, subject: 'titan', move: 'push', from: ey([0, 0, -32], 62, -20, 1.4, 16, 66), to: ey([0, 0, -32], 56, -20, 1.4, 16, 66), beasts: [{actor: 'titan', state: 'break', at: .1}], chains: {kind: 'snap', at: .1 + .6}}, 'chains snap', 1.35);
+  add({frames: 36, duration: 1.5, angle: 'eye', move: 'push', from: {position: [5.6, 1.5, 30.2], target: [5.6, .9, 26], fov: 44}, to: {position: [5.6, 1.4, 29.4], target: [5.6, .9, 26], fov: 44}}, 'props', .8);
+  const lanternAt = t;
+  add({frames: 60, duration: 2.5, angle: 'low', move: 'push', from: {position: [0, 1.5, 40], target: [0, 26, -10], fov: 70}, to: {position: [0, 1.5, 36], target: [0, 30, -10], fov: 70}}, 'lanternSea', 2.0);
+  save('powers.json', {note: 'tuft 2B POWERS + PROPS fixture (scripts/v2/kit2-fixtures.js): night street; cyanFire, lightning, fly, fizzle, NIGHTFANG breathe, giant cage reveal, chains snap, props, lantern sea.', slug: 'beasts', ...HEAD, look4: 'mystery', look: 'mystery', cast, shots,
+    props2b: [{kind: 'giantCage', at: [0, 0, -32], r: 24, h: 58}, {kind: 'spider', at: [4.6, 3.2, 26.4]}, {kind: 'toaster', at: [6.6, .12, 26], yaw: -20}, {kind: 'spaghettiPlates', at: [4.6, .12, 26.2], scale: .9},
+      {kind: 'chains', at: [7.6, 4.2, 25.6], n: 6}, {kind: 'lanternSea', at: [0, 0, -10], r: 80, n: 1500, from: lanternAt}]});
+});
 if (process.argv[1]?.endsWith("kit2-fixtures.js")) for (const f of EXTRA) f({save, picks, sizeOf, kid, lowCam, HEAD, FPS});
 if (process.argv[1]?.endsWith("kit2-fixtures.js")) save("picks.json", picks);

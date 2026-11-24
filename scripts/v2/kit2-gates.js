@@ -86,6 +86,27 @@ print(json.dumps([bg(f) for f in sys.argv[1:]]))`, bgOf = files => JSON.parse(ex
     gate('tuft', 'Tuft blue-gold nowhere else (colour histogram)', worst <= .001, `blue-next-to-gold pixels with every Tuft hidden: max ${(100 * worst).toFixed(3)} % ≤ 0.1 % over ${hb.length + ob.length} frames (tuft fixture ${(100 * Math.max(...hb)).toFixed(3)} %, other 2B fixtures ${(100 * Math.max(...ob)).toFixed(3)} %)`, {hb, ob});
     const fb = face.filter(x => x.ball), fok = fb.length === 3 && fb.every(x => x.vis && x.dist <= 1.0 && x.front >= .5);
     gate('tuft', 'hero face decal stays on the puffed head', fok, face.map(x => x.ball ? `f${x.f}: Ø ${x.D.toFixed(2)}, decal ${x.dist.toFixed(2)} R from the centre, ${x.front.toFixed(2)} R forward` : `f${x.f}: no ball`).join(' · ')); }
+  if (on('powers')) {   // Task 4: lantern sea one draw · FX deterministic (any order) · FX on ones · tris (Tuft / Titan in tests/beast2.js)
+    const p = await open('engine/fixtures/beasts2/powers.json');
+    const ls = await p.evaluate(() => { const E = window.__episode, sc = E.debug.scene; let g = null; sc.traverse(o => { if (o.name === 'lanternSea') g = o; }); const on = E.renderFrame(372, 270, 480).calls; g.visible = false; const P = E.debug.renderer; P.info.reset();
+      const r = E.renderFrame(372, 270, 480).calls; g.visible = true; let n = 0; g.traverse(o => { if (o.isInstancedMesh) n += o.count; }); return {on, off: r, n}; });
+    gate('powers', 'lanternSea = one draw call', ls.on - ls.off === 1 && ls.n >= 1500, `${ls.n} lanterns: calls ${ls.off} → ${ls.on} (+${ls.on - ls.off})`, ls);
+    const fr = [24, 66, 115, 144, 190, 272], h = async order => { const o = {}; for (const f of order) o[f] = await p.evaluate(([f]) => { const E = window.__episode; E.renderFrame(f, 270, 480); return E.debug.renderer.domElement.toDataURL('image/png'); }, [f]); return o; };
+    const A = await h(fr), Bo = await h([...fr].reverse()), same = fr.filter(f => A[f] === Bo[f]).length;
+    gate('powers', 'FX deterministic (6 powers frames, reverse order)', same === fr.length, `${same}/${fr.length} identical PNGs (cyanFire, lightning, fly, fizzle, breathe, chains snap)`);
+    const ones = await p.evaluate(() => { const E = window.__episode, sc = E.debug.scene, M = {}; sc.traverse(o => { if (/^fx(Fire|Bolts|Fly|ChainPieces)$/.test(o.name)) M[o.name] = o; }); const out = {};
+      for (const [nm, [a, b]] of Object.entries({fxFire: [20, 40], fxBolts: [58, 74], fxFly: [108, 124], fxChainPieces: [262, 280]})) { let pairs = 0, same = 0, prev = null;
+        for (let f = a; f < b; f++) { E.renderFrame(f, 54, 96); const m = M[nm]; if (!m || !m.count) { prev = null; continue; } const d = Array.from(m.instanceMatrix.array.slice(0, m.count * 16)).join(','); if (prev !== null) { pairs++; if (d === prev) same++; } prev = d; } out[nm] = {pairs, same}; }
+      return out; });
+    const okOnes = Object.values(ones).every(o => o.pairs > 0 && o.same === 0);
+    gate('powers', 'FX on ones (instances change every frame)', okOnes, Object.entries(ones).map(([k, o]) => `${k} ${o.pairs - o.same}/${o.pairs}`).join(' · '), {ones});
+    await p.close(); }
+  if (on('cost')) {   // est. final s/frame (1440×2560, MSAA 4×) on the heaviest 2B frames
+    const rows = []; for (const [spec, frs] of [['powers', [190, 272, 372]], ['tuft', [286, 349]], ['titan', [144, 244]], ['heroes-night', [17, 94]]]) { const p = await open(`engine/fixtures/beasts2/${spec}.json`, '&aa=1');
+      const r = await p.evaluate(([frs]) => { const E = window.__episode; E.renderFrame(frs[0], 1440, 2560); return frs.map(f => E.renderFrame(f, 1440, 2560).ms / 1000); }, [frs]); rows.push({spec, s: r}); await p.close();
+      const q = await open(`engine/fixtures/beasts2/${spec}.json`); const lo = await q.evaluate(([frs]) => { const E = window.__episode; E.renderFrame(frs[0], 270, 480); return frs.map(f => E.renderFrame(f, 270, 480).ms); }, [frs]); rows.at(-1).ms = lo; await q.close(); }
+    const all = rows.flatMap(r => r.s), mx = Math.max(...all), mn = Math.min(...all), ms = rows.flatMap(r => r.ms);
+    gate('cost', 'est. final s/frame ≤ 3.0', mx <= 3.0, `1440×2560 MSAA 4× (this sandbox): ${mn.toFixed(2)}–${mx.toFixed(2)} s/frame (${rows.map(r => `${r.spec} ${r.s.map(x => x.toFixed(2)).join('/')}`).join(', ')}); 270×480 ${Math.min(...ms).toFixed(0)}–${Math.max(...ms).toFixed(0)} ms/frame`, {rows}); }
   if (errors.length) throw Error(errors.join('\n'));
 } finally { await browser.close(); await server.close(); }
 mkdirSync('review/beasts', {recursive: true});

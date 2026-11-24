@@ -28,6 +28,7 @@ engine/fixtures/beasts2/HORSE_REF.json — tuft 2B gate reference only (tests/be
 engine/fixtures/beasts2/heroes-day.json — tuft 2B fixed hero beasts (scripts/v2/kit2-fixtures.js), day: low heroic moving cine cameras, grade 'clear', beasts on ones.
 engine/fixtures/beasts2/heroes-night.json — tuft 2B fixed hero beasts (scripts/v2/kit2-fixtures.js), night: low heroic moving cine cameras, grade 'clear', beasts on ones.
 engine/fixtures/beasts2/picks.json — (no header)
+engine/fixtures/beasts2/powers.json — tuft 2B POWERS + PROPS fixture (scripts/v2/kit2-fixtures.js): night street; cyanFire, lightning, fly, fizzle, NIGHTFANG breathe, giant cage 
 engine/fixtures/beasts2/titan.json — tuft 2B TITAN fixture (scripts/v2/kit2-fixtures.js): night street, caged / roar / chains snap / stomp (shake) / flinch / flee from colossal 
 engine/fixtures/beasts2/titancave.json — tuft 2B titanCave insert: two molten eyes fade up in darkness (TITAN state ignite).
 engine/fixtures/beasts2/tuft.json — tuft 2B TUFT + PUFF fixture (scripts/v2/kit2-fixtures.js): day street, hook ECU on the glowing eye, states, hood ride, tuft ball/room/coloss
@@ -94,6 +95,8 @@ engine/plancheck5.js — format v5 plan rules (pure), run by v2:plan for `format
 engine/plancheck6.js — format 6 mood / pacing checks (P4), pure. Run by v2:plan for specs with `moods: true`.
 engine/poses.js — (no header)
 engine/poses6.js — poses for Actor v6 (R15, avatar-style/body6.js). Pure functions of time, like engine/poses.js.
+engine/powers.js — tuft 2B POWERS + PROPS maths (pure: no three, no DOM, no clock, no Math.random; every particle seeded, pure in t).
+engine/powersrt.js — tuft 2B POWERS + PROPS, the renderer side (three). Maths: engine/powers.js (pure, seeded, on ones).
 engine/puff.js — tuft 2B PUFF (pure: no three, no DOM, no clock). Sizes, the grow / deflate curves and the `puff:` / `glow:` vocab.
 engine/r6-stage.js — plain set for the R6 key-pose sheet (scripts/v2/r6-sheet.js): HERO + LITTLE + ADULT_F (hourglass) posed by engine/r6.js from acting6 verbs.
 engine/r6.js — rigid classic R6 rig (opt-in spec `rig: 'r6'`, owner 2026-11-24): AUTHORED R6 key poses (engine/r6keys.js) on acting6 timing,

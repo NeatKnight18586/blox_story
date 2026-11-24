@@ -1,0 +1,546 @@
+{
+ "note": "tuft 2B POWERS + PROPS fixture (scripts/v2/kit2-fixtures.js): night street; cyanFire, lightning, fly, fizzle, NIGHTFANG breathe, giant cage reveal, chains snap, props, lantern sea.",
+ "slug": "beasts",
+ "fps": 24,
+ "format": 6,
+ "acting": 6,
+ "rig": "r6",
+ "twos": true,
+ "faceLife": true,
+ "labels": false,
+ "world": "engine/fixtures/v4look/world.js",
+ "cues": "engine/fixtures/acting6/cues.json",
+ "post": "cine",
+ "camera": "cine",
+ "grade": "clear",
+ "look4": "mystery",
+ "look": "mystery",
+ "cast": {
+  "hero": {
+   "style": "v5",
+   "troupe": "HERO",
+   "at": "street",
+   "offset": [
+    0,
+    0,
+    22
+   ],
+   "yaw": 200,
+   "keys": [
+    [
+     0,
+     "idle"
+    ]
+   ]
+  },
+  "lead": {
+   "style": "v5",
+   "troupe": "LEAD",
+   "at": "street",
+   "offset": [
+    -2.5,
+    0,
+    34
+   ],
+   "yaw": 180,
+   "keys": [
+    [
+     0,
+     "idle"
+    ]
+   ]
+  },
+  "little": {
+   "style": "v5",
+   "troupe": "LITTLE",
+   "at": "street",
+   "offset": [
+    3,
+    0,
+    8
+   ],
+   "yaw": 160,
+   "keys": [
+    [
+     0,
+     "idle"
+    ]
+   ]
+  },
+  "hero2": {
+   "style": "v5",
+   "troupe": "HERO",
+   "at": "street",
+   "offset": [
+    -3,
+    0,
+    -2
+   ],
+   "yaw": 150,
+   "keys": [
+    [
+     0,
+     "idle"
+    ]
+   ]
+  },
+  "nightfang": {
+   "style": "beast",
+   "preset": "NIGHTFANG",
+   "tier": "hero",
+   "at": "street",
+   "offset": [
+    22,
+    0,
+    18
+   ],
+   "yaw": 250
+  },
+  "titan": {
+   "style": "beast",
+   "preset": "TITAN",
+   "tier": "hero",
+   "at": "street",
+   "offset": [
+    0,
+    0,
+    -32
+   ],
+   "yaw": 0,
+   "state": "caged"
+  }
+ },
+ "shots": [
+  {
+   "id": "pw-0-cyanFire",
+   "mood": "awe",
+   "size": "ws",
+   "frames": 48,
+   "duration": 2,
+   "subject": "hero",
+   "angle": "low",
+   "move": "orbit",
+   "degrees": 12,
+   "from": {
+    "position": [
+     -12.159258262890685,
+     1.3,
+     21.588190451025202
+    ],
+    "target": [
+     -2.5,
+     2.8,
+     19
+    ],
+    "fov": 54
+   },
+   "to": {
+    "position": [
+     0,
+     1.3,
+     0
+    ],
+    "target": [
+     -2.5,
+     2.8,
+     19
+    ]
+   },
+   "powers": [
+    {
+     "actor": "hero",
+     "kind": "cyanFire",
+     "at": 0.2
+    }
+   ]
+  },
+  {
+   "id": "pw-1-lightning",
+   "mood": "awe",
+   "size": "ws",
+   "frames": 36,
+   "duration": 1.5,
+   "subject": "lead",
+   "angle": "low",
+   "move": "push",
+   "from": {
+    "position": [
+     -12,
+     1.2,
+     22
+    ],
+    "target": [
+     -2.5,
+     2.6,
+     26
+    ],
+    "fov": 58
+   },
+   "to": {
+    "position": [
+     -11,
+     1.2,
+     21
+    ],
+    "target": [
+     -2.5,
+     2.6,
+     24
+    ],
+    "fov": 58
+   },
+   "powers": [
+    {
+     "actor": "lead",
+     "kind": "lightning",
+     "at": 0.15
+    }
+   ]
+  },
+  {
+   "id": "pw-2-fly",
+   "mood": "awe",
+   "size": "ws",
+   "frames": 42,
+   "duration": 1.75,
+   "subject": "little",
+   "angle": "low",
+   "move": "push",
+   "from": {
+    "position": [
+     10.070663706551933,
+     1,
+     -0.42648887430875604
+    ],
+    "target": [
+     3,
+     5.5,
+     8
+    ],
+    "fov": 56
+   },
+   "to": {
+    "position": [
+     9.427876096865395,
+     1,
+     0.339555568810221
+    ],
+    "target": [
+     3,
+     7.5,
+     8
+    ],
+    "fov": 56
+   },
+   "powers": [
+    {
+     "actor": "little",
+     "kind": "fly",
+     "at": 0.2
+    }
+   ]
+  },
+  {
+   "id": "pw-3-fizzle",
+   "mood": "awe",
+   "size": "ws",
+   "frames": 30,
+   "duration": 1.25,
+   "subject": "hero2",
+   "angle": "eye",
+   "move": "push",
+   "from": {
+    "position": [
+     -4.440892098500626e-16,
+     3.4,
+     -7.196152422706632
+    ],
+    "target": [
+     -3,
+     3.2,
+     -2
+    ],
+    "fov": 40
+   },
+   "to": {
+    "position": [
+     -0.30000000000000027,
+     3.4,
+     -6.676537180435969
+    ],
+    "target": [
+     -3,
+     3.2,
+     -2
+    ],
+    "fov": 40
+   },
+   "fizzles": [
+    {
+     "actor": "hero2",
+     "at": 0.3
+    }
+   ]
+  },
+  {
+   "id": "pw-4-breathe",
+   "mood": "awe",
+   "size": "ws",
+   "frames": 48,
+   "duration": 2,
+   "subject": "nightfang",
+   "move": "orbit",
+   "degrees": -14,
+   "from": {
+    "position": [
+     -6.190778623577252,
+     1.3,
+     7.739395700229943
+    ],
+    "target": [
+     22,
+     7,
+     18
+    ],
+    "fov": 56
+   },
+   "to": {
+    "position": [
+     0,
+     1.3,
+     0
+    ],
+    "target": [
+     22,
+     7,
+     18
+    ]
+   },
+   "beasts": [
+    {
+     "actor": "nightfang",
+     "state": "breathe",
+     "at": 0.1
+    },
+    {
+     "actor": "nightfang",
+     "state": "idle",
+     "at": 1.9
+    }
+   ]
+  },
+  {
+   "id": "pw-5-cage reveal",
+   "mood": "awe",
+   "size": "ws",
+   "frames": 36,
+   "duration": 1.5,
+   "subject": "titan",
+   "move": "push",
+   "from": {
+    "position": [
+     12.155372436685123,
+     1.6,
+     36.93654271085457
+    ],
+    "target": [
+     0,
+     26,
+     -32
+    ],
+    "fov": 66
+   },
+   "to": {
+    "position": [
+     11.460779726017401,
+     1.6,
+     32.99731169880573
+    ],
+    "target": [
+     0,
+     26,
+     -32
+    ],
+    "fov": 66
+   },
+   "cage": {
+    "kind": "reveal",
+    "at": 0.15
+   }
+  },
+  {
+   "id": "pw-6-chains snap",
+   "mood": "awe",
+   "size": "ws",
+   "frames": 48,
+   "duration": 2,
+   "subject": "titan",
+   "move": "push",
+   "from": {
+    "position": [
+     -21.20524888619146,
+     1.4,
+     26.26094248872632
+    ],
+    "target": [
+     0,
+     16,
+     -32
+    ],
+    "fov": 66
+   },
+   "to": {
+    "position": [
+     -19.153128026237447,
+     1.4,
+     20.62278676401087
+    ],
+    "target": [
+     0,
+     16,
+     -32
+    ],
+    "fov": 66
+   },
+   "beasts": [
+    {
+     "actor": "titan",
+     "state": "break",
+     "at": 0.1
+    }
+   ],
+   "chains": {
+    "kind": "snap",
+    "at": 0.7
+   }
+  },
+  {
+   "id": "pw-7-props",
+   "mood": "awe",
+   "size": "ws",
+   "frames": 36,
+   "duration": 1.5,
+   "angle": "eye",
+   "move": "push",
+   "from": {
+    "position": [
+     5.6,
+     1.5,
+     30.2
+    ],
+    "target": [
+     5.6,
+     0.9,
+     26
+    ],
+    "fov": 44
+   },
+   "to": {
+    "position": [
+     5.6,
+     1.4,
+     29.4
+    ],
+    "target": [
+     5.6,
+     0.9,
+     26
+    ],
+    "fov": 44
+   }
+  },
+  {
+   "id": "pw-8-lanternSea",
+   "mood": "awe",
+   "size": "ws",
+   "frames": 60,
+   "duration": 2.5,
+   "angle": "low",
+   "move": "push",
+   "from": {
+    "position": [
+     0,
+     1.5,
+     40
+    ],
+    "target": [
+     0,
+     26,
+     -10
+    ],
+    "fov": 70
+   },
+   "to": {
+    "position": [
+     0,
+     1.5,
+     36
+    ],
+    "target": [
+     0,
+     30,
+     -10
+    ],
+    "fov": 70
+   }
+  }
+ ],
+ "props2b": [
+  {
+   "kind": "giantCage",
+   "at": [
+    0,
+    0,
+    -32
+   ],
+   "r": 24,
+   "h": 58
+  },
+  {
+   "kind": "spider",
+   "at": [
+    4.6,
+    3.2,
+    26.4
+   ]
+  },
+  {
+   "kind": "toaster",
+   "at": [
+    6.6,
+    0.12,
+    26
+   ],
+   "yaw": -20
+  },
+  {
+   "kind": "spaghettiPlates",
+   "at": [
+    4.6,
+    0.12,
+    26.2
+   ],
+   "scale": 0.9
+  },
+  {
+   "kind": "chains",
+   "at": [
+    7.6,
+    4.2,
+    25.6
+   ],
+   "n": 6
+  },
+  {
+   "kind": "lanternSea",
+   "at": [
+    0,
+    0,
+    -10
+   ],
+   "r": 80,
+   "n": 1500,
+   "from": 13.5
+  }
+ ]
+}

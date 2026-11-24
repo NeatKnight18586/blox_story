@@ -146,5 +146,50 @@
   "set": "titancave",
   "label": "eyes ignite",
   "frame": 40
+ },
+ {
+  "set": "powers",
+  "label": "cyanFire",
+  "frame": 24
+ },
+ {
+  "set": "powers",
+  "label": "lightning",
+  "frame": 66
+ },
+ {
+  "set": "powers",
+  "label": "fly",
+  "frame": 115
+ },
+ {
+  "set": "powers",
+  "label": "fizzle",
+  "frame": 144
+ },
+ {
+  "set": "powers",
+  "label": "breathe",
+  "frame": 185
+ },
+ {
+  "set": "powers",
+  "label": "cage reveal",
+  "frame": 222
+ },
+ {
+  "set": "powers",
+  "label": "chains snap",
+  "frame": 272
+ },
+ {
+  "set": "powers",
+  "label": "props",
+  "frame": 307
+ },
+ {
+  "set": "powers",
+  "label": "lanternSea",
+  "frame": 372
  }
 ]
