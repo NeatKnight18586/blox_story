@@ -1,0 +1,133 @@
+{
+ "spec": "engine/fixtures/cine/episode.json",
+ "size": "540x960",
+ "nudge": 0.004,
+ "threshold": 40,
+ "limit": 0.3,
+ "views": 19,
+ "worst": {
+  "view": "B-ms-walk:first",
+  "frame": 48,
+  "pct": 0.058,
+  "raw": 0.243
+ },
+ "failing": [],
+ "errors": [],
+ "result": "PASS",
+ "rows": [
+  {
+   "view": "@street",
+   "frame": null,
+   "pct": 0,
+   "raw": 0.017
+  },
+  {
+   "view": "A-ews:first",
+   "frame": 0,
+   "pct": 0,
+   "raw": 0.006
+  },
+  {
+   "view": "A-ews:mid",
+   "frame": 24,
+   "pct": 0,
+   "raw": 0.006
+  },
+  {
+   "view": "A-ews:last",
+   "frame": 47,
+   "pct": 0,
+   "raw": 0.001
+  },
+  {
+   "view": "B-ms-walk:first",
+   "frame": 48,
+   "pct": 0.058,
+   "raw": 0.243
+  },
+  {
+   "view": "B-ms-walk:mid",
+   "frame": 74,
+   "pct": 0.029,
+   "raw": 0.137
+  },
+  {
+   "view": "B-ms-walk:last",
+   "frame": 100,
+   "pct": 0.007,
+   "raw": 0.099
+  },
+  {
+   "view": "C-mcu-talk:first",
+   "frame": 101,
+   "pct": 0,
+   "raw": 0.043
+  },
+  {
+   "view": "C-mcu-talk:mid",
+   "frame": 125,
+   "pct": 0,
+   "raw": 0.101
+  },
+  {
+   "view": "C-mcu-talk:last",
+   "frame": 148,
+   "pct": 0,
+   "raw": 0.107
+  },
+  {
+   "view": "D-cu-rack:first",
+   "frame": 149,
+   "pct": 0,
+   "raw": 0.303
+  },
+  {
+   "view": "D-cu-rack:mid",
+   "frame": 173,
+   "pct": 0,
+   "raw": 0.123
+  },
+  {
+   "view": "D-cu-rack:last",
+   "frame": 196,
+   "pct": 0,
+   "raw": 0.134
+  },
+  {
+   "view": "E-dolly:first",
+   "frame": 197,
+   "pct": 0.001,
+   "raw": 0.207
+  },
+  {
+   "view": "E-dolly:mid",
+   "frame": 223,
+   "pct": 0.002,
+   "raw": 0.225
+  },
+  {
+   "view": "E-dolly:last",
+   "frame": 249,
+   "pct": 0.001,
+   "raw": 0.324
+  },
+  {
+   "view": "F-payoff:first",
+   "frame": 250,
+   "pct": 0.001,
+   "raw": 0.351
+  },
+  {
+   "view": "F-payoff:mid",
+   "frame": 274,
+   "pct": 0.004,
+   "raw": 0.293
+  },
+  {
+   "view": "F-payoff:last",
+   "frame": 297,
+   "pct": 0,
+   "raw": 0.138
+  }
+ ]
+}

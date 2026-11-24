@@ -669,7 +669,13 @@ export const faceAt = (tr, t, fallback = null) => { let f = fallback; for (const
 export function sampleActing(tr, t, {seed = 1, build = 'adult_m'} = {}) {
   const ch = trackChannels(tr, t, {seed, build}), item = tr.items.findLast(x => x.start <= t), v = item ? VERBS[item.verb] : null;
   const out = {...solve(ch, build, {groundClamp: item?.verb === 'tumble' || !!v?.fall || !!v?.air}), ch};
-  out.props = {}; for (const pr of tr.props) out.props[pr.id] = propAt(tr, pr, t, out.sample, {seed, build});
+  out.props = actingProps(tr, t, out.sample, {seed, build});
+  return out;
+}
+// Props of a track at t for a body sample. `hand` (opt-in, R6 rig): (sample, side) → {p, R}, `sampleAt` (tt) → that rig's sample; default = the R15 hands.
+export function actingProps(tr, t, sample, {seed = 1, build = 'adult_m', hand = null, sampleAt = null} = {}) {
+  const H = hand ? {now: side => hand(sample, side), at: (tt, side) => hand(sampleAt(tt), side)} : null, out = {};
+  for (const pr of tr.props) out[pr.id] = propAt(tr, pr, t, sample, {seed, build, H});
   return out;
 }
 // Props: attach (grab, catch: in the hand from the key; catch flies in on a ballistic arc before it), release (throw: in the
@@ -680,16 +686,16 @@ export function handAt(sample, side, build = 'adult_m') {
   if (side === 'both') { const a = f.leftHand, b = f.rightHand; return {p: a.p.map((x, i) => (x + b.p[i]) / 2), R: f.waist.R}; }
   const h = f[side + 'Hand']; return {p: add(h.p, mv(h.R, [0, -.12 - PROP_R * .5, .2])), R: h.R};
 }
-function propAt(tr, pr, t, sample, {seed, build}) {
+function propAt(tr, pr, t, sample, {seed, build, H = null}) {
   const side = pr.mode === 'carry' ? 'both' : (pr.item.facing < 0 ? 'left' : 'right');
-  const handT = tt => handAt(solve(trackChannels(tr, tt, {seed, build}), build).sample, side, build);
-  if (pr.mode === 'carry') { const h = handAt(sample, 'both', build); return {p: add(h.p, mv(h.R, [0, .05, .62])), R: h.R, held: true}; }
+  const handT = H ? tt => H.at(tt, side) : tt => handAt(solve(trackChannels(tr, tt, {seed, build}), build).sample, side, build), handNow = sd => H ? H.now(sd) : handAt(sample, sd, build);
+  if (pr.mode === 'carry') { const h = handNow('both'); return {p: add(h.p, mv(h.R, [0, .05, .62])), R: h.R, held: true}; }
   if (pr.mode === 'release') {
-    if (t <= pr.key) return {...handAt(sample, side, build), held: true};
+    if (t <= pr.key) return {...handNow(side), held: true};
     const a = handT(pr.key), b = handT(pr.key - 1 / FPS6), v = sub3(a.p, b.p).map(x => x * FPS6 * 1.25), d = t - pr.key;
     const p = add(a.p, [v[0] * d, v[1] * d + .5 * GRAV * d * d, v[2] * d]); p[1] = Math.max(PROP_R, p[1]); return {p, R: a.R, held: false};
   }
-  if (t >= pr.key) return {...handAt(sample, side, build), held: true};
+  if (t >= pr.key) return {...handNow(side), held: true};
   const k = handT(pr.key), d = t - pr.key, vin = pr.item.verb === 'catch' ? [0, 5.5, -7] : [0, 0, 0];
   if (pr.item.verb !== 'catch') { const p = handT(pr.item.start).p; return {p: [p[0], PROP_R, p[2] + .9], R: k.R, held: false}; }   // grab: waiting on the ground ahead
   return {p: add(k.p, [vin[0] * d, vin[1] * d + .5 * GRAV * d * d, vin[2] * d]), R: k.R, held: false};

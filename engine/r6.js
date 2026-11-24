@@ -7,7 +7,7 @@
 //   shorter than the limb (sit, kneel, crouch) keeps the limb straight, aims along the thigh and the root sinks (classic R6: sit =
 //   legs 90° forward, kneel = one leg back, root lowered). Root height: the lowest R6 point = the lowest R15 point, never below 0.
 //   A limb box that would cut into the torso box moves its pivot out (offsets) until the overlap is ≤ 0.05.
-import {fk, lowestBody, sampleActing, sampleVerb, timing, VERBS, CYCLES, SEGL} from './acting6.js';
+import {fk, lowestBody, sampleActing, sampleVerb, timing, VERBS, CYCLES, SEGL, trackChannels, actingProps, PROP_R} from './acting6.js';
 import {R6KEYS} from './r6keys.js';
 export {R6KEYS};
 import {layout6} from '../avatar-style/body6.js';
@@ -185,7 +185,14 @@ export function sampleActingR6(tr, t, {seed = 1, build = 'adult_m'} = {}) {
   let i = -1; for (let k = 0; k < tr.items.length; k++) if (tr.items[k].start <= t) i = k;
   const cy = tr.cycles.find(c => t >= c.start && t < c.until && (i < 0 || tr.items[i].start < c.start));
   if (cy && R6CYCLE[cy.name]) s = mixS(s, {...r6Cycle(cy.name, t - cy.start, {build}), offsets: {}}, smooth((t - cy.start) / .15));
-  return {...base, sample: s};
+  const at = tt => { const b = withR6(() => trackChannels(tr, tt, {seed, build})), k = tr.items.findLast(x => x.start <= tt); return r6FromChannels(b, build, {plant: !UNPLANTED.has(k?.verb)}); };
+  return {...base, sample: s, props: tr.props.length ? withR6(() => actingProps(tr, t, s, {seed, build, hand: (x, side) => r6Hand(x, side, build), sampleAt: at})) : base.props};   // 1B: props in the R6 hands
+}
+// R6 hand for props (1B): the r6Fk arm tip with handAt's offsets; 'both' = midpoint of the tips in the root frame (carry).
+export function r6Hand(s, side, build = 'adult_m') {
+  const f = r6Fk(s, build);
+  if (side === 'both') return {p: f.leftHand.p.map((x, i) => (x + f.rightHand.p[i]) / 2), R: f.root.R};
+  const h = f[side + 'Hand']; return {p: add(h.p, mv(h.R, [0, -.12 - PROP_R * .5, .2])), R: h.R};
 }
 // ---- twos (spec `twos: true`, 24 fps): actor poses and face swaps hold each pose 2 frames; camera, FX, light stay on ones ---------
 export const twosFrame = n => n - (n % 2);

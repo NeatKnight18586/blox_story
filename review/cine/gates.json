@@ -1,0 +1,42 @@
+[
+ {
+  "name": "bloom: non-emissive actor luma delta ≤ 0.5 %",
+  "pass": true,
+  "line": "white DUMMY under the lamp, its own bloom (glow surfaces at LDR): 0.000 % (128858 px, luma 0.424 → 0.424); halo spill from the lamp + cube beside it (not the gate): +13.1 %",
+  "value": 0,
+  "spill": 13.077696870198768
+ },
+ {
+  "name": "bloom: present around the HDR glow cube (≥ 3 %)",
+  "pass": true,
+  "line": "ring around the cube +168.9 % (0.239 → 0.644), 3 glow materials",
+  "value": 168.91750654742296
+ },
+ {
+  "name": "grain deterministic (same frame = same bytes)",
+  "pass": true,
+  "line": "frame 120 rendered twice (frame 200 between): identical bytes; frame 121 differs in 1429499 bytes"
+ },
+ {
+  "name": "grain 1.5–2.5 % luma",
+  "pass": true,
+  "line": "luma std 1.63 % (mean shift 0.02 %)",
+  "value": 1.634518107306283
+ },
+ {
+  "name": "DOF focus = subject head distance ± 2 % (rack target after the rack)",
+  "pass": true,
+  "line": "max 0.000 % (110 0.00 %, 130 0.00 %, 152 0.00 %, 160 0.00 %, 190 0.00 %, 196 0.00 %, 255 0.00 %, 270 0.00 %, 292 0.00 %)",
+  "value": 0
+ },
+ {
+  "name": "cost: ms/frame at 270×480 and s/frame at 720×1280 ≤ 0.62 (Season 1 bench)",
+  "pass": true,
+  "line": "270×480 before 64 ms → after 84 ms; 720×1280 before 0.170 s → after 0.467 s; final 1440×2560 ss 2× (2880×5120) 5.15 s/frame (this sandbox, swiftshader CPU)",
+  "before270": 63.85999999999379,
+  "after270": 83.59666666664803,
+  "before720": 170.40999999996274,
+  "after720": 466.7699999999721,
+  "final": 5153.449999999953
+ }
+]

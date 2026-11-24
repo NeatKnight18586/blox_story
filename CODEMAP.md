@@ -6,6 +6,8 @@ engine/actors.js — builds v2 actors from data (docs/V2_BRIEF.md §6, §11.3) a
 engine/bake.js — format v4 Phase 2: baked light for everything static. Once per episode, at world build, every static
 engine/buildgate.js — page for scripts/v2/build-gates.js (owner 2026-11-14, adult_f). One actor, front, orthographic,
 engine/camera.js — pure camera sampler for v2 episodes (docs/V2_BRIEF.md §5.2, §5.3 openHit).
+engine/cine.js — tuft 1B cinematic camera (opt-in spec `camera: 'cine'`). Pure: no three, no DOM, no clock, no Math.random.
+engine/cinelook.js — tuft 1B Look Pack (opt-in spec `look: 'cine'`; the base look preset is `look4`). "Made in Blender" on our
 engine/classes.js — the class reveal (Amendment A3) as pure data and pure maths. No THREE, no DOM.
 engine/clear6.js — E3b owner decision D1 "clean the foreground" (opt-in: shot.clear, written by brief2spec from the Brief's
 engine/crowd.js — instanced background crowds (Amendment A4 B3): up to 60 low-detail block bodies per shot.
@@ -15,6 +17,9 @@ engine/facepage.js — page for scripts/v2/face-gates.js and the face sheets (Fa
 engine/fill.js — format v5 (Phase 3b) instanced FILL crowd: ~200 tiny kids that read as people from above, one draw call.
 engine/fixtures/acting6/cues.json — (no header)
 engine/fixtures/acting6/episode.json — P3/P3b acting v6 smoke fixture: verbs on seconds and on words (cues.json), a talk gesture on a stressed word, and a hug whose partner starts
+engine/fixtures/cine/before.json — tuft 1B fixture, BEFORE (current engine): the same spec without look/camera 'cine'.
+engine/fixtures/cine/bloomgate.json — tuft 1B bloom gate (scripts/v2/cine-gates.js): a white DUMMY (non-emissive) under the street lamp, the brightest lit spot of the night set, 
+engine/fixtures/cine/episode.json — tuft 1B Look Pack + cinematic camera fixture: 6 shots ~12 s on the v4look street at night (look4 mystery: lit windows, lamp), HERO + LITTLE 
 engine/fixtures/eight-moves.json — Session 1 test clip: 3 s, one shot per camera move, one legacy avatar walking across a ground plate.
 engine/fixtures/kit1/demo.json — Kit 1 demo: HDRI backdrop (venice_sunset), lowWide -> scaleReveal -> povScope, 60 fps, realism street via parts/location.js. No captions, no
 engine/fixtures/kit1/world.js — Kit 1 demo world: the Phase R realism street (street-procedural.json) built by parts/location.js.
@@ -226,6 +231,7 @@ scripts/v2/brief2spec.js — node scripts/v2/brief2spec.js --story <slug> [--bri
 scripts/v2/browser.js — one place that finds and launches the browser (docs/V2_BRIEF.md §3).
 scripts/v2/build-gates.js — measured gate for the adult_f torso (owner 2026-11-14). Exit 1 on any failure.
 scripts/v2/builds-sheet.js — A5 Decision 5 review sheet: the four body builds side by side (front + three-quarter, full body)
+scripts/v2/cine-gates.js — tuft 1B Look Pack gates (browser) → review/cine/gates.json:
 scripts/v2/class-sheet.js — Amendment A3 review sheet: the six class swords.
 scripts/v2/e2-gates.js — E2 gates → review/e2/gates.json
 scripts/v2/e3b-gates.js — node scripts/v2/e3b-gates.js --spec stories/lastcolor/episode.json [--payoff-t 114.6] [--out review/lastcolor/g2a.json]

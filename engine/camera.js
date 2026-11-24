@@ -21,6 +21,17 @@ MOVES.push(...MOVES5);
 // Kit 1 signature cameras (opt-in by name): lowWide · scaleReveal · povScope (sampleMoveK1, below).
 export const MOVES_K1 = ['lowWide', 'scaleReveal', 'povScope'];
 MOVES.push(...MOVES_K1);
+// tuft 1B (opt-in by name): dollyZoom {from: {position, target, fov}, to: {position}, follow?} — the camera travels along from→to while
+// the fov compensates (tan(fov/2) · distance to the target stays constant): the subject holds its size, the background stretches.
+export const MOVES_CINE = ['dollyZoom'];
+MOVES.push(...MOVES_CINE);
+export function dollyZoomPose(shot, localT, actorPositions = {}) {
+  const dur = Math.max(1e-6, shot.duration ?? 1), u = EASE[shot.ease ?? 'inOutSine'](clamp01(localT / dur)), f = shot.from, e = shot.to ?? f;
+  const actor = shot.follow ? actorPositions[shot.follow] : null, tg = actor ? add(actor, shot.followOffset ?? [0, 3, 0]) : f.target;
+  const p0 = actor ? add(tg, sub(f.position, f.target)) : f.position, p1 = actor ? add(tg, sub(e.position ?? f.position, f.target)) : (e.position ?? f.position);
+  const position = lerp3(p0, p1, u), d0 = len(sub(p0, tg)), d = len(sub(position, tg)), k = Math.tan((f.fov ?? 40) * Math.PI / 360) * d0;
+  return {position, target: tg, fov: 360 / Math.PI * Math.atan(k / Math.max(1e-6, d)), roll: 0};
+}
 export const K1 = {lowWide: {hFrac: .25, fov: 75, body: .6, ndcX: .34, look: 30, push: .05}, scaleReveal: {fov: 50, startFace: .27, endActor: .08, liftFrac: .15, chestAt: .7, faceSpan: 1.1, faceAt: .93, H: 5.3},
   povScope: {push: .03, swayDeg: 1.5, swayPeriod: 3, fov: 20, forward: .9, headAt: .93, H: 5.3, range: 60}};
 export const CRASH = {frames: 5, overshoot: .06, push: .04, aimY: 3.0};   // aimY: the subject's aim point above its mark (a kid's face)       // crashZoom: fov from→to in 5 frames with a 6 % overshoot, 4 % dolly in
@@ -151,6 +162,7 @@ function sampleCamera0(shot, localT, actorPositions = {}) {
   if (!MOVES.includes(shot.move)) throw Error(`unknown camera move: ${shot.move}`);
   if (MOVES5.includes(shot.move)) return sampleMove5(shot, localT, actorPositions);
   if (MOVES_K1.includes(shot.move)) return sampleMoveK1(shot, localT, actorPositions);
+  if (shot.move === 'dollyZoom') return dollyZoomPose(shot, localT, actorPositions);
   const dur = Math.max(1e-6, shot.duration ?? 1), ease = EASE[shot.ease ?? 'inOutCubic'];
   if (!ease) throw Error(`unknown ease: ${shot.ease}`);
   const u = ease(clamp01(localT / dur));

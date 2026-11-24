@@ -1,0 +1,66 @@
+{
+ "note": "tuft 1B bloom gate (scripts/v2/cine-gates.js): a white DUMMY (non-emissive) under the street lamp, the brightest lit spot of the night set, and one HDR glow cube far from it in the same frame.",
+ "slug": "cine-bloomgate",
+ "fps": 24,
+ "format": 6,
+ "labels": false,
+ "rig": "r6",
+ "world": "engine/fixtures/v4look/world.js",
+ "look4": "mystery",
+ "look": "cine",
+ "glowCubes": [
+  {
+   "at": [
+    -1.4,
+    0.75,
+    0.5
+   ],
+   "size": 1.5,
+   "color": "#6fe3ff",
+   "hdr": 3.5
+  }
+ ],
+ "cast": {
+  "dummy": {
+   "style": "v5",
+   "troupe": "DUMMY",
+   "at": "street",
+   "offset": [
+    -4.6,
+    0,
+    3.0
+   ],
+   "yaw": 20,
+   "keys": [
+    [
+     0,
+     "idle"
+    ]
+   ]
+  }
+ },
+ "shots": [
+  {
+   "id": "G",
+   "frames": 4,
+   "size": "ws",
+   "move": "static-drift",
+   "drift": 0,
+   "subject": "dummy",
+   "from": {
+    "position": [
+     -3,
+     3.4,
+     15
+    ],
+    "target": [
+     -3,
+     2.6,
+     2
+    ],
+    "fov": 42
+   },
+   "duration": 1
+  }
+ ]
+}

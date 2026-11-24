@@ -1817,3 +1817,38 @@ Open: carried half sits on R15 forearms; props in hands; reach on crouch/bent-el
 ### 2026-11-24 — tuft (E5) phase 1A fix: authored R6 keys (Opus 5.5)
 Ruling: the retarget read stiff (sheet) and failed reach on 14/30 verbs, so R6 is now posed from authored classic R6 keys (`engine/r6keys.js`) on acting6 timing; the retarget stays as reference only. `node tests/r6.js` 8/8 PASS: contacts facepalm 0.217/0.214 (≤ 0.25), comfort 0.009/0.004 (≤ 0.05), kneel legs flat (tip y 0.50), hug hands ≤ 1.08 of the partner centre · lowestY −0.000 · planted (no float) 0.000 · overlap 0.040 · twos 36/36 · byte-identical (per-machine E4 md5; this sandbox needs `BLOX_CHROME=/opt/pw-browsers/chromium-1243/chrome-linux64/chrome`) · freeze-check · hourglass. Pose cost 0.39 ms vs 4.39 ms retarget. `npm test` green, v2 278/278.
 Open: props in hands still follow the R15 hand (off on R6); the sheet shows lead halves only (hug/carry read odd alone); carried actors are placed by acting6's R15 carry origin.
+
+## tuft (E5) Phase 1B — Look Pack + cinematic camera (Opus 5.5)
+Plan: 0. R6 props: acting6 `propAt` takes a hand provider (default = R15 `handAt`, unchanged); r6.js `r6Hand` (r6Fk tip + handAt offsets) and
+`sampleActingR6` recomputes props on R6 hands; gate in tests/cine.js (≤ 0.1 at grab/catch keys, throw release).
+1. `engine/cinelook.js` (spec `look: 'cine'`; the base preset comes from `look4`): scene → HalfFloat target + depth → UnrealBloomPass
+(threshold 1.0, half-res) → one half-res DOF gather (12 taps, CoC clamp, focus = subject head / `rack`) → ONE grade pass (AgX + mood
+exposure, lift/gamma/gain, height fog + horizon haze from depth, vignette, corner fringe, seeded grain) → canvas; `ss=2` on --final
+(render.js passes it) = 2× target + 9-tap tent downsample. Live shadow maps off; one blob decal per actor. Glow materials (windows,
+lamp, `spec.glowCubes`) pushed to HDR > 1 so only they bloom.
+2. `engine/cine.js` (pure): lens → fov, critically damped + jerk/accel/speed/angular-limited body sim from shot start (frame 0 settled),
+mood handheld (rotation only, seeded), `ramp` time remap, `dollyZoom` (also in camera.js MOVES), `fg` placement, framing solver
+(eyes on the upper third, lead room, caption band 58–74 % clear), anticipation (3-frame counter-move). episode.js hooks opt-in only.
+3. Fixture engine/fixtures/cine/episode.json (v4look street, look4 mystery night, HERO + kid on R6 twos, glow cube), tests/cine.js,
+scripts/v2/cine-sheet.js → review/cine/ab.png, ab-390.png, demo.mp4. Byte-identity: tests/r6.js gate 4 md5 + r6 fixture md5.
+Built (all opt-in): acting6 `actingProps` (hand provider, default R15 unchanged) + r6.js `r6Hand`, `sampleActingR6` props on R6 hands ·
+engine/cine.js (pure camera) · camera.js `MOVES_CINE` dollyZoom + `dollyZoomPose` · engine/cinelook.js (Look Pack) · episode.js hooks
+(`look: 'cine'` → base preset look4, shadow maps off, glowCubes, cine camera ctx, cineRender, `__episode.cine`) · render.js `ss=2` on
+--final for look 'cine' only · fixture engine/fixtures/cine/{episode,before,bloomgate}.json · tests/cine.js · scripts/v2/cine-gates.js,
+cine-sheet.py → review/cine/{ab.png, ab-390.png, demo.mp4 (0.91 MB), gates.json, cine-tests.json, stability-episode.json}.
+Commands: node tests/cine.js · node scripts/v2/cine-gates.js · node scripts/v2/render.js --spec engine/fixtures/cine/{before,episode}.json
+--width 540 --height 960 --aa 0 · python3 scripts/v2/cine-sheet.py --before <dir> --after <dir>.
+Numbers (tests/cine.js 11/11, cine-gates 6/6): determinism 60/60 · caps over 140 MOVES×moods jerk 120.0 ≤ 120, accel 24.0 ≤ 24, speed 11.6 ≤ 12,
+aim 60.0 ≤ 60°/s (handheld incl. 60.4) · dollyZoom size dev 0.00 % (fov 50→86°) · pre-roll frame-0 velocity 0, offset 0 mm · framing eyes
+≤ 3.21 % from the upper third, faces in caption band 0/60 · handheld peaks = mood amp · R6 props 0.000 (R15 before ≤ 0.479) · stability worst
+0.058 % (B) · bloom own 0.000 % (spill from lamp/cube beside it +13.1 %, reported) · cube ring +169 % · grain identical bytes, std 1.63 %
+· DOF focus error 0.000 % · 270×480 64 → 84 ms; 720×1280 0.170 → 0.467 s (≤ 0.62) · final 1440×2560 ss2× 5.15 s/frame (CPU swiftshader).
+Byte-identity: 9/9 baseline frames (acting6, r6, v4look mystery-v4) + tests/r6.js gate 4. npm test green, v2:test 278/278.
+Fix passes: caps jerk 418 → limiter brakes speed through jerk-limited accel (pass 1), carrot clamp (pass 2) → PASS. Stability B 1.80 % →
+bright-pass 3 % edge fade (B-mid OK) → Karis 4-tap anti-firefly bright pass → 0.058 % PASS.
+Decisions: `look: 'cine'` collides with spec.look (preset name) → it is mapped to look4 at load. Authored fov is replaced by the lens and the
+camera slides along its axis so subject size holds. Bloom gate measures the actor's own bloom (glow surfaces at LDR); neighbour halo spill
+reported, not gated. Pre-roll velocity = sim state at frame 0 (the first-frame step is the move itself, 0.074 u/s, reported).
+camera.test.js excludes MOVES_CINE like MOVES5/K1. Plan tools (inspectFrame, v2:read) still use the non-cine camera.
+Open: D rack hides the hero (solver aim crops him); B walk crops the head; wide haze milky; fg lantern reads as a sharp panel (CoC cap);
+anticipation is 14 mm after the spring (near invisible); final SS 2× cost unmeasured on farm GPU.

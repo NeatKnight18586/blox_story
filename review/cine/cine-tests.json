@@ -1,0 +1,57 @@
+[
+ {
+  "name": "determinism (same input = same output; cached = uncached)",
+  "pass": true,
+  "line": "60/60 frames identical"
+ },
+ {
+  "name": "caps over 140 MOVES × moods (jerk ≤ 120, accel ≤ 24, speed ≤ 12 u/s, view ≤ 60°/s)",
+  "pass": true,
+  "line": "jerk 120.0 (snap/tension), accel 24.00 (snap/tension), speed 11.59 (snap/comedy), aim 60.0°/s (snap/tension), with handheld 60.4°/s; n/a: splitScreen (two cameras)"
+ },
+ {
+  "name": "dollyZoom: subject size ± 3 %",
+  "pass": true,
+  "line": "max deviation 0.00 %, fov 50.0° → 86.0° (background ×2.00)"
+ },
+ {
+  "name": "pre-roll: frame-0 velocity ≤ 0.05 u/s, frame 0 on its ideal pose",
+  "pass": true,
+  "line": "velocity at frame 0 max 0.0000 u/s (); frame-0 offset from the ideal 0.00 mm; first-frame step ≤ 0.074 u/s (the move itself starting)"
+ },
+ {
+  "name": "framing: CU/MCU eyes ± 4 % of the upper third; faces clear of the caption band",
+  "pass": true,
+  "line": "max eye error 3.21 % of the height, faces in band 0/60 (mcu0 eyes 33.3 % chin 46.0 %; mcu1 eyes 33.3 % chin 46.4 %; mcu2 eyes 33.3 % chin 48.7 %; mcu3 eyes 30.3 % chin 57.5 %)"
+ },
+ {
+  "name": "handheld by mood (rotation only, 0.3–1.5 Hz)",
+  "pass": true,
+  "line": "tension 0.8° (peak 0.80°), emotion 0.3° (peak 0.30°), awe 0.3° (peak 0.30°), comedy 0.3° (peak 0.30°), payoff 0° (peak 0.00°); bands 0.3–0.5, 0.6–0.95, 1.05–1.5 Hz; position untouched true"
+ },
+ {
+  "name": "ramp: camera clock slowed, actors on real time",
+  "pass": true,
+  "line": "τ(1.2 s) = 0.628 s, actors sampled at 1.2 s"
+ },
+ {
+  "name": "anticipation: counter-move before the push (2–4 frames)",
+  "pass": true,
+  "line": "goal counter-move 4.2 cm over 4 frames; after the spring 14.20 mm back"
+ },
+ {
+  "name": "lens: 24/35/50/85 mm → fov; defaults by size",
+  "pass": true,
+  "line": "fov 83.3/62.7/46.2/28.2°, ews ws ms mcu cu ecu → 24 24 35 50 85 85 mm"
+ },
+ {
+  "name": "R6 props: prop to R6 hand ≤ 0.1 at grab/catch keys and throw release",
+  "pass": true,
+  "line": "max 0.000 (grab/adult_m 0.000, throw/adult_m 0.000, catch/adult_m 0.000, grab/youth 0.000, throw/youth 0.000, catch/youth 0.000); R15 hand before: up to 0.479"
+ },
+ {
+  "name": "v2:stability on engine/fixtures/cine (camera + look cine)",
+  "pass": true,
+  "line": "worst B-ms-walk:first 0.058 % over 19 views (limit 0.3 %)"
+ }
+]
