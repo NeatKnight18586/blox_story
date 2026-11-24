@@ -5,7 +5,7 @@ import {buildActor} from './actors.js';
 import {applyPoseSample} from './poses.js';
 import {setFace6} from '../avatar-style/faces6.js';
 import {VERBS, sampleVerb} from './acting6.js';
-import {retargetR15toR6} from './r6.js';
+import {sampleVerbR6} from './r6.js';
 import {FACE} from './acting6-reel.js';
 
 const load = async u => (await fetch(new URL('../' + u, import.meta.url))).json();
@@ -23,7 +23,7 @@ const camera = new T.PerspectiveCamera(30, 1, .3, 300), actors = CAST.map(([id, 
 export function render({name, t, w, h}) {
   const v = VERBS[name], yaw = -(v?.cam ?? 30) * Math.PI / 180;
   for (const {id, a, x} of actors) {
-    const s = sampleVerb(name, t, {build: a.build}).sample, s6 = retargetR15toR6(s, a.build);
+    const s6 = sampleVerbR6(name, t, {build: a.build}).sample;
     applyPoseSample(a, s6, {position: [x, 0, 0], yaw});
     const sq = s6.squash ?? 0; if (sq && a.parts.torso) { a.parts.torso.userData.rest ??= a.parts.torso.scale.clone(); a.parts.torso.scale.set(1 + sq / 2, 1 - sq, 1 - sq); }
     try { setFace6(a, FACE[name] ?? 'smile'); } catch { setFace6(a, 'smile'); }

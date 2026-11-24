@@ -1,11 +1,15 @@
-// engine/r6.js — rigid classic R6 rig (opt-in spec `rig: 'r6'`, owner 2026-11-24): acting6's R15 poses retargeted onto six rigid parts (no bends), classic R6 cycles, `twos`. Pure (no three, no DOM).
+// engine/r6.js — rigid classic R6 rig (opt-in spec `rig: 'r6'`, owner 2026-11-24): AUTHORED R6 key poses (engine/r6keys.js) on acting6 timing,
+//   classic R6 cycles, `twos`. Pure (no three, no DOM). retargetR15toR6 below is the 1A automatic retarget, kept as a reference only
+//   (straight limbs cannot match R15 elbows / knees: 14/30 verbs over 0.35; the owner's sheet read stiff).
 // R6 sample = engine/poses.js shape: {root: {dx, dy, dz, lean, roll, yaw}, pivots: {head, left/rightShoulder, left/rightHip} (XYZ radians), offsets?}.
 //   retargetR15toR6(s15, build): head / torso / root rotation copied (the R6 torso takes the waist's rotation); each limb is ONE rigid
 //   part aimed along the R15 chord (shoulder → hand tip, hip → sole) with the twist of the R15 upper segment. A leg whose chord is
 //   shorter than the limb (sit, kneel, crouch) keeps the limb straight, aims along the thigh and the root sinks (classic R6: sit =
 //   legs 90° forward, kneel = one leg back, root lowered). Root height: the lowest R6 point = the lowest R15 point, never below 0.
 //   A limb box that would cut into the torso box moves its pivot out (offsets) until the overlap is ≤ 0.05.
-import {fk, lowestBody, sampleActing, timing, VERBS, CYCLES, SEGL} from './acting6.js';
+import {fk, lowestBody, sampleActing, sampleVerb, timing, VERBS, CYCLES, SEGL} from './acting6.js';
+import {R6KEYS} from './r6keys.js';
+export {R6KEYS};
 import {layout6} from '../avatar-style/body6.js';
 
 const D = Math.PI / 180, clamp01 = x => Math.min(1, Math.max(0, x)), smooth = x => { x = clamp01(x); return x * x * (3 - 2 * x); };
@@ -141,9 +145,43 @@ export function r6Cycle(name, t, {build = 'adult_m', intensity = 1} = {}) {
 }
 const mixS = (a, b, w) => ({root: Object.fromEntries(Object.keys(a.root).map(k => [k, a.root[k] + (b.root[k] - a.root[k]) * w])),
   pivots: Object.fromEntries(Object.keys(a.pivots).map(k => [k, a.pivots[k].map((x, i) => x + (b.pivots[k][i] - x) * w)])), offsets: w < 1 ? a.offsets : {}, squash: a.squash ?? 0});
-// An acting track (engine/acting6.js compileActing) sampled on R6: every verb / gesture / drift through the retarget, cycles classic.
+// ---- authored R6 keys (engine/r6keys.js): acting6 timing, R6 poses. `withR6` swaps the verb table's poses for the call only. ---------
+export function withR6(fn) {
+  const saved = {}; for (const [n, o] of Object.entries(R6KEYS)) if (VERBS[n]) { saved[n] = VERBS[n]; VERBS[n] = {...VERBS[n], ...o}; }
+  try { return fn(); } finally { Object.assign(VERBS, saved); }
+}
+// R6 sample straight from acting6 channels (degrees): head / shoulders / hips copied, waist / elbows / knees / IK ignored (rigid parts).
+// Planted: the lowest point sits on the floor, lifted only by a positive root height (jump / land flight, impact bounces). Limbs kept out of the torso.
+export const UNPLANTED = new Set(['carried', 'carried_hip']);   // placed on the carrier by the episode, never on the floor
+export function r6FromChannels(ch, build = 'adult_m', {plant = true} = {}) {
+  const lean = ch['root.lean'] * D, roll = ch['root.roll'] * D, yaw = ch['root.yaw'] * D, R0 = RYXZ({lean, roll, yaw}), c = [0, ch['root.cy'], ch['root.cz']];
+  const p = add([ch['root.dx'], ch['root.dy'], ch['root.dz']], sub(c, mv(R0, c))), cy = Math.cos(yaw), sy = Math.sin(yaw), piv = j => ['x', 'y', 'z'].map(a => (ch[`${j}.${a}`] ?? 0) * D);
+  const s = {pivots: Object.fromEntries(['head', 'leftShoulder', 'rightShoulder', 'leftHip', 'rightHip'].map(j => [j, piv(j)])),
+    root: {dx: p[0] * cy - p[2] * sy, dy: p[1], dz: p[0] * sy + p[2] * cy, lean, roll, yaw}, offsets: {}, squash: ch['torso.sq'] ?? 0};
+  clearTorso(s, build); if (plant) s.root.dy += Math.max(0, ch['root.dy']) - lowestR6(s, build);
+  return s;
+}
+// ---- contact tools: rigid arms aimed by a 2-D search over shoulder x / z (offline: the solutions are stored in r6keys.js) ------------
+const dist3 = (a, b) => Math.hypot(a[0] - b[0], a[1] - b[1], a[2] - b[2]);
+export function aimArm(verb, side, target, build = 'adult_m') {
+  const out = {};
+  for (const ph of ['key', 'settle']) { const K = R6KEYS[verb][ph], cx = side + 'Shoulder.x', cz = side + 'Shoulder.z';
+    const err = (x, z) => { const c = {...K, [cx]: x, [cz]: z}, s = r6FromChannels(c, build); return dist3(r6Fk(s, build)[side + 'Hand'].p, target(s)); };
+    let b = [Infinity, 0, 0]; for (let x = -180; x <= 60; x += 4) for (let z = -100; z <= 100; z += 4) { const e = err(x, z); if (e < b[0]) b = [e, x, z]; }
+    for (const st of [1, .25]) { const [, x0, z0] = b; for (let x = x0 - 4 * st; x <= x0 + 4 * st; x += st) for (let z = z0 - 4 * st; z <= z0 + 4 * st; z += st) { const e = err(x, z); if (e < b[0]) b = [e, x, z]; } }
+    K[cx] = b[1]; K[cz] = b[2]; out[ph] = +b[0].toFixed(3); }
+  return out;
+}
+const placeXZ = ([x, z, yaw], p) => { const c = Math.cos(yaw * D), s = Math.sin(yaw * D); return [p[0] * c + p[2] * s + x, p[1], -p[0] * s + p[2] * c + z]; };
+export const faceFront = s => { const h = r6Fk(s).head; return add(h.p, mv(h.R, [0, .62, .78])); };
+export function comfortTarget() { const pv = r6FromChannels(R6KEYS.comfort_b.key), sh = r6Fk(pv).leftShoulder.p; return placeXZ(VERBS.comfort_kneel.two.place, add(sh, [0, .55, 0])); }
+// stored solutions re-checked by tests/r6.js: hand-to-target distance of the authored facepalm / comfort_kneel keys
+export function r6Contacts() { const at = (v, side, tgt) => Object.fromEntries(['key', 'settle'].map(ph => { const s = r6FromChannels(R6KEYS[v][ph]); return [ph, +dist3(r6Fk(s)[side + 'Hand'].p, tgt(s)).toFixed(3)]; }));
+  const top = comfortTarget(); return {facepalm: at('facepalm', 'right', faceFront), comfort_kneel: at('comfort_kneel', 'right', () => top)}; }
+export function sampleVerbR6(name, t, opts = {}) { const b = withR6(() => sampleVerb(name, t, opts)); return {...b, sample: r6FromChannels(b.ch, opts.build, {plant: !UNPLANTED.has(name)})}; }
+// An acting track (engine/acting6.js compileActing) sampled on R6: authored R6 keys on acting6 timing, cycles classic.
 export function sampleActingR6(tr, t, {seed = 1, build = 'adult_m'} = {}) {
-  const base = sampleActing(tr, t, {seed, build}); let s = retargetR15toR6(base.sample, build);
+  const base = withR6(() => sampleActing(tr, t, {seed, build})), it = tr.items.findLast(x => x.start <= t); let s = r6FromChannels(base.ch, build, {plant: !UNPLANTED.has(it?.verb)});
   let i = -1; for (let k = 0; k < tr.items.length; k++) if (tr.items[k].start <= t) i = k;
   const cy = tr.cycles.find(c => t >= c.start && t < c.until && (i < 0 || tr.items[i].start < c.start));
   if (cy && R6CYCLE[cy.name]) s = mixS(s, {...r6Cycle(cy.name, t - cy.start, {build}), offsets: {}}, smooth((t - cy.start) / .15));

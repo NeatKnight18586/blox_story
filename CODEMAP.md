@@ -76,7 +76,8 @@ engine/plancheck6.js — format 6 mood / pacing checks (P4), pure. Run by v2:pla
 engine/poses.js — (no header)
 engine/poses6.js — poses for Actor v6 (R15, avatar-style/body6.js). Pure functions of time, like engine/poses.js.
 engine/r6-stage.js — plain set for the R6 key-pose sheet (scripts/v2/r6-sheet.js): HERO + LITTLE + ADULT_F (hourglass) posed by engine/r6.js from acting6 verbs.
-engine/r6.js — rigid classic R6 rig (opt-in spec `rig: 'r6'`, owner 2026-11-24): acting6's R15 poses retargeted onto six rigid parts (no bends), classic R6
+engine/r6.js — rigid classic R6 rig (opt-in spec `rig: 'r6'`, owner 2026-11-24): AUTHORED R6 key poses (engine/r6keys.js) on acting6 timing,
+engine/r6keys.js — authored classic R6 key poses (owner 2026-11-24: rigid R6, no bends). Data only: acting6 P() specs on
 engine/readcheck.js — owner readability checks (egg preview pass 2, 2026-11-14): they judge the RENDERED frame, not the
 engine/ruleui.js — rule UI anywhere (Amendment A4 C). Any tag, stat, bar, icon, card, checklist or plate attaches to ANY
 engine/seasoncheck.js — Amendment A4 §E season gates + the A5 framing and uiSize gates, as a pure function.
