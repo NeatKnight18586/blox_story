@@ -149,7 +149,7 @@ function legsQuad(c, A, K, ph, gallop) {   // trot (diagonal pairs) or gallop (f
   for (const [l, o] of Object.entries(P)) { const a = 2 * PI * (ph + o), swing = -A * Math.sin(a), lift = Math.max(0, Math.cos(a));
     c['l' + l + '1'] = swing; c['l' + l + '2'] = (l[0] === 'F' ? 1 : -.6) * K * lift; } }
 export function channelsAt(P, state, tau, t, seed = 1) {
-  const c = Z(), bird = P.rig === 'bird', winged = bird || P.rig === 'dragon', g = P.gait ?? {}, sd = (seed % 997) / 997, br = Math.sin(2 * PI * (t / (g.breath ?? 2.8) + sd));
+  const c = Object.assign(Z(), P.fold ?? {}), FOLDP = {...FOLD, ...(P.fold ?? {})}, bird = P.rig === 'bird', winged = bird || P.rig === 'dragon', g = P.gait ?? {}, sd = (seed % 997) / 997, br = Math.sin(2 * PI * (t / (g.breath ?? 2.8) + sd));
   c.seam = 1 + .12 * Math.sin(2 * PI * (t / 2.2 + sd));
   const idle = () => { c.neckX = .04 * br; c.headX = -.03 * br; c.tailY = .18 * Math.sin(2 * PI * (t / 3.3 + sd)); c.tail2Y = .25 * Math.sin(2 * PI * (t / 3.3 + sd) - .8); c.bodyRoll = .012 * br; c.jaw = .04 + .02 * br;
     if (bird) { c.fan = .1; c.headY = .35 * Math.sin(2 * PI * (t / 4.1 + sd)) * (Math.sin(2 * PI * t / 4.1 * 2.3) > .2 ? 1 : .2); } };
@@ -163,7 +163,7 @@ export function channelsAt(P, state, tau, t, seed = 1) {
       legsQuad(c, run ? .8 : .42, run ? 1.25 : .55, ph, run); const a = 2 * PI * ph;
       c.bodyPitch = run ? .07 * Math.sin(a + PI / 2) : 0; c.bodyRoll = run ? 0 : .025 * Math.sin(a); c.neckX = (run ? .14 : .05) * Math.sin(2 * a) + (run ? .25 : 0); c.headX = -c.neckX * .7;
       c.tailY = (run ? .12 : .22) * Math.sin(a); c.tailX = run ? .35 : 0; c.earX = run ? -.7 : 0; c.jaw = run ? .25 : .05;
-      if (winged) Object.assign(c, run ? {w1Z: -.1, w1Y: .8, w2Y: 1.6} : FOLD); if (state === 'flee') { c.earX = -1; c.eyes = 1; c.seam = 1.15; } break; }
+      if (winged) Object.assign(c, run ? {w1Z: -.1, w1Y: .8, w2Y: 1.6} : FOLDP); if (state === 'flee') { c.earX = -1; c.eyes = 1; c.seam = 1.15; } break; }   // 2B: preset `fold` overrides the folded wing pose
     case 'roar': { const tr = .07 * Math.sin(2 * PI * 9 * t), rise = sm(tau / .45);
       if (bird) { Object.assign(c, {w1Z: .9, w1Y: -.2, w2Z: .4, w2Y: 0}); c.neckX = -.35 * rise; c.headX = -.15; c.jaw = .9 + tr; c.fan = 1; c.bodyPitch = -.3 * rise; }
       else { const rear = P.rig === 'dragon' ? (P.gait?.rear ?? 1) : .2; c.bodyPitch = -rear * rise; c.neckX = (-.55 - .1 * Math.sin(2 * PI * 1.3 * t)) * rise; c.headX = -.2 + .25 * rise; c.jaw = (.95 + tr) * rise + .04;

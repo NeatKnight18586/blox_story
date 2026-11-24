@@ -59,7 +59,7 @@ try {
         return {body: bn ? bd / bn : 0, bodyPx: bn, own: on0n ? od / on0n : 0, ring: rOff > 0 ? rOn / rOff - 1 : 0, ringOn: rn ? rOn / rn : 0, ringOff: rn ? rOff / rn : 0, seamPx, allBody: bodyPx}; }, [pk.frame, W, H]);
       rows.push({beast: pk.beast, ...r}); }
     const worst = Math.max(...rows.map(r => r.body)), ring = Math.min(...rows.map(r => r.ring)), own = Math.max(...rows.map(r => r.own));
-    gate('glow only on seams: non-seam body bloom ≤ 0.5 %', worst <= .005, `body ≥ 4 px from a seam, seams on: Δluma max ${(100 * worst).toFixed(2)} % (${rows.map(r => `${r.beast} ${(100 * r.body).toFixed(2)}`).join(', ')}); own bloom with seams dark max ${(100 * own).toFixed(3)} %`, {rows});
+    gate('glow only on seams: the body\'s OWN bloom ≤ 0.5 % (owner ruling 2B: the seam halo on the body is intended)', own <= .005, `own bloom with seams dark max ${(100 * own).toFixed(3)} %; seam halo reported: body ≥ 4 px from a seam Δluma max ${(100 * worst).toFixed(2)} % (${rows.map(r => `${r.beast} ${(100 * r.body).toFixed(2)}`).join(', ')})`, {rows});
     gate('seams bloom ≥ +100 % around them', ring >= 1, `1–6 px ring outside the seams: luma +${(100 * ring).toFixed(0)} % min (${rows.map(r => `${r.beast} ${r.ringOff.toFixed(3)} → ${r.ringOn.toFixed(3)}`).join(', ')})`);
     // determinism: 10 frames out of order = in order
     const fr = picks.slice(0, 10).map(q => q.frame), h = async order => { const o = {}; for (const f of order) o[f] = await p.evaluate(([f]) => { const E = window.__episode; E.renderFrame(f, 270, 480); return E.debug.renderer.domElement.toDataURL('image/png'); }, [f]); return o; };

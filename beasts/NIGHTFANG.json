@@ -1,7 +1,7 @@
 {
- "note": "tuft 2A BEAST KIT: NIGHTFANG, the dragon. Obsidian-navy faceted body, CYAN glow seams (wing edges, spine, leg stripes, eyes), bone horns + claws, purple-glow mouth. \u2248 2.2\u00d7 kid height at the shoulder when reared (roar).",
+ "note": "tuft 2A BEAST KIT (2B redo): NIGHTFANG, the dragon. Near-black faceted body, CYAN glow seams, long S-curved neck, wedge head with swept-back bone horns, heavy chest, short thick legs, long tapering spiked tail, wings FOLDED on the back as big faceted membranes (finger bones + membrane panels, cyan seam edges), purple mouth glow. \u2248 2.2\u00d7 kid height at the shoulder when reared (roar).",
  "rig": "dragon",
- "scale": 1.25,
+ "scale": 1.33,
  "tiers": [
   "hero",
   "low"
@@ -13,33 +13,38 @@
  "lowFacets": 4,
  "blobR": 4.2,
  "colors": {
-  "body": "#1B2338",
-  "dark": "#10141F",
-  "wing": "#151B2C",
+  "body": "#141A29",
+  "dark": "#0B0F18",
+  "wing": "#18203A",
+  "wing2": "#1F2944",
   "bone": "#EDE6D3",
-  "belly": "#243050"
+  "belly": "#1E2840"
  },
  "dims": {
-  "legH": 2.4,
-  "bodyH": 2.8,
-  "bodyL": 5.2,
-  "bodyW": 2.7,
-  "neckL": 2.3,
-  "neckUp": 42,
-  "headL": 2.1,
-  "headH": 1.25,
-  "headW": 1.4,
-  "tailL": 5.0,
-  "tailUp": -12,
-  "tail2Up": -8,
-  "wing1L": 3.6,
+  "legH": 1.75,
+  "bodyH": 3.0,
+  "bodyL": 5.0,
+  "bodyW": 2.8,
+  "neckL": 3.4,
+  "neckUp": 40,
+  "headLevel": 1.05,
+  "headL": 2.3,
+  "headH": 1.0,
+  "headW": 1.25,
+  "tailL": 6.0,
+  "tailUp": -10,
+  "tail2Up": -7,
+  "wing1L": 3.4,
   "jawMax": 0.75,
   "flyH": 6,
   "jawAt": [
    0,
-   -0.28,
-   0.25
-  ]
+   -0.3,
+   0.3
+  ],
+  "ears": false,
+  "legX": 0.4,
+  "legZ": 0.34
  },
  "gait": {
   "walkHz": 0.75,
@@ -53,68 +58,1550 @@
  },
  "name": "NIGHTFANG",
  "parts": [
-  {"seg": "body", "shape": "gem", "size": [2.7, 2.8, 5.0], "facets": 7, "rings": 3, "color": "body"},
-  {"seg": "body", "shape": "gem", "size": [2.9, 3.0, 2.4], "offset": [0, -0.05, 1.5], "facets": 7, "rings": 2, "color": "body"},
-  {"seg": "body", "shape": "gem", "size": [1.6, 0.5, 3.6], "offset": [0, -1.05, 0.5], "facets": 6, "rings": 1, "color": "belly", "detail": true},
-  {"seg": "body", "shape": "gem", "size": [1.3, 2.2, 2.2], "offset": [1.0, -0.25, -1.5], "facets": 6, "rings": 2, "color": "body", "mirror": true},
-  {"seg": "body", "shape": "strip", "from": [0, 1.4, -2.4], "to": [0, 1.47, 2.1], "r": 0.042, "glow": "all"},
-  {"seg": "body", "shape": "cone", "axis": "y", "len": 0.75, "r": [0.18, 0.3], "offset": [0, 1.25, 2.0], "rot": [-35, 0, 0], "color": "dark", "glow": "none", "facets": 4},
-  {"seg": "body", "shape": "cone", "axis": "y", "len": 0.7, "r": [0.18, 0.3], "offset": [0, 1.25, 1.2], "rot": [-35, 0, 0], "color": "dark", "glow": "none", "facets": 4},
-  {"seg": "body", "shape": "cone", "axis": "y", "len": 0.65, "r": [0.18, 0.3], "offset": [0, 1.25, 0.4], "rot": [-35, 0, 0], "color": "dark", "glow": "none", "facets": 4},
-  {"seg": "body", "shape": "cone", "axis": "y", "len": 0.6, "r": [0.18, 0.3], "offset": [0, 1.25, -0.4], "rot": [-35, 0, 0], "color": "dark", "glow": "none", "facets": 4},
-  {"seg": "body", "shape": "cone", "axis": "y", "len": 0.55, "r": [0.18, 0.3], "offset": [0, 1.25, -1.2], "rot": [-35, 0, 0], "color": "dark", "glow": "none", "facets": 4},
-  {"seg": "body", "shape": "cone", "axis": "y", "len": 0.5, "r": [0.18, 0.3], "offset": [0, 1.25, -2.0], "rot": [-35, 0, 0], "color": "dark", "glow": "none", "facets": 4},
-  {"seg": "body", "shape": "strip", "from": [1.25, 0.3, 2.3], "to": [1.42, -0.4, 1.7], "r": 0.036, "glow": "all", "mirror": true},
-  {"seg": "body", "shape": "strip", "from": [1.42, -0.4, 1.7], "to": [1.36, -1.0, 1.0], "r": 0.036, "glow": "all", "mirror": true},
-  {"seg": "body", "shape": "strip", "from": [1.3, 0.45, 0.4], "to": [1.2, -0.1, -0.6], "r": 0.033, "glow": "all", "mirror": true, "detail": true},
-  {"seg": "body", "shape": "strip", "from": [1.2, -0.1, -0.6], "to": [1.18, 0.35, -1.6], "r": 0.033, "glow": "all", "mirror": true, "detail": true},
-  {"seg": "neck", "shape": "prism", "axis": "z", "len": 2.5, "r": [0.66, 0.74], "taper": 0.66, "facets": 6, "offset": [0, 0, -0.3], "color": "body"},
-  {"seg": "neck", "shape": "strip", "from": [0, 0.6, -0.1], "to": [0, 0.44, 2.4], "r": 0.036, "glow": "all"},
-  {"seg": "neck", "shape": "cone", "axis": "y", "len": 0.5, "r": [0.12, 0.2], "offset": [0, 0.5, 0.3], "rot": [-45, 0, 0], "color": "dark", "glow": "none", "facets": 4, "detail": true},
-  {"seg": "neck", "shape": "cone", "axis": "y", "len": 0.45, "r": [0.12, 0.2], "offset": [0, 0.5, 1.1], "rot": [-45, 0, 0], "color": "dark", "glow": "none", "facets": 4, "detail": true},
-  {"seg": "neck", "shape": "cone", "axis": "y", "len": 0.38, "r": [0.12, 0.2], "offset": [0, 0.5, 1.9], "rot": [-45, 0, 0], "color": "dark", "glow": "none", "facets": 4, "detail": true},
-  {"seg": "head", "shape": "gem", "size": [1.45, 1.2, 1.55], "offset": [0, 0.12, 0.4], "facets": 6, "rings": 2, "color": "body"},
-  {"seg": "head", "shape": "prism", "axis": "z", "len": 1.7, "r": [0.52, 0.38], "taper": 0.62, "facets": 6, "offset": [0, -0.05, 0.7], "color": "body"},
-  {"seg": "head", "shape": "box", "size": [0.42, 0.14, 0.7], "offset": [0.3, 0.48, 0.75], "rot": [-8, 12, 0], "color": "dark", "mirror": true},
-  {"seg": "head", "shape": "gem", "size": [0.24, 0.13, 0.34], "offset": [0.44, 0.3, 0.92], "facets": 5, "rings": 1, "glow": "all", "glowGroup": "eye", "mirror": true},
-  {"seg": "head", "shape": "cone", "axis": "-z", "len": 1.6, "r": [0.15, 0.15], "offset": [0.38, 0.48, 0.15], "rot": [-28, 18, 0], "color": "bone", "facets": 5, "mirror": true},
-  {"seg": "head", "shape": "cone", "axis": "-z", "len": 0.95, "r": [0.1, 0.1], "offset": [0.58, 0.2, 0.05], "rot": [-8, 42, 0], "color": "bone", "facets": 4, "mirror": true, "detail": true},
-  {"seg": "head", "shape": "box", "size": [0.6, 0.05, 1.35], "offset": [0, -0.31, 1.15], "glow": "all", "glowGroup": "mouth"},
-  {"seg": "head", "shape": "cone", "axis": "-y", "len": 0.24, "r": [0.055, 0.055], "offset": [0.27, -0.3, 1.75], "color": "bone", "facets": 3, "mirror": true, "detail": true},
-  {"seg": "head", "shape": "cone", "axis": "-y", "len": 0.24, "r": [0.055, 0.055], "offset": [0.27, -0.3, 1.35], "color": "bone", "facets": 3, "mirror": true, "detail": true},
-  {"seg": "jaw", "shape": "prism", "axis": "z", "len": 1.8, "r": [0.4, 0.15], "taper": 0.58, "facets": 5, "offset": [0, -0.13, 0], "color": "body"},
-  {"seg": "jaw", "shape": "box", "size": [0.52, 0.04, 1.35], "offset": [0, 0.0, 0.8], "glow": "all", "glowGroup": "mouth"},
-  {"seg": "jaw", "shape": "cone", "axis": "y", "len": 0.2, "r": [0.05, 0.05], "offset": [0.24, 0.02, 1.4], "color": "bone", "facets": 3, "mirror": true, "detail": true},
-  {"seg": "jaw", "shape": "cone", "axis": "y", "len": 0.2, "r": [0.05, 0.05], "offset": [0.24, 0.02, 1.0], "color": "bone", "facets": 3, "mirror": true, "detail": true},
-  {"seg": "earL", "shape": "cone", "axis": "-z", "len": 0.7, "r": [0.08, 0.22], "offset": [0, 0, 0], "rot": [-20, 30, 0], "color": "dark", "glow": "tip", "facets": 3, "mirror": true},
-  {"seg": "tail1", "shape": "prism", "axis": "-z", "len": 2.6, "r": [0.52, 0.56], "taper": 0.64, "facets": 6, "color": "body"},
-  {"seg": "tail1", "shape": "cone", "axis": "y", "len": 0.45, "r": [0.12, 0.2], "offset": [0, 0.45, -0.6], "rot": [35, 0, 0], "color": "dark", "glow": "none", "facets": 4, "detail": true},
-  {"seg": "tail1", "shape": "cone", "axis": "y", "len": 0.38, "r": [0.12, 0.2], "offset": [0, 0.45, -1.6], "rot": [35, 0, 0], "color": "dark", "glow": "none", "facets": 4, "detail": true},
-  {"seg": "tail1", "shape": "strip", "from": [0, 0.52, 0], "to": [0, 0.34, -2.5], "r": 0.033, "glow": "all"},
-  {"seg": "tail2", "shape": "prism", "axis": "-z", "len": 2.7, "r": [0.34, 0.37], "taper": 0.2, "facets": 5, "color": "body"},
-  {"seg": "tail2", "shape": "strip", "from": [0, 0.34, 0], "to": [0, 0.1, -2.4], "r": 0.03, "glow": "all"},
-  {"seg": "tail2", "shape": "slab", "pts": [[0, 0], [0.45, -0.4], [0, -1.0], [-0.45, -0.4]], "thick": 0.1, "offset": [0, 0, -2.4], "rot": [0, 0, 90], "color": "dark"},
-  {"seg": "legFL1", "shape": "prism", "axis": "-y", "len": 1.74, "r": [0.55, 0.62], "taper": 0.82, "facets": 6, "mirror": true, "color": "body"},
-  {"seg": "legFL2", "shape": "prism", "axis": "-y", "len": 1.74, "r": [0.4, 0.45], "taper": 0.85, "facets": 6, "mirror": true, "color": "body"},
-  {"seg": "legFL2", "shape": "box", "size": [0.9, 0.36, 1.1], "offset": [0, -1.76, 0.2], "mirror": true, "color": "dark"},
-  {"seg": "legFL2", "shape": "strip", "from": [0, -0.261, 0.4275], "to": [0, -1.4789999999999999, 0.36000000000000004], "r": 0.036, "glow": "all", "mirror": true},
-  {"seg": "legFL2", "shape": "cone", "axis": "z", "len": 0.42, "r": [0.08, 0.08], "offset": [-0.3, -1.85, 0.7], "rot": [18, 0, 0], "color": "bone", "facets": 4, "mirror": true, "detail": true},
-  {"seg": "legFL2", "shape": "cone", "axis": "z", "len": 0.42, "r": [0.08, 0.08], "offset": [0.0, -1.85, 0.7], "rot": [18, 0, 0], "color": "bone", "facets": 4, "mirror": true, "detail": false},
-  {"seg": "legFL2", "shape": "cone", "axis": "z", "len": 0.42, "r": [0.08, 0.08], "offset": [0.3, -1.85, 0.7], "rot": [18, 0, 0], "color": "bone", "facets": 4, "mirror": true, "detail": true},
-  {"seg": "legBL1", "shape": "prism", "axis": "-y", "len": 1.74, "r": [0.6160000000000001, 0.6944], "taper": 0.82, "facets": 6, "mirror": true, "color": "body"},
-  {"seg": "legBL2", "shape": "prism", "axis": "-y", "len": 1.74, "r": [0.44800000000000006, 0.5040000000000001], "taper": 0.85, "facets": 6, "mirror": true, "color": "body"},
-  {"seg": "legBL2", "shape": "box", "size": [0.9, 0.36, 1.1], "offset": [0, -1.76, 0.2], "mirror": true, "color": "dark"},
-  {"seg": "legBL2", "shape": "strip", "from": [0, -0.261, 0.47880000000000006], "to": [0, -1.4789999999999999, 0.4032000000000001], "r": 0.036, "glow": "all", "mirror": true},
-  {"seg": "legBL2", "shape": "cone", "axis": "z", "len": 0.42, "r": [0.08, 0.08], "offset": [-0.3, -1.85, 0.7], "rot": [18, 0, 0], "color": "bone", "facets": 4, "mirror": true, "detail": true},
-  {"seg": "legBL2", "shape": "cone", "axis": "z", "len": 0.42, "r": [0.08, 0.08], "offset": [0.0, -1.85, 0.7], "rot": [18, 0, 0], "color": "bone", "facets": 4, "mirror": true, "detail": false},
-  {"seg": "legBL2", "shape": "cone", "axis": "z", "len": 0.42, "r": [0.08, 0.08], "offset": [0.3, -1.85, 0.7], "rot": [18, 0, 0], "color": "bone", "facets": 4, "mirror": true, "detail": true},
-  {"seg": "wingL1", "shape": "prism", "axis": "x", "len": 3.6, "r": [0.18, 0.18], "taper": 0.7, "facets": 5, "color": "dark", "mirror": true},
-  {"seg": "wingL1", "shape": "slab", "pts": [[0, 0.3], [3.6, 0.1], [3.6, -2.4], [0, -3.0]], "thick": 0.08, "color": "wing", "mirror": true},
-  {"seg": "wingL1", "shape": "strip", "from": [0, -0.01, -3.0], "to": [3.6, -0.01, -2.4], "r": 0.033, "glow": "all", "mirror": true},
-  {"seg": "wingL2", "shape": "prism", "axis": "x", "len": 3.8, "r": [0.13, 0.13], "taper": 0.3, "facets": 4, "color": "dark", "mirror": true},
-  {"seg": "wingL2", "shape": "slab", "pts": [[0, 0.1], [3.8, -0.2], [1.7, -2.8], [0, -2.4]], "thick": 0.07, "color": "wing", "mirror": true},
-  {"seg": "wingL2", "shape": "strip", "from": [3.8, 0, -0.2], "to": [1.7, 0, -2.8], "r": 0.033, "glow": "all", "mirror": true},
-  {"seg": "wingL2", "shape": "strip", "from": [1.7, 0, -2.8], "to": [0, 0, -2.4], "r": 0.033, "glow": "all", "mirror": true},
-  {"seg": "wingL2", "shape": "cone", "axis": "z", "len": 0.45, "r": [0.07, 0.07], "offset": [0, 0.12, 0.1], "color": "bone", "facets": 4, "mirror": true}
- ]
+  {
+   "seg": "body",
+   "shape": "gem",
+   "size": [
+    2.8,
+    3.0,
+    4.6
+   ],
+   "facets": 7,
+   "rings": 3,
+   "color": "body"
+  },
+  {
+   "seg": "body",
+   "shape": "gem",
+   "size": [
+    3.3,
+    3.4,
+    2.7
+   ],
+   "offset": [
+    0,
+    -0.1,
+    1.7
+   ],
+   "facets": 7,
+   "rings": 2,
+   "color": "body"
+  },
+  {
+   "seg": "body",
+   "shape": "gem",
+   "size": [
+    1.9,
+    0.6,
+    3.9
+   ],
+   "offset": [
+    0,
+    -1.3,
+    0.5
+   ],
+   "facets": 6,
+   "rings": 1,
+   "color": "belly",
+   "detail": true
+  },
+  {
+   "seg": "body",
+   "shape": "gem",
+   "size": [
+    1.45,
+    2.3,
+    2.3
+   ],
+   "offset": [
+    1.0,
+    -0.2,
+    -1.5
+   ],
+   "facets": 6,
+   "rings": 2,
+   "color": "body",
+   "mirror": true
+  },
+  {
+   "seg": "body",
+   "shape": "strip",
+   "from": [
+    0,
+    1.5,
+    -2.3
+   ],
+   "to": [
+    0,
+    1.72,
+    2.3
+   ],
+   "r": 0.045,
+   "glow": "all"
+  },
+  {
+   "seg": "body",
+   "shape": "cone",
+   "axis": "y",
+   "len": 0.8,
+   "r": [
+    0.16,
+    0.32
+   ],
+   "offset": [
+    0,
+    1.4,
+    2.2
+   ],
+   "rot": [
+    -38,
+    0,
+    0
+   ],
+   "color": "dark",
+   "facets": 4,
+   "detail": true
+  },
+  {
+   "seg": "body",
+   "shape": "cone",
+   "axis": "y",
+   "len": 0.74,
+   "r": [
+    0.16,
+    0.32
+   ],
+   "offset": [
+    0,
+    1.4,
+    1.4
+   ],
+   "rot": [
+    -38,
+    0,
+    0
+   ],
+   "color": "dark",
+   "facets": 4,
+   "detail": true
+  },
+  {
+   "seg": "body",
+   "shape": "cone",
+   "axis": "y",
+   "len": 0.68,
+   "r": [
+    0.16,
+    0.32
+   ],
+   "offset": [
+    0,
+    1.4,
+    0.6
+   ],
+   "rot": [
+    -38,
+    0,
+    0
+   ],
+   "color": "dark",
+   "facets": 4,
+   "detail": true
+  },
+  {
+   "seg": "body",
+   "shape": "cone",
+   "axis": "y",
+   "len": 0.6200000000000001,
+   "r": [
+    0.16,
+    0.32
+   ],
+   "offset": [
+    0,
+    1.4,
+    -0.2
+   ],
+   "rot": [
+    -38,
+    0,
+    0
+   ],
+   "color": "dark",
+   "facets": 4,
+   "detail": true
+  },
+  {
+   "seg": "body",
+   "shape": "cone",
+   "axis": "y",
+   "len": 0.56,
+   "r": [
+    0.16,
+    0.32
+   ],
+   "offset": [
+    0,
+    1.4,
+    -1.0
+   ],
+   "rot": [
+    -38,
+    0,
+    0
+   ],
+   "color": "dark",
+   "facets": 4,
+   "detail": true
+  },
+  {
+   "seg": "body",
+   "shape": "cone",
+   "axis": "y",
+   "len": 0.5,
+   "r": [
+    0.16,
+    0.32
+   ],
+   "offset": [
+    0,
+    1.4,
+    -1.8
+   ],
+   "rot": [
+    -38,
+    0,
+    0
+   ],
+   "color": "dark",
+   "facets": 4,
+   "detail": true
+  },
+  {
+   "seg": "body",
+   "shape": "strip",
+   "from": [
+    1.45,
+    0.4,
+    2.6
+   ],
+   "to": [
+    1.62,
+    -0.5,
+    1.9
+   ],
+   "r": 0.04,
+   "glow": "all",
+   "mirror": true
+  },
+  {
+   "seg": "body",
+   "shape": "strip",
+   "from": [
+    1.62,
+    -0.5,
+    1.9
+   ],
+   "to": [
+    1.5,
+    -1.2,
+    1.0
+   ],
+   "r": 0.04,
+   "glow": "all",
+   "mirror": true
+  },
+  {
+   "seg": "body",
+   "shape": "strip",
+   "from": [
+    1.3,
+    0.45,
+    0.2
+   ],
+   "to": [
+    1.25,
+    -0.15,
+    -0.8
+   ],
+   "r": 0.035,
+   "glow": "all",
+   "mirror": true,
+   "detail": true
+  },
+  {
+   "seg": "neck",
+   "shape": "gem",
+   "size": [
+    1.6,
+    1.7,
+    1.7
+   ],
+   "offset": [
+    0,
+    -0.5,
+    0.35
+   ],
+   "facets": 6,
+   "rings": 2,
+   "color": "body"
+  },
+  {
+   "seg": "neck",
+   "shape": "gem",
+   "size": [
+    1.3,
+    1.4,
+    1.5
+   ],
+   "offset": [
+    0,
+    -0.25,
+    1.25
+   ],
+   "facets": 6,
+   "rings": 2,
+   "color": "body"
+  },
+  {
+   "seg": "neck",
+   "shape": "gem",
+   "size": [
+    1.08,
+    1.12,
+    1.4
+   ],
+   "offset": [
+    0,
+    0.3,
+    2.15
+   ],
+   "facets": 6,
+   "rings": 2,
+   "color": "body"
+  },
+  {
+   "seg": "neck",
+   "shape": "gem",
+   "size": [
+    0.9,
+    0.94,
+    1.2
+   ],
+   "offset": [
+    0,
+    0.45,
+    2.95
+   ],
+   "facets": 6,
+   "rings": 2,
+   "color": "body"
+  },
+  {
+   "seg": "neck",
+   "shape": "strip",
+   "from": [
+    0,
+    0.55,
+    -0.1
+   ],
+   "to": [
+    0,
+    0.66,
+    1.3
+   ],
+   "r": 0.038,
+   "glow": "all"
+  },
+  {
+   "seg": "neck",
+   "shape": "strip",
+   "from": [
+    0,
+    0.66,
+    1.3
+   ],
+   "to": [
+    0,
+    0.78,
+    3.2
+   ],
+   "r": 0.035,
+   "glow": "all"
+  },
+  {
+   "seg": "neck",
+   "shape": "cone",
+   "axis": "y",
+   "len": 0.42,
+   "r": [
+    0.11,
+    0.2
+   ],
+   "offset": [
+    0,
+    0.62,
+    0.5
+   ],
+   "rot": [
+    -50,
+    0,
+    0
+   ],
+   "color": "dark",
+   "facets": 4,
+   "detail": true
+  },
+  {
+   "seg": "neck",
+   "shape": "cone",
+   "axis": "y",
+   "len": 0.42,
+   "r": [
+    0.11,
+    0.2
+   ],
+   "offset": [
+    0,
+    0.68,
+    1.35
+   ],
+   "rot": [
+    -50,
+    0,
+    0
+   ],
+   "color": "dark",
+   "facets": 4,
+   "detail": true
+  },
+  {
+   "seg": "neck",
+   "shape": "cone",
+   "axis": "y",
+   "len": 0.42,
+   "r": [
+    0.11,
+    0.2
+   ],
+   "offset": [
+    0,
+    0.82,
+    2.2
+   ],
+   "rot": [
+    -50,
+    0,
+    0
+   ],
+   "color": "dark",
+   "facets": 4,
+   "detail": true
+  },
+  {
+   "seg": "neck",
+   "shape": "cone",
+   "axis": "y",
+   "len": 0.42,
+   "r": [
+    0.11,
+    0.2
+   ],
+   "offset": [
+    0,
+    0.82,
+    2.95
+   ],
+   "rot": [
+    -50,
+    0,
+    0
+   ],
+   "color": "dark",
+   "facets": 4,
+   "detail": true
+  },
+  {
+   "seg": "head",
+   "shape": "gem",
+   "size": [
+    1.5,
+    1.1,
+    1.55
+   ],
+   "offset": [
+    0,
+    0.12,
+    0.3
+   ],
+   "facets": 6,
+   "rings": 2,
+   "color": "body"
+  },
+  {
+   "seg": "head",
+   "shape": "prism",
+   "axis": "z",
+   "len": 2.3,
+   "r": [
+    0.62,
+    0.38
+   ],
+   "taper": 0.36,
+   "facets": 6,
+   "offset": [
+    0,
+    -0.02,
+    0.55
+   ],
+   "color": "body"
+  },
+  {
+   "seg": "head",
+   "shape": "box",
+   "size": [
+    0.42,
+    0.16,
+    0.9
+   ],
+   "offset": [
+    0.33,
+    0.44,
+    0.62
+   ],
+   "rot": [
+    -6,
+    14,
+    0
+   ],
+   "color": "dark",
+   "mirror": true
+  },
+  {
+   "seg": "head",
+   "shape": "gem",
+   "size": [
+    0.26,
+    0.13,
+    0.36
+   ],
+   "offset": [
+    0.43,
+    0.28,
+    0.82
+   ],
+   "facets": 5,
+   "rings": 1,
+   "glow": "all",
+   "glowGroup": "eye",
+   "mirror": true
+  },
+  {
+   "seg": "head",
+   "shape": "cone",
+   "axis": "-z",
+   "len": 2.1,
+   "r": [
+    0.18,
+    0.18
+   ],
+   "offset": [
+    0.34,
+    0.46,
+    0.05
+   ],
+   "rot": [
+    -20,
+    14,
+    0
+   ],
+   "color": "bone",
+   "facets": 5,
+   "mirror": true
+  },
+  {
+   "seg": "head",
+   "shape": "cone",
+   "axis": "-z",
+   "len": 1.15,
+   "r": [
+    0.11,
+    0.11
+   ],
+   "offset": [
+    0.56,
+    0.18,
+    0.0
+   ],
+   "rot": [
+    -4,
+    38,
+    0
+   ],
+   "color": "bone",
+   "facets": 4,
+   "mirror": true,
+   "detail": true
+  },
+  {
+   "seg": "head",
+   "shape": "box",
+   "size": [
+    0.6,
+    0.05,
+    1.45
+   ],
+   "offset": [
+    0,
+    -0.3,
+    1.2
+   ],
+   "glow": "all",
+   "glowGroup": "mouth"
+  },
+  {
+   "seg": "head",
+   "shape": "cone",
+   "axis": "-y",
+   "len": 0.26,
+   "r": [
+    0.055,
+    0.055
+   ],
+   "offset": [
+    0.25,
+    -0.3,
+    1.85
+   ],
+   "color": "bone",
+   "facets": 3,
+   "mirror": true,
+   "detail": true
+  },
+  {
+   "seg": "head",
+   "shape": "cone",
+   "axis": "-y",
+   "len": 0.26,
+   "r": [
+    0.055,
+    0.055
+   ],
+   "offset": [
+    0.25,
+    -0.3,
+    1.45
+   ],
+   "color": "bone",
+   "facets": 3,
+   "mirror": true,
+   "detail": false
+  },
+  {
+   "seg": "head",
+   "shape": "cone",
+   "axis": "-y",
+   "len": 0.26,
+   "r": [
+    0.055,
+    0.055
+   ],
+   "offset": [
+    0.25,
+    -0.3,
+    1.05
+   ],
+   "color": "bone",
+   "facets": 3,
+   "mirror": true,
+   "detail": true
+  },
+  {
+   "seg": "jaw",
+   "shape": "prism",
+   "axis": "z",
+   "len": 1.95,
+   "r": [
+    0.42,
+    0.15
+   ],
+   "taper": 0.4,
+   "facets": 5,
+   "offset": [
+    0,
+    -0.13,
+    0
+   ],
+   "color": "body"
+  },
+  {
+   "seg": "jaw",
+   "shape": "box",
+   "size": [
+    0.52,
+    0.04,
+    1.4
+   ],
+   "offset": [
+    0,
+    0.0,
+    0.85
+   ],
+   "glow": "all",
+   "glowGroup": "mouth"
+  },
+  {
+   "seg": "jaw",
+   "shape": "cone",
+   "axis": "y",
+   "len": 0.22,
+   "r": [
+    0.05,
+    0.05
+   ],
+   "offset": [
+    0.23,
+    0.02,
+    1.5
+   ],
+   "color": "bone",
+   "facets": 3,
+   "mirror": true,
+   "detail": true
+  },
+  {
+   "seg": "jaw",
+   "shape": "cone",
+   "axis": "y",
+   "len": 0.22,
+   "r": [
+    0.05,
+    0.05
+   ],
+   "offset": [
+    0.23,
+    0.02,
+    1.05
+   ],
+   "color": "bone",
+   "facets": 3,
+   "mirror": true,
+   "detail": true
+  },
+  {
+   "seg": "tail1",
+   "shape": "prism",
+   "axis": "-z",
+   "len": 3.1,
+   "r": [
+    0.66,
+    0.7
+   ],
+   "taper": 0.58,
+   "facets": 6,
+   "color": "body"
+  },
+  {
+   "seg": "tail1",
+   "shape": "strip",
+   "from": [
+    0,
+    0.66,
+    0
+   ],
+   "to": [
+    0,
+    0.4,
+    -3.0
+   ],
+   "r": 0.036,
+   "glow": "all"
+  },
+  {
+   "seg": "tail1",
+   "shape": "cone",
+   "axis": "y",
+   "len": 0.6,
+   "r": [
+    0.12,
+    0.24
+   ],
+   "offset": [
+    0,
+    0.55,
+    -0.5
+   ],
+   "rot": [
+    40,
+    0,
+    0
+   ],
+   "color": "dark",
+   "facets": 4,
+   "detail": true
+  },
+  {
+   "seg": "tail1",
+   "shape": "cone",
+   "axis": "y",
+   "len": 0.52,
+   "r": [
+    0.12,
+    0.24
+   ],
+   "offset": [
+    0,
+    0.47000000000000003,
+    -1.4
+   ],
+   "rot": [
+    40,
+    0,
+    0
+   ],
+   "color": "dark",
+   "facets": 4,
+   "detail": true
+  },
+  {
+   "seg": "tail1",
+   "shape": "cone",
+   "axis": "y",
+   "len": 0.43999999999999995,
+   "r": [
+    0.12,
+    0.24
+   ],
+   "offset": [
+    0,
+    0.39,
+    -2.3
+   ],
+   "rot": [
+    40,
+    0,
+    0
+   ],
+   "color": "dark",
+   "facets": 4,
+   "detail": true
+  },
+  {
+   "seg": "tail2",
+   "shape": "prism",
+   "axis": "-z",
+   "len": 3.4,
+   "r": [
+    0.4,
+    0.42
+   ],
+   "taper": 0.12,
+   "facets": 5,
+   "color": "body"
+  },
+  {
+   "seg": "tail2",
+   "shape": "strip",
+   "from": [
+    0,
+    0.4,
+    0
+   ],
+   "to": [
+    0,
+    0.08,
+    -3.2
+   ],
+   "r": 0.032,
+   "glow": "all"
+  },
+  {
+   "seg": "tail2",
+   "shape": "cone",
+   "axis": "y",
+   "len": 0.42,
+   "r": [
+    0.09,
+    0.18
+   ],
+   "offset": [
+    0,
+    0.36,
+    -0.4
+   ],
+   "rot": [
+    40,
+    0,
+    0
+   ],
+   "color": "dark",
+   "facets": 4,
+   "detail": true
+  },
+  {
+   "seg": "tail2",
+   "shape": "cone",
+   "axis": "y",
+   "len": 0.35,
+   "r": [
+    0.09,
+    0.18
+   ],
+   "offset": [
+    0,
+    0.27999999999999997,
+    -1.2
+   ],
+   "rot": [
+    40,
+    0,
+    0
+   ],
+   "color": "dark",
+   "facets": 4,
+   "detail": true
+  },
+  {
+   "seg": "tail2",
+   "shape": "cone",
+   "axis": "y",
+   "len": 0.27999999999999997,
+   "r": [
+    0.09,
+    0.18
+   ],
+   "offset": [
+    0,
+    0.19999999999999998,
+    -2.0
+   ],
+   "rot": [
+    40,
+    0,
+    0
+   ],
+   "color": "dark",
+   "facets": 4,
+   "detail": true
+  },
+  {
+   "seg": "tail2",
+   "shape": "cone",
+   "axis": "y",
+   "len": 0.20999999999999996,
+   "r": [
+    0.09,
+    0.18
+   ],
+   "offset": [
+    0,
+    0.12,
+    -2.7
+   ],
+   "rot": [
+    40,
+    0,
+    0
+   ],
+   "color": "dark",
+   "facets": 4,
+   "detail": true
+  },
+  {
+   "seg": "tail2",
+   "shape": "slab",
+   "pts": [
+    [
+     0,
+     0
+    ],
+    [
+     0.6,
+     -0.5
+    ],
+    [
+     0,
+     -1.3
+    ],
+    [
+     -0.6,
+     -0.5
+    ]
+   ],
+   "thick": 0.12,
+   "offset": [
+    0,
+    0,
+    -3.3
+   ],
+   "rot": [
+    0,
+    0,
+    90
+   ],
+   "color": "dark"
+  },
+  {
+   "seg": "tail2",
+   "shape": "strip",
+   "from": [
+    0,
+    0.6,
+    -3.8
+   ],
+   "to": [
+    0,
+    0,
+    -4.6
+   ],
+   "r": 0.03,
+   "glow": "all",
+   "detail": true
+  },
+  {
+   "seg": "legFL1",
+   "shape": "prism",
+   "axis": "-y",
+   "len": 1.25,
+   "r": [
+    0.7,
+    0.78
+   ],
+   "taper": 0.84,
+   "facets": 6,
+   "mirror": true,
+   "color": "body"
+  },
+  {
+   "seg": "legFL2",
+   "shape": "prism",
+   "axis": "-y",
+   "len": 1.2,
+   "r": [
+    0.56,
+    0.62
+   ],
+   "taper": 0.9,
+   "facets": 6,
+   "mirror": true,
+   "color": "body"
+  },
+  {
+   "seg": "legFL2",
+   "shape": "box",
+   "size": [
+    1.1,
+    0.42,
+    1.3
+   ],
+   "offset": [
+    0,
+    -1.2,
+    0.22
+   ],
+   "mirror": true,
+   "color": "dark"
+  },
+  {
+   "seg": "legFL2",
+   "shape": "strip",
+   "from": [
+    0,
+    -0.15,
+    0.5800000000000001
+   ],
+   "to": [
+    0,
+    -1.0,
+    0.52
+   ],
+   "r": 0.038,
+   "glow": "all",
+   "mirror": true,
+   "detail": true
+  },
+  {
+   "seg": "legFL2",
+   "shape": "cone",
+   "axis": "z",
+   "len": 0.46,
+   "r": [
+    0.09,
+    0.09
+   ],
+   "offset": [
+    -0.34,
+    -1.3,
+    0.86
+   ],
+   "rot": [
+    18,
+    0,
+    0
+   ],
+   "color": "bone",
+   "facets": 4,
+   "mirror": true,
+   "detail": true
+  },
+  {
+   "seg": "legFL2",
+   "shape": "cone",
+   "axis": "z",
+   "len": 0.46,
+   "r": [
+    0.09,
+    0.09
+   ],
+   "offset": [
+    0,
+    -1.3,
+    0.86
+   ],
+   "rot": [
+    18,
+    0,
+    0
+   ],
+   "color": "bone",
+   "facets": 4,
+   "mirror": true,
+   "detail": false
+  },
+  {
+   "seg": "legFL2",
+   "shape": "cone",
+   "axis": "z",
+   "len": 0.46,
+   "r": [
+    0.09,
+    0.09
+   ],
+   "offset": [
+    0.34,
+    -1.3,
+    0.86
+   ],
+   "rot": [
+    18,
+    0,
+    0
+   ],
+   "color": "bone",
+   "facets": 4,
+   "mirror": true,
+   "detail": true
+  },
+  {
+   "seg": "legBL1",
+   "shape": "prism",
+   "axis": "-y",
+   "len": 1.25,
+   "r": [
+    0.826,
+    0.9204
+   ],
+   "taper": 0.84,
+   "facets": 6,
+   "mirror": true,
+   "color": "body"
+  },
+  {
+   "seg": "legBL2",
+   "shape": "prism",
+   "axis": "-y",
+   "len": 1.2,
+   "r": [
+    0.6608,
+    0.7315999999999999
+   ],
+   "taper": 0.9,
+   "facets": 6,
+   "mirror": true,
+   "color": "body"
+  },
+  {
+   "seg": "legBL2",
+   "shape": "box",
+   "size": [
+    1.1,
+    0.42,
+    1.3
+   ],
+   "offset": [
+    0,
+    -1.2,
+    0.22
+   ],
+   "mirror": true,
+   "color": "dark"
+  },
+  {
+   "seg": "legBL2",
+   "shape": "strip",
+   "from": [
+    0,
+    -0.15,
+    0.6808000000000001
+   ],
+   "to": [
+    0,
+    -1.0,
+    0.61
+   ],
+   "r": 0.038,
+   "glow": "all",
+   "mirror": true,
+   "detail": true
+  },
+  {
+   "seg": "legBL2",
+   "shape": "cone",
+   "axis": "z",
+   "len": 0.46,
+   "r": [
+    0.09,
+    0.09
+   ],
+   "offset": [
+    -0.34,
+    -1.3,
+    0.86
+   ],
+   "rot": [
+    18,
+    0,
+    0
+   ],
+   "color": "bone",
+   "facets": 4,
+   "mirror": true,
+   "detail": true
+  },
+  {
+   "seg": "legBL2",
+   "shape": "cone",
+   "axis": "z",
+   "len": 0.46,
+   "r": [
+    0.09,
+    0.09
+   ],
+   "offset": [
+    0,
+    -1.3,
+    0.86
+   ],
+   "rot": [
+    18,
+    0,
+    0
+   ],
+   "color": "bone",
+   "facets": 4,
+   "mirror": true,
+   "detail": false
+  },
+  {
+   "seg": "legBL2",
+   "shape": "cone",
+   "axis": "z",
+   "len": 0.46,
+   "r": [
+    0.09,
+    0.09
+   ],
+   "offset": [
+    0.34,
+    -1.3,
+    0.86
+   ],
+   "rot": [
+    18,
+    0,
+    0
+   ],
+   "color": "bone",
+   "facets": 4,
+   "mirror": true,
+   "detail": true
+  },
+  {
+   "seg": "wingL1",
+   "shape": "prism",
+   "axis": "x",
+   "len": 3.4,
+   "r": [
+    0.22,
+    0.22
+   ],
+   "taper": 0.7,
+   "facets": 5,
+   "color": "dark",
+   "mirror": true
+  },
+  {
+   "seg": "wingL1",
+   "shape": "slab",
+   "pts": [
+    [
+     0,
+     0.25
+    ],
+    [
+     3.4,
+     0.05
+    ],
+    [
+     2.6,
+     -2.0
+    ],
+    [
+     0,
+     -2.9
+    ]
+   ],
+   "thick": 0.18,
+   "rot": [
+    5,
+    0,
+    0
+   ],
+   "color": "wing",
+   "mirror": true
+  },
+  {
+   "seg": "wingL1",
+   "shape": "slab",
+   "pts": [
+    [
+     0,
+     -2.9
+    ],
+    [
+     2.6,
+     -2.0
+    ],
+    [
+     1.2,
+     -3.6
+    ]
+   ],
+   "thick": 0.16,
+   "offset": [
+    0,
+    -0.06,
+    0
+   ],
+   "rot": [
+    -7,
+    0,
+    0
+   ],
+   "color": "wing2",
+   "mirror": true
+  },
+  {
+   "seg": "wingL1",
+   "shape": "strip",
+   "from": [
+    0,
+    -0.05,
+    -2.9
+   ],
+   "to": [
+    1.2,
+    -0.05,
+    -3.6
+   ],
+   "r": 0.04,
+   "glow": "all",
+   "mirror": true,
+   "detail": true
+  },
+  {
+   "seg": "wingL1",
+   "shape": "strip",
+   "from": [
+    1.2,
+    -0.05,
+    -3.6
+   ],
+   "to": [
+    3.4,
+    -0.02,
+    -1.9
+   ],
+   "r": 0.04,
+   "glow": "all",
+   "mirror": true,
+   "detail": true
+  },
+  {
+   "seg": "wingL2",
+   "shape": "strip",
+   "from": [
+    0,
+    0.02,
+    0
+   ],
+   "to": [
+    3.8,
+    0,
+    -0.3
+   ],
+   "r": 0.09,
+   "color": "dark",
+   "mirror": true
+  },
+  {
+   "seg": "wingL2",
+   "shape": "strip",
+   "from": [
+    0,
+    0.02,
+    0
+   ],
+   "to": [
+    2.9,
+    0,
+    -2.7
+   ],
+   "r": 0.09,
+   "color": "dark",
+   "mirror": true
+  },
+  {
+   "seg": "wingL2",
+   "shape": "strip",
+   "from": [
+    0,
+    0.02,
+    0
+   ],
+   "to": [
+    1.0,
+    0,
+    -3.2
+   ],
+   "r": 0.09,
+   "color": "dark",
+   "mirror": true
+  },
+  {
+   "seg": "wingL2",
+   "shape": "slab",
+   "pts": [
+    [
+     0,
+     0
+    ],
+    [
+     3.8,
+     -0.3
+    ],
+    [
+     2.9,
+     -2.7
+    ]
+   ],
+   "thick": 0.16,
+   "rot": [
+    6,
+    0,
+    0
+   ],
+   "color": "wing",
+   "mirror": true
+  },
+  {
+   "seg": "wingL2",
+   "shape": "slab",
+   "pts": [
+    [
+     0,
+     0
+    ],
+    [
+     2.9,
+     -2.7
+    ],
+    [
+     1.0,
+     -3.2
+    ]
+   ],
+   "thick": 0.16,
+   "offset": [
+    0,
+    -0.05,
+    0
+   ],
+   "rot": [
+    -6,
+    0,
+    0
+   ],
+   "color": "wing2",
+   "mirror": true
+  },
+  {
+   "seg": "wingL2",
+   "shape": "strip",
+   "from": [
+    3.8,
+    0,
+    -0.3
+   ],
+   "to": [
+    2.9,
+    0,
+    -2.7
+   ],
+   "r": 0.04,
+   "glow": "all",
+   "mirror": true
+  },
+  {
+   "seg": "wingL2",
+   "shape": "strip",
+   "from": [
+    2.9,
+    0,
+    -2.7
+   ],
+   "to": [
+    1.0,
+    0,
+    -3.2
+   ],
+   "r": 0.04,
+   "glow": "all",
+   "mirror": true
+  },
+  {
+   "seg": "wingL2",
+   "shape": "cone",
+   "axis": "z",
+   "len": 0.55,
+   "r": [
+    0.08,
+    0.08
+   ],
+   "offset": [
+    0,
+    0.15,
+    0.1
+   ],
+   "color": "bone",
+   "facets": 4,
+   "mirror": true
+  }
+ ],
+ "fold": {
+  "w1Z": 0.8,
+  "w1Y": 1.2,
+  "w2Z": -0.55,
+  "w2Y": 2.4
+ }
 }

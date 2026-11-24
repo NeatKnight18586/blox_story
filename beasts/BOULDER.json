@@ -1,5 +1,5 @@
 {
- "note": "tuft 2A BEAST KIT: BOULDER, the stone ox (quad, heavy). Granite facets, AMBER crack seams, mossy back, bone horns. Taller than an adult.",
+ "note": "tuft 2A BEAST KIT (2B fix): BOULDER, the stone ox (quad, heavy). Rounded faceted granite boulder mass, AMBER crack seams, moss on the back; a clear HEAD (big curled bone horns, a lowered brow, glowing amber eyes) vs a thin tail with a moss tuft. Taller than an adult.",
  "rig": "quad",
  "tiers": [
   "hero",
@@ -21,7 +21,7 @@
   "bodyL": 4.4,
   "bodyW": 2.6,
   "neckL": 1.0,
-  "neckUp": 5,
+  "neckUp": -7,
   "neckY": 0.1,
   "neckZ": 0.48,
   "headL": 1.6,
@@ -49,40 +49,645 @@
  },
  "name": "BOULDER",
  "parts": [
-  {"seg": "body", "shape": "gem", "size": [2.6, 2.8, 4.4], "facets": 5, "rings": 2, "color": "body"},
-  {"seg": "body", "shape": "gem", "size": [2.5, 1.8, 2.3], "offset": [0, 1.25, 1.0], "facets": 5, "rings": 2, "color": "body"},
-  {"seg": "body", "shape": "gem", "size": [2.0, 0.55, 2.6], "offset": [0, 1.36, -0.4], "facets": 6, "rings": 1, "color": "moss"},
-  {"seg": "body", "shape": "gem", "size": [1.8, 0.5, 1.6], "offset": [0, 2.1, 1.05], "facets": 6, "rings": 1, "color": "moss"},
-  {"seg": "body", "shape": "gem", "size": [0.9, 0.8, 1.1], "offset": [1.15, 0.25, -1.2], "facets": 4, "rings": 1, "color": "dark", "mirror": true},
-  {"seg": "body", "shape": "gem", "size": [0.8, 0.9, 0.9], "offset": [1.12, 0.7, 1.4], "facets": 4, "rings": 1, "color": "dark", "mirror": true, "detail": true},
-  {"seg": "body", "shape": "strip", "from": [1.27, 0.65, 1.75], "to": [1.33, 0.0, 1.05], "r": 0.042, "glow": "all", "mirror": true},
-  {"seg": "body", "shape": "strip", "from": [1.33, 0.0, 1.05], "to": [1.3, 0.35, 0.25], "r": 0.042, "glow": "all", "mirror": true},
-  {"seg": "body", "shape": "strip", "from": [1.3, 0.35, 0.25], "to": [1.33, -0.5, -0.55], "r": 0.042, "glow": "all", "mirror": true},
-  {"seg": "body", "shape": "strip", "from": [1.33, -0.5, -0.55], "to": [1.27, -0.1, -1.5], "r": 0.042, "glow": "all", "mirror": true},
-  {"seg": "body", "shape": "strip", "from": [0.95, 1.75, 1.6], "to": [1.15, 1.1, 0.8], "r": 0.036, "glow": "all", "mirror": true},
-  {"seg": "neck", "shape": "prism", "axis": "z", "len": 1.25, "r": [0.92, 0.9], "taper": 0.9, "facets": 5, "offset": [0, 0, -0.2], "color": "body"},
-  {"seg": "head", "shape": "gem", "size": [1.5, 1.4, 1.7], "offset": [0, -0.1, 0.45], "facets": 5, "rings": 2, "color": "body"},
-  {"seg": "head", "shape": "box", "size": [1.1, 0.8, 0.75], "offset": [0, -0.45, 1.2], "color": "dark"},
-  {"seg": "head", "shape": "gem", "size": [0.2, 0.14, 0.2], "offset": [0.62, 0.12, 0.95], "facets": 4, "rings": 1, "glow": "all", "glowGroup": "eye", "mirror": true},
-  {"seg": "head", "shape": "strip", "from": [0.15, 0.55, 0.95], "to": [0.35, 0.05, 1.28], "r": 0.03, "glow": "all"},
-  {"seg": "head", "shape": "cone", "axis": "x", "len": 1.05, "r": [0.24, 0.24], "offset": [0.62, 0.32, 0.3], "rot": [0, 0, 18], "color": "bone", "facets": 5, "mirror": true},
-  {"seg": "head", "shape": "cone", "axis": "y", "len": 0.85, "r": [0.14, 0.14], "offset": [1.55, 0.62, 0.32], "rot": [0, 0, -22], "color": "bone", "facets": 4, "mirror": true},
-  {"seg": "head", "shape": "cone", "axis": "x", "len": 0.45, "r": [0.1, 0.16], "offset": [0.7, -0.05, 0.05], "rot": [0, 0, -25], "color": "dark", "facets": 3, "mirror": true},
-  {"seg": "jaw", "shape": "box", "size": [1.0, 0.22, 0.7], "offset": [0, -0.06, 0.35], "color": "dark"},
-  {"seg": "jaw", "shape": "box", "size": [0.8, 0.03, 0.55], "offset": [0, 0.06, 0.35], "glow": "all", "glowGroup": "mouth"},
-  {"seg": "head", "shape": "box", "size": [0.8, 0.03, 0.55], "offset": [0, -0.84, 1.15], "glow": "all", "glowGroup": "mouth"},
-  {"seg": "tail1", "shape": "prism", "axis": "-z", "len": 0.85, "r": [0.14, 0.14], "taper": 0.8, "facets": 4, "color": "dark"},
-  {"seg": "tail2", "shape": "prism", "axis": "-z", "len": 0.8, "r": [0.11, 0.11], "taper": 0.8, "facets": 4, "color": "dark"},
-  {"seg": "tail2", "shape": "gem", "size": [0.36, 0.36, 0.5], "offset": [0, 0, -0.9], "facets": 4, "rings": 1, "color": "moss"},
-  {"seg": "legFL1", "shape": "prism", "axis": "-y", "len": 1.28, "r": [0.58, 0.62], "taper": 0.92, "facets": 5, "mirror": true, "color": "body"},
-  {"seg": "legFL2", "shape": "prism", "axis": "-y", "len": 1.28, "r": [0.47, 0.5], "taper": 0.85, "facets": 5, "mirror": true, "color": "body"},
-  {"seg": "legFL2", "shape": "box", "size": [0.98, 0.36, 1.05], "offset": [0, -1.3, 0.05], "mirror": true, "color": "dark"},
-  {"seg": "legBL1", "shape": "prism", "axis": "-y", "len": 1.28, "r": [0.609, 0.651], "taper": 0.92, "facets": 5, "mirror": true, "color": "body"},
-  {"seg": "legBL2", "shape": "prism", "axis": "-y", "len": 1.28, "r": [0.4935, 0.525], "taper": 0.85, "facets": 5, "mirror": true, "color": "body"},
-  {"seg": "legBL2", "shape": "box", "size": [0.98, 0.36, 1.05], "offset": [0, -1.3, 0.05], "mirror": true, "color": "dark"},
-  {"seg": "legFL1", "shape": "strip", "from": [0.5, -0.15, 0.3], "to": [0.58, -0.65, 0.1], "r": 0.033, "glow": "all", "mirror": true},
-  {"seg": "legFL1", "shape": "strip", "from": [0.58, -0.65, 0.1], "to": [0.5, -1.1, 0.3], "r": 0.033, "glow": "all", "mirror": true},
-  {"seg": "legBL1", "shape": "strip", "from": [0.5, -0.15, 0.3], "to": [0.58, -0.65, 0.1], "r": 0.033, "glow": "all", "mirror": true},
-  {"seg": "legBL1", "shape": "strip", "from": [0.58, -0.65, 0.1], "to": [0.5, -1.1, 0.3], "r": 0.033, "glow": "all", "mirror": true}
+  {
+   "seg": "body",
+   "shape": "gem",
+   "size": [
+    2.6,
+    2.8,
+    4.4
+   ],
+   "facets": 7,
+   "rings": 3,
+   "color": "body"
+  },
+  {
+   "seg": "body",
+   "shape": "gem",
+   "size": [
+    2.5,
+    1.8,
+    2.3
+   ],
+   "offset": [
+    0,
+    1.25,
+    1.0
+   ],
+   "facets": 7,
+   "rings": 3,
+   "color": "body"
+  },
+  {
+   "seg": "body",
+   "shape": "gem",
+   "size": [
+    2.0,
+    0.55,
+    2.6
+   ],
+   "offset": [
+    0,
+    1.36,
+    -0.4
+   ],
+   "facets": 6,
+   "rings": 1,
+   "color": "moss"
+  },
+  {
+   "seg": "body",
+   "shape": "gem",
+   "size": [
+    1.8,
+    0.5,
+    1.6
+   ],
+   "offset": [
+    0,
+    2.1,
+    1.05
+   ],
+   "facets": 6,
+   "rings": 1,
+   "color": "moss"
+  },
+  {
+   "seg": "body",
+   "shape": "gem",
+   "size": [
+    0.9,
+    0.8,
+    1.1
+   ],
+   "offset": [
+    1.15,
+    0.25,
+    -1.2
+   ],
+   "facets": 4,
+   "rings": 1,
+   "color": "dark",
+   "mirror": true
+  },
+  {
+   "seg": "body",
+   "shape": "gem",
+   "size": [
+    0.8,
+    0.9,
+    0.9
+   ],
+   "offset": [
+    1.12,
+    0.7,
+    1.4
+   ],
+   "facets": 4,
+   "rings": 1,
+   "color": "dark",
+   "mirror": true,
+   "detail": true
+  },
+  {
+   "seg": "body",
+   "shape": "strip",
+   "from": [
+    1.27,
+    0.65,
+    1.75
+   ],
+   "to": [
+    1.33,
+    0.0,
+    1.05
+   ],
+   "r": 0.042,
+   "glow": "all",
+   "mirror": true
+  },
+  {
+   "seg": "body",
+   "shape": "strip",
+   "from": [
+    1.33,
+    0.0,
+    1.05
+   ],
+   "to": [
+    1.3,
+    0.35,
+    0.25
+   ],
+   "r": 0.042,
+   "glow": "all",
+   "mirror": true
+  },
+  {
+   "seg": "body",
+   "shape": "strip",
+   "from": [
+    1.3,
+    0.35,
+    0.25
+   ],
+   "to": [
+    1.33,
+    -0.5,
+    -0.55
+   ],
+   "r": 0.042,
+   "glow": "all",
+   "mirror": true
+  },
+  {
+   "seg": "body",
+   "shape": "strip",
+   "from": [
+    1.33,
+    -0.5,
+    -0.55
+   ],
+   "to": [
+    1.27,
+    -0.1,
+    -1.5
+   ],
+   "r": 0.042,
+   "glow": "all",
+   "mirror": true
+  },
+  {
+   "seg": "body",
+   "shape": "strip",
+   "from": [
+    0.95,
+    1.75,
+    1.6
+   ],
+   "to": [
+    1.15,
+    1.1,
+    0.8
+   ],
+   "r": 0.036,
+   "glow": "all",
+   "mirror": true
+  },
+  {
+   "seg": "neck",
+   "shape": "prism",
+   "axis": "z",
+   "len": 1.25,
+   "r": [
+    0.92,
+    0.9
+   ],
+   "taper": 0.9,
+   "facets": 5,
+   "offset": [
+    0,
+    0,
+    -0.2
+   ],
+   "color": "body"
+  },
+  {
+   "seg": "head",
+   "shape": "gem",
+   "size": [
+    1.5,
+    1.4,
+    1.7
+   ],
+   "offset": [
+    0,
+    -0.1,
+    0.45
+   ],
+   "facets": 6,
+   "rings": 2,
+   "color": "body"
+  },
+  {
+   "seg": "head",
+   "shape": "box",
+   "size": [
+    1.1,
+    0.8,
+    0.75
+   ],
+   "offset": [
+    0,
+    -0.45,
+    1.2
+   ],
+   "color": "dark"
+  },
+  {
+   "seg": "head",
+   "shape": "gem",
+   "size": [
+    0.34,
+    0.22,
+    0.3
+   ],
+   "offset": [
+    0.6,
+    0.02,
+    1.0
+   ],
+   "facets": 4,
+   "rings": 1,
+   "glow": "all",
+   "glowGroup": "eye",
+   "mirror": true
+  },
+  {
+   "seg": "head",
+   "shape": "strip",
+   "from": [
+    0.15,
+    0.55,
+    0.95
+   ],
+   "to": [
+    0.35,
+    0.05,
+    1.28
+   ],
+   "r": 0.03,
+   "glow": "all"
+  },
+  {
+   "seg": "head",
+   "shape": "cone",
+   "axis": "x",
+   "len": 1.522,
+   "r": [
+    0.324,
+    0.324
+   ],
+   "offset": [
+    0.62,
+    0.32,
+    0.3
+   ],
+   "rot": [
+    0,
+    0,
+    18
+   ],
+   "color": "bone",
+   "facets": 5,
+   "mirror": true
+  },
+  {
+   "seg": "head",
+   "shape": "cone",
+   "axis": "y",
+   "len": 1.232,
+   "r": [
+    0.189,
+    0.189
+   ],
+   "offset": [
+    1.55,
+    0.62,
+    0.32
+   ],
+   "rot": [
+    0,
+    0,
+    -22
+   ],
+   "color": "bone",
+   "facets": 4,
+   "mirror": true
+  },
+  {
+   "seg": "head",
+   "shape": "cone",
+   "axis": "x",
+   "len": 0.45,
+   "r": [
+    0.1,
+    0.16
+   ],
+   "offset": [
+    0.7,
+    -0.05,
+    0.05
+   ],
+   "rot": [
+    0,
+    0,
+    -25
+   ],
+   "color": "dark",
+   "facets": 3,
+   "mirror": true
+  },
+  {
+   "seg": "jaw",
+   "shape": "box",
+   "size": [
+    1.0,
+    0.22,
+    0.7
+   ],
+   "offset": [
+    0,
+    -0.06,
+    0.35
+   ],
+   "color": "dark"
+  },
+  {
+   "seg": "jaw",
+   "shape": "box",
+   "size": [
+    0.8,
+    0.03,
+    0.55
+   ],
+   "offset": [
+    0,
+    0.06,
+    0.35
+   ],
+   "glow": "all",
+   "glowGroup": "mouth"
+  },
+  {
+   "seg": "head",
+   "shape": "box",
+   "size": [
+    0.8,
+    0.03,
+    0.55
+   ],
+   "offset": [
+    0,
+    -0.84,
+    1.15
+   ],
+   "glow": "all",
+   "glowGroup": "mouth"
+  },
+  {
+   "seg": "tail1",
+   "shape": "prism",
+   "axis": "-z",
+   "len": 0.85,
+   "r": [
+    0.14,
+    0.14
+   ],
+   "taper": 0.8,
+   "facets": 4,
+   "color": "dark"
+  },
+  {
+   "seg": "tail2",
+   "shape": "prism",
+   "axis": "-z",
+   "len": 0.8,
+   "r": [
+    0.11,
+    0.11
+   ],
+   "taper": 0.8,
+   "facets": 4,
+   "color": "dark"
+  },
+  {
+   "seg": "tail2",
+   "shape": "gem",
+   "size": [
+    0.36,
+    0.36,
+    0.5
+   ],
+   "offset": [
+    0,
+    0,
+    -0.9
+   ],
+   "facets": 4,
+   "rings": 1,
+   "color": "moss"
+  },
+  {
+   "seg": "legFL1",
+   "shape": "prism",
+   "axis": "-y",
+   "len": 1.28,
+   "r": [
+    0.58,
+    0.62
+   ],
+   "taper": 0.92,
+   "facets": 5,
+   "mirror": true,
+   "color": "body"
+  },
+  {
+   "seg": "legFL2",
+   "shape": "prism",
+   "axis": "-y",
+   "len": 1.28,
+   "r": [
+    0.47,
+    0.5
+   ],
+   "taper": 0.85,
+   "facets": 5,
+   "mirror": true,
+   "color": "body"
+  },
+  {
+   "seg": "legFL2",
+   "shape": "box",
+   "size": [
+    0.98,
+    0.36,
+    1.05
+   ],
+   "offset": [
+    0,
+    -1.3,
+    0.05
+   ],
+   "mirror": true,
+   "color": "dark"
+  },
+  {
+   "seg": "legBL1",
+   "shape": "prism",
+   "axis": "-y",
+   "len": 1.28,
+   "r": [
+    0.609,
+    0.651
+   ],
+   "taper": 0.92,
+   "facets": 5,
+   "mirror": true,
+   "color": "body"
+  },
+  {
+   "seg": "legBL2",
+   "shape": "prism",
+   "axis": "-y",
+   "len": 1.28,
+   "r": [
+    0.4935,
+    0.525
+   ],
+   "taper": 0.85,
+   "facets": 5,
+   "mirror": true,
+   "color": "body"
+  },
+  {
+   "seg": "legBL2",
+   "shape": "box",
+   "size": [
+    0.98,
+    0.36,
+    1.05
+   ],
+   "offset": [
+    0,
+    -1.3,
+    0.05
+   ],
+   "mirror": true,
+   "color": "dark"
+  },
+  {
+   "seg": "legFL1",
+   "shape": "strip",
+   "from": [
+    0.5,
+    -0.15,
+    0.3
+   ],
+   "to": [
+    0.58,
+    -0.65,
+    0.1
+   ],
+   "r": 0.033,
+   "glow": "all",
+   "mirror": true
+  },
+  {
+   "seg": "legFL1",
+   "shape": "strip",
+   "from": [
+    0.58,
+    -0.65,
+    0.1
+   ],
+   "to": [
+    0.5,
+    -1.1,
+    0.3
+   ],
+   "r": 0.033,
+   "glow": "all",
+   "mirror": true
+  },
+  {
+   "seg": "legBL1",
+   "shape": "strip",
+   "from": [
+    0.5,
+    -0.15,
+    0.3
+   ],
+   "to": [
+    0.58,
+    -0.65,
+    0.1
+   ],
+   "r": 0.033,
+   "glow": "all",
+   "mirror": true
+  },
+  {
+   "seg": "legBL1",
+   "shape": "strip",
+   "from": [
+    0.58,
+    -0.65,
+    0.1
+   ],
+   "to": [
+    0.5,
+    -1.1,
+    0.3
+   ],
+   "r": 0.033,
+   "glow": "all",
+   "mirror": true
+  },
+  {
+   "seg": "head",
+   "shape": "box",
+   "size": [
+    1.55,
+    0.32,
+    0.55
+   ],
+   "offset": [
+    0,
+    0.3,
+    1.05
+   ],
+   "rot": [
+    22,
+    0,
+    0
+   ],
+   "color": "dark"
+  },
+  {
+   "seg": "body",
+   "shape": "gem",
+   "size": [
+    2.2,
+    1.4,
+    1.9
+   ],
+   "offset": [
+    0,
+    1.0,
+    -1.2
+   ],
+   "facets": 6,
+   "rings": 2,
+   "color": "body"
+  },
+  {
+   "seg": "body",
+   "shape": "gem",
+   "size": [
+    1.6,
+    0.45,
+    1.5
+   ],
+   "offset": [
+    0,
+    1.68,
+    -1.15
+   ],
+   "facets": 6,
+   "rings": 1,
+   "color": "moss",
+   "detail": true
+  }
  ]
 }

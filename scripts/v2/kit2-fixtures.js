@@ -23,22 +23,22 @@ function heroes(day) {
   { const S = sizeOf('NIGHTFANG'), z = -34; cast.nightfang = {style: 'beast', preset: 'NIGHTFANG', tier: 'hero', at: 'street', offset: [0, 0, z], yaw: 0}; cast.kid_nf = kid(S.w * .5 + 1.6, z + S.l * .4 + 1.4);
     add({id: `nightfang-${tag}`, frames: 60, duration: 2.5, size: 'ws', mood: 'awe', move: 'orbit', degrees: 24, subject: 'nightfang', from: {...lowCam([0, 0, z], -40, Math.max(S.h, S.l) * 1.25 + 3, 1.2, S.h * .55)}, to: {position: [0, 1.2, 0], target: [0, S.h * .55, 0]},
       beasts: [{actor: 'nightfang', state: 'roar', at: 1.0}], pickInfo: {beast: 'NIGHTFANG'}}, .7); }
-  // VOLT: run, tracked from low, beside it
-  { const S = sizeOf('VOLT'), z = -12; cast.volt = {style: 'beast', preset: 'VOLT', tier: 'hero', at: 'street', offset: [0, 0, z], yaw: 0};
-    add({id: `volt-${tag}`, frames: 60, duration: 2.5, size: 'ws', mood: 'tension', move: 'track', follow: 'volt', followOffset: [0, S.h * .5, 0], subject: 'volt',
-      from: {position: r3([-S.l * 1.3 - 2, 1.1 - S.h * .5, S.l * .5]), target: [0, 0, 0]}, to: {position: r3([-S.l * 1.15 - 2, 1.1 - S.h * .5, S.l * .2]), target: [0, 0, 0]},
+  // VOLT: runs at the camera; the camera tracks ahead of it, low in the road (eye height), looking up at it
+  { const S = sizeOf('VOLT'), z = -14; cast.volt = {style: 'beast', preset: 'VOLT', tier: 'hero', at: 'street', offset: [0, 0, z], yaw: 0};
+    add({id: `volt-${tag}`, frames: 60, duration: 2.5, size: 'ws', mood: 'tension', move: 'track', follow: 'volt', followOffset: [0, 0, 0], subject: 'volt', angle: 'eye',
+      from: {position: r3([-3.2, 1.3, S.l * 2.6 + 3]), target: [0, S.h * .6, 0]}, to: {position: r3([-3.8, 1.3, S.l * 2.2 + 3]), target: [0, S.h * .6, 0]},
       beasts: [{actor: 'volt', state: 'run', at: .2, to: [0, 0, z + 16]}], pickInfo: {beast: 'VOLT'}}, 1.4); }
-  // BOULDER: walk, tracked low from the front quarter (looking up at the head)
-  { const S = sizeOf('BOULDER'), z = 10; cast.boulder = {style: 'beast', preset: 'BOULDER', tier: 'hero', at: 'street', offset: [0, 0, z], yaw: 0};
-    add({id: `boulder-${tag}`, frames: 60, duration: 2.5, size: 'ws', mood: 'awe', move: 'track', follow: 'boulder', followOffset: [0, S.h * .55, 0], subject: 'boulder',
-      from: {position: r3([-S.w * 1.6 - 2, .9 - S.h * .55, S.l * 1.1 + 2]), target: [0, 0, 0]}, to: {position: r3([-S.w * 1.3 - 2, .9 - S.h * .55, S.l * .9 + 2]), target: [0, 0, 0]},
-      beasts: [{actor: 'boulder', state: 'walk', at: .2, to: [0, 0, z + 5]}], pickInfo: {beast: 'BOULDER'}}, 1.6); }
+  // BOULDER: walks a few steps; slow low orbit from the front quarter (looking up at the head and horns)
+  { const S = sizeOf('BOULDER'), z = 8; cast.boulder = {style: 'beast', preset: 'BOULDER', tier: 'hero', at: 'street', offset: [0, 0, z], yaw: 0};
+    add({id: `boulder-${tag}`, frames: 60, duration: 2.5, size: 'ws', mood: 'awe', move: 'orbit', degrees: -20, subject: 'boulder',
+      from: lowCam([0, 0, z + 1.5], -35, Math.max(S.h, S.l) * 2.1 + 5, 1.0, S.h * .6), to: {position: [0, 1.0, 0], target: [0, S.h * .6, 0]},
+      beasts: [{actor: 'boulder', state: 'walk', at: .2, to: [0, 0, z + 3]}], pickInfo: {beast: 'BOULDER'}}, 1.6); }
   // BLINK: orbiting LITTLE's head, slow push from kid-eye height
-  { cast.little = kid(6.2, 26, 250, 'LITTLE'); cast.blink = {style: 'beast', preset: 'BLINK', at: 'street', offset: [6.2, 0, 26], orbit: 'little'};
-    add({id: `blink-${tag}`, frames: 48, duration: 2.0, size: 'mcu', mood: 'fun', move: 'push', subject: 'little', angle: 'eye', from: {position: [3.0, 3.3, 31.5], target: [6.2, 3.3, 26]}, to: {position: [3.6, 3.3, 30.2], target: [6.2, 3.3, 26]}, pickInfo: {beast: 'BLINK'}}, 1.2); }
+  { cast.little = kid(6.2, 26, 330, 'LITTLE'); cast.blink = {style: 'beast', preset: 'BLINK', at: 'street', offset: [6.2, 0, 26], orbit: 'little'};
+    add({id: `blink-${tag}`, frames: 48, duration: 2.0, size: 'ms', mood: 'fun', move: 'push', subject: 'little', angle: 'eye', from: {position: [2.4, 3.4, 33.0], target: [6.2, 3.6, 26]}, to: {position: [3.2, 3.4, 31.2], target: [6.2, 3.6, 26]}, pickInfo: {beast: 'BLINK'}}, 1.2); }
   save(`heroes-${tag}.json`, {note: `tuft 2B fixed hero beasts (scripts/v2/kit2-fixtures.js), ${tag}: low heroic moving cine cameras, grade 'clear', beasts on ones.`, slug: 'beasts', ...HEAD, look4: day ? 'comedy' : 'mystery', look: day ? 'comedy' : 'mystery', cast, shots});
 }
-heroes(true); heroes(false);
+if (process.argv[1]?.endsWith("kit2-fixtures.js")) { heroes(true); heroes(false); }
 export const EXTRA = [];   // later tasks push fixture builders here
-for (const f of EXTRA) f({save, picks, sizeOf, kid, lowCam, HEAD, FPS});
-save('picks.json', picks);
+if (process.argv[1]?.endsWith("kit2-fixtures.js")) for (const f of EXTRA) f({save, picks, sizeOf, kid, lowCam, HEAD, FPS});
+if (process.argv[1]?.endsWith("kit2-fixtures.js")) save("picks.json", picks);

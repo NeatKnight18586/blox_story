@@ -52,9 +52,9 @@ export function createBeasts({scene, spec, presets, hdr, groundY = () => 0, reso
     const head = new T.Object3D(); scene.add(head);
     if (P.rig === 'blink') {
       const col = new T.Color(P.glow), sp = new T.Sprite(new T.SpriteMaterial({map: glowTex(), color: col.clone().multiplyScalar(hdrOf(P)), transparent: true, depthWrite: false, blending: T.AdditiveBlending, fog: false, toneMapped: !hdr}));
-      sp.scale.setScalar(P.size * 2.2); root.add(sp);
-      const bm = new T.MeshStandardMaterial({color: P.colors.body, roughness: .5, flatShading: true}), body = new T.Mesh(new T.IcosahedronGeometry(P.size * .18, 0), bm); body.scale.set(.8, .8, 1.4); root.add(body);
-      const wm = new T.MeshBasicMaterial({color: P.colors.wing, transparent: true, opacity: .55, side: T.DoubleSide, depthWrite: false}), wings = [1, -1].map(k => { const w = new T.Mesh(new T.PlaneGeometry(P.size * .5, P.size * .22), wm); w.geometry.translate(P.size * .25, 0, 0); w.position.set(0, P.size * .08, 0); w.userData.k = k; if (k < 0) w.rotation.y = Math.PI; root.add(w); return w; });
+      sp.scale.setScalar(P.size * (P.spriteK ?? 2.2)); sp.renderOrder = P.wingCards ? -1 : 0; root.add(sp);   // 2B: the glow sits behind the wings
+      const bm = new T.MeshStandardMaterial({color: P.colors.body, roughness: .5, flatShading: true}), body = new T.Mesh(new T.IcosahedronGeometry(P.size * (P.dotK ?? .18), 0), bm); body.scale.set(.8, .8, 1.4); root.add(body);
+      const wc = P.wingCards, wm = new T.MeshBasicMaterial({color: P.colors.wing, transparent: true, opacity: wc?.opacity ?? .55, side: T.DoubleSide, depthWrite: false}), wings = [1, -1].map(k => { const w = new T.Mesh(new T.PlaneGeometry(P.size * (wc?.w ?? .5), P.size * (wc?.h ?? .22)), wm); if (wc) { w.geometry.rotateX(-Math.PI / 2); w.renderOrder = 2; } w.geometry.translate(P.size * (wc?.w ?? .5) / 2, 0, 0); w.position.set(0, P.size * .08, 0); w.userData.k = k; if (k < 0) w.rotation.y = Math.PI; root.add(w); return w; });   // 2B wingCards: horizontal cards hinged on the body axis (rotation.z = a real flap), drawn over the glow
       root.traverse(o => { o.castShadow = false; o.receiveShadow = false; });
       return actors[name] = {name, c, P, root, head, blink: {sp, wings, col}, blobR: 0, pivots: {head}}; }
     const tier = c.tier ?? 'hero', G = geoOf(c.preset, tier), {m, U, tex, data} = beastMaterial(G.geo.segNames.length, 1);

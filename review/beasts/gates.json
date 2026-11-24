@@ -1,8 +1,8 @@
 [
  {
-  "name": "parade draw calls ≤ 3 per preset",
+  "name": "parade draw calls \u2264 3 per preset",
   "pass": true,
-  "line": "40 low-tier beasts, 3 presets: calls 57 → 63 = 2.00 per preset (mesh + contact blobs)",
+  "line": "40 low-tier beasts, 3 presets: calls 57 \u2192 63 = 2.00 per preset (mesh + contact blobs)",
   "on": 63,
   "off": 57,
   "presets": 3,
@@ -10,76 +10,70 @@
   "perPreset": 2
  },
  {
-  "name": "cost: ms/frame at 270×480 (4 hero + 40 low)",
+  "name": "cost: ms/frame at 270\u00d7480 (4 hero + 40 low)",
   "pass": true,
-  "line": "median 92 ms (mean 93); the 1B fixture without beasts 81 ms",
+  "line": "median 79 ms (mean 79); the 1B fixture without beasts 68 ms",
   "ms": {
-   "median": 91.80000000004657,
-   "mean": 93.26666666665308
+   "median": 79.30000000004657,
+   "mean": 79.45416666666279
   },
-  "base": 80.5
+  "base": 68.10000000009313
  },
  {
-  "name": "cost: est. --final s/frame ≤ 3.0",
+  "name": "glow only on seams: the body's OWN bloom \u2264 0.5 % (owner ruling 2B)",
   "pass": true,
-  "line": "1440×2560 MSAA 4× (this sandbox, swiftshader): 2.92 s/frame (1B fix fixture 2.88)",
-  "sPerFrame": 2.9235
- },
- {
-  "name": "glow only on seams: non-seam body bloom ≤ 0.5 %",
-  "pass": false,
-  "line": "body ≥ 4 px from a seam, seams on: Δluma max 15.49 % (NIGHTFANG 12.50, VOLT 14.80, CINDER 8.98, BOULDER 15.49); own bloom with seams dark max 0.000 %",
+  "line": "own bloom with seams dark max 0.000 %; seam halo reported: \u0394luma max 29.05 % (NIGHTFANG 21.20, VOLT 29.05, CINDER 8.98, BOULDER 15.13)",
   "rows": [
    {
     "beast": "NIGHTFANG",
-    "body": 0.12501968932935734,
-    "bodyPx": 124153,
+    "body": 0.21202631596360982,
+    "bodyPx": 149489,
     "own": 0,
-    "ring": 4.549279264463075,
-    "ringOn": 0.5268694684857173,
-    "ringOff": 0.09494376537503289,
-    "seamPx": 2129,
-    "allBody": 127864
+    "ring": 8.372100277877202,
+    "ringOn": 0.709327947598689,
+    "ringOff": 0.07568505741162994,
+    "seamPx": 3712,
+    "allBody": 154214
    },
    {
     "beast": "VOLT",
-    "body": 0.14803393694434844,
-    "bodyPx": 171346,
+    "body": 0.29045505315141695,
+    "bodyPx": 181891,
     "own": 0,
-    "ring": 0.6753038360367953,
-    "ringOn": 0.7807212112044434,
-    "ringOff": 0.46601768253057124,
-    "seamPx": 6125,
-    "allBody": 178820
+    "ring": 1.1055569431611123,
+    "ringOn": 0.8075429333549786,
+    "ringOff": 0.383529372586143,
+    "seamPx": 12026,
+    "allBody": 191632
    },
    {
     "beast": "CINDER",
-    "body": 0.0897811563180477,
+    "body": 0.08977738899498991,
     "bodyPx": 69817,
     "own": 0,
-    "ring": 1.0411588141817054,
-    "ringOn": 0.691099067672874,
-    "ringOff": 0.33858172273083686,
+    "ring": 1.0425672903439716,
+    "ringOn": 0.6907600014525099,
+    "ringOff": 0.3381822497197558,
     "seamPx": 1847,
     "allBody": 71619
    },
    {
     "beast": "BOULDER",
-    "body": 0.15486719838605795,
-    "bodyPx": 217508,
+    "body": 0.15131248107791448,
+    "bodyPx": 234719,
     "own": 0,
-    "ring": 3.0588035362326496,
-    "ringOn": 0.6727266074564741,
-    "ringOff": 0.16574505305592932,
-    "seamPx": 6380,
-    "allBody": 224560
+    "ring": 3.441859023501867,
+    "ringOn": 0.6704324508888457,
+    "ringOff": 0.1509351033748683,
+    "seamPx": 6353,
+    "allBody": 241809
    }
   ]
  },
  {
-  "name": "seams bloom ≥ +100 % around them",
-  "pass": false,
-  "line": "1–6 px ring outside the seams: luma +68 % min (NIGHTFANG 0.095 → 0.527, VOLT 0.466 → 0.781, CINDER 0.339 → 0.691, BOULDER 0.166 → 0.673)"
+  "name": "seams bloom \u2265 +100 % around them",
+  "pass": true,
+  "line": "1\u20136 px ring outside the seams: luma +104 % min (NIGHTFANG 0.076 \u2192 0.709, VOLT 0.384 \u2192 0.808, CINDER 0.338 \u2192 0.691, BOULDER 0.151 \u2192 0.670)"
  },
  {
   "name": "render determinism (10 kit frames, reverse order)",
@@ -89,6 +83,6 @@
  {
   "name": "byte-identical 1B fixture without beasts",
   "pass": true,
-  "line": "10/10 frames (every 30th, 270×480) identical to the pre-2A render"
+  "line": "10/10 frames (every 30th, 270\u00d7480) identical to the pre-2A render"
  }
 ]
