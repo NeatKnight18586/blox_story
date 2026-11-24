@@ -1,0 +1,692 @@
+{
+ "note": "tuft 2B TUFT + PUFF fixture (scripts/v2/kit2-fixtures.js): day street, hook ECU on the glowing eye, states, hood ride, tuft ball/room/colossal/deflate, hero ball/room/deflate.",
+ "slug": "beasts",
+ "fps": 24,
+ "format": 6,
+ "acting": 6,
+ "rig": "r6",
+ "twos": true,
+ "faceLife": true,
+ "labels": false,
+ "world": "engine/fixtures/v4look/world.js",
+ "cues": "engine/fixtures/acting6/cues.json",
+ "post": "cine",
+ "camera": "cine",
+ "grade": "clear",
+ "look4": "comedy",
+ "look": "comedy",
+ "cast": {
+  "hero": {
+   "style": "v5",
+   "troupe": "HERO",
+   "at": "street",
+   "offset": [
+    4,
+    0,
+    24
+   ],
+   "yaw": 180,
+   "keys": [
+    [
+     0,
+     "idle"
+    ]
+   ]
+  },
+  "tuft": {
+   "style": "beast",
+   "preset": "TUFT",
+   "tier": "hero",
+   "at": "street",
+   "offset": [
+    1.6,
+    0,
+    22
+   ],
+   "yaw": 200,
+   "state": "hide",
+   "glowLevel": 0.45
+  },
+  "tuft_h": {
+   "style": "beast",
+   "preset": "TUFT",
+   "tier": "hero",
+   "at": "street",
+   "offset": [
+    4,
+    0,
+    24
+   ],
+   "yaw": 180,
+   "ride": {
+    "actor": "hero",
+    "at": "hood"
+   }
+  },
+  "tuft_p": {
+   "style": "beast",
+   "preset": "TUFT",
+   "tier": "hero",
+   "at": "street",
+   "offset": [
+    0,
+    0,
+    -12
+   ],
+   "yaw": 190,
+   "glowLevel": 0.5
+  },
+  "hero2": {
+   "style": "v5",
+   "troupe": "HERO",
+   "at": "street",
+   "offset": [
+    0,
+    0,
+    8
+   ],
+   "yaw": 20,
+   "keys": [
+    [
+     0,
+     "idle"
+    ]
+   ]
+  }
+ },
+ "shots": [
+  {
+   "id": "tuft-0-hook",
+   "mood": "fun",
+   "frames": 30,
+   "duration": 1.25,
+   "size": "ws",
+   "move": "push",
+   "angle": "high",
+   "from": {
+    "position": [
+     0.961804126454834,
+     0.5,
+     20.582808754264292
+    ],
+    "target": [
+     1.3893293056119198,
+     0.43,
+     21.757424530246677
+    ],
+    "fov": 34
+   },
+   "to": {
+    "position": [
+     1.0473091622862511,
+     0.48,
+     20.81773190946077
+    ],
+    "target": [
+     1.3893293056119198,
+     0.43,
+     21.757424530246677
+    ],
+    "fov": 34
+   },
+   "beasts": [
+    {
+     "actor": "tuft",
+     "state": "idle",
+     "at": 0.3
+    }
+   ],
+   "glows": [
+    {
+     "actor": "tuft",
+     "level": 1,
+     "at": 0
+    }
+   ]
+  },
+  {
+   "id": "tuft-1-idle",
+   "mood": "fun",
+   "frames": 24,
+   "duration": 1,
+   "size": "ws",
+   "move": "orbit",
+   "degrees": 12,
+   "subject": "tuft",
+   "from": {
+    "position": [
+     0.5055355413578604,
+     0.7,
+     18.992983613485094
+    ],
+    "target": [
+     1.6,
+     0.42,
+     22
+    ],
+    "fov": 34
+   },
+   "to": {
+    "position": [
+     0,
+     0.7,
+     0
+    ],
+    "target": [
+     1.6,
+     0.42,
+     22
+    ]
+   },
+   "glows": [
+    {
+     "actor": "tuft",
+     "level": 0.45,
+     "at": 0
+    }
+   ]
+  },
+  {
+   "id": "tuft-2-tremble",
+   "mood": "fun",
+   "frames": 24,
+   "duration": 1,
+   "size": "ws",
+   "move": "push",
+   "subject": "tuft",
+   "from": {
+    "position": [
+     -0.2354445963233478,
+     0.7,
+     19.378713458275225
+    ],
+    "target": [
+     1.6,
+     0.42,
+     22
+    ],
+    "fov": 34
+   },
+   "to": {
+    "position": [
+     0.1087012654872801,
+     0.7,
+     19.87020468484862
+    ],
+    "target": [
+     1.6,
+     0.42,
+     22
+    ],
+    "fov": 34
+   },
+   "beasts": [
+    {
+     "actor": "tuft",
+     "state": "tremble",
+     "at": 0
+    }
+   ]
+  },
+  {
+   "id": "tuft-3-sneeze",
+   "mood": "fun",
+   "frames": 30,
+   "duration": 1.25,
+   "size": "ws",
+   "move": "push",
+   "subject": "tuft",
+   "from": {
+    "position": [
+     1.8614672282429747,
+     0.7,
+     19.011415905724764
+    ],
+    "target": [
+     1.6,
+     0.42,
+     22
+    ],
+    "fov": 34
+   },
+   "to": {
+    "position": [
+     1.8178893568691457,
+     0.7,
+     19.509513254770635
+    ],
+    "target": [
+     1.6,
+     0.42,
+     22
+    ],
+    "fov": 34
+   },
+   "beasts": [
+    {
+     "actor": "tuft",
+     "state": "sneeze",
+     "at": 0
+    }
+   ]
+  },
+  {
+   "id": "tuft-4-run",
+   "mood": "fun",
+   "frames": 30,
+   "duration": 1.25,
+   "size": "ws",
+   "move": "track",
+   "follow": "tuft",
+   "followOffset": [
+    0,
+    0,
+    0
+   ],
+   "subject": "tuft",
+   "from": {
+    "position": [
+     -3.4,
+     0.8,
+     -1.2
+    ],
+    "target": [
+     0,
+     0.45,
+     0
+    ]
+   },
+   "to": {
+    "position": [
+     -3.4,
+     0.8,
+     0.4
+    ],
+    "target": [
+     0,
+     0.45,
+     0
+    ]
+   },
+   "beasts": [
+    {
+     "actor": "tuft",
+     "state": "run",
+     "at": 0,
+     "to": [
+      1.6,
+      0,
+      26
+     ]
+    }
+   ]
+  },
+  {
+   "id": "tuft-5-hood",
+   "mood": "fun",
+   "frames": 30,
+   "duration": 1.25,
+   "size": "ws",
+   "move": "orbit",
+   "degrees": 15,
+   "subject": "hero",
+   "angle": "eye",
+   "from": {
+    "position": [
+     6.2,
+     4.2,
+     28.2
+    ],
+    "target": [
+     4,
+     3.3,
+     24
+    ]
+   },
+   "to": {
+    "position": [
+     0,
+     4.2,
+     0
+    ],
+    "target": [
+     4,
+     3.3,
+     24
+    ]
+   },
+   "beasts": [
+    {
+     "actor": "tuft_h",
+     "state": "hide",
+     "at": 0
+    }
+   ]
+  },
+  {
+   "id": "tuft-6-puff ball",
+   "mood": "fun",
+   "frames": 36,
+   "duration": 1.5,
+   "size": "ws",
+   "move": "push",
+   "subject": "tuft_p",
+   "from": {
+    "position": [
+     -1.8,
+     1,
+     -20.82
+    ],
+    "target": [
+     0,
+     2,
+     -12
+    ],
+    "fov": 46
+   },
+   "to": {
+    "position": [
+     -1.64,
+     1,
+     -20.036
+    ],
+    "target": [
+     0,
+     2,
+     -12
+    ],
+    "fov": 46
+   },
+   "puffs": [
+    {
+     "actor": "tuft_p",
+     "size": "ball",
+     "at": 0.1
+    }
+   ],
+   "beasts": [
+    {
+     "actor": "tuft_p",
+     "state": "puff",
+     "at": 0.1
+    }
+   ]
+  },
+  {
+   "id": "tuft-7-puff room",
+   "mood": "fun",
+   "frames": 36,
+   "duration": 1.5,
+   "size": "ws",
+   "move": "push",
+   "subject": "tuft_p",
+   "from": {
+    "position": [
+     -4,
+     1.2,
+     -31.6
+    ],
+    "target": [
+     0,
+     4.5,
+     -12
+    ],
+    "fov": 46
+   },
+   "to": {
+    "position": [
+     -3.7,
+     1.2,
+     -30.13
+    ],
+    "target": [
+     0,
+     4.5,
+     -12
+    ],
+    "fov": 46
+   },
+   "puffs": [
+    {
+     "actor": "tuft_p",
+     "size": "room",
+     "at": 0.1
+    }
+   ]
+  },
+  {
+   "id": "tuft-8-puff colossal",
+   "mood": "fun",
+   "frames": 48,
+   "duration": 2,
+   "size": "ws",
+   "move": "orbit",
+   "degrees": -14,
+   "subject": "tuft_p",
+   "angle": "eye",
+   "from": {
+    "position": [
+     -9.200000000000001,
+     2.5,
+     -57.08
+    ],
+    "target": [
+     0,
+     30,
+     -12
+    ],
+    "fov": 72
+   },
+   "to": {
+    "position": [
+     0,
+     3.5,
+     0
+    ],
+    "target": [
+     0,
+     28,
+     -12
+    ]
+   },
+   "puffs": [
+    {
+     "actor": "tuft_p",
+     "size": "colossal",
+     "at": 0.1
+    }
+   ],
+   "glows": [
+    {
+     "actor": "tuft_p",
+     "level": 1,
+     "at": 0.3
+    }
+   ]
+  },
+  {
+   "id": "tuft-9-deflate",
+   "mood": "fun",
+   "frames": 30,
+   "duration": 1.25,
+   "size": "ws",
+   "move": "push",
+   "subject": "tuft_p",
+   "from": {
+    "position": [
+     -3.2,
+     1.2,
+     -27.68
+    ],
+    "target": [
+     0,
+     3,
+     -12
+    ],
+    "fov": 46
+   },
+   "to": {
+    "position": [
+     -2.8000000000000003,
+     1.2,
+     -25.72
+    ],
+    "target": [
+     0,
+     3,
+     -12
+    ],
+    "fov": 46
+   },
+   "puffs": [
+    {
+     "actor": "tuft_p",
+     "size": "deflate",
+     "at": 0.05
+    }
+   ],
+   "glows": [
+    {
+     "actor": "tuft_p",
+     "level": 0.5,
+     "at": 0.05
+    }
+   ]
+  },
+  {
+   "id": "tuft-10-hero ball",
+   "mood": "fun",
+   "frames": 36,
+   "duration": 1.5,
+   "size": "ws",
+   "move": "push",
+   "subject": "hero2",
+   "angle": "eye",
+   "from": {
+    "position": [
+     4.446261863233693,
+     3.4,
+     20.216004070216812
+    ],
+    "target": [
+     0,
+     3.4,
+     8
+    ],
+    "fov": 44
+   },
+   "to": {
+    "position": [
+     4.104241719908025,
+     3.4,
+     19.2763114494309
+    ],
+    "target": [
+     0,
+     3.4,
+     8
+    ],
+    "fov": 44
+   },
+   "puffs": [
+    {
+     "actor": "hero2",
+     "size": "ball",
+     "at": 0.1
+    }
+   ]
+  },
+  {
+   "id": "tuft-11-hero room",
+   "mood": "fun",
+   "frames": 36,
+   "duration": 1.5,
+   "size": "ws",
+   "move": "push",
+   "subject": "hero2",
+   "angle": "eye",
+   "from": {
+    "position": [
+     7.524443153164712,
+     3.4,
+     28.673237657289985
+    ],
+    "target": [
+     0,
+     5.5,
+     8
+    ],
+    "fov": 44
+   },
+   "to": {
+    "position": [
+     7.011412938176209,
+     3.4,
+     27.263698726111123
+    ],
+    "target": [
+     0,
+     5.5,
+     8
+    ],
+    "fov": 44
+   },
+   "puffs": [
+    {
+     "actor": "hero2",
+     "size": "room",
+     "at": 0.1
+    }
+   ]
+  },
+  {
+   "id": "tuft-12-hero deflate",
+   "mood": "fun",
+   "frames": 30,
+   "duration": 1.25,
+   "size": "ws",
+   "move": "push",
+   "subject": "hero2",
+   "angle": "eye",
+   "from": {
+    "position": [
+     5.472322293210699,
+     3.4,
+     23.035081932574535
+    ],
+    "target": [
+     0,
+     4.5,
+     8
+    ],
+    "fov": 44
+   },
+   "to": {
+    "position": [
+     5.130302149885031,
+     3.4,
+     22.095389311788626
+    ],
+    "target": [
+     0,
+     4.5,
+     8
+    ],
+    "fov": 44
+   },
+   "puffs": [
+    {
+     "actor": "hero2",
+     "size": "deflate",
+     "at": 0.05
+    }
+   ]
+  }
+ ],
+ "sfxCues": [
+  [
+   16.3,
+   "squeak"
+  ]
+ ]
+}

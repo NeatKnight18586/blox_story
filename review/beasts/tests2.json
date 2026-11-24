@@ -1,0 +1,89 @@
+[
+ {
+  "name": "NIGHTFANG reads as a dragon, not a horse",
+  "pass": true,
+  "line": "idle side ¾ silhouette vs a horse-proportion reference: IoU 0.236 ≤ 0.5"
+ },
+ {
+  "name": "hero silhouettes pairwise IoU ≤ 0.6",
+  "pass": true,
+  "line": "max 0.572 (NIVO 0.334, NICI 0.349, NIBO 0.27, NITU 0.327, VOCI 0.401, VOBO 0.33, VOTU 0.409, CIBO 0.274, CITU 0.296, BOTU 0.572)",
+  "pairs": [
+   [
+    "NIGHTFANG",
+    "VOLT",
+    0.334
+   ],
+   [
+    "NIGHTFANG",
+    "CINDER",
+    0.349
+   ],
+   [
+    "NIGHTFANG",
+    "BOULDER",
+    0.27
+   ],
+   [
+    "NIGHTFANG",
+    "TUFT",
+    0.327
+   ],
+   [
+    "VOLT",
+    "CINDER",
+    0.401
+   ],
+   [
+    "VOLT",
+    "BOULDER",
+    0.33
+   ],
+   [
+    "VOLT",
+    "TUFT",
+    0.409
+   ],
+   [
+    "CINDER",
+    "BOULDER",
+    0.274
+   ],
+   [
+    "CINDER",
+    "TUFT",
+    0.296
+   ],
+   [
+    "BOULDER",
+    "TUFT",
+    0.572
+   ]
+  ]
+ },
+ {
+  "name": "TUFT tris ≤ 4k",
+  "pass": true,
+  "line": "2232 tris (hero tier)"
+ },
+ {
+  "name": "puff sizes within ± 5 % of target",
+  "pass": true,
+  "line": "tuft ball 4.35/4.35 (0.0 %), room 10.00/10.00 (0.0 %), colossal 62.58/62.58 (-0.0 %) · hero ball Ø ball 4.92/4.92, room 10.00/10.00, colossal 31.29/31.29 · deflate back to rest 0.0 %"
+ },
+ {
+  "name": "deflate settles in 0.6 s ± 2 frames (3 wobble undershoots)",
+  "pass": true,
+  "line": "settle 0.583 s, 3 undershoots · settle 0.583 s, 3 undershoots · settle 0.583 s, 3 undershoots"
+ },
+ {
+  "name": "TUFT states deterministic",
+  "pass": true,
+  "line": "4/4 samples identical in any order"
+ },
+ {
+  "name": "`puff:` / `glow:` vocab → shot.puffs / shot.glows / sfx squeak",
+  "pass": true,
+  "line": "0 parse errors; puffs [{\"actor\":\"tuft\",\"size\":\"room\",\"at\":1.09},{\"actor\":\"tuft\",\"size\":\"deflate\",\"at\":0.54}]; glows [{\"actor\":\"tuft\",\"level\":1,\"at\":1.09}]; sfxCues [[15.94,\"squeak\"]]"
+ }
+]

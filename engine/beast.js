@@ -6,7 +6,7 @@
 // States (pure in t, seeded): idle walk run roar breathe flinch flee lower lift fly perch sleep curl — anticipation (a short counter-
 // move) + settle (back-out overshoot) on every change, like acting6. Root motion: walk / run / fly [to], flee along an exit direction.
 // Plant: ground states touch the ground with the lowest vertex (exact, every vertex of the mesh); nothing ever goes below it.
-export const STATES = ['idle', 'walk', 'run', 'roar', 'breathe', 'flinch', 'flee', 'lower', 'lift', 'fly', 'perch', 'sleep', 'curl'];
+export const STATES = ['idle', 'walk', 'run', 'roar', 'breathe', 'flinch', 'flee', 'lower', 'lift', 'fly', 'perch', 'sleep', 'curl', 'tremble', 'sneeze', 'hide', 'puff'];   // 2B: tremble sneeze hide puff (rig 'puff'; other rigs play them as idle)
 export const TIER_MAX = {hero: 6000, low: 800};
 export const KID_H = 5.3 * .82, ADULT_H = 5.3;   // R6 kid (troupe LEAD .82) / adult height in studs (cast/troupe-r6.json, engine/cine.js 5.3 × scale)
 export const RESERVED_GLOW = ['#7FB8FF', '#FFD36B'];   // Tuft's blue-gold (2B): no beast may use it (RGB distance ≥ 60 from both ends)
@@ -25,14 +25,18 @@ const Ry = a => { const c = Math.cos(a), s = Math.sin(a); return [c, 0, s, 0, 1,
 const Rz = a => { const c = Math.cos(a), s = Math.sin(a); return [c, -s, 0, s, c, 0, 0, 0, 1]; };
 export const rot3 = ([x, y, z]) => mm(mm(Ry(y), Rx(x)), Rz(z));
 const add = (a, b) => [a[0] + b[0], a[1] + b[1], a[2] + b[2]], sub = (a, b) => [a[0] - b[0], a[1] - b[1], a[2] - b[2]];
+const scl3 = (a, k) => k === 1 ? a : [a[0] * k, a[1] * k, a[2] * k];
 const cross = (a, b) => [a[1] * b[2] - a[2] * b[1], a[2] * b[0] - a[0] * b[2], a[0] * b[1] - a[1] * b[0]], dot = (a, b) => a[0] * b[0] + a[1] * b[1] + a[2] * b[2];
 const D = Math.PI / 180;
+import {quillScale, windAt} from './puff.js';
 
 // ---- skeleton (from the preset's dims) -------------------------------------------------------------------------------------------
 // Frames: +z forward, +y up, +x = the beast's left. Neck / head / jaw extend +z, tails −z, legs −y, left wings +x (right −x).
 export function skeleton(P) {
   const d = P.dims, k0 = P.scale ?? 1, S = {}, put = (n, parent, pivot, rest = [0, 0, 0]) => { S[n] = {parent, pivot: pivot.map(v => v * k0), rest}; };   // preset `scale`: the whole rig (dims stay in unscaled studs)
   if (P.rig === 'blink') { put('body', null, [0, 0, 0]); return {seg: S, order: ['body']}; }
+  if (P.rig === 'puff') { put('body', null, [0, d.bodyY, 0]); for (let i = 0; i < 6; i++) put('q' + i, 'body', [0, 0, 0]);   // 2B TUFT: body + 6 quill clusters (ripple / extend) + 2 feet
+    for (const [s2, k] of [['L', 1], ['R', -1]]) put('foot' + s2, 'body', [k * d.footX, -d.bodyY + d.footH, d.footZ ?? 0]); return {seg: S, order: ['body', 'q0', 'q1', 'q2', 'q3', 'q4', 'q5', 'footL', 'footR']}; }
   const bird = P.rig === 'bird', bh = d.bodyH, bl = d.bodyL, bw = d.bodyW;
   put('body', null, [0, d.legH + bh / 2, 0]);
   put('neck', 'body', [0, bh * (d.neckY ?? .25), bl * (d.neckZ ?? .45)], [-(d.neckUp ?? 30) * D, 0, 0]);
@@ -102,7 +106,7 @@ function partTris(p) {
   else if (p.shape === 'gem') tris = gemTris(n, Math.max(1, p.rings ?? 2), p.size);
   else if (p.shape === 'slab') tris = slabTris(p.pts, p.thick ?? .08);
   else if (p.shape === 'strip') { const d = sub(p.to, p.from), L = Math.hypot(...d), r = p.r ?? .06;
-    const t0 = prismTris(Math.max(3, p.facets ?? 3), r, r, L, 1), yaw = Math.atan2(d[0], d[2]), pitch = -Math.asin(d[1] / L), R = mm(Ry(yaw), Rx(pitch));
+    const t0 = prismTris(Math.max(3, p.facets ?? 3), r, r, L, p.taper ?? 1), yaw = Math.atan2(d[0], d[2]), pitch = -Math.asin(d[1] / L), R = mm(Ry(yaw), Rx(pitch));
     return t0.map(([a, b, c, u]) => [mv(R, a), mv(R, b), mv(R, c), u].map((v, i) => i < 3 ? add(v, p.from) : v)); }
   else { const [rx, ry] = p.r ?? [.2, .2]; tris = prismTris(n, rx, ry, p.len ?? 1, p.shape === 'cone' ? 0 : p.taper ?? 1); const R = rot3(AXIS[p.axis ?? 'z']); tris = tris.map(([a, b, c, u]) => [mv(R, a), mv(R, b), mv(R, c), u]); }
   const R = p.rot ? rot3(p.rot.map(v => v * D)) : null, o = p.offset ?? [0, 0, 0];
@@ -115,7 +119,7 @@ export function buildGeometry(P, tier = 'hero') {
   for (const p of partList(P, tier)) {
     if (segIx[p.seg] === undefined) throw Error(`${P.name}: part on unknown segment "${p.seg}"`);
     const tris = partTris(p), c = colorOf(p.color), grp = p.glowGroup === 'mouth' ? 1 : p.glowGroup === 'eye' ? 2 : 0;
-    const gc = hex(grp === 1 ? P.mouthGlow ?? P.glow : grp === 2 ? P.eyeGlow ?? P.glow : P.glow);
+    const gc = hex(p.glowColor ?? (grp === 1 ? P.mouthGlow ?? P.glow : grp === 2 ? P.eyeGlow ?? P.glow : P.glow));   // 2B: part glowColor (TUFT's blue → gold tips)
     let cen = [0, 0, 0], nv = 0; for (const t of tris) for (let k = 0; k < 3; k++) { cen = add(cen, t[k]); nv++; } cen = cen.map(v => v / nv);
     for (const [a0, b0, c0, u] of tris) {
       let a = a0, b = b0, cc = c0; const nrm = cross(sub(b, a), sub(cc, a)), mid = [(a[0] + b[0] + cc[0]) / 3, (a[1] + b[1] + cc[1]) / 3, (a[2] + b[2] + cc[2]) / 3];
@@ -149,6 +153,7 @@ function legsQuad(c, A, K, ph, gallop) {   // trot (diagonal pairs) or gallop (f
   for (const [l, o] of Object.entries(P)) { const a = 2 * PI * (ph + o), swing = -A * Math.sin(a), lift = Math.max(0, Math.cos(a));
     c['l' + l + '1'] = swing; c['l' + l + '2'] = (l[0] === 'F' ? 1 : -.6) * K * lift; } }
 export function channelsAt(P, state, tau, t, seed = 1) {
+  if (P.rig === 'puff') return puffChannels(P, state, tau, t, seed);
   const c = Object.assign(Z(), P.fold ?? {}), FOLDP = {...FOLD, ...(P.fold ?? {})}, bird = P.rig === 'bird', winged = bird || P.rig === 'dragon', g = P.gait ?? {}, sd = (seed % 997) / 997, br = Math.sin(2 * PI * (t / (g.breath ?? 2.8) + sd));
   c.seam = 1 + .12 * Math.sin(2 * PI * (t / 2.2 + sd));
   const idle = () => { c.neckX = .04 * br; c.headX = -.03 * br; c.tailY = .18 * Math.sin(2 * PI * (t / 3.3 + sd)); c.tail2Y = .25 * Math.sin(2 * PI * (t / 3.3 + sd) - .8); c.bodyRoll = .012 * br; c.jaw = .04 + .02 * br;
@@ -192,8 +197,23 @@ export function channelsAt(P, state, tau, t, seed = 1) {
     default: idle();
   }
   return c; }
+// 2B TUFT (rig 'puff'): idle breath, tremble (fast shiver), sneeze (wind-up, snap, one sparkle), hide (squash, eyes shut), run (feet scurry, bob), puff (idle + quills bristle)
+export function puffChannels(P, state, tau, t, seed = 1) {
+  const sd = (seed % 997) / 997, br = Math.sin(2 * PI * (t / 2.2 + sd)), c = {bodyPitch: 0, bodyYaw: 0, bodyRoll: 0, bodyY: 0, recoil: 0, squash: 1 + .025 * br, eyes: 1, seam: 1, mouth: 0, sparkle: 0, fL: 0, fR: 0, bristle: 0};
+  for (let i = 0; i < 6; i++) c['q' + i] = .035 * Math.sin(2 * PI * (t / 2.2 + sd) - i * .7);
+  switch (state) {
+    case 'tremble': { const f = Math.sin(2 * PI * 13 * t), g = Math.sin(2 * PI * 17 * t + 1); c.bodyRoll = .06 * f; c.bodyYaw = .04 * g; c.squash = .94; c.eyes = 1.1; for (let i = 0; i < 6; i++) c['q' + i] = .09 * Math.sin(2 * PI * 15 * t + i * 1.3); break; }
+    case 'sneeze': { const wind = sm(tau / .45), snap = tau < .45 ? 0 : Math.exp(-(tau - .45) / .12);
+      c.bodyPitch = -.32 * wind * (tau < .45 ? 1 : 0) + .45 * snap; c.squash = tau < .45 ? 1 + .1 * wind : 1 - .12 * snap; c.eyes = tau < .45 ? 1 - .7 * wind : 1 - .9 * snap; c.mouth = snap;
+      c.sparkle = tau >= .45 && tau < 1.05 ? Math.exp(-(tau - .45) / .22) : 0; for (let i = 0; i < 6; i++) c['q' + i] += .25 * snap * Math.sin(i * 2.1); c.bristle = .25 * snap; break; }
+    case 'hide': { const u = sm(tau / .3); c.squash = 1 - .28 * u; c.eyes = 1 - .85 * u; c.bodyPitch = .2 * u; for (let i = 0; i < 6; i++) c['q' + i] = -.12 * u; break; }
+    case 'run': { const a = 2 * PI * (P.gait?.runHz ?? 4.5) * t; c.fL = .9 * Math.sin(a); c.fR = -c.fL; c.bodyRoll = .06 * Math.sin(a); c.bodyPitch = .12; c.squash = 1 + .06 * Math.abs(Math.sin(a)); break; }
+    case 'puff': c.bristle = .6 * sm(tau / .3); c.eyes = 1.15; break;
+  }
+  return c; }
 // rig → segment rotations from channels
 export function segRots(P, c, sk) {
+  if (P.rig === 'puff') { const r = {body: [c.bodyPitch, c.bodyYaw, c.bodyRoll], footL: [c.fL, 0, 0], footR: [c.fR, 0, 0]}; for (let i = 0; i < 6; i++) r['q' + i] = [c['q' + i], 0, c['q' + i] * .6]; return r; }
   const r = {body: [c.bodyPitch, c.bodyYaw, c.bodyRoll], neck: [c.neckX, c.neckY, 0], head: [c.headX, c.headY, 0], jaw: [c.jaw * (P.dims.jawMax ?? .7), 0, 0]};
   if (P.rig === 'bird') { r.tailFan = [c.tailX * .5, c.tailY * .4, 0]; r.legL = [c.lBL1, 0, 0]; r.legR = [c.lBR1, 0, 0]; }
   else { r.earL = [c.earX, 0, 0]; r.earR = [c.earX, 0, 0]; r.tail1 = [c.tailX, c.tailY, 0]; r.tail2 = [c.tailX * .6, c.tail2Y, 0];
@@ -258,20 +278,24 @@ export function sampleBeast(P, track, t, opts = {}) {
   const {seed = 1, groundY = () => 0, start = {p: [0, 0], yaw: 0}, glowT = t} = opts, geo = opts.geo ?? buildGeometry(P, opts.tier ?? 'hero'), sk = geo.sk;
   const sup = opts.support ?? supportPoints(geo), tr = normTrack(track), r = rootAt(P, tr, start, t), ki = Math.max(0, r.key), k = tr[ki] ?? {state: 'idle'};
   const ch = blendedAt(P, tr, t, seed, 3, start), cg = glowT === t ? ch : blendedAt(P, tr, glowT, seed, 3, start), W = fk(sk, segRots(P, ch, sk));
+  const K = opts.scale ?? 1;   // 2B: uniform root scale (TUFT puff); rig 'puff' also squashes the body and extends the quill clusters
+  if (P.rig === 'puff' && K > 10) { for (let i = 0; i < 6; i++) ch['q' + i] += windAt(K, t, i); Object.assign(W, fk(sk, segRots(P, ch, sk))); }   // colossal: wind ripples through the fluff
+  if (P.rig === 'puff') { const sq = ch.squash ?? 1, qs = quillScale(K) * (1 + .25 * (ch.bristle ?? 0)), b = W.body.R; W.body = {...W.body, R: [b[0] / Math.sqrt(sq), b[1] * sq, b[2] / Math.sqrt(sq), b[3] / Math.sqrt(sq), b[4] * sq, b[5] / Math.sqrt(sq), b[6] / Math.sqrt(sq), b[7] * sq, b[8] / Math.sqrt(sq)]};
+    for (let i = 0; i < 6; i++) { const w = W['q' + i]; W['q' + i] = {...w, R: w.R.map((v, j) => v * qs * (j % 3 === 1 ? sq : 1))}; } }
   let lowest = Infinity; for (const [si, x, y, z] of sup) { const w = W[sk.order[si]], py = w.R[3] * x + w.R[4] * y + w.R[5] * z + w.p[1]; if (py < lowest) lowest = py; }
   const fx = Math.sin(r.yaw), fz = Math.cos(r.yaw), x = r.x + fx * ch.recoil, z = r.z + fz * ch.recoil, gy = groundY(x, z), air = isAir(P, k.state) || r.alt > 1e-4;
-  const y = Math.max(gy - lowest, air ? gy + r.alt + ch.bodyY : -Infinity);
-  return {root: {p: [x, y, z], yaw: r.yaw}, segs: W, order: sk.order, state: k.state, air, lowest: y + lowest - gy, ch,
-    glow: {seam: cg.seam, mouth: cg.mouth, eye: cg.eyes}, arrived: r.arrived}; }
+  const y = Math.max(gy - lowest * K, air ? gy + r.alt + ch.bodyY : -Infinity);
+  return {root: {p: [x, y, z], yaw: r.yaw, ...(K !== 1 ? {k: K} : {})}, segs: W, order: sk.order, state: k.state, air, lowest: y + lowest * K - gy, ch,
+    glow: {seam: cg.seam, mouth: cg.mouth, eye: cg.eyes, sparkle: cg.sparkle ?? 0}, arrived: r.arrived}; }
 // world position of a root-local point (segment frame) of a sample
-export function worldOf(s, seg, v = [0, 0, 0]) { const w = s.segs[seg], l = add(mv(w.R, v), w.p), c = Math.cos(s.root.yaw), sn = Math.sin(s.root.yaw);
+export function worldOf(s, seg, v = [0, 0, 0]) { const w = s.segs[seg], l = scl3(add(mv(w.R, v), w.p), s.root.k ?? 1), c = Math.cos(s.root.yaw), sn = Math.sin(s.root.yaw);
   return [s.root.p[0] + c * l[0] + sn * l[2], s.root.p[1] + l[1], s.root.p[2] - sn * l[0] + c * l[2]]; }
 // segment matrices (3 rows × vec4 per segment, root-local) for the GPU texture
 export function segRows(s, out = null, off = 0) { const n = s.order.length, a = out ?? new Float32Array(n * 12);
   s.order.forEach((name, i) => { const {R, p} = s.segs[name], o = off + i * 12; a.set([R[0], R[1], R[2], p[0], R[3], R[4], R[5], p[1], R[6], R[7], R[8], p[2]], o); }); return a; }
 // all mesh vertices in world space (tests: plant, silhouettes, exits)
 export function worldVerts(s, geo) { const out = new Float32Array(geo.pos.length), c = Math.cos(s.root.yaw), sn = Math.sin(s.root.yaw);
-  for (let i = 0; i < geo.pos.length / 3; i++) { const w = s.segs[s.order[geo.seg[i]]], v = [geo.pos[3 * i], geo.pos[3 * i + 1], geo.pos[3 * i + 2]], l = add(mv(w.R, v), w.p);
+  for (let i = 0; i < geo.pos.length / 3; i++) { const w = s.segs[s.order[geo.seg[i]]], v = [geo.pos[3 * i], geo.pos[3 * i + 1], geo.pos[3 * i + 2]], l = scl3(add(mv(w.R, v), w.p), s.root.k ?? 1);
     out[3 * i] = s.root.p[0] + c * l[0] + sn * l[2]; out[3 * i + 1] = s.root.p[1] + l[1]; out[3 * i + 2] = s.root.p[2] - sn * l[0] + c * l[2]; } return out; }
 
 // ---- crowds (low tier): a parade column / a flee herd, pure in t --------------------------------------------------------------------
@@ -311,6 +335,6 @@ export function parseBeast(s) {   // `<actor> <state> [to <anchor>]` (the `@ <wo
   return {actor: p[0], state: p[1], ...(p[3] ? {to: p[3]} : {})}; }
 // preset sanity: own glow colour clear of Tuft's blue-gold; tris per tier
 export function presetErrors(P) { const e = [];
-  for (const g of [P.glow, P.mouthGlow, P.eyeGlow].filter(Boolean)) for (const r of RESERVED_GLOW) if (rgbDist(g, r) < 60) e.push(`${P.name}: glow ${g} too close to Tuft's ${r}`);
+  if (!P.reservedOwner) for (const g of [P.glow, P.mouthGlow, P.eyeGlow, ...P.parts.map(q => q.glowColor)].filter(Boolean)) for (const r of RESERVED_GLOW) if (rgbDist(g, r) < 60) e.push(`${P.name}: glow ${g} too close to Tuft's ${r}`);
   if (P.rig !== 'blink') for (const tier of P.tiers ?? ['hero', 'low']) { const n = beastTris(P, tier); if (n > TIER_MAX[tier]) e.push(`${P.name}: ${n} tris > ${TIER_MAX[tier]} (${tier})`); }
   return e; }

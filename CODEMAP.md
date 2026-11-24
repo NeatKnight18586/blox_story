@@ -28,6 +28,7 @@ engine/fixtures/beasts2/HORSE_REF.json — tuft 2B gate reference only (tests/be
 engine/fixtures/beasts2/heroes-day.json — tuft 2B fixed hero beasts (scripts/v2/kit2-fixtures.js), day: low heroic moving cine cameras, grade 'clear', beasts on ones.
 engine/fixtures/beasts2/heroes-night.json — tuft 2B fixed hero beasts (scripts/v2/kit2-fixtures.js), night: low heroic moving cine cameras, grade 'clear', beasts on ones.
 engine/fixtures/beasts2/picks.json — (no header)
+engine/fixtures/beasts2/tuft.json — tuft 2B TUFT + PUFF fixture (scripts/v2/kit2-fixtures.js): day street, hook ECU on the glowing eye, states, hood ride, tuft ball/room/coloss
 engine/fixtures/cine/before.json — tuft 1B fixture, BEFORE (current engine): the same spec without look/camera 'cine'.
 engine/fixtures/cine/bloomgate.json — tuft 1B bloom gate (scripts/v2/cine-gates.js): a white DUMMY (non-emissive) under the street lamp, the brightest lit spot of the night set, 
 engine/fixtures/cine/episode.json — tuft 1B (+ 1B fix) Look Pack + cinematic camera fixture: 6 shots ~12 s on the v4look street at night (look4 mystery: lit windows, lamp), HER
@@ -91,6 +92,7 @@ engine/plancheck5.js — format v5 plan rules (pure), run by v2:plan for `format
 engine/plancheck6.js — format 6 mood / pacing checks (P4), pure. Run by v2:plan for specs with `moods: true`.
 engine/poses.js — (no header)
 engine/poses6.js — poses for Actor v6 (R15, avatar-style/body6.js). Pure functions of time, like engine/poses.js.
+engine/puff.js — tuft 2B PUFF (pure: no three, no DOM, no clock). Sizes, the grow / deflate curves and the `puff:` / `glow:` vocab.
 engine/r6-stage.js — plain set for the R6 key-pose sheet (scripts/v2/r6-sheet.js): HERO + LITTLE + ADULT_F (hourglass) posed by engine/r6.js from acting6 verbs.
 engine/r6.js — rigid classic R6 rig (opt-in spec `rig: 'r6'`, owner 2026-11-24): AUTHORED R6 key poses (engine/r6keys.js) on acting6 timing,
 engine/r6keys.js — authored classic R6 key poses (owner 2026-11-24: rigid R6, no bends). Data only: acting6 P() specs on
@@ -307,6 +309,7 @@ scripts/v2/toyhouse-gates.js — node scripts/v2/toyhouse-gates.js [--spec stori
 scripts/v2/toyhouse-photo.js — node scripts/v2/toyhouse-photo.js : renders the T34 memory shot (young Pip with the key) at 384×480 into
 scripts/v2/toyset-gates.js — Toy House set gates (format v5, Phase 3b) → review/toyhouse/set-gates.json.
 scripts/v2/troupe-sheet.js — Amendment A4 G2 review sheet: the five troupe actors + AFK, front and three-quarter, three
+scripts/v2/tuft-preset.js — tuft 2B: writes beasts/TUFT.json (data; the rig is engine/beast.js 'puff'). Palm-sized moon-white puffball
 scripts/v2/unranked-p1.js — E4 "unranked" Phase 1 (cast only) review + gates → review/unranked/p1/
 scripts/v2/where.js — node scripts/v2/where.js --spec <episode.json> [--shots S01,S05] [--at .5] [--who hero,bitsy]
 beasts/BLINK.json — tuft 2A BEAST KIT (2B fix): BLINK, the firefly: a LIME glow sprite BEHIND two visible wing cards (fast flutter, hinged on the body axis) + a
@@ -316,6 +319,7 @@ beasts/CINDER.json — tuft 2A BEAST KIT: CINDER, the sky hawk (bird). Charcoal 
 beasts/DEER.json — tuft 2A BEAST KIT: DEER (low tier). Dark brown facets, dim MINT seams, bone antlers, long legs.
 beasts/FOX.json — tuft 2A BEAST KIT: FOX (low tier, parade / flee crowds). Dark rust facets, dim PINK seams; big ears, bushy tail.
 beasts/NIGHTFANG.json — tuft 2A BEAST KIT (2B redo): NIGHTFANG, the dragon. Near-black faceted body, CYAN glow seams, long S-curved neck, wedge head with swept-back
+beasts/TUFT.json — tuft 2B TUFT (scripts/v2/tuft-preset.js): palm-sized moon-white puffball, big glossy eyes, small feet, layered faceted quill clusters tipped
 beasts/VOLT.json — tuft 2A BEAST KIT (2B fix): VOLT, the storm wolf (quad). Dark storm-grey faceted body (value \u2264 .45) so the ELECTRIC-YELLOW seams pop (s
 cast/hero.json — Format v4 (owner, 2026-11-15): the hero, slot HERO, in every episode from 2 on. Actor v5 (classic R6), first-person narrator. Bare yellow he
 cast/hero6.json — P1b (owner, 2026-11-20): the hero on Actor v6 (iconic blocky R15, body6.js). HERO = variant B, the default: charcoal sleeve over UpperArm + 

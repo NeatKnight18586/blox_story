@@ -136,5 +136,54 @@
   "line": "467/467 consecutive moving pairs differ (heroes-night); 2A kit VOLT run before: 13/27 (twos)",
   "pairs": 467,
   "same": 0
+ },
+ {
+  "sec": "tuft",
+  "name": "hook frame 0 reads at 390 px (eye centred, quills blooming)",
+  "pass": true,
+  "line": "eye at (0.51, 0.51) — 0.063 from (.5, .45) ≤ .2; blue-next-to-gold (tip) pixels 4.71 % ≥ 1 %"
+ },
+ {
+  "sec": "tuft",
+  "name": "Tuft blue-gold nowhere else (colour histogram)",
+  "pass": false,
+  "line": "blue-next-to-gold pixels with every Tuft hidden: max 0.709 % ≤ 0.1 % over 27 frames (tuft fixture 0.709 %, other 2B fixtures 0.107 %)",
+  "hb": [
+   0,
+   0,
+   0,
+   0.007091049382716049,
+   0.004151234567901235,
+   0,
+   0
+  ],
+  "ob": [
+   0,
+   0,
+   0,
+   0.000470679012345679,
+   0,
+   0.000023148148148148147,
+   0.00036265432098765433,
+   0,
+   0,
+   0,
+   0,
+   0,
+   0,
+   0.001072530864197531,
+   0,
+   0,
+   0,
+   0,
+   0,
+   0
+  ]
+ },
+ {
+  "sec": "tuft",
+  "name": "hero face decal stays on the puffed head",
+  "pass": true,
+  "line": "f349: Ø 4.92, decal 0.63 R from the centre, 0.62 R forward · f385: Ø 10.00, decal 0.64 R from the centre, 0.62 R forward · f400: Ø 2.21, decal 0.63 R from the centre, 0.62 R forward"
  }
 ]

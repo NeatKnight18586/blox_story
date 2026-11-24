@@ -195,6 +195,7 @@ export function idealAt(shot, tt, ctx) {
       position = add(pivot, scl(sub(position, pivot), FIT.back)); target = add(pivot, scl(sub(target, pivot), FIT.back));
     }
   }
+  if (ctx.beastSubject || shot.angle) { const g = ctx.groundAt?.(position[0], position[2]) ?? 0; if (position[1] < g + .3) position = [position[0], g + .3, position[2]]; }   // 2B: the head-fit back-off never takes the camera under the ground
   return {position, target, fov, roll: base.roll ?? 0};
 }
 export function anticipation(shot, tt, ctx) {

@@ -99,6 +99,7 @@ export function briefToSpec(brief, cues, lib, {slug, root = '.'} = {}) {
   const shots = [], emphasis6 = [], effects = []; let lastAt = -1;
   const clearSizes = (meta.clear ?? '').replace(/\(.*?\)/g, '').split(/[\s,;]+/).filter(Boolean); for (const z of clearSizes) if (!SIZES6.includes(z)) E('META', `clear: unknown size "${z}" (${SIZES6.join(' | ')})`);   // E3b D1
   let crowdArea = null; const crowdAvoid = [];
+  const cues2b = [];   // tuft 2B: sfx cues written by markers (spec.sfxCues)
   const st6 = {drains: [], blooms: [], crowd: null, hand: [], tumbles: [], airCatch: [], splashes: [], tags: [], spawns: [], sits: [], rises: [], lies: []}, anchorsOf = new Set(lib.locations[loc0]?.anchors ?? []);   // E2 story markers
   rows.forEach((r, i) => {
     const R = `row ${r['#']}`, bad = (col, v, ok) => E(`${R} (${col})`, `unknown ${col} "${v}"${ok ? ` (${ok})` : ''}`);
@@ -201,6 +202,8 @@ export function briefToSpec(brief, cues, lib, {slug, root = '.'} = {}) {
       const word = P.word ?? wd, f = word ? find(word, 'notes') : null; if (word && !f) continue;
       const t = +(f ? f.t : at + .15 + .55 * unworded++).toFixed(3), who = n => { if (!castKeys[n]) { E(`${R} (notes)`, `${key}: "${n}" is not a CAST role`); return false; } return true; }, anc = n => { if (n && !anchorsOf.has(n)) { E(`${R} (notes)`, `${key}: anchor "${n}" is not in ${loc0} (${[...anchorsOf].join(', ')})`); return false; } return true; };
       if (key === 'beast') { if (who(P.actor) && anc(P.to)) { if (cast[P.actor]?.style !== 'beast') E(`${R} (notes)`, `beast: "${P.actor}" is not a beast (CAST: - ${P.actor}: beast <PRESET>)`); else (sh.beasts ??= []).push({actor: P.actor, state: P.state, at: +(t - at).toFixed(3), ...(P.to ? {to: P.to} : {})}); } continue; }   // tuft 2A → shot.beasts (shot-local s)
+      if (key === 'puff') { if (who(P.actor)) { (sh.puffs ??= []).push({actor: P.actor, size: P.size, at: +(t - at).toFixed(3)}); if (P.size === 'deflate') cues2b.push([t, 'squeak']); } continue; }   // tuft 2B → shot.puffs (+ sfx 'squeak' on a deflate)
+      if (key === 'glow') { if (who(P.actor)) { if (cast[P.actor]?.style !== 'beast') E(`${R} (notes)`, `glow: "${P.actor}" is not a beast`); else (sh.glows ??= []).push({actor: P.actor, level: P.level, at: +(t - at).toFixed(3)}); } continue; }   // tuft 2B → shot.glows
       if (key === 'drain' && who(P.actor)) st6.drains.push({actor: P.actor, region: P.region, t});
       else if (key === 'bloom') { if (P.crowd) st6.blooms.push({crowd: true, t}); else if (who(P.actor)) st6.blooms.push({actor: P.actor, region: P.region, colour: P.colour, t}); }
       else if (key === 'crowd' && anc(P.anchor)) {
@@ -255,6 +258,7 @@ export function briefToSpec(brief, cues, lib, {slug, root = '.'} = {}) {
     cast, ...(props7.length ? {props: props7} : {}), ...(worldObjs.size ? {worldObjects: [...worldObjs]} : {}), emphasis6: emphasis6.map(({row, ...e}) => e), effects, shots};
   if (crowdArea && st6.crowd) { st6.crowd.area = crowdArea; st6.crowd.spread = true; st6.crowd.partial = true; if (crowdAvoid.length) st6.crowd.avoid = crowdAvoid; }   // E3b: spread start, kept-clear boxes, a marker's n moves only that many
   else if (st6.crowd) for (const q of st6.crowd.steps) delete q.n;   // legacy specs: steps unchanged   // E3b: the crowd starts spread over its wander box
+  if (cues2b.length) spec.sfxCues = [...(spec.sfxCues ?? []), ...cues2b];
   if (Object.values(st6).some(v => Array.isArray(v) ? v.length : v)) { spec.story6 = Object.fromEntries(Object.entries(st6).filter(([, v]) => Array.isArray(v) ? v.length : v)); if (st6.crowd) spec.lod = {near: 18, max: 24}; }   // E2 (opt-in): only specs that use a marker get story6
   return {spec, errors, missing};
 }

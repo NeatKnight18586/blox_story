@@ -2,23 +2,23 @@
  {
   "name": "tris per tier",
   "pass": true,
-  "line": "hero max 1032 ≤ 6000, low max 764 ≤ 800 (NIGHTFANG 1032/764, VOLT 668/552, CINDER 596/584, BOULDER 592/592, FOX 284/276, DEER 296/288, BOAR 292/284)",
+  "line": "hero max 1208 ≤ 6000, low max 792 ≤ 800 (NIGHTFANG 1208/792, VOLT 680/546, CINDER 596/584, BOULDER 688/620, FOX 284/276, DEER 296/288, BOAR 292/284)",
   "tris": {
    "NIGHTFANG": {
-    "hero": 1032,
-    "low": 764
+    "hero": 1208,
+    "low": 792
    },
    "VOLT": {
-    "hero": 668,
-    "low": 552
+    "hero": 680,
+    "low": 546
    },
    "CINDER": {
     "hero": 596,
     "low": 584
    },
    "BOULDER": {
-    "hero": 592,
-    "low": 592
+    "hero": 688,
+    "low": 620
    },
    "FOX": {
     "hero": 284,
@@ -47,7 +47,7 @@
  {
   "name": "feet planted",
   "pass": true,
-  "line": "ground states: lowest vertex max 0.0000 ≤ 0.02 above ground (5063 samples); all states + transitions min 0.0000 ≥ 0",
+  "line": "ground states: lowest vertex max 0.0000 ≤ 0.02 above ground (6771 samples); all states + transitions min 0.0000 ≥ 0",
   "perPreset": {
    "NIGHTFANG": 0,
    "VOLT": 0,
@@ -61,11 +61,11 @@
  {
   "name": "flee leaves the frame along the exit",
   "pass": true,
-  "line": "NIGHTFANG out at 1.88 s (≤ 2.6), cos 1; VOLT out at 0.92 s (≤ 2.6), cos 1; CINDER out at 0.75 s (≤ 2.6), cos 1; BOULDER out at 1.29 s (≤ 2.6), cos 1",
+  "line": "NIGHTFANG out at 2.17 s (≤ 2.6), cos 1; VOLT out at 0.92 s (≤ 2.6), cos 1; CINDER out at 0.75 s (≤ 2.6), cos 1; BOULDER out at 1.29 s (≤ 2.6), cos 1",
   "rows": [
    {
     "beast": "NIGHTFANG",
-    "leftAt": 1.875,
+    "leftAt": 2.1666666666666656,
     "along": 1
    },
    {
@@ -88,45 +88,45 @@
  {
   "name": "silhouettes distinct at phone width",
   "pass": true,
-  "line": "max pairwise IoU 0.488 ≤ 0.6 (NV 0.488, NC 0.471, NB 0.291, VC 0.393, VB 0.339, CB 0.283)",
+  "line": "max pairwise IoU 0.401 ≤ 0.6 (NV 0.334, NC 0.349, NB 0.27, VC 0.401, VB 0.33, CB 0.274)",
   "pairs": [
    [
     "NIGHTFANG",
     "VOLT",
-    0.488
+    0.334
    ],
    [
     "NIGHTFANG",
     "CINDER",
-    0.471
+    0.349
    ],
    [
     "NIGHTFANG",
     "BOULDER",
-    0.291
+    0.27
    ],
    [
     "VOLT",
     "CINDER",
-    0.393
+    0.401
    ],
    [
     "VOLT",
     "BOULDER",
-    0.339
+    0.33
    ],
    [
     "CINDER",
     "BOULDER",
-    0.283
+    0.274
    ]
   ]
  },
  {
   "name": "scale vs the R6 kid",
   "pass": true,
-  "line": "NIGHTFANG reared shoulder 2.16× kid height (2.0–2.4) · VOLT shoulder 1.05× kid shoulder (.85–1.15) · CINDER wingspan 2.53 kids (2.25–2.75) · BOULDER top 1.13× adult (> 1)",
-  "nf": 2.159507217664956,
+  "line": "NIGHTFANG reared shoulder 2.02× kid height (2.0–2.4) · VOLT shoulder 1.05× kid shoulder (.85–1.15) · CINDER wingspan 2.53 kids (2.25–2.75) · BOULDER top 1.13× adult (> 1)",
+  "nf": 2.0211329449695645,
   "vo": 1.051682813707606,
   "ci": 2.527528790027603,
   "bo": 1.1256234151012492

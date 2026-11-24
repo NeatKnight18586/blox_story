@@ -40,5 +40,36 @@ function heroes(day) {
 }
 if (process.argv[1]?.endsWith("kit2-fixtures.js")) { heroes(true); heroes(false); }
 export const EXTRA = [];   // later tasks push fixture builders here
+// ---- TUFT + PUFF (Task 2): hook ECU eye, states, hood ride, tuft puff ball → room → colossal → deflate, hero ball → room → deflate ----
+EXTRA.push(({save, picks, kid}) => {
+  const cast = {}, shots = []; let t = 0, n = 0; const TH = .95;
+  const add = (sh, label, pick) => { const s0 = Math.round(t * FPS); shots.push({id: `tuft-${n++}-${label}`, mood: 'fun', ...sh}); t += sh.frames / FPS; if (pick != null) picks.push({set: 'tuft', label, frame: s0 + Math.round(pick * FPS)}); return s0 / FPS; };
+  cast.hero = {...kid(4, 24, 180, 'HERO')}; cast.tuft = {style: 'beast', preset: 'TUFT', tier: 'hero', at: 'street', offset: [1.6, 0, 22], yaw: 200, state: 'hide', glowLevel: .45};
+  cast.tuft_h = {style: 'beast', preset: 'TUFT', tier: 'hero', at: 'street', offset: [4, 0, 24], yaw: 180, ride: {actor: 'hero', at: 'hood'}};
+  cast.tuft_p = {style: 'beast', preset: 'TUFT', tier: 'hero', at: 'street', offset: [0, 0, -12], yaw: 190, glowLevel: .5};
+  cast.hero2 = {...kid(0, 8, 20, 'HERO')};
+  const T0 = [1.6, 0, 22], yw = 200 * D, eye = [T0[0] + .115 * Math.cos(yw) + .3 * Math.sin(yw), .43, T0[2] - .115 * Math.sin(yw) + .3 * Math.cos(yw)];   // Tuft's left eye (root-local [.115, .43, .3])
+  // 0 hook: extreme close on the eye opening, quills blooming (glow 1)
+  add({frames: 30, duration: 1.25, size: 'ws', move: 'push', angle: 'high', from: {position: [eye[0] + Math.sin(yw) * 1.25, .5, eye[2] + Math.cos(yw) * 1.25], target: eye, fov: 34}, to: {position: [eye[0] + Math.sin(yw) * 1.0, .48, eye[2] + Math.cos(yw) * 1.0], target: eye, fov: 34},
+    beasts: [{actor: 'tuft', state: 'idle', at: .3}], glows: [{actor: 'tuft', level: 1, at: 0}]}, 'hook', 0);
+  const near = (a, d, h = .7) => ({position: [T0[0] + Math.sin(a * D) * d, h, T0[2] + Math.cos(a * D) * d], target: [T0[0], .42, T0[2]], fov: 34});
+  add({frames: 24, duration: 1, size: 'ws', move: 'orbit', degrees: 12, subject: 'tuft', from: near(200, 3.2), to: {position: [0, .7, 0], target: [T0[0], .42, T0[2]]}, glows: [{actor: 'tuft', level: .45, at: 0}]}, 'idle', .6);
+  add({frames: 24, duration: 1, size: 'ws', move: 'push', subject: 'tuft', from: near(215, 3.2), to: near(215, 2.6), beasts: [{actor: 'tuft', state: 'tremble', at: 0}]}, 'tremble', .5);
+  add({frames: 30, duration: 1.25, size: 'ws', move: 'push', subject: 'tuft', from: near(175, 3.0), to: near(175, 2.5), beasts: [{actor: 'tuft', state: 'sneeze', at: 0}]}, 'sneeze', .55);
+  add({frames: 30, duration: 1.25, size: 'ws', move: 'track', follow: 'tuft', followOffset: [0, 0, 0], subject: 'tuft', from: {position: [-3.4, .8, -1.2], target: [0, .45, 0]}, to: {position: [-3.4, .8, .4], target: [0, .45, 0]}, beasts: [{actor: 'tuft', state: 'run', at: 0, to: [1.6, 0, 26]}]}, 'run', .8);
+  add({frames: 30, duration: 1.25, size: 'ws', move: 'orbit', degrees: 15, subject: 'hero', angle: 'eye', from: {position: [6.2, 4.2, 28.2], target: [4, 3.3, 24]}, to: {position: [0, 4.2, 0], target: [4, 3.3, 24]}, beasts: [{actor: 'tuft_h', state: 'hide', at: 0}]}, 'hood', .7);
+  // tuft puffs in the open street
+  const P0 = [0, 0, -12], far = (d, h, ty) => ({position: [P0[0] - d * .2, h, P0[2] - d * .98], target: [P0[0], ty, P0[2]], fov: d > 40 ? 72 : 46});
+  add({frames: 36, duration: 1.5, size: 'ws', move: 'push', subject: 'tuft_p', from: far(9, 1.0, 2.0), to: far(8.2, 1.0, 2.0), puffs: [{actor: 'tuft_p', size: 'ball', at: .1}], beasts: [{actor: 'tuft_p', state: 'puff', at: .1}]}, 'puff ball', 1.3);
+  add({frames: 36, duration: 1.5, size: 'ws', move: 'push', subject: 'tuft_p', from: far(20, 1.2, 4.5), to: far(18.5, 1.2, 4.5), puffs: [{actor: 'tuft_p', size: 'room', at: .1}]}, 'puff room', 1.3);
+  add({frames: 48, duration: 2.0, size: 'ws', move: 'orbit', degrees: -14, subject: 'tuft_p', angle: 'eye', from: far(46, 2.5, 30), to: {position: [0, 3.5, 0], target: [P0[0], 28, P0[2]]}, puffs: [{actor: 'tuft_p', size: 'colossal', at: .1}], glows: [{actor: 'tuft_p', level: 1, at: .3}]}, 'puff colossal', 1.9);
+  add({frames: 30, duration: 1.25, size: 'ws', move: 'push', subject: 'tuft_p', from: far(16, 1.2, 3), to: far(14, 1.2, 3), puffs: [{actor: 'tuft_p', size: 'deflate', at: .05}], glows: [{actor: 'tuft_p', level: .5, at: .05}]}, 'deflate', 1.0);
+  // hero puffs (R6 ball proxy)
+  const H0 = [0, 0, 8], hf = (d, h, ty, a = 20) => ({position: [H0[0] + Math.sin(a * D) * d, h, H0[2] + Math.cos(a * D) * d], target: [H0[0], ty, H0[2]], fov: 44});
+  add({frames: 36, duration: 1.5, size: 'ws', move: 'push', subject: 'hero2', angle: 'eye', from: hf(13, 3.4, 3.4), to: hf(12, 3.4, 3.4), puffs: [{actor: 'hero2', size: 'ball', at: .1}]}, 'hero ball', 1.3);
+  add({frames: 36, duration: 1.5, size: 'ws', move: 'push', subject: 'hero2', angle: 'eye', from: hf(22, 3.4, 5.5), to: hf(20.5, 3.4, 5.5), puffs: [{actor: 'hero2', size: 'room', at: .1}]}, 'hero room', 1.3);
+  add({frames: 30, duration: 1.25, size: 'ws', move: 'push', subject: 'hero2', angle: 'eye', from: hf(16, 3.4, 4.5), to: hf(15, 3.4, 4.5), puffs: [{actor: 'hero2', size: 'deflate', at: .05}]}, 'hero deflate', .9);
+  save('tuft.json', {note: 'tuft 2B TUFT + PUFF fixture (scripts/v2/kit2-fixtures.js): day street, hook ECU on the glowing eye, states, hood ride, tuft ball/room/colossal/deflate, hero ball/room/deflate.', slug: 'beasts', ...HEAD, look4: 'comedy', look: 'comedy', cast, shots, sfxCues: [[+(t - 1.25 + .05).toFixed(3), 'squeak']]});
+});
 if (process.argv[1]?.endsWith("kit2-fixtures.js")) for (const f of EXTRA) f({save, picks, sizeOf, kid, lowCam, HEAD, FPS});
 if (process.argv[1]?.endsWith("kit2-fixtures.js")) save("picks.json", picks);

@@ -178,6 +178,21 @@ const presetOf = c => {
   const pre = FACES_V3 && !pre3.faceStyle ? {...pre3, faceStyle: 'v3'} : pre3;   // Faces v3: default for season 1 (or spec.faces 'v3')
   if ((spec.format === 5 || spec.format === 6) && pre.build !== 'youth' && !(pre.age < 18)) pre.scale = 1;   // format v5: every adult stands at the same height (builds differ in shape, not size)
   return pre; };
+// tuft 2B (opt-in): `puffs` on an R6 actor (shot puffs [{actor, size, at}], engine/puff.js): torso + head swell into a faceted ball proxy
+// (jacket colour) of diameter D; the head scales and sits in the ball's upper front (face decal rides the head pivot); arms / legs keep
+// their size and stick out of the ball. Pure in t. PUFFERS = actor names with puff events; balls built at load (patched by the cine light).
+const PF = spec.shots?.some(sh => sh.puffs?.length) ? await import('./puff.js') : null, PUFFERS = [], PUFFEV = {};
+function puffHeroes(t) {
+  for (const n of PUFFERS) { const x = cast[n], A = x.a, rest = 2 * x.a.root.scale.x, pk = PF.puffAt(PUFFEV[n], t, rest, 'hero'), D = pk.phase === 'rest' || pk.k <= 1.01 ? 0 : pk.k * rest;   // rest = the torso width
+    const P0 = A.puff0 ??= {head: [A.pivots.head.position.toArray(), A.pivots.head.scale.toArray()], ...Object.fromEntries(['leftShoulder', 'rightShoulder', 'leftHip', 'rightHip'].filter(k => A.pivots[k]).map(k => [k, A.pivots[k].position.toArray()]))};
+    const s = A.root.scale.x, on = D > 0; A.ball.visible = on; if (A.parts.torso) A.parts.torso.visible = !on; A.torsoExtras?.forEach(o => { o.visible = !on; });
+    if (!on) { A.pivots.head.position.fromArray(P0.head[0]); A.pivots.head.scale.fromArray(P0.head[1]); for (const k of ['leftShoulder', 'rightShoulder', 'leftHip', 'rightHip']) if (P0[k]) A.pivots[k].position.fromArray(P0[k]); A.puffD = 0; continue; }
+    const Dl = D / s, R = Dl / 2, cy = 2 + R * .92, kh = Math.max(1, Dl * .42 / 1.2);   // local units (the R6 body: hips at 2, torso 2–4)
+    A.ball.position.set(0, cy, 0); A.ball.scale.setScalar(R);
+    A.pivots.head.scale.set(P0.head[1][0] * kh, P0.head[1][1] * kh, P0.head[1][2] * kh); A.pivots.head.position.set(0, cy + R * .12 - .6 * kh, R * .62);
+    if (P0.leftShoulder) { A.pivots.leftShoulder.position.set(-R * .92, cy + R * .1, 0); A.pivots.rightShoulder.position.set(R * .92, cy + R * .1, 0); A.pivots.leftShoulder.rotation.z = -1.15; A.pivots.rightShoulder.rotation.z = 1.15; }   // arms stick out of the ball
+    if (P0.leftHip) { A.pivots.leftHip.position.set(-.55, cy - R * .93, 0); A.pivots.rightHip.position.set(.55, cy - R * .93, 0); }
+    A.puffD = D; } }
 // tuft 2A (opt-in): BEAST KIT actors (`style: 'beast'`, engine/beastrt.js) and low-tier crowds (spec.beastCrowds); null for every other spec
 const BEAST_ON = Object.values(spec.cast ?? {}).some(c => c.style === 'beast') || !!spec.beastCrowds?.length;
 const BEASTS = BEAST_ON ? await (async () => { const R = await import('./beastrt.js'), base = new URL('../', import.meta.url), names = [...Object.values(spec.cast ?? {}).filter(c => c.style === 'beast').map(c => c.preset), ...(spec.beastCrowds ?? []).flatMap(c => c.presets)];
@@ -429,7 +444,8 @@ const talkOf = (name, t) => { if (!flapShapes) return null; const f = Math.round
 function poseCast(t) {
   const out = {};
   for (const [name, x] of Object.entries(cast)) poseOne(name, x, t, out);
-  BEASTS?.post(t, t, n => cast[n] && !cast[n].beast ? headOf(cast[n]).toArray() : cast[n]?.a.head.position.toArray() ?? null);   // tuft 2A: BLINK orbits a posed head; low-tier crowds (2B: beasts on ONES always)
+  BEASTS?.post(t, t, n => cast[n] && !cast[n].beast ? headOf(cast[n]).toArray() : cast[n]?.a.head.position.toArray() ?? null, n => { const x = cast[n]; if (!x || x.beast) return null; return {head: headOf(x).toArray(), yaw: x.a.root.rotation.y, s: x.a.root.scale.x}; });   // tuft 2A: BLINK orbits a posed head; low-tier crowds (2B: beasts on ONES always)
+  if (PUFFERS.length) puffHeroes(t);   // tuft 2B: hero R6 puff (ball proxy)
   return out;
 }
 function poseOne(name, x, t, out) {
@@ -554,6 +570,10 @@ const glowCubes = (spec.glowCubes ?? []).map((g, i) => { const m = new T.Mesh(ne
 const CL = CINE_LOOK ? (await import('./cinelook.js')).createCineLook({renderer, scene, spec, aa: q.get('aa') !== '0'}) : null, CINE_OPTS = {bloom: true, grain: true, actorLight: true};
 // 1B fix: each actor's head centre above its root at load (rest pose, root yaw ignored: the head sits over the root axis)
 const CINE_HEAD = {}; if (CINE_CAM) for (const [n, x] of Object.entries(cast)) if (x.v2) { x.a.root.updateMatrixWorld(true); const b = new T.Box3().setFromObject(x.a.pivots.head, true), c = b.getCenter(new T.Vector3()); CINE_HEAD[n] = [0, c.y - x.a.root.position.y, 0]; }
+if (PF) for (const [n, x] of Object.entries(cast)) { if (x.beast || !x.a?.pivots?.head) continue; const ev = shots.flatMap(sh => (sh.puffs ?? []).filter(e => e.actor === n).map(e => ({size: e.size, t: sh.start / FPS + (e.at ?? 0)}))).sort((a, b) => a.t - b.t);
+  if (!ev.length) continue; PUFFERS.push(n); PUFFEV[n] = ev.map(e => ({...e, size: e.size}));
+  const tm = x.a.parts.torso?.material, col = tm?.color ? tm.color.clone() : new T.Color('#2b2f38'), ball = new T.Mesh(new T.IcosahedronGeometry(1, 2), new T.MeshStandardMaterial({color: col, roughness: .55, flatShading: true}));
+  ball.name = 'puffBall'; ball.visible = false; x.a.root.add(ball); x.a.ball = ball; x.a.torsoExtras = x.a.parts.torso ? x.a.parts.torso.children.slice() : []; }   // tuft 2B hero puff ball proxy
 if (CL) { const roots = new Set(Object.values(cast).map(x => x.a.root)); CL.markGlow(scene, o => { for (let p = o; p; p = p.parent) if (roots.has(p)) return true; return false; }); CL.lightActors([...roots]); }
 // E1 fix (opt-in spec.hide): set objects hidden by name (a story prop replaces them)
 for (const n of spec.hide ?? []) { const o = scene.getObjectByName(n); if (o) o.visible = false; else console.warn('spec.hide: no object ' + n); }
@@ -652,7 +672,9 @@ function cineCtx(shot, aspect) {
   return {fps: FPS, aspect, cacheKey: `${shot.id}|${shot.start}|${aspect.toFixed(4)}`, headH, eyesAt: eyes, faceAt: face, headsAt, beastSubject: !!bSub, groundAt: (x, z) => world?.groundY?.(x, z) ?? 0,
     actorsAt: tt => Object.fromEntries(Object.entries(cast).map(([n, x]) => [n, x.beast && bNames.includes(n) ? BEASTS.liveAt(n, t0 + tt).root : markAt(x.c, t0 + tt)]))};
 }
-const sampleCineShot = (shot, lt, aspect) => CINE.sampleCine({...shot, fps: FPS}, lt, cineCtx(shot, aspect));
+const sampleCineShot = (shot, lt, aspect) => { const ctx = cineCtx(shot, aspect), c = CINE.sampleCine({...shot, fps: FPS}, lt, ctx);
+  if ((ctx.beastSubject || shot.angle) && c.position) { const g = ctx.groundAt(c.position[0], c.position[2]) + .3; if (c.position[1] < g) c.position = [c.position[0], g, c.position[2]]; }   // 2B: never under the ground (giant-subject head fit)
+  return c; };
 const cineCam0 = {};
 function cineRender(shot, mf, off, lt, width, height) {
   const gy = (x, z) => world?.groundY?.(x, z) ?? 0, items = [];

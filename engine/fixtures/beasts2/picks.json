@@ -46,5 +46,70 @@
   "look": "night",
   "frame": 209,
   "beast": "BLINK"
+ },
+ {
+  "set": "tuft",
+  "label": "hook",
+  "frame": 0
+ },
+ {
+  "set": "tuft",
+  "label": "idle",
+  "frame": 44
+ },
+ {
+  "set": "tuft",
+  "label": "tremble",
+  "frame": 66
+ },
+ {
+  "set": "tuft",
+  "label": "sneeze",
+  "frame": 91
+ },
+ {
+  "set": "tuft",
+  "label": "run",
+  "frame": 127
+ },
+ {
+  "set": "tuft",
+  "label": "hood",
+  "frame": 155
+ },
+ {
+  "set": "tuft",
+  "label": "puff ball",
+  "frame": 199
+ },
+ {
+  "set": "tuft",
+  "label": "puff room",
+  "frame": 235
+ },
+ {
+  "set": "tuft",
+  "label": "puff colossal",
+  "frame": 286
+ },
+ {
+  "set": "tuft",
+  "label": "deflate",
+  "frame": 312
+ },
+ {
+  "set": "tuft",
+  "label": "hero ball",
+  "frame": 349
+ },
+ {
+  "set": "tuft",
+  "label": "hero room",
+  "frame": 385
+ },
+ {
+  "set": "tuft",
+  "label": "hero deflate",
+  "frame": 412
  }
 ]

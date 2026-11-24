@@ -5,6 +5,7 @@
 // Emissive = aGlow × group intensity × HDR (preset glowHDR under post 'cine' → only seams pass the bloom threshold; LDR 1 without).
 import * as T from 'three';
 import * as B from './beast.js';
+import * as PF from './puff.js';   // 2B TUFT puff / glow
 import {contactBlob} from './look5b.js';
 
 export async function loadPresets(names, base) {
@@ -76,26 +77,40 @@ export function createBeasts({scene, spec, presets, hdr, groundY = () => 0, reso
       const cam = sh.from ? {position: sh.from.position, target: sh.from.target} : null, to = e.to == null ? null : Array.isArray(e.to) ? (e.to.length === 3 ? [e.to[0], e.to[2]] : e.to) : resolveXZ(e.to);
       k.push({t: sh.start / FPS + (e.at ?? 0), state: e.state, ...(to ? {to} : {}), ...(e.state === 'flee' ? {exit: B.exitDir(e.exit ?? sh.exit ?? 'right', cam ?? {position: [0, 0, 10], target: [0, 0, 0]})} : {})}); }
     const p0 = markAt(c, 0); a.start = {p: [p0[0], p0[2]], yaw: (c.yaw ?? 0) * D}; return a.track = B.normTrack(k); }
+  // 2B: shot `puffs` [{actor, size, at}] / `glows` [{actor, level, at}] → absolute-time events per actor (pure in t)
+  const evOf = (key, name) => shots.flatMap(sh => (sh[key] ?? []).filter(e => e.actor === name).map(e => ({...e, t: sh.start / FPS + (e.at ?? 0)}))).sort((x, y) => x.t - y.t);
+  const puffK = (a, t) => a.P.rig === 'puff' ? PF.puffAt(a.puffEv ??= evOf('puffs', a.name), t, PF.TUFT_H, 'tuft', a.P.puffK) : {k: 1, phase: 'rest'};
+  let spTex = null; const sparkleOf = a => { if (a.spark) return a.spark; const sp = new T.Sprite(new T.SpriteMaterial({map: glowTex(), color: new T.Color('#FFD36B').multiplyScalar(hdr ? 3 : 1), transparent: true, depthWrite: false, blending: T.AdditiveBlending, fog: false, toneMapped: !hdr})); sp.visible = false; scene.add(sp); void spTex; return a.spark = sp; };
+  const puffOf = a => { if (a.airPuff) return a.airPuff; const sp = new T.Sprite(new T.SpriteMaterial({map: glowTex(), color: new T.Color('#e8eef2'), transparent: true, depthWrite: false, fog: false, opacity: .8})); sp.visible = false; scene.add(sp); return a.airPuff = sp; };
   const M4 = new T.Matrix4(), Q = new T.Quaternion(), V = new T.Vector3(), S1 = new T.Vector3(1, 1, 1), Y = new T.Vector3(0, 1, 0);
   // per frame: tq = the body time (twos), t = glow / light time (ones)
   function drive(name, t, tq) {
     const a = actors[name]; if (!a || a.P.rig === 'blink') return null;
-    const s = B.sampleBeast(a.P, trackOf(a), tq, {seed: a.seed, groundY, geo: a.G.geo, support: a.G.sup, start: a.start, glowT: t});
-    a.root.position.fromArray(s.root.p); a.root.rotation.set(0, s.root.yaw, 0); B.segRows(s, a.data, 0); a.tex.needsUpdate = true; a.sample = s;
-    const h = hdrOf(a.P); a.U.uGlowI.value.set(s.glow.seam * h * (a.c.glow ?? 1), s.glow.mouth * h * (a.c.glow ?? 1), s.glow.eye * h * (a.c.glow ?? 1));
-    a.head.position.fromArray(B.worldOf(s, 'head', [0, a.P.dims.headH * .3 * (a.P.scale ?? 1), a.P.dims.headL * .45 * (a.P.scale ?? 1)]));
+    const pk = puffK(a, t), s = B.sampleBeast(a.P, trackOf(a), tq, {seed: a.seed, groundY, geo: a.G.geo, support: a.G.sup, start: a.start, glowT: t, scale: pk.k});
+    a.root.position.fromArray(s.root.p); a.root.rotation.set(0, s.root.yaw, 0); a.root.scale.setScalar(pk.k); a.puff = pk; B.segRows(s, a.data, 0); a.tex.needsUpdate = true; a.sample = s;
+    const lv = a.P.rig === 'puff' ? PF.tipGlow(pk.k, PF.glowAt(a.glowEv ??= evOf('glows', a.name), t, a.c.glowLevel ?? .35)) : 1;   // TUFT: quill glow level × size
+    const h = hdrOf(a.P); a.U.uGlowI.value.set(s.glow.seam * h * (a.c.glow ?? 1) * lv, s.glow.mouth * h * (a.c.glow ?? 1), s.glow.eye * h * (a.c.glow ?? 1));
+    if (a.P.rig === 'puff') { const sp = sparkleOf(a), v = s.glow.sparkle; sp.visible = v > .02; if (sp.visible) { sp.position.fromArray(B.worldOf(s, 'body', [.05, .1, .45])); sp.scale.setScalar(.35 * pk.k * (.6 + v)); sp.material.color.set('#FFD36B').multiplyScalar((hdr ? 3 : 1) * v); }
+      const ap = puffOf(a), u = pk.phase === 'deflate' ? pk.tau / .45 : 1; ap.visible = u < 1; if (ap.visible) { ap.position.fromArray(B.worldOf(s, 'body', [0, .2, -.6])); ap.scale.setScalar(pk.from * .6 * (0.5 + 1.5 * u)); ap.material.opacity = .75 * (1 - u); } }
+    a.head.position.fromArray(a.P.rig === 'puff' ? B.worldOf(s, 'body', [0, .1, .2]) : B.worldOf(s, 'head', [0, a.P.dims.headH * .3 * (a.P.scale ?? 1), a.P.dims.headL * .45 * (a.P.scale ?? 1)]));
     if (a.c.visible) a.root.visible = valueAtSafe(a.c.visible, t);
     return a.root.position.toArray(); }
   // tuft 2B: the beast's LIVE pose at absolute time t, pure (camera 'cine' follows / frames this, not the mark): root, head centre, yaw, height
   const liveCache = new Map();
   function liveAt(name, t) {
     const a = actors[name]; if (!a || a.P.rig === 'blink') return null; const k = name + '|' + t.toFixed(5); if (liveCache.has(k)) return liveCache.get(k);
-    const s = B.sampleBeast(a.P, trackOf(a), t, {seed: a.seed, groundY, geo: a.G.geo, support: a.G.sup, start: a.start}), K = a.P.scale ?? 1, d = a.P.dims;
+    const pk = puffK(a, t), s = B.sampleBeast(a.P, trackOf(a), t, {seed: a.seed, groundY, geo: a.G.geo, support: a.G.sup, start: a.start, scale: pk.k}), K = (a.P.scale ?? 1) * pk.k, d = a.P.dims;
     a.H ??= (() => { const v = B.worldVerts(B.sampleBeast(a.P, [{t: 0, state: 'idle'}], 0, {geo: a.G.geo, support: a.G.sup}), a.G.geo); let y = 0; for (let i = 1; i < v.length; i += 3) y = Math.max(y, v[i]); return y; })();
-    const r = {root: s.root.p, yaw: s.root.yaw, head: B.worldOf(s, 'head', [0, (d.headH ?? 1) * .3 * K, (d.headL ?? 1) * .45 * K]), H: a.H * (a.c.puffK ?? 1), headH: Math.max(d.headH ?? 1, d.headW ?? 1) * K};
+    const r = {root: s.root.p, yaw: s.root.yaw, head: a.P.rig === 'puff' ? B.worldOf(s, 'body', [0, .1, .2]) : B.worldOf(s, 'head', [0, (d.headH ?? 1) * .3 * K, (d.headL ?? 1) * .45 * K]), H: a.H * pk.k, headH: Math.max(d.headH ?? .6, d.headW ?? .6) * K};
     if (liveCache.size > 4000) liveCache.clear(); liveCache.set(k, r); return r; }
   // BLINK orbit (after every actor is posed) + crowds
-  function post(t, tq, headOf) {
+  // 2B: cast `ride: {actor, at: 'hood'|'hands', from?, until?}`: the beast sits in the carrier's hood (behind the neck) or cupped hands (posed carrier)
+  const RIDE = {hood: {fwd: -.72, up: -1.02}, hands: {fwd: .95, up: -2.05}};
+  function rideOf(a, t, frameOf) { const r = a.c.ride; if (!r || !frameOf || t < (r.from ?? -1e9) || t >= (r.until ?? 1e9) || (a.puff && a.puff.k > 1.05)) return false;
+    const f = frameOf(r.actor); if (!f) return false; const o = RIDE[r.at ?? 'hood'], k = f.s;
+    a.root.position.set(f.head[0] + Math.sin(f.yaw) * o.fwd * k, f.head[1] + o.up * k, f.head[2] + Math.cos(f.yaw) * o.fwd * k); a.root.rotation.y = f.yaw; return true; }
+  function post(t, tq, headOf, frameOf) {
+    for (const a of Object.values(actors)) if (a.c.ride && a.mesh) a.riding = rideOf(a, t, frameOf);
     for (const a of Object.values(actors)) if (a.P.rig === 'blink') {
       const tgt = a.c.orbit, hp = tgt ? headOf(tgt) : null, base = hp ?? markAt(a.c, t).map((v, i) => i === 1 ? v + 3 : v), b = B.blinkAt(t, base, B.hashSeed(a.name));
       a.root.position.fromArray(b.p); a.root.rotation.set(0, b.yaw, 0); a.head.position.fromArray(b.p);
@@ -111,4 +126,4 @@ export function createBeasts({scene, spec, presets, hdr, groundY = () => 0, reso
   const allU = () => [...Object.values(actors).filter(a => a.U).map(a => a.U), ...crowds.map(c => c.U)];
   const setMask = on => { for (const U of allU()) U.uBeastMask.value = on ? 1 : 0; for (const a of Object.values(actors)) if (a.blink) a.blink.sp.visible = !on; };
   const meshes = () => [...Object.values(actors).flatMap(a => [a.root]), ...crowds.flatMap(c => [c.mesh])];
-  return {actors, crowds, create, drive, post, trackOf, liveAt, setMask, meshes, setGlowScale: k => { GK = k; }, is: n => !!actors[n], blobItems: () => Object.values(actors).filter(a => a.blobR > 0).map(a => ({key: 'beast_' + a.name, x: a.root.position.x, y: a.root.position.y, z: a.root.position.z, r: a.blobR, visible: a.root.visible}))}; }
+  return {actors, crowds, create, drive, post, trackOf, liveAt, setMask, meshes, setGlowScale: k => { GK = k; }, is: n => !!actors[n], blobItems: () => Object.values(actors).filter(a => a.blobR > 0).map(a => ({key: 'beast_' + a.name, x: a.root.position.x, y: a.root.position.y, z: a.root.position.z, r: a.blobR * a.root.scale.x, visible: a.root.visible && !a.riding}))}; }
