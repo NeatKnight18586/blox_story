@@ -33,7 +33,12 @@ export const ACTOR_LIGHT = {lift: .6, rim: {color: '#a9c8ff', i: .9, pow: 2.4, s
 // fog / haze within 60 studs (the far skyline only). Without `grade: 'clear'` every constant above stays as it was (1B fixture byte-identical).
 export const CLEAR = {grain: .018, vigMax: .12, sat: .20, black: .01, split: .5, exposure: -.3, fogStart: 60, haze: .03, fogTint: .55, sky: [.42, .70, .86], skyFrom: -.06, skyTo: .3, skyK: .85, inBlack: .11, skyDist: 380, preSat: 1.15, k: 1.6};   // skyDist: the sky dome (engine/look.js radius 420) counts as sky
 export const isClear = spec => spec?.grade === 'clear';
-export const curveOf = clear => clear ? {...CURVE, k: CLEAR.k, black: CLEAR.black, inBlack: CLEAR.inBlack, sat: CLEAR.sat, exposure: CLEAR.exposure, shadow: CURVE.shadow.map(v => v * CLEAR.split), high: CURVE.high.map(v => v * CLEAR.split), vigMax: CLEAR.vigMax} : CURVE;
+// tuft P3 (opt-in: grade 'clear' + look4 'moonlit'): nights that are not crushed. The sky becomes a moonlit gradient (deep blue zenith →
+// lighter blue horizon, linear scene values before AgX), the curve's input black drops (shadows keep detail), a cool moon lift on the
+// darkest values. Everything else (and every other spec) is unchanged.
+export const MOON = {zenith: [.0035, .008, .034], horizon: [.06, .105, .23], from: -.03, to: .42, inBlack: .101, black: .015, lift: [0, 0, 0]};
+export const isMoon = spec => isClear(spec) && spec?.look4 === 'moonlit';
+export const curveOf = (clear, moon = false) => moon ? {...curveOf(true), inBlack: MOON.inBlack, black: MOON.black} : clear ? {...CURVE, k: CLEAR.k, black: CLEAR.black, inBlack: CLEAR.inBlack, sat: CLEAR.sat, exposure: CLEAR.exposure, shadow: CURVE.shadow.map(v => v * CLEAR.split), high: CURVE.high.map(v => v * CLEAR.split), vigMax: CLEAR.vigMax} : CURVE;
 export const FGGLOW = {color: [1, .62, .3], i: .5, size: 1.7, sigma: .2};   // lantern sprite: HDR colour × i (below the subject's highlights), gaussian sigma (of the half-size)
 export const GRADE = {
   default: {lift: [0, 0, 0], gamma: [1, 1, 1], gain: [1, 1, 1], vig: .28},
@@ -63,7 +68,7 @@ void main(){ float z0 = linZ(texture2D(tDepth, vUv).x), c0 = coc(z0); vec3 acc =
     acc += texture2D(tColor, uv).rgb * w; wsum += w; }
   gl_FragColor = vec4(acc / wsum, c0); }`;
 const agx = () => T.ShaderChunk.tonemapping_pars_fragment.replace(/toneMappingExposure/g, 'uExposure');
-const FINAL_FS = (CV = CURVE, clear = false) => `precision highp float; precision highp int; uniform sampler2D tColor; uniform sampler2D tDepth; uniform sampler2D tDof; uniform vec2 uOut; uniform float uDofOn; uniform float uFogStart; uniform float uSubZ; uniform float uBgDim; uniform float uEdgeAA;
+const FINAL_FS = (CV = CURVE, clear = false, moon = false) => `precision highp float; precision highp int; uniform sampler2D tColor; uniform sampler2D tDepth; uniform sampler2D tDof; uniform vec2 uOut; uniform float uDofOn; uniform float uFogStart; uniform float uSubZ; uniform float uBgDim; uniform float uEdgeAA;
 uniform mat4 uInvProj; uniform mat4 uCamWorld; uniform vec3 uCamPos; uniform vec3 uFogColor; uniform float uFogD; uniform float uFogK; uniform float uFogY0; uniform float uHaze; uniform float uHazeK;
 uniform vec3 uLift; uniform vec3 uGamma; uniform vec3 uGain; uniform float uVig; uniform float uGrain; uniform float uFringe; uniform uint uSeed; varying vec2 vUv; ${DEPTH}
 ${agx()}
@@ -78,7 +83,7 @@ vec3 sceneAA(vec2 uv){ vec3 c = texture2D(tColor, uv).rgb; if (uEdgeAA < .5) ret
 vec3 comp(vec2 uv){ vec3 c = sceneAA(uv); if (uDofOn > .5) { vec4 d = texture2D(tDof, uv); c = mix(c, d.rgb, smoothstep(.04, .3, d.a)); }
   float dz = texture2D(tDepth, uv).x; vec4 v = uInvProj * vec4(uv * 2. - 1., dz * 2. - 1., 1.); v /= v.w; vec3 w = (uCamWorld * v).xyz, ray = w - uCamPos; float L = length(ray); vec3 dir = ray / max(L, 1e-4);
   if (uSubZ > 0.) c *= mix(1., uBgDim, smoothstep(uSubZ + ${BG.near.toFixed(2)}, uSubZ + ${BG.far.toFixed(2)}, dz >= .99999 ? 1e4 : dot(ray, normalize((uCamWorld * vec4(0., 0., -1., 0.)).xyz))));   // background falloff behind the subject (view depth)
-  if (dz >= .99999${clear ? ` || L > ${CLEAR.skyDist.toFixed(1)}` : ''}) { float hz = uHaze * exp(-abs(dir.y) * uHazeK);${clear ? ` { float sl = dot(c, vec3(.2126, .7152, .0722)), up = smoothstep(${CLEAR.skyFrom.toFixed(3)}, ${CLEAR.skyTo.toFixed(3)}, dir.y); c = mix(c, sl * vec3(${CLEAR.sky.map(v => v.toFixed(3)).join(', ')}) / ${(.2126 * CLEAR.sky[0] + .7152 * CLEAR.sky[1] + .0722 * CLEAR.sky[2]).toFixed(4)}, up * ${CLEAR.skyK.toFixed(3)}); }` : ''} return mix(c, uFogColor, hz); }   // 2B clear: the zenith toward a clean blue at the same brightness (the horizon keeps its warmth)
+  if (dz >= .99999${clear ? ` || L > ${CLEAR.skyDist.toFixed(1)}` : ''}) { float hz = uHaze * exp(-abs(dir.y) * uHazeK);${moon ? ` c = mix(vec3(${MOON.horizon.join(', ')}), vec3(${MOON.zenith.join(', ')}), smoothstep(${MOON.from.toFixed(3)}, ${MOON.to.toFixed(3)}, dir.y)); return c;` : ''}${clear ? ` { float sl = dot(c, vec3(.2126, .7152, .0722)), up = smoothstep(${CLEAR.skyFrom.toFixed(3)}, ${CLEAR.skyTo.toFixed(3)}, dir.y); c = mix(c, sl * vec3(${CLEAR.sky.map(v => v.toFixed(3)).join(', ')}) / ${(.2126 * CLEAR.sky[0] + .7152 * CLEAR.sky[1] + .0722 * CLEAR.sky[2]).toFixed(4)}, up * ${CLEAR.skyK.toFixed(3)}); }` : ''} return mix(c, uFogColor, hz); }   // 2B clear: the zenith toward a clean blue at the same brightness (the horizon keeps its warmth)
   float Lf = max(L - uFogStart, 0.), hy = w.y - uCamPos.y, e0 = exp(-uFogK * (uCamPos.y - uFogY0)), od = abs(hy) < 1e-3 ? uFogD * Lf * e0 : uFogD * Lf * e0 * (1. - exp(-uFogK * hy)) / (uFogK * hy);
   return mix(c, uFogColor, 1. - exp(-max(od, 0.))); }
 uint hash(uvec3 v){ v = v * 1664525u + 1013904223u; v.x += v.y * v.z; v.y += v.z * v.x; v.z += v.x * v.y; v ^= v >> 16u; v.x += v.y * v.z; v.y += v.z * v.x; v.z += v.x * v.y; return v.x ^ v.y ^ v.z; }
@@ -93,7 +98,7 @@ ${clear ? `  { float lL = dot(c, vec3(.2126, .7152, .0722)); c = max(vec3(0.), m
   c = enc(clamp(c, 0., 1.));
   { float L0 = max(dot(c, vec3(.2126, .7152, .0722)), 1e-4), p = ${CV.pivot.toFixed(3)}, k = ${CV.k.toFixed(3)}, b = ${CV.black.toFixed(3)}, ib = ${CV.inBlack.toFixed(3)};   // S-curve on luma (hue kept): input black ib → output black point b
     float Li = max(L0 - ib, 0.) / (1. - ib), L1 = Li < p ? p * pow(Li / p, k) : 1. - (1. - p) * pow((1. - Li) / (1. - p), k); L1 = b + (1. - b) * L1;
-    c = c * (L1 / L0); float ws = 1. - smoothstep(0., .45, L1), wh = smoothstep(.35, .9, L1);
+    c = c * (L1 / L0);${moon ? ` c += vec3(${MOON.lift.join(', ')}) * (1. - smoothstep(0., .25, L1));` : ''} float ws = 1. - smoothstep(0., .45, L1), wh = smoothstep(.35, .9, L1);
     c += ws * vec3(${CV.shadow.map(v => v.toFixed(3)).join(', ')}) + wh * vec3(${CV.high.map(v => v.toFixed(3)).join(', ')});   // night colour script: teal shadows, warm pools
     float Lc = dot(c, vec3(.2126, .7152, .0722)); c = mix(vec3(Lc), c, 1. + ${CV.sat.toFixed(3)} * ${clear ? 'clamp(25. * Lc * (1. - Lc), 0., 1.)' : '4. * Lc * (1. - Lc)'}); c = clamp(c, 0., 1.); }
   uvec2 p = uvec2(gl_FragCoord.xy); float n = float(hash(uvec3(p, uSeed)) & 65535u) / 65535. + float(hash(uvec3(p + 7u, uSeed ^ 0x9e37u)) & 65535u) / 65535. - 1.;
@@ -101,7 +106,7 @@ ${clear ? `  { float lL = dot(c, vec3(.2126, .7152, .0722)); c = max(vec3(0.), m
   gl_FragColor = vec4(clamp(c, 0., 1.), 1.); }`;
 
 export function createCineLook({renderer, scene, spec, aa = false}) {
-  const clear = isClear(spec), CV = curveOf(clear), FG0 = clear ? {...FOG, start: CLEAR.fogStart, haze: CLEAR.haze} : FOG;   // tuft 2B: grade 'clear'
+  const clear = isClear(spec), moon = isMoon(spec), CV = curveOf(clear, moon), FG0 = clear ? {...FOG, start: CLEAR.fogStart, haze: CLEAR.haze} : FOG;   // tuft 2B: grade 'clear'
   const quad = (mat) => { const m = new T.Mesh(new T.PlaneGeometry(2, 2), mat); m.frustumCulled = false; const sc = new T.Scene(); sc.add(m); return sc; }, oc = new T.OrthographicCamera(-1, 1, 1, -1, 0, 1);
   let W = 0, H = 0, rt = null, dofRT = null; const bloom = new UnrealBloomPass(new T.Vector2(256, 256), BLOOM.strength, BLOOM.radius, BLOOM.threshold);
   // bright pass with an edge fade (outer BLOOM.edge of the frame): a glow source crossing the frame edge ramps in instead of popping
@@ -117,7 +122,7 @@ export function createCineLook({renderer, scene, spec, aa = false}) {
   const U = {tColor: {value: null}, tDepth: {value: null}, tDof: {value: null}, uOut: {value: new T.Vector2()}, uDofOn: {value: 0}, uFogStart: {value: FG0.start}, uSubZ: {value: 0}, uBgDim: {value: BG.dim}, uEdgeAA: {value: aa ? 1 : 0}, uNear: {value: .3}, uFar: {value: 900},
     uInvProj: {value: new T.Matrix4()}, uCamWorld: {value: new T.Matrix4()}, uCamPos: {value: new T.Vector3()}, uFogColor: {value: new T.Color()}, uFogD: {value: FOG.density}, uFogK: {value: FOG.falloff}, uFogY0: {value: 0},
     uHaze: {value: FG0.haze}, uHazeK: {value: FOG.hazeK}, uExposure: {value: 1}, uLift: {value: new T.Vector3()}, uGamma: {value: new T.Vector3(1, 1, 1)}, uGain: {value: new T.Vector3(1, 1, 1)}, uVig: {value: 0}, uGrain: {value: clear ? CLEAR.grain : GRAIN.amp}, uFringe: {value: 1}, uSeed: {value: 1}};
-  const finalM = new T.ShaderMaterial({uniforms: U, vertexShader: VS, fragmentShader: FINAL_FS(CV, clear), depthTest: false, depthWrite: false, toneMapped: false, glslVersion: null});
+  const finalM = new T.ShaderMaterial({uniforms: U, vertexShader: VS, fragmentShader: FINAL_FS(CV, clear, moon), depthTest: false, depthWrite: false, toneMapped: false, glslVersion: null});
   const dofScene = quad(dofM), finalScene = quad(finalM);
   // glow surfaces → HDR (> 1): windows, bright unlit live parts (lamps), spec.glowCubes; the rest of the set and the cast stay as they are
   const glowMats = new Set();

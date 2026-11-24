@@ -1,0 +1,278 @@
+[
+ {
+  "sec": "night",
+  "name": "night (2B mystery, before): darkest-10 % luma in 0.012–0.03 (not crushed, not milky)",
+  "pass": false,
+  "line": "0.010 / 0.013 / 0.008 / 0.017 / 0.021 / 0.032"
+ },
+ {
+  "sec": "night",
+  "name": "night (2B mystery, before): every beast / actor separates from its background (≥ 0.06)",
+  "pass": false,
+  "line": "min 0.023 (nightfang@17 ΔL 0.009 ΔC 0.023, volt@94 ΔL 0.028 ΔC 0.038, kid_nf@40 ΔL 0.022 ΔC 0.061, volt@110 ΔL 0.025 ΔC 0.114); 7 subject-frames",
+  "subs": [
+   {
+    "n": "nightfang",
+    "f": "17",
+    "px": 29052,
+    "share": 0.2242,
+    "dL": 0.0093,
+    "dC": 0.0234,
+    "sep": 0.0234,
+    "seam": 0.135,
+    "L": 0.1328,
+    "ringL": 0.1235
+   },
+   {
+    "n": "volt",
+    "f": "94",
+    "px": 9707,
+    "share": 0.0749,
+    "dL": 0.0275,
+    "dC": 0.0378,
+    "sep": 0.0378,
+    "seam": 0.1428,
+    "L": 0.233,
+    "ringL": 0.2056
+   },
+   {
+    "n": "kid_nf",
+    "f": "40",
+    "px": 2440,
+    "share": 0.0188,
+    "dL": 0.0219,
+    "dC": 0.0615,
+    "sep": 0.0615,
+    "seam": 0.1914,
+    "L": 0.1866,
+    "ringL": 0.2086
+   },
+   {
+    "n": "volt",
+    "f": "110",
+    "px": 22235,
+    "share": 0.1716,
+    "dL": 0.0248,
+    "dC": 0.1141,
+    "sep": 0.1141,
+    "seam": 0.155,
+    "L": 0.3074,
+    "ringL": 0.3323
+   },
+   {
+    "n": "boulder",
+    "f": "158",
+    "px": 48565,
+    "share": 0.3747,
+    "dL": 0.0084,
+    "dC": 0.115,
+    "sep": 0.115,
+    "seam": 0.1414,
+    "L": 0.2977,
+    "ringL": 0.2894
+   },
+   {
+    "n": "blink",
+    "f": "209",
+    "px": 2265,
+    "share": 0.0175,
+    "dL": 0.1498,
+    "dC": 0.0242,
+    "sep": 0.1498,
+    "seam": 0.1196,
+    "L": 0.8387,
+    "ringL": 0.6889
+   },
+   {
+    "n": "little",
+    "f": "209",
+    "px": 78296,
+    "share": 0.6041,
+    "dL": 0.3941,
+    "dC": 0.068,
+    "sep": 0.3941,
+    "seam": 0.0023,
+    "L": 0.1903,
+    "ringL": 0.5844
+   }
+  ]
+ },
+ {
+  "sec": "night",
+  "name": "night (2B mystery, before): VOLT at night readable (body separation + seams)",
+  "pass": false,
+  "line": "f94: body sep 0.038 (≥ .06), seam px 14.3 % of its mask (≥ 1.5 %) · f110: body sep 0.114 (≥ .06), seam px 15.5 % of its mask (≥ 1.5 %)"
+ },
+ {
+  "sec": "night",
+  "name": "night (moonlit, after): darkest-10 % luma in 0.012–0.03 (not crushed, not milky)",
+  "pass": false,
+  "line": "0.015 / 0.012 / 0.015 / 0.015 / 0.015 / 0.110"
+ },
+ {
+  "sec": "night",
+  "name": "night (moonlit, after): every beast / actor separates from its background (≥ 0.06)",
+  "pass": true,
+  "line": "min 0.070 (blink@209 ΔL 0.070 ΔC 0.020, volt@94 ΔL 0.084 ΔC 0.029, boulder@158 ΔL 0.082 ΔC 0.116, nightfang@17 ΔL 0.124 ΔC 0.073); 7 subject-frames",
+  "subs": [
+   {
+    "n": "blink",
+    "f": "209",
+    "px": 2265,
+    "share": 0.0175,
+    "dL": 0.0702,
+    "dC": 0.0199,
+    "sep": 0.0702,
+    "seam": 0.3722,
+    "L": 0.6822,
+    "ringL": 0.612
+   },
+   {
+    "n": "volt",
+    "f": "94",
+    "px": 9707,
+    "share": 0.0749,
+    "dL": 0.0842,
+    "dC": 0.0286,
+    "sep": 0.0842,
+    "seam": 0.199,
+    "L": 0.352,
+    "ringL": 0.2678
+   },
+   {
+    "n": "boulder",
+    "f": "158",
+    "px": 48565,
+    "share": 0.3747,
+    "dL": 0.0823,
+    "dC": 0.1161,
+    "sep": 0.1161,
+    "seam": 0.1918,
+    "L": 0.3823,
+    "ringL": 0.3
+   },
+   {
+    "n": "nightfang",
+    "f": "17",
+    "px": 29052,
+    "share": 0.2242,
+    "dL": 0.124,
+    "dC": 0.0731,
+    "sep": 0.124,
+    "seam": 0.2828,
+    "L": 0.2791,
+    "ringL": 0.1552
+   },
+   {
+    "n": "kid_nf",
+    "f": "40",
+    "px": 2440,
+    "share": 0.0188,
+    "dL": 0.1312,
+    "dC": 0.1665,
+    "sep": 0.1665,
+    "seam": 0.0209,
+    "L": 0.2495,
+    "ringL": 0.3807
+   },
+   {
+    "n": "volt",
+    "f": "110",
+    "px": 22235,
+    "share": 0.1716,
+    "dL": 0.2031,
+    "dC": 0.1104,
+    "sep": 0.2031,
+    "seam": 0.3152,
+    "L": 0.4242,
+    "ringL": 0.2212
+   },
+   {
+    "n": "little",
+    "f": "209",
+    "px": 78296,
+    "share": 0.6041,
+    "dL": 0.3975,
+    "dC": 0.1206,
+    "sep": 0.3975,
+    "seam": 0.0011,
+    "L": 0.2508,
+    "ringL": 0.6483
+   }
+  ]
+ },
+ {
+  "sec": "night",
+  "name": "night (moonlit, after): VOLT at night readable (body separation + seams)",
+  "pass": true,
+  "line": "f94: body sep 0.084 (≥ .06), seam px 19.9 % of its mask (≥ 1.5 %) · f110: body sep 0.203 (≥ .06), seam px 31.5 % of its mask (≥ 1.5 %)"
+ },
+ {
+  "sec": "fx",
+  "name": "NIGHTFANG breath = long cyan jet (≥ 1.5 body lengths) that lights the ground",
+  "pass": true,
+  "line": "jet reach 35.8 studs = 1.55 × body length 23.2 (≥ 1.5); 86 flame cards + 6 ground-glow discs at frame 185"
+ },
+ {
+  "sec": "fx",
+  "name": "lightning: the runner reads (R6 body in frame) + ribbon + forks",
+  "pass": true,
+  "line": "f60: body 7.5 % of frame (≥ 1 %), inside, 49 bolt/ribbon segments · f66: body 8.7 % of frame (≥ 1 %), inside, 54 bolt/ribbon segments · f72: body 10.5 % of frame (≥ 1 %), inside, 59 bolt/ribbon segments"
+ },
+ {
+  "sec": "fx",
+  "name": "BLINK readable at 390 px: glow area ≥ 0.3 % of the frame (MS of LITTLE)",
+  "pass": true,
+  "line": "mystery f201 14.53 %, mystery f209 46.57 %, mystery f217 15.88 %, moonlit f201 13.59 %, moonlit f209 40.06 %, moonlit f217 10.08 % (min 10.08 %); wings 1.3×0.62 × size, flutter 7 Hz, trail 6",
+  "area": [
+   {
+    "spec": "heroes-night",
+    "f": 201,
+    "a": "renders/village/gates/blink-on-heroes-night-201.png",
+    "b": "renders/village/gates/blink-off-heroes-night-201.png",
+    "area": 0.14533564814814814
+   },
+   {
+    "spec": "heroes-night",
+    "f": 209,
+    "a": "renders/village/gates/blink-on-heroes-night-209.png",
+    "b": "renders/village/gates/blink-off-heroes-night-209.png",
+    "area": 0.4657291666666667
+   },
+   {
+    "spec": "heroes-night",
+    "f": 217,
+    "a": "renders/village/gates/blink-on-heroes-night-217.png",
+    "b": "renders/village/gates/blink-off-heroes-night-217.png",
+    "area": 0.158798225308642
+   },
+   {
+    "spec": "moon-heroes",
+    "f": 201,
+    "a": "renders/village/gates/blink-on-moon-heroes-201.png",
+    "b": "renders/village/gates/blink-off-moon-heroes-201.png",
+    "area": 0.1359085648148148
+   },
+   {
+    "spec": "moon-heroes",
+    "f": 209,
+    "a": "renders/village/gates/blink-on-moon-heroes-209.png",
+    "b": "renders/village/gates/blink-off-moon-heroes-209.png",
+    "area": 0.4005999228395062
+   },
+   {
+    "spec": "moon-heroes",
+    "f": 217,
+    "a": "renders/village/gates/blink-on-moon-heroes-217.png",
+    "b": "renders/village/gates/blink-off-moon-heroes-217.png",
+    "area": 0.10075617283950618
+   }
+  ]
+ },
+ {
+  "sec": "decal",
+  "name": "hero ball: face decal ≈ 45 % of the ball width (0.40–0.50)",
+  "pass": true,
+  "line": "f349: face 2.83 / ball 6.26 = 45 % · f385: face 5.75 / ball 12.72 = 45 %"
+ }
+]

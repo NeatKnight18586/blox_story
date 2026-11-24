@@ -7,25 +7,27 @@
 //   fizzle     the palms spit ONE grey smoke puff (no fire).   cage: reveal (cloth whips off the giant cage).   chains: snap (links fly).
 export const POWERS = ['cyanFire', 'lightning', 'fly'];
 export const FIRE = {rate: 48, life: .55, speed: 7.5, spread: .26, size: [.18, .75], embers: 28, light: 2.2, dur: 1.8};
-export const BOLT = {n: [2, 3], segs: 7, len: [2.2, 4.2], jag: .45, fork: .5, hold: 2}, SPRINT = {speed: 14, dur: 1.1, trail: 18, dt: 1 / 48};
+export const BREATH = {rate: 100, life: 1.0, speed: 26, spread: .11, size: [.4, 2.2], embers: 70, light: 3.2, dur: 1.8, emberV: [14, 8]};   // P3: NIGHTFANG breath = a LONG cyan flame jet (≥ 1.5 body lengths)
+export const BOLT = {n: [3, 4], segs: 8, len: [2.8, 5.2], jag: .5, fork: .85, hold: 2}, SPRINT = {speed: 8, dur: 1.4, trail: 22, dt: 1 / 48, ribbon: 1.0};   // P3: slower sprint (the runner stays readable), more forks, a wide ribbon
 export const FLY = {h: 7, rise: 1.2, ribbon: 14, len: 2.4}, FIZZLE = {dur: .9}, CAGE = {dur: .9}, CHAINS = {n: 14, g: 30, e: .38, life: 3};
 const cl = x => Math.max(0, Math.min(1, x)), sm = x => { x = cl(x); return x * x * (3 - 2 * x); };
 // seeded hash → [0, 1)
 export const h1 = (...k) => { let a = 0x9e3779b9; for (const v of k) { a = Math.imul(a ^ Math.floor(v * 1000003 + 7), 0x85ebca6b); a ^= a >>> 13; a = Math.imul(a, 0xc2b2ae35); a ^= a >>> 16; } return (a >>> 0) / 4294967296; };
 // flame cards of a jet started at t0 (jet-local: +z along the jet, origin at the emitter); [{p, s, a, k}] k = 0 core … 1 tip
-export function fireCards(t0, t, seed = 1, dur = FIRE.dur) {
-  const out = [], tau = t - t0; if (tau < 0) return out; const n0 = Math.floor(Math.max(0, tau - FIRE.life) * FIRE.rate), n1 = Math.floor(Math.min(tau, dur) * FIRE.rate);
-  for (let i = n0; i <= n1; i++) { const born = i / FIRE.rate, age = tau - born; if (age < 0 || age > FIRE.life) continue;
-    const u = age / FIRE.life, r1 = h1(seed, i, 1), r2 = h1(seed, i, 2), a = 2 * Math.PI * r1, sp = FIRE.spread * Math.sqrt(r2) * (.4 + u), d = FIRE.speed * age * (.85 + .3 * h1(seed, i, 3));
-    out.push({p: [Math.cos(a) * sp * d, Math.sin(a) * sp * d + .6 * u * u, d], s: FIRE.size[0] + (FIRE.size[1] - FIRE.size[0]) * Math.sqrt(u), a: (1 - u) * (u < .08 ? u / .08 : 1), k: u, rot: 6.28 * h1(seed, i, 4) + 3 * age}); }
+export function fireCards(t0, t, seed = 1, dur = FIRE.dur, F = FIRE) {
+  const out = [], tau = t - t0; if (tau < 0) return out; const n0 = Math.floor(Math.max(0, tau - F.life) * F.rate), n1 = Math.floor(Math.min(tau, dur) * F.rate);
+  for (let i = n0; i <= n1; i++) { const born = i / F.rate, age = tau - born; if (age < 0 || age > F.life) continue;
+    const u = age / F.life, r1 = h1(seed, i, 1), r2 = h1(seed, i, 2), a = 2 * Math.PI * r1, sp = F.spread * Math.sqrt(r2) * (.4 + u), d = F.speed * age * (.85 + .3 * h1(seed, i, 3));
+    out.push({p: [Math.cos(a) * sp * d, Math.sin(a) * sp * d + .6 * u * u, d], s: F.size[0] + (F.size[1] - F.size[0]) * Math.sqrt(u), a: (1 - u) * (u < .08 ? u / .08 : 1), k: u, rot: 6.28 * h1(seed, i, 4) + 3 * age}); }
   return out; }
-export function embers(t0, t, seed = 1, dur = FIRE.dur) {
-  const out = [], tau = t - t0; if (tau < 0) return out;
-  for (let i = 0; i < FIRE.embers; i++) { const born = h1(seed, i, 9) * dur, age = tau - born, life = .9 + .6 * h1(seed, i, 10); if (age < 0 || age > life) continue;
-    const a = 2 * Math.PI * h1(seed, i, 11), sp = .5 + .7 * h1(seed, i, 12), v = 4 + 3 * h1(seed, i, 13), u = age / life;
+export function embers(t0, t, seed = 1, dur = FIRE.dur, F = FIRE) {
+  const out = [], tau = t - t0; if (tau < 0) return out; const [v0, dv] = F.emberV ?? [4, 3];
+  for (let i = 0; i < F.embers; i++) { const born = h1(seed, i, 9) * dur, age = tau - born, life = .9 + .6 * h1(seed, i, 10); if (age < 0 || age > life) continue;
+    const a = 2 * Math.PI * h1(seed, i, 11), sp = .5 + .7 * h1(seed, i, 12), v = v0 + dv * h1(seed, i, 13), u = age / life;
     out.push({p: [Math.cos(a) * sp * age * 2, Math.sin(a) * sp * age * 2 + 1.2 * age - 1.4 * age * age, v * age], s: .06, a: 1 - u}); }
   return out; }
-export const fireLight = (t0, t, dur = FIRE.dur) => { const tau = t - t0; return tau < 0 || tau > dur + .3 ? 0 : FIRE.light * sm(tau / .12) * (1 - sm((tau - dur) / .3)) * (.85 + .15 * Math.sin(37 * tau)); };
+export const breathReach = (F = BREATH) => F.speed * F.life * 1.15;   // the jet's far tip (jet-local studs, before the preset scale)
+export const fireLight = (t0, t, dur = FIRE.dur, F = FIRE) => { const tau = t - t0; return tau < 0 || tau > dur + .3 ? 0 : F.light * sm(tau / .12) * (1 - sm((tau - dur) / .3)) * (.85 + .15 * Math.sin(37 * tau)); };
 // lightning: forked bolts around a centre, re-struck every BOLT.hold frames (on ones), world offsets from the sprinting actor
 export function bolts(t0, t, seed = 1, fps = 24) {
   const tau = t - t0; if (tau < 0 || tau > SPRINT.dur + .25) return []; const f = Math.floor(tau * fps / BOLT.hold), n = BOLT.n[0] + (h1(seed, f, 0) < .5 ? 0 : 1), out = [];

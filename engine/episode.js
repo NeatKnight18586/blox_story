@@ -187,9 +187,9 @@ function puffHeroes(t) {
     const P0 = A.puff0 ??= {head: [A.pivots.head.position.toArray(), A.pivots.head.scale.toArray()], ...Object.fromEntries(['leftShoulder', 'rightShoulder', 'leftHip', 'rightHip'].filter(k => A.pivots[k]).map(k => [k, A.pivots[k].position.toArray()]))};
     const s = A.root.scale.x, on = D > 0; A.ball.visible = on; if (A.parts.torso) A.parts.torso.visible = !on; A.torsoExtras?.forEach(o => { o.visible = !on; });
     if (!on) { A.pivots.head.position.fromArray(P0.head[0]); A.pivots.head.scale.fromArray(P0.head[1]); for (const k of ['leftShoulder', 'rightShoulder', 'leftHip', 'rightHip']) if (P0[k]) A.pivots[k].position.fromArray(P0[k]); A.puffD = 0; continue; }
-    const Dl = D / s, R = Dl / 2, cy = 2 + R * .92, kh = Math.max(1, Dl * .42 / 1.2);   // local units (the R6 body: hips at 2, torso 2–4)
+    const Dl = D / s, R = Dl / 2, cy = 2 + R * .92, kh = Math.max(1, Dl * .525 / 1.2);   // P3: face decal ≈ 45 % of the ball width (was .42 → 36 %)   // local units (the R6 body: hips at 2, torso 2–4)
     A.ball.position.set(0, cy, 0); A.ball.scale.setScalar(R);
-    A.pivots.head.scale.set(P0.head[1][0] * kh, P0.head[1][1] * kh, P0.head[1][2] * kh); A.pivots.head.position.set(0, cy + R * .12 - .6 * kh, R * .62);
+    A.pivots.head.scale.set(P0.head[1][0] * kh, P0.head[1][1] * kh, P0.head[1][2] * kh); A.pivots.head.position.set(0, cy + R * .12 - .6 * kh, R * .58);
     if (P0.leftShoulder) { A.pivots.leftShoulder.position.set(-R * .92, cy + R * .1, 0); A.pivots.rightShoulder.position.set(R * .92, cy + R * .1, 0); A.pivots.leftShoulder.rotation.z = -1.15; A.pivots.rightShoulder.rotation.z = 1.15; }   // arms stick out of the ball
     if (P0.leftHip) { A.pivots.leftHip.position.set(-.55, cy - R * .93, 0); A.pivots.rightHip.position.set(.55, cy - R * .93, 0); }
     A.puffD = D; } }

@@ -1955,3 +1955,18 @@ Clear-grade sky tint moved off Tuft blue (hue 198°). Hero puff sizes: ball Ø =
 Tuft ball = kid height. TITAN chains = extra rigid segments collapsed after the snap; the falling links are the `chains: snap` FX.
 The cine sim can dip under the ground with giant subjects (head-fit back-off): clamped in sampleCineShot (cause in the body sim not found).
 Open: saturation + dark10 + pairwise + blue-gold FAILs above; BLINK still tiny at phone size; Titan crops its head; NIGHTFANG breath weak.
+
+## tuft (E5) Phase 3 — 2B fixes + THE BEAST VILLAGE (Opus 5.5)
+Plan: 0a. TITAN redesign (scripts/v2/titan-preset.js data + opt-in rig dims `hindK` (shorter hind legs → body rest pitch, legs kept
+vertical) in engine/beast.js): hump over the head, low jutting jaw, two ram-spiral horns as thick strip arcs (`tag: 'horn'`), pillar
+forelegs, long heavy tail, branching jagged crack polylines; gates in tests/beast2.js: pairwise IoU ≤ .6, horn px ≥ 6 % front + side.
+0b. opt-in spec `night: 'moon'` (cinelook + look4 path): moonlit sky gradient, cool moon ambient/bounce on static sets, beast/actor
+rim kept; gates (scripts/v2/village-gates.js): dark-10 % in .012–.03, ring-vs-mask separation ≥ .06 per beast/actor, VOLT seam+body.
+0c. powersrt: breath = long cyan jet (cards + embers + ground light), lightning runner + ribbon + forks, BLINK glow ×2 + wings + trail
+(glow area ≥ .3 % in a MS). 0d. hero ball face decal ≈ 45 % ball width. 0e. rulings logged.
+1. parts/village.js (three) + parts/villagekit.js (pure, seeded presets: house / street / wall / lantern string / props, layout, LOD
+tiers hero / mid instanced / far rooftop cards + window dots) + TITAN's mountain landmark; night windows ≥ 60 % lit.
+2. parts/locations/{beastYard,beastClass,homeDining,homeBedroom,villageStreet,festivalPlaza,titanCave}.json + one world module
+parts/village/world.js (spec.location; groundY + LAYER + LOOK); fixtures engine/fixtures/village/*.json; gates (tris, calls, s/frame,
+rooftops ≥ 40, mountain in exteriors, windows lit, night gates, colossal ≥ 1.2× roofs, room puff ≥ 70 %), byte-1B, npm test.
+Sheet scripts/v2/village-sheet.js → review/village/{village.png, village-390.png, demo.mp4}.

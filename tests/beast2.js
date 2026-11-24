@@ -27,6 +27,19 @@ export const GATES = [];   // [name, fn] appended by later sections
   const pairs = []; for (let i = 0; i < heroes.length; i++) for (let j = i + 1; j < heroes.length; j++) pairs.push([heroes[i], heroes[j], +iou(sil[heroes[i]], sil[heroes[j]]).toFixed(3)]);
   const mx = Math.max(...pairs.map(p => p[2])); ok('hero silhouettes pairwise IoU ≤ 0.6', mx <= .6, `max ${mx.toFixed(3)} (${pairs.map(p => `${p[0].slice(0, 2)}${p[1].slice(0, 2)} ${p[2]}`).join(', ')})`, {pairs}); }
 const sections = await Promise.all([]); void sections;
+// P3. TITAN horns read in silhouette: orthographic FRONT and SIDE views, long side 300 px (phone size); horn pixels = pixels the horn
+//     triangles add OUTSIDE the rest of the body's silhouette, as a share of the whole silhouette (≥ 6 % each view)
+export function hornShare(Pn, view, state = 'idle') {
+  const g = B.buildGeometry(Pn, 'hero'), sup = B.supportPoints(g), hp = {...Pn, parts: Pn.parts.filter(p => p.tag === 'horn')}, bp = {...Pn, parts: Pn.parts.filter(p => p.tag !== 'horn')};
+  const vs = q => { const gq = B.buildGeometry(q, 'hero'); return B.worldVerts(B.sampleBeast(q, [{t: 0, state}], 1, {geo: gq, support: sup}), gq); };
+  const all = vs(Pn), ax = view === 'front' ? 0 : 2, bb = [Infinity, -Infinity, Infinity, -Infinity];
+  for (let i = 0; i < all.length; i += 3) { bb[0] = Math.min(bb[0], all[i + ax]); bb[1] = Math.max(bb[1], all[i + ax]); bb[2] = Math.min(bb[2], all[i + 1]); bb[3] = Math.max(bb[3], all[i + 1]); }
+  const S = 300 / Math.max(bb[1] - bb[0], bb[3] - bb[2]), W = Math.ceil((bb[1] - bb[0]) * S) + 1, H = Math.ceil((bb[3] - bb[2]) * S) + 1;
+  const ras = v => { const img = new Uint8Array(W * H); for (let i = 0; i < v.length; i += 9) raster(img, W, H, ...[0, 3, 6].map(o => [(v[i + o + ax] - bb[0]) * S, (bb[3] - v[i + o + 1]) * S])); return img; };
+  const A = ras(all), Hn = ras(vs(hp)), Bd = ras(vs(bp)); let n = 0, h = 0; for (let q = 0; q < A.length; q++) { n += A[q]; h += Hn[q] && !Bd[q] ? 1 : 0; }
+  return {share: h / n, W, H, A, Hn}; }
+{ const T = P('TITAN'), f = hornShare(T, 'front'), sd = hornShare(T, 'side');
+  ok('TITAN horns read in silhouette (front + side)', f.share >= .06 && sd.share >= .06, `horn pixels outside the body silhouette: front ${(100 * f.share).toFixed(1)} %, side ${(100 * sd.share).toFixed(1)} % (≥ 6 %); tris ${B.beastTris(T, 'hero')} (≤ 6k)`); }
 for (const f of (await import('./beast2-more.js').catch(() => ({GATES: []}))).GATES ?? []) await f(ok, {P, L, B});
 mkdirSync('review/beasts', {recursive: true}); writeFileSync('review/beasts/tests2.json', JSON.stringify(res, null, 1));
 const fails = res.filter(r => !r.pass).length; console.log(`${res.length - fails}/${res.length} pass`); process.exitCode = fails ? 1 : 0;

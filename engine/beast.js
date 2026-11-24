@@ -38,7 +38,8 @@ export function skeleton(P) {
   if (P.rig === 'puff') { put('body', null, [0, d.bodyY, 0]); for (let i = 0; i < 6; i++) put('q' + i, 'body', [0, 0, 0]);   // 2B TUFT: body + 6 quill clusters (ripple / extend) + 2 feet
     for (const [s2, k] of [['L', 1], ['R', -1]]) put('foot' + s2, 'body', [k * d.footX, -d.bodyY + d.footH, d.footZ ?? 0]); return {seg: S, order: ['body', 'q0', 'q1', 'q2', 'q3', 'q4', 'q5', 'footL', 'footR']}; }
   const bird = P.rig === 'bird', bh = d.bodyH, bl = d.bodyL, bw = d.bodyW;
-  put('body', null, [0, d.legH + bh / 2, 0]);
+  const hk = d.hindK ?? 1, ly0 = -bh * (d.hipDrop ?? .3), up0 = (d.legH + bh / 2 + ly0) / 2, th = hk === 1 ? 0 : Math.asin(Math.min(.9, 2 * up0 * (1 - hk) / (2 * bl * (d.legZ ?? .36))));   // P3 (opt-in dims.hindK): shorter hind legs → body pitched up at the shoulders (gorilla-bison stance), legs kept vertical
+  put('body', null, [0, d.legH + bh / 2, 0], [th ? -th : 0, 0, 0]);
   put('neck', 'body', [0, bh * (d.neckY ?? .25), bl * (d.neckZ ?? .45)], [-(d.neckUp ?? 30) * D, 0, 0]);
   put('head', 'neck', [0, 0, d.neckL], [(d.neckUp ?? 30) * D * (d.headLevel ?? .85), 0, 0]);
   put('jaw', 'head', d.jawAt ?? [0, -d.headH * .25, d.headL * .1]);
@@ -51,7 +52,7 @@ export function skeleton(P) {
     put('tail1', 'body', [0, bh * .2, -bl * .48], [(d.tailUp ?? -20) * D, 0, 0]); put('tail2', 'tail1', [0, 0, -d.tailL / 2], [(d.tail2Up ?? -10) * D, 0, 0]);
     const ly = -bh * (d.hipDrop ?? .3), up = (d.legH + bh / 2 + ly) / 2;
     for (const [s, x, z] of [['FL', 1, 1], ['FR', -1, 1], ['BL', 1, -1], ['BR', -1, -1]]) {
-      put('leg' + s + '1', 'body', [x * bw * (d.legX ?? .36), ly, z * bl * (d.legZ ?? .36)]); put('leg' + s + '2', 'leg' + s + '1', [0, -up, 0]); }
+      const kk = z < 0 ? hk : 1; put('leg' + s + '1', 'body', [x * bw * (d.legX ?? .36), ly, z * bl * (d.legZ ?? .36)], [th, 0, 0]); put('leg' + s + '2', 'leg' + s + '1', [0, -up * kk, 0]); }
     if (P.rig === 'dragon') for (const [s, k] of [['L', 1], ['R', -1]]) { put('wing' + s + '1', 'body', [k * bw * .42, bh * .38, bl * .16]); put('wing' + s + '2', 'wing' + s + '1', [k * d.wing1L, 0, 0]); }
   }
   for (const e of P.extraSegs ?? []) put(e.name, e.parent, e.pivot);   // 2B: extra rigid segments (TITAN chains)
@@ -331,7 +332,7 @@ export function sampleCrowdMember(P, geo, sup, cfg, m, t, groundY = () => 0) {
   return {root: {p: [r.x, groundY(r.x, r.z) - lowest, r.z], yaw: r.yaw}, segs: W, order: geo.sk.order, glow: {seam: ch.seam, mouth: ch.mouth, eye: ch.eyes}, state: st, lowest: 0}; }
 
 // ---- BLINK (firefly): orbits a head; pure in t (on ones: it is a light) ------------------------------------------------------------
-export const BLINK = {r: .95, rate: .42, bob: .22, up: .45, flap: 16};
+export const BLINK = {r: .95, rate: .42, bob: .22, up: .45, flap: 7};   // P3: flap 16 → 7 Hz (16 Hz aliased to a blur at 24 fps)
 export function blinkAt(t, head, seed = 1) {
   const sd = (seed % 997) / 997, a = 2 * PI * (BLINK.rate * t + sd), r = BLINK.r + .15 * Math.sin(2 * PI * (.31 * t + sd));
   const p = [head[0] + r * Math.cos(a), head[1] + BLINK.up + BLINK.bob * Math.sin(2 * PI * (1.1 * t + sd)), head[2] + r * Math.sin(a)];
