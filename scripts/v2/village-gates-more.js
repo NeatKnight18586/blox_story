@@ -58,7 +58,7 @@ print(json.dumps({'share': float(m.mean()), 'inside': bool(len(xs) and xs.min() 
       for (const [f, v] of views) { const fr = await png(p, f, 270, 480, `${raw}/loc-${loc}-${look}-${v}.png`);
         const m = await p.evaluate(([f]) => { const E = window.__episode, V = window.__village, q = E.renderFrame(f, 270, 480); return {calls: q.calls, frustum: q.triangles, tris: V.tris(), win: V.windows, mountain: V.mountain ? V.maskShare(E.debug.renderer, E.debug.camera, 270, 480, 'mountain') : null}; }, [f]);
         r[v] = m;
-        if (S.look4 === 'moonlit') { const mk = await masks(p, names, 270, 480, `${raw}/loc-${loc}-${look}-${v}`); r[v].night = (await import('./village-gates.js')).nightStats ? null : null; r[v].nightRow = JSON.parse((await import('node:child_process')).execFileSync('python3', ['scripts/v2/nightstats.py', fr, ...Object.entries(mk).map(([n, f2]) => `${n}=${f2}`)]).toString()); } }
+        if (S.look4 === 'moonlit') { const mk = await masks(p, names, 270, 480, `${raw}/loc-${loc}-${look}-${v}`); r[v].nightRow = JSON.parse((await import('node:child_process')).execFileSync('python3', ['scripts/v2/nightstats.py', fr, ...Object.entries(mk).map(([n, f2]) => `${n}=${f2}`)]).toString()); } }
       await p.close();
       if (!rows.some(x => x.loc === loc)) { const q = await open(spec, '&aa=1'); r.final = await q.evaluate(() => { const E = window.__episode; E.renderFrame(6, 1440, 2560); return [6, 30].map(f => E.renderFrame(f, 1440, 2560).ms / 1000); }); await q.close(); cost.push(...r.final); } else r.final = [];   // final cost once per location (its first look)
       rows.push(r); console.log('loc', loc, look, r.establish.tris, r.establish.calls, r.final.map(x => x.toFixed(2)).join('/')); }
