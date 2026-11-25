@@ -1994,3 +1994,8 @@ are not re-run here. Dusk = look4 `dawn` (no dusk preset). Interior days use loo
 building height above its own ground (a far roof high on the hillside is not a taller building; world-y would read 91.8). Rooftop id pass draws
 double-sided (instanced far roofs were back-face culled). The giant cage on the stage is spec props2b at scale .3 (episode choice). Demo is silent.
 Open: night darks on lit interiors / CU; low-tier beasts have no moon rim (unlit material); BLINK ring separation .054.
+Sheet: review/village/village.png 1600×1549, village-390.png, demo.mp4 1.47 MB 15.0 s (360 frames, 540×960). Byte-identical 1B 10/10 (re-run at the end).
+Five weakest in village.png / demo: (1) colossal Tuft blows out to white under the lantern sea + glow — no form, barely any roofs under it; (2) titanCave:
+TITAN reads ghost-pale (moon rim) and the cave arch is not visible around it; (3) the terraced hillside reads as a flat pale wall of box backs at dusk
+(no roofs seen from below, no haze); (4) homeBedroom room puff = a black blob (hero torso colour) filling the frame, legs only read in the hero angle;
+(5) fixture kids stand too close to the street / dining cameras and block the depth; dusk plaza is grey, not amber.

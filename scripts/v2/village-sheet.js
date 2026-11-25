@@ -8,8 +8,8 @@
 import {mkdirSync, statSync, rmSync, readFileSync} from 'node:fs';
 import {execFileSync} from 'node:child_process';
 
-const out = 'review/village', raw = 'renders/village/sheet', F = 'engine/fixtures/village', B2 = 'engine/fixtures/beasts2'; mkdirSync(out, {recursive: true}); rmSync(raw, {recursive: true, force: true}); mkdirSync(raw, {recursive: true});
-const fa = (W, H, items, dir = raw) => execFileSync('node', ['scripts/v2/frames-at.js', dir, String(W), String(H), ...items], {stdio: ['ignore', 'ignore', 'inherit']});
+const out = 'review/village', raw = 'renders/village/sheet', F = 'engine/fixtures/village', B2 = 'engine/fixtures/beasts2'; const LAYOUT = process.argv.includes('--layout-only'); mkdirSync(out, {recursive: true}); if (!LAYOUT) { rmSync(raw, {recursive: true, force: true}); mkdirSync(raw, {recursive: true}); }
+const fa = (W, H, items, dir = raw) => LAYOUT ? null : execFileSync('node', ['scripts/v2/frames-at.js', dir, String(W), String(H), ...items], {stdio: ['ignore', 'ignore', 'inherit']});
 // row 1 after (same frames as the before set)
 fa(360, 640, [`${B2}/titan.json:60:titan-a`, `${B2}/titan.json:244:titan-b`, `${F}/moon-heroes.json:94:volt`, `${B2}/powers.json:185:breath`, `${B2}/powers.json:66:bolt`, `${F}/moon-heroes.json:209:blink`, `${B2}/tuft.json:349:ball`]);
 // rows 2–3: locations (look per the colour script)
@@ -34,9 +34,9 @@ def row(tl, n, h):
         d.rectangle([i * w, 0, i * w + min(w, len(t['label']) * 6 + 6), 15], fill='#000000'); d.text((i * w + 3, 1), t['label'], fill='#ffffff', font=f)
     return s
 sil = Image.open('review/village/titan-sil.png').convert('RGB'); sil = sil.resize((W, int(W * sil.height / sil.width)))
-parts = [('1 · Task 0 before / after: TITAN redesign, moonlit VOLT, breath jet, lightning runner, BLINK, hero ball face', None), (None, row(T['r1'][:7], 7, 400)), (None, row(T['r1'][7:], 7, 400)), (None, sil),
-  ('2–3 · the seven locations: establishing + hero angle (colour script: day yard + class, storm-blue night home / street / cave, dusk plaza)', None), (None, row(T['r23'][:8], 8, 355)), (None, row(T['r23'][8:], 6, 474)),
-  ('4 · festivalPlaza night: lantern sea + giant cage + colossal Tuft over the roofs; plaza + street at night', None), (None, row(T['r4'], 4, 711))]
+parts = [('1 · Task 0 before / after: TITAN roar + flee, moonlit VOLT, breath jet, lightning runner, BLINK, hero ball face (silhouettes: titan-sil.png)', None), (None, row(T['r1'], 14, 203)),
+  ('2-3 · the seven locations: establishing + hero angle (colour script: day yard + class, storm-blue night home / street / cave, dusk plaza)', None), (None, row(T['r23'][:7], 7, 405)), (None, row(T['r23'][7:], 7, 405)),
+  ('4 · festivalPlaza night: lantern sea + giant cage + colossal Tuft over the roofs; plaza + street at night', None), (None, row(T['r4'], 4, 470))]
 H = sum(22 if im is None else im.height for _, im in parts); s = Image.new('RGB', (W, H), '#14161a'); d = ImageDraw.Draw(s); y = 0
 for title, im in parts:
     if im is None: d.text((6, y + 5), title, fill='#f0f0f0', font=ImageFont.load_default(size=13)); y += 22
@@ -47,7 +47,7 @@ for i, t in enumerate(T['phone'][:4]):
     x, yy = (i % 2) * 195, (i // 2) * 347; p.paste(Image.open(raw + '/' + t['f']).convert('RGB').resize((195, 347)), (x, yy)); q.text((x + 4, yy + 3), t['label'], fill='#ffffff', font=ImageFont.load_default(size=11))
 p.save(out + '/village-390.png'); print('village-390.png', p.size)
 `, raw, out, JSON.stringify(tiles)], {stdio: 'inherit'});
-if (!process.argv.includes('--no-demo')) { const d = `${raw}/demo`; mkdirSync(d, {recursive: true}); let k = 0;
+if (!process.argv.includes('--no-demo') && !LAYOUT) { const d = `${raw}/demo`; mkdirSync(d, {recursive: true}); let k = 0;
   for (const name of ['demo-st', 'demo-pl', 'demo-cv', 'demo-co']) { const S = JSON.parse(readFileSync(`${F}/${name}.json`, 'utf8')), n = S.shots.reduce((a, s) => a + s.frames, 0), tmp = `${raw}/${name}`;
     fa(540, 960, Array.from({length: n}, (_, i) => `${F}/${name}.json:${i}:f${String(i).padStart(4, '0')}`), tmp);
     for (let i = 0; i < n; i++) execFileSync('cp', [`${tmp}/f${String(i).padStart(4, '0')}.png`, `${d}/f-${String(k++).padStart(4, '0')}.png`]); }
