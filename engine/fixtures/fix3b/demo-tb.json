@@ -1,0 +1,83 @@
+{
+ "note": "tuft P3B demo2 piece: TITAN on the ground before the mountain at night, low 3/4 on the chained forelegs: roar → break (chains snap, links fall) with stomp shake.",
+ "slug": "village",
+ "fps": 24,
+ "format": 6,
+ "acting": 6,
+ "rig": "r6",
+ "twos": false,
+ "faceLife": true,
+ "labels": false,
+ "world": "parts/village/world.js",
+ "cues": "engine/fixtures/acting6/cues.json",
+ "post": "cine",
+ "camera": "cine",
+ "grade": "clear",
+ "location": "titanCave",
+ "look4": "moonlit",
+ "look": "mystery",
+ "skyDist": 650,
+ "cast": {
+  "titan": {
+   "style": "beast",
+   "preset": "TITAN",
+   "tier": "hero",
+   "at": "street",
+   "offset": [
+    0,
+    0,
+    10
+   ],
+   "yaw": 0,
+   "state": "idle"
+  }
+ },
+ "shots": [
+  {
+   "id": "demo-titan-break",
+   "frames": 48,
+   "duration": 2,
+   "size": "ws",
+   "mood": "tension",
+   "move": "push",
+   "angle": "low",
+   "from": {
+    "position": [
+     -46,
+     7,
+     214
+    ],
+    "target": [
+     0,
+     20,
+     166
+    ],
+    "fov": 54
+   },
+   "to": {
+    "position": [
+     -40,
+     6,
+     206
+    ],
+    "target": [
+     0,
+     22,
+     166
+    ],
+    "fov": 54
+   },
+   "beasts": [
+    {
+     "actor": "titan",
+     "state": "break",
+     "at": 0.15
+    }
+   ],
+   "chains": {
+    "at": 0.75
+   },
+   "shake": "titan"
+  }
+ ]
+}

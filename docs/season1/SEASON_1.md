@@ -27,11 +27,12 @@ and the next three seconds explain the rule with no sound and no caption.
 | Horror-lore channels | strict survival rules; slow push-ins; a loved one in doubt | their monsters and tests |
 
 **Our own five signatures (every episode):**
-1. **The Troupe.** The same five original actors play a new role in every world (A4 §G). Viewers learn their faces.
+1. **Recurring HERO (`cast/hero.json`) + re-costumed troupe** (A4 §G, [BRAND.md](BRAND.md)). The same five original actors play a new role in every world. Viewers learn their faces.
+   Story rules: [STORY_ENGINE.md](STORY_ENGINE.md) · brand: [BRAND.md](BRAND.md) · build input: [EPISODE_BRIEF.md](EPISODE_BRIEF.md).
 2. **Three clues.** Three visible clues to the twist are on screen before it happens. Rewatching pays off.
 3. **AFK.** A hidden, faintly transparent, frozen player tagged `AFK` appears in exactly two shots of every episode. The finale is his story.
-4. **Two full minutes with a second surprise** after the reversal (why the rule existed, or what it cost).
-5. **The last line flips the first line**, and the final frame rhymes with frame 0, so the loop feels designed.
+4. **A second surprise** after the reversal (why the rule existed, or what it cost). Length: [FORMAT v6](FORMAT_V6.md).
+5. **The last line twists the rule or lands the final laugh or feeling** (never repeats the opening line), over a close-up or two-shot on the payoff ([FORMAT v6](FORMAT_V6.md)).
 
 ## 2b. Originality rule (checked before every script, and again by the owner)
 
@@ -57,7 +58,7 @@ are introduced by the narration and the camera; AFK is recognised by his grey, s
 only where it physically exists in the world and the story needs it (a scoreboard, a clock, a note, a sign, a switch)
 and in the captions. Every card's "Game echo" is shown through colour, light, shapes and motion, not on-screen UI.
 
-## 3. Format v3 (target 2:02–2:15, 410–440 words, third-person narration)
+## 3. Beat shape (length, word count, narration, end, final shot and hero-first: [FORMAT v6](FORMAT_V6.md); the target times below are legacy proportions)
 
 | Beat | Target time | What happens | Camera | Must be on screen |
 |---|---|---|---|---|
@@ -69,10 +70,10 @@ and in the captions. Every card's "Game echo" is shown through colour, light, sh
 | B6 Low point | 1:25–1:35 | the hero alone; narration slows | static-drift close-up, 3–5 s hold allowed | face only |
 | B7 Reversal | 1:35–1:50 | the defect solves it; biggest picture of the episode | `heroLow` → `orbit`; `flash` once | the largest visual change in the episode |
 | B8 Second surprise | 1:50–2:05 | the truth about the rule | insert on the proof, then wide | the proof object |
-| B9 Flip | 2:05–2:12 | first line again, flipped | same framing as frame 0, changed world | AFK cameo 2 |
+| B9 Payoff | last line | the last line twists the rule or lands the final laugh or feeling (never the first line again) | close-up or two-shot on the payoff, never a wide | AFK cameo 2 |
 
-Rules: sentences ≤ 12 words; ~5th-grade vocabulary; American English; no stretch > 4 s without new information; no first
-person; family-safe (peril resolves, no on-screen harm, no weapons used on people, no romance).
+Rules: sentences ≤ 12 words; ~5th-grade vocabulary; American English; no stretch > 4 s without new information; first-person
+narration for the hero (D1); family-safe (peril resolves, no on-screen harm, no weapons used on people, no romance).
 
 **Titles:** 3–6 words + one emoji. Either a forbidden command or the rule itself. No hashtags in the title.
 **Pinned comment:** one either/or question about the hero's choice.
@@ -105,18 +106,17 @@ Backlog (used by `/season swap`, then after 30), in this order: the spy who narr
 that only gives bad directions · the piggy-bank parade · the red string between strangers · doors to other yous · one
 wish and you are forgotten · you may own one thing · kids are the bosses.
 
-## 5b. How the remaining scripts are written (by Claude Code, from the card; the owner approves before voicing)
+## 5b. How the remaining scripts are written (legacy guidance: the owner writes every script, decision D1 in `V4.md`)
 
 Models: `stories/egg/script.txt`, `stories/ragdoll/script.txt`, `stories/mountain/script.txt`, `stories/mirror/script.txt`.
 Match their rhythm and plainness. A script that already exists is never rewritten by the loop.
 - First run the originality check in §2b and report it.
-- B1 uses the card's **Rule** sentence(s) word for word; the ending uses the card's **last line** word for word, after
-  repeating the first sentence of the Rule.
+- B1 uses the card's **Rule** sentence(s); the ending never repeats the first line ([FORMAT v6](FORMAT_V6.md) rule 3).
 - Everything on the card appears: the three expansion examples, the defect, the crisis, the reversal, the second surprise.
   Clues are shown, and at most one of the three is spoken. Nothing on the card is changed or "improved".
-- 410–440 words. Sentences ≤ 12 words. Third person only: the narrator never says "I", "me", "my" or "we".
+- Word count and narration per [FORMAT v6](FORMAT_V6.md) (first person, no cap). Sentences ≤ 12 words.
   One tense per script. ~5th-grade words. Characters' spoken lines: ≤ 6 words each, at most six per script, no quotation
-  marks; first-person words may appear only inside those lines.
+  marks.
 - One laugh inside B2, one inside B3–B4. A full stop of silence (a blank line) before the reversal line.
 - No brand names, no real games' names, no on-screen harm, no romance.
 - Then write `stories/<slug>/beats.md` in the same table form as the models, using §3's beats and cameras.

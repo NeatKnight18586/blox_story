@@ -1,0 +1,799 @@
+{
+ "spec": "stories/touchgrass/episode.json",
+ "cues": "stories/touchgrass/cues.json",
+ "shots": [
+  {
+   "id": "01-push",
+   "beat": false,
+   "t": 0,
+   "dur": 1.07,
+   "size": "close",
+   "move": "push",
+   "speed": 0,
+   "subject": "TOWN_A@50,49",
+   "why": "hook: extreme close of a gray townsperson, visor glowing blue, dust across the lens, slow push"
+  },
+  {
+   "id": "02-crane",
+   "beat": false,
+   "t": 1.07,
+   "dur": 2.15,
+   "size": "wide",
+   "move": "crane",
+   "speed": 0,
+   "subject": "",
+   "why": "crane up and back: rows of 40 seated, every visor glowing, dust town to the horizon (scale reveal)"
+  },
+  {
+   "id": "03-push",
+   "beat": false,
+   "t": 3.22,
+   "dur": 1.97,
+   "size": "wide",
+   "move": "push",
+   "speed": 3,
+   "subject": "NOVA@50,33",
+   "why": "NOVA in yellow walks between the rows toward camera, the only colour (E2: explicit camera, no foreground block)"
+  },
+  {
+   "id": "04-push",
+   "beat": false,
+   "t": 5.18,
+   "dur": 2.03,
+   "size": "wide",
+   "move": "push",
+   "speed": 1,
+   "subject": "",
+   "why": "wide establishing: cracked ground, dead tree, tumbleweed rolling across, shacks, haze"
+  },
+  {
+   "id": "05-push",
+   "beat": false,
+   "t": 7.22,
+   "dur": 0.7,
+   "size": "insert",
+   "move": "push",
+   "speed": 15,
+   "subject": "",
+   "why": "insert: cracked dry dirt, one dry stick, slow slide"
+  },
+  {
+   "id": "06-push",
+   "beat": false,
+   "t": 7.92,
+   "dur": 1.02,
+   "size": "insert",
+   "move": "push",
+   "speed": 6,
+   "subject": "",
+   "why": "empty power line + broken birdhouse swinging"
+  },
+  {
+   "id": "07-push",
+   "beat": false,
+   "t": 8.93,
+   "dur": 1.2,
+   "size": "wide",
+   "move": "push",
+   "speed": 6,
+   "subject": "",
+   "why": "wide, a dust gust crosses the whole frame"
+  },
+  {
+   "id": "08-push",
+   "beat": false,
+   "t": 10.13,
+   "dur": 2.38,
+   "size": "medium",
+   "move": "push",
+   "speed": 0,
+   "subject": "NOVA@50,37",
+   "why": "NOVA sits outside every day: porch step, medium; timelapse shadows sweep (days passing)"
+  },
+  {
+   "id": "09-push",
+   "beat": false,
+   "t": 12.52,
+   "dur": 1.3,
+   "size": "insert",
+   "move": "push",
+   "speed": 2,
+   "subject": "",
+   "why": "insert: the watering can pouring onto dry dirt; can + stream 35–60 % of frame"
+  },
+  {
+   "id": "10-push",
+   "beat": false,
+   "t": 13.82,
+   "dur": 1.27,
+   "size": "wide",
+   "move": "push",
+   "speed": 1,
+   "subject": "NOVA@45,42",
+   "why": "over the shoulder of a seated headset person (soft, foreground); NOVA small, watering in the background"
+  },
+  {
+   "id": "11-push",
+   "beat": false,
+   "t": 15.08,
+   "dur": 1.15,
+   "size": "medium",
+   "move": "push",
+   "speed": 0,
+   "subject": "LEO@50,48",
+   "why": "LEO slumped on his porch chair, headset in his hand, unimpressed"
+  },
+  {
+   "id": "12-push",
+   "beat": false,
+   "t": 16.23,
+   "dur": 0.62,
+   "size": "insert",
+   "move": "push",
+   "speed": 2,
+   "subject": "",
+   "why": "insert: the headset clicks ON on his head, the visor ignites"
+  },
+  {
+   "id": "13-push",
+   "beat": false,
+   "t": 16.85,
+   "dur": 0.88,
+   "size": "close",
+   "move": "push",
+   "speed": 1,
+   "subject": "LEO@50,52",
+   "why": "fast push to close LEO, the visor's cyan spill on his face, freeze 2 frames, grin (E2: a push, the snap held still)"
+  },
+  {
+   "id": "14-crashZoom",
+   "beat": false,
+   "t": 17.73,
+   "dur": 1.1,
+   "size": "close",
+   "move": "crashZoom",
+   "speed": 0,
+   "subject": "LEO@55,51",
+   "why": "crash zoom INTO the glowing visor (snaps at +.6 s); blue flash at 18.70"
+  },
+  {
+   "id": "15-push",
+   "beat": false,
+   "t": 18.83,
+   "dur": 1.38,
+   "size": "wide",
+   "move": "push",
+   "speed": 1,
+   "subject": "",
+   "why": "zombieCity wide, green fog, 8 zombies shuffling toward camera"
+  },
+  {
+   "id": "16-heroLow",
+   "beat": false,
+   "t": 20.22,
+   "dur": 0.95,
+   "size": "medium",
+   "move": "heroLow",
+   "speed": 13,
+   "subject": "LEO_VR@51,44",
+   "why": "heroLow LEO_VR, glowing sword, heroPose, zombies behind, grin"
+  },
+  {
+   "id": "17-push",
+   "beat": false,
+   "t": 21.17,
+   "dur": 1,
+   "size": "wide",
+   "move": "push",
+   "speed": 0,
+   "subject": "DRAGON@77,18",
+   "why": "dragonPeaks wide from the plateau edge: three snow peaks fill the lower 60 %, the dragon flies across the upper third"
+  },
+  {
+   "id": "18-track",
+   "beat": false,
+   "t": 22.17,
+   "dur": 0.87,
+   "size": "wide",
+   "move": "track",
+   "speed": 5,
+   "subject": "LEO_VR@50,50",
+   "why": "side track: LEO_VR seated on the dragon's neck (≥ 15 % of frame), body across the frame, peaks below"
+  },
+  {
+   "id": "19-push",
+   "beat": false,
+   "t": 23.03,
+   "dur": 0.95,
+   "size": "wide",
+   "move": "push",
+   "speed": 5,
+   "subject": "",
+   "why": "space wide: ships crossing, laser trails, big sun"
+  },
+  {
+   "id": "20-push",
+   "beat": false,
+   "t": 23.98,
+   "dur": 1.18,
+   "size": "medium",
+   "move": "push",
+   "speed": 8,
+   "subject": "LEO_VR@50,45",
+   "why": "LEO_VR standing on his ship's nose, pointUp, stars streaking"
+  },
+  {
+   "id": "21-crane",
+   "beat": false,
+   "t": 25.17,
+   "dur": 2.1,
+   "size": "wide",
+   "move": "crane",
+   "speed": 0,
+   "subject": "LEO_VR@50,45",
+   "why": "dragonPeaks plateau: crane up over 100 armored friends cheering around LEO_VR"
+  },
+  {
+   "id": "22a-push",
+   "beat": false,
+   "t": 27.27,
+   "dur": 0.62,
+   "size": "close",
+   "move": "push",
+   "speed": 1,
+   "subject": "FRIEND_KNIGHT@50,45",
+   "why": "beat cut a: close of knight, cheering"
+  },
+  {
+   "id": "22b-push",
+   "beat": false,
+   "t": 27.88,
+   "dur": 0.72,
+   "size": "close",
+   "move": "push",
+   "speed": 1,
+   "subject": "FRIEND_ROBOT@50,45",
+   "why": "beat cut b: close of robot, cheering"
+  },
+  {
+   "id": "22c-push",
+   "beat": false,
+   "t": 28.6,
+   "dur": 0.67,
+   "size": "close",
+   "move": "push",
+   "speed": 1,
+   "subject": "FRIEND_MAGE@50,44",
+   "why": "beat cut c: close of mage, cheering"
+  },
+  {
+   "id": "23-push",
+   "beat": false,
+   "t": 29.27,
+   "dur": 1.82,
+   "size": "wide",
+   "move": "push",
+   "speed": 0,
+   "subject": "LEO@57,39",
+   "why": "flash → DUST TOWN wide two-shot: LEO frozen on his chair (headset on), NOVA beside him watering; cold"
+  },
+  {
+   "id": "24-push",
+   "beat": false,
+   "t": 31.08,
+   "dur": 1.9,
+   "size": "close",
+   "move": "push",
+   "speed": 0,
+   "subject": "LEO@55,56",
+   "why": "insert: NOVA's finger taps LEO's headset at 31.08 / 31.66 / 32.23 (contact frames); headset 35–60 % of frame"
+  },
+  {
+   "id": "25-push",
+   "beat": false,
+   "t": 32.98,
+   "dur": 1.35,
+   "size": "wide",
+   "move": "push",
+   "speed": 0,
+   "subject": "",
+   "why": "flash → zombieCity low angle up: the sky cracks, the finger comes through; 4 zombies look up in the lower third"
+  },
+  {
+   "id": "26-push",
+   "beat": false,
+   "t": 34.33,
+   "dur": 2.03,
+   "size": "wide",
+   "move": "push",
+   "speed": 0,
+   "subject": "",
+   "why": "the giant finger comes down through the crack; the tip touches the zombies at 35.12 → knocked flat, shockwave dust"
+  },
+  {
+   "id": "27-push",
+   "beat": false,
+   "t": 36.37,
+   "dur": 1.62,
+   "size": "medium",
+   "move": "push",
+   "speed": 1,
+   "subject": "BRO@74,45",
+   "why": "\"Bro,\" his friend whispers: two-shot LEO_VR + BRO, BRO leans in"
+  },
+  {
+   "id": "28-push",
+   "beat": false,
+   "t": 37.98,
+   "dur": 1.82,
+   "size": "close",
+   "move": "push",
+   "speed": 0,
+   "subject": "BRO@48,56",
+   "why": "MEME SHOT: BRO close in the lower half, wince; the finger in the cracked sky above him, pointing down at camera"
+  },
+  {
+   "id": "29-push",
+   "beat": false,
+   "t": 39.8,
+   "dur": 1.28,
+   "size": "close",
+   "move": "push",
+   "speed": 1,
+   "subject": "LEO_VR@50,46",
+   "why": "LEO_VR close, looks up, side eye"
+  },
+  {
+   "id": "30-push",
+   "beat": false,
+   "t": 41.08,
+   "dur": 0.42,
+   "size": "close",
+   "move": "push",
+   "speed": 5,
+   "subject": "NOVA@50,53",
+   "why": "flash → real: NOVA close, tapping, flat meh (E2: from above, the dirt behind her)"
+  },
+  {
+   "id": "31-push",
+   "beat": false,
+   "t": 41.5,
+   "dur": 1.38,
+   "size": "medium",
+   "move": "push",
+   "speed": 0,
+   "subject": "LEO_VR@51,56",
+   "why": "flash → LEO_VR turns his back on the finger, arms crossed, unimpressed; the finger high behind him"
+  },
+  {
+   "id": "32-push",
+   "beat": false,
+   "t": 42.88,
+   "dur": 1.08,
+   "size": "medium",
+   "move": "push",
+   "speed": 4,
+   "subject": "",
+   "why": "space: LEO's ship (≥ 30 % of frame) flying toward camera, battle trails behind"
+  },
+  {
+   "id": "33-push",
+   "beat": false,
+   "t": 43.97,
+   "dur": 1.65,
+   "size": "wide",
+   "move": "push",
+   "speed": 0,
+   "subject": "",
+   "why": "space: a crack opens, the finger comes through and taps the ship 43.96 / 44.49 / 45.00 (the ship jolts)"
+  },
+  {
+   "id": "34-push",
+   "beat": false,
+   "t": 45.62,
+   "dur": 1.5,
+   "size": "wide",
+   "move": "push",
+   "speed": 1,
+   "subject": "",
+   "why": "the finger flicks (contact 45.96 \"boops\"); the ship spins away tumbling"
+  },
+  {
+   "id": "35-push",
+   "beat": false,
+   "t": 47.12,
+   "dur": 1.37,
+   "size": "wide",
+   "move": "push",
+   "speed": 2,
+   "subject": "",
+   "why": "straight into the sun: the ship shrinks into it; white flash 48.30"
+  },
+  {
+   "id": "36-push",
+   "beat": false,
+   "t": 48.48,
+   "dur": 0.95,
+   "size": "wide",
+   "move": "push",
+   "speed": 0,
+   "subject": "BOSS@51,37",
+   "why": "dragonPeaks wide: BOSS on the highest peak (≥ 25 % of frame), sunset, lightning"
+  },
+  {
+   "id": "37-lowAuthority",
+   "beat": false,
+   "t": 49.43,
+   "dur": 1,
+   "size": "medium",
+   "move": "lowAuthority",
+   "speed": 30,
+   "subject": "BOSS@51,27",
+   "why": "final boss: low authority, roars, shake"
+  },
+  {
+   "id": "38-push",
+   "beat": false,
+   "t": 50.43,
+   "dur": 1.97,
+   "size": "insert",
+   "move": "push",
+   "speed": 0,
+   "subject": "",
+   "why": "the sword in the stone (35–60 % of frame, halo) from the far side; LEO_VR's hand reaching in"
+  },
+  {
+   "id": "39-push",
+   "beat": false,
+   "t": 52.4,
+   "dur": 1.57,
+   "size": "wide",
+   "move": "push",
+   "speed": 22,
+   "subject": "BOSS@51,51",
+   "why": "the finger through the crack taps the BOSS head 52.40 / 52.92 / 53.40 (big shake on 53.40)"
+  },
+  {
+   "id": "40-push",
+   "beat": false,
+   "t": 53.97,
+   "dur": 1.45,
+   "size": "wide",
+   "move": "push",
+   "speed": 0,
+   "subject": "BOSS@60,55",
+   "why": "the finger flicks the dragon (contact 54.36); BOSS tumbles off the peak, spinning"
+  },
+  {
+   "id": "41-push",
+   "beat": false,
+   "t": 55.42,
+   "dur": 1.32,
+   "size": "close",
+   "move": "push",
+   "speed": 0,
+   "subject": "BOSS@46,32",
+   "why": "the dragon cries: BOSS sitting at the bottom, close, a big tear"
+  },
+  {
+   "id": "42-push",
+   "beat": false,
+   "t": 56.73,
+   "dur": 1.52,
+   "size": "medium",
+   "move": "push",
+   "speed": 0,
+   "subject": "LEO@52,48",
+   "why": "flash → real: LEO yanks the headset off (it leaves his head at 57.28), freeze 2"
+  },
+  {
+   "id": "43-push",
+   "beat": false,
+   "t": 58.25,
+   "dur": 2.23,
+   "size": "close",
+   "move": "push",
+   "speed": 0,
+   "subject": "LEO@50,54",
+   "why": "\"WHAT, Nova? I was about to win!\": LEO close, standing, shout → angry at 59.24"
+  },
+  {
+   "id": "44-push",
+   "beat": false,
+   "t": 60.48,
+   "dur": 1.17,
+   "size": "medium",
+   "move": "push",
+   "speed": 0,
+   "subject": "NOVA@50,48",
+   "why": "NOVA medium, quiet, calm, watering can in hand"
+  },
+  {
+   "id": "45-tiltUp",
+   "beat": false,
+   "t": 61.65,
+   "dur": 1.37,
+   "size": "medium",
+   "move": "tiltUp",
+   "speed": 34,
+   "subject": "NOVA@50,41",
+   "why": "NOVA points down; the camera tilts down along her arm to the ground"
+  },
+  {
+   "id": "46-push",
+   "beat": false,
+   "t": 63.02,
+   "dur": 2,
+   "size": "insert",
+   "move": "push",
+   "speed": 13,
+   "subject": "",
+   "why": "low macro push across the dirt toward a small green speck"
+  },
+  {
+   "id": "47-push",
+   "beat": false,
+   "t": 65.02,
+   "dur": 2,
+   "size": "insert",
+   "move": "push",
+   "speed": 2,
+   "subject": "",
+   "why": "HERO INSERT: the blade macro, backlit, dust motes; 35–60 % of frame; the only vivid green"
+  },
+  {
+   "id": "48-crane",
+   "beat": false,
+   "t": 67.02,
+   "dur": 1.65,
+   "size": "wide",
+   "move": "crane",
+   "speed": 0,
+   "subject": "",
+   "why": "scale reveal pull back: the tiny blade in the huge gray town"
+  },
+  {
+   "id": "49-push",
+   "beat": false,
+   "t": 68.67,
+   "dur": 1.7,
+   "size": "insert",
+   "move": "push",
+   "speed": 0,
+   "subject": "",
+   "why": "insert: the dented can in NOVA's hand from the front; LEO's head turns into the frame edge"
+  },
+  {
+   "id": "50-push",
+   "beat": false,
+   "t": 70.37,
+   "dur": 1.02,
+   "size": "close",
+   "move": "push",
+   "speed": 1,
+   "subject": "LEO@50,54",
+   "why": "\"Every day?\": LEO close, small o"
+  },
+  {
+   "id": "51-push",
+   "beat": false,
+   "t": 71.38,
+   "dur": 2.28,
+   "size": "medium",
+   "move": "push",
+   "speed": 0,
+   "subject": "NOVA@50,48",
+   "why": "Nova shrugs. \"Somebody had to.\": NOVA medium, shrug, content"
+  },
+  {
+   "id": "52-push",
+   "beat": false,
+   "t": 73.67,
+   "dur": 1.92,
+   "size": "wide",
+   "move": "push",
+   "speed": 0,
+   "subject": "NOVA@63,28",
+   "why": "\"Now touch grass\": low wide from grass level, the blade big and sharp in the foreground (25–40 %), LEO + NOVA head to shoe behind; NOVA smiles"
+  },
+  {
+   "id": "53-push",
+   "beat": false,
+   "t": 75.58,
+   "dur": 1.28,
+   "size": "medium",
+   "move": "push",
+   "speed": 2,
+   "subject": "LEO@50,41",
+   "why": "LEO kneels down, medium side angle"
+  },
+  {
+   "id": "54-push",
+   "beat": false,
+   "t": 76.87,
+   "dur": 0.87,
+   "size": "insert",
+   "move": "push",
+   "speed": 0,
+   "subject": "",
+   "why": "macro: LEO's fingertip touches the blade (contact 77.32 \"it\"); mirrors the giant finger"
+  },
+  {
+   "id": "55-push",
+   "beat": false,
+   "t": 77.73,
+   "dur": 1.95,
+   "size": "close",
+   "move": "push",
+   "speed": 2,
+   "subject": "LEO@50,44",
+   "why": "\"It's... kind of soft\": LEO close, blush smile; the sun breaks through (dustGold from 77.74)"
+  },
+  {
+   "id": "56-push",
+   "beat": false,
+   "t": 79.68,
+   "dur": 1.88,
+   "size": "wide",
+   "move": "push",
+   "speed": 2,
+   "subject": "LEO@18,54",
+   "why": "LEO kneeling foreground, 3 townspeople behind lift their headsets off one after another"
+  },
+  {
+   "id": "57a-push",
+   "beat": false,
+   "t": 81.57,
+   "dur": 0.27,
+   "size": "close",
+   "move": "push",
+   "speed": 2,
+   "subject": "TOWN_B@50,51",
+   "why": "beat cut a: TOWN_B lifts the headset off, small o, blinking"
+  },
+  {
+   "id": "57b-push",
+   "beat": false,
+   "t": 81.83,
+   "dur": 0.25,
+   "size": "close",
+   "move": "push",
+   "speed": 8,
+   "subject": "TOWN_C@50,51",
+   "why": "beat cut b: TOWN_C lifts the headset off, small o, blinking"
+  },
+  {
+   "id": "57c-push",
+   "beat": false,
+   "t": 82.08,
+   "dur": 0.57,
+   "size": "close",
+   "move": "push",
+   "speed": 4,
+   "subject": "TOWN_A@50,51",
+   "why": "beat cut c: TOWN_A lifts the headset off, small o, blinking"
+  },
+  {
+   "id": "58-crane",
+   "beat": false,
+   "t": 82.65,
+   "dur": 3.02,
+   "size": "wide",
+   "move": "crane",
+   "speed": 0,
+   "subject": "",
+   "why": "crane up, top-down-ish: the whole town standing in a circle around LEO, NOVA and the blade; gold light"
+  },
+  {
+   "id": "59-push",
+   "beat": false,
+   "t": 85.67,
+   "dur": 0.7,
+   "size": "insert",
+   "move": "push",
+   "speed": 2,
+   "subject": "",
+   "why": "Bzzt: LEO's headset on the dirt, the visor screen flickers on"
+  },
+  {
+   "id": "60-push",
+   "beat": false,
+   "t": 86.37,
+   "dur": 2.25,
+   "size": "close",
+   "move": "push",
+   "speed": 2,
+   "subject": "",
+   "why": "push in on the visor screen: gold trophy + ACHIEVEMENT UNLOCKED (text in the upper half of frame)"
+  },
+  {
+   "id": "61-push",
+   "beat": false,
+   "t": 88.62,
+   "dur": 1.33,
+   "size": "close",
+   "move": "push",
+   "speed": 2,
+   "subject": "",
+   "why": "\"Touched grass.\": the screen switches to TOUCHED GRASS; the real blade softly behind the visor; hard cut at 90.10"
+  }
+ ],
+ "meanShot": 1.38,
+ "end": 89.95,
+ "gamecam": 0,
+ "wides": 23,
+ "format5": {
+  "lengthS": 89.95,
+  "averageShotS": 1.38,
+  "insertH": {
+   "05-push": {
+    "h": 0.35439999999999994,
+    "margin": 0.07340000000000002
+   },
+   "06-push": {
+    "h": 0.5042000000000001,
+    "margin": 0.1909
+   },
+   "09-push": {
+    "h": 0.36540000000000006,
+    "margin": 0.07899999999999996
+   },
+   "12-push": {
+    "h": 0.4547,
+    "margin": 0.08389999999999997
+   },
+   "38-push": {
+    "h": 0.5401,
+    "margin": 0.1949
+   },
+   "46-push": {
+    "h": 0.4071,
+    "margin": 0.2216
+   },
+   "47-push": {
+    "h": 0.5144,
+    "margin": 0.23750000000000004
+   },
+   "49-push": {
+    "h": 0.4353000000000001,
+    "margin": 0.0831
+   },
+   "54-push": {
+    "h": 0.516,
+    "margin": 0.14170000000000005
+   },
+   "59-push": {
+    "h": 0.4577,
+    "margin": 0.0693
+   }
+  }
+ },
+ "season": false,
+ "framing": [],
+ "uiItems": 0,
+ "eggs": [],
+ "overlaps": 0,
+ "errors": [],
+ "warnings": [
+  "04-push: wide shot with no tagged character in the foreground",
+  "07-push: wide shot with no tagged character in the foreground",
+  "09-push: \"NOVA\" (see) not in frame by frame 6",
+  "15-push: wide shot with no tagged character in the foreground",
+  "17-push: wide shot with no tagged character in the foreground",
+  "18-track: \"DRAGON\" (see) not in frame by frame 6",
+  "18-track: wide shot with no tagged character in the foreground",
+  "19-push: wide shot with no tagged character in the foreground",
+  "25-push: wide shot with no tagged character in the foreground",
+  "26-push: wide shot with no tagged character in the foreground",
+  "28-push: subject head at y 56 % near the caption band: consider captionY \"high\"",
+  "31-push: subject head at y 56 % near the caption band: consider captionY \"high\"",
+  "33-push: wide shot with no tagged character in the foreground",
+  "34-push: wide shot with no tagged character in the foreground",
+  "35-push: wide shot with no tagged character in the foreground",
+  "36-push: wide shot with no tagged character in the foreground",
+  "39-push: wide shot with no tagged character in the foreground",
+  "40-push: wide shot with no tagged character in the foreground",
+  "49-push: \"NOVA\" (see) not in frame by frame 6",
+  "49-push: \"LEO\" (see) not in frame by frame 6"
+ ]
+}

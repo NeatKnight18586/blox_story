@@ -8,7 +8,7 @@ import {cardState, cardRect, CARD} from './classes.js';
 import {CLASSES} from '../parts/props.js';
 import {classCardCanvas} from './overhead.js';
 
-export const TYPES = ['fadeColor', 'flash', 'ghost', 'glow', 'particles', 'melt', 'squash', 'shake', 'timeOfDay', 'pillar', 'ring', 'halo', 'morph', 'card', 'lightning', 'shockwave', 'weather', 'trail'];   // pillar…card: A3 class reveal; lightning…trail: A4
+export const TYPES = ['fadeColor', 'flash', 'ghost', 'glow', 'particles', 'melt', 'squash', 'shake', 'timeOfDay', 'pillar', 'ring', 'halo', 'morph', 'card', 'lightning', 'shockwave', 'weather', 'trail', 'scope'];   // pillar…card: A3 class reveal; lightning…trail: A4
 const clamp01 = x => Math.min(1, Math.max(0, x));
 const easeIO = x => { x = clamp01(x); return x < .5 ? 4 * x * x * x : 1 - (-2 * x + 2) ** 3 / 2; };
 
@@ -20,6 +20,10 @@ export function progress(e, t) {
   return u;
 }
 export const fadeAlpha = (e, t) => { const u = progress(e, t); if (u === null) return 0; const [a, b] = [e.from ?? 0, e.to ?? 1]; return a + (b - a) * easeIO(u); };
+// Kit 1 scope (POV through a scope): black outside a circle of radius SCOPE.radius × frame width, a SCOPE.soft × frame width soft edge.
+// scopeAlpha(d) = opacity of the black at distance d (in frame widths) from the frame centre (pure; the shader repeats it).
+export const SCOPE = {radius: .42, soft: .02};
+export const scopeAlpha = (d, e = {}) => { const r = e.radius ?? SCOPE.radius, k = (e.soft ?? SCOPE.soft) / 2, x = Math.min(1, Math.max(0, (d - (r - k)) / (2 * k))); return x * x * (3 - 2 * x); };
 // Flash: snaps up over the first 15 % of its duration, then decays.
 export const flashAlpha = (e, t) => { const u = progress(e, t); if (u === null) return 0; const p = e.peak ?? .85; return u < .15 ? p * u / .15 : p * Math.exp(-5 * (u - .15) / .85) * (1 - u); };
 // Shake: seeded, damped, ~hz; exactly zero outside its window.
@@ -160,6 +164,10 @@ export function createEffects(list = [], ctx) {
   const ovScene = new T.Scene(), ovCam = new T.OrthographicCamera(-1, 1, 1, -1, 0, 1);
   const ovMat = new T.MeshBasicMaterial({transparent: true, depthTest: false, depthWrite: false, toneMapped: false});
   ovScene.add(new T.Mesh(new T.PlaneGeometry(2, 2), ovMat));
+  const scopeU = {asp: {value: 9 / 16}, r: {value: SCOPE.radius}, k: {value: SCOPE.soft / 2}}, scopeScene = new T.Scene();   // Kit 1: the scope mask, a full-frame quad after the scene
+  scopeScene.add(new T.Mesh(new T.PlaneGeometry(2, 2), new T.ShaderMaterial({transparent: true, depthTest: false, depthWrite: false, toneMapped: false, uniforms: scopeU,
+    vertexShader: 'varying vec2 vUv; void main(){ vUv = uv; gl_Position = vec4(position.xy, 0., 1.); }',
+    fragmentShader: 'uniform float asp; uniform float r; uniform float k; varying vec2 vUv; void main(){ float d = length((vUv - .5) * vec2(1., 1. / asp)); float x = clamp((d - (r - k)) / (2. * k), 0., 1.); gl_FragColor = vec4(0., 0., 0., x * x * (3. - 2. * x)); }'})));
   const cardScene = new T.Scene(), cardMat = new T.MeshBasicMaterial({transparent: true, depthTest: false, depthWrite: false, toneMapped: false});
   const cardQuad = new T.Mesh(new T.PlaneGeometry(2, 2), cardMat); cardScene.add(cardQuad);
   // A4 screen-space weather layer (heavy rain / snow / sand): a full-frame procedural shader, pure in t, drawn after the scene.
@@ -313,6 +321,8 @@ export function createEffects(list = [], ctx) {
       const wx = rigs.find(r => r.e.type === 'weather' && progress(r.e, t) !== null);
       if (wx) { weatherQuad(wx.e, t, aspect); const au = renderer.autoClear; renderer.autoClear = false; renderer.render(wxScene, ovCam); renderer.autoClear = au; }
       const auto = renderer.autoClear; renderer.autoClear = false;
+      const sc = rigs.find(r => r.e.type === 'scope' && progress(r.e, t) !== null);
+      if (sc) { scopeU.asp.value = aspect; scopeU.r.value = sc.e.radius ?? SCOPE.radius; scopeU.k.value = (sc.e.soft ?? SCOPE.soft) / 2; renderer.render(scopeScene, ovCam); }
       if (a > 0) { ovMat.color.set(col); ovMat.opacity = a; renderer.render(ovScene, ovCam); }
       if (camera) for (const c of this.cards(t, camera, aspect)) {   // A3 cards: textured quads in screen space, after the flash
         const step = c.state.landed ? Math.min(11, Math.floor(c.state.shine * 11)) : -1, key = c.cls + ':' + step;

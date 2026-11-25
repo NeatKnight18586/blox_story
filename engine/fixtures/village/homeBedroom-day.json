@@ -1,0 +1,139 @@
+{
+ "note": "tuft P3 village look-dev fixture (scripts/v2/village-fixtures.js): homeBedroom, day; one 1 s static shot per location view.",
+ "slug": "village",
+ "fps": 24,
+ "format": 6,
+ "acting": 6,
+ "rig": "r6",
+ "twos": false,
+ "faceLife": true,
+ "labels": false,
+ "world": "parts/village/world.js",
+ "cues": "engine/fixtures/acting6/cues.json",
+ "post": "cine",
+ "camera": "cine",
+ "grade": "clear",
+ "location": "homeBedroom",
+ "look4": "toy",
+ "puffBall": {
+  "jacket": {
+   "main": "#2B2D33",
+   "strip": "#0D7CD4",
+   "stripW": 0.6,
+   "lapel": "#2B2D33",
+   "lapelW": 0.14,
+   "edge": "#5A5F6A",
+   "edgeW": 0.06
+  },
+  "key": 0.55
+ },
+ "look": "comedy",
+ "skyDist": 650,
+ "cast": {
+  "hero": {
+   "style": "v5",
+   "troupe": "HERO",
+   "at": "street",
+   "offset": [
+    0,
+    0,
+    6.7
+   ],
+   "yaw": 0,
+   "keys": [
+    [
+     0,
+     "idle"
+    ]
+   ]
+  }
+ },
+ "shots": [
+  {
+   "id": "homeBedroom-establish",
+   "frames": 24,
+   "duration": 1,
+   "size": "ws",
+   "mood": "awe",
+   "move": "static-drift",
+   "angle": "eye",
+   "from": {
+    "position": [
+     -7,
+     8.5,
+     13
+    ],
+    "target": [
+     0,
+     5,
+     5.6
+    ],
+    "fov": 46
+   },
+   "to": {
+    "position": [
+     -7,
+     8.5,
+     13
+    ],
+    "target": [
+     0,
+     5,
+     5.6
+    ],
+    "fov": 46
+   },
+   "puffs": [
+    {
+     "actor": "hero",
+     "size": "room",
+     "at": 0,
+     "pose": "window"
+    }
+   ]
+  },
+  {
+   "id": "homeBedroom-hero",
+   "frames": 24,
+   "duration": 1,
+   "size": "ws",
+   "mood": "awe",
+   "move": "static-drift",
+   "angle": "eye",
+   "from": {
+    "position": [
+     -3.4,
+     3.2,
+     -3
+    ],
+    "target": [
+     0.6,
+     5.2,
+     5.2
+    ],
+    "fov": 50
+   },
+   "to": {
+    "position": [
+     -3.4,
+     3.2,
+     -3
+    ],
+    "target": [
+     0.6,
+     5.2,
+     5.2
+    ],
+    "fov": 50
+   },
+   "puffs": [
+    {
+     "actor": "hero",
+     "size": "room",
+     "at": 0,
+     "pose": "window"
+    }
+   ]
+  }
+ ]
+}

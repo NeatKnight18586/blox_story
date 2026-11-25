@@ -9,7 +9,7 @@ One town, one absurd rule, one kid who collides with it, one twist that changes 
 ## Series identity
 **A new cast every episode** (owner decision). What stays constant is the format itself: the "In this town…" cold open, the narrator's voice, the look, and the shape of the story. Characters are built fresh per story from the shared rig, hair and clothing system, so a new cast costs a preset file, not new code.
 
-## Structure (2:00–2:30, 380–470 words at 1.25× narration)
+## Structure (length and word count: [FORMAT v6](../../docs/season1/FORMAT_V6.md); the times below are a legacy guide for the shape)
 | Time | Beat | Must contain |
 |---|---|---|
 | 0–3 s | Cold open | The rule in 8 words or fewer, over the most striking image, already moving |
@@ -18,7 +18,7 @@ One town, one absurd rule, one kid who collides with it, one twist that changes 
 | 40–75 s | Escalation | Attempts and consequences; **midpoint reveal at ~60 s** |
 | 75–110 s | Stakes and choice | What it costs; a false ending |
 | 110–135 s | Twist and payoff | The rule meant something else; the image the whole episode built toward |
-| Last 5–8 s | Button | One emotional line that recontextualises the rule (the quotable line) |
+| Last line | Button | Twists the rule or lands the final laugh or feeling, never repeats the opening line, over a close-up or two-shot (FORMAT_V6.md) |
 
 ## Retention rules
 1. A **re-hook every 15–20 s**: a question, a reveal, or a visual escalation.

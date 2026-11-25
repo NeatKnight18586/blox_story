@@ -1,0 +1,163 @@
+{
+ "note": "tuft 2A BEAST KIT parade fixture (scripts/v2/beast-fixtures.js): dawn street, 40 low-tier beasts (FOX / DEER / BOAR, instanced) walking the street, the 4 hero beasts at the kerbs, BLINK orbiting LITTLE.",
+ "slug": "beasts",
+ "fps": 24,
+ "format": 6,
+ "acting": 6,
+ "rig": "r6",
+ "twos": true,
+ "faceLife": true,
+ "labels": false,
+ "world": "engine/fixtures/v4look/world.js",
+ "cues": "engine/fixtures/acting6/cues.json",
+ "post": "cine",
+ "look4": "dawn",
+ "look": "dawn",
+ "beastCrowds": [
+  {
+   "presets": [
+    "FOX",
+    "DEER",
+    "BOAR"
+   ],
+   "n": 40,
+   "at": [
+    0,
+    -6
+   ],
+   "dir": [
+    0,
+    1
+   ],
+   "length": 70,
+   "width": 6.5,
+   "state": "walk",
+   "seed": 11
+  }
+ ],
+ "cast": {
+  "little": {
+   "style": "v5",
+   "troupe": "LITTLE",
+   "at": "street",
+   "offset": [
+    6.2,
+    0,
+    10
+   ],
+   "yaw": 250,
+   "keys": [
+    [
+     0,
+     "idle"
+    ]
+   ]
+  },
+  "blink": {
+   "style": "beast",
+   "preset": "BLINK",
+   "at": "street",
+   "offset": [
+    6.2,
+    0,
+    10
+   ],
+   "orbit": "little"
+  },
+  "nightfang": {
+   "style": "beast",
+   "preset": "NIGHTFANG",
+   "tier": "hero",
+   "at": "street",
+   "offset": [
+    -9.5,
+    0,
+    -22
+   ],
+   "yaw": 150,
+   "state": "idle"
+  },
+  "volt": {
+   "style": "beast",
+   "preset": "VOLT",
+   "tier": "hero",
+   "at": "street",
+   "offset": [
+    7.6,
+    0,
+    -2
+   ],
+   "yaw": 250,
+   "state": "idle"
+  },
+  "cinder": {
+   "style": "beast",
+   "preset": "CINDER",
+   "tier": "hero",
+   "at": "street",
+   "offset": [
+    -7.6,
+    0,
+    4
+   ],
+   "yaw": 110,
+   "state": "perch"
+  },
+  "boulder": {
+   "style": "beast",
+   "preset": "BOULDER",
+   "tier": "hero",
+   "at": "street",
+   "offset": [
+    8.2,
+    0,
+    -14
+   ],
+   "yaw": 270,
+   "state": "idle"
+  }
+ },
+ "shots": [
+  {
+   "id": "parade-wide",
+   "frames": 72,
+   "size": "ews",
+   "mood": "awe",
+   "move": "static-drift",
+   "from": {
+    "position": [
+     7,
+     9,
+     34
+    ],
+    "target": [
+     -1,
+     1.5,
+     -6
+    ],
+    "fov": 46
+   }
+  },
+  {
+   "id": "blink-mcu",
+   "frames": 48,
+   "size": "mcu",
+   "mood": "fun",
+   "move": "static-drift",
+   "subject": "little",
+   "from": {
+    "position": [
+     3.4,
+     3.4,
+     15.5
+    ],
+    "target": [
+     6.2,
+     2.6,
+     10
+    ],
+    "fov": 34
+   }
+  }
+ ]
+}

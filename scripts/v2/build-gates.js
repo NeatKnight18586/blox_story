@@ -40,20 +40,20 @@ const report = {limits: LIM, frame: [W, H], failures: []};
 try {
   const page = await browser.newPage(); const errors = []; page.on('pageerror', e => errors.push(e.message));
   await page.goto(`${server.url}/engine/buildgate.html`); await page.waitForFunction(() => window.__bg, null, {timeout: 60000});
-  for (const build of ['adult_f', 'adult_m']) {
-    const {px, unitPx} = await page.evaluate(o => window.__bg.render(o), {build, w: W, h: H}), buf = Uint8Array.from(px), m = measure(buf, W, H);
-    report[build] = {pxPerUnit: +unitPx.toFixed(2), ...m};
-    if (build === 'adult_f') {
-      const F = report.failures;
+  for (const [key, build, body] of [['adult_f', 'adult_f', 'v1'], ['adult_m', 'adult_m', 'v1'], ['adult_f_v6', 'adult_f', 'v6']]) {   // E4: adult_f_v6 = the ADULT_F slot's Actor v6 body, same limits
+    const {px, unitPx} = await page.evaluate(o => window.__bg.render(o), {build, w: W, h: H, body}), buf = Uint8Array.from(px), m = measure(buf, W, H);
+    report[key] = {pxPerUnit: +unitPx.toFixed(2), ...m};
+    if (key !== 'adult_m') {
+      const F = key === 'adult_f' ? report.failures : {push: x => report.failures.push(`${key}: ${x}`)};
       if (m.waist.ratio < LIM.waist[0] || m.waist.ratio > LIM.waist[1]) F.push(`waist/top ${m.waist.ratio} outside ${LIM.waist}`);
       if (m.narrowest.atDown < LIM.band[0] || m.narrowest.atDown > LIM.band[1]) F.push(`narrowest row at ${m.narrowest.atDown} down, outside ${LIM.band}`);
       for (const f of m.armGapAtWaist.fracOfTop) if (f < LIM.armGap) F.push(`arm gap at waist ${f} of top < ${LIM.armGap}`);
       if (m.shoulderGapPx.max > LIM.shoulderGap) F.push(`shoulder gap ${m.shoulderGapPx.max} px > ${LIM.shoulderGap}`);
       if (Math.abs(m.hips.torsoPx[0] - m.hips.legsPx[0]) > LIM.hipMatch || Math.abs(m.hips.torsoPx[1] - m.hips.legsPx[1]) > LIM.hipMatch) F.push(`hips ${m.hips.torsoPx} vs legs ${m.hips.legsPx}`);
       if (m.hips.rowsBetween > LIM.hipMatch) F.push(`${m.hips.rowsBetween} background rows between hips and legs`);
-      await mkdir(path.dirname(png), {recursive: true});
-      const {execFileSync} = await import('node:child_process'); const raw = png.replace(/\.png$/, '.rgba'); await writeFile(raw, buf);
-      execFileSync('python3', ['-c', 'import sys;from PIL import Image;Image.frombytes("RGBA",(int(sys.argv[2]),int(sys.argv[3])),open(sys.argv[1],"rb").read()).transpose(Image.FLIP_TOP_BOTTOM).save(sys.argv[4])', raw, String(W), String(H), png]);
+      const pngK = key === 'adult_f' ? png : png.replace(/\.png$/, `-${key}.png`); await mkdir(path.dirname(pngK), {recursive: true});
+      const {execFileSync} = await import('node:child_process'); const raw = pngK.replace(/\.png$/, '.rgba'); await writeFile(raw, buf);
+      execFileSync('python3', ['-c', 'import sys;from PIL import Image;Image.frombytes("RGBA",(int(sys.argv[2]),int(sys.argv[3])),open(sys.argv[1],"rb").read()).transpose(Image.FLIP_TOP_BOTTOM).save(sys.argv[4])', raw, String(W), String(H), pngK]);
     }
   }
   if (errors.length) throw Error(errors.join('; '));

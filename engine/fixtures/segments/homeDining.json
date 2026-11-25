@@ -1,0 +1,162 @@
+{
+ "note": "tuft 4A: homeDining alone (reference for the segment)",
+ "slug": "segments",
+ "fps": 24,
+ "format": 6,
+ "acting": 6,
+ "rig": "r6",
+ "twos": true,
+ "faceLife": true,
+ "labels": false,
+ "world": "parts/village/world.js",
+ "cues": "engine/fixtures/acting6/cues.json",
+ "post": "cine",
+ "camera": "cine",
+ "grade": "clear",
+ "location": "homeDining",
+ "look4": "toy",
+ "look": "toy",
+ "skyDist": 650,
+ "cast": {
+  "hero": {
+   "style": "v5",
+   "faceStyle": "v6",
+   "troupe": "HERO",
+   "at": "street",
+   "offset": [
+    -1.5,
+    0,
+    3
+   ],
+   "yaw": 180,
+   "keys": [
+    [
+     0,
+     "idle"
+    ]
+   ]
+  },
+  "tuft": {
+   "style": "beast",
+   "preset": "TUFT",
+   "tier": "hero",
+   "at": "street",
+   "offset": [
+    1.5,
+    0,
+    2.5
+   ],
+   "yaw": 160
+  }
+ },
+ "shots": [
+  {
+   "id": "S1-beastYard",
+   "frames": 48,
+   "duration": 2,
+   "size": "ms",
+   "mood": "fun",
+   "move": "push",
+   "angle": "eye",
+   "look": "comedy",
+   "from": {
+    "position": [
+     -15,
+     2.6,
+     4
+    ],
+    "target": [
+     8,
+     6,
+     -16
+    ],
+    "fov": 42
+   },
+   "to": {
+    "position": [
+     -13.85,
+     2.77,
+     3
+    ],
+    "target": [
+     8,
+     6,
+     -16
+    ],
+    "fov": 42
+   }
+  },
+  {
+   "id": "S2-homeDining",
+   "frames": 48,
+   "duration": 2,
+   "size": "ms",
+   "mood": "fun",
+   "move": "push",
+   "angle": "eye",
+   "look": "toy",
+   "from": {
+    "position": [
+     -7.5,
+     3.8,
+     5.2
+    ],
+    "target": [
+     14,
+     4.4,
+     0.2
+    ],
+    "fov": 48
+   },
+   "to": {
+    "position": [
+     -6.425,
+     3.83,
+     4.95
+    ],
+    "target": [
+     14,
+     4.4,
+     0.2
+    ],
+    "fov": 48
+   }
+  },
+  {
+   "id": "S3-festivalPlaza",
+   "frames": 48,
+   "duration": 2,
+   "size": "ms",
+   "mood": "fun",
+   "move": "push",
+   "angle": "eye",
+   "look": "moonlit",
+   "from": {
+    "position": [
+     -18,
+     4,
+     24
+    ],
+    "target": [
+     2,
+     9,
+     -18
+    ],
+    "fov": 46
+   },
+   "to": {
+    "position": [
+     -17,
+     4.25,
+     21.9
+    ],
+    "target": [
+     2,
+     9,
+     -18
+    ],
+    "fov": 46
+   }
+  }
+ ]
+}

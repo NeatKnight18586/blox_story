@@ -1,0 +1,184 @@
+{
+ "note": "tuft 2A BEAST KIT flee gate fixture: per hero a static camera, flee at 0.5 s exiting screen-right (FLEE_DUR s to leave the frame).",
+ "slug": "beasts",
+ "fps": 24,
+ "format": 6,
+ "acting": 6,
+ "rig": "r6",
+ "twos": true,
+ "faceLife": true,
+ "labels": false,
+ "world": "engine/fixtures/v4look/world.js",
+ "cues": "engine/fixtures/acting6/cues.json",
+ "post": "cine",
+ "look4": "mystery",
+ "look": "mystery",
+ "cast": {
+  "nightfang": {
+   "style": "beast",
+   "preset": "NIGHTFANG",
+   "tier": "hero",
+   "at": "street",
+   "offset": [
+    0,
+    0,
+    -36
+   ],
+   "yaw": 0
+  },
+  "volt": {
+   "style": "beast",
+   "preset": "VOLT",
+   "tier": "hero",
+   "at": "street",
+   "offset": [
+    0,
+    0,
+    -10
+   ],
+   "yaw": 0
+  },
+  "cinder": {
+   "style": "beast",
+   "preset": "CINDER",
+   "tier": "hero",
+   "at": "street",
+   "offset": [
+    0,
+    0,
+    8
+   ],
+   "yaw": 0
+  },
+  "boulder": {
+   "style": "beast",
+   "preset": "BOULDER",
+   "tier": "hero",
+   "at": "street",
+   "offset": [
+    0,
+    0,
+    26
+   ],
+   "yaw": 0
+  }
+ },
+ "shots": [
+  {
+   "id": "nightfang-flee",
+   "frames": 74,
+   "size": "ws",
+   "mood": "tension",
+   "move": "static-drift",
+   "subject": "nightfang",
+   "exit": "right",
+   "from": {
+    "position": [
+     -12.192,
+     5.899,
+     -14.883
+    ],
+    "target": [
+     0,
+     4.084,
+     -36
+    ],
+    "fov": 42
+   },
+   "beasts": [
+    {
+     "actor": "nightfang",
+     "state": "flee",
+     "at": 0.5
+    }
+   ]
+  },
+  {
+   "id": "volt-flee",
+   "frames": 74,
+   "size": "ws",
+   "mood": "tension",
+   "move": "static-drift",
+   "subject": "volt",
+   "exit": "right",
+   "from": {
+    "position": [
+     -5.822,
+     2.907,
+     0.084
+    ],
+    "target": [
+     0,
+     2.013,
+     -10
+    ],
+    "fov": 42
+   },
+   "beasts": [
+    {
+     "actor": "volt",
+     "state": "flee",
+     "at": 0.5
+    }
+   ]
+  },
+  {
+   "id": "cinder-flee",
+   "frames": 74,
+   "size": "ws",
+   "mood": "tension",
+   "move": "static-drift",
+   "subject": "cinder",
+   "exit": "right",
+   "from": {
+    "position": [
+     -5.383,
+     1.971,
+     17.324
+    ],
+    "target": [
+     0,
+     1.365,
+     8
+    ],
+    "fov": 42
+   },
+   "beasts": [
+    {
+     "actor": "cinder",
+     "state": "flee",
+     "at": 0.5
+    }
+   ]
+  },
+  {
+   "id": "boulder-flee",
+   "frames": 74,
+   "size": "ws",
+   "mood": "tension",
+   "move": "static-drift",
+   "subject": "boulder",
+   "exit": "right",
+   "from": {
+    "position": [
+     -6.76,
+     3.868,
+     37.709
+    ],
+    "target": [
+     0,
+     2.678,
+     26
+    ],
+    "fov": 42
+   },
+   "beasts": [
+    {
+     "actor": "boulder",
+     "state": "flee",
+     "at": 0.5
+    }
+   ]
+  }
+ ]
+}

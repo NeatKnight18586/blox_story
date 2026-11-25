@@ -1,0 +1,91 @@
+{
+ "note": "P1b (owner, 2026-11-20): the hero on Actor v6 (iconic blocky R15, body6.js). HERO = variant B, the default: charcoal sleeve over UpperArm + LowerArm to the wrist line, only the Hand slab yellow; raised collar (0.2); white-soled shoes (0.06 sole band inside the 0.27 foot slab). B's P1 cuff band is dropped (mid-sleeve it would read as an elbow line). HERO_A_REF = today's colours on R15 with the P1 sleeve (sleeve to the elbow, yellow forearm), reference only. Variant C (painted fabric) deleted. Bare yellow head, hero_* faces (faces5). No logos, no text. Format-6 specs load this file (spec.heroFile overrides); cast/hero.json is unchanged. P1c: torso.back = a yoke seam across the shoulders and a hem band on the LowerTorso (back + sides), edge colour #4A4E57.",
+ "HERO": {
+  "tier": "hero",
+  "body": "v6",
+  "scale": 1,
+  "skin": "#FFD542",
+  "hair": null,
+  "faceStyle": "v5",
+  "face": "hero_wink",
+  "regions": {
+   "torso": {
+    "main": "#2B2D33",
+    "strip": "#0D7CD4",
+    "stripW": 0.6,
+    "lapel": "#2B2D33",
+    "lapelW": 0.14,
+    "edge": "#4A4E57",
+    "edgeW": 0.05,
+    "collarH": 0.2,
+    "back": true
+   },
+   "arms": {
+    "upper": "#2B2D33",
+    "lower": "#FFD542",
+    "cuff": "#E8E8EE",
+    "cuffH": 0.12,
+    "sleeve": "wrist"
+   },
+   "legs": {
+    "main": "#73985E",
+    "shoes": "#161616",
+    "sole": "#F2F2F2",
+    "soleH": 0.06
+   }
+  },
+  "expressions": [
+   "hero_wink",
+   "hero_grin",
+   "hero_shock",
+   "hero_panic",
+   "hero_scheme",
+   "hero_cry",
+   "hero_rage",
+   "hero_soft"
+  ],
+  "build": "adult_m"
+ },
+ "HERO_A_REF": {
+  "tier": "hero",
+  "body": "v6",
+  "scale": 1,
+  "skin": "#FFD542",
+  "hair": null,
+  "faceStyle": "v5",
+  "face": "hero_wink",
+  "regions": {
+   "torso": {
+    "main": "#2B2D33",
+    "strip": "#0D7CD4",
+    "stripW": 0.6,
+    "lapel": "#2B2D33",
+    "lapelW": 0.14,
+    "edge": "#4A4E57",
+    "edgeW": 0.05
+   },
+   "arms": {
+    "upper": "#2B2D33",
+    "lower": "#FFD542",
+    "split": 0.5,
+    "sleeve": "elbow"
+   },
+   "legs": {
+    "main": "#73985E",
+    "shoes": "#161616",
+    "shoeFrac": 0.2
+   }
+  },
+  "expressions": [
+   "hero_wink",
+   "hero_grin",
+   "hero_shock",
+   "hero_panic",
+   "hero_scheme",
+   "hero_cry",
+   "hero_rage",
+   "hero_soft"
+  ],
+  "build": "adult_m"
+ }
+}

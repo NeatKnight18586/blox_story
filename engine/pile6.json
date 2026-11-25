@@ -1,0 +1,95 @@
+{
+ "note": "E2b frozen pile (scripts/v2/pile-solve.js): one soft mound of R15 bodies dropped into place; every pair ≤ 0.1 interpenetration.",
+ "limit": 0.1,
+ "worst": 0.0816,
+ "ratio390": 0.603,
+ "radius": 6.6,
+ "height": 3.67,
+ "coverage5": 0.807,
+ "cfg": {
+  "n1": 5,
+  "R1": 4.4,
+  "ns": 3,
+  "rs": 3.2,
+  "tilt": -80,
+  "sitOff": 0,
+  "topYo": 0,
+  "tops": 0,
+  "sp": "sit"
+ },
+ "tried": 288,
+ "slots": [
+  {
+   "pose": "lieT",
+   "a": 0,
+   "r": 4.4,
+   "yo": 0,
+   "tilt": -90,
+   "roll": 0,
+   "y": 0
+  },
+  {
+   "pose": "lieT",
+   "a": 72,
+   "r": 4.4,
+   "yo": 0,
+   "tilt": -90,
+   "roll": 0,
+   "y": 0
+  },
+  {
+   "pose": "lieT",
+   "a": 144,
+   "r": 4.4,
+   "yo": 0,
+   "tilt": -90,
+   "roll": 0,
+   "y": 0
+  },
+  {
+   "pose": "lieT",
+   "a": 216,
+   "r": 4.4,
+   "yo": 0,
+   "tilt": -90,
+   "roll": 0,
+   "y": 0
+  },
+  {
+   "pose": "lieT",
+   "a": 288,
+   "r": 4.4,
+   "yo": 0,
+   "tilt": -90,
+   "roll": 0,
+   "y": 0
+  },
+  {
+   "pose": "sit",
+   "a": 0,
+   "r": 3.2,
+   "yo": 0,
+   "tilt": -80,
+   "roll": 0,
+   "y": 1.25
+  },
+  {
+   "pose": "sit",
+   "a": 120,
+   "r": 3.2,
+   "yo": 0,
+   "tilt": -80,
+   "roll": 0,
+   "y": 1.25
+  },
+  {
+   "pose": "sit",
+   "a": 240,
+   "r": 3.2,
+   "yo": 0,
+   "tilt": -80,
+   "roll": 0,
+   "y": 1.2
+  }
+ ]
+}

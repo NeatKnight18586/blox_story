@@ -1,0 +1,288 @@
+{
+ "note": "tuft P3 village fixture: festivalPlaza night, lanternSea + giant cage on the stage, kids + parade beasts, colossal Tuft (puff colossal) towering over the roofs.",
+ "slug": "village",
+ "fps": 24,
+ "format": 6,
+ "acting": 6,
+ "rig": "r6",
+ "twos": false,
+ "faceLife": true,
+ "labels": false,
+ "world": "parts/village/world.js",
+ "cues": "engine/fixtures/acting6/cues.json",
+ "post": "cine",
+ "camera": "cine",
+ "grade": "clear",
+ "location": "festivalPlaza",
+ "look4": "moonlit",
+ "look": "mystery",
+ "skyDist": 680,
+ "cast": {
+  "kid0": {
+   "style": "v5",
+   "troupe": "LEAD",
+   "at": "street",
+   "offset": [
+    -10,
+    0,
+    8
+   ],
+   "yaw": 180,
+   "keys": [
+    [
+     0,
+     "idle"
+    ]
+   ]
+  },
+  "kid1": {
+   "style": "v5",
+   "troupe": "LITTLE",
+   "at": "street",
+   "offset": [
+    -6,
+    0,
+    10.5
+   ],
+   "yaw": 180,
+   "keys": [
+    [
+     0,
+     "idle"
+    ]
+   ]
+  },
+  "kid2": {
+   "style": "v5",
+   "troupe": "HERO",
+   "at": "street",
+   "offset": [
+    -2,
+    0,
+    8
+   ],
+   "yaw": 180,
+   "keys": [
+    [
+     0,
+     "idle"
+    ]
+   ]
+  },
+  "kid3": {
+   "style": "v5",
+   "troupe": "LEAD",
+   "at": "street",
+   "offset": [
+    2,
+    0,
+    10.5
+   ],
+   "yaw": 180,
+   "keys": [
+    [
+     0,
+     "idle"
+    ]
+   ]
+  },
+  "kid4": {
+   "style": "v5",
+   "troupe": "LITTLE",
+   "at": "street",
+   "offset": [
+    6,
+    0,
+    8
+   ],
+   "yaw": 180,
+   "keys": [
+    [
+     0,
+     "idle"
+    ]
+   ]
+  },
+  "kid5": {
+   "style": "v5",
+   "troupe": "HERO",
+   "at": "street",
+   "offset": [
+    10,
+    0,
+    10.5
+   ],
+   "yaw": 180,
+   "keys": [
+    [
+     0,
+     "idle"
+    ]
+   ]
+  },
+  "boulder": {
+   "style": "beast",
+   "preset": "BOULDER",
+   "tier": "hero",
+   "at": "street",
+   "offset": [
+    -17,
+    0,
+    -2
+   ],
+   "yaw": 30
+  },
+  "cinder": {
+   "style": "beast",
+   "preset": "CINDER",
+   "tier": "hero",
+   "at": "street",
+   "offset": [
+    16,
+    0,
+    -3
+   ],
+   "yaw": -30
+  },
+  "tuft": {
+   "style": "beast",
+   "preset": "TUFT",
+   "tier": "hero",
+   "at": "street",
+   "offset": [
+    0,
+    0,
+    -14
+   ],
+   "yaw": 0,
+   "glowLevel": 0.8
+  }
+ },
+ "shots": [
+  {
+   "id": "demo-colossal",
+   "frames": 96,
+   "duration": 4,
+   "size": "ews",
+   "mood": "awe",
+   "move": "push",
+   "angle": "low",
+   "from": {
+    "position": [
+     0,
+     5,
+     100
+    ],
+    "target": [
+     0,
+     12,
+     -20
+    ],
+    "fov": 58
+   },
+   "to": {
+    "position": [
+     0,
+     6,
+     88
+    ],
+    "target": [
+     0,
+     32,
+     -20
+    ],
+    "fov": 58
+   },
+   "puffs": [
+    {
+     "actor": "tuft",
+     "size": "colossal",
+     "at": 0.6
+    }
+   ]
+  }
+ ],
+ "props2b": [
+  {
+   "kind": "lanternSea",
+   "at": [
+    0,
+    0,
+    -10
+   ],
+   "n": 600,
+   "streams": {
+    "src": [
+     [
+      0,
+      1,
+      10,
+      18
+     ],
+     [
+      -30,
+      13,
+      -5,
+      5
+     ],
+     [
+      -21,
+      13,
+      -24,
+      5
+     ],
+     [
+      0,
+      13,
+      -24,
+      5
+     ],
+     [
+      21,
+      13,
+      -24,
+      5
+     ],
+     [
+      30,
+      13,
+      -5,
+      5
+     ],
+     [
+      -52,
+      11,
+      30,
+      7
+     ],
+     [
+      52,
+      11,
+      30,
+      7
+     ]
+    ],
+    "yMax": 34,
+    "rise": 0.9,
+    "wind": [
+     0.3,
+     0,
+     -0.15
+    ],
+    "seed": 5,
+    "keepClear": {
+     "top": 0.3333333333333333
+    }
+   }
+  },
+  {
+   "kind": "giantCage",
+   "at": [
+    0,
+    1.6,
+    -24
+   ],
+   "scale": 0.3
+  }
+ ]
+}

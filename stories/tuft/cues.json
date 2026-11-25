@@ -1,0 +1,2451 @@
+{
+ "story": "tuft",
+ "audio": "voice.wav",
+ "duration": 102.353562,
+ "method": "sherpa-onnx zipformer-small-en + script DP + silence snap (scripts/v2/align.py)",
+ "lines": [
+  {
+   "line": 1,
+   "text": "In this world, you get whatever power your *beast* has.",
+   "start": 0.0,
+   "end": 2.611,
+   "words": [
+    {
+     "w": "In",
+     "start": 0.0,
+     "end": 0.16
+    },
+    {
+     "w": "this",
+     "start": 0.16,
+     "end": 0.36
+    },
+    {
+     "w": "world",
+     "start": 0.36,
+     "end": 0.766
+    },
+    {
+     "w": "you",
+     "start": 0.947,
+     "end": 0.967
+    },
+    {
+     "w": "get",
+     "start": 0.967,
+     "end": 1.12
+    },
+    {
+     "w": "whatever",
+     "start": 1.12,
+     "end": 1.52
+    },
+    {
+     "w": "power",
+     "start": 1.52,
+     "end": 1.76
+    },
+    {
+     "w": "your",
+     "start": 1.76,
+     "end": 1.96
+    },
+    {
+     "w": "beast",
+     "start": 1.96,
+     "end": 2.32
+    },
+    {
+     "w": "has",
+     "start": 2.32,
+     "end": 2.611
+    }
+   ]
+  },
+  {
+   "line": 2,
+   "text": "Vance's dragon breathes *cyan fire*, so now Vance can too.",
+   "start": 2.923,
+   "end": 5.779,
+   "words": [
+    {
+     "w": "Vance's",
+     "start": 2.923,
+     "end": 3.24
+    },
+    {
+     "w": "dragon",
+     "start": 3.24,
+     "end": 3.56
+    },
+    {
+     "w": "breathes",
+     "start": 3.56,
+     "end": 3.94
+    },
+    {
+     "w": "cyan",
+     "start": 3.94,
+     "end": 4.32
+    },
+    {
+     "w": "fire",
+     "start": 4.32,
+     "end": 4.654
+    },
+    {
+     "w": "so",
+     "start": 4.846,
+     "end": 4.88
+    },
+    {
+     "w": "now",
+     "start": 4.88,
+     "end": 5.08
+    },
+    {
+     "w": "Vance",
+     "start": 5.08,
+     "end": 5.36
+    },
+    {
+     "w": "can",
+     "start": 5.36,
+     "end": 5.56
+    },
+    {
+     "w": "too",
+     "start": 5.56,
+     "end": 5.779
+    }
+   ]
+  },
+  {
+   "line": 3,
+   "text": "A storm wolf makes this girl faster than *lightning*.",
+   "start": 6.117,
+   "end": 8.054,
+   "words": [
+    {
+     "w": "A",
+     "start": 6.117,
+     "end": 6.137
+    },
+    {
+     "w": "storm",
+     "start": 6.137,
+     "end": 6.48
+    },
+    {
+     "w": "wolf",
+     "start": 6.48,
+     "end": 6.68
+    },
+    {
+     "w": "makes",
+     "start": 6.68,
+     "end": 6.88
+    },
+    {
+     "w": "this",
+     "start": 6.88,
+     "end": 7.04
+    },
+    {
+     "w": "girl",
+     "start": 7.04,
+     "end": 7.24
+    },
+    {
+     "w": "faster",
+     "start": 7.24,
+     "end": 7.56
+    },
+    {
+     "w": "than",
+     "start": 7.56,
+     "end": 7.72
+    },
+    {
+     "w": "lightning",
+     "start": 7.72,
+     "end": 8.054
+    }
+   ]
+  },
+  {
+   "line": 4,
+   "text": "A sky hawk lets this kid *fly*.",
+   "start": 8.345,
+   "end": 9.934,
+   "words": [
+    {
+     "w": "A",
+     "start": 8.345,
+     "end": 8.365
+    },
+    {
+     "w": "sky",
+     "start": 8.365,
+     "end": 8.4
+    },
+    {
+     "w": "hawk",
+     "start": 8.4,
+     "end": 8.96
+    },
+    {
+     "w": "lets",
+     "start": 8.96,
+     "end": 9.16
+    },
+    {
+     "w": "this",
+     "start": 9.16,
+     "end": 9.32
+    },
+    {
+     "w": "kid",
+     "start": 9.32,
+     "end": 9.52
+    },
+    {
+     "w": "fly",
+     "start": 9.52,
+     "end": 9.934
+    }
+   ]
+  },
+  {
+   "line": 5,
+   "text": "Then the teacher points at me.",
+   "start": 10.232,
+   "end": 11.274,
+   "words": [
+    {
+     "w": "Then",
+     "start": 10.232,
+     "end": 10.252
+    },
+    {
+     "w": "the",
+     "start": 10.252,
+     "end": 10.36
+    },
+    {
+     "w": "teacher",
+     "start": 10.36,
+     "end": 10.72
+    },
+    {
+     "w": "points",
+     "start": 10.72,
+     "end": 10.96
+    },
+    {
+     "w": "at",
+     "start": 10.96,
+     "end": 11.12
+    },
+    {
+     "w": "me",
+     "start": 11.12,
+     "end": 11.274
+    }
+   ]
+  },
+  {
+   "line": 6,
+   "text": "My beast, Tuft, is the size of a *muffin*.",
+   "start": 11.56,
+   "end": 13.52,
+   "words": [
+    {
+     "w": "My",
+     "start": 11.56,
+     "end": 11.72
+    },
+    {
+     "w": "beast",
+     "start": 11.72,
+     "end": 12.12
+    },
+    {
+     "w": "Tuft",
+     "start": 12.12,
+     "end": 12.52
+    },
+    {
+     "w": "is",
+     "start": 12.52,
+     "end": 12.68
+    },
+    {
+     "w": "the",
+     "start": 12.68,
+     "end": 12.8
+    },
+    {
+     "w": "size",
+     "start": 12.8,
+     "end": 13.04
+    },
+    {
+     "w": "of",
+     "start": 13.04,
+     "end": 13.12
+    },
+    {
+     "w": "a",
+     "start": 13.12,
+     "end": 13.24
+    },
+    {
+     "w": "muffin",
+     "start": 13.24,
+     "end": 13.52
+    }
+   ]
+  },
+  {
+   "line": 7,
+   "text": "He's scared of everything.",
+   "start": 13.52,
+   "end": 14.792,
+   "words": [
+    {
+     "w": "He's",
+     "start": 13.52,
+     "end": 13.573
+    },
+    {
+     "w": "scared",
+     "start": 13.847,
+     "end": 14.16
+    },
+    {
+     "w": "of",
+     "start": 14.16,
+     "end": 14.28
+    },
+    {
+     "w": "everything",
+     "start": 14.28,
+     "end": 14.792
+    }
+   ]
+  },
+  {
+   "line": 8,
+   "text": "So am I.",
+   "start": 15.057,
+   "end": 15.595,
+   "words": [
+    {
+     "w": "So",
+     "start": 15.057,
+     "end": 15.16
+    },
+    {
+     "w": "am",
+     "start": 15.16,
+     "end": 15.4
+    },
+    {
+     "w": "I",
+     "start": 15.4,
+     "end": 15.595
+    }
+   ]
+  },
+  {
+   "line": 9,
+   "text": "But by tomorrow night, a *Titan* will run from us.",
+   "start": 15.921,
+   "end": 18.154,
+   "words": [
+    {
+     "w": "But",
+     "start": 15.921,
+     "end": 15.941
+    },
+    {
+     "w": "by",
+     "start": 15.941,
+     "end": 16.2
+    },
+    {
+     "w": "tomorrow",
+     "start": 16.2,
+     "end": 16.48
+    },
+    {
+     "w": "night",
+     "start": 16.48,
+     "end": 16.683
+    },
+    {
+     "w": "a",
+     "start": 16.895,
+     "end": 16.96
+    },
+    {
+     "w": "Titan",
+     "start": 16.96,
+     "end": 17.36
+    },
+    {
+     "w": "will",
+     "start": 17.36,
+     "end": 17.56
+    },
+    {
+     "w": "run",
+     "start": 17.56,
+     "end": 17.8
+    },
+    {
+     "w": "from",
+     "start": 17.8,
+     "end": 17.96
+    },
+    {
+     "w": "us",
+     "start": 17.96,
+     "end": 18.154
+    }
+   ]
+  },
+  {
+   "line": 10,
+   "text": "A spider drops onto my desk.",
+   "start": 18.458,
+   "end": 19.688,
+   "words": [
+    {
+     "w": "A",
+     "start": 18.458,
+     "end": 18.478
+    },
+    {
+     "w": "spider",
+     "start": 18.478,
+     "end": 18.8
+    },
+    {
+     "w": "drops",
+     "start": 18.8,
+     "end": 19.04
+    },
+    {
+     "w": "onto",
+     "start": 19.04,
+     "end": 19.28
+    },
+    {
+     "w": "my",
+     "start": 19.28,
+     "end": 19.44
+    },
+    {
+     "w": "desk",
+     "start": 19.44,
+     "end": 19.688
+    }
+   ]
+  },
+  {
+   "line": 11,
+   "text": "Tuft puffs up.",
+   "start": 19.966,
+   "end": 20.591,
+   "words": [
+    {
+     "w": "Tuft",
+     "start": 19.966,
+     "end": 20.16
+    },
+    {
+     "w": "puffs",
+     "start": 20.16,
+     "end": 20.48
+    },
+    {
+     "w": "up",
+     "start": 20.48,
+     "end": 20.591
+    }
+   ]
+  },
+  {
+   "line": 12,
+   "text": "And so do *I*.",
+   "start": 20.844,
+   "end": 21.431,
+   "words": [
+    {
+     "w": "And",
+     "start": 20.844,
+     "end": 20.864
+    },
+    {
+     "w": "so",
+     "start": 20.864,
+     "end": 21.04
+    },
+    {
+     "w": "do",
+     "start": 21.04,
+     "end": 21.2
+    },
+    {
+     "w": "I",
+     "start": 21.2,
+     "end": 21.431
+    }
+   ]
+  },
+  {
+   "line": 13,
+   "text": "I bounce off the ceiling like a beach ball.",
+   "start": 21.7,
+   "end": 23.195,
+   "words": [
+    {
+     "w": "I",
+     "start": 21.7,
+     "end": 21.72
+    },
+    {
+     "w": "bounce",
+     "start": 21.72,
+     "end": 22.0
+    },
+    {
+     "w": "off",
+     "start": 22.0,
+     "end": 22.12
+    },
+    {
+     "w": "the",
+     "start": 22.12,
+     "end": 22.24
+    },
+    {
+     "w": "ceiling",
+     "start": 22.24,
+     "end": 22.52
+    },
+    {
+     "w": "like",
+     "start": 22.52,
+     "end": 22.64
+    },
+    {
+     "w": "a",
+     "start": 22.64,
+     "end": 22.82
+    },
+    {
+     "w": "beach",
+     "start": 22.82,
+     "end": 23.0
+    },
+    {
+     "w": "ball",
+     "start": 23.0,
+     "end": 23.195
+    }
+   ]
+  },
+  {
+   "line": 14,
+   "text": "Everyone laughs.",
+   "start": 23.472,
+   "end": 24.185,
+   "words": [
+    {
+     "w": "Everyone",
+     "start": 23.472,
+     "end": 23.84
+    },
+    {
+     "w": "laughs",
+     "start": 23.84,
+     "end": 24.185
+    }
+   ]
+  },
+  {
+   "line": 15,
+   "text": "But nobody sees Vance's dragon back away from me.",
+   "start": 24.432,
+   "end": 26.472,
+   "words": [
+    {
+     "w": "But",
+     "start": 24.432,
+     "end": 24.452
+    },
+    {
+     "w": "nobody",
+     "start": 24.452,
+     "end": 24.84
+    },
+    {
+     "w": "sees",
+     "start": 24.84,
+     "end": 25.12
+    },
+    {
+     "w": "Vance's",
+     "start": 25.12,
+     "end": 25.48
+    },
+    {
+     "w": "dragon",
+     "start": 25.48,
+     "end": 25.84
+    },
+    {
+     "w": "back",
+     "start": 25.84,
+     "end": 26.0
+    },
+    {
+     "w": "away",
+     "start": 26.0,
+     "end": 26.24
+    },
+    {
+     "w": "from",
+     "start": 26.24,
+     "end": 26.4
+    },
+    {
+     "w": "me",
+     "start": 26.4,
+     "end": 26.472
+    }
+   ]
+  },
+  {
+   "line": 16,
+   "text": "Vance says, \"Enjoy your *balloon* power.\"",
+   "start": 26.799,
+   "end": 28.626,
+   "words": [
+    {
+     "w": "Vance",
+     "start": 26.799,
+     "end": 27.0
+    },
+    {
+     "w": "says",
+     "start": 27.0,
+     "end": 27.283
+    },
+    {
+     "w": "Enjoy",
+     "start": 27.521,
+     "end": 27.76
+    },
+    {
+     "w": "your",
+     "start": 27.76,
+     "end": 27.92
+    },
+    {
+     "w": "balloon",
+     "start": 27.92,
+     "end": 28.32
+    },
+    {
+     "w": "power",
+     "start": 28.32,
+     "end": 28.626
+    }
+   ]
+  },
+  {
+   "line": 17,
+   "text": "\"At the festival, I'm getting the strongest beast alive.\"",
+   "start": 28.902,
+   "end": 31.184,
+   "words": [
+    {
+     "w": "At",
+     "start": 28.902,
+     "end": 28.922
+    },
+    {
+     "w": "the",
+     "start": 28.922,
+     "end": 29.04
+    },
+    {
+     "w": "festival",
+     "start": 29.04,
+     "end": 29.52
+    },
+    {
+     "w": "I'm",
+     "start": 29.52,
+     "end": 29.72
+    },
+    {
+     "w": "getting",
+     "start": 29.72,
+     "end": 29.92
+    },
+    {
+     "w": "the",
+     "start": 29.92,
+     "end": 30.08
+    },
+    {
+     "w": "strongest",
+     "start": 30.08,
+     "end": 30.52
+    },
+    {
+     "w": "beast",
+     "start": 30.52,
+     "end": 30.8
+    },
+    {
+     "w": "alive",
+     "start": 30.8,
+     "end": 31.184
+    }
+   ]
+  },
+  {
+   "line": 18,
+   "text": "At dinner, my little sister Juni feeds Tuft blueberries.",
+   "start": 31.508,
+   "end": 33.762,
+   "words": [
+    {
+     "w": "At",
+     "start": 31.508,
+     "end": 31.528
+    },
+    {
+     "w": "dinner",
+     "start": 31.528,
+     "end": 31.88
+    },
+    {
+     "w": "my",
+     "start": 31.88,
+     "end": 32.0
+    },
+    {
+     "w": "little",
+     "start": 32.0,
+     "end": 32.2
+    },
+    {
+     "w": "sister",
+     "start": 32.2,
+     "end": 32.48
+    },
+    {
+     "w": "Juni",
+     "start": 32.48,
+     "end": 32.76
+    },
+    {
+     "w": "feeds",
+     "start": 32.76,
+     "end": 33.0
+    },
+    {
+     "w": "Tuft",
+     "start": 33.0,
+     "end": 33.24
+    },
+    {
+     "w": "blueberries",
+     "start": 33.24,
+     "end": 33.762
+    }
+   ]
+  },
+  {
+   "line": 19,
+   "text": "Dad's stone ox lifts our table for fun.",
+   "start": 34.058,
+   "end": 35.835,
+   "words": [
+    {
+     "w": "Dad's",
+     "start": 34.058,
+     "end": 34.28
+    },
+    {
+     "w": "stone",
+     "start": 34.28,
+     "end": 34.56
+    },
+    {
+     "w": "ox",
+     "start": 34.56,
+     "end": 34.84
+    },
+    {
+     "w": "lifts",
+     "start": 34.84,
+     "end": 35.08
+    },
+    {
+     "w": "our",
+     "start": 35.08,
+     "end": 35.2
+    },
+    {
+     "w": "table",
+     "start": 35.2,
+     "end": 35.48
+    },
+    {
+     "w": "for",
+     "start": 35.48,
+     "end": 35.64
+    },
+    {
+     "w": "fun",
+     "start": 35.64,
+     "end": 35.835
+    }
+   ]
+  },
+  {
+   "line": 20,
+   "text": "Then the toaster pops.",
+   "start": 36.16,
+   "end": 37.031,
+   "words": [
+    {
+     "w": "Then",
+     "start": 36.16,
+     "end": 36.2
+    },
+    {
+     "w": "the",
+     "start": 36.2,
+     "end": 36.36
+    },
+    {
+     "w": "toaster",
+     "start": 36.36,
+     "end": 36.72
+    },
+    {
+     "w": "pops",
+     "start": 36.72,
+     "end": 37.031
+    }
+   ]
+  },
+  {
+   "line": 21,
+   "text": "I puff.",
+   "start": 37.284,
+   "end": 37.664,
+   "words": [
+    {
+     "w": "I",
+     "start": 37.284,
+     "end": 37.36
+    },
+    {
+     "w": "puff",
+     "start": 37.36,
+     "end": 37.664
+    }
+   ]
+  },
+  {
+   "line": 22,
+   "text": "The table *flies*.",
+   "start": 37.855,
+   "end": 38.637,
+   "words": [
+    {
+     "w": "The",
+     "start": 37.855,
+     "end": 37.88
+    },
+    {
+     "w": "table",
+     "start": 37.88,
+     "end": 38.2
+    },
+    {
+     "w": "flies",
+     "start": 38.2,
+     "end": 38.637
+    }
+   ]
+  },
+  {
+   "line": 23,
+   "text": "Dad's ox is now wearing spaghetti.",
+   "start": 38.909,
+   "end": 40.453,
+   "words": [
+    {
+     "w": "Dad's",
+     "start": 38.909,
+     "end": 39.16
+    },
+    {
+     "w": "ox",
+     "start": 39.16,
+     "end": 39.4
+    },
+    {
+     "w": "is",
+     "start": 39.4,
+     "end": 39.52
+    },
+    {
+     "w": "now",
+     "start": 39.52,
+     "end": 39.72
+    },
+    {
+     "w": "wearing",
+     "start": 39.72,
+     "end": 40.0
+    },
+    {
+     "w": "spaghetti",
+     "start": 40.0,
+     "end": 40.453
+    }
+   ]
+  },
+  {
+   "line": 24,
+   "text": "Juni whispers, \"Tuft picked you for a reason.\"",
+   "start": 40.777,
+   "end": 42.667,
+   "words": [
+    {
+     "w": "Juni",
+     "start": 40.777,
+     "end": 40.96
+    },
+    {
+     "w": "whispers",
+     "start": 40.96,
+     "end": 41.344
+    },
+    {
+     "w": "Tuft",
+     "start": 41.625,
+     "end": 41.84
+    },
+    {
+     "w": "picked",
+     "start": 41.84,
+     "end": 42.04
+    },
+    {
+     "w": "you",
+     "start": 42.04,
+     "end": 42.16
+    },
+    {
+     "w": "for",
+     "start": 42.16,
+     "end": 42.28
+    },
+    {
+     "w": "a",
+     "start": 42.28,
+     "end": 42.4
+    },
+    {
+     "w": "reason",
+     "start": 42.4,
+     "end": 42.667
+    }
+   ]
+  },
+  {
+   "line": 25,
+   "text": "I wish he picked a braver kid.",
+   "start": 43.068,
+   "end": 44.206,
+   "words": [
+    {
+     "w": "I",
+     "start": 43.068,
+     "end": 43.088
+    },
+    {
+     "w": "wish",
+     "start": 43.088,
+     "end": 43.2
+    },
+    {
+     "w": "he",
+     "start": 43.2,
+     "end": 43.36
+    },
+    {
+     "w": "picked",
+     "start": 43.36,
+     "end": 43.56
+    },
+    {
+     "w": "a",
+     "start": 43.56,
+     "end": 43.64
+    },
+    {
+     "w": "braver",
+     "start": 43.64,
+     "end": 44.0
+    },
+    {
+     "w": "kid",
+     "start": 44.0,
+     "end": 44.206
+    }
+   ]
+  },
+  {
+   "line": 26,
+   "text": "That night, thunder cracks over the village.",
+   "start": 44.519,
+   "end": 46.184,
+   "words": [
+    {
+     "w": "That",
+     "start": 44.519,
+     "end": 44.64
+    },
+    {
+     "w": "night",
+     "start": 44.64,
+     "end": 44.96
+    },
+    {
+     "w": "thunder",
+     "start": 44.96,
+     "end": 45.32
+    },
+    {
+     "w": "cracks",
+     "start": 45.32,
+     "end": 45.64
+    },
+    {
+     "w": "over",
+     "start": 45.64,
+     "end": 45.8
+    },
+    {
+     "w": "the",
+     "start": 45.8,
+     "end": 45.92
+    },
+    {
+     "w": "village",
+     "start": 45.92,
+     "end": 46.184
+    }
+   ]
+  },
+  {
+   "line": 27,
+   "text": "I puff so big I fill my whole room.",
+   "start": 46.449,
+   "end": 48.074,
+   "words": [
+    {
+     "w": "I",
+     "start": 46.449,
+     "end": 46.469
+    },
+    {
+     "w": "puff",
+     "start": 46.469,
+     "end": 46.72
+    },
+    {
+     "w": "so",
+     "start": 46.72,
+     "end": 46.88
+    },
+    {
+     "w": "big",
+     "start": 46.88,
+     "end": 47.12
+    },
+    {
+     "w": "I",
+     "start": 47.12,
+     "end": 47.24
+    },
+    {
+     "w": "fill",
+     "start": 47.24,
+     "end": 47.4
+    },
+    {
+     "w": "my",
+     "start": 47.4,
+     "end": 47.56
+    },
+    {
+     "w": "whole",
+     "start": 47.56,
+     "end": 47.8
+    },
+    {
+     "w": "room",
+     "start": 47.8,
+     "end": 48.074
+    }
+   ]
+  },
+  {
+   "line": 28,
+   "text": "My legs stick out the *window*.",
+   "start": 48.295,
+   "end": 49.348,
+   "words": [
+    {
+     "w": "My",
+     "start": 48.295,
+     "end": 48.32
+    },
+    {
+     "w": "legs",
+     "start": 48.32,
+     "end": 48.6
+    },
+    {
+     "w": "stick",
+     "start": 48.6,
+     "end": 48.8
+    },
+    {
+     "w": "out",
+     "start": 48.8,
+     "end": 48.92
+    },
+    {
+     "w": "the",
+     "start": 48.92,
+     "end": 49.04
+    },
+    {
+     "w": "window",
+     "start": 49.04,
+     "end": 49.348
+    }
+   ]
+  },
+  {
+   "line": 29,
+   "text": "And every beast on our street runs away.",
+   "start": 49.636,
+   "end": 51.256,
+   "words": [
+    {
+     "w": "And",
+     "start": 49.636,
+     "end": 49.68
+    },
+    {
+     "w": "every",
+     "start": 49.68,
+     "end": 49.96
+    },
+    {
+     "w": "beast",
+     "start": 49.96,
+     "end": 50.24
+    },
+    {
+     "w": "on",
+     "start": 50.24,
+     "end": 50.36
+    },
+    {
+     "w": "our",
+     "start": 50.36,
+     "end": 50.48
+    },
+    {
+     "w": "street",
+     "start": 50.48,
+     "end": 50.8
+    },
+    {
+     "w": "runs",
+     "start": 50.8,
+     "end": 51.04
+    },
+    {
+     "w": "away",
+     "start": 51.04,
+     "end": 51.256
+    }
+   ]
+  },
+  {
+   "line": 30,
+   "text": "I tell Tuft I wish he was a dragon.",
+   "start": 51.606,
+   "end": 52.998,
+   "words": [
+    {
+     "w": "I",
+     "start": 51.606,
+     "end": 51.626
+    },
+    {
+     "w": "tell",
+     "start": 51.626,
+     "end": 51.76
+    },
+    {
+     "w": "Tuft",
+     "start": 51.76,
+     "end": 52.04
+    },
+    {
+     "w": "I",
+     "start": 52.04,
+     "end": 52.12
+    },
+    {
+     "w": "wish",
+     "start": 52.12,
+     "end": 52.28
+    },
+    {
+     "w": "he",
+     "start": 52.28,
+     "end": 52.4
+    },
+    {
+     "w": "was",
+     "start": 52.4,
+     "end": 52.52
+    },
+    {
+     "w": "a",
+     "start": 52.52,
+     "end": 52.64
+    },
+    {
+     "w": "dragon",
+     "start": 52.64,
+     "end": 52.998
+    }
+   ]
+  },
+  {
+   "line": 31,
+   "text": "He hides under my bed all day.",
+   "start": 53.299,
+   "end": 54.542,
+   "words": [
+    {
+     "w": "He",
+     "start": 53.299,
+     "end": 53.319
+    },
+    {
+     "w": "hides",
+     "start": 53.319,
+     "end": 53.56
+    },
+    {
+     "w": "under",
+     "start": 53.56,
+     "end": 53.76
+    },
+    {
+     "w": "my",
+     "start": 53.76,
+     "end": 53.92
+    },
+    {
+     "w": "bed",
+     "start": 53.92,
+     "end": 54.12
+    },
+    {
+     "w": "all",
+     "start": 54.12,
+     "end": 54.36
+    },
+    {
+     "w": "day",
+     "start": 54.36,
+     "end": 54.542
+    }
+   ]
+  },
+  {
+   "line": 32,
+   "text": "Then comes the Beast Festival.",
+   "start": 54.856,
+   "end": 55.989,
+   "words": [
+    {
+     "w": "Then",
+     "start": 54.856,
+     "end": 54.96
+    },
+    {
+     "w": "comes",
+     "start": 54.96,
+     "end": 55.24
+    },
+    {
+     "w": "the",
+     "start": 55.24,
+     "end": 55.36
+    },
+    {
+     "w": "Beast",
+     "start": 55.36,
+     "end": 55.6
+    },
+    {
+     "w": "Festival",
+     "start": 55.6,
+     "end": 55.989
+    }
+   ]
+  },
+  {
+   "line": 33,
+   "text": "Lanterns, music, and every beast in the village.",
+   "start": 56.221,
+   "end": 58.04,
+   "words": [
+    {
+     "w": "Lanterns",
+     "start": 56.221,
+     "end": 56.72
+    },
+    {
+     "w": "music",
+     "start": 56.72,
+     "end": 57.12
+    },
+    {
+     "w": "and",
+     "start": 57.12,
+     "end": 57.28
+    },
+    {
+     "w": "every",
+     "start": 57.28,
+     "end": 57.56
+    },
+    {
+     "w": "beast",
+     "start": 57.56,
+     "end": 57.84
+    },
+    {
+     "w": "in",
+     "start": 57.84,
+     "end": 57.92
+    },
+    {
+     "w": "the",
+     "start": 57.92,
+     "end": 57.98
+    },
+    {
+     "w": "village",
+     "start": 57.98,
+     "end": 58.04
+    }
+   ]
+  },
+  {
+   "line": 34,
+   "text": "Vance pulls a cloth off a giant cage.",
+   "start": 58.04,
+   "end": 60.311,
+   "words": [
+    {
+     "w": "Vance",
+     "start": 58.04,
+     "end": 58.325
+    },
+    {
+     "w": "pulls",
+     "start": 58.594,
+     "end": 58.96
+    },
+    {
+     "w": "a",
+     "start": 58.96,
+     "end": 59.08
+    },
+    {
+     "w": "cloth",
+     "start": 59.08,
+     "end": 59.32
+    },
+    {
+     "w": "off",
+     "start": 59.32,
+     "end": 59.48
+    },
+    {
+     "w": "a",
+     "start": 59.48,
+     "end": 59.6
+    },
+    {
+     "w": "giant",
+     "start": 59.6,
+     "end": 59.96
+    },
+    {
+     "w": "cage",
+     "start": 59.96,
+     "end": 60.311
+    }
+   ]
+  },
+  {
+   "line": 35,
+   "text": "Inside is the *Titan* from the mountain.",
+   "start": 60.557,
+   "end": 62.182,
+   "words": [
+    {
+     "w": "Inside",
+     "start": 60.557,
+     "end": 61.0
+    },
+    {
+     "w": "is",
+     "start": 61.0,
+     "end": 61.12
+    },
+    {
+     "w": "the",
+     "start": 61.12,
+     "end": 61.28
+    },
+    {
+     "w": "Titan",
+     "start": 61.28,
+     "end": 61.64
+    },
+    {
+     "w": "from",
+     "start": 61.64,
+     "end": 61.76
+    },
+    {
+     "w": "the",
+     "start": 61.76,
+     "end": 61.88
+    },
+    {
+     "w": "mountain",
+     "start": 61.88,
+     "end": 62.182
+    }
+   ]
+  },
+  {
+   "line": 36,
+   "text": "\"Its power is mine now,\" he says.",
+   "start": 62.501,
+   "end": 64.371,
+   "words": [
+    {
+     "w": "Its",
+     "start": 62.501,
+     "end": 62.68
+    },
+    {
+     "w": "power",
+     "start": 62.68,
+     "end": 62.96
+    },
+    {
+     "w": "is",
+     "start": 62.96,
+     "end": 63.2
+    },
+    {
+     "w": "mine",
+     "start": 63.2,
+     "end": 63.52
+    },
+    {
+     "w": "now",
+     "start": 63.52,
+     "end": 63.812
+    },
+    {
+     "w": "he",
+     "start": 63.994,
+     "end": 64.04
+    },
+    {
+     "w": "says",
+     "start": 64.04,
+     "end": 64.371
+    }
+   ]
+  },
+  {
+   "line": 37,
+   "text": "But the rule says *your* beast.",
+   "start": 64.649,
+   "end": 65.894,
+   "words": [
+    {
+     "w": "But",
+     "start": 64.649,
+     "end": 64.669
+    },
+    {
+     "w": "the",
+     "start": 64.669,
+     "end": 64.76
+    },
+    {
+     "w": "rule",
+     "start": 64.76,
+     "end": 65.04
+    },
+    {
+     "w": "says",
+     "start": 65.04,
+     "end": 65.32
+    },
+    {
+     "w": "your",
+     "start": 65.32,
+     "end": 65.56
+    },
+    {
+     "w": "beast",
+     "start": 65.56,
+     "end": 65.894
+    }
+   ]
+  },
+  {
+   "line": 38,
+   "text": "And the Titan was never his.",
+   "start": 66.091,
+   "end": 67.229,
+   "words": [
+    {
+     "w": "And",
+     "start": 66.091,
+     "end": 66.111
+    },
+    {
+     "w": "the",
+     "start": 66.111,
+     "end": 66.2
+    },
+    {
+     "w": "Titan",
+     "start": 66.2,
+     "end": 66.52
+    },
+    {
+     "w": "was",
+     "start": 66.52,
+     "end": 66.68
+    },
+    {
+     "w": "never",
+     "start": 66.68,
+     "end": 66.96
+    },
+    {
+     "w": "his",
+     "start": 66.96,
+     "end": 67.229
+    }
+   ]
+  },
+  {
+   "line": 39,
+   "text": "Vance gets nothing.",
+   "start": 67.498,
+   "end": 68.27,
+   "words": [
+    {
+     "w": "Vance",
+     "start": 67.498,
+     "end": 67.72
+    },
+    {
+     "w": "gets",
+     "start": 67.72,
+     "end": 67.96
+    },
+    {
+     "w": "nothing",
+     "start": 67.96,
+     "end": 68.27
+    }
+   ]
+  },
+  {
+   "line": 40,
+   "text": "And the Titan gets *angry*.",
+   "start": 68.496,
+   "end": 69.484,
+   "words": [
+    {
+     "w": "And",
+     "start": 68.496,
+     "end": 68.516
+    },
+    {
+     "w": "the",
+     "start": 68.516,
+     "end": 68.6
+    },
+    {
+     "w": "Titan",
+     "start": 68.6,
+     "end": 68.92
+    },
+    {
+     "w": "gets",
+     "start": 68.92,
+     "end": 69.16
+    },
+    {
+     "w": "angry",
+     "start": 69.16,
+     "end": 69.484
+    }
+   ]
+  },
+  {
+   "line": 41,
+   "text": "The chains snap.",
+   "start": 69.77,
+   "end": 70.504,
+   "words": [
+    {
+     "w": "The",
+     "start": 69.77,
+     "end": 69.84
+    },
+    {
+     "w": "chains",
+     "start": 69.84,
+     "end": 70.2
+    },
+    {
+     "w": "snap",
+     "start": 70.2,
+     "end": 70.504
+    }
+   ]
+  },
+  {
+   "line": 42,
+   "text": "Every brave beast in the village runs.",
+   "start": 70.714,
+   "end": 72.314,
+   "words": [
+    {
+     "w": "Every",
+     "start": 70.714,
+     "end": 70.96
+    },
+    {
+     "w": "brave",
+     "start": 70.96,
+     "end": 71.24
+    },
+    {
+     "w": "beast",
+     "start": 71.24,
+     "end": 71.48
+    },
+    {
+     "w": "in",
+     "start": 71.48,
+     "end": 71.56
+    },
+    {
+     "w": "the",
+     "start": 71.56,
+     "end": 71.64
+    },
+    {
+     "w": "village",
+     "start": 71.64,
+     "end": 72.0
+    },
+    {
+     "w": "runs",
+     "start": 72.0,
+     "end": 72.314
+    }
+   ]
+  },
+  {
+   "line": 43,
+   "text": "Even the *dragon*.",
+   "start": 72.52,
+   "end": 73.199,
+   "words": [
+    {
+     "w": "Even",
+     "start": 72.52,
+     "end": 72.64
+    },
+    {
+     "w": "the",
+     "start": 72.64,
+     "end": 72.8
+    },
+    {
+     "w": "dragon",
+     "start": 72.8,
+     "end": 73.199
+    }
+   ]
+  },
+  {
+   "line": 44,
+   "text": "And Juni is frozen in its path.",
+   "start": 73.453,
+   "end": 74.804,
+   "words": [
+    {
+     "w": "And",
+     "start": 73.453,
+     "end": 73.48
+    },
+    {
+     "w": "Juni",
+     "start": 73.48,
+     "end": 73.76
+    },
+    {
+     "w": "is",
+     "start": 73.76,
+     "end": 73.92
+    },
+    {
+     "w": "frozen",
+     "start": 73.92,
+     "end": 74.24
+    },
+    {
+     "w": "in",
+     "start": 74.24,
+     "end": 74.36
+    },
+    {
+     "w": "its",
+     "start": 74.36,
+     "end": 74.56
+    },
+    {
+     "w": "path",
+     "start": 74.56,
+     "end": 74.804
+    }
+   ]
+  },
+  {
+   "line": 45,
+   "text": "Tuft jumps from my hoodie and runs to her.",
+   "start": 75.056,
+   "end": 76.588,
+   "words": [
+    {
+     "w": "Tuft",
+     "start": 75.056,
+     "end": 75.28
+    },
+    {
+     "w": "jumps",
+     "start": 75.28,
+     "end": 75.52
+    },
+    {
+     "w": "from",
+     "start": 75.52,
+     "end": 75.64
+    },
+    {
+     "w": "my",
+     "start": 75.64,
+     "end": 75.76
+    },
+    {
+     "w": "hoodie",
+     "start": 75.76,
+     "end": 76.0
+    },
+    {
+     "w": "and",
+     "start": 76.0,
+     "end": 76.12
+    },
+    {
+     "w": "runs",
+     "start": 76.12,
+     "end": 76.36
+    },
+    {
+     "w": "to",
+     "start": 76.36,
+     "end": 76.52
+    },
+    {
+     "w": "her",
+     "start": 76.52,
+     "end": 76.588
+    }
+   ]
+  },
+  {
+   "line": 46,
+   "text": "So I run after him.",
+   "start": 76.821,
+   "end": 77.585,
+   "words": [
+    {
+     "w": "So",
+     "start": 76.821,
+     "end": 76.88
+    },
+    {
+     "w": "I",
+     "start": 76.88,
+     "end": 77.0
+    },
+    {
+     "w": "run",
+     "start": 77.0,
+     "end": 77.2
+    },
+    {
+     "w": "after",
+     "start": 77.2,
+     "end": 77.48
+    },
+    {
+     "w": "him",
+     "start": 77.48,
+     "end": 77.585
+    }
+   ]
+  },
+  {
+   "line": 47,
+   "text": "I have never been this scared in my whole life.",
+   "start": 77.853,
+   "end": 79.805,
+   "words": [
+    {
+     "w": "I",
+     "start": 77.853,
+     "end": 77.88
+    },
+    {
+     "w": "have",
+     "start": 77.88,
+     "end": 78.04
+    },
+    {
+     "w": "never",
+     "start": 78.04,
+     "end": 78.32
+    },
+    {
+     "w": "been",
+     "start": 78.32,
+     "end": 78.48
+    },
+    {
+     "w": "this",
+     "start": 78.48,
+     "end": 78.64
+    },
+    {
+     "w": "scared",
+     "start": 78.64,
+     "end": 78.96
+    },
+    {
+     "w": "in",
+     "start": 78.96,
+     "end": 79.04
+    },
+    {
+     "w": "my",
+     "start": 79.04,
+     "end": 79.24
+    },
+    {
+     "w": "whole",
+     "start": 79.24,
+     "end": 79.52
+    },
+    {
+     "w": "life",
+     "start": 79.52,
+     "end": 79.805
+    }
+   ]
+  },
+  {
+   "line": 48,
+   "text": "The rule said *whatever* power.",
+   "start": 80.097,
+   "end": 81.305,
+   "words": [
+    {
+     "w": "The",
+     "start": 80.097,
+     "end": 80.117
+    },
+    {
+     "w": "rule",
+     "start": 80.117,
+     "end": 80.36
+    },
+    {
+     "w": "said",
+     "start": 80.36,
+     "end": 80.6
+    },
+    {
+     "w": "whatever",
+     "start": 80.6,
+     "end": 81.04
+    },
+    {
+     "w": "power",
+     "start": 81.04,
+     "end": 81.305
+    }
+   ]
+  },
+  {
+   "line": 49,
+   "text": "And Tuft's power grows with how scared you are.",
+   "start": 81.513,
+   "end": 83.35,
+   "words": [
+    {
+     "w": "And",
+     "start": 81.513,
+     "end": 81.56
+    },
+    {
+     "w": "Tuft's",
+     "start": 81.56,
+     "end": 81.92
+    },
+    {
+     "w": "power",
+     "start": 81.92,
+     "end": 82.16
+    },
+    {
+     "w": "grows",
+     "start": 82.16,
+     "end": 82.48
+    },
+    {
+     "w": "with",
+     "start": 82.48,
+     "end": 82.56
+    },
+    {
+     "w": "how",
+     "start": 82.56,
+     "end": 82.72
+    },
+    {
+     "w": "scared",
+     "start": 82.72,
+     "end": 83.08
+    },
+    {
+     "w": "you",
+     "start": 83.08,
+     "end": 83.24
+    },
+    {
+     "w": "are",
+     "start": 83.24,
+     "end": 83.35
+    }
+   ]
+  },
+  {
+   "line": 50,
+   "text": "Tuft never needed a brave kid.",
+   "start": 83.632,
+   "end": 84.893,
+   "words": [
+    {
+     "w": "Tuft",
+     "start": 83.632,
+     "end": 83.76
+    },
+    {
+     "w": "never",
+     "start": 83.76,
+     "end": 84.0
+    },
+    {
+     "w": "needed",
+     "start": 84.0,
+     "end": 84.28
+    },
+    {
+     "w": "a",
+     "start": 84.28,
+     "end": 84.4
+    },
+    {
+     "w": "brave",
+     "start": 84.4,
+     "end": 84.68
+    },
+    {
+     "w": "kid",
+     "start": 84.68,
+     "end": 84.893
+    }
+   ]
+  },
+  {
+   "line": 51,
+   "text": "He needed the *most scared* one.",
+   "start": 85.109,
+   "end": 86.393,
+   "words": [
+    {
+     "w": "He",
+     "start": 85.109,
+     "end": 85.129
+    },
+    {
+     "w": "needed",
+     "start": 85.129,
+     "end": 85.4
+    },
+    {
+     "w": "the",
+     "start": 85.4,
+     "end": 85.52
+    },
+    {
+     "w": "most",
+     "start": 85.52,
+     "end": 85.8
+    },
+    {
+     "w": "scared",
+     "start": 85.8,
+     "end": 86.24
+    },
+    {
+     "w": "one",
+     "start": 86.24,
+     "end": 86.393
+    }
+   ]
+  },
+  {
+   "line": 52,
+   "text": "We puff.",
+   "start": 86.669,
+   "end": 87.129,
+   "words": [
+    {
+     "w": "We",
+     "start": 86.669,
+     "end": 86.76
+    },
+    {
+     "w": "puff",
+     "start": 86.76,
+     "end": 87.129
+    }
+   ]
+  },
+  {
+   "line": 53,
+   "text": "And puff.",
+   "start": 87.341,
+   "end": 87.813,
+   "words": [
+    {
+     "w": "And",
+     "start": 87.341,
+     "end": 87.44
+    },
+    {
+     "w": "puff",
+     "start": 87.44,
+     "end": 87.813
+    }
+   ]
+  },
+  {
+   "line": 54,
+   "text": "Past the roofs, past the lanterns, past the *Titan*.",
+   "start": 88.063,
+   "end": 90.39,
+   "words": [
+    {
+     "w": "Past",
+     "start": 88.063,
+     "end": 88.2
+    },
+    {
+     "w": "the",
+     "start": 88.2,
+     "end": 88.36
+    },
+    {
+     "w": "roofs",
+     "start": 88.36,
+     "end": 88.8
+    },
+    {
+     "w": "past",
+     "start": 88.8,
+     "end": 89.0
+    },
+    {
+     "w": "the",
+     "start": 89.0,
+     "end": 89.12
+    },
+    {
+     "w": "lanterns",
+     "start": 89.12,
+     "end": 89.68
+    },
+    {
+     "w": "past",
+     "start": 89.68,
+     "end": 89.92
+    },
+    {
+     "w": "the",
+     "start": 89.92,
+     "end": 90.04
+    },
+    {
+     "w": "Titan",
+     "start": 90.04,
+     "end": 90.39
+    }
+   ]
+  },
+  {
+   "line": 55,
+   "text": "The Titan looks up at us.",
+   "start": 90.66,
+   "end": 91.619,
+   "words": [
+    {
+     "w": "The",
+     "start": 90.66,
+     "end": 90.68
+    },
+    {
+     "w": "Titan",
+     "start": 90.68,
+     "end": 91.0
+    },
+    {
+     "w": "looks",
+     "start": 91.0,
+     "end": 91.2
+    },
+    {
+     "w": "up",
+     "start": 91.2,
+     "end": 91.36
+    },
+    {
+     "w": "at",
+     "start": 91.36,
+     "end": 91.48
+    },
+    {
+     "w": "us",
+     "start": 91.48,
+     "end": 91.619
+    }
+   ]
+  },
+  {
+   "line": 56,
+   "text": "Then it runs all the way home.",
+   "start": 91.883,
+   "end": 93.121,
+   "words": [
+    {
+     "w": "Then",
+     "start": 91.883,
+     "end": 91.92
+    },
+    {
+     "w": "it",
+     "start": 91.92,
+     "end": 92.04
+    },
+    {
+     "w": "runs",
+     "start": 92.04,
+     "end": 92.36
+    },
+    {
+     "w": "all",
+     "start": 92.36,
+     "end": 92.52
+    },
+    {
+     "w": "the",
+     "start": 92.52,
+     "end": 92.64
+    },
+    {
+     "w": "way",
+     "start": 92.64,
+     "end": 92.88
+    },
+    {
+     "w": "home",
+     "start": 92.88,
+     "end": 93.121
+    }
+   ]
+  },
+  {
+   "line": 57,
+   "text": "We deflate with the loudest *squeak* in history.",
+   "start": 93.38,
+   "end": 95.248,
+   "words": [
+    {
+     "w": "We",
+     "start": 93.38,
+     "end": 93.4
+    },
+    {
+     "w": "deflate",
+     "start": 93.4,
+     "end": 93.8
+    },
+    {
+     "w": "with",
+     "start": 93.8,
+     "end": 93.92
+    },
+    {
+     "w": "the",
+     "start": 93.92,
+     "end": 94.04
+    },
+    {
+     "w": "loudest",
+     "start": 94.04,
+     "end": 94.48
+    },
+    {
+     "w": "squeak",
+     "start": 94.48,
+     "end": 94.76
+    },
+    {
+     "w": "in",
+     "start": 94.76,
+     "end": 94.92
+    },
+    {
+     "w": "history",
+     "start": 94.92,
+     "end": 95.248
+    }
+   ]
+  },
+  {
+   "line": 58,
+   "text": "Juni hugs Tuft, then me.",
+   "start": 95.511,
+   "end": 96.68,
+   "words": [
+    {
+     "w": "Juni",
+     "start": 95.511,
+     "end": 95.76
+    },
+    {
+     "w": "hugs",
+     "start": 95.76,
+     "end": 96.04
+    },
+    {
+     "w": "Tuft",
+     "start": 96.04,
+     "end": 96.4
+    },
+    {
+     "w": "then",
+     "start": 96.4,
+     "end": 96.54
+    },
+    {
+     "w": "me",
+     "start": 96.54,
+     "end": 96.68
+    }
+   ]
+  },
+  {
+   "line": 59,
+   "text": "Vance's dragon sleeps behind my house now.",
+   "start": 96.68,
+   "end": 99.04,
+   "words": [
+    {
+     "w": "Vance's",
+     "start": 96.68,
+     "end": 96.845
+    },
+    {
+     "w": "dragon",
+     "start": 97.4,
+     "end": 97.76
+    },
+    {
+     "w": "sleeps",
+     "start": 97.76,
+     "end": 98.04
+    },
+    {
+     "w": "behind",
+     "start": 98.04,
+     "end": 98.32
+    },
+    {
+     "w": "my",
+     "start": 98.32,
+     "end": 98.52
+    },
+    {
+     "w": "house",
+     "start": 98.52,
+     "end": 98.76
+    },
+    {
+     "w": "now",
+     "start": 98.76,
+     "end": 99.04
+    }
+   ]
+  },
+  {
+   "line": 60,
+   "text": "And Juni says *boo* to me every night.",
+   "start": 99.04,
+   "end": 101.181,
+   "words": [
+    {
+     "w": "And",
+     "start": 99.04,
+     "end": 99.28
+    },
+    {
+     "w": "Juni",
+     "start": 99.28,
+     "end": 99.64
+    },
+    {
+     "w": "says",
+     "start": 99.64,
+     "end": 99.92
+    },
+    {
+     "w": "boo",
+     "start": 99.92,
+     "end": 100.16
+    },
+    {
+     "w": "to",
+     "start": 100.16,
+     "end": 100.4
+    },
+    {
+     "w": "me",
+     "start": 100.4,
+     "end": 100.6
+    },
+    {
+     "w": "every",
+     "start": 100.6,
+     "end": 100.92
+    },
+    {
+     "w": "night",
+     "start": 100.92,
+     "end": 101.181
+    }
+   ]
+  },
+  {
+   "line": 61,
+   "text": "Just in case.",
+   "start": 101.552,
+   "end": 102.354,
+   "words": [
+    {
+     "w": "Just",
+     "start": 101.552,
+     "end": 101.72
+    },
+    {
+     "w": "in",
+     "start": 101.72,
+     "end": 101.88
+    },
+    {
+     "w": "case",
+     "start": 101.88,
+     "end": 102.354
+    }
+   ]
+  }
+ ]
+}

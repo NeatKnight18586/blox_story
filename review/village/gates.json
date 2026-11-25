@@ -1,0 +1,1366 @@
+[
+ {
+  "sec": "fx",
+  "name": "NIGHTFANG breath = long cyan jet (≥ 1.5 body lengths) that lights the ground",
+  "pass": true,
+  "line": "jet reach 35.8 studs = 1.55 × body length 23.2 (≥ 1.5); 86 flame cards + 6 ground-glow discs at frame 185"
+ },
+ {
+  "sec": "fx",
+  "name": "lightning: the runner reads (R6 body in frame) + ribbon + forks",
+  "pass": true,
+  "line": "f60: body 7.5 % of frame (≥ 1 %), inside, 49 bolt/ribbon segments · f66: body 8.7 % of frame (≥ 1 %), inside, 54 bolt/ribbon segments · f72: body 10.5 % of frame (≥ 1 %), inside, 59 bolt/ribbon segments"
+ },
+ {
+  "sec": "fx",
+  "name": "BLINK readable at 390 px: glow area ≥ 0.3 % of the frame (MS of LITTLE)",
+  "pass": true,
+  "line": "mystery f201 14.53 %, mystery f209 46.57 %, mystery f217 15.88 %, moonlit f201 13.59 %, moonlit f209 40.06 %, moonlit f217 10.08 % (min 10.08 %); wings 1.3×0.62 × size, flutter 7 Hz, trail 6",
+  "area": [
+   {
+    "spec": "heroes-night",
+    "f": 201,
+    "a": "renders/village/gates/blink-on-heroes-night-201.png",
+    "b": "renders/village/gates/blink-off-heroes-night-201.png",
+    "area": 0.14533564814814814
+   },
+   {
+    "spec": "heroes-night",
+    "f": 209,
+    "a": "renders/village/gates/blink-on-heroes-night-209.png",
+    "b": "renders/village/gates/blink-off-heroes-night-209.png",
+    "area": 0.4657291666666667
+   },
+   {
+    "spec": "heroes-night",
+    "f": 217,
+    "a": "renders/village/gates/blink-on-heroes-night-217.png",
+    "b": "renders/village/gates/blink-off-heroes-night-217.png",
+    "area": 0.158798225308642
+   },
+   {
+    "spec": "moon-heroes",
+    "f": 201,
+    "a": "renders/village/gates/blink-on-moon-heroes-201.png",
+    "b": "renders/village/gates/blink-off-moon-heroes-201.png",
+    "area": 0.1359085648148148
+   },
+   {
+    "spec": "moon-heroes",
+    "f": 209,
+    "a": "renders/village/gates/blink-on-moon-heroes-209.png",
+    "b": "renders/village/gates/blink-off-moon-heroes-209.png",
+    "area": 0.4005999228395062
+   },
+   {
+    "spec": "moon-heroes",
+    "f": 217,
+    "a": "renders/village/gates/blink-on-moon-heroes-217.png",
+    "b": "renders/village/gates/blink-off-moon-heroes-217.png",
+    "area": 0.10075617283950618
+   }
+  ]
+ },
+ {
+  "sec": "decal",
+  "name": "hero ball: face decal ≈ 45 % of the ball width (0.40–0.50)",
+  "pass": true,
+  "line": "f349: face 2.83 / ball 6.26 = 45 % · f385: face 5.75 / ball 12.72 = 45 %"
+ },
+ {
+  "sec": "night",
+  "name": "night (2B mystery, before): darkest-10 % luma in 0.012–0.03 (not crushed, not milky)",
+  "pass": false,
+  "line": "0.010 / 0.013 / 0.008 / 0.017 / 0.021 / 0.103"
+ },
+ {
+  "sec": "night",
+  "name": "night (2B mystery, before): every beast / actor separates from its background (≥ 0.06)",
+  "pass": false,
+  "line": "min 0.023 (nightfang@17 ΔL 0.009 ΔC 0.023, blink@209 ΔL 0.034 ΔC 0.009, volt@94 ΔL 0.028 ΔC 0.038, kid_nf@40 ΔL 0.022 ΔC 0.061); 7 subject-frames",
+  "subs": [
+   {
+    "n": "nightfang",
+    "f": "17",
+    "px": 29052,
+    "share": 0.2242,
+    "dL": 0.0093,
+    "dC": 0.0234,
+    "sep": 0.0234,
+    "seam": 0.135,
+    "L": 0.1328,
+    "ringL": 0.1235
+   },
+   {
+    "n": "blink",
+    "f": "209",
+    "px": 1847,
+    "share": 0.0143,
+    "dL": 0.0338,
+    "dC": 0.0095,
+    "sep": 0.0338,
+    "seam": 0,
+    "L": 0.9286,
+    "ringL": 0.8948
+   },
+   {
+    "n": "volt",
+    "f": "94",
+    "px": 9707,
+    "share": 0.0749,
+    "dL": 0.0275,
+    "dC": 0.0378,
+    "sep": 0.0378,
+    "seam": 0.1428,
+    "L": 0.233,
+    "ringL": 0.2056
+   },
+   {
+    "n": "kid_nf",
+    "f": "40",
+    "px": 2440,
+    "share": 0.0188,
+    "dL": 0.0219,
+    "dC": 0.0615,
+    "sep": 0.0615,
+    "seam": 0.1914,
+    "L": 0.1866,
+    "ringL": 0.2086
+   },
+   {
+    "n": "volt",
+    "f": "110",
+    "px": 22235,
+    "share": 0.1716,
+    "dL": 0.0248,
+    "dC": 0.1141,
+    "sep": 0.1141,
+    "seam": 0.155,
+    "L": 0.3074,
+    "ringL": 0.3323
+   },
+   {
+    "n": "boulder",
+    "f": "158",
+    "px": 48565,
+    "share": 0.3747,
+    "dL": 0.0084,
+    "dC": 0.115,
+    "sep": 0.115,
+    "seam": 0.1414,
+    "L": 0.2977,
+    "ringL": 0.2894
+   },
+   {
+    "n": "little",
+    "f": "209",
+    "px": 78296,
+    "share": 0.6041,
+    "dL": 0.3527,
+    "dC": 0.114,
+    "sep": 0.3527,
+    "seam": 0.0045,
+    "L": 0.3323,
+    "ringL": 0.685
+   }
+  ]
+ },
+ {
+  "sec": "night",
+  "name": "night (2B mystery, before): VOLT at night readable (body separation + seams)",
+  "pass": false,
+  "line": "f94: body sep 0.038 (≥ .06), seam px 14.3 % of its mask (≥ 1.5 %) · f110: body sep 0.114 (≥ .06), seam px 15.5 % of its mask (≥ 1.5 %)"
+ },
+ {
+  "sec": "night",
+  "name": "night (moonlit, after): darkest-10 % luma in 0.012–0.03 (not crushed, not milky)",
+  "pass": false,
+  "line": "0.013 / 0.013 / 0.014 / 0.014 / 0.016 / 0.174"
+ },
+ {
+  "sec": "night",
+  "name": "night (moonlit, after): every beast / actor separates from its background (≥ 0.06)",
+  "pass": false,
+  "line": "min 0.054 (blink@209 ΔL 0.054 ΔC 0.014, boulder@158 ΔL 0.108 ΔC 0.103, volt@94 ΔL 0.125 ΔC 0.016, kid_nf@40 ΔL 0.128 ΔC 0.165); 7 subject-frames",
+  "subs": [
+   {
+    "n": "blink",
+    "f": "209",
+    "px": 1847,
+    "share": 0.0143,
+    "dL": 0.0541,
+    "dC": 0.014,
+    "sep": 0.0541,
+    "seam": 0,
+    "L": 0.8208,
+    "ringL": 0.7667
+   },
+   {
+    "n": "boulder",
+    "f": "158",
+    "px": 48565,
+    "share": 0.3747,
+    "dL": 0.1078,
+    "dC": 0.1034,
+    "sep": 0.1078,
+    "seam": 0.2551,
+    "L": 0.4061,
+    "ringL": 0.2982
+   },
+   {
+    "n": "volt",
+    "f": "94",
+    "px": 9707,
+    "share": 0.0749,
+    "dL": 0.1249,
+    "dC": 0.0156,
+    "sep": 0.1249,
+    "seam": 0.2705,
+    "L": 0.3964,
+    "ringL": 0.2714
+   },
+   {
+    "n": "kid_nf",
+    "f": "40",
+    "px": 2440,
+    "share": 0.0188,
+    "dL": 0.1282,
+    "dC": 0.1646,
+    "sep": 0.1646,
+    "seam": 0.0213,
+    "L": 0.2497,
+    "ringL": 0.3779
+   },
+   {
+    "n": "nightfang",
+    "f": "17",
+    "px": 29052,
+    "share": 0.2242,
+    "dL": 0.1729,
+    "dC": 0.0811,
+    "sep": 0.1729,
+    "seam": 0.374,
+    "L": 0.3257,
+    "ringL": 0.1528
+   },
+   {
+    "n": "volt",
+    "f": "110",
+    "px": 22235,
+    "share": 0.1716,
+    "dL": 0.24,
+    "dC": 0.0964,
+    "sep": 0.24,
+    "seam": 0.4272,
+    "L": 0.4615,
+    "ringL": 0.2214
+   },
+   {
+    "n": "little",
+    "f": "209",
+    "px": 78296,
+    "share": 0.6041,
+    "dL": 0.3434,
+    "dC": 0.1613,
+    "sep": 0.3434,
+    "seam": 0.0006,
+    "L": 0.3873,
+    "ringL": 0.7307
+   }
+  ]
+ },
+ {
+  "sec": "night",
+  "name": "night (moonlit, after): VOLT at night readable (body separation + seams)",
+  "pass": true,
+  "line": "f94: body sep 0.125 (≥ .06), seam px 27.1 % of its mask (≥ 1.5 %) · f110: body sep 0.240 (≥ .06), seam px 42.7 % of its mask (≥ 1.5 %)"
+ },
+ {
+  "sec": "loc",
+  "name": "per location tris ≤ 90k (whole scene, instances counted)",
+  "pass": true,
+  "line": "beastClass/day 28.0k, beastClass/night 26.5k, beastYard/day 51.9k, beastYard/night 55.4k, festivalPlaza/dusk 70.2k, festivalPlaza/night 79.9k, homeBedroom/day 20.4k, homeBedroom/night 10.7k, homeDining/day 26.5k, homeDining/night 16.8k, titanCave/night 4.0k, villageStreet/day 43.2k, villageStreet/night 45.6k"
+ },
+ {
+  "sec": "loc",
+  "name": "draw calls (report)",
+  "pass": true,
+  "line": "beastClass/day 52/44, beastClass/night 53/46, beastYard/day 98/84, beastYard/night 101/87, festivalPlaza/dusk 150/62, festivalPlaza/night 153/65, homeBedroom/day 51/47, homeBedroom/night 51/47, homeDining/day 48/46, homeDining/night 47/47, titanCave/night 22/21, villageStreet/day 83/52, villageStreet/night 86/55"
+ },
+ {
+  "sec": "loc",
+  "name": "est. final s/frame ≤ 3.0 (1440×2560, MSAA, measured range)",
+  "pass": true,
+  "line": "1.46–2.30 s/frame (beastClass 1.93/2.30, beastYard 2.00/2.18, festivalPlaza 1.89/2.22, homeBedroom 2.10/1.78, homeDining 1.68/2.00, titanCave 1.46/1.75, villageStreet 2.08/1.69)"
+ },
+ {
+  "sec": "loc",
+  "name": "night windows lit ≥ 60 %",
+  "pass": true,
+  "line": "beastClass 70 % of 44, beastYard 70 % of 200, festivalPlaza 75 % of 207, homeBedroom 65 % of 20, homeDining 70 % of 53, titanCave 100 % of 0, villageStreet 76 % of 192"
+ },
+ {
+  "sec": "loc",
+  "name": "night locations: darkest-10 % luma in 0.012–0.03 (not crushed, not milky)",
+  "pass": false,
+  "line": "0.014 / 0.017 / 0.028 / 0.030 / 0.020 / 0.043 / 0.009 / 0.241 / 0.023 / 0.025 / 0.015 / 0.012 / 0.055 / 0.013"
+ },
+ {
+  "sec": "loc",
+  "name": "night locations: every beast / actor separates from its background (≥ 0.06)",
+  "pass": false,
+  "line": "min 0.001 (deer@establish ΔL 0.001 ΔC 0.001, boar@establish ΔL 0.018 ΔC 0.017, boulder@hero ΔL 0.004 ΔC 0.024, boulder@establish ΔL 0.046 ΔC 0.034); 31 subject-frames"
+ },
+ {
+  "sec": "loc",
+  "name": "the mountain visible in every exterior establishing view (≥ 1 % of frame)",
+  "pass": true,
+  "line": "beastYard/day 24.6 %, beastYard/night 24.6 %, festivalPlaza/dusk 15.5 %, festivalPlaza/night 15.5 %, titanCave/night 91.9 %, villageStreet/day 21.7 %, villageStreet/night 21.7 %"
+ },
+ {
+  "sec": "loc",
+  "name": "festivalPlaza wide: ≥ 40 distinct rooftops in frame (town reads big)",
+  "pass": true,
+  "line": "wide 89 rooftops (≥ 4 px each at 540×960; 0 unmapped ids), low angle 31"
+ },
+ {
+  "sec": "loc",
+  "name": "colossal Tuft top ≥ 1.2 × the tallest roof in frame",
+  "pass": true,
+  "line": "Tuft top 53.3 studs (puff k 56.31) vs tallest visible building (roof top above its own ground) 19.7 → × 2.70"
+ },
+ {
+  "sec": "loc",
+  "name": "room puff: hero ball ≥ 70 % of homeBedroom floor width, legs through the round window",
+  "pass": true,
+  "line": "ball Ø 10.91 / floor 10.4 = 105 %; legs past the wall (z > 5.45) inside the window (r 1.10): 4/4 (leftLeg, leftLeg_#161616, rightLeg, rightLeg_#161616)"
+ },
+ {
+  "sec": "hill",
+  "name": "hillside roofs read: slate-roof hue ≥ 25 % of the hillside region (dusk + day establishing)",
+  "pass": true,
+  "line": "dusk 48.1 %, day 88.1 % (region [0,0.27,1,0.43])",
+  "out": {
+   "day": {
+    "establish": {
+     "all": {
+      "hue": 199.8,
+      "sat": 0.2756,
+      "val": 0.6058,
+      "slate": 0.4842
+     },
+     "band": {
+      "hue": 211.3,
+      "sat": 0.4374,
+      "val": 0.6865,
+      "slate": 0.8806
+     }
+    },
+    "hero": {
+     "all": {
+      "hue": 212.3,
+      "sat": 0.3488,
+      "val": 0.5169,
+      "slate": 0.356
+     },
+     "band": {
+      "hue": 212.9,
+      "sat": 0.5071,
+      "val": 0.6255,
+      "slate": 0.767
+     }
+    }
+   },
+   "dusk": {
+    "establish": {
+     "all": {
+      "hue": 27.7,
+      "sat": 0.4094,
+      "val": 0.5626,
+      "slate": 0.0894
+     },
+     "band": {
+      "hue": 286,
+      "sat": 0.1889,
+      "val": 0.6485,
+      "slate": 0.4808
+     }
+    },
+    "hero": {
+     "all": {
+      "hue": 24.8,
+      "sat": 0.4329,
+      "val": 0.515,
+      "slate": 0.065
+     },
+     "band": {
+      "hue": 2.2,
+      "sat": 0.2144,
+      "val": 0.6576,
+      "slate": 0.1215
+     }
+    }
+   }
+  }
+ },
+ {
+  "sec": "hill",
+  "name": "dusk frame mean hue amber (20–50°) + saturation ≥ the day plaza",
+  "pass": true,
+  "line": "establish: hue 27.7°, sat 0.409 vs day 0.276 · hero: hue 24.8°, sat 0.433 vs day 0.349"
+ },
+ {
+  "sec": "door",
+  "name": "homeDining: BOULDER separates in the barn door (≥ .06; views where it is in frame)",
+  "pass": true,
+  "line": "establish sep undefined (ΔL undefined ΔC undefined, 0 px), hero sep 0.065 (ΔL 0.065 ΔC 0.060, 11218 px)"
+ },
+ {
+  "sec": "cave",
+  "name": "titanCave: Titan eyes ignite in the dark (warm eye px ≥ .05 % of the frame in the hero view)",
+  "pass": true,
+  "line": "establish eyes 0.38 %, hero eyes 0.61 %, hero-late eyes 2.15 %",
+  "rows": [
+   {
+    "v": "establish",
+    "eye": 0.0038059413580246912,
+    "arch": 0.15623456790123458,
+    "archL": 0.3675555450937783,
+    "frameL": 0.1206827236171629
+   },
+   {
+    "v": "hero",
+    "eye": 0.006101466049382716,
+    "arch": 0.15616898148148148,
+    "archL": 0.2563755372163441,
+    "frameL": 0.09114868726246671
+   },
+   {
+    "v": "hero-late",
+    "eye": 0.021493055555555557,
+    "arch": 0.15659722222222222,
+    "archL": 0.26118091271393995,
+    "frameL": 0.14179853597948439
+   }
+  ]
+ },
+ {
+  "sec": "cave",
+  "name": "titanCave: the cave arch is visible (arch ≥ 2 % of frame, arch luma ≥ 1.5 × the frame mean)",
+  "pass": true,
+  "line": "establish arch 15.6 %, L 0.368 vs frame 0.121, hero arch 15.6 %, L 0.256 vs frame 0.091, hero-late arch 15.7 %, L 0.261 vs frame 0.142"
+ },
+ {
+  "sec": "tuft",
+  "name": "colossal Tuft: ≤ 3 % of its pixels clipped (luma ≥ .98)",
+  "pass": true,
+  "line": "hook (wide): clip 0.0 %, eyes 2 (3432/2930 px, pair true), blue 3.31 % gold 0.34 % · payoff (low): clip 0.1 %, eyes 2 (17603/9961 px, pair true), blue 4.43 % gold 1.14 % · demo reveal: clip 0.0 %, eyes 2 (3552/2292 px, pair true), blue 1.20 % gold 0.31 %",
+  "rows": [
+   {
+    "k": "hook (wide)",
+    "f": 40,
+    "px": 193503,
+    "share": 0.3733,
+    "clip": 0.0001,
+    "eyes": [
+     {
+      "px": 3432,
+      "x": 113,
+      "y": 211
+     },
+     {
+      "px": 2930,
+      "x": 270,
+      "y": 193
+     }
+    ],
+    "eyePair": true,
+    "blue": 0.0331,
+    "gold": 0.0034,
+    "meanL": 0.593
+   },
+   {
+    "k": "payoff (low)",
+    "f": 80,
+    "px": 361226,
+    "share": 0.6968,
+    "clip": 0.0014,
+    "eyes": [
+     {
+      "px": 17603,
+      "x": 297,
+      "y": 480
+     },
+     {
+      "px": 9961,
+      "x": 434,
+      "y": 238
+     }
+    ],
+    "eyePair": true,
+    "blue": 0.0443,
+    "gold": 0.0114,
+    "meanL": 0.523
+   },
+   {
+    "k": "demo reveal",
+    "f": 80,
+    "px": 183892,
+    "share": 0.3547,
+    "clip": 0.0002,
+    "eyes": [
+     {
+      "px": 3552,
+      "x": 126,
+      "y": 231
+     },
+     {
+      "px": 2292,
+      "x": 461,
+      "y": 276
+     }
+    ],
+    "eyePair": true,
+    "blue": 0.012,
+    "gold": 0.0031,
+    "meanL": 0.599
+   }
+  ]
+ },
+ {
+  "sec": "tuft",
+  "name": "colossal Tuft: two dark eyes measured (2 blobs, luma < .2, similar size)",
+  "pass": true,
+  "line": "hook (wide) 2 blobs pair true, payoff (low) 2 blobs pair true, demo reveal 2 blobs pair true"
+ },
+ {
+  "sec": "tuft",
+  "name": "colossal Tuft: blue-gold tips present (blue ≥ .2 % and gold ≥ .2 % of its pixels)",
+  "pass": true,
+  "line": "hook (wide) blue 3.31 % gold 0.34 %, payoff (low) blue 4.43 % gold 1.14 %, demo reveal blue 1.20 % gold 0.31 %"
+ },
+ {
+  "sec": "lantern",
+  "name": "lantern pixels ≤ 18 % of the frame (plaza wides)",
+  "pass": true,
+  "line": "festivalPlaza-colossal.json@40 0.7 %, festivalPlaza-colossal.json@80 0.6 %, demo-pl.json@20 2.8 %, demo-pl.json@80 2.7 %, demo-co.json@80 0.7 %",
+  "rows": [
+   {
+    "spec": "festivalPlaza-colossal.json",
+    "f": 40,
+    "share": 0.0072,
+    "over": [
+     [
+      "kid0",
+      0
+     ],
+     [
+      "kid1",
+      0
+     ],
+     [
+      "kid2",
+      0
+     ],
+     [
+      "kid3",
+      0
+     ],
+     [
+      "kid4",
+      0
+     ],
+     [
+      "kid5",
+      0
+     ],
+     [
+      "tuftEyes",
+      0
+     ]
+    ],
+    "mtn": 0.011060118157154086
+   },
+   {
+    "spec": "festivalPlaza-colossal.json",
+    "f": 80,
+    "share": 0.006,
+    "over": [
+     [
+      "kid0",
+      0
+     ],
+     [
+      "kid1",
+      0
+     ],
+     [
+      "kid2",
+      0
+     ],
+     [
+      "tuftEyes",
+      0
+     ]
+    ],
+    "mtn": 0.014537882909077267
+   },
+   {
+    "spec": "demo-pl.json",
+    "f": 20,
+    "share": 0.0282,
+    "over": [
+     [
+      "kid0",
+      0
+     ],
+     [
+      "kid1",
+      0
+     ],
+     [
+      "kid2",
+      0
+     ]
+    ],
+    "mtn": 0.053785927518766194
+   },
+   {
+    "spec": "demo-pl.json",
+    "f": 80,
+    "share": 0.027,
+    "over": [
+     [
+      "kid0",
+      0
+     ],
+     [
+      "kid1",
+      0
+     ],
+     [
+      "kid2",
+      0
+     ],
+     [
+      "kid3",
+      0
+     ]
+    ],
+    "mtn": 0.048357884986278264
+   },
+   {
+    "spec": "demo-co.json",
+    "f": 80,
+    "share": 0.007,
+    "over": [
+     [
+      "kid0",
+      0
+     ],
+     [
+      "kid1",
+      0
+     ],
+     [
+      "kid2",
+      0
+     ],
+     [
+      "kid3",
+      0
+     ],
+     [
+      "kid4",
+      0
+     ],
+     [
+      "kid5",
+      0
+     ],
+     [
+      "tuftEyes",
+      0
+     ]
+    ],
+    "mtn": 0.011133976288469807
+   }
+  ]
+ },
+ {
+  "sec": "lantern",
+  "name": "0 lantern pixels over subject faces / Tuft's eyes",
+  "pass": true,
+  "line": "25 face/eye regions checked; none covered; mountain covered 1.1 % / 1.5 % / 5.4 % / 4.8 % / 1.1 %"
+ },
+ {
+  "sec": "nightscope",
+  "name": "night darkest-10 % in 0.012–0.03 — EXTERIOR night shots only (owner ruling; lit interiors exempt)",
+  "pass": false,
+  "line": "beastYard-establish 0.028, beastYard-hero 0.030, festivalPlaza-establish 0.020, festivalPlaza-hero 0.062, titanCave-establish 0.015, titanCave-hero 0.011, villageStreet-establish 0.055, villageStreet-hero 0.013",
+  "rows": [
+   {
+    "frame": "beastYard-establish",
+    "dark10": 0.0284,
+    "meanL": 0.398,
+    "subjects": {
+     "kidA": {
+      "px": 1065,
+      "share": 0.0082,
+      "dL": 0.0039,
+      "dC": 0.0477,
+      "sep": 0.0477,
+      "seam": 0.0009,
+      "L": 0.5297,
+      "ringL": 0.5336
+     },
+     "kidB": {
+      "px": 609,
+      "share": 0.0047,
+      "dL": 0.0208,
+      "dC": 0.2407,
+      "sep": 0.2407,
+      "seam": 0,
+      "L": 0.7027,
+      "ringL": 0.6819
+     },
+     "kidC": {
+      "px": 1559,
+      "share": 0.012,
+      "dL": 0.0839,
+      "dC": 0.1641,
+      "sep": 0.1641,
+      "seam": 0.0128,
+      "L": 0.5877,
+      "ringL": 0.6715
+     },
+     "volt": {
+      "px": 547,
+      "share": 0.0042,
+      "dL": 0.0777,
+      "dC": 0.0424,
+      "sep": 0.0777,
+      "seam": 0.0384,
+      "L": 0.5711,
+      "ringL": 0.6488
+     },
+     "boulder": {
+      "px": 1888,
+      "share": 0.0146,
+      "dL": 0.046,
+      "dC": 0.0336,
+      "sep": 0.046,
+      "seam": 0.0789,
+      "L": 0.5324,
+      "ringL": 0.5784
+     }
+    }
+   },
+   {
+    "frame": "beastYard-hero",
+    "dark10": 0.03,
+    "meanL": 0.4476,
+    "subjects": {
+     "kidA": {
+      "px": 0
+     },
+     "kidB": {
+      "px": 5947,
+      "share": 0.0459,
+      "dL": 0.0608,
+      "dC": 0.3192,
+      "sep": 0.3192,
+      "seam": 0.0153,
+      "L": 0.5855,
+      "ringL": 0.6464
+     },
+     "kidC": {
+      "px": 7442,
+      "share": 0.0574,
+      "dL": 0.0752,
+      "dC": 0.2743,
+      "sep": 0.2743,
+      "seam": 0.1275,
+      "L": 0.358,
+      "ringL": 0.4332
+     },
+     "volt": {
+      "px": 0
+     },
+     "boulder": {
+      "px": 6035,
+      "share": 0.0466,
+      "dL": 0.0487,
+      "dC": 0.0188,
+      "sep": 0.0487,
+      "seam": 0.1125,
+      "L": 0.343,
+      "ringL": 0.3918
+     }
+    }
+   },
+   {
+    "frame": "festivalPlaza-establish",
+    "dark10": 0.02,
+    "meanL": 0.3201,
+    "subjects": {
+     "kid0": {
+      "px": 1019,
+      "share": 0.0079,
+      "dL": 0.0955,
+      "dC": 0.0623,
+      "sep": 0.0955,
+      "seam": 0.0029,
+      "L": 0.4353,
+      "ringL": 0.5308
+     },
+     "kid1": {
+      "px": 639,
+      "share": 0.0049,
+      "dL": 0.011,
+      "dC": 0.346,
+      "sep": 0.346,
+      "seam": 0.0078,
+      "L": 0.4637,
+      "ringL": 0.4747
+     },
+     "kid2": {
+      "px": 1412,
+      "share": 0.0109,
+      "dL": 0.0126,
+      "dC": 0.2261,
+      "sep": 0.2261,
+      "seam": 0.2103,
+      "L": 0.3003,
+      "ringL": 0.2877
+     },
+     "kid3": {
+      "px": 1054,
+      "share": 0.0081,
+      "dL": 0.0619,
+      "dC": 0.0502,
+      "sep": 0.0619,
+      "seam": 0.2116,
+      "L": 0.3536,
+      "ringL": 0.2917
+     },
+     "kid4": {
+      "px": 574,
+      "share": 0.0044,
+      "dL": 0.0694,
+      "dC": 0.3547,
+      "sep": 0.3547,
+      "seam": 0.1237,
+      "L": 0.4204,
+      "ringL": 0.351
+     },
+     "kid5": {
+      "px": 1646,
+      "share": 0.0127,
+      "dL": 0.1659,
+      "dC": 0.2288,
+      "sep": 0.2288,
+      "seam": 0.0729,
+      "L": 0.3551,
+      "ringL": 0.5209
+     },
+     "boulder": {
+      "px": 423,
+      "share": 0.0033,
+      "dL": 0.1506,
+      "dC": 0.0465,
+      "sep": 0.1506,
+      "seam": 0.0496,
+      "L": 0.4014,
+      "ringL": 0.5519
+     },
+     "cinder": {
+      "px": 199,
+      "share": 0.0015,
+      "dL": 0.0229,
+      "dC": 0.064,
+      "sep": 0.064,
+      "seam": 0.3618,
+      "L": 0.424,
+      "ringL": 0.4011
+     }
+    }
+   },
+   {
+    "frame": "festivalPlaza-hero",
+    "dark10": 0.0618,
+    "meanL": 0.354,
+    "subjects": {
+     "kid0": {
+      "px": 9414,
+      "share": 0.0726,
+      "dL": 0.0264,
+      "dC": 0.0891,
+      "sep": 0.0891,
+      "seam": 0.1597,
+      "L": 0.3645,
+      "ringL": 0.3381
+     },
+     "kid1": {
+      "px": 0
+     },
+     "kid2": {
+      "px": 0
+     },
+     "kid3": {
+      "px": 0
+     },
+     "kid4": {
+      "px": 0
+     },
+     "kid5": {
+      "px": 0
+     },
+     "boulder": {
+      "px": 949,
+      "share": 0.0073,
+      "dL": 0.1174,
+      "dC": 0.0609,
+      "sep": 0.1174,
+      "seam": 0.3941,
+      "L": 0.4417,
+      "ringL": 0.3243
+     },
+     "cinder": {
+      "px": 0
+     }
+    }
+   },
+   {
+    "frame": "titanCave-establish",
+    "dark10": 0.0152,
+    "meanL": 0.1198,
+    "subjects": {
+     "titan": {
+      "px": 29323,
+      "share": 0.2263,
+      "dL": 0.0562,
+      "dC": 0.003,
+      "sep": 0.0562,
+      "seam": 0.0942,
+      "L": 0.0972,
+      "ringL": 0.041
+     }
+    }
+   },
+   {
+    "frame": "titanCave-hero",
+    "dark10": 0.0115,
+    "meanL": 0.0906,
+    "subjects": {
+     "titan": {
+      "px": 53026,
+      "share": 0.4092,
+      "dL": 0.0782,
+      "dC": 0.0158,
+      "sep": 0.0782,
+      "seam": 0.1123,
+      "L": 0.1017,
+      "ringL": 0.0235
+     }
+    }
+   },
+   {
+    "frame": "villageStreet-establish",
+    "dark10": 0.0546,
+    "meanL": 0.3651,
+    "subjects": {
+     "kid": {
+      "px": 23642,
+      "share": 0.1824,
+      "dL": 0.2255,
+      "dC": 0.1275,
+      "sep": 0.2255,
+      "seam": 0.0183,
+      "L": 0.247,
+      "ringL": 0.4725
+     },
+     "volt": {
+      "px": 3019,
+      "share": 0.0233,
+      "dL": 0.0825,
+      "dC": 0.0311,
+      "sep": 0.0825,
+      "seam": 0.3233,
+      "L": 0.6328,
+      "ringL": 0.5503
+     }
+    }
+   },
+   {
+    "frame": "villageStreet-hero",
+    "dark10": 0.0129,
+    "meanL": 0.4054,
+    "subjects": {
+     "kid": {
+      "px": 0
+     },
+     "volt": {
+      "px": 0
+     }
+    }
+   }
+  ]
+ },
+ {
+  "sec": "nightscope",
+  "name": "separation ≥ .06 — story subjects only (actors, hero-tier beasts, Tuft, Titan; far low-tier crowds exempt)",
+  "pass": false,
+  "line": "min 0.046 (boulder@beastYard-establish 0.046, kidA@beastYard-establish 0.048, boulder@beastYard-hero 0.049, nightfang@beastClass-hero 0.052, titan@titanCave-establish 0.056); 29 subject-frames",
+  "subs": [
+   {
+    "n": "boulder",
+    "at": "beastYard-establish",
+    "px": 1888,
+    "share": 0.0146,
+    "dL": 0.046,
+    "dC": 0.0336,
+    "sep": 0.046,
+    "seam": 0.0789,
+    "L": 0.5324,
+    "ringL": 0.5784
+   },
+   {
+    "n": "kidA",
+    "at": "beastYard-establish",
+    "px": 1065,
+    "share": 0.0082,
+    "dL": 0.0039,
+    "dC": 0.0477,
+    "sep": 0.0477,
+    "seam": 0.0009,
+    "L": 0.5297,
+    "ringL": 0.5336
+   },
+   {
+    "n": "boulder",
+    "at": "beastYard-hero",
+    "px": 6035,
+    "share": 0.0466,
+    "dL": 0.0487,
+    "dC": 0.0188,
+    "sep": 0.0487,
+    "seam": 0.1125,
+    "L": 0.343,
+    "ringL": 0.3918
+   },
+   {
+    "n": "nightfang",
+    "at": "beastClass-hero",
+    "px": 12275,
+    "share": 0.0947,
+    "dL": 0.0364,
+    "dC": 0.0519,
+    "sep": 0.0519,
+    "seam": 0.332,
+    "L": 0.3935,
+    "ringL": 0.4299
+   },
+   {
+    "n": "titan",
+    "at": "titanCave-establish",
+    "px": 29323,
+    "share": 0.2263,
+    "dL": 0.0562,
+    "dC": 0.003,
+    "sep": 0.0562,
+    "seam": 0.0942,
+    "L": 0.0972,
+    "ringL": 0.041
+   },
+   {
+    "n": "hero",
+    "at": "homeBedroom-establish",
+    "px": 38795,
+    "share": 0.2993,
+    "dL": 0.0587,
+    "dC": 0.0238,
+    "sep": 0.0587,
+    "seam": 0.0149,
+    "L": 0.5638,
+    "ringL": 0.6225
+   },
+   {
+    "n": "kid3",
+    "at": "festivalPlaza-establish",
+    "px": 1054,
+    "share": 0.0081,
+    "dL": 0.0619,
+    "dC": 0.0502,
+    "sep": 0.0619,
+    "seam": 0.2116,
+    "L": 0.3536,
+    "ringL": 0.2917
+   },
+   {
+    "n": "boulder",
+    "at": "homeDining-hero",
+    "px": 11218,
+    "share": 0.0866,
+    "dL": 0.0631,
+    "dC": 0.0522,
+    "sep": 0.0631,
+    "seam": 0.0866,
+    "L": 0.5422,
+    "ringL": 0.6053
+   },
+   {
+    "n": "cinder",
+    "at": "festivalPlaza-establish",
+    "px": 199,
+    "share": 0.0015,
+    "dL": 0.0229,
+    "dC": 0.064,
+    "sep": 0.064,
+    "seam": 0.3618,
+    "L": 0.424,
+    "ringL": 0.4011
+   },
+   {
+    "n": "volt",
+    "at": "beastYard-establish",
+    "px": 547,
+    "share": 0.0042,
+    "dL": 0.0777,
+    "dC": 0.0424,
+    "sep": 0.0777,
+    "seam": 0.0384,
+    "L": 0.5711,
+    "ringL": 0.6488
+   },
+   {
+    "n": "titan",
+    "at": "titanCave-hero",
+    "px": 53026,
+    "share": 0.4092,
+    "dL": 0.0782,
+    "dC": 0.0158,
+    "sep": 0.0782,
+    "seam": 0.1123,
+    "L": 0.1017,
+    "ringL": 0.0235
+   },
+   {
+    "n": "volt",
+    "at": "villageStreet-establish",
+    "px": 3019,
+    "share": 0.0233,
+    "dL": 0.0825,
+    "dC": 0.0311,
+    "sep": 0.0825,
+    "seam": 0.3233,
+    "L": 0.6328,
+    "ringL": 0.5503
+   },
+   {
+    "n": "kid0",
+    "at": "festivalPlaza-hero",
+    "px": 9414,
+    "share": 0.0726,
+    "dL": 0.0264,
+    "dC": 0.0891,
+    "sep": 0.0891,
+    "seam": 0.1597,
+    "L": 0.3645,
+    "ringL": 0.3381
+   },
+   {
+    "n": "kid",
+    "at": "beastClass-establish",
+    "px": 7564,
+    "share": 0.0584,
+    "dL": 0.0903,
+    "dC": 0.0881,
+    "sep": 0.0903,
+    "seam": 0.1896,
+    "L": 0.223,
+    "ringL": 0.3133
+   },
+   {
+    "n": "kid0",
+    "at": "festivalPlaza-establish",
+    "px": 1019,
+    "share": 0.0079,
+    "dL": 0.0955,
+    "dC": 0.0623,
+    "sep": 0.0955,
+    "seam": 0.0029,
+    "L": 0.4353,
+    "ringL": 0.5308
+   },
+   {
+    "n": "boulder",
+    "at": "festivalPlaza-hero",
+    "px": 949,
+    "share": 0.0073,
+    "dL": 0.1174,
+    "dC": 0.0609,
+    "sep": 0.1174,
+    "seam": 0.3941,
+    "L": 0.4417,
+    "ringL": 0.3243
+   },
+   {
+    "n": "boulder",
+    "at": "festivalPlaza-establish",
+    "px": 423,
+    "share": 0.0033,
+    "dL": 0.1506,
+    "dC": 0.0465,
+    "sep": 0.1506,
+    "seam": 0.0496,
+    "L": 0.4014,
+    "ringL": 0.5519
+   },
+   {
+    "n": "kidC",
+    "at": "beastYard-establish",
+    "px": 1559,
+    "share": 0.012,
+    "dL": 0.0839,
+    "dC": 0.1641,
+    "sep": 0.1641,
+    "seam": 0.0128,
+    "L": 0.5877,
+    "ringL": 0.6715
+   },
+   {
+    "n": "kid",
+    "at": "beastClass-hero",
+    "px": 6171,
+    "share": 0.0476,
+    "dL": 0.1795,
+    "dC": 0.1167,
+    "sep": 0.1795,
+    "seam": 0.012,
+    "L": 0.2683,
+    "ringL": 0.4478
+   },
+   {
+    "n": "kid",
+    "at": "homeDining-establish",
+    "px": 11623,
+    "share": 0.0897,
+    "dL": 0.2077,
+    "dC": 0.1257,
+    "sep": 0.2077,
+    "seam": 0.0577,
+    "L": 0.2506,
+    "ringL": 0.4583
+   },
+   {
+    "n": "hero",
+    "at": "homeBedroom-hero",
+    "px": 24359,
+    "share": 0.188,
+    "dL": 0.2166,
+    "dC": 0.0932,
+    "sep": 0.2166,
+    "seam": 0,
+    "L": 0.3368,
+    "ringL": 0.5534
+   },
+   {
+    "n": "kid",
+    "at": "villageStreet-establish",
+    "px": 23642,
+    "share": 0.1824,
+    "dL": 0.2255,
+    "dC": 0.1275,
+    "sep": 0.2255,
+    "seam": 0.0183,
+    "L": 0.247,
+    "ringL": 0.4725
+   },
+   {
+    "n": "kid2",
+    "at": "festivalPlaza-establish",
+    "px": 1412,
+    "share": 0.0109,
+    "dL": 0.0126,
+    "dC": 0.2261,
+    "sep": 0.2261,
+    "seam": 0.2103,
+    "L": 0.3003,
+    "ringL": 0.2877
+   },
+   {
+    "n": "kid5",
+    "at": "festivalPlaza-establish",
+    "px": 1646,
+    "share": 0.0127,
+    "dL": 0.1659,
+    "dC": 0.2288,
+    "sep": 0.2288,
+    "seam": 0.0729,
+    "L": 0.3551,
+    "ringL": 0.5209
+   },
+   {
+    "n": "kidB",
+    "at": "beastYard-establish",
+    "px": 609,
+    "share": 0.0047,
+    "dL": 0.0208,
+    "dC": 0.2407,
+    "sep": 0.2407,
+    "seam": 0,
+    "L": 0.7027,
+    "ringL": 0.6819
+   },
+   {
+    "n": "kidC",
+    "at": "beastYard-hero",
+    "px": 7442,
+    "share": 0.0574,
+    "dL": 0.0752,
+    "dC": 0.2743,
+    "sep": 0.2743,
+    "seam": 0.1275,
+    "L": 0.358,
+    "ringL": 0.4332
+   },
+   {
+    "n": "kidB",
+    "at": "beastYard-hero",
+    "px": 5947,
+    "share": 0.0459,
+    "dL": 0.0608,
+    "dC": 0.3192,
+    "sep": 0.3192,
+    "seam": 0.0153,
+    "L": 0.5855,
+    "ringL": 0.6464
+   },
+   {
+    "n": "kid1",
+    "at": "festivalPlaza-establish",
+    "px": 639,
+    "share": 0.0049,
+    "dL": 0.011,
+    "dC": 0.346,
+    "sep": 0.346,
+    "seam": 0.0078,
+    "L": 0.4637,
+    "ringL": 0.4747
+   },
+   {
+    "n": "kid4",
+    "at": "festivalPlaza-establish",
+    "px": 574,
+    "share": 0.0044,
+    "dL": 0.0694,
+    "dC": 0.3547,
+    "sep": 0.3547,
+    "seam": 0.1237,
+    "L": 0.4204,
+    "ringL": 0.351
+   }
+  ]
+ }
+]

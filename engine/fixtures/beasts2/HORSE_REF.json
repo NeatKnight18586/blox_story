@@ -1,0 +1,145 @@
+{
+ "note": "tuft 2B gate reference only (tests/beast2.js): a HORSE-proportion quad in our chunky faceted style (long legs, deep barrel, upright neck, long head, short tail) \u2014 never rendered.",
+ "name": "HORSE_REF",
+ "rig": "quad",
+ "tiers": [
+  "hero"
+ ],
+ "glow": "#FF2222",
+ "colors": {
+  "body": "#555555"
+ },
+ "dims": {
+  "legH": 2.8,
+  "bodyH": 2.3,
+  "bodyL": 4.4,
+  "bodyW": 2.0,
+  "neckL": 2.2,
+  "neckUp": 55,
+  "headLevel": 0.95,
+  "headL": 2.0,
+  "headH": 0.8,
+  "headW": 0.7,
+  "tailL": 1.6,
+  "tailUp": -45,
+  "tail2Up": -20
+ },
+ "parts": [
+  {
+   "seg": "body",
+   "shape": "gem",
+   "size": [
+    2.0,
+    2.3,
+    4.4
+   ],
+   "facets": 6,
+   "rings": 3
+  },
+  {
+   "seg": "neck",
+   "shape": "prism",
+   "axis": "z",
+   "len": 2.3,
+   "r": [
+    0.6,
+    0.8
+   ],
+   "taper": 0.6,
+   "facets": 6
+  },
+  {
+   "seg": "head",
+   "shape": "prism",
+   "axis": "z",
+   "len": 2.0,
+   "r": [
+    0.45,
+    0.55
+   ],
+   "taper": 0.6,
+   "facets": 6
+  },
+  {
+   "seg": "earL",
+   "shape": "cone",
+   "axis": "y",
+   "len": 0.35,
+   "r": [
+    0.08,
+    0.08
+   ],
+   "mirror": true
+  },
+  {
+   "seg": "tail1",
+   "shape": "prism",
+   "axis": "-z",
+   "len": 0.8,
+   "r": [
+    0.18,
+    0.2
+   ],
+   "taper": 0.8
+  },
+  {
+   "seg": "tail2",
+   "shape": "prism",
+   "axis": "-z",
+   "len": 0.8,
+   "r": [
+    0.18,
+    0.18
+   ],
+   "taper": 0.6
+  },
+  {
+   "seg": "legFL1",
+   "shape": "prism",
+   "axis": "-y",
+   "len": 1.6,
+   "r": [
+    0.48,
+    0.55
+   ],
+   "taper": 0.8,
+   "mirror": true
+  },
+  {
+   "seg": "legFL2",
+   "shape": "prism",
+   "axis": "-y",
+   "len": 1.6,
+   "r": [
+    0.36,
+    0.4
+   ],
+   "taper": 0.9,
+   "mirror": true
+  },
+  {
+   "seg": "legBL1",
+   "shape": "prism",
+   "axis": "-y",
+   "len": 1.6,
+   "r": [
+    0.48,
+    0.55
+   ],
+   "taper": 0.8,
+   "mirror": true
+  },
+  {
+   "seg": "legBL2",
+   "shape": "prism",
+   "axis": "-y",
+   "len": 1.6,
+   "r": [
+    0.36,
+    0.4
+   ],
+   "taper": 0.9,
+   "mirror": true
+  }
+ ]
+}

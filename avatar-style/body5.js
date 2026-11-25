@@ -7,6 +7,7 @@
 import * as T from 'three';
 import {RoundedBoxGeometry} from 'three/addons/geometries/RoundedBoxGeometry.js';
 import {createActor, HEAD} from './body.js';
+import {hourglassTorso, HOURGLASS_BUILDS} from './hourglass.js';
 
 export const SATIN = {roughness: .45, metalness: 0};
 export const BEVEL = .04, SEGMENTS = 2;
@@ -73,12 +74,14 @@ export function regionBlocks(part, r, {torsoH = 2} = {}) {
 // Main colour of a region part (pure): what the part reads as from a distance (torso main, upper sleeve, trouser).
 export const regionMain = (r, part) => part === 'torso' ? r?.torso?.main : part === 'arms' ? r?.arms?.upper : r?.legs?.main;
 
-export function createActor5({tier = 'hero', skin, scale = 1, materials = {}, name = 'actor', build = null, regions = null} = {}) {
+export function createActor5({tier = 'hero', skin, scale = 1, materials = {}, name = 'actor', build = null, regions = null, torsoShape = null} = {}) {
+  if (torsoShape === 'hourglass' && !HOURGLASS_BUILDS.includes(build)) throw Error(`hourglass torso: adult_f only (build ${build ?? 'adult_m'})`);   // R6 rig (owner): never kids or grandmas
   const a = createActor({tier, skin, scale, materials, name, build});
   a.body = 'v5';
   for (const [part, m] of Object.entries(a.parts)) {
     if (part === 'head') { m.material = toSatin(m.material); continue; }
-    if (part === 'torso' && (!build || build === 'adult_m')) m.geometry = rbox(TORSO, tier);
+    if (part === 'torso' && torsoShape === 'hourglass') m.geometry = hourglassTorso(2);
+    else if (part === 'torso' && (!build || build === 'adult_m')) m.geometry = rbox(TORSO, tier);
     else if (part !== 'torso') m.geometry = rbox(LIMB, tier);
     m.material = toSatin(m.material);
     if (part === 'torso' && regions?.torso?.main) m.material = satin(regions.torso.main);
@@ -94,7 +97,8 @@ export function createActor5({tier = 'hero', skin, scale = 1, materials = {}, na
   // taped / strapped looks (data): regions.bands = [{part, y, h, color, w?, d?, x?}] — a slightly oversized box around the part
   for (const b of regions?.bands ?? []) { const m = a.parts[b.part]; if (!m) continue; const head = b.part === 'head', th = m.geometry.parameters?.height ?? 2;
     const size = head ? [b.w ?? 1.29, b.h, b.d ?? 1.16] : b.part === 'torso' ? [b.w ?? 2.08, b.h, b.d ?? 1.08] : [b.w ?? 1.08, b.h, b.d ?? 1.08];
-    const bm = new T.Mesh(rbox(size, tier), satin(b.color)); bm.name = `band_${b.part}`; bm.position.set(b.x ?? 0, b.y, 0); bm.castShadow = true; m.add(bm); }
+    const bm = new T.Mesh(rbox(size, tier), satin(b.color)); if (b.emissive) { bm.material = bm.material.clone(); bm.material.emissive?.set(b.emissive); bm.material.emissiveIntensity = b.glow ?? 1.6; }   // Touch Grass (opt-in): a glowing trim band
+    bm.name = `band_${b.part}`; bm.position.set(b.x ?? 0, b.y, 0); bm.castShadow = true; m.add(bm); }
   a.pivots.head.scale.set(...HEAD5);   // classic head 1×1×1 (hair, hats and the face decal ride the same pivot)
   a.parts.head.material = satin(skin);
   return a;

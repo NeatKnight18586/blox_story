@@ -16,7 +16,7 @@ import argparse, json, os, subprocess, sys, wave
 import numpy as np
 
 SR = 48000
-NAMES = ['whoosh', 'pop', 'thud', 'rumble', 'riser', 'sparkle', 'crack', 'bell', 'splash', 'zap']
+NAMES = ['whoosh', 'pop', 'thud', 'rumble', 'riser', 'sparkle', 'crack', 'bell', 'splash', 'zap', 'squeak']   # tuft 4C: + squeak (a small toy squeak)
 UNDER_VOICE_DB, VOICE_LUFS, PEAK_CAP_DB = 16, -14, -6
 POP_DELAY_CARD, RISER_LEAD, SILENCE_FRAMES = .55, 1.0, 8
 
@@ -68,6 +68,9 @@ def synth(name, seed=7, dur=None):
     if name == 'zap':
         t = _t(.32); f = 1800 * np.exp(-t * 7) + 160; ph = 2 * np.pi * np.cumsum(f) / SR; saw = 2 * ((ph / (2 * np.pi)) % 1) - 1
         return _norm(_lp(saw, 5000) * (1 + .5 * np.sign(np.sin(2 * np.pi * 42 * t))) * np.exp(-t * 7))
+    if name == 'squeak':   # tuft 4C: a rubber-toy squeak: a fast up-down pitch chirp (1.1 → 2.3 → 1.6 kHz) with a nasal 2nd/3rd harmonic
+        t = _t(.22); u = t / t[-1]; f = 1100 + 1200 * np.sin(np.pi * np.minimum(1, u * 1.4)) ** 2 + 500 * u; ph = 2 * np.pi * np.cumsum(f) / SR
+        return _norm((np.sin(ph) + .45 * np.sin(2 * ph) + .2 * np.sin(3 * ph)) * _env(len(t), .04, .35) + .02 * _hp(r.standard_normal(len(t)), 3000) * np.exp(-t * 40))
     raise ValueError(f'unknown sfx {name}')
 
 

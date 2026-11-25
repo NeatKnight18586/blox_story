@@ -3,7 +3,7 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "test": "node tests/api.js && node tests/actions.js && node tests/walk.js && node tests/walk-calibration.js && node tests/production.js && node tests/p1.js && node tests/casting.js && node tests/reveal.js && node tests/expressions.js && node tests/ending.js && node tests/style.js && node tests/roughcut.js && node tests/performance.js && node tests/counter-capture.js && node tests/finish.js && node tests/s4-assembly.js && node tests/speaking.js",
+    "test": "node tests/segments.js && node tests/templates.js && node tests/api.js && node tests/actions.js && node tests/walk.js && node tests/walk-calibration.js && node tests/production.js && node tests/p1.js && node tests/casting.js && node tests/reveal.js && node tests/expressions.js && node tests/ending.js && node tests/style.js && node tests/roughcut.js && node tests/performance.js && node tests/counter-capture.js && node tests/finish.js && node tests/s4-assembly.js && node tests/speaking.js",
     "preview": "python3 -m http.server 8000",
     "test:browser": "node tests/browser.js",
     "test:motion": "node tests/motion-browser.js",
@@ -38,7 +38,7 @@
     "proof:studio": "node scripts/studio-lookdev-capture.js --cast && node scripts/studio-characters-capture.js && python3 scripts/studio-lookdev-sheet.py && python3 scripts/studio-characters-sheet.py",
     "proof:town": "node scripts/studio-town-capture.js && python3 scripts/studio-town-sheet.py",
     "v2:preflight": "node scripts/v2/preflight.js",
-    "v2:test": "node --test tests/v2/*.test.js && python3 -m unittest tests/v2/test_captions.py tests/v2/test_align.py tests/v2/test_finish.py tests/v2/test_s9.py",
+    "v2:test": "node --test tests/v2/*.test.js && python3 -m unittest tests/v2/test_captions.py tests/v2/test_align.py tests/v2/test_finish.py tests/v2/test_s9.py tests/v2/test_blur.py",
     "v2:align": "python3 scripts/v2/align.py",
     "v2:plan": "node scripts/v2/plan.js",
     "v2:read": "node scripts/v2/read.js",
@@ -47,7 +47,10 @@
     "v2:captions": "python3 scripts/v2/captions.py",
     "v2:assemble": "python3 scripts/v2/assemble.py",
     "v2:stability": "node scripts/v2/stability.js",
-    "v2:qc": "python3 scripts/v2/qc.py"
+    "v2:qc": "python3 scripts/v2/qc.py",
+    "codemap": "node scripts/codemap.js",
+    "ep": "node scripts/ep.js",
+    "ep:check": "node scripts/freeze-check.js"
   },
   "dependencies": {
     "three": "0.187.0"

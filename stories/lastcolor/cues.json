@@ -1,0 +1,2484 @@
+{
+ "story": "lastcolor",
+ "audio": "voice.wav",
+ "duration": 114.451188,
+ "method": "sherpa-onnx zipformer-small-en + script DP + silence snap (scripts/v2/align.py)",
+ "lines": [
+  {
+   "line": 1,
+   "text": "In this world, every fall drains a dummy's *color*.",
+   "start": 0.0,
+   "end": 2.561,
+   "words": [
+    {
+     "w": "In",
+     "start": 0.0,
+     "end": 0.12
+    },
+    {
+     "w": "this",
+     "start": 0.12,
+     "end": 0.32
+    },
+    {
+     "w": "world",
+     "start": 0.32,
+     "end": 0.68
+    },
+    {
+     "w": "every",
+     "start": 0.892,
+     "end": 1.16
+    },
+    {
+     "w": "fall",
+     "start": 1.16,
+     "end": 1.48
+    },
+    {
+     "w": "drains",
+     "start": 1.48,
+     "end": 1.8
+    },
+    {
+     "w": "a",
+     "start": 1.8,
+     "end": 1.92
+    },
+    {
+     "w": "dummy's",
+     "start": 1.92,
+     "end": 2.32
+    },
+    {
+     "w": "color",
+     "start": 2.32,
+     "end": 2.561
+    }
+   ]
+  },
+  {
+   "line": 2,
+   "text": "That's why they're all *white*.",
+   "start": 3.005,
+   "end": 3.818,
+   "words": [
+    {
+     "w": "That's",
+     "start": 3.005,
+     "end": 3.08
+    },
+    {
+     "w": "why",
+     "start": 3.08,
+     "end": 3.2
+    },
+    {
+     "w": "they're",
+     "start": 3.2,
+     "end": 3.4
+    },
+    {
+     "w": "all",
+     "start": 3.4,
+     "end": 3.6
+    },
+    {
+     "w": "white",
+     "start": 3.6,
+     "end": 3.818
+    }
+   ]
+  },
+  {
+   "line": 3,
+   "text": "I'm the last dummy with color left.",
+   "start": 4.295,
+   "end": 5.833,
+   "words": [
+    {
+     "w": "I'm",
+     "start": 4.295,
+     "end": 4.36
+    },
+    {
+     "w": "the",
+     "start": 4.36,
+     "end": 4.56
+    },
+    {
+     "w": "last",
+     "start": 4.56,
+     "end": 4.84
+    },
+    {
+     "w": "dummy",
+     "start": 4.84,
+     "end": 5.16
+    },
+    {
+     "w": "with",
+     "start": 5.16,
+     "end": 5.32
+    },
+    {
+     "w": "color",
+     "start": 5.32,
+     "end": 5.64
+    },
+    {
+     "w": "left",
+     "start": 5.64,
+     "end": 5.833
+    }
+   ]
+  },
+  {
+   "line": 4,
+   "text": "And I fall more than *anyone*.",
+   "start": 6.222,
+   "end": 7.52,
+   "words": [
+    {
+     "w": "And",
+     "start": 6.222,
+     "end": 6.242
+    },
+    {
+     "w": "I",
+     "start": 6.242,
+     "end": 6.4
+    },
+    {
+     "w": "fall",
+     "start": 6.4,
+     "end": 6.68
+    },
+    {
+     "w": "more",
+     "start": 6.68,
+     "end": 6.88
+    },
+    {
+     "w": "than",
+     "start": 6.88,
+     "end": 7.4
+    },
+    {
+     "w": "anyone",
+     "start": 7.4,
+     "end": 7.52
+    }
+   ]
+  },
+  {
+   "line": 5,
+   "text": "Nine thousand falls, and counting.",
+   "start": 7.961,
+   "end": 9.947,
+   "words": [
+    {
+     "w": "Nine",
+     "start": 7.961,
+     "end": 8.36
+    },
+    {
+     "w": "thousand",
+     "start": 8.36,
+     "end": 8.92
+    },
+    {
+     "w": "falls",
+     "start": 8.92,
+     "end": 9.36
+    },
+    {
+     "w": "and",
+     "start": 9.36,
+     "end": 9.6
+    },
+    {
+     "w": "counting",
+     "start": 9.6,
+     "end": 9.947
+    }
+   ]
+  },
+  {
+   "line": 6,
+   "text": "On Monday, the giant fan blew me into the pool.",
+   "start": 10.606,
+   "end": 12.809,
+   "words": [
+    {
+     "w": "On",
+     "start": 10.606,
+     "end": 10.64
+    },
+    {
+     "w": "Monday",
+     "start": 10.64,
+     "end": 11.063
+    },
+    {
+     "w": "the",
+     "start": 11.294,
+     "end": 11.32
+    },
+    {
+     "w": "giant",
+     "start": 11.32,
+     "end": 11.64
+    },
+    {
+     "w": "fan",
+     "start": 11.64,
+     "end": 11.92
+    },
+    {
+     "w": "blew",
+     "start": 11.92,
+     "end": 12.12
+    },
+    {
+     "w": "me",
+     "start": 12.12,
+     "end": 12.24
+    },
+    {
+     "w": "into",
+     "start": 12.24,
+     "end": 12.44
+    },
+    {
+     "w": "the",
+     "start": 12.44,
+     "end": 12.56
+    },
+    {
+     "w": "pool",
+     "start": 12.56,
+     "end": 12.809
+    }
+   ]
+  },
+  {
+   "line": 7,
+   "text": "I landed in a *perfect* dive.",
+   "start": 13.216,
+   "end": 14.584,
+   "words": [
+    {
+     "w": "I",
+     "start": 13.216,
+     "end": 13.24
+    },
+    {
+     "w": "landed",
+     "start": 13.24,
+     "end": 13.6
+    },
+    {
+     "w": "in",
+     "start": 13.6,
+     "end": 13.72
+    },
+    {
+     "w": "a",
+     "start": 13.72,
+     "end": 13.84
+    },
+    {
+     "w": "perfect",
+     "start": 13.84,
+     "end": 14.32
+    },
+    {
+     "w": "dive",
+     "start": 14.32,
+     "end": 14.584
+    }
+   ]
+  },
+  {
+   "line": 8,
+   "text": "Nobody clapped.",
+   "start": 14.8,
+   "end": 15.68,
+   "words": [
+    {
+     "w": "Nobody",
+     "start": 14.8,
+     "end": 15.36
+    },
+    {
+     "w": "clapped",
+     "start": 15.36,
+     "end": 15.68
+    }
+   ]
+  },
+  {
+   "line": 9,
+   "text": "My green pants turned *white*.",
+   "start": 16.111,
+   "end": 17.45,
+   "words": [
+    {
+     "w": "My",
+     "start": 16.111,
+     "end": 16.16
+    },
+    {
+     "w": "green",
+     "start": 16.16,
+     "end": 16.52
+    },
+    {
+     "w": "pants",
+     "start": 16.52,
+     "end": 16.88
+    },
+    {
+     "w": "turned",
+     "start": 16.88,
+     "end": 17.2
+    },
+    {
+     "w": "white",
+     "start": 17.2,
+     "end": 17.45
+    }
+   ]
+  },
+  {
+   "line": 10,
+   "text": "The white dummies don't remember their names.",
+   "start": 17.76,
+   "end": 19.55,
+   "words": [
+    {
+     "w": "The",
+     "start": 17.76,
+     "end": 18.0
+    },
+    {
+     "w": "white",
+     "start": 18.0,
+     "end": 18.24
+    },
+    {
+     "w": "dummies",
+     "start": 18.24,
+     "end": 18.52
+    },
+    {
+     "w": "don't",
+     "start": 18.52,
+     "end": 18.68
+    },
+    {
+     "w": "remember",
+     "start": 18.68,
+     "end": 19.04
+    },
+    {
+     "w": "their",
+     "start": 19.04,
+     "end": 19.2
+    },
+    {
+     "w": "names",
+     "start": 19.2,
+     "end": 19.55
+    }
+   ]
+  },
+  {
+   "line": 11,
+   "text": "They don't remember they ever *had* names.",
+   "start": 19.89,
+   "end": 21.312,
+   "words": [
+    {
+     "w": "They",
+     "start": 19.89,
+     "end": 19.91
+    },
+    {
+     "w": "don't",
+     "start": 19.91,
+     "end": 20.0
+    },
+    {
+     "w": "remember",
+     "start": 20.0,
+     "end": 20.32
+    },
+    {
+     "w": "they",
+     "start": 20.32,
+     "end": 20.48
+    },
+    {
+     "w": "ever",
+     "start": 20.48,
+     "end": 20.72
+    },
+    {
+     "w": "had",
+     "start": 20.72,
+     "end": 20.96
+    },
+    {
+     "w": "names",
+     "start": 20.96,
+     "end": 21.312
+    }
+   ]
+  },
+  {
+   "line": 12,
+   "text": "Then a new dummy spawned.",
+   "start": 21.92,
+   "end": 23.216,
+   "words": [
+    {
+     "w": "Then",
+     "start": 21.92,
+     "end": 22.16
+    },
+    {
+     "w": "a",
+     "start": 22.16,
+     "end": 22.32
+    },
+    {
+     "w": "new",
+     "start": 22.32,
+     "end": 22.56
+    },
+    {
+     "w": "dummy",
+     "start": 22.56,
+     "end": 22.88
+    },
+    {
+     "w": "spawned",
+     "start": 22.88,
+     "end": 23.216
+    }
+   ]
+  },
+  {
+   "line": 13,
+   "text": "Tiny, pink, and giggling at everything.",
+   "start": 23.537,
+   "end": 25.667,
+   "words": [
+    {
+     "w": "Tiny",
+     "start": 23.537,
+     "end": 23.96
+    },
+    {
+     "w": "pink",
+     "start": 23.96,
+     "end": 24.32
+    },
+    {
+     "w": "and",
+     "start": 24.32,
+     "end": 24.52
+    },
+    {
+     "w": "giggling",
+     "start": 24.52,
+     "end": 25.0
+    },
+    {
+     "w": "at",
+     "start": 25.0,
+     "end": 25.16
+    },
+    {
+     "w": "everything",
+     "start": 25.16,
+     "end": 25.667
+    }
+   ]
+  },
+  {
+   "line": 14,
+   "text": "Her name tag said *Bitsy*.",
+   "start": 26.084,
+   "end": 27.228,
+   "words": [
+    {
+     "w": "Her",
+     "start": 26.084,
+     "end": 26.104
+    },
+    {
+     "w": "name",
+     "start": 26.104,
+     "end": 26.32
+    },
+    {
+     "w": "tag",
+     "start": 26.32,
+     "end": 26.6
+    },
+    {
+     "w": "said",
+     "start": 26.6,
+     "end": 26.88
+    },
+    {
+     "w": "Bitsy",
+     "start": 26.88,
+     "end": 27.228
+    }
+   ]
+  },
+  {
+   "line": 15,
+   "text": "She even followed me onto the roller coaster.",
+   "start": 27.612,
+   "end": 29.121,
+   "words": [
+    {
+     "w": "She",
+     "start": 27.612,
+     "end": 27.632
+    },
+    {
+     "w": "even",
+     "start": 27.632,
+     "end": 27.88
+    },
+    {
+     "w": "followed",
+     "start": 27.88,
+     "end": 28.16
+    },
+    {
+     "w": "me",
+     "start": 28.16,
+     "end": 28.32
+    },
+    {
+     "w": "onto",
+     "start": 28.32,
+     "end": 28.48
+    },
+    {
+     "w": "the",
+     "start": 28.48,
+     "end": 28.56
+    },
+    {
+     "w": "roller",
+     "start": 28.56,
+     "end": 28.84
+    },
+    {
+     "w": "coaster",
+     "start": 28.84,
+     "end": 29.121
+    }
+   ]
+  },
+  {
+   "line": 16,
+   "text": "The cart flipped, and we both went flying.",
+   "start": 29.493,
+   "end": 31.297,
+   "words": [
+    {
+     "w": "The",
+     "start": 29.493,
+     "end": 29.52
+    },
+    {
+     "w": "cart",
+     "start": 29.52,
+     "end": 29.8
+    },
+    {
+     "w": "flipped",
+     "start": 29.8,
+     "end": 30.16
+    },
+    {
+     "w": "and",
+     "start": 30.16,
+     "end": 30.28
+    },
+    {
+     "w": "we",
+     "start": 30.28,
+     "end": 30.48
+    },
+    {
+     "w": "both",
+     "start": 30.48,
+     "end": 30.72
+    },
+    {
+     "w": "went",
+     "start": 30.72,
+     "end": 30.92
+    },
+    {
+     "w": "flying",
+     "start": 30.92,
+     "end": 31.297
+    }
+   ]
+  },
+  {
+   "line": 17,
+   "text": "Bitsy landed right on top of me.",
+   "start": 31.646,
+   "end": 33.007,
+   "words": [
+    {
+     "w": "Bitsy",
+     "start": 31.646,
+     "end": 31.88
+    },
+    {
+     "w": "landed",
+     "start": 31.88,
+     "end": 32.24
+    },
+    {
+     "w": "right",
+     "start": 32.24,
+     "end": 32.44
+    },
+    {
+     "w": "on",
+     "start": 32.44,
+     "end": 32.6
+    },
+    {
+     "w": "top",
+     "start": 32.6,
+     "end": 32.8
+    },
+    {
+     "w": "of",
+     "start": 32.8,
+     "end": 32.92
+    },
+    {
+     "w": "me",
+     "start": 32.92,
+     "end": 33.007
+    }
+   ]
+  },
+  {
+   "line": 18,
+   "text": "I lost a color.",
+   "start": 33.408,
+   "end": 34.073,
+   "words": [
+    {
+     "w": "I",
+     "start": 33.408,
+     "end": 33.44
+    },
+    {
+     "w": "lost",
+     "start": 33.44,
+     "end": 33.72
+    },
+    {
+     "w": "a",
+     "start": 33.72,
+     "end": 33.84
+    },
+    {
+     "w": "color",
+     "start": 33.84,
+     "end": 34.073
+    }
+   ]
+  },
+  {
+   "line": 19,
+   "text": "She didn't.",
+   "start": 34.4,
+   "end": 34.856,
+   "words": [
+    {
+     "w": "She",
+     "start": 34.4,
+     "end": 34.56
+    },
+    {
+     "w": "didn't",
+     "start": 34.56,
+     "end": 34.856
+    }
+   ]
+  },
+  {
+   "line": 20,
+   "text": "Her cheeks got *pinker*.",
+   "start": 35.211,
+   "end": 36.043,
+   "words": [
+    {
+     "w": "Her",
+     "start": 35.211,
+     "end": 35.24
+    },
+    {
+     "w": "cheeks",
+     "start": 35.24,
+     "end": 35.52
+    },
+    {
+     "w": "got",
+     "start": 35.52,
+     "end": 35.72
+    },
+    {
+     "w": "pinker",
+     "start": 35.72,
+     "end": 36.043
+    }
+   ]
+  },
+  {
+   "line": 21,
+   "text": "*Weird*, right?",
+   "start": 36.431,
+   "end": 37.015,
+   "words": [
+    {
+     "w": "Weird",
+     "start": 36.431,
+     "end": 36.8
+    },
+    {
+     "w": "right",
+     "start": 36.8,
+     "end": 37.015
+    }
+   ]
+  },
+  {
+   "line": 22,
+   "text": "On Wednesday, I got knocked out in the boxing ring.",
+   "start": 37.701,
+   "end": 39.835,
+   "words": [
+    {
+     "w": "On",
+     "start": 37.701,
+     "end": 37.721
+    },
+    {
+     "w": "Wednesday",
+     "start": 37.721,
+     "end": 38.301
+    },
+    {
+     "w": "I",
+     "start": 38.484,
+     "end": 38.504
+    },
+    {
+     "w": "got",
+     "start": 38.504,
+     "end": 38.68
+    },
+    {
+     "w": "knocked",
+     "start": 38.68,
+     "end": 38.96
+    },
+    {
+     "w": "out",
+     "start": 38.96,
+     "end": 39.12
+    },
+    {
+     "w": "in",
+     "start": 39.12,
+     "end": 39.2
+    },
+    {
+     "w": "the",
+     "start": 39.2,
+     "end": 39.26
+    },
+    {
+     "w": "boxing",
+     "start": 39.26,
+     "end": 39.32
+    },
+    {
+     "w": "ring",
+     "start": 39.32,
+     "end": 39.835
+    }
+   ]
+  },
+  {
+   "line": 23,
+   "text": "By a dummy who kept saying sorry.",
+   "start": 40.2,
+   "end": 41.665,
+   "words": [
+    {
+     "w": "By",
+     "start": 40.2,
+     "end": 40.22
+    },
+    {
+     "w": "a",
+     "start": 40.22,
+     "end": 40.36
+    },
+    {
+     "w": "dummy",
+     "start": 40.36,
+     "end": 40.64
+    },
+    {
+     "w": "who",
+     "start": 40.64,
+     "end": 40.76
+    },
+    {
+     "w": "kept",
+     "start": 40.76,
+     "end": 41.0
+    },
+    {
+     "w": "saying",
+     "start": 41.0,
+     "end": 41.28
+    },
+    {
+     "w": "sorry",
+     "start": 41.28,
+     "end": 41.665
+    }
+   ]
+  },
+  {
+   "line": 24,
+   "text": "My blue stripe went white.",
+   "start": 42.095,
+   "end": 43.254,
+   "words": [
+    {
+     "w": "My",
+     "start": 42.095,
+     "end": 42.16
+    },
+    {
+     "w": "blue",
+     "start": 42.16,
+     "end": 42.44
+    },
+    {
+     "w": "stripe",
+     "start": 42.44,
+     "end": 42.8
+    },
+    {
+     "w": "went",
+     "start": 42.8,
+     "end": 43.04
+    },
+    {
+     "w": "white",
+     "start": 43.04,
+     "end": 43.254
+    }
+   ]
+  },
+  {
+   "line": 25,
+   "text": "Bitsy held my hand the whole way back.",
+   "start": 43.67,
+   "end": 45.316,
+   "words": [
+    {
+     "w": "Bitsy",
+     "start": 43.67,
+     "end": 43.88
+    },
+    {
+     "w": "held",
+     "start": 43.88,
+     "end": 44.12
+    },
+    {
+     "w": "my",
+     "start": 44.12,
+     "end": 44.28
+    },
+    {
+     "w": "hand",
+     "start": 44.28,
+     "end": 44.44
+    },
+    {
+     "w": "the",
+     "start": 44.44,
+     "end": 44.64
+    },
+    {
+     "w": "whole",
+     "start": 44.64,
+     "end": 44.84
+    },
+    {
+     "w": "way",
+     "start": 44.84,
+     "end": 45.12
+    },
+    {
+     "w": "back",
+     "start": 45.12,
+     "end": 45.316
+    }
+   ]
+  },
+  {
+   "line": 26,
+   "text": "Then I saw something nobody else noticed.",
+   "start": 45.64,
+   "end": 47.408,
+   "words": [
+    {
+     "w": "Then",
+     "start": 45.64,
+     "end": 45.88
+    },
+    {
+     "w": "I",
+     "start": 45.88,
+     "end": 46.04
+    },
+    {
+     "w": "saw",
+     "start": 46.04,
+     "end": 46.24
+    },
+    {
+     "w": "something",
+     "start": 46.24,
+     "end": 46.52
+    },
+    {
+     "w": "nobody",
+     "start": 46.52,
+     "end": 46.84
+    },
+    {
+     "w": "else",
+     "start": 46.84,
+     "end": 47.08
+    },
+    {
+     "w": "noticed",
+     "start": 47.08,
+     "end": 47.408
+    }
+   ]
+  },
+  {
+   "line": 27,
+   "text": "A white dummy tripped onto a pile of dummies.",
+   "start": 47.726,
+   "end": 49.736,
+   "words": [
+    {
+     "w": "A",
+     "start": 47.726,
+     "end": 47.76
+    },
+    {
+     "w": "white",
+     "start": 47.76,
+     "end": 48.04
+    },
+    {
+     "w": "dummy",
+     "start": 48.04,
+     "end": 48.4
+    },
+    {
+     "w": "tripped",
+     "start": 48.4,
+     "end": 48.64
+    },
+    {
+     "w": "onto",
+     "start": 48.64,
+     "end": 48.88
+    },
+    {
+     "w": "a",
+     "start": 48.88,
+     "end": 49.0
+    },
+    {
+     "w": "pile",
+     "start": 49.0,
+     "end": 49.24
+    },
+    {
+     "w": "of",
+     "start": 49.24,
+     "end": 49.4
+    },
+    {
+     "w": "dummies",
+     "start": 49.4,
+     "end": 49.736
+    }
+   ]
+  },
+  {
+   "line": 28,
+   "text": "When he got up, he *blushed*.",
+   "start": 50.074,
+   "end": 51.283,
+   "words": [
+    {
+     "w": "When",
+     "start": 50.074,
+     "end": 50.094
+    },
+    {
+     "w": "he",
+     "start": 50.094,
+     "end": 50.2
+    },
+    {
+     "w": "got",
+     "start": 50.2,
+     "end": 50.4
+    },
+    {
+     "w": "up",
+     "start": 50.4,
+     "end": 50.556
+    },
+    {
+     "w": "he",
+     "start": 50.786,
+     "end": 50.84
+    },
+    {
+     "w": "blushed",
+     "start": 50.84,
+     "end": 51.283
+    }
+   ]
+  },
+  {
+   "line": 29,
+   "text": "Just a little.",
+   "start": 51.574,
+   "end": 51.968,
+   "words": [
+    {
+     "w": "Just",
+     "start": 51.574,
+     "end": 51.64
+    },
+    {
+     "w": "a",
+     "start": 51.64,
+     "end": 51.8
+    },
+    {
+     "w": "little",
+     "start": 51.8,
+     "end": 51.968
+    }
+   ]
+  },
+  {
+   "line": 30,
+   "text": "Then a *player* joined.",
+   "start": 52.514,
+   "end": 53.279,
+   "words": [
+    {
+     "w": "Then",
+     "start": 52.514,
+     "end": 52.534
+    },
+    {
+     "w": "a",
+     "start": 52.534,
+     "end": 52.64
+    },
+    {
+     "w": "player",
+     "start": 52.64,
+     "end": 53.0
+    },
+    {
+     "w": "joined",
+     "start": 53.0,
+     "end": 53.279
+    }
+   ]
+  },
+  {
+   "line": 31,
+   "text": "His name floated above his head: BlastKid_7.",
+   "start": 53.59,
+   "end": 56.611,
+   "words": [
+    {
+     "w": "His",
+     "start": 53.59,
+     "end": 53.64
+    },
+    {
+     "w": "name",
+     "start": 53.64,
+     "end": 53.92
+    },
+    {
+     "w": "floated",
+     "start": 53.92,
+     "end": 54.28
+    },
+    {
+     "w": "above",
+     "start": 54.28,
+     "end": 54.52
+    },
+    {
+     "w": "his",
+     "start": 54.52,
+     "end": 54.72
+    },
+    {
+     "w": "head",
+     "start": 54.72,
+     "end": 54.847
+    },
+    {
+     "w": "BlastKid_7",
+     "start": 55.244,
+     "end": 56.611
+    }
+   ]
+  },
+  {
+   "line": 32,
+   "text": "A giant hand came down from the clouds.",
+   "start": 57.199,
+   "end": 58.986,
+   "words": [
+    {
+     "w": "A",
+     "start": 57.199,
+     "end": 57.24
+    },
+    {
+     "w": "giant",
+     "start": 57.24,
+     "end": 57.68
+    },
+    {
+     "w": "hand",
+     "start": 57.68,
+     "end": 57.92
+    },
+    {
+     "w": "came",
+     "start": 57.92,
+     "end": 58.12
+    },
+    {
+     "w": "down",
+     "start": 58.12,
+     "end": 58.36
+    },
+    {
+     "w": "from",
+     "start": 58.36,
+     "end": 58.48
+    },
+    {
+     "w": "the",
+     "start": 58.48,
+     "end": 58.56
+    },
+    {
+     "w": "clouds",
+     "start": 58.56,
+     "end": 58.986
+    }
+   ]
+  },
+  {
+   "line": 33,
+   "text": "And it picked up *Bitsy*.",
+   "start": 59.185,
+   "end": 59.995,
+   "words": [
+    {
+     "w": "And",
+     "start": 59.185,
+     "end": 59.205
+    },
+    {
+     "w": "it",
+     "start": 59.205,
+     "end": 59.28
+    },
+    {
+     "w": "picked",
+     "start": 59.28,
+     "end": 59.52
+    },
+    {
+     "w": "up",
+     "start": 59.52,
+     "end": 59.68
+    },
+    {
+     "w": "Bitsy",
+     "start": 59.68,
+     "end": 59.995
+    }
+   ]
+  },
+  {
+   "line": 34,
+   "text": "It carried her toward the launch tower.",
+   "start": 60.348,
+   "end": 61.628,
+   "words": [
+    {
+     "w": "It",
+     "start": 60.348,
+     "end": 60.368
+    },
+    {
+     "w": "carried",
+     "start": 60.368,
+     "end": 60.68
+    },
+    {
+     "w": "her",
+     "start": 60.68,
+     "end": 60.76
+    },
+    {
+     "w": "toward",
+     "start": 60.76,
+     "end": 60.96
+    },
+    {
+     "w": "the",
+     "start": 60.96,
+     "end": 61.08
+    },
+    {
+     "w": "launch",
+     "start": 61.08,
+     "end": 61.36
+    },
+    {
+     "w": "tower",
+     "start": 61.36,
+     "end": 61.628
+    }
+   ]
+  },
+  {
+   "line": 35,
+   "text": "I jumped in front of her.",
+   "start": 61.999,
+   "end": 62.765,
+   "words": [
+    {
+     "w": "I",
+     "start": 61.999,
+     "end": 62.019
+    },
+    {
+     "w": "jumped",
+     "start": 62.019,
+     "end": 62.28
+    },
+    {
+     "w": "in",
+     "start": 62.28,
+     "end": 62.4
+    },
+    {
+     "w": "front",
+     "start": 62.4,
+     "end": 62.6
+    },
+    {
+     "w": "of",
+     "start": 62.6,
+     "end": 62.72
+    },
+    {
+     "w": "her",
+     "start": 62.72,
+     "end": 62.765
+    }
+   ]
+  },
+  {
+   "line": 36,
+   "text": "So it threw *me* instead.",
+   "start": 63.047,
+   "end": 64.052,
+   "words": [
+    {
+     "w": "So",
+     "start": 63.047,
+     "end": 63.08
+    },
+    {
+     "w": "it",
+     "start": 63.08,
+     "end": 63.24
+    },
+    {
+     "w": "threw",
+     "start": 63.24,
+     "end": 63.48
+    },
+    {
+     "w": "me",
+     "start": 63.48,
+     "end": 63.64
+    },
+    {
+     "w": "instead",
+     "start": 63.64,
+     "end": 64.052
+    }
+   ]
+  },
+  {
+   "line": 37,
+   "text": "My jacket turned white.",
+   "start": 64.417,
+   "end": 65.376,
+   "words": [
+    {
+     "w": "My",
+     "start": 64.417,
+     "end": 64.48
+    },
+    {
+     "w": "jacket",
+     "start": 64.48,
+     "end": 64.88
+    },
+    {
+     "w": "turned",
+     "start": 64.88,
+     "end": 65.16
+    },
+    {
+     "w": "white",
+     "start": 65.16,
+     "end": 65.376
+    }
+   ]
+  },
+  {
+   "line": 38,
+   "text": "It threw me again.",
+   "start": 65.662,
+   "end": 66.43,
+   "words": [
+    {
+     "w": "It",
+     "start": 65.662,
+     "end": 65.682
+    },
+    {
+     "w": "threw",
+     "start": 65.682,
+     "end": 65.92
+    },
+    {
+     "w": "me",
+     "start": 65.92,
+     "end": 66.12
+    },
+    {
+     "w": "again",
+     "start": 66.12,
+     "end": 66.43
+    }
+   ]
+  },
+  {
+   "line": 39,
+   "text": "My hands turned white.",
+   "start": 66.739,
+   "end": 67.727,
+   "words": [
+    {
+     "w": "My",
+     "start": 66.739,
+     "end": 66.84
+    },
+    {
+     "w": "hands",
+     "start": 66.84,
+     "end": 67.2
+    },
+    {
+     "w": "turned",
+     "start": 67.2,
+     "end": 67.52
+    },
+    {
+     "w": "white",
+     "start": 67.52,
+     "end": 67.727
+    }
+   ]
+  },
+  {
+   "line": 40,
+   "text": "Again.",
+   "start": 67.993,
+   "end": 68.421,
+   "words": [
+    {
+     "w": "Again",
+     "start": 67.993,
+     "end": 68.421
+    }
+   ]
+  },
+  {
+   "line": 41,
+   "text": "Now only my face was yellow.",
+   "start": 68.787,
+   "end": 70.072,
+   "words": [
+    {
+     "w": "Now",
+     "start": 68.787,
+     "end": 68.96
+    },
+    {
+     "w": "only",
+     "start": 68.96,
+     "end": 69.16
+    },
+    {
+     "w": "my",
+     "start": 69.16,
+     "end": 69.4
+    },
+    {
+     "w": "face",
+     "start": 69.4,
+     "end": 69.6
+    },
+    {
+     "w": "was",
+     "start": 69.6,
+     "end": 69.8
+    },
+    {
+     "w": "yellow",
+     "start": 69.8,
+     "end": 70.072
+    }
+   ]
+  },
+  {
+   "line": 42,
+   "text": "One more fall, and I'd forget her.",
+   "start": 70.484,
+   "end": 72.042,
+   "words": [
+    {
+     "w": "One",
+     "start": 70.484,
+     "end": 70.64
+    },
+    {
+     "w": "more",
+     "start": 70.64,
+     "end": 70.92
+    },
+    {
+     "w": "fall",
+     "start": 70.92,
+     "end": 71.2
+    },
+    {
+     "w": "and",
+     "start": 71.2,
+     "end": 71.36
+    },
+    {
+     "w": "I'd",
+     "start": 71.36,
+     "end": 71.6
+    },
+    {
+     "w": "forget",
+     "start": 71.6,
+     "end": 71.96
+    },
+    {
+     "w": "her",
+     "start": 71.96,
+     "end": 72.042
+    }
+   ]
+  },
+  {
+   "line": 43,
+   "text": "I'd forget my own *name*.",
+   "start": 72.311,
+   "end": 73.321,
+   "words": [
+    {
+     "w": "I'd",
+     "start": 72.311,
+     "end": 72.331
+    },
+    {
+     "w": "forget",
+     "start": 72.331,
+     "end": 72.64
+    },
+    {
+     "w": "my",
+     "start": 72.64,
+     "end": 72.8
+    },
+    {
+     "w": "own",
+     "start": 72.8,
+     "end": 73.04
+    },
+    {
+     "w": "name",
+     "start": 73.04,
+     "end": 73.321
+    }
+   ]
+  },
+  {
+   "line": 44,
+   "text": "Then the hand grabbed Bitsy again.",
+   "start": 73.847,
+   "end": 75.295,
+   "words": [
+    {
+     "w": "Then",
+     "start": 73.847,
+     "end": 73.88
+    },
+    {
+     "w": "the",
+     "start": 73.88,
+     "end": 74.04
+    },
+    {
+     "w": "hand",
+     "start": 74.04,
+     "end": 74.32
+    },
+    {
+     "w": "grabbed",
+     "start": 74.32,
+     "end": 74.64
+    },
+    {
+     "w": "Bitsy",
+     "start": 74.64,
+     "end": 75.0
+    },
+    {
+     "w": "again",
+     "start": 75.0,
+     "end": 75.295
+    }
+   ]
+  },
+  {
+   "line": 45,
+   "text": "Up, up, to the very top of the tower.",
+   "start": 75.604,
+   "end": 77.688,
+   "words": [
+    {
+     "w": "Up",
+     "start": 75.604,
+     "end": 75.796
+    },
+    {
+     "w": "up",
+     "start": 76.079,
+     "end": 76.268
+    },
+    {
+     "w": "to",
+     "start": 76.485,
+     "end": 76.505
+    },
+    {
+     "w": "the",
+     "start": 76.505,
+     "end": 76.64
+    },
+    {
+     "w": "very",
+     "start": 76.64,
+     "end": 76.92
+    },
+    {
+     "w": "top",
+     "start": 76.92,
+     "end": 77.16
+    },
+    {
+     "w": "of",
+     "start": 77.16,
+     "end": 77.24
+    },
+    {
+     "w": "the",
+     "start": 77.24,
+     "end": 77.4
+    },
+    {
+     "w": "tower",
+     "start": 77.4,
+     "end": 77.688
+    }
+   ]
+  },
+  {
+   "line": 46,
+   "text": "And it let go.",
+   "start": 77.938,
+   "end": 78.585,
+   "words": [
+    {
+     "w": "And",
+     "start": 77.938,
+     "end": 77.958
+    },
+    {
+     "w": "it",
+     "start": 77.958,
+     "end": 78.12
+    },
+    {
+     "w": "let",
+     "start": 78.12,
+     "end": 78.36
+    },
+    {
+     "w": "go",
+     "start": 78.36,
+     "end": 78.585
+    }
+   ]
+  },
+  {
+   "line": 47,
+   "text": "I've fallen nine thousand times... so I know one thing.",
+   "start": 79.128,
+   "end": 81.965,
+   "words": [
+    {
+     "w": "I've",
+     "start": 79.128,
+     "end": 79.24
+    },
+    {
+     "w": "fallen",
+     "start": 79.24,
+     "end": 79.64
+    },
+    {
+     "w": "nine",
+     "start": 79.64,
+     "end": 79.96
+    },
+    {
+     "w": "thousand",
+     "start": 79.96,
+     "end": 80.48
+    },
+    {
+     "w": "times",
+     "start": 80.48,
+     "end": 80.868
+    },
+    {
+     "w": "so",
+     "start": 81.139,
+     "end": 81.16
+    },
+    {
+     "w": "I",
+     "start": 81.16,
+     "end": 81.32
+    },
+    {
+     "w": "know",
+     "start": 81.32,
+     "end": 81.56
+    },
+    {
+     "w": "one",
+     "start": 81.56,
+     "end": 81.8
+    },
+    {
+     "w": "thing",
+     "start": 81.8,
+     "end": 81.965
+    }
+   ]
+  },
+  {
+   "line": 48,
+   "text": "A fall only counts when you hit the *ground*.",
+   "start": 82.321,
+   "end": 84.166,
+   "words": [
+    {
+     "w": "A",
+     "start": 82.321,
+     "end": 82.36
+    },
+    {
+     "w": "fall",
+     "start": 82.36,
+     "end": 82.72
+    },
+    {
+     "w": "only",
+     "start": 82.72,
+     "end": 83.0
+    },
+    {
+     "w": "counts",
+     "start": 83.0,
+     "end": 83.32
+    },
+    {
+     "w": "when",
+     "start": 83.32,
+     "end": 83.44
+    },
+    {
+     "w": "you",
+     "start": 83.44,
+     "end": 83.56
+    },
+    {
+     "w": "hit",
+     "start": 83.56,
+     "end": 83.72
+    },
+    {
+     "w": "the",
+     "start": 83.72,
+     "end": 83.88
+    },
+    {
+     "w": "ground",
+     "start": 83.88,
+     "end": 84.166
+    }
+   ]
+  },
+  {
+   "line": 49,
+   "text": "I jumped.",
+   "start": 84.634,
+   "end": 85.101,
+   "words": [
+    {
+     "w": "I",
+     "start": 84.634,
+     "end": 84.72
+    },
+    {
+     "w": "jumped",
+     "start": 84.72,
+     "end": 85.101
+    }
+   ]
+  },
+  {
+   "line": 50,
+   "text": "I caught her in the air.",
+   "start": 85.378,
+   "end": 86.227,
+   "words": [
+    {
+     "w": "I",
+     "start": 85.378,
+     "end": 85.4
+    },
+    {
+     "w": "caught",
+     "start": 85.4,
+     "end": 85.64
+    },
+    {
+     "w": "her",
+     "start": 85.64,
+     "end": 85.76
+    },
+    {
+     "w": "in",
+     "start": 85.76,
+     "end": 85.88
+    },
+    {
+     "w": "the",
+     "start": 85.88,
+     "end": 86.04
+    },
+    {
+     "w": "air",
+     "start": 86.04,
+     "end": 86.227
+    }
+   ]
+  },
+  {
+   "line": 51,
+   "text": "I yelled the one thing dummies never forget.",
+   "start": 86.514,
+   "end": 88.464,
+   "words": [
+    {
+     "w": "I",
+     "start": 86.514,
+     "end": 86.56
+    },
+    {
+     "w": "yelled",
+     "start": 86.56,
+     "end": 86.84
+    },
+    {
+     "w": "the",
+     "start": 86.84,
+     "end": 87.0
+    },
+    {
+     "w": "one",
+     "start": 87.0,
+     "end": 87.2
+    },
+    {
+     "w": "thing",
+     "start": 87.2,
+     "end": 87.44
+    },
+    {
+     "w": "dummies",
+     "start": 87.44,
+     "end": 87.84
+    },
+    {
+     "w": "never",
+     "start": 87.84,
+     "end": 88.12
+    },
+    {
+     "w": "forget",
+     "start": 88.12,
+     "end": 88.464
+    }
+   ]
+  },
+  {
+   "line": 52,
+   "text": "\"*Dummies help each other!*\"",
+   "start": 88.86,
+   "end": 89.862,
+   "words": [
+    {
+     "w": "Dummies",
+     "start": 88.86,
+     "end": 89.16
+    },
+    {
+     "w": "help",
+     "start": 89.16,
+     "end": 89.4
+    },
+    {
+     "w": "each",
+     "start": 89.4,
+     "end": 89.64
+    },
+    {
+     "w": "other",
+     "start": 89.64,
+     "end": 89.862
+    }
+   ]
+  },
+  {
+   "line": 53,
+   "text": "Every white dummy in the park started running.",
+   "start": 90.518,
+   "end": 92.279,
+   "words": [
+    {
+     "w": "Every",
+     "start": 90.518,
+     "end": 90.8
+    },
+    {
+     "w": "white",
+     "start": 90.8,
+     "end": 91.0
+    },
+    {
+     "w": "dummy",
+     "start": 91.0,
+     "end": 91.28
+    },
+    {
+     "w": "in",
+     "start": 91.28,
+     "end": 91.36
+    },
+    {
+     "w": "the",
+     "start": 91.36,
+     "end": 91.44
+    },
+    {
+     "w": "park",
+     "start": 91.44,
+     "end": 91.68
+    },
+    {
+     "w": "started",
+     "start": 91.68,
+     "end": 92.04
+    },
+    {
+     "w": "running",
+     "start": 92.04,
+     "end": 92.279
+    }
+   ]
+  },
+  {
+   "line": 54,
+   "text": "Hundreds of them.",
+   "start": 92.488,
+   "end": 93.09,
+   "words": [
+    {
+     "w": "Hundreds",
+     "start": 92.488,
+     "end": 92.84
+    },
+    {
+     "w": "of",
+     "start": 92.84,
+     "end": 93.0
+    },
+    {
+     "w": "them",
+     "start": 93.0,
+     "end": 93.09
+    }
+   ]
+  },
+  {
+   "line": 55,
+   "text": "They piled up under the tower like a giant pillow.",
+   "start": 93.371,
+   "end": 95.41,
+   "words": [
+    {
+     "w": "They",
+     "start": 93.371,
+     "end": 93.44
+    },
+    {
+     "w": "piled",
+     "start": 93.44,
+     "end": 93.8
+    },
+    {
+     "w": "up",
+     "start": 93.8,
+     "end": 93.92
+    },
+    {
+     "w": "under",
+     "start": 93.92,
+     "end": 94.08
+    },
+    {
+     "w": "the",
+     "start": 94.08,
+     "end": 94.2
+    },
+    {
+     "w": "tower",
+     "start": 94.2,
+     "end": 94.48
+    },
+    {
+     "w": "like",
+     "start": 94.48,
+     "end": 94.6
+    },
+    {
+     "w": "a",
+     "start": 94.6,
+     "end": 94.76
+    },
+    {
+     "w": "giant",
+     "start": 94.76,
+     "end": 95.12
+    },
+    {
+     "w": "pillow",
+     "start": 95.12,
+     "end": 95.41
+    }
+   ]
+  },
+  {
+   "line": 56,
+   "text": "Nobody touched the ground.",
+   "start": 95.727,
+   "end": 96.738,
+   "words": [
+    {
+     "w": "Nobody",
+     "start": 95.727,
+     "end": 96.08
+    },
+    {
+     "w": "touched",
+     "start": 96.08,
+     "end": 96.32
+    },
+    {
+     "w": "the",
+     "start": 96.32,
+     "end": 96.48
+    },
+    {
+     "w": "ground",
+     "start": 96.48,
+     "end": 96.738
+    }
+   ]
+  },
+  {
+   "line": 57,
+   "text": "Nobody *fell*.",
+   "start": 96.981,
+   "end": 97.641,
+   "words": [
+    {
+     "w": "Nobody",
+     "start": 96.981,
+     "end": 97.4
+    },
+    {
+     "w": "fell",
+     "start": 97.4,
+     "end": 97.641
+    }
+   ]
+  },
+  {
+   "line": 58,
+   "text": "Then the white dummies started turning *colors*.",
+   "start": 98.124,
+   "end": 99.799,
+   "words": [
+    {
+     "w": "Then",
+     "start": 98.124,
+     "end": 98.2
+    },
+    {
+     "w": "the",
+     "start": 98.2,
+     "end": 98.36
+    },
+    {
+     "w": "white",
+     "start": 98.36,
+     "end": 98.56
+    },
+    {
+     "w": "dummies",
+     "start": 98.56,
+     "end": 98.84
+    },
+    {
+     "w": "started",
+     "start": 98.84,
+     "end": 99.16
+    },
+    {
+     "w": "turning",
+     "start": 99.16,
+     "end": 99.44
+    },
+    {
+     "w": "colors",
+     "start": 99.44,
+     "end": 99.799
+    }
+   ]
+  },
+  {
+   "line": 59,
+   "text": "A blue arm here.",
+   "start": 100.076,
+   "end": 100.92,
+   "words": [
+    {
+     "w": "A",
+     "start": 100.076,
+     "end": 100.096
+    },
+    {
+     "w": "blue",
+     "start": 100.096,
+     "end": 100.36
+    },
+    {
+     "w": "arm",
+     "start": 100.36,
+     "end": 100.64
+    },
+    {
+     "w": "here",
+     "start": 100.64,
+     "end": 100.92
+    }
+   ]
+  },
+  {
+   "line": 60,
+   "text": "A red nose there.",
+   "start": 100.92,
+   "end": 101.931,
+   "words": [
+    {
+     "w": "A",
+     "start": 100.92,
+     "end": 101.04
+    },
+    {
+     "w": "red",
+     "start": 101.04,
+     "end": 101.32
+    },
+    {
+     "w": "nose",
+     "start": 101.32,
+     "end": 101.72
+    },
+    {
+     "w": "there",
+     "start": 101.72,
+     "end": 101.931
+    }
+   ]
+  },
+  {
+   "line": 61,
+   "text": "BlastKid_7 dropped the giant hand.",
+   "start": 102.361,
+   "end": 104.552,
+   "words": [
+    {
+     "w": "BlastKid_7",
+     "start": 102.361,
+     "end": 103.56
+    },
+    {
+     "w": "dropped",
+     "start": 103.56,
+     "end": 103.84
+    },
+    {
+     "w": "the",
+     "start": 103.84,
+     "end": 103.96
+    },
+    {
+     "w": "giant",
+     "start": 103.96,
+     "end": 104.32
+    },
+    {
+     "w": "hand",
+     "start": 104.32,
+     "end": 104.552
+    }
+   ]
+  },
+  {
+   "line": 62,
+   "text": "He pressed the *Heal* button instead.",
+   "start": 104.837,
+   "end": 106.219,
+   "words": [
+    {
+     "w": "He",
+     "start": 104.837,
+     "end": 104.857
+    },
+    {
+     "w": "pressed",
+     "start": 104.857,
+     "end": 105.12
+    },
+    {
+     "w": "the",
+     "start": 105.12,
+     "end": 105.32
+    },
+    {
+     "w": "Heal",
+     "start": 105.32,
+     "end": 105.52
+    },
+    {
+     "w": "button",
+     "start": 105.52,
+     "end": 105.8
+    },
+    {
+     "w": "instead",
+     "start": 105.8,
+     "end": 106.219
+    }
+   ]
+  },
+  {
+   "line": 63,
+   "text": "Then he tried to hug us.",
+   "start": 106.612,
+   "end": 107.75,
+   "words": [
+    {
+     "w": "Then",
+     "start": 106.612,
+     "end": 106.76
+    },
+    {
+     "w": "he",
+     "start": 106.76,
+     "end": 106.96
+    },
+    {
+     "w": "tried",
+     "start": 106.96,
+     "end": 107.2
+    },
+    {
+     "w": "to",
+     "start": 107.2,
+     "end": 107.36
+    },
+    {
+     "w": "hug",
+     "start": 107.36,
+     "end": 107.6
+    },
+    {
+     "w": "us",
+     "start": 107.6,
+     "end": 107.75
+    }
+   ]
+  },
+  {
+   "line": 64,
+   "text": "We all flopped over.",
+   "start": 108.048,
+   "end": 108.936,
+   "words": [
+    {
+     "w": "We",
+     "start": 108.048,
+     "end": 108.08
+    },
+    {
+     "w": "all",
+     "start": 108.08,
+     "end": 108.32
+    },
+    {
+     "w": "flopped",
+     "start": 108.32,
+     "end": 108.72
+    },
+    {
+     "w": "over",
+     "start": 108.72,
+     "end": 108.936
+    }
+   ]
+  },
+  {
+   "line": 65,
+   "text": "Onto each other, of course.",
+   "start": 109.233,
+   "end": 110.198,
+   "words": [
+    {
+     "w": "Onto",
+     "start": 109.233,
+     "end": 109.44
+    },
+    {
+     "w": "each",
+     "start": 109.44,
+     "end": 109.6
+    },
+    {
+     "w": "other",
+     "start": 109.6,
+     "end": 109.8
+    },
+    {
+     "w": "of",
+     "start": 109.8,
+     "end": 109.92
+    },
+    {
+     "w": "course",
+     "start": 109.92,
+     "end": 110.198
+    }
+   ]
+  },
+  {
+   "line": 66,
+   "text": "Turns out the rule was only half written.",
+   "start": 110.627,
+   "end": 112.275,
+   "words": [
+    {
+     "w": "Turns",
+     "start": 110.627,
+     "end": 110.8
+    },
+    {
+     "w": "out",
+     "start": 110.8,
+     "end": 110.96
+    },
+    {
+     "w": "the",
+     "start": 110.96,
+     "end": 111.12
+    },
+    {
+     "w": "rule",
+     "start": 111.12,
+     "end": 111.36
+    },
+    {
+     "w": "was",
+     "start": 111.36,
+     "end": 111.52
+    },
+    {
+     "w": "only",
+     "start": 111.52,
+     "end": 111.76
+    },
+    {
+     "w": "half",
+     "start": 111.76,
+     "end": 112.0
+    },
+    {
+     "w": "written",
+     "start": 112.0,
+     "end": 112.275
+    }
+   ]
+  },
+  {
+   "line": 67,
+   "text": "Every catch gives the color *back*.",
+   "start": 112.664,
+   "end": 114.451,
+   "words": [
+    {
+     "w": "Every",
+     "start": 112.664,
+     "end": 112.96
+    },
+    {
+     "w": "catch",
+     "start": 112.96,
+     "end": 113.36
+    },
+    {
+     "w": "gives",
+     "start": 113.36,
+     "end": 113.6
+    },
+    {
+     "w": "the",
+     "start": 113.6,
+     "end": 113.76
+    },
+    {
+     "w": "color",
+     "start": 113.76,
+     "end": 114.08
+    },
+    {
+     "w": "back",
+     "start": 114.08,
+     "end": 114.451
+    }
+   ]
+  }
+ ]
+}

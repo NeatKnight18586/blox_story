@@ -10,3 +10,9 @@ They are downloaded by the farm job `.github/workflows/assets.yml` into a cache 
 | planks | Wood Planks (`wood_planks`) | texture | 1913211 | https://polyhaven.com/a/wood_planks |
 | plaster | Painted Plaster Wall (`painted_plaster_wall`) | texture | 2497755 | https://polyhaven.com/a/painted_plaster_wall |
 | street_late | Venice Sunset (`venice_sunset`) | hdri | 1440400 | https://polyhaven.com/a/venice_sunset |
+
+## HDRI backdrops (Kit 1, `assets/hdri/`, committed; 1k)
+
+- venice_sunset_1k.hdr: CC0, Poly Haven via three.js examples, https://raw.githubusercontent.com/mrdoob/three.js/dev/examples/textures/equirectangular/venice_sunset_1k.hdr
+- pedestrian_overpass_1k.hdr (stands in for royal_esplanade_1k.hdr, which 404s there): CC0, Poly Haven via three.js examples, https://raw.githubusercontent.com/mrdoob/three.js/dev/examples/textures/equirectangular/pedestrian_overpass_1k.hdr
+- quarry_01_1k.hdr: CC0, Poly Haven via three.js examples, https://raw.githubusercontent.com/mrdoob/three.js/dev/examples/textures/equirectangular/quarry_01_1k.hdr

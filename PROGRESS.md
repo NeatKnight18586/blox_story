@@ -1457,3 +1457,681 @@ street-cc0 (fallbacks 0): R1_lowwide 9.64 s/frame @1440, contrast 0.008, detail 
 ## Phase R2 (2026-11-19): steps 1-6 done, farm run blocked
 Code/data pushed (a81351b): matcap actors ('comedy', ×1.15 lift) in engine/fixtures/realism/street.js, backdrop.intensity in parts/location.js, street-cc0.json backdrop 0.7 / shadowOpacity 0.6, R2_scale camera (fov 60, pos [1.2,1,52], look [-1.5,16,-20]).
 Farm run 44430704419 (assets.yml) did not start: GitHub annotation "recent account payments have failed or your spending limit needs to be increased". No R2 numbers, so no KEEP/DROP verdict. Needs the owner to fix Actions billing, then re-push assets/realism.request.
+
+## Kit 1: photo sky backdrop + 3 signature cameras + 60 fps
+Built: spec `backdrop` (parts/location.js `groundedSky`, engine/episode.js; env only if the look has none; actor rim 0.6 + 0.3 EV), cameras `lowWide` / `scaleReveal` / `povScope` (+ effect `scope`), `engine/fpsframes.js` (blink, freeze/impact, lip-flap hold, snap/crashZoom/openHit, cut tolerance time-based; < 48 fps keeps the old counts), render.yml 18 shards at fps ≥ 48, demo `engine/fixtures/kit1/demo.json`, sheet `review/kit1/kit1-390.png`, `contrast.json`.
+Commands: `npm test` + `npm run v2:test` green (172 + 63); "Nobody" 11 frames @270×480 byte-identical before/after; `v2:bench --spec …demo.json`.
+Numbers: localContrast (mid-shot) K1 1.32 · K2 0.04 · K3 0.317 @0.7 → 0.392 @0.6 → 0.667 @0.4; K2 fails 0.35 at every intensity (its background is the street, not the sky). Bench 720: K1 89.7k tris .61 s, K2 130.9k tris .78 s, K3 83.9k .49 s (FAIL ≤ 90k on K2); s/frame 1080 mean 1.24, 1440 mean 2.05.
+Decisions: HDRI royal_esplanade 404 → pedestrian_overpass_1k; default fps stays 30 in code (brief said 24); scaleReveal "+12" = camera lift, pull-back set by the 8 % rule (~71 units); lowWide tilted up 20° (at 2 units a 5.3-tall actor is legs only); demo backdrop intensity 0.4 (step-down protocol).
+Open: K2 localContrast 0.04 < 0.35 (needs a rim/lift or background change, not the backdrop); K2 triangles 131k > 90k (whole street in view).
+
+## Kit 1b (fix Kit 1)
+lowWide/scaleReveal framing from actor height H, povScope push + sway, demo `look4: comedy`, camera.far 160 under backdrop (demo radius 150, intensity 0.5). Tests 172 + 63 green; "Nobody" 11 frames identical. localContrast @0.7/0.6/0.5: K1 .45/.49/.55, K2 (first 15 %) .14/.14/.13, K3 3.6+. Bench 1080: .32/.49/.53 s, triangles 100.7k/140.2k/94.6k (> 90k).
+Open: K2 contrast < 0.35 at every intensity; triangle count over 90k in all shots (frustum count ignores far 160).
+
+## Kit 1c
+Backdrop sky follows the camera (radius 400, far 500), world meshes > 160 from the camera hidden per frame, lowWide on the 1/3 line (NDC ±0.34), scaleReveal rise 0.15 × end distance, look point at chest (0.7 H), rim 0.9 for the scaleReveal subject. Bench gate for backdrop specs = time only (V4.md). Tests 172 + 63 green, "Nobody" identical. Bench 1080: .34/.53/.57 s (mean .48 ≤ .69 PASS), triangles 100.7k/140.3k/94.6k reported. localContrast @0.7/0.6/0.5: K1 .31/.35/.40, K2 (first 15 %) .15/.13/.11, K3 .004/.07/.17. Open: K2 and K3 below 0.35 at intensity 0.5 (demo value); stopped per rule.
+
+## Touch Grass E0 — world, cast, props (2026-11-19)
+Plan: cast JSON (recolor + existing accessories), poses zombie/kneel, props7, 4 location JSONs + anchors, 390 px sheets + e0.json, tests.
+Built: `cast/touchgrass.json` (25 + BOSS dragon colours), `engine/poses.js` zombie/kneel (added only), `parts/sets4/props7.js` (14 props + placeProps),
+`parts/locations/*.json` (generator `scripts/v2/touchgrass-locations.py`), lookdev page `engine/fixtures/touchgrass/index.html`, `scripts/v2/touchgrass-sheets.js`.
+Opt-ins: body5 `bands[].emissive`; location.js `backdrop.saturation`/`tint` (HDRI desaturated before env + sky). episode.js untouched.
+Numbers (review/touchgrass/e0.json): dustGray non-NOVA sat .107/.103 PASS (≤ .15); dustGold .201/.169 FAIL; NOVA coat sat ≥ .878 PASS;
+pure black max .233 % PASS; headset gap .02 PASS; s/frame 1080 (location + props) dustTown 1.555, zombieCity 1.921, dragonPeaks 1.761, space .812 — all FAIL ≤ .69.
+Decisions: dragonPeaks peaks = stepped cylinder tiers (loader has no landform); TOWN/LEO skins desaturated (sat ≤ .15); NOVA's can exempt from the
+non-NOVA number as her held prop (strict number also stored); bench = location + props (cast reported separately, crowd instancing is E1);
+hdri manifest maps to assets/hdri (`{id: '../../../assets/hdri'}`).
+Open: s/frame 2 fix passes spent (statics merge 2.6→1.55; `bake.material: basic` is a no-op because location.js skips materials whose
+default emissiveIntensity is 1, i.e. every procedural/CC0 one); dustGold sat 2 passes spent (.38→.20); dragon peaks read as pale drums.
+
+## Touch Grass E0b — fix round on E0 (2026-11-19)
+Plan: V4 D5 (farm-time gate) + D6 (sat gate dustGray only); location.js basic swap fix; crowds merged; dustGold warm low sun; dustTown 3 depth
+layers + TOWN groups + 20° wide; zombieCity moonlight + green ground fog + 3 lamps; rock peaks; space glow/stars/planet/ship ×2.5; armor; finger flick.
+Built: `parts/location.js` basic swap now skips only real emissive (non-black colour); props7 rockPeak/rockMesa/starField/ringPlanet/streetLamp/
+groundFog/brokenBuilding/armor/radialTex/flickX, sunSphere = emissive core + additive sprite, placeProps `scale` + ground pieces never cast;
+generators `touchgrass-cast.py` (armor specs; ASTRO backpack + PIRATE top hat removed) and `touchgrass-locations.py` (all 4 worlds, seatYaw40,
+leoOnShip, planet); fixture: armor applied after pose, TOWN/ZOMBIE/FRIENDS crowds merged by material (vertex-coloured hair/headset kept apart),
+masks ground/zombie/trim; sheet script: new gates + 1440 timing + farm projection.
+Commands: `python3 scripts/v2/touchgrass-{cast,locations}.py` · `node scripts/v2/touchgrass-sheets.js --timing 2` · npm test · npm run v2:test.
+Decisions: zombie contrast = |Lzombie − Lring| / max (ring = 10 px dilation at 390 px); farm mean = BEATS shot-weighted (dustGold timed, reported);
+bake.material 'basic' fixed but left off in all 4 worlds (statics are now mostly ground planes; farm gate passes without it).
+Open: zombie local contrast FAILS after 2 passes (moon to the front, then darker street/fog/lamps): .22 vs .35 — stopped, not loosened.
+
+## Touch Grass E1 — leftovers, episode spec, gates, animatic (2026-11-19)
+Plan: 1. E0b leftovers: LEO_VR visor band (headset shape, cyan, .02 gap) replaces the helmet; dragonPeaks rock jitter ±8 % + snow ≥ 65 %,
+no ground band; zombie-only rim #B6FF8A .9, contrast ring minus other cast → worlds-390 + LEO_VR cells. 2. `stories/touchgrass/world.js`:
+the 4 location JSONs side by side on x, per-camera env/fog/tone switch, crowds merged; opt-in engine hooks (spec.decorate → world
+decorate/poseActor; spec.props `set: 'props7'` + states/flick keys). 3. `scripts/v2/touchgrass-episode.js` → episode.json (61 BEATS shots,
+22/57 beat cuts as sub-shots). 4. `scripts/v2/touchgrass-gates.js` P1 P3 P4 P5 P6 P8 P9 P10 P11. 5. plan/read/stability/gates, ≤ 2 fix
+passes each. 6. animatic + shots-390. 7. tests, "Nobody" identity (episode.js changed), commit.
+Built: props7 visorBand/headExtent/rimCrowd/headsetScreen/tumbleweed/dryStick/skyCrack (+ giantFinger colour opt-ins), rockPeak jitter + live (the
+prop merge dropped vertex colours = why E0b peaks had no snow); `stories/touchgrass/world.js`; episode.js opt-ins `spec.decorate` (world
+decorate/poseActor) + `props[].set: 'props7'` with `states`/`flick` keys; `scripts/v2/touchgrass-{episode,gates,shots}.js`; animatic + shots-390.
+Leftovers: visor band gap .02 front/side/back (helmet gone); zombie contrast .45/.63 (≥ .35 PASS, ring minus other cast); peaks dark, snow visible.
+Gates (review/touchgrass/gates-e1.json): P1 PASS (face .276, 1432 glow px) · P4 PASS (worst .158 % 04) · P5 PASS (1.47) · P10 PASS (≥ 22.5 ×) ·
+P11 PASS · P3 FAIL (52 LEO 83 % clipped, inserts 05/09/24/49/59 margins) · P6 FAIL (32 .66 %) · P8 FAIL (28 2.74 %) · P9 FAIL (12 .182) ·
+plan FAIL 16 (length 90.10 > 90 hard max — END is owner-set; pan speed 48 101 %/s) · read FAIL 47 (22 standsOut, 18 nothingInFront) ·
+stability PASS (worst .282 % 21, after dropping LEO_VR's torso band inside the chest plate). 2 fix passes each; nothing loosened.
+Animatic 270×480 every 2 → 540×960 12 fps, 8.06 MB, 90.08 s, −14 LUFS, no hold. npm test + v2:test green; "Nobody" 11 frames byte-identical.
+Decisions: `labels: false` instead of `season: 1` (season 1 switches on the Season-1 template gate: 122–150 s, B1–B9, clues — impossible for
+format 5); 22 and 57 beat cuts = sub-shots a/b/c (65 spec shots, 61 BEATS shots); LEO's porch moved to the yard next to the blade (G 0.3,0,12.4);
+the dropped headset only shown from 59 (blocked 47/54); 60–61 size close (a 3:1 screen cannot be 35 % tall in 9:16); dustTown dirt/path
+desaturated, VR fill lights raised (P8); TAP fingers = props7 giantFinger ×9 (119 units), NOVA's tap finger = a dress item on LEO.
+Open: dust-town read standsOut (gray-on-gray by design); inserts 05/09/24/49/59 margins; 52/56 clipping; boss shots read small; dragonPeaks HDRI shows city buildings.
+
+## Touch Grass E2 — owner fix round on shots-390 (2026-11-19)
+Owner decisions: END = 89.95 (shot 61 = 88.62–89.95). Read "subject stands out" errors are waived ONLY when the subject is a TOWN extra in a
+dustGray shot; every other read error must be fixed. LEO in dustTown shots gets rim strength 0.6 neutral (#E8ECF2).
+Plan: 1. END 89.95. 2. Giant finger: one camera rule (enters from the top edge through the crack, box 40–70 % of frame height, crack drawn
+around the entry point = per-shot spec prop, nothing between camera and finger) for 25 26 28 33 34 39 40; new gate P12 (≥ 40 %, unoccluded).
+3. dragonPeaks: HDRI out → procedural sunset gradient dome #2B3A6B → #F08A4B + sun disc; boss ≥ 25 % in 36 37 40 41. 4. Blue light: visor
+emissive from 16.23, strip ≥ 1.5 × face luma; 13 cyan point light at the visor (range 1.5); 14 crashZoom into the visor, flash 18.70; TOWN
+visors glow in every dustTown shot. 5. Inserts 09 24 49 54 re-framed from the object side. 6. Shot fixes 03 18 21 30 32 38 52 12 (P9 headset
+exclusion). 7. zombieCity sky bottom #1B2A4A (P8). 8. Plan errors (48 pan speed). Re-run plan/read/stability/gates (≤ 2 passes each).
+9. Animatic + shots-390. 10. Tests, commit.
+Built: generator camera math (proj / aimAt / rayAt, pure) + finger rig (tilt-aware wrist, per-shot skyCrack prop on the arm's top-edge entry);
+cameras 02 03 05 09 13 14 17 18 21 24–41 48 49 52 54 58–61; LEO/NOVA marks for 49/52; props7: bright unlit visor strip + cyan edge, skyCrack
+`jitter`/`sky`/`opaque`, giantFinger `selfLight`, black-emissive intensity 1 (propGlow works); world.js: sky domes ride the camera, dragon
+sun disc, LEO rim #E8ECF2 .6 (kept under subjectLift clones), visor point light (13), groundedSkybox blended (backdrop, not "in front"),
+unBlack (friends, BRO); locations: dragonPeaks sunset dome #2B3A6B→#F08A4B (no HDRI), zombieCity horizon #1B2A4A, glass #1A2232;
+gates: P12 (finger), P9 mask 2 px dilation.
+Numbers: plan PASS (0). Stability PASS (worst 22b .299 %; 14 needed 2 passes: fov 8 .396 → 14 .305 → 20). P12 PASS all 7 (heights .40–.64,
+top 0, occluded ≤ 2 %). Visor strip 233.5 vs face 152.7 luma = 1.53× PASS. P1 P5 (1.24) P6 P10 P11 PASS. Read 50 → 30 → 17 (2 passes;
+01 waived). FAIL after 2 passes: P3 14 (crash zoom into the visor clips LEO 14.5 % by design), 52 LEO 35.8 %, 56 LEO 49.3 %; P8 19 20 33
+(space black, 0.52–1.5 %), 21 .59, 26 1.31, 28 3.00, 31 1.25; P9 08 .174. Animatic 540×960 90.0 s 8.01 MB −14 LUFS.
+Decisions: 14 end fov 20 (stability); LEO_VR/BRO hidden in 25 26 28 (cameras look through their marks); 24 = profile from above (a side-on
+headset is 3.6:1); finger 28 tilted −20° toward the lens; grounded skybox transparent (renderOrder −20) so read check 2 ignores the backdrop.
+Open: read 16 errors (standsOut 09 12 18 24 30 45 49; face cover 03 27 28 31 43 53 57a; 45 front 13 %; 52 motion); P3 52/56; P8 zombie/space.
+
+## Touch Grass E3 — final fix round, 10 shots (2026-11-19)
+Owner waivers: P8 excludes the space shots 19 20 32 33 34 35 (black sky by design). P3 waived for 14 (zoom into the visor) and 56 (LEO
+cropped foreground). Read "face partly covered" waived when the cover is the actor's own headset / visor / goggles or hands lifting a
+headset (27 28 31 57a). P9 mask includes all NOVA parts (boots). Everything else must pass.
+Plan: camera / marks only for 03 09 17 18 24 30 32 38 45 54 (+ 38: remove the white mesh over the sword); gates script applies the P8 / P3
+waivers and the NOVA-wide P9 mask; plan / read / stability / gates ≤ 2 passes; animatic + shots-390; tests; commit.
+Built: cameras/marks for 03 09 17 18 24 30 32 38 45 54 (03 NOVA walks the clear −8.6 → −7.3 aisle stretch; dragon path DR0 P[62,150,−190],
+rider on the neck base; 30 NOVA yaw −155; 32 enemy keys + lasers behind the ship; 38 the white block was the stone under propGlow 1.0 →
+glow removed, camera searched through a gap in the friends ring; 24 opt-in c.tapSide 'left' in world.js). Gates: P8/P3 waivers, NOVA-wide P9.
+Numbers: plan 1 error (24 headset 13 %: the owner's head + headset 40–50 % framing leaves the .38-tall headset at 13 %, conflict). Stability
+PASS (22b .299 %). Gates: P1 P5 P6 P10 P11 P12 PASS; P3 FAIL 24 13.5 %, 52 LEO 35.8 %; P8 FAIL 28 3.00 %, 26 1.31, 31 1.25, 21 .59; P9 08 .174.
+Read 18 → 16 (2 passes); waived 01 27 28 31 57a; in scope left: 09 .103, 18 .067 + motion .012, 24 objectReads 13 %, 38 .090, 45 .031
+(standsOut); out of scope (shot not in this round): 12 49 standsOut, 43 53 face cover, 52 motion. Animatic 90.0 s 8.14 MB −14 LUFS.
+## FORMAT v6 alignment (2026-11-20, docs/code only; no render, no script/voice change)
+Plan: 1. docs/season1/FORMAT_V6.md = single source (7 owner rules). 2. Docs point to it; old length/end-hold/rhyme/reframe rules removed (V4, STORY_BIBLE, FORMAT_BIBLE, PUBLISHING, V2_BRIEF, SEASON_1, A4 banner, AGENTS, CLAUDE, new-episode). 3. Code: format 6 next to 5 (timeline, plancheck, plancheck5 len option, seasoncheck, assemble, align, plan.js, episode.js adult scale). 4. scriptcheck v6. 5. tests. 6. RESULTS.md retention columns. 7. Nobody byte-identity.
+Built: timeline.js DEFAULT_FORMAT 6, endFor(voice, fmt) (5/6: voice + 0.85; legacy §9), MAX_END6 125. plancheck.js lengthRule(6) (voice ≤ 124.15, end = voice + 0.85 ± 1.5 frames, ≤ 125), heroFirst/heroIssues (hero = spec.hero or troupe HERO; first shot via subject/fit.actor/see ≤ 5.0 s), finalShotIssues (wide or `pull` → FAIL). Format 6 also runs the v5 shot rules (plan5 with len [0, 125]); seasoncheck skips rhyme + 122–150 s for format 6. assemble.py end_total(…, 6) = voice + 0.85, picture cut not held, > 125 raises. align.py voice_range(6) = 0–124.15; a story without episode.json defaults to 6. scriptcheck: 300–400 words, last line FAIL if normalized equal or ≥ 60 % word overlap (of the shorter line), card first/last-line and first-person cap removed. tests/v2/format6.test.js (5) + py tests.
+Decisions: "never padded" → no minimum length in code (300 words is the script target only); final-shot rule also fails `move: "pull"`; hero-before-0:05 is a shot-plan check (subject/see), not a pixel measure; "≤ 2 rule lines before the hero" and "last line twists" stay owner reads. Old v3 scripts (egg/ragdoll/mountain/mirror) now fail scriptcheck on words only (421–437). Egg/ragdoll beats.md keep their old per-episode notes (owner files, history).
+Checks: v2:test 168 node + 64 py pass (1 skipped, as before); npm test 0; "Nobody" 62/62 byte-identical vs 0087b8f (270×480, every 60th frame, aa 0; local check only, no frames kept).
+
+## FORMAT v6 merge into claude/engine-v2 + owner Decision 1 (2026-11-20)
+Merged claude/hopeful-gauss-evyxge (9555733) into engine-v2 (da65ff2, 16 Touch Grass commits). Conflicts PROGRESS.md / LIBRARY.md: both sides kept; episode.js: engine-v2 kept (decorate hook) + format-6 adult-scale condition re-applied. No new format-5-only branches on engine-v2 needed a format-6 twin.
+Decision 1: scriptcheck > 400 words FAIL, < 300 WARNING (`warnings` list, printed WARN, exit 0); FORMAT_V6.md rule 1 updated; test updated.
+Checks: v2:test 177 node + 64 py pass (1 skipped); npm test 0; Touch Grass (format 5) v2:plan exit 0 before and after, plan.json byte-identical; Touch Grass 20 frames (every 270th, 270×480) 20/20 identical; "Nobody" 62/62 byte-identical vs da65ff2.
+
+## P1 — body v6 (R15) + hero variants (2026-11-20)
+Plan: body6.js (15 segments, R6 lengths, 0.02 overlap, clamps) · poses6.js (liftR6, 12 key poses, timeline/apply; actors.js opt-in `body: 'v6'`) · cast/hero6.json A/B/C · hero6 page + sheet + gates · tests · regression. Stop at the approval gate.
+Built: `avatar-style/body6.js`, `engine/poses6.js`, `engine/hero6.{html,js}`, `cast/hero6.json`, `scripts/v2/hero6-{sheet,gates}.js`, `tests/v2/body6.test.js`; actors.js branches on `body: 'v6'` only.
+Commands: `node scripts/v2/hero6-sheet.js` → review/hero6/{turnaround,poses,silhouettes,phone-390}.png + seam.json; `node scripts/v2/hero6-gates.js` → gates.json.
+Numbers: joints 0 out of range (12 key poses + every R6 pose lifted, 0–2 s); seam 0 enclosed px (5 chains × 4 views × 12 poses, 600 px, no AA; was 45 → 2 → 0);
+grounding max |y| 0.0006 (A/B/C × 9 standing poses); triangles A 5660 / B 5708 / C 5710 (≤ 6000; R6 v5 4668); walk planted-foot drift max 0.0228/frame = R6 v5's.
+Regression: Nobody 62/62, Touch Grass 20/20 byte-identical (270×480, aa 0); npm test 0; v2:test 183 node + 64 py.
+Decisions: arm seam chain = arm segments only (the R6-style shoulder has no overlap by spec; arm–torso pinches kept as info in seam.json); hinge caps r 0.47 at hip/knee/elbow/waist, wrist and ankle use 0.15 plugs (a 0.47 cap pokes out of a 0.2 foot); shoe rises 0.04 over the ankle and B/C uppers sink 0.03 into the sole (fix passes 1–2); waist limit ±35° (not in brief); walk knee = sin(swing progress) because the legacy walk's hip speed stalls mid-swing.
+Open: tools/accessories still ride the UpperArm (no elbow follow); idle↔walk gait switch pops at cross-fade (no per-joint blend of the lift); troupe on v6 not built (dressed materials fall back to flat satin).
+
+## P1b — iconic R15 silhouette, hero B sleeves to wrist, whole cast + crowd on v6 (2026-11-20)
+Plan: body6 rebuilt to the owner reference (continuous 1.75 arm / 1.73 leg blocks with flat joint ends + r 0.5 caps, 0.25 / 0.27 flush slabs, 1.62 / 0.38 torso); hero6.json HERO = B (sleeve to wrist, collar, soles; C deleted, A ref); troupe6.json; crowd v6; format-6 defaults; run/crouch/walk-passing fixes; phase-safe cross-fade; sheets + gates.
+Numbers: heights (ref → measured) upperTorso 1.62→1.62, lowerTorso .38→.40, arm 1.75→1.75, hand .25→.25, leg 1.73→1.73, foot .27→.27 (all ±.03 PASS); joints 0 out of range;
+grounding max .0009 (B, A, 6 slots × 9 standing poses); tris B 4836 / A 4788 (≤ 6000; slots 4548–5724); walk drift max .023 vs R6 .0228 (+.005 allowed: PASS); cross-fade pop 2.67° ≤ 3°.
+Seam FAIL after two fix passes: 591 → 21 → 11 px (pass 0 re-scope: hair excluded from the spine chain, it is the hair asset's shape; pass 1: 0.01-inset flat-top slabs + slab plugs; pass 2: neck plug, 0.18 slab plugs). Left: B crouch rightLeg 2, B reachHug neck 1, slot crouch legs/neck 1 each, ELDER kneel neck 2.
+Crowd: far tier identical (272 tris/member, 12 draws/crowd); mid tier v6 360 tris / 6 meshes vs v5 620 / 6. Bench cast-comedy (v5) vs -v6: 0.324/0.314 vs 0.330/0.344 s/frame, 80.9k vs 85.9k tris (PASS budget); no crowds: 0.279/0.273 vs 0.269/0.291 — inside ±8 % run spread: "no slower" not proven.
+Regression: Nobody 62/62, Touch Grass 20/20 byte-identical; npm test 0; v2:test 185 node + 64 py.
+Decisions: cuff dropped from B (mid-sleeve it reads as an elbow line); short sleeve = ends half way down the UpperArm (owner wording) from v5 split < .5; segment fillers fused into one mesh per segment (draws 490 → 313 on the fixture) and zero-area bevel triangles dropped (B 5964 → 4836); far-tier crowd keeps the v5 prisms (same outline at that tier); cross-fade length adaptive (fadeFor), outgoing side = timeline before the key.
+Open: seam 11 px; idle's 8° elbow (P1 spec) shows as a forearm tone step; faint cap/face acne line at a straight elbow/knee (cap r 0.5 tangent); tools/accessories don't follow elbows.
+
+## P1c — seamless straight limbs, pose fixes, back detail (2026-11-20)
+Plan: find the joint line (measure), fix it at the source; idle elbows/knees 0; redo run/crouch/sit/kneel; hero B back yoke + hem; short sleeves to the elbow; seam baseline 11 (owner).
+Cause (measured): with shadows off the straight arm/leg column is flat (154.4); the flat interior end faces at the elbow/knee fed the shadow map → a soft 3–5 px dark line ~0.03 below every joint. Fix: joint ends are rounded-rect faces in a non-casting "joint fill" mesh (with the cap, r 0.495 = 0.005 inside the faces); the walls still cast; same-material lower blocks overlap 0.01 (no sub-pixel crack).
+Numbers: joint luma |Δ| max 0.45 (ref grey 0.00 ×4, ref B 0.00 ×4, B front −0.03/−0.45/0.00/0.00; limit 1.5); seam 3 px (baseline 11); joints 0; grounding ≤ .0012; tris B 4756 (slots 4420–5236);
+heights 1.62/.40/1.75/.25/1.73/.27; pop 2.59°; walk drift .023 vs R6 .0228. Gates PASS. Nobody 62/62, Touch Grass 20/20 byte-identical; npm test 0; v2:test 185 + 64.
+Decisions: idle knees 0 as well as elbows (a 3° knee shows the same tone step); `sleeveOf` split < .5 → 'elbow' ('mid' stays opt-in); back detail = `regions.torso.back` (yoke 1.9 × 0.05, hem 0.06 back + sides, edge colour); run sheet view 50° (face toward camera).
+Open: run's forward hand overlaps the torso at the sheet angle; crouch/sit still compact silhouettes; tools/accessories don't follow elbows.
+
+## P2 — Faces v6 (2026-11-20)
+Plan: faces6.js = faces5 primitives/ink + restrained fills under the ink (fixed PALETTE6, ≤ 3 fill roles), 24 expressions, ALIAS6, TALK6 standard + grin (lipflap talkSet6), life (blinkAt6, popAt6; spec faceLife), wiring (actors faceStyle 'v6', episode faceLife), sheets + gates + tests.
+Built: avatar-style/faces6.js; engine/lipflap.js talkSet6; engine/actors.js faceStyle 'v6' build/drive (+ faceLife head pop); engine/episode.js passes spec.faceLife; engine/hero6.js setFace6; scripts/v2/faces6-sheet.js, faces6-gates.js; tests/v2/faces6.test.js.
+Numbers: roles per face max 3 (24/24 PASS, also while talking/blinking); readability at 390 medium (188 px / head unit) ≥ faces5 minimum eye 25.9 px / mouth 22.2 px (24/24); distinct: most similar neutral–smile IoU 0.782 < 0.80 (0 pairs fail); bounds 24/24 inside the head front.
+Regression: faces5 untouched; Nobody 62/62, Touch Grass 20/20 byte-identical; npm test 0; v2:test 189 node + 64 py.
+Decisions: role = a palette group (teeth incl. its band, tongue incl. its line, water incl. its highlight); talk keeps ≤ 3 roles by dropping the glint for the whole talk set (no glint flicker between shapes); closed talk = the expression's own mouth (grin set: the smile curve); unknown faces5 names draw their faces5 linework (no fills); readability = max(bbox w, h) per eye / mouth incl. stroke; distinctness = IoU of drawn marks < face5-gates' 0.80 match threshold.
+Open: rage's anger mark reads as an X; cry streams are stiff bars; awe's yellow sparkles vanish on yellow skin (outline only).
+
+## P2b — faces v6 fix pass: talk families, cry/rage/awe redraw (2026-11-20)
+Plan: restraint = DISTINCT colours (white once); 4 talk families (happy grin-talk kept, neutral level, sad downturned, angry bared teeth) picked by lipflap FAMILY6; redraw cry / rage / awe; sheets + gates + tests.
+Built: faces6.js (TALK6 happy/neutral/sad/angry, limitColours, mouthTurn, anger arcs, tear ribbons, both-rows teeth, 'poly' wobble mouth), lipflap.js FAMILY6/talkFamily6/talkSet6, sheets talk.png (4 families × 4), phone-390.png (+ rage; 9 faces close + medium), gates.
+Numbers: distinct fill colours ≤ 3 for 24/24 faces × (face, blink, 4 talk shapes) = 144 checks, glints on in every talk shape; mouth turn per family (cu): happy +.04…+.08, neutral 0, sad −.06…−.02, angry 0…−.07 (PASS); rage teeth band .102 cu ≥ faces5 angry mouth .068 cu; readability ≥ faces5 min (eye 25.9 / mouth 22.2 px); distinctness max IoU .782 (neutral–smile) < .80; bounds incl. talk shapes and outlines PASS.
+Regression: faces5 untouched; Nobody 62/62, Touch Grass 20/20 byte-identical; npm test 0; v2:test 192 node + 64 py.
+Decisions: awe sits in the happy family (the brief listed no family for it); every v6 face now talks (the old "held" reaction faces flap their family's shapes); over-3 shapes drop detail colours in order tongue line → teeth band → tongue (so rage's wide shout has no tongue: the red anger mark is the 3rd colour); sparkles are white + ink outline INSIDE the head front (the decal cannot draw outside it; "beside the head" = near the brow corners); the P2 "roles" metric is replaced by distinct colours.
+Open: rage mark reads as a red ring; cry's eye lines and brows are four parallel dashes; sparkles clip at the close-up edge.
+
+## P3 — R15 acting library, acting v6 (2026-11-20)
+Plan: 1. engine/acting6.js (pure): verbs = data (rest · anticipation · key · settle poses) sampled through phases antic (20 %, auto-opposite on the
+main channel) → action (fast) → overshoot (motion5b overshootEase, 12 % of the stroke) → settle → moving hold (seeded drift); head leads 2 f, hands
+settle 2.5 f late; elbow arc bump mid-stroke; intensity 0.5–1.5; facing = mirror + 25 % cheat toward the camera side.
+2. Legs by analytic 2-bone IK onto foot targets (feet flat, world-locked) → foot slide 0 by construction; cycles walk/sad_walk/sneak/run/sprint/skid_stop
+with planted-foot IK at CYCLE_SPEED; airborne verbs (jump, trip_fall, tumble) FK. 3. Word timing: at {word, nth} from cues.json; KEY lands on the
+word start; faces in the same list land on their word (faceLife pop + blink); talk gestures on stressed words (Brief marks, else loudest per line).
+4. Props: hold/release/ballistic track; two-actor verbs (hug, carry, comfort_kneel) return both actors. 5. Opt-in `acting: 6` in episode.js / actors.js.
+6. Sheets + demo (engine/acting6.html stage) → review/acting6/. 7. Gates: slide ≤ 0.02, raw joints in limits, anticipation ≥ 3° opposite + overshoot
+8–16 % per verb, silhouette XOR vs rest ≥ 12 % (threshold set now), 10 frames byte-identical. 8. Tests, Nobody 62 + Touch Grass 20 byte-identity.
+Built: engine/acting6.js (channels, VERBS 24 + partner halves hug_b/comfort_b/carried, GESTURES 4, CYCLES 5 + skid_stop, tumble; phases via motion5b
+overshootEase; leg IK + foot roll; arm IK `lHand/rHand` targets; FK/lowestBody; wordTime/stressedWords; compileActing/sampleActing; props
+attach/release/carry; partnerOffset/rigReach/carryOrigin; gate measures footContacts/verbPhases), engine/acting6-reel.js + acting6.html/-stage.js
+(review stage), scripts/v2/acting6-sheet.js + acting6-gates.js, tests/v2/acting6.test.js (9), fixture engine/fixtures/acting6/ (episode + cues).
+Wiring (opt-in only): episode.js `spec.acting === 6` → shot `actions` (numeric at = shot-local s, {word, nth} = cues word start) + spec.talk →
+tracks; v6 actors take sampleActing (driveActor `acting` hook), faces from the track (faceLife pop/blink on them), props by scene name, partners
+placed from the lead's mark (moved in over the anticipation + action). Fixture: flinch lands on "bang" (1.40 s), wink → shock on the word.
+Commands: `node scripts/v2/acting6-sheet.js` (~30 s; verbs.png, cycles.png, silhouettes.png, demo.mp4) → `node scripts/v2/acting6-gates.js` → gates.json.
+Numbers: foot slide max 0.0102 studs (skid_stop after the flagged skid; every other clip ≤ 0.0098; 34 clips); joints 0 raw violations (×0.5/1/1.5,
+both facings, cycles, tumble, gestures); phases 24/24 (anticipation 0.200 of the verb, opposite motion ≥ 15 % of the stroke, overshoot 0.120–0.122);
+silhouette XOR vs rest ≥ 0.12 (set before measuring): 24/25 — FAIL idle_alive 0.107 after two fix passes (pass 1 arm-IK akimbo, 0.088; pass 2
+akimbo moved to the camera side, 0.107), next lowest facepalm/arms_cross 0.256; determinism 10/10 demo frames byte-identical (fresh page);
+wrist arcs: min bow 0.136 of the chord; comfort_kneel hand on shoulder gap −0.018, 0.017 off-centre.
+Regression: Nobody 62/62, Touch Grass 20/20 byte-identical (270×480, aa 0); npm test 0; v2:test 201 node + 64 py (1 skipped).
+Decisions: overshoot 12 % measured on the main channel inside the overshoot window; intended slides (skid_stop skid, slip kick-out) flagged and
+excluded from the slide gate; FK joints pass through LIMITS6 in the rig (overshoot stops at a joint's stop) and the gate checks the solved raw
+pose (IK knees/ankles); planted feet roll on the toe/heel edge when the ankle would pass ±35° (contact edge fixed); swing heel kick stops at a
+148° knee fold; cycles are in place (mark travels at CYCLES[n].v) — chest sway, not pelvis roll (a rolled pelvis folded the planted knee);
+hero variant B (P1b); faces v6 on the review stage; demo = 24 verbs + tumble, 0.8 s each around the KEY, hard cuts; partner verbs place the
+partner from the lead (Brief should block partners near the meeting point).
+Five weakest verbs (dailies read): idle_alive (silhouette 0.107: the akimbo is small at 3/4, reads as standing), carry with a partner (partner
+sits on the forearms arms-up and covers the lead's face; no weight in the lift), hug (forearms pass into the partner, no squeeze beat),
+gasp_step_back (forearms point at the camera: blocks, step reads small), arms_cross (forearms merge into one block at the chest).
+Open: idle_alive silhouette; cycle ↔ verb hand-over uses the cycle's pose at the verb start (no blend into a cycle); partner move-in slides feet
+if the Brief does not block partners close; tools/accessories still ride the UpperArm.
+
+## P3b — acting fix pass on ccde553 (+ rage face) (2026-11-20)
+Plan: 1. Gates: idle_alive exempt from the silhouette gate → LIFE gate (weight shift ≥ 0.06 studs every 3–5 s, head turn 6–12° ≥ once per 5 s); idle
+between verbs becomes `idleLife(t, seed)` (subtle, feet locked). 2. Geometry gate: OBB boxes of every segment (`bodyBoxes`) + sampled penetration depth;
+authoring-time search (scripts/v2/acting6-solve.js, results baked as data) for hug, arms_cross poses. 3. Fixes: hug (IK onto the partner's back, ≤ 0.05
+penetration, squeeze beat 3 % / 4° / 6 f), carry → piggyback (kid) + hip-carry (LITTLE), 0.25 dip, 8-frame rise, 1-frame stagger (box carry kept as
+`carry_box`), gasp_step_back (open hands, stride ≥ 0.9, lean back 10°), arms_cross (stack offset .25 / .2, hands on opposite upper arms), look_around
+(hand above-and-beside the eyes, ±35°, torso 30 %). 4. Partners start ≤ 0.5 studs from the meeting mark: pure `partnerPlan`, plan.js check
+`partnerDistance`, walk-in (walk cycle) in episode.js when further; test. 5. Rage: four separate outward-bowing arcs, #E2364A + ink outline, top forehead
+corner (faces6) + phone-390 sheet; face gates re-run. 6. Sheets/gates/demo regenerated; regression Nobody 62 + Touch Grass 20; npm test, v2:test.
+Built: engine/acting6.js — idleLife (LIFE gate), partnerPlan/partnerIssues (plan.js `partnerDistance`, episode.js walk-in), pickVerb by `partnerScale`, HUGS (.62/.82/1.0, side embrace) + CARRY (piggyback, hip, box) as solved
+data, carryOrigin/carryW, qSlerp (opt-in `slerp`), bodyBoxes/penetration/faceVisibility, reachPose; verbs gasp_step_back, arms_cross, look_around, idle_alive redone; torso `squash` channel (actors.js,
+opt-in); faces6 rage = four separate outward arcs (#E2364A + ink, top corner). scripts/v2/acting6-solve.js (authoring search: hug|cross|pig2|hip2), acting6-ba.py → review/acting6/before-after-390.png.
+Numbers: foot slide max 0.0102; joints 0; phases all (anticipation 0.200, overshoot 0.120); silhouette XOR min 0.1875 (idle_alive exempt, LIFE: shifts every 3.29–4.67 s, hips 0.124 studs, head peaks 7.7–10.2°, 8 seeds × 60 s);
+gasp stride 1.0 / lean 10°; arms_cross 0.25 / 0.20; look_around ±35°, torso 0.30, hand never over the face; carry dip 0.249 / 8 frames / 1 f lag, penetration 0.035; carry_hip 0.044; squeeze 3 % / 4° / 6 f.
+HUG GATE FAILS (limit 0.05, after the solver passes): hug (.82) 0.075, hug_s (.62) 0.064, hug_l (adult) 0.009 PASS. Static key pose 0.046 / 0.060; the 4° rock adds ~0.03. Transit (arms arriving) 0.27–0.50 reported, not gated.
+Cause: a 2-wide chest + 1-thick arm blocks cannot wrap a partner's back without sinking ≥ ~0.05 (forearm centre must clear her back plane; reach 1.875); the three solved side embraces are the best found.
+Regression: Nobody 62/62, Touch Grass 20/20 byte-identical; npm test 0; v2:test 207 node + 64 py; faces6 gates PASS (rage redrawn).
+Decisions: hug = side embrace (lead's near arm round her back, hers round his neck), three poses by partner scale; piggyback hips ride a point of his chest frame; carried partner starts 1 frame after the lead and lands with him
+(7-frame rise: no arms closing on a partner in the air); contact verbs: no limb overshoot, no wrist lag, head-only drift; rock = whole-body root.roll; partner walk-in = walk cycle, straight line at 1.7 studs/s; carry with a prop and no partner = `carry_box`.
+Three weakest in before-after-390.png: (1) idle_alive: the subtle shift reads as plain standing at phone size; (2) hug: the embrace reads as two people side by side, the lead's arm is hidden behind her; (3) arms_cross / gasp: dark forearm blocks merge at 390 px, slab hands cannot show an open palm.
+Open: hug penetration (see above); partner of a hug starting within 0.5 studs still moves in over the anticipation (its feet slide ≤ 0.5); idle between verbs only before a track's first verb; tools/accessories still ride the UpperArm.
+
+## P3c — hug limit decision, hug angle, wrist cuffs, idle breath (2026-11-20)
+Owner decision (Mark, plain words): hug penetration limit 0.08 for `hug` (.82) and `hug_s` (.62), 0.05 kept for `hug_l` — "geometric limit of a 2-wide chest and 1-thick arm blocks" (gates.json `limit` + `ownerDecision`). Measured 0.075 / 0.064 / 0.009: all PASS. No other threshold changed.
+Built: plan check `hugAngle` (acting6 `hugAngle`/`hugAngleIssues`, episode `actingPlan` adds the camera at the hug key, plan.js FAILs outside 25–60° off the torso line); hug review cameras 42.6° / 42.9° / 60° (far side of the partner; hug_l near side 19° because 45° hid the partner in the silhouette);
+hero B wrist cuff `#E8E8EE` 0.12 (cast/hero6.json HERO only, body6 opt-in `regions.arms.cuff`); idle_alive + `idleLife` breath = torso squash −1.5 %·(½+½ sin), 3.5 s.
+Numbers: all P3b gates PASS; silhouette XOR min 0.1735; LIFE gate still PASS (+ breath peak 1.5 %); elbow clearance of the crossed forearms ≥ 0.1 (0.38). Nobody 62/62, Touch Grass 20/20 byte-identical; npm test 0; v2:test 208 + 64 py.
+Decision: "0.1 studs of visible gap at the elbow" read as clearance between each elbow and the other forearm block (0.38, gated ≥ 0.1); the 1-thick forearms still overlap by the owner's 0.25 / 0.2 stack, so the separation on screen comes from the cuffs.
+
+## P4 — moods, pacing checks, brief → spec (2026-11-21)
+Plan: 1. `engine/mood6.json` + `mood6.js` (six moods, resolveMood, shotLight, moodUniforms). 2. Renderer (opt-in `moods: true`, format 6): exposure × 2^ev, saturation / temperature / haze injected before the colour-space step of every material (Material.prototype.onBeforeCompile wrapper), camNoise, rim: no re-bake, no pass. 3. `engine/plancheck6.js` checks a–h + pacing.png (`scripts/v2/pacing.py`), hooked into plan.js. 4. `scripts/v2/brief2spec.js` + `lib6.js` + `parts/library6.json`. 5. assemble.py motion blur. 6. Fixture `stories/_fixture6`, tests, docs.
+Built: all of the above; FORMAT_V6.md (one line per check) and EPISODE_BRIEF.md (markers) updated; LIBRARY.md line; `tests/v2/mood6.test.js` (13), `brief2spec.test.js` (5), `test_blur.py` (3).
+Numbers: fixture `v2:plan` (12 shots, 24.28 s): a PASS · b FAIL (S06 2.00 s) · c FAIL (S10 "gathered") · d FAIL (S07 before the twist is fun) · e PASS · f PASS · g PASS · h WARN (5 cuts/10 s vs climax 6–8, twice). Mood pixels: fun frame luma +2.5 %, sat +4 %; tension luma −2.4 %, sat −5 %; neutral light override = moods off, identical. Blur: +1.5 s per 4 s of 1440×2560 (14.5 → 16.0 s, ~12 ms/frame; ~+9 s on a 24 s clip). npm test 0 · v2:test 226 node + 67 py · regression: Nobody 10/10 and Touch Grass 10/10 frames identical with engine/episode.js reverted vs changed (full 62 / 20 not re-run).
+Decisions: payoff key = +0.30 EV (others ≤ +0.10). `ecu` = size close + `ecu: true` (SIZES has no ecu). `crash` effect = impact and needs move crashZoom. Phases for h: climax = 10 s before the twist up to the payoff. 180° = screen order of the pair at the mid frames. brief2spec derives cameras from mood fov + size; crashZoom aims at 3.0 (its aimY), so the twist is a medium. Depth of field: not in the engine, skipped (`dof: true` in data). Blur only for `moods: true` specs.
+Open: awe 3.5–4.0 s and emotion static > 2.5 s still FAIL plan5 (moving ≤ 3.5, static ≤ 2.5): conflict with the mood lengths, not loosened. A 24 s fixture cannot show real phases. scaleReveal / gamecam / drone camera params from brief2spec are untested defaults. Warm-up of `faces` v6 names only checked by name, not rendered for every row.
+
+## P4b (2026-11-21)
+Built: (a) plan5 `moods` option: limits from mood6.json, static > 2.5 s needs push ≥ 2 % (measured in plan.js) or `breath: true`; (b) `payoffEV` ramp 6 f in / 10 f out (renderer applyMood); (d) `stories/_fixture6_pass`: v2:plan PASS, 0 errors, a–g PASS, h WARN (5 cuts/10 s, 24 s episode).
+(c) Full identity, current tree vs P3c (827f320 engine/episode.js, the only runtime file P4/P4b changed): Nobody 62/62 and Touch Grass 20/20 frames byte-identical (270×480, PNG sha1; frames spread evenly over 3600 / 5400).
+Tests: v2:test + npm test green (16 mood6 tests, 6 brief2spec). P5 additions noted for the P5 block (proof reel with scaleReveal + drone + gamecam, brief2spec partner marks ≤ 0.5 studs, hug 25–60°); not started.
+
+## P5 — proof reel (2026-11-21)
+Plan: 1. BRIEF.md for a 20 s silent reel (12 shots, hero B, faces v6, acting v6, moods on) on library sets only. 2. Synthetic cues.json (0.3 s per placeholder word; no voice, D3 untouched). 3. brief2spec → v2:plan / stability / read until clean. 4. Render 270×480 every frame (aa 1) + 3 stills at 1080×1920. 5. reel / contact / phone / pacing sheets, director review.
+Built: `stories/proof6/{BRIEF.md,make_cues.js,cues.json,episode.json}`; brief2spec extensions (opt-in notes: place, cycle, stand, aim, aimx, fit, push, look; `a; b` verbs + partner target; `crash+freeze`; CAST `at x z`; prop inserts with a visible window; scaleReveal + heroLow fit); `scripts/v2/reel6.py`; test in brief2spec.test.js; LIBRARY.md + EPISODE_BRIEF.md lines. `review/proof6/` = reel.mp4 (2.1 MB), contact.png, stills/, phone-390.png, pacing.png, plan/read/stability json.
+Numbers: plan a WARN · b–g PASS · h WARN (no ERROR); stability worst 0.200 % (limit 0.30) PASS 37 views; read 12/12 PASS; render 600 frames, 0.12 s/frame; v2:test 231 + npm test exit 0.
+Decisions: library has no cobbled street (cobble lives in stories/nobody|egg worlds, not registered): used the `street` location (v4look: asphalt, glass tower 34 high, plaza pool). Shot 6 "looming shadow" = library prop `streetLamp` ×1.6 on a 47 % low insert (no shadow prop exists). Shot 1 wave = `cheer` (no wave verb). Shot 3 is `medium`, not close: the fall leaves a close frame. Partner verbs lock the partner on its mark until its next verb (engine): the little gets `idle_alive` when it leaves. Looks: day (fun/comedy/awe) · storm (tension) · goldenHour (emotion + act 3).
+Open: a WARN: payoff heroLow is fov 60 (sampler clamp 60–70 vs payoff 40–50) and medium (camera ≤ 1.2 high cannot hold a head close-up at 45 %). h WARN: 5 cuts/10 s in 10–20 s; emotion ≥ 2.0 + awe ≥ 2.5 + held payoff ≥ 2.0 s leave no room for a sixth cut in 12 shots. goldenHour turns the hero's charcoal jacket brown. Payoff is the top key EV but not the brightest frame (mean luma 120.8; awe S08 179, S02 142).
+
+## P5b — proof reel fixes (2026-11-21)
+Owner decisions: G2a head-region luma + G2b median luma replace the whole-frame max gate; engine/episode.js + plan.js may be edited (moods-gated); payoff key may rise; ground fill cooled instead (not the key).
+Built: moods wired in episode.js applyMood (rimK, fillK sky half, skyEV, groundNeutral, groundGain, shadow radius, bloom + vignette in the mood shader, `still` shot: camera, actors, world and clouds locked at the first frame, no blink); mood6.json fun/comedy/awe/payoff numbers; plancheck6 `moodSeparation` (m) and `trip` (t) checks (+ plan.js passes stories/<slug>/moodmeans.json); brief2spec notes place/cycle/stand/aim/aimx/fit/push/camy/tilt/drift/hold/freeze/light/look/still/fov, CAST `at x z`, library6 `cobbleStreet` (Nobody world, origin (4,0,18)); proof6 = 13 shots on the cobbled street; scripts stories/proof6/{measure,headmask,jacket,stills}.py.
+Numbers: plan a–h PASS, m PASS (fun/comedy 10.7, fun/awe 21.3, comedy/awe 18.5), t PASS (freeze 8 f, ground hold 0.60 s); stability worst 0.126 % PASS; G2a S13 head 186.56 vs 167.42 + 10 PASS; G2b S13 131.95 vs median 90.34 PASS; jacket ΔE 9.32 (torso region 8.86) PASS; S10 motion 0.002 vs old S5 1.256 (0.2 %) PASS; lamp pole 49 % of frame height; hero head 104 px on the 390 sheet; Nobody 62/62 and Touch Grass 20/20 byte-identical vs ae1bed9; v2:test 234, npm test 0.
+Decisions: payoff key stays +0.45; the green ground bounce (hemisphere ground colour on a jacket seen from below) was the cause: neutral grey ×2.5 for the payoff only. awe_small = o_small. Wide shot in the first 6 s is the pratfall shot 4. Scale reveal moved to the field (castle bricks at 70 units flickered 2.2 % in the square).
+Update (owner): shot 7 tilt 14° (20° cut the pole base, objectReads 73 %); now objectReads PASS, pole 63 % of frame height, stability 0.126 % PASS. Update (owner): shot 8 in day light +0.2 EV (standsOut 0.125 PASS); shot 10 moves accepted (ambient off by design). Open: v2:read FAILS S04 standsOut 0.056 (vignette, fit, storm, night tried), S10 moves (accepted) (ambient motion off, by design). Stand-up is the 0.55 s verb tail, no 2-frame wobble.
+
+## E1 — test park world + cast (2026-11-21)
+Plan: 1. `parts/props.js` PROPS6 (pure builders, params via `set(p)`): giantFan, launchTower, coasterTrack/coasterCart (+ pure `coasterPoint(u)`), boxingRing, pool, crates, redBarrels, benches, watchTower, spawnPad, wallSign (canvas text), giantHand (+ pure `handCurl(pose, grip)`), healButton, nameTag (sprite billboard). 2. World `parts/sets6/testpark.js` (80×120 tiled plaza, sage hills via terrain.js heightFn, pine clusters from vegetation.js treeGeometry, own sky dome #C9D8E4, fog from 120; anchors plaza, fan, pool, coaster, ring, crates, spawnPad, towerBase, towerTop; setState fan/cart/flash/hand). 3. `parts/library6.json` location `testPark` (+ anchor positions) and the props list. 4. Cast: troupe6 DUMMY slot (build `dummy` = torso +5 % in body.js BUILDS, faces v6 neutral), `costumes` BITSY (LITTLE) + KID (SECOND) via opt-in `costume` in engine/troupe.js. 5. `stories/testpark/` review spec (6 stills + lineup + 3 camera paths) and a 120-DUMMY bench spec. 6. Stills 1080×1920, sheets + phone-390 → `review/testpark/`. 7. Gates: stability (3 paths), bench 120 DUMMY ≤ 0.25 s/frame at 270×480, regression Nobody 62 + Touch Grass 20, npm test + v2:test, unit tests for the pure helpers.
+Built: PROPS6 in `parts/props.js` (15 builders + pure coasterPoint/coasterFrame, handCurl, signLayout, fanAngle); world `parts/sets6/testpark.js` (own sky dome, look.sky hidden; terrain.js hills; vegetation.js conifers instanced, far LOD > 110; plaza canvas tile texture; statics mergeByDistrict; setState applies at once because the renderer calls update before setState); library6 `testPark` + `anchorPositions` (lib6.js passes them through); troupe6 DUMMY + costumes CROWD / BITSY / KID (opt-in `costume` in engine/troupe.js, wrong slot throws); body.js BUILDS.dummy; `stories/testpark/{make_spec.js,episode.json,paths.json,bench.json}`; `tests/v2/testpark.test.js` (7); `review/testpark/`.
+Commands: node stories/testpark/make_spec.js · v2:render --spec stories/testpark/episode.json --width 1080 --height 1920 --every 6 · v2:stability --spec stories/testpark/paths.json · v2:bench --spec stories/testpark/bench.json --width 270 --height 480.
+Numbers: stability worst 0.086 % PASS (9 views); bench 120 DUMMY 0.202 s/frame PASS (CROWD bg tier; hero tier 0.571 FAIL; empty world 0.108 after coaster tubes 5-sided, terrain fine 4, aniso 4); sign letters 19 px on the 390 frame; Nobody 62/62 + Touch Grass 20/20 byte-identical; npm test 0; v2:test 241 + 67 py; 10-frame re-render identical.
+Decisions: Bitsy / kid change a slot's skin and hair, which `with` forbids (FIXED), so they are named costumes in troupe6.json; 120-dummy crowds use costume CROWD (bg tier: rigid limbs) to meet 0.25 s; sign panel raised (`base: 5`) so the ring's ropes and posts do not cover it; the 14×3 panel uses two lines (bigger letters); coaster = closed circuit with the loop shifted 3 sideways; giantHand = 3 fingers + thumb, 14 long; brief2spec test expected shot 8 in goldenHour (stale since the P5b owner change to day light) → updated.
+Open: three weakest (review/testpark/README.md): giantHand angle / pinch unreadable, fan shot crop + dummies not reading as blown, lineup backlit (DUMMY reads grey). Sign not readable in the drone wide (only in S5). nameTag exists but is a label (never in Season 1).
+
+## E1b — fix pass (2026-11-21)
+Plan: 1 DUMMY material (matte + lift) + white gate · 2 distance LOD (twin actor, cap 24) + bench · 3 glove redesign + hand-390 silhouette · 4 Bitsy colours + chroma gate · 5 sign 24 × 5 north edge + drone letter gate · 6 lineup front key, neutral faces · 7 re-render, stability, regression, tests.
+Built: engine/actors.js preset `material` (matteOf); engine/episode.js opt-ins spec `lod` (presetOf / poseOne refactor, applyLod after the camera) and shot `key`; engine/lod.js (lodPick, keyPreset); engine/look.js v3 `hemiGround` / `sunColor`; parts/props.js giantHand v2 (handRig, handGap, ink shell), signFace kept unmerged; testpark.js sign (−8, −40) yaw 11, 24 × 5, LOOK neutral bounce + sun, handPitch; troupe6 DUMMY #F2F2F4 + material, CROWD material, BITSY colours; stories/testpark gates.json; scripts/v2/testpark-gates.js; tests (9 in testpark.test.js).
+Numbers: white lit 227.0 / 226.2, shadow 157.1 / 157.2, |a*| ≤ 0.58, |b*| ≤ 3.70 · bench mean 0.186 s/frame (B2 24 near + 96 far) · glove silhouette PASS ×4, pinch gap 15.6 px at 390 · Bitsy C* 58.3 > kid 54.1 · sign 17.3 / 17.0 px in the drone still · stability 0.102 % · Nobody 62/62, Touch Grass 20/20 identical · npm test 0, v2:test 243 + 67 py.
+Decisions: white gate fix pass 1 = the park's look (concrete-grey ground bounce, near-white sun), not the material; LOD distance to the chest (mark + 2.6); the hidden twin is never posed; key light 20° off the lens axis; drone still moved closer (fov 46) so the 24 × 5 sign reads; glove = 4 fingers + thumb, cuff band 2.1 (0.15 × 14), pinch shown at grip 0.75.
+Open: glove reads darker than the sky; Bitsy wins chroma by 4.2 only; fan foreground in S1/S2.
+
+## E1c — kid hoodie (2026-11-21)
+Owner asked for #7B4FD6: lineup gates FAILED by colour (rendered kid C* 58.85 > Bitsy 58.33; hue gap 55.4°; on paper C* 79.6 vs 66.5, gap 49.5°). Owner chose #5F6AC0 (edge #4A54A0).
+Numbers: Bitsy C* 58.32 (highest), kid 35.5, hero 16.2, DUMMY 0.42; kid–Bitsy Lab hue gap 72.7° PASS (`review/testpark/lineup-chroma.json`); Nobody 62/62, Touch Grass 20/20 identical; npm test 0; v2:test 243 + 67 py. Only lineup.png re-rendered (stills/S7, contact, phone-390 still show the orange hoodie).
+
+## E2 — story mechanics for "lastcolor" (2026-11-21)
+Plan: pure engine/story6.js (markers, motion, pile, particles) + engine/story6rt.js (renderer side) + opt-in episode.js hooks; brief2spec markers + docs; fixture stories/_fixture_e2 (every key, in order); tests; gates + review/e2 sheets.
+Built: drain (6-frame top-down wash to the DUMMY material, 8-particle puff, hero head error) · bloom (10-frame bottom-up wash, glow ring, cheeks / nose / arms; crowd random: one seeded region + tint per DUMMY in the shot's frame, 1.2 s outward from the hero, nearest 24 within 36 studs full detail) · crowd (≤ 120, wander / idle / limp / run / pile / flop, E1b LOD kept) · hand (enter / grab / carry / throw / release / exit on the pinch track; held actors kick) · tumble · airCatch (partner leap + hero jump, P3b carry_hip on the catch word, fall together, landing puff) · splash · tag · spawn · splitScreen (top | bottom halves; added to the emotion moves) · `cam:` / `camb:` notes · anchor `cushion`.
+Numbers: plan a–h PASS (17 shots, 24 s; §5.2 framing still reports 7 ERRORs on fixture cameras: S02/S05 empty ground, S07/S08/S09/S11 subject head position, S08 subject 15 %) · airCatch penetration 0.045 (≤ 0.08) · pile 23 bodies, 3.5 high, interpenetration 0.085 (≤ 0.1) · drained ΔE vs the white dummy: legs 0.72, shoes 1.27, stripe 0.09, jacket 0.23, hands 0.64 (≤ 3) · tumble 1.75 turns, lag error 0 · bench 120 dummies + hand + bloom 0.287 s/frame (≤ 0.30; v2:bench's own 90k-triangle line FAILS at 109k) · Nobody 62/62, Touch Grass 20/20 identical · npm test 0 · v2:test 254 + 67 py.
+Decisions: bodies placed by their centre when tumbling / lying; actors stay where a motion leaves them until their next mark; hand palm faces +z (the park's cameras look north); airCatch partner hop 7 studs/s (lands clear of the tower); bench fix passes: bloom LOD radius 36 (not unlimited), glove segments lowered (4,972 tris; E1b hand-390.png not re-rendered); tags are labels (Season 1 forbids them).
+Open: weakest moments — the air catch lands 0.2 s before the cut (fall and landing off-screen); the pile reads as a heap, not a mound, at phone size; the crowd bloom starts at the end of its shot (tints show mostly in S16). Captions in fixture.mp4 double at 8 s (captions.py pop layer).
+
+## E2b — fix pass (2026-11-21)
+Owner decisions (Mark): tags allowed as diegetic game tags in lastcolor shots 14 and 29 only (EPISODE_BRIEF.md; brief2spec rejects `tag:` elsewhere, `_` fixtures excepted) · splitScreen stays top / bottom · v2:bench triangle budget 120k for specs with a crowd ≥ 60 (s/frame unchanged).
+Built: frozen mound `engine/pile6.json` from `scripts/v2/pile-solve.js` (R15 segment boxes of three limp poses: rim `lieT` on the back along the rim, `sit` half-reclined leaning in; bodies dropped into place, every pair ≤ 0.085; grid search scored on the gate camera's projected height / width + ground coverage); crowd pile → frozen slots (hop, then settle into the pose) · local spawn flash (ring burst + column 2 × the actor's height, 8 frames; the pad's own column no longer used) · drainbloom sheet parks the coaster cart (the "stripe leak" was the blue cart passing behind the shoulder) · fixture cues fit each row (overlapping cue lines doubled the captions) · e2-gates: pile390 silhouette, spawn flash on/off, stripe-blue pixel count.
+Numbers: pile390 1 component, h/w 0.61 (band 0.35–0.6) FAIL after two fix passes (perspective scoring, wider ring / deeper recline); mound 8 bodies (5 rim + 3 sitters), interpenetration 0.082, height 3.67, radius 6.6, ground hidden 81 % inside r 5 · spawn flash luma outside 0.02 % (≤ 3 %; 4.03 % frame-to-frame with the orbit camera) · stripe-blue pixels on the hero body after the hands drain 0 · plan a–h PASS.
+Decision / open: a dome of exactly r 5 × h 3.5 projects at ≈ 0.64 from 20 studs at 25° up (computed), so the brief's shape and the 0.6 band conflict; any top body over the sitters raises the ratio to ≈ 0.68 — no top layer in the frozen mound. Not loosened; owner to choose (wider / lower mound, or the band).
+Bench (E2 gate ≤ 0.30 s/frame, 270×480): this host slowed after a container restart (the unchanged E1b reference bench 0.198 → 0.219–0.224); the committed E2 code now reads 0.316. Two fix passes: crowd drive memoised per frame (poseCast runs twice), wash uniforms from cached colours + hidden LOD twins skipped, glove fingers cast no shadow → runs 0.294 · 0.301 · 0.301, then 0.339 · 0.318 · 0.300 (noisy host). Saved run 0.301 in review/e2/bench.json; v2:bench PASS under the owner's 120k budget (109k, crowd 120). Not loosened: owner to judge with the calibration.
+Also: spawn flash 0.02 % (raw 3.84 % with the orbit) · stripe-blue body pixels 0 · drain ΔE 0.09–1.27 · airCatch 0.045 · mound 0.082 · plan a–h PASS · captions 40, 0 overlapping · determinism 10/10 (same render order) · Nobody 62/62, Touch Grass 20/20 identical · npm test 0 · v2:test 254 + 67 py.
+
+## E3 — lastcolor animatic (2026-11-21) — STOPPED at Step 5 (v2:plan FAIL, not fixable within the allowed notes)
+Built (owner-approved, opt-in): world-object subjects. `parts/library6.json` testPark `worldObjects`; `scripts/v2/lib6.js` passes it on;
+`brief2spec.js`: a `prop:<name>` in that list → `shot.prop = name`, `spec.worldObjects`, no `spec.props` insert copy, `cam:` required (error names
+the row); `cam:` + drone → 4-point path (rise 3, slide 4), `cam:` + tiltUp → tilts from below the lens to the cam target. `parts/sets6/testpark.js`:
+pieces named in `spec.worldObjects` are added unmerged (own scene object). `engine/episode.js` + `engine/worldobjects.js`: guard, exactly one scene
+object per name and never also a spec prop. Tests `tests/v2/worldobjects.test.js` (5).
+Regression: Nobody 62/62 + Touch Grass 20/20 byte-identical (270×480 aa 0, HEAD worktree vs tree); brief2spec output old = new for _fixture6,
+_fixture6_pass, _fixture_e2, proof6; npm test 0; v2:test 259 node + 67 py.
+lastcolor BRIEF: cams on the 10 prop-subject rows, row 18 cam/camb from probed positions, row 39 verb reach_for, staging `place:` resyncs
+(rows 7, 9, 11, 12, 15, 17, 21, 24, 26, 28, 37, 43, 52) and `tumble: hero to pool` (row 6).
+v2:plan: 71 errors. a FAIL (S45 0.73 s tension, S46 1.13 s awe, S50 0.87 s awe: lengths fixed by the VO; needs a mood change or merged rows),
+b FAIL 14 dead stretches, c FAIL 3 (S02 white, S54 colors, S58 Heal), t FAIL (S26, S60: needs the freeze effect); d PASS, f PASS; partnerDistance
+FAIL (bitsy 26.6 studs at the payoff hug), hugAngle FAIL (66°); ~30 framing / pan errors (subjects off where tumbles and throws land) not yet tuned.
+Decisions: commit message without "animatic" (none rendered). Open: owner to rule on moods S45/S46/S50 and on expression/effect columns for b/c/t.
+
+## E3 conform pass — lastcolor animatic (2026-11-21)
+Owner authorisation E3-3: expression / verb (add) / effect / move / size + cam/place/aim/fit/push/fov/hold/still; merge S45+S46; S50 mood tension.
+Engine (opt-in, Nobody 62/62 + Touch Grass 20/20 byte-identical): camera punch (`shot.punch`), brief `punch`, `verb @ word`, `push:` on cam rows,
+`hold:` on every fall verb, tag `until` (no labels outside shots 14/29; _fixture_e2 spec gains `until`), tests e3conform (4). npm test 0; v2:test 263 + 67 py.
+Staging: crowd starts at the ring (`wander at ring`, S26 pile at ring → 28-stud run to the cushion), named dummies + kid parked off-plaza until their
+shots, coaster beat at (−35, −50), throws anchored (cushion, plaza), heap finale at r ≈ 11 east of the cushion, cams solved against crowd/actors/structures.
+Numbers: v2:plan 1 error — m moodSeparation fun/comedy ΔE 4.5 (≥ 6) FAIL; a WARN (VO-fixed lengths, moves), b c d e f g t PASS, h WARN, partnerDistance +
+hugAngle PASS. Stability PASS (worst 0.283 %). v2:read 78 FAIL items (standsOut 28, nothingInFront 22, faceShown 13, moves 11, objectReads 2, hold 2).
+G2a FAIL: payoff head 188.89 vs S41 195.13 (+10 → 205.13; hero-only max S06 192.41). Sign letters 16.4–17.4 px (S02), 25.3 px (S21). Bitsy most
+saturated in 14/21 shots. Breath S43 motion 0.01 vs 5.47/3.13. Drains on their word ±0 frames, order legs→shoes→stripe→jacket→hands.
+Open: moodSeparation and G2a need light/look changes (not in the authorised tool list); drains in S35/S37 land off frame.
+
+## E3b — staging & camera pass, lastcolor (2026-11-21)
+Plan (owner D1–D6): 1. D1 `clear` (pure engine/clear6.js + opt-in shot.clear hook in episode.js; brief META `clear:` sizes, row `clear` / `clear: off`).
+2. Re-stage by act zone (act 1 plaza west / crowd east + ring; act 2 tower base, crowd ≥ 15 back; act 3 cushion + east), hand-written `cam:` on
+every MUST SEE shot first; S35/S37 drains on screen on the hero's body (D6). 3. Loop: 390 px mid-frame sheet (scripts/v2/midshots.js, one page
+load, v2:read numbers per shot) → fix → repeat. 4. Gates: v2:plan 0 errors, stability ≤ 0.30 %, v2:read (D2 list), G2a (D4, head-in-frame shots
+only), moodSeparation (D3 light notes). 5. Animatic 270×480 + voice, review/lastcolor refresh. Regression Nobody + Touch Grass byte-identical.
+Built (opt-in; legacy specs never set these fields): D1 `engine/clear6.js` + episode.js `shot.clear` / `shot.keep` (screen-rect test: a non-subject DUMMY
+nearer than the subject's centre and overlapping it, inside it, or within 2.5 studs of the lens is hidden for that frame; pile bodies only by the lens rule);
+brief META `clear:` + notes `clear`, `clear: off`, `keep:`, `key:`, `crowdArea:` (spread start + partial `n` steps), `crowdAvoid:`; story6 markers `sitOn`
+(S17 Bitsy on his back), `lie` (S38), `rise` (S27); a finished wash now covers the whole mesh (lying bodies kept a dark band). Tools: scripts/v2/midshots.js,
+where.js, e3b-gates.js. Tests tests/v2/e3b.test.js (6).
+Staging: crowd east (x 14–36, z ≤ 4), ring kept clear; ring / pool / pile beats re-blocked; throws re-timed by word so the jacket and hands drain while he
+lies on screen (D6); S30–S43 at the tower and the plaza in front of it; dummyD/E beside the cushion heap. Hand-written `cam:` on every MUST SEE row.
+D3: fun `light: ev 0.40 sat 1.15 fillK 2000 rimK 2000`, comedy `light: ev 0 sat 0.9 shadow 0.7 fillK 0`. D4: S62 `key: 18 0`, `light: ev 0.75 rim 1.6 rimK 900`.
+BRIEF edits beyond notes: S09 size close → medium (owner's "waist-up" MUST SEE). No VO / cue / verb / beat / voice change.
+Numbers: v2:plan 0 errors (a, h WARN); moodSeparation fun/comedy 7.7, fun/awe 6.9, comedy/awe 11.5 PASS; stability worst 0.187 % PASS; G2a payoff
+209.98 vs S06 193.93 PASS, jacket ΔE 3.84 PASS; v2:read 58 items (was 78): D2 on 33 MUST SEE shots FAIL — nothingInFront 10 (pinch / grab / dust / own
+hands by design: S21 S22 S26 S31 S34 S35 S36 S37 S38 S50), standsOut 16 (white dummy / drained hero on pale concrete, 0.01–0.11 vs 0.12); not loosened.
+Elsewhere nothingInFront S06 S07 S11 S29 S40 S57. npm test 0; v2:test 269 + 67 py; determinism 10/10.
+Commands: node scripts/v2/brief2spec.js --story lastcolor · midshots.js --read · v2:plan / v2:read / v2:stability · e3b-gates.js · render 270×480 every 2 ·
+assemble.py --animatic --no-hold.
+Open: standsOut needs a darker ground/mat or a look decision (owner); no boxing glove prop (S21 "glove bonk" is a plain punch); drains on S09/S23 and the
+S62 bloom land after the mid-frame (cue-fixed); S51 mound reads as a field from above.
+
+## E4 unranked — Phase 1: cast only (2026-11-22)
+Plan: costumes LILA / DAX / DAD / MOM / STUDENT_A-C / seeded STUDENT in cast/troupe6.json; slot ADULT_F (mom); actor DOG; opt-in birth symbol + `symbolDark`
+(HERO = hard error); gates G1–G4; review/unranked/p1/. No worlds, props, markers, specs or renders beyond those listed (owner cap: ≤ 12 kids, all FULL detail).
+Built: `avatar-style/symbol.js` (pure: ranks D<C<B<A<S, size .22/.27/.32/.38/.44 stud = S 2× D, glow .22→1, five shape paths, `symbolSpec`, hero error) +
+`symbol3d.js` (emissive decal on the back of the RIGHT hand: outer face + a front echo, ink rim, additive halo, `setSymbolDark`) · `deltae.js` (ΔE2000) ·
+`outfit6x.js` (`regions.skirt`, `regions.apron`) · `engine/student.js` (`studentLook(seed)`: skin, hair style / colour, trim, symbol; 8 consecutive seeds all differ) ·
+`avatar-style/dog.js` (blocky golden dog, poses idle sit bow wag, `buildDog` / `driveDog`; episode.js `style: 'dog'`; brief2spec `- dog → DOG`, `ADULT_F`) ·
+troupe.js: costume `seeded`, entry `symbol` / `symbolDark`, HERO + symbol throws · actors.js hooks · hero6.js stage (dog, G1 mask mode) · buildgate / build-gates: adult_f on Actor v6.
+Commands: `node scripts/v2/unranked-p1.js` (sheets + G1–G4 → gates.json) · `npm run v2:test` (278 pass: tests/v2/unranked.test.js, 9 new).
+Numbers: G1 15 symbols at a 390 px medium shot: extent 29–54 px (≥ 6), rim contrast ≥ 0.39 (≥ 0.25) PASS; contrast vs bare skin only 0.05–0.39 (not the gate).
+G2 min ΔE2000 20.7 (C–A) PASS. G3 adult_f v1 waist 0.674, v6 waist 0.697 (0.66–0.70), arm gap 0.15, hips 0, hero mask 0 px PASS. G4 cast (12 kids + hero, flat floor) 74546 tris, 0.261 s/frame (≤ 90k, ≤ 0.62) PASS;
+same shot with testPark in view 105606 tris (FAIL: the world, not the kids).
+Decisions: C rank colour #2EC4C4 → #18C4C0 (ΔE 19.2 → 20.7 vs A; ΔE 1.7 from the brief's; STUDENT_C trim stays #2EC4C4). Symbol on a dark ink rim (a pale symbol on pale skin cannot reach luma 0.25 any other way);
+decal on the outer AND front face of the hand slab (front echo reads when the arm hangs), 0.035 off the surface. STUDENT = youth build 0.80–0.89, cream shirt, trim tie + collar + cuffs, navy trousers (skirt on 4 seeds).
+DAD age 45. BRIEF CAST lines (`dog → NEW actor DOG`, `crowd` without an arrow) left as written: Phase 2 rewrites them.
+Open: kids cost ~5.7k tris each (hair ≈ 2k), so the world in the shot has ≤ 15454 tris; skirt / apron are static blocks (thighs poke through in a wide stride); symbols are small in front view.
+
+## tuft (E5) Phase 1A — pipeline habits + rigid classic R6 + twos (Sonnet 5.5)
+Plan: (1) PIPELINE.md, codemap, ep.js, freeze-check; (2) engine/r6.js retarget + R6 cycles + hourglass + troupe-r6.json; (3) twos; (4) tests/r6.js gates; (5) one sheet review/r6/verbs.png.
+Built: docs/season1/PIPELINE.md · scripts/codemap.js → CODEMAP.md (285 files, 58 "(no header)") · scripts/ep.js · scripts/freeze-check.js · engine/r6.js · avatar-style/hourglass.js · cast/troupe-r6.json · engine/r6.html + r6-stage.js · scripts/v2/r6-sheet.js · tests/r6.js · engine/fixtures/r6/episode.json. Opt-in wiring: episode.js (`rig`, `twos`), actors.js (`preset.rig`, `torsoShape`), body5.js (`torsoShape`).
+Commands: `node tests/r6.js` · `node scripts/v2/r6-sheet.js` · `npm run codemap` · `npm run ep:check -- --story <slug>`. `npm test` green; `node --test tests/v2/*.test.js` 278/278.
+Numbers: lowestY min −0.000 (≥ −0.02) PASS · limb/torso overlap max 0.040 (≤ 0.05) PASS · twos 36/36 pose pairs identical, camera differs 36/36 PASS · byte-identical fixture frame (acting6 f60, no `rig`) PASS · freeze-check PASS · hourglass widths 1 / .92 / 1.04 PASS · ms/frame 270×480 acting6 fixture: 55 ms before/after without rig, 68 ms with rig + twos.
+FAIL: reach ≤ 0.35 at the verb key: 16/30 verbs pass (24 verbs + partner halves), worst carried 1.25, hug_b_l 0.74, comfort_kneel 0.74, arms_cross 0.71, grab 0.70, knees_collapse 0.65. A straight limb cannot match an elbow/knee-bent R15 chord (error ≥ 2 − chord) or a crouch (legs straight). Two fix passes done (re-aim after pivot offsets; root-height search): stopped, not loosened.
+Decisions: contact limbs = limbs the verb moves > 0.6 stud from idle; error = tip distance when chord ≥ 1.65, else target distance from the limb axis. E4 has no episode.json yet, so the byte-identity fixture is engine/fixtures/acting6 (md5 recorded before the change). Sheet cells show the lead half on all three actors (partner halves are in the reach gate only). Props held in hands follow the R15 hands (off by the reach error).
+Open: carried half sits on R15 forearms; props in hands; reach on crouch/bent-elbow verbs (needs elbow, or per-verb R6 authored keys). Owner to rule: accept the reach gate as a stiffness report, or add authored R6 key poses for the 14.
+
+### 2026-11-24 — tuft (E5) phase 1A fix: authored R6 keys (Opus 5.5)
+Ruling: the retarget read stiff (sheet) and failed reach on 14/30 verbs, so R6 is now posed from authored classic R6 keys (`engine/r6keys.js`) on acting6 timing; the retarget stays as reference only. `node tests/r6.js` 8/8 PASS: contacts facepalm 0.217/0.214 (≤ 0.25), comfort 0.009/0.004 (≤ 0.05), kneel legs flat (tip y 0.50), hug hands ≤ 1.08 of the partner centre · lowestY −0.000 · planted (no float) 0.000 · overlap 0.040 · twos 36/36 · byte-identical (per-machine E4 md5; this sandbox needs `BLOX_CHROME=/opt/pw-browsers/chromium-1243/chrome-linux64/chrome`) · freeze-check · hourglass. Pose cost 0.39 ms vs 4.39 ms retarget. `npm test` green, v2 278/278.
+Open: props in hands still follow the R15 hand (off on R6); the sheet shows lead halves only (hug/carry read odd alone); carried actors are placed by acting6's R15 carry origin.
+
+## tuft (E5) Phase 1B — Look Pack + cinematic camera (Opus 5.5)
+Plan: 0. R6 props: acting6 `propAt` takes a hand provider (default = R15 `handAt`, unchanged); r6.js `r6Hand` (r6Fk tip + handAt offsets) and
+`sampleActingR6` recomputes props on R6 hands; gate in tests/cine.js (≤ 0.1 at grab/catch keys, throw release).
+1. `engine/cinelook.js` (spec `look: 'cine'`; the base preset comes from `look4`): scene → HalfFloat target + depth → UnrealBloomPass
+(threshold 1.0, half-res) → one half-res DOF gather (12 taps, CoC clamp, focus = subject head / `rack`) → ONE grade pass (AgX + mood
+exposure, lift/gamma/gain, height fog + horizon haze from depth, vignette, corner fringe, seeded grain) → canvas; `ss=2` on --final
+(render.js passes it) = 2× target + 9-tap tent downsample. Live shadow maps off; one blob decal per actor. Glow materials (windows,
+lamp, `spec.glowCubes`) pushed to HDR > 1 so only they bloom.
+2. `engine/cine.js` (pure): lens → fov, critically damped + jerk/accel/speed/angular-limited body sim from shot start (frame 0 settled),
+mood handheld (rotation only, seeded), `ramp` time remap, `dollyZoom` (also in camera.js MOVES), `fg` placement, framing solver
+(eyes on the upper third, lead room, caption band 58–74 % clear), anticipation (3-frame counter-move). episode.js hooks opt-in only.
+3. Fixture engine/fixtures/cine/episode.json (v4look street, look4 mystery night, HERO + kid on R6 twos, glow cube), tests/cine.js,
+scripts/v2/cine-sheet.js → review/cine/ab.png, ab-390.png, demo.mp4. Byte-identity: tests/r6.js gate 4 md5 + r6 fixture md5.
+Built (all opt-in): acting6 `actingProps` (hand provider, default R15 unchanged) + r6.js `r6Hand`, `sampleActingR6` props on R6 hands ·
+engine/cine.js (pure camera) · camera.js `MOVES_CINE` dollyZoom + `dollyZoomPose` · engine/cinelook.js (Look Pack) · episode.js hooks
+(`look: 'cine'` → base preset look4, shadow maps off, glowCubes, cine camera ctx, cineRender, `__episode.cine`) · render.js `ss=2` on
+--final for look 'cine' only · fixture engine/fixtures/cine/{episode,before,bloomgate}.json · tests/cine.js · scripts/v2/cine-gates.js,
+cine-sheet.py → review/cine/{ab.png, ab-390.png, demo.mp4 (0.91 MB), gates.json, cine-tests.json, stability-episode.json}.
+Commands: node tests/cine.js · node scripts/v2/cine-gates.js · node scripts/v2/render.js --spec engine/fixtures/cine/{before,episode}.json
+--width 540 --height 960 --aa 0 · python3 scripts/v2/cine-sheet.py --before <dir> --after <dir>.
+Numbers (tests/cine.js 11/11, cine-gates 6/6): determinism 60/60 · caps over 140 MOVES×moods jerk 120.0 ≤ 120, accel 24.0 ≤ 24, speed 11.6 ≤ 12,
+aim 60.0 ≤ 60°/s (handheld incl. 60.4) · dollyZoom size dev 0.00 % (fov 50→86°) · pre-roll frame-0 velocity 0, offset 0 mm · framing eyes
+≤ 3.21 % from the upper third, faces in caption band 0/60 · handheld peaks = mood amp · R6 props 0.000 (R15 before ≤ 0.479) · stability worst
+0.058 % (B) · bloom own 0.000 % (spill from lamp/cube beside it +13.1 %, reported) · cube ring +169 % · grain identical bytes, std 1.63 %
+· DOF focus error 0.000 % · 270×480 64 → 84 ms; 720×1280 0.170 → 0.467 s (≤ 0.62) · final 1440×2560 ss2× 5.15 s/frame (CPU swiftshader).
+Byte-identity: 9/9 baseline frames (acting6, r6, v4look mystery-v4) + tests/r6.js gate 4. npm test green, v2:test 278/278.
+Fix passes: caps jerk 418 → limiter brakes speed through jerk-limited accel (pass 1), carrot clamp (pass 2) → PASS. Stability B 1.80 % →
+bright-pass 3 % edge fade (B-mid OK) → Karis 4-tap anti-firefly bright pass → 0.058 % PASS.
+Decisions: `look: 'cine'` collides with spec.look (preset name) → it is mapped to look4 at load. Authored fov is replaced by the lens and the
+camera slides along its axis so subject size holds. Bloom gate measures the actor's own bloom (glow surfaces at LDR); neighbour halo spill
+reported, not gated. Pre-roll velocity = sim state at frame 0 (the first-frame step is the move itself, 0.074 u/s, reported).
+camera.test.js excludes MOVES_CINE like MOVES5/K1. Plan tools (inspectFrame, v2:read) still use the non-cine camera.
+Open: D rack hides the hero (solver aim crops him); B walk crops the head; wide haze milky; fg lantern reads as a sharp panel (CoC cap);
+anticipation is 14 mm after the spring (near invisible); final SS 2× cost unmeasured on farm GPU.
+
+## tuft (E5) Phase 1B FIX — owner review of the Look Pack + cine camera (Opus 5.5)
+Plan: 1. rename: spec `post: 'cine'` = the post pipeline (spec.look stays the preset); fixture, render.js, docs, LIBRARY.
+2. look: grade fog starts 25 studs from the camera (scene fog near ≥ 25 too), haze ≤ .08; actors-only shader light (per-actor material
+clones, like look5b): cool moon rim from behind-above on the far side of the camera + soft warm key from the nearest lantern/window glow;
+grade = AgX → S-curve (black point ~2 %), split tone (teal shadows / orange highs), +10 % mid saturation, vignette ≤ .25.
+New gates (cine-gates.js, before vs after, same 12 frames): luma std ×1.15, subject/ring separation ×1.3, rim ≥ 3 % edge px, no milk.
+3. camera: lens only when `lens` set or no authored fov; size solver (distance) to a measured band per size class (v = frame height at
+the subject / subject height: MS .80–1.10, MCU .60–.80, CU .40–.60 — the 9:16 reading, whole head must fit the width); all subjects'
+heads inside the frame and outside the caption band (aim shift, then dolly back); eye-third for the main subject only; B leads the walker;
+D = over-the-shoulder (`ots: 'kid'`, rack from the kid to the hero). Gates: heads in frame 100 %, size in band ≥ 95 % (browser).
+4. cost: no supersample; --final = 1440×2560 + MSAA 4× on the HDR target; edge AA in the grade only if steps show. Gate est. ≤ 3.0 s/frame + max step px.
+5. fg = pre-blurred gaussian warm sprite (fg max luma ≤ subject max); dollyZoom 28° → 70°, size ± 3 %, background stretch ≥ 2×.
+Sheet: ab.png / ab-390.png = before | after-1B | after-FIX (12 frames), demo.mp4.
+Built: spec `post: 'cine'` (rename; spec.look stays the preset; render.js passes no ss) · cinelook.js: fog/height fog start 25 studs (look.js
+`patchHeightFog start`, look4 `fogStart`, opt-in), haze .08, `BG` falloff behind the subject (×.62), AgX × −0.35 EV then `CURVE` (input black
+.05 → 2 % black point, S-curve k 1.4, teal shadows / warm highs, +10 % mid sat), vignette ≤ .25, actors-only shader light `ACTOR_LIGHT`
+(+0.6 EV lift, moon rim behind-above far side, warm key from the nearest world light), MSAA 4× HDR target + FXAA-lite when aa, fg lantern =
+gaussian sprite · cine.js: lens only when set / no fov, `SIZE_BAND`, `subjectsOf` / `headBox` / `fitShift` (aim, then back off; dollyZoom aim
+only), `ots` (fov sets size), `rack.from` · episode.js: ctx `headsAt` (rest-pose head centres on marks), facing from mark yaw (render-order
+determinism), `cine.measure` · fixture: lens dropped where fov authored, B side-on lead, D over-the-shoulder kid → hero, E 28° → 70°.
+Commands: node tests/cine.js (15/15) · node scripts/v2/cine-gates.js (15/16) · cine-sheet.py --before --after1b --after.
+Numbers: contrast std .132 → .179 (×1.35) · separation .039 → .081 (×2.06) · rim min 10.4 % (before 7.2) · darkest-10 % .027 → .029
+(1B .069 on PNGs) · heads in frame 150/150 · size in band 100 % all framed shots · dolly size dev 2.09 %, bg ×2.30 · fg max .69 ≤ subject
+.94 · stability worst .039 % · 270×480 65 → 89 ms · final 1440×2560 MSAA 2.88 s/frame (1B 5.15) · edge max step .47 px (no AA .52) FAIL.
+Determinism: 12 frames out of order = byte-identical to the sequential render. npm test, v2:test, tests/r6.js 8/8 green.
+Fix passes: separation ×1.14 → actor lift + darker set (×1.42) → staging changes ×1.19 → BG falloff (×2.06). Milk +.036 → input black .05.
+Heads: AABB measure → vertex measure (exact); C/D clip → rest-pose head offsets + head box 1.5 W. Edges: pass 1 MSAA (0.52 → 0.47),
+pass 2 FXAA-lite (no change) → stopped, reported; residual = head mesh facet kinks (no-AA reads the same), not loosened (≤ .25).
+Decisions: SIZE_BAND is a 9:16 reading (whole head must fit the width; literal "MCU = to mid-chest" cannot hold the head in width).
+Edge metric = coverage edge vs neighbour chord (mask has an invisible head extra ~15 px above the visible top at 1440).
+Open: edge gate; OTS kid reads as a dark blob; background falloff hides the dolly stretch; dark jackets near-black; final cost 2.88 is near 3.0.
+
+## tuft (E5) Phase 2A — BEAST KIT (Opus 5.5)
+Plan: 0. rulings: retire the 1B edge gate (Decision; edge-390 kept) · BG falloff by shot size (0 ews/ws, ramps ms, full mcu/cu/ecu) ·
+actors-only soft fill (.25 of key, opposite side) in cinelook ACTOR_LIGHT. Then a baseline render of the 1B fixture (byte-identity ref).
+1. engine/beast.js (pure rig + states, no three) + engine/beastrt.js (three: faceted flat-shaded meshes, per-vertex `aGlow`, emissive =
+glow × HDR under post 'cine' (1 otherwise), LOW tier = InstancedMesh per preset part-group, ≤ 3 draws/preset) + beasts/*.json presets
+(NIGHTFANG dragon, VOLT quad, CINDER bird, BOULDER quad, BLINK sprite+cards, FOX/DEER/BOAR low). Rigs QUAD/BIRD/DRAGON = rigid segments.
+States pure in t, seeded: idle walk run roar breathe flinch flee lower lift fly perch sleep curl (anticipation + settle; twos).
+2. spec actor `style: 'beast', preset, tier` · shot `beasts: [{actor, state, at, to?, exit?}]` · story6 `parseBeast` (`beast: <actor>
+<state> [to <anchor>] @ <word>`) → brief2spec shot.beasts · cinelook contact blob per beast · spec `parade` (low-tier crowd).
+3. Gates: tests/beast.js (tris, determinism, feet, flee exit, `beast:` parse) + scripts/v2/beast-gates.js (draw calls, seam-only bloom,
+silhouette IoU at 390, byte-identity 1B fixture, ms/frame). Sheet scripts/v2/beast-sheet.js → review/beasts/kit.png, kit-390.png, demo.mp4.
+Built: rulings: cine-gates edge gate retired (report only, edge-390 kept) · cinelook `BG_SIZE`/`bgDimOf` · `ACTOR_LIGHT.fill` .25 opposite the key.
+engine/beast.js (pure kit) · engine/beastrt.js (1 draw/hero beast, 2 draws/low preset) · beasts/{NIGHTFANG,VOLT,CINDER,BOULDER,FOX,DEER,BOAR,BLINK}.json ·
+episode.js opt-in hooks (cast `style: 'beast'`, `beastCrowds`, blobs, headOf, `__episode.beasts`) · story6 `MARKERS.beast` + brief2spec CAST
+`beast <PRESET> [low]` → shot.beasts · fixtures engine/fixtures/beasts/* (scripts/v2/beast-fixtures.js) · tests/beast.js · scripts/v2/beast-gates.js ·
+scripts/v2/beast-sheet.js → review/beasts/{kit.png, kit-390.png, demo.mp4 3.30 MB, gates.json, tests.json}.
+Commands: node tests/beast.js (10/10) · node scripts/v2/beast-gates.js --baseline <pre-2A 1B frames> (5/7) · node scripts/v2/beast-sheet.js ·
+node tests/cine.js 15/15 · node scripts/v2/cine-gates.js 15/16 · npm test green · v2:test 278/278.
+Numbers: tris hero 590–1,032 (≤ 6k), low 276–764 (≤ 800) · parade 40 low = 2.00 draws/preset · determinism 240/240 pure + 10/10 PNGs reverse order ·
+plant max 0.0000 above ground (5,063 samples), min 0.0000 over all states × transitions · flee out of frame 0.75–1.88 s (≤ 2.6), cos 1 ·
+silhouette IoU max 0.488 (≤ .6) · scale NIGHTFANG reared 2.16× kid, VOLT 1.05× kid shoulder, CINDER 2.53 kids, BOULDER 1.13× adult ·
+byte-identical 1B fixture without beasts 10/10 · 270×480 4 hero + 40 low 92 ms (1B fixture 81–91) · est. final 2.92 s/frame (runs 2.92–3.18;
+the 1B fixture alone 2.88–3.25 here; cine-gates final read 3.90 under load during a worker restart) ·
+FAIL glow-only-on-seams: body ≥ 4 px from a seam Δluma 9.0–15.5 % (seams' bloom halo; own bloom with seams dark 0.000 %) ·
+FAIL seam ring ≥ +100 %: VOLT +68 % (NIGHTFANG +455, CINDER +104, BOULDER +305).
+Fix passes: final cost 3.23 → low tier Lambert (3.18) → unlit baked face light (crowd cost .20 → .08 s; 2.92). Ring: VOLT body darker silver +
+CINDER HDR 3.0 (+48 → +61 %), VOLT HDR 3.6 (+68 %) → stopped. Body-halo gate: both passes left it 9–15 % → stopped, not loosened.
+Decisions: "non-seam body" measured strictly (halo from the seams counts); the 1B precedent (own bloom only) is reported beside it, owner decides.
+World glow (windows, lamps) set to LDR while measuring beast bloom (as cine-gates). BG falloff on ms = .5 (between ws 0 and mcu full).
+"Dusk" parade uses look4 'dawn' (no dusk preset). Kid = troupe LEAD (.82, 4.35 studs). Low tier unlit with baked per-face light (night × .38).
+Cine camera follow uses marks: a beast's root motion is not followed by `camera: 'cine'` (static / authored cameras only for now).
+Open: VOLT ring; seam halo spill; NIGHTFANG reads horse-like at rest; BOULDER reads as stacked boxes; BLINK wings invisible at phone size.
+
+## tuft (E5) Phase 2B — look fix + beast fixes + TUFT/PUFF + TITAN + POWERS + PROPS (Opus 5.5)
+Plan: 0. look: new opt-in spec `grade: 'clear'` under post 'cine' (the 1B fixture stays byte-identical): grain luma-only 1 px std ≤ .8 %,
+no fringe, vignette ≤ .12 multiply, sat +20 % mids, black point 1 % no lift, split-tone × .5, no haze/fog within 60 studs (day; dusk/dawn
+fog on the far skyline only, sepia banned). Beasts + crowds on ONES always. cine camera: beast subjects follow the beast's LIVE root
+(pure sampleBeast, not the mark); shot `angle: low|eye|high` (beasts default low: camera ≤ kid-eye height, looking up); pure
+`highHeld` gate (pitch < −20° static > 1 s unless `angle: 'high'`). Gates scripts/v2/kit2-gates.js before (2A kit/parade) vs after.
+1. presets (data): NIGHTFANG dragon redo (S-neck parts, wedge head, swept horns, heavy chest, short thick legs, spiked tail, folded
+faceted membrane wings + finger bones + cyan seams), VOLT storm grey ≤ .45 + spine lightning spikes, BOULDER head/tail read + moss,
+BLINK wings + dot (glow behind). Gate: NIGHTFANG vs a horse-proportion ref silhouette IoU ≤ .5; pairwise ≤ .6; body own bloom ≤ .5 %.
+2. TUFT preset (rig 'puff': body + quill segment scaled by puff) + states idle tremble sneeze hide run puff; `puff:` / `glow:` vocab
+(story6 + brief2spec); hero R6 ball proxy (engine/puff.js pure sizes + deflate wobble; episode opt-in). 3. TITAN preset ×12 kid,
+states caged/roar/break/stomp(shake)/flinch/flee + eyes-ignite. 4. engine/powers.js (pure) + powersrt.js: cyanFire, lightning, fly,
+fizzle, cage, chains, props (spider, toaster, spaghettiPlates, giantCage, chains, lanternSea 1 draw). Sheet kit2.png + demo2.mp4.
+Built: 0. cinelook `grade: 'clear'` (CLEAR, curveOf; opt-in, 1B fixture byte-identical 10/10) · beasts/crowds/BLINK on ONES · cine: beast subjects
+followed + framed on the LIVE pose (beastrt `liveAt`), shot `angle` low|eye|high (beasts default low), `highHeld` gate, camera never under ground.
+1. NIGHTFANG redo (S-neck, wedge head, swept horns, chest, short legs, spiked tail, folded faceted wings; preset `fold`), VOLT storm grey + tip-glow
+spine spikes, BOULDER boulder/horns/brow/eyes, BLINK `wingCards`. 2. TUFT (rig 'puff', tuft-preset.js, blue→gold tips, `puffK`, ride hood/hands),
+engine/puff.js (sizes, grow, deflate, vocab), hero R6 ball proxy (`puffHeroes`). 3. TITAN (titan-preset.js, `extraSegs` chains, caged/break/stomp/
+ignite, `footfalls` + `stompShake`, shot `shake`). 4. engine/powers.js + powersrt.js (cyanFire, lightning, fly, fizzle, breath, cage reveal, chains
+snap, props, lanternSea). Vocab puff / glow / power / fizzle / cage / chains (story6 → brief2spec; deflate → spec.sfxCues 'squeak').
+Commands: node tests/beast.js 10/10 · node tests/beast2.js 13/14 · node scripts/v2/kit2-gates.js (9/12) · scripts/v2/byte1b.sh 10/10 ·
+node scripts/v2/beast-gates.js --baseline … --no-final 6/6 · npm test green · node scripts/v2/kit2-sheet.js → review/beasts/kit2.png, kit2-390.png, demo2.mp4.
+Numbers: grain std .72–.74 % (before 1.80–2.05) · sat × 1.00/1.24/1.16/1.17 FAIL · darkest-10 % .009/.040/.013/.029 FAIL (before .036–.095) ·
+high angle held ≤ .38 s · ones 467/467 (2A twos 13/27) · NIGHTFANG vs horse ref IoU .236 (old NIGHTFANG .25: the gate barely separates them) ·
+pairwise max .609 FAIL (BOULDER–TITAN; NI–VO .33) · VOLT ring +111 % (min +104 %), own bloom .000 % · TUFT 2,232 tris, TITAN 1,404 (×12.00 kid) ·
+puff sizes 0.0 % err · deflate settle .583 s, 3 undershoots · hook eye .063 from centre, tips 4.7 % · blue-gold elsewhere .709 % FAIL · face decal
+.63 R / .62 R forward · lanternSea +1 call · FX determinism 6/6 · FX ones 4/4 families · 270×480 38–434 ms · est. final 1.47–2.88 s/frame.
+Fix passes (2 each, then stopped): saturation (mid plateau, AgX chroma restore 1.15) · darkest-10 % (input black .09 → .11, k 1.6) · pairwise
+TITAN (curled horns + hump, then taller hump) · blue-gold (pair metric; then TUFT HDR 3 → 1.4 so the tips keep their colour).
+Decisions: `grade: 'clear'` is opt-in (ground rule: 1B fixture byte-identical) — new tuft specs should set it. Saturation = mean HSV S per frame;
+the per-frame gate fails on the NIGHTFANG night frame because the halved teal split removes chroma from the dark navy (spec vs gate conflict).
+Task 0 look gates measured on even kit frames (twos = ones there). Blue-gold = BLUE NEXT TO GOLD (≤ 8 px) as displayed (hue bands), not either
+colour alone; the remaining hits are the hero's yellow head next to the blue shirt strip (owner's hero design) — reported, not changed.
+Clear-grade sky tint moved off Tuft blue (hue 198°). Hero puff sizes: ball Ø = 3× torso width (4.9 studs), room 10, colossal = TITAN × .6;
+Tuft ball = kid height. TITAN chains = extra rigid segments collapsed after the snap; the falling links are the `chains: snap` FX.
+The cine sim can dip under the ground with giant subjects (head-fit back-off): clamped in sampleCineShot (cause in the body sim not found).
+Open: saturation + dark10 + pairwise + blue-gold FAILs above; BLINK still tiny at phone size; Titan crops its head; NIGHTFANG breath weak.
+
+## tuft (E5) Phase 3 — 2B fixes + THE BEAST VILLAGE (Opus 5.5)
+Plan: 0a. TITAN redesign (scripts/v2/titan-preset.js data + opt-in rig dims `hindK` (shorter hind legs → body rest pitch, legs kept
+vertical) in engine/beast.js): hump over the head, low jutting jaw, two ram-spiral horns as thick strip arcs (`tag: 'horn'`), pillar
+forelegs, long heavy tail, branching jagged crack polylines; gates in tests/beast2.js: pairwise IoU ≤ .6, horn px ≥ 6 % front + side.
+0b. opt-in spec `night: 'moon'` (cinelook + look4 path): moonlit sky gradient, cool moon ambient/bounce on static sets, beast/actor
+rim kept; gates (scripts/v2/village-gates.js): dark-10 % in .012–.03, ring-vs-mask separation ≥ .06 per beast/actor, VOLT seam+body.
+0c. powersrt: breath = long cyan jet (cards + embers + ground light), lightning runner + ribbon + forks, BLINK glow ×2 + wings + trail
+(glow area ≥ .3 % in a MS). 0d. hero ball face decal ≈ 45 % ball width. 0e. rulings logged.
+1. parts/village.js (three) + parts/villagekit.js (pure, seeded presets: house / street / wall / lantern string / props, layout, LOD
+tiers hero / mid instanced / far rooftop cards + window dots) + TITAN's mountain landmark; night windows ≥ 60 % lit.
+2. parts/locations/{beastYard,beastClass,homeDining,homeBedroom,villageStreet,festivalPlaza,titanCave}.json + one world module
+parts/village/world.js (spec.location; groundY + LAYER + LOOK); fixtures engine/fixtures/village/*.json; gates (tris, calls, s/frame,
+rooftops ≥ 40, mountain in exteriors, windows lit, night gates, colossal ≥ 1.2× roofs, room puff ≥ 70 %), byte-1B, npm test.
+Sheet scripts/v2/village-sheet.js → review/village/{village.png, village-390.png, demo.mp4}.
+Built: 0a TITAN redesign (titan-preset.js; opt-in `dims.hindK` → body rest pitch, legs vertical) · 0b look4 `moonlit` + cinelook `MOON` (sky gradient,
+curve input black .101 / black .015, dark-blue far fog) + beastrt `MOON_RIM` + low tier .7 on moonlit · 0c powers `BREATH` + `fxGroundGlow`, `SPRINT` 8 + ribbon
+1.0 + 3–4 forks, BLINK spriteK 3.4 / wing cards / trail / flap 7 Hz · 0d hero ball head k .525 (face 45 %) · puff `pose: 'window'` · spec `skyDist`.
+1 parts/village/{kit.js (pure), build.js (three), world.js (one module, spec.location)} · 2 parts/locations/{beastYard, beastClass, homeDining,
+homeBedroom, villageStreet, festivalPlaza, titanCave}.json · fixtures scripts/v2/village-fixtures.js → engine/fixtures/village/* · tests/village.js ·
+scripts/v2/{village-gates.js + village-gates-more.js, nightstats.py, titan-sil.js, frames-at.js, abgrid.py, village-sheet.js}.
+Commands: node tests/village.js 7/7 · node tests/beast2.js 15/15 · node tests/beast.js 10/10 · node scripts/v2/village-gates.js (13/20, below) ·
+scripts/v2/byte1b.sh 10/10 · npm test green · node scripts/v2/village-sheet.js → review/village/{village.png, village-390.png, demo.mp4}.
+Numbers: TITAN 2,504 tris, horns outside the body front 11.5 % / side 7.3 % (≥ 6), pairwise IoU max .581 (TU–TI; BO–TI .472, was .609) ·
+breath reach 35.8 studs = 1.55 × NIGHTFANG length · lightning runner 7.5–10.5 % of frame, inside, 49–59 segments · BLINK glow area ≥ 10 % · face 45 %.
+Locations: tris 4.0k–79.9k (≤ 90k), calls 21–153, est. final 1.46–2.30 s/frame · windows lit 65–76 % · mountain 15.5–91.9 % of every exterior
+establishing frame · plaza wide 89 rooftops (≥ 40) · colossal Tuft 53.3 vs building 19.7 (× 2.70) · room puff ball 105 % of floor, 4/4 leg parts out the window.
+FAIL night dark-10 % (locations, after pass 1): 0.014 / .017 / .028 / .030 / .020 / .043 / .009 / .241 / .023 / .025 / .015 / .012 / .055 / .013
+(plaza hero .043, bedroom .009 + .241, street establish .055 out) · FAIL separation: low-tier DEER .001 / BOAR .018 at street distance, BOULDER in the
+dining barn door .004 · Task 0 fixture after the location passes: dark-10 % .013–.016 except the lit MCU f209 .174; BLINK separation .054 (was .070 before
+the darker zenith) — VOLT night PASS (body .125, seams 27 %).
+Fix passes: Task 0 night (inBlack .104 → .101, black .012 → .015) · location night (zenith .0035 → .002, MOON_RIM × 1.5, low tier .7, interior
+light balance) → stopped, not loosened.
+Decisions: "horn pixels" = horn pixels OUTSIDE the rest of the silhouette (stricter than coverage). Blue-gold gate counts EMISSIVE pixels only (owner
+ruling; the hero's yellow head + blue strip is a false hit) and the ×1.2 saturation gate applies to day frames only (owner ruling) — logged, the 2B gates
+are not re-run here. Dusk = look4 `dawn` (no dusk preset). Interior days use look4 `toy` (`lookMap`; comedy bakes no practicals). Colossal gate =
+building height above its own ground (a far roof high on the hillside is not a taller building; world-y would read 91.8). Rooftop id pass draws
+double-sided (instanced far roofs were back-face culled). The giant cage on the stage is spec props2b at scale .3 (episode choice). Demo is silent.
+Open: night darks on lit interiors / CU; low-tier beasts have no moon rim (unlit material); BLINK ring separation .054.
+Sheet: review/village/village.png 1600×1549, village-390.png, demo.mp4 1.47 MB 15.0 s (360 frames, 540×960). Byte-identical 1B 10/10 (re-run at the end).
+Five weakest in village.png / demo: (1) colossal Tuft blows out to white under the lantern sea + glow — no form, barely any roofs under it; (2) titanCave:
+TITAN reads ghost-pale (moon rim) and the cave arch is not visible around it; (3) the terraced hillside reads as a flat pale wall of box backs at dusk
+(no roofs seen from below, no haze); (4) homeBedroom room puff = a black blob (hero torso colour) filling the frame, legs only read in the hero angle;
+(5) fixture kids stand too close to the street / dining cameras and block the depth; dusk plaza is grey, not amber.
+
+## tuft (E5) Phase 3B FIX — owner review of the village (Opus 5.5)
+Plan: 1. TITAN rebuilt to the owner spec in scripts/v2/titan-preset.js (hump = highest, low forward head, ram horns round the ears as 10 faceted
+segments, basalt ≤ .35 + moss, thin branching molten cracks, foreleg chains); pure gates tests/titan.js (horns < hump top over 7 poses, hump
+highest, body value, crack aspect P²/4A ≥ 4, IoU, tris); beastrt opt-in preset `moonRim` / `material`. 2. colossal TUFT: cap body emissive,
+diffuse fluff, tips-only HDR glow, dark eyes + highlight; gate (clipped ≤ 3 %, two dark eye blobs, blue-gold tips) on hook + payoff frames.
+3. lanternSea ~600 in streams, keep-clear (mountain, upper third, faces, Tuft's eyes); gate lantern px ≤ 18 %, 0 on faces. 4. far hillside
+slate roofs facing camera + terraces + trees; festivalPlaza dusk amber LOOK; gates roof-slate ≥ 25 %, dusk hue/sat. 5. cave arch + eyes,
+hero ball jacket colours + key, Boulder door backlight (sep ≥ .06). Night gates re-scoped per the owner rulings. fix.png / fix-390 / demo2.
+Built: 1 TITAN rebuilt (scripts/v2/titan-preset.js → beasts/TITAN.json): hunched hump = highest point, small hips, low barrel chest, low forward head (flat
+brow, underbite jaw, 2 tusks), ram horns = 10 tapered faceted segments + darker rings on a spiral round the ear, its plane turned 40° out (curls from the
+front too), knuckle fists + chains on the forelegs, short bent hind legs, dragging tail, basalt .229 + moss, seeded branching crack polylines (#FF6A1A,
+branches #FFB347, HDR 4), molten eyes + mouth; beastrt opt-ins `moonRim: false`, `material` {roughness, metalness, env, fog} (the night pallor was the
+DAY env map on metalness .18 + scene fog at distance). tests/titan.js (pure gates + `shade()`), titan-sil.js front / side / ¾. 2 TUFT data: fluff
+albedo ~.7 (shaded facets), tips emission-only on a dark base, `glowCap` 1.0, blue glowK .5, longer tips, near-black eyes. 3 lantern streams
+(powers `lanternStreamAt`, `keepClear`; powersrt `cull` after the camera; 600, plaza + rooftop sources, yMax 34). 4 `farTerracesSlate` (real-pitch
+roofs × 1.7 + chimneys, retaining walls, trees, dusk cool fill) + look4 `dusk` + cinelook DUSK sky + dusk string lanterns; festivalPlaza day fixture.
+5 cave arch (`mountain.arch`), `jacketBall` (spec puffBall), homeBedroom establishing moved outside on the window, BOULDER backlight lantern (bake light).
+Gates: scripts/v2/fix3b-gates.js sections in village-gates.js (--only tuft,lantern,hill,door,cave,nightscope), numbers scripts/v2/fixstats.py.
+Commands: node tests/titan.js 6/6 · node tests/beast2.js 20/20 · tests/beast.js 10/10 · tests/village.js 7/7 · npm test green · node scripts/v2/village-gates.js
+--only tuft,lantern,hill,door,cave,nightscope · node scripts/v2/fix3b-sheet.js → review/village/{fix.png 1600×896, fix-390.png, demo2.mp4 0.98 MB 13 s}.
+Numbers: TITAN 3,120 tris · hump top 52.2 studs, horn top ≤ hump − 5.2 (7 poses) · body value .229 · 43 crack components, min aspect 4.92 · IoU max .544 (TUFT).
+Tuft clip 0.0 / 0.1 / 0.0 % · 2 eye blobs each · blue 3.3 / 4.4 / 1.2 %, gold .34 / 1.14 / .31 %. Lanterns .6–2.8 % of frame, 0 on 25 face / eye regions,
+mountain covered 1.1–5.4 %. Hillside slate (band y .27–.43) dusk 48.1 %, day 88.1 % · dusk hue 27.7° / 24.8°, sat .409 / .433 vs day .276 / .349.
+Boulder door sep .065 (hero; not in the establishing frame). Cave eyes .19–2.15 % of frame, arch L .26–.37 vs frame .09–.14.
+Night (owner scope) FAIL: exterior dark-10 % .028 .030 .020 .062 .015 .011 .055 .013 (festivalPlaza hero under lanterns, villageStreet establishing,
+titanCave hero just under) · separation min .046 (BOULDER beastYard; kidA .048, NIGHTFANG class .052, TITAN cave establishing .056) — outside this
+fix's scope (not touched), reported, not loosened.
+Fix passes: Tuft clip (albedo → no change; tips emission-only + cap: 2.6 / 2.0 / 1.5 fail, 1.0 pass) · dusk roofs (palette ×3, then cool sky fill)
+· Boulder (lantern → .058, closer + 12 → .065) · cave arch (pass 1 .166 < .19, pass 2 pass).
+Decisions: owner rulings applied — colossal gate = building height above its own ground; night dark-10 % on exterior night shots only (lit interiors
+exempt); separation on story subjects only (cast actors + hero-tier beasts; low-tier crowds exempt); `moonlit` = the tuft night look. Ram horn
+"1.25 turns" cannot start at the brow and end beside the cheek round the ear (that needs ~.8–1 turn in the side plane): built 300° in a plane turned
+40° out. The P3 "horn pixels ≥ 6 % outside the body" gate is superseded by the owner's horn gates (horns now wrap the head: 0.8 / 1.4 %, info).
+Tuft tip HDR = 1.0, not 2–3: at ≥ 1.5 the overlapping colossal tips clip > 3 % (the owner's measured gate wins). "Body value" = area-weighted HSV
+value of TITAN's stone / moss faces (material). Crack "aspect" = P² / 4A per component (branch-safe). Hillside region = the hillside band y .27–.43
+(festivalPlaza `hillBand`). Boulder door gate on views where BOULDER is in frame. Before frames = commit 5a4a43d in a worktree.
+Open: night FAILs above; demo2 silent; stability gate not run (look-dev demo, not an animatic).
+Five weakest in fix.png / demo2: (1) TITAN's head still reads as a box (flat brow block + square jaw) and its leg cracks read as neon tubes;
+(2) colossal Tuft's quills read like blue-and-gold pencil crowns and its fluff is lavender-grey, not moon-white; (3) the plaza lantern streams
+bunch into a busy band in front of the houses (2.8 % px but visually noisy); (4) the room-puff establishing is a flat white wall with a round
+hole — the jacket ball and the legs barely read; (5) the hillside day "slate" number is inflated by blue haze on everything, and the dusk roofs read
+grey-blue but flat.
+
+## tuft (E5) Phase 4 — ANIMATIC: BLOCKED at the spec stage (Sonnet 5.5)
+Done: owner inputs moved to stories/tuft/ (unchanged); `ep --stage align` PASS (61 lines, 391 words, 384 mapped, voice 102.35 s; needed `pip install sherpa-onnx soundfile` + `npm ci`);
+cues.json committed (stories/tuft/cues.json); all 61 BRIEF cue columns retimed to the aligned word onsets (VO words untouched); 6 R6 costumes (JUNI VANCE KIRA ROCCO DAD_V TEACHER)
+added to cast/troupe-r6.json; BRIEF CAST/WORLD rewritten to the parser syntax (`- tuft: beast TUFT`, `world module: parts/village/world.js`, locations list) and 18 unsupported verbs/faces/looks
+swapped for supported ones. brief2spec errors 81 → 2 (prop subjects + a crowd anchor). No episode.json, no render.
+Blockers (engine, not fixed — frozen): (1) parts/village/world.js builds ONE location per spec (`spec.location`, one flat anchors dict); the episode needs 7 (`sh.loc` is only read by plancheck).
+(2) brief2spec emits none of the SPEC FLAGS (rig r6, twos, post cine, camera cine, grade clear, look4) and no `props2b` (spider/toaster/spaghettiPlates/giantCage/chains/lanternSea exist only as engine/powers.js kinds);
+`prop:` subjects cannot name them. (3) brief2spec `look:` accepts only day|goldenHour|night|storm|nightBright|fireNight, not moonlit/dusk/dawn; `beast … to <anchor>` / crowd anchors only resolve in the first location.
+(4) no glasses / beard accessory (TEACHER, DAD_V plain).
+
+## tuft (E5) Phase 4A — engine fixes so the episode renders (Sonnet 5.5) — PLAN
+1. scripts/v2/segments.js (pure `segmentSpec` + node `segmentPlan`): spec.locations → one segment spec per location (location, look4, foreign-shot anchors / props stripped), frames = shots with shot.loc === L.
+2. render / stability / read / bench loop the segments (one page each, same frames dir + cache); no spec.locations → the old single page, untouched.
+3. lib6.js: location files expose their world anchor names (`anchorNames`); brief2spec: per-shot loc → anchors, `to`, crowd anchors, camera origin resolve against THAT shot's location; cast `at: street`.
+4. brief2spec: SPEC FLAGS line → spec fields; `prop:<kind>` + cage/chains/puff/glow/power/fizzle → spec.props2b / shot fields the engine already reads (no renderer code).
+5. look: accepts moonlit / dusk / dawn (else lists all); per-location look4 for the baked light.
+6. freeze-check base = stories/<slug>/BASE (tuft = 630b258), PIPELINE.md note.
+7. Gates: 10 fixture frames cine + acting6 byte-identical to a pre-change render (made first, now); 3-location test spec (beastYard→homeDining→festivalPlaza); ep --stage spec exit 0; ep:check; npm test; v2:test.
+
+### 4A RESULTS
+Built: `scripts/v2/segments.js` (pure `segmentSpec`, node `segmentPlan`) · render / stability / read / bench loop one page per `spec.locations` entry (frames dir + cache shared; specs without `locations` = the old single page) ·
+`lib6.js` exposes world anchor names / street origin / views / lookMap / stage / table of `parts/locations/*.json` · `brief2spec.js`: per-shot `loc` (inherits the previous shot; `prop:<location>` switches to it), anchors / `to` / crowd anchors /
+camera origin resolved against THAT shot's location, cast marks on each location's `street` anchor, SPEC FLAGS → spec, `look:` moonlit|dusk|dawn (error lists all), `props2b` (spider, toaster, lanternSea, chains, giantCage) from `prop:` + `cage:` / `chains:`,
+`spec.locations` + `locationLook4`; `freeze-check.js` base = `stories/<slug>/BASE`; `engine/actors.js`: an R6 actor skips the birth symbol (STUDENT costume; R6 has no rightHand; was a page-load throw). tests/segments.js.
+Commands: npm run ep -- --story tuft --stage spec · node scripts/v2/segments-fixture.js · node scripts/v2/render.js --spec engine/fixtures/segments/three.json --out <d> --width 270 --height 480 --aa 0 --every 12 ·
+node scripts/v2/render.js --story tuft … --every 150 · stability / read / bench on the 3-location spec · npm test · npm run v2:test.
+Numbers: byte-identical 10/10 cine + 10/10 acting6 (pre vs post, twice, incl. after the actors.js guard) · 3-location spec 144 frames, 12 rendered, cuts at 0 / 48 / 96 · segment vs single-location render of the same
+shots at the same times: 6/6 sampled frames equal (frame 0 + 24 of each shot; a reference started at t = 0 differs for shots 2–3 because actors animate in absolute time, so the reference spec carries all 3 shots) ·
+tuft spec: 61 shots, 7 locations, 0 parser errors, flags format 6 / season 1 / acting 6 / rig r6 / twos / post cine / camera cine / grade clear, props2b spider · toaster · lanternSea · chains · giantCage · 21/21 sampled tuft frames render across all 7 locations (37.9 s, .79 s/frame at 270×480) ·
+stability on the 3-location spec: 9 views, worst 0.079 % PASS · read 3/3 PASS · bench on it: 63k tris, .632 s/frame mean (> .62: FAIL on s/frame only; plaza .673; not a segment issue) · npm test green · v2:test 67 OK.
+ep:check with BASE = 630b258: FAIL — the 6 engine/script files of THIS engine phase are outside the episode lane (expected: BASE must move to the 4A commit for 4B+; not loosened).
+Decisions: village `look:` → looks4 via the location lookMap (night / storm / nightBright / fireNight → the flag's night look, goldenHour → dusk); a location bakes the look of its first shot; BRIEF row 2 crowd 8 → 10 (rows 2 and 17 must agree: one crowd);
+props2b positions are defaults from hero mark / stage / table anchors; `prop:titanCave` / `villageStreet` / `lanternSea` / `giantCage` use the location's `establish` view (no cam: needed).
+Open (blocks a GOOD animatic, not the render): auto cameras are untuned in the sampled sheet (f0 of the hook, f18 shows a green void, hero often out of frame); cast start marks are Brief `at` values from the E4 era (hero x -34); no glasses / beard accessory; bench .632 s/frame.
+
+### 2026-11-25 — tuft 4B unblock (owner-approved engine fix, done in chat)
+- engine/episode.js: the mood shader term never injects twice (guard on `uMoodSat`), and is skipped on `post: 'cine'` (cinelook grades per mood itself; stacking the two crushed frames to black). Mood names, camera moves and payoff exposure still come from mood6.
+- Check: tuft frame 0 luma 75.2 with moods = without moods (was near-black); beasts draw (frame 80: colossal Tuft + Titan in the plaza). npm test green. Fixtures without `post: 'cine'` unchanged by construction.
+- scripts/freeze-check.js: PROGRESS.md and review/<slug>/ are inside the episode lane (episode sessions must log and deliver).
+
+## tuft (E5) Phase 4B — STAGING + ANIMATIC (Sonnet 5.5): PARTIAL, plan FAIL
+Built (episode lane only): stories/tuft/stage.json (world-coord cams/places per shot) + stage.py (writes cam:/place:/fov: tokens into BRIEF notes; `park` moves unused actors off-camera) + specpatch.py (post-spec: beast `visible` windows, puff re-time, raw shot fields `frame:false`).
+Findings: cine clamps beast-subject cameras to 1.6 studs unless `angle` set; cine re-frames human subjects (size band) so cam: = direction only; beasts/crowd/puffs are global in time (colossal Tuft + Titan otherwise drawn in every location) → `_vis`; Tuft puff grows over 0.8 s from the cut so frame 0 needed `_puffAt` -1; marks persist across locations; place: has no y.
+Results: ep:check PASS, stability PASS, v2:plan FAIL (276 err: framing 'subject head x/y' ≈ 90, pan speed, hero first on screen 11.6 s, caption-band faces, 8 beats-range season errors), v2:read FAIL (85). Animatic assembled by hand (render 3096 frames 285 s = 68 ms/frame at 270×480; assemble with spec sfx off: engine sfx set has no 'squeak'): 103.2 s, 7.4 MB. Loop frame0 vs last: mean abs RGB diff 59 (fails, last frame is not a blue-gold fill).
+Engine asks: sfx.py NAMES lacks 'squeak'; cine `angle` / `frame` not Brief-parseable; place: needs y (Tuft on desk, legs out of attic window, ball under bed); crowd/beasts need per-location visibility; plan checks use plain sampleCamera, not cine (head-position errors are partly measurement).
+Open: hero on screen by 5 s fails (hero not framed in S3–S4); Titan/cage staging (S38–S42 cage bars fill frame); fox/deer/boar not visible in S32; S12 cave shows Titan horn not eyes.
+
+## tuft (E5) Phase 4C — ROBLOX STUDIO LOOK + CAMERA TEMPLATES (Opus 5.5) — PLAN
+1. cinelook `grade: 'roblox'` (opt-in, under post 'cine'): grain 0, no fringe, vignette ≤ .05, no fog/haze within 80 studs, no background falloff, DOF only cu/ecu/insert (mild), tight emissive-only bloom, +25 % mid sat, true black, clean blue day sky / dark-blue moonlit night with moon fill; actors: crisp key + plastic sheen.
+2. scripts/v2/roblox-gates.js: the 6 tuft frames (shots 1 3 9 21 31 59) 'clear' vs 'roblox': grain std, day saturation ×1.25, night darkest-10 % 0.015–0.04, Laplacian var ×1.3, bloom on non-emissive ≤ .5 %.
+3. engine/camtpl.js (pure): `tpl` establish|wide|ms|mcu|cu|ecu|ots|two|insert|beastHero|beastFace solved per frame from the live subject (actor mark, beast live pose, prop) + smoothed facing; moves = parameter offsets on top (push, orbit, track, crashZoom, whip, snap, dollyZoom, drone) ending/centred on the template framing.
+4. Occlusion: caller-supplied ray test; per shot a swing (15° steps, then pull-in) clear on all sampled times, per-frame pull-in safety. episode.js: shot.tpl under camera 'cine' → camtpl with a three Raycaster (double-sided, visible only, subject excluded).
+5. brief2spec `tpl:` token (cam:/place-free camera tokens ignored + logged); tests/templates.js (pure, box world); scripts/v2/tpl-gates.js render gate on a 10-shot 4-location spec (incl. homeBedroom).
+6. T3: captions.py strips *emphasis*; sfx.py `squeak`; plan/read measure with the cine camera on camera 'cine'; `place: who x z [y] [yaw d]`.
+7. Sheet review/tuft/look-ab.png (+ -390) before 'clear'/4B vs after 'roblox'/tpl on rows 1 3 9 21 31 59; byte-identical 10 frames cine + acting6; npm test, v2:test; LIBRARY; BASE.
+
+### 4C RESULTS
+Built: cinelook `grade: 'roblox'` (ROBLOX constants; opt-in, builds on the clear path) · engine/camtpl.js (11 templates, moves on top, occlusion swing / pull-in search, 5-ray head test) + episode.js hook (`cineCamAt`, double-sided raycast on visible set / cast / crowd, `__episode.tpl.measure`) · brief2spec `tpl:` (drops cam:/camb:/fov:, logs `TPL`) and `place: who x z [y] [yaw d]` · captions.py strips `*` · sfx `squeak` · plan.js: segments + cine camera (inspectFrame, shotSpeed via `maxTargetSpeed(…, sampler)`) · scripts/v2/roblox-gates.js, tpl-gates.js, tests/templates.js (in npm test).
+Demo: Brief rows 1 3 9 21 31 59 carry `tpl:` (beastFace tuft, beastHero nightfang, mcu, mcu, establish, two juni hero); spec regenerated (brief2spec + specpatch.py). The episode stays `grade: 'clear'` (owner decides the look); the sheet's "after" = the same spec with grade 'roblox' (build only).
+Commands: node scripts/v2/roblox-gates.js (on the 4B spec, 123ddac:stories/tuft/episode.json) · node tests/templates.js · node scripts/v2/tpl-gates.js · node scripts/v2/plan.js --story tuft · render.js --from f --to f+1 (frames 17 117 377 984 1469 2918) · fixture renders cine/acting6 --every 30/21 · npm test · npm run v2:test.
+T1 gates (roblox vs clear, 6 frames, 540×960): grain std 0 PASS · night darkest-10 % .0169 .0169 .0385 PASS (0.015–0.04) · Laplacian ×2.23 PASS (≥ 1.3) · day saturation ×1.21 FAIL (≥ 1.25) · bloom on non-emissive 10.8 % FAIL (≤ .5 %), both after 2 fix passes (not loosened).
+  Bloom cause: sunlit specular faces of the beast crystals (Nightfang's wings) exceed the max-channel threshold 2.2 in day light; the fix is to tag emissive pixels (alpha 2 in the HDR target from glow / seam materials) and bloom only those.
+T2 gates: tests/templates.js 12 shots × 60 frames in 4 box locations (incl. a 12×10 bedroom) 0 bad frames · render gate (10 tuft shots, beastYard / homeBedroom / homeDining / festivalPlaza, every 3rd frame): heads in frame + unoccluded 201/201 · camera inside a mesh 0/175 · two/ots both heads 41/41 · beastHero share .689–.728 at ≤ 1.46 studs. Took 2 fix passes (posed heads instead of marks; beastHero mid column + distance re-solve after the aim shift).
+T3: tuft captions 0 asterisks (test added) · squeak deterministic .22 s · v2:plan tuft 276 → 171 errors (crowd-overlap false positives 160 → 69 by segments; non-overlap 111 → 102, now measured on the rendered camera) · v2:read already measured rendered (cine) frames: unchanged · place y: `place: hero -8 2 9.5 yaw 90` → mark offset [-8, 9.5, 2]; brief2spec output byte-identical without tpl / y.
+Byte-identical: 10/10 cine + 10/10 acting6 fixture frames (pre vs post). npm test exit 0, v2:test 278 + 68 OK, tests/cine.js 15/15.
+Decisions: `place:` on a tpl row still blocks actors (ignoring it would strand the cast at another location's marks); only cam:/camb:/fov: are dropped. Beasts are not ray blockers (GPU-posed meshes are not ray-testable); the 5-ray head test is the occlusion definition (centre + 4 points at ±.8 r).
+Sheet review/tuft/look-ab.png (+ look-ab-390.png). Weakest: (1) S21 mcu juni: a brown block (chair back) still hides half her face — the 5-ray test passed it, so the blocker is probably attached to her rig and skipped as "self"; (2) S03 beastHero: Nightfang reads as a dark mass, head and cyan fire not readable; (3) S01 beastFace frames all of colossal Tuft (eyes small), and the roblox night skies read mid-blue (dusk) rather than night.
+Open: emissive-tag bloom; saturation ×1.21; S31 legs-out-of-window needs an attic anchor (place y is ready); S09 a second kid overlaps the hero; tuft rides (liveAt root ≠ the ride) so `two <a> tuft` frames the wrong spot.
+
+## tuft (E5) Phase 4C-2 — owner review of 4C: glow-only bloom, beastHero / beastFace, occlusion, night sky (Opus 5.5) — PLAN
+Rulings (owner): `grade: 'roblox'` is the tuft look (SPEC FLAGS); the ×1.25 saturation gate is retired at ×1.21.
+1. Bloom source = an explicit glow mask: the HDR target's alpha is tagged 2 by glow materials only (cinelook glowMats, beast seams via aGlow, beast eye/mouth glow, glow sprites / FX additive, lanterns, windows, Tuft tips); the roblox bright pass multiplies by the tag. Gate: non-emissive ≤ .5 %, seam ring ≥ +100 %.
+2. beastHero: ¾ low angle (≤ kid-eye), silhouette share .45–.65, head in the upper third, whole silhouette (sampled beast verts → bbox) + head box in frame; breathe/roar: mouth + 40 % of the jet in frame.
+3. beastFace: camera on the head's forward axis, both eyes in the central 70 %, eye width ≥ 45 %; Tuft eyes glossy near-black + one highlight each (material fix if grey).
+4. Occlusion: S21 chair owner bug; checks = head 5 rays + torso centre + both shoulders; poles / lamp posts / crowd block.
+5. Roblox night sky: navy gradient, small star field, soft moon; night floor gate kept.
+6. Sheet look-ab2.png (+390) 4C-after vs now, S21 `tpl: two juni tuft`; 4C pure + render template gates re-run; fixtures byte-identical.
+
+### 4C-2 RESULTS
+Built: cinelook `tagGlow` + in-shader tight glow (roblox replaces the mip bloom; glow tag mask debug view for gates) · ROBLOX.nightSky (display-space navy #0B1430 → #1E2E5A, stars, soft moon) · beastrt `shapeAt` · beast.js `place` track key + spec `beastPlace` (FLAG_KEYS) · camtpl beastHero (silhouette points, yaws 40/30/20, upper-third head, jet) / beastFace (eye axis, 35 mm) / two-shot pair ignore / body points · episode.js posed beast data (marks / riding), sky-only blocker filter, head+torso measure · TUFT.json `eyeBloom: false`, one highlight per eye.
+Brief: SPEC FLAGS `grade: 'roblox'` + `beastPlace: true`; row 21 `tpl: two juni tuft`.
+Gates (roblox-gates.js, six frames, current spec): grain 0 PASS · night .0314 .0177 .0228 PASS · Laplacian ×2.46 PASS · bloom on non-emissive .079 % PASS · seam ring +47 +67 +50 +30 +20 +12 % FAIL (≥ +100 %, 2 passes) · saturation report-only (×1.58 on these frames).
+Gates (tpl-gates.js): 10-shot heads (5 rays + torso + shoulders) 201/201 PASS · inside 0/175 PASS · two/ots 41/41 PASS · beastFace (Titan) eye span .48–.58, central 15/15 PASS · S59 72/72 PASS · beastHero FAIL: share .357–.550, silhouette + head in frame 12/19, jet 0/8 (it was 7/8 before the vertex silhouette: the long jet no longer fits at ≥ .45) · S01 face FAIL: span .48, eye value .149 / .345 (≤ .12), highlights 437 / 682 px, tips blue 14.7 % gold .61 % · S03 FAIL (head 19/19, jet 0/8) · S21 FAIL 0/26 (Juni blocked by dad / hero). All after 2 fix passes; not loosened. tests/templates.js PASS (new beastHero / beastFace checks).
+Byte-identical 10/10 cine + 10/10 acting6; npm test 0; v2:test 278 + 68 OK; tests/cine.js 15/15.
+Decisions: rulings logged (roblox = the tuft look; saturation gate retired at ×1.21). Emissive = the explicit glow tag (the gate's mask includes it). A two-shot's pair never blocks each other (a hug). Beasts are still not ray blockers. beastPlace is opt-in (other specs unchanged).
+Sheet review/tuft/look-ab2.png (+390). Weakest: (1) S03: a kid stands in front of Nightfang, the dragon small behind him, no fire in frame; (2) beastPlace side effects: S31 a puff-ball face fills the frame (Tuft now staged in the street), S21 Tuft is huge at the table and Juni is hidden; (3) S01: the glow tags bloom Tuft's tips and the lanterns to flat white (blue-gold lost) and a lamp post crosses between the eyes.
+
+## tuft (E5) Phase 4E — STAGE TO THE PICTURE LOCK + ANIMATIC (Sonnet 5.5): PARTIAL
+Engine exception (own commit 0c4329e, BASE): cinelook roblox glow keeps hue (brightest channel scaled ≤ 1 before AgX, rb only). S01 f0: tip pixels 10.7 % → 23.8 % (gate ≥ 3 %), mean sat .508 (≥ .5), white-clipped 16 % → 0 %. Fixtures unchanged by construction (code under `rb`).
+Built (episode lane): rows split 42a/42b, 59a/59b — brief2spec needs integer `#`, so Brief rows are numbered 1..63 in lock order (labels map via PICTURE_LOCK; stage.py/specpatch.py/lock.py). stage.json now carries tpl / ev / move / place y; specpatch `_ride` (Tuft in hero's hands rows 9–11), `_vis` by row label, Tuft deflate row 19. Tools: stories/tuft/{lock.py,frames.js,vo.sh,cand.py,build.sh}; review/tuft/vo-sheet-A..D.png.
+Numbers: ends 103.20 s PASS · hero on screen by 5 s FAIL (11.57 s: lock row 4 is Vance mcu, row 3 is Nightfang) · loop last-vs-first mean abs diff 69/255 FAIL (row 61 has no glow fill) · S01 eye span .44 (≥ .45) FAIL · row 57 brightest held: FAIL (.22 vs S06 .54) · twist cut diff S43 .005 / S51 .002 FAIL (biggest are S33/S28/S55) · plan 178 err / 59 warn · read 105 err · stability FAIL worst S34 1.9 % (S29 S34 S37) · animatic 9.4 MB, 103.2 s, −14 LUFS.
+Open: plaza/Titan rows (C, D) still miss MUST SEE; AUTH cams for rows 1–3, 12, 18, 29, 31, 32, 35–36, 38, 40–41, 42b, 44–46, 54–57, 59b are old hand coordinates, not re-chosen from candidates (cand.py exists, unused beyond row 9).

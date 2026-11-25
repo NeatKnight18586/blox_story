@@ -1,0 +1,179 @@
+[
+ {
+  "name": "NIGHTFANG reads as a dragon, not a horse",
+  "pass": true,
+  "line": "idle side ¾ silhouette vs a horse-proportion reference: IoU 0.236 ≤ 0.5"
+ },
+ {
+  "name": "hero silhouettes pairwise IoU ≤ 0.6",
+  "pass": true,
+  "line": "max 0.572 (NIVO 0.334, NICI 0.349, NIBO 0.27, NITU 0.338, NITI 0.383, VOCI 0.401, VOBO 0.33, VOTU 0.413, VOTI 0.339, CIBO 0.274, CITU 0.299, CITI 0.248, BOTU 0.572, BOTI 0.391, TUTI 0.544)",
+  "pairs": [
+   [
+    "NIGHTFANG",
+    "VOLT",
+    0.334
+   ],
+   [
+    "NIGHTFANG",
+    "CINDER",
+    0.349
+   ],
+   [
+    "NIGHTFANG",
+    "BOULDER",
+    0.27
+   ],
+   [
+    "NIGHTFANG",
+    "TUFT",
+    0.338
+   ],
+   [
+    "NIGHTFANG",
+    "TITAN",
+    0.383
+   ],
+   [
+    "VOLT",
+    "CINDER",
+    0.401
+   ],
+   [
+    "VOLT",
+    "BOULDER",
+    0.33
+   ],
+   [
+    "VOLT",
+    "TUFT",
+    0.413
+   ],
+   [
+    "VOLT",
+    "TITAN",
+    0.339
+   ],
+   [
+    "CINDER",
+    "BOULDER",
+    0.274
+   ],
+   [
+    "CINDER",
+    "TUFT",
+    0.299
+   ],
+   [
+    "CINDER",
+    "TITAN",
+    0.248
+   ],
+   [
+    "BOULDER",
+    "TUFT",
+    0.572
+   ],
+   [
+    "BOULDER",
+    "TITAN",
+    0.391
+   ],
+   [
+    "TUFT",
+    "TITAN",
+    0.544
+   ]
+  ]
+ },
+ {
+  "name": "TITAN hump is the highest point (idle)",
+  "pass": true,
+  "line": "highest vertex belongs to \"hump\"; hump top 52.2 studs"
+ },
+ {
+  "name": "TITAN horns never above the hump top (front + side, 7 poses)",
+  "pass": true,
+  "line": "max (horn top − hump top) -5.22 studs at break@0.5 (< 0)"
+ },
+ {
+  "name": "TITAN body mean value ≤ 0.35",
+  "pass": true,
+  "line": "area-weighted HSV value of the stone/moss faces 0.229"
+ },
+ {
+  "name": "TITAN crack lines are lines (aspect ≥ 4)",
+  "pass": true,
+  "line": "43 emissive crack components (front/side/¾, 600 px), min aspect P²/4A 4.92"
+ },
+ {
+  "name": "TITAN pairwise silhouette IoU ≤ 0.6",
+  "pass": true,
+  "line": "NI 0.383, VO 0.339, CI 0.248, BO 0.391, TU 0.544"
+ },
+ {
+  "name": "TITAN ≤ 6k tris",
+  "pass": true,
+  "line": "3120 tris"
+ },
+ {
+  "name": "TUFT tris ≤ 4k",
+  "pass": true,
+  "line": "2232 tris (hero tier)"
+ },
+ {
+  "name": "puff sizes within ± 5 % of target",
+  "pass": true,
+  "line": "tuft ball 4.35/4.35 (0.0 %), room 10.00/10.00 (0.0 %), colossal 62.58/62.58 (-0.0 %) · hero ball Ø ball 4.92/4.92, room 10.00/10.00, colossal 31.29/31.29 · deflate back to rest 0.0 %"
+ },
+ {
+  "name": "deflate settles in 0.6 s ± 2 frames (3 wobble undershoots)",
+  "pass": true,
+  "line": "settle 0.583 s, 3 undershoots · settle 0.583 s, 3 undershoots · settle 0.583 s, 3 undershoots"
+ },
+ {
+  "name": "TUFT states deterministic",
+  "pass": true,
+  "line": "4/4 samples identical in any order"
+ },
+ {
+  "name": "`puff:` / `glow:` vocab → shot.puffs / shot.glows / sfx squeak",
+  "pass": true,
+  "line": "0 parse errors; puffs [{\"actor\":\"tuft\",\"size\":\"room\",\"at\":1.09},{\"actor\":\"tuft\",\"size\":\"deflate\",\"at\":0.54}]; glows [{\"actor\":\"tuft\",\"level\":1,\"at\":1.09}]; sfxCues [[15.94,\"squeak\"]]"
+ },
+ {
+  "name": "TITAN tris ≤ 6k, ×12 kid height",
+  "pass": true,
+  "line": "3120 tris; height 12.00 × kid (12 ± .6)"
+ },
+ {
+  "name": "TITAN chains snap (gone after τ = 0.6 s of break)",
+  "pass": true,
+  "line": "chain links 31.6 studs out before the snap; all 4 chain segments collapsed after"
+ },
+ {
+  "name": "TITAN stomp footfalls → camera shake hook",
+  "pass": true,
+  "line": "5 footfalls in 6 s (0.59, 1.78, 2.97, 4.16 …); shake 0.180 studs 30 ms after a fall, 0 before"
+ },
+ {
+  "name": "titanCave: eyes ignite (fade up in darkness)",
+  "pass": true,
+  "line": "eye glow 0.00 → 0.00 → 0.80 → 1.60 at 0 / .2 / .8 / 1.4 s"
+ },
+ {
+  "name": "powers FX maths deterministic",
+  "pass": true,
+  "line": "4/4 samples identical in any order"
+ },
+ {
+  "name": "chain pieces fall and bounce to rest on the ground",
+  "pass": true,
+  "line": "after 3 s: max y 0.000, bounces 4–4"
+ },
+ {
+  "name": "`power:` / `fizzle:` / `cage:` / `chains:` vocab",
+  "pass": true,
+  "line": "0 parse errors; powers [{\"actor\":\"hero\",\"kind\":\"cyanFire\",\"at\":1.09},{\"actor\":\"hero\",\"kind\":\"fly\",\"at\":0.54}]; fizzles 1; cage 1; chains 1"
+ }
+]

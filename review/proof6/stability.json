@@ -1,0 +1,295 @@
+{
+ "spec": "stories/proof6/episode.json",
+ "size": "540x960",
+ "nudge": 0.004,
+ "threshold": 40,
+ "limit": 0.3,
+ "views": 46,
+ "worst": {
+  "view": "S13:mid",
+  "frame": 610,
+  "pct": 0.126,
+  "raw": 0.873
+ },
+ "failing": [],
+ "errors": [],
+ "result": "PASS",
+ "rows": [
+  {
+   "view": "@heroStone",
+   "frame": null,
+   "pct": 0.013,
+   "raw": 0.113
+  },
+  {
+   "view": "@field",
+   "frame": null,
+   "pct": 0.002,
+   "raw": 0.08
+  },
+  {
+   "view": "@gate",
+   "frame": null,
+   "pct": 0.003,
+   "raw": 0.041
+  },
+  {
+   "view": "@street",
+   "frame": null,
+   "pct": 0.019,
+   "raw": 0.247
+  },
+  {
+   "view": "@square",
+   "frame": null,
+   "pct": 0.004,
+   "raw": 0.016
+  },
+  {
+   "view": "@dragonWall",
+   "frame": null,
+   "pct": 0.021,
+   "raw": 0.084
+  },
+  {
+   "view": "@whole",
+   "frame": null,
+   "pct": 0.001,
+   "raw": 0.003
+  },
+  {
+   "view": "S01:first",
+   "frame": 0,
+   "pct": 0.08,
+   "raw": 0.314
+  },
+  {
+   "view": "S01:mid",
+   "frame": 25,
+   "pct": 0.063,
+   "raw": 0.319
+  },
+  {
+   "view": "S01:last",
+   "frame": 50,
+   "pct": 0.039,
+   "raw": 0.343
+  },
+  {
+   "view": "S02:first",
+   "frame": 51,
+   "pct": 0.046,
+   "raw": 0.31
+  },
+  {
+   "view": "S02:mid",
+   "frame": 75,
+   "pct": 0.037,
+   "raw": 0.232
+  },
+  {
+   "view": "S02:last",
+   "frame": 98,
+   "pct": 0.047,
+   "raw": 0.238
+  },
+  {
+   "view": "S03:first",
+   "frame": 99,
+   "pct": 0.047,
+   "raw": 0.13
+  },
+  {
+   "view": "S03:mid",
+   "frame": 123,
+   "pct": 0.044,
+   "raw": 0.245
+  },
+  {
+   "view": "S03:last",
+   "frame": 146,
+   "pct": 0.063,
+   "raw": 0.275
+  },
+  {
+   "view": "S04:first",
+   "frame": 147,
+   "pct": 0.028,
+   "raw": 0.231
+  },
+  {
+   "view": "S04:mid",
+   "frame": 162,
+   "pct": 0.018,
+   "raw": 0.186
+  },
+  {
+   "view": "S04:last",
+   "frame": 176,
+   "pct": 0.051,
+   "raw": 0.183
+  },
+  {
+   "view": "S05:first",
+   "frame": 177,
+   "pct": 0.052,
+   "raw": 0.423
+  },
+  {
+   "view": "S05:mid",
+   "frame": 193,
+   "pct": 0.044,
+   "raw": 0.39
+  },
+  {
+   "view": "S05:last",
+   "frame": 209,
+   "pct": 0.056,
+   "raw": 0.44
+  },
+  {
+   "view": "S06:first",
+   "frame": 210,
+   "pct": 0,
+   "raw": 0.023
+  },
+  {
+   "view": "S06:mid",
+   "frame": 234,
+   "pct": 0.002,
+   "raw": 0.032
+  },
+  {
+   "view": "S06:last",
+   "frame": 257,
+   "pct": 0.001,
+   "raw": 0.077
+  },
+  {
+   "view": "S07:first",
+   "frame": 258,
+   "pct": 0.006,
+   "raw": 0.019
+  },
+  {
+   "view": "S07:mid",
+   "frame": 280,
+   "pct": 0.022,
+   "raw": 0.033
+  },
+  {
+   "view": "S07:last",
+   "frame": 301,
+   "pct": 0.014,
+   "raw": 0.024
+  },
+  {
+   "view": "S08:first",
+   "frame": 302,
+   "pct": 0.035,
+   "raw": 0.407
+  },
+  {
+   "view": "S08:mid",
+   "frame": 335,
+   "pct": 0.044,
+   "raw": 0.4
+  },
+  {
+   "view": "S08:last",
+   "frame": 368,
+   "pct": 0.034,
+   "raw": 0.328
+  },
+  {
+   "view": "S09:first",
+   "frame": 369,
+   "pct": 0.051,
+   "raw": 0.361
+  },
+  {
+   "view": "S09:mid",
+   "frame": 406,
+   "pct": 0.02,
+   "raw": 0.092
+  },
+  {
+   "view": "S09:last",
+   "frame": 443,
+   "pct": 0.011,
+   "raw": 0.043
+  },
+  {
+   "view": "S10:first",
+   "frame": 444,
+   "pct": 0.001,
+   "raw": 0.032
+  },
+  {
+   "view": "S10:mid",
+   "frame": 474,
+   "pct": 0,
+   "raw": 0.03
+  },
+  {
+   "view": "S10:last",
+   "frame": 503,
+   "pct": 0,
+   "raw": 0.03
+  },
+  {
+   "view": "S11:first",
+   "frame": 504,
+   "pct": 0.018,
+   "raw": 0.165
+  },
+  {
+   "view": "S11:mid",
+   "frame": 519,
+   "pct": 0.089,
+   "raw": 0.383
+  },
+  {
+   "view": "S11:last",
+   "frame": 533,
+   "pct": 0.016,
+   "raw": 0.192
+  },
+  {
+   "view": "S12:first",
+   "frame": 534,
+   "pct": 0.016,
+   "raw": 0.147
+  },
+  {
+   "view": "S12:mid",
+   "frame": 556,
+   "pct": 0.018,
+   "raw": 0.147
+  },
+  {
+   "view": "S12:last",
+   "frame": 578,
+   "pct": 0.023,
+   "raw": 0.189
+  },
+  {
+   "view": "S13:first",
+   "frame": 579,
+   "pct": 0.106,
+   "raw": 0.656
+  },
+  {
+   "view": "S13:mid",
+   "frame": 610,
+   "pct": 0.126,
+   "raw": 0.873
+  },
+  {
+   "view": "S13:last",
+   "frame": 641,
+   "pct": 0.106,
+   "raw": 0.745
+  }
+ ]
+}

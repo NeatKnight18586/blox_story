@@ -1,0 +1,1597 @@
+{
+ "story": "touchgrass",
+ "audio": "voice.flac",
+ "duration": 89.629063,
+ "method": "sherpa-onnx zipformer-small-en + script DP + silence snap (scripts/v2/align.py)",
+ "lines": [
+  {
+   "line": 1,
+   "text": "In this world, everyone lives inside a headset.",
+   "start": 0.0,
+   "end": 2.678,
+   "words": [
+    {
+     "w": "In",
+     "start": 0.0,
+     "end": 0.16
+    },
+    {
+     "w": "this",
+     "start": 0.16,
+     "end": 0.4
+    },
+    {
+     "w": "world",
+     "start": 0.4,
+     "end": 0.79
+    },
+    {
+     "w": "everyone",
+     "start": 1.058,
+     "end": 1.4
+    },
+    {
+     "w": "lives",
+     "start": 1.4,
+     "end": 1.72
+    },
+    {
+     "w": "inside",
+     "start": 1.72,
+     "end": 2.08
+    },
+    {
+     "w": "a",
+     "start": 2.08,
+     "end": 2.48
+    },
+    {
+     "w": "headset",
+     "start": 2.48,
+     "end": 2.678
+    }
+   ]
+  },
+  {
+   "line": 2,
+   "text": "Everyone except Nova.",
+   "start": 3.213,
+   "end": 4.604,
+   "words": [
+    {
+     "w": "Everyone",
+     "start": 3.213,
+     "end": 3.76
+    },
+    {
+     "w": "except",
+     "start": 3.76,
+     "end": 4.28
+    },
+    {
+     "w": "Nova",
+     "start": 4.28,
+     "end": 4.604
+    }
+   ]
+  },
+  {
+   "line": 3,
+   "text": "Out here, the world is dust.",
+   "start": 5.177,
+   "end": 6.86,
+   "words": [
+    {
+     "w": "Out",
+     "start": 5.177,
+     "end": 5.32
+    },
+    {
+     "w": "here",
+     "start": 5.32,
+     "end": 5.72
+    },
+    {
+     "w": "the",
+     "start": 5.72,
+     "end": 5.726
+    },
+    {
+     "w": "world",
+     "start": 5.929,
+     "end": 6.24
+    },
+    {
+     "w": "is",
+     "start": 6.24,
+     "end": 6.48
+    },
+    {
+     "w": "dust",
+     "start": 6.48,
+     "end": 6.86
+    }
+   ]
+  },
+  {
+   "line": 4,
+   "text": "No grass. No birds. Just gray.",
+   "start": 7.214,
+   "end": 9.553,
+   "words": [
+    {
+     "w": "No",
+     "start": 7.214,
+     "end": 7.36
+    },
+    {
+     "w": "grass",
+     "start": 7.36,
+     "end": 7.92
+    },
+    {
+     "w": "No",
+     "start": 7.92,
+     "end": 8.16
+    },
+    {
+     "w": "birds",
+     "start": 8.16,
+     "end": 8.643
+    },
+    {
+     "w": "Just",
+     "start": 8.932,
+     "end": 9.2
+    },
+    {
+     "w": "gray",
+     "start": 9.2,
+     "end": 9.553
+    }
+   ]
+  },
+  {
+   "line": 5,
+   "text": "Nova sits outside every single day.",
+   "start": 10.145,
+   "end": 12.207,
+   "words": [
+    {
+     "w": "Nova",
+     "start": 10.145,
+     "end": 10.36
+    },
+    {
+     "w": "sits",
+     "start": 10.36,
+     "end": 10.68
+    },
+    {
+     "w": "outside",
+     "start": 10.68,
+     "end": 11.2
+    },
+    {
+     "w": "every",
+     "start": 11.2,
+     "end": 11.52
+    },
+    {
+     "w": "single",
+     "start": 11.52,
+     "end": 12.0
+    },
+    {
+     "w": "day",
+     "start": 12.0,
+     "end": 12.207
+    }
+   ]
+  },
+  {
+   "line": 6,
+   "text": "Watering the dust.",
+   "start": 12.519,
+   "end": 13.425,
+   "words": [
+    {
+     "w": "Watering",
+     "start": 12.519,
+     "end": 12.92
+    },
+    {
+     "w": "the",
+     "start": 12.92,
+     "end": 13.12
+    },
+    {
+     "w": "dust",
+     "start": 13.12,
+     "end": 13.425
+    }
+   ]
+  },
+  {
+   "line": 7,
+   "text": "Nobody knows why.",
+   "start": 13.823,
+   "end": 14.614,
+   "words": [
+    {
+     "w": "Nobody",
+     "start": 13.823,
+     "end": 14.08
+    },
+    {
+     "w": "knows",
+     "start": 14.08,
+     "end": 14.4
+    },
+    {
+     "w": "why",
+     "start": 14.4,
+     "end": 14.614
+    }
+   ]
+  },
+  {
+   "line": 8,
+   "text": "Leo doesn't care.",
+   "start": 15.082,
+   "end": 15.811,
+   "words": [
+    {
+     "w": "Leo",
+     "start": 15.082,
+     "end": 15.28
+    },
+    {
+     "w": "doesn't",
+     "start": 15.28,
+     "end": 15.6
+    },
+    {
+     "w": "care",
+     "start": 15.6,
+     "end": 15.811
+    }
+   ]
+  },
+  {
+   "line": 9,
+   "text": "Click. Blue light.",
+   "start": 16.228,
+   "end": 17.383,
+   "words": [
+    {
+     "w": "Click",
+     "start": 16.228,
+     "end": 16.454
+    },
+    {
+     "w": "Blue",
+     "start": 16.851,
+     "end": 17.12
+    },
+    {
+     "w": "light",
+     "start": 17.12,
+     "end": 17.383
+    }
+   ]
+  },
+  {
+   "line": 10,
+   "text": "And he's everywhere.",
+   "start": 17.744,
+   "end": 18.781,
+   "words": [
+    {
+     "w": "And",
+     "start": 17.744,
+     "end": 17.764
+    },
+    {
+     "w": "he's",
+     "start": 17.764,
+     "end": 18.12
+    },
+    {
+     "w": "everywhere",
+     "start": 18.12,
+     "end": 18.781
+    }
+   ]
+  },
+  {
+   "line": 11,
+   "text": "Zombie city? He's the hero.",
+   "start": 18.84,
+   "end": 20.819,
+   "words": [
+    {
+     "w": "Zombie",
+     "start": 18.84,
+     "end": 19.56
+    },
+    {
+     "w": "city",
+     "start": 19.56,
+     "end": 19.87
+    },
+    {
+     "w": "He's",
+     "start": 20.213,
+     "end": 20.32
+    },
+    {
+     "w": "the",
+     "start": 20.32,
+     "end": 20.48
+    },
+    {
+     "w": "hero",
+     "start": 20.48,
+     "end": 20.819
+    }
+   ]
+  },
+  {
+   "line": 12,
+   "text": "Dragon mountains? He rides one.",
+   "start": 21.168,
+   "end": 22.779,
+   "words": [
+    {
+     "w": "Dragon",
+     "start": 21.168,
+     "end": 21.52
+    },
+    {
+     "w": "mountains",
+     "start": 21.52,
+     "end": 21.962
+    },
+    {
+     "w": "He",
+     "start": 22.172,
+     "end": 22.2
+    },
+    {
+     "w": "rides",
+     "start": 22.2,
+     "end": 22.6
+    },
+    {
+     "w": "one",
+     "start": 22.6,
+     "end": 22.779
+    }
+   ]
+  },
+  {
+   "line": 13,
+   "text": "Space war? He's the captain.",
+   "start": 23.044,
+   "end": 24.662,
+   "words": [
+    {
+     "w": "Space",
+     "start": 23.044,
+     "end": 23.44
+    },
+    {
+     "w": "war",
+     "start": 23.44,
+     "end": 23.728
+    },
+    {
+     "w": "He's",
+     "start": 23.984,
+     "end": 24.12
+    },
+    {
+     "w": "the",
+     "start": 24.12,
+     "end": 24.24
+    },
+    {
+     "w": "captain",
+     "start": 24.24,
+     "end": 24.662
+    }
+   ]
+  },
+  {
+   "line": 14,
+   "text": "In there, he has a hundred friends.",
+   "start": 25.162,
+   "end": 26.976,
+   "words": [
+    {
+     "w": "In",
+     "start": 25.162,
+     "end": 25.28
+    },
+    {
+     "w": "there",
+     "start": 25.28,
+     "end": 25.6
+    },
+    {
+     "w": "he",
+     "start": 25.6,
+     "end": 25.8
+    },
+    {
+     "w": "has",
+     "start": 25.8,
+     "end": 26.0
+    },
+    {
+     "w": "a",
+     "start": 26.0,
+     "end": 26.16
+    },
+    {
+     "w": "hundred",
+     "start": 26.16,
+     "end": 26.6
+    },
+    {
+     "w": "friends",
+     "start": 26.6,
+     "end": 26.976
+    }
+   ]
+  },
+  {
+   "line": 15,
+   "text": "Every one in crazy armor.",
+   "start": 27.267,
+   "end": 28.898,
+   "words": [
+    {
+     "w": "Every",
+     "start": 27.267,
+     "end": 27.6
+    },
+    {
+     "w": "one",
+     "start": 27.6,
+     "end": 27.88
+    },
+    {
+     "w": "in",
+     "start": 27.88,
+     "end": 28.08
+    },
+    {
+     "w": "crazy",
+     "start": 28.08,
+     "end": 28.6
+    },
+    {
+     "w": "armor",
+     "start": 28.6,
+     "end": 28.898
+    }
+   ]
+  },
+  {
+   "line": 16,
+   "text": "Out here, he has one.",
+   "start": 29.272,
+   "end": 30.583,
+   "words": [
+    {
+     "w": "Out",
+     "start": 29.272,
+     "end": 29.44
+    },
+    {
+     "w": "here",
+     "start": 29.44,
+     "end": 29.778
+    },
+    {
+     "w": "he",
+     "start": 30.015,
+     "end": 30.08
+    },
+    {
+     "w": "has",
+     "start": 30.08,
+     "end": 30.36
+    },
+    {
+     "w": "one",
+     "start": 30.36,
+     "end": 30.583
+    }
+   ]
+  },
+  {
+   "line": 17,
+   "text": "Tap. Tap. Tap.",
+   "start": 31.078,
+   "end": 32.518,
+   "words": [
+    {
+     "w": "Tap",
+     "start": 31.078,
+     "end": 31.327
+    },
+    {
+     "w": "Tap",
+     "start": 31.665,
+     "end": 31.914
+    },
+    {
+     "w": "Tap",
+     "start": 32.227,
+     "end": 32.518
+    }
+   ]
+  },
+  {
+   "line": 18,
+   "text": "The sky cracks open.",
+   "start": 32.975,
+   "end": 34.12,
+   "words": [
+    {
+     "w": "The",
+     "start": 32.975,
+     "end": 32.995
+    },
+    {
+     "w": "sky",
+     "start": 32.995,
+     "end": 33.44
+    },
+    {
+     "w": "cracks",
+     "start": 33.44,
+     "end": 33.88
+    },
+    {
+     "w": "open",
+     "start": 33.88,
+     "end": 34.12
+    }
+   ]
+  },
+  {
+   "line": 19,
+   "text": "A giant finger pokes the zombies.",
+   "start": 34.342,
+   "end": 36.03,
+   "words": [
+    {
+     "w": "A",
+     "start": 34.342,
+     "end": 34.4
+    },
+    {
+     "w": "giant",
+     "start": 34.4,
+     "end": 34.8
+    },
+    {
+     "w": "finger",
+     "start": 34.8,
+     "end": 35.12
+    },
+    {
+     "w": "pokes",
+     "start": 35.12,
+     "end": 35.44
+    },
+    {
+     "w": "the",
+     "start": 35.44,
+     "end": 35.86
+    },
+    {
+     "w": "zombies",
+     "start": 35.86,
+     "end": 36.03
+    }
+   ]
+  },
+  {
+   "line": 20,
+   "text": "\"Bro,\" his friend whispers.",
+   "start": 36.368,
+   "end": 37.716,
+   "words": [
+    {
+     "w": "Bro",
+     "start": 36.368,
+     "end": 36.704
+    },
+    {
+     "w": "his",
+     "start": 36.96,
+     "end": 37.0
+    },
+    {
+     "w": "friend",
+     "start": 37.0,
+     "end": 37.28
+    },
+    {
+     "w": "whispers",
+     "start": 37.28,
+     "end": 37.716
+    }
+   ]
+  },
+  {
+   "line": 21,
+   "text": "\"You're getting poked by the sky.\"",
+   "start": 37.979,
+   "end": 39.362,
+   "words": [
+    {
+     "w": "You're",
+     "start": 37.979,
+     "end": 38.04
+    },
+    {
+     "w": "getting",
+     "start": 38.04,
+     "end": 38.32
+    },
+    {
+     "w": "poked",
+     "start": 38.32,
+     "end": 38.64
+    },
+    {
+     "w": "by",
+     "start": 38.64,
+     "end": 38.76
+    },
+    {
+     "w": "the",
+     "start": 38.76,
+     "end": 38.92
+    },
+    {
+     "w": "sky",
+     "start": 38.92,
+     "end": 39.362
+    }
+   ]
+  },
+  {
+   "line": 22,
+   "text": "Leo knows that finger.",
+   "start": 39.8,
+   "end": 40.817,
+   "words": [
+    {
+     "w": "Leo",
+     "start": 39.8,
+     "end": 40.04
+    },
+    {
+     "w": "knows",
+     "start": 40.04,
+     "end": 40.32
+    },
+    {
+     "w": "that",
+     "start": 40.32,
+     "end": 40.52
+    },
+    {
+     "w": "finger",
+     "start": 40.52,
+     "end": 40.817
+    }
+   ]
+  },
+  {
+   "line": 23,
+   "text": "It's Nova.",
+   "start": 41.076,
+   "end": 41.5,
+   "words": [
+    {
+     "w": "It's",
+     "start": 41.076,
+     "end": 41.24
+    },
+    {
+     "w": "Nova",
+     "start": 41.24,
+     "end": 41.5
+    }
+   ]
+  },
+  {
+   "line": 24,
+   "text": "He ignores it.",
+   "start": 41.5,
+   "end": 42.524,
+   "words": [
+    {
+     "w": "He",
+     "start": 41.5,
+     "end": 41.57
+    },
+    {
+     "w": "ignores",
+     "start": 41.968,
+     "end": 42.44
+    },
+    {
+     "w": "it",
+     "start": 42.44,
+     "end": 42.524
+    }
+   ]
+  },
+  {
+   "line": 25,
+   "text": "Space war.",
+   "start": 42.894,
+   "end": 43.651,
+   "words": [
+    {
+     "w": "Space",
+     "start": 42.894,
+     "end": 43.32
+    },
+    {
+     "w": "war",
+     "start": 43.32,
+     "end": 43.651
+    }
+   ]
+  },
+  {
+   "line": 26,
+   "text": "Tap. Tap. Tap.",
+   "start": 43.961,
+   "end": 45.291,
+   "words": [
+    {
+     "w": "Tap",
+     "start": 43.961,
+     "end": 44.218
+    },
+    {
+     "w": "Tap",
+     "start": 44.495,
+     "end": 44.775
+    },
+    {
+     "w": "Tap",
+     "start": 45.0,
+     "end": 45.291
+    }
+   ]
+  },
+  {
+   "line": 27,
+   "text": "The finger boops his spaceship.",
+   "start": 45.624,
+   "end": 46.927,
+   "words": [
+    {
+     "w": "The",
+     "start": 45.624,
+     "end": 45.644
+    },
+    {
+     "w": "finger",
+     "start": 45.644,
+     "end": 45.96
+    },
+    {
+     "w": "boops",
+     "start": 45.96,
+     "end": 46.32
+    },
+    {
+     "w": "his",
+     "start": 46.32,
+     "end": 46.48
+    },
+    {
+     "w": "spaceship",
+     "start": 46.48,
+     "end": 46.927
+    }
+   ]
+  },
+  {
+   "line": 28,
+   "text": "Straight into the sun.",
+   "start": 47.119,
+   "end": 48.143,
+   "words": [
+    {
+     "w": "Straight",
+     "start": 47.119,
+     "end": 47.48
+    },
+    {
+     "w": "into",
+     "start": 47.48,
+     "end": 47.68
+    },
+    {
+     "w": "the",
+     "start": 47.68,
+     "end": 47.88
+    },
+    {
+     "w": "sun",
+     "start": 47.88,
+     "end": 48.143
+    }
+   ]
+  },
+  {
+   "line": 29,
+   "text": "Dragon world. Final boss.",
+   "start": 48.477,
+   "end": 50.218,
+   "words": [
+    {
+     "w": "Dragon",
+     "start": 48.477,
+     "end": 48.88
+    },
+    {
+     "w": "world",
+     "start": 48.88,
+     "end": 49.196
+    },
+    {
+     "w": "Final",
+     "start": 49.438,
+     "end": 49.8
+    },
+    {
+     "w": "boss",
+     "start": 49.8,
+     "end": 50.218
+    }
+   ]
+  },
+  {
+   "line": 30,
+   "text": "The legendary sword is right there.",
+   "start": 50.441,
+   "end": 52.097,
+   "words": [
+    {
+     "w": "The",
+     "start": 50.441,
+     "end": 50.461
+    },
+    {
+     "w": "legendary",
+     "start": 50.461,
+     "end": 51.04
+    },
+    {
+     "w": "sword",
+     "start": 51.04,
+     "end": 51.32
+    },
+    {
+     "w": "is",
+     "start": 51.32,
+     "end": 51.52
+    },
+    {
+     "w": "right",
+     "start": 51.52,
+     "end": 51.84
+    },
+    {
+     "w": "there",
+     "start": 51.84,
+     "end": 52.097
+    }
+   ]
+  },
+  {
+   "line": 31,
+   "text": "Tap. Tap. TAP.",
+   "start": 52.404,
+   "end": 53.686,
+   "words": [
+    {
+     "w": "Tap",
+     "start": 52.404,
+     "end": 52.662
+    },
+    {
+     "w": "Tap",
+     "start": 52.922,
+     "end": 53.185
+    },
+    {
+     "w": "TAP",
+     "start": 53.4,
+     "end": 53.686
+    }
+   ]
+  },
+  {
+   "line": 32,
+   "text": "The finger flicks the dragon.",
+   "start": 53.974,
+   "end": 55.23,
+   "words": [
+    {
+     "w": "The",
+     "start": 53.974,
+     "end": 54.0
+    },
+    {
+     "w": "finger",
+     "start": 54.0,
+     "end": 54.36
+    },
+    {
+     "w": "flicks",
+     "start": 54.36,
+     "end": 54.68
+    },
+    {
+     "w": "the",
+     "start": 54.68,
+     "end": 54.84
+    },
+    {
+     "w": "dragon",
+     "start": 54.84,
+     "end": 55.23
+    }
+   ]
+  },
+  {
+   "line": 33,
+   "text": "The dragon cries.",
+   "start": 55.417,
+   "end": 56.418,
+   "words": [
+    {
+     "w": "The",
+     "start": 55.417,
+     "end": 55.44
+    },
+    {
+     "w": "dragon",
+     "start": 55.44,
+     "end": 55.92
+    },
+    {
+     "w": "cries",
+     "start": 55.92,
+     "end": 56.418
+    }
+   ]
+  },
+  {
+   "line": 34,
+   "text": "Leo rips off the headset.",
+   "start": 56.725,
+   "end": 57.977,
+   "words": [
+    {
+     "w": "Leo",
+     "start": 56.725,
+     "end": 56.96
+    },
+    {
+     "w": "rips",
+     "start": 56.96,
+     "end": 57.28
+    },
+    {
+     "w": "off",
+     "start": 57.28,
+     "end": 57.44
+    },
+    {
+     "w": "the",
+     "start": 57.44,
+     "end": 57.8
+    },
+    {
+     "w": "headset",
+     "start": 57.8,
+     "end": 57.977
+    }
+   ]
+  },
+  {
+   "line": 35,
+   "text": "\"WHAT, Nova? I was about to win!\"",
+   "start": 58.251,
+   "end": 60.055,
+   "words": [
+    {
+     "w": "WHAT",
+     "start": 58.251,
+     "end": 58.48
+    },
+    {
+     "w": "Nova",
+     "start": 58.48,
+     "end": 58.96
+    },
+    {
+     "w": "I",
+     "start": 58.96,
+     "end": 59.12
+    },
+    {
+     "w": "was",
+     "start": 59.12,
+     "end": 59.24
+    },
+    {
+     "w": "about",
+     "start": 59.24,
+     "end": 59.48
+    },
+    {
+     "w": "to",
+     "start": 59.48,
+     "end": 59.68
+    },
+    {
+     "w": "win",
+     "start": 59.68,
+     "end": 60.055
+    }
+   ]
+  },
+  {
+   "line": 36,
+   "text": "She doesn't say anything.",
+   "start": 60.48,
+   "end": 61.319,
+   "words": [
+    {
+     "w": "She",
+     "start": 60.48,
+     "end": 60.5
+    },
+    {
+     "w": "doesn't",
+     "start": 60.5,
+     "end": 60.8
+    },
+    {
+     "w": "say",
+     "start": 60.8,
+     "end": 60.96
+    },
+    {
+     "w": "anything",
+     "start": 60.96,
+     "end": 61.319
+    }
+   ]
+  },
+  {
+   "line": 37,
+   "text": "She just points down.",
+   "start": 61.648,
+   "end": 62.554,
+   "words": [
+    {
+     "w": "She",
+     "start": 61.648,
+     "end": 61.68
+    },
+    {
+     "w": "just",
+     "start": 61.68,
+     "end": 61.92
+    },
+    {
+     "w": "points",
+     "start": 61.92,
+     "end": 62.28
+    },
+    {
+     "w": "down",
+     "start": 62.28,
+     "end": 62.554
+    }
+   ]
+  },
+  {
+   "line": 38,
+   "text": "In the dust, there's something green.",
+   "start": 63.012,
+   "end": 64.651,
+   "words": [
+    {
+     "w": "In",
+     "start": 63.012,
+     "end": 63.032
+    },
+    {
+     "w": "the",
+     "start": 63.032,
+     "end": 63.2
+    },
+    {
+     "w": "dust",
+     "start": 63.2,
+     "end": 63.572
+    },
+    {
+     "w": "there's",
+     "start": 63.77,
+     "end": 63.88
+    },
+    {
+     "w": "something",
+     "start": 63.88,
+     "end": 64.24
+    },
+    {
+     "w": "green",
+     "start": 64.24,
+     "end": 64.651
+    }
+   ]
+  },
+  {
+   "line": 39,
+   "text": "One tiny blade of grass.",
+   "start": 65.017,
+   "end": 66.68,
+   "words": [
+    {
+     "w": "One",
+     "start": 65.017,
+     "end": 65.32
+    },
+    {
+     "w": "tiny",
+     "start": 65.32,
+     "end": 65.84
+    },
+    {
+     "w": "blade",
+     "start": 65.84,
+     "end": 66.12
+    },
+    {
+     "w": "of",
+     "start": 66.12,
+     "end": 66.28
+    },
+    {
+     "w": "grass",
+     "start": 66.28,
+     "end": 66.68
+    }
+   ]
+  },
+  {
+   "line": 40,
+   "text": "The first one in years.",
+   "start": 67.019,
+   "end": 68.23,
+   "words": [
+    {
+     "w": "The",
+     "start": 67.019,
+     "end": 67.04
+    },
+    {
+     "w": "first",
+     "start": 67.04,
+     "end": 67.36
+    },
+    {
+     "w": "one",
+     "start": 67.36,
+     "end": 67.56
+    },
+    {
+     "w": "in",
+     "start": 67.56,
+     "end": 67.76
+    },
+    {
+     "w": "years",
+     "start": 67.76,
+     "end": 68.23
+    }
+   ]
+  },
+  {
+   "line": 41,
+   "text": "Leo looks at her watering can.",
+   "start": 68.666,
+   "end": 69.958,
+   "words": [
+    {
+     "w": "Leo",
+     "start": 68.666,
+     "end": 68.88
+    },
+    {
+     "w": "looks",
+     "start": 68.88,
+     "end": 69.08
+    },
+    {
+     "w": "at",
+     "start": 69.08,
+     "end": 69.16
+    },
+    {
+     "w": "her",
+     "start": 69.16,
+     "end": 69.32
+    },
+    {
+     "w": "watering",
+     "start": 69.32,
+     "end": 69.76
+    },
+    {
+     "w": "can",
+     "start": 69.76,
+     "end": 69.958
+    }
+   ]
+  },
+  {
+   "line": 42,
+   "text": "\"Every day?\"",
+   "start": 70.357,
+   "end": 71.048,
+   "words": [
+    {
+     "w": "Every",
+     "start": 70.357,
+     "end": 70.68
+    },
+    {
+     "w": "day",
+     "start": 70.68,
+     "end": 71.048
+    }
+   ]
+  },
+  {
+   "line": 43,
+   "text": "Nova shrugs. \"Somebody had to.\"",
+   "start": 71.392,
+   "end": 73.278,
+   "words": [
+    {
+     "w": "Nova",
+     "start": 71.392,
+     "end": 71.68
+    },
+    {
+     "w": "shrugs",
+     "start": 71.68,
+     "end": 72.092
+    },
+    {
+     "w": "Somebody",
+     "start": 72.461,
+     "end": 72.88
+    },
+    {
+     "w": "had",
+     "start": 72.88,
+     "end": 73.08
+    },
+    {
+     "w": "to",
+     "start": 73.08,
+     "end": 73.278
+    }
+   ]
+  },
+  {
+   "line": 44,
+   "text": "\"Now touch grass,\" she says.",
+   "start": 73.671,
+   "end": 75.206,
+   "words": [
+    {
+     "w": "Now",
+     "start": 73.671,
+     "end": 73.76
+    },
+    {
+     "w": "touch",
+     "start": 73.76,
+     "end": 74.12
+    },
+    {
+     "w": "grass",
+     "start": 74.12,
+     "end": 74.64
+    },
+    {
+     "w": "she",
+     "start": 74.64,
+     "end": 74.88
+    },
+    {
+     "w": "says",
+     "start": 74.88,
+     "end": 75.206
+    }
+   ]
+  },
+  {
+   "line": 45,
+   "text": "Leo kneels down.",
+   "start": 75.592,
+   "end": 76.452,
+   "words": [
+    {
+     "w": "Leo",
+     "start": 75.592,
+     "end": 75.8
+    },
+    {
+     "w": "kneels",
+     "start": 75.8,
+     "end": 76.2
+    },
+    {
+     "w": "down",
+     "start": 76.2,
+     "end": 76.452
+    }
+   ]
+  },
+  {
+   "line": 46,
+   "text": "He touches it.",
+   "start": 76.858,
+   "end": 77.373,
+   "words": [
+    {
+     "w": "He",
+     "start": 76.858,
+     "end": 76.878
+    },
+    {
+     "w": "touches",
+     "start": 76.878,
+     "end": 77.32
+    },
+    {
+     "w": "it",
+     "start": 77.32,
+     "end": 77.373
+    }
+   ]
+  },
+  {
+   "line": 47,
+   "text": "It's... kind of soft.",
+   "start": 77.739,
+   "end": 79.211,
+   "words": [
+    {
+     "w": "It's",
+     "start": 77.739,
+     "end": 78.085
+    },
+    {
+     "w": "kind",
+     "start": 78.408,
+     "end": 78.56
+    },
+    {
+     "w": "of",
+     "start": 78.56,
+     "end": 78.76
+    },
+    {
+     "w": "soft",
+     "start": 78.76,
+     "end": 79.211
+    }
+   ]
+  },
+  {
+   "line": 48,
+   "text": "Behind him, the headsets come off.",
+   "start": 79.686,
+   "end": 81.293,
+   "words": [
+    {
+     "w": "Behind",
+     "start": 79.686,
+     "end": 80.04
+    },
+    {
+     "w": "him",
+     "start": 80.04,
+     "end": 80.223
+    },
+    {
+     "w": "the",
+     "start": 80.42,
+     "end": 80.64
+    },
+    {
+     "w": "headsets",
+     "start": 80.64,
+     "end": 80.92
+    },
+    {
+     "w": "come",
+     "start": 80.92,
+     "end": 81.12
+    },
+    {
+     "w": "off",
+     "start": 81.12,
+     "end": 81.293
+    }
+   ]
+  },
+  {
+   "line": 49,
+   "text": "One by one.",
+   "start": 81.556,
+   "end": 82.332,
+   "words": [
+    {
+     "w": "One",
+     "start": 81.556,
+     "end": 81.84
+    },
+    {
+     "w": "by",
+     "start": 81.84,
+     "end": 82.08
+    },
+    {
+     "w": "one",
+     "start": 82.08,
+     "end": 82.332
+    }
+   ]
+  },
+  {
+   "line": 50,
+   "text": "A whole town, staring at one blade of grass.",
+   "start": 82.646,
+   "end": 85.356,
+   "words": [
+    {
+     "w": "A",
+     "start": 82.646,
+     "end": 82.72
+    },
+    {
+     "w": "whole",
+     "start": 82.72,
+     "end": 83.08
+    },
+    {
+     "w": "town",
+     "start": 83.08,
+     "end": 83.6
+    },
+    {
+     "w": "staring",
+     "start": 83.6,
+     "end": 84.04
+    },
+    {
+     "w": "at",
+     "start": 84.04,
+     "end": 84.24
+    },
+    {
+     "w": "one",
+     "start": 84.24,
+     "end": 84.48
+    },
+    {
+     "w": "blade",
+     "start": 84.48,
+     "end": 84.8
+    },
+    {
+     "w": "of",
+     "start": 84.8,
+     "end": 84.96
+    },
+    {
+     "w": "grass",
+     "start": 84.96,
+     "end": 85.356
+    }
+   ]
+  },
+  {
+   "line": 51,
+   "text": "Bzzt.",
+   "start": 85.66,
+   "end": 85.943,
+   "words": [
+    {
+     "w": "Bzzt",
+     "start": 85.66,
+     "end": 85.943
+    }
+   ]
+  },
+  {
+   "line": 52,
+   "text": "\"Achievement unlocked,\" says the headset.",
+   "start": 86.373,
+   "end": 88.291,
+   "words": [
+    {
+     "w": "Achievement",
+     "start": 86.373,
+     "end": 86.88
+    },
+    {
+     "w": "unlocked",
+     "start": 86.88,
+     "end": 87.48
+    },
+    {
+     "w": "says",
+     "start": 87.48,
+     "end": 87.72
+    },
+    {
+     "w": "the",
+     "start": 87.72,
+     "end": 88.08
+    },
+    {
+     "w": "headset",
+     "start": 88.08,
+     "end": 88.291
+    }
+   ]
+  },
+  {
+   "line": 53,
+   "text": "\"Touched grass.\"",
+   "start": 88.624,
+   "end": 89.425,
+   "words": [
+    {
+     "w": "Touched",
+     "start": 88.624,
+     "end": 88.96
+    },
+    {
+     "w": "grass",
+     "start": 88.96,
+     "end": 89.425
+    }
+   ]
+  }
+ ]
+}

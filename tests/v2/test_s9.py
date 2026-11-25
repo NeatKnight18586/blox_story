@@ -115,23 +115,39 @@ class ScriptCheck(unittest.TestCase):
         txt = open(os.path.join(ROOT, f'stories/{slug}/script.txt')).read()
         return self.SC.check(mutate(txt) if mutate else txt, self.SC.card_for(slug, self.md))
 
-    def test_the_four_existing_scripts_pass(self):
+    def test_the_four_existing_scripts_fail_only_on_v6_length(self):
+        # written for format v3 (410–440 words): under FORMAT_V6 (300–400) the word count is their only failure
         for slug in ('egg', 'ragdoll', 'mountain', 'mirror'):
-            r = self.run_one(slug); self.assertTrue(r['pass'], f"{slug}: {r['failures']}")
-            self.assertGreaterEqual(r['numbers']['keyNouns'], 10, slug)
+            r = self.run_one(slug); self.assertEqual(len(r['failures']), 1, f"{slug}: {r['failures']}")
+            self.assertRegex(r['failures'][0], r'^4\d\d words \(> 400; target 300–400\)$'); self.assertGreaterEqual(r['numbers']['keyNouns'], 10, slug)
 
     def test_each_rule_fails_when_broken(self):
-        f = lambda m: self.run_one('egg', m)['failures']
-        self.assertTrue(any('words (want 410' in x for x in f(lambda t: t + ' extra' * 10)))
+        def cut(t):   # the egg script cut to its first 380–400 words, whole lines (scriptcheck's own word count)
+            out = []
+            for l in t.splitlines():
+                if len(self.SC.tokens('\n'.join(out + [l]))) > 400: break
+                out.append(l)
+            return '\n'.join(out) + '\n'
+        f = lambda m: self.run_one('egg', lambda t: m(cut(t)))['failures']
+        self.assertFalse(any(re.match(r'\d+ words \(', x) for x in f(lambda t: t)))
+        self.assertTrue(any('words (> 400' in x for x in f(lambda t: t + ' extra' * 10)))
+        short = self.run_one('egg', lambda t: ' '.join(self.SC.tokens(cut(t))[:290]) + '.')   # Decision 1: < 300 warns, does not fail
+        self.assertFalse(any(re.match(r'\d+ words \(', x) for x in short['failures'])); self.assertEqual(short['warnings'], ['290 words (< 300; target 300–400, never padded)'])
         self.assertTrue(any('sentence of 14 words' in x for x in f(lambda t: t.replace('Kit held on.', 'Kit held on to the egg with both hands and did not let go.'))))
-        self.assertTrue(any("first line" in x for x in f(lambda t: t.replace('In this town, everybody steals eggs.', 'In this town, everybody steals all the shiny eggs.', 1))))
-        self.assertTrue(any("last line" in x for x in f(lambda t: t.rstrip().rsplit('\n', 1)[0] + '\nAnd at midnight, everybody sleeps.')))
-        self.assertTrue(any('first-person' in x for x in f(lambda t: t.replace('Kit is number one.', 'I win. We win. My egg. Our egg. Me too. Us too. I said so.'))))
+        self.assertTrue(any("first line has" in x for x in f(lambda t: t.replace('In this town, everybody steals eggs.', 'In this town, everybody steals all the shiny eggs every day.', 1))))
+        self.assertTrue(any("repeats the first line" in x for x in f(lambda t: t + '\nIn this town, everybody steals eggs.')))
+        self.assertTrue(any("repeats the first line" in x for x in f(lambda t: t + '\nIn this town, everybody still steals eggs!')))
+        self.assertFalse(any("repeats the first line" in x for x in f(lambda t: t + '\nAnd at midnight, everybody holds on.')))
+        self.assertFalse(any('first-person' in x for x in f(lambda t: t.replace('Kit held on.', 'I held on. We held on. My egg. Our egg. Me too. Us too. I said so.'))))
         self.assertTrue(any('key nouns missing: scoreboard' in x for x in f(lambda t: t.replace('scoreboard', 'board'))))
         self.assertTrue(any('Flesch' in x for x in f(lambda t: t.replace('.\n', ', and ').replace('. ', ', and '))))
         self.assertGreater(self.SC.fk_grade('Unquestionably, extraordinary institutional responsibilities overwhelmed the committee.'), 6)
 
     def test_helpers(self):
+        self.assertTrue(self.SC.repeats_first('Whatever you hold at eight, you keep.', 'whatever you hold at eight you keep'))
+        self.assertFalse(self.SC.repeats_first('Once a year, every kid in town gets locked in the Toy House.', "Whoever you're holding at eight, you keep forever."))   # Toy House
+        self.assertAlmostEqual(self.SC.overlap('a b c d e', 'a b c x y'), .6); self.assertTrue(self.SC.repeats_first('a b c d e', 'a b c x y'))
+        self.assertFalse(self.SC.repeats_first('a b c d e', 'a b x y z'))
         self.assertTrue(self.SC.forms('whispering') & self.SC.forms('whispers')); self.assertTrue(self.SC.forms('snaps') & self.SC.forms('snapped'))
         self.assertTrue(self.SC.forms('bases') & self.SC.forms('base')); self.assertFalse(self.SC.forms('egg') & self.SC.forms('edge'))
         self.assertEqual(self.SC.card_last_line({'Second surprise / last line': 'x / "…every night, one loud boy tells them goodnight."'}), '…every night, one loud boy tells them goodnight.')

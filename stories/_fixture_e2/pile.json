@@ -1,0 +1,243 @@
+{
+ "slug": "_fixture_e2",
+ "fps": 30,
+ "format": 6,
+ "body": "v6",
+ "faceStyle": "v6",
+ "labels": false,
+ "world": "parts/sets6/testpark.js",
+ "look": "day",
+ "hero": "hero",
+ "lod": {
+  "near": 18,
+  "max": 24
+ },
+ "note": "E2b pile gate: 7 bodies settle into the frozen mound; still at 6 s, 20 studs away, 25° up.",
+ "cast": {
+  "hero": {
+   "style": "v5",
+   "troupe": "HERO",
+   "at": "plaza",
+   "offset": [
+    30,
+    0,
+    40
+   ],
+   "yaw": 0,
+   "keys": [
+    [
+     0,
+     "idle"
+    ]
+   ]
+  },
+  "crowd001": {
+   "style": "v5",
+   "troupe": "DUMMY",
+   "at": "plaza",
+   "offset": [
+    0,
+    0,
+    0
+   ],
+   "yaw": 0,
+   "keys": [
+    [
+     0,
+     "idle"
+    ]
+   ],
+   "costume": "CROWD",
+   "lod": true
+  },
+  "crowd002": {
+   "style": "v5",
+   "troupe": "DUMMY",
+   "at": "plaza",
+   "offset": [
+    0,
+    0,
+    0
+   ],
+   "yaw": 0,
+   "keys": [
+    [
+     0,
+     "idle"
+    ]
+   ],
+   "costume": "CROWD",
+   "lod": true
+  },
+  "crowd003": {
+   "style": "v5",
+   "troupe": "DUMMY",
+   "at": "plaza",
+   "offset": [
+    0,
+    0,
+    0
+   ],
+   "yaw": 0,
+   "keys": [
+    [
+     0,
+     "idle"
+    ]
+   ],
+   "costume": "CROWD",
+   "lod": true
+  },
+  "crowd004": {
+   "style": "v5",
+   "troupe": "DUMMY",
+   "at": "plaza",
+   "offset": [
+    0,
+    0,
+    0
+   ],
+   "yaw": 0,
+   "keys": [
+    [
+     0,
+     "idle"
+    ]
+   ],
+   "costume": "CROWD",
+   "lod": true
+  },
+  "crowd005": {
+   "style": "v5",
+   "troupe": "DUMMY",
+   "at": "plaza",
+   "offset": [
+    0,
+    0,
+    0
+   ],
+   "yaw": 0,
+   "keys": [
+    [
+     0,
+     "idle"
+    ]
+   ],
+   "costume": "CROWD",
+   "lod": true
+  },
+  "crowd006": {
+   "style": "v5",
+   "troupe": "DUMMY",
+   "at": "plaza",
+   "offset": [
+    0,
+    0,
+    0
+   ],
+   "yaw": 0,
+   "keys": [
+    [
+     0,
+     "idle"
+    ]
+   ],
+   "costume": "CROWD",
+   "lod": true
+  },
+  "crowd007": {
+   "style": "v5",
+   "troupe": "DUMMY",
+   "at": "plaza",
+   "offset": [
+    0,
+    0,
+    0
+   ],
+   "yaw": 0,
+   "keys": [
+    [
+     0,
+     "idle"
+    ]
+   ],
+   "costume": "CROWD",
+   "lod": true
+  },
+  "crowd008": {
+   "style": "v5",
+   "troupe": "DUMMY",
+   "at": "plaza",
+   "offset": [
+    0,
+    0,
+    0
+   ],
+   "yaw": 0,
+   "keys": [
+    [
+     0,
+     "idle"
+    ]
+   ],
+   "costume": "CROWD",
+   "lod": true
+  }
+ },
+ "story6": {
+  "crowd": {
+   "names": [
+    "crowd001",
+    "crowd002",
+    "crowd003",
+    "crowd004",
+    "crowd005",
+    "crowd006",
+    "crowd007",
+    "crowd008"
+   ],
+   "seed": 3,
+   "start": [
+    -12,
+    -6
+   ],
+   "area": {
+    "x0": -36,
+    "x1": 36,
+    "z0": -50,
+    "z1": 56
+   },
+   "steps": [
+    {
+     "t": 0,
+     "behaviour": "pile",
+     "anchor": "cushion"
+    }
+   ]
+  }
+ },
+ "shots": [
+  {
+   "id": "PILE",
+   "size": "wide",
+   "frames": 210,
+   "move": "static-drift",
+   "drift": 0,
+   "from": {
+    "position": [
+     -12,
+     10.402365234813988,
+     -1.8738442592670026
+    ],
+    "target": [
+     -12,
+     1.95,
+     -20
+    ],
+    "fov": 70
+   },
+   "shadowRadius": 20
+  }
+ ],
+ "still": 6
+}

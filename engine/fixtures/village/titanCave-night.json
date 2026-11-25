@@ -1,0 +1,122 @@
+{
+ "note": "tuft P3 village look-dev fixture (scripts/v2/village-fixtures.js): titanCave, night; one 1 s static shot per location view.",
+ "slug": "village",
+ "fps": 24,
+ "format": 6,
+ "acting": 6,
+ "rig": "r6",
+ "twos": false,
+ "faceLife": true,
+ "labels": false,
+ "world": "parts/village/world.js",
+ "cues": "engine/fixtures/acting6/cues.json",
+ "post": "cine",
+ "camera": "cine",
+ "grade": "clear",
+ "location": "titanCave",
+ "look4": "moonlit",
+ "look": "mystery",
+ "skyDist": 650,
+ "cast": {
+  "titan": {
+   "style": "beast",
+   "preset": "TITAN",
+   "tier": "hero",
+   "at": "street",
+   "offset": [
+    0,
+    0,
+    -53
+   ],
+   "yaw": 0,
+   "state": "ignite",
+   "rim": false
+  }
+ },
+ "shots": [
+  {
+   "id": "titanCave-establish",
+   "frames": 24,
+   "duration": 1,
+   "size": "ws",
+   "mood": "awe",
+   "move": "static-drift",
+   "angle": "eye",
+   "from": {
+    "position": [
+     0,
+     42,
+     235
+    ],
+    "target": [
+     0,
+     44,
+     110
+    ],
+    "fov": 42
+   },
+   "to": {
+    "position": [
+     0,
+     42,
+     235
+    ],
+    "target": [
+     0,
+     44,
+     110
+    ],
+    "fov": 42
+   },
+   "beasts": [
+    {
+     "actor": "titan",
+     "state": "ignite",
+     "at": 0
+    }
+   ]
+  },
+  {
+   "id": "titanCave-hero",
+   "frames": 24,
+   "duration": 1,
+   "size": "ws",
+   "mood": "awe",
+   "move": "static-drift",
+   "angle": "eye",
+   "from": {
+    "position": [
+     0,
+     36,
+     175
+    ],
+    "target": [
+     0,
+     36,
+     124
+    ],
+    "fov": 46
+   },
+   "to": {
+    "position": [
+     0,
+     36,
+     175
+    ],
+    "target": [
+     0,
+     36,
+     124
+    ],
+    "fov": 46
+   },
+   "beasts": [
+    {
+     "actor": "titan",
+     "state": "ignite",
+     "at": 0
+    }
+   ]
+  }
+ ]
+}

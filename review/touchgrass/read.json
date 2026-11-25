@@ -1,0 +1,2168 @@
+{
+ "spec": "stories/touchgrass/episode.json",
+ "motionThreshold": 0.021,
+ "shots": [
+  {
+   "id": "01-push",
+   "size": "close",
+   "t": 0,
+   "dur": 1.04,
+   "subject": "TOWN_A",
+   "faceShown": {
+    "angle": 0.1,
+    "inside": 1,
+    "ok": true
+   },
+   "nothingInFront": {
+    "front": 0,
+    "faceCover": 0,
+    "ok": true
+   },
+   "standsOut": {
+    "subj": 0.537,
+    "ring": 0.479,
+    "diff": 0.058,
+    "ok": false,
+    "msg": "subject vs surround luma 0.058 (≥ 0.12)"
+   },
+   "moves": {
+    "motion": 0.0405,
+    "need": 0.021,
+    "ok": true,
+    "msg": ""
+   },
+   "hold": {
+    "held": 1.04,
+    "max": 4.5,
+    "ok": true,
+    "msg": "moving framing held 1.04 s (≤ 4.5)"
+   }
+  },
+  {
+   "id": "02-crane",
+   "size": "wide",
+   "t": 1.04,
+   "dur": 2.17,
+   "subject": null,
+   "moves": {
+    "motion": 0.2145,
+    "need": 0.021,
+    "ok": true,
+    "msg": ""
+   },
+   "hold": {
+    "held": 2.17,
+    "max": 4.5,
+    "ok": true,
+    "msg": "moving framing held 2.17 s (≤ 4.5)"
+   }
+  },
+  {
+   "id": "03-push",
+   "size": "wide",
+   "t": 3.21,
+   "dur": 1.96,
+   "subject": "NOVA",
+   "faceShown": null,
+   "nothingInFront": {
+    "front": 0.021,
+    "faceCover": 0,
+    "ok": true
+   },
+   "standsOut": {
+    "subj": 0.679,
+    "ring": 0.32,
+    "diff": 0.359,
+    "ok": true,
+    "msg": ""
+   },
+   "moves": {
+    "motion": 0.054,
+    "need": 0.021,
+    "ok": true,
+    "msg": ""
+   },
+   "hold": {
+    "held": 1.96,
+    "max": 4.5,
+    "ok": true,
+    "msg": "moving framing held 1.96 s (≤ 4.5)"
+   }
+  },
+  {
+   "id": "04-push",
+   "size": "wide",
+   "t": 5.17,
+   "dur": 2.04,
+   "subject": null,
+   "moves": {
+    "motion": 0.0289,
+    "need": 0.021,
+    "ok": true,
+    "msg": ""
+   },
+   "hold": {
+    "held": 2.04,
+    "max": 4.5,
+    "ok": true,
+    "msg": "moving framing held 2.04 s (≤ 4.5)"
+   }
+  },
+  {
+   "id": "05-push",
+   "size": "insert",
+   "t": 7.21,
+   "dur": 0.71,
+   "subject": "prop_stick",
+   "nothingInFront": {
+    "front": 0,
+    "faceCover": 0,
+    "ok": true
+   },
+   "standsOut": {
+    "subj": 0.483,
+    "ring": 0.289,
+    "diff": 0.193,
+    "ok": true,
+    "msg": ""
+   },
+   "objectReads": {
+    "inside": 1,
+    "h": 0.353,
+    "ok": true
+   },
+   "moves": {
+    "motion": 0.0295,
+    "need": 0.021,
+    "ok": true,
+    "msg": ""
+   },
+   "hold": {
+    "held": 0.71,
+    "max": 4.5,
+    "ok": true,
+    "msg": "moving framing held 0.71 s (≤ 4.5)"
+   }
+  },
+  {
+   "id": "06-push",
+   "size": "insert",
+   "t": 7.92,
+   "dur": 1,
+   "subject": "prop_birdhouse",
+   "nothingInFront": {
+    "front": 0,
+    "faceCover": 0,
+    "ok": true
+   },
+   "standsOut": {
+    "subj": 0.608,
+    "ring": 0.443,
+    "diff": 0.165,
+    "ok": true,
+    "msg": ""
+   },
+   "objectReads": {
+    "inside": 1,
+    "h": 0.505,
+    "ok": true
+   },
+   "moves": {
+    "motion": 0.0776,
+    "need": 0.021,
+    "ok": true,
+    "msg": ""
+   },
+   "hold": {
+    "held": 1,
+    "max": 4.5,
+    "ok": true,
+    "msg": "moving framing held 1.00 s (≤ 4.5)"
+   }
+  },
+  {
+   "id": "07-push",
+   "size": "wide",
+   "t": 8.92,
+   "dur": 1.21,
+   "subject": null,
+   "moves": {
+    "motion": 0.1276,
+    "need": 0.021,
+    "ok": true,
+    "msg": ""
+   },
+   "hold": {
+    "held": 1.21,
+    "max": 4.5,
+    "ok": true,
+    "msg": "moving framing held 1.21 s (≤ 4.5)"
+   }
+  },
+  {
+   "id": "08-push",
+   "size": "medium",
+   "t": 10.13,
+   "dur": 2.38,
+   "subject": "NOVA",
+   "faceShown": {
+    "angle": 20.5,
+    "inside": 1,
+    "ok": true
+   },
+   "nothingInFront": {
+    "front": 0,
+    "faceCover": 0,
+    "ok": true
+   },
+   "standsOut": {
+    "subj": 0.492,
+    "ring": 0.176,
+    "diff": 0.316,
+    "ok": true,
+    "msg": ""
+   },
+   "moves": {
+    "motion": 0.0485,
+    "need": 0.021,
+    "ok": true,
+    "msg": ""
+   },
+   "hold": {
+    "held": 2.38,
+    "max": 4.5,
+    "ok": true,
+    "msg": "moving framing held 2.38 s (≤ 4.5)"
+   }
+  },
+  {
+   "id": "09-push",
+   "size": "insert",
+   "t": 12.5,
+   "dur": 1.33,
+   "subject": "NOVA_can",
+   "nothingInFront": {
+    "front": 0,
+    "faceCover": 0,
+    "ok": true
+   },
+   "standsOut": {
+    "subj": 0.606,
+    "ring": 0.503,
+    "diff": 0.103,
+    "ok": false,
+    "msg": "subject vs surround luma 0.103 (≥ 0.12)"
+   },
+   "objectReads": {
+    "inside": 1,
+    "h": 0.365,
+    "ok": true
+   },
+   "moves": {
+    "motion": 0.0311,
+    "need": 0.021,
+    "ok": true,
+    "msg": ""
+   },
+   "hold": {
+    "held": 1.33,
+    "max": 4.5,
+    "ok": true,
+    "msg": "moving framing held 1.33 s (≤ 4.5)"
+   }
+  },
+  {
+   "id": "10-push",
+   "size": "wide",
+   "t": 13.83,
+   "dur": 1.25,
+   "subject": "NOVA",
+   "faceShown": null,
+   "nothingInFront": {
+    "front": 0.044,
+    "faceCover": 0,
+    "ok": true
+   },
+   "standsOut": {
+    "subj": 0.547,
+    "ring": 0.37,
+    "diff": 0.177,
+    "ok": true,
+    "msg": ""
+   },
+   "moves": {
+    "motion": 0.052,
+    "need": 0.021,
+    "ok": true,
+    "msg": ""
+   },
+   "hold": {
+    "held": 1.25,
+    "max": 4.5,
+    "ok": true,
+    "msg": "moving framing held 1.25 s (≤ 4.5)"
+   }
+  },
+  {
+   "id": "11-push",
+   "size": "medium",
+   "t": 15.08,
+   "dur": 1.17,
+   "subject": "LEO",
+   "faceShown": {
+    "angle": 20,
+    "inside": 1,
+    "ok": true
+   },
+   "nothingInFront": {
+    "front": 0,
+    "faceCover": 0,
+    "ok": true
+   },
+   "standsOut": {
+    "subj": 0.572,
+    "ring": 0.431,
+    "diff": 0.14,
+    "ok": true,
+    "msg": ""
+   },
+   "moves": {
+    "motion": 0.0393,
+    "need": 0.021,
+    "ok": true,
+    "msg": ""
+   },
+   "hold": {
+    "held": 1.17,
+    "max": 4.5,
+    "ok": true,
+    "msg": "moving framing held 1.17 s (≤ 4.5)"
+   }
+  },
+  {
+   "id": "12-push",
+   "size": "insert",
+   "t": 16.25,
+   "dur": 0.58,
+   "subject": "LEO_headset",
+   "nothingInFront": {
+    "front": 0,
+    "faceCover": 0,
+    "ok": true
+   },
+   "standsOut": {
+    "subj": 0.559,
+    "ring": 0.448,
+    "diff": 0.111,
+    "ok": false,
+    "msg": "subject vs surround luma 0.111 (≥ 0.12)"
+   },
+   "objectReads": {
+    "inside": 1,
+    "h": 0.455,
+    "ok": true
+   },
+   "moves": {
+    "motion": 0.0449,
+    "need": 0.021,
+    "ok": true,
+    "msg": ""
+   },
+   "hold": {
+    "held": 0.58,
+    "max": 4.5,
+    "ok": true,
+    "msg": "moving framing held 0.58 s (≤ 4.5)"
+   }
+  },
+  {
+   "id": "13-push",
+   "size": "close",
+   "t": 16.83,
+   "dur": 0.92,
+   "subject": "LEO",
+   "faceShown": {
+    "angle": 1.2,
+    "inside": 1,
+    "ok": true
+   },
+   "nothingInFront": {
+    "front": 0,
+    "faceCover": 0,
+    "ok": true
+   },
+   "standsOut": {
+    "subj": 0.552,
+    "ring": 0.428,
+    "diff": 0.124,
+    "ok": true,
+    "msg": ""
+   },
+   "moves": {
+    "motion": 0.0817,
+    "need": 0.021,
+    "ok": true,
+    "msg": ""
+   },
+   "hold": {
+    "held": 0.92,
+    "max": 4.5,
+    "ok": true,
+    "msg": "moving framing held 0.92 s (≤ 4.5)"
+   }
+  },
+  {
+   "id": "14-crashZoom",
+   "size": "close",
+   "t": 17.75,
+   "dur": 1.08,
+   "subject": "LEO",
+   "faceShown": {
+    "angle": 8.6,
+    "inside": 1,
+    "ok": true
+   },
+   "nothingInFront": {
+    "front": 0,
+    "faceCover": 0,
+    "ok": true
+   },
+   "standsOut": {
+    "subj": 0.57,
+    "ring": 0.421,
+    "diff": 0.149,
+    "ok": true,
+    "msg": ""
+   },
+   "moves": {
+    "motion": 0.1426,
+    "need": 0.021,
+    "ok": true,
+    "msg": ""
+   },
+   "hold": {
+    "held": 1.08,
+    "max": 4.5,
+    "ok": true,
+    "msg": "moving framing held 1.08 s (≤ 4.5)"
+   }
+  },
+  {
+   "id": "15-push",
+   "size": "wide",
+   "t": 18.83,
+   "dur": 1.38,
+   "subject": null,
+   "moves": {
+    "motion": 0.0646,
+    "need": 0.021,
+    "ok": true,
+    "msg": ""
+   },
+   "hold": {
+    "held": 1.38,
+    "max": 4.5,
+    "ok": true,
+    "msg": "moving framing held 1.38 s (≤ 4.5)"
+   }
+  },
+  {
+   "id": "16-heroLow",
+   "size": "medium",
+   "t": 20.21,
+   "dur": 0.96,
+   "subject": "LEO_VR",
+   "faceShown": {
+    "angle": 36.4,
+    "inside": 1,
+    "ok": true
+   },
+   "nothingInFront": {
+    "front": 0,
+    "faceCover": 0,
+    "ok": true
+   },
+   "standsOut": {
+    "subj": 0.319,
+    "ring": 0.175,
+    "diff": 0.145,
+    "ok": true,
+    "msg": ""
+   },
+   "moves": {
+    "motion": 0.0592,
+    "need": 0.021,
+    "ok": true,
+    "msg": ""
+   },
+   "hold": {
+    "held": 0.96,
+    "max": 4.5,
+    "ok": true,
+    "msg": "moving framing held 0.96 s (≤ 4.5)"
+   }
+  },
+  {
+   "id": "17-push",
+   "size": "wide",
+   "t": 21.17,
+   "dur": 1,
+   "subject": "DRAGON",
+   "faceShown": null,
+   "nothingInFront": {
+    "front": 0,
+    "faceCover": 0,
+    "ok": true
+   },
+   "standsOut": {
+    "subj": 0.136,
+    "ring": 0.27,
+    "diff": 0.134,
+    "ok": true,
+    "msg": ""
+   },
+   "moves": {
+    "motion": 0.0247,
+    "need": 0.021,
+    "ok": true,
+    "msg": ""
+   },
+   "hold": {
+    "held": 1,
+    "max": 4.5,
+    "ok": true,
+    "msg": "moving framing held 1.00 s (≤ 4.5)"
+   }
+  },
+  {
+   "id": "18-track",
+   "size": "wide",
+   "t": 22.17,
+   "dur": 0.88,
+   "subject": "LEO_VR",
+   "faceShown": null,
+   "nothingInFront": {
+    "front": 0,
+    "faceCover": 0.002,
+    "ok": true
+   },
+   "standsOut": {
+    "subj": 0.328,
+    "ring": 0.261,
+    "diff": 0.067,
+    "ok": false,
+    "msg": "subject vs surround luma 0.067 (≥ 0.12)"
+   },
+   "moves": {
+    "motion": 0.012,
+    "need": 0.021,
+    "ok": false,
+    "msg": "motion 0.0120 < 0.0210"
+   },
+   "hold": {
+    "held": 0.88,
+    "max": 3,
+    "ok": true,
+    "msg": "static framing held 0.88 s (≤ 3)"
+   }
+  },
+  {
+   "id": "19-push",
+   "size": "wide",
+   "t": 23.04,
+   "dur": 0.96,
+   "subject": null,
+   "moves": {
+    "motion": 0.0283,
+    "need": 0.021,
+    "ok": true,
+    "msg": ""
+   },
+   "hold": {
+    "held": 0.96,
+    "max": 4.5,
+    "ok": true,
+    "msg": "moving framing held 0.96 s (≤ 4.5)"
+   }
+  },
+  {
+   "id": "20-push",
+   "size": "medium",
+   "t": 24,
+   "dur": 1.17,
+   "subject": "LEO_VR",
+   "faceShown": {
+    "angle": 34.2,
+    "inside": 1,
+    "ok": true
+   },
+   "nothingInFront": {
+    "front": 0,
+    "faceCover": 0.004,
+    "ok": true
+   },
+   "standsOut": {
+    "subj": 0.284,
+    "ring": 0.121,
+    "diff": 0.163,
+    "ok": true,
+    "msg": ""
+   },
+   "moves": {
+    "motion": 0.0643,
+    "need": 0.021,
+    "ok": true,
+    "msg": ""
+   },
+   "hold": {
+    "held": 1.17,
+    "max": 4.5,
+    "ok": true,
+    "msg": "moving framing held 1.17 s (≤ 4.5)"
+   }
+  },
+  {
+   "id": "21-crane",
+   "size": "wide",
+   "t": 25.17,
+   "dur": 2.08,
+   "subject": "LEO_VR",
+   "faceShown": null,
+   "nothingInFront": {
+    "front": 0,
+    "faceCover": 0,
+    "ok": true
+   },
+   "standsOut": {
+    "subj": 0.343,
+    "ring": 0.16,
+    "diff": 0.183,
+    "ok": true,
+    "msg": ""
+   },
+   "moves": {
+    "motion": 0.1323,
+    "need": 0.021,
+    "ok": true,
+    "msg": ""
+   },
+   "hold": {
+    "held": 2.08,
+    "max": 4.5,
+    "ok": true,
+    "msg": "moving framing held 2.08 s (≤ 4.5)"
+   }
+  },
+  {
+   "id": "22a-push",
+   "size": "close",
+   "t": 27.25,
+   "dur": 0.63,
+   "subject": "FRIEND_KNIGHT",
+   "faceShown": {
+    "angle": 12.1,
+    "inside": 1,
+    "ok": true
+   },
+   "nothingInFront": {
+    "front": 0,
+    "faceCover": 0,
+    "ok": true
+   },
+   "standsOut": {
+    "subj": 0.458,
+    "ring": 0.248,
+    "diff": 0.211,
+    "ok": true,
+    "msg": ""
+   },
+   "moves": {
+    "motion": 0.0419,
+    "need": 0.021,
+    "ok": true,
+    "msg": ""
+   },
+   "hold": {
+    "held": 0.63,
+    "max": 4.5,
+    "ok": true,
+    "msg": "moving framing held 0.63 s (≤ 4.5)"
+   }
+  },
+  {
+   "id": "22b-push",
+   "size": "close",
+   "t": 27.88,
+   "dur": 0.71,
+   "subject": "FRIEND_ROBOT",
+   "faceShown": {
+    "angle": 12.3,
+    "inside": 1,
+    "ok": true
+   },
+   "nothingInFront": {
+    "front": 0,
+    "faceCover": 0,
+    "ok": true
+   },
+   "standsOut": {
+    "subj": 0.75,
+    "ring": 0.205,
+    "diff": 0.544,
+    "ok": true,
+    "msg": ""
+   },
+   "moves": {
+    "motion": 0.0567,
+    "need": 0.021,
+    "ok": true,
+    "msg": ""
+   },
+   "hold": {
+    "held": 0.71,
+    "max": 4.5,
+    "ok": true,
+    "msg": "moving framing held 0.71 s (≤ 4.5)"
+   }
+  },
+  {
+   "id": "22c-push",
+   "size": "close",
+   "t": 28.58,
+   "dur": 0.67,
+   "subject": "FRIEND_MAGE",
+   "faceShown": {
+    "angle": 12.9,
+    "inside": 1,
+    "ok": true
+   },
+   "nothingInFront": {
+    "front": 0,
+    "faceCover": 0,
+    "ok": true
+   },
+   "standsOut": {
+    "subj": 0.31,
+    "ring": 0.149,
+    "diff": 0.162,
+    "ok": true,
+    "msg": ""
+   },
+   "moves": {
+    "motion": 0.2133,
+    "need": 0.021,
+    "ok": true,
+    "msg": ""
+   },
+   "hold": {
+    "held": 0.67,
+    "max": 4.5,
+    "ok": true,
+    "msg": "moving framing held 0.67 s (≤ 4.5)"
+   }
+  },
+  {
+   "id": "23-push",
+   "size": "wide",
+   "t": 29.25,
+   "dur": 1.83,
+   "subject": "LEO",
+   "faceShown": null,
+   "nothingInFront": {
+    "front": 0,
+    "faceCover": 0,
+    "ok": true
+   },
+   "standsOut": {
+    "subj": 0.589,
+    "ring": 0.433,
+    "diff": 0.157,
+    "ok": true,
+    "msg": ""
+   },
+   "moves": {
+    "motion": 0.0244,
+    "need": 0.021,
+    "ok": true,
+    "msg": ""
+   },
+   "hold": {
+    "held": 1.83,
+    "max": 4.5,
+    "ok": true,
+    "msg": "moving framing held 1.83 s (≤ 4.5)"
+   }
+  },
+  {
+   "id": "24-push",
+   "size": "insert",
+   "t": 31.08,
+   "dur": 1.92,
+   "subject": "LEO_headset",
+   "nothingInFront": {
+    "front": 0,
+    "faceCover": 0,
+    "ok": true
+   },
+   "standsOut": {
+    "subj": 0.12,
+    "ring": 0.324,
+    "diff": 0.204,
+    "ok": true,
+    "msg": ""
+   },
+   "objectReads": {
+    "inside": 1,
+    "h": 0.135,
+    "ok": false,
+    "msg": "object 13 % of frame height (≥ 25)"
+   },
+   "moves": {
+    "motion": 0.0437,
+    "need": 0.021,
+    "ok": true,
+    "msg": ""
+   },
+   "hold": {
+    "held": 1.92,
+    "max": 4.5,
+    "ok": true,
+    "msg": "moving framing held 1.92 s (≤ 4.5)"
+   }
+  },
+  {
+   "id": "25-push",
+   "size": "wide",
+   "t": 33,
+   "dur": 1.33,
+   "subject": "prop_fingerZ",
+   "nothingInFront": {
+    "front": 0,
+    "faceCover": 0,
+    "ok": true
+   },
+   "standsOut": {
+    "subj": 0.524,
+    "ring": 0.684,
+    "diff": 0.161,
+    "ok": true,
+    "msg": ""
+   },
+   "moves": {
+    "motion": 0.1254,
+    "need": 0.021,
+    "ok": true,
+    "msg": ""
+   },
+   "hold": {
+    "held": 1.33,
+    "max": 4.5,
+    "ok": true,
+    "msg": "moving framing held 1.33 s (≤ 4.5)"
+   }
+  },
+  {
+   "id": "26-push",
+   "size": "wide",
+   "t": 34.33,
+   "dur": 2.04,
+   "subject": "prop_fingerZ",
+   "nothingInFront": {
+    "front": 0,
+    "faceCover": 0,
+    "ok": true
+   },
+   "standsOut": {
+    "subj": 0.566,
+    "ring": 0.401,
+    "diff": 0.165,
+    "ok": true,
+    "msg": ""
+   },
+   "moves": {
+    "motion": 0.0789,
+    "need": 0.021,
+    "ok": true,
+    "msg": ""
+   },
+   "hold": {
+    "held": 2.04,
+    "max": 4.5,
+    "ok": true,
+    "msg": "moving framing held 2.04 s (≤ 4.5)"
+   }
+  },
+  {
+   "id": "27-push",
+   "size": "medium",
+   "t": 36.38,
+   "dur": 1.63,
+   "subject": "BRO",
+   "faceShown": {
+    "angle": 37.8,
+    "inside": 1,
+    "ok": true
+   },
+   "nothingInFront": {
+    "front": 0,
+    "faceCover": 0.051,
+    "ok": false,
+    "msg": "the face is 5.1 % covered"
+   },
+   "standsOut": {
+    "subj": 0.359,
+    "ring": 0.207,
+    "diff": 0.152,
+    "ok": true,
+    "msg": ""
+   },
+   "moves": {
+    "motion": 0.0577,
+    "need": 0.021,
+    "ok": true,
+    "msg": ""
+   },
+   "hold": {
+    "held": 1.63,
+    "max": 4.5,
+    "ok": true,
+    "msg": "moving framing held 1.63 s (≤ 4.5)"
+   }
+  },
+  {
+   "id": "28-push",
+   "size": "close",
+   "t": 38,
+   "dur": 1.79,
+   "subject": "BRO",
+   "faceShown": {
+    "angle": 51.4,
+    "inside": 1,
+    "ok": true
+   },
+   "nothingInFront": {
+    "front": 0,
+    "faceCover": 0.083,
+    "ok": false,
+    "msg": "the face is 8.3 % covered"
+   },
+   "standsOut": {
+    "subj": 0.306,
+    "ring": 0.146,
+    "diff": 0.16,
+    "ok": true,
+    "msg": ""
+   },
+   "moves": {
+    "motion": 0.0439,
+    "need": 0.021,
+    "ok": true,
+    "msg": ""
+   },
+   "hold": {
+    "held": 1.79,
+    "max": 4.5,
+    "ok": true,
+    "msg": "moving framing held 1.79 s (≤ 4.5)"
+   }
+  },
+  {
+   "id": "29-push",
+   "size": "close",
+   "t": 39.79,
+   "dur": 1.29,
+   "subject": "LEO_VR",
+   "faceShown": {
+    "angle": 35.9,
+    "inside": 1,
+    "ok": true
+   },
+   "nothingInFront": {
+    "front": 0,
+    "faceCover": 0,
+    "ok": true
+   },
+   "standsOut": {
+    "subj": 0.26,
+    "ring": 0.107,
+    "diff": 0.153,
+    "ok": true,
+    "msg": ""
+   },
+   "moves": {
+    "motion": 0.0502,
+    "need": 0.021,
+    "ok": true,
+    "msg": ""
+   },
+   "hold": {
+    "held": 1.29,
+    "max": 4.5,
+    "ok": true,
+    "msg": "moving framing held 1.29 s (≤ 4.5)"
+   }
+  },
+  {
+   "id": "30-push",
+   "size": "close",
+   "t": 41.08,
+   "dur": 0.42,
+   "subject": "NOVA",
+   "faceShown": {
+    "angle": 19.8,
+    "inside": 1,
+    "ok": true
+   },
+   "nothingInFront": {
+    "front": 0,
+    "faceCover": 0,
+    "ok": true
+   },
+   "standsOut": {
+    "subj": 0.724,
+    "ring": 0.42,
+    "diff": 0.304,
+    "ok": true,
+    "msg": ""
+   },
+   "moves": {
+    "motion": 0.0546,
+    "need": 0.021,
+    "ok": true,
+    "msg": ""
+   },
+   "hold": {
+    "held": 0.42,
+    "max": 4.5,
+    "ok": true,
+    "msg": "moving framing held 0.42 s (≤ 4.5)"
+   }
+  },
+  {
+   "id": "31-push",
+   "size": "medium",
+   "t": 41.5,
+   "dur": 1.38,
+   "subject": "LEO_VR",
+   "faceShown": {
+    "angle": 19.7,
+    "inside": 1,
+    "ok": true
+   },
+   "nothingInFront": {
+    "front": 0,
+    "faceCover": 0.19,
+    "ok": false,
+    "msg": "the face is 19.0 % covered"
+   },
+   "standsOut": {
+    "subj": 0.293,
+    "ring": 0.167,
+    "diff": 0.126,
+    "ok": true,
+    "msg": ""
+   },
+   "moves": {
+    "motion": 0.0485,
+    "need": 0.021,
+    "ok": true,
+    "msg": ""
+   },
+   "hold": {
+    "held": 1.38,
+    "max": 4.5,
+    "ok": true,
+    "msg": "moving framing held 1.38 s (≤ 4.5)"
+   }
+  },
+  {
+   "id": "32-push",
+   "size": "medium",
+   "t": 42.88,
+   "dur": 1.08,
+   "subject": "prop_leoShip",
+   "nothingInFront": {
+    "front": 0,
+    "faceCover": 0,
+    "ok": true
+   },
+   "standsOut": {
+    "subj": 0.454,
+    "ring": 0.087,
+    "diff": 0.367,
+    "ok": true,
+    "msg": ""
+   },
+   "moves": {
+    "motion": 0.178,
+    "need": 0.021,
+    "ok": true,
+    "msg": ""
+   },
+   "hold": {
+    "held": 1.08,
+    "max": 4.5,
+    "ok": true,
+    "msg": "moving framing held 1.08 s (≤ 4.5)"
+   }
+  },
+  {
+   "id": "33-push",
+   "size": "wide",
+   "t": 43.96,
+   "dur": 1.67,
+   "subject": "prop_fingerS",
+   "nothingInFront": {
+    "front": 0,
+    "faceCover": 0,
+    "ok": true
+   },
+   "standsOut": {
+    "subj": 0.375,
+    "ring": 0.533,
+    "diff": 0.158,
+    "ok": true,
+    "msg": ""
+   },
+   "moves": {
+    "motion": 0.0274,
+    "need": 0.021,
+    "ok": true,
+    "msg": ""
+   },
+   "hold": {
+    "held": 1.67,
+    "max": 4.5,
+    "ok": true,
+    "msg": "moving framing held 1.67 s (≤ 4.5)"
+   }
+  },
+  {
+   "id": "34-push",
+   "size": "wide",
+   "t": 45.63,
+   "dur": 1.5,
+   "subject": "prop_fingerS",
+   "nothingInFront": {
+    "front": 0,
+    "faceCover": 0,
+    "ok": true
+   },
+   "standsOut": {
+    "subj": 0.235,
+    "ring": 0.503,
+    "diff": 0.269,
+    "ok": true,
+    "msg": ""
+   },
+   "moves": {
+    "motion": 0.0261,
+    "need": 0.021,
+    "ok": true,
+    "msg": ""
+   },
+   "hold": {
+    "held": 1.5,
+    "max": 4.5,
+    "ok": true,
+    "msg": "moving framing held 1.50 s (≤ 4.5)"
+   }
+  },
+  {
+   "id": "35-push",
+   "size": "wide",
+   "t": 47.13,
+   "dur": 1.38,
+   "subject": null,
+   "moves": {
+    "motion": 0.0707,
+    "need": 0.021,
+    "ok": true,
+    "msg": ""
+   },
+   "hold": {
+    "held": 1.38,
+    "max": 4.5,
+    "ok": true,
+    "msg": "moving framing held 1.38 s (≤ 4.5)"
+   }
+  },
+  {
+   "id": "36-push",
+   "size": "wide",
+   "t": 48.5,
+   "dur": 0.96,
+   "subject": "BOSS",
+   "faceShown": null,
+   "nothingInFront": {
+    "front": 0,
+    "faceCover": 0,
+    "ok": true
+   },
+   "standsOut": {
+    "subj": 0.059,
+    "ring": 0.508,
+    "diff": 0.449,
+    "ok": true,
+    "msg": ""
+   },
+   "moves": {
+    "motion": 0.0292,
+    "need": 0.021,
+    "ok": true,
+    "msg": ""
+   },
+   "hold": {
+    "held": 0.96,
+    "max": 4.5,
+    "ok": true,
+    "msg": "moving framing held 0.96 s (≤ 4.5)"
+   }
+  },
+  {
+   "id": "37-lowAuthority",
+   "size": "medium",
+   "t": 49.46,
+   "dur": 1,
+   "subject": "BOSS",
+   "faceShown": {
+    "angle": 47.5,
+    "inside": 1,
+    "ok": true
+   },
+   "nothingInFront": {
+    "front": 0,
+    "faceCover": 0,
+    "ok": true
+   },
+   "standsOut": {
+    "subj": 0.06,
+    "ring": 0.461,
+    "diff": 0.401,
+    "ok": true,
+    "msg": ""
+   },
+   "moves": {
+    "motion": 0.0402,
+    "need": 0.021,
+    "ok": true,
+    "msg": ""
+   },
+   "hold": {
+    "held": 1,
+    "max": 4.5,
+    "ok": true,
+    "msg": "moving framing held 1.00 s (≤ 4.5)"
+   }
+  },
+  {
+   "id": "38-push",
+   "size": "insert",
+   "t": 50.46,
+   "dur": 1.96,
+   "subject": "prop_sword",
+   "nothingInFront": {
+    "front": 0.029,
+    "faceCover": 0,
+    "ok": true
+   },
+   "standsOut": {
+    "subj": 0.357,
+    "ring": 0.447,
+    "diff": 0.09,
+    "ok": false,
+    "msg": "subject vs surround luma 0.090 (≥ 0.12)"
+   },
+   "objectReads": {
+    "inside": 1,
+    "h": 0.65,
+    "ok": true
+   },
+   "moves": {
+    "motion": 0.0698,
+    "need": 0.021,
+    "ok": true,
+    "msg": ""
+   },
+   "hold": {
+    "held": 1.96,
+    "max": 4.5,
+    "ok": true,
+    "msg": "moving framing held 1.96 s (≤ 4.5)"
+   }
+  },
+  {
+   "id": "39-push",
+   "size": "wide",
+   "t": 52.42,
+   "dur": 1.54,
+   "subject": "BOSS",
+   "faceShown": null,
+   "nothingInFront": {
+    "front": 0,
+    "faceCover": 0,
+    "ok": true
+   },
+   "standsOut": {
+    "subj": 0.08,
+    "ring": 0.556,
+    "diff": 0.475,
+    "ok": true,
+    "msg": ""
+   },
+   "moves": {
+    "motion": 0.0412,
+    "need": 0.021,
+    "ok": true,
+    "msg": ""
+   },
+   "hold": {
+    "held": 1.54,
+    "max": 4.5,
+    "ok": true,
+    "msg": "moving framing held 1.54 s (≤ 4.5)"
+   }
+  },
+  {
+   "id": "40-push",
+   "size": "wide",
+   "t": 53.96,
+   "dur": 1.46,
+   "subject": "BOSS",
+   "faceShown": null,
+   "nothingInFront": {
+    "front": 0,
+    "faceCover": 0,
+    "ok": true
+   },
+   "standsOut": {
+    "subj": 0.078,
+    "ring": 0.562,
+    "diff": 0.484,
+    "ok": true,
+    "msg": ""
+   },
+   "moves": {
+    "motion": 0.0306,
+    "need": 0.021,
+    "ok": true,
+    "msg": ""
+   },
+   "hold": {
+    "held": 1.46,
+    "max": 4.5,
+    "ok": true,
+    "msg": "moving framing held 1.46 s (≤ 4.5)"
+   }
+  },
+  {
+   "id": "41-push",
+   "size": "close",
+   "t": 55.42,
+   "dur": 1.33,
+   "subject": "BOSS",
+   "faceShown": {
+    "angle": 8.5,
+    "inside": 0.992,
+    "ok": true
+   },
+   "nothingInFront": {
+    "front": 0,
+    "faceCover": 0,
+    "ok": true
+   },
+   "standsOut": {
+    "subj": 0.071,
+    "ring": 0.341,
+    "diff": 0.269,
+    "ok": true,
+    "msg": ""
+   },
+   "moves": {
+    "motion": 0.0281,
+    "need": 0.021,
+    "ok": true,
+    "msg": ""
+   },
+   "hold": {
+    "held": 1.33,
+    "max": 4.5,
+    "ok": true,
+    "msg": "moving framing held 1.33 s (≤ 4.5)"
+   }
+  },
+  {
+   "id": "42-push",
+   "size": "medium",
+   "t": 56.75,
+   "dur": 1.5,
+   "subject": "LEO",
+   "faceShown": {
+    "angle": 30.5,
+    "inside": 1,
+    "ok": true
+   },
+   "nothingInFront": {
+    "front": 0,
+    "faceCover": 0.013,
+    "ok": true
+   },
+   "standsOut": {
+    "subj": 0.62,
+    "ring": 0.436,
+    "diff": 0.183,
+    "ok": true,
+    "msg": ""
+   },
+   "moves": {
+    "motion": 0.0418,
+    "need": 0.021,
+    "ok": true,
+    "msg": ""
+   },
+   "hold": {
+    "held": 1.5,
+    "max": 4.5,
+    "ok": true,
+    "msg": "moving framing held 1.50 s (≤ 4.5)"
+   }
+  },
+  {
+   "id": "43-push",
+   "size": "close",
+   "t": 58.25,
+   "dur": 2.25,
+   "subject": "LEO",
+   "faceShown": {
+    "angle": 65.3,
+    "inside": 1,
+    "ok": true
+   },
+   "nothingInFront": {
+    "front": 0,
+    "faceCover": 0.047,
+    "ok": false,
+    "msg": "the face is 4.7 % covered"
+   },
+   "standsOut": {
+    "subj": 0.62,
+    "ring": 0.393,
+    "diff": 0.228,
+    "ok": true,
+    "msg": ""
+   },
+   "moves": {
+    "motion": 0.1093,
+    "need": 0.021,
+    "ok": true,
+    "msg": ""
+   },
+   "hold": {
+    "held": 2.25,
+    "max": 4.5,
+    "ok": true,
+    "msg": "moving framing held 2.25 s (≤ 4.5)"
+   }
+  },
+  {
+   "id": "44-push",
+   "size": "medium",
+   "t": 60.5,
+   "dur": 1.17,
+   "subject": "NOVA",
+   "faceShown": {
+    "angle": 34.3,
+    "inside": 1,
+    "ok": true
+   },
+   "nothingInFront": {
+    "front": 0,
+    "faceCover": 0,
+    "ok": true
+   },
+   "standsOut": {
+    "subj": 0.553,
+    "ring": 0.366,
+    "diff": 0.187,
+    "ok": true,
+    "msg": ""
+   },
+   "moves": {
+    "motion": 0.0304,
+    "need": 0.021,
+    "ok": true,
+    "msg": ""
+   },
+   "hold": {
+    "held": 1.17,
+    "max": 4.5,
+    "ok": true,
+    "msg": "moving framing held 1.17 s (≤ 4.5)"
+   }
+  },
+  {
+   "id": "45-tiltUp",
+   "size": "medium",
+   "t": 61.67,
+   "dur": 1.33,
+   "subject": "NOVA",
+   "faceShown": {
+    "angle": 44.3,
+    "inside": 1,
+    "ok": true
+   },
+   "nothingInFront": {
+    "front": 0,
+    "faceCover": 0,
+    "ok": true
+   },
+   "standsOut": {
+    "subj": 0.513,
+    "ring": 0.482,
+    "diff": 0.031,
+    "ok": false,
+    "msg": "subject vs surround luma 0.031 (≥ 0.12)"
+   },
+   "moves": {
+    "motion": 0.1715,
+    "need": 0.021,
+    "ok": true,
+    "msg": ""
+   },
+   "hold": {
+    "held": 1.33,
+    "max": 4.5,
+    "ok": true,
+    "msg": "moving framing held 1.33 s (≤ 4.5)"
+   }
+  },
+  {
+   "id": "46-push",
+   "size": "insert",
+   "t": 63,
+   "dur": 2,
+   "subject": "prop_grass",
+   "nothingInFront": {
+    "front": 0,
+    "faceCover": 0,
+    "ok": true
+   },
+   "standsOut": {
+    "subj": 0.591,
+    "ring": 0.326,
+    "diff": 0.265,
+    "ok": true,
+    "msg": ""
+   },
+   "objectReads": {
+    "inside": 1,
+    "h": 0.407,
+    "ok": true
+   },
+   "moves": {
+    "motion": 0.0971,
+    "need": 0.021,
+    "ok": true,
+    "msg": ""
+   },
+   "hold": {
+    "held": 2,
+    "max": 4.5,
+    "ok": true,
+    "msg": "moving framing held 2.00 s (≤ 4.5)"
+   }
+  },
+  {
+   "id": "47-push",
+   "size": "insert",
+   "t": 65,
+   "dur": 2,
+   "subject": "prop_grass",
+   "nothingInFront": {
+    "front": 0,
+    "faceCover": 0,
+    "ok": true
+   },
+   "standsOut": {
+    "subj": 0.602,
+    "ring": 0.308,
+    "diff": 0.294,
+    "ok": true,
+    "msg": ""
+   },
+   "objectReads": {
+    "inside": 1,
+    "h": 0.514,
+    "ok": true
+   },
+   "moves": {
+    "motion": 0.0438,
+    "need": 0.021,
+    "ok": true,
+    "msg": ""
+   },
+   "hold": {
+    "held": 2,
+    "max": 4.5,
+    "ok": true,
+    "msg": "moving framing held 2.00 s (≤ 4.5)"
+   }
+  },
+  {
+   "id": "48-crane",
+   "size": "wide",
+   "t": 67,
+   "dur": 1.67,
+   "subject": "prop_grass",
+   "nothingInFront": {
+    "front": 0,
+    "faceCover": 0,
+    "ok": true
+   },
+   "standsOut": {
+    "subj": 0.59,
+    "ring": 0.285,
+    "diff": 0.306,
+    "ok": true,
+    "msg": ""
+   },
+   "moves": {
+    "motion": 0.1102,
+    "need": 0.021,
+    "ok": true,
+    "msg": ""
+   },
+   "hold": {
+    "held": 1.67,
+    "max": 4.5,
+    "ok": true,
+    "msg": "moving framing held 1.67 s (≤ 4.5)"
+   }
+  },
+  {
+   "id": "49-push",
+   "size": "insert",
+   "t": 68.67,
+   "dur": 1.71,
+   "subject": "NOVA_can",
+   "nothingInFront": {
+    "front": 0,
+    "faceCover": 0,
+    "ok": true
+   },
+   "standsOut": {
+    "subj": 0.519,
+    "ring": 0.408,
+    "diff": 0.111,
+    "ok": false,
+    "msg": "subject vs surround luma 0.111 (≥ 0.12)"
+   },
+   "objectReads": {
+    "inside": 1,
+    "h": 0.434,
+    "ok": true
+   },
+   "moves": {
+    "motion": 0.0644,
+    "need": 0.021,
+    "ok": true,
+    "msg": ""
+   },
+   "hold": {
+    "held": 1.71,
+    "max": 4.5,
+    "ok": true,
+    "msg": "moving framing held 1.71 s (≤ 4.5)"
+   }
+  },
+  {
+   "id": "50-push",
+   "size": "close",
+   "t": 70.38,
+   "dur": 1,
+   "subject": "LEO",
+   "faceShown": {
+    "angle": 53.6,
+    "inside": 1,
+    "ok": true
+   },
+   "nothingInFront": {
+    "front": 0,
+    "faceCover": 0,
+    "ok": true
+   },
+   "standsOut": {
+    "subj": 0.629,
+    "ring": 0.427,
+    "diff": 0.202,
+    "ok": true,
+    "msg": ""
+   },
+   "moves": {
+    "motion": 0.0341,
+    "need": 0.021,
+    "ok": true,
+    "msg": ""
+   },
+   "hold": {
+    "held": 1,
+    "max": 4.5,
+    "ok": true,
+    "msg": "moving framing held 1.00 s (≤ 4.5)"
+   }
+  },
+  {
+   "id": "51-push",
+   "size": "medium",
+   "t": 71.38,
+   "dur": 2.29,
+   "subject": "NOVA",
+   "faceShown": {
+    "angle": 45.4,
+    "inside": 1,
+    "ok": true
+   },
+   "nothingInFront": {
+    "front": 0,
+    "faceCover": 0.015,
+    "ok": true
+   },
+   "standsOut": {
+    "subj": 0.578,
+    "ring": 0.355,
+    "diff": 0.223,
+    "ok": true,
+    "msg": ""
+   },
+   "moves": {
+    "motion": 0.0349,
+    "need": 0.021,
+    "ok": true,
+    "msg": ""
+   },
+   "hold": {
+    "held": 2.29,
+    "max": 4.5,
+    "ok": true,
+    "msg": "moving framing held 2.29 s (≤ 4.5)"
+   }
+  },
+  {
+   "id": "52-push",
+   "size": "wide",
+   "t": 73.67,
+   "dur": 1.92,
+   "subject": "NOVA",
+   "faceShown": null,
+   "nothingInFront": {
+    "front": 0.013,
+    "faceCover": 0.002,
+    "ok": true
+   },
+   "standsOut": {
+    "subj": 0.619,
+    "ring": 0.391,
+    "diff": 0.229,
+    "ok": true,
+    "msg": ""
+   },
+   "moves": {
+    "motion": 0.0177,
+    "need": 0.021,
+    "ok": false,
+    "msg": "motion 0.0177 < 0.0210"
+   },
+   "hold": {
+    "held": 1.92,
+    "max": 3,
+    "ok": true,
+    "msg": "static framing held 1.92 s (≤ 3)"
+   }
+  },
+  {
+   "id": "53-push",
+   "size": "medium",
+   "t": 75.58,
+   "dur": 1.29,
+   "subject": "LEO",
+   "faceShown": {
+    "angle": 42.3,
+    "inside": 1,
+    "ok": true
+   },
+   "nothingInFront": {
+    "front": 0,
+    "faceCover": 0.04,
+    "ok": false,
+    "msg": "the face is 4.0 % covered"
+   },
+   "standsOut": {
+    "subj": 0.65,
+    "ring": 0.454,
+    "diff": 0.196,
+    "ok": true,
+    "msg": ""
+   },
+   "moves": {
+    "motion": 0.0469,
+    "need": 0.021,
+    "ok": true,
+    "msg": ""
+   },
+   "hold": {
+    "held": 1.29,
+    "max": 4.5,
+    "ok": true,
+    "msg": "moving framing held 1.29 s (≤ 4.5)"
+   }
+  },
+  {
+   "id": "54-push",
+   "size": "insert",
+   "t": 76.88,
+   "dur": 0.88,
+   "subject": "prop_grass",
+   "nothingInFront": {
+    "front": 0,
+    "faceCover": 0,
+    "ok": true
+   },
+   "standsOut": {
+    "subj": 0.594,
+    "ring": 0.265,
+    "diff": 0.329,
+    "ok": true,
+    "msg": ""
+   },
+   "objectReads": {
+    "inside": 1,
+    "h": 0.514,
+    "ok": true
+   },
+   "moves": {
+    "motion": 0.0474,
+    "need": 0.021,
+    "ok": true,
+    "msg": ""
+   },
+   "hold": {
+    "held": 0.88,
+    "max": 4.5,
+    "ok": true,
+    "msg": "moving framing held 0.88 s (≤ 4.5)"
+   }
+  },
+  {
+   "id": "55-push",
+   "size": "close",
+   "t": 77.75,
+   "dur": 1.96,
+   "subject": "LEO",
+   "faceShown": {
+    "angle": 63.6,
+    "inside": 1,
+    "ok": true
+   },
+   "nothingInFront": {
+    "front": 0,
+    "faceCover": 0.019,
+    "ok": true
+   },
+   "standsOut": {
+    "subj": 0.684,
+    "ring": 0.518,
+    "diff": 0.166,
+    "ok": true,
+    "msg": ""
+   },
+   "moves": {
+    "motion": 0.0777,
+    "need": 0.021,
+    "ok": true,
+    "msg": ""
+   },
+   "hold": {
+    "held": 1.96,
+    "max": 4.5,
+    "ok": true,
+    "msg": "moving framing held 1.96 s (≤ 4.5)"
+   }
+  },
+  {
+   "id": "56-push",
+   "size": "wide",
+   "t": 79.71,
+   "dur": 1.83,
+   "subject": "LEO",
+   "faceShown": null,
+   "nothingInFront": {
+    "front": 0,
+    "faceCover": 0.003,
+    "ok": true
+   },
+   "standsOut": {
+    "subj": 0.653,
+    "ring": 0.436,
+    "diff": 0.216,
+    "ok": true,
+    "msg": ""
+   },
+   "moves": {
+    "motion": 0.0433,
+    "need": 0.021,
+    "ok": true,
+    "msg": ""
+   },
+   "hold": {
+    "held": 1.83,
+    "max": 4.5,
+    "ok": true,
+    "msg": "moving framing held 1.83 s (≤ 4.5)"
+   }
+  },
+  {
+   "id": "57a-push",
+   "size": "close",
+   "t": 81.54,
+   "dur": 0.29,
+   "subject": "TOWN_B",
+   "faceShown": {
+    "angle": 12.2,
+    "inside": 1,
+    "ok": true
+   },
+   "nothingInFront": {
+    "front": 0,
+    "faceCover": 0.112,
+    "ok": false,
+    "msg": "the face is 11.2 % covered"
+   },
+   "standsOut": {
+    "subj": 0.572,
+    "ring": 0.369,
+    "diff": 0.202,
+    "ok": true,
+    "msg": ""
+   },
+   "moves": {
+    "motion": 0.0457,
+    "need": 0.021,
+    "ok": true,
+    "msg": ""
+   },
+   "hold": {
+    "held": 0.29,
+    "max": 4.5,
+    "ok": true,
+    "msg": "moving framing held 0.29 s (≤ 4.5)"
+   }
+  },
+  {
+   "id": "57b-push",
+   "size": "close",
+   "t": 81.83,
+   "dur": 0.25,
+   "subject": "TOWN_C",
+   "faceShown": {
+    "angle": 7.8,
+    "inside": 1,
+    "ok": true
+   },
+   "nothingInFront": {
+    "front": 0,
+    "faceCover": 0,
+    "ok": true
+   },
+   "standsOut": {
+    "subj": 0.764,
+    "ring": 0.549,
+    "diff": 0.215,
+    "ok": true,
+    "msg": ""
+   },
+   "moves": {
+    "motion": 0.045,
+    "need": 0.021,
+    "ok": true,
+    "msg": ""
+   },
+   "hold": {
+    "held": 0.25,
+    "max": 4.5,
+    "ok": true,
+    "msg": "moving framing held 0.25 s (≤ 4.5)"
+   }
+  },
+  {
+   "id": "57c-push",
+   "size": "close",
+   "t": 82.08,
+   "dur": 0.58,
+   "subject": "TOWN_A",
+   "faceShown": {
+    "angle": 6,
+    "inside": 1,
+    "ok": true
+   },
+   "nothingInFront": {
+    "front": 0,
+    "faceCover": 0,
+    "ok": true
+   },
+   "standsOut": {
+    "subj": 0.71,
+    "ring": 0.517,
+    "diff": 0.192,
+    "ok": true,
+    "msg": ""
+   },
+   "moves": {
+    "motion": 0.0448,
+    "need": 0.021,
+    "ok": true,
+    "msg": ""
+   },
+   "hold": {
+    "held": 0.58,
+    "max": 4.5,
+    "ok": true,
+    "msg": "moving framing held 0.58 s (≤ 4.5)"
+   }
+  },
+  {
+   "id": "58-crane",
+   "size": "wide",
+   "t": 82.67,
+   "dur": 3,
+   "subject": null,
+   "moves": {
+    "motion": 0.1551,
+    "need": 0.021,
+    "ok": true,
+    "msg": ""
+   },
+   "hold": {
+    "held": 3,
+    "max": 4.5,
+    "ok": true,
+    "msg": "moving framing held 3.00 s (≤ 4.5)"
+   }
+  },
+  {
+   "id": "59-push",
+   "size": "insert",
+   "t": 85.67,
+   "dur": 0.71,
+   "subject": "prop_hsDirt",
+   "nothingInFront": {
+    "front": 0,
+    "faceCover": 0,
+    "ok": true
+   },
+   "standsOut": {
+    "subj": 0.134,
+    "ring": 0.366,
+    "diff": 0.233,
+    "ok": true,
+    "msg": ""
+   },
+   "objectReads": {
+    "inside": 1,
+    "h": 0.459,
+    "ok": true
+   },
+   "moves": {
+    "motion": 0.0324,
+    "need": 0.021,
+    "ok": true,
+    "msg": ""
+   },
+   "hold": {
+    "held": 0.71,
+    "max": 4.5,
+    "ok": true,
+    "msg": "moving framing held 0.71 s (≤ 4.5)"
+   }
+  },
+  {
+   "id": "60-push",
+   "size": "close",
+   "t": 86.38,
+   "dur": 2.25,
+   "subject": "prop_hsDirt",
+   "nothingInFront": {
+    "front": 0,
+    "faceCover": 0,
+    "ok": true
+   },
+   "standsOut": {
+    "subj": 0.193,
+    "ring": 0.395,
+    "diff": 0.202,
+    "ok": true,
+    "msg": ""
+   },
+   "moves": {
+    "motion": 0.0461,
+    "need": 0.021,
+    "ok": true,
+    "msg": ""
+   },
+   "hold": {
+    "held": 2.25,
+    "max": 4.5,
+    "ok": true,
+    "msg": "moving framing held 2.25 s (≤ 4.5)"
+   }
+  },
+  {
+   "id": "61-push",
+   "size": "close",
+   "t": 88.63,
+   "dur": 1.33,
+   "subject": "prop_hsDirt",
+   "nothingInFront": {
+    "front": 0,
+    "faceCover": 0,
+    "ok": true
+   },
+   "standsOut": {
+    "subj": 0.177,
+    "ring": 0.393,
+    "diff": 0.216,
+    "ok": true,
+    "msg": ""
+   },
+   "moves": {
+    "motion": 0.0268,
+    "need": 0.021,
+    "ok": true,
+    "msg": ""
+   },
+   "hold": {
+    "held": 1.04,
+    "max": 4.5,
+    "ok": true,
+    "msg": "moving framing held 1.04 s (≤ 4.5)"
+   }
+  }
+ ],
+ "errors": [
+  "01-push: standsOut FAIL subject vs surround luma 0.058 (≥ 0.12)",
+  "09-push: standsOut FAIL subject vs surround luma 0.103 (≥ 0.12)",
+  "12-push: standsOut FAIL subject vs surround luma 0.111 (≥ 0.12)",
+  "18-track: standsOut FAIL subject vs surround luma 0.067 (≥ 0.12)",
+  "18-track: moves FAIL motion 0.0120 < 0.0210",
+  "24-push: objectReads FAIL object 13 % of frame height (≥ 25)",
+  "27-push: nothingInFront FAIL the face is 5.1 % covered",
+  "28-push: nothingInFront FAIL the face is 8.3 % covered",
+  "31-push: nothingInFront FAIL the face is 19.0 % covered",
+  "38-push: standsOut FAIL subject vs surround luma 0.090 (≥ 0.12)",
+  "43-push: nothingInFront FAIL the face is 4.7 % covered",
+  "45-tiltUp: standsOut FAIL subject vs surround luma 0.031 (≥ 0.12)",
+  "49-push: standsOut FAIL subject vs surround luma 0.111 (≥ 0.12)",
+  "52-push: moves FAIL motion 0.0177 < 0.0210",
+  "53-push: nothingInFront FAIL the face is 4.0 % covered",
+  "57a-push: nothingInFront FAIL the face is 11.2 % covered"
+ ]
+}

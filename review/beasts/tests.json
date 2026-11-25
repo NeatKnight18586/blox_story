@@ -1,0 +1,149 @@
+[
+ {
+  "name": "tris per tier",
+  "pass": true,
+  "line": "hero max 1208 ≤ 6000, low max 792 ≤ 800 (NIGHTFANG 1208/792, VOLT 680/546, CINDER 596/584, BOULDER 688/620, FOX 284/276, DEER 296/288, BOAR 292/284)",
+  "tris": {
+   "NIGHTFANG": {
+    "hero": 1208,
+    "low": 792
+   },
+   "VOLT": {
+    "hero": 680,
+    "low": 546
+   },
+   "CINDER": {
+    "hero": 596,
+    "low": 584
+   },
+   "BOULDER": {
+    "hero": 688,
+    "low": 620
+   },
+   "FOX": {
+    "hero": 284,
+    "low": 276
+   },
+   "DEER": {
+    "hero": 296,
+    "low": 288
+   },
+   "BOAR": {
+    "hero": 292,
+    "low": 284
+   }
+  }
+ },
+ {
+  "name": "one own glow colour per beast, none on Tuft blue-gold",
+  "pass": true,
+  "line": "0 errors; 8/8 distinct; min RGB distance to #7FB8FF/#FFD36B 79 ≥ 60"
+ },
+ {
+  "name": "states deterministic",
+  "pass": true,
+  "line": "240/240 samples identical in forward / reverse order"
+ },
+ {
+  "name": "feet planted",
+  "pass": true,
+  "line": "ground states: lowest vertex max 0.0000 ≤ 0.02 above ground (8479 samples); all states + transitions min 0.0000 ≥ 0",
+  "perPreset": {
+   "NIGHTFANG": 0,
+   "VOLT": 0,
+   "CINDER": 0,
+   "BOULDER": 0,
+   "FOX": 0,
+   "DEER": 0,
+   "BOAR": 0
+  }
+ },
+ {
+  "name": "flee leaves the frame along the exit",
+  "pass": true,
+  "line": "NIGHTFANG out at 2.17 s (≤ 2.6), cos 1; VOLT out at 0.92 s (≤ 2.6), cos 1; CINDER out at 0.75 s (≤ 2.6), cos 1; BOULDER out at 1.29 s (≤ 2.6), cos 1",
+  "rows": [
+   {
+    "beast": "NIGHTFANG",
+    "leftAt": 2.1666666666666656,
+    "along": 1
+   },
+   {
+    "beast": "VOLT",
+    "leftAt": 0.9166666666666683,
+    "along": 1
+   },
+   {
+    "beast": "CINDER",
+    "leftAt": 0.7500000000000053,
+    "along": 1
+   },
+   {
+    "beast": "BOULDER",
+    "leftAt": 1.2916666666666483,
+    "along": 1
+   }
+  ]
+ },
+ {
+  "name": "silhouettes distinct at phone width",
+  "pass": true,
+  "line": "max pairwise IoU 0.401 ≤ 0.6 (NV 0.334, NC 0.349, NB 0.27, VC 0.401, VB 0.33, CB 0.274)",
+  "pairs": [
+   [
+    "NIGHTFANG",
+    "VOLT",
+    0.334
+   ],
+   [
+    "NIGHTFANG",
+    "CINDER",
+    0.349
+   ],
+   [
+    "NIGHTFANG",
+    "BOULDER",
+    0.27
+   ],
+   [
+    "VOLT",
+    "CINDER",
+    0.401
+   ],
+   [
+    "VOLT",
+    "BOULDER",
+    0.33
+   ],
+   [
+    "CINDER",
+    "BOULDER",
+    0.274
+   ]
+  ]
+ },
+ {
+  "name": "scale vs the R6 kid",
+  "pass": true,
+  "line": "NIGHTFANG reared shoulder 2.02× kid height (2.0–2.4) · VOLT shoulder 1.05× kid shoulder (.85–1.15) · CINDER wingspan 2.53 kids (2.25–2.75) · BOULDER top 1.13× adult (> 1)",
+  "nf": 2.0211329449695645,
+  "vo": 1.051682813707606,
+  "ci": 2.527528790027603,
+  "bo": 1.1256234151012492
+ },
+ {
+  "name": "`beast:` vocab + exit directions",
+  "pass": true,
+  "line": "7 parse cases + right/left/away on a camera looking −z: 0 wrong"
+ },
+ {
+  "name": "low-tier crowd deterministic + planted",
+  "pass": true,
+  "line": "40 members × 3 t identical; |lowest − ground| max 0.0000; presets DEER/FOX/BOAR"
+ },
+ {
+  "name": "brief2spec `beast:` → shot.beasts",
+  "pass": true,
+  "line": "cast volt {\"style\":\"beast\",\"preset\":\"VOLT\",\"tier\":\"hero\",\"at\":\"plaza\",\"offset\":[6,0,10],\"yaw\":180}; beasts [{\"actor\":\"volt\",\"state\":\"roar\",\"at\":1.09},{\"actor\":\"volt\",\"state\":\"run\",\"at\":1.09,\"to\":\"towerBase\"}]"
+ }
+]

@@ -1,6 +1,10 @@
 # CLAUDE.md — blox_story v2 engine
 
-Source of truth: `docs/V2_BRIEF.md` (owner's brief). Progress and decisions: `PROGRESS.md`.
+Build habits: read docs/season1/PIPELINE.md first.
+Find code via CODEMAP.md + grep -n; never explore the repo.
+
+Source of truth: `docs/V2_BRIEF.md` (owner's brief). Progress and decisions: `PROGRESS.md`. **Episode format (length,
+end, last line, final shot, hero-first): `docs/season1/FORMAT_V6.md`**; new specs are `"format": 6`.
 
 ## Session rules (brief §0)
 - One session block from §12 per session, then stop. Read only §0–§3, your block, the sections it names, and `PROGRESS.md`.
@@ -31,6 +35,7 @@ Source of truth: `docs/V2_BRIEF.md` (owner's brief). Progress and decisions: `PR
 - `npm run v2:align -- --story <slug> [--ref cues.json]` (voice → `build/cues.json`) · `npm run v2:plan -- --story <slug>` (§5.2 gate, exit 1 on error → `review/<slug>/plan.json`) · `npm run v2:render -- --spec <episode.json> --out <dir> [--final | --width 270 --height 480 --every 2 --aa 0]` (cached frames, `progress.json`; `--final` = native 1440×2560 + AA, the A2 delivery preset).
 - `node scripts/v2/avatar-sheet.js` / `python3 scripts/v2/world-sheet.py`: cast sheet + 390 px phone shot / world stills + luma stats → `review/nobody/`. A4: `node scripts/v2/hair-sheet.js` · `troupe-sheet.js` · `python3 scripts/v2/look-ab-s1.py` → `review/season1/`.
 - A5 gates: `node scripts/v2/build-gates.js` (adult_f torso, flat ortho 390 px) → `build-gates.json`; `node scripts/v2/hair-gates.js` → `review/season1/hair-gates.json`; `node scripts/v2/look-gates.js --spec <f> [--night ids] [--framing] [--png f]` (night luma on silhouette masks, framing) → `look-gates-*.json`.
+- P3 acting v6 (spec `acting: 6`; shot `actions` [{actor, verb, at: s | {word, nth}, intensity, target, facing, hold, face}], spec `talk`): `node scripts/v2/acting6-sheet.js` → `node scripts/v2/acting6-gates.js` → `review/acting6/` (verbs, cycles, demo.mp4, gates.json). Partners of hug / carry / comfort_kneel start ≤ 0.5 studs from their meeting mark or get a walk-in (`action.walkIn: false` → plan FAIL `partnerDistance`); two-actor poses are solved offline with `scripts/v2/acting6-solve.js` and frozen as data in `engine/acting6.js`.
 - `python3 scripts/v2/sheet.py <frames dir|video> [--frames a,b] [--labels shots.json] [--stats]`: contact sheets; `look-ab.py`: before/after sheets.
 - `python3 scripts/v2/captions.py --story <slug> --spec <episode.json> [--style v3] [--until s] --out <file.ass>`: pop captions from `cues.json` (v2 default for "Nobody"; Season 1 = spec `captionStyle: "pop-shorts-v3"`). `python3 scripts/v2/caption-phone.py` → `caption-v3-phone.png/.json` (cap ≥ 2.6 % on 390 px, inside the 58–74 % band).
 - `python3 scripts/v2/assemble.py --story <slug> --frames <dir> | --video <mp4> --captions <ass> --out <master.mp4> [--proxy review/<slug>/final-review.mp4] [--animatic] [--no-hold]`: A2 highlight-only grade, captions after it, −14 LUFS/TP −1.5 voice, hold; uncapped 1440 master (CRF 14, ≥ 16 Mb/s floor) + 1080 proxy ≤ 45 MB (1080 frames = recorded fallback, upscaled before the grade); `--animatic` → 540×960 ≤ 10 MB; `--spec <episode.json>` mixes the auto-placed sfx (A4 §F; off with `"sfx": false`) and `music.mp3` if present.
@@ -44,9 +49,12 @@ Source of truth: `docs/V2_BRIEF.md` (owner's brief). Progress and decisions: `PR
 - Worlds (A1): export `groundY(x, z)` + `LAYER` (≥ 0.05 apart) and build paths/streets with `B.ribbon`; everything standing takes `groundY`. A4 worlds also export `LOOK` (v3 sky/fog/env) and get `TR` terrain, `BI` biomes, `V` vegetation, `W` water, `look` in `build()`; examples `engine/fixtures/looktest/{egg,ragdoll}.js`, `engine/fixtures/tools/world.js`.
 - A4 (Season 1): `parts/terrain.js`, `biomes.js`, `vegetation.js`, `water.js`, `landform.js`; `engine/crowd.js`, `ruleui.js`, `troupe.js`, `lumagate.js`; `avatar-style/hair4.js` (v4; `hair3.js` unused); `cast/troupe.json`.
 - `engine/effects.js` (§5.3 effects, pure in t). `captions/pop-shorts-v2.json` + `CAPTION_STYLE_V2.md`. Docs: `PUBLISHING.md`, `STORY_BIBLE.md`, `SERIES_LOG.md`.
-- `scripts/v2/`: `browser.js`, `preflight.js`, `align.py`, `plan.js`, `render.js`, `bench.js`, `stability.js` + `flicker.js`, `sheet.py`, `captions.py`, `assemble.py`; A4 §F/§I: `sfx.py` (set + placement), `audiocues.py` (→ `review/<slug>/audio-cues.md`), `scriptcheck.py --story <slug>` (410–440 words, ≤ 12-word sentences, card first/last line, ≤ 6 first-person sentences, FK ≤ 6, card key nouns), `season_state.py`, `layout.js`.
+- `scripts/v2/`: `browser.js`, `preflight.js`, `align.py`, `plan.js`, `render.js`, `bench.js`, `stability.js` + `flicker.js`, `sheet.py`, `captions.py`, `assemble.py`; A4 §F/§I: `sfx.py` (set + placement), `audiocues.py` (→ `review/<slug>/audio-cues.md`), `scriptcheck.py --story <slug>` (FORMAT_V6 words, ≤ 12-word sentences, last line ≠ first, FK ≤ 6, card key nouns), `season_state.py`, `layout.js`.
 - `stories/<slug>/`: `script.txt`, `voice.flac`, `cues.json`, `episode.json`, `world.js` (`build/` ignored); `review/<slug>/`: gate material for the owner.
 - Legacy (frozen or reference only): `avatar/`, `production/`, `stories/names100/`, `studio/` (Dice Town / Shortwick toolkit).
 
 ## Library index
 Library index: docs/LIBRARY.md (read only the lines a task needs; add one line per new reusable piece there).
+
+## Story & brand (Season 1)
+Recurring HERO (cast/hero.json) + re-costumed troupe (docs/season1/BRAND.md). Story rules: docs/season1/STORY_ENGINE.md · brand: BRAND.md · build input: EPISODE_BRIEF.md.

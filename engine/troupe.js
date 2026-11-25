@@ -3,6 +3,8 @@
 // tool and the role name (what they wear and who they play). AFK is fixed entirely (grey classic, buzz, 0.4, frozen).
 //   cast entry: {style: 'v2', troupe: 'LEAD' | 'SECOND' | 'LITTLE' | 'RIVAL' | 'ELDER' | 'AFK', role: 'Kit', outfit: {...},
 //                accessories: [...], tool, face}
+import {studentLook} from './student.js';
+import {assertNoHeroSymbol} from '../avatar-style/symbol.js';
 export const SLOTS = ['LEAD', 'SECOND', 'LITTLE', 'RIVAL', 'ELDER'];
 const FIXED = ['skin', 'hair', 'scale', 'tier', 'build', 'age', 'body', 'regions'];
 export function resolveTroupe(entry, data) {
@@ -11,13 +13,17 @@ export function resolveTroupe(entry, data) {
   // build + age are fixed per slot (A5 Decision 5): the kids are youth, the elder an adult
   const base = data.troupe?.[slot]; if (!base) throw Error('unknown troupe slot ' + slot);
   const {expressions, ...p} = base, out = {...p, hair: p.hair ? {...p.hair} : null};   // HERO (cast/hero.json): no hair
+  if (entry.costume) { const k = data.costumes?.[entry.costume]; if (!k || k.slot !== slot) throw Error(`costume ${entry.costume} is not for slot ${slot}`); const {slot: _s, seeded, ...o0} = k, o = seeded ? {...o0, ...studentLook(entry.seed ?? 1)} : o0; Object.assign(out, o, {hair: o.hair ? {...o.hair} : out.hair}); }   // E1 (opt-in): a named re-costume that may change the slot's look (cast/troupe6.json costumes)
   if (entry.outfit) out.outfit = {...entry.outfit};
   if (entry.accessories) out.accessories = entry.accessories;
   if (entry.tool) out.tool = entry.tool;
   if (entry.face) out.face = entry.face;
+  if (entry.symbol) out.symbol = entry.symbol;   // E4 (opt-in): birth symbol {shape, color, rank} (costume or entry); symbolDark: the STOLEN look
+  if (entry.symbolDark !== undefined) out.symbolDark = !!entry.symbolDark;
   out.tag = entry.role ? {name: entry.role, role: entry.roleLine ?? null} : null;
   out.faceStyle = entry.faceStyle ?? p.faceStyle ?? 'v3';   // Faces v3 default for the troupe; HERO carries v5
   for (const k of Object.keys(entry.with ?? {})) if (!FIXED.includes(k)) out[k] = entry.with[k];   // slots keep who they are
+  assertNoHeroSymbol(slot === 'HERO' ? 'hero' : slot, slot === 'HERO' && !!out.symbol);   // E4: the HERO's hands are bare, always
   return out;
 }
 

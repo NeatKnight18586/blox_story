@@ -168,16 +168,21 @@ def recognise(wav):
     return join_tokens(st.result.tokens, st.result.timestamps), len(audio) / sr
 
 
+DEFAULT_FORMAT = 6   # docs/season1/FORMAT_V6.md: the default for new episodes
+
+
 def voice_range(fmt=None):
-    """Pure: the allowed voice length (s) per episode format: format v5 75–90 s, older formats 100–168 s."""
-    return (75, 90) if fmt == 5 else (100, 168)
+    """Pure: the allowed voice length (s) per episode format: format 6 up to 124.15 s (voice + 0.85 ≤ 2:05, no minimum,
+    never padded), format v5 75–90 s, older formats 100–168 s."""
+    return (0, 124.15) if fmt == 6 else (75, 90) if fmt == 5 else (100, 168)
 
 
 def spec_format(story_dir, override=None):
-    """The episode format: --format, else stories/<slug>/episode.json `format`, else None (older formats)."""
+    """The episode format: --format, else stories/<slug>/episode.json `format` (a spec without one is a legacy episode,
+    None), else (no spec yet: a new episode) DEFAULT_FORMAT."""
     if override is not None: return override
     p = Path(story_dir) / 'episode.json'
-    return json.loads(p.read_text()).get('format') if p.exists() else None
+    return json.loads(p.read_text()).get('format') if p.exists() else DEFAULT_FORMAT
 
 
 def main():

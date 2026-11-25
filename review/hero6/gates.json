@@ -1,0 +1,355 @@
+{
+ "joints": {
+  "samples": 1212,
+  "outOfRange": 0,
+  "authoredOutside": [],
+  "autoLevelledAnklesClamped": {
+   "walkPassing": [
+    "rightAnkle -44° → clamped"
+   ],
+   "kneel6": [
+    "rightAnkle -45° → clamped"
+   ]
+  },
+  "limitsDeg": {
+   "elbow": [
+    [
+     -150,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ]
+   ],
+   "knee": [
+    [
+     0,
+     150
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ]
+   ],
+   "wrist": [
+    [
+     -30,
+     30
+    ],
+    [
+     -30,
+     30
+    ],
+    [
+     -30,
+     30
+    ]
+   ],
+   "ankle": [
+    [
+     -35,
+     35
+    ],
+    [
+     -35,
+     35
+    ],
+    [
+     -35,
+     35
+    ]
+   ],
+   "waist": [
+    [
+     -35,
+     35
+    ],
+    [
+     -35,
+     35
+    ],
+    [
+     -35,
+     35
+    ]
+   ]
+  }
+ },
+ "jointLuma": {
+  "ref-B.leftElbow": {
+   "above": 47.04,
+   "below": 47.04,
+   "delta": 0,
+   "pass": true
+  },
+  "ref-B.rightElbow": {
+   "above": 47.34,
+   "below": 47.34,
+   "delta": 0,
+   "pass": true
+  },
+  "ref-B.leftKnee": {
+   "above": 122.99,
+   "below": 122.99,
+   "delta": 0,
+   "pass": true
+  },
+  "ref-B.rightKnee": {
+   "above": 122.99,
+   "below": 122.99,
+   "delta": 0,
+   "pass": true
+  },
+  "ref-grey.leftElbow": {
+   "above": 154.44,
+   "below": 154.44,
+   "delta": 0,
+   "pass": true
+  },
+  "ref-grey.rightElbow": {
+   "above": 154.56,
+   "below": 154.56,
+   "delta": 0,
+   "pass": true
+  },
+  "ref-grey.leftKnee": {
+   "above": 153.85,
+   "below": 153.85,
+   "delta": 0,
+   "pass": true
+  },
+  "ref-grey.rightKnee": {
+   "above": 153.85,
+   "below": 153.85,
+   "delta": 0,
+   "pass": true
+  },
+  "turn-B-front.leftElbow": {
+   "above": 45.49,
+   "below": 45.46,
+   "delta": -0.03,
+   "pass": true
+  },
+  "turn-B-front.rightElbow": {
+   "above": 47.82,
+   "below": 47.37,
+   "delta": -0.45,
+   "pass": true
+  },
+  "turn-B-front.leftKnee": {
+   "above": 122.58,
+   "below": 122.58,
+   "delta": 0,
+   "pass": true
+  },
+  "turn-B-front.rightKnee": {
+   "above": 122.58,
+   "below": 122.58,
+   "delta": 0,
+   "pass": true
+  }
+ },
+ "seam": {
+  "total": 3,
+  "baseline": 11,
+  "pass": true,
+  "failing": {
+   "B.kneel6": {
+    "side/spine": 1
+   },
+   "B.reachHug": {
+    "side/spine": 1
+   },
+   "ELDER.kneel6": {
+    "side/spine": 1
+   }
+  },
+  "wholeBodyPinchesInfo": {
+   "idle6": 1,
+   "walkContact": 2,
+   "walkPassing": 0,
+   "run6": 0,
+   "point6": 2,
+   "cheer6": 0,
+   "crouch6": 4,
+   "sit6": 0,
+   "kneel6": 6,
+   "reachHug": 3,
+   "flinch6": 117,
+   "jumpApex": 25
+  }
+ },
+ "groundingY": {
+  "B.idle6": 0.0001,
+  "B.walkContact": 0.0009,
+  "B.walkPassing": 0,
+  "B.point6": 0.0002,
+  "B.cheer6": 0,
+  "B.reachHug": 0.0008,
+  "B.flinch6": 0.0004,
+  "B.run6": 0.0012,
+  "B.crouch6": 0,
+  "A.idle6": 0.0002,
+  "A.walkContact": 0.0001,
+  "A.walkPassing": 0,
+  "A.point6": 0.0002,
+  "A.cheer6": 0,
+  "A.reachHug": 0.0002,
+  "A.flinch6": 0.0006,
+  "A.run6": 0.0007,
+  "A.crouch6": 0,
+  "LEAD.idle6": 0.0001,
+  "LEAD.walkContact": 0.0001,
+  "LEAD.walkPassing": 0,
+  "LEAD.point6": 0.0002,
+  "LEAD.cheer6": 0,
+  "LEAD.reachHug": 0.0002,
+  "LEAD.flinch6": 0.0005,
+  "LEAD.run6": 0.0006,
+  "LEAD.crouch6": 0,
+  "SECOND.idle6": 0.0001,
+  "SECOND.walkContact": 0.0001,
+  "SECOND.walkPassing": 0,
+  "SECOND.point6": 0.0002,
+  "SECOND.cheer6": 0,
+  "SECOND.reachHug": 0.0002,
+  "SECOND.flinch6": 0.0005,
+  "SECOND.run6": 0.0006,
+  "SECOND.crouch6": 0,
+  "LITTLE.idle6": 0.0001,
+  "LITTLE.walkContact": 0.0001,
+  "LITTLE.walkPassing": 0,
+  "LITTLE.point6": 0.0001,
+  "LITTLE.cheer6": 0,
+  "LITTLE.reachHug": 0.0001,
+  "LITTLE.flinch6": 0.0004,
+  "LITTLE.run6": 0.0004,
+  "LITTLE.crouch6": 0,
+  "RIVAL.idle6": 0.0001,
+  "RIVAL.walkContact": 0.0001,
+  "RIVAL.walkPassing": 0,
+  "RIVAL.point6": 0.0002,
+  "RIVAL.cheer6": 0,
+  "RIVAL.reachHug": 0.0002,
+  "RIVAL.flinch6": 0.0005,
+  "RIVAL.run6": 0.0006,
+  "RIVAL.crouch6": 0,
+  "ELDER.idle6": 0.0002,
+  "ELDER.walkContact": 0.0001,
+  "ELDER.walkPassing": 0,
+  "ELDER.point6": 0.0002,
+  "ELDER.cheer6": 0,
+  "ELDER.reachHug": 0.0002,
+  "ELDER.flinch6": 0.0006,
+  "ELDER.run6": 0.0007,
+  "ELDER.crouch6": 0,
+  "AFK.idle6": 0.0001,
+  "AFK.walkContact": 0.0001,
+  "AFK.walkPassing": 0,
+  "AFK.point6": 0.0002,
+  "AFK.cheer6": 0,
+  "AFK.reachHug": 0.0002,
+  "AFK.flinch6": 0.0005,
+  "AFK.run6": 0.0006,
+  "AFK.crouch6": 0
+ },
+ "triangles": {
+  "B": 4756,
+  "A": 4660,
+  "LEAD": 5236,
+  "SECOND": 4840,
+  "LITTLE": 4812,
+  "RIVAL": 4520,
+  "ELDER": 5092,
+  "AFK": 4420,
+  "R6v5": 4668,
+  "limit": 6000,
+  "limitAppliesTo": "hero B (and ref A)"
+ },
+ "heights": {
+  "upperTorso": {
+   "ref": 1.62,
+   "measured": 1.62,
+   "delta": 0,
+   "pass": true
+  },
+  "lowerTorso": {
+   "ref": 0.38,
+   "measured": 0.4,
+   "delta": 0.02,
+   "pass": true
+  },
+  "arm": {
+   "ref": 1.75,
+   "measured": 1.75,
+   "delta": 0,
+   "pass": true
+  },
+  "hand": {
+   "ref": 0.25,
+   "measured": 0.25,
+   "delta": 0,
+   "pass": true
+  },
+  "leg": {
+   "ref": 1.73,
+   "measured": 1.73,
+   "delta": 0,
+   "pass": true
+  },
+  "foot": {
+   "ref": 0.27,
+   "measured": 0.27,
+   "delta": 0,
+   "pass": true
+  }
+ },
+ "popDeg": 2.59,
+ "crowd": {
+  "farTier": {
+   "v5": {
+    "trisPerMember": 272,
+    "drawCallsPerCrowd": 12
+   },
+   "v6": {
+    "trisPerMember": 272,
+    "drawCallsPerCrowd": 12,
+    "note": "same instanced prisms: the v6 silhouette (flush limbs, flush slabs) is the R6 block outline at this tier"
+   }
+  },
+  "midTier": {
+   "v5": {
+    "tris": 620,
+    "meshes": 6
+   },
+   "v6": {
+    "tris": 360,
+    "meshes": 6
+   }
+  }
+ },
+ "walk": {
+  "r6": {
+   "maxPerFrame": 0.0228,
+   "meanPerFrame": 0.0084,
+   "contactFrames": 68
+  },
+  "v6": {
+   "maxPerFrame": 0.023,
+   "meanPerFrame": 0.008,
+   "contactFrames": 68
+  },
+  "travelPerFrame": 0.0279
+ },
+ "failures": [],
+ "result": "PASS"
+}
