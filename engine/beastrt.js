@@ -23,11 +23,11 @@ function geometryOf(geo, bake = 0) {
   g.setAttribute('aSeg', new T.BufferAttribute(geo.seg, 1)); g.setAttribute('aGlow', new T.BufferAttribute(glow, 4)); return g; }
 // satin faceted material, segment matrices from a float texture (nSeg × 3 texels per row, one row per instance)
 export const MOON_RIM = [.15, .24, .5];   // P3 moonlit: cool fresnel rim on hero beasts (scene-linear, before the grade)
-function beastMaterial(nSeg, rows, low = false, rim = null) {   // P3: rim = moon rim colour (look4 'moonlit' only; fresnel, emissive)
+function beastMaterial(nSeg, rows, low = false, rim = null, mat = null) {   // P3B: mat = preset `material` {roughness, metalness, env} (opt-in; TITAN basalt)   // P3: rim = moon rim colour (look4 'moonlit' only; fresnel, emissive)
    // low tier: unlit (baked per-face light, LOW_LIGHT): the cheapest pixel, one draw per preset
   const data = new Float32Array(nSeg * 3 * rows * 4), tex = new T.DataTexture(data, nSeg * 3, rows, T.RGBAFormat, T.FloatType);
   tex.magFilter = tex.minFilter = T.NearestFilter; tex.needsUpdate = true;
-  const m = low ? new T.MeshBasicMaterial({vertexColors: true}) : new T.MeshStandardMaterial({vertexColors: true, flatShading: true, roughness: .36, metalness: .18, envMapIntensity: .9});
+  const m = low ? new T.MeshBasicMaterial({vertexColors: true}) : new T.MeshStandardMaterial({vertexColors: true, flatShading: true, roughness: mat?.roughness ?? .36, metalness: mat?.metalness ?? .18, envMapIntensity: mat?.env ?? .9, fog: mat?.fog ?? true});
   const U = {uSegTex: {value: tex}, uGlowI: {value: new T.Vector3(1, 1, 1)}, uBeastMask: {value: 0}, ...(rim ? {uRim: {value: new T.Vector3(...rim)}} : {})};
   m.onBeforeCompile = sh => { Object.assign(sh.uniforms, U);
     sh.vertexShader = 'attribute float aSeg; attribute vec4 aGlow; uniform highp sampler2D uSegTex; varying vec4 vGlow;\n' + sh.vertexShader.replace('#include <begin_vertex>',
@@ -61,7 +61,7 @@ export function createBeasts({scene, spec, presets, hdr, groundY = () => 0, reso
       root.traverse(o => { o.castShadow = false; o.receiveShadow = false; });
       const trail = Array.from({length: P.trail?.n ?? 0}, () => { const t2 = new T.Sprite(sp.material.clone()); t2.renderOrder = -1; t2.name = 'blinkTrail'; t2.userData.live = true; scene.add(t2); return t2; });   // P3: short sparkle trail
       return actors[name] = {name, c, P, root, head, blink: {sp, wings, col, trail}, blobR: 0, pivots: {head}}; }
-    const tier = c.tier ?? 'hero', G = geoOf(c.preset, tier), {m, U, tex, data} = beastMaterial(G.geo.segNames.length, 1, false, spec.look4 === 'moonlit' ? MOON_RIM : null);
+    const tier = c.tier ?? 'hero', G = geoOf(c.preset, tier), {m, U, tex, data} = beastMaterial(G.geo.segNames.length, 1, false, spec.look4 === 'moonlit' && (c.rim ?? P.moonRim ?? true) ? MOON_RIM : null, P.material);   // P3B: preset moonRim / cast rim false = no moon rim (TITAN: its light is its own cracks + eyes)
     const mesh = new T.InstancedMesh(G.three, m, 1); mesh.setMatrixAt(0, new T.Matrix4()); mesh.frustumCulled = false; mesh.castShadow = mesh.receiveShadow = false; mesh.name = 'beastMesh_' + name; mesh.userData.live = true; root.add(mesh);
     return actors[name] = {name, c, P, root, head, mesh, U, tex, data, G, tier, blobR: (P.blobR ?? 1.5), pivots: {head}, track: null, start: null, seed: B.hashSeed(name)}; }
   for (const [n, c] of Object.entries(spec.cast ?? {})) if (c.style === 'beast') create(n, c);

@@ -39,7 +39,9 @@ export function hornShare(Pn, view, state = 'idle') {
   const A = ras(all), Hn = ras(vs(hp)), Bd = ras(vs(bp)); let n = 0, h = 0; for (let q = 0; q < A.length; q++) { n += A[q]; h += Hn[q] && !Bd[q] ? 1 : 0; }
   return {share: h / n, W, H, A, Hn}; }
 { const T = P('TITAN'), f = hornShare(T, 'front'), sd = hornShare(T, 'side');
-  ok('TITAN horns read in silhouette (front + side)', f.share >= .06 && sd.share >= .06, `horn pixels outside the body silhouette: front ${(100 * f.share).toFixed(1)} %, side ${(100 * sd.share).toFixed(1)} % (≥ 6 %); tris ${B.beastTris(T, 'hero')} (≤ 6k)`); }
+  // P3B (owner FIX 1): the horns curl round the ears (never up), so the P3 "≥ 6 % outside the body" gate is superseded by the owner's gates (tests/titan.js); share kept as info
+  console.log(`info  TITAN horn pixels outside the body silhouette: front ${(100 * f.share).toFixed(1)} %, side ${(100 * sd.share).toFixed(1)} %`);
+  const {titanGates} = await import('./titan.js'); for (const r of titanGates(T, Object.fromEntries(['NIGHTFANG', 'VOLT', 'CINDER', 'BOULDER', 'TUFT'].map(n => [n, P(n)])))) ok(r.name, r.pass, r.line); }
 for (const f of (await import('./beast2-more.js').catch(() => ({GATES: []}))).GATES ?? []) await f(ok, {P, L, B});
 mkdirSync('review/beasts', {recursive: true}); writeFileSync('review/beasts/tests2.json', JSON.stringify(res, null, 1));
 const fails = res.filter(r => !r.pass).length; console.log(`${res.length - fails}/${res.length} pass`); process.exitCode = fails ? 1 : 0;
