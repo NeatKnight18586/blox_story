@@ -35,7 +35,7 @@ jobs:
       - name: Download from Poly Haven
         run: |
           python3 scripts/v2/fetch-assets.py
-          find renders/cache/assets -type f -size +5M -print -exec false {} +
+          find renders/cache/assets -type f -size +15M -print -exec false {} +   # textures ≤ 5 MB (fetch-assets), glTF model files ≤ 15 MB
           du -sh renders/cache/assets; cat renders/cache/assets/manifest.json
       - name: Realism spike (farm numbers + sheet)
         if: github.event_name == 'push' || inputs.measure

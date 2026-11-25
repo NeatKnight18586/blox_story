@@ -2585,5 +2585,11 @@
    }
   },
   "note": "tuft P3B (opt-in look4 \"dusk\"): golden-hour dusk for the festival plaza: long low warm sun, amber horizon → deep blue zenith (cinelook DUSK gradient under grade clear), lit windows / lanterns starting to glow."
- }
+ },
+  "cityDay": {
+   "note": "Phase 1A (opt-in look4 \"cityDay\", parts/city/world.js): bright late morning on the island city. High south-east sun (el 60), crisp shadows, saturated blue sky + puffy clouds, no near haze (fog starts at 480), AgX tone, bake = contact AO + sun visibility per district.",
+   "base": {"skyTop": "#1a7dff", "skyHorizon": "#b8e2ff", "fog": "#cde9ff", "fogNear": 480, "fogFar": 1150, "hemiSky": "#d2e9ff", "hemiGround": "#8fa86c", "hemi": 1.05, "sun": "#fff3dc", "sunI": 3.3, "sunEl": 60, "sunAz": 28, "rim": "#ffffff", "rimI": 0.35, "cloud": "#ffffff", "exposure": 1.05, "windows": 0},
+   "v4": {"toneMapping": "AgX", "envIntensity": 0.75, "clouds": "puffy", "heightFog": null, "shadowCatcher": 0.45, "glass": {"color": "#9fc4e8", "reflect": 0.9},
+    "bake": {"sun": [1, 0.95, 0.84], "sunI": 1.25, "sky": [0.6, 0.74, 0.98], "skyI": 0.66, "ground": [0.5, 0.48, 0.38], "groundI": 0.2, "aoDist": 4, "lights": false}, "staticReflect": 0.12, "lut": "comedy"}
+  }
 }
