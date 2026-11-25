@@ -2077,3 +2077,11 @@ ep:check with BASE = 630b258: FAIL — the 6 engine/script files of THIS engine 
 Decisions: village `look:` → looks4 via the location lookMap (night / storm / nightBright / fireNight → the flag's night look, goldenHour → dusk); a location bakes the look of its first shot; BRIEF row 2 crowd 8 → 10 (rows 2 and 17 must agree: one crowd);
 props2b positions are defaults from hero mark / stage / table anchors; `prop:titanCave` / `villageStreet` / `lanternSea` / `giantCage` use the location's `establish` view (no cam: needed).
 Open (blocks a GOOD animatic, not the render): auto cameras are untuned in the sampled sheet (f0 of the hook, f18 shows a green void, hero often out of frame); cast start marks are Brief `at` values from the E4 era (hero x -34); no glasses / beard accessory; bench .632 s/frame.
+
+## tuft (E5) Phase 4B — STAGING: BLOCKED before part A (Sonnet 5.5)
+Done: BASE = af8a2c5 (commit 1ba2399, ep:check PASS). Scratch tools only (outside the repo): per-shot contact sheet, actor-position dump.
+Blocker (engine, frozen, not touched): with `moods: true` (brief2spec hard-codes it) + beasts + `post: 'cine'`, every beast material fails to compile:
+"THREE.WebGLProgram … ERROR: 0:69: 'uMoodSat'" — engine/episode.js:62 `inject` (mood6 onBeforeCompile wrapper) runs twice on a material that already chained
+`prev = m.onBeforeCompile` (engine/cinelook.js:169, beastrt.js:32), so the uniform line is declared twice. Result: NO beast is drawn in any frame (Tuft, Nightfang, Volt … absent in the 0–31 s sheet; the hook shows a plaza, not an eye). With `moods:false` the same segment compiles clean (0 shader errors vs 5).
+Engine ask: in `inject` add `|| sh.fragmentShader.includes('uniform float uMoodSat')` to the early return (1 line), or add `moods` to FLAG_KEYS so the Brief can set it. No staging was committed: placing cameras on beasts that cannot be seen would be guesswork.
+Findings for the staging pass once unblocked: world = location `street` anchor + `place:` offset; cast defaults are E4 offsets (hero x −34 …); colossal Tuft is 63 studs tall (scale 67), kids 4.3; 61 shots render a 5 fps part in ≈45 s.
