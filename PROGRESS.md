@@ -1970,3 +1970,27 @@ tiers hero / mid instanced / far rooftop cards + window dots) + TITAN's mountain
 parts/village/world.js (spec.location; groundY + LAYER + LOOK); fixtures engine/fixtures/village/*.json; gates (tris, calls, s/frame,
 rooftops ≥ 40, mountain in exteriors, windows lit, night gates, colossal ≥ 1.2× roofs, room puff ≥ 70 %), byte-1B, npm test.
 Sheet scripts/v2/village-sheet.js → review/village/{village.png, village-390.png, demo.mp4}.
+Built: 0a TITAN redesign (titan-preset.js; opt-in `dims.hindK` → body rest pitch, legs vertical) · 0b look4 `moonlit` + cinelook `MOON` (sky gradient,
+curve input black .101 / black .015, dark-blue far fog) + beastrt `MOON_RIM` + low tier .7 on moonlit · 0c powers `BREATH` + `fxGroundGlow`, `SPRINT` 8 + ribbon
+1.0 + 3–4 forks, BLINK spriteK 3.4 / wing cards / trail / flap 7 Hz · 0d hero ball head k .525 (face 45 %) · puff `pose: 'window'` · spec `skyDist`.
+1 parts/village/{kit.js (pure), build.js (three), world.js (one module, spec.location)} · 2 parts/locations/{beastYard, beastClass, homeDining,
+homeBedroom, villageStreet, festivalPlaza, titanCave}.json · fixtures scripts/v2/village-fixtures.js → engine/fixtures/village/* · tests/village.js ·
+scripts/v2/{village-gates.js + village-gates-more.js, nightstats.py, titan-sil.js, frames-at.js, abgrid.py, village-sheet.js}.
+Commands: node tests/village.js 7/7 · node tests/beast2.js 15/15 · node tests/beast.js 10/10 · node scripts/v2/village-gates.js (13/20, below) ·
+scripts/v2/byte1b.sh 10/10 · npm test green · node scripts/v2/village-sheet.js → review/village/{village.png, village-390.png, demo.mp4}.
+Numbers: TITAN 2,504 tris, horns outside the body front 11.5 % / side 7.3 % (≥ 6), pairwise IoU max .581 (TU–TI; BO–TI .472, was .609) ·
+breath reach 35.8 studs = 1.55 × NIGHTFANG length · lightning runner 7.5–10.5 % of frame, inside, 49–59 segments · BLINK glow area ≥ 10 % · face 45 %.
+Locations: tris 4.0k–79.9k (≤ 90k), calls 21–153, est. final 1.46–2.30 s/frame · windows lit 65–76 % · mountain 15.5–91.9 % of every exterior
+establishing frame · plaza wide 89 rooftops (≥ 40) · colossal Tuft 53.3 vs building 19.7 (× 2.70) · room puff ball 105 % of floor, 4/4 leg parts out the window.
+FAIL night dark-10 % (locations, after pass 1): 0.014 / .017 / .028 / .030 / .020 / .043 / .009 / .241 / .023 / .025 / .015 / .012 / .055 / .013
+(plaza hero .043, bedroom .009 + .241, street establish .055 out) · FAIL separation: low-tier DEER .001 / BOAR .018 at street distance, BOULDER in the
+dining barn door .004 · Task 0 fixture after the location passes: dark-10 % .013–.016 except the lit MCU f209 .174; BLINK separation .054 (was .070 before
+the darker zenith) — VOLT night PASS (body .125, seams 27 %).
+Fix passes: Task 0 night (inBlack .104 → .101, black .012 → .015) · location night (zenith .0035 → .002, MOON_RIM × 1.5, low tier .7, interior
+light balance) → stopped, not loosened.
+Decisions: "horn pixels" = horn pixels OUTSIDE the rest of the silhouette (stricter than coverage). Blue-gold gate counts EMISSIVE pixels only (owner
+ruling; the hero's yellow head + blue strip is a false hit) and the ×1.2 saturation gate applies to day frames only (owner ruling) — logged, the 2B gates
+are not re-run here. Dusk = look4 `dawn` (no dusk preset). Interior days use look4 `toy` (`lookMap`; comedy bakes no practicals). Colossal gate =
+building height above its own ground (a far roof high on the hillside is not a taller building; world-y would read 91.8). Rooftop id pass draws
+double-sided (instanced far roofs were back-face culled). The giant cage on the stage is spec props2b at scale .3 (episode choice). Demo is silent.
+Open: night darks on lit interiors / CU; low-tier beasts have no moon rim (unlit material); BLINK ring separation .054.

@@ -53,7 +53,7 @@ print(json.dumps({'share': float(m.mean()), 'inside': bool(len(xs) and xs.min() 
   {sec: 'loc', async run({open, png, masks, nightGates, gate, raw}) {
     const fx = (await import('node:fs')).readdirSync('engine/fixtures/village').filter(f => /^(beastYard|beastClass|homeDining|homeBedroom|villageStreet|festivalPlaza|titanCave)-(day|night|dusk)\.json$/.test(f)).sort();
     const EXT = ['beastYard', 'villageStreet', 'festivalPlaza', 'titanCave'], cost = [], rows = [];
-    for (const file of fx) { const spec = `engine/fixtures/village/${file}`, S = L(spec), loc = S.location, look = file.replace(/^.*-|\.json$/g, ''), p = await open(spec), r = {loc, look};
+    for (const file of process.env.LOC_FAST ? [] : fx) { const spec = `engine/fixtures/village/${file}`, S = L(spec), loc = S.location, look = file.replace(/^.*-|\.json$/g, ''), p = await open(spec), r = {loc, look};
       const views = [[6, 'establish'], [30, 'hero']], names = Object.keys(S.cast ?? {});
       for (const [f, v] of views) { const fr = await png(p, f, 270, 480, `${raw}/loc-${loc}-${look}-${v}.png`);
         const m = await p.evaluate(([f]) => { const E = window.__episode, V = window.__village, q = E.renderFrame(f, 270, 480); return {calls: q.calls, frustum: q.triangles, tris: V.tris(), win: V.windows, mountain: V.mountain ? V.maskShare(E.debug.renderer, E.debug.camera, 270, 480, 'mountain') : null}; }, [f]);
@@ -62,6 +62,7 @@ print(json.dumps({'share': float(m.mean()), 'inside': bool(len(xs) and xs.min() 
       await p.close();
       if (!rows.some(x => x.loc === loc)) { const q = await open(spec, '&aa=1'); r.final = await q.evaluate(() => { const E = window.__episode; E.renderFrame(6, 1440, 2560); return [6, 30].map(f => E.renderFrame(f, 1440, 2560).ms / 1000); }); await q.close(); cost.push(...r.final); } else r.final = [];   // final cost once per location (its first look)
       rows.push(r); console.log('loc', loc, look, r.establish.tris, r.establish.calls, r.final.map(x => x.toFixed(2)).join('/')); }
+    if (!process.env.LOC_FAST) {
     const tmax = Math.max(...rows.flatMap(r => [r.establish.tris, r.hero.tris]));
     gate('loc', 'per location tris ≤ 90k (whole scene, instances counted)', tmax <= 90000, rows.map(r => `${r.loc}/${r.look} ${(Math.max(r.establish.tris, r.hero.tris) / 1000).toFixed(1)}k`).join(', '), {rows});
     gate('loc', 'draw calls (report)', true, rows.map(r => `${r.loc}/${r.look} ${r.establish.calls}/${r.hero.calls}`).join(', '));
@@ -70,11 +71,11 @@ print(json.dumps({'share': float(m.mean()), 'inside': bool(len(xs) and xs.min() 
     gate('loc', 'night windows lit ≥ 60 %', win.every(w => w.s >= .6), win.map(w => `${w.n} ${(100 * w.s).toFixed(0)} % of ${w.t}`).join(', '));
     nightGates('loc', 'night locations', nights.flatMap(r => [r.establish.nightRow, r.hero.nightRow]));
     const mt = rows.filter(r => EXT.includes(r.loc)).map(r => ({n: `${r.loc}/${r.look}`, s: r.establish.mountain}));
-    gate('loc', 'the mountain visible in every exterior establishing view (≥ 1 % of frame)', mt.every(m => m.s >= .01), mt.map(m => `${m.n} ${(100 * m.s).toFixed(1)} %`).join(', '));
+    gate('loc', 'the mountain visible in every exterior establishing view (≥ 1 % of frame)', mt.every(m => m.s >= .01), mt.map(m => `${m.n} ${(100 * m.s).toFixed(1)} %`).join(', ')); }
     // rooftops + colossal (festivalPlaza-colossal) and room puff (homeBedroom)
     { const p = await open('engine/fixtures/village/festivalPlaza-colossal.json');
       const rr = await p.evaluate(() => { const E = window.__episode, V = window.__village, out = {}; for (const [f, k] of [[40, 'wide'], [80, 'low']]) { E.renderFrame(f, 540, 960); const ids = V.roofIdPass(E.debug.renderer, E.debug.camera, 540, 960).filter(x => x.n >= 4);
-          const tops = ids.map(x => V.roofs.get(x.id)?.top).filter(v => v !== undefined); let tuft = null; const a = E.beasts.actors.tuft; if (a) { const T = a.root; T.updateMatrixWorld(true); let y1 = -1e9; T.traverse(o => { if (o.isMesh && o.geometry) { o.geometry.computeBoundingBox(); } });
+          const tops = ids.map(x => { const m = V.roofs.get(x.id); return m ? m.top - (m.at?.[1] ?? 0) : undefined; }).filter(v => v !== undefined); let tuft = null; const a = E.beasts.actors.tuft; if (a) { const T = a.root; T.updateMatrixWorld(true); let y1 = -1e9; T.traverse(o => { if (o.isMesh && o.geometry) { o.geometry.computeBoundingBox(); } });
             y1 = a.sample ? Math.max(...Array.from({length: 1}, () => 0)) : 0; tuft = a; }
           out[k] = {roofs: ids.length, unknown: ids.filter(x => !V.roofs.has(x.id)).length, maxTop: Math.max(...tops)}; } return out; });
       const tuftTop = await p.evaluate(async () => { const T = await import('three'), E = window.__episode; E.renderFrame(40, 270, 480); const a = E.beasts.actors.tuft; const m = []; E.debug.scene.updateMatrixWorld(true);
@@ -84,7 +85,7 @@ print(json.dumps({'share': float(m.mean()), 'inside': bool(len(xs) and xs.min() 
       const B2 = await import('../../engine/beast.js'), TU = L('beasts/TUFT.json'), g = B2.buildGeometry(TU), sv = B2.worldVerts(B2.sampleBeast(TU, [{t: 0, state: 'idle'}], 0, {geo: g}), g); let h0 = 0; for (let i = 1; i < sv.length; i += 3) h0 = Math.max(h0, sv[i]);
       const top = h0 * (tuftTop.sample?.k ?? tuftTop.k), ratio = top / rr.wide.maxTop;
       gate('loc', 'festivalPlaza wide: ≥ 40 distinct rooftops in frame (town reads big)', rr.wide.roofs >= 40, `wide ${rr.wide.roofs} rooftops (≥ 4 px each at 540×960; ${rr.wide.unknown} unmapped ids), low angle ${rr.low.roofs}`);
-      gate('loc', 'colossal Tuft top ≥ 1.2 × the tallest roof in frame', ratio >= 1.2, `Tuft top ${top.toFixed(1)} studs (puff k ${(tuftTop.sample?.k ?? tuftTop.k).toFixed(2)}) vs tallest visible roof ${rr.wide.maxTop.toFixed(1)} → × ${ratio.toFixed(2)}`); }
+      gate('loc', 'colossal Tuft top ≥ 1.2 × the tallest roof in frame', ratio >= 1.2, `Tuft top ${top.toFixed(1)} studs (puff k ${(tuftTop.sample?.k ?? tuftTop.k).toFixed(2)}) vs tallest visible building (roof top above its own ground) ${rr.wide.maxTop.toFixed(1)} → × ${ratio.toFixed(2)}`); }
     { const p = await open('engine/fixtures/village/homeBedroom-night.json');
       const r = await p.evaluate(async () => { const T = await import('three'), E = window.__episode; E.renderFrame(12, 270, 480); let ball = null, legs = []; E.debug.scene.traverse(o => { if (o.name === 'puffBall' && o.visible) ball = o; });
         const root = ball.parent, a = []; root.traverse(o => { if (/leg/i.test(o.name) && o.isMesh) a.push(o); });

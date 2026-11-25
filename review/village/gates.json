@@ -1,15 +1,83 @@
 [
  {
-  "sec": "night",
-  "name": "night (2B mystery, before): darkest-10 % luma in 0.012–0.03 (not crushed, not milky)",
-  "pass": false,
-  "line": "0.010 / 0.013 / 0.008 / 0.017 / 0.021 / 0.032"
+  "sec": "fx",
+  "name": "NIGHTFANG breath = long cyan jet (\u2265 1.5 body lengths) that lights the ground",
+  "pass": true,
+  "line": "jet reach 35.8 studs = 1.55 \u00d7 body length 23.2 (\u2265 1.5); 86 flame cards + 6 ground-glow discs at frame 185"
+ },
+ {
+  "sec": "fx",
+  "name": "lightning: the runner reads (R6 body in frame) + ribbon + forks",
+  "pass": true,
+  "line": "f60: body 7.5 % of frame (\u2265 1 %), inside, 49 bolt/ribbon segments \u00b7 f66: body 8.7 % of frame (\u2265 1 %), inside, 54 bolt/ribbon segments \u00b7 f72: body 10.5 % of frame (\u2265 1 %), inside, 59 bolt/ribbon segments"
+ },
+ {
+  "sec": "fx",
+  "name": "BLINK readable at 390 px: glow area \u2265 0.3 % of the frame (MS of LITTLE)",
+  "pass": true,
+  "line": "mystery f201 14.53 %, mystery f209 46.57 %, mystery f217 15.88 %, moonlit f201 13.59 %, moonlit f209 40.06 %, moonlit f217 10.08 % (min 10.08 %); wings 1.3\u00d70.62 \u00d7 size, flutter 7 Hz, trail 6",
+  "area": [
+   {
+    "spec": "heroes-night",
+    "f": 201,
+    "a": "renders/village/gates/blink-on-heroes-night-201.png",
+    "b": "renders/village/gates/blink-off-heroes-night-201.png",
+    "area": 0.14533564814814814
+   },
+   {
+    "spec": "heroes-night",
+    "f": 209,
+    "a": "renders/village/gates/blink-on-heroes-night-209.png",
+    "b": "renders/village/gates/blink-off-heroes-night-209.png",
+    "area": 0.4657291666666667
+   },
+   {
+    "spec": "heroes-night",
+    "f": 217,
+    "a": "renders/village/gates/blink-on-heroes-night-217.png",
+    "b": "renders/village/gates/blink-off-heroes-night-217.png",
+    "area": 0.158798225308642
+   },
+   {
+    "spec": "moon-heroes",
+    "f": 201,
+    "a": "renders/village/gates/blink-on-moon-heroes-201.png",
+    "b": "renders/village/gates/blink-off-moon-heroes-201.png",
+    "area": 0.1359085648148148
+   },
+   {
+    "spec": "moon-heroes",
+    "f": 209,
+    "a": "renders/village/gates/blink-on-moon-heroes-209.png",
+    "b": "renders/village/gates/blink-off-moon-heroes-209.png",
+    "area": 0.4005999228395062
+   },
+   {
+    "spec": "moon-heroes",
+    "f": 217,
+    "a": "renders/village/gates/blink-on-moon-heroes-217.png",
+    "b": "renders/village/gates/blink-off-moon-heroes-217.png",
+    "area": 0.10075617283950618
+   }
+  ]
+ },
+ {
+  "sec": "decal",
+  "name": "hero ball: face decal \u2248 45 % of the ball width (0.40\u20130.50)",
+  "pass": true,
+  "line": "f349: face 2.83 / ball 6.26 = 45 % \u00b7 f385: face 5.75 / ball 12.72 = 45 %"
  },
  {
   "sec": "night",
-  "name": "night (2B mystery, before): every beast / actor separates from its background (≥ 0.06)",
+  "name": "night (2B mystery, before): darkest-10 % luma in 0.012\u20130.03 (not crushed, not milky)",
   "pass": false,
-  "line": "min 0.023 (nightfang@17 ΔL 0.009 ΔC 0.023, volt@94 ΔL 0.028 ΔC 0.038, kid_nf@40 ΔL 0.022 ΔC 0.061, volt@110 ΔL 0.025 ΔC 0.114); 7 subject-frames",
+  "line": "0.010 / 0.013 / 0.008 / 0.017 / 0.021 / 0.103"
+ },
+ {
+  "sec": "night",
+  "name": "night (2B mystery, before): every beast / actor separates from its background (\u2265 0.06)",
+  "pass": false,
+  "line": "min 0.023 (nightfang@17 \u0394L 0.009 \u0394C 0.023, blink@209 \u0394L 0.034 \u0394C 0.009, volt@94 \u0394L 0.028 \u0394C 0.038, kid_nf@40 \u0394L 0.022 \u0394C 0.061); 7 subject-frames",
   "subs": [
    {
     "n": "nightfang",
@@ -22,6 +90,18 @@
     "seam": 0.135,
     "L": 0.1328,
     "ringL": 0.1235
+   },
+   {
+    "n": "blink",
+    "f": "209",
+    "px": 1847,
+    "share": 0.0143,
+    "dL": 0.0338,
+    "dC": 0.0095,
+    "sep": 0.0338,
+    "seam": 0,
+    "L": 0.9286,
+    "ringL": 0.8948
    },
    {
     "n": "volt",
@@ -72,28 +152,16 @@
     "ringL": 0.2894
    },
    {
-    "n": "blink",
-    "f": "209",
-    "px": 2265,
-    "share": 0.0175,
-    "dL": 0.1498,
-    "dC": 0.0242,
-    "sep": 0.1498,
-    "seam": 0.1196,
-    "L": 0.8387,
-    "ringL": 0.6889
-   },
-   {
     "n": "little",
     "f": "209",
     "px": 78296,
     "share": 0.6041,
-    "dL": 0.3941,
-    "dC": 0.068,
-    "sep": 0.3941,
-    "seam": 0.0023,
-    "L": 0.1903,
-    "ringL": 0.5844
+    "dL": 0.3527,
+    "dC": 0.114,
+    "sep": 0.3527,
+    "seam": 0.0045,
+    "L": 0.3323,
+    "ringL": 0.685
    }
   ]
  },
@@ -101,103 +169,103 @@
   "sec": "night",
   "name": "night (2B mystery, before): VOLT at night readable (body separation + seams)",
   "pass": false,
-  "line": "f94: body sep 0.038 (≥ .06), seam px 14.3 % of its mask (≥ 1.5 %) · f110: body sep 0.114 (≥ .06), seam px 15.5 % of its mask (≥ 1.5 %)"
+  "line": "f94: body sep 0.038 (\u2265 .06), seam px 14.3 % of its mask (\u2265 1.5 %) \u00b7 f110: body sep 0.114 (\u2265 .06), seam px 15.5 % of its mask (\u2265 1.5 %)"
  },
  {
   "sec": "night",
-  "name": "night (moonlit, after): darkest-10 % luma in 0.012–0.03 (not crushed, not milky)",
+  "name": "night (moonlit, after): darkest-10 % luma in 0.012\u20130.03 (not crushed, not milky)",
   "pass": false,
-  "line": "0.015 / 0.012 / 0.015 / 0.015 / 0.015 / 0.110"
+  "line": "0.013 / 0.013 / 0.014 / 0.014 / 0.016 / 0.174"
  },
  {
   "sec": "night",
-  "name": "night (moonlit, after): every beast / actor separates from its background (≥ 0.06)",
-  "pass": true,
-  "line": "min 0.070 (blink@209 ΔL 0.070 ΔC 0.020, volt@94 ΔL 0.084 ΔC 0.029, boulder@158 ΔL 0.082 ΔC 0.116, nightfang@17 ΔL 0.124 ΔC 0.073); 7 subject-frames",
+  "name": "night (moonlit, after): every beast / actor separates from its background (\u2265 0.06)",
+  "pass": false,
+  "line": "min 0.054 (blink@209 \u0394L 0.054 \u0394C 0.014, boulder@158 \u0394L 0.108 \u0394C 0.103, volt@94 \u0394L 0.125 \u0394C 0.016, kid_nf@40 \u0394L 0.128 \u0394C 0.165); 7 subject-frames",
   "subs": [
    {
     "n": "blink",
     "f": "209",
-    "px": 2265,
-    "share": 0.0175,
-    "dL": 0.0702,
-    "dC": 0.0199,
-    "sep": 0.0702,
-    "seam": 0.3722,
-    "L": 0.6822,
-    "ringL": 0.612
-   },
-   {
-    "n": "volt",
-    "f": "94",
-    "px": 9707,
-    "share": 0.0749,
-    "dL": 0.0842,
-    "dC": 0.0286,
-    "sep": 0.0842,
-    "seam": 0.199,
-    "L": 0.352,
-    "ringL": 0.2678
+    "px": 1847,
+    "share": 0.0143,
+    "dL": 0.0541,
+    "dC": 0.014,
+    "sep": 0.0541,
+    "seam": 0,
+    "L": 0.8208,
+    "ringL": 0.7667
    },
    {
     "n": "boulder",
     "f": "158",
     "px": 48565,
     "share": 0.3747,
-    "dL": 0.0823,
-    "dC": 0.1161,
-    "sep": 0.1161,
-    "seam": 0.1918,
-    "L": 0.3823,
-    "ringL": 0.3
+    "dL": 0.1078,
+    "dC": 0.1034,
+    "sep": 0.1078,
+    "seam": 0.2551,
+    "L": 0.4061,
+    "ringL": 0.2982
    },
    {
-    "n": "nightfang",
-    "f": "17",
-    "px": 29052,
-    "share": 0.2242,
-    "dL": 0.124,
-    "dC": 0.0731,
-    "sep": 0.124,
-    "seam": 0.2828,
-    "L": 0.2791,
-    "ringL": 0.1552
+    "n": "volt",
+    "f": "94",
+    "px": 9707,
+    "share": 0.0749,
+    "dL": 0.1249,
+    "dC": 0.0156,
+    "sep": 0.1249,
+    "seam": 0.2705,
+    "L": 0.3964,
+    "ringL": 0.2714
    },
    {
     "n": "kid_nf",
     "f": "40",
     "px": 2440,
     "share": 0.0188,
-    "dL": 0.1312,
-    "dC": 0.1665,
-    "sep": 0.1665,
-    "seam": 0.0209,
-    "L": 0.2495,
-    "ringL": 0.3807
+    "dL": 0.1282,
+    "dC": 0.1646,
+    "sep": 0.1646,
+    "seam": 0.0213,
+    "L": 0.2497,
+    "ringL": 0.3779
+   },
+   {
+    "n": "nightfang",
+    "f": "17",
+    "px": 29052,
+    "share": 0.2242,
+    "dL": 0.1729,
+    "dC": 0.0811,
+    "sep": 0.1729,
+    "seam": 0.374,
+    "L": 0.3257,
+    "ringL": 0.1528
    },
    {
     "n": "volt",
     "f": "110",
     "px": 22235,
     "share": 0.1716,
-    "dL": 0.2031,
-    "dC": 0.1104,
-    "sep": 0.2031,
-    "seam": 0.3152,
-    "L": 0.4242,
-    "ringL": 0.2212
+    "dL": 0.24,
+    "dC": 0.0964,
+    "sep": 0.24,
+    "seam": 0.4272,
+    "L": 0.4615,
+    "ringL": 0.2214
    },
    {
     "n": "little",
     "f": "209",
     "px": 78296,
     "share": 0.6041,
-    "dL": 0.3975,
-    "dC": 0.1206,
-    "sep": 0.3975,
-    "seam": 0.0011,
-    "L": 0.2508,
-    "ringL": 0.6483
+    "dL": 0.3434,
+    "dC": 0.1613,
+    "sep": 0.3434,
+    "seam": 0.0006,
+    "L": 0.3873,
+    "ringL": 0.7307
    }
   ]
  },
@@ -205,888 +273,13 @@
   "sec": "night",
   "name": "night (moonlit, after): VOLT at night readable (body separation + seams)",
   "pass": true,
-  "line": "f94: body sep 0.084 (≥ .06), seam px 19.9 % of its mask (≥ 1.5 %) · f110: body sep 0.203 (≥ .06), seam px 31.5 % of its mask (≥ 1.5 %)"
- },
- {
-  "sec": "fx",
-  "name": "NIGHTFANG breath = long cyan jet (≥ 1.5 body lengths) that lights the ground",
-  "pass": true,
-  "line": "jet reach 35.8 studs = 1.55 × body length 23.2 (≥ 1.5); 86 flame cards + 6 ground-glow discs at frame 185"
- },
- {
-  "sec": "fx",
-  "name": "lightning: the runner reads (R6 body in frame) + ribbon + forks",
-  "pass": true,
-  "line": "f60: body 7.5 % of frame (≥ 1 %), inside, 49 bolt/ribbon segments · f66: body 8.7 % of frame (≥ 1 %), inside, 54 bolt/ribbon segments · f72: body 10.5 % of frame (≥ 1 %), inside, 59 bolt/ribbon segments"
- },
- {
-  "sec": "fx",
-  "name": "BLINK readable at 390 px: glow area ≥ 0.3 % of the frame (MS of LITTLE)",
-  "pass": true,
-  "line": "mystery f201 14.53 %, mystery f209 46.57 %, mystery f217 15.88 %, moonlit f201 13.59 %, moonlit f209 40.06 %, moonlit f217 10.08 % (min 10.08 %); wings 1.3×0.62 × size, flutter 7 Hz, trail 6",
-  "area": [
-   {
-    "spec": "heroes-night",
-    "f": 201,
-    "a": "renders/village/gates/blink-on-heroes-night-201.png",
-    "b": "renders/village/gates/blink-off-heroes-night-201.png",
-    "area": 0.14533564814814814
-   },
-   {
-    "spec": "heroes-night",
-    "f": 209,
-    "a": "renders/village/gates/blink-on-heroes-night-209.png",
-    "b": "renders/village/gates/blink-off-heroes-night-209.png",
-    "area": 0.4657291666666667
-   },
-   {
-    "spec": "heroes-night",
-    "f": 217,
-    "a": "renders/village/gates/blink-on-heroes-night-217.png",
-    "b": "renders/village/gates/blink-off-heroes-night-217.png",
-    "area": 0.158798225308642
-   },
-   {
-    "spec": "moon-heroes",
-    "f": 201,
-    "a": "renders/village/gates/blink-on-moon-heroes-201.png",
-    "b": "renders/village/gates/blink-off-moon-heroes-201.png",
-    "area": 0.1359085648148148
-   },
-   {
-    "spec": "moon-heroes",
-    "f": 209,
-    "a": "renders/village/gates/blink-on-moon-heroes-209.png",
-    "b": "renders/village/gates/blink-off-moon-heroes-209.png",
-    "area": 0.4005999228395062
-   },
-   {
-    "spec": "moon-heroes",
-    "f": 217,
-    "a": "renders/village/gates/blink-on-moon-heroes-217.png",
-    "b": "renders/village/gates/blink-off-moon-heroes-217.png",
-    "area": 0.10075617283950618
-   }
-  ]
- },
- {
-  "sec": "decal",
-  "name": "hero ball: face decal ≈ 45 % of the ball width (0.40–0.50)",
-  "pass": true,
-  "line": "f349: face 2.83 / ball 6.26 = 45 % · f385: face 5.75 / ball 12.72 = 45 %"
+  "line": "f94: body sep 0.125 (\u2265 .06), seam px 27.1 % of its mask (\u2265 1.5 %) \u00b7 f110: body sep 0.240 (\u2265 .06), seam px 42.7 % of its mask (\u2265 1.5 %)"
  },
  {
   "sec": "loc",
-  "name": "per location tris ≤ 90k (whole scene, instances counted)",
+  "name": "per location tris \u2264 90k (whole scene, instances counted)",
   "pass": true,
-  "line": "beastClass/day 28.0k, beastClass/night 26.5k, beastYard/day 51.9k, beastYard/night 55.4k, festivalPlaza/dusk 74.5k, festivalPlaza/night 83.1k, homeBedroom/day 20.4k, homeBedroom/night 10.7k, homeDining/day 26.5k, homeDining/night 16.8k, titanCave/night 4.0k, villageStreet/day 43.2k, villageStreet/night 45.6k",
-  "rows": [
-   {
-    "loc": "beastClass",
-    "look": "day",
-    "establish": {
-     "calls": 52,
-     "frustum": 25426,
-     "tris": 27992,
-     "win": {
-      "lit": 0,
-      "total": 44
-     },
-     "mountain": 0.00022376543209876544
-    },
-    "hero": {
-     "calls": 44,
-     "frustum": 25392,
-     "tris": 27992,
-     "win": {
-      "lit": 0,
-      "total": 44
-     },
-     "mountain": 0.0010339506172839506
-    },
-    "final": [
-     1.9444000000001398,
-     2.159
-    ]
-   },
-   {
-    "loc": "beastClass",
-    "look": "night",
-    "establish": {
-     "calls": 53,
-     "frustum": 23902,
-     "tris": 26468,
-     "win": {
-      "lit": 31,
-      "total": 44
-     },
-     "mountain": 0.00022376543209876544,
-     "nightRow": {
-      "frame": "renders/village/gates/loc-beastClass-night-establish.png",
-      "dark10": 0.0143,
-      "meanL": 0.2882,
-      "subjects": {
-       "nightfang": {
-        "px": 0
-       },
-       "kid": {
-        "px": 7564,
-        "share": 0.0584,
-        "dL": 0.0903,
-        "dC": 0.0881,
-        "sep": 0.0903,
-        "seam": 0.1896,
-        "L": 0.223,
-        "ringL": 0.3133
-       }
-      }
-     }
-    },
-    "hero": {
-     "calls": 46,
-     "frustum": 23868,
-     "tris": 26468,
-     "win": {
-      "lit": 31,
-      "total": 44
-     },
-     "mountain": 0.0010339506172839506,
-     "nightRow": {
-      "frame": "renders/village/gates/loc-beastClass-night-hero.png",
-      "dark10": 0.0174,
-      "meanL": 0.3647,
-      "subjects": {
-       "nightfang": {
-        "px": 12275,
-        "share": 0.0947,
-        "dL": 0.0582,
-        "dC": 0.046,
-        "sep": 0.0582,
-        "seam": 0.3157,
-        "L": 0.3708,
-        "ringL": 0.429
-       },
-       "kid": {
-        "px": 6171,
-        "share": 0.0476,
-        "dL": 0.1795,
-        "dC": 0.1167,
-        "sep": 0.1795,
-        "seam": 0.012,
-        "L": 0.2682,
-        "ringL": 0.4478
-       }
-      }
-     }
-    },
-    "final": []
-   },
-   {
-    "loc": "beastYard",
-    "look": "day",
-    "establish": {
-     "calls": 98,
-     "frustum": 51282,
-     "tris": 51908,
-     "win": {
-      "lit": 0,
-      "total": 200
-     },
-     "mountain": 0.24600308641975308
-    },
-    "hero": {
-     "calls": 84,
-     "frustum": 46056,
-     "tris": 51908,
-     "win": {
-      "lit": 0,
-      "total": 200
-     },
-     "mountain": 0
-    },
-    "final": [
-     1.949600000000093,
-     2.0193000000000465
-    ]
-   },
-   {
-    "loc": "beastYard",
-    "look": "night",
-    "establish": {
-     "calls": 101,
-     "frustum": 54822,
-     "tris": 55448,
-     "win": {
-      "lit": 140,
-      "total": 200
-     },
-     "mountain": 0.24600308641975308,
-     "nightRow": {
-      "frame": "renders/village/gates/loc-beastYard-night-establish.png",
-      "dark10": 0.0323,
-      "meanL": 0.3984,
-      "subjects": {
-       "kidA": {
-        "px": 1065,
-        "share": 0.0082,
-        "dL": 0.0039,
-        "dC": 0.0477,
-        "sep": 0.0477,
-        "seam": 0.0009,
-        "L": 0.5297,
-        "ringL": 0.5336
-       },
-       "kidB": {
-        "px": 609,
-        "share": 0.0047,
-        "dL": 0.0208,
-        "dC": 0.2407,
-        "sep": 0.2407,
-        "seam": 0,
-        "L": 0.7027,
-        "ringL": 0.6819
-       },
-       "kidC": {
-        "px": 1559,
-        "share": 0.012,
-        "dL": 0.0839,
-        "dC": 0.1641,
-        "sep": 0.1641,
-        "seam": 0.0128,
-        "L": 0.5877,
-        "ringL": 0.6715
-       },
-       "volt": {
-        "px": 547,
-        "share": 0.0042,
-        "dL": 0.0853,
-        "dC": 0.0517,
-        "sep": 0.0853,
-        "seam": 0.0384,
-        "L": 0.5635,
-        "ringL": 0.6488
-       },
-       "boulder": {
-        "px": 1888,
-        "share": 0.0146,
-        "dL": 0.0574,
-        "dC": 0.025,
-        "sep": 0.0574,
-        "seam": 0.0689,
-        "L": 0.5211,
-        "ringL": 0.5784
-       }
-      }
-     }
-    },
-    "hero": {
-     "calls": 87,
-     "frustum": 49596,
-     "tris": 55448,
-     "win": {
-      "lit": 140,
-      "total": 200
-     },
-     "mountain": 0,
-     "nightRow": {
-      "frame": "renders/village/gates/loc-beastYard-night-hero.png",
-      "dark10": 0.0422,
-      "meanL": 0.4489,
-      "subjects": {
-       "kidA": {
-        "px": 0
-       },
-       "kidB": {
-        "px": 5947,
-        "share": 0.0459,
-        "dL": 0.0608,
-        "dC": 0.3192,
-        "sep": 0.3192,
-        "seam": 0.0153,
-        "L": 0.5855,
-        "ringL": 0.6464
-       },
-       "kidC": {
-        "px": 7442,
-        "share": 0.0574,
-        "dL": 0.0665,
-        "dC": 0.272,
-        "sep": 0.272,
-        "seam": 0.1459,
-        "L": 0.358,
-        "ringL": 0.4244
-       },
-       "volt": {
-        "px": 0
-       },
-       "boulder": {
-        "px": 6035,
-        "share": 0.0466,
-        "dL": 0.064,
-        "dC": 0.0153,
-        "sep": 0.064,
-        "seam": 0.092,
-        "L": 0.3278,
-        "ringL": 0.3918
-       }
-      }
-     }
-    },
-    "final": []
-   },
-   {
-    "loc": "festivalPlaza",
-    "look": "dusk",
-    "establish": {
-     "calls": 150,
-     "frustum": 74488,
-     "tris": 74518,
-     "win": {
-      "lit": 0,
-      "total": 284
-     },
-     "mountain": 0.2544521604938272
-    },
-    "hero": {
-     "calls": 62,
-     "frustum": 50852,
-     "tris": 74518,
-     "win": {
-      "lit": 0,
-      "total": 284
-     },
-     "mountain": 0.16847993827160493
-    },
-    "final": [
-     1.8343000000000467,
-     2.0348999999999067
-    ]
-   },
-   {
-    "loc": "festivalPlaza",
-    "look": "night",
-    "establish": {
-     "calls": 153,
-     "frustum": 83116,
-     "tris": 83146,
-     "win": {
-      "lit": 204,
-      "total": 284
-     },
-     "mountain": 0.2544521604938272,
-     "nightRow": {
-      "frame": "renders/village/gates/loc-festivalPlaza-night-establish.png",
-      "dark10": 0.0303,
-      "meanL": 0.346,
-      "subjects": {
-       "kid0": {
-        "px": 1052,
-        "share": 0.0081,
-        "dL": 0.0852,
-        "dC": 0.0611,
-        "sep": 0.0852,
-        "seam": 0.0095,
-        "L": 0.4527,
-        "ringL": 0.5379
-       },
-       "kid1": {
-        "px": 679,
-        "share": 0.0052,
-        "dL": 0.0442,
-        "dC": 0.3502,
-        "sep": 0.3502,
-        "seam": 0.0029,
-        "L": 0.4681,
-        "ringL": 0.5123
-       },
-       "kid2": {
-        "px": 1485,
-        "share": 0.0115,
-        "dL": 0.1553,
-        "dC": 0.2417,
-        "sep": 0.2417,
-        "seam": 0.064,
-        "L": 0.3111,
-        "ringL": 0.4664
-       },
-       "kid3": {
-        "px": 1139,
-        "share": 0.0088,
-        "dL": 0.0837,
-        "dC": 0.0707,
-        "sep": 0.0837,
-        "seam": 0.0079,
-        "L": 0.346,
-        "ringL": 0.4298
-       },
-       "kid4": {
-        "px": 610,
-        "share": 0.0047,
-        "dL": 0.0561,
-        "dC": 0.3659,
-        "sep": 0.3659,
-        "seam": 0.0213,
-        "L": 0.4066,
-        "ringL": 0.4628
-       },
-       "kid5": {
-        "px": 1752,
-        "share": 0.0135,
-        "dL": 0.1649,
-        "dC": 0.2235,
-        "sep": 0.2235,
-        "seam": 0.0896,
-        "L": 0.3344,
-        "ringL": 0.4994
-       },
-       "boulder": {
-        "px": 254,
-        "share": 0.002,
-        "dL": 0.1319,
-        "dC": 0.0741,
-        "sep": 0.1319,
-        "seam": 0.0591,
-        "L": 0.436,
-        "ringL": 0.5679
-       },
-       "cinder": {
-        "px": 152,
-        "share": 0.0012,
-        "dL": 0.1168,
-        "dC": 0.2098,
-        "sep": 0.2098,
-        "seam": 0.5395,
-        "L": 0.4021,
-        "ringL": 0.2853
-       }
-      }
-     }
-    },
-    "hero": {
-     "calls": 65,
-     "frustum": 59480,
-     "tris": 83146,
-     "win": {
-      "lit": 204,
-      "total": 284
-     },
-     "mountain": 0.16847993827160493,
-     "nightRow": {
-      "frame": "renders/village/gates/loc-festivalPlaza-night-hero.png",
-      "dark10": 0.0478,
-      "meanL": 0.369,
-      "subjects": {
-       "kid0": {
-        "px": 9414,
-        "share": 0.0726,
-        "dL": 0.0249,
-        "dC": 0.0882,
-        "sep": 0.0882,
-        "seam": 0.1593,
-        "L": 0.3676,
-        "ringL": 0.3427
-       },
-       "kid1": {
-        "px": 0
-       },
-       "kid2": {
-        "px": 0
-       },
-       "kid3": {
-        "px": 0
-       },
-       "kid4": {
-        "px": 0
-       },
-       "kid5": {
-        "px": 0
-       },
-       "boulder": {
-        "px": 949,
-        "share": 0.0073,
-        "dL": 0.0315,
-        "dC": 0.0276,
-        "sep": 0.0315,
-        "seam": 0.1718,
-        "L": 0.5166,
-        "ringL": 0.548
-       },
-       "cinder": {
-        "px": 0
-       }
-      }
-     }
-    },
-    "final": []
-   },
-   {
-    "loc": "homeBedroom",
-    "look": "day",
-    "establish": {
-     "calls": 51,
-     "frustum": 19754,
-     "tris": 20390,
-     "win": {
-      "lit": 0,
-      "total": 20
-     },
-     "mountain": 0
-    },
-    "hero": {
-     "calls": 47,
-     "frustum": 18554,
-     "tris": 20390,
-     "win": {
-      "lit": 0,
-      "total": 20
-     },
-     "mountain": 0.00753858024691358
-    },
-    "final": [
-     2.236899999999907,
-     1.724
-    ]
-   },
-   {
-    "loc": "homeBedroom",
-    "look": "night",
-    "establish": {
-     "calls": 51,
-     "frustum": 10034,
-     "tris": 10670,
-     "win": {
-      "lit": 13,
-      "total": 20
-     },
-     "mountain": 0,
-     "nightRow": {
-      "frame": "renders/village/gates/loc-homeBedroom-night-establish.png",
-      "dark10": 0.0096,
-      "meanL": 0.1728,
-      "subjects": {
-       "hero": {
-        "px": 83152,
-        "share": 0.6416,
-        "dL": 0.2666,
-        "dC": 0.1269,
-        "sep": 0.2666,
-        "seam": 0.09,
-        "L": 0.1045,
-        "ringL": 0.3712
-       }
-      }
-     }
-    },
-    "hero": {
-     "calls": 47,
-     "frustum": 8834,
-     "tris": 10670,
-     "win": {
-      "lit": 13,
-      "total": 20
-     },
-     "mountain": 0.00753858024691358,
-     "nightRow": {
-      "frame": "renders/village/gates/loc-homeBedroom-night-hero.png",
-      "dark10": 0.0582,
-      "meanL": 0.5935,
-      "subjects": {
-       "hero": {
-        "px": 24359,
-        "share": 0.188,
-        "dL": 0.2243,
-        "dC": 0.1009,
-        "sep": 0.2243,
-        "seam": 0,
-        "L": 0.2429,
-        "ringL": 0.4672
-       }
-      }
-     }
-    },
-    "final": []
-   },
-   {
-    "loc": "homeDining",
-    "look": "day",
-    "establish": {
-     "calls": 48,
-     "frustum": 19932,
-     "tris": 26492,
-     "win": {
-      "lit": 0,
-      "total": 53
-     },
-     "mountain": 0
-    },
-    "hero": {
-     "calls": 46,
-     "frustum": 20648,
-     "tris": 26492,
-     "win": {
-      "lit": 0,
-      "total": 53
-     },
-     "mountain": 0.07907407407407407
-    },
-    "final": [
-     1.706,
-     2.04440000000014
-    ]
-   },
-   {
-    "loc": "homeDining",
-    "look": "night",
-    "establish": {
-     "calls": 47,
-     "frustum": 10212,
-     "tris": 16772,
-     "win": {
-      "lit": 37,
-      "total": 53
-     },
-     "mountain": 0,
-     "nightRow": {
-      "frame": "renders/village/gates/loc-homeDining-night-establish.png",
-      "dark10": 0.1933,
-      "meanL": 0.5761,
-      "subjects": {
-       "boulder": {
-        "px": 0
-       },
-       "kid": {
-        "px": 11623,
-        "share": 0.0897,
-        "dL": 0.1631,
-        "dC": 0.0548,
-        "sep": 0.1631,
-        "seam": 0.0143,
-        "L": 0.4226,
-        "ringL": 0.5857
-       }
-      }
-     }
-    },
-    "hero": {
-     "calls": 47,
-     "frustum": 10928,
-     "tris": 16772,
-     "win": {
-      "lit": 37,
-      "total": 53
-     },
-     "mountain": 0.07907407407407407,
-     "nightRow": {
-      "frame": "renders/village/gates/loc-homeDining-night-hero.png",
-      "dark10": 0.0367,
-      "meanL": 0.4104,
-      "subjects": {
-       "boulder": {
-        "px": 11218,
-        "share": 0.0866,
-        "dL": 0.0098,
-        "dC": 0.0212,
-        "sep": 0.0212,
-        "seam": 0.3373,
-        "L": 0.4905,
-        "ringL": 0.5003
-       },
-       "kid": {
-        "px": 0
-       }
-      }
-     }
-    },
-    "final": []
-   },
-   {
-    "loc": "titanCave",
-    "look": "night",
-    "establish": {
-     "calls": 22,
-     "frustum": 3962,
-     "tris": 3962,
-     "win": {
-      "lit": 0,
-      "total": 0
-     },
-     "mountain": 0.9186882716049383,
-     "nightRow": {
-      "frame": "renders/village/gates/loc-titanCave-night-establish.png",
-      "dark10": 0.0149,
-      "meanL": 0.1244,
-      "subjects": {
-       "titan": {
-        "px": 27420,
-        "share": 0.2116,
-        "dL": 0.345,
-        "dC": 0.0564,
-        "sep": 0.345,
-        "seam": 0.576,
-        "L": 0.3775,
-        "ringL": 0.0324
-       }
-      }
-     }
-    },
-    "hero": {
-     "calls": 21,
-     "frustum": 3960,
-     "tris": 3962,
-     "win": {
-      "lit": 0,
-      "total": 0
-     },
-     "mountain": 0.8036805555555555,
-     "nightRow": {
-      "frame": "renders/village/gates/loc-titanCave-night-hero.png",
-      "dark10": 0.0121,
-      "meanL": 0.1042,
-      "subjects": {
-       "titan": {
-        "px": 51931,
-        "share": 0.4007,
-        "dL": 0.1924,
-        "dC": 0.0482,
-        "sep": 0.1924,
-        "seam": 0.2575,
-        "L": 0.2152,
-        "ringL": 0.0228
-       }
-      }
-     }
-    },
-    "final": [
-     1.5466999999999533,
-     1.623
-    ]
-   },
-   {
-    "loc": "villageStreet",
-    "look": "day",
-    "establish": {
-     "calls": 83,
-     "frustum": 43236,
-     "tris": 43238,
-     "win": {
-      "lit": 0,
-      "total": 192
-     },
-     "mountain": 0.21659722222222222
-    },
-    "hero": {
-     "calls": 52,
-     "frustum": 37664,
-     "tris": 43238,
-     "win": {
-      "lit": 0,
-      "total": 192
-     },
-     "mountain": 0
-    },
-    "final": [
-     2.2493000000000465,
-     1.6395
-    ]
-   },
-   {
-    "loc": "villageStreet",
-    "look": "night",
-    "establish": {
-     "calls": 86,
-     "frustum": 45564,
-     "tris": 45566,
-     "win": {
-      "lit": 146,
-      "total": 192
-     },
-     "mountain": 0.21659722222222222,
-     "nightRow": {
-      "frame": "renders/village/gates/loc-villageStreet-night-establish.png",
-      "dark10": 0.0549,
-      "meanL": 0.3643,
-      "subjects": {
-       "kid": {
-        "px": 23642,
-        "share": 0.1824,
-        "dL": 0.2256,
-        "dC": 0.1275,
-        "sep": 0.2256,
-        "seam": 0.0183,
-        "L": 0.2467,
-        "ringL": 0.4722
-       },
-       "volt": {
-        "px": 3019,
-        "share": 0.0233,
-        "dL": 0.0679,
-        "dC": 0.0153,
-        "sep": 0.0679,
-        "seam": 0.2955,
-        "L": 0.6137,
-        "ringL": 0.5458
-       },
-       "fox": {
-        "px": 0
-       },
-       "deer": {
-        "px": 207,
-        "share": 0.0016,
-        "dL": 0.0005,
-        "dC": 0.0007,
-        "sep": 0.0007,
-        "seam": 0,
-        "L": 0.0846,
-        "ringL": 0.0851
-       },
-       "boar": {
-        "px": 296,
-        "share": 0.0023,
-        "dL": 0.0124,
-        "dC": 0.0274,
-        "sep": 0.0274,
-        "seam": 0.0507,
-        "L": 0.6653,
-        "ringL": 0.6529
-       }
-      }
-     }
-    },
-    "hero": {
-     "calls": 55,
-     "frustum": 39992,
-     "tris": 45566,
-     "win": {
-      "lit": 146,
-      "total": 192
-     },
-     "mountain": 0,
-     "nightRow": {
-      "frame": "renders/village/gates/loc-villageStreet-night-hero.png",
-      "dark10": 0.0155,
-      "meanL": 0.406,
-      "subjects": {
-       "kid": {
-        "px": 0
-       },
-       "volt": {
-        "px": 0
-       },
-       "fox": {
-        "px": 0
-       },
-       "deer": {
-        "px": 0
-       },
-       "boar": {
-        "px": 0
-       }
-      }
-     }
-    },
-    "final": []
-   }
-  ]
+  "line": "beastClass/day 28.0k, beastClass/night 26.5k, beastYard/day 51.9k, beastYard/night 55.4k, festivalPlaza/dusk 70.2k, festivalPlaza/night 79.9k, homeBedroom/day 20.4k, homeBedroom/night 10.7k, homeDining/day 26.5k, homeDining/night 16.8k, titanCave/night 4.0k, villageStreet/day 43.2k, villageStreet/night 45.6k"
  },
  {
   "sec": "loc",
@@ -1096,424 +289,50 @@
  },
  {
   "sec": "loc",
-  "name": "est. final s/frame ≤ 3.0 (1440×2560, MSAA, measured range)",
+  "name": "est. final s/frame \u2264 3.0 (1440\u00d72560, MSAA, measured range)",
   "pass": true,
-  "line": "1.55–2.25 s/frame (beastClass 1.94/2.16, beastYard 1.95/2.02, festivalPlaza 1.83/2.03, homeBedroom 2.24/1.72, homeDining 1.71/2.04, titanCave 1.55/1.62, villageStreet 2.25/1.64)"
+  "line": "1.46\u20132.30 s/frame (beastClass 1.93/2.30, beastYard 2.00/2.18, festivalPlaza 1.89/2.22, homeBedroom 2.10/1.78, homeDining 1.68/2.00, titanCave 1.46/1.75, villageStreet 2.08/1.69)"
  },
  {
   "sec": "loc",
-  "name": "night windows lit ≥ 60 %",
+  "name": "night windows lit \u2265 60 %",
   "pass": true,
-  "line": "beastClass 70 % of 44, beastYard 70 % of 200, festivalPlaza 72 % of 284, homeBedroom 65 % of 20, homeDining 70 % of 53, titanCave 100 % of 0, villageStreet 76 % of 192"
+  "line": "beastClass 70 % of 44, beastYard 70 % of 200, festivalPlaza 75 % of 207, homeBedroom 65 % of 20, homeDining 70 % of 53, titanCave 100 % of 0, villageStreet 76 % of 192"
  },
  {
   "sec": "loc",
-  "name": "night locations: darkest-10 % luma in 0.012–0.03 (not crushed, not milky)",
+  "name": "night locations: darkest-10 % luma in 0.012\u20130.03 (not crushed, not milky)",
   "pass": false,
-  "line": "0.014 / 0.017 / 0.032 / 0.042 / 0.030 / 0.048 / 0.010 / 0.058 / 0.193 / 0.037 / 0.015 / 0.012 / 0.055 / 0.015"
+  "line": "0.014 / 0.017 / 0.028 / 0.030 / 0.020 / 0.043 / 0.009 / 0.241 / 0.023 / 0.025 / 0.015 / 0.012 / 0.055 / 0.013"
  },
  {
   "sec": "loc",
-  "name": "night locations: every beast / actor separates from its background (≥ 0.06)",
+  "name": "night locations: every beast / actor separates from its background (\u2265 0.06)",
   "pass": false,
-  "line": "min 0.001 (deer@establish ΔL 0.001 ΔC 0.001, boulder@hero ΔL 0.010 ΔC 0.021, boar@establish ΔL 0.012 ΔC 0.027, boulder@hero ΔL 0.032 ΔC 0.028); 31 subject-frames",
-  "subs": [
-   {
-    "n": "deer",
-    "f": "establish",
-    "px": 207,
-    "share": 0.0016,
-    "dL": 0.0005,
-    "dC": 0.0007,
-    "sep": 0.0007,
-    "seam": 0,
-    "L": 0.0846,
-    "ringL": 0.0851
-   },
-   {
-    "n": "boulder",
-    "f": "hero",
-    "px": 11218,
-    "share": 0.0866,
-    "dL": 0.0098,
-    "dC": 0.0212,
-    "sep": 0.0212,
-    "seam": 0.3373,
-    "L": 0.4905,
-    "ringL": 0.5003
-   },
-   {
-    "n": "boar",
-    "f": "establish",
-    "px": 296,
-    "share": 0.0023,
-    "dL": 0.0124,
-    "dC": 0.0274,
-    "sep": 0.0274,
-    "seam": 0.0507,
-    "L": 0.6653,
-    "ringL": 0.6529
-   },
-   {
-    "n": "boulder",
-    "f": "hero",
-    "px": 949,
-    "share": 0.0073,
-    "dL": 0.0315,
-    "dC": 0.0276,
-    "sep": 0.0315,
-    "seam": 0.1718,
-    "L": 0.5166,
-    "ringL": 0.548
-   },
-   {
-    "n": "kidA",
-    "f": "establish",
-    "px": 1065,
-    "share": 0.0082,
-    "dL": 0.0039,
-    "dC": 0.0477,
-    "sep": 0.0477,
-    "seam": 0.0009,
-    "L": 0.5297,
-    "ringL": 0.5336
-   },
-   {
-    "n": "boulder",
-    "f": "establish",
-    "px": 1888,
-    "share": 0.0146,
-    "dL": 0.0574,
-    "dC": 0.025,
-    "sep": 0.0574,
-    "seam": 0.0689,
-    "L": 0.5211,
-    "ringL": 0.5784
-   },
-   {
-    "n": "nightfang",
-    "f": "hero",
-    "px": 12275,
-    "share": 0.0947,
-    "dL": 0.0582,
-    "dC": 0.046,
-    "sep": 0.0582,
-    "seam": 0.3157,
-    "L": 0.3708,
-    "ringL": 0.429
-   },
-   {
-    "n": "boulder",
-    "f": "hero",
-    "px": 6035,
-    "share": 0.0466,
-    "dL": 0.064,
-    "dC": 0.0153,
-    "sep": 0.064,
-    "seam": 0.092,
-    "L": 0.3278,
-    "ringL": 0.3918
-   },
-   {
-    "n": "volt",
-    "f": "establish",
-    "px": 3019,
-    "share": 0.0233,
-    "dL": 0.0679,
-    "dC": 0.0153,
-    "sep": 0.0679,
-    "seam": 0.2955,
-    "L": 0.6137,
-    "ringL": 0.5458
-   },
-   {
-    "n": "kid3",
-    "f": "establish",
-    "px": 1139,
-    "share": 0.0088,
-    "dL": 0.0837,
-    "dC": 0.0707,
-    "sep": 0.0837,
-    "seam": 0.0079,
-    "L": 0.346,
-    "ringL": 0.4298
-   },
-   {
-    "n": "kid0",
-    "f": "establish",
-    "px": 1052,
-    "share": 0.0081,
-    "dL": 0.0852,
-    "dC": 0.0611,
-    "sep": 0.0852,
-    "seam": 0.0095,
-    "L": 0.4527,
-    "ringL": 0.5379
-   },
-   {
-    "n": "volt",
-    "f": "establish",
-    "px": 547,
-    "share": 0.0042,
-    "dL": 0.0853,
-    "dC": 0.0517,
-    "sep": 0.0853,
-    "seam": 0.0384,
-    "L": 0.5635,
-    "ringL": 0.6488
-   },
-   {
-    "n": "kid0",
-    "f": "hero",
-    "px": 9414,
-    "share": 0.0726,
-    "dL": 0.0249,
-    "dC": 0.0882,
-    "sep": 0.0882,
-    "seam": 0.1593,
-    "L": 0.3676,
-    "ringL": 0.3427
-   },
-   {
-    "n": "kid",
-    "f": "establish",
-    "px": 7564,
-    "share": 0.0584,
-    "dL": 0.0903,
-    "dC": 0.0881,
-    "sep": 0.0903,
-    "seam": 0.1896,
-    "L": 0.223,
-    "ringL": 0.3133
-   },
-   {
-    "n": "boulder",
-    "f": "establish",
-    "px": 254,
-    "share": 0.002,
-    "dL": 0.1319,
-    "dC": 0.0741,
-    "sep": 0.1319,
-    "seam": 0.0591,
-    "L": 0.436,
-    "ringL": 0.5679
-   },
-   {
-    "n": "kid",
-    "f": "establish",
-    "px": 11623,
-    "share": 0.0897,
-    "dL": 0.1631,
-    "dC": 0.0548,
-    "sep": 0.1631,
-    "seam": 0.0143,
-    "L": 0.4226,
-    "ringL": 0.5857
-   },
-   {
-    "n": "kidC",
-    "f": "establish",
-    "px": 1559,
-    "share": 0.012,
-    "dL": 0.0839,
-    "dC": 0.1641,
-    "sep": 0.1641,
-    "seam": 0.0128,
-    "L": 0.5877,
-    "ringL": 0.6715
-   },
-   {
-    "n": "kid",
-    "f": "hero",
-    "px": 6171,
-    "share": 0.0476,
-    "dL": 0.1795,
-    "dC": 0.1167,
-    "sep": 0.1795,
-    "seam": 0.012,
-    "L": 0.2682,
-    "ringL": 0.4478
-   },
-   {
-    "n": "titan",
-    "f": "hero",
-    "px": 51931,
-    "share": 0.4007,
-    "dL": 0.1924,
-    "dC": 0.0482,
-    "sep": 0.1924,
-    "seam": 0.2575,
-    "L": 0.2152,
-    "ringL": 0.0228
-   },
-   {
-    "n": "cinder",
-    "f": "establish",
-    "px": 152,
-    "share": 0.0012,
-    "dL": 0.1168,
-    "dC": 0.2098,
-    "sep": 0.2098,
-    "seam": 0.5395,
-    "L": 0.4021,
-    "ringL": 0.2853
-   },
-   {
-    "n": "kid5",
-    "f": "establish",
-    "px": 1752,
-    "share": 0.0135,
-    "dL": 0.1649,
-    "dC": 0.2235,
-    "sep": 0.2235,
-    "seam": 0.0896,
-    "L": 0.3344,
-    "ringL": 0.4994
-   },
-   {
-    "n": "hero",
-    "f": "hero",
-    "px": 24359,
-    "share": 0.188,
-    "dL": 0.2243,
-    "dC": 0.1009,
-    "sep": 0.2243,
-    "seam": 0,
-    "L": 0.2429,
-    "ringL": 0.4672
-   },
-   {
-    "n": "kid",
-    "f": "establish",
-    "px": 23642,
-    "share": 0.1824,
-    "dL": 0.2256,
-    "dC": 0.1275,
-    "sep": 0.2256,
-    "seam": 0.0183,
-    "L": 0.2467,
-    "ringL": 0.4722
-   },
-   {
-    "n": "kidB",
-    "f": "establish",
-    "px": 609,
-    "share": 0.0047,
-    "dL": 0.0208,
-    "dC": 0.2407,
-    "sep": 0.2407,
-    "seam": 0,
-    "L": 0.7027,
-    "ringL": 0.6819
-   },
-   {
-    "n": "kid2",
-    "f": "establish",
-    "px": 1485,
-    "share": 0.0115,
-    "dL": 0.1553,
-    "dC": 0.2417,
-    "sep": 0.2417,
-    "seam": 0.064,
-    "L": 0.3111,
-    "ringL": 0.4664
-   },
-   {
-    "n": "hero",
-    "f": "establish",
-    "px": 83152,
-    "share": 0.6416,
-    "dL": 0.2666,
-    "dC": 0.1269,
-    "sep": 0.2666,
-    "seam": 0.09,
-    "L": 0.1045,
-    "ringL": 0.3712
-   },
-   {
-    "n": "kidC",
-    "f": "hero",
-    "px": 7442,
-    "share": 0.0574,
-    "dL": 0.0665,
-    "dC": 0.272,
-    "sep": 0.272,
-    "seam": 0.1459,
-    "L": 0.358,
-    "ringL": 0.4244
-   },
-   {
-    "n": "kidB",
-    "f": "hero",
-    "px": 5947,
-    "share": 0.0459,
-    "dL": 0.0608,
-    "dC": 0.3192,
-    "sep": 0.3192,
-    "seam": 0.0153,
-    "L": 0.5855,
-    "ringL": 0.6464
-   },
-   {
-    "n": "titan",
-    "f": "establish",
-    "px": 27420,
-    "share": 0.2116,
-    "dL": 0.345,
-    "dC": 0.0564,
-    "sep": 0.345,
-    "seam": 0.576,
-    "L": 0.3775,
-    "ringL": 0.0324
-   },
-   {
-    "n": "kid1",
-    "f": "establish",
-    "px": 679,
-    "share": 0.0052,
-    "dL": 0.0442,
-    "dC": 0.3502,
-    "sep": 0.3502,
-    "seam": 0.0029,
-    "L": 0.4681,
-    "ringL": 0.5123
-   },
-   {
-    "n": "kid4",
-    "f": "establish",
-    "px": 610,
-    "share": 0.0047,
-    "dL": 0.0561,
-    "dC": 0.3659,
-    "sep": 0.3659,
-    "seam": 0.0213,
-    "L": 0.4066,
-    "ringL": 0.4628
-   }
-  ]
+  "line": "min 0.001 (deer@establish \u0394L 0.001 \u0394C 0.001, boar@establish \u0394L 0.018 \u0394C 0.017, boulder@hero \u0394L 0.004 \u0394C 0.024, boulder@establish \u0394L 0.046 \u0394C 0.034); 31 subject-frames"
  },
  {
   "sec": "loc",
-  "name": "the mountain visible in every exterior establishing view (≥ 1 % of frame)",
+  "name": "the mountain visible in every exterior establishing view (\u2265 1 % of frame)",
   "pass": true,
-  "line": "beastYard/day 24.6 %, beastYard/night 24.6 %, festivalPlaza/dusk 25.4 %, festivalPlaza/night 25.4 %, titanCave/night 91.9 %, villageStreet/day 21.7 %, villageStreet/night 21.7 %"
+  "line": "beastYard/day 24.6 %, beastYard/night 24.6 %, festivalPlaza/dusk 15.5 %, festivalPlaza/night 15.5 %, titanCave/night 91.9 %, villageStreet/day 21.7 %, villageStreet/night 21.7 %"
  },
  {
   "sec": "loc",
-  "name": "festivalPlaza wide: ≥ 40 distinct rooftops in frame (town reads big)",
-  "pass": false,
-  "line": "wide 4 rooftops (≥ 4 px each at 540×960; 0 unmapped ids), low angle 0"
- },
- {
-  "sec": "loc",
-  "name": "colossal Tuft top ≥ 1.2 × the tallest roof in frame",
+  "name": "festivalPlaza wide: \u2265 40 distinct rooftops in frame (town reads big)",
   "pass": true,
-  "line": "Tuft top 53.3 studs (puff k 56.31) vs tallest visible roof 19.7 → × 2.70"
+  "line": "wide 89 rooftops (\u2265 4 px each at 540\u00d7960; 0 unmapped ids), low angle 31"
  },
  {
   "sec": "loc",
-  "name": "room puff: hero ball ≥ 70 % of homeBedroom floor width, legs through the round window",
+  "name": "colossal Tuft top \u2265 1.2 \u00d7 the tallest roof in frame",
   "pass": true,
-  "line": "ball Ø 10.91 / floor 10.4 = 105 %; legs past the wall (z > 5.45) inside the window (r 1.10): 4/4 (leftLeg, leftLeg_#161616, rightLeg, rightLeg_#161616)"
+  "line": "Tuft top 53.3 studs (puff k 56.31) vs tallest visible building (roof top above its own ground) 19.7 \u2192 \u00d7 2.70"
+ },
+ {
+  "sec": "loc",
+  "name": "room puff: hero ball \u2265 70 % of homeBedroom floor width, legs through the round window",
+  "pass": true,
+  "line": "ball \u00d8 10.91 / floor 10.4 = 105 %; legs past the wall (z > 5.45) inside the window (r 1.10): 4/4 (leftLeg, leftLeg_#161616, rightLeg, rightLeg_#161616)"
  }
 ]
