@@ -2434,5 +2434,156 @@
    "motionBlur": true
   },
   "note": "tuft P3 (opt-in look4 \"moonlit\"): night without crushed blacks — deep blue → lighter blue horizon sky, cool moon key + sky ambient + ground bounce baked on static sets; rim + windows as mystery."
+ },
+ "dusk": {
+  "base": {
+   "skyTop": "#2c3f86",
+   "skyHorizon": "#ff9a4a",
+   "fog": "#e8a06a",
+   "fogNear": 90,
+   "fogFar": 420,
+   "hemiSky": "#c49a78",
+   "hemiGround": "#7a5238",
+   "hemi": 0.75,
+   "sun": "#ff8c38",
+   "sunI": 2.8,
+   "sunEl": 7,
+   "sunAz": -60,
+   "rim": "#ffc07a",
+   "rimI": 0.45,
+   "cloud": "#ffb98a",
+   "exposure": 1.15,
+   "windows": 1.5
+  },
+  "v4": {
+   "toneMapping": "AgX",
+   "envIntensity": 0.5,
+   "clouds": "puffy",
+   "heightFog": null,
+   "shadowCatcher": 0.4,
+   "glass": {
+    "color": "#7f9ac8",
+    "reflect": 0.9
+   },
+   "bake": {
+    "sun": [
+     1.0,
+     0.55,
+     0.22
+    ],
+    "sunI": 1.8,
+    "sky": [
+     0.78,
+     0.6,
+     0.5
+    ],
+    "skyI": 0.6,
+    "ground": [
+     0.45,
+     0.32,
+     0.22
+    ],
+    "groundI": 0.2,
+    "aoDist": 3.5,
+    "lights": true
+   },
+   "staticReflect": 0.12,
+   "lut": "dawn",
+   "materials": {
+    "plastic": {
+     "roughness": 0.35
+    },
+    "plush": {
+     "roughness": 0.9,
+     "envHighlight": false
+    },
+    "floor": {
+     "pattern": "polishedFloor",
+     "roughness": 0.2
+    },
+    "cardboard": {
+     "roughness": 0.85,
+     "envHighlight": false
+    },
+    "metal": {
+     "roughness": 0.4,
+     "metalness": 0.6
+    },
+    "glass": {
+     "roughness": 0.1
+    },
+    "plaster": {
+     "pattern": "plaster",
+     "roughness": 0.9,
+     "envHighlight": false
+    },
+    "asphalt": {
+     "pattern": "asphaltLane",
+     "roughness": 0.85,
+     "envHighlight": false
+    },
+    "timber": {
+     "pattern": "timber",
+     "roughness": 0.7,
+     "envHighlight": false
+    }
+   }
+  },
+  "v5b": {
+   "rim": {
+    "color": "#BFD8FF",
+    "strength": 0.4,
+    "power": 4.0,
+    "away": 1
+   },
+   "shade": 0.45,
+   "knee": 0.55,
+   "relief": 0.6,
+   "actorEV": 0.3,
+   "envEV": -0.15,
+   "envCool": 0.05,
+   "exposureEV": 0.5,
+   "blob": {
+    "opacity": 0.45,
+    "radius": 0.6
+   },
+   "camNoiseDeg": 0.15,
+   "overshoot": 0.12,
+   "breathe": true,
+   "springs": 2,
+   "motionBlur": true
+  },
+  "v6": {
+   "note": "Look 6 light state. layers = weights of the baked light layers [pendants A, pendants B, zone colour lights, shutter slats]; base = ambient scale; cascade: pendants + signs ramp with lightsCascade (pre = layer weights before it starts); strips = cool fluorescent strips (0 off); signs / shelfGlow = emissive levels; banners = banner colour scale; shelfTop = gondola colour at the top shelf (fall-off into dark).",
+   "layers": [
+    1,
+    0,
+    0.55,
+    1
+   ],
+   "base": 1.15,
+   "cascade": false,
+   "pre": [
+    0,
+    0,
+    0,
+    0.55
+   ],
+   "strips": 0,
+   "signs": 0.7,
+   "shelfGlow": 0.5,
+   "banners": 0.3,
+   "shelfTop": 0.25,
+   "pendants": [
+    1,
+    0
+   ],
+   "actorPool": {
+    "base": 0.6,
+    "k": 2.0,
+    "max": 3.0
+   }
+  },
+  "note": "tuft P3B (opt-in look4 \"dusk\"): golden-hour dusk for the festival plaza: long low warm sun, amber horizon → deep blue zenith (cinelook DUSK gradient under grade clear), lit windows / lanterns starting to glow."
  }
 }

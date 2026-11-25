@@ -12,12 +12,12 @@ let LOC = null;
 export const hill = () => LOC?.hill ?? null;
 export function groundY(x, z) { const h = LOC?.hill; if (!h) return 0; const c = Math.cos(h.dir ?? 0), s = Math.sin(h.dir ?? 0), dx = x - (h.centre?.[0] ?? 0), dz = z - (h.centre?.[1] ?? 0), dist = -(dx * s + dz * c);
   return K.hillY(dist, h); }
-export const LOOK = spec => ({fog: {color: /moonlit|mystery/.test(spec.look4 ?? '') ? '#1b2944' : '#cfe3f5', near: 120, far: 600, height: {amount: 0}}, envPreset: 'day', envIntensity: .45, cloudCover: .5});
+export const LOOK = spec => ({fog: {color: /moonlit|mystery/.test(spec.look4 ?? '') ? '#1b2944' : spec.look4 === 'dusk' ? '#e39a62' : '#cfe3f5', near: 120, far: 600, height: {amount: 0}}, envPreset: 'day', envIntensity: .45, cloudCover: .5});
 export async function preload(base, {spec}) { const name = spec.location ?? 'villageStreet'; LOC = await (await fetch(new URL(`parts/locations/${name}.json`, base))).json(); LOC.name = name; }
 export const isNight = spec => /^(moonlit|mystery)$/.test(spec.look4 ?? '') || /night/.test(spec.look ?? '');
 
 export function build(scene, {M, B, spec, look4}) {
-  const L = LOC, night = isNight(spec), kit = VB.createKit({M, night, look4}), root = new T.Group(); root.name = 'village:' + L.name;
+  const L = LOC, night = isNight(spec), kit = VB.createKit({M, night, look4, dusk: spec.look4 === 'dusk'}), root = new T.Group(); root.name = 'village:' + L.name;
   const hero = VB.createBatch(kit, 'hero'), metaAll = [], lights = [], anchors = {};
   // ground: hero ground plane (baked) + a wide outer ground (live, cheap)
   const gw = L.ground?.size ?? [160, 160], gc = L.ground?.at ?? [0, 0];
@@ -31,7 +31,7 @@ export function build(scene, {M, B, spec, look4}) {
   const mids = (L.rows ?? []).flatMap(r => K.rowAlong(r.line, r.side, {seed: r.seed ?? 1, setback: r.setback ?? 2, gap: r.gap ?? [1.2, 3.0], skip: r.skip ?? []}));
   mids.push(...(L.midHouses ?? []));
   if (mids.length) { const m = VB.midHouses(kit, mids, groundY, {roofBase: 1000}); root.add(m.group); metaAll.push(...m.meta); }
-  if (L.terraces) { const tl = K.terraces(L.terraces); const f = VB.farTerraces(kit, tl.map(e => ({...e, at: [e.at[0], 0, e.at[2]]})), groundY, {roofBase: 5000}); root.add(f.group); metaAll.push(...f.meta); }
+  if (L.terraces) { const tl = K.terraces(L.terraces); const f = VB.farTerraces(kit, tl.map(e => ({...e, at: [e.at[0], 0, e.at[2]]})), groundY, {roofBase: 5000, cfg: L.terraces}); root.add(f.group); metaAll.push(...f.meta); }
   if (L.hill) root.add(VB.hillside(kit, {...L.hill, ...(L.terraces ? {rows: L.terraces.rows, span: (L.terraces.span ?? 220) * 1.6} : {}), night}));
   // walls, props, rooms (merged into the hero batch), lantern strings (2 draws), the mountain
   for (const w of L.walls ?? []) VB.wallRun(kit, hero, w.from, w.to, w);

@@ -12,16 +12,16 @@ import * as K from './kit.js';
 
 const TEX = {plaster: ['plaster', 3], plaster2: ['plaster', 3], plaster3: ['plaster', 3], timber: ['woodPlanks', 2], roof: ['slate', 2.5], roof2: ['slate', 2.5], roof3: ['slate', 2.5], stone: ['rock', 3],
   moss: ['moss', 3], cobble: ['cobble', 3.5], wood: ['woodPlanks', 2.5], door: ['woodPlanks', 2], dirt: ['dirt', 4], grass: ['grass', 5], hay: ['thatch', 2], slate: ['slate', 2]};
-export function createKit({M, night = false, look4 = null}) {
+export function createKit({M, night = false, look4 = null, dusk = false}) {   // P3B: dusk (look4 'dusk'): string lanterns start to glow, far roofs keep their slate under warm light
   const cache = new Map(), P = K.PALETTE;
   const mat = key => { if (cache.has(key)) return cache.get(key); let m;
     if (key === 'winLit') { m = new T.MeshBasicMaterial({color: night ? P.winLit : '#2b3542'}); m.userData = night ? {window: 1, live: true} : {live: true}; }
     else if (key === 'winDark') { m = new T.MeshBasicMaterial({color: night ? '#1a2230' : '#2b3542'}); m.userData = {live: true}; }
-    else if (key === 'lantern') { m = new T.MeshBasicMaterial({color: night ? '#FFB24E' : '#E8A050'}); m.userData = {live: true, glow: night ? 1 : 0}; }
+    else if (key === 'lantern') { m = new T.MeshBasicMaterial({color: night || dusk ? '#FFB24E' : '#E8A050'}); m.userData = {live: true, glow: night ? 1 : dusk ? .6 : 0}; }
     else if (key === 'chalk') { m = new T.MeshStandardMaterial({color: P.chalk, roughness: .95}); }
     else { const t = TEX[key]; m = t ? M.std(t[0], P[key] ?? '#ffffff') : M.std('plastic', P[key] ?? key); if (/^roof|^plaster/.test(key)) { m = m.clone(); m.side = T.DoubleSide; } }   // roofs + gable walls seen from below (street cameras)
     m.userData = {...m.userData, vkey: key}; cache.set(key, m); return m; };
-  return {mat, night, P, look4}; }
+  return {mat, night, dusk, P, look4}; }
 
 // ---- primitive → BufferGeometry (house-local), then world matrix ---------------------------------------------------------------
 function gableGeo(w, d, h, wall) {   // ridge along x: two slopes + two gable triangles (+ wall-coloured gable infill as a 2nd group)
@@ -106,7 +106,8 @@ export function windowInstances(kit, wins, name) {   // unit boxes scaled into p
   return grp; }
 
 // ---- far terraces: low-poly rooftop blocks (1 draw) + window dots (1 draw) -------------------------------------------------------
-export function farTerraces(kit, list, groundY, {roofBase = 5000} = {}) {
+export function farTerraces(kit, list, groundY, {roofBase = 5000, cfg = null} = {}) {
+  if (cfg?.roofs === 'slate') return farTerracesSlate(kit, list, groundY, {roofBase, cfg});   // P3B (opt-in terraces.roofs 'slate')
   const grp = new T.Group(); grp.name = 'farTerraces';
   const h0 = K.housePreset('cottage', 1), parts = K.houseParts({...h0, w: 1, d: 1, pitch: .9, storeys: 1}, 'far'), gs = [];
   for (const p of parts) { const g = primGeo(p), c = hexRGB(p.k === 'gable' ? K.PALETTE.roof : K.PALETTE.plaster2), col = new Float32Array(g.attributes.position.count * 3); for (let k = 0; k < col.length; k += 3) col.set([c.r, c.g, c.b], k); g.setAttribute('color', new T.BufferAttribute(col, 3)); gs.push(g); }
@@ -119,6 +120,37 @@ export function farTerraces(kit, list, groundY, {roofBase = 5000} = {}) {
       dots.push({p: {k: 'box', size: [.9 / sx, .9 / sy * 1.2, .2 / sz], at: [fx, fy / sy, .505]}, M4, on: kit.night && lit(k)}); } });
   im.instanceMatrix.needsUpdate = true; im.instanceColor.needsUpdate = true; im.computeBoundingSphere(); im.name = 'far:roofs'; im.userData = {live: true, roofBase}; grp.add(im);
   if (kit.night) grp.add(windowInstances(kit, dots, 'far:windows'));
+  return {group: grp, meta}; }
+// P3B far hillside (opt-in terraces.roofs 'slate'): walls + a SEPARATE roof instance with the real pitch (× roofK, steep so the roof planes face
+// a camera below them) in slate-blue variants + a chimney; dark window dots by day (lit at night); a stone retaining wall along the front of
+// every terrace row (hides the lower walls: the rows read as stepped roofs); seeded cone trees between the houses. 5 draws.
+function farTerracesSlate(kit, list, groundY, {roofBase, cfg}) {
+  const grp = new T.Group(); grp.name = 'farTerraces'; const h0 = K.housePreset('cottage', 1), base = K.houseHeight({...h0, storeys: 1}), roofK = cfg.roofK ?? 1.7, cd = Math.cos(cfg.dir ?? 0), sd = Math.sin(cfg.dir ?? 0), cen = cfg.centre ?? [0, 0];
+  const colGeo = (g, hex) => { const c = hexRGB(hex), col = new Float32Array(g.attributes.position.count * 3); for (let k = 0; k < col.length; k += 3) col.set([c.r, c.g, c.b], k); g.setAttribute('color', new T.BufferAttribute(col, 3)); return g; };
+  const wallG = colGeo(primGeo({k: 'box', size: [1, base, 1], at: [0, base / 2, 0]}), K.PALETTE.plaster2);
+  const roofG = mergeGeometries([colGeo(primGeo({k: 'gable', w: 1.08, d: 1.12, h: 1, at: [0, 0, 0], roof: 1}), '#ffffff'), colGeo(primGeo({k: 'box', size: [.1, .75, .1], at: [.28, .55, -.12]}), '#9a8f86')]);
+  roofG.attributes.aRoof.array.fill(1); const roofs = new T.InstancedMesh(roofG, new T.MeshLambertMaterial({vertexColors: true, side: T.DoubleSide, fog: false, ...(kit.dusk ? {emissive: cfg.duskFill ?? '#0e5478'} : {})}), list.length);   // dusk: cool sky fill on the shaded slate
+  const walls = new T.InstancedMesh(wallG, new T.MeshLambertMaterial({vertexColors: true, fog: false}), list.length), tint = new T.Color(), meta = [], dots = [], rows = new Map(), SL = ['#5A7FB8', '#6A8CC4', '#4E71A8', '#6383BB'];
+  const local = (x, z) => { const dx = x - cen[0], dz = z - cen[1]; return [dx * cd - dz * sd, -(dx * sd + dz * cd)]; };   // [lateral, distance]
+  list.forEach((e, i) => { const h = K.housePreset(e.preset, e.seed), y = e.at[1] + groundY(e.at[0], e.at[2]), sy = K.houseHeight(h) / base, wallH = K.houseHeight(h), q = new T.Quaternion().setFromAxisAngle(new T.Vector3(0, 1, 0), e.rotY ?? 0), r = K.rng(e.seed)();
+    const M4 = new T.Matrix4().compose(new T.Vector3(e.at[0], y, e.at[2]), q, new T.Vector3(h.w, sy, h.d)); walls.setMatrixAt(i, M4); tint.setRGB(.86 + .14 * r, .84 + .14 * r, .82 + .14 * r); walls.setColorAt(i, tint);
+    const rh = h.pitch * h.d / 2 * roofK; roofs.setMatrixAt(i, new T.Matrix4().compose(new T.Vector3(e.at[0], y + wallH, e.at[2]), q, new T.Vector3(h.w, rh, h.d))); roofs.setColorAt(i, tint.set(SL[Math.floor(r * 4) % 4]));
+    meta.push({id: roofBase + i, top: y + wallH + rh, at: [e.at[0], y, e.at[2]]});
+    const lit = K.litFn(e.seed), nw = Math.max(2, Math.round(h.w / 3)); for (let k = 0; k < nw * h.storeys; k++) { const fx = ((k % nw) + .5) / nw - .5, fy = FOUNDY(k, h);
+      dots.push({p: {k: 'box', size: [.9 / h.w, .9 / sy * 1.2, .2 / h.d], at: [fx, fy / sy, .505]}, M4, on: kit.night && lit(k)}); }
+    const [lx, dist] = local(e.at[0], e.at[2]), row = rows.get(e.row) ?? {l0: 1e9, l1: -1e9, d: 1e9, y: 1e9}; row.l0 = Math.min(row.l0, lx - h.w / 2); row.l1 = Math.max(row.l1, lx + h.w / 2); row.d = Math.min(row.d, dist - h.d / 2); row.y = Math.min(row.y, y); rows.set(e.row, row); });
+  for (const m of [walls, roofs]) { m.instanceMatrix.needsUpdate = true; m.instanceColor.needsUpdate = true; m.computeBoundingSphere(); m.userData = {live: true}; }
+  roofs.name = 'far:roofs'; roofs.userData.roofBase = roofBase; walls.name = 'far:walls'; grp.add(walls, roofs);
+  grp.add(windowInstances(kit, dots, 'far:windows'));
+  // retaining walls (one box per row front) + trees
+  const rl = [...rows.values()], sw = new T.InstancedMesh(colGeo(primGeo({k: 'box', size: [1, 1, 1], at: [0, .5, 0]}), '#7d7e78'), new T.MeshLambertMaterial({vertexColors: true, fog: false}), rl.length), wq = new T.Quaternion().setFromAxisAngle(new T.Vector3(0, 1, 0), cfg.dir ?? 0);
+  const at = (lx, dist) => [cen[0] + lx * cd - dist * sd, cen[1] - lx * sd - dist * cd];
+  rl.forEach((r, i) => { const d = r.d - 1.2, [x, z] = at((r.l0 + r.l1) / 2, d), y0 = groundY(x, z) - 1, top = r.y + (cfg.wallTop ?? 3.2); sw.setMatrixAt(i, new T.Matrix4().compose(new T.Vector3(x, y0, z), wq, new T.Vector3(r.l1 - r.l0 + 4, Math.max(1, top - y0), 1.4))); });
+  sw.instanceMatrix.needsUpdate = true; sw.computeBoundingSphere(); sw.name = 'far:terraceWalls'; sw.userData.live = true; grp.add(sw);
+  const R = K.rng((cfg.seed ?? 1) * 31 + 7), nT = Math.round((cfg.trees ?? 2.2) * list.length), tg = mergeGeometries([colGeo(new T.ConeGeometry(1, 2.4, 6, 1).translate(0, 2.2, 0).toNonIndexed(), '#3f5f34'), colGeo(new T.CylinderGeometry(.18, .22, 1.2, 5).translate(0, .6, 0).toNonIndexed(), '#4a3828')].map(g => { for (const k of Object.keys(g.attributes)) if (!['position', 'normal', 'color'].includes(k)) g.deleteAttribute(k); return g; }));
+  const trees = new T.InstancedMesh(tg, new T.MeshLambertMaterial({vertexColors: true, fog: false}), nT); let nt = 0;
+  for (let i = 0; i < nT; i++) { const r = rl[Math.floor(R() * rl.length)], lx = r.l0 + R() * (r.l1 - r.l0), d = r.d + 1.5 + R() * 6, [x, z] = at(lx, d), s = 1.6 + 1.6 * R(); trees.setMatrixAt(nt++, new T.Matrix4().compose(new T.Vector3(x, groundY(x, z), z), new T.Quaternion(), new T.Vector3(s, s * (1 + .4 * R()), s))); }
+  trees.count = nt; trees.instanceMatrix.needsUpdate = true; trees.computeBoundingSphere(); trees.name = 'far:trees'; trees.userData.live = true; grp.add(trees);
   return {group: grp, meta}; }
 const FOUNDY = (k, h) => K.FOUND + 2.2 + (k % h.storeys) * K.STOREY;
 
@@ -135,7 +167,7 @@ export function lanternStrings(kit, list) {   // list of [a, b, {sag}] → rope 
   for (const [a, b, o] of list) { const s = K.lanternString(a, b, o ?? {}); for (let i = 0; i < s.pts.length - 1; i++) ropes.push(...s.pts[i], ...s.pts[i + 1]); lans.push(...s.lanterns); }
   const lg = new T.BufferGeometry(); lg.setAttribute('position', new T.Float32BufferAttribute(ropes, 3)); const line = new T.LineSegments(lg, new T.LineBasicMaterial({color: '#2a2420'})); line.name = 'lanternRopes'; line.userData.live = true; grp.add(line);
   const im = new T.InstancedMesh(new T.CylinderGeometry(.38, .3, .75, 6, 1), kit.mat('lantern'), lans.length), M4 = new T.Matrix4(), c = new T.Color(), cols = ['#FFB24E', '#FF8A3D', '#FFD36B'].map(h => new T.Color(h));
-  lans.forEach((p, i) => { M4.compose(new T.Vector3(...p), new T.Quaternion(), new T.Vector3(1, 1, 1)); im.setMatrixAt(i, M4); c.copy(cols[i % 3]); if (!kit.night) c.multiplyScalar(.85); im.setColorAt(i, c); });
+  lans.forEach((p, i) => { M4.compose(new T.Vector3(...p), new T.Quaternion(), new T.Vector3(1, 1, 1)); im.setMatrixAt(i, M4); c.copy(cols[i % 3]); if (!kit.night && !kit.dusk) c.multiplyScalar(.85); im.setColorAt(i, c); });
   im.instanceMatrix.needsUpdate = true; im.instanceColor.needsUpdate = true; im.computeBoundingSphere(); im.name = 'lanterns'; im.userData = {live: true, count: lans.length}; grp.add(im);
   return {group: grp, lanterns: lans}; }
 export function props(kit, batch, list, groundY) {   // hay bales, troughs, barrels, crates, fence runs, perch posts, benches, desks, tables, chairs, beds, chalkboards …
@@ -183,13 +215,22 @@ export function hillside(kit, {centre = [0, 0], dir = 0, from = 50, step = 16, r
   for (let j = 0; j < nz; j++) for (let i = 0; i < nx; i++) { const a = pt(i, j), b = pt(i + 1, j), c = pt(i, j + 1), d = pt(i + 1, j + 1), cc = (i + j) % 2 ? col : col2; P.push(...a, ...c, ...b, ...b, ...c, ...d); for (let k = 0; k < 6; k++) C.push(cc.r, cc.g, cc.b); }
   const g = new T.BufferGeometry(); g.setAttribute('position', new T.Float32BufferAttribute(P, 3)); g.setAttribute('color', new T.Float32BufferAttribute(C, 3)); g.computeVertexNormals();
   const m = new T.Mesh(g, new T.MeshLambertMaterial({vertexColors: true, fog: false})); m.name = 'hillside'; m.userData.live = true; m.receiveShadow = true; return m; }
-export function titanMountain(kit, {at = [0, 0, -300], r = 150, h = 210, rotY = 0, seed = 11, cave = true}) {
+export function titanMountain(kit, {at = [0, 0, -300], r = 150, h = 210, rotY = 0, seed = 11, cave = true, arch = false}) {
   const V = K.mountain({seed, r, h}), P = [], C = [], rock = new T.Color(kit.night ? '#2a3348' : '#3c4250'), rock2 = new T.Color(kit.night ? '#323c55' : '#4a5160'), snow = new T.Color(kit.night ? '#8a9cc0' : '#c9d2de'), R = K.rng(seed + 1);
   for (let i = 0; i < V.length; i += 3) { const yMax = Math.max(V[i][1], V[i + 1][1], V[i + 2][1]), c = yMax > h * .86 ? snow : R() < .5 ? rock : rock2; for (const v of [V[i], V[i + 1], V[i + 2]]) { P.push(...v); C.push(c.r, c.g, c.b); } }
   const g = new T.BufferGeometry(); g.setAttribute('position', new T.Float32BufferAttribute(P, 3)); g.setAttribute('color', new T.Float32BufferAttribute(C, 3)); g.computeVertexNormals();
   const grp = new T.Group(); grp.name = 'titanMountain'; const m = new T.Mesh(g, new T.MeshLambertMaterial({vertexColors: true, flatShading: true, fog: false})); m.name = 'mountain'; m.userData.live = true; grp.add(m);
   if (cave) { const cy = h * K.CAVE.u, u0 = 1 - (1 - K.CAVE.u) ** (1 / 1.6), rr = r * (1 - u0) ** 1.15 * 1.3, sh = new T.Shape();   // on (just outside) the surface at that height (radius noise ≤ +17.5 %) sh.absarc(0, 0, K.CAVE.w / 2, 0, Math.PI, false); sh.lineTo(-K.CAVE.w / 2, -K.CAVE.h * .45); sh.lineTo(K.CAVE.w / 2, -K.CAVE.h * .45);
-    const cm = new T.Mesh(new T.ShapeGeometry(sh, 8), new T.MeshBasicMaterial({color: '#030406'})); cm.position.set(0, cy, rr); cm.rotation.x = -.3; cm.name = 'caveMouth'; cm.userData.live = true; grp.add(cm); grp.userData.cave = {local: [0, cy, rr]}; }
+    const cm = new T.Mesh(new T.ShapeGeometry(sh, 8), new T.MeshBasicMaterial({color: '#030406'})); cm.position.set(0, cy, rr); cm.rotation.x = -.3; cm.name = 'caveMouth'; cm.userData.live = true; grp.add(cm); grp.userData.cave = {local: [0, cy, rr]};
+    if (arch) { const N = 15, W = K.CAVE.w / 2, Hh = K.CAVE.h * .45, R2 = K.rng(seed + 5), parts = [], inner = [], outer = [];   // P3B (opt-in mountain.arch): a faceted rock arch round the mouth
+      for (let i = 0; i <= N; i++) { const a = Math.PI * i / N, x = Math.cos(a) * W, y = Math.sin(a) * W, s = 3.2 + 2.2 * R2(), g = new T.BoxGeometry(s * 1.3, s, 4 + 3 * R2()).toNonIndexed();
+        g.rotateZ(a + (R2() - .5) * .5); g.translate(x * 1.08, y * 1.08, 1.2); parts.push(g); inner.push([x * .97, y * .97]); outer.push([x * 1.22 + Math.cos(a) * 2, y * 1.22 + Math.sin(a) * 2]); }
+      for (const k of [1, -1]) for (let j = 0; j < 4; j++) { const s = 3 + 2 * R2(), g = new T.BoxGeometry(s, s * 1.4, 4 + 2 * R2()).toNonIndexed(); g.translate(k * W * 1.08, -j * Hh / 4 - 1, 1.2); parts.push(g); inner.push(null); }
+      const ag = mergeGeometries(parts.map(g => { g.deleteAttribute('uv'); return g; })); ag.computeVertexNormals();
+      const am = new T.Mesh(ag, new T.MeshLambertMaterial({color: kit.night ? '#3a4560' : '#5a6070', flatShading: true, fog: false})); am.name = 'caveArch'; am.userData.live = true;
+      const band = (pts, col, w) => { const P = []; for (let i = 0; i < pts.length - 1; i++) { const [a, b] = [pts[i], pts[i + 1]], d = [b[0] - a[0], b[1] - a[1]], L = Math.hypot(...d) || 1, n = [-d[1] / L * w, d[0] / L * w]; P.push(a[0], a[1], 3.6, b[0], b[1], 3.6, b[0] + n[0], b[1] + n[1], 3.6, a[0], a[1], 3.6, b[0] + n[0], b[1] + n[1], 3.6, a[0] + n[0], a[1] + n[1], 3.6); }
+        const g = new T.BufferGeometry(); g.setAttribute('position', new T.Float32BufferAttribute(P, 3)); const m = new T.Mesh(g, new T.MeshBasicMaterial({color: col, side: T.DoubleSide, fog: false, transparent: true, opacity: .85})); m.name = 'caveArch'; m.userData.live = true; return m; };
+      const ins = inner.filter(Boolean), ag2 = new T.Group(); ag2.add(am, band(ins, '#6b2a0c', -1.4), band(outer, '#5c78b0', 1.2)); ag2.position.set(0, cy, rr); ag2.rotation.x = -.3; grp.add(ag2); } }
   grp.position.set(...at); grp.rotation.y = rotY; return grp; }
 
 // ---- id pass: count DISTINCT visible rooftops (roof triangles carry aRoof; instanced roofs add gl_InstanceID) ----------------------

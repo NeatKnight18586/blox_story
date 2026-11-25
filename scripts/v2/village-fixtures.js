@@ -14,12 +14,14 @@ export function fixture(loc, look, {cast = null, extraShots = []} = {}) {
 if (process.argv[1]?.endsWith('village-fixtures.js')) for (const loc of (want.length ? want : VILLAGE.filter(l => readdirSync('parts/locations').includes(l + '.json')))) {
   const L = JSON.parse(readFileSync(`parts/locations/${loc}.json`, 'utf8'));
   for (const look of L.looks ?? ['day', 'night']) { writeFileSync(`${out}/${loc}-${look}.json`, JSON.stringify(fixture(loc, look), null, 1) + '\n'); console.log('wrote', `${loc}-${look}.json`); } }
+// P3B lantern sea: ~600 lanterns rising in loose streams from the plaza + the rooftops ring, screen keep-clear (faces, Tuft's eyes, upper third)
+export const LANTERNS = {kind: 'lanternSea', at: [0, 0, -10], n: 600, streams: {src: [[0, 1, 10, 18], [-30, 13, -5, 5], [-21, 13, -24, 5], [0, 13, -24, 5], [21, 13, -24, 5], [30, 13, -5, 5], [-52, 11, 30, 7], [52, 11, 30, 7]], yMax: 34, rise: .9, wind: [.3, 0, -.15], seed: 5, keepClear: {top: 1 / 3}}};
 // festivalPlaza night + lanternSea + the giant cage on the stage + colossal Tuft towering over the roofs (row 4 of the sheet, the colossal gate)
 export function colossal() {
   const f = fixture('festivalPlaza', 'night'), L = JSON.parse(readFileSync('parts/locations/festivalPlaza.json', 'utf8'));
   f.note = 'tuft P3 village fixture: festivalPlaza night, lanternSea + giant cage on the stage, kids + parade beasts, colossal Tuft (puff colossal) towering over the roofs.';
   f.cast = {...L.fixtureCast, tuft: {style: 'beast', preset: 'TUFT', tier: 'hero', at: 'street', offset: [0, 0, -14], yaw: 0, glowLevel: .8}};
-  f.props2b = [{kind: 'lanternSea', at: [0, 0, -10], r: 80, n: 1500}, {kind: 'giantCage', at: [0, 1.6, -24], scale: .3}];
+  f.props2b = [LANTERNS, {kind: 'giantCage', at: [0, 1.6, -24], scale: .3}];
   const wide = {position: [0, 6, 92], target: [0, 30, -20], fov: 58}, low = {position: [-22, 3.5, 40], target: [0, 34, -14], fov: 60};
   f.shots = [{id: 'plaza-colossal-wide', frames: 48, duration: 2, size: 'ews', mood: 'awe', move: 'push', angle: 'low', from: wide, to: {...wide, position: [0, 6, 86]}, puffs: [{actor: 'tuft', size: 'colossal', at: 0}]},
     {id: 'plaza-colossal-low', frames: 48, duration: 2, size: 'ws', mood: 'awe', move: 'push', angle: 'low', from: low, to: {...low, position: [-20, 3.5, 36]}, puffs: [{actor: 'tuft', size: 'colossal', at: 0}]}];
@@ -30,7 +32,7 @@ export function demos() {
   const st = fixture('villageStreet', 'night'), pl = fixture('festivalPlaza', 'night'), cv = fixture('titanCave', 'night'), co = colossal();
   st.shots = [{id: 'demo-street', frames: 96, duration: 4, size: 'ews', mood: 'awe', move: 'push', angle: 'eye', from: {position: [2.5, 5.5, 46], target: [0, 9, -60], fov: 50}, to: {position: [1.5, 4.5, 22], target: [0, 10, -60], fov: 50},
     beasts: [{actor: 'volt', state: 'run', at: 1.0, to: [-2, 0, -40]}, {actor: 'fox', state: 'flee', at: 1.4, exit: 'away'}, {actor: 'boar', state: 'flee', at: 1.7, exit: 'away'}]}];
-  pl.props2b = [{kind: 'lanternSea', at: [0, 0, -10], r: 80, n: 1500}, {kind: 'giantCage', at: [0, 1.6, -24], scale: .3}];
+  pl.props2b = [LANTERNS, {kind: 'giantCage', at: [0, 1.6, -24], scale: .3}];
   pl.shots = [{id: 'demo-plaza', frames: 96, duration: 4, size: 'ews', mood: 'awe', move: 'push', angle: 'low', from: {position: [-30, 14, 60], target: [0, 16, -30], fov: 52}, to: {position: [14, 7, 34], target: [0, 14, -30], fov: 52}}];
   cv.shots = [{id: 'demo-cave', frames: 72, duration: 3, size: 'ws', mood: 'tension', move: 'push', angle: 'eye', from: {position: [0, 36, 190], target: [0, 36, 124], fov: 46}, to: {position: [0, 35, 168], target: [0, 35, 124], fov: 46},
     beasts: [{actor: 'titan', state: 'ignite', at: 0}, {actor: 'titan', state: 'roar', at: 1.6}], shake: true}];

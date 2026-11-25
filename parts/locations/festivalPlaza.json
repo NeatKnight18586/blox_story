@@ -3,7 +3,8 @@
  "colour": "dusk amber (dawn preset) \u2192 night lanterns (moonlit)",
  "looks": [
   "dusk",
-  "night"
+  "night",
+  "day"
  ],
  "ground": {
   "size": [
@@ -157,7 +158,11 @@
   "step": 12,
   "rise": 9,
   "span": 170,
-  "density": 1.6
+  "density": 1.6,
+  "roofs": "slate",
+  "roofK": 1.7,
+  "wallTop": 3.2,
+  "trees": 1.2
  },
  "hill": {
   "centre": [
@@ -566,5 +571,8 @@
    ],
    "yaw": -30
   }
+ },
+ "lookMap": {
+  "dusk": "dusk"
  }
 }
