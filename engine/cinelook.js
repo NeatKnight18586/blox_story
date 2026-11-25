@@ -120,7 +120,7 @@ void main(){${rb ? ' if (uGlowDbg > .5) { vec4 sD = texture2D(tColor, vUv); gl_F
   vec3 c; float fr = uFringe * smoothstep(.35, 1., r2);
   if (${clear ? 'false' : 'fr > .02'}) { vec2 o = normalize(d) * fr / uOut.x; c = vec3(comp(vUv + o).r, comp(vUv).g, comp(vUv - o).b); } else c = comp(vUv);
 ${clear ? `  { float lL = dot(c, vec3(.2126, .7152, .0722)); c = max(vec3(0.), mix(vec3(lL), c, ${(rb ? ROBLOX.preSat : CLEAR.preSat).toFixed(3)})); }   // 2B clear: restore the chroma AgX takes out (linear, before the curve)
-` : ''}  c = AgXToneMapping(c);
+` : ''}${rb ? '  { float mxc = max(c.r, max(c.g, c.b)); if (mxc > 1.) c *= (.9 + .1 * (1. - exp(1. - mxc))) / mxc; }   // 4F roblox glow keeps its hue: scale so the brightest channel never clips to white (tips blue→gold, lanterns orange, seams cyan)\n' : ''}  c = AgXToneMapping(c);
   c = clamp(uGain * (c + uLift * (1. - c)), 0., 1.); c = pow(c, 1. / uGamma);
   c *= 1. - uVig * smoothstep(.2, 1., r2);
   c = enc(clamp(c, 0., 1.));
