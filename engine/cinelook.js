@@ -32,7 +32,18 @@ export const ACTOR_LIGHT = {lift: .6, rim: {color: '#a9c8ff', i: .9, pow: 2.4, s
 // (multiply only), +20 % mid saturation, black point 1 % with no lift, the teal / warm split at half strength, a brighter exposure, and no
 // fog / haze within 60 studs (the far skyline only). Without `grade: 'clear'` every constant above stays as it was (1B fixture byte-identical).
 export const CLEAR = {grain: .018, vigMax: .12, sat: .20, black: .01, split: .5, exposure: -.3, fogStart: 60, haze: .03, fogTint: .55, sky: [.42, .70, .86], skyFrom: -.06, skyTo: .3, skyK: .85, inBlack: .11, skyDist: 380, preSat: 1.15, k: 1.6};   // skyDist: the sky dome (engine/look.js radius 420) counts as sky
-export const isClear = spec => spec?.grade === 'clear';
+export const isClear = spec => spec?.grade === 'clear' || spec?.grade === 'roblox';   // 4C: 'roblox' builds on the clear path (sky / moon / dusk branches)
+// tuft 4C (opt-in spec `grade: 'roblox'`, owner: "a ROBLOX STUDIO lookalike, not CCTV"): bright, crisp, saturated plastic. No grain, no fringe,
+// vignette ≤ .04, no fog / haze within 80 studs, no background falloff, DOF only on cu / ecu / insert (mild), bloom only on HDR emissives
+// (tight radius, threshold above any lit surface), +25 % mid saturation (and more chroma before the curve), a true black point, a clean blue
+// day sky / a dark-blue (never near-black) night sky; actors: a clean key from the camera side + plastic sheen, a thin rim. Every other spec unchanged.
+export const ROBLOX = {grain: 0, vigMax: .04, sat: .25, preSat: 1.85, black: 0, inBlack: .035, k: 1.32, pivot: .45, exposure: -.12, fogStart: 80, haze: 0, fogTint: .85,
+  sky: {horizon: [.55, .78, 1.0], zenith: [.13, .36, .86], from: -.02, to: .55},   // day sky dome, scene-linear before AgX (Studio's clear blue)
+  night: {horizon: [.050, .085, .22], zenith: [.010, .022, .085], from: -.03, to: .5, exposure: .1, inBlack: .04, k: 1.45, lift: [.008, .016, .05], liftTo: .06},   // Roblox night: dark blue, readable (moon fill = exposure + a cool lift)
+  bloom: {threshold: 2.2, strength: .7, radius: 0, factors: [1, .1, 0, 0, 0], skyZ: 300}, sharpen: .3, dofF: {35: 0, 50: 8, 85: 5.6}, dofSizes: ['cu', 'close', 'ecu', 'insert'],
+  blob: {r: .8, opacity: .75}, actor: {rim: .3, key: .6, far: 1, spec: .35, shine: 48, lift: .35}};
+// ROBLOX.bloom: the threshold is on the MAX channel (an emissive ×3.2 passes, a sunlit surface does not); factors: only the two finest mips (no veil)
+export const isRoblox = spec => spec?.grade === 'roblox';
 // tuft P3 (opt-in: grade 'clear' + look4 'moonlit'): nights that are not crushed. The sky becomes a moonlit gradient (deep blue zenith →
 // lighter blue horizon, linear scene values before AgX), the curve's input black drops (shadows keep detail), a cool moon lift on the
 // darkest values. Everything else (and every other spec) is unchanged.
@@ -41,7 +52,7 @@ export const isMoon = spec => isClear(spec) && spec?.look4 === 'moonlit';
 // tuft P3B (opt-in: grade 'clear' + look4 'dusk'): golden-hour sky gradient, scene-linear before AgX: amber horizon → rose band → deep blue zenith.
 export const DUSK = {horizon: [1.7, .7, .18], band: [1.15, .5, .2], zenith: [.04, .06, .2], b0: .05, b1: .32, top: .85};
 export const isDusk = spec => isClear(spec) && spec?.look4 === 'dusk';
-export const curveOf = (clear, moon = false) => moon ? {...curveOf(true), inBlack: MOON.inBlack, black: MOON.black} : clear ? {...CURVE, k: CLEAR.k, black: CLEAR.black, inBlack: CLEAR.inBlack, sat: CLEAR.sat, exposure: CLEAR.exposure, shadow: CURVE.shadow.map(v => v * CLEAR.split), high: CURVE.high.map(v => v * CLEAR.split), vigMax: CLEAR.vigMax} : CURVE;
+export const curveOf = (clear, moon = false, rb = false) => rb ? {...CURVE, pivot: ROBLOX.pivot, k: moon ? ROBLOX.night.k : ROBLOX.k, black: ROBLOX.black, inBlack: moon ? ROBLOX.night.inBlack : ROBLOX.inBlack, sat: ROBLOX.sat, exposure: ROBLOX.exposure + (moon ? ROBLOX.night.exposure : 0), shadow: [0, 0, 0], high: [0, 0, 0], vigMax: ROBLOX.vigMax} : moon ? {...curveOf(true), inBlack: MOON.inBlack, black: MOON.black} : clear ? {...CURVE, k: CLEAR.k, black: CLEAR.black, inBlack: CLEAR.inBlack, sat: CLEAR.sat, exposure: CLEAR.exposure, shadow: CURVE.shadow.map(v => v * CLEAR.split), high: CURVE.high.map(v => v * CLEAR.split), vigMax: CLEAR.vigMax} : CURVE;
 export const FGGLOW = {color: [1, .62, .3], i: .5, size: 1.7, sigma: .2};   // lantern sprite: HDR colour × i (below the subject's highlights), gaussian sigma (of the half-size)
 export const GRADE = {
   default: {lift: [0, 0, 0], gamma: [1, 1, 1], gain: [1, 1, 1], vig: .28},
@@ -56,8 +67,8 @@ export const gradeOf = (mood, clear = false) => { const g = GRADE[mood] ?? GRADE
 export const sCurve = (x, clear = false) => { const {pivot: p, k, black: b, inBlack: ib} = curveOf(clear); x = Math.max(0, Math.min(1, x) - ib) / (1 - ib); const y = x < p ? p * (x / p) ** k : 1 - (1 - p) * ((1 - x) / (1 - p)) ** k; return b + (1 - b) * y; };
 export const WIDE = ['ews', 'ws', 'wide', 'establishing'];
 // CoC scale (fraction of the frame width per |1 − focus/z|) for a lens at a focus distance (world units), thin lens
-export const cocScale = (lens, focus) => { const N = DOF.fNumber[lens] ?? 0; return N ? lens * lens / (N * Math.max(.5, focus) * DOF.unitMM * DOF.sensorW) : 0; };
-export const dofOn = shot => shot.dof ?? !WIDE.includes(shot.size);
+export const cocScale = (lens, focus, rb = false) => { const N = (rb ? ROBLOX.dofF : DOF.fNumber)[lens] ?? 0; return N ? lens * lens / (N * Math.max(.5, focus) * DOF.unitMM * DOF.sensorW) : 0; };
+export const dofOn = (shot, rb = false) => shot.dof ?? (rb ? ROBLOX.dofSizes.includes(shot.size) || !!shot.prop || shot.tpl?.kind === 'insert' || shot.tpl?.kind === 'ecu' : !WIDE.includes(shot.size));   // 4C roblox: close sizes + inserts only
 export const moodEV = shot => MOODS[shot?.mood]?.light?.ev ?? 0;
 
 const VS = 'varying vec2 vUv; void main(){ vUv = uv; gl_Position = vec4(position.xy, 0., 1.); }';
@@ -71,7 +82,7 @@ void main(){ float z0 = linZ(texture2D(tDepth, vUv).x), c0 = coc(z0); vec3 acc =
     acc += texture2D(tColor, uv).rgb * w; wsum += w; }
   gl_FragColor = vec4(acc / wsum, c0); }`;
 const agx = () => T.ShaderChunk.tonemapping_pars_fragment.replace(/toneMappingExposure/g, 'uExposure');
-const FINAL_FS = (CV = CURVE, clear = false, moon = false, skyDist = null, dusk = false) => `precision highp float; precision highp int; uniform sampler2D tColor; uniform sampler2D tDepth; uniform sampler2D tDof; uniform vec2 uOut; uniform float uDofOn; uniform float uFogStart; uniform float uSubZ; uniform float uBgDim; uniform float uEdgeAA;
+const FINAL_FS = (CV = CURVE, clear = false, moon = false, skyDist = null, dusk = false, rb = false) => `precision highp float; precision highp int; uniform sampler2D tColor; uniform sampler2D tDepth; uniform sampler2D tDof; uniform vec2 uOut; uniform float uDofOn; uniform float uFogStart; uniform float uSubZ; uniform float uBgDim; uniform float uEdgeAA;
 uniform mat4 uInvProj; uniform mat4 uCamWorld; uniform vec3 uCamPos; uniform vec3 uFogColor; uniform float uFogD; uniform float uFogK; uniform float uFogY0; uniform float uHaze; uniform float uHazeK;
 uniform vec3 uLift; uniform vec3 uGamma; uniform vec3 uGain; uniform float uVig; uniform float uGrain; uniform float uFringe; uniform uint uSeed; varying vec2 vUv; ${DEPTH}
 ${agx()}
@@ -83,10 +94,10 @@ vec3 sceneAA(vec2 uv){ vec3 c = texture2D(tColor, uv).rgb; if (uEdgeAA < .5) ret
   float sub = clamp(abs((ln + ls + le + lw) * .25 - lm) / rg, 0., 1.), b = smoothstep(0., 1., sub); b = b * b * .6;
   bool hz = abs(ln + ls - 2. * lm) >= abs(le + lw - 2. * lm);
   vec3 o = hz ? (abs(ln - lm) >= abs(ls - lm) ? n : s) : (abs(le - lm) >= abs(lw - lm) ? e : w); return mix(c, o, b * .5); }
-vec3 comp(vec2 uv){ vec3 c = sceneAA(uv); if (uDofOn > .5) { vec4 d = texture2D(tDof, uv); c = mix(c, d.rgb, smoothstep(.04, .3, d.a)); }
+vec3 comp(vec2 uv){ vec3 c = ${rb ? `texture2D(tColor, uv).rgb; { vec2 t = 1. / uOut; vec3 nb = .25 * (texture2D(tColor, uv + vec2(0., t.y)).rgb + texture2D(tColor, uv - vec2(0., t.y)).rgb + texture2D(tColor, uv + vec2(t.x, 0.)).rgb + texture2D(tColor, uv - vec2(t.x, 0.)).rgb); c = max(vec3(0.), c + ${ROBLOX.sharpen.toFixed(3)} * (min(c, vec3(1.5)) - min(nb, vec3(1.5)))); }   // 4C roblox: crisp (unsharp on the scene, no FXAA-lite; emissives clipped so they do not ring)` : 'sceneAA(uv)'}; if (uDofOn > .5) { vec4 d = texture2D(tDof, uv); c = mix(c, d.rgb, smoothstep(.04, .3, d.a)); }
   float dz = texture2D(tDepth, uv).x; vec4 v = uInvProj * vec4(uv * 2. - 1., dz * 2. - 1., 1.); v /= v.w; vec3 w = (uCamWorld * v).xyz, ray = w - uCamPos; float L = length(ray); vec3 dir = ray / max(L, 1e-4);
   if (uSubZ > 0.) c *= mix(1., uBgDim, smoothstep(uSubZ + ${BG.near.toFixed(2)}, uSubZ + ${BG.far.toFixed(2)}, dz >= .99999 ? 1e4 : dot(ray, normalize((uCamWorld * vec4(0., 0., -1., 0.)).xyz))));   // background falloff behind the subject (view depth)
-  if (dz >= .99999${clear ? ` || L > ${(skyDist ?? CLEAR.skyDist).toFixed(1)}` : ''}) { float hz = uHaze * exp(-abs(dir.y) * uHazeK);${moon ? ` c = mix(vec3(${MOON.horizon.join(', ')}), vec3(${MOON.zenith.join(', ')}), smoothstep(${MOON.from.toFixed(3)}, ${MOON.to.toFixed(3)}, dir.y)); return c;` : ''}${dusk ? ` c = mix(mix(vec3(${DUSK.horizon.join(', ')}), vec3(${DUSK.band.join(', ')}), smoothstep(${DUSK.b0.toFixed(3)}, ${DUSK.b1.toFixed(3)}, dir.y)), vec3(${DUSK.zenith.join(', ')}), smoothstep(${DUSK.b1.toFixed(3)}, ${DUSK.top.toFixed(3)}, dir.y)); return c;` : ''}${clear ? ` { float sl = dot(c, vec3(.2126, .7152, .0722)), up = smoothstep(${CLEAR.skyFrom.toFixed(3)}, ${CLEAR.skyTo.toFixed(3)}, dir.y); c = mix(c, sl * vec3(${CLEAR.sky.map(v => v.toFixed(3)).join(', ')}) / ${(.2126 * CLEAR.sky[0] + .7152 * CLEAR.sky[1] + .0722 * CLEAR.sky[2]).toFixed(4)}, up * ${CLEAR.skyK.toFixed(3)}); }` : ''} return mix(c, uFogColor, hz); }   // 2B clear: the zenith toward a clean blue at the same brightness (the horizon keeps its warmth)
+  if (dz >= .99999${clear ? ` || L > ${(skyDist ?? CLEAR.skyDist).toFixed(1)}` : ''}) { float hz = uHaze * exp(-abs(dir.y) * uHazeK);${rb ? (G => ` c = mix(vec3(${G.horizon.join(', ')}), vec3(${G.zenith.join(', ')}), smoothstep(${G.from.toFixed(3)}, ${G.to.toFixed(3)}, dir.y)); return c;`)(moon ? ROBLOX.night : ROBLOX.sky) : ''}${moon ? ` c = mix(vec3(${MOON.horizon.join(', ')}), vec3(${MOON.zenith.join(', ')}), smoothstep(${MOON.from.toFixed(3)}, ${MOON.to.toFixed(3)}, dir.y)); return c;` : ''}${dusk ? ` c = mix(mix(vec3(${DUSK.horizon.join(', ')}), vec3(${DUSK.band.join(', ')}), smoothstep(${DUSK.b0.toFixed(3)}, ${DUSK.b1.toFixed(3)}, dir.y)), vec3(${DUSK.zenith.join(', ')}), smoothstep(${DUSK.b1.toFixed(3)}, ${DUSK.top.toFixed(3)}, dir.y)); return c;` : ''}${clear ? ` { float sl = dot(c, vec3(.2126, .7152, .0722)), up = smoothstep(${CLEAR.skyFrom.toFixed(3)}, ${CLEAR.skyTo.toFixed(3)}, dir.y); c = mix(c, sl * vec3(${CLEAR.sky.map(v => v.toFixed(3)).join(', ')}) / ${(.2126 * CLEAR.sky[0] + .7152 * CLEAR.sky[1] + .0722 * CLEAR.sky[2]).toFixed(4)}, up * ${CLEAR.skyK.toFixed(3)}); }` : ''} return mix(c, uFogColor, hz); }   // 2B clear: the zenith toward a clean blue at the same brightness (the horizon keeps its warmth)
   float Lf = max(L - uFogStart, 0.), hy = w.y - uCamPos.y, e0 = exp(-uFogK * (uCamPos.y - uFogY0)), od = abs(hy) < 1e-3 ? uFogD * Lf * e0 : uFogD * Lf * e0 * (1. - exp(-uFogK * hy)) / (uFogK * hy);
   return mix(c, uFogColor, 1. - exp(-max(od, 0.))); }
 uint hash(uvec3 v){ v = v * 1664525u + 1013904223u; v.x += v.y * v.z; v.y += v.z * v.x; v.z += v.x * v.y; v ^= v >> 16u; v.x += v.y * v.z; v.y += v.z * v.x; v.z += v.x * v.y; return v.x ^ v.y ^ v.z; }
@@ -94,14 +105,14 @@ vec3 enc(vec3 c){ return mix(c * 12.92, 1.055 * pow(c, vec3(1. / 2.4)) - .055, s
 void main(){ vec2 d = vUv - .5; float r2 = dot(d * vec2(uOut.x / uOut.y, 1.), d * vec2(uOut.x / uOut.y, 1.)) / (.25 * uOut.x / uOut.y * uOut.x / uOut.y + .25);   // 0 centre → 1 corner
   vec3 c; float fr = uFringe * smoothstep(.35, 1., r2);
   if (${clear ? 'false' : 'fr > .02'}) { vec2 o = normalize(d) * fr / uOut.x; c = vec3(comp(vUv + o).r, comp(vUv).g, comp(vUv - o).b); } else c = comp(vUv);
-${clear ? `  { float lL = dot(c, vec3(.2126, .7152, .0722)); c = max(vec3(0.), mix(vec3(lL), c, ${CLEAR.preSat.toFixed(3)})); }   // 2B clear: restore the chroma AgX takes out (linear, before the curve)
+${clear ? `  { float lL = dot(c, vec3(.2126, .7152, .0722)); c = max(vec3(0.), mix(vec3(lL), c, ${(rb ? ROBLOX.preSat : CLEAR.preSat).toFixed(3)})); }   // 2B clear: restore the chroma AgX takes out (linear, before the curve)
 ` : ''}  c = AgXToneMapping(c);
   c = clamp(uGain * (c + uLift * (1. - c)), 0., 1.); c = pow(c, 1. / uGamma);
   c *= 1. - uVig * smoothstep(.2, 1., r2);
   c = enc(clamp(c, 0., 1.));
   { float L0 = max(dot(c, vec3(.2126, .7152, .0722)), 1e-4), p = ${CV.pivot.toFixed(3)}, k = ${CV.k.toFixed(3)}, b = ${CV.black.toFixed(3)}, ib = ${CV.inBlack.toFixed(3)};   // S-curve on luma (hue kept): input black ib → output black point b
     float Li = max(L0 - ib, 0.) / (1. - ib), L1 = Li < p ? p * pow(Li / p, k) : 1. - (1. - p) * pow((1. - Li) / (1. - p), k); L1 = b + (1. - b) * L1;
-    c = c * (L1 / L0);${moon ? ` c += vec3(${MOON.lift.join(', ')}) * (1. - smoothstep(0., .25, L1));` : ''} float ws = 1. - smoothstep(0., .45, L1), wh = smoothstep(.35, .9, L1);
+    c = c * (L1 / L0);${rb && moon ? ` c += vec3(${ROBLOX.night.lift.join(', ')}) * (1. - smoothstep(0., ${ROBLOX.night.liftTo.toFixed(3)}, L1));` : ''}${moon ? ` c += vec3(${MOON.lift.join(', ')}) * (1. - smoothstep(0., .25, L1));` : ''} float ws = 1. - smoothstep(0., .45, L1), wh = smoothstep(.35, .9, L1);
     c += ws * vec3(${CV.shadow.map(v => v.toFixed(3)).join(', ')}) + wh * vec3(${CV.high.map(v => v.toFixed(3)).join(', ')});   // night colour script: teal shadows, warm pools
     float Lc = dot(c, vec3(.2126, .7152, .0722)); c = mix(vec3(Lc), c, 1. + ${CV.sat.toFixed(3)} * ${clear ? 'clamp(25. * Lc * (1. - Lc), 0., 1.)' : '4. * Lc * (1. - Lc)'}); c = clamp(c, 0., 1.); }
   uvec2 p = uvec2(gl_FragCoord.xy); float n = float(hash(uvec3(p, uSeed)) & 65535u) / 65535. + float(hash(uvec3(p + 7u, uSeed ^ 0x9e37u)) & 65535u) / 65535. - 1.;
@@ -109,9 +120,9 @@ ${clear ? `  { float lL = dot(c, vec3(.2126, .7152, .0722)); c = max(vec3(0.), m
   gl_FragColor = vec4(clamp(c, 0., 1.), 1.); }`;
 
 export function createCineLook({renderer, scene, spec, aa = false}) {
-  const clear = isClear(spec), moon = isMoon(spec), dusk = isDusk(spec), CV = curveOf(clear, moon), FG0 = clear ? {...FOG, start: CLEAR.fogStart, haze: CLEAR.haze} : FOG;   // tuft 2B: grade 'clear'
+  const clear = isClear(spec), rb = isRoblox(spec), moon = isMoon(spec), dusk = isDusk(spec), CV = curveOf(clear, moon, rb), FG0 = rb ? {...FOG, start: ROBLOX.fogStart, haze: ROBLOX.haze} : clear ? {...FOG, start: CLEAR.fogStart, haze: CLEAR.haze} : FOG;   // 4C roblox   // tuft 2B: grade 'clear'
   const quad = (mat) => { const m = new T.Mesh(new T.PlaneGeometry(2, 2), mat); m.frustumCulled = false; const sc = new T.Scene(); sc.add(m); return sc; }, oc = new T.OrthographicCamera(-1, 1, 1, -1, 0, 1);
-  let W = 0, H = 0, rt = null, dofRT = null; const bloom = new UnrealBloomPass(new T.Vector2(256, 256), BLOOM.strength, BLOOM.radius, BLOOM.threshold);
+  let W = 0, H = 0, rt = null, dofRT = null; const BL = rb ? ROBLOX.bloom : BLOOM, bloom = new UnrealBloomPass(new T.Vector2(256, 256), BL.strength, BL.radius, BL.threshold);
   // bright pass with an edge fade (outer BLOOM.edge of the frame): a glow source crossing the frame edge ramps in instead of popping
   // (the mip blur clamps to the edge, so one bright edge row would smear along it); same threshold as three's pass
   // + Karis average: 4 bilinear taps (a 4×4 source footprint) weighted 1 / (1 + luma), so a sub-pixel HDR dot (a far window) cannot flicker the bloom
@@ -120,12 +131,16 @@ export function createCineLook({renderer, scene, spec, aa = false}) {
     .replace('uniform float smoothWidth;', 'uniform float smoothWidth; uniform vec2 uTexel;')
     .replace('vec4 texel = texture2D( tDiffuse, vUv );', 'vec4 texel = vec4(0.); float ws = 0.; for (int k = 0; k < 4; k++) { vec2 o = vec2(k == 0 || k == 2 ? -1. : 1., k < 2 ? -1. : 1.) * uTexel; vec4 c = texture2D( tDiffuse, vUv + o ); float w = 1. / (1. + luminance(c.rgb)); texel += c * w; ws += w; } texel /= ws;')
     .replace('gl_FragColor = mix( outputColor, texel, alpha );', 'vec2 eg = smoothstep(vec2(0.), vec2(' + BLOOM.edge.toFixed(3) + '), min(vUv, 1. - vUv)); gl_FragColor = mix( outputColor, texel, alpha * eg.x * eg.y );');
+  if (rb) { bloom.compositeMaterial.uniforms.bloomFactors.value = ROBLOX.bloom.factors;   // 4C roblox: tight (no wide mips = no veil); the sky never blooms
+    bloom.highPassUniforms.tDepthB = {value: null}; bloom.highPassUniforms.uNearB = {value: .3}; bloom.highPassUniforms.uFarB = {value: 900};
+    bloom.materialHighPassFilter.fragmentShader = bloom.materialHighPassFilter.fragmentShader.replace('float v = luminance( texel.xyz );', 'float v = max(texel.r, max(texel.g, texel.b));').replace('uniform vec2 uTexel;', 'uniform vec2 uTexel; uniform sampler2D tDepthB; uniform float uNearB; uniform float uFarB;')
+      .replace('gl_FragColor = mix( outputColor, texel, alpha * eg.x * eg.y );', '{ float dB = texture2D(tDepthB, vUv).x * 2. - 1., zB = 2. * uNearB * uFarB / (uFarB + uNearB - dB * (uFarB - uNearB)); if (zB > ' + ROBLOX.bloom.skyZ.toFixed(1) + ') alpha = 0.; } gl_FragColor = mix( outputColor, texel, alpha * eg.x * eg.y );'); }
   bloom.materialHighPassFilter.needsUpdate = true;
   const dofM = new T.ShaderMaterial({uniforms: {tColor: {value: null}, tDepth: {value: null}, uFocus: {value: 10}, uK: {value: 0}, uMax: {value: DOF.maxCoC}, uAspect: {value: 9 / 16}, uNear: {value: .3}, uFar: {value: 900}}, vertexShader: VS, fragmentShader: DOF_FS, depthTest: false, depthWrite: false});
   const U = {tColor: {value: null}, tDepth: {value: null}, tDof: {value: null}, uOut: {value: new T.Vector2()}, uDofOn: {value: 0}, uFogStart: {value: FG0.start}, uSubZ: {value: 0}, uBgDim: {value: BG.dim}, uEdgeAA: {value: aa ? 1 : 0}, uNear: {value: .3}, uFar: {value: 900},
     uInvProj: {value: new T.Matrix4()}, uCamWorld: {value: new T.Matrix4()}, uCamPos: {value: new T.Vector3()}, uFogColor: {value: new T.Color()}, uFogD: {value: FOG.density}, uFogK: {value: FOG.falloff}, uFogY0: {value: 0},
-    uHaze: {value: FG0.haze}, uHazeK: {value: FOG.hazeK}, uExposure: {value: 1}, uLift: {value: new T.Vector3()}, uGamma: {value: new T.Vector3(1, 1, 1)}, uGain: {value: new T.Vector3(1, 1, 1)}, uVig: {value: 0}, uGrain: {value: clear ? CLEAR.grain : GRAIN.amp}, uFringe: {value: 1}, uSeed: {value: 1}};
-  const finalM = new T.ShaderMaterial({uniforms: U, vertexShader: VS, fragmentShader: FINAL_FS(CV, clear, moon, spec.skyDist ?? null, isDusk(spec)), depthTest: false, depthWrite: false, toneMapped: false, glslVersion: null});
+    uHaze: {value: FG0.haze}, uHazeK: {value: FOG.hazeK}, uExposure: {value: 1}, uLift: {value: new T.Vector3()}, uGamma: {value: new T.Vector3(1, 1, 1)}, uGain: {value: new T.Vector3(1, 1, 1)}, uVig: {value: 0}, uGrain: {value: rb ? 0 : clear ? CLEAR.grain : GRAIN.amp}, uFringe: {value: 1}, uSeed: {value: 1}};
+  const finalM = new T.ShaderMaterial({uniforms: U, vertexShader: VS, fragmentShader: FINAL_FS(CV, clear, moon, spec.skyDist ?? null, isDusk(spec), rb), depthTest: false, depthWrite: false, toneMapped: false, glslVersion: null});
   const dofScene = quad(dofM), finalScene = quad(finalM);
   // glow surfaces → HDR (> 1): windows, bright unlit live parts (lamps), spec.glowCubes; the rest of the set and the cast stay as they are
   const glowMats = new Set();
@@ -136,7 +151,7 @@ export function createCineLook({renderer, scene, spec, aa = false}) {
   const blobs = new Map();
   function blobsFor(items, groundY) {
     for (const it of items) { let b = blobs.get(it.key); if (!b) { b = contactBlob(1, .55); b.material.depthTest = true; scene.add(b); blobs.set(it.key, b); }
-      const h = Math.max(0, it.y - groundY(it.x, it.z)); b.visible = it.visible && h < 3; b.position.set(it.x, groundY(it.x, it.z) + .03, it.z); b.scale.setScalar(it.r); b.material.opacity = .55 * Math.max(0, 1 - h / 3); } }
+      const h = Math.max(0, it.y - groundY(it.x, it.z)); b.visible = it.visible && h < 3; b.position.set(it.x, groundY(it.x, it.z) + .03, it.z); b.scale.setScalar(it.r * (rb ? ROBLOX.blob.r : 1)); b.material.opacity = (rb ? ROBLOX.blob.opacity : .55) * Math.max(0, 1 - h / 3); } }   // 4C roblox: shorter, crisper contact
   // foreground element (shot.fg), world-fixed at the shot's first camera
   let gTex = null; const glowTex = () => { if (gTex) return gTex; const n = 128, b = new Uint8Array(n * n * 4);
     for (let y = 0; y < n; y++) for (let x = 0; x < n; x++) { const r = Math.hypot(x + .5 - n / 2, y + .5 - n / 2) / (n / 2), a = Math.exp(-r * r / (2 * FGGLOW.sigma * FGGLOW.sigma)) * (r < 1 ? 1 : 0), i = (y * n + x) * 4; b[i] = b[i + 1] = b[i + 2] = 255; b[i + 3] = Math.round(a * 255); }
@@ -173,36 +188,37 @@ export function createCineLook({renderer, scene, spec, aa = false}) {
   float frC = pow(1. - clamp(dot(nC, vC), 0., 1.), uCRimPow), rlC = smoothstep(-.15, .55, dot(nC, rdC)), kwC = clamp(dot(nC, kdC) * .5 + .5, 0., 1.); kwC *= kwC;
   outgoingLight *= uCLift * ((1. - .35 * uCKeyI) + 1.3 * uCKeyI * kwC * uCKeyCol);   // actor lift over the darker set + soft warm key (wrap), the far side a touch darker
   outgoingLight += uCRimCol * uCRimI * frC * rlC;
-  { vec3 fdC = normalize((viewMatrix * vec4(uCFillDir, 0.)).xyz); float fwC = clamp(dot(nC, fdC) * .5 + .5, 0., 1.); outgoingLight += uCLift * diffuseColor.rgb * (1.3 * ${ACTOR_LIGHT.fill.toFixed(3)} * uCKeyI) * fwC * fwC * uCKeyCol; } }   // tuft 2A: soft fill opposite the key   // cool moon rim from behind-above
+${rb ? `  { vec3 hC = normalize(kdC + vC); outgoingLight += vec3(${ROBLOX.actor.spec.toFixed(3)}) * pow(max(dot(nC, hC), 0.), ${ROBLOX.actor.shine.toFixed(1)}) * clamp(dot(nC, kdC) * 4., 0., 1.); }   // 4C roblox: smooth plastic sheen (Blinn highlight from the key)
+` : ''}  { vec3 fdC = normalize((viewMatrix * vec4(uCFillDir, 0.)).xyz); float fwC = clamp(dot(nC, fdC) * .5 + .5, 0., 1.); outgoingLight += uCLift * diffuseColor.rgb * (1.3 * ${ACTOR_LIGHT.fill.toFixed(3)} * uCKeyI) * fwC * fwC * uCKeyCol; } }   // tuft 2A: soft fill opposite the key   // cool moon rim from behind-above
 #include <opaque_fragment>`); };
-      m.customProgramCacheKey = () => (key0 ? key0() : '') + '|cineActor'; m.needsUpdate = true; } });
+      m.customProgramCacheKey = () => (key0 ? key0() : '') + (rb ? '|cineActorRb' : '|cineActor'); m.needsUpdate = true; } });
     return litMats.size; }
   // per frame: subject S, camera C, the nearest warm practical (world light) → rim + key directions (world space)
   function aimActorLight(S, C, face, lights = []) {
     const cd = new T.Vector3(C[0] - S[0], 0, C[2] - S[2]); if (cd.lengthSq() < 1e-6) cd.set(0, 0, 1); cd.normalize();
     const f = new T.Vector3(face?.[0] ?? 0, 0, face?.[1] ?? 1).normalize(), cp = cd.clone().addScaledVector(f, -cd.dot(f)); if (cp.lengthSq() < .01) cp.set(-cd.z, 0, cd.x); cp.normalize();
-    AL.uCRimDir.value.copy(cd).multiplyScalar(-1).addScaledVector(cp, -ACTOR_LIGHT.rim.side).add(new T.Vector3(0, ACTOR_LIGHT.rim.up, 0)).normalize(); AL.uCRimI.value = ACTOR_LIGHT.rim.i; AL.uCLift.value = 2 ** ACTOR_LIGHT.lift;
+    AL.uCRimDir.value.copy(cd).multiplyScalar(-1).addScaledVector(cp, -ACTOR_LIGHT.rim.side).add(new T.Vector3(0, ACTOR_LIGHT.rim.up, 0)).normalize(); AL.uCRimI.value = rb ? ROBLOX.actor.rim : ACTOR_LIGHT.rim.i; AL.uCLift.value = 2 ** (rb ? ROBLOX.actor.lift : ACTOR_LIGHT.lift);
     let best = null, bd = Infinity; for (const l of lights) { const d = Math.hypot(l.p[0] - S[0], l.p[2] - S[2]); if (d < bd) { bd = d; best = l; } }
-    if (best && bd <= ACTOR_LIGHT.key.range) { AL.uCKeyDir.value.set(best.p[0] - S[0], Math.max(.5, best.p[1] - S[1] - 3), best.p[2] - S[2]).normalize(); AL.uCKeyI.value = ACTOR_LIGHT.key.i; }
-    else { AL.uCKeyDir.value.copy(cd).addScaledVector(cp, .8).add(new T.Vector3(0, .7, 0)).normalize(); AL.uCKeyI.value = ACTOR_LIGHT.key.i * ACTOR_LIGHT.key.far; }
+    if (best && bd <= ACTOR_LIGHT.key.range) { AL.uCKeyDir.value.set(best.p[0] - S[0], Math.max(.5, best.p[1] - S[1] - 3), best.p[2] - S[2]).normalize(); AL.uCKeyI.value = rb ? ROBLOX.actor.key : ACTOR_LIGHT.key.i; }
+    else { AL.uCKeyDir.value.copy(cd).addScaledVector(cp, .8).add(new T.Vector3(0, .7, 0)).normalize(); AL.uCKeyI.value = rb ? ROBLOX.actor.key * ROBLOX.actor.far : ACTOR_LIGHT.key.i * ACTOR_LIGHT.key.far; }   // 4C roblox: a clean full key from the camera side
     { const k = AL.uCKeyDir.value; AL.uCFillDir.value.set(-k.x, .3, -k.z).normalize(); }
     return {rim: AL.uCRimDir.value.toArray(), key: AL.uCKeyDir.value.toArray(), keyI: AL.uCKeyI.value, lantern: best && bd <= ACTOR_LIGHT.key.range ? best.p : null}; }
-  const setActorLight = on => { AL.uCRimI.value = on ? ACTOR_LIGHT.rim.i : 0; AL.uCLift.value = on ? 2 ** ACTOR_LIGHT.lift : 1; if (!on) AL.uCKeyI.value = 0; };
+  const setActorLight = on => { AL.uCRimI.value = on ? (rb ? ROBLOX.actor.rim : ACTOR_LIGHT.rim.i) : 0; AL.uCLift.value = on ? 2 ** (rb ? ROBLOX.actor.lift : ACTOR_LIGHT.lift) : 1; if (!on) AL.uCKeyI.value = 0; };
   const state = {};
   // one frame: the scene (camera already posed) → canvas at w×h
   function render(camera, {w, h, shot, frame, focus = null, subjectZ = null, fogColor = null, fogY0 = 0, bloomOn = true, grainOn = true, bgOn = true}) {
-    size(w, h); const ex = renderer.toneMappingExposure, mood = shot?.mood, gr = gradeOf(mood, clear), lens = shotLens(shot ?? {});
+    size(w, h); const ex = renderer.toneMappingExposure, mood = shot?.mood, gr0 = gradeOf(mood, clear), gr = rb ? {...gr0, vig: Math.min(gr0.vig, ROBLOX.vigMax), gamma: [1, 1, 1], gain: [1, 1, 1]} : gr0, lens = shotLens(shot ?? {});
     renderer.setRenderTarget(rt); renderer.clear(); renderer.render(scene, camera);
-    if (bloomOn) bloom.render(renderer, null, rt, 0, false);
-    const dOn = !!shot && dofOn(shot) && focus !== null && cocScale(lens, focus) > 0; U.uDofOn.value = dOn ? 1 : 0;
-    if (dOn) { dofM.uniforms.tColor.value = rt.texture; dofM.uniforms.tDepth.value = rt.depthTexture; dofM.uniforms.uFocus.value = focus; dofM.uniforms.uK.value = Math.min(cocScale(lens, focus), 1);
+    if (bloomOn) { if (rb) { bloom.highPassUniforms.tDepthB.value = rt.depthTexture; bloom.highPassUniforms.uNearB.value = camera.near; bloom.highPassUniforms.uFarB.value = camera.far; } bloom.render(renderer, null, rt, 0, false); }
+    const dOn = !!shot && dofOn(shot, rb) && focus !== null && cocScale(lens, focus, rb) > 0; U.uDofOn.value = dOn ? 1 : 0;
+    if (dOn) { dofM.uniforms.tColor.value = rt.texture; dofM.uniforms.tDepth.value = rt.depthTexture; dofM.uniforms.uFocus.value = focus; dofM.uniforms.uK.value = Math.min(cocScale(lens, focus, rb), 1);
       dofM.uniforms.uAspect.value = w / h; dofM.uniforms.uNear.value = camera.near; dofM.uniforms.uFar.value = camera.far; renderer.setRenderTarget(dofRT); renderer.render(dofScene, oc); }
     U.tColor.value = rt.texture; U.tDepth.value = rt.depthTexture; U.tDof.value = dofRT.texture; U.uOut.value.set(w, h); U.uNear.value = camera.near; U.uFar.value = camera.far;
     camera.updateMatrixWorld(); U.uInvProj.value.copy(camera.projectionMatrixInverse); U.uCamWorld.value.copy(camera.matrixWorld); U.uCamPos.value.copy(camera.position);
-    U.uFogColor.value.copy(fogColor ?? scene.fog?.color ?? new T.Color('#141b2a')); if (moon) U.uFogColor.value.setRGB(...MOON.horizon.map(v => v * MOON.fogK)); else if (dusk) U.uFogColor.value.setRGB(...DUSK.horizon.map(v => v * .45)); else if (clear) U.uFogColor.value.lerp(new T.Color().setRGB(...CLEAR.sky), CLEAR.fogTint); U.uFogY0.value = fogY0; U.uSubZ.value = bgOn && subjectZ && bgDimOf(shot) < 1 ? subjectZ : 0; U.uBgDim.value = bgDimOf(shot); U.uExposure.value = ex * 2 ** CV.exposure;   // 2B clear: the far skyline haze toward clean sky (no sepia)
-    U.uLift.value.set(...gr.lift); U.uGamma.value.set(...gr.gamma); U.uGain.value.set(...gr.gain); U.uVig.value = gr.vig; U.uGrain.value = grainOn ? (clear ? CLEAR.grain : GRAIN.amp) : 0; U.uFringe.value = clear ? 0 : w / 1440; U.uSeed.value = (frame * 2654435761 + 12345) >>> 0;
+    U.uFogColor.value.copy(fogColor ?? scene.fog?.color ?? new T.Color('#141b2a')); if (rb) U.uFogColor.value.lerp(new T.Color().setRGB(...(moon ? ROBLOX.night.horizon : ROBLOX.sky.horizon)), ROBLOX.fogTint); else if (moon) U.uFogColor.value.setRGB(...MOON.horizon.map(v => v * MOON.fogK)); else if (dusk) U.uFogColor.value.setRGB(...DUSK.horizon.map(v => v * .45)); else if (clear) U.uFogColor.value.lerp(new T.Color().setRGB(...CLEAR.sky), CLEAR.fogTint); U.uFogY0.value = fogY0; U.uSubZ.value = !rb && bgOn && subjectZ && bgDimOf(shot) < 1 ? subjectZ : 0; U.uBgDim.value = bgDimOf(shot); U.uExposure.value = ex * 2 ** CV.exposure;   // 2B clear: the far skyline haze toward clean sky (no sepia)
+    U.uLift.value.set(...gr.lift); U.uGamma.value.set(...gr.gamma); U.uGain.value.set(...gr.gain); U.uVig.value = gr.vig; U.uGrain.value = grainOn && !rb ? (clear ? CLEAR.grain : GRAIN.amp) : 0; U.uFringe.value = clear ? 0 : w / 1440; U.uSeed.value = (frame * 2654435761 + 12345) >>> 0;
     renderer.setRenderTarget(null); renderer.render(finalScene, oc);
-    Object.assign(state, {frame, focus, lens, dof: dOn, coc: dOn ? cocScale(lens, focus) : 0, exposure: ex, mood: mood ?? null, aa, fg: fgShot && shot?.fg ? fgShot : null});
+    Object.assign(state, {frame, focus, lens, dof: dOn, coc: dOn ? cocScale(lens, focus, rb) : 0, grade: rb ? 'roblox' : clear ? 'clear' : 'cine', exposure: ex, mood: mood ?? null, aa, fg: fgShot && shot?.fg ? fgShot : null});
   }
-  return {render, markGlow, blobsFor, fg, state, setGlow, glowCount: () => glowMats.size, project, moodEV, lightActors, aimActorLight, setActorLight, FOG: FG0, clear, clearFog: c => { if (clear && c) c.lerp(new T.Color().setRGB(...CLEAR.sky), CLEAR.fogTint); }};
+  return {render, markGlow, blobsFor, fg, state, setGlow, glowCount: () => glowMats.size, project, moodEV, lightActors, aimActorLight, setActorLight, FOG: FG0, clear, roblox: rb, clearFog: c => { if (rb && c) c.lerp(new T.Color().setRGB(...(moon ? ROBLOX.night.horizon : ROBLOX.sky.horizon)), ROBLOX.fogTint); else if (clear && c) c.lerp(new T.Color().setRGB(...CLEAR.sky), CLEAR.fogTint); }};
 }

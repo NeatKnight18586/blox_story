@@ -13,6 +13,7 @@ import {labelIssues} from '../../engine/nolabels.js';
 import {layoutShots} from '../../engine/timeline.js';
 import {checkMoods} from '../../engine/plancheck6.js';
 import {spawnSync} from 'node:child_process';
+import {segmentPlan} from './segments.js';
 
 const argv = process.argv.slice(2), arg = (k, d) => { const i = argv.indexOf(`--${k}`); return i >= 0 ? argv[i + 1] : d; };
 const story = arg('story'), specPath = arg('spec') ?? `stories/${story}/episode.json`, cuesPath = arg('cues') ?? `stories/${story}/cues.json`;
@@ -21,30 +22,35 @@ const spec = JSON.parse(readFileSync(specPath, 'utf8')), cues = JSON.parse(readF
 const shots = layoutShots(spec);
 
 const server = await startServer(), browser = await launch();
-let info, meas = [], insertH = {}, actingPlans = [];
+let info = new Array(shots.length), meas = [], insertH = {}, actingPlans = [];
+const {segments} = segmentPlan(specPath);   // tuft 4C: spec.locations → one page per location (as render / read); measurements merged back by shot index
 try {
+  for (const [si, seg] of segments.entries()) {
   const page = await browser.newPage({viewport: {width: 360, height: 640}});
+  const idx = shots.map((s, i) => i).filter(i => !seg.shotIds || seg.shotIds.has(shots[i].id)), sub = idx.map(i => shots[i]);
   const errors = []; page.on('pageerror', e => errors.push(e.message));
-  await page.goto(`${server.url}/engine/episode.html?spec=${encodeURIComponent(specPath)}&aa=0`);
+  await page.goto(`${server.url}/engine/episode.html?spec=${encodeURIComponent(seg.specPath)}&aa=0`);
   await page.waitForFunction(() => window.__episode || document.title === 'error', null, {timeout: 180000});
   if (errors.length) throw Error(errors.join('; '));
-  info = await page.evaluate(list => list.map((s, i) => {
+  const part = await page.evaluate(list => list.map(s => { const i = s.i;
     const E = window.__episode, at = f => E.inspectFrame(Math.min(s.start + s.frames - 1, Math.max(s.start, f)));
     const cards = [];   // A3: class cards sampled every 3rd frame
     for (let f = s.start; f < s.start + s.frames; f += 3) { const r = E.inspectFrame(f); if (r.cards.length) cards.push({frame: f, cards: r.cards}); }
     return {speed: E.shotSpeed(i), first: at(s.start), early: at(s.start + 6), mid: at(s.start + Math.floor(s.frames / 2)), last: at(s.start + s.frames - 1), cards};
-  }), shots.map(({start, frames}) => ({start, frames})));
+  }), idx.map(i => ({start: shots[i].start, frames: shots[i].frames, i}))); idx.forEach((i, k) => { info[i] = part[k]; });
   // A4 §E season gates + A5 framing/uiSize: season episodes and v3 worlds (rendered at 360×640, first/middle/last frame)
   const probe = await page.evaluate(() => window.__episode.seasonMeasure(0));
-  if (spec.season || probe.v3) meas = await page.evaluate(list => list.map(s => [s.start, s.start + Math.floor(s.frames / 2), s.start + s.frames - 1].map(f => window.__episode.seasonMeasure(f, s.objects))),
-    shots.map(({start, frames, clueObject}) => ({start, frames, objects: [...(clueObject ? [clueObject] : []), ...(spec.season ? ['clockFace', 'clockFace1', 'clockFace2', 'clockFace3', 'scoreboard'] : [])]})));
+  if (spec.season || probe.v3) { const pm = await page.evaluate(list => list.map(s => [s.start, s.start + Math.floor(s.frames / 2), s.start + s.frames - 1].map(f => window.__episode.seasonMeasure(f, s.objects))),
+    sub.map(({start, frames, clueObject}) => ({start, frames, objects: [...(clueObject ? [clueObject] : []), ...(spec.season ? ['clockFace', 'clockFace1', 'clockFace2', 'clockFace3', 'scoreboard'] : [])]}))); idx.forEach((i, k) => { meas[i] = pm[k]; }); }
   // format v5: story-prop inserts measured on the real frame (middle frame, the prop's projected box height)
-  if (spec.format === 5 || spec.format === 6) insertH = Object.fromEntries(await page.evaluate(list => list.map(s => { const r = window.__episode.readMeasure(s.mid, {subject: null, prop: s.prop}); const b = r.box;
-    return [s.id, !(b && b.front) ? {h: 0, margin: 0} : s.p3 ? {h: b.y1 - b.y0, margin: Math.min(b.x0, b.y0, 1 - b.x1, 1 - b.y1)} : Math.min(b.y1, 1) - Math.max(b.y0, 0)]; }), shots.filter(s => s.size === 'insert' && s.prop).map(s => ({id: s.id, prop: s.prop, p3: spec.framing === 'p3', mid: s.start + Math.floor(s.frames / 2)}))));
+  if (spec.format === 5 || spec.format === 6) Object.assign(insertH, Object.fromEntries(await page.evaluate(list => list.map(s => { const r = window.__episode.readMeasure(s.mid, {subject: null, prop: s.prop}); const b = r.box;
+    return [s.id, !(b && b.front) ? {h: 0, margin: 0} : s.p3 ? {h: b.y1 - b.y0, margin: Math.min(b.x0, b.y0, 1 - b.x1, 1 - b.y1)} : Math.min(b.y1, 1) - Math.max(b.y0, 0)]; }), sub.filter(s => s.size === 'insert' && s.prop).map(s => ({id: s.id, prop: s.prop, p3: spec.framing === 'p3', mid: s.start + Math.floor(s.frames / 2)})))));
   if ((spec.format === 5 || spec.format === 6) && spec.framing === 'p3') { const fh = await page.evaluate(list => list.map(s => { const r = window.__episode.readMeasure(s.mid, {subject: s.subject}); return [s.id, r.head?.box?.allFront ? r.head.box.h : 0]; }),
-    shots.filter(s => s.subject && ['medium', 'close'].includes(s.size) && !s.back && s.move !== 'splitScreen').map(s => ({id: s.id, subject: s.subject, mid: s.start + Math.floor(s.frames / 2)})));
+    sub.filter(s => s.subject && ['medium', 'close'].includes(s.size) && !s.back && s.move !== 'splitScreen').map(s => ({id: s.id, subject: s.subject, mid: s.start + Math.floor(s.frames / 2)})));
     for (const [id, h] of fh) shots.find(s => s.id === id).faceH = +h.toFixed(3); }   // Toy House final fix (owner P3): people medium/close, face 12–35 %
-  if (spec.acting === 6) actingPlans = await page.evaluate(() => window.__episode.actingPlan());   // P3b: partner meeting marks (engine/acting6.js partnerPlan)
+  if (spec.acting === 6 && si === 0) actingPlans = await page.evaluate(() => window.__episode.actingPlan());   // the partner plan is spec-wide: once
+  await page.close();
+  }   // P3b: partner meeting marks (engine/acting6.js partnerPlan)
 } finally { await browser.close(); await server.close(); }
 
 const hero = spec.hero ?? Object.entries(spec.cast ?? {}).find(([, c]) => c.troupe === 'HERO')?.[0];   // FORMAT_V6 rule 5

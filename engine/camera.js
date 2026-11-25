@@ -230,12 +230,13 @@ export const hfov = (fovDeg, aspect = ASPECT) => 2 * Math.atan(Math.tan(fovDeg *
 // of the frame per second (pan vs width, tilt vs height) (plan.js gate: ≤ 35 % outside a whip). A camera that travels with
 // the subject it follows does not pan, so tracking a walker reads as still; a swing across the
 // scene does.
-export function maxTargetSpeed(shot, actorsAt = () => ({}), fps = FPS) {
+export function maxTargetSpeed(shot, actorsAt = () => ({}), fps = FPS, sampler = null) {   // tuft 4C: sampler(t) → {position, target, fov} (the cine camera) instead of sampleCamera
   const n = Math.max(1, Math.round((shot.duration ?? 1) * fps));
   const dir = c => { const d = sub(c.target, c.position), l = len(d); return scale(d, 1 / l); };
-  let peak = 0, prev = sampleCamera(shot, 0, actorsAt(0));
+  const cam = t => sampler ? sampler(t) : sampleCamera(shot, t, actorsAt(t));
+  let peak = 0, prev = cam(0);
   for (let i = 1; i <= n; i++) {
-    const t = i / fps, c = sampleCamera(shot, t, actorsAt(t)), a = dir(prev), b = dir(c);
+    const t = i / fps, c = cam(t), a = dir(prev), b = dir(c);
     // Pans are measured against the frame width, tilts against the frame height (9:16 is tall).
     let yaw = Math.atan2(b[0], b[2]) - Math.atan2(a[0], a[2]); yaw = Math.atan2(Math.sin(yaw), Math.cos(yaw));
     const pitch = Math.asin(Math.max(-1, Math.min(1, b[1]))) - Math.asin(Math.max(-1, Math.min(1, a[1])));

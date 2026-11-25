@@ -1,0 +1,238 @@
+{
+ "spec": "stories/tuft/episode.json",
+ "frames": [
+  17,
+  117,
+  377,
+  984,
+  1469,
+  2918
+ ],
+ "size": [
+  540,
+  960
+ ],
+ "gates": [
+  {
+   "name": "grain",
+   "pass": true,
+   "line": "roblox grain std 0.00000 (= 0); clear 0.0073"
+  },
+  {
+   "name": "saturation",
+   "pass": false,
+   "line": "day mean HSV S roblox 0.594 vs clear 0.490 = ×1.21 (≥ 1.25)"
+  },
+  {
+   "name": "night",
+   "pass": true,
+   "line": "darkest-10 % luma per night frame 0.0169 0.0169 0.0385 (0.015–0.04); clear 0.0089 0.0105 0.0728"
+  },
+  {
+   "name": "sharpness",
+   "pass": true,
+   "line": "Laplacian variance roblox 573.9 vs clear 257.9 = ×2.23 (≥ 1.3)"
+  },
+  {
+   "name": "bloom",
+   "pass": false,
+   "line": "bloom on non-emissive pixels, worst frame 10.836 % (≤ 0.5 %)"
+  }
+ ],
+ "clear": [
+  {
+   "frame": 17,
+   "grainStd": 0.007147582642005325,
+   "sat": 0.6132097002907181,
+   "dark10": 0.008891428495367166,
+   "lap": 129.60127451452573,
+   "bloomNonEmissive": 0,
+   "bloomAll": 0,
+   "emissive": 0,
+   "mean": 0.2698693489470686,
+   "state": {
+    "grade": "clear",
+    "dof": true
+   },
+   "night": true
+  },
+  {
+   "frame": 117,
+   "grainStd": 0.0074087398986048165,
+   "sat": 0.26700211898130627,
+   "dark10": 0.20710029881041536,
+   "lap": 335.85297390934653,
+   "bloomNonEmissive": 0.7818981481481482,
+   "bloomAll": 0.844832175925926,
+   "emissive": 0.011078317901234569,
+   "mean": 0.6262223375976096,
+   "state": {
+    "grade": "clear",
+    "dof": false
+   },
+   "night": false
+  },
+  {
+   "frame": 377,
+   "grainStd": 0.007303163378329377,
+   "sat": 0.629864745811907,
+   "dark10": 0.006671268403827941,
+   "lap": 93.79883274237639,
+   "bloomNonEmissive": 0,
+   "bloomAll": 0,
+   "emissive": 0,
+   "mean": 0.20865658490986475,
+   "state": {
+    "grade": "clear",
+    "dof": true
+   },
+   "night": false
+  },
+  {
+   "frame": 984,
+   "grainStd": 0.0073397279873586565,
+   "sat": 0.5717790732940217,
+   "dark10": 0.006472540249017775,
+   "lap": 73.84252868796067,
+   "bloomNonEmissive": 0,
+   "bloomAll": 0,
+   "emissive": 0,
+   "mean": 0.18210930796776992,
+   "state": {
+    "grade": "clear",
+    "dof": true
+   },
+   "night": false
+  },
+  {
+   "frame": 1469,
+   "grainStd": 0.0072285707266190906,
+   "sat": 0.5501145949674311,
+   "dark10": 0.010549247872599895,
+   "lap": 521.7103808438125,
+   "bloomNonEmissive": 0.5566512345679012,
+   "bloomAll": 0.644128086419753,
+   "emissive": 0.04743827160493827,
+   "mean": 0.24346415168516525,
+   "state": {
+    "grade": "clear",
+    "dof": false
+   },
+   "night": true
+  },
+  {
+   "frame": 2918,
+   "grainStd": 0.007420836295091339,
+   "sat": 0.3539201115839068,
+   "dark10": 0.07279116075581184,
+   "lap": 392.4878736686288,
+   "bloomNonEmissive": 0.610516975308642,
+   "bloomAll": 0.6472453703703703,
+   "emissive": 0.016203703703703703,
+   "mean": 0.43543063704827323,
+   "state": {
+    "grade": "clear",
+    "dof": true
+   },
+   "night": true
+  }
+ ],
+ "roblox": [
+  {
+   "frame": 17,
+   "grainStd": 0,
+   "sat": 0.40974825691961275,
+   "dark10": 0.016861365097689866,
+   "lap": 389.0889750148037,
+   "bloomNonEmissive": 0,
+   "bloomAll": 0,
+   "emissive": 0,
+   "mean": 0.35589309029544514,
+   "state": {
+    "grade": "roblox",
+    "dof": true
+   },
+   "night": true
+  },
+  {
+   "frame": 117,
+   "grainStd": 0,
+   "sat": 0.5541817243380287,
+   "dark10": 0.05939396789807812,
+   "lap": 1147.368392377186,
+   "bloomNonEmissive": 0.10836033950617284,
+   "bloomAll": 0.11356481481481481,
+   "emissive": 0.0005844907407407408,
+   "mean": 0.5725487693248729,
+   "state": {
+    "grade": "roblox",
+    "dof": false
+   },
+   "night": false
+  },
+  {
+   "frame": 377,
+   "grainStd": 0,
+   "sat": 0.47477722042326426,
+   "dark10": 0.03902596636751045,
+   "lap": 292.7525097941113,
+   "bloomNonEmissive": 0,
+   "bloomAll": 0,
+   "emissive": 0,
+   "mean": 0.29304500924542726,
+   "state": {
+    "grade": "roblox",
+    "dof": true
+   },
+   "night": false
+  },
+  {
+   "frame": 984,
+   "grainStd": 0,
+   "sat": 0.7521292943824183,
+   "dark10": 0.0025946976571380397,
+   "lap": 27.139079633255918,
+   "bloomNonEmissive": 0,
+   "bloomAll": 0,
+   "emissive": 0,
+   "mean": 0.2636014501323221,
+   "state": {
+    "grade": "roblox",
+    "dof": false
+   },
+   "night": false
+  },
+  {
+   "frame": 1469,
+   "grainStd": 0,
+   "sat": 0.6318828813106733,
+   "dark10": 0.01686781058357425,
+   "lap": 650.9103543956064,
+   "bloomNonEmissive": 0.049618055555555554,
+   "bloomAll": 0.13570408950617283,
+   "emissive": 0.04787422839506173,
+   "mean": 0.23912943925423602,
+   "state": {
+    "grade": "roblox",
+    "dof": false
+   },
+   "night": true
+  },
+  {
+   "frame": 2918,
+   "grainStd": 0,
+   "sat": 0.4832130899002812,
+   "dark10": 0.03846884056775583,
+   "lap": 936.2931452921949,
+   "bloomNonEmissive": 0.037584876543209876,
+   "bloomAll": 0.06534143518518519,
+   "emissive": 0.012671682098765432,
+   "mean": 0.4329357499715169,
+   "state": {
+    "grade": "roblox",
+    "dof": false
+   },
+   "night": true
+  }
+ ]
+}

@@ -46,14 +46,14 @@ PUNCT_BREAK = re.compile(r'[.,!?;:…]["\')]*$')
 
 def display_words(line):
     """Script tokens for a cue line (same count as its aligned words), stripped of quotes and trailing
-    commas/periods but keeping ? and ! (sentence case kept as written)."""
+    commas/periods but keeping ? and ! (sentence case kept as written); *emphasis* asterisks stripped."""
     toks = line['text'].split()
     if len(toks) != len(line['words']):
         toks = [w['w'] for w in line['words']]
     out = []
     for t in toks:
         brk = bool(PUNCT_BREAK.search(t))
-        clean = t.strip('"“”\'').rstrip('"“”')
+        clean = t.replace('*', '').strip('"“”\'').rstrip('"“”')   # tuft 4C: *emphasis* marks never reach the screen (they stay emphasis cues: script_marks / keyword colour)
         clean = re.sub(r'[.,;:…]+$', '', clean)
         out.append((clean, brk))
     return out

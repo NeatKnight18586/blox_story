@@ -8,6 +8,7 @@ engine/beast.js — tuft 2A BEAST KIT (pure: no three, no DOM, no clock, no Math
 engine/beastrt.js — tuft 2A BEAST KIT, the renderer side (three). The maths is engine/beast.js (pure); presets are beasts/*.json.
 engine/buildgate.js — page for scripts/v2/build-gates.js (owner 2026-11-14, adult_f). One actor, front, orthographic,
 engine/camera.js — pure camera sampler for v2 episodes (docs/V2_BRIEF.md §5.2, §5.3 openHit).
+engine/camtpl.js — tuft 4C camera TEMPLATES (opt-in shot `tpl` under spec camera 'cine'; Brief notes `tpl: <kind> [args]`).
 engine/cine.js — tuft 1B cinematic camera (opt-in spec `camera: 'cine'`). Pure: no three, no DOM, no clock, no Math.random.
 engine/cinelook.js — tuft 1B Look Pack (opt-in spec `post: 'cine'`; spec.look / look4 stay the look preset). "Made in Blender" on our
 engine/classes.js — the class reveal (Amendment A3) as pure data and pure maths. No THREE, no DOM.
@@ -333,6 +334,7 @@ scripts/v2/r6-sheet.js — R6 rig key-pose sheet → review/r6/verbs.png (≤ 16
 scripts/v2/read.js — npm run v2:read -- --story <slug> [--spec <episode.json>] [--out <json>]   (owner readability checks, egg preview pass 2)
 scripts/v2/realism.js — Phase R spike measure: for each location (street-procedural, street-cc0) renders the 3 test shots,
 scripts/v2/render.js — render an episode's frames (docs/V2_BRIEF.md §5.4).
+scripts/v2/roblox-gates.js — tuft 4C gates for `grade: 'roblox'` (engine/cinelook.js ROBLOX) → review/tuft/roblox-gates.json.
 scripts/v2/segments-fixture.js — tuft 4A test fixture: engine/fixtures/segments/{three,<loc>}.json. `three` = beastYard → homeDining → festivalPlaza
 scripts/v2/segments.js — multi-location episodes by SEGMENTS (tuft 4A). A spec with `locations: [..]` is NOT one merged world:
 scripts/v2/sep5b-gates.js — Look 5b gates → review/toyhouse/sep5b-gates.json (fixture engine/fixtures/toyhouse/set5b.json).
@@ -357,6 +359,7 @@ scripts/v2/toyhouse-episode.js — writes stories/toyhouse/episode.json from sto
 scripts/v2/toyhouse-gates.js — node scripts/v2/toyhouse-gates.js [--spec stories/toyhouse/episode.json] [--only p1,p3,...] [--floor]
 scripts/v2/toyhouse-photo.js — node scripts/v2/toyhouse-photo.js : renders the T34 memory shot (young Pip with the key) at 384×480 into
 scripts/v2/toyset-gates.js — Toy House set gates (format v5, Phase 3b) → review/toyhouse/set-gates.json.
+scripts/v2/tpl-gates.js — tuft 4C render gate for camera TEMPLATES (engine/camtpl.js) → review/tuft/tpl-gates.json.
 scripts/v2/troupe-sheet.js — Amendment A4 G2 review sheet: the five troupe actors + AFK, front and three-quarter, three
 scripts/v2/tuft-preset.js — tuft 2B: writes beasts/TUFT.json (data; the rig is engine/beast.js 'puff'). Palm-sized moon-white puffball
 scripts/v2/unranked-p1.js — E4 "unranked" Phase 1 (cast only) review + gates → review/unranked/p1/
