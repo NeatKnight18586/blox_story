@@ -198,7 +198,8 @@ function puffHeroes(t) {
     A.puffD = D; } }
 // tuft 2A (opt-in): BEAST KIT actors (`style: 'beast'`, engine/beastrt.js) and low-tier crowds (spec.beastCrowds); null for every other spec
 const BEAST_ON = Object.values(spec.cast ?? {}).some(c => c.style === 'beast') || !!spec.beastCrowds?.length;
-const BEASTSHAKE = BEAST_ON ? (await import('./beast.js')).stompShake : null;   // tuft 2B footfall shake
+const BEASTSHAKE = BEAST_ON ? (await import('./beast.js')).stompShake : null;
+const B2 = BEAST_ON ? await import('./beast.js') : null;   // P3B lantern keep-clear (worldOf)   // tuft 2B footfall shake
 const BEASTS = BEAST_ON ? await (async () => { const R = await import('./beastrt.js'), base = new URL('../', import.meta.url), names = [...Object.values(spec.cast ?? {}).filter(c => c.style === 'beast').map(c => c.preset), ...(spec.beastCrowds ?? []).flatMap(c => c.presets)];
   return R.createBeasts({scene, spec, presets: await R.loadPresets(names, base), hdr: spec.post === 'cine', groundY: (x, z) => world?.groundY?.(x, z) ?? 0, resolveXZ: v => (p => [p[0], p[2]])(resolve(typeof v === 'string' ? {anchor: v} : v)), shots, FPS, markAt: (c, t) => markAt(c, t), base}); })() : null;
 for (const [name, c] of Object.entries(spec.cast ?? {})) {
@@ -660,6 +661,10 @@ function drawFrame(shot, mf, off, width, height, nudge) {
   scene.updateMatrixWorld(true); effects.apply(t, camera); fitTags(scene, camera, {maxFrac: shot.tagMaxFrac ?? .06});
   if (spec.readableUi ?? !!look?.v3) { scene.updateMatrixWorld(true); enforceReadable(scene, camera, {focus: shot.focusUi ?? []}); }   // A5 §C: min text size + safe area (v3 worlds; "Nobody" untouched)
   renderer.info.autoReset = false; renderer.info.reset();   // A4: overlay passes (weather, cards) must not reset the scene counts
+  if (POWERS?.cull) POWERS.cull(camera, () => Object.entries(cast).flatMap(([n, x]) => { const a = x.beast ? BEASTS?.actors?.[n] : null;   // P3B lantern keep-clear: heads (+ 1.5 studs), Tuft's eyes
+    if (a?.P?.rig === 'puff' && a.sample) { const k = a.root.scale.x; return [{p: B2.worldOf(a.sample, 'body', [0, .05, .3]), r: Math.max(1.5, .32 * k) + 1.5}]; }
+    if (a) return a.P.rig === 'blink' ? [] : [{p: a.head.position.toArray(), r: (a.P.dims?.headH ?? .6) * (a.P.scale ?? 1) + 1.5}];
+    return x.a?.root?.visible === false ? [] : [{p: headOf(x).toArray(), r: .9 * (x.a?.root?.scale?.x ?? 1) + 1.5}]; }));
   const undoBD = BD?.pre(camera, shot);
   if (c.split) renderSplit(c.split, width, height); else if (CL) cineRender(shot, mf, off, lt, width, height); else renderer.render(scene, camera);
   undoBD?.();

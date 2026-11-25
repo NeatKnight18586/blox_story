@@ -66,4 +66,14 @@ export function parsePower(s) { const p = String(s).trim().split(/\s+/); if (p.l
 export function parseFizzle(s) { const p = String(s).trim().split(/\s+/); if (p.length !== 1 || !ID.test(p[0])) throw Error(`fizzle: "${s}" — expected "<actor> @ <word>"`); return {actor: p[0]}; }
 export function parseCage(s) { if (String(s).trim() !== 'reveal') throw Error(`cage: "${s}" — expected "reveal @ <word>"`); return {kind: 'reveal'}; }
 export function parseChains(s) { if (String(s).trim() !== 'snap') throw Error(`chains: "${s}" — expected "snap @ <word>"`); return {kind: 'snap'}; }
+// P3B lantern STREAMS (opt-in prop `streams`): n lanterns rising in loose streams from sources (the plaza disc + rooftop points), a shared
+// wind drift, recycled over a height band [y0, yMax] (fade in at the bottom, out at the top); pure in t. src = [[x, y, z, spread], ...]
+export function lanternStreamAt(i, t, {n = 600, src = [[0, 1, 0, 18]], yMax = 30, rise = .9, wind = [.35, 0, -.12], seed = 5} = {}) {
+  const r = k => h1(seed, i, k), s0 = src[Math.floor(r(1) * src.length) % src.length], a = 2 * Math.PI * r(2), d = s0[3] * Math.sqrt(r(3)), H = Math.max(4, yMax - s0[1]);
+  const sp = rise * (.7 + .6 * r(4)), u = (r(5) + sp * t / H) % 1, h = u * H, bob = .35 * Math.sin(1.3 * t + 6.28 * r(6)), lane = 1.5 * Math.sin(.15 * h + 6.28 * r(7));
+  const fade = Math.min(1, u / .08, (1 - u) / .15);
+  return {p: [s0[0] + Math.cos(a) * d + wind[0] * h + lane, s0[1] + h + bob, s0[2] + Math.sin(a) * d + wind[2] * h + .6 * lane], s: (.7 + .5 * r(8)) * Math.max(0, fade), yaw: 6.28 * r(9) + .2 * t, glow: (.8 + .2 * Math.sin(2.1 * t + 6.28 * r(10))) * Math.max(0, fade), u}; }
+// P3B keep-clear (pure): is a projected lantern (ndc x, y, its screen radius) inside a keep-clear zone? zones [{x, y, r}] in ndc (x scaled by aspect)
+export function keepClear(q, zones, {top = 1 / 3, aspect = 9 / 16} = {}) { if (q.y + q.r > top) return true;
+  for (const z of zones) if (Math.hypot((q.x - z.x) * aspect, q.y - z.y) < z.r + q.r) return true; return false; }
 export const PROPS = ['spider', 'toaster', 'spaghettiPlates', 'giantCage', 'chains', 'lanternSea'];

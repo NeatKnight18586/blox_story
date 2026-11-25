@@ -49,7 +49,8 @@ export function createPowers({scene, spec, shots, FPS, hdr, cast, beasts, ground
       const n = p.n ?? 1500, geo = new T.CylinderGeometry(.42, .34, .8, 6, 1); geo.translate(0, 0, 0);
       const m = new T.InstancedMesh(geo, new T.MeshBasicMaterial({color: '#ffffff', fog: false, toneMapped: !hdr}), n); m.instanceColor = new T.InstancedBufferAttribute(new Float32Array(n * 3), 3); m.frustumCulled = false; m.name = 'lanternSea'; g.add(m);
       const M = new T.Matrix4(), Q = new T.Quaternion(), V = new T.Vector3(), S = new T.Vector3(), Y = new T.Vector3(0, 1, 0), c0 = new T.Color('#FFB24A'), c1 = new T.Color('#FF7A2E');
-      anim = t => { for (let i = 0; i < n; i++) { const L = PW.lanternAt(i, t, {R: p.r ?? 90, n}); Q.setFromAxisAngle(Y, L.yaw); M.compose(V.fromArray(L.p), Q, S.setScalar(L.s)); m.setMatrixAt(i, M);
+      const st = p.streams ? {n, src: p.streams.src, yMax: p.streams.yMax, rise: p.streams.rise, wind: p.streams.wind, seed: p.streams.seed} : null; m.userData.n = n;   // P3B: streams (opt-in)
+      anim = t => { for (let i = 0; i < n; i++) { const L = st ? PW.lanternStreamAt(i, t, st) : PW.lanternAt(i, t, {R: p.r ?? 90, n}); Q.setFromAxisAngle(Y, L.yaw); M.compose(V.fromArray(L.p), Q, S.setScalar(L.s)); m.setMatrixAt(i, M);
           const c = c0.clone().lerp(c1, PW.h1(3, i, 11)).multiplyScalar(L.glow * k('lantern')); m.setColorAt(i, c); } m.instanceMatrix.needsUpdate = true; m.instanceColor.needsUpdate = true; }; }
     g.position.set(...(p.at ?? [0, 0, 0])); g.rotation.y = (p.yaw ?? 0) * Math.PI / 180; g.scale.setScalar(p.scale ?? 1); g.traverse(o => { o.userData.live = true; o.castShadow = false; }); g.name = 'prop2b_' + p.kind; scene.add(g);
     return {p, g, anim}; }
@@ -91,5 +92,15 @@ export function createPowers({scene, spec, shots, FPS, hdr, cast, beasts, ground
     for (const pr of Object.values(props)) { pr.g.visible = t >= (pr.p.from ?? -1e9) && t < (pr.p.until ?? 1e9); if (pr.g.visible) pr.anim?.(t); } }   // prop `from` / `until` (s)
   function seg(i, a, b, w, col, alpha) { if (!segs || i >= segs.instanceMatrix.count) return i; const d = new T.Vector3(b[0] - a[0], b[1] - a[1], b[2] - a[2]), L = d.length(); if (L < 1e-4) return i;
     Q.setFromUnitVectors(Z, d.clone().normalize()); M.compose(V.set((a[0] + b[0]) / 2, (a[1] + b[1]) / 2, (a[2] + b[2]) / 2), Q, S.set(w, w, L)); segs.setMatrixAt(i, M); C.set(col).multiplyScalar(alpha); segs.setColorAt(i, C); return i + 1; }
-  return {frame, props, state, meshes: () => [flames, embersM, segs, ribbon, links, smoke].filter(Boolean)};
+  // P3B keep-clear (prop streams.keepClear, after the camera is set): lanterns over a subject's head (+ 1.5 studs), Tuft's eyes or the frame's upper
+  // third are scaled to 0. zones(): [{p: world centre, r: studs}] from the episode (heads, Tuft's eyes).
+  const P0 = new T.Vector3(), P1 = new T.Vector3(), DQ = new T.Vector3(), SQ = new T.Quaternion();
+  function cull(camera, zones) { for (const pr of Object.values(props)) { const kc = pr.p.streams?.keepClear; if (!kc || !pr.g.visible) continue; const m = pr.g.children.find(o => o.name === 'lanternSea'); if (!m) continue;
+      pr.g.updateMatrixWorld(true); camera.updateMatrixWorld(true); const asp = camera.aspect, zs = [], k = pr.g.scale.x, wm = pr.g.matrixWorld, cam = camera.position;
+      const rad = (p, r) => { const d = P0.fromArray(p).distanceTo(cam); return r / (d * Math.tan(camera.fov * Math.PI / 360)); };
+      for (const z of zones()) { P1.fromArray(z.p).project(camera); if (P1.z > 1) continue; zs.push({x: P1.x, y: P1.y, r: rad(z.p, z.r)}); }
+      let hid = 0; for (let i = 0; i < m.userData.n; i++) { m.getMatrixAt(i, M); M.decompose(DQ, SQ, S); if (S.x < 1e-4) continue; P0.copy(DQ).applyMatrix4(wm); const w = P0.toArray(); P1.copy(P0).project(camera);
+        if (P1.z > 1 || Math.abs(P1.x) > 1.2 || Math.abs(P1.y) > 1.2) continue; if (PW.keepClear({x: P1.x, y: P1.y, r: rad(w, .5 * k * S.x)}, zs, {top: kc.top ?? 1 / 3, aspect: asp})) { M.compose(DQ, SQ, S.setScalar(0)); m.setMatrixAt(i, M); hid++; } }
+      m.instanceMatrix.needsUpdate = true; state.lanternsHidden = hid; } }
+  return {frame, cull, props, state, meshes: () => [flames, embersM, segs, ribbon, links, smoke].filter(Boolean)};
 }

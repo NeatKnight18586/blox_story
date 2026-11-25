@@ -29,7 +29,8 @@
     -53
    ],
    "yaw": 0,
-   "state": "ignite"
+   "state": "ignite",
+   "rim": false
   }
  },
  "shots": [
