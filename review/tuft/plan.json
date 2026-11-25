@@ -1,0 +1,1558 @@
+{
+ "spec": "stories/tuft/episode.json",
+ "cues": "stories/tuft/cues.json",
+ "shots": [
+  {
+   "id": "S01",
+   "beat": false,
+   "t": 0,
+   "dur": 1.13,
+   "size": "close",
+   "move": "push",
+   "loc": "festivalPlaza",
+   "speed": 0,
+   "subject": "tuft@109,58",
+   "why": "tension: In this world, you get"
+  },
+  {
+   "id": "S02",
+   "beat": false,
+   "t": 1.13,
+   "dur": 1.8,
+   "size": "wide",
+   "move": "lowAuthority",
+   "loc": "festivalPlaza",
+   "speed": 2,
+   "subject": "tuft@50,47",
+   "why": "tension: whatever power your beast has."
+  },
+  {
+   "id": "S03",
+   "beat": false,
+   "t": 2.93,
+   "dur": 1.9,
+   "size": "wide",
+   "move": "gamecam",
+   "loc": "beastYard",
+   "speed": 0,
+   "subject": "nightfang@-4,14",
+   "why": "fun: Vance's dragon breathes cyan fire,"
+  },
+  {
+   "id": "S04",
+   "beat": false,
+   "t": 4.83,
+   "dur": 1.3,
+   "size": "medium",
+   "move": "snap",
+   "loc": "beastYard",
+   "speed": 0,
+   "subject": "vance@336,76",
+   "why": "fun: push @ too"
+  },
+  {
+   "id": "S05",
+   "beat": false,
+   "t": 6.13,
+   "dur": 1.1,
+   "size": "wide",
+   "move": "track",
+   "loc": "beastYard",
+   "speed": 0,
+   "subject": "volt@3521,-119",
+   "why": "fun: A storm wolf makes this girl"
+  },
+  {
+   "id": "S06",
+   "beat": false,
+   "t": 7.23,
+   "dur": 1.1,
+   "size": "medium",
+   "move": "whip",
+   "loc": "beastYard",
+   "speed": 46,
+   "subject": "kira@642,68",
+   "why": "fun: faster than lightning."
+  },
+  {
+   "id": "S07",
+   "beat": false,
+   "t": 8.33,
+   "dur": 1.9,
+   "size": "wide",
+   "move": "track",
+   "loc": "beastYard",
+   "speed": 0,
+   "subject": "cinder@357,9",
+   "why": "fun: rocco:jump @ fly"
+  },
+  {
+   "id": "S08",
+   "beat": false,
+   "t": 10.23,
+   "dur": 1.33,
+   "size": "medium",
+   "move": "whip",
+   "loc": "beastYard",
+   "speed": 59,
+   "subject": "teacher@137,55",
+   "why": "comedy: point @ me"
+  },
+  {
+   "id": "S09",
+   "beat": false,
+   "t": 11.57,
+   "dur": 1.97,
+   "size": "close",
+   "move": "crashZoom",
+   "loc": "beastYard",
+   "speed": 13860,
+   "subject": "hero@-55,69",
+   "why": "comedy: reach_for @ Tuft"
+  },
+  {
+   "id": "S10",
+   "beat": false,
+   "t": 13.53,
+   "dur": 2.4,
+   "size": "close",
+   "move": "snap",
+   "loc": "beastYard",
+   "speed": 0,
+   "subject": "hero@-74,44",
+   "why": "comedy: flinch @ I"
+  },
+  {
+   "id": "S11",
+   "beat": false,
+   "t": 15.93,
+   "dur": 0.97,
+   "size": "medium",
+   "move": "push",
+   "loc": "beastYard",
+   "speed": 0,
+   "subject": "hero@-72,86",
+   "why": "tension: But by tomorrow night,"
+  },
+  {
+   "id": "S12",
+   "beat": false,
+   "t": 16.9,
+   "dur": 1.57,
+   "size": "wide",
+   "move": "push",
+   "loc": "titanCave",
+   "speed": 0,
+   "subject": "",
+   "why": "tension: a Titan will run from us."
+  },
+  {
+   "id": "S13",
+   "beat": false,
+   "t": 18.47,
+   "dur": 1.5,
+   "size": "insert",
+   "move": "snap",
+   "loc": "beastClass",
+   "speed": 0,
+   "subject": "",
+   "why": "comedy: A spider drops onto my desk."
+  },
+  {
+   "id": "S14",
+   "beat": false,
+   "t": 19.97,
+   "dur": 0.87,
+   "size": "close",
+   "move": "crashZoom",
+   "loc": "beastClass",
+   "speed": 799,
+   "subject": "tuft@50,54",
+   "why": "comedy: Tuft puffs up."
+  },
+  {
+   "id": "S15",
+   "beat": false,
+   "t": 20.83,
+   "dur": 0.87,
+   "size": "medium",
+   "move": "snap",
+   "loc": "beastClass",
+   "speed": 0,
+   "subject": "hero@46,79",
+   "why": "comedy: And so do I."
+  },
+  {
+   "id": "S16",
+   "beat": false,
+   "t": 21.7,
+   "dur": 0.83,
+   "size": "wide",
+   "move": "whip",
+   "loc": "beastClass",
+   "speed": 15,
+   "subject": "hero@-112,65",
+   "why": "comedy: I bounce off the ceiling"
+  },
+  {
+   "id": "S17",
+   "beat": false,
+   "t": 22.53,
+   "dur": 1.9,
+   "size": "wide",
+   "move": "static-drift",
+   "loc": "beastClass",
+   "speed": 2,
+   "subject": "hero@-126,62",
+   "why": "comedy: like a beach ball. Everyone laughs."
+  },
+  {
+   "id": "S18",
+   "beat": false,
+   "t": 24.43,
+   "dur": 2.37,
+   "size": "medium",
+   "move": "push",
+   "loc": "beastClass",
+   "speed": 0,
+   "subject": "nightfang@68,67",
+   "why": "tension: But nobody sees Vance's dragon back away from me."
+  },
+  {
+   "id": "S19",
+   "beat": false,
+   "t": 26.8,
+   "dur": 2.1,
+   "size": "close",
+   "move": "snap",
+   "loc": "beastClass",
+   "speed": 0,
+   "subject": "vance@-428,252",
+   "why": "comedy: arms_cross"
+  },
+  {
+   "id": "S20",
+   "beat": false,
+   "t": 28.9,
+   "dur": 2.6,
+   "size": "medium",
+   "move": "push",
+   "loc": "beastClass",
+   "speed": 0,
+   "subject": "vance@972,113",
+   "why": "tension: \"At the festival, I'm getting the strongest beast alive.\""
+  },
+  {
+   "id": "S21",
+   "beat": false,
+   "t": 31.5,
+   "dur": 2.57,
+   "size": "medium",
+   "move": "orbit",
+   "loc": "homeDining",
+   "speed": 21,
+   "subject": "juni@41,53",
+   "why": "fun: reach_for @ blueberries"
+  },
+  {
+   "id": "S22",
+   "beat": false,
+   "t": 34.07,
+   "dur": 2.1,
+   "size": "wide",
+   "move": "gamecam",
+   "loc": "homeDining",
+   "speed": 0,
+   "subject": "boulder@-88,48",
+   "why": "fun: dad:cheer @ fun"
+  },
+  {
+   "id": "S23",
+   "beat": false,
+   "t": 36.17,
+   "dur": 1.13,
+   "size": "insert",
+   "move": "snap",
+   "loc": "homeDining",
+   "speed": 0,
+   "subject": "",
+   "why": "comedy: Then the toaster pops."
+  },
+  {
+   "id": "S24",
+   "beat": false,
+   "t": 37.3,
+   "dur": 0.57,
+   "size": "close",
+   "move": "crashZoom",
+   "loc": "homeDining",
+   "speed": 1034,
+   "subject": "hero@-143,120",
+   "why": "comedy: I puff."
+  },
+  {
+   "id": "S25",
+   "beat": false,
+   "t": 37.87,
+   "dur": 1.03,
+   "size": "wide",
+   "move": "whip",
+   "loc": "homeDining",
+   "speed": 30,
+   "subject": "",
+   "why": "comedy: The table flies."
+  },
+  {
+   "id": "S26",
+   "beat": false,
+   "t": 38.9,
+   "dur": 1.87,
+   "size": "medium",
+   "move": "static-drift",
+   "loc": "homeDining",
+   "speed": 5,
+   "subject": "boulder@-846,244",
+   "why": "comedy: Dad's ox is now wearing spaghetti."
+  },
+  {
+   "id": "S27",
+   "beat": false,
+   "t": 40.77,
+   "dur": 2.3,
+   "size": "close",
+   "move": "push",
+   "loc": "homeDining",
+   "speed": 0,
+   "subject": "juni@106,138",
+   "why": "emotion: Juni whispers, \"Tuft picked you for a reason.\""
+  },
+  {
+   "id": "S28",
+   "beat": false,
+   "t": 43.07,
+   "dur": 1.47,
+   "size": "close",
+   "move": "static-drift",
+   "loc": "homeDining",
+   "speed": 7,
+   "subject": "hero@-10,56",
+   "why": "emotion: I wish he picked a braver kid."
+  },
+  {
+   "id": "S29",
+   "beat": false,
+   "t": 44.53,
+   "dur": 1.9,
+   "size": "wide",
+   "move": "tiltUp",
+   "loc": "villageStreet",
+   "speed": 121,
+   "subject": "hero@-93,74",
+   "why": "tension: That night, thunder cracks over the village."
+  },
+  {
+   "id": "S30",
+   "beat": false,
+   "t": 46.43,
+   "dur": 1.87,
+   "size": "wide",
+   "move": "crashZoom",
+   "loc": "homeBedroom",
+   "speed": 223,
+   "subject": "hero@48,34",
+   "why": "comedy: I puff so big I fill my whole room."
+  },
+  {
+   "id": "S31",
+   "beat": false,
+   "t": 48.3,
+   "dur": 1.33,
+   "size": "wide",
+   "move": "snap",
+   "loc": "villageStreet",
+   "speed": 0,
+   "subject": "hero@84,60",
+   "why": "comedy: My legs stick out the window."
+  },
+  {
+   "id": "S32",
+   "beat": false,
+   "t": 49.63,
+   "dur": 1.97,
+   "size": "wide",
+   "move": "push",
+   "loc": "villageStreet",
+   "speed": 0,
+   "subject": "",
+   "why": "tension: And every beast on our street runs away."
+  },
+  {
+   "id": "S33",
+   "beat": false,
+   "t": 51.6,
+   "dur": 1.7,
+   "size": "close",
+   "move": "push",
+   "loc": "homeBedroom",
+   "speed": 0,
+   "subject": "hero@51,43",
+   "why": "emotion: I tell Tuft I wish he was a dragon."
+  },
+  {
+   "id": "S34",
+   "beat": false,
+   "t": 53.3,
+   "dur": 1.57,
+   "size": "medium",
+   "move": "static-drift",
+   "loc": "homeBedroom",
+   "speed": 4,
+   "subject": "tuft@123,44",
+   "why": "emotion: He hides under my bed all day."
+  },
+  {
+   "id": "S35",
+   "beat": false,
+   "t": 54.87,
+   "dur": 1.37,
+   "size": "wide",
+   "move": "track",
+   "loc": "festivalPlaza",
+   "speed": 0,
+   "subject": "",
+   "why": "fun: Then comes the Beast Festival."
+  },
+  {
+   "id": "S36",
+   "beat": false,
+   "t": 56.23,
+   "dur": 1.8,
+   "size": "wide",
+   "move": "drone",
+   "loc": "festivalPlaza",
+   "speed": 14,
+   "subject": "",
+   "why": "awe: Lanterns, music, and every beast in the village."
+  },
+  {
+   "id": "S37",
+   "beat": false,
+   "t": 58.03,
+   "dur": 2.53,
+   "size": "medium",
+   "move": "lowAuthority",
+   "loc": "festivalPlaza",
+   "speed": 0,
+   "subject": "vance@40,33",
+   "why": "tension: tug_pull @ cloth"
+  },
+  {
+   "id": "S38",
+   "beat": false,
+   "t": 60.57,
+   "dur": 1.93,
+   "size": "wide",
+   "move": "crane",
+   "loc": "festivalPlaza",
+   "speed": 9,
+   "subject": "titan@-1227,1519",
+   "why": "awe: Inside is the Titan from the mountain."
+  },
+  {
+   "id": "S39",
+   "beat": false,
+   "t": 62.5,
+   "dur": 2.13,
+   "size": "close",
+   "move": "push",
+   "loc": "festivalPlaza",
+   "speed": 0,
+   "subject": "vance@69,55",
+   "why": "tension: push @ mine"
+  },
+  {
+   "id": "S40",
+   "beat": false,
+   "t": 64.63,
+   "dur": 1.47,
+   "size": "close",
+   "move": "push",
+   "loc": "festivalPlaza",
+   "speed": 0,
+   "subject": "titan@-271,571",
+   "why": "tension: But the rule says your beast."
+  },
+  {
+   "id": "S41",
+   "beat": false,
+   "t": 66.1,
+   "dur": 1.4,
+   "size": "medium",
+   "move": "static-drift",
+   "loc": "festivalPlaza",
+   "speed": 2,
+   "subject": "vance@46,43",
+   "why": "tension: And the Titan was never his."
+  },
+  {
+   "id": "S42",
+   "beat": false,
+   "t": 67.5,
+   "dur": 2.27,
+   "size": "medium",
+   "move": "push",
+   "loc": "festivalPlaza",
+   "speed": 0,
+   "subject": "vance@-38,42",
+   "why": "tension: Vance gets nothing. And the Titan gets angry."
+  },
+  {
+   "id": "S43",
+   "beat": false,
+   "t": 69.77,
+   "dur": 0.93,
+   "size": "insert",
+   "move": "static-drift",
+   "loc": "festivalPlaza",
+   "speed": 5,
+   "subject": "",
+   "why": "tension: The chains snap."
+  },
+  {
+   "id": "S44",
+   "beat": false,
+   "t": 70.7,
+   "dur": 1.83,
+   "size": "wide",
+   "move": "push",
+   "loc": "festivalPlaza",
+   "speed": 0,
+   "subject": "nightfang@1907,-2052",
+   "why": "tension: Every brave beast in the village runs."
+  },
+  {
+   "id": "S45",
+   "beat": false,
+   "t": 72.53,
+   "dur": 0.93,
+   "size": "insert",
+   "move": "crashZoom",
+   "loc": "festivalPlaza",
+   "speed": 3765,
+   "subject": "nightfang@97,39",
+   "why": "comedy: Even the dragon."
+  },
+  {
+   "id": "S46",
+   "beat": false,
+   "t": 73.47,
+   "dur": 1.6,
+   "size": "wide",
+   "move": "lowAuthority",
+   "loc": "festivalPlaza",
+   "speed": 3,
+   "subject": "juni@-14,78",
+   "why": "tension: And Juni is frozen in its path."
+  },
+  {
+   "id": "S47",
+   "beat": false,
+   "t": 75.07,
+   "dur": 1.77,
+   "size": "medium",
+   "move": "push",
+   "loc": "festivalPlaza",
+   "speed": 0,
+   "subject": "tuft@5,43",
+   "why": "emotion: Tuft jumps from my hoodie and runs to her."
+  },
+  {
+   "id": "S48",
+   "beat": false,
+   "t": 76.83,
+   "dur": 1.03,
+   "size": "medium",
+   "move": "track",
+   "loc": "festivalPlaza",
+   "speed": 37,
+   "subject": "hero@74,28",
+   "why": "tension: So I run after him."
+  },
+  {
+   "id": "S49",
+   "beat": false,
+   "t": 77.87,
+   "dur": 2.23,
+   "size": "close",
+   "move": "static-drift",
+   "loc": "festivalPlaza",
+   "speed": 9,
+   "subject": "hero@41,47",
+   "why": "emotion: I have never been this scared in my whole life."
+  },
+  {
+   "id": "S50",
+   "beat": false,
+   "t": 80.1,
+   "dur": 1.4,
+   "size": "close",
+   "move": "push",
+   "loc": "festivalPlaza",
+   "speed": 0,
+   "subject": "hero@51,44",
+   "why": "tension: The rule said whatever power."
+  },
+  {
+   "id": "S51",
+   "beat": false,
+   "t": 81.5,
+   "dur": 2.13,
+   "size": "insert",
+   "move": "push",
+   "loc": "festivalPlaza",
+   "speed": 0,
+   "subject": "tuft@-3,43",
+   "why": "tension: And Tuft's power grows with how scared you are."
+  },
+  {
+   "id": "S52",
+   "beat": false,
+   "t": 83.63,
+   "dur": 1.47,
+   "size": "close",
+   "move": "push",
+   "loc": "festivalPlaza",
+   "speed": 0,
+   "subject": "hero@53,46",
+   "why": "emotion: Tuft never needed a brave kid."
+  },
+  {
+   "id": "S53",
+   "beat": false,
+   "t": 85.1,
+   "dur": 1.57,
+   "size": "close",
+   "move": "push",
+   "loc": "festivalPlaza",
+   "speed": 0,
+   "subject": "hero@41,46",
+   "why": "emotion: He needed the most scared one."
+  },
+  {
+   "id": "S54",
+   "beat": false,
+   "t": 86.67,
+   "dur": 1.4,
+   "size": "wide",
+   "move": "lowAuthority",
+   "loc": "festivalPlaza",
+   "speed": 3,
+   "subject": "hero@44,28",
+   "why": "tension: We puff. And puff."
+  },
+  {
+   "id": "S55",
+   "beat": false,
+   "t": 88.07,
+   "dur": 2.6,
+   "size": "wide",
+   "move": "crane",
+   "loc": "festivalPlaza",
+   "speed": 4,
+   "subject": "tuft@49,43",
+   "why": "awe: Past the roofs, past the lanterns, past the Titan."
+  },
+  {
+   "id": "S56",
+   "beat": false,
+   "t": 90.67,
+   "dur": 1.2,
+   "size": "close",
+   "move": "lowAuthority",
+   "loc": "festivalPlaza",
+   "speed": 5,
+   "subject": "titan@-8,163",
+   "why": "tension: The Titan looks up at us."
+  },
+  {
+   "id": "S57",
+   "beat": false,
+   "t": 91.87,
+   "dur": 1.5,
+   "size": "wide",
+   "move": "track",
+   "loc": "festivalPlaza",
+   "speed": 0,
+   "subject": "titan@-89,105",
+   "why": "fun: Then it runs all the way home."
+  },
+  {
+   "id": "S58",
+   "beat": false,
+   "t": 93.37,
+   "dur": 2.13,
+   "size": "medium",
+   "move": "whip",
+   "loc": "festivalPlaza",
+   "speed": 16,
+   "subject": "hero@165,-8",
+   "why": "comedy: We deflate with the loudest squeak in history."
+  },
+  {
+   "id": "S59",
+   "beat": false,
+   "t": 95.5,
+   "dur": 3.53,
+   "size": "medium",
+   "move": "push",
+   "loc": "festivalPlaza",
+   "speed": 0,
+   "subject": "juni@29,58",
+   "why": "payoff: comfort_kneel @ hugs"
+  },
+  {
+   "id": "S60",
+   "beat": false,
+   "t": 99.03,
+   "dur": 2.53,
+   "size": "close",
+   "move": "snap",
+   "loc": "homeBedroom",
+   "speed": 0,
+   "subject": "juni@307,-96",
+   "why": "comedy: And Juni says boo to me every night."
+  },
+  {
+   "id": "S61",
+   "beat": false,
+   "t": 101.57,
+   "dur": 1.63,
+   "size": "close",
+   "move": "static-drift",
+   "loc": "homeBedroom",
+   "speed": 7,
+   "subject": "hero@270,61",
+   "why": "comedy: Just in case."
+  }
+ ],
+ "meanShot": 1.83,
+ "end": 103.2,
+ "gamecam": 2,
+ "wides": 21,
+ "partners": [
+  {
+   "partner": "hero",
+   "verb": "comfort_kneel",
+   "dist": 2.701,
+   "walkIn": 1.589,
+   "ok": true
+  }
+ ],
+ "format5": {
+  "lengthS": 103.2,
+  "averageShotS": 1.69,
+  "insertH": {
+   "S13": 1,
+   "S23": 0.5696000000000001,
+   "S43": 0.6464
+  }
+ },
+ "season": true,
+ "framing": [
+  {
+   "shot": "S04",
+   "part": "full",
+   "frac": 1.032,
+   "need": 0.3
+  },
+  {
+   "shot": "S06",
+   "part": "full",
+   "frac": 9.374,
+   "need": 0.3
+  },
+  {
+   "shot": "S08",
+   "part": "full",
+   "frac": 0.96,
+   "need": 0.3
+  },
+  {
+   "shot": "S09",
+   "part": "head",
+   "frac": 0.566,
+   "need": 0.45
+  },
+  {
+   "shot": "S10",
+   "part": "head",
+   "frac": 0.567,
+   "need": 0.45
+  },
+  {
+   "shot": "S11",
+   "part": "full",
+   "frac": 1.025,
+   "need": 0.3
+  },
+  {
+   "shot": "S15",
+   "part": "full",
+   "frac": 0.981,
+   "need": 0.3
+  },
+  {
+   "shot": "S19",
+   "part": "head",
+   "frac": 0.512,
+   "need": 0.45
+  },
+  {
+   "shot": "S20",
+   "part": "full",
+   "frac": 0.903,
+   "need": 0.3
+  },
+  {
+   "shot": "S21",
+   "part": "full",
+   "frac": 0.964,
+   "need": 0.3
+  },
+  {
+   "shot": "S24",
+   "part": "head",
+   "frac": 0.493,
+   "need": 0.45
+  },
+  {
+   "shot": "S27",
+   "part": "head",
+   "frac": 0.44,
+   "need": 0.45
+  },
+  {
+   "shot": "S28",
+   "part": "head",
+   "frac": 0.559,
+   "need": 0.45
+  },
+  {
+   "shot": "S33",
+   "part": "head",
+   "frac": 0.705,
+   "need": 0.45
+  },
+  {
+   "shot": "S37",
+   "part": "full",
+   "frac": 1.227,
+   "need": 0.3
+  },
+  {
+   "shot": "S39",
+   "part": "head",
+   "frac": 0.585,
+   "need": 0.45
+  },
+  {
+   "shot": "S41",
+   "part": "full",
+   "frac": 0.903,
+   "need": 0.3
+  },
+  {
+   "shot": "S42",
+   "part": "full",
+   "frac": 0.918,
+   "need": 0.3
+  },
+  {
+   "shot": "S48",
+   "part": "full",
+   "frac": 1.005,
+   "need": 0.3
+  },
+  {
+   "shot": "S49",
+   "part": "head",
+   "frac": 0.549,
+   "need": 0.45
+  },
+  {
+   "shot": "S50",
+   "part": "head",
+   "frac": 0.591,
+   "need": 0.45
+  },
+  {
+   "shot": "S52",
+   "part": "head",
+   "frac": 0.55,
+   "need": 0.45
+  },
+  {
+   "shot": "S53",
+   "part": "head",
+   "frac": 0.548,
+   "need": 0.45
+  },
+  {
+   "shot": "S58",
+   "part": "full",
+   "frac": 0.958,
+   "need": 0.3
+  },
+  {
+   "shot": "S59",
+   "part": "full",
+   "frac": 0.484,
+   "need": 0.3
+  },
+  {
+   "shot": "S60",
+   "part": "head",
+   "frac": 0.364,
+   "need": 0.45
+  },
+  {
+   "shot": "S61",
+   "part": "head",
+   "frac": 0.506,
+   "need": 0.45
+  }
+ ],
+ "uiItems": 0,
+ "eggs": [],
+ "overlaps": 637,
+ "crowdCover": [
+  {
+   "shot": "S01",
+   "cover": 0
+  },
+  {
+   "shot": "S02",
+   "cover": 0
+  },
+  {
+   "shot": "S03",
+   "cover": 0
+  },
+  {
+   "shot": "S04",
+   "cover": 0
+  },
+  {
+   "shot": "S05",
+   "cover": 0
+  },
+  {
+   "shot": "S06",
+   "cover": 0
+  },
+  {
+   "shot": "S07",
+   "cover": 0
+  },
+  {
+   "shot": "S08",
+   "cover": 0
+  },
+  {
+   "shot": "S09",
+   "cover": 0
+  },
+  {
+   "shot": "S10",
+   "cover": 0
+  },
+  {
+   "shot": "S11",
+   "cover": 0
+  },
+  {
+   "shot": "S12",
+   "cover": 0
+  },
+  {
+   "shot": "S13",
+   "cover": 0
+  },
+  {
+   "shot": "S14",
+   "cover": 0
+  },
+  {
+   "shot": "S15",
+   "cover": 0
+  },
+  {
+   "shot": "S16",
+   "cover": 0
+  },
+  {
+   "shot": "S17",
+   "cover": 0
+  },
+  {
+   "shot": "S18",
+   "cover": 0
+  },
+  {
+   "shot": "S19",
+   "cover": 0
+  },
+  {
+   "shot": "S20",
+   "cover": 0
+  },
+  {
+   "shot": "S21",
+   "cover": 0
+  },
+  {
+   "shot": "S22",
+   "cover": 0
+  },
+  {
+   "shot": "S23",
+   "cover": 0
+  },
+  {
+   "shot": "S24",
+   "cover": 0
+  },
+  {
+   "shot": "S25",
+   "cover": 0
+  },
+  {
+   "shot": "S26",
+   "cover": 0
+  },
+  {
+   "shot": "S27",
+   "cover": 0
+  },
+  {
+   "shot": "S28",
+   "cover": 0
+  },
+  {
+   "shot": "S29",
+   "cover": 0
+  },
+  {
+   "shot": "S30",
+   "cover": 0
+  },
+  {
+   "shot": "S31",
+   "cover": 0
+  },
+  {
+   "shot": "S32",
+   "cover": 0
+  },
+  {
+   "shot": "S33",
+   "cover": 0
+  },
+  {
+   "shot": "S34",
+   "cover": 0
+  },
+  {
+   "shot": "S35",
+   "cover": 0
+  },
+  {
+   "shot": "S36",
+   "cover": 0
+  },
+  {
+   "shot": "S37",
+   "cover": 0
+  },
+  {
+   "shot": "S38",
+   "cover": 0
+  },
+  {
+   "shot": "S39",
+   "cover": 0
+  },
+  {
+   "shot": "S40",
+   "cover": 0
+  },
+  {
+   "shot": "S41",
+   "cover": 0
+  },
+  {
+   "shot": "S42",
+   "cover": 0
+  },
+  {
+   "shot": "S43",
+   "cover": 0
+  },
+  {
+   "shot": "S44",
+   "cover": 0
+  },
+  {
+   "shot": "S45",
+   "cover": 0
+  },
+  {
+   "shot": "S46",
+   "cover": 0
+  },
+  {
+   "shot": "S47",
+   "cover": 0
+  },
+  {
+   "shot": "S48",
+   "cover": 0
+  },
+  {
+   "shot": "S49",
+   "cover": 0
+  },
+  {
+   "shot": "S50",
+   "cover": 0
+  },
+  {
+   "shot": "S51",
+   "cover": 0
+  },
+  {
+   "shot": "S52",
+   "cover": 0
+  },
+  {
+   "shot": "S53",
+   "cover": 0
+  },
+  {
+   "shot": "S54",
+   "cover": 0
+  },
+  {
+   "shot": "S55",
+   "cover": 0
+  },
+  {
+   "shot": "S56",
+   "cover": 0
+  },
+  {
+   "shot": "S57",
+   "cover": 0
+  },
+  {
+   "shot": "S58",
+   "cover": 0
+  },
+  {
+   "shot": "S59",
+   "cover": 0
+  },
+  {
+   "shot": "S60",
+   "cover": 0
+  },
+  {
+   "shot": "S61",
+   "cover": 0
+  }
+ ],
+ "clockBoard": [],
+ "moods": {
+  "a": "WARN",
+  "b": "FAIL",
+  "c": "FAIL",
+  "d": "PASS",
+  "e": "WARN",
+  "f": "PASS",
+  "g": "WARN",
+  "h": "WARN",
+  "m": "WARN",
+  "t": "PASS"
+ },
+ "errors": [
+  "format 6: hero hero first on screen at 11.57 s in S09 (≤ 5 s)",
+  "S01: subject tuft head at x 109 % y 58 % (want x 15–85, y 18–58)",
+  "S03: subject nightfang head at x -4 % y 14 % (want x 15–85, y 18–58)",
+  "S04: subject vance head at x 336 % y 76 % (want x 15–85, y 18–58)",
+  "S05: subject volt head at x 3521 % y -119 % (want x 15–85, y 18–58)",
+  "S06: subject kira head at x 642 % y 68 % (want x 15–85, y 18–58)",
+  "S07: subject cinder head at x 357 % y 9 % (want x 15–85, y 18–58)",
+  "S08: subject teacher head at x 137 % y 55 % (want x 15–85, y 18–58)",
+  "S09: pan speed 13860 %/s > 35 %",
+  "S09: subject hero head at x -55 % y 69 % (want x 15–85, y 18–58)",
+  "S10: subject hero head at x -74 % y 44 % (want x 15–85, y 18–58)",
+  "S11: subject hero head at x -72 % y 86 % (want x 15–85, y 18–58)",
+  "S14: pan speed 799 %/s > 35 %",
+  "S15: subject hero head at x 46 % y 79 % (want x 15–85, y 18–58)",
+  "S16: subject hero head at x -112 % y 65 % (want x 15–85, y 18–58)",
+  "S17: subject hero head at x -126 % y 62 % (want x 15–85, y 18–58)",
+  "S18: subject nightfang head at x 68 % y 67 % (want x 15–85, y 18–58)",
+  "S19: subject vance head at x -428 % y 252 % (want x 15–85, y 18–58)",
+  "S20: subject vance head at x 972 % y 113 % (want x 15–85, y 18–58)",
+  "S22: subject boulder head at x -88 % y 48 % (want x 15–85, y 18–58)",
+  "S24: pan speed 1034 %/s > 35 %",
+  "S24: subject hero head at x -143 % y 120 % (want x 15–85, y 18–58)",
+  "S26: subject boulder head at x -846 % y 244 % (want x 15–85, y 18–58)",
+  "S27: subject juni head at x 106 % y 138 % (want x 15–85, y 18–58)",
+  "S28: subject hero head at x -10 % y 56 % (want x 15–85, y 18–58)",
+  "S29: pan speed 121 %/s > 35 %",
+  "S29: subject hero head at x -93 % y 74 % (want x 15–85, y 18–58)",
+  "S30: pan speed 223 %/s > 35 %",
+  "S31: subject hero head at x 84 % y 60 % (want x 15–85, y 18–58)",
+  "S34: subject tuft head at x 123 % y 44 % (want x 15–85, y 18–58)",
+  "S38: subject titan head at x -1227 % y 1519 % (want x 15–85, y 18–58)",
+  "S40: subject titan head at x -271 % y 571 % (want x 15–85, y 18–58)",
+  "S42: subject vance head at x -38 % y 42 % (want x 15–85, y 18–58)",
+  "S44: subject nightfang head at x 1907 % y -2052 % (want x 15–85, y 18–58)",
+  "S45: pan speed 3765 %/s > 35 %",
+  "S45: subject nightfang head at x 97 % y 39 % (want x 15–85, y 18–58)",
+  "S46: subject juni head at x -14 % y 78 % (want x 15–85, y 18–58)",
+  "S47: subject tuft head at x 5 % y 43 % (want x 15–85, y 18–58)",
+  "S48: pan speed 37 %/s > 35 %",
+  "S51: subject tuft head at x -3 % y 43 % (want x 15–85, y 18–58)",
+  "S56: subject titan head at x -8 % y 163 % (want x 15–85, y 18–58)",
+  "S57: subject titan head at x -89 % y 105 % (want x 15–85, y 18–58)",
+  "S58: subject hero head at x 165 % y -8 % (want x 15–85, y 18–58)",
+  "S60: subject juni head at x 307 % y -96 % (want x 15–85, y 18–58)",
+  "S61: subject hero head at x 270 % y 61 % (want x 15–85, y 18–58)",
+  "season: beats.B1 missing or not a valid [fromShot, toShot] range",
+  "season: beats.B2 missing or not a valid [fromShot, toShot] range",
+  "season: beats.B3 missing or not a valid [fromShot, toShot] range",
+  "season: beats.B4 missing or not a valid [fromShot, toShot] range",
+  "season: beats.B5 missing or not a valid [fromShot, toShot] range",
+  "season: beats.B6 missing or not a valid [fromShot, toShot] range",
+  "season: beats.B7 missing or not a valid [fromShot, toShot] range",
+  "season: beats.B8 missing or not a valid [fromShot, toShot] range",
+  "season: beats.B9 missing or not a valid [fromShot, toShot] range",
+  "season: clues must list exactly three shot ids",
+  "season: afk must list exactly two shot ids",
+  "season: twist \"undefined\" is not a shot id",
+  "season: moneyShot \"undefined\" is not a shot id",
+  "B1: first narration line has 10 words (≤ 9)",
+  "B1: shot 1 (S01) is tagged neither spectacle nor ruleImage",
+  "S03: wide subject nightfang at x 13 % (first frame), outside the middle 60 %",
+  "S05: wide subject volt at x 1660 % (first frame), outside the middle 60 %",
+  "S07: wide subject cinder at x 357 % (mid frame), outside the middle 60 %",
+  "S16: wide subject hero at x -111 % (first frame), outside the middle 60 %",
+  "S17: wide subject hero at x -129 % (first frame), outside the middle 60 %",
+  "S22: wide subject boulder at x -84 % (first frame), outside the middle 60 %",
+  "S30: wide subject hero at x -139 % (first frame), outside the middle 60 %",
+  "S31: wide subject hero at x 150 % (first frame), outside the middle 60 %",
+  "S44: wide subject nightfang at x 1907 % (mid frame), outside the middle 60 %",
+  "S46: wide subject juni at x -11 % (first frame), outside the middle 60 %",
+  "S06: kira's face (-840–692 %) in the caption band",
+  "S15: hero's face (30–70 %) in the caption band",
+  "S16: hero's face (27–64 %) in the caption band",
+  "S17: hero's face (26–64 %) in the caption band",
+  "S19: vance's face (13–73 %) in the caption band",
+  "S24: hero's face (10–124 %) in the caption band",
+  "S27: juni's face (13–79 %) in the caption band",
+  "S31: hero's face (34–64 %) in the caption band",
+  "S39: vance's face (15–68 %) in the caption band",
+  "S54: hero's face (-143–59 %) in the caption band",
+  "S58: hero's face (-907–360 %) in the caption band",
+  "S59: juni's face (51–70 %) in the caption band",
+  "S60: juni's face (42–89 %) in the caption band",
+  "S61: hero's face (12–109 %) in the caption band",
+  "S03: crowd001 and crowd006 overlap (0.99 apart, need 1.61)",
+  "S03: crowd003 and crowd006 overlap (1.40 apart, need 1.61)",
+  "S04: crowd005 and crowd008 overlap (0.94 apart, need 1.61)",
+  "S05: crowd001 and crowd002 overlap (1.18 apart, need 1.61)",
+  "S05: crowd001 and crowd005 overlap (1.60 apart, need 1.61)",
+  "S05: crowd002 and crowd003 overlap (1.52 apart, need 1.61)",
+  "S06: crowd001 and crowd002 overlap (1.18 apart, need 1.61)",
+  "S06: crowd001 and crowd005 overlap (1.60 apart, need 1.61)",
+  "S06: crowd001 and crowd007 overlap (1.33 apart, need 1.61)",
+  "S07: crowd001 and crowd002 overlap (1.18 apart, need 1.61)",
+  "S07: crowd001 and crowd005 overlap (1.60 apart, need 1.61)",
+  "S07: crowd001 and crowd007 overlap (1.33 apart, need 1.61)",
+  "S08: crowd001 and crowd002 overlap (1.18 apart, need 1.61)",
+  "S08: crowd001 and crowd005 overlap (1.60 apart, need 1.61)",
+  "S08: crowd001 and crowd007 overlap (1.33 apart, need 1.61)",
+  "S09: crowd001 and crowd002 overlap (1.18 apart, need 1.61)",
+  "S09: crowd001 and crowd005 overlap (1.60 apart, need 1.61)",
+  "S09: crowd001 and crowd007 overlap (1.33 apart, need 1.61)",
+  "S10: crowd001 and crowd002 overlap (1.18 apart, need 1.61)",
+  "S10: crowd001 and crowd005 overlap (1.60 apart, need 1.61)",
+  "S10: crowd001 and crowd007 overlap (1.33 apart, need 1.61)",
+  "S11: crowd001 and crowd002 overlap (1.18 apart, need 1.61)",
+  "S11: crowd001 and crowd005 overlap (1.60 apart, need 1.61)",
+  "S11: crowd001 and crowd007 overlap (1.33 apart, need 1.61)",
+  "S12: crowd001 and crowd002 overlap (1.18 apart, need 1.61)",
+  "S12: crowd001 and crowd005 overlap (1.60 apart, need 1.61)",
+  "S12: crowd001 and crowd007 overlap (1.33 apart, need 1.61)",
+  "S13: crowd001 and crowd002 overlap (1.18 apart, need 1.61)",
+  "S13: crowd001 and crowd005 overlap (1.60 apart, need 1.61)",
+  "S13: crowd001 and crowd007 overlap (1.33 apart, need 1.61)",
+  "S14: crowd001 and crowd002 overlap (1.18 apart, need 1.61)",
+  "S14: crowd001 and crowd005 overlap (1.60 apart, need 1.61)",
+  "S14: crowd001 and crowd007 overlap (1.33 apart, need 1.61)",
+  "S15: crowd001 and crowd002 overlap (1.18 apart, need 1.61)",
+  "S15: crowd001 and crowd005 overlap (1.60 apart, need 1.61)",
+  "S15: crowd001 and crowd007 overlap (1.33 apart, need 1.61)",
+  "S16: crowd001 and crowd002 overlap (1.18 apart, need 1.61)",
+  "S16: crowd001 and crowd005 overlap (1.60 apart, need 1.61)",
+  "S16: crowd001 and crowd007 overlap (1.33 apart, need 1.61)",
+  "S17: crowd001 and crowd002 overlap (1.18 apart, need 1.61)",
+  "S17: crowd001 and crowd005 overlap (1.60 apart, need 1.61)",
+  "S17: crowd001 and crowd007 overlap (1.33 apart, need 1.61)",
+  "S18: crowd001 and crowd002 overlap (1.18 apart, need 1.61)",
+  "S18: crowd001 and crowd005 overlap (1.60 apart, need 1.61)",
+  "S18: crowd001 and crowd007 overlap (1.33 apart, need 1.61)",
+  "S19: crowd001 and crowd002 overlap (1.18 apart, need 1.61)",
+  "S19: crowd001 and crowd005 overlap (1.60 apart, need 1.61)",
+  "S19: crowd001 and crowd007 overlap (1.33 apart, need 1.61)",
+  "S20: crowd001 and crowd002 overlap (1.18 apart, need 1.61)",
+  "S20: crowd001 and crowd005 overlap (1.60 apart, need 1.61)",
+  "S20: crowd001 and crowd007 overlap (1.33 apart, need 1.61)",
+  "S22: crowd001 and crowd002 overlap (1.18 apart, need 1.61)",
+  "S22: crowd001 and crowd005 overlap (1.60 apart, need 1.61)",
+  "S22: crowd001 and crowd007 overlap (1.33 apart, need 1.61)",
+  "S23: crowd001 and crowd002 overlap (1.18 apart, need 1.61)",
+  "S23: crowd001 and crowd005 overlap (1.60 apart, need 1.61)",
+  "S23: crowd001 and crowd007 overlap (1.33 apart, need 1.61)",
+  "S24: crowd001 and crowd002 overlap (1.18 apart, need 1.61)",
+  "S24: crowd001 and crowd005 overlap (1.60 apart, need 1.61)",
+  "S24: crowd001 and crowd007 overlap (1.33 apart, need 1.61)",
+  "S25: crowd001 and crowd002 overlap (1.18 apart, need 1.61)",
+  "S25: crowd001 and crowd005 overlap (1.60 apart, need 1.61)",
+  "S25: crowd001 and crowd007 overlap (1.33 apart, need 1.61)",
+  "S26: crowd001 and crowd002 overlap (1.18 apart, need 1.61)",
+  "S26: crowd001 and crowd005 overlap (1.60 apart, need 1.61)",
+  "S26: crowd001 and crowd007 overlap (1.33 apart, need 1.61)",
+  "S27: crowd001 and crowd002 overlap (1.18 apart, need 1.61)",
+  "S27: crowd001 and crowd005 overlap (1.60 apart, need 1.61)",
+  "S27: crowd001 and crowd007 overlap (1.33 apart, need 1.61)",
+  "S28: crowd001 and crowd002 overlap (1.18 apart, need 1.61)",
+  "S28: crowd001 and crowd005 overlap (1.60 apart, need 1.61)",
+  "S28: crowd001 and crowd007 overlap (1.33 apart, need 1.61)",
+  "S29: crowd001 and crowd002 overlap (1.18 apart, need 1.61)",
+  "S29: crowd001 and crowd005 overlap (1.60 apart, need 1.61)",
+  "S29: crowd001 and crowd007 overlap (1.33 apart, need 1.61)",
+  "S30: crowd001 and crowd002 overlap (1.18 apart, need 1.61)",
+  "S30: crowd001 and crowd005 overlap (1.60 apart, need 1.61)",
+  "S30: crowd001 and crowd007 overlap (1.33 apart, need 1.61)",
+  "S31: crowd001 and crowd002 overlap (1.18 apart, need 1.61)",
+  "S31: crowd001 and crowd005 overlap (1.60 apart, need 1.61)",
+  "S31: crowd001 and crowd007 overlap (1.33 apart, need 1.61)",
+  "S32: crowd001 and crowd002 overlap (1.18 apart, need 1.61)",
+  "S32: crowd001 and crowd005 overlap (1.60 apart, need 1.61)",
+  "S32: crowd001 and crowd007 overlap (1.33 apart, need 1.61)",
+  "S33: crowd001 and crowd002 overlap (1.18 apart, need 1.61)",
+  "S33: crowd001 and crowd005 overlap (1.60 apart, need 1.61)",
+  "S33: crowd001 and crowd007 overlap (1.33 apart, need 1.61)",
+  "S34: crowd001 and crowd002 overlap (1.18 apart, need 1.61)",
+  "S34: crowd001 and crowd005 overlap (1.60 apart, need 1.61)",
+  "S34: crowd001 and crowd007 overlap (1.33 apart, need 1.61)",
+  "S35: crowd001 and crowd002 overlap (1.18 apart, need 1.61)",
+  "S35: crowd001 and crowd005 overlap (1.60 apart, need 1.61)",
+  "S35: crowd001 and crowd007 overlap (1.33 apart, need 1.61)",
+  "S36: crowd001 and crowd002 overlap (1.18 apart, need 1.61)",
+  "S36: crowd001 and crowd005 overlap (1.60 apart, need 1.61)",
+  "S36: crowd001 and crowd007 overlap (1.33 apart, need 1.61)",
+  "S37: crowd001 and crowd002 overlap (1.18 apart, need 1.61)",
+  "S37: crowd001 and crowd005 overlap (1.60 apart, need 1.61)",
+  "S37: crowd001 and crowd007 overlap (1.33 apart, need 1.61)",
+  "S38: crowd001 and crowd002 overlap (1.18 apart, need 1.61)",
+  "S38: crowd001 and crowd005 overlap (1.60 apart, need 1.61)",
+  "S38: crowd001 and crowd007 overlap (1.33 apart, need 1.61)",
+  "S39: crowd001 and crowd002 overlap (1.18 apart, need 1.61)",
+  "S39: crowd001 and crowd005 overlap (1.60 apart, need 1.61)",
+  "S39: crowd001 and crowd007 overlap (1.33 apart, need 1.61)",
+  "S40: crowd001 and crowd002 overlap (1.18 apart, need 1.61)",
+  "S40: crowd001 and crowd005 overlap (1.60 apart, need 1.61)",
+  "S40: crowd001 and crowd007 overlap (1.33 apart, need 1.61)",
+  "S42: crowd001 and crowd002 overlap (1.18 apart, need 1.61)",
+  "S42: crowd001 and crowd005 overlap (1.60 apart, need 1.61)",
+  "S42: crowd001 and crowd007 overlap (1.33 apart, need 1.61)",
+  "S43: crowd001 and crowd002 overlap (1.18 apart, need 1.61)",
+  "S43: crowd001 and crowd005 overlap (1.60 apart, need 1.61)",
+  "S43: crowd001 and crowd007 overlap (1.33 apart, need 1.61)",
+  "S44: crowd001 and crowd002 overlap (1.18 apart, need 1.61)",
+  "S44: crowd001 and crowd005 overlap (1.60 apart, need 1.61)",
+  "S44: crowd001 and crowd007 overlap (1.33 apart, need 1.61)",
+  "S45: crowd001 and crowd002 overlap (1.18 apart, need 1.61)",
+  "S45: crowd001 and crowd005 overlap (1.60 apart, need 1.61)",
+  "S45: crowd001 and crowd007 overlap (1.33 apart, need 1.61)",
+  "S46: crowd001 and crowd002 overlap (1.18 apart, need 1.61)",
+  "S46: crowd001 and crowd005 overlap (1.60 apart, need 1.61)",
+  "S46: crowd001 and crowd007 overlap (1.33 apart, need 1.61)",
+  "S47: crowd001 and crowd002 overlap (1.18 apart, need 1.61)",
+  "S47: crowd001 and crowd005 overlap (1.60 apart, need 1.61)",
+  "S47: crowd001 and crowd007 overlap (1.33 apart, need 1.61)",
+  "S48: crowd001 and crowd002 overlap (1.18 apart, need 1.61)",
+  "S48: crowd001 and crowd005 overlap (1.60 apart, need 1.61)",
+  "S48: crowd001 and crowd007 overlap (1.33 apart, need 1.61)",
+  "S49: crowd001 and crowd002 overlap (1.18 apart, need 1.61)",
+  "S49: crowd001 and crowd005 overlap (1.60 apart, need 1.61)",
+  "S49: crowd001 and crowd007 overlap (1.33 apart, need 1.61)",
+  "S50: crowd001 and crowd002 overlap (1.18 apart, need 1.61)",
+  "S50: crowd001 and crowd005 overlap (1.60 apart, need 1.61)",
+  "S50: crowd001 and crowd007 overlap (1.33 apart, need 1.61)",
+  "S52: crowd001 and crowd005 overlap (1.60 apart, need 1.61)",
+  "S52: crowd001 and crowd007 overlap (1.33 apart, need 1.61)",
+  "S52: crowd004 and crowd009 overlap (1.48 apart, need 1.61)",
+  "S53: crowd001 and crowd002 overlap (1.18 apart, need 1.61)",
+  "S53: crowd001 and crowd005 overlap (1.60 apart, need 1.61)",
+  "S53: crowd001 and crowd007 overlap (1.33 apart, need 1.61)",
+  "S54: crowd001 and crowd002 overlap (1.18 apart, need 1.61)",
+  "S54: crowd001 and crowd005 overlap (1.60 apart, need 1.61)",
+  "S54: crowd001 and crowd007 overlap (1.33 apart, need 1.61)",
+  "S55: crowd001 and crowd002 overlap (1.18 apart, need 1.61)",
+  "S55: crowd001 and crowd005 overlap (1.60 apart, need 1.61)",
+  "S55: crowd001 and crowd007 overlap (1.33 apart, need 1.61)",
+  "S56: crowd001 and crowd002 overlap (1.18 apart, need 1.61)",
+  "S56: crowd001 and crowd005 overlap (1.60 apart, need 1.61)",
+  "S56: crowd001 and crowd007 overlap (1.33 apart, need 1.61)",
+  "S57: crowd001 and crowd002 overlap (1.18 apart, need 1.61)",
+  "S57: crowd001 and crowd005 overlap (1.60 apart, need 1.61)",
+  "S57: crowd001 and crowd007 overlap (1.33 apart, need 1.61)",
+  "S58: crowd001 and crowd002 overlap (1.18 apart, need 1.61)",
+  "S58: crowd001 and crowd005 overlap (1.60 apart, need 1.61)",
+  "S58: crowd001 and crowd007 overlap (1.33 apart, need 1.61)",
+  "S59: crowd001 and crowd002 overlap (1.18 apart, need 1.61)",
+  "S59: crowd001 and crowd005 overlap (1.60 apart, need 1.61)",
+  "S59: crowd001 and crowd007 overlap (1.33 apart, need 1.61)",
+  "S60: crowd001 and crowd002 overlap (1.18 apart, need 1.61)",
+  "S60: crowd001 and crowd005 overlap (1.60 apart, need 1.61)",
+  "S60: crowd001 and crowd007 overlap (1.33 apart, need 1.61)",
+  "S61: crowd001 and crowd002 overlap (1.18 apart, need 1.61)",
+  "S61: crowd001 and crowd005 overlap (1.60 apart, need 1.61)",
+  "S61: crowd001 and crowd007 overlap (1.33 apart, need 1.61)",
+  "S01: framing subject tuft not measured",
+  "S14: framing subject tuft not measured",
+  "S18: framing subject nightfang not measured",
+  "S26: framing subject boulder not measured",
+  "S27: framing subject 44.0 % < 45 %",
+  "S34: framing subject tuft not measured",
+  "S40: framing subject titan not measured",
+  "S47: framing subject tuft not measured",
+  "S56: framing subject titan not measured",
+  "S60: framing subject 36.4 % < 45 %",
+  "b. no dead stretch: S12: dead stretch 16.96–18.47 s (1.50 s > 1.5 s, nothing happens)",
+  "b. no dead stretch: S17: dead stretch 22.82–24.43 s (1.61 s > 1.5 s, nothing happens)",
+  "b. no dead stretch: S18: dead stretch 24.43–26.80 s (2.37 s > 1.5 s, nothing happens)",
+  "b. no dead stretch: S22: dead stretch 34.07–35.64 s (1.57 s > 1.5 s, nothing happens)",
+  "b. no dead stretch: S26: dead stretch 38.90–40.77 s (1.87 s > 1.5 s, nothing happens)",
+  "b. no dead stretch: S32: dead stretch 49.63–51.60 s (1.97 s > 1.5 s, nothing happens)",
+  "b. no dead stretch: S42: dead stretch 67.50–69.16 s (1.66 s > 1.5 s, nothing happens)",
+  "b. no dead stretch: S44: dead stretch 70.70–72.53 s (1.83 s > 1.5 s, nothing happens)",
+  "b. no dead stretch: S51: dead stretch 81.50–83.63 s (2.13 s > 1.5 s, nothing happens)",
+  "b. no dead stretch: S59: dead stretch 96.54–99.03 s (2.49 s > 1.5 s, nothing happens)",
+  "b. no dead stretch: S60: dead stretch 99.92–101.57 s (1.65 s > 1.5 s, nothing happens)",
+  "c. emphasis: S02: emphasis \"beast\" at 1.96 s has no punch-in / crashZoom / expression / verb within ±3 frames",
+  "c. emphasis: S03: emphasis \"cyan\" at 3.94 s has no punch-in / crashZoom / expression / verb within ±3 frames",
+  "c. emphasis: S25: emphasis \"flies\" at 38.20 s has no punch-in / crashZoom / expression / verb within ±3 frames",
+  "c. emphasis: S31: emphasis \"window\" at 49.04 s has no punch-in / crashZoom / expression / verb within ±3 frames",
+  "c. emphasis: S45: emphasis \"dragon\" at 72.80 s has no punch-in / crashZoom / expression / verb within ±3 frames",
+  "c. emphasis: S55: emphasis \"Titan\" at 90.04 s has no punch-in / crashZoom / expression / verb within ±3 frames"
+ ],
+ "warnings": [
+  "S01: \"tuft\" (see) not in frame by frame 6",
+  "S02: wide shot with no tagged character in the foreground",
+  "S04: \"vance\" (see) not in frame by frame 6",
+  "S05: \"volt\" (see) not in frame by frame 6",
+  "S06: \"kira\" (see) not in frame by frame 6",
+  "S07: \"cinder\" (see) not in frame by frame 6",
+  "S08: \"teacher\" (see) not in frame by frame 6",
+  "S09: \"hero\" (see) not in frame by frame 6",
+  "S10: \"hero\" (see) not in frame by frame 6",
+  "S11: \"hero\" (see) not in frame by frame 6",
+  "S12: wide shot with no tagged character in the foreground",
+  "S16: \"hero\" (see) not in frame by frame 6",
+  "S17: \"hero\" (see) not in frame by frame 6",
+  "S18: \"nightfang\" (see) not in frame by frame 6",
+  "S19: \"vance\" (see) not in frame by frame 6",
+  "S20: \"vance\" (see) not in frame by frame 6",
+  "S21: \"tuft\" (see) not in frame by frame 6",
+  "S22: \"boulder\" (see) not in frame by frame 6",
+  "S24: \"hero\" (see) not in frame by frame 6",
+  "S26: \"boulder\" (see) not in frame by frame 6",
+  "S27: \"juni\" (see) not in frame by frame 6",
+  "S28: \"hero\" (see) not in frame by frame 6",
+  "S29: \"hero\" (see) not in frame by frame 6",
+  "S29: wide shot with no tagged character in the foreground",
+  "S32: wide shot with no tagged character in the foreground",
+  "S33: \"tuft\" (see) not in frame by frame 6",
+  "S34: \"tuft\" (see) not in frame by frame 6",
+  "S35: wide shot with no tagged character in the foreground",
+  "S38: \"titan\" (see) not in frame by frame 6",
+  "S40: \"titan\" (see) not in frame by frame 6",
+  "S41: \"titan\" (see) not in frame by frame 6",
+  "S42: \"vance\" (see) not in frame by frame 6",
+  "S42: \"titan\" (see) not in frame by frame 6",
+  "S44: \"nightfang\" (see) not in frame by frame 6",
+  "S45: \"nightfang\" (see) not in frame by frame 6",
+  "S46: \"juni\" (see) not in frame by frame 6",
+  "S47: \"tuft\" (see) not in frame by frame 6",
+  "S51: \"tuft\" (see) not in frame by frame 6",
+  "S52: \"tuft\" (see) not in frame by frame 6",
+  "S54: \"tuft\" (see) not in frame by frame 6",
+  "S55: wide shot with no tagged character in the foreground",
+  "S56: \"titan\" (see) not in frame by frame 6",
+  "S57: \"titan\" (see) not in frame by frame 6",
+  "S58: \"hero\" (see) not in frame by frame 6",
+  "S58: \"tuft\" (see) not in frame by frame 6",
+  "S59: subject head at y 58 % near the caption band: consider captionY \"high\"",
+  "S61: \"hero\" (see) not in frame by frame 6",
+  "S61: \"tuft\" (see) not in frame by frame 6",
+  "a. mood + length: S01: length 1.13 s vs 1.5–2.5 s (tension, 24 % out)",
+  "a. mood + length: S06: move whip is not a fun move (track, orbit, snap, gamecam)",
+  "a. mood + length: S06: fov 36 outside 45–65 (fun)",
+  "a. mood + length: S08: fov 36 outside 40–70 (comedy)",
+  "a. mood + length: S09: fov 34 outside 40–70 (comedy)",
+  "a. mood + length: S10: fov 34 outside 40–70 (comedy)",
+  "a. mood + length: S11: length 0.97 s vs 1.5–2.5 s (tension, 36 % out)",
+  "a. mood + length: S12: fov 42 outside 28–40 (tension)",
+  "a. mood + length: S13: fov 28 outside 40–70 (comedy)",
+  "a. mood + length: S14: fov 30 outside 40–70 (comedy)",
+  "a. mood + length: S18: fov 50 outside 28–40 (tension)",
+  "a. mood + length: S19: fov 34 outside 40–70 (comedy)",
+  "a. mood + length: S23: fov 34 outside 40–70 (comedy)",
+  "a. mood + length: S24: length 0.57 s vs 0.8–2 s (comedy, 29 % out)",
+  "a. mood + length: S28: length 1.47 s vs 2–3.5 s (emotion, 27 % out)",
+  "a. mood + length: S29: fov 46 outside 28–40 (tension)",
+  "a. mood + length: S32: fov 50 outside 28–40 (tension)",
+  "a. mood + length: S34: length 1.57 s vs 2–3.5 s (emotion, 22 % out)",
+  "a. mood + length: S36: length 1.80 s vs 2.5–4 s (awe, 28 % out)",
+  "a. mood + length: S36: fov 52 outside 68–83 (awe)",
+  "a. mood + length: S38: length 1.93 s vs 2.5–4 s (awe, 23 % out)",
+  "a. mood + length: S38: fov 55 outside 68–83 (awe)",
+  "a. mood + length: S43: length 0.93 s vs 1.5–2.5 s (tension, 38 % out)",
+  "a. mood + length: S44: fov 56 outside 28–40 (tension)",
+  "a. mood + length: S48: length 1.03 s vs 1.5–2.5 s (tension, 31 % out)",
+  "a. mood + length: S48: move track is not a tension move (lowAuthority, push, tiltUp, static-drift)",
+  "a. mood + length: S52: length 1.47 s vs 2–3.5 s (emotion, 27 % out)",
+  "a. mood + length: S53: length 1.57 s vs 2–3.5 s (emotion, 22 % out)",
+  "a. mood + length: S55: fov 60 outside 68–83 (awe)",
+  "a. mood + length: S56: length 1.20 s vs 1.5–2.5 s (tension, 20 % out)",
+  "a. mood + length: S59: length 3.53 s vs 1.5–2.5 s (payoff, 41 % out)",
+  "a. mood + length: S60: length 2.53 s vs 0.8–2 s (comedy, 27 % out)",
+  "e. escalation: S25: gag 2 (4) does not grow over gag 1 in S15 (7): size, move or effects must step up",
+  "g. open loops: loop \"festival\" is never closed",
+  "h. pacing curve: 90–100 s: 5 cuts/10 s (climax wants 6–8)",
+  "m. moodSeparation: no moodmeans.json: render, run stories/<slug>/measure.py, then plan again",
+  "S01: shows no person doing its line (a static close); static objects only as an insert ≤ 1.5 s",
+  "S14: shows no person doing its line (a static close); static objects only as an insert ≤ 1.5 s",
+  "S22: shows no person doing its line (a static wide); static objects only as an insert ≤ 1.5 s",
+  "S26: shows no person doing its line (a static medium); static objects only as an insert ≤ 1.5 s",
+  "S29: shows no person doing its line (a static wide); static objects only as an insert ≤ 1.5 s",
+  "S34: shows no person doing its line (a static medium); static objects only as an insert ≤ 1.5 s",
+  "S47: shows no person doing its line (a static medium); static objects only as an insert ≤ 1.5 s"
+ ]
+}

@@ -1,0 +1,115 @@
+{
+ "title": "tuft: cuts per 10 s",
+ "bins": [
+  {
+   "from": 0,
+   "to": 10,
+   "cuts": 6,
+   "phase": "opening",
+   "target": [
+    5,
+    7
+   ],
+   "ok": true
+  },
+  {
+   "from": 10,
+   "to": 20,
+   "cuts": 7,
+   "phase": "opening",
+   "target": [
+    5,
+    7
+   ],
+   "ok": true
+  },
+  {
+   "from": 20,
+   "to": 30,
+   "cuts": 6,
+   "phase": "middle",
+   "target": [
+    4,
+    6
+   ],
+   "ok": true
+  },
+  {
+   "from": 30,
+   "to": 40,
+   "cuts": 6,
+   "phase": "middle",
+   "target": [
+    4,
+    6
+   ],
+   "ok": true
+  },
+  {
+   "from": 40,
+   "to": 50,
+   "cuts": 6,
+   "phase": "middle",
+   "target": [
+    4,
+    6
+   ],
+   "ok": true
+  },
+  {
+   "from": 50,
+   "to": 60,
+   "cuts": 5,
+   "phase": "middle",
+   "target": [
+    4,
+    6
+   ],
+   "ok": true
+  },
+  {
+   "from": 60,
+   "to": 70,
+   "cuts": 6,
+   "phase": "middle",
+   "target": [
+    4,
+    6
+   ],
+   "ok": true
+  },
+  {
+   "from": 70,
+   "to": 80,
+   "cuts": 6,
+   "phase": "climax",
+   "target": [
+    6,
+    8
+   ],
+   "ok": true
+  },
+  {
+   "from": 80,
+   "to": 90,
+   "cuts": 6,
+   "phase": "climax",
+   "target": [
+    6,
+    8
+   ],
+   "ok": true
+  },
+  {
+   "from": 90,
+   "to": 100,
+   "cuts": 5,
+   "phase": "climax",
+   "target": [
+    6,
+    8
+   ],
+   "ok": false
+  }
+ ]
+}
