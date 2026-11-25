@@ -33,7 +33,7 @@ Where an older doc (now in docs/archive/) conflicts, this list wins. Read this, 
 - One "watched" shot per episode (rule object or a character looks into the lens). 1–2 readable in-world signs / a 0.3 s flashed detail as rewind bait.
 - Ending: cut on the twist (end ≈ 0.5 s after the last word), final shot a close-up or two-shot. An open mystery is optional, never default.
 - Every episode ships a pinned self-question; a dilemma choice only when the owner picks it.
-- Length A/B: alternate SHORT (60–75 s) and LONG (~1:45) episodes for the next 6, then decide from data.
+- Length A/B: SHORT 60–75 s vs LONG 85–100 s (alternate for the next 6 episodes, then decide from data).
 
 ## 5. Camera
 - Shots use named templates only (engine/camtpl.js), chosen by what the sentence does: rule → establish/insert; feeling → mcu/cu; action → wide/track; reveal/twist → snap or crashZoom to cu; dialogue → ots/two. The noun being spoken is the biggest thing in frame. Default people angle: low worm's-eye, slow push.
@@ -68,3 +68,7 @@ Where an older doc (now in docs/archive/) conflicts, this list wins. Read this, 
 - `v2:qc -- --story <slug> --video <master>`: final gate (loudness, SSIM/PSNR, sharpness) → review/<slug>/qc.json; must pass before a final reaches the owner.
 - `python3 scripts/v2/scriptcheck.py --story <slug>`: script checks, reported to the owner, never fixed by rewriting.
 - Brief → spec: `node scripts/v2/brief2spec.js` (reads stories/<slug>/BRIEF.md + cues.json). Masters and stories/*/build/ never go in git.
+- Format 7 (opt-in, default stays 6): Brief `SPEC FLAGS: format: 7, lengthVariant: short|long`; end = voice + 0.5 s; max end 77 s (short) / 102 s (long); hero on screen by 10.0 s; final shot not wide / not pull.
+- lengthVariant: short = 60–75 s, long = 85–100 s. `python3 scripts/v2/scriptcheck.py --story <slug> --variant short|long`: short 200–250 words, long 280–330.
+- Format 7 pace (plancheck6): dead-stretch window 1.0 s before 12.0 s, 1.5 s after (emotion/awe 3.0 s); voiceGap WARN for any silence > 0.4 s between words.
+- Captions `pop-shorts-v7` (default for format 7): one word at a time, #FFE135, outline 20, fixed y 1250; check `python3 scripts/v2/caption-phone.py --style v7`.

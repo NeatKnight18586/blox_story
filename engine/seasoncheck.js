@@ -153,7 +153,7 @@ export function checkSeason({spec, shots, cues, fps = 30, end, info = [], meas =
     }
     if ((spec.afk ?? []).length && !afkBefore) E('afk: no AFK shot before the twist');
     // rhyme (legacy formats only: FORMAT_V6.md drops the frame-0 rhyme and sets the length in plancheck.js)
-    const v6 = spec.format === 6, c0 = info[0]?.first?.camera, c1 = info[shots.length - 1]?.last?.camera;
+    const v6 = spec.format >= 6, c0 = info[0]?.first?.camera, c1 = info[shots.length - 1]?.last?.camera;
     if (!v6 && c0 && c1) { const r = rhyme(c0, c1); if (!r.ok) E(`rhyme: final camera differs from shot 1 by ${(r.dp * 100).toFixed(1)} % position, ${(r.df * 100).toFixed(1)} % FOV (≤ ${L.rhyme * 100} %)`); }
     // length
     const len = end ?? (shots.at(-1).start + shots.at(-1).frames) / fps;

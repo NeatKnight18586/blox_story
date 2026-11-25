@@ -1,0 +1,27 @@
+{
+ "title": "_fixture7_pass: cuts per 10 s",
+ "bins": [
+  {
+   "from": 0,
+   "to": 10,
+   "cuts": 5,
+   "phase": "climax",
+   "target": [
+    6,
+    8
+   ],
+   "ok": false
+  },
+  {
+   "from": 10,
+   "to": 20,
+   "cuts": 5,
+   "phase": "climax",
+   "target": [
+    6,
+    8
+   ],
+   "ok": false
+  }
+ ]
+}

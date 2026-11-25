@@ -10,7 +10,7 @@ import {launch} from './browser.js';
 import {checkPlan} from '../../engine/plancheck.js';
 import {checkSeason} from '../../engine/seasoncheck.js';
 import {labelIssues} from '../../engine/nolabels.js';
-import {layoutShots} from '../../engine/timeline.js';
+import {layoutShots, MAX_END7} from '../../engine/timeline.js';
 import {checkMoods} from '../../engine/plancheck6.js';
 import {spawnSync} from 'node:child_process';
 import {segmentPlan} from './segments.js';
@@ -43,9 +43,9 @@ try {
   if (spec.season || probe.v3) { const pm = await page.evaluate(list => list.map(s => [s.start, s.start + Math.floor(s.frames / 2), s.start + s.frames - 1].map(f => window.__episode.seasonMeasure(f, s.objects))),
     sub.map(({start, frames, clueObject}) => ({start, frames, objects: [...(clueObject ? [clueObject] : []), ...(spec.season ? ['clockFace', 'clockFace1', 'clockFace2', 'clockFace3', 'scoreboard'] : [])]}))); idx.forEach((i, k) => { meas[i] = pm[k]; }); }
   // format v5: story-prop inserts measured on the real frame (middle frame, the prop's projected box height)
-  if (spec.format === 5 || spec.format === 6) Object.assign(insertH, Object.fromEntries(await page.evaluate(list => list.map(s => { const r = window.__episode.readMeasure(s.mid, {subject: null, prop: s.prop}); const b = r.box;
+  if (spec.format >= 5 && spec.format <= 7) Object.assign(insertH, Object.fromEntries(await page.evaluate(list => list.map(s => { const r = window.__episode.readMeasure(s.mid, {subject: null, prop: s.prop}); const b = r.box;
     return [s.id, !(b && b.front) ? {h: 0, margin: 0} : s.p3 ? {h: b.y1 - b.y0, margin: Math.min(b.x0, b.y0, 1 - b.x1, 1 - b.y1)} : Math.min(b.y1, 1) - Math.max(b.y0, 0)]; }), sub.filter(s => s.size === 'insert' && s.prop).map(s => ({id: s.id, prop: s.prop, p3: spec.framing === 'p3', mid: s.start + Math.floor(s.frames / 2)})))));
-  if ((spec.format === 5 || spec.format === 6) && spec.framing === 'p3') { const fh = await page.evaluate(list => list.map(s => { const r = window.__episode.readMeasure(s.mid, {subject: s.subject}); return [s.id, r.head?.box?.allFront ? r.head.box.h : 0]; }),
+  if ((spec.format >= 5 && spec.format <= 7) && spec.framing === 'p3') { const fh = await page.evaluate(list => list.map(s => { const r = window.__episode.readMeasure(s.mid, {subject: s.subject}); return [s.id, r.head?.box?.allFront ? r.head.box.h : 0]; }),
     sub.filter(s => s.subject && ['medium', 'close'].includes(s.size) && !s.back && s.move !== 'splitScreen').map(s => ({id: s.id, subject: s.subject, mid: s.start + Math.floor(s.frames / 2)})));
     for (const [id, h] of fh) shots.find(s => s.id === id).faceH = +h.toFixed(3); }   // Toy House final fix (owner P3): people medium/close, face 12–35 %
   if (spec.acting === 6 && si === 0) actingPlans = await page.evaluate(() => window.__episode.actingPlan());   // the partner plan is spec-wide: once
@@ -54,15 +54,15 @@ try {
 } finally { await browser.close(); await server.close(); }
 
 const hero = spec.hero ?? Object.entries(spec.cast ?? {}).find(([, c]) => c.troupe === 'HERO')?.[0];   // FORMAT_V6 rule 5
-const r = checkPlan({shots, cues, fps, end: spec.end, info, format: spec.format, hero});
+const r = checkPlan({shots, cues, fps, end: spec.end, info, format: spec.format, hero, lengthVariant: spec.lengthVariant});
 const sz = checkSeason({spec, shots, cues, fps, end: spec.end, info, meas});
 r.errors.push(...sz.errors, ...labelIssues(spec));
 if (actingPlans.length) { const {partnerIssues} = await import('../../engine/acting6.js'); r.errors.push(...partnerIssues(actingPlans), ...(await import('../../engine/acting6.js')).hugAngleIssues(actingPlans)); }   // P3b owner Decision 3: partners start ≤ 0.5 studs from the mark, or walk in
 r.stats.partners = actingPlans.map(p => ({partner: p.partner, verb: p.verb, dist: p.dist, walkIn: p.walk ? p.walk.dur : null, ok: p.ok}));
-if (spec.format === 5 || spec.format === 6) { const pushOf = Object.fromEntries(shots.map((s, i) => { const d = c => Math.hypot(...c.position.map((v, k) => v - c.target[k])), a = d(info[i].first.camera), b = d(info[i].last.camera); return [s.id, a > 0 ? 1 - b / a : 0]; }));   // P4b: measured slow push (fraction of the camera distance)
-  const p5 = plan5(shots, {fps, cues, insertH, end: spec.end, ...(spec.format === 6 ? {len: [0, 125]} : {}), ...(spec.moods && spec.format === 6 ? {moods: true, pushOf} : {})}); r.errors.push(...p5.errors); r.stats.format5 = {lengthS: p5.lengthS, averageShotS: p5.averageShotS, insertH}; }   // format v5 rules   // owner rule §2c: noLabels (Season 1 / labels: false)
+if (spec.format >= 5 && spec.format <= 7) { const pushOf = Object.fromEntries(shots.map((s, i) => { const d = c => Math.hypot(...c.position.map((v, k) => v - c.target[k])), a = d(info[i].first.camera), b = d(info[i].last.camera); return [s.id, a > 0 ? 1 - b / a : 0]; }));   // P4b: measured slow push (fraction of the camera distance)
+  const p5 = plan5(shots, {fps, cues, insertH, end: spec.end, ...(spec.format >= 7 ? {len: [0, MAX_END7[spec.lengthVariant ?? 'short']]} : spec.format >= 6 ? {len: [0, 125]} : {}), ...(spec.moods && spec.format >= 6 ? {moods: true, pushOf} : {})}); r.errors.push(...p5.errors); r.stats.format5 = {lengthS: p5.lengthS, averageShotS: p5.averageShotS, insertH}; }   // format v5 rules   // owner rule §2c: noLabels (Season 1 / labels: false)
 let moods = null;   // P4 (opt-in `moods: true`, format 6): mood lengths, dead stretches, emphasis, breath, escalation, 180°, loops, pacing curve
-if (spec.moods && spec.format === 6) { moods = checkMoods({shots, cues, spec, fps, heads: info.map(i => i.mid.heads), means: (() => { try { return JSON.parse(readFileSync(`stories/${story ?? spec.slug}/moodmeans.json`, 'utf8')); } catch { return null; } })()});; /* P5b: per-shot mean colour for moodSeparation (stories/<slug>/moodmeans.json, optional) */ r.errors.push(...moods.errors); r.warnings.push(...moods.warnings); }
+if (spec.moods && spec.format >= 6) { moods = checkMoods({shots, cues, spec, fps, heads: info.map(i => i.mid.heads), means: (() => { try { return JSON.parse(readFileSync(`stories/${story ?? spec.slug}/moodmeans.json`, 'utf8')); } catch { return null; } })()});; /* P5b: per-shot mean colour for moodSeparation (stories/<slug>/moodmeans.json, optional) */ r.errors.push(...moods.errors); r.warnings.push(...moods.warnings); }
 r.warnings.push(...sz.warnings); r.stats.season = !!spec.season; r.stats.framing = sz.stats.framing; r.stats.uiItems = sz.stats.ui; r.stats.eggs = sz.stats.eggs; r.stats.overlaps = sz.stats.overlaps; r.stats.crowdCover = sz.stats.cover; r.stats.clockBoard = sz.stats.clockBoard;
 const table = shots.map((s, i) => ({id: s.id, beat: !!s.beat, t: +(s.start / fps).toFixed(2), dur: +(s.frames / fps).toFixed(2), size: s.size, move: s.move, loc: s.loc, speed: +(info[i].speed * 100).toFixed(0),
   subject: s.subject ? `${s.subject}@${(info[i].mid.heads[s.subject]?.x * 100).toFixed(0)},${(info[i].mid.heads[s.subject]?.y * 100).toFixed(0)}` : '', why: s.why}));
