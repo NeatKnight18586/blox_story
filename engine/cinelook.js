@@ -36,7 +36,7 @@ export const isClear = spec => spec?.grade === 'clear';
 // tuft P3 (opt-in: grade 'clear' + look4 'moonlit'): nights that are not crushed. The sky becomes a moonlit gradient (deep blue zenith →
 // lighter blue horizon, linear scene values before AgX), the curve's input black drops (shadows keep detail), a cool moon lift on the
 // darkest values. Everything else (and every other spec) is unchanged.
-export const MOON = {zenith: [.0035, .008, .034], horizon: [.06, .105, .23], from: -.03, to: .42, inBlack: .101, black: .015, lift: [0, 0, 0], fogK: .35};
+export const MOON = {zenith: [.002, .0048, .022], horizon: [.06, .105, .23], from: -.03, to: .42, inBlack: .101, black: .015, lift: [0, 0, 0], fogK: .35};
 export const isMoon = spec => isClear(spec) && spec?.look4 === 'moonlit';
 export const curveOf = (clear, moon = false) => moon ? {...curveOf(true), inBlack: MOON.inBlack, black: MOON.black} : clear ? {...CURVE, k: CLEAR.k, black: CLEAR.black, inBlack: CLEAR.inBlack, sat: CLEAR.sat, exposure: CLEAR.exposure, shadow: CURVE.shadow.map(v => v * CLEAR.split), high: CURVE.high.map(v => v * CLEAR.split), vigMax: CLEAR.vigMax} : CURVE;
 export const FGGLOW = {color: [1, .62, .3], i: .5, size: 1.7, sigma: .2};   // lantern sprite: HDR colour × i (below the subject's highlights), gaussian sigma (of the half-size)

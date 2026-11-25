@@ -22,7 +22,7 @@ function geometryOf(geo, bake = 0) {
   g.setAttribute('position', new T.BufferAttribute(geo.pos, 3)); g.setAttribute('color', new T.BufferAttribute(col, 3));
   g.setAttribute('aSeg', new T.BufferAttribute(geo.seg, 1)); g.setAttribute('aGlow', new T.BufferAttribute(glow, 4)); return g; }
 // satin faceted material, segment matrices from a float texture (nSeg × 3 texels per row, one row per instance)
-export const MOON_RIM = [.10, .16, .34];   // P3 moonlit: cool fresnel rim on hero beasts (scene-linear, before the grade)
+export const MOON_RIM = [.15, .24, .5];   // P3 moonlit: cool fresnel rim on hero beasts (scene-linear, before the grade)
 function beastMaterial(nSeg, rows, low = false, rim = null) {   // P3: rim = moon rim colour (look4 'moonlit' only; fresnel, emissive)
    // low tier: unlit (baked per-face light, LOW_LIGHT): the cheapest pixel, one draw per preset
   const data = new Float32Array(nSeg * 3 * rows * 4), tex = new T.DataTexture(data, nSeg * 3, rows, T.RGBAFormat, T.FloatType);
@@ -44,7 +44,7 @@ function beastMaterial(nSeg, rows, low = false, rim = null) {   // P3: rim = moo
 export function createBeasts({scene, spec, presets, hdr, groundY = () => 0, resolveXZ, shots, FPS, markAt, base}) {
   const D = Math.PI / 180, actors = {}, crowds = [], geoCache = {};
   const geoOf = (name, tier, bake = 0) => geoCache[name + '|' + tier + '|' + bake] ??= (g => ({geo: g, sup: B.supportPoints(g), three: geometryOf(g, bake)}))(B.buildGeometry(presets[name], tier));
-  const LOWK = spec.look4 === 'mystery' || spec.look4 === 'moonlit' || /night/i.test(spec.look ?? '') ? .38 : 1;   // low tier baked light level (night sets are darker)
+  const LOWK = spec.look4 === 'moonlit' ? .7 : spec.look4 === 'mystery' || /night/i.test(spec.look ?? '') ? .38 : 1;   // low tier baked light level (night sets are darker)
   let GK = 1; const hdrOf = P => (hdr ? P.glowHDR ?? 3 : 1) * GK;   // GK: gates only (0 = seams dark)
   let gTex = null; const glowTex = () => { if (gTex) return gTex; const n = 64, b = new Uint8Array(n * n * 4);
     for (let y = 0; y < n; y++) for (let x = 0; x < n; x++) { const r = Math.hypot(x + .5 - n / 2, y + .5 - n / 2) / (n / 2), a = r < 1 ? Math.exp(-r * r / (2 * .16)) * (1 - r) : 0, i = (y * n + x) * 4; b[i] = b[i + 1] = b[i + 2] = 255; b[i + 3] = Math.round(a * 255); }

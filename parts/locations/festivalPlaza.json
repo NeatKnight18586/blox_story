@@ -143,45 +143,31 @@
    "side": 1,
    "seed": 62,
    "setback": 2
-  },
-  {
-   "line": [
-    [
-     -50,
-     -62
-    ],
-    [
-     50,
-     -62
-    ]
-   ],
-   "side": -1,
-   "seed": 63,
-   "setback": 2
   }
  ],
  "terraces": {
   "seed": 13,
   "centre": [
    0,
-   -70
+   -60
   ],
   "dir": 0,
-  "rows": 7,
-  "from": 10,
-  "step": 13,
-  "rise": 6.5,
-  "span": 300
+  "rows": 8,
+  "from": 8,
+  "step": 12,
+  "rise": 9,
+  "span": 170,
+  "density": 1.6
  },
  "hill": {
   "centre": [
    0,
-   -70
+   -60
   ],
   "dir": 0,
-  "from": 10,
-  "step": 13,
-  "rise": 6.5
+  "from": 8,
+  "step": 12,
+  "rise": 9
  },
  "mountain": {
   "at": [
@@ -426,12 +412,12 @@
   "establish": {
    "position": [
     0,
-    8,
-    62
+    12,
+    64
    ],
    "target": [
     0,
-    14,
+    20,
     -40
    ],
    "fov": 52

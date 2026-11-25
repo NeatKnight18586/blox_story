@@ -197,12 +197,13 @@ export function roofIdPass(renderer, scene, camera, w, h) {
   const black = new T.MeshBasicMaterial({color: '#000000'}), swaps = [], hidden = [];
   const idMat = (base, inst) => new T.ShaderMaterial({uniforms: {uBase: {value: base}}, vertexShader: `attribute float aRoof; varying float vId; uniform float uBase;
     void main() { float id = aRoof > .5 ? (${inst ? 'uBase + float(gl_InstanceID)' : '(aRoof > 1.5 ? aRoof : uBase)'}) : 0.; vId = id; ${inst ? 'gl_Position = projectionMatrix * viewMatrix * modelMatrix * instanceMatrix * vec4(position, 1.);' : 'gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.);'} }`,
-    fragmentShader: `varying float vId; void main() { float id = floor(vId + .5); gl_FragColor = vec4(mod(id, 256.) / 255., mod(floor(id / 256.), 256.) / 255., id > 0. ? 1. : 0., 1.); }`});
+    side: T.DoubleSide, fragmentShader: `varying float vId; void main() { float id = floor(vId + .5); gl_FragColor = vec4(mod(id, 256.) / 255., mod(floor(id / 256.), 256.) / 255., id > 0. ? 1. : 0., 1.); }`});
   scene.traverse(o => { if (!(o.isMesh || o.isLine || o.isPoints || o.isSprite) || !o.visible) return; if (o.isSprite || o.isLine || o.isPoints) { hidden.push(o); o.visible = false; return; }
     swaps.push([o, o.material]); o.material = o.geometry.attributes.aRoof && o.userData.roofBase !== undefined ? idMat(o.userData.roofBase, !!o.isInstancedMesh) : black; });
   const bg = scene.background, fog = scene.fog, rt = new T.WebGLRenderTarget(w, h); scene.background = new T.Color('#000000'); scene.fog = null;
   renderer.setRenderTarget(rt); renderer.render(scene, camera); const px = new Uint8Array(w * h * 4); renderer.readRenderTargetPixels(rt, 0, 0, w, h, px); renderer.setRenderTarget(null);
   for (const [o, m] of swaps) o.material = m; for (const o of hidden) o.visible = true; scene.background = bg; scene.fog = fog; rt.dispose();
+  if (typeof window !== 'undefined' && window.__roofDbg) { const c = document.createElement('canvas'); c.width = w; c.height = h; const x = c.getContext('2d'), im = x.createImageData(w, h); for (let y = 0; y < h; y++) for (let k = 0; k < w; k++) { const s = ((h - 1 - y) * w + k) * 4; im.data.set([px[s] * 3 % 256, px[s + 1] * 40 % 256, px[s + 2], 255], (y * w + k) * 4); } x.putImageData(im, 0, 0); window.__roofDbg = c.toDataURL(); }
   const count = new Map(); for (let i = 0; i < w * h; i++) if (px[i * 4 + 2] > 127) { const id = px[i * 4] + 256 * px[i * 4 + 1]; count.set(id, (count.get(id) ?? 0) + 1); }
   return [...count.entries()].map(([id, n]) => ({id, n})); }
 // mask pass: objects for which keep(o) is true render white, everything else black (still depth-tested) → share of the frame

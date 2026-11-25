@@ -22,7 +22,7 @@
  {
   "name": "mid rows: no two houses overlap along a row",
   "pass": true,
-  "line": "59 row houses, 0 overlaps"
+  "line": "52 row houses, 0 overlaps"
  },
  {
   "name": "house tris per tier (hero ≤ 2.5k, mid presets ≤ 1.2k, far ≤ 30; boxes untessellated)",
