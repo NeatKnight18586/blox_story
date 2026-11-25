@@ -10,7 +10,9 @@ export const END_MIN = 122.5, END_PAD = 2.5;
 export const episodeEnd = voiceSeconds => Math.max(voiceSeconds + END_PAD, END_MIN);   // legacy formats only
 export const DEFAULT_FORMAT = 6, TAIL = .85, MAX_END6 = 125;   // FORMAT_V6.md rules 1–2: end = voice + 0.85, hard max 2:05
 // The episode end (s) for a voice length and spec format: formats 5/6 end 0.85 s after the last word; older specs keep §9.
-export const endFor = (voiceSeconds, format) => format >= 5 ? +(voiceSeconds + TAIL).toFixed(3) : episodeEnd(voiceSeconds);
+// Format 7 (docs: RULEBOOK §9): end = voice + 0.5 s; max end 77 s (lengthVariant "short") or 112 s ("long").
+export const TAIL7 = .5, MAX_END7 = {short: 77, long: 112};
+export const endFor = (voiceSeconds, format) => format >= 7 ? +(voiceSeconds + TAIL7).toFixed(3) : format >= 5 ? +(voiceSeconds + TAIL).toFixed(3) : episodeEnd(voiceSeconds);
 
 export function layoutShots(spec) {
   const fps = spec.fps ?? 30, list = spec.shots ?? [];

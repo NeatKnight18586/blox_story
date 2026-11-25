@@ -38,7 +38,9 @@ export function parseBrief(md) {
     if (!/^\d+$/.test(cells[0])) continue;   // header / separator
     rows.push(Object.fromEntries(COLS.map((c, i) => [c, cells[i] ?? ''])));
   }
-  return {meta: kv('META'), premise: kv('PREMISE'), world: kv('WORLD'), payoff: kv('PAYOFF SHOT'), cast, rows};
+  const fl = /^[\s>*_-]*spec flags\s*:\s*(.*)$/im.exec(md)?.[1] ?? '', flags = {};   // `SPEC FLAGS: format: 7, lengthVariant: short`
+  for (const m of fl.matchAll(/(format|lengthVariant)\s*[:=]\s*(\w+)/gi)) flags[m[1].toLowerCase() === 'format' ? 'format' : 'lengthVariant'] = m[2];
+  return {flags, meta: kv('META'), premise: kv('PREMISE'), world: kv('WORLD'), payoff: kv('PAYOFF SHOT'), cast, rows};
 }
 function camera(shot, {size, move, mood, fov, pos, subjects, stand, ecu, aim, aimx = 0, fitF, pushTo, camY = null}) {   // stand = camera yaw off the subject's front (deg), aim = target height override
   const H = 5.3, xs = subjects.map(s => pos[s][0]), zs = subjects.map(s => pos[s][2]), cx = xs.reduce((a, b) => a + b, 0) / xs.length, cz = zs.reduce((a, b) => a + b, 0) / zs.length;
@@ -243,8 +245,11 @@ export function briefToSpec(brief, cues, lib, {slug, root = '.'} = {}) {
     for (const e of emphasis6) if (e.row === r['#']) e.shot = sh.id;
     shots.push(sh);
   });
-  const end = +(cues.duration + .85).toFixed(3);
-  const spec = {slug, fps: 30, format: 6, moods: true, body: 'v6', faceStyle: 'v6', acting: 6, labels: false, hero: 'hero', world: worldMod, look: 'day', cues: `stories/${slug}/cues.json`, end,
+  const fmt = brief.flags?.format === undefined ? 6 : +brief.flags.format, variant = brief.flags?.lengthVariant;
+  if (![6, 7].includes(fmt)) E('SPEC FLAGS', `format: ${brief.flags.format} (6 or 7)`);
+  if (variant !== undefined && !['short', 'long'].includes(variant)) E('SPEC FLAGS', `lengthVariant: ${variant} (short | long)`);
+  const end = +(cues.duration + (fmt >= 7 ? .5 : .85)).toFixed(3);
+  const spec = {slug, fps: 30, format: fmt, ...(fmt >= 7 ? {lengthVariant: variant ?? 'short', captionStyle: 'pop-shorts-v7'} : {}), moods: true, body: 'v6', faceStyle: 'v6', acting: 6, labels: false, hero: 'hero', world: worldMod, look: 'day', cues: `stories/${slug}/cues.json`, end,
     note: `Written by scripts/v2/brief2spec.js from stories/${slug}/BRIEF.md (${shots.length} shots). Edit the Brief, not this file.`,
     brief: {title: meta.title, ruleLine: brief.premise['rule line'], palette: world.palette, colourScript: world['colour script'], setting: world.setting, props, payoff: brief.payoff},
     cast, ...(props7.length ? {props: props7} : {}), ...(worldObjs.size ? {worldObjects: [...worldObjs]} : {}), emphasis6: emphasis6.map(({row, ...e}) => e), effects, shots};

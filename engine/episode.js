@@ -51,7 +51,7 @@ const FPS = spec.fps ?? 30;
 // Shots on the frame timeline: each shot owns [start, start + frames) (timeline.js: `at` cut times or `frames`).
 // P4 moods (opt-in spec.moods, format 6): a shot's `mood` fills move / fov defaults here; its light is applied per frame as shared uniforms
 // (renderer exposure, a saturation / temperature / haze term injected before the colour-space step of every material that has one: no re-bake, no extra pass).
-const M6 = spec.moods && spec.format === 6 ? await import('./mood6.js') : null;
+const M6 = spec.moods && spec.format >= 6 ? await import('./mood6.js') : null;
 const MOODU = {uMoodSat: {value: 1}, uMoodTint: {value: new T.Vector3(1, 1, 1)}, uMoodHaze: {value: 0}, uMoodBloom: {value: 0}, uMoodVig: {value: 0}, uMoodRes: {value: new T.Vector2(1, 1)}};
 if (M6) {
   const inject = sh => { if (!sh.fragmentShader.includes('#include <tonemapping_fragment>')) return; Object.assign(sh.uniforms, MOODU);
@@ -153,10 +153,10 @@ for (const s of shots) {
 const presets = spec.castFile ? (await (await fetch(new URL('../' + spec.castFile, import.meta.url))).json()).cast : {};
 const cast = {};
 const FACES_V3 = spec.faces === 'v3' || (spec.season === 1 && spec.faces !== 'v2');
-const troupeData = Object.values(spec.cast ?? {}).some(c => c.troupe) ? await (await fetch(new URL('../' + (spec.troupeFile ?? (spec.format === 6 ? 'cast/troupe6.json' : 'cast/troupe.json')), import.meta.url))).json() : null;   // A4 troupe slots
-if (Object.values(spec.cast ?? {}).some(c => c.troupe === 'HERO')) troupeData.troupe.HERO = (await (await fetch(new URL('../' + (spec.heroFile ?? (spec.format === 6 ? 'cast/hero6.json' : 'cast/hero.json')), import.meta.url))).json()).HERO;   // format v4 hero slot
+const troupeData = Object.values(spec.cast ?? {}).some(c => c.troupe) ? await (await fetch(new URL('../' + (spec.troupeFile ?? (spec.format >= 6 ? 'cast/troupe6.json' : 'cast/troupe.json')), import.meta.url))).json() : null;   // A4 troupe slots
+if (Object.values(spec.cast ?? {}).some(c => c.troupe === 'HERO')) troupeData.troupe.HERO = (await (await fetch(new URL('../' + (spec.heroFile ?? (spec.format >= 6 ? 'cast/hero6.json' : 'cast/hero.json')), import.meta.url))).json()).HERO;   // format v4 hero slot
 // format v4 lip flaps: per-frame mouth shapes from the voice envelope (scripts/v2/envelope.js; the voice file is only read)
-const BODY6 = spec.format === 6 && spec.body !== 'v5';   // P1b: new format-6 specs put the hero, troupe and crowds on Actor v6 (spec.body 'v5' opts out)
+const BODY6 = spec.format >= 6 && spec.body !== 'v5';   // P1b: new format-6 specs put the hero, troupe and crowds on Actor v6 (spec.body 'v5' opts out)
 const HERO_COLS = troupeData?.troupe?.HERO ? heroColours(troupeData.troupe.HERO) : null;   // format v4 1b: hero colours to keep clear
 const NIGHT_EP = ['night', 'nightBright'].includes(spec.look) || (spec.shots ?? []).some(sh => ['night', 'nightBright'].includes(sh.look));
 const flapShapes = spec.lipFlap ? (await (await fetch(new URL('../' + (spec.lipFlap.envelope ?? `stories/${spec.slug}/build/envelope.json`), import.meta.url))).json()).shapes : null;
@@ -169,7 +169,7 @@ const presetOf = c => {
   const pre2 = HERO_COLS && c.troupe !== 'HERO' && pre1.outfit ? {...pre1, outfit: heroSafeOutfit(pre1.outfit, HERO_COLS, {minL: NIGHT_EP ? .32 : 0})} : pre1;   // v4 1b: nobody dresses like the hero
   const pre3 = (spec.look4 || BODY6) && !pre2.regions && pre2.outfit ? {...pre2, regions: outfitRegions(pre2.outfit, pre2.skin ?? '#f5cd30'), outfit: null} : pre2;   // 2b: outfits as colour regions (data)
   const pre = FACES_V3 && !pre3.faceStyle ? {...pre3, faceStyle: 'v3'} : pre3;   // Faces v3: default for season 1 (or spec.faces 'v3')
-  if ((spec.format === 5 || spec.format === 6) && pre.build !== 'youth' && !(pre.age < 18)) pre.scale = 1;   // format v5: every adult stands at the same height (builds differ in shape, not size)
+  if ((spec.format >= 5 && spec.format <= 7) && pre.build !== 'youth' && !(pre.age < 18)) pre.scale = 1;   // format v5: every adult stands at the same height (builds differ in shape, not size)
   return pre; };
 for (const [name, c] of Object.entries(spec.cast ?? {})) {
   if (c.at) c.origin = resolve({anchor: c.at, offset: c.offset ?? [0, 0, 0]});
