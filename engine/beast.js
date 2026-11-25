@@ -269,7 +269,8 @@ function advance(P, k, s, d) {
   return {x, z, yaw, alt, arrived}; }
 export function rootAt(P, track, start, t) {
   let s = {x: start.p[0], z: start.p[1], yaw: start.yaw ?? 0, alt: start.alt ?? 0, arrived: null}, ki = -1;
-  for (let i = 0; i < track.length; i++) { const k = track[i]; if (t < k.t) break; ki = i; const t1 = Math.min(t, track[i + 1]?.t ?? Infinity); s = advance(P, k, {...s}, t1 - k.t); if (t1 < (track[i + 1]?.t ?? Infinity)) break; }
+  for (let i = 0; i < track.length; i++) { const k = track[i]; if (t < k.t) break; ki = i; if (k.place) s = {...s, x: k.place[0], z: k.place[1], yaw: k.yaw ?? s.yaw, alt: 0, arrived: null};   // 4C-2 (opt-in key `place`): a hard mark at k.t
+    const t1 = Math.min(t, track[i + 1]?.t ?? Infinity); s = advance(P, k, {...s}, t1 - k.t); if (t1 < (track[i + 1]?.t ?? Infinity)) break; }
   return {...s, key: ki}; }
 
 // channels at t with the transition blend (the previous key's channels, recursively to depth 3)

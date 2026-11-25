@@ -11,6 +11,7 @@
  "glowHDR": 1.4,
  "blobR": 0.32,
  "glowCap": 1,
+ "eyeBloom": false,
  "material": {
   "roughness": 0.9,
   "metalness": 0,
@@ -260,23 +261,6 @@
    "seg": "body",
    "shape": "gem",
    "size": [
-    0.03,
-    0.03,
-    0.02
-   ],
-   "offset": [
-    0.07500000000000001,
-    0,
-    0.324
-   ],
-   "facets": 4,
-   "rings": 1,
-   "color": "shine"
-  },
-  {
-   "seg": "body",
-   "shape": "gem",
-   "size": [
     0.2,
     0.24,
     0.09
@@ -309,23 +293,6 @@
    "glow": "all",
    "glowGroup": "eye",
    "glowK": 0.5
-  },
-  {
-   "seg": "body",
-   "shape": "gem",
-   "size": [
-    0.03,
-    0.03,
-    0.02
-   ],
-   "offset": [
-    -0.155,
-    0,
-    0.324
-   ],
-   "facets": 4,
-   "rings": 1,
-   "color": "shine"
   },
   {
    "seg": "footL",

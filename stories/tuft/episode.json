@@ -3978,7 +3978,9 @@
    "loc": "homeDining",
    "look": "toy",
    "tpl": {
-    "kind": "mcu"
+    "kind": "two",
+    "a": "juni",
+    "b": "tuft"
    },
    "mood": "fun",
    "size": "medium",
@@ -6479,7 +6481,8 @@
  "twos": true,
  "post": "cine",
  "camera": "cine",
- "grade": "clear",
+ "grade": "roblox",
+ "beastPlace": true,
  "location": "festivalPlaza",
  "look4": "moonlit",
  "locations": [
@@ -6572,7 +6575,7 @@
   "row 3: tpl beastHero \u2014 place: kept as actor blocking only (the camera never reads it)",
   "row 9: tpl mcu \u2014 ignored cam: fov:",
   "row 9: tpl mcu \u2014 place: kept as actor blocking only (the camera never reads it)",
-  "row 21: tpl mcu \u2014 place: kept as actor blocking only (the camera never reads it)",
+  "row 21: tpl two \u2014 place: kept as actor blocking only (the camera never reads it)",
   "row 31: tpl establish \u2014 ignored cam: fov:",
   "row 31: tpl establish \u2014 place: kept as actor blocking only (the camera never reads it)",
   "row 59: tpl two \u2014 place: kept as actor blocking only (the camera never reads it)"

@@ -14,7 +14,7 @@
 // OCCLUSION (solveShot): rays from every checked head (prop / beast head) to the camera (ctx.clear) + a camera clearance test (ctx.free)
 // on sampled times of the whole shot; the camera swings around the subject in 15° steps, then pulls in, until all samples are clear
 // (one swing / pull per shot: no pops); a per-frame safety pulls in further if a frame between samples is still blocked.
-// ctx: {fps, aspect, subjectAt(name, lt) → {eyes, headH, H, foot: [x,y,z], face: [x,z]} | null, propAt(name, lt) → {centre, H} | null,
+// ctx: {fps, aspect, subjectAt(name, lt) → {eyes, headH, H, foot: [x,y,z], face: [x,z], body?: [torso centre, shoulder, shoulder]} | null, propAt(name, lt) → {centre, H} | null,
 //       groundAt(x, z), clear(from, to, ignore[]) → bool, free(p) → bool, cacheKey}
 import {lensFov, aimAt, framingTarget, headBox, fitShift, project} from './cine.js';
 import {EASE, CRASH, SNAP_FRAMES} from './camera.js';
@@ -30,8 +30,8 @@ export const TPL = {
   ots: {lens: 35, back: 3, side: 1.2, drop: .25},   // back: studs beyond the partner's head on the subject → partner line; side: off its shoulder; drop: below its eyes (× head height)
   two: {lens: 35, yaw: 0, rise: 2, pad: 1.35, v: 1.1},
   insert: {lens: 50, fill: .45, yaw: 20, rise: 22},
-  beastHero: {lens: 24, share: .7, camH: 1.4, yaw: 22, push: .1},   // push: a shorter push / pull travel (the share stays in .6–.8)   // camH: studs above the ground (a kid's chest: never above 1.6)
-  beastFace: {lens: 50, vHead: 2.4, yaw: 12, drop: .1}};
+  beastHero: {lens: 24, share: .55, minShare: .45, camH: 1.4, yaw: 40, yaws: [40, 30, 20], push: .1},   // 4C-2: ¾ (yaw 40°), silhouette share .45–.65 (aim .55); camH: studs above the ground (≤ kid-eye); push: a shorter travel
+  beastFace: {lens: 35, vHead: 2.4, yaw: 0, drop: .1, eyeShare: .58, eyeY: .1}};   // 4C-2: eyeShare = combined eye width / frame width (gate ≥ .45); eyeY: eyes' NDC height
 export const SEARCH = {swing: 15, maxSwing: 180, pulls: [1, .8, .64, .5, .4], samples: 7, step: .4, safety: 5, safetyK: .85, smoothFace: .5, headOut: .6};
 const D = Math.PI / 180, clamp01 = x => Math.min(1, Math.max(0, x)), add = (a, b) => [a[0] + b[0], a[1] + b[1], a[2] + b[2]], sub = (a, b) => [a[0] - b[0], a[1] - b[1], a[2] - b[2]];
 const scl = (a, k) => [a[0] * k, a[1] * k, a[2] * k], len = a => Math.hypot(a[0], a[1], a[2]), tanK = (fov, k) => 2 / D * Math.atan(Math.tan(fov * D / 2) * k);
@@ -109,7 +109,7 @@ export function solvePose(shot, lt, ctx, P = {swing: 0, pull: 1}) {
     const pos = ground(ctx, [pr.centre[0] + Math.sin(yaw * D) * dh, pr.centre[1] + d * Math.sin(K.rise * D) + mv.up, pr.centre[2] + Math.cos(yaw * D) * dh]);
     return {position: pos, target: aimAt(pos, pr.centre, 0, 0, fov, aspect), fov, ok: true, check: [{p: pr.centre, r: .3 * pr.H, ignore: []}]};
   }
-  if (t.kind === 'two') {
+  if (t.kind === 'two') {   // 4C-2: the pair may touch (a hug): each ignores both, only others block
     const A = ctx.subjectAt(t.a, lt), B = ctx.subjectAt(t.b, lt); if (!A || !B) return null;
     const mid = scl(add(A.eyes, B.eyes), .5), ax = [B.eyes[0] - A.eyes[0], B.eyes[2] - A.eyes[2]], al = Math.hypot(...ax) || 1, n = [-ax[1] / al, ax[0] / al];
     const fA = smoothFace(ctx, t.a, lt, dur), fB = smoothFace(ctx, t.b, lt, dur), s = Math.sign(n[0] * (fA[0] + fB[0]) + n[1] * (fA[1] + fB[1])) || side;
@@ -117,7 +117,7 @@ export function solvePose(shot, lt, ctx, P = {swing: 0, pull: 1}) {
     const d = Math.max((al + 1.5 * Math.max(A.headH, B.headH)) * K.pad / (2 * tx), K.v * H / (2 * Math.tan(fov0 * D / 2))) * P.pull * mv.dist, dh = d * Math.cos(K.rise * D);
     const pos = ground(ctx, [mid[0] + Math.sin(yaw * D) * dh, mid[1] + d * Math.sin(K.rise * D) + mv.up, mid[2] + Math.cos(yaw * D) * dh]);
     const f = fitHeads(pos, aimAt(pos, mid, 0, 1 - 2 / 3, fov, aspect), fov, [A, B], aspect, mid);
-    return {position: f.pos, target: f.target, fov, ok: f.ok, check: [{p: A.eyes, r: SEARCH.headOut * A.headH, ignore: [t.a]}, {p: B.eyes, r: SEARCH.headOut * B.headH, ignore: [t.b]}], heads: [A, B]};
+    return {position: f.pos, target: f.target, fov, ok: f.ok, check: [{p: A.eyes, r: SEARCH.headOut * A.headH, ignore: [t.a, t.b], body: A.body}, {p: B.eyes, r: SEARCH.headOut * B.headH, ignore: [t.a, t.b], body: B.body}], heads: [A, B]};
   }
   if (t.kind === 'ots') {
     const S = ctx.subjectAt(nm.main, lt), Pn = ctx.subjectAt(t.partner, lt); if (!S || !Pn) return null;
@@ -126,28 +126,39 @@ export function solvePose(shot, lt, ctx, P = {swing: 0, pull: 1}) {
     const pos = ground(ctx, [S.eyes[0] + cu[0] * dS + cr[0] * side * K.side, Pn.eyes[1] - K.drop * Pn.headH + mv.up, S.eyes[2] + cu[1] * dS + cr[1] * side * K.side]);
     const ft = framingTarget({position: pos, target: S.eyes, fov}, S.eyes, null, S.headH, aspect, side > 0 ? 'left' : 'right');
     const f = fitHeads(pos, aimAt(pos, S.eyes, ft.xn, ft.yn, fov, aspect), fov, [S, Pn], aspect, S.eyes);
-    return {position: f.pos, target: f.target, fov, ok: f.ok, check: [{p: S.eyes, r: SEARCH.headOut * S.headH, ignore: [nm.main]}], heads: [S, Pn]};
+    return {position: f.pos, target: f.target, fov, ok: f.ok, check: [{p: S.eyes, r: SEARCH.headOut * S.headH, ignore: [nm.main], body: S.body}], heads: [S, Pn]};
   }
   const S = ctx.subjectAt(nm.main, lt); if (!S) return null;
-  const face = smoothFace(ctx, nm.main, lt, dur), yaw = yawOfFace(face) + side * K.yaw + P.swing + mv.yaw;
-  if (t.kind === 'beastHero') {
-    const top = Math.max(S.foot[1] + S.H, S.eyes[1] + .5 * S.headH), C = [(S.foot[0] + S.eyes[0]) / 2, S.foot[1], (S.foot[2] + S.eyes[2]) / 2], g = ctx.groundAt?.(C[0], C[2]) ?? C[1];   // the root–head mid column (a long neck reaches toward the camera)
-    const reach = Math.hypot(S.eyes[0] - C[0], S.eyes[2] - C[2]) + S.headH;   // never under the head
-    let lo = reach, hi = 600; for (let i = 0; i < 40; i++) { const m = (lo + hi) / 2, gy = ctx.groundAt?.(C[0] + Math.sin(yaw * D) * m, C[2] + Math.cos(yaw * D) * m) ?? g; if (heroShare(C, top, yaw, m, gy + K.camH, fov0, aspect).share > K.share) lo = m; else hi = m; }
-    let dh = Math.max(reach, (lo + hi) / 2), f = null, sh = 0;
-    for (let k = 0; k < 5; k++) {   // the head-fit aim shift tilts a low camera, which changes the projected span: re-solve the distance around it
-      const d1 = Math.max(reach, dh * P.pull * mv.dist), gy = ctx.groundAt?.(C[0] + Math.sin(yaw * D) * d1, C[2] + Math.cos(yaw * D) * d1) ?? g, hs = heroShare(C, top, yaw, d1, gy + K.camH + mv.up, fov, aspect);
-      f = fitHeads(hs.pos, hs.target, fov, [S], aspect, [C[0], (C[1] + top) / 2, C[2]], 0);   // aim shift only: the head in frame
-      const cam = {position: f.pos, target: f.target, fov}; sh = (project(cam, [C[0], top, C[2]], aspect).y - project(cam, C, aspect).y) / 2;
-      if (Math.abs(sh - K.share * (mv.fovK === 1 ? 1 / mv.dist : 1)) < .02 || d1 <= reach + 1e-9) break; dh *= sh / (K.share / mv.dist); }
-    return {position: f.pos, target: f.target, fov, ok: f.ok, share: sh, check: [{p: S.eyes, r: SEARCH.headOut * S.headH, ignore: [nm.main]}], heads: []};
+  const face = smoothFace(ctx, nm.main, lt, dur), yaw = yawOfFace(face) + side * (K.yaw ?? 0) + P.swing + mv.yaw;
+  if (t.kind === 'beastHero') {   // 4C-2: "see the whole beast, heroically": ¾, low, the whole silhouette (+ head box, + mouth and 40 % of a breath jet) in frame
+    const B = S.box ?? {min: [S.foot[0] - S.H / 3, S.foot[1], S.foot[2] - S.H / 3], max: [S.foot[0] + S.H / 3, S.foot[1] + S.H, S.foot[2] + S.H / 3]};
+    const C = [(B.min[0] + B.max[0]) / 2, (B.min[1] + B.max[1]) / 2, (B.min[2] + B.max[2]) / 2], hw = Math.hypot(B.max[0] - B.min[0], B.max[2] - B.min[2]) / 2;
+    const corners = S.pts ?? [0, 1, 2, 3, 4, 5, 6, 7].map(i => [i & 1 ? B.max[0] : B.min[0], i & 2 ? B.max[1] : B.min[1], i & 4 ? B.max[2] : B.min[2]]), hh = S.headH * .6;   // the silhouette: posed vertices (else the box)
+    const extra = [...[-1, 1].flatMap(a => [-1, 1].map(b => [S.eyes[0] + a * hh, S.eyes[1] + b * hh, S.eyes[2]])), ...(S.jet ? [S.jet.from, add(S.jet.from, scl(S.jet.dir, .4 * S.jet.reach))] : [])], all = [...corners, ...extra];
+    const solveAt = yaw => { const at = dh => { const gy = ctx.groundAt?.(C[0] + Math.sin(yaw * D) * dh, C[2] + Math.cos(yaw * D) * dh) ?? B.min[1], pos = [C[0] + Math.sin(yaw * D) * dh, gy + K.camH + mv.up, C[2] + Math.cos(yaw * D) * dh];
+      let tg = aimAt(pos, C, 0, 0, fov, aspect);
+      for (let i = 0; i < 3; i++) { const cam = {position: pos, target: tg, fov}, q = all.map(p => project(cam, p, aspect)); if (q.some(v => v.z <= .05)) break;
+        const xs = q.map(v => v.x), ys = q.map(v => v.y), cx = (Math.min(...xs) + Math.max(...xs)) / 2, cy = (Math.min(...ys) + Math.max(...ys)) / 2, a = project(cam, C, aspect); tg = aimAt(pos, C, a.x - cx, a.y - cy, fov, aspect); }
+      let cam = {position: pos, target: tg, fov}; const head = project(cam, S.eyes, aspect), lowY = Math.min(...all.map(p => project(cam, p, aspect).y));
+      if (head.y < 1 / 3 && lowY > -.94) { const a = project(cam, C, aspect), dy = Math.min(1 / 3 - head.y, lowY + .94); tg = aimAt(pos, C, a.x, a.y + dy, fov, aspect); cam = {position: pos, target: tg, fov}; }   // the head into the upper third
+      const qc = corners.map(p => project(cam, p, aspect)), qa = all.map(p => project(cam, p, aspect));
+      return {pos, tg, share: (Math.max(...qc.map(v => v.y)) - Math.min(...qc.map(v => v.y))) / 2, fit: qa.every(v => v.z > .05 && Math.abs(v.x) <= .94 && Math.abs(v.y) <= .94), headY: project(cam, S.eyes, aspect).y}; };
+    let lo = hw + 1, hi = 3000; for (let i = 0; i < 40; i++) { const m = (lo + hi) / 2; if (at(m).share > K.share) lo = m; else hi = m; }
+    let dh = Math.max(hw + 1, (lo + hi) / 2 * P.pull * mv.dist), r = at(dh); for (let i = 0; i < 12 && !r.fit && r.share > K.minShare; i++) r = at(dh *= 1.06); return r; };
+    let r = null; for (const yo of K.yaws) { const q = solveAt(yawOfFace(face) + side * yo + P.swing + mv.yaw); if (!r || (q.fit && q.share >= K.minShare && !(r.fit && r.share >= K.minShare))) r = q; if (r.fit && r.share >= K.minShare) break; }   // ¾ first; flatter only if the silhouette (+ jet) does not fit
+    return {position: r.pos, target: r.tg, fov, ok: r.fit, share: r.share, headY: r.headY, check: [{p: S.eyes, r: SEARCH.headOut * S.headH, ignore: [nm.main]}], heads: []};
+  }
+  if (t.kind === 'beastFace' && S.eyesL?.length >= 2) {   // 4C-2: "eyes fill the screen": on the head's forward axis, both eyes centred, their combined width = eyeShare of the frame width
+    const e0 = S.eyesL[0], e1 = S.eyesL[1], mid = scl(add(e0.p, e1.p), .5), span = len(sub(e0.p, e1.p)) + (e0.w + e1.w) / 2, f0 = [Math.sin(yaw * D), 0, Math.cos(yaw * D)];
+    const d = span / (2 * K.eyeShare * Math.tan(fov0 * D / 2) * aspect) * P.pull * mv.dist, pos = ground(ctx, add(mid, add(scl(f0, d), [0, mv.up, 0])));
+    return {position: pos, target: aimAt(pos, mid, 0, K.eyeY, fov, aspect), fov, ok: true, check: [{p: mid, r: .5 * Math.min(e0.w, e1.w), ignore: [nm.main]}], heads: []};
   }
   const Hf = K.vHead ? K.vHead * S.headH : K.v * S.H, d = Hf / (2 * Math.tan(fov0 * D / 2)) * P.pull * mv.dist, rise = (K.rise ?? 0) * D, dh = d * Math.cos(rise);
   const y = t.kind === 'beastFace' ? S.eyes[1] - K.drop * S.headH : S.eyes[1] + d * Math.sin(rise);
   const pos = ground(ctx, [S.eyes[0] + Math.sin(yaw * D) * dh, y + mv.up, S.eyes[2] + Math.cos(yaw * D) * dh]);
   const ft = framingTarget({position: pos, target: S.eyes, fov}, S.eyes, face, S.headH, aspect, null);
   const f = fitHeads(pos, aimAt(pos, S.eyes, ft.xn, ft.yn, fov, aspect), fov, [S], aspect, S.eyes);
-  return {position: f.pos, target: f.target, fov, ok: f.ok, check: [{p: S.eyes, r: SEARCH.headOut * S.headH, ignore: [nm.main]}], heads: [S]};
+  return {position: f.pos, target: f.target, fov, ok: f.ok, check: [{p: S.eyes, r: SEARCH.headOut * S.headH, ignore: [nm.main], body: S.body}], heads: [S]};
 }
 // the head's centre + 4 points at ±HEAD5 r across the view (camera right / up): a half-hidden face is occluded
 export const HEAD5 = .8;
@@ -158,7 +169,12 @@ export function headPoints(c, cam, r) {
 // every checked head (5 points) sees the camera and the camera is clear of geometry
 export function poseClear(pose, ctx) {
   if (!pose) return false; if (ctx.free && !ctx.free(pose.position)) return false;
-  for (const c of pose.check ?? []) for (const p of headPoints(c.p, pose.position, c.r)) { const v = sub(pose.position, p), l = len(v); if (l <= c.r) return false; if (!ctx.clear(add(p, scl(v, c.r / l)), pose.position, c.ignore)) return false; }
+  const cam = {position: pose.position, target: pose.target, fov: pose.fov}, aspect = ctx.aspect ?? 9 / 16;
+  for (const c of pose.check ?? []) {
+    if (len(sub(pose.position, c.p)) <= c.r) return false;
+    for (const p of headPoints(c.p, pose.position, c.r)) if (!ctx.clear(p, pose.position, c.ignore)) return false;   // 4C-2: from the point itself (own rig ignored): a chair through the head plane blocks
+    for (const p of c.body ?? []) { const q = project(cam, p, aspect); if (q.z <= 0 || Math.abs(q.x) > 1 || Math.abs(q.y) > 1) continue; if (!ctx.clear(p, pose.position, c.ignore)) return false; }   // torso centre + shoulders, when on screen
+  }
   return true;
 }
 export const swings = () => { const s = [0]; for (let a = SEARCH.swing; a <= SEARCH.maxSwing; a += SEARCH.swing) { s.push(a); if (a < SEARCH.maxSwing) s.push(-a); } return s; };

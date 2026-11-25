@@ -6,6 +6,7 @@
 import * as T from 'three';
 import * as B from './beast.js';
 import * as PF from './puff.js';   // 2B TUFT puff / glow
+import {BREATH, breathReach} from './powers.js';   // 4C-2 shapeAt: the breath jet (as powersrt draws it)
 import {contactBlob} from './look5b.js';
 
 export async function loadPresets(names, base) {
@@ -61,7 +62,7 @@ export function createBeasts({scene, spec, presets, hdr, groundY = () => 0, reso
       root.traverse(o => { o.castShadow = false; o.receiveShadow = false; });
       const trail = Array.from({length: P.trail?.n ?? 0}, () => { const t2 = new T.Sprite(sp.material.clone()); t2.renderOrder = -1; t2.name = 'blinkTrail'; t2.userData.live = true; scene.add(t2); return t2; });   // P3: short sparkle trail
       return actors[name] = {name, c, P, root, head, blink: {sp, wings, col, trail}, blobR: 0, pivots: {head}}; }
-    const tier = c.tier ?? 'hero', G = geoOf(c.preset, tier), {m, U, tex, data} = beastMaterial(G.geo.segNames.length, 1, false, spec.look4 === 'moonlit' && (c.rim ?? P.moonRim ?? true) ? MOON_RIM : null, P.material);   // P3B: preset moonRim / cast rim false = no moon rim (TITAN: its light is its own cracks + eyes)
+    const tier = c.tier ?? 'hero', G = geoOf(c.preset, tier), {m, U, tex, data} = beastMaterial(G.geo.segNames.length, 1, false, spec.look4 === 'moonlit' && (c.rim ?? P.moonRim ?? true) ? MOON_RIM : null, P.material); if (P.eyeBloom === false) m.userData.eyeBloom = false;   // 4C-2: eye highlights that are not a bloom source (TUFT)   // P3B: preset moonRim / cast rim false = no moon rim (TITAN: its light is its own cracks + eyes)
     const mesh = new T.InstancedMesh(G.three, m, 1); mesh.setMatrixAt(0, new T.Matrix4()); mesh.frustumCulled = false; mesh.castShadow = mesh.receiveShadow = false; mesh.name = 'beastMesh_' + name; mesh.userData.live = true; root.add(mesh);
     return actors[name] = {name, c, P, root, head, mesh, U, tex, data, G, tier, blobR: (P.blobR ?? 1.5), pivots: {head}, track: null, start: null, seed: B.hashSeed(name)}; }
   for (const [n, c] of Object.entries(spec.cast ?? {})) if (c.style === 'beast') create(n, c);
@@ -79,7 +80,10 @@ export function createBeasts({scene, spec, presets, hdr, groundY = () => 0, reso
     for (const sh of shots) for (const e of sh.beasts ?? []) if (e.actor === a.name) {
       const cam = sh.from ? {position: sh.from.position, target: sh.from.target} : null, to = e.to == null ? null : Array.isArray(e.to) ? (e.to.length === 3 ? [e.to[0], e.to[2]] : e.to) : resolveXZ(e.to);
       k.push({t: sh.start / FPS + (e.at ?? 0), state: e.state, ...(to ? {to} : {}), ...(e.state === 'flee' ? {exit: B.exitDir(e.exit ?? sh.exit ?? 'right', cam ?? {position: [0, 0, 10], target: [0, 0, 0]})} : {})}); }
-    const p0 = markAt(c, 0); a.start = {p: [p0[0], p0[2]], yaw: (c.yaw ?? 0) * D}; return a.track = B.normTrack(k); }
+    if (spec.beastPlace) for (const [tm, m] of c.marks ?? []) if (tm > 0) { const p = markAt(c, tm + 1e-6); k.push({t: tm, place: [p[0], p[2]], yaw: (m.yaw ?? 0) * D, state: null}); }   // 4C-2 (opt-in spec beastPlace): later cast marks (Brief place:) are hard marks
+    const p0 = markAt(c, 0); a.start = {p: [p0[0], p0[2]], yaw: (c.yaw ?? 0) * D}; const tr = B.normTrack(k);
+    for (let i = 0; i < tr.length; i++) if (tr[i].state === null) { const pv = tr[i - 1]?.state ?? 'idle'; tr[i].state = ['walk', 'run', 'flee', 'fly'].includes(pv) ? 'idle' : pv; }   // a placed beast keeps its pose state (a move ends at the mark)
+    return a.track = tr; }
   // 2B: shot `puffs` [{actor, size, at}] / `glows` [{actor, level, at}] → absolute-time events per actor (pure in t)
   const evOf = (key, name) => shots.flatMap(sh => (sh[key] ?? []).filter(e => e.actor === name).map(e => ({...e, t: sh.start / FPS + (e.at ?? 0)}))).sort((x, y) => x.t - y.t);
   const puffK = (a, t) => a.P.rig === 'puff' ? PF.puffAt(a.puffEv ??= evOf('puffs', a.name), t, PF.TUFT_H, 'tuft', a.P.puffK) : {k: 1, phase: 'rest'};
@@ -107,6 +111,20 @@ export function createBeasts({scene, spec, presets, hdr, groundY = () => 0, reso
     a.H ??= (() => { const v = B.worldVerts(B.sampleBeast(a.P, [{t: 0, state: 'idle'}], 0, {geo: a.G.geo, support: a.G.sup}), a.G.geo); let y = 0; for (let i = 1; i < v.length; i += 3) y = Math.max(y, v[i]); return y; })();
     const r = {root: s.root.p, yaw: s.root.yaw, head: a.P.rig === 'puff' ? B.worldOf(s, 'body', [0, .1, .2]) : B.worldOf(s, 'head', [0, (d.headH ?? 1) * .3 * K, (d.headL ?? 1) * .45 * K]), H: a.H * pk.k, headH: Math.max(d.headH ?? .6, d.headW ?? .6) * K};
     if (liveCache.size > 4000) liveCache.clear(); liveCache.set(k, r); return r; }
+  // 4C-2 (camera templates, read-only): the posed silhouette box (all vertices), the eye parts (preset parts coloured 'eye', else glowGroup
+  // 'eye': centre + width) and, for a NIGHTFANG inside a breathe window, the jet {from, dir, reach} exactly as engine/powersrt.js draws it
+  const shapeCache = new Map();
+  function shapeAt(name, t) {
+    const a = actors[name]; if (!a || a.P.rig === 'blink') return null; const k = name + '|' + t.toFixed(5); if (shapeCache.has(k)) return shapeCache.get(k);
+    const pk = puffK(a, t), s = B.sampleBeast(a.P, trackOf(a), t, {seed: a.seed, groundY, geo: a.G.geo, support: a.G.sup, start: a.start, scale: pk.k}), v = B.worldVerts(s, a.G.geo), K = a.P.scale ?? 1;
+    const min = [Infinity, Infinity, Infinity], max = [-Infinity, -Infinity, -Infinity]; for (let i = 0; i < v.length; i += 3) for (let j = 0; j < 3; j++) { min[j] = Math.min(min[j], v[i + j]); max[j] = Math.max(max[j], v[i + j]); }
+    const eyeParts = (a.P.parts ?? []).filter(p => p.color === 'eye'), ep = eyeParts.length ? eyeParts : (a.P.parts ?? []).filter(p => p.glowGroup === 'eye');
+    const eyes = ep.flatMap(p => [p, ...(p.mirror ? [{...p, seg: p.seg.replace(/L(\d?)$/, 'R$1'), offset: [-p.offset[0], p.offset[1], p.offset[2]]}] : [])]).map(p => ({p: B.worldOf(s, p.seg, p.offset.map(x => x * K)), w: (p.size?.[0] ?? .1) * K * (s.root.k ?? 1)}));
+    let jet = null; if (a.P.name === 'NIGHTFANG') { const tr = trackOf(a); tr.forEach((kk, i) => { if (kk.state !== 'breathe') return; const t1 = tr[i + 1]?.t ?? 1e9; if (t < kk.t || t > t1 + BREATH.life) return;
+      const o = B.worldOf(s, 'jaw', [0, .05 * K, 1.9 * K]), h0 = B.worldOf(s, 'head', [0, 0, 0]), h1 = B.worldOf(s, 'head', [0, -.35 * K, 1.0 * K]), d = [h1[0] - h0[0], h1[1] - h0[1], h1[2] - h0[2]], l = Math.hypot(...d) || 1;
+      jet = {from: o, dir: d.map(x => x / l), reach: breathReach(BREATH) * K * .9}; }); }
+    const pts = [], step = Math.max(1, Math.floor(v.length / 3 / 600)); for (let i = 0; i < v.length; i += 3 * step) pts.push([v[i], v[i + 1], v[i + 2]]);   // ≤ ~600 silhouette points
+    const r = {box: {min, max}, pts, eyes, jet}; if (shapeCache.size > 2000) shapeCache.clear(); shapeCache.set(k, r); return r; }
   // BLINK orbit (after every actor is posed) + crowds
   // 2B: cast `ride: {actor, at: 'hood'|'hands', from?, until?}`: the beast sits in the carrier's hood (behind the neck) or cupped hands (posed carrier)
   const RIDE = {hood: {fwd: -.72, up: -1.02}, hands: {fwd: .95, up: -2.05}};
@@ -134,4 +152,4 @@ export function createBeasts({scene, spec, presets, hdr, groundY = () => 0, reso
   // 2B TITAN: footfall times of a beast's stomp / walk keys (absolute s) for the shot `shake` hook
   const ffCache = {}; function footfallsOf(name) { if (ffCache[name]) return ffCache[name]; const a = actors[name]; if (!a?.mesh) return []; const tr = trackOf(a), out = [];
     tr.forEach((k, i) => { if (k.state === 'stomp' || (k.state === 'walk' && a.P.name === 'TITAN')) out.push(...B.footfalls(a.P, k.state, k.t + .05, tr[i + 1]?.t ?? k.t + 60, a.seed)); }); return ffCache[name] = out; }
-  return {actors, crowds, create, drive, post, trackOf, liveAt, footfallsOf, setMask, meshes, setGlowScale: k => { GK = k; }, is: n => !!actors[n], blobItems: () => Object.values(actors).filter(a => a.blobR > 0).map(a => ({key: 'beast_' + a.name, x: a.root.position.x, y: a.root.position.y, z: a.root.position.z, r: a.blobR * a.root.scale.x, visible: a.root.visible && !a.riding}))}; }
+  return {actors, crowds, create, drive, post, trackOf, liveAt, shapeAt, footfallsOf, setMask, meshes, setGlowScale: k => { GK = k; }, is: n => !!actors[n], blobItems: () => Object.values(actors).filter(a => a.blobR > 0).map(a => ({key: 'beast_' + a.name, x: a.root.position.x, y: a.root.position.y, z: a.root.position.z, r: a.blobR * a.root.scale.x, visible: a.root.visible && !a.riding}))}; }

@@ -18,7 +18,7 @@ export const SIZES6 = ['wide', 'medium', 'close', 'insert', 'ecu'], EFFECTS6 = [
 const FACE_ALIAS = {awe_small: 'o_small'};
 const SLOT_SCALE = {LITTLE: .62, LEAD: .82, SECOND: .82, RIVAL: .95};   // E2: partner scale picks the carry (cast/troupe6.json)   // Brief vocabulary → faces6 name (the small round-mouth wonder face)
 const PROP_H = {streetLamp: 5.2, crate: 1.2, porch: 3.5, shack: 5, deadTree: 6, birdhouse: 1.5, powerLine: 9};   // library prop heights (insert camera fit)
-export const FLAG_KEYS = ['format', 'season', 'acting', 'rig', 'twos', 'post', 'camera', 'grade', 'faceLife'];   // SPEC FLAGS keys (+ `night look <name>`)
+export const FLAG_KEYS = ['format', 'season', 'acting', 'rig', 'twos', 'post', 'camera', 'grade', 'faceLife', 'beastPlace'];   // 4C-2: beastPlace (beasts honour later place: marks)   // SPEC FLAGS keys (+ `night look <name>`)
 export const P2B = ['spider', 'toaster', 'spaghettiPlates', 'giantCage', 'chains', 'lanternSea'];   // engine/powersrt.js props2b kinds
 const P2B_H = {spider: .25, toaster: 1, spaghettiPlates: .5, chains: 6, dinnerTable: 3.4};   // insert camera fit heights (giantCage / lanternSea / locations use the location view)
 const NIGHTS = ['night', 'nightBright', 'storm', 'fireNight', 'moonlit'], LOOKS_IN = [...LOOKS, 'moonlit', 'dusk', 'dawn'];

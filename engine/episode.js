@@ -711,7 +711,7 @@ function tplBlockers() {
   if (tplBlk) return tplBlk; for (const [n, x] of Object.entries(cast)) if (!x.beast) x.a?.root?.traverse(o => tplOwner.set(o, n)); tplBlk = [];
   scene.traverse(o => { if (!o.isMesh || o.isSprite || o.name === 'contactBlob' || o.userData.noOcclude) return; const ms = [].concat(o.material);
     if (ms.some(m => !m || m.transparent || m.userData?.beast || m.isSpriteMaterial)) return; o.geometry.boundingSphere ?? o.geometry.computeBoundingSphere();
-    if (!o.isInstancedMesh && o.geometry.boundingSphere && o.geometry.boundingSphere.radius * Math.max(...o.getWorldScale(new T.Vector3()).toArray()) > 300) return;   // the sky dome
+    if (!o.isInstancedMesh && o.geometry.boundingSphere && o.geometry.boundingSphere.radius * Math.max(...o.getWorldScale(new T.Vector3()).toArray()) > 300 && (ms[0].side === T.BackSide || /sky|cloud/i.test(o.name))) return;   // the sky dome / cloud deck only (4C-2: big merged sets and terrain block)
     tplBlk.push(o); });
   return tplBlk; }
 const tplOwnerOf = o => { for (let p = o; p; p = p.parent) if (tplOwner.has(p)) return tplOwner.get(p); return null; };
@@ -727,9 +727,12 @@ const tplPropH = {};
 function tplCtx(shot, aspect, tNow) {
   const t0 = shot.start / FPS;
   const subjectAt = (n, lt) => { const x = cast[n]; if (!x) return null;
-    if (x.beast) { const l = BEASTS?.liveAt(n, t0 + lt); return l ? {eyes: l.head, headH: l.headH, H: l.H, foot: l.root, face: [Math.sin(l.yaw), Math.cos(l.yaw)]} : null; }
+    if (x.beast) { const l = BEASTS?.liveAt(n, t0 + lt), sh = BEASTS?.shapeAt?.(n, t0 + lt); if (!l) return null;   // 4C-2: silhouette box, eye parts, breath jet
+      const ra = BEASTS.actors?.[n], o = ra ? [0, 1, 2].map(i => ra.root.position.getComponent(i) - l.root[i]) : [0, 0, 0], mv = p => p.map((v, i) => v + o[i]);   // where the beast is DRAWN (marks / riding; posed by the cast at this time), not its track
+      return {eyes: mv(l.head), headH: l.headH, H: l.H, foot: mv(l.root), face: [Math.sin(l.yaw), Math.cos(l.yaw)], box: sh && {min: mv(sh.box.min), max: mv(sh.box.max)}, pts: sh?.pts.map(mv), eyesL: sh?.eyes.map(e => ({...e, p: mv(e.p)})), jet: sh?.jet}; }
     if (!x.v2) return null; const s = x.a.root.scale.x, yw = (markOf(x.c, t0 + lt).yaw ?? 0) * Math.PI / 180;   // the POSED head (acting moves it off the mark; the cast is posed at this time by atTime / the frame); facing = the mark's yaw (smoothed by camtpl)
-    return {eyes: headOf(x).toArray(), headH: 1.2 * s, H: 5.3 * s, foot: x.a.root.position.toArray(), face: [Math.sin(yw), Math.cos(yw)]}; };
+    const r = x.a.root, ry = r.rotation.y, rt = [Math.cos(ry), 0, -Math.sin(ry)], f = r.position.toArray(), at = (h, k) => [f[0] + rt[0] * k, f[1] + h, f[2] + rt[2] * k];   // 4C-2: torso centre + both shoulders (R6 proportions × scale)
+    return {eyes: headOf(x).toArray(), headH: 1.2 * s, H: 5.3 * s, foot: f, face: [Math.sin(yw), Math.cos(yw)], body: [at(3.0 * s, 0), at(3.7 * s, .8 * s), at(3.7 * s, -.8 * s)]}; };
   const propAt = (n, lt) => { const sp = storyProps.find(q => q.p.id === n || q.g.name === n);
     if (sp) { tplPropH[n] ??= (b => b.isEmpty() ? 1 : b.max.y - b.min.y)(new T.Box3().setFromObject(sp.g)); const p = vecAt(sp.p.pos, t0 + lt, [0, 0, 0]); return {centre: [p[0], p[1] + tplPropH[n] / 2, p[2]], H: tplPropH[n]}; }
     const p2 = (spec.props2b ?? []).findLast(q => q.kind === n); if (p2?.at) { const H = 3 * (p2.scale ?? 1); return {centre: [p2.at[0], p2.at[1] + H / 2, p2.at[2]], H}; }
@@ -743,19 +746,33 @@ function sampleTplShot(shot, lt, aspect, tNow) {
   const c = tplDouble(() => CTPL.sampleTpl(shot, lt, ctx)); TPLSTATE.last = c?.tpl ?? null; TPLSTATE.lastT = tNow; if (c) TPLSTATE.solved[shot.id] = c.tpl;
   return c ?? sampleCineShot(shot, lt, aspect); }
 // gate measure (scripts/v2/tpl-gates.js) on the frame just rendered: the POSED heads (headOf / the beast's drawn head), not the marks the solver used
+// 4C-2 gate helper: the projected eye discs of a beast at the frame just rendered (NDC centre + radius in NDC x units)
+function tplEyes(n) { camera.updateMatrixWorld(true); const right = new T.Vector3().setFromMatrixColumn(camera.matrixWorld, 0), sh = BEASTS?.shapeAt?.(n, TPLSTATE.lastT ?? 0); if (!sh) return null;
+  const a = BEASTS.actors?.[n], l = BEASTS.liveAt(n, TPLSTATE.lastT ?? 0), o = a ? [0, 1, 2].map(i => a.root.position.getComponent(i) - l.root[i]) : [0, 0, 0];
+  return sh.eyes.map(e => { const p = new T.Vector3(...e.p.map((v, i) => v + o[i])), c = p.clone().project(camera), q = p.clone().addScaledVector(right, e.w / 2).project(camera); return {x: c.x, y: c.y, r: Math.abs(q.x - c.x)}; }); }
 function tplMeasure(id) {
   const shot = shots.find(s => s.id === id); if (!shot?.tpl || !CTPL) return null; scene.updateMatrixWorld(true); camera.updateMatrixWorld(true);
   const nm = CTPL.namesOf(shot), t = TPLSTATE.lastT ?? 0, cp = camera.position.toArray(), right = new T.Vector3().setFromMatrixColumn(camera.matrixWorld, 0), up = new T.Vector3().setFromMatrixColumn(camera.matrixWorld, 1);
-  const headInfo = n => { const x = cast[n]; if (!x) return null; if (x.beast) { const l = BEASTS?.liveAt(n, t); return l ? {p: new T.Vector3(...l.head), r: .6 * l.headH, beast: l} : null; } return {p: headOf(x), r: .72 * x.a.root.scale.x}; };
+  const headInfo = n => { const x = cast[n]; if (!x) return null; if (x.beast) { const sa = tplCtx(shot, camera.aspect, t).subjectAt(n, t - shot.start / FPS); return sa ? {p: new T.Vector3(...sa.eyes), r: .6 * sa.headH, beast: sa} : null; } return {p: headOf(x), r: .72 * x.a.root.scale.x}; };
   const inFrame = h => [[0, 0], [1, 0], [-1, 0], [0, 1], [0, -1]].every(([a, b]) => { const q = h.p.clone().addScaledVector(right, a * h.r).addScaledVector(up, b * h.r).project(camera); return q.z < 1 && Math.abs(q.x) <= 1 && Math.abs(q.y) <= 1; });
   return tplDouble(() => {
     const heads = {}; for (const n of [...nm.heads, ...(nm.inFrame ?? [])]) { const h = headInfo(n); if (!h) { heads[n] = {missing: true}; continue; }
+      const mine = o => (shot.tpl.kind === 'two' ? nm.heads : [n]).includes(tplOwnerOf(o));   // 4C-2: a two-shot's pair may touch (a hug)
       const hits = [h.p, h.p.clone().addScaledVector(right, .8 * h.r), h.p.clone().addScaledVector(right, -.8 * h.r), h.p.clone().addScaledVector(up, .8 * h.r), h.p.clone().addScaledVector(up, -.8 * h.r)].flatMap(p0 => {   // centre + 4 points across the face
-        const v = new T.Vector3(...cp).sub(p0), l = v.length(); return tplHits(p0.clone().addScaledVector(v, h.r / l).toArray(), v.toArray(), Math.max(0, l - h.r)).filter(q => tplOwnerOf(q.object) !== n); });
-      heads[n] = {inFrame: inFrame(h), occluded: nm.heads.includes(n) ? hits.length > 0 : null, by: hits[0] ? (tplOwnerOf(hits[0].object) ?? hits[0].object.name ?? 'set') : null}; }
+        const v = new T.Vector3(...cp).sub(p0), l = v.length(); return tplHits(p0.toArray(), v.toArray(), l).filter(q => !mine(q.object)); });   // 4C-2: from the point itself
+      const x = cast[n], bodyHits = x && !x.beast && x.v2 ? (sb => sb.body.filter(p => { const q = new T.Vector3(...p).project(camera); return q.z < 1 && Math.abs(q.x) <= 1 && Math.abs(q.y) <= 1; })
+        .flatMap(p => { const v = new T.Vector3(...cp).sub(new T.Vector3(...p)); return tplHits(p, v.toArray(), v.length()).filter(q => !mine(q.object)); }))(tplCtx(shot, camera.aspect, t).subjectAt(n, t - shot.start / FPS)) : [];
+      heads[n] = {inFrame: inFrame(h), occluded: nm.heads.includes(n) ? hits.length > 0 : null, bodyOccluded: nm.heads.includes(n) ? bodyHits.length > 0 : null, by: hits[0] ? (tplOwnerOf(hits[0].object) ?? hits[0].object.name ?? 'set') : bodyHits[0] ? 'body:' + (tplOwnerOf(bodyHits[0].object) ?? bodyHits[0].object.name ?? 'set') : null}; }
     let back = 0, near = Infinity; for (const d of TPL_DIRS) { const h = tplHits(cp, d, 80)[0]; if (!h) continue; near = Math.min(near, h.distance); const n = h.face.normal.clone(); if (h.object.isInstancedMesh && h.instanceId != null) { const m = new T.Matrix4(); h.object.getMatrixAt(h.instanceId, m); n.transformDirection(m); } n.transformDirection(h.object.matrixWorld); if (n.x * d[0] + n.y * d[1] + n.z * d[2] > 0) back++; }
+    let hero = null, face = null; const sh0 = BEASTS?.shapeAt?.(nm.main, t), pj = p => new T.Vector3(...p).project(camera), inF = (q, m = 1) => q.z < 1 && Math.abs(q.x) <= m && Math.abs(q.y) <= m;
+    const sa0 = shot.tpl.kind === 'beastHero' ? tplCtx(shot, camera.aspect, t).subjectAt(nm.main, t - shot.start / FPS) : null;
+    if (shot.tpl.kind === 'beastHero' && sa0?.pts) { const C = sa0.pts.map(pj), l = {head: sa0.eyes, headH: sa0.headH}, hd = pj(l.head);   // 4C-2: the projected silhouette (posed vertices)
+      hero = {share: (Math.max(...C.map(q => q.y)) - Math.min(...C.map(q => q.y))) / 2, silhouetteIn: C.every(q => inF(q)), headIn: inFrame({p: new T.Vector3(...l.head), r: .6 * l.headH}), headY: hd.y,
+        jet: sa0.jet ? {mouthIn: inF(pj(sa0.jet.from)), jet40In: inF(pj(sa0.jet.from.map((v, i) => v + sa0.jet.dir[i] * .4 * sa0.jet.reach)))} : null}; }
+    if (shot.tpl.kind === 'beastFace' && sh0?.eyes?.length >= 2) { const q = sh0.eyes.map(e => ({c: pj(e.p), w: Math.abs(pj(e.p.map((v, i) => v + right.getComponent(i) * e.w / 2)).x - pj(e.p.map((v, i) => v - right.getComponent(i) * e.w / 2)).x)}));
+      face = {span: (Math.max(...q.map(e => e.c.x + e.w / 2)) - Math.min(...q.map(e => e.c.x - e.w / 2))) / 2, central: q.every(e => inF(e.c, .7)), eyesNdc: q.map(e => [e.c.x, e.c.y])}; }
     let share = null; if (shot.tpl.kind === 'beastHero') { const l = BEASTS?.liveAt(nm.main, t); if (l) { const top = Math.max(l.root[1] + l.H, l.head[1] + .5 * l.headH), cx = (l.root[0] + l.head[0]) / 2, cz = (l.root[2] + l.head[2]) / 2, a = new T.Vector3(cx, top, cz).project(camera), b = new T.Vector3(cx, l.root[1], cz).project(camera); share = (a.y - b.y) / 2; } }   // the root–head mid column
-    return {id, kind: shot.tpl.kind, cam: cp, camAboveGround: cp[1] - (world?.groundY?.(cp[0], cp[2]) ?? 0), heads, inside: back >= 4 || near < .05, back, near, share, solver: TPLSTATE.last}; }); }
+    return {id, kind: shot.tpl.kind, hero, face, cam: cp, camAboveGround: cp[1] - (world?.groundY?.(cp[0], cp[2]) ?? 0), heads, inside: back >= 4 || near < .05, back, near, share, solver: TPLSTATE.last}; }); }
 function cineRender(shot, mf, off, lt, width, height) {
   const gy = (x, z) => world?.groundY?.(x, z) ?? 0, items = [];
   if (BEASTS) items.push(...BEASTS.blobItems());   // tuft 2A: one contact blob per beast (low-tier crowds carry their own instanced blobs)
@@ -1063,4 +1080,4 @@ function cineMeasure(names = Object.keys(cast)) {
     const c = b.getCenter(new T.Vector3()), z = c.clone().sub(camera.position).dot(f);
     out[n] = {x0, x1, y0, y1, behind, v: 2 * z * Math.tan(camera.fov * Math.PI / 360) / (5.3 * x.a.root.scale.y), z}; }
   return out; }
-window.__episode = {tpl: CTPL ? {state: TPLSTATE, measure: tplMeasure} : null, beasts: BEASTS, cine: CL ? {state: CL.state, opts: CINE_OPTS, glowCount: CL.glowCount, setGlow: CL.setGlow, measure: cineMeasure} : null, story6: S6, clearedNow: () => CLEARED.map(r => r.name), actingPlan: () => actPlans.map(p => /^hug/.test(p.verb) ? {...p, cam: hugCam(p)} : p), groundFix: () => GROUNDFIX, sepMeasure, ceilingLuma, classHaze, satMeasure, depthLuma, lumaProbe, debug: {scene, renderer, camera, look, pool: U5B?.poolOf ?? null}, bake: BAKE, matcapBytes: MATCAP ? (n => Array.from(look.matcapBytes(n ?? spec.look4))) : null, breakdown, measureFrame, seasonMeasure, actorMask, readMeasure, gateMeasure, placesAt, lumaAt, inspectFrame, shotSpeed, END: FRAMES / FPS, anchors: Object.fromEntries(Object.entries(anchors).filter(([, a]) => a.camera).map(([k]) => [k, true])), renderAnchor, renderAnchorNudged, renderCamera, FPS, FRAMES, shots: shots.map(({id, start, frames, size, move, loc, subject, see, openHit, at, why, captionY, fit, spectacle, look: lk}) => ({id, start, frames, size, move, loc, subject, see, openHit: !!openHit, at, why, captionY, fit, spectacle: !!spectacle, look: lk})), renderFrame};
+window.__episode = {tpl: CTPL ? {state: TPLSTATE, measure: tplMeasure, eyes: tplEyes} : null, beasts: BEASTS, cine: CL ? {state: CL.state, opts: CINE_OPTS, glowCount: CL.glowCount, setGlow: CL.setGlow, glowDebug: CL.glowDebug, measure: cineMeasure} : null, story6: S6, clearedNow: () => CLEARED.map(r => r.name), actingPlan: () => actPlans.map(p => /^hug/.test(p.verb) ? {...p, cam: hugCam(p)} : p), groundFix: () => GROUNDFIX, sepMeasure, ceilingLuma, classHaze, satMeasure, depthLuma, lumaProbe, debug: {scene, renderer, camera, look, pool: U5B?.poolOf ?? null}, bake: BAKE, matcapBytes: MATCAP ? (n => Array.from(look.matcapBytes(n ?? spec.look4))) : null, breakdown, measureFrame, seasonMeasure, actorMask, readMeasure, gateMeasure, placesAt, lumaAt, inspectFrame, shotSpeed, END: FRAMES / FPS, anchors: Object.fromEntries(Object.entries(anchors).filter(([, a]) => a.camera).map(([k]) => [k, true])), renderAnchor, renderAnchorNudged, renderCamera, FPS, FRAMES, shots: shots.map(({id, start, frames, size, move, loc, subject, see, openHit, at, why, captionY, fit, spectacle, look: lk}) => ({id, start, frames, size, move, loc, subject, see, openHit: !!openHit, at, why, captionY, fit, spectacle: !!spectacle, look: lk})), renderFrame};
