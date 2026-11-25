@@ -70,13 +70,13 @@
   {
    "from": 60,
    "to": 70,
-   "cuts": 6,
+   "cuts": 7,
    "phase": "middle",
    "target": [
     4,
     6
    ],
-   "ok": true
+   "ok": false
   },
   {
    "from": 70,
@@ -103,13 +103,13 @@
   {
    "from": 90,
    "to": 100,
-   "cuts": 5,
+   "cuts": 6,
    "phase": "climax",
    "target": [
     6,
     8
    ],
-   "ok": false
+   "ok": true
   }
  ]
 }
