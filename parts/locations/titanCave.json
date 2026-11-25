@@ -23,7 +23,8 @@
   ],
   "r": 120,
   "h": 200,
-  "seed": 11
+  "seed": 11,
+  "arch": true
  },
  "props": [],
  "lights": [],
@@ -83,7 +84,8 @@
     -53
    ],
    "yaw": 0,
-   "state": "ignite"
+   "state": "ignite",
+   "rim": false
   }
  },
  "skyDist": 650

@@ -182,6 +182,17 @@ const presetOf = c => {
 // (jacket colour) of diameter D; the head scales and sits in the ball's upper front (face decal rides the head pivot); arms / legs keep
 // their size and stick out of the ball. Pure in t. PUFFERS = actor names with puff events; balls built at load (patched by the cine light).
 const PF = spec.shots?.some(sh => sh.puffs?.length) ? await import('./puff.js') : null, PUFFERS = [], PUFFEV = {};
+// P3B (opt-in spec.puffBall {jacket: {main, strip, stripW, lapel, lapelW, edge, edgeW} (torso-width fractions, cast/hero.json regions), key}):
+// the hero ball wears the jacket: royal-blue strip down the front (+z), charcoal lapels, lighter edge trim; per-face colours on a faceted
+// sphere + a soft camera-relative key (upper left front) so the sphere shades even in a dark room.
+function jacketBall(J, key) { const g = new T.IcosahedronGeometry(1, 4).toNonIndexed(), p = g.attributes.position, col = new Float32Array(p.count * 3), C = k => new T.Color(J[k]);
+  const main = C('main'), strip = C('strip'), lapel = C('lapel') ?? main, edge = C('edge'), sw = (J.stripW ?? .6) / 2, lw = sw + (J.lapelW ?? .14), ew = lw + Math.max(.06, J.edgeW ?? .05);
+  for (let i = 0; i < p.count; i += 3) { let x = 0, z = 0; for (let k = 0; k < 3; k++) { x += p.getX(i + k) / 3; z += p.getZ(i + k) / 3; } const ax = Math.abs(x), c = z <= 0 ? main : ax < sw ? strip : ax < lw ? lapel : ax < ew ? edge : main;
+    for (let k = 0; k < 3; k++) col.set([c.r, c.g, c.b], (i + k) * 3); }
+  g.setAttribute('color', new T.BufferAttribute(col, 3)); const m = new T.MeshStandardMaterial({vertexColors: true, roughness: .7, flatShading: true});
+  m.onBeforeCompile = sh => { sh.fragmentShader = sh.fragmentShader.replace('#include <lights_fragment_end>', `#include <lights_fragment_end>
+  { vec3 kd = normalize(vec3(-.45, .6, .65)); reflectedLight.directDiffuse += diffuseColor.rgb * ${key.toFixed(3)} * (.25 + .75 * max(dot(normal, kd), 0.)); }`); };
+  m.customProgramCacheKey = () => 'jacketBall' + key; return new T.Mesh(g, m); }
 function puffHeroes(t) {
   for (const n of PUFFERS) { const x = cast[n], A = x.a, rest = 2 * x.a.root.scale.x, pk = PF.puffAt(PUFFEV[n], t, rest, 'hero'), D = pk.phase === 'rest' || pk.k <= 1.01 ? 0 : pk.k * rest;   // rest = the torso width
     const P0 = A.puff0 ??= {head: [A.pivots.head.position.toArray(), A.pivots.head.scale.toArray()], ...Object.fromEntries(['leftShoulder', 'rightShoulder', 'leftHip', 'rightHip'].filter(k => A.pivots[k]).map(k => [k, A.pivots[k].position.toArray()]))};
@@ -578,7 +589,7 @@ const CL = CINE_LOOK ? (await import('./cinelook.js')).createCineLook({renderer,
 const CINE_HEAD = {}; if (CINE_CAM) for (const [n, x] of Object.entries(cast)) if (x.v2) { x.a.root.updateMatrixWorld(true); const b = new T.Box3().setFromObject(x.a.pivots.head, true), c = b.getCenter(new T.Vector3()); CINE_HEAD[n] = [0, c.y - x.a.root.position.y, 0]; }
 if (PF) for (const [n, x] of Object.entries(cast)) { if (x.beast || !x.a?.pivots?.head) continue; const ev = shots.flatMap(sh => (sh.puffs ?? []).filter(e => e.actor === n).map(e => ({size: e.size, t: sh.start / FPS + (e.at ?? 0), ...(e.pose ? {pose: e.pose} : {})}))).sort((a, b) => a.t - b.t);
   if (!ev.length) continue; PUFFERS.push(n); PUFFEV[n] = ev.map(e => ({...e, size: e.size}));
-  const tm = x.a.parts.torso?.material, col = tm?.color ? tm.color.clone() : new T.Color('#2b2f38'), ball = new T.Mesh(new T.IcosahedronGeometry(1, 2), new T.MeshStandardMaterial({color: col, roughness: .55, flatShading: true}));
+  const tm = x.a.parts.torso?.material, col = tm?.color ? tm.color.clone() : new T.Color('#2b2f38'), JB = spec.puffBall?.jacket, ball = JB ? jacketBall(JB, spec.puffBall.key ?? .55) : new T.Mesh(new T.IcosahedronGeometry(1, 2), new T.MeshStandardMaterial({color: col, roughness: .55, flatShading: true}));
   ball.name = 'puffBall'; ball.visible = false; x.a.root.add(ball); x.a.ball = ball; x.a.torsoExtras = x.a.parts.torso ? x.a.parts.torso.children.slice() : []; }   // tuft 2B hero puff ball proxy
 // tuft 2B (opt-in): POWERS + PROPS (engine/powersrt.js) when a shot carries powers / fizzles / cage / chains, or spec.props2b, or a NIGHTFANG may breathe fire
 const POWERS = shots.some(sh => sh.powers?.length || sh.fizzles?.length || sh.cage || sh.chains) || spec.props2b?.length || (BEASTS && shots.some(sh => (sh.beasts ?? []).some(b => b.state === 'breathe' && cast[b.actor]?.a?.P?.name === 'NIGHTFANG')))

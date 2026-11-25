@@ -7,7 +7,7 @@
  {
   "name": "hero silhouettes pairwise IoU ≤ 0.6",
   "pass": true,
-  "line": "max 0.581 (NIVO 0.334, NICI 0.349, NIBO 0.27, NITU 0.327, NITI 0.414, VOCI 0.401, VOBO 0.33, VOTU 0.409, VOTI 0.421, CIBO 0.274, CITU 0.296, CITI 0.281, BOTU 0.572, BOTI 0.472, TUTI 0.581)",
+  "line": "max 0.572 (NIVO 0.334, NICI 0.349, NIBO 0.27, NITU 0.338, NITI 0.383, VOCI 0.401, VOBO 0.33, VOTU 0.413, VOTI 0.339, CIBO 0.274, CITU 0.299, CITI 0.248, BOTU 0.572, BOTI 0.391, TUTI 0.544)",
   "pairs": [
    [
     "NIGHTFANG",
@@ -27,12 +27,12 @@
    [
     "NIGHTFANG",
     "TUFT",
-    0.327
+    0.338
    ],
    [
     "NIGHTFANG",
     "TITAN",
-    0.414
+    0.383
    ],
    [
     "VOLT",
@@ -47,12 +47,12 @@
    [
     "VOLT",
     "TUFT",
-    0.409
+    0.413
    ],
    [
     "VOLT",
     "TITAN",
-    0.421
+    0.339
    ],
    [
     "CINDER",
@@ -62,12 +62,12 @@
    [
     "CINDER",
     "TUFT",
-    0.296
+    0.299
    ],
    [
     "CINDER",
     "TITAN",
-    0.281
+    0.248
    ],
    [
     "BOULDER",
@@ -77,19 +77,44 @@
    [
     "BOULDER",
     "TITAN",
-    0.472
+    0.391
    ],
    [
     "TUFT",
     "TITAN",
-    0.581
+    0.544
    ]
   ]
  },
  {
-  "name": "TITAN horns read in silhouette (front + side)",
+  "name": "TITAN hump is the highest point (idle)",
   "pass": true,
-  "line": "horn pixels outside the body silhouette: front 11.5 %, side 7.3 % (≥ 6 %); tris 2504 (≤ 6k)"
+  "line": "highest vertex belongs to \"hump\"; hump top 52.2 studs"
+ },
+ {
+  "name": "TITAN horns never above the hump top (front + side, 7 poses)",
+  "pass": true,
+  "line": "max (horn top − hump top) -5.22 studs at break@0.5 (< 0)"
+ },
+ {
+  "name": "TITAN body mean value ≤ 0.35",
+  "pass": true,
+  "line": "area-weighted HSV value of the stone/moss faces 0.229"
+ },
+ {
+  "name": "TITAN crack lines are lines (aspect ≥ 4)",
+  "pass": true,
+  "line": "43 emissive crack components (front/side/¾, 600 px), min aspect P²/4A 4.92"
+ },
+ {
+  "name": "TITAN pairwise silhouette IoU ≤ 0.6",
+  "pass": true,
+  "line": "NI 0.383, VO 0.339, CI 0.248, BO 0.391, TU 0.544"
+ },
+ {
+  "name": "TITAN ≤ 6k tris",
+  "pass": true,
+  "line": "3120 tris"
  },
  {
   "name": "TUFT tris ≤ 4k",
@@ -119,12 +144,12 @@
  {
   "name": "TITAN tris ≤ 6k, ×12 kid height",
   "pass": true,
-  "line": "2504 tris; height 12.00 × kid (12 ± .6)"
+  "line": "3120 tris; height 12.00 × kid (12 ± .6)"
  },
  {
   "name": "TITAN chains snap (gone after τ = 0.6 s of break)",
   "pass": true,
-  "line": "chain links 29.0 studs out before the snap; all 4 chain segments collapsed after"
+  "line": "chain links 31.6 studs out before the snap; all 4 chain segments collapsed after"
  },
  {
   "name": "TITAN stomp footfalls → camera shake hook",

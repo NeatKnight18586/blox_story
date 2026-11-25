@@ -130,7 +130,7 @@ function farTerracesSlate(kit, list, groundY, {roofBase, cfg}) {
   const wallG = colGeo(primGeo({k: 'box', size: [1, base, 1], at: [0, base / 2, 0]}), K.PALETTE.plaster2);
   const roofG = mergeGeometries([colGeo(primGeo({k: 'gable', w: 1.08, d: 1.12, h: 1, at: [0, 0, 0], roof: 1}), '#ffffff'), colGeo(primGeo({k: 'box', size: [.1, .75, .1], at: [.28, .55, -.12]}), '#9a8f86')]);
   roofG.attributes.aRoof.array.fill(1); const roofs = new T.InstancedMesh(roofG, new T.MeshLambertMaterial({vertexColors: true, side: T.DoubleSide, fog: false, ...(kit.dusk ? {emissive: cfg.duskFill ?? '#0e5478'} : {})}), list.length);   // dusk: cool sky fill on the shaded slate
-  const walls = new T.InstancedMesh(wallG, new T.MeshLambertMaterial({vertexColors: true, fog: false}), list.length), tint = new T.Color(), meta = [], dots = [], rows = new Map(), SL = ['#5A7FB8', '#6A8CC4', '#4E71A8', '#6383BB'];
+  const walls = new T.InstancedMesh(wallG, new T.MeshLambertMaterial({vertexColors: true, fog: false}), list.length), tint = new T.Color(), meta = [], dots = [], rows = new Map(), SL = kit.dusk ? ['#5A7FB8', '#6A8CC4', '#4E71A8', '#6383BB'] : ['#3E5E92', '#4A6A9C', '#365486', '#44649A'];
   const local = (x, z) => { const dx = x - cen[0], dz = z - cen[1]; return [dx * cd - dz * sd, -(dx * sd + dz * cd)]; };   // [lateral, distance]
   list.forEach((e, i) => { const h = K.housePreset(e.preset, e.seed), y = e.at[1] + groundY(e.at[0], e.at[2]), sy = K.houseHeight(h) / base, wallH = K.houseHeight(h), q = new T.Quaternion().setFromAxisAngle(new T.Vector3(0, 1, 0), e.rotY ?? 0), r = K.rng(e.seed)();
     const M4 = new T.Matrix4().compose(new T.Vector3(e.at[0], y, e.at[2]), q, new T.Vector3(h.w, sy, h.d)); walls.setMatrixAt(i, M4); tint.setRGB(.86 + .14 * r, .84 + .14 * r, .82 + .14 * r); walls.setColorAt(i, tint);
@@ -227,10 +227,10 @@ export function titanMountain(kit, {at = [0, 0, -300], r = 150, h = 210, rotY = 
         g.rotateZ(a + (R2() - .5) * .5); g.translate(x * 1.08, y * 1.08, 1.2); parts.push(g); inner.push([x * .97, y * .97]); outer.push([x * 1.22 + Math.cos(a) * 2, y * 1.22 + Math.sin(a) * 2]); }
       for (const k of [1, -1]) for (let j = 0; j < 4; j++) { const s = 3 + 2 * R2(), g = new T.BoxGeometry(s, s * 1.4, 4 + 2 * R2()).toNonIndexed(); g.translate(k * W * 1.08, -j * Hh / 4 - 1, 1.2); parts.push(g); inner.push(null); }
       const ag = mergeGeometries(parts.map(g => { g.deleteAttribute('uv'); return g; })); ag.computeVertexNormals();
-      const am = new T.Mesh(ag, new T.MeshLambertMaterial({color: kit.night ? '#3a4560' : '#5a6070', flatShading: true, fog: false})); am.name = 'caveArch'; am.userData.live = true;
+      const am = new T.Mesh(ag, new T.MeshLambertMaterial({color: kit.night ? '#8c9aba' : '#7a808e', emissive: kit.night ? '#222c44' : '#000000', flatShading: true, fog: false})); am.name = 'caveArch'; am.userData.live = true;
       const band = (pts, col, w) => { const P = []; for (let i = 0; i < pts.length - 1; i++) { const [a, b] = [pts[i], pts[i + 1]], d = [b[0] - a[0], b[1] - a[1]], L = Math.hypot(...d) || 1, n = [-d[1] / L * w, d[0] / L * w]; P.push(a[0], a[1], 3.6, b[0], b[1], 3.6, b[0] + n[0], b[1] + n[1], 3.6, a[0], a[1], 3.6, b[0] + n[0], b[1] + n[1], 3.6, a[0] + n[0], a[1] + n[1], 3.6); }
         const g = new T.BufferGeometry(); g.setAttribute('position', new T.Float32BufferAttribute(P, 3)); const m = new T.Mesh(g, new T.MeshBasicMaterial({color: col, side: T.DoubleSide, fog: false, transparent: true, opacity: .85})); m.name = 'caveArch'; m.userData.live = true; return m; };
-      const ins = inner.filter(Boolean), ag2 = new T.Group(); ag2.add(am, band(ins, '#6b2a0c', -1.4), band(outer, '#5c78b0', 1.2)); ag2.position.set(0, cy, rr); ag2.rotation.x = -.3; grp.add(ag2); } }
+      const ins = inner.filter(Boolean), ag2 = new T.Group(); ag2.add(am, band(ins, '#d0621f', -2.2), band(outer, '#9ab8f0', 1.8)); ag2.position.set(0, cy, rr); ag2.rotation.x = -.3; grp.add(ag2); } }
   grp.position.set(...at); grp.rotation.y = rotY; return grp; }
 
 // ---- id pass: count DISTINCT visible rooftops (roof triangles carry aRoof; instanced roofs add gl_InstanceID) ----------------------

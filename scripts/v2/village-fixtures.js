@@ -10,7 +10,7 @@ export function fixture(loc, look, {cast = null, extraShots = []} = {}) {
   const L = JSON.parse(readFileSync(`parts/locations/${loc}.json`, 'utf8')), shots = [];
   for (const [id, v] of Object.entries(L.views ?? {})) shots.push({id: `${loc}-${id}`, frames: 24, duration: 1, size: 'ws', mood: 'awe', move: 'static-drift', angle: 'eye', from: v, to: v, ...(L.fixturePuff ? {puffs: [L.fixturePuff]} : {}), ...(loc === 'titanCave' ? {beasts: [{actor: 'titan', state: 'ignite', at: 0}]} : {})});
   return {note: `tuft P3 village look-dev fixture (scripts/v2/village-fixtures.js): ${loc}, ${look}; one 1 s static shot per location view.`, slug: 'village', ...HEAD, world: 'parts/village/world.js', location: loc,
-    look4: L.lookMap?.[look] ?? LOOKS[look], look: LOOKS[look] === 'moonlit' ? 'mystery' : LOOKS[look] === 'dawn' ? 'dawn' : 'comedy', skyDist: L.skyDist ?? 650, twos: false, cast: cast ?? L.fixtureCast ?? {}, shots: [...shots, ...extraShots]}; }
+    look4: L.lookMap?.[look] ?? LOOKS[look], ...(L.puffBall ? {puffBall: L.puffBall} : {}), look: LOOKS[look] === 'moonlit' ? 'mystery' : LOOKS[look] === 'dawn' ? 'dawn' : 'comedy', skyDist: L.skyDist ?? 650, twos: false, cast: cast ?? L.fixtureCast ?? {}, shots: [...shots, ...extraShots]}; }
 if (process.argv[1]?.endsWith('village-fixtures.js')) for (const loc of (want.length ? want : VILLAGE.filter(l => readdirSync('parts/locations').includes(l + '.json')))) {
   const L = JSON.parse(readFileSync(`parts/locations/${loc}.json`, 'utf8'));
   for (const look of L.looks ?? ['day', 'night']) { writeFileSync(`${out}/${loc}-${look}.json`, JSON.stringify(fixture(loc, look), null, 1) + '\n'); console.log('wrote', `${loc}-${look}.json`); } }

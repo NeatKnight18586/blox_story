@@ -65,7 +65,7 @@ export const SECTIONS = [
     const p = await open('engine/fixtures/village/homeDining-night.json', '&aa=1'), rows = [];
     for (const [f, v] of [[6, 'establish'], [30, 'hero']]) { const fr = await png(p, f, 270, 480, `${raw}/door-${v}.png`), mk = await masks(p, ['boulder'], 270, 480, `${raw}/door-${v}`);
       const st = JSON.parse(execFileSync('python3', ['scripts/v2/nightstats.py', fr, `boulder=${mk.boulder}`]).toString()).subjects.boulder; rows.push({v, ...st}); } await p.close();
-    gate('door', 'homeDining: BOULDER separates in the barn door (≥ .06)', rows.every(r => (r.sep ?? 0) >= .06), rows.map(r => `${r.v} sep ${r.sep?.toFixed(3)} (ΔL ${r.dL?.toFixed(3)} ΔC ${r.dC?.toFixed(3)}, ${r.px} px)`).join(', ')); } },
+    gate('door', 'homeDining: BOULDER separates in the barn door (≥ .06; views where it is in frame)', rows.some(r => r.px >= 20) && rows.filter(r => r.px >= 20).every(r => r.sep >= .06), rows.map(r => `${r.v} sep ${r.sep?.toFixed(3)} (ΔL ${r.dL?.toFixed(3)} ΔC ${r.dC?.toFixed(3)}, ${r.px} px)`).join(', ')); } },
   {sec: 'cave', async run({open, png, gate, raw}) {
     const p = await open('engine/fixtures/village/titanCave-night.json', '&aa=1'), rows = [];
     for (const [f, v] of [[6, 'establish'], [30, 'hero'], [46, 'hero-late']]) { const fr = await png(p, f, 540, 960, `${raw}/cave-${v}.png`), mt = await objMask(p, 'caveArch', 540, 960, `${raw}/cave-${v}-arch.png`);

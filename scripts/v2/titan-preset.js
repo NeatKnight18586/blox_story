@@ -56,7 +56,8 @@ crackOn(head, 'head', .75, .35, .1, -.3, 3, .04);
 // darker ring bands at the joints. Path in head space: φ 40° → 340° (y = C + R sin φ, z = C + R cos φ), x flares outward.
 { const N = 10, C = [.15, -.05], ph0 = 40, ph1 = 340, pts = [];
   for (let i = 0; i <= N; i++) { const u = i / N, ph = (ph0 + (ph1 - ph0) * u) * Math.PI / 180, R = 1.05 + .3 * u;
-    pts.push([+(1.0 + .95 * Math.sin(Math.min(1, u * 1.6) * Math.PI / 2) + .25 * u * u).toFixed(3), +(C[0] + R * Math.sin(ph)).toFixed(3), +(C[1] + R * Math.cos(ph)).toFixed(3)]); }
+    const f = R * Math.cos(ph), al = 40 * Math.PI / 180;   // P3B: the spiral plane turned 40° outward (back of the curl flares out, the tip comes in to the cheek): a curl from the front too
+    pts.push([+(1.7 - f * Math.sin(al) + .45 * u).toFixed(3), +(C[0] + R * Math.sin(ph)).toFixed(3), +(C[1] + f * Math.cos(al)).toFixed(3)]); }
   for (let i = 0; i < N; i++) { const u = i / N, r = .46 * (1 - .82 * u) + .03, r2 = .46 * (1 - .82 * (i + 1) / N) + .03;
     a({seg: 'head', shape: 'strip', from: pts[i], to: pts[i + 1], r, taper: +(r2 / r).toFixed(3), facets: 6, color: 'bone', mirror: true, tag: 'horn'});
     if (i > 0 && i < N - 1) { const d = pts[i + 1].map((v, k) => v - pts[i][k]), q = pts[i].map((v, k) => +(v + d[k] * .02).toFixed(3)), e = pts[i].map((v, k) => +(v + d[k] * .16).toFixed(3));
