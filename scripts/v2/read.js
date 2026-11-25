@@ -9,6 +9,7 @@ import {mkdir, writeFile} from 'node:fs/promises';
 import {startServer} from './server.js';
 import {launch} from './browser.js';
 import {layoutShots} from '../../engine/timeline.js';
+import {segmentPlan} from './segments.js';
 import {faceShown, nothingInFront, standsOut, objectReads, moves, sameScale, backIssues, eggShaded, READ} from '../../engine/readcheck.js';
 
 const argv = process.argv.slice(2), arg = (k, d) => { const i = argv.indexOf(`--${k}`); return i >= 0 ? argv[i + 1] : d; };
@@ -17,19 +18,25 @@ const spec = JSON.parse(readFileSync(specPath, 'utf8')), fps = spec.fps ?? 30, s
 const slug = story ?? spec.slug, outPath = arg('out') ?? `review/${slug}/read.json`;
 const cues = JSON.parse(readFileSync(arg('cues') ?? `stories/${slug}/cues.json`, 'utf8'));
 const server = await startServer(), browser = await launch();
-let meas;
+const {segments} = segmentPlan(specPath);   // 4A: spec.locations → one page per location; measurements merged back by shot index
+const meas = new Array(shots.length);
 try {
+  for (const seg of segments) {
   const page = await browser.newPage();
   const errs = []; page.on('pageerror', e => errs.push(e.message));
-  await page.goto(`${server.url}/engine/episode.html?spec=${encodeURIComponent(specPath)}&aa=0`);
+  await page.goto(`${server.url}/engine/episode.html?spec=${encodeURIComponent(seg.specPath)}&aa=0`);
   await page.waitForFunction(() => window.__episode || document.title === 'error', null, {timeout: 180000});
   if (errs.length) throw Error(errs.join('; '));
-  meas = await page.evaluate(list => list.map(s => {
+  const idx = shots.map((s, i) => i).filter(i => !seg.shotIds || seg.shotIds.has(shots[i].id));
+  const part = await page.evaluate(list => list.map(s => {
     const E = window.__episode, mid = s.start + Math.floor(s.frames / 2), a = Math.max(s.start, mid - 7), b = Math.min(s.start + s.frames - 1, a + 15);
     const r = E.readMeasure(mid, {subject: s.subject, prop: s.prop});
     const la = E.lumaAt(a), lb = E.lumaAt(b); let d = 0; for (let i = 0; i < la.length; i++) d += Math.abs(la[i] - lb[i]);
     return {...r, motion: d / la.length};
-  }), shots.map(s => ({start: s.start, frames: s.frames, subject: s.subject ?? s.fit?.actor ?? null, prop: s.prop ?? null})));
+  }), idx.map(i => ({start: shots[i].start, frames: shots[i].frames, subject: shots[i].subject ?? shots[i].fit?.actor ?? null, prop: shots[i].prop ?? null})));
+  idx.forEach((i, k) => { meas[i] = part[k]; });
+  await page.close();
+  }
 } finally { await browser.close(); await server.close(); }
 
 const threshold = READ.motion, errors = [...backIssues(shots)], rows = [];

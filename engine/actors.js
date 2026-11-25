@@ -47,7 +47,7 @@ export function buildActor(preset, name = 'actor') {
     const fe = faceError(preset.face ?? 'smile', a.build); if (fe) throw Error('face: ' + fe);
     a.faceStyle = 'v3'; a.blinkSeed = [...name].reduce((h, ch) => (h * 31 + ch.charCodeAt(0)) % 9973, 7); setFace3(a, preset.face ?? 'smile');
   } else setFace(a, preset.face ?? 'smile');
-  if (preset.symbol) { assertNoHeroSymbol(preset.hero ? 'hero' : name, true); attachSymbol(a, preset.symbol, {dark: !!preset.symbolDark}); }   // E4 (opt-in): birth symbol on the back of the right hand; the HERO is a hard error
+  if (preset.symbol && !(preset.rig === 'r6' && !a.parts?.rightHand)) { assertNoHeroSymbol(preset.hero ? 'hero' : name, true); attachSymbol(a, preset.symbol, {dark: !!preset.symbolDark}); }   // E4 (opt-in): birth symbol on the back of the right hand; the HERO is a hard error
   if (preset.tag) setTag(a, preset.tag.name, preset.tag.role ?? null);
   if (preset.opacity !== undefined && preset.opacity < 1) a.root.traverse(o => {   // A4 AFK: see-through, own material copies
     if (!o.isMesh || o.name === 'face_decal') return; o.material = [].concat(o.material).map(m => { const c = m.clone(); c.transparent = true; c.opacity = preset.opacity; c.depthWrite = true; return c; }); if (o.material.length === 1) o.material = o.material[0]; });

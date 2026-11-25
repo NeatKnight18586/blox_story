@@ -12,6 +12,7 @@ import path from 'node:path';
 import {startServer} from './server.js';
 import {launch} from './browser.js';
 import {flickerCount} from './flicker.js';
+import {segmentPlan} from './segments.js';
 
 const argv = process.argv.slice(2), arg = (k, d) => { const i = argv.indexOf(`--${k}`); return i >= 0 ? argv[i + 1] : d; };
 const story = arg('story');
@@ -21,11 +22,14 @@ const slug = story ?? spec.split(path.sep).at(-2) ?? 'misc';
 const W = Number(arg('width', 540)), H = Number(arg('height', 960)), NUDGE = Number(arg('nudge', .004)), LIMIT = Number(arg('limit', .30)), THRESH = 40;
 const out = arg('out') ?? `review/${slug}/stability${arg('spec') ? '-' + path.basename(spec, '.json') : ''}.json`;
 
+const {segments} = segmentPlan(spec);   // 4A: spec.locations → one page per location; each segment checks its own shots + anchors
 const server = await startServer(), browser = await launch();
 try {
+  const rows = [], errors = [];
+  for (const seg of segments) {
   const page = await browser.newPage({viewport: {width: 360, height: 640}});
-  const errors = []; page.on('pageerror', e => errors.push(e.message));
-  await page.goto(`${server.url}/engine/episode.html?spec=${encodeURIComponent(spec)}&aa=1`);
+  page.on('pageerror', e => errors.push(e.message));
+  await page.goto(`${server.url}/engine/episode.html?spec=${encodeURIComponent(seg.specPath)}&aa=1`);
   await page.waitForFunction(() => window.__episode, null, {timeout: 180000});
   // In-page: render a view twice (as-is, then nudged 4 mm along the camera's right+up+back diagonal) and compare.
   await page.evaluate(([src, thresh]) => {
@@ -35,15 +39,16 @@ try {
     window.__nudgeDiff = render => { render(0); const a = grab(); render(1); const b = grab(); return flicker(a, b, gl.drawingBufferWidth, gl.drawingBufferHeight, thresh); };
   }, [flickerCount.toString(), THRESH]);
   const E = await page.evaluate(() => ({anchors: Object.keys(window.__episode.anchors ?? {}), shots: window.__episode.shots}));
-  const rows = [];
   for (const a of E.anchors) {
     const r = await page.evaluate(([a, w, h, d]) => window.__nudgeDiff(k => window.__episode.renderAnchorNudged(a, 0, w, h, k * d)), [a, W, H, NUDGE]);
-    rows.push({view: '@' + a, frame: null, pct: +r.gate.toFixed(3), raw: +r.raw.toFixed(3)});
+    rows.push({view: '@' + (seg.loc ? seg.loc + ':' : '') + a, frame: null, pct: +r.gate.toFixed(3), raw: +r.raw.toFixed(3)});
   }
   const only = arg('shots') ? arg('shots').split(',') : null;   // opt-in: --shots 13,26,47 (id prefix)
-  for (const s of E.shots.filter(s => !only || only.some(o => s.id.startsWith(o)))) for (const [label, f] of [['first', s.start], ['mid', s.start + Math.floor(s.frames / 2)], ['last', s.start + s.frames - 1]]) {
+  for (const s of E.shots.filter(s => (!seg.shotIds || seg.shotIds.has(s.id)) && (!only || only.some(o => s.id.startsWith(o))))) for (const [label, f] of [['first', s.start], ['mid', s.start + Math.floor(s.frames / 2)], ['last', s.start + s.frames - 1]]) {
     const r = await page.evaluate(([f, w, h, d]) => window.__nudgeDiff(k => window.__episode.renderFrame(f, w, h, k * d)), [f, W, H, NUDGE]);
     rows.push({view: `${s.id}:${label}`, frame: f, pct: +r.gate.toFixed(3), raw: +r.raw.toFixed(3)});
+  }
+  await page.close();
   }
   const worst = rows.reduce((m, r) => r.pct > m.pct ? r : m, {pct: -1});
   const fail = rows.filter(r => r.pct > LIMIT);

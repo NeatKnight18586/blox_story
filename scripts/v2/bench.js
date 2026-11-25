@@ -10,6 +10,7 @@ import {launch} from './browser.js';
 const argv = process.argv.slice(2);
 const arg = (k, d) => { const i = argv.indexOf(`--${k}`); return i >= 0 ? argv[i + 1] : d; };
 import {existsSync} from 'node:fs';
+import {segmentPlan} from './segments.js';
 const story = arg('story');
 const spec = arg('spec') ?? (story && (existsSync(`stories/${story}/episode.json`) ? `stories/${story}/episode.json` : `stories/${story}/stills.json`));
 if (!spec) { console.error('usage: bench.js --story <slug> | --spec <episode.json>'); process.exit(2); }
@@ -22,21 +23,23 @@ const CROWD_N = Object.values(specJson.cast ?? {}).filter(c => c.costume === 'CR
 const BIG_CROWD = CROWD_N >= 60;   // owner decision (E2b, Mark): specs with a crowd ≥ 60 get a 120k triangle budget; the s/frame gate is unchanged
 const MAX_TRI = V3 ? (BIG_CROWD ? 120000 : 90000) : 50000, MAX_S = V3 ? .62 : .45;   // owner Decision 4 (A5): Season 1 worlds ≤ 90k, ≤ 0.62 s at 720
 
+const {segments} = segmentPlan(spec);   // 4A: spec.locations → one page per location (its shots + anchors)
 const server = await startServer(process.cwd()), browser = await launch();
 try {
-  const page = await browser.newPage({viewport: {width: 360, height: 640}});
-  const errors = []; page.on('pageerror', e => errors.push(e.message));
-  await page.goto(`${server.url}/engine/episode.html?spec=${encodeURIComponent(spec)}&aa=1`);
+  const errors = [], rows = [];
+  for (const seg of segments) {
+  const page = await browser.newPage({viewport: {width: 360, height: 640}}), base = rows.length;
+  page.on('pageerror', e => errors.push(e.message));
+  await page.goto(`${server.url}/engine/episode.html?spec=${encodeURIComponent(seg.specPath)}&aa=1`);
   await page.waitForFunction(() => window.__episode, null, {timeout: 120000});
-  const shots = await page.evaluate(() => window.__episode.shots);
+  const shots = (await page.evaluate(() => window.__episode.shots)).filter(s => !seg.shotIds || seg.shotIds.has(s.id));
   await page.evaluate(([w, h]) => window.__episode.renderFrame(0, w, h), [W, H]);   // warm-up: shader compile, texture upload
-  const rows = [];
   // World anchors (Session 3+): 8 frames at every anchor's establishing camera, movers at 8 times.
   const anchorNames = Object.keys(await page.evaluate(() => window.__episode.anchors ?? {}));
   for (const name of anchorNames) {
     const r = await page.evaluate(([n, w, h, N]) => Array.from({length: N}, (_, i) => window.__episode.renderAnchor(n, i * .5, w, h)), [name, W, H, N]);
     const r1080 = await page.evaluate(([n, N]) => Array.from({length: N}, (_, i) => window.__episode.renderAnchor(n, i * .5, 1080, 1920)), [name, 2]);
-    rows.push({shot: '@' + name, size: 'anchor', triangles: Math.max(...r.map(x => x.triangles)), withShadowPass: Math.max(...r.map(x => x.drawnTriangles)), calls: Math.max(...r.map(x => x.calls)),
+    rows.push({shot: '@' + (seg.loc ? seg.loc + ':' : '') + name, size: 'anchor', triangles: Math.max(...r.map(x => x.triangles)), withShadowPass: Math.max(...r.map(x => x.drawnTriangles)), calls: Math.max(...r.map(x => x.calls)),
       sPerFrame: +(r.reduce((a, x) => a + x.ms, 0) / r.length / 1000).toFixed(3), sPerFrame1080: +(r1080.reduce((a, x) => a + x.ms, 0) / r1080.length / 1000).toFixed(3)});
   }
   for (const s of shots) {
@@ -45,10 +48,12 @@ try {
     rows.push({shot: s.id, size: s.size, triangles: Math.max(...r.map(x => x.triangles)), withShadowPass: Math.max(...r.map(x => x.drawnTriangles)), calls: Math.max(...r.map(x => x.calls)), sPerFrame: +(r.reduce((a, x) => a + x.ms, 0) / r.length / 1000).toFixed(3)});
   }
   // Native 1080×1920 finals (owner decision): same frames again at full size; target ≤ 1.0 s/frame.
-  if (W === 720) for (const [k, s] of shots.entries()) { const i = anchorNames.length + k;
+  if (W === 720) for (const [k, s] of shots.entries()) { const i = base + anchorNames.length + k;
     const fr = Array.from({length: Math.min(N, 4)}, (_, k) => s.start + Math.min(s.frames - 1, Math.round(k * (s.frames - 1) / 3)));
     const r = await page.evaluate(fr => fr.map(f => window.__episode.renderFrame(f, 1080, 1920)), fr);
     rows[i].sPerFrame1080 = +(r.reduce((a, x) => a + x.ms, 0) / r.length / 1000).toFixed(3);
+  }
+  await page.close();
   }
   const mean = +(rows.reduce((a, r) => a + r.sPerFrame, 0) / rows.length).toFixed(3);
   const mean1080 = rows[0].sPerFrame1080 === undefined ? null : +(rows.reduce((a, r) => a + r.sPerFrame1080, 0) / rows.length).toFixed(3);

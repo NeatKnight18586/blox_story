@@ -2052,3 +2052,28 @@ Blockers (engine, not fixed — frozen): (1) parts/village/world.js builds ONE l
 (2) brief2spec emits none of the SPEC FLAGS (rig r6, twos, post cine, camera cine, grade clear, look4) and no `props2b` (spider/toaster/spaghettiPlates/giantCage/chains/lanternSea exist only as engine/powers.js kinds);
 `prop:` subjects cannot name them. (3) brief2spec `look:` accepts only day|goldenHour|night|storm|nightBright|fireNight, not moonlit/dusk/dawn; `beast … to <anchor>` / crowd anchors only resolve in the first location.
 (4) no glasses / beard accessory (TEACHER, DAD_V plain).
+
+## tuft (E5) Phase 4A — engine fixes so the episode renders (Sonnet 5.5) — PLAN
+1. scripts/v2/segments.js (pure `segmentSpec` + node `segmentPlan`): spec.locations → one segment spec per location (location, look4, foreign-shot anchors / props stripped), frames = shots with shot.loc === L.
+2. render / stability / read / bench loop the segments (one page each, same frames dir + cache); no spec.locations → the old single page, untouched.
+3. lib6.js: location files expose their world anchor names (`anchorNames`); brief2spec: per-shot loc → anchors, `to`, crowd anchors, camera origin resolve against THAT shot's location; cast `at: street`.
+4. brief2spec: SPEC FLAGS line → spec fields; `prop:<kind>` + cage/chains/puff/glow/power/fizzle → spec.props2b / shot fields the engine already reads (no renderer code).
+5. look: accepts moonlit / dusk / dawn (else lists all); per-location look4 for the baked light.
+6. freeze-check base = stories/<slug>/BASE (tuft = 630b258), PIPELINE.md note.
+7. Gates: 10 fixture frames cine + acting6 byte-identical to a pre-change render (made first, now); 3-location test spec (beastYard→homeDining→festivalPlaza); ep --stage spec exit 0; ep:check; npm test; v2:test.
+
+### 4A RESULTS
+Built: `scripts/v2/segments.js` (pure `segmentSpec`, node `segmentPlan`) · render / stability / read / bench loop one page per `spec.locations` entry (frames dir + cache shared; specs without `locations` = the old single page) ·
+`lib6.js` exposes world anchor names / street origin / views / lookMap / stage / table of `parts/locations/*.json` · `brief2spec.js`: per-shot `loc` (inherits the previous shot; `prop:<location>` switches to it), anchors / `to` / crowd anchors /
+camera origin resolved against THAT shot's location, cast marks on each location's `street` anchor, SPEC FLAGS → spec, `look:` moonlit|dusk|dawn (error lists all), `props2b` (spider, toaster, lanternSea, chains, giantCage) from `prop:` + `cage:` / `chains:`,
+`spec.locations` + `locationLook4`; `freeze-check.js` base = `stories/<slug>/BASE`; `engine/actors.js`: an R6 actor skips the birth symbol (STUDENT costume; R6 has no rightHand; was a page-load throw). tests/segments.js.
+Commands: npm run ep -- --story tuft --stage spec · node scripts/v2/segments-fixture.js · node scripts/v2/render.js --spec engine/fixtures/segments/three.json --out <d> --width 270 --height 480 --aa 0 --every 12 ·
+node scripts/v2/render.js --story tuft … --every 150 · stability / read / bench on the 3-location spec · npm test · npm run v2:test.
+Numbers: byte-identical 10/10 cine + 10/10 acting6 (pre vs post, twice, incl. after the actors.js guard) · 3-location spec 144 frames, 12 rendered, cuts at 0 / 48 / 96 · segment vs single-location render of the same
+shots at the same times: 6/6 sampled frames equal (frame 0 + 24 of each shot; a reference started at t = 0 differs for shots 2–3 because actors animate in absolute time, so the reference spec carries all 3 shots) ·
+tuft spec: 61 shots, 7 locations, 0 parser errors, flags format 6 / season 1 / acting 6 / rig r6 / twos / post cine / camera cine / grade clear, props2b spider · toaster · lanternSea · chains · giantCage · 21/21 sampled tuft frames render across all 7 locations (37.9 s, .79 s/frame at 270×480) ·
+stability on the 3-location spec: 9 views, worst 0.079 % PASS · read 3/3 PASS · bench on it: 63k tris, .632 s/frame mean (> .62: FAIL on s/frame only; plaza .673; not a segment issue) · npm test green · v2:test 67 OK.
+ep:check with BASE = 630b258: FAIL — the 6 engine/script files of THIS engine phase are outside the episode lane (expected: BASE must move to the 4A commit for 4B+; not loosened).
+Decisions: village `look:` → looks4 via the location lookMap (night / storm / nightBright / fireNight → the flag's night look, goldenHour → dusk); a location bakes the look of its first shot; BRIEF row 2 crowd 8 → 10 (rows 2 and 17 must agree: one crowd);
+props2b positions are defaults from hero mark / stage / table anchors; `prop:titanCave` / `villageStreet` / `lanternSea` / `giantCage` use the location's `establish` view (no cam: needed).
+Open (blocks a GOOD animatic, not the render): auto cameras are untuned in the sampled sheet (f0 of the hook, f18 shows a green void, hero often out of frame); cast start marks are Brief `at` values from the E4 era (hero x -34); no glasses / beard accessory; bench .632 s/frame.

@@ -20,8 +20,13 @@ Read this first in every session. Find code via `CODEMAP.md` + `grep -n`; never 
   `stories/<slug>/logs/`, prints ≤ 20 lines (each gate PASS/FAIL + key numbers), stops at the first FAIL.
   align = v2:align · spec = brief2spec · plan = v2:plan · animatic = stability + read + 270×480 render + sheet + pacing.png + phone-390.png · final = `--final` render.
 - `npm run ep:check -- --story <slug>` (engine freeze): fails if the branch diff touches anything outside `stories/<slug>/`,
-  `beasts/*.json`, `parts/locations/*.json`, `cast/*.json`. **Episode sessions must pass it; engine work only in engine phases.**
+  `beasts/*.json`, `parts/locations/*.json`, `cast/*.json`. **Episode sessions must pass it; engine work only in engine phases.** The diff base is the commit in `stories/<slug>/BASE` (else `origin/main`): **each episode's first commit writes `stories/<slug>/BASE`** (the commit it branches from; tuft = 630b258).
 
 ## Rig (owner 2026-11-24)
 Episodes may use `rig: 'r6'` (classic rigid R6, no bends, `engine/r6.js`, `cast/troupe-r6.json`) and `twos: true` (characters on
 twos at 24 fps; camera, FX and light on ones).
+
+## Multi-location episodes, SPEC FLAGS (tuft 4A)
+- A Brief whose shots use more than one `loc:` gets spec `locations: [..]`: render / stability / read / bench open ONE page per location (`scripts/v2/segments.js`; spec.location = L, own baked light) and render only the shots with `shot.loc === L` into the shared frames dir (same names, same cache). Shots without `loc:` inherit the previous shot's location. Marks are anchored to each location's `street` anchor.
+- The Brief's `SPEC FLAGS` line (`` `format: 6`, `rig: 'r6'`, … ``, ``night look `moonlit` ``) is written into the spec. `look:` also takes moonlit | dusk | dawn (village worlds map `look:` to looks4 names via the location's `lookMap`).
+- `prop:<spider|toaster|spaghettiPlates|giantCage|chains|lanternSea>` and the `cage:` / `chains:` vocab emit spec `props2b`; `prop:<location>` / `prop:dinnerTable` frame the location view / the dining table.

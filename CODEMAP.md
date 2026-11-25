@@ -52,6 +52,10 @@ engine/fixtures/realism/street-cc0.json — CC0 version: Poly Haven photo-scan p
 engine/fixtures/realism/street-layout.json — Phase R test street: shared modules + layout (data). Street runs along -z, ground y 0, facades x = +-9; actor ~4.2 tall.
 engine/fixtures/realism/street-procedural.json — Today's procedural version: generated 512 px patterns (parts/materials.js std), gradient sky dome + its env, same light rig.
 engine/fixtures/realism/street.js — Phase R test scene (code = generic glue only; the street is data).
+engine/fixtures/segments/beastYard.json — tuft 4A: beastYard alone (reference for the segment)
+engine/fixtures/segments/festivalPlaza.json — tuft 4A: festivalPlaza alone (reference for the segment)
+engine/fixtures/segments/homeDining.json — tuft 4A: homeDining alone (reference for the segment)
+engine/fixtures/segments/three.json — tuft 4A: 3 locations by segments (scripts/v2/segments-fixture.js)
 engine/fixtures/tools/demo.json — A5 Session 8b tools demo (≤ 20 s, no captions): drone → snap (close, fit, crowd behind, wrist stat in focus) → heroLow (fit) → tiltUp onto t
 engine/fixtures/tools/world.js — Tools demo (Amendment A4, Session 8): a meadow valley whose far hillside is the landform giant (test rig for card 11's
 engine/fixtures/toyhouse/cast.json — Phase 3b cast sheet: the six cast presets on body5 + a v5 crowd.
@@ -245,7 +249,7 @@ scripts/ep.js — one command per episode stage: npm run ep -- --story <slug> --
 scripts/episode-audit.js — Harsh physical QA over EVERY frame of an episode (staging only, no pixels, so it is fast),
 scripts/episode-preview.js — Fast low-res look at an episode: one frame per shot (or chosen frames) plus the
 scripts/episode-render.js — Render an episode to native PNG frames with a per-shot cache and self-healing workers.
-scripts/freeze-check.js — engine freeze for episode sessions: npm run ep:check -- --story <slug> [--base <ref>]; fails if the branch diff touches anything outside sto
+scripts/freeze-check.js — engine freeze for episode sessions: npm run ep:check -- --story <slug> [--base <ref>] (default: the commit in stories/<slug>/BASE if that fi
 scripts/names100.js — Bounded names100 adapter: four isolated existing scene blocks, no world engine.
 scripts/p4-keyframes.js — Eight bounded native shots; five legacy overlays share the exact clean scene.
 scripts/p5-keyframes.js — Bounded native finish proof; raw captures remain under ignored renders/.
@@ -329,6 +333,8 @@ scripts/v2/r6-sheet.js — R6 rig key-pose sheet → review/r6/verbs.png (≤ 16
 scripts/v2/read.js — npm run v2:read -- --story <slug> [--spec <episode.json>] [--out <json>]   (owner readability checks, egg preview pass 2)
 scripts/v2/realism.js — Phase R spike measure: for each location (street-procedural, street-cc0) renders the 3 test shots,
 scripts/v2/render.js — render an episode's frames (docs/V2_BRIEF.md §5.4).
+scripts/v2/segments-fixture.js — tuft 4A test fixture: engine/fixtures/segments/{three,<loc>}.json. `three` = beastYard → homeDining → festivalPlaza
+scripts/v2/segments.js — multi-location episodes by SEGMENTS (tuft 4A). A spec with `locations: [..]` is NOT one merged world:
 scripts/v2/sep5b-gates.js — Look 5b gates → review/toyhouse/sep5b-gates.json (fixture engine/fixtures/toyhouse/set5b.json).
 scripts/v2/server.js — tiny static server for the v2 engine pages (repo root, no hidden paths, no
 scripts/v2/sets4-index.js — writes parts/sets4/anchors.json: the anchor names (and the lightsCascade practicals) of every
