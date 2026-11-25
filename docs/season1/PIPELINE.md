@@ -38,3 +38,8 @@ twos at 24 fps; camera, FX and light on ones).
 4. Scope a new-world episode at ≤ 4 locations and ≤ 45 shots; reuse sets before building new ones.
 5. Verify the engine can render the Brief (locations, flags, props, looks) with a 1-frame-per-shot smoke render BEFORE writing the build prompt; prompts never assume an engine feature exists.
 6. Ship the minimum that proves the idea, measure the 48-hour numbers, then invest.
+7. PICTURE LOCK is written in chat WITH the script (before voicing), never after: one row per sentence (two sentences = two rows) with MUST SEE, SYNC word, camera (tpl or AUTH), subject size, location. The script is not approved until every row's MUST SEE is something the engine can already show (LIBRARY) or is on the build list. Write for the camera.
+8. PREVIS FIRST, POLISH LAST: the first build session renders a 1-frame-per-row vo-sheet with existing assets/placeholders and fixes staging until every row shows its MUST SEE. Look, beast and world polish come only after the previs passes. (E5 polished look and beasts for 8 sessions before a single shot matched its words.)
+9. FORMAT rules are checked against the picture lock before voicing (E5: "hero on screen by 0:05" collided with a beasts-first opening; decide it in the lock, not at render).
+10. AUTH cameras are picked from rendered candidates (cand.py: 2–3 per row), never typed blind. Dark/night rows need a lit subject and a readable silhouette before anything else.
+11. One review artifact per build session: vo-sheet(s) = frame + row + VO + MUST SEE. The owner/chat review checks the sheet against the lock; never review a video first.
