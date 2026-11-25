@@ -58,8 +58,8 @@ const FPS = spec.fps ?? 30;
 // (renderer exposure, a saturation / temperature / haze term injected before the colour-space step of every material that has one: no re-bake, no extra pass).
 const M6 = spec.moods && spec.format === 6 ? await import('./mood6.js') : null;
 const MOODU = {uMoodSat: {value: 1}, uMoodTint: {value: new T.Vector3(1, 1, 1)}, uMoodHaze: {value: 0}, uMoodBloom: {value: 0}, uMoodVig: {value: 0}, uMoodRes: {value: new T.Vector2(1, 1)}};
-if (M6) {
-  const inject = sh => { if (!sh.fragmentShader.includes('#include <tonemapping_fragment>')) return; Object.assign(sh.uniforms, MOODU);
+if (M6 && spec.post !== 'cine') {   // tuft 4B: post 'cine' grades per mood itself (cinelook GRADE); the mood shader term would stack on it
+  const inject = sh => { if (!sh.fragmentShader.includes('#include <tonemapping_fragment>') || sh.fragmentShader.includes('uniform float uMoodSat')) return;   // tuft 4B: chained onBeforeCompile (cinelook / beastrt) must not inject twice Object.assign(sh.uniforms, MOODU);
     sh.fragmentShader = 'uniform float uMoodSat; uniform vec3 uMoodTint; uniform float uMoodHaze; uniform float uMoodBloom; uniform float uMoodVig; uniform vec2 uMoodRes;\n' + sh.fragmentShader.replace('#include <tonemapping_fragment>', '#include <tonemapping_fragment>\n{ vec3 mc = gl_FragColor.rgb; float ml = dot(mc, vec3(.2126, .7152, .0722)); mc = mix(vec3(ml), mc, uMoodSat) * uMoodTint; mc = mc + uMoodHaze * .06 * (1. - mc); mc += uMoodBloom * smoothstep(.55, 1., ml) * mc * .5; vec2 mv = gl_FragCoord.xy / uMoodRes - .5; mc *= 1. - uMoodVig * clamp(dot(mv, mv) * 2.4, 0., 1.); gl_FragColor.rgb = mc; }'); };   // P5b: key bloom (highlight lift) and vignette, both 0 unless the shot's mood light sets them
   Object.defineProperty(T.Material.prototype, 'onBeforeCompile', {configurable: true, get() { return this._mood6 ?? ((sh) => inject(sh)); }, set(fn) { this._mood6 = (sh, r) => { fn?.call(this, sh, r); inject(sh); }; }});
 }

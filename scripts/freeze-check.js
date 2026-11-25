@@ -1,7 +1,7 @@
 // scripts/freeze-check.js — engine freeze for episode sessions: npm run ep:check -- --story <slug> [--base <ref>] (default: the commit in stories/<slug>/BASE if that file exists, else origin/main); fails if the branch diff touches anything outside stories/<slug>/, beasts/*.json, parts/locations/*.json, cast/*.json.
 import {execFileSync} from 'node:child_process';
 import {existsSync, readFileSync} from 'node:fs';
-export const ALLOWED = slug => [new RegExp(`^stories/${slug.replace(/[^\w-]/g, '')}/`), /^beasts\/[^/]+\.json$/, /^parts\/locations\/[^/]+\.json$/, /^cast\/[^/]+\.json$/];
+export const ALLOWED = slug => [new RegExp(`^stories/${slug.replace(/[^\w-]/g, '')}/`), /^beasts\/[^/]+\.json$/, /^parts\/locations\/[^/]+\.json$/, /^cast\/[^/]+\.json$/, /^PROGRESS\.md$/, /^review\/[^/]+\//];   // episode sessions log to PROGRESS.md and write review material
 // Pure: the files not covered by the allow-list.
 export const violations = (files, slug) => { const ok = ALLOWED(slug); return files.filter(f => f && !ok.some(r => r.test(f))); };
 if (import.meta.url === `file://${process.argv[1]}`) {
