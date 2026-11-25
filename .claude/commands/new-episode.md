@@ -4,8 +4,8 @@ argument-hint: <slug> [E1|E2]
 ---
 # /new-episode $ARGUMENTS
 
-Source of truth: `docs/V2_BRIEF.md` (§0–§3, §5–§11, §14, Amendment A1) and `PROGRESS.md`; length, end, last line, final shot
-and hero-first: **`docs/season1/FORMAT_V6.md`** (new episodes are `"format": 6`). Branch `claude/engine-v2`.
+Source of truth: **`RULEBOOK.md`** (read it first; it wins over anything in `docs/archive/`, which is reference only: old
+V2_BRIEF, FORMAT_V6, V4, EPISODE_BRIEF). New episodes are `"format": 6`. Episode sessions never touch engine code (`npm run ep:check`).
 The owner has committed `stories/<slug>/script.txt` and `stories/<slug>/voice.flac`. Session E1 runs when the
 second argument is missing or `E1`; E2 runs after the owner's notes on the animatic. Write a ≤ 15-line plan in
 `PROGRESS.md` first, a ≤ 40-line report after (built, commands, numbers, decisions, open problems, build/render/total
@@ -42,7 +42,7 @@ different attempts → stop and ask. Never read `evidence/`; look only at contac
   - the frame-0 still at 390 px ("mute test"): `sheet.py <animatic> --frames 0 --long 390`.
 - **E2** is unchanged (1440 final, `v2:qc`, release, proxy), plus a suggested title (3–6 words + one emoji, §3) and a pinned
   comment (one either/or question) from the card in `review/<slug>/DELIVERY.md`. Append a row stub (`| n | slug | lane |
-  title | | | | | | | | |`) to `docs/season1/RESULTS.md`.
+  title | | | | | | | | |`) to `docs/RESULTS.md`.
 
 ## Session E1 (ends at the one owner gate)
 1. **Align:** `npm run v2:align -- --story <slug>` → `stories/<slug>/build/cues.json`; copy it to
