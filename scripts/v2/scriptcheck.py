@@ -16,6 +16,7 @@ sleepwalks/sleepwalking, handshakes/handshake, snaps/snapped). Clues, Frame 0, M
 import argparse, json, re, sys
 
 WORDS = (300, 400)   # FORMAT_V6.md rule 1
+VARIANT_WORDS = {'short': (200, 250), 'long': (280, 330)}   # format 7 (--variant): > max FAIL, < min WARN
 MAX_SENTENCE, FIRST_LINE, MAX_GRADE, MAX_OVERLAP = 12, 9, 6.0, .60
 FIRST_PERSON = {'i', 'me', 'my', 'mine', 'myself', 'we', 'us', 'our', 'ours', 'ourselves', "i'm", "i'll", "i've", "i'd", "we're", "we'll", "we've", "we'd", "let's"}
 STOP = set('''a an the and or but if then so to of in on at by for with from into onto up down out over under about as is are was were be been being has
@@ -116,15 +117,16 @@ def repeats_first(first, last):
     return bool(first and last) and (norm(first) == norm(last) or overlap(first, last) >= MAX_OVERLAP)
 
 
-def check(script, card):
+def check(script, card, variant=None):
     """→ {'pass', 'failures': [...], 'warnings': [...], 'numbers': {...}} (pure)."""
     F, ls, ss = [], lines(script), sentences(script)
     nw = len(tokens(script)); long = [s for s in ss if len(tokens(s)) > MAX_SENTENCE]
     grade = fk_grade(script)
     first, last = ls[0] if ls else '', ls[-1] if ls else ''
     W = []
-    if nw > WORDS[1]: F.append(f'{nw} words (> {WORDS[1]}; target {WORDS[0]}–{WORDS[1]})')
-    elif nw < WORDS[0]: W.append(f'{nw} words (< {WORDS[0]}; target {WORDS[0]}–{WORDS[1]}, never padded)')
+    lo, hi = VARIANT_WORDS[variant] if variant else WORDS
+    if nw > hi: F.append(f'{nw} words (> {hi}; target {lo}–{hi})')
+    elif nw < lo: W.append(f'{nw} words (< {lo}; target {lo}–{hi}, never padded)')
     for s in long: F.append(f'sentence of {len(tokens(s))} words (> {MAX_SENTENCE}): "{s}"')
     if len(tokens(first)) > FIRST_LINE: F.append(f'first line has {len(tokens(first))} words (> {FIRST_LINE})')
     if len(ls) > 1 and repeats_first(first, last): F.append(f'last line "{last}" repeats the first line "{first}" ({overlap(first, last) * 100:.0f} % word overlap; twist the rule or land the laugh instead)')
@@ -147,8 +149,9 @@ def card_for(slug, md):
 
 
 def main():
-    a = argparse.ArgumentParser(); a.add_argument('--story', required=True); a.add_argument('--card-file', default='docs/season1/SEASON_1.md'); a.add_argument('--json', action='store_true'); o = a.parse_args()
-    r = check(open(f'stories/{o.story}/script.txt').read(), card_for(o.story, open(o.card_file).read()))
+    a = argparse.ArgumentParser(); a.add_argument('--story', required=True); a.add_argument('--card-file', default='docs/season1/SEASON_1.md'); a.add_argument('--json', action='store_true')
+    a.add_argument('--variant', choices=sorted(VARIANT_WORDS), help='format 7: short 200–250 words, long 280–330 (default: 300–400)'); o = a.parse_args()
+    r = check(open(f'stories/{o.story}/script.txt').read(), card_for(o.story, open(o.card_file).read()), o.variant)
     if o.json: print(json.dumps(r, ensure_ascii=False))
     else:
         print(json.dumps(r['numbers'], ensure_ascii=False))

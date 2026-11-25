@@ -1,0 +1,33 @@
+{
+ "limits": {
+  "minCap": 0.032,
+  "band": [
+   0.58,
+   0.74
+  ]
+ },
+ "story": "egg",
+ "video": "review/season1/tools-demo.mp4",
+ "v7": {
+  "sizes": [
+   128,
+   128
+  ],
+  "smallest": {
+   "size": 128,
+   "capPx": 28,
+   "cap": 0.0404,
+   "top": 0.619,
+   "bottom": 0.684
+  },
+  "largest": {
+   "size": 128,
+   "capPx": 28,
+   "cap": 0.0404,
+   "top": 0.619,
+   "bottom": 0.684
+  }
+ },
+ "failures": [],
+ "pass": true
+}

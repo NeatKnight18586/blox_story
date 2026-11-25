@@ -15,7 +15,7 @@ opener 150, emphasis 120 %, outline 9, y 1250 / high 560; a chunk holds at most 
 import argparse, json, re, sys
 
 STYLE_FILE = 'captions/pop-shorts-v2.json'
-STYLES = {'v2': 'captions/pop-shorts-v2.json', 'pop-shorts-v2': 'captions/pop-shorts-v2.json', 'v3': 'captions/pop-shorts-v3.json', 'pop-shorts-v3': 'captions/pop-shorts-v3.json', 'v5': 'captions/pop-shorts-v5.json', 'pop-shorts-v5': 'captions/pop-shorts-v5.json'}
+STYLES = {'v2': 'captions/pop-shorts-v2.json', 'pop-shorts-v2': 'captions/pop-shorts-v2.json', 'v3': 'captions/pop-shorts-v3.json', 'pop-shorts-v3': 'captions/pop-shorts-v3.json', 'v5': 'captions/pop-shorts-v5.json', 'pop-shorts-v5': 'captions/pop-shorts-v5.json', 'v7': 'captions/pop-shorts-v7.json', 'pop-shorts-v7': 'captions/pop-shorts-v7.json'}
 
 
 def load_style(name=None):
@@ -69,9 +69,10 @@ def chunk_cap(words, max_words=3, max_long=None, long_letters=7):
     return max_words
 
 
-def chunk(cues, max_words=3, blank_pause=.35, max_long=None, long_letters=7):
+def chunk(cues, max_words=3, blank_pause=.35, max_long=None, long_letters=7, one_word=False):
     """→ [{words: [str], start, end, onset, first_line: bool, line: n}] (times = word times, before lead).
     max_long (v3): a chunk never holds more than max_long words when one of them has long_letters+ letters."""
+    if one_word: max_words, max_long = 1, None   # style v7: one word per caption
     chunks = []
     for line in cues['lines']:
         words, toks = line['words'], display_words(line)
@@ -210,7 +211,7 @@ def grouping_issues(chunks, style, emph=()):
 def make_chunks(cues, style, emph=()):
     """The style's grouping: "v3" (owner rules) or the original chunker (v2, "Nobody")."""
     if style.get('grouping') == 'v3': return group(cues, style, emph)
-    return chunk(cues, style['maxWords'], style['blankPause'], style.get('maxWordsLong'), style.get('longLetters', 7))
+    return chunk(cues, style['maxWords'], style['blankPause'], style.get('maxWordsLong'), style.get('longLetters', 7), bool(style.get('oneWord')))
 
 
 def episode_sizes(timed, style, emph=()):
@@ -359,7 +360,7 @@ def main():
     a.add_argument('--out'); a.add_argument('--style', help='v2 (default) | v3; or spec "captionStyle"'); a.add_argument('--cues'); o = a.parse_args()
     cues = json.load(open(o.cues or f'stories/{o.story}/cues.json'))
     spec = json.load(open(o.spec)) if o.spec else {}
-    style = load_style(o.style or spec.get('captionStyle'))
+    style = load_style(o.style or spec.get('captionStyle') or ('v7' if spec.get('format', 0) >= 7 else None))   # format 7 specs default to pop-shorts-v7
     timed = timing(make_chunks(cues, style, spec.get('emphasis', [])), style['leadSeconds'], style['blankPause'])
     kw = set()
     if style.get('keywordColour'):   # format v5: *word* marks in the owner's script (read only)

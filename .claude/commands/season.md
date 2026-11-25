@@ -2,6 +2,8 @@
 description: Season 1 daily loop (A4 §I). Reads docs/season1/STATE.md and does the next step. Usage: /season [approve | notes: … | swap]
 argument-hint: [approve | notes: … | swap]
 ---
+> **LEGACY** (pre-reset Season 1 loop). The current loop is in `RULEBOOK.md` §1; where this file conflicts, RULEBOOK.md wins. Archived docs it names are in `docs/archive/`.
+
 # /season $ARGUMENTS
 
 `docs/season1/STATE.md` decides what happens; nothing else does. Sources: `docs/V2_BRIEF.md` §0–§3, `PROGRESS.md`,
@@ -21,7 +23,7 @@ owner the `stop` line in one sentence and stop. Never skip or reorder actions.
 - **revise** (`notes: …`): apply the owner's notes as one revision round (only the shots a note touches re-render), re-run the
   E1 gates, then continue straight on: the notes round counts as the approval.
 - **E2**: `set --step final --log "<slug>: E2 started"`, then `/new-episode <slug> E2` in full (1440 final, `v2:qc`, release,
-  proxy, suggested title + pinned comment from the card, a row stub in `docs/season1/RESULTS.md`). When the master is
+  proxy, suggested title + pinned comment from the card, a row stub in `docs/RESULTS.md`). When the master is
   delivered, log it with exactly `--log "<n> <slug> final delivered"` (the compilation counter reads these lines).
 - **compilation-<k>** (after every fifth final): concatenate the last five masters (from their prereleases) with a 1 s title
   card before each (episode title, Lilita One, the season's colours), no re-render, no re-grade; write the chapter list
@@ -36,7 +38,7 @@ owner the `stop` line in one sentence and stop. Never skip or reorder actions.
   3. Replace the current card in §6, keeping its number and lane. This is the only edit `/season` makes to a card.
   4. `set --slug <new> --log "swap: <old> → <new> (backlog: …)"`. Tell the owner the episode waits for their script.txt,
      voice and beats prompt. Stop.
-- **season-complete**: report the season totals from `docs/season1/RESULTS.md`; stop.
+- **season-complete**: report the season totals from `docs/RESULTS.md`; stop.
 
 ## 3. Write the new state and stop
 `python3 scripts/v2/season_state.py set --episode <n> --slug <slug> --step <step> --log "<what happened>"` with the

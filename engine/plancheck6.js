@@ -5,7 +5,7 @@
 import {MOODS, MOOD_NAMES, lenVerdict, keyEV, sizeOk} from './mood6.js';
 import {story6Times} from './story6.js';
 
-export const WINDOW = 1.5, WINDOW_LONG = 3.0, LONG_MOODS = ['emotion', 'awe'], EMPH_TOL = 3, BREATH = 1.5, LOOP_GAP = 20, BIN = 10;
+export const WINDOW = 1.5, WINDOW_EARLY7 = 1.0, EARLY7_UNTIL = 12.0, VOICE_GAP7 = .4, WINDOW_LONG = 3.0, LONG_MOODS = ['emotion', 'awe'], EMPH_TOL = 3, BREATH = 1.5, LOOP_GAP = 20, BIN = 10;
 export const PACING_TARGET = {opening: [5, 7], middle: [4, 6], emotion: [2, 4], climax: [6, 8], payoff: [2, 3]};
 const norm = w => String(w).toLowerCase().replace(/[^a-z0-9']/g, '');
 export const cueWords = cues => (cues?.lines ?? []).flatMap(l => (l.words ?? []).map(x => ({w: x.w ?? x.word, n: norm(x.w ?? x.word), start: x.start, end: x.end, line: l.line})));
@@ -66,6 +66,14 @@ export function tripCheck({shots}) {
   return {name: 'trip freeze + ground hold', level: bad.length ? 'FAIL' : 'PASS', items: bad.length ? bad : items};
 }
 
+// Format 7 dead-stretch window (s): 1.0 s for a window starting before 12.0 s, 1.5 s after; format 6 keeps 1.5 s.
+export const windowFor = (t, format) => format >= 7 && t < EARLY7_UNTIL - 1e-9 ? WINDOW_EARLY7 : WINDOW;
+// Format 7 voiceGap (pure): every gap between consecutive cue words longer than 0.4 s → item with its time.
+export function voiceGaps(cues, max = VOICE_GAP7) {
+  const w = cueWords(cues), out = [];
+  for (let i = 1; i < w.length; i++) { const g = w[i].start - w[i - 1].end; if (g > max + 1e-6) out.push({t: w[i - 1].end, gap: g}); }
+  return out;
+}
 export function checkMoods({shots, cues, spec = {}, fps = 30, heads = [], means = null}) {
   const dur = s => s.frames / fps, ev = noveltyEvents({shots, cues, spec, fps}), end = (shots.at(-1).start + shots.at(-1).frames) / fps, words = cueWords(cues);
   const c = {};
@@ -84,7 +92,7 @@ export function checkMoods({shots, cues, spec = {}, fps = 30, heads = [], means 
   // b. no dead stretch: a novelty event in every 1.5 s window (3.0 s inside emotion / awe shots)
   { const items = [], pts = [0, ...ev.map(e => e.t), end].sort((x, y) => x - y);
     for (let i = 0; i + 1 < pts.length; i++) {
-      const g = pts[i + 1] - pts[i], s = shots.findLast(x => Math.round(pts[i] * fps) >= x.start) ?? shots[0], W = LONG_MOODS.includes(s.mood) ? WINDOW_LONG : WINDOW;
+      const g = pts[i + 1] - pts[i], s = shots.findLast(x => Math.round(pts[i] * fps) >= x.start) ?? shots[0], W = LONG_MOODS.includes(s.mood) ? WINDOW_LONG : windowFor(pts[i], spec.format);
       if (g > W + 1e-6) items.push(`${s.id}: dead stretch ${pts[i].toFixed(2)}–${pts[i + 1].toFixed(2)} s (${g.toFixed(2)} s > ${W} s, nothing happens)`);
     }
     c.b = res('no dead stretch', items); }
@@ -130,6 +138,7 @@ export function checkMoods({shots, cues, spec = {}, fps = 30, heads = [], means 
   // h. pacing curve: cuts per 10 s vs the target of its phase
   const pacing = pacingCurve({shots, fps, end}); c.h = res('pacing curve', pacing.bins.filter(b => !b.ok).map(b => `${b.from}–${b.to} s: ${b.cuts} cuts/10 s (${b.phase} wants ${PACING_TARGET[b.phase][0]}–${PACING_TARGET[b.phase][1]})`), false);
   c.m = moodSeparation({shots, means}); c.t = tripCheck({shots});
+  if (spec.format >= 7) c.v = res('voiceGap', voiceGaps(cues).map(g => `silence of ${g.gap.toFixed(2)} s at ${g.t.toFixed(2)} s (> ${VOICE_GAP7} s between words)`), false);
   const errors = [], warnings = [];
   for (const [k, x] of Object.entries(c)) if (x.level !== 'PASS') for (const it of x.items) (it.startsWith('WARN ') || x.level === 'WARN' ? warnings : errors).push(`${k}. ${x.name}: ${it.replace(/^(FAIL|WARN) /, '')}`);
   return {checks: c, errors, warnings, pacing};

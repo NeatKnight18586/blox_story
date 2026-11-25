@@ -83,7 +83,7 @@ narration for the hero (D1); family-safe (peril resolves, no on-screen harm, no 
 `E` Epic (world-scale, primal) · `M` Mechanic (rule as UI) · `L` Lore (eerie survival rule) · `Q` Quirky (custom material or scale).
 Block 1 (episodes 01–10) is ordered by the owner: game-genre worlds first. Never three episodes of the same lane in a
 row. Never the same twist type twice within five episodes. After every five uploads,
-`docs/season1/RESULTS.md` decides whether lane weights shift (§7).
+`docs/RESULTS.md` decides whether lane weights shift (§7).
 
 ## 5. Calendar: one episode per day, in card order
 
@@ -449,7 +449,7 @@ picture (so a player recognises it in one second), never a game's name, map, UI 
 - **Clues:** two names on the board · a second, dusty spawn pad · a chat log with one line.
 - **Money shot:** two avatars and a tiny third on the spawn pad as the sky loads in. **World:** classic baseplate world; reuse a shot from each of five earlier episodes.
 
-## 7. Results loop (`docs/season1/RESULTS.md`, one row per upload, owner supplies the numbers)
+## 7. Results loop (`docs/RESULTS.md`, one row per upload, owner supplies the numbers)
 
 Columns: episode · lane · title · posted · views at 48 h · stayed % · average % viewed · shares per 1,000 views · subscribers per
 1,000 views · top country · the two biggest dips on the retention graph (timestamps).

@@ -18,7 +18,7 @@ export const SIZES6 = ['wide', 'medium', 'close', 'insert', 'ecu'], EFFECTS6 = [
 const FACE_ALIAS = {awe_small: 'o_small'};
 const SLOT_SCALE = {LITTLE: .62, LEAD: .82, SECOND: .82, RIVAL: .95};   // E2: partner scale picks the carry (cast/troupe6.json)   // Brief vocabulary → faces6 name (the small round-mouth wonder face)
 const PROP_H = {streetLamp: 5.2, crate: 1.2, porch: 3.5, shack: 5, deadTree: 6, birdhouse: 1.5, powerLine: 9};   // library prop heights (insert camera fit)
-export const FLAG_KEYS = ['format', 'season', 'acting', 'rig', 'twos', 'post', 'camera', 'grade', 'faceLife', 'beastPlace'];   // 4C-2: beastPlace (beasts honour later place: marks)   // SPEC FLAGS keys (+ `night look <name>`)
+export const FLAG_KEYS = ['format', 'season', 'acting', 'rig', 'twos', 'post', 'camera', 'grade', 'faceLife', 'beastPlace', 'lengthVariant'];   // 4C-2: beastPlace (beasts honour later place: marks)   // SPEC FLAGS keys (+ `night look <name>`)
 export const P2B = ['spider', 'toaster', 'spaghettiPlates', 'giantCage', 'chains', 'lanternSea'];   // engine/powersrt.js props2b kinds
 const P2B_H = {spider: .25, toaster: 1, spaghettiPlates: .5, chains: 6, dinnerTable: 3.4};   // insert camera fit heights (giantCage / lanternSea / locations use the location view)
 const NIGHTS = ['night', 'nightBright', 'storm', 'fireNight', 'moonlit'], LOOKS_IN = [...LOOKS, 'moonlit', 'dusk', 'dawn'];
@@ -48,6 +48,8 @@ export function parseBrief(md) {
   const fl = /^SPEC FLAGS[^:\n]*:\s*(.*)$/mi.exec(md)?.[1] ?? '', flags = {}, flagErrors = [];   // 4A: the Brief's SPEC FLAGS line → spec fields
   for (const m of fl.matchAll(/`([^`]+)`/g)) { const g = /^(\w+)\s*:\s*(.+?)\s*$/.exec(m[1]); if (!g) continue; const v = g[2].replace(/^'(.*)'$|^"(.*)"$/, '$1$2');
     if (!FLAG_KEYS.includes(g[1])) flagErrors.push(`SPEC FLAGS: unknown flag "${g[1]}" (${FLAG_KEYS.join(' | ')})`); else flags[g[1]] = v === 'true' ? true : v === 'false' ? false : /^-?\d+(\.\d+)?$/.test(v) ? +v : v; }
+  const pl = /^[\s>*_-]*spec flags\s*:\s*(.*)$/im.exec(md)?.[1] ?? '';   // 0C: plain `SPEC FLAGS: format: 7, lengthVariant: short` (no backticks) also parses
+  for (const m of pl.matchAll(/(format|lengthVariant)\s*[:=]\s*(\w+)/gi)) { const k = m[1].toLowerCase() === 'format' ? 'format' : 'lengthVariant'; if (flags[k] === undefined) flags[k] = /^\d+$/.test(m[2]) ? +m[2] : m[2]; }
   const nl = /night look\s+`(\w+)`/i.exec(fl); if (nl) flags.nightLook = nl[1];
   return {meta: kv('META'), premise: kv('PREMISE'), world: kv('WORLD'), payoff: kv('PAYOFF SHOT'), cast, rows, flags, flagErrors};
 }
@@ -298,9 +300,11 @@ export function briefToSpec(brief, cues, lib, {slug, root = '.'} = {}) {
   for (const sh of shots) locFirstLook[sh.loc] ??= VIL ? sh.look : null;
   for (const c of cageRows.filter(c => c.key === 'cage')) ensure2b('giantCage', c.loc, c.from - .05, Math.max(...cageRows.filter(q => q.key === 'chains').map(q => q.until), c.until) + .1);
   for (const c of cageRows.filter(c => c.key === 'chains')) ensure2b('chains', c.loc, c.from - .05, c.until + .05);
-  const end = +(cues.duration + .85).toFixed(3);
+  const fmt = flags.format === undefined ? 6 : +flags.format, variant = flags.lengthVariant;   // 0C: format 7 opt-in (end = voice + .5); lengthVariant short | long
+  if (variant !== undefined && !['short', 'long'].includes(variant)) errors.push(`SPEC FLAGS: lengthVariant: ${variant} (short | long)`);
+  const end = +(cues.duration + (fmt >= 7 ? .5 : .85)).toFixed(3);
   const used = [...new Set(shots.map(x => x.loc).filter(Boolean))];
-  const spec = {slug, fps: 30, format: 6, moods: true, body: 'v6', faceStyle: 'v6', acting: 6, labels: false, hero: 'hero', world: worldMod, look: 'day', cues: `stories/${slug}/cues.json`, end,
+  const spec = {slug, fps: 30, format: 6, ...(fmt >= 7 ? {lengthVariant: variant ?? 'short', captionStyle: 'pop-shorts-v7'} : {}), moods: true, body: 'v6', faceStyle: 'v6', acting: 6, labels: false, hero: 'hero', world: worldMod, look: 'day', cues: `stories/${slug}/cues.json`, end,
     note: `Written by scripts/v2/brief2spec.js from stories/${slug}/BRIEF.md (${shots.length} shots). Edit the Brief, not this file.`,
     brief: {title: meta.title, ruleLine: brief.premise['rule line'], palette: world.palette, colourScript: world['colour script'], setting: world.setting, props, payoff: brief.payoff},
     cast, ...(props7.length ? {props: props7} : {}), ...(p2b.length ? {props2b: p2b} : {}), ...(worldObjs.size ? {worldObjects: [...worldObjs]} : {}), emphasis6: emphasis6.map(({row, ...e}) => e), effects, shots};

@@ -1,0 +1,31 @@
+{
+ "name": "pop-shorts-v7",
+ "doc": "Format 7 (RULEBOOK \u00a79): one word per caption, bold yellow #FFE135 fill, thick black outline, fixed lower-centre position.",
+ "playRes": [
+  1080,
+  1920
+ ],
+ "font": "Lilita One",
+ "fontFile": "node_modules/@expo-google-fonts/lilita-one/400Regular/LilitaOne_400Regular.ttf",
+ "size": 128,
+ "openerSize": 128,
+ "primary": "&H0035E1FF",
+ "outline": 20,
+ "outlineColour": "&H00000000",
+ "shadow": 4,
+ "emphasisColour": "&H0035E1FF",
+ "emphasisScale": 100,
+ "y": 1250,
+ "yHigh": 1250,
+ "x": 540,
+ "maxWords": 1,
+ "leadSeconds": 0.04,
+ "blankPause": 0.35,
+ "pop": "\\fscx82\\fscy82\\t(0,80,\\fscx108\\fscy108)\\t(80,130,\\fscx100\\fscy100)",
+ "minCap": 0.032,
+ "grouping": "one-word",
+ "oneSize": true,
+ "maxWidthFrac": 0.86,
+ "note": "Format 7 captions: one word per chunk, #FFE135 fill (ASS BGR &H0035E1FF), outline 20 (v5: 9, 2.2x), y fixed at 1250 (65 % of the frame; yHigh = y so captionY never moves it).",
+ "oneWord": true
+}

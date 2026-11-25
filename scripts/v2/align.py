@@ -174,7 +174,7 @@ DEFAULT_FORMAT = 6   # docs/season1/FORMAT_V6.md: the default for new episodes
 def voice_range(fmt=None):
     """Pure: the allowed voice length (s) per episode format: format 6 up to 124.15 s (voice + 0.85 ≤ 2:05, no minimum,
     never padded), format v5 75–90 s, older formats 100–168 s."""
-    return (0, 124.15) if fmt == 6 else (75, 90) if fmt == 5 else (100, 168)
+    return (0, 111.5) if fmt == 7 else (0, 124.15) if fmt == 6 else (75, 90) if fmt == 5 else (100, 168)
 
 
 def spec_format(story_dir, override=None):
