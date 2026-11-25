@@ -12,7 +12,7 @@
  "look": "day",
  "cues": "stories/tuft/cues.json",
  "end": 103.204,
- "note": "Written by scripts/v2/brief2spec.js from stories/tuft/BRIEF.md (61 shots). Edit the Brief, not this file.",
+ "note": "Written by scripts/v2/brief2spec.js from stories/tuft/BRIEF.md (63 shots). Edit the Brief, not this file.",
  "brief": {
   "title": "You Get Your Beast's Power\u2026 Mine Was EMBARRASSING \ud83d\ude33 #shorts #roblox",
   "ruleLine": "\"In this world, you get whatever power your *beast* has.\" (7 words after the comma)",
@@ -77,6 +77,18 @@
        -3.2,
        0,
        -3.4
+      ],
+      "yaw": 0
+     }
+    ],
+    [
+     11.56,
+     {
+      "at": "street",
+      "offset": [
+       -6,
+       0,
+       -2
       ],
       "yaw": 0
      }
@@ -764,13 +776,25 @@
      }
     ],
     [
-     7.24,
+     6.117,
      {
       "at": "street",
       "offset": [
        -8,
        0,
-       3
+       2
+      ],
+      "yaw": 0
+     }
+    ],
+    [
+     7.24,
+     {
+      "at": "street",
+      "offset": [
+       -10,
+       0,
+       2
       ],
       "yaw": 90
      }
@@ -780,9 +804,9 @@
      {
       "at": "street",
       "offset": [
-       -8,
+       -10,
        0,
-       3
+       2
       ],
       "yaw": 90,
       "travel": {
@@ -799,9 +823,9 @@
      {
       "at": "street",
       "offset": [
-       0.8799999999999955,
+       -1.1200000000000045,
        0,
-       3
+       2
       ],
       "yaw": 90
      }
@@ -976,9 +1000,9 @@
      {
       "at": "street",
       "offset": [
-       -2,
        0,
-       -1
+       0,
+       2
       ],
       "yaw": 0
      }
@@ -1649,6 +1673,30 @@
      }
     ],
     [
+     11.56,
+     {
+      "at": "street",
+      "offset": [
+       -6,
+       3,
+       -1.3
+      ],
+      "yaw": 0
+     }
+    ],
+    [
+     13.52,
+     {
+      "at": "street",
+      "offset": [
+       -6,
+       3,
+       -1.3
+      ],
+      "yaw": 0
+     }
+    ],
+    [
      18.458,
      {
       "at": "street",
@@ -1811,10 +1859,40 @@
      true
     ],
     [
+     44.518,
+     false
+    ],
+    [
+     46.448,
+     true
+    ],
+    [
+     49.635,
+     false
+    ],
+    [
+     51.605,
+     true
+    ],
+    [
+     54.855,
+     false
+    ],
+    [
+     75.055,
+     true
+    ],
+    [
      103.203,
      false
     ]
-   ]
+   ],
+   "ride": {
+    "actor": "hero",
+    "at": "hands",
+    "from": 11.559,
+    "until": 16.895
+   }
   },
   "blink": {
    "style": "beast",
@@ -1881,11 +1959,11 @@
      {
       "at": "street",
       "offset": [
-       3,
+       4,
        0,
-       -10
+       1
       ],
-      "yaw": 0
+      "yaw": 90
      }
     ],
     [
@@ -1923,7 +2001,7 @@
      true
     ],
     [
-     16.894,
+     4.845,
      false
     ],
     [
@@ -1951,7 +2029,7 @@
      false
     ],
     [
-     95.51,
+     96.679,
      true
     ],
     [
@@ -1989,11 +2067,11 @@
      {
       "at": "street",
       "offset": [
-       -22,
+       -11.5,
        0,
        2
       ],
-      "yaw": 90
+      "yaw": 0
      }
     ]
    ],
@@ -2057,9 +2135,9 @@
      {
       "at": "street",
       "offset": [
-       4,
+       3,
        0,
-       4
+       2
       ],
       "yaw": 0
      }
@@ -2204,6 +2282,14 @@
     ],
     [
      60.556,
+     true
+    ],
+    [
+     75.055,
+     false
+    ],
+    [
+     88.062,
      true
     ],
     [
@@ -2684,37 +2770,37 @@
   {
    "word": "angry",
    "t": 69.16,
-   "shot": "S42"
+   "shot": "S43"
   },
   {
    "word": "dragon",
    "t": 72.8,
-   "shot": "S45"
+   "shot": "S46"
   },
   {
    "word": "whatever",
    "t": 80.6,
-   "shot": "S50"
+   "shot": "S51"
   },
   {
    "word": "scared",
    "t": 85.8,
-   "shot": "S53"
+   "shot": "S54"
   },
   {
    "word": "Titan",
    "t": 90.04,
-   "shot": "S55"
+   "shot": "S56"
   },
   {
    "word": "squeak",
    "t": 94.48,
-   "shot": "S58"
+   "shot": "S59"
   },
   {
    "word": "boo",
    "t": 99.92,
-   "shot": "S60"
+   "shot": "S62"
   }
  ],
  "effects": [],
@@ -2725,10 +2811,6 @@
    "loc": "festivalPlaza",
    "look": "moonlit",
    "loopOpen": "giant",
-   "tpl": {
-    "kind": "beastFace",
-    "beast": "tuft"
-   },
    "puffs": [
     {
      "actor": "tuft",
@@ -2762,27 +2844,27 @@
    "openHit": true,
    "from": {
     "position": [
-     -1.4062046091447893,
-     5.0550573705466055,
-     -47.672147224535124
+     -5.8,
+     26.5,
+     -12
     ],
     "target": [
-     0,
-     4.6,
-     -52
+     -5.8,
+     26.5,
+     -40
     ],
     "fov": 34
    },
    "to": {
     "position": [
-     -1.3640184708704455,
-     5.0414056494302075,
-     -47.801982807799064
+     -5.8,
+     26.5,
+     -13.68
     ],
     "target": [
-     0,
-     4.6,
-     -52
+     -5.8,
+     26.5,
+     -40
     ],
     "fov": 34
    },
@@ -2844,10 +2926,6 @@
    "impact": 1.017,
    "loc": "beastYard",
    "look": "comedy",
-   "tpl": {
-    "kind": "beastHero",
-    "beast": "nightfang"
-   },
    "beasts": [
     {
      "actor": "nightfang",
@@ -2876,33 +2954,47 @@
    "note": "Hard cut to day. Nightfang rears and breathes a cyan fire column into the sky; the line of kids flinches. HERO visible at the far end of the line",
    "from": {
     "position": [
-     -3.1713245415609883,
-     4.697082572770409,
-     4.993383944127871
+     4,
+     1.6,
+     6
     ],
     "target": [
-     3,
-     2.7,
+     -1,
+     6,
      -14
     ],
-    "fov": 55
+    "fov": 50
    },
-   "follow": "nightfang",
-   "heading": 20,
-   "distance": 19.970825727704085,
-   "height": 3,
+   "to": {
+    "position": [
+     4,
+     1.6,
+     6
+    ],
+    "target": [
+     -1,
+     6,
+     -14
+    ],
+    "fov": 50
+   },
    "puffs": [
     {
      "actor": "tuft",
      "size": "deflate",
      "at": 0.05
     }
-   ]
+   ],
+   "frame": false
   },
   {
    "id": "S04",
    "at": 4.846,
    "impact": 0.404,
+   "tpl": {
+    "kind": "mcu",
+    "who": "vance"
+   },
    "loc": "beastYard",
    "look": "comedy",
    "powers": [
@@ -2949,47 +3041,52 @@
    "note": "see: hero; Vance pushes both palms forward: cyan fire jets out. The hero stands next in line; eyes wide",
    "from": {
     "position": [
-     1.5,
-     4,
-     0.5
+     6.571324541560989,
+     4.697082572770409,
+     10.99338394412787
     ],
     "target": [
-     -1,
-     3.8,
+     0.4,
+     2.7,
      -8
     ],
-    "fov": 48
+    "fov": 55
    },
    "to": {
     "position": [
-     1.5,
-     4,
-     0.5
+     1.7213894900754116,
+     3.1276106214637815,
+     -3.9331813201985035
     ],
     "target": [
-     -1,
-     3.8,
+     0.4,
+     2.7,
      -8
     ],
-    "fov": 48
+    "fov": 55
    },
    "snapAt": 0.6
   },
   {
    "id": "S05",
    "at": 6.117,
+   "tpl": {
+    "kind": "two",
+    "a": "kira",
+    "b": "volt"
+   },
    "loc": "beastYard",
    "look": "comedy",
    "beasts": [
     {
      "actor": "volt",
-     "state": "run",
+     "state": "idle",
      "at": 0.02
     }
    ],
    "mood": "fun",
    "size": "wide",
-   "move": "track",
+   "move": "static-drift",
    "why": "fun: A storm wolf makes this girl",
    "see": [
     "volt"
@@ -3003,29 +3100,16 @@
    "note": "Volt sprints across the yard; yellow lightning crackling along its seams",
    "from": {
     "position": [
-     -12,
-     1.6,
-     5
+     -17.67132454156099,
+     4.697082572770409,
+     16.99338394412787
     ],
     "target": [
-     -10,
-     2,
+     -11.5,
+     2.7,
      -2
     ],
-    "fov": 50
-   },
-   "to": {
-    "position": [
-     -12,
-     1.6,
-     5
-    ],
-    "target": [
-     -10,
-     2,
-     -2
-    ],
-    "fov": 50
+    "fov": 55
    }
   },
   {
@@ -3033,6 +3117,10 @@
    "at": 7.24,
    "impact": 0.48,
    "blur": true,
+   "tpl": {
+    "kind": "ms",
+    "who": "kira"
+   },
    "loc": "beastYard",
    "look": "comedy",
    "powers": [
@@ -3044,7 +3132,7 @@
    ],
    "mood": "fun",
    "size": "medium",
-   "move": "whip",
+   "move": "track",
    "why": "fun: faster than lightning.",
    "see": [
     "kira"
@@ -3076,35 +3164,40 @@
    "note": "Kira blurs past the lens leaving a yellow lightning ribbon",
    "from": {
     "position": [
-     -1,
-     3.4,
-     3
+     2.6742406346764276,
+     3.56540244820051,
+     8.230466375788744
     ],
     "target": [
-     -6,
-     3.4,
-     -1
+     0,
+     2.7,
+     0
     ],
-    "fov": 36
+    "fov": 55
    },
+   "follow": "kira",
    "to": {
     "position": [
-     -1,
-     3.4,
-     3
+     3.3742406346764273,
+     3.56540244820051,
+     8.230466375788744
     ],
     "target": [
-     -5.4,
-     3.4,
-     -1
+     0,
+     2.7,
+     0
     ],
-    "fov": 36
+    "fov": 55
    }
   },
   {
    "id": "S07",
    "at": 8.345,
    "impact": 1.175,
+   "tpl": {
+    "kind": "wide",
+    "who": "rocco"
+   },
    "loc": "beastYard",
    "look": "comedy",
    "beasts": [
@@ -3148,34 +3241,39 @@
    "note": "Cinder swoops low with flame-edged wings; Rocco lifts off on an orange flame trail",
    "from": {
     "position": [
-     -3,
-     2.2,
-     10
+     -6.171324541560988,
+     4.697082572770409,
+     18.99338394412787
     ],
     "target": [
-     3,
-     6,
-     -6
+     0,
+     2.7,
+     0
     ],
-    "fov": 52
+    "fov": 55
    },
+   "follow": "cinder",
    "to": {
     "position": [
-     -3,
-     2.2,
-     10
+     -5.471324541560988,
+     4.697082572770409,
+     18.99338394412787
     ],
     "target": [
-     3,
-     6,
-     -6
+     0,
+     2.7,
+     0
     ],
-    "fov": 52
+    "fov": 55
    }
   },
   {
    "id": "S08",
    "at": 10.232,
+   "tpl": {
+    "kind": "mcu",
+    "who": "teacher"
+   },
    "loc": "beastYard",
    "look": "comedy",
    "mood": "comedy",
@@ -3215,29 +3313,29 @@
    "note": "Every kid and every beast turns to look at the hero",
    "from": {
     "position": [
-     -2.2,
-     4.4,
-     3
+     -0.3257593653235724,
+     3.56540244820051,
+     5.230466375788744
     ],
     "target": [
      -3,
-     4.2,
+     2.7,
      -3
     ],
-    "fov": 36
+    "fov": 55
    },
    "to": {
     "position": [
-     -2.2,
-     4.4,
-     3
+     -0.3257593653235724,
+     3.56540244820051,
+     5.230466375788744
     ],
     "target": [
      -2.4,
-     4.2,
+     2.7,
      -3
     ],
-    "fov": 36
+    "fov": 55
    }
   },
   {
@@ -3249,7 +3347,8 @@
     1.68
    ],
    "tpl": {
-    "kind": "mcu"
+    "kind": "mcu",
+    "who": "hero"
    },
    "loc": "beastYard",
    "look": "comedy",
@@ -3290,27 +3389,27 @@
    "note": "Tuft sits in his cupped hands; tiny; on *muffin* it sneezes one sparkle. FIRST LAUGH",
    "from": {
     "position": [
-     -4.5213894900754115,
+     -7.321389490075411,
      5.027610621463781,
-     -3.333181320198504
+     -1.9331813201985035
     ],
     "target": [
-     -3.2,
+     -6,
      4.6,
-     -7.4
+     -6
     ],
     "fov": 55
    },
    "to": {
     "position": [
-     -4.5213894900754115,
+     -7.321389490075411,
      5.027610621463781,
-     -3.333181320198504
+     -1.9331813201985035
     ],
     "target": [
-     -3.2,
+     -6,
      4.6,
-     -7.4
+     -6
     ],
     "fov": 46.75
    }
@@ -3318,6 +3417,10 @@
   {
    "id": "S10",
    "at": 13.52,
+   "tpl": {
+    "kind": "mcu",
+    "who": "hero"
+   },
    "loc": "beastYard",
    "look": "comedy",
    "mood": "comedy",
@@ -3362,29 +3465,29 @@
    "note": "A leaf drifts down: Tuft's quills flatten and the hero flinches at the exact same moment",
    "from": {
     "position": [
-     -5.4,
-     4.2,
-     -2.5
+     0.1713245415609883,
+     6.597082572770408,
+     13.34338394412787
     ],
     "target": [
-     -5.2,
-     3.4,
-     -8
+     -6,
+     4.6,
+     -5.65
     ],
-    "fov": 34
+    "fov": 55
    },
    "to": {
     "position": [
-     -5.4,
-     4.2,
-     -2.5
+     -4.678610509924589,
+     5.027610621463781,
+     -1.5831813201985039
     ],
     "target": [
-     -5.2,
-     3.4,
-     -8
+     -6,
+     4.6,
+     -5.65
     ],
-    "fov": 34
+    "fov": 55
    },
    "snapAt": 0.6
   },
@@ -3392,6 +3495,10 @@
    "id": "S11",
    "at": 15.921,
    "loopOpen": "titan",
+   "tpl": {
+    "kind": "mcu",
+    "who": "hero"
+   },
    "loc": "beastYard",
    "look": "comedy",
    "mood": "tension",
@@ -3422,29 +3529,29 @@
    "note": "The hero glances out past the yard to the mountain",
    "from": {
     "position": [
-     -4,
-     4,
-     -1
+     -10.553424448659317,
+     4.173519104627106,
+     8.013999463410086
     ],
     "target": [
-     -2,
-     4.2,
-     -8
+     -6,
+     2.7,
+     -6
     ],
-    "fov": 40
+    "fov": 34
    },
    "to": {
     "position": [
-     -3.88,
-     4.0120000000000005,
-     -1.42
+     -10.416821715199537,
+     4.129313531488292,
+     7.593579479507783
     ],
     "target": [
-     -2,
-     4.2,
-     -8
+     -6,
+     2.7,
+     -6
     ],
-    "fov": 40
+    "fov": 34
    }
   },
   {
@@ -3501,6 +3608,10 @@
    "id": "S13",
    "at": 18.458,
    "loc": "beastClass",
+   "tpl": {
+    "kind": "insert",
+    "prop": "spider"
+   },
    "look": "toy",
    "mood": "comedy",
    "size": "insert",
@@ -3519,29 +3630,29 @@
    "note": "A tiny spider lowers on a thread right in front of the hero's nose",
    "from": {
     "position": [
-     2,
-     4.4,
-     8.4
+     1.558456966371375,
+     4,
+     6.330712079642186
     ],
     "target": [
      1.5,
-     4.1,
-     5.4
+     4.125,
+     5.6
     ],
-    "fov": 28
+    "fov": 40
    },
    "to": {
     "position": [
-     2,
-     4.4,
-     8.4
+     1.5543649787253786,
+     4,
+     6.2795622340672335
     ],
     "target": [
      1.5,
-     4.1,
-     5.4
+     4.125,
+     5.6
     ],
-    "fov": 28
+    "fov": 40
    }
   },
   {
@@ -3549,6 +3660,10 @@
    "at": 19.966,
    "impact": 0.404,
    "zoomAt": 0.234,
+   "tpl": {
+    "kind": "cu",
+    "who": "tuft"
+   },
    "loc": "beastClass",
    "look": "toy",
    "puffs": [
@@ -3575,29 +3690,29 @@
    "note": "Tuft balloons into a spiky ball on the desk",
    "from": {
     "position": [
-     1.6,
-     4,
-     8
+     2.8213894900754113,
+     5.027610621463781,
+     8.266818679801496
     ],
     "target": [
      1.5,
-     3.4,
-     4.4
+     4.6,
+     4.2
     ],
-    "fov": 30
+    "fov": 55
    },
    "to": {
     "position": [
-     1.6,
-     4,
-     8
+     2.8213894900754113,
+     5.027610621463781,
+     8.266818679801496
     ],
     "target": [
      1.5,
-     3.4,
-     4.4
+     4.6,
+     4.2
     ],
-    "fov": 30
+    "fov": 46.75
    }
   },
   {
@@ -3605,6 +3720,10 @@
    "at": 20.844,
    "impact": 0.356,
    "gag": 1,
+   "tpl": {
+    "kind": "mcu",
+    "who": "hero"
+   },
    "loc": "beastClass",
    "look": "toy",
    "puffs": [
@@ -3642,29 +3761,29 @@
    "note": "The hero inflates into a ball; arms and legs sticking out",
    "from": {
     "position": [
-     1.5,
-     4.2,
-     12
+     -4.671324541560988,
+     4.697082572770409,
+     23.79338394412787
     ],
     "target": [
      1.5,
-     4,
+     2.7,
      4.8
     ],
-    "fov": 40
+    "fov": 55
    },
    "to": {
     "position": [
-     1.5,
-     4.2,
-     12
+     0.1786105099245885,
+     3.1276106214637815,
+     8.866818679801497
     ],
     "target": [
      1.5,
-     4,
+     2.7,
      4.8
     ],
-    "fov": 40
+    "fov": 55
    },
    "snapAt": 0.6
   },
@@ -3673,6 +3792,10 @@
    "at": 21.7,
    "impact": 0.4,
    "blur": true,
+   "tpl": {
+    "kind": "wide",
+    "who": "hero"
+   },
    "loc": "beastClass",
    "look": "toy",
    "mood": "comedy",
@@ -3702,34 +3825,38 @@
    "note": "He boings off the ceiling",
    "from": {
     "position": [
-     10.5,
-     6,
-     8.5
+     7.671324541560988,
+     4.697082572770409,
+     23.79338394412787
     ],
     "target": [
-     -1,
-     4.5,
-     0
+     1.5,
+     2.7,
+     4.8
     ],
-    "fov": 58
+    "fov": 55
    },
    "to": {
     "position": [
-     10.5,
-     6,
-     8.5
+     7.671324541560988,
+     4.697082572770409,
+     23.79338394412787
     ],
     "target": [
-     -0.4,
-     4.5,
-     0
+     2.1,
+     2.7,
+     4.8
     ],
-    "fov": 58
+    "fov": 55
    }
   },
   {
    "id": "S17",
    "at": 22.52,
+   "tpl": {
+    "kind": "wide",
+    "who": "hero"
+   },
    "loc": "beastClass",
    "look": "toy",
    "mood": "comedy",
@@ -3759,29 +3886,16 @@
    "note": "He bounces across desks while the class (10 kids) laughs and points",
    "from": {
     "position": [
-     10.5,
-     6,
-     8.5
+     -4.671324541560988,
+     4.697082572770409,
+     23.79338394412787
     ],
     "target": [
-     -1,
-     3.5,
-     -1
+     1.5,
+     2.7,
+     4.8
     ],
-    "fov": 58
-   },
-   "to": {
-    "position": [
-     10.5,
-     6,
-     8.5
-    ],
-    "target": [
-     -1,
-     3.5,
-     -1
-    ],
-    "fov": 58
+    "fov": 55
    }
   },
   {
@@ -3836,11 +3950,16 @@
      0
     ],
     "fov": 50
-   }
+   },
+   "frame": false
   },
   {
    "id": "S19",
    "at": 26.799,
+   "tpl": {
+    "kind": "cu",
+    "who": "vance"
+   },
    "loc": "beastClass",
    "look": "toy",
    "puffs": [
@@ -3848,6 +3967,11 @@
      "actor": "hero",
      "size": "deflate",
      "at": 0.15
+    },
+    {
+     "actor": "tuft",
+     "size": "deflate",
+     "at": 0.05
     }
    ],
    "mood": "comedy",
@@ -3887,29 +4011,29 @@
    "note": "Behind Vance the hero shrinks back to normal",
    "from": {
     "position": [
-     -0.5,
-     4.8,
-     9
+     -7.171324541560988,
+     6.597082572770408,
+     23.19338394412787
     ],
     "target": [
      -1,
      4.6,
      4.2
     ],
-    "fov": 34
+    "fov": 55
    },
    "to": {
     "position": [
-     -0.5,
-     4.8,
-     9
+     -2.3213894900754113,
+     5.027610621463781,
+     8.266818679801496
     ],
     "target": [
      -1,
      4.6,
      4.2
     ],
-    "fov": 34
+    "fov": 55
    },
    "snapAt": 0.6
   },
@@ -3917,6 +4041,10 @@
    "id": "S20",
    "at": 28.902,
    "loopOpen": "strongest",
+   "tpl": {
+    "kind": "mcu",
+    "who": "vance"
+   },
    "loc": "beastClass",
    "look": "toy",
    "mood": "tension",
@@ -3947,29 +4075,29 @@
    "note": "Vance looks past the window at the mountain",
    "from": {
     "position": [
-     -4.2,
-     4.6,
-     9
+     3.5534244486593174,
+     4.173519104627106,
+     18.213999463410087
     ],
     "target": [
-     -3,
-     5,
-     -3
+     -1,
+     2.7,
+     4.2
     ],
-    "fov": 40
+    "fov": 34
    },
    "to": {
     "position": [
-     -4.128,
-     4.624,
-     8.28
+     3.4168217151995375,
+     4.129313531488292,
+     17.793579479507784
     ],
     "target": [
-     -3,
-     5,
-     -3
+     -1,
+     2.7,
+     4.2
     ],
-    "fov": 40
+    "fov": 34
    }
   },
   {
@@ -4053,6 +4181,10 @@
   {
    "id": "S22",
    "at": 34.058,
+   "tpl": {
+    "kind": "wide",
+    "who": "boulder"
+   },
    "loc": "homeDining",
    "look": "toy",
    "beasts": [
@@ -4089,35 +4221,30 @@
    "note": "Boulder raises the whole table on its horns; Dad laughs. BEAST SHOWCASE",
    "from": {
     "position": [
-     0,
-     3,
-     14
+     11.371324541560988,
+     4.697082572770409,
+     19.39338394412787
     ],
     "target": [
-     1,
-     4,
-     0
+     5.2,
+     2.7,
+     0.3999999999999999
     ],
-    "fov": 60
+    "fov": 55
    },
-   "to": {
-    "position": [
-     0,
-     3,
-     14
-    ],
-    "target": [
-     1,
-     4,
-     0
-    ],
-    "fov": 60
-   }
+   "follow": "boulder",
+   "heading": 20,
+   "distance": 19.970825727704085,
+   "height": 3
   },
   {
    "id": "S23",
    "at": 36.16,
    "impact": 0.4,
+   "tpl": {
+    "kind": "insert",
+    "prop": "toaster"
+   },
    "loc": "homeDining",
    "look": "toy",
    "mood": "comedy",
@@ -4137,37 +4264,40 @@
    "note": "Toast launches",
    "from": {
     "position": [
-     0.5,
-     3.9,
-     5.5
+     0.23382786548549978,
+     3.2,
+     5.422848318568747
     ],
     "target": [
      0,
-     3.5,
+     3.7,
      2.5
     ],
-    "fov": 34
+    "fov": 40
    },
    "to": {
     "position": [
-     0.5,
-     3.9,
-     5.5
+     0.2174599149015148,
+     3.2,
+     5.218248936268935
     ],
     "target": [
      0,
-     3.5,
+     3.7,
      2.5
     ],
-    "fov": 34
-   },
-   "frame": false
+    "fov": 40
+   }
   },
   {
    "id": "S24",
    "at": 37.284,
    "impact": 0.396,
    "zoomAt": 0.226,
+   "tpl": {
+    "kind": "cu",
+    "who": "hero"
+   },
    "loc": "homeDining",
    "look": "toy",
    "puffs": [
@@ -4235,6 +4365,10 @@
    "impact": 0.345,
    "gag": 2,
    "blur": true,
+   "tpl": {
+    "kind": "wide",
+    "who": "hero"
+   },
    "loc": "homeDining",
    "look": "toy",
    "mood": "comedy",
@@ -4252,27 +4386,27 @@
    "note": "The ball-hero bumps the table: it flips off Boulder's horns; spaghetti everywhere",
    "from": {
     "position": [
-     -1,
-     3,
-     14
+     -1.2049852573493007,
+     0.8,
+     12.43768428313374
     ],
     "target": [
      -2,
-     4,
-     0
+     1.7,
+     2.5
     ],
     "fov": 40
    },
    "to": {
     "position": [
-     -1,
-     3,
-     14
+     -1.2606362893348497,
+     0.8,
+     11.742046383314378
     ],
     "target": [
-     -1.4,
-     4,
-     0
+     -2,
+     1.7,
+     2.5
     ],
     "fov": 40
    }
@@ -4280,6 +4414,10 @@
   {
    "id": "S26",
    "at": 38.909,
+   "tpl": {
+    "kind": "ms",
+    "who": "boulder"
+   },
    "loc": "homeDining",
    "look": "toy",
    "puffs": [
@@ -4306,35 +4444,26 @@
    "note": "Spaghetti draped over Boulder's horns; it blinks slowly",
    "from": {
     "position": [
-     6.5,
-     1.6,
-     8
+     7.874240634676427,
+     3.56540244820051,
+     8.630466375788744
     ],
     "target": [
      5.2,
-     3,
-     0.4
+     2.7,
+     0.3999999999999999
     ],
-    "fov": 46
-   },
-   "to": {
-    "position": [
-     6.5,
-     1.6,
-     8
-    ],
-    "target": [
-     5.2,
-     3,
-     0.4
-    ],
-    "fov": 46
+    "fov": 55
    }
   },
   {
    "id": "S27",
    "at": 40.777,
    "loopOpen": "reason",
+   "tpl": {
+    "kind": "cu",
+    "who": "juni"
+   },
    "loc": "homeDining",
    "look": "toy",
    "mood": "emotion",
@@ -4393,6 +4522,10 @@
   {
    "id": "S28",
    "at": 43.068,
+   "tpl": {
+    "kind": "cu",
+    "who": "hero"
+   },
    "loc": "homeDining",
    "look": "toy",
    "mood": "emotion",
@@ -4490,6 +4623,10 @@
    "zoomAt": 0.231,
    "gag": 3,
    "loc": "homeBedroom",
+   "tpl": {
+    "kind": "wide",
+    "who": "hero"
+   },
    "look": "toy",
    "puffs": [
     {
@@ -4530,29 +4667,29 @@
    "note": "He fills the whole attic; squashed against the rafters",
    "from": {
     "position": [
-     0,
-     5,
-     -9
+     6.171324541560988,
+     4.997082572770409,
+     18.49338394412787
     ],
     "target": [
      0,
-     5,
-     0
+     3,
+     -0.5
     ],
-    "fov": 62
+    "fov": 55
    },
    "to": {
     "position": [
-     0,
-     5,
-     -9
+     6.171324541560988,
+     4.997082572770409,
+     18.49338394412787
     ],
     "target": [
      0,
-     5,
-     0
+     3,
+     -0.5
     ],
-    "fov": 62
+    "fov": 46.75
    }
   },
   {
@@ -4560,9 +4697,6 @@
    "at": 48.295,
    "impact": 0.745,
    "loc": "villageStreet",
-   "tpl": {
-    "kind": "establish"
-   },
    "look": "comedy",
    "mood": "comedy",
    "size": "wide",
@@ -4580,27 +4714,27 @@
    "note": "Exterior: two legs kick out of the round attic window; roof tiles pop off",
    "from": {
     "position": [
-     -14.171324541560988,
-     4.697082572770409,
-     30.99338394412787
+     6,
+     4,
+     30
     ],
     "target": [
-     -8,
-     2.7,
-     12
+     -12,
+     9,
+     8
     ],
     "fov": 55
    },
    "to": {
     "position": [
-     -9.321389490075411,
-     3.1276106214637815,
-     16.066818679801496
+     6,
+     4,
+     30
     ],
     "target": [
-     -8,
-     2.7,
-     12
+     -12,
+     9,
+     8
     ],
     "fov": 55
    },
@@ -4687,6 +4821,11 @@
    "at": 51.606,
    "loc": "homeBedroom",
    "look": "dusk",
+   "tpl": {
+    "kind": "two",
+    "a": "hero",
+    "b": "tuft"
+   },
    "mood": "emotion",
    "size": "close",
    "move": "push",
@@ -4720,34 +4859,38 @@
    "note": "Tuft's quills flatten as he hears it",
    "from": {
     "position": [
-     -1.2,
-     4.4,
-     -7.5
+     -3.0404504952005187,
+     5.405926709706689,
+     8.064818489228594
     ],
     "target": [
-     -1,
-     4.2,
-     0.5
+     -0.55,
+     4.6,
+     0.4
     ],
-    "fov": 36
+    "fov": 40
    },
    "to": {
     "position": [
-     -1.188,
-     4.388,
-     -7.02
+     -2.940832475392498,
+     5.373689641318421,
+     7.758225749659451
     ],
     "target": [
-     -1,
-     4.2,
-     0.5
+     -0.55,
+     4.6,
+     0.4
     ],
-    "fov": 36
+    "fov": 40
    }
   },
   {
    "id": "S34",
    "at": 53.299,
+   "tpl": {
+    "kind": "cu",
+    "who": "tuft"
+   },
    "loc": "homeBedroom",
    "look": "dusk",
    "mood": "emotion",
@@ -4939,6 +5082,10 @@
    "id": "S37",
    "at": 58.04,
    "loopOpen": "cage",
+   "tpl": {
+    "kind": "ms",
+    "who": "vance"
+   },
    "loc": "festivalPlaza",
    "look": "dusk",
    "cage": {
@@ -5068,6 +5215,10 @@
   {
    "id": "S39",
    "at": 62.501,
+   "tpl": {
+    "kind": "cu",
+    "who": "vance"
+   },
    "loc": "festivalPlaza",
    "look": "dusk",
    "mood": "tension",
@@ -5231,12 +5382,16 @@
      -23.5
     ],
     "fov": 34
-   }
+   },
+   "frame": false
   },
   {
    "id": "S42",
    "at": 67.498,
-   "impact": 1.662,
+   "tpl": {
+    "kind": "mcu",
+    "who": "vance"
+   },
    "loc": "festivalPlaza",
    "look": "dusk",
    "fizzles": [
@@ -5245,77 +5400,125 @@
      "at": 0.462
     }
    ],
-   "beasts": [
-    {
-     "actor": "titan",
-     "state": "roar",
-     "at": 1.662
-    }
-   ],
    "mood": "tension",
    "size": "medium",
    "move": "push",
-   "why": "tension: Vance gets nothing. And the Titan gets angry.",
+   "why": "tension: Vance gets nothing.",
    "see": [
-    "vance",
-    "titan"
+    "vance"
    ],
-   "vo": "Vance gets nothing. And the Titan gets angry.",
+   "vo": "Vance gets nothing.",
    "cue": [
     67.5,
-    69.77
+    68.5
    ],
    "clear": true,
    "subject": "vance",
-   "pair": [
-    "vance",
-    "titan"
-   ],
    "actions": [
     {
      "actor": "vance",
      "face": "shock",
      "at": {
-      "word": "angry",
+      "word": "nothing",
       "nth": 1,
-      "line": 40
+      "line": 39
      }
     }
    ],
-   "note": "Vance's palms spit one smoke puff; behind him the Titan's seams flare molten",
+   "note": "Vance's palms spit one grey puff; embarrassed",
    "from": {
     "position": [
-     7.945369799955127,
-     5.43297907677786,
-     2.492175598678962
+     0.5534244486593174,
+     4.173519104627106,
+     -0.9860005365899145
     ],
     "target": [
-     -0.5,
+     -4,
      2.7,
-     -23.5
+     -15
     ],
     "fov": 34
    },
    "to": {
     "position": [
-     7.692008705956473,
-     5.350989704474524,
-     1.712410330718594
+     0.4168217151995375,
+     4.129313531488292,
+     -1.406420520492217
     ],
     "target": [
-     -0.5,
+     -4,
      2.7,
-     -23.5
+     -15
     ],
     "fov": 34
    }
   },
   {
    "id": "S43",
+   "at": 68.496,
+   "impact": 0.664,
+   "loc": "festivalPlaza",
+   "look": "dusk",
+   "beasts": [
+    {
+     "actor": "titan",
+     "state": "roar",
+     "at": 0.664
+    }
+   ],
+   "mood": "tension",
+   "size": "close",
+   "move": "push",
+   "why": "tension: And the Titan gets angry.",
+   "see": [
+    "titan"
+   ],
+   "vo": "And the Titan gets angry.",
+   "cue": [
+    68.5,
+    69.77
+   ],
+   "clear": true,
+   "subject": "titan",
+   "note": "The Titan roars; molten cracks flare",
+   "from": {
+    "position": [
+     0.7500726253683374,
+     5.328091792874569,
+     -25.075435559256192
+    ],
+    "target": [
+     3,
+     4.6,
+     -32
+    ],
+    "fov": 34
+   },
+   "to": {
+    "position": [
+     0.8175704466072875,
+     5.306249039088332,
+     -25.283172492478506
+    ],
+    "target": [
+     3,
+     4.6,
+     -32
+    ],
+    "fov": 34
+   },
+   "frame": false
+  },
+  {
+   "id": "S44",
    "at": 69.77,
    "impact": 0.4,
    "loopClose": "cage",
    "look": "moonlit",
+   "tpl": {
+    "kind": "insert",
+    "prop": "chains"
+   },
    "loc": "festivalPlaza",
    "chains": {
     "kind": "snap",
@@ -5337,34 +5540,33 @@
    "prop": "prop2b_chains",
    "from": {
     "position": [
-     0,
-     5,
-     -12
+     1.6702226136940292,
+     5.800000000000001,
+     -0.12221732882463598
     ],
     "target": [
      0,
-     5.8,
+     5.800000000000001,
      -21
     ],
-    "fov": 36
+    "fov": 34
    },
    "to": {
     "position": [
-     0,
-     5,
-     -12
+     1.5533070307354473,
+     5.800000000000001,
+     -1.5836621158069093
     ],
     "target": [
      0,
-     5.8,
+     5.800000000000001,
      -21
     ],
-    "fov": 36
-   },
-   "frame": false
+    "fov": 34
+   }
   },
   {
-   "id": "S44",
+   "id": "S45",
    "at": 70.714,
    "loc": "festivalPlaza",
    "look": "moonlit",
@@ -5428,7 +5630,7 @@
    "frame": false
   },
   {
-   "id": "S45",
+   "id": "S46",
    "at": 72.52,
    "impact": 0.28,
    "zoomAt": 0.11,
@@ -5458,7 +5660,7 @@
    "note": "Nightfang yelps and flies off; Vance clinging to its tail",
    "from": {
     "position": [
-     -26.584412516588163,
+     -17.415587483411837,
      4.483547054058017,
      18.109370929923557
     ],
@@ -5471,7 +5673,7 @@
    },
    "to": {
     "position": [
-     -26.584412516588163,
+     -17.415587483411837,
      4.483547054058017,
      18.109370929923557
     ],
@@ -5481,10 +5683,11 @@
      4
     ],
     "fov": 46.75
-   }
+   },
+   "frame": false
   },
   {
-   "id": "S46",
+   "id": "S47",
    "at": 73.453,
    "loopOpen": "juni",
    "loc": "festivalPlaza",
@@ -5546,11 +5749,16 @@
      -4
     ],
     "fov": 40
-   }
+   },
+   "frame": false
   },
   {
-   "id": "S47",
+   "id": "S48",
    "at": 75.056,
+   "tpl": {
+    "kind": "ms",
+    "who": "tuft"
+   },
    "loc": "festivalPlaza",
    "look": "moonlit",
    "beasts": [
@@ -5577,7 +5785,7 @@
    "note": "Tuft leaps from the hood and plants himself in front of Juni; trembling",
    "from": {
     "position": [
-     -9.424822550299432,
+     -1.7751774497005672,
      3.937738577464308,
      20.97159339567323
     ],
@@ -5590,7 +5798,7 @@
    },
    "to": {
     "position": [
-     -9.271829648287454,
+     -1.9281703517125446,
      3.888229034365735,
      20.5007296598463
     ],
@@ -5603,9 +5811,13 @@
    }
   },
   {
-   "id": "S48",
+   "id": "S49",
    "at": 76.821,
    "blur": true,
+   "tpl": {
+    "kind": "ms",
+    "who": "hero"
+   },
    "loc": "festivalPlaza",
    "look": "moonlit",
    "mood": "tension",
@@ -5641,7 +5853,7 @@
    ],
    "from": {
     "position": [
-     4.553424448659317,
+     -4.553424448659317,
      4.173519104627106,
      14.013999463410087
     ],
@@ -5655,7 +5867,7 @@
    "follow": "hero",
    "to": {
     "position": [
-     5.253424448659318,
+     -3.853424448659317,
      4.173519104627106,
      14.013999463410087
     ],
@@ -5668,8 +5880,12 @@
    }
   },
   {
-   "id": "S49",
+   "id": "S50",
    "at": 77.853,
+   "tpl": {
+    "kind": "cu",
+    "who": "hero"
+   },
    "loc": "festivalPlaza",
    "look": "moonlit",
    "mood": "emotion",
@@ -5700,7 +5916,7 @@
    "note": "THE BREATH: he stands over Juni and Tuft; shaking; grade 5 % darker; vignette +0.15. Hold \u2265 1.5 s",
    "from": {
     "position": [
-     -1.8899123189714846,
+     1.8899123189714846,
      5.211588473570599,
      6.816552030803244
     ],
@@ -5713,9 +5929,13 @@
    }
   },
   {
-   "id": "S50",
+   "id": "S51",
    "at": 80.097,
    "twist": true,
+   "tpl": {
+    "kind": "ecu",
+    "who": "hero"
+   },
    "loc": "festivalPlaza",
    "look": "moonlit",
    "glows": [
@@ -5754,7 +5974,7 @@
    "note": "TWIST. Biggest visual change: storm-dark snaps to blue-gold as Tuft's quills ignite beside his face",
    "from": {
     "position": [
-     1.4062046091447893,
+     -1.4062046091447893,
      5.0550573705466055,
      5.32785277546488
     ],
@@ -5767,7 +5987,7 @@
    },
    "to": {
     "position": [
-     1.3640184708704455,
+     -1.3640184708704455,
      5.0414056494302075,
      5.1980171922009335
     ],
@@ -5780,8 +6000,12 @@
    }
   },
   {
-   "id": "S51",
+   "id": "S52",
    "at": 81.513,
+   "tpl": {
+    "kind": "cu",
+    "who": "tuft"
+   },
    "loc": "festivalPlaza",
    "look": "moonlit",
    "puffs": [
@@ -5815,7 +6039,7 @@
    "note": "Tuft swells; quills lengthening",
    "from": {
     "position": [
-     -7.505870483415973,
+     8.105870483415973,
      5.226032750789324,
      26.423999080131576
     ],
@@ -5828,7 +6052,7 @@
    },
    "to": {
     "position": [
-     -7.271694368913494,
+     7.871694368913493,
      5.150251768265644,
      25.703279107727628
     ],
@@ -5841,8 +6065,13 @@
    }
   },
   {
-   "id": "S52",
+   "id": "S53",
    "at": 83.632,
+   "tpl": {
+    "kind": "two",
+    "a": "hero",
+    "b": "tuft"
+   },
    "loc": "festivalPlaza",
    "look": "moonlit",
    "mood": "emotion",
@@ -5878,7 +6107,7 @@
    "note": "They look at each other",
    "from": {
     "position": [
-     2.1876413142549693,
+     -1.8876413142549695,
      5.259394580669109,
      7.971215127550667
     ],
@@ -5891,7 +6120,7 @@
    },
    "to": {
     "position": [
-     2.1061356616847706,
+     -1.8061356616847706,
      5.2330187974423445,
      7.72036652244864
     ],
@@ -5904,9 +6133,13 @@
    }
   },
   {
-   "id": "S53",
+   "id": "S54",
    "at": 85.109,
    "loopClose": "reason",
+   "tpl": {
+    "kind": "cu",
+    "who": "hero"
+   },
    "loc": "festivalPlaza",
    "look": "moonlit",
    "mood": "emotion",
@@ -5936,7 +6169,7 @@
    ],
    "from": {
     "position": [
-     -1.8899123189714846,
+     1.8899123189714846,
      5.211588473570599,
      6.816552030803244
     ],
@@ -5949,7 +6182,7 @@
    },
    "to": {
     "position": [
-     -1.814315826212625,
+     1.814315826212625,
      5.187124934627775,
      6.583889949571114
     ],
@@ -5962,7 +6195,7 @@
    }
   },
   {
-   "id": "S54",
+   "id": "S55",
    "at": 86.669,
    "impact": 0.401,
    "loc": "festivalPlaza",
@@ -6027,7 +6260,7 @@
    "frame": false
   },
   {
-   "id": "S55",
+   "id": "S56",
    "at": 88.063,
    "impact": 1.977,
    "loopClose": "giant",
@@ -6083,7 +6316,7 @@
    "frame": false
   },
   {
-   "id": "S56",
+   "id": "S57",
    "at": 90.66,
    "loc": "festivalPlaza",
    "look": "moonlit",
@@ -6131,7 +6364,7 @@
    "frame": false
   },
   {
-   "id": "S57",
+   "id": "S58",
    "at": 91.883,
    "loopClose": "titan",
    "loc": "festivalPlaza",
@@ -6186,10 +6419,15 @@
    "frame": false
   },
   {
-   "id": "S58",
+   "id": "S59",
    "at": 93.38,
    "impact": 1.1,
    "blur": true,
+   "tpl": {
+    "kind": "two",
+    "a": "hero",
+    "b": "tuft"
+   },
    "loc": "festivalPlaza",
    "look": "moonlit",
    "puffs": [
@@ -6237,7 +6475,7 @@
    "note": "They zip around the plaza like let-go balloons",
    "from": {
     "position": [
-     2.9742406346764274,
+     -2.3742406346764278,
      3.56540244820051,
      14.330466375788744
     ],
@@ -6250,7 +6488,7 @@
    },
    "to": {
     "position": [
-     2.9742406346764274,
+     -2.3742406346764278,
      3.56540244820051,
      14.330466375788744
     ],
@@ -6263,7 +6501,7 @@
    }
   },
   {
-   "id": "S59",
+   "id": "S60",
    "at": 95.511,
    "loopClose": "juni",
    "light": {
@@ -6286,10 +6524,10 @@
     "juni",
     "hero"
    ],
-   "vo": "Juni hugs Tuft, then me. Vance's dragon sleeps behind my house now.",
+   "vo": "Juni hugs Tuft, then me.",
    "cue": [
     95.51,
-    99.04
+    96.68
    ],
    "clear": true,
    "subject": "juni",
@@ -6321,7 +6559,7 @@
    "note": "PAYOFF: Juni hugs Tuft then the hero under the lanterns (brightest frame; hold \u2265 1.5 s). On *dragon*: the push settles to reveal Nightfang curled asleep behind our house (callback to \"I wish he was a dragon\")",
    "from": {
     "position": [
-     -3.360878749801077,
+     3.360878749801077,
      3.7876032098490793,
      16.34372119870492
     ],
@@ -6334,7 +6572,7 @@
    },
    "to": {
     "position": [
-     -3.1760304185620174,
+     3.1760304185620174,
      3.72778503330738,
      15.77481653277615
     ],
@@ -6347,11 +6585,58 @@
    }
   },
   {
-   "id": "S60",
+   "id": "S61",
+   "at": 96.68,
+   "loc": "villageStreet",
+   "look": "moonlit",
+   "beasts": [
+    {
+     "actor": "nightfang",
+     "state": "curl",
+     "at": 0.15
+    }
+   ],
+   "mood": "payoff",
+   "size": "medium",
+   "move": "static-drift",
+   "why": "payoff: Vance's dragon sleeps behind my house now.",
+   "see": [
+    "nightfang"
+   ],
+   "vo": "Vance's dragon sleeps behind my house now.",
+   "cue": [
+    96.68,
+    99.04
+   ],
+   "clear": true,
+   "subject": "nightfang",
+   "note": "Nightfang curled asleep behind our house (callback)",
+   "from": {
+    "position": [
+     -40.360878749801074,
+     3.7876032098490793,
+     4.343721198704921
+    ],
+    "target": [
+     -37,
+     2.7,
+     -6
+    ],
+    "fov": 45
+   },
+   "frame": false
+  },
+  {
+   "id": "S62",
    "at": 99.04,
    "impact": 0.88,
    "loc": "homeBedroom",
    "look": "moonlit",
+   "tpl": {
+    "kind": "two",
+    "a": "juni",
+    "b": "hero"
+   },
    "mood": "comedy",
    "size": "close",
    "move": "snap",
@@ -6412,8 +6697,12 @@
    "snapAt": 0.6
   },
   {
-   "id": "S61",
+   "id": "S63",
    "at": 101.552,
+   "tpl": {
+    "kind": "cu",
+    "who": "hero"
+   },
    "loc": "homeBedroom",
    "look": "moonlit",
    "glows": [
@@ -6569,15 +6858,26 @@
   "max": 24
  },
  "tplLog": [
-  "row 1: tpl beastFace \u2014 ignored cam: fov:",
-  "row 1: tpl beastFace \u2014 place: kept as actor blocking only (the camera never reads it)",
-  "row 3: tpl beastHero \u2014 ignored cam: fov:",
-  "row 3: tpl beastHero \u2014 place: kept as actor blocking only (the camera never reads it)",
-  "row 9: tpl mcu \u2014 ignored cam: fov:",
+  "row 4: tpl mcu \u2014 place: kept as actor blocking only (the camera never reads it)",
+  "row 5: tpl two \u2014 place: kept as actor blocking only (the camera never reads it)",
+  "row 6: tpl ms \u2014 place: kept as actor blocking only (the camera never reads it)",
+  "row 7: tpl wide \u2014 place: kept as actor blocking only (the camera never reads it)",
+  "row 8: tpl mcu \u2014 place: kept as actor blocking only (the camera never reads it)",
   "row 9: tpl mcu \u2014 place: kept as actor blocking only (the camera never reads it)",
+  "row 10: tpl mcu \u2014 place: kept as actor blocking only (the camera never reads it)",
+  "row 13: tpl insert \u2014 place: kept as actor blocking only (the camera never reads it)",
+  "row 19: tpl cu \u2014 place: kept as actor blocking only (the camera never reads it)",
   "row 21: tpl two \u2014 place: kept as actor blocking only (the camera never reads it)",
-  "row 31: tpl establish \u2014 ignored cam: fov:",
-  "row 31: tpl establish \u2014 place: kept as actor blocking only (the camera never reads it)",
-  "row 59: tpl two \u2014 place: kept as actor blocking only (the camera never reads it)"
+  "row 22: tpl wide \u2014 place: kept as actor blocking only (the camera never reads it)",
+  "row 27: tpl cu \u2014 place: kept as actor blocking only (the camera never reads it)",
+  "row 30: tpl wide \u2014 place: kept as actor blocking only (the camera never reads it)",
+  "row 33: tpl two \u2014 place: kept as actor blocking only (the camera never reads it)",
+  "row 34: tpl cu \u2014 place: kept as actor blocking only (the camera never reads it)",
+  "row 37: tpl ms \u2014 place: kept as actor blocking only (the camera never reads it)",
+  "row 49: tpl ms \u2014 place: kept as actor blocking only (the camera never reads it)",
+  "row 50: tpl cu \u2014 place: kept as actor blocking only (the camera never reads it)",
+  "row 59: tpl two \u2014 place: kept as actor blocking only (the camera never reads it)",
+  "row 60: tpl two \u2014 place: kept as actor blocking only (the camera never reads it)",
+  "row 62: tpl two \u2014 place: kept as actor blocking only (the camera never reads it)"
  ]
 }
