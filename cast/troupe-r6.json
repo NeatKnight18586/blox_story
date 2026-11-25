@@ -572,6 +572,190 @@
    "faceStyle": "v6",
    "seeded": true,
    "face": "smile"
+  },
+  "JUNI": {
+   "slot": "LITTLE",
+   "skin": "#8d5a3b",
+   "scale": 0.62,
+   "face": "smile",
+   "faceStyle": "v6",
+   "hair": {
+    "style": "space_buns",
+    "color": "#1f1a1a",
+    "v": 4
+   },
+   "regions": {
+    "torso": {
+     "main": "#B9A6E8",
+     "edge": "#8F7BD0",
+     "edgeW": 0.05,
+     "collarH": 0.18
+    },
+    "arms": {
+     "upper": "#B9A6E8",
+     "lower": "#8d5a3b",
+     "sleeve": "wrist"
+    },
+    "legs": {
+     "main": "#9ADBC0",
+     "shoes": "#F4F4F4"
+    }
+   }
+  },
+  "VANCE": {
+   "slot": "RIVAL",
+   "face": "smug",
+   "faceStyle": "v6",
+   "hair": {
+    "style": "quiff",
+    "color": "#2a2230",
+    "v": 4
+   },
+   "regions": {
+    "torso": {
+     "main": "#16224A",
+     "strip": "#F4F4F6",
+     "stripW": 0.5,
+     "lapel": "#16224A",
+     "lapelW": 0.2,
+     "edge": "#37D6E6",
+     "edgeW": 0.06,
+     "collarH": 0.16,
+     "back": true
+    },
+    "arms": {
+     "upper": "#16224A",
+     "lower": "#fbdcc0",
+     "sleeve": "wrist",
+     "cuff": "#37D6E6",
+     "cuffH": 0.12
+    },
+    "legs": {
+     "main": "#3A3D44",
+     "shoes": "#1A1A1E"
+    }
+   }
+  },
+  "KIRA": {
+   "slot": "SECOND",
+   "face": "smile",
+   "faceStyle": "v6",
+   "hair": {
+    "style": "high_ponytail",
+    "color": "#7a4a2a",
+    "v": 4
+   },
+   "regions": {
+    "torso": {
+     "main": "#F2C230",
+     "edge": "#8A8F98",
+     "edgeW": 0.07,
+     "collarH": 0.16
+    },
+    "arms": {
+     "upper": "#F2C230",
+     "lower": "#f6c9a0",
+     "sleeve": "wrist"
+    },
+    "legs": {
+     "main": "#6A6F78",
+     "shoes": "#F4F4F4"
+    }
+   }
+  },
+  "ROCCO": {
+   "slot": "LEAD",
+   "face": "smile",
+   "faceStyle": "v6",
+   "hair": {
+    "style": "messy_fringe",
+    "color": "#4a2e1e",
+    "v": 4
+   },
+   "accessories": [
+    "goggles"
+   ],
+   "regions": {
+    "torso": {
+     "main": "#F0842A",
+     "edge": "#C96A1C",
+     "edgeW": 0.05,
+     "collarH": 0.16
+    },
+    "arms": {
+     "upper": "#E8E2D0",
+     "lower": "#e0a77a",
+     "sleeve": "wrist"
+    },
+    "legs": {
+     "main": "#4a5a80",
+     "shoes": "#2B2B2F"
+    }
+   }
+  },
+  "DAD_V": {
+   "slot": "ELDER",
+   "outfit": null,
+   "material": null,
+   "faceStyle": "v6",
+   "face": "neutral",
+   "age": 45,
+   "hair": {
+    "style": "side_part",
+    "color": "#3B2A1E",
+    "v": 4
+   },
+   "regions": {
+    "torso": {
+     "main": "#6B7A3A",
+     "edge": "#55622E",
+     "edgeW": 0.05,
+     "collarH": 0.14
+    },
+    "arms": {
+     "upper": "#6B7A3A",
+     "lower": "#c08457",
+     "sleeve": "wrist"
+    },
+    "legs": {
+     "main": "#4A4033",
+     "shoes": "#2B2B2F"
+    }
+   }
+  },
+  "TEACHER": {
+   "slot": "ADULT_F",
+   "outfit": null,
+   "material": null,
+   "faceStyle": "v6",
+   "face": "smile",
+   "hair": {
+    "style": "wavy_bob",
+    "color": "#5A3A28",
+    "v": 4
+   },
+   "regions": {
+    "torso": {
+     "main": "#3C9E9A",
+     "strip": "#F1E8D6",
+     "stripW": 0.5,
+     "lapel": "#3C9E9A",
+     "lapelW": 0.12,
+     "edge": "#2E7F7B",
+     "edgeW": 0.05,
+     "collarH": 0.12,
+     "back": true
+    },
+    "arms": {
+     "upper": "#3C9E9A",
+     "lower": "#E8B48A",
+     "sleeve": "wrist"
+    },
+    "legs": {
+     "main": "#2B3350",
+     "shoes": "#3B2F2A"
+    }
+   }
   }
  }
 }

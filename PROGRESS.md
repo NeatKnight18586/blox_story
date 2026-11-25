@@ -2042,3 +2042,13 @@ Five weakest in fix.png / demo2: (1) TITAN's head still reads as a box (flat bro
 bunch into a busy band in front of the houses (2.8 % px but visually noisy); (4) the room-puff establishing is a flat white wall with a round
 hole — the jacket ball and the legs barely read; (5) the hillside day "slate" number is inflated by blue haze on everything, and the dusk roofs read
 grey-blue but flat.
+
+## tuft (E5) Phase 4 — ANIMATIC: BLOCKED at the spec stage (Sonnet 5.5)
+Done: owner inputs moved to stories/tuft/ (unchanged); `ep --stage align` PASS (61 lines, 391 words, 384 mapped, voice 102.35 s; needed `pip install sherpa-onnx soundfile` + `npm ci`);
+cues.json committed (stories/tuft/cues.json); all 61 BRIEF cue columns retimed to the aligned word onsets (VO words untouched); 6 R6 costumes (JUNI VANCE KIRA ROCCO DAD_V TEACHER)
+added to cast/troupe-r6.json; BRIEF CAST/WORLD rewritten to the parser syntax (`- tuft: beast TUFT`, `world module: parts/village/world.js`, locations list) and 18 unsupported verbs/faces/looks
+swapped for supported ones. brief2spec errors 81 → 2 (prop subjects + a crowd anchor). No episode.json, no render.
+Blockers (engine, not fixed — frozen): (1) parts/village/world.js builds ONE location per spec (`spec.location`, one flat anchors dict); the episode needs 7 (`sh.loc` is only read by plancheck).
+(2) brief2spec emits none of the SPEC FLAGS (rig r6, twos, post cine, camera cine, grade clear, look4) and no `props2b` (spider/toaster/spaghettiPlates/giantCage/chains/lanternSea exist only as engine/powers.js kinds);
+`prop:` subjects cannot name them. (3) brief2spec `look:` accepts only day|goldenHour|night|storm|nightBright|fireNight, not moonlit/dusk/dawn; `beast … to <anchor>` / crowd anchors only resolve in the first location.
+(4) no glasses / beard accessory (TEACHER, DAD_V plain).
