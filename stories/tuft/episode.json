@@ -14,16 +14,16 @@
  "end": 103.204,
  "note": "Written by scripts/v2/brief2spec.js from stories/tuft/BRIEF.md (61 shots). Edit the Brief, not this file.",
  "brief": {
-  "title": "You Get Your Beast's Power… Mine Was EMBARRASSING 😳 #shorts #roblox",
+  "title": "You Get Your Beast's Power\u2026 Mine Was EMBARRASSING \ud83d\ude33 #shorts #roblox",
   "ruleLine": "\"In this world, you get whatever power your *beast* has.\" (7 words after the comma)",
-  "palette": "warm timber, slate blue, moss green, lantern amber. Each beast owns ONE glow colour (cyan · yellow · orange · amber · molten · Tuft blue-gold). Nothing else in the world uses Tuft's blue-gold",
-  "colourScript": "hook (0–2.2) night, blue-gold glow over dark roofs · act 1 (2.2–43) bright late-morning day, saturated · act 2 (43–70) storm-blue night → festival dusk amber · act 3 (70–94) dark storm + the Titan's molten orange; twist (81) Tuft's blue-gold floods the frame; colossal (89) brightest blue-gold of the act · payoff (96.7) warm lantern gold + Tuft glow, the brightest key of the episode",
+  "palette": "warm timber, slate blue, moss green, lantern amber. Each beast owns ONE glow colour (cyan \u00b7 yellow \u00b7 orange \u00b7 amber \u00b7 molten \u00b7 Tuft blue-gold). Nothing else in the world uses Tuft's blue-gold",
+  "colourScript": "hook (0\u20132.2) night, blue-gold glow over dark roofs \u00b7 act 1 (2.2\u201343) bright late-morning day, saturated \u00b7 act 2 (43\u201370) storm-blue night \u2192 festival dusk amber \u00b7 act 3 (70\u201394) dark storm + the Titan's molten orange; twist (81) Tuft's blue-gold floods the frame; colossal (89) brightest blue-gold of the act \u00b7 payoff (96.7) warm lantern gold + Tuft glow, the brightest key of the episode",
   "setting": "a hillside BEAST VILLAGE (our own design): timber-frame houses, slate-blue roofs, mossy stone walls, lantern strings, a school with tall windows; the TITAN'S MOUNTAIN with a dark cave mouth looms over every exterior (landmark; story plant)",
   "props": [],
   "payoff": {
    "shows": "shot 59. Juni hugs Tuft, then the hero, under the lantern sea; the push settles on Nightfang asleep behind our house",
-   "hold length": "from \"hugs\" to the next cut (≥ 1.5 s)",
-   "light": "brightest key of the episode (payoffEV), warm lantern gold + Tuft's blue-gold rim; the hero's jacket stays within ΔE 12 of its charcoal"
+   "hold length": "from \"hugs\" to the next cut (\u2265 1.5 s)",
+   "light": "brightest key of the episode (payoffEV), warm lantern gold + Tuft's blue-gold rim; the hero's jacket stays within \u0394E 12 of its charcoal"
   }
  },
  "cast": {
@@ -46,13 +46,61 @@
    ],
    "marks": [
     [
+     0,
+     {
+      "at": "street",
+      "offset": [
+       -6,
+       0,
+       28
+      ],
+      "yaw": 0
+     }
+    ],
+    [
+     2.923,
+     {
+      "at": "street",
+      "offset": [
+       -6,
+       0,
+       -4
+      ],
+      "yaw": 0
+     }
+    ],
+    [
+     4.846,
+     {
+      "at": "street",
+      "offset": [
+       -3.2,
+       0,
+       -3.4
+      ],
+      "yaw": 0
+     }
+    ],
+    [
+     18.458,
+     {
+      "at": "street",
+      "offset": [
+       1.5,
+       0,
+       2.8
+      ],
+      "yaw": 0
+     }
+    ],
+    [
      76.821,
      {
       "at": "street",
       "offset": [
-       -34,
+       1.5,
        0,
-       4
+       2.8
       ],
       "yaw": 90,
       "travel": {
@@ -69,9 +117,9 @@
      {
       "at": "street",
       "offset": [
-       -25.76800000000003,
+       9.731999999999971,
        0,
-       4
+       2.8
       ],
       "yaw": 90
      }
@@ -95,7 +143,45 @@
      "idle"
     ]
    ],
-   "costume": "JUNI"
+   "costume": "JUNI",
+   "marks": [
+    [
+     0,
+     {
+      "at": "street",
+      "offset": [
+       60,
+       0,
+       34
+      ],
+      "yaw": 0
+     }
+    ],
+    [
+     2.923,
+     {
+      "at": "street",
+      "offset": [
+       50,
+       0,
+       34
+      ],
+      "yaw": 0
+     }
+    ],
+    [
+     18.458,
+     {
+      "at": "street",
+      "offset": [
+       40,
+       0,
+       18
+      ],
+      "yaw": 0
+     }
+    ]
+   ]
   },
   "vance": {
    "style": "v5",
@@ -114,7 +200,69 @@
      "idle"
     ]
    ],
-   "costume": "VANCE"
+   "costume": "VANCE",
+   "marks": [
+    [
+     0,
+     {
+      "at": "street",
+      "offset": [
+       -12,
+       0,
+       32
+      ],
+      "yaw": 0
+     }
+    ],
+    [
+     2.923,
+     {
+      "at": "street",
+      "offset": [
+       0,
+       0,
+       -4
+      ],
+      "yaw": 0
+     }
+    ],
+    [
+     4.846,
+     {
+      "at": "street",
+      "offset": [
+       0.4,
+       0,
+       -4
+      ],
+      "yaw": 0
+     }
+    ],
+    [
+     18.458,
+     {
+      "at": "street",
+      "offset": [
+       -3,
+       0,
+       3
+      ],
+      "yaw": 0
+     }
+    ],
+    [
+     26.799,
+     {
+      "at": "street",
+      "offset": [
+       -1,
+       0,
+       2.2
+      ],
+      "yaw": 0
+     }
+    ]
+   ]
   },
   "kira": {
    "style": "v5",
@@ -136,13 +284,49 @@
    "costume": "KIRA",
    "marks": [
     [
+     0,
+     {
+      "at": "street",
+      "offset": [
+       5,
+       0,
+       30
+      ],
+      "yaw": 0
+     }
+    ],
+    [
+     2.923,
+     {
+      "at": "street",
+      "offset": [
+       5.5,
+       0,
+       -4
+      ],
+      "yaw": 0
+     }
+    ],
+    [
      7.24,
      {
       "at": "street",
       "offset": [
-       -22,
+       -8,
        0,
-       0
+       3
+      ],
+      "yaw": 90
+     }
+    ],
+    [
+     7.24,
+     {
+      "at": "street",
+      "offset": [
+       -8,
+       0,
+       3
       ],
       "yaw": 90,
       "travel": {
@@ -159,11 +343,23 @@
      {
       "at": "street",
       "offset": [
-       -13.120000000000005,
+       0.8799999999999955,
        0,
-       0
+       3
       ],
       "yaw": 90
+     }
+    ],
+    [
+     18.458,
+     {
+      "at": "street",
+      "offset": [
+       5,
+       0,
+       3
+      ],
+      "yaw": 0
      }
     ]
    ]
@@ -185,7 +381,57 @@
      "idle"
     ]
    ],
-   "costume": "ROCCO"
+   "costume": "ROCCO",
+   "marks": [
+    [
+     0,
+     {
+      "at": "street",
+      "offset": [
+       10,
+       0,
+       28
+      ],
+      "yaw": 0
+     }
+    ],
+    [
+     2.923,
+     {
+      "at": "street",
+      "offset": [
+       10,
+       0,
+       -4
+      ],
+      "yaw": 0
+     }
+    ],
+    [
+     8.345,
+     {
+      "at": "street",
+      "offset": [
+       -2,
+       0,
+       -1
+      ],
+      "yaw": 0
+     }
+    ],
+    [
+     18.458,
+     {
+      "at": "street",
+      "offset": [
+       8,
+       0,
+       3
+      ],
+      "yaw": 0
+     }
+    ]
+   ]
   },
   "dad": {
    "style": "v5",
@@ -204,7 +450,45 @@
      "idle"
     ]
    ],
-   "costume": "DAD_V"
+   "costume": "DAD_V",
+   "marks": [
+    [
+     0,
+     {
+      "at": "street",
+      "offset": [
+       62,
+       0,
+       34
+      ],
+      "yaw": 0
+     }
+    ],
+    [
+     2.923,
+     {
+      "at": "street",
+      "offset": [
+       52,
+       0,
+       34
+      ],
+      "yaw": 0
+     }
+    ],
+    [
+     18.458,
+     {
+      "at": "street",
+      "offset": [
+       42,
+       0,
+       18
+      ],
+      "yaw": 0
+     }
+    ]
+   ]
   },
   "teacher": {
    "style": "v5",
@@ -223,7 +507,69 @@
      "idle"
     ]
    ],
-   "costume": "TEACHER"
+   "costume": "TEACHER",
+   "marks": [
+    [
+     0,
+     {
+      "at": "street",
+      "offset": [
+       -16,
+       0,
+       30
+      ],
+      "yaw": 0
+     }
+    ],
+    [
+     2.923,
+     {
+      "at": "street",
+      "offset": [
+       -12,
+       0,
+       -1
+      ],
+      "yaw": 20
+     }
+    ],
+    [
+     10.232,
+     {
+      "at": "street",
+      "offset": [
+       -3,
+       0,
+       1
+      ],
+      "yaw": 0
+     }
+    ],
+    [
+     11.56,
+     {
+      "at": "street",
+      "offset": [
+       -11,
+       0,
+       0
+      ],
+      "yaw": 40
+     }
+    ],
+    [
+     18.458,
+     {
+      "at": "street",
+      "offset": [
+       -2,
+       0,
+       -7.5
+      ],
+      "yaw": 0
+     }
+    ]
+   ]
   },
   "crowd": {
    "style": "v5",
@@ -242,7 +588,33 @@
      "idle"
     ]
    ],
-   "costume": "STUDENT"
+   "costume": "STUDENT",
+   "marks": [
+    [
+     0,
+     {
+      "at": "street",
+      "offset": [
+       16,
+       0,
+       -6
+      ],
+      "yaw": 0
+     }
+    ],
+    [
+     18.458,
+     {
+      "at": "street",
+      "offset": [
+       9,
+       0,
+       -1
+      ],
+      "yaw": 0
+     }
+    ]
+   ]
   },
   "tuft": {
    "style": "beast",
@@ -254,7 +626,67 @@
     0,
     0
    ],
-   "yaw": 0
+   "yaw": 0,
+   "marks": [
+    [
+     0,
+     {
+      "at": "street",
+      "offset": [
+       0,
+       0,
+       -58
+      ],
+      "yaw": 0
+     }
+    ],
+    [
+     2.923,
+     {
+      "at": "street",
+      "offset": [
+       -5,
+       0,
+       -3.4
+      ],
+      "yaw": 0
+     }
+    ],
+    [
+     18.458,
+     {
+      "at": "street",
+      "offset": [
+       1.5,
+       0,
+       2.2
+      ],
+      "yaw": 0
+     }
+    ]
+   ],
+   "visible": [
+    [
+     0,
+     false
+    ],
+    [
+     -0.001,
+     true
+    ],
+    [
+     2.922,
+     false
+    ],
+    [
+     11.559,
+     true
+    ],
+    [
+     103.203,
+     false
+    ]
+   ]
   },
   "blink": {
    "style": "beast",
@@ -266,7 +698,29 @@
     0,
     0
    ],
-   "yaw": 0
+   "yaw": 0,
+   "visible": [
+    [
+     0,
+     false
+    ],
+    [
+     31.507,
+     true
+    ],
+    [
+     34.057,
+     false
+    ],
+    [
+     56.22,
+     true
+    ],
+    [
+     58.039,
+     false
+    ]
+   ]
   },
   "nightfang": {
    "style": "beast",
@@ -278,7 +732,79 @@
     0,
     0
    ],
-   "yaw": 0
+   "yaw": 0,
+   "marks": [
+    [
+     2.923,
+     {
+      "at": "street",
+      "offset": [
+       3,
+       0,
+       -10
+      ],
+      "yaw": 0
+     }
+    ],
+    [
+     18.458,
+     {
+      "at": "street",
+      "offset": [
+       -22,
+       0,
+       -2
+      ],
+      "yaw": 80
+     }
+    ]
+   ],
+   "visible": [
+    [
+     0,
+     false
+    ],
+    [
+     2.922,
+     true
+    ],
+    [
+     16.894,
+     false
+    ],
+    [
+     24.431,
+     true
+    ],
+    [
+     31.507,
+     false
+    ],
+    [
+     56.22,
+     true
+    ],
+    [
+     58.039,
+     false
+    ],
+    [
+     70.713,
+     true
+    ],
+    [
+     75.055,
+     false
+    ],
+    [
+     95.51,
+     true
+    ],
+    [
+     99.039,
+     false
+    ]
+   ]
   },
   "volt": {
    "style": "beast",
@@ -290,7 +816,63 @@
     0,
     0
    ],
-   "yaw": 0
+   "yaw": 0,
+   "marks": [
+    [
+     2.923,
+     {
+      "at": "street",
+      "offset": [
+       -20,
+       0,
+       2
+      ],
+      "yaw": 90
+     }
+    ],
+    [
+     6.117,
+     {
+      "at": "street",
+      "offset": [
+       -22,
+       0,
+       2
+      ],
+      "yaw": 90
+     }
+    ]
+   ],
+   "visible": [
+    [
+     0,
+     false
+    ],
+    [
+     6.116,
+     true
+    ],
+    [
+     7.239,
+     false
+    ],
+    [
+     56.22,
+     true
+    ],
+    [
+     58.039,
+     false
+    ],
+    [
+     70.713,
+     true
+    ],
+    [
+     72.519,
+     false
+    ]
+   ]
   },
   "cinder": {
    "style": "beast",
@@ -302,7 +884,63 @@
     0,
     0
    ],
-   "yaw": 0
+   "yaw": 0,
+   "marks": [
+    [
+     2.923,
+     {
+      "at": "street",
+      "offset": [
+       16,
+       0,
+       1
+      ],
+      "yaw": 0
+     }
+    ],
+    [
+     8.345,
+     {
+      "at": "street",
+      "offset": [
+       4,
+       0,
+       4
+      ],
+      "yaw": 0
+     }
+    ]
+   ],
+   "visible": [
+    [
+     0,
+     false
+    ],
+    [
+     8.344,
+     true
+    ],
+    [
+     10.231,
+     false
+    ],
+    [
+     56.22,
+     true
+    ],
+    [
+     58.039,
+     false
+    ],
+    [
+     70.713,
+     true
+    ],
+    [
+     72.519,
+     false
+    ]
+   ]
   },
   "boulder": {
    "style": "beast",
@@ -314,7 +952,51 @@
     0,
     0
    ],
-   "yaw": 0
+   "yaw": 0,
+   "marks": [
+    [
+     2.923,
+     {
+      "at": "street",
+      "offset": [
+       46,
+       0,
+       24
+      ],
+      "yaw": 0
+     }
+    ]
+   ],
+   "visible": [
+    [
+     0,
+     false
+    ],
+    [
+     34.057,
+     true
+    ],
+    [
+     40.776,
+     false
+    ],
+    [
+     56.22,
+     true
+    ],
+    [
+     58.039,
+     false
+    ],
+    [
+     70.713,
+     true
+    ],
+    [
+     72.519,
+     false
+    ]
+   ]
   },
   "titan": {
    "style": "beast",
@@ -326,7 +1008,29 @@
     0,
     0
    ],
-   "yaw": 0
+   "yaw": 0,
+   "visible": [
+    [
+     0,
+     false
+    ],
+    [
+     16.894,
+     true
+    ],
+    [
+     18.457,
+     false
+    ],
+    [
+     60.556,
+     true
+    ],
+    [
+     93.379,
+     false
+    ]
+   ]
   },
   "fox": {
    "style": "beast",
@@ -338,7 +1042,21 @@
     0,
     0
    ],
-   "yaw": 0
+   "yaw": 0,
+   "visible": [
+    [
+     0,
+     false
+    ],
+    [
+     49.635,
+     true
+    ],
+    [
+     51.605,
+     false
+    ]
+   ]
   },
   "deer": {
    "style": "beast",
@@ -350,7 +1068,21 @@
     0,
     0
    ],
-   "yaw": 0
+   "yaw": 0,
+   "visible": [
+    [
+     0,
+     false
+    ],
+    [
+     49.635,
+     true
+    ],
+    [
+     51.605,
+     false
+    ]
+   ]
   },
   "boar": {
    "style": "beast",
@@ -362,7 +1094,21 @@
     0,
     0
    ],
-   "yaw": 0
+   "yaw": 0,
+   "visible": [
+    [
+     0,
+     false
+    ],
+    [
+     49.635,
+     true
+    ],
+    [
+     51.605,
+     false
+    ]
+   ]
   },
   "crowd001": {
    "style": "v5",
@@ -570,9 +1316,9 @@
    "id": "spider",
    "kind": "spider",
    "at": [
-    -34,
+    1.5,
     4,
-    6.8
+    5.6
    ],
    "from": 18.408,
    "until": 20.02,
@@ -803,7 +1549,7 @@
     {
      "actor": "tuft",
      "size": "colossal",
-     "at": 0
+     "at": -1
     }
    ],
    "glows": [
@@ -832,30 +1578,32 @@
    "openHit": true,
    "from": {
     "position": [
-     -3.4062046091447895,
-     5.0550573705466055,
-     10.32785277546488
+     -5.8,
+     26.5,
+     -12
     ],
     "target": [
-     -2,
-     4.6,
-     6
+     -5.8,
+     26.5,
+     -40
     ],
     "fov": 34
    },
    "to": {
     "position": [
-     -3.3640184708704455,
-     5.0414056494302075,
-     10.198017192200933
+     -5.8,
+     26.5,
+     -13.68
     ],
     "target": [
-     -2,
-     4.6,
-     6
+     -5.8,
+     26.5,
+     -40
     ],
     "fov": 34
-   }
+   },
+   "frame": false,
+   "angle": "high"
   },
   {
    "id": "S02",
@@ -879,30 +1627,32 @@
    "note": "Pull-back-free reveal from low: the colossal glowing beast towers over the dark roofs; lanterns drift past; villagers run below. A huge horned silhouette in the foreground recoils (the Titan; unlit). Reads as \"a monster attack\"",
    "from": {
     "position": [
-     8.507902573829192,
-     0.7,
-     38.33999876171558
+     0,
+     3,
+     46
     ],
     "target": [
-     -2,
-     2.7,
-     6
+     0,
+     26,
+     -52
     ],
-    "fov": 34
+    "fov": 40
    },
    "to": {
     "position": [
-     8.192665496614316,
-     0.7,
-     37.36979879886411
+     0,
+     4.38,
+     40.12
     ],
     "target": [
-     -2,
-     2.7,
-     6
+     0,
+     26,
+     -52
     ],
-    "fov": 34
-   }
+    "fov": 40
+   },
+   "frame": false,
+   "angle": "high"
   },
   {
    "id": "S03",
@@ -938,21 +1688,37 @@
    "note": "Hard cut to day. Nightfang rears and breathes a cyan fire column into the sky; the line of kids flinches. HERO visible at the far end of the line",
    "from": {
     "position": [
-     -0.1713245415609883,
-     4.697082572770409,
-     14.99338394412787
+     4,
+     1.6,
+     6
     ],
     "target": [
+     -1,
      6,
-     2.7,
-     -4
+     -14
     ],
-    "fov": 55
+    "fov": 50
    },
-   "follow": "nightfang",
-   "heading": 20,
-   "distance": 19.970825727704085,
-   "height": 3
+   "to": {
+    "position": [
+     4,
+     1.6,
+     6
+    ],
+    "target": [
+     -1,
+     6,
+     -14
+    ],
+    "fov": 50
+   },
+   "puffs": [
+    {
+     "actor": "tuft",
+     "size": "deflate",
+     "at": 0.05
+    }
+   ]
   },
   {
    "id": "S04",
@@ -1004,29 +1770,29 @@
    "note": "see: hero; Vance pushes both palms forward: cyan fire jets out. The hero stands next in line; eyes wide",
    "from": {
     "position": [
-     -19.82867545843901,
-     4.697082572770409,
-     14.99338394412787
+     1.5,
+     4,
+     0.5
     ],
     "target": [
-     -26,
-     2.7,
-     -4
+     -1,
+     3.8,
+     -8
     ],
-    "fov": 55
+    "fov": 48
    },
    "to": {
     "position": [
-     -24.67861050992459,
-     3.1276106214637815,
-     0.06681867980149647
+     1.5,
+     4,
+     0.5
     ],
     "target": [
-     -26,
-     2.7,
-     -4
+     -1,
+     3.8,
+     -8
     ],
-    "fov": 55
+    "fov": 48
    },
    "snapAt": 0.6
   },
@@ -1058,30 +1824,29 @@
    "note": "Volt sprints across the yard; yellow lightning crackling along its seams",
    "from": {
     "position": [
-     -6.171324541560988,
-     4.697082572770409,
-     18.99338394412787
+     -12,
+     1.6,
+     5
     ],
     "target": [
-     0,
-     2.7,
-     0
+     -10,
+     2,
+     -2
     ],
-    "fov": 55
+    "fov": 50
    },
-   "follow": "volt",
    "to": {
     "position": [
-     -5.471324541560988,
-     4.697082572770409,
-     18.99338394412787
+     -12,
+     1.6,
+     5
     ],
     "target": [
-     0,
-     2.7,
-     0
+     -10,
+     2,
+     -2
     ],
-    "fov": 55
+    "fov": 50
    }
   },
   {
@@ -1132,29 +1897,29 @@
    "note": "Kira blurs past the lens leaving a yellow lightning ribbon",
    "from": {
     "position": [
-     -10.445759365323577,
-     3.56540244820051,
-     4.230466375788744
+     -1,
+     3.4,
+     3
     ],
     "target": [
-     -13.120000000000005,
-     2.7,
-     -4
+     -6,
+     3.4,
+     -1
     ],
-    "fov": 55
+    "fov": 36
    },
    "to": {
     "position": [
-     -10.445759365323577,
-     3.56540244820051,
-     4.230466375788744
+     -1,
+     3.4,
+     3
     ],
     "target": [
-     -12.520000000000005,
-     2.7,
-     -4
+     -5.4,
+     3.4,
+     -1
     ],
-    "fov": 55
+    "fov": 36
    }
   },
   {
@@ -1204,30 +1969,29 @@
    "note": "Cinder swoops low with flame-edged wings; Rocco lifts off on an orange flame trail",
    "from": {
     "position": [
-     -6.171324541560988,
-     4.697082572770409,
-     18.99338394412787
+     -3,
+     2.2,
+     10
     ],
     "target": [
-     0,
-     2.7,
-     0
+     3,
+     6,
+     -6
     ],
-    "fov": 55
+    "fov": 52
    },
-   "follow": "cinder",
    "to": {
     "position": [
-     -5.471324541560988,
-     4.697082572770409,
-     18.99338394412787
+     -3,
+     2.2,
+     10
     ],
     "target": [
-     0,
-     2.7,
-     0
+     3,
+     6,
+     -6
     ],
-    "fov": 55
+    "fov": 52
    }
   },
   {
@@ -1272,29 +2036,29 @@
    "note": "Every kid and every beast turns to look at the hero",
    "from": {
     "position": [
-     -7.325759365323572,
-     3.56540244820051,
-     4.230466375788744
+     -2.2,
+     4.4,
+     3
     ],
     "target": [
-     -10,
-     2.7,
-     -4
+     -3,
+     4.2,
+     -3
     ],
-    "fov": 55
+    "fov": 36
    },
    "to": {
     "position": [
-     -7.325759365323572,
-     3.56540244820051,
-     4.230466375788744
+     -2.2,
+     4.4,
+     3
     ],
     "target": [
-     -9.4,
-     2.7,
-     -4
+     -2.4,
+     4.2,
+     -3
     ],
-    "fov": 55
+    "fov": 36
    }
   },
   {
@@ -1344,29 +2108,29 @@
    "note": "Tuft sits in his cupped hands; tiny; on *muffin* it sneezes one sparkle. FIRST LAUGH",
    "from": {
     "position": [
-     -35.32138949007541,
-     5.027610621463781,
-     4.0668186798014965
+     -5.2,
+     3.6,
+     -3
     ],
     "target": [
-     -34,
-     4.6,
-     0
+     -5,
+     3.2,
+     -8
     ],
-    "fov": 55
+    "fov": 34
    },
    "to": {
     "position": [
-     -35.32138949007541,
-     5.027610621463781,
-     4.0668186798014965
+     -5.2,
+     3.6,
+     -3
     ],
     "target": [
-     -34,
-     4.6,
-     0
+     -5,
+     3.2,
+     -8
     ],
-    "fov": 46.75
+    "fov": 34
    }
   },
   {
@@ -1416,29 +2180,29 @@
    "note": "A leaf drifts down: Tuft's quills flatten and the hero flinches at the exact same moment",
    "from": {
     "position": [
-     -11.828675458439012,
-     6.597082572770408,
-     16.99338394412787
+     -5.4,
+     4.2,
+     -2.5
     ],
     "target": [
-     -18,
-     4.6,
-     -2
+     -5.2,
+     3.4,
+     -8
     ],
-    "fov": 55
+    "fov": 34
    },
    "to": {
     "position": [
-     -16.67861050992459,
-     5.027610621463781,
-     2.0668186798014965
+     -5.4,
+     4.2,
+     -2.5
     ],
     "target": [
-     -18,
-     4.6,
-     -2
+     -5.2,
+     3.4,
+     -8
     ],
-    "fov": 55
+    "fov": 34
    },
    "snapAt": 0.6
   },
@@ -1476,29 +2240,29 @@
    "note": "The hero glances out past the yard to the mountain",
    "from": {
     "position": [
-     -38.553424448659314,
-     4.173519104627106,
-     14.013999463410086
+     -4,
+     4,
+     -1
     ],
     "target": [
-     -34,
-     2.7,
-     0
+     -2,
+     4.2,
+     -8
     ],
-    "fov": 34
+    "fov": 40
    },
    "to": {
     "position": [
-     -38.41682171519954,
-     4.129313531488292,
-     13.593579479507783
+     -3.88,
+     4.0120000000000005,
+     -1.42
     ],
     "target": [
-     -34,
-     2.7,
-     0
+     -2,
+     4.2,
+     -8
     ],
-    "fov": 34
+    "fov": 40
    }
   },
   {
@@ -1525,30 +2289,31 @@
    "note": "FLASH-FORWARD: the dark cave mouth; two molten eyes ignite on *Titan*",
    "from": {
     "position": [
-     0,
-     42,
+     9,
+     36,
      235
     ],
     "target": [
-     0,
-     44,
+     9,
+     42,
      110
     ],
     "fov": 42
    },
    "to": {
     "position": [
-     0,
-     42.08,
-     230
+     9,
+     36.36,
+     227.5
     ],
     "target": [
-     0,
-     44,
+     9,
+     42,
      110
     ],
     "fov": 42
-   }
+   },
+   "frame": false
   },
   {
    "id": "S13",
@@ -1572,29 +2337,29 @@
    "note": "A tiny spider lowers on a thread right in front of the hero's nose",
    "from": {
     "position": [
-     -33.941543033628626,
-     4,
-     7.5307120796421865
+     2,
+     4.4,
+     8.4
     ],
     "target": [
-     -34,
-     4.125,
-     6.8
+     1.5,
+     4.1,
+     5.4
     ],
-    "fov": 40
+    "fov": 28
    },
    "to": {
     "position": [
-     -33.94563502127462,
-     4,
-     7.479562234067234
+     2,
+     4.4,
+     8.4
     ],
     "target": [
-     -34,
-     4.125,
-     6.8
+     1.5,
+     4.1,
+     5.4
     ],
-    "fov": 40
+    "fov": 28
    }
   },
   {
@@ -1628,29 +2393,29 @@
    "note": "Tuft balloons into a spiky ball on the desk",
    "from": {
     "position": [
-     -0.6786105099245885,
-     5.027610621463781,
-     6.0668186798014965
+     1.6,
+     4,
+     8
     ],
     "target": [
-     -2,
-     4.6,
-     2
+     1.5,
+     3.4,
+     4.4
     ],
-    "fov": 55
+    "fov": 30
    },
    "to": {
     "position": [
-     -0.6786105099245885,
-     5.027610621463781,
-     6.0668186798014965
+     1.6,
+     4,
+     8
     ],
     "target": [
-     -2,
-     4.6,
-     2
+     1.5,
+     3.4,
+     4.4
     ],
-    "fov": 46.75
+    "fov": 30
    }
   },
   {
@@ -1695,29 +2460,29 @@
    "note": "The hero inflates into a ball; arms and legs sticking out",
    "from": {
     "position": [
-     -40.17132454156099,
-     4.697082572770409,
-     24.99338394412787
+     1.5,
+     4.2,
+     12
     ],
     "target": [
-     -34,
-     2.7,
-     6
+     1.5,
+     4,
+     4.8
     ],
-    "fov": 55
+    "fov": 40
    },
    "to": {
     "position": [
-     -35.32138949007541,
-     3.1276106214637815,
-     10.066818679801496
+     1.5,
+     4.2,
+     12
     ],
     "target": [
-     -34,
-     2.7,
-     6
+     1.5,
+     4,
+     4.8
     ],
-    "fov": 55
+    "fov": 40
    },
    "snapAt": 0.6
   },
@@ -1755,29 +2520,29 @@
    "note": "He boings off the ceiling",
    "from": {
     "position": [
-     -27.82867545843901,
-     4.697082572770409,
-     24.99338394412787
+     10.5,
+     6,
+     8.5
     ],
     "target": [
-     -34,
-     2.7,
-     6
+     -1,
+     4.5,
+     0
     ],
-    "fov": 55
+    "fov": 58
    },
    "to": {
     "position": [
-     -27.82867545843901,
-     4.697082572770409,
-     24.99338394412787
+     10.5,
+     6,
+     8.5
     ],
     "target": [
-     -33.4,
-     2.7,
-     6
+     -0.4,
+     4.5,
+     0
     ],
-    "fov": 55
+    "fov": 58
    }
   },
   {
@@ -1812,16 +2577,29 @@
    "note": "He bounces across desks while the class (10 kids) laughs and points",
    "from": {
     "position": [
-     -40.17132454156099,
-     4.697082572770409,
-     24.99338394412787
+     10.5,
+     6,
+     8.5
     ],
     "target": [
-     -34,
-     2.7,
-     6
+     -1,
+     3.5,
+     -1
     ],
-    "fov": 55
+    "fov": 58
+   },
+   "to": {
+    "position": [
+     10.5,
+     6,
+     8.5
+    ],
+    "target": [
+     -1,
+     3.5,
+     -1
+    ],
+    "fov": 58
    }
   },
   {
@@ -1853,29 +2631,29 @@
    "note": "CLUE 1 (not emphasised): through the window; Nightfang sees the ball-hero and backs away; ears flat. Nobody in the room looks",
    "from": {
     "position": [
-     10.553424448659317,
-     4.173519104627106,
-     16.013999463410087
+     -9,
+     4.5,
+     6
     ],
     "target": [
-     6,
-     2.7,
-     2
+     -22,
+     4.5,
+     0
     ],
-    "fov": 34
+    "fov": 50
    },
    "to": {
     "position": [
-     10.416821715199537,
-     4.129313531488292,
-     15.593579479507783
+     -9.78,
+     4.5,
+     5.64
     ],
     "target": [
-     6,
-     2.7,
-     2
+     -22,
+     4.5,
+     0
     ],
-    "fov": 34
+    "fov": 50
    }
   },
   {
@@ -1927,29 +2705,29 @@
    "note": "Behind Vance the hero shrinks back to normal",
    "from": {
     "position": [
-     -32.17132454156099,
-     6.597082572770408,
-     20.99338394412787
+     -0.5,
+     4.8,
+     9
     ],
     "target": [
-     -26,
+     -1,
      4.6,
-     2
+     4.2
     ],
-    "fov": 55
+    "fov": 34
    },
    "to": {
     "position": [
-     -27.32138949007541,
-     5.027610621463781,
-     6.0668186798014965
+     -0.5,
+     4.8,
+     9
     ],
     "target": [
-     -26,
+     -1,
      4.6,
-     2
+     4.2
     ],
-    "fov": 55
+    "fov": 34
    },
    "snapAt": 0.6
   },
@@ -1987,29 +2765,29 @@
    "note": "Vance looks past the window at the mountain",
    "from": {
     "position": [
-     -21.446575551340683,
-     4.173519104627106,
-     16.013999463410087
+     -4.2,
+     4.6,
+     9
     ],
     "target": [
-     -26,
-     2.7,
-     2
+     -3,
+     5,
+     -3
     ],
-    "fov": 34
+    "fov": 40
    },
    "to": {
     "position": [
-     -21.58317828480046,
-     4.129313531488292,
-     15.593579479507783
+     -4.128,
+     4.624,
+     8.28
     ],
     "target": [
-     -26,
-     2.7,
-     2
+     -3,
+     5,
+     -3
     ],
-    "fov": 34
+    "fov": 40
    }
   },
   {
@@ -2056,31 +2834,31 @@
      }
     }
    ],
-   "note": "Juni named + on screen ≈30.5. Blink the firefly circles her head",
+   "note": "Juni named + on screen \u224830.5. Blink the firefly circles her head",
    "from": {
     "position": [
-     -32.04082679376759,
-     7.890920591993195,
-     52.36858854585824
+     -0.8312439429307474,
+     9.68383724383295,
+     79.52023919492112
     ],
     "target": [
-     -16,
+     20.75,
      2.7,
-     3
+     13.1
     ],
     "fov": 55
    },
    "degrees": 6,
    "to": {
     "position": [
-     -31.55960198995457,
-     7.735192974233399,
-     50.88753088948249
+     -0.18380662464282338,
+     9.474322126517961,
+     77.52763201907348
     ],
     "target": [
-     -16,
+     20.75,
      2.7,
-     3
+     13.1
     ],
     "fov": 55
    }
@@ -2124,14 +2902,14 @@
    "note": "Boulder raises the whole table on its horns; Dad laughs. BEAST SHOWCASE",
    "from": {
     "position": [
-     24.17132454156099,
+     52.17132454156099,
      4.697082572770409,
-     21.99338394412787
+     45.99338394412787
     ],
     "target": [
-     18,
+     46,
      2.7,
-     3
+     27
     ],
     "fov": 55
    },
@@ -2229,27 +3007,27 @@
    ],
    "from": {
     "position": [
-     -32.67861050992459,
+     2.8213894900754113,
      5.027610621463781,
-     11.066818679801496
+     9.866818679801497
     ],
     "target": [
-     -34,
+     1.5,
      4.6,
-     7
+     5.8
     ],
     "fov": 55
    },
    "to": {
     "position": [
-     -32.67861050992459,
+     2.8213894900754113,
      5.027610621463781,
-     11.066818679801496
+     9.866818679801497
     ],
     "target": [
-     -34,
+     1.5,
      4.6,
-     7
+     5.8
     ],
     "fov": 46.75
    }
@@ -2331,14 +3109,14 @@
    "note": "Spaghetti draped over Boulder's horns; it blinks slowly",
    "from": {
     "position": [
-     20.674240634676426,
+     48.67424063467643,
      3.56540244820051,
-     11.230466375788744
+     35.230466375788744
     ],
     "target": [
-     18,
+     46,
      2.7,
-     3
+     27
     ],
     "fov": 55
    }
@@ -2377,27 +3155,27 @@
    "note": "Juni holds Tuft up to the hero's face",
    "from": {
     "position": [
-     -31.889912318971483,
+     38.11008768102852,
      5.211588473570599,
-     8.816552030803244
+     26.816552030803244
     ],
     "target": [
-     -30,
+     40,
      4.6,
-     3
+     21
     ],
     "fov": 40
    },
    "to": {
     "position": [
-     -31.814315826212624,
+     38.18568417378737,
      5.187124934627775,
-     8.583889949571114
+     26.583889949571116
     ],
     "target": [
-     -30,
+     40,
      4.6,
-     3
+     21
     ],
     "fov": 40
    }
@@ -2435,14 +3213,14 @@
    "note": "He looks away; Tuft's quills droop",
    "from": {
     "position": [
-     -32.11008768102852,
+     3.3899123189714846,
      5.211588473570599,
-     12.816552030803244
+     11.616552030803245
     ],
     "target": [
-     -34,
+     1.5,
      4.6,
-     7
+     5.8
     ],
     "fov": 40
    }
@@ -2469,27 +3247,27 @@
    "note": "lightning; Tilt up the night street to our house's attic window; lightning",
    "from": {
     "position": [
-     -44.50790257382919,
+     -9.007902573829192,
      6.100428702985628,
-     46.33999876171558
+     45.139998761715574
     ],
     "target": [
-     -34,
+     1.5,
      0.6,
-     14
+     12.8
     ],
     "fov": 34
    },
    "to": {
     "position": [
-     -44.50790257382919,
+     -9.007902573829192,
      6.100428702985628,
-     46.33999876171558
+     45.139998761715574
     ],
     "target": [
-     -34,
+     1.5,
      6.5,
-     14
+     12.8
     ],
     "fov": 34
    }
@@ -2541,27 +3319,27 @@
    "note": "He fills the whole attic; squashed against the rafters",
    "from": {
     "position": [
-     -27.82867545843901,
+     7.671324541560988,
      4.997082572770409,
-     21.99338394412787
+     20.79338394412787
     ],
     "target": [
-     -34,
+     1.5,
      3,
-     3
+     1.7999999999999998
     ],
     "fov": 55
    },
    "to": {
     "position": [
-     -27.82867545843901,
+     7.671324541560988,
      4.997082572770409,
-     21.99338394412787
+     20.79338394412787
     ],
     "target": [
-     -34,
+     1.5,
      3,
-     3
+     1.7999999999999998
     ],
     "fov": 46.75
    }
@@ -2588,27 +3366,27 @@
    "note": "Exterior: two legs kick out of the round attic window; roof tiles pop off",
    "from": {
     "position": [
-     -40.17132454156099,
+     -4.671324541560988,
      4.697082572770409,
-     32.99338394412787
+     31.79338394412787
     ],
     "target": [
-     -34,
+     1.5,
      2.7,
-     14
+     12.8
     ],
     "fov": 55
    },
    "to": {
     "position": [
-     -35.32138949007541,
+     0.1786105099245885,
      3.1276106214637815,
-     18.066818679801496
+     16.866818679801497
     ],
     "target": [
-     -34,
+     1.5,
      2.7,
-     14
+     12.8
     ],
     "fov": 55
    },
@@ -2714,27 +3492,27 @@
    "note": "Tuft's quills flatten as he hears it",
    "from": {
     "position": [
-     -43.961059707544806,
-     13.00117539815458,
-     80.89992606953443
+     -0.3899123189714846,
+     5.211588473570599,
+     7.316552030803244
     ],
     "target": [
-     -18,
+     1.5,
      4.6,
-     1
+     1.5
     ],
     "fov": 40
    },
    "to": {
     "position": [
-     -42.92261731924301,
-     12.665128382228396,
-     77.70392902675304
+     -0.3143158262126251,
+     5.187124934627775,
+     7.083889949571114
     ],
     "target": [
-     -18,
+     1.5,
      4.6,
-     1
+     1.5
     ],
     "fov": 40
    }
@@ -2761,14 +3539,14 @@
    "note": "Two tiny glowing eyes under the bed; window light sweeps across the floor (time passing)",
    "from": {
     "position": [
-     1.8248225502994324,
+     5.324822550299432,
      3.937738577464308,
-     10.771593395673232
+     12.971593395673231
     ],
     "target": [
-     -2,
+     1.5,
      2.7,
-     -1
+     1.2000000000000002
     ],
     "fov": 40
    }
@@ -2934,27 +3712,27 @@
    ],
    "from": {
     "position": [
-     -30.553424448659317,
+     -5.553424448659317,
      0.7,
-     20.013999463410087
+     22.213999463410083
     ],
     "target": [
-     -26,
+     -1,
      2.7,
-     6
+     8.2
     ],
     "fov": 34
    },
    "to": {
     "position": [
-     -30.41682171519954,
+     -5.4168217151995375,
      0.7,
-     19.59357947950778
+     21.793579479507784
     ],
     "target": [
-     -26,
+     -1,
      2.7,
-     6
+     8.2
     ],
     "fov": 34
    }
@@ -2989,7 +3767,7 @@
     62.5
    ],
    "subject": "titan",
-   "note": "Crane up the chained Titan; ×12 scale; molten seams glowing",
+   "note": "Crane up the chained Titan; \u00d712 scale; molten seams glowing",
    "from": {
     "position": [
      26.14911517341043,
@@ -3059,27 +3837,27 @@
    "note": "He raises his palms toward the Titan",
    "from": {
     "position": [
-     -28.249927374631664,
+     -3.2499273746316626,
      5.328091792874569,
-     12.924564440743808
+     15.124564440743807
     ],
     "target": [
-     -26,
+     -1,
      4.6,
-     6
+     8.2
     ],
     "fov": 34
    },
    "to": {
     "position": [
-     -28.182429553392712,
+     -3.1824295533927125,
      5.306249039088332,
-     12.716827507521494
+     14.916827507521493
     ],
     "target": [
-     -26,
+     -1,
      4.6,
-     6
+     8.2
     ],
     "fov": 34
    }
@@ -3172,14 +3950,14 @@
    "note": "No glow link forms between them",
    "from": {
     "position": [
-     -47.28155722529132,
-     17.353419730808948,
-     145.36230320993826
+     -12.32046733179364,
+     10.08485835639975,
+     77.33417661770697
     ],
     "target": [
-     -2,
+     10.5,
      2.7,
-     6
+     7.1
     ],
     "fov": 34
    }
@@ -3236,27 +4014,27 @@
    "note": "Vance's palms spit one smoke puff; behind him the Titan's seams flare molten",
    "from": {
     "position": [
-     43.28155722529132,
-     17.353419730808948,
-     145.36230320993826
+     33.32046733179364,
+     10.08485835639975,
+     77.33417661770697
     ],
     "target": [
-     -2,
+     10.5,
      2.7,
-     6
+     7.1
     ],
     "fov": 34
    },
    "to": {
     "position": [
-     41.92311050853258,
-     16.91381713888468,
-     141.1814341136401
+     32.63585331183983,
+     9.863312605707755,
+     75.22715131917576
     ],
     "target": [
-     -2,
+     10.5,
      2.7,
-     6
+     7.1
     ],
     "fov": 34
    }
@@ -3351,27 +4129,27 @@
    "note": "Beasts stream past the lens in every direction",
    "from": {
     "position": [
-     16.507902573829192,
+     -11.492097426170808,
      6.100428702985628,
-     38.33999876171558
+     36.33999876171558
     ],
     "target": [
-     6,
+     -22,
      2.7,
-     6
+     4
     ],
     "fov": 34
    },
    "to": {
     "position": [
-     16.192665496614318,
+     -11.807334503385684,
      5.998415841896058,
-     37.36979879886411
+     35.36979879886411
     ],
     "target": [
-     6,
+     -22,
      2.7,
-     6
+     4
     ],
     "fov": 34
    }
@@ -3407,27 +4185,27 @@
    "note": "Nightfang yelps and flies off; Vance clinging to its tail",
    "from": {
     "position": [
-     1.415587483411838,
+     -26.584412516588163,
      4.483547054058017,
-     20.109370929923557
+     18.109370929923557
     ],
     "target": [
-     6,
+     -22,
      3,
-     6
+     4
     ],
     "fov": 55
    },
    "to": {
     "position": [
-     1.415587483411838,
+     -26.584412516588163,
      4.483547054058017,
-     20.109370929923557
+     18.109370929923557
     ],
     "target": [
-     6,
+     -22,
      3,
-     6
+     4
     ],
     "fov": 46.75
    }
@@ -3472,27 +4250,27 @@
    "note": "The Titan's huge foot lifts over tiny Juni",
    "from": {
     "position": [
-     -19.492097426170808,
+     50.50790257382919,
      0.7,
-     38.33999876171558
+     56.33999876171558
     ],
     "target": [
-     -30,
+     40,
      2.7,
-     6
+     24
     ],
     "fov": 34
    },
    "to": {
     "position": [
-     -19.807334503385682,
+     50.19266549661432,
      0.7,
-     37.36979879886411
+     55.36979879886411
     ],
     "target": [
-     -30,
+     40,
      2.7,
-     6
+     24
     ],
     "fov": 34
    }
@@ -3526,27 +4304,27 @@
    "note": "Tuft leaps from the hood and plants himself in front of Juni; trembling",
    "from": {
     "position": [
-     -5.824822550299432,
+     -2.3248225502994324,
      3.937738577464308,
-     17.771593395673232
+     19.97159339567323
     ],
     "target": [
-     -2,
+     1.5,
      2.7,
-     6
+     8.2
     ],
     "fov": 40
    },
    "to": {
     "position": [
-     -5.671829648287455,
+     -2.171829648287455,
      3.888229034365735,
-     17.300729659846304
+     19.5007296598463
     ],
     "target": [
-     -2,
+     1.5,
      2.7,
-     6
+     8.2
     ],
     "fov": 40
    }
@@ -3592,7 +4370,7 @@
     "position": [
      4.553424448659317,
      4.173519104627106,
-     14.013999463410087
+     14.013999463410084
     ],
     "target": [
      0,
@@ -3606,7 +4384,7 @@
     "position": [
      5.253424448659318,
      4.173519104627106,
-     14.013999463410087
+     14.013999463410084
     ],
     "target": [
      0,
@@ -3646,17 +4424,17 @@
      }
     }
    ],
-   "note": "THE BREATH: he stands over Juni and Tuft; shaking; grade 5 % darker; vignette +0.15. Hold ≥ 1.5 s",
+   "note": "THE BREATH: he stands over Juni and Tuft; shaking; grade 5 % darker; vignette +0.15. Hold \u2265 1.5 s",
    "from": {
     "position": [
-     -27.657912318971512,
+     7.842087681028486,
      5.211588473570599,
-     15.816552030803244
+     14.616552030803245
     ],
     "target": [
-     -25.76800000000003,
+     9.731999999999971,
      4.6,
-     10
+     8.8
     ],
     "fov": 40
    }
@@ -3703,27 +4481,27 @@
    "note": "TWIST. Biggest visual change: storm-dark snaps to blue-gold as Tuft's quills ignite beside his face",
    "from": {
     "position": [
-     -24.36179539085524,
+     11.13820460914476,
      5.0550573705466055,
-     14.32785277546488
+     13.12785277546488
     ],
     "target": [
-     -25.76800000000003,
+     9.731999999999971,
      4.6,
-     10
+     8.8
     ],
     "fov": 34
    },
    "to": {
     "position": [
-     -24.403981529129585,
+     11.096018470870415,
      5.0414056494302075,
-     14.198017192200933
+     12.998017192200933
     ],
     "target": [
-     -25.76800000000003,
+     9.731999999999971,
      4.6,
-     10
+     8.8
     ],
     "fov": 34
    }
@@ -3764,27 +4542,27 @@
    "note": "Tuft swells; quills lengthening",
    "from": {
     "position": [
-     -9.805870483415973,
+     -6.305870483415973,
      5.226032750789324,
-     30.023999080131578
+     32.22399908013158
     ],
     "target": [
-     -2,
+     1.5,
      2.7,
-     6
+     8.2
     ],
     "fov": 34
    },
    "to": {
     "position": [
-     -9.571694368913494,
+     -6.0716943689134935,
      5.150251768265644,
-     29.30327910772763
+     31.50327910772763
     ],
     "target": [
-     -2,
+     1.5,
      2.7,
-     6
+     8.2
     ],
     "fov": 34
    }
@@ -3827,27 +4605,27 @@
    "note": "They look at each other",
    "from": {
     "position": [
-     5.864517744971877,
-     10.99075458775899,
-     68.77968794731336
+     13.63977868635509,
+     7.196549326545908,
+     33.194651568932784
     ],
     "target": [
-     -13.884000000000015,
+     5.6159999999999854,
      4.6,
-     8
+     8.5
     ],
     "fov": 40
    },
    "to": {
     "position": [
-     5.074577035173,
-     10.73512440424863,
-     66.34850042942082
+     13.318827538900885,
+     7.092687353484072,
+     32.206865506175475
     ],
     "target": [
-     -13.884000000000015,
+     5.6159999999999854,
      4.6,
-     8
+     8.5
     ],
     "fov": 40
    }
@@ -3885,27 +4663,27 @@
    ],
    "from": {
     "position": [
-     -27.657912318971512,
+     7.842087681028486,
      5.211588473570599,
-     15.816552030803244
+     14.616552030803245
     ],
     "target": [
-     -25.76800000000003,
+     9.731999999999971,
      4.6,
-     10
+     8.8
     ],
     "fov": 40
    },
    "to": {
     "position": [
-     -27.582315826212653,
+     7.917684173787346,
      5.187124934627775,
-     15.583889949571114
+     14.383889949571115
     ],
     "target": [
-     -25.76800000000003,
+     9.731999999999971,
      4.6,
-     10
+     8.8
     ],
     "fov": 40
    }
@@ -3949,27 +4727,27 @@
    "note": "They balloon past the camera",
    "from": {
     "position": [
-     9.626472013321905,
+     16.123902573829177,
      0.7,
-     80.35779266662041
+     40.83999876171558
     ],
     "target": [
-     -13.884000000000015,
+     5.6159999999999854,
      2.7,
-     8
+     8.5
     ],
     "fov": 34
    },
    "to": {
     "position": [
-     8.921157852922246,
+     15.808665496614301,
      0.7,
-     78.1870588866218
+     39.86979879886411
     ],
     "target": [
-     -13.884000000000015,
+     5.6159999999999854,
      2.7,
-     8
+     8.5
     ],
     "fov": 34
    }
@@ -4004,27 +4782,27 @@
    "note": "Crane up with them past the roofs and lanterns to above the Titan: SAME framing family as shot 2; now lit and understood",
    "from": {
     "position": [
-     -6.14911517341043,
+     -2.64911517341043,
      4.042681874763199,
-     18.769663463049326
+     20.96966346304933
     ],
     "target": [
-     -2,
+     1.5,
      2.7,
-     6
+     8.2
     ],
     "fov": 75.5
    },
    "to": {
     "position": [
-     -6.14911517341043,
+     -2.64911517341043,
      6.542681874763199,
-     18.769663463049326
+     20.96966346304933
     ],
     "target": [
-     -2,
+     1.5,
      2.7,
-     6
+     8.2
     ],
     "fov": 75.5
    }
@@ -4183,27 +4961,27 @@
    "note": "They zip around the plaza like let-go balloons",
    "from": {
     "position": [
-     -0.0762251467332078,
-     7.168289804318358,
-     50.495961350921704
+     11.226068107609743,
+     4.515456175462878,
+     25.76601425722248
     ],
     "target": [
-     -13.884000000000015,
+     5.6159999999999854,
      2.7,
-     8
+     8.5
     ],
     "fov": 55
    },
    "to": {
     "position": [
-     -0.0762251467332078,
-     7.168289804318358,
-     50.495961350921704
+     11.226068107609743,
+     4.515456175462878,
+     25.76601425722248
     ],
     "target": [
-     -13.284000000000015,
+     6.215999999999985,
      2.7,
-     8
+     8.5
     ],
     "fov": 55
    }
@@ -4259,30 +5037,30 @@
      }
     }
    ],
-   "note": "PAYOFF: Juni hugs Tuft then the hero under the lanterns (brightest frame; hold ≥ 1.5 s). On *dragon*: the push settles to reveal Nightfang curled asleep behind our house (callback to \"I wish he was a dragon\")",
+   "note": "PAYOFF: Juni hugs Tuft then the hero under the lanterns (brightest frame; hold \u2265 1.5 s). On *dragon*: the push settles to reveal Nightfang curled asleep behind our house (callback to \"I wish he was a dragon\")",
    "from": {
     "position": [
-     -32.28194753852376,
-     4.123205719614071,
-     21.535490736674955
+     3.2025274142800804,
+     9.710446991609276,
+     83.07331293511757
     ],
     "target": [
-     -27.884000000000015,
+     24.865999999999985,
      2.7,
-     8
+     16.4
     ],
     "fov": 45
    },
    "to": {
     "position": [
-     -32.040060423904954,
-     4.0449294050352975,
-     20.79103874615783
+     4.394018406494677,
+     9.324872407070766,
+     79.4062807236861
     ],
     "target": [
-     -27.884000000000015,
+     24.865999999999985,
      2.7,
-     8
+     16.4
     ],
     "fov": 45
    }
@@ -4326,27 +5104,27 @@
    "note": "Juni pops up at the bedside: \"boo\"; the hero flinches",
    "from": {
     "position": [
-     -21.712675458439026,
+     31.037324541560974,
      6.597082572770408,
-     19.99338394412787
+     28.39338394412787
     ],
     "target": [
-     -27.884000000000015,
+     24.865999999999985,
      4.6,
-     1
+     9.4
     ],
     "fov": 55
    },
    "to": {
     "position": [
-     -26.562610509924603,
+     26.187389490075397,
      5.027610621463781,
-     5.0668186798014965
+     13.466818679801497
     ],
     "target": [
-     -27.884000000000015,
+     24.865999999999985,
      4.6,
-     1
+     9.4
     ],
     "fov": 55
    },
@@ -4401,17 +5179,17 @@
      }
     }
    ],
-   "note": "Two-shot close: the hero sheepish; Tuft starts to puff and his blue-gold glow swells to fill the frame by the last frame → seamless loop into shot 1's glowing eye. Ends at voice + 0.85 s (never a wide; never a pull)",
+   "note": "Two-shot close: the hero sheepish; Tuft starts to puff and his blue-gold glow swells to fill the frame by the last frame \u2192 seamless loop into shot 1's glowing eye. Ends at voice + 0.85 s (never a wide; never a pull)",
    "from": {
     "position": [
-     -27.69177485326682,
-     9.068289804318358,
-     43.495961350921704
+     0.005931892390227844,
+     6.415456175462878,
+     18.76601425722248
     ],
     "target": [
-     -13.884000000000015,
+     5.6159999999999854,
      4.6,
-     1
+     1.5
     ],
     "fov": 55
    }
@@ -4482,22 +5260,26 @@
     6
    ],
    "area": {
-    "x0": -36,
-    "x1": 36,
-    "z0": -50,
-    "z1": 56
+    "x0": 14,
+    "x1": 24,
+    "z0": -6,
+    "z1": 2
    },
    "steps": [
     {
      "t": 1.27,
      "behaviour": "run",
+     "n": 10,
      "anchor": "stage"
     },
     {
      "t": 22.67,
-     "behaviour": "idle"
+     "behaviour": "idle",
+     "n": 10
     }
-   ]
+   ],
+   "spread": true,
+   "partial": true
   }
  },
  "lod": {
