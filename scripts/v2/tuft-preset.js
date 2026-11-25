@@ -7,8 +7,9 @@ import {writeFileSync} from 'node:fs';
 let sd = 9173; const rnd = () => { sd = (sd * 1664525 + 1013904223) >>> 0; return sd / 4294967296; };
 const R = .3, parts = [], P = {
   note: 'tuft 2B TUFT (scripts/v2/tuft-preset.js): palm-sized moon-white puffball, big glossy eyes, small feet, layered faceted quill clusters tipped BLUE → GOLD (#7FB8FF → #FFD36B, reserved for Tuft). States idle tremble sneeze hide run puff; `puff:` scales it (engine/puff.js).',
-  name: 'TUFT', rig: 'puff', tiers: ['hero'], reservedOwner: true, glow: '#7FB8FF', eyeGlow: '#FFF6DE', glowHDR: 1.4, blobR: .32,
-  colors: {body: '#EFECE4', shade: '#D9D5CC', quill: '#F7F5EF', eye: '#0C0D12', shine: '#FFFFFF', foot: '#C9C3B8'},
+  name: 'TUFT', rig: 'puff', tiers: ['hero'], reservedOwner: true, glow: '#7FB8FF', eyeGlow: '#FFF6DE', glowHDR: 1.4, blobR: .32, glowCap: 1.0, material: {roughness: .9, metalness: 0, env: .2},   // P3B: tips ≤ HDR 2.6 at any size; diffuse fluff (no day-env sheen)
+ 
+  colors: {body: '#B2AFA8', shade: '#9E9A93', quill: '#AEABA4', eye: '#030305', tip: '#1A1E28', shine: '#FFFFFF', foot: '#C9C3B8'},   // P3B: fluff value ~.83 (diffuse, shaded facets), eyes near-black
   dims: {bodyY: .38, footX: .12, footH: .07, footZ: .04}, gait: {runHz: 4.5, runSpeed: 3.2, walkSpeed: 1.2}, parts};
 const a = p => parts.push(p);
 // core: two offset faceted gems (not a smooth sphere) + fluff tufts
@@ -25,10 +26,10 @@ for (const s of ['L', 'R']) a({seg: 'foot' + s, shape: 'box', size: [.11, .06, .
 for (let c = 0; c < 6; c++) for (let q = 0; q < 9; q++) {
   const az = 2 * Math.PI * (c + rnd()) / 6, el = -.25 + 1.65 * Math.pow(rnd(), .8), x = Math.cos(el) * Math.sin(az), y = Math.sin(el), z = Math.cos(el) * Math.cos(az);
   if (z > .55 && y < .55 && Math.abs(x) < .6) { q--; continue; }   // keep the face clear
-  const L0 = R * .72, L1 = R * (1.25 + .3 * rnd()), Lb = L1 + .055, Lt = Lb + .085, p = l => [+(x * l).toFixed(3), +(y * l).toFixed(3), +(z * l).toFixed(3)];
+  const L0 = R * .72, L1 = R * (1.25 + .3 * rnd()), Lb = L1 + .08, Lt = Lb + .11, p = l => [+(x * l).toFixed(3), +(y * l).toFixed(3), +(z * l).toFixed(3)];
   a({seg: 'q' + c, shape: 'strip', from: p(L0), to: p(L1), r: .042, taper: .7, facets: 4, color: 'quill'});
-  a({seg: 'q' + c, shape: 'strip', from: p(L1), to: p(Lb), r: .03, taper: .8, facets: 4, color: 'quill', glow: 'all', glowColor: '#7FB8FF'});
-  a({seg: 'q' + c, shape: 'strip', from: p(Lb), to: p(Lt), r: .024, taper: .05, facets: 4, color: 'quill', glow: 'all', glowColor: '#FFD36B'}); }
+  a({seg: 'q' + c, shape: 'strip', from: p(L1), to: p(Lb), r: .036, taper: .85, facets: 4, color: 'tip', glowBase: false, glow: 'all', glowK: .5, glowColor: '#7FB8FF'});
+  a({seg: 'q' + c, shape: 'strip', from: p(Lb), to: p(Lt), r: .031, taper: .05, facets: 4, color: 'tip', glowBase: false, glow: 'all', glowColor: '#FFD36B'}); }
 // solve the uniform scale per puff size so the whole height (quills extended, idle at rest breath) hits the target (engine/puff.js SIZES)
 const B = await import('../../engine/beast.js'), PF = await import('../../engine/puff.js'), g = B.buildGeometry(P);
 const heightAt = k => { const s = B.sampleBeast(P, [{t: 0, state: 'idle'}], 0, {geo: g, scale: k}), v = B.worldVerts(s, g); let y0 = 1e9, y1 = -1e9; for (let i = 1; i < v.length; i += 3) { y0 = Math.min(y0, v[i]); y1 = Math.max(y1, v[i]); } return y1 - y0; };

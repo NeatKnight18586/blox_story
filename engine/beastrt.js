@@ -92,7 +92,8 @@ export function createBeasts({scene, spec, presets, hdr, groundY = () => 0, reso
     const pk = puffK(a, t), s = B.sampleBeast(a.P, trackOf(a), tq, {seed: a.seed, groundY, geo: a.G.geo, support: a.G.sup, start: a.start, glowT: t, scale: pk.k});
     a.root.position.fromArray(s.root.p); a.root.rotation.set(0, s.root.yaw, 0); a.root.scale.setScalar(pk.k); a.puff = pk; B.segRows(s, a.data, 0); a.tex.needsUpdate = true; a.sample = s;
     const lv = a.P.rig === 'puff' ? PF.tipGlow(pk.k, PF.glowAt(a.glowEv ??= evOf('glows', a.name), t, a.c.glowLevel ?? .35)) : 1;   // TUFT: quill glow level × size
-    const h = hdrOf(a.P); a.U.uGlowI.value.set(s.glow.seam * h * (a.c.glow ?? 1) * lv, s.glow.mouth * h * (a.c.glow ?? 1), s.glow.eye * h * (a.c.glow ?? 1));
+    const h = hdrOf(a.P); a.U.uGlowI.value.set(Math.min(a.P.glowCap ?? Infinity, s.glow.seam * h * (a.c.glow ?? 1) * lv),   // P3B: preset glowCap (TUFT tips ≤ HDR 3)
+       s.glow.mouth * h * (a.c.glow ?? 1), s.glow.eye * h * (a.c.glow ?? 1));
     if (a.P.rig === 'puff') { const sp = sparkleOf(a), v = s.glow.sparkle; sp.visible = v > .02; if (sp.visible) { sp.position.fromArray(B.worldOf(s, 'body', [.05, .1, .45])); sp.scale.setScalar(.35 * pk.k * (.6 + v)); sp.material.color.set('#FFD36B').multiplyScalar((hdr ? 3 : 1) * v); }
       const ap = puffOf(a), u = pk.phase === 'deflate' ? pk.tau / .45 : 1; ap.visible = u < 1; if (ap.visible) { ap.position.fromArray(B.worldOf(s, 'body', [0, .2, -.6])); ap.scale.setScalar(pk.from * .6 * (0.5 + 1.5 * u)); ap.material.opacity = .75 * (1 - u); } }
     a.head.position.fromArray(a.P.rig === 'puff' ? B.worldOf(s, 'body', [0, .1, .2]) : B.worldOf(s, 'head', [0, a.P.dims.headH * .3 * (a.P.scale ?? 1), a.P.dims.headL * .45 * (a.P.scale ?? 1)]));

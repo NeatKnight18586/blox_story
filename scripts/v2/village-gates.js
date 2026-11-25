@@ -51,6 +51,7 @@ try {
       for (const [f, names] of NIGHT_FRAMES) rows.push(await nightFrame(p, f, names, `night-${tag}`)); await p.close();
       nightGates('night', `night (${tag === 'before' ? '2B mystery, before' : 'moonlit, after'})`, rows, {volt: 'volt'}); } }
   for (const f of (await import('./village-gates-more.js').catch(e => { if (!/Cannot find module|ERR_MODULE_NOT_FOUND/.test(String(e))) throw e; return {SECTIONS: []}; })).SECTIONS ?? []) if (on(f.sec)) await f.run({open, png, masks, nightFrame, nightGates, gate, raw, browser, server});
+  for (const f of (await import('./fix3b-gates.js')).SECTIONS) if (argv.includes('--only') && on(f.sec)) await f.run({open, png, masks, nightFrame, nightGates, gate, raw, browser, server});   // P3B sections (only when named)
   if (errors.length) throw Error(errors.join('\n'));
 } finally { await browser.close(); await server.close(); }
 mkdirSync('review/village', {recursive: true});
