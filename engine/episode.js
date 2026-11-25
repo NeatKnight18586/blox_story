@@ -186,12 +186,15 @@ function puffHeroes(t) {
   for (const n of PUFFERS) { const x = cast[n], A = x.a, rest = 2 * x.a.root.scale.x, pk = PF.puffAt(PUFFEV[n], t, rest, 'hero'), D = pk.phase === 'rest' || pk.k <= 1.01 ? 0 : pk.k * rest;   // rest = the torso width
     const P0 = A.puff0 ??= {head: [A.pivots.head.position.toArray(), A.pivots.head.scale.toArray()], ...Object.fromEntries(['leftShoulder', 'rightShoulder', 'leftHip', 'rightHip'].filter(k => A.pivots[k]).map(k => [k, A.pivots[k].position.toArray()]))};
     const s = A.root.scale.x, on = D > 0; A.ball.visible = on; if (A.parts.torso) A.parts.torso.visible = !on; A.torsoExtras?.forEach(o => { o.visible = !on; });
+    const pose = on ? PUFFEV[n].filter(e => e.t <= t).at(-1)?.pose : null;   // P3 (opt-in puff `pose: 'window'`): the ball lies back, legs out along +z (through a window)
+    if (pose === 'window') { if (!A.puffPose) A.puffY0 = A.root.position.y; A.puffPose = true; } else if (A.puffPose) { A.root.rotation.x = 0; A.root.position.y = A.puffY0; A.puffPose = false; }
     if (!on) { A.pivots.head.position.fromArray(P0.head[0]); A.pivots.head.scale.fromArray(P0.head[1]); for (const k of ['leftShoulder', 'rightShoulder', 'leftHip', 'rightHip']) if (P0[k]) A.pivots[k].position.fromArray(P0[k]); A.puffD = 0; continue; }
     const Dl = D / s, R = Dl / 2, cy = 2 + R * .92, kh = Math.max(1, Dl * .525 / 1.2);   // P3: face decal ≈ 45 % of the ball width (was .42 → 36 %)   // local units (the R6 body: hips at 2, torso 2–4)
     A.ball.position.set(0, cy, 0); A.ball.scale.setScalar(R);
     A.pivots.head.scale.set(P0.head[1][0] * kh, P0.head[1][1] * kh, P0.head[1][2] * kh); A.pivots.head.position.set(0, cy + R * .12 - .6 * kh, R * .58);
     if (P0.leftShoulder) { A.pivots.leftShoulder.position.set(-R * .92, cy + R * .1, 0); A.pivots.rightShoulder.position.set(R * .92, cy + R * .1, 0); A.pivots.leftShoulder.rotation.z = -1.15; A.pivots.rightShoulder.rotation.z = 1.15; }   // arms stick out of the ball
     if (P0.leftHip) { A.pivots.leftHip.position.set(-.55, cy - R * .93, 0); A.pivots.rightHip.position.set(.55, cy - R * .93, 0); }
+    if (A.puffPose) { A.root.rotation.x = -Math.PI / 2; A.root.position.y = A.puffY0 + R * s; }
     A.puffD = D; } }
 // tuft 2A (opt-in): BEAST KIT actors (`style: 'beast'`, engine/beastrt.js) and low-tier crowds (spec.beastCrowds); null for every other spec
 const BEAST_ON = Object.values(spec.cast ?? {}).some(c => c.style === 'beast') || !!spec.beastCrowds?.length;
@@ -572,7 +575,7 @@ const glowCubes = (spec.glowCubes ?? []).map((g, i) => { const m = new T.Mesh(ne
 const CL = CINE_LOOK ? (await import('./cinelook.js')).createCineLook({renderer, scene, spec, aa: q.get('aa') !== '0'}) : null, CINE_OPTS = {bloom: true, grain: true, actorLight: true};
 // 1B fix: each actor's head centre above its root at load (rest pose, root yaw ignored: the head sits over the root axis)
 const CINE_HEAD = {}; if (CINE_CAM) for (const [n, x] of Object.entries(cast)) if (x.v2) { x.a.root.updateMatrixWorld(true); const b = new T.Box3().setFromObject(x.a.pivots.head, true), c = b.getCenter(new T.Vector3()); CINE_HEAD[n] = [0, c.y - x.a.root.position.y, 0]; }
-if (PF) for (const [n, x] of Object.entries(cast)) { if (x.beast || !x.a?.pivots?.head) continue; const ev = shots.flatMap(sh => (sh.puffs ?? []).filter(e => e.actor === n).map(e => ({size: e.size, t: sh.start / FPS + (e.at ?? 0)}))).sort((a, b) => a.t - b.t);
+if (PF) for (const [n, x] of Object.entries(cast)) { if (x.beast || !x.a?.pivots?.head) continue; const ev = shots.flatMap(sh => (sh.puffs ?? []).filter(e => e.actor === n).map(e => ({size: e.size, t: sh.start / FPS + (e.at ?? 0), ...(e.pose ? {pose: e.pose} : {})}))).sort((a, b) => a.t - b.t);
   if (!ev.length) continue; PUFFERS.push(n); PUFFEV[n] = ev.map(e => ({...e, size: e.size}));
   const tm = x.a.parts.torso?.material, col = tm?.color ? tm.color.clone() : new T.Color('#2b2f38'), ball = new T.Mesh(new T.IcosahedronGeometry(1, 2), new T.MeshStandardMaterial({color: col, roughness: .55, flatShading: true}));
   ball.name = 'puffBall'; ball.visible = false; x.a.root.add(ball); x.a.ball = ball; x.a.torsoExtras = x.a.parts.torso ? x.a.parts.torso.children.slice() : []; }   // tuft 2B hero puff ball proxy
