@@ -36,6 +36,8 @@ engine/fixtures/cine/before.json — tuft 1B fixture, BEFORE (current engine): t
 engine/fixtures/cine/bloomgate.json — tuft 1B bloom gate (scripts/v2/cine-gates.js): a white DUMMY (non-emissive) under the street lamp, the brightest lit spot of the night set, 
 engine/fixtures/cine/episode.json — tuft 1B (+ 1B fix) Look Pack + cinematic camera fixture: 6 shots ~12 s on the v4look street at night (look4 mystery: lit windows, lamp), HER
 engine/fixtures/eight-moves.json — Session 1 test clip: 3 s, one shot per camera move, one legacy avatar walking across a ground plate.
+engine/fixtures/fix3b/demo-tb.json — tuft P3B demo2 piece: TITAN on the ground before the mountain at night, low 3/4 on the chained forelegs: roar → break (chains snap, links fa
+engine/fixtures/fix3b/titan-hero.json — tuft P3B TITAN hero fixture: titanCave night ground in front of the mountain, TITAN idle / roar, low ¾ camera (lit night ¾ hero render).
 engine/fixtures/kit1/demo.json — Kit 1 demo: HDRI backdrop (venice_sunset), lowWide -> scaleReveal -> povScope, 60 fps, realism street via parts/location.js. No captions, no
 engine/fixtures/kit1/world.js — Kit 1 demo world: the Phase R realism street (street-procedural.json) built by parts/location.js.
 engine/fixtures/looktest/egg-new.json — A4 look test: egg base town at night
@@ -80,6 +82,7 @@ engine/fixtures/village/demo-cv.json — tuft P3 village look-dev fixture (scrip
 engine/fixtures/village/demo-pl.json — tuft P3 village look-dev fixture (scripts/v2/village-fixtures.js): festivalPlaza, night; one 1 s static shot per location view.
 engine/fixtures/village/demo-st.json — tuft P3 village look-dev fixture (scripts/v2/village-fixtures.js): villageStreet, night; one 1 s static shot per location view.
 engine/fixtures/village/festivalPlaza-colossal.json — tuft P3 village fixture: festivalPlaza night, lanternSea + giant cage on the stage, kids + parade beasts, colossal Tuft (puff colossal) towe
+engine/fixtures/village/festivalPlaza-day.json — tuft P3 village look-dev fixture (scripts/v2/village-fixtures.js): festivalPlaza, day; one 1 s static shot per location view.
 engine/fixtures/village/festivalPlaza-dusk.json — tuft P3 village look-dev fixture (scripts/v2/village-fixtures.js): festivalPlaza, dusk; one 1 s static shot per location view.
 engine/fixtures/village/festivalPlaza-night.json — tuft P3 village look-dev fixture (scripts/v2/village-fixtures.js): festivalPlaza, night; one 1 s static shot per location view.
 engine/fixtures/village/homeBedroom-day.json — tuft P3 village look-dev fixture (scripts/v2/village-fixtures.js): homeBedroom, day; one 1 s static shot per location view.
@@ -294,6 +297,8 @@ scripts/v2/faces-phone.js — Faces v3 at phone size: twelve presets on troupe b
 scripts/v2/faces5-sheet.js — Faces v5 at phone size: the hero, Mo and Pip (Toy House cast, Actor v5) at the 390 px close shot,
 scripts/v2/faces6-gates.js — P2 / P2b Faces v6 gates → review/faces6/gates.json (node + PIL raster, no browser):
 scripts/v2/faces6-sheet.js — P2 Faces v6 review sheets on the R15 hero (cast/hero6.json HERO, faceStyle v6) → review/faces6/:
+scripts/v2/fix3b-gates.js — tuft P3B gate sections for scripts/v2/village-gates.js (imported; each {sec, run(ctx)}); numbers via
+scripts/v2/fix3b-sheet.js — tuft P3B: ONE before / after sheet + phone read + demo → review/village/fix.png (≤ 1600 px), fix-390.png, demo2.mp4.
 scripts/v2/flicker.js — pure pixel comparison for the stability gate (Amendment A1).
 scripts/v2/frames-at.js — render a list of (spec, frame) pairs at one size to PNGs (any checkout: run it with that checkout as cwd).
 scripts/v2/grab.js — render chosen frames of a spec to PNGs (one browser load): look-dev / before-after captures for sheets and gates.
@@ -331,8 +336,8 @@ scripts/v2/shards.js — node scripts/v2/shards.js --story <slug> [--n 6]  → J
 scripts/v2/stability.js — npm run v2:stability -- --story <slug> | --spec <episode.json>     (docs/V2_BRIEF.md Amendment A1, Part A)
 scripts/v2/testpark-gates.js — E1b measured gates on testPark specs (in-page, on the frame the renderer just drew).
 scripts/v2/tex4.js — writes the format v4 surfaces to the disk cache (renders/cache/tex4/<name>-512.bin) so renders load
-scripts/v2/titan-preset.js — tuft 2B (P3 redesign): writes beasts/TITAN.json (data on the QUAD rig, engine/beast.js). The heavy rig at ×12 kid height:
-scripts/v2/titan-sil.js — tuft P3: TITAN silhouettes (front / side, horn pixels outside the body in orange) before vs after → review/village/titan-sil.png.
+scripts/v2/titan-preset.js — tuft 2B (P3B rebuild, owner spec): writes beasts/TITAN.json (data on the QUAD rig, engine/beast.js). A bull-gorilla
+scripts/v2/titan-sil.js — tuft P3 (P3B): TITAN flat-shaded ortho views FRONT / SIDE / ¾ (tests/titan.js `shade`: base colours + one key light,
 scripts/v2/touchgrass-episode.js — writes stories/touchgrass/episode.json from stories/touchgrass/BEATS.md (owner shot list, 61 shots;
 scripts/v2/touchgrass-gates.js — node scripts/v2/touchgrass-gates.js [--spec stories/touchgrass/episode.json] [--only p1,p3,...] [--floor] [--out review/touchgrass/gates-e1.
 scripts/v2/touchgrass-sheets.js — Touch Grass E0 gate material: cast, props and world sheets at true 390 px phone pixels,
@@ -361,7 +366,7 @@ beasts/CINDER.json — tuft 2A BEAST KIT: CINDER, the sky hawk (bird). Charcoal 
 beasts/DEER.json — tuft 2A BEAST KIT: DEER (low tier). Dark brown facets, dim MINT seams, bone antlers, long legs.
 beasts/FOX.json — tuft 2A BEAST KIT: FOX (low tier, parade / flee crowds). Dark rust facets, dim PINK seams; big ears, bushy tail.
 beasts/NIGHTFANG.json — tuft 2A BEAST KIT (2B redo): NIGHTFANG, the dragon. Near-black faceted body, CYAN glow seams, long S-curved neck, wedge head with swept-back
-beasts/TITAN.json — tuft 3 TITAN redesign (scripts/v2/titan-preset.js): gorilla-bison colossus ×12 kid height: shoulder hump above the head, low heavy head with
+beasts/TITAN.json — tuft 3B TITAN (scripts/v2/titan-preset.js, owner spec): bull-gorilla mountain ×12 kid: hunched hump = highest point, low forward head (flat 
 beasts/TUFT.json — tuft 2B TUFT (scripts/v2/tuft-preset.js): palm-sized moon-white puffball, big glossy eyes, small feet, layered faceted quill clusters tipped
 beasts/VOLT.json — tuft 2A BEAST KIT (2B fix): VOLT, the storm wolf (quad). Dark storm-grey faceted body (value \u2264 .45) so the ELECTRIC-YELLOW seams pop (s
 cast/hero.json — Format v4 (owner, 2026-11-15): the hero, slot HERO, in every episode from 2 on. Actor v5 (classic R6), first-person narrator. Bare yellow he
