@@ -20,7 +20,7 @@ Read this first in every session. Find code via `CODEMAP.md` + `grep -n`; never 
   `stories/<slug>/logs/`, prints ≤ 20 lines (each gate PASS/FAIL + key numbers), stops at the first FAIL.
   align = v2:align · spec = brief2spec · plan = v2:plan · animatic = stability + read + 270×480 render + sheet + pacing.png + phone-390.png · final = `--final` render.
 - `npm run ep:check -- --story <slug>` (engine freeze): fails if the branch diff touches anything outside `stories/<slug>/`,
-  `beasts/*.json`, `parts/locations/*.json`, `cast/*.json`. **Episode sessions must pass it; engine work only in engine phases.** The diff base is the commit in `stories/<slug>/BASE` (else `origin/main`): **each episode's first commit writes `stories/<slug>/BASE`** (the commit it branches from; tuft = 630b258).
+  `beasts/*.json`, `parts/locations/*.json`, `cast/*.json`. **Episode sessions must pass it; engine work only in engine phases.** The diff base is the commit in `stories/<slug>/BASE` (else `origin/main`): **each episode's first commit writes `stories/<slug>/BASE`** (the commit it branches from; tuft = 630b258; since 4C = 92c14ca).
 
 ## Rig (owner 2026-11-24)
 Episodes may use `rig: 'r6'` (classic rigid R6, no bends, `engine/r6.js`, `cast/troupe-r6.json`) and `twos: true` (characters on
