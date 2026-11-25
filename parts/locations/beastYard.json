@@ -1,0 +1,486 @@
+{
+ "note": "tuft P3 BEAST VILLAGE location: beastYard \u2014 the beast school yard (late-morning day): kids line up with their beasts on the cobbled yard; the school (tall windows, beast perches, round attic windows) behind; mossy yard walls + a beast gate; terraced hillside rooftops + TITAN's mountain over the school roof.",
+ "colour": "day = bright saturated late morning (comedy)",
+ "looks": [
+  "day",
+  "night"
+ ],
+ "ground": {
+  "size": [
+   110,
+   120
+  ],
+  "at": [
+   0,
+   -20
+  ],
+  "mat": "grass"
+ },
+ "streets": [
+  {
+   "path": [
+    [
+     -26,
+     -6
+    ],
+    [
+     0,
+     -6.5
+    ],
+    [
+     26,
+     -6
+    ]
+   ],
+   "width": 26,
+   "layer": "yard",
+   "mat": "cobble"
+  },
+  {
+   "path": [
+    [
+     0,
+     8
+    ],
+    [
+     0,
+     40
+    ]
+   ],
+   "width": 8,
+   "layer": "street"
+  }
+ ],
+ "houses": [
+  {
+   "preset": "school",
+   "at": [
+    0,
+    0,
+    -30
+   ],
+   "rotY": 0,
+   "seed": 4
+  },
+  {
+   "preset": "barn",
+   "at": [
+    -33,
+    0,
+    -14
+   ],
+   "rotY": 1.5707963267948966,
+   "seed": 8
+  },
+  {
+   "preset": "tall",
+   "at": [
+    32,
+    0,
+    -16
+   ],
+   "rotY": -1.5707963267948966,
+   "seed": 6
+  }
+ ],
+ "rows": [
+  {
+   "line": [
+    [
+     -40,
+     30
+    ],
+    [
+     -40,
+     -50
+    ]
+   ],
+   "side": 1,
+   "seed": 31,
+   "setback": 2
+  },
+  {
+   "line": [
+    [
+     40,
+     30
+    ],
+    [
+     40,
+     -50
+    ]
+   ],
+   "side": -1,
+   "seed": 32,
+   "setback": 2
+  },
+  {
+   "line": [
+    [
+     -48,
+     -46
+    ],
+    [
+     48,
+     -46
+    ]
+   ],
+   "side": -1,
+   "seed": 33,
+   "setback": 2,
+   "skip": [
+    [
+     0,
+     0,
+     -48,
+     22
+    ]
+   ]
+  }
+ ],
+ "terraces": {
+  "seed": 7,
+  "centre": [
+   0,
+   -60
+  ],
+  "dir": 0,
+  "rows": 6,
+  "from": 10,
+  "step": 14,
+  "rise": 6,
+  "span": 260
+ },
+ "hill": {
+  "centre": [
+   0,
+   -60
+  ],
+  "dir": 0,
+  "from": 10,
+  "step": 14,
+  "rise": 6
+ },
+ "mountain": {
+  "at": [
+   -50,
+   0,
+   -330
+  ],
+  "r": 160,
+  "h": 240,
+  "seed": 11
+ },
+ "walls": [
+  {
+   "from": [
+    -27,
+    0,
+    7.5
+   ],
+   "to": [
+    -4.5,
+    0,
+    7.5
+   ],
+   "h": 2.0
+  },
+  {
+   "from": [
+    4.5,
+    0,
+    7.5
+   ],
+   "to": [
+    27,
+    0,
+    7.5
+   ],
+   "h": 2.0
+  },
+  {
+   "from": [
+    -27,
+    0,
+    7.5
+   ],
+   "to": [
+    -27,
+    0,
+    -21
+   ],
+   "h": 2.0
+  },
+  {
+   "from": [
+    27,
+    0,
+    7.5
+   ],
+   "to": [
+    27,
+    0,
+    -21
+   ],
+   "h": 2.0
+  }
+ ],
+ "props": [
+  {
+   "type": "post",
+   "at": [
+    -4.6,
+    0,
+    7.5
+   ],
+   "h": 6.5
+  },
+  {
+   "type": "post",
+   "at": [
+    4.6,
+    0,
+    7.5
+   ],
+   "h": 6.5
+  },
+  {
+   "type": "trough",
+   "at": [
+    -21,
+    0,
+    -14
+   ],
+   "rotY": 0
+  },
+  {
+   "type": "hay",
+   "at": [
+    22,
+    0,
+    -15
+   ]
+  },
+  {
+   "type": "bench",
+   "at": [
+    -20,
+    0,
+    3
+   ],
+   "rotY": 1.5707963267948966
+  },
+  {
+   "type": "bench",
+   "at": [
+    20,
+    0,
+    3
+   ],
+   "rotY": -1.5707963267948966
+  },
+  {
+   "type": "well",
+   "at": [
+    17,
+    0,
+    -3
+   ]
+  },
+  {
+   "type": "barrel",
+   "at": [
+    -23,
+    0,
+    -3
+   ]
+  },
+  {
+   "type": "crate",
+   "at": [
+    23.5,
+    0,
+    -9
+   ]
+  }
+ ],
+ "boxes": [
+  {
+   "size": [
+    9.6,
+    0.6,
+    0.8
+   ],
+   "at": [
+    0,
+    6.6,
+    7.5
+   ],
+   "mat": "timber"
+  }
+ ],
+ "lanternStrings": [
+  {
+   "from": [
+    -14,
+    12,
+    -22
+   ],
+   "to": [
+    -26,
+    7,
+    5
+   ],
+   "sag": 1.2
+  },
+  {
+   "from": [
+    14,
+    12,
+    -22
+   ],
+   "to": [
+    26,
+    7,
+    5
+   ],
+   "sag": 1.2
+  }
+ ],
+ "anchors": {
+  "street": {
+   "position": [
+    0,
+    0,
+    -4
+   ]
+  },
+  "line": {
+   "position": [
+    -8,
+    0,
+    -6
+   ]
+  },
+  "gate": {
+   "position": [
+    0,
+    0,
+    7.5
+   ]
+  },
+  "schoolDoor": {
+   "position": [
+    0,
+    0,
+    -22.5
+   ]
+  }
+ },
+ "views": {
+  "establish": {
+   "position": [
+    0,
+    7,
+    40
+   ],
+   "target": [
+    0,
+    12,
+    -30
+   ],
+   "fov": 50
+  },
+  "hero": {
+   "position": [
+    -15,
+    2.6,
+    4
+   ],
+   "target": [
+    8,
+    6,
+    -16
+   ],
+   "fov": 42
+  }
+ },
+ "fixtureCast": {
+  "kidA": {
+   "style": "v5",
+   "troupe": "LEAD",
+   "at": "street",
+   "offset": [
+    -10,
+    0,
+    -6
+   ],
+   "yaw": 180,
+   "keys": [
+    [
+     0,
+     "idle"
+    ]
+   ]
+  },
+  "kidB": {
+   "style": "v5",
+   "troupe": "LITTLE",
+   "at": "street",
+   "offset": [
+    -2,
+    0,
+    -6
+   ],
+   "yaw": 180,
+   "keys": [
+    [
+     0,
+     "idle"
+    ]
+   ]
+  },
+  "kidC": {
+   "style": "v5",
+   "troupe": "HERO",
+   "at": "street",
+   "offset": [
+    6,
+    0,
+    -6
+   ],
+   "yaw": 180,
+   "keys": [
+    [
+     0,
+     "idle"
+    ]
+   ]
+  },
+  "volt": {
+   "style": "beast",
+   "preset": "VOLT",
+   "tier": "hero",
+   "at": "street",
+   "offset": [
+    -6.5,
+    0,
+    -7.5
+   ],
+   "yaw": 0
+  },
+  "boulder": {
+   "style": "beast",
+   "preset": "BOULDER",
+   "tier": "hero",
+   "at": "street",
+   "offset": [
+    11.5,
+    0,
+    -7.5
+   ],
+   "yaw": 0
+  }
+ },
+ "skyDist": 650
+}

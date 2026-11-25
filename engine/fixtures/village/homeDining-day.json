@@ -1,0 +1,123 @@
+{
+ "note": "tuft P3 village look-dev fixture (scripts/v2/village-fixtures.js): homeDining, day; one 1 s static shot per location view.",
+ "slug": "village",
+ "fps": 24,
+ "format": 6,
+ "acting": 6,
+ "rig": "r6",
+ "twos": false,
+ "faceLife": true,
+ "labels": false,
+ "world": "parts/village/world.js",
+ "cues": "engine/fixtures/acting6/cues.json",
+ "post": "cine",
+ "camera": "cine",
+ "grade": "clear",
+ "location": "homeDining",
+ "look4": "toy",
+ "look": "comedy",
+ "skyDist": 650,
+ "cast": {
+  "boulder": {
+   "style": "beast",
+   "preset": "BOULDER",
+   "tier": "hero",
+   "at": "street",
+   "offset": [
+    13.5,
+    0,
+    0.5
+   ],
+   "yaw": -90
+  },
+  "kid": {
+   "style": "v5",
+   "troupe": "HERO",
+   "at": "street",
+   "offset": [
+    -3,
+    0,
+    -2
+   ],
+   "yaw": 20,
+   "keys": [
+    [
+     0,
+     "idle"
+    ]
+   ]
+  }
+ },
+ "shots": [
+  {
+   "id": "homeDining-establish",
+   "frames": 24,
+   "duration": 1,
+   "size": "ws",
+   "mood": "awe",
+   "move": "static-drift",
+   "angle": "eye",
+   "from": {
+    "position": [
+     2,
+     6.2,
+     15
+    ],
+    "target": [
+     0,
+     3.6,
+     -3
+    ],
+    "fov": 55
+   },
+   "to": {
+    "position": [
+     2,
+     6.2,
+     15
+    ],
+    "target": [
+     0,
+     3.6,
+     -3
+    ],
+    "fov": 55
+   }
+  },
+  {
+   "id": "homeDining-hero",
+   "frames": 24,
+   "duration": 1,
+   "size": "ws",
+   "mood": "awe",
+   "move": "static-drift",
+   "angle": "eye",
+   "from": {
+    "position": [
+     -7.5,
+     3.8,
+     5.2
+    ],
+    "target": [
+     14,
+     4.4,
+     0.2
+    ],
+    "fov": 48
+   },
+   "to": {
+    "position": [
+     -7.5,
+     3.8,
+     5.2
+    ],
+    "target": [
+     14,
+     4.4,
+     0.2
+    ],
+    "fov": 48
+   }
+  }
+ ]
+}

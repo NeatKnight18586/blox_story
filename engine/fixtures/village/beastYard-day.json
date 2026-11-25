@@ -1,0 +1,169 @@
+{
+ "note": "tuft P3 village look-dev fixture (scripts/v2/village-fixtures.js): beastYard, day; one 1 s static shot per location view.",
+ "slug": "village",
+ "fps": 24,
+ "format": 6,
+ "acting": 6,
+ "rig": "r6",
+ "twos": false,
+ "faceLife": true,
+ "labels": false,
+ "world": "parts/village/world.js",
+ "cues": "engine/fixtures/acting6/cues.json",
+ "post": "cine",
+ "camera": "cine",
+ "grade": "clear",
+ "location": "beastYard",
+ "look4": "comedy",
+ "look": "comedy",
+ "skyDist": 650,
+ "cast": {
+  "kidA": {
+   "style": "v5",
+   "troupe": "LEAD",
+   "at": "street",
+   "offset": [
+    -10,
+    0,
+    -6
+   ],
+   "yaw": 180,
+   "keys": [
+    [
+     0,
+     "idle"
+    ]
+   ]
+  },
+  "kidB": {
+   "style": "v5",
+   "troupe": "LITTLE",
+   "at": "street",
+   "offset": [
+    -2,
+    0,
+    -6
+   ],
+   "yaw": 180,
+   "keys": [
+    [
+     0,
+     "idle"
+    ]
+   ]
+  },
+  "kidC": {
+   "style": "v5",
+   "troupe": "HERO",
+   "at": "street",
+   "offset": [
+    6,
+    0,
+    -6
+   ],
+   "yaw": 180,
+   "keys": [
+    [
+     0,
+     "idle"
+    ]
+   ]
+  },
+  "volt": {
+   "style": "beast",
+   "preset": "VOLT",
+   "tier": "hero",
+   "at": "street",
+   "offset": [
+    -6.5,
+    0,
+    -7.5
+   ],
+   "yaw": 0
+  },
+  "boulder": {
+   "style": "beast",
+   "preset": "BOULDER",
+   "tier": "hero",
+   "at": "street",
+   "offset": [
+    11.5,
+    0,
+    -7.5
+   ],
+   "yaw": 0
+  }
+ },
+ "shots": [
+  {
+   "id": "beastYard-establish",
+   "frames": 24,
+   "duration": 1,
+   "size": "ws",
+   "mood": "awe",
+   "move": "static-drift",
+   "angle": "eye",
+   "from": {
+    "position": [
+     0,
+     7,
+     40
+    ],
+    "target": [
+     0,
+     12,
+     -30
+    ],
+    "fov": 50
+   },
+   "to": {
+    "position": [
+     0,
+     7,
+     40
+    ],
+    "target": [
+     0,
+     12,
+     -30
+    ],
+    "fov": 50
+   }
+  },
+  {
+   "id": "beastYard-hero",
+   "frames": 24,
+   "duration": 1,
+   "size": "ws",
+   "mood": "awe",
+   "move": "static-drift",
+   "angle": "eye",
+   "from": {
+    "position": [
+     -15,
+     2.6,
+     4
+    ],
+    "target": [
+     8,
+     6,
+     -16
+    ],
+    "fov": 42
+   },
+   "to": {
+    "position": [
+     -15,
+     2.6,
+     4
+    ],
+    "target": [
+     8,
+     6,
+     -16
+    ],
+    "fov": 42
+   }
+  }
+ ]
+}

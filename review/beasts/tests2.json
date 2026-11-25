@@ -6,8 +6,8 @@
  },
  {
   "name": "hero silhouettes pairwise IoU ≤ 0.6",
-  "pass": false,
-  "line": "max 0.609 (NIVO 0.334, NICI 0.349, NIBO 0.27, NITU 0.327, NITI 0.274, VOCI 0.401, VOBO 0.33, VOTU 0.409, VOTI 0.353, CIBO 0.274, CITU 0.296, CITI 0.218, BOTU 0.572, BOTI 0.609, TUTI 0.559)",
+  "pass": true,
+  "line": "max 0.581 (NIVO 0.334, NICI 0.349, NIBO 0.27, NITU 0.327, NITI 0.414, VOCI 0.401, VOBO 0.33, VOTU 0.409, VOTI 0.421, CIBO 0.274, CITU 0.296, CITI 0.281, BOTU 0.572, BOTI 0.472, TUTI 0.581)",
   "pairs": [
    [
     "NIGHTFANG",
@@ -32,7 +32,7 @@
    [
     "NIGHTFANG",
     "TITAN",
-    0.274
+    0.414
    ],
    [
     "VOLT",
@@ -52,7 +52,7 @@
    [
     "VOLT",
     "TITAN",
-    0.353
+    0.421
    ],
    [
     "CINDER",
@@ -67,7 +67,7 @@
    [
     "CINDER",
     "TITAN",
-    0.218
+    0.281
    ],
    [
     "BOULDER",
@@ -77,14 +77,19 @@
    [
     "BOULDER",
     "TITAN",
-    0.609
+    0.472
    ],
    [
     "TUFT",
     "TITAN",
-    0.559
+    0.581
    ]
   ]
+ },
+ {
+  "name": "TITAN horns read in silhouette (front + side)",
+  "pass": true,
+  "line": "horn pixels outside the body silhouette: front 11.5 %, side 7.3 % (≥ 6 %); tris 2504 (≤ 6k)"
  },
  {
   "name": "TUFT tris ≤ 4k",
@@ -114,12 +119,12 @@
  {
   "name": "TITAN tris ≤ 6k, ×12 kid height",
   "pass": true,
-  "line": "1404 tris; height 12.00 × kid (12 ± .6)"
+  "line": "2504 tris; height 12.00 × kid (12 ± .6)"
  },
  {
   "name": "TITAN chains snap (gone after τ = 0.6 s of break)",
   "pass": true,
-  "line": "chain links 26.8 studs out before the snap; all 4 chain segments collapsed after"
+  "line": "chain links 29.0 studs out before the snap; all 4 chain segments collapsed after"
  },
  {
   "name": "TITAN stomp footfalls → camera shake hook",

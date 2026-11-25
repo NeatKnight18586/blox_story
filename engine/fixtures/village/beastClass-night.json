@@ -1,0 +1,123 @@
+{
+ "note": "tuft P3 village look-dev fixture (scripts/v2/village-fixtures.js): beastClass, night; one 1 s static shot per location view.",
+ "slug": "village",
+ "fps": 24,
+ "format": 6,
+ "acting": 6,
+ "rig": "r6",
+ "twos": false,
+ "faceLife": true,
+ "labels": false,
+ "world": "parts/village/world.js",
+ "cues": "engine/fixtures/acting6/cues.json",
+ "post": "cine",
+ "camera": "cine",
+ "grade": "clear",
+ "location": "beastClass",
+ "look4": "moonlit",
+ "look": "mystery",
+ "skyDist": 650,
+ "cast": {
+  "nightfang": {
+   "style": "beast",
+   "preset": "NIGHTFANG",
+   "tier": "hero",
+   "at": "street",
+   "offset": [
+    -32,
+    0,
+    -3
+   ],
+   "yaw": 80
+  },
+  "kid": {
+   "style": "v5",
+   "troupe": "HERO",
+   "at": "street",
+   "offset": [
+    -3,
+    0,
+    -3.5
+   ],
+   "yaw": 200,
+   "keys": [
+    [
+     0,
+     "idle"
+    ]
+   ]
+  }
+ },
+ "shots": [
+  {
+   "id": "beastClass-establish",
+   "frames": 24,
+   "duration": 1,
+   "size": "ws",
+   "mood": "awe",
+   "move": "static-drift",
+   "angle": "eye",
+   "from": {
+    "position": [
+     9,
+     6.8,
+     15
+    ],
+    "target": [
+     -3,
+     4,
+     -5
+    ],
+    "fov": 55
+   },
+   "to": {
+    "position": [
+     9,
+     6.8,
+     15
+    ],
+    "target": [
+     -3,
+     4,
+     -5
+    ],
+    "fov": 55
+   }
+  },
+  {
+   "id": "beastClass-hero",
+   "frames": 24,
+   "duration": 1,
+   "size": "ws",
+   "mood": "awe",
+   "move": "static-drift",
+   "angle": "eye",
+   "from": {
+    "position": [
+     6,
+     4.2,
+     3.5
+    ],
+    "target": [
+     -20,
+     6.5,
+     -1.5
+    ],
+    "fov": 46
+   },
+   "to": {
+    "position": [
+     6,
+     4.2,
+     3.5
+    ],
+    "target": [
+     -20,
+     6.5,
+     -1.5
+    ],
+    "fov": 46
+   }
+  }
+ ]
+}

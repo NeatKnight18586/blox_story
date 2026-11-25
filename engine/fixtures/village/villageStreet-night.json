@@ -1,0 +1,159 @@
+{
+ "note": "tuft P3 village look-dev fixture (scripts/v2/village-fixtures.js): villageStreet, night; one 1 s static shot per location view.",
+ "slug": "village",
+ "fps": 24,
+ "format": 6,
+ "acting": 6,
+ "rig": "r6",
+ "twos": false,
+ "faceLife": true,
+ "labels": false,
+ "world": "parts/village/world.js",
+ "cues": "engine/fixtures/acting6/cues.json",
+ "post": "cine",
+ "camera": "cine",
+ "grade": "clear",
+ "location": "villageStreet",
+ "look4": "moonlit",
+ "look": "mystery",
+ "skyDist": 650,
+ "cast": {
+  "kid": {
+   "style": "v5",
+   "troupe": "HERO",
+   "at": "street",
+   "offset": [
+    4.2,
+    0,
+    24
+   ],
+   "yaw": 180,
+   "keys": [
+    [
+     0,
+     "idle"
+    ]
+   ]
+  },
+  "volt": {
+   "style": "beast",
+   "preset": "VOLT",
+   "tier": "hero",
+   "at": "street",
+   "offset": [
+    -3,
+    0,
+    16
+   ],
+   "yaw": 160
+  },
+  "fox": {
+   "style": "beast",
+   "preset": "FOX",
+   "tier": "low",
+   "at": "street",
+   "offset": [
+    -9,
+    0,
+    17
+   ],
+   "yaw": 90
+  },
+  "deer": {
+   "style": "beast",
+   "preset": "DEER",
+   "tier": "low",
+   "at": "street",
+   "offset": [
+    9,
+    0,
+    -20
+   ],
+   "yaw": -90
+  },
+  "boar": {
+   "style": "beast",
+   "preset": "BOAR",
+   "tier": "low",
+   "at": "street",
+   "offset": [
+    -9,
+    0,
+    -6
+   ],
+   "yaw": 60
+  }
+ },
+ "shots": [
+  {
+   "id": "villageStreet-establish",
+   "frames": 24,
+   "duration": 1,
+   "size": "ws",
+   "mood": "awe",
+   "move": "static-drift",
+   "angle": "eye",
+   "from": {
+    "position": [
+     2.5,
+     7,
+     46
+    ],
+    "target": [
+     0,
+     10,
+     -70
+    ],
+    "fov": 50
+   },
+   "to": {
+    "position": [
+     2.5,
+     7,
+     46
+    ],
+    "target": [
+     0,
+     10,
+     -70
+    ],
+    "fov": 50
+   }
+  },
+  {
+   "id": "villageStreet-hero",
+   "frames": 24,
+   "duration": 1,
+   "size": "ws",
+   "mood": "awe",
+   "move": "static-drift",
+   "angle": "eye",
+   "from": {
+    "position": [
+     5,
+     3.2,
+     24
+    ],
+    "target": [
+     -9,
+     15,
+     6
+    ],
+    "fov": 46
+   },
+   "to": {
+    "position": [
+     5,
+     3.2,
+     24
+    ],
+    "target": [
+     -9,
+     15,
+     6
+    ],
+    "fov": 46
+   }
+  }
+ ]
+}

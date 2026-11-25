@@ -1,0 +1,281 @@
+{
+ "note": "tuft P3 BEAST VILLAGE location: homeBedroom \u2014 the small attic room (~10 \u00d7 10) with the ROUND window (our house), bed, the hood hook. Room puff: the hero ball (\u00d8 10) fills it, legs out of the round window (spec puff `pose: 'window'`).",
+ "colour": "storm-blue night, one warm lamp",
+ "looks": [
+  "night",
+  "day"
+ ],
+ "interior": true,
+ "ground": {
+  "size": [
+   60,
+   60
+  ],
+  "at": [
+   0,
+   10
+  ],
+  "mat": "grass"
+ },
+ "rooms": [
+  {
+   "at": [
+    0,
+    0,
+    0
+   ],
+   "w": 10.4,
+   "d": 10.4,
+   "h": 10.6,
+   "openSide": "back",
+   "floor": "wood",
+   "wall": "plaster",
+   "ceiling": "plaster3",
+   "windows": [
+    {
+     "side": "front",
+     "x": 0,
+     "y": 5.2,
+     "w": 2.6,
+     "h": 2.6,
+     "glass": false
+    }
+   ],
+   "door": {
+    "side": "left",
+    "x": -2.6,
+    "w": 2.6,
+    "h": 5
+   }
+  }
+ ],
+ "boxes": [],
+ "discs": [
+  {
+   "r": 1.55,
+   "t": 0.9,
+   "at": [
+    0,
+    5.2,
+    5.25
+   ],
+   "mat": "frame",
+   "n": 20,
+   "ring": true
+  }
+ ],
+ "props": [
+  {
+   "type": "bed",
+   "at": [
+    -2.4,
+    0,
+    -1
+   ],
+   "rotY": 0,
+   "s": 0.75
+  },
+  {
+   "type": "hook",
+   "at": [
+    4.9,
+    5.2,
+    -3
+   ],
+   "rotY": -1.5707963267948966
+  },
+  {
+   "type": "shelf",
+   "at": [
+    3.2,
+    4.6,
+    -5
+   ],
+   "w": 3,
+   "n": 3
+  },
+  {
+   "type": "crate",
+   "at": [
+    3.8,
+    0,
+    3.6
+   ]
+  }
+ ],
+ "streets": [
+  {
+   "path": [
+    [
+     -20,
+     12
+    ],
+    [
+     20,
+     12
+    ]
+   ],
+   "width": 9,
+   "layer": "street"
+  }
+ ],
+ "houses": [
+  {
+   "preset": "tall",
+   "at": [
+    -12,
+    0,
+    26
+   ],
+   "rotY": 3.141592653589793,
+   "seed": 14
+  },
+  {
+   "preset": "cottage",
+   "at": [
+    12,
+    0,
+    26
+   ],
+   "rotY": 3.141592653589793,
+   "seed": 15
+  }
+ ],
+ "lanternStrings": [
+  {
+   "from": [
+    -9,
+    9,
+    16
+   ],
+   "to": [
+    9,
+    9,
+    17
+   ],
+   "sag": 1.0
+  }
+ ],
+ "mountain": {
+  "at": [
+   60,
+   0,
+   320
+  ],
+  "r": 150,
+  "h": 230,
+  "seed": 11,
+  "rotY": 3.141592653589793
+ },
+ "lights": [
+  {
+   "p": [
+    3,
+    7.5,
+    -2
+   ],
+   "color": [
+    1,
+    0.7,
+    0.42
+   ],
+   "i": 5.5,
+   "range": 12
+  },
+  {
+   "p": [
+    -3,
+    8,
+    2
+   ],
+   "color": [
+    1,
+    0.75,
+    0.5
+   ],
+   "i": 2.5,
+   "range": 9
+  }
+ ],
+ "anchors": {
+  "street": {
+   "position": [
+    0,
+    0,
+    -1
+   ]
+  },
+  "window": {
+   "position": [
+    0,
+    0,
+    4.6
+   ]
+  },
+  "bed": {
+   "position": [
+    -2.4,
+    0,
+    -1
+   ]
+  }
+ },
+ "views": {
+  "establish": {
+   "position": [
+    2.6,
+    6.4,
+    -11
+   ],
+   "target": [
+    0,
+    4.2,
+    2
+   ],
+   "fov": 58
+  },
+  "hero": {
+   "position": [
+    -3.4,
+    3.2,
+    -3
+   ],
+   "target": [
+    0.6,
+    5.2,
+    5.2
+   ],
+   "fov": 50
+  }
+ },
+ "skyDist": 650,
+ "lookMap": {
+  "day": "toy",
+  "night": "moonlit"
+ },
+ "fixtureCast": {
+  "hero": {
+   "style": "v5",
+   "troupe": "HERO",
+   "at": "street",
+   "offset": [
+    0,
+    0,
+    6.7
+   ],
+   "yaw": 0,
+   "keys": [
+    [
+     0,
+     "idle"
+    ]
+   ]
+  }
+ },
+ "fixturePuff": {
+  "actor": "hero",
+  "size": "room",
+  "at": 0.0,
+  "pose": "window"
+ }
+}

@@ -1,0 +1,206 @@
+{
+ "note": "tuft P3 village look-dev fixture (scripts/v2/village-fixtures.js): festivalPlaza, night; one 1 s static shot per location view.",
+ "slug": "village",
+ "fps": 24,
+ "format": 6,
+ "acting": 6,
+ "rig": "r6",
+ "twos": false,
+ "faceLife": true,
+ "labels": false,
+ "world": "parts/village/world.js",
+ "cues": "engine/fixtures/acting6/cues.json",
+ "post": "cine",
+ "camera": "cine",
+ "grade": "clear",
+ "location": "festivalPlaza",
+ "look4": "moonlit",
+ "look": "mystery",
+ "skyDist": 680,
+ "cast": {
+  "kid0": {
+   "style": "v5",
+   "troupe": "LEAD",
+   "at": "street",
+   "offset": [
+    -10,
+    0,
+    8
+   ],
+   "yaw": 180,
+   "keys": [
+    [
+     0,
+     "idle"
+    ]
+   ]
+  },
+  "kid1": {
+   "style": "v5",
+   "troupe": "LITTLE",
+   "at": "street",
+   "offset": [
+    -6,
+    0,
+    10.5
+   ],
+   "yaw": 180,
+   "keys": [
+    [
+     0,
+     "idle"
+    ]
+   ]
+  },
+  "kid2": {
+   "style": "v5",
+   "troupe": "HERO",
+   "at": "street",
+   "offset": [
+    -2,
+    0,
+    8
+   ],
+   "yaw": 180,
+   "keys": [
+    [
+     0,
+     "idle"
+    ]
+   ]
+  },
+  "kid3": {
+   "style": "v5",
+   "troupe": "LEAD",
+   "at": "street",
+   "offset": [
+    2,
+    0,
+    10.5
+   ],
+   "yaw": 180,
+   "keys": [
+    [
+     0,
+     "idle"
+    ]
+   ]
+  },
+  "kid4": {
+   "style": "v5",
+   "troupe": "LITTLE",
+   "at": "street",
+   "offset": [
+    6,
+    0,
+    8
+   ],
+   "yaw": 180,
+   "keys": [
+    [
+     0,
+     "idle"
+    ]
+   ]
+  },
+  "kid5": {
+   "style": "v5",
+   "troupe": "HERO",
+   "at": "street",
+   "offset": [
+    10,
+    0,
+    10.5
+   ],
+   "yaw": 180,
+   "keys": [
+    [
+     0,
+     "idle"
+    ]
+   ]
+  },
+  "boulder": {
+   "style": "beast",
+   "preset": "BOULDER",
+   "tier": "hero",
+   "at": "street",
+   "offset": [
+    -17,
+    0,
+    -2
+   ],
+   "yaw": 30
+  },
+  "cinder": {
+   "style": "beast",
+   "preset": "CINDER",
+   "tier": "hero",
+   "at": "street",
+   "offset": [
+    16,
+    0,
+    -3
+   ],
+   "yaw": -30
+  }
+ },
+ "shots": [
+  {
+   "id": "demo-plaza",
+   "frames": 96,
+   "duration": 4,
+   "size": "ews",
+   "mood": "awe",
+   "move": "push",
+   "angle": "low",
+   "from": {
+    "position": [
+     -30,
+     14,
+     60
+    ],
+    "target": [
+     0,
+     16,
+     -30
+    ],
+    "fov": 52
+   },
+   "to": {
+    "position": [
+     14,
+     7,
+     34
+    ],
+    "target": [
+     0,
+     14,
+     -30
+    ],
+    "fov": 52
+   }
+  }
+ ],
+ "props2b": [
+  {
+   "kind": "lanternSea",
+   "at": [
+    0,
+    0,
+    -10
+   ],
+   "r": 80,
+   "n": 1500
+  },
+  {
+   "kind": "giantCage",
+   "at": [
+    0,
+    1.6,
+    -24
+   ],
+   "scale": 0.3
+  }
+ ]
+}

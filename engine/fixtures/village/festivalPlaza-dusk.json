@@ -1,0 +1,220 @@
+{
+ "note": "tuft P3 village look-dev fixture (scripts/v2/village-fixtures.js): festivalPlaza, dusk; one 1 s static shot per location view.",
+ "slug": "village",
+ "fps": 24,
+ "format": 6,
+ "acting": 6,
+ "rig": "r6",
+ "twos": false,
+ "faceLife": true,
+ "labels": false,
+ "world": "parts/village/world.js",
+ "cues": "engine/fixtures/acting6/cues.json",
+ "post": "cine",
+ "camera": "cine",
+ "grade": "clear",
+ "location": "festivalPlaza",
+ "look4": "dawn",
+ "look": "dawn",
+ "skyDist": 680,
+ "cast": {
+  "kid0": {
+   "style": "v5",
+   "troupe": "LEAD",
+   "at": "street",
+   "offset": [
+    -10,
+    0,
+    8
+   ],
+   "yaw": 180,
+   "keys": [
+    [
+     0,
+     "idle"
+    ]
+   ]
+  },
+  "kid1": {
+   "style": "v5",
+   "troupe": "LITTLE",
+   "at": "street",
+   "offset": [
+    -6,
+    0,
+    10.5
+   ],
+   "yaw": 180,
+   "keys": [
+    [
+     0,
+     "idle"
+    ]
+   ]
+  },
+  "kid2": {
+   "style": "v5",
+   "troupe": "HERO",
+   "at": "street",
+   "offset": [
+    -2,
+    0,
+    8
+   ],
+   "yaw": 180,
+   "keys": [
+    [
+     0,
+     "idle"
+    ]
+   ]
+  },
+  "kid3": {
+   "style": "v5",
+   "troupe": "LEAD",
+   "at": "street",
+   "offset": [
+    2,
+    0,
+    10.5
+   ],
+   "yaw": 180,
+   "keys": [
+    [
+     0,
+     "idle"
+    ]
+   ]
+  },
+  "kid4": {
+   "style": "v5",
+   "troupe": "LITTLE",
+   "at": "street",
+   "offset": [
+    6,
+    0,
+    8
+   ],
+   "yaw": 180,
+   "keys": [
+    [
+     0,
+     "idle"
+    ]
+   ]
+  },
+  "kid5": {
+   "style": "v5",
+   "troupe": "HERO",
+   "at": "street",
+   "offset": [
+    10,
+    0,
+    10.5
+   ],
+   "yaw": 180,
+   "keys": [
+    [
+     0,
+     "idle"
+    ]
+   ]
+  },
+  "boulder": {
+   "style": "beast",
+   "preset": "BOULDER",
+   "tier": "hero",
+   "at": "street",
+   "offset": [
+    -17,
+    0,
+    -2
+   ],
+   "yaw": 30
+  },
+  "cinder": {
+   "style": "beast",
+   "preset": "CINDER",
+   "tier": "hero",
+   "at": "street",
+   "offset": [
+    16,
+    0,
+    -3
+   ],
+   "yaw": -30
+  }
+ },
+ "shots": [
+  {
+   "id": "festivalPlaza-establish",
+   "frames": 24,
+   "duration": 1,
+   "size": "ws",
+   "mood": "awe",
+   "move": "static-drift",
+   "angle": "eye",
+   "from": {
+    "position": [
+     0,
+     8,
+     62
+    ],
+    "target": [
+     0,
+     14,
+     -40
+    ],
+    "fov": 52
+   },
+   "to": {
+    "position": [
+     0,
+     8,
+     62
+    ],
+    "target": [
+     0,
+     14,
+     -40
+    ],
+    "fov": 52
+   }
+  },
+  {
+   "id": "festivalPlaza-hero",
+   "frames": 24,
+   "duration": 1,
+   "size": "ws",
+   "mood": "awe",
+   "move": "static-drift",
+   "angle": "eye",
+   "from": {
+    "position": [
+     -18,
+     4,
+     24
+    ],
+    "target": [
+     2,
+     9,
+     -18
+    ],
+    "fov": 46
+   },
+   "to": {
+    "position": [
+     -18,
+     4,
+     24
+    ],
+    "target": [
+     2,
+     9,
+     -18
+    ],
+    "fov": 46
+   }
+  }
+ ]
+}
