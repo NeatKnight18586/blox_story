@@ -6,6 +6,7 @@ import json, re, sys
 ST = {'beastYard': -4, 'beastClass': 2, 'homeDining': 3, 'homeBedroom': -1, 'villageStreet': 10, 'festivalPlaza': 6, 'titanCave': 150}
 STAGE = json.load(open('stories/tuft/stage.json'))
 rows = open('stories/tuft/BRIEF.md').read().split('\n'); loc = None; out = []
+PARK = ['hero', 'juni', 'vance', 'kira', 'rocco', 'dad', 'teacher', 'crowd']   # actors parked far off-camera unless a shot places them
 KEEP = re.compile(r'^(place|cam|fov|camy|fit|stand)\s*:')
 for ln in rows:
     m = re.match(r'^\| (\d+) \|', ln)
@@ -18,6 +19,9 @@ for ln in rows:
         e = STAGE.get(n)
         if e:
             z0 = ST[loc]; add = []
+            if e.get('park'):
+                for i, who in enumerate(PARK):
+                    if who not in e.get('p', {}): e.setdefault('p', {})[who] = [70 + i * 3, z0 + 40, 0]
             for who, (x, z, yaw) in e.get('p', {}).items(): add.append(f'place: {who} {x:g} {z - z0:g} yaw {yaw:g}')
             if 'c' in e: add.append('cam: ' + ' '.join(f'{v:g}' for v in e['c'][:3]) + ' at ' + ' '.join(f'{v:g}' for v in e['c'][3:]))
             if 'fov' in e: add.append(f'fov: {e["fov"]:g}')
