@@ -1999,3 +1999,46 @@ Five weakest in village.png / demo: (1) colossal Tuft blows out to white under t
 TITAN reads ghost-pale (moon rim) and the cave arch is not visible around it; (3) the terraced hillside reads as a flat pale wall of box backs at dusk
 (no roofs seen from below, no haze); (4) homeBedroom room puff = a black blob (hero torso colour) filling the frame, legs only read in the hero angle;
 (5) fixture kids stand too close to the street / dining cameras and block the depth; dusk plaza is grey, not amber.
+
+## tuft (E5) Phase 3B FIX — owner review of the village (Opus 5.5)
+Plan: 1. TITAN rebuilt to the owner spec in scripts/v2/titan-preset.js (hump = highest, low forward head, ram horns round the ears as 10 faceted
+segments, basalt ≤ .35 + moss, thin branching molten cracks, foreleg chains); pure gates tests/titan.js (horns < hump top over 7 poses, hump
+highest, body value, crack aspect P²/4A ≥ 4, IoU, tris); beastrt opt-in preset `moonRim` / `material`. 2. colossal TUFT: cap body emissive,
+diffuse fluff, tips-only HDR glow, dark eyes + highlight; gate (clipped ≤ 3 %, two dark eye blobs, blue-gold tips) on hook + payoff frames.
+3. lanternSea ~600 in streams, keep-clear (mountain, upper third, faces, Tuft's eyes); gate lantern px ≤ 18 %, 0 on faces. 4. far hillside
+slate roofs facing camera + terraces + trees; festivalPlaza dusk amber LOOK; gates roof-slate ≥ 25 %, dusk hue/sat. 5. cave arch + eyes,
+hero ball jacket colours + key, Boulder door backlight (sep ≥ .06). Night gates re-scoped per the owner rulings. fix.png / fix-390 / demo2.
+Built: 1 TITAN rebuilt (scripts/v2/titan-preset.js → beasts/TITAN.json): hunched hump = highest point, small hips, low barrel chest, low forward head (flat
+brow, underbite jaw, 2 tusks), ram horns = 10 tapered faceted segments + darker rings on a spiral round the ear, its plane turned 40° out (curls from the
+front too), knuckle fists + chains on the forelegs, short bent hind legs, dragging tail, basalt .229 + moss, seeded branching crack polylines (#FF6A1A,
+branches #FFB347, HDR 4), molten eyes + mouth; beastrt opt-ins `moonRim: false`, `material` {roughness, metalness, env, fog} (the night pallor was the
+DAY env map on metalness .18 + scene fog at distance). tests/titan.js (pure gates + `shade()`), titan-sil.js front / side / ¾. 2 TUFT data: fluff
+albedo ~.7 (shaded facets), tips emission-only on a dark base, `glowCap` 1.0, blue glowK .5, longer tips, near-black eyes. 3 lantern streams
+(powers `lanternStreamAt`, `keepClear`; powersrt `cull` after the camera; 600, plaza + rooftop sources, yMax 34). 4 `farTerracesSlate` (real-pitch
+roofs × 1.7 + chimneys, retaining walls, trees, dusk cool fill) + look4 `dusk` + cinelook DUSK sky + dusk string lanterns; festivalPlaza day fixture.
+5 cave arch (`mountain.arch`), `jacketBall` (spec puffBall), homeBedroom establishing moved outside on the window, BOULDER backlight lantern (bake light).
+Gates: scripts/v2/fix3b-gates.js sections in village-gates.js (--only tuft,lantern,hill,door,cave,nightscope), numbers scripts/v2/fixstats.py.
+Commands: node tests/titan.js 6/6 · node tests/beast2.js 20/20 · tests/beast.js 10/10 · tests/village.js 7/7 · npm test green · node scripts/v2/village-gates.js
+--only tuft,lantern,hill,door,cave,nightscope · node scripts/v2/fix3b-sheet.js → review/village/{fix.png 1600×896, fix-390.png, demo2.mp4 0.98 MB 13 s}.
+Numbers: TITAN 3,120 tris · hump top 52.2 studs, horn top ≤ hump − 5.2 (7 poses) · body value .229 · 43 crack components, min aspect 4.92 · IoU max .544 (TUFT).
+Tuft clip 0.0 / 0.1 / 0.0 % · 2 eye blobs each · blue 3.3 / 4.4 / 1.2 %, gold .34 / 1.14 / .31 %. Lanterns .6–2.8 % of frame, 0 on 25 face / eye regions,
+mountain covered 1.1–5.4 %. Hillside slate (band y .27–.43) dusk 48.1 %, day 88.1 % · dusk hue 27.7° / 24.8°, sat .409 / .433 vs day .276 / .349.
+Boulder door sep .065 (hero; not in the establishing frame). Cave eyes .19–2.15 % of frame, arch L .26–.37 vs frame .09–.14.
+Night (owner scope) FAIL: exterior dark-10 % .028 .030 .020 .062 .015 .011 .055 .013 (festivalPlaza hero under lanterns, villageStreet establishing,
+titanCave hero just under) · separation min .046 (BOULDER beastYard; kidA .048, NIGHTFANG class .052, TITAN cave establishing .056) — outside this
+fix's scope (not touched), reported, not loosened.
+Fix passes: Tuft clip (albedo → no change; tips emission-only + cap: 2.6 / 2.0 / 1.5 fail, 1.0 pass) · dusk roofs (palette ×3, then cool sky fill)
+· Boulder (lantern → .058, closer + 12 → .065) · cave arch (pass 1 .166 < .19, pass 2 pass).
+Decisions: owner rulings applied — colossal gate = building height above its own ground; night dark-10 % on exterior night shots only (lit interiors
+exempt); separation on story subjects only (cast actors + hero-tier beasts; low-tier crowds exempt); `moonlit` = the tuft night look. Ram horn
+"1.25 turns" cannot start at the brow and end beside the cheek round the ear (that needs ~.8–1 turn in the side plane): built 300° in a plane turned
+40° out. The P3 "horn pixels ≥ 6 % outside the body" gate is superseded by the owner's horn gates (horns now wrap the head: 0.8 / 1.4 %, info).
+Tuft tip HDR = 1.0, not 2–3: at ≥ 1.5 the overlapping colossal tips clip > 3 % (the owner's measured gate wins). "Body value" = area-weighted HSV
+value of TITAN's stone / moss faces (material). Crack "aspect" = P² / 4A per component (branch-safe). Hillside region = the hillside band y .27–.43
+(festivalPlaza `hillBand`). Boulder door gate on views where BOULDER is in frame. Before frames = commit 5a4a43d in a worktree.
+Open: night FAILs above; demo2 silent; stability gate not run (look-dev demo, not an animatic).
+Five weakest in fix.png / demo2: (1) TITAN's head still reads as a box (flat brow block + square jaw) and its leg cracks read as neon tubes;
+(2) colossal Tuft's quills read like blue-and-gold pencil crowns and its fluff is lavender-grey, not moon-white; (3) the plaza lantern streams
+bunch into a busy band in front of the houses (2.8 % px but visually noisy); (4) the room-puff establishing is a flat white wall with a round
+hole — the jacket ball and the legs barely read; (5) the hillside day "slate" number is inflated by blue haze on everything, and the dusk roofs read
+grey-blue but flat.
