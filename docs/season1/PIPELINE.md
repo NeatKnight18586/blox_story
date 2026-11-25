@@ -30,3 +30,11 @@ twos at 24 fps; camera, FX and light on ones).
 - A Brief whose shots use more than one `loc:` gets spec `locations: [..]`: render / stability / read / bench open ONE page per location (`scripts/v2/segments.js`; spec.location = L, own baked light) and render only the shots with `shot.loc === L` into the shared frames dir (same names, same cache). Shots without `loc:` inherit the previous shot's location. Marks are anchored to each location's `street` anchor.
 - The Brief's `SPEC FLAGS` line (`` `format: 6`, `rig: 'r6'`, … ``, ``night look `moonlit` ``) is written into the spec. `look:` also takes moonlit | dusk | dawn (village worlds map `look:` to looks4 names via the location's `lookMap`).
 - `prop:<spider|toaster|spaghettiPlates|giantCage|chains|lanternSea>` and the `cage:` / `chains:` vocab emit spec `props2b`; `prop:<location>` / `prop:dinnerTable` frame the location view / the dining table.
+
+## Lessons from E5 "tuft" (owner, 2026-11-25) — apply to every episode
+1. Target look = ROBLOX STUDIO, not film: crisp, bright, saturated plastic, glow only on Neon-like seams. No film grain, no chromatic fringe, no haze near camera, depth blur only on CU inserts. Grain/blur/moody grade read as "CCTV footage".
+2. Never stage cameras by hand-typed coordinates: shots use named camera TEMPLATES (establish, wide, ms, mcu, cu, ecu, ots, two, insert, beastHero) solved from where the subject stands, with an occlusion check. Blind coordinate staging burned whole sessions and still missed.
+3. Every narrated sentence's picture is checked against its words BEFORE any look work (a picture-matches-VO pass on a 1-frame-per-shot sheet).
+4. Scope a new-world episode at ≤ 4 locations and ≤ 45 shots; reuse sets before building new ones.
+5. Verify the engine can render the Brief (locations, flags, props, looks) with a 1-frame-per-shot smoke render BEFORE writing the build prompt; prompts never assume an engine feature exists.
+6. Ship the minimum that proves the idea, measure the 48-hour numbers, then invest.
