@@ -151,7 +151,7 @@ export function build(scene, {M, V, TR, look, spec, look4}) {
   const cityRoot = new T.Group(); cityRoot.name = 'city'; scene.add(cityRoot);
   // -- terrain (live: lit in real time; per-vertex colour = surface class)
   const focus = [...AXZ, ...slots.map(s => s.at), ...COAST.filter((_, i) => i % 12 === 0).filter(p => p[1] > 60)];
-  const tMat = new T.MeshStandardMaterial({vertexColors: true, roughness: .95, metalness: 0, map: detailTexture(M), envMapIntensity: .35});
+  const tMat = triplanar(new T.MeshStandardMaterial({vertexColors: true, roughness: .95, metalness: 0, map: detailTexture(M), envMapIntensity: .35}), 7);   // Phase 1F: triplanar detail (no smear on cliffs)
   const terrain = TR.buildTerrain({height: terrainY, size: 880, chunk: 55, fine: 2.75, fullR: 45, focus, centre: [0, 20], skirt: 3, material: tMat, tile: 7, name: 'cityTerrain'});
   const overview = !!spec?.cityOverview, cc = new T.Color(), tint = new T.Color();
   terrain.traverse(o => { if (!o.isMesh) return; const p = o.geometry.attributes.position, n = o.geometry.attributes.normal, c = new Float32Array(p.count * 3);
@@ -317,6 +317,7 @@ export function build(scene, {M, V, TR, look, spec, look4}) {
   const anchors = Object.fromEntries(A.map(a => [a.name, {position: [a.position[0], standY(a.position[0], a.position[2]), a.position[2]], facing: a.facing, target: a.target, fov: a.fov, eye: a.position, district: a.district}]));
   // Look Signature (opt-in): key-art anchors `ka_<name>` (position = the subject's feet, camera = the key-art lens), their foreground
   // props (spec cityKeyArt: true = every hand-tuned variant | [names]) and the living town (spec cityLiving: true | [mover names])
+  if (dt) { const b = dt.hall.balcony, g = dt.hall.group.position; anchors.govBalcony = {position: [+(g.x + b[0]).toFixed(3), +(g.y + b[1]).toFixed(3), +(g.z + b[2] - 1.2).toFixed(3)], facing: 0, district: 'plaza'}; }   // Phase 1F: the Governor's balcony mark (stand with offset y = balcony − groundY)
   for (const n of ANCHOR_NAMES) { const k = keyArt(n); anchors['ka_' + n] = {position: k.subject, facing: k.yaw * 180 / Math.PI, camera: {position: k.position, target: k.target, fov: k.fov}, keyArt: k, district: PLAN.anchors[n].district}; }
   if (spec?.cityKeyArt) { const names = spec.cityKeyArt === true ? ANCHOR_NAMES.filter(n => !keyArt(n).auto) : spec.cityKeyArt, kap = names.flatMap(n => [[n, keyArt(n).fg], [n, keyArt(n).fgEdge]]).filter(([, f]) => f); for (const [n, f] of kap) { const kg = keyArtProps([f]); kg.userData.anchor = n; kg.userData.role = f.kind === 'boat' ? 'deck' : 'fg'; G(PLAN.anchors[n].district === 'bay' ? 'plaza' : PLAN.anchors[n].district).add(kg); }   /* Phase 1E: + the edge element; a boat is the stage deck, not a foreground element */ stats.keyArtProps = names.length; }
   const LIV = spec?.cityLiving ? livingTown({groundY, slots, roads, kitBuildings: kitB, focus: spec.cityLiving, lit: !!CITY.blimpLit, extra: wd?.movers ?? []}) : null;
@@ -333,7 +334,14 @@ export function build(scene, {M, V, TR, look, spec, look4}) {
   const propGroups = []; cityRoot.traverse(o => { if (o.isGroup && /Props$/.test(o.name) && o.name !== 'keyArtProps') { const b = new T.Box3().setFromObject(o); if (!b.isEmpty()) propGroups.push([o, b]); } });
   const propCull = p => { const v = new T.Vector3(...p); for (const [o, b] of propGroups) o.visible = b.distanceToPoint(v) <= (o.name === 'streetLampProps' ? LAMPS_R : PROPS_R); };   // Phase 1E: street lamps (tiny at range) stop at LAMPS_R
   stats.lots = lots.length; stats.ms = Math.round(performance.now() - t0);
-  const bakeGroups = Object.entries(groups).map(([k, root]) => ({root, preset: spec?.look4 ?? 'cityDay', name: k}));
+  // Phase 1F: lamps carry the light at dusk / night (look4 v4.city.pools): each lit lamp head is a baked POOL light on the statics (bake.lights)
+  // and a warm glow on the live terrain (vertex attribute lampGlow → emissive, terrain material patch); water tint per look (v4.water)
+  const lampLights = CITY.lamps && CITY.pools ? (cityRoot.updateMatrixWorld(true), LAMP_HEADS.filter(h => h.group.parent).map(h => { const v = h.group.localToWorld(new T.Vector3(...h.at)); return {p: v.toArray(), color: [1, .78, .5], i: CITY.pools * CITY.lamps, pool: 9}; })) : null;
+  if (lampLights) { const gl = (x, y, z) => { let s = 0; for (const L of lampLights) { const dx = L.p[0] - x, dz = L.p[2] - z, dh = Math.hypot(dx, dz); if (dh >= L.pool || L.p[1] <= y) continue; const u = Math.min(1, Math.max(0, (dh - .3 * L.pool) / (.7 * L.pool))); s += (1 - u * u * (3 - 2 * u)) * L.i; } return Math.min(1.5, s); };
+    for (const tr of [terrain, tLod]) tr?.traverse(o => { if (!o.isMesh) return; const p = o.geometry.attributes.position, a = new Float32Array(p.count); for (let i = 0; i < p.count; i++) a[i] = gl(p.getX(i), p.getY(i), p.getZ(i)); o.geometry.setAttribute('lampGlow', new T.BufferAttribute(a, 1)); });
+    lampGlow(tMat); stats.lampPools = lampLights.length; }
+  if (look4?.preset?.v4?.water && WATER) { const W = look4.preset.v4.water; if (W.color) WATER.mesh.material.color.set(W.color); if (W.envI !== undefined) WATER.mesh.material.envMapIntensity = W.envI; if (W.rough !== undefined) WATER.mesh.material.roughness = W.rough; }
+  const bakeGroups = Object.entries(groups).map(([k, root]) => ({root, preset: spec?.look4 ?? 'cityDay', name: k, ...(lampLights ? {lights: lampLights} : {})}));
   // Phase 1D: actors stand on decks (quay, piers, beach pier, key-art boats), not on the sea floor under them
   const decks = DT ? [...harborDecks(), ...wd.decks] : []; for (const n of (spec?.cityKeyArt ? (spec.cityKeyArt === true ? ANCHOR_NAMES.filter(n => !keyArt(n).auto) : spec.cityKeyArt) : [])) { const f = keyArt(n).fg; if (f?.kind === 'boat') decks.push({x: f.at[0], z: f.at[2], len: f.len - 3, w: (f.w ?? 7.6) - .6, yaw: f.yaw, y: f.y}); }
   const groundYD = decks.length ? (x, z) => { const d = deckAt(decks, x, z); return d ?? groundY(x, z); } : groundY;
@@ -362,6 +370,32 @@ function boxUV(g, tile) {   // world-projected UVs per face direction (brick/sto
   for (let i = 0; i < p.count; i++) { const ax = Math.abs(n.getX(i)), az = Math.abs(n.getZ(i)); if (ax > .5) uv.setXY(i, p.getZ(i) / tile, p.getY(i) / tile); else if (az > .5) uv.setXY(i, p.getX(i) / tile, p.getY(i) / tile); else uv.setXY(i, p.getX(i) / tile, p.getZ(i) / tile); }
 }
 function planarUV(g, tile) { const p = g.attributes.position, uv = g.attributes.uv; for (let i = 0; i < p.count; i++) uv.setXY(i, p.getX(i) / tile, p.getZ(i) / tile); }
+// Phase 1F: the terrain's warm lamp pools (attribute lampGlow, 0…1.5) added as emissive = albedo × warm × glow (dusk / night looks only).
+function lampGlow(mat) {
+  const prev = mat.onBeforeCompile;
+  mat.onBeforeCompile = (sh, r) => { prev?.call(mat, sh, r);
+    sh.vertexShader = 'attribute float lampGlow;\nvarying float vLampGlow;\n' + sh.vertexShader.replace('#include <begin_vertex>', '#include <begin_vertex>\n  vLampGlow = lampGlow;');
+    sh.fragmentShader = 'varying float vLampGlow;\n' + sh.fragmentShader.replace('#include <emissivemap_fragment>', '#include <emissivemap_fragment>\n  totalEmissiveRadiance += diffuseColor.rgb * vec3(1.0, 0.78, 0.5) * vLampGlow;'); };
+  const key = mat.customProgramCacheKey.bind(mat); mat.customProgramCacheKey = () => 'lampGlow|' + key(); return mat;
+}
+// Phase 1F: TRIPLANAR projection of a material's map (world-space, blend by the normal^4): steep hills / cliffs no longer smear the
+// planar (x, z) texture. Pure shader patch; `tile` = studs per texture repeat. Exported for reuse (wild rock, cliffs).
+export function triplanar(mat, tile = 7, sharp = 4) {
+  const prev = mat.onBeforeCompile;
+  mat.onBeforeCompile = (sh, r) => { prev?.call(mat, sh, r); sh.uniforms.tpTile = {value: 1 / tile};
+    sh.vertexShader = 'varying vec3 vTpP;\nvarying vec3 vTpN;\n' + sh.vertexShader.replace('#include <project_vertex>', '#include <project_vertex>\n  vTpP = (modelMatrix * vec4(transformed, 1.0)).xyz; vTpN = normalize(mat3(modelMatrix) * objectNormal);');
+    sh.fragmentShader = 'uniform float tpTile;\nvarying vec3 vTpP;\nvarying vec3 vTpN;\n' + sh.fragmentShader.replace('#include <map_fragment>', `#ifdef USE_MAP
+  vec3 tpW = pow(abs(vTpN), vec3(${sharp.toFixed(1)})); tpW /= max(1e-4, tpW.x + tpW.y + tpW.z);
+  vec4 sampledDiffuseColor = texture2D(map, vTpP.zy * tpTile) * tpW.x + texture2D(map, vTpP.xz * tpTile) * tpW.y + texture2D(map, vTpP.xy * tpTile) * tpW.z;
+  diffuseColor *= sampledDiffuseColor;
+  // rock on steep faces, per PIXEL (no per-vertex class streaks down long cliff triangles): warm grey rock, soft horizontal strata
+  float tpSteep = smoothstep(0.56, 0.38, abs(vTpN.y)), tpN = clamp((sampledDiffuseColor.r - 0.82) / 0.18, 0.0, 1.0);
+  float tpBand = 0.5 + 0.5 * sin(vTpP.y * 0.9 + tpN * 5.0 + sin(vTpP.x * 0.07 + vTpP.z * 0.05) * 2.0);
+  vec3 tpRock = mix(vec3(0.27, 0.245, 0.21), vec3(0.42, 0.39, 0.34), 0.35 * tpBand + 0.65 * tpN);
+  diffuseColor.rgb = mix(diffuseColor.rgb, tpRock, tpSteep * 0.92);
+#endif`); };
+  const key = mat.customProgramCacheKey?.bind(mat); mat.customProgramCacheKey = () => 'triplanar' + tile + (key ? key() : ''); mat.userData.triplanar = tile; return mat;
+}
 function detailTexture(M) {   // neutral grey detail noise (vertex colours carry the hue)
   const n = 128, f = M.noiseField ? M.noiseField(n, 16, 3) : new Float32Array(n * n).fill(.5), b = new Uint8Array(n * n * 4);
   for (let i = 0; i < n * n; i++) { const v = Math.round(255 * (.82 + .18 * f[i])); b.set([v, v, v, 255], i * 4); }

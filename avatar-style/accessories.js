@@ -6,7 +6,8 @@ import {plastic, HEAD} from './body.js';
 import {eggMesh, EGG_R} from '../parts/eggs.js';
 
 export const ACCESSORIES = ['crown', 'helmet', 'hood', 'strawHat', 'scarf', 'cape', 'backpack', 'chefHat', 'featherCap', 'goggles', 'topHat', 'skiMask', 'mailBag', 'mailBagEggs', 'topHatTilt', 'beanie', 'headset', 'droneBack', 'gummyChest', 'gummyChest2', 'droneBack2'];
-const HEAD_ITEMS = new Set(['headset', 'crown', 'helmet', 'hood', 'strawHat', 'chefHat', 'featherCap', 'goggles', 'topHat', 'skiMask', 'topHatTilt', 'beanie']);
+import {GOV_ACCESSORIES, GOV_HEAD} from './governor.js';
+const HEAD_ITEMS = new Set([...GOV_HEAD, 'headset', 'crown', 'helmet', 'hood', 'strawHat', 'chefHat', 'featherCap', 'goggles', 'topHat', 'skiMask', 'topHatTilt', 'beanie']);
 const geo = new Map();
 const g = (k, f) => { if (!geo.has(k)) geo.set(k, f()); return geo.get(k); };
 const gummyMat = () => { if (!geo.has('mat:gummy')) geo.set('mat:gummy', new T.MeshPhongMaterial({color: '#ff5a1f', emissive: '#7a1800', shininess: 80, specular: '#ffffff', transparent: true, opacity: .82})); return geo.get('mat:gummy'); };
@@ -149,6 +150,7 @@ const BUILD = {
   },
 };
 
+Object.assign(BUILD, GOV_ACCESSORIES);   // Phase 1F: the Governor's kit (avatar-style/governor.js)
 export function attachAccessory(actor, name, opts = {}) {
   if (!BUILD[name]) throw Error('unknown accessory ' + name);
   const a = BUILD[name](opts); a.name = 'acc_' + name;

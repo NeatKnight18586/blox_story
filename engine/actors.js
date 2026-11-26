@@ -102,6 +102,7 @@ export function driveActor(a, t, {keys, faces, tags, origin = {position: [0, 0, 
     const ch = (faces ?? []).map(k => k[0]).filter(x => x > 0);
     const bl = !blinkSuppress && (faceLife ? blinkAt6(a.blinkSeed, t, {fps, changes: ch}) : blinkClosed(a.blinkSeed, t, {fps, changes: ch, suppress: false})), tk = talk !== null && !isHeld6(f) ? talk : null;
     if (f !== a.face || bl !== !!a.faceBlink || tk !== (a.faceTalk ?? null)) setFace6(a, f, {blink: bl, talk: tk});
+    const mono = a.attachments?.monocle?.userData?.setPop; if (mono) { let p0 = null; for (const [t0, n] of faces ?? []) if (t >= t0) p0 = n === 'gov_panic' ? (p0 ?? t0) : null; mono(p0 === null ? 0 : Math.min(1, (t - p0) / .3)); }   // Phase 1F: the Governor's monocle pops off over 0.3 s on gov_panic
     if (faceLife && (a.body === 'v5' || a.body === 'v6')) { const p = popAt6(t, ch, {fps}); a.pivots.head.scale.set(HEAD5[0] * p[0], HEAD5[1] * p[1], HEAD5[2] * p[2]); }
   } else if (a.faceStyle === 'v5') {   // v5: the timeline face, a seeded blink (closed arcs), and the lip-flap shape (never on a held reaction face)
     let f = a.preset.face ?? 'smile'; if (faces) { f = faces[0][1]; for (const [t0, n] of faces) if (t >= t0) f = n; }

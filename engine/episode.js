@@ -161,6 +161,7 @@ const presets = spec.castFile ? (await (await fetch(new URL('../' + spec.castFil
 const cast = {};
 const FACES_V3 = spec.faces === 'v3' || (spec.season === 1 && spec.faces !== 'v2');
 const troupeData = Object.values(spec.cast ?? {}).some(c => c.troupe) ? await (await fetch(new URL('../' + (spec.troupeFile ?? (spec.rig === 'r6' ? 'cast/troupe-r6.json' : spec.format >= 6 ? 'cast/troupe6.json' : 'cast/troupe.json')), import.meta.url))).json() : null;   // A4 troupe slots
+if (Object.values(spec.cast ?? {}).some(c => c.troupe === 'GOVERNOR')) troupeData.troupe.GOVERNOR = (await (await fetch(new URL('../' + (spec.governorFile ?? 'cast/governor.json'), import.meta.url))).json()).GOVERNOR;   // Phase 1F: THE GOVERNOR slot (opt-in)
 if (Object.values(spec.cast ?? {}).some(c => c.troupe === 'HERO')) troupeData.troupe.HERO = (await (await fetch(new URL('../' + (spec.heroFile ?? (spec.format >= 6 && spec.rig !== 'r6' ? 'cast/hero6.json' : 'cast/hero.json')), import.meta.url))).json()).HERO;   // format v4 hero slot
 // format v4 lip flaps: per-frame mouth shapes from the voice envelope (scripts/v2/envelope.js; the voice file is only read)
 const RIG6 = spec.rig === 'r6', TWOS = spec.twos === true;   // R6 rig (owner 2026-11-24, engine/r6.js): classic rigid R6 on Actor v5 + faces v6; twos: actor poses + faces hold 2 frames at 24 fps
@@ -606,6 +607,11 @@ const vecAt = (keys, t, d) => keys?.length ? d.map((v, i) => valueAt(keys.map(k 
 function updateProps(t) { for (const {p, g} of storyProps) { g.position.fromArray(vecAt(p.pos, t, [0, 0, 0])); const r = vecAt(p.rot, t, [0, 0, 0]); g.rotation.set(...r.map(v => v * Math.PI / 180)); g.visible = valueAt(p.visible, t, true); if (g.visible && g.userData.anim) g.userData.anim(t - (p.animAt ?? 0), p);
   if (p.states && g.userData.setState) { const st = valueAt(p.states, t, null); if (st !== null && st !== g.userData.state) g.userData.setState(st); }   // Touch Grass E1 (opt-in): step states (headset on/off, visor screen)
   if (p.flick && g.userData.setFlick) g.userData.setFlick(valueAt(p.flick, t, 0)); } }   // Touch Grass E1 (opt-in): giant finger flick u (ramp keys); E1 fix (opt-in): props5 moving parts, pure in t
+const ALOCK = spec.anchorLock ? (await import('./anchorlock.js')).createAnchorLock(scene, spec) : null;   // Phase 1F (opt-in)
+// Phase 1F RULE-CLOCK kit (opt-in spec.clock: dong / pop / crack events, engine/clockfx.js); word refs resolve against the cues
+const CLOCK = spec.clock?.length ? await (async () => { const A6 = await import('./acting6.js'), get = async u => { try { const r = await fetch(new URL('../' + u, import.meta.url)); return r.ok ? await r.json() : null; } catch { return null; } };
+  const cues = spec.clock.some(e => typeof e.at !== 'number') ? await get(spec.cues ?? `stories/${spec.slug}/cues.json`) ?? await get(`stories/${spec.slug}/build/cues.json`) : null;
+  return (await import('./clockfx.js')).createClockFx(scene, spec.clock, {world, wordTime: at => A6.wordTime(cues, at)}); })() : null;
 // World story state (Session 5): spec.worldState = {name: [[t, value], [t, value, 'ramp']...]} → world.setState.
 function applyWorldState(shot, t) {
   if (storyProps.length) updateProps(t);
@@ -613,6 +619,7 @@ function applyWorldState(shot, t) {
   const ws = spec.worldState ?? {};
   if (!ws.cracks) world.setCracks?.(shot?.stoneCracks ?? spec.stoneCracks ?? 1);   // the clue grows (script lines 14–15)
   if (world.setState) for (const [k, keys] of Object.entries(ws)) world.setState(k, valueAt(keys, t));
+  CLOCK?.update(t);
 }
 
 let lastSize = '';
@@ -669,6 +676,7 @@ function drawFrame(shot, mf, off, width, height, nudge) {
   camera.up.set(0, 1, 0); camera.lookAt(...tgt); camera.rotateZ(c.roll); camera.updateProjectionMatrix();
   if (CINE_CAM && c.noise) { camera.rotateX(c.noise[0]); camera.rotateY(c.noise[1]); camera.rotateZ(c.noise[2]); }   // tuft 1B handheld (rotation only)
   const cn = CINE_CAM ? null : camNoise5b(shot, t) ?? (M6 && M6.moodUniforms(shot).camNoise ? camNoise(t, shots.indexOf(shot) + 1, M6.moodUniforms(shot).camNoise) : null); if (cn) { camera.rotateX(cn[0]); camera.rotateY(cn[1]); }   // Look 5b: static-shot micro-noise
+  if (ALOCK) ALOCK.apply(shot, camera);   // Phase 1F anchor lock (opt-in spec.anchorLock): re-aim so the rule object sits in its fixed screen zone
   if (nudge) { const k = nudge / Math.sqrt(3); camera.translateX(k); camera.translateY(k); camera.translateZ(k); }
   world?.onCamera?.(camera.position.toArray(), camera);   // format v5 3b-R (opt-in): a world may hide what this camera cannot see (hall ↔ street)
   if (look) { fx.look ? look.apply(...fx.look) : look.apply(shot.look ?? spec.look ?? 'day'); if (shot.key) look.apply(keyPreset(look.preset, camera.position.toArray(), tgt, shot.key));   // E1b (opt-in shot.key {el, offset}): key light from the camera side
@@ -1085,4 +1093,4 @@ function cineMeasure(names = Object.keys(cast)) {
     const c = b.getCenter(new T.Vector3()), z = c.clone().sub(camera.position).dot(f);
     out[n] = {x0, x1, y0, y1, behind, v: 2 * z * Math.tan(camera.fov * Math.PI / 360) / (5.3 * x.a.root.scale.y), z}; }
   return out; }
-window.__episode = {outline: OUTLINE, castRoots: () => Object.fromEntries(Object.entries(cast).map(([n, x]) => [n, x.a?.root ?? null])), world, cityLiving: world?.living ?? null, tpl: CTPL ? {state: TPLSTATE, measure: tplMeasure, eyes: tplEyes} : null, beasts: BEASTS, cine: CL ? {state: CL.state, opts: CINE_OPTS, glowCount: CL.glowCount, setGlow: CL.setGlow, glowDebug: CL.glowDebug, measure: cineMeasure} : null, story6: S6, clearedNow: () => CLEARED.map(r => r.name), actingPlan: () => actPlans.map(p => /^hug/.test(p.verb) ? {...p, cam: hugCam(p)} : p), groundFix: () => GROUNDFIX, sepMeasure, ceilingLuma, classHaze, satMeasure, depthLuma, lumaProbe, debug: {scene, renderer, camera, look, pool: U5B?.poolOf ?? null}, bake: BAKE, matcapBytes: MATCAP ? (n => Array.from(look.matcapBytes(n ?? spec.look4))) : null, breakdown, measureFrame, seasonMeasure, actorMask, readMeasure, gateMeasure, placesAt, lumaAt, inspectFrame, shotSpeed, END: FRAMES / FPS, anchors: Object.fromEntries(Object.entries(anchors).filter(([, a]) => a.camera).map(([k]) => [k, true])), renderAnchor, renderAnchorNudged, renderCamera, FPS, FRAMES, shots: shots.map(({id, start, frames, size, move, loc, subject, see, openHit, at, why, captionY, fit, spectacle, look: lk}) => ({id, start, frames, size, move, loc, subject, see, openHit: !!openHit, at, why, captionY, fit, spectacle: !!spectacle, look: lk})), renderFrame};
+window.__episode = {clock: CLOCK, anchorLock: ALOCK, outline: OUTLINE, castRoots: () => Object.fromEntries(Object.entries(cast).map(([n, x]) => [n, x.a?.root ?? null])), world, cityLiving: world?.living ?? null, tpl: CTPL ? {state: TPLSTATE, measure: tplMeasure, eyes: tplEyes} : null, beasts: BEASTS, cine: CL ? {state: CL.state, opts: CINE_OPTS, glowCount: CL.glowCount, setGlow: CL.setGlow, glowDebug: CL.glowDebug, measure: cineMeasure} : null, story6: S6, clearedNow: () => CLEARED.map(r => r.name), actingPlan: () => actPlans.map(p => /^hug/.test(p.verb) ? {...p, cam: hugCam(p)} : p), groundFix: () => GROUNDFIX, sepMeasure, ceilingLuma, classHaze, satMeasure, depthLuma, lumaProbe, debug: {scene, renderer, camera, look, pool: U5B?.poolOf ?? null}, bake: BAKE, matcapBytes: MATCAP ? (n => Array.from(look.matcapBytes(n ?? spec.look4))) : null, breakdown, measureFrame, seasonMeasure, actorMask, readMeasure, gateMeasure, placesAt, lumaAt, inspectFrame, shotSpeed, END: FRAMES / FPS, anchors: Object.fromEntries(Object.entries(anchors).filter(([, a]) => a.camera).map(([k]) => [k, true])), renderAnchor, renderAnchorNudged, renderCamera, FPS, FRAMES, shots: shots.map(({id, start, frames, size, move, loc, subject, see, openHit, at, why, captionY, fit, spectacle, look: lk}) => ({id, start, frames, size, move, loc, subject, see, openHit: !!openHit, at, why, captionY, fit, spectacle: !!spectacle, look: lk})), renderFrame};

@@ -84,8 +84,20 @@ export function governorsHall() {
   const clap = new T.Mesh(new T.SphereGeometry(.38, 10, 8).translate(0, -2.75, 0), bronze); clap.name = 'slot:2:clapper'; clap.userData.live = true;
   const loop = new T.Mesh(new T.TorusGeometry(.35, .1, 6, 12).translate(0, .25, 0), bronze); loop.name = 'slot:2:bellLoop'; loop.userData.live = true;
   bell.add(bm, clap, loop); bell.userData.live = true; grp.add(bell);
+  bell.userData.crack = () => bellCrack(prof, bronze);   // Phase 1F: setState('bellCrack', true) — built on first use (continuity: the Fear Bell)
   const hatTop = yh + .8 + Ht.h;
   return {group: grp, bell, hatTop, balcony: [0, 9.4, Fp + 4.7], tris: grp.userData.tris};
+}
+
+// Phase 1F: a permanent crack down the bell's front (+z) face: a dark jagged ribbon hugging the lathe profile, plus one branch.
+export const BELL_CRACK = {ys: [-.95, -1.3, -1.6, -1.95, -2.3, -2.6, -2.95], phi: [.02, -.09, .06, -.1, .05, -.07, .03], branch: [[-1.95, -.1], [-2.15, -.24], [-2.4, -.3]]};
+export function profR(prof, y) { for (let i = 1; i < prof.length; i++) { const a = prof[i - 1], b = prof[i]; if ((y <= a.y && y >= b.y) || (y >= a.y && y <= b.y)) { const k = (y - a.y) / ((b.y - a.y) || 1); return a.x + (b.x - a.x) * k; } } return prof[prof.length - 1].x; }
+function bellCrack(prof) {
+  const grp = new T.Group(); grp.name = 'bellCrack'; const ink = new T.MeshBasicMaterial({color: '#1d1009'}); ink.userData.live = true;
+  const pt = (y, phi) => { const r = profR(prof, y) + .035; return new T.Vector3(r * Math.sin(phi), y, r * Math.cos(phi)); };
+  const line = (pts, w) => { const g = new T.TubeGeometry(new T.CatmullRomCurve3(pts, false, 'catmullrom', 0), pts.length * 6, w, 5, false); const m = new T.Mesh(g, ink); m.userData.live = true; grp.add(m); };
+  const C = BELL_CRACK; line(C.ys.map((y, i) => pt(y, C.phi[i])), .055); line(C.branch.map(([y, p]) => pt(y, p)), .04);
+  return grp;
 }
 
 // ---------------- Governor statue (slot 1) ----------------
@@ -261,7 +273,7 @@ export function downtown({slots, layerPlaza, statuePose} = {}) {
   for (const L of mainStreetLots()) { const pre = PRESETS[L.preset]; const b = placeBuilding({...pre, id: L.id, seed: L.seed}, L.x, L.z, L.yaw, L.front); b.lot = L; mainSt.add(b.group); buildings.push(b); }
   stats.mainStTris = buildings.map(b => b.tris);
   const signs = []; for (const b of buildings) for (const sg of b.signs) signs.push(sg);
-  const setState = (k, v) => { if (k === 'bell') { const a = typeof v === 'number' ? v : v?.swing ?? 0; hall.bell.rotation.x = a * D2R; return true; } if (k === 'statue') return false; return false; };
+  const setState = (k, v) => { if (k === 'bellCrack') { const b = hall.bell; if (v && !b.userData.crackG) { b.userData.crackG = b.userData.crack(); b.add(b.userData.crackG); } if (b.userData.crackG) b.userData.crackG.visible = !!v; return true; } if (k === 'bell') { const a = typeof v === 'number' ? v : v?.swing ?? 0; hall.bell.rotation.x = a * D2R; return true; } if (k === 'statue') return false; return false; };
   return {plaza, mainSt, buildings, signs, hall, statue: st, clock: ck, stats, trees: dress.trees, update(t) { ck.setTime(t); }, setState,
     onCamera(p) { for (const b of buildings) setLOD(b, lodFor(Math.hypot(p[0] - b.at[0], p[2] - b.at[2]))); }};
 }

@@ -64,6 +64,7 @@ export function createLookV4(scene, renderer, presets, {initial = 'comedy', fogS
     const b = new Uint8Array(MC * MC * 4); renderer.readRenderTargetPixels(rt, 0, 0, MC, MC, b); renderer.setRenderTarget(prev); rt.dispose();
     for (let i = 0; i < MC * MC; i++) { const r = b[i * 4], g = b[i * 4 + 1], bl = b[i * 4 + 2], y = .2126 * r + .7152 * g + .0722 * bl;
       b[i * 4] = Math.round(y + (r - y) * MC_CHROMA); b[i * 4 + 1] = Math.round(y + (g - y) * MC_CHROMA); b[i * 4 + 2] = Math.round(y + (bl - y) * MC_CHROMA); b[i * 4 + 3] = 255; }
+    if (P.v4.matcapRim || P.v4.matcapLift) matcapRim(b, MC, P.v4.matcapRim, P.v4.matcapLift ?? 1);   // Phase 1F (opt-in): night characters keep a soft rim + lift
     return b;
   }
   // haze colour = mix(preset fog, mean linear colour of the scene seen from the preset's fixed haze view (fog off, 48 × 64))
@@ -115,6 +116,15 @@ export function createLookV4(scene, renderer, presets, {initial = 'comedy', fogS
   };
 }
 
+// Phase 1F (pure, opt-in v4.matcapRim {color, k, from} / v4.matcapLift): a soft fresnel rim on the actor matcap (sphere edge → rim
+// colour × k) and an overall lift, so characters stay readable in a dark (night) look without lighting the world.
+export function matcapRim(b, n, rim, lift = 1) {
+  const c = rim ? new T.Color(rim.color ?? '#9fc4ff') : null, k = rim?.k ?? .5, r0 = rim?.from ?? .6;
+  for (let y = 0; y < n; y++) for (let x = 0; x < n; x++) { const i = (y * n + x) * 4, u = (x + .5) / n * 2 - 1, v = (y + .5) / n * 2 - 1, r = Math.hypot(u, v);
+    const t = c && r <= 1 ? Math.min(1, Math.max(0, (r - r0) / (1 - r0))) : 0, w = t * t * (3 - 2 * t) * k;
+    for (let j = 0; j < 3; j++) b[i + j] = Math.min(255, Math.round(b[i + j] * lift + (c ? [c.r, c.g, c.b][j] * 255 * w : 0))); }
+  return b;
+}
 // Camera-facing soft halo (additive): windows and lamps glow without a bloom pass.
 let haloTex = null;
 export function halo(position, color = '#ffd28a', size = 2, opacity = .8) {

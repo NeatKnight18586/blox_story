@@ -165,11 +165,13 @@ export function wild({groundY}) {
   // -- wildflowers in the clearings + along the trail (instanced, per-cell meshes; live, tiny)
   { const Fw = WD.flowers, Rf = rng(Fw.seed), pts = [];
     for (let i = 0; i < Fw.n; i++) { const c = WD.clearings[i % WD.clearings.length], a = Rf() * Math.PI * 2, r = Math.sqrt(Rf()) * c[2], x = c[0] + Math.sin(a) * r, z = c[1] + Math.cos(a) * r;
-      if (onTrail(x, z, 1.2) || nearFeature(x, z, 1)) continue; pts.push([x, groundY(x, z), z, Fw.colors[Math.floor(Rf() * Fw.colors.length)], .6 + .5 * Rf()]); }
-    const geo = new T.OctahedronGeometry(.2, 0).scale(1, .55, 1).translate(0, .12, 0), mat = new T.MeshStandardMaterial({color: '#ffffff', roughness: .6});
+      if (onTrail(x, z, 1.2) || nearFeature(x, z, 1)) continue; pts.push([x, groundY(x, z), z, Fw.colors[Math.floor(Rf() * Fw.colors.length)], 1.1 + .6 * Rf()]); }   // Phase 1F: 3D tufts read at 1.1–1.7
+    const {stems: geoS, petals: geo} = flowerTuft(), mat = new T.MeshStandardMaterial({color: '#ffffff', roughness: .6, side: T.DoubleSide}), matS = new T.MeshStandardMaterial({vertexColors: true, roughness: .7});   // Phase 1F: 3D flower tufts (stem + leaf + 5 petals + centre), no flat decals
     const cells = new Map(); for (const p of pts) { const k = Math.floor(p[0] / 40) + ',' + Math.floor(p[2] / 40); (cells.get(k) ?? cells.set(k, []).get(k)).push(p); }
     const m4 = new T.Matrix4(), col = new T.Color(); let fl = 0;
-    for (const list of cells.values()) { const im = new T.InstancedMesh(geo, mat, list.length); list.forEach((p, i) => { im.setMatrixAt(i, m4.makeScale(p[4], p[4], p[4]).setPosition(p[0], p[1], p[2])); im.setColorAt(i, col.set(p[3])); }); im.name = 'wildflowers'; im.userData.live = true; im.computeBoundingSphere(); group.add(im); fl += list.length; }
+    for (const list of cells.values()) { const im = new T.InstancedMesh(geo, mat, list.length), st = new T.InstancedMesh(geoS, matS, list.length);
+      list.forEach((p, i) => { m4.makeRotationY(p[0] * 3.7 + p[2] * 1.3).scale(new T.Vector3(p[4], p[4], p[4])).setPosition(p[0], p[1], p[2]); im.setMatrixAt(i, m4); st.setMatrixAt(i, m4); im.setColorAt(i, col.set(p[3])); });
+      for (const x of [im, st]) { x.name = 'wildflowers'; x.userData.live = true; x.computeBoundingSphere(); group.add(x); } fl += list.length; }
     stats.flowers = fl; }
   // -- birds over the forest
   { const g = new T.Group(), bs = WD.birds.map(([x, y, z, n, r], i) => { const b = birds({centre: [x, y, z], n, r, seed: 71 + i}); g.add(b.object); return b; }); movers.push({name: 'forestBirds', obj: g, update(t) { bs.forEach(b => b.update(t)); }}); }
@@ -197,4 +199,21 @@ export function onTrail(x, z, m = 0) {
     if (Math.hypot(x - ax - dx * u, z - az - dz * u) < WD.trail.w / 2 + m) return true; }
   const B = WD.bridge, dx = B.to[0] - B.from[0], dz = B.to[1] - B.from[1], L2 = dx * dx + dz * dz, u = Math.max(0, Math.min(1, ((x - B.from[0]) * dx + (z - B.from[1]) * dz) / L2));
   return Math.hypot(x - B.from[0] - dx * u, z - B.from[1] - dz * u) < B.w / 2 + m;
+}
+
+// Phase 1F: one wildflower tuft (2 flowers) as two geometries sharing the instance matrix: `stems` (stems, a leaf, yellow centres;
+// vertex colours) and `petals` (5 tilted petal quads per head; tinted per instance). ≈ 52 tris per tuft. Pure geometry.
+export function flowerTuft() {
+  const S = [], P = [], green = new T.Color('#3f8f3a'), leaf = new T.Color('#57a845'), yellow = new T.Color('#ffd23f');
+  const paint = (g, c) => { const n = g.attributes.position.count, a = new Float32Array(n * 3); for (let i = 0; i < n; i++) c.toArray(a, i * 3); g.setAttribute('color', new T.BufferAttribute(a, 3)); return g; };
+  for (const [x, z, h, tilt] of [[0, 0, .52, .08], [.13, .09, .36, -.12]]) {
+    S.push(paint(new T.CylinderGeometry(.018, .022, h, 3, 1, true).translate(0, h / 2, 0).rotateZ(tilt).translate(x, 0, z), green));
+    const top = new T.Vector3(x - Math.sin(tilt) * h, h, z);
+    S.push(paint(new T.OctahedronGeometry(.06, 0).scale(1, .6, 1).translate(top.x, top.y + .01, top.z), yellow));
+    for (let k = 0; k < 5; k++) { const a = k / 5 * Math.PI * 2, q = new T.PlaneGeometry(.1, .16).translate(0, .09, 0).rotateX(-Math.PI / 2 + .35).rotateY(a).translate(top.x, top.y, top.z); P.push(q.toNonIndexed()); }
+  }
+  S.push(paint(new T.PlaneGeometry(.06, .16).translate(0, .08, 0).rotateZ(.9).rotateY(.6).translate(0, .1, 0), leaf));
+  const strip = g => { const n = g.index ? g.toNonIndexed() : g; for (const k of Object.keys(n.attributes)) if (!['position', 'normal', 'color'].includes(k)) n.deleteAttribute(k); return n; };
+  const stems = mergeGeometries(S.map(strip)), petals = mergeGeometries(P.map(g => { const n = strip(g); n.deleteAttribute('color'); return n; }));
+  return {stems, petals};
 }

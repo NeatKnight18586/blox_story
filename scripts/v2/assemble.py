@@ -250,6 +250,8 @@ def main():
     if not o.animatic and (w, h) not in (MASTER_SIZE, FALLBACK_SIZE):
         sys.exit(f'frames are {w}×{h}: finals take 1440×2560 (native) or 1080×1920 (fallback, upscaled before the grade)')
     voice = next((p for p in [f'stories/{o.story}/voice.flac', f'stories/{o.story}/voice.wav', f'stories/{o.story}/voice.mp3'] if os.path.exists(p)), None)
+    if o.spec and (json.load(open(o.spec)).get('audio') or {}).get('gapsApplied'):   # Phase 1F meme gaps (opt-in): the spliced VO + clips from memegap.py
+        voice = json.load(open(o.spec))['audio']['voice']
     if not voice: sys.exit('no voice file in stories/' + o.story)
     vlen = o.voice_dur if o.voice_dur else probe_duration(voice) - o.voice_start
     pic = nframes / o.fps
