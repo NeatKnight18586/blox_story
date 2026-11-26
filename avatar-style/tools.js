@@ -12,6 +12,7 @@ import {mergeGeometries} from 'three/addons/utils/BufferGeometryUtils.js';
 import {blasterTool} from '../parts/sets4/props5.js';
 import {sword as propSword, heroStone as propHeroStone, classSword as propClassSword} from '../parts/props.js';
 
+import {megaphone} from './governor.js';
 export const TOOLS = ['sword', 'hammer', 'torch', 'bread'];
 export const HAND = [0, -1.84, 0];                         // fist centre in shoulder-pivot coordinates
 const cache = new Map();
@@ -90,6 +91,7 @@ function eggsTool(name) {
   designs.slice(1).forEach((d, i) => { const e = eggMesh(d, {r, rim: true}); const [x, y, z] = spots[i]; e.position.set(at.x + x * r * 1.4, at.y + y * r * 1.2, at.z + z * r); e.rotation.z = (i % 2 ? -.35 : .35); grp.add(e); });
   base.position.y -= r * .2; grp.userData.eggs = k; return grp;
 }
+BUILD.megaphone = megaphone;   // Phase 1F: the Governor's golden megaphone ('extend' grip)
 export function buildTool(name, opts = {}) {
   if (!BUILD[name] && !name.startsWith('class:') && !name.startsWith('egg:') && !name.startsWith('eggs:') && !name.startsWith('blaster:')) throw Error('unknown tool ' + name);
   const t = name.startsWith('blaster:') ? blasterTool(+name.split(':')[1], +(name.split(':')[2] ?? 1)) : name.startsWith('class:') ? classTool(name) : name.startsWith('eggs:') ? eggsTool(name) : name.startsWith('egg:') ? eggTool(name) : BUILD[name](opts); t.name = 'tool_' + name; t.position.set(...HAND);

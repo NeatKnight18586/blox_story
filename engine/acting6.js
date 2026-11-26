@@ -217,7 +217,22 @@ export const VERBS = {
   open_palms: {act: .12, tail: .35, gesture: true, main: ['rightShoulder.z', 1], key: P({lS: [-26, 0, -26], rS: [-26, 0, 26], lE: -48, rE: -48, lW: [0, 0, -18], rW: [0, 0, 18]}), settle: REST},
   head_nod: {act: .09, tail: .25, gesture: true, main: ['head.x', 1], key: P({head: [14, 0, 0]}), settle: REST},
   head_shake: {act: .09, tail: .4, gesture: true, main: ['head.y', -1], key: P({head: [2, -15, 0]}), settle: REST, impact: {'head.y': 26, shape: 'osc', peak: .11}},
+  // Phase 1F: THE GOVERNOR's acts (GOV_VERBS; the R6 keys in engine/r6keys.js). rope_pull = both hands high on the bell rope, then a hard yank down
+  // (knees give); announce = the megaphone arm up and forward, chest out; panic_up = both arms flung up, flailing.
+  rope_pull: {act: .14, tail: .6, main: ['root.dy', -1], cam: 30,
+    antic: P({lS: [-172, 0, -6], rS: [-172, 0, 6], head: [-24, 0, 0], root: {lean: -4}}),
+    key: P({lS: [-62, 0, -8], rS: [-62, 0, 8], head: [-8, 0, 0], waist: [6, 0, 0], root: {dy: -.38, lean: 6}}),
+    settle: P({lS: [-70, 0, -8], rS: [-70, 0, 8], head: [-10, 0, 0], waist: [4, 0, 0], root: {dy: -.3, lean: 4}}), impact: {'head.x': 6, 'leftShoulder.x': 8, 'rightShoulder.x': 8, shape: 'osc', peak: .12}},
+  announce: {act: .14, tail: .5, main: ['rightShoulder.x', -1], cam: 25,
+    antic: P({rS: [12, 0, 6], head: [8, 0, 0], root: {lean: 5}}),
+    key: P({rS: [-100, 0, 8], lS: [-6, 0, -34], head: [-8, 0, 0], waist: [-6, 0, 0], root: {lean: -5}}),
+    settle: P({rS: [-97, 0, 8], lS: [-6, 0, -30], head: [-6, 0, 0], waist: [-5, 0, 0], root: {lean: -4}})},
+  panic_up: {act: .1, tail: .5, main: ['waist.x', -1], cam: 25,
+    antic: P({lS: [10, 0, -6], rS: [10, 0, 6], head: [10, 0, 0], root: {dy: -.2, lean: 8}}),
+    key: P({lS: [-30, 0, -150], rS: [-30, 0, 150], head: [-16, 0, 0], waist: [-8, 0, 0], root: {lean: -8, dz: -.25}}),
+    settle: P({lS: [-24, 0, -138], rS: [-24, 0, 138], head: [-12, 0, 0], waist: [-6, 0, 0], root: {lean: -6, dz: -.25}}), impact: {'leftShoulder.z': 14, 'rightShoulder.z': -14, shape: 'osc', peak: .1}},
 };
+export const GOV_VERBS = ['rope_pull', 'announce', 'panic_up'];
 // ---- hug and carry (P3b): solved poses, frozen as data (scripts/v2/acting6-solve.js: seeded search over pure arm IK + FK + sampled box penetration) ----
 // C(d): a full channel pose = REST + the listed channels. Both actors of a hug / carry come from ONE call (partner half + placement).
 const C = (d, base = REST) => ({...base, ...d});

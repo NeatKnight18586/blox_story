@@ -95,15 +95,31 @@ export const FACES6 = {
   yell: {eyes: C('xd_shout', 'eyes'), mouth: [U(.17, .19, MY - .16)], fills: [['mouth'], ['teeth', {depth: .24, top: true}], ['tongue']]},
 };
 export const FACE_NAMES6 = Object.keys(FACES6);
+// Phase 1F: THE GOVERNOR's own faces (opt-in by name; FACE_NAMES6 stays the 24). Thick ink, light skin; his 3D mustache sits
+// just above the mouth line (avatar-style/governor.js), so the mouths start low. Talk families in GOV_FAMILY6.
+export const FACES_GOV = {
+  gov_smug: {brows: [['c', SW * 1.2, .08, .2, .13, .27, .21, .29, .27, .24], ['s', SW * 1.2, -.27, .17, -.07, .15]],
+    eyes: [['s', .11, -.21, .06, -.09, .06], ['s', .11, .1, .07, .22, .07]],
+    mouth: [['c', SW * 1.15, -.15, -.32, -.03, -.35, .1, -.34, .18, -.25]], fills: []},
+  gov_announce: {brows: [['s', SW * 1.2, -.28, .24, -.07, .19], ['s', SW * 1.2, .07, .19, .28, .24]], eyes: [W5.ring, W5.pupil, W6.ring, W6.pupil],
+    mouth: [U(.17, .2, MY - .16)], fills: [['eyeWhite', {eyes: [W5, W6]}], ['mouth'], ['teeth', {depth: .24, top: true}]]},
+  gov_panic: {brows: C('worried', 'brows'), eyes: [T5.ring, T5.pupil, T6.ring, T6.pupil], mouth: [O(.11, .12, MY - .1)],
+    fills: [['eyeWhite', {eyes: [T5, T6]}], ['mouth'], ['water', {sweat: [.33, .3]}], ['water', {sweat: [-.36, .2]}]]},
+  gov_oops: {brows: [['s', SW * 1.2, -.27, .16, -.08, .21], ['s', SW * 1.2, .08, .21, .27, .16]], eyes: [['s', .11, -.15, .09, -.15, .02], ['s', .11, .15, .09, .15, .02]],
+    mouth: [clench(.2, .075, MY - .1)], fills: [['teeth', {clench: true}], ['water', {sweat: [.36, .24]}], ['glint']]},
+};
+export const GOV_FAMILY6 = {gov_smug: 'happy', gov_announce: 'angry', gov_panic: 'sad', gov_oops: 'neutral'};
+export const GOV_FACES = Object.keys(FACES_GOV);
+const faceDef6 = n => FACES6[n] ?? FACES_GOV[n];
 // faces5 names → nearest v6 face (old shot lists keep working)
 export const ALIAS6 = {hero_wink: 'wink', hero_grin: 'grin', hero_shock: 'shock', hero_panic: 'panic', hero_scheme: 'scheme', hero_cry: 'cry', hero_rage: 'rage', hero_soft: 'warm',
   happy: 'smile', content: 'warm', wink_soft: 'wink', wink_shine: 'wink', laugh_xd: 'laugh', xd_laugh: 'laugh', xd_grin: 'laugh', beam: 'grin', beam2: 'grin', beam3: 'grin', o_small: 'gasp',
   stare_o: 'shock', worried: 'sad_soft', worried2: 'sad_soft', frown: 'sad_soft', sad: 'sad_soft', sweat_frown: 'panic', side_eye: 'scheme', smug: 'smirk', angry: 'rage', flat_brows: 'determined',
   sparkle: 'awe', starry: 'awe', wonder: 'awe', blush_smile: 'embarrassed', sweat_smile: 'nervous_laugh', sleep: 'sleepy', confused: 'thinking', tongue: 'disgust', xd_shout: 'yell', scream: 'yell',
   shout: 'yell', blank: 'neutral', sob: 'cry', crying: 'cry', calm: 'warm', polite: 'warm', steady: 'neutral', brave: 'determined', curious: 'thinking', sheepish: 'nervous_laugh', nervous: 'panic'};
-export const name6 = f => typeof f === 'string' ? (FACES6[f] ? f : ALIAS6[f] && FACES6[ALIAS6[f]] ? ALIAS6[f] : null) : null;
+export const name6 = f => typeof f === 'string' ? (FACES6[f] || FACES_GOV[f] ? f : ALIAS6[f] && FACES6[ALIAS6[f]] ? ALIAS6[f] : null) : null;
 export const faceError6 = f => { if (name6(f)) return null; try { resolveFace5(f); return null; } catch (e) { return e.message; } };
-export const family6 = f => talkFamily6(name6(f));
+export const family6 = f => talkFamily6(name6(f)) ?? GOV_FAMILY6[name6(f)] ?? null;
 export const isHeld6 = f => { const n = name6(f); return n ? false : isHeld5(f); };   // P2b: every v6 expression talks (all 24 are in a family)
 
 // ---- talk sets (cell units): four families × closed · small · open · wide (engine/lipflap.js FAMILY6 says which) --------------------
@@ -196,8 +212,8 @@ function limitColours(list) {
 export function faceItems6(f, {talk = null, blink = false, box = K} = {}) {
   const n = name6(f);
   if (!n) return faceItems5(f, {talk, blink, box});   // any other faces5 name: its own linework, no fills
-  const F = FACES6[n], items = [], ink = (prims, kind) => prims.forEach(p => { const it = p[0] === 'q2' ? {line: roundBox(p), w: SW, closed: true} : p[0] === 'poly' ? {line: p[2], w: p[1], closed: true} : primItem(p); items.push({...it, kind, color: INK}); });
-  const fam = talkFamily6(n), t = talk !== null ? TALK6[talkSet6(fam)][talk] : null;
+  const F = faceDef6(n), items = [], ink = (prims, kind) => prims.forEach(p => { const it = p[0] === 'q2' ? {line: roundBox(p), w: SW, closed: true} : p[0] === 'poly' ? {line: p[2], w: p[1], closed: true} : primItem(p); items.push({...it, kind, color: INK}); });
+  const fam = talkFamily6(n) ?? GOV_FAMILY6[n], t = talk !== null ? TALK6[talkSet6(fam)][talk] : null;
   let mouth = F.mouth, fills = F.fills;
   if (t) { mouth = [t.mouth]; fills = [...F.fills.filter(([r]) => !['mouth', 'teeth', 'tongue'].includes(r)), ...t.fills]; }   // a talk shape owns the mouth fills; the glint etc. stay
   const eyes = blink ? null : F.eyes;

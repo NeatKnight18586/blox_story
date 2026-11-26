@@ -1,0 +1,23 @@
+{
+ "note": "Phase 1F (owner-approved design, a mix of A + B): THE GOVERNOR, recurring comic rule-maker, slot GOVERNOR. Rigid classic R6 (Actor v5, satin), adult-sized. Tall black top hat with a red band, gold-rimmed monocle on his left eye, big brown handlebar mustache, navy suit (white shirt strip, red tie on the chain group), skin hands, gold chain with a round medallion, signature GOLDEN MEGAPHONE in the right hand. No text or labels. Faces (faces v6 ink): gov_smug (default), gov_announce, gov_panic (the monocle pops off: actor.attachments.monocle.userData.setPop), gov_oops. Acts (acting6 GOV_VERBS, R6 keys): rope_pull, announce, panic_up. Loaded by specs with a cast entry {troupe: 'GOVERNOR'} (spec.governorFile overrides).",
+ "GOVERNOR": {
+  "tier": "hero",
+  "body": "v5",
+  "rig": "r6",
+  "scale": 1,
+  "skin": "#F3C99B",
+  "hair": null,
+  "faceStyle": "v6",
+  "face": "gov_smug",
+  "build": "adult_m",
+  "regions": {
+   "torso": {"main": "#1E2A55", "strip": "#F4F1E8", "stripW": 0.42, "lapel": "#1E2A55", "lapelW": 0.12, "edge": "#2E3D72", "edgeW": 0.05},
+   "arms": {"upper": "#1E2A55", "lower": "#F3C99B", "split": 0.86},
+   "legs": {"main": "#1E2A55", "shoes": "#141414", "shoeFrac": 0.18}
+  },
+  "accessories": ["govHat", "monocle", "mustache", "govChain"],
+  "tool": "megaphone",
+  "expressions": ["gov_smug", "gov_announce", "gov_panic", "gov_oops"],
+  "acts": ["rope_pull", "announce", "panic_up"]
+ }
+}

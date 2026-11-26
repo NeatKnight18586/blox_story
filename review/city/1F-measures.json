@@ -1,0 +1,171 @@
+{
+ "governor": {
+  "tris": 7972,
+  "cells": [
+   "turn-front",
+   "turn-3q",
+   "turn-side",
+   "turn-back",
+   "face-gov_smug",
+   "face-gov_announce",
+   "face-gov_panic",
+   "face-gov_oops",
+   "act-rope_pull",
+   "act-announce",
+   "act-panic_up"
+  ],
+  "balconyDy": 9.4,
+  "balconyTris": 49328
+ },
+ "clock": {
+  "events": [
+   {
+    "fx": "dong",
+    "t": 0.25
+   },
+   {
+    "fx": "pop",
+    "t": 1
+   },
+   {
+    "fx": "pop",
+    "t": 1.6
+   },
+   {
+    "fx": "pop",
+    "t": 2.2
+   }
+  ],
+  "probe": {
+   "t0": {
+    "wave": false,
+    "props": [
+     false,
+     false,
+     false
+    ]
+   },
+   "t05": {
+    "wave": true,
+    "props": [
+     false,
+     false,
+     false
+    ]
+   },
+   "t13": {
+    "wave": false,
+    "props": [
+     true,
+     false,
+     false
+    ]
+   },
+   "t29": {
+    "wave": false,
+    "props": [
+     true,
+     true,
+     true
+    ]
+   }
+  },
+  "bench": {
+   "tris": 53894,
+   "calls": 185,
+   "sPerFrame": 0.408,
+   "pass": true
+  },
+  "pass": true
+ },
+ "anchor": {
+  "zone": [
+   0.56,
+   0.08,
+   0.76,
+   0.22
+  ],
+  "shots": {
+   "a0": {
+    "before": [
+     -0.06431857273789188,
+     0.40744060210635336
+    ],
+    "after": [
+     0.6600064336272093,
+     0.1499894024517463
+    ],
+    "inZone": true
+   },
+   "a1": {
+    "before": [
+     0.6567222950622795,
+     0.2606361157844504
+    ],
+    "after": [
+     0.6600216041385102,
+     0.14999357704866517
+    ],
+    "inZone": true
+   },
+   "a2": {
+    "before": [
+     0.6591422807184365,
+     0.5648362367011736
+    ],
+    "after": [
+     0.6599520230976339,
+     0.15006562686044872
+    ],
+    "inZone": true
+   }
+  },
+  "pass": true
+ },
+ "tod": {
+  "cityDay2": {
+   "meanLuma": 0.542
+  },
+  "cityGoldenHour": {
+   "meanLuma": 0.508
+  },
+  "cityDusk": {
+   "meanLuma": 0.383
+  },
+  "cityNight": {
+   "meanLuma": 0.123
+  }
+ },
+ "bench": {
+  "cityDay2:bayNorth": {
+   "tris": 67500,
+   "calls": 283,
+   "sPerFrame": 0.412,
+   "pass": true
+  },
+  "cityGoldenHour:bayNorth": {
+   "tris": 67500,
+   "calls": 285,
+   "sPerFrame": 0.406,
+   "pass": true
+  },
+  "cityDusk:bayNorth": {
+   "tris": 69160,
+   "calls": 303,
+   "sPerFrame": 0.427,
+   "pass": true
+  },
+  "cityNight:bayNorth": {
+   "tris": 56080,
+   "calls": 299,
+   "sPerFrame": 0.42,
+   "pass": true
+  }
+ },
+ "pass": {
+  "clock": true,
+  "anchor": true,
+  "bench": true,
+  "nightDarker": true
+ }
+}

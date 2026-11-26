@@ -1,0 +1,76 @@
+{
+ "slug": "city1f",
+ "fps": 24,
+ "format": 6,
+ "labels": false,
+ "world": "parts/city/world.js",
+ "look4": "cityDay2",
+ "rig": "r6",
+ "acting": 6,
+ "cityLiving": [
+  "flagsHall",
+  "fountain",
+  "birds",
+  "gulls",
+  "blimp",
+  "boats",
+  "ferry"
+ ],
+ "note": "Phase 1F gate: THE GOVERNOR on his balcony, announce (megaphone up), from the plaza.",
+ "cast": {
+  "gov": {
+   "troupe": "GOVERNOR",
+   "style": "v5",
+   "faceStyle": "v6",
+   "at": "govBalcony",
+   "offset": [
+    0,
+    9.4,
+    0
+   ],
+   "yaw": 0,
+   "keys": [
+    [
+     0,
+     "idle"
+    ]
+   ],
+   "faces": [
+    [
+     0,
+     "gov_announce"
+    ]
+   ]
+  }
+ },
+ "shots": [
+  {
+   "id": "b0",
+   "size": "wide",
+   "frames": 24,
+   "move": "static-drift",
+   "drift": 0,
+   "from": {
+    "position": [
+     -9,
+     16.9,
+     -22
+    ],
+    "target": [
+     0.3,
+     26.299999999999997,
+     -39
+    ],
+    "fov": 40
+   },
+   "shadowRadius": 30,
+   "actions": [
+    {
+     "actor": "gov",
+     "verb": "announce",
+     "at": 0.1
+    }
+   ]
+  }
+ ]
+}

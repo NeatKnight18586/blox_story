@@ -66,6 +66,11 @@ export const R6KEYS = {
   // gestures (talk): rigid arm flicks, head moves keep acting6's own keys
   beat: {key: k({rS: [-28, 0, 10]})},
   open_palms: {key: k({lS: [-42, 0, -32], rS: [-42, 0, 32]})},
+  // Phase 1F: THE GOVERNOR (GOV_VERBS): rope yank (both hands high, then down with the knees giving), megaphone up, panic arms
+  rope_pull: V({lS: [-62, 0, -6], rS: [-62, 0, 6], head: [-10, 0, 0], root: {lean: -6}}, {antic: {lS: [-174, 0, -4], rS: [-174, 0, 4], head: [-26, 0, 0], root: {lean: -4}},
+    settle: {lS: [-72, 0, -6], rS: [-72, 0, 6], head: [-12, 0, 0], root: {lean: -5}}}),
+  announce: V({rS: [-100, 0, 8], lS: [-4, 0, -30], head: [-8, 0, 0], root: {lean: -5}}, {antic: {rS: [12, 0, 6], head: [8, 0, 0], root: {lean: 5}}}),
+  panic_up: V({lS: [-30, 0, -150], rS: [-30, 0, 150], head: [-16, 0, 0], lH: [-14, 0, -6], rH: [10, 0, 6], root: {lean: -8}}, {antic: {lS: [10, 0, -6], rS: [10, 0, 6], head: [10, 0, 0], root: {lean: 8}}, ...ARC}),
 };
 // hugs: each actor turns to face its partner (a rigid body cannot reach sideways; yaw from acting6's two.place) and steps in
 const HUG_STEP = [.7, .45];
