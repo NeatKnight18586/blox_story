@@ -2,14 +2,14 @@
  "rule": "slot visible ≥ 2 % of its sampled volume points (in frame and first ray hit)",
  "bake": [
   {
-   "meshes": 84,
-   "vertices": 9281,
+   "meshes": 90,
+   "vertices": 9959,
    "voxels": [
-    345,
-    103,
-    224
+    476,
+    119,
+    287
    ],
-   "ms": 87
+   "ms": 78
   },
   {
    "meshes": 2,
@@ -19,47 +19,47 @@
     92,
     62
    ],
-   "ms": 5
+   "ms": 3
   },
   {
-   "meshes": 20,
-   "vertices": 1648,
+   "meshes": 93,
+   "vertices": 9120,
    "voxels": [
-    650,
-    45,
-    346
-   ],
-   "ms": 14
-  },
-  {
-   "meshes": 128,
-   "vertices": 11478,
-   "voxels": [
-    396,
-    50,
+    389,
+    46,
     618
    ],
-   "ms": 113
+   "ms": 49
   },
   {
-   "meshes": 107,
-   "vertices": 8952,
+   "meshes": 87,
+   "vertices": 7448,
    "voxels": [
-    288,
-    48,
-    278
+    284,
+    56,
+    281
    ],
-   "ms": 71
+   "ms": 40
   },
   {
    "meshes": 99,
-   "vertices": 7194,
+   "vertices": 7158,
    "voxels": [
     309,
     70,
     420
    ],
-   "ms": 57
+   "ms": 38
+  },
+  {
+   "meshes": 4,
+   "vertices": 288,
+   "voxels": [
+    54,
+    46,
+    171
+   ],
+   "ms": 2
   },
   {
    "meshes": 1,
@@ -76,67 +76,93 @@
   "b": {
    "anchor": "plazaSouth",
    "onScreen": [
-    "1",
-    "5"
+    "5",
+    "8"
    ],
    "pass": true,
-   "triangles": 49452,
-   "calls": 63,
+   "comp": {
+    "skyPct": 32.8,
+    "waterPct": 21.7,
+    "otherPct": 45.5,
+    "hillPct": 0,
+    "hillsAboveRoofLots": 44.9,
+    "hillsAboveRoofAll": -27.3,
+    "classes": {
+     "sky": 32.8,
+     "water": 21.7,
+     "hill": 0,
+     "ground": 8.2,
+     "build": 0,
+     "slot": 37.3,
+     "tree": 0.1,
+     "other": 0
+    }
+   },
+   "triangles": 45656,
+   "calls": 61,
    "slots": {
     "1": {
-     "inFrame": 0.731,
-     "visible": 0.709,
+     "inFrame": 0,
+     "visible": 0,
      "ndc": [
-      0.6,
-      -0.83
+      0,
+      0.46
      ]
     },
     "2": {
      "inFrame": 0,
      "visible": 0,
      "ndc": [
-      -0.71,
-      0.03
+      0,
+      0.05
      ]
     },
     "3": {
      "inFrame": 0,
      "visible": 0,
      "ndc": [
-      8.41,
-      0.59
+      2.61,
+      0.16
      ]
     },
     "4": {
      "inFrame": 0,
      "visible": 0,
      "ndc": [
-      4.89,
-      0.02
+      8.61,
+      0.21
      ]
     },
     "5": {
      "inFrame": 1,
-     "visible": 0.514,
+     "visible": 0.526,
      "ndc": [
-      -0.08,
-      0.19
+      0.03,
+      0.35
      ]
     },
     "6": {
      "inFrame": 0,
      "visible": 0,
      "ndc": [
-      -4.91,
-      0.14
+      -6.21,
+      0.35
      ]
     },
     "7": {
      "inFrame": 0,
      "visible": 0,
      "ndc": [
-      1.37,
-      0.01
+      1.18,
+      -0.21
+     ]
+    },
+    "8": {
+     "inFrame": 0.303,
+     "visible": 0.086,
+     "ndc": [
+      0,
+      -0.43
      ]
     }
    }
@@ -146,67 +172,93 @@
    "onScreen": [
     "1",
     "2",
-    "3",
-    "7"
+    "7",
+    "8"
    ],
    "pass": true,
-   "triangles": 83850,
-   "calls": 171,
+   "comp": {
+    "skyPct": 33.1,
+    "waterPct": 24.2,
+    "otherPct": 42.7,
+    "hillPct": 8,
+    "hillsAboveRoofLots": 15.6,
+    "hillsAboveRoofAll": -6.9,
+    "classes": {
+     "sky": 33.1,
+     "water": 24.2,
+     "hill": 8,
+     "ground": 10.9,
+     "build": 1.8,
+     "slot": 17.6,
+     "tree": 4.3,
+     "other": 0
+    }
+   },
+   "triangles": 74130,
+   "calls": 146,
    "slots": {
     "1": {
      "inFrame": 1,
-     "visible": 0.6,
+     "visible": 0.691,
      "ndc": [
-      -0.47,
-      -0.06
+      0,
+      0
      ]
     },
     "2": {
      "inFrame": 1,
-     "visible": 0.32,
+     "visible": 0.251,
      "ndc": [
-      -0.41,
-      0.08
+      0,
+      0.15
      ]
     },
     "3": {
-     "inFrame": 1,
-     "visible": 0.143,
+     "inFrame": 0,
+     "visible": 0,
      "ndc": [
-      0.61,
-      0.02
+      1.34,
+      0.09
      ]
     },
     "4": {
      "inFrame": 0,
      "visible": 0,
      "ndc": [
-      -47.76,
-      0.39
+      -38.78,
+      0.3
      ]
     },
     "5": {
      "inFrame": 0,
      "visible": 0,
      "ndc": [
-      0.08,
-      -0.41
+      0.06,
+      -0.34
      ]
     },
     "6": {
      "inFrame": 0,
      "visible": 0,
      "ndc": [
-      59.55,
-      1.69
+      -49.48,
+      -1.37
      ]
     },
     "7": {
-     "inFrame": 1,
-     "visible": 0.166,
+     "inFrame": 0.326,
+     "visible": 0.24,
      "ndc": [
-      0.5,
-      0.08
+      1.05,
+      0.41
+     ]
+    },
+    "8": {
+     "inFrame": 0.863,
+     "visible": 0.457,
+     "ndc": [
+      0,
+      -0.14
      ]
     }
    }
@@ -214,68 +266,190 @@
   "d": {
    "anchor": "suburbStreet",
    "onScreen": [
-    "1",
     "2",
-    "3"
+    "3",
+    "7"
    ],
    "pass": true,
-   "triangles": 88606,
-   "calls": 239,
+   "comp": {
+    "skyPct": 34.1,
+    "waterPct": 0,
+    "otherPct": 65.9,
+    "hillPct": 2.9,
+    "hillsAboveRoofLots": 14.6,
+    "hillsAboveRoofAll": -5.1,
+    "classes": {
+     "sky": 34.1,
+     "water": 0,
+     "hill": 2.9,
+     "ground": 52.5,
+     "build": 2.3,
+     "slot": 5.4,
+     "tree": 2.8,
+     "other": 0
+    }
+   },
+   "triangles": 77614,
+   "calls": 199,
    "slots": {
     "1": {
-     "inFrame": 1,
-     "visible": 0.84,
+     "inFrame": 0,
+     "visible": 0,
      "ndc": [
-      0.92,
-      -0.14
+      1.15,
+      0.05
      ]
     },
     "2": {
      "inFrame": 1,
-     "visible": 0.034,
+     "visible": 0.36,
      "ndc": [
-      -0.08,
-      0.06
+      0.07,
+      0.23
      ]
     },
     "3": {
      "inFrame": 1,
-     "visible": 0.086,
+     "visible": 0.229,
      "ndc": [
-      0.43,
-      -0.05
+      0.61,
+      0.12
      ]
     },
     "4": {
      "inFrame": 0,
      "visible": 0,
      "ndc": [
-      -2.4,
-      -0.05
+      -1.82,
+      0.02
      ]
     },
     "5": {
      "inFrame": 0,
      "visible": 0,
      "ndc": [
-      12.76,
-      -0.15
+      20.93,
+      0.06
      ]
     },
     "6": {
      "inFrame": 0,
      "visible": 0,
      "ndc": [
-      2.56,
-      -0.15
+      2.95,
+      0.01
      ]
     },
     "7": {
-     "inFrame": 0.76,
+     "inFrame": 1,
+     "visible": 0.646,
+     "ndc": [
+      -0.81,
+      0.48
+     ]
+    },
+    "8": {
+     "inFrame": 0,
      "visible": 0,
      "ndc": [
-      -0.94,
-      0.09
+      2.49,
+      -0.08
+     ]
+    }
+   }
+  },
+  "e": {
+   "anchor": "stairBottom",
+   "onScreen": [
+    "1",
+    "2",
+    "7",
+    "8"
+   ],
+   "pass": true,
+   "comp": {
+    "skyPct": 34.3,
+    "waterPct": 0,
+    "otherPct": 65.7,
+    "hillPct": 2.5,
+    "hillsAboveRoofLots": 66.8,
+    "hillsAboveRoofAll": -5.8,
+    "classes": {
+     "sky": 34.3,
+     "water": 0,
+     "hill": 2.5,
+     "ground": 15.4,
+     "build": 0,
+     "slot": 46.3,
+     "tree": 1.4,
+     "other": 0
+    }
+   },
+   "triangles": 76292,
+   "calls": 157,
+   "slots": {
+    "1": {
+     "inFrame": 1,
+     "visible": 0.2,
+     "ndc": [
+      0,
+      0.13
+     ]
+    },
+    "2": {
+     "inFrame": 1,
+     "visible": 0.051,
+     "ndc": [
+      0,
+      0.21
+     ]
+    },
+    "3": {
+     "inFrame": 0,
+     "visible": 0,
+     "ndc": [
+      1.34,
+      0.16
+     ]
+    },
+    "4": {
+     "inFrame": 0,
+     "visible": 0,
+     "ndc": [
+      16.79,
+      -0.47
+     ]
+    },
+    "5": {
+     "inFrame": 0,
+     "visible": 0,
+     "ndc": [
+      0.03,
+      -0.24
+     ]
+    },
+    "6": {
+     "inFrame": 0,
+     "visible": 0,
+     "ndc": [
+      -8.3,
+      -0.39
+     ]
+    },
+    "7": {
+     "inFrame": 0.994,
+     "visible": 0.68,
+     "ndc": [
+      0.85,
+      0.36
+     ]
+    },
+    "8": {
+     "inFrame": 0.331,
+     "visible": 0.223,
+     "ndc": [
+      0,
+      0.14
      ]
     }
    }

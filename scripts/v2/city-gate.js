@@ -47,12 +47,30 @@ try {
       scene.traverse(o => { if (!(o.isMesh || o.isInstancedMesh) || !o.visible) return; for (let q = o.parent; q; q = q.parent) if (!q.visible) return; if (o.geometry.boundingSphere == null) o.geometry.computeBoundingSphere(); if (!o.isInstancedMesh && !fr.intersectsObject(o)) return;
         let top = o; while (top.parent && top.parent.name !== 'city' && top.parent !== scene) top = top.parent; const key = (top.name || o.name).split(':')[0] + (top.name.includes(':') ? ':' + top.name.split(':')[1] : '');
         const tri = (o.geometry.index ? o.geometry.index.count : o.geometry.attributes.position.count) / 3 * (o.isInstancedMesh ? o.count : 1); groups[key] = (groups[key] ?? 0) + tri; });
-      return {url, st, res, groups};
+      // composition: re-render with flat class colours (sky = clear colour, water, hill, ground, lots, slots, trees) and count pixels
+      const keep = [], rec = (o, m) => { keep.push([o, o.material]); o.material = m; }, flat = c => new T.MeshBasicMaterial({color: c, fog: false, toneMapped: false}), CL = {water: 0x0000ff, hill: 0x00ff00, ground: 0xffffff, build: 0xff0000, slot: 0xffff00, tree: 0x00ffff};
+      const hid = [], colr = [], bg = scene.background, fogS = scene.fog, ph = new T.Color();
+      scene.traverse(o => { if (!o.isMesh && !o.isInstancedMesh && !o.isPoints && !o.isSprite) return; const names = []; for (let q = o; q; q = q.parent) names.push(q.name || ''); const nm = names.join('/');
+        if (/sky|cloud|Foam|catcher/i.test(nm) || o.isPoints || o.isSprite) { if (o.visible) { hid.push(o); o.visible = false; } return; }
+        if (/cityWater/.test(nm)) return rec(o, flat(CL.water));
+        if (/cityTerrain/.test(nm)) { const a = o.geometry.attributes.position, c = o.geometry.attributes.color, old = c.array.slice(); colr.push([c, old]); for (let i = 0; i < a.count; i++) { ph.setHex(a.getY(i) >= 32 ? CL.hill : CL.ground); c.setXYZ(i, ph.r, ph.g, ph.b); } c.needsUpdate = true; return rec(o, new T.MeshBasicMaterial({vertexColors: true, fog: false, toneMapped: false})); }
+        if (/^slot:/.test(o.name)) return rec(o, flat(CL.slot));
+        if (/cityVegetation|streetTrees|tree_/.test(nm)) return rec(o, flat(CL.tree));
+        if (/district:/.test(nm) && !/roads|plazaPaving|duckRock/.test(nm)) return rec(o, flat(CL.build));
+        rec(o, flat(CL.ground)); });
+      scene.background = new T.Color(0xff00ff); scene.fog = null; renderer.setSize(w, h, false); renderer.render(scene, camera);
+      const cv = document.createElement('canvas'); cv.width = w; cv.height = h; const cx = cv.getContext('2d', {willReadFrequently: true}); cx.drawImage(renderer.domElement, 0, 0, w, h); const px = cx.getImageData(0, 0, w, h).data;
+      keep.forEach(([o, m]) => { o.material = m; }); colr.forEach(([c, old]) => { c.array.set(old); c.needsUpdate = true; }); hid.forEach(o => { o.visible = true; }); scene.background = bg; scene.fog = fogS;
+      const cnt = {sky: 0, water: 0, hill: 0, ground: 0, build: 0, slot: 0, tree: 0, other: 0}, top = {hill: h, build: h, slot: h, tree: h};
+      for (let y = 0; y < h; y++) for (let x = 0; x < w; x++) { const i = (y * w + x) * 4, code = (px[i] > 127 ? 4 : 0) + (px[i + 1] > 127 ? 2 : 0) + (px[i + 2] > 127 ? 1 : 0), k = ['other', 'water', 'hill', 'tree', 'build', 'sky', 'slot', 'ground'][code]; cnt[k]++; if (top[k] !== undefined && y < top[k]) top[k] = y; }
+      const N = w * h, pc = k => +(cnt[k] / N * 100).toFixed(1), crest = Math.min(top.hill, top.tree);
+      const comp = {skyPct: pc('sky'), waterPct: pc('water'), otherPct: +(100 - pc('sky') - pc('water')).toFixed(1), hillPct: pc('hill'), hillsAboveRoofLots: +((top.build - crest) / h * 100).toFixed(1), hillsAboveRoofAll: +((Math.min(top.build, top.slot) - crest) / h * 100).toFixed(1), classes: Object.fromEntries(Object.keys(cnt).map(k => [k, pc(k)]))};
+      return {url, st, res, groups, comp};
     }, [s.from, W, Hh]);
     save(`${OUT}/${s.id}.png`, r.url);
     const onScreen = Object.entries(r.res).filter(([, v]) => v.visible >= .02).map(([k]) => k);
-    sight[s.id] = {anchor: s.anchor, onScreen, pass: onScreen.length >= 2, triangles: r.st.triangles, calls: r.st.calls, slots: r.res};
-    console.log(s.id, s.anchor, 'slots on screen:', onScreen.join(','), 'tris', r.st.triangles, JSON.stringify(Object.fromEntries(Object.entries(r.groups).map(([k, v]) => [k, Math.round(v)]).sort((a, b) => b[1] - a[1]).slice(0, 8))));
+    sight[s.id] = {anchor: s.anchor, onScreen, pass: onScreen.length >= 2 && (s.id !== 'b' || onScreen.includes('5')) && (s.id !== 'e' || (onScreen.includes('2') && onScreen.includes('8'))), comp: r.comp, triangles: r.st.triangles, calls: r.st.calls, slots: r.res};
+    console.log(s.id, s.anchor, 'slots on screen:', onScreen.join(','), JSON.stringify(r.comp), 'tris', r.st.triangles, JSON.stringify(Object.fromEntries(Object.entries(r.groups).map(([k, v]) => [k, Math.round(v)]).sort((a, b) => b[1] - a[1]).slice(0, 8))));
   }
   writeFileSync('review/city/1A-sightlines.json', JSON.stringify({rule: 'slot visible ≥ 2 % of its sampled volume points (in frame and first ray hit)', bake: bakeInfo, shots: sight}, null, 1) + '\n');
   await p.close();

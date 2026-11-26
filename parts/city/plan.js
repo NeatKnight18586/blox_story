@@ -54,25 +54,35 @@ const fract = v => v - Math.floor(v), h2 = (x, z) => fract(Math.sin(x * 127.1 + 
 function vnoise(x, z) { const xi = Math.floor(x), zi = Math.floor(z), fx = smooth(0, 1, x - xi), fz = smooth(0, 1, z - zi), a = h2(xi, zi), b = h2(xi + 1, zi), c = h2(xi, zi + 1), d = h2(xi + 1, zi + 1);
   return a + (b - a) * fx + (c - a) * fz + (a - b - c + d) * fx * fz; }
 
-const PLAZA_C = toWorld(PLAN.plaza.at), PLAZA_R = PLAN.plaza.r * S, PLAZA_B = PLAN.plaza.blend * S;
-const CL = PLAN.cliff, CL_A = CL.from, CL_B = CL.to;
-// Height of the land surface before the coast ramp (town profile + hills + cliff + plaza pad).
+// ---- Phase 1A-fix movie-set profile (all numbers in plan.json "terrain") ---------------------------------------------------------
+const TR = PLAN.terrain, TC = TR.terrace, [TX0, TZ0, TX1, TZ1] = TC.rect, ST = TR.stair, HI = TR.hills, CL = PLAN.cliff, CL_A = CL.from, CL_B = CL.to;
+const clamp01 = v => Math.max(0, Math.min(1, v));
+// Terrace weight: 1 on the flat y+14 rect, falls to 0 over `blend` studs on N/E/W and over 1.5 studs on the south edge (the retaining wall).
+export function terraceW(x, z) {
+  const dx = Math.max(TX0 - x, 0, x - TX1), dz = Math.max(TZ0 - z, 0, z - TZ1), D = Math.hypot(dx, dz); if (D === 0) return 1;
+  const south = z > TZ1 ? dz / (dz + dx + 1e-9) : 0, B = TC.blend * (1 - south) + 1.5 * south;
+  return 1 - smooth(0, B, D);
+}
+// Town ground outside the hills: west arm (shore road +2 → +12 inland, linear ≈ 4 %), Main St 14 → 20, east arm +5 → +1, bay-front promenade, terrace.
+function townY(x, z) {
+  const dx = Math.max(TX0 - x, 0, x - TX1), dz = Math.max(TZ0 - z, 0, z - TZ1), D = Math.hypot(dx, dz), W = TR.westArm, M = TR.mainSt, E = TR.eastArm;
+  const west = Math.max(W.shore, TC.y - (TC.y - W.shore) / W.run * D);
+  const yM = M.plaza + (M.ne - M.plaza) * clamp01((x - M.x0) / (M.x1 - M.x0)), yH = z < E.z0 ? E.hi : E.hi - (E.hi - E.lo) * clamp01((z - E.z0) / E.run);
+  const east = yM + (yH - yM) * clamp01((z - M.descend[0]) / (M.descend[1] - M.descend[0]));
+  let y = west + (east - west) * smooth(-20, 20, x);
+  const cx = (1 - smooth(110, 170, Math.abs(x))) * smooth(10, 40, z); y += (TR.promenade - y) * cx;
+  const w = terraceW(x, z); return y + (TC.y - y) * w;
+}
+// Height of the land surface before the coast ramp: the town, the hills (from z −100) with crest line 75–90, the knoll, the cliff step.
 export function landProfile(x, z) {
-  const zh = hillsZ(x), rise = z => H.plaza + H.plazaRise * -z;
-  let y;
-  if (z >= zh) { y = z >= 0 ? H.plaza * (1 - Math.max(0, z - PLAZA_R) / 70) : rise(z); y = Math.max(y, H.armFloor); y += .5 * (vnoise(x / 23, z / 23) - .5); }
-  else {
-    const u = zh - z, b0 = rise(zh); y = b0 + (H.hillBase - b0) * smooth(0, H.hillRun, u);
-    let bumps = 0; for (const {at, r, h} of PLAN.hills) { const q = Math.hypot(x - at[0], z - at[1]) / r; if (q < 1) bumps += h * (.5 + .5 * Math.cos(q * Math.PI)); }
-    y += (bumps + 5 * (vnoise(x / 31, z / 31) - .5) + 2 * (vnoise(x / 9, z / 9) - .5)) * smooth(0, 40, u);
-    // cliff step (wild edge): the ground north of the line stands `h` higher, over `width` studs
-    const dx = CL_B[0] - CL_A[0], dz = CL_B[1] - CL_A[1], L = Math.hypot(dx, dz), t = ((x - CL_A[0]) * dx + (z - CL_A[1]) * dz) / (L * L);
-    if (t > -.1 && t < 1.1) { const c = -((x - CL_A[0]) * -dz + (z - CL_A[1]) * dx) / L;   // + = north of the line
-      y += CL.h * smooth(-CL.width / 2, CL.width / 2, c) * smooth(-.1, .12, t) * smooth(1.1, .88, t); }
-    if (y > H.hillMax - 6) y = H.hillMax - 6 + 6 * Math.tanh((y - H.hillMax + 6) / 6);   // soft cap at hillMax
-  }
-  const d = Math.hypot(x - PLAZA_C[0], z - PLAZA_C[1]);
-  if (d < PLAZA_R + PLAZA_B) { const w = 1 - smooth(PLAZA_R, PLAZA_R + PLAZA_B, d); y = y + (H.plaza - y) * w; }
+  if (z >= HI.startZ) return townY(x, z);
+  const b0 = townY(x, HI.startZ), u = HI.startZ - z, [c0, c1] = HI.crest, [z1, z0] = HI.crestZ;
+  const crest = Math.max(c0, Math.min(c1, (c0 + c1) / 2 + 6 * Math.sin(x / 55 + 1) + 2 * Math.sin(x / 23))), uc = (HI.startZ - z0 + HI.startZ - z1) / 2 + (z1 - z0) / 2 * Math.sin(x / 60 + .6);
+  const t = Math.min(1, u / uc); let y = u <= uc ? b0 + (crest - b0) * (.8 * t + .2 * smooth(0, 1, t)) : crest - .35 * (u - uc);
+  y += (3.5 * (vnoise(x / 31, z / 31) - .5) + 1.2 * (vnoise(x / 9, z / 9) - .5)) * smooth(0, 40, u);
+  const dx = CL_B[0] - CL_A[0], dz = CL_B[1] - CL_A[1], L = Math.hypot(dx, dz), tt = ((x - CL_A[0]) * dx + (z - CL_A[1]) * dz) / (L * L);
+  if (tt > -.1 && tt < 1.1) { const c = -((x - CL_A[0]) * -dz + (z - CL_A[1]) * dx) / L; y += CL.h * smooth(-CL.width / 2, CL.width / 2, c) * smooth(-.1, .12, tt) * smooth(1.1, .88, tt); }
+  const K = HI.knoll, [kx, kz] = toWorld(K.at), kd = Math.hypot(x - kx, z - kz); if (kd < K.r + K.blend) y += (K.y - y) * (1 - smooth(K.r, K.r + K.blend, kd));
   return y;
 }
 const BEACH = PLAN.districts.beach.rect, [BX0, BZ0] = toWorld([BEACH[0] + 4, BEACH[1] - 12]), [BX1, BZ1] = toWorld([BEACH[2] - 4, BEACH[3] - 4]);
@@ -83,13 +93,27 @@ export function beachY(x, z) {   // sand spit at the east tip, sloping into the 
 const DUCK = PLAN.landmarks['5'], DUCK_C = toWorld(DUCK.at), DUCK_R = [DUCK.rock.rx * S, DUCK.rock.ry * S];
 export function rockY(x, z) { const q = ((x - DUCK_C[0]) / DUCK_R[0]) ** 2 + ((z - DUCK_C[1]) / DUCK_R[1]) ** 2; return q >= 1 ? -Infinity : H.seaFloor + (DUCK.rock.h - H.seaFloor) * Math.sqrt(1 - q * q); }
 
-// The ground surface (terrain = exactly this at every grid vertex). Under the bay/sea it is the sea floor (water plane at H.waterY).
-export function groundY(x, z) {
+const BOARD = () => roadPaths().boardwalk.pts; let _board = null;
+// Grand Stair walkable profile: 10 steps, a 6-deep landing, 10 steps (total drop terrace y → deck y).
+export function stairY(z) {
+  const run = (ST.z1 - ST.z0 - ST.landing) / ST.steps, rise = (TC.y - TR.deck) / ST.steps, half = ST.steps / 2;
+  if (z <= ST.z0) return TC.y; if (z >= ST.z1) return TR.deck;
+  let u = z - ST.z0; if (u < half * run) return TC.y - (Math.floor(u / run) + 1) * rise;
+  u -= half * run; if (u < ST.landing) return TC.y - half * rise; u -= ST.landing; return TC.y - (half + Math.min(half, Math.floor(u / run) + 1)) * rise;
+}
+export const onStair = (x, z) => Math.abs(x - ST.x) <= ST.w / 2 && z > ST.z0 && z < ST.z1;
+// The terrain surface without the stair steps (what the terrain mesh is built from; the stair is its own blockout on top).
+export function terrainY(x, z) {
   const s = coastDist(x, z); let y;
-  if (s >= 0) { const k = H.shoreGrade + (H.cliffGrade - H.shoreGrade) * smooth(-90, -170, z); y = Math.min(landProfile(x, z), H.shore + k * s); }
-  else y = Math.max(H.seaFloor, H.shore + H.seaGrade * s);
+  if (s >= 0) {
+    const k = H.shoreGrade + (H.cliffGrade - H.shoreGrade) * smooth(-90, -170, z), ramp = H.shore + k * s; y = Math.min(landProfile(x, z), ramp);
+    const pd = polyDist(x, z, _board ??= BOARD()), wB = (1 - smooth(12, 120, pd)) * smooth(30, 130, z); y += (Math.min(TR.promenade, ramp) - y) * wB;
+    const w = terraceW(x, z); if (w > 0) y += (TC.y - y) * w;   // the terrace is never clipped by the coast ramp
+  } else y = Math.max(H.seaFloor, H.shore + H.seaGrade * s);
   return Math.max(y, beachY(x, z), rockY(x, z));
 }
+// The ground surface actors stand on: terrainY, with the real stepped Grand Stair inside its footprint.
+export const groundY = (x, z) => onStair(x, z) ? stairY(z) : terrainY(x, z);
 // Standing height: ground, or the water surface where the ground is under water (boats, bay cameras).
 export const standY = (x, z) => Math.max(groundY(x, z), H.waterY);
 
@@ -139,3 +163,8 @@ export function landmarkSlots() {
     return {id, name: L.name, at: [x, z], fp: [w, d], base, h: L.h, top: base + Math.max(L.h, tower?.h ?? 0), tower, shape: L.shape, district: L.district};
   });
 }
+// View corridors (plan.json "corridors"): world segments [x0, z0, x1, z1, halfWidth] kept free of lots and trees (anchor → landmark slot tower/centre).
+export function corridors() {
+  return (PLAN.corridors ?? []).map(c => { const a = anchor(c.from), L = PLAN.landmarks[c.to], [lx, lz] = toWorld(L.at), tz = L.tower ? lz + L.tower.at[1] : lz; return [a.position[0], a.position[2], lx, tz, c.w]; });
+}
+export const inCorridor = (x, z, r = 0, C = corridors()) => C.some(([x0, z0, x1, z1, w]) => segDist(x, z, [x0, z0], [x1, z1])[0] < w + r);

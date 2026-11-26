@@ -18,16 +18,16 @@
    "anchor": "plazaSouth",
    "from": {
     "position": [
-     6,
-     32,
-     -22
+     0,
+     19.5,
+     30
     ],
     "target": [
-     -4,
      0,
-     164
+     -26.7,
+     230
     ],
-    "fov": 60
+    "fov": 62
    },
    "shadowRadius": 40
   }

@@ -17,16 +17,16 @@
    "anchor": "plazaSouth",
    "from": {
     "position": [
-     6,
-     32,
-     -22
+     0,
+     19.5,
+     30
     ],
     "target": [
-     -4,
      0,
-     164
+     -26.7,
+     230
     ],
-    "fov": 60
+    "fov": 62
    },
    "shadowRadius": 40
   },
@@ -39,16 +39,16 @@
    "anchor": "bayNorth",
    "from": {
     "position": [
-     10,
-     3,
-     148
+     0,
+     6,
+     135
     ],
     "target": [
-     24,
-     24.633121559627185,
-     -28
+     0,
+     23.4,
+     -60
     ],
-    "fov": 58
+    "fov": 50
    },
    "shadowRadius": 40
   },
@@ -61,16 +61,38 @@
    "anchor": "suburbStreet",
    "from": {
     "position": [
-     -174,
-     14.567534621922306,
-     13
+     -162,
+     13.18625002446751,
+     10.680000000000007
     ],
     "target": [
-     2,
-     31.277230036493535,
-     -52
+     0,
+     14,
+     -60
     ],
     "fov": 58
+   },
+   "shadowRadius": 40
+  },
+  {
+   "id": "e",
+   "size": "wide",
+   "frames": 6,
+   "move": "static-drift",
+   "drift": 0,
+   "anchor": "stairBottom",
+   "from": {
+    "position": [
+     0,
+     3.4,
+     75
+    ],
+    "target": [
+     0,
+     17,
+     -56
+    ],
+    "fov": 70
    },
    "shadowRadius": 40
   }
