@@ -670,7 +670,7 @@ function drawFrame(shot, mf, off, width, height, nudge) {
   if (CINE_CAM && c.noise) { camera.rotateX(c.noise[0]); camera.rotateY(c.noise[1]); camera.rotateZ(c.noise[2]); }   // tuft 1B handheld (rotation only)
   const cn = CINE_CAM ? null : camNoise5b(shot, t) ?? (M6 && M6.moodUniforms(shot).camNoise ? camNoise(t, shots.indexOf(shot) + 1, M6.moodUniforms(shot).camNoise) : null); if (cn) { camera.rotateX(cn[0]); camera.rotateY(cn[1]); }   // Look 5b: static-shot micro-noise
   if (nudge) { const k = nudge / Math.sqrt(3); camera.translateX(k); camera.translateY(k); camera.translateZ(k); }
-  world?.onCamera?.(camera.position.toArray());   // format v5 3b-R (opt-in): a world may hide what this camera cannot see (hall ↔ street)
+  world?.onCamera?.(camera.position.toArray(), camera);   // format v5 3b-R (opt-in): a world may hide what this camera cannot see (hall ↔ street)
   if (look) { fx.look ? look.apply(...fx.look) : look.apply(shot.look ?? spec.look ?? 'day'); if (shot.key) look.apply(keyPreset(look.preset, camera.position.toArray(), tgt, shot.key));   // E1b (opt-in shot.key {el, offset}): key light from the camera side
     const sf = shotShadow(shot); poseCast(t); look.frameFixed(sf.centre, sf.radius, camera.position); look.update(tw); }
   apply5b(shot); apply6(shot, t); applyMood(shot, mf.anim);
@@ -811,7 +811,7 @@ export function renderCamera(cam, t = 0, width = 720, height = 1280, lookName = 
   poseCast(t); camera.fov = cam.fov ?? 45; camera.aspect = width / height; camera.position.set(...cam.position); camera.up.set(...(cam.up ?? [0, 1, 0])); camera.lookAt(...cam.target); camera.updateProjectionMatrix();
   if (look) { look.apply(lookName); look.frame(new T.Vector3(...cam.target), camera.position.clone(), cam.shadowRadius ?? 34); look.update(t); }
   if (nudge) { const k = nudge / Math.sqrt(3); camera.translateX(k); camera.translateY(k); camera.translateZ(k); }
-  world?.update(t); applyWorldState(null, t); world?.onCamera?.(camera.position.toArray()); updateExtras(t); scene.updateMatrixWorld(true); fitTags(scene, camera); const olMs = OUTLINE ? OUTLINE.frame(camera, width, height) : (renderer.render(scene, camera), 0);
+  world?.update(t); applyWorldState(null, t); world?.onCamera?.(camera.position.toArray(), camera); updateExtras(t); scene.updateMatrixWorld(true); fitTags(scene, camera); const olMs = OUTLINE ? OUTLINE.frame(camera, width, height) : (renderer.render(scene, camera), 0);
   const gl = renderer.getContext(); gl.readPixels(0, 0, 1, 1, gl.RGBA, gl.UNSIGNED_BYTE, new Uint8Array(4));
   return {triangles: frustumTriangles(), drawnTriangles: renderer.info.render.triangles, calls: renderer.info.render.calls, ms: performance.now() - t0, ...(OUTLINE ? {outlineMs: olMs} : {})};
 }

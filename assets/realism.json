@@ -198,8 +198,12 @@
         "namaqualand_boulder_02"
       ],
       "search": "boulder"
-    }
+    },
+    "city_tree_leafy": {"pick": "lightest", "candidates": ["tree_small_02", "island_tree_01", "jacaranda_tree"], "search": "tree", "exclude": ["dead", "fir", "pine", "palm", "quiver", "stump", "trunk", "log", "sapling", "island_tree_02", "island_tree_03"]},
+    "city_tree_pine": {"pick": "lightest", "candidates": ["fir_sapling_medium", "fir_sapling", "pine_sapling_small"], "search": "fir|pine|spruce", "exclude": ["dead", "cone", "log", "stump", "needle"]},
+    "city_bush_round": {"pick": "lightest", "candidates": ["shrub_01", "shrub_02", "shrub_04"], "search": "shrub|bush", "exclude": ["dead", "sorrel"]}
   },
   "modelFormat": "gltf",
-  "maxModelBytes": 15000000
+  "maxModelBytes": 25000000,
+  "maxModelNote": "Phase 1E: raised 15 → 25 MB per file (owner cap) only so the lightest CC0 hero tree models fit; the pick is logged in manifest.modelsConsidered"
 }

@@ -83,8 +83,12 @@ export function landProfile(x, z) {
   const dx = CL_B[0] - CL_A[0], dz = CL_B[1] - CL_A[1], L = Math.hypot(dx, dz), tt = ((x - CL_A[0]) * dx + (z - CL_A[1]) * dz) / (L * L);
   if (tt > -.1 && tt < 1.1) { const c = -((x - CL_A[0]) * -dz + (z - CL_A[1]) * dx) / L; y += CL.h * smooth(-CL.width / 2, CL.width / 2, c) * smooth(-.1, .12, tt) * smooth(1.1, .88, tt); }
   const K = HI.knoll, [kx, kz] = toWorld(K.at), kd = Math.hypot(x - kx, z - kz); if (kd < K.r + K.blend) y += (K.y - y) * (1 - smooth(K.r, K.r + K.blend, kd));
+  const RV = TR.ravine; if (RV) { const [d, u] = segDist(x, z, RV.from, RV.to); if (d < RV.w / 2 + RV.blend) y -= RV.depth * (1 - smooth(RV.w / 2, RV.w / 2 + RV.blend, d)) * smooth(-.05, .12, u) * smooth(1.05, .88, u); }   // Phase 1E: the rope-bridge ravine
+  for (const P of TR.pads ?? []) { const d = Math.hypot(x - P.at[0], z - P.at[1]); if (d < P.r + P.blend) { const py = P.y ?? (P._y ??= padBase(P)); y += (py - y) * (1 - smooth(P.r, P.r + P.blend, d)); } }   // Phase 1E: flat wild-edge pads
   return y;
 }
+// Phase 1E: a pad's level = the hills profile at its centre without pads (cached on first use)
+function padBase(P) { const pads = TR.pads; TR.pads = null; const y = landProfile(P.at[0], P.at[1]); TR.pads = pads; return y; }
 const BEACH = PLAN.districts.beach.rect, [BX0, BZ0] = toWorld([BEACH[0] + 4, BEACH[1] - 12]), [BX1, BZ1] = toWorld([BEACH[2] - 4, BEACH[3] - 4]);
 export function beachY(x, z) {   // sand spit at the east tip, sloping into the water
   const dx = Math.max(BX0 - x, 0, x - BX1), dz = Math.max(BZ0 - z, 0, z - BZ1), d = Math.hypot(dx, dz);
@@ -198,7 +202,8 @@ export function keyArt(name, aspect = KEYART_ASPECT) {
     fg = {...K.fg, at: [mx, K.fg.y ?? gy, mz], yaw: yawS, len: L, d: 0}; }
   else if (K.fg) { const fy = yaw - Math.atan((K.fg.x ?? .75) * Math.tan(hf)), fd = K.fg.d ?? 4.5, gx = x + Math.sin(fy) * fd, gz = z + Math.cos(fy) * fd;
     fg = {...K.fg, at: [gx, K.fg.y ?? groundY(gx, gz), gz], yaw: yaw + Math.PI / 2, d: fd}; }
-  return {name, position, target, fov, yaw, subject: [sx, gy, sz], subjectCentre: [sx, sy, sz], third: K.third ?? 'L', fg, movers: K.movers ?? [], auto: !!K.auto, landmark: K.landmark ?? null};
+  const ed = K.edge, ey = ed ? yaw - Math.atan((ed.x ?? .9) * Math.tan(hf)) : 0, fgEdge = ed ? (() => { const fd = ed.d ?? 4.5, gx = x + Math.sin(ey) * fd, gz = z + Math.cos(ey) * fd; return {...ed, at: [gx, ed.y ?? standY(gx, gz), gz], yaw: yaw + Math.PI / 2, d: fd}; })() : null;   // Phase 1E: a second, edge-of-frame element (when fg is the stage deck)
+  return {name, position, target, fov, yaw, subject: [sx, gy, sz], subjectCentre: [sx, sy, sz], third: K.third ?? 'L', fg, fgEdge, movers: K.movers ?? [], auto: !!K.auto, landmark: K.landmark ?? null};
 }
 // Phase 1D staging rule (plan.json keyArtStaging): establishing key art keeps the hero ≤ maxHeroH of the frame height and off the
 // anchor's landmark slot (slot visible ≥ landmarkMin per the sightline measure); the troupe kids stand BESIDE the hero (same depth).

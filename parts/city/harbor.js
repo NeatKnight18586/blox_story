@@ -119,7 +119,7 @@ export function diner() {
   // glass band: live, faint so the stools read
   const glass = new T.Mesh(ring(stadium(w - .06, d - .06, r - .03), 1.58, 2.77), liveMat('std', '#bfe6ff', {transparent: true, opacity: .2, depthWrite: false})); glass.name = 'glass'; g.add(glass);
   // neon DINER sign on the roof (unlit, toneMapped off = it glows) on a chrome frame
-  const sw = 9, sh = 2.6, sy = 6.4, sign = textPlate('DINER', {w: sw, h: sh, bg: '#173a57', fg: '#ff4fa3', name: 'neonSign', maxFont: 1000});
+  const sw = 10.5, sh = 3.3, sy = 6.4, sign   /* Phase 1E: a bigger DINER plate (letter cap ≥ 3 % of the key-art frame) */ = textPlate('DINER', {w: sw, h: sh, bg: '#173a57', fg: '#ff4fa3', name: 'neonSign', maxFont: 1000});
   sign.material.toneMapped = false; sign.position.set(-1, sy + sh / 2 + .3, d / 2 - 1.2); g.add(sign);
   const neon = new T.MeshBasicMaterial({color: '#5ef2ff', toneMapped: false}), fr = [];
   for (const [x, y, ww, hh] of [[0, -sh / 2 - .1, sw + .4, .18], [0, sh / 2 + .1, sw + .4, .18], [-sw / 2 - .1, 0, .18, sh + .4], [sw / 2 + .1, 0, .18, sh + .4]]) fr.push(new T.BoxGeometry(ww, hh, .12).translate(-1 + x, sy + sh / 2 + .3 + y, d / 2 - 1.15));
@@ -177,12 +177,12 @@ export function ferrisWheel(o = {}) {
 }
 
 // ---------------- assemble the east arm ----------------
-export function harbor({slots} = {}) {
+export function harbor({slots, beam = false} = {}) {   // Phase 1E: beam = the look's v4.city.beam (dusk / night); off in cityDay, setState('duckBeam') still forces it
   const S = Object.fromEntries(slots.map(s => [s.id, s])), LY = harborLayout(), groups = {harbor: new T.Group(), beach: new T.Group(), bay: new T.Group()}, stats = {}, buildings = [];
   groups.harbor.name = 'harborDetail'; groups.beach.name = 'beachDetail'; groups.bay.name = 'duckLighthouse';
   // duck (slot 5) on the rock
   const duck = rubberDuck(); duck.group.position.set(S['5'].at[0], S['5'].base - .6, S['5'].at[1]); duck.group.rotation.y = (HB.duck.yaw ?? 180) * Math.PI / 180; named(duck.group, 'slot:5'); groups.bay.add(duck.group); stats.duck = duck.tris;
-  let beamOn = HB.duck.beam !== false; duck.beam.visible = beamOn;
+  let beamOn = !!beam && HB.duck.beam !== false; duck.beam.visible = beamOn;
   // diner + burger tower (slot 6)
   const dn = diner(), [dx, dz] = S['6'].at, dyaw = (HB.diner.yaw ?? -90) * Math.PI / 180; dn.group.position.set(dx, groundY(dx, dz) + .45, dz); dn.group.rotation.y = dyaw; named(dn.group, 'slot:6'); groups.harbor.add(dn.group); stats.diner = dn.tris;
   const bt = burgerTower(), [tx, tz] = S['6'].tower.at; bt.group.position.set(tx, groundY(tx, tz), tz); named(bt.group, 'slot:6:tower'); groups.harbor.add(bt.group); stats.burger = bt.tris;

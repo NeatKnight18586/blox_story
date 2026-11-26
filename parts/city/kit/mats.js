@@ -18,18 +18,21 @@ export function setKitTextures(tex, materials) { TEX = tex ?? {}; M = materials 
 export const textureSource = kind => TEX[KINDS[kind]?.[0]]?.map ? 'cc0:' + KINDS[kind][0] : KINDS[kind]?.[1] ? 'procedural:' + KINDS[kind][1] : 'plain';
 export const tileOf = kind => KINDS[kind]?.[2] ?? 1;
 
-export function kitMat(kind, color = '#ffffff', {emissive = null} = {}) {
-  const key = kind + color + (emissive ?? ''); if (cache.has(key)) return cache.get(key);
+export function kitMat(kind, color = '#ffffff', {emissive = null, light = false} = {}) {   // Phase 1E (opt-in light): the CC0 map re-tinted by luminance (light weathered planks)
+  const key = kind + color + (emissive ?? '') + (light ? ':light' : ''); if (cache.has(key)) return cache.get(key);
   if (kind === 'glass') { const m = glassMat(); cache.set(key, m); return m; }
   const [slot, pattern, , gloss] = KINDS[kind] ?? KINDS.plastic, t = slot && TEX[slot];
   let m;
-  if (t?.map) { m = new T.MeshStandardMaterial({color, map: t.map, normalMap: t.normalMap ?? null, roughnessMap: t.roughnessMap ?? null, roughness: 1}); if (kind === 'paving') { const rc = recolorMap(t.map, color); if (rc) { m.map = rc; m.color.set('#ffffff'); } else m.color.lerp(new T.Color('#ffffff'), .35); } else m.color.lerp(new T.Color('#ffffff'), .55); }   // the photo map carries the hue: keep the tint light (paving: the CC0 brick re-tinted warm red by luminance, below)
+  if (t?.map) { m = new T.MeshStandardMaterial({color, map: t.map, normalMap: t.normalMap ?? null, roughnessMap: t.roughnessMap ?? null, roughness: 1}); if (light) { const rc = recolorMap(t.map, color, LIGHT_WOOD); if (rc) { m.map = rc; m.color.set('#ffffff'); } m.userData.lightWood = true; } if (kind === 'paving') { const rc = recolorMap(t.map, color); if (rc) { m.map = rc; m.color.set('#ffffff'); } else m.color.lerp(new T.Color('#ffffff'), .35); } else m.color.lerp(new T.Color('#ffffff'), .55); }   // the photo map carries the hue: keep the tint light (paving: the CC0 brick re-tinted warm red by luminance, below)
   else if (pattern && M?.std) { m = M.std(pattern, color).clone(); }
   else m = new T.MeshStandardMaterial({color, roughness: kind === 'gold' ? .3 : kind === 'gloss' ? .35 : .55, metalness: kind === 'gold' || kind === 'metal' ? .6 : 0, emissive: emissive ?? '#000000'});
   if (emissive && m.emissive) m.emissive.set(emissive);
+  if (light) m.userData.lightWood = true;   // Phase 1E: the plank-luma measure finds these
   m.name = 'kit:' + kind + ':' + color; m.userData = {...m.userData, kit: kind, source: textureSource(kind), gloss, tile: tileOf(kind)};
   cache.set(key, m); return m;
 }
+// Phase 1E: light weathered planks = the CC0 grain re-tinted around the tint's own value (dark boards stay ≥ ~.7 of the tint)
+export const LIGHT_WOOD = {bias: .62, gain: .62};
 // Live (never baked) materials: glass, lit displays, water.
 export function liveMat(kind, color, o = {}) {
   const key = 'live' + kind + color + JSON.stringify(o); if (cache.has(key)) return cache.get(key);
@@ -63,12 +66,15 @@ export function glassMat() {
   GLASS = new T.MeshStandardMaterial({color: '#ffffff', map, emissive: '#7fbfe6', emissiveMap: map, emissiveIntensity: .42, roughness: .06, metalness: .15, envMapIntensity: 1.5});
   GLASS.name = 'kit:glass'; GLASS.userData = {kit: 'glass', live: true, source: 'plain', gloss: .9, tile: 1}; return GLASS;
 }
+// Phase 1E: lit windows at dusk / night (the look's v4.city.windows): every kit window glows warm (live glass, so no re-bake)
+export function cityWindows(k = 0) { const g = glassMat(); if (!g.userData.day) g.userData.day = {e: g.emissive.getHex(), i: g.emissiveIntensity};
+  if (k > 0) { g.emissive.set('#ffc46e'); g.emissiveIntensity = .55 + .75 * k; } else { g.emissive.setHex(g.userData.day.e); g.emissiveIntensity = g.userData.day.i; } return g; }
 // Polished statue gold (Phase 1C): metalness 1, roughness .28–.35, warm base, reflects the sky env map; soft highlights only (no bloom, no glow).
 // roles: body | hat (a touch less env so the crown never out-shines the face) | face (the same gold + a small warm emissive lift: the monocle + mustache read).
 const GOLD = {};
 export function goldMat(role = 'body') {
   if (GOLD[role]) return GOLD[role];
-  const base = {color: '#ffb81c', metalness: 1, roughness: role === 'hat' ? .35 : .3, envMapIntensity: role === 'hat' ? 2.4 : 3, emissive: '#3a2400', emissiveIntensity: role === 'hat' ? .2 : .3};
+  const base = {color: '#f6a81c', metalness: 1, roughness: role === 'hat' ? .35 : .33, envMapIntensity: role === 'hat' ? 2.2 : 2.6, emissive: '#3d2200', emissiveIntensity: role === 'hat' ? .22 : .3};   // Phase 1E: a warmer, richer gold (hue ≈ 40°) with softer highlights under look B
   const m = new T.MeshStandardMaterial(role === 'face' ? {...base, emissive: '#8a5a08', emissiveIntensity: .7} : base);
   m.name = 'kit:gold' + role; m.userData = {kit: 'gold' + role[0].toUpperCase() + role.slice(1), live: true, source: 'plain', gloss: .9, tile: 1}; return GOLD[role] = m;
 }

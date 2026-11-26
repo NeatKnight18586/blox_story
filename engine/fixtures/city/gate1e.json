@@ -1,0 +1,1527 @@
+{
+ "slug": "city1e",
+ "fps": 24,
+ "format": 6,
+ "labels": false,
+ "world": "parts/city/world.js",
+ "look4": "cityDay2",
+ "rig": "r6",
+ "cityKeyArt": [
+  "stoneHead",
+  "forestTrail",
+  "ropeBridge",
+  "cliffLookout",
+  "campsite",
+  "caveMouth",
+  "plazaSouth",
+  "plazaNorth",
+  "bayNorth",
+  "stairBottom",
+  "boardwalk",
+  "suburbStreet",
+  "schoolYard",
+  "mainSt",
+  "plazaWide",
+  "hallBalcony",
+  "acrossBay",
+  "schoolFront",
+  "heroHouse",
+  "upsideDown",
+  "harborDock",
+  "beach",
+  "diner",
+  "duckClose",
+  "hillsLookout"
+ ],
+ "cityLiving": true,
+ "cast": {
+  "hero": {
+   "troupe": "HERO",
+   "style": "v5",
+   "faceStyle": "v6",
+   "at": "ka_stoneHead",
+   "offset": [
+    0,
+    0,
+    0
+   ],
+   "yaw": -19.9,
+   "keys": [
+    [
+     0,
+     "idle"
+    ]
+   ],
+   "marks": [
+    [
+     0,
+     {
+      "at": "ka_stoneHead",
+      "offset": [
+       0,
+       0,
+       0
+      ],
+      "yaw": -19.9
+     }
+    ],
+    [
+     100,
+     {
+      "at": "ka_forestTrail",
+      "offset": [
+       0,
+       0,
+       0
+      ],
+      "yaw": -24.5
+     }
+    ],
+    [
+     200,
+     {
+      "at": "ka_ropeBridge",
+      "offset": [
+       0,
+       0,
+       0
+      ],
+      "yaw": 5.7
+     }
+    ],
+    [
+     300,
+     {
+      "at": "ka_cliffLookout",
+      "offset": [
+       0,
+       0,
+       0
+      ],
+      "yaw": 11.3
+     }
+    ],
+    [
+     400,
+     {
+      "at": "ka_campsite",
+      "offset": [
+       0,
+       0,
+       0
+      ],
+      "yaw": 58.6
+     }
+    ],
+    [
+     500,
+     {
+      "at": "ka_caveMouth",
+      "offset": [
+       0,
+       0,
+       0
+      ],
+      "yaw": 1
+     }
+    ],
+    [
+     600,
+     {
+      "at": "ka_plazaSouth",
+      "offset": [
+       0,
+       0,
+       0
+      ],
+      "yaw": -174.1
+     }
+    ],
+    [
+     700,
+     {
+      "at": "ka_plazaNorth",
+      "offset": [
+       0,
+       0,
+       0
+      ],
+      "yaw": 5.6
+     }
+    ],
+    [
+     800,
+     {
+      "at": "ka_bayNorth",
+      "offset": [
+       0,
+       0,
+       0
+      ],
+      "yaw": 10.5
+     }
+    ],
+    [
+     900,
+     {
+      "at": "ka_stairBottom",
+      "offset": [
+       0,
+       0,
+       0
+      ],
+      "yaw": 5.9
+     }
+    ],
+    [
+     1000,
+     {
+      "at": "ka_boardwalk",
+      "offset": [
+       0,
+       0,
+       0
+      ],
+      "yaw": -29.8
+     }
+    ],
+    [
+     1100,
+     {
+      "at": "ka_suburbStreet",
+      "offset": [
+       0,
+       0,
+       0
+      ],
+      "yaw": -60.5
+     }
+    ],
+    [
+     1200,
+     {
+      "at": "ka_schoolYard",
+      "offset": [
+       0,
+       0,
+       0
+      ],
+      "yaw": 84.4
+     }
+    ],
+    [
+     1300,
+     {
+      "at": "ka_mainSt",
+      "offset": [
+       0,
+       0,
+       0
+      ],
+      "yaw": 55.5
+     }
+    ],
+    [
+     1400,
+     {
+      "at": "ka_plazaWide",
+      "offset": [
+       0,
+       0,
+       0
+      ],
+      "yaw": -39.8
+     }
+    ],
+    [
+     1500,
+     {
+      "at": "ka_hallBalcony",
+      "offset": [
+       0,
+       0,
+       0
+      ],
+      "yaw": 12.7
+     }
+    ],
+    [
+     1600,
+     {
+      "at": "ka_acrossBay",
+      "offset": [
+       0,
+       0,
+       0
+      ],
+      "yaw": -74.9
+     }
+    ],
+    [
+     1700,
+     {
+      "at": "ka_schoolFront",
+      "offset": [
+       0,
+       0,
+       0
+      ],
+      "yaw": 116.2
+     }
+    ],
+    [
+     1800,
+     {
+      "at": "ka_heroHouse",
+      "offset": [
+       0,
+       0,
+       0
+      ],
+      "yaw": 18.9
+     }
+    ],
+    [
+     1900,
+     {
+      "at": "ka_upsideDown",
+      "offset": [
+       0,
+       0,
+       0
+      ],
+      "yaw": 95.9
+     }
+    ],
+    [
+     2000,
+     {
+      "at": "ka_harborDock",
+      "offset": [
+       0,
+       0,
+       0
+      ],
+      "yaw": 5.2
+     }
+    ],
+    [
+     2100,
+     {
+      "at": "ka_beach",
+      "offset": [
+       0,
+       0,
+       0
+      ],
+      "yaw": 0.2
+     }
+    ],
+    [
+     2200,
+     {
+      "at": "ka_diner",
+      "offset": [
+       0,
+       0,
+       0
+      ],
+      "yaw": 29.7
+     }
+    ],
+    [
+     2300,
+     {
+      "at": "ka_duckClose",
+      "offset": [
+       0,
+       0,
+       0
+      ],
+      "yaw": 158.5
+     }
+    ],
+    [
+     2400,
+     {
+      "at": "ka_hillsLookout",
+      "offset": [
+       0,
+       0,
+       0
+      ],
+      "yaw": -144.2
+     }
+    ]
+   ]
+  },
+  "kidL": {
+   "troupe": "LITTLE",
+   "style": "v5",
+   "faceStyle": "v6",
+   "at": "ka_stoneHead",
+   "offset": [
+    2.829,
+    0,
+    0.704
+   ],
+   "yaw": -29.9,
+   "keys": [
+    [
+     0,
+     "idle"
+    ]
+   ],
+   "marks": [
+    [
+     0,
+     {
+      "at": "ka_stoneHead",
+      "offset": [
+       2.829,
+       0,
+       0.704
+      ],
+      "yaw": -29.9
+     }
+    ],
+    [
+     100,
+     {
+      "at": "ka_forestTrail",
+      "offset": [
+       -2.515,
+       0,
+       -1.474
+      ],
+      "yaw": -14.5
+     }
+    ],
+    [
+     200,
+     {
+      "at": "ka_ropeBridge",
+      "offset": [
+       2.856,
+       0,
+       -0.585
+      ],
+      "yaw": -4.3
+     }
+    ],
+    [
+     300,
+     {
+      "at": "ka_cliffLookout",
+      "offset": [
+       -2.903,
+       0,
+       0.273
+      ],
+      "yaw": 21.3
+     }
+    ],
+    [
+     400,
+     {
+      "at": "ka_campsite",
+      "offset": [
+       -1.766,
+       0,
+       2.32
+      ],
+      "yaw": 68.6
+     }
+    ],
+    [
+     500,
+     {
+      "at": "ka_caveMouth",
+      "offset": [
+       -2.905,
+       0,
+       -0.251
+      ],
+      "yaw": 11
+     }
+    ],
+    [
+     600,
+     {
+      "at": "ka_plazaSouth",
+      "offset": [
+       -2.853,
+       0,
+       0.598
+      ],
+      "yaw": -184.1
+     }
+    ],
+    [
+     700,
+     {
+      "at": "ka_plazaNorth",
+      "offset": [
+       2.857,
+       0,
+       -0.58
+      ],
+      "yaw": -4.4
+     }
+    ],
+    [
+     800,
+     {
+      "at": "ka_bayNorth",
+      "offset": [
+       2.797,
+       0,
+       -0.824
+      ],
+      "yaw": 0.5
+     }
+    ],
+    [
+     900,
+     {
+      "at": "ka_stairBottom",
+      "offset": [
+       2.853,
+       0,
+       -0.598
+      ],
+      "yaw": -4.1
+     }
+    ],
+    [
+     1000,
+     {
+      "at": "ka_boardwalk",
+      "offset": [
+       2.665,
+       0,
+       1.183
+      ],
+      "yaw": -39.8
+     }
+    ],
+    [
+     1100,
+     {
+      "at": "ka_suburbStreet",
+      "offset": [
+       1.689,
+       0,
+       2.376
+      ],
+      "yaw": -70.5
+     }
+    ],
+    [
+     1200,
+     {
+      "at": "ka_schoolYard",
+      "offset": [
+       -0.017,
+       0,
+       -2.915
+      ],
+      "yaw": 74.4
+     }
+    ],
+    [
+     1300,
+     {
+      "at": "ka_mainSt",
+      "offset": [
+       -1.891,
+       0,
+       2.219
+      ],
+      "yaw": 65.5
+     }
+    ],
+    [
+     1400,
+     {
+      "at": "ka_plazaWide",
+      "offset": [
+       2.419,
+       0,
+       1.627
+      ],
+      "yaw": -49.8
+     }
+    ],
+    [
+     1500,
+     {
+      "at": "ka_hallBalcony",
+      "offset": [
+       2.763,
+       0,
+       -0.93
+      ],
+      "yaw": 2.7
+     }
+    ],
+    [
+     1600,
+     {
+      "at": "ka_acrossBay",
+      "offset": [
+       1.044,
+       0,
+       2.722
+      ],
+      "yaw": -84.9
+     }
+    ],
+    [
+     1700,
+     {
+      "at": "ka_schoolFront",
+      "offset": [
+       -1.551,
+       0,
+       -2.468
+      ],
+      "yaw": 106.2
+     }
+    ],
+    [
+     1800,
+     {
+      "at": "ka_heroHouse",
+      "offset": [
+       2.647,
+       0,
+       -1.222
+      ],
+      "yaw": 8.9
+     }
+    ],
+    [
+     1900,
+     {
+      "at": "ka_upsideDown",
+      "offset": [
+       -0.598,
+       0,
+       -2.853
+      ],
+      "yaw": 85.9
+     }
+    ],
+    [
+     2000,
+     {
+      "at": "ka_harborDock",
+      "offset": [
+       -2.915,
+       0,
+       -0.035
+      ],
+      "yaw": 15.2
+     }
+    ],
+    [
+     2100,
+     {
+      "at": "ka_beach",
+      "offset": [
+       -2.901,
+       0,
+       -0.29
+      ],
+      "yaw": 10.2
+     }
+    ],
+    [
+     2200,
+     {
+      "at": "ka_diner",
+      "offset": [
+       -2.667,
+       0,
+       1.178
+      ],
+      "yaw": 39.7
+     }
+    ],
+    [
+     2300,
+     {
+      "at": "ka_duckClose",
+      "offset": [
+       -2.809,
+       0,
+       -0.782
+      ],
+      "yaw": 148.5
+     }
+    ],
+    [
+     2400,
+     {
+      "at": "ka_hillsLookout",
+      "offset": [
+       -2.176,
+       0,
+       1.941
+      ],
+      "yaw": -154.2
+     }
+    ]
+   ]
+  },
+  "kidS": {
+   "troupe": "SECOND",
+   "style": "v5",
+   "faceStyle": "v6",
+   "at": "ka_stoneHead",
+   "offset": [
+    5.094,
+    0,
+    1.204
+   ],
+   "yaw": -37.9,
+   "keys": [
+    [
+     0,
+     "idle"
+    ]
+   ],
+   "marks": [
+    [
+     0,
+     {
+      "at": "ka_stoneHead",
+      "offset": [
+       5.094,
+       0,
+       1.204
+      ],
+      "yaw": -37.9
+     }
+    ],
+    [
+     100,
+     {
+      "at": "ka_forestTrail",
+      "offset": [
+       -4.484,
+       0,
+       -2.7
+      ],
+      "yaw": -6.5
+     }
+    ],
+    [
+     200,
+     {
+      "at": "ka_ropeBridge",
+      "offset": [
+       5.115,
+       0,
+       -1.111
+      ],
+      "yaw": -12.3
+     }
+    ],
+    [
+     300,
+     {
+      "at": "ka_cliffLookout",
+      "offset": [
+       -5.217,
+       0,
+       0.428
+      ],
+      "yaw": 29.3
+     }
+    ],
+    [
+     400,
+     {
+      "at": "ka_campsite",
+      "offset": [
+       -3.219,
+       0,
+       4.128
+      ],
+      "yaw": 76.6
+     }
+    ],
+    [
+     500,
+     {
+      "at": "ka_caveMouth",
+      "offset": [
+       -5.209,
+       0,
+       -0.512
+      ],
+      "yaw": 19
+     }
+    ],
+    [
+     600,
+     {
+      "at": "ka_plazaSouth",
+      "offset": [
+       -5.11,
+       0,
+       1.135
+      ],
+      "yaw": -192.1
+     }
+    ],
+    [
+     700,
+     {
+      "at": "ka_plazaNorth",
+      "offset": [
+       5.117,
+       0,
+       -1.102
+      ],
+      "yaw": -12.4
+     }
+    ],
+    [
+     800,
+     {
+      "at": "ka_bayNorth",
+      "offset": [
+       5.003,
+       0,
+       -1.539
+      ],
+      "yaw": -7.5
+     }
+    ],
+    [
+     900,
+     {
+      "at": "ka_stairBottom",
+      "offset": [
+       5.11,
+       0,
+       -1.134
+      ],
+      "yaw": -12.1
+     }
+    ],
+    [
+     1000,
+     {
+      "at": "ka_boardwalk",
+      "offset": [
+       4.809,
+       0,
+       2.067
+      ],
+      "yaw": -47.8
+     }
+    ],
+    [
+     1100,
+     {
+      "at": "ka_suburbStreet",
+      "offset": [
+       3.083,
+       0,
+       4.23
+      ],
+      "yaw": -78.5
+     }
+    ],
+    [
+     1200,
+     {
+      "at": "ka_schoolYard",
+      "offset": [
+       -0.092,
+       0,
+       -5.234
+      ],
+      "yaw": 66.4
+     }
+    ],
+    [
+     1300,
+     {
+      "at": "ka_mainSt",
+      "offset": [
+       -3.443,
+       0,
+       3.943
+      ],
+      "yaw": 73.5
+     }
+    ],
+    [
+     1400,
+     {
+      "at": "ka_plazaWide",
+      "offset": [
+       4.378,
+       0,
+       2.87
+      ],
+      "yaw": -57.8
+     }
+    ],
+    [
+     1500,
+     {
+      "at": "ka_hallBalcony",
+      "offset": [
+       4.941,
+       0,
+       -1.727
+      ],
+      "yaw": -5.3
+     }
+    ],
+    [
+     1600,
+     {
+      "at": "ka_acrossBay",
+      "offset": [
+       1.931,
+       0,
+       4.865
+      ],
+      "yaw": -92.9
+     }
+    ],
+    [
+     1700,
+     {
+      "at": "ka_schoolFront",
+      "offset": [
+       -2.838,
+       0,
+       -4.399
+      ],
+      "yaw": 98.2
+     }
+    ],
+    [
+     1800,
+     {
+      "at": "ka_heroHouse",
+      "offset": [
+       4.726,
+       0,
+       -2.25
+      ],
+      "yaw": 0.9
+     }
+    ],
+    [
+     1900,
+     {
+      "at": "ka_upsideDown",
+      "offset": [
+       -1.134,
+       0,
+       -5.11
+      ],
+      "yaw": 77.9
+     }
+    ],
+    [
+     2000,
+     {
+      "at": "ka_harborDock",
+      "offset": [
+       -5.233,
+       0,
+       -0.125
+      ],
+      "yaw": 23.2
+     }
+    ],
+    [
+     2100,
+     {
+      "at": "ka_beach",
+      "offset": [
+       -5.202,
+       0,
+       -0.582
+      ],
+      "yaw": 18.2
+     }
+    ],
+    [
+     2200,
+     {
+      "at": "ka_diner",
+      "offset": [
+       -4.812,
+       0,
+       2.059
+      ],
+      "yaw": 47.7
+     }
+    ],
+    [
+     2300,
+     {
+      "at": "ka_duckClose",
+      "offset": [
+       -5.059,
+       0,
+       -1.345
+      ],
+      "yaw": 140.5
+     }
+    ],
+    [
+     2400,
+     {
+      "at": "ka_hillsLookout",
+      "offset": [
+       -3.865,
+       0,
+       3.531
+      ],
+      "yaw": -162.2
+     }
+    ]
+   ]
+  }
+ },
+ "note": "Phase 1E gate (scripts/v2/city1e-gate.js from plan.json keyArt + keyArtStaging): HERO + LITTLE + SECOND beside each other at every key-art subject, t = 100 × row; look cityDay2 + outline classic.",
+ "shots": [
+  {
+   "id": "k0",
+   "size": "wide",
+   "frames": 6,
+   "move": "static-drift",
+   "drift": 0,
+   "from": {
+    "position": [
+     78,
+     86.3,
+     -160
+    ],
+    "target": [
+     82.57686416535466,
+     90.15892298143798,
+     -172.65547422403532
+    ],
+    "fov": 64
+   },
+   "shadowRadius": 30
+  },
+  {
+   "id": "k1",
+   "size": "wide",
+   "frames": 6,
+   "move": "static-drift",
+   "drift": 0,
+   "from": {
+    "position": [
+     23,
+     21.18727778049147,
+     -101
+    ],
+    "target": [
+     29.24878123929741,
+     25.512676971403224,
+     -114.72929913952875
+    ],
+    "fov": 60
+   },
+   "shadowRadius": 30
+  },
+  {
+   "id": "k2",
+   "size": "wide",
+   "frames": 6,
+   "move": "static-drift",
+   "drift": 0,
+   "from": {
+    "position": [
+     57.5,
+     34.9,
+     -118
+    ],
+    "target": [
+     56.087064447288796,
+     35.39968474898481,
+     -132.2391688056402
+    ],
+    "fov": 62
+   },
+   "shadowRadius": 30
+  },
+  {
+   "id": "k3",
+   "size": "wide",
+   "frames": 6,
+   "move": "static-drift",
+   "drift": 0,
+   "from": {
+    "position": [
+     -37.5,
+     72.2,
+     -220.5
+    ],
+    "target": [
+     -40.17203690360981,
+     73.63664856895905,
+     -233.90508335203683
+    ],
+    "fov": 64
+   },
+   "shadowRadius": 30
+  },
+  {
+   "id": "k4",
+   "size": "wide",
+   "frames": 6,
+   "move": "static-drift",
+   "drift": 0,
+   "from": {
+    "position": [
+     -24,
+     62.28476664795199,
+     -166
+    ],
+    "target": [
+     -35.207220696696226,
+     68.68633639242887,
+     -172.8314060823627
+    ],
+    "fov": 64
+   },
+   "shadowRadius": 30
+  },
+  {
+   "id": "k5",
+   "size": "wide",
+   "frames": 6,
+   "move": "static-drift",
+   "drift": 0,
+   "from": {
+    "position": [
+     -121,
+     14.406679513440633,
+     -93
+    ],
+    "target": [
+     -121.24027568437742,
+     19.562569363952,
+     -107.16365304026087
+    ],
+    "fov": 64
+   },
+   "shadowRadius": 30
+  },
+  {
+   "id": "k6",
+   "size": "wide",
+   "frames": 6,
+   "move": "static-drift",
+   "drift": 0,
+   "from": {
+    "position": [
+     0,
+     15.2,
+     30
+    ],
+    "target": [
+     1.536738532319543,
+     17.28759651440098,
+     44.7743147210402
+    ],
+    "fov": 62
+   },
+   "shadowRadius": 30
+  },
+  {
+   "id": "k7",
+   "size": "wide",
+   "frames": 6,
+   "move": "static-drift",
+   "drift": 0,
+   "from": {
+    "position": [
+     0,
+     16.7,
+     24
+    ],
+    "target": [
+     -1.6550706678254716,
+     19.704113473637893,
+     7.043407083909486
+    ],
+    "fov": 55
+   },
+   "shadowRadius": 30
+  },
+  {
+   "id": "k8",
+   "size": "wide",
+   "frames": 6,
+   "move": "static-drift",
+   "drift": 0,
+   "from": {
+    "position": [
+     12,
+     3.1,
+     110
+    ],
+    "target": [
+     8.03513169982746,
+     6.54155823088508,
+     88.63564893787517
+    ],
+    "fov": 62
+   },
+   "shadowRadius": 30
+  },
+  {
+   "id": "k9",
+   "size": "wide",
+   "frames": 6,
+   "move": "static-drift",
+   "drift": 0,
+   "from": {
+    "position": [
+     0,
+     1.2,
+     98
+    ],
+    "target": [
+     -1.5527482870059997,
+     7.268626813337776,
+     83.06009567106811
+    ],
+    "fov": 58
+   },
+   "shadowRadius": 30
+  },
+  {
+   "id": "k10",
+   "size": "wide",
+   "frames": 6,
+   "move": "static-drift",
+   "drift": 0,
+   "from": {
+    "position": [
+     -120,
+     3.6448071280221397,
+     99
+    ],
+    "target": [
+     -113.63961306021241,
+     7.310783960388228,
+     87.90963968841703
+    ],
+    "fov": 68
+   },
+   "shadowRadius": 30
+  },
+  {
+   "id": "k11",
+   "size": "wide",
+   "frames": 6,
+   "move": "static-drift",
+   "drift": 0,
+   "from": {
+    "position": [
+     -162,
+     11.88625002446751,
+     10.680000000000007
+    ],
+    "target": [
+     -148.44711858592308,
+     16.351575188702896,
+     3.010562174864818
+    ],
+    "fov": 58
+   },
+   "shadowRadius": 30
+  },
+  {
+   "id": "k12",
+   "size": "wide",
+   "frames": 6,
+   "move": "static-drift",
+   "drift": 0,
+   "from": {
+    "position": [
+     -234,
+     8.977777777777778,
+     -8
+    ],
+    "target": [
+     -250.93926936681055,
+     12.59544119800679,
+     -9.653379779896646
+    ],
+    "fov": 55
+   },
+   "shadowRadius": 30
+  },
+  {
+   "id": "k13",
+   "size": "wide",
+   "frames": 6,
+   "move": "static-drift",
+   "drift": 0,
+   "from": {
+    "position": [
+     130,
+     18.112981991525423,
+     -2.5400000000000205
+    ],
+    "target": [
+     117.47959112919176,
+     21.622218439289718,
+     -11.158852665028535
+    ],
+    "fov": 56
+   },
+   "shadowRadius": 30
+  },
+  {
+   "id": "k14",
+   "size": "wide",
+   "frames": 6,
+   "move": "static-drift",
+   "drift": 0,
+   "from": {
+    "position": [
+     -29,
+     15.2,
+     28
+    ],
+    "target": [
+     -19.44527765122381,
+     19.760998593674692,
+     16.542924776964483
+    ],
+    "fov": 60
+   },
+   "shadowRadius": 30
+  },
+  {
+   "id": "k15",
+   "size": "wide",
+   "frames": 6,
+   "move": "static-drift",
+   "drift": 0,
+   "from": {
+    "position": [
+     9,
+     16.7,
+     16
+    ],
+    "target": [
+     5.496078715109853,
+     19.513100478204272,
+     0.4356496657001241
+    ],
+    "fov": 58
+   },
+   "shadowRadius": 30
+  },
+  {
+   "id": "k16",
+   "size": "wide",
+   "frames": 6,
+   "move": "static-drift",
+   "drift": 0,
+   "from": {
+    "position": [
+     -221,
+     1.8199999999999998,
+     291
+    ],
+    "target": [
+     -209.64146306721315,
+     6.335436164270783,
+     287.94149137766254
+    ],
+    "fov": 74
+   },
+   "shadowRadius": 30
+  },
+  {
+   "id": "k17",
+   "size": "wide",
+   "frames": 6,
+   "move": "static-drift",
+   "drift": 0,
+   "from": {
+    "position": [
+     -244,
+     8.573737373737373,
+     -52
+    ],
+    "target": [
+     -255.5735661750889,
+     12.273854471385226,
+     -46.293714040242
+    ],
+    "fov": 68
+   },
+   "shadowRadius": 30
+  },
+  {
+   "id": "k18",
+   "size": "wide",
+   "frames": 6,
+   "move": "static-drift",
+   "drift": 0,
+   "from": {
+    "position": [
+     -112,
+     15.65285319722069,
+     12.800000000000011
+    ],
+    "target": [
+     -116.20689989149703,
+     18.89460659825624,
+     0.4974381452562291
+    ],
+    "fov": 70
+   },
+   "shadowRadius": 30
+  },
+  {
+   "id": "k19",
+   "size": "wide",
+   "frames": 6,
+   "move": "static-drift",
+   "drift": 0,
+   "from": {
+    "position": [
+     -200,
+     6.1353564831550385,
+     112
+    ],
+    "target": [
+     -215.32456944205057,
+     11.141431792029188,
+     113.5927276658772
+    ],
+    "fov": 58
+   },
+   "shadowRadius": 30
+  },
+  {
+   "id": "k20",
+   "size": "wide",
+   "frames": 6,
+   "move": "static-drift",
+   "drift": 0,
+   "from": {
+    "position": [
+     195,
+     3.4,
+     284
+    ],
+    "target": [
+     193.45222229023815,
+     9.266011803138218,
+     267.03432024095093
+    ],
+    "fov": 72
+   },
+   "shadowRadius": 30
+  },
+  {
+   "id": "k21",
+   "size": "wide",
+   "frames": 6,
+   "move": "static-drift",
+   "drift": 0,
+   "from": {
+    "position": [
+     262,
+     4.4,
+     340
+    ],
+    "target": [
+     261.9567701571301,
+     7.804233037358937,
+     327.29530289192064
+    ],
+    "fov": 80
+   },
+   "shadowRadius": 30
+  },
+  {
+   "id": "k22",
+   "size": "wide",
+   "frames": 6,
+   "move": "static-drift",
+   "drift": 0,
+   "from": {
+    "position": [
+     285,
+     3.6636363636363627,
+     198
+    ],
+    "target": [
+     278.24411485786936,
+     8.351817787819419,
+     186.17887607372788
+    ],
+    "fov": 64
+   },
+   "shadowRadius": 30
+  },
+  {
+   "id": "k23",
+   "size": "wide",
+   "frames": 6,
+   "move": "static-drift",
+   "drift": 0,
+   "from": {
+    "position": [
+     16,
+     2,
+     230
+    ],
+    "target": [
+     10.749836319720952,
+     6.3855755708410475,
+     243.349251224047
+    ],
+    "fov": 62
+   },
+   "shadowRadius": 30
+  },
+  {
+   "id": "k24",
+   "size": "wide",
+   "frames": 6,
+   "move": "static-drift",
+   "drift": 0,
+   "from": {
+    "position": [
+     -42,
+     32.95102807745079,
+     -132
+    ],
+    "target": [
+     -31.948079087035154,
+     30.842688436541742,
+     -118.0786570361164
+    ],
+    "fov": 55
+   },
+   "shadowRadius": 30
+  }
+ ]
+}

@@ -40,9 +40,13 @@ engine/fixtures/city/gate.json — Phase 1A gate cameras (written by scripts/v2/
 engine/fixtures/city/gate1b.json — Phase 1B gate cameras (scripts/v2/city-gate.js --phase 1b, plan.json gate1b).
 engine/fixtures/city/gate1c.json — Phase 1C gate cameras (scripts/v2/city-gate.js --phase 1c, plan.json gate1c).
 engine/fixtures/city/gate1d.json — (no header)
+engine/fixtures/city/gate1e-cityDusk.json — (no header)
+engine/fixtures/city/gate1e-cityGoldenHour.json — (no header)
+engine/fixtures/city/gate1e-cityNight.json — (no header)
+engine/fixtures/city/gate1e.json — (no header)
 engine/fixtures/city/look.json — (no header)
 engine/fixtures/city/overview.json — Phase 1A overview: terrain tinted by district (spec cityOverview).
-engine/fixtures/city/scratch-ka.json — (no header)
+engine/fixtures/city/tune1e.json — (no header)
 engine/fixtures/eight-moves.json — Session 1 test clip: 3 s, one shot per camera move, one legacy avatar walking across a ground plate.
 engine/fixtures/fix3b/demo-tb.json — tuft P3B demo2 piece: TITAN on the ground before the mountain at night, low 3/4 on the chained forelegs: roar → break (chains snap, links fa
 engine/fixtures/fix3b/titan-hero.json — tuft P3B TITAN hero fixture: titanCave night ground in front of the mountain, TITAN idle / roar, low ¾ camera (lit night ¾ hero render).
@@ -181,7 +185,9 @@ parts/city/living.js — Look Signature: the LIVING TOWN layer (one-time kit, da
 parts/city/plan.js — Phase 1A: pure helpers over parts/city/plan.json (the island city's source of truth). Node-testable, no three.
 parts/city/plan.json — Phase 1A: the permanent island city. SOURCE OF TRUTH (owner-approved drawing). Map px: 1 px = 2 studs; world x = (mx - 191) * 2, z = (my - 1
 parts/city/statue.json — Governor statue (slot 1, plaza centre) — pose as DATA so each episode can swap it (running gag): spec `statuePose: '<name>'` (default `defau
+parts/city/trees.js — Phase 1E: HERO TREES + IMPOSTORS (owner-approved approach). Data: plan.json "trees".
 parts/city/west.js — Phase 1C: the west arm (School + homes) from the City Building Kit; everything is data in plan.json `west` + kit presets.
+parts/city/wild.js — Phase 1E: the WILD EDGE (north hills). Data: plan.json "wild" (world studs, +z south) + terrain.ravine.
 parts/city/world.js — Phase 1A: the permanent island city as a reusable world (v3 world contract: groundY, LAYER, LOOK, build,
 parts/eggs.js — Season 1 episode 1 eggs: nine original designs (stories/egg/beats.md), one shared shape, a painted shell
 parts/landform.js — landform rigs (Amendment A4 B2): part of the terrain that turns out to be a character (the
@@ -314,6 +320,9 @@ scripts/v2/builds-sheet.js — A5 Decision 5 review sheet: the four body builds 
 scripts/v2/cine-gates.js — tuft 1B (+ 1B fix) Look Pack gates (browser) → review/cine/gates.json:
 scripts/v2/city-gate.js — Phase 1A city gate: specs from the plan's anchors (never hand-typed), phone stills, measured sightlines,
 scripts/v2/city1d-gate.js — Phase 1D city gate (look B = cityDay2 + outline classic, the city default): every key-art anchor once at
+scripts/v2/city1e-gate.js — Phase 1E city gate (look B = cityDay2 + outline classic): every key-art anchor once at 270 × 480 with the
+scripts/v2/city1e-measure.js — Phase 1E: the in-page key-art measures shared by city1e-gate.js (the gate) and city1e-tune.js (the data tuner).
+scripts/v2/city1e-tune.js — Phase 1E data tuner (writes plan.json key-art DATA only, never code): for every key-art anchor
 scripts/v2/class-sheet.js — Amendment A3 review sheet: the six class swords.
 scripts/v2/e2-gates.js — E2 gates → review/e2/gates.json
 scripts/v2/e3b-gates.js — node scripts/v2/e3b-gates.js --spec stories/lastcolor/episode.json [--payoff-t 114.6] [--out review/lastcolor/g2a.json]

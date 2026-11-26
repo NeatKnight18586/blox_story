@@ -8,7 +8,7 @@ import {kitMat, liveMat, tileOf, goldMat, textureSource} from './mats.js';
 
 // Phase 1D: docks are LIVE (lit in real time, never baked): .07-stud plank gaps voxelise shut in the bake and turn the deck black
 const liveCache = new Map();
-function liveKit(kind, color) { const k = kind + color; if (!liveCache.has(k)) { const m = kitMat(kind, color).clone(); m.userData = {...m.userData, live: true}; liveCache.set(k, m); } return liveCache.get(k); }
+function liveKit(kind, color, o) { const k = kind + color + (o?.light ? ':light' : ''); if (!liveCache.has(k)) { const m = kitMat(kind, color, o).clone(); m.userData = {...m.userData, live: true}; liveCache.set(k, m); } return liveCache.get(k); }
 // a deck plank: top face + the two edge faces across the deck (the gaps read), no bottom / ends (never seen): 6 tris
 function plank(w, h, d, x, y, z) { const g = new T.BoxGeometry(w, h, d).toNonIndexed(), n = g.attributes.normal, keep = []; for (let i = 0; i < n.count; i += 3) if (n.getY(i) > .5 || Math.abs(n.getZ(i)) > .5) keep.push(i);
   const p = g.attributes.position, uv = g.attributes.uv, P = [], N = [], U = []; for (const i of keep) for (let j = i; j < i + 3; j++) { P.push(p.getX(j), p.getY(j), p.getZ(j)); N.push(n.getX(j), n.getY(j), n.getZ(j)); U.push(uv.getX(j), uv.getY(j)); }
@@ -51,7 +51,17 @@ const PROPS = {
     A(red, cyl(.42, .5, .25, 0, 0, 0, 8)); A(red, cyl(.34, .38, 1.2, 0, .25, 0, 8)); A(cap, cyl(.4, .4, .16, 0, 1.45, 0, 8)); A(red, new T.SphereGeometry(.34, 8, 5, 0, 6.3, 0, 1.6).translate(0, 1.55, 0));
     for (const sx of [-1, 1]) A(red, cyl(.17, .17, .42, sx * .4, .75, 0, 6).rotateZ(sx * Math.PI / 2).translate(0, 0, 0)); },
   trash(A, o) { A(kitMat('plastic', o.colors?.[0] ?? '#3e8f5a'), cyl(.55, .48, 1.5, 0, 0, 0, 10)); A(kitMat('plastic', '#d9ded9'), cyl(.6, .6, .16, 0, 1.5, 0, 10)); A(kitMat('plastic', '#2f3a36'), cyl(.5, .5, .1, 0, .7, 0, 10)); },
-  mailbox(A, o) { const tilt = o.tilt ?? 0, wood = kitMat('wood', '#8a6a44'), blue = kitMat('plastic', o.colors?.[0] ?? '#2f6fd6'), flag = kitMat('plastic', '#e53935'), T3 = [];
+  // Phase 1E yard variety: bike (lying on its side or on its kickstand), flower bed ({len}), mailbox styles ({style: post | brick | barrel})
+  bike(A, o) { const fr = kitMat('gloss', o.colors?.[0] ?? '#e53935'), tyre = kitMat('plastic', '#25272c'), s = .55, lean = o.down ? Math.PI / 2 - .12 : .12, B = [];
+    for (const z of [-.7, .7]) B.push([tyre, new T.CylinderGeometry(s, s, .1, 8, 1, true).rotateZ(Math.PI / 2).translate(0, s, z)]);
+    B.push([fr, pbox(.08, .08, 1.3, 0, s + .35, 0)], [fr, pbox(.08, .7, .08, 0, s, -.25).rotateX(-.35)], [fr, pbox(.08, .75, .08, 0, s, .55).rotateX(.25)], [kitMat('plastic', '#2b2f3a'), pbox(.28, .1, .42, 0, s + .75, -.35)], [kitMat('metal', '#9aa1a8'), pbox(.7, .07, .07, 0, s + .95, .65)]);
+    for (const [m, g] of B) A(m, g.rotateY(Math.PI / 2).rotateX(lean).translate(0, o.down ? .08 : 0, 0)); },
+  flowerBed(A, o) { const len = o.len ?? 3, soil = kitMat('plastic', '#6b4a33'), edge = kitMat('plastic', o.edge ?? '#f4f1ea'), cols = o.colors ?? ['#ff5f8f', '#ffd23f', '#ffffff', '#b06ad9'];
+    A(edge, pbox(len + .3, .35, 1.3, 0, 0, 0)); A(soil, pbox(len, .38, 1, 0, .02, 0));
+    for (let i = 0, n = Math.max(2, Math.round(len * 1.4)); i < n; i++) { const x = -len / 2 + .3 + i * (len - .6) / Math.max(1, n - 1), z = i % 2 ? -.2 : .2; A(kitMat('plastic', cols[i % cols.length]), new T.OctahedronGeometry(.24, 0).translate(x, .5 + (i % 3) * .06, z)); } },
+  mailbox(A, o) { if (o.style === 'brick') { const b = kitMat('brick', '#b8553f'); A(b, pbox(1, 3, 1, 0, 0, 0), tileOf('brick')); A(kitMat('plastic', '#fbfaf5'), pbox(1.2, .2, 1.2, 0, 3, 0)); A(kitMat('plastic', o.colors?.[0] ?? '#2b2f3a'), pbox(.6, .5, .1, 0, 2.1, .51)); return; }
+    if (o.style === 'barrel') { const w = kitMat('wood', '#7a5a3c'); A(w, pbox(.25, 2.6, .25, 0, 0, 0)); A(kitMat('plastic', o.colors?.[0] ?? '#3aa860'), new T.CylinderGeometry(.45, .45, 1.4, 10, 1, false, 0, Math.PI).rotateX(Math.PI / 2).rotateZ(Math.PI / 2).translate(0, 2.6, .1)); A(kitMat('plastic', o.colors?.[0] ?? '#3aa860'), pbox(.9, .05, 1.4, 0, 2.58, .1)); A(kitMat('plastic', '#e53935'), pbox(.08, .6, .2, .5, 2.8, .4)); return; }
+    const tilt = o.tilt ?? 0, wood = kitMat('wood', '#8a6a44'), blue = kitMat('plastic', o.colors?.[0] ?? '#2f6fd6'), flag = kitMat('plastic', '#e53935'), T3 = [];
     const add = (m, g) => A(m, g.rotateZ(tilt));
     add(wood, pbox(.28, 3.1, .28, 0, 0, 0)); add(blue, bevel(.95, .8, 1.7, 0, 3.0, .1, 99)); add(flag, pbox(.1, .6, .22, .52, 3.4, .5)); add(kitMat('plastic', '#f6f6f2'), pbox(.8, .06, .6, 0, 3.78, .1)); void T3; },
   stripe(A, o) { A(kitMat('plastic', '#f6f6f2'), pbox(o.w ?? .9, .07, o.len ?? 9, 0, 0, 0)); },
@@ -91,7 +101,7 @@ const PROPS = {
   treehouse(A, o) { const bark = kitMat('wood', '#7a5a3c'), leaf = kitMat('plastic', '#4fae45'), leaf2 = kitMat('plastic', '#6cc24a'), plank = kitMat('wood', '#c58a52'), dk = kitMat('wood', '#9a6a3c'), red = kitMat('plastic', '#d8362b'), PY = o.deck ?? 13;
     A(bark, cyl(.8, 1.25, PY + 6, 0, -.6, 0, 8), tileOf('wood')); for (const [dx, dz, dy] of [[1.6, .6, 9.2], [-1.4, -.8, 10.4]]) A(bark, cyl(.35, .5, 4.5, dx, dy, dz, 6).rotateZ(dx > 0 ? -.7 : .7).translate(0, 0, 0));
     const blobs = [[0, PY + 8.2, 0, 4.6], [-3.4, PY + 5.4, 1.2, 3.4], [3.3, PY + 5, -.8, 3.5], [.6, PY + 4.6, -3.2, 3.2], [-.8, PY + 4.8, 3.4, 3]];
-    blobs.forEach(([x, y, z, r], i) => A(i % 2 ? leaf2 : leaf, new T.IcosahedronGeometry(r, 1).translate(x, y, z)));
+    if (o.canopy !== false) blobs.forEach(([x, y, z, r], i) => A(i % 2 ? leaf2 : leaf, new T.IcosahedronGeometry(r, 1).translate(x, y, z)));   // Phase 1E (opt-in canopy: false): a hero tree supplies the canopy
     A(plank, pbox(7.4, .4, 7.4, 0, PY, 0)); for (let k = 0; k < 7; k++) A(dk, pbox(7.5, .05, .06, 0, PY + .4, -3.3 + k * 1.1));
     for (const [x, z] of [[-3.4, -3.4], [3.4, -3.4], [-3.4, 3.4], [3.4, 3.4]]) A(dk, pbox(.3, 1.9, .3, x, PY + .4, z)); for (const y of [PY + 1.5]) { A(dk, pbox(7.1, .22, .2, 0, y, 3.4)); A(dk, pbox(7.1, .22, .2, 0, y, -3.4)); A(dk, pbox(.2, .22, 7.1, -3.4, y, 0)); A(dk, pbox(.2, .22, 7.1, 3.4, y, 0)); }
     const wall = (cx, cz, along, n, len, off = 0) => { for (let k = 0; k < n; k++) { const u = (k + .5) / n * len - len / 2 + off; A(plank, along === 'x' ? pbox(len / n - .04, 3.4, .14, cx + u, PY + .4, cz) : pbox(.14, 3.4, len / n - .04, cx, PY + .4, cz + u)); } };
@@ -103,9 +113,9 @@ const PROPS = {
   // ---- Phase 1D harbor + beach kinds (front = +z, ground at y 0 unless noted) ----
   // dock: a plank deck (len along z, w across) on piles: real planks (CC0 wood, .06 gaps, slight tone jitter), an edge trim board on both
   // sides + the far end, piles every `pile` studs down to `depth` below the deck; deck top at y 0 (place `at` on the deck height).
-  dock(A, o0) { const o = o0, kitMat = liveKit, len = o.len ?? 10, w = o.w ?? 3.2, pw = .5, gap = .07, n = Math.max(1, Math.round(len / (pw + gap))), step = len / n, cc0 = textureSource('wood').startsWith('cc0'), tones = o.colors ?? (cc0 ? ['#fff4e6', '#f3e2c8', '#ffffff'] : ['#c99a66', '#b98a58', '#d4a874']);   // the CC0 planks map is already brown: tint near white
-    for (let k = 0; k < n; k++) A(kitMat('wood', tones[(k * 7 + (o.seed ?? 0)) % tones.length]), plank(w - .1, .18, step - gap, ((k * 13) % 5 - 2) * .02, -.18, -len / 2 + (k + .5) * step), tileOf('wood'));   // top + 2 edges (6 tris)
-    const trim = kitMat('wood', o.trim ?? (cc0 ? '#c9a27a' : '#7a5536'));
+  dock(A, o0) { const o = o0, kitMat = liveKit, len = o.len ?? 10, w = o.w ?? 3.2, pw = .5, gap = .07, n = Math.max(1, Math.round(len / (pw + gap))), step = len / n, cc0 = textureSource('wood').startsWith('cc0'), tones = o.colors ?? (cc0 ? ['#dccbab', '#d0bd9b', '#e6d8bc'] : ['#c99a66', '#b98a58', '#d4a874']), LW = {light: true};   // Phase 1E: the CC0 grain re-tinted to LIGHT weathered wood (kit/mats.js LIGHT_WOOD)
+    for (let k = 0; k < n; k++) A(kitMat('wood', tones[(k * 7 + (o.seed ?? 0)) % tones.length], LW), plank(w - .1, .18, step - gap, ((k * 13) % 5 - 2) * .02, -.18, -len / 2 + (k + .5) * step), tileOf('wood'));   // top + 2 edges (6 tris)
+    const trim = kitMat('wood', o.trim ?? (cc0 ? '#b8a283' : '#7a5536'), LW);
     for (const sx of [-1, 1]) A(trim, pbox(.22, .42, len + .1, sx * (w / 2 + .06), -.5, 0), tileOf('wood'));
     if (o.endTrim !== false) A(trim, pbox(w + .34, .42, .22, 0, -.5, len / 2 + .06), tileOf('wood'));
     for (const sx of [-1, 1]) A(trim, pbox(.3, .2, len, sx * (w / 2 - .5), -.42, 0));   // joists under the planks
@@ -139,12 +149,14 @@ const PROPS = {
 };
 export const PROP_KINDS = Object.keys(PROPS);
 // list → merged group (static parts baked; glow/water live).
+// Phase 1E: every street-lamp head built by cityProps (group + local point), so a night look can add halos (world.js)
+export const LAMP_HEADS = [];
 export function cityProps(list, {name = 'cityProps'} = {}) {
-  const B = bins();
+  const B = bins(), heads = [];
   for (const p of list) {
-    const local = bins(), A = local.add; PROPS[p.kind](A, p);
+    const local = bins(), A = local.add; PROPS[p.kind](A, p); if (p.kind === 'lamp') heads.push([p.at[0], p.at[1] + 5.85, p.at[2]]);
     const g = local.build('tmp'); g.quaternion.setFromEuler(new T.Euler(0, p.yaw ?? 0, 0)).multiply(new T.Quaternion().setFromAxisAngle(new T.Vector3(0, 0, 1), p.roll ?? 0)); g.position.set(...p.at); g.updateMatrixWorld(true);
     for (const m of g.children) B.add(m.material, m.geometry.clone().applyMatrix4(m.matrixWorld));
   }
-  const out = B.build(name); out.traverse(o => { if (o.isMesh && o.material.userData?.live) o.userData.live = true; }); return out;
+  const out = B.build(name); out.traverse(o => { if (o.isMesh && o.material.userData?.live) o.userData.live = true; }); for (const h of heads) LAMP_HEADS.push({group: out, at: h}); return out;
 }

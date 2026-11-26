@@ -12,11 +12,14 @@ import * as T from 'three';
 import {mergeGeometries} from 'three/addons/utils/BufferGeometryUtils.js';
 import {PLAN, corridors, inCorridor, groundY, terrainY, terraceW, stairY, standY, districtAt, anchor, ANCHOR_NAMES, roadPaths, landmarkSlots, toWorld, coastDist, polyDist, rockY, COAST} from './plan.js';
 import {downtown, mainStreetLots, placeBuilding} from './downtown.js';
-import {west, westReserves, houseLot} from './west.js';
-import {setKitTextures, kitMat} from './kit/mats.js';
+import {west, westReserves, houseLot, housePicker} from './west.js';
+import {setKitTextures, kitMat, recolorMap, LIGHT_WOOD, cityWindows} from './kit/mats.js';
+import {cityProps, LAMP_HEADS} from './kit/props.js';
 import {livingTown, keyArtProps} from './living.js';
 import {keyArt} from './plan.js';
 import {harbor, harborDecks, deckAt} from './harbor.js';
+import {wild} from './wild.js';
+import {preloadTrees, proceduralSpecies, bakeImpostors, treeField} from './trees.js';
 import {setLOD, lodFor} from './kit/building.js';
 import PRESETS from './kit/presets.json' with {type: 'json'};
 export {groundY, PLAN};
@@ -31,6 +34,14 @@ const ASSETS = {tex: {}, models: {}, manifest: null};
 
 // CC0 farm cache (renders/cache/assets/manifest.json, written by scripts/v2/fetch-assets.py). Missing → procedural fallback.
 export async function preload(base) {
+  try { await preloadCity(base); } finally {   // Phase 1E: hero trees (CC0 when cached, else procedural) + cached impostor atlases, always
+    try { ASSETS.trees = await preloadTrees(base, ASSETS.manifest); } catch (e) { console.warn('trees', e?.message); }
+    try { const r = await fetch(new URL('renders/cache/assets/impostors/manifest.json', base)); if (r.ok) { const m = await r.json(), L = new T.TextureLoader(); ASSETS.impostors = {};
+      for (const [n, e] of Object.entries(m)) { if (e.source !== ASSETS.trees?.[n]?.source) continue; const ld = f => L.loadAsync(new URL('renders/cache/assets/impostors/' + f, base).href).then(t => { t.colorSpace = T.NoColorSpace; t.generateMipmaps = true; return t; });
+        const [color, normal] = await Promise.all([ld(e.color), ld(e.normal)]); color.colorSpace = T.LinearSRGBColorSpace; ASSETS.impostors[n] = {...e, color, normal}; } } } catch { /* bake at build */ }
+  }
+}
+async function preloadCity(base) {
   try {
     const r = await fetch(new URL('renders/cache/assets/manifest.json', base)); if (!r.ok) return; ASSETS.manifest = await r.json();
   } catch { return; }
@@ -169,7 +180,7 @@ export function build(scene, {M, V, TR, look, spec, look4}) {
   { const g = new T.RingGeometry(0, PLAN.plaza.r * 2 - .6, 72, 30); g.rotateX(-Math.PI / 2); g.translate(0, LAYER.plaza, 0); planarUV(g, 4); plaza.geometry = g; }
   plaza.name = 'plazaPaving'; if (!DT) G('plaza').add(plaza);
   // -- roads / sidewalks / boardwalk (live ribbons on groundY)
-  const roads = roadPaths(), roadMat = surf(M, 'city_asphalt', 'asphalt', '#55585f', 8), walkMat = surf(M, 'city_sidewalk', 'concrete', '#dedad2', 4), deckMat = surf(M, 'city_planks', 'woodPlanks', '#b98d5f', 4);
+  const roads = roadPaths(), roadMat = surf(M, 'city_asphalt', 'asphalt', '#55585f', 8), walkMat = surf(M, 'city_sidewalk', 'concrete', '#dedad2', 4), deckMat = surf(M, 'city_planks', 'woodPlanks', '#b98d5f', 4, '#d8c6a4');
   const roadGroup = new T.Group(); roadGroup.name = 'roads'; cityRoot.add(roadGroup); let roadTris = 0;
   for (const [k, rd] of Object.entries(roads)) {
     const pts = rd.pts.filter(p => Math.hypot(p[0], p[1]) > PLAN.plaza.r * 2 - 1 || k === 'boardwalk');
@@ -193,11 +204,12 @@ export function build(scene, {M, V, TR, look, spec, look4}) {
   stats.roadTris = roadTris;
   // -- district blockout
   const msLots = DT ? mainStreetLots() : [], lots = cityLots(7, {reserve: [...msLots.map(l => ({x: l.x, z: l.z, r: l.r * .85})), ...(DT ? westReserves() : [])], front: DT ? {school: PLAN.west.front} : {}}), houses = [], kitB = [], KR = rng(23), mats = new Map(), M0 = c => { if (!mats.has(c)) mats.set(c, new T.MeshStandardMaterial({color: c, roughness: .7, metalness: 0})); return mats.get(c); };
+  let pickHouse = null;   // Phase 1E: no-repeat suburb picker (plan.json west.variety)
   const tiers = {};   // district → {hi: Group, lo: Group, mid: {colour: [geo]}}
   const tierOf = k => tiers[k] ??= {hi: new T.Group(), lo: new T.Group(), mid: new Map(), bounds: new T.Box3()};
   const pushMid = (k, c, g) => { const t = tierOf(k); if (!t.mid.has(c)) t.mid.set(c, []); t.mid.get(c).push(g); };
   for (const l of lots) {
-    if (DT && l.district === 'school') { const b = houseLot(l, KR); b.lot = l; G('school').add(b.group); kitB.push(b); houses.push(b); continue; }   // Phase 1C: pastel suburb houses
+    if (DT && l.district === 'school') { const b = houseLot(l, KR, {pick: PLAN.west.variety ? (pickHouse ??= housePicker(rng(PLAN.west.variety.seed ?? 5))) : null}); b.lot = l; G('school').add(b.group); kitB.push(b); houses.push(b); continue; }   // Phase 1C: pastel suburb houses
     if (DT && l.district === 'harbor') continue;   // Phase 1D: the east arm is curated (parts/city/harbor.js)
     if (DT && ['plaza', 'town', 'mainSt'].includes(l.district)) { const b = lotBuilding(l, KR); b.lot = l; G(l.district).add(b.group); kitB.push(b); continue; }
     const t = tierOf(l.district), near = nearestAnchor(l.x, l.z, AXZ) < NEAR_R, roofC = PLAN.districts[l.district === 'town' ? 'plaza' : l.district].roof;
@@ -228,7 +240,8 @@ export function build(scene, {M, V, TR, look, spec, look4}) {
     if (s.shape === 'stair') continue;   // built below as the real Grand Stair blockout
     if (DT && ['1', '2', '3'].includes(s.id)) continue;   // Phase 1B: built by parts/city/downtown.js
     if (DT && s.id === '4') continue;   // Phase 1C: the upside-down house (parts/city/west.js)
-    if (DT && ['5', '6'].includes(s.id)) continue;   // Phase 1D: rubber-duck lighthouse, diner + burger tower (parts/city/harbor.js)
+    if (DT && ['5', '6'].includes(s.id)) continue;
+    if (DT && s.id === '7') continue;   // Phase 1E: the stone giant's head (parts/city/wild.js)   // Phase 1D: rubber-duck lighthouse, diner + burger tower (parts/city/harbor.js)
     const g = G(s.district === 'bay' ? 'bay' : s.district === 'wild' ? 'wild' : s.district), add = (geo, tag = '') => { const m = new T.Mesh(geo, grey); m.name = `slot:${s.id}${tag}`; g.add(m); slotMeshes.push(m); };
     if (s.shape === 'cyl') add(new T.CylinderGeometry(s.fp[0] / 2, s.fp[0] / 2 * 1.15, s.h, 20, 3).translate(s.at[0], s.base + s.h / 2, s.at[1]));
     else add(boxAt(s.fp[0], s.h + (s.base - Math.min(s.base, groundY(...s.at))) + .6, s.fp[1], s.at[0], s.base - .6, s.at[1], 0, Math.max(2, Math.round(s.h / 3))));
@@ -239,7 +252,8 @@ export function build(scene, {M, V, TR, look, spec, look4}) {
   if (dt) { G('plaza').add(dt.plaza); G('mainSt').add(dt.mainSt); kitB.push(...dt.buildings); stats.downtown = dt.stats; }
   const wst = DT ? west({houses, anchors: AXZ, R: rng(31)}) : null;   // Phase 1C: school + yard + bus, hero house + treehouse, upside-down house, lot dressing
   if (wst) { G('school').add(wst.group); kitB.push(...wst.buildings); stats.west = wst.stats; }
-  const hb = DT ? harbor({slots}) : null;   // Phase 1D: fishing harbor, diner + burger tower, beach + pier + Ferris wheel, rubber-duck lighthouse
+  const CITY = look4?.preset?.v4?.city ?? {};   // Phase 1E time-of-day: {beam, lamps, windows, stars, blimpLit} from the look4 preset (cityDay / cityDay2: none)
+  const hb = DT ? harbor({slots, beam: !!CITY.beam}) : null;   // Phase 1D: fishing harbor, diner + burger tower, beach + pier + Ferris wheel, rubber-duck lighthouse
   if (hb) { G('harbor').add(hb.groups.harbor); G('beach').add(hb.groups.beach); G('bay').add(hb.groups.bay); kitB.push(...hb.buildings); stats.harbor = hb.stats; }
   for (const b of kitB) b.near.visible = b.mid.visible = b.far.visible = true;   // every LOD is baked; onCamera picks one
   // Phase 1C: bake near / mid / far as separate groups. The coplanar LOD boxes of a building that is not grid-aligned voxelise (conservative bbox voxels)
@@ -263,14 +277,17 @@ export function build(scene, {M, V, TR, look, spec, look4}) {
     const wz = TRC.rect[3], wl = [], cp = [], seg = (x0, x1) => { const w = x1 - x0; wl.push(sx(boxAt(w, TRC.y - base, 1.2, (x0 + x1) / 2, base, wz + .6, 0))); cp.push(boxAt(w, .4, TRC.coping, (x0 + x1) / 2, TRC.y, wz + .6 - .1, 0)); };
     seg(TRC.rect[0], ST.x - hw - 1.2); seg(ST.x + hw + 1.2, TRC.rect[2]);
     for (const [geos, mat, nm] of [[wl, brick, 'terraceWall'], [cp, cap, 'terraceCoping']]) { const m = new T.Mesh(mergeGeometries(geos.map(g => { g = g.toNonIndexed(); boxUV(g, 4); return g; })), mat); m.name = nm; m.userData.live = !DT; G('plaza').add(m); } }
-  // -- cave mouth (wild edge): dark recess at the cliff foot, facing south
-  { const [cx, cz] = PLAN.cliff.cave, y = groundY(cx, cz + 3), cave = new T.Mesh(boxAt(9, 7, 4, cx, y - .5, cz - 1, Math.atan2(PLAN.cliff.to[1] - PLAN.cliff.from[1], PLAN.cliff.to[0] - PLAN.cliff.from[0]) * -1), new T.MeshBasicMaterial({color: '#17130f'}));
+  const wd = DT ? wild({groundY}) : null;   // Phase 1E: the wild edge (stone head + waterfall, trail + signposts, rope bridge, campsite, lookout, cave + cart)
+  if (wd) { G('wild').add(wd.group); stats.wild = wd.stats; }
+  // -- cave mouth (wild edge): dark recess at the cliff foot, facing south (Phase 1E: the rocky arch of wild.js replaces it)
+  if (!wd) { const [cx, cz] = PLAN.cliff.cave, y = groundY(cx, cz + 3), cave = new T.Mesh(boxAt(9, 7, 4, cx, y - .5, cz - 1, Math.atan2(PLAN.cliff.to[1] - PLAN.cliff.from[1], PLAN.cliff.to[0] - PLAN.cliff.from[0]) * -1), new T.MeshBasicMaterial({color: '#17130f'}));
     cave.name = 'caveMouth'; cave.userData.live = true; cityRoot.add(cave); }
   // -- vegetation: forest on the wild edge, street trees, beach palms (procedural kit; CC0 models near anchors when cached)
   const vegGroup = new T.Group(); vegGroup.name = 'cityVegetation'; cityRoot.add(vegGroup);
   const slot7 = slots.find(s => s.id === '7'), cave = PLAN.cliff.cave;
-  const forest = V.vegetation({height: groundY, veg: {trees: ['conifer', 'broadleaf', 'conifer'], treeDensity: .22, bushes: .06, rocks: .08, grass: 0, flowers: 0}, area: {x0: -330, x1: 335, z0: -275, z1: -95},
-    avoid: (x, z) => districtAt(x, z) !== 'wild' || Math.hypot(x - slot7.at[0], z - slot7.at[1]) < 22 || Math.hypot(x - cave[0], z - cave[1]) < 14 || polyDist(x, z, roads.radialNorth.pts) < 8,
+  const HERO = DT && PLAN.trees;   // Phase 1E: hero trees + impostors replace the procedural lollipop trees city-wide (wild edge, streets, yards, treehouse)
+  const forest = V.vegetation({height: groundY, veg: {trees: HERO ? [] : ['conifer', 'broadleaf', 'conifer'], treeDensity: .22, bushes: .06, rocks: .08, grass: 0, flowers: 0}, area: {x0: -330, x1: 335, z0: -275, z1: -95},
+    avoid: (x, z) => districtAt(x, z) !== 'wild' || wd?.clear(x, z) || Math.hypot(x - slot7.at[0], z - slot7.at[1]) < 22 || Math.hypot(x - cave[0], z - cave[1]) < 14 || polyDist(x, z, roads.radialNorth.pts) < 8,
     focus: AXZ, nearR: 20, shadowR: 40, waterY: .5, maxSlope: 1.2, seed: 5, cell: 80});
   vegGroup.add(forest.group);
   const streetT = streetTrees(roads, lots, R);
@@ -279,9 +296,18 @@ export function build(scene, {M, V, TR, look, spec, look4}) {
     focus: AXZ, nearR: 10, shadowR: 30, waterY: 1, seed: 9});
   vegGroup.add(town.group);
   if (dt) streetT.push(...dt.trees); if (wst) streetT.push(...wst.trees); if (hb) streetT.push(...hb.trees);   // Phase 1C: Main St + west arm trees (plan.json data)
-  if (DT) for (let i = streetT.length - 1; i >= 0; i--) if (AXZ.some(a => Math.hypot(streetT[i].x - a[0], streetT[i].z - a[1]) < 8)) streetT.splice(i, 1);   // no trunk in a camera anchor's face
+  if (DT) for (let i = streetT.length - 1; i >= 0; i--) if (!streetT[i].keep && AXZ.some(a => Math.hypot(streetT[i].x - a[0], streetT[i].z - a[1]) < 8)) streetT.splice(i, 1);   // no trunk in a camera anchor's face
+  let field = null;
+  if (HERO) {
+    const species = ASSETS.trees ?? proceduralSpecies(), atlases = bakeImpostors(species, {cached: ASSETS.impostors ?? {}}), KA = ANCHOR_NAMES.map(n => keyArt(n));
+    const pts = [...forestPoints(wd, KA), ...streetT.filter(p => !p.palm).map((p, i) => ({...p, kind: p.kind ?? (i % 3 === 2 ? 'round' : 'leafy'), h: p.h ?? TREES.heights.street * p.s, s: 1})), ...(wd?.trees ?? []).map(p => ({...p, h: TREES.heights.onHead}))];
+    field = treeField(pts, {species, atlases}); vegGroup.add(field.group);
+    vegGroup.add(instTrees(V, streetT.filter(p => p.palm), 'palm', 23, AXZ));
+    stats.trees = pts.length + streetT.filter(p => p.palm).length; stats.trees4 = {...field.stats, species: Object.fromEntries(Object.entries(species).map(([k, v]) => [k, {source: v.source, tris: v.tris, rawTris: v.rawTris ?? null, height: +v.height.toFixed(2)}])), atlases: Object.fromEntries(Object.entries(atlases).map(([k, a]) => [k, {w: a.w, h: a.h, views: a.views, baked: !!a.baked}]))};
+    if (typeof window !== 'undefined') window.__impostorAtlases = atlases;
+  } else {
   vegGroup.add(instTrees(V, streetT.filter(p => !p.palm), 'broadleaf', 21, AXZ), instTrees(V, streetT.filter(p => p.palm), 'palm', 23, AXZ));
-  stats.trees = (forest.stats.trees ?? 0) + streetT.length;
+  stats.trees = (forest.stats.trees ?? 0) + streetT.length; }
   // -- detail tiers per district: hi (near) vs lo; onCamera swaps by distance
   for (const t of Object.values(tiers)) t.bounds.expandByScalar(20);
   const cull = p => { for (const t of Object.values(tiers)) { const d = t.bounds.isEmpty() ? Infinity : t.bounds.distanceToPoint(new T.Vector3(p[0], t.bounds.min.y, p[2])); t.hi.visible = d < CULL_R; t.lo.visible = !t.hi.visible; } };
@@ -290,20 +316,27 @@ export function build(scene, {M, V, TR, look, spec, look4}) {
   // Look Signature (opt-in): key-art anchors `ka_<name>` (position = the subject's feet, camera = the key-art lens), their foreground
   // props (spec cityKeyArt: true = every hand-tuned variant | [names]) and the living town (spec cityLiving: true | [mover names])
   for (const n of ANCHOR_NAMES) { const k = keyArt(n); anchors['ka_' + n] = {position: k.subject, facing: k.yaw * 180 / Math.PI, camera: {position: k.position, target: k.target, fov: k.fov}, keyArt: k, district: PLAN.anchors[n].district}; }
-  if (spec?.cityKeyArt) { const names = spec.cityKeyArt === true ? ANCHOR_NAMES.filter(n => !keyArt(n).auto) : spec.cityKeyArt, kap = names.map(n => [n, keyArt(n).fg]).filter(([, f]) => f); for (const [n, f] of kap) G(PLAN.anchors[n].district === 'bay' ? 'plaza' : PLAN.anchors[n].district).add(keyArtProps([f])); stats.keyArtProps = names.length; }
-  const LIV = spec?.cityLiving ? livingTown({groundY, slots, roads, kitBuildings: kitB, focus: spec.cityLiving}) : null;
+  if (spec?.cityKeyArt) { const names = spec.cityKeyArt === true ? ANCHOR_NAMES.filter(n => !keyArt(n).auto) : spec.cityKeyArt, kap = names.flatMap(n => [[n, keyArt(n).fg], [n, keyArt(n).fgEdge]]).filter(([, f]) => f); for (const [n, f] of kap) { const kg = keyArtProps([f]); kg.userData.anchor = n; kg.userData.role = f.kind === 'boat' ? 'deck' : 'fg'; G(PLAN.anchors[n].district === 'bay' ? 'plaza' : PLAN.anchors[n].district).add(kg); }   /* Phase 1E: + the edge element; a boat is the stage deck, not a foreground element */ stats.keyArtProps = names.length; }
+  const LIV = spec?.cityLiving ? livingTown({groundY, slots, roads, kitBuildings: kitB, focus: spec.cityLiving, lit: !!CITY.blimpLit, extra: wd?.movers ?? []}) : null;
   if (LIV) { cityRoot.add(LIV.group); stats.living = LIV.stats; }
+  const wildMovers = !LIV && wd ? wd.movers : [];   // Phase 1E: without the living town the wild movers still run (waterfall, camp smoke, birds)
+  for (const x of wildMovers) cityRoot.add(x.obj);
+  // Phase 1E: street lamps along the roads (always built; lit with halos in dusk / night looks), stars, lit windows
+  if (DT) G('town').add(cityProps(streetLamps(roads), {name: 'streetLampProps'}));
+  cityWindows(CITY.windows ?? 0);
+  const halos = []; if (CITY.lamps && look4?.halo) { cityRoot.updateMatrixWorld(true); const hg = new T.Group(); hg.name = 'lampHalos'; for (const h of LAMP_HEADS) { if (!h.group.parent) continue; const v = h.group.localToWorld(new T.Vector3(...h.at)), s = look4.halo(v.toArray(), '#ffd89a', 5, .7 * CITY.lamps); s.name = 'lampHalo'; hg.add(s); halos.push(s); } cityRoot.add(hg); stats.lampHalos = halos.length; }
+  const stars = CITY.stars ? starDome(CITY.stars) : null; if (stars) cityRoot.add(stars);
   // Phase 1D: merged street-prop groups (lamps, benches, cafés, docks…) are not drawn beyond PROPS_R (a few pixels there; saves ~10k tris in wide harbor shots)
   const propGroups = []; cityRoot.traverse(o => { if (o.isGroup && /Props$/.test(o.name) && o.name !== 'keyArtProps') { const b = new T.Box3().setFromObject(o); if (!b.isEmpty()) propGroups.push([o, b]); } });
   const propCull = p => { const v = new T.Vector3(...p); for (const [o, b] of propGroups) o.visible = b.distanceToPoint(v) <= PROPS_R; };
   stats.lots = lots.length; stats.ms = Math.round(performance.now() - t0);
   const bakeGroups = Object.entries(groups).map(([k, root]) => ({root, preset: spec?.look4 ?? 'cityDay', name: k}));
   // Phase 1D: actors stand on decks (quay, piers, beach pier, key-art boats), not on the sea floor under them
-  const decks = DT ? harborDecks() : []; for (const n of (spec?.cityKeyArt ? (spec.cityKeyArt === true ? ANCHOR_NAMES.filter(n => !keyArt(n).auto) : spec.cityKeyArt) : [])) { const f = keyArt(n).fg; if (f?.kind === 'boat') decks.push({x: f.at[0], z: f.at[2], len: f.len - 3, w: (f.w ?? 7.6) - .6, yaw: f.yaw, y: f.y}); }
+  const decks = DT ? [...harborDecks(), ...wd.decks] : []; for (const n of (spec?.cityKeyArt ? (spec.cityKeyArt === true ? ANCHOR_NAMES.filter(n => !keyArt(n).auto) : spec.cityKeyArt) : [])) { const f = keyArt(n).fg; if (f?.kind === 'boat') decks.push({x: f.at[0], z: f.at[2], len: f.len - 3, w: (f.w ?? 7.6) - .6, yaw: f.yaw, y: f.y}); }
   const groundYD = decks.length ? (x, z) => { const d = deckAt(decks, x, z); return d ?? groundY(x, z); } : groundY;
   return {anchors, groundY: groundYD, decks, places: Object.fromEntries(slots.map(s => ['slot' + s.id, {at: [s.at[0], s.base, s.at[1]]}])), slots, stats, bakeGroups: spec?.look4 ? bakeGroups : undefined,
-    onCamera(p) { cull(p); terrainLod(p); propCull(p); if (look?.sky) look.sky.position.set(p[0], 0, p[2]); for (const b of kitB) setLOD(b, lodFor(Math.hypot(p[0] - b.at[0], p[2] - b.at[2]) / (b.lodScale ?? 1), KIT_LOD)); },
-    update(t) { WATER?.update(t); forest.update?.(t); dt?.update(t); hb?.update(t); LIV?.update(t); }, living: LIV, harbor: hb,
+    onCamera(p, camera) { field?.onCamera(p, camera); cull(p); terrainLod(p); propCull(p); if (stars) stars.position.set(p[0], 0, p[2]); for (const h of halos) h.visible = h.position.distanceTo(new T.Vector3(...p)) < PROPS_R + 40; if (look?.sky) look.sky.position.set(p[0], 0, p[2]); for (const b of kitB) setLOD(b, lodFor(Math.hypot(p[0] - b.at[0], p[2] - b.at[2]) / (b.lodScale ?? 1), KIT_LOD)); },
+    update(t) { WATER?.update(t); for (const x of wildMovers) x.update(t); forest.update?.(t); dt?.update(t); hb?.update(t); LIV?.update(t); }, living: LIV, harbor: hb,
     setState(k, v) { return (dt?.setState(k, v) || hb?.setState(k, v)) ?? false; }, downtown: dt, kitBuildings: kitB};
 }
 
@@ -316,10 +349,10 @@ function lotBuilding(l, R) {
 }
 // ---- surfaces -------------------------------------------------------------------------------------------------------------------
 // CC0 maps from the farm cache when present, else the procedural pattern (parts/materials.js std).
-function surf(M, slot, pattern, color, tile) {
+function surf(M, slot, pattern, color, tile, light = null) {   // Phase 1E (opt-in light): the CC0 map re-tinted by luminance to `light` (boardwalk planks)
   const c = ASSETS.tex[slot];
-  if (c?.map) { for (const t of Object.values(c)) t && t.repeat.set(1, 1); const m = new T.MeshStandardMaterial({color: '#ffffff', map: c.map, normalMap: c.normalMap, roughnessMap: c.roughnessMap, roughness: 1}); m.userData.source = 'cc0:' + slot; m.userData.tile = tile; return m; }
-  const m = M.std(pattern, color).clone(); m.userData.source = 'procedural:' + pattern; return m;
+  if (c?.map) { for (const t of Object.values(c)) t && t.repeat.set(1, 1); const m = new T.MeshStandardMaterial({color: '#ffffff', map: (light && recolorMap(c.map, light, LIGHT_WOOD)) || c.map, normalMap: c.normalMap, roughnessMap: c.roughnessMap, roughness: 1}); m.userData.source = 'cc0:' + slot; m.userData.tile = tile; if (light) m.userData.lightWood = true; return m; }
+  const m = M.std(pattern, color).clone(); m.userData.source = 'procedural:' + pattern; if (light) m.userData.lightWood = true; return m;
 }
 function boxUV(g, tile) {   // world-projected UVs per face direction (brick/stone read the same size on every wall)
   const p = g.attributes.position, n = g.attributes.normal, uv = g.attributes.uv;
@@ -336,8 +369,9 @@ const C = {sand: col('#f2dca0'), wetSand: col('#d9c088'), grass: col('#6cc24a'),
 function surfaceColour(out, x, y, z, ny) {
   const w = .5 + .5 * Math.sin(x * .071 + Math.sin(z * .053) * 2) * Math.sin(z * .067 - x * .021);
   if (y < H.waterY - .2) return out.copy(C.seabed);
-  const dist = districtAt(x, z), steep = ny < .82;
+  const dist = districtAt(x, z), steep = ny < (dist === 'wild' && PLAN.wild ? .5 : .82);   // Phase 1E: the wild hills stay green (bright mixed forest) up to ~60°; only cliffs read as rock
   if (steep) return out.copy(C.rock).lerp(C.rock2, w);
+  if (dist === 'wild' && PLAN.wild) return out.copy(C.grass).lerp(C.forest2, .35 + .4 * w).lerp(C.rock, ny < .62 ? .35 : 0);
   if (terraceW(x, z) > .98) return out.copy(C.paving).lerp(C.paving2, w);
   if (dist === 'beach' || (y < 1.6 && coastDist(x, z) < 9)) return out.copy(y < .7 ? C.wetSand : C.sand);
   if (dist === 'wild') return out.copy(C.forest).lerp(C.forest2, w).lerp(C.rock, ny < .85 ? .45 : 0);
@@ -394,6 +428,39 @@ function streetTrees(roads, lots, R) {
   }
   const [bx, bz] = toWorld([308, 300]); for (let i = 0; i < 6; i++) { const x = bx - 30 + i * 11, z = bz - 10 + (i % 2) * 6; if (groundY(x, z) > .8) out.push({x, z, y: groundY(x, z), s: .9, r: i, palm: true}); }
   return out;
+}
+// Phase 1E: the wild-edge forest: a jittered grid over the wild district (plan.json trees.forest), sunny clearings from a smooth noise mask,
+// never on the trail / features / steep rock / key-art lenses + subjects; pines up high and on the north slope, leafy + round lower down.
+const TREES = PLAN.trees ?? {heights: {}};
+function forestPoints(wd, KA) {
+  const F = TREES.forest, R = rng(F.seed), out = [], nz = (x, z) => { const a = Math.sin(x * .021 + 1.3) * Math.cos(z * .027 - .4), b = Math.sin(x * .053 + z * .031 + 2.1); return .5 + .32 * a + .18 * b; };
+  for (let x = F.area[0]; x <= F.area[2]; x += F.spacing) for (let z = F.area[1]; z <= F.area[3]; z += F.spacing) {
+    const px = x + (R() - .5) * F.spacing * .9, pz = z + (R() - .5) * F.spacing * .9;
+    if (districtAt(px, pz) !== 'wild' || coastDist(px, pz) < 5 || wd?.clear(px, pz) || nz(px, pz) > F.clearing) continue;
+    const y = groundY(px, pz), sl = Math.hypot(groundY(px + 1, pz) - groundY(px - 1, pz), groundY(px, pz + 1) - groundY(px, pz - 1)) / 2; if (sl > F.maxSlope || y < 3) continue;
+    if (KA.some(k => Math.hypot(k.position[0] - px, k.position[2] - pz) < 6 || Math.hypot(k.subject[0] - px, k.subject[2] - pz) < 10)) continue;
+    const pine = y > F.pineAbove || R() < F.pineShare, kind = pine ? 'pine' : R() < .3 ? 'round' : 'leafy';
+    out.push({x: px, y: y - .1, z: pz, r: R() * 6.28, kind, h: TREES.heights[kind] * (.8 + .4 * R()), s: 1}); }
+  return out;
+}
+// Phase 1E: street lamps every ~34 studs along the asphalt roads, alternating sides, between the street trees (sidewalk edge)
+function streetLamps(roads) {
+  const out = [];
+  for (const [k, rd] of Object.entries(roads)) {
+    if (k === 'boardwalk') continue; const P = rd.pts; let n = 0;
+    for (let i = 1; i < P.length; i++) { const a = P[i - 1], b = P[i], L = Math.hypot(b[0] - a[0], b[1] - a[1]), tx = (b[0] - a[0]) / L, tz = (b[1] - a[1]) / L;
+      for (let s = 18.5; s < L; s += 34) { const side = n++ % 2 ? 1 : -1, off = rd.w / 2 + PLAN.sidewalk - .4, x = a[0] + tx * s + tz * off * side, z = a[1] + tz * s - tx * off * side;
+        if (Math.hypot(x, z) < PLAN.plaza.r * 2 + 4 || districtAt(x, z) === 'wild' || inCorridor(x, z, 2) || coastDist(x, z) < 3 || ANCHOR_NAMES.some(nm => { const q = anchor(nm).position; return Math.hypot(q[0] - x, q[2] - z) < 9; })) continue;
+        out.push({kind: 'lamp', at: [x, groundY(x, z) + LAYER.sidewalk, z]}); } }
+  }
+  return out;
+}
+// Phase 1E: a starry night sky (unlit points on a dome that follows the lens; never in masks or the bake)
+function starDome(k = 1) {
+  const R = rng(77), n = 1400, p = new Float32Array(n * 3), c = new Float32Array(n * 3);
+  for (let i = 0; i < n; i++) { const u = R(), a = R() * Math.PI * 2, el = Math.asin(.06 + .94 * u * u * 0 + .94 * u), r = 640; p.set([Math.cos(el) * Math.sin(a) * r, Math.sin(el) * r, Math.cos(el) * Math.cos(a) * r], i * 3); const b = (.45 + .55 * R()) * k, w = R(); c.set([b * (.85 + .15 * w), b * .92, b], i * 3); }
+  const g = new T.BufferGeometry(); g.setAttribute('position', new T.BufferAttribute(p, 3)); g.setAttribute('color', new T.BufferAttribute(c, 3));
+  const m = new T.Points(g, new T.PointsMaterial({size: 1.8, sizeAttenuation: false, vertexColors: true, fog: false, toneMapped: false, transparent: true, depthWrite: false})); m.name = 'stars'; m.userData.live = true; m.renderOrder = -1; m.frustumCulled = false; return m;
 }
 // Phase 1B: no street trees in front of the Main St shop signs (the kit storefront stretch of plan.json mainStreet).
 const MS_SKIP = (k, x) => k === PLAN.mainStreet?.road && x < Math.max(...PLAN.mainStreet.shops.map(s => s.s)) + 14;
