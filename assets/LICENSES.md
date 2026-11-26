@@ -16,3 +16,27 @@ They are downloaded by the farm job `.github/workflows/assets.yml` into a cache 
 - venice_sunset_1k.hdr: CC0, Poly Haven via three.js examples, https://raw.githubusercontent.com/mrdoob/three.js/dev/examples/textures/equirectangular/venice_sunset_1k.hdr
 - pedestrian_overpass_1k.hdr (stands in for royal_esplanade_1k.hdr, which 404s there): CC0, Poly Haven via three.js examples, https://raw.githubusercontent.com/mrdoob/three.js/dev/examples/textures/equirectangular/pedestrian_overpass_1k.hdr
 - quarry_01_1k.hdr: CC0, Poly Haven via three.js examples, https://raw.githubusercontent.com/mrdoob/three.js/dev/examples/textures/equirectangular/quarry_01_1k.hdr
+
+## Phase 1A city library (requested in `assets/realism.json`; Poly Haven, CC0 1.0; downloaded by the farm, never committed)
+
+The farm run of `.github/workflows/assets.yml` resolves each slot (first candidate that exists, else the most-downloaded
+`search` match) and rewrites the table at the top of this file with the exact asset ids. Requested slots:
+
+| slot | kind | candidates (first existing wins) / search | used by |
+|---|---|---|---|
+| city_brick | texture 1k | red_brick_03, red_brick, brick_wall_10 / "red brick" | plaza paving (parts/city/world.js) |
+| city_plaster | texture 1k | painted_plaster_wall, white_plaster_02, beige_wall_001 / "plaster" | buildings (1B+) |
+| city_asphalt | texture 1k | asphalt_02, asphalt_track, asphalt_01 / "asphalt" | roads |
+| city_sidewalk | texture 1k | concrete_pavement, concrete_floor_02, patterned_concrete_pavers / "pavement" | sidewalks |
+| city_planks | texture 1k | weathered_planks, old_planks_02, wood_planks_grey, wooden_planks / "planks" | boardwalk |
+| city_shingles | texture 1k | roof_09, roof_tiles_14, grey_roof_tiles / "roof" | roofs (1B+) |
+| city_terracotta | texture 1k | clay_roof_tiles, clay_roof_tiles_02, roof_tiles / "clay roof" | roofs (1B+) |
+| city_sand | texture 1k | coast_sand_01, sand_01, coast_sand_rocks_02 / "sand" | beach (1B+) |
+| city_grass | texture 1k | leafy_grass, grass_path_2, aerial_grass_rock / "grass" | terrain (1B+) |
+| city_forest | texture 1k | forrest_ground_01, forest_ground_04, forest_leaves_02 / "forest" | wild edge (1B+) |
+| city_cliff | texture 1k | rock_face, cliff_side, rock_wall_08, rocks_ground_06 / "cliff" | cliffs (1B+) |
+| city_late_morning | HDRI 1k | kloofendal_48d_partly_cloudy_puresky, kloppenheim_06_puresky, qwantani_puresky, noon_grass / "puresky" | city env / backdrop option |
+| city_tree | glTF model 1k | island_tree_01, tree_small_02, fir_sapling / "tree" | near street trees (≤ 12k tris) |
+| city_palm | glTF model 1k | island_tree_02, island_tree_03 / "palm" | harbour + beach palms |
+| city_bush | glTF model 1k | shrub_sorrel_01, shrub_01, shrub_02 / "shrub" | 1B+ dressing |
+| city_rock | glTF model 1k | boulder_01, rock_moss_set_01, namaqualand_boulder_02 / "boulder" | 1B+ dressing |

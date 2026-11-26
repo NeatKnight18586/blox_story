@@ -36,6 +36,8 @@ engine/fixtures/beasts2/tuft.json — tuft 2B TUFT + PUFF fixture (scripts/v2/ki
 engine/fixtures/cine/before.json — tuft 1B fixture, BEFORE (current engine): the same spec without look/camera 'cine'.
 engine/fixtures/cine/bloomgate.json — tuft 1B bloom gate (scripts/v2/cine-gates.js): a white DUMMY (non-emissive) under the street lamp, the brightest lit spot of the night set, 
 engine/fixtures/cine/episode.json — tuft 1B (+ 1B fix) Look Pack + cinematic camera fixture: 6 shots ~12 s on the v4look street at night (look4 mystery: lit windows, lamp), HER
+engine/fixtures/city/gate.json — Phase 1A gate cameras (written by scripts/v2/city-gate.js from parts/city/plan.json anchors).
+engine/fixtures/city/overview.json — Phase 1A overview: terrain tinted by district (spec cityOverview).
 engine/fixtures/eight-moves.json — Session 1 test clip: 3 s, one shot per camera move, one legacy avatar walking across a ground plate.
 engine/fixtures/fix3b/demo-tb.json — tuft P3B demo2 piece: TITAN on the ground before the mountain at night, low 3/4 on the chained forelegs: roar → break (chains snap, links fa
 engine/fixtures/fix3b/titan-hero.json — tuft P3B TITAN hero fixture: titanCave night ground in front of the mountain, TITAN idle / roar, low ¾ camera (lit night ¾ hero render).
@@ -163,6 +165,9 @@ avatar-style/tools.js — hand-held tools (docs/V2_BRIEF.md §6.4): sword, stone
 parts/ambient.js — ambient movers (docs/V2_BRIEF.md §7.2), each {object, update(t)} with t in
 parts/biomes.js — biome tables (Amendment A4 A2). A biome is data: palette, terrain splat layers + thresholds,
 parts/build.js — placement helpers (docs/V2_BRIEF.md §7.2): row, grid, ringOf, along(curve),
+parts/city/plan.js — Phase 1A: pure helpers over parts/city/plan.json (the island city's source of truth). Node-testable, no three.
+parts/city/plan.json — Phase 1A: the permanent island city. SOURCE OF TRUTH (owner-approved drawing). Map px: 1 px = 2 studs; world x = (mx - 191) * 2, z = (my - 1
+parts/city/world.js — Phase 1A: the permanent island city as a reusable world (v3 world contract: groundY, LAYER, LOOK, build,
 parts/eggs.js — Season 1 episode 1 eggs: nine original designs (stories/egg/beats.md), one shared shape, a painted shell
 parts/landform.js — landform rigs (Amendment A4 B2): part of the terrain that turns out to be a character (the
 parts/library6.json — Extra registered worlds / props for brief2spec (scripts/v2/lib6.js). A location here names the world module a spec loads and the anchor its 
@@ -170,6 +175,7 @@ parts/location.js — Phase R: one generic loader for a data-defined location (n
 parts/locations/anchors-touchgrass.json — Touch Grass anchors per BEATS shot group (world units; y = standing/seat height). E1 places actors and cameras from these.
 parts/locations/beastClass.json — tuft P3 BEAST VILLAGE location: beastClass \u2014 the classroom: timber beams, cream plaster, desks in rows, a chalkboard (no readable text)
 parts/locations/beastYard.json — tuft P3 BEAST VILLAGE location: beastYard \u2014 the beast school yard (late-morning day): kids line up with their beasts on the cobbled yar
+parts/locations/city.json — Phase 1A: the permanent island city (location-loader entry). The world is parts/city/world.js; parts/city/plan.json is the source of truth (
 parts/locations/dragonPeaks.json — Touch Grass VR 2: sunset, jagged rock peaks (props7 rockPeak) at 3 distances in sunset fog, one flat rock plateau (rockMesa r 26, top y 0) f
 parts/locations/dustTown.json — Touch Grass real world: gray, dry, overcast dust haze. Everything sat <= 0.15 except NOVA, the headset glow, the grass blade.
 parts/locations/festivalPlaza.json — tuft P3 BEAST VILLAGE location: festivalPlaza \u2014 dusk \u2192 night festival: a round cobbled plaza ringed by houses, lantern strings fro
@@ -290,6 +296,7 @@ scripts/v2/browser.js — one place that finds and launches the browser (docs/V2
 scripts/v2/build-gates.js — measured gate for the adult_f torso (owner 2026-11-14). Exit 1 on any failure.
 scripts/v2/builds-sheet.js — A5 Decision 5 review sheet: the four body builds side by side (front + three-quarter, full body)
 scripts/v2/cine-gates.js — tuft 1B (+ 1B fix) Look Pack gates (browser) → review/cine/gates.json:
+scripts/v2/city-gate.js — Phase 1A city gate: specs from the plan's anchors (never hand-typed), phone stills, measured sightlines,
 scripts/v2/class-sheet.js — Amendment A3 review sheet: the six class swords.
 scripts/v2/e2-gates.js — E2 gates → review/e2/gates.json
 scripts/v2/e3b-gates.js — node scripts/v2/e3b-gates.js --spec stories/lastcolor/episode.json [--payoff-t 114.6] [--out review/lastcolor/g2a.json]
