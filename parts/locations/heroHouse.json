@@ -1,0 +1,4 @@
+{"note": "Phase 1C: the hero's house, a named reusable location (recurs in many episodes). It lives in the city world (parts/city/world.js, built by parts/city/west.js from plan.json `west.hero` + kit preset `heroHouse`): sky-blue two-story, RED front door, attached garage, crooked mailbox, white picket fence, a backyard TREEHOUSE (planks + ladder in a big tree) over the roofline. Use spec world: parts/city/world.js + look4: cityDay (or spec locations: [\"heroHouse\", ...]); the anchor positions come from plan.js anchor(name).",
+ "world": "parts/city/world.js", "plan": "parts/city/plan.json", "look4": "cityDay", "skyDist": 900,
+ "anchors": {"heroHouse": {"district": "school"}, "suburbStreet": {"district": "school"}},
+ "house": {"preset": "heroHouse", "plan": "west.hero", "body": "#55b4ee", "door": "#d62828", "garage": "attached, east side", "mailbox": "crooked, at the kerb", "treehouse": "backyard tree, deck 22 studs, ladder to the ground"}}

@@ -103,7 +103,13 @@ export function stairY(z) {
 }
 export const onStair = (x, z) => Math.abs(x - ST.x) <= ST.w / 2 && z > ST.z0 && z < ST.z1;
 // The terrain surface without the stair steps (what the terrain mesh is built from; the stair is its own blockout on top).
-export function terrainY(x, z) {
+const PAD = PLAN.west?.pad, PAD_Y = PAD ? (() => { const [x0, z0, x1, z1] = PAD.rect; return terrainBase((x0 + x1) / 2, (z0 + z1) / 2); })() : 0;
+export function terrainY(x, z) {   // Phase 1C: the school pad (plan.json west.pad) levels the school block for the court + building
+  const y = terrainBase(x, z); if (!PAD) return y;
+  const [x0, z0, x1, z1] = PAD.rect, D = Math.hypot(Math.max(x0 - x, 0, x - x1), Math.max(z0 - z, 0, z - z1)), w = 1 - smooth(0, PAD.blend, D);
+  return w > 0 ? y + (PAD_Y - y) * w : y;
+}
+function terrainBase(x, z) {
   const s = coastDist(x, z); let y;
   if (s >= 0) {
     const k = H.shoreGrade + (H.cliffGrade - H.shoreGrade) * smooth(-90, -170, z), ramp = H.shore + k * s; y = Math.min(landProfile(x, z), ramp);

@@ -1,0 +1,188 @@
+{
+ "slug": "city1c",
+ "fps": 24,
+ "format": 6,
+ "labels": false,
+ "world": "parts/city/world.js",
+ "look4": "cityDay",
+ "cast": {},
+ "note": "Phase 1C gate cameras (scripts/v2/city-gate.js --phase 1c, plan.json gate1c).",
+ "shots": [
+  {
+   "id": "g",
+   "size": "wide",
+   "frames": 6,
+   "move": "static-drift",
+   "drift": 0,
+   "anchor": "plazaWide",
+   "from": {
+    "position": [
+     -26,
+     19,
+     24
+    ],
+    "target": [
+     20,
+     22,
+     -24
+    ],
+    "fov": 55
+   },
+   "shadowRadius": 40
+  },
+  {
+   "id": "a",
+   "size": "wide",
+   "frames": 6,
+   "move": "static-drift",
+   "drift": 0,
+   "anchor": "boardwalk",
+   "from": {
+    "position": [
+     -120,
+     4.84480712802214,
+     99
+    ],
+    "target": [
+     -72.69999999999999,
+     7.300000000000001,
+     62.10000000000002
+    ],
+    "fov": 68
+   },
+   "shadowRadius": 40
+  },
+  {
+   "id": "e",
+   "size": "wide",
+   "frames": 6,
+   "move": "static-drift",
+   "drift": 0,
+   "anchor": "stairBottom",
+   "from": {
+    "position": [
+     0,
+     4.701044382907044,
+     84
+    ],
+    "target": [
+     0,
+     36,
+     -56
+    ],
+    "fov": 58
+   },
+   "shadowRadius": 40
+  },
+  {
+   "id": "h",
+   "size": "wide",
+   "frames": 6,
+   "move": "static-drift",
+   "drift": 0,
+   "anchor": "mainSt",
+   "from": {
+    "position": [
+     104,
+     17.0125,
+     0
+    ],
+    "target": [
+     68.69999999999999,
+     27,
+     -18.80000000000001
+    ],
+    "fov": 55
+   },
+   "shadowRadius": 40
+  },
+  {
+   "id": "s",
+   "size": "wide",
+   "frames": 6,
+   "move": "static-drift",
+   "drift": 0,
+   "anchor": "schoolFront",
+   "from": {
+    "position": [
+     -244,
+     9.273737373737372,
+     -52
+    ],
+    "target": [
+     -271,
+     12.282828282828282,
+     -34
+    ],
+    "fov": 68
+   },
+   "shadowRadius": 40
+  },
+  {
+   "id": "d",
+   "size": "wide",
+   "frames": 6,
+   "move": "static-drift",
+   "drift": 0,
+   "anchor": "suburbStreet",
+   "from": {
+    "position": [
+     -162,
+     13.18625002446751,
+     10.680000000000007
+    ],
+    "target": [
+     0,
+     14,
+     -60
+    ],
+    "fov": 58
+   },
+   "shadowRadius": 40
+  },
+  {
+   "id": "x",
+   "size": "wide",
+   "frames": 6,
+   "move": "static-drift",
+   "drift": 0,
+   "anchor": "heroHouse",
+   "from": {
+    "position": [
+     -116.39999999999998,
+     14.424057239638842,
+     10.399999999999977
+    ],
+    "target": [
+     -117.19999999999999,
+     22.9969696969697,
+     -18
+    ],
+    "fov": 66
+   },
+   "shadowRadius": 40
+  },
+  {
+   "id": "u",
+   "size": "wide",
+   "frames": 6,
+   "move": "static-drift",
+   "drift": 0,
+   "anchor": "upsideDown",
+   "from": {
+    "position": [
+     -200,
+     6.735356483155038,
+     112
+    ],
+    "target": [
+     -238,
+     17.333243951778364,
+     112
+    ],
+    "fov": 58
+   },
+   "shadowRadius": 40
+  }
+ ]
+}

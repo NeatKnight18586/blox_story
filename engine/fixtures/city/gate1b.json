@@ -17,13 +17,13 @@
    "anchor": "stairBottom",
    "from": {
     "position": [
-     20,
-     3.9,
-     83
+     0,
+     4.701044382907044,
+     84
     ],
     "target": [
-     5,
-     27,
+     0,
+     36,
      -56
     ],
     "fov": 58
@@ -49,28 +49,6 @@
      -60
     ],
     "fov": 50
-   },
-   "shadowRadius": 40
-  },
-  {
-   "id": "f",
-   "size": "wide",
-   "frames": 6,
-   "move": "static-drift",
-   "drift": 0,
-   "anchor": "acrossBay",
-   "from": {
-    "position": [
-     -204,
-     6.62,
-     291
-    ],
-    "target": [
-     17,
-     9,
-     171
-    ],
-    "fov": 74
    },
    "shadowRadius": 40
   },

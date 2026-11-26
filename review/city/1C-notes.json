@@ -1,0 +1,13 @@
+{
+ "title": "City 1C: Downtown fix-ups + School & Homes (phone 390 x 693)",
+ "numbers": [
+  "BENCH 720x1280: max 89.7k tris (<=90k), s/frame .18 .16 .23 .16 .12 .18 .14 .08 (<=.62) PASS",
+  "pending farm numbers"
+ ],
+ "weakest": ["pending", "pending", "pending", "pending", "pending"],
+ "verdict": "(pending)",
+ "bench": {
+  "plazaWide": {"tris": 60392, "s": 0.179}, "boardwalk": {"tris": 89688, "s": 0.16}, "stairBottom": {"tris": 69484, "s": 0.232}, "mainSt": {"tris": 70852, "s": 0.156},
+  "schoolFront": {"tris": 21100, "s": 0.122}, "suburbStreet": {"tris": 80622, "s": 0.18}, "heroHouse": {"tris": 37396, "s": 0.14}, "upsideDown": {"tris": 21418, "s": 0.077}
+ }
+}

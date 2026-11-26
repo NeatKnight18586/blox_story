@@ -52,24 +52,49 @@
     "plazaSouth": {"at": [191, 169], "h": 5.5, "look": [191, 269, -26.7], "fov": 62, "district": "plaza", "note": "top of the Grand Stair (z +30, terrace + 5.5), facing south, pitch ≈ −13°"},
     "plazaNorth": {"at": [191, 166], "h": 1.7, "look": [191, 126, 14], "fov": 55, "district": "plaza"},
     "bayNorth": {"at": [191, 221.5], "h": 6, "look": [191, 124, 9.4], "fov": 50, "district": "bay", "note": "on the water south of the stair (z +135: at +250 the sky ≤ 35 % and water ≤ 25 % limits cannot both hold at fov 50), y +6, facing north"},
-    "stairBottom": {"at": [201, 195.5], "h": 1.6, "look": [193.5, 126, 13], "fov": 58, "district": "plaza", "note": "Phase 1B: stepped back west along the boardwalk (low angle, fov 58): the stair ≤ 40 % of frame height, the Hall + top-hat tower own the upper half, the statue clears the balcony"},
-    "boardwalk": {"at": [150, 200], "h": 1.7, "look": [230, 200, 2], "fov": 55, "district": "plaza"},
+    "stairBottom": {"at": [191, 196], "h": 2.5, "look": [191, 126, 22], "fov": 58, "district": "plaza", "note": "Phase 1C: centred on the stair axis, ~2.5 up (a closer cousin of bayNorth): the stair leads the eye, the Hall body shows above the terrace edge, the tower + top hat crown the frame"},
+    "boardwalk": {"at": [131, 203.5], "h": 2.4, "look": [154.65, 185.05, 5], "fov": 68, "district": "plaza", "note": "Phase 1C: on the bay boardwalk (west side) looking along its curve: the rails run as leading lines to the Grand Stair + the Hall"},
     "suburbStreet": {"at": [110, 159.34], "h": 2.5, "look": [191, 124, 0], "fov": 58, "district": "school", "note": "centre of the west radial (street centre line), bell tower unobstructed"},
     "schoolYard": {"at": [74, 150], "h": 1.7, "look": [60, 150, 6], "fov": 55, "district": "school"},
     "mainSt": {"at": [243, 154], "h": 1.7, "look": [225.35, 144.6, 13], "fov": 55, "district": "mainSt", "note": "Phase 1B: street level mid Main St looking west toward the plaza: north storefront signs (≥ 3 readable) + the clock tower and the golden top hat behind"},
     "plazaWide": {"at": [178, 166], "h": 5, "look": [201, 142, 8], "fov": 55, "district": "plaza", "note": "Phase 1B: statue + fountain + backwards clock tower"},
     "hallBalcony": {"at": [195.5, 162], "h": 1.2, "look": [190.5, 133.5, 18.6], "fov": 58, "district": "plaza", "note": "Phase 1B: low angle up at the Governor's balcony and the golden top hat"},
     "acrossBay": {"at": [89, 299.5], "h": 6, "look": [199.5, 239.5, 9], "fov": 74, "district": "bay", "note": "Phase 1B: west-arm shore looking east across the bay: harbor arm, duck slot, plaza terrace"},
+    "schoolFront": {"at": [69, 128], "h": 1.9, "look": [55.5, 137, 6], "fov": 68, "district": "school", "note": "Phase 1C: across the lane from the school: brick front, steps, clock, yellow bus"},
+    "heroHouse": {"at": [132.8, 159.2], "h": 1.9, "look": [132.4, 145, 10.5], "fov": 66, "district": "school", "note": "Phase 1C: the hero's house from the street: red door, garage, crooked mailbox, the treehouse over the roofline (location parts/locations/heroHouse.json)"},
+    "upsideDown": {"at": [91, 210], "h": 1.8, "look": [72, 210, 11], "fov": 58, "district": "school", "note": "Phase 1C: slot 4, the full-flip upside-down house, from the shore road"},
     "harborDock": {"at": [292, 248], "h": 1.7, "look": [318, 232, 8], "fov": 55, "district": "harbor"},
     "beach": {"at": [312, 304], "h": 1.7, "look": [300, 250, 6], "fov": 55, "district": "beach"},
     "hillsLookout": {"at": [170, 88], "h": 1.7, "look": [191, 200, 0], "fov": 55, "district": "wild"}
   },
   "gate": {"b": "plazaSouth", "c": "bayNorth", "d": "suburbStreet", "e": "stairBottom"},
-  "gate1b": {"e": "stairBottom", "c": "bayNorth", "f": "acrossBay", "g": "plazaWide", "h": "mainSt", "i": "hallBalcony"},
+  "gate1b": {"e": "stairBottom", "c": "bayNorth", "g": "plazaWide", "h": "mainSt", "i": "hallBalcony"},
+  "gate1c": {"g": "plazaWide", "a": "boardwalk", "e": "stairBottom", "h": "mainSt", "s": "schoolFront", "d": "suburbStreet", "x": "heroHouse", "u": "upsideDown"},
   "mainStreet": {"road": "radialEast", "setback": 1, "note": "Phase 1B Main St (kit presets, parts/city/kit/presets.json): s = distance along the road from the plaza centre; north side faces south across the street.",
     "shops": [
       {"preset": "toys", "s": 47, "side": "north"}, {"preset": "bakery", "s": 61.5, "side": "north"}, {"preset": "iceCream", "s": 75.5, "side": "north"},
       {"preset": "grocery", "s": 91, "side": "north"}, {"preset": "fireStation", "s": 109.5, "side": "north"},
       {"preset": "hospital", "s": 52, "side": "south"}, {"preset": "arcade", "s": 71, "side": "south"}, {"preset": "police", "s": 87, "side": "south"}
-    ]}
+    ],
+    "dressing": {"note": "Phase 1C: Main St street dressing (kit props). [kind, s along the road from the plaza, side N|S, offset from the centre line in studs, colour]. Cars park in the kerb lane (west-bound on the north side, east-bound on the south), props on the sidewalk, crosswalk bars across the road, trees on the south kerb (the north side keeps the shop signs clear).",
+      "props": [
+        ["sedan", 44, "N", 3.3, "#d8362b"], ["van", 66, "N", 3.3, "#f6f6f2"], ["sedan", 85, "N", 3.3, "#2f78d4"], ["sedan", 104, "N", 3.3, "#3aa860"],
+        ["sedan", 49, "S", 3.3, "#4fc3f7"], ["van", 62, "S", 3.3, "#d8362b"], ["sedan", 79, "S", 3.3, "#fbfaf5"], ["sedan", 90, "S", 3.3, "#ff8a30"], ["sedan", 113, "S", 3.3, "#2aa198"],
+        ["hydrant", 56, "N", 5.7], ["hydrant", 100, "S", 5.7], ["hydrant", 112, "N", 5.7],
+        ["trash", 59, "N", 5.9], ["trash", 73, "S", 5.9], ["trash", 93, "N", 5.9], ["trash", 108, "S", 5.9],
+        ["mailbox", 78, "N", 6.1], ["mailbox", 106, "S", 6.1], ["mailbox", 55, "S", 6.1],
+        ["bench", 69.5, "N", 7.4], ["bench", 99, "N", 7.4], ["bench", 56, "S", 7.4], ["bench", 87, "S", 7.4]
+      ],
+      "crosswalks": [{"s": 57, "n": 6}, {"s": 82, "n": 6}, {"s": 108, "n": 6}],
+      "trees": [{"s": 47, "side": "S"}, {"s": 60, "side": "S"}, {"s": 75, "side": "S"}, {"s": 91, "side": "S"}, {"s": 104, "side": "S"}, {"s": 118, "side": "S"}]}
+  },
+  "west": {"note": "Phase 1C west arm (world studs, +z south; no terrain pad: the court is a slab with a skirt, 1A-fix grades stay ≤ 8 %). school = the classic brick school facing east onto the lane; yard = fenced court + playground south of it; lane = the school drive (asphalt ribbon from the end of the west radial); hero = the hero's house (north side of the west radial: sky-blue, red door, attached garage, crooked mailbox, treehouse behind); upsideDown = slot 4, the full-flip house; suburb = pastel fill houses (kit presets house*, seeded) on every school-district lot.",
+    "lane": {"pts": [[-182, 12], [-256, 12], [-256, -62]], "w": 8},
+    "school": {"at": [-284, -38], "yaw": 1.5708, "preset": "school", "bus": {"at": [-258.3, -30], "yaw": 3.1416}, "walk": {"from": [-270, -38], "to": [-250, -38], "w": 5},
+      "trees": [[-264, -66], [-264, -12], [-244, -8]]},
+    "yard": {"rect": [-300, -12, -266, 36], "gate": [8, 16], "court": {"at": [-289, 12], "w": 15, "d": 26}, "hoops": [[-289, -2.4, 0], [-289, 26.4, 3.1416]],
+      "swings": [-272, 2, 1.5708], "slide": [-272, 13, 0], "sandbox": [-272, 27]},
+    "hero": {"road": "radialWest", "s": 118, "side": -1, "front": 12, "preset": "heroHouse", "mailboxTilt": 0.2, "tree": {"back": 11, "deck": 22, "side": -5}},
+    "upsideDown": {"preset": "upsideHouse", "yaw": 1.5708, "lawn": [19, 17], "clear": [[-214, 100, 9], [-214, 112, 9], [-214, 124, 9]]},
+    "front": 6, "dressR": 75}
 }

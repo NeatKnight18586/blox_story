@@ -48,8 +48,8 @@ test('districtAt: every owner district resolves at its drawing position', () => 
   assert.equal(at(190, 250), 'bay'); assert.equal(at(190, 286), 'bay'); assert.equal(at(360, 340), 'sea');
   assert.ok(hillsZ(0) < -100 && hillsZ(0) > -120);
 });
-test('anchors: all fourteen exist, stand on ground or water, look at a different point', () => {
-  const need = ['plazaSouth', 'plazaNorth', 'bayNorth', 'stairBottom', 'boardwalk', 'suburbStreet', 'schoolYard', 'mainSt', 'harborDock', 'beach', 'hillsLookout', 'plazaWide', 'hallBalcony', 'acrossBay'];
+test('anchors: all seventeen exist, stand on ground or water, look at a different point', () => {
+  const need = ['plazaSouth', 'plazaNorth', 'bayNorth', 'stairBottom', 'boardwalk', 'suburbStreet', 'schoolYard', 'mainSt', 'harborDock', 'beach', 'hillsLookout', 'plazaWide', 'hallBalcony', 'acrossBay', 'schoolFront', 'heroHouse', 'upsideDown'];
   assert.deepEqual([...need].sort(), [...ANCHOR_NAMES].sort());
   for (const n of need) { const a = anchor(n); assert.ok(a.position[1] >= standY(a.position[0], a.position[2]) + 1); assert.ok(Math.hypot(a.target[0] - a.position[0], a.target[2] - a.position[2]) > 20); }
   const ps = anchor('plazaSouth'), bn = anchor('bayNorth'), sb = anchor('stairBottom');
@@ -58,7 +58,8 @@ test('anchors: all fourteen exist, stand on ground or water, look at a different
   assert.ok(bn.position[1] === 6 && bn.fov === 50 && Math.abs(Math.abs(bn.facing) - 180) < 1e-6 || Math.abs(bn.facing) > 179, 'bayNorth on the water at y +6, fov 50, facing north');
   assert.ok(sb.fov >= 55 && sb.fov <= 60 && sb.position[2] > PLAN.terrain.stair.z1 && sb.target[2] < sb.position[2] && sb.target[1] > sb.position[1], 'stairBottom (1B): on the boardwalk past the stair foot, fov 55–60, low angle up at the Hall');
   assert.throws(() => anchor('nope'));
-  for (const n of [...Object.values(PLAN.gate), ...Object.values(PLAN.gate1b)]) assert.ok(need.includes(n));
+  for (const n of [...Object.values(PLAN.gate), ...Object.values(PLAN.gate1b), ...Object.values(PLAN.gate1c)]) assert.ok(need.includes(n));
+  assert.ok(!Object.values(PLAN.gate1b).includes('acrossBay') && !Object.values(PLAN.gate1c).includes('acrossBay'), 'Phase 1C: acrossBay is out of the gates');
 });
 test('roads: 3 radials end at the drawing points, 2 shore roads, curved boardwalk', () => {
   const R = roadPaths(); assert.deepEqual(Object.keys(R).sort(), ['boardwalk', 'radialEast', 'radialNorth', 'radialWest', 'shoreEast', 'shoreWest']);

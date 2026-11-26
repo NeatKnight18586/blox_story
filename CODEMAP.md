@@ -38,6 +38,7 @@ engine/fixtures/cine/bloomgate.json — tuft 1B bloom gate (scripts/v2/cine-gate
 engine/fixtures/cine/episode.json — tuft 1B (+ 1B fix) Look Pack + cinematic camera fixture: 6 shots ~12 s on the v4look street at night (look4 mystery: lit windows, lamp), HER
 engine/fixtures/city/gate.json — Phase 1A gate cameras (written by scripts/v2/city-gate.js from parts/city/plan.json anchors).
 engine/fixtures/city/gate1b.json — Phase 1B gate cameras (scripts/v2/city-gate.js --phase 1b, plan.json gate1b).
+engine/fixtures/city/gate1c.json — Phase 1C gate cameras (scripts/v2/city-gate.js --phase 1c, plan.json gate1c).
 engine/fixtures/city/overview.json — Phase 1A overview: terrain tinted by district (spec cityOverview).
 engine/fixtures/eight-moves.json — Session 1 test clip: 3 s, one shot per camera move, one legacy avatar walking across a ground plate.
 engine/fixtures/fix3b/demo-tb.json — tuft P3B demo2 piece: TITAN on the ground before the mountain at night, low 3/4 on the chained forelegs: roar → break (chains snap, links fa
@@ -174,6 +175,7 @@ parts/city/kit/props.js — City kit street props (Phase 1B), data in → one me
 parts/city/plan.js — Phase 1A: pure helpers over parts/city/plan.json (the island city's source of truth). Node-testable, no three.
 parts/city/plan.json — Phase 1A: the permanent island city. SOURCE OF TRUTH (owner-approved drawing). Map px: 1 px = 2 studs; world x = (mx - 191) * 2, z = (my - 1
 parts/city/statue.json — Governor statue (slot 1, plaza centre) — pose as DATA so each episode can swap it (running gag): spec `statuePose: '<name>'` (default `defau
+parts/city/west.js — Phase 1C: the west arm (School + homes) from the City Building Kit; everything is data in plan.json `west` + kit presets.
 parts/city/world.js — Phase 1A: the permanent island city as a reusable world (v3 world contract: groundY, LAYER, LOOK, build,
 parts/eggs.js — Season 1 episode 1 eggs: nine original designs (stories/egg/beats.md), one shared shape, a painted shell
 parts/landform.js — landform rigs (Amendment A4 B2): part of the terrain that turns out to be a character (the
@@ -186,6 +188,7 @@ parts/locations/city.json — Phase 1A: the permanent island city (location-load
 parts/locations/dragonPeaks.json — Touch Grass VR 2: sunset, jagged rock peaks (props7 rockPeak) at 3 distances in sunset fog, one flat rock plateau (rockMesa r 26, top y 0) f
 parts/locations/dustTown.json — Touch Grass real world: gray, dry, overcast dust haze. Everything sat <= 0.15 except NOVA, the headset glow, the grass blade.
 parts/locations/festivalPlaza.json — tuft P3 BEAST VILLAGE location: festivalPlaza \u2014 dusk \u2192 night festival: a round cobbled plaza ringed by houses, lantern strings fro
+parts/locations/heroHouse.json — Phase 1C: the hero's house, a named reusable location (recurs in many episodes). It lives in the city world (parts/city/world.js, built by p
 parts/locations/homeBedroom.json — tuft P3 BEAST VILLAGE location: homeBedroom \u2014 the small attic room (~10 \u00d7 10) with the ROUND window (our house), bed, the hood hoo
 parts/locations/homeDining.json — tuft P3 BEAST VILLAGE location: homeDining \u2014 warm timber dining room: a long table, 3 chairs, a small hatch window, the right wall is a
 parts/locations/space.json — Touch Grass VR 3: near-black navy dome, 2400 point stars in 3 sizes, glowing sunSphere (core + additive glow), far ringed planet, ships x2.5
