@@ -1,0 +1,752 @@
+{
+ "rule": "staging: heroH ≤ 0.35, landmark slot visible ≥ 0.02, each kid ≥ 0.7 of its silhouette unoccluded + its centre outside the hero's screen box; sightlines ≥ 2 slots (harborDock/diner/beach); duckClose slot 5 ≥ 4 % of frame; bench (gate rows, 720 × 1280, look B) ≤ 90k tris, ≤ 0.62 s/frame",
+ "staging": {
+  "note": "Phase 1D staging rule for establishing key art (scripts/v2/city1d-gate.js measures it): hero ≤ maxHeroH of the frame height, the anchor keyArt.landmark slot visible ≥ landmarkMin (sightline sampling, characters included), kids beside the hero on the frame-centre side (kidSide, + kidGap for the second; back studs), each ≥ kidVisible of its silhouette unoccluded and its centre outside the hero's screen box.",
+  "maxHeroH": 0.35,
+  "landmarkMin": 0.02,
+  "kidSide": 2.9,
+  "kidGap": 2.3,
+  "kidBack": 0.3,
+  "kidVisible": 0.7
+ },
+ "blimpDrift": {
+  "t0": 0.5,
+  "dxFrac": 0.19,
+  "period": 90
+ },
+ "rows": {
+  "plazaSouth": {
+   "gate": false,
+   "landmark": "5",
+   "heroH": 0.331,
+   "landmarkVisible": 0.829,
+   "landmarkPx": 0.0068,
+   "kids": {
+    "kidL": {
+     "share": 0.912,
+     "beside": true,
+     "overlapHero": 0.169
+    },
+    "kidS": {
+     "share": 0.788,
+     "beside": true,
+     "overlapHero": 0
+    }
+   },
+   "onScreen": [
+    "5",
+    "8"
+   ],
+   "movers": [],
+   "checks": {
+    "heroH": true,
+    "landmark": true,
+    "kids": true,
+    "sightlines": true,
+    "duck": true,
+    "movers": true
+   },
+   "pass": true
+  },
+  "plazaNorth": {
+   "gate": false,
+   "landmark": "2",
+   "heroH": 0.298,
+   "landmarkVisible": 0.32,
+   "landmarkPx": 0.0443,
+   "kids": {
+    "kidL": {
+     "share": 0.704,
+     "beside": true,
+     "overlapHero": 0.176
+    },
+    "kidS": {
+     "share": 0.721,
+     "beside": true,
+     "overlapHero": 0
+    }
+   },
+   "onScreen": [
+    "1",
+    "2"
+   ],
+   "movers": [
+    "blimp"
+   ],
+   "checks": {
+    "heroH": true,
+    "landmark": true,
+    "kids": true,
+    "sightlines": true,
+    "duck": true,
+    "movers": true
+   },
+   "pass": true
+  },
+  "bayNorth": {
+   "gate": true,
+   "landmark": "2",
+   "heroH": 0.206,
+   "landmarkVisible": 0.669,
+   "landmarkPx": 0.0241,
+   "kids": {
+    "kidL": {
+     "share": 0.955,
+     "beside": true,
+     "overlapHero": 0.17
+    },
+    "kidS": {
+     "share": 0.948,
+     "beside": true,
+     "overlapHero": 0
+    }
+   },
+   "onScreen": [
+    "1",
+    "2",
+    "8"
+   ],
+   "movers": [
+    "flagsHall",
+    "gulls",
+    "blimp"
+   ],
+   "checks": {
+    "heroH": true,
+    "landmark": true,
+    "kids": true,
+    "sightlines": true,
+    "duck": true,
+    "movers": true
+   },
+   "pass": true,
+   "bench": {
+    "tris": 75024,
+    "calls": 292,
+    "sPerFrame": 0.432,
+    "sPerFrameOff": 0.461,
+    "outlineCost": -0.029,
+    "pass": true
+   }
+  },
+  "stairBottom": {
+   "gate": false,
+   "landmark": "2",
+   "heroH": 0.292,
+   "landmarkVisible": 0.417,
+   "landmarkPx": 0.0111,
+   "kids": {
+    "kidL": {
+     "share": 0.936,
+     "beside": true,
+     "overlapHero": 0.164
+    },
+    "kidS": {
+     "share": 0.886,
+     "beside": true,
+     "overlapHero": 0
+    }
+   },
+   "onScreen": [
+    "1",
+    "2",
+    "8"
+   ],
+   "movers": [],
+   "checks": {
+    "heroH": true,
+    "landmark": true,
+    "kids": true,
+    "sightlines": true,
+    "duck": true,
+    "movers": true
+   },
+   "pass": true
+  },
+  "boardwalk": {
+   "gate": false,
+   "landmark": "2",
+   "heroH": 0.3,
+   "landmarkVisible": 0.211,
+   "landmarkPx": 0.0016,
+   "kids": {
+    "kidL": {
+     "share": 0.832,
+     "beside": true,
+     "overlapHero": 0.174
+    },
+    "kidS": {
+     "share": 0.761,
+     "beside": true,
+     "overlapHero": 0
+    }
+   },
+   "onScreen": [
+    "2",
+    "7"
+   ],
+   "movers": [
+    "birds"
+   ],
+   "checks": {
+    "heroH": true,
+    "landmark": true,
+    "kids": true,
+    "sightlines": true,
+    "duck": true,
+    "movers": true
+   },
+   "pass": true
+  },
+  "suburbStreet": {
+   "gate": false,
+   "landmark": "2",
+   "heroH": 0.296,
+   "landmarkVisible": 0.417,
+   "landmarkPx": 0.0137,
+   "kids": {
+    "kidL": {
+     "share": 0.93,
+     "beside": true,
+     "overlapHero": 0.162
+    },
+    "kidS": {
+     "share": 0.887,
+     "beside": true,
+     "overlapHero": 0
+    }
+   },
+   "onScreen": [
+    "2",
+    "7"
+   ],
+   "movers": [
+    "birds"
+   ],
+   "checks": {
+    "heroH": true,
+    "landmark": true,
+    "kids": true,
+    "sightlines": true,
+    "duck": true,
+    "movers": true
+   },
+   "pass": true
+  },
+  "schoolYard": {
+   "gate": false,
+   "landmark": null,
+   "heroH": 0.3,
+   "landmarkVisible": null,
+   "landmarkPx": null,
+   "kids": {
+    "kidL": {
+     "share": 0.92,
+     "beside": true,
+     "overlapHero": 0.162
+    },
+    "kidS": {
+     "share": 0.736,
+     "beside": true,
+     "overlapHero": 0
+    }
+   },
+   "onScreen": [],
+   "movers": [],
+   "checks": {
+    "heroH": true,
+    "landmark": true,
+    "kids": true,
+    "sightlines": true,
+    "duck": true,
+    "movers": true
+   },
+   "pass": true
+  },
+  "mainSt": {
+   "gate": true,
+   "landmark": "3",
+   "heroH": 0.325,
+   "landmarkVisible": 0.114,
+   "landmarkPx": 0.0003,
+   "kids": {
+    "kidL": {
+     "share": 0.729,
+     "beside": true,
+     "overlapHero": 0.159
+    },
+    "kidS": {
+     "share": 0.871,
+     "beside": true,
+     "overlapHero": 0
+    }
+   },
+   "onScreen": [
+    "2",
+    "3"
+   ],
+   "movers": [
+    "birds",
+    "cars"
+   ],
+   "checks": {
+    "heroH": true,
+    "landmark": true,
+    "kids": true,
+    "sightlines": true,
+    "duck": true,
+    "movers": true
+   },
+   "pass": true,
+   "bench": {
+    "tris": 70326,
+    "calls": 294,
+    "sPerFrame": 0.54,
+    "sPerFrameOff": 0.561,
+    "outlineCost": -0.021,
+    "pass": true
+   }
+  },
+  "plazaWide": {
+   "gate": true,
+   "landmark": "1",
+   "heroH": 0.304,
+   "landmarkVisible": 0.56,
+   "landmarkPx": 0.04,
+   "kids": {
+    "kidL": {
+     "share": 0.959,
+     "beside": true,
+     "overlapHero": 0.159
+    },
+    "kidS": {
+     "share": 0.918,
+     "beside": true,
+     "overlapHero": 0
+    }
+   },
+   "onScreen": [
+    "1",
+    "2",
+    "3",
+    "7"
+   ],
+   "movers": [
+    "flagsHall",
+    "fountain"
+   ],
+   "checks": {
+    "heroH": true,
+    "landmark": true,
+    "kids": true,
+    "sightlines": true,
+    "duck": true,
+    "movers": true
+   },
+   "pass": true,
+   "bench": {
+    "tris": 70438,
+    "calls": 257,
+    "sPerFrame": 0.309,
+    "sPerFrameOff": 0.325,
+    "outlineCost": -0.015,
+    "pass": true
+   }
+  },
+  "hallBalcony": {
+   "gate": false,
+   "landmark": "2",
+   "heroH": 0.298,
+   "landmarkVisible": 0.366,
+   "landmarkPx": 0.1536,
+   "kids": {
+    "kidL": {
+     "share": 0.703,
+     "beside": true,
+     "overlapHero": 0.174
+    },
+    "kidS": {
+     "share": 0.921,
+     "beside": true,
+     "overlapHero": 0
+    }
+   },
+   "onScreen": [
+    "1",
+    "2"
+   ],
+   "movers": [],
+   "checks": {
+    "heroH": true,
+    "landmark": true,
+    "kids": true,
+    "sightlines": true,
+    "duck": true,
+    "movers": true
+   },
+   "pass": true
+  },
+  "acrossBay": {
+   "gate": false,
+   "landmark": "5",
+   "heroH": 0.312,
+   "landmarkVisible": 0.154,
+   "landmarkPx": 0,
+   "kids": {
+    "kidL": {
+     "share": 0.989,
+     "beside": true,
+     "overlapHero": 0.146
+    },
+    "kidS": {
+     "share": 0.882,
+     "beside": true,
+     "overlapHero": 0
+    }
+   },
+   "onScreen": [
+    "5",
+    "6"
+   ],
+   "movers": [],
+   "checks": {
+    "heroH": true,
+    "landmark": true,
+    "kids": true,
+    "sightlines": true,
+    "duck": true,
+    "movers": true
+   },
+   "pass": true
+  },
+  "schoolFront": {
+   "gate": false,
+   "landmark": null,
+   "heroH": 0.302,
+   "landmarkVisible": null,
+   "landmarkPx": null,
+   "kids": {
+    "kidL": {
+     "share": 0.889,
+     "beside": true,
+     "overlapHero": 0.162
+    },
+    "kidS": {
+     "share": 0.856,
+     "beside": true,
+     "overlapHero": 0
+    }
+   },
+   "onScreen": [],
+   "movers": [],
+   "checks": {
+    "heroH": true,
+    "landmark": true,
+    "kids": true,
+    "sightlines": true,
+    "duck": true,
+    "movers": true
+   },
+   "pass": true
+  },
+  "heroHouse": {
+   "gate": true,
+   "landmark": null,
+   "heroH": 0.321,
+   "landmarkVisible": null,
+   "landmarkPx": null,
+   "kids": {
+    "kidL": {
+     "share": 0.92,
+     "beside": true,
+     "overlapHero": 0.164
+    },
+    "kidS": {
+     "share": 0.755,
+     "beside": true,
+     "overlapHero": 0
+    }
+   },
+   "onScreen": [],
+   "movers": [
+    "birds"
+   ],
+   "checks": {
+    "heroH": true,
+    "landmark": true,
+    "kids": true,
+    "sightlines": true,
+    "duck": true,
+    "movers": true
+   },
+   "pass": true,
+   "bench": {
+    "tris": 44270,
+    "calls": 191,
+    "sPerFrame": 0.467,
+    "sPerFrameOff": 0.473,
+    "outlineCost": -0.006,
+    "pass": true
+   }
+  },
+  "upsideDown": {
+   "gate": false,
+   "landmark": "4",
+   "heroH": 0.296,
+   "landmarkVisible": 0.366,
+   "landmarkPx": 0.1614,
+   "kids": {
+    "kidL": {
+     "share": 0.963,
+     "beside": true,
+     "overlapHero": 0.176
+    },
+    "kidS": {
+     "share": 0.933,
+     "beside": true,
+     "overlapHero": 0
+    }
+   },
+   "onScreen": [
+    "4"
+   ],
+   "movers": [],
+   "checks": {
+    "heroH": true,
+    "landmark": true,
+    "kids": true,
+    "sightlines": true,
+    "duck": true,
+    "movers": true
+   },
+   "pass": true
+  },
+  "harborDock": {
+   "gate": true,
+   "landmark": "3",
+   "heroH": 0.206,
+   "landmarkVisible": 0.571,
+   "landmarkPx": 0.0016,
+   "kids": {
+    "kidL": {
+     "share": 0.972,
+     "beside": true,
+     "overlapHero": 0.17
+    },
+    "kidS": {
+     "share": 0.935,
+     "beside": true,
+     "overlapHero": 0
+    }
+   },
+   "onScreen": [
+    "2",
+    "3",
+    "7"
+   ],
+   "movers": [
+    "fishingBoats",
+    "gullsHarbor"
+   ],
+   "checks": {
+    "heroH": true,
+    "landmark": true,
+    "kids": true,
+    "sightlines": true,
+    "duck": true,
+    "movers": true
+   },
+   "pass": true,
+   "bench": {
+    "tris": 80562,
+    "calls": 492,
+    "sPerFrame": 0.596,
+    "sPerFrameOff": 0.741,
+    "outlineCost": -0.144,
+    "pass": true
+   }
+  },
+  "beach": {
+   "gate": true,
+   "landmark": "6",
+   "heroH": 0.25,
+   "landmarkVisible": 0.549,
+   "landmarkPx": 0.003,
+   "kids": {
+    "kidL": {
+     "share": 0.973,
+     "beside": true,
+     "overlapHero": 0.145
+    },
+    "kidS": {
+     "share": 0.934,
+     "beside": true,
+     "overlapHero": 0
+    }
+   },
+   "onScreen": [
+    "6",
+    "7"
+   ],
+   "movers": [
+    "gullsHarbor"
+   ],
+   "checks": {
+    "heroH": true,
+    "landmark": true,
+    "kids": true,
+    "sightlines": true,
+    "duck": true,
+    "movers": true
+   },
+   "pass": true,
+   "bench": {
+    "tris": 72834,
+    "calls": 383,
+    "sPerFrame": 0.465,
+    "sPerFrameOff": 0.52,
+    "outlineCost": -0.055,
+    "pass": true
+   }
+  },
+  "diner": {
+   "gate": true,
+   "landmark": "6",
+   "heroH": 0.298,
+   "landmarkVisible": 0.463,
+   "landmarkPx": 0.0832,
+   "kids": {
+    "kidL": {
+     "share": 0.971,
+     "beside": true,
+     "overlapHero": 0.174
+    },
+    "kidS": {
+     "share": 0.927,
+     "beside": true,
+     "overlapHero": 0
+    }
+   },
+   "onScreen": [
+    "2",
+    "6",
+    "7"
+   ],
+   "movers": [
+    "cars"
+   ],
+   "checks": {
+    "heroH": true,
+    "landmark": true,
+    "kids": true,
+    "sightlines": true,
+    "duck": true,
+    "movers": true
+   },
+   "pass": true,
+   "bench": {
+    "tris": 82810,
+    "calls": 401,
+    "sPerFrame": 0.303,
+    "sPerFrameOff": 0.334,
+    "outlineCost": -0.031,
+    "pass": true
+   }
+  },
+  "duckClose": {
+   "gate": true,
+   "landmark": "5",
+   "heroH": 0.308,
+   "landmarkVisible": 0.126,
+   "landmarkPx": 0.2398,
+   "kids": {
+    "kidL": {
+     "share": 0.888,
+     "beside": true,
+     "overlapHero": 0.171
+    },
+    "kidS": {
+     "share": 0.86,
+     "beside": true,
+     "overlapHero": 0
+    }
+   },
+   "onScreen": [
+    "5"
+   ],
+   "movers": [],
+   "checks": {
+    "heroH": true,
+    "landmark": true,
+    "kids": true,
+    "sightlines": true,
+    "duck": true,
+    "movers": true
+   },
+   "pass": true,
+   "bench": {
+    "tris": 36550,
+    "calls": 149,
+    "sPerFrame": 0.347,
+    "sPerFrameOff": 0.339,
+    "outlineCost": 0.008,
+    "pass": true
+   }
+  },
+  "hillsLookout": {
+   "gate": false,
+   "landmark": "2",
+   "heroH": 0.287,
+   "landmarkVisible": 0.669,
+   "landmarkPx": 0.2749,
+   "kids": {
+    "kidL": {
+     "share": 0.966,
+     "beside": true,
+     "overlapHero": 0.119
+    },
+    "kidS": {
+     "share": 0.867,
+     "beside": true,
+     "overlapHero": 0
+    }
+   },
+   "onScreen": [
+    "2",
+    "3",
+    "6"
+   ],
+   "movers": [
+    "birds"
+   ],
+   "checks": {
+    "heroH": true,
+    "landmark": true,
+    "kids": true,
+    "sightlines": true,
+    "duck": true,
+    "movers": true
+   },
+   "pass": true
+  }
+ },
+ "textures": [
+  "cc0:city_asphalt",
+  "cc0:city_brick",
+  "cc0:city_planks",
+  "cc0:city_plaster",
+  "cc0:city_shingles",
+  "cc0:city_sidewalk",
+  "cc0:city_stone",
+  "plain"
+ ],
+ "pass": {
+  "staging": true,
+  "sightlines": true,
+  "duck": true,
+  "bench": true,
+  "movers": true,
+  "blimpDrift": true
+ },
+ "fails": []
+}
