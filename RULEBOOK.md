@@ -20,6 +20,7 @@ Where an older doc (now in docs/archive/) conflicts, this list wins. Read this, 
 - One permanent ISLAND with districts (Downtown + Governor's Hall, School + homes, Harbor + beach, Wild edge) and meme-worthy landmarks. Laid out once; each district is detailed the first time an episode needs it, then reused and redressed forever.
 - Every world/town built for an episode is saved as a reusable set (parts/locations/ + one LIBRARY.md line).
 - The city: parts/city/ (plan.json is the source of truth).
+- Some episodes leave a permanent mark on the town; record it in docs/CONTINUITY.md and apply it as a world flag.
 - Look = Roblox Studio: crisp, bright, saturated plastic; CC0 kitbash (Poly Haven etc. via the farm) for textures, skies, rocks, trees, props; Claude places and arranges, never hand-models what a CC0 asset can supply. No film grain, haze near camera or moody grade. Depth blur only on close-up inserts.
 - Crowds: posed or looping instanced crowds may be large (hundreds); only acting characters are costly.
 

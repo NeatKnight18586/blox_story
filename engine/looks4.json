@@ -2591,5 +2591,15 @@
    "base": {"skyTop": "#1a7dff", "skyHorizon": "#b8e2ff", "fog": "#cde9ff", "fogNear": 480, "fogFar": 1150, "hemiSky": "#d2e9ff", "hemiGround": "#8fa86c", "hemi": 1.05, "sun": "#fff3dc", "sunI": 3.3, "sunEl": 60, "sunAz": 28, "rim": "#ffffff", "rimI": 0.35, "cloud": "#ffffff", "exposure": 1.05, "windows": 0},
    "v4": {"toneMapping": "AgX", "envIntensity": 0.75, "clouds": "puffy", "heightFog": null, "shadowCatcher": 0.45, "glass": {"color": "#9fc4e8", "reflect": 0.9},
     "bake": {"sun": [1, 0.95, 0.84], "sunI": 1.25, "sky": [0.6, 0.74, 0.98], "skyI": 0.66, "ground": [0.5, 0.48, 0.38], "groundI": 0.2, "aoDist": 4, "lights": false}, "staticReflect": 0.12, "lut": "comedy"}
+  },
+  "cityDay2": {
+   "note": "Look Signature (opt-in look4 \"cityDay2\"; cityDay stays as it was): the Roblox Studio showcase recipe. Crisp high sun with a stronger key-to-shadow bake ratio, blue sky fill (never grey), warm ground bounce, haze tinted to the scene's average colour on distant terrain only (fog from 300), mild grade (+sat, warm highlights / cool shadows), 3-stop sky gradient, 2 cloud sizes, faint sun rays only when the sun is in frame. outline: off | classic | classicPlus (engine/outline.js; default off until the owner picks).",
+   "base": {"skyTop": "#1268ec", "skyHorizon": "#bfe6ff", "fog": "#cde4f5", "fogNear": 300, "fogFar": 1250, "hemiSky": "#a8ceff", "hemiGround": "#c8a576", "hemi": 0.85, "sun": "#fff0d4", "sunI": 3.9, "sunEl": 52, "sunAz": 28, "rim": "#ffffff", "rimI": 0.35, "cloud": "#ffffff", "exposure": 1.06, "windows": 0},
+   "v4": {"toneMapping": "AgX", "envIntensity": 0.7, "clouds": "puffy", "heightFog": null, "shadowCatcher": 0.55, "glass": {"color": "#9fc4e8", "reflect": 0.9},
+    "bake": {"sun": [1, 0.93, 0.8], "sunI": 1.5, "sky": [0.52, 0.68, 1.0], "skyI": 0.5, "ground": [0.66, 0.52, 0.36], "groundI": 0.26, "aoDist": 4, "lights": false}, "staticReflect": 0.12, "lut": "comedy",
+    "skyMid": "#3c95ff", "clouds2": true, "sunRays": 0.16,
+    "grade": {"sat": 1.12, "warm": [1.035, 1.0, 0.95], "cool": [0.95, 0.985, 1.05]},
+    "haze": {"mix": 0.5, "from": [0, 70, 300], "to": [0, 12, 0]},
+    "outline": "off"}
   }
 }

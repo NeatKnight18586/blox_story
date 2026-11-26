@@ -10,6 +10,7 @@ on:
       blender: {description: time a Blender install + one Cycles lightmap bake, type: boolean, default: true}
       city: {description: 'Phase 1B: city gate1b stills + sheet with the CC0 cache (commits review/city/1B-farm-*)', type: boolean, default: false}
       city1c: {description: 'Phase 1C: city gate1c stills + sheet with the CC0 cache (commits review/city/1C-farm-*)', type: boolean, default: false}
+      look: {description: 'Look Signature: cityDay2 × outline A/B/C on the 4 key-art cameras + motion clip + bench (commits review/city/LOOK-*)', type: boolean, default: false}
   push:
     paths: ['assets/realism.request']
 
@@ -40,7 +41,7 @@ jobs:
           find renders/cache/assets -type f -size +15M -print -exec false {} +   # textures ≤ 5 MB (fetch-assets), glTF model files ≤ 15 MB
           du -sh renders/cache/assets; cat renders/cache/assets/manifest.json
       - id: req
-        name: Read the request line (a first line containing `city1b` or `city1c` runs only that city gate)
+        name: Read the request line (a first line containing `city1b`, `city1c` or `looksig` runs only that city gate)
         run: echo "line=$(head -n1 assets/realism.request 2>/dev/null | tr -d '\r')" >> "$GITHUB_OUTPUT"
       - name: City 1B gate with CC0 textures (farm stills + sheet)
         if: inputs.city || (github.event_name == 'push' && contains(steps.req.outputs.line, 'city1b'))
@@ -68,8 +69,21 @@ jobs:
           git config user.name "blox-farm"; git config user.email "actions@users.noreply.github.com"
           git add review/city/1C-farm-sightlines.json review/city/1C-farm-sheet.png assets/LICENSES.md
           git diff --cached --quiet || { git commit -m "City 1C: farm gate stills with CC0 textures (run ${{ github.run_id }})"; git push origin HEAD:${{ github.ref_name }}; }
+      - name: Look Signature gate with CC0 textures (key-art stills A/B/C, measures, bench, motion clip)
+        if: inputs.look || (github.event_name == 'push' && contains(steps.req.outputs.line, 'looksig'))
+        run: |
+          npm ci
+          npx playwright install --with-deps chromium || echo "browser.js falls back to the runner's google-chrome"
+          pip install --break-system-packages pillow >/dev/null 2>&1 || pip install pillow
+          command -v ffmpeg >/dev/null || { for i in 1 2 3 4 5; do sudo apt-get -o Acquire::Retries=5 update && sudo apt-get -o Acquire::Retries=5 install -y ffmpeg && break || sleep $((i*15)); done; }
+          node scripts/v2/tex4.js; node scripts/v2/matcap4.js
+          node scripts/v2/look-gate.js --out renders/look-farm --review review/city --prefix LOOK
+          python3 scripts/v2/look-sheet.py --dir renders/look-farm --measures review/city/LOOK-measures.json --out review/city/LOOK-sheet.png --crops review/city/LOOK-crops.png
+          git config user.name "blox-farm"; git config user.email "actions@users.noreply.github.com"
+          git add review/city/LOOK-measures.json review/city/LOOK-sheet.png review/city/LOOK-crops.png review/city/LOOK-motion.mp4 assets/LICENSES.md engine/fixtures/city/look.json
+          git diff --cached --quiet || { git commit -m "Look Signature: farm key-art stills A/B/C + motion with CC0 textures (run ${{ github.run_id }})"; git push origin HEAD:${{ github.ref_name }}; }
       - name: Realism spike (farm numbers + sheet)
-        if: (github.event_name == 'push' && !contains(steps.req.outputs.line, 'city1b') && !contains(steps.req.outputs.line, 'city1c')) || inputs.measure
+        if: (github.event_name == 'push' && !contains(steps.req.outputs.line, 'city1b') && !contains(steps.req.outputs.line, 'city1c') && !contains(steps.req.outputs.line, 'looksig')) || inputs.measure
         run: |
           npm ci
           npx playwright install --with-deps chromium || echo "browser.js falls back to the runner's google-chrome"
@@ -80,7 +94,7 @@ jobs:
           python3 scripts/v2/realism-ab.py
           cat review/realism/realism.json | head -c 4000
       - name: Blender headless bake probe
-        if: (github.event_name == 'push' && !contains(steps.req.outputs.line, 'city1b') && !contains(steps.req.outputs.line, 'city1c')) || inputs.blender
+        if: (github.event_name == 'push' && !contains(steps.req.outputs.line, 'city1b') && !contains(steps.req.outputs.line, 'city1c') && !contains(steps.req.outputs.line, 'looksig')) || inputs.blender
         run: |
           t0=$(date +%s); sudo apt-get update -qq && sudo apt-get install -y -qq blender >/dev/null; t1=$(date +%s)
           blender --version | head -1
@@ -97,7 +111,7 @@ jobs:
         if: always()
         with: {name: realism, path: 'review/realism/', retention-days: 14}
       - name: Commit review material (never the assets)
-        if: (github.event_name == 'push' && !contains(steps.req.outputs.line, 'city1b') && !contains(steps.req.outputs.line, 'city1c')) || inputs.measure || inputs.blender
+        if: (github.event_name == 'push' && !contains(steps.req.outputs.line, 'city1b') && !contains(steps.req.outputs.line, 'city1c') && !contains(steps.req.outputs.line, 'looksig')) || inputs.measure || inputs.blender
         run: |
           git config user.name "blox-farm"; git config user.email "actions@users.noreply.github.com"
           git add review/realism assets/LICENSES.md

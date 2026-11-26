@@ -533,6 +533,10 @@ function aimRim(shot, camPos) {
   rim.position.set(...r.position); rim.target.position.set(...r.target); rim.target.updateMatrixWorld();
 }
 const ui = createRuleUI(spec.ui ?? [], {scene, resolveTarget, fps: FPS});
+// Look Signature (opt-in): the outline pass (engine/outline.js) when the spec or its look4 preset names a mode (off | classic | classicPlus)
+const OL_MODE = spec.outline ?? (spec.look4 ? look?.presets?.[spec.look4]?.v4?.outline : undefined);
+const OUTLINE = OL_MODE ? (await import('./outline.js')).createOutline(renderer, scene, {mode: OL_MODE}) : null;
+if (OUTLINE) { const cr = []; scene.traverse(o => { if (/^crowd_/.test(o.name)) cr.push(o); }); OUTLINE.markChars([...Object.values(cast).map(x => x.a?.root), ...cr]); }
 const fill = spec.fill ? createFill(scene, spec.fill, {groundY: world?.groundY ?? (() => 0)}) : null;   // format v5: ~200 instanced fill kids
 if (LOOK5B) { const roots = Object.values(cast).map(x => x.a.root), skip = o => { for (let p = o; p; p = p.parent) if (roots.includes(p)) return true; return o.name === 'contactBlob'; };
   L5B.gradeWorld(scene, P5B(spec.look4), skip);
@@ -677,7 +681,7 @@ function drawFrame(shot, mf, off, width, height, nudge) {
     if (a) return a.P.rig === 'blink' ? [] : [{p: a.head.position.toArray(), r: (a.P.dims?.headH ?? .6) * (a.P.scale ?? 1) + 1.5}];
     return x.a?.root?.visible === false ? [] : [{p: headOf(x).toArray(), r: .9 * (x.a?.root?.scale?.x ?? 1) + 1.5}]; }));
   const undoBD = BD?.pre(camera, shot);
-  if (c.split) renderSplit(c.split, width, height); else if (CL) cineRender(shot, mf, off, lt, width, height); else renderer.render(scene, camera);
+  if (c.split) renderSplit(c.split, width, height); else if (CL) cineRender(shot, mf, off, lt, width, height); else { renderer.render(scene, camera); OUTLINE?.draw(camera, width, height); }
   undoBD?.();
   return c;
 }
@@ -806,9 +810,9 @@ export function renderCamera(cam, t = 0, width = 720, height = 1280, lookName = 
   poseCast(t); camera.fov = cam.fov ?? 45; camera.aspect = width / height; camera.position.set(...cam.position); camera.up.set(...(cam.up ?? [0, 1, 0])); camera.lookAt(...cam.target); camera.updateProjectionMatrix();
   if (look) { look.apply(lookName); look.frame(new T.Vector3(...cam.target), camera.position.clone(), cam.shadowRadius ?? 34); look.update(t); }
   if (nudge) { const k = nudge / Math.sqrt(3); camera.translateX(k); camera.translateY(k); camera.translateZ(k); }
-  world?.update(t); applyWorldState(null, t); world?.onCamera?.(camera.position.toArray()); updateExtras(t); scene.updateMatrixWorld(true); fitTags(scene, camera); renderer.render(scene, camera);
+  world?.update(t); applyWorldState(null, t); world?.onCamera?.(camera.position.toArray()); updateExtras(t); scene.updateMatrixWorld(true); fitTags(scene, camera); renderer.render(scene, camera); const olMs = OUTLINE?.draw(camera, width, height) ?? 0;
   const gl = renderer.getContext(); gl.readPixels(0, 0, 1, 1, gl.RGBA, gl.UNSIGNED_BYTE, new Uint8Array(4));
-  return {triangles: frustumTriangles(), drawnTriangles: renderer.info.render.triangles, calls: renderer.info.render.calls, ms: performance.now() - t0};
+  return {triangles: frustumTriangles(), drawnTriangles: renderer.info.render.triangles, calls: renderer.info.render.calls, ms: performance.now() - t0, ...(OUTLINE ? {outlineMs: olMs} : {})};
 }
 
 // Plan inspection (scripts/v2/plan.js): camera and projected heads at frame n, without rendering.
@@ -1080,4 +1084,4 @@ function cineMeasure(names = Object.keys(cast)) {
     const c = b.getCenter(new T.Vector3()), z = c.clone().sub(camera.position).dot(f);
     out[n] = {x0, x1, y0, y1, behind, v: 2 * z * Math.tan(camera.fov * Math.PI / 360) / (5.3 * x.a.root.scale.y), z}; }
   return out; }
-window.__episode = {tpl: CTPL ? {state: TPLSTATE, measure: tplMeasure, eyes: tplEyes} : null, beasts: BEASTS, cine: CL ? {state: CL.state, opts: CINE_OPTS, glowCount: CL.glowCount, setGlow: CL.setGlow, glowDebug: CL.glowDebug, measure: cineMeasure} : null, story6: S6, clearedNow: () => CLEARED.map(r => r.name), actingPlan: () => actPlans.map(p => /^hug/.test(p.verb) ? {...p, cam: hugCam(p)} : p), groundFix: () => GROUNDFIX, sepMeasure, ceilingLuma, classHaze, satMeasure, depthLuma, lumaProbe, debug: {scene, renderer, camera, look, pool: U5B?.poolOf ?? null}, bake: BAKE, matcapBytes: MATCAP ? (n => Array.from(look.matcapBytes(n ?? spec.look4))) : null, breakdown, measureFrame, seasonMeasure, actorMask, readMeasure, gateMeasure, placesAt, lumaAt, inspectFrame, shotSpeed, END: FRAMES / FPS, anchors: Object.fromEntries(Object.entries(anchors).filter(([, a]) => a.camera).map(([k]) => [k, true])), renderAnchor, renderAnchorNudged, renderCamera, FPS, FRAMES, shots: shots.map(({id, start, frames, size, move, loc, subject, see, openHit, at, why, captionY, fit, spectacle, look: lk}) => ({id, start, frames, size, move, loc, subject, see, openHit: !!openHit, at, why, captionY, fit, spectacle: !!spectacle, look: lk})), renderFrame};
+window.__episode = {outline: OUTLINE, cityLiving: world?.living ?? null, tpl: CTPL ? {state: TPLSTATE, measure: tplMeasure, eyes: tplEyes} : null, beasts: BEASTS, cine: CL ? {state: CL.state, opts: CINE_OPTS, glowCount: CL.glowCount, setGlow: CL.setGlow, glowDebug: CL.glowDebug, measure: cineMeasure} : null, story6: S6, clearedNow: () => CLEARED.map(r => r.name), actingPlan: () => actPlans.map(p => /^hug/.test(p.verb) ? {...p, cam: hugCam(p)} : p), groundFix: () => GROUNDFIX, sepMeasure, ceilingLuma, classHaze, satMeasure, depthLuma, lumaProbe, debug: {scene, renderer, camera, look, pool: U5B?.poolOf ?? null}, bake: BAKE, matcapBytes: MATCAP ? (n => Array.from(look.matcapBytes(n ?? spec.look4))) : null, breakdown, measureFrame, seasonMeasure, actorMask, readMeasure, gateMeasure, placesAt, lumaAt, inspectFrame, shotSpeed, END: FRAMES / FPS, anchors: Object.fromEntries(Object.entries(anchors).filter(([, a]) => a.camera).map(([k]) => [k, true])), renderAnchor, renderAnchorNudged, renderCamera, FPS, FRAMES, shots: shots.map(({id, start, frames, size, move, loc, subject, see, openHit, at, why, captionY, fit, spectacle, look: lk}) => ({id, start, frames, size, move, loc, subject, see, openHit: !!openHit, at, why, captionY, fit, spectacle: !!spectacle, look: lk})), renderFrame};

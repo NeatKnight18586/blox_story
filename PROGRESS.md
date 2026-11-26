@@ -22,3 +22,11 @@ Numbers: `npm run v2:test` 277 JS + 74 py green, `npm test` green; `_fixture6_pa
 Decisions: RULEBOOK.md, `npm run ep` and `ep:check` do not exist on this branch: new-episode.md references them as specified; RULEBOOK §9 not edited.
 Branch name from the session setup (claude/pipeline-v7-phase-0b-dxbr12), not claude/pipeline-v7. Brief flag syntax: `- spec flags: format: 7, lengthVariant: short`.
 Open: the phone sheet uses the demo video, whose old white captions are burnt in under the v7 ones (overlap in the sheet only).
+
+## Phase LOOK SIGNATURE — engine slot (branch claude/phase-look-signature-opus-ao82s9; farm run 45751719604)
+Built: looks4 `cityDay2` (opt-in; cityDay unchanged) + look4 opt-ins skyMid/clouds2/sunRays/grade/haze; `engine/outline.js` (off|classic|classicPlus, default off);
+plan.json keyArt on all 17 anchors (4 hand-tuned, 13 `auto`, unmeasured) + `keyArt()` rule; `parts/city/living.js` (9 movers + Governor blimp 1.8k tris);
+docs/CONTINUITY.md + RULEBOOK §2 line; scripts/v2/look-gate.js + look-sheet.py; assets.yml `looksig`. Review: review/city/LOOK-{sheet,crops}.png, LOOK-motion.mp4, LOOK-measures.json.
+Farm numbers (720×1280, look C): bayNorth 89.3k / 0.503 s, plazaWide 81.8k / 0.445, mainSt 88.3k / 0.677 (FAIL > 0.62; off 0.577), heroHouse 47.5k / 0.562.
+Outline cost farm: classic +0.082…0.101 s, classicPlus +0.084…0.100 s — FAIL (≤ 0.06) after two fix passes (local: 0.03–0.06). Key-art: near 16–37 %, third Δ 1.1–7.1 %: PASS ×4.
+Living: ≤ 2.5k tris and ≤ 3 movers in frame: PASS. Open: MRT (id/normal in the main pass) would remove the 2nd geometry pass, the likely fix for the outline cost.

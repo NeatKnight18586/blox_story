@@ -14,6 +14,8 @@ import {PLAN, corridors, inCorridor, groundY, terrainY, terraceW, stairY, standY
 import {downtown, mainStreetLots, placeBuilding} from './downtown.js';
 import {west, westReserves, houseLot} from './west.js';
 import {setKitTextures, kitMat} from './kit/mats.js';
+import {livingTown, keyArtProps} from './living.js';
+import {keyArt} from './plan.js';
 import {setLOD, lodFor} from './kit/building.js';
 import PRESETS from './kit/presets.json' with {type: 'json'};
 export {groundY, PLAN};
@@ -272,11 +274,17 @@ export function build(scene, {M, V, TR, look, spec, look4}) {
   const cull = p => { for (const t of Object.values(tiers)) { const d = t.bounds.isEmpty() ? Infinity : t.bounds.distanceToPoint(new T.Vector3(p[0], t.bounds.min.y, p[2])); t.hi.visible = d < CULL_R; t.lo.visible = !t.hi.visible; } };
   // bake both tiers (bake runs once after build, before the first onCamera), so the lo tier is visible now too
   const anchors = Object.fromEntries(A.map(a => [a.name, {position: [a.position[0], standY(a.position[0], a.position[2]), a.position[2]], facing: a.facing, target: a.target, fov: a.fov, eye: a.position, district: a.district}]));
+  // Look Signature (opt-in): key-art anchors `ka_<name>` (position = the subject's feet, camera = the key-art lens), their foreground
+  // props (spec cityKeyArt: true = every hand-tuned variant | [names]) and the living town (spec cityLiving: true | [mover names])
+  for (const n of ANCHOR_NAMES) { const k = keyArt(n); anchors['ka_' + n] = {position: k.subject, facing: k.yaw * 180 / Math.PI, camera: {position: k.position, target: k.target, fov: k.fov}, keyArt: k, district: PLAN.anchors[n].district}; }
+  if (spec?.cityKeyArt) { const names = spec.cityKeyArt === true ? ANCHOR_NAMES.filter(n => !keyArt(n).auto) : spec.cityKeyArt, kap = names.map(n => [n, keyArt(n).fg]).filter(([, f]) => f); for (const [n, f] of kap) G(PLAN.anchors[n].district === 'bay' ? 'plaza' : PLAN.anchors[n].district).add(keyArtProps([f])); stats.keyArtProps = names.length; }
+  const LIV = spec?.cityLiving ? livingTown({groundY, slots, roads, kitBuildings: kitB, focus: spec.cityLiving}) : null;
+  if (LIV) { cityRoot.add(LIV.group); stats.living = LIV.stats; }
   stats.lots = lots.length; stats.ms = Math.round(performance.now() - t0);
   const bakeGroups = Object.entries(groups).map(([k, root]) => ({root, preset: spec?.look4 ?? 'cityDay', name: k}));
   return {anchors, groundY, places: Object.fromEntries(slots.map(s => ['slot' + s.id, {at: [s.at[0], s.base, s.at[1]]}])), slots, stats, bakeGroups: spec?.look4 ? bakeGroups : undefined,
     onCamera(p) { cull(p); if (look?.sky) look.sky.position.set(p[0], 0, p[2]); for (const b of kitB) setLOD(b, lodFor(Math.hypot(p[0] - b.at[0], p[2] - b.at[2]) / (b.lodScale ?? 1), KIT_LOD)); },
-    update(t) { WATER?.update(t); forest.update?.(t); dt?.update(t); },
+    update(t) { WATER?.update(t); forest.update?.(t); dt?.update(t); LIV?.update(t); }, living: LIV,
     setState(k, v) { return dt?.setState(k, v); }, downtown: dt, kitBuildings: kitB};
 }
 

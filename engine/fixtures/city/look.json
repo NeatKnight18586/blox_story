@@ -1,0 +1,310 @@
+{
+ "slug": "citylook",
+ "fps": 24,
+ "format": 6,
+ "labels": false,
+ "world": "parts/city/world.js",
+ "look4": "cityDay2",
+ "outline": "off",
+ "rig": "r6",
+ "cityKeyArt": [
+  "bayNorth",
+  "plazaWide",
+  "mainSt",
+  "heroHouse"
+ ],
+ "cityLiving": true,
+ "cast": {
+  "hero": {
+   "troupe": "HERO",
+   "style": "v5",
+   "faceStyle": "v6",
+   "at": "ka_bayNorth",
+   "offset": [
+    0,
+    0,
+    0
+   ],
+   "yaw": 10.5,
+   "keys": [
+    [
+     0,
+     "idle"
+    ]
+   ],
+   "marks": [
+    [
+     0,
+     {
+      "at": "ka_bayNorth",
+      "offset": [
+       0,
+       0,
+       0
+      ],
+      "yaw": 10.5
+     }
+    ],
+    [
+     100,
+     {
+      "at": "ka_plazaWide",
+      "offset": [
+       0,
+       0,
+       0
+      ],
+      "yaw": -39.8
+     }
+    ],
+    [
+     200,
+     {
+      "at": "ka_mainSt",
+      "offset": [
+       0,
+       0,
+       0
+      ],
+      "yaw": 64.6
+     }
+    ],
+    [
+     300,
+     {
+      "at": "ka_heroHouse",
+      "offset": [
+       0,
+       0,
+       0
+      ],
+      "yaw": 17.8
+     }
+    ]
+   ]
+  },
+  "kidL": {
+   "troupe": "LITTLE",
+   "style": "v5",
+   "faceStyle": "v6",
+   "at": "ka_bayNorth",
+   "offset": [
+    -1.7246928894549236,
+    0,
+    -0.7987079798422116
+   ],
+   "yaw": 28.5,
+   "keys": [
+    [
+     0,
+     "idle"
+    ]
+   ],
+   "marks": [
+    [
+     0,
+     {
+      "at": "ka_bayNorth",
+      "offset": [
+       -1.7246928894549236,
+       0,
+       -0.7987079798422116
+      ],
+      "yaw": 28.5
+     }
+    ],
+    [
+     100,
+     {
+      "at": "ka_plazaWide",
+      "offset": [
+       -0.48586271101144185,
+       0,
+       -1.8375084832589517
+      ],
+      "yaw": -21.8
+     }
+    ],
+    [
+     200,
+     {
+      "at": "ka_mainSt",
+      "offset": [
+       -1.6587691803845765,
+       0,
+       0.9278926695508919
+      ],
+      "yaw": 82.6
+     }
+    ],
+    [
+     300,
+     {
+      "at": "ka_heroHouse",
+      "offset": [
+       -1.8123322538039552,
+       0,
+       -0.5726707621503624
+      ],
+      "yaw": 35.8
+     }
+    ]
+   ]
+  },
+  "kidS": {
+   "troupe": "SECOND",
+   "style": "v5",
+   "faceStyle": "v6",
+   "at": "ka_bayNorth",
+   "offset": [
+    1.286770247753063,
+    0,
+    -1.5610004258479626
+   ],
+   "yaw": -3.5,
+   "keys": [
+    [
+     0,
+     "idle"
+    ]
+   ],
+   "marks": [
+    [
+     0,
+     {
+      "at": "ka_bayNorth",
+      "offset": [
+       1.286770247753063,
+       0,
+       -1.5610004258479626
+      ],
+      "yaw": -3.5
+     }
+    ],
+    [
+     100,
+     {
+      "at": "ka_plazaWide",
+      "offset": [
+       2.022984925725101,
+       0,
+       -0.005655995845877726
+      ],
+      "yaw": -53.8
+     }
+    ],
+    [
+     200,
+     {
+      "at": "ka_mainSt",
+      "offset": [
+       -0.508957149565486,
+       0,
+       -1.957923037278579
+      ],
+      "yaw": 50.6
+     }
+    ],
+    [
+     300,
+     {
+      "at": "ka_heroHouse",
+      "offset": [
+       1.0775995438127874,
+       0,
+       -1.7120979011652555
+      ],
+      "yaw": 3.8
+     }
+    ]
+   ]
+  }
+ },
+ "note": "Look Signature gate (scripts/v2/look-gate.js from plan.json keyArt anchors): HERO + LITTLE + SECOND at each key-art subject, t = 100 × row.",
+ "shots": [
+  {
+   "id": "k0",
+   "size": "wide",
+   "frames": 6,
+   "move": "static-drift",
+   "drift": 0,
+   "from": {
+    "position": [
+     12,
+     3.1,
+     110
+    ],
+    "target": [
+     8.03513169982746,
+     6.54155823088508,
+     88.63564893787517
+    ],
+    "fov": 62
+   },
+   "shadowRadius": 30
+  },
+  {
+   "id": "k1",
+   "size": "wide",
+   "frames": 6,
+   "move": "static-drift",
+   "drift": 0,
+   "from": {
+    "position": [
+     -29,
+     15.2,
+     28
+    ],
+    "target": [
+     -20.887318193694234,
+     18.124363706470245,
+     18.272076746709246
+    ],
+    "fov": 60
+   },
+   "shadowRadius": 30
+  },
+  {
+   "id": "k2",
+   "size": "wide",
+   "frames": 6,
+   "move": "static-drift",
+   "drift": 0,
+   "from": {
+    "position": [
+     120,
+     17.51218220338983,
+     -5
+    ],
+    "target": [
+     108.40271071583086,
+     19.545830248912832,
+     -10.510640333594274
+    ],
+    "fov": 56
+   },
+   "shadowRadius": 30
+  },
+  {
+   "id": "k3",
+   "size": "wide",
+   "frames": 6,
+   "move": "static-drift",
+   "drift": 0,
+   "from": {
+    "position": [
+     -112,
+     13.452853197220689,
+     12.800000000000011
+    ],
+    "target": [
+     -115.31636465045862,
+     15.362983151556922,
+     2.4872346549174473
+    ],
+    "fov": 62
+   },
+   "shadowRadius": 30
+  }
+ ]
+}

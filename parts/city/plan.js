@@ -174,3 +174,31 @@ export function corridors() {
   return (PLAN.corridors ?? []).map(c => { const a = anchor(c.from), L = PLAN.landmarks[c.to], [lx, lz] = toWorld(L.at), tz = L.tower ? lz + L.tower.at[1] : lz; return [a.position[0], a.position[2], lx, tz, c.w]; });
 }
 export const inCorridor = (x, z, r = 0, C = corridors()) => C.some(([x0, z0, x1, z1, w]) => segDist(x, z, [x0, z0], [x1, z1])[0] < w + r);
+
+// Look Signature: the KEY-ART variant of an anchor (plan.json anchors.<name>.keyArt). Pure.
+//   at (map px, default the anchor's) + h above standY (or absolute y); subject (map px) = where the hero group stands;
+//   the camera yaws so the subject's centre lands on the chosen third (L: x = 1/3, R: x = 2/3 of the frame width), pitch (deg, + up);
+//   fg = the FOREGROUND element d studs from the lens toward screen x (NDC) `x`, on the ground: {kind, at, yaw, d, len}.
+export const KEYART_ASPECT = 9 / 16;
+export function keyArt(name, aspect = KEYART_ASPECT) {
+  const a = PLAN.anchors[name], K = a?.keyArt; if (!K) throw Error('no keyArt on anchor ' + name);
+  const [x, z] = toWorld(K.at ?? a.at), y = K.y ?? standY(x, z) + (K.h ?? 1.2), fov = K.fov ?? a.fov ?? 55;
+  const hf = Math.atan(Math.tan(fov * Math.PI / 360) * aspect), a3 = Math.atan(Math.tan(hf) / 3);
+  // subject: explicit (map px), or `dist` studs from the lens at the bearing that puts the landmark `lm` (world [x, y, z]) on the OTHER third
+  const [sx, sz] = K.subject ? toWorld(K.subject) : (b => [x + Math.sin(b) * K.dist, z + Math.cos(b) * K.dist])(Math.atan2(K.lm[0] - x, K.lm[2] - z) + (K.third === 'R' ? -2 : 2) * a3), sy = groundY(sx, sz) + (K.subjectH ?? 2.4);
+  const yawS = Math.atan2(sx - x, sz - z), d = Math.hypot(sx - x, sz - z);
+  const ndc = K.third === 'R' ? 1 / 3 : -1 / 3;   // NDC x of the third line (frame x 1/3 → −1/3, 2/3 → +1/3)
+  // camera right = (−cos yaw, 0, sin yaw) for forward (sin yaw, 0, cos yaw); a point at relative yaw r shows at NDC tan(−r)/tan(hf)
+  const yaw = yawS + Math.atan(ndc * Math.tan(hf)), p = (K.pitch ?? 8) * Math.PI / 180;
+  const f = [Math.sin(yaw) * Math.cos(p), Math.sin(p), Math.cos(yaw) * Math.cos(p)], position = [x, y, z], target = position.map((v, i) => v + f[i] * Math.max(10, d));
+  let fg = null;
+  if (K.fg) { const fy = yaw - Math.atan((K.fg.x ?? .75) * Math.tan(hf)), fd = K.fg.d ?? 4.5, gx = x + Math.sin(fy) * fd, gz = z + Math.cos(fy) * fd;
+    fg = {...K.fg, at: [gx, K.fg.y ?? groundY(gx, gz), gz], yaw: yaw + Math.PI / 2, d: fd}; }
+  return {name, position, target, fov, yaw, subject: [sx, groundY(sx, sz), sz], subjectCentre: [sx, sy, sz], third: K.third ?? 'L', fg, movers: K.movers ?? [], auto: !!K.auto};
+}
+// pure: screen x (0..1) of a world point for a camera {position, target, fov} at an aspect (no roll)
+export function screenX(cam, pt, aspect = KEYART_ASPECT) {
+  const f = cam.target.map((v, i) => v - cam.position[i]), L = Math.hypot(...f), F = f.map(v => v / L), R = [-F[2], 0, F[0]], RL = Math.hypot(R[0], R[2]), Rn = R.map(v => v / RL), U = [F[1] * Rn[2] - F[2] * Rn[1], F[2] * Rn[0] - F[0] * Rn[2], F[0] * Rn[1] - F[1] * Rn[0]];
+  const v = pt.map((q, i) => q - cam.position[i]), zc = v[0] * F[0] + v[1] * F[1] + v[2] * F[2], xc = v[0] * Rn[0] + v[2] * Rn[2];
+  const hf = Math.atan(Math.tan(cam.fov * Math.PI / 360) * aspect); void U; return .5 + .5 * (xc / zc) / Math.tan(hf);
+}

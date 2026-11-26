@@ -17,7 +17,9 @@ export async function loadLooks4(base) { return (await fetch(new URL('looks4.jso
 export function createLookV4(scene, renderer, presets, {initial = 'comedy', fogStart = 0} = {}) {   // tuft 1B fix (opt-in fogStart): no height fog within fogStart of the camera
   const first = presets[initial];
   patchHeightFog({...(first.v4.heightFog ?? {amount: 0}), ...(fogStart ? {start: fogStart} : {})});   // ShaderChunk patch before anything compiles (one fog model per episode)
+  if (first.v4.grade) patchGrade(first.v4.grade);   // Look Signature (opt-in v4.grade): one global grade chunk per episode, before anything compiles
   const L = createLook(scene, renderer, {radius: 700});
+  if (first.v4.skyMid) L.sky.material = skyMidMaterial(L.sky.material);   // Look Signature (opt-in v4.skyMid): 3-stop sky gradient
   renderer.toneMapping = T.AgXToneMapping;
   renderer.shadowMap.type = T.PCFShadowMap;   // pass 2 (cost): hardware-filtered PCF, not the many-tap soft PCF
   L.rim.visible = false;                      // pass 2 (cost): no rim light (an invisible light leaves every shader); env gives the edge
@@ -38,6 +40,11 @@ export function createLookV4(scene, renderer, presets, {initial = 'comedy', fogS
     cc.set([0, 1, 2].map(j => Math.min(1, UNDER[j] + (TOP[j] - UNDER[j]) * k + rim)), i * 3); }
   cg.setAttribute('color', new T.BufferAttribute(cc, 3));
   const cloudMesh = new T.Mesh(cg, new T.MeshBasicMaterial({vertexColors: true, fog: false, toneMapped: false})); cloudMesh.userData.live = true; clouds.add(cloudMesh); scene.add(clouds);
+  if (first.v4.clouds2) { const s2 = smallClouds(TOP, UNDER); s2.material = cloudMesh.material; clouds.add(s2); }   // Look Signature (opt-in v4.clouds2): a second, smaller, higher cloud size
+  const rays = first.v4.sunRays ? halo([0, 0, 0], first.base.sun, 260, first.v4.sunRays) : null;   // Look Signature (opt-in v4.sunRays): faint glow at the sun, seen only when the sun is in frame
+  if (rays) { rays.name = 'sunRays'; rays.material.depthTest = true; rays.renderOrder = -0.5; scene.add(rays); }
+  let hazeCol = null;
+  const placeRays = camPos => { if (!rays || !cur) return; const b = presets[cur].base; rays.position.set(...sunDir(b.sunEl, b.sunAz).map((v, i) => [camPos.x, camPos.y, camPos.z][i] + v * 640)); };
   // shadow catcher: actors' shadows on the (baked, unlit) ground
   const catcher = new T.Mesh(new T.PlaneGeometry(24, 24), new T.ShadowMaterial({opacity: .4})   /* pass 1: only around the subject (soft-shadow sampling is per pixel) */); catcher.rotation.x = -Math.PI / 2; catcher.receiveShadow = true; catcher.userData.live = true; catcher.name = 'shadowCatcher';
   scene.add(catcher);
@@ -58,6 +65,14 @@ export function createLookV4(scene, renderer, presets, {initial = 'comedy', fogS
     for (let i = 0; i < MC * MC; i++) { const r = b[i * 4], g = b[i * 4 + 1], bl = b[i * 4 + 2], y = .2126 * r + .7152 * g + .0722 * bl;
       b[i * 4] = Math.round(y + (r - y) * MC_CHROMA); b[i * 4 + 1] = Math.round(y + (g - y) * MC_CHROMA); b[i * 4 + 2] = Math.round(y + (bl - y) * MC_CHROMA); b[i * 4 + 3] = 255; }
     return b;
+  }
+  // haze colour = mix(preset fog, mean linear colour of the scene seen from the preset's fixed haze view (fog off, 48 × 64))
+  function calibrateHaze(P) {
+    const H = P.v4.haze, cam = new T.PerspectiveCamera(55, .75, 1, 2000); cam.position.set(...H.from); cam.lookAt(...H.to); cam.updateMatrixWorld();
+    const rt = new T.WebGLRenderTarget(48, 64, {type: T.FloatType}), fog = scene.fog, prev = renderer.getRenderTarget(), b = new Float32Array(48 * 64 * 4);
+    scene.fog = null; renderer.setRenderTarget(rt); renderer.render(scene, cam); renderer.readRenderTargetPixels(rt, 0, 0, 48, 64, b); renderer.setRenderTarget(prev); scene.fog = fog; rt.dispose();
+    const m = [0, 0, 0]; for (let i = 0; i < 48 * 64; i++) for (let k = 0; k < 3; k++) m[k] += Math.min(4, b[i * 4 + k]) / (48 * 64);
+    return hazeMix(new T.Color(P.base.fog), m, H.mix ?? .5);
   }
   function envFor(name) {   // PMREM of the sky dome for this preset, once per episode
     if (envs.has(name)) return envs.get(name);
@@ -83,14 +98,17 @@ export function createLookV4(scene, renderer, presets, {initial = 'comedy', fogS
       const P = presets[name] ?? presets[initial]; cur = presets[name] ? name : initial;
       L.apply(P.base); renderer.toneMappingExposure = P.base.exposure; renderer.toneMapping = P.v4.toneMapping === 'Neutral' ? T.NeutralToneMapping : T.AgXToneMapping;   // 2b: comedy Khronos PBR Neutral
       clouds.visible = P.v4.clouds === 'puffy'; catcher.material.opacity = P.v4.shadowCatcher;
+      if (P.v4.skyMid && L.sky.material.uniforms.mid) L.sky.material.uniforms.mid.value.set(P.v4.skyMid);
+      if (P.v4.haze) { hazeCol ??= calibrateHaze(P); scene.fog.color.copy(hazeCol); }   // Look Signature: distant haze in the scene's average colour (fixed calibration view: same colour in any render order)
       scene.environment = envFor(cur); scene.environmentIntensity = P.v4.envIntensity;
       return P;
     },
-    frame(target, camPos, r) { L.frame(target, camPos, Math.min(r, 14)); },
+    frame(target, camPos, r) { L.frame(target, camPos, Math.min(r, 14)); placeRays(camPos); },
     frameFixed(centre, r, camPos) {
       L.frameFixed(centre, Math.min(r, 14), camPos);   // shadows only for actors and moving props: a tight box on the subject
       catcher.position.set(centre.x, groundY(centre.x, centre.z) + .02, centre.z);
       clouds.position.set(camPos.x * .9, 0, camPos.z * .9);
+      placeRays(camPos);
     },
     update(t) { clouds.rotation.y = t * .002; },
   };
@@ -118,4 +136,34 @@ export function water4({w = 10, d = 10, at = [0, 0, 0], color = '#1d4f63', speed
   const m = new T.Mesh(new T.PlaneGeometry(w, d), new T.MeshStandardMaterial({color, roughness: .06, metalness: 0, normalMap: nt, normalScale: new T.Vector2(.35, .35), envMapIntensity: 1.2}));
   m.rotation.x = -Math.PI / 2; m.position.set(...at); m.userData.live = true;
   return {mesh: m, update(t) { nt.offset.set(t * speed, t * speed * .6); }};
+}
+
+// ---- Look Signature (opt-in v4 fields; presets without them never reach this code) ----------------------------------------
+// Pure: the haze colour (linear) = fog colour mixed toward the measured scene mean.
+export function hazeMix(fog, mean, k) { return new T.Color(fog.r + (mean[0] - fog.r) * k, fog.g + (mean[1] - fog.g) * k, fog.b + (mean[2] - fog.b) * k); }
+// Global grade after tone mapping (tone-mapped materials only; the sky dome and unlit clouds keep their drawn colours):
+// saturation × sat, then a luma-keyed tint from `cool` (shadows) to `warm` (highlights).
+export function gradeGLSL(g) {
+  const v = a => `vec3(${a.map(x => (+x).toFixed(4)).join(', ')})`;
+  return `{ float lg = dot(gl_FragColor.rgb, vec3(0.2126, 0.7152, 0.0722)); gl_FragColor.rgb = max(vec3(0.0), mix(vec3(lg), gl_FragColor.rgb, ${(+g.sat).toFixed(4)}));
+  gl_FragColor.rgb *= mix(${v(g.cool)}, ${v(g.warm)}, smoothstep(0.12, 0.8, lg)); }`;
+}
+let gradePatched = false;
+function patchGrade(g) {
+  if (gradePatched) return; gradePatched = true;
+  T.ShaderChunk.tonemapping_fragment = T.ShaderChunk.tonemapping_fragment.replace(/gl_FragColor\.rgb = toneMapping\( gl_FragColor\.rgb \);/, m => m + '\n\t' + gradeGLSL(g));
+}
+function skyMidMaterial(old) {
+  const u = {top: {value: old.uniforms.top.value}, horizon: {value: old.uniforms.horizon.value}, mid: {value: new T.Color('#3c95ff')}};
+  return new T.ShaderMaterial({side: T.BackSide, depthWrite: false, fog: false, uniforms: u, vertexShader: old.vertexShader,
+    fragmentShader: 'uniform vec3 top; uniform vec3 mid; uniform vec3 horizon; varying float h;\nvoid main(){ float k = clamp(h, 0., 1.); vec3 c = k < .22 ? mix(horizon, mid, smoothstep(0., .22, k)) : mix(mid, top, smoothstep(.22, .85, k)); gl_FragColor = vec4(c, 1.);\n#include <colorspace_fragment>\n}'});
+}
+// small high clouds: 14 clusters of 3 little blobs on a far ring (same baked top-lit shading)
+function smallClouds(TOP, UNDER) {
+  const blobs = [];
+  for (let i = 0; i < 14; i++) { const a = -.3 + i / 14 * Math.PI * 1.9, r = 520 + (i % 4) * 35, cx = Math.sin(a) * r, cz = -Math.abs(Math.cos(a) * r) - 40, cy = 150 + (i % 3) * 18;
+    for (let k = 0; k < 3; k++) { const g = new T.IcosahedronGeometry(5 + ((k * 3 + i) % 4), 1); g.scale(1.6, .7, 1); g.translate(cx + (k - 1) * 7, cy + (k === 1 ? 2.5 : 0), cz); g.deleteAttribute('uv'); blobs.push(g); } }
+  const g = mergeGeometries(blobs), p = g.attributes.position, n = g.attributes.normal, c = new Float32Array(p.count * 3);
+  for (let i = 0; i < p.count; i++) { const u = Math.min(1, Math.max(0, (n.getY(i) + .35) / .95)), k = u * u * (3 - 2 * u); c.set([0, 1, 2].map(j => UNDER[j] + (TOP[j] - UNDER[j]) * k), i * 3); }
+  g.setAttribute('color', new T.BufferAttribute(c, 3)); const m = new T.Mesh(g); m.name = 'clouds4small'; m.userData.live = true; return m;
 }
