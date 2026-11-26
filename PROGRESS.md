@@ -38,5 +38,6 @@ keyArt has a `landmark`; kids beside on the frame-centre side); blimp 90 s (nort
 kit `dock` planks; parts/city/harbor.js (rubber-duck lighthouse + beam, diner + cheeseburger tower, quay/piers/props/fish market/warehouses,
 beach + pier + Ferris wheel), movers fishingBoats/ferry/gullsHarbor, anchors diner + duckClose (harborDock/beach re-authored), decks in groundY,
 terrain LOD + prop culling; scripts/v2/city1d-gate.js + city1d-sheet.py, assets.yml `city1d`.
-Farm (run 45758999246, look B, CC0): all 19 key art PASS staging; gate rows tris 36–83k, s/frame 0.30–0.60 (harborDock 0.596 max, mainSt 0.54);
+Farm (runs 45758999246 + 45759326917, look B, CC0): all 19 key art PASS staging; gate rows tris 36–83k, s/frame 0.30–0.59 (harborDock 0.589 max, mainSt 0.54);
 outline cost −0.144…+0.008 s; sightlines harborDock 2,3,7 / diner 2,6,7 / beach 6,7; duck 24 % of duckClose; blimp drift 19 % of width in 4 s.
+Open: CC0 planks map reads dark on the farm (docks near-black brown); plazaWide/mainSt fg lamps still large.
