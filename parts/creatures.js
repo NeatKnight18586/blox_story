@@ -257,7 +257,7 @@ function dome(o = {}) {
   const eyeMat = new T.MeshBasicMaterial({color: '#f4fbff', toneMapped: false}), haloMat = new T.MeshBasicMaterial({color: '#cfe9ff', transparent: true, opacity: .28, depthWrite: false, blending: T.AdditiveBlending, toneMapped: false});
   const eyes = [-1, 1].map(s => { const el = .62, az = s * .3, n = new T.Vector3(Math.sin(az) * Math.cos(el), Math.sin(el), Math.cos(az) * Math.cos(el)); const e = new T.Group(); onSurface(e, n.clone().multiplyScalar(1.06), n);
     e.add(mesh(new T.CircleGeometry(.11, 28), eyeMat, [0, 0, .004], [0, 0, 0], [1, 1.45, 1])); const h = new T.Mesh(new T.CircleGeometry(.2, 28), haloMat); h.scale.set(1, 1.3, 1); e.add(h); shell.add(e); return e; });
-  const wisps = HAS_DOM ? Array.from({length: 30}, (_, i) => { const s = sprite('wisp', '#ffffff', {opacity: .85, toneMapped: true}); s.userData.a = i / 30 * Math.PI * 2; root.add(s); return s; }) : [];
+  const wisps = HAS_DOM ? Array.from({length: 10}, (_, i) => { const s = sprite('wisp', '#ffffff', {opacity: .85, toneMapped: true}); s.userData.a = i / 10 * Math.PI * 2; root.add(s); return s; }) : [];
   const puff = shadowPuff({seed: 5}); puff.root.visible = false; root.add(puff.root);
   return {root, radius: R, apply(t, c, rt) {
     const s = actAt(c.acts, t, 'shrink', 'dome'), r = s ? shrinkRadius(s.u, R) : R, m = rt?.motion ?? {lean: 0, squash: 1}, small = r < 2.2;
@@ -268,7 +268,7 @@ function dome(o = {}) {
       a.array[i * 3] = x * k; a.array[i * 3 + 1] = y * (1 + .5 * amp * Math.sin(th * 3 + ph)); a.array[i * 3 + 2] = z * k; }
     a.needsUpdate = true; geo.computeVertexNormals();
     const wide = s ? 1 + .5 * Math.sin(Math.PI * band(s.u, 0, .14)) : 1; eyes.forEach(e => e.scale.set(wide, wide * (((t + .7) % 4.3) < .14 ? .12 : 1), 1));
-    wisps.forEach((w, i) => { const aa = w.userData.a + .15 * Math.sin(t * .8 + i), rr = r * (1.0 + .05 * Math.sin(t * 2 + i * 1.7)); w.visible = shell.visible; w.position.set(Math.sin(aa) * rr, r * (.03 + .05 * Math.abs(Math.sin(t * 1.6 + i))), Math.cos(aa) * rr); w.scale.setScalar(r * (.22 + .06 * Math.sin(t * 3 + i * 2.3))); });
+    wisps.forEach((w, i) => { const aa = w.userData.a + .15 * Math.sin(t * .8 + i), rr = r * (1.0 + .05 * Math.sin(t * 2 + i * 1.7)); w.visible = shell.visible; w.position.set(Math.sin(aa) * rr, r * (.03 + .05 * Math.abs(Math.sin(t * 1.6 + i))), Math.cos(aa) * rr); w.scale.setScalar(r * (.15 + .04 * Math.sin(t * 3 + i * 2.3))); });   // Phase 1G bench: 10 small wisps (sprite overdraw)
     puff.root.visible = !!s && r < 2.4; { const k = r / SIZE.palm, bu = s ? s.u - 1.25 : -1; puff.root.position.y = r * .3;   // applied every frame (pure in t), shown below r 2.4; the cute double blink right after landing
       puff.apply(t, {seed: 5, scale: .42 * k, blink: bu > 0 && bu < .5 ? (bu < .09 || (bu > .2 && bu < .28)) : false}); }
   }, wobble: true};

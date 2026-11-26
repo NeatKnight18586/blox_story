@@ -8,6 +8,7 @@
 //   sink under a window), pendant (lamp), plant, picture (plain colour blocks). Everything is LIVE (lit in real time); the shell casts no shadows (an open Roblox set) + a warm ambient fill (location `ambient {color, i}`).
 import * as T from 'three';
 import {setKitTextures, kitMat} from './kit/mats.js';
+import {mergeGeometries} from 'three/addons/utils/BufferGeometryUtils.js';
 
 let LOC = null; const TEX = {};
 export const LAYER = {floor: .02};
@@ -96,6 +97,16 @@ function outside(root, O = {}) {   // what the windows look onto: a sunny lawn, 
     r.position.set(h.at[0], h.h - .3 + h.h * .27, h.at[1]); r.scale.set(h.w / Math.hypot(h.w, h.d) * 1.42, 1, h.d / Math.hypot(h.w, h.d) * 1.42); r.userData.live = true; g.add(r); }
   for (const b of O.boxes ?? []) box(g, b.size[0], b.size[1], b.size[2], [b.at[0], b.at[1] ?? -.3, b.at[2]], plastic(b.color));
 }
+// merge every static mesh under root into one mesh per (material, castShadow); meshes under a `keep` group (the drawer) stay live objects
+function mergeStatic(root, keep) {
+  root.updateMatrixWorld(true); const bins = new Map(), drop = [];
+  root.traverse(o => { if (!o.isMesh || o.isInstancedMesh) return; for (let p = o; p; p = p.parent) if (keep.has(p)) return; const k = o.material.uuid + ':' + o.castShadow;
+    let g = o.geometry.index ? o.geometry.toNonIndexed() : o.geometry.clone(); if (!g.attributes.uv) g.setAttribute('uv', new T.BufferAttribute(new Float32Array(g.attributes.position.count * 2), 2));
+    for (const n of Object.keys(g.attributes)) if (!['position', 'normal', 'uv'].includes(n)) g.deleteAttribute(n); g.applyMatrix4(o.matrixWorld);
+    if (!bins.has(k)) bins.set(k, {m: o.material, cast: o.castShadow, gs: [], names: []}); const b = bins.get(k); b.gs.push(g); if (o.name) b.names.push(o.name); drop.push(o); });
+  for (const o of drop) o.removeFromParent();
+  for (const b of bins.values()) { const m = new T.Mesh(mergeGeometries(b.gs), b.m); m.castShadow = b.cast; m.receiveShadow = true; m.userData.live = true; m.name = b.names.includes('windowGlass') ? 'windowGlass' : 'roomMerged'; root.add(m); }
+}
 export function build(scene, {M, spec} = {}) {
   setKitTextures({...TEX}, M); const L = LOC, root = new T.Group(); root.name = 'room:' + L.name; scene.add(root);
   const shell = new T.Group(); shell.name = 'roomShell'; root.add(shell); room(shell, L.room); outside(root, L.outside);
@@ -103,6 +114,7 @@ export function build(scene, {M, spec} = {}) {
   const amb = new T.AmbientLight(L.ambient?.color ?? '#fff4e6', L.ambient?.i ?? .9); amb.name = 'roomFill'; root.add(amb);
   const named = {};
   for (const e of L.props ?? []) { const g = new T.Group(); g.position.set(...e.at); g.rotation.y = (e.rotY ?? 0) * Math.PI / 180; g.name = 'roomProp:' + e.type + (e.id ? ':' + e.id : ''); PROPS[e.type](g, e); root.add(g); if (e.id) named[e.id] = g; if (g.userData.drawer) named.drawer = g.userData.drawer; }
+  mergeStatic(root, new Set([named.drawer].filter(Boolean)));   // one draw per material (+ shadow pass): the bench lever
   const lights = []; for (const [x, y, z, col, i] of L.practicals ?? []) { const p = new T.PointLight(col ?? '#fff1d6', i ?? 30, 40, 1.6); p.position.set(x, y, z); p.name = 'practical'; root.add(p); lights.push(p); }
   const anchors = {}; for (const [n, a] of Object.entries(L.anchors ?? {})) anchors[n] = {position: a.position, facing: a.facing ?? 0, ...(a.camera ? {camera: a.camera} : {})};
   const drawerZ = named.drawer?.position.z ?? 0;
