@@ -4,7 +4,7 @@
 //   stripe ({len, w} one crosswalk bar), fence ({len} white picket), hoop, court ({w, d}), swings, slide, sandbox, bus (yellow school bus; plates are added by west.js), treehouse, drive ({w, d}). Each is ≤ 400 tris (fountain ≤ 1.6k); everything static is baked by the world.
 import * as T from 'three';
 import {bins, bevel, pbox, prism} from './building.js';
-import {kitMat, liveMat, tileOf, goldMat} from './mats.js';
+import {kitMat, liveMat, tileOf, goldMat, textureSource} from './mats.js';
 
 // Phase 1D: docks are LIVE (lit in real time, never baked): .07-stud plank gaps voxelise shut in the bake and turn the deck black
 const liveCache = new Map();
@@ -103,9 +103,9 @@ const PROPS = {
   // ---- Phase 1D harbor + beach kinds (front = +z, ground at y 0 unless noted) ----
   // dock: a plank deck (len along z, w across) on piles: real planks (CC0 wood, .06 gaps, slight tone jitter), an edge trim board on both
   // sides + the far end, piles every `pile` studs down to `depth` below the deck; deck top at y 0 (place `at` on the deck height).
-  dock(A, o0) { const o = o0, kitMat = liveKit, len = o.len ?? 10, w = o.w ?? 3.2, pw = .5, gap = .07, n = Math.max(1, Math.round(len / (pw + gap))), step = len / n, tones = o.colors ?? ['#c99a66', '#b98a58', '#d4a874'];
+  dock(A, o0) { const o = o0, kitMat = liveKit, len = o.len ?? 10, w = o.w ?? 3.2, pw = .5, gap = .07, n = Math.max(1, Math.round(len / (pw + gap))), step = len / n, cc0 = textureSource('wood').startsWith('cc0'), tones = o.colors ?? (cc0 ? ['#fff4e6', '#f3e2c8', '#ffffff'] : ['#c99a66', '#b98a58', '#d4a874']);   // the CC0 planks map is already brown: tint near white
     for (let k = 0; k < n; k++) A(kitMat('wood', tones[(k * 7 + (o.seed ?? 0)) % tones.length]), plank(w - .1, .18, step - gap, ((k * 13) % 5 - 2) * .02, -.18, -len / 2 + (k + .5) * step), tileOf('wood'));   // top + 2 edges (6 tris)
-    const trim = kitMat('wood', o.trim ?? '#7a5536');
+    const trim = kitMat('wood', o.trim ?? (cc0 ? '#c9a27a' : '#7a5536'));
     for (const sx of [-1, 1]) A(trim, pbox(.22, .42, len + .1, sx * (w / 2 + .06), -.5, 0), tileOf('wood'));
     if (o.endTrim !== false) A(trim, pbox(w + .34, .42, .22, 0, -.5, len / 2 + .06), tileOf('wood'));
     for (const sx of [-1, 1]) A(trim, pbox(.3, .2, len, sx * (w / 2 - .5), -.42, 0));   // joists under the planks
