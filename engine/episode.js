@@ -409,7 +409,7 @@ const ACT6 = spec.acting === 6 ? await import('./acting6.js') : null, R6 = RIG6 
 const actTracks = ACT6 ? await (async () => {
   const get = async u => { try { const r = await fetch(new URL('../' + u, import.meta.url)); return r.ok ? await r.json() : null; } catch { return null; } };
   const cues = await get(spec.cues ?? `stories/${spec.slug}/cues.json`) ?? await get(`stories/${spec.slug}/build/cues.json`), env = await get(`stories/${spec.slug}/build/envelope.json`);
-  const actions = shots.flatMap(sh => (sh.actions ?? []).map(a => { const b = typeof a.at === 'number' ? {...a, at: sh.start / FPS + a.at} : {...a}; if (b.target && cast[b.target] && cast[b.actor]) b.partnerScale = cast[b.target].a.root.scale.x / cast[b.actor].a.root.scale.x; return b; }));   // partnerScale picks the hug / carry variant
+  const actions = shots.flatMap(sh => (sh.actions ?? []).filter(a => !(a.verb === 'lookAtLens' && (spec.format ?? 0) >= 7)).map(a => {   /* fearbell pass 2: a format 7 lookAtLens is the body turn only (lensActs), never a track item that would end a held pose */ const b = typeof a.at === 'number' ? {...a, at: sh.start / FPS + a.at} : {...a}; if (b.target && cast[b.target] && cast[b.actor]) b.partnerScale = cast[b.target].a.root.scale.x / cast[b.actor].a.root.scale.x; return b; }));   // partnerScale picks the hug / carry variant
   return ACT6.compileActing(actions, {cues, env, talk: spec.talk ?? []});
 })() : null;
 // Partners (hug, carry, comfort_kneel): the partner's meeting mark comes from the lead's mark; it must START within PARTNER_TOL of it —
@@ -607,7 +607,7 @@ if (CL) { const roots = new Set(Object.values(cast).map(x => x.a.root)); CL.mark
 for (const n of spec.hide ?? []) { const o = scene.getObjectByName(n); if (o) o.visible = false; else console.warn('spec.hide: no object ' + n); }
 const vecAt = (keys, t, d) => keys?.length ? d.map((v, i) => valueAt(keys.map(k => [k[0], k[1][i], k[2], k[3]]), t, v)) : d;
 function updateProps(t) { for (const {p, g} of storyProps) { g.position.fromArray(vecAt(p.pos, t, [0, 0, 0])); const r = vecAt(p.rot, t, [0, 0, 0]); g.rotation.set(...r.map(v => v * Math.PI / 180));
-  if (p.attach && cast[p.attach.actor]?.a && valueAt(p.visible, t, true)) { const A = cast[p.attach.actor].a, o = A.parts?.[p.attach.part ?? 'torso'] ?? A.pivots?.[p.attach.part] ?? A.root; o.updateWorldMatrix(true, false);   // fearbell pass 2 (owner A3, opt-in p.attach {actor, part, offset}): the prop rides an actor's part (the mouse on a shoulder)
+  if (p.attach && cast[p.attach.actor]?.a && valueAt(p.visible, t, true) && g.position.y > -300) {   /* a `hide` pos key (y −400) keeps it hidden */ const A = cast[p.attach.actor].a, o = A.parts?.[p.attach.part ?? 'torso'] ?? A.pivots?.[p.attach.part] ?? A.root; o.updateWorldMatrix(true, false);   // fearbell pass 2 (owner A3, opt-in p.attach {actor, part, offset}): the prop rides an actor's part (the mouse on a shoulder)
     g.position.copy(o.localToWorld(new T.Vector3(...(p.attach.offset ?? [0, 0, 0])))); if (p.attach.orient) g.quaternion.premultiply(o.getWorldQuaternion(new T.Quaternion())); else g.rotation.y += A.root.rotation.y; }   // orient: the prop turns with the part (a held can tips with the arm) g.visible = valueAt(p.visible, t, true); if (g.visible && g.userData.anim) g.userData.anim(t - (p.animAt ?? 0), p);
   if (p.states && g.userData.setState) { const st = valueAt(p.states, t, null); if (st !== null && st !== g.userData.state) g.userData.setState(st); }   // Touch Grass E1 (opt-in): step states (headset on/off, visor screen)
   if (p.flick && g.userData.setFlick) g.userData.setFlick(valueAt(p.flick, t, 0)); } }   // Touch Grass E1 (opt-in): giant finger flick u (ramp keys); E1 fix (opt-in): props5 moving parts, pure in t
@@ -854,7 +854,7 @@ const FACEAIM = {fn: FACEAIM_FN}, LASTCAM = {target: [0, 0, 0], position: [0, 0,
 function faceAimCam(shot, c, aspect) {
   if (!FACEAIM_ON || !FACEAIM.fn || !shot.faceAim || shot.ecu || shot.tpl || !c?.position) return c;
   const names = (shot.faceAim === true ? [shot.subject] : shot.faceAim).filter(n => cast[n]?.v2 && visibleChain(cast[n].a.root)); if (!names.length) return c;
-  scene.updateMatrixWorld(true); const heads = names.map(n => { const x = cast[n], hc = headOf(x), b = new T.Box3().setFromObject(x.a.pivots.head); return {c: hc.toArray(), top: [hc.x, b.max.y, hc.z], r: Math.max(b.max.x - b.min.x, b.max.z - b.min.z) / 2}; });
+  scene.updateMatrixWorld(true); const heads = names.map(n => { const x = cast[n], hb = new T.Box3().setFromObject(x.a.parts?.head ?? x.a.pivots.head), hc = hb.isEmpty() ? headOf(x) : hb.getCenter(new T.Vector3()), b = new T.Box3();   /* the face centre = the head mesh's centre */ x.a.pivots.head.traverse(o => { if (o.isMesh && !o.isSprite && visibleChain(o)) b.expandByObject(o); });   /* visible head meshes only (hidden hats / hair never count) */ return {c: hc.toArray(), top: [hc.x, b.max.y, hc.z], r: Math.max(b.max.x - b.min.x, b.max.z - b.min.z) / 2}; });
   const fa = FACEAIM.fn(c, heads, aspect); FACEAIM.last = {shot: shot.id, headroom: fa.headroom, ok: fa.ok, fov: fa.fov}; return {...c, target: fa.target, fov: fa.fov};
 }
 const headOf = ({a, v2, dragon, beast}) => { const v = new T.Vector3(); if (beast) v.copy(a.head.position); else if (dragon) { const w = new T.Vector3(); a.eyes[0].getWorldPosition(v); a.eyes[1].getWorldPosition(w); v.add(w).multiplyScalar(.5); } else if (v2) { a.pivots.head.getWorldPosition(v); v.y += .6 * a.root.scale.y; } else v.copy(a.root.position).add(new T.Vector3(0, 4.6, 0)); return v; };
@@ -945,13 +945,13 @@ function maskPass(keep, w, h, far = null) {
 const under = (o, root) => { for (let p = o; p; p = p.parent) if (p === root) return true; return false; };
 // fearbell pass 2 (owner A2) NO FOREGROUND LEAK: after renderFrame(n), the share of the frame's MIDDLE THIRD (x 1/3–2/3, full height) covered by
 // non-subject solid geometry nearer than 0.9 × the camera → target distance (the subject's depth): cast actors, creatures, story props, the clock FX,
-// sprites, see-through and flat ground meshes never count. Plan check scripts/v2/fgleak.js (≤ 10 %).
+// sprites, see-through and flat ground meshes never count, nor objects named by the shot's `leakOk` prefixes. Plan check scripts/v2/fgleak.js (≤ 10 %).
 export const LEAK = {x0: 1 / 3, x1: 2 / 3, near: .9, max: .10};
 export function leakMeasure(n, {w = 180, h = 320} = {}) {
   renderFrame(n, w, h); scene.updateMatrixWorld(true);
   const roots = Object.values(cast).map(x => x.a?.root).filter(Boolean), cg = scene.getObjectByName('creatures'), far = Math.hypot(...LASTCAM.target.map((v, i) => v - LASTCAM.position[i])) * LEAK.near;
   const flat = o => { const b = new T.Box3().setFromObject(o), sz = b.getSize(new T.Vector3()); return sz.y < .35 * Math.max(sz.x, sz.z); };
-  const tagged = o => { for (let p = o; p; p = p.parent) if (/^prop_|^clockFx$/.test(p.name)) return true; return false; }, mine = o => roots.some(r => under(o, r)) || (cg && under(o, cg)) || tagged(o);
+  const shot = shots.findLast(q => n >= q.start), ok = shot?.leakOk ?? [], tagged = o => { for (let p = o; p; p = p.parent) if (/^prop_|^clockFx$/.test(p.name) || ok.some(k => p.name?.startsWith(k))) return true; return false; },   /* shot.leakOk: name prefixes of the row's own world-object subject / set (the bell, the desk, the balcony) */ mine = o => roots.some(r => under(o, r)) || (cg && under(o, cg)) || tagged(o);
   const m = maskPass(o => !(o.isSprite || o.isPoints || o.isLine || o.material?.transparent || mine(o) || flat(o)), w, h, far);
   let k = 0, nn = 0; const a = Math.floor(LEAK.x0 * w), b = Math.ceil(LEAK.x1 * w); for (let y = 0; y < h; y++) for (let x = a; x < b; x++) { nn++; k += m[y * w + x]; }
   const names = new Map(); if (k / nn > .02) { const ray = new T.Raycaster(); for (const [px, py] of [[.5, .5], [.4, .3], [.6, .3], [.4, .7], [.6, .7], [.5, .15], [.5, .85]]) { ray.setFromCamera(new T.Vector2(px * 2 - 1, 1 - py * 2), camera); ray.far = far;

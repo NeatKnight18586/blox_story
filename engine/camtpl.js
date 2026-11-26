@@ -169,11 +169,12 @@ export const headroomOf = (cam, heads, aspect) => Math.min(...heads.map(h => (1 
 // heads: [{c: face centre [x, y, z], top: the head's highest point [x, y, z], r?: half-width (studs)}]; cam {position, target, fov}
 export function faceAim(cam, heads, aspect = 9 / 16, o = {}) {
   const K = {...FACE_AIM, ...o}, F = scl(heads.reduce((a, h) => add(a, h.c), [0, 0, 0]), 1 / heads.length), p0 = project(cam, F, aspect);
-  const xn = p0.z > 0 ? Math.max(-K.xKeep, Math.min(K.xKeep, p0.x)) : 0, yn = 1 - 2 * K.eyeLine, pos = cam.position;
+  let xn = p0.z > 0 ? Math.max(-K.xKeep, Math.min(K.xKeep, p0.x)) : 0; const yn = 1 - 2 * K.eyeLine, pos = cam.position;
   const at = fov => { const target = aimAt(pos, F, xn, yn, fov, aspect), c = {position: pos, target, fov}; const xs = heads.flatMap(h => { const r = h.r ?? .7 * len(sub(h.top, h.c)); const q = project(c, h.c, aspect), k = r / (q.z * Math.tan(fov * D / 2) * aspect); return [q.x - k, q.x + k]; });
     return {c, head: headroomOf(c, heads, aspect), fits: xs.every(x => Math.abs(x) <= K.xMax)}; };
-  let lo = K.fov[0], hi = K.fov[1]; for (let i = 0; i < 40; i++) { const m = (lo + hi) / 2; if (at(m).head < K.aim) lo = m; else hi = m; }   // headroom grows with the fov
-  let fov = (lo + hi) / 2, r = at(fov); for (let i = 0; i < 40 && !r.fits && fov < K.fov[1]; i++) r = at(fov = Math.min(K.fov[1], fov * 1.04));   // two heads: widen until both fit the width
+  const solveFov = () => { let lo = K.fov[0], hi = K.fov[1]; for (let i = 0; i < 40; i++) { const m = (lo + hi) / 2; if (at(m).head < K.aim) lo = m; else hi = m; } return (lo + hi) / 2; };   // headroom grows with the fov
+  let fov = solveFov(), r = at(fov); if (!r.fits && xn !== 0) { xn = 0; fov = solveFov(); r = at(fov); }   /* an off-centre face that does not fit the width is centred before the lens widens */
+  for (let i = 0; i < 40 && !r.fits && fov < K.fov[1]; i++) r = at(fov = Math.min(K.fov[1], fov * 1.04));   // two heads: widen until both fit the width
   if (r.head > K.headroom[1]) { let a = yn, b = .95; for (let i = 0; i < 40; i++) { const m = (a + b) / 2, t2 = aimAt(pos, F, xn, m, fov, aspect), h = headroomOf({position: pos, target: t2, fov}, heads, aspect); if (h > K.aim) a = m; else b = m; }   // widened (two heads): the faces rise above the third line until the headroom is back at the aim
     const t2 = aimAt(pos, F, xn, (a + b) / 2, fov, aspect); r = {...r, c: {position: pos, target: t2, fov}, head: headroomOf({position: pos, target: t2, fov}, heads, aspect)}; }
   return {position: pos, target: r.c.target, fov: +fov.toFixed(3), headroom: +r.head.toFixed(4), ok: r.head >= K.headroom[0] - 1e-3 && r.head <= K.headroom[1] + 1e-3 && r.fits};

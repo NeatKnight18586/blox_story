@@ -232,7 +232,7 @@ export const VERBS = {
     key: P({lS: [-30, 0, -150], rS: [-30, 0, 150], head: [-16, 0, 0], waist: [-8, 0, 0], root: {lean: -8, dz: -.25}}),
     settle: P({lS: [-24, 0, -138], rS: [-24, 0, 138], head: [-12, 0, 0], waist: [-6, 0, 0], root: {lean: -6, dz: -.25}}), impact: {'leftShoulder.z': 14, 'rightShoulder.z': -14, shape: 'osc', peak: .1}},
   // fearbell pass 2 (owner A3, FB_VERBS; R6 keys in engine/r6keys.js): water = the held can tips forward over the flowers; sip = the cup up to the mouth;
-  // leap = a scared jump up and forward (R6: unplanted, the episode moves the mark into the cart); punch = a straight right jab; lookAtLens = chin level,
+  // leap = a scared jump up and forward (R6: unplanted, the episode moves the mark into the cart); punch = a straight right jab; lookAtLens = an additive chin-level gesture,
   // the body turn to the lens is done by the episode (engine/episode.js lensActs).
   water: {act: .2, tail: .6, main: ['rightShoulder.x', -1], cam: 30,
     antic: P({rS: [-30, 0, 8], head: [-4, 0, 0]}), key: P({rS: [-78, 0, 8], rW: [30, 0, 0], head: [14, 0, 0], root: {lean: 6}}), settle: P({rS: [-74, 0, 8], rW: [26, 0, 0], head: [12, 0, 0], root: {lean: 5}})},
@@ -244,8 +244,7 @@ export const VERBS = {
   punch: {act: .08, tail: .45, main: ['rightShoulder.x', -1], cam: 60,
     antic: P({rS: [24, 0, 12], lS: [-40, 0, -10], root: {lean: -6}}), key: P({rS: [-92, 0, 2], rE: 0, lS: [-46, 0, -12], root: {lean: 12, dz: .35}, head: [-4, 0, 0]}),
     settle: P({rS: [-88, 0, 4], lS: [-44, 0, -12], root: {lean: 10, dz: .3}, head: [-4, 0, 0]})},
-  lookAtLens: {act: .2, tail: .4, main: ['head.x', -1], cam: 0,
-    antic: P({head: [6, 0, 0]}), key: P({head: [-3, 0, 0]}), settle: P({head: [-2, 0, 0]})},
+  lookAtLens: {act: .2, tail: .4, gesture: true, main: ['head.x', -1], cam: 0, key: P({head: [-3, 0, 0]}), settle: REST},   // additive: layers on a held pose (a kneel)
 };
 export const FB_VERBS = ['water', 'sip', 'leap', 'punch', 'lookAtLens'];
 export const GOV_VERBS = ['rope_pull', 'announce', 'panic_up'];
