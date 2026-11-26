@@ -83,8 +83,8 @@ No stingers (owner decision). The final "cheeseburger." gets no clip; the video 
 | 51 | — | Until it fit in her palm. | A tiny shadow puff in Lulu's palm, blinking cutely; daylight floods the plaza | palm | insert → two | plaza | PAYOFF: brightest, held frame |
 | 52 | — | Because a fear you face isn't your *worst* anymore. | Plaza recovering: Kevin with a slider, the mouse on the shoulder | worst | wide | plaza | |
 | 53 | — | Next morning, my bell rang. For the first time ever. | Morning: bell DONG (crack visible); a puff appears beside the HERO | rang | low angle → two | hero house yard | the clock, one last time |
-| 54 | — | Something spawned right next to me. | The puff clears… | next | CU on the puff | yard | |
-| 55 | — | A cheeseburger. | A cheeseburger on the grass. Hero turns and looks INTO THE LENS (the episode's one fourth-wall moment) | cheeseburger | CU | yard | cut 0.5 s after the word; watched shot |
+| 54 | — | Something spawned right next to me. | The puff clears… a huge shape looms beside the hero (reveal held back: we see his reaction + the shape's edge, not the burger yet) | next | CU on the puff | yard | |
+| 55 | — | A cheeseburger. | A GIANT cheeseburger (owner change: boulder-sized gag) towering on the grass beside him. Hero turns and looks INTO THE LENS (the episode's one fourth-wall moment) | cheeseburger | CU | yard | cut 0.5 s after the word; watched shot |
 
 ## Checks
 - Hero on screen ≤ 10 s (row 8 cameo, owner change 2026-11-27). Pattern break ≤ 12 s (row 12 starts ≈ 11.8 s).
