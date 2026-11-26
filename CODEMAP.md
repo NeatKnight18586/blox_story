@@ -39,6 +39,7 @@ engine/fixtures/cine/episode.json — tuft 1B (+ 1B fix) Look Pack + cinematic c
 engine/fixtures/city/gate.json — Phase 1A gate cameras (written by scripts/v2/city-gate.js from parts/city/plan.json anchors).
 engine/fixtures/city/gate1b.json — Phase 1B gate cameras (scripts/v2/city-gate.js --phase 1b, plan.json gate1b).
 engine/fixtures/city/gate1c.json — Phase 1C gate cameras (scripts/v2/city-gate.js --phase 1c, plan.json gate1c).
+engine/fixtures/city/look.json — (no header)
 engine/fixtures/city/overview.json — Phase 1A overview: terrain tinted by district (spec cityOverview).
 engine/fixtures/eight-moves.json — Session 1 test clip: 3 s, one shot per camera move, one legacy avatar walking across a ground plate.
 engine/fixtures/fix3b/demo-tb.json — tuft P3B demo2 piece: TITAN on the ground before the mountain at night, low 3/4 on the chained forelegs: roar → break (chains snap, links fa
@@ -119,6 +120,7 @@ engine/mood6.json — Format 6 moods (P4). len [min, max] s · moves (first = de
 engine/motion5.js — format v5 (Phase 3a) motion grammar, pure (frame maths only; the renderer applies it).
 engine/motion5b.js — Look 5b motion (pure maths; the renderer applies it). Opt-in: spec `look5b` (engine/episode.js).
 engine/nolabels.js — owner rule "no labels" (docs/season1/SEASON_1.md §2c; permanent from episode 1). Pure.
+engine/outline.js — Look Signature outline pass (opt-in: looks4.json `<preset>.v4.outline` or spec `outline`: off | classic | classicPlus).
 engine/overhead.js — in-game overlays of our own design (docs/V2_BRIEF.md §6.6): camera-facing
 engine/pile6.json — E2b frozen pile (scripts/v2/pile-solve.js): one soft mound of R15 bodies dropped into place; every pair ≤ 0.1 interpenetration.
 engine/plancheck.js — the shot-plan rules of docs/V2_BRIEF.md §5.2 as a pure function (scripts/v2/plan.js
@@ -172,6 +174,7 @@ parts/city/kit/building.js — City Building Kit (Phase 1B): pure data in → me
 parts/city/kit/mats.js — City Building Kit materials (Phase 1B). One cached material per (kind, colour).
 parts/city/kit/presets.json — City Building Kit presets (Phase 1B). Each entry is a building() spec (parts/city/kit/building.js); a placement may override any field (foot
 parts/city/kit/props.js — City kit street props (Phase 1B), data in → one merged group per material.
+parts/city/living.js — Look Signature: the LIVING TOWN layer (one-time kit, data in plan.json "living") + key-art foregrounds.
 parts/city/plan.js — Phase 1A: pure helpers over parts/city/plan.json (the island city's source of truth). Node-testable, no three.
 parts/city/plan.json — Phase 1A: the permanent island city. SOURCE OF TRUTH (owner-approved drawing). Map px: 1 px = 2 studs; world x = (mx - 191) * 2, z = (my - 1
 parts/city/statue.json — Governor statue (slot 1, plaza centre) — pose as DATA so each episode can swap it (running gag): spec `statuePose: '<name>'` (default `defau
@@ -337,6 +340,7 @@ scripts/v2/kit2-sheet.js — tuft 2B: ONE sheet + phone read + demo → review/b
 scripts/v2/layout.js — node scripts/v2/layout.js <episode.json> → the laid-out shots (engine/timeline.js) as JSON on stdout, for the Python tools.
 scripts/v2/lib6.js — the set library as brief2spec sees it (P4): which locations, anchors and props already exist.
 scripts/v2/look-ab4.js — format v4 Phase 2 sheet: review/v4/look-ab-390.png. The v4look fixture, today vs v4, comedy and
+scripts/v2/look-gate.js — Look Signature gate (city): cityDay2 × outline off / classic / classicPlus on the four key-art cameras,
 scripts/v2/look-gates.js — measured look gates (Amendment A5 §E night brightness, §F framing). Exit 1 on failure.
 scripts/v2/look6-gates.js — Look 6 gates → review/toyhouse/look6-gates.json (fixture engine/fixtures/toyhouse/set6.json).
 scripts/v2/matcap4.js — format v4 2b: writes each look preset's 256 px actor matcap to the disk cache
