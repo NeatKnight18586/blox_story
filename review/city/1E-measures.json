@@ -57,7 +57,7 @@
    "bench": {
     "tris": 47298,
     "calls": 134,
-    "sPerFrame": 0.374,
+    "sPerFrame": 0.372,
     "pass": true
    }
   },
@@ -106,7 +106,7 @@
    "bench": {
     "tris": 50196,
     "calls": 156,
-    "sPerFrame": 0.512,
+    "sPerFrame": 0.509,
     "pass": true
    }
   },
@@ -186,7 +186,7 @@
    "bench": {
     "tris": 32836,
     "calls": 116,
-    "sPerFrame": 0.164,
+    "sPerFrame": 0.166,
     "pass": true
    }
   },
@@ -539,7 +539,7 @@
    "bench": {
     "tris": 67266,
     "calls": 330,
-    "sPerFrame": 0.489,
+    "sPerFrame": 0.494,
     "pass": true
    }
   },
@@ -689,7 +689,7 @@
    "bench": {
     "tris": 67904,
     "calls": 255,
-    "sPerFrame": 0.352,
+    "sPerFrame": 0.354,
     "pass": true
    }
   },
@@ -959,7 +959,7 @@
    "bench": {
     "tris": 71838,
     "calls": 472,
-    "sPerFrame": 0.539,
+    "sPerFrame": 0.537,
     "pass": true
    }
   },
@@ -1062,7 +1062,7 @@
    "bench": {
     "tris": 72890,
     "calls": 391,
-    "sPerFrame": 0.337,
+    "sPerFrame": 0.336,
     "pass": true
    }
   },
@@ -1247,44 +1247,32 @@
     "tris": 150,
     "rawTris": null,
     "height": 8.46
-   },
-   "note": {
-    "source": "procedural:note",
-    "tris": 174,
-    "rawTris": null,
-    "height": 10.81
    }
   },
   "atlases": {
-   "note": {
+   "leafy": {
     "w": 2048,
     "h": 256,
     "views": 8,
     "baked": false
    },
-   "leafy": {
-    "w": 2048,
-    "h": 256,
-    "views": 8,
-    "baked": true
-   },
    "pine": {
     "w": 2048,
     "h": 256,
     "views": 8,
-    "baked": true
+    "baked": false
    },
    "fir": {
     "w": 2048,
     "h": 256,
     "views": 8,
-    "baked": true
+    "baked": false
    },
    "round": {
     "w": 2048,
     "h": 256,
     "views": 8,
-    "baked": true
+    "baked": false
    }
   }
  },
