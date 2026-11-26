@@ -36,11 +36,11 @@
    "keyArtPass": true,
    "triangles": 89340,
    "calls": 558,
-   "sPerFrameC": 0.503,
-   "sPerFrameOff": 0.406,
+   "sPerFrameC": 0.673,
+   "sPerFrameOff": 0.566,
    "outlineCost": {
-    "classic": 0.094,
-    "classicPlus": 0.097
+    "classic": 0.104,
+    "classicPlus": 0.107
    },
    "moversInFrame": {
     "flagsHall": 80,
@@ -48,7 +48,7 @@
     "blimp": 1796
    },
    "moverTris": 1996,
-   "benchPass": true,
+   "benchPass": false,
    "livingPass": true
   },
   "plazaWide": {
@@ -85,11 +85,11 @@
    "keyArtPass": true,
    "triangles": 81784,
    "calls": 543,
-   "sPerFrameC": 0.445,
-   "sPerFrameOff": 0.348,
+   "sPerFrameC": 0.588,
+   "sPerFrameOff": 0.486,
    "outlineCost": {
-    "classic": 0.091,
-    "classicPlus": 0.097
+    "classic": 0.098,
+    "classicPlus": 0.102
    },
    "moversInFrame": {
     "flagsHall": 40,
@@ -134,11 +134,11 @@
    "keyArtPass": true,
    "triangles": 88262,
    "calls": 606,
-   "sPerFrameC": 0.677,
-   "sPerFrameOff": 0.577,
+   "sPerFrameC": 0.91,
+   "sPerFrameOff": 0.804,
    "outlineCost": {
-    "classic": 0.101,
-    "classicPlus": 0.1
+    "classic": 0.108,
+    "classicPlus": 0.106
    },
    "moversInFrame": {
     "birds": 72
@@ -181,17 +181,17 @@
    "keyArtPass": true,
    "triangles": 47504,
    "calls": 370,
-   "sPerFrameC": 0.562,
-   "sPerFrameOff": 0.478,
+   "sPerFrameC": 0.763,
+   "sPerFrameOff": 0.67,
    "outlineCost": {
-    "classic": 0.082,
-    "classicPlus": 0.084
+    "classic": 0.092,
+    "classicPlus": 0.093
    },
    "moversInFrame": {
     "birds": 48
    },
    "moverTris": 48,
-   "benchPass": true,
+   "benchPass": false,
    "livingPass": true
   }
  },
@@ -209,7 +209,7 @@
    "flagsHall",
    "blimp"
   ],
-  "msMedian": 150
+  "msMedian": 186
  },
  "pass": {
   "keyArt": true,
