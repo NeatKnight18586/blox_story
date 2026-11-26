@@ -73,8 +73,8 @@
   "bench": {
    "tris": 53894,
    "calls": 185,
-   "sPerFrame": 0.408,
-   "pass": true
+   "sPerFrame": 0.847,
+   "pass": false
   },
   "pass": true
  },
@@ -140,32 +140,32 @@
   "cityDay2:bayNorth": {
    "tris": 67500,
    "calls": 283,
-   "sPerFrame": 0.412,
-   "pass": true
+   "sPerFrame": 0.839,
+   "pass": false
   },
   "cityGoldenHour:bayNorth": {
    "tris": 67500,
    "calls": 285,
-   "sPerFrame": 0.406,
-   "pass": true
+   "sPerFrame": 0.861,
+   "pass": false
   },
   "cityDusk:bayNorth": {
    "tris": 69160,
    "calls": 303,
-   "sPerFrame": 0.427,
-   "pass": true
+   "sPerFrame": 0.864,
+   "pass": false
   },
   "cityNight:bayNorth": {
    "tris": 56080,
    "calls": 299,
-   "sPerFrame": 0.42,
-   "pass": true
+   "sPerFrame": 0.837,
+   "pass": false
   }
  },
  "pass": {
   "clock": true,
   "anchor": true,
-  "bench": true,
+  "bench": false,
   "nightDarker": true
  }
 }
