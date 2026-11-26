@@ -38,19 +38,34 @@ export function westReserves() {
 
 // ---- suburb fill ---------------------------------------------------------------------------------------------------------------
 // A district lot (parts/city/world.js cityLots: x, z, w, d, n = street→lot normal) as a seeded pastel house.
-export function houseLot(l, R) {
-  const key = HOUSES[Math.floor(R() * HOUSES.length)], pre = PRESETS[key], yaw = l.n[0] || l.n[1] ? Math.atan2(-l.n[0], -l.n[1]) : l.yaw;
+// Phase 1E (opt-in): a no-repeat house picker: walks a seeded shuffle of the house presets and skips a preset whose roof shape, storeys
+// or body colour equals either of the last two picked (neighbours never look alike at distance).
+export function housePicker(R, keys = HOUSES) {
+  const order = [...keys]; for (let i = order.length - 1; i > 0; i--) { const j = Math.floor(R() * (i + 1)); [order[i], order[j]] = [order[j], order[i]]; }
+  const last = []; let i = 0, sig = k => { const p = PRESETS[k]; return [p.roof, p.floors, p.palette?.body]; };
+  return () => { for (let n = 0; n < order.length; n++) { const k = order[(i + n) % order.length], s = sig(k); if (last.every(q => q.every((v, j) => v !== s[j]))) { i = (i + n + 1) % order.length; last.unshift(s); last.length = Math.min(2, last.length); return k; } }
+    const k = order[i++ % order.length]; last.unshift(sig(k)); last.length = Math.min(2, last.length); return k; };
+}
+export function houseLot(l, R, {pick = null} = {}) {
+  const key = pick ? pick() : HOUSES[Math.floor(R() * HOUSES.length)], pre = PRESETS[key], yaw = l.n[0] || l.n[1] ? Math.atan2(-l.n[0], -l.n[1]) : l.yaw;
   const fp = [Math.min(pre.footprint[0], l.w + 1), Math.min(pre.footprint[1], l.d)], c = [l.x, l.z], f = at(c, yaw, 0, fp[1] / 2);
   const b = placeBuilding({...pre, footprint: fp, seed: Math.floor(R() * 1e6), id: key}, l.x, l.z, yaw, f); b.yaw = yaw; b.key = key; return b;
 }
 // Front-yard dressing for one placed house: white picket fence (two runs, gap at the walk), walk, driveway, mailbox; returns kit prop items.
-export function lotDress(b, R) {
+export function lotDress(b, R, {variety = false} = {}) {   // Phase 1E (opt-in variety): + flower beds, a swing set, bikes, mailbox styles
   const yaw = b.yaw, c = [b.at[0], b.at[2]], w = b.w, d = b.d, fy = 1.5 + (W.front ?? 0), items = [], g = (x, z) => groundY(x, z) + .03, P = (u, v, y = null) => { const p = at(c, yaw, u, v); return [p[0], y ?? g(...p), p[1]]; };
   const vF = d / 2 + fy - .7, half = w / 2 + 2.4, run = half - 1.6;
   for (const sx of [-1, 1]) items.push({kind: 'fence', at: P(sx * (1.6 + run / 2), vF), yaw, len: run});
   items.push({kind: 'drive', at: P(0, d / 2 + (fy - .7) / 2), yaw, w: 1.8, d: fy - .7});
   const ds = R() < .5 ? 1 : -1; items.push({kind: 'drive', at: P(ds * (w / 2 + 2.6), (d / 2 + fy + .5 - d * .25) / 2 + d * .125 - .25), yaw, w: 3.2, d: d / 2 + fy + .5 + d * .25});
-  items.push({kind: 'mailbox', at: P(-ds * (w / 2 + 3.6), d / 2 + fy - .4), yaw, colors: [['#2f6fd6', '#d8362b', '#3aa860', '#f6c630'][Math.floor(R() * 4)]]});
+  items.push({kind: 'mailbox', at: P(-ds * (w / 2 + 3.6), d / 2 + fy - .4), yaw, colors: [['#2f6fd6', '#d8362b', '#3aa860', '#f6c630'][Math.floor(R() * 4)]], ...(variety ? {style: ['post', 'brick', 'barrel'][Math.floor(R() * 3)]} : {})});
+  if (variety) {
+    const pal = [['#ff5f8f', '#ffd23f', '#ffffff'], ['#b06ad9', '#ff9ec4', '#fff1a0'], ['#ff7a30', '#ffd23f', '#e53935'], ['#7ec8ff', '#ffffff', '#ff5f8f']][Math.floor(R() * 4)];
+    if (R() < .75) for (const sx of [-1, 1]) items.push({kind: 'flowerBed', at: P(sx * (w / 4 + .9), d / 2 + 1.2), yaw, len: Math.max(1.6, w / 2 - 2.6), colors: pal});
+    const r = R(); if (r < .3) items.push({kind: 'swings', at: P(-ds * (w / 2 + 1), -d / 2 - 3.5), yaw: yaw + Math.PI / 2});
+    else if (r < .65) { items.push({kind: 'bike', at: P(ds * (w / 2 + 2.6), d / 2 + fy - 1.8), yaw: yaw + .3, colors: [['#e53935', '#2f78d4', '#3aa860', '#ff9f1c'][Math.floor(R() * 4)]]});
+      if (R() < .5) items.push({kind: 'bike', at: P(-ds * (w / 4), d / 2 + fy - 2.4), yaw: yaw + 1.2, down: true, colors: ['#b06ad9']}); }
+  }
   return items;
 }
 
@@ -86,7 +101,8 @@ export function west({houses = [], anchors = [], R = Math.random} = {}) {
   const H = heroLot(), hp = PRESETS[W.hero.preset];
   const hero = keep(placeBuilding({...hp, id: 'heroHouse', seed: 11}, H.x, H.z, H.yaw, H.front)); hero.yaw = H.yaw;
   const hi = [], [tx, tz] = H.treeAt, deck = W.hero.tree.deck;
-  hi.push({kind: 'treehouse', at: [tx, Y(tx, tz, 0), tz], yaw: H.yaw, deck});
+  hi.push({kind: 'treehouse', at: [tx, Y(tx, tz, 0), tz], yaw: H.yaw, deck, ...(PLAN.trees ? {canopy: false} : {})});
+  if (PLAN.trees) trees.push({x: tx, z: tz, y: Y(tx, tz, 0), s: 1, r: .4, kind: 'leafy', h: PLAN.trees.heights.treehouse, keep: true});   // Phase 1E: the treehouse sits in a hero tree
   const mb = at([H.x, H.z], H.yaw, -4.4, hp.footprint[1] / 2 + 1.5 + W.hero.front + .4);   // at the kerb, left of the walk: the crooked mailbox hi.push({kind: 'mailbox', at: [mb[0], Y(mb[0], mb[1], 0), mb[1]], yaw: H.yaw + .35, tilt: W.hero.mailboxTilt, colors: ['#e53935']});
   const lotC = [H.x, H.z], fy = 1.5 + W.hero.front, vF = hp.footprint[1] / 2 + fy - .7;
   for (const sxn of [-1, 1]) { const u0 = sxn < 0 ? -hp.footprint[0] / 2 - 1.2 : 1.6, u1 = sxn < 0 ? -1.6 : hp.footprint[0] / 2 + hp.garage.w + 2.2, p = at(lotC, H.yaw, (u0 + u1) / 2, vF); hi.push({kind: 'fence', at: [p[0], Y(p[0], p[1]), p[1]], yaw: H.yaw, len: u1 - u0 - .2}); }
@@ -118,7 +134,7 @@ export function west({houses = [], anchors = [], R = Math.random} = {}) {
   let dressed = 0;
   for (const b of houses) {
     if (!anchors.some(a => Math.hypot(a[0] - b.at[0], a[1] - b.at[2]) < (W.dressR ?? 75))) continue;
-    const items = lotDress(b, R).filter(it => !anchors.some(a => Math.hypot(a[0] - it.at[0], a[1] - it.at[2]) < 9)); const m = add(items, 'lotProps');   // nothing in a camera anchor's face if (m) dressed++;
+    const items = lotDress(b, R, {variety: !!W.variety}).filter(it => !anchors.some(a => Math.hypot(a[0] - it.at[0], a[1] - it.at[2]) < 9)); const m = add(items, 'lotProps');   // nothing in a camera anchor's face if (m) dressed++;
     if (R() < .6) { const ds = R() < .5 ? -1 : 1, p = at([b.at[0], b.at[2]], b.yaw, ds * (b.w / 2 + 4), b.d / 2 + 3.5); trees.push({x: p[0], z: p[1], y: g(...p) + .05, s: .7 + R() * .25, r: R() * 6.28}); }
   }
   stats.dressedLots = dressed; stats.houses = houses.length;

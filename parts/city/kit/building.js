@@ -46,6 +46,9 @@ const plane = (w, h, x, y, z) => new T.PlaneGeometry(w, h).translate(x, y + h / 
 function prism(w, rh, d) {   // gable roof: triangle (across x) extruded along z, base at y 0
   const s = new T.Shape([new T.Vector2(-w / 2, 0), new T.Vector2(w / 2, 0), new T.Vector2(0, rh)]), g = new T.ExtrudeGeometry(s, {depth: d, bevelEnabled: false}); g.translate(0, 0, -d / 2); return g.index ? g.toNonIndexed() : g;
 }
+function gambrel(w, rh, d) {   // Phase 1E: barn roof cross-section (across x) extruded along z, base at y 0
+  const s = new T.Shape([new T.Vector2(-w / 2, 0), new T.Vector2(w / 2, 0), new T.Vector2(w * .3, rh * .62), new T.Vector2(0, rh), new T.Vector2(-w * .3, rh * .62)]), g = new T.ExtrudeGeometry(s, {depth: d, bevelEnabled: false}); g.translate(0, 0, -d / 2); return g.index ? g.toNonIndexed() : g;
+}
 function pyramid(w, d, h, top = .08) {   // hip / mansard: 4-sided frustum, base w × d at y 0
   const g = new T.CylinderGeometry(top, 1, h, 4, 1, false).toNonIndexed(); g.rotateY(Math.PI / 4); g.scale(w / Math.SQRT2, 1, d / Math.SQRT2); g.translate(0, h / 2, 0); g.computeVertexNormals(); return g;
 }
@@ -149,6 +152,7 @@ export function building(spec) {
   for (const sg of signs) { const c = new T.Mesh(sg.geometry, sg.material); c.position.copy(sg.position); c.name = sg.name; c.userData = {...sg.userData}; mid.add(c); }
   // ---------- FAR: a box ----------
   const Fb = bins(); Fb.add(kitMat('plastic', P.body), pbox(w, h + s.sink, d, 0, -s.sink, 0));
+  if (s.roof === 'gambrel') Fb.add(kitMat('plastic', P.roof), gambrel(w + .6, Math.min(w, d) * .44, d + .6).translate(0, h, 0));   // Phase 1E
   if (s.roof === 'gable' || s.roof === 'hip' || s.roof === 'mansard') Fb.add(kitMat('plastic', P.roof), s.roof === 'gable' ? prism(w + .6, Math.min(w, d) * .35, d + .6).translate(0, h, 0) : pyramid(w + .6, d + .6, Math.min(w, d) * .3, s.roof === 'mansard' ? .55 : .08).translate(0, h, 0));
   if (s.garage) { const g = s.garage; Fb.add(kitMat('plastic', P.body), pbox(g.w, g.h ?? 4.4, d - 1.5, g.side * (w / 2 + g.w / 2), -s.sink, -.75)); }
   const far = Fb.build('far');
@@ -190,6 +194,9 @@ function roof(A, s, roofMat, trim, bodyMat, R, roofTile, bodyTile, lod) {
       A(roofMat, pbox(w - .4, .1, d - .4, 0, h + .3, 0), roofTile);
       if (R() < .7) A(kitMat('metal', '#b8bcc2'), bevel(1.6, 1, 1.2, (R() - .5) * w * .5, h + .35, -d * .15, 99)); }
     else A(trim, pbox(w + .5, .9, d + .5, 0, h + .3, 0));
+  } else if (s.roof === 'gambrel') {   // Phase 1E (opt-in): barn roof, steep lower slopes + shallow upper slopes, gable ends filled
+    const rh = Math.min(w, d) * .46; A(roofMat, gambrel(w + .8, rh, d + .8).translate(0, h + .3, 0), roofTile);
+    if (lod === 'near') A(bodyMat, gambrel(w - .1, rh - .25, d - .3).translate(0, h + .3, 0), bodyTile);
   } else if (s.roof === 'gable') {
     const rh = Math.min(w, d) * .38; A(roofMat, prism(w + .8, rh, d + .8).translate(0, h + .3, 0), roofTile);
     if (lod === 'near') A(bodyMat, prism(w - .1, rh - .2, d - .3).translate(0, h + .3, 0), bodyTile);
@@ -222,7 +229,7 @@ function extras(A, s, lod, M) {
       for (const sx of [-1, 1]) A(trim, pbox(.7, s.lift + .9, st.depth + .3, sx * (st.w / 2 + .35), -s.lift - .1, FD + st.depth / 2)); }
     else A(kind, pbox(st.w, s.lift + .8, st.depth, 0, -s.lift - .8, FD + st.depth / 2));
   }
-  if (s.chimney && near) { const cx = (s.chimney.x ?? .28) * w, rh = Math.min(w, d) * .38, brick = kitMat('brick', '#b8553f');
+  if (s.chimney && near) { const cx = (s.chimney.x ?? .28) * w, rh = Math.min(w, d) * (s.roof === 'gambrel' ? .3 : .38), brick = kitMat('brick', '#b8553f');
     A(brick, pbox(1.3, rh + 1.2, 1.3, cx, h + .1, -d * .15), texTile('brick')); A(trim, pbox(1.7, .25, 1.7, cx, h + rh + 1.2, -d * .15)); }
   if (s.porch) {   // small gabled porch: slab, two posts, roof
     const pz = F + 1.5, pw = s.porch.w ?? 4;

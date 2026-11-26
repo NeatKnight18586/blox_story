@@ -1,0 +1,1306 @@
+{
+ "rule": "staging (1D) + ground ≤ 0.25 of the frame (up-facing surfaces) + fg on a frame edge, 5–15 % of the width, never in the middle third; planks luma ≥ .40 (harborDock, beach); statue gold hue 35–55°, sat ≥ .45, clipped ≤ 2 % (plazaWide); DINER sign ≥ 3 % of the frame height; duck beam hidden in cityDay2; bench (gate rows, 720 × 1280, look B) ≤ 90k tris, ≤ 0.62 s/frame",
+ "staging": {
+  "note": "Phase 1D staging rule for establishing key art (scripts/v2/city1d-gate.js measures it): hero ≤ maxHeroH of the frame height, the anchor keyArt.landmark slot visible ≥ landmarkMin (sightline sampling, characters included), kids beside the hero on the frame-centre side (kidSide, + kidGap for the second; back studs), each ≥ kidVisible of its silhouette unoccluded and its centre outside the hero's screen box.",
+  "maxHeroH": 0.35,
+  "landmarkMin": 0.02,
+  "kidSide": 2.9,
+  "kidGap": 2.3,
+  "kidBack": 0.3,
+  "kidVisible": 0.7,
+  "groundMax": 0.25,
+  "fg": {
+   "min": 0.05,
+   "max": 0.15,
+   "edge": 0.01,
+   "note": "Phase 1E: a key-art foreground element sits on a frame EDGE, covers 5–15 % of the frame width and never crosses the middle third"
+  }
+ },
+ "rows": {
+  "stoneHead": {
+   "gate": true,
+   "landmark": "7",
+   "heroH": 0.319,
+   "landmarkVisible": 0.257,
+   "ground": 0.109,
+   "fg": null,
+   "kids": {
+    "kidL": {
+     "share": 0.941,
+     "beside": true
+    },
+    "kidS": {
+     "share": 0.874,
+     "beside": true
+    }
+   },
+   "onScreen": [
+    "7"
+   ],
+   "movers": [
+    "waterfall"
+   ],
+   "checks": {
+    "heroH": true,
+    "landmark": true,
+    "kids": true,
+    "sightlines": true,
+    "movers": true,
+    "ground": true,
+    "fg": true,
+    "planks": true,
+    "gold": true,
+    "sign": true,
+    "beam": true
+   },
+   "pass": true,
+   "bench": {
+    "tris": 47298,
+    "calls": 134,
+    "sPerFrame": 0.374,
+    "pass": true
+   }
+  },
+  "forestTrail": {
+   "gate": true,
+   "landmark": "7",
+   "heroH": 0.31,
+   "landmarkVisible": 0.074,
+   "ground": 0.078,
+   "fg": {
+    "px": 0.0447,
+    "x0": 0.8851851851851852,
+    "x1": 1,
+    "width": 0.115,
+    "cover": 0.115,
+    "middle": false
+   },
+   "kids": {
+    "kidL": {
+     "share": 0.702,
+     "beside": true
+    },
+    "kidS": {
+     "share": 0.907,
+     "beside": true
+    }
+   },
+   "onScreen": [
+    "7"
+   ],
+   "movers": [],
+   "checks": {
+    "heroH": true,
+    "landmark": true,
+    "kids": true,
+    "sightlines": true,
+    "movers": true,
+    "ground": true,
+    "fg": true,
+    "planks": true,
+    "gold": true,
+    "sign": true,
+    "beam": true
+   },
+   "pass": true,
+   "bench": {
+    "tris": 50196,
+    "calls": 156,
+    "sPerFrame": 0.512,
+    "pass": true
+   }
+  },
+  "ropeBridge": {
+   "gate": true,
+   "landmark": null,
+   "heroH": 0.315,
+   "landmarkVisible": null,
+   "ground": 0.06,
+   "fg": null,
+   "kids": {
+    "kidL": {
+     "share": 0.937,
+     "beside": true
+    },
+    "kidS": {
+     "share": 0.886,
+     "beside": true
+    }
+   },
+   "onScreen": [],
+   "movers": [],
+   "checks": {
+    "heroH": true,
+    "landmark": true,
+    "kids": true,
+    "sightlines": true,
+    "movers": true,
+    "ground": true,
+    "fg": true,
+    "planks": true,
+    "gold": true,
+    "sign": true,
+    "beam": true
+   },
+   "pass": true,
+   "bench": {
+    "tris": 37632,
+    "calls": 140,
+    "sPerFrame": 0.453,
+    "pass": true
+   }
+  },
+  "cliffLookout": {
+   "gate": true,
+   "landmark": null,
+   "heroH": 0.317,
+   "landmarkVisible": null,
+   "ground": 0.218,
+   "fg": null,
+   "kids": {
+    "kidL": {
+     "share": 0.974,
+     "beside": true
+    },
+    "kidS": {
+     "share": 0.9,
+     "beside": true
+    }
+   },
+   "onScreen": [],
+   "movers": [],
+   "checks": {
+    "heroH": true,
+    "landmark": true,
+    "kids": true,
+    "sightlines": true,
+    "movers": true,
+    "ground": true,
+    "fg": true,
+    "planks": true,
+    "gold": true,
+    "sign": true,
+    "beam": true
+   },
+   "pass": true,
+   "bench": {
+    "tris": 32836,
+    "calls": 116,
+    "sPerFrame": 0.164,
+    "pass": true
+   }
+  },
+  "campsite": {
+   "gate": false,
+   "landmark": null,
+   "heroH": 0.304,
+   "landmarkVisible": null,
+   "ground": 0.204,
+   "fg": null,
+   "kids": {
+    "kidL": {
+     "share": 0.817,
+     "beside": true
+    },
+    "kidS": {
+     "share": 0.727,
+     "beside": true
+    }
+   },
+   "onScreen": [],
+   "movers": [
+    "campSmoke",
+    "forestBirds"
+   ],
+   "checks": {
+    "heroH": true,
+    "landmark": true,
+    "kids": true,
+    "sightlines": true,
+    "movers": true,
+    "ground": true,
+    "fg": true,
+    "planks": true,
+    "gold": true,
+    "sign": true,
+    "beam": true
+   },
+   "pass": true
+  },
+  "caveMouth": {
+   "gate": false,
+   "landmark": null,
+   "heroH": 0.298,
+   "landmarkVisible": null,
+   "ground": 0.2,
+   "fg": null,
+   "kids": {
+    "kidL": {
+     "share": 0.974,
+     "beside": true
+    },
+    "kidS": {
+     "share": 0.899,
+     "beside": true
+    }
+   },
+   "onScreen": [],
+   "movers": [],
+   "checks": {
+    "heroH": true,
+    "landmark": true,
+    "kids": true,
+    "sightlines": true,
+    "movers": true,
+    "ground": true,
+    "fg": true,
+    "planks": true,
+    "gold": true,
+    "sign": true,
+    "beam": true
+   },
+   "pass": true
+  },
+  "plazaSouth": {
+   "gate": false,
+   "landmark": "5",
+   "heroH": 0.331,
+   "landmarkVisible": 0.771,
+   "ground": 0.091,
+   "fg": {
+    "px": 0.0215,
+    "x0": 0,
+    "x1": 0.1111111111111111,
+    "width": 0.111,
+    "cover": 0.111,
+    "middle": false
+   },
+   "kids": {
+    "kidL": {
+     "share": 0.912,
+     "beside": true
+    },
+    "kidS": {
+     "share": 0.788,
+     "beside": true
+    }
+   },
+   "onScreen": [
+    "5",
+    "8"
+   ],
+   "movers": [],
+   "checks": {
+    "heroH": true,
+    "landmark": true,
+    "kids": true,
+    "sightlines": true,
+    "movers": true,
+    "ground": true,
+    "fg": true,
+    "planks": true,
+    "gold": true,
+    "sign": true,
+    "beam": true
+   },
+   "pass": true
+  },
+  "plazaNorth": {
+   "gate": false,
+   "landmark": "2",
+   "heroH": 0.308,
+   "landmarkVisible": 0.383,
+   "ground": 0.235,
+   "fg": {
+    "px": 0.0235,
+    "x0": 0,
+    "x1": 0.12222222222222222,
+    "width": 0.122,
+    "cover": 0.122,
+    "middle": false
+   },
+   "kids": {
+    "kidL": {
+     "share": 0.705,
+     "beside": true
+    },
+    "kidS": {
+     "share": 0.722,
+     "beside": true
+    }
+   },
+   "onScreen": [
+    "1",
+    "2"
+   ],
+   "movers": [],
+   "checks": {
+    "heroH": true,
+    "landmark": true,
+    "kids": true,
+    "sightlines": true,
+    "movers": true,
+    "ground": true,
+    "fg": true,
+    "planks": true,
+    "gold": true,
+    "sign": true,
+    "beam": true
+   },
+   "pass": true
+  },
+  "bayNorth": {
+   "gate": false,
+   "landmark": "2",
+   "heroH": 0.206,
+   "landmarkVisible": 0.68,
+   "ground": 0.178,
+   "fg": {
+    "px": 0.0398,
+    "x0": 0.8740740740740741,
+    "x1": 1,
+    "width": 0.126,
+    "cover": 0.126,
+    "middle": false
+   },
+   "kids": {
+    "kidL": {
+     "share": 0.955,
+     "beside": true
+    },
+    "kidS": {
+     "share": 0.948,
+     "beside": true
+    }
+   },
+   "onScreen": [
+    "1",
+    "2",
+    "8"
+   ],
+   "movers": [
+    "flagsHall",
+    "gulls"
+   ],
+   "checks": {
+    "heroH": true,
+    "landmark": true,
+    "kids": true,
+    "sightlines": true,
+    "movers": true,
+    "ground": true,
+    "fg": true,
+    "planks": true,
+    "gold": true,
+    "sign": true,
+    "beam": true
+   },
+   "pass": true
+  },
+  "stairBottom": {
+   "gate": false,
+   "landmark": "2",
+   "heroH": 0.298,
+   "landmarkVisible": 0.417,
+   "ground": 0.214,
+   "fg": {
+    "px": 0.014,
+    "x0": 0,
+    "x1": 0.1037037037037037,
+    "width": 0.104,
+    "cover": 0.104,
+    "middle": false
+   },
+   "kids": {
+    "kidL": {
+     "share": 0.933,
+     "beside": true
+    },
+    "kidS": {
+     "share": 0.882,
+     "beside": true
+    }
+   },
+   "onScreen": [
+    "1",
+    "2",
+    "8"
+   ],
+   "movers": [
+    "blimp"
+   ],
+   "checks": {
+    "heroH": true,
+    "landmark": true,
+    "kids": true,
+    "sightlines": true,
+    "movers": true,
+    "ground": true,
+    "fg": true,
+    "planks": true,
+    "gold": true,
+    "sign": true,
+    "beam": true
+   },
+   "pass": true
+  },
+  "boardwalk": {
+   "gate": false,
+   "landmark": "2",
+   "heroH": 0.31,
+   "landmarkVisible": 0.114,
+   "ground": 0.219,
+   "fg": {
+    "px": 0.0141,
+    "x0": 0,
+    "x1": 0.1,
+    "width": 0.1,
+    "cover": 0.1,
+    "middle": false
+   },
+   "kids": {
+    "kidL": {
+     "share": 0.839,
+     "beside": true
+    },
+    "kidS": {
+     "share": 0.763,
+     "beside": true
+    }
+   },
+   "onScreen": [
+    "2"
+   ],
+   "movers": [
+    "birds",
+    "blimp"
+   ],
+   "checks": {
+    "heroH": true,
+    "landmark": true,
+    "kids": true,
+    "sightlines": true,
+    "movers": true,
+    "ground": true,
+    "fg": true,
+    "planks": true,
+    "gold": true,
+    "sign": true,
+    "beam": true
+   },
+   "pass": true
+  },
+  "suburbStreet": {
+   "gate": true,
+   "landmark": "2",
+   "heroH": 0.304,
+   "landmarkVisible": 0.411,
+   "ground": 0.225,
+   "fg": {
+    "px": 0.0202,
+    "x0": 0,
+    "x1": 0.11481481481481481,
+    "width": 0.115,
+    "cover": 0.115,
+    "middle": false
+   },
+   "kids": {
+    "kidL": {
+     "share": 0.926,
+     "beside": true
+    },
+    "kidS": {
+     "share": 0.885,
+     "beside": true
+    }
+   },
+   "onScreen": [
+    "2",
+    "7"
+   ],
+   "movers": [
+    "birds",
+    "blimp"
+   ],
+   "checks": {
+    "heroH": true,
+    "landmark": true,
+    "kids": true,
+    "sightlines": true,
+    "movers": true,
+    "ground": true,
+    "fg": true,
+    "planks": true,
+    "gold": true,
+    "sign": true,
+    "beam": true
+   },
+   "pass": true,
+   "bench": {
+    "tris": 67266,
+    "calls": 330,
+    "sPerFrame": 0.489,
+    "pass": true
+   }
+  },
+  "schoolYard": {
+   "gate": false,
+   "landmark": null,
+   "heroH": 0.306,
+   "landmarkVisible": null,
+   "ground": 0.206,
+   "fg": {
+    "px": 0.0234,
+    "x0": 0,
+    "x1": 0.1259259259259259,
+    "width": 0.126,
+    "cover": 0.126,
+    "middle": false
+   },
+   "kids": {
+    "kidL": {
+     "share": 0.919,
+     "beside": true
+    },
+    "kidS": {
+     "share": 0.731,
+     "beside": true
+    }
+   },
+   "onScreen": [],
+   "movers": [],
+   "checks": {
+    "heroH": true,
+    "landmark": true,
+    "kids": true,
+    "sightlines": true,
+    "movers": true,
+    "ground": true,
+    "fg": true,
+    "planks": true,
+    "gold": true,
+    "sign": true,
+    "beam": true
+   },
+   "pass": true
+  },
+  "mainSt": {
+   "gate": false,
+   "landmark": "3",
+   "heroH": 0.331,
+   "landmarkVisible": 0.114,
+   "ground": 0.201,
+   "fg": {
+    "px": 0.0226,
+    "x0": 0.8666666666666667,
+    "x1": 1,
+    "width": 0.133,
+    "cover": 0.133,
+    "middle": false
+   },
+   "kids": {
+    "kidL": {
+     "share": 0.918,
+     "beside": true
+    },
+    "kidS": {
+     "share": 0.865,
+     "beside": true
+    }
+   },
+   "onScreen": [
+    "2",
+    "3"
+   ],
+   "movers": [
+    "birds"
+   ],
+   "checks": {
+    "heroH": true,
+    "landmark": true,
+    "kids": true,
+    "sightlines": true,
+    "movers": true,
+    "ground": true,
+    "fg": true,
+    "planks": true,
+    "gold": true,
+    "sign": true,
+    "beam": true
+   },
+   "pass": true
+  },
+  "plazaWide": {
+   "gate": true,
+   "landmark": "1",
+   "heroH": 0.31,
+   "landmarkVisible": 0.56,
+   "ground": 0.19,
+   "fg": {
+    "px": 0.0271,
+    "x0": 0,
+    "x1": 0.13703703703703704,
+    "width": 0.137,
+    "cover": 0.137,
+    "middle": false
+   },
+   "gold": {
+    "n": 5044,
+    "luma": 0.434,
+    "hue": 42.1,
+    "sat": 0.76,
+    "clipped": 0.0077,
+    "hFrac": 0.2479
+   },
+   "kids": {
+    "kidL": {
+     "share": 0.96,
+     "beside": true
+    },
+    "kidS": {
+     "share": 0.919,
+     "beside": true
+    }
+   },
+   "onScreen": [
+    "1",
+    "2",
+    "3",
+    "7"
+   ],
+   "movers": [
+    "flagsHall",
+    "fountain"
+   ],
+   "checks": {
+    "heroH": true,
+    "landmark": true,
+    "kids": true,
+    "sightlines": true,
+    "movers": true,
+    "ground": true,
+    "fg": true,
+    "planks": true,
+    "gold": true,
+    "sign": true,
+    "beam": true
+   },
+   "pass": true,
+   "bench": {
+    "tris": 67904,
+    "calls": 255,
+    "sPerFrame": 0.352,
+    "pass": true
+   }
+  },
+  "hallBalcony": {
+   "gate": false,
+   "landmark": "2",
+   "heroH": 0.313,
+   "landmarkVisible": 0.463,
+   "ground": 0.185,
+   "fg": {
+    "px": 0.0238,
+    "x0": 0,
+    "x1": 0.1259259259259259,
+    "width": 0.126,
+    "cover": 0.126,
+    "middle": false
+   },
+   "kids": {
+    "kidL": {
+     "share": 0.718,
+     "beside": true
+    },
+    "kidS": {
+     "share": 0.927,
+     "beside": true
+    }
+   },
+   "onScreen": [
+    "1",
+    "2"
+   ],
+   "movers": [],
+   "checks": {
+    "heroH": true,
+    "landmark": true,
+    "kids": true,
+    "sightlines": true,
+    "movers": true,
+    "ground": true,
+    "fg": true,
+    "planks": true,
+    "gold": true,
+    "sign": true,
+    "beam": true
+   },
+   "pass": true
+  },
+  "acrossBay": {
+   "gate": false,
+   "landmark": "5",
+   "heroH": 0.285,
+   "landmarkVisible": 0.074,
+   "ground": 0.221,
+   "fg": {
+    "px": 0.0166,
+    "x0": 0,
+    "x1": 0.12222222222222222,
+    "width": 0.122,
+    "cover": 0.122,
+    "middle": false
+   },
+   "kids": {
+    "kidL": {
+     "share": 0.984,
+     "beside": true
+    },
+    "kidS": {
+     "share": 0.897,
+     "beside": true
+    }
+   },
+   "onScreen": [
+    "5",
+    "6"
+   ],
+   "movers": [],
+   "checks": {
+    "heroH": true,
+    "landmark": true,
+    "kids": true,
+    "sightlines": true,
+    "movers": true,
+    "ground": true,
+    "fg": true,
+    "planks": true,
+    "gold": true,
+    "sign": true,
+    "beam": true
+   },
+   "pass": true
+  },
+  "schoolFront": {
+   "gate": false,
+   "landmark": null,
+   "heroH": 0.315,
+   "landmarkVisible": null,
+   "ground": 0.216,
+   "fg": {
+    "px": 0.0305,
+    "x0": 0,
+    "x1": 0.14074074074074075,
+    "width": 0.141,
+    "cover": 0.141,
+    "middle": false
+   },
+   "kids": {
+    "kidL": {
+     "share": 0.888,
+     "beside": true
+    },
+    "kidS": {
+     "share": 0.847,
+     "beside": true
+    }
+   },
+   "onScreen": [],
+   "movers": [],
+   "checks": {
+    "heroH": true,
+    "landmark": true,
+    "kids": true,
+    "sightlines": true,
+    "movers": true,
+    "ground": true,
+    "fg": true,
+    "planks": true,
+    "gold": true,
+    "sign": true,
+    "beam": true
+   },
+   "pass": true
+  },
+  "heroHouse": {
+   "gate": false,
+   "landmark": null,
+   "heroH": 0.317,
+   "landmarkVisible": null,
+   "ground": 0.201,
+   "fg": {
+    "px": 0.0107,
+    "x0": 0,
+    "x1": 0.08888888888888889,
+    "width": 0.089,
+    "cover": 0.089,
+    "middle": false
+   },
+   "kids": {
+    "kidL": {
+     "share": 0.711,
+     "beside": true
+    },
+    "kidS": {
+     "share": 0.81,
+     "beside": true
+    }
+   },
+   "onScreen": [],
+   "movers": [
+    "blimp"
+   ],
+   "checks": {
+    "heroH": true,
+    "landmark": true,
+    "kids": true,
+    "sightlines": true,
+    "movers": true,
+    "ground": true,
+    "fg": true,
+    "planks": true,
+    "gold": true,
+    "sign": true,
+    "beam": true
+   },
+   "pass": true
+  },
+  "upsideDown": {
+   "gate": false,
+   "landmark": "4",
+   "heroH": 0.306,
+   "landmarkVisible": 0.371,
+   "ground": 0.196,
+   "fg": {
+    "px": 0.0206,
+    "x0": 0,
+    "x1": 0.1111111111111111,
+    "width": 0.111,
+    "cover": 0.111,
+    "middle": false
+   },
+   "kids": {
+    "kidL": {
+     "share": 0.964,
+     "beside": true
+    },
+    "kidS": {
+     "share": 0.931,
+     "beside": true
+    }
+   },
+   "onScreen": [
+    "4"
+   ],
+   "movers": [],
+   "checks": {
+    "heroH": true,
+    "landmark": true,
+    "kids": true,
+    "sightlines": true,
+    "movers": true,
+    "ground": true,
+    "fg": true,
+    "planks": true,
+    "gold": true,
+    "sign": true,
+    "beam": true
+   },
+   "pass": true
+  },
+  "harborDock": {
+   "gate": true,
+   "landmark": "3",
+   "heroH": 0.225,
+   "landmarkVisible": 0.571,
+   "ground": 0.2,
+   "fg": null,
+   "planks": {
+    "n": 22736,
+    "luma": 0.654,
+    "hue": 13.4,
+    "sat": 0.046,
+    "clipped": 0,
+    "hFrac": 0.2604
+   },
+   "kids": {
+    "kidL": {
+     "share": 0.972,
+     "beside": true
+    },
+    "kidS": {
+     "share": 0.937,
+     "beside": true
+    }
+   },
+   "onScreen": [
+    "2",
+    "3",
+    "7"
+   ],
+   "movers": [
+    "fishingBoats",
+    "gullsHarbor"
+   ],
+   "checks": {
+    "heroH": true,
+    "landmark": true,
+    "kids": true,
+    "sightlines": true,
+    "movers": true,
+    "ground": true,
+    "fg": true,
+    "planks": true,
+    "gold": true,
+    "sign": true,
+    "beam": true
+   },
+   "pass": true,
+   "bench": {
+    "tris": 71838,
+    "calls": 472,
+    "sPerFrame": 0.539,
+    "pass": true
+   }
+  },
+  "beach": {
+   "gate": false,
+   "landmark": "6",
+   "heroH": 0.271,
+   "landmarkVisible": 0.549,
+   "ground": 0.21,
+   "fg": null,
+   "planks": {
+    "n": 26737,
+    "luma": 0.619,
+    "hue": 14.9,
+    "sat": 0.056,
+    "clipped": 0,
+    "hFrac": 0.2854
+   },
+   "kids": {
+    "kidL": {
+     "share": 0.97,
+     "beside": true
+    },
+    "kidS": {
+     "share": 0.937,
+     "beside": true
+    }
+   },
+   "onScreen": [
+    "6",
+    "7"
+   ],
+   "movers": [
+    "gullsHarbor",
+    "blimp"
+   ],
+   "checks": {
+    "heroH": true,
+    "landmark": true,
+    "kids": true,
+    "sightlines": true,
+    "movers": true,
+    "ground": true,
+    "fg": true,
+    "planks": true,
+    "gold": true,
+    "sign": true,
+    "beam": true
+   },
+   "pass": true
+  },
+  "diner": {
+   "gate": true,
+   "landmark": "6",
+   "heroH": 0.313,
+   "landmarkVisible": 0.474,
+   "ground": 0.212,
+   "fg": null,
+   "sign": {
+    "n": 1404,
+    "luma": 0.28,
+    "hue": 239.3,
+    "sat": 0.636,
+    "clipped": 0.0235,
+    "hFrac": 0.0604,
+    "capFrac": 0.0313
+   },
+   "kids": {
+    "kidL": {
+     "share": 0.972,
+     "beside": true
+    },
+    "kidS": {
+     "share": 0.926,
+     "beside": true
+    }
+   },
+   "onScreen": [
+    "2",
+    "6",
+    "7"
+   ],
+   "movers": [
+    "blimp"
+   ],
+   "checks": {
+    "heroH": true,
+    "landmark": true,
+    "kids": true,
+    "sightlines": true,
+    "movers": true,
+    "ground": true,
+    "fg": true,
+    "planks": true,
+    "gold": true,
+    "sign": true,
+    "beam": true
+   },
+   "pass": true,
+   "bench": {
+    "tris": 72890,
+    "calls": 391,
+    "sPerFrame": 0.337,
+    "pass": true
+   }
+  },
+  "duckClose": {
+   "gate": false,
+   "landmark": "5",
+   "heroH": 0.308,
+   "landmarkVisible": 0.126,
+   "ground": 0.101,
+   "fg": {
+    "px": 0.0202,
+    "x0": 0.8962962962962963,
+    "x1": 1,
+    "width": 0.104,
+    "cover": 0.104,
+    "middle": false
+   },
+   "kids": {
+    "kidL": {
+     "share": 0.888,
+     "beside": true
+    },
+    "kidS": {
+     "share": 0.72,
+     "beside": true
+    }
+   },
+   "onScreen": [
+    "5"
+   ],
+   "movers": [],
+   "checks": {
+    "heroH": true,
+    "landmark": true,
+    "kids": true,
+    "sightlines": true,
+    "movers": true,
+    "ground": true,
+    "fg": true,
+    "planks": true,
+    "gold": true,
+    "sign": true,
+    "beam": true
+   },
+   "pass": true
+  },
+  "hillsLookout": {
+   "gate": false,
+   "landmark": "2",
+   "heroH": 0.3,
+   "landmarkVisible": 0.691,
+   "ground": 0.195,
+   "fg": {
+    "px": 0.0104,
+    "x0": 0,
+    "x1": 0.08888888888888889,
+    "width": 0.089,
+    "cover": 0.089,
+    "middle": false
+   },
+   "kids": {
+    "kidL": {
+     "share": 0.972,
+     "beside": true
+    },
+    "kidS": {
+     "share": 0.879,
+     "beside": true
+    }
+   },
+   "onScreen": [
+    "2",
+    "3",
+    "6"
+   ],
+   "movers": [
+    "birds",
+    "blimp"
+   ],
+   "checks": {
+    "heroH": true,
+    "landmark": true,
+    "kids": true,
+    "sightlines": true,
+    "movers": true,
+    "ground": true,
+    "fg": true,
+    "planks": true,
+    "gold": true,
+    "sign": true,
+    "beam": true
+   },
+   "pass": true
+  }
+ },
+ "tod": {
+  "cityDay2": {
+   "beam": false,
+   "halos": 0,
+   "stars": false,
+   "blimpLit": false,
+   "ground": 0.178
+  },
+  "cityGoldenHour": {
+   "beam": false,
+   "halos": 0,
+   "stars": false,
+   "blimpLit": false,
+   "ground": 0.178
+  },
+  "cityDusk": {
+   "beam": true,
+   "halos": 35,
+   "stars": true,
+   "blimpLit": true,
+   "ground": 0.178
+  },
+  "cityNight": {
+   "beam": true,
+   "halos": 35,
+   "stars": true,
+   "blimpLit": true,
+   "ground": 0.178
+  }
+ },
+ "textures": [
+  "cc0:city_asphalt",
+  "cc0:city_brick",
+  "cc0:city_planks",
+  "cc0:city_plaster",
+  "cc0:city_shingles",
+  "cc0:city_sidewalk",
+  "cc0:city_stone",
+  "plain"
+ ],
+ "trees": {
+  "trees": 948,
+  "cards": 948,
+  "bySpecies": {
+   "leafy": {
+    "n": 359,
+    "nearTris": 174,
+    "source": "procedural:leafy"
+   },
+   "fir": {
+    "n": 258,
+    "nearTris": 104,
+    "source": "procedural:pine"
+   },
+   "round": {
+    "n": 114,
+    "nearTris": 150,
+    "source": "procedural:round"
+   },
+   "pine": {
+    "n": 217,
+    "nearTris": 104,
+    "source": "procedural:pine"
+   }
+  },
+  "species": {
+   "leafy": {
+    "source": "procedural:leafy",
+    "tris": 174,
+    "rawTris": null,
+    "height": 10.81
+   },
+   "pine": {
+    "source": "procedural:pine",
+    "tris": 104,
+    "rawTris": null,
+    "height": 11.9
+   },
+   "fir": {
+    "source": "procedural:pine",
+    "tris": 104,
+    "rawTris": null,
+    "height": 11.9
+   },
+   "round": {
+    "source": "procedural:round",
+    "tris": 150,
+    "rawTris": null,
+    "height": 8.46
+   },
+   "note": {
+    "source": "procedural:note",
+    "tris": 174,
+    "rawTris": null,
+    "height": 10.81
+   }
+  },
+  "atlases": {
+   "note": {
+    "w": 2048,
+    "h": 256,
+    "views": 8,
+    "baked": false
+   },
+   "leafy": {
+    "w": 2048,
+    "h": 256,
+    "views": 8,
+    "baked": true
+   },
+   "pine": {
+    "w": 2048,
+    "h": 256,
+    "views": 8,
+    "baked": true
+   },
+   "fir": {
+    "w": 2048,
+    "h": 256,
+    "views": 8,
+    "baked": true
+   },
+   "round": {
+    "w": 2048,
+    "h": 256,
+    "views": 8,
+    "baked": true
+   }
+  }
+ },
+ "impostorCache": null,
+ "pass": {
+  "staging": true,
+  "sightlines": true,
+  "movers": true,
+  "ground": true,
+  "fg": true,
+  "planks": true,
+  "gold": true,
+  "sign": true,
+  "beamDay": true,
+  "bench": true,
+  "beamTod": true
+ },
+ "fails": []
+}

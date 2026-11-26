@@ -198,8 +198,12 @@
         "namaqualand_boulder_02"
       ],
       "search": "boulder"
-    }
+    },
+    "city_tree_pine": {"pick": "lightest", "candidates": ["pine_sapling_small"], "search": ""},
+    "city_tree_fir": {"pick": "lightest", "candidates": ["fir_sapling"], "search": ""},
+    "city_bush_round": {"pick": "lightest", "candidates": ["shrub_01", "shrub_02", "shrub_03", "shrub_04"], "search": ""}
   },
   "modelFormat": "gltf",
-  "maxModelBytes": 15000000
+  "maxModelBytes": 25000000,
+  "maxModelNote": "Phase 1E: raised 15 → 25 MB per file (owner cap) only so the CC0 pine (pine_sapling_small 17.8 MB) + fir (fir_sapling 21.7 MB) fit; every Poly Haven leafy tree is ≥ 60 MB per file (island_tree_01), so the leafy hero tree stays procedural; ranking in manifest.modelsConsidered"
 }

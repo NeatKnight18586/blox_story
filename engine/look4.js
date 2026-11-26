@@ -98,6 +98,7 @@ export function createLookV4(scene, renderer, presets, {initial = 'comedy', fogS
       const P = presets[name] ?? presets[initial]; cur = presets[name] ? name : initial;
       L.apply(P.base); renderer.toneMappingExposure = P.base.exposure; renderer.toneMapping = P.v4.toneMapping === 'Neutral' ? T.NeutralToneMapping : T.AgXToneMapping;   // 2b: comedy Khronos PBR Neutral
       clouds.visible = P.v4.clouds === 'puffy'; catcher.material.opacity = P.v4.shadowCatcher;
+      if (P.v4.cloudTint || cloudMesh.material.userData.tinted) { cloudMesh.material.color.set(P.v4.cloudTint ?? '#ffffff'); cloudMesh.material.userData.tinted = true; }   // Phase 1E (opt-in v4.cloudTint): warm clouds at golden hour / dusk
       if (P.v4.skyMid && L.sky.material.uniforms.mid) L.sky.material.uniforms.mid.value.set(P.v4.skyMid);
       if (P.v4.haze) { hazeCol ??= calibrateHaze(P); scene.fog.color.copy(hazeCol); }   // Look Signature: distant haze in the scene's average colour (fixed calibration view: same colour in any render order)
       scene.environment = envFor(cur); scene.environmentIntensity = P.v4.envIntensity;

@@ -7,6 +7,7 @@
 //     Every mover is pure in t (frames render in any order); all of it is `live` (never baked).
 //   keyArtProps(list) → Group: the foreground elements of plan.json keyArt variants ({kind: lamp|fence|picket|railing|sign|tree, at, yaw, len}).
 import * as T from 'three';
+import {mergeGeometries} from 'three/addons/utils/BufferGeometryUtils.js';
 import {PLAN} from './plan.js';
 import {flag, smoke, birds, walkers} from '../ambient.js';
 import {cityProps} from './kit/props.js';
@@ -33,7 +34,7 @@ export function laneLoop(polys, lane) {
   return out.filter((p, i, A) => !i || Math.hypot(p[0] - A[i - 1][0], p[1] - A[i - 1][1]) > .5);
 }
 
-export function governorBlimp() {   // ≈ 2.2k tris; nose = +z
+export function governorBlimp({lit = false} = {}) {   // ≈ 2.2k tris; nose = +z. Phase 1E (opt-in lit): night bulbs on the hat band, glowing gondola windows + eyes, nav lights
   const g = new T.Group(); g.name = 'governorBlimp';
   const skin = std('#f2c79b', {roughness: .55}), black = std('#1d1f24', {roughness: .35}), gold = std('#e3b23c', {metalness: .6, roughness: .3}), white = std('#fbfaf5'), cheek = std('#e89a8a');
   const head = new T.Mesh(new T.SphereGeometry(9, 22, 12), skin); head.scale.set(1, .9, 1.35); g.add(head);   // the envelope: a long round head
@@ -52,6 +53,13 @@ export function governorBlimp() {   // ≈ 2.2k tris; nose = +z
   for (const sx of [-1, 1]) { const r = new T.Mesh(new T.CylinderGeometry(.08, .08, 2.4, 4), black); r.position.set(sx * 1.2, -8, 0); g.add(r); }
   for (const [rx, rz] of [[0, 0], [0, Math.PI / 2], [0, Math.PI], [0, -Math.PI / 2]]) { const f = new T.Mesh(new T.BoxGeometry(.5, 4.2, 4.8), std('#2f78d4')); f.position.set(0, 0, -12.4); f.rotation.set(rx, 0, rz); f.translateY(3.2); g.add(f); }
   const prop = new T.Mesh(new T.BoxGeometry(5, .4, .2), black); prop.position.set(0, -9.6, -3.4); prop.name = 'blimpProp'; g.add(prop);
+  if (lit) { const bulb = new T.MeshBasicMaterial({color: '#fff1b8', fog: false, toneMapped: false}), win = new T.MeshBasicMaterial({color: '#ffd27a', fog: false, toneMapped: false}), bulbs = [];
+    for (let i = 0; i < 18; i++) { const a = i / 18 * Math.PI * 2; bulbs.push(new T.SphereGeometry(.38, 6, 4).translate(Math.sin(a) * 6.85, 8.6, Math.cos(a) * 6.85)); }
+    for (let i = 0; i < 26; i++) { const a = i / 26 * Math.PI * 2; bulbs.push(new T.SphereGeometry(.3, 6, 4).translate(Math.sin(a) * 9.6, 7.85, Math.cos(a) * 9.6)); }   // brim edge
+    const B = new T.Mesh(mergeGeometries(bulbs), bulb); B.name = 'blimpBulbs'; g.add(B);
+    for (const sx of [-1, 1]) { const w = new T.Mesh(new T.PlaneGeometry(4.4, .8), win); w.position.set(sx * 1.52, -9.5, 0); w.rotation.y = sx * Math.PI / 2; g.add(w); }
+    for (const [x, c] of [[-.8, '#ff4040'], [.8, '#40ff70']]) { const n = new T.Mesh(new T.SphereGeometry(.5, 6, 4), new T.MeshBasicMaterial({color: c, fog: false, toneMapped: false})); n.position.set(x * 9.6, 0, -13); g.add(n); }
+    g.traverse(o => { if (o.isMesh && o.geometry.type === 'SphereGeometry' && o.material === white) o.material = bulb; }); }   // the eyes glow
   return g;
 }
 function boat(o) {
@@ -104,6 +112,15 @@ export function keyArtProps(list) {
     if (p.kind === 'lamp' || p.kind === 'fence') { kit.push({kind: p.kind, at: p.at, yaw: p.kind === 'fence' ? p.yaw - Math.PI : 0, len: p.len}); continue; }   // a fence runs from the lens toward the subject (leading line)
     if (p.kind === 'railing') {   // Phase 1D: a short jetty end of REAL planks (kit dock: CC0 wood, gaps, edge trim, piles) + a rail on one side, from the lens toward the subject side
       kit.push({kind: 'dock', at: p.at, yaw: p.yaw - Math.PI / 2, len: p.len ?? 7, w: 2.8, rails: [-1], depth: 5, seed: 3}); continue; }
+    if (p.kind === 'piling') {   // Phase 1E: a weathered mooring pile standing in the water (or ground) at the frame edge, a rope coil on top
+      const wood = std('#8a6a4a', {roughness: .85}), top = std('#6e5238', {roughness: .9}), rope = std('#d9c38c', {roughness: .8}), h = p.h ?? 4.2, gp = new T.Group();
+      const pole = new T.Mesh(new T.CylinderGeometry(.36, .42, h + 4, 10), wood); pole.position.y = (h + 4) / 2 - 4; gp.add(pole); const cap = new T.Mesh(new T.CylinderGeometry(.4, .36, .25, 10), top); cap.position.y = h + .1; gp.add(cap);
+      for (const y of [h - .9, h - 1.25]) { const r = new T.Mesh(new T.TorusGeometry(.46, .09, 5, 14), rope); r.rotation.x = Math.PI / 2; r.position.y = y; gp.add(r); }
+      gp.position.set(...p.at); gp.traverse(o => { if (o.isMesh) o.userData.live = true; }); g.add(gp); continue; }
+    if (p.kind === 'signpost') {   // Phase 1E: a wooden trail signpost (arrows, no text) at the frame edge
+      const wood = std('#7a5a3c', {roughness: .85}), sp = new T.Group(), post = new T.Mesh(new T.BoxGeometry(.34, 3.6, .34), wood); post.position.y = 1.5; sp.add(post);
+      for (const [y, a, c] of [[2.7, .4, '#e8b04a'], [1.95, 2.6, '#d98a3a']]) { const b = new T.Mesh(new T.BoxGeometry(2, .6, .12), std(c, {roughness: .8})); b.position.set(Math.cos(a) * .9, y, -Math.sin(a) * .9); b.rotation.y = a; sp.add(b); }
+      sp.position.set(...p.at); sp.rotation.y = p.yaw ?? 0; sp.traverse(o => { if (o.isMesh) o.userData.live = true; }); g.add(sp); continue; }
     if (p.kind === 'mooring') { kit.push({kind: 'mooring', at: p.at}, {kind: 'rope', at: [p.at[0] + Math.sin(p.yaw) * .9, p.at[1], p.at[2] + Math.cos(p.yaw) * .9]}); continue; }
     if (p.kind === 'crate') { kit.push({kind: 'crate', at: p.at, yaw: p.yaw, n: 3}, {kind: 'barrel', at: [p.at[0] + Math.sin(p.yaw) * 1.5, p.at[1], p.at[2] + Math.cos(p.yaw) * 1.5]}); continue; }
     if (p.kind === 'boat') { const b = fishingBoat({color: p.color ?? '#2f78d4', trim: '#ffffff', len: p.len, w: p.w ?? 7.6, at: p.at, open: true}); b.g.position.set(p.at[0], p.at[1] - .92, p.at[2]); b.g.rotation.y = p.yaw; g.add(b.g); continue; }
@@ -122,7 +139,7 @@ export function keyArtProps(list) {
   return g;
 }
 
-export function livingTown({groundY, slots, roads, kitBuildings = [], focus = true}) {
+export function livingTown({groundY, slots, roads, kitBuildings = [], focus = true, lit = false, extra = []}) {   // Phase 1E: extra = [{name, obj, update(t)}] movers built elsewhere (wild edge)   // Phase 1E: lit = the look's v4.city.blimpLit
   const group = new T.Group(); group.name = 'cityLiving'; const movers = {}, upd = {}, R = rng(41);
   const add = (name, obj, fn) => { const g = new T.Group(); g.name = 'living:' + name; g.add(obj); group.add(g); movers[name] = g; upd[name] = fn; };
   // Hall roof flags
@@ -164,11 +181,13 @@ export function livingTown({groundY, slots, roads, kitBuildings = [], focus = tr
   { const g = new T.Group(), fs = LV.gullsHarbor.map((b, i) => { const x = birds({centre: b.centre, n: b.n, r: b.r, seed: 31 + i}); x.object.traverse(o => { if (o.isMesh) o.material = std('#fbfaf5'); }); g.add(x.object); return x; });
     add('gullsHarbor', g, t => fs.forEach(x => x.update(t))); }
   // the Governor blimp
-  { const b = governorBlimp(); b.scale.setScalar(LV.blimp.scale ?? 1); const prop = b.getObjectByName('blimpProp');
+  { const b = governorBlimp({lit}); b.scale.setScalar(LV.blimp.scale ?? 1); const prop = b.getObjectByName('blimpProp');
     add('blimp', b, t => { const s = blimpAt(t); b.position.set(...s.pos); b.rotation.set(0, s.yaw, 0); b.position.y += Math.sin(t * .4) * .6; prop.rotation.z = t * 9; }); }
+  for (const x of extra) add(x.name, x.obj, x.update);
+  const ALL = [...MOVERS, ...extra.map(x => x.name)];
   live(group);
-  let on = new Set(MOVERS);
-  const setFocus = f => { on = new Set(f === true || f == null ? MOVERS : [].concat(f)); for (const [k, g] of Object.entries(movers)) g.visible = on.has(k); };
+  let on = new Set(ALL);
+  const setFocus = f => { on = new Set(f === true || f == null ? ALL : [].concat(f)); for (const [k, g] of Object.entries(movers)) g.visible = on.has(k); };
   setFocus(focus); void R;
   const tris = {}; for (const [k, g] of Object.entries(movers)) { let n = 0; g.traverse(o => { if (o.isMesh) n += (o.geometry.index ? o.geometry.index.count : o.geometry.attributes.position.count) / 3 * (o.isInstancedMesh ? o.count : 1); }); tris[k] = Math.round(n); }
   return {group, movers, setFocus, get focus() { return [...on]; }, stats: {tris, total: Object.values(tris).reduce((a, b) => a + b, 0)},

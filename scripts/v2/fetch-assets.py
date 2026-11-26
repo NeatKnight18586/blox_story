@@ -4,7 +4,10 @@ Resolves each slot (first candidate id that exists, else the most-downloaded ass
 maps into renders/cache/assets/<id>/ and writes renders/cache/assets/manifest.json (what the page loads) plus
 assets/LICENSES.md (source URL per asset, CC0; hand-written sections from "## HDRI backdrops" on are kept). Refuses any file >
 maxFileBytes. Phase 1A: `models` slots download a glTF model (the .gltf plus every file it includes: .bin, textures, at their
-relative paths; each ≤ maxModelBytes) → manifest `models[slot] = {id, file, bytes, url}`. Stdlib only.
+relative paths; each ≤ maxModelBytes) → manifest `models[slot] = {id, file, bytes, url}`. Phase 1E: a model slot with
+`"pick": "lightest"` ranks its candidates + every `search` hit (`exclude` words dropped) by total glTF bytes at the slot's resolution
+(sizes from the files API, nothing downloaded) and takes the lightest whose every file fits maxModelBytes; the ranking is written to
+manifest `modelsConsidered[slot]` (the report quotes it). Stdlib only.
   python3 scripts/v2/fetch-assets.py [--list assets/realism.json] [--out renders/cache/assets]
 """
 import argparse, json, os, sys, urllib.request
@@ -87,7 +90,21 @@ def main():
         for slot, s in spec['models'].items():
             cands = [c for c in s.get('candidates', []) if c in mo]
             q = s.get('search', '').lower()
-            cands += [k for _, k in sorted(((v.get('download_count', 0), k) for k, v in mo.items() if q and (q in k or q in v.get('name', '').lower())), reverse=True)[:3] if k not in cands]
+            if s.get('pick') == 'lightest':   # Phase 1E: every search hit (any of the |-separated words), lightest first
+                ws, ex = [w for w in q.split('|') if w], [w for w in s.get('exclude', []) if w]
+                hits = [k for k, v in mo.items() if any(w in k or w in v.get('name', '').lower() or w in ' '.join(v.get('tags', [])).lower() for w in ws) and not any(x in k for x in ex)]
+                cands += [k for k in hits if k not in cands]
+                sized = []
+                for aid in cands[:40]:
+                    g = get(f'{API}/files/{aid}').get(mfmt, {}).get(s.get('resolution', res), {}).get(mfmt)
+                    if not g: continue
+                    files = [g.get('size', 0)] + [inc.get('size', 0) for inc in (g.get('include') or {}).values()]
+                    sized.append((sum(files), max(files), aid))
+                sized.sort(); man.setdefault('modelsConsidered', {})[slot] = [{'id': a, 'bytes': t, 'maxFile': m} for t, m, a in sized]
+                cands = [a for t, m, a in sized if m <= mlimit]
+                print(f'{slot}: lightest candidates', [(a, t) for t, m, a in sized[:8]], file=sys.stderr)
+            else:
+                cands += [k for _, k in sorted(((v.get('download_count', 0), k) for k, v in mo.items() if q and (q in k or q in v.get('name', '').lower())), reverse=True)[:3] if k not in cands]
             for aid in cands:   # first candidate whose files all fit maxModelBytes (an oversized one is skipped, not fatal)
                 g = get(f'{API}/files/{aid}').get(mfmt, {}).get(s.get('resolution', res), {}).get(mfmt)
                 if not g:

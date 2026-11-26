@@ -1,0 +1,135 @@
+{
+ "slug": "city1e",
+ "fps": 24,
+ "format": 6,
+ "labels": false,
+ "world": "parts/city/world.js",
+ "look4": "cityDusk",
+ "rig": "r6",
+ "cityKeyArt": [
+  "bayNorth"
+ ],
+ "cityLiving": true,
+ "cast": {
+  "hero": {
+   "troupe": "HERO",
+   "style": "v5",
+   "faceStyle": "v6",
+   "at": "ka_bayNorth",
+   "offset": [
+    0,
+    0,
+    0
+   ],
+   "yaw": 10.5,
+   "keys": [
+    [
+     0,
+     "idle"
+    ]
+   ],
+   "marks": [
+    [
+     0,
+     {
+      "at": "ka_bayNorth",
+      "offset": [
+       0,
+       0,
+       0
+      ],
+      "yaw": 10.5
+     }
+    ]
+   ]
+  },
+  "kidL": {
+   "troupe": "LITTLE",
+   "style": "v5",
+   "faceStyle": "v6",
+   "at": "ka_bayNorth",
+   "offset": [
+    2.797,
+    0,
+    -0.824
+   ],
+   "yaw": 0.5,
+   "keys": [
+    [
+     0,
+     "idle"
+    ]
+   ],
+   "marks": [
+    [
+     0,
+     {
+      "at": "ka_bayNorth",
+      "offset": [
+       2.797,
+       0,
+       -0.824
+      ],
+      "yaw": 0.5
+     }
+    ]
+   ]
+  },
+  "kidS": {
+   "troupe": "SECOND",
+   "style": "v5",
+   "faceStyle": "v6",
+   "at": "ka_bayNorth",
+   "offset": [
+    5.003,
+    0,
+    -1.539
+   ],
+   "yaw": -7.5,
+   "keys": [
+    [
+     0,
+     "idle"
+    ]
+   ],
+   "marks": [
+    [
+     0,
+     {
+      "at": "ka_bayNorth",
+      "offset": [
+       5.003,
+       0,
+       -1.539
+      ],
+      "yaw": -7.5
+     }
+    ]
+   ]
+  }
+ },
+ "note": "Phase 1E gate (scripts/v2/city1e-gate.js from plan.json keyArt + keyArtStaging): HERO + LITTLE + SECOND beside each other at every key-art subject, t = 100 × row; look cityDusk + outline classic.",
+ "shots": [
+  {
+   "id": "k0",
+   "size": "wide",
+   "frames": 6,
+   "move": "static-drift",
+   "drift": 0,
+   "from": {
+    "position": [
+     12,
+     3.1,
+     110
+    ],
+    "target": [
+     8.03513169982746,
+     6.54155823088508,
+     88.63564893787517
+    ],
+    "fov": 62
+   },
+   "shadowRadius": 30
+  }
+ ]
+}
