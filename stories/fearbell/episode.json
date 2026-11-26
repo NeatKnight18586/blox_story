@@ -4,18 +4,130 @@
  "format": 7,
  "lengthVariant": "long",
  "captionStyle": "pop-shorts-v7",
+ "faceStyle": "v6",
+ "acting": 6,
  "labels": false,
  "hero": "hero",
- "rig": "r6",
- "acting": 6,
- "twos": true,
  "world": "parts/city/world.js",
+ "cues": "stories/fearbell/cues.json",
+ "end": 85.949,
+ "brief": {
+  "title": "In this town, your WORST FEAR spawns! 🔔 #shorts #roblox",
+  "ruleLine": "\"In this town, the Fear Bell spawns your worst fear.\"",
+  "palette": "cityDay v2 + outline classic (look B)",
+  "colourScript": "(not in the PICTURE_LOCK)",
+  "setting": "the city (parts/city), Fear Bell episode",
+  "props": [],
+  "payoff": {
+   "shows": "row 51 — a tiny shadow puff in Lulu's palm, blinking cutely; daylight floods the plaza",
+   "light": "brightest, held frame"
+  }
+ },
+ "emphasis6": [
+  {
+   "word": "worst",
+   "t": 2.24,
+   "shot": "S03"
+  },
+  {
+   "word": "Heights.",
+   "t": 5.955,
+   "shot": "S06"
+  },
+  {
+   "word": "dinosaur.",
+   "t": 7.68,
+   "shot": "S08"
+  },
+  {
+   "word": "rat.",
+   "t": 10.36,
+   "shot": "S10"
+  },
+  {
+   "word": "cheeseburger.",
+   "t": 12.52,
+   "shot": "S12"
+  },
+  {
+   "word": "my",
+   "t": 16.44,
+   "shot": "S15"
+  },
+  {
+   "word": "vacuum cleaner.",
+   "t": 24.16,
+   "shot": "S19"
+  },
+  {
+   "word": "bite",
+   "t": 29.2,
+   "shot": "S22"
+  },
+  {
+   "word": "smaller?",
+   "t": 31.372,
+   "shot": "S23"
+  },
+  {
+   "word": "dark.",
+   "t": 33.8,
+   "shot": "S24"
+  },
+  {
+   "word": "petting",
+   "t": 42.96,
+   "shot": "S29"
+  },
+  {
+   "word": "mouse.",
+   "t": 44.36,
+   "shot": "S30"
+  },
+  {
+   "word": "too",
+   "t": 46.08,
+   "shot": "S31"
+  },
+  {
+   "word": "noon.",
+   "t": 50.24,
+   "shot": "S34"
+  },
+  {
+   "word": "GIANT.",
+   "t": 52.16,
+   "shot": "S35"
+  },
+  {
+   "word": "away",
+   "t": 56.8,
+   "shot": "S38"
+  },
+  {
+   "word": "scared.",
+   "t": 67.6,
+   "shot": "S44"
+  },
+  {
+   "word": "shrank.",
+   "t": 74.36,
+   "shot": "S49"
+  },
+  {
+   "word": "worst",
+   "t": 79.16,
+   "shot": "S52"
+  }
+ ],
  "look4": "cityDay2",
  "locations": [
   "city",
   "cityClassroom",
   "cityDining"
  ],
+ "rig": "r6",
+ "twos": true,
  "cityLiving": [
   "flagsHall",
   "fountain",
@@ -23,9 +135,7 @@
   "gulls",
   "blimp"
  ],
- "cues": "stories/fearbell/cues.json",
- "end": 85.949,
- "note": "Fear Bell PREVIS (stories/fearbell/previs.js from BRIEF.md rows; built assets only, no look/world polish). Shots are static/push in previs; briefMove keeps the Brief camera for ANIMATIC.",
+ "note": "Fear Bell PREVIS pass 2: scripts/v2/brief2spec.js from BRIEF.md (shots, cuts, cast slots, emphasis, flags) + stories/fearbell/previs.js blocking overrides (cameras, marks, creatures, props, clock, gaps). Shots are static/push in previs; briefMove keeps the Brief camera for ANIMATIC.",
  "audio": {
   "gaps": [
    {
@@ -159,9 +269,9 @@
    },
    "fx": "pop",
    "pos": [
-    -131.49,
+    -154.23,
     18.46,
-    6.223
+    -6.383
    ],
    "scale": 5
   },
@@ -172,9 +282,9 @@
    },
    "fx": "pop",
    "pos": [
-    -115.02,
-    3.317,
-    90.36
+    225.038,
+    1.516,
+    289.146
    ],
    "scale": 1.4
   },
@@ -255,9 +365,9 @@
    },
    "fx": "pop",
    "pos": [
-    3.6,
+    0.9,
     1.6,
-    -2.4
+    -0.7
    ],
    "scale": 1.6,
    "room": "cityDining"
@@ -287,9 +397,9 @@
    "at": 82.02,
    "fx": "pop",
    "pos": [
-    -114.621,
-    13.241000000000001,
-    10.547
+    -110.354,
+    11.045,
+    20.637
    ],
    "scale": 1.6,
    "show": "prop_burgerY"
@@ -457,7 +567,7 @@
      "gov_oops"
     ],
     [
-     48.388,
+     48.39,
      "gov_panic"
     ]
    ]
@@ -538,7 +648,7 @@
      "smile"
     ],
     [
-     6.055,
+     6.06,
      "terrified"
     ],
     [
@@ -557,7 +667,7 @@
     11.46,
     -0.08000000000000007
    ],
-   "yaw": -119,
+   "yaw": 61,
    "marks": [
     [
      6.607,
@@ -567,7 +677,7 @@
        11.46,
        -0.08000000000000007
       ],
-      "yaw": -119
+      "yaw": 61
      }
     ],
     [
@@ -632,45 +742,113 @@
     ]
    ]
   },
+  "heroC": {
+   "troupe": "HERO",
+   "style": "v5",
+   "faceStyle": "v6",
+   "origin": [
+    -144.37,
+    11.399,
+    -4.576
+   ],
+   "yaw": -29.00000000000001,
+   "marks": [
+    [
+     7.623,
+     {
+      "origin": [
+       -144.37,
+       11.399,
+       -4.576
+      ],
+      "yaw": -29,
+      "travel": {
+       "dir": [
+        -0.4848096202463371,
+        0.8746197071393957
+       ],
+       "speed": 0.5
+      }
+     }
+    ]
+   ],
+   "visible": [
+    [
+     0,
+     false
+    ],
+    [
+     7.623,
+     true
+    ],
+    [
+     8.61,
+     false
+    ]
+   ],
+   "keys": [
+    [
+     0,
+     "idle"
+    ]
+   ],
+   "faces": [
+    [
+     7.623,
+     "warm"
+    ]
+   ]
+  },
   "bb": {
    "troupe": "ELDER",
    "costume": "BODYBUILDER",
    "style": "v5",
    "faceStyle": "v6",
    "origin": [
-    -112.5,
-    2.317,
-    89
+    224.8,
+    0.516,
+    292
    ],
-   "yaw": -36.86989764584402,
+   "yaw": -160.00057593816777,
    "marks": [
     [
      8.61,
      {
       "origin": [
-       -112.5,
-       2.317,
-       89
+       224.8,
+       0.516,
+       292
       ],
-      "yaw": -36.87
+      "yaw": -160
+     }
+    ],
+    [
+     10.66,
+     {
+      "origin": [
+       229,
+       2.13,
+       290.5
+      ],
+      "yaw": -220
      }
     ],
     [
      42.049,
      {
       "origin": [
-       -112.5,
-       2.317,
-       89
+       224.8,
+       0.516,
+       292
       ],
-      "yaw": -36.87
+      "yaw": -160
      }
     ],
     [
      77.74,
      {
       "origin": [
-       -2.5,
+       -2.6,
        14,
        25.5
       ],
@@ -746,221 +924,6 @@
     [
      77.74,
      "grin"
-    ]
-   ]
-  },
-  "hero": {
-   "troupe": "HERO",
-   "style": "v5",
-   "faceStyle": "v6",
-   "origin": [
-    -106.14,
-    2.3,
-    87.52
-   ],
-   "yaw": -126.86989764584402,
-   "marks": [
-    [
-     8.61,
-     {
-      "origin": [
-       -106.14,
-       2.3,
-       87.52
-      ],
-      "yaw": -126.87,
-      "travel": {
-       "dir": [
-        -0.8,
-        -0.6
-       ],
-       "speed": 0.9
-      }
-     }
-    ],
-    [
-     13.479,
-     {
-      "origin": [
-       -6,
-       14,
-       16
-      ],
-      "yaw": 200
-     }
-    ],
-    [
-     57.843,
-     {
-      "origin": [
-       4,
-       12.275,
-       37
-      ],
-      "yaw": 180
-     }
-    ],
-    [
-     64.578,
-     {
-      "origin": [
-       4,
-       12.275,
-       34
-      ],
-      "yaw": 180,
-      "travel": {
-       "dir": [
-        0,
-        -1
-       ],
-       "speed": 2.2
-      }
-     }
-    ],
-    [
-     74.071,
-     {
-      "origin": [
-       -8.211,
-       14,
-       14.301
-      ],
-      "yaw": -20
-     }
-    ],
-    [
-     80.135,
-     {
-      "origin": [
-       -114,
-       12.341,
-       13
-      ],
-      "yaw": 122.63
-     }
-    ]
-   ],
-   "visible": [
-    [
-     0,
-     false
-    ],
-    [
-     8.61,
-     true
-    ],
-    [
-     10.946,
-     false
-    ],
-    [
-     13.479,
-     true
-    ],
-    [
-     17.383,
-     false
-    ],
-    [
-     57.843,
-     true
-    ],
-    [
-     64.578,
-     false
-    ],
-    [
-     64.578,
-     true
-    ],
-    [
-     65.901,
-     false
-    ],
-    [
-     74.071,
-     true
-    ],
-    [
-     80.135,
-     false
-    ],
-    [
-     80.135,
-     true
-    ],
-    [
-     85.238,
-     false
-    ]
-   ],
-   "keys": [
-    [
-     0,
-     "idle"
-    ],
-    [
-     13.479,
-     "idle"
-    ]
-   ],
-   "faces": [
-    [
-     8.61,
-     "smile"
-    ],
-    [
-     13.479,
-     "neutral"
-    ],
-    [
-     15.867,
-     "thinking"
-    ],
-    [
-     57.843,
-     "determined"
-    ],
-    [
-     59.565,
-     "yell"
-    ],
-    [
-     61.224,
-     "sad_soft"
-    ],
-    [
-     63.072,
-     "thinking"
-    ],
-    [
-     64.578,
-     "determined"
-    ],
-    [
-     74.071,
-     "awe"
-    ],
-    [
-     76.387,
-     "grin"
-    ],
-    [
-     80.135,
-     "smile"
-    ],
-    [
-     81.32000000000001,
-     "shock"
-    ],
-    [
-     84.499,
-     "shock"
-    ],
-    [
-     84.66,
-     "smirk"
     ]
    ]
   },
@@ -1090,8 +1053,8 @@
      "determined"
     ],
     [
-     29.2,
-     "nervous_laugh"
+     29,
+     "cry"
     ],
     [
      30.247,
@@ -1104,6 +1067,256 @@
     [
      77.74,
      "grin"
+    ]
+   ]
+  },
+  "hero": {
+   "troupe": "HERO",
+   "style": "v5",
+   "faceStyle": "v6",
+   "origin": [
+    -6,
+    14,
+    16
+   ],
+   "yaw": 200,
+   "marks": [
+    [
+     13.479,
+     {
+      "origin": [
+       -6,
+       14,
+       16
+      ],
+      "yaw": 200
+     }
+    ],
+    [
+     14.814,
+     {
+      "origin": [
+       -6,
+       14,
+       16
+      ],
+      "yaw": 150
+     }
+    ],
+    [
+     15.867,
+     {
+      "origin": [
+       -17,
+       14,
+       12
+      ],
+      "yaw": 166.72
+     }
+    ],
+    [
+     57.843,
+     {
+      "origin": [
+       4,
+       14,
+       31.6
+      ],
+      "yaw": 180
+     }
+    ],
+    [
+     64.578,
+     {
+      "origin": [
+       4,
+       14,
+       34.1
+      ],
+      "yaw": 180,
+      "travel": {
+       "dir": [
+        0,
+        -1
+       ],
+       "speed": 2.2
+      }
+     }
+    ],
+    [
+     74.071,
+     {
+      "origin": [
+       -5.196,
+       14,
+       13.522
+      ],
+      "yaw": 20
+     }
+    ],
+    [
+     80.135,
+     {
+      "origin": [
+       -112,
+       10.245,
+       19.5
+      ],
+      "yaw": 125.37
+     }
+    ],
+    [
+     84.499,
+     {
+      "origin": [
+       -112,
+       10.245,
+       19.5
+      ],
+      "yaw": 55.37
+     }
+    ]
+   ],
+   "visible": [
+    [
+     0,
+     false
+    ],
+    [
+     13.479,
+     true
+    ],
+    [
+     14.814,
+     false
+    ],
+    [
+     14.814,
+     true
+    ],
+    [
+     15.867,
+     false
+    ],
+    [
+     15.867,
+     true
+    ],
+    [
+     17.383,
+     false
+    ],
+    [
+     57.843,
+     true
+    ],
+    [
+     64.578,
+     false
+    ],
+    [
+     64.578,
+     true
+    ],
+    [
+     65.901,
+     false
+    ],
+    [
+     74.071,
+     true
+    ],
+    [
+     80.135,
+     false
+    ],
+    [
+     80.135,
+     true
+    ],
+    [
+     84.499,
+     false
+    ],
+    [
+     84.499,
+     true
+    ],
+    [
+     85.24,
+     false
+    ]
+   ],
+   "keys": [
+    [
+     0,
+     "idle"
+    ],
+    [
+     13.479,
+     "idle"
+    ],
+    [
+     14.814,
+     "idle"
+    ]
+   ],
+   "faces": [
+    [
+     13.479,
+     "neutral"
+    ],
+    [
+     14.814,
+     "thinking"
+    ],
+    [
+     15.867,
+     "thinking"
+    ],
+    [
+     57.843,
+     "determined"
+    ],
+    [
+     59.565,
+     "yell"
+    ],
+    [
+     61.224,
+     "sad_soft"
+    ],
+    [
+     63.072,
+     "thinking"
+    ],
+    [
+     64.578,
+     "determined"
+    ],
+    [
+     74.071,
+     "awe"
+    ],
+    [
+     76.387,
+     "grin"
+    ],
+    [
+     80.135,
+     "smile"
+    ],
+    [
+     81.32000000000001,
+     "shock"
+    ],
+    [
+     84.499,
+     "shock"
+    ],
+    [
+     84.51,
+     "deadpan"
     ]
    ]
   },
@@ -1211,6 +1424,24 @@
       ],
       "yaw": 180
      }
+    ],
+    [
+     21.751,
+     {
+      "origin": [
+       8.4,
+       0,
+       6.6
+      ],
+      "yaw": 82,
+      "travel": {
+       "dir": [
+        0.99,
+        0.14
+       ],
+       "speed": 4
+      }
+     }
     ]
    ],
    "visible": [
@@ -1220,6 +1451,14 @@
     ],
     [
      17.383,
+     true
+    ],
+    [
+     21.751,
+     false
+    ],
+    [
+     21.751,
      true
     ],
     [
@@ -1239,7 +1478,7 @@
      "smile"
     ],
     [
-     22.08,
+     21.751,
      "grin"
     ]
    ]
@@ -1266,6 +1505,24 @@
       ],
       "yaw": 160
      }
+    ],
+    [
+     21.751,
+     {
+      "origin": [
+       6.2,
+       0,
+       5.2
+      ],
+      "yaw": 70,
+      "travel": {
+       "dir": [
+        0.94,
+        0.34
+       ],
+       "speed": 4
+      }
+     }
     ]
    ],
    "visible": [
@@ -1275,6 +1532,14 @@
     ],
     [
      17.383,
+     true
+    ],
+    [
+     21.751,
+     false
+    ],
+    [
+     21.751,
      true
     ],
     [
@@ -1294,7 +1559,7 @@
      "smile"
     ],
     [
-     22.08,
+     21.751,
      "laugh"
     ]
    ]
@@ -1638,6 +1903,17 @@
      }
     ],
     [
+     39.99,
+     {
+      "origin": [
+       7.5,
+       0,
+       3.5
+      ],
+      "yaw": 262
+     }
+    ],
+    [
      65.901,
      {
       "origin": [
@@ -1656,6 +1932,14 @@
     ],
     [
      36.831,
+     true
+    ],
+    [
+     39.99,
+     false
+    ],
+    [
+     39.99,
      true
     ],
     [
@@ -1765,7 +2049,7 @@
    "acts": [
     {
      "act": "rise",
-     "at": 5.955
+     "at": 5.96
     }
    ],
    "visible": [
@@ -1774,7 +2058,7 @@
      false
     ],
     [
-     5.955,
+     5.96,
      true
     ],
     [
@@ -1787,11 +2071,11 @@
    "id": "trex",
    "kind": "trex",
    "pos": [
-    -131.49,
-    11.92,
-    6.223
+    -154.23,
+    11.001,
+    -6.383
    ],
-   "yaw": -119,
+   "yaw": 61,
    "acts": [
     {
      "act": "roar",
@@ -1817,11 +2101,11 @@
    "id": "rat",
    "kind": "rat",
    "pos": [
-    -115.02,
-    2.362,
-    90.36
+    225.038,
+    1,
+    289.146
    ],
-   "yaw": 143.13010235415598,
+   "yaw": 19.99942406183223,
    "scale": 1.5,
    "acts": [],
    "visible": [
@@ -1843,9 +2127,30 @@
    "id": "spider",
    "kind": "spider",
    "pos": [
-    -1,
-    0,
-    -4.2
+    [
+     0,
+     [
+      -1,
+      0,
+      -4.2
+     ]
+    ],
+    [
+     18.919999999999998,
+     [
+      -1,
+      0,
+      -4.2
+     ]
+    ],
+    [
+     20.2,
+     [
+      -1,
+      0,
+      -3.2
+     ]
+    ]
    ],
    "yaw": 180,
    "scale": 0.55,
@@ -1861,11 +2166,11 @@
      false
     ],
     [
-     18.72,
+     18.82,
      true
     ],
     [
-     22.814,
+     21.751,
      false
     ]
    ],
@@ -1875,11 +2180,11 @@
    "id": "vacuum",
    "kind": "vacuum",
    "pos": [
-    3.6,
+    0.4,
     0,
-    -2.4
+    -0.9
    ],
-   "yaw": -60,
+   "yaw": -150,
    "scale": 0.45,
    "acts": [
     {
@@ -1910,9 +2215,9 @@
    "kind": "shadowPuff",
    "follow": "lulu",
    "offset": [
-    1.4,
-    1,
-    0.3
+    1.7,
+    -1.5,
+    0.2
    ],
    "acts": [],
    "visible": [
@@ -1925,7 +2230,7 @@
      true
     ],
     [
-     36.831,
+     34.333,
      false
     ]
    ]
@@ -1935,9 +2240,9 @@
    "kind": "shadowPuff",
    "follow": "lulu",
    "offset": [
-    -1.2,
-    1,
-    0.3
+    -1.9,
+    -1.4,
+    0.4
    ],
    "acts": [],
    "visible": [
@@ -1960,11 +2265,11 @@
    "id": "rat2",
    "kind": "rat",
    "pos": [
-    -112.047,
-    6.03,
-    92.293
+    221.795,
+    4.229,
+    290.58
    ],
-   "yaw": -36.86989764584402,
+   "yaw": -160.00057593816777,
    "scale": 1.2,
    "acts": [
     {
@@ -2181,6 +2486,31 @@
    ]
   },
   {
+   "id": "eyesAbove",
+   "kind": "shadowPuff",
+   "pos": [
+    -1.3,
+    25,
+    6.8
+   ],
+   "scale": 6,
+   "acts": [],
+   "visible": [
+    [
+     0,
+     false
+    ],
+    [
+     70.79,
+     true
+    ],
+    [
+     72.269,
+     false
+    ]
+   ]
+  },
+  {
    "id": "domeS",
    "kind": "dome",
    "pos": [
@@ -2207,37 +2537,6 @@
     ],
     [
      77.74,
-     false
-    ]
-   ]
-  },
-  {
-   "id": "mouse",
-   "kind": "rat",
-   "pos": [
-    -0.838,
-    19.602,
-    25.207
-   ],
-   "yaw": 10,
-   "scale": 1,
-   "acts": [
-    {
-     "act": "shrink",
-     "at": 0
-    }
-   ],
-   "visible": [
-    [
-     0,
-     false
-    ],
-    [
-     77.74,
-     true
-    ],
-    [
-     80.135,
      false
     ]
    ]
@@ -2322,6 +2621,58 @@
    "animAt": 3.84
   },
   {
+   "id": "can",
+   "set": "props1g",
+   "prop": "wateringCan",
+   "pos": [
+    [
+     0,
+     [
+      0,
+      -400,
+      0
+     ]
+    ],
+    [
+     4.91,
+     [
+      -154.17,
+      11.003,
+      6.289999999999999
+     ]
+    ],
+    [
+     5.955,
+     [
+      0,
+      -400,
+      0
+     ]
+    ]
+   ],
+   "attach": {
+    "actor": "pickles",
+    "part": "rightArm",
+    "offset": [
+     0,
+     -1.05,
+     0.15
+    ],
+    "orient": true
+   },
+   "rot": [
+    [
+     0,
+     [
+      90,
+      0,
+      0
+     ]
+    ]
+   ],
+   "animAt": 5.16
+  },
+  {
    "id": "mail",
    "set": "props1g",
    "prop": "mailBurst",
@@ -2352,6 +2703,57 @@
     ]
    ],
    "animAt": 7.83
+  },
+  {
+   "id": "juice",
+   "set": "props1g",
+   "prop": "juiceCup",
+   "pos": [
+    [
+     0,
+     [
+      0,
+      -400,
+      0
+     ]
+    ],
+    [
+     7.623,
+     [
+      -144.37,
+      11.46,
+      -4.576
+     ]
+    ],
+    [
+     8.61,
+     [
+      0,
+      -400,
+      0
+     ]
+    ]
+   ],
+   "attach": {
+    "actor": "heroC",
+    "part": "rightArm",
+    "offset": [
+     0,
+     -1,
+     0.1
+    ],
+    "orient": true
+   },
+   "rot": [
+    [
+     0,
+     [
+      90,
+      0,
+      0
+     ]
+    ]
+   ]
   },
   {
    "id": "burger",
@@ -2417,6 +2819,42 @@
    ]
   },
   {
+   "id": "leaf",
+   "set": "props1g",
+   "prop": "leaf",
+   "pos": [
+    [
+     0,
+     [
+      0,
+      -400,
+      0
+     ]
+    ],
+    [
+     14.814,
+     [
+      -6.18,
+      19,
+      12.873
+     ]
+    ],
+    [
+     15.867,
+     [
+      -7.376,
+      18.7,
+      13.096
+     ],
+     "ramp"
+    ]
+   ],
+   "animAt": 14.814,
+   "p": {
+    "size": 0.45
+   }
+  },
+  {
    "id": "spag",
    "set": "props1g",
    "prop": "spaghetti",
@@ -2470,6 +2908,90 @@
      ]
     ],
     [
+     28.319,
+     [
+      0,
+      -400,
+      0
+     ]
+    ]
+   ],
+   "animAt": 999
+  },
+  {
+   "id": "burgerBite",
+   "set": "props1g",
+   "prop": "burger",
+   "pos": [
+    [
+     0,
+     [
+      0,
+      -400,
+      0
+     ]
+    ],
+    [
+     28.319,
+     [
+      264.08,
+      3.25,
+      160.237
+     ]
+    ],
+    [
+     30.247,
+     [
+      0,
+      -400,
+      0
+     ]
+    ]
+   ],
+   "attach": {
+    "actor": "kevin",
+    "part": "rightArm",
+    "offset": [
+     0,
+     -1.15,
+     0.1
+    ],
+    "orient": true
+   },
+   "rot": [
+    [
+     0,
+     [
+      90,
+      0,
+      0
+     ]
+    ]
+   ],
+   "scale": 0.85
+  },
+  {
+   "id": "burger3",
+   "set": "props1g",
+   "prop": "burger",
+   "pos": [
+    [
+     0,
+     [
+      0,
+      -400,
+      0
+     ]
+    ],
+    [
+     30.247,
+     [
+      262.635,
+      5.147,
+      158.32
+     ]
+    ],
+    [
      32.281,
      [
       0,
@@ -2478,7 +3000,7 @@
      ]
     ]
    ],
-   "animAt": 31.372
+   "animAt": 31.37
   },
   {
    "id": "plate2",
@@ -2562,9 +3084,9 @@
     [
      77.74,
      [
-      -0.049,
-      17.034,
-      26.184
+      1,
+      14,
+      25
      ]
     ],
     [
@@ -2576,13 +3098,73 @@
      ]
     ]
    ],
-   "animAt": 0,
-   "scale": 0.8
+   "attach": {
+    "actor": "kevin",
+    "part": "rightArm",
+    "offset": [
+     0,
+     -1.15,
+     0.25
+    ],
+    "orient": true
+   },
+   "rot": [
+    [
+     0,
+     [
+      90,
+      0,
+      0
+     ]
+    ]
+   ],
+   "scale": 0.5
+  },
+  {
+   "id": "mouse",
+   "set": "props1g",
+   "prop": "mouse",
+   "pos": [
+    [
+     0,
+     [
+      0,
+      -400,
+      0
+     ]
+    ],
+    [
+     77.74,
+     [
+      -2.6,
+      14,
+      25.5
+     ]
+    ],
+    [
+     80.135,
+     [
+      0,
+      -400,
+      0
+     ]
+    ]
+   ],
+   "attach": {
+    "actor": "bb",
+    "part": "torso",
+    "offset": [
+     0.62,
+     1,
+     0
+    ]
+   },
+   "scale": 1.4
   },
   {
    "id": "burgerY",
    "set": "props1g",
-   "prop": "burger",
+   "prop": "cheeseburger",
    "pos": [
     [
      0,
@@ -2595,22 +3177,86 @@
     [
      80.135,
      [
-      -114.621,
-      12.441,
-      10.547
+      -110.354,
+      10.245,
+      20.637
      ]
     ]
    ],
-   "scale": 1.4
+   "scale": 1.5,
+   "rot": [
+    [
+     0,
+     [
+      0,
+      30,
+      0
+     ]
+    ]
+   ]
   }
  ],
+ "worldState": {
+  "drawer": [
+   [
+    0,
+    0
+   ],
+   [
+    17.383,
+    0
+   ],
+   [
+    18.619999999999997,
+    1,
+    "ramp",
+    0.5
+   ],
+   [
+    22.814,
+    1
+   ],
+   [
+    22.824,
+    0
+   ]
+  ],
+  "clockTime": [
+   [
+    0,
+    null
+   ],
+   [
+    49.101,
+    "12:00"
+   ],
+   [
+    80.135,
+    null
+   ]
+  ]
+ },
  "shots": [
   {
-   "id": "r01",
-   "row": 1,
+   "id": "S01",
+   "tplKind": "cu",
+   "loc": "city",
+   "mood": "fun",
    "size": "close",
-   "frames": 20,
    "move": "static-drift",
+   "why": "fun: In this town,",
+   "see": [
+    "bell"
+   ],
+   "vo": "In this town,",
+   "cue": [
+    0,
+    0.84
+   ],
+   "prop": "prop_bell",
+   "openHit": true,
+   "row": 1,
+   "frames": 20,
    "drift": 0,
    "from": {
     "position": [
@@ -2625,16 +3271,31 @@
     ],
     "fov": 44
    },
-   "loc": "city",
-   "briefMove": "crashZoom out from the bell",
+   "leakOk": [
+    "slot:2"
+   ],
+   "briefMove": "crashZoom",
    "shadowRadius": 30
   },
   {
-   "id": "r02",
-   "row": 2,
+   "id": "S02",
+   "tplKind": "wide",
+   "loc": "city",
+   "mood": "fun",
    "size": "wide",
-   "frames": 28,
    "move": "static-drift",
+   "why": "fun: the Fear Bell spawns",
+   "see": [
+    "town"
+   ],
+   "vo": "the Fear Bell spawns",
+   "cue": [
+    0.84,
+    2
+   ],
+   "subject": "town",
+   "row": 2,
+   "frames": 28,
    "drift": 0,
    "from": {
     "position": [
@@ -2649,16 +3310,33 @@
     ],
     "fov": 64
    },
-   "loc": "city",
-   "briefMove": "wide drone over the plaza",
+   "briefMove": "drone",
    "shadowRadius": 30
   },
   {
-   "id": "r03",
-   "row": 3,
+   "id": "S03",
+   "tplKind": "cu",
+   "loc": "city",
+   "mood": "comedy",
    "size": "close",
-   "frames": 29,
    "move": "static-drift",
+   "why": "comedy: your worst fear.",
+   "see": [
+    "ghost",
+    "buslady"
+   ],
+   "vo": "your worst fear.",
+   "cue": [
+    2,
+    3.19
+   ],
+   "subject": "ghost",
+   "pair": [
+    "ghost",
+    "buslady"
+   ],
+   "row": 3,
+   "frames": 29,
    "drift": 0,
    "from": {
     "position": [
@@ -2673,16 +3351,28 @@
     ],
     "fov": 66
    },
-   "loc": "city",
-   "briefMove": "snap in to CU, then two",
+   "briefMove": "snap",
    "shadowRadius": 30
   },
   {
-   "id": "r04",
-   "row": 4,
+   "id": "S04",
+   "tplKind": "ms",
+   "loc": "city",
+   "mood": "fun",
    "size": "medium",
-   "frames": 41,
    "move": "static-drift",
+   "why": "fun: Every morning, the Governor rings it.",
+   "see": [
+    "governor"
+   ],
+   "vo": "Every morning, the Governor rings it.",
+   "cue": [
+    3.19,
+    4.91
+   ],
+   "subject": "governor",
+   "row": 4,
+   "frames": 41,
    "drift": 0,
    "from": {
     "position": [
@@ -2697,8 +3387,10 @@
     ],
     "fov": 40
    },
-   "loc": "city",
-   "briefMove": "low angle up at the balcony",
+   "leakOk": [
+    "slot:2"
+   ],
+   "briefMove": "heroLow",
    "shadowRadius": 30,
    "actions": [
     {
@@ -2709,187 +3401,313 @@
    ]
   },
   {
-   "id": "r05",
+   "id": "S05",
+   "tplKind": "ms",
+   "loc": "city",
+   "mood": "fun",
+   "size": "medium",
+   "move": "static-drift",
+   "why": "fun: Mr. Pickles' fear?",
+   "see": [
+    "pickles"
+   ],
+   "vo": "Mr. Pickles' fear?",
+   "cue": [
+    4.91,
+    5.96
+   ],
+   "subject": "pickles",
    "row": 5,
-   "size": "medium",
    "frames": 25,
-   "move": "static-drift",
    "drift": 0,
    "from": {
     "position": [
-     -163.886,
-     13.603,
-     3.191
+     -165.44,
+     13.403,
+     2.901
     ],
     "target": [
-     -154.17,
-     14.003,
-     6.29
+     -154.461,
+     13.703,
+     6.815
     ],
     "fov": 44
    },
-   "loc": "city",
-   "briefMove": "medium",
-   "shadowRadius": 30
-  },
-  {
-   "id": "r06",
-   "row": 6,
-   "size": "medium",
-   "frames": 16,
-   "move": "static-drift",
-   "drift": 0,
-   "from": {
-    "position": [
-     -182.348,
-     13.003,
-     -4.756
-    ],
-    "target": [
-     -154.17,
-     41.003,
-     6.29
-    ],
-    "fov": 70
-   },
-   "loc": "city",
-   "briefMove": "whip-tilt up",
-   "shadowRadius": 30
-  },
-  {
-   "id": "r07",
-   "row": 7,
-   "size": "medium",
-   "frames": 24,
-   "move": "static-drift",
-   "drift": 0,
-   "from": {
-    "position": [
-     -150.004,
-     14.26,
-     -5.755
-    ],
-    "target": [
-     -142.86,
-     14.66,
-     -0.08
-    ],
-    "fov": 44
-   },
-   "loc": "city",
-   "briefMove": "medium",
-   "shadowRadius": 30
-  },
-  {
-   "id": "r08",
-   "row": 8,
-   "size": "wide",
-   "frames": 24,
-   "move": "static-drift",
-   "drift": 0,
-   "from": {
-    "position": [
-     -154.23,
-     14.06,
-     -6.383
-    ],
-    "target": [
-     -137.612,
-     19.46,
-     2.829
-    ],
-    "fov": 66
-   },
-   "loc": "city",
-   "briefMove": "snap to wide",
-   "shadowRadius": 30
-  },
-  {
-   "id": "r09",
-   "row": 9,
-   "size": "medium",
-   "frames": 29,
-   "move": "static-drift",
-   "drift": 0,
-   "from": {
-    "position": [
-     -117.3,
-     3.317,
-     97.9
-    ],
-    "target": [
-     -113.3,
-     7.517,
-     88.4
-    ],
-    "fov": 62
-   },
-   "loc": "city",
-   "briefMove": "heroLow",
+   "briefMove": "static-drift",
    "shadowRadius": 30,
    "actions": [
     {
-     "actor": "hero",
-     "cycle": "walk",
-     "at": 0,
-     "until": 10.946
+     "actor": "pickles",
+     "verb": "water",
+     "at": 0.05
     }
    ]
   },
   {
-   "id": "r10",
-   "row": 10,
+   "id": "S06",
+   "tplKind": "ms",
+   "loc": "city",
+   "mood": "fun",
+   "size": "medium",
+   "move": "static-drift",
+   "why": "fun: Heights.",
+   "see": [
+    "pickles"
+   ],
+   "vo": "Heights.",
+   "cue": [
+    5.96,
+    6.61
+   ],
+   "subject": "pickles",
+   "row": 6,
+   "frames": 16,
+   "drift": 0,
+   "from": {
+    "position": [
+     -197.311,
+     17.003,
+     -10.764
+    ],
+    "target": [
+     -154.17,
+     47.003,
+     6.29
+    ],
+    "fov": 62
+   },
+   "briefMove": "tiltUp",
+   "shadowRadius": 30
+  },
+  {
+   "id": "S07",
+   "tplKind": "ms",
+   "loc": "city",
+   "mood": "fun",
+   "size": "medium",
+   "move": "static-drift",
+   "why": "fun: The mailman's fear?",
+   "see": [
+    "mailman"
+   ],
+   "vo": "The mailman's fear?",
+   "cue": [
+    6.61,
+    7.62
+   ],
+   "subject": "mailman",
+   "row": 7,
+   "frames": 24,
+   "drift": 0,
+   "from": {
+    "position": [
+     -133.966,
+     13.66,
+     6.565
+    ],
+    "target": [
+     -142.86,
+     14.36,
+     -0.08
+    ],
+    "fov": 44
+   },
+   "briefMove": "static-drift",
+   "shadowRadius": 30
+  },
+  {
+   "id": "S08",
+   "tplKind": "wide",
+   "loc": "city",
+   "mood": "fun",
    "size": "wide",
+   "move": "static-drift",
+   "why": "fun: A dinosaur.",
+   "see": [
+    "trex",
+    "mailman"
+   ],
+   "vo": "A dinosaur.",
+   "cue": [
+    7.62,
+    8.61
+   ],
+   "subject": "trex",
+   "pair": [
+    "trex",
+    "mailman"
+   ],
+   "row": 8,
+   "frames": 24,
+   "drift": 0,
+   "from": {
+    "position": [
+     -129.741,
+     14.46,
+     7.192
+    ],
+    "target": [
+     -148.108,
+     18.46,
+     -2.989
+    ],
+    "fov": 66
+   },
+   "briefMove": "snap",
+   "shadowRadius": 30,
+   "actions": [
+    {
+     "actor": "heroC",
+     "verb": "sip",
+     "at": 0.1
+    },
+    {
+     "actor": "heroC",
+     "cycle": "walk",
+     "at": 0,
+     "until": 8.61
+    }
+   ]
+  },
+  {
+   "id": "S09",
+   "tplKind": "ms",
+   "loc": "city",
+   "mood": "fun",
+   "size": "medium",
+   "move": "static-drift",
+   "why": "fun: The strongest guy in town?",
+   "see": [
+    "bodybuilder"
+   ],
+   "vo": "The strongest guy in town?",
+   "cue": [
+    8.61,
+    9.85
+   ],
+   "subject": "bodybuilder",
+   "row": 9,
+   "frames": 29,
+   "drift": 0,
+   "from": {
+    "position": [
+     218.944,
+     1.416,
+     280.297
+    ],
+    "target": [
+     225.364,
+     5.516,
+     291.795
+    ],
+    "fov": 64
+   },
+   "briefMove": "heroLow",
+   "shadowRadius": 30
+  },
+  {
+   "id": "S10",
+   "tplKind": "wide",
+   "loc": "city",
+   "mood": "fun",
+   "size": "wide",
+   "move": "static-drift",
+   "why": "fun: A tiny rat.",
+   "see": [
+    "rat",
+    "bodybuilder"
+   ],
+   "vo": "A tiny rat.",
+   "cue": [
+    9.85,
+    10.95
+   ],
+   "subject": "rat",
+   "pair": [
+    "rat",
+    "bodybuilder"
+   ],
+   "row": 10,
    "frames": 27,
-   "move": "static-drift",
    "drift": 0,
    "from": {
     "position": [
-     -119.1,
-     5.517,
-     102.8
+     225.235,
+     7.63,
+     268.459
     ],
     "target": [
-     -114.1,
-     5.317,
-     87.8
+     229,
+     5.33,
+     290.5
     ],
-    "fov": 58
+    "fov": 62
    },
-   "loc": "city",
-   "briefMove": "wide",
-   "shadowRadius": 30
+   "briefMove": "static-drift",
+   "shadowRadius": 30,
+   "actions": [
+    {
+     "actor": "bb",
+     "verb": "leap",
+     "at": 0.5579999999999992
+    }
+   ]
   },
   {
-   "id": "r11",
+   "id": "S11",
+   "tplKind": "ms",
+   "loc": "city",
+   "mood": "fun",
+   "size": "medium",
+   "move": "static-drift",
+   "why": "fun: And Kevin?",
+   "see": [
+    "kevin"
+   ],
+   "vo": "And Kevin?",
+   "cue": [
+    10.95,
+    11.75
+   ],
+   "subject": "kevin",
    "row": 11,
-   "size": "medium",
    "frames": 19,
-   "move": "static-drift",
    "drift": 0,
    "from": {
     "position": [
-     268.856,
-     7.577,
-     158.766
+     267.574,
+     7.377,
+     157.729
     ],
     "target": [
-     263.319,
-     6.577,
-     160.059
+     263.538,
+     6.677,
+     159.518
     ],
-    "fov": 54
+    "fov": 56
    },
-   "loc": "city",
-   "briefMove": "medium",
+   "briefMove": "static-drift",
    "shadowRadius": 30
   },
   {
-   "id": "r12",
-   "row": 12,
+   "id": "S12",
+   "tplKind": "ms",
+   "loc": "city",
+   "mood": "tension",
    "size": "medium",
-   "frames": 41,
    "move": "push",
+   "why": "tension: Kevin is afraid of a cheeseburger.",
+   "see": [
+    "kevin"
+   ],
+   "vo": "Kevin is afraid of a cheeseburger.",
+   "cue": [
+    11.75,
+    13.48
+   ],
+   "subject": "kevin",
+   "row": 12,
+   "frames": 41,
    "drift": 0,
    "from": {
     "position": [
@@ -2917,17 +3735,29 @@
     ],
     "fov": 44
    },
-   "loc": "city",
-   "briefMove": "slow push (the single stillness)",
+   "briefMove": "push",
    "shadowRadius": 30,
    "note": "the single stillness"
   },
   {
-   "id": "r13",
-   "row": 13,
+   "id": "S13",
+   "tplKind": "establish",
+   "loc": "city",
+   "mood": "fun",
    "size": "wide",
-   "frames": 33,
    "move": "static-drift",
+   "why": "fun: Everybody's bell rings.",
+   "see": [
+    "town"
+   ],
+   "vo": "Everybody's bell rings.",
+   "cue": [
+    13.48,
+    14.81
+   ],
+   "subject": "town",
+   "row": 13,
+   "frames": 33,
    "drift": 0,
    "from": {
     "position": [
@@ -2942,88 +3772,151 @@
     ],
     "fov": 46
    },
-   "loc": "city",
-   "briefMove": "high wide",
+   "briefMove": "static-drift",
    "shadowRadius": 30
   },
   {
-   "id": "r14",
-   "row": 14,
+   "id": "S14",
+   "tplKind": "cu",
+   "loc": "city",
+   "mood": "fun",
    "size": "close",
-   "frames": 25,
    "move": "static-drift",
+   "why": "fun: Mine never has.",
+   "see": [
+    "hero"
+   ],
+   "vo": "Mine never has.",
+   "cue": [
+    14.81,
+    15.87
+   ],
+   "subject": "hero",
+   "row": 14,
+   "frames": 25,
    "drift": 0,
    "from": {
     "position": [
-     -10.146,
+     -8.599,
      18.4,
-     8.995
+     10.029
     ],
     "target": [
-     -4.684,
-     18.2,
-     15.521
+     -5.53,
+     18.4,
+     15.829
     ],
     "fov": 40
    },
-   "loc": "city",
-   "briefMove": "CU",
+   "faceAim": [
+    "hero"
+   ],
+   "briefMove": "static-drift",
    "shadowRadius": 30
   },
   {
-   "id": "r15",
-   "row": 15,
+   "id": "S15",
+   "tplKind": "ms",
+   "loc": "city",
+   "mood": "fun",
    "size": "medium",
-   "frames": 36,
    "move": "static-drift",
+   "why": "fun: So what's my fear?",
+   "see": [
+    "hero"
+   ],
+   "vo": "So what's my fear?",
+   "cue": [
+    15.87,
+    17.38
+   ],
+   "subject": "hero",
+   "row": 15,
+   "frames": 36,
    "drift": 0,
    "from": {
     "position": [
-     -7.81,
+     -21.404,
      15.2,
-     20.383
+     20.208
     ],
     "target": [
-     -4,
-     31.15,
+     0,
+     37.15,
      -60
     ],
-    "fov": 70
+    "fov": 60
    },
-   "loc": "city",
-   "briefMove": "low angle push",
+   "leakOk": [
+    "slot:2"
+   ],
+   "briefMove": "lowAuthority",
    "shadowRadius": 30
   },
   {
-   "id": "r16",
-   "row": 16,
+   "id": "S16",
+   "tplKind": "insert",
+   "loc": "cityClassroom",
+   "mood": "fun",
    "size": "insert",
-   "frames": 64,
    "move": "static-drift",
+   "why": "fun: At school, my teacher's fear crawls out of her desk.",
+   "see": [
+    "desk"
+   ],
+   "vo": "At school, my teacher's fear crawls out of her desk.",
+   "cue": [
+    17.38,
+    20.04
+   ],
+   "prop": "prop_desk",
+   "row": 16,
+   "frames": 64,
    "drift": 0,
    "from": {
     "position": [
-     5.2,
      4.2,
-     1.6
+     4.4,
+     1.2
     ],
     "target": [
-     -1.6,
-     2,
-     -6.4
+     -1,
+     1.6,
+     -6
     ],
-    "fov": 48
+    "fov": 46
    },
-   "loc": "cityClassroom",
-   "briefMove": "insert → wide",
+   "leakOk": [
+    "roomMerged",
+    "teacherDrawer"
+   ],
+   "briefMove": "static-drift",
    "shadowRadius": 30
   },
   {
-   "id": "r17",
-   "row": 17,
+   "id": "S17",
+   "tplKind": "two",
+   "loc": "cityClassroom",
+   "mood": "comedy",
    "size": "medium",
-   "frames": 41,
    "move": "static-drift",
+   "why": "comedy: Eight legs. Very hairy.",
+   "see": [
+    "spider",
+    "teacher"
+   ],
+   "vo": "Eight legs. Very hairy.",
+   "cue": [
+    20.04,
+    21.75
+   ],
+   "subject": "spider",
+   "pair": [
+    "spider",
+    "teacher"
+   ],
+   "row": 17,
+   "frames": 41,
    "drift": 0,
    "from": {
     "position": [
@@ -3038,161 +3931,259 @@
     ],
     "fov": 56
    },
-   "loc": "cityClassroom",
-   "briefMove": "two",
+   "briefMove": "static-drift",
    "shadowRadius": 30
   },
   {
-   "id": "r18",
-   "row": 18,
+   "id": "S18",
+   "tplKind": "wide",
+   "loc": "cityClassroom",
+   "mood": "fun",
    "size": "wide",
-   "frames": 26,
    "move": "static-drift",
+   "why": "fun: Class is canceled.",
+   "see": [
+    "kids"
+   ],
+   "vo": "Class is canceled.",
+   "cue": [
+    21.75,
+    22.81
+   ],
+   "subject": "kids",
+   "row": 18,
+   "frames": 26,
    "drift": 0,
    "from": {
     "position": [
-     -9,
-     5.2,
-     8.6
+     -4,
+     4.6,
+     -4
     ],
     "target": [
-     5,
-     3.2,
-     -1
+     12,
+     3,
+     6.6
     ],
-    "fov": 58
+    "fov": 56
    },
-   "loc": "cityClassroom",
-   "briefMove": "wide",
+   "briefMove": "static-drift",
    "shadowRadius": 30,
    "actions": [
     {
      "actor": "kidA",
      "verb": "cheer",
-     "at": 0.1
+     "at": 0.05
     },
     {
      "actor": "kidB",
      "verb": "cheer",
-     "at": 0.2
+     "at": 0.1
+    },
+    {
+     "actor": "kidA",
+     "cycle": "sprint",
+     "at": 0,
+     "until": 22.814
+    },
+    {
+     "actor": "kidB",
+     "cycle": "sprint",
+     "at": 0,
+     "until": 22.814
     }
    ]
   },
   {
-   "id": "r19",
-   "row": 19,
+   "id": "S19",
+   "tplKind": "cu",
+   "loc": "cityDining",
+   "mood": "fun",
    "size": "close",
-   "frames": 56,
    "move": "static-drift",
+   "why": "fun: At dinner, Dad's fear is the vacuum cleaner.",
+   "see": [
+    "vacuum",
+    "dad"
+   ],
+   "vo": "At dinner, Dad's fear is the vacuum cleaner.",
+   "cue": [
+    22.81,
+    25.16
+   ],
+   "subject": "vacuum",
+   "pair": [
+    "vacuum",
+    "dad"
+   ],
+   "row": 19,
+   "frames": 56,
    "drift": 0,
    "from": {
     "position": [
+     -0.4,
      6.4,
-     4.6,
-     8.4
+     6.6
     ],
     "target": [
-     -2.6,
-     2.6,
-     -0.6
+     -0.5,
+     2.4,
+     -0.9
     ],
     "fov": 54
    },
-   "loc": "cityDining",
+   "leakOk": [
+    "roomMerged"
+   ],
    "briefMove": "snap",
    "shadowRadius": 30
   },
   {
-   "id": "r20",
-   "row": 20,
+   "id": "S20",
+   "tplKind": "wide",
+   "loc": "cityDining",
+   "mood": "comedy",
    "size": "wide",
-   "frames": 37,
    "move": "static-drift",
+   "why": "comedy: He eats standing on his chair.",
+   "see": [
+    "dad"
+   ],
+   "vo": "He eats standing on his chair.",
+   "cue": [
+    25.16,
+    26.69
+   ],
+   "subject": "dad",
+   "row": 20,
+   "frames": 37,
    "drift": 0,
    "from": {
     "position": [
-     -9,
-     3.2,
-     4.5
+     -9.5,
+     5.6,
+     0.6
     ],
     "target": [
-     -1.2,
-     3.4,
-     -1.8
+     -1.6,
+     3.6,
+     -1.4
     ],
     "fov": 58
    },
-   "loc": "cityDining",
-   "briefMove": "wide",
+   "briefMove": "static-drift",
    "shadowRadius": 30
   },
   {
-   "id": "r21",
-   "row": 21,
+   "id": "S21",
+   "tplKind": "mcu",
+   "loc": "city",
+   "mood": "fun",
    "size": "medium",
-   "frames": 39,
    "move": "static-drift",
+   "why": "fun: But then Kevin did something weird.",
+   "see": [
+    "kevin"
+   ],
+   "vo": "But then Kevin did something weird.",
+   "cue": [
+    26.69,
+    28.32
+   ],
+   "subject": "kevin",
+   "row": 21,
+   "frames": 39,
    "drift": 0,
    "from": {
     "position": [
-     267.255,
-     7.377,
-     157.97
+     263.771,
+     6.177,
+     156.338
     ],
     "target": [
-     263.598,
-     6.777,
-     159.598
+     264.08,
+     8.077,
+     160.237
     ],
     "fov": 44
    },
-   "loc": "city",
-   "briefMove": "MCU",
+   "faceAim": [
+    "kevin"
+   ],
+   "briefMove": "static-drift",
    "shadowRadius": 30
   },
   {
-   "id": "r22",
-   "row": 22,
+   "id": "S22",
+   "tplKind": "cu",
+   "loc": "city",
+   "mood": "fun",
    "size": "close",
-   "frames": 46,
    "move": "static-drift",
+   "why": "fun: He took one shaky bite of his fear.",
+   "see": [
+    "kevin"
+   ],
+   "vo": "He took one shaky bite of his fear.",
+   "cue": [
+    28.32,
+    30.25
+   ],
+   "subject": "kevin",
+   "row": 22,
+   "frames": 46,
    "drift": 0,
    "from": {
     "position": [
-     266.875,
-     7.477,
-     158.131
+     267.275,
+     7.577,
+     158.33
     ],
     "target": [
-     263.658,
-     6.977,
-     159.678
+     263.538,
+     7.377,
+     159.518
     ],
-    "fov": 36
+    "fov": 40
    },
-   "loc": "city",
-   "briefMove": "CU",
+   "faceAim": [
+    "kevin"
+   ],
+   "briefMove": "static-drift",
    "shadowRadius": 30,
    "actions": [
     {
      "actor": "kevin",
-     "verb": "reach_for",
-     "at": 0.1
+     "verb": "sip",
+     "at": 0.05
     }
    ]
   },
   {
-   "id": "r23",
-   "row": 23,
+   "id": "S23",
+   "tplKind": "insert",
+   "loc": "city",
+   "mood": "fun",
    "size": "insert",
-   "frames": 49,
    "move": "static-drift",
+   "why": "fun: And his cheeseburger got… smaller?",
+   "see": [
+    "burger"
+   ],
+   "vo": "And his cheeseburger got… smaller?",
+   "cue": [
+    30.25,
+    32.28
+   ],
+   "prop": "prop_burger",
+   "row": 23,
+   "frames": 49,
    "drift": 0,
    "from": {
     "position": [
-     264.379,
-     6.377,
-     160.136
+     260.759,
+     6.177,
+     159.985
     ],
     "target": [
      262.635,
@@ -3201,55 +4192,91 @@
     ],
     "fov": 34
    },
-   "loc": "city",
-   "briefMove": "insert",
+   "leakOk": [
+    "slot:6"
+   ],
+   "briefMove": "static-drift",
    "shadowRadius": 30
   },
   {
-   "id": "r24",
-   "row": 24,
+   "id": "S24",
+   "tplKind": "two",
+   "loc": "city",
+   "mood": "fun",
    "size": "medium",
-   "frames": 49,
    "move": "static-drift",
+   "why": "fun: My little sister Lulu is afraid of the dark.",
+   "see": [
+    "lulu",
+    "shadowpuff"
+   ],
+   "vo": "My little sister Lulu is afraid of the dark.",
+   "cue": [
+    32.28,
+    34.33
+   ],
+   "subject": "lulu",
+   "pair": [
+    "lulu",
+    "shadowpuff"
+   ],
+   "row": 24,
+   "frames": 49,
    "drift": 0,
    "from": {
     "position": [
-     -114.142,
-     13.74,
-     21.097
+     -113.574,
+     13.54,
+     22.013
     ],
     "target": [
-     -115.711,
-     13.74,
-     15.078
+     -115.415,
+     13.54,
+     15.026
     ],
     "fov": 44
    },
-   "loc": "city",
-   "briefMove": "two",
+   "briefMove": "static-drift",
    "shadowRadius": 30
   },
   {
-   "id": "r25",
-   "row": 25,
+   "id": "S25",
+   "tplKind": "ms",
+   "loc": "cityDining",
+   "mood": "fun",
    "size": "medium",
-   "frames": 60,
    "move": "static-drift",
+   "why": "fun: Every morning, a tiny shadow follows her around.",
+   "see": [
+    "shadowpuff",
+    "lulu"
+   ],
+   "vo": "Every morning, a tiny shadow follows her around.",
+   "cue": [
+    34.33,
+    36.83
+   ],
+   "subject": "shadowpuff",
+   "pair": [
+    "shadowpuff",
+    "lulu"
+   ],
+   "row": 25,
+   "frames": 60,
    "drift": 0,
    "from": {
     "position": [
-     7,
+     1.5,
      3.6,
-     -4.6
+     -1
     ],
     "target": [
-     -3,
+     -3.8,
      2,
      -5.6
     ],
-    "fov": 46
+    "fov": 52
    },
-   "loc": "cityDining",
    "briefMove": "track",
    "shadowRadius": 30,
    "actions": [
@@ -3262,65 +4289,115 @@
    ]
   },
   {
-   "id": "r26",
+   "id": "S26",
+   "tplKind": "two",
+   "loc": "cityDining",
+   "mood": "fun",
+   "size": "medium",
+   "move": "static-drift",
+   "why": "fun: So I hold the flashlight.",
+   "see": [
+    "hero",
+    "lulu"
+   ],
+   "vo": "So I hold the flashlight.",
+   "cue": [
+    36.83,
+    38.07
+   ],
+   "subject": "hero",
+   "pair": [
+    "hero",
+    "lulu"
+   ],
    "row": 26,
-   "size": "medium",
    "frames": 30,
-   "move": "static-drift",
    "drift": 0,
    "from": {
     "position": [
-     -1.3,
+     11,
      4.2,
-     6.2
+     4.5
     ],
     "target": [
-     6.75,
-     2.8,
-     2.05
-    ],
-    "fov": 58
-   },
-   "loc": "cityDining",
-   "briefMove": "two",
-   "shadowRadius": 30
-  },
-  {
-   "id": "r27",
-   "row": 27,
-   "size": "medium",
-   "frames": 46,
-   "move": "static-drift",
-   "drift": 0,
-   "from": {
-    "position": [
+     6.4,
      2.6,
-     3.4,
-     3.4
+     1.6
     ],
-    "target": [
-     6.6,
-     3.6,
-     1.8
-    ],
-    "fov": 52
+    "fov": 62
    },
-   "loc": "cityDining",
-   "briefMove": "ots",
+   "briefMove": "static-drift",
    "shadowRadius": 30
   },
   {
-   "id": "r28",
-   "row": 28,
-   "size": "close",
-   "frames": 49,
+   "id": "S27",
+   "tplKind": "ots",
+   "loc": "cityDining",
+   "mood": "fun",
+   "size": "medium",
    "move": "static-drift",
+   "why": "fun: She says I'm the bravest kid in town.",
+   "see": [
+    "lulu",
+    "hero"
+   ],
+   "vo": "She says I'm the bravest kid in town.",
+   "cue": [
+    38.07,
+    39.99
+   ],
+   "subject": "lulu",
+   "pair": [
+    "lulu",
+    "hero"
+   ],
+   "row": 27,
+   "frames": 46,
    "drift": 0,
    "from": {
     "position": [
-     6.3,
+     7.527,
+     6.4,
+     7.078
+    ],
+    "target": [
+     6,
+     3,
+     0.6
+    ],
+    "fov": 50
+   },
+   "faceAim": [
+    "lulu"
+   ],
+   "briefMove": "static-drift",
+   "shadowRadius": 30
+  },
+  {
+   "id": "S28",
+   "tplKind": "cu",
+   "loc": "cityDining",
+   "mood": "emotion",
+   "size": "close",
+   "move": "static-drift",
+   "why": "emotion: I'm not brave. I'm just never scared.",
+   "see": [
+    "hero"
+   ],
+   "vo": "I'm not brave. I'm just never scared.",
+   "cue": [
+    39.99,
+    42.05
+   ],
+   "subject": "hero",
+   "row": 28,
+   "frames": 49,
+   "drift": 0,
+   "from": {
+    "position": [
+     6,
      4.6,
-     1.3
+     1
     ],
     "target": [
      7.5,
@@ -3329,64 +4406,110 @@
     ],
     "fov": 40
    },
-   "loc": "cityDining",
-   "briefMove": "CU",
+   "faceAim": [
+    "heroF"
+   ],
+   "briefMove": "static-drift",
    "shadowRadius": 30
   },
   {
-   "id": "r29",
-   "row": 29,
-   "size": "medium",
-   "frames": 45,
-   "move": "static-drift",
-   "drift": 0,
-   "from": {
-    "position": [
-     -119.3,
-     7.817,
-     93.9
-    ],
-    "target": [
-     -112.3,
-     7.317,
-     90.4
-    ],
-    "fov": 44
-   },
+   "id": "S29",
+   "tplKind": "two",
    "loc": "city",
-   "briefMove": "two",
-   "shadowRadius": 30
-  },
-  {
-   "id": "r30",
-   "row": 30,
-   "size": "insert",
-   "frames": 28,
+   "mood": "fun",
+   "size": "medium",
    "move": "static-drift",
+   "why": "fun: Then the rat guy started petting his rat.",
+   "see": [
+    "bodybuilder"
+   ],
+   "vo": "Then the rat guy started petting his rat.",
+   "cue": [
+    42.05,
+    43.93
+   ],
+   "subject": "bodybuilder",
+   "row": 29,
+   "frames": 45,
    "drift": 0,
    "from": {
     "position": [
-     -113.66,
-     6.917,
-     95.88
+     222.831,
+     5.516,
+     277.818
     ],
     "target": [
-     -112.18,
-     6.117,
-     92.24
+     223.518,
+     6.116,
+     291.402
+    ],
+    "fov": 50
+   },
+   "briefMove": "static-drift",
+   "shadowRadius": 30,
+   "actions": [
+    {
+     "actor": "bb",
+     "verb": "idle_alive",
+     "at": 0
+    }
+   ]
+  },
+  {
+   "id": "S30",
+   "tplKind": "insert",
+   "loc": "city",
+   "mood": "fun",
+   "size": "insert",
+   "move": "static-drift",
+   "why": "fun: Now it's a mouse.",
+   "see": [
+    "rat"
+   ],
+   "vo": "Now it's a mouse.",
+   "cue": [
+    43.93,
+    45.07
+   ],
+   "subject": "rat",
+   "row": 30,
+   "frames": 28,
+   "drift": 0,
+   "from": {
+    "position": [
+     219.673,
+     5.116,
+     287.268
+    ],
+    "target": [
+     221.912,
+     4.316,
+     290.497
     ],
     "fov": 28
    },
-   "loc": "city",
-   "briefMove": "insert",
+   "briefMove": "static-drift",
    "shadowRadius": 30
   },
   {
-   "id": "r31",
-   "row": 31,
+   "id": "S31",
+   "tplKind": "ms",
+   "loc": "city",
+   "mood": "fun",
    "size": "medium",
-   "frames": 41,
    "move": "static-drift",
+   "why": "fun: Then the Governor rang the bell too hard.",
+   "see": [
+    "governor"
+   ],
+   "vo": "Then the Governor rang the bell too hard.",
+   "cue": [
+    45.07,
+    46.78
+   ],
+   "subject": "governor",
+   "row": 31,
+   "frames": 41,
    "drift": 0,
    "from": {
     "position": [
@@ -3401,8 +4524,10 @@
     ],
     "fov": 42
    },
-   "loc": "city",
-   "briefMove": "low angle",
+   "leakOk": [
+    "slot:2"
+   ],
+   "briefMove": "heroLow",
    "shadowRadius": 30,
    "actions": [
     {
@@ -3413,12 +4538,25 @@
    ]
   },
   {
-   "id": "r32",
-   "row": 32,
+   "id": "S32",
+   "tplKind": "insert",
+   "loc": "city",
+   "mood": "fun",
    "size": "close",
-   "ecu": true,
-   "frames": 20,
    "move": "static-drift",
+   "why": "fun: It cracked.",
+   "see": [
+    "bell"
+   ],
+   "vo": "It cracked.",
+   "cue": [
+    46.78,
+    47.62
+   ],
+   "ecu": true,
+   "prop": "prop_bell",
+   "row": 32,
+   "frames": 20,
    "drift": 0,
    "from": {
     "position": [
@@ -3433,16 +4571,31 @@
     ],
     "fov": 30
    },
-   "loc": "city",
-   "briefMove": "insert ECU",
+   "leakOk": [
+    "slot:2"
+   ],
+   "briefMove": "static-drift",
    "shadowRadius": 30
   },
   {
-   "id": "r33",
-   "row": 33,
+   "id": "S33",
+   "tplKind": "cu",
+   "loc": "city",
+   "mood": "fun",
    "size": "close",
-   "frames": 35,
    "move": "static-drift",
+   "why": "fun: The Governor said, \"Oops.\"",
+   "see": [
+    "governor"
+   ],
+   "vo": "The Governor said, \"Oops.\"",
+   "cue": [
+    47.62,
+    49.1
+   ],
+   "subject": "governor",
+   "row": 33,
+   "frames": 35,
    "drift": 0,
    "from": {
     "position": [
@@ -3457,47 +4610,74 @@
     ],
     "fov": 40
    },
-   "loc": "city",
-   "briefMove": "CU",
+   "briefMove": "static-drift",
    "shadowRadius": 30,
    "actions": [
     {
      "actor": "gov",
      "verb": "panic_up",
-     "at": 0.769999999999996
+     "at": 0.7719999999999985
     }
    ]
   },
   {
-   "id": "r34",
-   "row": 34,
+   "id": "S34",
+   "tplKind": "insert",
+   "loc": "city",
+   "mood": "fun",
    "size": "insert",
-   "frames": 45,
    "move": "static-drift",
+   "why": "fun: And it rang again. At noon.",
+   "see": [
+    "bell"
+   ],
+   "vo": "And it rang again. At noon.",
+   "cue": [
+    49.1,
+    50.98
+   ],
+   "prop": "prop_bell",
+   "row": 34,
+   "frames": 45,
    "drift": 0,
    "from": {
     "position": [
-     -10,
-     17,
-     18
+     52,
+     33,
+     -14
     ],
     "target": [
-     0,
-     50,
-     -58
+     62,
+     46,
+     -40
     ],
-    "fov": 46
+    "fov": 40
    },
-   "loc": "city",
-   "briefMove": "insert / tiltUp",
+   "leakOk": [
+    "slot:3"
+   ],
+   "briefMove": "tiltUp",
    "shadowRadius": 30
   },
   {
-   "id": "r35",
-   "row": 35,
+   "id": "S35",
+   "tplKind": "wide",
+   "loc": "city",
+   "mood": "awe",
    "size": "wide",
-   "frames": 47,
    "move": "static-drift",
+   "why": "awe: Every fear in town grew GIANT.",
+   "see": [
+    "town"
+   ],
+   "vo": "Every fear in town grew GIANT.",
+   "cue": [
+    50.98,
+    52.91
+   ],
+   "subject": "town",
+   "row": 35,
+   "frames": 47,
    "drift": 0,
    "from": {
     "position": [
@@ -3512,16 +4692,28 @@
     ],
     "fov": 62
    },
-   "loc": "city",
-   "briefMove": "wide drone",
+   "briefMove": "drone",
    "shadowRadius": 30
   },
   {
-   "id": "r36",
-   "row": 36,
+   "id": "S36",
+   "tplKind": "wide",
+   "loc": "city",
+   "mood": "awe",
    "size": "wide",
-   "frames": 47,
    "move": "static-drift",
+   "why": "awe: Lulu's shadow swallowed the whole plaza.",
+   "see": [
+    "dome"
+   ],
+   "vo": "Lulu's shadow swallowed the whole plaza.",
+   "cue": [
+    52.91,
+    54.87
+   ],
+   "subject": "dome",
+   "row": 36,
+   "frames": 47,
    "drift": 0,
    "from": {
     "position": [
@@ -3536,16 +4728,28 @@
     ],
     "fov": 60
    },
-   "loc": "city",
-   "briefMove": "wide from the stair foot",
+   "briefMove": "static-drift",
    "shadowRadius": 30
   },
   {
-   "id": "r37",
-   "row": 37,
+   "id": "S37",
+   "tplKind": "ms",
+   "loc": "city",
+   "mood": "tension",
    "size": "medium",
-   "frames": 33,
    "move": "static-drift",
+   "why": "tension: And Lulu was inside it.",
+   "see": [
+    "lulu"
+   ],
+   "vo": "And Lulu was inside it.",
+   "cue": [
+    54.87,
+    56.27
+   ],
+   "subject": "lulu",
+   "row": 37,
+   "frames": 33,
    "drift": 0,
    "from": {
     "position": [
@@ -3560,16 +4764,28 @@
     ],
     "fov": 30
    },
-   "loc": "city",
    "briefMove": "push",
    "shadowRadius": 30
   },
   {
-   "id": "r38",
-   "row": 38,
+   "id": "S38",
+   "tplKind": "wide",
+   "loc": "city",
+   "mood": "fun",
    "size": "wide",
-   "frames": 38,
    "move": "static-drift",
+   "why": "fun: Everyone ran away from the dark.",
+   "see": [
+    "crowd"
+   ],
+   "vo": "Everyone ran away from the dark.",
+   "cue": [
+    56.27,
+    57.84
+   ],
+   "subject": "crowd",
+   "row": 38,
+   "frames": 38,
    "drift": 0,
    "from": {
     "position": [
@@ -3584,8 +4800,7 @@
     ],
     "fov": 58
    },
-   "loc": "city",
-   "briefMove": "wide",
+   "briefMove": "static-drift",
    "shadowRadius": 30,
    "actions": [
     {
@@ -3621,99 +4836,160 @@
    ]
   },
   {
-   "id": "r39",
+   "id": "S39",
+   "tplKind": "mcu",
+   "loc": "city",
+   "mood": "fun",
+   "size": "medium",
+   "move": "static-drift",
+   "why": "fun: I punched the dark. Nothing.",
+   "see": [
+    "hero"
+   ],
+   "vo": "I punched the dark. Nothing.",
+   "cue": [
+    57.84,
+    59.56
+   ],
+   "subject": "hero",
    "row": 39,
-   "size": "medium",
    "frames": 42,
-   "move": "static-drift",
    "drift": 0,
    "from": {
     "position": [
-     0.5,
-     16.075,
-     32
+     10.5,
+     18.4,
+     30.4
     ],
     "target": [
-     5.5,
-     16.075,
-     37
+     4,
+     17.9,
+     30
     ],
-    "fov": 50
+    "fov": 52
    },
-   "loc": "city",
-   "briefMove": "MCU",
-   "shadowRadius": 30
+   "briefMove": "static-drift",
+   "shadowRadius": 30,
+   "actions": [
+    {
+     "actor": "hero",
+     "verb": "punch",
+     "at": 0.036999999999999034
+    }
+   ]
   },
   {
-   "id": "r40",
-   "row": 40,
+   "id": "S40",
+   "tplKind": "mcu",
+   "loc": "city",
+   "mood": "fun",
    "size": "medium",
-   "frames": 39,
    "move": "static-drift",
+   "why": "fun: I yelled at it. Nothing.",
+   "see": [
+    "hero"
+   ],
+   "vo": "I yelled at it. Nothing.",
+   "cue": [
+    59.56,
+    61.22
+   ],
+   "subject": "hero",
+   "row": 40,
+   "frames": 39,
    "drift": 0,
    "from": {
     "position": [
-     7.5,
-     16.275,
-     32
+     0.6,
+     18.6,
+     26.8
     ],
     "target": [
-     2.5,
-     16.475,
-     37
+     4,
+     18.4,
+     31.6
     ],
     "fov": 50
    },
-   "loc": "city",
-   "briefMove": "MCU",
+   "faceAim": [
+    "hero"
+   ],
+   "briefMove": "static-drift",
    "shadowRadius": 30
   },
   {
-   "id": "r41",
-   "row": 41,
+   "id": "S41",
+   "tplKind": "wide",
+   "loc": "city",
+   "mood": "fun",
    "size": "wide",
-   "frames": 45,
    "move": "static-drift",
+   "why": "fun: You can't fight somebody else's fear.",
+   "see": [
+    "hero"
+   ],
+   "vo": "You can't fight somebody else's fear.",
+   "cue": [
+    61.22,
+    63.07
+   ],
+   "subject": "hero",
+   "row": 41,
+   "frames": 45,
    "drift": 0,
    "from": {
     "position": [
      10,
-     16.275,
-     59
+     18,
+     53.6
     ],
     "target": [
      4,
-     26.275,
-     23
+     28,
+     17.6
     ],
     "fov": 62
    },
-   "loc": "city",
-   "briefMove": "wide",
+   "briefMove": "static-drift",
    "shadowRadius": 30
   },
   {
-   "id": "r42",
-   "row": 42,
+   "id": "S42",
+   "tplKind": "cu",
+   "loc": "city",
+   "mood": "fun",
    "size": "close",
-   "frames": 36,
    "move": "static-drift",
+   "why": "fun: And I didn't know how to be scared.",
+   "see": [
+    "hero"
+   ],
+   "vo": "And I didn't know how to be scared.",
+   "cue": [
+    63.07,
+    64.58
+   ],
+   "subject": "hero",
+   "row": 42,
+   "frames": 36,
    "drift": 0,
    "from": {
     "position": [
      3.2,
-     16.675,
-     32.6
+     18,
+     26.1
     ],
     "target": [
      4,
-     16.675,
-     37
+     18.4,
+     31.6
     ],
     "fov": 40
    },
-   "loc": "city",
-   "briefMove": "CU",
+   "faceAim": [
+    "hero"
+   ],
+   "briefMove": "static-drift",
    "shadowRadius": 30,
    "actions": [
     {
@@ -3724,27 +5000,39 @@
    ]
   },
   {
-   "id": "r43",
-   "row": 43,
+   "id": "S43",
+   "tplKind": "ms",
+   "loc": "city",
+   "mood": "fun",
    "size": "medium",
-   "frames": 32,
    "move": "static-drift",
+   "why": "fun: So I walked in.",
+   "see": [
+    "hero"
+   ],
+   "vo": "So I walked in.",
+   "cue": [
+    64.58,
+    65.9
+   ],
+   "subject": "hero",
+   "row": 43,
+   "frames": 32,
    "drift": 0,
    "from": {
     "position": [
      4.6,
-     16.875,
-     41.5
+     18.6,
+     38.6
     ],
     "target": [
      4,
-     15.875,
-     27
+     17.6,
+     23.6
     ],
     "fov": 50
    },
-   "loc": "city",
-   "briefMove": "track behind",
+   "briefMove": "track",
    "shadowRadius": 30,
    "actions": [
     {
@@ -3756,11 +5044,24 @@
    ]
   },
   {
-   "id": "r44",
-   "row": 44,
+   "id": "S44",
+   "tplKind": "cu",
+   "loc": "city",
+   "mood": "fun",
    "size": "close",
-   "frames": 60,
    "move": "static-drift",
+   "why": "fun: And for the first time ever… I was scared.",
+   "see": [
+    "hero"
+   ],
+   "vo": "And for the first time ever… I was scared.",
+   "cue": [
+    65.9,
+    68.4
+   ],
+   "subject": "hero",
+   "row": 44,
+   "frames": 60,
    "drift": 0,
    "from": {
     "position": [
@@ -3775,16 +5076,36 @@
     ],
     "fov": 38
    },
-   "loc": "city",
-   "briefMove": "CU",
+   "faceAim": [
+    "heroF"
+   ],
+   "briefMove": "static-drift",
    "shadowRadius": 30
   },
   {
-   "id": "r45",
-   "row": 45,
+   "id": "S45",
+   "tplKind": "insert",
+   "loc": "city",
+   "mood": "fun",
    "size": "insert",
-   "frames": 24,
    "move": "static-drift",
+   "why": "fun: I found her hand.",
+   "see": [
+    "hero",
+    "lulu"
+   ],
+   "vo": "I found her hand.",
+   "cue": [
+    68.4,
+    69.44
+   ],
+   "subject": "hero",
+   "pair": [
+    "hero",
+    "lulu"
+   ],
+   "row": 45,
+   "frames": 24,
    "drift": 0,
    "from": {
     "position": [
@@ -3799,8 +5120,7 @@
     ],
     "fov": 34
    },
-   "loc": "city",
-   "briefMove": "insert",
+   "briefMove": "static-drift",
    "shadowRadius": 30,
    "actions": [
     {
@@ -3816,11 +5136,29 @@
    ]
   },
   {
-   "id": "r46",
-   "row": 46,
+   "id": "S46",
+   "tplKind": "two",
+   "loc": "city",
+   "mood": "emotion",
    "size": "medium",
-   "frames": 33,
    "move": "static-drift",
+   "why": "emotion: \"I'm scared too, Lulu.\"",
+   "see": [
+    "hero",
+    "lulu"
+   ],
+   "vo": "\"I'm scared too, Lulu.\"",
+   "cue": [
+    69.44,
+    70.79
+   ],
+   "subject": "hero",
+   "pair": [
+    "hero",
+    "lulu"
+   ],
+   "row": 46,
+   "frames": 33,
    "drift": 0,
    "from": {
     "position": [
@@ -3835,232 +5173,377 @@
     ],
     "fov": 46
    },
-   "loc": "city",
-   "briefMove": "two",
+   "faceAim": [
+    "heroF",
+    "lulu"
+   ],
+   "briefMove": "static-drift",
    "shadowRadius": 30
   },
   {
-   "id": "r47",
+   "id": "S47",
+   "tplKind": "ms",
+   "loc": "city",
+   "mood": "fun",
+   "size": "medium",
+   "move": "static-drift",
+   "why": "fun: She looked up at the giant dark.",
+   "see": [
+    "lulu"
+   ],
+   "vo": "She looked up at the giant dark.",
+   "cue": [
+    70.79,
+    72.27
+   ],
+   "subject": "lulu",
    "row": 47,
-   "size": "medium",
    "frames": 35,
-   "move": "static-drift",
    "drift": 0,
    "from": {
     "position": [
-     0.3,
-     14.8,
-     15.2
+     -0.1,
+     15,
+     17.8
     ],
     "target": [
      -1.3,
-     21,
-     10.8
+     22,
+     7.8
     ],
-    "fov": 64
+    "fov": 70
    },
-   "loc": "city",
-   "briefMove": "low angle (Lulu POV)",
+   "briefMove": "heroLow",
    "shadowRadius": 30
   },
   {
-   "id": "r48",
-   "row": 48,
+   "id": "S48",
+   "tplKind": "mcu",
+   "loc": "city",
+   "mood": "fun",
    "size": "medium",
-   "frames": 44,
    "move": "static-drift",
+   "why": "fun: And she said, \"You're not that big.\"",
+   "see": [
+    "lulu"
+   ],
+   "vo": "And she said, \"You're not that big.\"",
+   "cue": [
+    72.27,
+    74.07
+   ],
+   "subject": "lulu",
+   "row": 48,
+   "frames": 44,
    "drift": 0,
    "from": {
     "position": [
-     0.503,
-     16.6,
-     16.421
+     0.79,
+     16.2,
+     16.83
     ],
     "target": [
      -1.3,
-     16.6,
+     16.4,
      12.8
     ],
     "fov": 42
    },
-   "loc": "city",
-   "briefMove": "MCU",
+   "faceAim": [
+    "lulu"
+   ],
+   "briefMove": "static-drift",
    "shadowRadius": 30
   },
   {
-   "id": "r49",
-   "row": 49,
+   "id": "S49",
+   "tplKind": "wide",
+   "loc": "city",
+   "mood": "fun",
    "size": "wide",
-   "frames": 21,
    "move": "static-drift",
+   "why": "fun: The dark shrank.",
+   "see": [
+    "dome"
+   ],
+   "vo": "The dark shrank.",
+   "cue": [
+    74.07,
+    74.95
+   ],
+   "subject": "dome",
+   "row": 49,
+   "frames": 21,
    "drift": 0,
    "from": {
     "position": [
-     -16,
-     22,
-     60
+     -30,
+     30,
+     105
     ],
     "target": [
      0,
-     22,
+     14,
      -8
     ],
-    "fov": 64
+    "fov": 56
    },
+   "briefMove": "static-drift",
+   "shadowRadius": 30
+  },
+  {
+   "id": "S50",
+   "tplKind": "cu",
    "loc": "city",
-   "briefMove": "wide",
+   "mood": "fun",
+   "size": "close",
+   "move": "static-drift",
+   "why": "fun: Smaller. Smaller.",
+   "see": [
+    "dome"
+   ],
+   "vo": "Smaller. Smaller.",
+   "cue": [
+    74.95,
+    76.39
+   ],
+   "subject": "dome",
+   "row": 50,
+   "frames": 34,
+   "drift": 0,
+   "from": {
+    "position": [
+     -12,
+     19,
+     22
+    ],
+    "target": [
+     -2,
+     20,
+     6
+    ],
+    "fov": 54
+   },
+   "briefMove": "snap",
+   "shadowRadius": 30
+  },
+  {
+   "id": "S51",
+   "tplKind": "insert",
+   "loc": "city",
+   "mood": "payoff",
+   "size": "insert",
+   "move": "static-drift",
+   "why": "payoff: Until it fit in her palm.",
+   "see": [
+    "lulu"
+   ],
+   "vo": "Until it fit in her palm.",
+   "cue": [
+    76.39,
+    77.74
+   ],
+   "subject": "lulu",
+   "row": 51,
+   "frames": 33,
+   "drift": 0,
+   "from": {
+    "position": [
+     0.556,
+     17,
+     19.091
+    ],
+    "target": [
+     -2.624,
+     16.8,
+     13.863
+    ],
+    "fov": 50
+   },
+   "faceAim": [
+    "lulu",
+    "hero"
+   ],
+   "briefMove": "static-drift",
    "shadowRadius": 30,
    "actions": [
     {
      "actor": "lulu",
+     "verb": "water",
+     "at": 0
+    }
+   ]
+  },
+  {
+   "id": "S52",
+   "tplKind": "wide",
+   "loc": "city",
+   "mood": "fun",
+   "size": "wide",
+   "move": "static-drift",
+   "why": "fun: Because a fear you face isn't your worst anymore.",
+   "see": [
+    "town"
+   ],
+   "vo": "Because a fear you face isn't your worst anymore.",
+   "cue": [
+    77.74,
+    80.14
+   ],
+   "subject": "town",
+   "row": 52,
+   "frames": 57,
+   "drift": 0,
+   "from": {
+    "position": [
+     -0.8,
+     16.125,
+     40
+    ],
+    "target": [
+     -0.8,
+     18.2,
+     25
+    ],
+    "fov": 52
+   },
+   "briefMove": "static-drift",
+   "shadowRadius": 30,
+   "actions": [
+    {
+     "actor": "bb",
      "verb": "idle_alive",
      "at": 0
     }
    ]
   },
   {
-   "id": "r50",
-   "row": 50,
-   "size": "close",
-   "frames": 34,
-   "move": "static-drift",
-   "drift": 0,
-   "from": {
-    "position": [
-     -8,
-     19,
-     40
-    ],
-    "target": [
-     -1,
-     16,
-     -2
-    ],
-    "fov": 50
-   },
+   "id": "S53",
+   "tplKind": "ms",
    "loc": "city",
-   "briefMove": "snap, snap",
-   "shadowRadius": 30
-  },
-  {
-   "id": "r51",
-   "row": 51,
-   "size": "insert",
-   "frames": 33,
-   "move": "static-drift",
-   "drift": 0,
-   "from": {
-    "position": [
-     1.494,
-     16.6,
-     14.067
-    ],
-    "target": [
-     -2.282,
-     16.3,
-     14.803
-    ],
-    "fov": 44
-   },
-   "loc": "city",
-   "briefMove": "insert → two",
-   "shadowRadius": 30
-  },
-  {
-   "id": "r52",
-   "row": 52,
-   "size": "wide",
-   "frames": 57,
-   "move": "static-drift",
-   "drift": 0,
-   "from": {
-    "position": [
-     -0.5,
-     20.5,
-     38
-    ],
-    "target": [
-     -0.5,
-     18.6,
-     25
-    ],
-    "fov": 46
-   },
-   "loc": "city",
-   "briefMove": "wide",
-   "shadowRadius": 30
-  },
-  {
-   "id": "r53",
-   "row": 53,
+   "mood": "fun",
    "size": "medium",
-   "frames": 65,
    "move": "static-drift",
+   "why": "fun: Next morning, my bell rang. For the first time ever.",
+   "see": [
+    "hero"
+   ],
+   "vo": "Next morning, my bell rang. For the first time ever.",
+   "cue": [
+    80.14,
+    82.84
+   ],
+   "subject": "hero",
+   "row": 53,
+   "frames": 65,
    "drift": 0,
    "from": {
     "position": [
-     -116.809,
-     13.341,
-     17.886
+     -116.143,
+     11.645,
+     24.893
     ],
     "target": [
-     -103.019,
-     21.341,
-     4.187
+     -87.536,
+     24.245,
+     2.135
     ],
-    "fov": 62
+    "fov": 64
    },
-   "loc": "city",
-   "briefMove": "low angle → two",
+   "briefMove": "heroLow",
    "shadowRadius": 30
   },
   {
-   "id": "r54",
-   "row": 54,
+   "id": "S54",
+   "tplKind": "insert",
+   "loc": "city",
+   "mood": "fun",
    "size": "close",
-   "frames": 40,
    "move": "static-drift",
+   "why": "fun: Something spawned right next to me.",
+   "see": [
+    "shadowpuff"
+   ],
+   "vo": "Something spawned right next to me.",
+   "cue": [
+    82.84,
+    84.5
+   ],
+   "subject": "shadowpuff",
+   "row": 54,
+   "frames": 40,
    "drift": 0,
    "from": {
     "position": [
-     -112.923,
-     13.441,
-     8.747
+     -107.204,
+     11.645,
+     21.355
     ],
     "target": [
-     -114.621,
-     12.941,
-     10.547
+     -110.354,
+     10.845,
+     20.637
     ],
     "fov": 40
    },
-   "loc": "city",
-   "briefMove": "CU on the puff",
+   "briefMove": "static-drift",
    "shadowRadius": 30
   },
   {
-   "id": "r55",
-   "row": 55,
+   "id": "S55",
+   "tplKind": "cu",
+   "loc": "city",
+   "mood": "fun",
    "size": "close",
-   "frames": 35,
    "move": "static-drift",
+   "why": "fun: A cheeseburger.",
+   "see": [
+    "burger"
+   ],
+   "vo": "A cheeseburger.",
+   "cue": [
+    84.5,
+    85.24
+   ],
+   "prop": "prop_burger",
+   "pair": [
+    "prop:burger",
+    "hero"
+   ],
+   "row": 55,
+   "frames": 35,
    "drift": 0,
    "from": {
     "position": [
-     -108.31,
-     16.341,
-     9.832
+     -107.279,
+     10.595,
+     22.518
     ],
     "target": [
-     -114.863,
-     15.141,
-     11.653
+     -112,
+     14.645,
+     19.5
     ],
-    "fov": 52
+    "fov": 50
    },
-   "loc": "city",
-   "briefMove": "CU",
-   "shadowRadius": 30
+   "faceAim": [
+    "hero"
+   ],
+   "briefMove": "static-drift",
+   "shadowRadius": 30,
+   "actions": [
+    {
+     "actor": "hero",
+     "verb": "knees_collapse",
+     "at": 0,
+     "hold": 3
+    },
+    {
+     "actor": "hero",
+     "verb": "lookAtLens",
+     "at": 0.3
+    }
+   ]
   }
  ]
 }

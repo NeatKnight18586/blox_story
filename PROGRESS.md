@@ -96,3 +96,29 @@ Hero first on screen: row 10, 11.06 s gapped (row 9 heroLow: hidden behind the b
 scriptcheck --variant long: exit 1 "no card for `fearbell` in SEASON_1.md §6". ep:check PASS; v2:test 330 + 80 OK; npm test green.
 Open: segments keep one world for all locations (rooms need parts/city/rooms.js) — vo-sheet rendered per world; brief2spec has no city/creature/clock/GOVERNOR path;
 rows not showing MUST SEE listed in the owner report; drawer worldState, giant spider on the school, clock noon, punch, juice, cart, leaf not staged.
+
+## Fear Bell — PREVIS PASS 2 (owner-approved ENGINE slot + re-stage; branch claude/amazing-meitner-13db6x from claude/vibrant-davinci-hkmucr 88b75df)
+Plan: A1 camtpl `faceAim` (face on the upper third, headroom 8–12 %, never crop the head; format 7 opt-in shot.faceAim + tpl ctx) · A2 format 7: no fg element
+unless notes `fg:` + plan check scripts/v2/fgleak.js (non-subject cover of the middle third ≤ 10 %) · A3 data on kits: verbs water / sip / leap / punch / lookAtLens,
+props wateringCan / juiceCup / leaf (blow mover) / mouse / cheeseburger (full), prop `attach` to an actor part, city setState clockTime, face deadpan · A4 brief2spec
+format 7: city locations, GOVERNOR slot, 1G creature / town / crowd subjects, multi-word emphasis → episode.json from BRIEF.md; previs.js = blocking overrides only ·
+A5 scriptcheck: format 7 needs no SEASON_1.md card · tests for each · engine commit → BASE · B re-stage rows (one fix each) · vo-sheet re-render · gates · merge main.
+Built (engine, commits e13e68a + 83adde4 = BASE): A1 camtpl `faceAim` (+ episode `faceAimCam` on the visible head mesh, centre before widening, two heads may
+rise above the line) · A2 format 7 fg only with `fg:` notes, episode `leakMeasure` + shot `leakOk`, `npm run v2:fgleak` (in `ep --stage plan`, format 7) · A3
+FB_VERBS water / sip / leap (unplanted) / punch / lookAtLens (episode `lensActs` body turn; not a track item), face deadpan, props wateringCan / juiceCup / leaf /
+mouse / cheeseburger + tools, prop `attach` (hide keys respected), city `setState('clockTime')` · A4 brief2spec format 7 city path (`cityLocOf`, GOVERNOR,
+creature / town / crowd / kids subjects, 1G props + city objects, multi-word emphasis, `fg:` notes, `cityCam`) · A5 scriptcheck `is_format7`. Tests:
+tests/v2/fearbell2.test.js (11) + test_format7.py. Found: brief2spec's format 6 `moods: true` blacked out the city look (previs drops moods / body / look).
+Episode: `node scripts/v2/brief2spec.js --story fearbell` (exit 0) → `node stories/fearbell/previs.js` (blocking overrides on the brief2spec base, kept in
+build/brief2spec.json) → `node stories/fearbell/vorender.js` (see frames + leak + headroom) → vosheet.py + sheet.py → review/fearbell/vo-sheet{,-2…-10}.png.
+Re-stage (data): row 6 camera on the pillar top; 8 hero cameo (heroC, juice cup, sip, walking behind the mailman); 9–10 + 29–30 moved to the beach ice-cream
+cart (leap, mark into the cart), 11/15/19/20/21/26/27 cameras clear of pole / statue / chair / table / awning; 14 leaf mover + empty side; 16 drawer worldState;
+18 kids sprint to the door; 22 burger in his hand at the mouth; 25 puff beside Lulu; 34 clock tower at noon; 39 punch into the dome; 47 huge eyes above
+Lulu; 49–51 wide collapse / step / palm puff (Lulu water-palm pose, both faces); 52 mouse on the shoulder + slider; 53 low behind hero + puff; 54–55 full
+cheeseburger on the grass, knees_collapse + deadpan lookAtLens, face-aimed.
+Numbers: hero first on screen row 8 = 7.62 s raw → 8.83 s gapped (≤ 10.0 PASS); row 12 start 11.75 raw → 12.96 s gapped (> 12, report); fgleak PASS 55/55
+(max 5.0 % city, 7.9 % classroom, 2.0 % dining); face aim headroom 0.10 on every faceAim row; VO 89.94 s, end 90.44 s (gaps G1–G3 unchanged);
+scriptcheck --variant long FAIL "first line has 10 words (> 9)" (no card needed now; reported, not rewritten).
+Open (MUST SEE still weak): 10 he is mid-leap above the cart, 16 drawer half behind the spider legs, 26 flashlight beam / puff shrink not readable, 45 hands,
+49 collapse reads as a smaller dome only, 50 the two shrink steps do not read in one frame, 53 bell crack too small at yard distance (readable in 32),
+39 face aim off (the fist must be in frame), 55 burger reads as bun + layers but little grass.
