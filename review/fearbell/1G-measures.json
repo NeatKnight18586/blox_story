@@ -121,8 +121,8 @@
   "classroom:bench": {
    "tris": 24460,
    "calls": 167,
-   "sPerFrame": 0.777,
-   "pass": false
+   "sPerFrame": 0.587,
+   "pass": true
   },
   "dining:diningWide": {
    "tris": 31512
@@ -133,7 +133,7 @@
   "dining:bench": {
    "tris": 31512,
    "calls": 225,
-   "sPerFrame": 0.908,
+   "sPerFrame": 0.681,
    "pass": false
   }
  },
@@ -231,7 +231,7 @@
   "plazaWide": {
    "tris": 74580,
    "calls": 388,
-   "sPerFrame": 0.91,
+   "sPerFrame": 0.702,
    "pass": false
   },
   "extras": 10,
