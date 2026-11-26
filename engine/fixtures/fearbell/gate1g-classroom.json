@@ -1,0 +1,124 @@
+{
+ "slug": "fearbell1g",
+ "fps": 24,
+ "format": 6,
+ "labels": false,
+ "world": "parts/city/rooms.js",
+ "location": "cityClassroom",
+ "look4": "cityDay2",
+ "rig": "r6",
+ "acting": 6,
+ "note": "Phase 1G gate: interior cityClassroom (city look B), both keyArt anchors.",
+ "cast": {
+  "teach": {
+   "troupe": "ADULT_F",
+   "costume": "TEACHER_FB",
+   "style": "v5",
+   "faceStyle": "v6",
+   "origin": [
+    -1,
+    0,
+    -8.6
+   ],
+   "yaw": 0,
+   "keys": [
+    [
+     0,
+     "idle"
+    ]
+   ],
+   "faces": [
+    [
+     0,
+     "smile"
+    ]
+   ]
+  },
+  "hero": {
+   "troupe": "HERO",
+   "style": "v5",
+   "faceStyle": "v6",
+   "origin": [
+    -3.4,
+    0,
+    6
+   ],
+   "yaw": 160,
+   "keys": [
+    [
+     0,
+     "idle"
+    ]
+   ],
+   "faces": [
+    [
+     0,
+     "hero_grin"
+    ]
+   ]
+  },
+  "lulu": {
+   "troupe": "LITTLE",
+   "costume": "LULU",
+   "style": "v5",
+   "faceStyle": "v6",
+   "origin": [
+    -10.6,
+    0,
+    1
+   ],
+   "yaw": 120,
+   "keys": [
+    [
+     0,
+     "idle"
+    ]
+   ]
+  }
+ },
+ "props": [],
+ "shots": [
+  {
+   "id": "classBoard",
+   "size": "wide",
+   "frames": 4,
+   "move": "static-drift",
+   "drift": 0,
+   "from": {
+    "position": [
+     11.6,
+     5,
+     10.2
+    ],
+    "target": [
+     -1.5,
+     3.4,
+     -8
+    ],
+    "fov": 56
+   },
+   "shadowRadius": 34
+  },
+  {
+   "id": "classWindow",
+   "size": "wide",
+   "frames": 4,
+   "move": "static-drift",
+   "drift": 0,
+   "from": {
+    "position": [
+     13.4,
+     5.2,
+     -8.6
+    ],
+    "target": [
+     -12,
+     4,
+     2.2
+    ],
+    "fov": 58
+   },
+   "shadowRadius": 34
+  }
+ ]
+}

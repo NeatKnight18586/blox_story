@@ -1,0 +1,365 @@
+{
+ "slug": "fearbell1g",
+ "fps": 24,
+ "format": 6,
+ "labels": false,
+ "world": "parts/city/world.js",
+ "look4": "cityDay2",
+ "rig": "r6",
+ "acting": 6,
+ "cityLiving": [
+  "flagsHall",
+  "fountain",
+  "birds",
+  "gulls",
+  "blimp"
+ ],
+ "note": "Phase 1G gate: the Fear Bell extras + Lulu + Kevin (+ hero, Governor) on the plaza.",
+ "cast": {
+  "lulu": {
+   "troupe": "LITTLE",
+   "costume": "LULU",
+   "style": "v5",
+   "faceStyle": "v6",
+   "origin": [
+    -11.7,
+    14,
+    21
+   ],
+   "yaw": 0,
+   "keys": [
+    [
+     0,
+     "idle"
+    ]
+   ],
+   "faces": [
+    [
+     0,
+     "smile"
+    ]
+   ]
+  },
+  "kevin": {
+   "troupe": "SECOND",
+   "costume": "KEVIN",
+   "style": "v5",
+   "faceStyle": "v6",
+   "origin": [
+    -9.1,
+    14,
+    21
+   ],
+   "yaw": 0,
+   "keys": [
+    [
+     0,
+     "idle"
+    ]
+   ],
+   "faces": [
+    [
+     0,
+     "smile"
+    ]
+   ]
+  },
+  "pickles": {
+   "troupe": "ELDER",
+   "costume": "PICKLES",
+   "style": "v5",
+   "faceStyle": "v6",
+   "origin": [
+    -6.499999999999999,
+    14,
+    21
+   ],
+   "yaw": 0,
+   "keys": [
+    [
+     0,
+     "idle"
+    ]
+   ],
+   "faces": [
+    [
+     0,
+     "smile"
+    ]
+   ]
+  },
+  "mailman": {
+   "troupe": "ELDER",
+   "costume": "MAILMAN",
+   "style": "v5",
+   "faceStyle": "v6",
+   "origin": [
+    -3.8999999999999986,
+    14,
+    21
+   ],
+   "yaw": 0,
+   "keys": [
+    [
+     0,
+     "idle"
+    ]
+   ],
+   "faces": [
+    [
+     0,
+     "smile"
+    ]
+   ]
+  },
+  "bodybuilder": {
+   "troupe": "ELDER",
+   "costume": "BODYBUILDER",
+   "style": "v5",
+   "faceStyle": "v6",
+   "origin": [
+    -1.299999999999999,
+    14,
+    21
+   ],
+   "yaw": 0,
+   "keys": [
+    [
+     0,
+     "idle"
+    ]
+   ],
+   "faces": [
+    [
+     0,
+     "smile"
+    ]
+   ]
+  },
+  "teacher_fb": {
+   "troupe": "ADULT_F",
+   "costume": "TEACHER_FB",
+   "style": "v5",
+   "faceStyle": "v6",
+   "origin": [
+    1.3000000000000007,
+    14,
+    21
+   ],
+   "yaw": 0,
+   "keys": [
+    [
+     0,
+     "idle"
+    ]
+   ],
+   "faces": [
+    [
+     0,
+     "smile"
+    ]
+   ]
+  },
+  "dad_fb": {
+   "troupe": "ELDER",
+   "costume": "DAD_FB",
+   "style": "v5",
+   "faceStyle": "v6",
+   "origin": [
+    3.900000000000002,
+    14,
+    21
+   ],
+   "yaw": 0,
+   "keys": [
+    [
+     0,
+     "idle"
+    ]
+   ],
+   "faces": [
+    [
+     0,
+     "smile"
+    ]
+   ]
+  },
+  "buslady": {
+   "troupe": "ADULT_F",
+   "costume": "BUSLADY",
+   "style": "v5",
+   "faceStyle": "v6",
+   "origin": [
+    6.5,
+    14,
+    21
+   ],
+   "yaw": 0,
+   "keys": [
+    [
+     0,
+     "idle"
+    ]
+   ],
+   "faces": [
+    [
+     0,
+     "smile"
+    ]
+   ]
+  },
+  "hero": {
+   "troupe": "HERO",
+   "style": "v5",
+   "faceStyle": "v6",
+   "origin": [
+    9.100000000000001,
+    14,
+    21
+   ],
+   "yaw": 0,
+   "keys": [
+    [
+     0,
+     "idle"
+    ]
+   ],
+   "faces": [
+    [
+     0,
+     "hero_grin"
+    ]
+   ]
+  },
+  "governor": {
+   "troupe": "GOVERNOR",
+   "style": "v5",
+   "faceStyle": "v6",
+   "origin": [
+    11.700000000000003,
+    14,
+    21
+   ],
+   "yaw": 0,
+   "keys": [
+    [
+     0,
+     "idle"
+    ]
+   ],
+   "faces": [
+    [
+     0,
+     "gov_smug"
+    ]
+   ]
+  }
+ },
+ "shots": [
+  {
+   "id": "all",
+   "size": "wide",
+   "frames": 4,
+   "move": "static-drift",
+   "drift": 0,
+   "from": {
+    "position": [
+     1.7763568394002505e-15,
+     17,
+     42
+    ],
+    "target": [
+     1.7763568394002505e-15,
+     16.7,
+     21
+    ],
+    "fov": 64
+   },
+   "shadowRadius": 34
+  },
+  {
+   "id": "g1",
+   "size": "wide",
+   "frames": 4,
+   "move": "static-drift",
+   "drift": 0,
+   "from": {
+    "position": [
+     -9.1,
+     17,
+     34.5
+    ],
+    "target": [
+     -9.1,
+     16.7,
+     21
+    ],
+    "fov": 50
+   },
+   "shadowRadius": 34
+  },
+  {
+   "id": "g2",
+   "size": "wide",
+   "frames": 4,
+   "move": "static-drift",
+   "drift": 0,
+   "from": {
+    "position": [
+     -1.299999999999999,
+     17,
+     34.5
+    ],
+    "target": [
+     -1.299999999999999,
+     16.7,
+     21
+    ],
+    "fov": 50
+   },
+   "shadowRadius": 34
+  },
+  {
+   "id": "g3",
+   "size": "wide",
+   "frames": 4,
+   "move": "static-drift",
+   "drift": 0,
+   "from": {
+    "position": [
+     6.500000000000002,
+     17,
+     34.5
+    ],
+    "target": [
+     6.500000000000002,
+     16.7,
+     21
+    ],
+    "fov": 50
+   },
+   "shadowRadius": 34
+  },
+  {
+   "id": "g4",
+   "size": "wide",
+   "frames": 4,
+   "move": "static-drift",
+   "drift": 0,
+   "from": {
+    "position": [
+     10.400000000000002,
+     17,
+     31.5
+    ],
+    "target": [
+     10.400000000000002,
+     16.7,
+     21
+    ],
+    "fov": 50
+   },
+   "shadowRadius": 34
+  }
+ ]
+}

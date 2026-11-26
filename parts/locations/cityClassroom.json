@@ -1,0 +1,386 @@
+{
+ "note": "Phase 1G: CLASSROOM (school interior) in the city look B \u2014 sunny plastic classroom: 3\u00d73 student desks, the teacher's desk with a drawer (world.setState('drawer', 0\u20261)), chalkboard (no text), a bookshelf, cubbies, a globe, three tall windows on the left wall onto the school yard. World parts/city/rooms.js; spec {world: 'parts/city/rooms.js', location: 'cityClassroom', look4: 'cityDay2'}.",
+ "world": "parts/city/rooms.js",
+ "look4": "cityDay2",
+ "room": {
+  "w": 30,
+  "d": 22,
+  "h": 11,
+  "wall": "#fff3c4",
+  "wainscot": "#4fb3e8",
+  "trim": "#ffffff",
+  "floor": "#d9a86a",
+  "ceiling": "#fbfaf5"
+ },
+ "windows": [
+  {
+   "side": "left",
+   "x": -6,
+   "y": 3.2,
+   "w": 4.6,
+   "h": 5.6
+  },
+  {
+   "side": "left",
+   "x": 0,
+   "y": 3.2,
+   "w": 4.6,
+   "h": 5.6
+  },
+  {
+   "side": "left",
+   "x": 6,
+   "y": 3.2,
+   "w": 4.6,
+   "h": 5.6
+  }
+ ],
+ "door": {
+  "side": "right",
+  "x": 7.5,
+  "w": 3.6,
+  "h": 7.4,
+  "color": "#e8402f"
+ },
+ "props": [
+  {
+   "type": "chalkboard",
+   "at": [
+    0,
+    3.6,
+    -10.7
+   ],
+   "w": 13,
+   "h": 4.6
+  },
+  {
+   "type": "wallClock",
+   "at": [
+    9.5,
+    8.5,
+    -10.65
+   ]
+  },
+  {
+   "type": "teacherDesk",
+   "at": [
+    -1,
+    0,
+    -6.2
+   ],
+   "id": "teacherDesk"
+  },
+  {
+   "type": "desk",
+   "at": [
+    -7,
+    0,
+    -1.5
+   ],
+   "color": "#ffcf3f",
+   "seat": "#2f9df4"
+  },
+  {
+   "type": "desk",
+   "at": [
+    0,
+    0,
+    -1.5
+   ],
+   "color": "#ff8a30",
+   "seat": "#4fb548"
+  },
+  {
+   "type": "desk",
+   "at": [
+    7,
+    0,
+    -1.5
+   ],
+   "color": "#ffcf3f",
+   "seat": "#e8402f"
+  },
+  {
+   "type": "desk",
+   "at": [
+    -7,
+    0,
+    3.5
+   ],
+   "color": "#ff8a30",
+   "seat": "#9b59b6"
+  },
+  {
+   "type": "desk",
+   "at": [
+    0,
+    0,
+    3.5
+   ],
+   "color": "#ffcf3f",
+   "seat": "#2f9df4"
+  },
+  {
+   "type": "desk",
+   "at": [
+    7,
+    0,
+    3.5
+   ],
+   "color": "#ff8a30",
+   "seat": "#4fb548"
+  },
+  {
+   "type": "desk",
+   "at": [
+    -7,
+    0,
+    8.2
+   ],
+   "color": "#ffcf3f",
+   "seat": "#e8402f"
+  },
+  {
+   "type": "desk",
+   "at": [
+    0,
+    0,
+    8.2
+   ],
+   "color": "#ff8a30",
+   "seat": "#ff7eb6"
+  },
+  {
+   "type": "desk",
+   "at": [
+    7,
+    0,
+    8.2
+   ],
+   "color": "#ffcf3f",
+   "seat": "#2f9df4"
+  },
+  {
+   "type": "bookshelf",
+   "at": [
+    14.2,
+    0,
+    -5
+   ],
+   "rotY": -90,
+   "w": 6,
+   "h": 7.2,
+   "n": 4
+  },
+  {
+   "type": "cubbies",
+   "at": [
+    14.4,
+    0,
+    1.6
+   ],
+   "rotY": -90,
+   "n": 4
+  },
+  {
+   "type": "globe",
+   "at": [
+    -12.5,
+    0,
+    -8.6
+   ]
+  },
+  {
+   "type": "plant",
+   "at": [
+    -13.6,
+    0,
+    9.6
+   ],
+   "pot": "#3d7fd6"
+  },
+  {
+   "type": "rug",
+   "at": [
+    -1,
+    0,
+    -6.2
+   ],
+   "w": 9,
+   "d": 5,
+   "color": "#ff7eb6",
+   "inner": "#ffd1e6"
+  },
+  {
+   "type": "picture",
+   "at": [
+    -10,
+    6.2,
+    -10.65
+   ],
+   "color": "#ffcf3f",
+   "accent": "#e8402f"
+  },
+  {
+   "type": "picture",
+   "at": [
+    10.5,
+    4.8,
+    -10.65
+   ],
+   "w": 2.2,
+   "h": 1.6,
+   "color": "#7ed957",
+   "accent": "#4fc3f7"
+  }
+ ],
+ "outside": {
+  "ground": "#6cc04a",
+  "fence": [
+   {
+    "from": [
+     -30,
+     -20
+    ],
+    "to": [
+     -30,
+     22
+    ],
+    "n": 22
+   }
+  ],
+  "trees": [
+   [
+    -38,
+    -8,
+    1.2
+   ],
+   [
+    -44,
+    8,
+    1.4
+   ],
+   [
+    -26,
+    14,
+    0.9
+   ]
+  ],
+  "houses": [
+   {
+    "at": [
+     -60,
+     -14
+    ],
+    "w": 12,
+    "h": 7,
+    "d": 10,
+    "color": "#ffcf3f",
+    "roof": "#c0392b"
+   },
+   {
+    "at": [
+     -62,
+     6
+    ],
+    "w": 10,
+    "h": 6,
+    "d": 9,
+    "color": "#7fc9ff",
+    "roof": "#2f3a4a"
+   }
+  ],
+  "boxes": [
+   {
+    "at": [
+     -22,
+     -0.3,
+     0
+    ],
+    "size": [
+     0.4,
+     7,
+     0.4
+    ],
+    "color": "#e8402f"
+   },
+   {
+    "at": [
+     -22,
+     6.4,
+     0
+    ],
+    "size": [
+     2.4,
+     1.6,
+     0.2
+    ],
+    "color": "#ffffff"
+   }
+  ]
+ },
+ "anchors": {
+  "classBoard": {
+   "position": [
+    -1,
+    0,
+    -7.6
+   ],
+   "facing": 0,
+   "keyArt": true,
+   "camera": {
+    "position": [
+     11.6,
+     5.0,
+     10.2
+    ],
+    "target": [
+     -1.5,
+     3.4,
+     -8
+    ],
+    "fov": 56
+   },
+   "note": "key art 1: from the back-right corner over the desks: the teacher's desk + chalkboard + clock; teacher mark at the board"
+  },
+  "classWindow": {
+   "position": [
+    -4.5,
+    0,
+    3.2
+   ],
+   "facing": -90,
+   "keyArt": true,
+   "camera": {
+    "position": [
+     13.4,
+     5.2,
+     -8.6
+    ],
+    "target": [
+     -12,
+     4.0,
+     2.2
+    ],
+    "fov": 58
+   },
+   "note": "key art 2: across the desks to the three tall windows and the yard; hero desk mark"
+  },
+  "heroDesk": {
+   "position": [
+    0,
+    0,
+    4.9
+   ],
+   "facing": 180
+  },
+  "teacher": {
+   "position": [
+    -1,
+    0,
+    -8.6
+   ],
+   "facing": 0
+  }
+ }
+}

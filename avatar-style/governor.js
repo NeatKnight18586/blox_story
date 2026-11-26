@@ -62,7 +62,30 @@ export function megaphone(o = {}) {
   put(grp, c('mg_mouth', () => new T.CylinderGeometry(.13, .11, .22, 14)), g, [0, .1, 0]);
   put(grp, c('mg_cone' + L + R, () => new T.CylinderGeometry(.14, R, L, 24, 1, true)), satin(GOV.gold, {roughness: .3, metalness: .55, side: T.DoubleSide}), [0, -L / 2, 0]);
   put(grp, c('mg_rim' + R, () => new T.TorusGeometry(R, .045, 8, 28)), satin(GOV.red), [0, -L, 0], [Math.PI / 2, 0, 0], 'megaphoneRim');
-  grp.userData.grip = 'extend'; return grp;
+  const stub = put(grp, c('mg_stub', () => new T.CylinderGeometry(.075, .075, 1, 8).translate(0, .5, 0)), satin(GOV.goldDeep, {roughness: .4, metalness: .4}), [0, 0, 0], [0, 0, 0], 'megaphoneGrip'); stub.visible = false;
+  grp.userData.grip = 'extend'; grp.userData.aimMouth = a => aimMegaphone(a, grp); return grp;
+}
+// Phase 1G fix: rigid R6 has no elbow, so the bend happens at the wrist / prop: when the fist comes near the face (the announce key puts it
+// under the chin) the megaphone's mouthpiece sits ON THE MOUTH and the bell points along the head's forward axis; a short gold grip stub
+// joins its handle to the fist. Far from the face it is the plain 'extend' tool (aimWeight).
+const V3 = (x, y, z) => new T.Vector3(x, y, z), REST_Q = new T.Quaternion();
+export const MOUTH = [0, .45, .64];
+const smk = x => { const k = Math.max(0, Math.min(1, x)); return k * k * (3 - 2 * k); };
+// w = 1 when the fist is within 2.0 studs of the mouth, IN FRONT of the face and BELOW the mouth (a raised rope-pull fist never aims); 0 beyond 2.9
+export const aimWeight = (d, fwd = 1, down = 1) => smk((2.9 - d) / .9) * smk((fwd - .1) / .4) * smk((down + .1) / .4);
+export function aimMegaphone(a, tool) {
+  const sh = a.pivots?.rightShoulder, hd = a.pivots?.head; if (!sh || !hd || tool.parent !== sh) return 0;
+  tool.userData.restP ??= tool.position.clone(); a.root.updateMatrixWorld(true);
+  const mouthW = hd.localToWorld(V3(...MOUTH)), fwdW = hd.localToWorld(V3(MOUTH[0], MOUTH[1], MOUTH[2] + 1)).sub(mouthW), upW = hd.localToWorld(V3(MOUTH[0], MOUTH[1] + 1, MOUTH[2])).sub(mouthW);
+  const fistW = sh.localToWorld(tool.userData.restP.clone()), rel = fistW.clone().sub(mouthW), w = aimWeight(rel.length(), rel.dot(fwdW.clone().normalize()), -rel.dot(upW.clone().normalize())), stub = tool.getObjectByName('megaphoneGrip');
+  if (w <= 0) { tool.position.copy(tool.userData.restP); tool.quaternion.copy(REST_Q); if (stub) stub.visible = false; return 0; }
+  const inv = sh.matrixWorld.clone().invert(), mouthL = mouthW.clone().applyMatrix4(inv), fwdL = fwdW.clone().transformDirection(inv), upL = upW.clone().transformDirection(inv);
+  const Y = fwdL.clone().negate(), Z = upL.clone().addScaledVector(Y, -upL.dot(Y)).normalize(), X = V3(0, 0, 0).crossVectors(Y, Z);
+  const qM = new T.Quaternion().setFromRotationMatrix(new T.Matrix4().makeBasis(X, Y, Z)), pM = mouthL.clone().addScaledVector(fwdL, .24);
+  tool.position.lerpVectors(tool.userData.restP, pM, w); tool.quaternion.slerpQuaternions(REST_Q, qM, w); tool.updateMatrixWorld(true);
+  if (stub) { const from = V3(0, .04, -.36), to = tool.worldToLocal(fistW.clone()), d = to.clone().sub(from), L = d.length();
+    stub.visible = w > .3 && L > .05; stub.position.copy(from); stub.quaternion.setFromUnitVectors(V3(0, 1, 0), d.normalize()); stub.scale.set(1, L, 1); }
+  return w;
 }
 export const GOV_HEAD = ['govHat', 'monocle', 'mustache'];
 export const GOV_ACCESSORIES = {govHat, monocle, mustache, govChain};

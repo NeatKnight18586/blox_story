@@ -1,0 +1,141 @@
+{
+ "slug": "fearbell1g",
+ "fps": 24,
+ "format": 6,
+ "labels": false,
+ "world": "parts/city/world.js",
+ "look4": "cityDay2",
+ "rig": "r6",
+ "acting": 6,
+ "cityLiving": [
+  "flagsHall",
+  "fountain",
+  "birds",
+  "gulls",
+  "blimp"
+ ],
+ "note": "Phase 1G gate: the GIANT DARK DOME rolls over the plaza, then the SHRINK sequence (whoosh collapse → 2 quick steps → palm-sized puff + cute blink).",
+ "cast": {
+  "hero": {
+   "troupe": "HERO",
+   "style": "v5",
+   "faceStyle": "v6",
+   "origin": [
+    -6,
+    14,
+    16
+   ],
+   "yaw": 15,
+   "keys": [
+    [
+     0,
+     "idle"
+    ],
+    [
+     0.9,
+     "recoil"
+    ],
+    [
+     2.6,
+     "idle"
+    ],
+    [
+     3,
+     "point"
+    ]
+   ],
+   "faces": [
+    [
+     0,
+     "hero_shock"
+    ],
+    [
+     3.3,
+     "hero_grin"
+    ]
+   ]
+  }
+ },
+ "creatures": [
+  {
+   "id": "dome",
+   "kind": "dome",
+   "pos": [
+    0,
+    14,
+    -30
+   ],
+   "faceYaw": 0,
+   "acts": [
+    {
+     "act": "roll",
+     "at": 0.1,
+     "dur": 1.8,
+     "from": [
+      0,
+      14,
+      -70
+     ],
+     "to": [
+      2,
+      14,
+      -12
+     ]
+    },
+    {
+     "act": "shrink",
+     "at": 2.05,
+     "to": [
+      -6.6,
+      17.3,
+      17.3
+     ]
+    }
+   ]
+  }
+ ],
+ "shots": [
+  {
+   "id": "roll",
+   "size": "wide",
+   "frames": 48,
+   "move": "static-drift",
+   "drift": 0,
+   "from": {
+    "position": [
+     -12,
+     15.8,
+     46
+    ],
+    "target": [
+     0,
+     25,
+     -12
+    ],
+    "fov": 66
+   },
+   "shadowRadius": 34
+  },
+  {
+   "id": "shrink",
+   "size": "wide",
+   "frames": 48,
+   "move": "static-drift",
+   "drift": 0,
+   "from": {
+    "position": [
+     -2,
+     18.6,
+     31
+    ],
+    "target": [
+     -5.6,
+     19.6,
+     15.2
+    ],
+    "fov": 50
+   },
+   "shadowRadius": 34
+  }
+ ]
+}

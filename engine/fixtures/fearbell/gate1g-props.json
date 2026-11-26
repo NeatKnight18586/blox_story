@@ -1,0 +1,279 @@
+{
+ "slug": "fearbell1g",
+ "fps": 24,
+ "format": 6,
+ "labels": false,
+ "world": "parts/city/world.js",
+ "look4": "cityDay2",
+ "rig": "r6",
+ "acting": 6,
+ "cityLiving": [
+  "flagsHall",
+  "fountain",
+  "birds",
+  "gulls",
+  "blimp"
+ ],
+ "note": "Phase 1G gate: props in the world — diner outdoor counter (burger, slider, plate, spaghetti), the bus stop (lady + donut), flashlight cone, bell rope, mail burst.",
+ "cast": {
+  "kev": {
+   "troupe": "SECOND",
+   "costume": "KEVIN",
+   "style": "v5",
+   "faceStyle": "v6",
+   "origin": [
+    261.1016077694425,
+    3.234,
+    161.1038874486996
+   ],
+   "yaw": 157,
+   "keys": [
+    [
+     0,
+     "idle"
+    ]
+   ],
+   "faces": [
+    [
+     0,
+     "smile"
+    ]
+   ]
+  },
+  "lady": {
+   "troupe": "ADULT_F",
+   "costume": "BUSLADY",
+   "style": "v5",
+   "faceStyle": "v6",
+   "origin": [
+    93.00999999999999,
+    14.224,
+    1.4
+   ],
+   "yaw": -170,
+   "keys": [
+    [
+     0,
+     "idle"
+    ]
+   ],
+   "faces": [
+    [
+     0,
+     "smile"
+    ]
+   ]
+  },
+  "gov": {
+   "troupe": "GOVERNOR",
+   "style": "v5",
+   "faceStyle": "v6",
+   "origin": [
+    -3.4,
+    14,
+    8
+   ],
+   "yaw": 20,
+   "keys": [
+    [
+     0,
+     "idle"
+    ]
+   ],
+   "faces": [
+    [
+     0,
+     "gov_announce"
+    ]
+   ]
+  },
+  "heroF": {
+   "troupe": "HERO",
+   "style": "v5",
+   "faceStyle": "v6",
+   "origin": [
+    2.3,
+    14,
+    9
+   ],
+   "yaw": -40,
+   "keys": [
+    [
+     0,
+     "idle"
+    ]
+   ],
+   "faces": [
+    [
+     0,
+     "hero_grin"
+    ]
+   ],
+   "tool": "flashlight"
+  }
+ },
+ "props": [
+  {
+   "id": "burger",
+   "set": "props1g",
+   "prop": "burger",
+   "pos": [
+    [
+     0,
+     [
+      262.63529121848205,
+      5.147272727272728,
+      158.32039771849716
+     ]
+    ]
+   ],
+   "animAt": 99
+  },
+  {
+   "id": "slider",
+   "set": "props1g",
+   "prop": "burger",
+   "pos": [
+    [
+     0,
+     [
+      263.5936538305388,
+      5.147272727272728,
+      157.59821969071473
+     ]
+    ]
+   ],
+   "animAt": 0
+  },
+  {
+   "id": "plate",
+   "set": "props1g",
+   "prop": "plate",
+   "pos": [
+    [
+     0,
+     [
+      261.56697430426294,
+      5.077272727272728,
+      159.06282547309246
+     ]
+    ]
+   ]
+  },
+  {
+   "id": "spag",
+   "set": "props1g",
+   "prop": "spaghetti",
+   "pos": [
+    [
+     0,
+     [
+      264.5219256914379,
+      5.077272727272728,
+      156.8361098874299
+     ]
+    ]
+   ],
+   "scale": 0.9
+  },
+  {
+   "id": "rope",
+   "set": "props1g",
+   "prop": "bellRope",
+   "p": {
+    "length": 6
+   },
+   "pos": [
+    [
+     0,
+     [
+      -2.6,
+      23,
+      8.6
+     ]
+    ]
+   ]
+  },
+  {
+   "id": "mail",
+   "set": "props1g",
+   "prop": "mailBurst",
+   "pos": [
+    [
+     0,
+     [
+      0,
+      14.2,
+      8
+     ]
+    ]
+   ],
+   "animAt": 0
+  }
+ ],
+ "shots": [
+  {
+   "id": "diner",
+   "size": "wide",
+   "frames": 4,
+   "move": "static-drift",
+   "drift": 0,
+   "from": {
+    "position": [
+     269.0274003751035,
+     6.677272727272728,
+     163.64589680589134
+    ],
+    "target": [
+     262.7151547694868,
+     5.677272727272728,
+     158.26021621618196
+    ],
+    "fov": 56
+   },
+   "shadowRadius": 34
+  },
+  {
+   "id": "bus",
+   "size": "wide",
+   "frames": 4,
+   "move": "static-drift",
+   "drift": 0,
+   "from": {
+    "position": [
+     92.00999999999999,
+     16.82,
+     -7.5
+    ],
+    "target": [
+     94.50999999999999,
+     17.02,
+     2.6
+    ],
+    "fov": 58
+   },
+   "shadowRadius": 34
+  },
+  {
+   "id": "hand",
+   "size": "wide",
+   "frames": 30,
+   "move": "static-drift",
+   "drift": 0,
+   "from": {
+    "position": [
+     -0.2,
+     16.8,
+     20
+    ],
+    "target": [
+     -0.2,
+     17.6,
+     8
+    ],
+    "fov": 64
+   },
+   "shadowRadius": 34
+  }
+ ]
+}

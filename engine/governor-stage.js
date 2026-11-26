@@ -20,10 +20,10 @@ const camera = new T.PerspectiveCamera(30, 1, .1, 200), a = buildActor({...gov, 
 export function render({yaw = 0, face = 'gov_smug', act = null, t = .8, w = 540, h = 960, cam = 'body'}) {
   const s = sampleVerbR6(act ?? 'idle_alive', act ? t : 0, {build: a.build}).sample;
   applyPoseSample(a, s, {position: [0, 0, 0], yaw: yaw * Math.PI / 180});
-  setFace6(a, face); a.attachments.monocle?.userData.setPop(face === 'gov_panic' ? 1 : 0);
+  a.tool?.userData?.aimMouth?.(a); setFace6(a, face); a.attachments.monocle?.userData.setPop(face === 'gov_panic' ? 1 : 0);
   r.setPixelRatio(1); r.setSize(w, h, false); camera.aspect = w / h;
   if (cam === 'head') { camera.fov = 24; camera.position.set(0, 5.0, 6.2); camera.lookAt(0, 4.95, 0); }
   else { camera.fov = 30; camera.position.set(0, 4.2, 17); camera.lookAt(0, 3.55, 0); }
   camera.updateProjectionMatrix(); scene.updateMatrixWorld(true); r.render(scene, camera); return r.domElement.toDataURL('image/png');
 }
-window.__gov = {render, tris: triangles(a.root)};
+window.__gov = {render, tris: triangles(a.root), actor: a, T};

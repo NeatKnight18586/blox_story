@@ -21,6 +21,24 @@ function car(A, o, {len, cab, cabLen, cabZ}) { const W = 2.6, col = o.colors?.[0
   for (const sx of [-1, 1]) { A(kitMat('plastic', '#fff6c8'), pbox(.5, .26, .1, sx * .8, .95, len / 2 + .01)); A(kitMat('plastic', '#e53935'), pbox(.5, .26, .1, sx * .8, .95, -len / 2 - .01));
     for (const sz of [-1, 1]) A(blk, cyl(.45, .45, .32, sx * (W / 2 - .05), .45, sz * len * .3, 6).rotateZ(Math.PI / 2)); } }
 const PROPS = {
+  // Phase 1G: Main St BUS STOP (front +z faces the road): teal roof on 4 posts, glass back + side, wooden bench, round sign pole with a bus pictogram (no text)
+  busStop(A, o) { const metal = kitMat('metal', '#cfd6de'), roof = kitMat('gloss', o.colors?.[0] ?? '#2fb7b0'), wood = kitMat('wood', '#c98a4c'), glass = kitMat('glass', '#ffffff'), blue = kitMat('gloss', '#1f6fd6'), white = kitMat('plastic', '#ffffff');
+    for (const [x, z] of [[-2.6, -1], [2.6, -1], [-2.6, .9], [2.6, .9]]) A(metal, pbox(.14, 3.4, .14, x, 0, z));
+    A(roof, pbox(5.9, .25, 2.7, 0, 3.4, -.05)); A(kitMat('gloss', '#ffd23f'), pbox(5.95, .18, .12, 0, 3.4, 1.32)); A(glass, pbox(5.1, 2.6, .07, 0, .55, -1.0)); A(glass, pbox(.07, 2.6, 1.8, 2.6, .55, -.05));
+    A(metal, pbox(5.2, .08, .08, 0, .5, -1.0)); A(metal, pbox(5.2, .08, .08, 0, 3.15, -1.0));
+    A(wood, pbox(4.2, .14, .75, 0, 1.0, -.5)); A(wood, pbox(4.2, .55, .12, 0, 1.35, -.9)); for (const x of [-1.8, 1.8]) A(metal, pbox(.12, 1.0, .6, x, 0, -.5));
+    A(metal, pbox(.14, 4.6, .14, -3.5, 0, .9)); A(white, new T.CylinderGeometry(.66, .66, .08, 12).rotateX(Math.PI / 2).translate(-3.5, 4.55, .86)); A(blue, new T.CylinderGeometry(.58, .58, .1, 12).rotateX(Math.PI / 2).translate(-3.5, 4.55, .9));
+    A(white, pbox(.62, .34, .04, -3.5, 4.42, .97)); A(blue, pbox(.5, .14, .03, -3.5, 4.55, 1.0)); for (const x of [-.18, .18]) A(kitMat('plastic', '#23262c'), pbox(.12, .12, .05, -3.5 + x, 4.34, 1.0));
+    A(white, pbox(.7, 1.0, .06, -3.5, 1.7, .97)); A(kitMat('plastic', '#ffd23f'), pbox(.7, .14, .07, -3.5, 2.56, .97)); },
+  // Phase 1G: diner OUTDOOR COUNTER on the patio (local: the diner wall at z −1.95, front +z): walk-up window frame + striped awning, counter, 4 stools, condiments
+  dinerCounter(A, o) { const chrome = kitMat('metal', '#dfe6ec'), teal = kitMat('gloss', '#2fb7b0'), red = kitMat('gloss', '#e0322f'), white = kitMat('plastic', '#fbfaf5');
+    A(kitMat('concrete', '#e6e1d6'), pbox(10, .5, 5.4, 0, -.45, .6), tileOf('concrete'));
+    for (const [x, y, w, h] of [[0, 1.2, 3.9, .18], [0, 3.4, 3.9, .18], [-1.95, 1.2, .18, 2.38], [1.95, 1.2, .18, 2.38]]) A(chrome, pbox(w, h, .2, x, y, -1.95));
+    A(kitMat('plastic', '#fff1d6'), pbox(3.7, 2.2, .06, 0, 1.3, -2.05)); A(kitMat('plastic', '#1d1f24'), pbox(3.4, .5, .07, 0, 2.6, -2.0));
+    for (let i = 0; i < 7; i++) A(i % 2 ? white : red, new T.BoxGeometry(.6, .12, 1.5).rotateX(.38).translate(-1.8 + i * .6, 3.95, -1.35));
+    A(teal, pbox(5.6, 1.15, .8, 0, 0, -1.0)); A(red, pbox(5.9, .14, 1.15, 0, 1.15, -.95)); A(chrome, pbox(5.9, .07, .07, 0, 1.15, -.36)); A(chrome, pbox(5.6, .1, .1, 0, .3, -.55));
+    for (let i = 0; i < 4; i++) { const x = -2.1 + i * 1.4; A(chrome, cyl(.1, .1, .95, x, 0, .35, 5)); A(red, cyl(.45, .45, .2, x, .95, .35, 10)); }
+    A(red, pbox(.16, .4, .16, 1.9, 1.29, -1.0)); A(kitMat('gloss', '#ffd23f'), pbox(.16, .4, .16, 2.15, 1.29, -1.0)); A(chrome, pbox(.4, .3, .2, -1.9, 1.29, -1.0)); },
   lamp(A, o) { const iron = kitMat('metal', o.colors?.[0] ?? '#2f3a36'), glow = liveMat('basic', '#fff3c8');
     A(iron, cyl(.32, .4, .6, 0, 0, 0)); A(iron, cyl(.1, .13, 4.6, 0, .6, 0, 6)); A(iron, cyl(.3, .18, .3, 0, 5.1, 0, 8));
     A(glow, new T.IcosahedronGeometry(.42, 0).scale(1, 1.15, 1).translate(0, 5.85, 0)); A(iron, cyl(.08, .34, .35, 0, 6.3, 0, 8)); },

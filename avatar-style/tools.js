@@ -13,6 +13,7 @@ import {blasterTool} from '../parts/sets4/props5.js';
 import {sword as propSword, heroStone as propHeroStone, classSword as propClassSword} from '../parts/props.js';
 
 import {megaphone} from './governor.js';
+import {flashlightTool, donut} from '../parts/props1g.js';
 export const TOOLS = ['sword', 'hammer', 'torch', 'bread'];
 export const HAND = [0, -1.84, 0];                         // fist centre in shoulder-pivot coordinates
 const cache = new Map();
@@ -92,6 +93,7 @@ function eggsTool(name) {
   base.position.y -= r * .2; grp.userData.eggs = k; return grp;
 }
 BUILD.megaphone = megaphone;   // Phase 1F: the Governor's golden megaphone ('extend' grip)
+BUILD.flashlight = o => flashlightTool(o); BUILD.donut = () => { const w = new T.Group(), d = donut(); d.position.set(0, -.3, .22); d.rotation.x = Math.PI / 2; w.add(d); w.userData.grip = 'hold'; return w; };   // Phase 1G (parts/props1g.js): flashlight + light cone ('extend'), donut ('hold')
 export function buildTool(name, opts = {}) {
   if (!BUILD[name] && !name.startsWith('class:') && !name.startsWith('egg:') && !name.startsWith('eggs:') && !name.startsWith('blaster:')) throw Error('unknown tool ' + name);
   const t = name.startsWith('blaster:') ? blasterTool(+name.split(':')[1], +(name.split(':')[2] ?? 1)) : name.startsWith('class:') ? classTool(name) : name.startsWith('eggs:') ? eggsTool(name) : name.startsWith('egg:') ? eggTool(name) : BUILD[name](opts); t.name = 'tool_' + name; t.position.set(...HAND);

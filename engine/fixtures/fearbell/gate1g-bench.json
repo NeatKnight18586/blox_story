@@ -1,0 +1,332 @@
+{
+ "slug": "fearbell1g",
+ "fps": 24,
+ "format": 6,
+ "labels": false,
+ "world": "parts/city/world.js",
+ "look4": "cityDay2",
+ "rig": "r6",
+ "acting": 6,
+ "cityLiving": [
+  "flagsHall",
+  "fountain",
+  "birds",
+  "gulls",
+  "blimp"
+ ],
+ "note": "Phase 1G bench: plazaWide key art + the dome over the plaza + 10 extras.",
+ "cast": {
+  "hero": {
+   "troupe": "HERO",
+   "style": "v5",
+   "faceStyle": "v6",
+   "origin": [
+    -6,
+    14,
+    16
+   ],
+   "yaw": 15,
+   "keys": [
+    [
+     0,
+     "idle"
+    ],
+    [
+     0.9,
+     "recoil"
+    ],
+    [
+     2.6,
+     "idle"
+    ],
+    [
+     3,
+     "point"
+    ]
+   ],
+   "faces": [
+    [
+     0,
+     "hero_shock"
+    ],
+    [
+     3.3,
+     "hero_grin"
+    ]
+   ]
+  },
+  "x0": {
+   "troupe": "LITTLE",
+   "costume": "LULU",
+   "style": "v5",
+   "faceStyle": "v6",
+   "origin": [
+    -22,
+    14,
+    22
+   ],
+   "yaw": 150,
+   "keys": [
+    [
+     0,
+     "idle"
+    ]
+   ],
+   "faces": [
+    [
+     0,
+     "terrified"
+    ]
+   ]
+  },
+  "x1": {
+   "troupe": "SECOND",
+   "costume": "KEVIN",
+   "style": "v5",
+   "faceStyle": "v6",
+   "origin": [
+    -17.8,
+    14,
+    19.5
+   ],
+   "yaw": 144,
+   "keys": [
+    [
+     0,
+     "idle"
+    ]
+   ],
+   "faces": [
+    [
+     0,
+     "terrified"
+    ]
+   ]
+  },
+  "x2": {
+   "troupe": "ELDER",
+   "costume": "PICKLES",
+   "style": "v5",
+   "faceStyle": "v6",
+   "origin": [
+    -13.6,
+    14,
+    17
+   ],
+   "yaw": 138,
+   "keys": [
+    [
+     0,
+     "idle"
+    ]
+   ],
+   "faces": [
+    [
+     0,
+     "terrified"
+    ]
+   ]
+  },
+  "x3": {
+   "troupe": "ELDER",
+   "costume": "MAILMAN",
+   "style": "v5",
+   "faceStyle": "v6",
+   "origin": [
+    -9.399999999999999,
+    14,
+    22
+   ],
+   "yaw": 132,
+   "keys": [
+    [
+     0,
+     "idle"
+    ]
+   ],
+   "faces": [
+    [
+     0,
+     "terrified"
+    ]
+   ]
+  },
+  "x4": {
+   "troupe": "ELDER",
+   "costume": "BODYBUILDER",
+   "style": "v5",
+   "faceStyle": "v6",
+   "origin": [
+    -5.199999999999999,
+    14,
+    19.5
+   ],
+   "yaw": 126,
+   "keys": [
+    [
+     0,
+     "idle"
+    ]
+   ],
+   "faces": [
+    [
+     0,
+     "terrified"
+    ]
+   ]
+  },
+  "x5": {
+   "troupe": "ADULT_F",
+   "costume": "TEACHER_FB",
+   "style": "v5",
+   "faceStyle": "v6",
+   "origin": [
+    -1,
+    14,
+    17
+   ],
+   "yaw": 120,
+   "keys": [
+    [
+     0,
+     "idle"
+    ]
+   ],
+   "faces": [
+    [
+     0,
+     "terrified"
+    ]
+   ]
+  },
+  "x6": {
+   "troupe": "ELDER",
+   "costume": "DAD_FB",
+   "style": "v5",
+   "faceStyle": "v6",
+   "origin": [
+    3.200000000000003,
+    14,
+    22
+   ],
+   "yaw": 114,
+   "keys": [
+    [
+     0,
+     "idle"
+    ]
+   ],
+   "faces": [
+    [
+     0,
+     "terrified"
+    ]
+   ]
+  },
+  "x7": {
+   "troupe": "ADULT_F",
+   "costume": "BUSLADY",
+   "style": "v5",
+   "faceStyle": "v6",
+   "origin": [
+    7.400000000000002,
+    14,
+    19.5
+   ],
+   "yaw": 108,
+   "keys": [
+    [
+     0,
+     "idle"
+    ]
+   ],
+   "faces": [
+    [
+     0,
+     "terrified"
+    ]
+   ]
+  },
+  "x8": {
+   "troupe": "HERO",
+   "style": "v5",
+   "faceStyle": "v6",
+   "origin": [
+    11.600000000000001,
+    14,
+    17
+   ],
+   "yaw": 102,
+   "keys": [
+    [
+     0,
+     "idle"
+    ]
+   ],
+   "faces": [
+    [
+     0,
+     "hero_shock"
+    ]
+   ]
+  },
+  "x9": {
+   "troupe": "GOVERNOR",
+   "style": "v5",
+   "faceStyle": "v6",
+   "origin": [
+    15.800000000000004,
+    14,
+    22
+   ],
+   "yaw": 96,
+   "keys": [
+    [
+     0,
+     "idle"
+    ]
+   ],
+   "faces": [
+    [
+     0,
+     "gov_panic"
+    ]
+   ]
+  }
+ },
+ "creatures": [
+  {
+   "id": "dome",
+   "kind": "dome",
+   "pos": [
+    4,
+    14,
+    -20
+   ],
+   "acts": []
+  }
+ ],
+ "shots": [
+  {
+   "id": "bench",
+   "size": "wide",
+   "frames": 4,
+   "move": "static-drift",
+   "drift": 0,
+   "from": {
+    "position": [
+     -29,
+     15.2,
+     28
+    ],
+    "target": [
+     -19.44527765122381,
+     19.760998593674692,
+     16.542924776964483
+    ],
+    "fov": 60
+   },
+   "shadowRadius": 34
+  }
+ ]
+}
