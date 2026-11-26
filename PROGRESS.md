@@ -30,3 +30,14 @@ docs/CONTINUITY.md + RULEBOOK §2 line; scripts/v2/look-gate.js + look-sheet.py;
 Farm numbers (720×1280, look C): bayNorth 89.3k / 0.503 s, plazaWide 81.8k / 0.445, mainSt 88.3k / 0.677 (FAIL > 0.62; off 0.577), heroHouse 47.5k / 0.562.
 Outline cost farm: classic +0.082…0.101 s, classicPlus +0.084…0.100 s — FAIL (≤ 0.06) after two fix passes (local: 0.03–0.06). Key-art: near 16–37 %, third Δ 1.1–7.1 %: PASS ×4.
 Living: ≤ 2.5k tris and ≤ 3 movers in frame: PASS. Open: MRT (id/normal in the main pass) would remove the 2nd geometry pass, the likely fix for the outline cost.
+
+## Phase 1D — look fix-ups + harbor & beach (city gate 4; branch claude/city-gate-4-harbor-beach-f9m851)
+Built: outline classic in the MAIN pass (MRT: id/normal/1/z via patched chunks, multisampling off + FXAA blit; no second geometry pass) and
+cityDay2 `outline: classic` = city default (classicPlus kept, two-pass); staging rule (plan.json keyArtStaging + keyArtGroup/heroFrac, every
+keyArt has a `landmark`; kids beside on the frame-centre side); blimp 90 s (north leg at 125: clears the statue in plazaWide); bayNorth jetty =
+kit `dock` planks; parts/city/harbor.js (rubber-duck lighthouse + beam, diner + cheeseburger tower, quay/piers/props/fish market/warehouses,
+beach + pier + Ferris wheel), movers fishingBoats/ferry/gullsHarbor, anchors diner + duckClose (harborDock/beach re-authored), decks in groundY,
+terrain LOD + prop culling; scripts/v2/city1d-gate.js + city1d-sheet.py, assets.yml `city1d`.
+Farm (runs 45758999246 + 45759326917, look B, CC0): all 19 key art PASS staging; gate rows tris 36–83k, s/frame 0.30–0.59 (harborDock 0.589 max, mainSt 0.54);
+outline cost −0.144…+0.008 s; sightlines harborDock 2,3,7 / diner 2,6,7 / beach 6,7; duck 24 % of duckClose; blimp drift 19 % of width in 4 s.
+Open: CC0 planks map reads dark on the farm (docks near-black brown); plazaWide/mainSt fg lamps still large.

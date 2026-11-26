@@ -24,9 +24,9 @@ test('outline: distance fade full < 40, gone by 250; ids distinct and signed for
   const ids = new Set(Array.from({length: 200}, (_, i) => idValue(i))); assert.equal(ids.size, 200);
   assert.ok(idValue(5) > 0 && idValue(5, 0, true) < 0 && idValue(5) < 1);
 });
-test('cityDay2: opt-in preset; cityDay untouched; default outline off', () => {
+test('cityDay2: opt-in preset; cityDay untouched; default outline classic (owner decision 1D)', () => {
   const v2 = LOOKS.cityDay2, v1 = LOOKS.cityDay;
-  assert.equal(v2.v4.outline, 'off'); assert.equal(v1.v4.outline, undefined); assert.equal(v1.v4.grade, undefined); assert.equal(v1.base.fogNear, 480);
+  assert.equal(v2.v4.outline, 'classic'); assert.equal(v1.v4.outline, undefined); assert.equal(v1.v4.grade, undefined); assert.equal(v1.base.fogNear, 480);
   assert.ok(v2.base.fogNear >= 250, 'no near haze'); assert.ok(v2.v4.bake.sunI / v2.v4.bake.skyI > v1.v4.bake.sunI / v1.v4.bake.skyI, 'stronger key-to-shadow ratio');
   const sky = new T.Color(v2.base.hemiSky); assert.ok(sky.b > sky.r, 'blue sky fill'); const gr = new T.Color(v2.base.hemiGround); assert.ok(gr.r > gr.b, 'warm bounce');
   assert.ok(v2.v4.grade.sat > 1 && v2.v4.grade.warm[0] > v2.v4.grade.warm[2] && v2.v4.grade.cool[2] > v2.v4.grade.cool[0]);
@@ -46,5 +46,5 @@ test('living: blimp spline is periodic; lane loop closes; blimp ≤ 2k tris; for
   const a = blimpAt(0).pos, b = blimpAt(PLAN.living.blimp.period).pos; a.forEach((v, i) => assert.ok(Math.abs(v - b[i]) < 1e-6));
   const L = laneLoop([[[0, 0], [10, 0]]], 2); assert.equal(L.length, 4); assert.deepEqual(L[0], [0, 2]); assert.deepEqual(L[2], [10, -2]);
   assert.ok(tris(governorBlimp()) <= 2000, `blimp ${tris(governorBlimp())}`);
-  const g = keyArtProps(['bayNorth', 'heroHouse', 'plazaWide'].map(n => keyArt(n).fg)); assert.ok(g.children.length >= 3);
+  const g = keyArtProps(['bayNorth', 'heroHouse', 'plazaWide'].map(n => keyArt(n).fg)); assert.ok(g.children.length >= 2 && g.getObjectByName('keyArtKit'), 'picket + kit (jetty planks, lamp)');
 });

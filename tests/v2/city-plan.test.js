@@ -48,8 +48,8 @@ test('districtAt: every owner district resolves at its drawing position', () => 
   assert.equal(at(190, 250), 'bay'); assert.equal(at(190, 286), 'bay'); assert.equal(at(360, 340), 'sea');
   assert.ok(hillsZ(0) < -100 && hillsZ(0) > -120);
 });
-test('anchors: all seventeen exist, stand on ground or water, look at a different point', () => {
-  const need = ['plazaSouth', 'plazaNorth', 'bayNorth', 'stairBottom', 'boardwalk', 'suburbStreet', 'schoolYard', 'mainSt', 'harborDock', 'beach', 'hillsLookout', 'plazaWide', 'hallBalcony', 'acrossBay', 'schoolFront', 'heroHouse', 'upsideDown'];
+test('anchors: all nineteen exist (Phase 1D: + diner, duckClose), stand on ground or water, look at a different point', () => {
+  const need = ['plazaSouth', 'plazaNorth', 'bayNorth', 'stairBottom', 'boardwalk', 'suburbStreet', 'schoolYard', 'mainSt', 'harborDock', 'beach', 'hillsLookout', 'plazaWide', 'hallBalcony', 'acrossBay', 'schoolFront', 'heroHouse', 'upsideDown', 'diner', 'duckClose'];
   assert.deepEqual([...need].sort(), [...ANCHOR_NAMES].sort());
   for (const n of need) { const a = anchor(n); assert.ok(a.position[1] >= standY(a.position[0], a.position[2]) + 1); assert.ok(Math.hypot(a.target[0] - a.position[0], a.target[2] - a.position[2]) > 20); }
   const ps = anchor('plazaSouth'), bn = anchor('bayNorth'), sb = anchor('stairBottom');

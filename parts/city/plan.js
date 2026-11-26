@@ -180,21 +180,37 @@ export const inCorridor = (x, z, r = 0, C = corridors()) => C.some(([x0, z0, x1,
 //   the camera yaws so the subject's centre lands on the chosen third (L: x = 1/3, R: x = 2/3 of the frame width), pitch (deg, + up);
 //   fg = the FOREGROUND element d studs from the lens toward screen x (NDC) `x`, on the ground: {kind, at, yaw, d, len}.
 export const KEYART_ASPECT = 9 / 16;
+export function landmarkCentre(id) { const s = landmarkSlots().find(q => q.id === String(id)); if (!s) throw Error('no landmark slot ' + id); const [x, z] = s.tower?.at ?? s.at, h = s.tower?.h ?? s.h; return [x, s.base + h * .6, z]; }
 export function keyArt(name, aspect = KEYART_ASPECT) {
   const a = PLAN.anchors[name], K = a?.keyArt; if (!K) throw Error('no keyArt on anchor ' + name);
   const [x, z] = toWorld(K.at ?? a.at), y = K.y ?? standY(x, z) + (K.h ?? 1.2), fov = K.fov ?? a.fov ?? 55;
   const hf = Math.atan(Math.tan(fov * Math.PI / 360) * aspect), a3 = Math.atan(Math.tan(hf) / 3);
   // subject: explicit (map px), or `dist` studs from the lens at the bearing that puts the landmark `lm` (world [x, y, z]) on the OTHER third
-  const [sx, sz] = K.subject ? toWorld(K.subject) : (b => [x + Math.sin(b) * K.dist, z + Math.cos(b) * K.dist])(Math.atan2(K.lm[0] - x, K.lm[2] - z) + (K.third === 'R' ? -2 : 2) * a3), sy = groundY(sx, sz) + (K.subjectH ?? 2.4);
+  const LM = K.lm ?? (K.landmark ? landmarkCentre(K.landmark) : null);   // Phase 1D: lm defaults to the landmark slot's centre (its tower when it has one)
+  const [sx, sz] = K.subject ? toWorld(K.subject) : (b => [x + Math.sin(b) * K.dist, z + Math.cos(b) * K.dist])(Math.atan2(LM[0] - x, LM[2] - z) + (K.third === 'R' ? -2 : 2) * a3), gy = K.deckY ?? standY(sx, sz), sy = gy + (K.subjectH ?? 2.4);   // Phase 1D: deckY = the floor the group stands on (dock, pier, boat)
   const yawS = Math.atan2(sx - x, sz - z), d = Math.hypot(sx - x, sz - z);
   const ndc = K.third === 'R' ? 1 / 3 : -1 / 3;   // NDC x of the third line (frame x 1/3 → −1/3, 2/3 → +1/3)
   // camera right = (−cos yaw, 0, sin yaw) for forward (sin yaw, 0, cos yaw); a point at relative yaw r shows at NDC tan(−r)/tan(hf)
   const yaw = yawS + Math.atan(ndc * Math.tan(hf)), p = (K.pitch ?? 8) * Math.PI / 180;
   const f = [Math.sin(yaw) * Math.cos(p), Math.sin(p), Math.cos(yaw) * Math.cos(p)], position = [x, y, z], target = position.map((v, i) => v + f[i] * Math.max(10, d));
   let fg = null;
-  if (K.fg) { const fy = yaw - Math.atan((K.fg.x ?? .75) * Math.tan(hf)), fd = K.fg.d ?? 4.5, gx = x + Math.sin(fy) * fd, gz = z + Math.cos(fy) * fd;
+  if (K.fg?.kind === 'boat') { const L = d + 6, sh = (K.fg.shift ?? 0) * (K.third === 'R' ? -1 : 1), mx = (x + sx) / 2 + Math.sin(yawS) * 1.5 - Math.cos(yawS) * sh, mz = (z + sz) / 2 + Math.cos(yawS) * 1.5 + Math.sin(yawS) * sh;   // shift: toward the kids' side   // Phase 1D: the boat the lens rides on (stern under the camera, the group on the bow)
+    fg = {...K.fg, at: [mx, K.fg.y ?? gy, mz], yaw: yawS, len: L, d: 0}; }
+  else if (K.fg) { const fy = yaw - Math.atan((K.fg.x ?? .75) * Math.tan(hf)), fd = K.fg.d ?? 4.5, gx = x + Math.sin(fy) * fd, gz = z + Math.cos(fy) * fd;
     fg = {...K.fg, at: [gx, K.fg.y ?? groundY(gx, gz), gz], yaw: yaw + Math.PI / 2, d: fd}; }
-  return {name, position, target, fov, yaw, subject: [sx, groundY(sx, sz), sz], subjectCentre: [sx, sy, sz], third: K.third ?? 'L', fg, movers: K.movers ?? [], auto: !!K.auto};
+  return {name, position, target, fov, yaw, subject: [sx, gy, sz], subjectCentre: [sx, sy, sz], third: K.third ?? 'L', fg, movers: K.movers ?? [], auto: !!K.auto, landmark: K.landmark ?? null};
+}
+// Phase 1D staging rule (plan.json keyArtStaging): establishing key art keeps the hero ≤ maxHeroH of the frame height and off the
+// anchor's landmark slot (slot visible ≥ landmarkMin per the sightline measure); the troupe kids stand BESIDE the hero (same depth).
+export const STAGING = PLAN.keyArtStaging ?? {maxHeroH: .35, landmarkMin: .02, kidSide: 2.3, kidBack: .15, kidVisible: .7};
+// Pure: the group formation [name, troupe, side (studs, + = camera right), back (studs, + = away from the lens), turn (deg)]: the hero on the
+// third line, both kids BESIDE the hero on the frame-centre side (a portrait frame has no room outside the third line), a little stagger.
+export const keyArtGroup = (S = STAGING, third = 'L') => { const k = third === 'R' ? -1 : 1;
+  return [['hero', 'HERO', 0, 0, 0], ['kidL', 'LITTLE', k * S.kidSide, S.kidBack, -k * 10], ['kidS', 'SECOND', k * (S.kidSide + S.kidGap), S.kidBack * 2, -k * 18]]; };
+// Pure: the hero's frame-height fraction for a key-art camera (an upright figure `h` studs tall at the subject point; vertical fov).
+export function heroFrac(k, h = 5.4) {
+  const v = k.subject.map((q, i) => q - k.position[i]), f = k.target.map((q, i) => q - k.position[i]), fl = Math.hypot(...f), F = f.map(q => q / fl), z = v[0] * F[0] + v[1] * F[1] + v[2] * F[2];
+  return h / (2 * z * Math.tan(k.fov * Math.PI / 360));
 }
 // pure: screen x (0..1) of a world point for a camera {position, target, fov} at an aspect (no roll)
 export function screenX(cam, pt, aspect = KEYART_ASPECT) {

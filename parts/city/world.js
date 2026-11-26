@@ -16,6 +16,7 @@ import {west, westReserves, houseLot} from './west.js';
 import {setKitTextures, kitMat} from './kit/mats.js';
 import {livingTown, keyArtProps} from './living.js';
 import {keyArt} from './plan.js';
+import {harbor, harborDecks, deckAt} from './harbor.js';
 import {setLOD, lodFor} from './kit/building.js';
 import PRESETS from './kit/presets.json' with {type: 'json'};
 export {groundY, PLAN};
@@ -24,7 +25,7 @@ const H = PLAN.heights;
 export const LAYER = {water: H.waterY, sidewalk: .16, road: .26, plaza: PLAN.terrain.terrace.y + .06, deck: PLAN.roads.boardwalk.deck};
 // v3 fallback look (episodes should use spec look4 'cityDay'): bright late morning, no near haze.
 export const LOOK = {fog: {color: '#cfe8ff', near: 420, far: 900, height: {amount: 0}}, envPreset: 'day', envIntensity: .55, cloudCover: .35, hemiGround: '#9a8e74', sunColor: '#fff6e6'};
-export const NEAR_R = 60, CULL_R = 110;
+export const NEAR_R = 60, CULL_R = 110, TERRAIN_R = 90, PROPS_R = 150;   // Phase 1D: terrain fine-chunk radius + street-prop draw radius (studs)
 const KIT_LOD = {near: 30, mid: 95};   // Phase 1C: kit building LOD radii (studs): near ≤ 3k tris, mid ≤ 600, far a box
 const ASSETS = {tex: {}, models: {}, manifest: null};
 
@@ -146,6 +147,14 @@ export function build(scene, {M, V, TR, look, spec, look4}) {
     o.geometry.setAttribute('color', new T.BufferAttribute(c, 3)); o.userData.live = true; });
   // Phase 1B: chunks wholly under the (opaque) water are never seen: hide them (frees the budget for wide bay shots)
   for (const m of terrain.children) { m.geometry.computeBoundingBox(); if (m.geometry.boundingBox.max.y < H.waterY - .3) m.visible = false; }
+  // Phase 1D (opt-in spec.cityTerrainLod, default on for the city): a coarse twin of every chunk; onCamera shows a fine chunk only within TERRAIN_R of the lens
+  const tLod = spec?.cityTerrainLod !== false && DT ? TR.buildTerrain({height: terrainY, size: 880, chunk: 55, fine: 2.75, fullR: -1, focus: [[1e9, 1e9]], centre: [0, 20], skirt: 3, material: tMat, tile: 7, name: 'cityTerrainLod'}) : null;
+  if (tLod) { tLod.traverse(o => { if (!o.isMesh) return; const p = o.geometry.attributes.position, n = o.geometry.attributes.normal, c = new Float32Array(p.count * 3);
+      for (let i = 0; i < p.count; i++) { surfaceColour(cc, p.getX(i), p.getY(i), p.getZ(i), n.getY(i)); c.set([cc.r, cc.g, cc.b], i * 3); } o.geometry.setAttribute('color', new T.BufferAttribute(c, 3)); o.userData.live = true; });
+    tLod.children.forEach((m, i) => { m.geometry.computeBoundingBox(); m.userData.fine = terrain.children[i]; m.visible = false; if (!terrain.children[i]?.name.endsWith('_near')) m.userData.fine = null; }); cityRoot.add(tLod); }
+  const terrainLod = p => { if (!tLod) return; const v = new T.Vector3(p[0], p[1], p[2]);
+    for (const m of tLod.children) { const f = m.userData.fine; if (!f) continue; const under = f.userData.under ??= (f.geometry.computeBoundingBox(), f.geometry.boundingBox.max.y < H.waterY - .3); if (under) continue;
+      const far = m.geometry.boundingBox.distanceToPoint(v) > TERRAIN_R; f.visible = !far; m.visible = far; } };
   cityRoot.add(terrain); stats.terrainTris = terrain.children.filter(m => m.visible).reduce((s, m) => s + m.geometry.index.count / 3, 0);
   // -- water: one big plane (bay + sea), look4 water4 when available
   const WATER = look4?.water4 ? look4.water4({w: 1500, d: 1500, at: [0, H.waterY, 40], color: '#0a86cf', speed: .02}) : null;
@@ -189,6 +198,7 @@ export function build(scene, {M, V, TR, look, spec, look4}) {
   const pushMid = (k, c, g) => { const t = tierOf(k); if (!t.mid.has(c)) t.mid.set(c, []); t.mid.get(c).push(g); };
   for (const l of lots) {
     if (DT && l.district === 'school') { const b = houseLot(l, KR); b.lot = l; G('school').add(b.group); kitB.push(b); houses.push(b); continue; }   // Phase 1C: pastel suburb houses
+    if (DT && l.district === 'harbor') continue;   // Phase 1D: the east arm is curated (parts/city/harbor.js)
     if (DT && ['plaza', 'town', 'mainSt'].includes(l.district)) { const b = lotBuilding(l, KR); b.lot = l; G(l.district).add(b.group); kitB.push(b); continue; }
     const t = tierOf(l.district), near = nearestAnchor(l.x, l.z, AXZ) < NEAR_R, roofC = PLAN.districts[l.district === 'town' ? 'plaza' : l.district].roof;
     const base = l.y0 - .6, hBody = l.y1 - l.y0 + .6 + l.h;
@@ -203,7 +213,7 @@ export function build(scene, {M, V, TR, look, spec, look4}) {
     } else { pushMid(l.district, l.color, body(1)); pushMid(l.district, roofC, roof()); }
   }
   // harbour piers (wood) + the duck rock (bay)
-  for (const p of piers()) { const g = boxAt(p.len, 1.6, p.w, p.x, H.waterY - .2, p.z, 0); pushMid('harbor', '#9c7650', g); for (let k = -1; k <= 1; k += 2) pushMid('harbor', '#7a5a3c', boxAt(.6, 3.5, .6, p.x - p.len / 2 + 1, -2.5, p.z + k * (p.w / 2 - .3), 0)); }
+  if (!DT) for (const p of piers()) { const g = boxAt(p.len, 1.6, p.w, p.x, H.waterY - .2, p.z, 0); pushMid('harbor', '#9c7650', g); for (let k = -1; k <= 1; k += 2) pushMid('harbor', '#7a5a3c', boxAt(.6, 3.5, .6, p.x - p.len / 2 + 1, -2.5, p.z + k * (p.w / 2 - .3), 0)); }
   { const [dx, dz] = toWorld(PLAN.landmarks['5'].at), g = new T.SphereGeometry(1, 20, 10); const p = g.attributes.position;
     for (let i = 0; i < p.count; i++) { const x = p.getX(i), y = p.getY(i), z = p.getZ(i), k = .88 + .24 * Math.abs(Math.sin(x * 5.1 + z * 3.3 + y * 2.7)); p.setXYZ(i, x * k, y * k, z * k); }
     g.computeVertexNormals(); g.scale(PLAN.landmarks['5'].rock.rx * 2, (PLAN.landmarks['5'].rock.h - H.seaFloor), PLAN.landmarks['5'].rock.ry * 2); g.translate(dx, H.seaFloor, dz);
@@ -218,6 +228,7 @@ export function build(scene, {M, V, TR, look, spec, look4}) {
     if (s.shape === 'stair') continue;   // built below as the real Grand Stair blockout
     if (DT && ['1', '2', '3'].includes(s.id)) continue;   // Phase 1B: built by parts/city/downtown.js
     if (DT && s.id === '4') continue;   // Phase 1C: the upside-down house (parts/city/west.js)
+    if (DT && ['5', '6'].includes(s.id)) continue;   // Phase 1D: rubber-duck lighthouse, diner + burger tower (parts/city/harbor.js)
     const g = G(s.district === 'bay' ? 'bay' : s.district === 'wild' ? 'wild' : s.district), add = (geo, tag = '') => { const m = new T.Mesh(geo, grey); m.name = `slot:${s.id}${tag}`; g.add(m); slotMeshes.push(m); };
     if (s.shape === 'cyl') add(new T.CylinderGeometry(s.fp[0] / 2, s.fp[0] / 2 * 1.15, s.h, 20, 3).translate(s.at[0], s.base + s.h / 2, s.at[1]));
     else add(boxAt(s.fp[0], s.h + (s.base - Math.min(s.base, groundY(...s.at))) + .6, s.fp[1], s.at[0], s.base - .6, s.at[1], 0, Math.max(2, Math.round(s.h / 3))));
@@ -228,6 +239,8 @@ export function build(scene, {M, V, TR, look, spec, look4}) {
   if (dt) { G('plaza').add(dt.plaza); G('mainSt').add(dt.mainSt); kitB.push(...dt.buildings); stats.downtown = dt.stats; }
   const wst = DT ? west({houses, anchors: AXZ, R: rng(31)}) : null;   // Phase 1C: school + yard + bus, hero house + treehouse, upside-down house, lot dressing
   if (wst) { G('school').add(wst.group); kitB.push(...wst.buildings); stats.west = wst.stats; }
+  const hb = DT ? harbor({slots}) : null;   // Phase 1D: fishing harbor, diner + burger tower, beach + pier + Ferris wheel, rubber-duck lighthouse
+  if (hb) { G('harbor').add(hb.groups.harbor); G('beach').add(hb.groups.beach); G('bay').add(hb.groups.bay); kitB.push(...hb.buildings); stats.harbor = hb.stats; }
   for (const b of kitB) b.near.visible = b.mid.visible = b.far.visible = true;   // every LOD is baked; onCamera picks one
   // Phase 1C: bake near / mid / far as separate groups. The coplanar LOD boxes of a building that is not grid-aligned voxelise (conservative bbox voxels)
   // into a wedge in front of its own walls and shade the near walls black; each LOD alone bakes clean (same material, same colours, no new meshes).
@@ -265,7 +278,7 @@ export function build(scene, {M, V, TR, look, spec, look4}) {
     avoid: (x, z) => !['school', 'harbor', 'mainSt', 'town'].includes(districtAt(x, z)) || lots.some(l => Math.hypot(l.x - x, l.z - z) < l.r + 2) || Object.values(roads).some(r => polyDist(x, z, r.pts) < r.w / 2 + 4),
     focus: AXZ, nearR: 10, shadowR: 30, waterY: 1, seed: 9});
   vegGroup.add(town.group);
-  if (dt) streetT.push(...dt.trees); if (wst) streetT.push(...wst.trees);   // Phase 1C: Main St + west arm trees (plan.json data)
+  if (dt) streetT.push(...dt.trees); if (wst) streetT.push(...wst.trees); if (hb) streetT.push(...hb.trees);   // Phase 1C: Main St + west arm trees (plan.json data)
   if (DT) for (let i = streetT.length - 1; i >= 0; i--) if (AXZ.some(a => Math.hypot(streetT[i].x - a[0], streetT[i].z - a[1]) < 8)) streetT.splice(i, 1);   // no trunk in a camera anchor's face
   vegGroup.add(instTrees(V, streetT.filter(p => !p.palm), 'broadleaf', 21, AXZ), instTrees(V, streetT.filter(p => p.palm), 'palm', 23, AXZ));
   stats.trees = (forest.stats.trees ?? 0) + streetT.length;
@@ -280,12 +293,18 @@ export function build(scene, {M, V, TR, look, spec, look4}) {
   if (spec?.cityKeyArt) { const names = spec.cityKeyArt === true ? ANCHOR_NAMES.filter(n => !keyArt(n).auto) : spec.cityKeyArt, kap = names.map(n => [n, keyArt(n).fg]).filter(([, f]) => f); for (const [n, f] of kap) G(PLAN.anchors[n].district === 'bay' ? 'plaza' : PLAN.anchors[n].district).add(keyArtProps([f])); stats.keyArtProps = names.length; }
   const LIV = spec?.cityLiving ? livingTown({groundY, slots, roads, kitBuildings: kitB, focus: spec.cityLiving}) : null;
   if (LIV) { cityRoot.add(LIV.group); stats.living = LIV.stats; }
+  // Phase 1D: merged street-prop groups (lamps, benches, cafés, docks…) are not drawn beyond PROPS_R (a few pixels there; saves ~10k tris in wide harbor shots)
+  const propGroups = []; cityRoot.traverse(o => { if (o.isGroup && /Props$/.test(o.name) && o.name !== 'keyArtProps') { const b = new T.Box3().setFromObject(o); if (!b.isEmpty()) propGroups.push([o, b]); } });
+  const propCull = p => { const v = new T.Vector3(...p); for (const [o, b] of propGroups) o.visible = b.distanceToPoint(v) <= PROPS_R; };
   stats.lots = lots.length; stats.ms = Math.round(performance.now() - t0);
   const bakeGroups = Object.entries(groups).map(([k, root]) => ({root, preset: spec?.look4 ?? 'cityDay', name: k}));
-  return {anchors, groundY, places: Object.fromEntries(slots.map(s => ['slot' + s.id, {at: [s.at[0], s.base, s.at[1]]}])), slots, stats, bakeGroups: spec?.look4 ? bakeGroups : undefined,
-    onCamera(p) { cull(p); if (look?.sky) look.sky.position.set(p[0], 0, p[2]); for (const b of kitB) setLOD(b, lodFor(Math.hypot(p[0] - b.at[0], p[2] - b.at[2]) / (b.lodScale ?? 1), KIT_LOD)); },
-    update(t) { WATER?.update(t); forest.update?.(t); dt?.update(t); LIV?.update(t); }, living: LIV,
-    setState(k, v) { return dt?.setState(k, v); }, downtown: dt, kitBuildings: kitB};
+  // Phase 1D: actors stand on decks (quay, piers, beach pier, key-art boats), not on the sea floor under them
+  const decks = DT ? harborDecks() : []; for (const n of (spec?.cityKeyArt ? (spec.cityKeyArt === true ? ANCHOR_NAMES.filter(n => !keyArt(n).auto) : spec.cityKeyArt) : [])) { const f = keyArt(n).fg; if (f?.kind === 'boat') decks.push({x: f.at[0], z: f.at[2], len: f.len - 3, w: (f.w ?? 7.6) - .6, yaw: f.yaw, y: f.y}); }
+  const groundYD = decks.length ? (x, z) => { const d = deckAt(decks, x, z); return d ?? groundY(x, z); } : groundY;
+  return {anchors, groundY: groundYD, decks, places: Object.fromEntries(slots.map(s => ['slot' + s.id, {at: [s.at[0], s.base, s.at[1]]}])), slots, stats, bakeGroups: spec?.look4 ? bakeGroups : undefined,
+    onCamera(p) { cull(p); terrainLod(p); propCull(p); if (look?.sky) look.sky.position.set(p[0], 0, p[2]); for (const b of kitB) setLOD(b, lodFor(Math.hypot(p[0] - b.at[0], p[2] - b.at[2]) / (b.lodScale ?? 1), KIT_LOD)); },
+    update(t) { WATER?.update(t); forest.update?.(t); dt?.update(t); hb?.update(t); LIV?.update(t); }, living: LIV, harbor: hb,
+    setState(k, v) { return (dt?.setState(k, v) || hb?.setState(k, v)) ?? false; }, downtown: dt, kitBuildings: kitB};
 }
 
 // Phase 1B: a district lot as a kit building (rows of brick / plaster / mansard around the plaza, candy fill on Main St).
