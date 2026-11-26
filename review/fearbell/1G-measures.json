@@ -1,0 +1,244 @@
+{
+ "creatures": {
+  "ghost": {
+   "tris": 3384,
+   "pass": true
+  },
+  "trex": {
+   "tris": 832,
+   "pass": true
+  },
+  "rat": {
+   "tris": 2576,
+   "pass": true
+  },
+  "spider": {
+   "tris": 7044,
+   "pass": true
+  },
+  "vacuum": {
+   "tris": 1656,
+   "pass": true
+  },
+  "shadowPuff": {
+   "tris": 1340,
+   "pass": true
+  },
+  "dome": {
+   "tris": 3860,
+   "pass": true
+  },
+  "pillar": {
+   "tris": 594,
+   "pass": true
+  }
+ },
+ "props": {
+  "burger": {
+   "tris": 1380
+  },
+  "slider": {
+   "tris": 1380
+  },
+  "plate": {
+   "tris": 864
+  },
+  "spaghetti": {
+   "tris": 3472
+  },
+  "plush": {
+   "tris": 2040
+  },
+  "flashlight": {
+   "tris": 630
+  },
+  "mailBurst": {
+   "tris": 480
+  },
+  "bellRope": {
+   "tris": 1256
+  },
+  "donut": {
+   "tris": 1248
+  },
+  "busStop": {
+   "tris": 348
+  },
+  "dinerCounter": {
+   "tris": 492
+  }
+ },
+ "governor": {
+  "mouthGap": 0.03,
+  "aim": 1,
+  "pass": true
+ },
+ "react": {
+  "ghost": {
+   "frame": 30,
+   "tris": 57403
+  },
+  "trex": {
+   "frame": 67,
+   "tris": 50746
+  },
+  "rat": {
+   "frame": 107,
+   "tris": 53912
+  },
+  "spider": {
+   "frame": 162,
+   "tris": 54412
+  },
+  "vacuum": {
+   "frame": 223,
+   "tris": 53918
+  },
+  "shadowPuff": {
+   "frame": 254,
+   "tris": 49180
+  },
+  "dome": {
+   "frame": 300,
+   "tris": 63208
+  },
+  "pillar": {
+   "frame": 345,
+   "tris": 55706
+  },
+  "inside": {
+   "frame": 403,
+   "tris": 15342
+  }
+ },
+ "rooms": {
+  "classroom:classBoard": {
+   "tris": 21676
+  },
+  "classroom:classWindow": {
+   "tris": 26584
+  },
+  "classroom:bench": {
+   "tris": 21676,
+   "calls": 391,
+   "sPerFrame": 0.581,
+   "pass": true
+  },
+  "dining:diningWide": {
+   "tris": 30840
+  },
+  "dining:diningTable": {
+   "tris": 29748
+  },
+  "dining:bench": {
+   "tris": 30840,
+   "calls": 476,
+   "sPerFrame": 0.689,
+   "pass": false
+  }
+ },
+ "dome": [
+  {
+   "t": 0,
+   "size": [
+    77.53,
+    62.32,
+    70.74
+   ]
+  },
+  {
+   "t": 1,
+   "size": [
+    78.19,
+    70.38,
+    75.81
+   ]
+  },
+  {
+   "t": 2,
+   "size": [
+    77.46,
+    67.48,
+    72.22
+   ]
+  },
+  {
+   "t": 2.4,
+   "size": [
+    66.51,
+    58.03,
+    56.94
+   ]
+  },
+  {
+   "t": 2.8,
+   "size": [
+    4.41,
+    3.59,
+    4.42
+   ]
+  },
+  {
+   "t": 3.1,
+   "size": [
+    0.96,
+    0.79,
+    0.89
+   ]
+  },
+  {
+   "t": 3.6,
+   "size": [
+    0.96,
+    0.83,
+    0.89
+   ]
+  },
+  {
+   "t": 3.95,
+   "size": [
+    0.96,
+    0.82,
+    0.89
+   ]
+  }
+ ],
+ "fx": {
+  "events": [
+   {
+    "fx": "pop",
+    "t": 0.25,
+    "style": "cartoon"
+   },
+   {
+    "fx": "pop",
+    "t": 0.7,
+    "style": "cartoon"
+   },
+   {
+    "fx": "pop",
+    "t": 1.1,
+    "style": "cartoon"
+   },
+   {
+    "fx": "pop",
+    "t": 1.45,
+    "style": "cartoon"
+   }
+  ]
+ },
+ "bench": {
+  "plazaWide": {
+   "tris": 74580,
+   "calls": 397,
+   "sPerFrame": 0.701,
+   "pass": false
+  },
+  "extras": 10,
+  "dome": true
+ },
+ "pass": {
+  "creatures": true,
+  "bench": false
+ }
+}
