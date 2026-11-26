@@ -1,0 +1,171 @@
+{
+ "slug": "fearbell1g",
+ "fps": 24,
+ "format": 6,
+ "labels": false,
+ "world": "parts/city/rooms.js",
+ "location": "cityDining",
+ "look4": "cityDay2",
+ "rig": "r6",
+ "acting": 6,
+ "note": "Phase 1G gate: interior cityDining (city look B), both keyArt anchors.",
+ "cast": {
+  "dad": {
+   "troupe": "ELDER",
+   "costume": "DAD_FB",
+   "style": "v5",
+   "faceStyle": "v6",
+   "origin": [
+    -1.9,
+    0,
+    -2.6
+   ],
+   "yaw": 10,
+   "keys": [
+    [
+     0,
+     "idle"
+    ]
+   ],
+   "faces": [
+    [
+     0,
+     "smile"
+    ]
+   ]
+  },
+  "lulu": {
+   "troupe": "LITTLE",
+   "costume": "LULU",
+   "style": "v5",
+   "faceStyle": "v6",
+   "origin": [
+    1.9,
+    0,
+    5.6
+   ],
+   "yaw": 200,
+   "keys": [
+    [
+     0,
+     "idle"
+    ]
+   ]
+  },
+  "hero": {
+   "troupe": "HERO",
+   "style": "v5",
+   "faceStyle": "v6",
+   "origin": [
+    3.6,
+    0,
+    -4.4
+   ],
+   "yaw": 230,
+   "keys": [
+    [
+     0,
+     "idle"
+    ]
+   ],
+   "faces": [
+    [
+     0,
+     "hero_grin"
+    ]
+   ]
+  }
+ },
+ "props": [
+  {
+   "id": "spag",
+   "set": "props1g",
+   "prop": "spaghetti",
+   "pos": [
+    [
+     0,
+     [
+      -1.2,
+      2.72,
+      1
+     ]
+    ]
+   ]
+  },
+  {
+   "id": "plate",
+   "set": "props1g",
+   "prop": "plate",
+   "pos": [
+    [
+     0,
+     [
+      1.6,
+      2.72,
+      2.4
+     ]
+    ]
+   ]
+  },
+  {
+   "id": "burger",
+   "set": "props1g",
+   "prop": "burger",
+   "pos": [
+    [
+     0,
+     [
+      1.6,
+      2.86,
+      2.4
+     ]
+    ]
+   ],
+   "scale": 0.8
+  }
+ ],
+ "shots": [
+  {
+   "id": "diningWide",
+   "size": "wide",
+   "frames": 4,
+   "move": "static-drift",
+   "drift": 0,
+   "from": {
+    "position": [
+     10.6,
+     5,
+     8.2
+    ],
+    "target": [
+     -1.5,
+     3,
+     -4.5
+    ],
+    "fov": 60
+   },
+   "shadowRadius": 34
+  },
+  {
+   "id": "diningTable",
+   "size": "wide",
+   "frames": 4,
+   "move": "static-drift",
+   "drift": 0,
+   "from": {
+    "position": [
+     -10.4,
+     3.6,
+     7.6
+    ],
+    "target": [
+     2,
+     3.6,
+     -2.8
+    ],
+    "fov": 54
+   },
+   "shadowRadius": 34
+  }
+ ]
+}

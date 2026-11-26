@@ -34,7 +34,9 @@ test('kit: bevelled boxes face outward on all six sides (winding fix)', () => {
 });
 test('props: every kind builds; static and live parts separated', () => quiet(() => {
   const K1D = ['dock', 'crate', 'barrel', 'net', 'rope', 'mooring', 'buoy', 'beachUmbrella', 'towel', 'lifeguard', 'iceCart'];
-  const g = cityProps(PROP_KINDS.filter(k => !K1D.includes(k)).map((kind, i) => ({kind, at: [i * 5, 0, 0]})));
+  const K1G = ['busStop', 'dinerCounter'];   // Phase 1G kinds: their own budget (each ≤ 500 tris)
+  for (const kind of K1G) { const t = tris(cityProps([{kind, at: [0, 0, 0]}])); assert.ok(t <= 500, `${kind} ${t}`); }
+  const g = cityProps(PROP_KINDS.filter(k => !K1D.includes(k) && !K1G.includes(k)).map((kind, i) => ({kind, at: [i * 5, 0, 0]})));
   assert.ok(tris(g) < 6000); assert.ok(g.children.some(m => m.userData.live), 'lamp glow is live');
   // Phase 1D harbor + beach kinds: each ≤ 400 tris (dock: per 10 studs ≤ 400), the dock is live (never baked: its plank gaps voxelise shut)
   for (const kind of K1D) { const t = tris(cityProps([{kind, at: [0, 0, 0], len: 10}])); assert.ok(t <= 400, `${kind} ${t}`); }

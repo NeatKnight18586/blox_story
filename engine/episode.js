@@ -82,7 +82,7 @@ if (CINE_LOOK) renderer.shadowMap.enabled = false;   // tuft 1B: no live shadow 
 document.body.appendChild(renderer.domElement);
 const scene = new T.Scene();
 const camera = new T.PerspectiveCamera(45, 9 / 16, .3, 900);   // near 0.3 (A1): more depth precision for the ground layers
-let world = null, look = null, BAKE = null, GROUNDFIX = null, WMOD = null;   // WMOD: the world module (Touch Grass E1 opt-in spec.decorate hooks)
+let world = null, look = null, BAKE = null, GROUNDFIX = null, WMOD = null, CREATURES = null;   // CREATURES: Phase 1G opt-in spec.creatures   // WMOD: the world module (Touch Grass E1 opt-in spec.decorate hooks)
 // Toy House final fix (owner P4, opt-in spec.groundFix = {sep, aniso, bias, normalBias}): flat ground-level meshes (≤ 1.2 high,
 // thinner than 5 % of their span) whose top faces lie within `sep` of another overlapping one are lifted in `sep` steps and get
 // polygonOffset (the higher, the stronger); every ground texture gets mipmaps + anisotropy `aniso`; the sun shadow bias is tuned.
@@ -463,6 +463,7 @@ function poseCast(t) {
   const out = {};
   for (const [name, x] of Object.entries(cast)) poseOne(name, x, t, out);
   BEASTS?.post(t, t, n => cast[n] && !cast[n].beast ? headOf(cast[n]).toArray() : cast[n]?.a.head.position.toArray() ?? null, n => { const x = cast[n]; if (!x || x.beast) return null; return {head: headOf(x).toArray(), yaw: x.a.root.rotation.y, s: x.a.root.scale.x}; });   // tuft 2A: BLINK orbits a posed head; low-tier crowds (2B: beasts on ONES always)
+  if (CREATURES) for (const [n, h] of Object.entries(CREATURES.rideHeight(t))) if (cast[n] && h) { cast[n].a.root.position.y += h; if (Array.isArray(out[n])) out[n] = [out[n][0], out[n][1] + h, out[n][2]]; if (markPos[n]) markPos[n] = [markPos[n][0], markPos[n][1] + h, markPos[n][2]]; }   // Phase 1G: an actor riding a rising pillar
   if (PUFFERS.length) puffHeroes(t);   // tuft 2B: hero R6 puff (ball proxy)
   POWERS?.frame(t);   // tuft 2B: powers FX + props (on ones)
   return out;
@@ -585,8 +586,8 @@ function shotShadow(shot) {
 // format v5 story props (opt-in spec.props): toy props (parts/sets4/props4.js) placed and moved by timelines —
 //   {id, prop, seed, scale, pos: [[t, [x, y, z]], [t, [x, y, z], 'ramp']…], rot: [[t, [x°, y°, z°]]…], visible: [[t, bool]…]}; named `prop_<id>`.
 const storyProps = [];
-if (spec.props?.length) { const {toyProp} = await import('../parts/sets4/props4.js'), P7 = spec.props.some(p => p.set === 'props7') ? (await import('../parts/sets4/props7.js')).PROPS7 : null;
-  for (const p of spec.props) { const g = p.set === 'props7' ? P7[p.prop](p.p ?? {}) : toyProp(p.prop, p.seed ?? 1, p); if (g.userData.ready) await g.userData.ready; g.name = 'prop_' + p.id; g.scale.setScalar(p.scale ?? 1); g.traverse(o => { o.userData.live = true; }); scene.add(g); storyProps.push({p, g}); } }   // Touch Grass E1 (opt-in p.set 'props7'): props7 builders, p.p = builder options
+if (spec.props?.length) { const {toyProp} = await import('../parts/sets4/props4.js'), P7 = spec.props.some(p => p.set === 'props7') ? (await import('../parts/sets4/props7.js')).PROPS7 : null, P1G = spec.props.some(p => p.set === 'props1g') ? (await import('../parts/props1g.js')).PROPS1G : null;   // Phase 1G: set 'props1g'
+  for (const p of spec.props) { const g = p.set === 'props7' ? P7[p.prop](p.p ?? {}) : p.set === 'props1g' ? P1G[p.prop](p.p ?? {}) : toyProp(p.prop, p.seed ?? 1, p); if (g.userData.ready) await g.userData.ready; g.name = 'prop_' + p.id; g.scale.setScalar(p.scale ?? 1); g.traverse(o => { o.userData.live = true; }); scene.add(g); storyProps.push({p, g}); } }   // Touch Grass E1 (opt-in p.set 'props7'): props7 builders, p.p = builder options
 // tuft 1B (opt-in spec.glowCubes [{at, size, color, hdr}]): emissive stand-ins (a glowing beast); HDR (> 1) only under post 'cine'
 const glowCubes = (spec.glowCubes ?? []).map((g, i) => { const m = new T.Mesh(new T.BoxGeometry(g.size ?? 1.2, g.size ?? 1.2, g.size ?? 1.2), new T.MeshBasicMaterial({color: g.color ?? '#7fe8ff'}));
   m.material.userData.glow = 1; if (g.hdr) m.material.userData.glowHDR = g.hdr; m.position.set(...g.at); m.userData.live = true; m.name = 'glowCube_' + i; scene.add(m); return m; });
@@ -612,6 +613,9 @@ const ALOCK = spec.anchorLock ? (await import('./anchorlock.js')).createAnchorLo
 const CLOCK = spec.clock?.length ? await (async () => { const A6 = await import('./acting6.js'), get = async u => { try { const r = await fetch(new URL('../' + u, import.meta.url)); return r.ok ? await r.json() : null; } catch { return null; } };
   const cues = spec.clock.some(e => typeof e.at !== 'number') ? await get(spec.cues ?? `stories/${spec.slug}/cues.json`) ?? await get(`stories/${spec.slug}/build/cues.json`) : null;
   return (await import('./clockfx.js')).createClockFx(scene, spec.clock, {world, wordTime: at => A6.wordTime(cues, at)}); })() : null;
+// Phase 1G CREATURE KIT (opt-in spec.creatures, parts/creatures.js): ghost · trex · rat · spider · vacuum · shadowPuff · dome · pillar, acts pure in t
+CREATURES = spec.creatures?.length ? (await import('../parts/creatures.js')).createCreatures(scene, spec.creatures, {
+  actorPos: n => cast[n] ? headOf(cast[n]).toArray() : null, keep: o => Object.values(cast).some(x => x.a?.root === o), renderer}) : null;
 // World story state (Session 5): spec.worldState = {name: [[t, value], [t, value, 'ramp']...]} → world.setState.
 function applyWorldState(shot, t) {
   if (storyProps.length) updateProps(t);
@@ -620,6 +624,7 @@ function applyWorldState(shot, t) {
   if (!ws.cracks) world.setCracks?.(shot?.stoneCracks ?? spec.stoneCracks ?? 1);   // the clue grows (script lines 14–15)
   if (world.setState) for (const [k, keys] of Object.entries(ws)) world.setState(k, valueAt(keys, t));
   CLOCK?.update(t);
+  CREATURES?.update(t);   // Phase 1G (opt-in spec.creatures)
 }
 
 let lastSize = '';
@@ -690,7 +695,9 @@ function drawFrame(shot, mf, off, width, height, nudge) {
     if (a) return a.P.rig === 'blink' ? [] : [{p: a.head.position.toArray(), r: (a.P.dims?.headH ?? .6) * (a.P.scale ?? 1) + 1.5}];
     return x.a?.root?.visible === false ? [] : [{p: headOf(x).toArray(), r: .9 * (x.a?.root?.scale?.x ?? 1) + 1.5}]; }));
   const undoBD = BD?.pre(camera, shot);
+  const exDark = CREATURES?.dark ? renderer.toneMappingExposure : null; if (exDark != null) renderer.toneMappingExposure = exDark * CREATURES.dark;   // Phase 1G: inside the dome (near-black)
   if (c.split) renderSplit(c.split, width, height); else if (CL) cineRender(shot, mf, off, lt, width, height); else if (OUTLINE) OUTLINE.frame(camera, width, height); else renderer.render(scene, camera);
+  if (exDark != null) renderer.toneMappingExposure = exDark;
   undoBD?.();
   return c;
 }
@@ -1093,4 +1100,4 @@ function cineMeasure(names = Object.keys(cast)) {
     const c = b.getCenter(new T.Vector3()), z = c.clone().sub(camera.position).dot(f);
     out[n] = {x0, x1, y0, y1, behind, v: 2 * z * Math.tan(camera.fov * Math.PI / 360) / (5.3 * x.a.root.scale.y), z}; }
   return out; }
-window.__episode = {clock: CLOCK, anchorLock: ALOCK, outline: OUTLINE, castRoots: () => Object.fromEntries(Object.entries(cast).map(([n, x]) => [n, x.a?.root ?? null])), world, cityLiving: world?.living ?? null, tpl: CTPL ? {state: TPLSTATE, measure: tplMeasure, eyes: tplEyes} : null, beasts: BEASTS, cine: CL ? {state: CL.state, opts: CINE_OPTS, glowCount: CL.glowCount, setGlow: CL.setGlow, glowDebug: CL.glowDebug, measure: cineMeasure} : null, story6: S6, clearedNow: () => CLEARED.map(r => r.name), actingPlan: () => actPlans.map(p => /^hug/.test(p.verb) ? {...p, cam: hugCam(p)} : p), groundFix: () => GROUNDFIX, sepMeasure, ceilingLuma, classHaze, satMeasure, depthLuma, lumaProbe, debug: {scene, renderer, camera, look, pool: U5B?.poolOf ?? null}, bake: BAKE, matcapBytes: MATCAP ? (n => Array.from(look.matcapBytes(n ?? spec.look4))) : null, breakdown, measureFrame, seasonMeasure, actorMask, readMeasure, gateMeasure, placesAt, lumaAt, inspectFrame, shotSpeed, END: FRAMES / FPS, anchors: Object.fromEntries(Object.entries(anchors).filter(([, a]) => a.camera).map(([k]) => [k, true])), renderAnchor, renderAnchorNudged, renderCamera, FPS, FRAMES, shots: shots.map(({id, start, frames, size, move, loc, subject, see, openHit, at, why, captionY, fit, spectacle, look: lk}) => ({id, start, frames, size, move, loc, subject, see, openHit: !!openHit, at, why, captionY, fit, spectacle: !!spectacle, look: lk})), renderFrame};
+window.__episode = {clock: CLOCK, creatures: CREATURES, anchorLock: ALOCK, outline: OUTLINE, castRoots: () => Object.fromEntries(Object.entries(cast).map(([n, x]) => [n, x.a?.root ?? null])), world, cityLiving: world?.living ?? null, tpl: CTPL ? {state: TPLSTATE, measure: tplMeasure, eyes: tplEyes} : null, beasts: BEASTS, cine: CL ? {state: CL.state, opts: CINE_OPTS, glowCount: CL.glowCount, setGlow: CL.setGlow, glowDebug: CL.glowDebug, measure: cineMeasure} : null, story6: S6, clearedNow: () => CLEARED.map(r => r.name), actingPlan: () => actPlans.map(p => /^hug/.test(p.verb) ? {...p, cam: hugCam(p)} : p), groundFix: () => GROUNDFIX, sepMeasure, ceilingLuma, classHaze, satMeasure, depthLuma, lumaProbe, debug: {scene, renderer, camera, look, pool: U5B?.poolOf ?? null}, bake: BAKE, matcapBytes: MATCAP ? (n => Array.from(look.matcapBytes(n ?? spec.look4))) : null, breakdown, measureFrame, seasonMeasure, actorMask, readMeasure, gateMeasure, placesAt, lumaAt, inspectFrame, shotSpeed, END: FRAMES / FPS, anchors: Object.fromEntries(Object.entries(anchors).filter(([, a]) => a.camera).map(([k]) => [k, true])), renderAnchor, renderAnchorNudged, renderCamera, FPS, FRAMES, shots: shots.map(({id, start, frames, size, move, loc, subject, see, openHit, at, why, captionY, fit, spectacle, look: lk}) => ({id, start, frames, size, move, loc, subject, see, openHit: !!openHit, at, why, captionY, fit, spectacle: !!spectacle, look: lk})), renderFrame};

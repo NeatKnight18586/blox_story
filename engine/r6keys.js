@@ -69,7 +69,8 @@ export const R6KEYS = {
   // Phase 1F: THE GOVERNOR (GOV_VERBS): rope yank (both hands high, then down with the knees giving), megaphone up, panic arms
   rope_pull: V({lS: [-62, 0, -6], rS: [-62, 0, 6], head: [-10, 0, 0], root: {lean: -6}}, {antic: {lS: [-174, 0, -4], rS: [-174, 0, 4], head: [-26, 0, 0], root: {lean: -4}},
     settle: {lS: [-72, 0, -6], rS: [-72, 0, 6], head: [-12, 0, 0], root: {lean: -5}}}),
-  announce: V({rS: [-100, 0, 8], lS: [-4, 0, -30], head: [-8, 0, 0], root: {lean: -5}}, {antic: {rS: [12, 0, 6], head: [8, 0, 0], root: {lean: 5}}}),
+  // Phase 1G fix: the fist comes up under the chin (arm across the chest), so the megaphone (governor.js aimMegaphone) sits on the mouth
+  announce: V({rS: [-110, -45, -65], lS: [-4, 0, -30], head: [-8, 0, 0], root: {lean: -5}}, {antic: {rS: [12, 0, 6], head: [8, 0, 0], root: {lean: 5}}, settle: {rS: [-107, -43, -63], lS: [-4, 0, -28], head: [-6, 0, 0], root: {lean: -4}}}),
   panic_up: V({lS: [-30, 0, -150], rS: [-30, 0, 150], head: [-16, 0, 0], lH: [-14, 0, -6], rH: [10, 0, 6], root: {lean: -8}}, {antic: {lS: [10, 0, -6], rS: [10, 0, 6], head: [10, 0, 0], root: {lean: 8}}, ...ARC}),
 };
 // hugs: each actor turns to face its partner (a rigid body cannot reach sideways; yaw from acting6's two.place) and steps in

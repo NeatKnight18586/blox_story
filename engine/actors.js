@@ -97,6 +97,7 @@ export function driveActor(a, t, {keys, faces, tags, origin = {position: [0, 0, 
   if (act6 && a.parts.torso) { const q = s.squash ?? 0, sq = [1 + q / 2, 1 - q, 1 - q]; for (const k of ['torso', 'lowerTorso']) { const m = a.parts[k]; if (m) { m.userData.rest ??= m.scale.clone(); m.scale.set(m.userData.rest.x * sq[0], m.userData.rest.y * sq[1], m.userData.rest.z * sq[2]); } } }   // P3b: hug squeeze (opt-in acting)
   const stoop = BUILDS[a.build]?.stoop; if (stoop) { a.root.rotation.x += stoop; a.pivots.head.rotation.x -= stoop * .6; }   // elder_f: slight forward stoop, eyes kept forward
   if (m5b) motion5b(a, t, sampleAt, m5b);
+  a.tool?.userData?.aimMouth?.(a);   // Phase 1G: a mouth-aimed tool (the Governor's megaphone) bends at the wrist when the fist is near the face
   if (a.faceStyle === 'v6') {   // P2 Faces v6: the timeline face, blink, lip flap; faceLife (opt-in): 3–5 s blinks, a blink + 8 % head pop on every change
     let f = a.preset.face ?? 'smile'; if (faces) { f = faces[0][1]; for (const [t0, n] of faces) if (t >= t0) f = n; }
     const ch = (faces ?? []).map(k => k[0]).filter(x => x > 0);

@@ -4,7 +4,7 @@
 //             {"at": …, "fx": "crack"}]                        (crack = world.setState('bellCrack', true) from then on)
 // dong  = the bell swings (world.setState('bell', {swing})) + a translucent SHOCKWAVE ring expanding over the rooftops from the
 //         belfry (≤ 1 s): a flat ring at belfry height + a camera-facing ring, both fading.
-// pop   = a cartoon smoke puff (white-grey balls that bloom and shrink away) + a small sparkle burst; `show` names a scene object
+// pop   = a cartoon smoke puff + a small sparkle burst (Phase 1G default: chunky ink-outlined white clusters, 3–4 frame pop; `style: 'soft'` = the 1F balls); `show` names a scene object
 //         hidden until the puff's peak (POP.swap s after `at`), so the puff hides the swap from nothing → object.
 // All pure in t (any frame order). Pure helpers: dongSwing, shockAt, puffAt, sparkAt (tests/v2/clockfx.test.js).
 import * as T from 'three';
@@ -28,6 +28,17 @@ export function sparkAt(j, u, seed = 1) {
   if (u < 0 || u >= POP.dur) return null; const k = u / POP.dur, a = (j / POP.sparks) * Math.PI * 2 + seed, el = ((j * 37) % 7) / 7 - .2, d = POP.radius * (.4 + 1.6 * (1 - (1 - k) ** 2));
   return {off: [Math.cos(a) * Math.cos(el) * d, Math.sin(el) * d + .4 + k * .6, Math.sin(a) * Math.cos(el) * d], size: .45 * (1 - k) + .1, opacity: k < .1 ? k / .1 : 1 - (k - .1) / .9};
 }
+// Phase 1G CARTOON POP (default; event `style: 'soft'` keeps the 1F cloud balls): chunky bright-white clusters with a dark-ink outline that
+// pop in 3–4 frames (stretch → squash → settle), hold, then shrink out fast. Cluster i at u: {dir, s, sx, sy}; null outside [0, dur).
+export const POP_CARTOON = {dur: .55, swap: .12, clusters: 6, inFrames: 3.5, fps: 24};
+export function cartoonPuffAt(i, u, seed = 1) {
+  const P = POP_CARTOON; if (u < 0 || u >= P.dur) return null; const tin = P.inFrames / P.fps, n = P.clusters, ring = i > 0;
+  const a = ring ? (i - 1) / (n - 1) * Math.PI * 2 + seed * 1.3 : 0, size = ring ? .62 + .28 * (((i * 37 + seed) % 5) / 5) : .95;
+  let s; if (u < tin) s = 1.15 * (u / tin) ** .6; else if (u < tin + .08) s = 1.15 - .15 * ((u - tin) / .08); else if (u < .36) s = 1; else s = 1 - ((u - .36) / (P.dur - .36)) ** 2;
+  const sy = u < tin * .6 ? 1.3 : u < tin + .06 ? .8 : 1 + .05 * Math.sin((u - tin) * 40) * Math.max(0, 1 - (u - tin) / .2), sx = 1 / Math.sqrt(sy);
+  const out = ring ? .95 * (.75 + .25 * clamp01(u / .2)) : 0;
+  return {dir: [Math.cos(a) * out, (ring ? .1 + .3 * (i % 2) : .15) + .5 * u, Math.sin(a) * out * .75], s: Math.max(0, s) * size, sx, sy};
+}
 export const resolveClockAt = (at, wordTime) => typeof at === 'number' ? at : wordTime(at);
 
 const starTex = (() => { let t = null; return () => { if (t || typeof document === 'undefined') return t; const c = document.createElement('canvas'); c.width = c.height = 64; const g = c.getContext('2d');
@@ -44,10 +55,16 @@ export function createClockFx(scene, events, {world, wordTime}) {
   const face = new T.Mesh(new T.RingGeometry(1 - DONG.wave.width * .8, 1, 96), ringMat()); face.name = 'shockwaveFace';
   face.onBeforeRender = (r, sc, cam) => { face.quaternion.copy(cam.quaternion); face.updateMatrixWorld(); };   // camera-facing at draw time
   flat.frustumCulled = face.frustumCulled = false; grp.add(flat, face); flat.renderOrder = face.renderOrder = 5;
+  const cloudMat = new T.MeshStandardMaterial({color: '#ffffff', roughness: .7, emissive: '#ffffff', emissiveIntensity: .62, flatShading: false}), inkMat = new T.MeshBasicMaterial({color: '#17131c', side: T.BackSide});
+  let clusterGeo = null; const clusterG = () => clusterGeo ??= (() => { const parts = [[0, 0, 0, .62], [.48, .12, .1, .46], [-.42, .18, -.05, .44], [.05, .5, -.1, .4]].map(([x, y, z, r]) => new T.IcosahedronGeometry(r, 1).translate(x, y, z).toNonIndexed());
+    const n = parts.reduce((k, g) => k + g.attributes.position.count, 0), pos = new Float32Array(n * 3); let o = 0; for (const g of parts) { pos.set(g.attributes.position.array, o); o += g.attributes.position.array.length; }
+    const out = new T.BufferGeometry(); out.setAttribute('position', new T.BufferAttribute(pos, 3)); out.computeVertexNormals(); return out; })();
   const smokeMat = new T.MeshStandardMaterial({color: '#ffffff', roughness: .85, emissive: '#c9ced8', emissiveIntensity: .55, transparent: true, depthWrite: false});
-  const ballG = new T.IcosahedronGeometry(1, 2), puffs = pops.map(p => { const g = new T.Group(); g.name = 'popPuff'; const balls = Array.from({length: POP.balls}, () => { const m = new T.Mesh(ballG, smokeMat.clone()); m.renderOrder = 6; g.add(m); return m; });
+  const ballG = new T.IcosahedronGeometry(1, 2), puffs = pops.map(p => { const g = new T.Group(); g.name = 'popPuff'; const cartoon = p.style !== 'soft';
+    const balls = cartoon ? Array.from({length: POP_CARTOON.clusters}, () => { const m = new T.Mesh(clusterG(), cloudMat); m.renderOrder = 6; const ol = new T.Mesh(m.geometry, inkMat); ol.scale.setScalar(1.13); ol.renderOrder = 5; m.add(ol); g.add(m); return m; })
+      : Array.from({length: POP.balls}, () => { const m = new T.Mesh(ballG, smokeMat.clone()); m.renderOrder = 6; g.add(m); return m; });
     const sparks = Array.from({length: POP.sparks}, () => { const s = new T.Sprite(new T.SpriteMaterial({map: starTex(), color: '#ffe680', transparent: true, depthWrite: false, fog: false, toneMapped: false})); s.renderOrder = 7; g.add(s); return s; });
-    g.position.fromArray(p.pos ?? [0, 0, 0]); g.scale.setScalar(p.scale ?? 1); grp.add(g); return {p, g, balls, sparks, show: p.show ? scene.getObjectByName(p.show) : null}; });
+    g.position.fromArray(p.pos ?? [0, 0, 0]); g.scale.setScalar(p.scale ?? 1); grp.add(g); return {p, g, balls, sparks, cartoon, show: p.show ? scene.getObjectByName(p.show) : null}; });
   return {
     events: evs,
     update(t) {
@@ -62,9 +79,11 @@ export function createClockFx(scene, events, {world, wordTime}) {
         flat.position.copy(belfry); flat.scale.setScalar(w.s.r); flat.material.opacity = w.s.alpha;
         face.position.copy(belfry); face.scale.setScalar(w.s.r * .55); face.material.opacity = w.s.alpha * .7; }
       // pops
-      for (const P of puffs) { const u = t - P.p.t; P.g.visible = u >= 0 && u < POP.dur;
-        if (P.show) P.show.visible = u >= POP.swap;
+      for (const P of puffs) { const u = t - P.p.t, D = P.cartoon ? POP_CARTOON : POP; P.g.visible = u >= 0 && u < D.dur;
+        if (P.show) P.show.visible = u >= D.swap;
         if (!P.g.visible) continue;
+        if (P.cartoon) { P.balls.forEach((m, i) => { const b = cartoonPuffAt(i, u, P.p.i + 1); m.visible = !!b && b.s > .01; if (!m.visible) return; m.position.fromArray(b.dir); m.scale.set(b.s * b.sx, b.s * b.sy, b.s * b.sx); m.rotation.y = i * 1.1; });
+          P.sparks.forEach((s, j) => { const k = sparkAt(j, u * POP.dur / D.dur, P.p.i + 1); s.visible = !!k; if (!k) return; s.position.fromArray(k.off); s.scale.setScalar(k.size); s.material.opacity = Math.max(0, k.opacity); }); continue; }
         P.balls.forEach((m, i) => { const b = puffAt(i, u, P.p.i + 1); m.visible = !!b && b.s > .01; if (!m.visible) return; m.position.fromArray(b.dir); m.scale.setScalar(b.s); m.material.opacity = b.opacity; });
         P.sparks.forEach((s, j) => { const k = sparkAt(j, u, P.p.i + 1); s.visible = !!k; if (!k) return; s.position.fromArray(k.off); s.scale.setScalar(k.size); s.material.opacity = Math.max(0, k.opacity); }); }
     },

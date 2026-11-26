@@ -1,0 +1,235 @@
+{
+ "slug": "fearbell1g",
+ "fps": 24,
+ "format": 6,
+ "labels": false,
+ "world": "parts/city/world.js",
+ "look4": "cityDay2",
+ "rig": "r6",
+ "acting": 6,
+ "cityLiving": [
+  "flagsHall",
+  "fountain",
+  "birds",
+  "gulls",
+  "blimp"
+ ],
+ "note": "Phase 1G gate: cartoon POP puffs (3–4 frame pop, ink outline) at the bus stop + the ghost spawn (pop + boo).",
+ "cast": {
+  "lady": {
+   "troupe": "ADULT_F",
+   "costume": "BUSLADY",
+   "style": "v5",
+   "faceStyle": "v6",
+   "origin": [
+    92.61,
+    14.182,
+    2.1
+   ],
+   "yaw": -160,
+   "keys": [
+    [
+     0,
+     "idle"
+    ]
+   ],
+   "faces": [
+    [
+     0,
+     "smile"
+    ],
+    [
+     1.55,
+     "gasp"
+    ]
+   ]
+  },
+  "kev": {
+   "troupe": "SECOND",
+   "costume": "KEVIN",
+   "style": "v5",
+   "faceStyle": "v6",
+   "origin": [
+    90.91,
+    14.115,
+    1.4
+   ],
+   "yaw": -150,
+   "keys": [
+    [
+     0,
+     "idle"
+    ]
+   ],
+   "faces": [
+    [
+     0,
+     "smile"
+    ],
+    [
+     1.6,
+     "terrified"
+    ]
+   ]
+  }
+ },
+ "props": [
+  {
+   "id": "b1",
+   "set": "props1g",
+   "prop": "burger",
+   "pos": [
+    [
+     0,
+     [
+      92.00999999999999,
+      15.02,
+      -0.20000000000000018
+     ]
+    ]
+   ],
+   "scale": 1.6
+  },
+  {
+   "id": "b2",
+   "set": "props1g",
+   "prop": "plush",
+   "pos": [
+    [
+     0,
+     [
+      94.61,
+      14.42,
+      0.3999999999999999
+     ]
+    ]
+   ],
+   "rot": [
+    [
+     0,
+     [
+      0,
+      180,
+      0
+     ]
+    ]
+   ]
+  },
+  {
+   "id": "b3",
+   "set": "props1g",
+   "prop": "donut",
+   "pos": [
+    [
+     0,
+     [
+      96.61,
+      15.32,
+      -0.6000000000000001
+     ]
+    ]
+   ],
+   "rot": [
+    [
+     0,
+     [
+      70,
+      0,
+      0
+     ]
+    ]
+   ],
+   "scale": 1.6
+  }
+ ],
+ "clock": [
+  {
+   "at": 0.25,
+   "fx": "pop",
+   "pos": [
+    92.00999999999999,
+    15.42,
+    -0.20000000000000018
+   ],
+   "scale": 1.2,
+   "show": "prop_b1"
+  },
+  {
+   "at": 0.7,
+   "fx": "pop",
+   "pos": [
+    94.61,
+    15.32,
+    0.3999999999999999
+   ],
+   "scale": 1.1,
+   "show": "prop_b2"
+  },
+  {
+   "at": 1.1,
+   "fx": "pop",
+   "pos": [
+    96.61,
+    15.62,
+    -0.6000000000000001
+   ],
+   "scale": 1.1,
+   "show": "prop_b3"
+  },
+  {
+   "at": 1.45,
+   "fx": "pop",
+   "pos": [
+    100.41,
+    19.92,
+    3.6
+   ],
+   "scale": 3.4
+  }
+ ],
+ "creatures": [
+  {
+   "id": "ghost",
+   "kind": "ghost",
+   "pos": [
+    100.41,
+    14.727,
+    3.6
+   ],
+   "yaw": 150,
+   "acts": [
+    {
+     "act": "spawn",
+     "at": 1.5
+    },
+    {
+     "act": "boo",
+     "at": 2
+    }
+   ]
+  }
+ ],
+ "shots": [
+  {
+   "id": "fx",
+   "size": "wide",
+   "frames": 72,
+   "move": "static-drift",
+   "drift": 0,
+   "from": {
+    "position": [
+     111.71,
+     16.62,
+     -7.5
+    ],
+    "target": [
+     96.61,
+     20.42,
+     3.6
+    ],
+    "fov": 66
+   },
+   "shadowRadius": 34
+  }
+ ]
+}

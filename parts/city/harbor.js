@@ -128,6 +128,7 @@ export function diner() {
   const pm = new T.Mesh(mergeG(posts), kitMat('metal', '#dfe6ec')); g.add(pm);
   const arrow = new T.Mesh(new T.ConeGeometry(.9, 1.8, 3).rotateZ(-Math.PI / 2).translate(5.6, sy + 1.6, d / 2 - 1.15), new T.MeshBasicMaterial({color: '#ffd23f', toneMapped: false})); arrow.name = 'neonArrow'; g.add(arrow);
   [glass, sign, nf, arrow].forEach(o => { o.userData.live = true; });
+  const patio = cityProps([{kind: 'dinerCounter', at: [6.2, 0, d / 2 + 1.95], yaw: 0}], {name: 'dinerPatio'}); g.add(patio);   // Phase 1G: walk-up window + outdoor counter + stools on the patio
   return {group: g, tris: tris(g), signs: [sign]};
 }
 function mergeG(list) { const g = list.map(x => x.index ? x.toNonIndexed() : x), out = new T.BufferGeometry(); let n = 0; for (const x of g) n += x.attributes.position.count;

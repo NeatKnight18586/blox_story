@@ -56,6 +56,14 @@ engine/fixtures/city/gate1f-tod-cityNight.json — Phase 1F gate: time of day ci
 engine/fixtures/city/look.json — (no header)
 engine/fixtures/city/overview.json — Phase 1A overview: terrain tinted by district (spec cityOverview).
 engine/fixtures/eight-moves.json — Session 1 test clip: 3 s, one shot per camera move, one legacy avatar walking across a ground plate.
+engine/fixtures/fearbell/gate1g-bench.json — Phase 1G bench: plazaWide key art + the dome over the plaza + 10 extras.
+engine/fixtures/fearbell/gate1g-cast.json — Phase 1G gate: the Fear Bell extras + Lulu + Kevin (+ hero, Governor) on the plaza.
+engine/fixtures/fearbell/gate1g-classroom.json — Phase 1G gate: interior cityClassroom (city look B), both keyArt anchors.
+engine/fixtures/fearbell/gate1g-dining.json — Phase 1G gate: interior cityDining (city look B), both keyArt anchors.
+engine/fixtures/fearbell/gate1g-dome.json — Phase 1G gate: the GIANT DARK DOME rolls over the plaza, then the SHRINK sequence (whoosh collapse → 2 quick steps → palm-sized puff + cute 
+engine/fixtures/fearbell/gate1g-fx.json — Phase 1G gate: cartoon POP puffs (3–4 frame pop, ink outline) at the bus stop + the ghost spawn (pop + boo).
+engine/fixtures/fearbell/gate1g-props.json — Phase 1G gate: props in the world — diner outdoor counter (burger, slider, plate, spaghetti), the bus stop (lady + donut), flashlight cone, 
+engine/fixtures/fearbell/gate1g-react.json — Phase 1G gate: one reaction frame per creature (creature mid-act + a cast member reacting) + the dome inside view.
 engine/fixtures/fix3b/demo-tb.json — tuft P3B demo2 piece: TITAN on the ground before the mountain at night, low 3/4 on the chained forelegs: roar → break (chains snap, links fa
 engine/fixtures/fix3b/titan-hero.json — tuft P3B TITAN hero fixture: titanCave night ground in front of the mountain, TITAN idle / roar, low ¾ camera (lit night ¾ hero render).
 engine/fixtures/kit1/demo.json — Kit 1 demo: HDRI backdrop (venice_sunset), lowWide -> scaleReveal -> povScope, 60 fps, realism street via parts/location.js. No captions, no
@@ -152,6 +160,7 @@ engine/r6keys.js — authored classic R6 key poses (owner 2026-11-24: rigid R6, 
 engine/readcheck.js — owner readability checks (egg preview pass 2, 2026-11-14): they judge the RENDERED frame, not the
 engine/ruleui.js — rule UI anywhere (Amendment A4 C). Any tag, stat, bar, icon, card, checklist or plate attaches to ANY
 engine/seasoncheck.js — Amendment A4 §E season gates + the A5 framing and uiSize gates, as a pure function.
+engine/stage1g.js — plain studio stage for the Phase 1G review cells (scripts/v2/fearbell1g-gate.js): creatures (parts/creatures.js),
 engine/story6.js — E2 story mechanics for "lastcolor" (pure; node-testable). The renderer side is engine/story6rt.js, opt-in by
 engine/story6rt.js — E2 story mechanics, the renderer side (opt-in: spec.story6; engine/episode.js creates it). The maths is
 engine/student.js — E4 (unranked) STUDENT: the seeded academy-uniform crowd on the DUMMY slot (pure). `{troupe: 'DUMMY', costume:
@@ -167,6 +176,7 @@ avatar-style/clothing.js — clothing is paint (docs/V2_BRIEF.md §6.4): small c
 avatar-style/deltae.js — pure sRGB → Lab and CIEDE2000 (E4 G2 rank-colour gate). No three, node-testable.
 avatar-style/dog.js — E4 (unranked) DOG: a blocky golden dog on the v6 look (rounded satin blocks), our own design. Chest-high to a
 avatar-style/dragon.js — the episode's dragon (docs/V2_BRIEF.md §11.3), built from parts in the same
+avatar-style/extras1g.js — FEAR BELL extras kit (Phase 1G): rigid R6 accessories of our own design, no text or logos.
 avatar-style/faces2.js — flat classic-decal faces of our own design (docs/V2_BRIEF.md §6.2).
 avatar-style/faces3.js — Faces v3 (owner, 2026-11-14): modular hand-inked faces of our own design, in the style of the
 avatar-style/faces4.js — Faces v4 (format v4, Phase 1b redo, owner 2026-11-15): modern bold shapes drawn with doodle marker
@@ -194,11 +204,13 @@ parts/city/kit/props.js — City kit street props (Phase 1B), data in → one me
 parts/city/living.js — Look Signature: the LIVING TOWN layer (one-time kit, data in plan.json "living") + key-art foregrounds.
 parts/city/plan.js — Phase 1A: pure helpers over parts/city/plan.json (the island city's source of truth). Node-testable, no three.
 parts/city/plan.json — Phase 1A: the permanent island city. SOURCE OF TRUTH (owner-approved drawing). Map px: 1 px = 2 studs; world x = (mx - 191) * 2, z = (my - 1
+parts/city/rooms.js — Phase 1G CITY INTERIORS (reusable world module, v3 world contract: groundY, LAYER, LOOK, preload, build).
 parts/city/statue.json — Governor statue (slot 1, plaza centre) — pose as DATA so each episode can swap it (running gag): spec `statuePose: '<name>'` (default `defau
 parts/city/trees.js — Phase 1E: HERO TREES + IMPOSTORS (owner-approved approach). Data: plan.json "trees".
 parts/city/west.js — Phase 1C: the west arm (School + homes) from the City Building Kit; everything is data in plan.json `west` + kit presets.
 parts/city/wild.js — Phase 1E: the WILD EDGE (north hills). Data: plan.json "wild" (world studs, +z south) + terrain.ravine.
 parts/city/world.js — Phase 1A: the permanent island city as a reusable world (v3 world contract: groundY, LAYER, LOOK, build,
+parts/creatures.js — FEAR BELL CREATURE KIT (Phase 1G; reusable). Eight cartoon creatures, each a three.js builder + acts that are
 parts/eggs.js — Season 1 episode 1 eggs: nine original designs (stories/egg/beats.md), one shared shape, a painted shell
 parts/landform.js — landform rigs (Amendment A4 B2): part of the terrain that turns out to be a character (the
 parts/library6.json — Extra registered worlds / props for brief2spec (scripts/v2/lib6.js). A location here names the world module a spec loads and the anchor its 
@@ -207,6 +219,8 @@ parts/locations/anchors-touchgrass.json — Touch Grass anchors per BEATS shot g
 parts/locations/beastClass.json — tuft P3 BEAST VILLAGE location: beastClass \u2014 the classroom: timber beams, cream plaster, desks in rows, a chalkboard (no readable text)
 parts/locations/beastYard.json — tuft P3 BEAST VILLAGE location: beastYard \u2014 the beast school yard (late-morning day): kids line up with their beasts on the cobbled yar
 parts/locations/city.json — Phase 1A: the permanent island city (location-loader entry). The world is parts/city/world.js; parts/city/plan.json is the source of truth (
+parts/locations/cityClassroom.json — Phase 1G: CLASSROOM (school interior) in the city look B \u2014 sunny plastic classroom: 3\u00d73 student desks, the teacher's desk with a d
+parts/locations/cityDining.json — Phase 1G: HERO HOME DINING in the city look B \u2014 matches the hero's house outside (sky-blue, white trim, RED door): white walls over a s
 parts/locations/dragonPeaks.json — Touch Grass VR 2: sunset, jagged rock peaks (props7 rockPeak) at 3 distances in sunset fog, one flat rock plateau (rockMesa r 26, top y 0) f
 parts/locations/dustTown.json — Touch Grass real world: gray, dry, overcast dust haze. Everything sat <= 0.15 except NOVA, the headset glow, the grass blade.
 parts/locations/festivalPlaza.json — tuft P3 BEAST VILLAGE location: festivalPlaza \u2014 dusk \u2192 night festival: a round cobbled plaza ringed by houses, lantern strings fro
@@ -221,6 +235,7 @@ parts/materials.js — procedural tiling materials we draw ourselves (docs/V2_BR
 parts/materials4.js — format v4 Phase 2 surfaces. Pure pixel generators (Node-testable, deterministic) for the v4 set:
 parts/parts.js — theme-neutral building parts (docs/V2_BRIEF.md §7.2): block, wedge, cylinder, cone,
 parts/props.js — shared hero props (Amendment A1 B2; brief §14.3 props library). The stories' key objects
+parts/props1g.js — FEAR BELL props (Phase 1G; reusable). Spec props entry {id, set: 'props1g', prop: <name>, p: {…options}, pos, rot, visible,
 parts/sets4/anchors.json — (no header)
 parts/sets4/boxart.js — format v5 Phase 3b-R: one 1024 px box-art atlas, 16 invented toy packaging designs (4 × 4 cells of
 parts/sets4/common.js — format v5 set helpers (Phase 3b). A reusable set library (V4 D4): each location is a module that
@@ -346,6 +361,7 @@ scripts/v2/faces-phone.js — Faces v3 at phone size: twelve presets on troupe b
 scripts/v2/faces5-sheet.js — Faces v5 at phone size: the hero, Mo and Pip (Toy House cast, Actor v5) at the 390 px close shot,
 scripts/v2/faces6-gates.js — P2 / P2b Faces v6 gates → review/faces6/gates.json (node + PIL raster, no browser):
 scripts/v2/faces6-sheet.js — P2 Faces v6 review sheets on the R15 hero (cast/hero6.json HERO, faceStyle v6) → review/faces6/:
+scripts/v2/fearbell1g-gate.js — Phase 1G gate (Fear Bell cast, creatures, props, interiors; look B = cityDay2 + outline classic; CC0 on the farm).
 scripts/v2/fix3b-gates.js — tuft P3B gate sections for scripts/v2/village-gates.js (imported; each {sec, run(ctx)}); numbers via
 scripts/v2/fix3b-sheet.js — tuft P3B: ONE before / after sheet + phone read + demo → review/village/fix.png (≤ 1600 px), fix-390.png, demo2.mp4.
 scripts/v2/flicker.js — pure pixel comparison for the stability gate (Amendment A1).

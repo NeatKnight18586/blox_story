@@ -1,5 +1,5 @@
 {
- "note": "R6 rig (owner 2026-11-24): the Season 1 troupe on classic rigid R6 (Actor v5, avatar-style/body5.js) with faces v6; same slots, skin, hair, face, scale, age, build and outfits as cast/troupe6.json (kids keep their scales). ADULT_F gets the modest hourglass torso (torsoShape 'hourglass', adult_f only). Specs with `rig: 'r6'` load this file; the hero is cast/hero.json HERO (R6, scale 1) with faceStyle v6.",
+ "note": "R6 rig (owner 2026-11-24): the Season 1 troupe on classic rigid R6 (Actor v5, avatar-style/body5.js) with faces v6; same slots, skin, hair, face, scale, age, build and outfits as cast/troupe6.json (kids keep their scales). ADULT_F gets the modest hourglass torso (torsoShape 'hourglass', adult_f only). Specs with `rig: 'r6'` load this file; the hero is cast/hero.json HERO (R6, scale 1) with faceStyle v6. Phase 1G (Fear Bell extras, costumes): LULU (LITTLE), KEVIN (SECOND), PICKLES · MAILMAN · BODYBUILDER · DAD_FB (ELDER), TEACHER_FB · BUSLADY (ADULT_F; BUSLADY is a grandma: elder_f, torsoShape null).",
  "troupe": {
   "LEAD": {
    "tier": "hero",
@@ -756,6 +756,292 @@
      "shoes": "#3B2F2A"
     }
    }
+  },
+  "LULU": {
+   "slot": "LITTLE",
+   "note": "Phase 1G Fear Bell: the hero's little sister — yellow raincoat, pigtails, red rain boots, hugging her lavender bunny plush.",
+   "skin": "#f6c9a0",
+   "scale": 0.62,
+   "face": "smile",
+   "faceStyle": "v6",
+   "hair": {
+    "style": "low_twintails",
+    "color": "#6b3a1e",
+    "v": 4
+   },
+   "regions": {
+    "torso": {
+     "main": "#FFD21F",
+     "edge": "#E0B400",
+     "edgeW": 0.05,
+     "collarH": 0.16
+    },
+    "arms": {
+     "upper": "#FFD21F",
+     "lower": "#f6c9a0",
+     "sleeve": "wrist"
+    },
+    "legs": {
+     "main": "#5B8DEF",
+     "shoes": "#E8323A"
+    }
+   },
+   "accessories": [
+    "raincoat",
+    "plushHug"
+   ]
+  },
+  "KEVIN": {
+   "slot": "SECOND",
+   "note": "Phase 1G Fear Bell: Kevin, the diner regular — backwards red cap, orange tee.",
+   "skin": "#a86b45",
+   "face": "smile",
+   "faceStyle": "v6",
+   "hair": {
+    "style": "messy_fringe",
+    "color": "#2d1e14",
+    "v": 4
+   },
+   "regions": {
+    "torso": {
+     "main": "#FF8A30",
+     "edge": "#D96A16",
+     "edgeW": 0.05,
+     "collarH": 0.16
+    },
+    "arms": {
+     "upper": "#FF8A30",
+     "lower": "#a86b45",
+     "sleeve": "wrist"
+    },
+    "legs": {
+     "main": "#3B4A6B",
+     "shoes": "#F4F4F4"
+    }
+   },
+   "accessories": [
+    "capBack"
+   ]
+  },
+  "PICKLES": {
+   "slot": "ELDER",
+   "note": "Phase 1G Fear Bell: Mr. Pickles, the bowtie gardener — straw hat, red bowtie, green overalls over a cream shirt.",
+   "age": 70,
+   "build": "elder_m",
+   "skin": "#f0c8a0",
+   "face": "smile",
+   "faceStyle": "v6",
+   "hair": {
+    "style": "side_part",
+    "color": "#e6e6e6",
+    "v": 4
+   },
+   "regions": {
+    "torso": {
+     "main": "#4FA33E",
+     "strip": "#F7F1E1",
+     "stripW": 0.5,
+     "lapel": "#4FA33E",
+     "lapelW": 0.1,
+     "edge": "#3C8A2E",
+     "edgeW": 0.05,
+     "collarH": 0.12
+    },
+    "arms": {
+     "upper": "#F7F1E1",
+     "lower": "#f0c8a0",
+     "sleeve": "wrist"
+    },
+    "legs": {
+     "main": "#4C8A3A",
+     "shoes": "#5a3b22"
+    }
+   },
+   "accessories": [
+    "strawHat",
+    "bowtie"
+   ]
+  },
+  "MAILMAN": {
+   "slot": "ELDER",
+   "note": "Phase 1G Fear Bell: the mailman — blue postal cap, light-blue shirt, navy trousers, satchel.",
+   "age": 38,
+   "skin": "#8d5a3b",
+   "face": "smile",
+   "faceStyle": "v6",
+   "hair": {
+    "style": "side_part",
+    "color": "#2a1d14",
+    "v": 4
+   },
+   "regions": {
+    "torso": {
+     "main": "#8EC0F0",
+     "edge": "#1f4fb8",
+     "edgeW": 0.06,
+     "collarH": 0.14
+    },
+    "arms": {
+     "upper": "#8EC0F0",
+     "lower": "#8d5a3b",
+     "sleeve": "wrist"
+    },
+    "legs": {
+     "main": "#1f3f8f",
+     "shoes": "#17171c"
+    }
+   },
+   "accessories": [
+    "mailCap",
+    "mailBag"
+   ]
+  },
+  "BODYBUILDER": {
+   "slot": "ELDER",
+   "note": "Phase 1G Fear Bell: the bodybuilder — big R6 build (scale 1.12 + chest/trap/bicep shells), black tank, red shorts.",
+   "age": 30,
+   "scale": 1.12,
+   "skin": "#c98a5c",
+   "face": "smile",
+   "faceStyle": "v6",
+   "hair": {
+    "style": "buzz",
+    "color": "#1b1b1b",
+    "v": 4
+   },
+   "regions": {
+    "torso": {
+     "main": "#2A2D36",
+     "edge": "#1b1d24",
+     "edgeW": 0.05,
+     "collarH": 0.1
+    },
+    "arms": {
+     "upper": "#c98a5c",
+     "lower": "#c98a5c",
+     "sleeve": "wrist"
+    },
+    "legs": {
+     "main": "#E0323A",
+     "shoes": "#F4F4F4"
+    }
+   },
+   "accessories": [
+    {
+     "name": "muscles",
+     "skin": "#c98a5c",
+     "color": "#2A2D36"
+    }
+   ]
+  },
+  "TEACHER_FB": {
+   "slot": "ADULT_F",
+   "note": "Phase 1G Fear Bell: the teacher — coral cardigan over a cream blouse, glasses, hair in a bun (modest hourglass).",
+   "face": "smile",
+   "faceStyle": "v6",
+   "skin": "#E8B48A",
+   "hair": {
+    "style": "messy_bun",
+    "color": "#5A3A28",
+    "v": 4
+   },
+   "regions": {
+    "torso": {
+     "main": "#E86A5C",
+     "strip": "#FFF3E0",
+     "stripW": 0.5,
+     "lapel": "#E86A5C",
+     "lapelW": 0.12,
+     "edge": "#C9564A",
+     "edgeW": 0.05,
+     "collarH": 0.12,
+     "back": true
+    },
+    "arms": {
+     "upper": "#E86A5C",
+     "lower": "#E8B48A",
+     "sleeve": "wrist"
+    },
+    "legs": {
+     "main": "#3B4A6B",
+     "shoes": "#3B2F2A"
+    }
+   },
+   "accessories": [
+    "glasses"
+   ]
+  },
+  "DAD_FB": {
+   "slot": "ELDER",
+   "note": "Phase 1G Fear Bell: Dad — blue polo, khakis.",
+   "age": 42,
+   "skin": "#f0c8a0",
+   "face": "smile",
+   "faceStyle": "v6",
+   "hair": {
+    "style": "quiff",
+    "color": "#4a3020",
+    "v": 4
+   },
+   "regions": {
+    "torso": {
+     "main": "#3C7DD9",
+     "edge": "#2C62B0",
+     "edgeW": 0.05,
+     "collarH": 0.16
+    },
+    "arms": {
+     "upper": "#3C7DD9",
+     "lower": "#f0c8a0",
+     "sleeve": "wrist"
+    },
+    "legs": {
+     "main": "#C9B48A",
+     "shoes": "#5a3b22"
+    }
+   }
+  },
+  "BUSLADY": {
+   "slot": "ADULT_F",
+   "note": "Phase 1G Fear Bell: the bus-stop lady — a grandma (elder_f, no hourglass), purple cardigan, grey bun, holding a donut.",
+   "age": 72,
+   "build": "elder_f",
+   "torsoShape": null,
+   "skin": "#e8b48a",
+   "face": "smile",
+   "faceStyle": "v6",
+   "hair": {
+    "style": "messy_bun",
+    "color": "#cfcfd4",
+    "v": 4
+   },
+   "regions": {
+    "torso": {
+     "main": "#9A4FB0",
+     "strip": "#FCE4EC",
+     "stripW": 0.45,
+     "lapel": "#9A4FB0",
+     "lapelW": 0.12,
+     "edge": "#7E3D92",
+     "edgeW": 0.05,
+     "collarH": 0.12,
+     "back": true
+    },
+    "arms": {
+     "upper": "#9A4FB0",
+     "lower": "#e8b48a",
+     "sleeve": "wrist"
+    },
+    "legs": {
+     "main": "#6E7178",
+     "shoes": "#3B2F2A"
+    },
+    "skirt": {
+     "color": "#6B4A8C",
+     "h": 0.75
+    }
+   },
+   "tool": "donut"
   }
  }
 }
