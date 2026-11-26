@@ -28,6 +28,7 @@ const H = PLAN.heights;
 export const LAYER = {water: H.waterY, sidewalk: .16, road: .26, plaza: PLAN.terrain.terrace.y + .06, deck: PLAN.roads.boardwalk.deck};
 // v3 fallback look (episodes should use spec look4 'cityDay'): bright late morning, no near haze.
 export const LOOK = {fog: {color: '#cfe8ff', near: 420, far: 900, height: {amount: 0}}, envPreset: 'day', envIntensity: .55, cloudCover: .35, hemiGround: '#9a8e74', sunColor: '#fff6e6'};
+export const LAMPS_R = 90;   // Phase 1E: street-lamp cells draw radius (studs)
 export const NEAR_R = 60, CULL_R = 110, TERRAIN_R = 90, PROPS_R = 150;   // Phase 1D: terrain fine-chunk radius + street-prop draw radius (studs)
 const KIT_LOD = {near: 30, mid: 95};   // Phase 1C: kit building LOD radii (studs): near ≤ 3k tris, mid ≤ 600, far a box
 const ASSETS = {tex: {}, models: {}, manifest: null};
@@ -54,7 +55,7 @@ async function preloadCity(base) {
   }
   if (man.models) {
     const {GLTFLoader} = await import('three/addons/loaders/GLTFLoader.js'), gl = new GLTFLoader();
-    for (const [slot, e] of Object.entries(man.models)) {
+    for (const [slot, e] of Object.entries(man.models)) { if (/^city_(tree_pine|tree_fir|bush_round)$/.test(slot)) continue;   // Phase 1E: hero tree models load in trees.js
       try { const g = await gl.loadAsync(new URL(`renders/cache/assets/${e.id}/${e.file}`, base).href); ASSETS.models[slot] = modelParts(g.scene); } catch { /* procedural fallback */ }
     }
   }
@@ -330,14 +331,14 @@ export function build(scene, {M, V, TR, look, spec, look4}) {
   const stars = CITY.stars ? starDome(CITY.stars) : null; if (stars) cityRoot.add(stars);
   // Phase 1D: merged street-prop groups (lamps, benches, cafés, docks…) are not drawn beyond PROPS_R (a few pixels there; saves ~10k tris in wide harbor shots)
   const propGroups = []; cityRoot.traverse(o => { if (o.isGroup && /Props$/.test(o.name) && o.name !== 'keyArtProps') { const b = new T.Box3().setFromObject(o); if (!b.isEmpty()) propGroups.push([o, b]); } });
-  const propCull = p => { const v = new T.Vector3(...p); for (const [o, b] of propGroups) o.visible = b.distanceToPoint(v) <= PROPS_R; };
+  const propCull = p => { const v = new T.Vector3(...p); for (const [o, b] of propGroups) o.visible = b.distanceToPoint(v) <= (o.name === 'streetLampProps' ? LAMPS_R : PROPS_R); };   // Phase 1E: street lamps (tiny at range) stop at LAMPS_R
   stats.lots = lots.length; stats.ms = Math.round(performance.now() - t0);
   const bakeGroups = Object.entries(groups).map(([k, root]) => ({root, preset: spec?.look4 ?? 'cityDay', name: k}));
   // Phase 1D: actors stand on decks (quay, piers, beach pier, key-art boats), not on the sea floor under them
   const decks = DT ? [...harborDecks(), ...wd.decks] : []; for (const n of (spec?.cityKeyArt ? (spec.cityKeyArt === true ? ANCHOR_NAMES.filter(n => !keyArt(n).auto) : spec.cityKeyArt) : [])) { const f = keyArt(n).fg; if (f?.kind === 'boat') decks.push({x: f.at[0], z: f.at[2], len: f.len - 3, w: (f.w ?? 7.6) - .6, yaw: f.yaw, y: f.y}); }
   const groundYD = decks.length ? (x, z) => { const d = deckAt(decks, x, z); return d ?? groundY(x, z); } : groundY;
   return {anchors, groundY: groundYD, decks, places: Object.fromEntries(slots.map(s => ['slot' + s.id, {at: [s.at[0], s.base, s.at[1]]}])), slots, stats, bakeGroups: spec?.look4 ? bakeGroups : undefined,
-    onCamera(p, camera) { field?.onCamera(p, camera); cull(p); terrainLod(p); propCull(p); if (stars) stars.position.set(p[0], 0, p[2]); for (const h of halos) h.visible = h.position.distanceTo(new T.Vector3(...p)) < PROPS_R + 40; if (look?.sky) look.sky.position.set(p[0], 0, p[2]); for (const b of kitB) setLOD(b, lodFor(Math.hypot(p[0] - b.at[0], p[2] - b.at[2]) / (b.lodScale ?? 1), KIT_LOD)); },
+    onCamera(p, camera) { field?.onCamera(p, camera); wd?.onCamera(p); cull(p); terrainLod(p); propCull(p); if (stars) stars.position.set(p[0], 0, p[2]); for (const h of halos) h.visible = h.position.distanceTo(new T.Vector3(...p)) < PROPS_R + 40; if (look?.sky) look.sky.position.set(p[0], 0, p[2]); for (const b of kitB) setLOD(b, lodFor(Math.hypot(p[0] - b.at[0], p[2] - b.at[2]) / (b.lodScale ?? 1), KIT_LOD)); },
     update(t) { WATER?.update(t); for (const x of wildMovers) x.update(t); forest.update?.(t); dt?.update(t); hb?.update(t); LIV?.update(t); }, living: LIV, harbor: hb,
     setState(k, v) { return (dt?.setState(k, v) || hb?.setState(k, v)) ?? false; }, downtown: dt, kitBuildings: kitB};
 }

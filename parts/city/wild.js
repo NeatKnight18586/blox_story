@@ -42,14 +42,14 @@ export function stoneHead() {
     + .07 * g2(x, y, 0, -.37, .21, .05) + .05 * g2(x, y, 0, -.5, .18, .055) + .1 * g2(x, y, 0, -.72, .22, .12) - .04 * g2(x, y, 0, -.6, .14, .04);
   const cav = (x, y) => { const e = .05, f0 = face(x, y); return f0 - (face(x + e, y) + face(x - e, y) + face(x, y + e) + face(x, y - e)) / 4; };   // > 0 ridge (lighter), < 0 hollow (darker)
   const MOSS = [[0, .46, .9, .2], [-.52, -.08, .85, .13], [.54, -.12, .84, .12], [0, 1, .05, .42], [-.45, .78, -.45, .26], [.42, .7, .55, .16], [.75, .3, -.5, .14]].map(([x, y, z, r]) => [new T.Vector3(x, y, z).normalize(), Math.cos(r * 1.7)]);
-  const skull = weld(new T.IcosahedronGeometry(1, 22)), P = skull.attributes.position, col = new Float32Array(P.count * 3), v = new T.Vector3(), cS = new T.Color('#b8b0a0'), cD = new T.Color('#7d766a'), cM = new T.Color('#5daf45'), cM2 = new T.Color('#86cf5a'), c = new T.Color();
+  const skullGeo = det => { const skull = weld(new T.IcosahedronGeometry(1, det)), P = skull.attributes.position, col = new Float32Array(P.count * 3), v = new T.Vector3(), cS = new T.Color('#b8b0a0'), cD = new T.Color('#7d766a'), cM = new T.Color('#5daf45'), cM2 = new T.Color('#86cf5a'), c = new T.Color();
   for (let i = 0; i < P.count; i++) { v.fromBufferAttribute(P, i); const n = .65 * s3(v.x * 3 + 7, v.y * 3, v.z * 3) + .35 * s3(v.x * 7, v.y * 7 + 3, v.z * 7), front = Math.max(0, Math.min(1, (v.z - .2) / .35));
     let k = 1 + .05 * (n - .5); const fz = front * face(v.x / 1, v.y / 1); k += fz;
     let moss = 0; for (const [d, th] of MOSS) moss = Math.max(moss, Math.min(1, (v.dot(d) - th + .12 * (n - .5)) / .06));
     k += .02 * Math.max(0, moss); P.setXYZ(i, v.x * k, v.y * k, v.z * k);
     const n2 = s3(v.x * 2.5, v.y * 2.5 + 9, v.z * 2.5); c.copy(cS).lerp(cD, Math.max(0, Math.min(1, .25 * n2 + .2 * (n - .5) - front * cav(v.x, v.y) * 14))); if (moss > 0) c.lerp(cM.clone().lerp(cM2, n), moss); col.set([c.r, c.g, c.b], i * 3); }
-  skull.setAttribute('color', new T.BufferAttribute(col, 3)); skull.scale(R * SX, R * SY, R * SZ); skull.computeVertexNormals();
-  const skullMat = liveMat('std', '#ffffff', {roughness: .93, metalness: 0, envMapIntensity: .45, vertexColors: true}); const sm = new T.Mesh(skull, skullMat); sm.name = 'skull'; sm.userData.live = true; g.add(sm);
+  skull.setAttribute('color', new T.BufferAttribute(col, 3)); skull.scale(R * SX, R * SY, R * SZ); skull.computeVertexNormals(); return skull; };
+  const skullMat = liveMat('std', '#ffffff', {roughness: .93, metalness: 0, envMapIntensity: .45, vertexColors: true}); const sm = new T.Mesh(skullGeo(22), skullMat), sf = new T.Mesh(skullGeo(8), skullMat); sm.name = 'skull'; sf.name = 'skullFar'; sf.visible = false; sm.userData.live = sf.userData.live = true; g.add(sm, sf);   // Phase 1E: ~10k near, ~1.6k far
   const surf = (x, y) => zs(x, y) * (1 + face(x, y)) + .01;
   A(crack, new T.CapsuleGeometry(R * .02, R * .3, 3, 8).rotateZ(Math.PI / 2).translate(0, -R * .44, R * surf(0, -.44)));   // closed mouth line
   for (const sx of [-1, 1]) { A(stone, lumpy(new T.CylinderGeometry(R * .18, R * .24, R * .14, 12, 1), .08, 13 + sx, 1.3, true).scale(1, 1.7, 1).rotateZ(sx * Math.PI / 2).translate(sx * R * .84, R * .02, -R * .06));
@@ -61,7 +61,7 @@ export function stoneHead() {
     for (let k = -2; k <= 2; k++) { const u = k / 5, lx = ex + u * .22, ly = ey - .055 * Math.cos(u * Math.PI) - .035; A(crack, pbox(R * .018, R * .055, R * .016, 0, -R * .0275, 0).rotateZ(-u * 1.1).translate(R * lx, R * (ly + .02), R * surf(lx, ly))); } }
   // a few boulders around the buried base
   for (let i = 0; i < 9; i++) { const a = i / 9 * Math.PI * 2 + .3, rr = R * (.95 + .12 * h3(i, 1, 2)); A(i % 3 ? stone2 : stone, rock(R * (.14 + .08 * h3(i, 2, 3)), Math.sin(a) * rr, -R * .62 + H.sink * .2, Math.cos(a) * rr, i + 1)); }
-  const m = B.build('stoneHead'); g.add(m); return {group: g, R};
+  const m = B.build('stoneHead'); g.add(m); return {group: g, R, near: sm, far: sf};
 }
 
 // ---------------- waterfall (live): a scrolling ribbon from the ear down the head's side into the pool ----------------
@@ -89,7 +89,7 @@ export function signpost(A, at, yaw, cols = ['#e8b04a', '#d98a3a']) { const post
   const g = B.build('sign'); g.position.set(x, y, z); g.updateMatrixWorld(true); for (const m of g.children) A(m.material, m.geometry.clone().applyMatrix4(m.matrixWorld)); }
 
 export function wild({groundY}) {
-  const group = new T.Group(); group.name = 'wildEdge'; const B = bins(), A = B.add, stats = {}, decks = [], trees = [], movers = [], R = rng(57);
+  const group = new T.Group(); group.name = 'wildEdge'; let B = bins(), A = B.add; const stats = {}, sections = [['wildHead', B]], sect = n => { B = bins(); A = B.add; sections.push([n, B]); }, decks = [], trees = [], movers = [], R = rng(57);
   const dirt = kitMat('plastic', '#c79a62'), wood = kitMat('wood', '#a8774a'), dk = kitMat('wood', '#7a5a3c'), rope = kitMat('plastic', '#d9c38c'), iron = kitMat('metal', '#4a4f57'), rockM = kitMat('plastic', '#9a958a'), rockD = kitMat('plastic', '#7d786f');
   // -- stone head (slot 7) + pool + waterfall from the ear
   const S7 = PLAN.landmarks['7'], [hx, hz] = [(S7.at[0] - PLAN.origin[0]) * PLAN.scale, (S7.at[1] - PLAN.origin[1]) * PLAN.scale], H = WD.head, hy = groundY(hx, hz) - H.sink, yaw = H.yaw * D2R;
@@ -102,6 +102,7 @@ export function wild({groundY}) {
   pool.name = 'wildPool'; pool.userData.live = true; group.add(pool);
   for (let i = 0; i < 14; i++) { const a = i / 14 * Math.PI * 2; A(i % 2 ? rockM : rockD, rock(.9 + .5 * h3(i, 5, 5), px + Math.sin(a) * (H.pool.r + .4), py - .1, pz + Math.cos(a) * (H.pool.r + .4), i + 30)); }
   const wf = waterfall(earL, new T.Vector3(px + (earL.x - px) * .18, py + .1, pz + (earL.z - pz) * .18), 1.4); movers.push({name: 'waterfall', obj: wf.object, update: wf.update});
+  sect('wildTrail');
   // -- dirt trail (ribbon on the terrain) + signposts
   const TRL = WD.trail; let trailTris = 0; const P = [], I = [];
   for (const path of TRL.paths) { const c = new T.CatmullRomCurve3(path.map(([x, z]) => new T.Vector3(x, 0, z)), false, 'catmullrom', .3), L = c.getLength(), n = Math.max(2, Math.ceil(L / 1.6)), base = P.length / 3;
@@ -109,6 +110,7 @@ export function wild({groundY}) {
       for (const s of [-1, 1]) { const x = p.x + nx * ww / 2 * s, z = p.z + nz * ww / 2 * s; P.push(x, groundY(x, z) + .14, z); } if (i) { const a = base + (i - 1) * 2; I.push(a, a + 2, a + 1, a + 1, a + 2, a + 3); } } }
   { const g = new T.BufferGeometry(); g.setAttribute('position', new T.Float32BufferAttribute(P, 3)); g.setIndex(I); g.computeVertexNormals(); const m = new T.Mesh(g, dirt); m.name = 'wildTrail'; group.add(m); trailTris = I.length / 3; }
   for (const [x, z, a] of WD.signs) signpost(A, [x, groundY(x, z), z], a * D2R);
+  sect('wildBridge');
   // -- rope bridge over the ravine: two post pairs, a plank deck on a catenary, hand ropes + suspenders; deck strips are `decks`
   { const Bd = WD.bridge, [x0, z0] = Bd.from, [x1, z1] = Bd.to, y0 = groundY(x0, z0) + .35, y1 = groundY(x1, z1) + .35, L = Math.hypot(x1 - x0, z1 - z0), ux = (x1 - x0) / L, uz = (z1 - z0) / L, nx = -uz, nz = ux, by = Math.atan2(ux, uz);
     const yAt = u => y0 + (y1 - y0) * u - Bd.sag * 4 * u * (1 - u), n = Math.round(L / .62);
@@ -120,6 +122,7 @@ export function wild({groundY}) {
         A(rope, new T.TubeGeometry(new T.CatmullRomCurve3(pts), 16, .07, 4, false)); }
       for (let k = 1; k < 10; k++) { const u = k / 10, x = x0 + ux * L * u + nx * (Bd.w / 2 + .25) * s, z = z0 + uz * L * u + nz * (Bd.w / 2 + .25) * s, ylo = yAt(u), yhi = y0 + (y1 - y0) * u + Bd.post - .3 - Bd.sag * .55 * 4 * u * (1 - u); A(rope, pbox(.06, yhi - ylo, .06, x, ylo, z)); } }
     stats.bridge = {len: +L.toFixed(1), y0: +y0.toFixed(1), y1: +y1.toFixed(1)}; }
+  sect('wildCamp');
   // -- campsite: two A-frame tents, a stone fire ring with live flames + smoke, log seats
   { const C = WD.camp;
     for (const [x, z, a, c] of C.tents) { const y = groundY(x, z), s = new T.Shape([new T.Vector2(-1.9, 0), new T.Vector2(1.9, 0), new T.Vector2(0, 2.6)]), gg = new T.ExtrudeGeometry(s, {depth: 3.8, bevelEnabled: false}).translate(0, 0, -1.9).toNonIndexed();
@@ -133,6 +136,7 @@ export function wild({groundY}) {
     const fl = [0, 1, 2, 3].map(i => { const m = new T.Mesh(new T.ConeGeometry(.35 - i * .05, 1.1 - i * .12, 5), fm[i % 2]); m.position.set(fx + (i % 2 - .5) * .3, fy + .75, fz + (i > 1 ? .2 : -.2)); fire.add(m); return m; });
     const sm = smoke({at: [fx, fy + 1.5, fz], n: 8, rise: 7, period: 4, seed: 3, color: '#e4e6ea'}); fire.add(sm.object); fire.traverse(o => { o.userData.live = true; });
     movers.push({name: 'campSmoke', obj: fire, update(t) { sm.update(t); fl.forEach((m, i) => { m.scale.y = 1 + .25 * Math.sin(t * 9 + i * 2); m.rotation.y = t * 2 + i; }); }}); }
+  sect('wildLookout');
   // -- cliff lookout: deck on posts over the north slope, railing (3 sides), a bench, a coin telescope
   { const Lk = WD.lookout, [lx, lz] = Lk.at, a = Lk.yaw * D2R, F = [Math.sin(a), Math.cos(a)], Rt = [Math.cos(a), -Math.sin(a)], bx = lx - F[0] * Lk.d / 2, bz = lz - F[1] * Lk.d / 2, ly = groundY(bx, bz) + .45;
     const P2 = (u, v) => [lx + Rt[0] * u + F[0] * v, lz + Rt[1] * u + F[1] * v], n = Math.round(Lk.w / .55);
@@ -144,6 +148,7 @@ export function wild({groundY}) {
     { const [x, z] = P2(-2.2, -1.6); for (let k = 0; k < 3; k++) A(wood, pbox(2.8, .12, .3, 0, .85, -.35 + k * .34).rotateY(a).translate(x, ly, z)); for (const s of [-1.2, 1.2]) A(dk, pbox(.2, .85, .9, s, 0, 0).rotateY(a).translate(x, ly, z)); }
     { const [x, z] = P2(2.6, 1.9); A(iron, pbox(.22, 1.3, .22, x, ly, z)); A(kitMat('gloss', '#2f78d4'), new T.CylinderGeometry(.22, .3, 1.2, 10).rotateX(Math.PI / 2 - .25).rotateY(a).translate(x, ly + 1.55, z)); A(iron, pbox(.5, .35, .4, x, ly + 1.2, z)); }
     decks.push({x: lx, z: lz, len: Lk.d, w: Lk.w, yaw: a, y: ly}); stats.lookoutY = +ly.toFixed(1); }
+  sect('wildCave');
   // -- cave mouth: a rocky arch of boulders on the cliff step around a dark recess, a mine-cart track out of it + one cart
   { const Cv = WD.cave, [cx, cz] = Cv.at, cy = groundY(cx, cz + 4), dkM = new T.MeshBasicMaterial({color: '#140f0c'});
     const hole = new T.Mesh(new T.CylinderGeometry(3.4, 3.4, 5, 16, 1, true, -Math.PI / 2, Math.PI).rotateX(Math.PI / 2).scale(1, 1.25, 1).translate(cx, cy + .2, cz - 2), dkM); hole.material.side = T.DoubleSide; hole.name = 'caveMouth'; hole.userData.live = true; group.add(hole);
@@ -168,9 +173,12 @@ export function wild({groundY}) {
     stats.flowers = fl; }
   // -- birds over the forest
   { const g = new T.Group(), bs = WD.birds.map(([x, y, z, n, r], i) => { const b = birds({centre: [x, y, z], n, r, seed: 71 + i}); g.add(b.object); return b; }); movers.push({name: 'forestBirds', obj: g, update(t) { bs.forEach(b => b.update(t)); }}); }
-  const statics = B.build('wildStatic'); group.add(statics);
-  stats.static = tris(statics); stats.trail = trailTris; stats.total = tris(group);
-  return {group, decks, trees, movers, stats, clear: (x, z) => nearFeature(x, z, 2.5) || onTrail(x, z, 2.4)};
+  let st = 0; for (const [n, b] of sections) { const gr = b.build(n + 'Props'); group.add(gr); st += tris(gr); }   // *Props: the world's prop cull (PROPS_R) drops each feature at range
+  const flowers = group.children.filter(o => o.name === 'wildflowers');
+  stats.static = st; stats.trail = trailTris; stats.total = tris(group);
+  const onCamera = p => { const d = Math.hypot(p[0] - head.group.position.x, p[2] - head.group.position.z); head.near.visible = d < 110; head.far.visible = !head.near.visible;
+    for (const f of flowers) { f.computeBoundingSphere(); f.visible = f.boundingSphere.center.distanceTo(new T.Vector3(...p)) < 90; } };
+  return {group, decks, trees, movers, stats, onCamera, clear: (x, z) => nearFeature(x, z, 2.5) || onTrail(x, z, 2.4)};
 }
 // pure: inside a feature footprint (head + pool, camp, lookout, cave apron, bridge ends) or on a trail (studs of margin)
 export function nearFeature(x, z, m = 0) {
