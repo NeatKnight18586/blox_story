@@ -9,7 +9,22 @@ They are downloaded by the farm job `.github/workflows/assets.yml` into a cache 
 | brick | Red Brick 03 (`red_brick_03`) | texture | 2336566 | https://polyhaven.com/a/red_brick_03 |
 | planks | Wood Planks (`wood_planks`) | texture | 1913211 | https://polyhaven.com/a/wood_planks |
 | plaster | Painted Plaster Wall (`painted_plaster_wall`) | texture | 2497755 | https://polyhaven.com/a/painted_plaster_wall |
+| city_brick | Red Brick 03 (`red_brick_03`) | texture | 2336566 | https://polyhaven.com/a/red_brick_03 |
+| city_plaster | Painted Plaster Wall (`painted_plaster_wall`) | texture | 2497755 | https://polyhaven.com/a/painted_plaster_wall |
+| city_asphalt | Asphalt 02 (`asphalt_02`) | texture | 3049197 | https://polyhaven.com/a/asphalt_02 |
+| city_sidewalk | Concrete Pavement (`concrete_pavement`) | texture | 3453308 | https://polyhaven.com/a/concrete_pavement |
+| city_planks | Weathered Planks (`weathered_planks`) | texture | 2094112 | https://polyhaven.com/a/weathered_planks |
+| city_stone | White Sandstone Blocks 02 (`white_sandstone_blocks_02`) | texture | 2709620 | https://polyhaven.com/a/white_sandstone_blocks_02 |
+| city_shingles | Roof 09 (`roof_09`) | texture | 1519421 | https://polyhaven.com/a/roof_09 |
+| city_terracotta | Clay Roof Tiles (`clay_roof_tiles`) | texture | 2935196 | https://polyhaven.com/a/clay_roof_tiles |
+| city_sand | Coast Sand 01 (`coast_sand_01`) | texture | 3192911 | https://polyhaven.com/a/coast_sand_01 |
+| city_grass | Leafy Grass (`leafy_grass`) | texture | 4229130 | https://polyhaven.com/a/leafy_grass |
+| city_forest | Forest Ground 01 (`forrest_ground_01`) | texture | 3180131 | https://polyhaven.com/a/forrest_ground_01 |
+| city_cliff | Rock Face (`rock_face`) | texture | 2598477 | https://polyhaven.com/a/rock_face |
 | street_late | Venice Sunset (`venice_sunset`) | hdri | 1440400 | https://polyhaven.com/a/venice_sunset |
+| city_late_morning | Kloofendal 48d Partly Cloudy (Pure Sky) (`kloofendal_48d_partly_cloudy_puresky`) | hdri | 1435119 | https://polyhaven.com/a/kloofendal_48d_partly_cloudy_puresky |
+| city_bush | Shrub Sorrel 01 (`shrub_sorrel_01`) | model (glTF) | 1186333 | https://polyhaven.com/a/shrub_sorrel_01 |
+| city_rock | Boulder 01 (`boulder_01`) | model (glTF) | 5771986 | https://polyhaven.com/a/boulder_01 |
 
 ## HDRI backdrops (Kit 1, `assets/hdri/`, committed; 1k)
 
