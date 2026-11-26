@@ -1,17 +1,205 @@
 {
-  "note": "Phase R asset request (data). scripts/v2/fetch-assets.py resolves each slot on Poly Haven (first candidate that exists, else the most-downloaded match for `search`), downloads 1k maps into renders/cache/assets/<id>/ (gitignored, farm cache) and writes renders/cache/assets/manifest.json. All Poly Haven assets are CC0.",
+  "note": "Phase R asset request (data). scripts/v2/fetch-assets.py resolves each slot on Poly Haven (first candidate that exists, else the most-downloaded match for `search`), downloads 1k maps into renders/cache/assets/<id>/ (gitignored, farm cache) and writes renders/cache/assets/manifest.json. All Poly Haven assets are CC0. Phase 1A adds the city library (city_* slots), one clear-sky late-morning HDRI and CC0 glTF models (`models`, downloaded with every file the .gltf includes; \u2264 maxModelBytes per file).",
   "source": "https://polyhaven.com",
   "resolution": "1k",
   "format": "jpg",
-  "maps": {"albedo": "Diffuse", "normal": "nor_gl", "rough": "Rough", "ao": "AO"},
+  "maps": {
+    "albedo": "Diffuse",
+    "normal": "nor_gl",
+    "rough": "Rough",
+    "ao": "AO"
+  },
   "materials": {
-    "cobblestone": {"candidates": ["cobblestone_floor_08", "cobblestone_floor_04", "cobblestone_floor_01", "cobblestone_square"], "search": "cobblestone"},
-    "brick": {"candidates": ["red_brick_03", "brick_wall_10", "red_brick", "brick_wall_02"], "search": "brick"},
-    "planks": {"candidates": ["wood_planks", "wood_planks_grey", "old_planks_02", "weathered_planks"], "search": "planks"},
-    "plaster": {"candidates": ["painted_plaster_wall", "white_plaster_02", "beige_wall_001", "plastered_wall"], "search": "plaster"}
+    "cobblestone": {
+      "candidates": [
+        "cobblestone_floor_08",
+        "cobblestone_floor_04",
+        "cobblestone_floor_01",
+        "cobblestone_square"
+      ],
+      "search": "cobblestone"
+    },
+    "brick": {
+      "candidates": [
+        "red_brick_03",
+        "brick_wall_10",
+        "red_brick",
+        "brick_wall_02"
+      ],
+      "search": "brick"
+    },
+    "planks": {
+      "candidates": [
+        "wood_planks",
+        "wood_planks_grey",
+        "old_planks_02",
+        "weathered_planks"
+      ],
+      "search": "planks"
+    },
+    "plaster": {
+      "candidates": [
+        "painted_plaster_wall",
+        "white_plaster_02",
+        "beige_wall_001",
+        "plastered_wall"
+      ],
+      "search": "plaster"
+    },
+    "city_brick": {
+      "candidates": [
+        "red_brick_03",
+        "red_brick",
+        "brick_wall_10"
+      ],
+      "search": "red brick"
+    },
+    "city_plaster": {
+      "candidates": [
+        "painted_plaster_wall",
+        "white_plaster_02",
+        "beige_wall_001"
+      ],
+      "search": "plaster"
+    },
+    "city_asphalt": {
+      "candidates": [
+        "asphalt_02",
+        "asphalt_track",
+        "asphalt_01"
+      ],
+      "search": "asphalt"
+    },
+    "city_sidewalk": {
+      "candidates": [
+        "concrete_pavement",
+        "concrete_floor_02",
+        "patterned_concrete_pavers"
+      ],
+      "search": "pavement"
+    },
+    "city_planks": {
+      "candidates": [
+        "weathered_planks",
+        "old_planks_02",
+        "wood_planks_grey",
+        "wooden_planks"
+      ],
+      "search": "planks"
+    },
+    "city_stone": {
+      "candidates": [
+        "white_sandstone_blocks_02",
+        "sandstone_blocks_08",
+        "stone_tiles_02"
+      ],
+      "search": "sandstone"
+    },
+    "city_shingles": {
+      "candidates": [
+        "roof_09",
+        "roof_tiles_14",
+        "grey_roof_tiles"
+      ],
+      "search": "roof"
+    },
+    "city_terracotta": {
+      "candidates": [
+        "clay_roof_tiles",
+        "clay_roof_tiles_02",
+        "roof_tiles"
+      ],
+      "search": "clay roof"
+    },
+    "city_sand": {
+      "candidates": [
+        "coast_sand_01",
+        "sand_01",
+        "coast_sand_rocks_02"
+      ],
+      "search": "sand"
+    },
+    "city_grass": {
+      "candidates": [
+        "leafy_grass",
+        "grass_path_2",
+        "aerial_grass_rock"
+      ],
+      "search": "grass"
+    },
+    "city_forest": {
+      "candidates": [
+        "forrest_ground_01",
+        "forest_ground_04",
+        "forest_leaves_02"
+      ],
+      "search": "forest"
+    },
+    "city_cliff": {
+      "candidates": [
+        "rock_face",
+        "cliff_side",
+        "rock_wall_08",
+        "rocks_ground_06"
+      ],
+      "search": "cliff"
+    }
   },
   "hdri": {
-    "street_late": {"candidates": ["venice_sunset", "cobblestone_street_night_unused", "pedestrian_overpass"], "search": "street", "format": "hdr"}
+    "street_late": {
+      "candidates": [
+        "venice_sunset",
+        "cobblestone_street_night_unused",
+        "pedestrian_overpass"
+      ],
+      "search": "street",
+      "format": "hdr"
+    },
+    "city_late_morning": {
+      "candidates": [
+        "kloofendal_48d_partly_cloudy_puresky",
+        "kloppenheim_06_puresky",
+        "qwantani_puresky",
+        "noon_grass"
+      ],
+      "search": "puresky",
+      "format": "hdr"
+    }
   },
-  "maxFileBytes": 5000000
+  "maxFileBytes": 5000000,
+  "models": {
+    "city_tree": {
+      "candidates": [
+        "island_tree_01",
+        "tree_small_02",
+        "fir_sapling"
+      ],
+      "search": "tree"
+    },
+    "city_palm": {
+      "candidates": [
+        "island_tree_02",
+        "island_tree_03"
+      ],
+      "search": "palm"
+    },
+    "city_bush": {
+      "candidates": [
+        "shrub_sorrel_01",
+        "shrub_01",
+        "shrub_02"
+      ],
+      "search": "shrub"
+    },
+    "city_rock": {
+      "candidates": [
+        "boulder_01",
+        "rock_moss_set_01",
+        "namaqualand_boulder_02"
+      ],
+      "search": "boulder"
+    }
+  },
+  "modelFormat": "gltf",
+  "maxModelBytes": 15000000
 }

@@ -1,12 +1,18 @@
 // engine/timeline.js — pure timing helpers shared by the renderer, render.js, plan.js and tests.
 // Shots are cut on phrase onsets, so an episode spec gives each shot `at` (seconds, the cut time);
 // legacy specs give `frames`. layoutShots → [{...shot, start, frames, duration}] on the frame grid.
-// The last shot runs to `spec.end` (seconds): max(voice + 2.5 s, 122.5 s) for an episode (brief §9).
+// The last shot runs to `spec.end` (seconds). Format 6 (docs/season1/FORMAT_V6.md, the default for new episodes) and
+// format 5: voice + 0.85 s, no padding (format 6 hard max 125 s). Legacy specs (no `format`, brief §9): max(voice + 2.5, 122.5).
 // Step keys ([[t, value], ...]) and ramps ([t1, v1, 'ramp'] eases from the previous key) for
 // timelines of cast and world state: valueAt(keys, t).
 
 export const END_MIN = 122.5, END_PAD = 2.5;
-export const episodeEnd = voiceSeconds => Math.max(voiceSeconds + END_PAD, END_MIN);
+export const episodeEnd = voiceSeconds => Math.max(voiceSeconds + END_PAD, END_MIN);   // legacy formats only
+export const DEFAULT_FORMAT = 6, TAIL = .85, MAX_END6 = 125;   // FORMAT_V6.md rules 1–2: end = voice + 0.85, hard max 2:05
+// The episode end (s) for a voice length and spec format: formats 5/6 end 0.85 s after the last word; older specs keep §9.
+// Format 7 (docs: RULEBOOK §9): end = voice + 0.5 s; max end 77 s (lengthVariant "short") or 102 s ("long").
+export const TAIL7 = .5, MAX_END7 = {short: 77, long: 102};
+export const endFor = (voiceSeconds, format) => format >= 7 ? +(voiceSeconds + TAIL7).toFixed(3) : format >= 5 ? +(voiceSeconds + TAIL).toFixed(3) : episodeEnd(voiceSeconds);
 
 export function layoutShots(spec) {
   const fps = spec.fps ?? 30, list = spec.shots ?? [];

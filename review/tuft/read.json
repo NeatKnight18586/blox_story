@@ -1,0 +1,2255 @@
+{
+ "spec": "stories/tuft/episode.json",
+ "motionThreshold": 0.021,
+ "shots": [
+  {
+   "id": "S01",
+   "size": "close",
+   "t": 0,
+   "dur": 1.13,
+   "subject": "tuft",
+   "faceShown": {
+    "ok": false,
+    "msg": "no subject head measured"
+   },
+   "nothingInFront": {
+    "front": 0,
+    "faceCover": 0,
+    "ok": true
+   },
+   "standsOut": {
+    "subj": 0.32,
+    "ring": 0.453,
+    "diff": 0.133,
+    "ok": true,
+    "msg": ""
+   },
+   "moves": {
+    "motion": 0.0923,
+    "need": 0.021,
+    "ok": true,
+    "msg": ""
+   },
+   "hold": {
+    "held": 1.13,
+    "max": 4.5,
+    "ok": true,
+    "msg": "moving framing held 1.13 s (≤ 4.5)"
+   }
+  },
+  {
+   "id": "S02",
+   "size": "wide",
+   "t": 1.13,
+   "dur": 1.8,
+   "subject": "tuft",
+   "faceShown": null,
+   "nothingInFront": {
+    "front": 0.017,
+    "faceCover": 0,
+    "ok": true
+   },
+   "standsOut": {
+    "subj": 0.348,
+    "ring": 0.444,
+    "diff": 0.096,
+    "ok": false,
+    "msg": "subject vs surround luma 0.096 (≥ 0.12)"
+   },
+   "moves": {
+    "motion": 0.1531,
+    "need": 0.021,
+    "ok": true,
+    "msg": ""
+   },
+   "hold": {
+    "held": 1.8,
+    "max": 4.5,
+    "ok": true,
+    "msg": "moving framing held 1.80 s (≤ 4.5)"
+   }
+  },
+  {
+   "id": "S03",
+   "size": "wide",
+   "t": 2.93,
+   "dur": 1.9,
+   "subject": "nightfang",
+   "faceShown": null,
+   "nothingInFront": {
+    "front": 0,
+    "faceCover": 0,
+    "ok": true
+   },
+   "standsOut": {
+    "subj": 0.339,
+    "ring": 0.384,
+    "diff": 0.046,
+    "ok": false,
+    "msg": "subject vs surround luma 0.046 (≥ 0.12)"
+   },
+   "moves": {
+    "motion": 0.1303,
+    "need": 0.021,
+    "ok": true,
+    "msg": ""
+   },
+   "hold": {
+    "held": 1.9,
+    "max": 4.5,
+    "ok": true,
+    "msg": "moving framing held 1.90 s (≤ 4.5)"
+   }
+  },
+  {
+   "id": "S04",
+   "size": "medium",
+   "t": 4.83,
+   "dur": 1.3,
+   "subject": "vance",
+   "faceShown": {
+    "angle": 22.7,
+    "inside": 1,
+    "ok": true
+   },
+   "nothingInFront": {
+    "front": 0.008,
+    "faceCover": 0,
+    "ok": true
+   },
+   "standsOut": {
+    "subj": 0.641,
+    "ring": 0.508,
+    "diff": 0.134,
+    "ok": true,
+    "msg": ""
+   },
+   "moves": {
+    "motion": 0.2764,
+    "need": 0.021,
+    "ok": true,
+    "msg": ""
+   },
+   "hold": {
+    "held": 1.3,
+    "max": 4.5,
+    "ok": true,
+    "msg": "moving framing held 1.30 s (≤ 4.5)"
+   }
+  },
+  {
+   "id": "S05",
+   "size": "wide",
+   "t": 6.13,
+   "dur": 1.1,
+   "subject": "volt",
+   "faceShown": null,
+   "nothingInFront": {
+    "front": 0,
+    "faceCover": 0,
+    "ok": true
+   },
+   "standsOut": {
+    "subj": 0.391,
+    "ring": 0.387,
+    "diff": 0.004,
+    "ok": false,
+    "msg": "subject vs surround luma 0.004 (≥ 0.12)"
+   },
+   "moves": {
+    "motion": 0.0283,
+    "need": 0.021,
+    "ok": true,
+    "msg": ""
+   },
+   "hold": {
+    "held": 1.1,
+    "max": 4.5,
+    "ok": true,
+    "msg": "moving framing held 1.10 s (≤ 4.5)"
+   }
+  },
+  {
+   "id": "S06",
+   "size": "medium",
+   "t": 7.23,
+   "dur": 1.1,
+   "subject": "kira",
+   "faceShown": {
+    "angle": 31.3,
+    "inside": 1,
+    "ok": true
+   },
+   "nothingInFront": {
+    "front": 0,
+    "faceCover": 0,
+    "ok": true
+   },
+   "standsOut": {
+    "subj": 0.524,
+    "ring": 0.477,
+    "diff": 0.046,
+    "ok": false,
+    "msg": "subject vs surround luma 0.046 (≥ 0.12)"
+   },
+   "moves": {
+    "motion": 0.1568,
+    "need": 0.021,
+    "ok": true,
+    "msg": ""
+   },
+   "hold": {
+    "held": 1.1,
+    "max": 4.5,
+    "ok": true,
+    "msg": "moving framing held 1.10 s (≤ 4.5)"
+   }
+  },
+  {
+   "id": "S07",
+   "size": "wide",
+   "t": 8.33,
+   "dur": 1.9,
+   "subject": "cinder",
+   "faceShown": null,
+   "nothingInFront": {
+    "front": 0,
+    "faceCover": 0,
+    "ok": true
+   },
+   "standsOut": {
+    "subj": 0.534,
+    "ring": 0.446,
+    "diff": 0.088,
+    "ok": false,
+    "msg": "subject vs surround luma 0.088 (≥ 0.12)"
+   },
+   "moves": {
+    "motion": 0.1605,
+    "need": 0.021,
+    "ok": true,
+    "msg": ""
+   },
+   "hold": {
+    "held": 1.9,
+    "max": 4.5,
+    "ok": true,
+    "msg": "moving framing held 1.90 s (≤ 4.5)"
+   }
+  },
+  {
+   "id": "S08",
+   "size": "medium",
+   "t": 10.23,
+   "dur": 1.33,
+   "subject": "teacher",
+   "faceShown": {
+    "angle": 41.4,
+    "inside": 1,
+    "ok": true
+   },
+   "nothingInFront": {
+    "front": 0,
+    "faceCover": 0,
+    "ok": true
+   },
+   "standsOut": {
+    "subj": 0.425,
+    "ring": 0.399,
+    "diff": 0.026,
+    "ok": false,
+    "msg": "subject vs surround luma 0.026 (≥ 0.12)"
+   },
+   "moves": {
+    "motion": 0.1445,
+    "need": 0.021,
+    "ok": true,
+    "msg": ""
+   },
+   "hold": {
+    "held": 1.33,
+    "max": 4.5,
+    "ok": true,
+    "msg": "moving framing held 1.33 s (≤ 4.5)"
+   }
+  },
+  {
+   "id": "S09",
+   "size": "close",
+   "t": 11.57,
+   "dur": 1.97,
+   "subject": "hero",
+   "faceShown": {
+    "angle": 64.4,
+    "inside": 1,
+    "ok": true
+   },
+   "nothingInFront": {
+    "front": 0,
+    "faceCover": 0,
+    "ok": true
+   },
+   "standsOut": {
+    "subj": 0.352,
+    "ring": 0.376,
+    "diff": 0.024,
+    "ok": false,
+    "msg": "subject vs surround luma 0.024 (≥ 0.12)"
+   },
+   "moves": {
+    "motion": 0.0507,
+    "need": 0.021,
+    "ok": true,
+    "msg": ""
+   },
+   "hold": {
+    "held": 1.97,
+    "max": 4.5,
+    "ok": true,
+    "msg": "moving framing held 1.97 s (≤ 4.5)"
+   }
+  },
+  {
+   "id": "S10",
+   "size": "close",
+   "t": 13.53,
+   "dur": 2.4,
+   "subject": "hero",
+   "faceShown": {
+    "angle": 59.5,
+    "inside": 0.972,
+    "ok": true
+   },
+   "nothingInFront": {
+    "front": 0,
+    "faceCover": 0,
+    "ok": true
+   },
+   "standsOut": {
+    "subj": 0.346,
+    "ring": 0.359,
+    "diff": 0.013,
+    "ok": false,
+    "msg": "subject vs surround luma 0.013 (≥ 0.12)"
+   },
+   "moves": {
+    "motion": 0.0049,
+    "need": 0.021,
+    "ok": false,
+    "msg": "motion 0.0049 < 0.0210"
+   },
+   "hold": {
+    "held": 2.4,
+    "max": 3,
+    "ok": true,
+    "msg": "static framing held 2.40 s (≤ 3)"
+   }
+  },
+  {
+   "id": "S11",
+   "size": "medium",
+   "t": 15.93,
+   "dur": 0.97,
+   "subject": "hero",
+   "faceShown": {
+    "angle": 45.2,
+    "inside": 1,
+    "ok": true
+   },
+   "nothingInFront": {
+    "front": 0,
+    "faceCover": 0.665,
+    "ok": false,
+    "msg": "the face is 66.5 % covered"
+   },
+   "standsOut": {
+    "subj": 0.413,
+    "ring": 0.394,
+    "diff": 0.02,
+    "ok": false,
+    "msg": "subject vs surround luma 0.020 (≥ 0.12)"
+   },
+   "moves": {
+    "motion": 0.1728,
+    "need": 0.021,
+    "ok": true,
+    "msg": ""
+   },
+   "hold": {
+    "held": 0.97,
+    "max": 4.5,
+    "ok": true,
+    "msg": "moving framing held 0.97 s (≤ 4.5)"
+   }
+  },
+  {
+   "id": "S12",
+   "size": "wide",
+   "t": 16.9,
+   "dur": 1.57,
+   "subject": null,
+   "moves": {
+    "motion": 0.0745,
+    "need": 0.021,
+    "ok": true,
+    "msg": ""
+   },
+   "hold": {
+    "held": 1.57,
+    "max": 4.5,
+    "ok": true,
+    "msg": "moving framing held 1.57 s (≤ 4.5)"
+   }
+  },
+  {
+   "id": "S13",
+   "size": "insert",
+   "t": 18.47,
+   "dur": 1.5,
+   "subject": "prop2b_spider",
+   "nothingInFront": {
+    "front": 0,
+    "faceCover": 0,
+    "ok": true
+   },
+   "standsOut": {
+    "subj": 0.11,
+    "ring": 0.28,
+    "diff": 0.17,
+    "ok": true,
+    "msg": ""
+   },
+   "objectReads": {
+    "inside": 0.803,
+    "h": 0.777,
+    "ok": false,
+    "msg": "80 % of the object in frame (≥ 90)"
+   },
+   "moves": {
+    "motion": 0.0257,
+    "need": 0.021,
+    "ok": true,
+    "msg": ""
+   },
+   "hold": {
+    "held": 1.5,
+    "max": 4.5,
+    "ok": true,
+    "msg": "moving framing held 1.50 s (≤ 4.5)"
+   }
+  },
+  {
+   "id": "S14",
+   "size": "close",
+   "t": 19.97,
+   "dur": 0.87,
+   "subject": "tuft",
+   "faceShown": {
+    "ok": false,
+    "msg": "no subject head measured"
+   },
+   "nothingInFront": {
+    "front": 0,
+    "faceCover": 0,
+    "ok": true
+   },
+   "standsOut": {
+    "subj": 0.597,
+    "ring": 0.573,
+    "diff": 0.024,
+    "ok": false,
+    "msg": "subject vs surround luma 0.024 (≥ 0.12)"
+   },
+   "moves": {
+    "motion": 0.1711,
+    "need": 0.021,
+    "ok": true,
+    "msg": ""
+   },
+   "hold": {
+    "held": 0.87,
+    "max": 4.5,
+    "ok": true,
+    "msg": "moving framing held 0.87 s (≤ 4.5)"
+   }
+  },
+  {
+   "id": "S15",
+   "size": "medium",
+   "t": 20.83,
+   "dur": 0.87,
+   "subject": "hero",
+   "faceShown": {
+    "angle": 44.8,
+    "inside": 0.913,
+    "ok": true
+   },
+   "nothingInFront": {
+    "front": 0,
+    "faceCover": 0,
+    "ok": true
+   },
+   "standsOut": {
+    "subj": 0.391,
+    "ring": 0.537,
+    "diff": 0.146,
+    "ok": true,
+    "msg": ""
+   },
+   "moves": {
+    "motion": 0.2208,
+    "need": 0.021,
+    "ok": true,
+    "msg": ""
+   },
+   "hold": {
+    "held": 0.87,
+    "max": 4.5,
+    "ok": true,
+    "msg": "moving framing held 0.87 s (≤ 4.5)"
+   }
+  },
+  {
+   "id": "S16",
+   "size": "wide",
+   "t": 21.7,
+   "dur": 0.83,
+   "subject": "hero",
+   "faceShown": null,
+   "nothingInFront": {
+    "front": 0,
+    "faceCover": 0,
+    "ok": true
+   },
+   "standsOut": {
+    "subj": 0.441,
+    "ring": 0.526,
+    "diff": 0.086,
+    "ok": false,
+    "msg": "subject vs surround luma 0.086 (≥ 0.12)"
+   },
+   "moves": {
+    "motion": 0.0924,
+    "need": 0.021,
+    "ok": true,
+    "msg": ""
+   },
+   "hold": {
+    "held": 0.83,
+    "max": 4.5,
+    "ok": true,
+    "msg": "moving framing held 0.83 s (≤ 4.5)"
+   }
+  },
+  {
+   "id": "S17",
+   "size": "wide",
+   "t": 22.53,
+   "dur": 1.9,
+   "subject": "hero",
+   "faceShown": null,
+   "nothingInFront": {
+    "front": 0,
+    "faceCover": 0,
+    "ok": true
+   },
+   "standsOut": {
+    "subj": 0.436,
+    "ring": 0.291,
+    "diff": 0.144,
+    "ok": true,
+    "msg": ""
+   },
+   "moves": {
+    "motion": 0.0065,
+    "need": 0.021,
+    "ok": false,
+    "msg": "motion 0.0065 < 0.0210"
+   },
+   "hold": {
+    "held": 1.9,
+    "max": 3,
+    "ok": true,
+    "msg": "static framing held 1.90 s (≤ 3)"
+   }
+  },
+  {
+   "id": "S18",
+   "size": "medium",
+   "t": 24.43,
+   "dur": 2.37,
+   "subject": "nightfang",
+   "faceShown": {
+    "ok": false,
+    "msg": "no subject head measured"
+   },
+   "nothingInFront": {
+    "front": 0.399,
+    "faceCover": 0,
+    "ok": false,
+    "msg": "objects in front cover 39.9 % (≤ 10)"
+   },
+   "standsOut": {
+    "subj": 0.442,
+    "ring": 0.346,
+    "diff": 0.097,
+    "ok": false,
+    "msg": "subject vs surround luma 0.097 (≥ 0.12)"
+   },
+   "moves": {
+    "motion": 0.0791,
+    "need": 0.021,
+    "ok": true,
+    "msg": ""
+   },
+   "hold": {
+    "held": 2.37,
+    "max": 4.5,
+    "ok": true,
+    "msg": "moving framing held 2.37 s (≤ 4.5)"
+   }
+  },
+  {
+   "id": "S19",
+   "size": "close",
+   "t": 26.8,
+   "dur": 2.1,
+   "subject": "vance",
+   "faceShown": {
+    "angle": 32.4,
+    "inside": 0.879,
+    "ok": true
+   },
+   "nothingInFront": {
+    "front": 0,
+    "faceCover": 0.144,
+    "ok": false,
+    "msg": "the face is 14.4 % covered"
+   },
+   "standsOut": {
+    "subj": 0.368,
+    "ring": 0.534,
+    "diff": 0.167,
+    "ok": true,
+    "msg": ""
+   },
+   "moves": {
+    "motion": 0.25,
+    "need": 0.021,
+    "ok": true,
+    "msg": ""
+   },
+   "hold": {
+    "held": 2.1,
+    "max": 4.5,
+    "ok": true,
+    "msg": "moving framing held 2.10 s (≤ 4.5)"
+   }
+  },
+  {
+   "id": "S20",
+   "size": "medium",
+   "t": 28.9,
+   "dur": 2.6,
+   "subject": "vance",
+   "faceShown": {
+    "angle": 43.2,
+    "inside": 0.966,
+    "ok": true
+   },
+   "nothingInFront": {
+    "front": 0,
+    "faceCover": 0.368,
+    "ok": false,
+    "msg": "the face is 36.8 % covered"
+   },
+   "standsOut": {
+    "subj": 0.257,
+    "ring": 0.308,
+    "diff": 0.051,
+    "ok": false,
+    "msg": "subject vs surround luma 0.051 (≥ 0.12)"
+   },
+   "moves": {
+    "motion": 0.0747,
+    "need": 0.021,
+    "ok": true,
+    "msg": ""
+   },
+   "hold": {
+    "held": 2.6,
+    "max": 4.5,
+    "ok": true,
+    "msg": "moving framing held 2.60 s (≤ 4.5)"
+   }
+  },
+  {
+   "id": "S21",
+   "size": "medium",
+   "t": 31.5,
+   "dur": 2.57,
+   "subject": "juni",
+   "faceShown": {
+    "angle": 36.8,
+    "inside": 1,
+    "ok": true
+   },
+   "nothingInFront": {
+    "front": 0,
+    "faceCover": 0.014,
+    "ok": true
+   },
+   "standsOut": {
+    "subj": 0.344,
+    "ring": 0.076,
+    "diff": 0.268,
+    "ok": true,
+    "msg": ""
+   },
+   "moves": {
+    "motion": 0.0537,
+    "need": 0.021,
+    "ok": true,
+    "msg": ""
+   },
+   "hold": {
+    "held": 2.57,
+    "max": 4.5,
+    "ok": true,
+    "msg": "moving framing held 2.57 s (≤ 4.5)"
+   }
+  },
+  {
+   "id": "S22",
+   "size": "wide",
+   "t": 34.07,
+   "dur": 2.1,
+   "subject": "boulder",
+   "faceShown": null,
+   "nothingInFront": {
+    "front": 0,
+    "faceCover": 0,
+    "ok": true
+   },
+   "standsOut": {
+    "subj": 0.271,
+    "ring": 0.234,
+    "diff": 0.036,
+    "ok": false,
+    "msg": "subject vs surround luma 0.036 (≥ 0.12)"
+   },
+   "moves": {
+    "motion": 0.1452,
+    "need": 0.021,
+    "ok": true,
+    "msg": ""
+   },
+   "hold": {
+    "held": 2.1,
+    "max": 4.5,
+    "ok": true,
+    "msg": "moving framing held 2.10 s (≤ 4.5)"
+   }
+  },
+  {
+   "id": "S23",
+   "size": "insert",
+   "t": 36.17,
+   "dur": 1.13,
+   "subject": "prop2b_toaster",
+   "nothingInFront": {
+    "front": 0,
+    "faceCover": 0,
+    "ok": true
+   },
+   "standsOut": {
+    "subj": 0.475,
+    "ring": 0.143,
+    "diff": 0.332,
+    "ok": true,
+    "msg": ""
+   },
+   "objectReads": {
+    "inside": 1,
+    "h": 0.201,
+    "ok": false,
+    "msg": "object 20 % of frame height (≥ 25)"
+   },
+   "moves": {
+    "motion": 0.0056,
+    "need": 0.021,
+    "ok": false,
+    "msg": "motion 0.0056 < 0.0210"
+   },
+   "hold": {
+    "held": 1.13,
+    "max": 3,
+    "ok": true,
+    "msg": "static framing held 1.13 s (≤ 3)"
+   }
+  },
+  {
+   "id": "S24",
+   "size": "close",
+   "t": 37.3,
+   "dur": 0.57,
+   "subject": "hero",
+   "faceShown": {
+    "angle": 44.2,
+    "inside": 0.479,
+    "ok": false,
+    "msg": "48 % of the head in frame (≥ 70)"
+   },
+   "nothingInFront": {
+    "front": 0,
+    "faceCover": 0,
+    "ok": true
+   },
+   "standsOut": {
+    "subj": 0.44,
+    "ring": 0.376,
+    "diff": 0.064,
+    "ok": false,
+    "msg": "subject vs surround luma 0.064 (≥ 0.12)"
+   },
+   "moves": {
+    "motion": 0.1627,
+    "need": 0.021,
+    "ok": true,
+    "msg": ""
+   },
+   "hold": {
+    "held": 0.57,
+    "max": 4.5,
+    "ok": true,
+    "msg": "moving framing held 0.57 s (≤ 4.5)"
+   }
+  },
+  {
+   "id": "S25",
+   "size": "wide",
+   "t": 37.87,
+   "dur": 1.03,
+   "subject": null,
+   "moves": {
+    "motion": 0.0132,
+    "need": 0.021,
+    "ok": false,
+    "msg": "motion 0.0132 < 0.0210"
+   },
+   "hold": {
+    "held": 1.03,
+    "max": 3,
+    "ok": true,
+    "msg": "static framing held 1.03 s (≤ 3)"
+   }
+  },
+  {
+   "id": "S26",
+   "size": "medium",
+   "t": 38.9,
+   "dur": 1.87,
+   "subject": "boulder",
+   "faceShown": {
+    "ok": false,
+    "msg": "no subject head measured"
+   },
+   "nothingInFront": {
+    "front": 0,
+    "faceCover": 0,
+    "ok": true
+   },
+   "standsOut": {
+    "subj": 0.235,
+    "ring": 0.26,
+    "diff": 0.025,
+    "ok": false,
+    "msg": "subject vs surround luma 0.025 (≥ 0.12)"
+   },
+   "moves": {
+    "motion": 0.0089,
+    "need": 0.021,
+    "ok": false,
+    "msg": "motion 0.0089 < 0.0210"
+   },
+   "hold": {
+    "held": 1.87,
+    "max": 3,
+    "ok": true,
+    "msg": "static framing held 1.87 s (≤ 3)"
+   }
+  },
+  {
+   "id": "S27",
+   "size": "close",
+   "t": 40.77,
+   "dur": 2.3,
+   "subject": "juni",
+   "faceShown": {
+    "angle": 76.7,
+    "inside": 0.925,
+    "ok": false,
+    "msg": "face turned 77° from the camera (≤ 70)"
+   },
+   "nothingInFront": {
+    "front": 0,
+    "faceCover": 0.282,
+    "ok": false,
+    "msg": "the face is 28.2 % covered"
+   },
+   "standsOut": {
+    "subj": 0.395,
+    "ring": 0.258,
+    "diff": 0.137,
+    "ok": true,
+    "msg": ""
+   },
+   "moves": {
+    "motion": 0.034,
+    "need": 0.021,
+    "ok": true,
+    "msg": ""
+   },
+   "hold": {
+    "held": 2.3,
+    "max": 4.5,
+    "ok": true,
+    "msg": "moving framing held 2.30 s (≤ 4.5)"
+   }
+  },
+  {
+   "id": "S28",
+   "size": "close",
+   "t": 43.07,
+   "dur": 1.47,
+   "subject": "hero",
+   "faceShown": {
+    "angle": 45.2,
+    "inside": 0.94,
+    "ok": true
+   },
+   "nothingInFront": {
+    "front": 0,
+    "faceCover": 0.553,
+    "ok": false,
+    "msg": "the face is 55.3 % covered"
+   },
+   "standsOut": {
+    "subj": 0.382,
+    "ring": 0.447,
+    "diff": 0.065,
+    "ok": false,
+    "msg": "subject vs surround luma 0.065 (≥ 0.12)"
+   },
+   "moves": {
+    "motion": 0.0104,
+    "need": 0.021,
+    "ok": false,
+    "msg": "motion 0.0104 < 0.0210"
+   },
+   "hold": {
+    "held": 1.47,
+    "max": 3,
+    "ok": true,
+    "msg": "static framing held 1.47 s (≤ 3)"
+   }
+  },
+  {
+   "id": "S29",
+   "size": "wide",
+   "t": 44.53,
+   "dur": 1.9,
+   "subject": "hero",
+   "faceShown": null,
+   "nothingInFront": {
+    "front": 0.724,
+    "faceCover": 0,
+    "ok": false,
+    "msg": "objects in front cover 72.4 % (≤ 10)"
+   },
+   "standsOut": {
+    "ok": false,
+    "msg": "subject not visible on the id mask"
+   },
+   "moves": {
+    "motion": 0.3256,
+    "need": 0.021,
+    "ok": true,
+    "msg": ""
+   },
+   "hold": {
+    "held": 1.9,
+    "max": 4.5,
+    "ok": true,
+    "msg": "moving framing held 1.90 s (≤ 4.5)"
+   }
+  },
+  {
+   "id": "S30",
+   "size": "wide",
+   "t": 46.43,
+   "dur": 1.87,
+   "subject": "hero",
+   "faceShown": null,
+   "nothingInFront": {
+    "front": 0,
+    "faceCover": 0.046,
+    "ok": false,
+    "msg": "the face is 4.6 % covered"
+   },
+   "standsOut": {
+    "subj": 0.489,
+    "ring": 0.504,
+    "diff": 0.015,
+    "ok": false,
+    "msg": "subject vs surround luma 0.015 (≥ 0.12)"
+   },
+   "moves": {
+    "motion": 0.0568,
+    "need": 0.021,
+    "ok": true,
+    "msg": ""
+   },
+   "hold": {
+    "held": 1.87,
+    "max": 4.5,
+    "ok": true,
+    "msg": "moving framing held 1.87 s (≤ 4.5)"
+   }
+  },
+  {
+   "id": "S31",
+   "size": "wide",
+   "t": 48.3,
+   "dur": 1.33,
+   "subject": "hero",
+   "faceShown": null,
+   "nothingInFront": {
+    "front": 0,
+    "faceCover": 0,
+    "ok": true
+   },
+   "standsOut": {
+    "subj": 0.279,
+    "ring": 0.306,
+    "diff": 0.027,
+    "ok": false,
+    "msg": "subject vs surround luma 0.027 (≥ 0.12)"
+   },
+   "moves": {
+    "motion": 0.0236,
+    "need": 0.021,
+    "ok": true,
+    "msg": ""
+   },
+   "hold": {
+    "held": 1.33,
+    "max": 4.5,
+    "ok": true,
+    "msg": "moving framing held 1.33 s (≤ 4.5)"
+   }
+  },
+  {
+   "id": "S32",
+   "size": "wide",
+   "t": 49.63,
+   "dur": 1.97,
+   "subject": null,
+   "moves": {
+    "motion": 0.1139,
+    "need": 0.021,
+    "ok": true,
+    "msg": ""
+   },
+   "hold": {
+    "held": 1.97,
+    "max": 4.5,
+    "ok": true,
+    "msg": "moving framing held 1.97 s (≤ 4.5)"
+   }
+  },
+  {
+   "id": "S33",
+   "size": "close",
+   "t": 51.6,
+   "dur": 1.7,
+   "subject": "hero",
+   "faceShown": {
+    "angle": 80.8,
+    "inside": 0,
+    "ok": false,
+    "msg": "subject head behind the camera"
+   },
+   "nothingInFront": {
+    "front": 0.262,
+    "faceCover": 0,
+    "ok": false,
+    "msg": "objects in front cover 26.2 % (≤ 10)"
+   },
+   "standsOut": {
+    "ok": false,
+    "msg": "subject not visible on the id mask"
+   },
+   "moves": {
+    "motion": 0.3342,
+    "need": 0.021,
+    "ok": true,
+    "msg": ""
+   },
+   "hold": {
+    "held": 1.7,
+    "max": 4.5,
+    "ok": true,
+    "msg": "moving framing held 1.70 s (≤ 4.5)"
+   }
+  },
+  {
+   "id": "S34",
+   "size": "medium",
+   "t": 53.3,
+   "dur": 1.57,
+   "subject": "tuft",
+   "faceShown": {
+    "ok": false,
+    "msg": "no subject head measured"
+   },
+   "nothingInFront": {
+    "front": 0,
+    "faceCover": 0,
+    "ok": true
+   },
+   "standsOut": {
+    "subj": 0.175,
+    "ring": 0.257,
+    "diff": 0.083,
+    "ok": false,
+    "msg": "subject vs surround luma 0.083 (≥ 0.12)"
+   },
+   "moves": {
+    "motion": 0.0189,
+    "need": 0.021,
+    "ok": false,
+    "msg": "motion 0.0189 < 0.0210"
+   },
+   "hold": {
+    "held": 1.57,
+    "max": 3,
+    "ok": true,
+    "msg": "static framing held 1.57 s (≤ 3)"
+   }
+  },
+  {
+   "id": "S35",
+   "size": "wide",
+   "t": 54.87,
+   "dur": 1.37,
+   "subject": "prop2b_lanternSea",
+   "nothingInFront": {
+    "front": 0,
+    "faceCover": 0,
+    "ok": true
+   },
+   "standsOut": {
+    "subj": 0.642,
+    "ring": 0.283,
+    "diff": 0.358,
+    "ok": true,
+    "msg": ""
+   },
+   "moves": {
+    "motion": 0.0411,
+    "need": 0.021,
+    "ok": true,
+    "msg": ""
+   },
+   "hold": {
+    "held": 1.37,
+    "max": 4.5,
+    "ok": true,
+    "msg": "moving framing held 1.37 s (≤ 4.5)"
+   }
+  },
+  {
+   "id": "S36",
+   "size": "wide",
+   "t": 56.23,
+   "dur": 1.8,
+   "subject": "prop2b_lanternSea",
+   "nothingInFront": {
+    "front": 0.038,
+    "faceCover": 0,
+    "ok": true
+   },
+   "standsOut": {
+    "subj": 0.614,
+    "ring": 0.292,
+    "diff": 0.322,
+    "ok": true,
+    "msg": ""
+   },
+   "moves": {
+    "motion": 0.1116,
+    "need": 0.021,
+    "ok": true,
+    "msg": ""
+   },
+   "hold": {
+    "held": 1.8,
+    "max": 4.5,
+    "ok": true,
+    "msg": "moving framing held 1.80 s (≤ 4.5)"
+   }
+  },
+  {
+   "id": "S37",
+   "size": "medium",
+   "t": 58.03,
+   "dur": 2.53,
+   "subject": "vance",
+   "faceShown": {
+    "angle": 37.4,
+    "inside": 0.859,
+    "ok": true
+   },
+   "nothingInFront": {
+    "front": 0.887,
+    "faceCover": 0.902,
+    "ok": false,
+    "msg": "objects in front cover 88.7 % (≤ 10)"
+   },
+   "standsOut": {
+    "subj": 0.079,
+    "ring": 0.067,
+    "diff": 0.012,
+    "ok": false,
+    "msg": "subject vs surround luma 0.012 (≥ 0.12)"
+   },
+   "moves": {
+    "motion": 0.0735,
+    "need": 0.021,
+    "ok": true,
+    "msg": ""
+   },
+   "hold": {
+    "held": 2.53,
+    "max": 4.5,
+    "ok": true,
+    "msg": "moving framing held 2.53 s (≤ 4.5)"
+   }
+  },
+  {
+   "id": "S38",
+   "size": "wide",
+   "t": 60.57,
+   "dur": 1.93,
+   "subject": "titan",
+   "faceShown": null,
+   "nothingInFront": {
+    "front": 0.141,
+    "faceCover": 0,
+    "ok": false,
+    "msg": "objects in front cover 14.1 % (≤ 10)"
+   },
+   "standsOut": {
+    "subj": 0.155,
+    "ring": 0.194,
+    "diff": 0.039,
+    "ok": false,
+    "msg": "subject vs surround luma 0.039 (≥ 0.12)"
+   },
+   "moves": {
+    "motion": 0.1223,
+    "need": 0.021,
+    "ok": true,
+    "msg": ""
+   },
+   "hold": {
+    "held": 1.93,
+    "max": 4.5,
+    "ok": true,
+    "msg": "moving framing held 1.93 s (≤ 4.5)"
+   }
+  },
+  {
+   "id": "S39",
+   "size": "close",
+   "t": 62.5,
+   "dur": 2.13,
+   "subject": "vance",
+   "faceShown": {
+    "angle": 27.7,
+    "inside": 1,
+    "ok": true
+   },
+   "nothingInFront": {
+    "front": 0,
+    "faceCover": 0.226,
+    "ok": false,
+    "msg": "the face is 22.6 % covered"
+   },
+   "standsOut": {
+    "subj": 0.17,
+    "ring": 0.298,
+    "diff": 0.128,
+    "ok": true,
+    "msg": ""
+   },
+   "moves": {
+    "motion": 0.0832,
+    "need": 0.021,
+    "ok": true,
+    "msg": ""
+   },
+   "hold": {
+    "held": 2.13,
+    "max": 4.5,
+    "ok": true,
+    "msg": "moving framing held 2.13 s (≤ 4.5)"
+   }
+  },
+  {
+   "id": "S40",
+   "size": "close",
+   "t": 64.63,
+   "dur": 1.47,
+   "subject": "titan",
+   "faceShown": {
+    "ok": false,
+    "msg": "no subject head measured"
+   },
+   "nothingInFront": {
+    "front": 0,
+    "faceCover": 0,
+    "ok": true
+   },
+   "standsOut": {
+    "ok": false,
+    "msg": "subject not visible on the id mask"
+   },
+   "moves": {
+    "motion": 0.0679,
+    "need": 0.021,
+    "ok": true,
+    "msg": ""
+   },
+   "hold": {
+    "held": 1.47,
+    "max": 4.5,
+    "ok": true,
+    "msg": "moving framing held 1.47 s (≤ 4.5)"
+   }
+  },
+  {
+   "id": "S41",
+   "size": "medium",
+   "t": 66.1,
+   "dur": 1.4,
+   "subject": "vance",
+   "faceShown": {
+    "angle": 50.5,
+    "inside": 1,
+    "ok": true
+   },
+   "nothingInFront": {
+    "front": 0,
+    "faceCover": 0.231,
+    "ok": false,
+    "msg": "the face is 23.1 % covered"
+   },
+   "standsOut": {
+    "subj": 0.195,
+    "ring": 0.106,
+    "diff": 0.09,
+    "ok": false,
+    "msg": "subject vs surround luma 0.090 (≥ 0.12)"
+   },
+   "moves": {
+    "motion": 0.0878,
+    "need": 0.021,
+    "ok": true,
+    "msg": ""
+   },
+   "hold": {
+    "held": 1.4,
+    "max": 4.5,
+    "ok": true,
+    "msg": "moving framing held 1.40 s (≤ 4.5)"
+   }
+  },
+  {
+   "id": "S42",
+   "size": "medium",
+   "t": 67.5,
+   "dur": 1,
+   "subject": "vance",
+   "faceShown": {
+    "angle": 14.2,
+    "inside": 1,
+    "ok": true
+   },
+   "nothingInFront": {
+    "front": 0,
+    "faceCover": 0.046,
+    "ok": false,
+    "msg": "the face is 4.6 % covered"
+   },
+   "standsOut": {
+    "subj": 0.174,
+    "ring": 0.116,
+    "diff": 0.058,
+    "ok": false,
+    "msg": "subject vs surround luma 0.058 (≥ 0.12)"
+   },
+   "moves": {
+    "motion": 0.1004,
+    "need": 0.021,
+    "ok": true,
+    "msg": ""
+   },
+   "hold": {
+    "held": 1,
+    "max": 4.5,
+    "ok": true,
+    "msg": "moving framing held 1.00 s (≤ 4.5)"
+   }
+  },
+  {
+   "id": "S43",
+   "size": "close",
+   "t": 68.5,
+   "dur": 1.27,
+   "subject": "titan",
+   "faceShown": {
+    "ok": false,
+    "msg": "no subject head measured"
+   },
+   "nothingInFront": {
+    "front": 0,
+    "faceCover": 0,
+    "ok": true
+   },
+   "standsOut": {
+    "ok": false,
+    "msg": "subject not visible on the id mask"
+   },
+   "moves": {
+    "motion": 0.0758,
+    "need": 0.021,
+    "ok": true,
+    "msg": ""
+   },
+   "hold": {
+    "held": 1.27,
+    "max": 4.5,
+    "ok": true,
+    "msg": "moving framing held 1.27 s (≤ 4.5)"
+   }
+  },
+  {
+   "id": "S44",
+   "size": "insert",
+   "t": 69.77,
+   "dur": 0.93,
+   "subject": "prop2b_chains",
+   "nothingInFront": {
+    "front": 0.948,
+    "faceCover": 0,
+    "ok": false,
+    "msg": "objects in front cover 94.8 % (≤ 10)"
+   },
+   "standsOut": {
+    "subj": 0.229,
+    "ring": 0.244,
+    "diff": 0.015,
+    "ok": false,
+    "msg": "subject vs surround luma 0.015 (≥ 0.12)"
+   },
+   "objectReads": {
+    "inside": 0.638,
+    "h": 0.441,
+    "ok": false,
+    "msg": "64 % of the object in frame (≥ 90)"
+   },
+   "moves": {
+    "motion": 0.0003,
+    "need": 0.021,
+    "ok": false,
+    "msg": "motion 0.0003 < 0.0210"
+   },
+   "hold": {
+    "held": 0.93,
+    "max": 3,
+    "ok": true,
+    "msg": "static framing held 0.93 s (≤ 3)"
+   }
+  },
+  {
+   "id": "S45",
+   "size": "wide",
+   "t": 70.7,
+   "dur": 1.83,
+   "subject": "nightfang",
+   "faceShown": null,
+   "nothingInFront": {
+    "front": 0.136,
+    "faceCover": 0,
+    "ok": false,
+    "msg": "objects in front cover 13.6 % (≤ 10)"
+   },
+   "standsOut": {
+    "ok": false,
+    "msg": "subject not visible on the id mask"
+   },
+   "moves": {
+    "motion": 0.0629,
+    "need": 0.021,
+    "ok": true,
+    "msg": ""
+   },
+   "hold": {
+    "held": 1.83,
+    "max": 4.5,
+    "ok": true,
+    "msg": "moving framing held 1.83 s (≤ 4.5)"
+   }
+  },
+  {
+   "id": "S46",
+   "size": "insert",
+   "t": 72.53,
+   "dur": 0.93,
+   "subject": "nightfang",
+   "faceShown": null,
+   "nothingInFront": {
+    "front": 0,
+    "faceCover": 0,
+    "ok": true
+   },
+   "standsOut": {
+    "subj": 0.245,
+    "ring": 0.26,
+    "diff": 0.015,
+    "ok": false,
+    "msg": "subject vs surround luma 0.015 (≥ 0.12)"
+   },
+   "moves": {
+    "motion": 0.2357,
+    "need": 0.021,
+    "ok": true,
+    "msg": ""
+   },
+   "hold": {
+    "held": 0.93,
+    "max": 4.5,
+    "ok": true,
+    "msg": "moving framing held 0.93 s (≤ 4.5)"
+   }
+  },
+  {
+   "id": "S47",
+   "size": "wide",
+   "t": 73.47,
+   "dur": 1.6,
+   "subject": "juni",
+   "faceShown": null,
+   "nothingInFront": {
+    "front": 0,
+    "faceCover": 0.991,
+    "ok": false,
+    "msg": "the face is 99.1 % covered"
+   },
+   "standsOut": {
+    "subj": 0.208,
+    "ring": 0.136,
+    "diff": 0.072,
+    "ok": false,
+    "msg": "subject vs surround luma 0.072 (≥ 0.12)"
+   },
+   "moves": {
+    "motion": 0.1956,
+    "need": 0.021,
+    "ok": true,
+    "msg": ""
+   },
+   "hold": {
+    "held": 1.6,
+    "max": 4.5,
+    "ok": true,
+    "msg": "moving framing held 1.60 s (≤ 4.5)"
+   }
+  },
+  {
+   "id": "S48",
+   "size": "medium",
+   "t": 75.07,
+   "dur": 1.77,
+   "subject": "tuft",
+   "faceShown": {
+    "ok": false,
+    "msg": "no subject head measured"
+   },
+   "nothingInFront": {
+    "front": 0,
+    "faceCover": 0,
+    "ok": true
+   },
+   "standsOut": {
+    "subj": 0.407,
+    "ring": 0.448,
+    "diff": 0.041,
+    "ok": false,
+    "msg": "subject vs surround luma 0.041 (≥ 0.12)"
+   },
+   "moves": {
+    "motion": 0.3423,
+    "need": 0.021,
+    "ok": true,
+    "msg": ""
+   },
+   "hold": {
+    "held": 1.77,
+    "max": 4.5,
+    "ok": true,
+    "msg": "moving framing held 1.77 s (≤ 4.5)"
+   }
+  },
+  {
+   "id": "S49",
+   "size": "medium",
+   "t": 76.83,
+   "dur": 1.03,
+   "subject": "hero",
+   "faceShown": {
+    "angle": 30.7,
+    "inside": 1,
+    "ok": true
+   },
+   "nothingInFront": {
+    "front": 0,
+    "faceCover": 0,
+    "ok": true
+   },
+   "standsOut": {
+    "subj": 0.21,
+    "ring": 0.312,
+    "diff": 0.101,
+    "ok": false,
+    "msg": "subject vs surround luma 0.101 (≥ 0.12)"
+   },
+   "moves": {
+    "motion": 0.1677,
+    "need": 0.021,
+    "ok": true,
+    "msg": ""
+   },
+   "hold": {
+    "held": 1.03,
+    "max": 4.5,
+    "ok": true,
+    "msg": "moving framing held 1.03 s (≤ 4.5)"
+   }
+  },
+  {
+   "id": "S50",
+   "size": "close",
+   "t": 77.87,
+   "dur": 2.23,
+   "subject": "hero",
+   "faceShown": {
+    "angle": 5.5,
+    "inside": 0.919,
+    "ok": true
+   },
+   "nothingInFront": {
+    "front": 0,
+    "faceCover": 0.719,
+    "ok": false,
+    "msg": "the face is 71.9 % covered"
+   },
+   "standsOut": {
+    "subj": 0.27,
+    "ring": 0.294,
+    "diff": 0.024,
+    "ok": false,
+    "msg": "subject vs surround luma 0.024 (≥ 0.12)"
+   },
+   "moves": {
+    "motion": 0.0071,
+    "need": 0.021,
+    "ok": false,
+    "msg": "motion 0.0071 < 0.0210"
+   },
+   "hold": {
+    "held": 2.23,
+    "max": 3,
+    "ok": true,
+    "msg": "static framing held 2.23 s (≤ 3)"
+   }
+  },
+  {
+   "id": "S51",
+   "size": "close",
+   "t": 80.1,
+   "dur": 1.4,
+   "subject": "hero",
+   "faceShown": {
+    "angle": 54.2,
+    "inside": 0.916,
+    "ok": true
+   },
+   "nothingInFront": {
+    "front": 0,
+    "faceCover": 0.686,
+    "ok": false,
+    "msg": "the face is 68.6 % covered"
+   },
+   "standsOut": {
+    "subj": 0.187,
+    "ring": 0.275,
+    "diff": 0.089,
+    "ok": false,
+    "msg": "subject vs surround luma 0.089 (≥ 0.12)"
+   },
+   "moves": {
+    "motion": 0.0051,
+    "need": 0.021,
+    "ok": false,
+    "msg": "motion 0.0051 < 0.0210"
+   },
+   "hold": {
+    "held": 1.4,
+    "max": 3,
+    "ok": true,
+    "msg": "static framing held 1.40 s (≤ 3)"
+   }
+  },
+  {
+   "id": "S52",
+   "size": "insert",
+   "t": 81.5,
+   "dur": 2.13,
+   "subject": "tuft",
+   "faceShown": null,
+   "nothingInFront": {
+    "front": 0,
+    "faceCover": 0,
+    "ok": true
+   },
+   "standsOut": {
+    "subj": 0.063,
+    "ring": 0.1,
+    "diff": 0.037,
+    "ok": false,
+    "msg": "subject vs surround luma 0.037 (≥ 0.12)"
+   },
+   "moves": {
+    "motion": 0.1076,
+    "need": 0.021,
+    "ok": true,
+    "msg": ""
+   },
+   "hold": {
+    "held": 2.13,
+    "max": 4.5,
+    "ok": true,
+    "msg": "moving framing held 2.13 s (≤ 4.5)"
+   }
+  },
+  {
+   "id": "S53",
+   "size": "close",
+   "t": 83.63,
+   "dur": 1.47,
+   "subject": "hero",
+   "faceShown": {
+    "angle": 50.5,
+    "inside": 1,
+    "ok": true
+   },
+   "nothingInFront": {
+    "front": 0,
+    "faceCover": 0.573,
+    "ok": false,
+    "msg": "the face is 57.3 % covered"
+   },
+   "standsOut": {
+    "subj": 0.307,
+    "ring": 0.42,
+    "diff": 0.113,
+    "ok": false,
+    "msg": "subject vs surround luma 0.113 (≥ 0.12)"
+   },
+   "moves": {
+    "motion": 0.031,
+    "need": 0.021,
+    "ok": true,
+    "msg": ""
+   },
+   "hold": {
+    "held": 1.47,
+    "max": 4.5,
+    "ok": true,
+    "msg": "moving framing held 1.47 s (≤ 4.5)"
+   }
+  },
+  {
+   "id": "S54",
+   "size": "close",
+   "t": 85.1,
+   "dur": 1.57,
+   "subject": "hero",
+   "faceShown": {
+    "angle": 7.1,
+    "inside": 0.938,
+    "ok": true
+   },
+   "nothingInFront": {
+    "front": 0,
+    "faceCover": 0.72,
+    "ok": false,
+    "msg": "the face is 72.0 % covered"
+   },
+   "standsOut": {
+    "subj": 0.505,
+    "ring": 0.353,
+    "diff": 0.153,
+    "ok": true,
+    "msg": ""
+   },
+   "moves": {
+    "motion": 0.1134,
+    "need": 0.021,
+    "ok": true,
+    "msg": ""
+   },
+   "hold": {
+    "held": 1.57,
+    "max": 4.5,
+    "ok": true,
+    "msg": "moving framing held 1.57 s (≤ 4.5)"
+   }
+  },
+  {
+   "id": "S55",
+   "size": "wide",
+   "t": 86.67,
+   "dur": 1.4,
+   "subject": "hero",
+   "faceShown": null,
+   "nothingInFront": {
+    "front": 0.166,
+    "faceCover": 0.013,
+    "ok": false,
+    "msg": "objects in front cover 16.6 % (≤ 10)"
+   },
+   "standsOut": {
+    "subj": 0.072,
+    "ring": 0.166,
+    "diff": 0.094,
+    "ok": false,
+    "msg": "subject vs surround luma 0.094 (≥ 0.12)"
+   },
+   "moves": {
+    "motion": 0.1334,
+    "need": 0.021,
+    "ok": true,
+    "msg": ""
+   },
+   "hold": {
+    "held": 1.4,
+    "max": 4.5,
+    "ok": true,
+    "msg": "moving framing held 1.40 s (≤ 4.5)"
+   }
+  },
+  {
+   "id": "S56",
+   "size": "wide",
+   "t": 88.07,
+   "dur": 2.6,
+   "subject": "tuft",
+   "faceShown": null,
+   "nothingInFront": {
+    "front": 0.236,
+    "faceCover": 0,
+    "ok": false,
+    "msg": "objects in front cover 23.6 % (≤ 10)"
+   },
+   "standsOut": {
+    "subj": 0.129,
+    "ring": 0.042,
+    "diff": 0.087,
+    "ok": false,
+    "msg": "subject vs surround luma 0.087 (≥ 0.12)"
+   },
+   "moves": {
+    "motion": 0.0894,
+    "need": 0.021,
+    "ok": true,
+    "msg": ""
+   },
+   "hold": {
+    "held": 2.6,
+    "max": 4.5,
+    "ok": true,
+    "msg": "moving framing held 2.60 s (≤ 4.5)"
+   }
+  },
+  {
+   "id": "S57",
+   "size": "close",
+   "t": 90.67,
+   "dur": 1.2,
+   "subject": "titan",
+   "faceShown": {
+    "ok": false,
+    "msg": "no subject head measured"
+   },
+   "nothingInFront": {
+    "front": 0.493,
+    "faceCover": 0,
+    "ok": false,
+    "msg": "objects in front cover 49.3 % (≤ 10)"
+   },
+   "standsOut": {
+    "ok": false,
+    "msg": "subject not visible on the id mask"
+   },
+   "moves": {
+    "motion": 0.0549,
+    "need": 0.021,
+    "ok": true,
+    "msg": ""
+   },
+   "hold": {
+    "held": 1.2,
+    "max": 4.5,
+    "ok": true,
+    "msg": "moving framing held 1.20 s (≤ 4.5)"
+   }
+  },
+  {
+   "id": "S58",
+   "size": "wide",
+   "t": 91.87,
+   "dur": 1.5,
+   "subject": "titan",
+   "faceShown": null,
+   "nothingInFront": {
+    "front": 1,
+    "faceCover": 0,
+    "ok": false,
+    "msg": "objects in front cover 100.0 % (≤ 10)"
+   },
+   "standsOut": {
+    "ok": false,
+    "msg": "subject not visible on the id mask"
+   },
+   "moves": {
+    "motion": 0.0111,
+    "need": 0.021,
+    "ok": false,
+    "msg": "motion 0.0111 < 0.0210"
+   },
+   "hold": {
+    "held": 1.5,
+    "max": 3,
+    "ok": true,
+    "msg": "static framing held 1.50 s (≤ 3)"
+   }
+  },
+  {
+   "id": "S59",
+   "size": "medium",
+   "t": 93.37,
+   "dur": 2.13,
+   "subject": "hero",
+   "faceShown": {
+    "angle": 114.8,
+    "inside": 1,
+    "ok": false,
+    "msg": "face turned 115° from the camera (≤ 70)"
+   },
+   "nothingInFront": {
+    "front": 0.006,
+    "faceCover": 0.456,
+    "ok": false,
+    "msg": "the face is 45.6 % covered"
+   },
+   "standsOut": {
+    "subj": 0.379,
+    "ring": 0.488,
+    "diff": 0.109,
+    "ok": false,
+    "msg": "subject vs surround luma 0.109 (≥ 0.12)"
+   },
+   "moves": {
+    "motion": 0.3715,
+    "need": 0.021,
+    "ok": true,
+    "msg": ""
+   },
+   "hold": {
+    "held": 2.13,
+    "max": 4.5,
+    "ok": true,
+    "msg": "moving framing held 2.13 s (≤ 4.5)"
+   }
+  },
+  {
+   "id": "S60",
+   "size": "medium",
+   "t": 95.5,
+   "dur": 1.17,
+   "subject": "juni",
+   "faceShown": {
+    "angle": 133,
+    "inside": 1,
+    "ok": false,
+    "msg": "face turned 133° from the camera (≤ 70)"
+   },
+   "nothingInFront": {
+    "front": 0,
+    "faceCover": 0.47,
+    "ok": false,
+    "msg": "the face is 47.0 % covered"
+   },
+   "standsOut": {
+    "subj": 0.636,
+    "ring": 0.568,
+    "diff": 0.068,
+    "ok": false,
+    "msg": "subject vs surround luma 0.068 (≥ 0.12)"
+   },
+   "moves": {
+    "motion": 0.0882,
+    "need": 0.021,
+    "ok": true,
+    "msg": ""
+   },
+   "hold": {
+    "held": 1.17,
+    "max": 4.5,
+    "ok": true,
+    "msg": "moving framing held 1.17 s (≤ 4.5)"
+   }
+  },
+  {
+   "id": "S61",
+   "size": "medium",
+   "t": 96.67,
+   "dur": 2.37,
+   "subject": "nightfang",
+   "faceShown": {
+    "ok": false,
+    "msg": "no subject head measured"
+   },
+   "nothingInFront": {
+    "front": 0,
+    "faceCover": 0,
+    "ok": true
+   },
+   "standsOut": {
+    "subj": 0.189,
+    "ring": 0.277,
+    "diff": 0.088,
+    "ok": false,
+    "msg": "subject vs surround luma 0.088 (≥ 0.12)"
+   },
+   "moves": {
+    "motion": 0.0713,
+    "need": 0.021,
+    "ok": true,
+    "msg": ""
+   },
+   "hold": {
+    "held": 2.37,
+    "max": 4.5,
+    "ok": true,
+    "msg": "moving framing held 2.37 s (≤ 4.5)"
+   }
+  },
+  {
+   "id": "S62",
+   "size": "close",
+   "t": 99.03,
+   "dur": 2.53,
+   "subject": "juni",
+   "faceShown": {
+    "angle": 32.4,
+    "inside": 1,
+    "ok": true
+   },
+   "nothingInFront": {
+    "front": 0.009,
+    "faceCover": 0.111,
+    "ok": false,
+    "msg": "the face is 11.1 % covered"
+   },
+   "standsOut": {
+    "subj": 0.719,
+    "ring": 0.519,
+    "diff": 0.2,
+    "ok": true,
+    "msg": ""
+   },
+   "moves": {
+    "motion": 0.0317,
+    "need": 0.021,
+    "ok": true,
+    "msg": ""
+   },
+   "hold": {
+    "held": 2.53,
+    "max": 4.5,
+    "ok": true,
+    "msg": "moving framing held 2.53 s (≤ 4.5)"
+   }
+  },
+  {
+   "id": "S63",
+   "size": "close",
+   "t": 101.57,
+   "dur": 1.63,
+   "subject": "hero",
+   "faceShown": {
+    "angle": 108.5,
+    "inside": 0.811,
+    "ok": false,
+    "msg": "face turned 108° from the camera (≤ 70)"
+   },
+   "nothingInFront": {
+    "front": 0,
+    "faceCover": 0.061,
+    "ok": false,
+    "msg": "the face is 6.1 % covered"
+   },
+   "standsOut": {
+    "subj": 0.085,
+    "ring": 0.594,
+    "diff": 0.508,
+    "ok": true,
+    "msg": ""
+   },
+   "moves": {
+    "motion": 0.002,
+    "need": 0.021,
+    "ok": false,
+    "msg": "motion 0.0020 < 0.0210"
+   },
+   "hold": {
+    "held": 0.8,
+    "max": 3,
+    "ok": true,
+    "msg": "static framing held 0.80 s (≤ 3)"
+   }
+  }
+ ],
+ "errors": [
+  "S01: faceShown FAIL no subject head measured",
+  "S02: standsOut FAIL subject vs surround luma 0.096 (≥ 0.12)",
+  "S03: standsOut FAIL subject vs surround luma 0.046 (≥ 0.12)",
+  "S05: standsOut FAIL subject vs surround luma 0.004 (≥ 0.12)",
+  "S06: standsOut FAIL subject vs surround luma 0.046 (≥ 0.12)",
+  "S07: standsOut FAIL subject vs surround luma 0.088 (≥ 0.12)",
+  "S08: standsOut FAIL subject vs surround luma 0.026 (≥ 0.12)",
+  "S09: standsOut FAIL subject vs surround luma 0.024 (≥ 0.12)",
+  "S10: standsOut FAIL subject vs surround luma 0.013 (≥ 0.12)",
+  "S10: moves FAIL motion 0.0049 < 0.0210",
+  "S11: nothingInFront FAIL the face is 66.5 % covered",
+  "S11: standsOut FAIL subject vs surround luma 0.020 (≥ 0.12)",
+  "S13: objectReads FAIL 80 % of the object in frame (≥ 90)",
+  "S14: faceShown FAIL no subject head measured",
+  "S14: standsOut FAIL subject vs surround luma 0.024 (≥ 0.12)",
+  "S16: standsOut FAIL subject vs surround luma 0.086 (≥ 0.12)",
+  "S17: moves FAIL motion 0.0065 < 0.0210",
+  "S18: faceShown FAIL no subject head measured",
+  "S18: nothingInFront FAIL objects in front cover 39.9 % (≤ 10)",
+  "S18: standsOut FAIL subject vs surround luma 0.097 (≥ 0.12)",
+  "S19: nothingInFront FAIL the face is 14.4 % covered",
+  "S20: nothingInFront FAIL the face is 36.8 % covered",
+  "S20: standsOut FAIL subject vs surround luma 0.051 (≥ 0.12)",
+  "S22: standsOut FAIL subject vs surround luma 0.036 (≥ 0.12)",
+  "S23: objectReads FAIL object 20 % of frame height (≥ 25)",
+  "S23: moves FAIL motion 0.0056 < 0.0210",
+  "S24: faceShown FAIL 48 % of the head in frame (≥ 70)",
+  "S24: standsOut FAIL subject vs surround luma 0.064 (≥ 0.12)",
+  "S25: moves FAIL motion 0.0132 < 0.0210",
+  "S26: faceShown FAIL no subject head measured",
+  "S26: standsOut FAIL subject vs surround luma 0.025 (≥ 0.12)",
+  "S26: moves FAIL motion 0.0089 < 0.0210",
+  "S27: faceShown FAIL face turned 77° from the camera (≤ 70)",
+  "S27: nothingInFront FAIL the face is 28.2 % covered",
+  "S28: nothingInFront FAIL the face is 55.3 % covered",
+  "S28: standsOut FAIL subject vs surround luma 0.065 (≥ 0.12)",
+  "S28: moves FAIL motion 0.0104 < 0.0210",
+  "S29: nothingInFront FAIL objects in front cover 72.4 % (≤ 10)",
+  "S29: standsOut FAIL subject not visible on the id mask",
+  "S30: nothingInFront FAIL the face is 4.6 % covered",
+  "S30: standsOut FAIL subject vs surround luma 0.015 (≥ 0.12)",
+  "S31: standsOut FAIL subject vs surround luma 0.027 (≥ 0.12)",
+  "S33: faceShown FAIL subject head behind the camera",
+  "S33: nothingInFront FAIL objects in front cover 26.2 % (≤ 10)",
+  "S33: standsOut FAIL subject not visible on the id mask",
+  "S34: faceShown FAIL no subject head measured",
+  "S34: standsOut FAIL subject vs surround luma 0.083 (≥ 0.12)",
+  "S34: moves FAIL motion 0.0189 < 0.0210",
+  "S37: nothingInFront FAIL objects in front cover 88.7 % (≤ 10)",
+  "S37: standsOut FAIL subject vs surround luma 0.012 (≥ 0.12)",
+  "S38: nothingInFront FAIL objects in front cover 14.1 % (≤ 10)",
+  "S38: standsOut FAIL subject vs surround luma 0.039 (≥ 0.12)",
+  "S39: nothingInFront FAIL the face is 22.6 % covered",
+  "S40: faceShown FAIL no subject head measured",
+  "S40: standsOut FAIL subject not visible on the id mask",
+  "S41: nothingInFront FAIL the face is 23.1 % covered",
+  "S41: standsOut FAIL subject vs surround luma 0.090 (≥ 0.12)",
+  "S42: nothingInFront FAIL the face is 4.6 % covered",
+  "S42: standsOut FAIL subject vs surround luma 0.058 (≥ 0.12)",
+  "S43: faceShown FAIL no subject head measured",
+  "S43: standsOut FAIL subject not visible on the id mask",
+  "S44: nothingInFront FAIL objects in front cover 94.8 % (≤ 10)",
+  "S44: standsOut FAIL subject vs surround luma 0.015 (≥ 0.12)",
+  "S44: objectReads FAIL 64 % of the object in frame (≥ 90)",
+  "S44: moves FAIL motion 0.0003 < 0.0210",
+  "S45: nothingInFront FAIL objects in front cover 13.6 % (≤ 10)",
+  "S45: standsOut FAIL subject not visible on the id mask",
+  "S46: standsOut FAIL subject vs surround luma 0.015 (≥ 0.12)",
+  "S47: nothingInFront FAIL the face is 99.1 % covered",
+  "S47: standsOut FAIL subject vs surround luma 0.072 (≥ 0.12)",
+  "S48: faceShown FAIL no subject head measured",
+  "S48: standsOut FAIL subject vs surround luma 0.041 (≥ 0.12)",
+  "S49: standsOut FAIL subject vs surround luma 0.101 (≥ 0.12)",
+  "S50: nothingInFront FAIL the face is 71.9 % covered",
+  "S50: standsOut FAIL subject vs surround luma 0.024 (≥ 0.12)",
+  "S50: moves FAIL motion 0.0071 < 0.0210",
+  "S51: nothingInFront FAIL the face is 68.6 % covered",
+  "S51: standsOut FAIL subject vs surround luma 0.089 (≥ 0.12)",
+  "S51: moves FAIL motion 0.0051 < 0.0210",
+  "S52: standsOut FAIL subject vs surround luma 0.037 (≥ 0.12)",
+  "S53: nothingInFront FAIL the face is 57.3 % covered",
+  "S53: standsOut FAIL subject vs surround luma 0.113 (≥ 0.12)",
+  "S54: nothingInFront FAIL the face is 72.0 % covered",
+  "S55: nothingInFront FAIL objects in front cover 16.6 % (≤ 10)",
+  "S55: standsOut FAIL subject vs surround luma 0.094 (≥ 0.12)",
+  "S56: nothingInFront FAIL objects in front cover 23.6 % (≤ 10)",
+  "S56: standsOut FAIL subject vs surround luma 0.087 (≥ 0.12)",
+  "S57: faceShown FAIL no subject head measured",
+  "S57: nothingInFront FAIL objects in front cover 49.3 % (≤ 10)",
+  "S57: standsOut FAIL subject not visible on the id mask",
+  "S58: nothingInFront FAIL objects in front cover 100.0 % (≤ 10)",
+  "S58: standsOut FAIL subject not visible on the id mask",
+  "S58: moves FAIL motion 0.0111 < 0.0210",
+  "S59: faceShown FAIL face turned 115° from the camera (≤ 70)",
+  "S59: nothingInFront FAIL the face is 45.6 % covered",
+  "S59: standsOut FAIL subject vs surround luma 0.109 (≥ 0.12)",
+  "S60: faceShown FAIL face turned 133° from the camera (≤ 70)",
+  "S60: nothingInFront FAIL the face is 47.0 % covered",
+  "S60: standsOut FAIL subject vs surround luma 0.068 (≥ 0.12)",
+  "S61: faceShown FAIL no subject head measured",
+  "S61: standsOut FAIL subject vs surround luma 0.088 (≥ 0.12)",
+  "S62: nothingInFront FAIL the face is 11.1 % covered",
+  "S63: faceShown FAIL face turned 108° from the camera (≤ 70)",
+  "S63: nothingInFront FAIL the face is 6.1 % covered",
+  "S63: moves FAIL motion 0.0020 < 0.0210"
+ ]
+}

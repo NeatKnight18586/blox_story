@@ -1,0 +1,73 @@
+{
+ "spec": "stories/touchgrass/episode.json",
+ "size": "540x960",
+ "nudge": 0.004,
+ "threshold": 40,
+ "limit": 0.3,
+ "views": 9,
+ "worst": {
+  "view": "13-push:last",
+  "frame": 1063,
+  "pct": 0.097,
+  "raw": 0.399
+ },
+ "failing": [],
+ "errors": [],
+ "result": "PASS",
+ "rows": [
+  {
+   "view": "13-push:first",
+   "frame": 1011,
+   "pct": 0.039,
+   "raw": 0.294
+  },
+  {
+   "view": "13-push:mid",
+   "frame": 1037,
+   "pct": 0.084,
+   "raw": 0.372
+  },
+  {
+   "view": "13-push:last",
+   "frame": 1063,
+   "pct": 0.097,
+   "raw": 0.399
+  },
+  {
+   "view": "26-push:first",
+   "frame": 2060,
+   "pct": 0.065,
+   "raw": 0.333
+  },
+  {
+   "view": "26-push:mid",
+   "frame": 2121,
+   "pct": 0.014,
+   "raw": 0.099
+  },
+  {
+   "view": "26-push:last",
+   "frame": 2181,
+   "pct": 0.008,
+   "raw": 0.029
+  },
+  {
+   "view": "47-push:first",
+   "frame": 3901,
+   "pct": 0.04,
+   "raw": 0.555
+  },
+  {
+   "view": "47-push:mid",
+   "frame": 3961,
+   "pct": 0.032,
+   "raw": 0.56
+  },
+  {
+   "view": "47-push:last",
+   "frame": 4020,
+   "pct": 0.033,
+   "raw": 0.601
+  }
+ ]
+}

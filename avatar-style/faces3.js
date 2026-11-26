@@ -5,6 +5,7 @@
 //   faceParts(spec, opts) → [{d, fill, rule, ink}]  (pure; Node-testable)   ·   faceMaterial3(name, tier, skin) (browser)
 //   setFace3(actor, name) · resolveFace(name) · faceError(name, build) · blinkClosed(seed, t, o) · darkSkin / contrast
 // Units: face units, x ∈ [−.5, .5], y ∈ [−.34, .34] up (the faces2.js decal: 1.0 × 0.68 on the head front).
+import {framesFor} from '../engine/fpsframes.js';
 import * as T from 'three';
 import {decalGeometry} from './faces2.js';
 
@@ -226,10 +227,10 @@ export const darkSkin = skin => luma(skin) < .35;
 const r1 = (s, k) => { const x = Math.sin(s * 127.1 + k * 311.7) * 43758.5453; return x - Math.floor(x); };
 export function blinkClosed(seed, t, {fps = 30, changes = [], suppress = false} = {}) {
   if (suppress) return false;
-  const ft = Math.round(t * fps); let t0 = .8 + r1(seed, 0) * 2;   // first blink; everything below in whole frames
+  const ft = Math.round(t * fps), nb = framesFor(3, fps); let t0 = .8 + r1(seed, 0) * 2;   // nb: 3 frames @24 = 0.125 s at any frame rate (Kit 1)   // first blink; everything below in whole frames
   for (let k = 1; k < 10000; k++) {
     const fs = Math.round(t0 * fps); if (fs > ft) return false;
-    if (ft - fs < 3) return !changes.some(c => { const fc = Math.round(c * fps); return fc >= fs - 3 && fc <= fs + 2; });
+    if (ft - fs < nb) return !changes.some(c => { const fc = Math.round(c * fps); return fc >= fs - nb && fc <= fs + nb - 1; });
     t0 += 2.5 + r1(seed, k) * 2.5;
   }
   return false;

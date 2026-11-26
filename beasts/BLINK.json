@@ -1,0 +1,29 @@
+{
+ "note": "tuft 2A BEAST KIT (2B fix): BLINK, the firefly: a LIME glow sprite BEHIND two visible wing cards (fast flutter, hinged on the body axis) + a dark body dot; orbits a target's head (shot or cast `orbit`). Light \u2192 on ones. P3: glow \u00d72 (spriteK 3.4), bigger wing cards, a short sparkle trail (6 sprites at past orbit positions); flutter 7 Hz (reads on ones at 24 fps).",
+ "rig": "blink",
+ "tiers": [
+  "hero"
+ ],
+ "glow": "#C6FF4A",
+ "glowHDR": 3.5,
+ "size": 0.55,
+ "colors": {
+  "body": "#1A1F14",
+  "wing": "#EAF6D8"
+ },
+ "dims": {},
+ "name": "BLINK",
+ "parts": [],
+ "wingCards": {
+  "w": 1.3,
+  "h": 0.62,
+  "opacity": 0.95
+ },
+ "spriteK": 3.4,
+ "dotK": 0.26,
+ "trail": {
+  "n": 6,
+  "dt": 0.045,
+  "k": 0.42
+ }
+}

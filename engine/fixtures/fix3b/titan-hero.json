@@ -1,0 +1,149 @@
+{
+ "note": "tuft P3B TITAN hero fixture: titanCave night ground in front of the mountain, TITAN idle / roar, low ¾ camera (lit night ¾ hero render).",
+ "slug": "village",
+ "fps": 24,
+ "format": 6,
+ "acting": 6,
+ "rig": "r6",
+ "twos": false,
+ "faceLife": true,
+ "labels": false,
+ "world": "parts/village/world.js",
+ "cues": "engine/fixtures/acting6/cues.json",
+ "post": "cine",
+ "camera": "cine",
+ "grade": "clear",
+ "location": "titanCave",
+ "look4": "moonlit",
+ "look": "mystery",
+ "skyDist": 650,
+ "cast": {
+  "titan": {
+   "style": "beast",
+   "preset": "TITAN",
+   "tier": "hero",
+   "at": "street",
+   "offset": [
+    0,
+    0,
+    10
+   ],
+   "yaw": 0,
+   "state": "idle"
+  }
+ },
+ "shots": [
+  {
+   "id": "titan-front",
+   "frames": 24,
+   "duration": 1,
+   "size": "ws",
+   "mood": "tension",
+   "move": "static-drift",
+   "angle": "low",
+   "from": {
+    "position": [
+     0,
+     12,
+     265
+    ],
+    "target": [
+     0,
+     24,
+     160
+    ],
+    "fov": 52
+   },
+   "to": {
+    "position": [
+     0,
+     12,
+     265
+    ],
+    "target": [
+     0,
+     24,
+     160
+    ],
+    "fov": 52
+   }
+  },
+  {
+   "id": "titan-side",
+   "frames": 24,
+   "duration": 1,
+   "size": "ws",
+   "mood": "tension",
+   "move": "static-drift",
+   "angle": "low",
+   "from": {
+    "position": [
+     105,
+     12,
+     160
+    ],
+    "target": [
+     0,
+     24,
+     160
+    ],
+    "fov": 52
+   },
+   "to": {
+    "position": [
+     105,
+     12,
+     160
+    ],
+    "target": [
+     0,
+     24,
+     160
+    ],
+    "fov": 52
+   }
+  },
+  {
+   "id": "titan-34",
+   "frames": 48,
+   "duration": 2,
+   "size": "ws",
+   "mood": "tension",
+   "move": "static-drift",
+   "angle": "low",
+   "from": {
+    "position": [
+     78.0302066751264,
+     9,
+     230.25871366768013
+    ],
+    "target": [
+     0,
+     24,
+     160
+    ],
+    "fov": 52
+   },
+   "to": {
+    "position": [
+     78.0302066751264,
+     9,
+     230.25871366768013
+    ],
+    "target": [
+     0,
+     24,
+     160
+    ],
+    "fov": 52
+   },
+   "beasts": [
+    {
+     "actor": "titan",
+     "state": "roar",
+     "at": 2.6
+    }
+   ]
+  }
+ ]
+}

@@ -17,6 +17,8 @@ import {faceMaterial3, setFace3} from '../avatar-style/faces3.js';
 import {faceMaterial4, setFace4} from '../avatar-style/faces4.js';
 import {faceMaterial5, setFace5} from '../avatar-style/faces5.js';
 import {createActor5, HEAD5, satin} from '../avatar-style/body5.js';
+import {createActor6} from '../avatar-style/body6.js';
+import {liftR6, applyPose6} from './poses6.js';
 
 export const CROWD_MAX = 60;
 const SHIRTS = ['#4f7cc4', '#c0392b', '#7a8a4a', '#6b4a8f', '#2e9e78', '#a0683a', '#d9a440', '#e2733a', '#3f8fb0', '#b84a7a'];
@@ -41,7 +43,9 @@ export function crowdMembers({count = 20, centre = [0, 0], radius = 12, inner = 
   return out;
 }
 // Pose sample for a member at time t (pure).
-export function memberPose(m, mode, t) {
+export function memberPose(m, mode, t, body = null) {
+  if (body === 'v6') { const s = memberPose(m, mode, t), g = mode === 'panic' ? 'run' : mode === 'lookUp' ? 'lookUp' : mode === 'cheer' ? 'cheer' : mode === 'sit' ? 'sit' : 'idle';
+    return liftR6(s, mode === 'panic' ? t + m.phase : t, g); }   // P1b: Actor v6 crowds take the R15 lift (the far tier shows only the R6 pivots)
   if (mode === 'panic') return samplePose('run', t + m.phase);
   if (mode === 'lookUp') return samplePose('lookUp', t + m.phase * .3);
   if (mode === 'cheer') return samplePose('cheer', t + m.phase);
@@ -96,7 +100,7 @@ export function v5PartGeometry(size, b = .04) {
 }
 export const crowdV5Triangles = (hairTris = 50) => 5 * 28 + 80 + hairTris + 2;
 export function createCrowds(scene, list = [], {groundY = () => 0, resolveCentre = c => c, avoidColours = [], faces = 'v2', body = 'v2', material = null, colourScale = 1, hairMaterial = null} = {}) {   // material/colourScale/hairMaterial: format v4 matcap   // faces 'v3': Faces v3 crowd tier (season 1)   // avoidColours: Season 1 hero readability (engine/heroread.js)
-  const v5 = body === 'v5', box = new T.BoxGeometry(1, 1, 1), mat = material ?? (v5 ? satin('#ffffff') : new T.MeshPhongMaterial({color: '#ffffff', shininess: 30, specular: '#333333'}));
+  const v6 = body === 'v6', v5 = body === 'v5' || v6, box = new T.BoxGeometry(1, 1, 1), mat = material ?? (v5 ? satin('#ffffff') : new T.MeshPhongMaterial({color: '#ffffff', shininess: 30, specular: '#333333'}));
   const partGeo = v5 ? Object.fromEntries(BODY.filter(([n]) => n !== 'head' && n !== 'hair').map(([n, , size]) => [n, v5PartGeometry(size)])) : {}, HS = v5 ? HEAD5 : null;
   const hairWhite = CROWD_HAIR.map(st => hair4Geometry(st, '#ffffff', 'crowd'));
   const crowds = list.map(c => {
@@ -117,7 +121,7 @@ export function createCrowds(scene, list = [], {groundY = () => 0, resolveCentre
     // promotion pool: up to PROMOTE.max mid-tier actors (lathe body, faces, v4 mid hair), recoloured per assignment
     const mk = () => material ? material.clone() : v5 ? satin('#ffffff').clone() : plastic('#ffffff').clone();
     const pool = Array.from({length: Math.min(PROMOTE.max, n)}, (_, k) => { const mats = {torso: mk(), arm: mk(), leg: mk(), skin: mk()};
-      const a = (v5 ? createActor5 : createActor)({tier: 'bg', name: group.name + '_mid' + k, materials: {torso: mats.torso, leftArm: mats.arm, rightArm: mats.arm, leftLeg: mats.leg, rightLeg: mats.leg, head: mats.skin}});
+      const a = (v6 ? createActor6 : v5 ? createActor5 : createActor)({tier: 'bg', name: group.name + '_mid' + k, materials: {torso: mats.torso, leftArm: mats.arm, rightArm: mats.arm, leftLeg: mats.leg, rightLeg: mats.leg, head: mats.skin}});
       if (v5) { const own = {torso: mats.torso, leftArm: mats.arm, rightArm: mats.arm, leftLeg: mats.leg, rightLeg: mats.leg, head: mats.skin};   // per-assignment colours: own materials, not the shared satin
         for (const [pn, pm] of Object.entries(a.parts)) pm.material = own[pn]; }
       if (faces === 'v5') setFace5(a, c.expression ?? 'smile'); else if (faces === 'v4') setFace4(a, c.expression ?? 'smile'); else if (faces === 'v3') setFace3(a, c.expression ?? 'smile'); else setFace(a, c.expression ?? 'smile'); const hm = new T.Mesh(hair4Geometry(CROWD_HAIR[0], '#ffffff', 'mid'), hairMaterial ?? hair4Material()); hm.position.y = .58; hm.castShadow = true; a.pivots.head.add(hm);
@@ -147,7 +151,7 @@ export function createCrowds(scene, list = [], {groundY = () => 0, resolveCentre
         pool.forEach((p, k) => { const i = promoted[k]; p.a.root.visible = i !== undefined; if (i === undefined) return; const m = members[i];
           p.mats.torso.color.set(m.shirt).multiplyScalar(colourScale); p.mats.arm.color.set(m.i % 3 ? m.shirt : m.skin).multiplyScalar(colourScale); p.mats.leg.color.set(m.pants).multiplyScalar(colourScale); p.mats.skin.color.set(m.skin).multiplyScalar(colourScale);
           p.hm.geometry = hair4Geometry(CROWD_HAIR[m.hairStyle], m.hair, 'mid'); p.a.root.scale.setScalar(m.scale);
-          applyPoseSample(p.a, memberPose(m, c.mode, Math.max(0, t)), {position: at[i], yaw: m.yaw}); });
+          (v6 ? applyPose6 : applyPoseSample)(p.a, memberPose(m, c.mode, Math.max(0, t), v6 ? 'v6' : null), {position: at[i], yaw: m.yaw}); });
         for (const im of [...Object.values(meshes), ...hairs.filter(Boolean)]) { im.instanceMatrix.needsUpdate = true; im.computeBoundingSphere(); }
       }
     },

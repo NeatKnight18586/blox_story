@@ -1,0 +1,35 @@
+{
+ "slug": "city1a-overview",
+ "fps": 24,
+ "format": 6,
+ "labels": false,
+ "world": "parts/city/world.js",
+ "look4": "cityDay",
+ "cast": {},
+ "cityOverview": true,
+ "note": "Phase 1A overview: terrain tinted by district (spec cityOverview).",
+ "shots": [
+  {
+   "id": "b",
+   "size": "wide",
+   "frames": 6,
+   "move": "static-drift",
+   "drift": 0,
+   "anchor": "plazaSouth",
+   "from": {
+    "position": [
+     0,
+     19.5,
+     30
+    ],
+    "target": [
+     0,
+     -26.7,
+     230
+    ],
+    "fov": 62
+   },
+   "shadowRadius": 40
+  }
+ ]
+}

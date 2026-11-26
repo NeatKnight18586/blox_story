@@ -14,9 +14,9 @@ import {mergeGeometries} from 'three/addons/utils/BufferGeometryUtils.js';
 
 export async function loadLooks4(base) { return (await fetch(new URL('looks4.json', base))).json(); }
 
-export function createLookV4(scene, renderer, presets, {initial = 'comedy'} = {}) {
+export function createLookV4(scene, renderer, presets, {initial = 'comedy', fogStart = 0} = {}) {   // tuft 1B fix (opt-in fogStart): no height fog within fogStart of the camera
   const first = presets[initial];
-  patchHeightFog(first.v4.heightFog ?? {amount: 0});   // ShaderChunk patch before anything compiles (one fog model per episode)
+  patchHeightFog({...(first.v4.heightFog ?? {amount: 0}), ...(fogStart ? {start: fogStart} : {})});   // ShaderChunk patch before anything compiles (one fog model per episode)
   const L = createLook(scene, renderer, {radius: 700});
   renderer.toneMapping = T.AgXToneMapping;
   renderer.shadowMap.type = T.PCFShadowMap;   // pass 2 (cost): hardware-filtered PCF, not the many-tap soft PCF

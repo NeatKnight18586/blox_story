@@ -1,0 +1,761 @@
+{
+ "note": "R6 rig (owner 2026-11-24): the Season 1 troupe on classic rigid R6 (Actor v5, avatar-style/body5.js) with faces v6; same slots, skin, hair, face, scale, age, build and outfits as cast/troupe6.json (kids keep their scales). ADULT_F gets the modest hourglass torso (torsoShape 'hourglass', adult_f only). Specs with `rig: 'r6'` load this file; the hero is cast/hero.json HERO (R6, scale 1) with faceStyle v6.",
+ "troupe": {
+  "LEAD": {
+   "tier": "hero",
+   "scale": 0.82,
+   "skin": "#e0a77a",
+   "face": "smile",
+   "hair": {
+    "style": "messy_fringe",
+    "color": "#4a2e1e",
+    "v": 4
+   },
+   "outfit": {
+    "recipe": "tee",
+    "main": "#2f80d1",
+    "accent": "#f2c230",
+    "legs": "#4a5a80",
+    "trim": "#e4574a"
+   },
+   "expressions": [
+    "smile",
+    "determined",
+    "gasp"
+   ],
+   "age": 12,
+   "build": "youth",
+   "body": "v5",
+   "faceStyle": "v6",
+   "rig": "r6"
+  },
+  "SECOND": {
+   "tier": "hero",
+   "scale": 0.82,
+   "skin": "#f6c9a0",
+   "face": "smile",
+   "hair": {
+    "style": "long_layered",
+    "color": "#7a4a2a",
+    "v": 4
+   },
+   "outfit": {
+    "recipe": "hoodie",
+    "main": "#ff7aa8",
+    "accent": "#ffffff",
+    "legs": "#3b4a6b",
+    "trim": "#9b59b6"
+   },
+   "expressions": [
+    "smile",
+    "sad",
+    "shout"
+   ],
+   "age": 11,
+   "build": "youth",
+   "body": "v5",
+   "faceStyle": "v6",
+   "rig": "r6"
+  },
+  "LITTLE": {
+   "tier": "hero",
+   "scale": 0.62,
+   "skin": "#8d5a3b",
+   "face": "smile",
+   "hair": {
+    "style": "space_buns",
+    "color": "#1f1a1a",
+    "v": 4
+   },
+   "outfit": {
+    "recipe": "tee",
+    "main": "#7fc241",
+    "accent": "#ffffff",
+    "legs": "#f2b632",
+    "trim": "#2f80d1"
+   },
+   "expressions": [
+    "smile",
+    "crying",
+    "gasp"
+   ],
+   "age": 7,
+   "build": "youth",
+   "body": "v5",
+   "faceStyle": "v6",
+   "rig": "r6"
+  },
+  "RIVAL": {
+   "tier": "hero",
+   "scale": 0.95,
+   "skin": "#fbdcc0",
+   "face": "smug",
+   "hair": {
+    "style": "quiff",
+    "color": "#c8692a",
+    "v": 4
+   },
+   "outfit": {
+    "recipe": "hoodie",
+    "main": "#9a2f2f",
+    "accent": "#f2d16b",
+    "legs": "#5a6274",
+    "trim": "#f2b632"
+   },
+   "expressions": [
+    "smug",
+    "shout",
+    "terrified"
+   ],
+   "age": 15,
+   "build": "youth",
+   "body": "v5",
+   "faceStyle": "v6",
+   "rig": "r6"
+  },
+  "ELDER": {
+   "tier": "hero",
+   "scale": 1,
+   "skin": "#c08457",
+   "face": "neutral",
+   "hair": {
+    "style": "side_part",
+    "color": "#b9b9b9",
+    "v": 4
+   },
+   "outfit": {
+    "recipe": "tee",
+    "main": "#6b4a8f",
+    "accent": null,
+    "legs": "#7a6048",
+    "trim": "#c99a5a"
+   },
+   "expressions": [
+    "neutral",
+    "smile",
+    "sad"
+   ],
+   "age": 64,
+   "build": "adult_m",
+   "body": "v5",
+   "faceStyle": "v6",
+   "rig": "r6"
+  },
+  "DUMMY": {
+   "tier": "hero",
+   "scale": 1,
+   "skin": "#F2F2F4",
+   "face": "neutral",
+   "faceStyle": "v6",
+   "hair": null,
+   "outfit": null,
+   "expressions": [
+    "neutral"
+   ],
+   "build": "dummy",
+   "body": "v5",
+   "material": {
+    "roughness": 0.85,
+    "lift": 0.08
+   },
+   "rig": "r6"
+  },
+  "ADULT_F": {
+   "tier": "hero",
+   "scale": 1,
+   "skin": "#E8B48A",
+   "face": "smile",
+   "faceStyle": "v6",
+   "hair": {
+    "style": "wavy_bob",
+    "color": "#8A5530",
+    "v": 4
+   },
+   "outfit": {
+    "recipe": "hoodie",
+    "main": "#4FA3A0",
+    "accent": null,
+    "legs": "#2B3350",
+    "trim": "#F1E8D6"
+   },
+   "expressions": [
+    "smile",
+    "neutral",
+    "sad"
+   ],
+   "age": 40,
+   "build": "adult_f",
+   "body": "v5",
+   "rig": "r6",
+   "torsoShape": "hourglass"
+  }
+ },
+ "AFK": {
+  "tier": "hero",
+  "scale": 0.82,
+  "skin": "#f5cd30",
+  "face": "neutral",
+  "hair": {
+   "style": "buzz",
+   "color": "#5a5a5a",
+   "v": 4
+  },
+  "outfit": {
+   "recipe": "classic",
+   "main": "#a4a8ae",
+   "legs": "#6e7378"
+  },
+  "opacity": 0.4,
+  "freeze": 0.35,
+  "pose": "walk",
+  "expressions": [
+   "neutral",
+   "sleep",
+   "gasp"
+  ],
+  "body": "v5",
+  "faceStyle": "v6",
+  "rig": "r6"
+ },
+ "costumes": {
+  "BITSY": {
+   "slot": "LITTLE",
+   "skin": "#FFD0E2",
+   "scale": 0.62,
+   "face": "smile",
+   "faceStyle": "v6",
+   "hair": {
+    "style": "high_ponytail",
+    "color": "#FF3F8E",
+    "v": 4
+   },
+   "regions": {
+    "torso": {
+     "main": "#FF5FA2"
+    },
+    "arms": {
+     "upper": "#FF5FA2",
+     "lower": "#FF5FA2",
+     "sleeve": "wrist"
+    },
+    "legs": {
+     "main": "#FF5FA2",
+     "shoes": "#FF5FA2"
+    }
+   },
+   "material": {
+    "lift": 0.05
+   }
+  },
+  "KID": {
+   "slot": "SECOND",
+   "face": "smile",
+   "faceStyle": "v6",
+   "hair": {
+    "style": "messy_fringe",
+    "color": "#4FB548",
+    "v": 4
+   },
+   "regions": {
+    "torso": {
+     "main": "#5F6AC0",
+     "edge": "#4A54A0",
+     "edgeW": 0.05,
+     "collarH": 0.18
+    },
+    "arms": {
+     "upper": "#5F6AC0",
+     "lower": "#f6c9a0",
+     "sleeve": "wrist"
+    },
+    "legs": {
+     "main": "#1E1E22",
+     "shoes": "#F4F4F4"
+    }
+   }
+  },
+  "CROWD": {
+   "slot": "DUMMY",
+   "tier": "bg",
+   "material": {
+    "roughness": 0.85,
+    "lift": 0.08
+   }
+  },
+  "LILA": {
+   "slot": "SECOND",
+   "outfit": null,
+   "material": null,
+   "faceStyle": "v6",
+   "face": "smile",
+   "symbol": {
+    "shape": "leaf",
+    "color": "#9BD48A",
+    "rank": "D"
+   },
+   "regions": {
+    "torso": {
+     "main": "#EFE6D2",
+     "strip": "#F8F3E6",
+     "stripW": 0.3,
+     "lapel": "#EFE6D2",
+     "lapelW": 0.12,
+     "edge": "#C9BBA0",
+     "edgeW": 0.05,
+     "collarH": 0.14,
+     "back": true
+    },
+    "arms": {
+     "upper": "#EFE6D2",
+     "lower": "#f6c9a0",
+     "sleeve": "wrist"
+    },
+    "legs": {
+     "main": "#3E4A3C",
+     "shoes": "#F4F4F4",
+     "sole": "#CFCFCF",
+     "soleH": 0.06
+    },
+    "skirt": {
+     "color": "#8FAE8B",
+     "h": 0.75
+    }
+   }
+  },
+  "DAX": {
+   "slot": "RIVAL",
+   "outfit": null,
+   "material": null,
+   "faceStyle": "v6",
+   "face": "smug",
+   "symbol": {
+    "shape": "lightning",
+    "color": "#FFC531",
+    "rank": "S"
+   },
+   "regions": {
+    "torso": {
+     "main": "#1F2A55",
+     "strip": "#F4F4F6",
+     "stripW": 0.5,
+     "lapel": "#1F2A55",
+     "lapelW": 0.22,
+     "edge": "#E8B530",
+     "edgeW": 0.06,
+     "collarH": 0.16,
+     "back": true
+    },
+    "arms": {
+     "upper": "#1F2A55",
+     "lower": "#fbdcc0",
+     "cuff": "#E8B530",
+     "cuffH": 0.12,
+     "sleeve": "wrist"
+    },
+    "legs": {
+     "main": "#3A3D44",
+     "shoes": "#1A1A1E",
+     "sole": "#F2F2F2",
+     "soleH": 0.06
+    }
+   }
+  },
+  "DAD": {
+   "slot": "ELDER",
+   "outfit": null,
+   "material": null,
+   "faceStyle": "v6",
+   "face": "neutral",
+   "age": 45,
+   "hair": {
+    "style": "side_part",
+    "color": "#3B2A1E",
+    "v": 4
+   },
+   "symbol": {
+    "shape": "flame",
+    "color": "#FF9A3A",
+    "rank": "B"
+   },
+   "regions": {
+    "torso": {
+     "main": "#D9A23A"
+    },
+    "arms": {
+     "upper": "#D9A23A",
+     "lower": "#c08457",
+     "sleeve": "wrist"
+    },
+    "legs": {
+     "main": "#6E7178",
+     "shoes": "#2B2B2F"
+    }
+   }
+  },
+  "MOM": {
+   "slot": "ADULT_F",
+   "outfit": null,
+   "material": null,
+   "faceStyle": "v6",
+   "face": "smile",
+   "symbol": {
+    "shape": "wave",
+    "color": "#6FB7FF",
+    "rank": "C"
+   },
+   "regions": {
+    "torso": {
+     "main": "#4FA3A0",
+     "strip": "#F1E8D6",
+     "stripW": 0.62,
+     "lapel": "#4FA3A0",
+     "lapelW": 0.12,
+     "edge": "#3C8A87",
+     "edgeW": 0.05,
+     "collarH": 0.12,
+     "back": true
+    },
+    "arms": {
+     "upper": "#4FA3A0",
+     "lower": "#E8B48A",
+     "sleeve": "wrist"
+    },
+    "legs": {
+     "main": "#2B3350",
+     "shoes": "#3B2F2A"
+    },
+    "apron": {
+     "color": "#F4EFE6",
+     "edge": "#CFC6B2"
+    }
+   }
+  },
+  "STUDENT_A": {
+   "slot": "DUMMY",
+   "outfit": null,
+   "material": null,
+   "faceStyle": "v6",
+   "face": "smile",
+   "scale": 0.86,
+   "build": "youth",
+   "age": 12,
+   "skin": "#FBDCC0",
+   "hair": {
+    "style": "side_part",
+    "color": "#C9DCEB",
+    "v": 4
+   },
+   "symbol": {
+    "shape": "crystal",
+    "color": "#8FD3FF",
+    "rank": "A"
+   },
+   "regions": {
+    "torso": {
+     "main": "#F1EAD6",
+     "strip": "#8FD3FF",
+     "stripW": 0.24,
+     "lapel": "#F1EAD6",
+     "lapelW": 0.16,
+     "edge": "#8FD3FF",
+     "edgeW": 0.05,
+     "collarH": 0.16,
+     "back": true
+    },
+    "arms": {
+     "upper": "#F1EAD6",
+     "lower": "#FBDCC0",
+     "cuff": "#8FD3FF",
+     "cuffH": 0.12,
+     "sleeve": "wrist"
+    },
+    "legs": {
+     "main": "#232B52",
+     "shoes": "#2B2B2F"
+    }
+   }
+  },
+  "STUDENT_B": {
+   "slot": "DUMMY",
+   "outfit": null,
+   "material": null,
+   "faceStyle": "v6",
+   "face": "smile",
+   "scale": 0.86,
+   "build": "youth",
+   "age": 12,
+   "skin": "#F7CDA6",
+   "hair": {
+    "style": "spiky_crop",
+    "color": "#C4452A",
+    "v": 4
+   },
+   "symbol": {
+    "shape": "flame",
+    "color": "#FF8A2A",
+    "rank": "B"
+   },
+   "regions": {
+    "torso": {
+     "main": "#F1EAD6",
+     "strip": "#FF8A2A",
+     "stripW": 0.24,
+     "lapel": "#F1EAD6",
+     "lapelW": 0.16,
+     "edge": "#FF8A2A",
+     "edgeW": 0.05,
+     "collarH": 0.16,
+     "back": true
+    },
+    "arms": {
+     "upper": "#F1EAD6",
+     "lower": "#F7CDA6",
+     "cuff": "#FF8A2A",
+     "cuffH": 0.12,
+     "sleeve": "wrist"
+    },
+    "legs": {
+     "main": "#232B52",
+     "shoes": "#2B2B2F"
+    }
+   }
+  },
+  "STUDENT_C": {
+   "slot": "DUMMY",
+   "outfit": null,
+   "material": null,
+   "faceStyle": "v6",
+   "face": "smile",
+   "scale": 0.86,
+   "build": "youth",
+   "age": 12,
+   "skin": "#D49A6A",
+   "hair": {
+    "style": "low_twintails",
+    "color": "#1F2A44",
+    "v": 4
+   },
+   "symbol": {
+    "shape": "wave",
+    "color": "#18C4C0",
+    "rank": "C"
+   },
+   "regions": {
+    "torso": {
+     "main": "#F1EAD6",
+     "strip": "#2EC4C4",
+     "stripW": 0.24,
+     "lapel": "#F1EAD6",
+     "lapelW": 0.16,
+     "edge": "#2EC4C4",
+     "edgeW": 0.05,
+     "collarH": 0.16,
+     "back": true
+    },
+    "arms": {
+     "upper": "#F1EAD6",
+     "lower": "#D49A6A",
+     "cuff": "#2EC4C4",
+     "cuffH": 0.12,
+     "sleeve": "wrist"
+    },
+    "legs": {
+     "main": "#232B52",
+     "shoes": "#2B2B2F"
+    }
+   }
+  },
+  "STUDENT": {
+   "slot": "DUMMY",
+   "outfit": null,
+   "material": null,
+   "faceStyle": "v6",
+   "seeded": true,
+   "face": "smile"
+  },
+  "JUNI": {
+   "slot": "LITTLE",
+   "skin": "#8d5a3b",
+   "scale": 0.62,
+   "face": "smile",
+   "faceStyle": "v6",
+   "hair": {
+    "style": "space_buns",
+    "color": "#1f1a1a",
+    "v": 4
+   },
+   "regions": {
+    "torso": {
+     "main": "#B9A6E8",
+     "edge": "#8F7BD0",
+     "edgeW": 0.05,
+     "collarH": 0.18
+    },
+    "arms": {
+     "upper": "#B9A6E8",
+     "lower": "#8d5a3b",
+     "sleeve": "wrist"
+    },
+    "legs": {
+     "main": "#9ADBC0",
+     "shoes": "#F4F4F4"
+    }
+   }
+  },
+  "VANCE": {
+   "slot": "RIVAL",
+   "face": "smug",
+   "faceStyle": "v6",
+   "hair": {
+    "style": "quiff",
+    "color": "#2a2230",
+    "v": 4
+   },
+   "regions": {
+    "torso": {
+     "main": "#16224A",
+     "strip": "#F4F4F6",
+     "stripW": 0.5,
+     "lapel": "#16224A",
+     "lapelW": 0.2,
+     "edge": "#37D6E6",
+     "edgeW": 0.06,
+     "collarH": 0.16,
+     "back": true
+    },
+    "arms": {
+     "upper": "#16224A",
+     "lower": "#fbdcc0",
+     "sleeve": "wrist",
+     "cuff": "#37D6E6",
+     "cuffH": 0.12
+    },
+    "legs": {
+     "main": "#3A3D44",
+     "shoes": "#1A1A1E"
+    }
+   }
+  },
+  "KIRA": {
+   "slot": "SECOND",
+   "face": "smile",
+   "faceStyle": "v6",
+   "hair": {
+    "style": "high_ponytail",
+    "color": "#7a4a2a",
+    "v": 4
+   },
+   "regions": {
+    "torso": {
+     "main": "#F2C230",
+     "edge": "#8A8F98",
+     "edgeW": 0.07,
+     "collarH": 0.16
+    },
+    "arms": {
+     "upper": "#F2C230",
+     "lower": "#f6c9a0",
+     "sleeve": "wrist"
+    },
+    "legs": {
+     "main": "#6A6F78",
+     "shoes": "#F4F4F4"
+    }
+   }
+  },
+  "ROCCO": {
+   "slot": "LEAD",
+   "face": "smile",
+   "faceStyle": "v6",
+   "hair": {
+    "style": "messy_fringe",
+    "color": "#4a2e1e",
+    "v": 4
+   },
+   "accessories": [
+    "goggles"
+   ],
+   "regions": {
+    "torso": {
+     "main": "#F0842A",
+     "edge": "#C96A1C",
+     "edgeW": 0.05,
+     "collarH": 0.16
+    },
+    "arms": {
+     "upper": "#E8E2D0",
+     "lower": "#e0a77a",
+     "sleeve": "wrist"
+    },
+    "legs": {
+     "main": "#4a5a80",
+     "shoes": "#2B2B2F"
+    }
+   }
+  },
+  "DAD_V": {
+   "slot": "ELDER",
+   "outfit": null,
+   "material": null,
+   "faceStyle": "v6",
+   "face": "neutral",
+   "age": 45,
+   "hair": {
+    "style": "side_part",
+    "color": "#3B2A1E",
+    "v": 4
+   },
+   "regions": {
+    "torso": {
+     "main": "#6B7A3A",
+     "edge": "#55622E",
+     "edgeW": 0.05,
+     "collarH": 0.14
+    },
+    "arms": {
+     "upper": "#6B7A3A",
+     "lower": "#c08457",
+     "sleeve": "wrist"
+    },
+    "legs": {
+     "main": "#4A4033",
+     "shoes": "#2B2B2F"
+    }
+   }
+  },
+  "TEACHER": {
+   "slot": "ADULT_F",
+   "outfit": null,
+   "material": null,
+   "faceStyle": "v6",
+   "face": "smile",
+   "hair": {
+    "style": "wavy_bob",
+    "color": "#5A3A28",
+    "v": 4
+   },
+   "regions": {
+    "torso": {
+     "main": "#3C9E9A",
+     "strip": "#F1E8D6",
+     "stripW": 0.5,
+     "lapel": "#3C9E9A",
+     "lapelW": 0.12,
+     "edge": "#2E7F7B",
+     "edgeW": 0.05,
+     "collarH": 0.12,
+     "back": true
+    },
+    "arms": {
+     "upper": "#3C9E9A",
+     "lower": "#E8B48A",
+     "sleeve": "wrist"
+    },
+    "legs": {
+     "main": "#2B3350",
+     "shoes": "#3B2F2A"
+    }
+   }
+  }
+ }
+}

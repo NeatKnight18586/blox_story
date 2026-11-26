@@ -1,0 +1,63 @@
+{
+ "rule": "hand = |frame \u2212 hand-off frame| > 12 on pixels whose background is sky (blue \u2265 green, luma \u2265 150); silhouette PASS = the whole hand is inside the frame, on sky, glove brighter or darker than the sky by \u2265 8 luma or ink on \u2265 50 % of the outline",
+ "open": {
+  "handPx": 72381,
+  "bbox390": [
+   4,
+   157,
+   338,
+   536
+  ],
+  "inFrame": true,
+  "gloveLuma": 166.0,
+  "skyLumaBehind": 189.7,
+  "deltaLuma": -23.6,
+  "inkOnOutline": 0.434,
+  "result": "PASS"
+ },
+ "pinch": {
+  "handPx": 22727,
+  "bbox390": [
+   13,
+   288,
+   265,
+   643
+  ],
+  "inFrame": true,
+  "gloveLuma": 169.6,
+  "skyLumaBehind": 203.6,
+  "deltaLuma": -34.0,
+  "inkOnOutline": 0.177,
+  "result": "PASS"
+ },
+ "fist": {
+  "handPx": 27901,
+  "bbox390": [
+   24,
+   290,
+   276,
+   462
+  ],
+  "inFrame": true,
+  "gloveLuma": 186.4,
+  "skyLumaBehind": 202.5,
+  "deltaLuma": -16.1,
+  "inkOnOutline": 0.183,
+  "result": "PASS"
+ },
+ "point": {
+  "handPx": 31507,
+  "bbox390": [
+   24,
+   252,
+   300,
+   462
+  ],
+  "inFrame": true,
+  "gloveLuma": 176.1,
+  "skyLumaBehind": 202.1,
+  "deltaLuma": -26.0,
+  "inkOnOutline": 0.181,
+  "result": "PASS"
+ }
+}

@@ -1,0 +1,37 @@
+[
+ {
+  "name": "LAYER: ≥ 0.05 and every pair ≥ 0.05 apart",
+  "pass": true,
+  "line": "{\"yard\":0.05,\"street\":0.1,\"plaza\":0.15}"
+ },
+ {
+  "name": "groundY finite + ≥ 0 everywhere; hero zones (anchors, hero houses) on flat ground",
+  "pass": true,
+  "line": "14000 samples, 0 bad; 0 anchors / hero houses off the flat"
+ },
+ {
+  "name": "kit deterministic (house, row, terraces)",
+  "pass": true,
+  "line": "24433 bytes identical twice"
+ },
+ {
+  "name": "night windows ≥ 60 % lit (seeded rule, 200 seeds × every preset)",
+  "pass": true,
+  "line": "11748/16000 = 73.4 % (LIT_SHARE 0.72)"
+ },
+ {
+  "name": "mid rows: no two houses overlap along a row",
+  "pass": true,
+  "line": "52 row houses, 0 overlaps"
+ },
+ {
+  "name": "house tris per tier (hero ≤ 2.5k, mid presets ≤ 1.2k, far ≤ 30; boxes untessellated)",
+  "pass": true,
+  "line": "hero 1290/986/20, tall 894/686/20, wide 896/704/20, cottage 690/506/20, barn 654/482/20, school 1856/1652/20"
+ },
+ {
+  "name": "every location: valid presets / props, an establishing + hero view, a street anchor",
+  "pass": true,
+  "line": "7 locations"
+ }
+]

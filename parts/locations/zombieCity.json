@@ -1,0 +1,278 @@
+{
+ "extends": "../../engine/fixtures/realism/street-layout.json",
+ "name": "zombieCity",
+ "note": "Touch Grass VR 1: moonlit night (blue-gray key #8FA8D8), broken street (realism street modules); green only as height fog <= 2 units + 3 green streetlamps.",
+ "backdrop": {
+  "type": "sky",
+  "top": "#141C32",
+  "horizon": "#1B2A4A",
+  "ground": "#141A24",
+  "radius": 420
+ },
+ "env": {
+  "intensity": 0.8
+ },
+ "exposure": 1.25,
+ "toneMapping": "Neutral",
+ "fog": {
+  "color": "#1C2232",
+  "near": 14,
+  "far": 100
+ },
+ "sun": {
+  "intensity": 2.4,
+  "color": "#8FA8D8",
+  "az": 20,
+  "el": 25,
+  "shadow": {
+   "size": 1024
+  },
+  "shadowOpacity": 0.55,
+  "hemi": {
+   "sky": "#5A6A8E",
+   "ground": "#2A3040",
+   "i": 0.8
+  }
+ },
+ "bake": {
+  "cell": 0.5,
+  "aoDist": 4,
+  "aoMin": 0.45,
+  "shadow": 0.4,
+  "seg": 1.5
+ },
+ "materials": {
+  "ground": {
+   "procedural": "cobble",
+   "color": "#2C3038"
+  },
+  "kerb": {
+   "procedural": "plaster",
+   "color": "#3A3E46"
+  },
+  "brickWall": {
+   "procedural": "brick",
+   "color": "#4A3A3A"
+  },
+  "plasterWall": {
+   "procedural": "plaster",
+   "color": "#363B45"
+  },
+  "base": {
+   "procedural": "cobble",
+   "color": "#2A2E35"
+  },
+  "trim": {
+   "color": "#555B66",
+   "roughness": 0.7
+  },
+  "glass": {
+   "color": "#1A2232",
+   "roughness": 0.08,
+   "metalness": 0
+  },
+  "door": {
+   "procedural": "woodPlanks",
+   "color": "#33292A"
+  },
+  "crate": {
+   "procedural": "woodPlanks",
+   "color": "#40363A"
+  },
+  "metal": {
+   "color": "#22262A",
+   "roughness": 0.45,
+   "metalness": 0.6
+  },
+  "lampGlass": {
+   "color": "#B8FFB0",
+   "emissive": "#7DFF8A",
+   "roughness": 0.3
+  },
+  "rubble": {
+   "procedural": "rock",
+   "color": "#44484E"
+  }
+ },
+ "modules": {
+  "lamp": {
+   "parts": []
+  },
+  "rubble": {
+   "parts": [
+    {
+     "box": [
+      1.6,
+      0.8,
+      1.2
+     ],
+     "at": [
+      0,
+      0.4,
+      0
+     ],
+     "rotY": 20,
+     "mat": "rubble"
+    },
+    {
+     "box": [
+      1.0,
+      0.6,
+      0.9
+     ],
+     "at": [
+      1.3,
+      0.3,
+      0.6
+     ],
+     "rotY": -35,
+     "mat": "rubble"
+    },
+    {
+     "box": [
+      0.7,
+      0.5,
+      0.7
+     ],
+     "at": [
+      -0.9,
+      0.25,
+      0.9
+     ],
+     "rotY": 50,
+     "mat": "rubble"
+    }
+   ]
+  },
+  "car": {
+   "parts": [
+    {
+     "box": [
+      2.2,
+      1.0,
+      4.4
+     ],
+     "at": [
+      0,
+      0.7,
+      0
+     ],
+     "mat": "metal"
+    },
+    {
+     "box": [
+      1.9,
+      0.8,
+      2.2
+     ],
+     "at": [
+      0,
+      1.6,
+      -0.3
+     ],
+     "mat": "glass"
+    }
+   ]
+  }
+ },
+ "layout": [
+  {
+   "module": "rubble",
+   "at": [
+    -3,
+    0,
+    -14
+   ]
+  },
+  {
+   "module": "rubble",
+   "at": [
+    4,
+    0,
+    -30
+   ],
+   "rotY": 80
+  },
+  {
+   "module": "rubble",
+   "at": [
+    -5,
+    0,
+    -46
+   ],
+   "rotY": 140
+  },
+  {
+   "module": "car",
+   "at": [
+    5.2,
+    0,
+    -20
+   ],
+   "rotY": 14
+  },
+  {
+   "module": "car",
+   "at": [
+    -5.6,
+    0,
+    -38
+   ],
+   "rotY": -24
+  }
+ ],
+ "props": [
+  {
+   "prop": "groundFog",
+   "at": [
+    0,
+    0,
+    -22
+   ],
+   "rotY": 0,
+   "p": {
+    "w": 22,
+    "d": 70,
+    "h": 2,
+    "color": "#4FCB6A",
+    "opacity": 0.07
+   }
+  },
+  {
+   "prop": "streetLamp",
+   "at": [
+    -6.4,
+    0.32,
+    -8
+   ],
+   "rotY": 0,
+   "p": {
+    "intensity": 8
+   }
+  },
+  {
+   "prop": "streetLamp",
+   "at": [
+    6.4,
+    0.32,
+    -20
+   ],
+   "rotY": 180,
+   "p": {
+    "intensity": 8
+   }
+  },
+  {
+   "prop": "streetLamp",
+   "at": [
+    -6.4,
+    0.32,
+    -34
+   ],
+   "rotY": 0,
+   "p": {
+    "intensity": 8
+   }
+  }
+ ]
+}

@@ -1,0 +1,75 @@
+{
+  "note": "Phase 1A: the permanent island city. SOURCE OF TRUTH (owner-approved drawing). Map px: 1 px = 2 studs; world x = (mx - 191) * 2, z = (my - 154) * 2; +x east, +z south (toward the bay). parts/city/plan.js reads this; parts/city/world.js builds it.",
+  "scale": 2,
+  "origin": [191, 154],
+  "coast": "M30 140 Q40 50 130 30 Q190 18 250 30 Q340 50 350 140 Q356 230 330 300 L290 300 Q285 210 190 200 Q95 210 90 300 L50 300 Q24 230 30 140 Z",
+  "bayShore": "M290 300 Q285 210 190 200 Q95 210 90 300",
+  "hillsLine": "M38 112 Q110 96 190 98 Q270 96 342 112",
+  "heights": {"shore": 0.4, "plaza": 14, "armFloor": 3.5, "shoreGrade": 0.22, "cliffGrade": 2.4, "seaGrade": 0.25, "seaFloor": -7, "waterY": 0},
+  "plaza": {"at": [191, 154], "r": 16, "blend": 6},
+  "terrain": {
+    "note": "Phase 1A-fix movie-set profile (world studs, +z south). Terrace y14 over the plaza + Hall + clock tower, brick retaining wall on its south edge, Grand Stair down to the boardwalk, west arm 2→12 (≤ 8 %), Main St 14→20, east arm 1→5, hills from z −100 to crests 75–90.",
+    "promenade": 2.3, "deck": 2.5,
+    "terrace": {"y": 14, "rect": [-80, -76, 80, 32], "blend": 24, "coping": 1.5},
+    "stair": {"x": 0, "w": 36, "z0": 32, "z1": 72, "steps": 20, "landing": 6},
+    "westArm": {"shore": 2, "inland": 12, "run": 297},
+    "mainSt": {"plaza": 14, "ne": 20, "x0": 60, "x1": 188, "descend": [-8, 110]},
+    "eastArm": {"lo": 1, "hi": 5, "z0": 64, "run": 220, "dock": 1.5},
+    "hills": {"startZ": -100, "crest": [80, 90], "crestZ": [-230, -200], "knoll": {"at": [236, 62], "y": 85, "r": 18, "blend": 30}}
+  },
+  "corridors": [{"from": "suburbStreet", "to": "2", "w": 9, "note": "lot/tree-free sight line from the suburb street to the bell tower"}],
+  "crescent": {"x0": 28, "x1": 108, "z0": 50, "bow": 14, "pitch": 16, "note": "bay-front building rows flanking the Grand Stair (both arms)"},
+  "cliff": {"from": [-175, -118], "to": [-85, -128], "h": 14, "width": 3, "cave": [-128, -124]},
+  "roads": {
+    "radialNorth": {"pts": [[191, 154], [191, 131]], "w": 9, "kind": "asphalt"},
+    "radialWest": {"pts": [[191, 154], [100, 160]], "w": 9, "kind": "asphalt"},
+    "radialEast": {"pts": [[191, 154], [285, 150]], "w": 10, "kind": "asphalt"},
+    "shoreWest": {"pts": [[100, 160], [72, 296]], "w": 8, "kind": "asphalt"},
+    "shoreEast": {"pts": [[285, 150], [310, 296]], "w": 8, "kind": "asphalt"},
+    "boardwalk": {"pts": [[120, 206], [190, 192], [262, 206]], "w": 7, "kind": "planks", "curve": true, "deck": 2.5}
+  },
+  "sidewalk": 3,
+  "districts": {
+    "plaza": {"name": "Brick plaza", "circle": [191, 154, 40], "maxY": 198, "tint": "#d0644a", "palette": ["#b84a3a", "#c85f43", "#9c3f33", "#d9826a", "#e2b48a"], "roof": "#7a3b30"},
+    "mainSt": {"name": "Main St shops", "rect": [232, 118, 300, 196], "tint": "#ff5fa2", "palette": ["#ff6b8b", "#ffb43b", "#4fc3f7", "#7ed957", "#b28dff", "#ffe066"], "roof": "#5b6270"},
+    "school": {"name": "School + homes", "rect": [40, 108, 150, 296], "tint": "#ffd23f", "palette": ["#f4e3b8", "#a8d8f0", "#f7c6d0", "#cde8b0", "#fff1c9", "#c9c2f2"], "roof": "#6d5a52"},
+    "harbor": {"name": "Harbor", "rect": [248, 186, 340, 296], "tint": "#3fa7d6", "palette": ["#c79a6b", "#9fc9d9", "#e8d4a8", "#d77a5a", "#8fb4a0"], "roof": "#55606b"},
+    "beach": {"name": "Beach", "rect": [290, 296, 330, 312], "tint": "#ffe9a8"},
+    "wild": {"name": "Wild edge", "north": "hillsLine", "tint": "#3f8f4a"}
+  },
+  "districtOrder": ["beach", "plaza", "wild", "mainSt", "harbor", "school"],
+  "landmarks": {
+    "1": {"name": "Governor statue", "at": [191, 154], "fp": [6, 6], "h": 19, "district": "plaza", "shape": "box"},
+    "2": {"name": "Governor's Hall + balcony + bell tower", "at": [191, 126], "fp": [44, 22], "h": 16, "tower": {"fp": [9, 9], "h": 53, "at": [0, -4]}, "district": "plaza", "shape": "hall", "tallest": true},
+    "3": {"name": "Backwards clock tower", "at": [222, 134], "fp": [9, 9], "h": 38, "district": "plaza", "shape": "box"},
+    "4": {"name": "Upside-down house", "at": [72, 210], "fp": [12, 10], "h": 11, "district": "school", "shape": "box"},
+    "5": {"name": "Rubber-duck lighthouse", "at": [190, 286], "fp": [8, 8], "h": 24, "rock": {"rx": 12, "ry": 7, "h": 3}, "district": "bay", "shape": "cyl"},
+    "6": {"name": "Diner + burger water tower", "at": [318, 232], "fp": [22, 12], "h": 7, "tower": {"fp": [10, 10], "h": 28, "at": [16, 0]}, "district": "harbor", "shape": "hall"},
+    "7": {"name": "Stone giant's head", "at": [236, 62], "fp": [22, 20], "h": 26, "district": "wild", "shape": "box"},
+    "8": {"name": "Grand Stair", "at": [191, 180], "fp": [36, 40], "h": 12, "district": "plaza", "shape": "stair"}
+  },
+  "anchors": {
+    "plazaSouth": {"at": [191, 169], "h": 5.5, "look": [191, 269, -26.7], "fov": 62, "district": "plaza", "note": "top of the Grand Stair (z +30, terrace + 5.5), facing south, pitch ≈ −13°"},
+    "plazaNorth": {"at": [191, 166], "h": 1.7, "look": [191, 126, 14], "fov": 55, "district": "plaza"},
+    "bayNorth": {"at": [191, 221.5], "h": 6, "look": [191, 124, 9.4], "fov": 50, "district": "bay", "note": "on the water south of the stair (z +135: at +250 the sky ≤ 35 % and water ≤ 25 % limits cannot both hold at fov 50), y +6, facing north"},
+    "stairBottom": {"at": [201, 195.5], "h": 1.6, "look": [193.5, 126, 13], "fov": 58, "district": "plaza", "note": "Phase 1B: stepped back west along the boardwalk (low angle, fov 58): the stair ≤ 40 % of frame height, the Hall + top-hat tower own the upper half, the statue clears the balcony"},
+    "boardwalk": {"at": [150, 200], "h": 1.7, "look": [230, 200, 2], "fov": 55, "district": "plaza"},
+    "suburbStreet": {"at": [110, 159.34], "h": 2.5, "look": [191, 124, 0], "fov": 58, "district": "school", "note": "centre of the west radial (street centre line), bell tower unobstructed"},
+    "schoolYard": {"at": [74, 150], "h": 1.7, "look": [60, 150, 6], "fov": 55, "district": "school"},
+    "mainSt": {"at": [243, 154], "h": 1.7, "look": [225.35, 144.6, 13], "fov": 55, "district": "mainSt", "note": "Phase 1B: street level mid Main St looking west toward the plaza: north storefront signs (≥ 3 readable) + the clock tower and the golden top hat behind"},
+    "plazaWide": {"at": [178, 166], "h": 5, "look": [201, 142, 8], "fov": 55, "district": "plaza", "note": "Phase 1B: statue + fountain + backwards clock tower"},
+    "hallBalcony": {"at": [195.5, 162], "h": 1.2, "look": [190.5, 133.5, 18.6], "fov": 58, "district": "plaza", "note": "Phase 1B: low angle up at the Governor's balcony and the golden top hat"},
+    "acrossBay": {"at": [89, 299.5], "h": 6, "look": [199.5, 239.5, 9], "fov": 74, "district": "bay", "note": "Phase 1B: west-arm shore looking east across the bay: harbor arm, duck slot, plaza terrace"},
+    "harborDock": {"at": [292, 248], "h": 1.7, "look": [318, 232, 8], "fov": 55, "district": "harbor"},
+    "beach": {"at": [312, 304], "h": 1.7, "look": [300, 250, 6], "fov": 55, "district": "beach"},
+    "hillsLookout": {"at": [170, 88], "h": 1.7, "look": [191, 200, 0], "fov": 55, "district": "wild"}
+  },
+  "gate": {"b": "plazaSouth", "c": "bayNorth", "d": "suburbStreet", "e": "stairBottom"},
+  "gate1b": {"e": "stairBottom", "c": "bayNorth", "f": "acrossBay", "g": "plazaWide", "h": "mainSt", "i": "hallBalcony"},
+  "mainStreet": {"road": "radialEast", "setback": 1, "note": "Phase 1B Main St (kit presets, parts/city/kit/presets.json): s = distance along the road from the plaza centre; north side faces south across the street.",
+    "shops": [
+      {"preset": "toys", "s": 47, "side": "north"}, {"preset": "bakery", "s": 61.5, "side": "north"}, {"preset": "iceCream", "s": 75.5, "side": "north"},
+      {"preset": "grocery", "s": 91, "side": "north"}, {"preset": "fireStation", "s": 109.5, "side": "north"},
+      {"preset": "hospital", "s": 52, "side": "south"}, {"preset": "arcade", "s": 71, "side": "south"}, {"preset": "police", "s": 87, "side": "south"}
+    ]}
+}

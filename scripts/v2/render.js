@@ -13,6 +13,7 @@ import path from 'node:path';
 import {startServer} from './server.js';
 import {launch} from './browser.js';
 import {layoutShots, totalFrames} from '../../engine/timeline.js';
+import {segmentPlan} from './segments.js';
 
 const argv = process.argv.slice(2);
 const arg = (k, d) => { const i = argv.indexOf(`--${k}`); return i >= 0 ? argv[i + 1] : (argv.find(a => a.startsWith(`--${k}=`))?.split('=')[1] ?? d); };
@@ -35,11 +36,13 @@ const walk = d => existsSync(d) ? readdirSync(d).flatMap(f => { const p = path.j
 const worldFile = spec.world ?? path.join(path.dirname(specPath), 'world.js');   // A4: fixture worlds live outside stories/
 const {shots: _omit, ...rest} = spec;
 const castFile = spec.castFile && existsSync(spec.castFile) ? readFileSync(spec.castFile, 'utf8') : '';
-const troupeFile = Object.values(spec.cast ?? {}).some(c => c.troupe) ? readFileSync(spec.troupeFile ?? 'cast/troupe.json', 'utf8') : '';   // A5: troupe slots feed the cache hash
+const troupeFile = Object.values(spec.cast ?? {}).some(c => c.troupe) ? readFileSync(spec.troupeFile ?? (spec.format >= 6 ? 'cast/troupe6.json' : 'cast/troupe.json'), 'utf8') : '';   // A5: troupe slots feed the cache hash
 const world = sha([...['engine', 'avatar', 'avatar-style', 'parts'].flatMap(walk).sort().map(f => f + '\n' + readFileSync(f, 'utf8')),
   JSON.stringify(rest), castFile, troupeFile, existsSync(worldFile) ? readFileSync(worldFile, 'utf8') : '', `${width}x${height} aa=${aa}`].join('\n'));
 const dirOf = s => path.join(out, 'cache', `${s.id}-${sha(world + JSON.stringify(s)).slice(0, 12)}`);
 const shotOf = f => shots.findLast(s => f >= s.start);
+const {segments} = segmentPlan(specPath);   // 4A: spec.locations → one page per location (own baked light), frames of shots with shot.loc === L; otherwise the one spec
+const segOf = f => segments.find(g => !g.shotIds || g.shotIds.has(shotOf(f).id));
 const file = f => { const s = shotOf(f); return path.join(dirOf(s), `${String(f - s.start).padStart(4, '0')}.png`); };
 
 const todo = []; for (let f = from; f < to; f += every) if (!existsSync(file(f))) todo.push(f);
@@ -52,16 +55,16 @@ await saveProgress();
 console.log(`${specPath}: ${total} frames; ${progress.cached} cached, ${todo.length} to render at ${width}×${height}, ${workers} worker(s)`);
 
 const server = await startServer(process.cwd());
-const page = `${server.url}/engine/episode.html?spec=${encodeURIComponent(specPath)}&aa=${aa}`;
-const t0 = Date.now(), times = []; let next = 0;
-async function worker() {
+const pageOf = seg => `${server.url}/engine/episode.html?spec=${encodeURIComponent(seg.specPath)}&aa=${aa}`;   // tuft 1B fix: post 'cine' = MSAA 4× on its HDR target when aa (no supersample)
+const t0 = Date.now(), times = [];
+async function worker(seg, list, q) {
   const browser = await launch();
   try {
     const p = await browser.newPage({viewport: {width: 360, height: 640}});
     const errors = []; p.on('pageerror', e => errors.push(e.message));
-    await p.goto(page); await p.waitForFunction(() => window.__episode, null, {timeout: 120000});
-    while (next < todo.length) {
-      const f = todo[next++];
+    await p.goto(pageOf(seg)); await p.waitForFunction(() => window.__episode, null, {timeout: 120000});
+    while (q.next < list.length) {
+      const f = list[q.next++];
       const r = await p.evaluate(([f, w, h]) => window.__episode.renderFrame(f, w, h), [f, width, height]);
       const png = Buffer.from((await p.evaluate(() => document.querySelector('canvas').toDataURL('image/png'))).split(',')[1], 'base64');
       if (errors.length) throw Error(errors.join('; '));
@@ -74,7 +77,7 @@ async function worker() {
   } finally { await browser.close(); }
 }
 try {
-  await Promise.all(Array.from({length: workers}, worker));
+  for (const seg of segments) { const list = todo.filter(f => segOf(f) === seg); if (list.length) { const q = {next: 0}; await Promise.all(Array.from({length: workers}, () => worker(seg, list, q))); } }
   // Rebuild the frame links for the whole requested range.
   for (const f of readdirSync(path.join(out, 'frames'))) await unlink(path.join(out, 'frames', f));
   let linked = 0;

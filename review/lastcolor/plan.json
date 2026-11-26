@@ -1,0 +1,1060 @@
+{
+ "spec": "stories/lastcolor/episode.json",
+ "cues": "stories/lastcolor/cues.json",
+ "shots": [
+  {
+   "id": "S01",
+   "beat": false,
+   "t": 0,
+   "dur": 3,
+   "size": "close",
+   "move": "snap",
+   "loc": "testPark",
+   "speed": 0,
+   "subject": "hero@38,49",
+   "why": "tension: flinch"
+  },
+  {
+   "id": "S02",
+   "beat": false,
+   "t": 3,
+   "dur": 1.3,
+   "size": "wide",
+   "move": "drone",
+   "loc": "testPark",
+   "speed": 11,
+   "subject": "",
+   "why": "awe: That's why they're all white."
+  },
+  {
+   "id": "S03",
+   "beat": false,
+   "t": 4.3,
+   "dur": 1.93,
+   "size": "medium",
+   "move": "push",
+   "loc": "testPark",
+   "speed": 0,
+   "subject": "hero@52,32",
+   "why": "fun: idle_alive"
+  },
+  {
+   "id": "S04",
+   "beat": false,
+   "t": 6.23,
+   "dur": 1.73,
+   "size": "medium",
+   "move": "crashZoom",
+   "loc": "testPark",
+   "speed": 0,
+   "subject": "hero@54,38",
+   "why": "comedy: trip_fall"
+  },
+  {
+   "id": "S05",
+   "beat": false,
+   "t": 7.97,
+   "dur": 2.63,
+   "size": "insert",
+   "move": "push",
+   "loc": "testPark",
+   "speed": 0,
+   "subject": "hero@60,32",
+   "why": "comedy: Nine thousand falls, and counting."
+  },
+  {
+   "id": "S06",
+   "beat": false,
+   "t": 10.6,
+   "dur": 2.6,
+   "size": "wide",
+   "move": "track",
+   "loc": "testPark",
+   "speed": 6,
+   "subject": "hero@41,57",
+   "why": "fun: On Monday, the giant fan blew me into the pool."
+  },
+  {
+   "id": "S07",
+   "beat": false,
+   "t": 13.2,
+   "dur": 1.6,
+   "size": "medium",
+   "move": "whip",
+   "loc": "testPark",
+   "speed": 12,
+   "subject": "hero@50,28",
+   "why": "fun: jump"
+  },
+  {
+   "id": "S08",
+   "beat": false,
+   "t": 14.8,
+   "dur": 1.3,
+   "size": "wide",
+   "move": "static-drift",
+   "loc": "testPark",
+   "speed": 2,
+   "subject": "",
+   "why": "comedy: Nobody clapped."
+  },
+  {
+   "id": "S09",
+   "beat": false,
+   "t": 16.1,
+   "dur": 1.67,
+   "size": "medium",
+   "move": "push",
+   "loc": "testPark",
+   "speed": 0,
+   "subject": "hero@52,25",
+   "why": "comedy: My green pants turned white."
+  },
+  {
+   "id": "S10",
+   "beat": false,
+   "t": 17.77,
+   "dur": 2.13,
+   "size": "medium",
+   "move": "track",
+   "loc": "testPark",
+   "speed": 0,
+   "subject": "dummya@52,21",
+   "why": "emotion: The white dummies don't remember their names."
+  },
+  {
+   "id": "S11",
+   "beat": false,
+   "t": 19.9,
+   "dur": 2.03,
+   "size": "close",
+   "move": "push",
+   "loc": "testPark",
+   "speed": 0,
+   "subject": "hero@73,38",
+   "why": "emotion: They don't remember they ever had names."
+  },
+  {
+   "id": "S12",
+   "beat": false,
+   "t": 21.93,
+   "dur": 1.6,
+   "size": "insert",
+   "move": "snap",
+   "loc": "testPark",
+   "speed": 0,
+   "subject": "",
+   "why": "fun: Then a new dummy spawned."
+  },
+  {
+   "id": "S13",
+   "beat": false,
+   "t": 23.53,
+   "dur": 2.57,
+   "size": "medium",
+   "move": "orbit",
+   "loc": "testPark",
+   "speed": 14,
+   "subject": "bitsy@49,45",
+   "why": "fun: cheer"
+  },
+  {
+   "id": "S14",
+   "beat": false,
+   "t": 26.1,
+   "dur": 1.5,
+   "size": "insert",
+   "move": "push",
+   "loc": "testPark",
+   "speed": 0,
+   "subject": "bitsy@51,47",
+   "why": "fun: Her name tag said Bitsy."
+  },
+  {
+   "id": "S15",
+   "beat": false,
+   "t": 27.6,
+   "dur": 1.9,
+   "size": "medium",
+   "move": "track",
+   "loc": "coaster",
+   "speed": 22,
+   "subject": "hero@51,27",
+   "why": "fun: She even followed me onto the roller coaster."
+  },
+  {
+   "id": "S16",
+   "beat": false,
+   "t": 29.5,
+   "dur": 2.13,
+   "size": "wide",
+   "move": "whip",
+   "loc": "testPark",
+   "speed": 7,
+   "subject": "hero@35,56",
+   "why": "fun: The cart flipped, and we both went flying."
+  },
+  {
+   "id": "S17",
+   "beat": false,
+   "t": 31.63,
+   "dur": 1.77,
+   "size": "medium",
+   "move": "push",
+   "loc": "testPark",
+   "speed": 0,
+   "subject": "hero@43,56",
+   "why": "comedy: land"
+  },
+  {
+   "id": "S18",
+   "beat": false,
+   "t": 33.4,
+   "dur": 1.8,
+   "size": "medium",
+   "move": "splitScreen",
+   "loc": "testPark",
+   "speed": 0,
+   "subject": "hero@49,22",
+   "why": "comedy: I lost a color. She didn't."
+  },
+  {
+   "id": "S19",
+   "beat": false,
+   "t": 35.2,
+   "dur": 1.23,
+   "size": "close",
+   "move": "push",
+   "loc": "testPark",
+   "speed": 0,
+   "subject": "bitsy@57,49",
+   "why": "fun: Her cheeks got pinker."
+  },
+  {
+   "id": "S20",
+   "beat": false,
+   "t": 36.43,
+   "dur": 1.27,
+   "size": "close",
+   "move": "snap",
+   "loc": "testPark",
+   "speed": 0,
+   "subject": "hero@48,46",
+   "why": "comedy: Weird, right?"
+  },
+  {
+   "id": "S21",
+   "beat": false,
+   "t": 37.7,
+   "dur": 2.5,
+   "size": "wide",
+   "move": "snap",
+   "loc": "testPark",
+   "speed": 0,
+   "subject": "hero@32,27",
+   "why": "comedy: bonk_dizzy"
+  },
+  {
+   "id": "S22",
+   "beat": false,
+   "t": 40.2,
+   "dur": 1.9,
+   "size": "medium",
+   "move": "static-drift",
+   "loc": "testPark",
+   "speed": 4,
+   "subject": "dummyb@65,24",
+   "why": "comedy: gasp_step_back"
+  },
+  {
+   "id": "S23",
+   "beat": false,
+   "t": 42.1,
+   "dur": 1.57,
+   "size": "close",
+   "move": "push",
+   "loc": "testPark",
+   "speed": 0,
+   "subject": "hero@44,50",
+   "why": "emotion: My blue stripe went white."
+  },
+  {
+   "id": "S24",
+   "beat": false,
+   "t": 43.67,
+   "dur": 1.97,
+   "size": "wide",
+   "move": "track",
+   "loc": "testPark",
+   "speed": 0,
+   "subject": "hero@36,26",
+   "why": "emotion: Bitsy held my hand the whole way back."
+  },
+  {
+   "id": "S25",
+   "beat": false,
+   "t": 45.63,
+   "dur": 2.1,
+   "size": "close",
+   "move": "push",
+   "loc": "testPark",
+   "speed": 0,
+   "subject": "hero@49,36",
+   "why": "tension: look_around"
+  },
+  {
+   "id": "S26",
+   "beat": false,
+   "t": 47.73,
+   "dur": 2.33,
+   "size": "wide",
+   "move": "static-drift",
+   "loc": "testPark",
+   "speed": 2,
+   "subject": "dummyc@46,48",
+   "why": "comedy: trip_fall"
+  },
+  {
+   "id": "S27",
+   "beat": false,
+   "t": 50.07,
+   "dur": 2.43,
+   "size": "close",
+   "move": "push",
+   "loc": "testPark",
+   "speed": 0,
+   "subject": "dummyc@50,54",
+   "why": "emotion: When he got up, he blushed. Just a little."
+  },
+  {
+   "id": "S28",
+   "beat": false,
+   "t": 52.5,
+   "dur": 1.1,
+   "size": "wide",
+   "move": "lowAuthority",
+   "loc": "testPark",
+   "speed": 0,
+   "subject": "kid@51,56",
+   "why": "tension: Then a player joined."
+  },
+  {
+   "id": "S29",
+   "beat": false,
+   "t": 53.6,
+   "dur": 3.6,
+   "size": "medium",
+   "move": "tiltUp",
+   "loc": "testPark",
+   "speed": 34,
+   "subject": "kid@49,34",
+   "why": "tension: arms_cross"
+  },
+  {
+   "id": "S30",
+   "beat": false,
+   "t": 57.2,
+   "dur": 2,
+   "size": "wide",
+   "move": "push",
+   "loc": "testPark",
+   "speed": 0,
+   "subject": "",
+   "why": "tension: A giant hand came down from the clouds."
+  },
+  {
+   "id": "S31",
+   "beat": false,
+   "t": 59.2,
+   "dur": 1.13,
+   "size": "medium",
+   "move": "crashZoom",
+   "loc": "testPark",
+   "speed": 3,
+   "subject": "bitsy@49,55",
+   "why": "tension: And it picked up Bitsy."
+  },
+  {
+   "id": "S32",
+   "beat": false,
+   "t": 60.33,
+   "dur": 1.67,
+   "size": "wide",
+   "move": "track",
+   "loc": "testPark",
+   "speed": 0,
+   "subject": "hero@79,54",
+   "why": "tension: It carried her toward the launch tower."
+  },
+  {
+   "id": "S33",
+   "beat": false,
+   "t": 62,
+   "dur": 1.03,
+   "size": "medium",
+   "move": "whip",
+   "loc": "testPark",
+   "speed": 43,
+   "subject": "hero@58,34",
+   "why": "tension: jump"
+  },
+  {
+   "id": "S34",
+   "beat": false,
+   "t": 63.03,
+   "dur": 1.4,
+   "size": "medium",
+   "move": "snap",
+   "loc": "testPark",
+   "speed": 0,
+   "subject": "hero@69,52",
+   "why": "tension: So it threw me instead."
+  },
+  {
+   "id": "S35",
+   "beat": false,
+   "t": 64.43,
+   "dur": 1.23,
+   "size": "wide",
+   "move": "static-drift",
+   "loc": "testPark",
+   "speed": 8,
+   "subject": "hero@50,25",
+   "why": "tension: land"
+  },
+  {
+   "id": "S36",
+   "beat": false,
+   "t": 65.67,
+   "dur": 1.07,
+   "size": "wide",
+   "move": "track",
+   "loc": "testPark",
+   "speed": 0,
+   "subject": "hero@65,56",
+   "why": "tension: It threw me again."
+  },
+  {
+   "id": "S37",
+   "beat": false,
+   "t": 66.73,
+   "dur": 1.27,
+   "size": "wide",
+   "move": "push",
+   "loc": "testPark",
+   "speed": 0,
+   "subject": "hero@75,31",
+   "why": "tension: My hands turned white."
+  },
+  {
+   "id": "S38",
+   "beat": false,
+   "t": 68,
+   "dur": 2.5,
+   "size": "medium",
+   "move": "push",
+   "loc": "testPark",
+   "speed": 0,
+   "subject": "hero@62,53",
+   "why": "emotion: Again. Now only my face was yellow."
+  },
+  {
+   "id": "S39",
+   "beat": false,
+   "t": 70.5,
+   "dur": 3.33,
+   "size": "close",
+   "move": "push",
+   "loc": "testPark",
+   "speed": 0,
+   "subject": "hero@79,46",
+   "why": "emotion: reach_for"
+  },
+  {
+   "id": "S40",
+   "beat": false,
+   "t": 73.83,
+   "dur": 1.77,
+   "size": "medium",
+   "move": "snap",
+   "loc": "testPark",
+   "speed": 0,
+   "subject": "bitsy@49,54",
+   "why": "tension: Then the hand grabbed Bitsy again."
+  },
+  {
+   "id": "S41",
+   "beat": false,
+   "t": 75.6,
+   "dur": 2.33,
+   "size": "wide",
+   "move": "tiltUp",
+   "loc": "testPark",
+   "speed": 32,
+   "subject": "",
+   "why": "awe: Up, up, to the very top of the tower."
+  },
+  {
+   "id": "S42",
+   "beat": false,
+   "t": 77.93,
+   "dur": 1.2,
+   "size": "close",
+   "move": "static-drift",
+   "loc": "testPark",
+   "speed": 3,
+   "subject": "",
+   "why": "tension: And it let go."
+  },
+  {
+   "id": "S43",
+   "beat": false,
+   "t": 79.13,
+   "dur": 3.2,
+   "size": "close",
+   "move": "static-drift",
+   "loc": "testPark",
+   "speed": 8,
+   "subject": "hero@52,50",
+   "why": "emotion: I've fallen nine thousand times... so I know one thing."
+  },
+  {
+   "id": "S44",
+   "beat": false,
+   "t": 82.33,
+   "dur": 2.3,
+   "size": "medium",
+   "move": "crashZoom",
+   "loc": "testPark",
+   "speed": 25,
+   "subject": "hero@53,33",
+   "why": "comedy: A fall only counts when you hit the ground."
+  },
+  {
+   "id": "S45",
+   "beat": false,
+   "t": 84.63,
+   "dur": 1.87,
+   "size": "wide",
+   "move": "orbit",
+   "loc": "testPark",
+   "speed": 13,
+   "subject": "hero@37,29",
+   "why": "awe: jump @ jumped; catch @ caught"
+  },
+  {
+   "id": "S47",
+   "beat": false,
+   "t": 86.5,
+   "dur": 2.37,
+   "size": "close",
+   "move": "push",
+   "loc": "testPark",
+   "speed": 0,
+   "subject": "hero@43,31",
+   "why": "tension: I yelled the one thing dummies never forget."
+  },
+  {
+   "id": "S48",
+   "beat": false,
+   "t": 88.87,
+   "dur": 1.67,
+   "size": "close",
+   "move": "snap",
+   "loc": "testPark",
+   "speed": 0,
+   "subject": "hero@50,47",
+   "why": "tension: Dummies help each other"
+  },
+  {
+   "id": "S49",
+   "beat": false,
+   "t": 90.53,
+   "dur": 1.97,
+   "size": "wide",
+   "move": "drone",
+   "loc": "testPark",
+   "speed": 4,
+   "subject": "",
+   "why": "awe: Every white dummy in the park started running."
+  },
+  {
+   "id": "S50",
+   "beat": false,
+   "t": 92.5,
+   "dur": 0.87,
+   "size": "wide",
+   "move": "push",
+   "loc": "testPark",
+   "speed": 0,
+   "subject": "dummya@54,32",
+   "why": "tension: Hundreds of them."
+  },
+  {
+   "id": "S51",
+   "beat": false,
+   "t": 93.37,
+   "dur": 2.37,
+   "size": "wide",
+   "move": "topDown",
+   "loc": "testPark",
+   "speed": 2,
+   "subject": "",
+   "why": "awe: They piled up under the tower like a giant pillow."
+  },
+  {
+   "id": "S52",
+   "beat": false,
+   "t": 95.73,
+   "dur": 1.23,
+   "size": "medium",
+   "move": "static-drift",
+   "loc": "testPark",
+   "speed": 3,
+   "subject": "hero@44,32",
+   "why": "emotion: land"
+  },
+  {
+   "id": "S53",
+   "beat": false,
+   "t": 96.97,
+   "dur": 1.17,
+   "size": "close",
+   "move": "push",
+   "loc": "testPark",
+   "speed": 0,
+   "subject": "hero@53,39",
+   "why": "emotion: Nobody fell."
+  },
+  {
+   "id": "S54",
+   "beat": false,
+   "t": 98.13,
+   "dur": 1.93,
+   "size": "wide",
+   "move": "crane",
+   "loc": "testPark",
+   "speed": 8,
+   "subject": "",
+   "why": "awe: Then the white dummies started turning colors."
+  },
+  {
+   "id": "S55",
+   "beat": false,
+   "t": 100.07,
+   "dur": 0.87,
+   "size": "insert",
+   "move": "push",
+   "loc": "testPark",
+   "speed": 0,
+   "subject": "dummyd@50,24",
+   "why": "fun: A blue arm here."
+  },
+  {
+   "id": "S56",
+   "beat": false,
+   "t": 100.93,
+   "dur": 1.43,
+   "size": "insert",
+   "move": "push",
+   "loc": "testPark",
+   "speed": 0,
+   "subject": "dummye@55,45",
+   "why": "fun: A red nose there."
+  },
+  {
+   "id": "S57",
+   "beat": false,
+   "t": 102.37,
+   "dur": 2.47,
+   "size": "medium",
+   "move": "push",
+   "loc": "testPark",
+   "speed": 0,
+   "subject": "kid@50,34",
+   "why": "emotion: BlastKid_7 dropped the giant hand."
+  },
+  {
+   "id": "S58",
+   "beat": false,
+   "t": 104.83,
+   "dur": 1.77,
+   "size": "insert",
+   "move": "snap",
+   "loc": "testPark",
+   "speed": 0,
+   "subject": "",
+   "why": "fun: He pressed the Heal button instead."
+  },
+  {
+   "id": "S59",
+   "beat": false,
+   "t": 106.6,
+   "dur": 1.43,
+   "size": "medium",
+   "move": "track",
+   "loc": "testPark",
+   "speed": 0,
+   "subject": "kid@59,40",
+   "why": "fun: hug"
+  },
+  {
+   "id": "S60",
+   "beat": false,
+   "t": 108.03,
+   "dur": 2.6,
+   "size": "wide",
+   "move": "push",
+   "loc": "testPark",
+   "speed": 0,
+   "subject": "hero@19,43",
+   "why": "comedy: hero:knees_collapse; bitsy:knees_collapse"
+  },
+  {
+   "id": "S61",
+   "beat": false,
+   "t": 110.63,
+   "dur": 2.03,
+   "size": "medium",
+   "move": "push",
+   "loc": "testPark",
+   "speed": 0,
+   "subject": "hero@50,34",
+   "why": "emotion: Turns out the rule was only half written."
+  },
+  {
+   "id": "S62",
+   "beat": false,
+   "t": 112.67,
+   "dur": 2.63,
+   "size": "close",
+   "move": "push",
+   "loc": "testPark",
+   "speed": 0,
+   "subject": "hero@38,52",
+   "why": "payoff: hug"
+  }
+ ],
+ "meanShot": 1.97,
+ "end": 115.3,
+ "gamecam": 0,
+ "wides": 20,
+ "partners": [
+  {
+   "partner": "bitsy",
+   "verb": "carry_hip",
+   "dist": 11.784,
+   "walkIn": 6.932,
+   "ok": true
+  },
+  {
+   "partner": "bitsy",
+   "verb": "hug_s",
+   "dist": 0,
+   "walkIn": null,
+   "ok": true
+  }
+ ],
+ "format5": {
+  "lengthS": 115.3,
+  "averageShotS": 1.89,
+  "insertH": {
+   "S12": 0.4371,
+   "S58": 0.4278
+  }
+ },
+ "season": false,
+ "framing": [
+  {
+   "shot": "S01",
+   "part": "head",
+   "frac": 0.642,
+   "need": 0.45
+  },
+  {
+   "shot": "S03",
+   "part": "full",
+   "frac": 0.505,
+   "need": 0.3
+  },
+  {
+   "shot": "S04",
+   "part": "full",
+   "frac": 0.43,
+   "need": 0.3
+  },
+  {
+   "shot": "S07",
+   "part": "full",
+   "frac": 0.58,
+   "need": 0.3
+  },
+  {
+   "shot": "S09",
+   "part": "full",
+   "frac": 0.934,
+   "need": 0.3
+  },
+  {
+   "shot": "S10",
+   "part": "full",
+   "frac": 0.777,
+   "need": 0.3
+  },
+  {
+   "shot": "S11",
+   "part": "head",
+   "frac": 0.484,
+   "need": 0.45
+  },
+  {
+   "shot": "S13",
+   "part": "full",
+   "frac": 0.364,
+   "need": 0.3
+  },
+  {
+   "shot": "S15",
+   "part": "full",
+   "frac": 0.613,
+   "need": 0.3
+  },
+  {
+   "shot": "S17",
+   "part": "full",
+   "frac": 0.947,
+   "need": 0.3
+  },
+  {
+   "shot": "S18",
+   "part": "full",
+   "frac": 0.884,
+   "need": 0.3
+  },
+  {
+   "shot": "S19",
+   "part": "head",
+   "frac": 0.944,
+   "need": 0.45
+  },
+  {
+   "shot": "S20",
+   "part": "head",
+   "frac": 0.491,
+   "need": 0.45
+  },
+  {
+   "shot": "S22",
+   "part": "full",
+   "frac": 0.787,
+   "need": 0.3
+  },
+  {
+   "shot": "S23",
+   "part": "head",
+   "frac": 0.581,
+   "need": 0.45
+  },
+  {
+   "shot": "S25",
+   "part": "head",
+   "frac": 0.821,
+   "need": 0.45
+  },
+  {
+   "shot": "S27",
+   "part": "head",
+   "frac": 0.738,
+   "need": 0.45
+  },
+  {
+   "shot": "S29",
+   "part": "full",
+   "frac": 0.592,
+   "need": 0.3
+  },
+  {
+   "shot": "S31",
+   "part": "full",
+   "frac": 0.576,
+   "need": 0.3
+  },
+  {
+   "shot": "S33",
+   "part": "full",
+   "frac": 0.992,
+   "need": 0.3
+  },
+  {
+   "shot": "S34",
+   "part": "full",
+   "frac": 0.453,
+   "need": 0.3
+  },
+  {
+   "shot": "S38",
+   "part": "full",
+   "frac": 1.34,
+   "need": 0.3
+  },
+  {
+   "shot": "S39",
+   "part": "head",
+   "frac": 0.507,
+   "need": 0.45
+  },
+  {
+   "shot": "S40",
+   "part": "full",
+   "frac": 0.301,
+   "need": 0.3
+  },
+  {
+   "shot": "S43",
+   "part": "head",
+   "frac": 0.46,
+   "need": 0.45
+  },
+  {
+   "shot": "S44",
+   "part": "full",
+   "frac": 0.57,
+   "need": 0.3
+  },
+  {
+   "shot": "S47",
+   "part": "head",
+   "frac": 0.572,
+   "need": 0.45
+  },
+  {
+   "shot": "S48",
+   "part": "head",
+   "frac": 0.866,
+   "need": 0.45
+  },
+  {
+   "shot": "S52",
+   "part": "full",
+   "frac": 0.882,
+   "need": 0.3
+  },
+  {
+   "shot": "S53",
+   "part": "head",
+   "frac": 0.66,
+   "need": 0.45
+  },
+  {
+   "shot": "S57",
+   "part": "full",
+   "frac": 0.502,
+   "need": 0.3
+  },
+  {
+   "shot": "S59",
+   "part": "full",
+   "frac": 0.581,
+   "need": 0.3
+  },
+  {
+   "shot": "S61",
+   "part": "full",
+   "frac": 1.107,
+   "need": 0.3
+  },
+  {
+   "shot": "S62",
+   "part": "head",
+   "frac": 0.456,
+   "need": 0.45
+  }
+ ],
+ "uiItems": 0,
+ "eggs": [],
+ "overlaps": 0,
+ "moods": {
+  "a": "WARN",
+  "b": "PASS",
+  "c": "PASS",
+  "d": "PASS",
+  "e": "PASS",
+  "f": "PASS",
+  "g": "PASS",
+  "h": "WARN",
+  "m": "PASS",
+  "t": "PASS"
+ },
+ "errors": [],
+ "warnings": [
+  "S06: subject head at y 57 % near the caption band: consider captionY \"high\"",
+  "S11: \"dummya\" (see) not in frame by frame 6",
+  "S17: \"hero\" (see) not in frame by frame 6",
+  "S17: \"bitsy\" (see) not in frame by frame 6",
+  "S18: \"bitsy\" (see) not in frame by frame 6",
+  "S27: \"dummyc\" (see) not in frame by frame 6",
+  "S28: subject head at y 56 % near the caption band: consider captionY \"high\"",
+  "S28: wide shot with no tagged character in the foreground",
+  "S30: wide shot with no tagged character in the foreground",
+  "S36: wide shot with no tagged character in the foreground",
+  "S37: \"hero\" (see) not in frame by frame 6",
+  "S38: \"hero\" (see) not in frame by frame 6",
+  "S41: wide shot with no tagged character in the foreground",
+  "S45: \"hero\" (see) not in frame by frame 6",
+  "S45: \"bitsy\" (see) not in frame by frame 6",
+  "S47: \"bitsy\" (see) not in frame by frame 6",
+  "S49: wide shot with no tagged character in the foreground",
+  "S52: \"bitsy\" (see) not in frame by frame 6",
+  "S61: \"bitsy\" (see) not in frame by frame 6",
+  "S62: \"bitsy\" (see) not in frame by frame 6",
+  "a. mood + length: S01: move snap is not a tension move (lowAuthority, push, tiltUp, static-drift)",
+  "a. mood + length: S02: length 1.30 s vs 2.5–4 s (awe, 48 % out)",
+  "a. mood + length: S03: move push is not a fun move (track, orbit, snap, gamecam)",
+  "a. mood + length: S05: length 2.63 s vs 0.8–2 s (comedy, 32 % out)",
+  "a. mood + length: S05: move push is not a comedy move (crashZoom, snap, whip, static-drift)",
+  "a. mood + length: S07: move whip is not a fun move (track, orbit, snap, gamecam)",
+  "a. mood + length: S09: move push is not a comedy move (crashZoom, snap, whip, static-drift)",
+  "a. mood + length: S10: move track is not a emotion move (push, static-drift, splitScreen)",
+  "a. mood + length: S14: move push is not a fun move (track, orbit, snap, gamecam)",
+  "a. mood + length: S16: move whip is not a fun move (track, orbit, snap, gamecam)",
+  "a. mood + length: S17: move push is not a comedy move (crashZoom, snap, whip, static-drift)",
+  "a. mood + length: S18: move splitScreen is not a comedy move (crashZoom, snap, whip, static-drift)",
+  "a. mood + length: S19: move push is not a fun move (track, orbit, snap, gamecam)",
+  "a. mood + length: S19: fov 42 outside 45–65 (fun)",
+  "a. mood + length: S21: length 2.50 s vs 0.8–2 s (comedy, 25 % out)",
+  "a. mood + length: S23: length 1.57 s vs 2–3.5 s (emotion, 22 % out)",
+  "a. mood + length: S24: move track is not a emotion move (push, static-drift, splitScreen)",
+  "a. mood + length: S28: length 1.10 s vs 1.5–2.5 s (tension, 27 % out)",
+  "a. mood + length: S29: length 3.60 s vs 1.5–2.5 s (tension, 44 % out)",
+  "a. mood + length: S31: length 1.13 s vs 1.5–2.5 s (tension, 24 % out)",
+  "a. mood + length: S31: move crashZoom is not a tension move (lowAuthority, push, tiltUp, static-drift)",
+  "a. mood + length: S32: move track is not a tension move (lowAuthority, push, tiltUp, static-drift)",
+  "a. mood + length: S33: length 1.03 s vs 1.5–2.5 s (tension, 31 % out)",
+  "a. mood + length: S33: move whip is not a tension move (lowAuthority, push, tiltUp, static-drift)",
+  "a. mood + length: S34: move snap is not a tension move (lowAuthority, push, tiltUp, static-drift)",
+  "a. mood + length: S36: length 1.07 s vs 1.5–2.5 s (tension, 29 % out)",
+  "a. mood + length: S36: move track is not a tension move (lowAuthority, push, tiltUp, static-drift)",
+  "a. mood + length: S40: move snap is not a tension move (lowAuthority, push, tiltUp, static-drift)",
+  "a. mood + length: S41: move tiltUp is not a awe move (drone, scaleReveal, crane, pull)",
+  "a. mood + length: S42: length 1.20 s vs 1.5–2.5 s (tension, 20 % out)",
+  "a. mood + length: S45: length 1.87 s vs 2.5–4 s (awe, 25 % out)",
+  "a. mood + length: S45: move orbit is not a awe move (drone, scaleReveal, crane, pull)",
+  "a. mood + length: S48: move snap is not a tension move (lowAuthority, push, tiltUp, static-drift)",
+  "a. mood + length: S49: length 1.97 s vs 2.5–4 s (awe, 21 % out)",
+  "a. mood + length: S50: length 0.87 s vs 1.5–2.5 s (tension, 42 % out)",
+  "a. mood + length: S51: move topDown is not a awe move (drone, scaleReveal, crane, pull)",
+  "a. mood + length: S52: length 1.23 s vs 2–3.5 s (emotion, 38 % out)",
+  "a. mood + length: S53: length 1.17 s vs 2–3.5 s (emotion, 42 % out)",
+  "a. mood + length: S54: length 1.93 s vs 2.5–4 s (awe, 23 % out)",
+  "a. mood + length: S55: length 0.87 s vs 1.2–2.2 s (fun, 28 % out)",
+  "a. mood + length: S55: move push is not a fun move (track, orbit, snap, gamecam)",
+  "a. mood + length: S56: move push is not a fun move (track, orbit, snap, gamecam)",
+  "a. mood + length: S60: length 2.60 s vs 0.8–2 s (comedy, 30 % out)",
+  "a. mood + length: S60: move push is not a comedy move (crashZoom, snap, whip, static-drift)",
+  "h. pacing curve: 0–10 s: 4 cuts/10 s (opening wants 5–7)",
+  "h. pacing curve: 60–70 s: 7 cuts/10 s (middle wants 4–6)",
+  "h. pacing curve: 70–80 s: 5 cuts/10 s (climax wants 6–8)",
+  "h. pacing curve: 80–90 s: 4 cuts/10 s (climax wants 6–8)",
+  "h. pacing curve: 110–115.3 s: 3.8 cuts/10 s (climax wants 6–8)"
+ ]
+}

@@ -1,0 +1,388 @@
+{
+ "note": "tuft P3 BEAST VILLAGE location: beastClass \u2014 the classroom: timber beams, cream plaster, desks in rows, a chalkboard (no readable text), TALL windows onto the yard (NIGHTFANG outside in the fixture), the hillside town + TITAN's mountain through the glass.",
+ "colour": "day = bright late morning through tall windows \u00b7 night = moonlit glass",
+ "looks": [
+  "day",
+  "night"
+ ],
+ "interior": true,
+ "ground": {
+  "size": [
+   150,
+   120
+  ],
+  "at": [
+   -40,
+   -10
+  ],
+  "mat": "grass"
+ },
+ "rooms": [
+  {
+   "at": [
+    0,
+    0,
+    0
+   ],
+   "w": 24,
+   "d": 18,
+   "h": 9.5,
+   "openSide": "front",
+   "floor": "wood",
+   "wall": "plaster3",
+   "windows": [
+    {
+     "side": "left",
+     "x": -5.5,
+     "y": 5.0,
+     "w": 4.0,
+     "h": 6.6
+    },
+    {
+     "side": "left",
+     "x": 0,
+     "y": 5.0,
+     "w": 4.0,
+     "h": 6.6
+    },
+    {
+     "side": "left",
+     "x": 5.5,
+     "y": 5.0,
+     "w": 4.0,
+     "h": 6.6,
+     "glass": true
+    }
+   ],
+   "door": {
+    "side": "right",
+    "x": 4,
+    "w": 3.6,
+    "h": 5.2
+   }
+  }
+ ],
+ "props": [
+  {
+   "type": "desk",
+   "at": [
+    -5,
+    0,
+    -2
+   ],
+   "rotY": 3.141592653589793
+  },
+  {
+   "type": "desk",
+   "at": [
+    -5,
+    0,
+    2.8
+   ],
+   "rotY": 3.141592653589793
+  },
+  {
+   "type": "desk",
+   "at": [
+    1,
+    0,
+    -2
+   ],
+   "rotY": 3.141592653589793
+  },
+  {
+   "type": "desk",
+   "at": [
+    1,
+    0,
+    2.8
+   ],
+   "rotY": 3.141592653589793
+  },
+  {
+   "type": "desk",
+   "at": [
+    7,
+    0,
+    -2
+   ],
+   "rotY": 3.141592653589793
+  },
+  {
+   "type": "desk",
+   "at": [
+    7,
+    0,
+    2.8
+   ],
+   "rotY": 3.141592653589793
+  },
+  {
+   "type": "chalkboard",
+   "at": [
+    0,
+    4.6,
+    -8.6
+   ],
+   "w": 11,
+   "h": 4.2
+  },
+  {
+   "type": "shelf",
+   "at": [
+    9,
+    5.5,
+    -8.6
+   ],
+   "w": 4,
+   "n": 4
+  },
+  {
+   "type": "desk",
+   "at": [
+    -2,
+    0,
+    -6
+   ],
+   "rotY": 0,
+   "s": 1.2
+  }
+ ],
+ "streets": [
+  {
+   "path": [
+    [
+     -14,
+     -30
+    ],
+    [
+     -14,
+     30
+    ]
+   ],
+   "width": 2,
+   "layer": "yard",
+   "mat": "stone"
+  },
+  {
+   "path": [
+    [
+     -40,
+     -25
+    ],
+    [
+     -40,
+     25
+    ]
+   ],
+   "width": 30,
+   "layer": "yard",
+   "mat": "cobble"
+  }
+ ],
+ "rows": [
+  {
+   "line": [
+    [
+     -62,
+     30
+    ],
+    [
+     -62,
+     -40
+    ]
+   ],
+   "side": -1,
+   "seed": 41,
+   "setback": 2
+  }
+ ],
+ "terraces": {
+  "seed": 9,
+  "centre": [
+   -70,
+   0
+  ],
+  "dir": 1.5707963267948966,
+  "rows": 5,
+  "from": 10,
+  "step": 14,
+  "rise": 6,
+  "span": 200
+ },
+ "hill": {
+  "centre": [
+   -70,
+   0
+  ],
+  "dir": 1.5707963267948966,
+  "from": 10,
+  "step": 14,
+  "rise": 6
+ },
+ "mountain": {
+  "at": [
+   -330,
+   0,
+   -60
+  ],
+  "r": 160,
+  "h": 240,
+  "seed": 11,
+  "rotY": 1.5707963267948966
+ },
+ "walls": [
+  {
+   "from": [
+    -25,
+    0,
+    -28
+   ],
+   "to": [
+    -25,
+    0,
+    28
+   ],
+   "h": 2.0
+  }
+ ],
+ "anchors": {
+  "street": {
+   "position": [
+    0,
+    0,
+    2
+   ]
+  },
+  "teacher": {
+   "position": [
+    -2,
+    0,
+    -6.5
+   ]
+  },
+  "window": {
+   "position": [
+    -11,
+    0,
+    0
+   ]
+  },
+  "yard": {
+   "position": [
+    -34,
+    0,
+    -2
+   ]
+  }
+ },
+ "views": {
+  "establish": {
+   "position": [
+    9,
+    6.8,
+    15
+   ],
+   "target": [
+    -3,
+    4.0,
+    -5
+   ],
+   "fov": 55
+  },
+  "hero": {
+   "position": [
+    6,
+    4.2,
+    3.5
+   ],
+   "target": [
+    -20,
+    6.5,
+    -1.5
+   ],
+   "fov": 46
+  }
+ },
+ "fixtureCast": {
+  "nightfang": {
+   "style": "beast",
+   "preset": "NIGHTFANG",
+   "tier": "hero",
+   "at": "street",
+   "offset": [
+    -32,
+    0,
+    -3
+   ],
+   "yaw": 80
+  },
+  "kid": {
+   "style": "v5",
+   "troupe": "HERO",
+   "at": "street",
+   "offset": [
+    -3,
+    0,
+    -3.5
+   ],
+   "yaw": 200,
+   "keys": [
+    [
+     0,
+     "idle"
+    ]
+   ]
+  }
+ },
+ "dayLights": [],
+ "lights": [
+  {
+   "p": [
+    0,
+    8.5,
+    0
+   ],
+   "color": [
+    1,
+    0.82,
+    0.6
+   ],
+   "i": 3.5,
+   "range": 18
+  },
+  {
+   "p": [
+    6,
+    8.5,
+    -5
+   ],
+   "color": [
+    1,
+    0.82,
+    0.6
+   ],
+   "i": 2.5,
+   "range": 13
+  },
+  {
+   "p": [
+    -6,
+    8,
+    4
+   ],
+   "color": [
+    1,
+    0.82,
+    0.6
+   ],
+   "i": 2.5,
+   "range": 13
+  }
+ ],
+ "skyDist": 650,
+ "lookMap": {
+  "day": "toy",
+  "night": "moonlit"
+ }
+}

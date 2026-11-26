@@ -1,0 +1,584 @@
+{
+ "note": "tuft P3 BEAST VILLAGE location: festivalPlaza \u2014 dusk \u2192 night festival: a round cobbled plaza ringed by houses, lantern strings from the maypole to the rooftops, a stage with the giant cage (spec props2b giantCage), the hillside town rising behind (terraced rooftops: the town reads BIG), TITAN's mountain over everything; room for the lanternSea + \u2264 12 kids + parade beasts; colossal Tuft towers over the roofs.",
+ "colour": "dusk amber (dawn preset) \u2192 night lanterns (moonlit)",
+ "looks": [
+  "dusk",
+  "night",
+  "day"
+ ],
+ "ground": {
+  "size": [
+   140,
+   140
+  ],
+  "at": [
+   0,
+   -10
+  ],
+  "mat": "grass"
+ },
+ "streets": [
+  {
+   "path": [
+    [
+     -27,
+     0
+    ],
+    [
+     0,
+     0.2
+    ],
+    [
+     27,
+     0
+    ]
+   ],
+   "width": 54,
+   "layer": "plaza",
+   "mat": "cobble"
+  },
+  {
+   "path": [
+    [
+     0,
+     26
+    ],
+    [
+     0,
+     70
+    ]
+   ],
+   "width": 9,
+   "layer": "street"
+  }
+ ],
+ "houses": [
+  {
+   "preset": "hero",
+   "at": [
+    -33.65883939231586,
+    0,
+    -21.61209223472559
+   ],
+   "rotY": 1.0,
+   "seed": 60
+  },
+  {
+   "preset": "wide",
+   "at": [
+    -20.90748915722637,
+    0,
+    -34.10098088238023
+   ],
+   "rotY": 0.55,
+   "seed": 61
+  },
+  {
+   "preset": "tall",
+   "at": [
+    20.90748915722637,
+    0,
+    -34.10098088238023
+   ],
+   "rotY": -0.55,
+   "seed": 62
+  },
+  {
+   "preset": "cottage",
+   "at": [
+    33.65883939231586,
+    0,
+    -21.61209223472559
+   ],
+   "rotY": -1.0,
+   "seed": 63
+  },
+  {
+   "preset": "wide",
+   "at": [
+    39.70851964150354,
+    0,
+    -4.8201107746946645
+   ],
+   "rotY": -1.45,
+   "seed": 64
+  },
+  {
+   "preset": "tall",
+   "at": [
+    -39.70851964150354,
+    0,
+    -4.8201107746946645
+   ],
+   "rotY": 1.45,
+   "seed": 65
+  }
+ ],
+ "rows": [
+  {
+   "line": [
+    [
+     -58,
+     40
+    ],
+    [
+     -58,
+     -60
+    ]
+   ],
+   "side": -1,
+   "seed": 61,
+   "setback": 2
+  },
+  {
+   "line": [
+    [
+     58,
+     40
+    ],
+    [
+     58,
+     -60
+    ]
+   ],
+   "side": 1,
+   "seed": 62,
+   "setback": 2
+  }
+ ],
+ "terraces": {
+  "seed": 13,
+  "centre": [
+   0,
+   -60
+  ],
+  "dir": 0,
+  "rows": 8,
+  "from": 8,
+  "step": 12,
+  "rise": 9,
+  "span": 170,
+  "density": 1.6,
+  "roofs": "slate",
+  "roofK": 1.7,
+  "wallTop": 3.2,
+  "trees": 1.2
+ },
+ "hill": {
+  "centre": [
+   0,
+   -60
+  ],
+  "dir": 0,
+  "from": 8,
+  "step": 12,
+  "rise": 9
+ },
+ "mountain": {
+  "at": [
+   40,
+   0,
+   -330
+  ],
+  "r": 170,
+  "h": 260,
+  "seed": 11
+ },
+ "props": [
+  {
+   "type": "stage",
+   "at": [
+    0,
+    0,
+    -21
+   ],
+   "w": 22,
+   "d": 11
+  },
+  {
+   "type": "post",
+   "at": [
+    0,
+    0,
+    4
+   ],
+   "h": 18
+  },
+  {
+   "type": "barrel",
+   "at": [
+    -20,
+    0,
+    -14
+   ]
+  },
+  {
+   "type": "barrel",
+   "at": [
+    -21.4,
+    0,
+    -12.6
+   ]
+  },
+  {
+   "type": "hay",
+   "at": [
+    21,
+    0,
+    -12
+   ]
+  },
+  {
+   "type": "bench",
+   "at": [
+    -14,
+    0,
+    14
+   ],
+   "rotY": 0.6
+  },
+  {
+   "type": "bench",
+   "at": [
+    14,
+    0,
+    14
+   ],
+   "rotY": -0.6
+  },
+  {
+   "type": "crate",
+   "at": [
+    19,
+    0,
+    8
+   ]
+  }
+ ],
+ "lanternStrings": [
+  {
+   "from": [
+    0,
+    17.5,
+    4
+   ],
+   "to": [
+    -33.505290819607644,
+    13,
+    -5.7788828586081955
+   ],
+   "sag": 2.2,
+   "every": 2.6
+  },
+  {
+   "from": [
+    0,
+    17.5,
+    4
+   ],
+   "to": [
+    -21.95194754810247,
+    13,
+    -25.96366689906027
+   ],
+   "sag": 2.2,
+   "every": 2.6
+  },
+  {
+   "from": [
+    0,
+    17.5,
+    4
+   ],
+   "to": [
+    -0.12704405011869943,
+    13,
+    -33.999762643426344
+   ],
+   "sag": 2.2,
+   "every": 2.6
+  },
+  {
+   "from": [
+    0,
+    17.5,
+    4
+   ],
+   "to": [
+    21.75730477085295,
+    13,
+    -26.126991581661663
+   ],
+   "sag": 2.2,
+   "every": 2.6
+  },
+  {
+   "from": [
+    0,
+    17.5,
+    4
+   ],
+   "to": [
+    33.46116888403457,
+    13,
+    -6.029110789670128
+   ],
+   "sag": 2.2,
+   "every": 2.6
+  },
+  {
+   "from": [
+    0,
+    17.5,
+    4
+   ],
+   "to": [
+    29.50818019690772,
+    13,
+    16.889857946910713
+   ],
+   "sag": 2.2,
+   "every": 2.6
+  },
+  {
+   "from": [
+    0,
+    17.5,
+    4
+   ],
+   "to": [
+    11.747986048754704,
+    13,
+    31.905874440269848
+   ],
+   "sag": 2.2,
+   "every": 2.6
+  },
+  {
+   "from": [
+    0,
+    17.5,
+    4
+   ],
+   "to": [
+    -11.509221335932088,
+    13,
+    31.9927776887304
+   ],
+   "sag": 2.2,
+   "every": 2.6
+  },
+  {
+   "from": [
+    0,
+    17.5,
+    4
+   ],
+   "to": [
+    -29.381136146789025,
+    13,
+    17.109904696515624
+   ],
+   "sag": 2.2,
+   "every": 2.6
+  }
+ ],
+ "anchors": {
+  "street": {
+   "position": [
+    0,
+    0,
+    6
+   ]
+  },
+  "stage": {
+   "position": [
+    0,
+    1.6,
+    -21
+   ]
+  },
+  "crowd": {
+   "position": [
+    0,
+    0,
+    10
+   ]
+  },
+  "parade": {
+   "position": [
+    -18,
+    0,
+    10
+   ]
+  }
+ },
+ "views": {
+  "establish": {
+   "position": [
+    0,
+    12,
+    64
+   ],
+   "target": [
+    0,
+    20,
+    -40
+   ],
+   "fov": 52
+  },
+  "hero": {
+   "position": [
+    -18,
+    4,
+    24
+   ],
+   "target": [
+    2,
+    9,
+    -18
+   ],
+   "fov": 46
+  }
+ },
+ "lightEvery": 8,
+ "maxLights": 12,
+ "skyDist": 680,
+ "fixtureCast": {
+  "kid0": {
+   "style": "v5",
+   "troupe": "LEAD",
+   "at": "street",
+   "offset": [
+    -10,
+    0,
+    8.0
+   ],
+   "yaw": 180,
+   "keys": [
+    [
+     0,
+     "idle"
+    ]
+   ]
+  },
+  "kid1": {
+   "style": "v5",
+   "troupe": "LITTLE",
+   "at": "street",
+   "offset": [
+    -6,
+    0,
+    10.5
+   ],
+   "yaw": 180,
+   "keys": [
+    [
+     0,
+     "idle"
+    ]
+   ]
+  },
+  "kid2": {
+   "style": "v5",
+   "troupe": "HERO",
+   "at": "street",
+   "offset": [
+    -2,
+    0,
+    8.0
+   ],
+   "yaw": 180,
+   "keys": [
+    [
+     0,
+     "idle"
+    ]
+   ]
+  },
+  "kid3": {
+   "style": "v5",
+   "troupe": "LEAD",
+   "at": "street",
+   "offset": [
+    2,
+    0,
+    10.5
+   ],
+   "yaw": 180,
+   "keys": [
+    [
+     0,
+     "idle"
+    ]
+   ]
+  },
+  "kid4": {
+   "style": "v5",
+   "troupe": "LITTLE",
+   "at": "street",
+   "offset": [
+    6,
+    0,
+    8.0
+   ],
+   "yaw": 180,
+   "keys": [
+    [
+     0,
+     "idle"
+    ]
+   ]
+  },
+  "kid5": {
+   "style": "v5",
+   "troupe": "HERO",
+   "at": "street",
+   "offset": [
+    10,
+    0,
+    10.5
+   ],
+   "yaw": 180,
+   "keys": [
+    [
+     0,
+     "idle"
+    ]
+   ]
+  },
+  "boulder": {
+   "style": "beast",
+   "preset": "BOULDER",
+   "tier": "hero",
+   "at": "street",
+   "offset": [
+    -17,
+    0,
+    -2
+   ],
+   "yaw": 30
+  },
+  "cinder": {
+   "style": "beast",
+   "preset": "CINDER",
+   "tier": "hero",
+   "at": "street",
+   "offset": [
+    16,
+    0,
+    -3
+   ],
+   "yaw": -30
+  }
+ },
+ "lookMap": {
+  "dusk": "dusk"
+ },
+ "hillBand": [
+  0,
+  0.27,
+  1,
+  0.43
+ ]
+}

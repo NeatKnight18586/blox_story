@@ -9,6 +9,8 @@ A = importlib.util.module_from_spec(spec); spec.loader.exec_module(A)
 
 class Helpers(unittest.TestCase):
     def test_voice_range_by_format(self):
+        self.assertEqual(A.voice_range(6), (0, 124.15)); self.assertEqual(A.DEFAULT_FORMAT, 6)
+        self.assertEqual(A.spec_format(ROOT / 'stories/nobody'), None); self.assertEqual(A.spec_format(ROOT / 'stories/no-such-story'), 6)
         self.assertEqual(A.voice_range(5), (75, 90)); self.assertEqual(A.voice_range(None), (100, 168)); self.assertEqual(A.voice_range(3), (100, 168))
 
     def test_normalise_and_script_words(self):

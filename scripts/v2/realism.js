@@ -14,7 +14,7 @@ try {
   for (const loc of LOCS) {
     const page = await browser.newPage({viewport: {width: 360, height: 640}}), errors = []; page.on('pageerror', e => errors.push(e.message)); page.on('console', m => m.type() === 'error' && errors.push(m.text()));
     const tLoad = Date.now();
-    await page.goto(`${server.url}/engine/fixtures/realism/index.html?loc=${loc}.json${EXTRA}`); await page.waitForFunction(() => window.__realism, null, {timeout: 300000});
+    await page.goto(`${server.url}/engine/fixtures/realism/index.html?loc=${loc}.json${EXTRA}`); await page.waitForFunction(() => window.__realism, null, {timeout: 1200000});
     const info = await page.evaluate(() => ({stats: window.__realism.stats, shots: window.__realism.shots.map(s => s.id), tex: window.__realism.texMemory(), tris: window.__realism.triangles()}));
     const rows = [];
     for (let i = 0; i < info.shots.length; i++) {

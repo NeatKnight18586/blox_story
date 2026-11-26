@@ -1,0 +1,187 @@
+{
+ "video": "/tmp/tuft1080/out/tuft-master.mp4",
+ "width": 1440,
+ "height": 2560,
+ "fps": "30/1",
+ "pix_fmt": "yuv420p",
+ "color": [
+  "bt709",
+  "bt709",
+  "bt709",
+  "tv"
+ ],
+ "audio_codec": "aac",
+ "video_kbps": 18413,
+ "MB": 241.0,
+ "duration": 103.2,
+ "lufs": -13.9,
+ "true_peak": -2.0,
+ "render_path": "fallback-1080-upscaled",
+ "frames": [
+  {
+   "frame": 258,
+   "why": "even",
+   "ssim": 0.9924,
+   "psnr": 48.65,
+   "sharp_ratio": 1.684,
+   "delta_e": 1.76,
+   "delta_e_with_vignette": 4.74,
+   "stone_px": 53169
+  },
+  {
+   "frame": 774,
+   "why": "even",
+   "ssim": 0.9934,
+   "psnr": 48.75,
+   "sharp_ratio": 2.145,
+   "delta_e": 2.18,
+   "delta_e_with_vignette": 3.45,
+   "stone_px": 12525
+  },
+  {
+   "frame": 1258,
+   "why": "fast:S27",
+   "ssim": 0.994,
+   "psnr": 49.71,
+   "sharp_ratio": 4.432,
+   "delta_e": null,
+   "delta_e_with_vignette": null,
+   "stone_px": 303
+  },
+  {
+   "frame": 1290,
+   "why": "even",
+   "ssim": 0.9936,
+   "psnr": 49.82,
+   "sharp_ratio": 4.461,
+   "delta_e": null,
+   "delta_e_with_vignette": null,
+   "stone_px": 305
+  },
+  {
+   "frame": 1421,
+   "why": "fast:S30",
+   "ssim": 0.9909,
+   "psnr": 39.65,
+   "sharp_ratio": 3.044,
+   "delta_e": 2.89,
+   "delta_e_with_vignette": 3.44,
+   "stone_px": 1246
+  },
+  {
+   "frame": 1574,
+   "why": "fast:S33",
+   "ssim": 0.9934,
+   "psnr": 49.25,
+   "sharp_ratio": 2.975,
+   "delta_e": null,
+   "delta_e_with_vignette": null,
+   "stone_px": 0
+  },
+  {
+   "frame": 1806,
+   "why": "even",
+   "ssim": 0.9965,
+   "psnr": 52.1,
+   "sharp_ratio": 2.187,
+   "delta_e": null,
+   "delta_e_with_vignette": null,
+   "stone_px": 0
+  },
+  {
+   "frame": 2279,
+   "why": "fast:S48",
+   "ssim": 0.9935,
+   "psnr": 48.67,
+   "sharp_ratio": 2.269,
+   "delta_e": 1.74,
+   "delta_e_with_vignette": 2.41,
+   "stone_px": 29697
+  },
+  {
+   "frame": 2322,
+   "why": "even",
+   "ssim": 0.8934,
+   "psnr": 21.73,
+   "sharp_ratio": 1.805,
+   "delta_e": 2.69,
+   "delta_e_with_vignette": 4.24,
+   "stone_px": 10562
+  },
+  {
+   "frame": 2833,
+   "why": "fast:S59",
+   "ssim": 0.9708,
+   "psnr": 31.08,
+   "sharp_ratio": 1.82,
+   "delta_e": 1.71,
+   "delta_e_with_vignette": 3.38,
+   "stone_px": 15812
+  },
+  {
+   "frame": 2838,
+   "why": "even",
+   "ssim": 0.8922,
+   "psnr": 20.09,
+   "sharp_ratio": 2.426,
+   "delta_e": 1.98,
+   "delta_e_with_vignette": 3.75,
+   "stone_px": 177799
+  },
+  {
+   "frame": 2883,
+   "why": "fast:S60",
+   "ssim": 0.9934,
+   "psnr": 48.72,
+   "sharp_ratio": 1.702,
+   "delta_e": 2.93,
+   "delta_e_with_vignette": 3.32,
+   "stone_px": 3248
+  }
+ ],
+ "thresholds": {
+  "width_height": [
+   1440,
+   2560
+  ],
+  "fps": "30/1",
+  "pix_fmt": "yuv420p",
+  "color": [
+   "bt709",
+   "bt709",
+   "bt709",
+   "tv"
+  ],
+  "min_video_kbps": 16000,
+  "lufs": -14.0,
+  "lufs_tol": 1.0,
+  "max_true_peak": -1.0,
+  "min_ssim": 0.985,
+  "min_psnr": 40.0,
+  "min_sharp_ratio": 0.95,
+  "max_delta_e": 4.0,
+  "min_stone_frac": 0.005,
+  "min_tint_frames": 4
+ },
+ "failures": [
+  "size 1440\u00d72560 \u2260 1080\u00d71920",
+  "only 3 frames with \u2265 0.5% stone/wall (need 4) for the tint check",
+  "frame 1421: PSNR 39.65 < 40.0",
+  "frame 2322: SSIM 0.8934 < 0.985",
+  "frame 2322: PSNR 21.73 < 40.0",
+  "frame 2833: SSIM 0.9708 < 0.985",
+  "frame 2833: PSNR 31.08 < 40.0",
+  "frame 2838: SSIM 0.8922 < 0.985",
+  "frame 2838: PSNR 20.09 < 40.0"
+ ],
+ "waived": [],
+ "result": "FAIL",
+ "crops": [
+  1258,
+  258,
+  774,
+  1290
+ ],
+ "stoneMask": "raw pixels with saturation < 0.2, 70 < luma < 200, blue \u2265 red, inside the central 70 %",
+ "tintCheck": "\u0394E76 raw vs the A2 grade without its vignette (vignette = lightness falloff, not a tint), on frames whose stone/wall mask covers \u2265 0.5 % of the frame (smaller masks are stray grey pixels in dark scenes; their values are still listed); delta_e_with_vignette reported"
+}

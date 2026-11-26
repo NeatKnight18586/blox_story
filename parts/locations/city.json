@@ -1,0 +1,56 @@
+{
+ "note": "Phase 1A: the permanent island city (location-loader entry). The world is parts/city/world.js; parts/city/plan.json is the source of truth (anchors, districts, roads, landmark slots). Use spec world: parts/city/world.js + look4: cityDay (or spec locations: [\"city\", ...] for segments). Anchor positions come from plan.js anchor(name); only names are listed here.",
+ "world": "parts/city/world.js",
+ "plan": "parts/city/plan.json",
+ "look4": "cityDay",
+ "skyDist": 900,
+ "anchors": {
+  "plazaSouth": {
+   "district": "plaza"
+  },
+  "plazaNorth": {
+   "district": "plaza"
+  },
+  "bayNorth": {
+   "district": "bay"
+  },
+  "boardwalk": {
+   "district": "plaza"
+  },
+  "suburbStreet": {
+   "district": "school"
+  },
+  "schoolYard": {
+   "district": "school"
+  },
+  "mainSt": {
+   "district": "mainSt"
+  },
+  "harborDock": {
+   "district": "harbor"
+  },
+  "beach": {
+   "district": "beach"
+  },
+  "hillsLookout": {
+   "district": "wild"
+  }
+ },
+ "landmarkSlots": {
+  "1": "Governor statue",
+  "2": "Governor's Hall + balcony + bell tower",
+  "3": "Backwards clock tower",
+  "4": "Upside-down house",
+  "5": "Rubber-duck lighthouse",
+  "6": "Diner + burger water tower",
+  "7": "Stone giant's head"
+ },
+ "districts": {
+  "plaza": "Brick plaza",
+  "mainSt": "Main St shops",
+  "school": "School + homes",
+  "harbor": "Harbor",
+  "beach": "Beach",
+  "wild": "Wild edge"
+ }
+}

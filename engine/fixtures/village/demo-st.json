@@ -1,0 +1,148 @@
+{
+ "note": "tuft P3 village look-dev fixture (scripts/v2/village-fixtures.js): villageStreet, night; one 1 s static shot per location view.",
+ "slug": "village",
+ "fps": 24,
+ "format": 6,
+ "acting": 6,
+ "rig": "r6",
+ "twos": false,
+ "faceLife": true,
+ "labels": false,
+ "world": "parts/village/world.js",
+ "cues": "engine/fixtures/acting6/cues.json",
+ "post": "cine",
+ "camera": "cine",
+ "grade": "clear",
+ "location": "villageStreet",
+ "look4": "moonlit",
+ "look": "mystery",
+ "skyDist": 650,
+ "cast": {
+  "kid": {
+   "style": "v5",
+   "troupe": "HERO",
+   "at": "street",
+   "offset": [
+    4.2,
+    0,
+    24
+   ],
+   "yaw": 180,
+   "keys": [
+    [
+     0,
+     "idle"
+    ]
+   ]
+  },
+  "volt": {
+   "style": "beast",
+   "preset": "VOLT",
+   "tier": "hero",
+   "at": "street",
+   "offset": [
+    -3,
+    0,
+    16
+   ],
+   "yaw": 160
+  },
+  "fox": {
+   "style": "beast",
+   "preset": "FOX",
+   "tier": "low",
+   "at": "street",
+   "offset": [
+    -9,
+    0,
+    17
+   ],
+   "yaw": 90
+  },
+  "deer": {
+   "style": "beast",
+   "preset": "DEER",
+   "tier": "low",
+   "at": "street",
+   "offset": [
+    9,
+    0,
+    -20
+   ],
+   "yaw": -90
+  },
+  "boar": {
+   "style": "beast",
+   "preset": "BOAR",
+   "tier": "low",
+   "at": "street",
+   "offset": [
+    -9,
+    0,
+    -6
+   ],
+   "yaw": 60
+  }
+ },
+ "shots": [
+  {
+   "id": "demo-street",
+   "frames": 96,
+   "duration": 4,
+   "size": "ews",
+   "mood": "awe",
+   "move": "push",
+   "angle": "eye",
+   "from": {
+    "position": [
+     2.5,
+     5.5,
+     46
+    ],
+    "target": [
+     0,
+     9,
+     -60
+    ],
+    "fov": 50
+   },
+   "to": {
+    "position": [
+     1.5,
+     4.5,
+     22
+    ],
+    "target": [
+     0,
+     10,
+     -60
+    ],
+    "fov": 50
+   },
+   "beasts": [
+    {
+     "actor": "volt",
+     "state": "run",
+     "at": 1,
+     "to": [
+      -2,
+      0,
+      -40
+     ]
+    },
+    {
+     "actor": "fox",
+     "state": "flee",
+     "at": 1.4,
+     "exit": "away"
+    },
+    {
+     "actor": "boar",
+     "state": "flee",
+     "at": 1.7,
+     "exit": "away"
+    }
+   ]
+  }
+ ]
+}

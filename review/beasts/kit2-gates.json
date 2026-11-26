@@ -1,0 +1,312 @@
+[
+ {
+  "sec": "look",
+  "name": "grain luma std ≤ 0.8 %",
+  "pass": true,
+  "line": "after 0.72 / 0.74 / 0.74 / 0.74 % (before 1.80 / 2.05 / 1.93 / 2.04 %)",
+  "rows": [
+   {
+    "frame": 48,
+    "before": {
+     "file": "renders/kit2/look-before-48.png",
+     "sat": 0.7412,
+     "dark10": 0.0356,
+     "meanL": 0.1934,
+     "grainStd": 1.805
+    },
+    "after": {
+     "file": "renders/kit2/look-after-48.png",
+     "sat": 0.7402,
+     "dark10": 0.0095,
+     "meanL": 0.1494,
+     "grainStd": 0.719
+    },
+    "satX": 0.999
+   },
+   {
+    "frame": 234,
+    "before": {
+     "file": "renders/kit2/look-before-234.png",
+     "sat": 0.2709,
+     "dark10": 0.0953,
+     "meanL": 0.3924,
+     "grainStd": 2.052
+    },
+    "after": {
+     "file": "renders/kit2/look-after-234.png",
+     "sat": 0.3361,
+     "dark10": 0.0402,
+     "meanL": 0.348,
+     "grainStd": 0.739
+    },
+    "satX": 1.241
+   },
+   {
+    "frame": 400,
+    "before": {
+     "file": "renders/kit2/look-before-400.png",
+     "sat": 0.3899,
+     "dark10": 0.0586,
+     "meanL": 0.3076,
+     "grainStd": 1.934
+    },
+    "after": {
+     "file": "renders/kit2/look-after-400.png",
+     "sat": 0.4535,
+     "dark10": 0.0127,
+     "meanL": 0.2683,
+     "grainStd": 0.739
+    },
+    "satX": 1.163
+   },
+   {
+    "frame": 600,
+    "before": {
+     "file": "renders/kit2/look-before-600.png",
+     "sat": 0.3588,
+     "dark10": 0.0809,
+     "meanL": 0.3188,
+     "grainStd": 2.045
+    },
+    "after": {
+     "file": "renders/kit2/look-after-600.png",
+     "sat": 0.4189,
+     "dark10": 0.0287,
+     "meanL": 0.2668,
+     "grainStd": 0.741
+    },
+    "satX": 1.168
+   }
+  ]
+ },
+ {
+  "sec": "look",
+  "name": "mean saturation after ≥ before × 1.2 (per frame)",
+  "pass": false,
+  "line": "× 1.00 / 1.24 / 1.16 / 1.17 (HSV S 0.741→0.740, 0.271→0.336, 0.390→0.454, 0.359→0.419); 4-frame mean × 1.11"
+ },
+ {
+  "sec": "look",
+  "name": "darkest-10 % luma ≤ 0.03 (per frame)",
+  "pass": false,
+  "line": "after 0.009 / 0.040 / 0.013 / 0.029 (before 0.036 / 0.095 / 0.059 / 0.081)"
+ },
+ {
+  "sec": "tuft",
+  "name": "hook frame 0 reads at 390 px (eye centred, quills blooming)",
+  "pass": true,
+  "line": "eye at (0.51, 0.51) — 0.063 from (.5, .45) ≤ .2; blue-next-to-gold (tip) pixels 4.71 % ≥ 1 %"
+ },
+ {
+  "sec": "tuft",
+  "name": "Tuft blue-gold nowhere else (colour histogram)",
+  "pass": false,
+  "line": "blue-next-to-gold pixels with every Tuft hidden: max 0.709 % ≤ 0.1 % over 27 frames (tuft fixture 0.709 %, other 2B fixtures 0.107 %)",
+  "hb": [
+   0,
+   0,
+   0,
+   0.007091049382716049,
+   0.004151234567901235,
+   0,
+   0
+  ],
+  "ob": [
+   0,
+   0,
+   0,
+   0.000470679012345679,
+   0,
+   0.000023148148148148147,
+   0.00036265432098765433,
+   0,
+   0,
+   0,
+   0,
+   0,
+   0,
+   0.001072530864197531,
+   0,
+   0,
+   0,
+   0,
+   0,
+   0
+  ]
+ },
+ {
+  "sec": "tuft",
+  "name": "hero face decal stays on the puffed head",
+  "pass": true,
+  "line": "f349: Ø 4.92, decal 0.63 R from the centre, 0.62 R forward · f385: Ø 10.00, decal 0.64 R from the centre, 0.62 R forward · f400: Ø 2.21, decal 0.63 R from the centre, 0.62 R forward"
+ },
+ {
+  "sec": "powers",
+  "name": "lanternSea = one draw call",
+  "pass": true,
+  "line": "1500 lanterns: calls 168 → 169 (+1)",
+  "on": 169,
+  "off": 168,
+  "n": 1500
+ },
+ {
+  "sec": "powers",
+  "name": "FX deterministic (6 powers frames, reverse order)",
+  "pass": true,
+  "line": "6/6 identical PNGs (cyanFire, lightning, fly, fizzle, breathe, chains snap)"
+ },
+ {
+  "sec": "powers",
+  "name": "FX on ones (instances change every frame)",
+  "pass": true,
+  "line": "fxFire 19/19 · fxBolts 15/15 · fxFly 15/15 · fxChainPieces 17/17",
+  "ones": {
+   "fxFire": {
+    "pairs": 19,
+    "same": 0
+   },
+   "fxBolts": {
+    "pairs": 15,
+    "same": 0
+   },
+   "fxFly": {
+    "pairs": 15,
+    "same": 0
+   },
+   "fxChainPieces": {
+    "pairs": 17,
+    "same": 0
+   }
+  }
+ },
+ {
+  "sec": "cost",
+  "name": "est. final s/frame ≤ 3.0",
+  "pass": true,
+  "line": "1440×2560 MSAA 4× (this sandbox): 1.47–2.88 s/frame (powers 2.00/2.88/2.70, tuft 1.95/1.93, titan 1.63/2.12, heroes-night 1.47/1.77); 270×480 38–434 ms/frame",
+  "rows": [
+   {
+    "spec": "powers",
+    "s": [
+     2.003100000000093,
+     2.882,
+     2.700399999999907
+    ],
+    "ms": [
+     51.6999999997206,
+     434.10000000009313,
+     262.29999999981374
+    ]
+   },
+   {
+    "spec": "tuft",
+    "s": [
+     1.9481000000000932,
+     1.9276999999997206
+    ],
+    "ms": [
+     57.799999999813735,
+     137.5
+    ]
+   },
+   {
+    "spec": "titan",
+    "s": [
+     1.6272999999998137,
+     2.116899999999907
+    ],
+    "ms": [
+     42.39999999990687,
+     239.5
+    ]
+   },
+   {
+    "spec": "heroes-night",
+    "s": [
+     1.469,
+     1.7712999999998138
+    ],
+    "ms": [
+     38.39999999990687,
+     323.60000000009313
+    ]
+   }
+  ]
+ },
+ {
+  "sec": "camera",
+  "name": "no static high angle (pitch < −20°) held > 1.0 s",
+  "pass": true,
+  "line": "2B fixtures: worst 0.38 s (heroes-day.json 0.38, heroes-night.json 0.38, tuft.json 0.00, titan.json 0.00, powers.json 0.00); 2A kit before: 0.00 s (nightfang-front 3/4)",
+  "rows": [
+   {
+    "spec": "engine/fixtures/beasts2/heroes-day.json",
+    "before": false,
+    "worst": {
+     "id": "blink-day",
+     "maxHeld": 0.375,
+     "at": 47,
+     "ok": true
+    }
+   },
+   {
+    "spec": "engine/fixtures/beasts2/heroes-night.json",
+    "before": false,
+    "worst": {
+     "id": "blink-night",
+     "maxHeld": 0.375,
+     "at": 47,
+     "ok": true
+    }
+   },
+   {
+    "spec": "engine/fixtures/beasts2/tuft.json",
+    "before": false,
+    "worst": {
+     "id": "tuft-0-hook",
+     "maxHeld": 0,
+     "at": null,
+     "ok": true
+    }
+   },
+   {
+    "spec": "engine/fixtures/beasts2/titan.json",
+    "before": false,
+    "worst": {
+     "id": "titan-0-caged",
+     "maxHeld": 0,
+     "at": null,
+     "ok": true
+    }
+   },
+   {
+    "spec": "engine/fixtures/beasts2/powers.json",
+    "before": false,
+    "worst": {
+     "id": "pw-0-cyanFire",
+     "maxHeld": 0,
+     "at": null,
+     "ok": true
+    }
+   },
+   {
+    "spec": "engine/fixtures/beasts/kit.json",
+    "before": true,
+    "worst": {
+     "id": "nightfang-front 3/4",
+     "maxHeld": 0,
+     "at": null,
+     "ok": true
+    }
+   }
+  ]
+ },
+ {
+  "sec": "ones",
+  "name": "beast pose changes every frame while moving (on ones)",
+  "pass": true,
+  "line": "467/467 consecutive moving pairs differ (heroes-night); 2A kit VOLT run before: 13/27 (twos)",
+  "pairs": 467,
+  "same": 0
+ }
+]

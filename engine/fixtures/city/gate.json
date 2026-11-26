@@ -1,0 +1,100 @@
+{
+ "slug": "city1a",
+ "fps": 24,
+ "format": 6,
+ "labels": false,
+ "world": "parts/city/world.js",
+ "look4": "cityDay",
+ "cast": {},
+ "note": "Phase 1A gate cameras (written by scripts/v2/city-gate.js from parts/city/plan.json anchors).",
+ "shots": [
+  {
+   "id": "b",
+   "size": "wide",
+   "frames": 6,
+   "move": "static-drift",
+   "drift": 0,
+   "anchor": "plazaSouth",
+   "from": {
+    "position": [
+     0,
+     19.5,
+     30
+    ],
+    "target": [
+     0,
+     -26.7,
+     230
+    ],
+    "fov": 62
+   },
+   "shadowRadius": 40
+  },
+  {
+   "id": "c",
+   "size": "wide",
+   "frames": 6,
+   "move": "static-drift",
+   "drift": 0,
+   "anchor": "bayNorth",
+   "from": {
+    "position": [
+     0,
+     6,
+     135
+    ],
+    "target": [
+     0,
+     23.4,
+     -60
+    ],
+    "fov": 50
+   },
+   "shadowRadius": 40
+  },
+  {
+   "id": "d",
+   "size": "wide",
+   "frames": 6,
+   "move": "static-drift",
+   "drift": 0,
+   "anchor": "suburbStreet",
+   "from": {
+    "position": [
+     -162,
+     13.18625002446751,
+     10.680000000000007
+    ],
+    "target": [
+     0,
+     14,
+     -60
+    ],
+    "fov": 58
+   },
+   "shadowRadius": 40
+  },
+  {
+   "id": "e",
+   "size": "wide",
+   "frames": 6,
+   "move": "static-drift",
+   "drift": 0,
+   "anchor": "stairBottom",
+   "from": {
+    "position": [
+     20,
+     3.9,
+     83
+    ],
+    "target": [
+     5,
+     27,
+     -56
+    ],
+    "fov": 58
+   },
+   "shadowRadius": 40
+  }
+ ]
+}

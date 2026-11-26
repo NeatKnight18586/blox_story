@@ -1,0 +1,2170 @@
+{
+ "spec": "stories/lastcolor/episode.json",
+ "motionThreshold": 0.021,
+ "shots": [
+  {
+   "id": "S01",
+   "size": "close",
+   "t": 0,
+   "dur": 3,
+   "subject": "hero",
+   "faceShown": {
+    "angle": 26,
+    "inside": 0.817,
+    "ok": true
+   },
+   "nothingInFront": {
+    "front": 0,
+    "faceCover": 0,
+    "ok": true
+   },
+   "standsOut": {
+    "subj": 0.358,
+    "ring": 0.734,
+    "diff": 0.375,
+    "ok": true,
+    "msg": ""
+   },
+   "moves": {
+    "motion": 0.0306,
+    "need": 0.021,
+    "ok": true,
+    "msg": ""
+   },
+   "hold": {
+    "held": 3,
+    "max": 4.5,
+    "ok": true,
+    "msg": "moving framing held 3.00 s (≤ 4.5)"
+   }
+  },
+  {
+   "id": "S02",
+   "size": "wide",
+   "t": 3,
+   "dur": 1.3,
+   "subject": "wallSign",
+   "nothingInFront": {
+    "front": 0.019,
+    "faceCover": 0,
+    "ok": true
+   },
+   "standsOut": {
+    "subj": 0.853,
+    "ring": 0.772,
+    "diff": 0.081,
+    "ok": false,
+    "msg": "subject vs surround luma 0.081 (≥ 0.12)"
+   },
+   "moves": {
+    "motion": 0.0829,
+    "need": 0.021,
+    "ok": true,
+    "msg": ""
+   },
+   "hold": {
+    "held": 1.3,
+    "max": 4.5,
+    "ok": true,
+    "msg": "moving framing held 1.30 s (≤ 4.5)"
+   }
+  },
+  {
+   "id": "S03",
+   "size": "medium",
+   "t": 4.3,
+   "dur": 1.93,
+   "subject": "hero",
+   "faceShown": {
+    "angle": 6.7,
+    "inside": 1,
+    "ok": true
+   },
+   "nothingInFront": {
+    "front": 0,
+    "faceCover": 0,
+    "ok": true
+   },
+   "standsOut": {
+    "subj": 0.207,
+    "ring": 0.82,
+    "diff": 0.612,
+    "ok": true,
+    "msg": ""
+   },
+   "moves": {
+    "motion": 0.0247,
+    "need": 0.021,
+    "ok": true,
+    "msg": ""
+   },
+   "hold": {
+    "held": 1.93,
+    "max": 4.5,
+    "ok": true,
+    "msg": "moving framing held 1.93 s (≤ 4.5)"
+   }
+  },
+  {
+   "id": "S04",
+   "size": "medium",
+   "t": 6.23,
+   "dur": 1.73,
+   "subject": "hero",
+   "faceShown": {
+    "angle": 42.9,
+    "inside": 1,
+    "ok": true
+   },
+   "nothingInFront": {
+    "front": 0,
+    "faceCover": 0.004,
+    "ok": true
+   },
+   "standsOut": {
+    "subj": 0.214,
+    "ring": 0.708,
+    "diff": 0.495,
+    "ok": true,
+    "msg": ""
+   },
+   "moves": {
+    "motion": 0.1413,
+    "need": 0.021,
+    "ok": true,
+    "msg": ""
+   },
+   "hold": {
+    "held": 1.73,
+    "max": 4.5,
+    "ok": true,
+    "msg": "moving framing held 1.73 s (≤ 4.5)"
+   }
+  },
+  {
+   "id": "S05",
+   "size": "insert",
+   "t": 7.97,
+   "dur": 2.63,
+   "subject": "hero",
+   "faceShown": null,
+   "nothingInFront": {
+    "front": 0,
+    "faceCover": 0,
+    "ok": true
+   },
+   "standsOut": {
+    "subj": 0.376,
+    "ring": 0.689,
+    "diff": 0.313,
+    "ok": true,
+    "msg": ""
+   },
+   "moves": {
+    "motion": 0,
+    "need": 0.021,
+    "ok": false,
+    "msg": "motion 0.0000 < 0.0210"
+   },
+   "hold": {
+    "held": 2.63,
+    "max": 3,
+    "ok": true,
+    "msg": "static framing held 2.63 s (≤ 3)"
+   }
+  },
+  {
+   "id": "S06",
+   "size": "wide",
+   "t": 10.6,
+   "dur": 2.6,
+   "subject": "hero",
+   "faceShown": null,
+   "nothingInFront": {
+    "front": 0,
+    "faceCover": 0.509,
+    "ok": false,
+    "msg": "the face is 50.9 % covered"
+   },
+   "standsOut": {
+    "subj": 0.494,
+    "ring": 0.811,
+    "diff": 0.318,
+    "ok": true,
+    "msg": ""
+   },
+   "moves": {
+    "motion": 0.1008,
+    "need": 0.021,
+    "ok": true,
+    "msg": ""
+   },
+   "hold": {
+    "held": 2.6,
+    "max": 4.5,
+    "ok": true,
+    "msg": "moving framing held 2.60 s (≤ 4.5)"
+   }
+  },
+  {
+   "id": "S07",
+   "size": "medium",
+   "t": 13.2,
+   "dur": 1.6,
+   "subject": "hero",
+   "faceShown": {
+    "angle": 53.6,
+    "inside": 1,
+    "ok": true
+   },
+   "nothingInFront": {
+    "front": 0,
+    "faceCover": 0.211,
+    "ok": false,
+    "msg": "the face is 21.1 % covered"
+   },
+   "standsOut": {
+    "subj": 0.246,
+    "ring": 0.743,
+    "diff": 0.497,
+    "ok": true,
+    "msg": ""
+   },
+   "moves": {
+    "motion": 0.2325,
+    "need": 0.021,
+    "ok": true,
+    "msg": ""
+   },
+   "hold": {
+    "held": 1.6,
+    "max": 4.5,
+    "ok": true,
+    "msg": "moving framing held 1.60 s (≤ 4.5)"
+   }
+  },
+  {
+   "id": "S08",
+   "size": "wide",
+   "t": 14.8,
+   "dur": 1.3,
+   "subject": "pool",
+   "nothingInFront": {
+    "front": 0,
+    "faceCover": 0,
+    "ok": true
+   },
+   "standsOut": {
+    "subj": 0.691,
+    "ring": 0.815,
+    "diff": 0.123,
+    "ok": true,
+    "msg": ""
+   },
+   "moves": {
+    "motion": 0.019,
+    "need": 0.021,
+    "ok": false,
+    "msg": "motion 0.0190 < 0.0210"
+   },
+   "hold": {
+    "held": 1.3,
+    "max": 3,
+    "ok": true,
+    "msg": "static framing held 1.30 s (≤ 3)"
+   }
+  },
+  {
+   "id": "S09",
+   "size": "medium",
+   "t": 16.1,
+   "dur": 1.67,
+   "subject": "hero",
+   "faceShown": {
+    "angle": 33.9,
+    "inside": 1,
+    "ok": true
+   },
+   "nothingInFront": {
+    "front": 0,
+    "faceCover": 0.001,
+    "ok": true
+   },
+   "standsOut": {
+    "subj": 0.271,
+    "ring": 0.775,
+    "diff": 0.504,
+    "ok": true,
+    "msg": ""
+   },
+   "moves": {
+    "motion": 0.0286,
+    "need": 0.021,
+    "ok": true,
+    "msg": ""
+   },
+   "hold": {
+    "held": 1.67,
+    "max": 4.5,
+    "ok": true,
+    "msg": "moving framing held 1.67 s (≤ 4.5)"
+   }
+  },
+  {
+   "id": "S10",
+   "size": "medium",
+   "t": 17.77,
+   "dur": 2.13,
+   "subject": "dummya",
+   "faceShown": {
+    "angle": 12,
+    "inside": 1,
+    "ok": true
+   },
+   "nothingInFront": {
+    "front": 0,
+    "faceCover": 0,
+    "ok": true
+   },
+   "standsOut": {
+    "subj": 0.619,
+    "ring": 0.725,
+    "diff": 0.105,
+    "ok": false,
+    "msg": "subject vs surround luma 0.105 (≥ 0.12)"
+   },
+   "moves": {
+    "motion": 0.0014,
+    "need": 0.021,
+    "ok": false,
+    "msg": "motion 0.0014 < 0.0210"
+   },
+   "hold": {
+    "held": 2.13,
+    "max": 3,
+    "ok": true,
+    "msg": "static framing held 2.13 s (≤ 3)"
+   }
+  },
+  {
+   "id": "S11",
+   "size": "close",
+   "t": 19.9,
+   "dur": 2.03,
+   "subject": "hero",
+   "faceShown": {
+    "angle": 45.8,
+    "inside": 0.89,
+    "ok": true
+   },
+   "nothingInFront": {
+    "front": 0,
+    "faceCover": 0.118,
+    "ok": false,
+    "msg": "the face is 11.8 % covered"
+   },
+   "standsOut": {
+    "subj": 0.56,
+    "ring": 0.614,
+    "diff": 0.054,
+    "ok": false,
+    "msg": "subject vs surround luma 0.054 (≥ 0.12)"
+   },
+   "moves": {
+    "motion": 0.0222,
+    "need": 0.021,
+    "ok": true,
+    "msg": ""
+   },
+   "hold": {
+    "held": 2.03,
+    "max": 4.5,
+    "ok": true,
+    "msg": "moving framing held 2.03 s (≤ 4.5)"
+   }
+  },
+  {
+   "id": "S12",
+   "size": "insert",
+   "t": 21.93,
+   "dur": 1.6,
+   "subject": "spawnPad",
+   "nothingInFront": {
+    "front": 0,
+    "faceCover": 0,
+    "ok": true
+   },
+   "standsOut": {
+    "subj": 0.909,
+    "ring": 0.921,
+    "diff": 0.012,
+    "ok": false,
+    "msg": "subject vs surround luma 0.012 (≥ 0.12)"
+   },
+   "objectReads": {
+    "inside": 0.998,
+    "h": 0.437,
+    "ok": true
+   },
+   "moves": {
+    "motion": 0.0094,
+    "need": 0.021,
+    "ok": false,
+    "msg": "motion 0.0094 < 0.0210"
+   },
+   "hold": {
+    "held": 1.6,
+    "max": 3,
+    "ok": true,
+    "msg": "static framing held 1.60 s (≤ 3)"
+   }
+  },
+  {
+   "id": "S13",
+   "size": "medium",
+   "t": 23.53,
+   "dur": 2.57,
+   "subject": "bitsy",
+   "faceShown": {
+    "angle": 28.2,
+    "inside": 1,
+    "ok": true
+   },
+   "nothingInFront": {
+    "front": 0,
+    "faceCover": 0,
+    "ok": true
+   },
+   "standsOut": {
+    "subj": 0.458,
+    "ring": 0.834,
+    "diff": 0.376,
+    "ok": true,
+    "msg": ""
+   },
+   "moves": {
+    "motion": 0.0293,
+    "need": 0.021,
+    "ok": true,
+    "msg": ""
+   },
+   "hold": {
+    "held": 2.57,
+    "max": 4.5,
+    "ok": true,
+    "msg": "moving framing held 2.57 s (≤ 4.5)"
+   }
+  },
+  {
+   "id": "S14",
+   "size": "insert",
+   "t": 26.1,
+   "dur": 1.5,
+   "subject": "bitsy",
+   "faceShown": null,
+   "nothingInFront": {
+    "front": 0,
+    "faceCover": 0,
+    "ok": true
+   },
+   "standsOut": {
+    "subj": 0.469,
+    "ring": 0.818,
+    "diff": 0.349,
+    "ok": true,
+    "msg": ""
+   },
+   "moves": {
+    "motion": 0.0379,
+    "need": 0.021,
+    "ok": true,
+    "msg": ""
+   },
+   "hold": {
+    "held": 1.5,
+    "max": 4.5,
+    "ok": true,
+    "msg": "moving framing held 1.50 s (≤ 4.5)"
+   }
+  },
+  {
+   "id": "S15",
+   "size": "medium",
+   "t": 27.6,
+   "dur": 1.9,
+   "subject": "hero",
+   "faceShown": {
+    "angle": 13.2,
+    "inside": 1,
+    "ok": true
+   },
+   "nothingInFront": {
+    "front": 0,
+    "faceCover": 0,
+    "ok": true
+   },
+   "standsOut": {
+    "subj": 0.371,
+    "ring": 0.64,
+    "diff": 0.269,
+    "ok": true,
+    "msg": ""
+   },
+   "moves": {
+    "motion": 0.0585,
+    "need": 0.021,
+    "ok": true,
+    "msg": ""
+   },
+   "hold": {
+    "held": 1.9,
+    "max": 4.5,
+    "ok": true,
+    "msg": "moving framing held 1.90 s (≤ 4.5)"
+   }
+  },
+  {
+   "id": "S16",
+   "size": "wide",
+   "t": 29.5,
+   "dur": 2.13,
+   "subject": "hero",
+   "faceShown": null,
+   "nothingInFront": {
+    "front": 0,
+    "faceCover": 0.007,
+    "ok": true
+   },
+   "standsOut": {
+    "subj": 0.411,
+    "ring": 0.838,
+    "diff": 0.426,
+    "ok": true,
+    "msg": ""
+   },
+   "moves": {
+    "motion": 0.0855,
+    "need": 0.021,
+    "ok": true,
+    "msg": ""
+   },
+   "hold": {
+    "held": 2.13,
+    "max": 4.5,
+    "ok": true,
+    "msg": "moving framing held 2.13 s (≤ 4.5)"
+   }
+  },
+  {
+   "id": "S17",
+   "size": "medium",
+   "t": 31.63,
+   "dur": 1.77,
+   "subject": "hero",
+   "faceShown": {
+    "angle": 36.7,
+    "inside": 0.876,
+    "ok": true
+   },
+   "nothingInFront": {
+    "front": 0,
+    "faceCover": 0,
+    "ok": true
+   },
+   "standsOut": {
+    "subj": 0.246,
+    "ring": 0.603,
+    "diff": 0.357,
+    "ok": true,
+    "msg": ""
+   },
+   "moves": {
+    "motion": 0.0362,
+    "need": 0.021,
+    "ok": true,
+    "msg": ""
+   },
+   "hold": {
+    "held": 1.77,
+    "max": 4.5,
+    "ok": true,
+    "msg": "moving framing held 1.77 s (≤ 4.5)"
+   }
+  },
+  {
+   "id": "S18",
+   "size": "medium",
+   "t": 33.4,
+   "dur": 1.8,
+   "subject": "hero",
+   "faceShown": {
+    "angle": 18,
+    "inside": 1,
+    "ok": true
+   },
+   "nothingInFront": {
+    "front": 0,
+    "faceCover": 0,
+    "ok": true
+   },
+   "standsOut": {
+    "subj": 0.584,
+    "ring": 0.503,
+    "diff": 0.081,
+    "ok": false,
+    "msg": "subject vs surround luma 0.081 (≥ 0.12)"
+   },
+   "moves": {
+    "motion": 0.0223,
+    "need": 0.021,
+    "ok": true,
+    "msg": ""
+   },
+   "hold": {
+    "held": 1.8,
+    "max": 4.5,
+    "ok": true,
+    "msg": "moving framing held 1.80 s (≤ 4.5)"
+   }
+  },
+  {
+   "id": "S19",
+   "size": "close",
+   "t": 35.2,
+   "dur": 1.23,
+   "subject": "bitsy",
+   "faceShown": {
+    "angle": 26.4,
+    "inside": 0.811,
+    "ok": true
+   },
+   "nothingInFront": {
+    "front": 0,
+    "faceCover": 0,
+    "ok": true
+   },
+   "standsOut": {
+    "subj": 0.564,
+    "ring": 0.647,
+    "diff": 0.082,
+    "ok": false,
+    "msg": "subject vs surround luma 0.082 (≥ 0.12)"
+   },
+   "moves": {
+    "motion": 0.0615,
+    "need": 0.021,
+    "ok": true,
+    "msg": ""
+   },
+   "hold": {
+    "held": 1.23,
+    "max": 4.5,
+    "ok": true,
+    "msg": "moving framing held 1.23 s (≤ 4.5)"
+   }
+  },
+  {
+   "id": "S20",
+   "size": "close",
+   "t": 36.43,
+   "dur": 1.27,
+   "subject": "hero",
+   "faceShown": {
+    "angle": 22,
+    "inside": 1,
+    "ok": true
+   },
+   "nothingInFront": {
+    "front": 0,
+    "faceCover": 0,
+    "ok": true
+   },
+   "standsOut": {
+    "subj": 0.271,
+    "ring": 0.65,
+    "diff": 0.379,
+    "ok": true,
+    "msg": ""
+   },
+   "moves": {
+    "motion": 0.0061,
+    "need": 0.021,
+    "ok": false,
+    "msg": "motion 0.0061 < 0.0210"
+   },
+   "hold": {
+    "held": 1.27,
+    "max": 3,
+    "ok": true,
+    "msg": "static framing held 1.27 s (≤ 3)"
+   }
+  },
+  {
+   "id": "S21",
+   "size": "wide",
+   "t": 37.7,
+   "dur": 2.5,
+   "subject": "hero",
+   "faceShown": null,
+   "nothingInFront": {
+    "front": 0,
+    "faceCover": 0.042,
+    "ok": false,
+    "msg": "the face is 4.2 % covered"
+   },
+   "standsOut": {
+    "subj": 0.4,
+    "ring": 0.852,
+    "diff": 0.452,
+    "ok": true,
+    "msg": ""
+   },
+   "moves": {
+    "motion": 0.0172,
+    "need": 0.021,
+    "ok": false,
+    "msg": "motion 0.0172 < 0.0210"
+   },
+   "hold": {
+    "held": 2.5,
+    "max": 3,
+    "ok": true,
+    "msg": "static framing held 2.50 s (≤ 3)"
+   }
+  },
+  {
+   "id": "S22",
+   "size": "medium",
+   "t": 40.2,
+   "dur": 1.9,
+   "subject": "dummyb",
+   "faceShown": {
+    "angle": 43.4,
+    "inside": 1,
+    "ok": true
+   },
+   "nothingInFront": {
+    "front": 0,
+    "faceCover": 0.301,
+    "ok": false,
+    "msg": "the face is 30.1 % covered"
+   },
+   "standsOut": {
+    "subj": 0.825,
+    "ring": 0.754,
+    "diff": 0.071,
+    "ok": false,
+    "msg": "subject vs surround luma 0.071 (≥ 0.12)"
+   },
+   "moves": {
+    "motion": 0.0252,
+    "need": 0.021,
+    "ok": true,
+    "msg": ""
+   },
+   "hold": {
+    "held": 1.9,
+    "max": 4.5,
+    "ok": true,
+    "msg": "moving framing held 1.90 s (≤ 4.5)"
+   }
+  },
+  {
+   "id": "S23",
+   "size": "close",
+   "t": 42.1,
+   "dur": 1.57,
+   "subject": "hero",
+   "faceShown": {
+    "angle": 29.4,
+    "inside": 0.743,
+    "ok": true
+   },
+   "nothingInFront": {
+    "front": 0,
+    "faceCover": 0,
+    "ok": true
+   },
+   "standsOut": {
+    "subj": 0.258,
+    "ring": 0.603,
+    "diff": 0.345,
+    "ok": true,
+    "msg": ""
+   },
+   "moves": {
+    "motion": 0.1111,
+    "need": 0.021,
+    "ok": true,
+    "msg": ""
+   },
+   "hold": {
+    "held": 1.57,
+    "max": 4.5,
+    "ok": true,
+    "msg": "moving framing held 1.57 s (≤ 4.5)"
+   }
+  },
+  {
+   "id": "S24",
+   "size": "wide",
+   "t": 43.67,
+   "dur": 1.97,
+   "subject": "hero",
+   "faceShown": null,
+   "nothingInFront": {
+    "front": 0,
+    "faceCover": 0,
+    "ok": true
+   },
+   "standsOut": {
+    "subj": 0.355,
+    "ring": 0.61,
+    "diff": 0.255,
+    "ok": true,
+    "msg": ""
+   },
+   "moves": {
+    "motion": 0.074,
+    "need": 0.021,
+    "ok": true,
+    "msg": ""
+   },
+   "hold": {
+    "held": 1.97,
+    "max": 4.5,
+    "ok": true,
+    "msg": "moving framing held 1.97 s (≤ 4.5)"
+   }
+  },
+  {
+   "id": "S25",
+   "size": "close",
+   "t": 45.63,
+   "dur": 2.1,
+   "subject": "hero",
+   "faceShown": {
+    "angle": 42.5,
+    "inside": 0.758,
+    "ok": true
+   },
+   "nothingInFront": {
+    "front": 0,
+    "faceCover": 0,
+    "ok": true
+   },
+   "standsOut": {
+    "subj": 0.393,
+    "ring": 0.606,
+    "diff": 0.213,
+    "ok": true,
+    "msg": ""
+   },
+   "moves": {
+    "motion": 0.1014,
+    "need": 0.021,
+    "ok": true,
+    "msg": ""
+   },
+   "hold": {
+    "held": 2.1,
+    "max": 4.5,
+    "ok": true,
+    "msg": "moving framing held 2.10 s (≤ 4.5)"
+   }
+  },
+  {
+   "id": "S26",
+   "size": "wide",
+   "t": 47.73,
+   "dur": 2.33,
+   "subject": "dummyc",
+   "faceShown": null,
+   "nothingInFront": {
+    "front": 0.061,
+    "faceCover": 0.187,
+    "ok": false,
+    "msg": "the face is 18.7 % covered"
+   },
+   "standsOut": {
+    "subj": 0.874,
+    "ring": 0.846,
+    "diff": 0.028,
+    "ok": false,
+    "msg": "subject vs surround luma 0.028 (≥ 0.12)"
+   },
+   "moves": {
+    "motion": 0.0737,
+    "need": 0.021,
+    "ok": true,
+    "msg": ""
+   },
+   "hold": {
+    "held": 2.33,
+    "max": 4.5,
+    "ok": true,
+    "msg": "moving framing held 2.33 s (≤ 4.5)"
+   }
+  },
+  {
+   "id": "S27",
+   "size": "close",
+   "t": 50.07,
+   "dur": 2.43,
+   "subject": "dummyc",
+   "faceShown": {
+    "angle": 10.3,
+    "inside": 1,
+    "ok": true
+   },
+   "nothingInFront": {
+    "front": 0,
+    "faceCover": 0,
+    "ok": true
+   },
+   "standsOut": {
+    "subj": 0.824,
+    "ring": 0.533,
+    "diff": 0.29,
+    "ok": true,
+    "msg": ""
+   },
+   "moves": {
+    "motion": 0.0406,
+    "need": 0.021,
+    "ok": true,
+    "msg": ""
+   },
+   "hold": {
+    "held": 2.43,
+    "max": 4.5,
+    "ok": true,
+    "msg": "moving framing held 2.43 s (≤ 4.5)"
+   }
+  },
+  {
+   "id": "S28",
+   "size": "wide",
+   "t": 52.5,
+   "dur": 1.1,
+   "subject": "kid",
+   "faceShown": null,
+   "nothingInFront": {
+    "front": 0,
+    "faceCover": 0,
+    "ok": true
+   },
+   "standsOut": {
+    "subj": 0.151,
+    "ring": 0.574,
+    "diff": 0.423,
+    "ok": true,
+    "msg": ""
+   },
+   "moves": {
+    "motion": 0.0708,
+    "need": 0.021,
+    "ok": true,
+    "msg": ""
+   },
+   "hold": {
+    "held": 1.1,
+    "max": 4.5,
+    "ok": true,
+    "msg": "moving framing held 1.10 s (≤ 4.5)"
+   }
+  },
+  {
+   "id": "S29",
+   "size": "medium",
+   "t": 53.6,
+   "dur": 3.6,
+   "subject": "kid",
+   "faceShown": {
+    "angle": 9.4,
+    "inside": 1,
+    "ok": true
+   },
+   "nothingInFront": {
+    "front": 0,
+    "faceCover": 0.3,
+    "ok": false,
+    "msg": "the face is 30.0 % covered"
+   },
+   "standsOut": {
+    "subj": 0.233,
+    "ring": 0.739,
+    "diff": 0.506,
+    "ok": true,
+    "msg": ""
+   },
+   "moves": {
+    "motion": 0.2059,
+    "need": 0.021,
+    "ok": true,
+    "msg": ""
+   },
+   "hold": {
+    "held": 3.6,
+    "max": 4.5,
+    "ok": true,
+    "msg": "moving framing held 3.60 s (≤ 4.5)"
+   }
+  },
+  {
+   "id": "S30",
+   "size": "wide",
+   "t": 57.2,
+   "dur": 2,
+   "subject": "giantHand",
+   "nothingInFront": {
+    "front": 0,
+    "faceCover": 0,
+    "ok": true
+   },
+   "standsOut": {
+    "subj": 0.816,
+    "ring": 0.508,
+    "diff": 0.308,
+    "ok": true,
+    "msg": ""
+   },
+   "moves": {
+    "motion": 0.1403,
+    "need": 0.021,
+    "ok": true,
+    "msg": ""
+   },
+   "hold": {
+    "held": 2,
+    "max": 4.5,
+    "ok": true,
+    "msg": "moving framing held 2.00 s (≤ 4.5)"
+   }
+  },
+  {
+   "id": "S31",
+   "size": "medium",
+   "t": 59.2,
+   "dur": 1.13,
+   "subject": "bitsy",
+   "faceShown": {
+    "angle": 28.1,
+    "inside": 1,
+    "ok": true
+   },
+   "nothingInFront": {
+    "front": 0,
+    "faceCover": 0.529,
+    "ok": false,
+    "msg": "the face is 52.9 % covered"
+   },
+   "standsOut": {
+    "subj": 0.683,
+    "ring": 0.627,
+    "diff": 0.056,
+    "ok": false,
+    "msg": "subject vs surround luma 0.056 (≥ 0.12)"
+   },
+   "moves": {
+    "motion": 0.274,
+    "need": 0.021,
+    "ok": true,
+    "msg": ""
+   },
+   "hold": {
+    "held": 1.13,
+    "max": 4.5,
+    "ok": true,
+    "msg": "moving framing held 1.13 s (≤ 4.5)"
+   }
+  },
+  {
+   "id": "S32",
+   "size": "wide",
+   "t": 60.33,
+   "dur": 1.67,
+   "subject": "hero",
+   "faceShown": null,
+   "nothingInFront": {
+    "front": 0,
+    "faceCover": 0.001,
+    "ok": true
+   },
+   "standsOut": {
+    "subj": 0.351,
+    "ring": 0.582,
+    "diff": 0.23,
+    "ok": true,
+    "msg": ""
+   },
+   "moves": {
+    "motion": 0.1046,
+    "need": 0.021,
+    "ok": true,
+    "msg": ""
+   },
+   "hold": {
+    "held": 1.67,
+    "max": 4.5,
+    "ok": true,
+    "msg": "moving framing held 1.67 s (≤ 4.5)"
+   }
+  },
+  {
+   "id": "S33",
+   "size": "medium",
+   "t": 62,
+   "dur": 1.03,
+   "subject": "hero",
+   "faceShown": {
+    "angle": 10.8,
+    "inside": 1,
+    "ok": true
+   },
+   "nothingInFront": {
+    "front": 0,
+    "faceCover": 0,
+    "ok": true
+   },
+   "standsOut": {
+    "subj": 0.325,
+    "ring": 0.751,
+    "diff": 0.426,
+    "ok": true,
+    "msg": ""
+   },
+   "moves": {
+    "motion": 0.2357,
+    "need": 0.021,
+    "ok": true,
+    "msg": ""
+   },
+   "hold": {
+    "held": 1.03,
+    "max": 4.5,
+    "ok": true,
+    "msg": "moving framing held 1.03 s (≤ 4.5)"
+   }
+  },
+  {
+   "id": "S34",
+   "size": "medium",
+   "t": 63.03,
+   "dur": 1.4,
+   "subject": "hero",
+   "faceShown": {
+    "angle": 67.2,
+    "inside": 1,
+    "ok": true
+   },
+   "nothingInFront": {
+    "front": 0,
+    "faceCover": 0.627,
+    "ok": false,
+    "msg": "the face is 62.7 % covered"
+   },
+   "standsOut": {
+    "subj": 0.419,
+    "ring": 0.667,
+    "diff": 0.248,
+    "ok": true,
+    "msg": ""
+   },
+   "moves": {
+    "motion": 0.2255,
+    "need": 0.021,
+    "ok": true,
+    "msg": ""
+   },
+   "hold": {
+    "held": 1.4,
+    "max": 4.5,
+    "ok": true,
+    "msg": "moving framing held 1.40 s (≤ 4.5)"
+   }
+  },
+  {
+   "id": "S35",
+   "size": "wide",
+   "t": 64.43,
+   "dur": 1.23,
+   "subject": "hero",
+   "faceShown": null,
+   "nothingInFront": {
+    "front": 0,
+    "faceCover": 0.051,
+    "ok": false,
+    "msg": "the face is 5.1 % covered"
+   },
+   "standsOut": {
+    "subj": 0.604,
+    "ring": 0.683,
+    "diff": 0.079,
+    "ok": false,
+    "msg": "subject vs surround luma 0.079 (≥ 0.12)"
+   },
+   "moves": {
+    "motion": 0.2437,
+    "need": 0.021,
+    "ok": true,
+    "msg": ""
+   },
+   "hold": {
+    "held": 1.23,
+    "max": 4.5,
+    "ok": true,
+    "msg": "moving framing held 1.23 s (≤ 4.5)"
+   }
+  },
+  {
+   "id": "S36",
+   "size": "wide",
+   "t": 65.67,
+   "dur": 1.07,
+   "subject": "hero",
+   "faceShown": null,
+   "nothingInFront": {
+    "front": 0,
+    "faceCover": 0.171,
+    "ok": false,
+    "msg": "the face is 17.1 % covered"
+   },
+   "standsOut": {
+    "subj": 0.794,
+    "ring": 0.697,
+    "diff": 0.097,
+    "ok": false,
+    "msg": "subject vs surround luma 0.097 (≥ 0.12)"
+   },
+   "moves": {
+    "motion": 0.1172,
+    "need": 0.021,
+    "ok": true,
+    "msg": ""
+   },
+   "hold": {
+    "held": 1.07,
+    "max": 4.5,
+    "ok": true,
+    "msg": "moving framing held 1.07 s (≤ 4.5)"
+   }
+  },
+  {
+   "id": "S37",
+   "size": "wide",
+   "t": 66.73,
+   "dur": 1.27,
+   "subject": "hero",
+   "faceShown": null,
+   "nothingInFront": {
+    "front": 0,
+    "faceCover": 0.027,
+    "ok": false,
+    "msg": "the face is 2.7 % covered"
+   },
+   "standsOut": {
+    "subj": 0.848,
+    "ring": 0.806,
+    "diff": 0.041,
+    "ok": false,
+    "msg": "subject vs surround luma 0.041 (≥ 0.12)"
+   },
+   "moves": {
+    "motion": 0.1522,
+    "need": 0.021,
+    "ok": true,
+    "msg": ""
+   },
+   "hold": {
+    "held": 1.27,
+    "max": 4.5,
+    "ok": true,
+    "msg": "moving framing held 1.27 s (≤ 4.5)"
+   }
+  },
+  {
+   "id": "S38",
+   "size": "medium",
+   "t": 68,
+   "dur": 2.5,
+   "subject": "hero",
+   "faceShown": {
+    "angle": 27.7,
+    "inside": 0.76,
+    "ok": true
+   },
+   "nothingInFront": {
+    "front": 0,
+    "faceCover": 0.168,
+    "ok": false,
+    "msg": "the face is 16.8 % covered"
+   },
+   "standsOut": {
+    "subj": 0.625,
+    "ring": 0.597,
+    "diff": 0.028,
+    "ok": false,
+    "msg": "subject vs surround luma 0.028 (≥ 0.12)"
+   },
+   "moves": {
+    "motion": 0.0024,
+    "need": 0.021,
+    "ok": false,
+    "msg": "motion 0.0024 < 0.0210"
+   },
+   "hold": {
+    "held": 2.5,
+    "max": 3,
+    "ok": true,
+    "msg": "static framing held 2.50 s (≤ 3)"
+   }
+  },
+  {
+   "id": "S39",
+   "size": "close",
+   "t": 70.5,
+   "dur": 3.33,
+   "subject": "hero",
+   "faceShown": {
+    "angle": 33.3,
+    "inside": 0.7,
+    "ok": true
+   },
+   "nothingInFront": {
+    "front": 0,
+    "faceCover": 0,
+    "ok": true
+   },
+   "standsOut": {
+    "subj": 0.809,
+    "ring": 0.715,
+    "diff": 0.094,
+    "ok": false,
+    "msg": "subject vs surround luma 0.094 (≥ 0.12)"
+   },
+   "moves": {
+    "motion": 0.0162,
+    "need": 0.021,
+    "ok": false,
+    "msg": "motion 0.0162 < 0.0210"
+   },
+   "hold": {
+    "held": 3.33,
+    "max": 3,
+    "ok": false,
+    "msg": "static framing held 3.33 s (≤ 3)"
+   }
+  },
+  {
+   "id": "S40",
+   "size": "medium",
+   "t": 73.83,
+   "dur": 1.77,
+   "subject": "bitsy",
+   "faceShown": {
+    "angle": 16.3,
+    "inside": 1,
+    "ok": true
+   },
+   "nothingInFront": {
+    "front": 0,
+    "faceCover": 0.56,
+    "ok": false,
+    "msg": "the face is 56.0 % covered"
+   },
+   "standsOut": {
+    "subj": 0.562,
+    "ring": 0.621,
+    "diff": 0.059,
+    "ok": false,
+    "msg": "subject vs surround luma 0.059 (≥ 0.12)"
+   },
+   "moves": {
+    "motion": 0.1739,
+    "need": 0.021,
+    "ok": true,
+    "msg": ""
+   },
+   "hold": {
+    "held": 1.77,
+    "max": 4.5,
+    "ok": true,
+    "msg": "moving framing held 1.77 s (≤ 4.5)"
+   }
+  },
+  {
+   "id": "S41",
+   "size": "wide",
+   "t": 75.6,
+   "dur": 2.33,
+   "subject": "launchTower",
+   "nothingInFront": {
+    "front": 0,
+    "faceCover": 0,
+    "ok": true
+   },
+   "standsOut": {
+    "subj": 0.411,
+    "ring": 0.725,
+    "diff": 0.314,
+    "ok": true,
+    "msg": ""
+   },
+   "moves": {
+    "motion": 0.1042,
+    "need": 0.021,
+    "ok": true,
+    "msg": ""
+   },
+   "hold": {
+    "held": 2.33,
+    "max": 4.5,
+    "ok": true,
+    "msg": "moving framing held 2.33 s (≤ 4.5)"
+   }
+  },
+  {
+   "id": "S42",
+   "size": "close",
+   "t": 77.93,
+   "dur": 1.2,
+   "subject": "giantHand",
+   "nothingInFront": {
+    "front": 0,
+    "faceCover": 0,
+    "ok": true
+   },
+   "standsOut": {
+    "subj": 0.793,
+    "ring": 0.444,
+    "diff": 0.349,
+    "ok": true,
+    "msg": ""
+   },
+   "moves": {
+    "motion": 0.0613,
+    "need": 0.021,
+    "ok": true,
+    "msg": ""
+   },
+   "hold": {
+    "held": 1.2,
+    "max": 4.5,
+    "ok": true,
+    "msg": "moving framing held 1.20 s (≤ 4.5)"
+   }
+  },
+  {
+   "id": "S43",
+   "size": "close",
+   "t": 79.13,
+   "dur": 3.2,
+   "subject": "hero",
+   "faceShown": {
+    "angle": 43,
+    "inside": 0.968,
+    "ok": true
+   },
+   "nothingInFront": {
+    "front": 0,
+    "faceCover": 0,
+    "ok": true
+   },
+   "standsOut": {
+    "subj": 0.597,
+    "ring": 0.522,
+    "diff": 0.075,
+    "ok": false,
+    "msg": "subject vs surround luma 0.075 (≥ 0.12)"
+   },
+   "moves": {
+    "motion": 0,
+    "need": 0.021,
+    "ok": false,
+    "msg": "motion 0.0000 < 0.0210"
+   },
+   "hold": {
+    "held": 3.2,
+    "max": 3,
+    "ok": false,
+    "msg": "static framing held 3.20 s (≤ 3)"
+   }
+  },
+  {
+   "id": "S44",
+   "size": "medium",
+   "t": 82.33,
+   "dur": 2.3,
+   "subject": "hero",
+   "faceShown": {
+    "angle": 51,
+    "inside": 1,
+    "ok": true
+   },
+   "nothingInFront": {
+    "front": 0,
+    "faceCover": 0,
+    "ok": true
+   },
+   "standsOut": {
+    "subj": 0.608,
+    "ring": 0.618,
+    "diff": 0.01,
+    "ok": false,
+    "msg": "subject vs surround luma 0.010 (≥ 0.12)"
+   },
+   "moves": {
+    "motion": 0.0016,
+    "need": 0.021,
+    "ok": false,
+    "msg": "motion 0.0016 < 0.0210"
+   },
+   "hold": {
+    "held": 2.3,
+    "max": 3,
+    "ok": true,
+    "msg": "static framing held 2.30 s (≤ 3)"
+   }
+  },
+  {
+   "id": "S45",
+   "size": "wide",
+   "t": 84.63,
+   "dur": 1.87,
+   "subject": "hero",
+   "faceShown": null,
+   "nothingInFront": {
+    "front": 0,
+    "faceCover": 0.014,
+    "ok": true
+   },
+   "standsOut": {
+    "subj": 0.607,
+    "ring": 0.539,
+    "diff": 0.068,
+    "ok": false,
+    "msg": "subject vs surround luma 0.068 (≥ 0.12)"
+   },
+   "moves": {
+    "motion": 0.1814,
+    "need": 0.021,
+    "ok": true,
+    "msg": ""
+   },
+   "hold": {
+    "held": 1.87,
+    "max": 4.5,
+    "ok": true,
+    "msg": "moving framing held 1.87 s (≤ 4.5)"
+   }
+  },
+  {
+   "id": "S47",
+   "size": "close",
+   "t": 86.5,
+   "dur": 2.37,
+   "subject": "hero",
+   "faceShown": {
+    "angle": 19,
+    "inside": 1,
+    "ok": true
+   },
+   "nothingInFront": {
+    "front": 0,
+    "faceCover": 0,
+    "ok": true
+   },
+   "standsOut": {
+    "subj": 0.545,
+    "ring": 0.462,
+    "diff": 0.082,
+    "ok": false,
+    "msg": "subject vs surround luma 0.082 (≥ 0.12)"
+   },
+   "moves": {
+    "motion": 0.0268,
+    "need": 0.021,
+    "ok": true,
+    "msg": ""
+   },
+   "hold": {
+    "held": 2.37,
+    "max": 4.5,
+    "ok": true,
+    "msg": "moving framing held 2.37 s (≤ 4.5)"
+   }
+  },
+  {
+   "id": "S48",
+   "size": "close",
+   "t": 88.87,
+   "dur": 1.67,
+   "subject": "hero",
+   "faceShown": {
+    "angle": 16.3,
+    "inside": 0.856,
+    "ok": true
+   },
+   "nothingInFront": {
+    "front": 0,
+    "faceCover": 0,
+    "ok": true
+   },
+   "standsOut": {
+    "subj": 0.498,
+    "ring": 0.554,
+    "diff": 0.056,
+    "ok": false,
+    "msg": "subject vs surround luma 0.056 (≥ 0.12)"
+   },
+   "moves": {
+    "motion": 0.0262,
+    "need": 0.021,
+    "ok": true,
+    "msg": ""
+   },
+   "hold": {
+    "held": 1.67,
+    "max": 4.5,
+    "ok": true,
+    "msg": "moving framing held 1.67 s (≤ 4.5)"
+   }
+  },
+  {
+   "id": "S49",
+   "size": "wide",
+   "t": 90.53,
+   "dur": 1.97,
+   "subject": "launchTower",
+   "nothingInFront": {
+    "front": 0,
+    "faceCover": 0,
+    "ok": true
+   },
+   "standsOut": {
+    "subj": 0.473,
+    "ring": 0.743,
+    "diff": 0.269,
+    "ok": true,
+    "msg": ""
+   },
+   "moves": {
+    "motion": 0.0409,
+    "need": 0.021,
+    "ok": true,
+    "msg": ""
+   },
+   "hold": {
+    "held": 1.97,
+    "max": 4.5,
+    "ok": true,
+    "msg": "moving framing held 1.97 s (≤ 4.5)"
+   }
+  },
+  {
+   "id": "S50",
+   "size": "wide",
+   "t": 92.5,
+   "dur": 0.87,
+   "subject": "dummya",
+   "faceShown": null,
+   "nothingInFront": {
+    "front": 0,
+    "faceCover": 0.254,
+    "ok": false,
+    "msg": "the face is 25.4 % covered"
+   },
+   "standsOut": {
+    "subj": 0.586,
+    "ring": 0.635,
+    "diff": 0.049,
+    "ok": false,
+    "msg": "subject vs surround luma 0.049 (≥ 0.12)"
+   },
+   "moves": {
+    "motion": 0.0741,
+    "need": 0.021,
+    "ok": true,
+    "msg": ""
+   },
+   "hold": {
+    "held": 0.87,
+    "max": 4.5,
+    "ok": true,
+    "msg": "moving framing held 0.87 s (≤ 4.5)"
+   }
+  },
+  {
+   "id": "S51",
+   "size": "wide",
+   "t": 93.37,
+   "dur": 2.37,
+   "subject": "launchTower",
+   "nothingInFront": {
+    "front": 0,
+    "faceCover": 0,
+    "ok": true
+   },
+   "standsOut": {
+    "subj": 0.391,
+    "ring": 0.891,
+    "diff": 0.5,
+    "ok": true,
+    "msg": ""
+   },
+   "moves": {
+    "motion": 0.0937,
+    "need": 0.021,
+    "ok": true,
+    "msg": ""
+   },
+   "hold": {
+    "held": 2.37,
+    "max": 4.5,
+    "ok": true,
+    "msg": "moving framing held 2.37 s (≤ 4.5)"
+   }
+  },
+  {
+   "id": "S52",
+   "size": "medium",
+   "t": 95.73,
+   "dur": 1.23,
+   "subject": "hero",
+   "faceShown": {
+    "angle": 33.6,
+    "inside": 1,
+    "ok": true
+   },
+   "nothingInFront": {
+    "front": 0,
+    "faceCover": 0,
+    "ok": true
+   },
+   "standsOut": {
+    "subj": 0.669,
+    "ring": 0.575,
+    "diff": 0.094,
+    "ok": false,
+    "msg": "subject vs surround luma 0.094 (≥ 0.12)"
+   },
+   "moves": {
+    "motion": 0.0896,
+    "need": 0.021,
+    "ok": true,
+    "msg": ""
+   },
+   "hold": {
+    "held": 1.23,
+    "max": 4.5,
+    "ok": true,
+    "msg": "moving framing held 1.23 s (≤ 4.5)"
+   }
+  },
+  {
+   "id": "S53",
+   "size": "close",
+   "t": 96.97,
+   "dur": 1.17,
+   "subject": "hero",
+   "faceShown": {
+    "angle": 22.6,
+    "inside": 0.942,
+    "ok": true
+   },
+   "nothingInFront": {
+    "front": 0,
+    "faceCover": 0,
+    "ok": true
+   },
+   "standsOut": {
+    "subj": 0.712,
+    "ring": 0.692,
+    "diff": 0.019,
+    "ok": false,
+    "msg": "subject vs surround luma 0.019 (≥ 0.12)"
+   },
+   "moves": {
+    "motion": 0.0289,
+    "need": 0.021,
+    "ok": true,
+    "msg": ""
+   },
+   "hold": {
+    "held": 1.17,
+    "max": 4.5,
+    "ok": true,
+    "msg": "moving framing held 1.17 s (≤ 4.5)"
+   }
+  },
+  {
+   "id": "S54",
+   "size": "wide",
+   "t": 98.13,
+   "dur": 1.93,
+   "subject": "wallSign",
+   "nothingInFront": {
+    "front": 0.019,
+    "faceCover": 0,
+    "ok": true
+   },
+   "standsOut": {
+    "subj": 0.706,
+    "ring": 0.669,
+    "diff": 0.037,
+    "ok": false,
+    "msg": "subject vs surround luma 0.037 (≥ 0.12)"
+   },
+   "moves": {
+    "motion": 0.0709,
+    "need": 0.021,
+    "ok": true,
+    "msg": ""
+   },
+   "hold": {
+    "held": 1.93,
+    "max": 4.5,
+    "ok": true,
+    "msg": "moving framing held 1.93 s (≤ 4.5)"
+   }
+  },
+  {
+   "id": "S55",
+   "size": "insert",
+   "t": 100.07,
+   "dur": 0.87,
+   "subject": "dummyd",
+   "faceShown": null,
+   "nothingInFront": {
+    "front": 0,
+    "faceCover": 0,
+    "ok": true
+   },
+   "standsOut": {
+    "subj": 0.623,
+    "ring": 0.839,
+    "diff": 0.216,
+    "ok": true,
+    "msg": ""
+   },
+   "moves": {
+    "motion": 0.0628,
+    "need": 0.021,
+    "ok": true,
+    "msg": ""
+   },
+   "hold": {
+    "held": 0.87,
+    "max": 4.5,
+    "ok": true,
+    "msg": "moving framing held 0.87 s (≤ 4.5)"
+   }
+  },
+  {
+   "id": "S56",
+   "size": "insert",
+   "t": 100.93,
+   "dur": 1.43,
+   "subject": "dummye",
+   "faceShown": null,
+   "nothingInFront": {
+    "front": 0,
+    "faceCover": 0,
+    "ok": true
+   },
+   "standsOut": {
+    "subj": 0.7,
+    "ring": 0.727,
+    "diff": 0.027,
+    "ok": false,
+    "msg": "subject vs surround luma 0.027 (≥ 0.12)"
+   },
+   "moves": {
+    "motion": 0.0572,
+    "need": 0.021,
+    "ok": true,
+    "msg": ""
+   },
+   "hold": {
+    "held": 1.43,
+    "max": 4.5,
+    "ok": true,
+    "msg": "moving framing held 1.43 s (≤ 4.5)"
+   }
+  },
+  {
+   "id": "S57",
+   "size": "medium",
+   "t": 102.37,
+   "dur": 2.47,
+   "subject": "kid",
+   "faceShown": {
+    "angle": 27.4,
+    "inside": 1,
+    "ok": true
+   },
+   "nothingInFront": {
+    "front": 0,
+    "faceCover": 0.217,
+    "ok": false,
+    "msg": "the face is 21.7 % covered"
+   },
+   "standsOut": {
+    "subj": 0.285,
+    "ring": 0.736,
+    "diff": 0.451,
+    "ok": true,
+    "msg": ""
+   },
+   "moves": {
+    "motion": 0.0212,
+    "need": 0.021,
+    "ok": true,
+    "msg": ""
+   },
+   "hold": {
+    "held": 2.47,
+    "max": 4.5,
+    "ok": true,
+    "msg": "moving framing held 2.47 s (≤ 4.5)"
+   }
+  },
+  {
+   "id": "S58",
+   "size": "insert",
+   "t": 104.83,
+   "dur": 1.77,
+   "subject": "healButton",
+   "nothingInFront": {
+    "front": 0,
+    "faceCover": 0,
+    "ok": true
+   },
+   "standsOut": {
+    "subj": 0.48,
+    "ring": 0.921,
+    "diff": 0.441,
+    "ok": true,
+    "msg": ""
+   },
+   "objectReads": {
+    "inside": 0.981,
+    "h": 0.428,
+    "ok": true
+   },
+   "moves": {
+    "motion": 0.0022,
+    "need": 0.021,
+    "ok": false,
+    "msg": "motion 0.0022 < 0.0210"
+   },
+   "hold": {
+    "held": 1.77,
+    "max": 3,
+    "ok": true,
+    "msg": "static framing held 1.77 s (≤ 3)"
+   }
+  },
+  {
+   "id": "S59",
+   "size": "medium",
+   "t": 106.6,
+   "dur": 1.43,
+   "subject": "kid",
+   "faceShown": {
+    "angle": 19.5,
+    "inside": 1,
+    "ok": true
+   },
+   "nothingInFront": {
+    "front": 0,
+    "faceCover": 0,
+    "ok": true
+   },
+   "standsOut": {
+    "subj": 0.228,
+    "ring": 0.595,
+    "diff": 0.366,
+    "ok": true,
+    "msg": ""
+   },
+   "moves": {
+    "motion": 0.0018,
+    "need": 0.021,
+    "ok": false,
+    "msg": "motion 0.0018 < 0.0210"
+   },
+   "hold": {
+    "held": 1.43,
+    "max": 3,
+    "ok": true,
+    "msg": "static framing held 1.43 s (≤ 3)"
+   }
+  },
+  {
+   "id": "S60",
+   "size": "wide",
+   "t": 108.03,
+   "dur": 2.6,
+   "subject": "hero",
+   "faceShown": null,
+   "nothingInFront": {
+    "front": 0,
+    "faceCover": 0,
+    "ok": true
+   },
+   "standsOut": {
+    "subj": 0.677,
+    "ring": 0.641,
+    "diff": 0.036,
+    "ok": false,
+    "msg": "subject vs surround luma 0.036 (≥ 0.12)"
+   },
+   "moves": {
+    "motion": 0.0628,
+    "need": 0.021,
+    "ok": true,
+    "msg": ""
+   },
+   "hold": {
+    "held": 2.6,
+    "max": 4.5,
+    "ok": true,
+    "msg": "moving framing held 2.60 s (≤ 4.5)"
+   }
+  },
+  {
+   "id": "S61",
+   "size": "medium",
+   "t": 110.63,
+   "dur": 2.03,
+   "subject": "hero",
+   "faceShown": {
+    "angle": 64.1,
+    "inside": 0.826,
+    "ok": true
+   },
+   "nothingInFront": {
+    "front": 0,
+    "faceCover": 0,
+    "ok": true
+   },
+   "standsOut": {
+    "subj": 0.652,
+    "ring": 0.564,
+    "diff": 0.088,
+    "ok": false,
+    "msg": "subject vs surround luma 0.088 (≥ 0.12)"
+   },
+   "moves": {
+    "motion": 0.0285,
+    "need": 0.021,
+    "ok": true,
+    "msg": ""
+   },
+   "hold": {
+    "held": 2.03,
+    "max": 4.5,
+    "ok": true,
+    "msg": "moving framing held 2.03 s (≤ 4.5)"
+   }
+  },
+  {
+   "id": "S62",
+   "size": "close",
+   "t": 112.67,
+   "dur": 2.63,
+   "subject": "hero",
+   "faceShown": {
+    "angle": 32.7,
+    "inside": 0.718,
+    "ok": true
+   },
+   "nothingInFront": {
+    "front": 0,
+    "faceCover": 0,
+    "ok": true
+   },
+   "standsOut": {
+    "subj": 0.858,
+    "ring": 0.939,
+    "diff": 0.08,
+    "ok": false,
+    "msg": "subject vs surround luma 0.080 (≥ 0.12)"
+   },
+   "moves": {
+    "motion": 0.1517,
+    "need": 0.021,
+    "ok": true,
+    "msg": ""
+   },
+   "hold": {
+    "held": 1.8,
+    "max": 4.5,
+    "ok": true,
+    "msg": "moving framing held 1.80 s (≤ 4.5)"
+   }
+  }
+ ],
+ "errors": [
+  "S02: standsOut FAIL subject vs surround luma 0.081 (≥ 0.12)",
+  "S05: moves FAIL motion 0.0000 < 0.0210",
+  "S06: nothingInFront FAIL the face is 50.9 % covered",
+  "S07: nothingInFront FAIL the face is 21.1 % covered",
+  "S08: moves FAIL motion 0.0190 < 0.0210",
+  "S10: standsOut FAIL subject vs surround luma 0.105 (≥ 0.12)",
+  "S10: moves FAIL motion 0.0014 < 0.0210",
+  "S11: nothingInFront FAIL the face is 11.8 % covered",
+  "S11: standsOut FAIL subject vs surround luma 0.054 (≥ 0.12)",
+  "S12: standsOut FAIL subject vs surround luma 0.012 (≥ 0.12)",
+  "S12: moves FAIL motion 0.0094 < 0.0210",
+  "S18: standsOut FAIL subject vs surround luma 0.081 (≥ 0.12)",
+  "S19: standsOut FAIL subject vs surround luma 0.082 (≥ 0.12)",
+  "S20: moves FAIL motion 0.0061 < 0.0210",
+  "S21: nothingInFront FAIL the face is 4.2 % covered",
+  "S21: moves FAIL motion 0.0172 < 0.0210",
+  "S22: nothingInFront FAIL the face is 30.1 % covered",
+  "S22: standsOut FAIL subject vs surround luma 0.071 (≥ 0.12)",
+  "S26: nothingInFront FAIL the face is 18.7 % covered",
+  "S26: standsOut FAIL subject vs surround luma 0.028 (≥ 0.12)",
+  "S29: nothingInFront FAIL the face is 30.0 % covered",
+  "S31: nothingInFront FAIL the face is 52.9 % covered",
+  "S31: standsOut FAIL subject vs surround luma 0.056 (≥ 0.12)",
+  "S34: nothingInFront FAIL the face is 62.7 % covered",
+  "S35: nothingInFront FAIL the face is 5.1 % covered",
+  "S35: standsOut FAIL subject vs surround luma 0.079 (≥ 0.12)",
+  "S36: nothingInFront FAIL the face is 17.1 % covered",
+  "S36: standsOut FAIL subject vs surround luma 0.097 (≥ 0.12)",
+  "S37: nothingInFront FAIL the face is 2.7 % covered",
+  "S37: standsOut FAIL subject vs surround luma 0.041 (≥ 0.12)",
+  "S38: nothingInFront FAIL the face is 16.8 % covered",
+  "S38: standsOut FAIL subject vs surround luma 0.028 (≥ 0.12)",
+  "S38: moves FAIL motion 0.0024 < 0.0210",
+  "S39: standsOut FAIL subject vs surround luma 0.094 (≥ 0.12)",
+  "S39: moves FAIL motion 0.0162 < 0.0210",
+  "S39: hold FAIL static framing held 3.33 s (≤ 3)",
+  "S40: nothingInFront FAIL the face is 56.0 % covered",
+  "S40: standsOut FAIL subject vs surround luma 0.059 (≥ 0.12)",
+  "S43: standsOut FAIL subject vs surround luma 0.075 (≥ 0.12)",
+  "S43: moves FAIL motion 0.0000 < 0.0210",
+  "S43: hold FAIL static framing held 3.20 s (≤ 3)",
+  "S44: standsOut FAIL subject vs surround luma 0.010 (≥ 0.12)",
+  "S44: moves FAIL motion 0.0016 < 0.0210",
+  "S45: standsOut FAIL subject vs surround luma 0.068 (≥ 0.12)",
+  "S47: standsOut FAIL subject vs surround luma 0.082 (≥ 0.12)",
+  "S48: standsOut FAIL subject vs surround luma 0.056 (≥ 0.12)",
+  "S50: nothingInFront FAIL the face is 25.4 % covered",
+  "S50: standsOut FAIL subject vs surround luma 0.049 (≥ 0.12)",
+  "S52: standsOut FAIL subject vs surround luma 0.094 (≥ 0.12)",
+  "S53: standsOut FAIL subject vs surround luma 0.019 (≥ 0.12)",
+  "S54: standsOut FAIL subject vs surround luma 0.037 (≥ 0.12)",
+  "S56: standsOut FAIL subject vs surround luma 0.027 (≥ 0.12)",
+  "S57: nothingInFront FAIL the face is 21.7 % covered",
+  "S58: moves FAIL motion 0.0022 < 0.0210",
+  "S59: moves FAIL motion 0.0018 < 0.0210",
+  "S60: standsOut FAIL subject vs surround luma 0.036 (≥ 0.12)",
+  "S61: standsOut FAIL subject vs surround luma 0.088 (≥ 0.12)",
+  "S62: standsOut FAIL subject vs surround luma 0.080 (≥ 0.12)"
+ ]
+}

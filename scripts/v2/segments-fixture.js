@@ -1,0 +1,10 @@
+// scripts/v2/segments-fixture.js — tuft 4A test fixture: engine/fixtures/segments/{three,<loc>}.json. `three` = beastYard → homeDining → festivalPlaza
+// (3 × 2 s, R6 hero + one beast, spec.locations); `<loc>` = the same three shots (same times, same cameras) as a plain single-location spec in that world (the equality reference for that location's shot).
+import {readFileSync, writeFileSync} from 'node:fs';
+const FPS = 24, LOCS = ['beastYard', 'homeDining', 'festivalPlaza'], LOOK = {beastYard: 'comedy', homeDining: 'toy', festivalPlaza: 'moonlit'};
+const cast = {hero: {style: 'v5', faceStyle: 'v6', troupe: 'HERO', at: 'street', offset: [-1.5, 0, 3], yaw: 180, keys: [[0, 'idle']]}, tuft: {style: 'beast', preset: 'TUFT', tier: 'hero', at: 'street', offset: [1.5, 0, 2.5], yaw: 160}};
+const base = {fps: FPS, format: 6, acting: 6, rig: 'r6', twos: true, faceLife: true, labels: false, world: 'parts/village/world.js', cues: 'engine/fixtures/acting6/cues.json', post: 'cine', camera: 'cine', grade: 'clear'};
+const shot = (L, i) => { const v = JSON.parse(readFileSync(`parts/locations/${L}.json`, 'utf8')).views.hero; return {id: `S${i + 1}-${L}`, loc: L, frames: 48, duration: 2, size: 'ms', mood: 'fun', move: 'push', angle: 'eye', look: LOOK[L], from: v, to: {...v, position: v.position.map((p, j) => p + (v.target[j] - p) * .05)}}; };
+const shots = LOCS.map(shot), skyDist = L => JSON.parse(readFileSync(`parts/locations/${L}.json`, 'utf8')).skyDist ?? 650;
+writeFileSync('engine/fixtures/segments/three.json', JSON.stringify({note: 'tuft 4A: 3 locations by segments (scripts/v2/segments-fixture.js)', slug: 'segments', ...base, location: LOCS[0], look4: LOOK[LOCS[0]], look: LOOK[LOCS[0]], locations: LOCS, locationLook4: LOOK, cast, shots}, null, 1) + '\n');
+for (const [i, L] of LOCS.entries()) writeFileSync(`engine/fixtures/segments/${L}.json`, JSON.stringify({note: `tuft 4A: ${L} alone (reference for the segment)`, slug: 'segments', ...base, location: L, look4: LOOK[L], look: LOOK[L], skyDist: skyDist(L), cast, shots: shots.map(({loc, ...q}) => q)}, null, 1) + '\n');

@@ -152,12 +152,12 @@ export function checkSeason({spec, shots, cues, fps = 30, end, info = [], meas =
       if (tw && s.start < tw.start) afkBefore = true;
     }
     if ((spec.afk ?? []).length && !afkBefore) E('afk: no AFK shot before the twist');
-    // rhyme
-    const c0 = info[0]?.first?.camera, c1 = info[shots.length - 1]?.last?.camera;
-    if (c0 && c1) { const r = rhyme(c0, c1); if (!r.ok) E(`rhyme: final camera differs from shot 1 by ${(r.dp * 100).toFixed(1)} % position, ${(r.df * 100).toFixed(1)} % FOV (≤ ${L.rhyme * 100} %)`); }
+    // rhyme (legacy formats only: FORMAT_V6.md drops the frame-0 rhyme and sets the length in plancheck.js)
+    const v6 = spec.format >= 6, c0 = info[0]?.first?.camera, c1 = info[shots.length - 1]?.last?.camera;
+    if (!v6 && c0 && c1) { const r = rhyme(c0, c1); if (!r.ok) E(`rhyme: final camera differs from shot 1 by ${(r.dp * 100).toFixed(1)} % position, ${(r.df * 100).toFixed(1)} % FOV (≤ ${L.rhyme * 100} %)`); }
     // length
     const len = end ?? (shots.at(-1).start + shots.at(-1).frames) / fps;
-    if (len < L.length[0] - 1e-6 || len > L.length[1] + 1e-6) E(`episode length ${len.toFixed(2)} s outside ${L.length.join('–')} s`);
+    if (!v6 && (len < L.length[0] - 1e-6 || len > L.length[1] + 1e-6)) E(`episode length ${len.toFixed(2)} s outside ${L.length.join('–')} s`);
     // hero readability: in wides the subject's head stays inside the middle 60 % of the frame width (first, middle, last frame)
     shots.forEach((s, i) => {
       const who = s.subject ?? s.fit?.actor; if (s.size !== 'wide' || !who) return;

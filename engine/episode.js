@@ -6,8 +6,10 @@ import * as T from 'three';
 import {createBaseAvatar} from '../avatar/baseAvatar.js';
 import {sampleAction, applyActionSample} from '../avatar/actions.js';
 import {sampleCamera, maxTargetSpeed} from './camera.js';
+import {twosTime} from './r6.js';   // R6 rig / twos (opt-in)
 import {layoutShots, totalFrames, valueAt, keyAt} from './timeline.js';
 import {buildDragon, driveDragon} from '../avatar-style/dragon.js';
+import {buildDog, driveDog} from '../avatar-style/dog.js';
 import {maskStats} from './lumagate.js';
 import {expandClassReveal, applyPatch} from './classes.js';
 import {buildActor, driveActor, townsperson, toolGroup} from './actors.js';
@@ -23,6 +25,7 @@ import {hair4Material} from '../avatar-style/hair.js';
 import {loadFont, fitTags} from './overhead.js';
 import {createLook, createLookV3, sunDir} from './look.js';
 import {createEffects} from './effects.js';
+import {groundedSky} from '../parts/location.js';
 import {createCrowds} from './crowd.js';
 import {createRuleUI, enforceReadable, uiMeasure} from './ruleui.js';
 import {stripLabels} from './nolabels.js';
@@ -39,14 +42,28 @@ import * as TR from '../parts/terrain.js';
 import * as BI from '../parts/biomes.js';
 import * as V from '../parts/vegetation.js';
 import * as W from '../parts/water.js';
+import {lodPick, keyPreset} from './lod.js';
+import {clearScreen} from './clear6.js';
 
 const q = new URLSearchParams(location.search);
 const specUrl = q.get('spec') ? new URL('../' + q.get('spec'), import.meta.url) : new URL(`../stories/${q.get('story')}/episode.json`, import.meta.url);
 const spec = stripLabels(await (await fetch(specUrl)).json());   // owner rule §2c: Season 1 (or labels: false) draws no labels
+// tuft 1B (opt-in): spec `post: 'cine'` = the Look Pack post pipeline (engine/cinelook.js; spec.look stays the look preset); spec `camera: 'cine'` = engine/cine.js
+const CINE_LOOK = spec.post === 'cine', CINE_CAM = spec.camera === 'cine';
+const CINE = CINE_CAM || CINE_LOOK ? await import('./cine.js') : null;
 const FPS = spec.fps ?? 30;
 
 // Shots on the frame timeline: each shot owns [start, start + frames) (timeline.js: `at` cut times or `frames`).
-const shots = layoutShots(spec);
+// P4 moods (opt-in spec.moods, format 6): a shot's `mood` fills move / fov defaults here; its light is applied per frame as shared uniforms
+// (renderer exposure, a saturation / temperature / haze term injected before the colour-space step of every material that has one: no re-bake, no extra pass).
+const M6 = spec.moods && spec.format >= 6 ? await import('./mood6.js') : null;
+const MOODU = {uMoodSat: {value: 1}, uMoodTint: {value: new T.Vector3(1, 1, 1)}, uMoodHaze: {value: 0}, uMoodBloom: {value: 0}, uMoodVig: {value: 0}, uMoodRes: {value: new T.Vector2(1, 1)}};
+if (M6 && spec.post !== 'cine') {   // tuft 4B: post 'cine' grades per mood itself (cinelook GRADE); the mood shader term would stack on it
+  const inject = sh => { if (!sh.fragmentShader.includes('#include <tonemapping_fragment>') || sh.fragmentShader.includes('uniform float uMoodSat')) return;   // tuft 4B: chained onBeforeCompile (cinelook / beastrt) must not inject twice Object.assign(sh.uniforms, MOODU);
+    sh.fragmentShader = 'uniform float uMoodSat; uniform vec3 uMoodTint; uniform float uMoodHaze; uniform float uMoodBloom; uniform float uMoodVig; uniform vec2 uMoodRes;\n' + sh.fragmentShader.replace('#include <tonemapping_fragment>', '#include <tonemapping_fragment>\n{ vec3 mc = gl_FragColor.rgb; float ml = dot(mc, vec3(.2126, .7152, .0722)); mc = mix(vec3(ml), mc, uMoodSat) * uMoodTint; mc = mc + uMoodHaze * .06 * (1. - mc); mc += uMoodBloom * smoothstep(.55, 1., ml) * mc * .5; vec2 mv = gl_FragCoord.xy / uMoodRes - .5; mc *= 1. - uMoodVig * clamp(dot(mv, mv) * 2.4, 0., 1.); gl_FragColor.rgb = mc; }'); };   // P5b: key bloom (highlight lift) and vignette, both 0 unless the shot's mood light sets them
+  Object.defineProperty(T.Material.prototype, 'onBeforeCompile', {configurable: true, get() { return this._mood6 ?? ((sh) => inject(sh)); }, set(fn) { this._mood6 = (sh, r) => { fn?.call(this, sh, r); inject(sh); }; }});
+}
+const shots = M6 ? layoutShots(spec).map(M6.resolveMood) : layoutShots(spec);
 const FRAMES = totalFrames(shots);
 
 // Amendment A3 class reveals: shot.classReveal ({actor, cls, at} with `at` relative to the shot, or a list) and
@@ -61,10 +78,11 @@ for (const r of [...(spec.classReveals ?? []), ...shots.flatMap(s => [].concat(s
 // ---- Scene: the episode's world.js (Session 3+) or the Session 1 placeholder plate ----
 const renderer = new T.WebGLRenderer({antialias: q.get('aa') !== '0', preserveDrawingBuffer: true});
 renderer.outputColorSpace = T.SRGBColorSpace; renderer.shadowMap.enabled = true; renderer.shadowMap.type = T.PCFSoftShadowMap;
+if (CINE_LOOK) renderer.shadowMap.enabled = false;   // tuft 1B: no live shadow maps on post 'cine' (baked light + contact blobs)
 document.body.appendChild(renderer.domElement);
 const scene = new T.Scene();
 const camera = new T.PerspectiveCamera(45, 9 / 16, .3, 900);   // near 0.3 (A1): more depth precision for the ground layers
-let world = null, look = null, BAKE = null, GROUNDFIX = null;
+let world = null, look = null, BAKE = null, GROUNDFIX = null, WMOD = null;   // WMOD: the world module (Touch Grass E1 opt-in spec.decorate hooks)
 // Toy House final fix (owner P4, opt-in spec.groundFix = {sep, aniso, bias, normalBias}): flat ground-level meshes (≤ 1.2 high,
 // thinner than 5 % of their span) whose top faces lie within `sep` of another overlapping one are lifted in `sep` steps and get
 // polygonOffset (the higher, the stronger); every ground texture gets mipmaps + anisotropy `aniso`; the sun shadow bias is tuned.
@@ -81,12 +99,12 @@ function groundFix(root, lk, {sep = .02, aniso = 8, bias = -.0008, normalBias = 
   return {flat: flat.length, pairs, lifted, textures: tex, bias, normalBias};
 }
 if (spec.world) {
-  const mod = await import(new URL('../' + spec.world, import.meta.url).href);
+  const mod = await import(new URL('../' + spec.world, import.meta.url).href); WMOD = mod;
   if (spec.look4) {   // format v4 Phase 2 (opt-in): AgX + PMREM sky env + v4 surfaces + baked static light (engine/look4.js, bake.js)
     const presets = await loadLooks4(new URL('./', import.meta.url)), P4 = presets[spec.look4]; if (!P4) throw Error('unknown look4 ' + spec.look4);
     await M4.loadTex4(new URL('../', import.meta.url));
-    look = createLookV4(scene, renderer, presets, {initial: spec.look4}); look.apply(spec.look4);
-    if (mod.preload) await mod.preload(new URL('../', import.meta.url));   // format v5 3b-R (opt-in): async world assets (box-art atlas)
+    look = createLookV4(scene, renderer, presets, {initial: spec.look4, ...(CINE_LOOK ? {fogStart: (m => m.isRoblox(spec) ? m.ROBLOX.fogStart : m.isClear(spec) ? m.CLEAR.fogStart : m.FOG.start)(await import('./cinelook.js'))} : {})});   // tuft 1B fix: post 'cine' = no height fog near the camera look.apply(spec.look4);
+    if (mod.preload) await mod.preload(new URL('../', import.meta.url), {scene, renderer, spec});   // format v5 3b-R (opt-in): async world assets (box-art atlas)
     world = mod.build(scene, {P, B, A, M, M4, PR, TR, BI, V, W, look, spec, look4: {preset: P4, halo, water4}});
     if (spec.groundFix) GROUNDFIX = groundFix(scene, look, spec.groundFix);   // Toy House final fix (owner P4, opt-in): before the bake
     look.setGround(world.groundY ?? (() => 0));
@@ -97,8 +115,11 @@ if (spec.world) {
   // A4: a world opts into the v3 look by exporting LOOK (an object, or a function of the spec); "Nobody" does not
   const lk = typeof mod.LOOK === 'function' ? mod.LOOK(spec) : mod.LOOK;
   look = lk ? createLookV3(scene, renderer, {...lk, onEnv: tex => M.setEnvMap(tex, lk.envIntensity ?? .45)}) : createLook(scene, renderer);
+  if (mod.preload) await mod.preload(new URL('../', import.meta.url), {scene, renderer, spec});   // Kit 1 (opt-in, v3 worlds that export preload): async world assets / a parts/location.js street
   world = mod.build(scene, {P, B, A, M, PR, TR, BI, V, W, look, spec});
   }
+  // E3 (opt-in spec.worldObjects): a `prop:<name>` subject is the world's own object of that name (giantHand = the story6 hand): exactly one, never an insert copy
+  if (spec.worldObjects) { const {worldObjectErrors} = await import('./worldobjects.js'), bad = worldObjectErrors(spec.worldObjects, n => { let k = 0; scene.traverse(o => { if (o.name === n) k++; }); return k; }, spec.props ?? []); if (bad.length) throw Error(bad.join('; ')); }
 } else {
   scene.background = new T.Color('#8fc8ff'); scene.fog = new T.Fog('#8fc8ff', 60, 140);
   scene.add(new T.HemisphereLight('#dfefff', '#6b8f4e', 1.1));
@@ -111,6 +132,14 @@ if (spec.world) {
     const a = i / 12 * Math.PI * 2, h = 2 + (i % 3) * 1.5, m = new T.Mesh(new T.BoxGeometry(1.2, h, 1.2), phong(palette[i % palette.length]));
     m.position.set(Math.sin(a) * 11, h / 2, Math.cos(a) * 11); m.castShadow = m.receiveShadow = true; scene.add(m);
   }
+}
+// Kit 1 (opt-in spec.backdrop {hdri, height 5, radius 400, intensity .7, rotation 0}): a grounded photo sky from assets/hdri/<hdri> (parts/location.js
+// groundedSky). It becomes scene.environment only when the look has none. Specs without "backdrop" take none of this.
+let BD = null;   // Kit 1c: per-frame backdrop hooks (sky follows the camera, distance cull, per-actor rim)
+if (spec.backdrop) {
+  const bd = {height: 5, radius: 400, intensity: .7, rotation: 0, ...spec.backdrop}, {sky, hdr} = await groundedSky(T, renderer, new URL('../assets/hdri/' + bd.hdri, import.meta.url).href, bd);
+  camera.far = 500; camera.updateProjectionMatrix();   // Kit 1c: sky radius 400 follows the camera; world meshes > 160 from it are hidden per frame
+  BD = {sky, cull: [], rims: {}}; scene.add(sky); if (!scene.environment) { scene.environment = new T.PMREMGenerator(renderer).fromEquirectangular(hdr).texture; scene.environmentRotation.y = bd.rotation * Math.PI / 180; }
 }
 const anchors = world?.anchors ?? {};
 // Anchor-relative vectors: {anchor: 'square', offset: [x, y, z]} → world position.
@@ -130,27 +159,101 @@ for (const s of shots) {
 const presets = spec.castFile ? (await (await fetch(new URL('../' + spec.castFile, import.meta.url))).json()).cast : {};
 const cast = {};
 const FACES_V3 = spec.faces === 'v3' || (spec.season === 1 && spec.faces !== 'v2');
-const troupeData = Object.values(spec.cast ?? {}).some(c => c.troupe) ? await (await fetch(new URL('../' + (spec.troupeFile ?? 'cast/troupe.json'), import.meta.url))).json() : null;   // A4 troupe slots
-if (Object.values(spec.cast ?? {}).some(c => c.troupe === 'HERO')) troupeData.troupe.HERO = (await (await fetch(new URL('../' + (spec.heroFile ?? 'cast/hero.json'), import.meta.url))).json()).HERO;   // format v4 hero slot
+const troupeData = Object.values(spec.cast ?? {}).some(c => c.troupe) ? await (await fetch(new URL('../' + (spec.troupeFile ?? (spec.rig === 'r6' ? 'cast/troupe-r6.json' : spec.format >= 6 ? 'cast/troupe6.json' : 'cast/troupe.json')), import.meta.url))).json() : null;   // A4 troupe slots
+if (Object.values(spec.cast ?? {}).some(c => c.troupe === 'HERO')) troupeData.troupe.HERO = (await (await fetch(new URL('../' + (spec.heroFile ?? (spec.format >= 6 && spec.rig !== 'r6' ? 'cast/hero6.json' : 'cast/hero.json')), import.meta.url))).json()).HERO;   // format v4 hero slot
 // format v4 lip flaps: per-frame mouth shapes from the voice envelope (scripts/v2/envelope.js; the voice file is only read)
+const RIG6 = spec.rig === 'r6', TWOS = spec.twos === true;   // R6 rig (owner 2026-11-24, engine/r6.js): classic rigid R6 on Actor v5 + faces v6; twos: actor poses + faces hold 2 frames at 24 fps
+const BODY6 = spec.format >= 6 && spec.body !== 'v5' && !RIG6;   // P1b: new format-6 specs put the hero, troupe and crowds on Actor v6 (spec.body 'v5' opts out)
 const HERO_COLS = troupeData?.troupe?.HERO ? heroColours(troupeData.troupe.HERO) : null;   // format v4 1b: hero colours to keep clear
 const NIGHT_EP = ['night', 'nightBright'].includes(spec.look) || (spec.shots ?? []).some(sh => ['night', 'nightBright'].includes(sh.look));
 const flapShapes = spec.lipFlap ? (await (await fetch(new URL('../' + (spec.lipFlap.envelope ?? `stories/${spec.slug}/build/envelope.json`), import.meta.url))).json()).shapes : null;
 // Marks (Session 5): `marks: [[t0, {at, offset, yaw, travel}], ...]` re-block an actor over the episode; the
 // entry's own at/offset/yaw/travel is the mark before the first key.
 const markOf = (c, t) => { const k = keyAt(c.marks, t); return k ? {...k[1], t0: k[0]} : {at: c.at, offset: c.offset, yaw: c.yaw, travel: c.travel, origin: c.origin, t0: 0}; };
+const presetOf = c => {
+  const pre0 = c.troupe ? resolveTroupe(c, troupeData) : c.town ? townsperson(c.town) : c.preset ? {...presets[c.preset], ...(c.with ?? {})} : c;
+  const pre1 = RIG6 ? {...pre0, body: 'v5', faceStyle: 'v6', rig: 'r6'} : BODY6 ? {...pre0, body: 'v6', faceStyle: pre0.faceStyle ?? 'v5'} : c.style === 'v5' || spec.look4 ? {...pre0, body: 'v5', faceStyle: pre0.faceStyle ?? 'v5'} : pre0;   // P1b: format 6 = Actor v6 (R15) for everyone   // Actor v5 + Faces v5 (owner's sheet; 'v4' stays opt-in) (2b: every actor of a look4 episode)
+  const pre2 = HERO_COLS && c.troupe !== 'HERO' && pre1.outfit ? {...pre1, outfit: heroSafeOutfit(pre1.outfit, HERO_COLS, {minL: NIGHT_EP ? .32 : 0})} : pre1;   // v4 1b: nobody dresses like the hero
+  const pre3 = (spec.look4 || BODY6 || RIG6) && !pre2.regions && pre2.outfit ? {...pre2, regions: outfitRegions(pre2.outfit, pre2.skin ?? '#f5cd30'), outfit: null} : pre2;   // 2b: outfits as colour regions (data)
+  const pre = FACES_V3 && !pre3.faceStyle ? {...pre3, faceStyle: 'v3'} : pre3;   // Faces v3: default for season 1 (or spec.faces 'v3')
+  if ((spec.format >= 5 && spec.format <= 7) && pre.build !== 'youth' && !(pre.age < 18)) pre.scale = 1;   // format v5: every adult stands at the same height (builds differ in shape, not size)
+  return pre; };
+// tuft 2B (opt-in): `puffs` on an R6 actor (shot puffs [{actor, size, at}], engine/puff.js): torso + head swell into a faceted ball proxy
+// (jacket colour) of diameter D; the head scales and sits in the ball's upper front (face decal rides the head pivot); arms / legs keep
+// their size and stick out of the ball. Pure in t. PUFFERS = actor names with puff events; balls built at load (patched by the cine light).
+const PF = spec.shots?.some(sh => sh.puffs?.length) ? await import('./puff.js') : null, PUFFERS = [], PUFFEV = {};
+// P3B (opt-in spec.puffBall {jacket: {main, strip, stripW, lapel, lapelW, edge, edgeW} (torso-width fractions, cast/hero.json regions), key}):
+// the hero ball wears the jacket: royal-blue strip down the front (+z), charcoal lapels, lighter edge trim; per-face colours on a faceted
+// sphere + a soft camera-relative key (upper left front) so the sphere shades even in a dark room.
+function jacketBall(J, key) { const g = new T.IcosahedronGeometry(1, 4).toNonIndexed(), p = g.attributes.position, col = new Float32Array(p.count * 3), C = k => new T.Color(J[k]);
+  const main = C('main'), strip = C('strip'), lapel = C('lapel') ?? main, edge = C('edge'), sw = (J.stripW ?? .6) / 2, lw = sw + (J.lapelW ?? .14), ew = lw + Math.max(.06, J.edgeW ?? .05);
+  for (let i = 0; i < p.count; i += 3) { let x = 0, z = 0; for (let k = 0; k < 3; k++) { x += p.getX(i + k) / 3; z += p.getZ(i + k) / 3; } const ax = Math.abs(x), c = z <= 0 ? main : ax < sw ? strip : ax < lw ? lapel : ax < ew ? edge : main;
+    for (let k = 0; k < 3; k++) col.set([c.r, c.g, c.b], (i + k) * 3); }
+  g.setAttribute('color', new T.BufferAttribute(col, 3)); const m = new T.MeshStandardMaterial({vertexColors: true, roughness: .7, flatShading: true});
+  m.onBeforeCompile = sh => { sh.fragmentShader = sh.fragmentShader.replace('#include <lights_fragment_end>', `#include <lights_fragment_end>
+  { vec3 kd = normalize(vec3(-.45, .6, .65)); reflectedLight.directDiffuse += diffuseColor.rgb * ${key.toFixed(3)} * (.25 + .75 * max(dot(normal, kd), 0.)); }`); };
+  m.customProgramCacheKey = () => 'jacketBall' + key; return new T.Mesh(g, m); }
+function puffHeroes(t) {
+  for (const n of PUFFERS) { const x = cast[n], A = x.a, rest = 2 * x.a.root.scale.x, pk = PF.puffAt(PUFFEV[n], t, rest, 'hero'), D = pk.phase === 'rest' || pk.k <= 1.01 ? 0 : pk.k * rest;   // rest = the torso width
+    const P0 = A.puff0 ??= {head: [A.pivots.head.position.toArray(), A.pivots.head.scale.toArray()], ...Object.fromEntries(['leftShoulder', 'rightShoulder', 'leftHip', 'rightHip'].filter(k => A.pivots[k]).map(k => [k, A.pivots[k].position.toArray()]))};
+    const s = A.root.scale.x, on = D > 0; A.ball.visible = on; if (A.parts.torso) A.parts.torso.visible = !on; A.torsoExtras?.forEach(o => { o.visible = !on; });
+    const pose = on ? PUFFEV[n].filter(e => e.t <= t).at(-1)?.pose : null;   // P3 (opt-in puff `pose: 'window'`): the ball lies back, legs out along +z (through a window)
+    if (pose === 'window') { if (!A.puffPose) A.puffY0 = A.root.position.y; A.puffPose = true; } else if (A.puffPose) { A.root.rotation.x = 0; A.root.position.y = A.puffY0; A.puffPose = false; }
+    if (!on) { A.pivots.head.position.fromArray(P0.head[0]); A.pivots.head.scale.fromArray(P0.head[1]); for (const k of ['leftShoulder', 'rightShoulder', 'leftHip', 'rightHip']) if (P0[k]) A.pivots[k].position.fromArray(P0[k]); A.puffD = 0; continue; }
+    const Dl = D / s, R = Dl / 2, cy = 2 + R * .92, kh = Math.max(1, Dl * .525 / 1.2);   // P3: face decal ≈ 45 % of the ball width (was .42 → 36 %)   // local units (the R6 body: hips at 2, torso 2–4)
+    A.ball.position.set(0, cy, 0); A.ball.scale.setScalar(R);
+    A.pivots.head.scale.set(P0.head[1][0] * kh, P0.head[1][1] * kh, P0.head[1][2] * kh); A.pivots.head.position.set(0, cy + R * .12 - .6 * kh, R * .58);
+    if (P0.leftShoulder) { A.pivots.leftShoulder.position.set(-R * .92, cy + R * .1, 0); A.pivots.rightShoulder.position.set(R * .92, cy + R * .1, 0); A.pivots.leftShoulder.rotation.z = -1.15; A.pivots.rightShoulder.rotation.z = 1.15; }   // arms stick out of the ball
+    if (P0.leftHip) { A.pivots.leftHip.position.set(-.55, cy - R * .93, 0); A.pivots.rightHip.position.set(.55, cy - R * .93, 0); }
+    if (A.puffPose) { A.root.rotation.x = -Math.PI / 2; A.root.position.y = A.puffY0 + R * s; }
+    A.puffD = D; } }
+// tuft 2A (opt-in): BEAST KIT actors (`style: 'beast'`, engine/beastrt.js) and low-tier crowds (spec.beastCrowds); null for every other spec
+const BEAST_ON = Object.values(spec.cast ?? {}).some(c => c.style === 'beast') || !!spec.beastCrowds?.length;
+const BEASTSHAKE = BEAST_ON ? (await import('./beast.js')).stompShake : null;
+const B2 = BEAST_ON ? await import('./beast.js') : null;   // P3B lantern keep-clear (worldOf)   // tuft 2B footfall shake
+const BEASTS = BEAST_ON ? await (async () => { const R = await import('./beastrt.js'), base = new URL('../', import.meta.url), names = [...Object.values(spec.cast ?? {}).filter(c => c.style === 'beast').map(c => c.preset), ...(spec.beastCrowds ?? []).flatMap(c => c.presets)];
+  return R.createBeasts({scene, spec, presets: await R.loadPresets(names, base), hdr: spec.post === 'cine', groundY: (x, z) => world?.groundY?.(x, z) ?? 0, resolveXZ: v => (p => [p[0], p[2]])(resolve(typeof v === 'string' ? {anchor: v} : v)), shots, FPS, markAt: (c, t) => markAt(c, t), base}); })() : null;
 for (const [name, c] of Object.entries(spec.cast ?? {})) {
+  if (c.style === 'beast') { cast[name] = {a: BEASTS.actors[name], c, beast: true}; continue; }   // tuft 2A
   if (c.at) c.origin = resolve({anchor: c.at, offset: c.offset ?? [0, 0, 0]});
+  if (c.style === 'dog') { const d = buildDog({scale: c.scale ?? 1, name, colors: c.colors ?? null}); scene.add(d.root); cast[name] = {a: d, c, dragon: true, dog: true}; continue; }   // E4: the DOG (creature entry like the dragon; driveDog)
   if (c.style === 'dragon') { const d = buildDragon({scale: c.scale ?? 1, name, colors: c.colors ?? null, face: c.dragonFace ?? null, baby: !!c.baby, wingScale: c.wingScale ?? 1, rim: c.rim ?? null, spikes: c.spikes ?? 1, saddle: !!c.saddle}); scene.add(d.root); cast[name] = {a: d, c, dragon: true}; continue; }
   if (c.style === 'v2' || c.style === 'v5') { if (c.troupe === 'AFK') { c.keys ??= [[0, troupeData.AFK.pose ?? 'walk']]; c.faces ??= [[0, 'neutral']]; }
-    const pre0 = c.troupe ? resolveTroupe(c, troupeData) : c.town ? townsperson(c.town) : c.preset ? {...presets[c.preset], ...(c.with ?? {})} : c;
-    const pre1 = c.style === 'v5' || spec.look4 ? {...pre0, body: 'v5', faceStyle: pre0.faceStyle ?? 'v5'} : pre0;   // Actor v5 + Faces v5 (owner's sheet; 'v4' stays opt-in) (2b: every actor of a look4 episode)
-    const pre2 = HERO_COLS && c.troupe !== 'HERO' && pre1.outfit ? {...pre1, outfit: heroSafeOutfit(pre1.outfit, HERO_COLS, {minL: NIGHT_EP ? .32 : 0})} : pre1;   // v4 1b: nobody dresses like the hero
-    const pre3 = spec.look4 && !pre2.regions && pre2.outfit ? {...pre2, regions: outfitRegions(pre2.outfit, pre2.skin ?? '#f5cd30'), outfit: null} : pre2;   // 2b: outfits as colour regions (data)
-    const pre = FACES_V3 && !pre3.faceStyle ? {...pre3, faceStyle: 'v3'} : pre3;   // Faces v3: default for season 1 (or spec.faces 'v3')
-    if (spec.format === 5 && pre.build !== 'youth' && !(pre.age < 18)) pre.scale = 1;   // format v5: every adult stands at the same height (builds differ in shape, not size)
-    const a = buildActor(c.noTag ? {...pre, tag: null} : pre, name); scene.add(a.root); cast[name] = {a, c, v2: true}; }
+    const pre = presetOf(c);
+    const a = buildActor(c.noTag ? {...pre, tag: null} : pre, name); scene.add(a.root); cast[name] = {a, c, v2: true};
+    if (spec.lod && c.lod) { const {costume, ...cn} = c, an = buildActor(presetOf(cn), name); an.root.visible = false; scene.add(an.root); cast[name].lod = {far: a, near: an}; }   // E1b (opt-in spec.lod): full-detail twin, swapped in by camera distance
+    if (spec.decorate && WMOD?.decorate) WMOD.decorate(a, name, pre, c); }   // Touch Grass E1 (opt-in spec.decorate): the world module dresses an actor once (headset, armor, held props)
   else { const a = createBaseAvatar({color: c.color ?? 0xf2c94c}); scene.add(a.root); cast[name] = {a, c}; }
+}
+// E1b crowd LOD (opt-in spec.lod {near: 18, max: 24}): cast entries with `lod: true` carry a full-detail twin; per frame the
+// nearest ≤ max of them within `near` studs of the camera (to the chest, 2.6 up) show it, the rest their far (CROWD) build.
+const LODS = spec.lod ? Object.entries(cast).filter(([, x]) => x.lod) : [];
+function applyLod(camPos, t) {
+  const dists = LODS.map(([name]) => { const m = markPos[name]; return m ? Math.hypot(m[0] - camPos[0], m[1] + 2.6 - camPos[1], m[2] - camPos[2]) : Infinity; });
+  const pick = lodPick(dists, S6?.lodNear(t) ?? spec.lod.near ?? 18, spec.lod.max ?? 24);   // E2: a crowd-bloom shot swaps the nearest dummies to full detail
+  LODS.forEach(([name, x], i) => { const want = pick.has(i) ? x.lod.near : x.lod.far, other = want === x.lod.near ? x.lod.far : x.lod.near;
+    if (x.a !== want) { x.a = want; poseOne(name, x, t, {}); }
+    other.root.visible = false; want.root.visible = x.c.visible ? valueAt(x.c.visible, t, true) : true; });
+}
+// E3b D1 (opt-in shot.clear): hide non-subject dummies (crowd or named DUMMY) standing between the lens and the subject or within
+// 2.5 studs of the lens (engine/clear6.js); lying pile bodies count as ground (lens rule only). Restored at the next drawFrame.
+const CLEARED = [];
+function unclear() { for (const r of CLEARED) r.visible = true; CLEARED.length = 0; }
+function applyClear(shot, cam, tgt, fov, aspect) {
+  const subj = [shot.subject, ...(shot.pair ?? []), ...(shot.see ?? [])].filter(n => cast[n] && cast[n].a.root.visible), keep = shot.keep ?? [], kOf = n => cast[n].a.root.scale.x || 1;
+  camera.fov = fov; camera.aspect = aspect; camera.position.fromArray(cam); camera.up.set(0, 1, 0); camera.lookAt(...tgt); camera.updateProjectionMatrix(); camera.updateMatrixWorld(true);
+  const C = camera.position, rectOf = pts => { let x0 = 1e9, x1 = -1e9, y0 = 1e9, y1 = -1e9; for (const p of pts) { const q = p.clone().project(camera); if (q.z > 1) continue; x0 = Math.min(x0, (q.x + 1) / 2); x1 = Math.max(x1, (q.x + 1) / 2); y0 = Math.min(y0, (1 - q.y) / 2); y1 = Math.max(y1, (1 - q.y) / 2); } return x1 > x0 ? {x0, x1, y0, y1} : null; };
+  const corners = b => [0, 1, 2, 3, 4, 5, 6, 7].map(i => new T.Vector3(i & 1 ? b.max.x : b.min.x, i & 2 ? b.max.y : b.min.y, i & 4 ? b.max.z : b.min.z));
+  let sub = null; if (subj.length) { const b = new T.Box3(); for (const n of subj) { cast[n].a.root.updateMatrixWorld(true); cast[n].a.root.traverse(o => { if (o.isMesh && o.visible && !o.isSprite && !o.material?.transparent) b.expandByObject(o); }); } const r = rectOf(corners(b)); if (r) sub = {rect: r, dist: b.getCenter(new T.Vector3()).distanceTo(C)}; }   // between = nearer than the subject's centre
+  else { const p = new T.Vector3(...tgt); sub = {rect: {x0: .35, x1: .65, y0: .35, y1: .65}, dist: p.distanceTo(C)}; }   // a world-object subject: the middle of the frame up to the target
+  const others = [];
+  for (const [n, x] of Object.entries(cast)) { if (subj.includes(n) || keep.includes(n) || x.c.troupe !== 'DUMMY' || !x.a.root.visible || !markPos[n]) continue; const k = kOf(n), p = x.a.root.position, c = new T.Vector3(p.x, p.y + 2.65 * k, p.z);
+    const lensD = Math.max(0, Math.hypot(C.x - p.x, C.z - p.z) - 1.3 * k) + Math.max(0, C.y - (p.y + 5.3 * k), p.y - C.y);
+    if (x.s6lie) { others.push({name: n, rect: null, dist: Infinity, lensD}); continue; }   // a body in the pile is ground: the lens rule only
+    const b = new T.Box3(new T.Vector3(p.x - 1.3 * k, p.y, p.z - 1.3 * k), new T.Vector3(p.x + 1.3 * k, p.y + 5.3 * k, p.z + 1.3 * k));
+    const inside = subj.some(m => markPos[m] && Math.hypot(markPos[m][0] - p.x, markPos[m][2] - p.z) < 1.6 * k);   // standing inside a subject's body: hidden too
+    others.push({name: n, rect: rectOf(corners(b)), dist: inside ? -1 : c.distanceTo(C), lensD}); }
+  for (const n of clearScreen(sub, others)) { const r = cast[n].a.root; r.visible = false; CLEARED.push(r); }
 }
 // format v5 lightsCascade (world effect): spec.effects [{type: 'lightsCascade', at, step, on, color, size, points: [[x, y, z]...] | {anchor, offset}[]}]
 const cascades = (spec.effects ?? []).filter(e => e.type === 'lightsCascade').map(e => { const g = new T.Group(); g.name = 'lightsCascade';
@@ -162,6 +265,18 @@ function updateCascades(t) { for (const {e, bulbs} of cascades) { const on = cas
 // Look 6 (opt-in spec.look6): the shot's light state (looks4 <preset>.v6) mixed into the baked layers; the first lightsCascade drives the
 // pendants and zone signs on (its fraction of bulbs lit; no cascade = fully on). Presets without v6 (the dawn street) keep the last state.
 const LOOK6 = !!(spec.look6 && world?.setLight6), CASC6 = cascades[0]?.e ?? null;
+function applyMood(shot, n) {   // P4: exposure × 2^ev, saturation, temperature tint, haze, rim; after the look has set the frame's exposure
+  if (!M6) return; const u = M6.moodUniforms(shot), pe = M6.payoffEV(shots, n); renderer.toneMappingExposure *= pe === null ? u.exposure : 2 ** pe;
+  MOODU.uMoodSat.value = u.sat; MOODU.uMoodTint.value.set(...u.tint); MOODU.uMoodHaze.value = u.haze; if (LOOK5B && u.rim !== 1) U5B.uRim.value *= u.rim;
+  // P5b (all 0 / 1 by default = no change): bloom, vignette, sky exposure, fill (hemisphere) and rim temperature, shadow hardness. The look has just set the frame's colours, so these never accumulate.
+  MOODU.uMoodBloom.value = u.bloom; MOODU.uMoodVig.value = u.vignette; renderer.getDrawingBufferSize(MOODU.uMoodRes.value);
+  const kel = (c, K) => { if (c && K) { c.r *= 1 + K * 1.2e-4; c.b *= 1 - K * 1.2e-4; } };
+  if (look?.sky && u.skyEV) { const su = look.sky.material.uniforms, k = 2 ** u.skyEV; su.top.value.multiplyScalar(k); su.horizon.value.multiplyScalar(k); }
+  if (look?.hemi && u.fillK) kel(look.hemi.color, u.fillK);   // fill temperature: the sky half of the hemisphere light
+  if (look?.hemi && (u.groundNeutral || u.groundGain !== 1)) { const g = look.hemi.groundColor, l = .2126 * g.r + .7152 * g.g + .0722 * g.b; g.r += (l - g.r) * u.groundNeutral; g.g += (l - g.g) * u.groundNeutral; g.b += (l - g.b) * u.groundNeutral; g.multiplyScalar(u.groundGain); }   // ground bounce toward grey (stops the grass tint on a jacket seen from below)
+  if (look?.rim && u.rimK) kel(look.rim.color, u.rimK);
+  if (look?.sun?.shadow && u.shadow !== 1) look.sun.shadow.radius = 1 / u.shadow;
+}
 function apply6(shot, t) { if (!LOOK6) return; const v6 = look.presets[shot.look ?? spec.look4]?.v6; if (!v6) return; world.setLight6(v6, CASC6 ? cascadeFrac(t, CASC6, cascades[0].bulbs.length) : 1);
   if (U5B) for (const [name, u] of Object.entries(U5B.poolOf)) { const m = markPos[name]; u.value = m ? actorPool(world.lightAt6([m[0], (world.groundY?.(m[0], m[2]) ?? 0) + 2.5, m[2]]), v6.actorPool) : 1; } }   // actors in a pool read brighter
 if (Object.values(cast).some(x => x.v2)) await loadFont();
@@ -194,6 +309,25 @@ if (LOOK5B) {
   for (const e of litSwap) { e.mc = mine(e.mc, e.name); e.std = mine(e.std, e.name); e.mesh.material = e.name === litNow ? e.std : e.mc; }
   for (const x of Object.values(cast)) if (x.v2) x.a.root.traverse(o => { if (o.name === 'face_decal') for (const m of [].concat(o.material)) L5B.patchDecal(m, U5B); });   // in place: setFace4 swaps the decal's map
   for (const [name, x] of Object.entries(cast)) if (x.v2) { const w = 4.2 * x.a.root.scale.x, b = L5B.contactBlob(P5B(spec.look4).blob.radius * w, P5B(spec.look4).blob.opacity); b.visible = false; scene.add(b); blobs5b[name] = b; }
+}
+// Kit 1: under a backdrop every actor gets the look5b fresnel rim (strength .6) and the +0.3 EV actor lift (look5b DEFAULTS.actorEV), per-actor material clones.
+if (spec.backdrop && !LOOK5B) {
+  const p = L5B.params(null), own = new Map();   // Kit 1c: per-actor uniforms, so a scaleReveal subject gets rim .9 and the others .6
+  for (const [name, x] of Object.entries(cast)) if (x.v2) {
+    const U = L5B.makeUniforms({...p, rim: {...p.rim, strength: .6}}); BD.rims[name] = U.uRim;
+    const mine = m => Array.isArray(m) ? m.map(mine) : !m || m.isMeshBasicMaterial || m.isSpriteMaterial ? m : (own.has(m) ? own : own.set(m, L5B.patchActor(m.clone(), U))).get(m);
+    x.a.root.traverse(o => { if (!o.isMesh) return; if (o.name === 'face_decal') for (const m of [].concat(o.material)) L5B.patchDecal(m, U); else o.material = mine(o.material); });
+  }
+}
+if (BD) {   // Kit 1c: world meshes (not actors, sky, catcher) with their world bounding-sphere centres, hidden when > 160 units from the camera
+  const roots = Object.values(cast).map(x => x.a?.root).filter(Boolean), inActor = o => roots.some(r => { for (let q = o; q; q = q.parent) if (q === r) return true; return false; });
+  scene.updateMatrixWorld(true);
+  scene.traverse(o => { if (!o.isMesh || o === BD.sky || o.name === 'shadowCatcher' || o.name === 'groundedSkybox' || o.userData.live || inActor(o)) return;
+    if (!o.geometry.boundingSphere) o.geometry.computeBoundingSphere(); BD.cull.push({o, c: o.geometry.boundingSphere.center.clone().applyMatrix4(o.matrixWorld)}); });
+  BD.pre = (cam, shot) => { BD.sky.position.x = cam.position.x; BD.sky.position.z = cam.position.z; const hid = [];
+    for (const e of BD.cull) if (e.o.visible && e.c.distanceTo(cam.position) > 160) { e.o.visible = false; hid.push(e.o); }
+    for (const [n, u] of Object.entries(BD.rims)) u.value = shot?.move === 'scaleReveal' && (shot.subject ?? shot.actor) === n ? .9 : .6;
+    return () => { for (const o of hid) o.visible = true; }; };
 }
 function apply5b(shot) {
   if (!LOOK5B) return; const p = P5B(shot.look ?? spec.look4);   // E1 fix 2 (opt-in per shot): shot.rim {color, strength, power, away}, shot.actorEV
@@ -265,7 +399,51 @@ function glowProp(shot) {
 }
 const applyLift = shot => { const f = spec.actorLift !== undefined ? 1 : ['night', 'nightBright'].includes(shot?.look ?? spec.look) ? 1 : 0; for (const [m, e] of liftMats) m.emissive.copy(e).multiplyScalar(f); };
 
+// P3 acting v6 (opt-in spec.acting === 6, v6 actors only): shot `actions` [{actor, verb | cycle | face, at: s (shot-local) |
+// {word, nth}, intensity, target, facing, hold}] + spec.talk [{actor, line, gesture?, stress?}] compile into per-actor tracks
+// (engine/acting6.js); the KEY of each verb lands on its time / word start. Specs without `acting: 6` never load it.
+const ACT6 = spec.acting === 6 ? await import('./acting6.js') : null, R6 = RIG6 && ACT6 ? await import('./r6.js') : null;
+const actTracks = ACT6 ? await (async () => {
+  const get = async u => { try { const r = await fetch(new URL('../' + u, import.meta.url)); return r.ok ? await r.json() : null; } catch { return null; } };
+  const cues = await get(spec.cues ?? `stories/${spec.slug}/cues.json`) ?? await get(`stories/${spec.slug}/build/cues.json`), env = await get(`stories/${spec.slug}/build/envelope.json`);
+  const actions = shots.flatMap(sh => (sh.actions ?? []).map(a => { const b = typeof a.at === 'number' ? {...a, at: sh.start / FPS + a.at} : {...a}; if (b.target && cast[b.target] && cast[b.actor]) b.partnerScale = cast[b.target].a.root.scale.x / cast[b.actor].a.root.scale.x; return b; }));   // partnerScale picks the hug / carry variant
+  return ACT6.compileActing(actions, {cues, env, talk: spec.talk ?? []});
+})() : null;
+// Partners (hug, carry, comfort_kneel): the partner's meeting mark comes from the lead's mark; it must START within PARTNER_TOL of it —
+// a Brief that places it further away gets a walk-in (walk cycle, straight line at CYCLES.walk.v) ending at the verb's start (never a slide).
+const markOfActor = (name, t) => { const c = cast[name].c, m = markAt(c, t); return [m[0], m[2]]; };
+const actPlans = [];
+if (ACT6) for (const [pn, tr] of Object.entries(actTracks)) for (const [i, it] of tr.items.entries()) {
+  if (!it.partnerOf) continue;
+  const lead = cast[it.partnerOf], lt = actTracks[it.partnerOf].items.find(x => x.key === it.key && x.target === pn), ts = it.start, prev = tr.items[i - 1], avail = ts - (prev ? prev.start + ACT6.timing(ACT6.VERBS[prev.verb] ?? ACT6.VERBS.idle_alive).D : 0);
+  const plan = ACT6.partnerPlan({verb: lt?.verb ?? it.verb, leadPos: markOfActor(it.partnerOf, ts), leadYaw: (markOf(lead.c, ts).yaw ?? 0) * Math.PI / 180, leadScale: lead.a.root.scale.x, partnerPos: markOfActor(pn, ts), start: ts, avail, walkIn: it.walkIn !== false, facing: -(it.facing ?? 0)});
+  if (!plan) continue; it.plan = plan; actPlans.push({partner: pn, lead: it.partnerOf, verb: lt?.verb ?? it.verb, key: it.key, start: ts, ...plan});
+  if (plan.walk) tr.cycles.push({name: 'walk', start: plan.walk.t0, until: ts});
+}
+function actingOrigin(name, t, at, yaw) {
+  const tr = actTracks?.[name]; if (!tr) return [at, yaw];
+  const wk = tr.items.find(x => x.plan?.walk && t >= x.plan.walk.t0 && t < x.start);   // walk-in: straight line, constant speed, turning to face the mark on arrival
+  if (wk) { const w = wk.plan.walk, u = (t - w.t0) / w.dur, to = w.to, from = w.from, h = Math.atan2(to[0] - from[0], to[1] - from[1]), e = x => x * x * (3 - 2 * x), turn = e(Math.min(1, (t - w.t0) / .2)), end = e(Math.max(0, (t - (wk.start - .3)) / .3));
+    const y1 = yaw + Math.atan2(Math.sin(h - yaw), Math.cos(h - yaw)) * turn, y2 = y1 + Math.atan2(Math.sin(wk.plan.yaw - y1), Math.cos(wk.plan.yaw - y1)) * end;
+    return [[from[0] + (to[0] - from[0]) * u, at[1], from[1] + (to[1] - from[1]) * u], y2]; }
+  const it = tr.items.findLast(x => x.start <= t); if (!it?.partnerOf) return [at, yaw];
+  const lead = cast[it.partnerOf], lat = markAt(lead.c, t), lyaw = (markOf(lead.c, t).yaw ?? 0) * Math.PI / 180, k = lead.a.root.scale.x, rot = ([x, y, z]) => [x * Math.cos(lyaw) + z * Math.sin(lyaw), y, -x * Math.sin(lyaw) + z * Math.cos(lyaw)];
+  const T = ACT6.timing(ACT6.VERBS[it.verb]), sm = x => { x = Math.min(1, Math.max(0, x)); return x * x * (3 - 2 * x); };
+  const mark = it.plan?.mark ?? [at[0], at[2]], myaw = it.plan?.yaw ?? yaw;
+  if (it.two.follow) {   // carry: the partner stands on its mark through the pickup, then rides the lead's body (1-frame stagger behind the lead's rise)
+    const o = ACT6.carryOrigin(ACT6.sampleActing(actTracks[it.partnerOf], t, {build: lead.a.build}).sample, lead.a.build, it.verb, cast[name].a.root.scale.x / k), p = rot(o.p).map(x => x), w = ACT6.carryW(it.verb, t, it.start);
+    const rid = [lat[0] + p[0] * k, lat[1] + p[1] * k, lat[2] + p[2] * k], gnd = [mark[0], at[1], mark[1]];
+    return [rid.map((x, i) => gnd[i] + (x - gnd[i]) * w), myaw + (lyaw + o.yaw * Math.PI / 180 - myaw) * w];
+  }
+  if (it.plan?.walk) return [[mark[0], at[1], mark[1]], myaw];   // walked in: already on the mark
+  const e = sm((t - it.start) / (T.ant + ACT6.VERBS[it.verb].act));   // within PARTNER_TOL: moved in over the anticipation + action
+  return [[at[0] + (mark[0] - at[0]) * e, at[1], at[2] + (mark[1] - at[2]) * e], yaw + Math.atan2(Math.sin(myaw - yaw), Math.cos(myaw - yaw)) * e];
+}
 const markPos = {};
+// E2 story mechanics (opt-in spec.story6): drains, blooms, crowd, giant hand, tumble, air catch, splash, tags, spawn (engine/story6rt.js)
+const S6 = spec.story6 ? await (await import('./story6rt.js')).createStory6({spec, scene, cast, FPS, markAt, markOf, markPos, driveActor, shots, groundY: (x, z) => world?.groundY?.(x, z) ?? 0,
+  anchorPos: n => { const an = anchors[n]; if (!an) throw Error('story6: unknown anchor ' + n); return [...an.position]; },
+  cameraAt: tt => { const sh = shots.findLast(s => Math.round(tt * FPS) >= s.start) ?? shots[0]; return sampleCamera({...sh, fps: FPS}, Math.max(0, tt - sh.start / FPS), markPos); }}) : null;
 // Where an actor's mark is at time t (pure: no posing). poseCast and A4 trails share it.
 function markAt(c, t) {
   const m = markOf(c, t), o = m.at ? resolve({anchor: m.at, offset: m.offset ?? [0, 0, 0]}) : (m.origin ?? [0, 0, 0]), tr = m.travel, d = tr ? tr.speed * Math.max(0, t - m.t0 - (tr.delay ?? 0)) : 0;
@@ -281,14 +459,33 @@ const talkOf = (name, t) => { if (!flapShapes) return null; const f = Math.round
   return flapActive(sh, name, {narrator: spec.lipFlap.narrator ?? 'HERO'}) ? shapeAt(flapShapes, t, FPS) : null; };
 function poseCast(t) {
   const out = {};
-  for (const [name, {a, c, v2, dragon}] of Object.entries(cast)) {
+  for (const [name, x] of Object.entries(cast)) poseOne(name, x, t, out);
+  BEASTS?.post(t, t, n => cast[n] && !cast[n].beast ? headOf(cast[n]).toArray() : cast[n]?.a.head.position.toArray() ?? null, n => { const x = cast[n]; if (!x || x.beast) return null; return {head: headOf(x).toArray(), yaw: x.a.root.rotation.y, s: x.a.root.scale.x}; });   // tuft 2A: BLINK orbits a posed head; low-tier crowds (2B: beasts on ONES always)
+  if (PUFFERS.length) puffHeroes(t);   // tuft 2B: hero R6 puff (ball proxy)
+  POWERS?.frame(t);   // tuft 2B: powers FX + props (on ones)
+  return out;
+}
+function poseOne(name, x, t, out) {
+  if (S6?.owns(name)) { S6.drive(name, x, t, out); return; }   // E2: the story crowd is driven by engine/story6rt.js
+  if (x.beast) { const p = BEASTS.drive(name, t, t); if (p) markPos[name] = p; out[name] = p ?? x.a.root.position.toArray(); return; }   // tuft 2B: beasts and FX on ones always (twos = R6 humanoids only)
+  const {a, c, v2, dragon} = x;
+  {
     const m = markOf(c, t), yaw = (m.yaw ?? 0) * Math.PI / 180;
     if (v2 || dragon) {
       const at = markAt(c, t);
       markPos[name] = [...at];
-      if (dragon) driveDragon(a, t, {keys: c.keys ?? [[0, 'perch']], origin: {position: at, yaw}});
-      else driveActor(a, t, {keys: c.keys ?? [[0, c.action ?? 'idle']], faces: c.faces, ambient: !!c.ambient,
-        origin: {position: at, yaw}, tags: c.tags, fps: FPS, tools: c.tools, toolsLeft: c.toolsLeft, stat: c.stat, bubble: c.bubble, visible: c.visible, kit: c.kit, blinkSuppress: blinkOff(t), talk: talkOf(name, t), ...(M5B ? {m5b: M5B} : {})});
+      const tq = TWOS && !x.dog && !dragon ? twosTime(t, FPS) : t, atq = tq === t ? at : markAt(c, tq);   // twos: the body and its faces sample the even frame; markPos (camera paths) stays on ones
+      if (x.dog) driveDog(a, t, {keys: c.keys ?? [[0, 'idle']], origin: {position: at, yaw}});
+      else if (dragon) driveDragon(a, t, {keys: c.keys ?? [[0, 'perch']], origin: {position: at, yaw}});
+      else if (actTracks?.[name] && (a.body === 'v6' || R6)) {   // P3 acting v6: the track's sample, faces on their words, props in the hands
+        const tr = actTracks[name], [pos, y2] = actingOrigin(name, tq, atq, yaw), still = M6 && shots.findLast(s => Math.round(t * FPS) >= s.start)?.still, tS = still ? shots.findLast(s => Math.round(t * FPS) >= s.start).start / FPS + .001 : tq, act = (R6 ?? ACT6)[R6 ? 'sampleActingR6' : 'sampleActing'](tr, tS, {seed: a.blinkSeed ?? 1, build: a.build});   // P5b `still` shot (moods only): ambient motion off = the track sampled at the shot's first frame
+        driveActor(a, tq, {keys: [[0, 'idle']], acting: () => act.sample, faces: tr.faces.length ? [[0, c.faces?.[0]?.[1] ?? a.preset.face ?? 'smile'], ...tr.faces] : c.faces, origin: {position: pos, yaw: y2}, tags: c.tags, fps: FPS, visible: c.visible, blinkSuppress: blinkOff(t) || !!still, talk: talkOf(name, tq), ...(spec.faceLife && !still ? {faceLife: true} : {})});
+        for (const [id, pr] of Object.entries(act.props)) { const o = scene.getObjectByName(id); if (!o || !pr) continue; const k = a.root.scale.x, cy = Math.cos(y2), sy = Math.sin(y2);
+          o.position.set(pos[0] + (pr.p[0] * cy + pr.p[2] * sy) * k, pos[1] + pr.p[1] * k, pos[2] + (-pr.p[0] * sy + pr.p[2] * cy) * k); }
+      }
+      else driveActor(a, tq, {keys: c.keys ?? [[0, c.action ?? 'idle']], faces: c.faces, ambient: !!c.ambient,
+        origin: {position: atq, yaw}, tags: c.tags, fps: FPS, tools: c.tools, toolsLeft: c.toolsLeft, stat: c.stat, bubble: c.bubble, visible: c.visible, kit: c.kit, blinkSuppress: blinkOff(t), talk: talkOf(name, tq), ...(M5B ? {m5b: M5B} : {}), ...(spec.faceLife ? {faceLife: true} : {})});   // P2: faces v6 life (opt-in)
+      if (v2 && spec.decorate) WMOD?.poseActor?.(a, name, t, c);   // Touch Grass E1 (opt-in): per-frame dress state, pure in t
       if (dragon && c.visible) a.root.visible = valueAt(c.visible, t, true);
     } else {
       const s = sampleAction(c.action ?? 'idle', t, c.action === 'walk' ? {gait: c.gait ?? 'readable'} : {});
@@ -297,7 +494,7 @@ function poseCast(t) {
     // follow cameras ride the actor's mark (path), not the posed root: strain shakes and walk bobs never jolt the camera
     out[name] = (v2 || dragon) ? markPos[name] : a.root.position.toArray();
   }
-  return out;
+  if (S6 && v2) S6.post(name, x, t, out);   // E2: tumble / held / air / spawn / tag overrides on top of the drive
 }
 
 // ---- Effects (§5.3): targets are cast names ("knight1", "knight1.tool") or world object names; points
@@ -325,7 +522,7 @@ const effects = createEffects([...(spec.effects ?? []).filter(e => e.type !== 'l
 // from behind the current subject in wides and mediums (one SpotLight, no shadow); "Nobody" and older specs: off.
 const HERO_READ = spec.season === 1 || spec.heroRead === true;
 const subjectMains = HERO_READ ? [...new Set(shots.map(s => s.subject ?? s.fit?.actor).filter(n => cast[n]?.a.preset?.outfit?.main).map(n => cast[n].a.preset.outfit.main))] : [];
-const crowds = createCrowds(scene, spec.crowds ?? [], {...(spec.look4 ? {body: 'v5', material: toMatcap(new T.MeshStandardMaterial({color: '#ffffff', roughness: .45})), colourScale: 1 / look.MC_LIGHT, hairMaterial: toMatcap(hair4Material())} : {}), groundY: world?.groundY ?? (() => 0), resolveCentre: c => Array.isArray(c) ? c : (p => [p[0], p[2]])(resolve(c)), avoidColours: HERO_COLS ? [...subjectMains, ...HERO_COLS] : subjectMains, faces: spec.look4 ? 'v5' : FACES_V3 ? 'v3' : 'v2'});
+const crowds = createCrowds(scene, spec.crowds ?? [], {...(spec.look4 ? {body: BODY6 ? 'v6' : 'v5', material: toMatcap(new T.MeshStandardMaterial({color: '#ffffff', roughness: .45})), colourScale: 1 / look.MC_LIGHT, hairMaterial: toMatcap(hair4Material())} : BODY6 ? {body: 'v6'} : {}), groundY: world?.groundY ?? (() => 0), resolveCentre: c => Array.isArray(c) ? c : (p => [p[0], p[2]])(resolve(c)), avoidColours: HERO_COLS ? [...subjectMains, ...HERO_COLS] : subjectMains, faces: spec.look4 ? 'v5' : FACES_V3 ? 'v3' : 'v2'});
 // format v5 3b-R (opt-in spec.crowdCull): each crowd group is culled by its own bounds (ambient kids stay in their area), so a
 // shot pays only for the groups it sees. Bounds = the group's area + 3 units, computed once from the members after the first pose.
 if (spec.crowdCull) { crowds.update(0, {}); scene.traverse(o => { if (o.isInstancedMesh && /^crowd_/.test(o.parent?.name ?? '')) { o.computeBoundingSphere(); o.boundingSphere.radius += 3; o.frustumCulled = true; } }); }
@@ -382,12 +579,28 @@ function shotShadow(shot) {
 // format v5 story props (opt-in spec.props): toy props (parts/sets4/props4.js) placed and moved by timelines —
 //   {id, prop, seed, scale, pos: [[t, [x, y, z]], [t, [x, y, z], 'ramp']…], rot: [[t, [x°, y°, z°]]…], visible: [[t, bool]…]}; named `prop_<id>`.
 const storyProps = [];
-if (spec.props?.length) { const {toyProp} = await import('../parts/sets4/props4.js');
-  for (const p of spec.props) { const g = toyProp(p.prop, p.seed ?? 1, p); if (g.userData.ready) await g.userData.ready; g.name = 'prop_' + p.id; g.scale.setScalar(p.scale ?? 1); g.traverse(o => { o.userData.live = true; }); scene.add(g); storyProps.push({p, g}); } }
+if (spec.props?.length) { const {toyProp} = await import('../parts/sets4/props4.js'), P7 = spec.props.some(p => p.set === 'props7') ? (await import('../parts/sets4/props7.js')).PROPS7 : null;
+  for (const p of spec.props) { const g = p.set === 'props7' ? P7[p.prop](p.p ?? {}) : toyProp(p.prop, p.seed ?? 1, p); if (g.userData.ready) await g.userData.ready; g.name = 'prop_' + p.id; g.scale.setScalar(p.scale ?? 1); g.traverse(o => { o.userData.live = true; }); scene.add(g); storyProps.push({p, g}); } }   // Touch Grass E1 (opt-in p.set 'props7'): props7 builders, p.p = builder options
+// tuft 1B (opt-in spec.glowCubes [{at, size, color, hdr}]): emissive stand-ins (a glowing beast); HDR (> 1) only under post 'cine'
+const glowCubes = (spec.glowCubes ?? []).map((g, i) => { const m = new T.Mesh(new T.BoxGeometry(g.size ?? 1.2, g.size ?? 1.2, g.size ?? 1.2), new T.MeshBasicMaterial({color: g.color ?? '#7fe8ff'}));
+  m.material.userData.glow = 1; if (g.hdr) m.material.userData.glowHDR = g.hdr; m.position.set(...g.at); m.userData.live = true; m.name = 'glowCube_' + i; scene.add(m); return m; });
+const CL = CINE_LOOK ? (await import('./cinelook.js')).createCineLook({renderer, scene, spec, aa: q.get('aa') !== '0'}) : null, CINE_OPTS = {bloom: true, grain: true, actorLight: true};
+// 1B fix: each actor's head centre above its root at load (rest pose, root yaw ignored: the head sits over the root axis)
+const CINE_HEAD = {}; if (CINE_CAM) for (const [n, x] of Object.entries(cast)) if (x.v2) { x.a.root.updateMatrixWorld(true); const b = new T.Box3().setFromObject(x.a.pivots.head, true), c = b.getCenter(new T.Vector3()); CINE_HEAD[n] = [0, c.y - x.a.root.position.y, 0]; }
+if (PF) for (const [n, x] of Object.entries(cast)) { if (x.beast || !x.a?.pivots?.head) continue; const ev = shots.flatMap(sh => (sh.puffs ?? []).filter(e => e.actor === n).map(e => ({size: e.size, t: sh.start / FPS + (e.at ?? 0), ...(e.pose ? {pose: e.pose} : {})}))).sort((a, b) => a.t - b.t);
+  if (!ev.length) continue; PUFFERS.push(n); PUFFEV[n] = ev.map(e => ({...e, size: e.size}));
+  const tm = x.a.parts.torso?.material, col = tm?.color ? tm.color.clone() : new T.Color('#2b2f38'), JB = spec.puffBall?.jacket, ball = JB ? jacketBall(JB, spec.puffBall.key ?? .55) : new T.Mesh(new T.IcosahedronGeometry(1, 2), new T.MeshStandardMaterial({color: col, roughness: .55, flatShading: true}));
+  ball.name = 'puffBall'; ball.visible = false; x.a.root.add(ball); x.a.ball = ball; x.a.torsoExtras = x.a.parts.torso ? x.a.parts.torso.children.slice() : []; }   // tuft 2B hero puff ball proxy
+// tuft 2B (opt-in): POWERS + PROPS (engine/powersrt.js) when a shot carries powers / fizzles / cage / chains, or spec.props2b, or a NIGHTFANG may breathe fire
+const POWERS = shots.some(sh => sh.powers?.length || sh.fizzles?.length || sh.cage || sh.chains) || spec.props2b?.length || (BEASTS && shots.some(sh => (sh.beasts ?? []).some(b => b.state === 'breathe' && cast[b.actor]?.a?.P?.name === 'NIGHTFANG')))
+  ? (await import('./powersrt.js')).createPowers({scene, spec, shots, FPS, hdr: CINE_LOOK, cast, beasts: BEASTS, groundY: (x, z) => world?.groundY?.(x, z) ?? 0}) : null;
+if (CL) { const roots = new Set(Object.values(cast).map(x => x.a.root)); CL.markGlow(scene, o => { for (let p = o; p; p = p.parent) if (roots.has(p)) return true; return false; }); CL.lightActors([...roots]); }
 // E1 fix (opt-in spec.hide): set objects hidden by name (a story prop replaces them)
 for (const n of spec.hide ?? []) { const o = scene.getObjectByName(n); if (o) o.visible = false; else console.warn('spec.hide: no object ' + n); }
 const vecAt = (keys, t, d) => keys?.length ? d.map((v, i) => valueAt(keys.map(k => [k[0], k[1][i], k[2], k[3]]), t, v)) : d;
-function updateProps(t) { for (const {p, g} of storyProps) { g.position.fromArray(vecAt(p.pos, t, [0, 0, 0])); const r = vecAt(p.rot, t, [0, 0, 0]); g.rotation.set(...r.map(v => v * Math.PI / 180)); g.visible = valueAt(p.visible, t, true); if (g.visible && g.userData.anim) g.userData.anim(t - (p.animAt ?? 0), p); } }   // E1 fix (opt-in): props5 moving parts, pure in t
+function updateProps(t) { for (const {p, g} of storyProps) { g.position.fromArray(vecAt(p.pos, t, [0, 0, 0])); const r = vecAt(p.rot, t, [0, 0, 0]); g.rotation.set(...r.map(v => v * Math.PI / 180)); g.visible = valueAt(p.visible, t, true); if (g.visible && g.userData.anim) g.userData.anim(t - (p.animAt ?? 0), p);
+  if (p.states && g.userData.setState) { const st = valueAt(p.states, t, null); if (st !== null && st !== g.userData.state) g.userData.setState(st); }   // Touch Grass E1 (opt-in): step states (headset on/off, visor screen)
+  if (p.flick && g.userData.setFlick) g.userData.setFlick(valueAt(p.flick, t, 0)); } }   // Touch Grass E1 (opt-in): giant finger flick u (ramp keys); E1 fix (opt-in): props5 moving parts, pure in t
 // World story state (Session 5): spec.worldState = {name: [[t, value], [t, value, 'ramp']...]} → world.setState.
 function applyWorldState(shot, t) {
   if (storyProps.length) updateProps(t);
@@ -435,25 +648,150 @@ function finishFrame(n, shot, t0) {
 // One scene state + render at frame mf (+ off frames, Look 5b sub-frames), into the current render target.
 function drawFrame(shot, mf, off, width, height, nudge) {
   const t = (mf.anim + off) / FPS;
+  if (CLEARED.length) unclear();
   setHeroLit(shot); const actors = poseCast(t);
-  const c = sampleCamera({...shot, fps: FPS}, Math.max(0, (mf.cam + off - shot.start) / FPS), actors);
+  const lt = M6 && shot.still ? 0 : Math.max(0, (mf.cam + off - shot.start) / FPS), c = CINE_CAM ? cineCamAt(shot, lt, width / height, t) : sampleCamera({...shot, fps: FPS}, lt, actors);   // P5b `still` (moods only): the camera is locked at its first frame
   if (mf.shake.some(v => v)) c.position = c.position.map((v, i) => v + mf.shake[i]);
+  if (shot.shake && BEASTS) { const who = typeof shot.shake === 'string' && cast[shot.shake]?.beast ? shot.shake : shot.subject, sh = (await0 => BEASTSHAKE(BEASTS.footfallsOf(who), t))(); c.position = c.position.map((v, i) => v + sh[i]); }   // tuft 2B: shot `shake` (true | beast name) shudders the camera on each footfall
+  if (LODS.length) applyLod(c.position, t);
+  if (shot.clear && c.position && c.target) applyClear(shot, c.position, c.target, c.fov, width / height);
   updateCascades(t);
-  world?.update(t); applyWorldState(shot, t); updateExtras(t, {camPos: c.position, size: shot.size, fill: shot.fill}); aimHeroSpots(shot, c.position); aimRim(shot, c.position); applyLift(shot); liftSubject(shot); glowProp(shot);
+  const tw = M6 && shot.still ? shot.start / FPS : t;   // P5b `still` shot (moods only): the world's own movers, crowds and clouds hold their first-frame state
+  world?.update(tw); applyWorldState(shot, t); S6?.frame(t); updateExtras(tw, {camPos: c.position, size: shot.size, fill: shot.fill}); aimHeroSpots(shot, c.position); aimRim(shot, c.position); applyLift(shot); liftSubject(shot); glowProp(shot);
   const fx = effects.apply(t, camera);   // poses effect targets; returns the shake offset and any timeOfDay blend
   const pos = c.position.map((v, i) => v + fx.camOffset[i]), tgt = c.target.map((v, i) => v + fx.camOffset[i] * .6);
   camera.fov = c.fov; camera.aspect = width / height; camera.position.fromArray(pos);
   camera.up.set(0, 1, 0); camera.lookAt(...tgt); camera.rotateZ(c.roll); camera.updateProjectionMatrix();
-  const cn = camNoise5b(shot, t); if (cn) { camera.rotateX(cn[0]); camera.rotateY(cn[1]); }   // Look 5b: static-shot micro-noise
+  if (CINE_CAM && c.noise) { camera.rotateX(c.noise[0]); camera.rotateY(c.noise[1]); camera.rotateZ(c.noise[2]); }   // tuft 1B handheld (rotation only)
+  const cn = CINE_CAM ? null : camNoise5b(shot, t) ?? (M6 && M6.moodUniforms(shot).camNoise ? camNoise(t, shots.indexOf(shot) + 1, M6.moodUniforms(shot).camNoise) : null); if (cn) { camera.rotateX(cn[0]); camera.rotateY(cn[1]); }   // Look 5b: static-shot micro-noise
   if (nudge) { const k = nudge / Math.sqrt(3); camera.translateX(k); camera.translateY(k); camera.translateZ(k); }
   world?.onCamera?.(camera.position.toArray());   // format v5 3b-R (opt-in): a world may hide what this camera cannot see (hall ↔ street)
-  if (look) { fx.look ? look.apply(...fx.look) : look.apply(shot.look ?? spec.look ?? 'day'); const sf = shotShadow(shot); poseCast(t); look.frameFixed(sf.centre, sf.radius, camera.position); look.update(t); }
-  apply5b(shot); apply6(shot, t);
+  if (look) { fx.look ? look.apply(...fx.look) : look.apply(shot.look ?? spec.look ?? 'day'); if (shot.key) look.apply(keyPreset(look.preset, camera.position.toArray(), tgt, shot.key));   // E1b (opt-in shot.key {el, offset}): key light from the camera side
+    const sf = shotShadow(shot); poseCast(t); look.frameFixed(sf.centre, sf.radius, camera.position); look.update(tw); }
+  apply5b(shot); apply6(shot, t); applyMood(shot, mf.anim);
   scene.updateMatrixWorld(true); effects.apply(t, camera); fitTags(scene, camera, {maxFrac: shot.tagMaxFrac ?? .06});
   if (spec.readableUi ?? !!look?.v3) { scene.updateMatrixWorld(true); enforceReadable(scene, camera, {focus: shot.focusUi ?? []}); }   // A5 §C: min text size + safe area (v3 worlds; "Nobody" untouched)
   renderer.info.autoReset = false; renderer.info.reset();   // A4: overlay passes (weather, cards) must not reset the scene counts
-  if (c.split) renderSplit(c.split, width, height); else renderer.render(scene, camera);
+  if (POWERS?.cull) POWERS.cull(camera, () => Object.entries(cast).flatMap(([n, x]) => { const a = x.beast ? BEASTS?.actors?.[n] : null;   // P3B lantern keep-clear: heads (+ 1.5 studs), Tuft's eyes
+    if (a?.P?.rig === 'puff' && a.sample) { const k = a.root.scale.x; return [{p: B2.worldOf(a.sample, 'body', [0, .05, .3]), r: Math.max(1.5, .32 * k) + 1.5}]; }
+    if (a) return a.P.rig === 'blink' ? [] : [{p: a.head.position.toArray(), r: (a.P.dims?.headH ?? .6) * (a.P.scale ?? 1) + 1.5}];
+    return x.a?.root?.visible === false ? [] : [{p: headOf(x).toArray(), r: .9 * (x.a?.root?.scale?.x ?? 1) + 1.5}]; }));
+  const undoBD = BD?.pre(camera, shot);
+  if (c.split) renderSplit(c.split, width, height); else if (CL) cineRender(shot, mf, off, lt, width, height); else renderer.render(scene, camera);
+  undoBD?.();
   return c;
+}
+// tuft 1B: the cine camera for a shot at local time lt (engine/cine.js; actors on their marks for the follow / framing simulation)
+function cineCtx(shot, aspect) {
+  const t0 = shot.start / FPS, subj = shot.subject && cast[shot.subject]?.v2 ? cast[shot.subject] : null;
+  let eyes = null, face = null, headH = 1.2;
+  const bSub = shot.subject && cast[shot.subject]?.beast && BEASTS.liveAt(shot.subject, t0) ? shot.subject : null;   // tuft 2B: a beast subject is followed and framed on its LIVE pose (pure sampleBeast), not its mark
+  if (bSub) { eyes = tt => BEASTS.liveAt(bSub, t0 + tt).head; face = tt => { const y = BEASTS.liveAt(bSub, t0 + tt).yaw; return [Math.sin(y), Math.cos(y)]; }; headH = BEASTS.liveAt(bSub, t0).headH; }
+  if (subj) { const h = headOf(subj).toArray(), r = subj.a.root.position, off = [h[0] - r.x, h[1] - r.y, h[2] - r.z];   // eye point = the posed head, carried along the mark
+    eyes = tt => { const mk = markAt(subj.c, t0 + tt); return [mk[0] + off[0], mk[1] + off[1], mk[2] + off[2]]; }; face = tt => { const yw = (markOf(subj.c, t0 + tt).yaw ?? 0) * Math.PI / 180; return [Math.sin(yw), Math.cos(yw)]; }; headH = 1.2 * subj.a.root.scale.x; }   // 1B fix: facing = the mark's yaw (pure in t: same frame = same camera in any render order)
+  // 1B fix: every v2 actor's eye point (posed head offset carried along its mark), head and body height → size band + all-subjects head fit
+  const hoff = Object.fromEntries(Object.entries(cast).filter(([, x]) => x.v2).map(([n, x]) => [n, {off: CINE_HEAD[n] ?? [0, 4.6 * x.a.root.scale.y, 0], s: x.a.root.scale.x, c: x.c}]));   // rest-pose head centre (measured once at load: same frame = same camera in any render order)
+  const bNames = BEASTS ? Object.keys(cast).filter(n => cast[n].beast && BEASTS.liveAt(n, t0)) : [];   // tuft 2B: beasts carry their live head + height
+  const headsAt = tt => Object.fromEntries([...Object.entries(hoff).map(([n, o]) => { const mk = markAt(o.c, t0 + tt); return [n, {eyes: [mk[0] + o.off[0], mk[1] + o.off[1], mk[2] + o.off[2]], headH: 1.2 * o.s, H: 5.3 * o.s}]; }),
+    ...bNames.map(n => { const l = BEASTS.liveAt(n, t0 + tt); return [n, {eyes: l.head, headH: l.headH, H: l.H}]; })]);
+  return {fps: FPS, aspect, cacheKey: `${shot.id}|${shot.start}|${aspect.toFixed(4)}`, headH, eyesAt: eyes, faceAt: face, headsAt, beastSubject: !!bSub, groundAt: (x, z) => world?.groundY?.(x, z) ?? 0,
+    actorsAt: tt => Object.fromEntries(Object.entries(cast).map(([n, x]) => [n, x.beast && bNames.includes(n) ? BEASTS.liveAt(n, t0 + tt).root : markAt(x.c, t0 + tt)]))};
+}
+const sampleCineShot = (shot, lt, aspect) => { const ctx = cineCtx(shot, aspect), c = CINE.sampleCine({...shot, fps: FPS}, lt, ctx);
+  if ((ctx.beastSubject || shot.angle) && c.position) { const g = ctx.groundAt(c.position[0], c.position[2]) + .3; if (c.position[1] < g) c.position = [c.position[0], g, c.position[2]]; }   // 2B: never under the ground (giant-subject head fit)
+  return c; };
+const cineCam0 = {};
+// tuft 4C (opt-in shot `tpl` under camera 'cine'): camera TEMPLATES (engine/camtpl.js), solved per frame from the subject's live pose; occlusion =
+// a double-sided raycast against the visible scene (set, cast, crowd, props; beasts are GPU-posed, so their meshes are not ray-tested; sky,
+// sprites, contact blobs and transparent parts never block). The swing search poses the cast at sampled times, then restores frame time.
+const CTPL = CINE_CAM && shots.some(s => s.tpl) ? await import('./camtpl.js') : null, TPLSTATE = {last: null, solved: {}};
+const cineCamAt = (shot, lt, aspect, tNow) => shot.tpl && CTPL ? sampleTplShot(shot, lt, aspect, tNow) : sampleCineShot(shot, lt, aspect);
+let tplBlk = null; const tplRay = new T.Raycaster(), tplOwner = new Map();
+function tplBlockers() {
+  if (tplBlk) return tplBlk; for (const [n, x] of Object.entries(cast)) if (!x.beast) x.a?.root?.traverse(o => tplOwner.set(o, n)); tplBlk = [];
+  scene.traverse(o => { if (!o.isMesh || o.isSprite || o.name === 'contactBlob' || o.userData.noOcclude) return; const ms = [].concat(o.material);
+    if (ms.some(m => !m || m.transparent || m.userData?.beast || m.isSpriteMaterial)) return; o.geometry.boundingSphere ?? o.geometry.computeBoundingSphere();
+    if (!o.isInstancedMesh && o.geometry.boundingSphere && o.geometry.boundingSphere.radius * Math.max(...o.getWorldScale(new T.Vector3()).toArray()) > 300 && (ms[0].side === T.BackSide || /sky|cloud/i.test(o.name))) return;   // the sky dome / cloud deck only (4C-2: big merged sets and terrain block)
+    tplBlk.push(o); });
+  return tplBlk; }
+const tplOwnerOf = o => { for (let p = o; p; p = p.parent) if (tplOwner.has(p)) return tplOwner.get(p); return null; };
+function tplDouble(fn) { const saved = []; for (const o of tplBlockers()) for (const m of [].concat(o.material)) if (m.side !== T.DoubleSide) { saved.push([m, m.side]); m.side = T.DoubleSide; } try { return fn(); } finally { for (const [m, sd] of saved) m.side = sd; } }
+function tplHits(from, dir, far) { tplRay.set(new T.Vector3(...from), new T.Vector3(...dir).normalize()); tplRay.near = 0; tplRay.far = far; return tplRay.intersectObjects(tplBlockers(), false).filter(h => visibleChain(h.object)); }
+const tplClear = (a, b, ignore) => { const d = b.map((v, i) => v - a[i]), l = Math.hypot(...d); return !tplHits(a, d, l).some(h => !ignore.includes(tplOwnerOf(h.object))); };
+const TPL_DIRS = [[1, 0, 0], [-1, 0, 0], [0, 1, 0], [0, -1, 0], [0, 0, 1], [0, 0, -1]];
+// the camera is free: nothing within .3 studs (.2 below) and not inside a closed mesh (≥ 5 of 6 axis rays first hit a back face)
+function tplFree(p) { let back = 0; for (const d of TPL_DIRS) { const h = tplHits(p, d, 80)[0]; if (!h) continue; if (h.distance < (d[1] < 0 ? .2 : .3)) return false;
+  const n = h.face.normal.clone(); if (h.object.isInstancedMesh && h.instanceId != null) { const m = new T.Matrix4(); h.object.getMatrixAt(h.instanceId, m); n.transformDirection(m); } n.transformDirection(h.object.matrixWorld); if (n.x * d[0] + n.y * d[1] + n.z * d[2] > 0) back++; }
+  return back < 5; }
+const tplPropH = {};
+function tplCtx(shot, aspect, tNow) {
+  const t0 = shot.start / FPS;
+  const subjectAt = (n, lt) => { const x = cast[n]; if (!x) return null;
+    if (x.beast) { const l = BEASTS?.liveAt(n, t0 + lt), sh = BEASTS?.shapeAt?.(n, t0 + lt); if (!l) return null;   // 4C-2: silhouette box, eye parts, breath jet
+      const ra = BEASTS.actors?.[n], o = ra ? [0, 1, 2].map(i => ra.root.position.getComponent(i) - l.root[i]) : [0, 0, 0], mv = p => p.map((v, i) => v + o[i]);   // where the beast is DRAWN (marks / riding; posed by the cast at this time), not its track
+      return {eyes: mv(l.head), headH: l.headH, H: l.H, foot: mv(l.root), face: [Math.sin(l.yaw), Math.cos(l.yaw)], box: sh && {min: mv(sh.box.min), max: mv(sh.box.max)}, pts: sh?.pts.map(mv), eyesL: sh?.eyes.map(e => ({...e, p: mv(e.p)})), jet: sh?.jet}; }
+    if (!x.v2) return null; const s = x.a.root.scale.x, yw = (markOf(x.c, t0 + lt).yaw ?? 0) * Math.PI / 180;   // the POSED head (acting moves it off the mark; the cast is posed at this time by atTime / the frame); facing = the mark's yaw (smoothed by camtpl)
+    const r = x.a.root, ry = r.rotation.y, rt = [Math.cos(ry), 0, -Math.sin(ry)], f = r.position.toArray(), at = (h, k) => [f[0] + rt[0] * k, f[1] + h, f[2] + rt[2] * k];   // 4C-2: torso centre + both shoulders (R6 proportions × scale)
+    return {eyes: headOf(x).toArray(), headH: 1.2 * s, H: 5.3 * s, foot: f, face: [Math.sin(yw), Math.cos(yw)], body: [at(3.0 * s, 0), at(3.7 * s, .8 * s), at(3.7 * s, -.8 * s)]}; };
+  const propAt = (n, lt) => { const sp = storyProps.find(q => q.p.id === n || q.g.name === n);
+    if (sp) { tplPropH[n] ??= (b => b.isEmpty() ? 1 : b.max.y - b.min.y)(new T.Box3().setFromObject(sp.g)); const p = vecAt(sp.p.pos, t0 + lt, [0, 0, 0]); return {centre: [p[0], p[1] + tplPropH[n] / 2, p[2]], H: tplPropH[n]}; }
+    const p2 = (spec.props2b ?? []).findLast(q => q.kind === n); if (p2?.at) { const H = 3 * (p2.scale ?? 1); return {centre: [p2.at[0], p2.at[1] + H / 2, p2.at[2]], H}; }
+    const s = subjectAt(n, lt); return s ? {centre: [s.foot[0], s.foot[1] + s.H / 2, s.foot[2]], H: s.H} : null; };
+  const atTime = lt => { poseCast(t0 + lt); scene.updateMatrixWorld(true); }, restore = () => { poseCast(tNow); scene.updateMatrixWorld(true); };
+  return {fps: FPS, aspect, cacheKey: `${shot.id}|${shot.start}|${aspect.toFixed(4)}`, groundAt: (x, z) => world?.groundY?.(x, z) ?? 0, subjectAt, propAt, atTime, endSamples: restore,
+    clear: tplClear, free: tplFree};
+}
+function sampleTplShot(shot, lt, aspect, tNow) {
+  const ctx = tplCtx(shot, aspect, tNow); scene.updateMatrixWorld(true);
+  const c = tplDouble(() => CTPL.sampleTpl(shot, lt, ctx)); TPLSTATE.last = c?.tpl ?? null; TPLSTATE.lastT = tNow; if (c) TPLSTATE.solved[shot.id] = c.tpl;
+  return c ?? sampleCineShot(shot, lt, aspect); }
+// gate measure (scripts/v2/tpl-gates.js) on the frame just rendered: the POSED heads (headOf / the beast's drawn head), not the marks the solver used
+// 4C-2 gate helper: the projected eye discs of a beast at the frame just rendered (NDC centre + radius in NDC x units)
+function tplEyes(n) { camera.updateMatrixWorld(true); const right = new T.Vector3().setFromMatrixColumn(camera.matrixWorld, 0), sh = BEASTS?.shapeAt?.(n, TPLSTATE.lastT ?? 0); if (!sh) return null;
+  const a = BEASTS.actors?.[n], l = BEASTS.liveAt(n, TPLSTATE.lastT ?? 0), o = a ? [0, 1, 2].map(i => a.root.position.getComponent(i) - l.root[i]) : [0, 0, 0];
+  return sh.eyes.map(e => { const p = new T.Vector3(...e.p.map((v, i) => v + o[i])), c = p.clone().project(camera), q = p.clone().addScaledVector(right, e.w / 2).project(camera); return {x: c.x, y: c.y, r: Math.abs(q.x - c.x)}; }); }
+function tplMeasure(id) {
+  const shot = shots.find(s => s.id === id); if (!shot?.tpl || !CTPL) return null; scene.updateMatrixWorld(true); camera.updateMatrixWorld(true);
+  const nm = CTPL.namesOf(shot), t = TPLSTATE.lastT ?? 0, cp = camera.position.toArray(), right = new T.Vector3().setFromMatrixColumn(camera.matrixWorld, 0), up = new T.Vector3().setFromMatrixColumn(camera.matrixWorld, 1);
+  const headInfo = n => { const x = cast[n]; if (!x) return null; if (x.beast) { const sa = tplCtx(shot, camera.aspect, t).subjectAt(n, t - shot.start / FPS); return sa ? {p: new T.Vector3(...sa.eyes), r: .6 * sa.headH, beast: sa} : null; } return {p: headOf(x), r: .72 * x.a.root.scale.x}; };
+  const inFrame = h => [[0, 0], [1, 0], [-1, 0], [0, 1], [0, -1]].every(([a, b]) => { const q = h.p.clone().addScaledVector(right, a * h.r).addScaledVector(up, b * h.r).project(camera); return q.z < 1 && Math.abs(q.x) <= 1 && Math.abs(q.y) <= 1; });
+  return tplDouble(() => {
+    const heads = {}; for (const n of [...nm.heads, ...(nm.inFrame ?? [])]) { const h = headInfo(n); if (!h) { heads[n] = {missing: true}; continue; }
+      const mine = o => (shot.tpl.kind === 'two' ? nm.heads : [n]).includes(tplOwnerOf(o));   // 4C-2: a two-shot's pair may touch (a hug)
+      const hits = [h.p, h.p.clone().addScaledVector(right, .8 * h.r), h.p.clone().addScaledVector(right, -.8 * h.r), h.p.clone().addScaledVector(up, .8 * h.r), h.p.clone().addScaledVector(up, -.8 * h.r)].flatMap(p0 => {   // centre + 4 points across the face
+        const v = new T.Vector3(...cp).sub(p0), l = v.length(); return tplHits(p0.toArray(), v.toArray(), l).filter(q => !mine(q.object)); });   // 4C-2: from the point itself
+      const x = cast[n], bodyHits = x && !x.beast && x.v2 ? (sb => sb.body.filter(p => { const q = new T.Vector3(...p).project(camera); return q.z < 1 && Math.abs(q.x) <= 1 && Math.abs(q.y) <= 1; })
+        .flatMap(p => { const v = new T.Vector3(...cp).sub(new T.Vector3(...p)); return tplHits(p, v.toArray(), v.length()).filter(q => !mine(q.object)); }))(tplCtx(shot, camera.aspect, t).subjectAt(n, t - shot.start / FPS)) : [];
+      heads[n] = {inFrame: inFrame(h), occluded: nm.heads.includes(n) ? hits.length > 0 : null, bodyOccluded: nm.heads.includes(n) ? bodyHits.length > 0 : null, by: hits[0] ? (tplOwnerOf(hits[0].object) ?? hits[0].object.name ?? 'set') : bodyHits[0] ? 'body:' + (tplOwnerOf(bodyHits[0].object) ?? bodyHits[0].object.name ?? 'set') : null}; }
+    let back = 0, near = Infinity; for (const d of TPL_DIRS) { const h = tplHits(cp, d, 80)[0]; if (!h) continue; near = Math.min(near, h.distance); const n = h.face.normal.clone(); if (h.object.isInstancedMesh && h.instanceId != null) { const m = new T.Matrix4(); h.object.getMatrixAt(h.instanceId, m); n.transformDirection(m); } n.transformDirection(h.object.matrixWorld); if (n.x * d[0] + n.y * d[1] + n.z * d[2] > 0) back++; }
+    let hero = null, face = null; const sh0 = BEASTS?.shapeAt?.(nm.main, t), pj = p => new T.Vector3(...p).project(camera), inF = (q, m = 1) => q.z < 1 && Math.abs(q.x) <= m && Math.abs(q.y) <= m;
+    const sa0 = shot.tpl.kind === 'beastHero' ? tplCtx(shot, camera.aspect, t).subjectAt(nm.main, t - shot.start / FPS) : null;
+    if (shot.tpl.kind === 'beastHero' && sa0?.pts) { const C = sa0.pts.map(pj), l = {head: sa0.eyes, headH: sa0.headH}, hd = pj(l.head);   // 4C-2: the projected silhouette (posed vertices)
+      hero = {share: (Math.max(...C.map(q => q.y)) - Math.min(...C.map(q => q.y))) / 2, silhouetteIn: C.every(q => inF(q)), headIn: inFrame({p: new T.Vector3(...l.head), r: .6 * l.headH}), headY: hd.y,
+        jet: sa0.jet ? {mouthIn: inF(pj(sa0.jet.from)), jet40In: inF(pj(sa0.jet.from.map((v, i) => v + sa0.jet.dir[i] * .4 * sa0.jet.reach)))} : null}; }
+    if (shot.tpl.kind === 'beastFace' && sh0?.eyes?.length >= 2) { const q = sh0.eyes.map(e => ({c: pj(e.p), w: Math.abs(pj(e.p.map((v, i) => v + right.getComponent(i) * e.w / 2)).x - pj(e.p.map((v, i) => v - right.getComponent(i) * e.w / 2)).x)}));
+      face = {span: (Math.max(...q.map(e => e.c.x + e.w / 2)) - Math.min(...q.map(e => e.c.x - e.w / 2))) / 2, central: q.every(e => inF(e.c, .7)), eyesNdc: q.map(e => [e.c.x, e.c.y])}; }
+    let share = null; if (shot.tpl.kind === 'beastHero') { const l = BEASTS?.liveAt(nm.main, t); if (l) { const top = Math.max(l.root[1] + l.H, l.head[1] + .5 * l.headH), cx = (l.root[0] + l.head[0]) / 2, cz = (l.root[2] + l.head[2]) / 2, a = new T.Vector3(cx, top, cz).project(camera), b = new T.Vector3(cx, l.root[1], cz).project(camera); share = (a.y - b.y) / 2; } }   // the root–head mid column
+    return {id, kind: shot.tpl.kind, hero, face, cam: cp, camAboveGround: cp[1] - (world?.groundY?.(cp[0], cp[2]) ?? 0), heads, inside: back >= 4 || near < .05, back, near, share, solver: TPLSTATE.last}; }); }
+function cineRender(shot, mf, off, lt, width, height) {
+  const gy = (x, z) => world?.groundY?.(x, z) ?? 0, items = [];
+  if (BEASTS) items.push(...BEASTS.blobItems());   // tuft 2A: one contact blob per beast (low-tier crowds carry their own instanced blobs)
+  for (const [n, x] of Object.entries(cast)) { if (x.beast) continue; const r = x.a.root; items.push({key: n, x: r.position.x, y: r.position.y, z: r.position.z, r: 1.35 * r.scale.x, visible: r.visible && !!visibleChain(r)}); }
+  glowCubes.forEach((m, i) => items.push({key: 'glow' + i, x: m.position.x, y: m.position.y - m.geometry.parameters.height / 2, z: m.position.z, r: .8 * m.geometry.parameters.width, visible: m.visible}));
+  CL.blobsFor(items, gy);
+  const k = `${shot.id}|${shot.start}`; if (shot.fg && !cineCam0[k]) { const c0 = CINE_CAM ? cineCamAt(shot, 0, width / height, shot.start / FPS) : sampleCamera({...shot, fps: FPS}, 0, poseCast(shot.start / FPS));
+    const s = shot.subject && cast[shot.subject] ? CINE.project(c0, headOf(cast[shot.subject]).toArray(), width / height).x : 0; cineCam0[k] = {c0, s}; poseCast(mf.anim / FPS); }
+  CL.fg(CINE_OPTS.fg === false ? {...shot, fg: null} : shot, cineCam0[k]?.c0, cineCam0[k]?.s ?? 0);
+  if (scene.fog?.isFog) { const fs = CL.FOG.start; if (scene.fog.near < fs) { scene.fog.far += fs - scene.fog.near; scene.fog.near = fs; } } CL.clearFog(scene.fog?.color);   // 2B grade 'clear': the far fog toward clean sky (no sepia)   // 1B fix: no distance fog within FOG.start (look.apply resets it each frame)
+  const hd = n => cast[n] ? camera.position.distanceTo(headOf(cast[n])) : null, focus = shot.subject && cast[shot.subject] ? CINE.focusAt(shot, lt, hd) : null;
+  if (CINE_OPTS.actorLight) {   // 1B fix: actors-only rim (behind-above, far side from the camera) + warm key from the nearest world practical
+    const sx = shot.subject && cast[shot.subject] ? cast[shot.subject].a.root : Object.values(cast).find(x => x.a.root.visible)?.a.root, y = sx?.rotation.y ?? 0;
+    CL.state.actorLight = CL.aimActorLight(sx ? sx.position.toArray() : camera.position.toArray(), camera.position.toArray(), [Math.sin(y), Math.cos(y)], world?.lights ?? []);
+  } else CL.setActorLight(false);
+  const ex = renderer.toneMappingExposure; if (!M6) renderer.toneMappingExposure *= 2 ** CL.moodEV(shot);   // exposure per mood (mood6.json ev; spec.moods applies it itself)
+  scene.updateMatrixWorld(true); const sz = shot.subject && cast[shot.subject]?.a.root.visible ? headOf(cast[shot.subject]).sub(camera.position).dot(camera.getWorldDirection(new T.Vector3())) : null;   // the subject's view depth (background falloff)
+  CL.render(camera, {w: width, h: height, shot, frame: Math.round(mf.cam + off), focus, subjectZ: sz, bgOn: CINE_OPTS.bgFalloff !== false, fogColor: spec.cineFog ? new T.Color(spec.cineFog) : null, bloomOn: CINE_OPTS.bloom, grainOn: CINE_OPTS.grain});
+  CL.state.subjectDist = shot.subject ? hd(shot.subject) : null; CL.state.rackDist = shot.rack ? hd(shot.rack.to) : null; CL.state.rackFromDist = shot.rack ? hd(shot.rack.from ?? shot.subject) : null; CL.state.lt = lt; renderer.toneMappingExposure = ex;
 }
 
 // Bench / stills: render a world anchor's establishing camera at time t (no shot needed).
@@ -474,10 +812,10 @@ export function renderCamera(cam, t = 0, width = 720, height = 1280, lookName = 
 }
 
 // Plan inspection (scripts/v2/plan.js): camera and projected heads at frame n, without rendering.
-const headOf = ({a, v2, dragon}) => { const v = new T.Vector3(); if (dragon) { const w = new T.Vector3(); a.eyes[0].getWorldPosition(v); a.eyes[1].getWorldPosition(w); v.add(w).multiplyScalar(.5); } else if (v2) { a.pivots.head.getWorldPosition(v); v.y += .6 * a.root.scale.y; } else v.copy(a.root.position).add(new T.Vector3(0, 4.6, 0)); return v; };
+const headOf = ({a, v2, dragon, beast}) => { const v = new T.Vector3(); if (beast) v.copy(a.head.position); else if (dragon) { const w = new T.Vector3(); a.eyes[0].getWorldPosition(v); a.eyes[1].getWorldPosition(w); v.add(w).multiplyScalar(.5); } else if (v2) { a.pivots.head.getWorldPosition(v); v.y += .6 * a.root.scale.y; } else v.copy(a.root.position).add(new T.Vector3(0, 4.6, 0)); return v; };
 export function inspectFrame(n, width = 540, height = 960) {
   const shot = shots.findLast(s => n >= s.start), t = n / FPS, actors = poseCast(t);
-  const c = sampleCamera({...shot, fps: FPS}, (n - shot.start) / FPS, actors);
+  const c = CINE_CAM ? cineCamAt(shot, (n - shot.start) / FPS, width / height, t) : sampleCamera({...shot, fps: FPS}, (n - shot.start) / FPS, actors);   // tuft 4C: plan measures the camera the frame is rendered with
   applyWorldState(shot, t); updateExtras(t); effects.apply(t, camera);
   camera.fov = c.fov; camera.aspect = width / height; camera.position.fromArray(c.position); camera.up.set(0, 1, 0); camera.lookAt(...c.target); camera.updateProjectionMatrix();
   scene.updateMatrixWorld(true); camera.updateMatrixWorld(true);
@@ -642,7 +980,8 @@ export function placesAt(n) { const t = n / FPS; poseCast(t); if (storyProps.len
   return {places: placesNow().filter(m => m.name), prints}; }
 export function shotSpeed(i) {   // Toy House final fix: props first (kart riders); the metric's end sample (t = duration) is the next shot's first frame, so the
   const s = shots[i], P = tt => { const t = s.start / FPS + tt; if (storyProps.length) updateProps(t); return JSON.parse(JSON.stringify(poseCast(t))); }, last = (s.frames - 1) / FPS;   // actors there are extrapolated from the shot's last two frames
-  return maxTargetSpeed({...s, fps: FPS, openHit: false}, tt => { if (tt <= last + 1e-9) return P(tt); const a = P(last - 1 / FPS), b = P(last), k = (tt - last) * FPS; for (const n of Object.keys(b)) if (a[n]) b[n] = b[n].map((v, q) => v + (v - a[n][q]) * k); return b; }, FPS); }
+  return maxTargetSpeed({...s, fps: FPS, openHit: false}, tt => { if (tt <= last + 1e-9) return P(tt); const a = P(last - 1 / FPS), b = P(last), k = (tt - last) * FPS; for (const n of Object.keys(b)) if (a[n]) b[n] = b[n].map((v, q) => v + (v - a[n][q]) * k); return b; }, FPS,
+    CINE_CAM ? tt => { const t = s.start / FPS + Math.min(tt, last); P(Math.min(tt, last)); return cineCamAt(s, tt, 9 / 16, t); } : null); }   // tuft 4C: camera 'cine' → the cine / template camera
 
 // format v5 3b-R gates (scripts/v2/toy5-gates.js), all after renderFrame(n):
 //   satMeasure: mean HSL saturation of subject pixels (cast actors + every object tagged userData.story, the silhouette mask path)
@@ -730,4 +1069,15 @@ export function classHaze(n, {w = 390, h = 693, near = 15, far = 60, match = /^g
   const rms = a => { if (a.length < 50) return null; const mu = a.reduce((s, v) => s + v, 0) / a.length; return Math.sqrt(a.reduce((s, v) => s + (v - mu) ** 2, 0) / a.length); };
   const rn = rms(acc.near), rf = rms(acc.far); return {frame: n, nearRms: rn, farRms: rf, nearPx: acc.near.length, farPx: acc.far.length, ratio: rn && rf !== null ? rf / rn : null};
 }
-window.__episode = {groundFix: () => GROUNDFIX, sepMeasure, ceilingLuma, classHaze, satMeasure, depthLuma, lumaProbe, debug: {scene, renderer, camera, look, pool: U5B?.poolOf ?? null}, bake: BAKE, matcapBytes: MATCAP ? (n => Array.from(look.matcapBytes(n ?? spec.look4))) : null, breakdown, measureFrame, seasonMeasure, actorMask, readMeasure, gateMeasure, placesAt, lumaAt, inspectFrame, shotSpeed, END: FRAMES / FPS, anchors: Object.fromEntries(Object.entries(anchors).filter(([, a]) => a.camera).map(([k]) => [k, true])), renderAnchor, renderAnchorNudged, renderCamera, FPS, FRAMES, shots: shots.map(({id, start, frames, size, move, loc, subject, see, openHit, at, why, captionY, fit, spectacle, look: lk}) => ({id, start, frames, size, move, loc, subject, see, openHit: !!openHit, at, why, captionY, fit, spectacle: !!spectacle, look: lk})), renderFrame};
+const hugCam = p => { const f = Math.round(p.key * FPS), sh = shots.findLast(s => f >= s.start), t = f / FPS, actors = poseCast(t), c = sampleCamera({...sh, fps: FPS}, (f - sh.start) / FPS, actors); const lp = markAt(cast[p.lead].c, t); return {camPos: [c.position[0], c.position[2]], leadPos: [lp[0], lp[2]], partnerPos: p.mark}; };
+// tuft 1B fix gates: per actor, the head's NDC box (every visible vertex of the head pivot subtree: head, face, hair, projected) and the size measure
+// v = frame height at the head's depth / body height (5.3 × scale), for the camera of the last rendered frame
+function cineMeasure(names = Object.keys(cast)) {
+  const out = {}, b = new T.Box3(), v = new T.Vector3(), f = new T.Vector3(); camera.updateMatrixWorld(); camera.getWorldDirection(f);
+  for (const n of names) { const x = cast[n]; if (!x?.v2 || !x.a.root.visible) continue; b.setFromObject(x.a.pivots.head, true); let x0 = 9, x1 = -9, y0 = 9, y1 = -9, behind = false;
+    x.a.pivots.head.traverse(o => { if (!o.isMesh || !visibleChain(o)) return; const pos = o.geometry.attributes.position; for (let i = 0; i < pos.count; i++) { v.fromBufferAttribute(pos, i).applyMatrix4(o.matrixWorld);   // every head vertex (head, face, hair) projected: the exact extent
+      if (v.clone().sub(camera.position).dot(f) <= 0) behind = true; v.project(camera); x0 = Math.min(x0, v.x); x1 = Math.max(x1, v.x); y0 = Math.min(y0, v.y); y1 = Math.max(y1, v.y); } });
+    const c = b.getCenter(new T.Vector3()), z = c.clone().sub(camera.position).dot(f);
+    out[n] = {x0, x1, y0, y1, behind, v: 2 * z * Math.tan(camera.fov * Math.PI / 360) / (5.3 * x.a.root.scale.y), z}; }
+  return out; }
+window.__episode = {tpl: CTPL ? {state: TPLSTATE, measure: tplMeasure, eyes: tplEyes} : null, beasts: BEASTS, cine: CL ? {state: CL.state, opts: CINE_OPTS, glowCount: CL.glowCount, setGlow: CL.setGlow, glowDebug: CL.glowDebug, measure: cineMeasure} : null, story6: S6, clearedNow: () => CLEARED.map(r => r.name), actingPlan: () => actPlans.map(p => /^hug/.test(p.verb) ? {...p, cam: hugCam(p)} : p), groundFix: () => GROUNDFIX, sepMeasure, ceilingLuma, classHaze, satMeasure, depthLuma, lumaProbe, debug: {scene, renderer, camera, look, pool: U5B?.poolOf ?? null}, bake: BAKE, matcapBytes: MATCAP ? (n => Array.from(look.matcapBytes(n ?? spec.look4))) : null, breakdown, measureFrame, seasonMeasure, actorMask, readMeasure, gateMeasure, placesAt, lumaAt, inspectFrame, shotSpeed, END: FRAMES / FPS, anchors: Object.fromEntries(Object.entries(anchors).filter(([, a]) => a.camera).map(([k]) => [k, true])), renderAnchor, renderAnchorNudged, renderCamera, FPS, FRAMES, shots: shots.map(({id, start, frames, size, move, loc, subject, see, openHit, at, why, captionY, fit, spectacle, look: lk}) => ({id, start, frames, size, move, loc, subject, see, openHit: !!openHit, at, why, captionY, fit, spectacle: !!spectacle, look: lk})), renderFrame};

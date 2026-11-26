@@ -103,8 +103,8 @@ export function createLook(scene, renderer, {radius = 420} = {}) {
 // (PMREM of the sky gradient) for hero-tier environment materials, and optional light-shaft sprites.
 import {ShaderChunk} from 'three';
 let fogPatched = null;
-export function patchHeightFog({base = 0, falloff = 8, amount = .3, near = 40, ref = 0} = {}) {   // ref (Look 6, opt-in): amount × min(1, ref / fogFar), so a far-fog preset (top-down) gets less height haze
-  const key = [base, falloff, amount, near, ref].join('|'); if (fogPatched === key) return; if (fogPatched) throw Error('height fog already patched with other constants');
+export function patchHeightFog({base = 0, falloff = 8, amount = .3, near = 40, ref = 0, start = 0} = {}) {   // ref (Look 6, opt-in): amount × min(1, ref / fogFar), so a far-fog preset (top-down) gets less height haze; start (tuft 1B fix, opt-in): the height fog begins `start` units from the camera
+  const key = [base, falloff, amount, near, ref, ...(start ? [start] : [])].join('|'); if (fogPatched === key) return; if (fogPatched) throw Error('height fog already patched with other constants');
   const f = v => Number(v).toFixed(4);
   ShaderChunk.fog_pars_vertex = '#ifdef USE_FOG\n\tvarying float vFogDepth; varying float vFogWorldY;\n#endif\n';
   ShaderChunk.fog_vertex = '#ifdef USE_FOG\n\tvFogDepth = - mvPosition.z;\n\tvFogWorldY = (transpose(mat3(viewMatrix)) * (mvPosition.xyz - viewMatrix[3].xyz)).y;\n#endif\n';
@@ -115,7 +115,7 @@ export function patchHeightFog({base = 0, falloff = 8, amount = .3, near = 40, r
 	#else
 		float fogFactor = smoothstep( fogNear, fogFar, vFogDepth );
 	#endif
-	float hFog = ${f(amount)}${ref ? ` * min(1.0, ${f(ref)} / fogFar)` : ''} * exp( - max( vFogWorldY - (${f(base)}), 0.0 ) / ${f(falloff)} ) * ( 1.0 - exp( - vFogDepth / ${f(near)} ) );
+	float hFog = ${f(amount)}${ref ? ` * min(1.0, ${f(ref)} / fogFar)` : ''} * exp( - max( vFogWorldY - (${f(base)}), 0.0 ) / ${f(falloff)} ) * ( 1.0 - exp( - ${start ? `max( vFogDepth - ${f(start)}, 0.0 )` : 'vFogDepth'} / ${f(near)} ) );
 	fogFactor = 1.0 - ( 1.0 - fogFactor ) * ( 1.0 - hFog );
 	gl_FragColor.rgb = mix( gl_FragColor.rgb, fogColor, fogFactor );
 #endif
@@ -143,7 +143,7 @@ function cloudTexture(seed, soft) {
   const t = new T.CanvasTexture(c); t.wrapS = t.wrapT = T.RepeatWrapping; t.colorSpace = T.SRGBColorSpace; return t;
 }
 
-export function createLookV3(scene, renderer, {radius = 820, fog = {}, clouds = true, cloudCover = .7, envPreset = 'day', onEnv = null, moon = null, starDensity = 1} = {}) {
+export function createLookV3(scene, renderer, {radius = 820, fog = {}, clouds = true, cloudCover = .7, envPreset = 'day', onEnv = null, moon = null, starDensity = 1, hemiGround = null, sunColor = null} = {}) {   // E1b opt-in: a world may fix the ground bounce and sun colour
   patchHeightFog(fog.height ?? {amount: 0});
   const L = createLook(scene, renderer, {radius});
   L.clouds.visible = false;   // the block clouds of v2 are replaced by soft layers
@@ -204,6 +204,7 @@ export function createLookV3(scene, renderer, {radius = 820, fog = {}, clouds = 
       su.sunDir.value.set(...sunDir(p.sunEl, p.sunAz)); su.disc.value = mix('disc'); su.glow.value = mix('glow'); su.stars.value = mix('stars'); su.moon.value = mix('moon');
       for (const l of layers) { l.m.uniforms.col.value.set(x.cloudLit ?? p.cloud); if (!x.cloudLit) l.m.uniforms.col.value.lerp(new T.Color('#ffffff'), .35); l.m.uniforms.shade.value.set(x.cloudShade ?? p.cloud); if (!x.cloudShade) l.m.uniforms.shade.value.lerp(new T.Color(p.skyTop), .45); l.m.uniforms.op.value = l.op0 * (x.cloudOp ?? 1); }
       if (fog.color) scene.fog.color.set(fog.color);
+      if (hemiGround) L.hemi.groundColor.set(hemiGround); if (sunColor) L.sun.color.set(sunColor);
       if (fog.near) scene.fog.near = fog.near; if (fog.far) scene.fog.far = fog.far;
       return p;
     },

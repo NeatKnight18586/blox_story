@@ -68,6 +68,13 @@ class SpecKeywords(unittest.TestCase):
         self.assertEqual(C.spec_keyword_slots(timed, ['Toy House', 'Mo', 'hand']), {(0, 2), (0, 3), (1, 0), (1, 1)})
 
 
+class Asterisks(unittest.TestCase):
+    def test_emphasis_marks_stripped(self):   # tuft 4C
+        line = {'text': "Vance's dragon breathes *cyan fire*, so", 'words': [{'w': w} for w in "Vance's dragon breathes cyan fire so".split()]}
+        self.assertEqual([w for w, _ in C.display_words(line)], ["Vance's", 'dragon', 'breathes', 'cyan', 'fire', 'so'])
+        self.assertTrue(C.display_words(line)[4][1])   # the comma after fire* still breaks
+
+
 class Escaping(unittest.TestCase):
     def test_braces_backslashes_newlines(self):
         self.assertEqual(C.ass_escape('a{b}c\\d\ne'), 'a(b)c/d\\Ne')

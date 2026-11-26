@@ -26,17 +26,18 @@ export function cyl(r, h, mat, at, o = {}) {
   const m = new T.Mesh(BEV && !o.sharp ? roundCylGeometry(r, h, BEV, o.seg ?? 14, o.cell ?? 2, o.rTop ?? r) : new T.CylinderGeometry(o.rTop ?? r, r, h, o.seg ?? 14, seg(h, o.cell ?? 2)), typeof mat === 'string' ? plastic(mat) : mat); m.position.set(...at); if (o.live) m.userData.live = true; if (o.name) m.name = o.name; return m;
 }
 // Text plate (a real in-world sign, owner rule §2c: text only on real objects). Canvas texture; a plain colour in node.
-export function textPlate(text, {w = 6, h = 1.6, bg = '#ffffff', fg = '#222222', font = 'bold 120px Lilita One, Arial Black, sans-serif', border = null, name = 'sign', lines = null} = {}) {
-  let map = null;
+// Phase 1B (opt-in): `maxFont` raises the 150 px font cap (big shop signs); userData.capH = cap height in world units (≈ .72 em).
+export function textPlate(text, {w = 6, h = 1.6, bg = '#ffffff', fg = '#222222', font = 'bold 120px Lilita One, Arial Black, sans-serif', border = null, name = 'sign', lines = null, maxFont = 150} = {}) {
+  let map = null, fsUsed = Math.min(Math.round(1024 * h / w) * .72 / (lines ?? [text]).length, maxFont);
   if (typeof document !== 'undefined') {
     const c = document.createElement('canvas'); c.width = 1024; c.height = Math.round(1024 * h / w); const g = c.getContext('2d');
     g.fillStyle = bg; g.fillRect(0, 0, c.width, c.height); if (border) { g.strokeStyle = border; g.lineWidth = 22; g.strokeRect(11, 11, c.width - 22, c.height - 22); }
     g.fillStyle = fg; g.textAlign = 'center'; g.textBaseline = 'middle';
-    const L = lines ?? [text]; let fs = Math.min(c.height * .72 / L.length, 150); g.font = font.replace(/\d+px/, `${fs}px`);
+    const L = lines ?? [text]; let fs = Math.min(c.height * .72 / L.length, maxFont); g.font = font.replace(/\d+px/, `${fs}px`);
     while (L.some(s => g.measureText(s).width > c.width * .9) && fs > 20) { fs -= 4; g.font = font.replace(/\d+px/, `${fs}px`); }
-    L.forEach((s, i) => g.fillText(s, c.width / 2, c.height * (i + .5) / L.length + 3)); map = new T.CanvasTexture(c); map.colorSpace = T.SRGBColorSpace; map.anisotropy = 8;
+    L.forEach((s, i) => g.fillText(s, c.width / 2, c.height * (i + .5) / L.length + 3)); fsUsed = fs; map = new T.CanvasTexture(c); map.colorSpace = T.SRGBColorSpace; map.anisotropy = 8;
   }
-  const m = new T.Mesh(new T.PlaneGeometry(w, h), new T.MeshBasicMaterial({map, color: map ? '#ffffff' : bg})); m.name = name; m.userData.live = true; m.userData.text = text; return m;
+  const m = new T.Mesh(new T.PlaneGeometry(w, h), new T.MeshBasicMaterial({map, color: map ? '#ffffff' : bg})); m.name = name; m.userData.live = true; m.userData.text = text; m.userData.capH = .72 * fsUsed / Math.round(1024 * h / w) * h; return m;
 }
 // Tube along a curve (rails, tracks): constant radius, low radial segments.
 export function tube(points, r, mat, {closed = false, step = 1.2, radial = 6} = {}) {

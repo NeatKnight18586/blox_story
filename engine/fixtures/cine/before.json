@@ -1,0 +1,323 @@
+{
+ "note": "tuft 1B fixture, BEFORE (current engine): the same spec without look/camera 'cine'.",
+ "slug": "cine-before",
+ "fps": 24,
+ "format": 6,
+ "acting": 6,
+ "rig": "r6",
+ "twos": true,
+ "faceLife": true,
+ "labels": false,
+ "world": "engine/fixtures/v4look/world.js",
+ "look4": "mystery",
+ "cues": "engine/fixtures/acting6/cues.json",
+ "glowCubes": [
+  {
+   "at": [
+    7.5,
+    0.75,
+    1.5
+   ],
+   "size": 1.5,
+   "color": "#6fe3ff",
+   "hdr": 3.5
+  }
+ ],
+ "cast": {
+  "hero": {
+   "style": "v5",
+   "troupe": "HERO",
+   "marks": [
+    [
+     0,
+     {
+      "at": "street",
+      "offset": [
+       -3.0,
+       0,
+       6
+      ],
+      "yaw": 90
+     }
+    ],
+    [
+     2.0,
+     {
+      "at": "street",
+      "offset": [
+       -3.0,
+       0,
+       6
+      ],
+      "yaw": 90,
+      "travel": {
+       "dir": [
+        1,
+        0
+       ],
+       "speed": 1.7,
+       "max": 3.74
+      }
+     }
+    ],
+    [
+     4.258333333333334,
+     {
+      "at": "street",
+      "offset": [
+       0.74,
+       0,
+       6
+      ],
+      "yaw": 25
+     }
+    ]
+   ],
+   "keys": [
+    [
+     0,
+     "idle"
+    ]
+   ]
+  },
+  "kid": {
+   "style": "v5",
+   "troupe": "LITTLE",
+   "at": "street",
+   "offset": [
+    3.4,
+    0,
+    9.4
+   ],
+   "yaw": 97.0,
+   "keys": [
+    [
+     0,
+     "idle"
+    ]
+   ]
+  }
+ },
+ "shots": [
+  {
+   "id": "A-ews",
+   "frames": 48,
+   "size": "ews",
+   "lens": 24,
+   "mood": "awe",
+   "move": "push",
+   "subject": "hero",
+   "duration": 2.0,
+   "from": {
+    "position": [
+     -9,
+     5.2,
+     27
+    ],
+    "target": [
+     6,
+     3,
+     -1
+    ],
+    "fov": 52
+   },
+   "to": {
+    "position": [
+     -8,
+     4.9,
+     24.5
+    ],
+    "target": [
+     6,
+     3,
+     -1
+    ],
+    "fov": 52
+   }
+  },
+  {
+   "id": "B-ms-walk",
+   "frames": 53,
+   "size": "ms",
+   "lens": 35,
+   "mood": "fun",
+   "move": "track",
+   "follow": "hero",
+   "subject": "hero",
+   "duration": 2.2,
+   "from": {
+    "position": [
+     3.6,
+     2.4,
+     8.2
+    ],
+    "target": [
+     0,
+     3.3,
+     0
+    ],
+    "fov": 40
+   },
+   "to": {
+    "position": [
+     3.0,
+     2.5,
+     7.6
+    ],
+    "target": [
+     0,
+     3.3,
+     0
+    ],
+    "fov": 40
+   },
+   "actions": [
+    {
+     "actor": "hero",
+     "cycle": "walk",
+     "at": 0,
+     "until": 4.2083
+    }
+   ]
+  },
+  {
+   "id": "C-mcu-talk",
+   "frames": 48,
+   "size": "mcu",
+   "lens": 50,
+   "mood": "tension",
+   "move": "static-drift",
+   "subject": "hero",
+   "duration": 2.0,
+   "from": {
+    "position": [
+     2.6,
+     4.3,
+     13.5
+    ],
+    "target": [
+     0.74,
+     4.2,
+     6
+    ],
+    "fov": 36
+   },
+   "actions": [
+    {
+     "actor": "hero",
+     "verb": "shrug",
+     "at": 0.9,
+     "face": "hero_shock"
+    }
+   ]
+  },
+  {
+   "id": "D-cu-rack",
+   "frames": 48,
+   "size": "cu",
+   "lens": 50,
+   "mood": "emotion",
+   "move": "static-drift",
+   "subject": "kid",
+   "duration": 2.0,
+   "rack": {
+    "to": "hero",
+    "at": 0.7,
+    "dur": 0.8
+   },
+   "from": {
+    "position": [
+     6.16,
+     3.3,
+     10.57
+    ],
+    "target": [
+     2.6,
+     3.6,
+     8.6
+    ],
+    "fov": 46
+   },
+   "side": "left"
+  },
+  {
+   "id": "E-dolly",
+   "frames": 53,
+   "size": "cu",
+   "lens": 85,
+   "mood": "tension",
+   "move": "dollyZoom",
+   "subject": "hero",
+   "duration": 2.2,
+   "dof": false,
+   "from": {
+    "position": [
+     0.95,
+     4.45,
+     15.5
+    ],
+    "target": [
+     0.74,
+     4.45,
+     6
+    ],
+    "fov": 24
+   },
+   "to": {
+    "position": [
+     0.82,
+     4.45,
+     10
+    ]
+   }
+  },
+  {
+   "id": "F-payoff",
+   "frames": 48,
+   "size": "cu",
+   "lens": 85,
+   "mood": "payoff",
+   "move": "push",
+   "subject": "hero",
+   "duration": 2.0,
+   "fg": "lantern",
+   "ramp": [
+    {
+     "at": 0.25,
+     "speed": 0.35
+    },
+    {
+     "at": 1.4,
+     "speed": 1
+    }
+   ],
+   "from": {
+    "position": [
+     -0.6,
+     4.0,
+     12.5
+    ],
+    "target": [
+     0.74,
+     4.3,
+     6
+    ],
+    "fov": 30
+   },
+   "to": {
+    "position": [
+     -0.4,
+     4.05,
+     11.2
+    ],
+    "target": [
+     0.74,
+     4.3,
+     6
+    ],
+    "fov": 30
+   }
+  }
+ ],
+ "look": "mystery"
+}

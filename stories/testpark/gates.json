@@ -1,0 +1,370 @@
+{
+ "slug": "testpark",
+ "fps": 30,
+ "format": 6,
+ "body": "v6",
+ "faceStyle": "v6",
+ "labels": false,
+ "world": "parts/sets6/testpark.js",
+ "look": "day",
+ "lod": {
+  "near": 18,
+  "max": 24
+ },
+ "note": "E1b gates: W_* white DUMMY lit / shadow side (torso luma, Lab), H_* the glove poses against the sky (hand-390.png).",
+ "cast": {
+  "white": {
+   "style": "v5",
+   "troupe": "DUMMY",
+   "at": "plaza",
+   "offset": [
+    -22.9,
+    0,
+    22
+   ],
+   "yaw": 35,
+   "keys": [
+    [
+     0,
+     "idle"
+    ]
+   ],
+   "faces": [
+    [
+     0,
+     "neutral"
+    ]
+   ]
+  },
+  "whiteCrowd": {
+   "style": "v5",
+   "troupe": "DUMMY",
+   "at": "plaza",
+   "offset": [
+    -20.4,
+    0,
+    20.8
+   ],
+   "yaw": 35,
+   "keys": [
+    [
+     0,
+     "idle"
+    ]
+   ],
+   "costume": "CROWD",
+   "faces": [
+    [
+     0,
+     "neutral"
+    ]
+   ]
+  }
+ },
+ "worldState": {
+  "handOn": [
+   [
+    0,
+    0
+   ],
+   [
+    0.4,
+    1
+   ],
+   [
+    1.2,
+    0
+   ]
+  ],
+  "hand": [
+   [
+    0.4,
+    "open"
+   ],
+   [
+    0.6,
+    "pinch"
+   ],
+   [
+    0.8,
+    "fist"
+   ],
+   [
+    1,
+    "point"
+   ]
+  ],
+  "handGrip": [
+   [
+    0.4,
+    1
+   ],
+   [
+    0.6,
+    0.75
+   ],
+   [
+    0.8,
+    1
+   ],
+   [
+    1,
+    1
+   ]
+  ],
+  "handYaw": [
+   [
+    0,
+    0
+   ]
+  ],
+  "handPitch": [
+   [
+    0.4,
+    0
+   ],
+   [
+    0.6,
+    10
+   ],
+   [
+    0.8,
+    0
+   ],
+   [
+    1,
+    0
+   ]
+  ],
+  "handX": [
+   [
+    0,
+    0
+   ]
+  ],
+  "handY": [
+   [
+    0,
+    30
+   ]
+  ],
+  "handZ": [
+   [
+    0,
+    20
+   ]
+  ]
+ },
+ "shots": [
+  {
+   "id": "W_lit",
+   "size": "wide",
+   "frames": 6,
+   "move": "static-drift",
+   "drift": 0,
+   "from": {
+    "position": [
+     -16.837812072840585,
+     3.2,
+     37.372368398600926
+    ],
+    "target": [
+     -22,
+     2.6,
+     30
+    ],
+    "fov": 40
+   },
+   "shadowRadius": 12
+  },
+  {
+   "id": "W_shadow",
+   "size": "wide",
+   "frames": 6,
+   "move": "static-drift",
+   "drift": 0,
+   "from": {
+    "position": [
+     -27.162187927159415,
+     3.2,
+     22.627631601399074
+    ],
+    "target": [
+     -22,
+     2.6,
+     30
+    ],
+    "fov": 40
+   },
+   "shadowRadius": 12
+  },
+  {
+   "id": "H_open",
+   "size": "wide",
+   "frames": 6,
+   "move": "static-drift",
+   "drift": 0,
+   "from": {
+    "position": [
+     -1.3,
+     0.9,
+     28
+    ],
+    "target": [
+     -1.3,
+     30,
+     25
+    ],
+    "fov": 50
+   },
+   "shadowRadius": 20
+  },
+  {
+   "id": "H_pinch",
+   "size": "wide",
+   "frames": 6,
+   "move": "static-drift",
+   "drift": 0,
+   "from": {
+    "position": [
+     -34,
+     20,
+     27
+    ],
+    "target": [
+     0,
+     29.5,
+     25
+    ],
+    "fov": 50
+   },
+   "shadowRadius": 20
+  },
+  {
+   "id": "H_fist",
+   "size": "wide",
+   "frames": 6,
+   "move": "static-drift",
+   "drift": 0,
+   "from": {
+    "position": [
+     -19,
+     21,
+     44
+    ],
+    "target": [
+     0,
+     30,
+     25
+    ],
+    "fov": 50
+   },
+   "shadowRadius": 20
+  },
+  {
+   "id": "H_point",
+   "size": "wide",
+   "frames": 6,
+   "move": "static-drift",
+   "drift": 0,
+   "from": {
+    "position": [
+     -19,
+     21,
+     44
+    ],
+    "target": [
+     0,
+     30,
+     25
+    ],
+    "fov": 50
+   },
+   "shadowRadius": 20
+  },
+  {
+   "id": "H_open_sky",
+   "size": "wide",
+   "frames": 6,
+   "move": "static-drift",
+   "drift": 0,
+   "from": {
+    "position": [
+     -1.3,
+     0.9,
+     28
+    ],
+    "target": [
+     -1.3,
+     30,
+     25
+    ],
+    "fov": 50
+   },
+   "shadowRadius": 20
+  },
+  {
+   "id": "H_pinch_sky",
+   "size": "wide",
+   "frames": 6,
+   "move": "static-drift",
+   "drift": 0,
+   "from": {
+    "position": [
+     -34,
+     20,
+     27
+    ],
+    "target": [
+     0,
+     29.5,
+     25
+    ],
+    "fov": 50
+   },
+   "shadowRadius": 20
+  },
+  {
+   "id": "H_fist_sky",
+   "size": "wide",
+   "frames": 6,
+   "move": "static-drift",
+   "drift": 0,
+   "from": {
+    "position": [
+     -19,
+     21,
+     44
+    ],
+    "target": [
+     0,
+     30,
+     25
+    ],
+    "fov": 50
+   },
+   "shadowRadius": 20
+  },
+  {
+   "id": "H_point_sky",
+   "size": "wide",
+   "frames": 6,
+   "move": "static-drift",
+   "drift": 0,
+   "from": {
+    "position": [
+     -19,
+     21,
+     44
+    ],
+    "target": [
+     0,
+     30,
+     25
+    ],
+    "fov": 50
+   },
+   "shadowRadius": 20
+  }
+ ]
+}

@@ -12,11 +12,28 @@
 //   · snap {snapAt} — a 2-frame punch from the wide `from` to the close `to` along the SAME axis (target → camera), then
 //   holds · tiltUp — the camera stays (or rises gently) while the target climbs from feet (from.target) to sky (to.target).
 
+import {framesFor} from './fpsframes.js';
 export const FPS = 30;
 export const MOVES = ['push', 'pull', 'orbit', 'track', 'crane', 'whip', 'gamecam', 'static-drift', 'drone', 'heroLow', 'snap', 'tiltUp'];   // last four: A4
 // Format v5 (Phase 3a) camera grammar, opt-in by name; the moves above are unchanged.
 export const MOVES5 = ['crashZoom', 'topDown', 'splitScreen', 'lowAuthority', 'aisleTrack'];
 MOVES.push(...MOVES5);
+// Kit 1 signature cameras (opt-in by name): lowWide · scaleReveal · povScope (sampleMoveK1, below).
+export const MOVES_K1 = ['lowWide', 'scaleReveal', 'povScope'];
+MOVES.push(...MOVES_K1);
+// tuft 1B (opt-in by name): dollyZoom {from: {position, target, fov}, to: {position}, follow?} — the camera travels along from→to while
+// the fov compensates (tan(fov/2) · distance to the target stays constant): the subject holds its size, the background stretches.
+export const MOVES_CINE = ['dollyZoom'];
+MOVES.push(...MOVES_CINE);
+export function dollyZoomPose(shot, localT, actorPositions = {}) {
+  const dur = Math.max(1e-6, shot.duration ?? 1), u = EASE[shot.ease ?? 'inOutSine'](clamp01(localT / dur)), f = shot.from, e = shot.to ?? f;
+  const actor = shot.follow ? actorPositions[shot.follow] : null, tg = actor ? add(actor, shot.followOffset ?? [0, 3, 0]) : f.target;
+  const p0 = actor ? add(tg, sub(f.position, f.target)) : f.position, p1 = actor ? add(tg, sub(e.position ?? f.position, f.target)) : (e.position ?? f.position);
+  const position = lerp3(p0, p1, u), d0 = len(sub(p0, tg)), d = len(sub(position, tg)), k = Math.tan((f.fov ?? 40) * Math.PI / 360) * d0;
+  return {position, target: tg, fov: 360 / Math.PI * Math.atan(k / Math.max(1e-6, d)), roll: 0};
+}
+export const K1 = {lowWide: {hFrac: .25, fov: 75, body: .6, ndcX: .34, look: 30, push: .05}, scaleReveal: {fov: 50, startFace: .27, endActor: .08, liftFrac: .15, chestAt: .7, faceSpan: 1.1, faceAt: .93, H: 5.3},
+  povScope: {push: .03, swayDeg: 1.5, swayPeriod: 3, fov: 20, forward: .9, headAt: .93, H: 5.3, range: 60}};
 export const CRASH = {frames: 5, overshoot: .06, push: .04, aimY: 3.0};   // aimY: the subject's aim point above its mark (a kid's face)       // crashZoom: fov from→to in 5 frames with a 6 % overshoot, 4 % dolly in
 export const TOPDOWN = {tiltDeg: 3, degrees: 40};                  // topDown: ~straight down (3° off so 'up' stays defined), slow turn
 export const SPLIT = {maxDur: 3};                                  // splitScreen: two half-frame cameras, ≤ 3 s
@@ -76,8 +93,9 @@ export function openHitOffset(shot, localT) {
   const zero = {fovScale: 1, pos: [0, 0, 0], target: [0, 0, 0], roll: 0};
   if (!shot.openHit || (shot.start ?? 0) !== 0) return zero;
   const fps = shot.fps ?? FPS, frame = Math.round(localT * fps);
-  if (frame >= OPEN_HIT.frames || frame < 0) return zero;
-  const t = frame / fps, x = frame / OPEN_HIT.frames;
+  const nf = framesFor(OPEN_HIT.frames, fps);
+  if (frame >= nf || frame < 0) return zero;
+  const t = frame / fps, x = frame / nf;
   const taper = Math.cos(x * Math.PI / 2);               // lands exactly at 0 by frame 8
   const env = Math.exp(-OPEN_HIT.decay * t) * taper;
   const r = rng((shot.seed ?? 1) * 31 + 7), ph = [r(), r(), r(), r()].map(v => v * Math.PI * 2);
@@ -132,9 +150,19 @@ export function framingCheck({size, move, subjectFrac, groundGap = 0, spectacle 
   return {ok: !issues.length, need, issues};
 }
 
+// E3 (opt-in shot.punch = [local s…]): a punch-in on each time — the lens narrows PUNCH.k (8 %) over PUNCH.frames (6) and holds.
+export const PUNCH = {k: .08, frames: 6};
+export const punchScale = (punch, localT, fps = FPS) => punch.reduce((s, t0) => s * (1 - PUNCH.k * EASE.outCubic(clamp01((localT - t0) * fps / PUNCH.frames))), 1);
 export function sampleCamera(shot, localT, actorPositions = {}) {
+  const c = sampleCamera0(shot, localT, actorPositions); if (!shot.punch?.length) return c;
+  const k = punchScale(shot.punch, localT, shot.fps ?? FPS);
+  return {...c, fov: c.fov * k, ...(c.split ? {split: c.split.map(h => ({...h, fov: h.fov * k}))} : {})};
+}
+function sampleCamera0(shot, localT, actorPositions = {}) {
   if (!MOVES.includes(shot.move)) throw Error(`unknown camera move: ${shot.move}`);
   if (MOVES5.includes(shot.move)) return sampleMove5(shot, localT, actorPositions);
+  if (MOVES_K1.includes(shot.move)) return sampleMoveK1(shot, localT, actorPositions);
+  if (shot.move === 'dollyZoom') return dollyZoomPose(shot, localT, actorPositions);
   const dur = Math.max(1e-6, shot.duration ?? 1), ease = EASE[shot.ease ?? 'inOutCubic'];
   if (!ease) throw Error(`unknown ease: ${shot.ease}`);
   const u = ease(clamp01(localT / dur));
@@ -178,7 +206,7 @@ export function sampleCamera(shot, localT, actorPositions = {}) {
     position = lerp3(a.position, b.position, u); target = lerp3(a.target, b.target, u); fov = lerp(a.fov, b.fov, u);
   } else if (shot.move === 'snap') {
     // same axis: the close pose sits on the line from the target back to the wide camera
-    const fps = shot.fps ?? FPS, k = clamp01((Math.round(localT * fps) - Math.round((shot.snapAt ?? 0) * fps)) / SNAP_FRAMES);
+    const fps = shot.fps ?? FPS, k = clamp01((Math.round(localT * fps) - Math.round((shot.snapAt ?? 0) * fps)) / framesFor(SNAP_FRAMES, fps));
     const tgt = e.target, d = sub(f.position, tgt), far = len(d), close = shot.closeDist ?? len(sub(e.position, tgt)), dir = scale(d, 1 / far);
     position = add(tgt, scale(dir, lerp(far, close, k))); target = lerp3(f.target, tgt, k); fov = lerp(f.fov ?? 40, e.fov ?? f.fov ?? 40, k);
   } else if (shot.move === 'tiltUp') {
@@ -202,12 +230,13 @@ export const hfov = (fovDeg, aspect = ASPECT) => 2 * Math.atan(Math.tan(fovDeg *
 // of the frame per second (pan vs width, tilt vs height) (plan.js gate: ≤ 35 % outside a whip). A camera that travels with
 // the subject it follows does not pan, so tracking a walker reads as still; a swing across the
 // scene does.
-export function maxTargetSpeed(shot, actorsAt = () => ({}), fps = FPS) {
+export function maxTargetSpeed(shot, actorsAt = () => ({}), fps = FPS, sampler = null) {   // tuft 4C: sampler(t) → {position, target, fov} (the cine camera) instead of sampleCamera
   const n = Math.max(1, Math.round((shot.duration ?? 1) * fps));
   const dir = c => { const d = sub(c.target, c.position), l = len(d); return scale(d, 1 / l); };
-  let peak = 0, prev = sampleCamera(shot, 0, actorsAt(0));
+  const cam = t => sampler ? sampler(t) : sampleCamera(shot, t, actorsAt(t));
+  let peak = 0, prev = cam(0);
   for (let i = 1; i <= n; i++) {
-    const t = i / fps, c = sampleCamera(shot, t, actorsAt(t)), a = dir(prev), b = dir(c);
+    const t = i / fps, c = cam(t), a = dir(prev), b = dir(c);
     // Pans are measured against the frame width, tilts against the frame height (9:16 is tall).
     let yaw = Math.atan2(b[0], b[2]) - Math.atan2(a[0], a[2]); yaw = Math.atan2(Math.sin(yaw), Math.cos(yaw));
     const pitch = Math.asin(Math.max(-1, Math.min(1, b[1]))) - Math.asin(Math.max(-1, Math.min(1, a[1])));
@@ -218,6 +247,34 @@ export function maxTargetSpeed(shot, actorsAt = () => ({}), fps = FPS) {
 }
 export const speedOk = (shot, actorsAt, fps) => shot.move === 'whip' || shot.move === 'snap' || maxTargetSpeed(shot, actorsAt, fps) <= SPEED_CAP;   // A4: snap is exempt like whip
 
+// ---- Kit 1 signature cameras (pure) ----------------------------------------------------------------------------------------
+// lowWide {actor, side: 'left'|'right', dir: [x, z] down the street (default −z)}: camera 0.8 high, fov 75, the actor 2.0 units from the lens
+//   on the 1/3 line (NDC x ±0.34 = ±0.17 of the frame width from the centre), looking 30 units beyond the actor along `dir`, tilted up K1.lowWide.pitchDeg (20°: at 2 units a 5 unit actor is all legs otherwise); creeps 0.25 units/s along `dir`.
+// scaleReveal {actor, h}: starts with the face 27 % of the frame height (fov 50) and ends with the actor 7.5 % (≤ 8 %), pulling straight
+//   back along the first view axis and rising K1.scaleReveal.lift (12) units while the target stays on the actor; inOutSine.
+// povScope {actor, dir: [x, z] or [x, y, z]}: the camera sits at the actor's head, forward of it along `dir`, fov 20, looking along `dir`
+//   (pair it with the 'scope' effect, engine/effects.js).
+export function sampleMoveK1(shot, localT, actorPositions = {}) {
+  const dur = Math.max(1e-6, shot.duration ?? 1), a = actorPositions[shot.actor] ?? shot.at ?? [0, 0, 0];
+  const norm = d => { const l = len(d) || 1; return scale(d, 1 / l); };
+  const d2 = v => norm(v.length === 2 ? [v[0], 0, v[1]] : v);
+  if (shot.move === 'lowWide') {   // Kit 1b: framing math from the actor height H
+    const C = K1.lowWide, H = shot.h ?? K1.scaleReveal.H, dir = d2(shot.dir ?? [0, -1]), right = norm([-dir[2], 0, dir[0]]), sgn = shot.side === 'left' ? -1 : 1, g = shot.ground ?? 0;
+    const d0 = fitDistance(H, C.body, C.fov), d = d0 - C.push * H * localT, lat = C.ndcX * Math.hypot(d0, H / 2 - C.hFrac * H) * Math.tan(C.fov * Math.PI / 360) * ASPECT * sgn, camY = g + C.hFrac * H;
+    const cam = add([a[0], camY, a[2]], add(scale(dir, -d), scale(right, -lat))), pitch = Math.atan2(a[1] + g + H / 2 - camY, d0), far = d + C.look * H;   // pitch: aim at the body centre, so head and feet stay in frame
+    return {position: cam, target: [cam[0] + dir[0] * far, camY + far * Math.tan(pitch), cam[2] + dir[2] * far], fov: C.fov, roll: 0};
+  }
+  if (shot.move === 'scaleReveal') {
+    const C = K1.scaleReveal, H = shot.h ?? C.H, u = EASE.inOutSine(clamp01(localT / dur)), face = [a[0], a[1] + C.faceAt * H, a[2]], mid = [a[0], a[1] + C.chestAt * H, a[2]];   // the look point settles at chest height
+    const d0 = fitDistance(C.faceSpan, C.startFace, C.fov), d1 = fitDistance(H, C.endActor, C.fov), rise = C.liftFrac * d1, ax = norm(d2(shot.dir ?? [0, 1]).map((v, i) => i === 1 ? .08 : v));
+    const p0 = add(face, scale(ax, d0)), p1 = add(add(mid, scale(ax, Math.sqrt(d1 * d1 - rise * rise))), [0, rise, 0]);   // slant distance = d1: the actor is exactly 8 % of the frame
+    return {position: lerp3(p0, p1, u), target: lerp3(face, mid, u), fov: C.fov, roll: 0};
+  }
+  const C = K1.povScope, H = shot.h ?? C.H, dir = d2(shot.dir ?? [0, -1]), head = [a[0], a[1] + C.headAt * H, a[2]], sw = C.swayDeg * Math.PI / 180 * Math.sin(2 * Math.PI * localT / C.swayPeriod);
+  const cam = add(head, scale(dir, (shot.forward ?? C.forward) + C.push * H * localT)), ad = [dir[0] * Math.cos(sw) - dir[2] * Math.sin(sw), 0, dir[0] * Math.sin(sw) + dir[2] * Math.cos(sw)];
+  return {position: cam, target: add(cam, scale(ad, C.range)), fov: C.fov, roll: 0};
+}
+
 // ---- format v5 moves (pure) ----------------------------------------------------------------------------------------------
 // crashZoom: locked-off camera; at `zoomAt` (s) the fov snaps from→to in CRASH.frames with an overshoot, and a small dolly in.
 // topDown: above `from.target` at `height` (default from.position height), looking down, turning `degrees` over the shot.
@@ -227,8 +284,8 @@ export const speedOk = (shot, actorsAt, fps) => shot.move === 'whip' || shot.mov
 export function sampleMove5(shot, localT, actorPositions = {}) {
   const dur = Math.max(1e-6, shot.duration ?? 1), f = shot.from, e = shot.to ?? shot.from, k = clamp01(localT / dur), fps = shot.fps ?? FPS;
   if (shot.move === 'crashZoom') {
-    const n = Math.round(localT * fps) - Math.round((shot.zoomAt ?? 0) * fps), x = clamp01(n / CRASH.frames);
-    const over = x < 1 ? EASE.outBack(x) : 1, fov = lerp(f.fov ?? 40, e.fov ?? 20, over), pos = lerp3(f.position, f.target, CRASH.push * clamp01(n / CRASH.frames));
+    const n = Math.round(localT * fps) - Math.round((shot.zoomAt ?? 0) * fps), x = clamp01(n / framesFor(CRASH.frames, fps));
+    const over = x < 1 ? EASE.outBack(x) : 1, fov = lerp(f.fov ?? 40, e.fov ?? 20, over), pos = lerp3(f.position, f.target, CRASH.push * x);
     const sp = shot.subject ? actorPositions[shot.subject] : null, ao = shot.subjectAimOffset ?? [0, 0, 0], aim = sp ? [sp[0] + ao[0], sp[1] + (shot.subjectAimY ?? CRASH.aimY) + ao[1], sp[2] + ao[2]] : null;   // E1 fix 2: opt-in subjectAimOffset (world units, e.g. to keep a held toy in frame)   // Look 6 (owner): always ends on the shot's subject
     return {position: pos, target: aim ? lerp3(f.target, aim, EASE.outCubic(x)) : f.target, fov: Math.max(5, fov), roll: 0};
   }

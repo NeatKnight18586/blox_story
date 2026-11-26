@@ -1,0 +1,64 @@
+{
+ "note": "tuft 2A BEAST KIT: DEER (low tier). Dark brown facets, dim MINT seams, bone antlers, long legs.",
+ "rig": "quad",
+ "tiers": [
+  "low",
+  "hero"
+ ],
+ "glow": "#5CFFA8",
+ "glowHDR": 1.4,
+ "lowFacets": 4,
+ "blobR": 1.0,
+ "colors": {
+  "body": "#4A3A2C",
+  "dark": "#2A2119",
+  "pale": "#7A6450",
+  "bone": "#EDE6D3"
+ },
+ "dims": {
+  "legH": 1.6,
+  "bodyH": 0.9,
+  "bodyL": 1.9,
+  "bodyW": 0.66,
+  "neckL": 0.95,
+  "neckUp": 55,
+  "headL": 0.75,
+  "headH": 0.42,
+  "headW": 0.44,
+  "tailL": 0.4,
+  "tailUp": 30,
+  "tail2Up": 0,
+  "jawMax": 0.4
+ },
+ "gait": {
+  "walkHz": 1.2,
+  "runHz": 2.4,
+  "walkSpeed": 1.9,
+  "runSpeed": 8
+ },
+ "name": "DEER",
+ "parts": [
+  {"seg": "body", "shape": "gem", "size": [0.66, 0.9, 1.9], "facets": 5, "rings": 2, "color": "body"},
+  {"seg": "body", "shape": "gem", "size": [0.7260000000000001, 0.9720000000000001, 0.855], "offset": [0, 0, 0.532], "facets": 5, "rings": 1, "color": "body"},
+  {"seg": "body", "shape": "strip", "from": [0, 0.45, -0.7979999999999999], "to": [0, 0.468, 0.76], "r": 0.03, "glow": "all", "facets": 3},
+  {"seg": "neck", "shape": "prism", "axis": "z", "len": 1.045, "r": [0.1848, 0.198], "taper": 0.85, "facets": 4, "offset": [0, 0, -0.1], "color": "body"},
+  {"seg": "head", "shape": "gem", "size": [0.44, 0.42, 0.44999999999999996], "offset": [0, 0.02, 0.15000000000000002], "facets": 5, "rings": 1, "color": "body"},
+  {"seg": "head", "shape": "prism", "axis": "z", "len": 0.44999999999999996, "r": [0.12320000000000002, 0.11760000000000001], "taper": 0.55, "facets": 4, "offset": [0, -0.04, 0.30000000000000004], "color": "body"},
+  {"seg": "head", "shape": "gem", "size": [0.1, 0.08, 0.14], "offset": [0.1452, 0.063, 0.315], "facets": 3, "rings": 1, "glow": "all", "glowGroup": "eye", "mirror": true},
+  {"seg": "jaw", "shape": "prism", "axis": "z", "len": 0.41250000000000003, "r": [0.0968, 0.05], "taper": 0.5, "facets": 3, "offset": [0, -0.04, 0], "color": "dark"},
+  {"seg": "jaw", "shape": "box", "size": [0.132, 0.02, 0.30000000000000004], "offset": [0, 0.0, 0.1875], "glow": "all", "glowGroup": "mouth"},
+  {"seg": "tail1", "shape": "prism", "axis": "-z", "len": 0.2, "r": [0.14600000000000002, 0.14600000000000002], "taper": 0.85, "facets": 3, "color": "body"},
+  {"seg": "tail2", "shape": "prism", "axis": "-z", "len": 0.2, "r": [0.12280000000000002, 0.12280000000000002], "taper": 0.3, "facets": 3, "color": "body"},
+  {"seg": "legFL1", "shape": "prism", "axis": "-y", "len": 0.8900000000000001, "r": [0.11, 0.13], "taper": 0.8, "facets": 4, "mirror": true, "color": "body"},
+  {"seg": "legBL1", "shape": "prism", "axis": "-y", "len": 0.8900000000000001, "r": [0.11, 0.13], "taper": 0.8, "facets": 4, "mirror": true, "color": "body"},
+  {"seg": "legFL2", "shape": "prism", "axis": "-y", "len": 0.8900000000000001, "r": [0.06, 0.07], "taper": 0.85, "facets": 3, "mirror": true, "color": "dark"},
+  {"seg": "legBL2", "shape": "prism", "axis": "-y", "len": 0.8900000000000001, "r": [0.06, 0.07], "taper": 0.85, "facets": 3, "mirror": true, "color": "dark"},
+  {"seg": "legFL2", "shape": "box", "size": [0.12, 0.1, 0.16], "offset": [0, -0.8900000000000001, 0.03], "mirror": true, "color": "dark"},
+  {"seg": "legBL2", "shape": "box", "size": [0.12, 0.1, 0.16], "offset": [0, -0.8900000000000001, 0.03], "mirror": true, "color": "dark"},
+  {"seg": "legFL2", "shape": "strip", "from": [0, -0.17800000000000005, 0.06300000000000001], "to": [0, -0.7120000000000002, 0.05600000000000001], "r": 0.018, "glow": "all", "facets": 3, "mirror": true},
+  {"seg": "earL", "shape": "cone", "axis": "x", "len": 0.3, "r": [0.09, 0.04], "color": "body", "facets": 3, "mirror": true},
+  {"seg": "head", "shape": "cone", "axis": "y", "len": 0.75, "r": [0.05, 0.05], "offset": [0.14, 0.2, 0.05], "rot": [-20, 0, -18], "color": "bone", "facets": 3, "mirror": true},
+  {"seg": "head", "shape": "cone", "axis": "y", "len": 0.4, "r": [0.04, 0.04], "offset": [0.24, 0.5, 0.0], "rot": [30, 0, -40], "color": "bone", "facets": 3, "mirror": true},
+  {"seg": "head", "shape": "cone", "axis": "y", "len": 0.35, "r": [0.035, 0.035], "offset": [0.3, 0.72, -0.08], "rot": [-30, 0, -10], "glow": "all", "facets": 3, "mirror": true}
+ ]
+}

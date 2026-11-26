@@ -5,11 +5,12 @@
 // info[i]: {speed, first, mid, last, early} where first/mid/last/early are inspectFrame() results
 //   ({camera: {position, target, fov}, heads: {name: {x, y, inFront, dist, rootDist}}}) at the shot's first,
 //   middle, last frame and first frame + 6.
-import {episodeEnd} from './timeline.js';
+import {episodeEnd, TAIL, MAX_END6, TAIL7, MAX_END7} from './timeline.js';
 import {SPEED_CAP} from './camera.js';
 import {cardOk} from './classes.js';
 
 export const SIZES = ['wide', 'medium', 'close', 'insert'];
+import {framesFor} from './fpsframes.js';
 export const LIMITS = {beat: [.55, 1.2], beatRun: 3, beatBefore: 20, minShot: 1.2, maxShot: 5.0, cutTol: 2, firstWide: 6, headX: [.15, .85], headY: [.18, .58], meanShot: [2.2, 3.0], band: [.58, .74], minCam: 2, whipFrames: [4, 6]};
 
 // Phrase onsets (s): every line start, plus every word that follows a pause (its start is later than the
@@ -25,17 +26,46 @@ const inBox = (h, [x0, x1], [y0, y1]) => h && h.inFront && h.x >= x0 && h.x <= x
 // Every word start (A3 beat shots may cut on any word, not only after a pause).
 export const wordOnsets = cues => cues.lines.flatMap(l => l.words.map(w => w.start));
 
-// Voice / episode length per format (owner V4 D-format): format v5 runs 75–90 s, older formats keep a 100–168 s voice.
-export const lengthRule = format => format === 5 ? {voice: [75, 90], end: [75, 90]} : {voice: [100, 168], end: null};
-export function checkPlan({shots, cues, fps = 30, end, info = [], format}) {
-  const V5 = format === 5;   // format v5: length, cuts and shot sizes follow engine/plancheck5.js (cut on any word; no size/location/openHit rules)
+// Voice / episode length per format: format 6 (docs/season1/FORMAT_V6.md, default for new episodes) ends voice + 0.85 s,
+// hard max 125 s, no minimum (never padded); format v5 runs 75–90 s; older formats keep a 100–168 s voice.
+export const lengthRule = (format, variant = 'short') => format === 7 ? {voice: [0, +(MAX_END7[variant] - TAIL7).toFixed(2)], end: [0, MAX_END7[variant]], tail: TAIL7}
+  : format === 6 ? {voice: [0, +(MAX_END6 - TAIL).toFixed(2)], end: [0, MAX_END6], tail: TAIL}
+  : format === 5 ? {voice: [75, 90], end: [75, 90]} : {voice: [100, 168], end: null};
+// FORMAT_V6 rule 5 (pure): the hero's first shot (subject, fit actor or in `see`) starts by 5.0 s.
+export const HERO_BY = 5.0, HERO_BY7 = 10.0;   // format 7: the hero's first shot starts by 10.0 s
+export function heroFirst(shots, hero, fps) {
+  const s = hero ? shots.find(x => x.subject === hero || x.fit?.actor === hero || (x.see ?? []).includes(hero)) : null;
+  return s ? {id: s.id, t: s.start / fps} : null;
+}
+export function heroIssues(shots, hero, fps, format = 6) {
+  const F = `format ${format}`, by = format >= 7 ? HERO_BY7 : HERO_BY;
+  if (!hero) return [`${F}: no hero named (spec.hero or a cast entry with troupe HERO)`];
+  const h = heroFirst(shots, hero, fps);
+  if (!h) return [`${F}: hero ${hero} is in no shot (subject / see)`];
+  return h.t > by + 1e-6 ? [`${F}: hero ${hero} first on screen at ${h.t.toFixed(2)} s in ${h.id} (≤ ${by} s)`] : [];
+}
+// FORMAT_V6 rule 4 (pure): the final shot is a close-up or two-shot on the payoff, never a (pull-back) wide.
+export function finalShotIssues(shots, format = 6) {
+  const s = shots.at(-1); if (!s) return [];
+  const out = [];
+  if (s.size === 'wide') out.push(`format ${format}: final shot ${s.id} is a wide (close-up or two-shot on the payoff)`);
+  if (s.move === 'pull') out.push(`format ${format}: final shot ${s.id} pulls back (close-up or two-shot on the payoff)`);
+  return out;
+}
+export function checkPlan({shots, cues, fps = 30, end, info = [], format, hero, lengthVariant = 'short'}) {
+  const V5 = format === 5 || format === 6 || format === 7;   // format v5/v6: length, cuts and shot sizes follow engine/plancheck5.js (cut on any word; no size/location/openHit rules)
   const errors = [], warnings = [], L = LIMITS, onsetF = phraseOnsets(cues).map(t => Math.round(t * fps)), wordF = wordOnsets(cues).map(t => Math.round(t * fps));
-  const nearWord = f => Math.min(...wordF.map(o => Math.abs(o - f))) <= L.cutTol;
+  const nearWord = f => Math.min(...wordF.map(o => Math.abs(o - f))) <= framesFor(L.cutTol, fps);
   let beatRun = 0;
   const voiceEnd = cues.duration, err = (s, m) => errors.push(`${s.id}: ${m}`), warn = (s, m) => warnings.push(`${s.id}: ${m}`);
-  const nearOnset = f => Math.min(...onsetF.map(o => Math.abs(o - f))) <= L.cutTol;
+  const nearOnset = f => Math.min(...onsetF.map(o => Math.abs(o - f))) <= framesFor(L.cutTol, fps);
   const want = episodeEnd(voiceEnd), last = shots.at(-1), endS = (last.start + last.frames) / fps;
-  if (V5) { const R = lengthRule(5);
+  if (format === 6 || format === 7) { const R = lengthRule(format, lengthVariant), wantE = voiceEnd + R.tail, F = `(format ${format})`;
+    if (voiceEnd > R.voice[1] + 1e-6) errors.push(`voice ${voiceEnd.toFixed(2)} s > ${R.voice[1]} s: the episode would pass the ${R.end[1]} s hard max ${F}`);
+    if (Math.abs(endS - wantE) > 1.5 / fps) errors.push(`last frame ends at ${endS.toFixed(2)} s, want voice + ${R.tail} = ${wantE.toFixed(2)} s ${F}`);
+    if (endS > R.end[1] + 1e-6) errors.push(`length ${endS.toFixed(2)} s > ${R.end[1]} s hard max ${F}`);
+    errors.push(...heroIssues(shots, hero, fps, format), ...finalShotIssues(shots, format)); }
+  else if (V5) { const R = lengthRule(5);
     if (voiceEnd < R.voice[0] || voiceEnd > R.voice[1]) errors.push(`voice ${voiceEnd.toFixed(2)} s outside ${R.voice[0]}–${R.voice[1]} s (format v5)`);
     if (endS < voiceEnd - 1e-6 || endS > R.end[1] + 1e-6) errors.push(`last frame ends at ${endS.toFixed(2)} s, want voice end ${voiceEnd.toFixed(2)}–${R.end[1]} s (format v5)`); }
   else {

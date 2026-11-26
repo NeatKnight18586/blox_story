@@ -1,0 +1,292 @@
+{
+ "note": "tuft 2A BEAST KIT demo (scripts/v2/beast-fixtures.js): night street, each hero beast doing 2 states (2 s each); review/beasts/demo.mp4 appends the parade wide.",
+ "slug": "beasts",
+ "fps": 24,
+ "format": 6,
+ "acting": 6,
+ "rig": "r6",
+ "twos": true,
+ "faceLife": true,
+ "labels": false,
+ "world": "engine/fixtures/v4look/world.js",
+ "cues": "engine/fixtures/acting6/cues.json",
+ "post": "cine",
+ "look4": "mystery",
+ "look": "mystery",
+ "cast": {
+  "nightfang": {
+   "style": "beast",
+   "preset": "NIGHTFANG",
+   "tier": "hero",
+   "at": "street",
+   "offset": [
+    0,
+    0,
+    -36
+   ],
+   "yaw": 0,
+   "state": "idle"
+  },
+  "kid_nightfang": {
+   "style": "v5",
+   "troupe": "LEAD",
+   "at": "street",
+   "offset": [
+    5.423928308486938,
+    0,
+    -27.156050148010255
+   ],
+   "yaw": 200,
+   "keys": [
+    [
+     0,
+     "idle"
+    ]
+   ]
+  },
+  "volt": {
+   "style": "beast",
+   "preset": "VOLT",
+   "tier": "hero",
+   "at": "street",
+   "offset": [
+    0,
+    0,
+    -10
+   ],
+   "yaw": 0,
+   "state": "idle"
+  },
+  "kid_volt": {
+   "style": "v5",
+   "troupe": "LEAD",
+   "at": "street",
+   "offset": [
+    2.073255467414856,
+    0,
+    -5.933375310897827
+   ],
+   "yaw": 200,
+   "keys": [
+    [
+     0,
+     "idle"
+    ]
+   ]
+  },
+  "cinder": {
+   "style": "beast",
+   "preset": "CINDER",
+   "tier": "hero",
+   "at": "street",
+   "offset": [
+    0,
+    0,
+    8
+   ],
+   "yaw": 0,
+   "state": "perch"
+  },
+  "kid_cinder": {
+   "style": "v5",
+   "troupe": "LEAD",
+   "at": "street",
+   "offset": [
+    3.3785276889801024,
+    0,
+    11.737300763130188
+   ],
+   "yaw": 200,
+   "keys": [
+    [
+     0,
+     "idle"
+    ]
+   ]
+  },
+  "boulder": {
+   "style": "beast",
+   "preset": "BOULDER",
+   "tier": "hero",
+   "at": "street",
+   "offset": [
+    0,
+    0,
+    26
+   ],
+   "yaw": 0,
+   "state": "idle"
+  },
+  "kid_boulder": {
+   "style": "v5",
+   "troupe": "LEAD",
+   "at": "street",
+   "offset": [
+    3.168415594100952,
+    0,
+    30.39593319416046
+   ],
+   "yaw": 200,
+   "keys": [
+    [
+     0,
+     "idle"
+    ]
+   ]
+  }
+ },
+ "shots": [
+  {
+   "id": "nightfang-roar-breathe",
+   "frames": 48,
+   "size": "ms",
+   "mood": "awe",
+   "move": "static-drift",
+   "subject": "nightfang",
+   "from": {
+    "position": [
+     -20.014,
+     6.353,
+     -24.445
+    ],
+    "target": [
+     0,
+     4.084,
+     -36
+    ],
+    "fov": 42
+   },
+   "beasts": [
+    {
+     "actor": "nightfang",
+     "state": "roar",
+     "at": 0.1
+    },
+    {
+     "actor": "nightfang",
+     "state": "breathe",
+     "at": 1.05
+    }
+   ]
+  },
+  {
+   "id": "volt-run-flinch",
+   "frames": 48,
+   "size": "ms",
+   "mood": "awe",
+   "move": "static-drift",
+   "subject": "volt",
+   "from": {
+    "position": [
+     -9.671,
+     3.131,
+     -0.417
+    ],
+    "target": [
+     0,
+     2.013,
+     -6
+    ],
+    "fov": 42
+   },
+   "beasts": [
+    {
+     "actor": "volt",
+     "state": "run",
+     "at": 0.1,
+     "to": [
+      0,
+      0,
+      -2
+     ]
+    },
+    {
+     "actor": "volt",
+     "state": "flinch",
+     "at": 1.05
+    }
+   ]
+  },
+  {
+   "id": "cinder-fly-perch",
+   "frames": 48,
+   "size": "ms",
+   "mood": "awe",
+   "move": "static-drift",
+   "subject": "cinder",
+   "from": {
+    "position": [
+     -11.645,
+     2.123,
+     18.223
+    ],
+    "target": [
+     0,
+     1.365,
+     11.5
+    ],
+    "fov": 42
+   },
+   "beasts": [
+    {
+     "actor": "cinder",
+     "state": "fly",
+     "at": 0.1,
+     "to": [
+      0,
+      0,
+      15
+     ]
+    },
+    {
+     "actor": "cinder",
+     "state": "perch",
+     "at": 1.05,
+     "to": [
+      0,
+      0,
+      15
+     ]
+    }
+   ]
+  },
+  {
+   "id": "boulder-walk-roar",
+   "frames": 48,
+   "size": "ms",
+   "mood": "awe",
+   "move": "static-drift",
+   "subject": "boulder",
+   "from": {
+    "position": [
+     -11.194,
+     4.165,
+     33.963
+    ],
+    "target": [
+     0,
+     2.678,
+     27.5
+    ],
+    "fov": 42
+   },
+   "beasts": [
+    {
+     "actor": "boulder",
+     "state": "walk",
+     "at": 0.1,
+     "to": [
+      0,
+      0,
+      29
+     ]
+    },
+    {
+     "actor": "boulder",
+     "state": "roar",
+     "at": 1.05
+    }
+   ]
+  }
+ ]
+}

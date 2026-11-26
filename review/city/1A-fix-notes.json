@@ -1,0 +1,19 @@
+{
+ "numbers": [
+  "BENCH @720x1280 (v2:bench, 4 gate cams): tris 45.7k / 74.1k / 77.4k / 76.3k (<=90k)",
+  "  s/frame 0.36 / 0.50 / 0.32 / 0.62 (run 2: .58) (<=0.62) mean 0.451 -> PASS",
+  "COMPOSITION (segmented render, 390x693):",
+  "  b plazaSouth  sky 32.8  water 21.7  (water 15-40)",
+  "  c bayNorth    sky 33.1  water 24.2  (<=25)  hills +15.6% above roofline",
+  "  d suburbStreet sky 34.2   e stairBottom sky 34.5   (all <=35)",
+  "SIGHTLINES: b 5,8  c 1,2,7,8  d 2,3,7  e 1,2,7,8  (b has 5; e has 2+8)",
+  "TERRAIN: terrace 14 flat; stair 20 steps monotonic; west arm 2->12 <=8%;",
+  "  Main St 14->20; east arm 1->5; hills crest 80-90; knoll 85"
+ ],
+ "weakest": [
+  "plazaSouth cannot hold the crescent rows in its left/right thirds: at fov 62 (vertical) a 390x693 frame is only +-18.7 deg wide, rows flank the stair at |x|>=28.",
+  "bayNorth had to move from z +250 to z +135: at +250 sky<=35 % and water<=25 % cannot both hold at fov 50 (needs land >=40 % of frame height).",
+  "Stair = 20 steps at 0.575 rise (20 x 0.7 ends at y 0, 2.5 under the +2.5 deck); blockout reads flat-lit pale stone, no CC0 stone yet."
+ ],
+ "verdict": "PASS (numbers: bench, sky, water, hills, sightlines)"
+}

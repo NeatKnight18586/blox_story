@@ -1,0 +1,122 @@
+{
+ "name": "space",
+ "note": "Touch Grass VR 3: near-black navy dome, 2400 point stars in 3 sizes, glowing sunSphere (core + additive glow), far ringed planet, ships x2.5 (props7).",
+ "groundY": 0,
+ "backdrop": {
+  "type": "sky",
+  "top": "#10163A",
+  "horizon": "#1C2450",
+  "ground": "#05060F",
+  "radius": 420
+ },
+ "env": {
+  "intensity": 1.2
+ },
+ "exposure": 1.0,
+ "toneMapping": "Neutral",
+ "sun": {
+  "intensity": 2.4,
+  "color": "#FFE2B0",
+  "az": 70,
+  "el": 10,
+  "shadow": {
+   "size": 1024
+  },
+  "shadowOpacity": 0,
+  "hemi": {
+   "sky": "#6A7AC0",
+   "ground": "#3A3060",
+   "i": 1.1
+  }
+ },
+ "bake": {
+  "cell": 2.0,
+  "aoDist": 4,
+  "aoMin": 0.5,
+  "shadow": 0.5,
+  "seg": 8
+ },
+ "materials": {},
+ "modules": {},
+ "layout": [],
+ "props": [
+  {
+   "prop": "starField",
+   "at": [
+    0,
+    0,
+    0
+   ],
+   "rotY": 0,
+   "p": {
+    "n": 2400,
+    "r": 380
+   }
+  },
+  {
+   "prop": "sunSphere",
+   "at": [
+    180,
+    20,
+    -260
+   ],
+   "rotY": 0,
+   "p": {
+    "r": 55
+   },
+   "id": "sun"
+  },
+  {
+   "prop": "ringPlanet",
+   "at": [
+    -230,
+    70,
+    -330
+   ],
+   "rotY": 0,
+   "p": {
+    "r": 26
+   }
+  },
+  {
+   "prop": "spaceship",
+   "at": [
+    0,
+    0,
+    0
+   ],
+   "rotY": 0,
+   "scale": 2.5,
+   "p": {},
+   "id": "leoShip"
+  },
+  {
+   "prop": "spaceship",
+   "at": [
+    -24,
+    8,
+    -50
+   ],
+   "rotY": 30,
+   "scale": 2.5,
+   "p": {
+    "color": "#8A2A2A",
+    "accent": "#2A2A2A"
+   }
+  },
+  {
+   "prop": "spaceship",
+   "at": [
+    28,
+    -6,
+    -72
+   ],
+   "rotY": -40,
+   "scale": 2.5,
+   "p": {
+    "color": "#8A2A2A",
+    "accent": "#2A2A2A"
+   }
+  }
+ ]
+}

@@ -3,20 +3,21 @@
 
   python3 scripts/v2/scriptcheck.py --story <slug> [--card-file docs/season1/SEASON_1.md] [--json]
 
-Checks `stories/<slug>/script.txt` against its card in SEASON_1.md §6:
-  1. 410–440 words;  2. no sentence over 12 words;  3. first line ≤ 9 words and equal to the card's Rule opening (its first
-  sentence);  4. last line equal to the card's last line (a card line starting with "…" must end the script's last line);
-  5. at most six sentences contain first-person words (characters' spoken lines only);  6. Flesch–Kincaid grade ≤ 6;
-  7. every key noun of the card's Rule, Hero, Expansion and Crisis fields appears in the script.
-Key nouns (7) are the content words of those four fields: words of 3+ letters minus function words, numbers, common verbs,
+Checks `stories/<slug>/script.txt` (FORMAT v6, docs/season1/FORMAT_V6.md) against its card in SEASON_1.md §6:
+  1. 300–400 words target: > 400 FAILS, < 300 is a WARNING (owner Decision 1, 2026-11-20);  2. no sentence over 12 words;  3. first line ≤ 9 words;  4. the last line does NOT repeat or paraphrase
+  the first line (FAIL when the normalized lines are equal or share ≥ 60 % of the words of the shorter line);
+  5. Flesch–Kincaid grade ≤ 6;  6. every key noun of the card's Rule, Hero, Expansion and Crisis fields appears.
+First-person narration is the format (decision D1): no cap. The card's first/last lines are not required word for word.
+Key nouns (6) are the content words of those four fields: words of 3+ letters minus function words, numbers, common verbs,
 adjectives and adverbs (STOP), and minus generic person / place words that a script names another way (GENERIC: "person",
 "kid", "edge", "square", …). A key noun counts as present when any inflection matches (eggs/egg, whispering/whispers,
 sleepwalks/sleepwalking, handshakes/handshake, snaps/snapped). Clues, Frame 0, Money shot and World are pictures, not words.
 """
 import argparse, json, re, sys
 
-WORDS = (410, 440)
-MAX_SENTENCE, FIRST_LINE, MAX_FIRST_PERSON, MAX_GRADE = 12, 9, 6, 6.0
+WORDS = (300, 400)   # FORMAT_V6.md rule 1
+VARIANT_WORDS = {'short': (200, 250), 'long': (280, 330)}   # format 7 (--variant): > max FAIL, < min WARN
+MAX_SENTENCE, FIRST_LINE, MAX_GRADE, MAX_OVERLAP = 12, 9, 6.0, .60
 FIRST_PERSON = {'i', 'me', 'my', 'mine', 'myself', 'we', 'us', 'our', 'ours', 'ourselves', "i'm", "i'll", "i've", "i'd", "we're", "we'll", "we've", "we'd", "let's"}
 STOP = set('''a an the and or but if then so to of in on at by for with from into onto up down out over under about as is are was were be been being has
 have had do does did not no nor never ever only just too very one two three four five six seven eight nine ten eleven twelve hundred thousand first
@@ -105,26 +106,35 @@ def rule_opening(card):
     return m.group(1) if m else r
 
 
-def check(script, card):
-    """→ {'pass', 'failures': [...], 'numbers': {...}} (pure)."""
+def overlap(a, b):
+    """Share of the shorter line's distinct words that the other line also has (0–1, pure)."""
+    A, B = set(tokens(a)), set(tokens(b))
+    return len(A & B) / min(len(A), len(B)) if A and B else 0.0
+
+
+def repeats_first(first, last):
+    """FORMAT_V6 rule 3 (pure): the last line repeats/paraphrases the first: equal after normalizing, or ≥ 60 % word overlap."""
+    return bool(first and last) and (norm(first) == norm(last) or overlap(first, last) >= MAX_OVERLAP)
+
+
+def check(script, card, variant=None):
+    """→ {'pass', 'failures': [...], 'warnings': [...], 'numbers': {...}} (pure)."""
     F, ls, ss = [], lines(script), sentences(script)
     nw = len(tokens(script)); long = [s for s in ss if len(tokens(s)) > MAX_SENTENCE]
-    fp = [s for s in ss if FIRST_PERSON & set(tokens(s))]; grade = fk_grade(script)
+    grade = fk_grade(script)
     first, last = ls[0] if ls else '', ls[-1] if ls else ''
-    want_first, want_last = rule_opening(card), card_last_line(card)
-    if not WORDS[0] <= nw <= WORDS[1]: F.append(f'{nw} words (want {WORDS[0]}–{WORDS[1]})')
+    W = []
+    lo, hi = VARIANT_WORDS[variant] if variant else WORDS
+    if nw > hi: F.append(f'{nw} words (> {hi}; target {lo}–{hi})')
+    elif nw < lo: W.append(f'{nw} words (< {lo}; target {lo}–{hi}, never padded)')
     for s in long: F.append(f'sentence of {len(tokens(s))} words (> {MAX_SENTENCE}): "{s}"')
     if len(tokens(first)) > FIRST_LINE: F.append(f'first line has {len(tokens(first))} words (> {FIRST_LINE})')
-    if norm(first) != norm(want_first): F.append(f'first line "{first}" ≠ the card\'s Rule opening "{want_first}"')
-    wl = want_last.lstrip('…').lstrip('.').strip()
-    if not want_last: F.append('card has no last line')
-    elif (norm(last) != norm(wl)) if not want_last.startswith(('…', '...')) else not norm(last).endswith(norm(wl)): F.append(f'last line "{last}" ≠ the card\'s last line "{want_last}"')
-    if len(fp) > MAX_FIRST_PERSON: F.append(f'{len(fp)} sentences with first-person words (≤ {MAX_FIRST_PERSON})')
+    if len(ls) > 1 and repeats_first(first, last): F.append(f'last line "{last}" repeats the first line "{first}" ({overlap(first, last) * 100:.0f} % word overlap; twist the rule or land the laugh instead)')
     if grade > MAX_GRADE: F.append(f'Flesch–Kincaid grade {grade:.2f} (> {MAX_GRADE})')
     miss = missing_nouns(card, script)
     if miss: F.append('key nouns missing: ' + ', '.join(miss))
-    return {'pass': not F, 'failures': F, 'numbers': {'words': nw, 'sentences': len(ss), 'longest': max((len(tokens(s)) for s in ss), default=0),
-            'firstLineWords': len(tokens(first)), 'firstPerson': len(fp), 'grade': round(grade, 2), 'keyNouns': len(key_nouns(card)), 'missing': miss}}
+    return {'pass': not F, 'failures': F, 'warnings': W, 'numbers': {'words': nw, 'sentences': len(ss), 'longest': max((len(tokens(s)) for s in ss), default=0),
+            'firstLineWords': len(tokens(first)), 'lastLineOverlap': round(overlap(first, last), 2), 'grade': round(grade, 2), 'keyNouns': len(key_nouns(card)), 'missing': miss}}
 
 
 # ---------------- card file ----------------
@@ -139,11 +149,13 @@ def card_for(slug, md):
 
 
 def main():
-    a = argparse.ArgumentParser(); a.add_argument('--story', required=True); a.add_argument('--card-file', default='docs/season1/SEASON_1.md'); a.add_argument('--json', action='store_true'); o = a.parse_args()
-    r = check(open(f'stories/{o.story}/script.txt').read(), card_for(o.story, open(o.card_file).read()))
+    a = argparse.ArgumentParser(); a.add_argument('--story', required=True); a.add_argument('--card-file', default='docs/season1/SEASON_1.md'); a.add_argument('--json', action='store_true')
+    a.add_argument('--variant', choices=sorted(VARIANT_WORDS), help='format 7: short 200–250 words, long 280–330 (default: 300–400)'); o = a.parse_args()
+    r = check(open(f'stories/{o.story}/script.txt').read(), card_for(o.story, open(o.card_file).read()), o.variant)
     if o.json: print(json.dumps(r, ensure_ascii=False))
     else:
         print(json.dumps(r['numbers'], ensure_ascii=False))
+        for w in r['warnings']: print('WARN', w)
         for f in r['failures']: print('FAIL', f)
         print(('PASS' if r['pass'] else 'FAIL') + f' scriptcheck {o.story}')
     sys.exit(0 if r['pass'] else 1)

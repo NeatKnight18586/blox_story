@@ -1,0 +1,88 @@
+[
+ {
+  "name": "parade draw calls \u2264 3 per preset",
+  "pass": true,
+  "line": "40 low-tier beasts, 3 presets: calls 57 \u2192 63 = 2.00 per preset (mesh + contact blobs)",
+  "on": 63,
+  "off": 57,
+  "presets": 3,
+  "n": 40,
+  "perPreset": 2
+ },
+ {
+  "name": "cost: ms/frame at 270\u00d7480 (4 hero + 40 low)",
+  "pass": true,
+  "line": "median 79 ms (mean 79); the 1B fixture without beasts 68 ms",
+  "ms": {
+   "median": 79.30000000004657,
+   "mean": 79.45416666666279
+  },
+  "base": 68.10000000009313
+ },
+ {
+  "name": "glow only on seams: the body's OWN bloom \u2264 0.5 % (owner ruling 2B)",
+  "pass": true,
+  "line": "own bloom with seams dark max 0.000 %; seam halo reported: \u0394luma max 29.05 % (NIGHTFANG 21.20, VOLT 29.05, CINDER 8.98, BOULDER 15.13)",
+  "rows": [
+   {
+    "beast": "NIGHTFANG",
+    "body": 0.21202631596360982,
+    "bodyPx": 149489,
+    "own": 0,
+    "ring": 8.372100277877202,
+    "ringOn": 0.709327947598689,
+    "ringOff": 0.07568505741162994,
+    "seamPx": 3712,
+    "allBody": 154214
+   },
+   {
+    "beast": "VOLT",
+    "body": 0.29045505315141695,
+    "bodyPx": 181891,
+    "own": 0,
+    "ring": 1.1055569431611123,
+    "ringOn": 0.8075429333549786,
+    "ringOff": 0.383529372586143,
+    "seamPx": 12026,
+    "allBody": 191632
+   },
+   {
+    "beast": "CINDER",
+    "body": 0.08977738899498991,
+    "bodyPx": 69817,
+    "own": 0,
+    "ring": 1.0425672903439716,
+    "ringOn": 0.6907600014525099,
+    "ringOff": 0.3381822497197558,
+    "seamPx": 1847,
+    "allBody": 71619
+   },
+   {
+    "beast": "BOULDER",
+    "body": 0.15131248107791448,
+    "bodyPx": 234719,
+    "own": 0,
+    "ring": 3.441859023501867,
+    "ringOn": 0.6704324508888457,
+    "ringOff": 0.1509351033748683,
+    "seamPx": 6353,
+    "allBody": 241809
+   }
+  ]
+ },
+ {
+  "name": "seams bloom \u2265 +100 % around them",
+  "pass": true,
+  "line": "1\u20136 px ring outside the seams: luma +104 % min (NIGHTFANG 0.076 \u2192 0.709, VOLT 0.384 \u2192 0.808, CINDER 0.338 \u2192 0.691, BOULDER 0.151 \u2192 0.670)"
+ },
+ {
+  "name": "render determinism (10 kit frames, reverse order)",
+  "pass": true,
+  "line": "10/10 identical PNGs"
+ },
+ {
+  "name": "byte-identical 1B fixture without beasts",
+  "pass": true,
+  "line": "10/10 frames (every 30th, 270\u00d7480) identical to the pre-2A render"
+ }
+]

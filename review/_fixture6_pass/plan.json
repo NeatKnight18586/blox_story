@@ -1,0 +1,241 @@
+{
+ "spec": "stories/_fixture6_pass/episode.json",
+ "cues": "stories/_fixture6_pass/cues.json",
+ "shots": [
+  {
+   "id": "S01",
+   "beat": false,
+   "t": 0,
+   "dur": 1.8,
+   "size": "medium",
+   "move": "track",
+   "loc": "street",
+   "speed": 22,
+   "subject": "hero@50,28",
+   "why": "fun: look_around"
+  },
+  {
+   "id": "S02",
+   "beat": false,
+   "t": 1.8,
+   "dur": 1.9,
+   "size": "wide",
+   "move": "orbit",
+   "loc": "street",
+   "speed": 28,
+   "subject": "hero@27,41",
+   "why": "fun: friend:cheer"
+  },
+  {
+   "id": "S03",
+   "beat": false,
+   "t": 3.7,
+   "dur": 1.6,
+   "size": "medium",
+   "move": "crashZoom",
+   "loc": "street",
+   "speed": 0,
+   "subject": "hero@45,32",
+   "why": "comedy: flinch"
+  },
+  {
+   "id": "S04",
+   "beat": false,
+   "t": 5.3,
+   "dur": 1.6,
+   "size": "close",
+   "move": "snap",
+   "loc": "street",
+   "speed": 0,
+   "subject": "hero@43,52",
+   "why": "comedy: facepalm"
+  },
+  {
+   "id": "S05",
+   "beat": false,
+   "t": 6.9,
+   "dur": 1.5,
+   "size": "close",
+   "move": "whip",
+   "loc": "street",
+   "speed": 67,
+   "subject": "hero@20,51",
+   "why": "comedy: gasp_step_back"
+  },
+  {
+   "id": "S06",
+   "beat": false,
+   "t": 8.4,
+   "dur": 2,
+   "size": "medium",
+   "move": "track",
+   "loc": "street",
+   "speed": 19,
+   "subject": "friend@50,40",
+   "why": "fun: friend:shrug"
+  },
+  {
+   "id": "S07",
+   "beat": false,
+   "t": 10.4,
+   "dur": 1.6,
+   "size": "medium",
+   "move": "push",
+   "loc": "street",
+   "speed": 0,
+   "subject": "hero@45,28",
+   "why": "tension: shrug"
+  },
+  {
+   "id": "S08",
+   "beat": false,
+   "t": 12,
+   "dur": 1.4,
+   "size": "medium",
+   "move": "crashZoom",
+   "loc": "street",
+   "speed": 0,
+   "subject": "hero@60,33",
+   "why": "comedy: flinch"
+  },
+  {
+   "id": "S09",
+   "beat": false,
+   "t": 13.4,
+   "dur": 3.2,
+   "size": "close",
+   "move": "push",
+   "loc": "street",
+   "speed": 0,
+   "subject": "hero@43,48",
+   "why": "emotion: look_around"
+  },
+  {
+   "id": "S10",
+   "beat": false,
+   "t": 16.6,
+   "dur": 3.2,
+   "size": "wide",
+   "move": "crane",
+   "loc": "street",
+   "speed": 12,
+   "subject": "hero@51,41",
+   "why": "awe: look_around"
+  },
+  {
+   "id": "S11",
+   "beat": false,
+   "t": 19.8,
+   "dur": 2,
+   "size": "medium",
+   "move": "lowAuthority",
+   "loc": "street",
+   "speed": 0,
+   "subject": "hero@44,34",
+   "why": "tension: flinch"
+  },
+  {
+   "id": "S12",
+   "beat": false,
+   "t": 21.8,
+   "dur": 2.47,
+   "size": "close",
+   "move": "push",
+   "loc": "street",
+   "speed": 0,
+   "subject": "hero@59,48",
+   "why": "payoff: cheer"
+  }
+ ],
+ "meanShot": 2.13,
+ "end": 24.27,
+ "gamecam": 0,
+ "wides": 2,
+ "partners": [],
+ "format5": {
+  "lengthS": 24.28,
+  "averageShotS": 2.02,
+  "insertH": {}
+ },
+ "season": false,
+ "framing": [
+  {
+   "shot": "S01",
+   "part": "full",
+   "frac": 0.602,
+   "need": 0.3
+  },
+  {
+   "shot": "S03",
+   "part": "full",
+   "frac": 0.739,
+   "need": 0.3
+  },
+  {
+   "shot": "S04",
+   "part": "head",
+   "frac": 0.488,
+   "need": 0.45
+  },
+  {
+   "shot": "S05",
+   "part": "head",
+   "frac": 0.78,
+   "need": 0.45
+  },
+  {
+   "shot": "S06",
+   "part": "full",
+   "frac": 0.476,
+   "need": 0.3
+  },
+  {
+   "shot": "S07",
+   "part": "full",
+   "frac": 0.603,
+   "need": 0.3
+  },
+  {
+   "shot": "S08",
+   "part": "full",
+   "frac": 0.741,
+   "need": 0.3
+  },
+  {
+   "shot": "S09",
+   "part": "head",
+   "frac": 0.5,
+   "need": 0.45
+  },
+  {
+   "shot": "S11",
+   "part": "full",
+   "frac": 0.598,
+   "need": 0.3
+  },
+  {
+   "shot": "S12",
+   "part": "head",
+   "frac": 0.503,
+   "need": 0.45
+  }
+ ],
+ "uiItems": 0,
+ "eggs": [],
+ "overlaps": 0,
+ "moods": {
+  "a": "PASS",
+  "b": "PASS",
+  "c": "PASS",
+  "d": "PASS",
+  "e": "PASS",
+  "f": "PASS",
+  "g": "PASS",
+  "h": "WARN"
+ },
+ "errors": [],
+ "warnings": [
+  "h. pacing curve: 0–10 s: 5 cuts/10 s (climax wants 6–8)",
+  "h. pacing curve: 10–20 s: 5 cuts/10 s (climax wants 6–8)"
+ ]
+}

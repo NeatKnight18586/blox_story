@@ -63,6 +63,14 @@ export function materialFiles(set, manifest) {
   return Object.fromEntries(Object.entries(e.maps).map(([k, f]) => [k, dir + f]));
 }
 
+// Kit 1 (browser): the grounded photo-sky mesh of a backdrop {height, radius, intensity, rotation (deg)} from an equirect .hdr url → {sky, hdr}.
+// Same construction as buildLocation's 'groundedSkybox' backdrop (kept in step by hand: that path stays untouched so existing specs render as before).
+export async function groundedSky(T, renderer, url, bd = {}) {
+  const {GroundedSkybox} = await import('three/addons/objects/GroundedSkybox.js'), {HDRLoader} = await import('three/addons/loaders/HDRLoader.js');
+  const hdr = await new HDRLoader().setDataType(T.FloatType).loadAsync(url); hdr.mapping = T.EquirectangularReflectionMapping;
+  const sky = new GroundedSkybox(hdr, bd.height ?? 5, bd.radius ?? 300); sky.rotation.y = (bd.rotation ?? 0) * deg; sky.material.fog = false; sky.material.toneMapped = true; sky.material.color.setScalar(bd.intensity ?? 1);
+  sky.position.y = (bd.height ?? 5) + (bd.y ?? 0) - .02; sky.userData.live = true; sky.name = 'groundedSkybox'; return {sky, hdr};
+}
 // ---- browser ------------------------------------------------------------------------------------------------------------------
 export async function buildLocation(scene, renderer, loc, {base, manifest}) {
   const T = await import('three');
@@ -79,6 +87,8 @@ export async function buildLocation(scene, renderer, loc, {base, manifest}) {
     const f = manifest?.hdri?.[bd.hdri]; if (!f) throw Error('hdri not in manifest: ' + bd.hdri);
     hdr = await new HDRLoader().setDataType(T.FloatType).loadAsync(new URL(`renders/cache/assets/${f.id}/${f.file}`, base).href);
     hdr.mapping = T.EquirectangularReflectionMapping; stats.hdriBytes = hdr.image.width * hdr.image.height * 16;
+    if (bd.saturation !== undefined) { const d = hdr.image.data, k = bd.saturation, tint = bd.tint ?? [1, 1, 1];   // opt-in (Touch Grass dust haze): desaturate the HDRI (sky + env) toward its luma
+      for (let i = 0; i < d.length; i += 4) { const l = .2126 * d[i] + .7152 * d[i + 1] + .0722 * d[i + 2]; for (let c = 0; c < 3; c++) d[i + c] = (l + (d[i + c] - l) * k) * tint[c]; } hdr.needsUpdate = true; }
     const {width: w, height: h, data} = hdr.image, rgb = new Float32Array(w * h * 3); for (let i = 0; i < w * h; i++) { rgb[i * 3] = data[i * 4]; rgb[i * 3 + 1] = data[i * 4 + 1]; rgb[i * 3 + 2] = data[i * 4 + 2]; }
     sunAuto = sunFromEquirect(rgb, w, h); horizon = horizonColor(rgb, w, h);   // HDR rows are top-first (flipY texture)
     const rot = (bd.rotation ?? 0) * deg;
@@ -159,7 +169,9 @@ export async function buildLocation(scene, renderer, loc, {base, manifest}) {
   // statics: 'standard' = lit by env + sun (no shadow map), baked colour = AO × sun visibility (normal + roughness maps live);
   // 'basic' = unlit map × AO map × baked light (today's cost model, engine/bake.js; normal/roughness maps dropped).
   // Glass, metal and emissive parts stay Standard (env reflection).
-  if (cheap) { const swap = new Map(); for (const m of statics) { const o = m.material; if (o.metalness > .3 || o.roughness < .2 || o.emissiveIntensity > 0) continue;
+  // Emissive = a non-black emissive colour with intensity > 0 (procedural std materials carry the default intensity 1 on black: they swap).
+  const glows = o => o.emissiveIntensity > 0 && !!o.emissive && (o.emissive.r + o.emissive.g + o.emissive.b) > 0;
+  if (cheap) { const swap = new Map(); for (const m of statics) { const o = m.material; if (o.metalness > .3 || o.roughness < .2 || glows(o)) continue;
     if (!swap.has(o)) { const n = new T.MeshBasicMaterial({map: o.map, aoMap: o.aoMap, aoMapIntensity: o.aoMapIntensity, color: o.color, vertexColors: true});
       n.name = 'static:' + B.material; swap.set(o, n); } m.material = swap.get(o); } }
   stats.prims = prims.length; stats.ms = Math.round(performance.now() - t0); stats.horizon = horizon?.map(v => +v.toFixed(3));

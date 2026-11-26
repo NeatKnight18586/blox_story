@@ -26,7 +26,7 @@ function roof(w, d, h, mat, at) {
 }
 
 export function build(scene, {M, M4, look4, spec, PR}) {
-  const v4 = !!(spec.look4 && M4), night = v4 ? spec.look4 === 'mystery' : spec.look === 'night';
+  const v4 = !!(spec.look4 && M4), night = v4 ? spec.look4 === 'mystery' || spec.look4 === 'moonlit' : spec.look === 'night';
   const S = v4 ? {road: M4.mat4('asphaltLane', '#ffffff', {repeat: [1, 8]}), walk: M4.mat4('polishedFloor', '#d8d2c8', {repeat: [2, 20]}), plaza: M4.mat4('polishedFloor', '#ffffff', {repeat: [5, 5]}),
       plasterA: M4.mat4('plaster', '#f3e2c4', {repeat: [2, 2]}), plasterB: M4.mat4('plaster', '#cfe0d8', {repeat: [2, 2]}), timber: M4.mat4('timber', '#ffffff', {repeat: [1, 1]}),
       tile: M4.mat4('roofTile', '#ffffff', {repeat: [2, 2]}), glass: M4.mat4('glassPanel', '#ffffff', {repeat: [2, 6], live: true}), metal: M4.mat4('polishedFloor', '#3a3f48'), ground: M4.mat4('plaster', '#8fa37a', {repeat: [10, 10]})}

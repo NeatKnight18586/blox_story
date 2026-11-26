@@ -1,0 +1,226 @@
+{
+ "name": "dragonPeaks",
+ "note": "Touch Grass VR 2: sunset, jagged rock peaks (props7 rockPeak) at 3 distances in sunset fog, one flat rock plateau (rockMesa r 26, top y 0) for 100 friends.",
+ "groundY": 0,
+ "backdrop": {
+  "type": "sky",
+  "top": "#2B3A6B",
+  "horizon": "#F08A4B",
+  "ground": "#4A3A5A",
+  "radius": 420
+ },
+ "env": {
+  "intensity": 1.0
+ },
+ "exposure": 1.0,
+ "toneMapping": "Neutral",
+ "fog": {
+  "color": "#E0906A",
+  "near": 160,
+  "far": 1600
+ },
+ "sun": {
+  "intensity": 2.6,
+  "color": "#FFB070",
+  "az": 215,
+  "el": 16,
+  "minEl": 14,
+  "shadow": {
+   "size": 1024
+  },
+  "shadowOpacity": 0.5,
+  "hemi": {
+   "sky": "#FFC8A0",
+   "ground": "#6A5A7A",
+   "i": 0.7
+  }
+ },
+ "bake": {
+  "cell": 2.0,
+  "aoDist": 6,
+  "aoMin": 0.5,
+  "shadow": 0.45,
+  "seg": 8
+ },
+ "materials": {
+  "rock": {
+   "procedural": "rock",
+   "color": "#9A7A6A"
+  },
+  "rockLt": {
+   "procedural": "rock",
+   "color": "#B8968A"
+  },
+  "snow": {
+   "procedural": "snow",
+   "color": "#FFF4EC"
+  },
+  "grass": {
+   "procedural": "grass",
+   "color": "#7BC85A"
+  },
+  "plateau": {
+   "procedural": "rock",
+   "color": "#A88A78"
+  }
+ },
+ "modules": {
+  "valley": {
+   "parts": [
+    {
+     "plane": [
+      1400,
+      1400
+     ],
+     "at": [
+      0,
+      0,
+      0
+     ],
+     "mat": "grass"
+    }
+   ]
+  }
+ },
+ "layout": [
+  {
+   "module": "valley",
+   "at": [
+    0,
+    -40,
+    0
+   ]
+  }
+ ],
+ "props": [
+  {
+   "prop": "rockMesa",
+   "at": [
+    0,
+    0,
+    0
+   ],
+   "rotY": 0,
+   "p": {
+    "r": 40,
+    "h": 40
+   },
+   "id": "plateau"
+  },
+  {
+   "prop": "swordStone",
+   "at": [
+    0,
+    0,
+    -14
+   ],
+   "rotY": 0,
+   "p": {}
+  },
+  {
+   "prop": "rockPeak",
+   "at": [
+    -150,
+    -40,
+    -170
+   ],
+   "rotY": 0,
+   "p": {
+    "h": 130,
+    "r": 54.6,
+    "seed": 1,
+    "snow": 0.65
+   }
+  },
+  {
+   "prop": "rockPeak",
+   "at": [
+    140,
+    -40,
+    -200
+   ],
+   "rotY": 37,
+   "p": {
+    "h": 110,
+    "r": 46.2,
+    "seed": 2,
+    "snow": 0.65
+   }
+  },
+  {
+   "prop": "rockPeak",
+   "at": [
+    -250,
+    -40,
+    -340
+   ],
+   "rotY": 74,
+   "p": {
+    "h": 240,
+    "r": 100.8,
+    "seed": 3,
+    "snow": 0.65
+   }
+  },
+  {
+   "prop": "rockPeak",
+   "at": [
+    230,
+    -40,
+    -380
+   ],
+   "rotY": 111,
+   "p": {
+    "h": 270,
+    "r": 113.4,
+    "seed": 4,
+    "snow": 0.65
+   }
+  },
+  {
+   "prop": "rockPeak",
+   "at": [
+    95,
+    -40,
+    -320
+   ],
+   "rotY": 148,
+   "p": {
+    "h": 190,
+    "r": 79.8,
+    "seed": 5,
+    "snow": 0.65
+   }
+  },
+  {
+   "prop": "rockPeak",
+   "at": [
+    -10,
+    -40,
+    -430
+   ],
+   "rotY": 185,
+   "p": {
+    "h": 414.3,
+    "r": 107.7,
+    "seed": 6,
+    "snow": 0.65
+   }
+  },
+  {
+   "prop": "rockPeak",
+   "at": [
+    -420,
+    -40,
+    -520
+   ],
+   "rotY": 222,
+   "p": {
+    "h": 330,
+    "r": 138.6,
+    "seed": 7,
+    "snow": 0.65
+   }
+  }
+ ]
+}

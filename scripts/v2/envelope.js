@@ -6,12 +6,13 @@ import {execFileSync} from 'node:child_process';
 import {mkdirSync, writeFileSync, readFileSync} from 'node:fs';
 import {dirname} from 'node:path';
 import {envelope, talkShapes, FLAP} from '../../engine/lipflap.js';
+import {framesFor} from '../../engine/fpsframes.js';
 
 const argv = process.argv.slice(2), arg = (k, d) => { const i = argv.indexOf(`--${k}`); return i >= 0 ? argv[i + 1] : d; };
 const story = arg('story'), FPS = Number(arg('fps', (() => { try { return JSON.parse(readFileSync(`stories/${arg('story')}/episode.json`, 'utf8')).fps ?? FLAP.fps; } catch { return FLAP.fps; } })())), voice = arg('voice', `stories/${story}/voice.flac`), out = arg('out', `stories/${story}/build/envelope.json`), SR = 16000;
 const raw = execFileSync('ffmpeg', ['-v', 'error', '-i', voice, '-ac', '1', '-ar', String(SR), '-f', 'f32le', '-'], {maxBuffer: 1 << 30});
 const samples = new Float32Array(raw.buffer, raw.byteOffset, raw.length / 4);
-const rms = envelope(samples, SR, FPS), shapes = talkShapes(rms);
+const rms = envelope(samples, SR, FPS), shapes = talkShapes(rms, {hold: framesFor(FLAP.hold, FPS)});
 mkdirSync(dirname(out), {recursive: true});
 writeFileSync(out, JSON.stringify({voice, fps: FPS, frames: rms.length, rms: rms.map(v => +v.toFixed(5)), shapes}));
 const hist = [0, 1, 2, 3].map(k => shapes.filter(s => s === k).length);

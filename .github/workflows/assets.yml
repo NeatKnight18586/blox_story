@@ -8,6 +8,7 @@ on:
     inputs:
       measure: {description: run scripts/v2/realism.js + the A/B sheet, type: boolean, default: true}
       blender: {description: time a Blender install + one Cycles lightmap bake, type: boolean, default: true}
+      city: {description: 'Phase 1B: city gate1b stills + sheet with the CC0 cache (commits review/city/1B-farm-*)', type: boolean, default: false}
   push:
     paths: ['assets/realism.request']
 
@@ -35,21 +36,37 @@ jobs:
       - name: Download from Poly Haven
         run: |
           python3 scripts/v2/fetch-assets.py
-          find renders/cache/assets -type f -size +5M -print -exec false {} +
+          find renders/cache/assets -type f -size +15M -print -exec false {} +   # textures ≤ 5 MB (fetch-assets), glTF model files ≤ 15 MB
           du -sh renders/cache/assets; cat renders/cache/assets/manifest.json
-      - name: Realism spike (farm numbers + sheet)
-        if: github.event_name == 'push' || inputs.measure
+      - id: req
+        name: Read the request line (a first line containing `city1b` runs only the city gate)
+        run: echo "line=$(head -n1 assets/realism.request 2>/dev/null | tr -d '\r')" >> "$GITHUB_OUTPUT"
+      - name: City 1B gate with CC0 textures (farm stills + sheet)
+        if: inputs.city || (github.event_name == 'push' && contains(steps.req.outputs.line, 'city1b'))
         run: |
           npm ci
           npx playwright install --with-deps chromium || echo "browser.js falls back to the runner's google-chrome"
           pip install --break-system-packages pillow >/dev/null 2>&1 || pip install pillow
-          node scripts/v2/tex4.js
+          node scripts/v2/tex4.js; node scripts/v2/matcap4.js
+          node scripts/v2/city-gate.js --phase 1b --out renders/city1b-farm --sight review/city/1B-farm-sightlines.json
+          python3 scripts/v2/city-sheet.py --phase 1b --dir renders/city1b-farm --sight review/city/1B-farm-sightlines.json --notes review/city/1B-notes.json --out review/city/1B-farm-sheet.png
+          python3 -c "import json; print(json.load(open('review/city/1B-farm-sightlines.json'))['textures'])"
+          git config user.name "blox-farm"; git config user.email "actions@users.noreply.github.com"
+          git add review/city/1B-farm-sightlines.json review/city/1B-farm-sheet.png assets/LICENSES.md
+          git diff --cached --quiet || { git commit -m "City 1B: farm gate stills with CC0 textures (run ${{ github.run_id }})"; git push origin HEAD:${{ github.ref_name }}; }
+      - name: Realism spike (farm numbers + sheet)
+        if: (github.event_name == 'push' && !contains(steps.req.outputs.line, 'city1b')) || inputs.measure
+        run: |
+          npm ci
+          npx playwright install --with-deps chromium || echo "browser.js falls back to the runner's google-chrome"
+          pip install --break-system-packages pillow >/dev/null 2>&1 || pip install pillow
+          node scripts/v2/tex4.js; node scripts/v2/matcap4.js   # baked matcap cache, as render.yml does (R2 actors use the comedy matcap)
           node scripts/v2/realism.js --out review/realism
           node scripts/v2/realism.js --out review/realism/basic --q '&static=basic' --stills renders/realism-basic
           python3 scripts/v2/realism-ab.py
           cat review/realism/realism.json | head -c 4000
       - name: Blender headless bake probe
-        if: github.event_name == 'push' || inputs.blender
+        if: (github.event_name == 'push' && !contains(steps.req.outputs.line, 'city1b')) || inputs.blender
         run: |
           t0=$(date +%s); sudo apt-get update -qq && sudo apt-get install -y -qq blender >/dev/null; t1=$(date +%s)
           blender --version | head -1
@@ -66,7 +83,7 @@ jobs:
         if: always()
         with: {name: realism, path: 'review/realism/', retention-days: 14}
       - name: Commit review material (never the assets)
-        if: github.event_name == 'push' || inputs.measure || inputs.blender
+        if: (github.event_name == 'push' && !contains(steps.req.outputs.line, 'city1b')) || inputs.measure || inputs.blender
         run: |
           git config user.name "blox-farm"; git config user.email "actions@users.noreply.github.com"
           git add review/realism assets/LICENSES.md
