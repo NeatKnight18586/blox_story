@@ -15,6 +15,7 @@ export const BEVEL = .04, SEGMENTS = 2;
 // width): the lathe head is 1.25 wide, 1.16 tall, 1.10 deep.
 export const HEAD_SIZE = 1.2, HEAD5 = [HEAD_SIZE / (2 * HEAD.radius), HEAD_SIZE / (2 * HEAD.halfHeight), HEAD_SIZE / (2 * HEAD.radius * HEAD.depth)];
 export const LIMB = [1, 2, 1], TORSO = [2, 2, 1];
+export const BROAD = {x: 1.24, z: 1.14, shoulder: .24};   // fearbell add-on (opt-in `torsoShape: 'broad'`, adult_m only): torso ×1.24 wide ×1.14 deep, shoulders 0.24 out each side
 
 const geo = new Map();
 export function rbox(size, tier = 'hero', dy = 0) {
@@ -76,6 +77,7 @@ export const regionMain = (r, part) => part === 'torso' ? r?.torso?.main : part 
 
 export function createActor5({tier = 'hero', skin, scale = 1, materials = {}, name = 'actor', build = null, regions = null, torsoShape = null} = {}) {
   if (torsoShape === 'hourglass' && !HOURGLASS_BUILDS.includes(build)) throw Error(`hourglass torso: adult_f only (build ${build ?? 'adult_m'})`);   // R6 rig (owner): never kids or grandmas
+  if (torsoShape === 'broad' && build && build !== 'adult_m') throw Error(`broad torso: adult_m only (build ${build})`);
   const a = createActor({tier, skin, scale, materials, name, build});
   a.body = 'v5';
   for (const [part, m] of Object.entries(a.parts)) {
@@ -99,6 +101,8 @@ export function createActor5({tier = 'hero', skin, scale = 1, materials = {}, na
     const size = head ? [b.w ?? 1.29, b.h, b.d ?? 1.16] : b.part === 'torso' ? [b.w ?? 2.08, b.h, b.d ?? 1.08] : [b.w ?? 1.08, b.h, b.d ?? 1.08];
     const bm = new T.Mesh(rbox(size, tier), satin(b.color)); if (b.emissive) { bm.material = bm.material.clone(); bm.material.emissive?.set(b.emissive); bm.material.emissiveIntensity = b.glow ?? 1.6; }   // Touch Grass (opt-in): a glowing trim band
     bm.name = `band_${b.part}`; bm.position.set(b.x ?? 0, b.y, 0); bm.castShadow = true; m.add(bm); }
+  if (torsoShape === 'broad') { a.parts.torso.scale.set(BROAD.x, 1, BROAD.z); a.broad = BROAD;   // fearbell add-on: the broad torso (trims ride the torso mesh)
+    for (const [pv, s] of [['leftShoulder', -1], ['rightShoulder', 1]]) a.pivots[pv].position.x += s * BROAD.shoulder; }
   a.pivots.head.scale.set(...HEAD5);   // classic head 1×1×1 (hair, hats and the face decal ride the same pivot)
   a.parts.head.material = satin(skin);
   return a;

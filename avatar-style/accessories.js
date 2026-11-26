@@ -156,6 +156,7 @@ Object.assign(BUILD, ACCESSORIES_1G);   // Phase 1G: the Fear Bell extras kit (a
 export function attachAccessory(actor, name, opts = {}) {
   if (!BUILD[name]) throw Error('unknown accessory ' + name);
   const a = BUILD[name](name === 'muscles' ? {skin: actor.preset?.skin ?? actor.skin, ...opts} : opts); a.name = 'acc_' + name;
+  if (name === 'muscles' && actor.broad) a.scale.set(actor.broad.x, 1, actor.broad.z);   // fearbell add-on: chest/trap shells follow the broad torso
   (HEAD_ITEMS.has(name) ? actor.pivots.head : actor.root).add(a);
   for (const [pv, part] of Object.entries(a.userData.pivotParts ?? {})) actor.pivots?.[pv]?.add(part);   // Phase 1G (opt-in per item): parts that ride a limb pivot
   actor.attachments[name] = a; return a;

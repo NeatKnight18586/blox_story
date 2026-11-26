@@ -56,6 +56,7 @@ engine/fixtures/city/gate1f-tod-cityNight.json — Phase 1F gate: time of day ci
 engine/fixtures/city/look.json — (no header)
 engine/fixtures/city/overview.json — Phase 1A overview: terrain tinted by district (spec cityOverview).
 engine/fixtures/eight-moves.json — Session 1 test clip: 3 s, one shot per camera move, one legacy avatar walking across a ground plate.
+engine/fixtures/fearbell/addon-dome.json — fearbell ENGINE add-on: dome shrink lands in Lulu's open palm (shrink {toActor, hand}, Lulu keys toolHold = palm up) + inside-dome rim light
 engine/fixtures/fearbell/gate1g-bench.json — Phase 1G bench: plazaWide key art + the dome over the plaza + 10 extras.
 engine/fixtures/fearbell/gate1g-cast.json — Phase 1G gate: the Fear Bell extras + Lulu + Kevin (+ hero, Governor) on the plaza.
 engine/fixtures/fearbell/gate1g-classroom.json — Phase 1G gate: interior cityClassroom (city look B), both keyArt anchors.
@@ -338,6 +339,7 @@ scripts/v2/beast-fixtures.js — tuft 2A BEAST KIT fixtures → engine/fixtures/
 scripts/v2/beast-gates.js — tuft 2A BEAST KIT browser gates → review/beasts/gates.json (pure gates: node tests/beast.js).
 scripts/v2/beast-sheet.js — tuft 2A BEAST KIT look-dev sheet → review/beasts/kit.png (≤ 1600 px), kit-390.png, demo.mp4.
 scripts/v2/bench.js — npm run v2:bench -- --story <slug> | --spec <episode.json>   (docs/V2_BRIEF.md §5.4)
+scripts/v2/benchref.js — RELATIVE speed gate (owner ENGINE add-on, fearbell PREVIS session; RULEBOOK §6).
 scripts/v2/brief2spec.js — node scripts/v2/brief2spec.js --story <slug> [--brief f] [--cues f] [--out f]
 scripts/v2/browser.js — one place that finds and launches the browser (docs/V2_BRIEF.md §3).
 scripts/v2/build-gates.js — measured gate for the adult_f torso (owner 2026-11-14). Exit 1 on any failure.

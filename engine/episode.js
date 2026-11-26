@@ -178,7 +178,7 @@ const presetOf = c => {
   const pre2 = HERO_COLS && c.troupe !== 'HERO' && pre1.outfit ? {...pre1, outfit: heroSafeOutfit(pre1.outfit, HERO_COLS, {minL: NIGHT_EP ? .32 : 0})} : pre1;   // v4 1b: nobody dresses like the hero
   const pre3 = (spec.look4 || BODY6 || RIG6) && !pre2.regions && pre2.outfit ? {...pre2, regions: outfitRegions(pre2.outfit, pre2.skin ?? '#f5cd30'), outfit: null} : pre2;   // 2b: outfits as colour regions (data)
   const pre = FACES_V3 && !pre3.faceStyle ? {...pre3, faceStyle: 'v3'} : pre3;   // Faces v3: default for season 1 (or spec.faces 'v3')
-  if ((spec.format >= 5 && spec.format <= 7) && pre.build !== 'youth' && !(pre.age < 18)) pre.scale = 1;   // format v5: every adult stands at the same height (builds differ in shape, not size)
+  if ((spec.format >= 5 && spec.format <= 7) && pre.build !== 'youth' && !(pre.age < 18) && !pre.keepScale) pre.scale = 1;   // format v5: every adult stands at the same height (builds differ in shape, not size); fearbell add-on: a costume with keepScale (BODYBUILDER) keeps its own
   return pre; };
 // tuft 2B (opt-in): `puffs` on an R6 actor (shot puffs [{actor, size, at}], engine/puff.js): torso + head swell into a faceted ball proxy
 // (jacket colour) of diameter D; the head scales and sits in the ball's upper front (face decal rides the head pivot); arms / legs keep
@@ -615,7 +615,8 @@ const CLOCK = spec.clock?.length ? await (async () => { const A6 = await import(
   return (await import('./clockfx.js')).createClockFx(scene, spec.clock, {world, wordTime: at => A6.wordTime(cues, at)}); })() : null;
 // Phase 1G CREATURE KIT (opt-in spec.creatures, parts/creatures.js): ghost · trex · rat · spider · vacuum · shadowPuff · dome · pillar, acts pure in t
 CREATURES = spec.creatures?.length ? (await import('../parts/creatures.js')).createCreatures(scene, spec.creatures, {
-  actorPos: n => cast[n] ? headOf(cast[n]).toArray() : null, keep: o => Object.values(cast).some(x => x.a?.root === o), renderer}) : null;
+  actorPos: n => cast[n] ? headOf(cast[n]).toArray() : null, keep: o => Object.values(cast).some(x => x.a?.root === o), renderer,
+  handPos: (n, side) => { const arm = cast[n]?.a?.parts?.[side + 'Arm']; if (!arm) return null; arm.updateWorldMatrix(true, false); const s = cast[n].a.root.scale.y; return arm.localToWorld(new T.Vector3(0, -.78, .5 + .22 / s)).toArray(); }}) : null;   // fearbell add-on: palm-top point of an R6 arm (palm up = arm forward)
 // World story state (Session 5): spec.worldState = {name: [[t, value], [t, value, 'ramp']...]} → world.setState.
 function applyWorldState(shot, t) {
   if (storyProps.length) updateProps(t);
@@ -681,6 +682,7 @@ function drawFrame(shot, mf, off, width, height, nudge) {
   camera.up.set(0, 1, 0); camera.lookAt(...tgt); camera.rotateZ(c.roll); camera.updateProjectionMatrix();
   if (CINE_CAM && c.noise) { camera.rotateX(c.noise[0]); camera.rotateY(c.noise[1]); camera.rotateZ(c.noise[2]); }   // tuft 1B handheld (rotation only)
   const cn = CINE_CAM ? null : camNoise5b(shot, t) ?? (M6 && M6.moodUniforms(shot).camNoise ? camNoise(t, shots.indexOf(shot) + 1, M6.moodUniforms(shot).camNoise) : null); if (cn) { camera.rotateX(cn[0]); camera.rotateY(cn[1]); }   // Look 5b: static-shot micro-noise
+  CREATURES?.aim?.(pos);   // fearbell add-on: inside-dome rim lights sit behind their actors, away from the lens
   if (ALOCK) ALOCK.apply(shot, camera);   // Phase 1F anchor lock (opt-in spec.anchorLock): re-aim so the rule object sits in its fixed screen zone
   if (nudge) { const k = nudge / Math.sqrt(3); camera.translateX(k); camera.translateY(k); camera.translateZ(k); }
   world?.onCamera?.(camera.position.toArray(), camera);   // format v5 3b-R (opt-in): a world may hide what this camera cannot see (hall ↔ street)

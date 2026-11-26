@@ -3,6 +3,8 @@
 // PASS = every shot ≤ 50,000 triangles in the frustum and the mean ≤ 0.45 s/frame. Exit code 1 on FAIL.
 // Also reports s/frame at native 1080×1920 (finals; target ≤ 1.0). `triangles` = meshes in the camera
 // frustum (the gate); `withShadowPass` = what the renderer drew including shadow-map passes.
+// fearbell add-on (RULEBOOK §6): Season 1 s/frame gate is RELATIVE — the frozen reference scene (scripts/v2/benchref.js) renders in the same run;
+// each row reports s/frame + ratio to the reference + normalised = ratio × reference 1A-era time; PASS = normalised mean ≤ 0.62. `--absolute` = old gate.
 // (Session 3 adds the world's anchors; until then every shot of the spec is benched.)
 import {startServer} from './server.js';
 import {launch} from './browser.js';
@@ -11,6 +13,7 @@ const argv = process.argv.slice(2);
 const arg = (k, d) => { const i = argv.indexOf(`--${k}`); return i >= 0 ? argv[i + 1] : d; };
 import {existsSync} from 'node:fs';
 import {segmentPlan} from './segments.js';
+import {refBench, gate as refGate, REF} from './benchref.js';
 const story = arg('story');
 const spec = arg('spec') ?? (story && (existsSync(`stories/${story}/episode.json`) ? `stories/${story}/episode.json` : `stories/${story}/stills.json`));
 if (!spec) { console.error('usage: bench.js --story <slug> | --spec <episode.json>'); process.exit(2); }
@@ -56,10 +59,13 @@ try {
   await page.close();
   }
   const mean = +(rows.reduce((a, r) => a + r.sPerFrame, 0) / rows.length).toFixed(3);
+  const REL = V3 && !argv.includes('--absolute'), refS = REL ? await refBench(browser, server.url) : null;   // fearbell add-on: relative gate
+  if (REL) for (const r of rows) Object.assign(r, (({ratio, normalised}) => ({ratio, normalised}))(refGate(r.sPerFrame, refS)));
+  const rel = REL ? refGate(mean, refS, MAX_S) : null;
   const mean1080 = rows[0].sPerFrame1080 === undefined ? null : +(rows.reduce((a, r) => a + r.sPerFrame1080, 0) / rows.length).toFixed(3);
   const over = rows.filter(r => r.triangles > MAX_TRI).map(r => r.shot);
-  const BACKDROP = !!specJson.backdrop, pass = BACKDROP ? (mean1080 ?? mean) <= .69 && !errors.length : !over.length && mean <= MAX_S && !errors.length;   // owner Kit 1c: backdrop specs gate on time (≤ 0.69 s/frame at 1080), triangles are only reported
+  const BACKDROP = !!specJson.backdrop, pass = BACKDROP ? (mean1080 ?? mean) <= .69 && !errors.length : !over.length && (REL ? rel.pass : mean <= MAX_S) && !errors.length;   // owner Kit 1c: backdrop specs gate on time (≤ 0.69 s/frame at 1080), triangles are only reported
   console.table(rows);
-  console.log(JSON.stringify({spec, budget: V3 ? `Season 1 (${MAX_TRI / 1000}k${BIG_CROWD ? `, crowd ${CROWD_N} ≥ 60` : ''}, 0.62 s)` : 'v2 (50k, 0.45 s)', size: `${W}x${H}`, browser: browser.resolved.executablePath ?? 'playwright', maxTriangles: Math.max(...rows.map(r => r.triangles)), meanSecondsPerFrame: mean, meanSecondsPerFrame1080: mean1080, target1080: 1.0, overBudget: BACKDROP ? [] : over, trianglesOver90k: BACKDROP ? over : undefined, errors, result: pass ? 'PASS' : 'FAIL'}));
+  console.log(JSON.stringify({spec, budget: V3 ? `Season 1 (${MAX_TRI / 1000}k${BIG_CROWD ? `, crowd ${CROWD_N} ≥ 60` : ''}, 0.62 s${REL ? ' normalised' : ''})` : 'v2 (50k, 0.45 s)', ...(REL ? {reference: {spec: REF.spec, sPerFrame: refS, base1A: REF.base1A}, ratio: rel.ratio, normalisedMean: rel.normalised} : {}), size: `${W}x${H}`, browser: browser.resolved.executablePath ?? 'playwright', maxTriangles: Math.max(...rows.map(r => r.triangles)), meanSecondsPerFrame: mean, meanSecondsPerFrame1080: mean1080, target1080: 1.0, overBudget: BACKDROP ? [] : over, trianglesOver90k: BACKDROP ? over : undefined, errors, result: pass ? 'PASS' : 'FAIL'}));
   process.exitCode = pass ? 0 : 1;
 } finally { await browser.close(); await server.close(); }

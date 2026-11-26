@@ -13,7 +13,8 @@ import * as T from 'three';
 export const KINDS = ['ghost', 'trex', 'rat', 'spider', 'vacuum', 'shadowPuff', 'dome', 'pillar'];
 export const ACTS = {ghost: {spawn: .5, boo: 1.8}, trex: {roar: 1.5, stomp: .9}, rat: {shrink: .7}, spider: {wave: 1.8}, vacuum: {circle: 2.4, lunge: .7},
   shadowPuff: {}, dome: {roll: 2.0, shrink: 1.7, inside: 2}, pillar: {rise: .6}};
-export const INSIDE = {exposure: .08};   // the dome's inside view: frame exposure × this; flashlight (`keep`) lights × 1 / this
+export const INSIDE = {exposure: .08};
+export const RIM_IN = {color: '#b4cfff', intensity: 120, distance: 8, decay: 1.2, back: 1.2, side: 1.8, up: 2.6};   // fearbell add-on: inside-dome rim (intensity at normal exposure; boosted like any `keep` light)   // the dome's inside view: frame exposure × this; flashlight (`keep`) lights × 1 / this
 export const SIZE = {ghost: 11, trex: 15.5, rat: 1.0, spider: 8.5, vacuum: 9, shadowPuff: 1.7, dome: 34, pillar: 40, palm: .42};
 const clamp01 = x => Math.max(0, Math.min(1, x)), lerp = (a, b, k) => a + (b - a) * k, sm = x => { x = clamp01(x); return x * x * (3 - 2 * x); };
 const outBack = (x, s = 1.7) => { x = clamp01(x) - 1; return 1 + x * x * ((s + 1) * x + s); }, inCubic = x => clamp01(x) ** 3, outCubic = x => 1 - (1 - clamp01(x)) ** 3;
@@ -309,6 +310,9 @@ export function createCreatures(scene, list, ctx = {}) {
   let insideOn = false; const inside = new T.Mesh(new T.SphereGeometry(1, 32, 16), new T.MeshBasicMaterial({color: '#050409', side: T.BackSide, fog: false, toneMapped: false})); inside.visible = false; inside.name = 'domeInside'; grp.add(inside);
   const floor = new T.Mesh(new T.CircleGeometry(1, 48).rotateX(-Math.PI / 2), new T.MeshStandardMaterial({color: '#2a2a33', roughness: .95})); floor.visible = false; floor.receiveShadow = true; floor.name = 'domeInsideFloor'; grp.add(floor);
   const basePos = (c, t) => keysAt(c.pos, t, [0, 0, 0]);
+  // fearbell add-on (opt-in inside {rim: [actor…]}): a soft cool rim light behind each named actor (away from the camera), kept on inside the dome
+  const rims = {}; for (const c of list) for (const a of c.acts ?? []) if (a.act === 'inside') for (const n of a.rim ?? []) if (!rims[n]) {
+    const L = new T.PointLight(RIM_IN.color, RIM_IN.intensity, RIM_IN.distance, RIM_IN.decay); L.castShadow = false; L.visible = false; L.userData.keep = true; L.name = 'domeRim_' + n; grp.add(L); rims[n] = L; }
   const api = {
     items: byId, dark: 0,
     rideHeight(t) { const out = {}; for (const {c, b} of items) if (c.kind === 'pillar' && c.ride) { const r = actAt(c.acts, t, 'rise', 'pillar'); out[c.ride] = (r ? pillarHeight(r.u) : 0) * (c.scale ?? 1); } return out; },
@@ -318,8 +322,9 @@ export function createCreatures(scene, list, ctx = {}) {
         const vis = Array.isArray(c.visible) ? (() => { let v = true; for (const [t0, x] of c.visible) if (t >= t0) v = x; return v; })() : true; b.root.visible = vis;
         let p = basePos(c, t), yaw = keysAt(c.yaw, t, 0) * Math.PI / 180, extra = {};
         if (c.kind === 'shadowPuff' && c.follow) { const q = byId[c.follow] ? byId[c.follow].b.root.position.toArray() : ctx.actorPos?.(c.follow); if (q) { const o = c.offset ?? [.9, .6, .5]; p = [q[0] + o[0] + .12 * Math.sin(t * 1.3), q[1] + o[1], q[2] + o[2]]; } }
-        if (c.kind === 'dome') { extra.motion = domeMotion(c, t, p); p = extra.motion.pos; const r = actAt(c.acts, t, 'roll', 'dome'); if (r && r.e.from && r.e.to) yaw = Math.atan2(r.e.to[0] - r.e.from[0], r.e.to[2] - r.e.from[2]) + (c.faceYaw ?? 0) * Math.PI / 180;
-          const ins = actAt(c.acts, t, 'inside', 'dome'); if (ins && ins.k < 1) insideK = {pos: p, R: (b.radius ?? SIZE.dome) * (c.scale ?? 1)}; }
+        if (c.kind === 'dome') { for (const a of c.acts ?? []) if (a.act === 'shrink' && a.toActor) { const h = ctx.handPos?.(a.toActor, a.hand ?? 'right'); if (h) a.to = h; }   // fearbell add-on (opt-in shrink {toActor, hand}): the palm puff lands on that actor's palm, read from the posed hand every frame
+          extra.motion = domeMotion(c, t, p); p = extra.motion.pos; const r = actAt(c.acts, t, 'roll', 'dome'); if (r && r.e.from && r.e.to) yaw = Math.atan2(r.e.to[0] - r.e.from[0], r.e.to[2] - r.e.from[2]) + (c.faceYaw ?? 0) * Math.PI / 180;
+          const ins = actAt(c.acts, t, 'inside', 'dome'); if (ins && ins.k < 1) insideK = {pos: p, R: (b.radius ?? SIZE.dome) * (c.scale ?? 1), rim: ins.e.rim ?? []}; }
         b.root.position.set(...p); b.root.rotation.set(0, yaw, 0);
         if (c.kind === 'vacuum') { b.apply(t, c); const m = b.root.userData.local; b.root.position.x += Math.cos(yaw) * m.x + Math.sin(yaw) * m.z; b.root.position.z += -Math.sin(yaw) * m.x + Math.cos(yaw) * m.z; b.root.rotation.y = yaw + m.yaw; }
         else b.apply(t, c, extra);
@@ -336,8 +341,12 @@ export function createCreatures(scene, list, ctx = {}) {
         api.dark = on ? INSIDE.exposure : 0;   // the renderer multiplies its exposure by this around the frame render (engine/episode.js)
         if (on) { api._bg = scene.background; scene.background = new T.Color('#000000'); } else scene.background = api._bg ?? scene.background;
         for (const {b} of items) if (b.wobble) b.root.visible = !on; }
+      api._rimOn = on ? insideK.rim : []; for (const [n, L] of Object.entries(rims)) L.visible = api._rimOn.includes(n);
       inside.visible = floor.visible = on; if (on) { inside.position.set(...insideK.pos); inside.scale.setScalar(insideK.R * .98); floor.position.set(insideK.pos[0], insideK.pos[1] + .03, insideK.pos[2]); floor.scale.setScalar(insideK.R * .97); }
     },
+    aim(camPos) { for (const n of api._rimOn ?? []) { const L = rims[n], h = ctx.actorPos?.(n); if (!L || !h) continue; const d = [h[0] - camPos[0], h[2] - camPos[2]], l = Math.hypot(...d) || 1;   // behind the head, away from the lens
+      const sd = (Object.keys(rims).indexOf(n) % 2 ? -1 : 1) * RIM_IN.side;   // alternate sides so two actors get opposite rims
+      L.position.set(h[0] + d[0] / l * RIM_IN.back - d[1] / l * sd, h[1] + RIM_IN.up, h[2] + d[1] / l * RIM_IN.back + d[0] / l * sd); } },
     liveAt(id, t) { const x = byId[id]; if (!x) return null; api.update(t); const bx = new T.Box3().setFromObject(x.b.root); return {centre: bx.getCenter(new T.Vector3()).toArray(), size: bx.getSize(new T.Vector3()).toArray()}; },
   };
   return api;
