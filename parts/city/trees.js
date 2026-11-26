@@ -78,7 +78,7 @@ function finish(list, kind) {
   return {parts, tris: parts.reduce((s, p) => s + triCount(p.geometry), 0), height: box.max.y - box.min.y, width: Math.max(box.max.x - box.min.x, box.max.z - box.min.z), source: 'procedural:' + kind};
 }
 // a CC0 glTF → near-LOD parts ≤ target tris (leaf-card thinning for alpha-tested canopies, vertex clustering for the rest), feet at y 0, metric
-function prepModel(root, target) {
+export function prepModel(root, target) {
   root.updateMatrixWorld(true); const box = new T.Box3().setFromObject(root), parts = [];
   root.traverse(o => { if (!o.isMesh) return; const g = o.geometry.clone().applyMatrix4(o.matrixWorld); g.translate(-(box.min.x + box.max.x) / 2, -box.min.y, -(box.min.z + box.max.z) / 2);
     const m = [].concat(o.material)[0].clone(); const cut = m.alphaTest > 0 || m.transparent || /leaf|leaves|foliage|needle|branch/i.test(m.name + o.name);
@@ -103,7 +103,7 @@ export async function preloadTrees(base, manifest) {
       gl ??= new (await import('three/addons/loaders/GLTFLoader.js')).GLTFLoader();
       const g = await gl.loadAsync(new URL(`renders/cache/assets/${e.id}/${e.file}`, base).href), m = prepModel(g.scene, TP.nearTris ?? 6000);
       out[name] = {...m, source: 'cc0:' + e.id, bytes: e.bytes}; continue;
-    } catch (err) { console.warn('tree model', s.model, err?.message); }
+    } catch (err) { console.error("tree model " + s.model + ": " + (err?.stack ?? err)); }
     out[name] = proceduralTree(s.fallback ?? name, s.seed ?? 3);
   }
   return out;

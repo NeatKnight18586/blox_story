@@ -199,11 +199,11 @@
       ],
       "search": "boulder"
     },
-    "city_tree_leafy": {"pick": "lightest", "candidates": ["tree_small_02", "island_tree_01", "jacaranda_tree"], "search": "tree", "exclude": ["dead", "fir", "pine", "palm", "quiver", "stump", "trunk", "log", "sapling", "island_tree_02", "island_tree_03"]},
-    "city_tree_pine": {"pick": "lightest", "candidates": ["fir_sapling_medium", "fir_sapling", "pine_sapling_small"], "search": "fir|pine|spruce", "exclude": ["dead", "cone", "log", "stump", "needle"]},
-    "city_bush_round": {"pick": "lightest", "candidates": ["shrub_01", "shrub_02", "shrub_04"], "search": "shrub|bush", "exclude": ["dead", "sorrel"]}
+    "city_tree_pine": {"pick": "lightest", "candidates": ["pine_sapling_small"], "search": ""},
+    "city_tree_fir": {"pick": "lightest", "candidates": ["fir_sapling"], "search": ""},
+    "city_bush_round": {"pick": "lightest", "candidates": ["shrub_01", "shrub_02", "shrub_03", "shrub_04"], "search": ""}
   },
   "modelFormat": "gltf",
   "maxModelBytes": 25000000,
-  "maxModelNote": "Phase 1E: raised 15 → 25 MB per file (owner cap) only so the lightest CC0 hero tree models fit; the pick is logged in manifest.modelsConsidered"
+  "maxModelNote": "Phase 1E: raised 15 → 25 MB per file (owner cap) only so the CC0 pine (pine_sapling_small 17.8 MB) + fir (fir_sapling 21.7 MB) fit; every Poly Haven leafy tree is ≥ 60 MB per file (island_tree_01), so the leafy hero tree stays procedural; ranking in manifest.modelsConsidered"
 }

@@ -46,7 +46,6 @@ engine/fixtures/city/gate1e-cityNight.json — (no header)
 engine/fixtures/city/gate1e.json — (no header)
 engine/fixtures/city/look.json — (no header)
 engine/fixtures/city/overview.json — Phase 1A overview: terrain tinted by district (spec cityOverview).
-engine/fixtures/city/tune1e.json — (no header)
 engine/fixtures/eight-moves.json — Session 1 test clip: 3 s, one shot per camera move, one legacy avatar walking across a ground plate.
 engine/fixtures/fix3b/demo-tb.json — tuft P3B demo2 piece: TITAN on the ground before the mountain at night, low 3/4 on the chained forelegs: roar → break (chains snap, links fa
 engine/fixtures/fix3b/titan-hero.json — tuft P3B TITAN hero fixture: titanCave night ground in front of the mountain, TITAN idle / roar, low ¾ camera (lit night ¾ hero render).

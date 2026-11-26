@@ -300,8 +300,9 @@ export function build(scene, {M, V, TR, look, spec, look4}) {
   let field = null;
   if (HERO) {
     const species = ASSETS.trees ?? proceduralSpecies(), atlases = bakeImpostors(species, {cached: ASSETS.impostors ?? {}}), KA = ANCHOR_NAMES.map(n => keyArt(n));
-    const pts = [...forestPoints(wd, KA), ...streetT.filter(p => !p.palm).map((p, i) => ({...p, kind: p.kind ?? (i % 3 === 2 ? 'round' : 'leafy'), h: p.h ?? TREES.heights.street * p.s, s: 1})), ...(wd?.trees ?? []).map(p => ({...p, h: TREES.heights.onHead}))];
-    field = treeField(pts, {species, atlases}); vegGroup.add(field.group);
+    const pts = [...forestPoints(wd, KA), ...streetT.filter(p => !p.palm).map((p, i) => ({...p, kind: p.kind ?? 'leafy', h: p.h ?? TREES.heights.street * p.s, s: 1})), ...(wd?.trees ?? []).map(p => ({...p, h: TREES.heights.onHead}))];
+    const clearKA = p => p.keep || p.onHead || !KA.some(k => Math.hypot(k.position[0] - p.x, k.position[2] - p.z) < 6 || Math.hypot(k.subject[0] - p.x, k.subject[2] - p.z) < 10 || polyDist(p.x, p.z, [[k.position[0], k.position[2]], [k.subject[0], k.subject[2]]]) < 5);   // no tree in a key-art lens or on its subject group
+    field = treeField(pts.filter(clearKA), {species, atlases}); vegGroup.add(field.group);
     vegGroup.add(instTrees(V, streetT.filter(p => p.palm), 'palm', 23, AXZ));
     stats.trees = pts.length + streetT.filter(p => p.palm).length; stats.trees4 = {...field.stats, species: Object.fromEntries(Object.entries(species).map(([k, v]) => [k, {source: v.source, tris: v.tris, rawTris: v.rawTris ?? null, height: +v.height.toFixed(2)}])), atlases: Object.fromEntries(Object.entries(atlases).map(([k, a]) => [k, {w: a.w, h: a.h, views: a.views, baked: !!a.baked}]))};
     if (typeof window !== 'undefined') window.__impostorAtlases = atlases;
@@ -322,7 +323,8 @@ export function build(scene, {M, V, TR, look, spec, look4}) {
   const wildMovers = !LIV && wd ? wd.movers : [];   // Phase 1E: without the living town the wild movers still run (waterfall, camp smoke, birds)
   for (const x of wildMovers) cityRoot.add(x.obj);
   // Phase 1E: street lamps along the roads (always built; lit with halos in dusk / night looks), stars, lit windows
-  if (DT) G('town').add(cityProps(streetLamps(roads), {name: 'streetLampProps'}));
+  if (DT) { const cells = new Map(); for (const l of streetLamps(roads)) { const k = Math.floor(l.at[0] / 100) + ',' + Math.floor(l.at[2] / 100); (cells.get(k) ?? cells.set(k, []).get(k)).push(l); }
+    for (const [k, list] of cells) G('town').add(cityProps(list, {name: 'streetLampProps'})); }   // per 100-stud cell, so the PROPS_R cull works
   cityWindows(CITY.windows ?? 0);
   const halos = []; if (CITY.lamps && look4?.halo) { cityRoot.updateMatrixWorld(true); const hg = new T.Group(); hg.name = 'lampHalos'; for (const h of LAMP_HEADS) { if (!h.group.parent) continue; const v = h.group.localToWorld(new T.Vector3(...h.at)), s = look4.halo(v.toArray(), '#ffd89a', 5, .7 * CITY.lamps); s.name = 'lampHalo'; hg.add(s); halos.push(s); } cityRoot.add(hg); stats.lampHalos = halos.length; }
   const stars = CITY.stars ? starDome(CITY.stars) : null; if (stars) cityRoot.add(stars);
@@ -439,7 +441,7 @@ function forestPoints(wd, KA) {
     if (districtAt(px, pz) !== 'wild' || coastDist(px, pz) < 5 || wd?.clear(px, pz) || nz(px, pz) > F.clearing) continue;
     const y = groundY(px, pz), sl = Math.hypot(groundY(px + 1, pz) - groundY(px - 1, pz), groundY(px, pz + 1) - groundY(px, pz - 1)) / 2; if (sl > F.maxSlope || y < 3) continue;
     if (KA.some(k => Math.hypot(k.position[0] - px, k.position[2] - pz) < 6 || Math.hypot(k.subject[0] - px, k.subject[2] - pz) < 10)) continue;
-    const pine = y > F.pineAbove || R() < F.pineShare, kind = pine ? 'pine' : R() < .3 ? 'round' : 'leafy';
+    const pine = y > F.pineAbove || R() < F.pineShare, kind = pine ? (R() < .5 ? 'pine' : 'fir') : R() < .3 ? 'round' : 'leafy';
     out.push({x: px, y: y - .1, z: pz, r: R() * 6.28, kind, h: TREES.heights[kind] * (.8 + .4 * R()), s: 1}); }
   return out;
 }
