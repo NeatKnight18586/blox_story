@@ -48,17 +48,17 @@ test('districtAt: every owner district resolves at its drawing position', () => 
   assert.equal(at(190, 250), 'bay'); assert.equal(at(190, 286), 'bay'); assert.equal(at(360, 340), 'sea');
   assert.ok(hillsZ(0) < -100 && hillsZ(0) > -120);
 });
-test('anchors: all eleven exist, stand on ground or water, look at a different point', () => {
-  const need = ['plazaSouth', 'plazaNorth', 'bayNorth', 'stairBottom', 'boardwalk', 'suburbStreet', 'schoolYard', 'mainSt', 'harborDock', 'beach', 'hillsLookout'];
+test('anchors: all fourteen exist, stand on ground or water, look at a different point', () => {
+  const need = ['plazaSouth', 'plazaNorth', 'bayNorth', 'stairBottom', 'boardwalk', 'suburbStreet', 'schoolYard', 'mainSt', 'harborDock', 'beach', 'hillsLookout', 'plazaWide', 'hallBalcony', 'acrossBay'];
   assert.deepEqual([...need].sort(), [...ANCHOR_NAMES].sort());
   for (const n of need) { const a = anchor(n); assert.ok(a.position[1] >= standY(a.position[0], a.position[2]) + 1); assert.ok(Math.hypot(a.target[0] - a.position[0], a.target[2] - a.position[2]) > 20); }
   const ps = anchor('plazaSouth'), bn = anchor('bayNorth'), sb = anchor('stairBottom');
   assert.ok(Math.abs(ps.position[1] - 19.5) < 1e-6 && Math.abs(ps.position[2] - 30) < 1e-6 && ps.fov === 62 && Math.abs(ps.facing) < 1e-6, 'plazaSouth: top of the stair, terrace + 5.5, fov 62, facing south');
   assert.ok(Math.atan2(ps.target[1] - ps.position[1], 200) * 180 / Math.PI < -9 && Math.atan2(ps.target[1] - ps.position[1], 200) * 180 / Math.PI > -14, 'pitch ≈ −10..−13°');
   assert.ok(bn.position[1] === 6 && bn.fov === 50 && Math.abs(Math.abs(bn.facing) - 180) < 1e-6 || Math.abs(bn.facing) > 179, 'bayNorth on the water at y +6, fov 50, facing north');
-  assert.ok(sb.fov === 70 && Math.abs(sb.position[1] - 3.4) < 1e-6 && sb.target[2] < sb.position[2], 'stairBottom: 0.9 above the deck, fov 70, looking up the stair');
+  assert.ok(sb.fov >= 55 && sb.fov <= 60 && sb.position[2] > PLAN.terrain.stair.z1 && sb.target[2] < sb.position[2] && sb.target[1] > sb.position[1], 'stairBottom (1B): on the boardwalk past the stair foot, fov 55–60, low angle up at the Hall');
   assert.throws(() => anchor('nope'));
-  for (const n of Object.values(PLAN.gate)) assert.ok(need.includes(n));
+  for (const n of [...Object.values(PLAN.gate), ...Object.values(PLAN.gate1b)]) assert.ok(need.includes(n));
 });
 test('roads: 3 radials end at the drawing points, 2 shore roads, curved boardwalk', () => {
   const R = roadPaths(); assert.deepEqual(Object.keys(R).sort(), ['boardwalk', 'radialEast', 'radialNorth', 'radialWest', 'shoreEast', 'shoreWest']);

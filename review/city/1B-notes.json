@@ -1,0 +1,44 @@
+{
+ "title": "City 1B: Downtown + City Building Kit (phone 390 x 693)",
+ "numbers": [
+  "BENCH 720x1280: max 83.4k tris (<=90k), s/frame .36 .26 .17 .26 .30 .26 (<=.62) PASS",
+  "STAIR (stairBottom, visible mask) 33.5 % of frame height (<=40 %); Hall+tower span 26-48 % from top",
+  "SIGNS (mainSt) cap height BAKERY 3.3 %, ICE CREAM 4.4 %, GROCERY 7.7 % (>=3 %, 3 readable)",
+  "SIGHTLINES e 1,2,8  c 1,2,7,8  f 3,5,6,8  g 1,2,3,7  h 2,3  i 1,2 (>=2 each)",
+  "TEXTURES (farm run 45740515846): cc0 brick, plaster, stone, shingles, planks, asphalt, sidewalk"
+ ],
+ "weakest": [
+  "Plaza paving under the CC0 red-brick map reads dark brown, not warm red (tint/tile need a pass).",
+  "stairBottom: from deck height the terrace edge hides the Hall body; only tower + top hat clear the stair.",
+  "acrossBay: portrait too narrow for duck + terrace at size (fov 74): ~48 % sky / 48 % water, landmarks a thin strip.",
+  "Statue face sits in the hat-brim shadow; monocle + mustache barely read beyond 20 studs.",
+  "mainSt: BAKERY cap only 3.3 % (0.3 margin), signs read at ~60 deg oblique; street empty (no trees on the shop stretch)."
+ ],
+ "verdict": "PASS (bench, sightlines, stair 34 %, 3 signs >= 3 %, CC0 visible on farm)",
+ "bench": {
+  "stairBottom": {
+   "tris": 82182,
+   "s": 0.355
+  },
+  "bayNorth": {
+   "tris": 83394,
+   "s": 0.264
+  },
+  "acrossBay": {
+   "tris": 82604,
+   "s": 0.17
+  },
+  "plazaWide": {
+   "tris": 67308,
+   "s": 0.255
+  },
+  "mainSt": {
+   "tris": 78152,
+   "s": 0.295
+  },
+  "hallBalcony": {
+   "tris": 68408,
+   "s": 0.261
+  }
+ }
+}
