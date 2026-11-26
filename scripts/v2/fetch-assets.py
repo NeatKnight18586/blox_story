@@ -29,12 +29,16 @@ def resolve(slot, listing):
     return max(hits)[1] if hits else None
 
 
+class TooBig(Exception):
+    pass
+
+
 def fetch(url, dest, limit):
     if os.path.exists(dest) and os.path.getsize(dest) > 0:
         return os.path.getsize(dest)
     b = get(url, binary=True)
     if len(b) > limit:
-        raise SystemExit(f'{url}: {len(b)} bytes > {limit}')
+        raise TooBig(f'{url}: {len(b)} bytes > {limit}')
     with open(dest, 'wb') as f:
         f.write(b)
     return len(b)
@@ -81,21 +85,27 @@ def main():
     if spec.get('models'):
         mo, mlimit, mfmt = get(f'{API}/assets?t=models'), spec.get('maxModelBytes', limit), spec.get('modelFormat', 'gltf')
         for slot, s in spec['models'].items():
-            aid = resolve(s, mo)
-            if not aid:
-                print(f'no model for {slot}', file=sys.stderr); continue
-            g = get(f'{API}/files/{aid}').get(mfmt, {}).get(s.get('resolution', res), {}).get(mfmt)
-            if not g:
-                print(f'{aid}: no {mfmt} at {res}', file=sys.stderr); continue
-            d = os.path.join(a.out, aid); os.makedirs(d, exist_ok=True)
-            name = os.path.basename(g['url']); n = fetch(g['url'], os.path.join(d, name), mlimit)
-            for rel, inc in (g.get('include') or {}).items():
-                dest = os.path.normpath(os.path.join(d, rel))
-                if not dest.startswith(os.path.normpath(d) + os.sep):
-                    raise SystemExit(f'{aid}: include path escapes the asset dir: {rel}')
-                os.makedirs(os.path.dirname(dest), exist_ok=True); n += fetch(inc['url'], dest, mlimit)
-            man['models'][slot] = {'id': aid, 'file': name, 'bytes': n, 'url': f'https://polyhaven.com/a/{aid}'}
-            rows.append((slot, aid, mo[aid].get('name', aid), 'model (glTF)', n))
+            cands = [c for c in s.get('candidates', []) if c in mo]
+            q = s.get('search', '').lower()
+            cands += [k for _, k in sorted(((v.get('download_count', 0), k) for k, v in mo.items() if q and (q in k or q in v.get('name', '').lower())), reverse=True)[:3] if k not in cands]
+            for aid in cands:   # first candidate whose files all fit maxModelBytes (an oversized one is skipped, not fatal)
+                g = get(f'{API}/files/{aid}').get(mfmt, {}).get(s.get('resolution', res), {}).get(mfmt)
+                if not g:
+                    print(f'{aid}: no {mfmt} at {res}', file=sys.stderr); continue
+                d = os.path.join(a.out, aid); os.makedirs(d, exist_ok=True)
+                try:
+                    name = os.path.basename(g['url']); n = fetch(g['url'], os.path.join(d, name), mlimit)
+                    for rel, inc in (g.get('include') or {}).items():
+                        dest = os.path.normpath(os.path.join(d, rel))
+                        if not dest.startswith(os.path.normpath(d) + os.sep):
+                            raise SystemExit(f'{aid}: include path escapes the asset dir: {rel}')
+                        os.makedirs(os.path.dirname(dest), exist_ok=True); n += fetch(inc['url'], dest, mlimit)
+                except TooBig as e:
+                    print(f'{aid}: skipped ({e})', file=sys.stderr); continue
+                man['models'][slot] = {'id': aid, 'file': name, 'bytes': n, 'url': f'https://polyhaven.com/a/{aid}'}
+                rows.append((slot, aid, mo[aid].get('name', aid), 'model (glTF)', n)); break
+            else:
+                print(f'no usable model for {slot}', file=sys.stderr)
     os.makedirs(a.out, exist_ok=True)
     json.dump(man, open(os.path.join(a.out, 'manifest.json'), 'w'), indent=1)
     lic = ['# Third-party assets (Phase R realism spike)', '',
