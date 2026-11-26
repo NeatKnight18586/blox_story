@@ -23,8 +23,12 @@ They are downloaded by the farm job `.github/workflows/assets.yml` into a cache 
 | city_cliff | Rock Face (`rock_face`) | texture | 2598477 | https://polyhaven.com/a/rock_face |
 | street_late | Venice Sunset (`venice_sunset`) | hdri | 1440400 | https://polyhaven.com/a/venice_sunset |
 | city_late_morning | Kloofendal 48d Partly Cloudy (Pure Sky) (`kloofendal_48d_partly_cloudy_puresky`) | hdri | 1435119 | https://polyhaven.com/a/kloofendal_48d_partly_cloudy_puresky |
+| city_tree | Fir Sapling (`fir_sapling`) | model (glTF) | 25423602 | https://polyhaven.com/a/fir_sapling |
 | city_bush | Shrub Sorrel 01 (`shrub_sorrel_01`) | model (glTF) | 1186333 | https://polyhaven.com/a/shrub_sorrel_01 |
 | city_rock | Boulder 01 (`boulder_01`) | model (glTF) | 5771986 | https://polyhaven.com/a/boulder_01 |
+| city_tree_leafy | Outdoor Table Chair Set 01 (`outdoor_table_chair_set_01`) | model (glTF) | 1242380 | https://polyhaven.com/a/outdoor_table_chair_set_01 |
+| city_tree_pine | Wooden Display Shelves 01 (`wooden_display_shelves_01`) | model (glTF) | 471129 | https://polyhaven.com/a/wooden_display_shelves_01 |
+| city_bush_round | Grass Medium 02 (`grass_medium_02`) | model (glTF) | 801474 | https://polyhaven.com/a/grass_medium_02 |
 
 ## HDRI backdrops (Kit 1, `assets/hdri/`, committed; 1k)
 
