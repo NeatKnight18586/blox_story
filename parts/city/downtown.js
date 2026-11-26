@@ -8,7 +8,7 @@
 import * as T from 'three';
 import {bins, bevel, pbox, prism, pyramid, window1, building, setLOD, lodFor} from './kit/building.js';
 import {cityProps} from './kit/props.js';
-import {kitMat, liveMat, tileOf} from './kit/mats.js';
+import {kitMat, liveMat, tileOf, goldMat} from './kit/mats.js';
 import {textPlate} from '../sets4/common.js';
 import {roundCylGeometry} from '../sets4/look5.js';
 import PRESETS from './kit/presets.json' with {type: 'json'};
@@ -91,7 +91,7 @@ export function governorsHall() {
 // ---------------- Governor statue (slot 1) ----------------
 export function governorStatue(poseName = STATUE.default) {
   const S = STATUE, P = S.poses[poseName] ?? S.poses[S.default], k = S.scale, B = bins(), A = B.add;
-  const gold = kitMat('gold', S.gold), band = kitMat('plastic', S.band), stone = kitMat('stone', S.plinth.color);
+  const gold = goldMat('body'), face = goldMat('face'), hat = goldMat('hat'), band = kitMat('plastic', S.band), stone = kitMat('stone', S.plinth.color);
   const [bw, bh, bd] = S.plinth.base, [mw, mh, md] = S.plinth.body, [cw, ch, cd] = S.plinth.cap;
   A(stone, bevel(bw, bh + .6, bd, 0, -.6, 0, 99), tile('stone')); A(stone, bevel(mw, mh, md, 0, bh, 0, 99), tile('stone')); A(kitMat('plastic', '#fbf6ea'), bevel(cw, ch, cd, 0, bh + mh, 0, 99));
   const y0 = bh + mh + ch;
@@ -108,12 +108,12 @@ export function governorStatue(poseName = STATUE.default) {
   // head + hat + monocle + mustache (head frame: neck pivot)
   const headQ = torsoQ.clone().multiply(new T.Quaternion().setFromEuler(e.set(...P.head.map(v => v * D2R)))), neck = rot([0, 4, 0]);
   const H = (mat, g) => G(mat, g.applyQuaternion(headQ).translate(...neck));
-  H(gold, roundCylGeometry(.62, 1.2, .18, 18, 99).translate(0, .6, 0));
-  H(gold, new T.CylinderGeometry(.98, .98, .1, 20).translate(0, 1.25, 0)); H(gold, roundCylGeometry(.58, 1.2, .06, 18, 99, .62).translate(0, 1.9, 0));
+  H(face, roundCylGeometry(.62, 1.2, .18, 18, 99).translate(0, .6, 0));
+  H(hat, new T.CylinderGeometry(.98, .98, .1, 20).translate(0, 1.25, 0)); H(hat, roundCylGeometry(.58, 1.2, .06, 18, 99, .62).translate(0, 1.9, 0));
   H(band, new T.CylinderGeometry(.6, .6, .28, 18, 1, true).translate(0, 1.45, 0));
-  H(gold, new T.TorusGeometry(.18, .045, 6, 14).translate(.24, .7, .63)); H(gold, new T.CylinderGeometry(.025, .025, .8, 4).rotateZ(-.45).translate(.42, .32, .63));
-  for (const sx of [-1, 1]) { H(gold, bevelBox(.62, .2, .16).rotateZ(-sx * .28).translate(sx * .3, .36, .64)); H(gold, new T.SphereGeometry(.12, 8, 6).translate(sx * .62, .5, .62)); }
-  H(gold, new T.SphereGeometry(.12, 8, 6).translate(0, .5, .66));
+  H(face, new T.TorusGeometry(.18, .045, 6, 14).translate(.24, .7, .63)); H(face, new T.CylinderGeometry(.025, .025, .8, 4).rotateZ(-.45).translate(.42, .32, .63));
+  for (const sx of [-1, 1]) { H(face, bevelBox(.62, .2, .16).rotateZ(-sx * .28).translate(sx * .3, .36, .64)); H(face, new T.SphereGeometry(.12, 8, 6).translate(sx * .62, .5, .62)); }
+  H(face, new T.SphereGeometry(.12, 8, 6).translate(0, .5, .66));
   // chain + medallion (torso frame)
   G(gold, new T.TorusGeometry(.62, .045, 5, 18, Math.PI).rotateZ(Math.PI).rotateX(-.2).applyQuaternion(torsoQ).translate(...rot([0, 3.95, .52])));
   G(gold, new T.CylinderGeometry(.32, .32, .08, 16).rotateX(Math.PI / 2).applyQuaternion(torsoQ).translate(...rot([0, 3.3, .56])));
@@ -198,6 +198,24 @@ export function mainStreetLots() {
   }
   return out;
 }
+// frame of a road at distance s from its first point: {p: [x, z], t: [tx, tz]} (unit tangent)
+export function roadFrame(rd, s) {
+  const P = rd.pts; let acc = 0, i = 1;
+  for (; i < P.length - 1; i++) { const L = Math.hypot(P[i][0] - P[i - 1][0], P[i][1] - P[i - 1][1]); if (acc + L >= s) break; acc += L; }
+  const a = P[i - 1], b = P[i], L = Math.hypot(b[0] - a[0], b[1] - a[1]), u = (s - acc) / L;
+  return {p: [a[0] + (b[0] - a[0]) * u, a[1] + (b[1] - a[1]) * u], t: [(b[0] - a[0]) / L, (b[1] - a[1]) / L]};
+}
+// Phase 1C Main St dressing (plan.json mainStreet.dressing): parked cars, hydrants, trash cans, mailboxes, benches, crosswalk bars, street trees → {items, trees}.
+export function mainStreetDress() {
+  const MS = PLAN.mainStreet, D = MS.dressing, items = [], trees = []; if (!D) return {items, trees};
+  const rd = roadPaths()[MS.road], pos = (s, side, off) => { const {p, t} = roadFrame(rd, s), n = [t[1] * (side === 'N' ? 1 : -1), -t[0] * (side === 'N' ? 1 : -1)]; return {x: p[0] + n[0] * off, z: p[1] + n[1] * off, t, n}; };
+  for (const [kind, s, side, off, color] of D.props) { const q = pos(s, side, off), road = off < 5, y = groundY(q.x, q.z) + (road ? .27 : .17);
+    const yaw = road ? Math.atan2(...(side === 'N' ? [-q.t[0], -q.t[1]] : q.t)) + ((s * 7) % 5 - 2) * .012 : Math.atan2(-q.n[0], -q.n[1]);
+    items.push({kind, at: [q.x, y, q.z], yaw, colors: color ? [color] : undefined}); }
+  for (const c of D.crosswalks) for (let i = 0; i < c.n; i++) { const q = pos(c.s, 'N', (i - (c.n - 1) / 2) * 1.55); items.push({kind: 'stripe', at: [q.x, groundY(q.x, q.z) + .27, q.z], yaw: Math.atan2(q.t[0], q.t[1]), len: 3.2, w: .85}); }
+  for (const t of D.trees) { const q = pos(t.s, t.side, 6.7); trees.push({x: q.x, z: q.z, y: groundY(q.x, q.z) + .16, s: .8 + ((t.s * 13) % 7) / 40, r: t.s}); }
+  return {items, trees};
+}
 // Place a kit building on the ground: base = ground at the front centre, sink down to the lowest footprint corner.
 export function placeBuilding(spec, x, z, yaw, front) {
   const [w, d] = spec.footprint, c = Math.cos(yaw), s = Math.sin(yaw);
@@ -238,12 +256,13 @@ export function downtown({slots, layerPlaza, statuePose} = {}) {
     jets.push(new T.TubeGeometry(new T.CatmullRomCurve3(pts), 10, .16, 5)); }
   const jm = new T.Mesh(mergeAll(jets), jetMat); jm.name = 'fountainJets'; jm.userData.live = true; plaza.add(jm);
   // Main St storefronts + civic buildings
+  const dress = mainStreetDress(); if (dress.items.length) mainSt.add(cityProps(dress.items, {name: 'mainStProps'}));
   const buildings = [];
   for (const L of mainStreetLots()) { const pre = PRESETS[L.preset]; const b = placeBuilding({...pre, id: L.id, seed: L.seed}, L.x, L.z, L.yaw, L.front); b.lot = L; mainSt.add(b.group); buildings.push(b); }
   stats.mainStTris = buildings.map(b => b.tris);
   const signs = []; for (const b of buildings) for (const sg of b.signs) signs.push(sg);
   const setState = (k, v) => { if (k === 'bell') { const a = typeof v === 'number' ? v : v?.swing ?? 0; hall.bell.rotation.x = a * D2R; return true; } if (k === 'statue') return false; return false; };
-  return {plaza, mainSt, buildings, signs, hall, statue: st, clock: ck, stats, update(t) { ck.setTime(t); }, setState,
+  return {plaza, mainSt, buildings, signs, hall, statue: st, clock: ck, stats, trees: dress.trees, update(t) { ck.setTime(t); }, setState,
     onCamera(p) { for (const b of buildings) setLOD(b, lodFor(Math.hypot(p[0] - b.at[0], p[2] - b.at[2]))); }};
 }
 function mergeAll(list) { const g = list.map(x => x.index ? x.toNonIndexed() : x); const out = new T.BufferGeometry(); let n = 0; for (const x of g) n += x.attributes.position.count;

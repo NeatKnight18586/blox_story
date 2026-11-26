@@ -4,6 +4,8 @@
 // spec = {footprint: [w, d], floors, floorH, style: brick|plaster|candy|wood|civic, palette: {body, trim, roof, accent, door, display: []},
 //   windows: {rhythm, type: sash|arch|square}, ground: storefront|door|garage|columns, awning: {stripes, colors: [a, b]}|null,
 //   sign: {text, color, bg}|null, roof: flat-parapet|gable|hip|mansard, trim: colour, seed, sink, groundH}
+// Phase 1C opt-in extras (all absent from the 1B presets): steps {n, w, depth, rise} (raises the floor, the whole building lifts), pavilion {w, proj} (central
+//   projecting bay, gable pediment), clock {r, hh, mm} (dial above the door), doorW, doorH, siding, chimney, shutters (colour), porch, garage {w, side, h} (attached).
 // Look: clean plastic shapes (bevel .04 family on the big volumes) + CC0 textures through kit/mats.js (brick, plaster, wood, shingle).
 // Budget (tests/v2/city-kit.test.js): near ≤ 3k tris, mid ≤ 600, far = a box (+ roof cap). Static parts are baked by the world's
 // bakeGroups (contact AO + sun in vertex colours); glass, lit displays and sign plates stay live.
@@ -11,7 +13,7 @@ import * as T from 'three';
 import {mergeGeometries} from 'three/addons/utils/BufferGeometryUtils.js';
 import {bevelBoxGeometry} from '../../sets4/look5.js';
 import {textPlate} from '../../sets4/common.js';
-import {kitMat, liveMat, kitBoxUV, tileOf} from './mats.js';
+import {kitMat, liveMat, kitBoxUV, tileOf, dialTexture} from './mats.js';
 
 const BODY = {brick: 'brick', plaster: 'plaster', candy: 'plastic', wood: 'wood', civic: 'plaster'};
 const DEF = {floors: 2, floorH: 3.6, style: 'plaster', windows: {rhythm: 0, type: 'sash'}, ground: 'door', awning: null, sign: null, roof: 'flat-parapet', seed: 1, sink: .8};
@@ -51,6 +53,7 @@ function pyramid(w, d, h, top = .08) {   // hip / mansard: 4-sided frustum, base
 export function resolve(spec) {
   const s = {...DEF, ...spec, windows: {...DEF.windows, ...(spec.windows ?? {})}, palette: {...(spec.palette ?? {})}};
   const [w, d] = s.footprint; s.w = w; s.d = d;
+  if (s.steps) { s.steps = {n: 5, w: 8, depth: 4.5, rise: .45, ...s.steps}; s.lift = s.steps.n * s.steps.rise; s.sink += s.lift; } else s.lift = 0;
   s.groundH = s.groundH ?? (s.ground === 'storefront' ? 6.4 : s.ground === 'garage' ? 6 : s.floorH * 1.15);
   s.h = s.groundH + (s.floors - 1) * s.floorH;
   s.windows.rhythm = s.windows.rhythm || Math.max(1, Math.floor(w / 3.2));
@@ -77,7 +80,8 @@ export function building(spec) {
   const WN = s.windows.rhythm, ww = Math.min(1.7, w / WN * .48), wh = s.floorH * .56;
   for (let f = 1; f < s.floors; f++) for (let i = 0; i < WN; i++) {
     const x = -w / 2 + (i + .5) * w / WN, y = s.groundH + (f - 1) * s.floorH + s.floorH * .24;
-    window1(A, x, y, F, ww, wh, s.windows.type, trim, glass);
+    if (s.pavilion && Math.abs(x) < s.pavilion.w / 2 + .6) continue;
+    window1(A, x, y, F, ww, wh, s.windows.type, trim, glass); if (s.shutters) shutters(A, x, y, F, ww, wh, kitMat('plastic', s.shutters));
   }
   // ground floor
   const G = s.groundH;
@@ -115,11 +119,16 @@ export function building(spec) {
     A(accent, pbox(2.4, 3.4, .3, 0, 0, F + .12)); A(glass, pbox(1.6, 1.2, .08, 0, 1.8, F + .3));
     if (s.sign) signBoard(A, s, signs, G + .6, trim, F + 1.6);
   } else {   // door + ground-floor windows
-    A(trim, pbox(2.2, 3.4, .3, 0, 0, F + .12)); A(accent, pbox(1.7, 3.1, .3, 0, 0, F + .2)); A(trim, pbox(2.6, .3, .9, 0, 3.4, F + .45));
-    for (let i = 0; i < WN; i++) { const x = -w / 2 + (i + .5) * w / WN; if (Math.abs(x) < 1.9) continue; window1(A, x, G * .28, F, ww, wh, s.windows.type, trim, glass); }
+    const dw = s.doorW ?? 1.7, FD = F + (s.pavilion?.proj ?? 0), doorMat = s.palette.door !== '#4a3b33' ? liveMat('std', s.palette.door, {roughness: .4, metalness: 0, envMapIntensity: .5}) : accent;   // the door is live (lit in real time, never baked dark under the porch)
+    const dh = s.doorH ?? 3.1;
+    A(trim, pbox(dw + .5, dh + .3, .3, 0, 0, FD + .12)); A(doorMat, pbox(dw, dh, .3, 0, 0, FD + .2)); A(trim, pbox(dw + .9, .3, .9, 0, dh + .3, FD + .45));
+    if (dw > 2.4) { A(trim, pbox(.12, dh, .08, 0, 0, FD + .37)); for (const sx of [-1, 1]) A(glass, pbox(dw * .3, 1.4, .08, sx * dw * .24, 1.2, FD + .37)); }   // double door: centre stile + two glass lights
+    else { A(kitMat('gold', '#e8b923'), pbox(.14, .14, .2, dw * .3, dh * .45, FD + .4)); A(glass, pbox(dw * .42, .9, .08, 0, dh * .61, FD + .37)); }
+    for (let i = 0; i < WN; i++) { const x = -w / 2 + (i + .5) * w / WN; if (Math.abs(x) < 1.9 + (s.pavilion ? s.pavilion.w / 2 : 0)) continue; window1(A, x, G * .28, F, ww, wh, s.windows.type, trim, glass); if (s.shutters) shutters(A, x, G * .28, F, ww, wh, kitMat('plastic', s.shutters)); }
     if (s.awning) awning(A, s.awning, 0, 3, 3.6, F + .35);
     if (s.sign) signBoard(A, s, signs, G, trim, F);
   }
+  extras(A, s, 'near', {bodyMat, bodyKind, trim, roofMat, roofKind, glass, accent, dark, texTile});
   roof(A, s, roofMat, trim, bodyMat, R, texTile(roofKind), texTile(bodyKind), 'near');
   const near = N.build('near');
   for (const sg of signs) near.add(sg);
@@ -128,28 +137,31 @@ export function building(spec) {
   B(bodyMat, pbox(w, h + s.sink, d, 0, -s.sink, 0), texTile(bodyKind));
   B(trim, pbox(w + .5, .55, d + .5, 0, h - .2, 0));
   const frames = [], panes = [];
-  for (let f = 1; f < s.floors; f++) for (let i = 0; i < WN; i++) { const x = -w / 2 + (i + .5) * w / WN, y = s.groundH + (f - 1) * s.floorH + s.floorH * .24; frames.push(plane(ww + .3, wh + .3, x, y - .15, F + .02)); panes.push(plane(ww, wh, x, y, F + .04)); }
+  for (let f = 1; f < s.floors; f++) for (let i = 0; i < WN; i++) { const x = -w / 2 + (i + .5) * w / WN, y = s.groundH + (f - 1) * s.floorH + s.floorH * .24; if (s.pavilion && Math.abs(x) < s.pavilion.w / 2 + .6) continue; frames.push(plane(ww + .3, wh + .3, x, y - .15, F + .02)); panes.push(plane(ww, wh, x, y, F + .04)); }
   if (frames.length) { B(trim, mergeGeometries(frames.map(g => g.toNonIndexed()))); B(glass, mergeGeometries(panes.map(g => g.toNonIndexed()))); }
   if (s.ground === 'storefront') { B(liveMat('basic', '#fff1d6'), plane(w - 3.6, G - 3.4, -1.2, .7, F + .04)); B(accent, plane(1.9, 3.05, w / 2 - 1.65, 0, F + .04)); }
   else if (s.ground === 'garage') { const n = s.garages ?? Math.max(1, Math.floor(w / 6)); for (let i = 0; i < n; i++) B(kitMat('plastic', '#f4f4f0'), plane(w / n * .72, G - 1.8, -w / 2 + (i + .5) * w / n, 0, F + .04)); }
-  else B(accent, plane(1.7, 3.1, 0, 0, F + .04));
+  else B(accent, plane(1.7, 3.1, 0, 0, F + (s.pavilion?.proj ?? 0) + .04));
   if (s.awning) B(kitMat('plastic', s.awning.colors[0]), pbox(w - .4, .2, 1.8, 0, G - 2.3 - .1, F + .9).rotateX(0));
+  extras(B, s, 'mid', {bodyMat, bodyKind, trim, roofMat, roofKind, glass, accent, dark, texTile});
   roof(B, s, roofMat, trim, bodyMat, R, texTile(roofKind), texTile(bodyKind), 'mid');
   const mid = Mb.build('mid');
   for (const sg of signs) { const c = new T.Mesh(sg.geometry, sg.material); c.position.copy(sg.position); c.name = sg.name; c.userData = {...sg.userData}; mid.add(c); }
   // ---------- FAR: a box ----------
   const Fb = bins(); Fb.add(kitMat('plastic', P.body), pbox(w, h + s.sink, d, 0, -s.sink, 0));
   if (s.roof === 'gable' || s.roof === 'hip' || s.roof === 'mansard') Fb.add(kitMat('plastic', P.roof), s.roof === 'gable' ? prism(w + .6, Math.min(w, d) * .35, d + .6).translate(0, h, 0) : pyramid(w + .6, d + .6, Math.min(w, d) * .3, s.roof === 'mansard' ? .55 : .08).translate(0, h, 0));
+  if (s.garage) { const g = s.garage; Fb.add(kitMat('plastic', P.body), pbox(g.w, g.h ?? 4.4, d - 1.5, g.side * (w / 2 + g.w / 2), -s.sink, -.75)); }
   const far = Fb.build('far');
+  if (s.lift) { near.position.y = mid.position.y = far.position.y = s.lift; }   // steps raise the floor; the body already sinks `lift` deeper
   const group = new T.Group(); group.name = 'bld:' + (s.id ?? s.sign?.text ?? s.style); group.add(near, mid, far);
-  const b = {group, near, mid, far, w, d, h, signs: [...near.children.filter(c => c.userData.capH), ...mid.children.filter(c => c.userData.capH)], spec: s,
+  const b = {group, near, mid, far, w, d, h: h + s.lift, signs: [...near.children.filter(c => c.userData.capH), ...mid.children.filter(c => c.userData.capH)], spec: s,
     tris: {near: near.userData.tris + signs.length * 2, mid: mid.userData.tris + signs.length * 2, far: far.userData.tris}};
   setLOD(b, 'near'); return b;
 }
 export function setLOD(b, level) { b.near.visible = level === 'near'; b.mid.visible = level === 'mid'; b.far.visible = level === 'far'; b.level = level; }
 // LOD by distance (studs) from the camera to the building centre.
 export const LOD_R = {near: 70, mid: 170};
-export const lodFor = dist => dist < LOD_R.near ? 'near' : dist < LOD_R.mid ? 'mid' : 'far';
+export const lodFor = (dist, R = LOD_R) => dist < R.near ? 'near' : dist < R.mid ? 'mid' : 'far';   // Phase 1C: optional radii override
 
 function window1(A, x, y, F, ww, wh, type, trim, glass) {
   A(trim, pbox(ww + .36, wh + .36, .12, x, y - .18, F + .04));
@@ -184,5 +196,44 @@ function roof(A, s, roofMat, trim, bodyMat, R, roofTile, bodyTile, lod) {
   } else {
     const rh = Math.min(w, d) * (s.roof === 'mansard' ? .32 : .3); A(roofMat, pyramid(w + .8, d + .8, rh, s.roof === 'mansard' ? .55 : .08).translate(0, h + .3, 0), roofTile);
     if (s.roof === 'mansard') A(trim, pbox(w * .55 + .3, .3, d * .55 + .3, 0, h + .3 + rh, 0));
+  }
+}
+
+function shutters(A, x, y, F, ww, wh, mat) { for (const k of [-1, 1]) A(mat, pbox(.42, wh + .1, .08, x + k * (ww / 2 + .4), y - .05, F + .13)); }
+// Phase 1C opt-in extras (see the header). lod: 'near' | 'mid' (far is a box + the garage box, added by building()).
+function extras(A, s, lod, M) {
+  const {w, d, h, palette: P} = s, F = d / 2, {bodyMat, bodyKind, trim, roofMat, roofKind, glass, accent, dark, texTile} = M, near = lod === 'near', G = s.groundH;
+  if (s.siding && near) {   // horizontal clapboard lines (front + both sides), a shade darker than the body
+    const line = kitMat('plastic', '#' + new T.Color(P.body).multiplyScalar(.86).getHexString());
+    for (let y = .9; y < h - .6; y += .95) { A(line, pbox(w + .05, .07, .05, 0, y, F + .015)); for (const sx of [-1, 1]) A(line, pbox(.05, .07, d + .05, sx * (w / 2 + .015), y, 0)); } }
+  if (s.pavilion) {   // central projecting bay: brick, white pilasters, gable pediment, clock over the door
+    const pv = s.pavilion, pw = pv.w, pp = pv.proj ?? 1.4, tall = h;
+    A(bodyMat, bevel(pw, tall + s.sink, pp + .6, 0, -s.sink, F + pp / 2 - .3, 4), texTile(bodyKind));
+    if (near) for (const sx of [-1, 1]) A(trim, pbox(.7, tall - .2, .7, sx * (pw / 2 - .2), 0, F + pp - .05));
+    A(trim, pbox(pw + .8, .5, pp + 1, 0, tall - .2, F + pp / 2 - .1));
+    A(trim, prism(pw + 1.4, Math.min(3.4, pw * .34), pp + 1).translate(0, tall + .3, F + pp / 2 - .1));
+    if (s.clock) { const r = s.clock.r ?? 1.5, cy = G + s.floorH * .62 + r * .3, dial = dialTexture(s.clock.hh ?? 8, s.clock.mm ?? 15);
+      A(trim, new T.CylinderGeometry(r + .28, r + .28, .25, 20).rotateX(Math.PI / 2).translate(0, cy, F + pp + .05));
+      A(dial ? liveMat('basic', '#ffffff', {map: dial}) : liveMat('basic', '#fbf8ee'), new T.CircleGeometry(r, 24).translate(0, cy, F + pp + .2)); }
+  }
+  if (s.steps) {   // stacked blocks, bottom → top; the top tread meets the door sill at y 0 (the group is lifted by `lift`)
+    const st = s.steps, FD = F + (s.pavilion?.proj ?? 0), td = st.depth / st.n, kind = liveMat('std', '#e2d9c4', {roughness: .8, metalness: 0, envMapIntensity: .3}), top = liveMat('std', '#f4eee0', {roughness: .8, metalness: 0, envMapIntensity: .3});   // live: steps under the pavilion never bake black
+    if (near) { for (let k = 0; k < st.n; k++) { const dd = (st.n - k) * td, hh = (k + 1) * st.rise; A(kind, pbox(st.w, hh + .8, dd, 0, -s.lift - .8, FD + dd / 2)); A(top, pbox(st.w + .04, .1, dd + .04, 0, -s.lift + hh - .1, FD + dd / 2)); }
+      for (const sx of [-1, 1]) A(trim, pbox(.7, s.lift + .9, st.depth + .3, sx * (st.w / 2 + .35), -s.lift - .1, FD + st.depth / 2)); }
+    else A(kind, pbox(st.w, s.lift + .8, st.depth, 0, -s.lift - .8, FD + st.depth / 2));
+  }
+  if (s.chimney && near) { const cx = (s.chimney.x ?? .28) * w, rh = Math.min(w, d) * .38, brick = kitMat('brick', '#b8553f');
+    A(brick, pbox(1.3, rh + 1.2, 1.3, cx, h + .1, -d * .15), texTile('brick')); A(trim, pbox(1.7, .25, 1.7, cx, h + rh + 1.2, -d * .15)); }
+  if (s.porch) {   // small gabled porch: slab, two posts, roof
+    const pz = F + 1.5, pw = s.porch.w ?? 4;
+    A(trim, pbox(pw, .3, 3, 0, 0, pz)); if (near) for (const sx of [-1, 1]) A(trim, pbox(.28, 3.2, .28, sx * (pw / 2 - .3), .3, F + 2.7));
+    A(roofMat, prism(pw + .8, 1.3, 3.4).translate(0, 3.5, pz), texTile(roofKind)); }
+  if (s.garage) {   // attached garage: set back .75, low gable, white sectional door
+    const g = s.garage, gh = g.h ?? 4.4, gx = g.side * (w / 2 + g.w / 2), gd = d - 1.5, gz = -.75, gf = gz + gd / 2;
+    A(bodyMat, bevel(g.w, gh + s.sink, gd, gx, -s.sink, gz, 4), texTile(bodyKind)); A(trim, pbox(g.w + .3, .3, gd + .3, gx, gh - .15, gz));
+    A(roofMat, prism(g.w + .8, 1.2, gd + .8).translate(gx, gh + .1, gz), texTile(roofKind));
+    const dw = g.w - 1.4, dh = gh - 1.1; A(trim, pbox(dw + .5, dh + .3, .2, gx, 0, gf + .06)); A(kitMat('plastic', '#f6f6f2'), pbox(dw, dh, .2, gx, 0, gf + .12));
+    if (near) { for (let k = 1; k < 4; k++) A(dark, pbox(dw - .1, .06, .06, gx, dh * k / 4, gf + .24)); A(glass, pbox(dw * .8, .45, .06, gx, dh * .78, gf + .25)); }
+    A(trim, pbox(g.w - .6, .2, 2.4, gx, 0, gf + 1.3));   // driveway apron
   }
 }

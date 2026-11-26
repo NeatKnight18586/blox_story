@@ -2,6 +2,8 @@
 // a top-down ortho of the whole island (district tints + landmark slots) and the plan outline drawn from plan.json.
 //   node scripts/v2/city-gate.js [--specs-only] [--out renders/city1a]   → engine/fixtures/city/{gate,overview}.json,
 //   <out>/{b,c,d}.png (390 × 693), <out>/overview.png, <out>/plan.png, review/city/1A-sightlines.json
+// Phase 1C: `--phase 1c` renders plan.json gate1c (plazaWide, boardwalk, stairBottom, mainSt, schoolFront, suburbStreet, heroHouse, upsideDown) → review/city/1C-sightlines.json
+//   with region measures from mask passes: windows (mean luma ≥ .25), statue (clipped ≤ 2 %, face luma ≥ hat luma), plaza paving colour, hero red-door frame fraction (≥ 1.5 %).
 // Sheet: python3 scripts/v2/city-sheet.py (→ review/city/1A-sheet.png, ≤ 1600 px).
 // Phase 1B: `--phase 1b` renders plan.json gate1b (stairBottom, bayNorth, acrossBay, plazaWide, mainSt, hallBalcony) → <out>/<id>.png and
 // review/city/1B-sightlines.json with extra measures: stair height fraction (slot 8), Hall + tower screen span (slot 2), shop-sign cap
@@ -10,16 +12,17 @@ import {mkdirSync, writeFileSync} from 'node:fs';
 import {PLAN, anchor, landmarkSlots, pathPoints, toWorld, roadPaths} from '../../parts/city/plan.js';
 
 const argv = process.argv.slice(2), arg = (k, d) => { const i = argv.indexOf(`--${k}`); return i >= 0 ? argv[i + 1] : d; };
-const PH = arg('phase', '1a'), OUT = arg('out', PH === '1b' ? 'renders/city1b' : 'renders/city1a'), W = 390, Hh = 693;
+const PH = arg('phase', '1a'), OUT = arg('out', PH === '1c' ? 'renders/city1c' : PH === '1b' ? 'renders/city1b' : 'renders/city1a'), W = 390, Hh = 693, TAG = PH === '1c' ? '1C' : PH === '1b' ? '1B' : '1A';
 const shot = (id, name) => { const a = anchor(name); return {id, size: 'wide', frames: 6, move: 'static-drift', drift: 0, anchor: name, from: {position: a.position, target: a.target, fov: a.fov}, shadowRadius: 40}; };
 const base = {slug: 'city1a', fps: 24, format: 6, labels: false, world: 'parts/city/world.js', look4: 'cityDay', cast: {}};
 const gate = {...base, note: 'Phase 1A gate cameras (written by scripts/v2/city-gate.js from parts/city/plan.json anchors).', shots: Object.entries(PLAN.gate).map(([id, n]) => shot(id, n))};
 const gate1b = {...base, slug: 'city1b', note: 'Phase 1B gate cameras (scripts/v2/city-gate.js --phase 1b, plan.json gate1b).', shots: Object.entries(PLAN.gate1b).map(([id, n]) => shot(id, n))};
+const gate1c = {...base, slug: 'city1c', note: 'Phase 1C gate cameras (scripts/v2/city-gate.js --phase 1c, plan.json gate1c).', shots: Object.entries(PLAN.gate1c ?? {}).map(([id, n]) => shot(id, n))};
 const overview = {...base, slug: 'city1a-overview', cityOverview: true, note: 'Phase 1A overview: terrain tinted by district (spec cityOverview).', shots: [shot('b', 'plazaSouth')]};
 mkdirSync('engine/fixtures/city', {recursive: true});
 writeFileSync('engine/fixtures/city/gate.json', JSON.stringify(gate, null, 1) + '\n'); writeFileSync('engine/fixtures/city/overview.json', JSON.stringify(overview, null, 1) + '\n');
-writeFileSync('engine/fixtures/city/gate1b.json', JSON.stringify(gate1b, null, 1) + '\n');
-const G = PH === '1b' ? gate1b : gate, SPEC = PH === '1b' ? 'engine/fixtures/city/gate1b.json' : 'engine/fixtures/city/gate.json';
+writeFileSync('engine/fixtures/city/gate1b.json', JSON.stringify(gate1b, null, 1) + '\n'); writeFileSync('engine/fixtures/city/gate1c.json', JSON.stringify(gate1c, null, 1) + '\n');
+const G = PH === '1c' ? gate1c : PH === '1b' ? gate1b : gate, SPEC = PH === '1c' ? 'engine/fixtures/city/gate1c.json' : PH === '1b' ? 'engine/fixtures/city/gate1b.json' : 'engine/fixtures/city/gate.json';
 if (argv.includes('--specs-only')) process.exit(0);
 
 const {startServer} = await import('./server.js'), {launch} = await import('./browser.js');
@@ -30,10 +33,12 @@ const open = async spec => { const p = await browser.newPage(); p.on('pageerror'
 try {
   const p = await open(SPEC), sight = {};
   const bakeInfo = await p.evaluate(() => window.__episode.bake);
-  for (const s of G.shots) {
-    const r = await p.evaluate(async ([cam, w, h]) => {
+  const ONLY = arg('only', null)?.split(',');
+  for (const s of G.shots.filter(x => !ONLY || ONLY.includes(x.id))) {
+    const r = await p.evaluate(async ([cam, w, h, PH]) => {
       const E = window.__episode, T = await import('three'), {scene, renderer, camera} = E.debug;
       const st = E.renderCamera(cam, 0, w, h, 'cityDay'); const url = renderer.domElement.toDataURL('image/png');
+      const basePx = (() => { const cv = document.createElement('canvas'); cv.width = w; cv.height = h; const cx = cv.getContext('2d', {willReadFrequently: true}); cx.drawImage(renderer.domElement, 0, 0, w, h); return cx.getImageData(0, 0, w, h).data; })();
       // sightlines: sample each slot volume (grid over its box); on screen = inside the frame; seen = first ray hit is that slot
       const slots = {}; scene.traverse(o => { if (o.isMesh && /^slot:/.test(o.name)) { const id = o.name.split(':')[1]; (slots[id] ??= []).push(o); } });
       const ray = new T.Raycaster(), targets = []; scene.traverse(o => { if ((o.isMesh || o.isInstancedMesh) && o.visible && !/sky|cloud|Foam|catcher|Water/i.test(o.name) && o.type !== 'Sprite') targets.push(o); });
@@ -87,22 +92,44 @@ try {
         if (cn.z > 1 || Math.abs(cn.x) > 1 || Math.abs(cn.y) > 1) return; const d = c.clone().sub(camera.position), L = d.length(); ray.set(camera.position, d.normalize()); ray.far = L + .5;
         const hit = ray.intersectObjects(targets, false)[0], seen = !hit || hit.object === o || hit.distance > L - .3;
         signs.push({text: o.userData.text, capPct: +(Math.abs(a.y - b.y) / 2 * 100).toFixed(2), dist: +L.toFixed(1), seen}); });
+      // Phase 1C region measures (mask pass: the region white, everything else black; luma / clipping read from the shot's own pixels)
+      const readPx = () => { const cv = document.createElement('canvas'); cv.width = w; cv.height = h; const cx = cv.getContext('2d', {willReadFrequently: true}); cx.drawImage(renderer.domElement, 0, 0, w, h); return cx.getImageData(0, 0, w, h).data; };
+      const region = pred => { const keep = [], hid = [], white = new T.MeshBasicMaterial({color: 0xffffff, fog: false, toneMapped: false}), black = new T.MeshBasicMaterial({color: 0x000000, fog: false, toneMapped: false}), bg = scene.background, fogS = scene.fog;
+        scene.traverse(o => { if (!o.isMesh && !o.isInstancedMesh && !o.isPoints && !o.isSprite) return; if (o.isPoints || o.isSprite || /sky|cloud/i.test(o.name) || /cloud/i.test(o.parent?.name ?? '')) { if (o.visible) { hid.push(o); o.visible = false; } return; }
+          keep.push([o, o.material]); o.material = pred(o) ? white : black; });
+        scene.background = new T.Color(0x000000); scene.fog = null; renderer.setSize(w, h, false); renderer.render(scene, camera); const m = readPx();
+        keep.forEach(([o, mt]) => { o.material = mt; }); hid.forEach(o => { o.visible = true; }); scene.background = bg; scene.fog = fogS;
+        let n = 0, sum = 0, clip = 0, R = 0, Gc = 0, B = 0; for (let i = 0; i < w * h; i++) if (m[i * 4] > 127) { const r = basePx[i * 4], g = basePx[i * 4 + 1], b = basePx[i * 4 + 2]; n++; sum += (.2126 * r + .7152 * g + .0722 * b) / 255; R += r; Gc += g; B += b; if (r >= 245 && g >= 245 && b >= 245) clip++; }
+        return {px: n, frac: +(n / (w * h)).toFixed(4), luma: n ? +(sum / n).toFixed(3) : null, clipFrac: n ? +(clip / n).toFixed(4) : null, rgb: n ? [Math.round(R / n), Math.round(Gc / n), Math.round(B / n)] : null}; };
+      const kitOf = o => o.material?.userData?.kit ?? '', measures = {};
+      if (PH === '1c') {
+        measures.windows = region(o => kitOf(o) === 'glass');
+        measures.statue = region(o => /^slot:1(:|$)/.test(o.name) && /^gold/.test(kitOf(o))); measures.statueFace = region(o => kitOf(o) === 'goldFace'); measures.statueHat = region(o => kitOf(o) === 'goldHat');
+        measures.paving = region(o => o.name === 'plazaPaving'); measures.heroDoor = region(o => o.material?.color?.getHexString?.() === 'd62828' && kitOf(o) !== 'glass');
+      }
       const tex = new Set(); scene.traverse(o => { if (o.isMesh) for (const m of [o.material].flat()) if (m?.userData?.source) tex.add(m.userData.source); });
-      return {url, st, res, groups, comp, stair: span('8'), hall: span('2'), signs, textures: [...tex].sort()};
-    }, [s.from, W, Hh]);
+      return {url, st, res, groups, comp, stair: span('8'), hall: span('2'), signs, measures, textures: [...tex].sort()};
+    }, [s.from, W, Hh, PH]);
     save(`${OUT}/${s.id}.png`, r.url);
     const onScreen = Object.entries(r.res).filter(([, v]) => v.visible >= .02).map(([k]) => k);
     const readable = r.signs.filter(x => x.seen && x.capPct >= 3).length;
     const pass = onScreen.length >= 2 && (s.id !== 'b' || onScreen.includes('5')) && (s.id !== 'e' || (onScreen.includes('2') && onScreen.includes('8'))) && (PH !== '1b' || ((s.anchor !== 'stairBottom' || (r.stair?.frac ?? 1) <= .40) && (s.anchor !== 'mainSt' || readable >= 3)));
-    sight[s.id] = {anchor: s.anchor, onScreen, pass, comp: r.comp, triangles: r.st.triangles, calls: r.st.calls, slots: r.res, ...(PH === '1b' ? {stair: r.stair, hall: r.hall, signsReadable: readable, signs: r.signs} : {})};
-    if (PH === '1b') sight.textures = r.textures;   // material sources in the scene: cc0:<slot> (farm cache) or procedural:<pattern>
-    if (PH === '1b') console.log(s.id, 'stair', JSON.stringify(r.stair), 'hall', JSON.stringify(r.hall), 'signs ≥3 %:', readable, JSON.stringify(r.signs.map(x => [x.text, x.capPct, x.seen])));
+    const M = r.measures ?? {}, need2 = ['plazaWide', 'boardwalk', 'stairBottom', 'suburbStreet'].includes(s.anchor);
+    const checks1c = PH !== '1c' ? null : {
+      sightlines: !need2 || onScreen.length >= 2, stair: s.anchor !== 'stairBottom' || (r.stair?.frac ?? 1) <= .40, signs: s.anchor !== 'mainSt' || readable >= 3,
+      windows: !M.windows?.px || M.windows.luma >= .25, statueClip: s.anchor !== 'plazaWide' || (M.statue?.px > 0 && M.statue.clipFrac <= .02), statueFace: s.anchor !== 'plazaWide' || (M.statueFace?.px > 0 && M.statueFace.luma >= M.statueHat.luma),
+      heroDoor: s.anchor !== 'heroHouse' || (M.heroDoor?.frac ?? 0) >= .015};
+    const pass1c = checks1c ? Object.values(checks1c).every(Boolean) : pass;
+    if (checks1c) console.log(s.id, s.anchor, 'CHECKS', JSON.stringify(checks1c), 'windows', JSON.stringify(M.windows), 'statue', JSON.stringify(M.statue), 'face', JSON.stringify(M.statueFace), 'hat', JSON.stringify(M.statueHat), 'paving', JSON.stringify(M.paving), 'door', JSON.stringify(M.heroDoor));
+    sight[s.id] = {anchor: s.anchor, onScreen, pass: pass1c, comp: r.comp, triangles: r.st.triangles, calls: r.st.calls, slots: r.res, ...(PH !== '1a' ? {stair: r.stair, hall: r.hall, signsReadable: readable, signs: r.signs} : {}), ...(checks1c ? {checks: checks1c, measures: M} : {})};
+    if (PH !== '1a') sight.textures = r.textures;   // material sources in the scene: cc0:<slot> (farm cache) or procedural:<pattern>
+    if (PH !== '1a') console.log(s.id, 'stair', JSON.stringify(r.stair), 'hall', JSON.stringify(r.hall), 'signs ≥3 %:', readable, JSON.stringify(r.signs.map(x => [x.text, x.capPct, x.seen])));
     console.log(s.id, s.anchor, 'slots on screen:', onScreen.join(','), JSON.stringify(r.comp), 'tris', r.st.triangles, JSON.stringify(Object.fromEntries(Object.entries(r.groups).map(([k, v]) => [k, Math.round(v)]).sort((a, b) => b[1] - a[1]).slice(0, 8))));
   }
   const TEXS = sight.textures; delete sight.textures;
-  writeFileSync(arg('sight', `review/city/${PH === '1b' ? '1B' : '1A'}-sightlines.json`), JSON.stringify({rule: 'slot visible ≥ 2 % of its sampled volume points (in frame and first ray hit)' + (PH === '1b' ? '; stairBottom stair span ≤ 40 % of frame height; mainSt ≥ 3 visible shop signs with cap height ≥ 3 % of frame' : ''), bake: bakeInfo, textures: TEXS, shots: sight}, null, 1) + '\n');
+  writeFileSync(arg('sight', `review/city/${TAG}-sightlines.json`), JSON.stringify({rule: 'slot visible ≥ 2 % of its sampled volume points (in frame and first ray hit)' + (PH !== '1a' ? '; stairBottom stair span ≤ 40 % of frame height; mainSt ≥ 3 visible shop signs with cap height ≥ 3 % of frame' : ''), bake: bakeInfo, textures: TEXS, shots: sight}, null, 1) + '\n');
   await p.close();
-  if (PH === '1b') process.exit(0);
+  if (PH !== '1a') process.exit(0);
   // top-down ortho + plan outline
   const q = await open('engine/fixtures/city/overview.json');
   const urls = await q.evaluate(async ([plan, slots, roads, coast, hills, bay]) => {

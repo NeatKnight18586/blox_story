@@ -48,3 +48,33 @@ test('downtown: Hall is the tallest (top hat), bell swings via setState, clock r
   const L = mainStreetLots(); for (let i = 0; i < L.length; i++) for (let j = i + 1; j < L.length; j++) assert.ok(Math.hypot(L[i].x - L[j].x, L[i].z - L[j].z) > (Math.min(L[i].w, L[j].w)) / 2 + 1, `${L[i].id} overlaps ${L[j].id}`);
   assert.ok(tris(dt.hall.group) < 12000 && tris(dt.statue.group) < 4000 && tris(dt.clock.group) < 3000);
 }));
+
+// ---------------- Phase 1C: west arm (school + homes), glass, gold, props ----------------
+import {HOUSES, heroLot, westReserves, houseLot} from '../../parts/city/west.js';
+import {roadFrame} from '../../parts/city/downtown.js';
+import {kitMat, goldMat, glassMat} from '../../parts/city/kit/mats.js';
+import {groundY} from '../../parts/city/plan.js';
+test('1C kit: ten pastel house presets (≥ 8 seeded variants), school, heroHouse (red door, attached garage), upsideHouse; all within budget', () => quiet(() => {
+  assert.ok(HOUSES.length >= 8, 'house presets ' + HOUSES.length);
+  const pastel = new Set(HOUSES.map(k => PRESETS[k].palette.body)); assert.ok(pastel.size >= 5, 'mint, peach, sky, lemon, lavender siding');
+  const hero = PRESETS.heroHouse; assert.equal(hero.palette.door.toLowerCase(), '#d62828'); assert.ok(hero.garage && hero.floors === 2 && hero.siding);
+  const s = building({...PRESETS.school, seed: 5}); assert.ok(s.tris.near <= 3000 && s.h > 10, 'school lifted by its steps'); assert.ok(PRESETS.school.clock && PRESETS.school.steps.n >= 5);
+  const a = building({...hero, seed: 11}), b = building({...hero, seed: 11}); assert.equal(a.tris.near, b.tris.near);
+  for (const k of HOUSES) assert.ok(building({...PRESETS[k], seed: 2}).tris.near <= 3000, k);
+}));
+test('1C kit: window glass is light blue + live (never baked); statue gold is polished metal (metalness 1, roughness .28–.35); props within budget', () => quiet(() => {
+  const g = glassMat(); assert.ok(g.userData.live && g.color.getHex() === 0xffffff && g.emissive.b > g.emissive.r, 'light-blue glass'); assert.equal(kitMat('glass', '#000000'), g);
+  for (const r of ['body', 'hat', 'face']) { const m = goldMat(r); assert.equal(m.metalness, 1); assert.ok(m.roughness >= .28 && m.roughness <= .35 && m.userData.live, r); }
+  assert.ok(goldMat('face').emissiveIntensity > goldMat('hat').emissiveIntensity, 'face lift');
+  for (const k of ['sedan', 'van', 'hydrant', 'trash', 'mailbox', 'stripe', 'fence', 'hoop', 'court', 'swings', 'slide', 'sandbox', 'bus', 'treehouse', 'drive']) assert.ok(PROP_KINDS.includes(k), k);
+  assert.ok(tris(cityProps([{kind: 'sedan', at: [0, 0, 0]}])) <= 1500, 'cars ≤ 1.5k'); assert.ok(tris(cityProps([{kind: 'treehouse', at: [0, 0, 0]}])) <= 1500);
+  const m = cityProps([{kind: 'mailbox', at: [0, 0, 0], tilt: .2}]); assert.ok(tris(m) > 0);
+}));
+test('1C west: hero house on the north side of the west radial, clear of lots; reserves cover the school + lane + upside-down slot; court slab sits on the slope', () => {
+  const H = heroLot(), R = westReserves(); assert.ok(H.z < roadFrame(roadPathsOf(), 118).p[1] - 8 && Math.abs(H.yaw) < .2, 'north of the road, facing it');
+  assert.ok(R.some(r => Math.hypot(r.x - H.x, r.z - H.z) < 4 && r.r >= 15) && R.some(r => Math.hypot(r.x + 238, r.z - 112) < 2), 'hero lot + slot 4 reserved');
+  assert.ok(!PLAN.west.pad, 'no terrain pad: the 1A-fix west-arm grade (≤ 8 %) is untouched'); const C = PLAN.west.yard.court; assert.ok(Math.abs(groundY(C.at[0], C.at[1]) - groundY(C.at[0] + 20, C.at[1])) < 1.5, 'court sits on a gentle slope');
+  const lot = houseLot({x: -150, z: -10, w: 10, d: 9, n: [0, -1], yaw: 0}, (() => { let i = 0; return () => ((i += .17) % 1); })()); assert.ok(HOUSES.includes(lot.key) && lot.tris.near > 0);
+});
+import {roadPaths as roadPathsOf0} from '../../parts/city/plan.js';
+function roadPathsOf() { return roadPathsOf0().radialWest; }
