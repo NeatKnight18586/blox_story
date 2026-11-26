@@ -21,16 +21,16 @@
    "gate": true,
    "landmark": "7",
    "heroH": 0.319,
-   "landmarkVisible": 0.257,
-   "ground": 0.109,
+   "landmarkVisible": 0.189,
+   "ground": 0.105,
    "fg": null,
    "kids": {
     "kidL": {
-     "share": 0.941,
+     "share": 0.652,
      "beside": true
     },
     "kidS": {
-     "share": 0.874,
+     "share": 0.501,
      "beside": true
     }
    },
@@ -43,7 +43,7 @@
    "checks": {
     "heroH": true,
     "landmark": true,
-    "kids": true,
+    "kids": false,
     "sightlines": true,
     "movers": true,
     "ground": true,
@@ -53,12 +53,12 @@
     "sign": true,
     "beam": true
    },
-   "pass": true,
+   "pass": false,
    "bench": {
-    "tris": 51022,
-    "calls": 136,
-    "sPerFrame": 0.365,
-    "pass": true
+    "tris": 66970,
+    "calls": 154,
+    "sPerFrame": 0.912,
+    "pass": false
    }
   },
   "forestTrail": {
@@ -66,7 +66,7 @@
    "landmark": "7",
    "heroH": 0.31,
    "landmarkVisible": 0.074,
-   "ground": 0.078,
+   "ground": 0.084,
    "fg": {
     "px": 0.0447,
     "x0": 0.8851851851851852,
@@ -104,10 +104,10 @@
    },
    "pass": true,
    "bench": {
-    "tris": 54208,
-    "calls": 158,
-    "sPerFrame": 0.502,
-    "pass": true
+    "tris": 50218,
+    "calls": 157,
+    "sPerFrame": 1.024,
+    "pass": false
    }
   },
   "ropeBridge": {
@@ -115,7 +115,7 @@
    "landmark": null,
    "heroH": 0.315,
    "landmarkVisible": null,
-   "ground": 0.06,
+   "ground": 0.049,
    "fg": null,
    "kids": {
     "kidL": {
@@ -144,10 +144,10 @@
    },
    "pass": true,
    "bench": {
-    "tris": 40980,
-    "calls": 139,
-    "sPerFrame": 0.444,
-    "pass": true
+    "tris": 47714,
+    "calls": 154,
+    "sPerFrame": 0.729,
+    "pass": false
    }
   },
   "cliffLookout": {
@@ -184,9 +184,9 @@
    },
    "pass": true,
    "bench": {
-    "tris": 37032,
-    "calls": 118,
-    "sPerFrame": 0.164,
+    "tris": 42824,
+    "calls": 142,
+    "sPerFrame": 0.17,
     "pass": true
    }
   },
@@ -195,11 +195,11 @@
    "landmark": null,
    "heroH": 0.304,
    "landmarkVisible": null,
-   "ground": 0.204,
+   "ground": 0.203,
    "fg": null,
    "kids": {
     "kidL": {
-     "share": 0.817,
+     "share": 0.809,
      "beside": true
     },
     "kidS": {
@@ -310,7 +310,7 @@
    "landmark": "2",
    "heroH": 0.308,
    "landmarkVisible": 0.383,
-   "ground": 0.235,
+   "ground": 0.236,
    "fg": {
     "px": 0.0235,
     "x0": 0,
@@ -537,10 +537,10 @@
    },
    "pass": true,
    "bench": {
-    "tris": 83602,
-    "calls": 346,
-    "sPerFrame": 0.486,
-    "pass": true
+    "tris": 67300,
+    "calls": 331,
+    "sPerFrame": 0.662,
+    "pass": false
    }
   },
   "schoolYard": {
@@ -648,7 +648,7 @@
     "n": 5044,
     "luma": 0.434,
     "hue": 42.1,
-    "sat": 0.76,
+    "sat": 0.759,
     "clipped": 0.0077,
     "hFrac": 0.2479
    },
@@ -687,9 +687,9 @@
    },
    "pass": true,
    "bench": {
-    "tris": 83568,
-    "calls": 267,
-    "sPerFrame": 0.355,
+    "tris": 67904,
+    "calls": 255,
+    "sPerFrame": 0.518,
     "pass": true
    }
   },
@@ -957,9 +957,9 @@
    },
    "pass": true,
    "bench": {
-    "tris": 89357,
-    "calls": 504,
-    "sPerFrame": 0.539,
+    "tris": 71838,
+    "calls": 472,
+    "sPerFrame": 0.598,
     "pass": true
    }
   },
@@ -1060,10 +1060,10 @@
    },
    "pass": true,
    "bench": {
-    "tris": 90409,
-    "calls": 423,
-    "sPerFrame": 0.339,
-    "pass": false
+    "tris": 72898,
+    "calls": 393,
+    "sPerFrame": 0.453,
+    "pass": true
    }
   },
   "duckClose": {
@@ -1114,7 +1114,7 @@
    "landmark": "2",
    "heroH": 0.3,
    "landmarkVisible": 0.691,
-   "ground": 0.195,
+   "ground": 0.192,
    "fg": {
     "px": 0.0104,
     "x0": 0,
@@ -1125,11 +1125,11 @@
    },
    "kids": {
     "kidL": {
-     "share": 0.972,
+     "share": 0.971,
      "beside": true
     },
     "kidS": {
-     "share": 0.879,
+     "share": 0.873,
      "beside": true
     }
    },
@@ -1209,18 +1209,18 @@
    },
    "fir": {
     "n": 258,
-    "nearTris": 104,
-    "source": "procedural:pine"
+    "nearTris": 5004,
+    "source": "cc0:fir_sapling"
    },
    "round": {
     "n": 114,
-    "nearTris": 150,
-    "source": "procedural:round"
+    "nearTris": 5809,
+    "source": "cc0:shrub_03"
    },
    "pine": {
     "n": 217,
-    "nearTris": 104,
-    "source": "procedural:pine"
+    "nearTris": 4924,
+    "source": "cc0:pine_sapling_small"
    }
   },
   "species": {
@@ -1231,31 +1231,25 @@
     "height": 10.81
    },
    "pine": {
-    "source": "procedural:pine",
-    "tris": 104,
-    "rawTris": null,
-    "height": 11.9
+    "source": "cc0:pine_sapling_small",
+    "tris": 4924,
+    "rawTris": 398144,
+    "height": 1.3
    },
    "fir": {
-    "source": "procedural:pine",
-    "tris": 104,
-    "rawTris": null,
-    "height": 11.9
+    "source": "cc0:fir_sapling",
+    "tris": 5004,
+    "rawTris": 433021,
+    "height": 1.3
    },
    "round": {
-    "source": "procedural:round",
-    "tris": 150,
-    "rawTris": null,
-    "height": 8.46
+    "source": "cc0:shrub_03",
+    "tris": 5809,
+    "rawTris": 8287,
+    "height": 0.4
    }
   },
   "atlases": {
-   "leafy": {
-    "w": 2048,
-    "h": 256,
-    "views": 8,
-    "baked": false
-   },
    "pine": {
     "w": 2048,
     "h": 256,
@@ -1273,12 +1267,18 @@
     "h": 256,
     "views": 8,
     "baked": false
+   },
+   "leafy": {
+    "w": 2048,
+    "h": 256,
+    "views": 8,
+    "baked": true
    }
   }
  },
  "impostorCache": null,
  "pass": {
-  "staging": true,
+  "staging": false,
   "sightlines": true,
   "movers": true,
   "ground": true,
@@ -1290,5 +1290,7 @@
   "bench": false,
   "beamTod": true
  },
- "fails": []
+ "fails": [
+  "stoneHead: kids"
+ ]
 }
