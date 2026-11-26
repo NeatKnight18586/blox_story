@@ -152,7 +152,7 @@ export function withR6(fn) {
 }
 // R6 sample straight from acting6 channels (degrees): head / shoulders / hips copied, waist / elbows / knees / IK ignored (rigid parts).
 // Planted: the lowest point sits on the floor, lifted only by a positive root height (jump / land flight, impact bounces). Limbs kept out of the torso.
-export const UNPLANTED = new Set(['carried', 'carried_hip']);   // placed on the carrier by the episode, never on the floor
+export const UNPLANTED = new Set(['carried', 'carried_hip', 'leap']);   // fearbell pass 2: leap is airborne   // placed on the carrier by the episode, never on the floor
 export function r6FromChannels(ch, build = 'adult_m', {plant = true} = {}) {
   const lean = ch['root.lean'] * D, roll = ch['root.roll'] * D, yaw = ch['root.yaw'] * D, R0 = RYXZ({lean, roll, yaw}), c = [0, ch['root.cy'], ch['root.cz']];
   const p = add([ch['root.dx'], ch['root.dy'], ch['root.dz']], sub(c, mv(R0, c))), cy = Math.cos(yaw), sy = Math.sin(yaw), piv = j => ['x', 'y', 'z'].map(a => (ch[`${j}.${a}`] ?? 0) * D);

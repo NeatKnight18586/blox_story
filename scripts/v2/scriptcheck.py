@@ -13,7 +13,7 @@ adjectives and adverbs (STOP), and minus generic person / place words that a scr
 "kid", "edge", "square", …). A key noun counts as present when any inflection matches (eggs/egg, whispering/whispers,
 sleepwalks/sleepwalking, handshakes/handshake, snaps/snapped). Clues, Frame 0, Money shot and World are pictures, not words.
 """
-import argparse, json, re, sys
+import argparse, os, json, re, sys
 
 WORDS = (300, 400)   # FORMAT_V6.md rule 1
 VARIANT_WORDS = {'short': (200, 250), 'long': (280, 330)}   # format 7 (--variant): > max FAIL, < min WARN
@@ -138,8 +138,15 @@ def check(script, card, variant=None):
 
 
 # ---------------- card file ----------------
-def card_for(slug, md):
+def is_format7(brief_md):
+    """fearbell pass 2 (owner A5): the Brief's SPEC FLAGS say format 7 (pure)."""
+    m = re.search(r'spec flags\s*:.*?format\s*[:=]\s*`?(\d+)', brief_md or '', re.I)
+    return bool(m) and int(m.group(1)) >= 7
+
+
+def card_for(slug, md, optional=False):
     m = re.search(r'^### \d+ · \S+ · `' + re.escape(slug) + r'` · .*?$(.*?)(?=^### |^## |\Z)', md, re.S | re.M)
+    if not m and optional: return {}   # format 7 (owner A5): no SEASON_1.md card required; key-noun check skipped
     if not m: raise SystemExit(f'no card for `{slug}` in SEASON_1.md §6')
     out = {}
     for l in m.group(1).splitlines():
@@ -151,7 +158,8 @@ def card_for(slug, md):
 def main():
     a = argparse.ArgumentParser(); a.add_argument('--story', required=True); a.add_argument('--card-file', default='docs/season1/SEASON_1.md'); a.add_argument('--json', action='store_true')
     a.add_argument('--variant', choices=sorted(VARIANT_WORDS), help='format 7: short 200–250 words, long 280–330 (default: 300–400)'); o = a.parse_args()
-    r = check(open(f'stories/{o.story}/script.txt').read(), card_for(o.story, open(o.card_file).read()), o.variant)
+    bp = f'stories/{o.story}/BRIEF.md'; f7 = is_format7(open(bp).read()) if os.path.exists(bp) else False
+    r = check(open(f'stories/{o.story}/script.txt').read(), card_for(o.story, open(o.card_file).read(), optional=f7), o.variant)
     if o.json: print(json.dumps(r, ensure_ascii=False))
     else:
         print(json.dumps(r['numbers'], ensure_ascii=False))

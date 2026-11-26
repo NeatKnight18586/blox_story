@@ -101,6 +101,7 @@ for (const d of ['stage', 'react', 'cast', 'props', 'rooms', 'dome', 'fx']) mkdi
 const server = await startServer(process.cwd()), browser = await launch();
 const save = (f, url) => writeFileSync(f, Buffer.from(url.split(',')[1], 'base64'));
 const median = a => [...a].sort((x, y) => x - y)[Math.floor(a.length / 2)];
+const {refBench, gate: refGate, REF} = await import('./benchref.js'); let REF_S = null;   // fearbell add-on: relative speed gate (RULEBOOK §6)
 const M = existsSync(`${REV}/1G-measures.json`) ? JSON.parse(readFileSync(`${REV}/1G-measures.json`, 'utf8')) : {};
 async function openPage(name) {
   const p = await browser.newPage(); p.on('pageerror', e => console.error('pageerror', e.message)); p.on('console', m => { if (m.type() === 'error' && !/404/.test(m.text())) console.error('console', m.text().slice(0, 300)); });
@@ -109,7 +110,8 @@ async function openPage(name) {
 const frame = (p, n, w, h) => p.evaluate(([n, w, h]) => { const E = window.__episode, st = E.renderFrame(n, w, h); return {url: E.debug.renderer.domElement.toDataURL('image/png'), st}; }, [n, w, h]);
 const PH = [390, 693];
 async function bench(p, n, rows = 5) { const tm = []; let st = null; for (let i = 0; i < rows; i++) { const r = await p.evaluate(([n]) => window.__episode.renderFrame(n, 720, 1280), [n]); tm.push(r.ms); st = r; }
-  const s = +(median(tm) / 1000).toFixed(3); return {tris: st.triangles, calls: st.calls, sPerFrame: s, pass: st.triangles <= 90000 && s <= .62}; }
+  const s = +(median(tm) / 1000).toFixed(3); REF_S ??= await refBench(browser, server.url); const g = refGate(s, REF_S);
+  return {tris: st.triangles, calls: st.calls, sPerFrame: s, refS: REF_S, ratio: g.ratio, normalised: g.normalised, pass: st.triangles <= 90000 && g.pass}; }
 const clip = async (name, N, mp4) => { const p = await openPage(name); mkdirSync(`${OUT}/${name}/frames`, {recursive: true});
   for (let n = 0; n < N; n++) { const r = await frame(p, n, 270, 480); save(`${OUT}/${name}/frames/f${String(n).padStart(3, '0')}.png`, r.url); }
   execFileSync('ffmpeg', ['-hide_banner', '-loglevel', 'error', '-y', '-framerate', String(F), '-i', `${OUT}/${name}/frames/f%03d.png`, '-c:v', 'libx264', '-pix_fmt', 'yuv420p', '-crf', '18', '-t', String(N / F), mp4]); return p; };

@@ -25,6 +25,12 @@ class Variants(unittest.TestCase):
         self.assertTrue(any('331 words (> 330' in f for f in S.check(script(331), CARD, 'long')['failures']))
         self.assertTrue(any('279 words (< 280' in w for w in S.check(script(279), CARD, 'long')['warnings']))
 
+    def test_format7_needs_no_card(self):   # fearbell pass 2 (owner A5)
+        self.assertTrue(S.is_format7('- spec flags: format: 7, lengthVariant: long'))
+        self.assertFalse(S.is_format7('- spec flags: format: 6')); self.assertFalse(S.is_format7(''))
+        self.assertEqual(S.card_for('nosuch', '## 6\n', optional=True), {})
+        with self.assertRaises(SystemExit): S.card_for('nosuch', '## 6\n')
+
     def test_default_unchanged(self):
         self.assertEqual(S.WORDS, (300, 400))
         self.assertTrue(any('401 words (> 400' in f for f in S.check(script(401), CARD)['failures']))

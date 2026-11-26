@@ -118,6 +118,7 @@ if (spec.world) {
   look = lk ? createLookV3(scene, renderer, {...lk, onEnv: tex => M.setEnvMap(tex, lk.envIntensity ?? .45)}) : createLook(scene, renderer);
   if (mod.preload) await mod.preload(new URL('../', import.meta.url), {scene, renderer, spec});   // Kit 1 (opt-in, v3 worlds that export preload): async world assets / a parts/location.js street
   world = mod.build(scene, {P, B, A, M, PR, TR, BI, V, W, look, spec});
+  if ((spec.format ?? 0) >= 7 && !(spec.shots ?? []).some(sh => sh.fgNote)) scene.traverse(o => { if (o.userData?.role === 'fg') o.visible = false; });   // fearbell pass 2 A2: format 7 episode shots get no key-art foreground element unless a row's notes say `fg:`
   }
   // E3 (opt-in spec.worldObjects): a `prop:<name>` subject is the world's own object of that name (giantHand = the story6 hand): exactly one, never an insert copy
   if (spec.worldObjects) { const {worldObjectErrors} = await import('./worldobjects.js'), bad = worldObjectErrors(spec.worldObjects, n => { let k = 0; scene.traverse(o => { if (o.name === n) k++; }); return k; }, spec.props ?? []); if (bad.length) throw Error(bad.join('; ')); }
@@ -178,7 +179,7 @@ const presetOf = c => {
   const pre2 = HERO_COLS && c.troupe !== 'HERO' && pre1.outfit ? {...pre1, outfit: heroSafeOutfit(pre1.outfit, HERO_COLS, {minL: NIGHT_EP ? .32 : 0})} : pre1;   // v4 1b: nobody dresses like the hero
   const pre3 = (spec.look4 || BODY6 || RIG6) && !pre2.regions && pre2.outfit ? {...pre2, regions: outfitRegions(pre2.outfit, pre2.skin ?? '#f5cd30'), outfit: null} : pre2;   // 2b: outfits as colour regions (data)
   const pre = FACES_V3 && !pre3.faceStyle ? {...pre3, faceStyle: 'v3'} : pre3;   // Faces v3: default for season 1 (or spec.faces 'v3')
-  if ((spec.format >= 5 && spec.format <= 7) && pre.build !== 'youth' && !(pre.age < 18)) pre.scale = 1;   // format v5: every adult stands at the same height (builds differ in shape, not size)
+  if ((spec.format >= 5 && spec.format <= 7) && pre.build !== 'youth' && !(pre.age < 18) && !pre.keepScale) pre.scale = 1;   // format v5: every adult stands at the same height (builds differ in shape, not size); fearbell add-on: a costume with keepScale (BODYBUILDER) keeps its own
   return pre; };
 // tuft 2B (opt-in): `puffs` on an R6 actor (shot puffs [{actor, size, at}], engine/puff.js): torso + head swell into a faceted ball proxy
 // (jacket colour) of diameter D; the head scales and sits in the ball's upper front (face decal rides the head pivot); arms / legs keep
@@ -408,7 +409,7 @@ const ACT6 = spec.acting === 6 ? await import('./acting6.js') : null, R6 = RIG6 
 const actTracks = ACT6 ? await (async () => {
   const get = async u => { try { const r = await fetch(new URL('../' + u, import.meta.url)); return r.ok ? await r.json() : null; } catch { return null; } };
   const cues = await get(spec.cues ?? `stories/${spec.slug}/cues.json`) ?? await get(`stories/${spec.slug}/build/cues.json`), env = await get(`stories/${spec.slug}/build/envelope.json`);
-  const actions = shots.flatMap(sh => (sh.actions ?? []).map(a => { const b = typeof a.at === 'number' ? {...a, at: sh.start / FPS + a.at} : {...a}; if (b.target && cast[b.target] && cast[b.actor]) b.partnerScale = cast[b.target].a.root.scale.x / cast[b.actor].a.root.scale.x; return b; }));   // partnerScale picks the hug / carry variant
+  const actions = shots.flatMap(sh => (sh.actions ?? []).filter(a => !(a.verb === 'lookAtLens' && (spec.format ?? 0) >= 7)).map(a => {   /* fearbell pass 2: a format 7 lookAtLens is the body turn only (lensActs), never a track item that would end a held pose */ const b = typeof a.at === 'number' ? {...a, at: sh.start / FPS + a.at} : {...a}; if (b.target && cast[b.target] && cast[b.actor]) b.partnerScale = cast[b.target].a.root.scale.x / cast[b.actor].a.root.scale.x; return b; }));   // partnerScale picks the hug / carry variant
   return ACT6.compileActing(actions, {cues, env, talk: spec.talk ?? []});
 })() : null;
 // Partners (hug, carry, comfort_kneel): the partner's meeting mark comes from the lead's mark; it must START within PARTNER_TOL of it —
@@ -605,7 +606,9 @@ if (CL) { const roots = new Set(Object.values(cast).map(x => x.a.root)); CL.mark
 // E1 fix (opt-in spec.hide): set objects hidden by name (a story prop replaces them)
 for (const n of spec.hide ?? []) { const o = scene.getObjectByName(n); if (o) o.visible = false; else console.warn('spec.hide: no object ' + n); }
 const vecAt = (keys, t, d) => keys?.length ? d.map((v, i) => valueAt(keys.map(k => [k[0], k[1][i], k[2], k[3]]), t, v)) : d;
-function updateProps(t) { for (const {p, g} of storyProps) { g.position.fromArray(vecAt(p.pos, t, [0, 0, 0])); const r = vecAt(p.rot, t, [0, 0, 0]); g.rotation.set(...r.map(v => v * Math.PI / 180)); g.visible = valueAt(p.visible, t, true); if (g.visible && g.userData.anim) g.userData.anim(t - (p.animAt ?? 0), p);
+function updateProps(t) { for (const {p, g} of storyProps) { g.position.fromArray(vecAt(p.pos, t, [0, 0, 0])); const r = vecAt(p.rot, t, [0, 0, 0]); g.rotation.set(...r.map(v => v * Math.PI / 180));
+  if (p.attach && cast[p.attach.actor]?.a && valueAt(p.visible, t, true) && g.position.y > -300) {   /* a `hide` pos key (y −400) keeps it hidden */ const A = cast[p.attach.actor].a, o = A.parts?.[p.attach.part ?? 'torso'] ?? A.pivots?.[p.attach.part] ?? A.root; o.updateWorldMatrix(true, false);   // fearbell pass 2 (owner A3, opt-in p.attach {actor, part, offset}): the prop rides an actor's part (the mouse on a shoulder)
+    g.position.copy(o.localToWorld(new T.Vector3(...(p.attach.offset ?? [0, 0, 0])))); if (p.attach.orient) g.quaternion.premultiply(o.getWorldQuaternion(new T.Quaternion())); else g.rotation.y += A.root.rotation.y; }   // orient: the prop turns with the part (a held can tips with the arm) g.visible = valueAt(p.visible, t, true); if (g.visible && g.userData.anim) g.userData.anim(t - (p.animAt ?? 0), p);
   if (p.states && g.userData.setState) { const st = valueAt(p.states, t, null); if (st !== null && st !== g.userData.state) g.userData.setState(st); }   // Touch Grass E1 (opt-in): step states (headset on/off, visor screen)
   if (p.flick && g.userData.setFlick) g.userData.setFlick(valueAt(p.flick, t, 0)); } }   // Touch Grass E1 (opt-in): giant finger flick u (ramp keys); E1 fix (opt-in): props5 moving parts, pure in t
 const ALOCK = spec.anchorLock ? (await import('./anchorlock.js')).createAnchorLock(scene, spec) : null;   // Phase 1F (opt-in)
@@ -613,9 +616,11 @@ const ALOCK = spec.anchorLock ? (await import('./anchorlock.js')).createAnchorLo
 const CLOCK = spec.clock?.length ? await (async () => { const A6 = await import('./acting6.js'), get = async u => { try { const r = await fetch(new URL('../' + u, import.meta.url)); return r.ok ? await r.json() : null; } catch { return null; } };
   const cues = spec.clock.some(e => typeof e.at !== 'number') ? await get(spec.cues ?? `stories/${spec.slug}/cues.json`) ?? await get(`stories/${spec.slug}/build/cues.json`) : null;
   return (await import('./clockfx.js')).createClockFx(scene, spec.clock, {world, wordTime: at => A6.wordTime(cues, at)}); })() : null;
+const FACEAIM_ON = (spec.format ?? 0) >= 7, FACEAIM_FN = FACEAIM_ON && spec.shots?.some(s => s.faceAim) ? (await import('./camtpl.js')).faceAim : null;   // fearbell pass 2 A1 (opt-in)
 // Phase 1G CREATURE KIT (opt-in spec.creatures, parts/creatures.js): ghost · trex · rat · spider · vacuum · shadowPuff · dome · pillar, acts pure in t
 CREATURES = spec.creatures?.length ? (await import('../parts/creatures.js')).createCreatures(scene, spec.creatures, {
-  actorPos: n => cast[n] ? headOf(cast[n]).toArray() : null, keep: o => Object.values(cast).some(x => x.a?.root === o), renderer}) : null;
+  actorPos: n => cast[n] ? headOf(cast[n]).toArray() : null, keep: o => Object.values(cast).some(x => x.a?.root === o), renderer,
+  handPos: (n, side) => { const arm = cast[n]?.a?.parts?.[side + 'Arm']; if (!arm) return null; arm.updateWorldMatrix(true, false); const s = cast[n].a.root.scale.y; return arm.localToWorld(new T.Vector3(0, -.78, .5 + .22 / s)).toArray(); }}) : null;   // fearbell add-on: palm-top point of an R6 arm (palm up = arm forward)
 // World story state (Session 5): spec.worldState = {name: [[t, value], [t, value, 'ramp']...]} → world.setState.
 function applyWorldState(shot, t) {
   if (storyProps.length) updateProps(t);
@@ -668,6 +673,7 @@ function drawFrame(shot, mf, off, width, height, nudge) {
   if (CLEARED.length) unclear();
   setHeroLit(shot); const actors = poseCast(t);
   const lt = M6 && shot.still ? 0 : Math.max(0, (mf.cam + off - shot.start) / FPS), c = CINE_CAM ? cineCamAt(shot, lt, width / height, t) : sampleCamera({...shot, fps: FPS}, lt, actors);   // P5b `still` (moods only): the camera is locked at its first frame
+  lensActs(t, c.position); { const cA = faceAimCam(shot, c, width / height); c.target = cA.target; c.fov = cA.fov; }   // fearbell pass 2: lookAtLens turns, then the A1 face aim (both opt-in)
   if (mf.shake.some(v => v)) c.position = c.position.map((v, i) => v + mf.shake[i]);
   if (shot.shake && BEASTS) { const who = typeof shot.shake === 'string' && cast[shot.shake]?.beast ? shot.shake : shot.subject, sh = (await0 => BEASTSHAKE(BEASTS.footfallsOf(who), t))(); c.position = c.position.map((v, i) => v + sh[i]); }   // tuft 2B: shot `shake` (true | beast name) shudders the camera on each footfall
   if (LODS.length) applyLod(c.position, t);
@@ -678,9 +684,11 @@ function drawFrame(shot, mf, off, width, height, nudge) {
   const fx = effects.apply(t, camera);   // poses effect targets; returns the shake offset and any timeOfDay blend
   const pos = c.position.map((v, i) => v + fx.camOffset[i]), tgt = c.target.map((v, i) => v + fx.camOffset[i] * .6);
   camera.fov = c.fov; camera.aspect = width / height; camera.position.fromArray(pos);
+  LASTCAM.target = tgt; LASTCAM.position = pos;
   camera.up.set(0, 1, 0); camera.lookAt(...tgt); camera.rotateZ(c.roll); camera.updateProjectionMatrix();
   if (CINE_CAM && c.noise) { camera.rotateX(c.noise[0]); camera.rotateY(c.noise[1]); camera.rotateZ(c.noise[2]); }   // tuft 1B handheld (rotation only)
   const cn = CINE_CAM ? null : camNoise5b(shot, t) ?? (M6 && M6.moodUniforms(shot).camNoise ? camNoise(t, shots.indexOf(shot) + 1, M6.moodUniforms(shot).camNoise) : null); if (cn) { camera.rotateX(cn[0]); camera.rotateY(cn[1]); }   // Look 5b: static-shot micro-noise
+  CREATURES?.aim?.(pos);   // fearbell add-on: inside-dome rim lights sit behind their actors, away from the lens
   if (ALOCK) ALOCK.apply(shot, camera);   // Phase 1F anchor lock (opt-in spec.anchorLock): re-aim so the rule object sits in its fixed screen zone
   if (nudge) { const k = nudge / Math.sqrt(3); camera.translateX(k); camera.translateY(k); camera.translateZ(k); }
   world?.onCamera?.(camera.position.toArray(), camera);   // format v5 3b-R (opt-in): a world may hide what this camera cannot see (hall ↔ street)
@@ -758,7 +766,7 @@ function tplCtx(shot, aspect, tNow) {
     const p2 = (spec.props2b ?? []).findLast(q => q.kind === n); if (p2?.at) { const H = 3 * (p2.scale ?? 1); return {centre: [p2.at[0], p2.at[1] + H / 2, p2.at[2]], H}; }
     const s = subjectAt(n, lt); return s ? {centre: [s.foot[0], s.foot[1] + s.H / 2, s.foot[2]], H: s.H} : null; };
   const atTime = lt => { poseCast(t0 + lt); scene.updateMatrixWorld(true); }, restore = () => { poseCast(tNow); scene.updateMatrixWorld(true); };
-  return {fps: FPS, aspect, cacheKey: `${shot.id}|${shot.start}|${aspect.toFixed(4)}`, groundAt: (x, z) => world?.groundY?.(x, z) ?? 0, subjectAt, propAt, atTime, endSamples: restore,
+  return {fps: FPS, aspect, faceAim: FACEAIM_ON && !!shot.faceAim, cacheKey: `${shot.id}|${shot.start}|${aspect.toFixed(4)}`, groundAt: (x, z) => world?.groundY?.(x, z) ?? 0, subjectAt, propAt, atTime, endSamples: restore,
     clear: tplClear, free: tplFree};
 }
 function sampleTplShot(shot, lt, aspect, tNow) {
@@ -801,7 +809,7 @@ function cineRender(shot, mf, off, lt, width, height) {
   CL.blobsFor(items, gy);
   const k = `${shot.id}|${shot.start}`; if (shot.fg && !cineCam0[k]) { const c0 = CINE_CAM ? cineCamAt(shot, 0, width / height, shot.start / FPS) : sampleCamera({...shot, fps: FPS}, 0, poseCast(shot.start / FPS));
     const s = shot.subject && cast[shot.subject] ? CINE.project(c0, headOf(cast[shot.subject]).toArray(), width / height).x : 0; cineCam0[k] = {c0, s}; poseCast(mf.anim / FPS); }
-  CL.fg(CINE_OPTS.fg === false ? {...shot, fg: null} : shot, cineCam0[k]?.c0, cineCam0[k]?.s ?? 0);
+  CL.fg(CINE_OPTS.fg === false || ((spec.format ?? 0) >= 7 && !shot.fgNote) ? {...shot, fg: null} : shot, cineCam0[k]?.c0, cineCam0[k]?.s ?? 0);
   if (scene.fog?.isFog) { const fs = CL.FOG.start; if (scene.fog.near < fs) { scene.fog.far += fs - scene.fog.near; scene.fog.near = fs; } } CL.clearFog(scene.fog?.color);   // 2B grade 'clear': the far fog toward clean sky (no sepia)   // 1B fix: no distance fog within FOG.start (look.apply resets it each frame)
   const hd = n => cast[n] ? camera.position.distanceTo(headOf(cast[n])) : null, focus = shot.subject && cast[shot.subject] ? CINE.focusAt(shot, lt, hd) : null;
   if (CINE_OPTS.actorLight) {   // 1B fix: actors-only rim (behind-above, far side from the camera) + warm key from the nearest world practical
@@ -832,10 +840,28 @@ export function renderCamera(cam, t = 0, width = 720, height = 1280, lookName = 
 }
 
 // Plan inspection (scripts/v2/plan.js): camera and projected heads at frame n, without rendering.
+// fearbell pass 2 (owner A3, opt-in: a shot action {actor, verb: 'lookAtLens', at: s}): the actor's body turns to face the lens over 0.3 s (the
+// acting6 key keeps the chin level) and holds to the end of the shot; the episode's one fourth-wall look. Pure in t + the frame's camera.
+const LENS_EV = shots.flatMap(sh => (sh.actions ?? []).filter(a => a.verb === 'lookAtLens' && typeof a.at === 'number').map(a => ({actor: a.actor, t0: (sh.start / FPS) + a.at, t1: (sh.start + sh.frames) / FPS})));
+export const lensYaw = (from, to) => Math.atan2(to[0] - from[0], to[2] - from[2]);
+function lensActs(t, camPos) {
+  for (const e of LENS_EV) { if (t < e.t0 || t >= e.t1 || !cast[e.actor]?.v2) continue; const r = cast[e.actor].a.root, y0 = r.rotation.y, y1 = lensYaw([r.position.x, 0, r.position.z], camPos), k = Math.min(1, (t - e.t0) / .3), e2 = k * k * (3 - 2 * k);
+    r.rotation.y = y0 + Math.atan2(Math.sin(y1 - y0), Math.cos(y1 - y0)) * e2; }
+}
+// fearbell pass 2 (owner A1, opt-in format ≥ 7 + shot.faceAim: true | [actor…]): FACE-AIMED close framing on the POSED heads (engine/camtpl.js faceAim):
+// face centre on the upper third, head top (hair / hat) 8–12 % below the frame top; the authored camera position is kept. Not on ecu.
+const FACEAIM = {fn: FACEAIM_FN}, LASTCAM = {target: [0, 0, 0], position: [0, 0, 1]};
+function faceAimCam(shot, c, aspect) {
+  if (!FACEAIM_ON || !FACEAIM.fn || !shot.faceAim || shot.ecu || shot.tpl || !c?.position) return c;
+  const names = (shot.faceAim === true ? [shot.subject] : shot.faceAim).filter(n => cast[n]?.v2 && visibleChain(cast[n].a.root)); if (!names.length) return c;
+  scene.updateMatrixWorld(true); const heads = names.map(n => { const x = cast[n], hb = new T.Box3().setFromObject(x.a.parts?.head ?? x.a.pivots.head), hc = hb.isEmpty() ? headOf(x) : hb.getCenter(new T.Vector3()), b = new T.Box3();   /* the face centre = the head mesh's centre */ x.a.pivots.head.traverse(o => { if (o.isMesh && !o.isSprite && visibleChain(o)) b.expandByObject(o); });   /* visible head meshes only (hidden hats / hair never count) */ return {c: hc.toArray(), top: [hc.x, b.max.y, hc.z], r: Math.max(b.max.x - b.min.x, b.max.z - b.min.z) / 2}; });
+  const fa = FACEAIM.fn(c, heads, aspect); FACEAIM.last = {shot: shot.id, headroom: fa.headroom, ok: fa.ok, fov: fa.fov}; return {...c, target: fa.target, fov: fa.fov};
+}
 const headOf = ({a, v2, dragon, beast}) => { const v = new T.Vector3(); if (beast) v.copy(a.head.position); else if (dragon) { const w = new T.Vector3(); a.eyes[0].getWorldPosition(v); a.eyes[1].getWorldPosition(w); v.add(w).multiplyScalar(.5); } else if (v2) { a.pivots.head.getWorldPosition(v); v.y += .6 * a.root.scale.y; } else v.copy(a.root.position).add(new T.Vector3(0, 4.6, 0)); return v; };
 export function inspectFrame(n, width = 540, height = 960) {
   const shot = shots.findLast(s => n >= s.start), t = n / FPS, actors = poseCast(t);
   const c = CINE_CAM ? cineCamAt(shot, (n - shot.start) / FPS, width / height, t) : sampleCamera({...shot, fps: FPS}, (n - shot.start) / FPS, actors);   // tuft 4C: plan measures the camera the frame is rendered with
+  lensActs(t, c.position); { const cA = faceAimCam(shot, c, width / height); c.target = cA.target; c.fov = cA.fov; }   // fearbell pass 2 (opt-in)
   applyWorldState(shot, t); updateExtras(t); effects.apply(t, camera);
   camera.fov = c.fov; camera.aspect = width / height; camera.position.fromArray(c.position); camera.up.set(0, 1, 0); camera.lookAt(...c.target); camera.updateProjectionMatrix();
   scene.updateMatrixWorld(true); camera.updateMatrixWorld(true);
@@ -917,6 +943,21 @@ function maskPass(keep, w, h, far = null) {
   return m;
 }
 const under = (o, root) => { for (let p = o; p; p = p.parent) if (p === root) return true; return false; };
+// fearbell pass 2 (owner A2) NO FOREGROUND LEAK: after renderFrame(n), the share of the frame's MIDDLE THIRD (x 1/3–2/3, full height) covered by
+// non-subject solid geometry nearer than 0.9 × the camera → target distance (the subject's depth): cast actors, creatures, story props, the clock FX,
+// sprites, see-through and flat ground meshes never count, nor objects named by the shot's `leakOk` prefixes. Plan check scripts/v2/fgleak.js (≤ 10 %).
+export const LEAK = {x0: 1 / 3, x1: 2 / 3, near: .9, max: .10};
+export function leakMeasure(n, {w = 180, h = 320} = {}) {
+  renderFrame(n, w, h); scene.updateMatrixWorld(true);
+  const roots = Object.values(cast).map(x => x.a?.root).filter(Boolean), cg = scene.getObjectByName('creatures'), far = Math.hypot(...LASTCAM.target.map((v, i) => v - LASTCAM.position[i])) * LEAK.near;
+  const flat = o => { const b = new T.Box3().setFromObject(o), sz = b.getSize(new T.Vector3()); return sz.y < .35 * Math.max(sz.x, sz.z); };
+  const shot = shots.findLast(q => n >= q.start), ok = shot?.leakOk ?? [], tagged = o => { for (let p = o; p; p = p.parent) if (/^prop_|^clockFx$/.test(p.name) || ok.some(k => p.name?.startsWith(k))) return true; return false; },   /* shot.leakOk: name prefixes of the row's own world-object subject / set (the bell, the desk, the balcony) */ mine = o => roots.some(r => under(o, r)) || (cg && under(o, cg)) || tagged(o);
+  const m = maskPass(o => !(o.isSprite || o.isPoints || o.isLine || o.material?.transparent || mine(o) || flat(o)), w, h, far);
+  let k = 0, nn = 0; const a = Math.floor(LEAK.x0 * w), b = Math.ceil(LEAK.x1 * w); for (let y = 0; y < h; y++) for (let x = a; x < b; x++) { nn++; k += m[y * w + x]; }
+  const names = new Map(); if (k / nn > .02) { const ray = new T.Raycaster(); for (const [px, py] of [[.5, .5], [.4, .3], [.6, .3], [.4, .7], [.6, .7], [.5, .15], [.5, .85]]) { ray.setFromCamera(new T.Vector2(px * 2 - 1, 1 - py * 2), camera); ray.far = far;
+    const hit = ray.intersectObjects(scene.children, true).find(q => q.object.visible && visibleChain(q.object) && !q.object.isSprite && !mine(q.object) && !q.object.material?.transparent && !flat(q.object)); if (hit) names.set(hit.object.name || hit.object.parent?.name || '?', 1); } }
+  return {frame: n, cover: +(k / nn).toFixed(4), far: +far.toFixed(2), hits: [...names.keys()]};
+}
 const visibleChain = o => { for (let p = o; p; p = p.parent) if (!p.visible) return false; return true; };
 function frameLuma(w, h) {
   const gl = renderer.getContext(), px = new Uint8Array(w * h * 4); gl.readPixels(0, 0, w, h, gl.RGBA, gl.UNSIGNED_BYTE, px);
@@ -1100,4 +1141,4 @@ function cineMeasure(names = Object.keys(cast)) {
     const c = b.getCenter(new T.Vector3()), z = c.clone().sub(camera.position).dot(f);
     out[n] = {x0, x1, y0, y1, behind, v: 2 * z * Math.tan(camera.fov * Math.PI / 360) / (5.3 * x.a.root.scale.y), z}; }
   return out; }
-window.__episode = {clock: CLOCK, creatures: CREATURES, anchorLock: ALOCK, outline: OUTLINE, castRoots: () => Object.fromEntries(Object.entries(cast).map(([n, x]) => [n, x.a?.root ?? null])), world, cityLiving: world?.living ?? null, tpl: CTPL ? {state: TPLSTATE, measure: tplMeasure, eyes: tplEyes} : null, beasts: BEASTS, cine: CL ? {state: CL.state, opts: CINE_OPTS, glowCount: CL.glowCount, setGlow: CL.setGlow, glowDebug: CL.glowDebug, measure: cineMeasure} : null, story6: S6, clearedNow: () => CLEARED.map(r => r.name), actingPlan: () => actPlans.map(p => /^hug/.test(p.verb) ? {...p, cam: hugCam(p)} : p), groundFix: () => GROUNDFIX, sepMeasure, ceilingLuma, classHaze, satMeasure, depthLuma, lumaProbe, debug: {scene, renderer, camera, look, pool: U5B?.poolOf ?? null}, bake: BAKE, matcapBytes: MATCAP ? (n => Array.from(look.matcapBytes(n ?? spec.look4))) : null, breakdown, measureFrame, seasonMeasure, actorMask, readMeasure, gateMeasure, placesAt, lumaAt, inspectFrame, shotSpeed, END: FRAMES / FPS, anchors: Object.fromEntries(Object.entries(anchors).filter(([, a]) => a.camera).map(([k]) => [k, true])), renderAnchor, renderAnchorNudged, renderCamera, FPS, FRAMES, shots: shots.map(({id, start, frames, size, move, loc, subject, see, openHit, at, why, captionY, fit, spectacle, look: lk}) => ({id, start, frames, size, move, loc, subject, see, openHit: !!openHit, at, why, captionY, fit, spectacle: !!spectacle, look: lk})), renderFrame};
+window.__episode = {clock: CLOCK, creatures: CREATURES, anchorLock: ALOCK, outline: OUTLINE, castRoots: () => Object.fromEntries(Object.entries(cast).map(([n, x]) => [n, x.a?.root ?? null])), world, cityLiving: world?.living ?? null, tpl: CTPL ? {state: TPLSTATE, measure: tplMeasure, eyes: tplEyes} : null, beasts: BEASTS, cine: CL ? {state: CL.state, opts: CINE_OPTS, glowCount: CL.glowCount, setGlow: CL.setGlow, glowDebug: CL.glowDebug, measure: cineMeasure} : null, story6: S6, clearedNow: () => CLEARED.map(r => r.name), actingPlan: () => actPlans.map(p => /^hug/.test(p.verb) ? {...p, cam: hugCam(p)} : p), groundFix: () => GROUNDFIX, sepMeasure, ceilingLuma, classHaze, satMeasure, depthLuma, lumaProbe, debug: {scene, renderer, camera, look, pool: U5B?.poolOf ?? null}, bake: BAKE, matcapBytes: MATCAP ? (n => Array.from(look.matcapBytes(n ?? spec.look4))) : null, breakdown, measureFrame, seasonMeasure, actorMask, readMeasure, leakMeasure, faceAimLast: () => FACEAIM.last ?? null, gateMeasure, placesAt, lumaAt, inspectFrame, shotSpeed, END: FRAMES / FPS, anchors: Object.fromEntries(Object.entries(anchors).filter(([, a]) => a.camera).map(([k]) => [k, true])), renderAnchor, renderAnchorNudged, renderCamera, FPS, FRAMES, shots: shots.map(({id, start, frames, size, move, loc, subject, see, openHit, at, why, captionY, fit, spectacle, look: lk}) => ({id, start, frames, size, move, loc, subject, see, openHit: !!openHit, at, why, captionY, fit, spectacle: !!spectacle, look: lk})), renderFrame};

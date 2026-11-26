@@ -898,9 +898,11 @@
   },
   "BODYBUILDER": {
    "slot": "ELDER",
-   "note": "Phase 1G Fear Bell: the bodybuilder — big R6 build (scale 1.12 + chest/trap/bicep shells), black tank, red shorts.",
+   "note": "Phase 1G Fear Bell: the bodybuilder — big R6 build (fearbell add-on: scale 1.35 + torsoShape broad; chest/trap/bicep shells), black tank, red shorts: the biggest adult in town.",
+   "torsoShape": "broad",
+   "keepScale": true,
    "age": 30,
-   "scale": 1.12,
+   "scale": 1.35,
    "skin": "#c98a5c",
    "face": "smile",
    "faceStyle": "v6",

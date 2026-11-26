@@ -77,3 +77,48 @@ Farm (runs 45801572743 → fix pass 1 → 45803923051, look B, CC0): creatures 5
 74.6k tris PASS, s/frame 0.701 → 0.910 FAIL (local 0.319 → 0.286); rooms classroom 0.581 → 0.777, dining 0.689 → 0.908 (calls 405 → 167 / 500 → 225 after the merge —
 every row got slower on run 2, including the classroom where only draw calls were removed: runner variance). Stopped after fix pass 1 + re-measure; not loosened.
 Open: farm s/frame on look B rows (needs a stable-runner bench or a cost lever on 10 R6 extras); dome clip's first shot-2 frames are filled by the dome; puff lands at chest, not in an open palm.
+
+## Fear Bell — ENGINE add-on + PREVIS (owner-approved engine slot; branch claude/vibrant-davinci-hkmucr)
+Plan: 0a relative bench (frozen reference in the same run, RULEBOOK §6) · 0b BODYBUILDER 1.35 + broad torso · 0c dome palm puff on Lulu's hand + inside rim ·
+commit engine, BASE = that commit · v2:align → cues.json · PICTURE_LOCK → BRIEF.md (mechanical, lock2brief.py) · brief2spec (report) · story-local previs builder
+(episode.json + per-world specs, clock, creatures, gaps) · vo-sheet one frame per row · staging passes · memegap · scriptcheck · ep:check + v2:test.
+Built (engine, commit 27e39d2): `scripts/v2/benchref.js` (+ v2:bench, fearbell1g-gate bench): reference = engine/fixtures/r6/episode.json 270×480, normalised =
+s/frame ÷ ref × 0.068 (tuft-1A), gate 0.62 unchanged, `--absolute` keeps the old gate; R6 `torsoShape: 'broad'` + costume `keepScale` (format 5–7 forced every adult to
+scale 1 — the 1G bodybuilder 1.12 never rendered); dome `shrink {toActor, hand}` + `inside {rim}` (RIM_IN), episode.js `handPos` + `CREATURES.aim`.
+Numbers (local): reference 0.0457 s/frame; plazaWide + dome + 10 extras 0.366 s → ratio 8.01 → normalised 0.545 PASS (74.6k tris); classroom 0.270 → 0.402; dining 0.279 → 0.415.
+Bodybuilder 7.19 studs (others 5.2–5.9, Governor 6.76 with hat). review/fearbell/addon-bodybuilder.png, addon-dome-inside.png.
+PREVIS: BASE 27e39d2; align 290 words (283 mapped), VO 85.45 s; BRIEF.md 55 rows (stories/fearbell/lock2brief.py; 11 camera nuances UNMAPPED, build/lock2brief.json);
+brief2spec exit 1 (24 lines: city locations, GOVERNOR slot, creature/town/crowd subjects, `*vacuum cleaner.*` two-word emphasis) → stories/fearbell/previs.js writes
+episode.json (format 7 long, pop-shorts-v7, r6, cityDay2, locations city/cityClassroom/cityDining, 55 shots static/push + briefMove, 13 cast, 17 creatures, 11 props,
+24 clock events, audio.gaps G1–G3) + build/previs-<world>.json; vo-sheet review/fearbell/vo-sheet{,-2…-10}.png (stories/fearbell/vosheet.py + sheet.py, 6 cells/page, 1596 px).
+Meme gaps (memegap.py PASS, 0 overlaps, clip −3 dB): G1 6.486 s (+1.21), G2 14.498 s (+1.65), G3 32.961 s (+1.63, "fear" nth 8); VO 89.94 s, end 90.44 s (≤ 102).
+Hero first on screen: row 10, 11.06 s gapped (row 9 heroLow: hidden behind the bodybuilder after 2 fix passes) — FAIL ≤ 10 s, not loosened. Pattern break row 12: 12.96 s gapped.
+scriptcheck --variant long: exit 1 "no card for `fearbell` in SEASON_1.md §6". ep:check PASS; v2:test 330 + 80 OK; npm test green.
+Open: segments keep one world for all locations (rooms need parts/city/rooms.js) — vo-sheet rendered per world; brief2spec has no city/creature/clock/GOVERNOR path;
+rows not showing MUST SEE listed in the owner report; drawer worldState, giant spider on the school, clock noon, punch, juice, cart, leaf not staged.
+
+## Fear Bell — PREVIS PASS 2 (owner-approved ENGINE slot + re-stage; branch claude/amazing-meitner-13db6x from claude/vibrant-davinci-hkmucr 88b75df)
+Plan: A1 camtpl `faceAim` (face on the upper third, headroom 8–12 %, never crop the head; format 7 opt-in shot.faceAim + tpl ctx) · A2 format 7: no fg element
+unless notes `fg:` + plan check scripts/v2/fgleak.js (non-subject cover of the middle third ≤ 10 %) · A3 data on kits: verbs water / sip / leap / punch / lookAtLens,
+props wateringCan / juiceCup / leaf (blow mover) / mouse / cheeseburger (full), prop `attach` to an actor part, city setState clockTime, face deadpan · A4 brief2spec
+format 7: city locations, GOVERNOR slot, 1G creature / town / crowd subjects, multi-word emphasis → episode.json from BRIEF.md; previs.js = blocking overrides only ·
+A5 scriptcheck: format 7 needs no SEASON_1.md card · tests for each · engine commit → BASE · B re-stage rows (one fix each) · vo-sheet re-render · gates · merge main.
+Built (engine, commits e13e68a + 83adde4 = BASE): A1 camtpl `faceAim` (+ episode `faceAimCam` on the visible head mesh, centre before widening, two heads may
+rise above the line) · A2 format 7 fg only with `fg:` notes, episode `leakMeasure` + shot `leakOk`, `npm run v2:fgleak` (in `ep --stage plan`, format 7) · A3
+FB_VERBS water / sip / leap (unplanted) / punch / lookAtLens (episode `lensActs` body turn; not a track item), face deadpan, props wateringCan / juiceCup / leaf /
+mouse / cheeseburger + tools, prop `attach` (hide keys respected), city `setState('clockTime')` · A4 brief2spec format 7 city path (`cityLocOf`, GOVERNOR,
+creature / town / crowd / kids subjects, 1G props + city objects, multi-word emphasis, `fg:` notes, `cityCam`) · A5 scriptcheck `is_format7`. Tests:
+tests/v2/fearbell2.test.js (11) + test_format7.py. Found: brief2spec's format 6 `moods: true` blacked out the city look (previs drops moods / body / look).
+Episode: `node scripts/v2/brief2spec.js --story fearbell` (exit 0) → `node stories/fearbell/previs.js` (blocking overrides on the brief2spec base, kept in
+build/brief2spec.json) → `node stories/fearbell/vorender.js` (see frames + leak + headroom) → vosheet.py + sheet.py → review/fearbell/vo-sheet{,-2…-10}.png.
+Re-stage (data): row 6 camera on the pillar top; 8 hero cameo (heroC, juice cup, sip, walking behind the mailman); 9–10 + 29–30 moved to the beach ice-cream
+cart (leap, mark into the cart), 11/15/19/20/21/26/27 cameras clear of pole / statue / chair / table / awning; 14 leaf mover + empty side; 16 drawer worldState;
+18 kids sprint to the door; 22 burger in his hand at the mouth; 25 puff beside Lulu; 34 clock tower at noon; 39 punch into the dome; 47 huge eyes above
+Lulu; 49–51 wide collapse / step / palm puff (Lulu water-palm pose, both faces); 52 mouse on the shoulder + slider; 53 low behind hero + puff; 54–55 full
+cheeseburger on the grass, knees_collapse + deadpan lookAtLens, face-aimed.
+Numbers: hero first on screen row 8 = 7.62 s raw → 8.83 s gapped (≤ 10.0 PASS); row 12 start 11.75 raw → 12.96 s gapped (> 12, report); fgleak PASS 55/55
+(max 5.0 % city, 7.9 % classroom, 2.0 % dining); face aim headroom 0.10 on every faceAim row; VO 89.94 s, end 90.44 s (gaps G1–G3 unchanged);
+scriptcheck --variant long FAIL "first line has 10 words (> 9)" (no card needed now; reported, not rewritten).
+Open (MUST SEE still weak): 10 he is mid-leap above the cart, 16 drawer half behind the spider legs, 26 flashlight beam / puff shrink not readable, 45 hands,
+49 collapse reads as a smaller dome only, 50 the two shrink steps do not read in one frame, 53 bell crack too small at yard distance (readable in 32),
+39 face aim off (the fist must be in frame), 55 burger reads as bun + layers but little grass.

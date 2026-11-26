@@ -46,6 +46,9 @@ Where an older doc (now in docs/archive/) conflicts, this list wins. Read this, 
 - Novelty event every ≤ 1.0 s in the hook (0–12 s) and ≤ 1.5 s after: FAIL. Emotion/awe shots ≤ 3.0 s.
 - Voice gaps > 0.4 s: WARN (caught at script stage).
 - Captions: ONE word at a time, bold yellow with thick black outline, fixed lower-centre zone.
+- Render speed (owner, fearbell ENGINE add-on): the Season 1 s/frame gate is RELATIVE. Every bench run also renders the fixed reference scene
+  (`engine/fixtures/r6/episode.json`, 270×480, frames 12…180; `scripts/v2/benchref.js`) on the same runner. ratio = bench s/frame ÷ reference s/frame;
+  normalised = ratio × 0.068 s (the reference's tuft-1A time); PASS = normalised ≤ 0.62 s/frame (raw s/frame, ratio and normalised are all reported; 0.62 is never loosened).
 
 ## 7. Brand + safety
 - Never show the Roblox logo/wordmark or imply official. Family-safe (no gore, no on-screen death, no romance, no real brands). Steal methods, never another creator's rule, names, images or twists.
@@ -61,7 +64,7 @@ Where an older doc (now in docs/archive/) conflicts, this list wins. Read this, 
 - `ep -- --story <slug> --stage <align|spec|plan|animatic|final>`: chains a stage's commands, logs to stories/<slug>/logs/, ≤ 20 lines, stops at the first FAIL.
 - `ep:check -- --story <slug>`: engine freeze; diff vs stories/<slug>/BASE (first commit writes BASE) may touch only stories/<slug>/, beasts/*.json, parts/locations/*.json, cast/*.json.
 - `v2:align -- --story <slug>` (voice → build/cues.json; copy to stories/<slug>/cues.json) · `v2:plan -- --story <slug>` (§5.2 gate, exit 1 on error).
-- `v2:bench -- --story <slug>`: tris and s/frame per shot (PASS ≤ 90k tris, ≤ 0.62 s/frame for Season 1 worlds).
+- `v2:bench -- --story <slug>`: tris and s/frame per shot + ratio to the reference + normalised (PASS ≤ 90k tris, normalised ≤ 0.62 s/frame for Season 1 worlds, §6; `--absolute` = the old raw gate).
 - `v2:read -- --story <slug>`: readability checks on rendered frames → review/<slug>/read.json.
 - `v2:stability -- --story <slug>` (or --spec): camera-nudge flicker gate (4 mm, ≤ 0.30 %); must pass before any animatic/final is shown.
 - `v2:render -- --spec <episode.json> --out <dir> [--final | --width 270 --height 480 --every 2 --aa 0]`; farm: .github/workflows/render.yml (dispatch, or stories/<slug>/render.request).

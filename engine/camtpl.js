@@ -16,7 +16,8 @@
 // (one swing / pull per shot: no pops); a per-frame safety pulls in further if a frame between samples is still blocked.
 // ctx: {fps, aspect, subjectAt(name, lt) → {eyes, headH, H, foot: [x,y,z], face: [x,z], body?: [torso centre, shoulder, shoulder]} | null, propAt(name, lt) → {centre, H} | null,
 //       groundAt(x, z), clear(from, to, ignore[]) → bool, free(p) → bool, cacheKey}
-import {lensFov, aimAt, framingTarget, headBox, fitShift, project} from './cine.js';
+import {lensFov, aimAt, framingTarget, headBox, fitShift, project, FIT} from './cine.js';
+const FIT_UP = FIT.headUp;
 import {EASE, CRASH, SNAP_FRAMES} from './camera.js';
 
 export const KINDS = ['establish', 'wide', 'ms', 'mcu', 'cu', 'ecu', 'ots', 'two', 'insert', 'beastHero', 'beastFace'];
@@ -160,6 +161,24 @@ export function solvePose(shot, lt, ctx, P = {swing: 0, pull: 1}) {
   const f = fitHeads(pos, aimAt(pos, S.eyes, ft.xn, ft.yn, fov, aspect), fov, [S], aspect, S.eyes);
   return {position: f.pos, target: f.target, fov, ok: f.ok, check: [{p: S.eyes, r: SEARCH.headOut * S.headH, ignore: [nm.main], body: S.body}], heads: [S]};
 }
+// fearbell pass 2 (owner A1, opt-in: format 7 shot.faceAim / template ctx.faceAim): FACE-AIMED close framing for cu / mcu / two / ots.
+// The face centre sits on the upper-third line, the head's top (hair / hat included) 8–12 % below the frame top (aim 10 %): the authored
+// camera POSITION is kept, the aim is re-solved and the fov (zoom) bisected; every head stays inside the width. Never crops a head (only ecu may).
+export const FACE_AIM = {kinds: ['cu', 'mcu', 'two', 'ots', 'close'], eyeLine: 1 / 3, headroom: [.08, .12], aim: .10, fov: [6, 100], xMax: .9, xKeep: .5};
+export const headroomOf = (cam, heads, aspect) => Math.min(...heads.map(h => (1 - project(cam, h.top, aspect).y) / 2));
+// heads: [{c: face centre [x, y, z], top: the head's highest point [x, y, z], r?: half-width (studs)}]; cam {position, target, fov}
+export function faceAim(cam, heads, aspect = 9 / 16, o = {}) {
+  const K = {...FACE_AIM, ...o}, F = scl(heads.reduce((a, h) => add(a, h.c), [0, 0, 0]), 1 / heads.length), p0 = project(cam, F, aspect);
+  let xn = p0.z > 0 ? Math.max(-K.xKeep, Math.min(K.xKeep, p0.x)) : 0; const yn = 1 - 2 * K.eyeLine, pos = cam.position;
+  const at = fov => { const target = aimAt(pos, F, xn, yn, fov, aspect), c = {position: pos, target, fov}; const xs = heads.flatMap(h => { const r = h.r ?? .7 * len(sub(h.top, h.c)); const q = project(c, h.c, aspect), k = r / (q.z * Math.tan(fov * D / 2) * aspect); return [q.x - k, q.x + k]; });
+    return {c, head: headroomOf(c, heads, aspect), fits: xs.every(x => Math.abs(x) <= K.xMax)}; };
+  const solveFov = () => { let lo = K.fov[0], hi = K.fov[1]; for (let i = 0; i < 40; i++) { const m = (lo + hi) / 2; if (at(m).head < K.aim) lo = m; else hi = m; } return (lo + hi) / 2; };   // headroom grows with the fov
+  let fov = solveFov(), r = at(fov); if (!r.fits && xn !== 0) { xn = 0; fov = solveFov(); r = at(fov); }   /* an off-centre face that does not fit the width is centred before the lens widens */
+  for (let i = 0; i < 40 && !r.fits && fov < K.fov[1]; i++) r = at(fov = Math.min(K.fov[1], fov * 1.04));   // two heads: widen until both fit the width
+  if (r.head > K.headroom[1]) { let a = yn, b = .95; for (let i = 0; i < 40; i++) { const m = (a + b) / 2, t2 = aimAt(pos, F, xn, m, fov, aspect), h = headroomOf({position: pos, target: t2, fov}, heads, aspect); if (h > K.aim) a = m; else b = m; }   // widened (two heads): the faces rise above the third line until the headroom is back at the aim
+    const t2 = aimAt(pos, F, xn, (a + b) / 2, fov, aspect); r = {...r, c: {position: pos, target: t2, fov}, head: headroomOf({position: pos, target: t2, fov}, heads, aspect)}; }
+  return {position: pos, target: r.c.target, fov: +fov.toFixed(3), headroom: +r.head.toFixed(4), ok: r.head >= K.headroom[0] - 1e-3 && r.head <= K.headroom[1] + 1e-3 && r.fits};
+}
 // the head's centre + 4 points at ±HEAD5 r across the view (camera right / up): a half-hidden face is occluded
 export const HEAD5 = .8;
 export function headPoints(c, cam, r) {
@@ -198,5 +217,6 @@ export function sampleTpl(shot, lt, ctx) {
   const P = solveShot(shot, ctx); let pose = solvePose(shot, lt, ctx, P), k = 0;
   while (pose && k < SEARCH.safety && !poseClear(pose, ctx)) { k++; pose = solvePose(shot, lt, ctx, {...P, pull: P.pull * SEARCH.safetyK ** k}); }
   if (!pose) return null;
+  if (ctx.faceAim && FACE_AIM.kinds.includes(shot.tpl.kind) && pose.heads?.length) { const fa = faceAim(pose, pose.heads.map(h => ({c: h.eyes, top: add(h.eyes, [0, FIT_UP * h.headH, 0])})), ctx.aspect ?? 9 / 16); pose = {...pose, target: fa.target, fov: fa.fov}; }   // A1 (opt-in)
   return {position: pose.position, target: pose.target, fov: pose.fov, roll: 0, noise: [0, 0, 0], lens: TPL[shot.tpl.kind].lens, tpl: {kind: shot.tpl.kind, swing: P.swing, pull: P.pull, safety: k, ok: pose.ok, share: pose.share ?? null, clear: poseClear(pose, ctx)}};
 }

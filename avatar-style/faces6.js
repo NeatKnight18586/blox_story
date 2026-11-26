@@ -109,17 +109,20 @@ export const FACES_GOV = {
     mouth: [clench(.2, .075, MY - .1)], fills: [['teeth', {clench: true}], ['water', {sweat: [.36, .24]}], ['glint']]},
 };
 export const GOV_FAMILY6 = {gov_smug: 'happy', gov_announce: 'angry', gov_panic: 'sad', gov_oops: 'neutral'};
+// fearbell pass 2 (owner A3, opt-in by name; FACE_NAMES6 stays the 24): deadpan = heavy flat lids over small eyes, a flat line mouth (the fourth-wall look)
+export const FACES_FB = {deadpan: {brows: [['s', SW, -.25, .1, -.06, .1], ['s', SW, .06, .1, .25, .1]], eyes: [['s', .1, -.15, .055, -.15, .015], ['s', .1, .15, .055, .15, .015]],
+  mouth: [['s', SW, -.1, MY - .04, .1, MY - .04]], fills: []}};
 export const GOV_FACES = Object.keys(FACES_GOV);
-const faceDef6 = n => FACES6[n] ?? FACES_GOV[n];
+const faceDef6 = n => FACES6[n] ?? FACES_GOV[n] ?? FACES_FB[n];
 // faces5 names → nearest v6 face (old shot lists keep working)
 export const ALIAS6 = {hero_wink: 'wink', hero_grin: 'grin', hero_shock: 'shock', hero_panic: 'panic', hero_scheme: 'scheme', hero_cry: 'cry', hero_rage: 'rage', hero_soft: 'warm',
   happy: 'smile', content: 'warm', wink_soft: 'wink', wink_shine: 'wink', laugh_xd: 'laugh', xd_laugh: 'laugh', xd_grin: 'laugh', beam: 'grin', beam2: 'grin', beam3: 'grin', o_small: 'gasp',
   stare_o: 'shock', worried: 'sad_soft', worried2: 'sad_soft', frown: 'sad_soft', sad: 'sad_soft', sweat_frown: 'panic', side_eye: 'scheme', smug: 'smirk', angry: 'rage', flat_brows: 'determined',
   sparkle: 'awe', starry: 'awe', wonder: 'awe', blush_smile: 'embarrassed', sweat_smile: 'nervous_laugh', sleep: 'sleepy', confused: 'thinking', tongue: 'disgust', xd_shout: 'yell', scream: 'yell',
   shout: 'yell', blank: 'neutral', sob: 'cry', crying: 'cry', calm: 'warm', polite: 'warm', steady: 'neutral', brave: 'determined', curious: 'thinking', sheepish: 'nervous_laugh', nervous: 'panic'};
-export const name6 = f => typeof f === 'string' ? (FACES6[f] || FACES_GOV[f] ? f : ALIAS6[f] && FACES6[ALIAS6[f]] ? ALIAS6[f] : null) : null;
+export const name6 = f => typeof f === 'string' ? (FACES6[f] || FACES_GOV[f] || FACES_FB[f] ? f : ALIAS6[f] && FACES6[ALIAS6[f]] ? ALIAS6[f] : null) : null;
 export const faceError6 = f => { if (name6(f)) return null; try { resolveFace5(f); return null; } catch (e) { return e.message; } };
-export const family6 = f => talkFamily6(name6(f)) ?? GOV_FAMILY6[name6(f)] ?? null;
+export const family6 = f => talkFamily6(name6(f)) ?? GOV_FAMILY6[name6(f)] ?? (FACES_FB[name6(f)] ? 'neutral' : null);
 export const isHeld6 = f => { const n = name6(f); return n ? false : isHeld5(f); };   // P2b: every v6 expression talks (all 24 are in a family)
 
 // ---- talk sets (cell units): four families × closed · small · open · wide (engine/lipflap.js FAMILY6 says which) --------------------

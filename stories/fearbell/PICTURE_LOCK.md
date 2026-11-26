@@ -37,9 +37,9 @@ No stingers (owner decision). The final "cheeseburger." gets no clip; the video 
 | 5 | 4.9 | Mr. Pickles' fear? | Bowtie man happily watering flowers | fear | medium | suburb yard | setup |
 | 6 | 5.9 | *Heights.* | POP: a stone pillar shoots him 40 studs up | Heights | whip-tilt up | suburb yard | + G1 scream (falling-character scream) |
 | 7 | 6.6 | The mailman's fear? | Mailman whistling, bag over his shoulder | fear | medium | suburb street | setup |
-| 8 | 7.6 | A *dinosaur.* | POP: T-rex behind him ROARS; the mail explodes like confetti | dinosaur | snap to wide | suburb street | dino = beast-kit preset |
+| 8 | 7.6 | A *dinosaur.* | POP: T-rex behind him ROARS; the mail explodes like confetti. HERO strolls calmly past in the background sipping juice, unbothered | dinosaur | snap to wide | suburb street | dino = creature kit; hero cameo = on screen < 10 s (rewatch easter egg) |
 | 9 | 8.6 | The strongest guy in town? | Giant bodybuilder flexing | strongest | heroLow | boardwalk | setup |
-| 10 | 9.9 | A tiny *rat.* | POP: tiny rat; he screams and leaps into the ice-cream cart. HERO walks calmly through the background sipping juice | rat | wide | boardwalk | hero on screen < 10 s (rewatch easter egg) |
+| 10 | 9.9 | A tiny *rat.* | POP: tiny rat; he screams and leaps into the ice-cream cart | rat | wide | boardwalk | |
 | 11 | 10.9 | And Kevin? | Kevin at the diner counter | Kevin | medium | diner | setup |
 | 12 | 11.8 | Kevin is afraid of a *cheeseburger.* | Everything goes STILL: slow push on Kevin trembling before a cheeseburger on a plate | cheeseburger | slow push (the single stillness) | diner | PATTERN BREAK + G2 "can i have chez burger please..." |
 | 13 | 13.5 | Everybody's bell rings. | High wide: pops everywhere except one perfectly empty spot beside the hero | rings | high wide | plaza | |
@@ -87,7 +87,7 @@ No stingers (owner decision). The final "cheeseburger." gets no clip; the video 
 | 55 | — | A cheeseburger. | A cheeseburger on the grass. Hero turns and looks INTO THE LENS (the episode's one fourth-wall moment) | cheeseburger | CU | yard | cut 0.5 s after the word; watched shot |
 
 ## Checks
-- Hero on screen ≤ 10 s (row 10). Pattern break ≤ 12 s (row 12 starts ≈ 11.8 s).
+- Hero on screen ≤ 10 s (row 8 cameo, owner change 2026-11-27). Pattern break ≤ 12 s (row 12 starts ≈ 11.8 s).
 - Clock visible in rows 1–2, 13, 34, 53. Rule object (bell) in the hook and the ending.
 - Clues: row 23, then row 30, wider. Loophole: rows 49–52.
 - Laughs: rows 17–20 (first 30 s) and row 55 (last 30 s).

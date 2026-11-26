@@ -1,0 +1,521 @@
+{
+ "check": "v2:fgleak (non-subject cover of the middle third <= 10 %)",
+ "worlds": {
+  "city": {
+   "frames": 46,
+   "maxCover": 0.0503,
+   "errors": 0
+  },
+  "cityClassroom": {
+   "frames": 3,
+   "maxCover": 0.0792,
+   "errors": 0
+  },
+  "cityDining": {
+   "frames": 6,
+   "maxCover": 0.0204,
+   "errors": 0
+  }
+ },
+ "rows": [
+  {
+   "frame": 12,
+   "cover": 0,
+   "far": 18.56,
+   "hits": [],
+   "id": "S01",
+   "ok": true,
+   "msg": "S01: non-subject cover of the middle third 0.0 % (\u2264 10 %)"
+  },
+  {
+   "frame": 47,
+   "cover": 0.0503,
+   "far": 84.26,
+   "hits": [],
+   "id": "S02",
+   "ok": true,
+   "msg": "S02: non-subject cover of the middle third 5.0 % (\u2264 10 %)"
+  },
+  {
+   "frame": 67,
+   "cover": 0.0264,
+   "far": 16.42,
+   "hits": [],
+   "id": "S03",
+   "ok": true,
+   "msg": "S03: non-subject cover of the middle third 2.6 % (\u2264 10 %)"
+  },
+  {
+   "frame": 95,
+   "cover": 0,
+   "far": 19.02,
+   "hits": [],
+   "id": "S04",
+   "ok": true,
+   "msg": "S04: non-subject cover of the middle third 0.0 % (\u2264 10 %)"
+  },
+  {
+   "frame": 137,
+   "cover": 0,
+   "far": 9.95,
+   "hits": [],
+   "id": "S05",
+   "ok": true,
+   "msg": "S05: non-subject cover of the middle third 0.0 % (\u2264 10 %)"
+  },
+  {
+   "frame": 155,
+   "cover": 0,
+   "far": 47.16,
+   "hits": [],
+   "id": "S06",
+   "ok": true,
+   "msg": "S06: non-subject cover of the middle third 0.0 % (\u2264 10 %)"
+  },
+  {
+   "frame": 176,
+   "cover": 0,
+   "far": 9.52,
+   "hits": [],
+   "id": "S07",
+   "ok": true,
+   "msg": "S07: non-subject cover of the middle third 0.0 % (\u2264 10 %)"
+  },
+  {
+   "frame": 199,
+   "cover": 0,
+   "far": 18.34,
+   "hits": [],
+   "id": "S08",
+   "ok": true,
+   "msg": "S08: non-subject cover of the middle third 0.0 % (\u2264 10 %)"
+  },
+  {
+   "frame": 229,
+   "cover": 0,
+   "far": 11.77,
+   "hits": [],
+   "id": "S09",
+   "ok": true,
+   "msg": "S09: non-subject cover of the middle third 0.0 % (\u2264 10 %)"
+  },
+  {
+   "frame": 262,
+   "cover": 0,
+   "far": 19.12,
+   "hits": [],
+   "id": "S10",
+   "ok": true,
+   "msg": "S10: non-subject cover of the middle third 0.0 % (\u2264 10 %)"
+  },
+  {
+   "frame": 273,
+   "cover": 0.0029,
+   "far": 3.9,
+   "hits": [],
+   "id": "S11",
+   "ok": true,
+   "msg": "S11: non-subject cover of the middle third 0.3 % (\u2264 10 %)"
+  },
+  {
+   "frame": 315,
+   "cover": 0,
+   "far": 3.55,
+   "hits": [],
+   "id": "S12",
+   "ok": true,
+   "msg": "S12: non-subject cover of the middle third 0.0 % (\u2264 10 %)"
+  },
+  {
+   "frame": 341,
+   "cover": 0,
+   "far": 42.08,
+   "hits": [],
+   "id": "S13",
+   "ok": true,
+   "msg": "S13: non-subject cover of the middle third 0.0 % (\u2264 10 %)"
+  },
+  {
+   "frame": 367,
+   "cover": 0,
+   "far": 5.67,
+   "hits": [],
+   "id": "S14",
+   "ok": true,
+   "msg": "S14: non-subject cover of the middle third 0.0 % (\u2264 10 %)"
+  },
+  {
+   "frame": 404,
+   "cover": 0,
+   "far": 73.83,
+   "hits": [],
+   "id": "S15",
+   "ok": true,
+   "msg": "S15: non-subject cover of the middle third 0.0 % (\u2264 10 %)"
+  },
+  {
+   "frame": 668,
+   "cover": 0.0335,
+   "far": 3.41,
+   "hits": [],
+   "id": "S21",
+   "ok": true,
+   "msg": "S21: non-subject cover of the middle third 3.4 % (\u2264 10 %)"
+  },
+  {
+   "frame": 713,
+   "cover": 0,
+   "far": 3.27,
+   "hits": [],
+   "id": "S22",
+   "ok": true,
+   "msg": "S22: non-subject cover of the middle third 0.0 % (\u2264 10 %)"
+  },
+  {
+   "frame": 770,
+   "cover": 0,
+   "far": 2.25,
+   "hits": [],
+   "id": "S23",
+   "ok": true,
+   "msg": "S23: non-subject cover of the middle third 0.0 % (\u2264 10 %)"
+  },
+  {
+   "frame": 816,
+   "cover": 0,
+   "far": 6.15,
+   "hits": [],
+   "id": "S24",
+   "ok": true,
+   "msg": "S24: non-subject cover of the middle third 0.0 % (\u2264 10 %)"
+  },
+  {
+   "frame": 1036,
+   "cover": 0,
+   "far": 11.75,
+   "hits": [],
+   "id": "S29",
+   "ok": true,
+   "msg": "S29: non-subject cover of the middle third 0.0 % (\u2264 10 %)"
+  },
+  {
+   "frame": 1081,
+   "cover": 0,
+   "far": 3.41,
+   "hits": [],
+   "id": "S30",
+   "ok": true,
+   "msg": "S30: non-subject cover of the middle third 0.0 % (\u2264 10 %)"
+  },
+  {
+   "frame": 1108,
+   "cover": 0,
+   "far": 15.89,
+   "hits": [],
+   "id": "S31",
+   "ok": true,
+   "msg": "S31: non-subject cover of the middle third 0.0 % (\u2264 10 %)"
+  },
+  {
+   "frame": 1137,
+   "cover": 0,
+   "far": 7.12,
+   "hits": [],
+   "id": "S32",
+   "ok": true,
+   "msg": "S32: non-subject cover of the middle third 0.0 % (\u2264 10 %)"
+  },
+  {
+   "frame": 1173,
+   "cover": 0,
+   "far": 5.98,
+   "hits": [],
+   "id": "S33",
+   "ok": true,
+   "msg": "S33: non-subject cover of the middle third 0.0 % (\u2264 10 %)"
+  },
+  {
+   "frame": 1213,
+   "cover": 0,
+   "far": 26.21,
+   "hits": [],
+   "id": "S34",
+   "ok": true,
+   "msg": "S34: non-subject cover of the middle third 0.0 % (\u2264 10 %)"
+  },
+  {
+   "frame": 1261,
+   "cover": 0.0431,
+   "far": 85.83,
+   "hits": [
+    "slot:1:goldBody"
+   ],
+   "id": "S35",
+   "ok": true,
+   "msg": "S35: non-subject cover of the middle third 4.3 % (\u2264 10 %) \u2014 slot:1:goldBody"
+  },
+  {
+   "frame": 1307,
+   "cover": 0.0125,
+   "far": 51.34,
+   "hits": [],
+   "id": "S36",
+   "ok": true,
+   "msg": "S36: non-subject cover of the middle third 1.3 % (\u2264 10 %)"
+  },
+  {
+   "frame": 1342,
+   "cover": 0,
+   "far": 10.46,
+   "hits": [],
+   "id": "S37",
+   "ok": true,
+   "msg": "S37: non-subject cover of the middle third 0.0 % (\u2264 10 %)"
+  },
+  {
+   "frame": 1373,
+   "cover": 0.0069,
+   "far": 26.52,
+   "hits": [],
+   "id": "S38",
+   "ok": true,
+   "msg": "S38: non-subject cover of the middle third 0.7 % (\u2264 10 %)"
+  },
+  {
+   "frame": 1394,
+   "cover": 0,
+   "far": 5.87,
+   "hits": [],
+   "id": "S39",
+   "ok": true,
+   "msg": "S39: non-subject cover of the middle third 0.0 % (\u2264 10 %)"
+  },
+  {
+   "frame": 1435,
+   "cover": 0,
+   "far": 4.78,
+   "hits": [],
+   "id": "S40",
+   "ok": true,
+   "msg": "S40: non-subject cover of the middle third 0.0 % (\u2264 10 %)"
+  },
+  {
+   "frame": 1481,
+   "cover": 0,
+   "far": 33.92,
+   "hits": [],
+   "id": "S41",
+   "ok": true,
+   "msg": "S41: non-subject cover of the middle third 0.0 % (\u2264 10 %)"
+  },
+  {
+   "frame": 1539,
+   "cover": 0,
+   "far": 4.77,
+   "hits": [],
+   "id": "S42",
+   "ok": true,
+   "msg": "S42: non-subject cover of the middle third 0.0 % (\u2264 10 %)"
+  },
+  {
+   "frame": 1581,
+   "cover": 0,
+   "far": 12.8,
+   "hits": [],
+   "id": "S43",
+   "ok": true,
+   "msg": "S43: non-subject cover of the middle third 0.0 % (\u2264 10 %)"
+  },
+  {
+   "frame": 1627,
+   "cover": 0,
+   "far": 3.16,
+   "hits": [],
+   "id": "S44",
+   "ok": true,
+   "msg": "S44: non-subject cover of the middle third 0.0 % (\u2264 10 %)"
+  },
+  {
+   "frame": 1658,
+   "cover": 0,
+   "far": 3.19,
+   "hits": [],
+   "id": "S45",
+   "ok": true,
+   "msg": "S45: non-subject cover of the middle third 0.0 % (\u2264 10 %)"
+  },
+  {
+   "frame": 1680,
+   "cover": 0,
+   "far": 6.23,
+   "hits": [],
+   "id": "S46",
+   "ok": true,
+   "msg": "S46: non-subject cover of the middle third 0.0 % (\u2264 10 %)"
+  },
+  {
+   "frame": 1710,
+   "cover": 0,
+   "far": 10.96,
+   "hits": [],
+   "id": "S47",
+   "ok": true,
+   "msg": "S47: non-subject cover of the middle third 0.0 % (\u2264 10 %)"
+  },
+  {
+   "frame": 1768,
+   "cover": 0,
+   "far": 3.7,
+   "hits": [],
+   "id": "S48",
+   "ok": true,
+   "msg": "S48: non-subject cover of the middle third 0.0 % (\u2264 10 %)"
+  },
+  {
+   "frame": 1792,
+   "cover": 0.0046,
+   "far": 101.23,
+   "hits": [],
+   "id": "S49",
+   "ok": true,
+   "msg": "S49: non-subject cover of the middle third 0.5 % (\u2264 10 %)"
+  },
+  {
+   "frame": 1800,
+   "cover": 0,
+   "far": 17,
+   "hits": [],
+   "id": "S50",
+   "ok": true,
+   "msg": "S50: non-subject cover of the middle third 0.0 % (\u2264 10 %)"
+  },
+  {
+   "frame": 1865,
+   "cover": 0,
+   "far": 5.99,
+   "hits": [],
+   "id": "S51",
+   "ok": true,
+   "msg": "S51: non-subject cover of the middle third 0.0 % (\u2264 10 %)"
+  },
+  {
+   "frame": 1905,
+   "cover": 0,
+   "far": 12.97,
+   "hits": [],
+   "id": "S52",
+   "ok": true,
+   "msg": "S52: non-subject cover of the middle third 0.0 % (\u2264 10 %)"
+  },
+  {
+   "frame": 1970,
+   "cover": 0.0026,
+   "far": 33.05,
+   "hits": [],
+   "id": "S53",
+   "ok": true,
+   "msg": "S53: non-subject cover of the middle third 0.3 % (\u2264 10 %)"
+  },
+  {
+   "frame": 2027,
+   "cover": 0,
+   "far": 2.83,
+   "hits": [],
+   "id": "S54",
+   "ok": true,
+   "msg": "S54: non-subject cover of the middle third 0.0 % (\u2264 10 %)"
+  },
+  {
+   "frame": 2041,
+   "cover": 0,
+   "far": 5.11,
+   "hits": [],
+   "id": "S55",
+   "ok": true,
+   "msg": "S55: non-subject cover of the middle third 0.0 % (\u2264 10 %)"
+  },
+  {
+   "frame": 462,
+   "cover": 0,
+   "far": 7.97,
+   "hits": [],
+   "id": "S16",
+   "ok": true,
+   "msg": "S16: non-subject cover of the middle third 0.0 % (\u2264 10 %)"
+  },
+  {
+   "frame": 499,
+   "cover": 0.0792,
+   "far": 17.96,
+   "hits": [
+    "roomMerged"
+   ],
+   "id": "S17",
+   "ok": true,
+   "msg": "S17: non-subject cover of the middle third 7.9 % (\u2264 10 %) \u2014 roomMerged"
+  },
+  {
+   "frame": 544,
+   "cover": 0.0154,
+   "far": 16.39,
+   "hits": [],
+   "id": "S18",
+   "ok": true,
+   "msg": "S18: non-subject cover of the middle third 1.5 % (\u2264 10 %)"
+  },
+  {
+   "frame": 601,
+   "cover": 0,
+   "far": 7.23,
+   "hits": [],
+   "id": "S19",
+   "ok": true,
+   "msg": "S19: non-subject cover of the middle third 0.0 % (\u2264 10 %)"
+  },
+  {
+   "frame": 632,
+   "cover": 0.0204,
+   "far": 7.16,
+   "hits": [],
+   "id": "S20",
+   "ok": true,
+   "msg": "S20: non-subject cover of the middle third 2.0 % (\u2264 10 %)"
+  },
+  {
+   "frame": 862,
+   "cover": 0,
+   "far": 6.19,
+   "hits": [],
+   "id": "S25",
+   "ok": true,
+   "msg": "S25: non-subject cover of the middle third 0.0 % (\u2264 10 %)"
+  },
+  {
+   "frame": 908,
+   "cover": 0,
+   "far": 4.83,
+   "hits": [],
+   "id": "S26",
+   "ok": true,
+   "msg": "S26: non-subject cover of the middle third 0.0 % (\u2264 10 %)"
+  },
+  {
+   "frame": 931,
+   "cover": 0,
+   "far": 6.73,
+   "hits": [],
+   "id": "S27",
+   "ok": true,
+   "msg": "S27: non-subject cover of the middle third 0.0 % (\u2264 10 %)"
+  },
+  {
+   "frame": 991,
+   "cover": 0,
+   "far": 2.42,
+   "hits": [],
+   "id": "S28",
+   "ok": true,
+   "msg": "S28: non-subject cover of the middle third 0.0 % (\u2264 10 %)"
+  }
+ ]
+}

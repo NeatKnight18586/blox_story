@@ -42,6 +42,7 @@
     "v2:align": "python3 scripts/v2/align.py",
     "v2:plan": "node scripts/v2/plan.js",
     "v2:read": "node scripts/v2/read.js",
+    "v2:fgleak": "node scripts/v2/fgleak.js",
     "v2:bench": "node scripts/v2/bench.js",
     "v2:render": "node scripts/v2/render.js",
     "v2:captions": "python3 scripts/v2/captions.py",
