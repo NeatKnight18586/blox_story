@@ -123,9 +123,9 @@
    "bench": {
     "tris": 75024,
     "calls": 292,
-    "sPerFrame": 0.436,
-    "sPerFrameOff": 0.467,
-    "outlineCost": -0.031,
+    "sPerFrame": 0.433,
+    "sPerFrameOff": 0.46,
+    "outlineCost": -0.028,
     "pass": true
    }
   },
@@ -301,9 +301,9 @@
    "bench": {
     "tris": 70326,
     "calls": 294,
-    "sPerFrame": 0.54,
-    "sPerFrameOff": 0.552,
-    "outlineCost": -0.012,
+    "sPerFrame": 0.531,
+    "sPerFrameOff": 0.558,
+    "outlineCost": -0.027,
     "pass": true
    }
   },
@@ -347,9 +347,9 @@
    "bench": {
     "tris": 70438,
     "calls": 257,
-    "sPerFrame": 0.302,
-    "sPerFrameOff": 0.32,
-    "outlineCost": -0.018,
+    "sPerFrame": 0.303,
+    "sPerFrameOff": 0.324,
+    "outlineCost": -0.021,
     "pass": true
    }
   },
@@ -483,9 +483,9 @@
    "bench": {
     "tris": 44270,
     "calls": 191,
-    "sPerFrame": 0.465,
-    "sPerFrameOff": 0.469,
-    "outlineCost": -0.004,
+    "sPerFrame": 0.462,
+    "sPerFrameOff": 0.462,
+    "outlineCost": 0.001,
     "pass": true
    }
   },
@@ -560,9 +560,9 @@
    "bench": {
     "tris": 80562,
     "calls": 492,
-    "sPerFrame": 0.589,
-    "sPerFrameOff": 0.746,
-    "outlineCost": -0.157,
+    "sPerFrame": 0.585,
+    "sPerFrameOff": 0.733,
+    "outlineCost": -0.148,
     "pass": true
    }
   },
@@ -603,9 +603,9 @@
    "bench": {
     "tris": 72834,
     "calls": 383,
-    "sPerFrame": 0.458,
-    "sPerFrameOff": 0.514,
-    "outlineCost": -0.056,
+    "sPerFrame": 0.467,
+    "sPerFrameOff": 0.515,
+    "outlineCost": -0.049,
     "pass": true
    }
   },
@@ -647,9 +647,9 @@
    "bench": {
     "tris": 82810,
     "calls": 401,
-    "sPerFrame": 0.304,
-    "sPerFrameOff": 0.332,
-    "outlineCost": -0.029,
+    "sPerFrame": 0.302,
+    "sPerFrameOff": 0.338,
+    "outlineCost": -0.035,
     "pass": true
    }
   },
@@ -687,9 +687,9 @@
    "bench": {
     "tris": 36550,
     "calls": 149,
-    "sPerFrame": 0.344,
-    "sPerFrameOff": 0.34,
-    "outlineCost": 0.004,
+    "sPerFrame": 0.342,
+    "sPerFrameOff": 0.337,
+    "outlineCost": 0.005,
     "pass": true
    }
   },
