@@ -77,3 +77,22 @@ Farm (runs 45801572743 → fix pass 1 → 45803923051, look B, CC0): creatures 5
 74.6k tris PASS, s/frame 0.701 → 0.910 FAIL (local 0.319 → 0.286); rooms classroom 0.581 → 0.777, dining 0.689 → 0.908 (calls 405 → 167 / 500 → 225 after the merge —
 every row got slower on run 2, including the classroom where only draw calls were removed: runner variance). Stopped after fix pass 1 + re-measure; not loosened.
 Open: farm s/frame on look B rows (needs a stable-runner bench or a cost lever on 10 R6 extras); dome clip's first shot-2 frames are filled by the dome; puff lands at chest, not in an open palm.
+
+## Fear Bell — ENGINE add-on + PREVIS (owner-approved engine slot; branch claude/vibrant-davinci-hkmucr)
+Plan: 0a relative bench (frozen reference in the same run, RULEBOOK §6) · 0b BODYBUILDER 1.35 + broad torso · 0c dome palm puff on Lulu's hand + inside rim ·
+commit engine, BASE = that commit · v2:align → cues.json · PICTURE_LOCK → BRIEF.md (mechanical, lock2brief.py) · brief2spec (report) · story-local previs builder
+(episode.json + per-world specs, clock, creatures, gaps) · vo-sheet one frame per row · staging passes · memegap · scriptcheck · ep:check + v2:test.
+Built (engine, commit 27e39d2): `scripts/v2/benchref.js` (+ v2:bench, fearbell1g-gate bench): reference = engine/fixtures/r6/episode.json 270×480, normalised =
+s/frame ÷ ref × 0.068 (tuft-1A), gate 0.62 unchanged, `--absolute` keeps the old gate; R6 `torsoShape: 'broad'` + costume `keepScale` (format 5–7 forced every adult to
+scale 1 — the 1G bodybuilder 1.12 never rendered); dome `shrink {toActor, hand}` + `inside {rim}` (RIM_IN), episode.js `handPos` + `CREATURES.aim`.
+Numbers (local): reference 0.0457 s/frame; plazaWide + dome + 10 extras 0.366 s → ratio 8.01 → normalised 0.545 PASS (74.6k tris); classroom 0.270 → 0.402; dining 0.279 → 0.415.
+Bodybuilder 7.19 studs (others 5.2–5.9, Governor 6.76 with hat). review/fearbell/addon-bodybuilder.png, addon-dome-inside.png.
+PREVIS: BASE 27e39d2; align 290 words (283 mapped), VO 85.45 s; BRIEF.md 55 rows (stories/fearbell/lock2brief.py; 11 camera nuances UNMAPPED, build/lock2brief.json);
+brief2spec exit 1 (24 lines: city locations, GOVERNOR slot, creature/town/crowd subjects, `*vacuum cleaner.*` two-word emphasis) → stories/fearbell/previs.js writes
+episode.json (format 7 long, pop-shorts-v7, r6, cityDay2, locations city/cityClassroom/cityDining, 55 shots static/push + briefMove, 13 cast, 17 creatures, 11 props,
+24 clock events, audio.gaps G1–G3) + build/previs-<world>.json; vo-sheet review/fearbell/vo-sheet{,-2…-10}.png (stories/fearbell/vosheet.py + sheet.py, 6 cells/page, 1596 px).
+Meme gaps (memegap.py PASS, 0 overlaps, clip −3 dB): G1 6.486 s (+1.21), G2 14.498 s (+1.65), G3 32.961 s (+1.63, "fear" nth 8); VO 89.94 s, end 90.44 s (≤ 102).
+Hero first on screen: row 10, 11.06 s gapped (row 9 heroLow: hidden behind the bodybuilder after 2 fix passes) — FAIL ≤ 10 s, not loosened. Pattern break row 12: 12.96 s gapped.
+scriptcheck --variant long: exit 1 "no card for `fearbell` in SEASON_1.md §6". ep:check PASS; v2:test 330 + 80 OK; npm test green.
+Open: segments keep one world for all locations (rooms need parts/city/rooms.js) — vo-sheet rendered per world; brief2spec has no city/creature/clock/GOVERNOR path;
+rows not showing MUST SEE listed in the owner report; drawer worldState, giant spider on the school, clock noon, punch, juice, cart, leaf not staged.

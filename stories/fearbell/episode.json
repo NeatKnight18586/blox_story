@@ -1,0 +1,4066 @@
+{
+ "slug": "fearbell",
+ "fps": 24,
+ "format": 7,
+ "lengthVariant": "long",
+ "captionStyle": "pop-shorts-v7",
+ "labels": false,
+ "hero": "hero",
+ "rig": "r6",
+ "acting": 6,
+ "twos": true,
+ "world": "parts/city/world.js",
+ "look4": "cityDay2",
+ "locations": [
+  "city",
+  "cityClassroom",
+  "cityDining"
+ ],
+ "cityLiving": [
+  "flagsHall",
+  "fountain",
+  "birds",
+  "gulls",
+  "blimp"
+ ],
+ "cues": "stories/fearbell/cues.json",
+ "end": 85.949,
+ "note": "Fear Bell PREVIS (stories/fearbell/previs.js from BRIEF.md rows; built assets only, no look/world polish). Shots are static/push in previs; briefMove keeps the Brief camera for ANIMATIC.",
+ "audio": {
+  "gaps": [
+   {
+    "afterWord": "Heights",
+    "nth": 1,
+    "clip": "assets/sfx/memes/g1_scream.wav",
+    "pad": 0.15
+   },
+   {
+    "afterWord": "cheeseburger",
+    "nth": 1,
+    "clip": "assets/sfx/memes/g2_canihave.wav",
+    "pad": 0.15
+   },
+   {
+    "afterWord": "fear",
+    "nth": 8,
+    "clip": "assets/sfx/memes/g3_mmm.wav",
+    "pad": 0.15
+   }
+  ]
+ },
+ "clock": [
+  {
+   "at": {
+    "word": "town",
+    "nth": 1
+   },
+   "fx": "dong"
+  },
+  {
+   "at": 1.64,
+   "fx": "pop",
+   "pos": [
+    -18,
+    15.6,
+    8
+   ],
+   "scale": 2.4
+  },
+  {
+   "at": 1.69,
+   "fx": "pop",
+   "pos": [
+    14,
+    15.6,
+    2
+   ],
+   "scale": 2.4
+  },
+  {
+   "at": 1.74,
+   "fx": "pop",
+   "pos": [
+    24,
+    15.6,
+    26
+   ],
+   "scale": 2.4
+  },
+  {
+   "at": 1.79,
+   "fx": "pop",
+   "pos": [
+    -30,
+    15.6,
+    30
+   ],
+   "scale": 2.4
+  },
+  {
+   "at": 1.84,
+   "fx": "pop",
+   "pos": [
+    6,
+    12.725,
+    40
+   ],
+   "scale": 2.4
+  },
+  {
+   "at": 1.89,
+   "fx": "pop",
+   "pos": [
+    36,
+    15.6,
+    -8
+   ],
+   "scale": 2.4
+  },
+  {
+   "at": 1.94,
+   "fx": "pop",
+   "pos": [
+    -40,
+    15.6,
+    -6
+   ],
+   "scale": 2.4
+  },
+  {
+   "at": {
+    "word": "worst",
+    "nth": 1
+   },
+   "fx": "pop",
+   "pos": [
+    100.41,
+    20.227,
+    3.6
+   ],
+   "scale": 3.4
+  },
+  {
+   "at": {
+    "word": "Heights",
+    "nth": 1
+   },
+   "fx": "pop",
+   "pos": [
+    -154.17,
+    12.203,
+    6.289999999999999
+   ],
+   "scale": 2.6
+  },
+  {
+   "at": {
+    "word": "dinosaur",
+    "nth": 1
+   },
+   "fx": "pop",
+   "pos": [
+    -131.49,
+    18.46,
+    6.223
+   ],
+   "scale": 5
+  },
+  {
+   "at": {
+    "word": "rat",
+    "nth": 1
+   },
+   "fx": "pop",
+   "pos": [
+    -115.02,
+    3.317,
+    90.36
+   ],
+   "scale": 1.4
+  },
+  {
+   "at": 13.92,
+   "fx": "pop",
+   "pos": [
+    -16,
+    15.4,
+    6
+   ],
+   "scale": 1.8
+  },
+  {
+   "at": 13.96,
+   "fx": "pop",
+   "pos": [
+    4,
+    15.4,
+    10
+   ],
+   "scale": 1.8
+  },
+  {
+   "at": 14,
+   "fx": "pop",
+   "pos": [
+    -22,
+    15.4,
+    22
+   ],
+   "scale": 1.8
+  },
+  {
+   "at": 14.04,
+   "fx": "pop",
+   "pos": [
+    8,
+    15.4,
+    26
+   ],
+   "scale": 1.8
+  },
+  {
+   "at": 14.08,
+   "fx": "pop",
+   "pos": [
+    -12,
+    15.4,
+    30
+   ],
+   "scale": 1.8
+  },
+  {
+   "at": 14.12,
+   "fx": "pop",
+   "pos": [
+    14,
+    15.4,
+    14
+   ],
+   "scale": 1.8
+  },
+  {
+   "at": 14.16,
+   "fx": "pop",
+   "pos": [
+    -2,
+    15.4,
+    4
+   ],
+   "scale": 1.8
+  },
+  {
+   "at": {
+    "word": "vacuum",
+    "nth": 1
+   },
+   "fx": "pop",
+   "pos": [
+    3.6,
+    1.6,
+    -2.4
+   ],
+   "scale": 1.6,
+   "room": "cityDining"
+  },
+  {
+   "at": {
+    "word": "cracked",
+    "nth": 1
+   },
+   "fx": "crack"
+  },
+  {
+   "at": {
+    "word": "noon",
+    "nth": 1
+   },
+   "fx": "dong"
+  },
+  {
+   "at": {
+    "word": "rang",
+    "nth": 3
+   },
+   "fx": "dong"
+  },
+  {
+   "at": 82.02,
+   "fx": "pop",
+   "pos": [
+    -114.621,
+    13.241000000000001,
+    10.547
+   ],
+   "scale": 1.6,
+   "show": "prop_burgerY"
+  }
+ ],
+ "cast": {
+  "buslady": {
+   "troupe": "ADULT_F",
+   "costume": "BUSLADY",
+   "style": "v5",
+   "faceStyle": "v6",
+   "origin": [
+    93.00999999999999,
+    14.23,
+    1.2
+   ],
+   "yaw": 75,
+   "marks": [
+    [
+     2,
+     {
+      "origin": [
+       93.00999999999999,
+       14.23,
+       1.2
+      ],
+      "yaw": 75
+     }
+    ],
+    [
+     56.266,
+     {
+      "origin": [
+       -1,
+       1.301,
+       88
+      ],
+      "yaw": 180,
+      "travel": {
+       "dir": [
+        0,
+        1
+       ],
+       "speed": 4.5
+      }
+     }
+    ]
+   ],
+   "visible": [
+    [
+     0,
+     false
+    ],
+    [
+     2,
+     true
+    ],
+    [
+     3.19,
+     false
+    ],
+    [
+     56.266,
+     true
+    ],
+    [
+     57.843,
+     false
+    ]
+   ],
+   "keys": [
+    [
+     0,
+     "idle"
+    ]
+   ],
+   "faces": [
+    [
+     2,
+     "smile"
+    ],
+    [
+     2.39,
+     "gasp"
+    ],
+    [
+     56.266,
+     "terrified"
+    ]
+   ]
+  },
+  "gov": {
+   "troupe": "GOVERNOR",
+   "style": "v5",
+   "faceStyle": "v6",
+   "origin": [
+    0,
+    23.45,
+    -38.81
+   ],
+   "yaw": 0,
+   "marks": [
+    [
+     3.19,
+     {
+      "origin": [
+       0,
+       23.45,
+       -38.81
+      ],
+      "yaw": 0
+     }
+    ],
+    [
+     45.069,
+     {
+      "origin": [
+       0,
+       23.45,
+       -38.81
+      ],
+      "yaw": 0
+     }
+    ]
+   ],
+   "visible": [
+    [
+     0,
+     false
+    ],
+    [
+     3.19,
+     true
+    ],
+    [
+     4.91,
+     false
+    ],
+    [
+     45.069,
+     true
+    ],
+    [
+     49.101,
+     false
+    ]
+   ],
+   "keys": [
+    [
+     0,
+     "idle"
+    ]
+   ],
+   "faces": [
+    [
+     3.19,
+     "gov_smug"
+    ],
+    [
+     45.069,
+     "gov_announce"
+    ],
+    [
+     47.618,
+     "gov_oops"
+    ],
+    [
+     48.388,
+     "gov_panic"
+    ]
+   ]
+  },
+  "pickles": {
+   "troupe": "ELDER",
+   "costume": "PICKLES",
+   "style": "v5",
+   "faceStyle": "v6",
+   "origin": [
+    -154.17,
+    11.003,
+    6.289999999999999
+   ],
+   "yaw": -119,
+   "marks": [
+    [
+     4.91,
+     {
+      "origin": [
+       -154.17,
+       11.003,
+       6.289999999999999
+      ],
+      "yaw": -119
+     }
+    ],
+    [
+     56.266,
+     {
+      "origin": [
+       -3,
+       0.427,
+       92
+      ],
+      "yaw": 180,
+      "travel": {
+       "dir": [
+        0,
+        1
+       ],
+       "speed": 4.5
+      }
+     }
+    ]
+   ],
+   "visible": [
+    [
+     0,
+     false
+    ],
+    [
+     4.91,
+     true
+    ],
+    [
+     6.607,
+     false
+    ],
+    [
+     56.266,
+     true
+    ],
+    [
+     57.843,
+     false
+    ]
+   ],
+   "keys": [
+    [
+     0,
+     "idle"
+    ]
+   ],
+   "faces": [
+    [
+     4.91,
+     "smile"
+    ],
+    [
+     6.055,
+     "terrified"
+    ],
+    [
+     56.266,
+     "terrified"
+    ]
+   ]
+  },
+  "mailman": {
+   "troupe": "ELDER",
+   "costume": "MAILMAN",
+   "style": "v5",
+   "faceStyle": "v6",
+   "origin": [
+    -142.86,
+    11.46,
+    -0.08000000000000007
+   ],
+   "yaw": -119,
+   "marks": [
+    [
+     6.607,
+     {
+      "origin": [
+       -142.86,
+       11.46,
+       -0.08000000000000007
+      ],
+      "yaw": -119
+     }
+    ],
+    [
+     56.266,
+     {
+      "origin": [
+       2.5,
+       0.96,
+       90
+      ],
+      "yaw": 180,
+      "travel": {
+       "dir": [
+        0,
+        1
+       ],
+       "speed": 4.5
+      }
+     }
+    ]
+   ],
+   "visible": [
+    [
+     0,
+     false
+    ],
+    [
+     6.607,
+     true
+    ],
+    [
+     8.61,
+     false
+    ],
+    [
+     56.266,
+     true
+    ],
+    [
+     57.843,
+     false
+    ]
+   ],
+   "keys": [
+    [
+     0,
+     "idle"
+    ]
+   ],
+   "faces": [
+    [
+     6.607,
+     "smile"
+    ],
+    [
+     7.83,
+     "terrified"
+    ],
+    [
+     56.266,
+     "terrified"
+    ]
+   ]
+  },
+  "bb": {
+   "troupe": "ELDER",
+   "costume": "BODYBUILDER",
+   "style": "v5",
+   "faceStyle": "v6",
+   "origin": [
+    -112.5,
+    2.317,
+    89
+   ],
+   "yaw": -36.86989764584402,
+   "marks": [
+    [
+     8.61,
+     {
+      "origin": [
+       -112.5,
+       2.317,
+       89
+      ],
+      "yaw": -36.87
+     }
+    ],
+    [
+     42.049,
+     {
+      "origin": [
+       -112.5,
+       2.317,
+       89
+      ],
+      "yaw": -36.87
+     }
+    ],
+    [
+     77.74,
+     {
+      "origin": [
+       -2.5,
+       14,
+       25.5
+      ],
+      "yaw": 10
+     }
+    ]
+   ],
+   "visible": [
+    [
+     0,
+     false
+    ],
+    [
+     8.61,
+     true
+    ],
+    [
+     10.946,
+     false
+    ],
+    [
+     42.049,
+     true
+    ],
+    [
+     45.069,
+     false
+    ],
+    [
+     77.74,
+     true
+    ],
+    [
+     80.135,
+     false
+    ]
+   ],
+   "keys": [
+    [
+     0,
+     "idle"
+    ],
+    [
+     0,
+     "heroPose"
+    ],
+    [
+     10.459999999999999,
+     "gaspHands"
+    ],
+    [
+     42.049,
+     "toolHold"
+    ]
+   ],
+   "faces": [
+    [
+     8.61,
+     "grin"
+    ],
+    [
+     10.51,
+     "terrified"
+    ],
+    [
+     42.049,
+     "nervous_laugh"
+    ],
+    [
+     44.76,
+     "grin"
+    ],
+    [
+     77.74,
+     "grin"
+    ]
+   ]
+  },
+  "hero": {
+   "troupe": "HERO",
+   "style": "v5",
+   "faceStyle": "v6",
+   "origin": [
+    -106.14,
+    2.3,
+    87.52
+   ],
+   "yaw": -126.86989764584402,
+   "marks": [
+    [
+     8.61,
+     {
+      "origin": [
+       -106.14,
+       2.3,
+       87.52
+      ],
+      "yaw": -126.87,
+      "travel": {
+       "dir": [
+        -0.8,
+        -0.6
+       ],
+       "speed": 0.9
+      }
+     }
+    ],
+    [
+     13.479,
+     {
+      "origin": [
+       -6,
+       14,
+       16
+      ],
+      "yaw": 200
+     }
+    ],
+    [
+     57.843,
+     {
+      "origin": [
+       4,
+       12.275,
+       37
+      ],
+      "yaw": 180
+     }
+    ],
+    [
+     64.578,
+     {
+      "origin": [
+       4,
+       12.275,
+       34
+      ],
+      "yaw": 180,
+      "travel": {
+       "dir": [
+        0,
+        -1
+       ],
+       "speed": 2.2
+      }
+     }
+    ],
+    [
+     74.071,
+     {
+      "origin": [
+       -8.211,
+       14,
+       14.301
+      ],
+      "yaw": -20
+     }
+    ],
+    [
+     80.135,
+     {
+      "origin": [
+       -114,
+       12.341,
+       13
+      ],
+      "yaw": 122.63
+     }
+    ]
+   ],
+   "visible": [
+    [
+     0,
+     false
+    ],
+    [
+     8.61,
+     true
+    ],
+    [
+     10.946,
+     false
+    ],
+    [
+     13.479,
+     true
+    ],
+    [
+     17.383,
+     false
+    ],
+    [
+     57.843,
+     true
+    ],
+    [
+     64.578,
+     false
+    ],
+    [
+     64.578,
+     true
+    ],
+    [
+     65.901,
+     false
+    ],
+    [
+     74.071,
+     true
+    ],
+    [
+     80.135,
+     false
+    ],
+    [
+     80.135,
+     true
+    ],
+    [
+     85.238,
+     false
+    ]
+   ],
+   "keys": [
+    [
+     0,
+     "idle"
+    ],
+    [
+     13.479,
+     "idle"
+    ]
+   ],
+   "faces": [
+    [
+     8.61,
+     "smile"
+    ],
+    [
+     13.479,
+     "neutral"
+    ],
+    [
+     15.867,
+     "thinking"
+    ],
+    [
+     57.843,
+     "determined"
+    ],
+    [
+     59.565,
+     "yell"
+    ],
+    [
+     61.224,
+     "sad_soft"
+    ],
+    [
+     63.072,
+     "thinking"
+    ],
+    [
+     64.578,
+     "determined"
+    ],
+    [
+     74.071,
+     "awe"
+    ],
+    [
+     76.387,
+     "grin"
+    ],
+    [
+     80.135,
+     "smile"
+    ],
+    [
+     81.32000000000001,
+     "shock"
+    ],
+    [
+     84.499,
+     "shock"
+    ],
+    [
+     84.66,
+     "smirk"
+    ]
+   ]
+  },
+  "kevin": {
+   "troupe": "SECOND",
+   "costume": "KEVIN",
+   "style": "v5",
+   "faceStyle": "v6",
+   "origin": [
+    264.08,
+    3.25,
+    160.237
+   ],
+   "yaw": 172,
+   "marks": [
+    [
+     10.946,
+     {
+      "origin": [
+       264.08,
+       3.25,
+       160.237
+      ],
+      "yaw": 172
+     }
+    ],
+    [
+     26.69,
+     {
+      "origin": [
+       264.08,
+       3.25,
+       160.237
+      ],
+      "yaw": 172
+     }
+    ],
+    [
+     56.266,
+     {
+      "origin": [
+       -4.5,
+       1.778,
+       86
+      ],
+      "yaw": 180,
+      "travel": {
+       "dir": [
+        0,
+        1
+       ],
+       "speed": 4.5
+      }
+     }
+    ],
+    [
+     77.74,
+     {
+      "origin": [
+       1,
+       14,
+       25
+      ],
+      "yaw": 10
+     }
+    ]
+   ],
+   "visible": [
+    [
+     0,
+     false
+    ],
+    [
+     10.946,
+     true
+    ],
+    [
+     13.479,
+     false
+    ],
+    [
+     26.69,
+     true
+    ],
+    [
+     32.281,
+     false
+    ],
+    [
+     56.266,
+     true
+    ],
+    [
+     57.843,
+     false
+    ],
+    [
+     77.74,
+     true
+    ],
+    [
+     80.135,
+     false
+    ]
+   ],
+   "keys": [
+    [
+     0,
+     "idle"
+    ],
+    [
+     77.74,
+     "toolHold"
+    ]
+   ],
+   "faces": [
+    [
+     10.946,
+     "neutral"
+    ],
+    [
+     11.753,
+     "terrified"
+    ],
+    [
+     26.69,
+     "determined"
+    ],
+    [
+     29.2,
+     "nervous_laugh"
+    ],
+    [
+     30.247,
+     "awe"
+    ],
+    [
+     56.266,
+     "terrified"
+    ],
+    [
+     77.74,
+     "grin"
+    ]
+   ]
+  },
+  "teacher": {
+   "troupe": "ADULT_F",
+   "costume": "TEACHER_FB",
+   "style": "v5",
+   "faceStyle": "v6",
+   "origin": [
+    -4.2,
+    0,
+    -8.6
+   ],
+   "yaw": 30,
+   "marks": [
+    [
+     17.383,
+     {
+      "origin": [
+       -4.2,
+       0,
+       -8.6
+      ],
+      "yaw": 30
+     }
+    ],
+    [
+     20.042,
+     {
+      "origin": [
+       13.8,
+       7.25,
+       -5
+      ],
+      "yaw": -90
+     }
+    ]
+   ],
+   "visible": [
+    [
+     0,
+     false
+    ],
+    [
+     17.383,
+     true
+    ],
+    [
+     20.042,
+     false
+    ],
+    [
+     20.042,
+     true
+    ],
+    [
+     22.814,
+     false
+    ]
+   ],
+   "keys": [
+    [
+     0,
+     "idle"
+    ],
+    [
+     20.042,
+     "kneel"
+    ]
+   ],
+   "faces": [
+    [
+     17.383,
+     "smile"
+    ],
+    [
+     19.02,
+     "terrified"
+    ],
+    [
+     20.042,
+     "terrified"
+    ]
+   ]
+  },
+  "kidA": {
+   "troupe": "SECOND",
+   "costume": "KEVIN",
+   "style": "v5",
+   "faceStyle": "v6",
+   "origin": [
+    3.5,
+    0,
+    4.4
+   ],
+   "yaw": 180,
+   "marks": [
+    [
+     17.383,
+     {
+      "origin": [
+       3.5,
+       0,
+       4.4
+      ],
+      "yaw": 180
+     }
+    ]
+   ],
+   "visible": [
+    [
+     0,
+     false
+    ],
+    [
+     17.383,
+     true
+    ],
+    [
+     22.814,
+     false
+    ]
+   ],
+   "keys": [
+    [
+     0,
+     "idle"
+    ]
+   ],
+   "faces": [
+    [
+     17.383,
+     "smile"
+    ],
+    [
+     22.08,
+     "grin"
+    ]
+   ]
+  },
+  "kidB": {
+   "troupe": "LITTLE",
+   "costume": "LULU",
+   "style": "v5",
+   "faceStyle": "v6",
+   "origin": [
+    5.2,
+    0,
+    1.4
+   ],
+   "yaw": 160,
+   "marks": [
+    [
+     17.383,
+     {
+      "origin": [
+       5.2,
+       0,
+       1.4
+      ],
+      "yaw": 160
+     }
+    ]
+   ],
+   "visible": [
+    [
+     0,
+     false
+    ],
+    [
+     17.383,
+     true
+    ],
+    [
+     22.814,
+     false
+    ]
+   ],
+   "keys": [
+    [
+     0,
+     "idle"
+    ]
+   ],
+   "faces": [
+    [
+     17.383,
+     "smile"
+    ],
+    [
+     22.08,
+     "laugh"
+    ]
+   ]
+  },
+  "dad": {
+   "troupe": "ELDER",
+   "costume": "DAD_FB",
+   "style": "v5",
+   "faceStyle": "v6",
+   "origin": [
+    -1.9,
+    0,
+    -1.3
+   ],
+   "yaw": 0,
+   "marks": [
+    [
+     22.814,
+     {
+      "origin": [
+       -1.9,
+       0,
+       -1.3
+      ],
+      "yaw": 0
+     }
+    ],
+    [
+     25.158,
+     {
+      "origin": [
+       -1.9,
+       1.75,
+       -1.3
+      ],
+      "yaw": 0
+     }
+    ],
+    [
+     56.266,
+     {
+      "origin": [
+       4,
+       1.656,
+       87
+      ],
+      "yaw": 180,
+      "travel": {
+       "dir": [
+        0,
+        1
+       ],
+       "speed": 4.5
+      }
+     }
+    ]
+   ],
+   "visible": [
+    [
+     0,
+     false
+    ],
+    [
+     22.814,
+     true
+    ],
+    [
+     25.158,
+     false
+    ],
+    [
+     25.158,
+     true
+    ],
+    [
+     26.69,
+     false
+    ],
+    [
+     56.266,
+     true
+    ],
+    [
+     57.843,
+     false
+    ]
+   ],
+   "keys": [
+    [
+     0,
+     "idle"
+    ],
+    [
+     25.158,
+     "idle"
+    ]
+   ],
+   "faces": [
+    [
+     22.814,
+     "smile"
+    ],
+    [
+     24.31,
+     "terrified"
+    ],
+    [
+     25.158,
+     "nervous_laugh"
+    ],
+    [
+     56.266,
+     "terrified"
+    ]
+   ]
+  },
+  "lulu": {
+   "troupe": "LITTLE",
+   "costume": "LULU",
+   "style": "v5",
+   "faceStyle": "v6",
+   "origin": [
+    -116.4,
+    11.74,
+    15.2
+   ],
+   "yaw": 10,
+   "marks": [
+    [
+     32.281,
+     {
+      "origin": [
+       -116.4,
+       11.74,
+       15.2
+      ],
+      "yaw": 10
+     }
+    ],
+    [
+     34.333,
+     {
+      "origin": [
+       -6,
+       0,
+       -5.4
+      ],
+      "yaw": 90,
+      "travel": {
+       "dir": [
+        1,
+        0
+       ],
+       "speed": 1.6
+      }
+     }
+    ],
+    [
+     36.831,
+     {
+      "origin": [
+       6,
+       0,
+       0.6
+      ],
+      "yaw": 27
+     }
+    ],
+    [
+     54.871,
+     {
+      "origin": [
+       0,
+       14,
+       12
+      ],
+      "yaw": 0
+     }
+    ],
+    [
+     65.901,
+     {
+      "origin": [
+       -1.3,
+       14,
+       12.8
+      ],
+      "yaw": 35
+     }
+    ],
+    [
+     74.071,
+     {
+      "origin": [
+       -3,
+       14,
+       14
+      ],
+      "yaw": 20
+     }
+    ]
+   ],
+   "visible": [
+    [
+     0,
+     false
+    ],
+    [
+     32.281,
+     true
+    ],
+    [
+     34.333,
+     false
+    ],
+    [
+     34.333,
+     true
+    ],
+    [
+     36.831,
+     false
+    ],
+    [
+     36.831,
+     true
+    ],
+    [
+     42.049,
+     false
+    ],
+    [
+     54.871,
+     true
+    ],
+    [
+     56.266,
+     false
+    ],
+    [
+     65.901,
+     true
+    ],
+    [
+     74.071,
+     false
+    ],
+    [
+     74.071,
+     true
+    ],
+    [
+     80.135,
+     false
+    ]
+   ],
+   "keys": [
+    [
+     0,
+     "idle"
+    ],
+    [
+     74.071,
+     "idle"
+    ],
+    [
+     75.987,
+     "toolHold"
+    ]
+   ],
+   "faces": [
+    [
+     32.281,
+     "warm"
+    ],
+    [
+     34.333,
+     "smile"
+    ],
+    [
+     36.831,
+     "gasp"
+    ],
+    [
+     38.071,
+     "grin"
+    ],
+    [
+     54.871,
+     "terrified"
+    ],
+    [
+     65.901,
+     "cry"
+    ],
+    [
+     69.436,
+     "sad_soft"
+    ],
+    [
+     70.79,
+     "gasp"
+    ],
+    [
+     72.269,
+     "determined"
+    ],
+    [
+     74.071,
+     "determined"
+    ],
+    [
+     76.387,
+     "grin"
+    ]
+   ],
+   "accessories": [
+    "plushHug"
+   ]
+  },
+  "heroF": {
+   "troupe": "HERO",
+   "style": "v5",
+   "faceStyle": "v6",
+   "origin": [
+    7.5,
+    0,
+    3.5
+   ],
+   "yaw": 207,
+   "marks": [
+    [
+     36.831,
+     {
+      "origin": [
+       7.5,
+       0,
+       3.5
+      ],
+      "yaw": 207
+     }
+    ],
+    [
+     65.901,
+     {
+      "origin": [
+       1.3,
+       14,
+       12.6
+      ],
+      "yaw": -35
+     }
+    ]
+   ],
+   "visible": [
+    [
+     0,
+     false
+    ],
+    [
+     36.831,
+     true
+    ],
+    [
+     42.049,
+     false
+    ],
+    [
+     65.901,
+     true
+    ],
+    [
+     74.071,
+     false
+    ]
+   ],
+   "keys": [
+    [
+     0,
+     "idle"
+    ],
+    [
+     36.831,
+     "toolHold"
+    ],
+    [
+     39.99,
+     "idle"
+    ],
+    [
+     65.901,
+     "toolHold"
+    ]
+   ],
+   "faces": [
+    [
+     36.831,
+     "determined"
+    ],
+    [
+     38.071,
+     "warm"
+    ],
+    [
+     39.99,
+     "sad_soft"
+    ],
+    [
+     65.901,
+     "terrified"
+    ],
+    [
+     69.436,
+     "warm"
+    ],
+    [
+     72.269,
+     "awe"
+    ]
+   ],
+   "tool": "flashlight"
+  }
+ },
+ "creatures": [
+  {
+   "id": "ghost",
+   "kind": "ghost",
+   "pos": [
+    100.41,
+    14.727,
+    3.6
+   ],
+   "yaw": 150,
+   "acts": [
+    {
+     "act": "spawn",
+     "at": 2.24
+    },
+    {
+     "act": "boo",
+     "at": 2.6900000000000004
+    }
+   ],
+   "visible": [
+    [
+     0,
+     false
+    ],
+    [
+     2,
+     true
+    ],
+    [
+     3.19,
+     false
+    ]
+   ]
+  },
+  {
+   "id": "pillar",
+   "kind": "pillar",
+   "pos": [
+    -154.17,
+    11.003,
+    6.289999999999999
+   ],
+   "ride": "pickles",
+   "acts": [
+    {
+     "act": "rise",
+     "at": 5.955
+    }
+   ],
+   "visible": [
+    [
+     0,
+     false
+    ],
+    [
+     5.955,
+     true
+    ],
+    [
+     6.607,
+     false
+    ]
+   ]
+  },
+  {
+   "id": "trex",
+   "kind": "trex",
+   "pos": [
+    -131.49,
+    11.92,
+    6.223
+   ],
+   "yaw": -119,
+   "acts": [
+    {
+     "act": "roar",
+     "at": 7.779999999999999
+    }
+   ],
+   "visible": [
+    [
+     0,
+     false
+    ],
+    [
+     7.68,
+     true
+    ],
+    [
+     8.61,
+     false
+    ]
+   ]
+  },
+  {
+   "id": "rat",
+   "kind": "rat",
+   "pos": [
+    -115.02,
+    2.362,
+    90.36
+   ],
+   "yaw": 143.13010235415598,
+   "scale": 1.5,
+   "acts": [],
+   "visible": [
+    [
+     0,
+     false
+    ],
+    [
+     10.36,
+     true
+    ],
+    [
+     10.946,
+     false
+    ]
+   ]
+  },
+  {
+   "id": "spider",
+   "kind": "spider",
+   "pos": [
+    -1,
+    0,
+    -4.2
+   ],
+   "yaw": 180,
+   "scale": 0.55,
+   "acts": [
+    {
+     "act": "wave",
+     "at": 20.2
+    }
+   ],
+   "visible": [
+    [
+     0,
+     false
+    ],
+    [
+     18.72,
+     true
+    ],
+    [
+     22.814,
+     false
+    ]
+   ],
+   "room": "cityClassroom"
+  },
+  {
+   "id": "vacuum",
+   "kind": "vacuum",
+   "pos": [
+    3.6,
+    0,
+    -2.4
+   ],
+   "yaw": -60,
+   "scale": 0.45,
+   "acts": [
+    {
+     "act": "circle",
+     "at": 25.158,
+     "r": 2.2,
+     "dur": 1.4
+    }
+   ],
+   "visible": [
+    [
+     0,
+     false
+    ],
+    [
+     24.16,
+     true
+    ],
+    [
+     26.69,
+     false
+    ]
+   ],
+   "room": "cityDining"
+  },
+  {
+   "id": "shadow",
+   "kind": "shadowPuff",
+   "follow": "lulu",
+   "offset": [
+    1.4,
+    1,
+    0.3
+   ],
+   "acts": [],
+   "visible": [
+    [
+     0,
+     false
+    ],
+    [
+     32.281,
+     true
+    ],
+    [
+     36.831,
+     false
+    ]
+   ]
+  },
+  {
+   "id": "shadowIn",
+   "kind": "shadowPuff",
+   "follow": "lulu",
+   "offset": [
+    -1.2,
+    1,
+    0.3
+   ],
+   "acts": [],
+   "visible": [
+    [
+     0,
+     false
+    ],
+    [
+     34.333,
+     true
+    ],
+    [
+     39.99,
+     false
+    ]
+   ],
+   "room": "cityDining"
+  },
+  {
+   "id": "rat2",
+   "kind": "rat",
+   "pos": [
+    -112.047,
+    6.03,
+    92.293
+   ],
+   "yaw": -36.86989764584402,
+   "scale": 1.2,
+   "acts": [
+    {
+     "act": "shrink",
+     "at": 44.36
+    }
+   ],
+   "visible": [
+    [
+     0,
+     false
+    ],
+    [
+     42.049,
+     true
+    ],
+    [
+     45.069,
+     false
+    ]
+   ]
+  },
+  {
+   "id": "trexG",
+   "kind": "trex",
+   "pos": [
+    -30,
+    14,
+    -24
+   ],
+   "yaw": 40,
+   "scale": 3,
+   "acts": [
+    {
+     "act": "roar",
+     "at": 52.16
+    }
+   ],
+   "visible": [
+    [
+     0,
+     false
+    ],
+    [
+     50.978,
+     true
+    ],
+    [
+     52.915,
+     false
+    ]
+   ]
+  },
+  {
+   "id": "spiderG",
+   "kind": "spider",
+   "pos": [
+    26,
+    26,
+    -20
+   ],
+   "yaw": -40,
+   "scale": 2.4,
+   "acts": [
+    {
+     "act": "wave",
+     "at": 50.978
+    }
+   ],
+   "visible": [
+    [
+     0,
+     false
+    ],
+    [
+     50.978,
+     true
+    ],
+    [
+     52.915,
+     false
+    ]
+   ]
+  },
+  {
+   "id": "vacuumG",
+   "kind": "vacuum",
+   "pos": [
+    12,
+    14,
+    30
+   ],
+   "yaw": -150,
+   "scale": 2.2,
+   "acts": [],
+   "visible": [
+    [
+     0,
+     false
+    ],
+    [
+     50.978,
+     true
+    ],
+    [
+     52.915,
+     false
+    ]
+   ]
+  },
+  {
+   "id": "dome",
+   "kind": "dome",
+   "radius": 24,
+   "pos": [
+    0,
+    14,
+    6
+   ],
+   "acts": [
+    {
+     "act": "roll",
+     "at": 52.915,
+     "dur": 1.7560000000000031,
+     "from": [
+      0,
+      14,
+      -40
+     ],
+     "to": [
+      0,
+      14,
+      6
+     ]
+    }
+   ],
+   "visible": [
+    [
+     0,
+     false
+    ],
+    [
+     52.915,
+     true
+    ],
+    [
+     65.901,
+     false
+    ]
+   ]
+  },
+  {
+   "id": "domeLulu",
+   "kind": "dome",
+   "pos": [
+    0,
+    14,
+    6
+   ],
+   "acts": [
+    {
+     "act": "inside",
+     "at": 54.871,
+     "dur": 1.394999999999996
+    }
+   ],
+   "visible": [
+    [
+     0,
+     false
+    ],
+    [
+     54.871,
+     true
+    ],
+    [
+     56.266,
+     false
+    ]
+   ]
+  },
+  {
+   "id": "domeIn",
+   "kind": "dome",
+   "pos": [
+    0,
+    14,
+    6
+   ],
+   "acts": [
+    {
+     "act": "inside",
+     "at": 65.901,
+     "dur": 8.170000000000002,
+     "rim": [
+      "heroF",
+      "lulu"
+     ]
+    }
+   ],
+   "visible": [
+    [
+     0,
+     false
+    ],
+    [
+     65.901,
+     true
+    ],
+    [
+     74.071,
+     false
+    ]
+   ]
+  },
+  {
+   "id": "domeS",
+   "kind": "dome",
+   "pos": [
+    0,
+    14,
+    -10
+   ],
+   "acts": [
+    {
+     "act": "shrink",
+     "at": 74.26,
+     "toActor": "lulu",
+     "hand": "right"
+    }
+   ],
+   "visible": [
+    [
+     0,
+     false
+    ],
+    [
+     74.071,
+     true
+    ],
+    [
+     77.74,
+     false
+    ]
+   ]
+  },
+  {
+   "id": "mouse",
+   "kind": "rat",
+   "pos": [
+    -0.838,
+    19.602,
+    25.207
+   ],
+   "yaw": 10,
+   "scale": 1,
+   "acts": [
+    {
+     "act": "shrink",
+     "at": 0
+    }
+   ],
+   "visible": [
+    [
+     0,
+     false
+    ],
+    [
+     77.74,
+     true
+    ],
+    [
+     80.135,
+     false
+    ]
+   ]
+  }
+ ],
+ "props": [
+  {
+   "id": "donut",
+   "set": "props1g",
+   "prop": "donut",
+   "pos": [
+    [
+     0,
+     [
+      0,
+      -400,
+      0
+     ]
+    ],
+    [
+     2,
+     [
+      93.825,
+      18.43,
+      1.056
+     ]
+    ],
+    [
+     3.19,
+     [
+      0,
+      -400,
+      0
+     ]
+    ]
+   ],
+   "rot": [
+    [
+     0,
+     [
+      70,
+      0,
+      0
+     ]
+    ]
+   ],
+   "scale": 1.4
+  },
+  {
+   "id": "rope",
+   "set": "props1g",
+   "prop": "bellRope",
+   "pos": [
+    [
+     0,
+     [
+      0,
+      -400,
+      0
+     ]
+    ],
+    [
+     3.19,
+     [
+      0.9,
+      32.95,
+      -38.260000000000005
+     ]
+    ],
+    [
+     4.91,
+     [
+      0,
+      -400,
+      0
+     ]
+    ]
+   ],
+   "p": {
+    "length": 6
+   },
+   "animAt": 3.84
+  },
+  {
+   "id": "mail",
+   "set": "props1g",
+   "prop": "mailBurst",
+   "pos": [
+    [
+     0,
+     [
+      0,
+      -400,
+      0
+     ]
+    ],
+    [
+     7.623,
+     [
+      -142.86,
+      14.66,
+      -0.08000000000000007
+     ]
+    ],
+    [
+     8.61,
+     [
+      0,
+      -400,
+      0
+     ]
+    ]
+   ],
+   "animAt": 7.83
+  },
+  {
+   "id": "burger",
+   "set": "props1g",
+   "prop": "burger",
+   "pos": [
+    [
+     0,
+     [
+      0,
+      -400,
+      0
+     ]
+    ],
+    [
+     10.946,
+     [
+      262.635,
+      5.147,
+      158.32
+     ]
+    ],
+    [
+     13.479,
+     [
+      0,
+      -400,
+      0
+     ]
+    ]
+   ],
+   "animAt": 999
+  },
+  {
+   "id": "plate",
+   "set": "props1g",
+   "prop": "plate",
+   "pos": [
+    [
+     0,
+     [
+      0,
+      -400,
+      0
+     ]
+    ],
+    [
+     10.946,
+     [
+      262.605,
+      5.077,
+      158.28
+     ]
+    ],
+    [
+     13.479,
+     [
+      0,
+      -400,
+      0
+     ]
+    ]
+   ]
+  },
+  {
+   "id": "spag",
+   "set": "props1g",
+   "prop": "spaghetti",
+   "pos": [
+    [
+     0,
+     [
+      0,
+      -400,
+      0
+     ]
+    ],
+    [
+     22.814,
+     [
+      -1.2,
+      2.72,
+      1
+     ]
+    ],
+    [
+     26.69,
+     [
+      0,
+      -400,
+      0
+     ]
+    ]
+   ],
+   "loc": "cityDining"
+  },
+  {
+   "id": "burger2",
+   "set": "props1g",
+   "prop": "burger",
+   "pos": [
+    [
+     0,
+     [
+      0,
+      -400,
+      0
+     ]
+    ],
+    [
+     26.69,
+     [
+      262.635,
+      5.147,
+      158.32
+     ]
+    ],
+    [
+     32.281,
+     [
+      0,
+      -400,
+      0
+     ]
+    ]
+   ],
+   "animAt": 31.372
+  },
+  {
+   "id": "plate2",
+   "set": "props1g",
+   "prop": "plate",
+   "pos": [
+    [
+     0,
+     [
+      0,
+      -400,
+      0
+     ]
+    ],
+    [
+     26.69,
+     [
+      262.605,
+      5.077,
+      158.28
+     ]
+    ],
+    [
+     32.281,
+     [
+      0,
+      -400,
+      0
+     ]
+    ]
+   ]
+  },
+  {
+   "id": "rope2",
+   "set": "props1g",
+   "prop": "bellRope",
+   "pos": [
+    [
+     0,
+     [
+      0,
+      -400,
+      0
+     ]
+    ],
+    [
+     45.069,
+     [
+      0.9,
+      32.95,
+      -38.260000000000005
+     ]
+    ],
+    [
+     46.777,
+     [
+      0,
+      -400,
+      0
+     ]
+    ]
+   ],
+   "p": {
+    "length": 6
+   },
+   "animAt": 46.08
+  },
+  {
+   "id": "slider",
+   "set": "props1g",
+   "prop": "burger",
+   "pos": [
+    [
+     0,
+     [
+      0,
+      -400,
+      0
+     ]
+    ],
+    [
+     77.74,
+     [
+      -0.049,
+      17.034,
+      26.184
+     ]
+    ],
+    [
+     80.135,
+     [
+      0,
+      -400,
+      0
+     ]
+    ]
+   ],
+   "animAt": 0,
+   "scale": 0.8
+  },
+  {
+   "id": "burgerY",
+   "set": "props1g",
+   "prop": "burger",
+   "pos": [
+    [
+     0,
+     [
+      0,
+      -400,
+      0
+     ]
+    ],
+    [
+     80.135,
+     [
+      -114.621,
+      12.441,
+      10.547
+     ]
+    ]
+   ],
+   "scale": 1.4
+  }
+ ],
+ "shots": [
+  {
+   "id": "r01",
+   "row": 1,
+   "size": "close",
+   "frames": 20,
+   "move": "static-drift",
+   "drift": 0,
+   "from": {
+    "position": [
+     9,
+     50.5,
+     -41
+    ],
+    "target": [
+     0,
+     55,
+     -60
+    ],
+    "fov": 44
+   },
+   "loc": "city",
+   "briefMove": "crashZoom out from the bell",
+   "shadowRadius": 30
+  },
+  {
+   "id": "r02",
+   "row": 2,
+   "size": "wide",
+   "frames": 28,
+   "move": "static-drift",
+   "drift": 0,
+   "from": {
+    "position": [
+     -26,
+     50,
+     78
+    ],
+    "target": [
+     0,
+     24,
+     -14
+    ],
+    "fov": 64
+   },
+   "loc": "city",
+   "briefMove": "wide drone over the plaza",
+   "shadowRadius": 30
+  },
+  {
+   "id": "r03",
+   "row": 3,
+   "size": "close",
+   "frames": 29,
+   "move": "static-drift",
+   "drift": 0,
+   "from": {
+    "position": [
+     111.71,
+     16.62,
+     -7.5
+    ],
+    "target": [
+     96.61,
+     20.42,
+     3.6
+    ],
+    "fov": 66
+   },
+   "loc": "city",
+   "briefMove": "snap in to CU, then two",
+   "shadowRadius": 30
+  },
+  {
+   "id": "r04",
+   "row": 4,
+   "size": "medium",
+   "frames": 41,
+   "move": "static-drift",
+   "drift": 0,
+   "from": {
+    "position": [
+     -9,
+     16.95,
+     -21.81
+    ],
+    "target": [
+     0.3,
+     26.35,
+     -38.81
+    ],
+    "fov": 40
+   },
+   "loc": "city",
+   "briefMove": "low angle up at the balcony",
+   "shadowRadius": 30,
+   "actions": [
+    {
+     "actor": "gov",
+     "verb": "rope_pull",
+     "at": 0.4499999999999999
+    }
+   ]
+  },
+  {
+   "id": "r05",
+   "row": 5,
+   "size": "medium",
+   "frames": 25,
+   "move": "static-drift",
+   "drift": 0,
+   "from": {
+    "position": [
+     -163.886,
+     13.603,
+     3.191
+    ],
+    "target": [
+     -154.17,
+     14.003,
+     6.29
+    ],
+    "fov": 44
+   },
+   "loc": "city",
+   "briefMove": "medium",
+   "shadowRadius": 30
+  },
+  {
+   "id": "r06",
+   "row": 6,
+   "size": "medium",
+   "frames": 16,
+   "move": "static-drift",
+   "drift": 0,
+   "from": {
+    "position": [
+     -182.348,
+     13.003,
+     -4.756
+    ],
+    "target": [
+     -154.17,
+     41.003,
+     6.29
+    ],
+    "fov": 70
+   },
+   "loc": "city",
+   "briefMove": "whip-tilt up",
+   "shadowRadius": 30
+  },
+  {
+   "id": "r07",
+   "row": 7,
+   "size": "medium",
+   "frames": 24,
+   "move": "static-drift",
+   "drift": 0,
+   "from": {
+    "position": [
+     -150.004,
+     14.26,
+     -5.755
+    ],
+    "target": [
+     -142.86,
+     14.66,
+     -0.08
+    ],
+    "fov": 44
+   },
+   "loc": "city",
+   "briefMove": "medium",
+   "shadowRadius": 30
+  },
+  {
+   "id": "r08",
+   "row": 8,
+   "size": "wide",
+   "frames": 24,
+   "move": "static-drift",
+   "drift": 0,
+   "from": {
+    "position": [
+     -154.23,
+     14.06,
+     -6.383
+    ],
+    "target": [
+     -137.612,
+     19.46,
+     2.829
+    ],
+    "fov": 66
+   },
+   "loc": "city",
+   "briefMove": "snap to wide",
+   "shadowRadius": 30
+  },
+  {
+   "id": "r09",
+   "row": 9,
+   "size": "medium",
+   "frames": 29,
+   "move": "static-drift",
+   "drift": 0,
+   "from": {
+    "position": [
+     -117.3,
+     3.317,
+     97.9
+    ],
+    "target": [
+     -113.3,
+     7.517,
+     88.4
+    ],
+    "fov": 62
+   },
+   "loc": "city",
+   "briefMove": "heroLow",
+   "shadowRadius": 30,
+   "actions": [
+    {
+     "actor": "hero",
+     "cycle": "walk",
+     "at": 0,
+     "until": 10.946
+    }
+   ]
+  },
+  {
+   "id": "r10",
+   "row": 10,
+   "size": "wide",
+   "frames": 27,
+   "move": "static-drift",
+   "drift": 0,
+   "from": {
+    "position": [
+     -119.1,
+     5.517,
+     102.8
+    ],
+    "target": [
+     -114.1,
+     5.317,
+     87.8
+    ],
+    "fov": 58
+   },
+   "loc": "city",
+   "briefMove": "wide",
+   "shadowRadius": 30
+  },
+  {
+   "id": "r11",
+   "row": 11,
+   "size": "medium",
+   "frames": 19,
+   "move": "static-drift",
+   "drift": 0,
+   "from": {
+    "position": [
+     268.856,
+     7.577,
+     158.766
+    ],
+    "target": [
+     263.319,
+     6.577,
+     160.059
+    ],
+    "fov": 54
+   },
+   "loc": "city",
+   "briefMove": "medium",
+   "shadowRadius": 30
+  },
+  {
+   "id": "r12",
+   "row": 12,
+   "size": "medium",
+   "frames": 41,
+   "move": "push",
+   "drift": 0,
+   "from": {
+    "position": [
+     267.574,
+     7.377,
+     157.729
+    ],
+    "target": [
+     263.538,
+     6.677,
+     159.518
+    ],
+    "fov": 44
+   },
+   "to": {
+    "position": [
+     267.09,
+     7.293,
+     157.944
+    ],
+    "target": [
+     263.538,
+     6.677,
+     159.518
+    ],
+    "fov": 44
+   },
+   "loc": "city",
+   "briefMove": "slow push (the single stillness)",
+   "shadowRadius": 30,
+   "note": "the single stillness"
+  },
+  {
+   "id": "r13",
+   "row": 13,
+   "size": "wide",
+   "frames": 33,
+   "move": "static-drift",
+   "drift": 0,
+   "from": {
+    "position": [
+     -6,
+     44,
+     52
+    ],
+    "target": [
+     -6,
+     14,
+     14
+    ],
+    "fov": 46
+   },
+   "loc": "city",
+   "briefMove": "high wide",
+   "shadowRadius": 30
+  },
+  {
+   "id": "r14",
+   "row": 14,
+   "size": "close",
+   "frames": 25,
+   "move": "static-drift",
+   "drift": 0,
+   "from": {
+    "position": [
+     -10.146,
+     18.4,
+     8.995
+    ],
+    "target": [
+     -4.684,
+     18.2,
+     15.521
+    ],
+    "fov": 40
+   },
+   "loc": "city",
+   "briefMove": "CU",
+   "shadowRadius": 30
+  },
+  {
+   "id": "r15",
+   "row": 15,
+   "size": "medium",
+   "frames": 36,
+   "move": "static-drift",
+   "drift": 0,
+   "from": {
+    "position": [
+     -7.81,
+     15.2,
+     20.383
+    ],
+    "target": [
+     -4,
+     31.15,
+     -60
+    ],
+    "fov": 70
+   },
+   "loc": "city",
+   "briefMove": "low angle push",
+   "shadowRadius": 30
+  },
+  {
+   "id": "r16",
+   "row": 16,
+   "size": "insert",
+   "frames": 64,
+   "move": "static-drift",
+   "drift": 0,
+   "from": {
+    "position": [
+     5.2,
+     4.2,
+     1.6
+    ],
+    "target": [
+     -1.6,
+     2,
+     -6.4
+    ],
+    "fov": 48
+   },
+   "loc": "cityClassroom",
+   "briefMove": "insert → wide",
+   "shadowRadius": 30
+  },
+  {
+   "id": "r17",
+   "row": 17,
+   "size": "medium",
+   "frames": 41,
+   "move": "static-drift",
+   "drift": 0,
+   "from": {
+    "position": [
+     -9.5,
+     6.4,
+     7.5
+    ],
+    "target": [
+     6.5,
+     5.2,
+     -5
+    ],
+    "fov": 56
+   },
+   "loc": "cityClassroom",
+   "briefMove": "two",
+   "shadowRadius": 30
+  },
+  {
+   "id": "r18",
+   "row": 18,
+   "size": "wide",
+   "frames": 26,
+   "move": "static-drift",
+   "drift": 0,
+   "from": {
+    "position": [
+     -9,
+     5.2,
+     8.6
+    ],
+    "target": [
+     5,
+     3.2,
+     -1
+    ],
+    "fov": 58
+   },
+   "loc": "cityClassroom",
+   "briefMove": "wide",
+   "shadowRadius": 30,
+   "actions": [
+    {
+     "actor": "kidA",
+     "verb": "cheer",
+     "at": 0.1
+    },
+    {
+     "actor": "kidB",
+     "verb": "cheer",
+     "at": 0.2
+    }
+   ]
+  },
+  {
+   "id": "r19",
+   "row": 19,
+   "size": "close",
+   "frames": 56,
+   "move": "static-drift",
+   "drift": 0,
+   "from": {
+    "position": [
+     6.4,
+     4.6,
+     8.4
+    ],
+    "target": [
+     -2.6,
+     2.6,
+     -0.6
+    ],
+    "fov": 54
+   },
+   "loc": "cityDining",
+   "briefMove": "snap",
+   "shadowRadius": 30
+  },
+  {
+   "id": "r20",
+   "row": 20,
+   "size": "wide",
+   "frames": 37,
+   "move": "static-drift",
+   "drift": 0,
+   "from": {
+    "position": [
+     -9,
+     3.2,
+     4.5
+    ],
+    "target": [
+     -1.2,
+     3.4,
+     -1.8
+    ],
+    "fov": 58
+   },
+   "loc": "cityDining",
+   "briefMove": "wide",
+   "shadowRadius": 30
+  },
+  {
+   "id": "r21",
+   "row": 21,
+   "size": "medium",
+   "frames": 39,
+   "move": "static-drift",
+   "drift": 0,
+   "from": {
+    "position": [
+     267.255,
+     7.377,
+     157.97
+    ],
+    "target": [
+     263.598,
+     6.777,
+     159.598
+    ],
+    "fov": 44
+   },
+   "loc": "city",
+   "briefMove": "MCU",
+   "shadowRadius": 30
+  },
+  {
+   "id": "r22",
+   "row": 22,
+   "size": "close",
+   "frames": 46,
+   "move": "static-drift",
+   "drift": 0,
+   "from": {
+    "position": [
+     266.875,
+     7.477,
+     158.131
+    ],
+    "target": [
+     263.658,
+     6.977,
+     159.678
+    ],
+    "fov": 36
+   },
+   "loc": "city",
+   "briefMove": "CU",
+   "shadowRadius": 30,
+   "actions": [
+    {
+     "actor": "kevin",
+     "verb": "reach_for",
+     "at": 0.1
+    }
+   ]
+  },
+  {
+   "id": "r23",
+   "row": 23,
+   "size": "insert",
+   "frames": 49,
+   "move": "static-drift",
+   "drift": 0,
+   "from": {
+    "position": [
+     264.379,
+     6.377,
+     160.136
+    ],
+    "target": [
+     262.635,
+     5.327,
+     158.32
+    ],
+    "fov": 34
+   },
+   "loc": "city",
+   "briefMove": "insert",
+   "shadowRadius": 30
+  },
+  {
+   "id": "r24",
+   "row": 24,
+   "size": "medium",
+   "frames": 49,
+   "move": "static-drift",
+   "drift": 0,
+   "from": {
+    "position": [
+     -114.142,
+     13.74,
+     21.097
+    ],
+    "target": [
+     -115.711,
+     13.74,
+     15.078
+    ],
+    "fov": 44
+   },
+   "loc": "city",
+   "briefMove": "two",
+   "shadowRadius": 30
+  },
+  {
+   "id": "r25",
+   "row": 25,
+   "size": "medium",
+   "frames": 60,
+   "move": "static-drift",
+   "drift": 0,
+   "from": {
+    "position": [
+     7,
+     3.6,
+     -4.6
+    ],
+    "target": [
+     -3,
+     2,
+     -5.6
+    ],
+    "fov": 46
+   },
+   "loc": "cityDining",
+   "briefMove": "track",
+   "shadowRadius": 30,
+   "actions": [
+    {
+     "actor": "lulu",
+     "cycle": "walk",
+     "at": 0,
+     "until": 36.831
+    }
+   ]
+  },
+  {
+   "id": "r26",
+   "row": 26,
+   "size": "medium",
+   "frames": 30,
+   "move": "static-drift",
+   "drift": 0,
+   "from": {
+    "position": [
+     -1.3,
+     4.2,
+     6.2
+    ],
+    "target": [
+     6.75,
+     2.8,
+     2.05
+    ],
+    "fov": 58
+   },
+   "loc": "cityDining",
+   "briefMove": "two",
+   "shadowRadius": 30
+  },
+  {
+   "id": "r27",
+   "row": 27,
+   "size": "medium",
+   "frames": 46,
+   "move": "static-drift",
+   "drift": 0,
+   "from": {
+    "position": [
+     2.6,
+     3.4,
+     3.4
+    ],
+    "target": [
+     6.6,
+     3.6,
+     1.8
+    ],
+    "fov": 52
+   },
+   "loc": "cityDining",
+   "briefMove": "ots",
+   "shadowRadius": 30
+  },
+  {
+   "id": "r28",
+   "row": 28,
+   "size": "close",
+   "frames": 49,
+   "move": "static-drift",
+   "drift": 0,
+   "from": {
+    "position": [
+     6.3,
+     4.6,
+     1.3
+    ],
+    "target": [
+     7.5,
+     4.5,
+     3.5
+    ],
+    "fov": 40
+   },
+   "loc": "cityDining",
+   "briefMove": "CU",
+   "shadowRadius": 30
+  },
+  {
+   "id": "r29",
+   "row": 29,
+   "size": "medium",
+   "frames": 45,
+   "move": "static-drift",
+   "drift": 0,
+   "from": {
+    "position": [
+     -119.3,
+     7.817,
+     93.9
+    ],
+    "target": [
+     -112.3,
+     7.317,
+     90.4
+    ],
+    "fov": 44
+   },
+   "loc": "city",
+   "briefMove": "two",
+   "shadowRadius": 30
+  },
+  {
+   "id": "r30",
+   "row": 30,
+   "size": "insert",
+   "frames": 28,
+   "move": "static-drift",
+   "drift": 0,
+   "from": {
+    "position": [
+     -113.66,
+     6.917,
+     95.88
+    ],
+    "target": [
+     -112.18,
+     6.117,
+     92.24
+    ],
+    "fov": 28
+   },
+   "loc": "city",
+   "briefMove": "insert",
+   "shadowRadius": 30
+  },
+  {
+   "id": "r31",
+   "row": 31,
+   "size": "medium",
+   "frames": 41,
+   "move": "static-drift",
+   "drift": 0,
+   "from": {
+    "position": [
+     -7,
+     15.95,
+     -25.81
+    ],
+    "target": [
+     0.3,
+     26.85,
+     -38.81
+    ],
+    "fov": 42
+   },
+   "loc": "city",
+   "briefMove": "low angle",
+   "shadowRadius": 30,
+   "actions": [
+    {
+     "actor": "gov",
+     "verb": "rope_pull",
+     "at": 0.8109999999999957
+    }
+   ]
+  },
+  {
+   "id": "r32",
+   "row": 32,
+   "size": "close",
+   "ecu": true,
+   "frames": 20,
+   "move": "static-drift",
+   "drift": 0,
+   "from": {
+    "position": [
+     3.6,
+     52.4,
+     -52.5
+    ],
+    "target": [
+     0,
+     52.2,
+     -60
+    ],
+    "fov": 30
+   },
+   "loc": "city",
+   "briefMove": "insert ECU",
+   "shadowRadius": 30
+  },
+  {
+   "id": "r33",
+   "row": 33,
+   "size": "close",
+   "frames": 35,
+   "move": "static-drift",
+   "drift": 0,
+   "from": {
+    "position": [
+     1.2,
+     26.25,
+     -32.31
+    ],
+    "target": [
+     0,
+     28.65,
+     -38.81
+    ],
+    "fov": 40
+   },
+   "loc": "city",
+   "briefMove": "CU",
+   "shadowRadius": 30,
+   "actions": [
+    {
+     "actor": "gov",
+     "verb": "panic_up",
+     "at": 0.769999999999996
+    }
+   ]
+  },
+  {
+   "id": "r34",
+   "row": 34,
+   "size": "insert",
+   "frames": 45,
+   "move": "static-drift",
+   "drift": 0,
+   "from": {
+    "position": [
+     -10,
+     17,
+     18
+    ],
+    "target": [
+     0,
+     50,
+     -58
+    ],
+    "fov": 46
+   },
+   "loc": "city",
+   "briefMove": "insert / tiltUp",
+   "shadowRadius": 30
+  },
+  {
+   "id": "r35",
+   "row": 35,
+   "size": "wide",
+   "frames": 47,
+   "move": "static-drift",
+   "drift": 0,
+   "from": {
+    "position": [
+     -8,
+     46,
+     88
+    ],
+    "target": [
+     0,
+     24,
+     -10
+    ],
+    "fov": 62
+   },
+   "loc": "city",
+   "briefMove": "wide drone",
+   "shadowRadius": 30
+  },
+  {
+   "id": "r36",
+   "row": 36,
+   "size": "wide",
+   "frames": 47,
+   "move": "static-drift",
+   "drift": 0,
+   "from": {
+    "position": [
+     0,
+     1.8,
+     98
+    ],
+    "target": [
+     -1,
+     18,
+     40
+    ],
+    "fov": 60
+   },
+   "loc": "city",
+   "briefMove": "wide from the stair foot",
+   "shadowRadius": 30
+  },
+  {
+   "id": "r37",
+   "row": 37,
+   "size": "medium",
+   "frames": 33,
+   "move": "static-drift",
+   "drift": 0,
+   "from": {
+    "position": [
+     0,
+     18.5,
+     24
+    ],
+    "target": [
+     0,
+     16,
+     12
+    ],
+    "fov": 30
+   },
+   "loc": "city",
+   "briefMove": "push",
+   "shadowRadius": 30
+  },
+  {
+   "id": "r38",
+   "row": 38,
+   "size": "wide",
+   "frames": 38,
+   "move": "static-drift",
+   "drift": 0,
+   "from": {
+    "position": [
+     6,
+     6,
+     112
+    ],
+    "target": [
+     0,
+     9,
+     82
+    ],
+    "fov": 58
+   },
+   "loc": "city",
+   "briefMove": "wide",
+   "shadowRadius": 30,
+   "actions": [
+    {
+     "actor": "buslady",
+     "cycle": "sprint",
+     "at": 0,
+     "until": 57.843
+    },
+    {
+     "actor": "pickles",
+     "cycle": "sprint",
+     "at": 0,
+     "until": 57.843
+    },
+    {
+     "actor": "mailman",
+     "cycle": "sprint",
+     "at": 0,
+     "until": 57.843
+    },
+    {
+     "actor": "kevin",
+     "cycle": "sprint",
+     "at": 0,
+     "until": 57.843
+    },
+    {
+     "actor": "dad",
+     "cycle": "sprint",
+     "at": 0,
+     "until": 57.843
+    }
+   ]
+  },
+  {
+   "id": "r39",
+   "row": 39,
+   "size": "medium",
+   "frames": 42,
+   "move": "static-drift",
+   "drift": 0,
+   "from": {
+    "position": [
+     0.5,
+     16.075,
+     32
+    ],
+    "target": [
+     5.5,
+     16.075,
+     37
+    ],
+    "fov": 50
+   },
+   "loc": "city",
+   "briefMove": "MCU",
+   "shadowRadius": 30
+  },
+  {
+   "id": "r40",
+   "row": 40,
+   "size": "medium",
+   "frames": 39,
+   "move": "static-drift",
+   "drift": 0,
+   "from": {
+    "position": [
+     7.5,
+     16.275,
+     32
+    ],
+    "target": [
+     2.5,
+     16.475,
+     37
+    ],
+    "fov": 50
+   },
+   "loc": "city",
+   "briefMove": "MCU",
+   "shadowRadius": 30
+  },
+  {
+   "id": "r41",
+   "row": 41,
+   "size": "wide",
+   "frames": 45,
+   "move": "static-drift",
+   "drift": 0,
+   "from": {
+    "position": [
+     10,
+     16.275,
+     59
+    ],
+    "target": [
+     4,
+     26.275,
+     23
+    ],
+    "fov": 62
+   },
+   "loc": "city",
+   "briefMove": "wide",
+   "shadowRadius": 30
+  },
+  {
+   "id": "r42",
+   "row": 42,
+   "size": "close",
+   "frames": 36,
+   "move": "static-drift",
+   "drift": 0,
+   "from": {
+    "position": [
+     3.2,
+     16.675,
+     32.6
+    ],
+    "target": [
+     4,
+     16.675,
+     37
+    ],
+    "fov": 40
+   },
+   "loc": "city",
+   "briefMove": "CU",
+   "shadowRadius": 30,
+   "actions": [
+    {
+     "actor": "hero",
+     "verb": "idle_alive",
+     "at": 0
+    }
+   ]
+  },
+  {
+   "id": "r43",
+   "row": 43,
+   "size": "medium",
+   "frames": 32,
+   "move": "static-drift",
+   "drift": 0,
+   "from": {
+    "position": [
+     4.6,
+     16.875,
+     41.5
+    ],
+    "target": [
+     4,
+     15.875,
+     27
+    ],
+    "fov": 50
+   },
+   "loc": "city",
+   "briefMove": "track behind",
+   "shadowRadius": 30,
+   "actions": [
+    {
+     "actor": "hero",
+     "cycle": "walk",
+     "at": 0,
+     "until": 65.901
+    }
+   ]
+  },
+  {
+   "id": "r44",
+   "row": 44,
+   "size": "close",
+   "frames": 60,
+   "move": "static-drift",
+   "drift": 0,
+   "from": {
+    "position": [
+     -0.273,
+     18.3,
+     15.893
+    ],
+    "target": [
+     1.3,
+     18.4,
+     12.6
+    ],
+    "fov": 38
+   },
+   "loc": "city",
+   "briefMove": "CU",
+   "shadowRadius": 30
+  },
+  {
+   "id": "r45",
+   "row": 45,
+   "size": "insert",
+   "frames": 24,
+   "move": "static-drift",
+   "drift": 0,
+   "from": {
+    "position": [
+     0,
+     16.6,
+     16.4
+    ],
+    "target": [
+     0,
+     16.2,
+     12.7
+    ],
+    "fov": 34
+   },
+   "loc": "city",
+   "briefMove": "insert",
+   "shadowRadius": 30,
+   "actions": [
+    {
+     "actor": "heroF",
+     "verb": "reach_for",
+     "at": 0.05
+    },
+    {
+     "actor": "lulu",
+     "verb": "reach_for",
+     "at": 0.1
+    }
+   ]
+  },
+  {
+   "id": "r46",
+   "row": 46,
+   "size": "medium",
+   "frames": 33,
+   "move": "static-drift",
+   "drift": 0,
+   "from": {
+    "position": [
+     0,
+     17.6,
+     20
+    ],
+    "target": [
+     0,
+     17,
+     12.7
+    ],
+    "fov": 46
+   },
+   "loc": "city",
+   "briefMove": "two",
+   "shadowRadius": 30
+  },
+  {
+   "id": "r47",
+   "row": 47,
+   "size": "medium",
+   "frames": 35,
+   "move": "static-drift",
+   "drift": 0,
+   "from": {
+    "position": [
+     0.3,
+     14.8,
+     15.2
+    ],
+    "target": [
+     -1.3,
+     21,
+     10.8
+    ],
+    "fov": 64
+   },
+   "loc": "city",
+   "briefMove": "low angle (Lulu POV)",
+   "shadowRadius": 30
+  },
+  {
+   "id": "r48",
+   "row": 48,
+   "size": "medium",
+   "frames": 44,
+   "move": "static-drift",
+   "drift": 0,
+   "from": {
+    "position": [
+     0.503,
+     16.6,
+     16.421
+    ],
+    "target": [
+     -1.3,
+     16.6,
+     12.8
+    ],
+    "fov": 42
+   },
+   "loc": "city",
+   "briefMove": "MCU",
+   "shadowRadius": 30
+  },
+  {
+   "id": "r49",
+   "row": 49,
+   "size": "wide",
+   "frames": 21,
+   "move": "static-drift",
+   "drift": 0,
+   "from": {
+    "position": [
+     -16,
+     22,
+     60
+    ],
+    "target": [
+     0,
+     22,
+     -8
+    ],
+    "fov": 64
+   },
+   "loc": "city",
+   "briefMove": "wide",
+   "shadowRadius": 30,
+   "actions": [
+    {
+     "actor": "lulu",
+     "verb": "idle_alive",
+     "at": 0
+    }
+   ]
+  },
+  {
+   "id": "r50",
+   "row": 50,
+   "size": "close",
+   "frames": 34,
+   "move": "static-drift",
+   "drift": 0,
+   "from": {
+    "position": [
+     -8,
+     19,
+     40
+    ],
+    "target": [
+     -1,
+     16,
+     -2
+    ],
+    "fov": 50
+   },
+   "loc": "city",
+   "briefMove": "snap, snap",
+   "shadowRadius": 30
+  },
+  {
+   "id": "r51",
+   "row": 51,
+   "size": "insert",
+   "frames": 33,
+   "move": "static-drift",
+   "drift": 0,
+   "from": {
+    "position": [
+     1.494,
+     16.6,
+     14.067
+    ],
+    "target": [
+     -2.282,
+     16.3,
+     14.803
+    ],
+    "fov": 44
+   },
+   "loc": "city",
+   "briefMove": "insert → two",
+   "shadowRadius": 30
+  },
+  {
+   "id": "r52",
+   "row": 52,
+   "size": "wide",
+   "frames": 57,
+   "move": "static-drift",
+   "drift": 0,
+   "from": {
+    "position": [
+     -0.5,
+     20.5,
+     38
+    ],
+    "target": [
+     -0.5,
+     18.6,
+     25
+    ],
+    "fov": 46
+   },
+   "loc": "city",
+   "briefMove": "wide",
+   "shadowRadius": 30
+  },
+  {
+   "id": "r53",
+   "row": 53,
+   "size": "medium",
+   "frames": 65,
+   "move": "static-drift",
+   "drift": 0,
+   "from": {
+    "position": [
+     -116.809,
+     13.341,
+     17.886
+    ],
+    "target": [
+     -103.019,
+     21.341,
+     4.187
+    ],
+    "fov": 62
+   },
+   "loc": "city",
+   "briefMove": "low angle → two",
+   "shadowRadius": 30
+  },
+  {
+   "id": "r54",
+   "row": 54,
+   "size": "close",
+   "frames": 40,
+   "move": "static-drift",
+   "drift": 0,
+   "from": {
+    "position": [
+     -112.923,
+     13.441,
+     8.747
+    ],
+    "target": [
+     -114.621,
+     12.941,
+     10.547
+    ],
+    "fov": 40
+   },
+   "loc": "city",
+   "briefMove": "CU on the puff",
+   "shadowRadius": 30
+  },
+  {
+   "id": "r55",
+   "row": 55,
+   "size": "close",
+   "frames": 35,
+   "move": "static-drift",
+   "drift": 0,
+   "from": {
+    "position": [
+     -108.31,
+     16.341,
+     9.832
+    ],
+    "target": [
+     -114.863,
+     15.141,
+     11.653
+    ],
+    "fov": 52
+   },
+   "loc": "city",
+   "briefMove": "CU",
+   "shadowRadius": 30
+  }
+ ]
+}
