@@ -123,9 +123,9 @@
    "bench": {
     "tris": 75024,
     "calls": 292,
-    "sPerFrame": 0.432,
-    "sPerFrameOff": 0.461,
-    "outlineCost": -0.029,
+    "sPerFrame": 0.436,
+    "sPerFrameOff": 0.467,
+    "outlineCost": -0.031,
     "pass": true
    }
   },
@@ -302,8 +302,8 @@
     "tris": 70326,
     "calls": 294,
     "sPerFrame": 0.54,
-    "sPerFrameOff": 0.561,
-    "outlineCost": -0.021,
+    "sPerFrameOff": 0.552,
+    "outlineCost": -0.012,
     "pass": true
    }
   },
@@ -347,9 +347,9 @@
    "bench": {
     "tris": 70438,
     "calls": 257,
-    "sPerFrame": 0.309,
-    "sPerFrameOff": 0.325,
-    "outlineCost": -0.015,
+    "sPerFrame": 0.302,
+    "sPerFrameOff": 0.32,
+    "outlineCost": -0.018,
     "pass": true
    }
   },
@@ -483,9 +483,9 @@
    "bench": {
     "tris": 44270,
     "calls": 191,
-    "sPerFrame": 0.467,
-    "sPerFrameOff": 0.473,
-    "outlineCost": -0.006,
+    "sPerFrame": 0.465,
+    "sPerFrameOff": 0.469,
+    "outlineCost": -0.004,
     "pass": true
    }
   },
@@ -560,9 +560,9 @@
    "bench": {
     "tris": 80562,
     "calls": 492,
-    "sPerFrame": 0.596,
-    "sPerFrameOff": 0.741,
-    "outlineCost": -0.144,
+    "sPerFrame": 0.589,
+    "sPerFrameOff": 0.746,
+    "outlineCost": -0.157,
     "pass": true
    }
   },
@@ -603,9 +603,9 @@
    "bench": {
     "tris": 72834,
     "calls": 383,
-    "sPerFrame": 0.465,
-    "sPerFrameOff": 0.52,
-    "outlineCost": -0.055,
+    "sPerFrame": 0.458,
+    "sPerFrameOff": 0.514,
+    "outlineCost": -0.056,
     "pass": true
    }
   },
@@ -647,9 +647,9 @@
    "bench": {
     "tris": 82810,
     "calls": 401,
-    "sPerFrame": 0.303,
-    "sPerFrameOff": 0.334,
-    "outlineCost": -0.031,
+    "sPerFrame": 0.304,
+    "sPerFrameOff": 0.332,
+    "outlineCost": -0.029,
     "pass": true
    }
   },
@@ -687,9 +687,9 @@
    "bench": {
     "tris": 36550,
     "calls": 149,
-    "sPerFrame": 0.347,
-    "sPerFrameOff": 0.339,
-    "outlineCost": 0.008,
+    "sPerFrame": 0.344,
+    "sPerFrameOff": 0.34,
+    "outlineCost": 0.004,
     "pass": true
    }
   },
