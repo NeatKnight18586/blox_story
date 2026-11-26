@@ -122,3 +122,8 @@ scriptcheck --variant long FAIL "first line has 10 words (> 9)" (no card needed 
 Open (MUST SEE still weak): 10 he is mid-leap above the cart, 16 drawer half behind the spider legs, 26 flashlight beam / puff shrink not readable, 45 hands,
 49 collapse reads as a smaller dome only, 50 the two shrink steps do not read in one frame, 53 bell crack too small at yard distance (readable in 32),
 39 face aim off (the fist must be in frame), 55 burger reads as bun + layers but little grass.
+
+## Fear Bell — ANIMATIC (episode session; branch claude/fearbell-animatic-staging-5oxlyj from main 1af40d8; NO engine changes)
+Plan: BRIEF.md re-synced to the new lock rows 54–55 (lock2brief.py, mechanical) · staging fixes per row in previs.js (14, 16, 26, 27, 28/39/40/42, 45, 53–55, 10/49/50) →
+vo-fix sheet review/fearbell/vo-fix{,-2,-3}.png (only those rows) · plan gate exit 0 (cast-name subjects; creature rows keep `see`) · ep animatic (bench, stability, 270×480,
+v7 captions, assemble --animatic ≤ 10 MB) · 390-px phone sheet · ep:check + v2:test · commit + push, report ≤ 20 lines, STOP.
