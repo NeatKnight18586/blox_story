@@ -1,0 +1,96 @@
+{
+ "gaps": [
+  {
+   "afterWord": "Heights",
+   "nth": 1,
+   "clip": "fixture/g1.wav",
+   "cut": 1.885,
+   "dur": 1.05,
+   "pad": 0.15,
+   "clipLen": 0.9,
+   "newCut": 1.885,
+   "clipAt": 1.96
+  },
+  {
+   "afterWord": "rings",
+   "nth": 1,
+   "clip": "fixture/g2.wav",
+   "cut": 3.395,
+   "dur": 1.45,
+   "pad": 0.15,
+   "clipLen": 1.3,
+   "newCut": 4.445,
+   "clipAt": 4.52
+  }
+ ],
+ "words": 15,
+ "wordsShifted": 11,
+ "firstShifted": [
+  {
+   "w": "where",
+   "before": 1.92,
+   "after": 2.97,
+   "shift": 1.05
+  },
+  {
+   "w": "the",
+   "before": 2.32,
+   "after": 3.37,
+   "shift": 1.05
+  },
+  {
+   "w": "bell",
+   "before": 2.66,
+   "after": 3.71,
+   "shift": 1.05
+  }
+ ],
+ "lastWord": {
+  "w": "ever",
+  "before": 5.65,
+  "after": 8.15,
+  "shift": 2.5
+ },
+ "durationBefore": 6.32,
+ "durationAfter": 8.82,
+ "voWordMaxDiff": 0.0,
+ "voPeakDb": -3.36,
+ "clipPeakDb": -6.36,
+ "clipBelowVoDb": -3.0,
+ "wordOverlaps": 0,
+ "wordOverlapList": [],
+ "sampleOverlaps": 0,
+ "sampleOverlapMs": 0.0,
+ "pass": true,
+ "shots": [
+  {
+   "id": "S1",
+   "before": 0,
+   "after": 0,
+   "cueAfter": [
+    0,
+    1.5
+   ]
+  },
+  {
+   "id": "S2",
+   "before": 1.8,
+   "after": 1.8,
+   "cueAfter": [
+    1.8,
+    4.25
+   ]
+  },
+  {
+   "id": "S3",
+   "before": 3.4,
+   "after": 5.9,
+   "cueAfter": [
+    5.9,
+    7.5
+   ]
+  }
+ ],
+ "endBefore": 6.82,
+ "endAfter": 9.32
+}
