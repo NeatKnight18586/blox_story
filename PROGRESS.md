@@ -73,3 +73,7 @@ in front of / below the mouth); cartoon POP default in clockfx (ink-outlined whi
 + locations cityClassroom / cityDining (2 key-art anchors each). Gate `scripts/v2/fearbell1g-gate.js` + sheet, farm request line `fearbell1g`.
 Decisions: creatures are a new kit (beast kit rigs are faceted quad/bird/dragon with glow seams, not soft cartoon shapes); city-kit test gives the 1G kinds their own
 per-kind budget (≤ 500) because the original aggregate was already at 5,996 / 6,000; diner counter + bus stop trimmed so diner stays ≤ 3,500 tris.
+Farm (runs 45801572743 → fix pass 1 → 45803923051, look B, CC0): creatures 594–7,044 tris (≤ 8k PASS); megaphone mouth gap 0.03 studs PASS; bench plazaWide + dome + 10 extras
+74.6k tris PASS, s/frame 0.701 → 0.910 FAIL (local 0.319 → 0.286); rooms classroom 0.581 → 0.777, dining 0.689 → 0.908 (calls 405 → 167 / 500 → 225 after the merge —
+every row got slower on run 2, including the classroom where only draw calls were removed: runner variance). Stopped after fix pass 1 + re-measure; not loosened.
+Open: farm s/frame on look B rows (needs a stable-runner bench or a cost lever on 10 R6 extras); dome clip's first shot-2 frames are filled by the dome; puff lands at chest, not in an open palm.
