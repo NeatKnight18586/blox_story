@@ -11,6 +11,10 @@
 import * as T from 'three';
 import {mergeGeometries} from 'three/addons/utils/BufferGeometryUtils.js';
 import {PLAN, corridors, inCorridor, groundY, terrainY, terraceW, stairY, standY, districtAt, anchor, ANCHOR_NAMES, roadPaths, landmarkSlots, toWorld, coastDist, polyDist, rockY, COAST} from './plan.js';
+import {downtown, mainStreetLots, placeBuilding} from './downtown.js';
+import {setKitTextures, kitMat} from './kit/mats.js';
+import {setLOD, lodFor} from './kit/building.js';
+import PRESETS from './kit/presets.json' with {type: 'json'};
 export {groundY, PLAN};
 
 const H = PLAN.heights;
@@ -26,7 +30,7 @@ export async function preload(base) {
     const r = await fetch(new URL('renders/cache/assets/manifest.json', base)); if (!r.ok) return; ASSETS.manifest = await r.json();
   } catch { return; }
   const L = new T.TextureLoader(), man = ASSETS.manifest;
-  for (const slot of ['city_asphalt', 'city_sidewalk', 'city_planks', 'city_brick', 'city_sand', 'city_grass']) {
+  for (const slot of ['city_asphalt', 'city_sidewalk', 'city_planks', 'city_brick', 'city_sand', 'city_grass', 'city_plaster', 'city_shingles', 'city_terracotta', 'city_stone']) {
     const e = man.materials?.[slot]; if (!e) continue;
     try { const dir = `renders/cache/assets/${e.id}/`, ld = (f, srgb) => f ? L.loadAsync(new URL(dir + f, base).href).then(t => { t.wrapS = t.wrapT = T.RepeatWrapping; t.colorSpace = srgb ? T.SRGBColorSpace : T.NoColorSpace; t.anisotropy = 4; return t; }) : null;
       const [map, normalMap, roughnessMap] = await Promise.all([ld(e.maps.albedo, true), ld(e.maps.normal), ld(e.maps.rough)]); ASSETS.tex[slot] = {map, normalMap, roughnessMap};
@@ -70,8 +74,8 @@ const STYLE = {   // per district: lot width / depth / height ranges, roof kind
   school: {w: [9, 11], d: [8, 10], h: [4.5, 6], roof: 'gable', gap: 6},
   harbor: {w: [8, 12], d: [9, 13], h: [4.5, 7], roof: 'gable', gap: 4},
 };
-export function cityLots(seed = 7) {
-  const R = rng(seed), roads = roadPaths(), slots = landmarkSlots(), lots = [], COR = corridors();
+export function cityLots(seed = 7, {reserve = []} = {}) {   // Phase 1B (opt-in): `reserve` = [{x, z, r}] kept free (Main St kit buildings)
+  const R = rng(seed), roads = roadPaths(), slots = landmarkSlots(), lots = reserve.map(r => ({...r, reserved: true})), COR = corridors();
   const clash = (x, z, r) => lots.some(l => Math.hypot(l.x - x, l.z - z) < r + l.r) || slots.some(s => Math.abs(x - s.at[0]) < s.fp[0] / 2 + r + 3 && Math.abs(z - s.at[1]) < s.fp[1] / 2 + r + 3)
     || (slots.find(s => s.tower) && slots.some(s => s.tower && Math.abs(x - s.tower.at[0]) < s.tower.fp[0] / 2 + r + 3 && Math.abs(z - s.tower.at[1]) < s.tower.fp[1] / 2 + r + 3));
   const roadClear = (x, z, r) => Object.entries(roads).every(([, rd]) => polyDist(x, z, rd.pts) > rd.w / 2 + PLAN.sidewalk + r * .7);
@@ -112,7 +116,7 @@ export function cityLots(seed = 7) {
   // the school (big L block) next to the yard
   const [sx, sz] = toWorld([60, 150]); tryLot(sx - 6, sz, Math.PI / 2, 'school', {w: 40, d: 18, h: 10, roof: 'flat', kind: 'school'});
   tryLot(sx - 6, sz - 22, Math.PI / 2, 'school', {w: 18, d: 14, h: 8, roof: 'flat', kind: 'school'});
-  return lots;
+  return lots.filter(l => !l.reserved);
 }
 // harbour piers: from the bay shore of the east arm out into the water (pure)
 export function piers() {
@@ -125,6 +129,7 @@ export function piers() {
 // ---- build ------------------------------------------------------------------------------------------------------------------------
 export function build(scene, {M, V, TR, look, spec, look4}) {
   const t0 = performance.now(), stats = {}, R = rng(11);
+  setKitTextures(ASSETS.tex, M); const DT = !spec?.cityBlockout;   // Phase 1B: Downtown + kit buildings (spec cityBlockout: true = the 1A blockout)
   const A = ANCHOR_NAMES.map(n => anchor(n)), AXZ = A.map(a => [a.position[0], a.position[2]]), slots = landmarkSlots();
   const cityRoot = new T.Group(); cityRoot.name = 'city'; scene.add(cityRoot);
   // -- terrain (live: lit in real time; per-vertex colour = surface class)
@@ -135,7 +140,9 @@ export function build(scene, {M, V, TR, look, spec, look4}) {
   terrain.traverse(o => { if (!o.isMesh) return; const p = o.geometry.attributes.position, n = o.geometry.attributes.normal, c = new Float32Array(p.count * 3);
     for (let i = 0; i < p.count; i++) { const x = p.getX(i), y = p.getY(i), z = p.getZ(i); surfaceColour(cc, x, y, z, n.getY(i)); if (overview) { const dn = districtAt(x, z), D = PLAN.districts[dn]; if (D?.tint) cc.lerp(tint.set(D.tint), .55); } c.set([cc.r, cc.g, cc.b], i * 3); }
     o.geometry.setAttribute('color', new T.BufferAttribute(c, 3)); o.userData.live = true; });
-  cityRoot.add(terrain); stats.terrainTris = terrain.children.reduce((s, m) => s + m.geometry.index.count / 3, 0);
+  // Phase 1B: chunks wholly under the (opaque) water are never seen: hide them (frees the budget for wide bay shots)
+  for (const m of terrain.children) { m.geometry.computeBoundingBox(); if (m.geometry.boundingBox.max.y < H.waterY - .3) m.visible = false; }
+  cityRoot.add(terrain); stats.terrainTris = terrain.children.filter(m => m.visible).reduce((s, m) => s + m.geometry.index.count / 3, 0);
   // -- water: one big plane (bay + sea), look4 water4 when available
   const WATER = look4?.water4 ? look4.water4({w: 1500, d: 1500, at: [0, H.waterY, 40], color: '#0a86cf', speed: .02}) : null;
   const water = WATER?.mesh ?? (() => { const m = new T.Mesh(new T.PlaneGeometry(1500, 1500), new T.MeshStandardMaterial({color: '#1890c8', roughness: .1})); m.rotation.x = -Math.PI / 2; m.position.set(0, H.waterY, 40); m.userData.live = true; return m; })();
@@ -147,7 +154,7 @@ export function build(scene, {M, V, TR, look, spec, look4}) {
   // plaza paving
   const plazaMat = surf(M, 'city_brick', 'brick', '#c8674a', 4), plaza = new T.Mesh(new T.CircleGeometry(PLAN.plaza.r * 2 - .6, 64), plazaMat);
   { const g = new T.RingGeometry(0, PLAN.plaza.r * 2 - .6, 72, 30); g.rotateX(-Math.PI / 2); g.translate(0, LAYER.plaza, 0); planarUV(g, 4); plaza.geometry = g; }
-  plaza.name = 'plazaPaving'; G('plaza').add(plaza);
+  plaza.name = 'plazaPaving'; if (!DT) G('plaza').add(plaza);
   // -- roads / sidewalks / boardwalk (live ribbons on groundY)
   const roads = roadPaths(), roadMat = surf(M, 'city_asphalt', 'asphalt', '#55585f', 8), walkMat = surf(M, 'city_sidewalk', 'concrete', '#dedad2', 4), deckMat = surf(M, 'city_planks', 'woodPlanks', '#b98d5f', 4);
   const roadGroup = new T.Group(); roadGroup.name = 'roads'; cityRoot.add(roadGroup); let roadTris = 0;
@@ -167,11 +174,12 @@ export function build(scene, {M, V, TR, look, spec, look4}) {
   roadGroup.traverse(o => { if (o.isMesh) o.userData.live = true; });
   stats.roadTris = roadTris;
   // -- district blockout
-  const lots = cityLots(), mats = new Map(), M0 = c => { if (!mats.has(c)) mats.set(c, new T.MeshStandardMaterial({color: c, roughness: .7, metalness: 0})); return mats.get(c); };
+  const msLots = DT ? mainStreetLots() : [], lots = cityLots(7, {reserve: msLots.map(l => ({x: l.x, z: l.z, r: l.r * .85}))}), kitB = [], KR = rng(23), mats = new Map(), M0 = c => { if (!mats.has(c)) mats.set(c, new T.MeshStandardMaterial({color: c, roughness: .7, metalness: 0})); return mats.get(c); };
   const tiers = {};   // district → {hi: Group, lo: Group, mid: {colour: [geo]}}
   const tierOf = k => tiers[k] ??= {hi: new T.Group(), lo: new T.Group(), mid: new Map(), bounds: new T.Box3()};
   const pushMid = (k, c, g) => { const t = tierOf(k); if (!t.mid.has(c)) t.mid.set(c, []); t.mid.get(c).push(g); };
   for (const l of lots) {
+    if (DT && ['plaza', 'town', 'mainSt'].includes(l.district)) { const b = lotBuilding(l, KR); b.lot = l; G(l.district).add(b.group); kitB.push(b); continue; }
     const t = tierOf(l.district), near = nearestAnchor(l.x, l.z, AXZ) < NEAR_R, roofC = PLAN.districts[l.district === 'town' ? 'plaza' : l.district].roof;
     const base = l.y0 - .6, hBody = l.y1 - l.y0 + .6 + l.h;
     t.bounds.expandByPoint(new T.Vector3(l.x, l.y0, l.z));
@@ -198,26 +206,33 @@ export function build(scene, {M, V, TR, look, spec, look4}) {
   const grey = new T.MeshStandardMaterial({color: '#a3a6ab', roughness: .8}), slotMeshes = [];
   for (const s of slots) {
     if (s.shape === 'stair') continue;   // built below as the real Grand Stair blockout
+    if (DT && ['1', '2', '3'].includes(s.id)) continue;   // Phase 1B: built by parts/city/downtown.js
     const g = G(s.district === 'bay' ? 'bay' : s.district === 'wild' ? 'wild' : s.district), add = (geo, tag = '') => { const m = new T.Mesh(geo, grey); m.name = `slot:${s.id}${tag}`; g.add(m); slotMeshes.push(m); };
     if (s.shape === 'cyl') add(new T.CylinderGeometry(s.fp[0] / 2, s.fp[0] / 2 * 1.15, s.h, 20, 3).translate(s.at[0], s.base + s.h / 2, s.at[1]));
     else add(boxAt(s.fp[0], s.h + (s.base - Math.min(s.base, groundY(...s.at))) + .6, s.fp[1], s.at[0], s.base - .6, s.at[1], 0, Math.max(2, Math.round(s.h / 3))));
     if (s.tower) { const tb = Math.min(groundY(...s.tower.at), s.base); add(boxAt(s.tower.fp[0], s.tower.h + s.base - tb, s.tower.fp[1], s.tower.at[0], tb, s.tower.at[1], 0, Math.max(2, Math.round(s.tower.h / 4))), ':tower'); }
   }
-  // -- Grand Stair (slot 8) + the terrace's brick retaining wall (clean blockout; CC0 stone later)
-  { const TRC = PLAN.terrain.terrace, ST = PLAN.terrain.stair, brick = surf(M, 'city_brick', 'brick', '#b5513c', 4), stone = M0('#e3d6bb'), cap = M0('#f3ead6');
+  // -- Downtown (Phase 1B): Hall + bell tower + top hat, statue + fountain, backwards clock tower, plaza rings + props, Main St
+  const dt = DT ? downtown({slots, layerPlaza: LAYER.plaza, statuePose: spec?.statuePose}) : null;
+  if (dt) { G('plaza').add(dt.plaza); G('mainSt').add(dt.mainSt); kitB.push(...dt.buildings); stats.downtown = dt.stats; }
+  for (const b of kitB) b.near.visible = b.mid.visible = b.far.visible = true;   // every LOD is baked; onCamera picks one
+  // -- Grand Stair (slot 8) + the terrace's brick retaining wall (Phase 1B: light stone + coping + lamps from downtown.js)
+  { const TRC = PLAN.terrain.terrace, ST = PLAN.terrain.stair, brick = surf(M, 'city_brick', 'brick', '#b5513c', 4), stone = DT ? kitMat('stone', '#efe6d2') : M0('#e3d6bb'), cap = DT ? kitMat('stone', '#fbf5e8') : M0('#f3ead6');
+    const sx = g => { if (!DT) return g; g.computeBoundingBox(); const b = g.boundingBox, w = b.max.x - b.min.x, h = b.max.y - b.min.y, d = b.max.z - b.min.z, n = Math.max(1, Math.round(w / 4));   // Phase 1B: baked (cheap) + tessellated
+      return new T.BoxGeometry(w, h, d, n, 1, 1).translate((b.min.x + b.max.x) / 2, (b.min.y + b.max.y) / 2, (b.min.z + b.max.z) / 2); };
     const run = (ST.z1 - ST.z0 - ST.landing) / ST.steps, half = ST.steps / 2, base = PLAN.terrain.promenade - .5, tr = [];
     for (let k = 0; k < ST.steps; k++) { const z0 = ST.z0 + k * run + (k >= half ? ST.landing : 0); tr.push([z0, z0 + run, stairY(z0 + run / 2)]); }
     tr.push([ST.z0 + half * run, ST.z0 + half * run + ST.landing, stairY(ST.z0 + half * run + ST.landing / 2)]);
     const mass = [], caps = [], walls = [], hw = ST.w / 2;
     for (const [a, b, y] of tr) { const zc = (a + b) / 2, d = b - a;
-      mass.push(boxAt(ST.w, y - base - .15, d, ST.x, base, zc, 0)); caps.push(boxAt(ST.w, .15, d, ST.x, y - .15, zc, 0));
-      for (const sd of [-1, 1]) walls.push(boxAt(1.2, y + 1 - base, d, ST.x + sd * (hw + .6), base, zc, 0)); }
-    const part = (geos, mat, tag) => { const m = new T.Mesh(mergeGeometries(geos.map(g => { g = g.toNonIndexed(); boxUV(g, 4); return g; })), mat); m.name = 'slot:8' + tag; m.userData.live = true; G('plaza').add(m); slotMeshes.push(m); };
+      mass.push(sx(boxAt(ST.w, y - base - .15, d, ST.x, base, zc, 0))); caps.push(sx(boxAt(ST.w, .15, d, ST.x, y - .15, zc, 0)));
+      for (const sd of [-1, 1]) { walls.push(boxAt(1.2, y + 1 - base, d, ST.x + sd * (hw + .6), base, zc, 0)); if (DT) caps.push(boxAt(1.6, .28, d + .02, ST.x + sd * (hw + .6), y + 1, zc, 0)); } }
+    const part = (geos, mat, tag) => { const m = new T.Mesh(mergeGeometries(geos.map(g => { g = g.toNonIndexed(); boxUV(g, 4); return g; })), mat); m.name = 'slot:8' + tag; m.userData.live = !DT; G('plaza').add(m); slotMeshes.push(m); };
     part(mass, stone, ''); part(caps, cap, ':treads'); part(walls, brick, ':walls');
     // retaining wall along the terrace's south edge (stair gap in the middle) + coping
-    const wz = TRC.rect[3], wl = [], cp = [], seg = (x0, x1) => { const w = x1 - x0; wl.push(boxAt(w, TRC.y - base, 1.2, (x0 + x1) / 2, base, wz + .6, 0)); cp.push(boxAt(w, .4, TRC.coping, (x0 + x1) / 2, TRC.y, wz + .6 - .1, 0)); };
+    const wz = TRC.rect[3], wl = [], cp = [], seg = (x0, x1) => { const w = x1 - x0; wl.push(sx(boxAt(w, TRC.y - base, 1.2, (x0 + x1) / 2, base, wz + .6, 0))); cp.push(boxAt(w, .4, TRC.coping, (x0 + x1) / 2, TRC.y, wz + .6 - .1, 0)); };
     seg(TRC.rect[0], ST.x - hw - 1.2); seg(ST.x + hw + 1.2, TRC.rect[2]);
-    for (const [geos, mat, nm] of [[wl, brick, 'terraceWall'], [cp, cap, 'terraceCoping']]) { const m = new T.Mesh(mergeGeometries(geos.map(g => { g = g.toNonIndexed(); boxUV(g, 4); return g; })), mat); m.name = nm; m.userData.live = true; G('plaza').add(m); } }
+    for (const [geos, mat, nm] of [[wl, brick, 'terraceWall'], [cp, cap, 'terraceCoping']]) { const m = new T.Mesh(mergeGeometries(geos.map(g => { g = g.toNonIndexed(); boxUV(g, 4); return g; })), mat); m.name = nm; m.userData.live = !DT; G('plaza').add(m); } }
   // -- cave mouth (wild edge): dark recess at the cliff foot, facing south
   { const [cx, cz] = PLAN.cliff.cave, y = groundY(cx, cz + 3), cave = new T.Mesh(boxAt(9, 7, 4, cx, y - .5, cz - 1, Math.atan2(PLAN.cliff.to[1] - PLAN.cliff.from[1], PLAN.cliff.to[0] - PLAN.cliff.from[0]) * -1), new T.MeshBasicMaterial({color: '#17130f'}));
     cave.name = 'caveMouth'; cave.userData.live = true; cityRoot.add(cave); }
@@ -243,10 +258,18 @@ export function build(scene, {M, V, TR, look, spec, look4}) {
   stats.lots = lots.length; stats.ms = Math.round(performance.now() - t0);
   const bakeGroups = Object.entries(groups).map(([k, root]) => ({root, preset: spec?.look4 ?? 'cityDay', name: k}));
   return {anchors, groundY, places: Object.fromEntries(slots.map(s => ['slot' + s.id, {at: [s.at[0], s.base, s.at[1]]}])), slots, stats, bakeGroups: spec?.look4 ? bakeGroups : undefined,
-    onCamera(p) { cull(p); if (look?.sky) look.sky.position.set(p[0], 0, p[2]); },
-    update(t) { WATER?.update(t); forest.update?.(t); }};
+    onCamera(p) { cull(p); if (look?.sky) look.sky.position.set(p[0], 0, p[2]); for (const b of kitB) setLOD(b, lodFor(Math.hypot(p[0] - b.at[0], p[2] - b.at[2]))); },
+    update(t) { WATER?.update(t); forest.update?.(t); dt?.update(t); },
+    setState(k, v) { return dt?.setState(k, v); }, downtown: dt, kitBuildings: kitB};
 }
 
+// Phase 1B: a district lot as a kit building (rows of brick / plaster / mansard around the plaza, candy fill on Main St).
+function lotBuilding(l, R) {
+  const r = R(), key = l.district === 'mainSt' ? 'rowCandy' : r < .45 ? 'rowBrick' : r < .75 ? 'rowPlaster' : 'mansardBrick', pre = PRESETS[key];
+  const floors = Math.max(2, Math.min(3, Math.round(l.h / 3.6))), body = key === 'rowCandy' ? l.color : key === 'rowPlaster' ? ['#efe4cf', '#f3d9c4', '#e8eef2', '#f6e7b6'][Math.floor(R() * 4)] : ['#b9533d', '#a94a39', '#c0643f'][Math.floor(R() * 3)];
+  const yaw = l.n[0] || l.n[1] ? Math.atan2(-l.n[0], -l.n[1]) : l.yaw, f = [l.x - Math.sin(yaw) * -l.d / 2, l.z - Math.cos(yaw) * -l.d / 2];
+  return placeBuilding({...pre, footprint: [l.w, l.d], floors, palette: {...pre.palette, body}, seed: Math.floor(R() * 1e6), id: key}, l.x, l.z, yaw, f);
+}
 // ---- surfaces -------------------------------------------------------------------------------------------------------------------
 // CC0 maps from the farm cache when present, else the procedural pattern (parts/materials.js std).
 function surf(M, slot, pattern, color, tile) {
@@ -310,16 +333,18 @@ function streetTrees(roads, lots, R) {
     if (k === 'boardwalk') continue; const P = rd.pts;
     for (let i = 1; i < P.length; i++) { const a = P[i - 1], b = P[i], L = Math.hypot(b[0] - a[0], b[1] - a[1]), tx = (b[0] - a[0]) / L, tz = (b[1] - a[1]) / L;
       for (let s = 10; s < L; s += 17) for (const side of [-1, 1]) { const off = rd.w / 2 + PLAN.sidewalk - .6, x = a[0] + tx * s + tz * off * side, z = a[1] + tz * s - tx * off * side, d = districtAt(x, z);
-        if (Math.hypot(x, z) < PLAN.plaza.r * 2 + 4 || d === 'wild' || inCorridor(x, z, 3) || coastDist(x, z) < 3 || lots.some(l => Math.hypot(l.x - x, l.z - z) < l.r * .6)) continue;
+        if (MS_SKIP(k, x, z) || Math.hypot(x, z) < PLAN.plaza.r * 2 + 4 || d === 'wild' || inCorridor(x, z, 3) || coastDist(x, z) < 3 || lots.some(l => Math.hypot(l.x - x, l.z - z) < l.r * .6)) continue;
         out.push({x, z, y: groundY(x, z) + LAYER.sidewalk, s: .75 + R() * .3, r: R() * 6.28, palm: d === 'harbor' || d === 'beach'}); } }
   }
   const [bx, bz] = toWorld([308, 300]); for (let i = 0; i < 6; i++) { const x = bx - 30 + i * 11, z = bz - 10 + (i % 2) * 6; if (groundY(x, z) > .8) out.push({x, z, y: groundY(x, z), s: .9, r: i, palm: true}); }
   return out;
 }
+// Phase 1B: no street trees in front of the Main St shop signs (the kit storefront stretch of plan.json mainStreet).
+const MS_SKIP = (k, x) => k === PLAN.mainStreet?.road && x < Math.max(...PLAN.mainStreet.shops.map(s => s.s)) + 14;
 // Instanced street trees: procedural kit near + far LOD, or a CC0 glTF model (farm cache) for trees within NEAR_R of an anchor.
 function instTrees(V, list, species, seed, AXZ) {
   const g = new T.Group(); g.name = 'streetTrees_' + species; if (!list.length) return g;
-  const near = list.filter(p => nearestAnchor(p.x, p.z, AXZ) < NEAR_R), far = list.filter(p => nearestAnchor(p.x, p.z, AXZ) >= NEAR_R);
+  const NR = 35, near = list.filter(p => nearestAnchor(p.x, p.z, AXZ) < NR), far = list.filter(p => nearestAnchor(p.x, p.z, AXZ) >= NR);   // Phase 1B: near-LOD street trees within 35 of an anchor
   const model = ASSETS.models[species === 'palm' ? 'city_palm' : 'city_tree'];
   const useModel = model && model.tris <= 12000 && near.length * model.tris <= 60000;
   const m4 = new T.Matrix4(), q = new T.Quaternion(), e = new T.Euler();

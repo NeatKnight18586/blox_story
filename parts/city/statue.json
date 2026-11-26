@@ -1,0 +1,13 @@
+{
+  "note": "Governor statue (slot 1, plaza centre) — pose as DATA so each episode can swap it (running gag): spec `statuePose: '<name>'` (default `default`). R6 units (torso 2×2×1, limbs 1×2×1, head 1.2), figure faces +z (south, down the Grand Stair). Limb `dir` = unit-ish vector from the shoulder / hip pivot to the hand / foot (normalised in code); `head`/`torso` = [pitch, yaw, roll] degrees; `megaphone` = [from (mouth), to] in figure units or null; `point` = index finger on that hand. Plaque text is in-world (a motto, never a name label).",
+  "scale": 1.9,
+  "plinth": {"base": [6.2, 1, 6.2], "body": [4.6, 3.2, 4.6], "cap": [5.2, 0.6, 5.2], "color": "#ede3cf"},
+  "plaque": {"text": "RULES ARE RULES", "size": [3.6, 1.1]},
+  "gold": "#e8b53a", "band": "#8f2a22",
+  "default": "megaphone",
+  "poses": {
+    "megaphone": {"torso": [-4, 0, 0], "head": [-8, 0, 0], "armR": {"dir": [0.32, 0.57, 0.76]}, "armL": {"dir": [0.22, 0.97, 0.1], "point": true}, "legL": {"dir": [0.1, -1, 0.02]}, "legR": {"dir": [-0.1, -1, -0.02]}, "megaphone": [[-0.22, 4.4, 0.6], [-1.45, 4.8, 2.25]]},
+    "salute": {"torso": [0, 0, 0], "head": [0, 0, 0], "armR": {"dir": [0.62, 0.62, 0.48]}, "armL": {"dir": [0.08, -1, 0]}, "legL": {"dir": [0.05, -1, 0]}, "legR": {"dir": [-0.05, -1, 0]}, "megaphone": null},
+    "decree": {"torso": [-6, 0, 0], "head": [-14, 0, 0], "armR": {"dir": [-0.1, 0.45, 0.89]}, "armL": {"dir": [0.1, 0.45, 0.89]}, "legL": {"dir": [0.12, -1, 0]}, "legR": {"dir": [-0.12, -1, 0]}, "megaphone": null}
+  }
+}

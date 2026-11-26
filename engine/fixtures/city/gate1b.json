@@ -1,0 +1,144 @@
+{
+ "slug": "city1b",
+ "fps": 24,
+ "format": 6,
+ "labels": false,
+ "world": "parts/city/world.js",
+ "look4": "cityDay",
+ "cast": {},
+ "note": "Phase 1B gate cameras (scripts/v2/city-gate.js --phase 1b, plan.json gate1b).",
+ "shots": [
+  {
+   "id": "e",
+   "size": "wide",
+   "frames": 6,
+   "move": "static-drift",
+   "drift": 0,
+   "anchor": "stairBottom",
+   "from": {
+    "position": [
+     20,
+     3.9,
+     83
+    ],
+    "target": [
+     5,
+     27,
+     -56
+    ],
+    "fov": 58
+   },
+   "shadowRadius": 40
+  },
+  {
+   "id": "c",
+   "size": "wide",
+   "frames": 6,
+   "move": "static-drift",
+   "drift": 0,
+   "anchor": "bayNorth",
+   "from": {
+    "position": [
+     0,
+     6,
+     135
+    ],
+    "target": [
+     0,
+     23.4,
+     -60
+    ],
+    "fov": 50
+   },
+   "shadowRadius": 40
+  },
+  {
+   "id": "f",
+   "size": "wide",
+   "frames": 6,
+   "move": "static-drift",
+   "drift": 0,
+   "anchor": "acrossBay",
+   "from": {
+    "position": [
+     -204,
+     6.62,
+     291
+    ],
+    "target": [
+     17,
+     9,
+     171
+    ],
+    "fov": 74
+   },
+   "shadowRadius": 40
+  },
+  {
+   "id": "g",
+   "size": "wide",
+   "frames": 6,
+   "move": "static-drift",
+   "drift": 0,
+   "anchor": "plazaWide",
+   "from": {
+    "position": [
+     -26,
+     19,
+     24
+    ],
+    "target": [
+     20,
+     22,
+     -24
+    ],
+    "fov": 55
+   },
+   "shadowRadius": 40
+  },
+  {
+   "id": "h",
+   "size": "wide",
+   "frames": 6,
+   "move": "static-drift",
+   "drift": 0,
+   "anchor": "mainSt",
+   "from": {
+    "position": [
+     104,
+     17.0125,
+     0
+    ],
+    "target": [
+     68.69999999999999,
+     27,
+     -18.80000000000001
+    ],
+    "fov": 55
+   },
+   "shadowRadius": 40
+  },
+  {
+   "id": "i",
+   "size": "wide",
+   "frames": 6,
+   "move": "static-drift",
+   "drift": 0,
+   "anchor": "hallBalcony",
+   "from": {
+    "position": [
+     9,
+     15.2,
+     16
+    ],
+    "target": [
+     -1,
+     32.6,
+     -41
+    ],
+    "fov": 58
+   },
+   "shadowRadius": 40
+  }
+ ]
+}

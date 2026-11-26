@@ -37,6 +37,7 @@ engine/fixtures/cine/before.json — tuft 1B fixture, BEFORE (current engine): t
 engine/fixtures/cine/bloomgate.json — tuft 1B bloom gate (scripts/v2/cine-gates.js): a white DUMMY (non-emissive) under the street lamp, the brightest lit spot of the night set, 
 engine/fixtures/cine/episode.json — tuft 1B (+ 1B fix) Look Pack + cinematic camera fixture: 6 shots ~12 s on the v4look street at night (look4 mystery: lit windows, lamp), HER
 engine/fixtures/city/gate.json — Phase 1A gate cameras (written by scripts/v2/city-gate.js from parts/city/plan.json anchors).
+engine/fixtures/city/gate1b.json — Phase 1B gate cameras (scripts/v2/city-gate.js --phase 1b, plan.json gate1b).
 engine/fixtures/city/overview.json — Phase 1A overview: terrain tinted by district (spec cityOverview).
 engine/fixtures/eight-moves.json — Session 1 test clip: 3 s, one shot per camera move, one legacy avatar walking across a ground plate.
 engine/fixtures/fix3b/demo-tb.json — tuft P3B demo2 piece: TITAN on the ground before the mountain at night, low 3/4 on the chained forelegs: roar → break (chains snap, links fa
@@ -165,8 +166,14 @@ avatar-style/tools.js — hand-held tools (docs/V2_BRIEF.md §6.4): sword, stone
 parts/ambient.js — ambient movers (docs/V2_BRIEF.md §7.2), each {object, update(t)} with t in
 parts/biomes.js — biome tables (Amendment A4 A2). A biome is data: palette, terrain splat layers + thresholds,
 parts/build.js — placement helpers (docs/V2_BRIEF.md §7.2): row, grid, ringOf, along(curve),
+parts/city/downtown.js — Phase 1B: Downtown, fully detailed, built from the City Building Kit (parts/city/kit/).
+parts/city/kit/building.js — City Building Kit (Phase 1B): pure data in → meshes out, seeded, three LODs, merged by material.
+parts/city/kit/mats.js — City Building Kit materials (Phase 1B). One cached material per (kind, colour).
+parts/city/kit/presets.json — City Building Kit presets (Phase 1B). Each entry is a building() spec (parts/city/kit/building.js); a placement may override any field (foot
+parts/city/kit/props.js — City kit street props (Phase 1B), data in → one merged group per material.
 parts/city/plan.js — Phase 1A: pure helpers over parts/city/plan.json (the island city's source of truth). Node-testable, no three.
 parts/city/plan.json — Phase 1A: the permanent island city. SOURCE OF TRUTH (owner-approved drawing). Map px: 1 px = 2 studs; world x = (mx - 191) * 2, z = (my - 1
+parts/city/statue.json — Governor statue (slot 1, plaza centre) — pose as DATA so each episode can swap it (running gag): spec `statuePose: '<name>'` (default `defau
 parts/city/world.js — Phase 1A: the permanent island city as a reusable world (v3 world contract: groundY, LAYER, LOOK, build,
 parts/eggs.js — Season 1 episode 1 eggs: nine original designs (stories/egg/beats.md), one shared shape, a painted shell
 parts/landform.js — landform rigs (Amendment A4 B2): part of the terrain that turns out to be a character (the

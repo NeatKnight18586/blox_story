@@ -87,6 +87,14 @@
       ],
       "search": "planks"
     },
+    "city_stone": {
+      "candidates": [
+        "white_sandstone_blocks_02",
+        "sandstone_blocks_08",
+        "stone_tiles_02"
+      ],
+      "search": "sandstone"
+    },
     "city_shingles": {
       "candidates": [
         "roof_09",
