@@ -6,6 +6,13 @@ import * as T from 'three';
 import {bins, bevel, pbox, prism} from './building.js';
 import {kitMat, liveMat, tileOf, goldMat} from './mats.js';
 
+// Phase 1D: docks are LIVE (lit in real time, never baked): .07-stud plank gaps voxelise shut in the bake and turn the deck black
+const liveCache = new Map();
+function liveKit(kind, color) { const k = kind + color; if (!liveCache.has(k)) { const m = kitMat(kind, color).clone(); m.userData = {...m.userData, live: true}; liveCache.set(k, m); } return liveCache.get(k); }
+// a deck plank: top face + the two edge faces across the deck (the gaps read), no bottom / ends (never seen): 6 tris
+function plank(w, h, d, x, y, z) { const g = new T.BoxGeometry(w, h, d).toNonIndexed(), n = g.attributes.normal, keep = []; for (let i = 0; i < n.count; i += 3) if (n.getY(i) > .5 || Math.abs(n.getZ(i)) > .5) keep.push(i);
+  const p = g.attributes.position, uv = g.attributes.uv, P = [], N = [], U = []; for (const i of keep) for (let j = i; j < i + 3; j++) { P.push(p.getX(j), p.getY(j), p.getZ(j)); N.push(n.getX(j), n.getY(j), n.getZ(j)); U.push(uv.getX(j), uv.getY(j)); }
+  const o = new T.BufferGeometry(); o.setAttribute('position', new T.Float32BufferAttribute(P, 3)); o.setAttribute('normal', new T.Float32BufferAttribute(N, 3)); o.setAttribute('uv', new T.Float32BufferAttribute(U, 2)); return o.translate(x, y + h / 2, z); }
 const cyl = (rt, rb, h, x, y, z, seg = 8) => new T.CylinderGeometry(rt, rb, h, seg).translate(x, y + h / 2, z);
 // Blocky Roblox-style car (≈ 300 tris): body + cabin + side-window band + wheels + lamps. Front = +z; colors[0] = body.
 function car(A, o, {len, cab, cabLen, cabZ}) { const W = 2.6, col = o.colors?.[0] ?? '#d8362b', body = kitMat('gloss', col), blk = kitMat('plastic', '#23262c'), glass = kitMat('glass', '#ffffff');
@@ -93,6 +100,42 @@ const PROPS = {
     const Ln = Math.hypot(PY + .4, 2.4), an = Math.atan2(2.4, PY + .4);   // ladder: bottom (x, 0, 5.8) → top edge of the deck (x, PY + .4, 3.4)
     for (const sx of [-.5, .5]) A(dk, pbox(.14, Ln, .14, 0, 0, 0).rotateX(-an).translate(.9 + sx, 0, 5.8));
     for (let k = 1; k < 10; k++) { const t = k / 10; A(dk, pbox(1.1, .1, .14, .9, (PY + .4) * t, 5.8 - 2.4 * t)); } },
+  // ---- Phase 1D harbor + beach kinds (front = +z, ground at y 0 unless noted) ----
+  // dock: a plank deck (len along z, w across) on piles: real planks (CC0 wood, .06 gaps, slight tone jitter), an edge trim board on both
+  // sides + the far end, piles every `pile` studs down to `depth` below the deck; deck top at y 0 (place `at` on the deck height).
+  dock(A, o0) { const o = o0, kitMat = liveKit, len = o.len ?? 10, w = o.w ?? 3.2, pw = .5, gap = .07, n = Math.max(1, Math.round(len / (pw + gap))), step = len / n, tones = o.colors ?? ['#c99a66', '#b98a58', '#d4a874'];
+    for (let k = 0; k < n; k++) A(kitMat('wood', tones[(k * 7 + (o.seed ?? 0)) % tones.length]), plank(w - .1, .18, step - gap, ((k * 13) % 5 - 2) * .02, -.18, -len / 2 + (k + .5) * step), tileOf('wood'));   // top + 2 edges (6 tris)
+    const trim = kitMat('wood', o.trim ?? '#7a5536');
+    for (const sx of [-1, 1]) A(trim, pbox(.22, .42, len + .1, sx * (w / 2 + .06), -.5, 0), tileOf('wood'));
+    if (o.endTrim !== false) A(trim, pbox(w + .34, .42, .22, 0, -.5, len / 2 + .06), tileOf('wood'));
+    for (const sx of [-1, 1]) A(trim, pbox(.3, .2, len, sx * (w / 2 - .5), -.42, 0));   // joists under the planks
+    const pile = kitMat('wood', '#6e4c32'), pd = o.pile ?? 5, depth = o.depth ?? 4;
+    for (let z = -len / 2 + .4; z <= len / 2 - .2; z += pd) for (const sx of [-1, 1]) A(pile, new T.CylinderGeometry(.2, .22, depth + .2, 5, 1, true).translate(sx * (w / 2 + .05), -depth + (depth + .2) / 2, z));
+    if (o.rails) for (const sx of [].concat(o.rails === true ? [-1, 1] : o.rails)) { for (let z = -len / 2 + .2; z <= len / 2; z += len / Math.max(1, Math.round(len / 3))) A(trim, pbox(.2, 1.3, .2, sx * (w / 2 - .1), 0, z));
+      for (const y of [.65, 1.2]) A(trim, pbox(.12, .14, len, sx * (w / 2 - .1), y, 0)); } },
+  crate(A, o) { const n = o.n ?? 1, cols = o.colors ?? ['#c9925a', '#b07a45'];
+    for (let i = 0; i < n; i++) { const x = (i % 2) * 1.25 - (n > 1 ? .62 : 0), y = Math.floor(i / 2) * 1.12, c = kitMat('wood', cols[i % cols.length]), s = 1.1, r = ((i * 37) % 9 - 4) * .03;
+      A(c, pbox(s, s, s, x, y, 0).rotateY(r), tileOf('wood')); A(kitMat('wood', '#7a5536'), pbox(s + .04, .12, s + .04, x, y + s * .45, 0).rotateY(r)); } },
+  barrel(A, o) { const c = kitMat('wood', o.colors?.[0] ?? '#a86d3c'), band = kitMat('metal', '#3a3f47');
+    A(c, new T.CylinderGeometry(.5, .45, 1.3, 10, 2).translate(0, .65, 0)); for (const y of [.18, 1.1]) A(band, cyl(.52, .52, .08, 0, y, 0, 10)); A(kitMat('wood', '#8a5530'), cyl(.46, .46, .04, 0, 1.3, 0, 10)); },
+  net(A, o) { const g = new T.PlaneGeometry(o.len ?? 3, 1.6, 8, 4), p = g.attributes.position;   // a fishing net draped over a rail / heap
+    for (let i = 0; i < p.count; i++) { const x = p.getX(i), y = p.getY(i); p.setXYZ(i, x, .55 + y * .3 + .12 * Math.sin(x * 3.1) * Math.cos(y * 2), .25 * Math.cos(x * 2.3 + y)); }
+    g.computeVertexNormals(); A(kitMat('plastic', o.colors?.[0] ?? '#3f8f6b'), g); A(kitMat('plastic', '#f2b02c'), cyl(.16, .16, .14, -(o.len ?? 3) / 2 + .3, .9, .2, 6)); A(kitMat('plastic', '#f2b02c'), cyl(.16, .16, .14, (o.len ?? 3) / 2 - .3, .9, .2, 6)); },
+  rope(A, o) { A(kitMat('plastic', '#d9c38c'), new T.TorusGeometry(.42, .1, 5, 12).rotateX(Math.PI / 2).translate(0, .1, 0)); A(kitMat('plastic', '#d9c38c'), new T.TorusGeometry(.32, .1, 5, 12).rotateX(Math.PI / 2).translate(0, .28, 0)); },
+  mooring(A) { const iron = kitMat('metal', '#2f3a36'); A(iron, cyl(.28, .34, .55, 0, 0, 0, 8)); A(iron, cyl(.4, .3, .2, 0, .55, 0, 8)); },
+  buoy(A, o) { A(kitMat('gloss', o.colors?.[0] ?? '#e53935'), new T.SphereGeometry(.55, 10, 6).translate(0, .25, 0)); A(kitMat('gloss', '#ffffff'), cyl(.57, .57, .25, 0, .2, 0, 10)); },
+  beachUmbrella(A, o) { const c = o.colors ?? ['#ffffff', '#e53935'], tilt = o.tilt ?? .18, n = 10, pole = kitMat('plastic', '#f6f4ee'), G = [];
+    A(pole, cyl(.06, .06, 3, 0, 0, 0, 5).rotateZ(tilt)); for (let i = 0; i < n; i++) A(kitMat('plastic', c[i % c.length]), new T.ConeGeometry(2, .8, 2, 1, true, i * 2 * Math.PI / n, 2 * Math.PI / n).translate(0, 3.1, 0).rotateZ(tilt)); void G; },
+  towel(A, o) { const c = o.colors ?? ['#4fc3f7', '#ffffff']; for (let i = 0; i < 5; i++) A(kitMat('plastic', c[i % c.length]), pbox(1.2, .05, .36, 0, 0, -.72 + i * .36)); },
+  lifeguard(A) { const white = kitMat('plastic', '#fbfaf5'), red = kitMat('gloss', '#e53935'), wood = kitMat('wood', '#c99a66');
+    for (const [x, z] of [[-1, -1], [1, -1], [-1, 1], [1, 1]]) A(white, pbox(.22, 3.6, .22, x * 1.1, 0, z * 1.1).rotateX(z * .06).rotateZ(-x * .06));
+    A(wood, pbox(3, .2, 3, 0, 3.5, 0), tileOf('wood')); A(red, pbox(2.8, 1.8, .14, 0, 3.7, -1.3)); for (const sx of [-1, 1]) A(red, pbox(.14, 1.1, 2.6, sx * 1.33, 3.7, -.1));
+    A(white, pbox(2.6, .5, .14, 0, 4.3, 1.33)); A(red, prism(3.4, 1, 3.4).translate(0, 5.5, 0)); A(white, pbox(3.2, .12, 3.2, 0, 5.5, 0));
+    for (let k = 0; k < 6; k++) A(white, pbox(1.2, .1, .3, 0, .5 + k * .55, 1.6 + k * .25)); A(kitMat('metal', '#5a5f66'), cyl(.05, .05, 2.4, 1.3, 5.5, -1.3, 5)); A(red, pbox(.9, .6, .05, 1.75, 7.3, -1.3)); },
+  iceCart(A, o) { const c = o.colors ?? ['#ff8fb1', '#ffffff'], body = kitMat('gloss', c[0]), white = kitMat('plastic', c[1]), blk = kitMat('plastic', '#2a2d33');
+    A(body, pbox(2.6, 1.2, 1.4, 0, .5, 0)); A(white, pbox(2.7, .14, 1.5, 0, 1.7, 0)); for (const sx of [-1, 1]) A(blk, cyl(.42, .42, .2, sx * .9, .42, .8, 10).rotateX(Math.PI / 2).translate(0, .42, -.4));
+    A(kitMat('metal', '#cfd4da'), cyl(.05, .05, 2, .8, 1.8, 0, 5)); for (let i = 0; i < 8; i++) A(kitMat('plastic', c[i % 2]), new T.ConeGeometry(1.5, .6, 2, 1, true, i * Math.PI / 4, Math.PI / 4).translate(.8, 4.05, 0));
+    for (const [x, col] of [[-.7, '#ffd23f'], [-.2, '#8fd35a'], [.3, '#ff8fb1']]) { A(kitMat('plastic', '#e8b872'), new T.ConeGeometry(.2, .5, 6).rotateX(Math.PI).translate(x, 2.05, 0)); A(kitMat('plastic', col), new T.SphereGeometry(.24, 6, 4).translate(x, 2.38, 0)); } },
 };
 export const PROP_KINDS = Object.keys(PROPS);
 // list → merged group (static parts baked; glow/water live).

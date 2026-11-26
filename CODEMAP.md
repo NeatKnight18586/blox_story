@@ -39,8 +39,10 @@ engine/fixtures/cine/episode.json — tuft 1B (+ 1B fix) Look Pack + cinematic c
 engine/fixtures/city/gate.json — Phase 1A gate cameras (written by scripts/v2/city-gate.js from parts/city/plan.json anchors).
 engine/fixtures/city/gate1b.json — Phase 1B gate cameras (scripts/v2/city-gate.js --phase 1b, plan.json gate1b).
 engine/fixtures/city/gate1c.json — Phase 1C gate cameras (scripts/v2/city-gate.js --phase 1c, plan.json gate1c).
+engine/fixtures/city/gate1d.json — (no header)
 engine/fixtures/city/look.json — (no header)
 engine/fixtures/city/overview.json — Phase 1A overview: terrain tinted by district (spec cityOverview).
+engine/fixtures/city/scratch-ka.json — (no header)
 engine/fixtures/eight-moves.json — Session 1 test clip: 3 s, one shot per camera move, one legacy avatar walking across a ground plate.
 engine/fixtures/fix3b/demo-tb.json — tuft P3B demo2 piece: TITAN on the ground before the mountain at night, low 3/4 on the chained forelegs: roar → break (chains snap, links fa
 engine/fixtures/fix3b/titan-hero.json — tuft P3B TITAN hero fixture: titanCave night ground in front of the mountain, TITAN idle / roar, low ¾ camera (lit night ¾ hero render).
@@ -170,6 +172,7 @@ parts/ambient.js — ambient movers (docs/V2_BRIEF.md §7.2), each {object, upda
 parts/biomes.js — biome tables (Amendment A4 A2). A biome is data: palette, terrain splat layers + thresholds,
 parts/build.js — placement helpers (docs/V2_BRIEF.md §7.2): row, grid, ringOf, along(curve),
 parts/city/downtown.js — Phase 1B: Downtown, fully detailed, built from the City Building Kit (parts/city/kit/).
+parts/city/harbor.js — Phase 1D: the east arm, fully detailed (data: plan.json "harbor"; owner decisions, do not change):
 parts/city/kit/building.js — City Building Kit (Phase 1B): pure data in → meshes out, seeded, three LODs, merged by material.
 parts/city/kit/mats.js — City Building Kit materials (Phase 1B). One cached material per (kind, colour).
 parts/city/kit/presets.json — City Building Kit presets (Phase 1B). Each entry is a building() spec (parts/city/kit/building.js); a placement may override any field (foot
@@ -310,6 +313,7 @@ scripts/v2/build-gates.js — measured gate for the adult_f torso (owner 2026-11
 scripts/v2/builds-sheet.js — A5 Decision 5 review sheet: the four body builds side by side (front + three-quarter, full body)
 scripts/v2/cine-gates.js — tuft 1B (+ 1B fix) Look Pack gates (browser) → review/cine/gates.json:
 scripts/v2/city-gate.js — Phase 1A city gate: specs from the plan's anchors (never hand-typed), phone stills, measured sightlines,
+scripts/v2/city1d-gate.js — Phase 1D city gate (look B = cityDay2 + outline classic, the city default): every key-art anchor once at
 scripts/v2/class-sheet.js — Amendment A3 review sheet: the six class swords.
 scripts/v2/e2-gates.js — E2 gates → review/e2/gates.json
 scripts/v2/e3b-gates.js — node scripts/v2/e3b-gates.js --spec stories/lastcolor/episode.json [--payoff-t 114.6] [--out review/lastcolor/g2a.json]

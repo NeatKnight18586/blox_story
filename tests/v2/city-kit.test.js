@@ -33,8 +33,12 @@ test('kit: bevelled boxes face outward on all six sides (winding fix)', () => {
   assert.equal(bad, 0); assert.equal(typeof fixWinding, 'function');
 });
 test('props: every kind builds; static and live parts separated', () => quiet(() => {
-  const g = cityProps(PROP_KINDS.map((kind, i) => ({kind, at: [i * 5, 0, 0]})));
+  const K1D = ['dock', 'crate', 'barrel', 'net', 'rope', 'mooring', 'buoy', 'beachUmbrella', 'towel', 'lifeguard', 'iceCart'];
+  const g = cityProps(PROP_KINDS.filter(k => !K1D.includes(k)).map((kind, i) => ({kind, at: [i * 5, 0, 0]})));
   assert.ok(tris(g) < 6000); assert.ok(g.children.some(m => m.userData.live), 'lamp glow is live');
+  // Phase 1D harbor + beach kinds: each ≤ 400 tris (dock: per 10 studs ≤ 400), the dock is live (never baked: its plank gaps voxelise shut)
+  for (const kind of K1D) { const t = tris(cityProps([{kind, at: [0, 0, 0], len: 10}])); assert.ok(t <= 400, `${kind} ${t}`); }
+  assert.ok(cityProps([{kind: 'dock', at: [0, 0, 0], len: 10}]).children.every(m => m.userData.live), 'dock is live');
 }));
 test('downtown: Hall is the tallest (top hat), bell swings via setState, clock runs backwards, statue pose is data', () => quiet(() => {
   const h = governorsHall(), slots = landmarkSlots(), s2 = slots.find(s => s.id === '2');
