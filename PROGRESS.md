@@ -53,3 +53,13 @@ Farm (run 45773645153, look B): all checks PASS; bench gate rows 32.8–72.9k tr
 Decisions: CC0 trees rejected — every Poly Haven leafy tree is ≥ 60 MB/file (cap 25 MB); the pine/fir that fit are 1.3 m saplings (398k/433k tris) that read as brown chips at ≤ 6k
 and cost +0.2–0.5 s/frame (run 45772957609) → all species procedural (CC0 path kept, plan.json `trees.species.*.model`). maxModelBytes 25 MB stays for the request.
 Open: night look still bright on water/ground; golden hour weakly warm; impostor dither visible right at the 25-stud band; the six wild anchors only have one fg (forestTrail).
+
+## Phase 1F — Governor + episode engine pieces + look fixes (city gate 6; ENGINE slot; branch claude/eager-bohr-rg5mhm)
+Built: THE GOVERNOR (`cast/governor.json`, `avatar-style/governor.js`: tall top hat + red band, gold monocle (pops off on gov_panic), handlebar mustache,
+navy suit + red tie, gold chain + medallion, golden megaphone; faces v6 `FACES_GOV` smug/announce/panic/oops; acts `GOV_VERBS` rope_pull/announce/panic_up;
+anchor `govBalcony`); rule-clock kit `engine/clockfx.js` (spec `clock`: dong = bell swing + shockwave, pop = smoke puff + sparkles + object swap, crack =
+`bellCrack`); anchor lock `engine/anchorlock.js` (spec `anchorLock`); meme-gap audio `scripts/v2/memegap.py` (+ assemble.py `audio.voice` opt-in);
+looks: cityNight real night (lamp pools baked + terrain glow, dark water, matcap rim), cityGoldenHour orange→peach, terrain triplanar + per-pixel cliff rock,
+3D wildflower tufts. Gate `scripts/v2/city1f-gate.js` + `city1f-sheet.py`, request line `city1f`.
+Farm run 45785015477 (CC0, look B): all PASS — bench bayNorth ×4 looks 56–69k tris, 0.406–0.427 s/frame; clock cam 53.9k / 0.408 s; night luma .123 vs day .542. Local: clock events dong .25 / pops 1.0, 1.6, 2.2 PASS; anchor lock 3/3 shots in zone (residual < 1e-3); bench 56–69k tris, 0.32–0.39 s/frame;
+night luma .128 vs day .549; Governor 7,972 tris; meme-gap fixture 11 words shifted, 0 overlap samples, VO bit-identical, clip −3.0 dB. npm test + v2:test green.
