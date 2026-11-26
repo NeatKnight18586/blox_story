@@ -1,0 +1,1462 @@
+{
+ "spec": "stories/fearbell/episode.json",
+ "size": "540x960",
+ "nudge": 0.004,
+ "threshold": 40,
+ "limit": 0.3,
+ "views": 240,
+ "worst": {
+  "view": "S49:first",
+  "frame": 1778,
+  "pct": 17.011,
+  "raw": 18.292
+ },
+ "failing": [
+  "S38:mid",
+  "S49:first"
+ ],
+ "errors": [],
+ "result": "FAIL",
+ "rows": [
+  {
+   "view": "@city:ka_stoneHead",
+   "frame": null,
+   "pct": 0.002,
+   "raw": 0.186
+  },
+  {
+   "view": "@city:ka_forestTrail",
+   "frame": null,
+   "pct": 0.009,
+   "raw": 0.471
+  },
+  {
+   "view": "@city:ka_ropeBridge",
+   "frame": null,
+   "pct": 0.028,
+   "raw": 0.656
+  },
+  {
+   "view": "@city:ka_cliffLookout",
+   "frame": null,
+   "pct": 0.055,
+   "raw": 0.849
+  },
+  {
+   "view": "@city:ka_campsite",
+   "frame": null,
+   "pct": 0.005,
+   "raw": 0.299
+  },
+  {
+   "view": "@city:ka_caveMouth",
+   "frame": null,
+   "pct": 0.005,
+   "raw": 0.183
+  },
+  {
+   "view": "@city:ka_plazaSouth",
+   "frame": null,
+   "pct": 0.001,
+   "raw": 0.2
+  },
+  {
+   "view": "@city:ka_plazaNorth",
+   "frame": null,
+   "pct": 0.025,
+   "raw": 0.486
+  },
+  {
+   "view": "@city:ka_bayNorth",
+   "frame": null,
+   "pct": 0.008,
+   "raw": 0.23
+  },
+  {
+   "view": "@city:ka_stairBottom",
+   "frame": null,
+   "pct": 0.006,
+   "raw": 0.27
+  },
+  {
+   "view": "@city:ka_boardwalk",
+   "frame": null,
+   "pct": 0.011,
+   "raw": 0.343
+  },
+  {
+   "view": "@city:ka_suburbStreet",
+   "frame": null,
+   "pct": 0.021,
+   "raw": 0.386
+  },
+  {
+   "view": "@city:ka_schoolYard",
+   "frame": null,
+   "pct": 0.025,
+   "raw": 0.229
+  },
+  {
+   "view": "@city:ka_mainSt",
+   "frame": null,
+   "pct": 0.021,
+   "raw": 0.413
+  },
+  {
+   "view": "@city:ka_plazaWide",
+   "frame": null,
+   "pct": 0.009,
+   "raw": 0.247
+  },
+  {
+   "view": "@city:ka_hallBalcony",
+   "frame": null,
+   "pct": 0.027,
+   "raw": 0.511
+  },
+  {
+   "view": "@city:ka_acrossBay",
+   "frame": null,
+   "pct": 0,
+   "raw": 0.024
+  },
+  {
+   "view": "@city:ka_schoolFront",
+   "frame": null,
+   "pct": 0.006,
+   "raw": 0.198
+  },
+  {
+   "view": "@city:ka_heroHouse",
+   "frame": null,
+   "pct": 0.033,
+   "raw": 0.484
+  },
+  {
+   "view": "@city:ka_upsideDown",
+   "frame": null,
+   "pct": 0.017,
+   "raw": 0.301
+  },
+  {
+   "view": "@city:ka_harborDock",
+   "frame": null,
+   "pct": 0.124,
+   "raw": 0.679
+  },
+  {
+   "view": "@city:ka_beach",
+   "frame": null,
+   "pct": 0.13,
+   "raw": 0.699
+  },
+  {
+   "view": "@city:ka_diner",
+   "frame": null,
+   "pct": 0.006,
+   "raw": 0.137
+  },
+  {
+   "view": "@city:ka_duckClose",
+   "frame": null,
+   "pct": 0.003,
+   "raw": 0.118
+  },
+  {
+   "view": "@city:ka_hillsLookout",
+   "frame": null,
+   "pct": 0.018,
+   "raw": 0.164
+  },
+  {
+   "view": "S01:first",
+   "frame": 0,
+   "pct": 0.122,
+   "raw": 0.855
+  },
+  {
+   "view": "S01:mid",
+   "frame": 10,
+   "pct": 0.089,
+   "raw": 0.592
+  },
+  {
+   "view": "S01:last",
+   "frame": 19,
+   "pct": 0.038,
+   "raw": 0.593
+  },
+  {
+   "view": "S02:first",
+   "frame": 20,
+   "pct": 0.008,
+   "raw": 0.159
+  },
+  {
+   "view": "S02:mid",
+   "frame": 34,
+   "pct": 0.013,
+   "raw": 0.169
+  },
+  {
+   "view": "S02:last",
+   "frame": 47,
+   "pct": 0.012,
+   "raw": 0.18
+  },
+  {
+   "view": "S03:first",
+   "frame": 48,
+   "pct": 0.29,
+   "raw": 0.959
+  },
+  {
+   "view": "S03:mid",
+   "frame": 62,
+   "pct": 0.013,
+   "raw": 0.531
+  },
+  {
+   "view": "S03:last",
+   "frame": 76,
+   "pct": 0.011,
+   "raw": 0.41
+  },
+  {
+   "view": "S04:first",
+   "frame": 77,
+   "pct": 0.019,
+   "raw": 0.715
+  },
+  {
+   "view": "S04:mid",
+   "frame": 97,
+   "pct": 0.018,
+   "raw": 0.913
+  },
+  {
+   "view": "S04:last",
+   "frame": 117,
+   "pct": 0.024,
+   "raw": 0.911
+  },
+  {
+   "view": "S05:first",
+   "frame": 118,
+   "pct": 0.032,
+   "raw": 0.892
+  },
+  {
+   "view": "S05:mid",
+   "frame": 130,
+   "pct": 0.035,
+   "raw": 0.909
+  },
+  {
+   "view": "S05:last",
+   "frame": 142,
+   "pct": 0.058,
+   "raw": 1.094
+  },
+  {
+   "view": "S06:first",
+   "frame": 143,
+   "pct": 0,
+   "raw": 0.006
+  },
+  {
+   "view": "S06:mid",
+   "frame": 151,
+   "pct": 0,
+   "raw": 0.037
+  },
+  {
+   "view": "S06:last",
+   "frame": 158,
+   "pct": 0,
+   "raw": 0.032
+  },
+  {
+   "view": "S07:first",
+   "frame": 159,
+   "pct": 0.012,
+   "raw": 0.791
+  },
+  {
+   "view": "S07:mid",
+   "frame": 171,
+   "pct": 0.039,
+   "raw": 1.179
+  },
+  {
+   "view": "S07:last",
+   "frame": 182,
+   "pct": 0.031,
+   "raw": 1.254
+  },
+  {
+   "view": "S08:first",
+   "frame": 183,
+   "pct": 0.022,
+   "raw": 0.547
+  },
+  {
+   "view": "S08:mid",
+   "frame": 195,
+   "pct": 0.027,
+   "raw": 0.783
+  },
+  {
+   "view": "S08:last",
+   "frame": 206,
+   "pct": 0.025,
+   "raw": 0.816
+  },
+  {
+   "view": "S09:first",
+   "frame": 207,
+   "pct": 0.002,
+   "raw": 0.133
+  },
+  {
+   "view": "S09:mid",
+   "frame": 221,
+   "pct": 0.018,
+   "raw": 0.347
+  },
+  {
+   "view": "S09:last",
+   "frame": 235,
+   "pct": 0.014,
+   "raw": 0.347
+  },
+  {
+   "view": "S10:first",
+   "frame": 236,
+   "pct": 0.007,
+   "raw": 0.224
+  },
+  {
+   "view": "S10:mid",
+   "frame": 249,
+   "pct": 0.01,
+   "raw": 0.317
+  },
+  {
+   "view": "S10:last",
+   "frame": 262,
+   "pct": 0.011,
+   "raw": 0.387
+  },
+  {
+   "view": "S11:first",
+   "frame": 263,
+   "pct": 0.064,
+   "raw": 0.617
+  },
+  {
+   "view": "S11:mid",
+   "frame": 272,
+   "pct": 0.055,
+   "raw": 1.262
+  },
+  {
+   "view": "S11:last",
+   "frame": 281,
+   "pct": 0.051,
+   "raw": 1.242
+  },
+  {
+   "view": "S12:first",
+   "frame": 282,
+   "pct": 0.073,
+   "raw": 1.31
+  },
+  {
+   "view": "S12:mid",
+   "frame": 302,
+   "pct": 0.065,
+   "raw": 1.311
+  },
+  {
+   "view": "S12:last",
+   "frame": 322,
+   "pct": 0.113,
+   "raw": 1.472
+  },
+  {
+   "view": "S13:first",
+   "frame": 323,
+   "pct": 0.005,
+   "raw": 0.219
+  },
+  {
+   "view": "S13:mid",
+   "frame": 339,
+   "pct": 0.007,
+   "raw": 0.367
+  },
+  {
+   "view": "S13:last",
+   "frame": 355,
+   "pct": 0.004,
+   "raw": 0.244
+  },
+  {
+   "view": "S14:first",
+   "frame": 356,
+   "pct": 0.01,
+   "raw": 0.356
+  },
+  {
+   "view": "S14:mid",
+   "frame": 368,
+   "pct": 0.032,
+   "raw": 0.391
+  },
+  {
+   "view": "S14:last",
+   "frame": 380,
+   "pct": 0.014,
+   "raw": 0.407
+  },
+  {
+   "view": "S15:first",
+   "frame": 381,
+   "pct": 0.015,
+   "raw": 0.296
+  },
+  {
+   "view": "S15:mid",
+   "frame": 399,
+   "pct": 0.015,
+   "raw": 0.445
+  },
+  {
+   "view": "S15:last",
+   "frame": 416,
+   "pct": 0.013,
+   "raw": 0.352
+  },
+  {
+   "view": "S21:first",
+   "frame": 641,
+   "pct": 0.008,
+   "raw": 0.411
+  },
+  {
+   "view": "S21:mid",
+   "frame": 660,
+   "pct": 0.04,
+   "raw": 1.566
+  },
+  {
+   "view": "S21:last",
+   "frame": 679,
+   "pct": 0.037,
+   "raw": 1.399
+  },
+  {
+   "view": "S22:first",
+   "frame": 680,
+   "pct": 0.096,
+   "raw": 1.314
+  },
+  {
+   "view": "S22:mid",
+   "frame": 703,
+   "pct": 0.099,
+   "raw": 1.475
+  },
+  {
+   "view": "S22:last",
+   "frame": 725,
+   "pct": 0.17,
+   "raw": 1.623
+  },
+  {
+   "view": "S23:first",
+   "frame": 726,
+   "pct": 0.026,
+   "raw": 2.78
+  },
+  {
+   "view": "S23:mid",
+   "frame": 750,
+   "pct": 0.045,
+   "raw": 2.857
+  },
+  {
+   "view": "S23:last",
+   "frame": 774,
+   "pct": 0.085,
+   "raw": 2.966
+  },
+  {
+   "view": "S24:first",
+   "frame": 775,
+   "pct": 0.035,
+   "raw": 0.646
+  },
+  {
+   "view": "S24:mid",
+   "frame": 799,
+   "pct": 0.06,
+   "raw": 1.138
+  },
+  {
+   "view": "S24:last",
+   "frame": 823,
+   "pct": 0.051,
+   "raw": 1.241
+  },
+  {
+   "view": "S29:first",
+   "frame": 1009,
+   "pct": 0.003,
+   "raw": 0.133
+  },
+  {
+   "view": "S29:mid",
+   "frame": 1031,
+   "pct": 0.015,
+   "raw": 0.485
+  },
+  {
+   "view": "S29:last",
+   "frame": 1053,
+   "pct": 0.014,
+   "raw": 0.451
+  },
+  {
+   "view": "S30:first",
+   "frame": 1054,
+   "pct": 0.118,
+   "raw": 2.12
+  },
+  {
+   "view": "S30:mid",
+   "frame": 1068,
+   "pct": 0.139,
+   "raw": 2.116
+  },
+  {
+   "view": "S30:last",
+   "frame": 1081,
+   "pct": 0.013,
+   "raw": 2.378
+  },
+  {
+   "view": "S31:first",
+   "frame": 1082,
+   "pct": 0.019,
+   "raw": 0.827
+  },
+  {
+   "view": "S31:mid",
+   "frame": 1102,
+   "pct": 0.036,
+   "raw": 0.846
+  },
+  {
+   "view": "S31:last",
+   "frame": 1122,
+   "pct": 0.044,
+   "raw": 0.923
+  },
+  {
+   "view": "S32:first",
+   "frame": 1123,
+   "pct": 0.015,
+   "raw": 0.619
+  },
+  {
+   "view": "S32:mid",
+   "frame": 1133,
+   "pct": 0.019,
+   "raw": 0.736
+  },
+  {
+   "view": "S32:last",
+   "frame": 1142,
+   "pct": 0.018,
+   "raw": 0.782
+  },
+  {
+   "view": "S33:first",
+   "frame": 1143,
+   "pct": 0.109,
+   "raw": 2.111
+  },
+  {
+   "view": "S33:mid",
+   "frame": 1160,
+   "pct": 0.032,
+   "raw": 1.976
+  },
+  {
+   "view": "S33:last",
+   "frame": 1177,
+   "pct": 0.064,
+   "raw": 1.966
+  },
+  {
+   "view": "S34:first",
+   "frame": 1178,
+   "pct": 0.005,
+   "raw": 0.154
+  },
+  {
+   "view": "S34:mid",
+   "frame": 1200,
+   "pct": 0.006,
+   "raw": 0.141
+  },
+  {
+   "view": "S34:last",
+   "frame": 1222,
+   "pct": 0.004,
+   "raw": 0.13
+  },
+  {
+   "view": "S35:first",
+   "frame": 1223,
+   "pct": 0.019,
+   "raw": 0.195
+  },
+  {
+   "view": "S35:mid",
+   "frame": 1246,
+   "pct": 0.016,
+   "raw": 0.25
+  },
+  {
+   "view": "S35:last",
+   "frame": 1269,
+   "pct": 0.02,
+   "raw": 0.247
+  },
+  {
+   "view": "S36:first",
+   "frame": 1270,
+   "pct": 0.032,
+   "raw": 0.428
+  },
+  {
+   "view": "S36:mid",
+   "frame": 1293,
+   "pct": 0.011,
+   "raw": 0.308
+  },
+  {
+   "view": "S36:last",
+   "frame": 1316,
+   "pct": 0.015,
+   "raw": 0.267
+  },
+  {
+   "view": "S37:first",
+   "frame": 1317,
+   "pct": 0,
+   "raw": 0
+  },
+  {
+   "view": "S37:mid",
+   "frame": 1333,
+   "pct": 0,
+   "raw": 0.149
+  },
+  {
+   "view": "S37:last",
+   "frame": 1349,
+   "pct": 0.002,
+   "raw": 0.18
+  },
+  {
+   "view": "S38:first",
+   "frame": 1350,
+   "pct": 0,
+   "raw": 0.006
+  },
+  {
+   "view": "S38:mid",
+   "frame": 1369,
+   "pct": 12.355,
+   "raw": 13.222
+  },
+  {
+   "view": "S38:last",
+   "frame": 1387,
+   "pct": 0.047,
+   "raw": 0.613
+  },
+  {
+   "view": "S39:first",
+   "frame": 1388,
+   "pct": 0.004,
+   "raw": 0.151
+  },
+  {
+   "view": "S39:mid",
+   "frame": 1409,
+   "pct": 0.01,
+   "raw": 0.397
+  },
+  {
+   "view": "S39:last",
+   "frame": 1429,
+   "pct": 0.007,
+   "raw": 0.407
+  },
+  {
+   "view": "S40:first",
+   "frame": 1430,
+   "pct": 0.003,
+   "raw": 1.063
+  },
+  {
+   "view": "S40:mid",
+   "frame": 1449,
+   "pct": 0.006,
+   "raw": 1.069
+  },
+  {
+   "view": "S40:last",
+   "frame": 1468,
+   "pct": 0.004,
+   "raw": 1.062
+  },
+  {
+   "view": "S41:first",
+   "frame": 1469,
+   "pct": 0.011,
+   "raw": 0.205
+  },
+  {
+   "view": "S41:mid",
+   "frame": 1491,
+   "pct": 0.015,
+   "raw": 0.202
+  },
+  {
+   "view": "S41:last",
+   "frame": 1513,
+   "pct": 0.011,
+   "raw": 0.177
+  },
+  {
+   "view": "S42:first",
+   "frame": 1514,
+   "pct": 0.004,
+   "raw": 1.14
+  },
+  {
+   "view": "S42:mid",
+   "frame": 1532,
+   "pct": 0.006,
+   "raw": 1.052
+  },
+  {
+   "view": "S42:last",
+   "frame": 1549,
+   "pct": 0.015,
+   "raw": 1.212
+  },
+  {
+   "view": "S43:first",
+   "frame": 1550,
+   "pct": 0.011,
+   "raw": 0.294
+  },
+  {
+   "view": "S43:mid",
+   "frame": 1566,
+   "pct": 0.007,
+   "raw": 0.266
+  },
+  {
+   "view": "S43:last",
+   "frame": 1581,
+   "pct": 0.013,
+   "raw": 0.279
+  },
+  {
+   "view": "S44:first",
+   "frame": 1582,
+   "pct": 0.057,
+   "raw": 1.603
+  },
+  {
+   "view": "S44:mid",
+   "frame": 1612,
+   "pct": 0.067,
+   "raw": 1.648
+  },
+  {
+   "view": "S44:last",
+   "frame": 1641,
+   "pct": 0.078,
+   "raw": 1.352
+  },
+  {
+   "view": "S45:first",
+   "frame": 1642,
+   "pct": 0,
+   "raw": 0.366
+  },
+  {
+   "view": "S45:mid",
+   "frame": 1654,
+   "pct": 0,
+   "raw": 0.344
+  },
+  {
+   "view": "S45:last",
+   "frame": 1665,
+   "pct": 0,
+   "raw": 0.357
+  },
+  {
+   "view": "S46:first",
+   "frame": 1666,
+   "pct": 0,
+   "raw": 0.091
+  },
+  {
+   "view": "S46:mid",
+   "frame": 1682,
+   "pct": 0,
+   "raw": 0.088
+  },
+  {
+   "view": "S46:last",
+   "frame": 1698,
+   "pct": 0,
+   "raw": 0.083
+  },
+  {
+   "view": "S47:first",
+   "frame": 1699,
+   "pct": 0.001,
+   "raw": 0.244
+  },
+  {
+   "view": "S47:mid",
+   "frame": 1716,
+   "pct": 0.007,
+   "raw": 0.348
+  },
+  {
+   "view": "S47:last",
+   "frame": 1733,
+   "pct": 0.002,
+   "raw": 0.262
+  },
+  {
+   "view": "S48:first",
+   "frame": 1734,
+   "pct": 0.001,
+   "raw": 0.644
+  },
+  {
+   "view": "S48:mid",
+   "frame": 1756,
+   "pct": 0.001,
+   "raw": 0.719
+  },
+  {
+   "view": "S48:last",
+   "frame": 1777,
+   "pct": 0.001,
+   "raw": 0.727
+  },
+  {
+   "view": "S49:first",
+   "frame": 1778,
+   "pct": 17.011,
+   "raw": 18.292
+  },
+  {
+   "view": "S49:mid",
+   "frame": 1788,
+   "pct": 0.014,
+   "raw": 0.171
+  },
+  {
+   "view": "S49:last",
+   "frame": 1798,
+   "pct": 0.017,
+   "raw": 0.271
+  },
+  {
+   "view": "S50:first",
+   "frame": 1799,
+   "pct": 0.022,
+   "raw": 0.538
+  },
+  {
+   "view": "S50:mid",
+   "frame": 1816,
+   "pct": 0.02,
+   "raw": 0.564
+  },
+  {
+   "view": "S50:last",
+   "frame": 1832,
+   "pct": 0.027,
+   "raw": 0.533
+  },
+  {
+   "view": "S51:first",
+   "frame": 1833,
+   "pct": 0.021,
+   "raw": 1.23
+  },
+  {
+   "view": "S51:mid",
+   "frame": 1849,
+   "pct": 0.026,
+   "raw": 1.138
+  },
+  {
+   "view": "S51:last",
+   "frame": 1865,
+   "pct": 0.025,
+   "raw": 1.196
+  },
+  {
+   "view": "S52:first",
+   "frame": 1866,
+   "pct": 0.027,
+   "raw": 0.582
+  },
+  {
+   "view": "S52:mid",
+   "frame": 1894,
+   "pct": 0.029,
+   "raw": 0.653
+  },
+  {
+   "view": "S52:last",
+   "frame": 1922,
+   "pct": 0.025,
+   "raw": 0.607
+  },
+  {
+   "view": "S53:first",
+   "frame": 1923,
+   "pct": 0.002,
+   "raw": 0.104
+  },
+  {
+   "view": "S53:mid",
+   "frame": 1955,
+   "pct": 0.011,
+   "raw": 0.321
+  },
+  {
+   "view": "S53:last",
+   "frame": 1987,
+   "pct": 0.013,
+   "raw": 0.548
+  },
+  {
+   "view": "S54:first",
+   "frame": 1988,
+   "pct": 0.044,
+   "raw": 0.847
+  },
+  {
+   "view": "S54:mid",
+   "frame": 2008,
+   "pct": 0.025,
+   "raw": 1.044
+  },
+  {
+   "view": "S54:last",
+   "frame": 2027,
+   "pct": 0.02,
+   "raw": 1.041
+  },
+  {
+   "view": "S55:first",
+   "frame": 2028,
+   "pct": 0.024,
+   "raw": 0.7
+  },
+  {
+   "view": "S55:mid",
+   "frame": 2045,
+   "pct": 0.01,
+   "raw": 0.642
+  },
+  {
+   "view": "S55:last",
+   "frame": 2062,
+   "pct": 0.016,
+   "raw": 0.596
+  },
+  {
+   "view": "@cityClassroom:ka_stoneHead",
+   "frame": null,
+   "pct": 0.002,
+   "raw": 0.186
+  },
+  {
+   "view": "@cityClassroom:ka_forestTrail",
+   "frame": null,
+   "pct": 0.009,
+   "raw": 0.471
+  },
+  {
+   "view": "@cityClassroom:ka_ropeBridge",
+   "frame": null,
+   "pct": 0.028,
+   "raw": 0.656
+  },
+  {
+   "view": "@cityClassroom:ka_cliffLookout",
+   "frame": null,
+   "pct": 0.055,
+   "raw": 0.849
+  },
+  {
+   "view": "@cityClassroom:ka_campsite",
+   "frame": null,
+   "pct": 0.005,
+   "raw": 0.299
+  },
+  {
+   "view": "@cityClassroom:ka_caveMouth",
+   "frame": null,
+   "pct": 0.005,
+   "raw": 0.183
+  },
+  {
+   "view": "@cityClassroom:ka_plazaSouth",
+   "frame": null,
+   "pct": 0.001,
+   "raw": 0.2
+  },
+  {
+   "view": "@cityClassroom:ka_plazaNorth",
+   "frame": null,
+   "pct": 0.025,
+   "raw": 0.486
+  },
+  {
+   "view": "@cityClassroom:ka_bayNorth",
+   "frame": null,
+   "pct": 0.008,
+   "raw": 0.23
+  },
+  {
+   "view": "@cityClassroom:ka_stairBottom",
+   "frame": null,
+   "pct": 0.006,
+   "raw": 0.27
+  },
+  {
+   "view": "@cityClassroom:ka_boardwalk",
+   "frame": null,
+   "pct": 0.011,
+   "raw": 0.343
+  },
+  {
+   "view": "@cityClassroom:ka_suburbStreet",
+   "frame": null,
+   "pct": 0.021,
+   "raw": 0.386
+  },
+  {
+   "view": "@cityClassroom:ka_schoolYard",
+   "frame": null,
+   "pct": 0.025,
+   "raw": 0.229
+  },
+  {
+   "view": "@cityClassroom:ka_mainSt",
+   "frame": null,
+   "pct": 0.021,
+   "raw": 0.413
+  },
+  {
+   "view": "@cityClassroom:ka_plazaWide",
+   "frame": null,
+   "pct": 0.009,
+   "raw": 0.247
+  },
+  {
+   "view": "@cityClassroom:ka_hallBalcony",
+   "frame": null,
+   "pct": 0.027,
+   "raw": 0.511
+  },
+  {
+   "view": "@cityClassroom:ka_acrossBay",
+   "frame": null,
+   "pct": 0,
+   "raw": 0.024
+  },
+  {
+   "view": "@cityClassroom:ka_schoolFront",
+   "frame": null,
+   "pct": 0.006,
+   "raw": 0.198
+  },
+  {
+   "view": "@cityClassroom:ka_heroHouse",
+   "frame": null,
+   "pct": 0.033,
+   "raw": 0.484
+  },
+  {
+   "view": "@cityClassroom:ka_upsideDown",
+   "frame": null,
+   "pct": 0.017,
+   "raw": 0.301
+  },
+  {
+   "view": "@cityClassroom:ka_harborDock",
+   "frame": null,
+   "pct": 0.124,
+   "raw": 0.679
+  },
+  {
+   "view": "@cityClassroom:ka_beach",
+   "frame": null,
+   "pct": 0.13,
+   "raw": 0.699
+  },
+  {
+   "view": "@cityClassroom:ka_diner",
+   "frame": null,
+   "pct": 0.006,
+   "raw": 0.137
+  },
+  {
+   "view": "@cityClassroom:ka_duckClose",
+   "frame": null,
+   "pct": 0.003,
+   "raw": 0.118
+  },
+  {
+   "view": "@cityClassroom:ka_hillsLookout",
+   "frame": null,
+   "pct": 0.018,
+   "raw": 0.164
+  },
+  {
+   "view": "S16:first",
+   "frame": 417,
+   "pct": 0,
+   "raw": 0.042
+  },
+  {
+   "view": "S16:mid",
+   "frame": 449,
+   "pct": 0.007,
+   "raw": 0.44
+  },
+  {
+   "view": "S16:last",
+   "frame": 480,
+   "pct": 0.018,
+   "raw": 1.069
+  },
+  {
+   "view": "S17:first",
+   "frame": 481,
+   "pct": 0.012,
+   "raw": 0.464
+  },
+  {
+   "view": "S17:mid",
+   "frame": 501,
+   "pct": 0.011,
+   "raw": 0.486
+  },
+  {
+   "view": "S17:last",
+   "frame": 521,
+   "pct": 0.013,
+   "raw": 0.451
+  },
+  {
+   "view": "S18:first",
+   "frame": 522,
+   "pct": 0.005,
+   "raw": 0.86
+  },
+  {
+   "view": "S18:mid",
+   "frame": 535,
+   "pct": 0.004,
+   "raw": 0.202
+  },
+  {
+   "view": "S18:last",
+   "frame": 547,
+   "pct": 0.006,
+   "raw": 0.182
+  },
+  {
+   "view": "@cityDining:ka_stoneHead",
+   "frame": null,
+   "pct": 0.002,
+   "raw": 0.186
+  },
+  {
+   "view": "@cityDining:ka_forestTrail",
+   "frame": null,
+   "pct": 0.009,
+   "raw": 0.471
+  },
+  {
+   "view": "@cityDining:ka_ropeBridge",
+   "frame": null,
+   "pct": 0.028,
+   "raw": 0.656
+  },
+  {
+   "view": "@cityDining:ka_cliffLookout",
+   "frame": null,
+   "pct": 0.055,
+   "raw": 0.849
+  },
+  {
+   "view": "@cityDining:ka_campsite",
+   "frame": null,
+   "pct": 0.005,
+   "raw": 0.299
+  },
+  {
+   "view": "@cityDining:ka_caveMouth",
+   "frame": null,
+   "pct": 0.005,
+   "raw": 0.183
+  },
+  {
+   "view": "@cityDining:ka_plazaSouth",
+   "frame": null,
+   "pct": 0.001,
+   "raw": 0.2
+  },
+  {
+   "view": "@cityDining:ka_plazaNorth",
+   "frame": null,
+   "pct": 0.025,
+   "raw": 0.486
+  },
+  {
+   "view": "@cityDining:ka_bayNorth",
+   "frame": null,
+   "pct": 0.008,
+   "raw": 0.23
+  },
+  {
+   "view": "@cityDining:ka_stairBottom",
+   "frame": null,
+   "pct": 0.006,
+   "raw": 0.27
+  },
+  {
+   "view": "@cityDining:ka_boardwalk",
+   "frame": null,
+   "pct": 0.011,
+   "raw": 0.343
+  },
+  {
+   "view": "@cityDining:ka_suburbStreet",
+   "frame": null,
+   "pct": 0.021,
+   "raw": 0.386
+  },
+  {
+   "view": "@cityDining:ka_schoolYard",
+   "frame": null,
+   "pct": 0.025,
+   "raw": 0.229
+  },
+  {
+   "view": "@cityDining:ka_mainSt",
+   "frame": null,
+   "pct": 0.021,
+   "raw": 0.413
+  },
+  {
+   "view": "@cityDining:ka_plazaWide",
+   "frame": null,
+   "pct": 0.009,
+   "raw": 0.247
+  },
+  {
+   "view": "@cityDining:ka_hallBalcony",
+   "frame": null,
+   "pct": 0.027,
+   "raw": 0.511
+  },
+  {
+   "view": "@cityDining:ka_acrossBay",
+   "frame": null,
+   "pct": 0,
+   "raw": 0.024
+  },
+  {
+   "view": "@cityDining:ka_schoolFront",
+   "frame": null,
+   "pct": 0.006,
+   "raw": 0.198
+  },
+  {
+   "view": "@cityDining:ka_heroHouse",
+   "frame": null,
+   "pct": 0.033,
+   "raw": 0.484
+  },
+  {
+   "view": "@cityDining:ka_upsideDown",
+   "frame": null,
+   "pct": 0.017,
+   "raw": 0.301
+  },
+  {
+   "view": "@cityDining:ka_harborDock",
+   "frame": null,
+   "pct": 0.124,
+   "raw": 0.679
+  },
+  {
+   "view": "@cityDining:ka_beach",
+   "frame": null,
+   "pct": 0.13,
+   "raw": 0.699
+  },
+  {
+   "view": "@cityDining:ka_diner",
+   "frame": null,
+   "pct": 0.006,
+   "raw": 0.137
+  },
+  {
+   "view": "@cityDining:ka_duckClose",
+   "frame": null,
+   "pct": 0.003,
+   "raw": 0.118
+  },
+  {
+   "view": "@cityDining:ka_hillsLookout",
+   "frame": null,
+   "pct": 0.018,
+   "raw": 0.164
+  },
+  {
+   "view": "S19:first",
+   "frame": 548,
+   "pct": 0.014,
+   "raw": 0.669
+  },
+  {
+   "view": "S19:mid",
+   "frame": 576,
+   "pct": 0.014,
+   "raw": 0.702
+  },
+  {
+   "view": "S19:last",
+   "frame": 603,
+   "pct": 0.019,
+   "raw": 1.04
+  },
+  {
+   "view": "S20:first",
+   "frame": 604,
+   "pct": 0.074,
+   "raw": 0.961
+  },
+  {
+   "view": "S20:mid",
+   "frame": 622,
+   "pct": 0.023,
+   "raw": 0.897
+  },
+  {
+   "view": "S20:last",
+   "frame": 640,
+   "pct": 0.023,
+   "raw": 0.921
+  },
+  {
+   "view": "S25:first",
+   "frame": 824,
+   "pct": 0.013,
+   "raw": 0.422
+  },
+  {
+   "view": "S25:mid",
+   "frame": 854,
+   "pct": 0.017,
+   "raw": 0.719
+  },
+  {
+   "view": "S25:last",
+   "frame": 883,
+   "pct": 0.013,
+   "raw": 0.949
+  },
+  {
+   "view": "S26:first",
+   "frame": 884,
+   "pct": 0.034,
+   "raw": 0.783
+  },
+  {
+   "view": "S26:mid",
+   "frame": 899,
+   "pct": 0.033,
+   "raw": 0.846
+  },
+  {
+   "view": "S26:last",
+   "frame": 913,
+   "pct": 0.035,
+   "raw": 0.847
+  },
+  {
+   "view": "S27:first",
+   "frame": 914,
+   "pct": 0.006,
+   "raw": 0.932
+  },
+  {
+   "view": "S27:mid",
+   "frame": 937,
+   "pct": 0.006,
+   "raw": 0.953
+  },
+  {
+   "view": "S27:last",
+   "frame": 959,
+   "pct": 0.009,
+   "raw": 0.977
+  },
+  {
+   "view": "S28:first",
+   "frame": 960,
+   "pct": 0.011,
+   "raw": 1.249
+  },
+  {
+   "view": "S28:mid",
+   "frame": 984,
+   "pct": 0.011,
+   "raw": 1.285
+  },
+  {
+   "view": "S28:last",
+   "frame": 1008,
+   "pct": 0.072,
+   "raw": 1.292
+  }
+ ]
+}

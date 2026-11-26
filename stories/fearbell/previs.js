@@ -51,7 +51,7 @@ const pr = (id, prop, pos, extra = {}) => props.push({id, set: 'props1g', prop, 
 const hide = [0, -400, 0], during = (t0, t1, p) => [[0, hide], [t0, p], [t1, hide]];
 // =========================== rows ===========================
 // 1 bell mid-swing under the hat (DONG on "town")
-shot(1, look([9, 50.5, -41], [0, 55, -60], 44), {size: 'close', to: 'push', see: .1, leakOk: ['slot:2']});   // the subject is the bell in its tower (slot 2)
+shot(1, look([14, 51.5, -22], [0, 55, -60], 26), {size: 'close', to: 'push', see: .1, leakOk: ['slot:2']});   // the subject is the bell in its tower (slot 2)
 clock.push({at: wordAt(1, 'town'), fx: 'dong'});
 // 2 shockwave over the rooftops + pops all over town
 shot(2, look([-26, 50, 78], [0, 24, -14], 64), {size: 'wide', see: .35});
@@ -185,7 +185,7 @@ shot(37, look([0, 18.5, 24], [0, 16, 12], 30), {size: 'medium', see: .5});
 // 38 everyone runs away down the Grand Stair
 const STAIR = [[-3, 92], [2.5, 90], [-1, 88], [4, 87], [-4.5, 86]];
 ['pickles', 'mailman', 'buslady', 'dad', 'kevin'].forEach((n, i) => put(n, P[n], 38, 38, G(STAIR[i][0], STAIR[i][1]), 180, {faces: [[S0(38), 'terrified']], walk: 'sprint', travel: {dir: [0, 1], speed: 4.5}}));
-shot(38, look([6, 6, 112], [0, 9, 82], 58), {size: 'wide', see: .4});
+shot(38, look([9, 7, 113], [0, 9, 82], 58), {size: 'wide', see: .4});
 // 39–42 the hero at the plaza edge before the huge dome: PUNCH (the fist passes into the dark), yell, alone, uncertain
 const EDGE = G(4, 31.6), EDY = 180;   // the dome (r 24 at z 6) surface is ~1.6 studs ahead: the jab ends inside it
 put('hero', P.hero, 39, 42, EDGE, EDY, {faces: [[S0(39), 'determined'], [S0(40), 'yell'], [S0(41), 'sad_soft'], [S0(42), 'thinking']]});
@@ -212,7 +212,7 @@ const LP = G(-3, 14), HP2 = add(LP, fwd(20), -1.2, rgt(20), -1.9, 0);
 put('lulu', P.lulu, 49, 52, LP, 20, {faces: [[S0(49), 'determined'], [S0(51), 'grin']], keys: [[S0(49), 'idle'], [S0(51) - .4, 'toolHold']]});
 put('hero', P.hero, 49, 52, HP2, 20, {faces: [[S0(49), 'awe'], [S0(51), 'grin']]});
 creatures.push({id: 'domeS', kind: 'dome', pos: G(0, -10), acts: [{act: 'shrink', at: +(T(49) - .1).toFixed(3), toActor: 'lulu', hand: 'right'}], visible: [[0, false], [S0(49), true], [R(51).end, false]]});
-shot(49, look([-30, 30, 105], [0, 14, -8], 56), {size: 'wide', see: .35});   // mid-collapse from the stair foot: the whole dome caving in over the plaza
+shot(49, look([-34, 33, 104], [0, 14, -8], 56), {size: 'wide', see: .35});   // mid-collapse from the stair foot: the whole dome caving in over the plaza
 shot(50, look(G(3, 31, 5.5), G(-3, 9, 3.2), 50), {size: 'close', see: .1});   // the second step (S2: u .74–.86) above the kids
 shot(51, look(add(LP, fwd(20), 6.0, rgt(20), 1.6, 3.0), add(LP, fwd(20), 0, rgt(20), .4, 2.8), 50), {size: 'insert', faceAim: ['lulu', 'hero'], see: .9, actions: [{actor: 'lulu', verb: 'water', at: 0}]});   // her open palm held out (the puff lands on it)
 // 52 the plaza recovering: Kevin with a slider, the mouse on the bodybuilder's shoulder (both big in frame)

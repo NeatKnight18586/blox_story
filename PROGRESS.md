@@ -127,3 +127,7 @@ Open (MUST SEE still weak): 10 he is mid-leap above the cart, 16 drawer half beh
 Plan: BRIEF.md re-synced to the new lock rows 54–55 (lock2brief.py, mechanical) · staging fixes per row in previs.js (14, 16, 26, 27, 28/39/40/42, 45, 53–55, 10/49/50) →
 vo-fix sheet review/fearbell/vo-fix{,-2,-3}.png (only those rows) · plan gate exit 0 (cast-name subjects; creature rows keep `see`) · ep animatic (bench, stability, 270×480,
 v7 captions, assemble --animatic ≤ 10 MB) · 390-px phone sheet · ep:check + v2:test · commit + push, report ≤ 20 lines, STOP.
+Result (ANIMATIC, stopped): plan gate PASS (0 errors, 7 warnings; hero first row 8 = 8.83 s gapped; row 12 starts 12.96 s gapped; fgleak 0.048). Staging fixes per row in review/fearbell/vo-fix{,-2,-3}.png.
+v2:stability FAIL after 2 fix passes: S01 fixed (bell camera 26° from 40 studs); S38:mid 14.0 % and S49:first 17.0 % remain (limit 0.30 %). Cause measured: the first render
+after a jump into those frames differs from the second render of the SAME frame by 11–16 % of pixels (dome size/position stale; render-order state in the dome creature) — engine-side,
+not camera-dependent (camera nudge + dome split + earlier dome visibility did not change it). Gate not loosened; no animatic rendered. Needs an ENGINE slot (dome rt.motion).
