@@ -7,7 +7,12 @@
 //   · width 1 px at 720 × 1280, scaled by resolution (below 1 px the line keeps 1 px and fades by the ratio);
 //   · fades with distance: full < fadeNear (40 studs), gone by fadeFar (250);
 //   · classicPlus: characters (cast + crowd roots, userData.olChar) get 2× width and full strength at any distance.
-// Cost: one extra geometry pass with a trivial shader (sky, sprites, points, lines, transparent surfaces and anything beyond the
+// MRT (Phase 1D, classic only): the main pass itself writes a second attachment (id, view normal xy, 1/z) through patched shader
+// chunks (common / project_vertex / dithering_fragment), into a multisampled 2-attachment target rendered as if to the canvas
+// (tone mapping + output colour space per material); one fullscreen pass copies it and darkens the edges straight onto the canvas: no second geometry pass. Ids hash the object (+ instance)
+// translation. Shaders without those chunks write nothing to attachment 1 (only the cleared sky value / far fade applies there).
+// classicPlus keeps the two-pass path below (characters need the per-object char flag).
+// Cost (two-pass path): one extra geometry pass with a trivial shader (sky, sprites, points, lines, transparent surfaces and anything beyond the
 // fade skipped) + one fullscreen pass (5 taps per pixel; classicPlus character pixels 9).
 import * as T from 'three';
 export const MODES = ['off', 'classic', 'classicPlus'];
@@ -61,7 +66,83 @@ void main() {
   gl_FragColor = vec4(0.0, 0.0, 0.0, uDark * f);
 }`;
 
+// ---- MRT path ------------------------------------------------------------------------------------------------------------------
+const MRT_COMMON = `
+#ifdef gl_FragColor
+#ifndef OL_OUT
+#define OL_OUT
+layout(location = 1) out highp vec4 olOut;
+#endif
+#endif
+varying vec3 olV; varying vec3 olN; flat varying float olId;`;
+const MRT_PROJECT = `
+olV = mvPosition.xyz; { vec3 olNo = normal; vec3 olT = modelMatrix[3].xyz;
+#ifdef USE_INSTANCING
+olNo = mat3(instanceMatrix) * olNo; olT += instanceMatrix[3].xyz * 1.37;
+#endif
+olN = normalMatrix * olNo; olId = (floor(fract(sin(dot(olT, vec3(12.9898, 78.233, 37.719))) * 43758.5453) * 1009.0) + 1.0) / 1024.0; }`;
+const MRT_WRITE = `
+#if defined(OL_OUT) && !defined(OL_ZERO)
+#ifdef OPAQUE
+{ vec3 olNf = normalize(olN); if (!gl_FrontFacing) olNf = -olNf; olOut = vec4(olId, olNf.xy, 1.0 / max(-olV.z, 1e-3)); }
+#else
+olOut = vec4(0.0);
+#endif
+#endif`;
+let chunksPatched = false;
+export function patchChunks() {
+  if (chunksPatched) return false; chunksPatched = true; const C = T.ShaderChunk;
+  C.common += MRT_COMMON; C.project_vertex += MRT_PROJECT; C.colorspace_fragment += MRT_WRITE; C.dithering_fragment += MRT_WRITE; return true;   // colorspace too: an output never written is optimised out (ANGLE then skips the draw)
+}
+// custom ShaderMaterials (sky, clouds, water…) never include the chunks: give them the output (zero = "no surface") so ANGLE draws them
+const OL_DECL = '#define OL_ZERO\n#ifndef OL_OUT\n#define OL_OUT\nlayout(location = 1) out highp vec4 olOut;\n#endif\n';
+export function patchShaderMaterial(m) {
+  if (!m?.isShaderMaterial || m.userData.olMrt || m.glslVersion) return false; m.userData.olMrt = true;
+  const prev = m.onBeforeCompile, key0 = m.customProgramCacheKey?.bind(m);
+  m.onBeforeCompile = function (sh, r) { prev?.call(this, sh, r); if (sh.fragmentShader.includes('olOut = vec4(0.0); /*ol*/')) return;
+    sh.fragmentShader = OL_DECL + sh.fragmentShader.replace(/void\s+main\s*\(\s*(void)?\s*\)\s*\{/, m => m + ' olOut = vec4(0.0); /*ol*/'); };
+  m.customProgramCacheKey = () => (key0 ? key0() : '') + '|olMrt'; m.needsUpdate = true; return true;
+}
+// FXAA (lite, luma-edge directional blur; Lottes' FXAA 3.11 PC "quality 10" subset) for the non-multisampled MRT target
+const FXAA = `uniform float uFxaa; uniform vec2 uTexel;
+float fxL(vec3 c) { return dot(c, vec3(0.299, 0.587, 0.114)); }
+vec3 fxS(vec2 uv) { return texture2D(tCol, uv).rgb; }
+vec3 fxaa(ivec2 p, vec3 rgbM) {
+  vec2 uv = (vec2(p) + 0.5) * uTexel;
+  float lNW = fxL(fxS(uv + vec2(-1., -1.) * uTexel)), lNE = fxL(fxS(uv + vec2(1., -1.) * uTexel)), lSW = fxL(fxS(uv + vec2(-1., 1.) * uTexel)), lSE = fxL(fxS(uv + vec2(1., 1.) * uTexel)), lM = fxL(rgbM);
+  float lMin = min(lM, min(min(lNW, lNE), min(lSW, lSE))), lMax = max(lM, max(max(lNW, lNE), max(lSW, lSE)));
+  if (lMax - lMin < max(0.0312, lMax * 0.125)) return rgbM;
+  vec2 dir = vec2(-((lNW + lNE) - (lSW + lSE)), ((lNW + lSW) - (lNE + lSE)));
+  float red = max((lNW + lNE + lSW + lSE) * 0.03125, 1.0 / 128.0), rcp = 1.0 / (min(abs(dir.x), abs(dir.y)) + red);
+  dir = clamp(dir * rcp, -8.0, 8.0) * uTexel;
+  vec3 a = 0.5 * (fxS(uv + dir * (1.0 / 3.0 - 0.5)) + fxS(uv + dir * (2.0 / 3.0 - 0.5))), b = a * 0.5 + 0.25 * (fxS(uv - dir * 0.5) + fxS(uv + dir * 0.5));
+  float lB = fxL(b); return (lB < lMin || lB > lMax) ? a : b;
+}`;
+const BLIT_FS = EDGE_FS.replace('uniform sampler2D tId;', 'uniform sampler2D tId; uniform sampler2D tCol;').replace('vec4 at(ivec2 p)', FXAA + '\nvec4 at(ivec2 p)')
+  .replace(/void main\(\) \{[\s\S]*$/, `void main() {
+  ivec2 p = ivec2(gl_FragCoord.xy), hi = textureSize(tId, 0) - 1; vec4 c = at(p); gl_FragColor = vec4(texelFetch(tCol, p, 0).rgb, 1.0);   // already tone-mapped + display-encoded by the main pass
+  if (uFxaa > 0.5) gl_FragColor.rgb = fxaa(p, gl_FragColor.rgb);
+  if (c.w <= 0.0) return;
+  float e = edgeAt(c, int(uR + 0.5), p, hi); if (e <= 0.0) return;
+  float u = clamp((1.0 / c.w - uFadeN) / (uFadeF - uFadeN), 0.0, 1.0), f = (1.0 - u * u * (3.0 - 2.0 * u)) * uAlpha;
+  gl_FragColor.rgb *= 1.0 - uDark * f;
+}`);
+
 export function createOutline(renderer, scene, opts = {}) {
+  let MRT = opts.mrt !== false; if (MRT) patchChunks();   // chunks are global: patch before the first compile (createOutline runs before the first render)
+  if (MRT) scene.traverse(o => { for (const m of [].concat(o.material ?? [])) if (m) m.needsUpdate = true; });
+  let mrt = null; const BU = {tId: {value: null}, tCol: {value: null}, uFxaa: {value: 0}, uTexel: {value: new T.Vector2()}};
+  const blit = new T.ShaderMaterial({uniforms: BU, vertexShader: 'void main(){ gl_Position = vec4(position.xy, 0., 1.); }', fragmentShader: BLIT_FS, depthTest: false, depthWrite: false, toneMapped: false});
+  let bs2 = null;
+  function mrtTarget(w, h) {
+    if (mrt && mrt.width === w && mrt.height === h) return mrt; mrt?.dispose();
+    const aa = renderer.getContextAttributes?.().antialias ? (opts.mrtSamples ?? 0) : 0;   // 0 + FXAA: multisampled MRT costs ~+70 ms on SwiftShader
+    mrt = new T.WebGLRenderTarget(w, h, {count: 2, type: T.HalfFloatType, minFilter: T.NearestFilter, magFilter: T.NearestFilter, depthBuffer: true, samples: aa});
+    // render "as if to the canvas": tone mapping + output colour space per material (three treats an XR target that way), 8-bit colour
+    mrt.isXRRenderTarget = true; mrt.textures[0].type = T.UnsignedByteType; mrt.textures[0].minFilter = mrt.textures[0].magFilter = T.LinearFilter;   // 8-bit colour (allocated linear RGBA8, then labelled
+    const prev = renderer.getRenderTarget(); renderer.setRenderTarget(mrt); renderer.setRenderTarget(prev); mrt.textures[0].colorSpace = renderer.outputColorSpace;   // sRGB so materials encode)
+    return mrt;
+  }
   let mode = MODES.includes(opts.mode) ? opts.mode : 'off', rt = null;
   const idMat = new T.ShaderMaterial({uniforms: {uId: {value: 0}, uChar: {value: 0}}, vertexShader: ID_VS, fragmentShader: ID_FS, side: T.DoubleSide});
   const U = {tId: {value: null}, uR: {value: 1}, uCR: {value: 2}, uPlus: {value: 0}, uAlpha: {value: 1},
@@ -69,6 +150,7 @@ export function createOutline(renderer, scene, opts = {}) {
   const edge = new T.ShaderMaterial({uniforms: U, vertexShader: 'void main(){ gl_Position = vec4(position.xy, 0., 1.); }', fragmentShader: EDGE_FS,
     transparent: true, depthTest: false, depthWrite: false, blending: T.NormalBlending, toneMapped: false});
   const quad = new T.Mesh(new T.PlaneGeometry(2, 2), edge); quad.frustumCulled = false; const qs = new T.Scene(); qs.add(quad); const qc = new T.OrthographicCamera(-1, 1, 1, -1, 0, 1);
+  Object.assign(BU, U); { const bq = new T.Mesh(new T.PlaneGeometry(2, 2), blit); bq.frustumCulled = false; bs2 = new T.Scene(); bs2.add(bq); }
   const hook = function () { idMat.uniforms.uId.value = (this.id * 37) % 1009; idMat.uniforms.uChar.value = this.userData.olCharLive ? 1 : 0; idMat.uniformsNeedUpdate = true; };
   const skipped = o => o.isSprite || o.isPoints || o.isLine || /^(sky|clouds4|clouds4small|sunRays)$/.test(o.name) || [].concat(o.material).some(m => !m || m.transparent || m.isShadowMaterial || m.isSpriteMaterial);
   function target(w, h) {
@@ -76,7 +158,21 @@ export function createOutline(renderer, scene, opts = {}) {
     rt = new T.WebGLRenderTarget(w, h, {type: T.HalfFloatType, minFilter: T.NearestFilter, magFilter: T.NearestFilter, depthBuffer: true});
     return rt;
   }
-  return {
+  // the whole frame (main pass + outline) onto the canvas; returns the outline's share in ms (MRT: the extra cost is the blit)
+  function frame(camera, w, h) {
+    if (mode === 'off' || !MRT || mode === 'classicPlus') { renderer.render(scene, camera); return api.draw(camera, w, h); }
+    scene.traverse(o => { if (o.material) for (const m of [].concat(o.material)) if (m?.isShaderMaterial && !m.userData.olMrt) patchShaderMaterial(m); });
+    const P = outlineParams(mode, h), r = mrtTarget(w, h), prev = renderer.getRenderTarget(), ac = renderer.autoClear, gl = renderer.getContext();
+    const cc = renderer.getClearColor(new T.Color()), ca = renderer.getClearAlpha(), bg = scene.background;
+    renderer.setRenderTarget(r); if (bg?.isColor) renderer.setClearColor(bg, 1); renderer.clear(); gl.clearBufferfv(gl.COLOR, 1, [2, 0, 0, 0]);   // attachment 1: sky (w = 0)
+    renderer.autoClear = false; renderer.render(scene, camera); renderer.setClearColor(cc, ca);
+    const t0 = performance.now();
+    BU.tId.value = r.textures[1]; BU.tCol.value = r.textures[0]; BU.uFxaa.value = r.samples ? 0 : renderer.getContextAttributes?.().antialias ? 1 : 0; BU.uTexel.value.set(1 / w, 1 / h); U.uR.value = P.radius; U.uAlpha.value = P.alpha; U.uDark.value = P.dark; U.uFadeN.value = P.fadeNear; U.uFadeF.value = P.fadeFar;
+    renderer.setRenderTarget(prev); const info = renderer.info.autoReset; renderer.info.autoReset = false; renderer.render(bs2, qc); renderer.autoClear = ac; renderer.info.autoReset = info;
+    return performance.now() - t0;
+  }
+  const api = {
+    frame, get mrt() { return MRT; }, setMrt(b) { MRT = !!b && chunksPatched; },
     get mode() { return mode; },
     set(m) { if (!MODES.includes(m)) throw Error('outline mode ' + m); mode = m; },
     // characters: every mesh under these roots (cast, crowds) is a character surface (classicPlus width / strength)
@@ -103,4 +199,5 @@ export function createOutline(renderer, scene, opts = {}) {
       return performance.now() - t0;
     },
   };
+  return api;
 }

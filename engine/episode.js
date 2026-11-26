@@ -103,6 +103,7 @@ if (spec.world) {
   if (spec.look4) {   // format v4 Phase 2 (opt-in): AgX + PMREM sky env + v4 surfaces + baked static light (engine/look4.js, bake.js)
     const presets = await loadLooks4(new URL('./', import.meta.url)), P4 = presets[spec.look4]; if (!P4) throw Error('unknown look4 ' + spec.look4);
     await M4.loadTex4(new URL('../', import.meta.url));
+    if (spec.outline ?? P4.v4?.outline) (await import('./outline.js')).patchChunks();   // Phase 1D: the outline MRT chunks go in before the first shader compiles (programs are cached by parameters)
     look = createLookV4(scene, renderer, presets, {initial: spec.look4, ...(CINE_LOOK ? {fogStart: (m => m.isRoblox(spec) ? m.ROBLOX.fogStart : m.isClear(spec) ? m.CLEAR.fogStart : m.FOG.start)(await import('./cinelook.js'))} : {})});   // tuft 1B fix: post 'cine' = no height fog near the camera look.apply(spec.look4);
     if (mod.preload) await mod.preload(new URL('../', import.meta.url), {scene, renderer, spec});   // format v5 3b-R (opt-in): async world assets (box-art atlas)
     world = mod.build(scene, {P, B, A, M, M4, PR, TR, BI, V, W, look, spec, look4: {preset: P4, halo, water4}});
@@ -681,7 +682,7 @@ function drawFrame(shot, mf, off, width, height, nudge) {
     if (a) return a.P.rig === 'blink' ? [] : [{p: a.head.position.toArray(), r: (a.P.dims?.headH ?? .6) * (a.P.scale ?? 1) + 1.5}];
     return x.a?.root?.visible === false ? [] : [{p: headOf(x).toArray(), r: .9 * (x.a?.root?.scale?.x ?? 1) + 1.5}]; }));
   const undoBD = BD?.pre(camera, shot);
-  if (c.split) renderSplit(c.split, width, height); else if (CL) cineRender(shot, mf, off, lt, width, height); else { renderer.render(scene, camera); OUTLINE?.draw(camera, width, height); }
+  if (c.split) renderSplit(c.split, width, height); else if (CL) cineRender(shot, mf, off, lt, width, height); else if (OUTLINE) OUTLINE.frame(camera, width, height); else renderer.render(scene, camera);
   undoBD?.();
   return c;
 }
@@ -810,7 +811,7 @@ export function renderCamera(cam, t = 0, width = 720, height = 1280, lookName = 
   poseCast(t); camera.fov = cam.fov ?? 45; camera.aspect = width / height; camera.position.set(...cam.position); camera.up.set(...(cam.up ?? [0, 1, 0])); camera.lookAt(...cam.target); camera.updateProjectionMatrix();
   if (look) { look.apply(lookName); look.frame(new T.Vector3(...cam.target), camera.position.clone(), cam.shadowRadius ?? 34); look.update(t); }
   if (nudge) { const k = nudge / Math.sqrt(3); camera.translateX(k); camera.translateY(k); camera.translateZ(k); }
-  world?.update(t); applyWorldState(null, t); world?.onCamera?.(camera.position.toArray()); updateExtras(t); scene.updateMatrixWorld(true); fitTags(scene, camera); renderer.render(scene, camera); const olMs = OUTLINE?.draw(camera, width, height) ?? 0;
+  world?.update(t); applyWorldState(null, t); world?.onCamera?.(camera.position.toArray()); updateExtras(t); scene.updateMatrixWorld(true); fitTags(scene, camera); const olMs = OUTLINE ? OUTLINE.frame(camera, width, height) : (renderer.render(scene, camera), 0);
   const gl = renderer.getContext(); gl.readPixels(0, 0, 1, 1, gl.RGBA, gl.UNSIGNED_BYTE, new Uint8Array(4));
   return {triangles: frustumTriangles(), drawnTriangles: renderer.info.render.triangles, calls: renderer.info.render.calls, ms: performance.now() - t0, ...(OUTLINE ? {outlineMs: olMs} : {})};
 }
