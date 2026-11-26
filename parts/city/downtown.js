@@ -170,7 +170,9 @@ export function clockTower() {
   // hands run BACKWARDS: positive rotation about the dial normal = counter-clockwise as seen from the front
   const setTime = t => { const m = t / C.minutePeriod * Math.PI * 2 + 2 * Math.PI * 10 / 60; for (const h of hands) { h.min.rotation.z = m; h.hr.rotation.z = m / 12 + 2 * Math.PI * 2 / 12; } };
   setTime(0);
-  return {group: grp, setTime, hands, top: yr + 6.8, tris: grp.userData.tris};
+  // fearbell pass 2 (owner A3): a fixed time 'hh:mm' (setState('clockTime', '12:00')); null = run again (the hands keep running backwards)
+  const setClock = hm => { const [h, m] = String(hm).split(':').map(Number), a = 2 * Math.PI * (m || 0) / 60; for (const x of hands) { x.min.rotation.z = a; x.hr.rotation.z = 2 * Math.PI * ((h % 12) + (m || 0) / 60) / 12; } };
+  return {group: grp, setTime, setClock, hands, top: yr + 6.8, tris: grp.userData.tris};
 }
 // Clock dial texture: a normal face drawn, then mirrored left↔right (numerals read backwards and run counter-clockwise).
 function mirroredDial() {
@@ -273,8 +275,8 @@ export function downtown({slots, layerPlaza, statuePose} = {}) {
   for (const L of mainStreetLots()) { const pre = PRESETS[L.preset]; const b = placeBuilding({...pre, id: L.id, seed: L.seed}, L.x, L.z, L.yaw, L.front); b.lot = L; mainSt.add(b.group); buildings.push(b); }
   stats.mainStTris = buildings.map(b => b.tris);
   const signs = []; for (const b of buildings) for (const sg of b.signs) signs.push(sg);
-  const setState = (k, v) => { if (k === 'bellCrack') { const b = hall.bell; if (v && !b.userData.crackG) { b.userData.crackG = b.userData.crack(); b.add(b.userData.crackG); } if (b.userData.crackG) b.userData.crackG.visible = !!v; return true; } if (k === 'bell') { const a = typeof v === 'number' ? v : v?.swing ?? 0; hall.bell.rotation.x = a * D2R; return true; } if (k === 'statue') return false; return false; };
-  return {plaza, mainSt, buildings, signs, hall, statue: st, clock: ck, stats, trees: dress.trees, update(t) { ck.setTime(t); }, setState,
+  let clockFix = null; const setState = (k, v) => { if (k === 'clockTime') { clockFix = v ?? null; if (clockFix) ck.setClock(clockFix); return true; } if (k === 'bellCrack') { const b = hall.bell; if (v && !b.userData.crackG) { b.userData.crackG = b.userData.crack(); b.add(b.userData.crackG); } if (b.userData.crackG) b.userData.crackG.visible = !!v; return true; } if (k === 'bell') { const a = typeof v === 'number' ? v : v?.swing ?? 0; hall.bell.rotation.x = a * D2R; return true; } if (k === 'statue') return false; return false; };
+  return {plaza, mainSt, buildings, signs, hall, statue: st, clock: ck, stats, trees: dress.trees, update(t) { if (clockFix) ck.setClock(clockFix); else ck.setTime(t); }, setState,
     onCamera(p) { for (const b of buildings) setLOD(b, lodFor(Math.hypot(p[0] - b.at[0], p[2] - b.at[2]))); }};
 }
 function mergeAll(list) { const g = list.map(x => x.index ? x.toNonIndexed() : x); const out = new T.BufferGeometry(); let n = 0; for (const x of g) n += x.attributes.position.count;

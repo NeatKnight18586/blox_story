@@ -364,6 +364,7 @@ scripts/v2/faces5-sheet.js — Faces v5 at phone size: the hero, Mo and Pip (Toy
 scripts/v2/faces6-gates.js — P2 / P2b Faces v6 gates → review/faces6/gates.json (node + PIL raster, no browser):
 scripts/v2/faces6-sheet.js — P2 Faces v6 review sheets on the R15 hero (cast/hero6.json HERO, faceStyle v6) → review/faces6/:
 scripts/v2/fearbell1g-gate.js — Phase 1G gate (Fear Bell cast, creatures, props, interiors; look B = cityDay2 + outline classic; CC0 on the farm).
+scripts/v2/fgleak.js — npm run v2:fgleak -- --spec <episode.json> [--frames a,b,…] [--out <json>]   (fearbell pass 2, owner A2: NO FOREGROUND LEAK plan check)
 scripts/v2/fix3b-gates.js — tuft P3B gate sections for scripts/v2/village-gates.js (imported; each {sec, run(ctx)}); numbers via
 scripts/v2/fix3b-sheet.js — tuft P3B: ONE before / after sheet + phone read + demo → review/village/fix.png (≤ 1600 px), fix-390.png, demo2.mp4.
 scripts/v2/flicker.js — pure pixel comparison for the stability gate (Amendment A1).

@@ -71,6 +71,12 @@ export const R6KEYS = {
     settle: {lS: [-72, 0, -6], rS: [-72, 0, 6], head: [-12, 0, 0], root: {lean: -5}}}),
   // Phase 1G fix: the fist comes up under the chin (arm across the chest), so the megaphone (governor.js aimMegaphone) sits on the mouth
   announce: V({rS: [-110, -45, -65], lS: [-4, 0, -30], head: [-8, 0, 0], root: {lean: -5}}, {antic: {rS: [12, 0, 6], head: [8, 0, 0], root: {lean: 5}}, settle: {rS: [-107, -43, -63], lS: [-4, 0, -28], head: [-6, 0, 0], root: {lean: -4}}}),
+  // fearbell pass 2 (owner A3, FB_VERBS): water (held can tips forward), sip (cup to the mouth), leap (unplanted jump), punch (straight jab), lookAtLens
+  water: V({rS: [-78, 0, 6], head: [14, 0, 0], root: {lean: 6}}, {antic: {rS: [-30, 0, 6], head: [-4, 0, 0]}}),
+  sip: V({rS: [-112, -40, -60], lS: [-4, 0, -6], head: [-6, 0, 0]}, {antic: {rS: [-20, 0, 6], head: [4, 0, 0]}}),
+  leap: V({lS: [-160, 0, -20], rS: [-160, 0, 20], lH: [-40, 0, -6], rH: [20, 0, 6], head: [-14, 0, 0], root: {lean: -6, dy: 2.4, dz: 1.2}}, {antic: {lS: [20, 0, -6], rS: [20, 0, 6], root: {lean: 12}}, settle: {lS: [-150, 0, -24], rS: [-150, 0, 24], lH: [-60, 0, -6], rH: [-60, 0, 6], head: [-12, 0, 0], root: {lean: -4, dy: 2.2, dz: 1.4}}}),
+  punch: V({rS: [-92, 0, 2], lS: [-46, 0, -12], head: [-4, 0, 0], root: {lean: 12, dz: .35}}, {antic: {rS: [24, 0, 12], lS: [-40, 0, -10], root: {lean: -6}}, settle: {rS: [-88, 0, 4], lS: [-44, 0, -12], head: [-4, 0, 0], root: {lean: 10, dz: .3}}}),
+  lookAtLens: V({head: [-3, 0, 0]}, {antic: {head: [6, 0, 0]}}),
   panic_up: V({lS: [-30, 0, -150], rS: [-30, 0, 150], head: [-16, 0, 0], lH: [-14, 0, -6], rH: [10, 0, 6], root: {lean: -8}}, {antic: {lS: [10, 0, -6], rS: [10, 0, 6], head: [10, 0, 0], root: {lean: 8}}, ...ARC}),
 };
 // hugs: each actor turns to face its partner (a rigid body cannot reach sideways; yaw from acting6's two.place) and steps in

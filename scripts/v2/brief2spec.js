@@ -12,9 +12,22 @@ import {cueWords} from '../../engine/plancheck6.js';
 import {loadLibrary} from './lib6.js';
 import {LOOKS} from '../../engine/look.js';
 import * as S6 from '../../engine/story6.js';
-import {parseTpl} from '../../engine/camtpl.js';
+import {parseTpl, KINDS as TPL_KINDS} from '../../engine/camtpl.js';
+import {KINDS as CREATURE_KINDS} from '../../parts/creatures.js';
+import {keyArt, anchor as cityAnchor} from '../../parts/city/plan.js';
+import {GOV_VERBS, FB_VERBS} from '../../engine/acting6.js';
+// fearbell pass 2 (owner A4, format ≥ 7 + a WORLD setting naming parts/city): Brief locations resolve to the city sets (parts/locations/city.json anchors,
+// heroHouse, cityClassroom, cityDining, the diner counter and bus stop kits); first matching keyword wins ([location file, city anchor]).
+export const CITY_LOC = [[/classroom|school room/i, ['cityClassroom']], [/dining|dinner|kitchen/i, ['cityDining']], [/suburb/i, ['city', 'suburbStreet']], [/hero (house|home)|\byard\b|porch/i, ['city', 'heroHouse']],
+  [/belfry|balcony|\bhall\b/i, ['city', 'hallBalcony']], [/grand stair|\bstair/i, ['city', 'stairBottom']], [/bus stop|main st/i, ['city', 'mainSt']],
+  [/boardwalk/i, ['city', 'boardwalk']], [/diner/i, ['city', 'diner']], [/plaza|downtown|\bcity\b|dome|inside|town/i, ['city', 'plazaWide']]];
+export const cityLocOf = (name, anchors = []) => { const n = String(name ?? '').trim(); if (anchors.includes(n)) return ['city', n]; if (['city', 'cityClassroom', 'cityDining', 'heroHouse'].includes(n)) return n === 'heroHouse' ? ['city', 'heroHouse'] : [n];
+  for (const [re, v] of CITY_LOC) if (re.test(n)) return v; return null; };
+// format 7 non-actor subjects (blocked by the story's own staging): 1G creatures, the town / a crowd / the kids; prop: subjects may be 1G props or city world objects
+export const GROUP_SUBJECTS = ['town', 'crowd', 'kids'], CITY_OBJECTS = {bell: 'city', clock: 'city', desk: 'cityClassroom', drawer: 'cityClassroom', dinnerTable: 'cityDining'};
+export const PROPS1G_NAMES = ['burger', 'plate', 'flashlight', 'mailBurst', 'spaghetti', 'plush', 'bellRope', 'donut', 'wateringCan', 'juiceCup', 'leaf', 'mouse', 'cheeseburger'];
 
-export const SIZES6 = ['wide', 'medium', 'close', 'insert', 'ecu'], EFFECTS6 = ['impact', 'freeze', 'crash', 'none'], SLOTS = ['LEAD', 'SECOND', 'LITTLE', 'RIVAL', 'ELDER', 'DUMMY', 'ADULT_F', 'DOG'];   // E4: ADULT_F (mom) and DOG (a creature entry)
+export const SIZES6 = ['wide', 'medium', 'close', 'insert', 'ecu'], EFFECTS6 = ['impact', 'freeze', 'crash', 'none'], SLOTS = ['LEAD', 'SECOND', 'LITTLE', 'RIVAL', 'ELDER', 'DUMMY', 'ADULT_F', 'DOG', 'GOVERNOR'];   // fearbell pass 2: GOVERNOR (avatar-style/governor.js, troupe-r6.json)   // E4: ADULT_F (mom) and DOG (a creature entry)
 const FACE_ALIAS = {awe_small: 'o_small'};
 const SLOT_SCALE = {LITTLE: .62, LEAD: .82, SECOND: .82, RIVAL: .95};   // E2: partner scale picks the carry (cast/troupe6.json)   // Brief vocabulary → faces6 name (the small round-mouth wonder face)
 const PROP_H = {streetLamp: 5.2, crate: 1.2, porch: 3.5, shack: 5, deadTree: 6, birdhouse: 1.5, powerLine: 9};   // library prop heights (insert camera fit)
@@ -83,6 +96,11 @@ function camera(shot, {size, move, mood, fov, pos, subjects, stand, ecu, aim, ai
 }
 
 const look4Of = (name, e, flags = {}) => NIGHTS.includes(name) ? (flags.nightLook ?? 'moonlit') : name === 'dusk' || name === 'goldenHour' ? (e.lookMap?.dusk ?? 'dusk') : name === 'dawn' ? 'dawn' : (e.lookMap?.day ?? 'comedy');
+// fearbell pass 2 (A4): placeholder camera for a city row: the anchor's key-art lens (city) or the room's first key-art anchor camera
+export function cityCam(loc, anc, root = '.') {
+  if (loc === 'city') { const k = keyArt(anc ?? 'plazaWide'); return {from: {position: k.position.map(v => +v.toFixed(3)), target: k.target.map(v => +v.toFixed(3)), fov: k.fov}}; }
+  const j = JSON.parse(readFileSync(`${root}/parts/locations/${loc}.json`, 'utf8')), a = Object.values(j.anchors ?? {}).find(x => x.camera); return {from: {...a.camera}};
+}
 export function briefToSpec(brief, cues, lib, {slug, root = '.'} = {}) {
   const errors = [], tplLog = [], missing = {locations: [], props: []}, E = (where, msg) => errors.push(`${where}: ${msg}`);
   const words = cueWords(cues), {meta, world, rows} = brief;
@@ -90,14 +108,16 @@ export function briefToSpec(brief, cues, lib, {slug, root = '.'} = {}) {
   if (!rows.length) E('BEATS', 'no table rows');
   // WORLD: locations + props against the set library
   const locs = (world.locations ?? '').split(/[,;·]/).map(x => x.replace(/\(.*?\)/g, '').trim()).filter(Boolean);
-  for (const l of locs) if (!lib.locations[l]) missing.locations.push(l);
+  const CITYW = (+(brief.flags?.format ?? 6)) >= 7 && /parts\/city/.test(world.setting ?? ''), cityAnchors = lib.locations.city?.anchorNames ?? [];
+  for (const l of locs) if (!lib.locations[l] && !(CITYW && cityLocOf(l, cityAnchors))) missing.locations.push(l);
   const props = (world.props ?? '').split(/[,;·]/).map(x => x.trim()).filter(Boolean);
-  for (const p of props) if (!lib.props.has(p)) missing.props.push(p);
-  const loc0 = locs.find(l => lib.locations[l]), worldMod = world['world module'] ?? lib.locations[loc0]?.world ?? (existsSync(`stories/${slug}/world.js`) ? `stories/${slug}/world.js` : null);
+  for (const p of props) if (!lib.props.has(p) && !(CITYW && (PROPS1G_NAMES.includes(p) || CITY_OBJECTS[p]))) missing.props.push(p);
+  const loc0 = CITYW ? undefined : locs.find(l => lib.locations[l]), worldMod = world['world module'] ?? (CITYW ? 'parts/city/world.js' : null) ?? lib.locations[loc0]?.world ?? (existsSync(`stories/${slug}/world.js`) ? `stories/${slug}/world.js` : null);
   if (!worldMod) E('WORLD', `no world module for ${locs.join(', ') || 'any location'} (add one to parts/library6.json or write stories/${slug}/world.js)`);
   // CAST
   const castKeys = {}, cast = {}, pos = {}, yawOf = {}, props7 = [], worldObjs = new Set();
   const VIL = /parts\/village\//.test(worldMod ?? ''), flags = brief.flags ?? {};
+  const CITY7 = (+(flags.format ?? 6)) >= 7 && /parts\/city/.test(world.setting ?? '');   // fearbell pass 2 (A4)
   for (const m of brief.flagErrors ?? []) errors.push(m);
   const orgOf = L => { try { return JSON.parse(readFileSync(`${root}/parts/library6.json`, 'utf8')).locations?.[L]?.origin ?? [0, 0, 0]; } catch { return [0, 0, 0]; } };
   // 4A: per LOCATION data (village worlds: the location file's world anchors, `street` as the common mark anchor and origin)
@@ -144,14 +164,15 @@ export function briefToSpec(brief, cues, lib, {slug, root = '.'} = {}) {
     const LI = info(curLoc), named = !!subj0 && (P2B.includes(subj0) || (curLoc === subj0 && !!LI.e.file) || (subj0 === 'dinnerTable' && !!LI.e.table));   // 4A: props2b kinds / locations / the dining table are not insert copies
     const subs = r.subject.split('+').map(x => x.trim()).filter(Boolean).map(x => x.startsWith('prop:') ? x : x.toLowerCase()), propSub = subs[0]?.startsWith('prop:') ? subs[0].slice(5) : null;   // prop names keep their case
     const wobj = !!propSub && (lib.locations[curLoc]?.worldObjects ?? []).includes(propSub);   // E3 (opt-in by data): an object the world builds itself (library6 `worldObjects`) — the subject resolves to it, no insert copy, camera from `cam:`
-    if (propSub) { if (!lib.props.has(propSub) && !named) { if (!missing.props.includes(propSub)) missing.props.push(propSub); } }
-    else { if (!subs.length) E(`${R} (subject)`, 'empty'); for (const s of subs) if (!castKeys[s]) bad('subject', s, `CAST: ${Object.keys(castKeys).join(', ')}`); }
+    const cityProp = CITY7 && !!propSub && (PROPS1G_NAMES.includes(propSub) || !!CITY_OBJECTS[propSub]);   // fearbell pass 2 (A4): staged by the story's blocking
+    if (propSub && !cityProp) { if (!lib.props.has(propSub) && !named) { if (!missing.props.includes(propSub)) missing.props.push(propSub); } }
+    else if (!cityProp) { if (!subs.length) E(`${R} (subject)`, 'empty'); for (const s of subs) if (!castKeys[s] && !(CITY7 && (GROUP_SUBJECTS.includes(s) || CREATURE_KINDS.some(k => k.toLowerCase() === s)))) bad('subject', s, `CAST: ${Object.keys(castKeys).join(', ')}${CITY7 ? ` | a creature (${CREATURE_KINDS.join(' | ')}) | ${GROUP_SUBJECTS.join(' | ')}` : ''}`); }
     // word-anchored cut time: the nearest word onset (±0.5 s); row 1 starts at 0
     const near = i === 0 ? {start: 0} : words.reduce((b, w) => Math.abs(w.start - c0) < Math.abs(b.start - c0) ? w : b, {start: Infinity});
     if (Math.abs(near.start - c0) > .5) { E(`${R} (cue)`, `start ${c0} s is ${Math.abs(near.start - c0).toFixed(2)} s from the nearest word onset in cues.json`); return; }
     const at = +near.start.toFixed(3); if (at <= lastAt) E(`${R} (cue)`, `starts at ${at} s, not after the previous row (${lastAt} s)`); lastAt = at;
     const win = words.filter(w => w.start >= c0 - .5 && w.start < c1 + .5), localN = (nm, w) => words.filter(x => x.line === w.line && x.n === nm && x.start <= w.start + 1e-6).length;   // acting6 refs: nth is 1-based inside the line
-    const find = (wd, col) => { const w = win.find(x => x.n === norm(wd)); if (!w) { E(`${R} (${col})`, `word "${wd}" is not spoken in cues ${c0}–${c1} s`); return null; } return {word: w.w.replace(/[^\w']/g, '').toLowerCase(), nth: localN(w.n, w), line: w.line, t: w.start}; };
+    const find = (wd, col) => { const ws = String(wd).trim().split(/\s+/).map(norm).filter(Boolean), w = ws.length > 1 ? win.find(x => { const k = words.indexOf(x); return ws.every((q, j) => words[k + j]?.n === q); }) : win.find(x => x.n === norm(wd));   /* fearbell pass 2 (A4): multi-word *emphasis* = the first word, the rest must follow in the cues */ if (!w) { E(`${R} (${col})`, `word "${wd}" is not spoken in cues ${c0}–${c1} s`); return null; } return {word: w.w.replace(/[^\w']/g, '').toLowerCase(), nth: localN(w.n, w), line: w.line, t: w.start}; };
     // VO words: *emphasis*
     const em = [...r.vo.matchAll(/\*([^*]+)\*/g)].map(x => x[1].trim()), voFirst = norm(r.vo.replace(/\*/g, '').trim().split(/\s+/)[0] ?? ''), emHits = [];
     for (const w of em) { const f = find(w, 'VO words'); if (f) { emHits.push(f); emphasis6.push({word: w, t: +f.t.toFixed(3), shot: null, row: r['#']}); } }
@@ -161,7 +182,7 @@ export function briefToSpec(brief, cues, lib, {slug, root = '.'} = {}) {
     let verbT = null;   // `a; b`: the i-th verb lands on the i-th emphasised word (partner verbs hug / carry / comfort_kneel take the other subject as target)
     if (r.verb && r.verb !== '-') for (const [vi, one0] of r.verb.split(';').map(x => x.trim()).filter(Boolean).entries()) { const [one, vw] = one0.split('@').map(x => x.trim());   // E3: `verb @ word` lands that key on the word
       const [who, v] = one.includes(':') ? one.split(':').map(x => x.trim()) : [actor, one], hit = vw ? find(vw, 'action verb') : emHits[vi] ?? anchorWord; if (vw && !hit) continue;
-      if (!VERB_NAMES.includes(v)) bad('action verb', v, VERB_NAMES.join(' | ')); else if (!who || !castKeys[who.toLowerCase()]) bad('action verb actor', who, 'a CAST role');
+      if (![...VERB_NAMES, ...(CITY7 ? [...GOV_VERBS, ...FB_VERBS] : [])].includes(v)) bad('action verb', v, [...VERB_NAMES, ...(CITY7 ? [...GOV_VERBS, ...FB_VERBS] : [])].join(' | ')); else if (!who || !castKeys[who.toLowerCase()]) bad('action verb actor', who, 'a CAST role');
       else { const tg = ['hug', 'carry', 'comfort_kneel'].includes(v) ? subs.find(x => x !== who.toLowerCase()) : null; actions.push({actor: who.toLowerCase(), verb: v, ...(tg ? {target: tg} : {}), at: hit ? {word: hit.word, nth: hit.nth, line: hit.line} : 0}); if (vi === 0) verbT = hit?.t ?? c0; } }
     for (const part of (r.expression || '').split(';').map(x => x.trim()).filter(x => x && x !== '-')) {
       const [face0, wd] = part.split('@').map(x => x.trim()), face = FACE_ALIAS[face0] ?? face0, err = faceError6(face);
@@ -176,7 +197,12 @@ export function briefToSpec(brief, cues, lib, {slug, root = '.'} = {}) {
     // notes markers
     const notes = [], places = []; let cyc = null, propScale = 1, propAt = [0, 0, 0], standDeg = null, aimY = null, aimX = 0, fitF = null, pushK = .93, pushNote = null, camY = null, fovNote = null, holdS = null, freezeF = null, drift = null, tiltDeg = null, tplNote = null;
     const s6m = []; let camNote = null, camB = null;
-    for (const tok of (r.notes || '').split(/[;,]/).map(x => x.trim()).filter(Boolean)) {
+    let cityLoc = null; const notes7 = CITY7 ? (r.notes || '').split(/\s+·\s+/).filter(seg => { const g = /^loc\s*:\s*(.+)$/.exec(seg.trim()); if (g) { cityLoc = cityLocOf(g[1], cityAnchors); if (!cityLoc && !missing.locations.includes(g[1].trim())) missing.locations.push(g[1].trim()); return false; }
+      if (/^tpl\s*:/.test(seg.trim())) { const k = seg.trim().replace(/^tpl\s*:\s*/, '').split(/\s+/)[0]; if (!TPL_KINDS.includes(k)) E(`${R} (notes)`, `tpl: "${k}" is not a template`); else sh.tplKind = k; return false; }
+      if (/^fg\s*:/.test(seg.trim())) { sh.fg = seg.trim().replace(/^fg\s*:\s*/, '').split(/\s+/)[0]; sh.fgNote = true; return false; }
+      return !/^(MUST SEE|lock notes|sync)\s*:/i.test(seg.trim()); }).join(';') : null;   // fearbell pass 2 (A4/A2): ' · ' segments; free text (MUST SEE, lock notes, sync) is never a marker; `fg:` is the only way a format 7 shot gets a foreground element
+    if (CITY7 && cityLoc) { curLoc = cityLoc[0]; sh.cityAnchor = cityLoc[1] ?? null; } else if (CITY7) sh.cityAnchor = shots.at(-1)?.cityAnchor ?? null;
+    for (const tok of (notes7 ?? r.notes ?? '').split(/[;,]/).map(x => x.trim()).filter(Boolean)) {
       let g; const mk = S6.markerOf(tok); if (mk) { s6m.push(mk); continue; }   // E2 story markers (engine/story6.js)
       if ((g = /^cam(b?)\s*:\s*(-?[\d.]+)\s+(-?[\d.]+)\s+(-?[\d.]+)\s+at\s+(-?[\d.]+)\s+(-?[\d.]+)\s+(-?[\d.]+)$/.exec(tok))) { const c = {position: [+g[2], +g[3], +g[4]], target: [+g[5], +g[6], +g[7]]}; if (g[1]) camB = c; else camNote = c; continue; }   // E2: explicit world camera (camb: the split screen's second half)
       if ((g = /^keep\s*:\s*([\w ]+)$/.exec(tok))) { sh.keep = g[1].trim().split(/\s+/).map(x => x.toLowerCase()); continue; }   // E3b D1: dummies `clear` never hides in this shot (a staged non-subject)
@@ -265,7 +291,7 @@ export function briefToSpec(brief, cues, lib, {slug, root = '.'} = {}) {
       else if (key === 'sitOn' && who(P.partner) && who(P.lead)) st6.sits.push({partner: P.partner, lead: P.lead, side: P.side, t, until: +c1.toFixed(3)});   // E3b
     }
     if (wobj) { worldObjs.add(propSub); if (!camNote) E(`${R} (notes)`, `prop:${propSub} is an object the world builds (no insert copy): it needs a cam: note (world camera)`); }
-    if (propSub && !wobj && !named) { const set7 = ['streetLamp', 'crate', 'porch', 'shack', 'deadTree', 'birdhouse', 'powerLine', 'grassBlade', 'rockPeak', 'rockMesa'].includes(propSub);
+    if (propSub && !wobj && !named && !cityProp) { const set7 = ['streetLamp', 'crate', 'porch', 'shack', 'deadTree', 'birdhouse', 'powerLine', 'grassBlade', 'rockPeak', 'rockMesa'].includes(propSub);
       let pr = props7.find(p => p.id === propSub); if (!pr) props7.push(pr = {id: propSub, prop: propSub, ...(set7 ? {set: 'props7'} : {}), ...(propSub === 'streetLamp' ? {p: {color: '#ffd9a0', light: false}} : {}), scale: propScale, pos: [[0, [propAt[0] + org[0], propAt[1], propAt[2] + org[2]]]], visible: [[0, false]]});
       if (drift) pr.pos = [[0, pr.pos[0][1]], [+at.toFixed(3), pr.pos[0][1]], [+c1.toFixed(3), [pr.pos[0][1][0] + drift[0], 0, pr.pos[0][1][2] + drift[1]], 'ramp']];   // `drift: dx dz` slides the prop (and its shadow) over its insert
       pr.visible.push([at, true], [+c1.toFixed(3), false]); }   // the prop exists only during its insert
@@ -274,7 +300,8 @@ export function briefToSpec(brief, cues, lib, {slug, root = '.'} = {}) {
     if (sh.clear === undefined && clearSizes.includes(r.size)) sh.clear = true; if (sh.clear === false) delete sh.clear;   // E3b D1 (opt-in): META `clear: close insert ecu medium`
     if (ecu) sh.ecu = true; if (propSub) { if (named) { if (P2B.includes(propSub)) sh.prop = 'prop2b_' + propSub; } else sh.prop = wobj ? propSub : 'prop_' + propSub; } else sh.subject = subs[0]; if (subs.length > 1) sh.pair = subs.slice(0, 2); if (actions.length) sh.actions = actions; if (notes.length) sh.note = notes.join('; ');
     if (i === 0) sh.openHit = true; if (r.move === 'crashZoom' && aimX) sh.subjectAimOffset = [aimX, 0, 0]; if (r.move === 'crashZoom' && aimY !== null) sh.subjectAimY = aimY;   // the zoom re-aims at the subject: keep the same x shift
-    if (!errors.some(e => e.startsWith(R)) && !propSub) Object.assign(sh, camera(sh, {size, move: r.move, mood: r.mood, fov, pos: Object.fromEntries(Object.entries(cur).map(([k, v]) => [k, [v[0] + org[0], v[1] + org[1], v[2] + org[2]]])), subjects: subs.filter(s => cur[s]), stand: standDeg ?? (i % 2 ? 18 : -18), ecu, aim: aimY, aimx: aimX, fitF, pushTo: pushNote ?? undefined, camY}));
+    if (CITY7) Object.assign(sh, cityCam(curLoc, sh.cityAnchor));   // fearbell pass 2 (A4): the location's key-art view as the placeholder; the story's blocking (stories/<slug>/previs.js) places every camera
+    else if (!errors.some(e => e.startsWith(R)) && !propSub) Object.assign(sh, camera(sh, {size, move: r.move, mood: r.mood, fov, pos: Object.fromEntries(Object.entries(cur).map(([k, v]) => [k, [v[0] + org[0], v[1] + org[1], v[2] + org[2]]])), subjects: subs.filter(s => cur[s]), stand: standDeg ?? (i % 2 ? 18 : -18), ecu, aim: aimY, aimx: aimX, fitF, pushTo: pushNote ?? undefined, camY}));
     else if (named && !wobj && !errors.some(e => e.startsWith(R))) {   // 4A: props2b / location / table subjects: the entry (or the location view) + the camera
       const fv = Math.min(Math.max(fov, 28), 52), VIEW = LI.e.views?.establish ?? Object.values(LI.e.views ?? {})[0], k2 = P2B.includes(propSub);
       if (k2) ensure2b(propSub, curLoc, at - .05, c1 + .05);
@@ -310,6 +337,7 @@ export function briefToSpec(brief, cues, lib, {slug, root = '.'} = {}) {
     cast, ...(props7.length ? {props: props7} : {}), ...(p2b.length ? {props2b: p2b} : {}), ...(worldObjs.size ? {worldObjects: [...worldObjs]} : {}), emphasis6: emphasis6.map(({row, ...e}) => e), effects, shots};
   const {nightLook, ...fl} = flags; Object.assign(spec, fl);   // 4A: SPEC FLAGS → spec (format, season, acting, rig, twos, post, camera, grade)
   if (VIL && used.length) { spec.location = used[0]; spec.look4 = locFirstLook[used[0]] ?? 'comedy'; if (used.length > 1) { spec.locations = used; spec.locationLook4 = Object.fromEntries(used.map(L => [L, locFirstLook[L] ?? 'comedy'])); } }
+  if (CITY7) { spec.look4 = /cityDay\s*v?2/i.test(world.palette ?? '') ? 'cityDay2' : 'cityDay'; if (used.length > 1) spec.locations = used; else spec.location = used[0]; }   // fearbell pass 2 (A4): city segments (scripts/v2/segments.js)
   if (crowdArea && st6.crowd) { st6.crowd.area = crowdArea; st6.crowd.spread = true; st6.crowd.partial = true; if (crowdAvoid.length) st6.crowd.avoid = crowdAvoid; }   // E3b: spread start, kept-clear boxes, a marker's n moves only that many
   else if (st6.crowd) for (const q of st6.crowd.steps) delete q.n;   // legacy specs: steps unchanged   // E3b: the crowd starts spread over its wander box
   if (cues2b.length) spec.sfxCues = [...(spec.sfxCues ?? []), ...cues2b];

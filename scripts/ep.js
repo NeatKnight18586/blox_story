@@ -12,7 +12,8 @@ const J = f => { try { return JSON.parse(readFileSync(f, 'utf8')); } catch { ret
 const S = {
   align: [{name: 'v2:align', cmd: 'python3', args: ['scripts/v2/align.py', '--story', slug], note: () => J(`stories/${slug}/build/cues.json`)?.lines ? `${J(`stories/${slug}/build/cues.json`).lines.length} lines` : ''}],
   spec: [{name: 'brief2spec', cmd: 'node', args: ['scripts/v2/brief2spec.js', '--story', slug], note: () => { const e = J(spec); return e ? `${e.shots?.length ?? '?'} shots, format ${e.format}` : ''; }}],
-  plan: [{name: 'v2:plan', cmd: 'node', args: ['scripts/v2/plan.js', '--story', slug], note: () => { const p = J(`${rev}/plan.json`); return p ? `${p.errors?.length ?? 0} errors, ${p.warnings?.length ?? 0} warnings` : ''; }}],
+  plan: [{name: 'v2:plan', cmd: 'node', args: ['scripts/v2/plan.js', '--story', slug], note: () => { const p = J(`${rev}/plan.json`); return p ? `${p.errors?.length ?? 0} errors, ${p.warnings?.length ?? 0} warnings` : ''; }},
+    {name: 'v2:fgleak', cmd: 'node', args: ['scripts/v2/fgleak.js', '--spec', spec, '--out', `${rev}/fgleak.json`], skip: () => (J(spec)?.format ?? 0) < 7, note: () => { const r = J(`${rev}/fgleak.json`); return r ? `max cover ${Math.max(0, ...r.rows.map(x => x.cover)).toFixed(3)} (≤ 0.10)` : ''; }}],
   animatic: [
     {name: 'v2:stability', cmd: 'node', args: ['scripts/v2/stability.js', '--story', slug], note: () => { const r = J(`${rev}/stability.json`); return r ? `flicker ${r.worst ?? r.maxPct ?? r.pct ?? '?'}` : ''; }},
     {name: 'v2:read', cmd: 'node', args: ['scripts/v2/read.js', '--story', slug], note: () => { const r = J(`${rev}/read.json`); return r ? `${r.errors?.length ?? 0} read errors` : ''; }},

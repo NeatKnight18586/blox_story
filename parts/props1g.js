@@ -5,7 +5,8 @@
 //   mailBurst   envelope confetti burst at animAt (40 envelopes, gravity + flutter, 2.6 s)  spaghetti   plate + noodle mound + meatballs + sauce
 //   plush       Lulu's lavender bunny plush                                                bellRope    the Hall bell rope; {length}, animAt = a yank (0.6 s)
 //   donut       pink-frosted donut with sprinkles
-// Tools (avatar-style/tools.js): flashlight ('extend': the cone continues the arm), donut ('hold'). Accessory plushHug (Lulu hugs it).
+// Tools (avatar-style/tools.js): flashlight ('extend': the cone continues the arm), donut ('hold'); pass 2: wateringCan, juiceCup ('hold').
+// Pass 2 (owner A3): wateringCan (animAt = pour), juiceCup, leaf (blowing flutter), mouse, cheeseburger (FULL, phone-readable). Accessory plushHug (Lulu hugs it).
 import * as T from 'three';
 
 const cache = new Map(), C = (k, f) => { if (!cache.has(k)) cache.set(k, f()); return cache.get(k); };
@@ -96,5 +97,48 @@ export function bellRope(o = {}) {   // hangs DOWN from its origin (the belfry h
   g.userData.anim = u => { const k = u < 0 ? 0 : u < .15 ? sm(u / .15) : 1 - sm((u - .15) / .45); rope.position.y = -1.1 * k; rope.rotation.z = .04 * Math.sin(u * 9) * (1 - clamp01(u / .8)); };
   return g;
 }
-export const PROPS1G = {burger, plate, flashlight, mailBurst, spaghetti, plush, bellRope, donut};
+// ---- fearbell pass 2 (owner A3): small-action props ----
+// wateringCan: green can, spout along +z; animAt = the pour (a falling droplet stream from the rose for 1.6 s)
+export const waterDrop = (i, u) => { if (u < 0 || u > 1.6) return null; const ph = ((u * 2.2 + i / 14) % 1); return {p: [(i % 3 - 1) * .06, -ph * 1.6, .4 * ph + .02 * (i % 4)], s: .6 + .4 * Math.sin(i * 1.7) ** 2}; };
+export function wateringCan() {
+  const g = new T.Group(), gr = mat('#2fa84f', {roughness: .4}), dk = mat('#1d7a36');
+  g.add(mesh(new T.CylinderGeometry(.38, .42, .7, 20), gr, [0, .35, 0])); g.add(mesh(new T.TorusGeometry(.26, .05, 8, 16, Math.PI), dk, [0, .78, -.05], [0, Math.PI / 2, 0]));
+  g.add(mesh(new T.CylinderGeometry(.05, .08, .9, 10), gr, [0, .55, .55], [-.9, 0, 0])); const rose = mesh(new T.CylinderGeometry(.12, .07, .1, 12), dk, [0, .87, .93], [-.9, 0, 0]); g.add(rose);
+  const drops = new T.InstancedMesh(new T.SphereGeometry(.05, 6, 4), new T.MeshStandardMaterial({color: '#8fd6ff', roughness: .1}), 14); drops.frustumCulled = false; drops.position.set(0, .87, .98); g.add(drops);
+  const m4 = new T.Matrix4(); g.userData.anim = u => { for (let i = 0; i < 14; i++) { const k = waterDrop(i, u); if (!k) m4.makeScale(0, 0, 0); else m4.makeTranslation(...k.p).multiply(new T.Matrix4().makeScale(k.s, k.s * 1.6, k.s)); drops.setMatrixAt(i, m4); } drops.instanceMatrix.needsUpdate = true; };
+  g.userData.anim(-1); return g;
+}
+// juiceCup: orange paper cup, lid, striped straw
+export function juiceCup() {
+  const g = new T.Group(); g.add(mesh(new T.CylinderGeometry(.2, .15, .5, 16), mat('#ff9a1f', {roughness: .5}), [0, .25, 0])); g.add(mesh(new T.CylinderGeometry(.215, .215, .05, 16), mat('#ffffff'), [0, .52, 0]));
+  g.add(mesh(new T.CylinderGeometry(.03, .03, .45, 8), mat('#ff4f7a'), [.05, .7, 0], [0, 0, -.25])); g.add(mesh(new T.TorusGeometry(.2, .02, 4, 16), mat('#ffd23f'), [0, .3, 0], [Math.PI / 2, 0, 0])); return g;
+}
+// leaf: one bright maple-ish leaf; anim = the blowing flutter (tumble + bob, pure in u); the travel is the prop's own pos keys ('ramp')
+export const leafFlutter = u => ({rot: [Math.sin(u * 7) * .9, u * 5.5, Math.cos(u * 5) * .7], dy: .35 * Math.sin(u * 4.2)});
+export function leaf(o = {}) {
+  const g = new T.Group(), body = new T.Group(); g.add(body); const sh = new T.Shape(); sh.moveTo(0, -.5); for (let i = 0; i <= 10; i++) { const a = -Math.PI / 2 + i * Math.PI / 5, r = i % 2 ? .28 : .55; sh.lineTo(Math.cos(a + Math.PI) * r * .9, Math.sin(a + Math.PI) * r + .05); }
+  body.add(mesh(new T.ShapeGeometry(sh), mat(o.color ?? '#ff8a1f', {side: T.DoubleSide}))); body.scale.setScalar(o.size ?? 1);
+  g.userData.anim = u => { const k = leafFlutter(u); body.rotation.set(...k.rot); body.position.y = k.dy; }; return g;
+}
+// mouse: the shrunken fear (grey, big pink ears, tail), sized for a shoulder ride
+export function mouse() {
+  const g = new T.Group(), f = mat('#b9b4c4', {roughness: .7}), pk = mat('#ffaac8');
+  g.add(mesh(new T.SphereGeometry(.22, 14, 10), f, [0, .2, 0], [0, 0, 0], [1, .85, 1.4])); g.add(mesh(new T.SphereGeometry(.15, 12, 8), f, [0, .3, .3]));
+  for (const s of [-1, 1]) { g.add(mesh(new T.CylinderGeometry(.11, .11, .03, 14), pk, [s * .11, .45, .27], [Math.PI / 2, 0, 0])); g.add(mesh(new T.SphereGeometry(.025, 6, 4), mat('#111'), [s * .06, .34, .44])); }
+  g.add(mesh(new T.SphereGeometry(.03, 6, 4), pk, [0, .3, .46])); g.add(mesh(new T.TorusGeometry(.2, .02, 4, 12, Math.PI), pk, [0, .18, -.45], [0, Math.PI / 2, 0])); return g;
+}
+// cheeseburger (FULL): the yard twist — chunky and readable at phone size: tall sesame bun, thick patty, melting cheese corners, frilly lettuce, tomato
+// that all overhang the bun (every layer shows from a low side view). ~1.6 studs wide, 1.3 tall at scale 1.
+export function cheeseburger() {
+  const g = new T.Group(), bun = mat('#e9a142', {roughness: .5}); let y = 0; const L = (geo, m, h, rot) => { g.add(mesh(geo, m, [0, y + h / 2, 0], rot)); y += h; };
+  L(new T.CylinderGeometry(.74, .7, .28, 28), bun, .28);
+  const let_ = new T.CylinderGeometry(.92, .92, .08, 28, 1), p = let_.attributes.position; for (let i = 0; i < p.count; i++) { const x = p.getX(i), z = p.getZ(i), a = Math.atan2(z, x); if (Math.hypot(x, z) > .6) p.setY(i, p.getY(i) - .06 + .06 * Math.sin(a * 11)); } let_.computeVertexNormals();
+  L(let_, mat('#43c437'), .08); L(new T.CylinderGeometry(.82, .82, .3, 28), mat('#5a2f19', {roughness: .75}), .3);
+  const ch = mesh(new T.BoxGeometry(1.5, .07, 1.5), mat('#ffc61a'), [0, y + .03, 0], [0, .4, 0]); g.add(ch); for (const a of [.4, 2, 3.5, 5.1]) g.add(mesh(new T.ConeGeometry(.12, .3, 4), mat('#ffc61a'), [Math.cos(a) * .9, y - .1, Math.sin(a) * .9], [Math.PI, 0, 0])); y += .07;
+  L(new T.CylinderGeometry(.7, .7, .1, 24), mat('#e8402f'), .1);
+  g.add(mesh(new T.SphereGeometry(.76, 28, 14, 0, Math.PI * 2, 0, Math.PI / 2), bun, [0, y, 0], [0, 0, 0], [1, .66, 1]));
+  for (let i = 0; i < 16; i++) { const a = i * 2.4, r = .15 + .45 * ((i * 7) % 6) / 6, yy = y + .5 * Math.sqrt(Math.max(0, 1 - (r / .76) ** 2)); g.add(mesh(new T.SphereGeometry(.045, 6, 4), mat('#fff6dc'), [Math.cos(a) * r, yy, Math.sin(a) * r], [0, a, 0], [1.6, .7, 1])); }
+  g.userData.size = {w: 1.84, h: y + .5}; return g;
+}
+export const PROPS1G = {burger, plate, flashlight, mailBurst, spaghetti, plush, bellRope, donut, wateringCan, juiceCup, leaf, mouse, cheeseburger};
 export const tris = o => { let n = 0; o.traverse(m => { if (m.isMesh) { const g = m.geometry, k = (g.index ? g.index.count : g.attributes.position.count) / 3; n += k * (m.isInstancedMesh ? m.count : 1); } }); return n; };
