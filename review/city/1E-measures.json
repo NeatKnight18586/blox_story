@@ -55,9 +55,9 @@
    },
    "pass": true,
    "bench": {
-    "tris": 50910,
-    "calls": 128,
-    "sPerFrame": 0.313,
+    "tris": 51022,
+    "calls": 136,
+    "sPerFrame": 0.365,
     "pass": true
    }
   },
@@ -66,7 +66,7 @@
    "landmark": "7",
    "heroH": 0.31,
    "landmarkVisible": 0.074,
-   "ground": 0.076,
+   "ground": 0.078,
    "fg": {
     "px": 0.0447,
     "x0": 0.8851851851851852,
@@ -104,9 +104,9 @@
    },
    "pass": true,
    "bench": {
-    "tris": 57448,
-    "calls": 160,
-    "sPerFrame": 0.451,
+    "tris": 54208,
+    "calls": 158,
+    "sPerFrame": 0.502,
     "pass": true
    }
   },
@@ -115,7 +115,7 @@
    "landmark": null,
    "heroH": 0.315,
    "landmarkVisible": null,
-   "ground": 0.061,
+   "ground": 0.06,
    "fg": null,
    "kids": {
     "kidL": {
@@ -144,9 +144,9 @@
    },
    "pass": true,
    "bench": {
-    "tris": 44334,
-    "calls": 142,
-    "sPerFrame": 0.386,
+    "tris": 40980,
+    "calls": 139,
+    "sPerFrame": 0.444,
     "pass": true
    }
   },
@@ -155,15 +155,15 @@
    "landmark": null,
    "heroH": 0.317,
    "landmarkVisible": null,
-   "ground": 0.21,
+   "ground": 0.218,
    "fg": null,
    "kids": {
     "kidL": {
-     "share": 0.701,
+     "share": 0.974,
      "beside": true
     },
     "kidS": {
-     "share": 0.871,
+     "share": 0.9,
      "beside": true
     }
    },
@@ -184,9 +184,9 @@
    },
    "pass": true,
    "bench": {
-    "tris": 37182,
-    "calls": 120,
-    "sPerFrame": 0.183,
+    "tris": 37032,
+    "calls": 118,
+    "sPerFrame": 0.164,
     "pass": true
    }
   },
@@ -195,7 +195,7 @@
    "landmark": null,
    "heroH": 0.304,
    "landmarkVisible": null,
-   "ground": 0.202,
+   "ground": 0.204,
    "fg": null,
    "kids": {
     "kidL": {
@@ -310,7 +310,7 @@
    "landmark": "2",
    "heroH": 0.308,
    "landmarkVisible": 0.383,
-   "ground": 0.238,
+   "ground": 0.235,
    "fg": {
     "px": 0.0235,
     "x0": 0,
@@ -354,7 +354,7 @@
    "landmark": "2",
    "heroH": 0.206,
    "landmarkVisible": 0.68,
-   "ground": 0.179,
+   "ground": 0.178,
    "fg": {
     "px": 0.0398,
     "x0": 0.8740740740740741,
@@ -495,7 +495,7 @@
    "landmark": "2",
    "heroH": 0.304,
    "landmarkVisible": 0.411,
-   "ground": 0.224,
+   "ground": 0.225,
    "fg": {
     "px": 0.0202,
     "x0": 0,
@@ -537,9 +537,9 @@
    },
    "pass": true,
    "bench": {
-    "tris": 86924,
-    "calls": 345,
-    "sPerFrame": 0.468,
+    "tris": 83602,
+    "calls": 346,
+    "sPerFrame": 0.486,
     "pass": true
    }
   },
@@ -548,7 +548,7 @@
    "landmark": null,
    "heroH": 0.306,
    "landmarkVisible": null,
-   "ground": 0.199,
+   "ground": 0.206,
    "fg": {
     "px": 0.0234,
     "x0": 0,
@@ -647,8 +647,8 @@
    "gold": {
     "n": 5044,
     "luma": 0.434,
-    "hue": 42,
-    "sat": 0.759,
+    "hue": 42.1,
+    "sat": 0.76,
     "clipped": 0.0077,
     "hFrac": 0.2479
    },
@@ -687,9 +687,9 @@
    },
    "pass": true,
    "bench": {
-    "tris": 86768,
-    "calls": 263,
-    "sPerFrame": 0.306,
+    "tris": 83568,
+    "calls": 267,
+    "sPerFrame": 0.355,
     "pass": true
    }
   },
@@ -698,7 +698,7 @@
    "landmark": "2",
    "heroH": 0.313,
    "landmarkVisible": 0.463,
-   "ground": 0.184,
+   "ground": 0.185,
    "fg": {
     "px": 0.0238,
     "x0": 0,
@@ -827,7 +827,7 @@
    "landmark": null,
    "heroH": 0.317,
    "landmarkVisible": null,
-   "ground": 0.199,
+   "ground": 0.201,
    "fg": {
     "px": 0.0107,
     "x0": 0,
@@ -957,10 +957,10 @@
    },
    "pass": true,
    "bench": {
-    "tris": 91711,
-    "calls": 496,
-    "sPerFrame": 0.476,
-    "pass": false
+    "tris": 89357,
+    "calls": 504,
+    "sPerFrame": 0.539,
+    "pass": true
    }
   },
   "beach": {
@@ -1060,9 +1060,9 @@
    },
    "pass": true,
    "bench": {
-    "tris": 92769,
-    "calls": 414,
-    "sPerFrame": 0.301,
+    "tris": 90409,
+    "calls": 423,
+    "sPerFrame": 0.339,
     "pass": false
    }
   },
@@ -1112,24 +1112,24 @@
   "hillsLookout": {
    "gate": false,
    "landmark": "2",
-   "heroH": 0.287,
-   "landmarkVisible": 0.651,
-   "ground": 0.211,
+   "heroH": 0.3,
+   "landmarkVisible": 0.691,
+   "ground": 0.195,
    "fg": {
-    "px": 0.0141,
+    "px": 0.0104,
     "x0": 0,
-    "x1": 0.1111111111111111,
-    "width": 0.111,
-    "cover": 0.111,
+    "x1": 0.08888888888888889,
+    "width": 0.089,
+    "cover": 0.089,
     "middle": false
    },
    "kids": {
     "kidL": {
-     "share": 0.966,
+     "share": 0.972,
      "beside": true
     },
     "kidS": {
-     "share": 0.775,
+     "share": 0.879,
      "beside": true
     }
    },
@@ -1164,28 +1164,28 @@
    "halos": 0,
    "stars": false,
    "blimpLit": false,
-   "ground": 0.179
+   "ground": 0.178
   },
   "cityGoldenHour": {
    "beam": false,
    "halos": 0,
    "stars": false,
    "blimpLit": false,
-   "ground": 0.179
+   "ground": 0.178
   },
   "cityDusk": {
    "beam": true,
    "halos": 35,
    "stars": true,
    "blimpLit": true,
-   "ground": 0.179
+   "ground": 0.178
   },
   "cityNight": {
    "beam": true,
    "halos": 35,
    "stars": true,
    "blimpLit": true,
-   "ground": 0.179
+   "ground": 0.178
   }
  },
  "textures": [
@@ -1199,23 +1199,28 @@
   "plain"
  ],
  "trees": {
-  "trees": 940,
-  "cards": 940,
+  "trees": 948,
+  "cards": 948,
   "bySpecies": {
    "leafy": {
-    "n": 333,
+    "n": 359,
     "nearTris": 174,
     "source": "procedural:leafy"
    },
-   "pine": {
-    "n": 472,
+   "fir": {
+    "n": 258,
     "nearTris": 104,
     "source": "procedural:pine"
    },
    "round": {
-    "n": 135,
+    "n": 114,
     "nearTris": 150,
     "source": "procedural:round"
+   },
+   "pine": {
+    "n": 217,
+    "nearTris": 104,
+    "source": "procedural:pine"
    }
   },
   "species": {
@@ -1226,6 +1231,12 @@
     "height": 10.81
    },
    "pine": {
+    "source": "procedural:pine",
+    "tris": 104,
+    "rawTris": null,
+    "height": 11.9
+   },
+   "fir": {
     "source": "procedural:pine",
     "tris": 104,
     "rawTris": null,
@@ -1246,6 +1257,12 @@
     "baked": false
    },
    "pine": {
+    "w": 2048,
+    "h": 256,
+    "views": 8,
+    "baked": false
+   },
+   "fir": {
     "w": 2048,
     "h": 256,
     "views": 8,
