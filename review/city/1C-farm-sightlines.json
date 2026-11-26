@@ -1,0 +1,1516 @@
+{
+ "rule": "slot visible ≥ 2 % of its sampled volume points (in frame and first ray hit); stairBottom stair span ≤ 40 % of frame height; mainSt ≥ 3 visible shop signs with cap height ≥ 3 % of frame",
+ "bake": [
+  {
+   "meshes": 128,
+   "vertices": 107994,
+   "voxels": [
+    471,
+    132,
+    282
+   ],
+   "ms": 374
+  },
+  {
+   "meshes": 617,
+   "vertices": 212994,
+   "voxels": [
+    396,
+    94,
+    675
+   ],
+   "ms": 984
+  },
+  {
+   "meshes": 321,
+   "vertices": 131703,
+   "voxels": [
+    374,
+    59,
+    277
+   ],
+   "ms": 705
+  },
+  {
+   "meshes": 27,
+   "vertices": 11952,
+   "voxels": [
+    54,
+    49,
+    171
+   ],
+   "ms": 40
+  },
+  {
+   "meshes": 2,
+   "vertices": 397,
+   "voxels": [
+    108,
+    92,
+    62
+   ],
+   "ms": 3
+  },
+  {
+   "meshes": 99,
+   "vertices": 7160,
+   "voxels": [
+    309,
+    70,
+    423
+   ],
+   "ms": 46
+  },
+  {
+   "meshes": 1,
+   "vertices": 88,
+   "voxels": [
+    46,
+    56,
+    42
+   ],
+   "ms": 2
+  },
+  {
+   "meshes": 57,
+   "vertices": 2484,
+   "voxels": [
+    471,
+    60,
+    185
+   ],
+   "ms": 13
+  },
+  {
+   "meshes": 25,
+   "vertices": 864,
+   "voxels": [
+    470,
+    59,
+    184
+   ],
+   "ms": 8
+  },
+  {
+   "meshes": 216,
+   "vertices": 10380,
+   "voxels": [
+    373,
+    49,
+    668
+   ],
+   "ms": 38
+  },
+  {
+   "meshes": 107,
+   "vertices": 3516,
+   "voxels": [
+    371,
+    47,
+    668
+   ],
+   "ms": 17
+  },
+  {
+   "meshes": 116,
+   "vertices": 6420,
+   "voxels": [
+    374,
+    59,
+    277
+   ],
+   "ms": 23
+  },
+  {
+   "meshes": 39,
+   "vertices": 1404,
+   "voxels": [
+    373,
+    57,
+    275
+   ],
+   "ms": 8
+  },
+  {
+   "meshes": 17,
+   "vertices": 750,
+   "voxels": [
+    54,
+    49,
+    171
+   ],
+   "ms": 2
+  },
+  {
+   "meshes": 7,
+   "vertices": 252,
+   "voxels": [
+    54,
+    48,
+    170
+   ],
+   "ms": 1
+  }
+ ],
+ "textures": [
+  "cc0:city_asphalt",
+  "cc0:city_brick",
+  "cc0:city_planks",
+  "cc0:city_plaster",
+  "cc0:city_shingles",
+  "cc0:city_sidewalk",
+  "cc0:city_stone",
+  "plain"
+ ],
+ "shots": {
+  "g": {
+   "anchor": "plazaWide",
+   "onScreen": [
+    "1",
+    "2",
+    "3",
+    "7"
+   ],
+   "pass": true,
+   "comp": {
+    "skyPct": 28.3,
+    "waterPct": 0,
+    "otherPct": 71.7,
+    "hillPct": 5.5,
+    "hillsAboveRoofLots": 21.5,
+    "hillsAboveRoofAll": -10.5,
+    "classes": {
+     "sky": 28.3,
+     "water": 0,
+     "hill": 5.5,
+     "ground": 32,
+     "build": 11,
+     "slot": 21.2,
+     "tree": 2,
+     "other": 0
+    }
+   },
+   "triangles": 60372,
+   "calls": 162,
+   "slots": {
+    "1": {
+     "inFrame": 1,
+     "visible": 0.297,
+     "ndc": [
+      0.29,
+      0.1
+     ]
+    },
+    "2": {
+     "inFrame": 0.263,
+     "visible": 0.034,
+     "ndc": [
+      -1.56,
+      0.45
+     ]
+    },
+    "3": {
+     "inFrame": 1,
+     "visible": 0.343,
+     "ndc": [
+      0.61,
+      0.12
+     ]
+    },
+    "4": {
+     "inFrame": 0,
+     "visible": 0,
+     "ndc": [
+      1.49,
+      -0.03
+     ]
+    },
+    "5": {
+     "inFrame": 0,
+     "visible": 0,
+     "ndc": [
+      -3.99,
+      -0.04
+     ]
+    },
+    "6": {
+     "inFrame": 0,
+     "visible": 0,
+     "ndc": [
+      9.97,
+      -0.13
+     ]
+    },
+    "7": {
+     "inFrame": 0.84,
+     "visible": 0.326,
+     "ndc": [
+      -0.88,
+      0.56
+     ]
+    },
+    "8": {
+     "inFrame": 0,
+     "visible": 0,
+     "ndc": [
+      -48.08,
+      7.54
+     ]
+    }
+   },
+   "stair": null,
+   "hall": {
+    "top": 0.369,
+    "bottom": 0.615,
+    "frac": 0.245
+   },
+   "signsReadable": 0,
+   "signs": [
+    {
+     "text": "RULES ARE RULES",
+     "capPct": 0.71,
+     "dist": 33.9,
+     "seen": true
+    }
+   ],
+   "checks": {
+    "sightlines": true,
+    "stair": true,
+    "signs": true,
+    "windows": true,
+    "statueClip": true,
+    "statueFace": true,
+    "heroDoor": true
+   },
+   "measures": {
+    "windows": {
+     "px": 2975,
+     "frac": 0.011,
+     "luma": 0.76,
+     "clipFrac": 0,
+     "rgb": [
+      180,
+      197,
+      204
+     ]
+    },
+    "statue": {
+     "px": 19634,
+     "frac": 0.0726,
+     "luma": 0.501,
+     "clipFrac": 0,
+     "rgb": [
+      148,
+      129,
+      58
+     ]
+    },
+    "statueFace": {
+     "px": 525,
+     "frac": 0.0019,
+     "luma": 0.602,
+     "clipFrac": 0,
+     "rgb": [
+      180,
+      152,
+      90
+     ]
+    },
+    "statueHat": {
+     "px": 1938,
+     "frac": 0.0072,
+     "luma": 0.513,
+     "clipFrac": 0,
+     "rgb": [
+      151,
+      131,
+      66
+     ]
+    },
+    "paving": {
+     "px": 77465,
+     "frac": 0.2866,
+     "luma": 0.508,
+     "clipFrac": 0,
+     "rgb": [
+      176,
+      119,
+      100
+     ]
+    },
+    "heroDoor": {
+     "px": 0,
+     "frac": 0,
+     "luma": null,
+     "clipFrac": null,
+     "rgb": null
+    }
+   }
+  },
+  "a": {
+   "anchor": "boardwalk",
+   "onScreen": [
+    "2",
+    "7",
+    "8"
+   ],
+   "pass": true,
+   "comp": {
+    "skyPct": 39,
+    "waterPct": 0,
+    "otherPct": 61,
+    "hillPct": 0,
+    "hillsAboveRoofLots": -6.8,
+    "hillsAboveRoofAll": -6.8,
+    "classes": {
+     "sky": 39,
+     "water": 0,
+     "hill": 0,
+     "ground": 43.8,
+     "build": 15.5,
+     "slot": 1.6,
+     "tree": 0,
+     "other": 0
+    }
+   },
+   "triangles": 89324,
+   "calls": 303,
+   "slots": {
+    "1": {
+     "inFrame": 1,
+     "visible": 0,
+     "ndc": [
+      -0.06,
+      0.11
+     ]
+    },
+    "2": {
+     "inFrame": 0.96,
+     "visible": 0.029,
+     "ndc": [
+      -0.63,
+      0.21
+     ]
+    },
+    "3": {
+     "inFrame": 1,
+     "visible": 0,
+     "ndc": [
+      0.03,
+      0.11
+     ]
+    },
+    "4": {
+     "inFrame": 0,
+     "visible": 0,
+     "ndc": [
+      1.63,
+      -0.17
+     ]
+    },
+    "5": {
+     "inFrame": 0,
+     "visible": 0,
+     "ndc": [
+      -66.49,
+      -1.94
+     ]
+    },
+    "6": {
+     "inFrame": 0,
+     "visible": 0,
+     "ndc": [
+      2.77,
+      0.01
+     ]
+    },
+    "7": {
+     "inFrame": 1,
+     "visible": 0.171,
+     "ndc": [
+      -0.72,
+      0.34
+     ]
+    },
+    "8": {
+     "inFrame": 0.686,
+     "visible": 0.229,
+     "ndc": [
+      0.78,
+      -0.02
+     ]
+    }
+   },
+   "stair": {
+    "top": 0.481,
+    "bottom": 0.55,
+    "frac": 0.069
+   },
+   "hall": {
+    "top": 0.291,
+    "bottom": 0.345,
+    "frac": 0.053
+   },
+   "signsReadable": 0,
+   "signs": [
+    {
+     "text": "RULES ARE RULES",
+     "capPct": 0.12,
+     "dist": 154.6,
+     "seen": false
+    }
+   ],
+   "checks": {
+    "sightlines": true,
+    "stair": true,
+    "signs": true,
+    "windows": true,
+    "statueClip": true,
+    "statueFace": true,
+    "heroDoor": true
+   },
+   "measures": {
+    "windows": {
+     "px": 4624,
+     "frac": 0.0171,
+     "luma": 0.736,
+     "clipFrac": 0,
+     "rgb": [
+      174,
+      191,
+      199
+     ]
+    },
+    "statue": {
+     "px": 0,
+     "frac": 0,
+     "luma": null,
+     "clipFrac": null,
+     "rgb": null
+    },
+    "statueFace": {
+     "px": 0,
+     "frac": 0,
+     "luma": null,
+     "clipFrac": null,
+     "rgb": null
+    },
+    "statueHat": {
+     "px": 0,
+     "frac": 0,
+     "luma": null,
+     "clipFrac": null,
+     "rgb": null
+    },
+    "paving": {
+     "px": 0,
+     "frac": 0,
+     "luma": null,
+     "clipFrac": null,
+     "rgb": null
+    },
+    "heroDoor": {
+     "px": 0,
+     "frac": 0,
+     "luma": null,
+     "clipFrac": null,
+     "rgb": null
+    }
+   }
+  },
+  "e": {
+   "anchor": "stairBottom",
+   "onScreen": [
+    "1",
+    "2",
+    "7",
+    "8"
+   ],
+   "pass": true,
+   "comp": {
+    "skyPct": 42.6,
+    "waterPct": 0,
+    "otherPct": 57.4,
+    "hillPct": 4.9,
+    "hillsAboveRoofLots": 4.3,
+    "hillsAboveRoofAll": -8.8,
+    "classes": {
+     "sky": 42.6,
+     "water": 0,
+     "hill": 4.9,
+     "ground": 20.4,
+     "build": 0.1,
+     "slot": 29.8,
+     "tree": 2.2,
+     "other": 0
+    }
+   },
+   "triangles": 69436,
+   "calls": 144,
+   "slots": {
+    "1": {
+     "inFrame": 1,
+     "visible": 0.154,
+     "ndc": [
+      0.01,
+      -0.02
+     ]
+    },
+    "2": {
+     "inFrame": 1,
+     "visible": 0.086,
+     "ndc": [
+      0,
+      0.06
+     ]
+    },
+    "3": {
+     "inFrame": 0,
+     "visible": 0,
+     "ndc": [
+      1.57,
+      -0.03
+     ]
+    },
+    "4": {
+     "inFrame": 0,
+     "visible": 0,
+     "ndc": [
+      29.71,
+      -0.97
+     ]
+    },
+    "5": {
+     "inFrame": 0,
+     "visible": 0,
+     "ndc": [
+      0.04,
+      -0.51
+     ]
+    },
+    "6": {
+     "inFrame": 0,
+     "visible": 0,
+     "ndc": [
+      -12.28,
+      -0.74
+     ]
+    },
+    "7": {
+     "inFrame": 0.44,
+     "visible": 0.314,
+     "ndc": [
+      1.02,
+      0.21
+     ]
+    },
+    "8": {
+     "inFrame": 0.417,
+     "visible": 0.223,
+     "ndc": [
+      0,
+      -0.2
+     ]
+    }
+   },
+   "stair": {
+    "top": 0.544,
+    "bottom": 0.893,
+    "frac": 0.349
+   },
+   "hall": {
+    "top": 0.322,
+    "bottom": 0.543,
+    "frac": 0.221
+   },
+   "signsReadable": 0,
+   "signs": [
+    {
+     "text": "RULES ARE RULES",
+     "capPct": 0.27,
+     "dist": 82.6,
+     "seen": false
+    }
+   ],
+   "checks": {
+    "sightlines": true,
+    "stair": true,
+    "signs": true,
+    "windows": true,
+    "statueClip": true,
+    "statueFace": true,
+    "heroDoor": true
+   },
+   "measures": {
+    "windows": {
+     "px": 279,
+     "frac": 0.001,
+     "luma": 0.761,
+     "clipFrac": 0,
+     "rgb": [
+      182,
+      197,
+      204
+     ]
+    },
+    "statue": {
+     "px": 3227,
+     "frac": 0.0119,
+     "luma": 0.507,
+     "clipFrac": 0,
+     "rgb": [
+      151,
+      130,
+      60
+     ]
+    },
+    "statueFace": {
+     "px": 189,
+     "frac": 0.0007,
+     "luma": 0.602,
+     "clipFrac": 0,
+     "rgb": [
+      186,
+      151,
+      84
+     ]
+    },
+    "statueHat": {
+     "px": 302,
+     "frac": 0.0011,
+     "luma": 0.521,
+     "clipFrac": 0,
+     "rgb": [
+      157,
+      132,
+      66
+     ]
+    },
+    "paving": {
+     "px": 0,
+     "frac": 0,
+     "luma": null,
+     "clipFrac": null,
+     "rgb": null
+    },
+    "heroDoor": {
+     "px": 0,
+     "frac": 0,
+     "luma": null,
+     "clipFrac": null,
+     "rgb": null
+    }
+   }
+  },
+  "h": {
+   "anchor": "mainSt",
+   "onScreen": [
+    "2",
+    "3"
+   ],
+   "pass": true,
+   "comp": {
+    "skyPct": 41.1,
+    "waterPct": 0,
+    "otherPct": 58.9,
+    "hillPct": 0,
+    "hillsAboveRoofLots": -71.3,
+    "hillsAboveRoofAll": -76,
+    "classes": {
+     "sky": 41.1,
+     "water": 0,
+     "hill": 0,
+     "ground": 12.4,
+     "build": 44.9,
+     "slot": 1.5,
+     "tree": 0,
+     "other": 0
+    }
+   },
+   "triangles": 69696,
+   "calls": 209,
+   "slots": {
+    "1": {
+     "inFrame": 0,
+     "visible": 0,
+     "ndc": [
+      -1.89,
+      -0.36
+     ]
+    },
+    "2": {
+     "inFrame": 1,
+     "visible": 0.023,
+     "ndc": [
+      -0.09,
+      -0.1
+     ]
+    },
+    "3": {
+     "inFrame": 0.629,
+     "visible": 0.04,
+     "ndc": [
+      0.92,
+      -0.01
+     ]
+    },
+    "4": {
+     "inFrame": 0,
+     "visible": 0,
+     "ndc": [
+      -3.69,
+      -0.52
+     ]
+    },
+    "5": {
+     "inFrame": 0,
+     "visible": 0,
+     "ndc": [
+      32.06,
+      -0.35
+     ]
+    },
+    "6": {
+     "inFrame": 0,
+     "visible": 0,
+     "ndc": [
+      1.09,
+      -0.48
+     ]
+    },
+    "7": {
+     "inFrame": 0,
+     "visible": 0,
+     "ndc": [
+      4.61,
+      0.9
+     ]
+    },
+    "8": {
+     "inFrame": 0,
+     "visible": 0,
+     "ndc": [
+      -5.12,
+      -0.75
+     ]
+    }
+   },
+   "stair": null,
+   "hall": {
+    "top": 0.346,
+    "bottom": 0.449,
+    "frac": 0.102
+   },
+   "signsReadable": 3,
+   "signs": [
+    {
+     "text": "GROCERY",
+     "capPct": 7.69,
+     "dist": 18.6,
+     "seen": true
+    },
+    {
+     "text": "BAKERY",
+     "capPct": 3.33,
+     "dist": 44.4,
+     "seen": true
+    },
+    {
+     "text": "ICE CREAM",
+     "capPct": 4.35,
+     "dist": 31.4,
+     "seen": true
+    }
+   ],
+   "checks": {
+    "sightlines": true,
+    "stair": true,
+    "signs": true,
+    "windows": true,
+    "statueClip": true,
+    "statueFace": true,
+    "heroDoor": true
+   },
+   "measures": {
+    "windows": {
+     "px": 10501,
+     "frac": 0.0389,
+     "luma": 0.752,
+     "clipFrac": 0,
+     "rgb": [
+      177,
+      195,
+      204
+     ]
+    },
+    "statue": {
+     "px": 0,
+     "frac": 0,
+     "luma": null,
+     "clipFrac": null,
+     "rgb": null
+    },
+    "statueFace": {
+     "px": 0,
+     "frac": 0,
+     "luma": null,
+     "clipFrac": null,
+     "rgb": null
+    },
+    "statueHat": {
+     "px": 0,
+     "frac": 0,
+     "luma": null,
+     "clipFrac": null,
+     "rgb": null
+    },
+    "paving": {
+     "px": 0,
+     "frac": 0,
+     "luma": null,
+     "clipFrac": null,
+     "rgb": null
+    },
+    "heroDoor": {
+     "px": 0,
+     "frac": 0,
+     "luma": null,
+     "clipFrac": null,
+     "rgb": null
+    }
+   }
+  },
+  "s": {
+   "anchor": "schoolFront",
+   "onScreen": [],
+   "pass": true,
+   "comp": {
+    "skyPct": 41.8,
+    "waterPct": 0,
+    "otherPct": 58.2,
+    "hillPct": 0,
+    "hillsAboveRoofLots": -28.3,
+    "hillsAboveRoofAll": -28.3,
+    "classes": {
+     "sky": 41.8,
+     "water": 0,
+     "hill": 0,
+     "ground": 36.5,
+     "build": 21.6,
+     "slot": 0,
+     "tree": 0.1,
+     "other": 0
+    }
+   },
+   "triangles": 21628,
+   "calls": 43,
+   "slots": {
+    "1": {
+     "inFrame": 0,
+     "visible": 0,
+     "ndc": [
+      2.75,
+      -0.25
+     ]
+    },
+    "2": {
+     "inFrame": 0,
+     "visible": 0,
+     "ndc": [
+      1.79,
+      -0.36
+     ]
+    },
+    "3": {
+     "inFrame": 0,
+     "visible": 0,
+     "ndc": [
+      1.93,
+      -0.27
+     ]
+    },
+    "4": {
+     "inFrame": 0,
+     "visible": 0,
+     "ndc": [
+      -4.32,
+      -0.08
+     ]
+    },
+    "5": {
+     "inFrame": 0,
+     "visible": 0,
+     "ndc": [
+      41.14,
+      -0.47
+     ]
+    },
+    "6": {
+     "inFrame": 0,
+     "visible": 0,
+     "ndc": [
+      3.95,
+      -0.18
+     ]
+    },
+    "7": {
+     "inFrame": 0,
+     "visible": 0,
+     "ndc": [
+      0.58,
+      -0.52
+     ]
+    },
+    "8": {
+     "inFrame": 0,
+     "visible": 0,
+     "ndc": [
+      4.04,
+      -0.13
+     ]
+    }
+   },
+   "stair": null,
+   "hall": null,
+   "signsReadable": 0,
+   "signs": [
+    {
+     "text": "SCHOOL BUS",
+     "capPct": 0.79,
+     "dist": 23,
+     "seen": true
+    }
+   ],
+   "checks": {
+    "sightlines": true,
+    "stair": true,
+    "signs": true,
+    "windows": true,
+    "statueClip": true,
+    "statueFace": true,
+    "heroDoor": true
+   },
+   "measures": {
+    "windows": {
+     "px": 4350,
+     "frac": 0.0161,
+     "luma": 0.726,
+     "clipFrac": 0,
+     "rgb": [
+      167,
+      189,
+      200
+     ]
+    },
+    "statue": {
+     "px": 0,
+     "frac": 0,
+     "luma": null,
+     "clipFrac": null,
+     "rgb": null
+    },
+    "statueFace": {
+     "px": 0,
+     "frac": 0,
+     "luma": null,
+     "clipFrac": null,
+     "rgb": null
+    },
+    "statueHat": {
+     "px": 0,
+     "frac": 0,
+     "luma": null,
+     "clipFrac": null,
+     "rgb": null
+    },
+    "paving": {
+     "px": 0,
+     "frac": 0,
+     "luma": null,
+     "clipFrac": null,
+     "rgb": null
+    },
+    "heroDoor": {
+     "px": 0,
+     "frac": 0,
+     "luma": null,
+     "clipFrac": null,
+     "rgb": null
+    }
+   }
+  },
+  "d": {
+   "anchor": "suburbStreet",
+   "onScreen": [
+    "2",
+    "7"
+   ],
+   "pass": true,
+   "comp": {
+    "skyPct": 31.3,
+    "waterPct": 0,
+    "otherPct": 68.7,
+    "hillPct": 0.1,
+    "hillsAboveRoofLots": -12,
+    "hillsAboveRoofAll": -12,
+    "classes": {
+     "sky": 31.3,
+     "water": 0,
+     "hill": 0.1,
+     "ground": 45.4,
+     "build": 18.8,
+     "slot": 3.3,
+     "tree": 1,
+     "other": 0
+    }
+   },
+   "triangles": 80622,
+   "calls": 257,
+   "slots": {
+    "1": {
+     "inFrame": 0,
+     "visible": 0,
+     "ndc": [
+      1.17,
+      0.1
+     ]
+    },
+    "2": {
+     "inFrame": 1,
+     "visible": 0.2,
+     "ndc": [
+      0.14,
+      0.27
+     ]
+    },
+    "3": {
+     "inFrame": 1,
+     "visible": 0,
+     "ndc": [
+      0.61,
+      0.13
+     ]
+    },
+    "4": {
+     "inFrame": 0,
+     "visible": 0,
+     "ndc": [
+      -1.83,
+      0
+     ]
+    },
+    "5": {
+     "inFrame": 0,
+     "visible": 0,
+     "ndc": [
+      20.93,
+      0.06
+     ]
+    },
+    "6": {
+     "inFrame": 0,
+     "visible": 0,
+     "ndc": [
+      2.95,
+      0.01
+     ]
+    },
+    "7": {
+     "inFrame": 1,
+     "visible": 0.377,
+     "ndc": [
+      -0.81,
+      0.48
+     ]
+    },
+    "8": {
+     "inFrame": 0,
+     "visible": 0,
+     "ndc": [
+      2.49,
+      -0.08
+     ]
+    }
+   },
+   "stair": null,
+   "hall": {
+    "top": 0.227,
+    "bottom": 0.495,
+    "frac": 0.268
+   },
+   "signsReadable": 0,
+   "signs": [],
+   "checks": {
+    "sightlines": true,
+    "stair": true,
+    "signs": true,
+    "windows": true,
+    "statueClip": true,
+    "statueFace": true,
+    "heroDoor": true
+   },
+   "measures": {
+    "windows": {
+     "px": 3301,
+     "frac": 0.0122,
+     "luma": 0.743,
+     "clipFrac": 0,
+     "rgb": [
+      175,
+      193,
+      201
+     ]
+    },
+    "statue": {
+     "px": 0,
+     "frac": 0,
+     "luma": null,
+     "clipFrac": null,
+     "rgb": null
+    },
+    "statueFace": {
+     "px": 0,
+     "frac": 0,
+     "luma": null,
+     "clipFrac": null,
+     "rgb": null
+    },
+    "statueHat": {
+     "px": 0,
+     "frac": 0,
+     "luma": null,
+     "clipFrac": null,
+     "rgb": null
+    },
+    "paving": {
+     "px": 0,
+     "frac": 0,
+     "luma": null,
+     "clipFrac": null,
+     "rgb": null
+    },
+    "heroDoor": {
+     "px": 482,
+     "frac": 0.0018,
+     "luma": 0.442,
+     "clipFrac": 0,
+     "rgb": [
+      183,
+      94,
+      92
+     ]
+    }
+   }
+  },
+  "x": {
+   "anchor": "heroHouse",
+   "onScreen": [],
+   "pass": true,
+   "comp": {
+    "skyPct": 40,
+    "waterPct": 0,
+    "otherPct": 60,
+    "hillPct": 2,
+    "hillsAboveRoofLots": -25.4,
+    "hillsAboveRoofAll": -25.4,
+    "classes": {
+     "sky": 40,
+     "water": 0,
+     "hill": 2,
+     "ground": 14.8,
+     "build": 41.1,
+     "slot": 0,
+     "tree": 2.1,
+     "other": 0
+    }
+   },
+   "triangles": 37394,
+   "calls": 106,
+   "slots": {
+    "1": {
+     "inFrame": 0,
+     "visible": 0,
+     "ndc": [
+      38.9,
+      1.1
+     ]
+    },
+    "2": {
+     "inFrame": 0,
+     "visible": 0,
+     "ndc": [
+      5.08,
+      0.17
+     ]
+    },
+    "3": {
+     "inFrame": 0,
+     "visible": 0,
+     "ndc": [
+      10.23,
+      0.08
+     ]
+    },
+    "4": {
+     "inFrame": 0,
+     "visible": 0,
+     "ndc": [
+      3.58,
+      -0.43
+     ]
+    },
+    "5": {
+     "inFrame": 0,
+     "visible": 0,
+     "ndc": [
+      -1.19,
+      -0.47
+     ]
+    },
+    "6": {
+     "inFrame": 0,
+     "visible": 0,
+     "ndc": [
+      -6.83,
+      -0.49
+     ]
+    },
+    "7": {
+     "inFrame": 0,
+     "visible": 0,
+     "ndc": [
+      2.83,
+      0.19
+     ]
+    },
+    "8": {
+     "inFrame": 0,
+     "visible": 0,
+     "ndc": [
+      -7.05,
+      -0.24
+     ]
+    }
+   },
+   "stair": null,
+   "hall": null,
+   "signsReadable": 0,
+   "signs": [],
+   "checks": {
+    "sightlines": true,
+    "stair": true,
+    "signs": true,
+    "windows": true,
+    "statueClip": true,
+    "statueFace": true,
+    "heroDoor": true
+   },
+   "measures": {
+    "windows": {
+     "px": 10797,
+     "frac": 0.0399,
+     "luma": 0.761,
+     "clipFrac": 0,
+     "rgb": [
+      179,
+      197,
+      206
+     ]
+    },
+    "statue": {
+     "px": 0,
+     "frac": 0,
+     "luma": null,
+     "clipFrac": null,
+     "rgb": null
+    },
+    "statueFace": {
+     "px": 0,
+     "frac": 0,
+     "luma": null,
+     "clipFrac": null,
+     "rgb": null
+    },
+    "statueHat": {
+     "px": 0,
+     "frac": 0,
+     "luma": null,
+     "clipFrac": null,
+     "rgb": null
+    },
+    "paving": {
+     "px": 0,
+     "frac": 0,
+     "luma": null,
+     "clipFrac": null,
+     "rgb": null
+    },
+    "heroDoor": {
+     "px": 4711,
+     "frac": 0.0174,
+     "luma": 0.419,
+     "clipFrac": 0,
+     "rgb": [
+      188,
+      86,
+      79
+     ]
+    }
+   }
+  },
+  "u": {
+   "anchor": "upsideDown",
+   "onScreen": [
+    "4"
+   ],
+   "pass": true,
+   "comp": {
+    "skyPct": 51.4,
+    "waterPct": 0,
+    "otherPct": 48.6,
+    "hillPct": 0,
+    "hillsAboveRoofLots": 26.3,
+    "hillsAboveRoofAll": -36.2,
+    "classes": {
+     "sky": 51.4,
+     "water": 0,
+     "hill": 0,
+     "ground": 24.1,
+     "build": 0,
+     "slot": 24.3,
+     "tree": 0.1,
+     "other": 0
+    }
+   },
+   "triangles": 21416,
+   "calls": 36,
+   "slots": {
+    "1": {
+     "inFrame": 0,
+     "visible": 0,
+     "ndc": [
+      -1.89,
+      -0.66
+     ]
+    },
+    "2": {
+     "inFrame": 0,
+     "visible": 0,
+     "ndc": [
+      -2.86,
+      -0.84
+     ]
+    },
+    "3": {
+     "inFrame": 0,
+     "visible": 0,
+     "ndc": [
+      -1.98,
+      -0.68
+     ]
+    },
+    "4": {
+     "inFrame": 0.909,
+     "visible": 0.417,
+     "ndc": [
+      0,
+      -0.21
+     ]
+    },
+    "5": {
+     "inFrame": 0,
+     "visible": 0,
+     "ndc": [
+      2.58,
+      -0.59
+     ]
+    },
+    "6": {
+     "inFrame": 0,
+     "visible": 0,
+     "ndc": [
+      0.32,
+      -0.55
+     ]
+    },
+    "7": {
+     "inFrame": 0,
+     "visible": 0,
+     "ndc": [
+      -3.72,
+      -1.17
+     ]
+    },
+    "8": {
+     "inFrame": 0,
+     "visible": 0,
+     "ndc": [
+      -1,
+      -0.52
+     ]
+    }
+   },
+   "stair": null,
+   "hall": null,
+   "signsReadable": 0,
+   "signs": [],
+   "checks": {
+    "sightlines": true,
+    "stair": true,
+    "signs": true,
+    "windows": true,
+    "statueClip": true,
+    "statueFace": true,
+    "heroDoor": true
+   },
+   "measures": {
+    "windows": {
+     "px": 5485,
+     "frac": 0.0203,
+     "luma": 0.73,
+     "clipFrac": 0,
+     "rgb": [
+      167,
+      190,
+      202
+     ]
+    },
+    "statue": {
+     "px": 0,
+     "frac": 0,
+     "luma": null,
+     "clipFrac": null,
+     "rgb": null
+    },
+    "statueFace": {
+     "px": 0,
+     "frac": 0,
+     "luma": null,
+     "clipFrac": null,
+     "rgb": null
+    },
+    "statueHat": {
+     "px": 0,
+     "frac": 0,
+     "luma": null,
+     "clipFrac": null,
+     "rgb": null
+    },
+    "paving": {
+     "px": 0,
+     "frac": 0,
+     "luma": null,
+     "clipFrac": null,
+     "rgb": null
+    },
+    "heroDoor": {
+     "px": 0,
+     "frac": 0,
+     "luma": null,
+     "clipFrac": null,
+     "rgb": null
+    }
+   }
+  }
+ }
+}
