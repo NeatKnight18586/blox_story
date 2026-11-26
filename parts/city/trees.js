@@ -92,12 +92,12 @@ export function prepModel(root, target) {
   return {parts: out, tris, height: box.max.y - box.min.y, width: Math.max(box.max.x - box.min.x, box.max.z - box.min.z), rawTris: total};
 }
 
-export const proceduralSpecies = () => Object.fromEntries(Object.entries(TP.species ?? {leafy: {}, pine: {}, round: {}}).map(([n, s]) => [n, proceduralTree(s.fallback ?? n, s.seed ?? 3)]));
+export const proceduralSpecies = () => Object.fromEntries(Object.entries(TP.species ?? {leafy: {}, pine: {}, round: {}}).filter(([, s]) => s && typeof s === 'object').map(([n, s]) => [n, proceduralTree(s.fallback ?? n, s.seed ?? 3)]));
 // ---- preload: hero species from the CC0 cache (manifest models) or procedural ----
 export async function preloadTrees(base, manifest) {
   const out = {}, SP = TP.species ?? {leafy: {model: 'city_tree_leafy'}, pine: {model: 'city_tree_pine'}, round: {model: 'city_bush_round'}};
   let gl = null;
-  for (const [name, s] of Object.entries(SP)) {
+  for (const [name, s] of Object.entries(SP).filter(([, s]) => s && typeof s === 'object')) {
     const e = manifest?.models?.[s.model];
     if (e && typeof document !== 'undefined') try {
       gl ??= new (await import('three/addons/loaders/GLTFLoader.js')).GLTFLoader();

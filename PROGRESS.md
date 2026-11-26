@@ -41,3 +41,15 @@ terrain LOD + prop culling; scripts/v2/city1d-gate.js + city1d-sheet.py, assets.
 Farm (runs 45758999246 + 45759326917, look B, CC0): all 19 key art PASS staging; gate rows tris 36–83k, s/frame 0.30–0.59 (harborDock 0.589 max, mainSt 0.54);
 outline cost −0.144…+0.008 s; sightlines harborDock 2,3,7 / diner 2,6,7 / beach 6,7; duck 24 % of duckClose; blimp drift 19 % of width in 4 s.
 Open: CC0 planks map reads dark on the farm (docks near-black brown); plazaWide/mainSt fg lamps still large.
+
+## Phase 1E — fix-ups + wild edge + hero/impostor trees + suburb variety + time-of-day looks (city gate 5; branch claude/friendly-mccarthy-zso21g)
+Built: light planks (CC0 map re-tinted by luma, `LIGHT_WOOD`), warmer statue gold, DINER plate 10.5 × 3.3, duck beam only when the look says so (looks4 `v4.city`);
+staging adds ground ≤ 25 % (up-facing pixels) + fg on an edge 5–15 % width, never mid-third (`keyArtStaging.groundMax/fg`, keyArt `edge`, kinds `piling`/`signpost`), all 25 key-art anchors re-tuned
+by `scripts/v2/city1e-tune.js` (plan.json data only); wild edge `parts/city/wild.js` (sleeping stone head slot 7 + ear waterfall + pool, trail + signposts, rope bridge over
+`terrain.ravine`, campsite + smoke, cliff lookout, cave + cart track, wildflowers, `terrain.pads`) + 6 anchors; `parts/city/trees.js` hero trees + 8-view impostor atlases
+(albedo + normals, cached) + dithered 3D crossfade at 25 studs; suburb variety (gambrel roof, 10 house presets, no-repeat picker, flower beds/bikes/swings/mailbox styles);
+looks `cityGoldenHour`/`cityDusk`/`cityNight` (lit windows, street lamps + halos, beam, stars, lit blimp). `.gltf` now served by scripts/v2/server.js (no CC0 model ever loaded before).
+Farm (run 45773645153, look B): all checks PASS; bench gate rows 32.8–72.9k tris, 0.164–0.539 s/frame; planks luma .654/.619; gold hue 42°, sat .76, clip 0.8 %; DINER cap 3.1 %.
+Decisions: CC0 trees rejected — every Poly Haven leafy tree is ≥ 60 MB/file (cap 25 MB); the pine/fir that fit are 1.3 m saplings (398k/433k tris) that read as brown chips at ≤ 6k
+and cost +0.2–0.5 s/frame (run 45772957609) → all species procedural (CC0 path kept, plan.json `trees.species.*.model`). maxModelBytes 25 MB stays for the request.
+Open: night look still bright on water/ground; golden hour weakly warm; impostor dither visible right at the 25-stud band; the six wild anchors only have one fg (forestTrail).
