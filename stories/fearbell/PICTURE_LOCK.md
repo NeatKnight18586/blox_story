@@ -39,7 +39,7 @@ No stingers (owner decision). The final "cheeseburger." gets no clip; the video 
 | 7 | 6.6 | The mailman's fear? | Mailman whistling, bag over his shoulder | fear | medium | suburb street | setup |
 | 8 | 7.6 | A *dinosaur.* | POP: T-rex behind him ROARS; the mail explodes like confetti. HERO strolls calmly past in the background sipping juice, unbothered | dinosaur | snap to wide | suburb street | dino = creature kit; hero cameo = on screen < 10 s (rewatch easter egg) |
 | 9 | 8.6 | The strongest guy in town? | Giant bodybuilder flexing | strongest | heroLow | boardwalk | setup |
-| 10 | 9.9 | A tiny *rat.* | POP: tiny rat; he screams and leaps into the ice-cream cart | rat | wide | boardwalk | |
+| 10 | 9.9 | A tiny *rat.* | NO POP (owner change): the tiny rat is ALREADY sitting there; the camera moves to reveal it on "rat", then he screams and leaps into the ice-cream cart | rat | wide | boardwalk | |
 | 11 | 10.9 | And Kevin? | Kevin at the diner counter | Kevin | medium | diner | setup |
 | 12 | 11.8 | Kevin is afraid of a *cheeseburger.* | Everything goes STILL: slow push on Kevin trembling before a cheeseburger on a plate | cheeseburger | slow push (the single stillness) | diner | PATTERN BREAK + G2 "can i have chez burger please..." |
 | 13 | 13.5 | Everybody's bell rings. | High wide: pops everywhere except one perfectly empty spot beside the hero | rings | high wide | plaza | |
