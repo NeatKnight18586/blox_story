@@ -82,6 +82,7 @@ clock.push({at: wordAt(6, 'Heights'), fx: 'pop', pos: [PICK[0], PICK[1] + 1.2, P
 // down past him so the ground falls away below; it eases back to 13 studs as the pillar tops out (face ≥ 12 % of the frame height)
 const R6CAM = (d, h, fov) => ({position: add([0, 0, 0], fwd(-119), d, rgt(-119), -2.2, h), target: [0, -.6, 0], fov});
 shot(6, R6CAM(8.0, 1.4, 48), {size: 'medium', see: .5, to: R6CAM(11.5, 4.0, 52), x: {follow: 'pickles', followOffset: [0, 4.7, 0], ease: 'outCubic', move: 'whip'}});   // the lock's "whip-tilt up": a whip (exempt from the pan-speed cap by design)
+const H6 = {d: 5.2, s: 6.0, h: 6.4, td: 0, ts: 0, th: 1.2, fov: 68};   // row 6b camera (relative to the pillar top, along his facing): tuned by eye in final-fix-heights.png
 // 7–8 the mailman whistling → a T-rex behind him ROARS, the mail explodes (POP); pass 2 (owner, row 8): the HERO strolls calmly through the background sipping juice
 put('mailman', P.mailman, 7, 8, MAIL, 61, {faces: [[S0(7), 'smile'], [T(8) + .15, 'terrified']]});
 shot(7, camOn(MAIL, 61, {d: 11, side: -1.5, h: 2.2, aim: 2.9, fov: 44}), {size: 'medium'});
@@ -276,6 +277,13 @@ const SUBJ = {4: 'gov', 9: 'bb', 29: 'bb', 31: 'gov', 33: 'gov', 26: 'heroF', 28
   const B = {...A, id: A.id + 'b', size: 'close', ecu: true, frames: fC - fB, move: 'static-drift', from: look([3.6, 52.4, -52.5], [0, 52.2, -60], 30), leakOk: ['slot:2'], subject: 'bellCrack', see: ['bell']}; delete B.to; delete B.actions;
   const C = {...A, id: A.id + 'c', frames: f0 + total - fC}; delete C.actions;
   A.frames = fB - f0; sh.splice(i + 1, 0, B, C); }
+// HEIGHTS FIX (owner): row 6 SPLIT at 31 % of the row (≈ the end of the 0.6 s rise = the start of the G1 scream clip on the gapped timeline; ≤ 40 %):
+// 6 = the follow-camera ride-up (kept), 6b = a HIGH, steep look DOWN past the clinging Mr. Pickles to the tiny town 40 studs below (the drop is the subject)
+{ const i = sh.findIndex(o => o.row === 6), A = sh[i], f0 = frameOf(S0(6)), fB = f0 + Math.max(3, Math.round(.31 * A.frames)), total = A.frames;
+  const TOP = [PICK[0], PICK[1] + 40, PICK[2]], F6 = fwd(-119), R6 = rgt(-119);
+  const B = {...A, id: A.id + 'b', frames: f0 + total - fB, move: 'static-drift', from: look(add(TOP, F6, H6.d, R6, H6.s, H6.h), add(TOP, F6, H6.td, R6, H6.ts, H6.th), H6.fov), actions: [{actor: 'pickles', verb: 'gasp_step_back', at: 0}, {actor: 'pickles', verb: 'gasp_step_back', at: .55}]};
+  delete B.to; delete B.follow; delete B.followOffset; delete B.ease; B.subject = 'pickles'; B.size = 'medium';
+  A.frames = fB - f0; sh.splice(i + 1, 0, B); }
 for (const o of sh) { if (SUBJ[o.row] && !o.ecu) o.subject = SUBJ[o.row]; if (PROP[o.row]) o.prop = PROP[o.row]; if (o.row === 8) o.see = [...new Set([...(o.see ?? []), 'hero'])]; }
 const cast = {};
 for (const [name, c] of Object.entries(CH)) {

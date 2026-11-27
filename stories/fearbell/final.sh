@@ -16,7 +16,8 @@ test -f renders/cache/assets/manifest.json || python3 scripts/v2/fetch-assets.py
 node scripts/v2/tex4.js; node scripts/v2/matcap4.js
 node scripts/v2/render.js --spec $B/episode-gapped.json --out $R --final --workers 3
 python3 scripts/v2/captions.py --story $S --spec $B/episode-gapped.json --cues $B/cues-gapped.json --style v7 --out $B/captions-v7.ass
+python3 scripts/v2/capcheck.py --story $S --spec $B/episode-gapped.json                # every script word in the .ass, in order, onsets ≤ 80 ms, none during a meme clip
 python3 scripts/v2/assemble.py --story $S --frames $R/frames --captions $B/captions-v7.ass --spec $B/episode-gapped.json --out $M --proxy review/$S/final-review.mp4
 node scripts/v2/stability.js --story $S
-python3 scripts/v2/qc.py --story $S --video $M --captions $B/captions-v7.ass --out review/$S/qc.json
+python3 scripts/v2/qc.py --story $S --video $M --frames $R/frames --captions $B/captions-v7.ass --out review/$S/qc.json
 python3 stories/$S/gapvol.py $M                                # mean volume inside each meme gap → review/$S/gapvol.json
