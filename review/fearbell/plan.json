@@ -68,10 +68,10 @@
    "t": 5.96,
    "dur": 0.67,
    "size": "medium",
-   "move": "static-drift",
+   "move": "whip",
    "loc": "city",
-   "speed": 0,
-   "subject": "pickles@50,37",
+   "speed": 93,
+   "subject": "pickles@52,52",
    "why": "fun: Heights."
   },
   {
@@ -116,9 +116,9 @@
    "t": 9.83,
    "dur": 1.13,
    "size": "wide",
-   "move": "static-drift",
+   "move": "push",
    "loc": "city",
-   "speed": 0,
+   "speed": 19,
    "subject": "rat@NaN,NaN",
    "why": "fun: A tiny rat."
   },
@@ -131,7 +131,7 @@
    "move": "static-drift",
    "loc": "city",
    "speed": 0,
-   "subject": "kevin@34,41",
+   "subject": "kevin@19,36",
    "why": "fun: And Kevin?"
   },
   {
@@ -143,7 +143,7 @@
    "move": "push",
    "loc": "city",
    "speed": 0,
-   "subject": "kevin@22,39",
+   "subject": "kevin@21,41",
    "why": "tension: Kevin is afraid of a cheeseburger."
   },
   {
@@ -167,7 +167,7 @@
    "move": "static-drift",
    "loc": "city",
    "speed": 0,
-   "subject": "hero@75,45",
+   "subject": "hero@74,39",
    "why": "fun: Mine never has."
   },
   {
@@ -251,7 +251,7 @@
    "move": "static-drift",
    "loc": "city",
    "speed": 0,
-   "subject": "kevin@45,33",
+   "subject": "kevin@22,40",
    "why": "fun: But then Kevin did something weird."
   },
   {
@@ -263,7 +263,7 @@
    "move": "static-drift",
    "loc": "city",
    "speed": 0,
-   "subject": "kevin@51,33",
+   "subject": "kevin@66,35",
    "why": "fun: He took one shaky bite of his fear."
   },
   {
@@ -311,7 +311,7 @@
    "move": "static-drift",
    "loc": "cityDining",
    "speed": 0,
-   "subject": "heroF@35,19",
+   "subject": "heroF@48,18",
    "why": "fun: So I hold the flashlight."
   },
   {
@@ -323,7 +323,7 @@
    "move": "static-drift",
    "loc": "cityDining",
    "speed": 0,
-   "subject": "lulu@51,26",
+   "subject": "lulu@50,56",
    "why": "fun: She says I'm the bravest kid in town."
   },
   {
@@ -512,10 +512,10 @@
    "t": 64.58,
    "dur": 1.33,
    "size": "medium",
-   "move": "static-drift",
+   "move": "push",
    "loc": "city",
    "speed": 0,
-   "subject": "hero@38,38",
+   "subject": "hero@47,55",
    "why": "fun: So I walked in."
   },
   {
@@ -671,7 +671,7 @@
    "move": "static-drift",
    "loc": "city",
    "speed": 0,
-   "subject": "hero@78,40",
+   "subject": "hero@84,41",
    "why": "fun: Something spawned right next to me."
   },
   {
@@ -687,7 +687,7 @@
    "why": "fun: A cheeseburger."
   }
  ],
- "meanShot": 1.5,
+ "meanShot": 1.53,
  "end": 85.96,
  "gamecam": 0,
  "wides": 12,
@@ -709,7 +709,9 @@
  "errors": [],
  "warnings": [
   "S02: wide shot with no tagged character in the foreground",
+  "S10: wide shot with no tagged character in the foreground",
   "S13: wide shot with no tagged character in the foreground",
+  "S27: subject head at y 56 % near the caption band: consider captionY \"high\"",
   "S35: wide shot with no tagged character in the foreground",
   "S36: wide shot with no tagged character in the foreground",
   "S38: subject head at y 57 % near the caption band: consider captionY \"high\"",

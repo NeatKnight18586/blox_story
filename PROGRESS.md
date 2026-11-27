@@ -137,3 +137,11 @@ Root cause (dome instability): parts/creatures.js hid the dome shells only on th
 Plan gate measures non-actor subjects (objectBox / objectIssues); all 57 shots name subject or prop again (16 teacherDrawer, 23 prop_burger3, 34 slot:3:dial#2). Segments render room locations from parts/city/rooms.js (they rendered in the city before). Assemble format 7 end = voice + 0.5 s. previs.js --gapped builds the spec on the meme-gap timeline.
 Stability PASS 200 views (S38:mid 14.0 → 0.007 %, S49:first 17.0 → 0.013 %, worst S03:first 0.29 %); room key-art cameras y 5.0 → 5.3 (shadow threshold). Plan exit 0 (0 errors, 7 warnings). Animatic review/fearbell/animatic.mp4 90.4 s 8.9 MB; phone sheets review/fearbell/phone-390{,-2…-8}.png.
 Weakest (next pass): S55 hero out of frame at mid (burger edge only), S30 mouse insert unreadable, S45 hands insert dark, S43 "walked" back of head (no dome), S06 Heights figure tiny on the pillar.
+
+## Fear Bell — FINAL (episode session; branch claude/fearbell-final-staging-xi2bwp from main a67c02e)
+Plan: BASE → a67c02e (the owner's g3_mmm.wav fix sits after the old BASE; ep:check) · BRIEF.md row 10 re-synced from the lock (lock2brief.py, mechanical) ·
+A staging fixes in previs.js, one per row (6 ride-up, 10 no pop + reveal + leap into the cart, 11–12 Kevin faces the burger + visible push, 21–22 no pole,
+14 face + empty space + leaf, 26–27 hero ≥ 25 % + Lulu's face clear, 30 whole mouse, 43 dome in frame, 45 lit hands, 55 face beside the burger + hero visible to the end)
+→ review/fearbell/final-fix*.png (3 frames per row: start / MUST SEE / end) · plan gate exit 0, fgleak, v2:seek, v2:stability PASS ·
+B final.sh command file: memegap → gapped spec → farm render (look B, CC0) → v7 captions → assemble (gaps, clock FX, end = voice + 0.5 s) → v2:qc →
+per-gap mean volume → review/fearbell/DELIVERY.md · ep:check + v2:test · C merge --no-ff to main, push. Report ≤ 20 lines, STOP.

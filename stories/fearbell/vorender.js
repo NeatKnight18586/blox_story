@@ -1,4 +1,4 @@
-// stories/fearbell/vorender.js [--rows 5,6,…] [--w 360 --h 640] — renders the vo-sheet frame of every row (build/see.json) from its own world spec
+// stories/fearbell/vorender.js [--rows 5,6,…] [--w 360 --h 640] [--see build/see-fix.json (FINAL: several frames per row)] — renders the vo-sheet frame of every row (build/see.json) from its own world spec
 // (build/previs-<loc>.json) into build/vo/frame-NNNNN.png, plus the A2 leak measure and the A1 face-aim headroom of each frame → build/vo/measure.json.
 // Then: python3 stories/fearbell/vosheet.py stories/fearbell/build/vo stories/fearbell/build/vocells && python3 scripts/v2/sheet.py … (see vosheet.py).
 import {readFileSync, writeFileSync, mkdirSync, existsSync} from 'node:fs';
@@ -7,7 +7,7 @@ import {launch} from '../../scripts/v2/browser.js';
 const argv = process.argv.slice(2), arg = (k, d) => { const i = argv.indexOf(`--${k}`); return i >= 0 ? argv[i + 1] : d; };
 const D = 'stories/fearbell', OUT = `${D}/build/vo`, w = +arg('w', 360), h = +arg('h', 640), only = arg('rows') ? new Set(arg('rows').split(',').map(Number)) : null;
 mkdirSync(OUT, {recursive: true});
-const see = JSON.parse(readFileSync(`${D}/build/see.json`, 'utf8')).filter(s => !only || only.has(s.row));
+const see = JSON.parse(readFileSync(arg('see', `${D}/build/see.json`), 'utf8')).filter(s => !only || only.has(s.row));
 const M = existsSync(`${OUT}/measure.json`) ? JSON.parse(readFileSync(`${OUT}/measure.json`, 'utf8')) : {};
 const server = await startServer(), browser = await launch();
 try {

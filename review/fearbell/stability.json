@@ -229,7 +229,7 @@
    "view": "S04:mid",
    "frame": 97,
    "pct": 0.018,
-   "raw": 0.913
+   "raw": 0.907
   },
   {
    "view": "S04:last",
@@ -247,31 +247,31 @@
    "view": "S05:mid",
    "frame": 130,
    "pct": 0.035,
-   "raw": 0.909
+   "raw": 0.975
   },
   {
    "view": "S05:last",
    "frame": 142,
    "pct": 0.058,
-   "raw": 1.094
+   "raw": 1.169
   },
   {
    "view": "S06:first",
    "frame": 143,
-   "pct": 0,
-   "raw": 0.006
+   "pct": 0.019,
+   "raw": 1.111
   },
   {
    "view": "S06:mid",
    "frame": 151,
-   "pct": 0,
-   "raw": 0.037
+   "pct": 0.007,
+   "raw": 0.473
   },
   {
    "view": "S06:last",
    "frame": 158,
-   "pct": 0,
-   "raw": 0.032
+   "pct": 0.006,
+   "raw": 0.456
   },
   {
    "view": "S07:first",
@@ -300,14 +300,14 @@
   {
    "view": "S08:mid",
    "frame": 195,
-   "pct": 0.027,
-   "raw": 0.783
+   "pct": 0.028,
+   "raw": 0.858
   },
   {
    "view": "S08:last",
    "frame": 206,
-   "pct": 0.025,
-   "raw": 0.816
+   "pct": 0.027,
+   "raw": 0.968
   },
   {
    "view": "S09:first",
@@ -330,56 +330,56 @@
   {
    "view": "S10:first",
    "frame": 236,
-   "pct": 0.008,
-   "raw": 0.271
+   "pct": 0.032,
+   "raw": 0.83
   },
   {
    "view": "S10:mid",
    "frame": 249,
-   "pct": 0.011,
-   "raw": 0.389
+   "pct": 0.019,
+   "raw": 0.588
   },
   {
    "view": "S10:last",
    "frame": 262,
-   "pct": 0.005,
-   "raw": 0.32
+   "pct": 0.014,
+   "raw": 0.329
   },
   {
    "view": "S11:first",
    "frame": 263,
-   "pct": 0.064,
-   "raw": 0.617
+   "pct": 0.024,
+   "raw": 1.296
   },
   {
    "view": "S11:mid",
    "frame": 272,
-   "pct": 0.055,
-   "raw": 1.262
+   "pct": 0.043,
+   "raw": 1.959
   },
   {
    "view": "S11:last",
    "frame": 281,
-   "pct": 0.051,
-   "raw": 1.242
+   "pct": 0.035,
+   "raw": 1.926
   },
   {
    "view": "S12:first",
    "frame": 282,
-   "pct": 0.064,
-   "raw": 1.233
+   "pct": 0.03,
+   "raw": 1.715
   },
   {
    "view": "S12:mid",
    "frame": 302,
-   "pct": 0.06,
-   "raw": 1.309
+   "pct": 0.02,
+   "raw": 1.492
   },
   {
    "view": "S12:last",
    "frame": 322,
-   "pct": 0.079,
-   "raw": 1.396
+   "pct": 0.018,
+   "raw": 1.497
   },
   {
    "view": "S13:first",
@@ -390,8 +390,8 @@
   {
    "view": "S13:mid",
    "frame": 339,
-   "pct": 0.007,
-   "raw": 0.367
+   "pct": 0.008,
+   "raw": 0.369
   },
   {
    "view": "S13:last",
@@ -402,20 +402,20 @@
   {
    "view": "S14:first",
    "frame": 356,
-   "pct": 0.01,
-   "raw": 0.356
+   "pct": 0.003,
+   "raw": 0.421
   },
   {
    "view": "S14:mid",
    "frame": 368,
-   "pct": 0.032,
-   "raw": 0.391
+   "pct": 0.005,
+   "raw": 0.525
   },
   {
    "view": "S14:last",
    "frame": 380,
-   "pct": 0.014,
-   "raw": 0.407
+   "pct": 0.003,
+   "raw": 0.519
   },
   {
    "view": "S15:first",
@@ -438,56 +438,56 @@
   {
    "view": "S21:first",
    "frame": 641,
-   "pct": 0.008,
-   "raw": 0.411
+   "pct": 0.016,
+   "raw": 0.847
   },
   {
    "view": "S21:mid",
    "frame": 660,
-   "pct": 0.04,
-   "raw": 1.566
+   "pct": 0.035,
+   "raw": 1.76
   },
   {
    "view": "S21:last",
    "frame": 679,
-   "pct": 0.037,
-   "raw": 1.399
+   "pct": 0.027,
+   "raw": 1.748
   },
   {
    "view": "S22:first",
    "frame": 680,
-   "pct": 0.096,
-   "raw": 1.314
+   "pct": 0.03,
+   "raw": 1.581
   },
   {
    "view": "S22:mid",
    "frame": 703,
-   "pct": 0.099,
-   "raw": 1.475
+   "pct": 0.019,
+   "raw": 1.933
   },
   {
    "view": "S22:last",
    "frame": 725,
-   "pct": 0.17,
-   "raw": 1.623
+   "pct": 0.024,
+   "raw": 1.906
   },
   {
    "view": "S23:first",
    "frame": 726,
-   "pct": 0.026,
-   "raw": 2.78
+   "pct": 0.021,
+   "raw": 2.748
   },
   {
    "view": "S23:mid",
    "frame": 750,
-   "pct": 0.045,
-   "raw": 2.857
+   "pct": 0.04,
+   "raw": 2.813
   },
   {
    "view": "S23:last",
    "frame": 774,
-   "pct": 0.085,
-   "raw": 2.966
+   "pct": 0.045,
+   "raw": 2.784
   },
   {
    "view": "S24:first",
@@ -528,38 +528,38 @@
   {
    "view": "S30:first",
    "frame": 1054,
-   "pct": 0.118,
-   "raw": 2.12
+   "pct": 0.006,
+   "raw": 1.534
   },
   {
    "view": "S30:mid",
    "frame": 1068,
-   "pct": 0.139,
-   "raw": 2.116
+   "pct": 0.01,
+   "raw": 1.563
   },
   {
    "view": "S30:last",
    "frame": 1081,
-   "pct": 0.013,
-   "raw": 2.378
+   "pct": 0.014,
+   "raw": 1.456
   },
   {
    "view": "S31:first",
    "frame": 1082,
    "pct": 0.019,
-   "raw": 0.827
+   "raw": 0.826
   },
   {
    "view": "S31:mid",
    "frame": 1102,
-   "pct": 0.036,
-   "raw": 0.846
+   "pct": 0.035,
+   "raw": 0.832
   },
   {
    "view": "S31:last",
    "frame": 1122,
-   "pct": 0.044,
-   "raw": 0.923
+   "pct": 0.043,
+   "raw": 0.916
   },
   {
    "view": "S32:first",
@@ -625,7 +625,7 @@
    "view": "S35:mid",
    "frame": 1246,
    "pct": 0.016,
-   "raw": 0.25
+   "raw": 0.251
   },
   {
    "view": "S35:last",
@@ -762,20 +762,20 @@
   {
    "view": "S43:first",
    "frame": 1550,
-   "pct": 0.011,
-   "raw": 0.294
+   "pct": 0.027,
+   "raw": 0.23
   },
   {
    "view": "S43:mid",
    "frame": 1566,
-   "pct": 0.007,
-   "raw": 0.266
+   "pct": 0.024,
+   "raw": 0.219
   },
   {
    "view": "S43:last",
    "frame": 1581,
-   "pct": 0.013,
-   "raw": 0.279
+   "pct": 0.014,
+   "raw": 0.197
   },
   {
    "view": "S44:first",
@@ -798,26 +798,26 @@
   {
    "view": "S45:first",
    "frame": 1642,
-   "pct": 0.002,
-   "raw": 0.183
+   "pct": 0.001,
+   "raw": 0.529
   },
   {
    "view": "S45:mid",
    "frame": 1654,
-   "pct": 0,
-   "raw": 0.228
+   "pct": 0.001,
+   "raw": 0.497
   },
   {
    "view": "S45:last",
    "frame": 1665,
    "pct": 0.001,
-   "raw": 0.3
+   "raw": 0.573
   },
   {
    "view": "S46:first",
    "frame": 1666,
    "pct": 0.005,
-   "raw": 0.356
+   "raw": 0.515
   },
   {
    "view": "S46:mid",
@@ -906,38 +906,38 @@
   {
    "view": "S51:first",
    "frame": 1833,
-   "pct": 0.021,
-   "raw": 1.23
+   "pct": 0.02,
+   "raw": 1.212
   },
   {
    "view": "S51:mid",
    "frame": 1849,
    "pct": 0.026,
-   "raw": 1.138
+   "raw": 1.123
   },
   {
    "view": "S51:last",
    "frame": 1865,
    "pct": 0.025,
-   "raw": 1.196
+   "raw": 1.186
   },
   {
    "view": "S52:first",
    "frame": 1866,
-   "pct": 0.027,
-   "raw": 0.582
+   "pct": 0.026,
+   "raw": 0.568
   },
   {
    "view": "S52:mid",
    "frame": 1894,
    "pct": 0.029,
-   "raw": 0.653
+   "raw": 0.652
   },
   {
    "view": "S52:last",
    "frame": 1922,
    "pct": 0.025,
-   "raw": 0.607
+   "raw": 0.601
   },
   {
    "view": "S53:first",
@@ -984,8 +984,8 @@
   {
    "view": "S53c:mid",
    "frame": 1974,
-   "pct": 0.015,
-   "raw": 0.528
+   "pct": 0.021,
+   "raw": 0.518
   },
   {
    "view": "S53c:last",
@@ -996,38 +996,38 @@
   {
    "view": "S54:first",
    "frame": 1988,
-   "pct": 0.02,
-   "raw": 0.766
+   "pct": 0.006,
+   "raw": 0.755
   },
   {
    "view": "S54:mid",
    "frame": 2008,
-   "pct": 0.009,
-   "raw": 0.97
+   "pct": 0.011,
+   "raw": 0.882
   },
   {
    "view": "S54:last",
    "frame": 2027,
-   "pct": 0.005,
-   "raw": 0.937
+   "pct": 0.033,
+   "raw": 0.817
   },
   {
    "view": "S55:first",
    "frame": 2028,
-   "pct": 0.024,
-   "raw": 0.7
+   "pct": 0.037,
+   "raw": 0.82
   },
   {
    "view": "S55:mid",
    "frame": 2045,
-   "pct": 0.01,
-   "raw": 0.642
+   "pct": 0.048,
+   "raw": 0.787
   },
   {
    "view": "S55:last",
    "frame": 2062,
-   "pct": 0.016,
-   "raw": 0.596
+   "pct": 0.037,
+   "raw": 0.744
   },
   {
    "view": "@cityClassroom:classBoard",
@@ -1164,38 +1164,38 @@
   {
    "view": "S26:first",
    "frame": 884,
-   "pct": 0.019,
-   "raw": 0.698
+   "pct": 0.02,
+   "raw": 0.859
   },
   {
    "view": "S26:mid",
    "frame": 899,
-   "pct": 0.025,
-   "raw": 0.896
+   "pct": 0.029,
+   "raw": 1.335
   },
   {
    "view": "S26:last",
    "frame": 913,
-   "pct": 0.025,
-   "raw": 0.953
+   "pct": 0.034,
+   "raw": 1.353
   },
   {
    "view": "S27:first",
    "frame": 914,
-   "pct": 0.006,
-   "raw": 1.133
+   "pct": 0.034,
+   "raw": 1.379
   },
   {
    "view": "S27:mid",
    "frame": 937,
-   "pct": 0.004,
-   "raw": 1.135
+   "pct": 0.035,
+   "raw": 1.377
   },
   {
    "view": "S27:last",
    "frame": 959,
-   "pct": 0.007,
-   "raw": 1.127
+   "pct": 0.034,
+   "raw": 1.427
   },
   {
    "view": "S28:first",
