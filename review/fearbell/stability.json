@@ -4,7 +4,7 @@
  "nudge": 0.004,
  "threshold": 40,
  "limit": 0.3,
- "views": 200,
+ "views": 203,
  "worst": {
   "view": "S03:first",
   "frame": 48,
@@ -263,15 +263,33 @@
   },
   {
    "view": "S06:mid",
-   "frame": 151,
-   "pct": 0.007,
-   "raw": 0.471
+   "frame": 150,
+   "pct": 0.005,
+   "raw": 0.473
   },
   {
    "view": "S06:last",
+   "frame": 156,
+   "pct": 0.005,
+   "raw": 0.416
+  },
+  {
+   "view": "S06b:first",
+   "frame": 157,
+   "pct": 0.008,
+   "raw": 0.673
+  },
+  {
+   "view": "S06b:mid",
    "frame": 158,
    "pct": 0.006,
-   "raw": 0.451
+   "raw": 0.749
+  },
+  {
+   "view": "S06b:last",
+   "frame": 158,
+   "pct": 0.006,
+   "raw": 0.749
   },
   {
    "view": "S07:first",

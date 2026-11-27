@@ -1,0 +1,47 @@
+{
+ "scriptWords": 290,
+ "captionWords": 290,
+ "chunks": 234,
+ "twoWordChunks": 56,
+ "missing": 0,
+ "missingWords": [],
+ "outOfOrder": 0,
+ "extraWords": 0,
+ "maxOnsetErrMs": 45.0,
+ "maxOnsetAt": [
+  [
+   "At",
+   "noon"
+  ],
+  54.58,
+  54.625
+ ],
+ "onsetOver80": 0,
+ "invisible": 0,
+ "invisibleCaptions": [],
+ "under2Frames": 1,
+ "shortestCaptionMs": 70.0,
+ "shortestCaption": [
+  "And",
+  "I"
+ ],
+ "duringMemeClip": [],
+ "result": "PASS",
+ "story": "fearbell",
+ "ass": "stories/fearbell/build/captions-v7.ass",
+ "cues": "stories/fearbell/build/cues-gapped.json",
+ "memeClips": [
+  [
+   6.561,
+   7.621
+  ],
+  [
+   14.5725,
+   16.072499999999998
+  ],
+  [
+   33.036,
+   34.516
+  ]
+ ]
+}

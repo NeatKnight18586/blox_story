@@ -12,7 +12,7 @@ v3 (Amendment A4 §D, `--style v3` or spec "captionStyle": "pop-shorts-v3"; v2 s
 opener 150, emphasis 120 %, outline 9, y 1250 / high 560; a chunk holds at most 2 words when either has 7+ letters, else 3
 (`chunk_cap`); a chunk wider than `fitWidth` px is set at a smaller \\fs (never below the 2.6 % phone cap height).
 """
-import argparse, json, re, sys
+import argparse, json, os, re, sys
 
 STYLE_FILE = 'captions/pop-shorts-v2.json'
 STYLES = {'v2': 'captions/pop-shorts-v2.json', 'pop-shorts-v2': 'captions/pop-shorts-v2.json', 'v3': 'captions/pop-shorts-v3.json', 'pop-shorts-v3': 'captions/pop-shorts-v3.json', 'v5': 'captions/pop-shorts-v5.json', 'pop-shorts-v5': 'captions/pop-shorts-v5.json', 'v7': 'captions/pop-shorts-v7.json', 'pop-shorts-v7': 'captions/pop-shorts-v7.json'}
@@ -41,6 +41,7 @@ def fit_size(words, size, style, emph_range=None):
         return w + text_width(' ', sz, ff) * (len(words) - 1)
     if width(size) <= style['fitWidth']: return size
     return max(1, int(size * style['fitWidth'] / width(size)))
+ABBREV = re.compile(r'^(Mr|Mrs|Ms|Dr|St|Jr)\.["\')]*$')
 PUNCT_BREAK = re.compile(r'[.,!?;:…]["\')]*$')
 
 
@@ -52,9 +53,11 @@ def display_words(line):
         toks = [w['w'] for w in line['words']]
     out = []
     for t in toks:
-        brk = bool(PUNCT_BREAK.search(t))
-        clean = t.replace('*', '').strip('"“”\'').rstrip('"“”')   # tuft 4C: *emphasis* marks never reach the screen (they stay emphasis cues: script_marks / keyword colour)
-        clean = re.sub(r'[.,;:…]+$', '', clean)
+        abbr = bool(ABBREV.match(t.strip('"“”\'')))   # "Mr." is not a sentence end and keeps its period on screen
+        brk = bool(PUNCT_BREAK.search(t)) and not abbr
+        clean = t.replace('*', '').strip('"“”\'').rstrip('"“”')
+        if re.search(r"s'$", t.replace('*', '').rstrip('"“”.,;:!?…')): clean = clean.rstrip('.,;:…') + "'" if not clean.endswith("'") else clean   # a plural possessive (Pickles') keeps its apostrophe   # tuft 4C: *emphasis* marks never reach the screen (they stay emphasis cues: script_marks / keyword colour)
+        clean = clean if abbr else re.sub(r'[.,;:…]+$', '', clean)
         out.append((clean, brk))
     return out
 
@@ -82,14 +85,14 @@ def chunk(cues, max_words=3, blank_pause=.35, max_long=None, long_letters=7, one
                 onset = w['start']                     # a pause inside the line starts a new phrase
             if cur and len(cur) + 1 > chunk_cap(cur + [txt], max_words, max_long, long_letters):   # v3: the long word starts a new chunk
                 first = words[i - len(cur)]
-                chunks.append({'words': cur, 'start': first['start'], 'end': words[i - 1]['end'], 'onset': chunk_onset, 'line': line['line']})
+                chunks.append({'words': cur, 'start': first['start'], 'end': words[i - 1]['end'], 'onset': chunk_onset, 'line': line['line'], 'brk': False})
                 cur = []
             if not cur: chunk_onset = onset
             cur.append(txt)
             nxt_gap = words[i + 1]['start'] - w['end'] if i + 1 < len(words) else 9
             if len(cur) >= chunk_cap(cur, max_words, max_long, long_letters) or brk or nxt_gap > blank_pause or i == len(words) - 1:
                 first = words[i - len(cur) + 1]
-                chunks.append({'words': cur, 'start': first['start'], 'end': w['end'], 'onset': chunk_onset, 'line': line['line']})
+                chunks.append({'words': cur, 'start': first['start'], 'end': w['end'], 'onset': chunk_onset, 'line': line['line'], 'brk': bool(brk)})
                 cur = []
     return chunks
 
@@ -208,10 +211,48 @@ def grouping_issues(chunks, style, emph=()):
     return out
 
 
+def merge_short(chunks, style):
+    """Style v7 (opt-in `minShow`): a one-word caption that would be on screen for less than minShow seconds (a short aligned word, or one whose
+    start the lead / phrase-onset clamp pushes onto its neighbour's) is MERGED with its neighbour into one chunk of at most 2 words instead of
+    flashing for 0–2 frames (the old behaviour: "Mr.", "is", "of", "You're", "my" never appeared). Neighbour = the next chunk when it is in the
+    same line, the short one does not end a sentence and no voice pause (> blankPause) lies between; else the previous chunk under the same rules.
+    A chunk already holding 2 words is never extended. Every word stays, in order."""
+    min_show, bp = style.get('minShow'), style['blankPause']
+    if not min_show: return chunks
+    chunks = [dict(c) for c in chunks]
+    while True:
+        t = timing(chunks, style['leadSeconds'], bp); hit = None
+        for i, c in enumerate(t):
+            if len(c['words']) > 1 or c['end'] - c['start'] >= min_show: continue
+            nxt = i + 1 < len(t) and t[i + 1]['line'] == c['line'] and not c.get('brk') and t[i + 1]['start'] - c['end'] <= bp and len(t[i + 1]['words']) < 2
+            prv = i > 0 and t[i - 1]['line'] == c['line'] and not t[i - 1].get('brk') and c['start'] - t[i - 1]['end'] <= bp and len(t[i - 1]['words']) < 2
+            if nxt: hit = (i, i + 1)
+            elif prv: hit = (i - 1, i)
+            if hit: break
+        if not hit: return chunks
+        a, b = chunks[hit[0]], chunks[hit[1]]
+        chunks[hit[0]:hit[1] + 1] = [{**a, 'words': a['words'] + b['words'], 'end': b['end'], 'brk': b.get('brk', False)}]
+
+
+def ensure_show(timed, style, floor=.08, slack=.03):
+    """v7 leftovers after merge_short (two aligned words stacked on one instant, e.g. "And I" at 8 ms): borrow up to `slack` s before the chunk
+    (its start stays within 80 ms of the word onset with the 40 ms lead) and up to `slack` s after it from the next chunk, so no caption is shorter
+    than `floor` s (2 frames at 24 fps). Nothing is dropped; neighbours keep at least 50 ms."""
+    if not style.get('minShow'): return timed
+    for i, c in enumerate(timed):
+        need = floor - (c['end'] - c['start'])
+        if need <= 0: continue
+        if i:
+            p = timed[i - 1]; e = min(need, slack, max(0, c['start'] - (p['start'] + .05))); c['start'] = round(c['start'] - e, 3); p['end'] = min(p['end'], c['start']); need -= e
+        if need > 0 and i + 1 < len(timed):
+            n = timed[i + 1]; l = min(need, slack, max(0, n['end'] - n['start'] - .05)); c['end'] = round(c['end'] + l, 3); n['start'] = max(n['start'], c['end'])
+    return timed
+
+
 def make_chunks(cues, style, emph=()):
     """The style's grouping: "v3" (owner rules) or the original chunker (v2, "Nobody")."""
     if style.get('grouping') == 'v3': return group(cues, style, emph)
-    return chunk(cues, style['maxWords'], style['blankPause'], style.get('maxWordsLong'), style.get('longLetters', 7), bool(style.get('oneWord')))
+    return merge_short(chunk(cues, style['maxWords'], style['blankPause'], style.get('maxWordsLong'), style.get('longLetters', 7), bool(style.get('oneWord'))), style)
 
 
 def episode_sizes(timed, style, emph=()):
@@ -341,6 +382,9 @@ Format: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text
         size = st['openerSize'] if c['line'] == first_line else st['size']
         e = emphasis(c['words'], emph)
         size = (one[0] if c['line'] == first_line else one[1]) if one else fit_size(c['words'], size, st, e)
+        if len(c['words']) > 1 and st.get('maxWidthFrac') and st.get('minShow'):   # v7 merged chunk: shrink to the width rule
+            w = text_width(' '.join(c['words']), size, st['fontFile']); lim = st['maxWidthFrac'] * st['playRes'][0]
+            if w > lim: size = max(1, int(size * lim / w))
         parts = []
         for i, w in enumerate(c['words']):
             txt = ass_escape(w)
@@ -361,15 +405,19 @@ def main():
     cues = json.load(open(o.cues or f'stories/{o.story}/cues.json'))
     spec = json.load(open(o.spec)) if o.spec else {}
     style = load_style(o.style or spec.get('captionStyle') or ('v7' if spec.get('format', 0) >= 7 else None))   # format 7 specs default to pop-shorts-v7
-    timed = timing(make_chunks(cues, style, spec.get('emphasis', [])), style['leadSeconds'], style['blankPause'])
+    timed = ensure_show(timing(make_chunks(cues, style, spec.get('emphasis', [])), style['leadSeconds'], style['blankPause']), style)
+    if (spec.get('audio') or {}).get('gapsApplied') and os.path.exists(f'stories/{o.story}/build/memegap.json'):   # a caption never shows during a meme clip
+        for g in json.load(open(f'stories/{o.story}/build/memegap.json'))['gaps']:
+            for c in timed:
+                if c['start'] < g['clipAt'] and c['end'] > g['clipAt']: c['end'] = round(g['clipAt'], 3)
     kw = set()
     if style.get('keywordColour'):   # format v5: *word* marks in the owner's script (read only)
-        import os; sp = f'stories/{o.story}/script.txt'
+        sp = f'stories/{o.story}/script.txt'
         if os.path.exists(sp): kw = keyword_slots(timed, script_marks(open(sp).read()))
         if spec.get('keywords'): kw |= spec_keyword_slots(timed, spec['keywords'])   # opt-in: keywords listed in the spec
     ass = to_ass(timed, style, spec.get('emphasis', []), spec.get('shots'), spec.get('fps', 30), o.until, keywords=kw)
     out = o.out or f'stories/{o.story}/build/captions.ass'
-    import os; os.makedirs(os.path.dirname(out), exist_ok=True); open(out, 'w').write(ass)
+    os.makedirs(os.path.dirname(out), exist_ok=True); open(out, 'w').write(ass)
     n = ass.count('Dialogue:'); print(json.dumps({'out': out, 'style': style['name'], 'captions': n, 'words': sum(len(c['words']) for c in timed), 'maxChunk': max(len(c['words']) for c in timed)}))
 
 

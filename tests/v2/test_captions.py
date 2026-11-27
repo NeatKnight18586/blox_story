@@ -92,3 +92,38 @@ class Escaping(unittest.TestCase):
 
 if __name__ == '__main__':
     unittest.main()
+
+
+class MergeShort(unittest.TestCase):
+    """fearbell FINAL caption fix: v7 never drops a short word; it merges with its neighbour (≤ 2 words), and `capcheck` sees every word."""
+    V7 = dict(json.load(open(os.path.join(ROOT, 'captions/pop-shorts-v7.json'))))
+
+    def cues(self):
+        # "Mr." / "is" / "of" are 20–120 ms words; "Mr." is an abbreviation, not a sentence end
+        return {'lines': [line([('Hello', 4.3, 4.8), ('Mr.', 4.91, 4.93), ("Pickles'", 4.93, 5.4), ('fear?', 5.4, 5.8), ('Kevin', 6.5, 6.9), ('is', 6.9, 7.0), ('afraid', 7.0, 7.4), ('of', 7.4, 7.47), ('a', 7.47, 7.5), ('cheeseburger.', 7.5, 8.2)],
+                           "Hello Mr. Pickles' fear? Kevin is afraid of a cheeseburger.")]}
+
+    def test_short_words_merge_with_the_next_word_and_none_is_dropped(self):
+        timed = C.timing(C.make_chunks(self.cues(), self.V7, []), self.V7['leadSeconds'], self.V7['blankPause'])
+        flat = [w for c in timed for w in c['words']]
+        self.assertEqual(flat, ['Hello', 'Mr.', "Pickles'", 'fear?', 'Kevin', 'is', 'afraid', 'of', 'a', 'cheeseburger'])
+        self.assertTrue(all(len(c['words']) <= 2 for c in timed))
+        self.assertIn(['Mr.', "Pickles'"], [c['words'] for c in timed])
+        self.assertTrue(all(c['end'] - c['start'] >= self.V7['minShow'] - 1e-9 or len(c['words']) == 2 for c in timed))
+
+    def test_a_long_enough_word_stays_alone_and_a_sentence_end_never_merges_forward(self):
+        timed = C.timing(C.make_chunks(self.cues(), self.V7, []), self.V7['leadSeconds'], self.V7['blankPause'])
+        self.assertIn(['Kevin'], [c['words'] for c in timed]); self.assertIn(['cheeseburger'], [c['words'] for c in timed])
+
+    def test_styles_without_minShow_are_untouched(self):
+        st = dict(self.V7); del st['minShow']
+        self.assertTrue(all(len(c['words']) == 1 for c in C.make_chunks(self.cues(), st, [])))
+
+    def test_capcheck_flags_a_dropped_word_and_a_sub_frame_caption(self):
+        import capcheck as K
+        words = [{'w': w, 'start': s, 'end': s + .2} for w, s in [('a', 0), ('b', .3), ('c', .6)]]
+        ok = K.check([{'start': 0, 'end': .3, 'words': ['a']}, {'start': .26, 'end': .6, 'words': ['b']}, {'start': .56, 'end': 1, 'words': ['c']}], ['a', 'b', 'c'], words)
+        self.assertEqual(ok['result'], 'PASS')
+        self.assertEqual(K.check([{'start': 0, 'end': .3, 'words': ['a']}, {'start': .56, 'end': 1, 'words': ['c']}], ['a', 'b', 'c'], words)['missing'], 1)
+        self.assertEqual(K.check([{'start': 0, 'end': .3, 'words': ['a']}, {'start': .26, 'end': .26, 'words': ['b']}, {'start': .56, 'end': 1, 'words': ['c']}], ['a', 'b', 'c'], words)['invisible'], 1)
+        self.assertEqual(K.check([{'start': 0, 'end': .3, 'words': ['a']}, {'start': .26, 'end': .6, 'words': ['b']}, {'start': .56, 'end': 1, 'words': ['c']}], ['a', 'b', 'c'], words, gaps=[(.7, .9)])['duringMemeClip'][0]['words'], ['c'])

@@ -27,5 +27,6 @@
  "oneSize": true,
  "maxWidthFrac": 0.86,
  "note": "Format 7 captions: one word per chunk, #FFE135 fill (ASS BGR &H0035E1FF), outline 20 (v5: 9, 2.2x), y fixed at 1250 (65 % of the frame; yHigh = y so captionY never moves it).",
- "oneWord": true
+ "oneWord": true,
+ "minShow": 0.12
 }

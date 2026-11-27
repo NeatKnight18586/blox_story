@@ -66,12 +66,24 @@
    "id": "S06",
    "beat": false,
    "t": 5.96,
-   "dur": 0.67,
+   "dur": 0.58,
    "size": "medium",
    "move": "whip",
    "loc": "city",
-   "speed": 93,
+   "speed": 105,
    "subject": "pickles@52,52",
+   "why": "fun: Heights."
+  },
+  {
+   "id": "S06b",
+   "beat": false,
+   "t": 6.54,
+   "dur": 0.08,
+   "size": "medium",
+   "move": "static-drift",
+   "loc": "city",
+   "speed": 0,
+   "subject": "pickles@51,29",
    "why": "fun: Heights."
   },
   {
@@ -687,14 +699,14 @@
    "why": "fun: A cheeseburger."
   }
  ],
- "meanShot": 1.53,
+ "meanShot": 1.5,
  "end": 85.96,
  "gamecam": 0,
  "wides": 12,
  "partners": [],
  "format5": {
   "lengthS": 85.95,
-  "averageShotS": 1.51,
+  "averageShotS": 1.48,
   "insertH": {
    "S23": 1,
    "S34": 0.6241000000000001,
