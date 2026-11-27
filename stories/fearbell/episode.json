@@ -3617,7 +3617,7 @@
    ],
    "subject": "pickles",
    "row": 6,
-   "frames": 16,
+   "frames": 14,
    "drift": 0,
    "from": {
     "position": [
@@ -3654,6 +3654,54 @@
     0
    ],
    "ease": "outCubic"
+  },
+  {
+   "id": "S06b",
+   "tplKind": "ms",
+   "loc": "city",
+   "mood": "fun",
+   "size": "medium",
+   "move": "static-drift",
+   "why": "fun: Heights.",
+   "see": [
+    "pickles"
+   ],
+   "vo": "Heights.",
+   "cue": [
+    5.96,
+    6.61
+   ],
+   "subject": "pickles",
+   "row": 6,
+   "frames": 2,
+   "drift": 0,
+   "from": {
+    "position": [
+     -161.627,
+     57.403,
+     9.017
+    ],
+    "target": [
+     -154.17,
+     53.603,
+     6.29
+    ],
+    "fov": 68
+   },
+   "briefMove": "tiltUp",
+   "shadowRadius": 30,
+   "actions": [
+    {
+     "actor": "pickles",
+     "verb": "gasp_step_back",
+     "at": 0
+    },
+    {
+     "actor": "pickles",
+     "verb": "gasp_step_back",
+     "at": 0.55
+    }
+   ]
   },
   {
    "id": "S07",

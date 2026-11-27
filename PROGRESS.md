@@ -156,3 +156,12 @@ Final: farm render.yml cannot do the meme-gap timeline or the CC0 cache → loca
 v7 captions 290, assemble → renders/v2/fearbell-master.mp4 90.458 s 193.6 MB; proxy review/fearbell/final-review.mp4 37.0 MB.
 v2:qc PASS (−14.6 LUFS, TP −1.6, SSIM .9854, PSNR 43.85). Gap means G1 −12.2 / G2 −20.8 / G3 −19.3 dB (whole −15.4). DELIVERY.md written.
 Open: CONTINUITY.md row wording ("pending") is outside the freeze; qc.py needs --frames for a local master (crashes without it).
+
+## Fear Bell — HEIGHTS + CAPTION FIX + RE-FINAL (Sonnet 5.5; branch claude/fearbell-heights-captions from main 5b4f83f)
+Caption root cause: aligned short words are 20–120 ms and timing() starts a chunk at word − 40 ms (clamped to the line onset) and ends it where the next starts, so
+30 of 290 one-word captions lasted 0–1 frames (libass shows nothing: "Mr.", "is", "of", "You're", "my", "For the first"). Fix (captions.py, v7 opt-in `minShow` 0.12):
+merge_short merges a too-short caption with the next (else previous) word of the same sentence/line, never across a sentence end or pause (Mr. is not one; Pickles' keeps its
+apostrophe); ensure_show borrows ≤ 30 ms for leftovers; holds are cut before a meme clip. `npm run v2:capcheck`: script.txt vs the .ass; old output FAILS (1 missing, 30 invisible),
+new PASSES (0 missing, 0 out of order, max onset 45 ms, shortest 70 ms). Tests: tests/v2/test_captions.py MergeShort (4). Row 6: split at the end of the rise (gapped 31 %), 6b high
+three-quarter on the pillar top, Pickles gasp_step_back ×2 + scream face (no cling/hug pose exists; engine pose needed to hug). Final: final.sh (45 frames re-rendered, rest cache),
+qc PASS, gaps G1 −12.2 / G2 −20.8 / G3 −19.3 dB; master + proxy audio identical per window.

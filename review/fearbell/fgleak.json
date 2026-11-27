@@ -48,13 +48,22 @@
    "msg": "S05: non-subject cover of the middle third 0.0 % (≤ 10 %)"
   },
   {
-   "frame": 151,
+   "frame": 150,
    "cover": 0,
    "far": 10.86,
    "hits": [],
    "id": "S06",
    "ok": true,
    "msg": "S06: non-subject cover of the middle third 0.0 % (≤ 10 %)"
+  },
+  {
+   "frame": 158,
+   "cover": 0,
+   "far": 7.7,
+   "hits": [],
+   "id": "S06b",
+   "ok": true,
+   "msg": "S06b: non-subject cover of the middle third 0.0 % (≤ 10 %)"
   },
   {
    "frame": 171,
