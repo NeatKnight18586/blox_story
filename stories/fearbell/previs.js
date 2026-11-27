@@ -51,7 +51,7 @@ const P = {hero: {troupe: 'HERO'}, lulu: slot('lulu'), gov: slot('governor'), ke
 // classroom / dining coordinates are room-local (parts/city/rooms.js); the vo-sheet renders those rows from the room spec
 const CLASS = {desk: [-1, 0, -6.2], shelf: [-12.6, 4.6, -6]}, DINE = {seatFar: [-1.9, 0, -1.3], seatNear: [1.9, 0, 4.3]};
 const shots = [], props = [], creatures = [], clock = [], locOf = {}, worldState = {};
-const shot = (n, cam, {size, to, actions = [], loc = 'city', see = .2, note = '', faceAim = null, leakOk = null} = {}) => { locOf[n] = loc; shots.push({n, cam, to, size, actions, loc, see, note, faceAim, leakOk}); };   // pass 2: faceAim = the engine A1 face framing (cu / mcu / two / ots rows)
+const shot = (n, cam, {size, to, actions = [], loc = 'city', see = .2, note = '', faceAim = null, leakOk = null, pushK = .12, x = null} = {}) => { locOf[n] = loc; shots.push({n, cam, to, size, actions, loc, see, note, faceAim, leakOk, pushK, x}); };   // FINAL: pushK = how far a push travels (fraction of camera→target); x = extra camera fields (follow, followOffset, ease)   // pass 2: faceAim = the engine A1 face framing (cu / mcu / two / ots rows)
 const pr = (id, prop, pos, extra = {}) => props.push({id, set: 'props1g', prop, pos: Array.isArray(pos[0]) && Array.isArray(pos[0][1]) ? pos : [[0, pos]], ...extra});   // attach + during(): hidden outside its window (the pos key y −400)
 const hide = [0, -400, 0], during = (t0, t1, p) => [[0, hide], [t0, p], [t1, hide]];
 // =========================== rows ===========================
@@ -73,12 +73,15 @@ put('gov', P.gov, 4, 4, BAL, 0, {faces: [[S0(4), 'gov_smug']]});
 pr('rope', 'bellRope', during(S0(4), R(4).end, [BAL[0] + .9, BAL[1] + 9.5, BAL[2] + .55]), {p: {length: 6}, animAt: T(4)});
 shot(4, look([BAL[0] - 9, BAL[1] - 6.5, BAL[2] + 17], [BAL[0] + .3, BAL[1] + 2.9, BAL[2]], 40), {size: 'medium', actions: [{actor: 'gov', verb: 'rope_pull', at: T(4) - S0(4) - .2}], see: .1, leakOk: ['slot:2']});
 // 5–6 Mr. Pickles happily watering flowers (pass 2: the can rides his hand and pours) → a stone pillar shoots him 40 studs up (POP), he is ON TOP of it
-put('pickles', P.pickles, 5, 6, PICK, -119, {faces: [[S0(5), 'smile'], [T(6) + .1, 'terrified']]});
+put('pickles', P.pickles, 5, 6, PICK, -119, {faces: [[S0(5), 'smile'], [T(6) + .05, 'scream']]});   // FINAL: screaming (yell mouth) on top
 pr('can', 'wateringCan', during(S0(5), R(5).end, PICK), {attach: {actor: 'pickles', part: 'rightArm', offset: [0, -1.05, .15], orient: true}, rot: [[0, [90, 0, 0]]], animAt: S0(5) + .25});
 shot(5, camOn(PICK, -119, {d: 11.5, side: 2.5, h: 2.4, aim: 2.7, fov: 44, tx: .6}), {size: 'medium', actions: [{actor: 'pickles', verb: 'water', at: .05}]});
 creatures.push({id: 'pillar', kind: 'pillar', pos: PICK, ride: 'pickles', acts: [{act: 'rise', at: T(6)}], visible: [[0, false], [T(6), true], [R(6).end, false]]});
 clock.push({at: wordAt(6, 'Heights'), fx: 'pop', pos: [PICK[0], PICK[1] + 1.2, PICK[2]], scale: 2.6});
-shot(6, look(add(PICK, fwd(-119), 46, rgt(-119), 6, 6), add(PICK, fwd(-119), 0, [0, 0], 0, 36), 62), {size: 'medium', see: .5});
+// FINAL row 6: the camera FOLLOWS him up (follow = the actor + ride height; from/to are offsets from his head): 9.5 studs out, a little above, looking
+// down past him so the ground falls away below; it eases back to 13 studs as the pillar tops out (face ≥ 12 % of the frame height)
+const R6CAM = (d, h, fov) => ({position: add([0, 0, 0], fwd(-119), d, rgt(-119), -2.2, h), target: [0, -.6, 0], fov});
+shot(6, R6CAM(8.0, 1.4, 48), {size: 'medium', see: .5, to: R6CAM(11.5, 4.0, 52), x: {follow: 'pickles', followOffset: [0, 4.7, 0], ease: 'outCubic', move: 'whip'}});   // the lock's "whip-tilt up": a whip (exempt from the pan-speed cap by design)
 // 7–8 the mailman whistling → a T-rex behind him ROARS, the mail explodes (POP); pass 2 (owner, row 8): the HERO strolls calmly through the background sipping juice
 put('mailman', P.mailman, 7, 8, MAIL, 61, {faces: [[S0(7), 'smile'], [T(8) + .15, 'terrified']]});
 shot(7, camOn(MAIL, 61, {d: 11, side: -1.5, h: 2.2, aim: 2.9, fov: 44}), {size: 'medium'});
@@ -92,28 +95,34 @@ pr('juice', 'juiceCup', during(S0(8), R(8).end, HC0), {attach: {actor: 'hero', p
 shot(8, look(add(MAIL, fwd(61), 15, rgt(61), 0, 3.0), add(MAIL, fwd(61), -6, [0, 0], 0, 7), 66), {size: 'wide', see: .6, actions: [{actor: 'hero', verb: 'sip', at: .1}]});
 // 9–10 the bodybuilder flexing by the beach ice-cream cart (heroLow) → a tiny rat (POP); he screams and LEAPS into the cart (pass 2: on the beach, beside the world's cart)
 const CART = [229, 0, 290.5], BBYW = 200;   // parts/city/plan.json harbor beach props iceCart (world x, z)
-const BB = G(CART[0] - 4.2, CART[2] + 1.5), BWCAM = add(BB, fwd(BBYW), 12, [0, 0], 0, 0), BBY = yawTo(BB, BWCAM), INCART = G(CART[0], CART[2], 1.4);
-put('bb', P.bb, 9, 10, BB, BBY, {faces: [[S0(9), 'grin'], [T(10) + .15, 'terrified']], keys: [[0, 'heroPose'], [T(10) + .05, 'gaspHands']], marks2: [[T(10) + .12, INCART, BBY - 60]]});   // the leap lands him in the cart
+const BB = G(CART[0] - 4.2, CART[2] + 1.5), BWCAM = add(BB, fwd(BBYW), 12, [0, 0], 0, 0), BBY = yawTo(BB, BWCAM), INCART = (q => add(q, fwd(BBY - 60), -1.3, [0, 0], 0, 0))(G(CART[0], CART[2], -1.3));   // FINAL: the held leap pose rides 2.2 studs up: the mark sits below the cart floor so his legs are IN the box; minus the leap's forward drift
+put('bb', P.bb, 9, 10, BB, BBY, {faces: [[S0(9), 'grin'], [T(10) + .1, 'scream']], keys: [[0, 'heroPose'], [T(10) + .06, 'gaspHands']], marks2: [[T(10) + .12, INCART, BBY - 60]]});   // FINAL: the rat is seen first, then the scream + leap; the leap lands him in the cart
 const RAT = add(BB, fwd(BBY), 2.6, rgt(BBY), -1.2, 0);
-creatures.push({id: 'rat', kind: 'rat', pos: G(RAT[0], RAT[2]), yaw: BBY + 180, scale: 1.5, acts: [], visible: [[0, false], [T(10), true], [R(10).end, false]]});
-clock.push({at: wordAt(10, 'rat'), fx: 'pop', pos: [RAT[0], RAT[1] + 1, RAT[2]], scale: 1.4});
+creatures.push({id: 'rat', kind: 'rat', pos: G(RAT[0], RAT[2]), yaw: BBY + 180, scale: 1.5, acts: [], visible: [[0, false], [S0(10), true], [R(10).end, false]]});   // FINAL (owner): NO POP — already sitting on the sand when row 10 starts
 shot(9, look(add(BB, fwd(BBY), 13, rgt(BBY), 1.5, .9), add(BB, fwd(BBY), 0, rgt(BBY), -.6, 5.0), 64), {size: 'medium', see: .9});
-shot(10, look(add(INCART, fwd(BBY), 17, rgt(BBY), 5, 4.5), add(INCART, [0, 0], 0, rgt(BBY), .6, 3.6), 64), {size: 'wide', see: .4, actions: [{actor: 'bb', verb: 'leap', at: T(10) - S0(10) - .1}, {actor: 'bb', verb: 'land', at: +(T(10) - S0(10) + .14).toFixed(3)}]});   // ANIMATIC B: he LANDS in the cart before the cut
+// FINAL row 10: a PULL-BACK on a fixed aim point (pan speed ≈ 0): close on him by the cart (the rat below the frame) → wide (in-out ease: the rat enters on "rat"), him, the cart
+const R10MID = add(RAT, [0, 0], 0, [0, 0], 0, 0).map((v, i) => +((v + INCART[i]) / 2).toFixed(3));
+const T10 = add(R10MID, [0, 0], 0, rgt(BBY), -.6, 2.9);
+shot(10, look(add(T10, fwd(BBY), 5.5, [0, 0], 0, 1.0), T10, 52), {size: 'wide', see: .4, to: look(add(T10, fwd(BBY), 14, [0, 0], 0, 1.4), T10, 60),
+  actions: [{actor: 'bb', verb: 'leap', at: +(T(10) - S0(10) + .02).toFixed(3)}, {actor: 'bb', verb: 'land', at: +(T(10) - S0(10) + .2).toFixed(3)}]});   // he LANDS in the cart before the cut
 // 11–12 Kevin at the diner counter → everything STILL: slow push on Kevin trembling before a cheeseburger (pass 2, row 11: the camera off the patio pole)
-const KEV = (q => G(q[0], q[2]))(DP(1.5, -.7, 0)), KEVY = 172;
+const KEV = (q => G(q[0], q[2]))(DP(.75, 0, 0)), KEVY = 217, BUN = DP(-.72, 0, 1.37), PLT = DP(-.72, 0, 1.3);   // FINAL: up at the counter between two stools, FACING the burger (217 = −DIN.f); the burger centred on its plate near the counter's front edge
 put('kevin', P.kevin, 11, 12, KEV, KEVY, {faces: [[S0(11), 'neutral'], [S0(12), 'terrified']]});
-pr('burger', 'burger', during(S0(11), R(12).end, DP(-.9, -.7, 1.37)), {animAt: 999});
-pr('plate', 'plate', during(S0(11), R(12).end, DP(-.95, -.7, 1.3)));
-shot(11, look(DP(1.6, 3.6, 3.6), DP(1.15, -.7, 2.7), 58), {size: 'medium'});
-shot(12, look(DP(1.1, 4.8, 3.4), DP(.7, -.7, 2.5), 56), {size: 'medium', to: 'push', see: .6, note: 'the single stillness'});
+pr('burger', 'burger', during(S0(11), R(12).end, BUN), {animAt: 999});
+pr('plate', 'plate', during(S0(11), R(12).end, PLT));   // FINAL: the burger centred on the plate
+// FINAL 11: Kevin in profile at the counter, the burger on its plate in front of him (from his side); 12: three-quarter on his face over the burger,
+// a visible slow push (35 % of the way in) — the one stillness
+// (camera angles measured off his facing −DIN.f: 11 ≈ 55° — profile-ish, wider; 12 ≈ 35° — three-quarter over the burger)
+shot(11, look(DP(-1.7, 3.4, 2.7), DP(0, 0, 2.6), 54), {size: 'medium'});
+shot(12, look(DP(-1.7, 2.5, 2.8), DP(.15, 0, 2.85), 58), {size: 'medium', to: 'push', pushK: .3, see: .6, note: 'the single stillness', x: {ease: 'inOutSine'}});
 // 13–15 plaza: pops everywhere except an empty spot beside the hero; the hero looks at it (a leaf blows past); looks up at the bell (clear frame)
 put('hero', P.hero, 13, 13, HERO_P, 200, {faces: [[S0(13), 'neutral']], keys: [[S0(13), 'idle']]});
 const EMPTY = add(HERO_P, rgt(200), -1.5, [0, 0], 0, 0);   // the empty spot beside him, on screen-left of the CU
-put('hero', P.hero, 14, 14, HERO_P, 150, {faces: [[S0(14), 'thinking'], [S0(15), 'thinking']], keys: [[S0(14), 'idle']]});
+put('hero', P.hero, 14, 14, HERO_P, 178, {faces: [[S0(14), 'sad_soft']], keys: [[S0(14), 'idle']]});   // FINAL: three-quarter to the lens, glancing at the empty side (no chin-hand)
 for (const [i, [x, z]] of [[-16, 6], [4, 10], [-22, 22], [8, 26], [-12, 30], [14, 14], [-2, 4]].entries()) clock.push({at: +(T(13) + .04 * i).toFixed(3), fx: 'pop', pos: G(x, z, 1.4), scale: 1.8});
 shot(13, look([-6, 44, 52], [-6, 14, 14], 46), {size: 'wide', see: .3});
-pr('leaf', 'leaf', [[0, hide], [S0(14), add(HERO_P, rgt(200), -3.2, fwd(200), 1.0, 5.3)], [R(14).end, add(HERO_P, rgt(200), -.8, fwd(200), 1.0, 4.7), 'ramp']], {animAt: S0(14), p: {size: .45}});
-shot(14, camOn(HERO_P, 200, {d: 8, side: 0, h: 5.0, aim: 4.2, fov: 54, tx: -1.1}), {size: 'close', see: .35});   // head and shoulders on one side, the empty space he looks at (and the leaf) on the other
+pr('leaf', 'leaf', [[0, hide], [S0(14), add(HERO_P, rgt(200), -3.4, fwd(200), 1.6, 5.6)], [R(14).end, add(HERO_P, rgt(200), -1.0, fwd(200), 1.8, 3.9), 'ramp']], {animAt: S0(14), p: {size: .6}});
+shot(14, camOn(HERO_P, 200, {d: 8.5, side: .2, h: 4.4, aim: 3.9, fov: 44, tx: -.9}), {size: 'close', see: .35});   // FINAL: head and shoulders screen-right, the empty space + leaf screen-left   // head and shoulders on one side, the empty space he looks at (and the leaf) on the other
 const H15 = G(-17, 12); put('hero', P.hero, 15, 15, H15, yawTo(H15, BELL), {faces: [[S0(15), 'thinking']]});   // off the statue's line to the tower: a clear frame up to the bell
 shot(15, look(add(H15, fwd(yawTo(H15, BELL)), -9.0, rgt(yawTo(H15, BELL)), .3, 1.2), [BELL[0], BELL[1] - 16, BELL[2]], 62), {size: 'medium', see: .4, leakOk: ['slot:2']});   // the bell's own tower + hall below it
 // 16–18 classroom (rooms world): the DRAWER creaks open (worldState drawer), a huge fuzzy spider climbs out; teacher on the bookshelf; kids run out of the DOOR
@@ -138,14 +147,15 @@ pr('spag', 'spaghetti', during(S0(19), R(20).end, [-1.2, 2.72, 1.0]), {loc: 'cit
 shot(19, look([-.4, 6.4, 6.6], [-.5, 2.4, -.9], 54), {size: 'close', loc: 'cityDining', see: .9, leakOk: ['roomMerged']});   // high over the dinner table (the set): Dad + the vacuum beside him
 shot(20, look([-10.6, 4.6, 4.2], [-1.4, 3.4, -1.0], 62), {size: 'wide', loc: 'cityDining'});
 // 21–23 Kevin facing his cheeseburger (MCU, face + burger) → he BITES it (CU, the burger at his mouth) → the burger shrinks to a slider (insert)
-put('kevin', P.kevin, 21, 23, KEV, KEVY, {faces: [[S0(21), 'determined'], [T(22) - .2, 'cry'], [S0(23), 'awe']]});
-pr('burger2', 'burger', during(S0(21), R(21).end, DP(-.9, -.7, 1.37)), {animAt: 999});
+const CAM22 = DP(4.2, 1.6, 3.9), Y22 = yawTo(KEV, CAM22) - 28;   // FINAL row 22: burger in hand, he turns from the counter to the open patio (three-quarter to the lens): no counter, awning or window post in frame
+put('kevin', P.kevin, 21, 23, KEV, KEVY, {marks2: [[S0(22), KEV, Y22], [S0(23), KEV, KEVY]], faces: [[S0(21), 'determined'], [T(22) - .2, 'cry'], [S0(23), 'awe']]});
+pr('burger2', 'burger', during(S0(21), R(21).end, BUN), {animAt: 999});
 pr('burgerBite', 'burger', during(S0(22), R(22).end, KEV), {attach: {actor: 'kevin', part: 'rightArm', offset: [0, -1.15, .1], orient: true}, rot: [[0, [90, 0, 0]]], scale: .85});
-pr('burger3', 'burger', during(S0(23), R(23).end, DP(-.9, -.7, 1.37)), {animAt: T(23)});
-pr('plate2', 'plate', during(S0(21), R(23).end, DP(-.95, -.7, 1.3)));
-shot(21, look(DP(-1.8, 1.4, 2.4), DP(1.5, -.7, 4.3), 44), {size: 'medium', faceAim: ['kevin']});   // from across the counter: the burger in the foreground, his face
-shot(22, look(DP(1.9, 3.0, 3.8), DP(.6, -.7, 3.6), 40), {size: 'close', faceAim: ['kevin'], actions: [{actor: 'kevin', verb: 'sip', at: .05}], see: .5});
-shot(23, look(DP(-.7, -3.2, 2.4), DP(-.9, -.7, 1.55), 34), {size: 'insert', see: .7, leakOk: ['slot:6']});   // the burger sits on the diner counter (slot 6)
+pr('burger3', 'burger', during(S0(23), R(23).end, BUN), {animAt: T(23)});
+pr('plate2', 'plate', during(S0(21), R(23).end, PLT));
+shot(21, look(DP(-1.7, 2.5, 2.8), DP(.15, 0, 2.8), 54), {size: 'medium'});   // FINAL: the row-12 position (clear of the counter), wider lens: his face + the burger below it   // FINAL: three-quarter (≈ 35° off his facing), clear of the patio pole: his face + the burger
+shot(22, look(CAM22, [KEV[0] + .5, KEV[1] + 3.35, KEV[2] + .55], 48), {size: 'close',   /* aim between his face and the burger in his hand (measured: hand 1.1 studs ahead at chest height) */   /* FINAL: customer side, front three-quarter: face, bite, burger; the bite lands ON "bite" */ actions: [{actor: 'kevin', verb: 'sip', at: +(T(22) - S0(22) - .18).toFixed(3)}], see: .15});   // FINAL: front three-quarter, no pole: his face, the bite, the burger
+shot(23, look(DP(-.52, -2.5, 2.4), DP(-.72, 0, 1.55), 34),   /* FINAL: the same insert, moved with the burger */ {size: 'insert', see: .7, leakOk: ['slot:6']});   // the burger sits on the diner counter (slot 6)
 // 24 Lulu hugging her plush on the porch, a small shadow puff with big eyes BESIDE her (pass 2: at her shoulder, never over her head)
 const PORCH = G(-116.4, 15.2), LULUY = 10;
 put('lulu', P.lulu, 24, 24, PORCH, LULUY, {faces: [[S0(24), 'warm']], accessories: ['plushHug']});
@@ -159,15 +169,15 @@ creatures.push({id: 'shadow26', kind: 'shadowPuff', pos: [[0, [4.5, 2.5, 1.2]], 
 shot(25, look([1.5, 3.6, -1.0], [-3.8, 2.0, -5.6], 52), {size: 'medium', loc: 'cityDining'});
 put('lulu', P.lulu, 26, 28, [6.0, 0, .6], 27, {marks2: [[S0(26), [6.44, 0, 4.93], 207], [S0(27), [6.0, 0, .6], 27]], faces: [[S0(26), 'gasp'], [S0(27), 'grin']], room: true, accessories: ['plushHug']});
 put('heroF', P.hero, 26, 27, [7.5, 0, 3.5], 207, {faces: [[S0(26), 'determined'], [S0(27), 'warm'], [S0(28), 'sad_soft']], room: true, tool: 'flashlight', keys: [[S0(26), 'toolHold'], [S0(28), 'idle']]});
-shot(26, look([-.4, 6.6, -2.4], [5.4, 2.0, 2.8], 60), {size: 'medium', loc: 'cityDining', see: .5});
-shot(27, look(add([7.5, 0, 3.5], fwd(207), -4.2, rgt(207), 2.2, 6.9), [6.0, 3.0, .6], 54), {size: 'medium', loc: 'cityDining', faceAim: ['lulu']});   // over the hero's shoulder down onto Lulu's beaming face
+shot(26, look([2.0, 5.6, -.6], [6.2, 3.0, 2.6], 56), {size: 'medium', loc: 'cityDining', see: .5});   // FINAL: closer — the hero ≥ 25 % of the frame, his beam + the puff recoiling
+shot(27, look([10.6, 6.8, 4.7], [6.0, 3.3, .7], 50), {size: 'medium', loc: 'cityDining'});   // FINAL: OTS from behind his far shoulder — his head + shoulder on the frame edge (≥ 25 % of the height), Lulu's beaming face clear beside it
 put('heroF', P.hero, 28, 28, [7.5, 0, 3.5], 262, {faces: [[S0(28), 'sad_soft']], room: true, tool: 'flashlight', keys: [[S0(28), 'idle']]});   // he looks away
 shot(28, look([6.0, 4.6, 1.0], [7.5, 4.5, 3.5], 40), {size: 'close', loc: 'cityDining', faceAim: ['heroF']});
 // 29–30 the bodybuilder nervously petting the rat in his palm → it is a mouse; he grins (pass 2: by the beach cart, as rows 9–10)
 put('bb', P.bb, 29, 30, BB, BBY, {faces: [[S0(29), 'nervous_laugh'], [T(30) + .4, 'grin']], keys: [[S0(29), 'toolHold']]});
 creatures.push({id: 'rat2', kind: 'rat', pos: add(BB, fwd(BBY), 1.75 * 1.35, rgt(BBY), 1.51 * 1.35 + .3, 2.75 * 1.35), yaw: BBY, scale: 1.2, acts: [{act: 'shrink', at: T(30)}], visible: [[0, false], [S0(29), true], [R(30).end, false]]});
 shot(29, look(add(BB, fwd(BBY), 14, rgt(BBY), -3.0, 5.0), add(BB, fwd(BBY), 1, rgt(BBY), 1, 5.6), 50), {size: 'medium', actions: [{actor: 'bb', verb: 'idle_alive', at: 0}]});   // head + the rat in his palm (landed after the leap)
-shot(30, look(add(BB, fwd(BBY), 6.2, rgt(BBY), 3.2, 4.6), add(BB, fwd(BBY), 2.4, rgt(BBY), 2.2, 3.8), 28), {size: 'insert', see: .9});
+shot(30, look(add(BB, fwd(BBY), 7.0, rgt(BBY), 5.6, 5.2), add(BB, fwd(BBY), 2.36, rgt(BBY), 2.34, 3.85), 30), {size: 'insert', see: .9});   // FINAL: three-quarter from above, further out — the whole mouse (face, ears, body, tail) in his palm
 // 31–34 the Governor yanks too hard (both hands) → CRACK (insert ECU, continuity) → "Oops." (panic, monocle) → it rings again at noon
 put('gov', P.gov, 31, 33, BAL, 0, {faces: [[S0(31), 'gov_announce'], [S0(33), 'gov_oops'], [T(33), 'gov_panic']]});
 pr('rope2', 'bellRope', during(S0(31), R(31).end, [BAL[0] + .9, BAL[1] + 9.5, BAL[2] + .55]), {p: {length: 6}, animAt: T(31)});
@@ -201,17 +211,20 @@ shot(40, look(add(EDGE, [0, 0], 0, [0, 0], 0, 4.6).map((v, i) => v + [-3.4, 0, -
 shot(41, look(add(EDGE, [0, 1], 22, [1, 0], 6, 4), add(EDGE, [0, 1], -14, [1, 0], 0, 8.3), 62), {size: 'wide'});
 shot(42, camOn(EDGE, EDY, {d: 5.5, side: .8, h: 4.0, aim: 4.4, fov: 40}), {size: 'close', faceAim: ['hero'], actions: [{actor: 'hero', verb: 'idle_alive', at: 0}]});
 // 43 he walks in (track behind): screen nearly black
-put('hero', P.hero, 43, 43, add(EDGE, [0, 1], 2.5, [0, 0], 0, 0), EDY, {walk: true, travel: {dir: [0, -1], speed: 2.2}, faces: [[S0(43), 'determined']]});
-shot(43, look(add(EDGE, [0, 1], 7, [1, 0], .6, 4.6), add(EDGE, [0, 1], -8, [0, 0], 0, 3.6), 50), {size: 'medium', see: .8});
+put('hero', P.hero, 43, 43, add(EDGE, [0, 1], -.4, [0, 0], 0, 0), EDY, {walk: true, travel: {dir: [0, -1], speed: 2.2}, faces: [[S0(43), 'determined']]});   // FINAL: starts 1.5 studs from the wall: he is half inside by the cut
+shot(43, look(add(EDGE, [0, 1], 19, [1, 0], 2.4, 3.2), add(EDGE, [0, 1], -6, [0, 0], 0, 6.6), 58), {size: 'medium', to: 'push', pushK: .1, see: .8});   // FINAL: low behind him, far enough back for the dome wall + its edge on the sky
 // 44–48 inside the dome: flashlight cone; first scared face; hands meet; two-shot in the torch glow; Lulu looks up at HUGE EYES in the dark above; Lulu stands tall
 const IN = G(0, 6), HIN = G(1.05, 12.6), LIN = G(-1.05, 12.7);
 creatures.push({id: 'domeIn', kind: 'dome', pos: IN, acts: [{act: 'inside', at: S0(44), dur: R(48).end - S0(44), rim: ['heroF', 'lulu']}], visible: [[0, false], [S0(44), true], [R(48).end, false]]});
 creatures.push({id: 'eyesAbove', kind: 'shadowPuff', pos: add(LIN, [0, 1], -6, [1, 0], 0, 11), scale: 6, acts: [], visible: [[0, false], [S0(47), true], [R(47).end, false]]});   // the giant dark's eyes (a huge puff face, kept on inside the dome)
 put('heroF', P.hero, 44, 48, HIN, -35, {tool: 'flashlight', keys: [[S0(44), 'toolHold']], faces: [[S0(44), 'terrified'], [S0(46), 'warm'], [S0(48), 'awe']]});
-const L45 = G(1.44, 17.16, .46), HAND45 = [.95, HIN[1] + 3.85, 15.45];   // ANIMATIC B: row 45 Lulu steps INTO the beam, her raised hand meets his flashlight hand just ahead of the lens
+const L45 = G(1.89, 16.56, .46), HAND45 = [1.25, HIN[1] + 3.75, 15.15];   // FINAL: Lulu 0.75 studs nearer so her reaching hand meets his torch hand (measured: arms 0.9 studs apart before)   // ANIMATIC B: row 45 Lulu steps INTO the beam, her raised hand meets his flashlight hand just ahead of the lens
 put('lulu', P.lulu, 44, 48, LIN, 35, {marks2: [[S0(45), L45, 145], [S0(46), LIN, 35]], faces: [[S0(44), 'cry'], [S0(46), 'sad_soft'], [S0(47), 'gasp'], [S0(48), 'determined']], accessories: ['plushHug']});
 shot(44, camOn(HIN, -35, {d: 3.6, side: .6, h: 4.3, aim: 4.4, fov: 38}), {size: 'close', faceAim: ['heroF']});
-shot(45, look([HAND45[0] + 4.1, HAND45[1] + 1.2, HAND45[2] + 2.85], HAND45, 36), {size: 'insert', actions: [{actor: 'lulu', verb: 'reach_for', at: .1}]});
+shot(45, look([HAND45[0] + 4.03, HAND45[1] - .3, HAND45[2] - 1.22], HAND45, 36), {size: 'insert', actions: [{actor: 'lulu', verb: 'reach_for', at: .1}]});   // FINAL: from the side, square to the hero→Lulu axis: the two hands meet mid-frame, his torch beam along it
+// FINAL row 45: his torch beam ON the hands (a props1g flashlight just above the frame, aimed down the lens axis at HAND45; its SpotLight is a `keep` light)
+{ const o = [1.9, 1.0, 1.3], d = o.map(v => -v), l = Math.hypot(...d), b = Math.asin(d[0] / l) * 180 / Math.PI, a = Math.atan2(-d[1] / l, d[2] / l) * 180 / Math.PI;   // narrow: the hands, not the floor
+  pr('beam45', 'flashlight', during(S0(45), R(45).end, HAND45.map((v, i) => +(v + o[i]).toFixed(3))), {rot: [[0, [+a.toFixed(2), +b.toFixed(2), 0]]], p: {length: +(l + .4).toFixed(2), angle: 11, intensity: 240}}); }
 shot(46, look([0, HIN[1] + 3.6, 20], [0, HIN[1] + 3.0, 12.7], 46), {size: 'medium', faceAim: ['heroF', 'lulu']});
 shot(47, look(add(LIN, [0, 1], 5, [1, 0], 1.2, 1.0), add(LIN, [0, 1], -5, [1, 0], 0, 5.6), 70), {size: 'medium', see: .4});
 shot(48, camOn(LIN, 35, {d: 4.5, side: -.6, h: 2.2, aim: 2.4, fov: 42}), {size: 'medium', faceAim: ['lulu']});
@@ -235,23 +248,23 @@ shot(52, look(G(-.8, 40, 5.0), G(-.8, 25, 4.2), 52), {size: 'wide', actions: [{a
 const HY = G(-112, 19.5), HYY = yawTo(HY, BELL), FY = HYY + 180, Y55 = FY;   // ANIMATIC staging: he stands FRONT-ON to the lens (camera on the side away from the bell, the tower + bell behind/above him)
 put('hero', P.hero, 53, 55, HY, FY, {faces: [[S0(53), 'smile'], [T(53) + .2, 'shock'], [S0(55), 'shock'], [T(55) - .05, 'deadpan']]});
 clock.push({at: wordAt(53, 'rang'), fx: 'dong'});
-const BURG = add(HY, fwd(FY), 3.4, rgt(FY), -3.3, 0);   // GIANT (scale 3.4 ≈ 6.5 studs tall): beside him and a step nearer the lens, so his head and shoulders clear its top
+const BURG = add(HY, fwd(FY), -2.2, rgt(FY), -3.7, 0);   // FINAL: towering just behind him, over one shoulder (never over his face): a head-and-shoulders frame is ~3.7 studs wide at his depth, so the 6.4-stud burger reads only as the wall of layers behind him   // GIANT (scale 3.4 ≈ 6.5 studs tall): beside him and a step nearer the lens, so his head and shoulders clear its top
 pr('burgerY', 'cheeseburger', [[0, hide], [S0(54) + .15, BURG]], {scale: 3.4, rot: [[0, [0, 20, 0]]]});
 clock.push({at: +(S0(54) + .1).toFixed(3), fx: 'pop', pos: [BURG[0], BURG[1] + 3, BURG[2]], scale: 4});
 const PUFF = add(HY, fwd(FY), .8, rgt(FY), 2.7, 2.6);
 clock.push({at: +(T(53) + .75).toFixed(3), fx: 'pop', pos: PUFF, scale: 1.6});
 creatures.push({id: 'puffY', kind: 'shadowPuff', pos: PUFF, yaw: FY, scale: 1.1, acts: [], visible: [[0, false], [+(T(53) + .8).toFixed(3), true], [+(S0(54) + .1).toFixed(3), false]]});   // the puff beside him (row 53) until it clears
 shot(53, look(add(HY, fwd(FY), 12, rgt(FY), 4.2, .8), add(HY, fwd(HYY), 30, rgt(FY), -4.5, 12), 58), {size: 'medium', to: 'push', see: .95});   // front-on, low: the puff beside him, the tower + bell behind and above
-shot(54, look(add(HY, fwd(FY), 6.0, rgt(FY), 0, 3.6), add(HY, [0, 0], 0, rgt(FY), -.6, 4.2), 42), {size: 'close', see: .9});   // held back: his shocked face, only the shape's edge looming at the frame side
-shot(55, look(add(HY, fwd(FY), 12.5, rgt(FY), -.3, 1.0), add(HY, [0, 0], 0, rgt(FY), -1.3, 3.6), 54), {size: 'close', actions: [{actor: 'hero', verb: 'lookAtLens', at: .3}], see: .5});   // low lens: the burger's layers in the lower frame, his head and shoulders above it, deadpan into the lens
+shot(54, look(add(HY, fwd(FY), 6.0, rgt(FY), 0, 3.6), add(HY, [0, 0], 0, rgt(FY), -.85, 4.2), 46), {size: 'close', see: .9});   /* FINAL: re-aimed with the moved burger — its edge looms behind his shoulder */   // held back: his shocked face, only the shape's edge looming at the frame side
+shot(55, look(add(HY, fwd(FY), 7.5, rgt(FY), -.9, 4.4), add(HY, [0, 0], 0, rgt(FY), -.85, 3.9), 52), {size: 'close', actions: [{actor: 'hero', verb: 'lookAtLens', at: .3}], see: .5});   // FINAL: eye-level, head and shoulders + the burger's layers beside him   // low lens: the burger's layers in the lower frame, his head and shoulders above it, deadpan into the lens
 
 // =========================== assemble ===========================
 const frameOf = t => Math.round(t * F), lastEnd = END;
 const sh = shots.sort((a, b) => a.n - b.n).map((s, i, A) => { const r = R(s.n), f0 = frameOf(r.start), f1 = i + 1 < A.length ? frameOf(R(A[i + 1].n).start) : frameOf(lastEnd);
-  const to = s.to === 'push' ? {...s.cam, position: s.cam.position.map((v, j) => +(v + (s.cam.target[j] - v) * .12).toFixed(3))} : undefined;
+  const to = s.to === 'push' ? {...s.cam, position: s.cam.position.map((v, j) => +(v + (s.cam.target[j] - v) * s.pushK).toFixed(3))} : s.to && typeof s.to === 'object' ? s.to : undefined;   // FINAL: `to` may be an explicit pose (a reveal / ride)
   const b = BASE.shots[s.n - 1], {from: _f, to: _t, at: _a, cityAnchor: _c, ...keep} = b;   // brief2spec's shot (id, mood, vo, why, see, cue, tplKind) under the blocking override
   return {...keep, row: s.n, size: s.size === 'ecu' ? 'close' : s.size, ...(s.size === 'ecu' ? {ecu: true} : {}), frames: f1 - f0, move: to ? 'push' : 'static-drift', drift: 0, from: s.cam, ...(to ? {to} : {}),
-    loc: s.loc, ...(s.faceAim ? {faceAim: s.faceAim} : {}), ...(s.leakOk ? {leakOk: s.leakOk} : {}), briefMove: ROWS[s.n - 1].cam, shadowRadius: 30, ...(s.actions.length ? {actions: s.actions} : {}), ...(s.note ? {note: s.note} : {})}; });
+    loc: s.loc, ...(s.faceAim ? {faceAim: s.faceAim} : {}), ...(s.leakOk ? {leakOk: s.leakOk} : {}), briefMove: ROWS[s.n - 1].cam, shadowRadius: 30, ...(s.actions.length ? {actions: s.actions} : {}), ...(s.note ? {note: s.note} : {}), ...(s.x ?? {})}; });
 // ANIMATIC plan gate: the cast-name subject for actors; since the fearbell ENGINE fix A2 the gate also measures NON-ACTOR subjects by their projected
 // box (creature ids, actor parts `actor:part`, story props `prop_<id>`, named world objects), so every row names its real subject and the three
 // story-prop inserts their prop again (16 the teacher's drawer, 23 the shrinking burger, 34 the clock tower = slot:3)
@@ -267,7 +280,7 @@ for (const o of sh) { if (SUBJ[o.row] && !o.ecu) o.subject = SUBJ[o.row]; if (PR
 const cast = {};
 for (const [name, c] of Object.entries(CH)) {
   const apps = c.apps.sort((a, b) => a.n0 - b.n0), vis = [[0, false]], marks = [], keys = [[0, 'idle']], faces = [], acts = [];
-  for (const a of apps) { const t0 = S0(a.n0), t1 = R(a.n1).end; vis.push([t0, true], [t1, false]); marks.push([t0, {origin: a.pos, yaw: +a.yaw.toFixed(2), ...(a.travel ? {travel: a.travel} : {})}]); for (const m of a.marks2 ?? []) marks.push([m[0], {origin: m[1], yaw: +m[2].toFixed(2)}]);
+  for (const a of apps) { const t0 = S0(a.n0), t1 = a.n1 === ROWS.length ? END : R(a.n1).end;   /* FINAL: the last row holds to END */ vis.push([t0, true], [t1, false]); marks.push([t0, {origin: a.pos, yaw: +a.yaw.toFixed(2), ...(a.travel ? {travel: a.travel} : {})}]); for (const m of a.marks2 ?? []) marks.push([m[0], {origin: m[1], yaw: +m[2].toFixed(2)}]);
     for (const k of a.keys ?? []) keys.push(k); for (const f of a.faces ?? []) faces.push(f); if (a.walk) acts.push({n: a.n0, cyc: a.walk === true ? 'walk' : a.walk, t0, t1}); }
   const a0 = apps[0], dedup = v => v.filter((x, i) => i === 0 || x[0] !== v[i - 1][0] || x[1] !== v[i - 1][1]).sort((a, b) => a[0] - b[0]);
   cast[name] = {troupe: c.troupe, ...(c.costume ? {costume: c.costume} : {}), style: 'v5', faceStyle: 'v6', origin: a0.pos, yaw: a0.yaw, marks, visible: dedup(vis), keys: dedup(keys), faces: dedup(faces.length ? faces : [[0, 'smile']]),

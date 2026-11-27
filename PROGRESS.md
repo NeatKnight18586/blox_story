@@ -137,3 +137,22 @@ Root cause (dome instability): parts/creatures.js hid the dome shells only on th
 Plan gate measures non-actor subjects (objectBox / objectIssues); all 57 shots name subject or prop again (16 teacherDrawer, 23 prop_burger3, 34 slot:3:dial#2). Segments render room locations from parts/city/rooms.js (they rendered in the city before). Assemble format 7 end = voice + 0.5 s. previs.js --gapped builds the spec on the meme-gap timeline.
 Stability PASS 200 views (S38:mid 14.0 → 0.007 %, S49:first 17.0 → 0.013 %, worst S03:first 0.29 %); room key-art cameras y 5.0 → 5.3 (shadow threshold). Plan exit 0 (0 errors, 7 warnings). Animatic review/fearbell/animatic.mp4 90.4 s 8.9 MB; phone sheets review/fearbell/phone-390{,-2…-8}.png.
 Weakest (next pass): S55 hero out of frame at mid (burger edge only), S30 mouse insert unreadable, S45 hands insert dark, S43 "walked" back of head (no dome), S06 Heights figure tiny on the pillar.
+
+## Fear Bell — FINAL (episode session; branch claude/fearbell-final-staging-xi2bwp from main a67c02e)
+Plan: BASE → a67c02e (the owner's g3_mmm.wav fix sits after the old BASE; ep:check) · BRIEF.md row 10 re-synced from the lock (lock2brief.py, mechanical) ·
+A staging fixes in previs.js, one per row (6 ride-up, 10 no pop + reveal + leap into the cart, 11–12 Kevin faces the burger + visible push, 21–22 no pole,
+14 face + empty space + leaf, 26–27 hero ≥ 25 % + Lulu's face clear, 30 whole mouse, 43 dome in frame, 45 lit hands, 55 face beside the burger + hero visible to the end)
+→ review/fearbell/final-fix*.png (3 frames per row: start / MUST SEE / end) · plan gate exit 0, fgleak, v2:seek, v2:stability PASS ·
+B final.sh command file: memegap → gapped spec → farm render (look B, CC0) → v7 captions → assemble (gaps, clock FX, end = voice + 0.5 s) → v2:qc →
+per-gap mean volume → review/fearbell/DELIVERY.md · ep:check + v2:test · C merge --no-ff to main, push. Report ≤ 20 lines, STOP.
+Result (FINAL): engine fix (pipeline bug that blocked the final, commit bfcd8f9 = BASE): engine/episode.js updateProps — the prop `visible`
+keys + `anim` call had slipped into a `//` comment in e13e68a, so no story prop animated (clue 1 burger shrink, rope, mail burst, pour, leaf);
+restored + test (tests/v2/fearbell2.test.js, fails on the old line). Staging fixes (data, previs.js) per row → review/fearbell/final-fix{,-2…-8}.png
++ final-fix-gapped-6-12.png; consequential re-aims: 23 (burger moved with Kevin), 54 (shape's edge with the moved burger). Row 22: Kevin turns
+from the counter to the patio for the bite (counter/awning/window-post leak otherwise 15–50 %). Gates: plan exit 0 (0 errors, 10 warnings),
+fgleak PASS max 8.4 %, v2:seek PASS, v2:stability PASS (worst S03 0.199 %). BRIEF.md row 10 MUST SEE still the pre-change text (not edited).
+Final: farm render.yml cannot do the meme-gap timeline or the CC0 cache → local fallback (stories/fearbell/final.sh): CC0 via fetch-assets.py
+(new personal environment `blox_story` allows api.polyhaven.com + dl.polyhaven.org), render 2,171 frames 1440×2560 in 53 min (4.17 s/frame, 3 workers),
+v7 captions 290, assemble → renders/v2/fearbell-master.mp4 90.458 s 193.6 MB; proxy review/fearbell/final-review.mp4 37.0 MB.
+v2:qc PASS (−14.6 LUFS, TP −1.6, SSIM .9854, PSNR 43.85). Gap means G1 −12.2 / G2 −20.8 / G3 −19.3 dB (whole −15.4). DELIVERY.md written.
+Open: CONTINUITY.md row wording ("pending") is outside the freeze; qc.py needs --frames for a local master (crashes without it).

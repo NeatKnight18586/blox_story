@@ -69,3 +69,9 @@ test('A4 brief2spec: city locations, GOVERNOR, creature subjects, multi-word emp
   assert.equal(spec.format, 7); assert.equal(spec.cast.governor.troupe, 'GOVERNOR'); assert.equal(spec.world, 'parts/city/world.js'); assert.deepEqual(spec.locations, ['city', 'cityClassroom', 'cityDining']);
   assert.ok(spec.emphasis6.some(e => e.word === 'vacuum cleaner.')); assert.ok(spec.shots.every(s => s.from?.position && !s.fg));
 });
+test('fearbell FINAL fix: updateProps runs prop visibility + anim (the burger shrink, pour, rope pull, leaf) — the call is code, not comment text', () => {
+  const src = readFileSync(new URL('../../engine/episode.js', import.meta.url), 'utf8'), i = src.indexOf('function updateProps(t)'), body = src.slice(i, src.indexOf('\nconst ALOCK', i));
+  const code = body.split('\n').map(l => l.replace(/\/\/.*$/, '')).join('\n');   // drop line comments
+  assert.match(code, /g\.visible = valueAt\(p\.visible, t, true\)/);
+  assert.match(code, /g\.userData\.anim\(t - \(p\.animAt \?\? 0\), p\)/);
+});
