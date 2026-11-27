@@ -11,6 +11,17 @@ import {cardOk} from './classes.js';
 
 export const SIZES = ['wide', 'medium', 'close', 'insert'];
 import {framesFor} from './fpsframes.js';
+// fearbell ENGINE fix A2 (pure): a non-actor subject (creature, dome, prop, actor part, named world object) measured by its projected box at the midpoint
+// (episode.js objectBox): it must exist, be visible and in front of the lens, cover ≥ OBJ.minArea of the frame, and its on-screen centre (clipped to the
+// frame) must sit in x OBJ.cx, y OBJ.cy. A frame-filling subject (≥ OBJ.fill) passes the centre rule.
+export const OBJ = {minArea: .01, cx: [.15, .85], cy: [.12, .80], fill: .6};
+export function objectIssues(name, o) {
+  if (!o) return [`subject ${name} not in the scene (no actor, creature, prop or world object of that name)`];
+  if (!o.visible || !o.front) return [`subject ${name} not visible at the midpoint`];
+  if (o.area < OBJ.minArea) return [`subject ${name} covers ${(o.area * 100).toFixed(1)} % of the frame (want ≥ ${OBJ.minArea * 100} %)`];
+  if (o.area < OBJ.fill && !(o.cx >= OBJ.cx[0] && o.cx <= OBJ.cx[1] && o.cy >= OBJ.cy[0] && o.cy <= OBJ.cy[1])) return [`subject ${name} centre at x ${(o.cx * 100).toFixed(0)} % y ${(o.cy * 100).toFixed(0)} % (want x 15–85, y 12–80)`];
+  return [];
+}
 export const LIMITS = {beat: [.55, 1.2], beatRun: 3, beatBefore: 20, minShot: 1.2, maxShot: 5.0, cutTol: 2, firstWide: 6, headX: [.15, .85], headY: [.18, .58], meanShot: [2.2, 3.0], band: [.58, .74], minCam: 2, whipFrames: [4, 6]};
 
 // Phrase onsets (s): every line start, plus every word that follows a pause (its start is later than the
@@ -107,8 +118,9 @@ export function checkPlan({shots, cues, fps = 30, end, info = [], format, hero, 
     for (const [m, f] of bad) err(s, `${m} (frame ${f})`);
     // framing of the named subject at the shot midpoint
     if (s.subject) {
-      const h = I.mid?.heads?.[s.subject];
-      if (!h) err(s, `subject ${s.subject} not in the scene at the midpoint`);
+      const h = I.mid?.heads?.[s.subject], o = h ? null : I.mid?.objects?.[s.subject];
+      if (!h && o !== undefined) { for (const m of objectIssues(s.subject, o)) err(s, m); }   // fearbell ENGINE fix A2 (format 7): non-actor subject by its projected box
+      else if (!h) err(s, `subject ${s.subject} not in the scene at the midpoint`);
       else if (!inBox(h, L.headX, L.headY)) err(s, `subject ${s.subject} head at x ${(h.x * 100).toFixed(0)} % y ${(h.y * 100).toFixed(0)} % (want x 15–85, y 18–58)`);
       else if (h.y > L.band[0] - .02 && s.captionY !== 'high') warn(s, `subject head at y ${(h.y * 100).toFixed(0)} % near the caption band: consider captionY "high"`);
     }

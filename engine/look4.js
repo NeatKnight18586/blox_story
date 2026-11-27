@@ -105,6 +105,10 @@ export function createLookV4(scene, renderer, presets, {initial = 'comedy', fogS
       scene.environment = envFor(cur); scene.environmentIntensity = P.v4.envIntensity;
       return P;
     },
+    // fearbell ENGINE fix A1 (opt-in, format 7): calibrate the haze ONCE at load, with the given story objects hidden (cast, creatures, FX), so the haze
+    // colour no longer depends on which frame a page happens to render first (a render worker, a stability page or a jump into the dome).
+    primeHaze(name, hide = []) { const P = presets[name] ?? presets[initial]; if (!P.v4.haze || hazeCol) return; const was = hide.map(o => [o, o.visible]); for (const [o] of was) o.visible = false;
+      hazeCol = calibrateHaze(P); for (const [o, v] of was) o.visible = v; },
     frame(target, camPos, r) { L.frame(target, camPos, Math.min(r, 14)); placeRays(camPos); },
     frameFixed(centre, r, camPos) {
       L.frameFixed(centre, Math.min(r, 14), camPos);   // shadows only for actors and moving props: a tight box on the subject

@@ -16,6 +16,13 @@ export function segmentSpec(spec, loc, data = {}, {fps = spec.fps ?? 30} = {}) {
   delete out.locations; delete out.locationLook4;
   out.shots = spec.shots.map(sh => (sh.loc ?? spec.locations[0]) === loc ? sh : {...sh, ...(sh.beasts ? {beasts: sh.beasts.map(({to, ...b}) => b)} : {})});
   for (const k of ['props2b', 'props']) if (spec[k]) out[k] = spec[k].filter(p => !p.loc || p.loc === loc);
+  // fearbell ENGINE fix (opt-in by data): a location JSON that names its own `world` (parts/locations/cityDining.json → parts/city/rooms.js) renders
+  // its page from THAT world (the room), not the spec's main world; then creatures / clock events / props addressed to a room (`room` or `loc`) live
+  // only on that room's page, and the main world's page drops them. Locations without `world` (or the same world) are unchanged.
+  const own = data.world && data.world !== spec.world, where = o => o.room ?? o.loc ?? null;
+  if (own) { out.world = data.world; delete out.cityLiving; }
+  if (spec.locations.some(L => L !== loc) && ['creatures', 'clock', 'props'].some(k => spec[k]?.some(where)))
+    for (const k of ['creatures', 'clock', 'props']) if (spec[k]) out[k] = spec[k].filter(o => own ? where(o) === loc : !where(o) || where(o) === loc);
   if (spec.story6) {
     const s6 = {...spec.story6}, keep = q => mine(q.t) && (!q.anchor || anchors.has(q.anchor));
     for (const k of ['hand', 'tumbles', 'splashes']) if (s6[k]) s6[k] = s6[k].filter(keep);

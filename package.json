@@ -48,6 +48,7 @@
     "v2:captions": "python3 scripts/v2/captions.py",
     "v2:assemble": "python3 scripts/v2/assemble.py",
     "v2:stability": "node scripts/v2/stability.js",
+    "v2:seek": "node scripts/v2/seekcheck.js",
     "v2:qc": "python3 scripts/v2/qc.py",
     "codemap": "node scripts/codemap.js",
     "ep": "node scripts/ep.js",

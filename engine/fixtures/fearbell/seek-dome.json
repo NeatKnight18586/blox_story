@@ -1,0 +1,319 @@
+{
+ "slug": "fearbell-addon",
+ "fps": 24,
+ "format": 7,
+ "labels": false,
+ "world": "parts/city/world.js",
+ "look4": "cityDay2",
+ "rig": "r6",
+ "acting": 6,
+ "cityLiving": [
+  "flagsHall",
+  "fountain",
+  "birds",
+  "gulls",
+  "blimp"
+ ],
+ "note": "fearbell ENGINE fix A1 seek test: addon-dome (roll, shrink to Lulu's palm, inside view with rim lights) as format 7 (seek-safe haze). npm run v2:seek -- --spec engine/fixtures/fearbell/seek-dome.json --frames 30,70,120 --fresh",
+ "cast": {
+  "hero": {
+   "troupe": "HERO",
+   "style": "v5",
+   "faceStyle": "v6",
+   "origin": [
+    -6,
+    14,
+    16
+   ],
+   "yaw": 15,
+   "keys": [
+    [
+     0,
+     "idle"
+    ],
+    [
+     0.9,
+     "recoil"
+    ],
+    [
+     2.6,
+     "idle"
+    ],
+    [
+     3,
+     "point"
+    ]
+   ],
+   "faces": [
+    [
+     0,
+     "hero_shock"
+    ],
+    [
+     3.3,
+     "hero_grin"
+    ]
+   ],
+   "visible": [
+    [
+     0,
+     true
+    ],
+    [
+     4,
+     false
+    ]
+   ]
+  },
+  "lulu": {
+   "troupe": "LITTLE",
+   "costume": "LULU",
+   "style": "v5",
+   "faceStyle": "v6",
+   "origin": [
+    -4.2,
+    14,
+    17.0
+   ],
+   "yaw": -10,
+   "keys": [
+    [
+     0,
+     "idle"
+    ],
+    [
+     2.9,
+     "toolHold"
+    ]
+   ],
+   "faces": [
+    [
+     0,
+     "gasp"
+    ],
+    [
+     3.3,
+     "smile"
+    ]
+   ],
+   "visible": [
+    [
+     0,
+     true
+    ],
+    [
+     4,
+     false
+    ]
+   ]
+  },
+  "heroIn": {
+   "troupe": "HERO",
+   "style": "v5",
+   "faceStyle": "v6",
+   "origin": [
+    1.2,
+    14,
+    12.5
+   ],
+   "yaw": -35,
+   "faces": [
+    [
+     0,
+     "hero_shock"
+    ]
+   ],
+   "tool": "flashlight",
+   "keys": [
+    [
+     0,
+     "toolHold"
+    ]
+   ],
+   "visible": [
+    [
+     0,
+     false
+    ],
+    [
+     4,
+     true
+    ]
+   ]
+  },
+  "luIn": {
+   "troupe": "LITTLE",
+   "costume": "LULU",
+   "style": "v5",
+   "faceStyle": "v6",
+   "origin": [
+    -1.4,
+    14,
+    12.8
+   ],
+   "yaw": 35,
+   "faces": [
+    [
+     0,
+     "gasp"
+    ]
+   ],
+   "keys": [
+    [
+     0,
+     "idle"
+    ]
+   ],
+   "visible": [
+    [
+     0,
+     false
+    ],
+    [
+     4,
+     true
+    ]
+   ]
+  }
+ },
+ "creatures": [
+  {
+   "id": "dome",
+   "kind": "dome",
+   "pos": [
+    0,
+    14,
+    -30
+   ],
+   "faceYaw": 0,
+   "acts": [
+    {
+     "act": "roll",
+     "at": 0.1,
+     "dur": 1.8,
+     "from": [
+      0,
+      14,
+      -70
+     ],
+     "to": [
+      2,
+      14,
+      -12
+     ]
+    },
+    {
+     "act": "shrink",
+     "at": 2.05,
+     "toActor": "lulu",
+     "hand": "right"
+    }
+   ],
+   "visible": [
+    [
+     0,
+     true
+    ],
+    [
+     4,
+     false
+    ]
+   ]
+  },
+  {
+   "id": "domeIn",
+   "kind": "dome",
+   "pos": [
+    0,
+    14,
+    2
+   ],
+   "acts": [
+    {
+     "act": "inside",
+     "at": 4,
+     "dur": 2,
+     "rim": [
+      "heroIn",
+      "luIn"
+     ]
+    }
+   ],
+   "visible": [
+    [
+     0,
+     false
+    ],
+    [
+     4,
+     true
+    ]
+   ]
+  }
+ ],
+ "shots": [
+  {
+   "id": "roll",
+   "size": "wide",
+   "frames": 48,
+   "move": "static-drift",
+   "drift": 0,
+   "from": {
+    "position": [
+     -12,
+     15.8,
+     46
+    ],
+    "target": [
+     0,
+     25,
+     -12
+    ],
+    "fov": 66
+   },
+   "shadowRadius": 34
+  },
+  {
+   "id": "shrink",
+   "size": "wide",
+   "frames": 48,
+   "move": "static-drift",
+   "drift": 0,
+   "from": {
+    "position": [
+     -2.6,
+     18.0,
+     29
+    ],
+    "target": [
+     -4.6,
+     16.6,
+     17
+    ],
+    "fov": 42
+   },
+   "shadowRadius": 34
+  },
+  {
+   "id": "inside",
+   "size": "wide",
+   "frames": 48,
+   "move": "static-drift",
+   "drift": 0,
+   "from": {
+    "position": [
+     0,
+     17.0,
+     22
+    ],
+    "target": [
+     0,
+     16.2,
+     12.5
+    ],
+    "fov": 44
+   },
+   "shadowRadius": 34
+  }
+ ]
+}

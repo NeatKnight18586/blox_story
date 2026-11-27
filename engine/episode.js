@@ -615,7 +615,7 @@ const ALOCK = spec.anchorLock ? (await import('./anchorlock.js')).createAnchorLo
 // Phase 1F RULE-CLOCK kit (opt-in spec.clock: dong / pop / crack events, engine/clockfx.js); word refs resolve against the cues
 const CLOCK = spec.clock?.length ? await (async () => { const A6 = await import('./acting6.js'), get = async u => { try { const r = await fetch(new URL('../' + u, import.meta.url)); return r.ok ? await r.json() : null; } catch { return null; } };
   const cues = spec.clock.some(e => typeof e.at !== 'number') ? await get(spec.cues ?? `stories/${spec.slug}/cues.json`) ?? await get(`stories/${spec.slug}/build/cues.json`) : null;
-  return (await import('./clockfx.js')).createClockFx(scene, spec.clock, {world, wordTime: at => A6.wordTime(cues, at)}); })() : null;
+  return (await import('./clockfx.js')).createClockFx(scene, spec.clock, {world, wordTime: at => A6.wordTime(cues, at), rest: (spec.format ?? 0) >= 7 && !spec.worldState?.bell}); })() : null;
 const FACEAIM_ON = (spec.format ?? 0) >= 7, FACEAIM_FN = FACEAIM_ON && spec.shots?.some(s => s.faceAim) ? (await import('./camtpl.js')).faceAim : null;   // fearbell pass 2 A1 (opt-in)
 // Phase 1G CREATURE KIT (opt-in spec.creatures, parts/creatures.js): ghost · trex · rat · spider · vacuum · shadowPuff · dome · pillar, acts pure in t
 CREATURES = spec.creatures?.length ? (await import('../parts/creatures.js')).createCreatures(scene, spec.creatures, {
@@ -872,7 +872,8 @@ export function inspectFrame(n, width = 540, height = 960) {
     heads[name] = {x: (p.x + 1) / 2, y: (1 - p.y) / 2, inFront: p.z < 1, dist: +dist.toFixed(2), rootDist: +camera.position.distanceTo(r).toFixed(2)};
   }
   const cards = effects.cards(t, camera, width / height).map(k => ({cls: k.cls, kind: k.kind, rect: k.rect, landed: k.state.landed, fly: k.state.fly}));   // A3
-  return {frame: n, shot: shot.id, camera: {position: c.position, target: c.target, fov: c.fov}, heads, cards};
+  const objects = {}; if (FACEAIM_ON) for (const nm of [shot.subject, shot.prop].filter(x => x && !heads[x] && !cast[x])) objects[nm] = objectBox(nm);   // fearbell ENGINE fix A2 (format 7): non-actor subjects / props
+  return {frame: n, shot: shot.id, camera: {position: c.position, target: c.target, fov: c.fov}, heads, cards, ...(FACEAIM_ON ? {objects} : {})};
 }
 // A5 gates: after renderFrame(n), projected boxes (frame fractions, y down) of visible v2 actors' meshes (no tags/sprites)
 // and their framing spans (feet, shoulders at 0.6 H, top at 1.02 H, projected at the actor's mark).
@@ -896,6 +897,29 @@ function projBox(b) {
   const v = new T.Vector3(); let x0 = 1, x1 = 0, y0 = 1, y1 = 0, front = false, all = true;
   for (let i = 0; i < 8; i++) { v.set(i & 1 ? b.max.x : b.min.x, i & 2 ? b.max.y : b.min.y, i & 4 ? b.max.z : b.min.z).project(camera); if (v.z < 1) front = true; else all = false; const x = (v.x + 1) / 2, y = (1 - v.y) / 2; x0 = Math.min(x0, x); x1 = Math.max(x1, x); y0 = Math.min(y0, y); y1 = Math.max(y1, y); }
   return {x0: +x0.toFixed(4), x1: +x1.toFixed(4), y0: +y0.toFixed(4), y1: +y1.toFixed(4), h: +(y1 - y0).toFixed(4), front, allFront: all};
+}
+// fearbell ENGINE fix A2: a scene object by name; when no object has that exact name, `base#k` = the k-th (1-based, scene order) object named `base`
+// (a world's repeated parts: slot:3:dial#2 = the clock tower's second dial). Exact names always win, so existing names are unaffected.
+function byName(name) {
+  const o = scene.getObjectByName(name); if (o) return o; const m = /^(.*)#(\d+)$/.exec(String(name)); if (!m) return null;
+  let k = +m[2], hit = null; scene.traverse(x => { if (!hit && x.name === m[1] && --k === 0) hit = x; }); return hit;
+}
+// fearbell ENGINE fix A2 (format 7 plan gate): a NON-ACTOR subject measured by its projected bounding box. Names: a creature id (spec.creatures),
+// a story prop id or `prop_<id>`, an actor part `actor:part` (e.g. heroF:rightArm, the hands insert), or any named world object (teacherDrawer,
+// slot:3 = the clock tower). Returns null when nothing has that name; else {visible, front, box (unclipped), clip (clipped to the frame), area (clipped
+// share of the frame), cx, cy (clipped box centre)}. Pure read of the current scene state (no render).
+export function objectBox(name) {
+  let root = null; const [an, part] = String(name).split(':');
+  if (part && cast[an]) root = cast[an].a?.parts?.[part] ?? null;
+  else if (CREATURES?.items?.[name]) root = CREATURES.items[name].b.root;
+  else root = byName(name) ?? scene.getObjectByName('prop_' + name) ?? null;
+  if (!root) return null;
+  if (!visibleChain(root)) return {visible: false, front: false, area: 0};
+  root.updateWorldMatrix(true, true); const b = new T.Box3(), mb = new T.Box3();
+  root.traverseVisible(o => { if (!o.isMesh || o.isSprite || o.isInstancedMesh) return; if (!o.geometry.boundingBox) o.geometry.computeBoundingBox(); mb.copy(o.geometry.boundingBox).applyMatrix4(o.matrixWorld); b.union(mb); });
+  if (b.isEmpty()) return {visible: false, front: false, area: 0};
+  const box = projBox(b), cl = v => Math.max(0, Math.min(1, v)), clip = {x0: cl(box.x0), x1: cl(box.x1), y0: cl(box.y0), y1: cl(box.y1)}, area = Math.max(0, clip.x1 - clip.x0) * Math.max(0, clip.y1 - clip.y0);
+  return {visible: true, front: box.front, box, clip, area: +area.toFixed(4), cx: +((clip.x0 + clip.x1) / 2).toFixed(4), cy: +((clip.y0 + clip.y1) / 2).toFixed(4)};
 }
 // Footprints for the overlap check: visible v2 cast actors and crowd members, [x, z, radius] (radius ≈ half the shoulder span).
 function placesNow() {
@@ -968,7 +992,7 @@ export function lumaAt(n, w = 135, h = 240) { renderFrame(n, w, h); return Array
 export function readMeasure(n, {subject = null, prop = null, w = 390, h = 693} = {}) {
   renderFrame(n, w, h); camera.updateMatrixWorld(true); scene.updateMatrixWorld(true);
   const luma = frameLuma(w, h), cam = camera.position.clone(), out = {frame: n};
-  const c = subject ? cast[subject] : null, root = c ? c.a.root : (subject || prop) ? scene.getObjectByName(subject ?? prop) : null;
+  const c = subject ? cast[subject] : null, root = c ? c.a.root : (subject || prop) ? byName(subject ?? prop) : null;   // byName: exact name, else `base#k` (fearbell ENGINE fix A2)
   if (!root || !visibleChain(root)) { out.missing = subject ?? prop; return out; }
   const meshesOf = r => { const l = []; r.traverse(o => { if ((o.isMesh) && o.visible && visibleChain(o) && !(o.material?.transparent && o.material.opacity < .5) && !o.isSprite) l.push(o); }); return l; };
   const boxOf = r => { const b = new T.Box3(); for (const o of meshesOf(r)) b.expandByObject(o); return b; };
@@ -1141,4 +1165,5 @@ function cineMeasure(names = Object.keys(cast)) {
     const c = b.getCenter(new T.Vector3()), z = c.clone().sub(camera.position).dot(f);
     out[n] = {x0, x1, y0, y1, behind, v: 2 * z * Math.tan(camera.fov * Math.PI / 360) / (5.3 * x.a.root.scale.y), z}; }
   return out; }
-window.__episode = {clock: CLOCK, creatures: CREATURES, anchorLock: ALOCK, outline: OUTLINE, castRoots: () => Object.fromEntries(Object.entries(cast).map(([n, x]) => [n, x.a?.root ?? null])), world, cityLiving: world?.living ?? null, tpl: CTPL ? {state: TPLSTATE, measure: tplMeasure, eyes: tplEyes} : null, beasts: BEASTS, cine: CL ? {state: CL.state, opts: CINE_OPTS, glowCount: CL.glowCount, setGlow: CL.setGlow, glowDebug: CL.glowDebug, measure: cineMeasure} : null, story6: S6, clearedNow: () => CLEARED.map(r => r.name), actingPlan: () => actPlans.map(p => /^hug/.test(p.verb) ? {...p, cam: hugCam(p)} : p), groundFix: () => GROUNDFIX, sepMeasure, ceilingLuma, classHaze, satMeasure, depthLuma, lumaProbe, debug: {scene, renderer, camera, look, pool: U5B?.poolOf ?? null}, bake: BAKE, matcapBytes: MATCAP ? (n => Array.from(look.matcapBytes(n ?? spec.look4))) : null, breakdown, measureFrame, seasonMeasure, actorMask, readMeasure, leakMeasure, faceAimLast: () => FACEAIM.last ?? null, gateMeasure, placesAt, lumaAt, inspectFrame, shotSpeed, END: FRAMES / FPS, anchors: Object.fromEntries(Object.entries(anchors).filter(([, a]) => a.camera).map(([k]) => [k, true])), renderAnchor, renderAnchorNudged, renderCamera, FPS, FRAMES, shots: shots.map(({id, start, frames, size, move, loc, subject, see, openHit, at, why, captionY, fit, spectacle, look: lk}) => ({id, start, frames, size, move, loc, subject, see, openHit: !!openHit, at, why, captionY, fit, spectacle: !!spectacle, look: lk})), renderFrame};
+if (FACEAIM_ON && look?.primeHaze) look.primeHaze(spec.look4, [scene.getObjectByName('creatures'), scene.getObjectByName('clockFx'), ...Object.values(cast).map(x => x.a?.root)].filter(Boolean));   // fearbell ENGINE fix A1 (format 7): seek-safe haze
+window.__episode = {objectBox, clock: CLOCK, creatures: CREATURES, anchorLock: ALOCK, outline: OUTLINE, castRoots: () => Object.fromEntries(Object.entries(cast).map(([n, x]) => [n, x.a?.root ?? null])), world, cityLiving: world?.living ?? null, tpl: CTPL ? {state: TPLSTATE, measure: tplMeasure, eyes: tplEyes} : null, beasts: BEASTS, cine: CL ? {state: CL.state, opts: CINE_OPTS, glowCount: CL.glowCount, setGlow: CL.setGlow, glowDebug: CL.glowDebug, measure: cineMeasure} : null, story6: S6, clearedNow: () => CLEARED.map(r => r.name), actingPlan: () => actPlans.map(p => /^hug/.test(p.verb) ? {...p, cam: hugCam(p)} : p), groundFix: () => GROUNDFIX, sepMeasure, ceilingLuma, classHaze, satMeasure, depthLuma, lumaProbe, debug: {scene, renderer, camera, look, pool: U5B?.poolOf ?? null}, bake: BAKE, matcapBytes: MATCAP ? (n => Array.from(look.matcapBytes(n ?? spec.look4))) : null, breakdown, measureFrame, seasonMeasure, actorMask, readMeasure, leakMeasure, faceAimLast: () => FACEAIM.last ?? null, gateMeasure, placesAt, lumaAt, inspectFrame, shotSpeed, END: FRAMES / FPS, anchors: Object.fromEntries(Object.entries(anchors).filter(([, a]) => a.camera).map(([k]) => [k, true])), renderAnchor, renderAnchorNudged, renderCamera, FPS, FRAMES, shots: shots.map(({id, start, frames, size, move, loc, subject, see, openHit, at, why, captionY, fit, spectacle, look: lk}) => ({id, start, frames, size, move, loc, subject, see, openHit: !!openHit, at, why, captionY, fit, spectacle: !!spectacle, look: lk})), renderFrame};
