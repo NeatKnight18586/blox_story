@@ -1,0 +1,32 @@
+{
+ "spec": "engine/fixtures/fearbell/seek-dome.json",
+ "size": "270x480",
+ "limit": 0.05,
+ "probes": 3,
+ "failing": [],
+ "errors": [],
+ "result": "PASS",
+ "rows": [
+  {
+   "view": "roll@30",
+   "frame": 30,
+   "objects": 0,
+   "pct": 0,
+   "culprits": ""
+  },
+  {
+   "view": "shrink@70",
+   "frame": 70,
+   "objects": 0,
+   "pct": 0,
+   "culprits": ""
+  },
+  {
+   "view": "inside@120",
+   "frame": 120,
+   "objects": 0,
+   "pct": 0,
+   "culprits": ""
+  }
+ ]
+}

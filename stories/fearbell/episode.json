@@ -1692,6 +1692,28 @@
      }
     ],
     [
+     36.831,
+     {
+      "origin": [
+       6.44,
+       0,
+       4.93
+      ],
+      "yaw": 207
+     }
+    ],
+    [
+     38.071,
+     {
+      "origin": [
+       6,
+       0,
+       0.6
+      ],
+      "yaw": 27
+     }
+    ],
+    [
      54.871,
      {
       "origin": [
@@ -1704,6 +1726,28 @@
     ],
     [
      65.901,
+     {
+      "origin": [
+       -1.05,
+       14,
+       12.7
+      ],
+      "yaw": 35
+     }
+    ],
+    [
+     68.401,
+     {
+      "origin": [
+       1.44,
+       14.46,
+       17.16
+      ],
+      "yaw": 145
+     }
+    ],
+    [
+     69.436,
      {
       "origin": [
        -1.05,
@@ -2218,7 +2262,62 @@
      true
     ],
     [
+     36.831,
+     false
+    ],
+    [
+     38.071,
+     true
+    ],
+    [
      39.99,
+     false
+    ]
+   ],
+   "room": "cityDining"
+  },
+  {
+   "id": "shadow26",
+   "kind": "shadowPuff",
+   "pos": [
+    [
+     0,
+     [
+      4.5,
+      2.5,
+      1.2
+     ]
+    ],
+    [
+     37.32,
+     [
+      4.5,
+      2.5,
+      1.2
+     ]
+    ],
+    [
+     37.82,
+     [
+      5.2,
+      2,
+      0.8
+     ]
+    ]
+   ],
+   "yaw": 30,
+   "acts": [],
+   "visible": [
+    [
+     0,
+     false
+    ],
+    [
+     36.831,
+     true
+    ],
+    [
+     38.071,
      false
     ]
    ],
@@ -3295,6 +3394,7 @@
     0.84,
     2
    ],
+   "subject": "hall",
    "row": 2,
    "frames": 28,
    "drift": 0,
@@ -3331,6 +3431,7 @@
     2,
     3.19
    ],
+   "subject": "ghost",
    "pair": [
     "ghost",
     "buslady"
@@ -3533,6 +3634,7 @@
     7.62,
     8.61
    ],
+   "subject": "trex",
    "pair": [
     "trex",
     "mailman"
@@ -3622,6 +3724,7 @@
     9.85,
     10.95
    ],
+   "subject": "rat",
    "pair": [
     "rat",
     "bodybuilder"
@@ -3631,16 +3734,16 @@
    "drift": 0,
    "from": {
     "position": [
-     225.235,
-     7.63,
-     268.459
+     218.487,
+     6.63,
+     276.235
     ],
     "target": [
-     229,
-     5.33,
-     290.5
+     228.436,
+     5.73,
+     290.705
     ],
-    "fov": 62
+    "fov": 64
    },
    "briefMove": "static-drift",
    "shadowRadius": 30,
@@ -3649,6 +3752,11 @@
      "actor": "bb",
      "verb": "leap",
      "at": 0.40799999999999914
+    },
+    {
+     "actor": "bb",
+     "verb": "land",
+     "at": 0.648
     }
    ]
   },
@@ -3710,29 +3818,29 @@
    "drift": 0,
    "from": {
     "position": [
-     267.574,
-     7.377,
-     157.729
+     268.231,
+     7.177,
+     156.608
     ],
     "target": [
-     263.869,
-     6.477,
-     159.958
+     263.598,
+     6.277,
+     159.598
     ],
-    "fov": 52
+    "fov": 56
    },
    "to": {
     "position": [
-     267.129,
-     7.269,
-     157.996
+     267.675,
+     7.069,
+     156.967
     ],
     "target": [
-     263.869,
-     6.477,
-     159.958
+     263.598,
+     6.277,
+     159.598
     ],
-    "fov": 52
+    "fov": 56
    },
    "briefMove": "push",
    "shadowRadius": 30,
@@ -3754,6 +3862,7 @@
     13.48,
     14.81
    ],
+   "subject": "hero",
    "row": 13,
    "frames": 33,
    "drift": 0,
@@ -3864,34 +3973,35 @@
     17.38,
     20.04
    ],
+   "prop": "teacherDrawer",
    "row": 16,
    "frames": 64,
    "drift": 0,
    "from": {
     "position": [
-     6.8,
-     5.8,
-     0.4
+     5.6,
+     5.2,
+     0.6
     ],
     "target": [
-     -1.8,
-     2.9,
-     -6.9
+     0.4,
+     2.1,
+     -5
     ],
-    "fov": 46
+    "fov": 40
    },
    "to": {
     "position": [
-     5.768,
-     5.452,
-     -0.476
+     4.976,
+     4.828,
+     -0.072
     ],
     "target": [
-     -1.8,
-     2.9,
-     -6.9
+     0.4,
+     2.1,
+     -5
     ],
-    "fov": 46
+    "fov": 40
    },
    "leakOk": [
     "roomMerged",
@@ -3917,6 +4027,7 @@
     20.04,
     21.75
    ],
+   "subject": "spider",
    "pair": [
     "spider",
     "teacher"
@@ -3956,6 +4067,7 @@
     21.75,
     22.81
    ],
+   "subject": "kidA",
    "row": 18,
    "frames": 26,
    "drift": 0,
@@ -4016,6 +4128,7 @@
     22.81,
     25.16
    ],
+   "subject": "dad",
    "pair": [
     "vacuum",
     "dad"
@@ -4064,16 +4177,16 @@
    "drift": 0,
    "from": {
     "position": [
-     -9.5,
-     5.6,
-     0.6
+     -10.6,
+     4.6,
+     4.2
     ],
     "target": [
-     -1.6,
-     4.5,
-     -1.4
+     -1.4,
+     3.4,
+     -1
     ],
-    "fov": 58
+    "fov": 62
    },
    "briefMove": "static-drift",
    "shadowRadius": 30
@@ -4179,6 +4292,7 @@
     30.25,
     32.28
    ],
+   "prop": "prop_burger3",
    "row": 23,
    "frames": 49,
    "drift": 0,
@@ -4259,6 +4373,7 @@
     34.33,
     36.83
    ],
+   "subject": "shadowIn",
    "pair": [
     "shadowpuff",
     "lulu"
@@ -4317,16 +4432,16 @@
    "drift": 0,
    "from": {
     "position": [
-     2,
-     3.8,
-     -3.4
+     -0.4,
+     6.6,
+     -2.4
     ],
     "target": [
-     6.2,
-     2.7,
-     2.2
+     5.4,
+     2,
+     2.8
     ],
-    "fov": 58
+    "fov": 60
    },
    "briefMove": "static-drift",
    "shadowRadius": 30
@@ -4473,6 +4588,7 @@
     43.93,
     45.07
    ],
+   "subject": "rat2",
    "row": 30,
    "frames": 28,
    "drift": 0,
@@ -4637,21 +4753,22 @@
     49.1,
     50.98
    ],
+   "prop": "slot:3:dial#2",
    "row": 34,
    "frames": 45,
    "drift": 0,
    "from": {
     "position": [
-     52,
-     33,
-     -14
+     57.5,
+     33.6,
+     -18.5
     ],
     "target": [
-     62,
-     46,
-     -40
+     61.1,
+     37.6,
+     -35.7
     ],
-    "fov": 40
+    "fov": 30
    },
    "leakOk": [
     "slot:3"
@@ -4675,6 +4792,7 @@
     50.98,
     52.91
    ],
+   "subject": "trexG",
    "row": 35,
    "frames": 47,
    "drift": 0,
@@ -4710,6 +4828,7 @@
     52.91,
     54.87
    ],
+   "subject": "dome",
    "row": 36,
    "frames": 47,
    "drift": 0,
@@ -4781,6 +4900,7 @@
     56.27,
     57.84
    ],
+   "subject": "mailman",
    "row": 38,
    "frames": 38,
    "drift": 0,
@@ -4792,7 +4912,7 @@
     ],
     "target": [
      0,
-     9,
+     7.4,
      82
     ],
     "fov": 58
@@ -5096,6 +5216,7 @@
     68.4,
     69.44
    ],
+   "subject": "heroF:rightArm",
    "pair": [
     "hero",
     "lulu"
@@ -5105,25 +5226,20 @@
    "drift": 0,
    "from": {
     "position": [
-     0,
-     19.4,
-     16.8
+     5.05,
+     19.05,
+     18.3
     ],
     "target": [
-     0,
-     16.2,
-     13.5
+     0.95,
+     17.85,
+     15.45
     ],
     "fov": 36
    },
    "briefMove": "static-drift",
    "shadowRadius": 30,
    "actions": [
-    {
-     "actor": "heroF",
-     "verb": "reach_for",
-     "at": 0.05
-    },
     {
      "actor": "lulu",
      "verb": "reach_for",
@@ -5267,6 +5383,7 @@
     74.07,
     74.95
    ],
+   "subject": "domeS",
    "row": 49,
    "frames": 21,
    "drift": 0,
@@ -5302,21 +5419,22 @@
     74.95,
     76.39
    ],
+   "subject": "domeS",
    "row": 50,
    "frames": 34,
    "drift": 0,
    "from": {
     "position": [
-     3,
-     19.5,
-     31
+     1,
+     19,
+     24
     ],
     "target": [
-     -3,
-     17.2,
-     9
+     -2.5,
+     16.4,
+     11
     ],
-    "fov": 50
+    "fov": 46
    },
    "briefMove": "snap",
    "shadowRadius": 30
@@ -5384,6 +5502,7 @@
     77.74,
     80.14
    ],
+   "subject": "kevin",
    "row": 52,
    "frames": 57,
    "drift": 0,
@@ -5428,7 +5547,96 @@
    ],
    "subject": "hero",
    "row": 53,
-   "frames": 65,
+   "frames": 24,
+   "drift": 0,
+   "from": {
+    "position": [
+     -119.354,
+     11.045,
+     29.871
+    ],
+    "target": [
+     -90.141,
+     22.245,
+     -1.534
+    ],
+    "fov": 58
+   },
+   "to": {
+    "position": [
+     -115.848,
+     12.389,
+     26.102
+    ],
+    "target": [
+     -90.141,
+     22.245,
+     -1.534
+    ],
+    "fov": 58
+   },
+   "briefMove": "heroLow",
+   "shadowRadius": 30
+  },
+  {
+   "id": "S53b",
+   "tplKind": "ms",
+   "loc": "city",
+   "mood": "fun",
+   "size": "close",
+   "move": "static-drift",
+   "why": "fun: Next morning, my bell rang. For the first time ever.",
+   "see": [
+    "bell"
+   ],
+   "vo": "Next morning, my bell rang. For the first time ever.",
+   "cue": [
+    80.14,
+    82.84
+   ],
+   "subject": "bellCrack",
+   "row": 53,
+   "frames": 14,
+   "drift": 0,
+   "from": {
+    "position": [
+     3.6,
+     52.4,
+     -52.5
+    ],
+    "target": [
+     0,
+     52.2,
+     -60
+    ],
+    "fov": 30
+   },
+   "briefMove": "heroLow",
+   "shadowRadius": 30,
+   "ecu": true,
+   "leakOk": [
+    "slot:2"
+   ]
+  },
+  {
+   "id": "S53c",
+   "tplKind": "ms",
+   "loc": "city",
+   "mood": "fun",
+   "size": "medium",
+   "move": "push",
+   "why": "fun: Next morning, my bell rang. For the first time ever.",
+   "see": [
+    "hero"
+   ],
+   "vo": "Next morning, my bell rang. For the first time ever.",
+   "cue": [
+    80.14,
+    82.84
+   ],
+   "subject": "hero",
+   "row": 53,
+   "frames": 27,
    "drift": 0,
    "from": {
     "position": [
@@ -5475,6 +5683,7 @@
     82.84,
     84.5
    ],
+   "subject": "hero",
    "row": 54,
    "frames": 40,
    "drift": 0,

@@ -23,7 +23,7 @@
    "move": "static-drift",
    "loc": "city",
    "speed": 0,
-   "subject": "",
+   "subject": "hall@NaN,NaN",
    "why": "fun: the Fear Bell spawns"
   },
   {
@@ -35,7 +35,7 @@
    "move": "static-drift",
    "loc": "city",
    "speed": 0,
-   "subject": "",
+   "subject": "ghost@NaN,NaN",
    "why": "comedy: your worst fear."
   },
   {
@@ -95,7 +95,7 @@
    "move": "static-drift",
    "loc": "city",
    "speed": 0,
-   "subject": "",
+   "subject": "trex@NaN,NaN",
    "why": "fun: A dinosaur."
   },
   {
@@ -119,7 +119,7 @@
    "move": "static-drift",
    "loc": "city",
    "speed": 0,
-   "subject": "",
+   "subject": "rat@NaN,NaN",
    "why": "fun: A tiny rat."
   },
   {
@@ -143,7 +143,7 @@
    "move": "push",
    "loc": "city",
    "speed": 0,
-   "subject": "kevin@32,40",
+   "subject": "kevin@22,39",
    "why": "tension: Kevin is afraid of a cheeseburger."
   },
   {
@@ -155,7 +155,7 @@
    "move": "static-drift",
    "loc": "city",
    "speed": 0,
-   "subject": "",
+   "subject": "hero@50,43",
    "why": "fun: Everybody's bell rings."
   },
   {
@@ -203,7 +203,7 @@
    "move": "static-drift",
    "loc": "cityClassroom",
    "speed": 0,
-   "subject": "",
+   "subject": "spider@NaN,NaN",
    "why": "comedy: Eight legs. Very hairy."
   },
   {
@@ -215,7 +215,7 @@
    "move": "static-drift",
    "loc": "cityClassroom",
    "speed": 0,
-   "subject": "",
+   "subject": "kidA@56,47",
    "why": "fun: Class is canceled."
   },
   {
@@ -227,7 +227,7 @@
    "move": "static-drift",
    "loc": "cityDining",
    "speed": 0,
-   "subject": "",
+   "subject": "dad@15,22",
    "why": "fun: At dinner, Dad's fear is the vacuum cleaner."
   },
   {
@@ -239,7 +239,7 @@
    "move": "static-drift",
    "loc": "cityDining",
    "speed": 0,
-   "subject": "dad@50,27",
+   "subject": "dad@41,25",
    "why": "comedy: He eats standing on his chair."
   },
   {
@@ -299,7 +299,7 @@
    "move": "static-drift",
    "loc": "cityDining",
    "speed": 0,
-   "subject": "",
+   "subject": "shadowIn@NaN,NaN",
    "why": "fun: Every morning, a tiny shadow follows her around."
   },
   {
@@ -311,7 +311,7 @@
    "move": "static-drift",
    "loc": "cityDining",
    "speed": 0,
-   "subject": "heroF@47,26",
+   "subject": "heroF@35,19",
    "why": "fun: So I hold the flashlight."
   },
   {
@@ -335,7 +335,7 @@
    "move": "static-drift",
    "loc": "cityDining",
    "speed": 0,
-   "subject": "heroF@51,33",
+   "subject": "heroF@50,33",
    "why": "emotion: I'm not brave. I'm just never scared."
   },
   {
@@ -359,7 +359,7 @@
    "move": "static-drift",
    "loc": "city",
    "speed": 0,
-   "subject": "",
+   "subject": "rat2@NaN,NaN",
    "why": "fun: Now it's a mouse."
   },
   {
@@ -419,7 +419,7 @@
    "move": "static-drift",
    "loc": "city",
    "speed": 0,
-   "subject": "",
+   "subject": "trexG@NaN,NaN",
    "why": "awe: Every fear in town grew GIANT."
   },
   {
@@ -431,7 +431,7 @@
    "move": "static-drift",
    "loc": "city",
    "speed": 0,
-   "subject": "",
+   "subject": "dome@NaN,NaN",
    "why": "awe: Lulu's shadow swallowed the whole plaza."
   },
   {
@@ -455,7 +455,7 @@
    "move": "static-drift",
    "loc": "city",
    "speed": 0,
-   "subject": "",
+   "subject": "mailman@47,57",
    "why": "fun: Everyone ran away from the dark."
   },
   {
@@ -527,7 +527,7 @@
    "move": "static-drift",
    "loc": "city",
    "speed": 0,
-   "subject": "heroF@51,29",
+   "subject": "heroF@50,29",
    "why": "fun: And for the first time ever… I was scared."
   },
   {
@@ -539,7 +539,7 @@
    "move": "static-drift",
    "loc": "city",
    "speed": 0,
-   "subject": "",
+   "subject": "heroF:rightArm@NaN,NaN",
    "why": "fun: I found her hand."
   },
   {
@@ -551,7 +551,7 @@
    "move": "static-drift",
    "loc": "city",
    "speed": 0,
-   "subject": "heroF@67,20",
+   "subject": "heroF@74,19",
    "why": "emotion: \"I'm scared too, Lulu.\""
   },
   {
@@ -587,7 +587,7 @@
    "move": "static-drift",
    "loc": "city",
    "speed": 0,
-   "subject": "",
+   "subject": "domeS@NaN,NaN",
    "why": "fun: The dark shrank."
   },
   {
@@ -599,7 +599,7 @@
    "move": "static-drift",
    "loc": "city",
    "speed": 0,
-   "subject": "",
+   "subject": "domeS@NaN,NaN",
    "why": "fun: Smaller. Smaller."
   },
   {
@@ -623,19 +623,43 @@
    "move": "static-drift",
    "loc": "city",
    "speed": 0,
-   "subject": "",
+   "subject": "kevin@72,54",
    "why": "fun: Because a fear you face isn't your worst anymore."
   },
   {
    "id": "S53",
    "beat": false,
    "t": 80.13,
-   "dur": 2.71,
+   "dur": 1,
    "size": "medium",
    "move": "push",
    "loc": "city",
    "speed": 0,
    "subject": "hero@26,45",
+   "why": "fun: Next morning, my bell rang. For the first time ever."
+  },
+  {
+   "id": "S53b",
+   "beat": false,
+   "t": 81.13,
+   "dur": 0.58,
+   "size": "close",
+   "move": "static-drift",
+   "loc": "city",
+   "speed": 0,
+   "subject": "bellCrack@NaN,NaN",
+   "why": "fun: Next morning, my bell rang. For the first time ever."
+  },
+  {
+   "id": "S53c",
+   "beat": false,
+   "t": 81.71,
+   "dur": 1.13,
+   "size": "medium",
+   "move": "push",
+   "loc": "city",
+   "speed": 0,
+   "subject": "hero@27,45",
    "why": "fun: Next morning, my bell rang. For the first time ever."
   },
   {
@@ -647,7 +671,7 @@
    "move": "static-drift",
    "loc": "city",
    "speed": 0,
-   "subject": "",
+   "subject": "hero@78,40",
    "why": "fun: Something spawned right next to me."
   },
   {
@@ -663,15 +687,19 @@
    "why": "fun: A cheeseburger."
   }
  ],
- "meanShot": 1.55,
+ "meanShot": 1.5,
  "end": 85.96,
  "gamecam": 0,
  "wides": 12,
  "partners": [],
  "format5": {
   "lengthS": 85.95,
-  "averageShotS": 1.56,
-  "insertH": {}
+  "averageShotS": 1.51,
+  "insertH": {
+   "S23": 1,
+   "S34": 0.6241000000000001,
+   "S16": 0.4534
+  }
  },
  "season": false,
  "framing": [],
@@ -684,6 +712,7 @@
   "S13: wide shot with no tagged character in the foreground",
   "S35: wide shot with no tagged character in the foreground",
   "S36: wide shot with no tagged character in the foreground",
+  "S38: subject head at y 57 % near the caption band: consider captionY \"high\"",
   "S41: subject head at y 58 % near the caption band: consider captionY \"high\"",
   "S45: \"lulu\" (see) not in frame by frame 6",
   "S49: wide shot with no tagged character in the foreground"

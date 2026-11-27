@@ -93,14 +93,14 @@ const RAT = add(BB, fwd(BBY), 2.6, rgt(BBY), -1.2, 0);
 creatures.push({id: 'rat', kind: 'rat', pos: G(RAT[0], RAT[2]), yaw: BBY + 180, scale: 1.5, acts: [], visible: [[0, false], [T(10), true], [R(10).end, false]]});
 clock.push({at: wordAt(10, 'rat'), fx: 'pop', pos: [RAT[0], RAT[1] + 1, RAT[2]], scale: 1.4});
 shot(9, look(add(BB, fwd(BBY), 13, rgt(BBY), 1.5, .9), add(BB, fwd(BBY), 0, rgt(BBY), -.6, 5.0), 64), {size: 'medium', see: .9});
-shot(10, look(add(INCART, fwd(BBY), 22, rgt(BBY), -4, 5.5), add(INCART, [0, 0], 0, [0, 0], 0, 3.2), 62), {size: 'wide', see: .4, actions: [{actor: 'bb', verb: 'leap', at: T(10) - S0(10) - .1}]});
+shot(10, look(add(INCART, fwd(BBY), 17, rgt(BBY), 5, 4.5), add(INCART, [0, 0], 0, rgt(BBY), .6, 3.6), 64), {size: 'wide', see: .4, actions: [{actor: 'bb', verb: 'leap', at: T(10) - S0(10) - .1}, {actor: 'bb', verb: 'land', at: +(T(10) - S0(10) + .14).toFixed(3)}]});   // ANIMATIC B: he LANDS in the cart before the cut
 // 11–12 Kevin at the diner counter → everything STILL: slow push on Kevin trembling before a cheeseburger (pass 2, row 11: the camera off the patio pole)
 const KEV = (q => G(q[0], q[2]))(DP(1.5, -.7, 0)), KEVY = 172;
 put('kevin', P.kevin, 11, 12, KEV, KEVY, {faces: [[S0(11), 'neutral'], [S0(12), 'terrified']]});
 pr('burger', 'burger', during(S0(11), R(12).end, DP(-.9, -.7, 1.37)), {animAt: 999});
 pr('plate', 'plate', during(S0(11), R(12).end, DP(-.95, -.7, 1.3)));
 shot(11, look(DP(1.6, 3.6, 3.6), DP(1.15, -.7, 2.7), 58), {size: 'medium'});
-shot(12, look(DP(1.6, 3.6, 3.6), DP(1.15, -.7, 2.7), 52), {size: 'medium', to: 'push', see: .6, note: 'the single stillness'});
+shot(12, look(DP(1.1, 4.8, 3.4), DP(.7, -.7, 2.5), 56), {size: 'medium', to: 'push', see: .6, note: 'the single stillness'});
 // 13–15 plaza: pops everywhere except an empty spot beside the hero; the hero looks at it (a leaf blows past); looks up at the bell (clear frame)
 put('hero', P.hero, 13, 13, HERO_P, 200, {faces: [[S0(13), 'neutral']], keys: [[S0(13), 'idle']]});
 const EMPTY = add(HERO_P, rgt(200), -1.5, [0, 0], 0, 0);   // the empty spot beside him, on screen-left of the CU
@@ -121,7 +121,7 @@ put('kidA', P.kidA, 16, 17, [3.5, 0, 4.4], 180, {faces: [[S0(16), 'smile']], roo
 put('kidB', P.kidB, 16, 17, [5.2, 0, 1.4], 160, {faces: [[S0(16), 'smile']], room: true});
 put('kidA', P.kidA, 18, 18, [8.4, 0, 6.6], 82, {faces: [[S0(18), 'grin']], room: true, walk: 'sprint', travel: {dir: [.99, .14], speed: 4.0}});
 put('kidB', P.kidB, 18, 18, [6.2, 0, 5.2], 70, {faces: [[S0(18), 'laugh']], room: true, walk: 'sprint', travel: {dir: [.94, .34], speed: 4.0}});
-shot(16, look([6.8, 5.8, 0.4], [-1.8, 2.9, -6.9], 46), {size: 'insert', to: 'push', loc: 'cityClassroom', see: .55, leakOk: ['roomMerged', 'teacherDrawer']});   // the subject is the teacher's desk (merged room mesh)
+shot(16, look([5.6, 5.2, .6], [.4, 2.1, -5.0], 40), {size: 'insert', to: 'push', loc: 'cityClassroom', see: .55, leakOk: ['roomMerged', 'teacherDrawer']});   // the subject is the teacher's desk (merged room mesh)
 shot(17, look([-9.5, 6.4, 7.5], [6.5, 5.2, -5], 56), {size: 'medium', loc: 'cityClassroom', see: .6});
 shot(18, look([-4, 4.6, -4], [12, 3.0, 6.6], 56), {size: 'wide', loc: 'cityClassroom', see: .6, actions: [{actor: 'kidA', verb: 'cheer', at: .05}, {actor: 'kidB', verb: 'cheer', at: .1}]});
 // 19–20 dining (rooms world): a roaring VACUUM spawns beside Dad at the table (POP; both in frame); Dad eats spaghetti standing on his chair
@@ -131,7 +131,7 @@ creatures.push({id: 'vacuum', kind: 'vacuum', pos: [.4, 0, -.9], yaw: -150, scal
 clock.push({at: wordAt(19, 'vacuum'), fx: 'pop', pos: [.9, 1.6, -.7], scale: 1.6, room: 'cityDining'});
 pr('spag', 'spaghetti', during(S0(19), R(20).end, [-1.2, 2.72, 1.0]), {loc: 'cityDining'});
 shot(19, look([-.4, 6.4, 6.6], [-.5, 2.4, -.9], 54), {size: 'close', loc: 'cityDining', see: .9, leakOk: ['roomMerged']});   // high over the dinner table (the set): Dad + the vacuum beside him
-shot(20, look([-9.5, 5.6, .6], [-1.6, 4.5, -1.4], 58), {size: 'wide', loc: 'cityDining'});
+shot(20, look([-10.6, 4.6, 4.2], [-1.4, 3.4, -1.0], 62), {size: 'wide', loc: 'cityDining'});
 // 21–23 Kevin facing his cheeseburger (MCU, face + burger) → he BITES it (CU, the burger at his mouth) → the burger shrinks to a slider (insert)
 put('kevin', P.kevin, 21, 23, KEV, KEVY, {faces: [[S0(21), 'determined'], [T(22) - .2, 'cry'], [S0(23), 'awe']]});
 pr('burger2', 'burger', during(S0(21), R(21).end, DP(-.9, -.7, 1.37)), {animAt: 999});
@@ -148,11 +148,13 @@ creatures.push({id: 'shadow', kind: 'shadowPuff', follow: 'lulu', offset: [1.7, 
 shot(24, camOn(PORCH, LULUY, {d: 7.2, side: 1.6, h: 1.8, aim: 1.8, fov: 44, tx: 1.0}), {size: 'medium'});
 // 25–28 hero house (inside = the built dining/kitchen room): the puff trails her (beside, not on her); hero holds the flashlight, puff shrinks back; Lulu beams up; hero looks away
 put('lulu', P.lulu, 25, 25, [-6, 0, -5.4], 90, {faces: [[S0(25), 'smile']], room: true, accessories: ['plushHug'], walk: true, travel: {dir: [1, 0], speed: 1.6}});
-creatures.push({id: 'shadowIn', kind: 'shadowPuff', follow: 'lulu', offset: [-1.9, -1.4, .4], acts: [], visible: [[0, false], [S0(25), true], [R(27).end, false]], room: 'cityDining'});
+creatures.push({id: 'shadowIn', kind: 'shadowPuff', follow: 'lulu', offset: [-1.9, -1.4, .4], acts: [], visible: [[0, false], [S0(25), true], [S0(26), false], [S0(27), true], [R(27).end, false]], room: 'cityDining'});
+// ANIMATIC B row 26: the puff sits IN the beam ahead of the pair and recoils back along it on "flashlight" (Lulu stands beside the hero, never in front)
+creatures.push({id: 'shadow26', kind: 'shadowPuff', pos: [[0, [4.5, 2.5, 1.2]], [T(26), [4.5, 2.5, 1.2]], [+(T(26) + .5).toFixed(3), [5.2, 2.0, .8]]], yaw: 30, acts: [], visible: [[0, false], [S0(26), true], [S0(27), false]], room: 'cityDining'});
 shot(25, look([1.5, 3.6, -1.0], [-3.8, 2.0, -5.6], 52), {size: 'medium', loc: 'cityDining'});
-put('lulu', P.lulu, 26, 28, [6.0, 0, .6], 27, {faces: [[S0(26), 'gasp'], [S0(27), 'grin']], room: true, accessories: ['plushHug']});
+put('lulu', P.lulu, 26, 28, [6.0, 0, .6], 27, {marks2: [[S0(26), [6.44, 0, 4.93], 207], [S0(27), [6.0, 0, .6], 27]], faces: [[S0(26), 'gasp'], [S0(27), 'grin']], room: true, accessories: ['plushHug']});
 put('heroF', P.hero, 26, 27, [7.5, 0, 3.5], 207, {faces: [[S0(26), 'determined'], [S0(27), 'warm'], [S0(28), 'sad_soft']], room: true, tool: 'flashlight', keys: [[S0(26), 'toolHold'], [S0(28), 'idle']]});
-shot(26, look([2.0, 3.8, -3.4], [6.2, 2.7, 2.2], 58), {size: 'medium', loc: 'cityDining', see: .5});
+shot(26, look([-.4, 6.6, -2.4], [5.4, 2.0, 2.8], 60), {size: 'medium', loc: 'cityDining', see: .5});
 shot(27, look(add([7.5, 0, 3.5], fwd(207), -4.2, rgt(207), 2.2, 6.9), [6.0, 3.0, .6], 54), {size: 'medium', loc: 'cityDining', faceAim: ['lulu']});   // over the hero's shoulder down onto Lulu's beaming face
 put('heroF', P.hero, 28, 28, [7.5, 0, 3.5], 262, {faces: [[S0(28), 'sad_soft']], room: true, tool: 'flashlight', keys: [[S0(28), 'idle']]});   // he looks away
 shot(28, look([6.0, 4.6, 1.0], [7.5, 4.5, 3.5], 40), {size: 'close', loc: 'cityDining', faceAim: ['heroF']});
@@ -170,7 +172,7 @@ shot(32, look([3.6, 52.4, -52.5], [0, 52.2, -60], 30), {size: 'ecu', see: .5, le
 shot(33, look(add(BAL, [0, 1], 6.5, [1, 0], 1.2, 2.8), add(BAL, [0, 1], 0, [1, 0], 0, 4.5), 40), {size: 'close', actions: [{actor: 'gov', verb: 'panic_up', at: T(33) - S0(33)}], see: .5});
 clock.push({at: wordAt(34, 'noon'), fx: 'dong'});
 worldState.clockTime = [[0, null], [S0(34), '12:00'], [S0(53), null]];   // pass 2 (engine A3): the backwards clock tower stops at NOON (row 34) until the next morning
-shot(34, look([52, 33, -14], [62, 46, -40], 40), {size: 'insert', see: .3, leakOk: ['slot:3']});   // the clock tower (slot 3) at noon, the swinging bell beyond
+shot(34, look([57.5, 33.6, -18.5], [61.1, 37.6, -35.7], 30), {size: 'insert', see: .3, leakOk: ['slot:3']});   // the clock tower (slot 3) at noon, the swinging bell beyond
 // 35 every fear grows GIANT: giant T-rex over the roofs, giant spider, giant vacuum
 creatures.push({id: 'trexG', kind: 'trex', pos: G(-30, -24), yaw: 40, scale: 3, acts: [{act: 'roar', at: T(35)}], visible: [[0, false], [S0(35), true], [R(35).end, false]]});
 creatures.push({id: 'spiderG', kind: 'spider', pos: G(26, -20, 12), yaw: -40, scale: 2.4, acts: [{act: 'wave', at: S0(35)}], visible: [[0, false], [S0(35), true], [R(35).end, false]]});
@@ -185,7 +187,7 @@ shot(37, look([0, 18.5, 24], [0, 16, 12], 30), {size: 'medium', see: .5});
 // 38 everyone runs away down the Grand Stair
 const STAIR = [[-3, 92], [2.5, 90], [-1, 88], [4, 87], [-4.5, 86]];
 ['pickles', 'mailman', 'buslady', 'dad', 'kevin'].forEach((n, i) => put(n, P[n], 38, 38, G(STAIR[i][0], STAIR[i][1]), 180, {faces: [[S0(38), 'terrified']], walk: 'sprint', travel: {dir: [0, 1], speed: 4.5}}));
-shot(38, look([9, 7, 113], [0, 9, 82], 58), {size: 'wide', see: .4});
+shot(38, look([9, 7, 113], [0, 7.4, 82], 58), {size: 'wide', see: .4});
 // 39–42 the hero at the plaza edge before the huge dome: PUNCH (the fist passes into the dark), yell, alone, uncertain
 const EDGE = G(4, 31.6), EDY = 180;   // the dome (r 24 at z 6) surface is ~1.6 studs ahead: the jab ends inside it
 put('hero', P.hero, 39, 42, EDGE, EDY, {faces: [[S0(39), 'determined'], [S0(40), 'yell'], [S0(41), 'sad_soft'], [S0(42), 'thinking']]});
@@ -201,9 +203,10 @@ const IN = G(0, 6), HIN = G(1.05, 12.6), LIN = G(-1.05, 12.7);
 creatures.push({id: 'domeIn', kind: 'dome', pos: IN, acts: [{act: 'inside', at: S0(44), dur: R(48).end - S0(44), rim: ['heroF', 'lulu']}], visible: [[0, false], [S0(44), true], [R(48).end, false]]});
 creatures.push({id: 'eyesAbove', kind: 'shadowPuff', pos: add(LIN, [0, 1], -6, [1, 0], 0, 11), scale: 6, acts: [], visible: [[0, false], [S0(47), true], [R(47).end, false]]});   // the giant dark's eyes (a huge puff face, kept on inside the dome)
 put('heroF', P.hero, 44, 48, HIN, -35, {tool: 'flashlight', keys: [[S0(44), 'toolHold']], faces: [[S0(44), 'terrified'], [S0(46), 'warm'], [S0(48), 'awe']]});
-put('lulu', P.lulu, 44, 48, LIN, 35, {faces: [[S0(44), 'cry'], [S0(46), 'sad_soft'], [S0(47), 'gasp'], [S0(48), 'determined']], accessories: ['plushHug']});
+const L45 = G(1.44, 17.16, .46), HAND45 = [.95, HIN[1] + 3.85, 15.45];   // ANIMATIC B: row 45 Lulu steps INTO the beam, her raised hand meets his flashlight hand just ahead of the lens
+put('lulu', P.lulu, 44, 48, LIN, 35, {marks2: [[S0(45), L45, 145], [S0(46), LIN, 35]], faces: [[S0(44), 'cry'], [S0(46), 'sad_soft'], [S0(47), 'gasp'], [S0(48), 'determined']], accessories: ['plushHug']});
 shot(44, camOn(HIN, -35, {d: 3.6, side: .6, h: 4.3, aim: 4.4, fov: 38}), {size: 'close', faceAim: ['heroF']});
-shot(45, look([0, HIN[1] + 5.4, 16.8], [0, HIN[1] + 2.2, 13.5], 36), {size: 'insert', actions: [{actor: 'heroF', verb: 'reach_for', at: .05}, {actor: 'lulu', verb: 'reach_for', at: .1}]});
+shot(45, look([HAND45[0] + 4.1, HAND45[1] + 1.2, HAND45[2] + 2.85], HAND45, 36), {size: 'insert', actions: [{actor: 'lulu', verb: 'reach_for', at: .1}]});
 shot(46, look([0, HIN[1] + 3.6, 20], [0, HIN[1] + 3.0, 12.7], 46), {size: 'medium', faceAim: ['heroF', 'lulu']});
 shot(47, look(add(LIN, [0, 1], 5, [1, 0], 1.2, 1.0), add(LIN, [0, 1], -5, [1, 0], 0, 5.6), 70), {size: 'medium', see: .4});
 shot(48, camOn(LIN, 35, {d: 4.5, side: -.6, h: 2.2, aim: 2.4, fov: 42}), {size: 'medium', faceAim: ['lulu']});
@@ -213,7 +216,7 @@ put('lulu', P.lulu, 49, 52, LP, 20, {faces: [[S0(49), 'determined'], [S0(51), 'g
 put('hero', P.hero, 49, 52, HP2, 20, {faces: [[S0(49), 'awe'], [S0(51), 'grin']]});
 creatures.push({id: 'domeS', kind: 'dome', pos: G(0, -10), acts: [{act: 'shrink', at: +(T(49) - .1).toFixed(3), toActor: 'lulu', hand: 'right'}], visible: [[0, false], [S0(49), true], [R(51).end, false]]});
 shot(49, look([-34, 33, 104], [0, 14, -8], 56), {size: 'wide', see: .35});   // mid-collapse from the stair foot: the whole dome caving in over the plaza
-shot(50, look(G(3, 31, 5.5), G(-3, 9, 3.2), 50), {size: 'close', see: .1});   // the second step (S2: u .74–.86) above the kids
+shot(50, look(G(1, 24, 5.0), G(-2.5, 11, 2.4), 46), {size: 'close', see: .1});   // the second step (S2: u .74–.86) above the kids
 shot(51, look(add(LP, fwd(20), 6.0, rgt(20), 1.6, 3.0), add(LP, fwd(20), 0, rgt(20), .4, 2.8), 50), {size: 'insert', faceAim: ['lulu', 'hero'], see: .9, actions: [{actor: 'lulu', verb: 'water', at: 0}]});   // her open palm held out (the puff lands on it)
 // 52 the plaza recovering: Kevin with a slider, the mouse on the bodybuilder's shoulder (both big in frame)
 const K52 = G(1, 25), B52 = G(-2.6, 25.5);
@@ -244,9 +247,18 @@ const sh = shots.sort((a, b) => a.n - b.n).map((s, i, A) => { const r = R(s.n), 
   const b = BASE.shots[s.n - 1], {from: _f, to: _t, at: _a, cityAnchor: _c, ...keep} = b;   // brief2spec's shot (id, mood, vo, why, see, cue, tplKind) under the blocking override
   return {...keep, row: s.n, size: s.size === 'ecu' ? 'close' : s.size, ...(s.size === 'ecu' ? {ecu: true} : {}), frames: f1 - f0, move: to ? 'push' : 'static-drift', drift: 0, from: s.cam, ...(to ? {to} : {}),
     loc: s.loc, ...(s.faceAim ? {faceAim: s.faceAim} : {}), ...(s.leakOk ? {leakOk: s.leakOk} : {}), briefMove: ROWS[s.n - 1].cam, shadowRadius: 30, ...(s.actions.length ? {actions: s.actions} : {}), ...(s.note ? {note: s.note} : {})}; });
-// ANIMATIC plan gate (engine plancheck measures ACTOR heads by cast name only): the cast-name subject for actors, no `subject` for creatures / town / crowd / dome rows (they stay in `see`), no `prop` on the three story-prop inserts the engine cannot name-measure
-const SUBJ = {4: 'gov', 9: 'bb', 29: 'bb', 31: 'gov', 33: 'gov', 26: 'heroF', 28: 'heroF', 44: 'heroF', 46: 'heroF'}, NOSUBJ = [45, 2, 3, 8, 10, 13, 17, 18, 19, 25, 30, 35, 36, 38, 49, 50, 52, 54], NOPROP = [16, 23, 34];
-for (const o of sh) { if (SUBJ[o.row]) o.subject = SUBJ[o.row]; if (NOSUBJ.includes(o.row)) delete o.subject; if (NOPROP.includes(o.row)) delete o.prop; if (o.row === 8) o.see = [...new Set([...(o.see ?? []), 'hero'])]; }
+// ANIMATIC plan gate: the cast-name subject for actors; since the fearbell ENGINE fix A2 the gate also measures NON-ACTOR subjects by their projected
+// box (creature ids, actor parts `actor:part`, story props `prop_<id>`, named world objects), so every row names its real subject and the three
+// story-prop inserts their prop again (16 the teacher's drawer, 23 the shrinking burger, 34 the clock tower = slot:3)
+const SUBJ = {4: 'gov', 9: 'bb', 29: 'bb', 31: 'gov', 33: 'gov', 26: 'heroF', 28: 'heroF', 44: 'heroF', 46: 'heroF',
+  2: 'hall', 3: 'ghost', 8: 'trex', 10: 'rat', 13: 'hero', 17: 'spider', 18: 'kidA', 19: 'dad', 25: 'shadowIn', 30: 'rat2', 35: 'trexG', 36: 'dome',
+  38: 'mailman', 45: 'heroF:rightArm', 49: 'domeS', 50: 'domeS', 52: 'kevin', 54: 'hero'}, PROP = {16: 'teacherDrawer', 23: 'prop_burger3', 34: 'slot:3:dial#2'};
+// ANIMATIC B row 53 SPLIT (owner): front-on hero (morning) → the DONG on "rang" as a quick ECU insert of the CRACK (≈ 0.6 s, the row-32 lens) → front-on hero + puff
+{ const i = sh.findIndex(o => o.row === 53), A = sh[i], f0 = frameOf(S0(53)), fB = frameOf(T(53)), fC = fB + Math.round(.6 * F), total = A.frames;
+  const B = {...A, id: A.id + 'b', size: 'close', ecu: true, frames: fC - fB, move: 'static-drift', from: look([3.6, 52.4, -52.5], [0, 52.2, -60], 30), leakOk: ['slot:2'], subject: 'bellCrack', see: ['bell']}; delete B.to; delete B.actions;
+  const C = {...A, id: A.id + 'c', frames: f0 + total - fC}; delete C.actions;
+  A.frames = fB - f0; sh.splice(i + 1, 0, B, C); }
+for (const o of sh) { if (SUBJ[o.row] && !o.ecu) o.subject = SUBJ[o.row]; if (PROP[o.row]) o.prop = PROP[o.row]; if (o.row === 8) o.see = [...new Set([...(o.see ?? []), 'hero'])]; }
 const cast = {};
 for (const [name, c] of Object.entries(CH)) {
   const apps = c.apps.sort((a, b) => a.n0 - b.n0), vis = [[0, false]], marks = [], keys = [[0, 'idle']], faces = [], acts = [];
