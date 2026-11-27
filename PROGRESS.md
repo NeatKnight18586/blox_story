@@ -145,3 +145,14 @@ A staging fixes in previs.js, one per row (6 ride-up, 10 no pop + reveal + leap 
 → review/fearbell/final-fix*.png (3 frames per row: start / MUST SEE / end) · plan gate exit 0, fgleak, v2:seek, v2:stability PASS ·
 B final.sh command file: memegap → gapped spec → farm render (look B, CC0) → v7 captions → assemble (gaps, clock FX, end = voice + 0.5 s) → v2:qc →
 per-gap mean volume → review/fearbell/DELIVERY.md · ep:check + v2:test · C merge --no-ff to main, push. Report ≤ 20 lines, STOP.
+Result (FINAL): engine fix (pipeline bug that blocked the final, commit bfcd8f9 = BASE): engine/episode.js updateProps — the prop `visible`
+keys + `anim` call had slipped into a `//` comment in e13e68a, so no story prop animated (clue 1 burger shrink, rope, mail burst, pour, leaf);
+restored + test (tests/v2/fearbell2.test.js, fails on the old line). Staging fixes (data, previs.js) per row → review/fearbell/final-fix{,-2…-8}.png
++ final-fix-gapped-6-12.png; consequential re-aims: 23 (burger moved with Kevin), 54 (shape's edge with the moved burger). Row 22: Kevin turns
+from the counter to the patio for the bite (counter/awning/window-post leak otherwise 15–50 %). Gates: plan exit 0 (0 errors, 10 warnings),
+fgleak PASS max 8.4 %, v2:seek PASS, v2:stability PASS (worst S03 0.199 %). BRIEF.md row 10 MUST SEE still the pre-change text (not edited).
+Final: farm render.yml cannot do the meme-gap timeline or the CC0 cache → local fallback (stories/fearbell/final.sh): CC0 via fetch-assets.py
+(new personal environment `blox_story` allows api.polyhaven.com + dl.polyhaven.org), render 2,171 frames 1440×2560 in 53 min (4.17 s/frame, 3 workers),
+v7 captions 290, assemble → renders/v2/fearbell-master.mp4 90.458 s 193.6 MB; proxy review/fearbell/final-review.mp4 37.0 MB.
+v2:qc PASS (−14.6 LUFS, TP −1.6, SSIM .9854, PSNR 43.85). Gap means G1 −12.2 / G2 −20.8 / G3 −19.3 dB (whole −15.4). DELIVERY.md written.
+Open: CONTINUITY.md row wording ("pending") is outside the freeze; qc.py needs --frames for a local master (crashes without it).
