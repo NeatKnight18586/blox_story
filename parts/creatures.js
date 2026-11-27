@@ -322,8 +322,8 @@ export function createCreatures(scene, list, ctx = {}) {
         const vis = Array.isArray(c.visible) ? (() => { let v = true; for (const [t0, x] of c.visible) if (t >= t0) v = x; return v; })() : true; b.root.visible = vis;
         let p = basePos(c, t), yaw = keysAt(c.yaw, t, 0) * Math.PI / 180, extra = {};
         if (c.kind === 'shadowPuff' && c.follow) { const q = byId[c.follow] ? byId[c.follow].b.root.position.toArray() : ctx.actorPos?.(c.follow); if (q) { const o = c.offset ?? [.9, .6, .5]; p = [q[0] + o[0] + .12 * Math.sin(t * 1.3), q[1] + o[1], q[2] + o[2]]; } }
-        if (c.kind === 'dome') { for (const a of c.acts ?? []) if (a.act === 'shrink' && a.toActor) { const h = ctx.handPos?.(a.toActor, a.hand ?? 'right'); if (h) a.to = h; }   // fearbell add-on (opt-in shrink {toActor, hand}): the palm puff lands on that actor's palm, read from the posed hand every frame
-          extra.motion = domeMotion(c, t, p); p = extra.motion.pos; const r = actAt(c.acts, t, 'roll', 'dome'); if (r && r.e.from && r.e.to) yaw = Math.atan2(r.e.to[0] - r.e.from[0], r.e.to[2] - r.e.from[2]) + (c.faceYaw ?? 0) * Math.PI / 180;
+        if (c.kind === 'dome') { const cc = c.acts?.some(a => a.act === 'shrink' && a.toActor) ? {...c, acts: c.acts.map(a => { if (a.act !== 'shrink' || !a.toActor) return a; const h = ctx.handPos?.(a.toActor, a.hand ?? 'right'); return h ? {...a, to: h} : a; })} : c;   // fearbell add-on (opt-in shrink {toActor, hand}): the palm puff lands on that actor's palm, read from the posed hand every frame (seek-safe: a per-frame copy, the spec act is never mutated)
+          extra.motion = domeMotion(cc, t, p); p = extra.motion.pos; const r = actAt(c.acts, t, 'roll', 'dome'); if (r && r.e.from && r.e.to) yaw = Math.atan2(r.e.to[0] - r.e.from[0], r.e.to[2] - r.e.from[2]) + (c.faceYaw ?? 0) * Math.PI / 180;
           const ins = actAt(c.acts, t, 'inside', 'dome'); if (ins && ins.k < 1) insideK = {pos: p, R: (b.radius ?? SIZE.dome) * (c.scale ?? 1), rim: ins.e.rim ?? []}; }
         b.root.position.set(...p); b.root.rotation.set(0, yaw, 0);
         if (c.kind === 'vacuum') { b.apply(t, c); const m = b.root.userData.local; b.root.position.x += Math.cos(yaw) * m.x + Math.sin(yaw) * m.z; b.root.position.z += -Math.sin(yaw) * m.x + Math.cos(yaw) * m.z; b.root.rotation.y = yaw + m.yaw; }
@@ -339,8 +339,11 @@ export function createCreatures(scene, list, ctx = {}) {
         const all = []; scene.traverse(o => { if (o.isLight) all.push(o); });
         for (const L of all) { if (!L.userData.keep) continue; if (on) { L.userData.i1g = L.intensity; L.intensity /= INSIDE.exposure; } else if (L.userData.i1g != null) L.intensity = L.userData.i1g; }
         api.dark = on ? INSIDE.exposure : 0;   // the renderer multiplies its exposure by this around the frame render (engine/episode.js)
-        if (on) { api._bg = scene.background; scene.background = new T.Color('#000000'); } else scene.background = api._bg ?? scene.background;
-        for (const {b} of items) if (b.wobble) b.root.visible = !on; }
+        if (on) { api._bg = scene.background; scene.background = new T.Color('#000000'); } else if ('_bg' in api) { scene.background = api._bg; delete api._bg; }   // seek-safe: restore exactly (a null sky background stayed black after the first inside frame)
+      }
+      // seek-safe (fearbell ENGINE fix A1): inside the dome the wobbling shells are hidden EVERY frame, on top of their own `visible` keys. The old code
+      // only touched them on the inside on/off transition and then set every dome visible, so the frame after a jump showed stale domes.
+      if (on) for (const {b} of items) if (b.wobble) b.root.visible = false;
       api._rimOn = on ? insideK.rim : []; for (const [n, L] of Object.entries(rims)) L.visible = api._rimOn.includes(n);
       inside.visible = floor.visible = on; if (on) { inside.position.set(...insideK.pos); inside.scale.setScalar(insideK.R * .98); floor.position.set(insideK.pos[0], insideK.pos[1] + .03, insideK.pos[2]); floor.scale.setScalar(insideK.R * .97); }
     },

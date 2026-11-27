@@ -122,3 +122,18 @@ scriptcheck --variant long FAIL "first line has 10 words (> 9)" (no card needed 
 Open (MUST SEE still weak): 10 he is mid-leap above the cart, 16 drawer half behind the spider legs, 26 flashlight beam / puff shrink not readable, 45 hands,
 49 collapse reads as a smaller dome only, 50 the two shrink steps do not read in one frame, 53 bell crack too small at yard distance (readable in 32),
 39 face aim off (the fist must be in frame), 55 burger reads as bun + layers but little grass.
+
+## Fear Bell — ANIMATIC (episode session; branch claude/fearbell-animatic-staging-5oxlyj from main 1af40d8; NO engine changes)
+Plan: BRIEF.md re-synced to the new lock rows 54–55 (lock2brief.py, mechanical) · staging fixes per row in previs.js (14, 16, 26, 27, 28/39/40/42, 45, 53–55, 10/49/50) →
+vo-fix sheet review/fearbell/vo-fix{,-2,-3}.png (only those rows) · plan gate exit 0 (cast-name subjects; creature rows keep `see`) · ep animatic (bench, stability, 270×480,
+v7 captions, assemble --animatic ≤ 10 MB) · 390-px phone sheet · ep:check + v2:test · commit + push, report ≤ 20 lines, STOP.
+Result (ANIMATIC, stopped): plan gate PASS (0 errors, 7 warnings; hero first row 8 = 8.83 s gapped; row 12 starts 12.96 s gapped; fgleak 0.048). Staging fixes per row in review/fearbell/vo-fix{,-2,-3}.png.
+v2:stability FAIL after 2 fix passes: S01 fixed (bell camera 26° from 40 studs); S38:mid 14.0 % and S49:first 17.0 % remain (limit 0.30 %). Cause measured: the first render
+after a jump into those frames differs from the second render of the SAME frame by 11–16 % of pixels (dome size/position stale; render-order state in the dome creature) — engine-side,
+not camera-dependent (camera nudge + dome split + earlier dome visibility did not change it). Gate not loosened; no animatic rendered. Needs an ENGINE slot (dome rt.motion).
+
+## Fear Bell — ENGINE FIX + ANIMATIC (owner-approved engine slot + animatic in one session; branch claude/fearbell-animatic-staging-5oxlyj)
+Root cause (dome instability): parts/creatures.js hid the dome shells only on the inside-view on/off TRANSITION, then set every dome root visible → the first frame after a jump showed stale domes. Fixed (hidden every inside frame), plus: shrink toActor no longer mutates the spec, null sky background restored, clock FX `rest` (bell swing 0 outside dongs, format 7), look4 `primeHaze` (format 7). New `npm run v2:seek` (cold vs in-sequence fingerprint + pixels), fixture seek-dome.json PASS (fails on the old code).
+Plan gate measures non-actor subjects (objectBox / objectIssues); all 57 shots name subject or prop again (16 teacherDrawer, 23 prop_burger3, 34 slot:3:dial#2). Segments render room locations from parts/city/rooms.js (they rendered in the city before). Assemble format 7 end = voice + 0.5 s. previs.js --gapped builds the spec on the meme-gap timeline.
+Stability PASS 200 views (S38:mid 14.0 → 0.007 %, S49:first 17.0 → 0.013 %, worst S03:first 0.29 %); room key-art cameras y 5.0 → 5.3 (shadow threshold). Plan exit 0 (0 errors, 7 warnings). Animatic review/fearbell/animatic.mp4 90.4 s 8.9 MB; phone sheets review/fearbell/phone-390{,-2…-8}.png.
+Weakest (next pass): S55 hero out of frame at mid (burger edge only), S30 mouse insert unreadable, S45 hands insert dark, S43 "walked" back of head (no dome), S06 Heights figure tiny on the pillar.

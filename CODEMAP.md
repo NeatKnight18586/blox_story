@@ -65,6 +65,7 @@ engine/fixtures/fearbell/gate1g-dome.json — Phase 1G gate: the GIANT DARK DOME
 engine/fixtures/fearbell/gate1g-fx.json — Phase 1G gate: cartoon POP puffs (3–4 frame pop, ink outline) at the bus stop + the ghost spawn (pop + boo).
 engine/fixtures/fearbell/gate1g-props.json — Phase 1G gate: props in the world — diner outdoor counter (burger, slider, plate, spaghetti), the bus stop (lady + donut), flashlight cone, 
 engine/fixtures/fearbell/gate1g-react.json — Phase 1G gate: one reaction frame per creature (creature mid-act + a cast member reacting) + the dome inside view.
+engine/fixtures/fearbell/seek-dome.json — fearbell ENGINE fix A1 seek test: addon-dome (roll, shrink to Lulu's palm, inside view with rim lights) as format 7 (seek-safe haze). npm ru
 engine/fixtures/fix3b/demo-tb.json — tuft P3B demo2 piece: TITAN on the ground before the mountain at night, low 3/4 on the chained forelegs: roar → break (chains snap, links fa
 engine/fixtures/fix3b/titan-hero.json — tuft P3B TITAN hero fixture: titanCave night ground in front of the mountain, TITAN idle / roar, low ¾ camera (lit night ¾ hero render).
 engine/fixtures/kit1/demo.json — Kit 1 demo: HDRI backdrop (venice_sunset), lowWide -> scaleReveal -> povScope, 60 fps, realism street via parts/location.js. No captions, no
@@ -400,6 +401,7 @@ scripts/v2/read.js — npm run v2:read -- --story <slug> [--spec <episode.json>]
 scripts/v2/realism.js — Phase R spike measure: for each location (street-procedural, street-cc0) renders the 3 test shots,
 scripts/v2/render.js — render an episode's frames (docs/V2_BRIEF.md §5.4).
 scripts/v2/roblox-gates.js — tuft 4C gates for `grade: 'roblox'` (engine/cinelook.js ROBLOX) → review/tuft/roblox-gates.json.
+scripts/v2/seekcheck.js — npm run v2:seek -- --story <slug> | --spec <episode.json> [--shots S38,S49] [--frames 1200,1300] [--fresh]
 scripts/v2/segments-fixture.js — tuft 4A test fixture: engine/fixtures/segments/{three,<loc>}.json. `three` = beastYard → homeDining → festivalPlaza
 scripts/v2/segments.js — multi-location episodes by SEGMENTS (tuft 4A). A spec with `locations: [..]` is NOT one merged world:
 scripts/v2/sep5b-gates.js — Look 5b gates → review/toyhouse/sep5b-gates.json (fixture engine/fixtures/toyhouse/set5b.json).

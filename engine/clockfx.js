@@ -45,7 +45,7 @@ const starTex = (() => { let t = null; return () => { if (t || typeof document =
   g.translate(32, 32); g.fillStyle = '#fff6c8'; g.beginPath(); for (let i = 0; i < 8; i++) { const r = i % 2 ? 7 : 30, a = i * Math.PI / 4; g.lineTo(Math.cos(a) * r, Math.sin(a) * r); } g.closePath(); g.fill();
   t = new T.CanvasTexture(c); t.colorSpace = T.SRGBColorSpace; return t; }; })();
 
-export function createClockFx(scene, events, {world, wordTime}) {
+export function createClockFx(scene, events, {world, wordTime, rest = false}) {   // rest (opt-in, fearbell ENGINE fix A1 seek-safe): outside every dong window the bell is set back to swing 0 (else it kept the last swing written, so a jump out of a dong showed a stale swing)
   const evs = events.map((e, i) => ({...e, t: resolveClockAt(e.at, wordTime), i})).sort((a, b) => a.t - b.t);
   const dongs = evs.filter(e => e.fx === 'dong'), pops = evs.filter(e => e.fx === 'pop'), cracks = evs.filter(e => e.fx === 'crack');
   const bellObj = world?.downtown?.hall?.bell ?? null, belfry = new T.Vector3();
@@ -70,7 +70,7 @@ export function createClockFx(scene, events, {world, wordTime}) {
     update(t) {
       // bell: the latest dong's swing (worldState may also drive it outside a dong window)
       const d = dongs.filter(e => t >= e.t && t - e.t <= DONG.dur).pop();
-      if (d && world?.setState) world.setState('bell', {swing: dongSwing(t - d.t)});
+      if (d && world?.setState) world.setState('bell', {swing: dongSwing(t - d.t)}); else if (rest && dongs.length && world?.setState) world.setState('bell', {swing: 0});
       if (cracks.length && world?.setState) world.setState('bellCrack', t >= cracks[0].t);
       // shockwave from the belfry
       const w = dongs.map(e => ({e, s: shockAt(t - e.t)})).filter(x => x.s).pop();
