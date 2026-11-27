@@ -7,18 +7,23 @@ import {readFileSync, writeFileSync, mkdirSync, existsSync} from 'node:fs';
 import {groundY} from '../../parts/city/plan.js';
 import {parseBrief} from '../../scripts/v2/brief2spec.js';
 
-const D = 'stories/fearbell', F = 24, CUES = JSON.parse(readFileSync(`${D}/cues.json`, 'utf8'));
+// --gapped (ANIMATIC): build the spec on the MEME-GAP timeline (after `python3 scripts/v2/memegap.py --story fearbell`): every row time is shifted by
+// the gaps before it, words come from build/cues-gapped.json → build/episode-gapped.json (frames, creatures, props, marks, clock all on the gapped VO).
+// Without it nothing changes (episode.json on the raw VO: plan / stability gates).
+const GAPPED = process.argv.includes('--gapped');
+const D = 'stories/fearbell', F = 24, CUES = JSON.parse(readFileSync(GAPPED ? `${D}/build/cues-gapped.json` : `${D}/cues.json`, 'utf8'));
+const GAPS = GAPPED ? JSON.parse(readFileSync(`${D}/build/memegap.json`, 'utf8')).gaps : [], shiftT = t => +(t + GAPS.filter(g => g.cut < t - 1e-6).reduce((a, g) => a + g.dur, 0)).toFixed(4);
 mkdirSync(`${D}/build`, {recursive: true});
 const cur = JSON.parse(readFileSync(`${D}/episode.json`, 'utf8'));
-if (/^Written by scripts\/v2\/brief2spec\.js/.test(cur.note ?? '')) writeFileSync(`${D}/build/brief2spec.json`, JSON.stringify(cur, null, 1) + '\n');
+if (!GAPPED && /^Written by scripts\/v2\/brief2spec\.js/.test(cur.note ?? '')) writeFileSync(`${D}/build/brief2spec.json`, JSON.stringify(cur, null, 1) + '\n');
 else if (!existsSync(`${D}/build/brief2spec.json`)) throw Error('run node scripts/v2/brief2spec.js --story fearbell first (episode.json is not its output)');
 const BASE = JSON.parse(readFileSync(`${D}/build/brief2spec.json`, 'utf8')), BRIEF = parseBrief(readFileSync(`${D}/BRIEF.md`, 'utf8'));
 const VOICE = CUES.duration, END = +(VOICE + .5).toFixed(3), W = CUES.lines.flatMap(l => l.words);
 // rows from BRIEF.md: cut = the brief2spec shot's word-anchored start, end = the next cut; sync word time and MUST SEE from the notes
-const ROWS = BRIEF.rows.map((r, i) => { const sh = BASE.shots[i], nx = BASE.shots[i + 1], start = sh.at, end = nx ? nx.at : +r.cue.split(/[–-]/)[1];
+const ROWS = BRIEF.rows.map((r, i) => { const sh = BASE.shots[i], nx = BASE.shots[i + 1], start = shiftT(sh.at), end = shiftT(nx ? nx.at : +r.cue.split(/[–-]/)[1]);
   const sync = /sync:\s*(.+?)\s*@\s*([\d.]+)/.exec(r.notes), see = /MUST SEE:\s*(.*?)(?:\s+·\s+lock notes:|$)/.exec(r.notes)?.[1] ?? '';
   const idx = W.map((w, k) => [w, k]).filter(([w]) => w.start >= start - .02 && w.start < end - .02).map(([, k]) => k);
-  return {n: +r['#'], start, end, syncT: sync ? +sync[2] : null, line: r.vo.replace(/\*/g, ''), see, cam: r.move, w0: idx[0], w1: idx.at(-1)}; });
+  return {n: +r['#'], start, end, syncT: sync ? shiftT(+sync[2]) : null, line: r.vo.replace(/\*/g, ''), see, cam: r.move, w0: idx[0], w1: idx.at(-1)}; });
 const nthOf = i => { const n = W[i].w.replace(/[^\w']/g, '').toLowerCase(); return W.slice(0, i + 1).filter(x => x.w.replace(/[^\w']/g, '').toLowerCase() === n).length; };
 const R = n => ROWS[n - 1], T = n => R(n).syncT ?? R(n).start, S0 = n => R(n).start;
 const wordAt = (n, word) => { for (let i = R(n).w0; i <= R(n).w1; i++) if (W[i].w.replace(/[^\w']/g, '').toLowerCase() === word.toLowerCase()) return {word: W[i].w.replace(/[^\w']/g, ''), nth: nthOf(i)}; throw Error(`row ${n}: no "${word}"`); };
@@ -276,6 +281,8 @@ const {shots: _s, cast: _c, props: _p, note: _n, location: _l, moods: _m, body: 
 const spec = {...baseRest, fps: F, rig: 'r6', twos: true, world: 'parts/city/world.js', look4: 'cityDay2', locations: ['city', 'cityClassroom', 'cityDining'], cityLiving: ['flagsHall', 'fountain', 'birds', 'gulls', 'blimp'],
   end: END, note: 'Fear Bell PREVIS pass 2: scripts/v2/brief2spec.js from BRIEF.md (shots, cuts, cast slots, emphasis, flags) + stories/fearbell/previs.js blocking overrides (cameras, marks, creatures, props, clock, gaps). Shots are static/push in previs; briefMove keeps the Brief camera for ANIMATIC.',
   audio: {gaps}, clock, cast, creatures, props, ...(worldState ? {worldState} : {}), shots: sh};
+if (GAPPED) { for (const e of spec.emphasis6 ?? []) if (typeof e.t === 'number') e.t = shiftT(e.t); for (const x of spec.shots) if (Array.isArray(x.cue)) x.cue = x.cue.map(shiftT); spec.cues = `${D}/build/cues-gapped.json`; spec.audio = {...spec.audio, voice: `${D}/build/voice-gapped.wav`, gapsApplied: true};
+  writeFileSync(`${D}/build/episode-gapped.json`, JSON.stringify(spec, null, 1) + '\n'); console.log(JSON.stringify({gapped: true, shots: spec.shots.length, frames: spec.shots.reduce((a, x) => a + x.frames, 0), end: END})); process.exit(0); }
 writeFileSync(`${D}/episode.json`, JSON.stringify(spec, null, 1) + '\n');
 // per-world previs specs (the vo-sheet renders each row from its own world)
 const strip = o => { const {room, loc, ...x} = o; return x; };

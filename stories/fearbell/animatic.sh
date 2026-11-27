@@ -9,7 +9,8 @@ node scripts/v2/plan.js --story $S                              # plan gate (§5
 node scripts/v2/fgleak.js --spec stories/$S/episode.json --out review/$S/fgleak.json
 node scripts/v2/seekcheck.js --spec engine/fixtures/fearbell/seek-dome.json --frames 30,70,120 --fresh --out review/$S/seek-dome.json   # 3 dome frames cold vs in sequence
 node scripts/v2/stability.js --story $S                         # camera-nudge flicker gate (≤ 0.30 %)
-python3 scripts/v2/memegap.py --story $S                        # G1–G3 meme gaps → build/episode-gapped.json, cues-gapped.json, voice-gapped.wav
+python3 scripts/v2/memegap.py --story $S                        # G1–G3 meme gaps → build/cues-gapped.json, voice-gapped.wav, memegap.json
+node stories/$S/previs.js --gapped                              # the spec on the gapped timeline (all row times shifted) → build/episode-gapped.json
 node scripts/v2/render.js --spec $B/episode-gapped.json --out $R --width 270 --height 480 --every 2 --aa 0
 python3 scripts/v2/captions.py --story $S --spec $B/episode-gapped.json --cues $B/cues-gapped.json --style v7 --out $B/captions-v7.ass
 python3 scripts/v2/assemble.py --story $S --frames $R/frames --captions $B/captions-v7.ass --out review/$S/animatic.mp4 --animatic --spec $B/episode-gapped.json

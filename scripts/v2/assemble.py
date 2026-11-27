@@ -219,6 +219,7 @@ def picture_inputs(o, fps):
 
 
 V5_HOLD = 0.85   # format v5/v6 (owner): no padding; the video ends 0.85 s after the voice
+V7_TAIL = 0.5    # format 7 (RULEBOOK §9): end = voice + 0.5 s
 V6_MAX = 125.0   # format v6 (docs/season1/FORMAT_V6.md): hard max 2:05
 
 
@@ -231,6 +232,7 @@ def end_total(pic, vlen, fmt=None, no_hold=False):
         if t > V6_MAX + 1e-6: raise ValueError(f'format 6: voice {vlen:.2f} s + {V5_HOLD} = {t:.2f} s > {V6_MAX} s hard max')
         return t
     if fmt == 5: return max(pic, vlen + V5_HOLD)
+    if fmt == 7: return round(vlen + V7_TAIL, 3)   # fearbell ENGINE slot: format 7 = voice + 0.5 s (RULEBOOK §9), the picture is cut there, never held
     return max(pic, max(vlen + 2.5, 122.5))
 
 
